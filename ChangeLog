@@ -1,5 +1,15 @@
 2002-07-30  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* lib/arrows.h: Some const-ness.
+
+	* lib/arrows.c (calculate_arrow_point): Initialize zero-length moves.
+
+	* lib/render.c (draw_arc_with_arrows): 
+	* objects/standard/arc.c (arc_draw): Better arrow drawing for
+	arcs.  Doesn't change the mouse-click area yet.
+
+	* app/menus.c: Forgotten fix:  Redraw menu item for non-Gnome.
+
 	* lib/render.h: 
 	* lib/render.c: 
 	Arc arrow prework.

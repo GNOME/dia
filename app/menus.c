@@ -358,7 +358,7 @@ static GtkItemFactoryEntry display_menu_items[] =
   {N_("/View/---"),               NULL,         NULL,        0, "<Separator>"},
   {N_("/View/New _View"),         "<control>I", view_new_view_callback,     0},
   {N_("/View/Show _All"),         "<control>A", view_show_all_callback,     0},
-  {N_("Redraw"),                  NULL,         view_redraw_callback,       0},
+  {N_("/View/Re_draw"),           NULL,         view_redraw_callback,       0},
   {N_("/_Select"),                NULL,         NULL,           0, "<Branch>"},
   {   "/Select/tearoff",          NULL,         NULL,         0, "<Tearoff>" },
   {N_("/Select/All"),             NULL,         select_all_callback,        0},

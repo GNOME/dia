@@ -67,9 +67,9 @@ calculate_arrow(Point *poly/*[3]*/, Point *to, Point *from,
 }
 
 void
-calculate_arrow_point(Arrow *arrow, Point *to, Point *from,
+calculate_arrow_point(const Arrow *arrow, const Point *to, const Point *from,
 		      Point *move_arrow, Point *move_line,
-		      real linewidth)
+		      const real linewidth)
 {
   real add_len;
   real angle;
@@ -119,6 +119,8 @@ calculate_arrow_point(Arrow *arrow, Point *to, Point *from,
   case ARROW_BLANKED_DOT:
   case ARROW_FILLED_BOX:
   case ARROW_BLANKED_BOX:
+    move_arrow->x = 0.0;
+    move_arrow->y = 0.0;
     *move_line = *to;
     point_sub(move_line, from);
     point_normalize(move_line);
@@ -143,6 +145,8 @@ calculate_arrow_point(Arrow *arrow, Point *to, Point *from,
   case ARROW_FILLED_TRIANGLE:
   case ARROW_FILLED_ELLIPSE:
   case ARROW_HOLLOW_ELLIPSE:
+    move_arrow->x = 0.0;
+    move_arrow->y = 0.0;
     *move_line = *to;
     point_sub(move_line, from);
     point_normalize(move_line);
@@ -167,6 +171,8 @@ calculate_arrow_point(Arrow *arrow, Point *to, Point *from,
     point_add(move_line, &tmp);
     return;
   case ARROW_DOUBLE_FILLED_TRIANGLE:
+    move_arrow->x = 0.0;
+    move_arrow->y = 0.0;
     *move_line = *to;
     point_sub(move_line, from);
     point_normalize(move_line);

@@ -310,20 +310,32 @@ arc_draw(Arc *arc, Renderer *renderer)
   
   /* Special case when almost line: */
   if (fabs(arc->curve_distance) <= 0.0001) {
-    renderer->ops->draw_line(renderer,
-			     &endpoints[0], &endpoints[1],
-			     &arc->arc_color);
+    renderer->ops->draw_line_with_arrows(renderer,
+					 &endpoints[0], &endpoints[1],
+					 arc->line_width,
+					 &arc->arc_color,
+					 &arc->start_arrow,
+					 &arc->end_arrow);
     return;
   }
-  
+
+  renderer->ops->draw_arc_with_arrows(renderer,
+				      &arc->connection.endpoints[0],
+				      &arc->connection.endpoints[1],
+				      &arc->middle_handle.pos,
+				      arc->line_width,
+				      &arc->arc_color,
+				      &arc->start_arrow,
+				      &arc->end_arrow);
   width = 2*arc->radius;
   
+#if 0  
+  renderer->ops->set_linewidth(renderer, 0);
   renderer->ops->draw_arc(renderer,
 			  &arc->center,
 			  width, width,
 			  arc->angle1, arc->angle2,
 			  &arc->arc_color);
-
   if (arc->start_arrow.type != ARROW_NONE ||
       arc->end_arrow.type != ARROW_NONE) {
     Point reversepoint, centervec;
@@ -371,6 +383,7 @@ arc_draw(Arc *arc, Renderer *renderer)
 		 &arc->arc_color, &color_white);
     }
   }
+#endif
 }
 
 static Object *

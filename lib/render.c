@@ -503,10 +503,10 @@ draw_polyline_with_arrows(Renderer *renderer,
 static gboolean
 points_to_line(real *a, real *b, Point *p1, Point *p2)
 {
-    if (p1->x - p2->x < 0.000000001)
+    if (fabs(p1->x - p2->x) < 0.000000001)
       return FALSE;
     *a = (p2->y-p1->y)/(p2->x-p1->x);
-    *b = p1->y+(*a)*p1->x;
+    *b = p1->y-(*a)*p1->x;
     return TRUE;
 }
 
@@ -523,7 +523,7 @@ intersection_line_line(Point *cross,
   /* Find coefficients of lines */
   if (!(points_to_line(&a1, &b1, p1a, p1b))) {
     if (!(points_to_line(&a2, &b2, p2a, p2b))) {
-      if (p1a->x-p2a->x < 0.00000001) {
+      if (fabs(p1a->x-p2a->x) < 0.00000001) {
 	*cross = *p1a;
 	return TRUE;
       } else return FALSE;
@@ -538,15 +538,22 @@ intersection_line_line(Point *cross,
     return TRUE;
   }
   /* Solve */
-  if (a1-a2 < 0.000000001) {
-    if (b1-b2 < 0.0000001) {
+  if (fabs(a1-a2) < 0.000000001) {
+    if (fabs(b1-b2) < 0.000000001) {
       *cross = *p1a;
       return TRUE;
     } else {
       return FALSE;
     }
   } else {
-    cross->x = (b1-b2)/(a1-a2);
+    /*
+    a1x+b1 = a2x+b2;
+    a1x = a2x+b2-b1;
+    a1x-a2x = b2-b1;
+    (a1-a2)x = b2-b1;
+    x = (b2-b1)/(a1-a2)
+    */
+    cross->x = (b2-b1)/(a1-a2);
     cross->y = a1*cross->x+b1;
     return TRUE;
   }
@@ -555,6 +562,7 @@ intersection_line_line(Point *cross,
 /** Given three points, find the center of the circle they describe.
  * Returns FALSE if the center could not be determined (i.e. the points
  * all lie really close together).
+ * The renderer should disappear once the debugging is done.
  */
 static gboolean
 find_center_point(Point *center, Point *p1, Point *p2, Point *p3) 
@@ -592,13 +600,18 @@ find_center_point(Point *center, Point *p1, Point *p2, Point *p3)
     /* Degenerate circle */
     /* Either the points are really close together, or directly apart */
     printf("Degenerate circle\n");
-    if ((p1->x + p2->x + p3->x)/3 - p1->x < 0.0000001 &&
-	(p1->y + p2->y + p3->y)/3 - p1->y < 0.0000001)
+    if (fabs((p1->x + p2->x + p3->x)/3 - p1->x) < 0.0000001 &&
+	fabs((p1->y + p2->y + p3->y)/3 - p1->y) < 0.0000001)
       return FALSE;
     
     return TRUE;
   }
   return TRUE;
+}
+
+static real point_cross(Point *p1, Point *p2)
+{
+  return p1->x*p2->y-p2->x*p1->y;
 }
 
 static void
@@ -614,22 +627,48 @@ draw_arc_with_arrows(Renderer *renderer,
   Point oldstart = *startpoint;
   Point oldend = *endpoint;
   Point center;
-
+  real width, angle1, angle2;
+  Point dot1, dot2;
+  gboolean righthand;
+  
   if (!find_center_point(&center, startpoint, endpoint, midpoint)) {
-    /* Not sure what to do here */
+    /* Degenerate circle -- should have been caught by the drawer? */
   }
+
+  dot1 = *startpoint;
+  point_sub(&dot1, endpoint);
+  point_normalize(&dot1);
+  dot2 = *midpoint;
+  point_sub(&dot2, endpoint);
+  point_normalize(&dot2);
+  righthand = point_cross(&dot1, &dot2) > 0;
   
   if (start_arrow != NULL && start_arrow->type != ARROW_NONE) {
     Point move_arrow, move_line;
     Point arrow_head;
-    calculate_arrow_point(start_arrow, startpoint, endpoint, 
+    Point arrow_end;
+    real tmp;
+
+    arrow_end = *startpoint;
+    point_sub(&arrow_end, &center);
+    tmp = arrow_end.x;
+    if (righthand) {
+      arrow_end.x = -arrow_end.y;
+      arrow_end.y = tmp;
+    } else {
+      arrow_end.x = arrow_end.y;
+      arrow_end.y = -tmp;
+    }
+    point_add(&arrow_end, startpoint);
+
+    calculate_arrow_point(start_arrow, startpoint, &arrow_end, 
 			  &move_arrow, &move_line,
 			  line_width);
     arrow_head = *startpoint;
     point_sub(&arrow_head, &move_arrow);
     point_sub(startpoint, &move_line);
     arrow_draw(renderer, start_arrow->type,
-	       &arrow_head, endpoint,
+	       &arrow_head, &arrow_end,
 	       start_arrow->length, start_arrow->width,
 	       line_width,
 	       color, &color_white);
@@ -645,14 +684,29 @@ draw_arc_with_arrows(Renderer *renderer,
   if (end_arrow != NULL && end_arrow->type != ARROW_NONE) {
     Point move_arrow, move_line;
     Point arrow_head;
-    calculate_arrow_point(end_arrow, endpoint, startpoint,
+    Point arrow_end;
+    real tmp;
+
+    arrow_end = *endpoint;
+    point_sub(&arrow_end, &center);
+    tmp = arrow_end.x;
+    if (righthand) {
+      arrow_end.x = arrow_end.y;
+      arrow_end.y = -tmp;
+    } else {
+      arrow_end.x = -arrow_end.y;
+      arrow_end.y = tmp;
+    }
+    point_add(&arrow_end, endpoint);
+
+    calculate_arrow_point(end_arrow, endpoint, &arrow_end,
  			  &move_arrow, &move_line,
 			  line_width);
     arrow_head = *endpoint;
     point_sub(&arrow_head, &move_arrow);
     point_sub(endpoint, &move_line);
     arrow_draw(renderer, end_arrow->type,
-	       &arrow_head, startpoint,
+	       &arrow_head, &arrow_end,
 	       end_arrow->length, end_arrow->width,
 	       line_width,
 	       color, &color_white);
@@ -665,7 +719,26 @@ draw_arc_with_arrows(Renderer *renderer,
     renderer->ops->draw_line(renderer, &line_start, endpoint, color);
 #endif
   }
-  renderer->ops->draw_line(renderer, startpoint, endpoint, color);
+
+  if (!find_center_point(&center, startpoint, endpoint, midpoint)) {
+    /* Not sure what to do here */
+    *startpoint = oldstart;
+    *endpoint = oldend;
+    printf("Second degenerate circle\n");
+    return;
+  }
+  width = 2*distance_point_point(&center, startpoint);
+  angle1 = -atan2(startpoint->y-center.y, startpoint->x-center.x)*180.0/M_PI;
+  while (angle1 < 0.0) angle1 += 360.0;
+  angle2 = -atan2(endpoint->y-center.y, endpoint->x-center.x)*180.0/M_PI;
+  while (angle2 < 0.0) angle2 += 360.0;
+  if (righthand) {
+    real tmp = angle1;
+    angle1 = angle2;
+    angle2 = tmp;
+  }
+  renderer->ops->draw_arc(renderer, &center, width, width,
+			  angle1, angle2, color);
 
   *startpoint = oldstart;
   *endpoint = oldend;
