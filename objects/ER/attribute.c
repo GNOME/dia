@@ -479,6 +479,8 @@ attribute_save(Attribute *attribute, ObjectNode obj_node,
 		   attribute->derived);
   data_add_boolean(new_attribute(obj_node, "multivalued"),
 		   attribute->multivalue);
+  data_add_font (new_attribute (obj_node, "font"),
+		 attribute->font);
 }
 
 static Object *attribute_load(ObjectNode obj_node, int version,
@@ -535,6 +537,11 @@ static Object *attribute_load(ObjectNode obj_node, int version,
   if (attr != NULL)
     attribute->multivalue = data_boolean(attribute_first_data(attr));
 
+  attribute->font = NULL;
+  attr = object_find_attribute (obj_node, "font");
+  if (attr != NULL)
+	  attribute->font = data_font (attribute_first_data (attr));
+
   element_init(elem, 8, 8);
 
   for (i=0;i<8;i++) {
@@ -543,9 +550,11 @@ static Object *attribute_load(ObjectNode obj_node, int version,
     attribute->connections[i].connected = NULL;
   }
 
-  /* choose default font name for your locale. see also font_data structure
-     in lib/font.c. if "Courier" works for you, it would be better.  */
-  attribute->font = font_getfont(_("Courier"));
+  if (attribute->font == NULL) {
+	  /* choose default font name for your locale. see also font_data structure
+	     in lib/font.c. if "Courier" works for you, it would be better.  */
+	  attribute->font = font_getfont(_("Courier"));
+  }
 
   attribute->name_width = font_string_width(attribute->name, attribute->font, FONT_HEIGHT);
 

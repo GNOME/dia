@@ -420,6 +420,8 @@ entity_save(Entity *entity, ObjectNode obj_node, const char *filename)
 		  entity->name);
   data_add_boolean(new_attribute(obj_node, "weak"),
 		   entity->weak);
+  data_add_font (new_attribute (obj_node, "font"),
+		 entity->font);
 }
 
 static Object *
@@ -464,6 +466,11 @@ entity_load(ObjectNode obj_node, int version, const char *filename)
   if (attr != NULL)
     entity->weak = data_boolean(attribute_first_data(attr));
 
+  entity->font = NULL;
+  attr = object_find_attribute (obj_node, "font");
+  if (attr != NULL)
+	  entity->font = data_font (attribute_first_data (attr));
+
   element_init(elem, 8, 8);
 
   for (i=0;i<8;i++) {
@@ -472,9 +479,11 @@ entity_load(ObjectNode obj_node, int version, const char *filename)
     entity->connections[i].connected = NULL;
   }
 
-  /* choose default font name for your locale. see also font_data structure
-     in lib/font.c. if "Courier" works for you, it would be better.  */
-  entity->font = font_getfont(_("Courier"));
+  if (entity->font == NULL) {
+	  /* choose default font name for your locale. see also font_data structure
+	     in lib/font.c. if "Courier" works for you, it would be better.  */
+	  entity->font = font_getfont(_("Courier"));
+  }
 
   entity->name_width =
     font_string_width(entity->name, entity->font, FONT_HEIGHT);

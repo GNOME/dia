@@ -522,6 +522,8 @@ relationship_save(Relationship *relationship, ObjectNode obj_node,
 		   relationship->identifying);
   data_add_boolean(new_attribute(obj_node, "rotated"),
 		   relationship->rotate);
+  data_add_font (new_attribute (obj_node, "font"),
+		 relationship->font);
 }
 
 static Object *
@@ -579,7 +581,12 @@ relationship_load(ObjectNode obj_node, int version, const char *filename)
   attr = object_find_attribute(obj_node, "rotated");
   if (attr != NULL)
     relationship->rotate = data_boolean(attribute_first_data(attr));
-  
+
+  relationship->font = NULL;
+  attr = object_find_attribute (obj_node, "font");
+  if (attr != NULL)
+	  relationship->font = data_font (attribute_first_data (attr));
+
   element_init(elem, 8, 8);
 
   for (i=0;i<8;i++) {
@@ -588,9 +595,11 @@ relationship_load(ObjectNode obj_node, int version, const char *filename)
     relationship->connections[i].connected = NULL;
   }
 
-  /* choose default font name for your locale. see also font_data structure
-     in lib/font.c. if "Courier" works for you, it would be better.  */
-  relationship->font = font_getfont(_("Courier"));
+  if (relationship->font == NULL) {
+	  /* choose default font name for your locale. see also font_data structure
+	     in lib/font.c. if "Courier" works for you, it would be better.  */
+	  relationship->font = font_getfont(_("Courier"));
+  }
 
   relationship->name_width =
     font_string_width(relationship->name, relationship->font, FONT_HEIGHT);

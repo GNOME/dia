@@ -1,5 +1,17 @@
 2002-03-07  Akira TAGOH  <tagoh@redhat.com>
 
+	* objects/ER/attribute.c (attribute_save): save a font property.
+	(attribute_load): load a font property, and if can't load it, it's
+	initialized.
+
+	* objects/ER/entity.c (entity_save): save a font property.
+	(entity_load): load a font property, and if can't load it, it's
+	initialized.
+
+	* objects/ER/relationship.c (relationship_save): save a font property.
+	(relationship_load): load a font property, and if can't load it, it's
+	initialized.
+
 	* objects/UML/class.c (fill_in_fontdata): don't replace if it already
 	has a vaule.
 	(umlclass_save): save the font and the font size properties.
