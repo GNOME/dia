@@ -1,5 +1,11 @@
 2004-11-06  Hans Breuer  <hans@breuer.org>
 
+        * app/prefernces.c : applied patch to make showing the diagram 
+        menubar the default (advanced users know how to switch it off)
+        Fixes bug #150706, Steffen Macke
+
+2004-11-06  Hans Breuer  <hans@breuer.org>
+
         * app/commands.c app/commands.h : added view_fullscreen_callback()
           view_unfullscreen()
           app/menus.c : use it (/View/Fullscreen) thus fixing bug #94090
