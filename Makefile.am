@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-SUBDIRS = lib objects plug-ins shapes intl app samples po sheets doc
+SUBDIRS = lib objects plug-ins shapes app samples po sheets doc
 
 gnomedatadir = $(datadir)
 

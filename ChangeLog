@@ -1,7 +1,10 @@
 2002-07-17  Lars Clausen  <lrclause@cs.uiuc.edu>
 
-	* configure.in: Allow use of AM_GLIB_GNU_GETTEXT for those who
-	have it.
+	* Makefile.am: 
+	* autogen.sh: 
+	* configure.in (GETTEXT_PACKAGE): 
+	Update based on bug #88199.  Hopefully this doesn't break too much
+	intl stuff.
 
 	* dia.desktop.in (_Comment): Changed after suggestion from
 	calum.benson@ireland.sun.com (bug 88345)
