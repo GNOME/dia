@@ -39,6 +39,9 @@
 #include "app_procs.h"
 #include "layer_dialog.h"
 
+#include "pixmaps/snap-to-grid.xpm"
+#include "pixmaps/snap-to-grid-mask.xpm"
+
 static GHashTable *display_ht = NULL;
 static GdkCursor *current_cursor = NULL;
 
@@ -54,9 +57,60 @@ typedef struct _IRectangle {
 
 static guint display_hash(DDisplay *ddisp);
 
+static GtkPixmap *snapping, *not_snapping;
+
+GtkPixmap *
+snap_status_load_images(GdkWindow *window)
+{
+  GdkPixmap *dpix;
+  GdkBitmap *mask = NULL;
+
+  dpix = gdk_pixmap_create_from_xpm_d(window, &mask, NULL, snap_to_grid_xpm);
+  g_assert(dpix != NULL);
+
+  snapping = gtk_pixmap_new(dpix, mask);
+  g_assert(snapping != NULL);
+
+  gdk_pixmap_unref(dpix);
+  gdk_pixmap_unref(mask);
+  /*
+  dpix = gdk_pixmap_create_from_data(window, data, width, height);
+  mask = gdk_pixmap_create_from_data(window, mask, width, height);
+  g_assert(dpix != NULL && mask != NULL);
+
+  snapping = gdk_image_new(dpix, mask);
+  g_assert(snapping != NULL);
+
+  gdk_pixmap_unref(dpix);
+  gdk_pixmap_unref(mask);
+  */
+
+  return snapping;
+}
+
+static void
+update_snap_status(DDisplay *ddisp)
+{
+  GtkButton *zoomimage = GTK_BUTTON(ddisp->snap_status);
+  return;  
+  if (ddisp->grid.snap) {
+    
+  } else {
+  }
+}
+
 static void
 update_zoom_status(DDisplay *ddisp)
 {
+  GtkCombo *zoomcombo;
+  gchar zoom_text[7];
+
+  zoomcombo = GTK_COMBO(ddisp->zoom_status);
+  sprintf (zoom_text, "%.1f%%",
+	   ddisp->zoom_factor * 100.0 / DDISPLAY_NORMAL_ZOOM);
+  gtk_entry_set_text(GTK_ENTRY(zoomcombo->entry), zoom_text);
+  
+  /*
   GtkStatusbar *statusbar;
   guint context_id;
   gchar *zoom_text;
@@ -71,6 +125,7 @@ update_zoom_status(DDisplay *ddisp)
   gtk_statusbar_push (statusbar, context_id, zoom_text);
 
   g_free (zoom_text);
+  */
 }
 
 static void
@@ -938,6 +993,7 @@ ddisplay_set_cursor(DDisplay *ddisp, GdkCursor *cursor)
 void 
 ddisplay_update_statusbar(DDisplay *ddisp)
 {
+  /*  update_snap_status (ddisp);*/
   update_zoom_status (ddisp);
   update_modified_status (ddisp);
 }

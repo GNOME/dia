@@ -24,6 +24,7 @@
 #include "diagram.h"
 #include "layer_dialog.h"
 #include "interface.h"
+#include "display.h"
 #include "pixmaps.h"
 #include "preferences.h"
 #include "commands.h"
@@ -138,6 +139,51 @@ origin_button_press(GtkWidget *widget, GdkEventButton *event, gpointer data)
   return FALSE;
 }
 
+static void
+zoom_activate_callback(GtkEditable *editable, gpointer user_data) {
+  gchar *zoom_text = gtk_entry_get_text(GTK_ENTRY(editable));
+  float zoom_amount, magnify;
+  DDisplay *ddisp = (DDisplay *)user_data;
+
+  if (sscanf(zoom_text, "%f", &zoom_amount)) {
+    Point middle;
+    Rectangle *visible;
+
+    magnify = (zoom_amount*DDISPLAY_NORMAL_ZOOM/100.0)/ddisp->zoom_factor;
+    visible = &ddisp->visible;
+    middle.x = visible->left*0.5 + visible->right*0.5;
+    middle.y = visible->top*0.5 + visible->bottom*0.5;
+    ddisplay_zoom(ddisp, &middle, magnify);
+  }
+}
+
+static GtkWidget*
+create_zoom_widget(DDisplay *ddisp) { 
+  GtkWidget *combo = NULL;
+  GList *items = NULL;
+
+  combo = gtk_combo_new();
+  items = g_list_append(items, "400%");
+  items = g_list_append(items, "283%");
+  items = g_list_append(items, "200%");
+  items = g_list_append(items, "141%");
+  items = g_list_append(items, "100%");
+  items = g_list_append(items, "85%");
+  items = g_list_append(items, "70.7%");
+  items = g_list_append(items, "50%");
+  items = g_list_append(items, "35.4%");
+  items = g_list_append(items, "25%");
+  gtk_combo_set_popdown_strings (GTK_COMBO(combo), items);   
+  gtk_combo_set_value_in_list(GTK_COMBO(combo), FALSE, FALSE);
+  gtk_combo_disable_activate(GTK_COMBO(combo));
+
+  gtk_signal_connect (GTK_OBJECT (GTK_COMBO(combo)->entry), "activate",
+		      (GtkSignalFunc) zoom_activate_callback,
+		      ddisp);
+
+  return combo;
+}
+
 void
 create_display_shell(DDisplay *ddisp,
 		     int width, int height,
@@ -145,6 +191,7 @@ create_display_shell(DDisplay *ddisp,
 {
   GtkWidget *table, *widget;
   GtkWidget *status_hbox;
+  GtkWidget *zoom_hbox, *zoom_label;
   int s_width, s_height;
 
   s_width = gdk_screen_width ();
@@ -274,14 +321,33 @@ create_display_shell(DDisplay *ddisp,
   /* the statusbars */
   status_hbox = gtk_hbox_new (FALSE, 2);
 
+  /*
+  ddisp->snap_status = snap_status_load_images(ddisp->shell);
+
+  widget = gtk_button_new ();
+  gtk_container_add(GTK_CONTAINER(widget), ddisp->snap_status);
+  gtk_widget_show(ddisp->snap_status);
+  */
+  /*
+    gtk_signal_connect(GTK_OBJECT(ddisp->origin), "button_press_event",
+    GTK_SIGNAL_FUNC(origin_button_press), ddisp);
+  */
+  /*
   ddisp->zoom_status = gtk_statusbar_new ();
+  */
+  ddisp->zoom_status = create_zoom_widget(ddisp);
   ddisp->modified_status = gtk_statusbar_new ();
-  
-  gtk_box_pack_start (GTK_BOX (status_hbox), ddisp->zoom_status,
+
+  zoom_hbox = gtk_hbox_new(FALSE, 0);
+  zoom_label = gtk_label_new(_("Zoom"));
+  gtk_box_pack_start (GTK_BOX(zoom_hbox), zoom_label,
 		      FALSE, FALSE, 0);
+  gtk_box_pack_start (GTK_BOX(zoom_hbox), ddisp->zoom_status,
+		      FALSE, FALSE, 0);
+
+  gtk_box_pack_start (GTK_BOX (status_hbox), zoom_hbox, FALSE, FALSE, 0);
   gtk_box_pack_start (GTK_BOX (status_hbox), ddisp->modified_status,
-		      TRUE, TRUE, 
-		      0);
+		      TRUE, TRUE, 0);
 
   gtk_table_attach (GTK_TABLE (table), status_hbox, 0, 3, 3, 4,
                     GTK_FILL, GTK_FILL, 0, 0);
@@ -294,6 +360,8 @@ create_display_shell(DDisplay *ddisp,
   gtk_widget_show (ddisp->vrule);
   gtk_widget_show (ddisp->canvas);
   gtk_widget_show (ddisp->zoom_status);
+  gtk_widget_show (zoom_hbox);
+  gtk_widget_show (zoom_label);
   gtk_widget_show (ddisp->modified_status);
   gtk_widget_show (status_hbox);
   gtk_widget_show (table);

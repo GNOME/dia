@@ -129,6 +129,8 @@ dia_core_files = \
 	    gtkvwrapbox.c \
 	    cursor.c \
 	    cursor.h \
+	    splash.c \
+	    splash.h \
 	    $(print_files)
 
 

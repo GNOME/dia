@@ -41,6 +41,7 @@ struct _DDisplay {
   GtkWidget *hrule, *vrule;       /* widgets for rulers                */
   GtkWidget *origin;              /* widgets for rulers                */
 
+  GtkWidget *snap_status;
   GtkWidget *zoom_status;         
   GtkWidget *modified_status;
 
@@ -125,6 +126,8 @@ void ddisplay_scroll_right(DDisplay *ddisp);
 
 void display_update_menu_state(DDisplay *ddisp);
 void ddisplay_update_statusbar(DDisplay *ddisp);
+/* Have to be called from interface.c */
+GtkPixmap *snap_status_load_images(GdkWindow *window);
 
 void display_set_active(DDisplay *ddisp);
 

@@ -316,7 +316,6 @@ object_list_align_v(GList *objects, Diagram *dia, int align)
       y_pos += obj->bounding_box.bottom - obj->bounding_box.top;
       break;
     }
-
     orig_pos[i] = obj->position;
     dest_pos[i] = pos;
     

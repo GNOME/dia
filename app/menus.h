@@ -25,6 +25,10 @@
 #include <gnome.h>
 #endif
 
+struct zoom_pair { const gchar *string; const gint value; };
+
+extern const struct zoom_pair zooms[10];
+
 void menus_get_toolbox_menubar (GtkWidget **menubar, GtkAccelGroup **accel);
 void menus_get_image_menu      (GtkWidget **menu,    GtkAccelGroup **accel);
 
