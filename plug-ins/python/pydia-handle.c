@@ -23,6 +23,7 @@
 
 #include "pydia-handle.h"
 #include "pydia-cpoint.h"
+#include "pydia-geometry.h"
 #include "pydia-object.h" /* for PyObject_HEAD_INIT */
 
 PyObject *
@@ -99,7 +100,7 @@ PyDiaHandle_GetAttr(PyDiaHandle *self, gchar *attr)
     else if (!strcmp(attr, "type"))
 	return PyInt_FromLong(self->handle->type);
     else if (!strcmp(attr, "pos"))
-	return Py_BuildValue("(dd)", self->handle->pos.x, self->handle->pos.y);
+	return PyDiaPoint_New(&(self->handle->pos));
     else if (!strcmp(attr, "connect_type"))
 	return PyInt_FromLong(self->handle->connect_type);
     else if (!strcmp(attr, "connected_to")) {

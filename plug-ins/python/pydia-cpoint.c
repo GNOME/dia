@@ -21,6 +21,7 @@
 
 #include <glib.h>
 
+#include "pydia-geometry.h"
 #include "pydia-cpoint.h"
 #include "pydia-object.h"
 
@@ -63,7 +64,7 @@ PyDiaConnectionPoint_GetAttr(PyDiaConnectionPoint *self, gchar *attr)
     if (!strcmp(attr, "__members__"))
 	return Py_BuildValue("[sss]", "connected", "object", "pos");
     else if (!strcmp(attr, "pos"))
-	return Py_BuildValue("(dd)", self->cpoint->pos.x, self->cpoint->pos.y);
+	return PyDiaPoint_New(&(self->cpoint->pos));
     else if (!strcmp(attr, "object"))
 	return PyDiaObject_New(self->cpoint->object);
     else if (!strcmp(attr, "connected")) {

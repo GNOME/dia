@@ -1,3 +1,20 @@
+2003-05-15  Hans Breuer  <hans@breuer.org>
+
+	* plug-ins/python/diasvg.py : add xlink definition,
+	also avoid to put spaces into attribute values. At least
+	Sodipodi doesn't like them in width/height attributes
+
+	* plug-ins/python/diasvg_import.py : add simple scaling.
+	Some (more) handling for <svg>, <desc>, <circle>	
+
+	* plug-ins/python/scascale.py : (new file) which does
+	some experimental scaling via StdProp api
+
+	* plug-ins/python/pydia-cpoint.c 
+	  plug-ins/python/pydia-handle.c : return PyDiaPoint for
+	obj.pos not simple tuples. PyDiaPoint has a tuple interface
+	so this may even be api compatible ...
+
 2003-05-11  Hans Breuer  <hans@breuer.org>
 
 	* app/line_area.c : add window position persitence

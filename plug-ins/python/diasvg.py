@@ -132,7 +132,7 @@ class SvgRenderer :
 				self.f.write ('C %.3f,%.3f %.3f,%.3f %.3f,%.3f ' \
 					% (bp.p1.x, bp.p1.y, bp.p2.x, bp.p2.y, bp.p3.x, bp.p3.y))
 			else :
-				dia.message(2, "Invalid BezPoint type (%d)" * bp.type)
+				dia.message(2, "Invalid BezPoint type (%d)" % bp.type)
 		self.f.write('"/>\n')
 	def fill_bezier (self, bezpoints, color) :
 		self.f.write('<path stroke="none" fill="%s" stroke-width="%.3f" d="' \
