@@ -167,6 +167,15 @@ click_select_object(DDisplay *ddisp, Point *clickedpoint,
   return NULL;
 }
 
+static glong
+time_micro()
+{
+  GTimeVal tv;
+
+  g_get_current_time(&tv);
+  return tv.tv_sec*G_USEC_PER_SEC+tv.tv_usec;
+}
+
 static int do_if_clicked_handle(DDisplay *ddisp, ModifyTool *tool,
 				Point *clickedpoint, GdkEventButton *event)
 {
@@ -187,6 +196,7 @@ static int do_if_clicked_handle(DDisplay *ddisp, ModifyTool *tool,
                       GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON1_MOTION_MASK | GDK_BUTTON_RELEASE_MASK,
                       NULL, NULL, event->time);
     tool->start_at = *clickedpoint;
+    tool->start_time = time_micro();
     ddisplay_set_all_cursor(get_cursor(CURSOR_SCROLL));
     return TRUE;
   }
@@ -222,6 +232,7 @@ modify_button_press(ModifyTool *tool, GdkEventButton *event,
                       GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON1_MOTION_MASK | GDK_BUTTON_RELEASE_MASK,
                       NULL, NULL, event->time);
     tool->start_at = clickedpoint;
+    tool->start_time = time_micro();
     ddisplay_set_all_cursor(get_cursor(CURSOR_SCROLL));
   } else {
     tool->state = STATE_BOX_SELECT;
@@ -275,6 +286,42 @@ modify_double_click(ModifyTool *tool, GdkEventButton *event,
   }
 }
 
+#define MIN_PIXELS 5
+
+static gboolean
+modify_move_already(ModifyTool *tool, DDisplay *ddisp, Point *to)
+{
+  static gboolean settings_taken = FALSE;
+  static int double_click_time = 100;
+  real dist;
+  if (!settings_taken) {
+    /* One could argue that if the settings were updated while running,
+       we should re-read them.  But I don't see any way to get notified,
+       and I don't want to do this whole thing for each bit of the
+       move --Lars */
+    GtkSettings *settings = gtk_settings_get_default();
+    GValue dctvalue;
+    if (settings == NULL) {
+      g_message(_("Couldn't get GTK settings"));
+    } else {
+      g_object_get(G_OBJECT(settings), 
+		   "gtk-double-click-time", &dctvalue, NULL);
+      if (g_type_is_a(G_VALUE_TYPE(&dctvalue), G_TYPE_INT)) {
+	double_click_time = g_value_get_int(&dctvalue);
+      }
+    }
+    settings_taken = TRUE;
+  }
+  if (tool->start_time < time_micro()-double_click_time) return TRUE;
+  dist = distance_point_point_manhattan(&tool->start_at, to);
+  if (ddisp->grid.snap) {
+    real grid_x = ddisp->diagram->data->grid.width_x;
+    real grid_y = ddisp->diagram->data->grid.width_y;
+    if (dist > grid_x || dist > grid_y) return TRUE;
+  }
+  return (ddisplay_transform_length(ddisp, dist) > MIN_PIXELS);
+}
+
 
 static void
 modify_motion(ModifyTool *tool, GdkEventMotion *event,
@@ -291,6 +338,8 @@ modify_motion(ModifyTool *tool, GdkEventMotion *event,
   auto_scroll = ddisplay_autoscroll(ddisp, event->x, event->y);
   
   ddisplay_untransform_coords(ddisp, event->x, event->y, &to.x, &to.y);
+
+  if (!modify_move_already(tool, ddisp, &to)) return;
 
   switch (tool->state) {
   case STATE_MOVE_OBJECT:

@@ -1,3 +1,9 @@
+2002-09-26  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* app/modify_tool.c: Made motion not happen until sufficiently
+	large or past double-click interval, to avoid accidental moving
+	when doubleclicking.
+
 2002-09-26  Cyrille Chépélov  <cyrille@chepelov.org>
 
 	* app/layer_dialog.c: 

@@ -20,6 +20,7 @@
 
 #include "geometry.h"
 #include "tool.h"
+#include "time.h"
 
 typedef struct _ModifyTool ModifyTool;
 
@@ -40,6 +41,7 @@ struct _ModifyTool {
   Handle *handle;
   Point last_to;
   Point start_at;
+  time_t start_time;
 
   GdkGC *gc;
 
