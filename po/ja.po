@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-04-11 00:36+0900\n"
-"PO-Revision-Date: 2004-04-11 00:35+0900\n"
+"POT-Creation-Date: 2004-04-11 00:44+0900\n"
+"PO-Revision-Date: 2004-04-11 00:43+0900\n"
 "Last-Translator: Takeshi AIHANA <aihana@gnome.gr.jp>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
 "MIME-Version: 1.0\n"
@@ -1952,7 +1952,7 @@ msgstr "Dia バージョン %s"
 
 #: dia.desktop.in.h:2
 msgid "Diagram editor"
-msgstr "ダイアグラム・エディタ"
+msgstr "ダイアグラム・エディタです"
 
 #: lib/arrows.c:38 objects/UML/association.c:1135
 msgid "None"
