@@ -1,9 +1,10 @@
 <chapter label="10" id="authors-chap">
 <title>Authors</title>
   <para>
-   <application>Dia</application> was written by Alexander Larsson and is
-   currently maintained by James Henstridge. To find more information about
-   <application>Dia</application>, please visit the official web page, <ulink
+   <application>Dia</application> was created by Alexander Larsson and is
+   currently maintained by Lars Clausen and other dedicated volunteers.  
+   To find more information about <application>Dia</application>, 
+   please visit the official web page, <ulink
    url="http://www.gnome.org/projects/dia" type="http">
    www.gnome.org/projects/dia</ulink>.  Please send all comments,
    suggestions, and bug reports to the <ulink url="http://bugs.gnome.org"
@@ -13,13 +14,17 @@
    If you are using GNOME 1.1 or later, you can also use <application>Bug
    Report Tool</application> (<command>bug-buddy</command>), available in the
    <guisubmenu>Utilities</guisubmenu> submenu of <guimenu>Main Menu</guimenu>,
-   for submitting bug reports.
+   for submitting bug reports.  You can also sign up to the 
+   <application>Dia</application> 
+   <ulink url="http://mail.gnome.org/mailman/listinfo/dia-list">mailing 
+   list</ulink>.    
   </para>
  
   <para>
    This manual was written by Henry House (<email>hajhouse@houseag.com</email>)
-   , Judith Samson (<email>judith@samsonsource.com</email>), and Kevin Breit
-   (<email>battery841@mypad.com</email>).
+   , Judith Samson (<email>judith@samsonsource.com</email>), Kevin Breit
+   (<email>battery841@mypad.com</email>) and Alan Horkan 
+   (<email>horkana@tcd.ie</emai>.
    Please send all comments and suggestions regarding this manual to the
    <ulink type="http" url="http://www.gnome.org/gdp">GNOME Documentation
    Project</ulink> by sending an email to <email>docs@gnome.org</email>. You

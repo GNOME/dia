@@ -9,11 +9,20 @@
    </para>
   </sect1>
   <sect1 id="gridlines">
-  <title>Gridlines</title>
+  <title>Grid Lines</title>
    <para>
-    Gridlines are similar to the lines on graph paper.  They allow the user
-    to easily align objects on the canvas.  The gridlines can be hidden by
-    going into
+    Grid lines are similar to the lines on graph paper.  They allow the user
+    to easily align objects on the canvas.  The grid lines can be temporarily 
+    hidden for the current document choosing the menus item 
+    <menuchoice>
+     <guimenu>
+      View
+     </guimenu>
+     <guimenuitem>
+      Show Grid
+     </guimenuitem>
+    </menuchoice>.
+    The grid lines can be turned hidden for all new documents by going into
     <menuchoice>
      <guimenu>
       File
@@ -22,7 +31,8 @@
       Preferences
      </guimenuitem>
     </menuchoice>.
-    In the Grid Lines tab, the user should click on the Visible button so it says No.
+    In the Grid Lines tab, click the checkbox labelled Visible and leave it 
+    empty to hide the grid lines.  
    </para>
   </sect1>
   <sect1 id="Rulers">
@@ -39,14 +49,25 @@
     measurement point.
 	</para>
    <para>
-    Rulers, unlike gridlines, cannot be removed.
+    Rulers can be temporarily hidden for the current document by choosing the 
+    menu item 
+    <menuchoice>
+     <guimenu>
+      View
+     </guimenu>
+     <guimenuitem>
+      Show Rulers
+     </guimenuitem>
+    </menuchoice>.
+    Rulers, unlike grid lines, cannot be turned off by default for new 
+    documents.  
    </para>
   </sect1>
   <sect1 id="background-color">
-  <title>Background Color</title>
+  <title>Background Colour</title>
    <para>
-    The background color option allows you to change what the background looks
-    like in the canvas.  By default, the color is white.  However, the color
+    The background colour option allows you to change what the background looks
+    like in the canvas.  By default, the colour is white.  However, the colour
     can be changed by going into
     <menuchoice>
       <guimenu>
@@ -59,8 +80,7 @@
         Background
       </guimenuitem>
     </menuchoice>
-    and
-    clicking on the bar.  The bar displays what your background color is.
+    and clicking on the bar.  The bar displays the current background colour. 
     The gridlines will change their color automatically to stay visible if
     the background color is changed to black.
    </para>

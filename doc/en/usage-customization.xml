@@ -10,7 +10,9 @@
   To change the behavior settings, select
   <menuchoice>
    <guimenu>File</guimenu> <guimenuitem>Preferences...</guimenuitem>
-   </menuchoice> from the <interface>Main Menu Bar</interface>.  This opens the    <interface>Preferences</interface> dialog, shown in <!--[TODO: add
+   </menuchoice> from the <interface>Toolbox Menu Bar</interface>.  
+   This opens the    <interface>Preferences</interface> dialog  
+   <!-- , shown in  [TODO: add
    screenshot].--> <!-- <xref linkend="preferences-fig">. -->
  </para>
  <para>
@@ -19,17 +21,69 @@
   <itemizedlist>
    <listitem>
     <para>
-     Reset tools after create &mdash; If this button is checked&hellip;<!--[TODO:
-     find out what this does] -->
+     Reset tools after create.  
+     If this button is checked then the buttons in the Toolbox will reset 
+     to the Modify Tool after being used once.  If the button is not checked 
+     then the current tool will stick until another tool is chosen, 
+     which is useful if you want to draw lots many shapes using the same tool
+     over and over again.  
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+      Compress saved files, provides the option to have Dia XML files 
+      compressed into much smaller files using gzip or to leave the Dia XML 
+      files as plain text so that they can be more easily edited using other
+      software.  
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+      Reverse dragging selects intersecting objects, means that you can create 
+      selections that only need to cover part of the object you want to select 
+      whereas normally you need to create a selection around the whole of the 
+      object you want to select.  
+      Reverse dragging means creating a selection by dragging up and to the 
+      left from the point you started your selection, as opposed to creating a 
+      selection by dragging down and to the right.  
+      This can be useful if you want to make very precise selections where 
+      there are many objects on the canvas.  
     </para>
    </listitem>
    <listitem>
     <para>
       Number of undo levels customizes how many steps that the undo tool
       remembers.  Higher numbers let the user go back more steps to fix an
-      error, but take up more memory.
+      error, but take up more memory.  
+      Setting the undo level to zero does not turn off undo, it gives infinite 
+      undo (which means it uses as much of the available computer memory as 
+      possible).   
     </para>
    </listitem>
+   <!-- The description of Recent Documents is deliberately vague so that it 
+   will still make some sense if a submenu for Recent items is added. -->
+   <listitem>
+    <para>
+      Recent Documents list size allows you to set how many items will be shown 
+      in the Recent Documents section of the <guimenu>File<guimenu> menu.  
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+      Use menu bar allows you to have a menu bar at the top of each Diagram 
+      window instead needing to right click to access the menus.  
+      With the menu bar enabled you can access the object context menu by 
+      right clicking (instead of middle clicking, which is essential for users 
+      that do not have a three button mouse).  
+    </para>
+   </listitem> 
+   <listitem>
+    <para>
+      Keep tool box on top of diagram windows ensures that the Toolbox windows 
+      is always in front of all the diagram windows which makes it easier to 
+      keep track of and have quick access to the tool at all times.  
+    </para>
+   </listitem> 
    <listitem>
     <para>
       Width controls the width, in pixels, of a new diagram.
@@ -42,13 +96,13 @@
    </listitem>
    <listitem>
     <para>
-      Magnify sets a multiplier that controls what the default zoom level on
-      a new diagram is.
+      Magnify sets a multiplier that controls the default zoom level of
+      a new diagram.
     </para>
    </listitem>
    <listitem>
     <para>
-      Snap To allows makes objects attract to a grid created by the program.
+      Snap To makes object edges attract to where the grid lines intersect.  
       This makes it easier for the user to align objects, as separate objects
       snap to the same line. 
     </para>
@@ -56,21 +110,26 @@
    <listitem>
      <para>
        X Size lets the user set a multiplier which sets how far the horizontal 
-       grid lines are from eachother.
+       grid lines are from each other.
      </para>
    </listitem>
    <listitem>
      <para>
        Y Size lets the user set a multiplier which sets how far the vertical
-       grid lines are from eachother.
+       grid lines are from each other.
      </para>
    </listitem>
    <listitem>
      <para>
-       Colour sets the color that the grid lines display as.
+       Colour sets the display colour of the grid lines.   
      </para>
    </listitem>
-   <!-- Find out what page breaks are, etc. -->
+   <listitem>
+     <para>
+       Page Breaks are lines that indicate where the page edges will be when
+       you print out your diagram.  
+     </para>
+   </listitem>
   </itemizedlist>
   </para>
   <para>

@@ -25,13 +25,13 @@
    <para>
     You can start Dia by going into the Applications section on the Main Menu
     and clicking on the Dia icon.  Or, you can type <command>dia</command> in
-    a xterm window.
+    a console window or xterm.
    </para>
   </sect1>
   <sect1 id="quickstart-intro">
   <title>Quickstart Introduction</title>
    <para>
-    The Dia Quickstart for the user who doesn't want to read a whole
+    The Dia Quickstart is for the user who doesn't want to read a whole
     manual to make a basic diagram.
    </para>
   </sect1>

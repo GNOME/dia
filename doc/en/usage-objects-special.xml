@@ -11,11 +11,45 @@
    <sect1 id="special-object-categories">
    <title>Special Object Categories</title>
      <para>
-       Special objects are broken into different categories.  This way, someone
-       creating a diagram of a circuit board can see only the objects which
-       apply to them.  <application>Dia</application> supports numerous
-       pre-defined categories.
+       Special objects are broken into different categories or sheets.  
+       This way, someone creating a diagram of a circuit board is shown 
+       only the objects which apply to them.  
+       <application>Dia</application> supports numerous
+       pre-defined categories.    
+
+<!-- Please try to keep the list Alphabetically sorted.  -->
+       
        <variablelist>
+         <varlistentry>
+           <term>Assorted</term>
+           <listitem>
+             <para>
+               Assorted Geometric Shapes.  The purpose of this sheet is to 
+	       provide a selection of simple and convenient preset shapes so 
+	       that users need not create spend time creating their own basic 
+	       shapes.  The set includes shapes with constrained ratio such as 
+	       perfect Circles, Squares, various type of Triangle and Crosses.  
+             </para>
+           </listitem>
+         </varlistentry>
+         <varlistentry>
+           <term>Chemical Engineering</term>
+           <listitem>
+             <para>
+	       A collection of shapes for modelling the process of Chemical 
+	       Engineering.  
+             </para>
+           </listitem>
+         </varlistentry>
+	 <varlistentry>
+           <term>Chronogram</term>
+           <listitem>
+             <para>
+               Uses objects to be used in a chronographic design.  
+	       These are common place in time lines.
+             </para>
+           </listitem>
+         </varlistentry>
          <varlistentry>
            <term>Circuit</term>
            <listitem>
@@ -26,10 +60,36 @@
            </listitem>
          </varlistentry>
          <varlistentry>
+           <term>Civil</term>
+           <listitem>
+             <para>
+               Civil Engineering components.  
+             </para>
+           </listitem>
+         </varlistentry>
+	 <varlistentry>
+           <term>Cybernetics</term>
+           <listitem>
+             <para>
+               Shapes for creating diagrams of Cybernetic Circuits.  
+             </para>
+           </listitem>
+         </varlistentry>
+        <varlistentry>
+           <term>Cisco</term>
+           <listitem>
+             <para>
+               Cisco includes shapes representing equipment from Cisco a 
+	       manufacturer of Computer Networking Equipement.  
+	     </para>
+           </listitem>
+         </varlistentry>
+	 <!-- TODO fully describe all four of the Cisco Sheets -->
+         <varlistentry>
            <term>Ladder</term>
            <listitem>
              <para>
-               This one is beyond my knowledge
+               Components for Ladder Circuits.  
              </para>
            </listitem>
          </varlistentry>
@@ -37,15 +97,27 @@
            <term>ER</term>
            <listitem>
              <para>
-               Editor for Entity Relations Diagrams 
+               Editor for Entity Relations (ER) Diagrams. 
+	       Entity Relationship diagrams are used to represent high level 
+	       descriptions of conceptual models in terms of how each data 
+	       entity relates to other data in the model.  
+	       They are most commonly used to model the structure of data to 
+	       be stored in a database.  
              </para>
            </listitem>
          </varlistentry>
          <varlistentry>
-           <term>FS</term>
+           <term>Function Structure, FS. </term>
            <listitem>
              <para>
-               Editor for Function Structure Diagrams 
+               Editor for Function Structure (FS) Diagrams.  
+	       Note that the Objects require the use of the 
+	       <interface>context menu</interface>  
+	       to access much of the funtionality of these objects.  
+	       <!-- TODO this needs to be explained much more clearly
+	       that it is the middle click context menu, unless the 
+	       main menubar is turned on for each document window 
+	       but this will be enough of a warning for now.  -->
              </para>
            </listitem>
          </varlistentry>
@@ -64,8 +136,96 @@
            <term>GRAFCET</term>
            <listitem>
              <para>
-               A chart which diagrams the step, the action, the transition, and
-               the condition associated to the transition. 
+               A chart which shows the step, the action, the transition, and
+               the condition associated with the transition.  
+               GRAFCET is a Sequential Function Chart created in 1975.  
+	       The name comes from graph because the model had a graphic basis,
+	       and from AFCET (Association française de cybernétique économique 
+	       et technique) 
+	       the scientific association which supported the work. 
+	       <!-- still needs more work see 
+	       http://www.lurpa.ens-cachan.fr/grafcet.html
+	       -->
+             </para>
+           </listitem>
+         </varlistentry>
+         <varlistentry>
+           <term>Istar</term>
+           <listitem>
+             <para>
+               Istar is agent-oriented modelling framework.  
+	       Istar is also written as i*.   
+	     </para>
+           </listitem>
+         </varlistentry>
+         <varlistentry>
+           <term>Jackson</term>
+           <listitem>
+             <para>
+	       Jackson Software Design (JSD) method Diagrams.  
+	     </para>
+           </listitem>
+         </varlistentry>
+         <varlistentry>
+           <term>KAOS</term>
+           <listitem>
+             <para>
+	       KAOS Diagrams.  
+	       <!-- provide a help description that is actually helpful! -->
+	     </para>
+           </listitem>
+         </varlistentry>
+
+	 <varlistentry>
+	 <term>Map 3D Isometric</term>
+           <listitem>
+             <para>
+               Pseudo 3D isometic shapes for creating Directional Maps.  
+	       Microsoft Visio calls these shapes Map, Directional Map 3D. 
+	     </para>
+           </listitem>
+         </varlistentry>
+	 <varlistentry>
+	 <term>Misc. </term>
+           <listitem>
+             <para>
+               Miscellaneous shapes that do not fit into any of the other 
+	       groups.  Includes some Filesystem shapes and an animated clock 
+	       object that updates in real time.   
+	     </para>
+           </listitem>
+         </varlistentry>
+	 <varlistentry>
+	 <term>MSE</term>
+           <listitem>
+             <para>
+	        Mobile Subscriber Equipment Components, 
+		as used by the United States Army.  
+	     </para>
+           </listitem>
+         </varlistentry>
+	 <varlistentry>
+           <term>Network</term>
+           <listitem>
+             <para>
+               Used by network administrators to create a design of their
+               network. 
+             </para>
+           </listitem>
+         </varlistentry>
+         <varlistentry>
+           <term>Electric</term>
+           <listitem>
+             <para>
+               Shows flow of electricity. 
+             </para>
+           </listitem>
+         </varlistentry>
+         <varlistentry>
+           <term>Pneumatic/Hydraulic</term>
+           <listitem>
+             <para>
+               Allows diagraming of a device which employes hydraulics.
              </para>
            </listitem>
          </varlistentry>
@@ -73,37 +233,25 @@
            <term>SADT</term>
            <listitem>
              <para>
-               Good question!
+               Structured Analysis Design Technique.  
              </para>
            </listitem>
          </varlistentry>
-         <varlistentry>
-           <term>UML</term>
+	 <varlistentry>
+           <term>SDL</term>
            <listitem>
              <para>
-               Refer above
-             </para>
+               Specification and Description Language (SDL)
+	       SDL is used to describe the behaviour of interactive 
+	       time based systems.  
+               SDL was originally focused on telecommunication systems, but 
+	       has also come to be used to describe process control and 
+	       real-time applications in general.  
+	     </para>
            </listitem>
          </varlistentry>
-         <varlistentry>
-           <term>Chronogram</term>
-           <listitem>
-             <para>
-               Uses objects to be used in a chronographic design.  These are
-               common place in time lines.
-             </para>
-           </listitem>
-         </varlistentry>
-         <varlistentry>
-           <term>Network</term>
-           <listitem>
-             <para>
-               Used by network administrators to create a design of their
-               network.
-             </para>
-           </listitem>
-         </varlistentry>
-         <varlistentry>
+       </variablelist>
+       <varlistentry>
            <term>Sybase</term>
            <listitem>
              <para>
@@ -113,18 +261,14 @@
            </listitem>
          </varlistentry>
          <varlistentry>
-           <term>Electric</term>
+           <term>UML</term>
            <listitem>
              <para>
-               Shows flow of electricity, I guess
-             </para>
-           </listitem>
-         </varlistentry>
-         <varlistentry>
-           <term>Pnumatic/Hydraulic</term>
-           <listitem>
-             <para>
-               Allows diagraming of a device which employes hydraulics.
+               Unified Modelling Language (UML).  
+	       UML is a modelling and specification language commonly used to 
+	       create diagrams showing the structure of object-oriented 
+	       computer programming code, particularly for large scale 
+	       projects.  
              </para>
            </listitem>
          </varlistentry>

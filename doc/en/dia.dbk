@@ -6,10 +6,10 @@
   <refentryinfo>
     <copyright>
       <year>1999</year>
-      <year>2003</year>
-      <holder>Fredrik Hallenberg, W. Borgert</holder>
+      <year>2004</year>
+      <holder>Fredrik Hallenberg, W. Borgert, Alan Horkan</holder>
     </copyright>
-    <date>1999-07-03</date>
+    <date>2004-11-26</date>
     <authorgroup>
       <author>
 	<firstname>Fredrik</firstname>
@@ -21,10 +21,21 @@
 	<surname>Borgert</surname>
 	<email>debacle@debian.org</email>
       </author>
+      <author>
+	<firstname>Alan</firstname>
+	<surname>Horkan</surname>
+	<email>horkana@tcd.ie</email>
+      </author>
     </authorgroup>
     <revhistory>
       <revision>
-	<revnumber>2</revnumber>
+	<revnumber>4</revnumber>
+	<date>2004-11-26</date>
+	<authorinitials>AH</authorinitials>
+	<revremark>added to See Also, corrected grammar</revremark>
+      </revision>
+      <revision>
+	<revnumber>3</revnumber>
 	<date>2003-11-26</date>
 	<authorinitials>WB</authorinitials>
 	<revremark>added --size option</revremark>
@@ -102,7 +113,7 @@
     collection of tools that are used in a certain type of
     diagram.</para>
 
-    <para>Most diagram objects in <command>Dia</command> has
+    <para>Most diagram objects in <command>Dia</command> have
     <emphasis>handles</emphasis>.  Lines can be connected to these
     handles and this way graph structures can be formed.  When objects
     are moved or resized the connections will follow the
@@ -234,7 +245,7 @@
       </listitem>
 
       <listitem>
-	<para><literal>shape</literal> (Dia shape file)</para>
+	<para><literal>shape</literal> (Dia Shape File)</para>
       </listitem>
 
       <listitem>
@@ -297,6 +308,8 @@
 
     <para><ulink url="http://www.pango.org/">Pango</ulink></para>
     <para>X (1)</para>
+    <para>xfig (1)</para>
+    <para>inkscape (1)</para>
   </refsect1>
 
   <refsect1>

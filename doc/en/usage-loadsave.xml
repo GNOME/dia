@@ -47,7 +47,7 @@
      some degree.
     </para>
     <sect2 id="loadsave-filetypes-dia">
-    <title>Native Dia Diagram Files</title>
+    <title>Dia Native Diagram Files</title>
      <para>
       The only format guaranteed to be lossless is
       <application>Dia</application> XML. Happily, you are unlikely to
@@ -62,9 +62,10 @@
       Files in <application>Dia</application> XML format are automatically
       compressed using gzip to save disk space. This is almost necessary
       since, without compression, even simple diagrams are very large because
-      they store much redundant information. Because
-      <application>Dia</application> XML files are already compressed, you 
-      should not try to compress them manually&mdash;it will not help.
+      they store much redundant information. 
+      <application>Dia</application> XML files are already compressed, 
+      so further compressing them using other archive formats will not help
+      make them significantly smaller.  
      </para>
     </sect2>
     <sect2 id="loadsave-filetypes-import">
@@ -74,18 +75,23 @@
       <itemizedlist>
        <listitem>
         <para>
-	 SVG
+	 Scalable Vector Graphics (.svg)
 	</para>
        </listitem>
        <listitem>
         <para>
-	 DXF
+	 AutoCad Drawing eXchange Format (.dxf)
 	</para>
        </listitem>
        <listitem>
         <para>
-	 XFig
+	 XFig File Format (.fig)
 	</para>
+       </listitem>
+       <listitem>
+        <para>
+          GdkPixbuf bitmpa graphics (.bmp, .gif, .jpg, .png, .pnm, .ras, .tif)
+        </para>
        </listitem>
       </itemizedlist> 
      </para>
@@ -99,62 +105,72 @@
      <itemizedlist>
       <listitem>
        <para>
-        Computer Graphics Metafile
+         Computer Graphics Metafile (.cgm)
        </para>
       </listitem>
       <listitem>
        <para>
-        Dia shape file
+        Dia Native Diagram (.dia)
        </para>
       </listitem>
       <listitem>
        <para>
-        DXF
+        Dia Shape File (.shape)
+       </para>
+      </listitem>
+      <listitem>
+       <para>
+         AutoCad Drawing eXchange Format (.dxf)
        </para>	
       </listitem>
       <listitem>
        <para>
-        HPGL
+        HP Graphics Language (.plt, .hpgl) 
        </para>
       </listitem>
       <listitem>
        <para>
-        EPS
+        Encapsulated Postscript (.eps, .epsi)
        </para>
       </listitem>
       <listitem>
        <para>
-        PNG
+        Portable Network Graphics (.png)
        </para>
       </listitem>
       <listitem>
        <para>
-        SVG
+        Scalable Vector Graphics (.svg)
        </para>
       </listitem>
       <listitem>
        <para>
-        TeX Metapost macros
+        Scalable Vector Graphics gzip compressed (.svgz)
        </para>
       </listitem>
       <listitem>
        <para>
-        TeX PSTricks macros
+        TeX Metapost macros (.mp)
+       </para>
+      </listitem>
+      <listitem>
+       <para>
+        TeX PSTricks macros (.tex)
        </para>
       </listitem>	
       <listitem>
        <para>
-        WPG
+        WordPerfect Graphics (.wpg)
        </para>
       </listitem>
       <listitem>
        <para>
-        XFig
+        XFig format (.fig)
        </para>
       </listitem> 
       <listitem>
        <para>
-        XSLT
+        XSLT (eXtensible Stylesheet Language Transformation) (.code)
        </para>
       </listitem>
      </itemizedlist>

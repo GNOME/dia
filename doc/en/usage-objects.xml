@@ -13,9 +13,10 @@
    <title>Adding Objects</title>
     <para>
      Adding objects to the <application>Dia</application> canvas can be
-     accomplished by clicking on the desired object in the toolbox to select
-     what you want placed on the canvas.  Clicking on the canvas will then
-     place the object on the canvas.
+     accomplished by clicking on the desired object in the 
+     <interface>Toolbox</interface> to select what you want placed on the 
+     canvas.  
+     Clicking on the canvas will then place the object on the canvas.
     </para>
     <para>
      <application>Dia</application> provides two types of objects:
@@ -45,7 +46,7 @@
    <title>Moving Objects</title>
     <para>
      When an object is inserted into the canvas, the desired object will appear
-     with small green boxes defining the borders.
+     with small green boxes (also known as handles) defining the borders.
      <figure>
        <title>Adjuster Dots</title>
        <screenshot>
@@ -67,9 +68,12 @@
      click and hold on a green button.  Drag to the respective size, then let
      go.
     </para>
-    <para>
-     The corner green buttons will change both height and width at the same time.  The two on the top and bottom edges, in the center will edit height while
-     the two on the left and right edges, in the center will edit width. 
+    <para> 
+     The corner green buttons will change both the height and the width at 
+     the same time.       
+     The two on the top and bottom edges, in the center will edit height while
+     the two on the left and right edges, in the center will edit width.  
+     Some shapes 
     </para>
     <tip>
      <para>
@@ -83,22 +87,28 @@
    <title>Deleting Objects</title>
     <para>
      To delete an object, click on the object to select it. The green boxes
-     will appear.  Hit Ctrl+D and the object will disappear.
+     will appear to indicate the object is selected.  
+     From the menus choose Edit, Delete.  
     </para>
    </sect2>
-   <!--
    <sect3 id="aligning-objects">
    <title>Aligning Objects</title>
     <para>
-     Add this when you feel like explaining.
+      <application>Dia</application> provides some functionality to help 
+      arrange mulitple objects without needing to move each object 
+      individually.  
+      <!-- TODO explain the different types of Alignment -->
     </para>
    </sect3>
    <title>Grouping Objects</title>
     <para>
-     Add this when you feel like explaining.
+       Grouping allows you to treat several objects as a unified group that 
+       acts a lot more like a single object.  A group enables you to 
+       fix the position of the objects in releation to each other.  
+       Select more than one object and then from the menu choose 
+       Object, Group to group them.  
     </para>
    </sect3>
--->
   <sect2 id="line-properties">
    <title>Line Properties</title>
     <para>
