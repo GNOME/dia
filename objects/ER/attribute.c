@@ -548,8 +548,11 @@ static Object *attribute_load(ObjectNode obj_node, int version,
   if (attr != NULL)
     attribute->multivalue = data_boolean(attribute_first_data(attr));
 
-  dia_font_unref(attribute->font);
-  attribute->font = NULL;
+  if (attribute->font != NULL) {
+    /* This shouldn't happen, but doesn't hurt */
+    dia_font_unref(attribute->font);
+    attribute->font = NULL;
+  }
   attr = object_find_attribute (obj_node, "font");
   if (attr != NULL)
 	  attribute->font = data_font (attribute_first_data (attr));

@@ -137,7 +137,8 @@ attributes_get_default_font(DiaFont **font, real *font_height)
 void
 attributes_set_default_font(DiaFont *font, real font_height)
 {
-  dia_font_unref(attributes_font);  
+  if (attributes_font != NULL)
+    dia_font_unref(attributes_font);  
   attributes_font = dia_font_ref(font);
   attributes_font_height = font_height;
 }

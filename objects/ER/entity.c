@@ -474,11 +474,14 @@ entity_load(ObjectNode obj_node, int version, const char *filename)
   if (attr != NULL)
     entity->weak = data_boolean(attribute_first_data(attr));
 
-  dia_font_unref(entity->font);
-  entity->font = NULL;
+  if (entity->font != NULL) {
+    /* This shouldn't happen, but doesn't hurt */
+    dia_font_unref(entity->font);
+    entity->font = NULL;
+  }
   attr = object_find_attribute (obj_node, "font");
   if (attr != NULL)
-	  entity->font = data_font (attribute_first_data (attr));
+    entity->font = data_font (attribute_first_data (attr));
 
   entity->font_height = FONT_HEIGHT;
   attr = object_find_attribute(obj_node, "font_height");
