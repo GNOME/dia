@@ -611,50 +611,57 @@ bezierconn_draw_control_lines(BezierConn *bez, Renderer *renderer)
 }
 
 void
-bezierconn_init(BezierConn *bez)
+bezierconn_init(BezierConn *bez, int num_points)
 {
   Object *obj;
+  int i;
 
   obj = &bez->object;
 
-  object_init(obj, 4, 0);
+  object_init(obj, 3*num_points-2, 0);
   
-  bez->numpoints = 2;
+  bez->numpoints = num_points;
 
-  bez->points = g_new(BezPoint, 2);
+  bez->points = g_new(BezPoint, num_points);
+  bez->corner_types = g_new(BezCornerType, num_points);
   bez->points[0].type = BEZ_MOVE_TO;
-  bez->points[1].type = BEZ_CURVE_TO;
-
-  bez->corner_types = g_new(BezCornerType, 2);
   bez->corner_types[0] = BEZ_CORNER_SYMMETRIC;
-  bez->corner_types[1] = BEZ_CORNER_SYMMETRIC;
-
-  bez->object.handles[0] = g_new(Handle, 1);
-  bez->object.handles[1] = g_new(Handle, 1);
-  bez->object.handles[2] = g_new(Handle, 1);
-  bez->object.handles[3] = g_new(Handle, 1);
+  for (i = 1; i < num_points; i++) {
+    bez->points[i].type = BEZ_CURVE_TO;
+    bez->corner_types[i] = BEZ_CORNER_SYMMETRIC;
+  }
 
   obj->handles[0]->connect_type = HANDLE_CONNECTABLE;
   obj->handles[0]->connected_to = NULL;
   obj->handles[0]->type = HANDLE_MAJOR_CONTROL;
   obj->handles[0]->id = HANDLE_MOVE_STARTPOINT;
-  
-  obj->handles[1]->connect_type = HANDLE_NONCONNECTABLE;
-  obj->handles[1]->connected_to = NULL;
-  obj->handles[1]->type = HANDLE_MINOR_CONTROL;
-  obj->handles[1]->id = HANDLE_RIGHTCTRL;
 
-  obj->handles[2]->connect_type = HANDLE_NONCONNECTABLE;
-  obj->handles[2]->connected_to = NULL;
-  obj->handles[2]->type = HANDLE_MINOR_CONTROL;
-  obj->handles[2]->id = HANDLE_LEFTCTRL;
+  for (i = 1; i < num_points; i++) {
+    bez->object.handles[3*i-2] = g_new(Handle, 1);
+    bez->object.handles[3*i-1] = g_new(Handle, 1);
+    bez->object.handles[3*i] = g_new(Handle, 1);
   
-  obj->handles[3]->connect_type = HANDLE_CONNECTABLE;
-  obj->handles[3]->connected_to = NULL;
-  obj->handles[3]->type = HANDLE_MAJOR_CONTROL;
-  obj->handles[3]->id = HANDLE_MOVE_ENDPOINT;
+    obj->handles[3*i-2]->connect_type = HANDLE_NONCONNECTABLE;
+    obj->handles[3*i-2]->connected_to = NULL;
+    obj->handles[3*i-2]->type = HANDLE_MINOR_CONTROL;
+    obj->handles[3*i-2]->id = HANDLE_RIGHTCTRL;
 
+    obj->handles[3*i-1]->connect_type = HANDLE_NONCONNECTABLE;
+    obj->handles[3*i-1]->connected_to = NULL;
+    obj->handles[3*i-1]->type = HANDLE_MINOR_CONTROL;
+    obj->handles[3*i-1]->id = HANDLE_LEFTCTRL;
+  
+    obj->handles[3*i]->connect_type = HANDLE_CONNECTABLE;
+    obj->handles[3*i]->connected_to = NULL;
+    obj->handles[3*i]->type = HANDLE_MAJOR_CONTROL;
+    obj->handles[3*i]->id = HANDLE_MOVE_ENDPOINT;
+  }
   bezierconn_update_data(bez);
+}
+
+void
+bezierconn_set_points(BezierConn *bez, int num_points, BezPoint *points)
+{
 }
 
 void

@@ -1,5 +1,10 @@
 2001-08-11  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
 
+	* lib/bezier_conn.h: 
+	* objects/standard/bezier.c (bezierline_create): 
+	* lib/bezier_conn.c (bezierconn_init): 
+	Preparations for use of userdata for bezier lines.
+	
 	* objects/standard/polygon.c: 
 	* objects/standard/create.h:
 	* lib/polyshape.c:

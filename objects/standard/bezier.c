@@ -283,15 +283,18 @@ bezierline_create(Point *startpoint,
   obj->type = &bezierline_type;
   obj->ops = &bezierline_ops;
 
-  bezierconn_init(bez);
-  
-  bez->points[0].p1 = *startpoint;
-  bez->points[1].p1 = *startpoint;
-  point_add(&bez->points[1].p1, &defaultlen);
-  bez->points[1].p2 = bez->points[1].p1;
-  point_add(&bez->points[1].p2, &defaultlen);
-  bez->points[1].p3 = bez->points[1].p2;
-  point_add(&bez->points[1].p3, &defaultlen);
+  if (user_data == NULL) {
+    bezierconn_init(bez, 2);
+    
+    bez->points[0].p1 = *startpoint;
+    bez->points[1].p1 = *startpoint;
+    point_add(&bez->points[1].p1, &defaultlen);
+    bez->points[1].p2 = bez->points[1].p1;
+    point_add(&bez->points[1].p2, &defaultlen);
+    bez->points[1].p3 = bez->points[1].p2;
+    point_add(&bez->points[1].p3, &defaultlen);
+  } else {
+  }
 
   bezierline_update_data(bezierline);
 

@@ -49,7 +49,7 @@ void bezierconn_update_boundingbox(BezierConn *bez);
 void bezierconn_simple_draw(BezierConn *bez, Renderer *renderer,
 			    real width);
 void bezierconn_draw_control_lines(BezierConn *bez, Renderer *renderer);
-void bezierconn_init(BezierConn *bez);
+void bezierconn_init(BezierConn *bez, int num_points);
 void bezierconn_destroy(BezierConn *bez);
 void bezierconn_copy(BezierConn *from, BezierConn *to);
 void bezierconn_save(BezierConn *bez, ObjectNode obj_node);
