@@ -163,8 +163,14 @@ connpointline_load(Object *obj,ObjectNode obj_node,
 		   const gchar *name, int default_nc,int *realconncount)
 {
   ConnPointLine *cpl;
+  int nc = default_nc;
+  AttributeNode attr;
 
-  cpl = connpointline_create(obj,load_int(obj_node,name,default_nc));
+  attr = object_find_attribute(obj_node, name);
+  if (attr != NULL)
+    nc = data_int(attribute_first_data(attr));
+  cpl = connpointline_create(obj,nc);
+
   if (realconncount) (*realconncount) += cpl->num_connections;
   return cpl;
   /* NOT this ! 
