@@ -1,5 +1,8 @@
 2001-02-20  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
 
+	* app/render_eps.c: Fixed for internationalized floating point
+	output. 
+
 	* objects/UML/note.c: Fixed properties -- was missing
 	Get/ApplyPropertiesFunc.  Also improved update to recalculate text
 	position. 

@@ -158,6 +158,7 @@ create_eps_renderer(DiagramData *data, const char *filename,
   double scale;
   Rectangle *extent;
   char *name;
+  char *old_locale;
  
   file = fopen(filename, "wb");
 
@@ -273,6 +274,7 @@ create_eps_renderer(DiagramData *data, const char *filename,
   print_reencode_font(file, "ZapfChancery-MediumItalic");
   print_reencode_font(file, "ZapfDingbats");
 
+  old_locale = setlocale(LC_NUMERIC, "C");
   fprintf(file,
 	  "/cp {closepath} bind def\n"
 	  "/c {curveto} bind def\n"
@@ -368,6 +370,7 @@ create_eps_renderer(DiagramData *data, const char *filename,
 	  "%%%%EndProlog\n\n\n",
 	  scale, -scale,
 	  -extent->left, -extent->bottom );
+  setlocale(LC_NUMERIC, old_locale);
   
   return renderer;
 }
@@ -393,7 +396,7 @@ new_psprint_renderer(Diagram *dia, FILE *file)
   double scale;
   Rectangle *extent;
   char *name;
- 
+
   renderer = g_new(RendererEPS, 1);
   renderer->renderer.ops = &EpsRenderOps;
   renderer->renderer.is_interactive = 0;
@@ -611,8 +614,11 @@ end_render(RendererEPS *renderer)
 static void
 set_linewidth(RendererEPS *renderer, real linewidth)
 {  /* 0 == hairline **/
+  char *old_locale;
 
+  old_locale = setlocale(LC_NUMERIC, "C");
   fprintf(renderer->file, "%f slw\n", (double) linewidth);
+  setlocale(LC_NUMERIC, old_locale);
 }
 
 static void
@@ -663,9 +669,11 @@ static void
 set_linestyle(RendererEPS *renderer, LineStyle mode)
 {
   real hole_width;
+  char *old_locale;
 
   renderer->saved_line_style = mode;
   
+  old_locale = setlocale(LC_NUMERIC, "C");
   switch(mode) {
   case LINESTYLE_SOLID:
     fprintf(renderer->file, "[] 0 sd\n");
@@ -695,6 +703,7 @@ set_linestyle(RendererEPS *renderer, LineStyle mode)
     fprintf(renderer->file, "[%f] 0 sd\n", renderer->dot_length);
     break;
   }
+  setlocale(LC_NUMERIC, old_locale);
 }
 
 static void
@@ -723,9 +732,12 @@ set_fillstyle(RendererEPS *renderer, FillStyle mode)
 static void
 set_font(RendererEPS *renderer, Font *font, real height)
 {
+  char *old_locale;
 
+  old_locale = setlocale(LC_NUMERIC, "C");
   fprintf(renderer->file, "/%s-latin1 ff %f scf sf\n",
 	  font_get_psfontname(font), (double)height);
+  setlocale(LC_NUMERIC, old_locale);
 }
 
 static void
@@ -733,11 +745,15 @@ draw_line(RendererEPS *renderer,
 	  Point *start, Point *end, 
 	  Color *line_color)
 {
+  char *old_locale;
+
+  old_locale = setlocale(LC_NUMERIC, "C");
   fprintf(renderer->file, "%f %f %f srgb\n",
 	  (double) line_color->red, (double) line_color->green, (double) line_color->blue);
 
   fprintf(renderer->file, "n %f %f m %f %f l s\n",
 	  start->x, start->y, end->x, end->y);
+  setlocale(LC_NUMERIC, old_locale);
 }
 
 static void
@@ -746,7 +762,9 @@ draw_polyline(RendererEPS *renderer,
 	      Color *line_color)
 {
   int i;
-  
+  char *old_locale;
+
+  old_locale = setlocale(LC_NUMERIC, "C");
   fprintf(renderer->file, "%f %f %f srgb\n",
 	  (double) line_color->red, (double) line_color->green, (double) line_color->blue);
   
@@ -759,6 +777,7 @@ draw_polyline(RendererEPS *renderer,
   }
 
   fprintf(renderer->file, "s\n");
+  setlocale(LC_NUMERIC, old_locale);
 }
 
 static void
@@ -767,7 +786,9 @@ draw_polygon(RendererEPS *renderer,
 	      Color *line_color)
 {
   int i;
+  char * old_locale;
   
+  old_locale = setlocale(LC_NUMERIC, "C");
   fprintf(renderer->file, "%f %f %f srgb\n",
 	  (double) line_color->red, (double) line_color->green, (double) line_color->blue);
   
@@ -780,6 +801,7 @@ draw_polygon(RendererEPS *renderer,
   }
 
   fprintf(renderer->file, "cp s\n");
+  setlocale(LC_NUMERIC, old_locale);
 }
 
 static void
@@ -788,7 +810,9 @@ fill_polygon(RendererEPS *renderer,
 	      Color *line_color)
 {
   int i;
-  
+  char *old_locale;
+
+  old_locale = setlocale(LC_NUMERIC, "C");
   fprintf(renderer->file, "%f %f %f srgb\n",
 	  (double) line_color->red, (double) line_color->green, (double) line_color->blue);
   
@@ -801,6 +825,7 @@ fill_polygon(RendererEPS *renderer,
   }
 
   fprintf(renderer->file, "f\n");
+  setlocale(LC_NUMERIC, old_locale);
 }
 
 static void
@@ -808,6 +833,9 @@ draw_rect(RendererEPS *renderer,
 	  Point *ul_corner, Point *lr_corner,
 	  Color *color)
 {
+  char *old_locale;
+
+  old_locale = setlocale(LC_NUMERIC, "C");
   fprintf(renderer->file, "%f %f %f srgb\n",
 	  (double) color->red, (double) color->green, (double) color->blue);
   
@@ -816,6 +844,7 @@ draw_rect(RendererEPS *renderer,
 	  (double) ul_corner->x, (double) lr_corner->y,
 	  (double) lr_corner->x, (double) lr_corner->y,
 	  (double) lr_corner->x, (double) ul_corner->y );
+  setlocale(LC_NUMERIC, old_locale);
 
 }
 
@@ -824,6 +853,9 @@ fill_rect(RendererEPS *renderer,
 	  Point *ul_corner, Point *lr_corner,
 	  Color *color)
 {
+  char *old_locale;
+
+  old_locale = setlocale(LC_NUMERIC, "C");
   fprintf(renderer->file, "%f %f %f srgb\n",
 	  (double) color->red, (double) color->green, (double) color->blue);
 
@@ -832,6 +864,7 @@ fill_rect(RendererEPS *renderer,
 	  (double) ul_corner->x, (double) lr_corner->y,
 	  (double) lr_corner->x, (double) lr_corner->y,
 	  (double) lr_corner->x, (double) ul_corner->y );
+  setlocale(LC_NUMERIC, old_locale);
 }
 
 static void
@@ -841,6 +874,9 @@ draw_arc(RendererEPS *renderer,
 	 real angle1, real angle2,
 	 Color *color)
 {
+  char *old_locale;
+
+  old_locale = setlocale(LC_NUMERIC, "C");
   fprintf(renderer->file, "%f %f %f srgb\n",
 	  (double) color->red, (double) color->green, (double) color->blue);
 
@@ -848,6 +884,7 @@ draw_arc(RendererEPS *renderer,
 	  (double) center->x, (double) center->y,
 	  (double) width/2.0, (double) height/2.0,
 	  (double) 360.0 - angle2, (double) 360.0 - angle1 );
+  setlocale(LC_NUMERIC, old_locale);
 }
 
 static void
@@ -857,6 +894,9 @@ fill_arc(RendererEPS *renderer,
 	 real angle1, real angle2,
 	 Color *color)
 {
+  char *old_locale;
+
+  old_locale = setlocale(LC_NUMERIC, "C");
   fprintf(renderer->file, "%f %f %f srgb\n",
 	  (double) color->red, (double) color->green, (double) color->blue);
 
@@ -865,6 +905,7 @@ fill_arc(RendererEPS *renderer,
 	  (double) center->x, (double) center->y,
 	  (double) width/2.0, (double) height/2.0,
 	  (double) 360.0 - angle2, (double) 360.0 - angle1 );
+  setlocale(LC_NUMERIC, old_locale);
 }
 
 static void
@@ -873,12 +914,16 @@ draw_ellipse(RendererEPS *renderer,
 	     real width, real height,
 	     Color *color)
 {
+  char *old_locale;
+
+  old_locale = setlocale(LC_NUMERIC, "C");
   fprintf(renderer->file, "%f %f %f srgb\n",
 	  (double) color->red, (double) color->green, (double) color->blue);
 
   fprintf(renderer->file, "n %f %f %f %f 0 360 ellipse cp s\n",
 	  (double) center->x, (double) center->y,
 	  (double) width/2.0, (double) height/2.0 );
+  setlocale(LC_NUMERIC, old_locale);
 }
 
 static void
@@ -887,12 +932,16 @@ fill_ellipse(RendererEPS *renderer,
 	     real width, real height,
 	     Color *color)
 {
+  char *old_locale;
+
+  old_locale = setlocale(LC_NUMERIC, "C");
   fprintf(renderer->file, "%f %f %f srgb\n",
 	  (double) color->red, (double) color->green, (double) color->blue);
 
   fprintf(renderer->file, "n %f %f %f %f 0 360 ellipse f\n",
 	  (double) center->x, (double) center->y,
 	  (double) width/2.0, (double) height/2.0 );
+  setlocale(LC_NUMERIC, old_locale);
 }
 
 static void
@@ -902,7 +951,9 @@ draw_bezier(RendererEPS *renderer,
 	    Color *color)
 {
   int i;
+  char *old_locale;
 
+  old_locale = setlocale(LC_NUMERIC, "C");
   fprintf(renderer->file, "%f %f %f srgb\n",
 	  (double) color->red, (double) color->green, (double) color->blue);
 
@@ -930,6 +981,7 @@ draw_bezier(RendererEPS *renderer,
     }
 
   fprintf(renderer->file, " s\n");
+  setlocale(LC_NUMERIC, old_locale);
 }
 
 static void
@@ -939,7 +991,9 @@ fill_bezier(RendererEPS *renderer,
 	    Color *color)
 {
   int i;
+  char *old_locale;
 
+  old_locale = setlocale(LC_NUMERIC, "C");
   fprintf(renderer->file, "%f %f %f srgb\n",
 	  (double) color->red, (double) color->green, (double) color->blue);
 
@@ -967,6 +1021,7 @@ fill_bezier(RendererEPS *renderer,
     }
 
   fprintf(renderer->file, " f\n");
+  setlocale(LC_NUMERIC, old_locale);
 }
 
 static void
@@ -978,9 +1033,11 @@ draw_string(RendererEPS *renderer,
   char *buffer;
   const char *str;
   int len;
+  char *old_locale;
 
   /* TODO: Use latin-1 encoding */
 
+  old_locale = setlocale(LC_NUMERIC, "C");
   fprintf(renderer->file, "%f %f %f srgb\n",
 	  (double) color->red, (double) color->green, (double) color->blue);
 
@@ -1017,6 +1074,7 @@ draw_string(RendererEPS *renderer,
   }
   
   fprintf(renderer->file, " gs 1 -1 sc sh gr\n");
+  setlocale(LC_NUMERIC, old_locale);
 }
 
 static void
@@ -1032,7 +1090,9 @@ draw_image(RendererEPS *renderer,
   real ratio;
   guint8 *rgb_data;
   guint8 *mask_data;
+  char *old_locale;
 
+  old_locale = setlocale(LC_NUMERIC, "C");
   img_width = dia_image_width(image);
   img_height = dia_image_height(image);
 
@@ -1116,6 +1176,7 @@ draw_image(RendererEPS *renderer,
   /*  fprintf(renderer->file, "%f %f scale\n", 1.0, 1.0/ratio);*/
   fprintf(renderer->file, "gr\n");
   fprintf(renderer->file, "\n");
+  setlocale(LC_NUMERIC, old_locale);
   
   g_free(rgb_data);
   g_free(mask_data);
