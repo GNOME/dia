@@ -8,3 +8,4 @@ Icon=dia_gnome_icon.png
 Terminal=false
 Categories=GNOME;Application;Graphics;
 StartupNotify=true
+MimeType=application/x-dia-diagram;
