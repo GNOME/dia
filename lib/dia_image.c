@@ -21,6 +21,16 @@
 #include "dia_image.h"
 #include <gdk_imlib.h>
 
+void
+dia_image_init(void)
+{
+  gdk_imlib_init();
+  /* FIXME:  Is this a good idea? */
+  gtk_widget_push_visual(gdk_imlib_get_visual());
+  gtk_widget_push_colormap(gdk_imlib_get_colormap());
+}
+
+
 DiaImage 
 dia_image_load(gchar *filename) 
 {
@@ -33,15 +43,35 @@ dia_image_release(DiaImage image)
   gdk_imlib_destroy_image((GdkImlibImage *)image);
 }
 
+void
+dia_image_draw(DiaImage image, GdkWindow *window,
+	       int x, int y, int width, int height)
+{
+  gdk_imlib_paste_image((GdkImlibImage *)image, window,
+			x, y, width, height);
+} 
+
 int 
-dia_image_pixel_width(DiaImage image) 
+dia_image_width(DiaImage image) 
 {
   return ((GdkImlibImage *)image)->rgb_width;
 }
 
 int 
-dia_image_pixel_height(DiaImage image)
+dia_image_height(DiaImage image)
 {
   return ((GdkImlibImage *)image)->rgb_height;
+}
+
+guint8 *
+dia_image_rgb_data(DiaImage image)
+{
+  return ((GdkImlibImage *)image)->rgb_data;
+}
+
+char *
+dia_image_filename(DiaImage image)
+{
+  return ((GdkImlibImage *)image)->filename;
 }
 

@@ -18,7 +18,6 @@
 
 #include <math.h>
 #include <gdk/gdk.h>
-#include <gdk_imlib.h>
 
 #include "render_gdk.h"
 #include "message.h"
@@ -870,18 +869,17 @@ static void
 draw_image(RendererGdk *renderer,
 	   Point *point,
 	   real width, real height,
-	   DiaImage *dia_image)
+	   DiaImage *image)
 {
   int real_width, real_height, real_x, real_y;
-  GdkImlibImage *image = (GdkImlibImage *)dia_image;
   
   real_width = ddisplay_transform_length(renderer->ddisp, width);
   real_height = ddisplay_transform_length(renderer->ddisp, height);
   ddisplay_transform_coords(renderer->ddisp, point->x, point->y,
 			    &real_x, &real_y);
 
-  gdk_imlib_paste_image((GdkImlibImage *)image, renderer->pixmap,
-			real_x, real_y, real_width, real_height);
+  dia_image_draw(image,  renderer->pixmap, real_x, real_y,
+		 real_width, real_height);
 }
 
 static real

@@ -19,7 +19,6 @@
 #include <time.h>
 #include <math.h>
 #include <unistd.h>
-#include <gdk_imlib.h>
 
 #include "config.h"
 #include "render_eps.h"
@@ -639,18 +638,20 @@ static void
 draw_image(RendererEPS *renderer,
 	   Point *point,
 	   real width, real height,
-	   DiaImage *dia_image)
+	   DiaImage *image)
 {
   int img_width, img_height;
   int v;
   int                 x, y;
   unsigned char      *ptr;
   real ratio;
-  GdkImlibImage *image = (GdkImlibImage *)dia_image;
+  guint8 *rgb_data;
 
-  img_width = image->rgb_width;
-  img_height = image->rgb_height;
+  img_width = dia_image_width(image);
+  img_height = dia_image_height(image);
 
+  rgb_data = dia_image_rgb_data(image);
+  
   ratio = height/width;
 
   fprintf(renderer->file, "/origstate save def\n");
@@ -713,7 +714,7 @@ draw_image(RendererEPS *renderer,
     fprintf(renderer->file, "{currentfile pix readhexstring pop}\n");
     fprintf(renderer->file, "false 3 colorimage\n");
     fprintf(renderer->file, "\n");
-    ptr = image->rgb_data;
+    ptr = rgb_data;
     for (y = 0; y < img_width; y++)
     {
       for (x = 0; x < img_height; x++)
@@ -751,7 +752,7 @@ draw_image(RendererEPS *renderer,
     fprintf(renderer->file, "{currentfile pix readhexstring pop}\n");
     fprintf(renderer->file, "image\n");
     fprintf(renderer->file, "\n");
-    ptr = image->rgb_data;
+    ptr = rgb_data;
     for (y = 0; y < img_height; y++)
     {
       for (x = 0; x < img_width; x++)

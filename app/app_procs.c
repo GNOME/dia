@@ -134,10 +134,7 @@ app_init (int argc, char **argv)
   }
 #else
   gtk_init (&argc, &argv);
-  gdk_imlib_init();
-  /* FIXME:  Is this a good idea? */
-  gtk_widget_push_visual(gdk_imlib_get_visual());
-  gtk_widget_push_colormap(gdk_imlib_get_colormap());
+  dia_image_init();
 #endif
 
   /* Here could be popt stuff for options */

@@ -171,8 +171,8 @@ image_apply_properties(Image *image)
   image->image = dia_image_load(new_file);
   if ((image->image != NULL) && (image->keep_aspect)) {
     /* Must... keep... aspect... ratio... */
-    float ratio = (float)dia_image_pixel_height(image->image)/
-      (float)dia_image_pixel_width(image->image);
+    float ratio = (float)dia_image_height(image->image)/
+      (float)dia_image_width(image->image);
     image->element.height = image->element.width * ratio;
   }
   image->file = g_strdup(new_file);
@@ -612,8 +612,8 @@ image_create(Point *startpoint,
     image->image = dia_image_load(image->file);
 
     if (image->image) {
-      elem->width = (elem->width*(float)dia_image_pixel_width(image->image))/
-	(float)dia_image_pixel_height(image->image);
+      elem->width = (elem->width*(float)dia_image_width(image->image))/
+	(float)dia_image_height(image->image);
     }
   } else {
     image->file = g_strdup("");

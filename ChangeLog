@@ -1,5 +1,16 @@
 1999-02-15  Alexander Larsson  <alla@lysator.liu.se>
 
+	* lib/dia_image.[ch]:
+	More work on the DiaImage abstraction.
+	
+	* app/app_procs.c:
+	* app/render_eps.c:
+	* app/render_gdk.c:
+	* objects/standard/image.c:
+	Use the new DiaImage calls.
+
+1999-02-15  Alexander Larsson  <alla@lysator.liu.se>
+
 	* app/menus.c:
 	* app/display.c:
 	Reversed the meaning of align horizontal/vertical.
