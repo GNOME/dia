@@ -1,3 +1,8 @@
+2001-04-25  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+
+	* app/properties.c (properties_show): Added title containing
+	object type, plus (hopefully) fix of the ghost properties dialog.
+
 2001-04-16  Cyrille Chepelov  <chepelov@calixo.net>
 
 	* app/display.c: remove the display idle handler in case we

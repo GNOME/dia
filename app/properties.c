@@ -32,6 +32,7 @@
 #include "connectionpoint_ops.h"
 #include "undo.h"
 #include "message.h"
+#include <string.h>
 
 static GtkWidget *dialog = NULL;
 static GtkWidget *dialog_vbox = NULL;
@@ -43,6 +44,13 @@ static GtkWidget *no_properties_dialog = NULL;
 
 static gint properties_okay(GtkWidget *canvas, gpointer data);
 static gint properties_apply(GtkWidget *canvas, gpointer data);
+
+static void
+properties_dialog_hide(GtkWidget *dialog) 
+{
+  current_obj = NULL;
+  gtk_widget_hide(dialog);
+}
 
 static void create_dialog()
 {
@@ -105,13 +113,13 @@ static void create_dialog()
   gtk_box_pack_start(GTK_BOX(GTK_DIALOG(dialog)->action_area), 
 		     button, TRUE, TRUE, 0);
   gtk_signal_connect_object(GTK_OBJECT (button), "clicked",
-			    GTK_SIGNAL_FUNC(gtk_widget_hide),
+			    GTK_SIGNAL_FUNC(properties_dialog_hide),
 			    GTK_OBJECT(dialog));
   gtk_widget_show (button);
 #endif
 
   gtk_signal_connect(GTK_OBJECT (dialog), "delete_event",
-		     GTK_SIGNAL_FUNC(gtk_widget_hide), NULL);
+		     GTK_SIGNAL_FUNC(properties_dialog_hide), NULL);
 
   no_properties_dialog = gtk_label_new(_("This object has no properties."));
   gtk_widget_show (no_properties_dialog);
@@ -134,7 +142,7 @@ static gint
 properties_okay(GtkWidget *canvas, gpointer data)
 {
   gint ret = properties_apply(canvas,data);
-  gtk_widget_hide(canvas);
+  properties_dialog_hide(canvas);
   return ret;
 }
 
@@ -196,6 +204,21 @@ properties_show(Diagram *dia, Object *obj)
     current_obj = NULL;
     current_dia = NULL;
   }
+
+  if (obj != NULL) {
+    ObjectType *otype;
+    gchar *buf;
+    gchar *prop_part = _("Properties: ");
+
+    otype = obj->type;
+    buf = g_malloc(strlen(prop_part)+strlen(otype->name)+1);
+    strcpy(buf, prop_part);
+    strcat(buf, otype->name);
+    gtk_window_set_title(GTK_WINDOW(dialog), buf);
+  } else {
+    gtk_window_set_title(GTK_WINDOW(dialog), _("Object properties:"));
+  }
+
   gtk_signal_connect (GTK_OBJECT (properties), "destroy",
 		      GTK_SIGNAL_FUNC(properties_dialog_destroyed), NULL);
   gtk_box_pack_start(GTK_BOX(dialog_vbox), properties, TRUE, TRUE, 0);
@@ -221,12 +244,3 @@ properties_update_if_shown(Diagram *dia, Object *obj)
     properties_show(dia, obj);
   }
 }
-
-
-
-
-
-
-
-
-
