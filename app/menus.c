@@ -139,8 +139,8 @@ static GnomeUIInfo helpmenu[] = {
 };
 
 static GnomeUIInfo toolbox_menu[] = {
-  GNOMEUIINFO_SUBTREE(N_("File"), toolbox_filemenu),
-  GNOMEUIINFO_SUBTREE(N_("Help"), helpmenu),
+  GNOMEUIINFO_MENU_FILE_TREE(toolbox_filemenu),
+  GNOMEUIINFO_MENU_HELP_TREE(helpmenu),
   GNOMEUIINFO_END
 };
 
@@ -350,7 +350,12 @@ GtkWidget *menus_get_item_from_path (char *path)
   path ++; /* move past the / */
 
   parentw = gnome_app_find_menu_pos (ddisp->popup, path, &pos);
-  if (! parentw) return NULL;
+  if (! parentw) {
+    g_warning("Can't find menu entry '%s'!\nThis is probably a i18n problem "
+	      "(try LANG=C).",
+	      path);
+    return NULL;
+  }
 
   parent = GTK_MENU_SHELL (parentw);
   widget = (GtkWidget *) g_list_nth (parent->children, pos-1)->data;
@@ -360,6 +365,11 @@ GtkWidget *menus_get_item_from_path (char *path)
   widget = gtk_item_factory_get_widget(display_item_factory, path);
   if (widget == NULL)
     widget = gtk_item_factory_get_widget(toolbox_item_factory, path);
+
+  if (widget == NULL)
+     g_warning("Can't find menu entry '%s'!\nThis is probably a i18n problem "
+	       "(try LANG=C).",
+	       path);
 
 # endif
 
