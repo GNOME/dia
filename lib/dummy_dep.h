@@ -24,6 +24,7 @@
 #include "orth_conn.h"
 #include "arrows.h"
 #include "utils.h"
+#include "poly_conn.h"
 #include "widgets.h"
 
 /* This is a file with dummy dependencies so that all
@@ -34,6 +35,7 @@ static void *dummy_dep[] = {
   connection_move_handle,
   element_update_boundingbox,
   orthconn_update_data,
+  polyconn_init,
   new_text,
   font_getfont,
   new_render_store,

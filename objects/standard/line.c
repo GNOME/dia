@@ -400,7 +400,15 @@ line_draw(Line *line, Renderer *renderer)
   assert(renderer != NULL);
 
   endpoints = &line->connection.endpoints[0];
-  
+
+  renderer->ops->set_linewidth(renderer, line->line_width);
+  renderer->ops->set_linestyle(renderer, line->line_style);
+  renderer->ops->set_linecaps(renderer, LINECAPS_BUTT);
+
+  renderer->ops->draw_line(renderer,
+			   &endpoints[0], &endpoints[1],
+			   &line->line_color);
+
   if (line->start_arrow.type != ARROW_NONE) {
     arrow_draw(renderer, line->start_arrow.type,
 	       &endpoints[0], &endpoints[1],
@@ -415,14 +423,6 @@ line_draw(Line *line, Renderer *renderer)
 	       line->line_width,
 	       &line->line_color, &color_white);
   }
-
-  renderer->ops->set_linewidth(renderer, line->line_width);
-  renderer->ops->set_linestyle(renderer, line->line_style);
-  renderer->ops->set_linecaps(renderer, LINECAPS_BUTT);
-
-  renderer->ops->draw_line(renderer,
-			   &endpoints[0], &endpoints[1],
-			   &line->line_color);
 }
 
 static Object *

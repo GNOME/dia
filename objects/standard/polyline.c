@@ -408,7 +408,14 @@ polyline_draw(Polyline *polyline, Renderer *renderer)
   
   points = &poly->points[0];
   n = poly->numpoints;
-  
+
+  renderer->ops->set_linewidth(renderer, polyline->line_width);
+  renderer->ops->set_linestyle(renderer, polyline->line_style);
+  renderer->ops->set_linejoin(renderer, LINEJOIN_MITER);
+  renderer->ops->set_linecaps(renderer, LINECAPS_BUTT);
+
+  renderer->ops->draw_polyline(renderer, points, n, &polyline->line_color);
+
   if (polyline->start_arrow.type != ARROW_NONE) {
     arrow_draw(renderer, polyline->start_arrow.type,
 	       &points[0], &points[1],
@@ -422,12 +429,6 @@ polyline_draw(Polyline *polyline, Renderer *renderer)
 	       polyline->line_width,
 	       &polyline->line_color, &color_white);
   }
-  renderer->ops->set_linewidth(renderer, polyline->line_width);
-  renderer->ops->set_linestyle(renderer, polyline->line_style);
-  renderer->ops->set_linejoin(renderer, LINEJOIN_MITER);
-  renderer->ops->set_linecaps(renderer, LINECAPS_BUTT);
-
-  renderer->ops->draw_polyline(renderer, points, n, &polyline->line_color);
 }
 
 static Object *

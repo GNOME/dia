@@ -400,6 +400,13 @@ zigzagline_draw(Zigzagline *zigzagline, Renderer *renderer)
   points = &orth->points[0];
   n = orth->numpoints;
   
+  renderer->ops->set_linewidth(renderer, zigzagline->line_width);
+  renderer->ops->set_linestyle(renderer, zigzagline->line_style);
+  renderer->ops->set_linejoin(renderer, LINEJOIN_MITER);
+  renderer->ops->set_linecaps(renderer, LINECAPS_BUTT);
+
+  renderer->ops->draw_polyline(renderer, points, n, &zigzagline->line_color);
+  
   if (zigzagline->start_arrow.type != ARROW_NONE) {
     arrow_draw(renderer, zigzagline->start_arrow.type,
 	       &points[0], &points[1],
@@ -414,12 +421,6 @@ zigzagline_draw(Zigzagline *zigzagline, Renderer *renderer)
 	       zigzagline->line_width,
 	       &zigzagline->line_color, &color_white);
   }
-  renderer->ops->set_linewidth(renderer, zigzagline->line_width);
-  renderer->ops->set_linestyle(renderer, zigzagline->line_style);
-  renderer->ops->set_linejoin(renderer, LINEJOIN_MITER);
-  renderer->ops->set_linecaps(renderer, LINECAPS_BUTT);
-
-  renderer->ops->draw_polyline(renderer, points, n, &zigzagline->line_color);
 }
 
 static Object *

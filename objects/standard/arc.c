@@ -485,6 +485,26 @@ arc_draw(Arc *arc, Renderer *renderer)
 
   endpoints = &arc->connection.endpoints[0];
 
+  renderer->ops->set_linewidth(renderer, arc->line_width);
+  renderer->ops->set_linestyle(renderer, arc->line_style);
+  renderer->ops->set_linecaps(renderer, LINECAPS_BUTT);
+  
+  /* Special case when almost line: */
+  if (fabs(arc->curve_distance) <= 0.0001) {
+    renderer->ops->draw_line(renderer,
+			     &endpoints[0], &endpoints[1],
+			     &arc->arc_color);
+    return;
+  }
+  
+  width = 2*arc->radius;
+  
+  renderer->ops->draw_arc(renderer,
+			  &arc->center,
+			  width, width,
+			  arc->angle1, arc->angle2,
+			  &arc->arc_color);
+
   if (arc->start_arrow.type != ARROW_NONE ||
       arc->end_arrow.type != ARROW_NONE) {
     Point reversepoint, centervec;
@@ -532,27 +552,6 @@ arc_draw(Arc *arc, Renderer *renderer)
 		 &arc->arc_color, &color_white);
     }
   }
-
-  renderer->ops->set_linewidth(renderer, arc->line_width);
-  renderer->ops->set_linestyle(renderer, arc->line_style);
-  renderer->ops->set_linecaps(renderer, LINECAPS_BUTT);
-  
-  /* Special case when almost line: */
-  if (fabs(arc->curve_distance) <= 0.0001) {
-    renderer->ops->draw_line(renderer,
-			     &endpoints[0], &endpoints[1],
-			     &arc->arc_color);
-    return;
-  }
-  
-  width = 2*arc->radius;
-  
-  renderer->ops->draw_arc(renderer,
-			  &arc->center,
-			  width, width,
-			  arc->angle1, arc->angle2,
-			  &arc->arc_color);
-  
 }
 
 static Object *

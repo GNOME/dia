@@ -1,5 +1,17 @@
 1999-05-13  Alexander Larsson  <alla@lysator.liu.se>
 
+	* lib/dummy_dep.h:
+	Added ref to poly_conn.o.
+
+	* objects/standard/polyline.c (polyline_draw): 
+	* objects/standard/zigzagline.c (zigzagline_draw): 
+	* objects/standard/arc.c (arc_draw): 
+	* objects/standard/line.c (line_draw):
+	Draw lines before arrows. This makes hollow arrows not
+	show the line.
+
+1999-05-13  Alexander Larsson  <alla@lysator.liu.se>
+
 	Changes from Kim Peasley <kpeasley@ior.com> 
 		
 	* dia/objects/UML/class.c:
