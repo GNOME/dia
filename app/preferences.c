@@ -74,6 +74,7 @@ struct DiaPrefsTab prefs_tabs[] =
 struct DiaPrefsData prefs_data[] =
 {
   { "reset_tools_after_create", PREF_BOOLEAN, PREF_OFFSET(reset_tools_after_create), &default_false, 0, N_("Reset tools after create:") },
+  { "compress_save", PREF_BOOLEAN, PREF_OFFSET(compress_save), &default_true, 0, N_("Compress saved files:") },
 
   { NULL, PREF_NONE, 0, NULL, 1, N_("Grid:") },
   { "grid_visible", PREF_BOOLEAN, PREF_OFFSET(grid.visible), &default_true, 1, N_("Visible:") },

@@ -1,3 +1,13 @@
+1999-04-14  Alexander Larsson  <alla@lysator.liu.se>
+
+	* app/preferences.c:
+	* app/load_save.c:
+	Added preference compress_save. It lets dia save uncompressed
+	xml files.
+
+	* objects/UML/class.c:
+	Fixed bug with size calculation on methods that had class scope.
+	
 1999-04-13  Alejandro Aguilar Sierra  <asierra@servidor.unam.mx>
 
 	* objects/UML/usecase.c: 

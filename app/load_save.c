@@ -34,6 +34,7 @@
 #include "dia_xml.h"
 #include "group.h"
 #include "message.h"
+#include "preferences.h"
 
 static GList *
 read_objects(xmlNodePtr objects, GHashTable *objects_hash, char *filename)
@@ -413,7 +414,11 @@ diagram_save(Diagram *dia, char *filename)
   }
   g_hash_table_destroy(objects_hash);
 
-  xmlSetDocCompressMode(doc, 9);
+  if (prefs.compress_save)
+    xmlSetDocCompressMode(doc, 9);
+  else
+    xmlSetDocCompressMode(doc, 0);
+    
   ret = xmlSaveFile (filename, doc);
   xmlFreeDoc(doc);
   if (ret < 0)

@@ -41,6 +41,7 @@ struct DiaPreferences {
   } new_view;
   
   int reset_tools_after_create;
+  int compress_save;
 };
 
 extern struct DiaPreferences prefs;

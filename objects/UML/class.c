@@ -279,12 +279,13 @@ umlclass_draw(UMLClass *umlclass, Renderer *renderer)
 				   &color_black);
 
 	if (op->class_scope) {
-	  p.y += umlclass->font_height*0.1;
-	  p1 = p;
-	  p1.x += font_string_width(umlclass->operations_strings[i],
+	  p1 = p; 
+	  p1.y += umlclass->font_height*0.1;
+	  p3 = p1;
+	  p3.x += font_string_width(umlclass->operations_strings[i],
 				    font, umlclass->font_height);
 	  renderer->ops->set_linewidth(renderer, UMLCLASS_UNDERLINEWIDTH);
-	  renderer->ops->draw_line(renderer, &p, &p1,  &color_black);
+	  renderer->ops->draw_line(renderer, &p1, &p3,  &color_black);
 	  renderer->ops->set_linewidth(renderer, UMLCLASS_BORDER);
 	}
 
