@@ -106,6 +106,18 @@ point_in_rectangle(Rectangle* r, Point *p)
   return TRUE;
 }
 
+int
+rectangle_in_rectangle(Rectangle* outer, Rectangle *inner)
+{
+  if ( (inner->left < outer->left) ||
+       (inner->right > outer->right) ||
+       (inner->top < outer->top) ||
+       (inner->bottom > outer->bottom))
+    return FALSE;
+  
+  return TRUE;
+}
+
 real
 distance_point_point(Point *p1, Point *p2)
 {
@@ -121,6 +133,7 @@ distance_point_point_manhattan(Point *p1, Point *p2)
   real dy = p1->y - p2->y;
   return ABS(dx) + ABS(dy);
 }
+
 /*
  * This function estimates the distance from a point to a rectangle.
  * If the point is in the rectangle, 0.0 is returned. Otherwise the

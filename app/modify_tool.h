@@ -26,7 +26,8 @@ typedef struct _ModifyTool ModifyTool;
 enum ModifyToolState {
   STATE_NONE,
   STATE_MOVE_OBJECT,
-  STATE_MOVE_HANDLE
+  STATE_MOVE_HANDLE,
+  STATE_BOX_SELECT
 };
 
 struct _ModifyTool {
@@ -38,6 +39,12 @@ struct _ModifyTool {
   Object *object;
   Handle *handle;
   Point last_to;
+
+  GdkGC *gc;
+
+  int x1, y1, x2, y2;
+  Point start_box;
+  Point end_box;
 };
 
 extern Tool *create_modify_tool(void);

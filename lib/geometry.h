@@ -56,6 +56,7 @@ extern void rectangle_union(Rectangle *r1, Rectangle *r2);
 extern void rectangle_intersection(Rectangle *r1, Rectangle *r2);
 extern int rectangle_intersects(Rectangle *r1, Rectangle *r2);
 extern int point_in_rectangle(Rectangle* r, Point *p);
+extern int rectangle_in_rectangle(Rectangle* outer, Rectangle *inner);
 
 extern real distance_point_point(Point *p1, Point *p2);
 extern real distance_point_point_manhattan(Point *p1, Point *p2);

@@ -48,7 +48,7 @@ create_modify_tool(void)
   tool->tool.button_release_func = (ButtonReleaseFunc) &modify_button_release;
   tool->tool.motion_func = (MotionFunc) &modify_motion;
   tool->tool.double_click_func = (DoubleClickFunc) &modify_double_click;
-
+  tool->gc = NULL;
   tool->state = STATE_NONE;
   tool->break_connections = 0;
 
@@ -179,6 +179,29 @@ modify_button_press(ModifyTool *tool, GdkEventButton *event,
     gdk_pointer_grab (ddisp->canvas->window, FALSE,
                       GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON1_MOTION_MASK | GDK_BUTTON_RELEASE_MASK,
                       NULL, NULL, event->time);
+  } else {
+    tool->state = STATE_BOX_SELECT;
+    tool->start_box = clickedpoint;
+    tool->end_box = clickedpoint;
+    tool->x1 = tool->x2 = (int) event->x;
+    tool->y1 = tool->y2 = (int) event->y;
+    
+    if (tool->gc == NULL) {
+      tool->gc = gdk_gc_new(ddisp->pixmap);
+      gdk_gc_set_line_attributes(tool->gc, 1, GDK_LINE_ON_OFF_DASH, 
+				 GDK_CAP_BUTT, GDK_JOIN_MITER);
+      gdk_gc_set_foreground(tool->gc, &color_gdk_white);
+      gdk_gc_set_function(tool->gc, GDK_XOR);
+    }
+
+    gdk_draw_rectangle (ddisp->pixmap, tool->gc, FALSE,
+			tool->x1, tool->y1,
+			tool->x2 - tool->x1, tool->y2 - tool->y1);
+    ddisplay_add_display_area(ddisp,
+			      tool->x1, tool->y1,
+			      tool->x2+1, tool->y2+1);
+
+    ddisplay_flush(ddisp);
   }
 }
 
@@ -264,6 +287,35 @@ modify_motion(ModifyTool *tool, GdkEventMotion *event,
     diagram_update_connections_selection(ddisp->diagram);
     diagram_flush(ddisp->diagram);
     break;
+  case STATE_BOX_SELECT:
+    
+    gdk_draw_rectangle (ddisp->pixmap, tool->gc, FALSE,
+			tool->x1, tool->y1,
+			tool->x2 - tool->x1, tool->y2 - tool->y1);
+    ddisplay_add_display_area(ddisp,
+			      tool->x1-1, tool->y1-1,
+			      tool->x2+1, tool->y2+1);
+
+    tool->end_box = to;
+
+    ddisplay_transform_coords(ddisp,
+			      MIN(tool->start_box.x, tool->end_box.x),
+			      MIN(tool->start_box.y, tool->end_box.y),
+			      &tool->x1, &tool->y1);
+    ddisplay_transform_coords(ddisp,
+			      MAX(tool->start_box.x, tool->end_box.x),
+			      MAX(tool->start_box.y, tool->end_box.y),
+			      &tool->x2, &tool->y2);
+
+    gdk_draw_rectangle (ddisp->pixmap, tool->gc, FALSE,
+			tool->x1, tool->y1,
+			tool->x2 - tool->x1, tool->y2 - tool->y1);
+    ddisplay_add_display_area(ddisp,
+			      tool->x1-1, tool->y1-1,
+			      tool->x2+1, tool->y2+1);
+
+    ddisplay_flush(ddisp);
+    break;
   case STATE_NONE:
     
     break;
@@ -309,6 +361,43 @@ modify_button_release(ModifyTool *tool, GdkEventButton *event,
     
     diagram_modified(ddisp->diagram);
     diagram_update_extents(ddisp->diagram);
+    tool->state = STATE_NONE;
+    break;
+  case STATE_BOX_SELECT:
+    /* Remove last box: */
+    gdk_draw_rectangle (ddisp->pixmap, tool->gc, FALSE,
+			tool->x1, tool->y1,
+			tool->x2 - tool->x1, tool->y2 - tool->y1);
+    ddisplay_add_display_area(ddisp,
+			      tool->x1-1, tool->y1-1,
+			      tool->x2+1, tool->y2+1);
+
+    {
+      Rectangle r;
+      GList *list;
+      Object *obj;
+
+      r.left = MIN(tool->start_box.x, tool->end_box.x);
+      r.right = MAX(tool->start_box.x, tool->end_box.x);
+      r.top = MIN(tool->start_box.y, tool->end_box.y);
+      r.bottom = MAX(tool->start_box.y, tool->end_box.y);
+      
+      list = ddisp->diagram->objects;
+
+      while (list != NULL) {
+	obj = (Object *)list->data;
+
+	if (rectangle_in_rectangle(&r, &obj->bounding_box)) {
+	  if (!diagram_is_selected(ddisp->diagram, obj))
+	    diagram_add_selected(ddisp->diagram, obj);
+	}
+	
+	list = g_list_next(list);
+      }
+    }
+    
+    ddisplay_flush(ddisp);
+
     tool->state = STATE_NONE;
     break;
   case STATE_NONE:
