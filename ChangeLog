@@ -1,5 +1,8 @@
 2002-07-17  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* plug-ins/xfig/xfig-import.c: Support for polygons and
+	polylines.  Special warning handling system removed.
+
 	* lib/message.c (gtk_message_internal): Fixed bug involving
 	closing message window and then getting repeated message.
 

@@ -59,35 +59,6 @@ static Color fig_colors[FIG_MAX_USER_COLORS];
 
 gboolean import_fig(const gchar *filename, DiagramData *dia, void* user_data);
 
-static char **warnings;
-
-#define WARNING_NO_POLYGONS 0
-#define WARNING_NO_PATTERNS 1
-#define WARNING_NO_TRIPLE_DOTS 2
-#define WARNING_NEGATIVE_CORNER_RADIUS 3
-#define WARNING_NO_SPLINES 4
-#define WARNING_MISSING_STD_OBJECT 5
-#define MAX_WARNING 6
-
-static void
-fig_warn(int warning) {
-    if (warnings == NULL) {
-	warnings = g_malloc(sizeof(char*)*MAX_WARNING);
-	warnings[0] = _("Polygon import is not implemented yet");
-	warnings[1] = _("Patterns are not supported by Dia");
-	warnings[2] = _("Triple-dotted lines are not supported by Dia, "
-                        "using double-dotted");
-	warnings[3] = _("Negative corner radius, negating");
-	warnings[4] = _("Spline import is not implemented yet");
-	warnings[5] = _("Can't find standard object");
-    }
-    if (warning >= MAX_WARNING) return;
-    if (warnings[warning] != NULL) {
-	message_warning(warnings[warning]);
-	warnings[warning] = NULL;
-    }
-}
-
 static int
 skip_comments(FILE *file) {
   int ch;
@@ -124,7 +95,7 @@ create_standard_text(real xpos, real ypos,
     Point point;
 
     if (otype == NULL){
-	fig_warn(WARNING_MISSING_STD_OBJECT);
+	message_error(_("Can't find standard object"));
 	return NULL;
     }
 
@@ -175,7 +146,7 @@ create_standard_ellipse(real xpos, real ypos, real width, real height,
     Point point;
 
     if (otype == NULL){
-	fig_warn(WARNING_MISSING_STD_OBJECT);
+	message_error(_("Can't find standard object"));
 	return NULL;
     }
 
@@ -204,7 +175,7 @@ create_standard_box(real xpos, real ypos, real width, real height,
   GPtrArray *props;
 
   if (otype == NULL){
-      fig_warn(WARNING_MISSING_STD_OBJECT);
+      message_error(_("Can't find standard object"));
       return NULL;
   }
 
@@ -232,7 +203,7 @@ create_standard_polyline(int num_points,
     PolylineCreateData *pcd;
 
     if (otype == NULL){
-	fig_warn(WARNING_MISSING_STD_OBJECT);
+	message_error(_("Can't find standard object"));
 	return NULL;
     }
 
@@ -250,23 +221,23 @@ create_standard_polyline(int num_points,
 
 static Object *
 create_standard_polygon(int num_points, 
-			 Point *points,
-			 DiagramData *dia) {
+			Point *points,
+			DiagramData *dia) {
     ObjectType *otype = object_get_type("Standard - Polygon");
     Object *new_obj;
     Handle *h1, *h2;
     PolylineCreateData *pcd;
 
     if (otype == NULL){
-	fig_warn(WARNING_MISSING_STD_OBJECT);
+	message_error(_("Can't find standard object"));
 	return NULL;
     }
 
+    pcd = g_new(PolygonCreateData, 1);
     pcd->num_points = num_points;
     pcd->points = points;
 
-    new_obj = otype->ops->create(NULL, pcd,
-				 &h1, &h2);
+    new_obj = otype->ops->create(NULL, pcd, &h1, &h2);
 
     g_free(pcd);
     
@@ -288,7 +259,7 @@ create_standard_arc(real x1, real y1, real x2, real y2,
     GPtrArray *props;
 
     if (otype == NULL){
-	fig_warn(WARNING_MISSING_STD_OBJECT);
+	message_error(_("Can't find standard object"));
 	return NULL;
     }
 
@@ -324,7 +295,7 @@ create_standard_image(real xpos, real ypos, real width, real height,
     StringProperty *sprop;
 
     if (otype == NULL){
-	fig_warn(WARNING_MISSING_STD_OBJECT);
+	message_error(_("Can't find standard object"));
 	return NULL;
     }
 
@@ -390,7 +361,7 @@ fig_area_fill_color(int area_fill, int color_index) {
 	col.green += (0xff-col.green)*(area_fill-20)/20;
 	col.blue += (0xff-col.blue)*(area_fill-20)/20;
     } else {
-	fig_warn(WARNING_NO_PATTERNS);
+	message_warning(_("Patterns are not supported by Dia"));
     }
     
     return col;
@@ -418,7 +389,8 @@ fig_line_style_to_dia(int line_style)
     case 4:
         return LINESTYLE_DASH_DOT_DOT;
     case 5:
-        fig_warn(WARNING_NO_TRIPLE_DOTS);
+        message_warning(_("Triple-dotted lines are not supported by Dia, "
+			  "using double-dotted"));
         return LINESTYLE_DASH_DOT_DOT;
     default:
         message_error(_("Line style %d should not appear\n"), line_style);
@@ -700,7 +672,7 @@ fig_read_polyline(FILE *file, DiagramData *dia) {
              (RealProperty *)make_new_prop("corner_radius",
                                            PROP_TYPE_REAL,PROP_FLAG_DONT_SAVE);
 	 if (radius < 0) {
-	     fig_warn(WARNING_NEGATIVE_CORNER_RADIUS);
+	     message_warning(_("Negative corner radius, negating"));
              rprop->real_data = -radius/FIG_ALT_UNIT;
 	 } else {
              rprop->real_data = radius/FIG_ALT_UNIT;
@@ -737,9 +709,9 @@ fig_read_polyline(FILE *file, DiagramData *dia) {
 	 if (newobj == NULL) goto exit;
 	 break;
      case 3: /* polygon */
-	 /*
-	   newobj = create_standard_polygon(points, dia);
-	 */
+	 newobj = create_standard_polygon(npoints, points, dia);
+	 if (newobj == NULL) goto exit;
+	 break;
      default: 
        message_error(_("Unknown polyline subtype: %d\n"), sub_type);
        goto exit;
@@ -981,7 +953,7 @@ fig_read_object(FILE *file, DiagramData *dia) {
       }
       break;
   case 3: /* Spline which includes closed/open control/interpolated spline. */
-      fig_warn(WARNING_NO_SPLINES);
+      message_warning(_("Spline import is not implemented yet"));
       return FALSE;
   case 4: /* Text. */
       item = fig_read_text(file, dia);
