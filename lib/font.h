@@ -67,9 +67,9 @@ typedef enum
 
 typedef enum
 {
-  DIA_FONT_ULTRALIGHT    = (1<<4),
-  DIA_FONT_LIGHT         = (2<<4),
-  DIA_FONT_WEIGHT_NORMAL = (0<<4), /* intentionaly ==0 */
+  DIA_FONT_ULTRALIGHT    = (0<<4),
+  DIA_FONT_LIGHT         = (1<<4),
+  DIA_FONT_WEIGHT_NORMAL = (2<<4),
   DIA_FONT_MEDIUM        = (3<<4),
   DIA_FONT_DEMIBOLD      = (4<<4),
   DIA_FONT_BOLD          = (5<<4),

@@ -266,7 +266,9 @@ dia_font_selector_set_styles(DiaFontSelector *fs, PangoFontFamily *pff,
     if (!(stylebits & (1 << (3*weight + obliquity)))) continue;
     menuitem = gtk_menu_item_new_with_label (style_labels[3*weight+obliquity]);
     gtk_object_set_user_data(GTK_OBJECT(menuitem), GINT_TO_POINTER(i));
-    if (dia_style == i) select = menu_item_nr;
+    if (dia_style == i) {
+      select = menu_item_nr;
+    }
     menu_item_nr++;
     gtk_menu_append (GTK_MENU (menu), menuitem);
     gtk_widget_show (menuitem);
@@ -276,10 +278,8 @@ dia_font_selector_set_styles(DiaFontSelector *fs, PangoFontFamily *pff,
   gtk_option_menu_remove_menu(fs->style_omenu);
   gtk_option_menu_set_menu(fs->style_omenu, menu);
   fs->style_menu = GTK_MENU(menu);
-  if (dia_style != 0) {
-    gtk_option_menu_set_history(GTK_OPTION_MENU(fs->style_omenu), select);
-    gtk_menu_set_active(fs->style_menu, select);
-  }
+  gtk_option_menu_set_history(GTK_OPTION_MENU(fs->style_omenu), select);
+  gtk_menu_set_active(fs->style_menu, select);
   gtk_widget_set_sensitive(GTK_WIDGET(fs->style_omenu), menu_item_nr > 1);
 }
 

@@ -129,8 +129,8 @@ dia_font_new_from_style(DiaFontStyle style, real height)
   case DIA_FONT_LIGHT :
     pango_font_description_set_weight(pfd, PANGO_WEIGHT_LIGHT);
     break;
-  case DIA_FONT_MEDIUM : /* Pango doesn't have this */
   case DIA_FONT_WEIGHT_NORMAL :
+  case DIA_FONT_MEDIUM : /* Pango doesn't have this */
     pango_font_description_set_weight(pfd, PANGO_WEIGHT_NORMAL);
     break;
   case DIA_FONT_DEMIBOLD : /* Pango doesn't have this */
@@ -200,13 +200,6 @@ dia_font_get_style(const DiaFont* font)
 {
   guint style;
 
-  static int weight_map[] = {
-    DIA_FONT_ULTRALIGHT, DIA_FONT_LIGHT,
-    DIA_FONT_WEIGHT_NORMAL, /* intentionaly ==0 */
-    DIA_FONT_MEDIUM, DIA_FONT_DEMIBOLD, /* not yet in Pango */
-    DIA_FONT_BOLD, DIA_FONT_ULTRABOLD, DIA_FONT_HEAVY    
-  };
-
   PangoStyle pango_style = pango_font_description_get_style(font->pfd);
   PangoWeight pango_weight = pango_font_description_get_weight(font->pfd);
 
@@ -215,7 +208,7 @@ dia_font_get_style(const DiaFont* font)
   g_assert(PANGO_WEIGHT_NORMAL == 400);
   g_assert(PANGO_WEIGHT_BOLD == 700);
 
-  style  = weight_map[pango_style - PANGO_WEIGHT_ULTRALIGHT] << 4;
+  style  = ((pango_weight - PANGO_WEIGHT_ULTRALIGHT)/100) << 4;
   style |= (pango_style << 2);
 
   return style;
@@ -255,13 +248,6 @@ dia_font_get_legacy_name(const DiaFont *font)
     return font->legacy_name;
 
   return "Courier";
-}
-
-/* Conversion between our style and pango style/weight */
-int 
-dia_font_pango_style_weight_to_dia(int style, int weight)
-{
-  return style + (3*(weight-200)/100) + 1;
 }
 
 /* ************************************************************************ */

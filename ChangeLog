@@ -1,5 +1,9 @@
 2002-06-24  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* lib/font.h: Changed order of DiaFontWeight entries.  Sorry.
+	* lib/font.c (dia_font_get_style): Style now linear and conversion
+	simple. 
+
 	* lib/widgets.c (dia_font_selector_set_styles): Fixed the style
 	selector. 
 
