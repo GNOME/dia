@@ -1,5 +1,10 @@
 2000-06-24  James Henstridge  <james@daa.com.au>
 
+	* app/paginate_gnomeprint.h: updated prototype.
+
+	* app/paginate_gnomeprint.c (paginate_gnomeprint): update to use
+	diagram page settings.
+
 	* objects/standard/beziergon.c (beziergon_copy): same here.
 
 	* objects/standard/polygon.c (polygon_copy): copy the fill colour

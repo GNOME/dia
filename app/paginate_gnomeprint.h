@@ -28,10 +28,7 @@
 #include "diagramdata.h"
 #include "render_gnomeprint.h"
 
-void paginate_gnomeprint (Diagram *dia,
-			  GnomePrintContext *ctx,
-			  const gchar *paper_name,
-			  gdouble scale);
+void paginate_gnomeprint (Diagram *dia,	GnomePrintContext *ctx);
 
 void diagram_print_gnome (Diagram *dia);
 

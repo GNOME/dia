@@ -36,10 +36,13 @@ count_objs(Object *obj, Renderer *renderer, int active_layer, guint *nobjs)
 
 static guint
 print_page(DiagramData *data, RendererGPrint *rend, Rectangle *bounds,
-	   gdouble lmargin, gdouble bmargin, gdouble scale)
+	   gint xpos, gint ypos)
 {
   guint nobjs = 0;
-  static guint pagenum = 0;
+  gdouble tmargin = data->paper.tmargin, bmargin = data->paper.bmargin;
+  gdouble lmargin = data->paper.lmargin, rmargin = data->paper.rmargin;
+  gdouble scale = data->paper.scaling;
+  char buf[256];
 
   /* count the number of objects in this region */
   data_render(data, (Renderer *)rend, bounds,
@@ -48,13 +51,24 @@ print_page(DiagramData *data, RendererGPrint *rend, Rectangle *bounds,
   if (nobjs == 0)
     return nobjs;
 
+  /* give a name to this page */
+  g_snprintf(buf, sizeof(buf), "%d,%d", xpos, ypos);
+  gnome_print_beginpage(rend->ctx, buf);
+
   /* save print context */
   gnome_print_gsave(rend->ctx);
 
   /* transform coordinate system */
-  gnome_print_scale(rend->ctx, 28.346457 * scale, -28.346457 * scale);
-  gnome_print_translate(rend->ctx, lmargin/scale - bounds->left,
-			-bmargin/scale - bounds->bottom);
+  if (data->paper.is_portrait) {
+    gnome_print_scale(rend->ctx, 28.346457 * scale, -28.346457 * scale);
+    gnome_print_translate(rend->ctx, lmargin/scale - bounds->left,
+			  -bmargin/scale - bounds->bottom);
+  } else {
+    gnome_print_rotate(rend->ctx, 90);
+    gnome_print_scale(rend->ctx, 28.346457 * scale, -28.346457 * scale);
+    gnome_print_translate(rend->ctx, lmargin/scale - bounds->left,
+			  tmargin/scale - bounds->top);
+  }
 
   /* set up clip mask */
   gnome_print_newpath(rend->ctx);
@@ -78,53 +92,34 @@ print_page(DiagramData *data, RendererGPrint *rend, Rectangle *bounds,
 }
 
 void
-paginate_gnomeprint(Diagram *dia, GnomePrintContext *ctx,
-		    const gchar *paper_name, gdouble scale)
+paginate_gnomeprint(Diagram *dia, GnomePrintContext *ctx)
 {
   RendererGPrint *rend;
   Rectangle *extents;
-  const GnomePaper *paper;
-  const GnomeUnit *unit;
-  gdouble pswidth, psheight, lmargin, tmargin, rmargin, bmargin;
   gdouble width, height;
-  gdouble x, y;
+  gdouble x, y, initx, inity;
+  gint xpos, ypos;
   guint nobjs = 0;
 
   rend = new_gnomeprint_renderer(dia, ctx);
 
-  /* get the paper metrics */
-  if (paper_name)
-    paper = gnome_paper_with_name(paper_name);
-  else
-    paper = gnome_paper_with_name(gnome_paper_name_default());
-  if (!paper)
-    g_message("paper_name == %s", paper_name?paper_name:gnome_paper_name_default());
-  unit = gnome_unit_with_name("Centimeter");
-  pswidth = gnome_paper_convert(gnome_paper_pswidth(paper), unit);
-  psheight = gnome_paper_convert(gnome_paper_psheight(paper), unit);
-  lmargin = gnome_paper_convert(gnome_paper_lmargin(paper), unit);
-  tmargin = gnome_paper_convert(gnome_paper_tmargin(paper), unit);
-  rmargin = gnome_paper_convert(gnome_paper_rmargin(paper), unit);
-  bmargin = gnome_paper_convert(gnome_paper_bmargin(paper), unit);
-
   /* the usable area of the page */
-  width = pswidth - lmargin - rmargin;
-  height = psheight - tmargin - bmargin;
-
-  /* scale width/height */
-  width  /= scale;
-  height /= scale;
+  width = dia->data->paper.width;
+  height = dia->data->paper.height;
 
   /* get extents, and make them multiples of width / height */
   extents = &dia->data->extents;
-  /*extents->left -= extents->left % width;
-    extents->right += width - extents->right % width;
-    extents->top -= extents->top % height;
-    extents->bottom += height - extents->bottom % height;*/
+  initx = extents->left;
+  inity = extents->top;
+  /* make page boundaries align with origin */
+  if (!dia->data->paper.fitto) {
+    initx = floor(initx / width)  * width;
+    inity = floor(inity / height) * height;
+  }
 
   /* iterate through all the pages in the diagram */
-  for (y = extents->top; y < extents->bottom; y += height)
-    for (x = extents->left; x < extents->right; x += width) {
+  for (y = inity, ypos = 0; y < extents->bottom; y += height, ypos++)
+    for (x = inity, xpos = 0; x < extents->right; x += width, xpos++) {
       Rectangle page_bounds;
 
       page_bounds.left = x;
@@ -132,7 +127,7 @@ paginate_gnomeprint(Diagram *dia, GnomePrintContext *ctx,
       page_bounds.top = y;
       page_bounds.bottom = y + height;
 
-      nobjs += print_page(dia->data,rend, &page_bounds, lmargin,bmargin,scale);
+      nobjs += print_page(dia->data, rend, &page_bounds, xpos, ypos);
     }
 
   free(rend);
@@ -145,67 +140,18 @@ paginate_gnomeprint(Diagram *dia, GnomePrintContext *ctx,
 void
 diagram_print_gnome(Diagram *dia)
 {
-  GtkWidget *dialog, *notebook;
-  GtkWidget *printersel, *papersel, *scalewid;
-  GtkWidget *label, *box, *frame;
-
+  GtkWidget *dialog, *printersel;
   int btn;
   GnomePrinter *printer;
-  gchar *paper;
-  gdouble scale;
   GnomePrintContext *ctx;
 
   dialog = gnome_dialog_new(_("Print Diagram"), GNOME_STOCK_BUTTON_OK,
 			    GNOME_STOCK_BUTTON_CANCEL, NULL);
-  notebook = gtk_notebook_new();
-  gtk_box_pack_start(GTK_BOX(GNOME_DIALOG(dialog)->vbox), notebook,
-		     TRUE, TRUE, 0);
-  gtk_widget_show(notebook);
-
-  box = gtk_vbox_new(FALSE, GNOME_PAD);
-  gtk_container_set_border_width(GTK_CONTAINER(box), GNOME_PAD);
-  label = gtk_label_new(_("Printer"));
-  gtk_notebook_append_page(GTK_NOTEBOOK(notebook), box, label);
-  gtk_widget_show(box);
-  gtk_widget_show(label);
 
   printersel = gnome_printer_widget_new();
-  gtk_box_pack_start(GTK_BOX(box), printersel, FALSE, TRUE, 0);
+  gtk_box_pack_start(GTK_BOX(GNOME_DIALOG(dialog)->vbox), printersel,
+		     TRUE, TRUE, 0);
   gtk_widget_show(printersel);
-
-  box = gtk_vbox_new(FALSE, GNOME_PAD);
-  gtk_container_set_border_width(GTK_CONTAINER(box), GNOME_PAD);
-  label = gtk_label_new(_("Scaling"));
-  gtk_notebook_append_page(GTK_NOTEBOOK(notebook), box, label);
-  gtk_widget_show(box);
-  gtk_widget_show(label);
-
-  frame = gtk_frame_new(_("Scaling"));
-  gtk_box_pack_start(GTK_BOX(box), frame, FALSE, TRUE, 0);
-  gtk_widget_show(frame);
-  box = gtk_vbox_new(FALSE, GNOME_PAD);
-  gtk_container_set_border_width(GTK_CONTAINER(box), GNOME_PAD_SMALL);
-  gtk_container_add(GTK_CONTAINER(frame), box);
-  gtk_widget_show(box);
-  scalewid = gtk_spin_button_new(
-	GTK_ADJUSTMENT(gtk_adjustment_new(1.0,0.1,10.0,0.1,0.1,1.0)), 0, 3);
-  gtk_box_pack_start(GTK_BOX(box), scalewid, FALSE, TRUE, 0);
-  gtk_widget_show(scalewid);
-
-  box = gtk_vbox_new(FALSE, GNOME_PAD);
-  gtk_container_set_border_width(GTK_CONTAINER(box), GNOME_PAD);
-  label = gtk_label_new(_("Paper Size"));
-  gtk_notebook_append_page(GTK_NOTEBOOK(notebook), box, label);
-  gtk_widget_show(box);
-  gtk_widget_show(label);
-
-  frame = gtk_frame_new(_("Paper Size"));
-  gtk_box_pack_start(GTK_BOX(box), frame, FALSE, TRUE, 0);
-  gtk_widget_show(frame);
-  papersel = gnome_paper_selector_new();
-  gtk_container_set_border_width(GTK_CONTAINER(papersel), GNOME_PAD_SMALL);
-  gtk_container_add(GTK_CONTAINER(frame), papersel);
-  gtk_widget_show(papersel);
 
   gtk_window_set_modal(GTK_WINDOW(dialog), TRUE);
   btn = gnome_dialog_run(GNOME_DIALOG(dialog));
@@ -220,12 +166,10 @@ diagram_print_gnome(Diagram *dia)
 
   /* get the printer name */
   printer = gnome_printer_widget_get_printer(GNOME_PRINTER_WIDGET(printersel));
-  scale = gtk_spin_button_get_value_as_float(GTK_SPIN_BUTTON(scalewid));
-  paper = gnome_paper_selector_get_name(GNOME_PAPER_SELECTOR(papersel));
 
-  ctx = gnome_print_context_new_with_paper_size(printer, paper);
+  ctx = gnome_print_context_new_with_paper_size(printer,dia->data->paper.name);
 
-  paginate_gnomeprint(dia, ctx, paper, scale);
+  paginate_gnomeprint(dia, ctx);
 
   gtk_object_unref(GTK_OBJECT(printer));
   gtk_widget_destroy(dialog);
