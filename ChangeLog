@@ -1,3 +1,9 @@
+2000-09-13  Cyrille Chepelov <chepelov@calixo.net>
+
+	* objects/chronogram/chronoline_event.c (reparse_clevent):
+	the __checksum routine was simply bogus. Redone it in a slightly
+	saner way (reported by Michael Farr <mfarr@cs.latrobe.edu.au>).
+
 2000-09-10  Asbjorn Pettersen  <asbjornP@dualog.no>
 
 	* app/create_object.c (create_object_button_press): 
