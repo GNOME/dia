@@ -109,6 +109,25 @@ the user numerous basic objects.
      open the properties.  Click on "Browse" and select your file.  Click "OK"
      and then the image will be updated accordingly.
     </para>
+    <para>Currently the following image formats are supported for inclusion in
+      <application>Dia</application> diagrams:
+      <itemizedlist>
+        <listitem><para>ANI</para></listitem>
+	<listitem><para>BMP</para></listitem>
+	<listitem><para>GIF</para></listitem>
+	<listitem><para>ICO</para></listitem>
+	<listitem><para>JPEG</para></listitem>
+	<listitem><para>PNG</para></listitem>
+	<listitem><para>PNM</para></listitem>
+	<listitem><para>RAS</para></listitem>
+	<listitem><para>SVG</para></listitem>
+	<listitem><para>TGA</para></listitem>
+	<listitem><para>TIFF</para></listitem>
+	<listitem><para>WMF</para></listitem>
+	<listitem><para>XBM</para></listitem>
+	<listitem><para>XPM</para></listitem>
+      </itemizedlist>
+    </para>
    </sect2>
   </sect1>
 </chapter>
