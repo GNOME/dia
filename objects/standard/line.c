@@ -41,6 +41,7 @@ typedef struct _LineProperties {
   Color line_color;
   real line_width;
   LineStyle line_style;
+  real dashlength;
   Arrow start_arrow, end_arrow;
 } LineProperties;
 
@@ -51,8 +52,9 @@ typedef struct _Line {
 
   Color line_color;
   real line_width;
-  LineStyle line_style;
+  LineStyle line_style;  
   Arrow start_arrow, end_arrow;
+  real dashlength;
 } Line;
 
 struct _LinePropertiesDialog {
@@ -146,7 +148,8 @@ line_apply_properties(Line *line)
 
   line->line_width = gtk_spin_button_get_value_as_float(line_properties_dialog->line_width);
   dia_color_selector_get_color(line_properties_dialog->color, &line->line_color);
-  line->line_style = dia_line_style_selector_get_linestyle(line_properties_dialog->line_style);
+  dia_line_style_selector_get_linestyle(line_properties_dialog->line_style,
+					&line->line_style, &line->dashlength);
 
   line->start_arrow = dia_arrow_selector_get_arrow(line_properties_dialog->start_arrow);
   line->end_arrow = dia_arrow_selector_get_arrow(line_properties_dialog->end_arrow);
@@ -246,7 +249,7 @@ line_get_properties(Line *line)
   gtk_spin_button_set_value(line_properties_dialog->line_width, line->line_width);
   dia_color_selector_set_color(line_properties_dialog->color, &line->line_color);
   dia_line_style_selector_set_linestyle(line_properties_dialog->line_style,
-					line->line_style);
+					line->line_style, line->dashlength);
   dia_arrow_selector_set_arrow(line_properties_dialog->start_arrow,
 			       line->start_arrow);
   dia_arrow_selector_set_arrow(line_properties_dialog->end_arrow,
@@ -264,6 +267,7 @@ line_init_defaults() {
     default_properties.start_arrow.width = 0.8;
     default_properties.end_arrow.length = 0.8;
     default_properties.end_arrow.width = 0.8;
+    default_properties.dashlength = 1.0;
     defaults_initialized = 1;
   }
 }
@@ -271,7 +275,9 @@ line_init_defaults() {
 static void
 line_apply_defaults()
 {
-  default_properties.line_style = dia_line_style_selector_get_linestyle(line_defaults_dialog->line_style);
+  dia_line_style_selector_get_linestyle(line_defaults_dialog->line_style,
+					&default_properties.line_style, 
+					&default_properties.dashlength);
   default_properties.start_arrow = dia_arrow_selector_get_arrow(line_defaults_dialog->start_arrow);
   default_properties.end_arrow = dia_arrow_selector_get_arrow(line_defaults_dialog->end_arrow);
 }
@@ -337,7 +343,8 @@ line_get_defaults()
   }
 
   dia_line_style_selector_set_linestyle(line_defaults_dialog->line_style,
-					default_properties.line_style);
+					default_properties.line_style,
+					default_properties.dashlength);
   dia_arrow_selector_set_arrow(line_defaults_dialog->start_arrow,
 					 default_properties.start_arrow);
   dia_arrow_selector_set_arrow(line_defaults_dialog->end_arrow,
@@ -403,6 +410,7 @@ line_draw(Line *line, Renderer *renderer)
 
   renderer->ops->set_linewidth(renderer, line->line_width);
   renderer->ops->set_linestyle(renderer, line->line_style);
+  renderer->ops->set_dashlength(renderer, line->dashlength);
   renderer->ops->set_linecaps(renderer, LINECAPS_BUTT);
 
   renderer->ops->draw_line(renderer,
@@ -459,6 +467,7 @@ line_create(Point *startpoint,
   line->middle_point.object = obj;
   line->middle_point.connected = NULL;
   line->line_style = default_properties.line_style;
+  line->dashlength = default_properties.dashlength;
   line->start_arrow = default_properties.start_arrow;
   line->end_arrow = default_properties.end_arrow;
   line_update_data(line);
@@ -498,6 +507,7 @@ line_copy(Line *line)
   newline->line_color = line->line_color;
   newline->line_width = line->line_width;
   newline->line_style = line->line_style;
+  newline->dashlength = line->dashlength;
   newline->start_arrow = line->start_arrow;
   newline->end_arrow = line->end_arrow;
 
@@ -578,6 +588,10 @@ line_save(Line *line, ObjectNode obj_node, const char *filename)
     data_add_real(new_attribute(obj_node, "end_arrow_width"),
 		  line->end_arrow.width);
   }
+ 
+  if (line->line_style != LINESTYLE_SOLID && line->dashlength != DEFAULT_LINESTYLE_DASHLEN)
+    data_add_real(new_attribute(obj_node, "dashlength"),
+		  line->dashlength);
 }
 
 static Object *
@@ -638,6 +652,11 @@ line_load(ObjectNode obj_node, int version, const char *filename)
   attr = object_find_attribute(obj_node, "end_arrow_width");
   if (attr != NULL)
     line->end_arrow.width = data_real(attribute_first_data(attr));
+
+  line->dashlength = DEFAULT_LINESTYLE_DASHLEN;
+  attr = object_find_attribute(obj_node, "dashlength");
+  if (attr != NULL)
+    line->dashlength = data_real(attribute_first_data(attr));
 
   connection_init(conn, 2, 1);
 

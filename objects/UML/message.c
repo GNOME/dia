@@ -303,7 +303,7 @@ message_create(Point *startpoint,
   Object *obj;
 
   if (message_font == NULL)
-    message_font = font_getfont("Courier");
+    message_font = font_getfont("Helvetica");
   
   message = g_malloc(sizeof(Message));
 
@@ -427,7 +427,7 @@ message_load(ObjectNode obj_node, int version, const char *filename)
   Object *obj;
 
   if (message_font == NULL)
-    message_font = font_getfont("Courier");
+    message_font = font_getfont("Helvetica");
 
   message = g_malloc(sizeof(Message));
 

@@ -53,8 +53,8 @@ struct _UsecasePropertiesDialog {
 };
 
 
-#define USECASE_WIDTH 3
-#define USECASE_HEIGHT 1.76
+#define USECASE_WIDTH 3.25
+#define USECASE_HEIGHT 2
 #define USECASE_MIN_RATIO 1.5
 #define USECASE_MAX_RATIO 3
 #define USECASE_LINEWIDTH 0.1

@@ -29,8 +29,8 @@ dia_image_init(void)
 {
   gdk_imlib_init();
   /* FIXME:  Is this a good idea? */
-  gtk_widget_push_visual(gdk_imlib_get_visual());
-  gtk_widget_push_colormap(gdk_imlib_get_colormap());
+  gtk_widget_set_default_visual(gdk_imlib_get_visual());
+  gtk_widget_set_default_colormap(gdk_imlib_get_colormap());
 }
 
 

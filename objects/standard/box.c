@@ -156,7 +156,7 @@ box_apply_properties(Box *box)
   dia_color_selector_get_color(box_properties_dialog->fg_color, &box->border_color);
   dia_color_selector_get_color(box_properties_dialog->bg_color, &box->inner_color);
   box->show_background = gtk_toggle_button_get_active(box_properties_dialog->show_background);
-  box->line_style = dia_line_style_selector_get_linestyle(box_properties_dialog->line_style);
+  dia_line_style_selector_get_linestyle(box_properties_dialog->line_style, &box->line_style, NULL);
   box->corner_radius = gtk_spin_button_get_value_as_float(box_properties_dialog->corner_radius);
   
   box_update_data(box);
@@ -263,7 +263,7 @@ box_get_properties(Box *box)
   gtk_toggle_button_set_active(box_properties_dialog->show_background, 
 			       box->show_background);
   dia_line_style_selector_set_linestyle(box_properties_dialog->line_style,
-					box->line_style);
+					box->line_style, 1.0);
   gtk_spin_button_set_value(box_properties_dialog->corner_radius,
 			    box->corner_radius);
   
@@ -272,7 +272,8 @@ box_get_properties(Box *box)
 static void
 box_apply_defaults()
 {
-  default_properties.line_style = dia_line_style_selector_get_linestyle(box_defaults_dialog->line_style);
+  dia_line_style_selector_get_linestyle(box_defaults_dialog->line_style,
+					&default_properties.line_style, NULL);
   default_properties.corner_radius = gtk_spin_button_get_value_as_float(box_defaults_dialog->corner_radius);
   default_properties.show_background = gtk_toggle_button_get_active(box_defaults_dialog->show_background);
 }
@@ -346,7 +347,7 @@ box_get_defaults()
   gtk_toggle_button_set_active(box_defaults_dialog->show_background, 
 			       default_properties.show_background);
   dia_line_style_selector_set_linestyle(box_defaults_dialog->line_style,
-					default_properties.line_style);
+					default_properties.line_style, 1.0);
   gtk_spin_button_set_value(box_defaults_dialog->corner_radius, 
 			    default_properties.corner_radius);
 

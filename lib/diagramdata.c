@@ -475,6 +475,11 @@ int layer_update_extents(Layer *layer)
       rectangle_union(&new_extents, &obj->bounding_box);
       l = g_list_next(l);
     }
+  } else {
+    new_extents.left = 0.0; 
+    new_extents.right = 10.0; 
+    new_extents.top = 0.0; 
+    new_extents.bottom = 10.0; 
   }
 
   changed =  ( (new_extents.left != extents->left) ||

@@ -48,6 +48,7 @@ struct _Ellipse {
   Color border_color;
   Color inner_color;
   LineStyle line_style;
+  real dashlength;
 };
 
 
@@ -56,6 +57,7 @@ typedef struct _EllipseProperties {
   Color *bg_color;
   real border_width;
   LineStyle line_style;
+  real dashlength;
 } EllipseProperties;
 
 struct _EllipsePropertiesDialog {
@@ -68,6 +70,7 @@ struct _EllipsePropertiesDialog {
 
   Ellipse *ellipse;
 };
+
 struct _EllipseDefaultsDialog {
   GtkWidget *vbox;
 
@@ -147,7 +150,8 @@ ellipse_apply_properties(Ellipse *ellipse)
   ellipse->border_width = gtk_spin_button_get_value_as_float(ellipse_properties_dialog->border_width);
   dia_color_selector_get_color(ellipse_properties_dialog->fg_color, &ellipse->border_color);
   dia_color_selector_get_color(ellipse_properties_dialog->bg_color, &ellipse->inner_color);
-  ellipse->line_style = dia_line_style_selector_get_linestyle(ellipse_properties_dialog->line_style);
+  dia_line_style_selector_get_linestyle(ellipse_properties_dialog->line_style,
+					&ellipse->line_style, &ellipse->dashlength);
   
   ellipse_update_data(ellipse);
 }
@@ -230,7 +234,7 @@ ellipse_get_properties(Ellipse *ellipse)
   dia_color_selector_set_color(ellipse_properties_dialog->bg_color,
 			       &ellipse->inner_color);
   dia_line_style_selector_set_linestyle(ellipse_properties_dialog->line_style,
-					ellipse->line_style);
+					ellipse->line_style, ellipse->dashlength);
   
   return ellipse_properties_dialog->vbox;
 }
@@ -238,7 +242,7 @@ ellipse_get_properties(Ellipse *ellipse)
 static void
 ellipse_apply_defaults()
 {
-  default_properties.line_style = dia_line_style_selector_get_linestyle(ellipse_defaults_dialog->line_style);
+  dia_line_style_selector_get_linestyle(ellipse_defaults_dialog->line_style, &default_properties.line_style, &default_properties.dashlength);
 }
 
 static GtkWidget *
@@ -251,6 +255,9 @@ ellipse_get_defaults()
 
   if (ellipse_defaults_dialog == NULL) {
   
+    if (default_properties.dashlength <=0)
+      default_properties.dashlength = 1.0;
+
     ellipse_defaults_dialog = g_new(EllipseDefaultsDialog, 1);
 
     vbox = gtk_vbox_new(FALSE, 5);
@@ -271,7 +278,8 @@ ellipse_get_defaults()
   }
 
   dia_line_style_selector_set_linestyle(ellipse_defaults_dialog->line_style,
-					default_properties.line_style);
+					default_properties.line_style, 
+					default_properties.dashlength);
 
   return ellipse_defaults_dialog->vbox;
 }
@@ -333,6 +341,7 @@ ellipse_draw(Ellipse *ellipse, Renderer *renderer)
 
   renderer->ops->set_linewidth(renderer, ellipse->border_width);
   renderer->ops->set_linestyle(renderer, ellipse->line_style);
+  renderer->ops->set_dashlength(renderer, ellipse->dashlength);
 
   renderer->ops->draw_ellipse(renderer, 
 			  &center,
@@ -412,6 +421,7 @@ ellipse_create(Point *startpoint,
   ellipse->border_color = attributes_get_foreground();
   ellipse->inner_color = attributes_get_background();
   ellipse->line_style = default_properties.line_style;
+  ellipse->dashlength = default_properties.dashlength;
 
   element_init(elem, 8, 8);
 
@@ -483,9 +493,14 @@ ellipse_save(Ellipse *ellipse, ObjectNode obj_node, const char *filename)
     data_add_color(new_attribute(obj_node, "inner_color"),
 		   &ellipse->inner_color);
   
-  if (ellipse->line_style != LINESTYLE_SOLID)
+  if (ellipse->line_style != LINESTYLE_SOLID) {
     data_add_enum(new_attribute(obj_node, "line_style"),
 		  ellipse->line_style);
+
+    if (ellipse->dashlength != DEFAULT_LINESTYLE_DASHLEN)
+	    data_add_real(new_attribute(obj_node, "dashlength"),
+			  ellipse->dashlength);
+  }
 }
 
 static Object *ellipse_load(ObjectNode obj_node, int version, const char *filename)
@@ -524,6 +539,11 @@ static Object *ellipse_load(ObjectNode obj_node, int version, const char *filena
   attr = object_find_attribute(obj_node, "line_style");
   if (attr != NULL)
     ellipse->line_style =  data_enum( attribute_first_data(attr) );
+
+  ellipse->dashlength = DEFAULT_LINESTYLE_DASHLEN;
+  attr = object_find_attribute(obj_node, "dashlength");
+  if (attr != NULL)
+	  ellipse->dashlength = data_real(attribute_first_data(attr));
 
   element_init(elem, 8, 8);
 

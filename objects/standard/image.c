@@ -167,7 +167,7 @@ image_apply_properties(Image *image)
 
   image->border_width = gtk_spin_button_get_value_as_float(image_properties_dialog->border_width);
   dia_color_selector_get_color(image_properties_dialog->fg_color, &image->border_color);
-  image->line_style = dia_line_style_selector_get_linestyle(image_properties_dialog->line_style);
+  dia_line_style_selector_get_linestyle(image_properties_dialog->line_style, &image->line_style, NULL);
 
   image->draw_border = gtk_toggle_button_get_active(image_properties_dialog->draw_border);
   image->keep_aspect = gtk_toggle_button_get_active(image_properties_dialog->keep_aspect);
@@ -284,7 +284,7 @@ image_get_properties(Image *image)
 			       &image->border_color);
   dia_file_selector_set_file(image_properties_dialog->file, image->file);
   dia_line_style_selector_set_linestyle(image_properties_dialog->line_style,
-					image->line_style);
+					image->line_style, 1.0);
   gtk_toggle_button_set_active(image_properties_dialog->draw_border, image->draw_border);
   gtk_toggle_button_set_active(image_properties_dialog->keep_aspect, image->keep_aspect);
 
@@ -306,7 +306,7 @@ image_init_defaults() {
 static void
 image_apply_defaults()
 {
-  default_properties.line_style = dia_line_style_selector_get_linestyle(image_defaults_dialog->line_style);
+  dia_line_style_selector_get_linestyle(image_defaults_dialog->line_style, &default_properties.line_style, NULL);
   default_properties.file = dia_file_selector_get_file(image_defaults_dialog->file);
   default_properties.draw_border = gtk_toggle_button_get_active(image_defaults_dialog->draw_border);
   default_properties.keep_aspect = gtk_toggle_button_get_active(image_defaults_dialog->keep_aspect);
@@ -372,7 +372,7 @@ image_get_defaults()
   }
 
   dia_line_style_selector_set_linestyle(image_defaults_dialog->line_style,
-					default_properties.line_style);
+					default_properties.line_style, 1.0);
   dia_file_selector_set_file(image_defaults_dialog->file, default_properties.file);
   gtk_toggle_button_set_active(image_defaults_dialog->draw_border, 
 			       default_properties.draw_border);

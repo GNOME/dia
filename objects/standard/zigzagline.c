@@ -43,6 +43,7 @@ typedef struct _Zigzagline {
 
   Color line_color;
   LineStyle line_style;
+  real dashlength;
   real line_width;
   Arrow start_arrow, end_arrow;
 } Zigzagline;
@@ -63,7 +64,8 @@ struct _ZigzaglinePropertiesDialog {
 typedef struct _ZigzaglineProperties {
   Color line_color;
   real line_width;
-  LineStyle line_style;
+  LineStyle line_style;  
+  real dashlength;
   Arrow start_arrow, end_arrow;
 } ZigzaglineProperties;
 
@@ -151,7 +153,7 @@ zigzagline_apply_properties(Zigzagline *zigzagline)
 
   zigzagline->line_width = gtk_spin_button_get_value_as_float(zigzagline_properties_dialog->line_width);
   dia_color_selector_get_color(zigzagline_properties_dialog->color, &zigzagline->line_color);
-  zigzagline->line_style = dia_line_style_selector_get_linestyle(zigzagline_properties_dialog->line_style);
+  dia_line_style_selector_get_linestyle(zigzagline_properties_dialog->line_style, &zigzagline->line_style, &zigzagline->dashlength);
 
   zigzagline->start_arrow = dia_arrow_selector_get_arrow(zigzagline_properties_dialog->start_arrow);
   zigzagline->end_arrow = dia_arrow_selector_get_arrow(zigzagline_properties_dialog->end_arrow);
@@ -255,7 +257,7 @@ zigzagline_get_properties(Zigzagline *zigzagline)
   dia_color_selector_set_color(zigzagline_properties_dialog->color,
 			       &zigzagline->line_color);
   dia_line_style_selector_set_linestyle(zigzagline_properties_dialog->line_style,
-					zigzagline->line_style);
+					zigzagline->line_style, zigzagline->dashlength);
   dia_arrow_selector_set_arrow(zigzagline_properties_dialog->start_arrow,
 					 zigzagline->start_arrow);
   dia_arrow_selector_set_arrow(zigzagline_properties_dialog->end_arrow,
@@ -273,6 +275,7 @@ zigzagline_init_defaults() {
     default_properties.start_arrow.width = 0.8;
     default_properties.end_arrow.length = 0.8;
     default_properties.end_arrow.width = 0.8;
+    default_properties.dashlength = 1.0;
     defaults_initialized = 1;
   }
 }
@@ -280,7 +283,7 @@ zigzagline_init_defaults() {
 static void
 zigzagline_apply_defaults()
 {
-  default_properties.line_style = dia_line_style_selector_get_linestyle(zigzagline_defaults_dialog->line_style);
+   dia_line_style_selector_get_linestyle(zigzagline_defaults_dialog->line_style, &default_properties.line_style, &default_properties.dashlength);
   default_properties.start_arrow = dia_arrow_selector_get_arrow(zigzagline_defaults_dialog->start_arrow);
   default_properties.end_arrow = dia_arrow_selector_get_arrow(zigzagline_defaults_dialog->end_arrow);
 }
@@ -346,7 +349,7 @@ zigzagline_get_defaults()
   }
 
   dia_line_style_selector_set_linestyle(zigzagline_defaults_dialog->line_style,
-					default_properties.line_style);
+					default_properties.line_style, default_properties.dashlength);
   dia_arrow_selector_set_arrow(zigzagline_defaults_dialog->start_arrow,
 					 default_properties.start_arrow);
   dia_arrow_selector_set_arrow(zigzagline_defaults_dialog->end_arrow,
@@ -402,6 +405,7 @@ zigzagline_draw(Zigzagline *zigzagline, Renderer *renderer)
   
   renderer->ops->set_linewidth(renderer, zigzagline->line_width);
   renderer->ops->set_linestyle(renderer, zigzagline->line_style);
+  renderer->ops->set_dashlength(renderer, zigzagline->dashlength);
   renderer->ops->set_linejoin(renderer, LINEJOIN_MITER);
   renderer->ops->set_linecaps(renderer, LINECAPS_BUTT);
 
@@ -448,6 +452,7 @@ zigzagline_create(Point *startpoint,
   zigzagline->line_width =  attributes_get_default_linewidth();
   zigzagline->line_color = attributes_get_foreground();
   zigzagline->line_style = default_properties.line_style;
+  zigzagline->dashlength = default_properties.dashlength;
   zigzagline->start_arrow = default_properties.start_arrow;
   zigzagline->end_arrow = default_properties.end_arrow;
   
@@ -554,6 +559,11 @@ zigzagline_save(Zigzagline *zigzagline, ObjectNode obj_node,
     data_add_real(new_attribute(obj_node, "end_arrow_width"),
 		  zigzagline->end_arrow.width);
   }
+
+  if (zigzagline->line_style != LINESTYLE_SOLID && 
+      zigzagline->dashlength != DEFAULT_LINESTYLE_DASHLEN)
+	  data_add_real(new_attribute(obj_node, "dashlength"),
+		  zigzagline->dashlength);
 }
 
 static Object *
@@ -615,6 +625,11 @@ zigzagline_load(ObjectNode obj_node, int version, const char *filename)
   if (attr != NULL)
     zigzagline->end_arrow.width = data_real(attribute_first_data(attr));
 
+  zigzagline->dashlength = DEFAULT_LINESTYLE_DASHLEN;
+  attr = object_find_attribute(obj_node, "dashlength");
+  if (attr != NULL)
+	  zigzagline->dashlength = data_real(attribute_first_data(attr));
+  
   zigzagline_update_data(zigzagline);
 
   return (Object *)zigzagline;

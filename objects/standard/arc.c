@@ -150,7 +150,8 @@ arc_apply_properties(Arc *arc)
 {
   arc->line_width = gtk_spin_button_get_value_as_float(arc_properties_dialog->line_width);
   dia_color_selector_get_color(arc_properties_dialog->color, &arc->arc_color);
-  arc->line_style = dia_line_style_selector_get_linestyle(arc_properties_dialog->line_style);
+  dia_line_style_selector_get_linestyle(arc_properties_dialog->line_style,
+					& arc->line_style, NULL);
   arc->start_arrow = dia_arrow_selector_get_arrow(arc_properties_dialog->start_arrow);
   arc->end_arrow = dia_arrow_selector_get_arrow(arc_properties_dialog->end_arrow);
   
@@ -249,7 +250,7 @@ arc_get_properties(Arc *arc)
   gtk_spin_button_set_value(arc_properties_dialog->line_width, arc->line_width);
   dia_color_selector_set_color(arc_properties_dialog->color, &arc->arc_color);
   dia_line_style_selector_set_linestyle(arc_properties_dialog->line_style,
-					arc->line_style);
+					arc->line_style, 1.0);
   dia_arrow_selector_set_arrow(arc_properties_dialog->start_arrow,
 			       arc->start_arrow);
   dia_arrow_selector_set_arrow(arc_properties_dialog->end_arrow,
@@ -276,7 +277,8 @@ static void
 arc_apply_defaults(void)
 {
   arc_init_defaults();
-  default_properties.line_style = dia_line_style_selector_get_linestyle(arc_defaults_dialog->line_style);
+  dia_line_style_selector_get_linestyle(arc_defaults_dialog->line_style,
+					&default_properties.line_style, NULL);
   default_properties.start_arrow = dia_arrow_selector_get_arrow(arc_defaults_dialog->start_arrow);
   default_properties.end_arrow = dia_arrow_selector_get_arrow(arc_defaults_dialog->end_arrow);
 }
@@ -343,7 +345,7 @@ arc_get_defaults()
   }
 
   dia_line_style_selector_set_linestyle(arc_defaults_dialog->line_style,
-					default_properties.line_style);
+					default_properties.line_style, 1.0);
   dia_arrow_selector_set_arrow(arc_defaults_dialog->start_arrow,
 					 default_properties.start_arrow);
   dia_arrow_selector_set_arrow(arc_defaults_dialog->end_arrow,

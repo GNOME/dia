@@ -154,7 +154,7 @@ polyline_apply_properties(Polyline *polyline)
     gtk_spin_button_get_value_as_float(polyline_properties_dialog->line_width);
   dia_color_selector_get_color(polyline_properties_dialog->color,
 			       &polyline->line_color);
-  polyline->line_style = dia_line_style_selector_get_linestyle(polyline_properties_dialog->line_style);
+  dia_line_style_selector_get_linestyle(polyline_properties_dialog->line_style, &polyline->line_style, NULL);
   polyline->start_arrow = dia_arrow_selector_get_arrow(polyline_properties_dialog->start_arrow);
   polyline->end_arrow = dia_arrow_selector_get_arrow(polyline_properties_dialog->end_arrow);
 
@@ -254,7 +254,7 @@ polyline_get_properties(Polyline *polyline)
   dia_color_selector_set_color(polyline_properties_dialog->color,
 			       &polyline->line_color);
   dia_line_style_selector_set_linestyle(polyline_properties_dialog->line_style,
-					polyline->line_style);
+					polyline->line_style, 1.0);
   dia_arrow_selector_set_arrow(polyline_properties_dialog->start_arrow,
 					 polyline->start_arrow);
   dia_arrow_selector_set_arrow(polyline_properties_dialog->end_arrow,
@@ -281,7 +281,7 @@ static void
 polyline_apply_defaults()
 {
   polyline_init_defaults();
-  default_properties.line_style = dia_line_style_selector_get_linestyle(polyline_defaults_dialog->line_style);
+  dia_line_style_selector_get_linestyle(polyline_defaults_dialog->line_style, &default_properties.line_style, NULL);
   default_properties.start_arrow = dia_arrow_selector_get_arrow(polyline_defaults_dialog->start_arrow);
   default_properties.end_arrow = dia_arrow_selector_get_arrow(polyline_defaults_dialog->end_arrow);
 }
@@ -346,7 +346,7 @@ polyline_get_defaults()
   }
 
   dia_line_style_selector_set_linestyle(polyline_defaults_dialog->line_style,
-					default_properties.line_style);
+					default_properties.line_style, 1.0);
   dia_arrow_selector_set_arrow(polyline_defaults_dialog->start_arrow,
 					 default_properties.start_arrow);
   dia_arrow_selector_set_arrow(polyline_defaults_dialog->end_arrow,

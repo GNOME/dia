@@ -1,3 +1,35 @@
+1999-05-18  Alexander Larsson  <alla@lysator.liu.se>
+
+	* lib/widgets.c (dia_line_style_selector_init): 
+	Fixed warnings.
+	
+	* lib/diagramdata.c (layer_update_extents):
+	Fixed uninitialized variable error.
+
+1999-05-17  Alexander Larsson  <alla@lysator.liu.se>
+
+	* lib/dia_image.c:
+	Made some changes to the gdk_imlib visual+colormap setup.
+
+1999-05-17  Alejandro Aguilar Sierra  <asierra@servidor.unam.mx>
+
+	* objects/UML/usecase.c: 
+       * objects/UML/lifeline.c
+	Fine tunning.
+
+	* objects/UML/object.c: 
+	* objects/UML/message.c: 
+ 	Changed font from Courier to Helvetica.
+
+	* lib/widgets.c: 
+	* lib/widgets.h:
+ 	Added dash lenth to the LineStyle widget.
+	
+	* objects/standard/ellipse.c :
+	* objects/standard/zigzagline.c: 
+	* objects/standard/line.c: 
+	Added dash lenght property.
+
 1999-05-16  Alexander Larsson  <alla@lysator.liu.se>
 
 	* app/render_eps.c:

@@ -254,13 +254,40 @@ dia_line_style_selector_class_init (DiaLineStyleSelectorClass *class)
 }
 
 static void
+set_linestyle_sensitivity(DiaLineStyleSelector *fs)
+{
+  int state;
+  GtkWidget *menuitem;
+  if (!fs->linestyle_menu) return;
+  menuitem = gtk_menu_get_active(fs->linestyle_menu);
+  state = (GPOINTER_TO_INT(gtk_object_get_user_data(GTK_OBJECT(menuitem)))
+	   != LINESTYLE_SOLID);
+
+  gtk_widget_set_sensitive(GTK_WIDGET(fs->lengthlabel), state);
+  gtk_widget_set_sensitive(GTK_WIDGET(fs->dashlength), state);
+}
+
+static void
+linestyle_type_change_callback(GtkObject *as, gboolean arg1, gpointer data)
+{
+  set_linestyle_sensitivity(DIALINESTYLESELECTOR(as));
+}
+
+static void
 dia_line_style_selector_init (DiaLineStyleSelector *fs)
 {
   GtkWidget *menu;
   GtkWidget *submenu;
   GtkWidget *menuitem;
+  GtkWidget *label;
+  GtkWidget *length;
+  GtkWidget *box;
   GSList *group;
+  GtkAdjustment *adj;
   
+  menu = gtk_option_menu_new();
+  fs->omenu = GTK_OPTION_MENU(menu);
+
   menu = gtk_menu_new ();
   fs->linestyle_menu = GTK_MENU(menu);
   submenu = NULL;
@@ -297,7 +324,34 @@ dia_line_style_selector_init (DiaLineStyleSelector *fs)
   gtk_widget_show (menuitem);
   
   gtk_menu_set_active(GTK_MENU (menu), DEFAULT_LINESTYLE);
-  gtk_option_menu_set_menu (GTK_OPTION_MENU (fs), menu);
+  gtk_option_menu_set_menu (GTK_OPTION_MENU (fs->omenu), menu);
+  gtk_signal_connect_object(GTK_OBJECT(menu), "selection-done", 
+			    GTK_SIGNAL_FUNC(linestyle_type_change_callback), 
+			    (gpointer)fs);
+ 
+  gtk_box_pack_start(GTK_BOX(fs), GTK_WIDGET(fs->omenu), FALSE, TRUE, 0);
+  gtk_widget_show(GTK_WIDGET(fs->omenu));
+
+  box = gtk_hbox_new(FALSE,0);
+  //  fs->sizebox = GTK_HBOX(box);
+
+  label = gtk_label_new(_("Dash length: "));
+  fs->lengthlabel = GTK_LABEL(label);
+  gtk_box_pack_start_defaults(GTK_BOX(box), label);
+  gtk_widget_show(label);
+
+  adj = (GtkAdjustment *)gtk_adjustment_new(0.1, 0.00, 10.0, 0.1, 0.0, 0.0);
+  length = gtk_spin_button_new(adj, DEFAULT_LINESTYLE_DASHLEN, 2);
+  gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(length), TRUE);
+  gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(length), TRUE);
+  fs->dashlength = GTK_SPIN_BUTTON(length);
+  gtk_box_pack_start_defaults(GTK_BOX (box), length);
+  gtk_widget_show (length);
+
+  set_linestyle_sensitivity(fs);
+  gtk_box_pack_start_defaults(GTK_BOX(fs), box);
+  gtk_widget_show(box);
+  
 }
 
 guint
@@ -316,7 +370,7 @@ dia_line_style_selector_get_type        (void)
       (GtkArgGetFunc) NULL
     };
     
-    dfs_type = gtk_type_unique (gtk_option_menu_get_type (), &dfs_info);
+    dfs_type = gtk_type_unique (gtk_vbox_get_type (), &dfs_info);
   }
   
   return dfs_type;
@@ -329,24 +383,28 @@ dia_line_style_selector_new ()
 }
 
 
-LineStyle 
-dia_line_style_selector_get_linestyle(DiaLineStyleSelector *fs)
+void 
+dia_line_style_selector_get_linestyle(DiaLineStyleSelector *fs, 
+				      LineStyle *ls, real *dl)
 {
   GtkWidget *menuitem;
   void *align;
   
   menuitem = gtk_menu_get_active(fs->linestyle_menu);
   align = gtk_object_get_user_data(GTK_OBJECT(menuitem));
-
-  return GPOINTER_TO_INT(align);
+  *ls = GPOINTER_TO_INT(align);
+  if (dl!=NULL) {
+    *dl = gtk_spin_button_get_value_as_float(fs->dashlength);
+  }
 }
 
 void
 dia_line_style_selector_set_linestyle (DiaLineStyleSelector *as,
-				       LineStyle linestyle)
+				       LineStyle linestyle, real dashlength)
 {
   gtk_menu_set_active(GTK_MENU (as->linestyle_menu), linestyle);
-  gtk_option_menu_set_history (GTK_OPTION_MENU(as), linestyle);
+  gtk_option_menu_set_history (GTK_OPTION_MENU(as->omenu), linestyle);
+  gtk_spin_button_set_value(GTK_SPIN_BUTTON(as->dashlength), dashlength);
 }
 
 

@@ -89,27 +89,35 @@ void       dia_alignment_selector_set_alignment (DiaAlignmentSelector *as,
 #define IS_DIALINESTYLESELECTOR(obj)       GTK_CHECK_TYPE (obj, dia_line_style_selector_get_type ())
 
 #define DEFAULT_LINESTYLE LINESTYLE_SOLID
+#define DEFAULT_LINESTYLE_DASHLEN 1.0
 
 typedef struct _DiaLineStyleSelector       DiaLineStyleSelector;
 typedef struct _DiaLineStyleSelectorClass  DiaLineStyleSelectorClass;
 
 struct _DiaLineStyleSelector
 {
-  GtkOptionMenu omenu;
+  GtkVBox vbox;
 
+  GtkOptionMenu *omenu;
   GtkMenu *linestyle_menu;
+  GtkLabel *lengthlabel;
+  GtkSpinButton *dashlength;
+    
 };
 
 struct _DiaLineStyleSelectorClass
 {
-  GtkOptionMenuClass parent_class;
+  GtkVBoxClass parent_class;
 };
 
 guint      dia_line_style_selector_get_type      (void);
 GtkWidget* dia_line_style_selector_new           (void);
-LineStyle  dia_line_style_selector_get_linestyle (DiaLineStyleSelector *as);
+void       dia_line_style_selector_get_linestyle (DiaLineStyleSelector *as,
+						  LineStyle *linestyle, 
+						  real *dashlength);
 void       dia_line_style_selector_set_linestyle (DiaLineStyleSelector *as,
-						  LineStyle linestyle);
+						  LineStyle linestyle,
+						  real dashlength);
 
 /* DiaColorSelector: */
 #define DIACOLORSELECTOR(obj)          GTK_CHECK_CAST (obj, dia_color_selector_get_type (), DiaColorSelector)

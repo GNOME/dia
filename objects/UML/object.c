@@ -381,7 +381,7 @@ objet_create(Point *startpoint,
 
   elem->corner = *startpoint;
 
-  font = font_getfont("Courier");
+  font = font_getfont("Helvetica");
   
   pkg->show_attributes = FALSE;
   pkg->is_active = FALSE;
