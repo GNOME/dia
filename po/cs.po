@@ -5,12 +5,13 @@
 # Michal Bukovjan <bukm@centrum.cz>, 2002,2003.
 # Miloslav Trmac <mitr@volny.cz>, 2003, 2004.
 #
+#: app/sheets.c:453
 msgid ""
 msgstr ""
 "Project-Id-Version: dia VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-04-21 03:15+0200\n"
-"PO-Revision-Date: 2004-04-21 13:56+0200\n"
+"POT-Creation-Date: 2004-05-27 03:08+0200\n"
+"PO-Revision-Date: 2004-05-27 13:54+0200\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -112,7 +113,11 @@ msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr "Nelze nalézt standardní objekty při hledání object-libs, končím...\n"
 
-#: app/app_procs.c:591
+#: app/app_procs.c:569
+msgid "Diagram1.dia"
+msgstr "Diagram1.dia"
+
+#: app/app_procs.c:608
 msgid ""
 "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you can cause this message to appear.\n"
@@ -121,7 +126,7 @@ msgstr ""
 "a popište, jak jste způsobili zobrazení této zprávy.\n"
 
 #. no standard buttons
-#: app/app_procs.c:603
+#: app/app_procs.c:620
 msgid ""
 "Modified diagrams exist.\n"
 "Are you sure you want to quit Dia\n"
@@ -131,22 +136,22 @@ msgstr ""
 "Jste si jisti, že chcete ukončit program Dia\n"
 "bez uložení těchto změn?"
 
-#: app/app_procs.c:607
+#: app/app_procs.c:624
 msgid "Quit Dia"
 msgstr "Ukončit Dia"
 
 #. This printf seems to prevent a race condition with unrefs.
 #. Yuck.  -Lars
-#: app/app_procs.c:662
+#: app/app_procs.c:675
 #, c-format
 msgid "Thank you for using Dia.\n"
 msgstr "Děkujeme vám, že používáte Dia.\n"
 
-#: app/app_procs.c:678 app/app_procs.c:685
+#: app/app_procs.c:691 app/app_procs.c:698
 msgid "Could not create per-user Dia config directory"
 msgstr "Nelze vytvořit adresář s uživatelským nastavením Dia"
 
-#: app/app_procs.c:687
+#: app/app_procs.c:700
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -154,15 +159,15 @@ msgstr ""
 "Nelze vytvořit adresář s uživatelským nastavením Dia. Ujistěte se prosím, že "
 "proměnná prostředí HOME ukazuje na existující adresář."
 
-#: app/app_procs.c:709 app/diaconv.c:251
+#: app/app_procs.c:722 app/diaconv.c:251
 msgid "Objects and filters internal to dia"
 msgstr "Objekty a filtry interní pro program Dia"
 
-#: app/app_procs.c:748 app/diaconv.c:121
+#: app/app_procs.c:761 app/diaconv.c:121
 msgid "[OPTION...] [FILE...]"
 msgstr "[VOLBA...] [SOUBOR...]"
 
-#: app/app_procs.c:752 app/diaconv.c:128
+#: app/app_procs.c:765 app/diaconv.c:128
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
@@ -184,11 +189,11 @@ msgstr ""
 "Existují automaticky uložené soubory.\n"
 "Vyberte prosím ty, které chcete obnovit."
 
-#: app/color_area.c:316 app/color_area.c:363
+#: app/color_area.c:317 app/color_area.c:364
 msgid "Select foreground color"
 msgstr "Vyberte barvu popředí"
 
-#: app/color_area.c:317 app/color_area.c:364
+#: app/color_area.c:318 app/color_area.c:365
 msgid "Select background color"
 msgstr "Vyberte barvu pozadí"
 
@@ -201,11 +206,11 @@ msgstr "Diagram%d.dia"
 msgid "No existing object to paste.\n"
 msgstr "Žádný existující objekt ke vložení.\n"
 
-#: app/commands.c:515 app/commands.c:553
+#: app/commands.c:520 app/commands.c:558
 msgid "Could not find help directory"
 msgstr "Nelze nalézt adresář s nápovědou"
 
-#: app/commands.c:522
+#: app/commands.c:527
 #, c-format
 msgid ""
 "Could not open help directory:\n"
@@ -219,21 +224,21 @@ msgstr ""
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: app/commands.c:592
+#: app/commands.c:597
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 "Michal Bukovjan <bukm@centrum.cz>\n"
 "Miloslav Trmač <mitr@volny.cz>"
 
-#: app/commands.c:606 dia.desktop.in.h:1
+#: app/commands.c:611 dia.desktop.in.h:1
 msgid "Dia"
 msgstr "Dia"
 
-#: app/commands.c:608
+#: app/commands.c:613
 msgid "Copyright (C) 1998-2002 The Free Software Foundation and the authors"
 msgstr "Copyright © 1998-2002 The Free Software Foundation a autoři"
 
-#: app/commands.c:609
+#: app/commands.c:614
 msgid ""
 "Dia is a program for drawing structured diagrams.\n"
 "Please visit http://www.lysator.liu.se/~alla/dia for more information."
@@ -241,32 +246,32 @@ msgstr ""
 "Dia je program pro kreslení strukturovaných diagramů.\n"
 "Pro více informací prosím navštivte http://www.lysator.liu.se/~alla/dia."
 
-#: app/commands.c:648
+#: app/commands.c:653
 msgid "About Dia"
 msgstr "O Dia"
 
-#: app/commands.c:691
+#: app/commands.c:696
 #, c-format
 msgid "Dia v %s by Alexander Larsson"
 msgstr "Dia v %s od Alexandera Larssona"
 
 #. Exact spelling is Ch&eacute;p&eacute;lov (using *ML entities)
-#: app/commands.c:697
+#: app/commands.c:702
 msgid "Maintainers: Lars Clausen and Cyrille Chepelov"
 msgstr "Udržují: Lars Clausen a Cyrille Chépélov"
 
-#: app/commands.c:701
+#: app/commands.c:706
 msgid "Please visit http://www.lysator.liu.se/~alla/dia for more information"
 msgstr ""
 "Více informací naleznete při návštěvě http://www.lysator.liu.se/~alla/dia"
 
-#: app/commands.c:706
+#: app/commands.c:711
 msgid "Contributors:"
 msgstr "Přispěli:"
 
 #: app/defaults.c:43 app/defaults.c:146
-msgid "Object defaults"
-msgstr "Implicitní atributy objektu"
+msgid "DiaObject defaults"
+msgstr "Implicitní pro DiaObject"
 
 #: app/defaults.c:61
 msgid "This object has no defaults."
@@ -304,11 +309,11 @@ msgstr "Viditelný odstup"
 msgid "Grid"
 msgstr "Mřížka"
 
-#: app/dia-props.c:178 lib/diagramdata.c:62
+#: app/dia-props.c:178 lib/diagramdata.c:124
 msgid "Background"
 msgstr "Pozadí"
 
-#: app/dia-props.c:189 app/preferences.c:103
+#: app/dia-props.c:189 app/preferences.c:105
 msgid "Grid Lines"
 msgstr "Linie mřížky"
 
@@ -476,7 +481,7 @@ msgstr "Strom diagramů"
 msgid "Ok"
 msgstr "Ok"
 
-#: app/dialogs.c:52 app/layer_dialog.c:1009 app/paginate_psprint.c:278
+#: app/dialogs.c:52 app/layer_dialog.c:1131 app/paginate_psprint.c:279
 #: lib/diaarrowchooser.c:257
 msgid "Cancel"
 msgstr "Zrušit"
@@ -534,7 +539,7 @@ msgstr "×"
 msgid "%0.3gcm x %0.3gcm"
 msgstr "%0.3gcm × %0.3gcm"
 
-#: app/diapagelayout.c:786 app/pagesetup.c:73
+#: app/diapagelayout.c:786 app/pagesetup.c:76
 msgid "Page Setup"
 msgstr "Nastavení stránky"
 
@@ -550,7 +555,7 @@ msgstr ""
 msgid "Properties..."
 msgstr "Vlastnosti..."
 
-#: app/disp_callbacks.c:907
+#: app/disp_callbacks.c:914
 msgid ""
 "The object you dropped cannot fit into its parent. \n"
 "Either expand the parent object, or drop the object elsewhere."
@@ -562,11 +567,11 @@ msgstr ""
 msgid "Diagram modified!"
 msgstr "Diagram byl změněn!"
 
-#: app/display.c:998
+#: app/display.c:982
 msgid "<unnamed>"
 msgstr "<nepojmenovaný>"
 
-#: app/display.c:1000
+#: app/display.c:984
 #, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -575,15 +580,15 @@ msgstr ""
 "Diagram '%s'\n"
 "nebyl uložen. Chcete jej uložit nyní?"
 
-#: app/display.c:1011
+#: app/display.c:995
 msgid "Close Diagram"
 msgstr "Zavřít diagram"
 
-#: app/display.c:1016
+#: app/display.c:1000
 msgid "Discard Changes"
 msgstr "Zahodit změny"
 
-#: app/export_png.c:134 app/load_save.c:867 app/render_eps.c:103
+#: app/export_png.c:134 app/load_save.c:888 app/render_eps.c:103
 #: plug-ins/cgm/cgm.c:1157 plug-ins/dxf/dxf-export.c:505
 #: plug-ins/hpgl/hpgl.c:732 plug-ins/metapost/render_metapost.c:964
 #: plug-ins/pstricks/render_pstricks.c:800 plug-ins/shape/shape-export.c:135
@@ -628,23 +633,23 @@ msgstr "Výška obrázku:"
 msgid "Portable Network Graphics"
 msgstr "Portable Network Graphics"
 
-#: app/filedlg.c:114 app/filedlg.c:382
+#: app/filedlg.c:116 app/filedlg.c:385
 msgid "By extension"
 msgstr "Podle přípony"
 
-#: app/filedlg.c:175
+#: app/filedlg.c:177
 msgid "Open Diagram"
 msgstr "Otevřít diagram"
 
-#: app/filedlg.c:203
+#: app/filedlg.c:205
 msgid "Open Options"
 msgstr "Volby pro otevření"
 
-#: app/filedlg.c:211 app/filedlg.c:500
+#: app/filedlg.c:213 app/filedlg.c:503
 msgid "Determine file type:"
 msgstr "Zjistit typ souboru:"
 
-#: app/filedlg.c:248
+#: app/filedlg.c:250
 msgid ""
 "Some characters in the filename are neither UTF-8 nor your local encoding.\n"
 "Some things will break."
@@ -653,7 +658,7 @@ msgstr ""
 "kódování.\n"
 "Něco se pokazí."
 
-#: app/filedlg.c:254 app/filedlg.c:427
+#: app/filedlg.c:256 app/filedlg.c:429
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
@@ -662,21 +667,21 @@ msgstr ""
 "Soubor '%s' již existuje.\n"
 "Chcete jej přepsat?"
 
-#: app/filedlg.c:262 app/filedlg.c:434
+#: app/filedlg.c:264 app/filedlg.c:436
 msgid "File already exists"
 msgstr "Soubor již existuje"
 
-#: app/filedlg.c:294
+#: app/filedlg.c:296
 msgid "Save Diagram"
 msgstr "Uložit diagram"
 
 #. Need better way to make it a reasonable size.  Isn't there some
 #. standard look for them (or is that just Gnome?)
-#: app/filedlg.c:299
+#: app/filedlg.c:301
 msgid "Compress diagram files"
 msgstr "Komprimovat soubory s diagramy"
 
-#: app/filedlg.c:308
+#: app/filedlg.c:310
 msgid ""
 "Compression reduces file size to less than 1/10th size and speeds up loading "
 "and saving.  Some text programs cannot manipulate compressed files."
@@ -685,7 +690,7 @@ msgstr ""
 "urychluje načítání a ukládání. Některé programy pro zpracování textu však "
 "neumí s komprimovanými soubory pracovat."
 
-#: app/filedlg.c:452
+#: app/filedlg.c:455
 #, c-format
 msgid ""
 "Could not determine which export filter\n"
@@ -694,36 +699,36 @@ msgstr ""
 "Nelze zjistit, který exportní filtr se má\n"
 "použít pro uložení '%s'"
 
-#: app/filedlg.c:470
+#: app/filedlg.c:473
 msgid "Export Diagram"
 msgstr "Exportovat diagram"
 
-#: app/filedlg.c:492
+#: app/filedlg.c:495
 msgid "Export Options"
 msgstr "Volby exportu"
 
-#: app/interface.c:52
+#: app/interface.c:53
 msgid "Modify object(s)"
 msgstr "Upravit objekt(y)"
 
-#: app/interface.c:53
+#: app/interface.c:54
 msgid "Modify"
 msgstr "Upravit"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Magnify
-#: app/interface.c:57 app/interface.c:58 objects/FS/function.c:975
+#: app/interface.c:58 app/interface.c:59 objects/FS/function.c:975
 msgid "Magnify"
 msgstr "Zvětšit"
 
-#: app/interface.c:62
+#: app/interface.c:63
 msgid "Scroll around the diagram"
 msgstr "Posunovat okolo diagramu"
 
-#: app/interface.c:63
+#: app/interface.c:64
 msgid "Scroll"
 msgstr "Posunovat"
 
-#: app/interface.c:67 app/interface.c:68 lib/properties.c:77
+#: app/interface.c:68 app/interface.c:69 lib/properties.c:77
 #: lib/properties.h:514 lib/properties.h:517 objects/UML/activity.c:122
 #: objects/UML/actor.c:120 objects/UML/classicon.c:141
 #: objects/UML/component.c:126 objects/UML/component_feature.c:154
@@ -733,67 +738,67 @@ msgstr "Posunovat"
 msgid "Text"
 msgstr "Text"
 
-#: app/interface.c:72 app/interface.c:73
+#: app/interface.c:73 app/interface.c:74
 msgid "Box"
 msgstr "Čtyřúhelník"
 
-#: app/interface.c:77 app/interface.c:78
+#: app/interface.c:78 app/interface.c:79
 msgid "Ellipse"
 msgstr "Elipsa"
 
-#: app/interface.c:82 app/interface.c:83
+#: app/interface.c:83 app/interface.c:84
 msgid "Polygon"
 msgstr "Mnohoúhelník"
 
-#: app/interface.c:87 app/interface.c:88
+#: app/interface.c:88 app/interface.c:89
 msgid "Beziergon"
 msgstr "Beziérův útvar"
 
-#: app/interface.c:92 app/interface.c:93 objects/standard/line.c:247
+#: app/interface.c:93 app/interface.c:94 objects/standard/line.c:234
 msgid "Line"
 msgstr "Čára"
 
-#: app/interface.c:97 app/interface.c:98
+#: app/interface.c:98 app/interface.c:99
 msgid "Arc"
 msgstr "Oblouk"
 
-#: app/interface.c:102 app/interface.c:103
+#: app/interface.c:103 app/interface.c:104
 msgid "Zigzagline"
 msgstr "Klikatice"
 
-#: app/interface.c:107 app/interface.c:108
+#: app/interface.c:108 app/interface.c:109
 msgid "Polyline"
 msgstr "Lomená čára"
 
-#: app/interface.c:112 app/interface.c:113
+#: app/interface.c:113 app/interface.c:114
 msgid "Bezierline"
 msgstr "Beziérova čára"
 
-#: app/interface.c:117 app/interface.c:118
+#: app/interface.c:118 app/interface.c:119
 msgid "Image"
 msgstr "Obrázek"
 
-#: app/interface.c:390
+#: app/interface.c:391
 msgid "Diagram menu."
 msgstr "Menu diagramu."
 
-#: app/interface.c:428
+#: app/interface.c:429
 msgid "Pops up the Navigation window."
 msgstr "Zobrazí okno Navigace."
 
-#: app/interface.c:508
+#: app/interface.c:511
 msgid "Zoom"
 msgstr "Zvětšit"
 
-#: app/interface.c:522
+#: app/interface.c:525
 msgid "Toggles snap-to-grid for this window."
 msgstr "Přepne lnutí k mřížce pro toto okno."
 
-#: app/interface.c:585
+#: app/interface.c:588
 msgid "NULL tooldata in tool_select_update"
 msgstr "Data s hodnotou NULL v tool_select_update"
 
-#: app/interface.c:1068
+#: app/interface.c:1071
 msgid ""
 "Foreground & background colors for new objects.  The small black and white "
 "squares reset colors.  The small arrows swap colors.  Double click to change "
@@ -802,7 +807,7 @@ msgstr ""
 "Barvy popředí a pozadí pro nové objekty. Malý černý a bílý čtvereček "
 "vynuluje barvy. Šipečky prohazují barvy. Dvojité kliknutí změní barvu."
 
-#: app/interface.c:1083
+#: app/interface.c:1086
 msgid ""
 "Line widths.  Click on a line to set the default line width for new "
 "objects.  Double-click to set the line width more precisely."
@@ -810,7 +815,7 @@ msgstr ""
 "Šířky čar. Kliknutím na čáru nastavíte implicitní šířku čáry pro nové "
 "objekty. Dvojitým kliknutím nastavíte šířku čáry přesněji."
 
-#: app/interface.c:1115
+#: app/interface.c:1126
 msgid ""
 "Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
 "arrow parameters with Details..."
@@ -818,7 +823,7 @@ msgstr ""
 "Styl šipky na začátku nových čar. Kliknutím zvolte šipku nebo nastavte "
 "parametry šipky tlačítkem Podrobnosti..."
 
-#: app/interface.c:1120
+#: app/interface.c:1131
 msgid ""
 "Line style for new lines.  Click to pick a line style, or set line style "
 "parameters with Details..."
@@ -826,7 +831,7 @@ msgstr ""
 "Styl čáry pro nové čáry. Kliknutím zvolte styl čáry nebo nastavte styl čáry "
 "tlačítkem Podrobnosti..."
 
-#: app/interface.c:1126
+#: app/interface.c:1145
 msgid ""
 "Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
 "parameters with Details..."
@@ -834,64 +839,65 @@ msgstr ""
 "Styl šipky na konci nových čar. Kliknutím zvolte šipku nebo nastavte "
 "parametry šipky tlačítkem Podrobnosti..."
 
-#: app/interface.c:1236
+#: app/interface.c:1255
 msgid "Diagram Editor"
 msgstr "Editor diagramu"
 
-#: app/layer_dialog.c:70
+#: app/layer_dialog.c:74
 msgid "New Layer"
 msgstr "Nová vrstva"
 
-#: app/layer_dialog.c:71
+#: app/layer_dialog.c:75
 msgid "Raise Layer"
 msgstr "Zvednout vrstvu"
 
-#: app/layer_dialog.c:72
+#: app/layer_dialog.c:76
 msgid "Lower Layer"
 msgstr "Snížit vrstvu"
 
-#: app/layer_dialog.c:73
+#: app/layer_dialog.c:77
 msgid "Delete Layer"
 msgstr "Odstranit vrstvu"
 
-#: app/layer_dialog.c:214
+#: app/layer_dialog.c:219
 msgid "Layers"
 msgstr "Vrstvy"
 
-#: app/layer_dialog.c:228
+#: app/layer_dialog.c:233
 msgid "Diagrams:"
 msgstr "Diagramy:"
 
-#: app/layer_dialog.c:273
+#: app/layer_dialog.c:278
 msgid "Close"
 msgstr "Zavřít"
 
-#: app/layer_dialog.c:319
+#: app/layer_dialog.c:324
 msgid "New layer"
 msgstr "Nová vrstva"
 
-#: app/layer_dialog.c:525
+#: app/layer_dialog.c:530
 msgid "none"
 msgstr "nic"
 
-#: app/layer_dialog.c:971
+#: app/layer_dialog.c:1093
 msgid "Edit Layer Attributes"
 msgstr "Upravit vlastnosti vrstvy"
 
-#: app/layer_dialog.c:990
+#: app/layer_dialog.c:1112
 msgid "Layer name:"
 msgstr "Název vrstvy:"
 
-#: app/layer_dialog.c:999 app/paginate_psprint.c:270 lib/diaarrowchooser.c:248
+#: app/layer_dialog.c:1121 app/paginate_psprint.c:271
+#: lib/diaarrowchooser.c:248
 msgid "OK"
 msgstr "OK"
 
-#: app/linewidth_area.c:239 lib/properties.h:478 lib/properties.h:481
+#: app/linewidth_area.c:248 lib/properties.h:478 lib/properties.h:481
 #: objects/chronogram/chronoline.c:181 objects/chronogram/chronoref.c:160
 msgid "Line width"
 msgstr "Šířka čáry"
 
-#: app/linewidth_area.c:251
+#: app/linewidth_area.c:260
 msgid "Line width:"
 msgstr "Šířka čáry:"
 
@@ -906,35 +912,36 @@ msgstr ""
 #: app/load_save.c:248
 msgid ""
 "Error loading diagram.\n"
-"connection point does not exist."
-msgstr ""
-"Chyba při načítání diagramu.\n"
-"Přípojný bod neexistuje."
-
-#: app/load_save.c:251
-msgid ""
-"Error loading diagram.\n"
 "connection handle does not exist."
 msgstr ""
 "Chyba při načítání diagramu.\n"
 "Úchytka připojení neexistuje."
 
-#: app/load_save.c:273
+#: app/load_save.c:265
+#, c-format
+msgid ""
+"Error loading diagram.\n"
+"connection point %s does not exist."
+msgstr ""
+"Chyba při načítání diagramu.\n"
+"přípojný bod %s neexistuje."
+
+#: app/load_save.c:290
 #, c-format
 msgid "Can't find parent %s of %s object\n"
 msgstr "Nemohu nalézt rodiče %s objektu %s\n"
 
-#: app/load_save.c:318
+#: app/load_save.c:335
 msgid "You must specify a file, not a directory.\n"
 msgstr "Musíte zadat soubor, ne adresář.\n"
 
-#: app/load_save.c:325 plug-ins/dxf/dxf-import.c:1304 plug-ins/wpg/wpg.c:1169
-#: plug-ins/xfig/xfig-import.c:1517 plug-ins/xslt/xslt.c:87
+#: app/load_save.c:342 plug-ins/dxf/dxf-import.c:1304 plug-ins/wpg/wpg.c:1169
+#: plug-ins/xfig/xfig-import.c:1560 plug-ins/xslt/xslt.c:87
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "Nelze otevřít '%s' pro čtení.\n"
 
-#: app/load_save.c:342 app/load_save.c:347
+#: app/load_save.c:359 app/load_save.c:364
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -943,7 +950,7 @@ msgstr ""
 "Chyba při načítání diagramu %s.\n"
 "Neznámý typ souboru."
 
-#: app/load_save.c:354
+#: app/load_save.c:371
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -952,7 +959,7 @@ msgstr ""
 "Chyba při načítání diagramu %s.\n"
 "Toto není soubor Dia."
 
-#: app/load_save.c:551
+#: app/load_save.c:570
 #, c-format
 msgid ""
 "Error loading diagram:\n"
@@ -963,12 +970,12 @@ msgstr ""
 "%s.\n"
 "Platný soubor ve formátu Dia obsahuje alespoň jednu vrstvu."
 
-#: app/load_save.c:900
+#: app/load_save.c:921
 #, c-format
 msgid "Failed to save file '%s'.\n"
 msgstr "Selhalo uložení souboru '%s'.\n"
 
-#: app/load_save.c:971 app/load_save.c:976
+#: app/load_save.c:992 app/load_save.c:997
 msgid "Native Dia Diagram"
 msgstr "Původní diagram Dia"
 
@@ -1433,7 +1440,7 @@ msgstr ""
 "Nelze nalézt položku menu '%s'!\n"
 "Pravděpodobně nastal problém s lokalizací (zkuste nastavit LANG=C)."
 
-#: app/modify_tool.c:315
+#: app/modify_tool.c:326
 msgid "Couldn't get GTK settings"
 msgstr "Nelze získat nastavení GTK"
 
@@ -1445,26 +1452,26 @@ msgstr "Vybrat tiskárnu"
 msgid "Printer"
 msgstr "Tiskárna"
 
-#: app/paginate_psprint.c:255 sheets/Misc.sheet.in.h:1
+#: app/paginate_psprint.c:256 sheets/Misc.sheet.in.h:1
 msgid "File"
 msgstr "Soubor"
 
-#: app/paginate_psprint.c:358
+#: app/paginate_psprint.c:360
 #, c-format
 msgid "Could not run command '%s': %s"
 msgstr "Nemohu spustit příkaz '%s': %s"
 
-#: app/paginate_psprint.c:361
+#: app/paginate_psprint.c:363
 #, c-format
 msgid "Could not open '%s' for writing: %s"
 msgstr "Nemohu otevřít '%s' pro zápis: %s"
 
-#: app/paginate_psprint.c:380
+#: app/paginate_psprint.c:382
 #, c-format
 msgid "Printing error: command '%s' returned %d\n"
 msgstr "Chyba při tisku: příkaz '%s' vrátil %d\n"
 
-#: app/paginate_psprint.c:390
+#: app/paginate_psprint.c:392
 #, c-format
 msgid "Printing error: command '%s' caused sigpipe."
 msgstr "Chyba při tisku: příkaz '%s' způsobil sigpipe."
@@ -1494,35 +1501,35 @@ msgstr "Načíst při startu"
 msgid "File Name"
 msgstr "Název souboru"
 
-#: app/preferences.c:100
+#: app/preferences.c:102
 msgid "User Interface"
 msgstr "Uživatelské rozhraní"
 
-#: app/preferences.c:101
+#: app/preferences.c:103
 msgid "Diagram Defaults"
 msgstr "Implicitní diagram"
 
-#: app/preferences.c:102
+#: app/preferences.c:104
 msgid "View Defaults"
 msgstr "Implicitní zobrazení"
 
-#: app/preferences.c:104
+#: app/preferences.c:106
 msgid "Diagram Tree"
 msgstr "Strom diagramů"
 
-#: app/preferences.c:118
+#: app/preferences.c:120
 msgid "Reset tools after create"
 msgstr "Vynulovat nástroje po vytvoření"
 
-#: app/preferences.c:119
+#: app/preferences.c:121
 msgid "Compress saved files"
 msgstr "Komprimovat uložené soubory"
 
-#: app/preferences.c:120
+#: app/preferences.c:122
 msgid "Number of undo levels:"
 msgstr "Počet úrovní zpětných úprav:"
 
-#: app/preferences.c:121
+#: app/preferences.c:123
 msgid ""
 "Reverse dragging selects\n"
 "intersecting objects"
@@ -1530,120 +1537,115 @@ msgstr ""
 "Opačné táhnutí vybírá\n"
 "křížící se objekty"
 
-#: app/preferences.c:122
+#: app/preferences.c:124
 msgid "Recent documents list size:"
 msgstr "Velikost seznamu nedávných dokumentů:"
 
-#: app/preferences.c:123
+#: app/preferences.c:125
 msgid "Use menu bar"
 msgstr "Používat lištu s menu"
 
-#: app/preferences.c:125
+#: app/preferences.c:127
 msgid "Keep tool box on top of diagram windows"
 msgstr "Udržovat panel nástrojů nad okny s diagramy"
 
-#: app/preferences.c:127
+#: app/preferences.c:129
 msgid "New diagram:"
 msgstr "Nový diagram:"
 
-#: app/preferences.c:128
+#: app/preferences.c:130
 msgid "Portrait"
 msgstr "Na výšku"
 
-#: app/preferences.c:130
+#: app/preferences.c:132
 msgid "Paper type:"
 msgstr "Typ papíru:"
 
-#: app/preferences.c:133
+#: app/preferences.c:135
 msgid "Background Color:"
 msgstr "Barva pozadí:"
 
-#: app/preferences.c:136
+#: app/preferences.c:138
 msgid "New window:"
 msgstr "Nové okno:"
 
-#: app/preferences.c:137
+#: app/preferences.c:139
 msgid "Width:"
 msgstr "Šířka:"
 
-#: app/preferences.c:138
+#: app/preferences.c:140
 msgid "Height:"
 msgstr "Výška:"
 
-#: app/preferences.c:139
+#: app/preferences.c:141
 msgid "Magnify:"
 msgstr "Zvětšení:"
 
-#: app/preferences.c:142
+#: app/preferences.c:144
 msgid "Connection Points:"
 msgstr "Přípojné body:"
 
 #. { NULL, PREF_NONE, 0, NULL, 3, N_("Grid:") },
-#: app/preferences.c:143 app/preferences.c:147 app/preferences.c:153
+#: app/preferences.c:145 app/preferences.c:149 app/preferences.c:155
 msgid "Visible"
 msgstr "Viditelné"
 
-#: app/preferences.c:146
+#: app/preferences.c:148
 msgid "Page breaks:"
 msgstr "Zalomení stránky:"
 
-#: app/preferences.c:148 app/preferences.c:158
+#: app/preferences.c:150 app/preferences.c:160
 msgid "Color:"
 msgstr "Barva:"
 
-#: app/preferences.c:149
+#: app/preferences.c:151
 msgid "Solid lines"
 msgstr "Nepřerušené linie"
 
-#: app/preferences.c:154
+#: app/preferences.c:156
 msgid "Snap to"
 msgstr "Lnout k"
 
-#: app/preferences.c:155
+#: app/preferences.c:157
 msgid "Dynamic grid resizing"
 msgstr "Dynamická změna velikosti mřížky"
 
-#: app/preferences.c:156
+#: app/preferences.c:158
 msgid "X Size:"
 msgstr "Velikost X:"
 
-#: app/preferences.c:157
+#: app/preferences.c:159
 msgid "Y Size:"
 msgstr "Velikost Y:"
 
-#: app/preferences.c:159
+#: app/preferences.c:161
 msgid "Lines per major line"
 msgstr "Čar na hlavní čáru"
 
-#: app/preferences.c:177
+#: app/preferences.c:179
 msgid "Diagram tree window:"
 msgstr "Okno se stromem diagramů:"
 
-#: app/preferences.c:179
+#: app/preferences.c:181
 msgid "Save hidden object types"
 msgstr "Ukládat skryté typy souborů"
 
-#: app/preferences.c:308
-#, c-format
-msgid "Could not open `%s' for writing"
-msgstr "Nelze otevřít `%s' pro zápis"
-
-#: app/preferences.c:586 lib/prop_inttypes.c:158
+#: app/preferences.c:388 lib/prop_inttypes.c:158
 msgid "Yes"
 msgstr "Ano"
 
-#: app/preferences.c:586 app/preferences.c:597 lib/prop_inttypes.c:160
+#: app/preferences.c:388 app/preferences.c:399 lib/prop_inttypes.c:160
 #: lib/prop_inttypes.c:186
 msgid "No"
 msgstr "Ne"
 
-#: app/preferences.c:699
+#: app/preferences.c:501
 msgid "Preferences"
 msgstr "Nastavení"
 
 #: app/properties.c:55
-msgid "Object properties"
-msgstr "Vlastnosti objektu"
+msgid "DiaObject properties"
+msgstr "Vlastnosti DiaObject"
 
 #: app/properties.c:81
 msgid "This object has no properties."
@@ -1654,22 +1656,18 @@ msgid "Properties: "
 msgstr "Vlastnosti:"
 
 #: app/properties.c:207
-msgid "Object properties:"
-msgstr "Vlastnosti objektu:"
+msgid "DiaObject properties:"
+msgstr "Vlastnosti DiaObject:"
 
 #. Use the Plugins menu item to get a pointer to the File menu,
 #. but any item on the File menu will do
-#: app/recent_files.c:139
+#: app/recent_files.c:61
 msgid "<Toolbox>/File/Plugins..."
 msgstr "<Toolbox>/Soubor/Zásuvné moduly..."
 
-#: app/recent_files.c:267
+#: app/recent_files.c:70 app/recent_files.c:148
 msgid "<Toolbox>/File/Quit"
 msgstr "<Toolbox>/Soubor/Konec"
-
-#: app/recent_files.c:303
-msgid "Can't open history file for writing."
-msgstr "Nelze otevřít soubor s historií pro zápis."
 
 #: app/render_eps.c:145
 msgid "Encapsulated Postscript (using Pango fonts)"
@@ -1683,7 +1681,7 @@ msgstr "Zapouzdřený PostScript s náhledem (používající písma Pango)"
 msgid "Encapsulated Postscript (using PostScript Latin-1 fonts)"
 msgstr "Zapouzdřený PostScript (používající písma PostScript Latin-1)"
 
-#: app/render_libart.c:318 lib/dialibartrenderer.c:266
+#: app/render_libart.c:318 lib/dialibartrenderer.c:288
 msgid "gdk_renderer: Unsupported fill mode specified!\n"
 msgstr "gdk_renderer: Byl zadán nepodporovaný typ výplně!\n"
 
@@ -1723,8 +1721,8 @@ msgid "SVG Shape"
 msgstr "Tvar SVG"
 
 #: app/sheets.c:450
-msgid "Programmed Object"
-msgstr "Naprogramovaný objekt"
+msgid "Programmed DiaObject"
+msgstr "Naprogramovaný DiaObject"
 
 #: app/sheets_dialog.c:83
 msgid "Sheets and Objects"
@@ -1791,9 +1789,9 @@ msgstr "Konec řádky"
 msgid "Edit Attributes"
 msgstr "Upravit vlastnosti"
 
-#: app/sheets_dialog.c:583 sheets/UML.sheet.in.h:24
-msgid "Object"
-msgstr "Objekt"
+#: app/sheets_dialog.c:583
+msgid "DiaObject"
+msgstr "DiaObject"
 
 #: app/sheets_dialog.c:599 app/sheets_dialog.c:692
 msgid "Description:"
@@ -1827,8 +1825,8 @@ msgid "Remove"
 msgstr "Odstranit"
 
 #: app/sheets_dialog.c:809
-msgid "Object:"
-msgstr "Objekt:"
+msgid "DiaObject:"
+msgstr "DiaObject:"
 
 #: app/sheets_dialog.c:836
 msgid "Sheet:"
@@ -1946,134 +1944,138 @@ msgstr "Dia v %s"
 msgid "Diagram editor"
 msgstr "Editor diagramů"
 
-#: lib/arrows.c:38 objects/UML/association.c:1135
+#: lib/arrows.c:40 objects/UML/association.c:1135
 msgid "None"
 msgstr "Nic"
 
-#: lib/arrows.c:39
+#: lib/arrows.c:41
 msgid "Lines"
 msgstr "Čáry"
 
-#: lib/arrows.c:40
+#: lib/arrows.c:42
 msgid "Hollow Triangle"
 msgstr "Dutý trojúhelník"
 
-#: lib/arrows.c:41
+#: lib/arrows.c:43
 msgid "Filled Triangle"
 msgstr "Plný trojúhelník"
 
-#: lib/arrows.c:42
+#: lib/arrows.c:44
 msgid "Unfilled Triangle"
 msgstr "Prázdný trojúhelník"
 
-#: lib/arrows.c:43
+#: lib/arrows.c:45
 msgid "Hollow Diamond"
 msgstr "Dutý diamant"
 
-#: lib/arrows.c:44
+#: lib/arrows.c:46
 msgid "Filled Diamond"
 msgstr "Plný diamant"
 
-#: lib/arrows.c:45
+#: lib/arrows.c:47
 msgid "Half Diamond"
 msgstr "Polovina diamantu"
 
-#: lib/arrows.c:46
+#: lib/arrows.c:48
 msgid "Half Head"
 msgstr "Půl hlavy"
 
-#: lib/arrows.c:47
+#: lib/arrows.c:49
 msgid "Slashed Cross"
 msgstr "Přeškrtnutý křížek"
 
-#: lib/arrows.c:48
+#: lib/arrows.c:50
 msgid "Filled Ellipse"
 msgstr "Plná elipsa"
 
-#: lib/arrows.c:49
+#: lib/arrows.c:51
 msgid "Hollow Ellipse"
 msgstr "Dutá elipsa"
 
-#: lib/arrows.c:50
+#: lib/arrows.c:52
 msgid "Filled Dot"
 msgstr "Plná tečka"
 
-#: lib/arrows.c:51
+#: lib/arrows.c:53
 msgid "Dimension Origin"
 msgstr "Původ rozměru"
 
-#: lib/arrows.c:52
+#: lib/arrows.c:54
 msgid "Blanked Dot"
 msgstr "Prázdná tečka"
 
-#: lib/arrows.c:53
+#: lib/arrows.c:55
 msgid "Double Hollow Triangle"
 msgstr "Dvojitý dutý trojúhelník"
 
-#: lib/arrows.c:54
+#: lib/arrows.c:56
 msgid "Double Filled Triangle"
 msgstr "Dvojitý plný trojúhelník"
 
-#: lib/arrows.c:55
+#: lib/arrows.c:57
 #, fuzzy
 msgid "Filled Dot and Triangle"
 msgstr "Plný trojúhelník"
 
-#: lib/arrows.c:56
+#: lib/arrows.c:58
 msgid "Filled Box"
 msgstr "Plný čtyřúhelník"
 
-#: lib/arrows.c:57
+#: lib/arrows.c:59
 msgid "Blanked Box"
 msgstr "Prázdný čtyřúhelník"
 
-#: lib/arrows.c:58
+#: lib/arrows.c:60
 msgid "Slashed"
 msgstr "Přeškrtnutý"
 
-#: lib/arrows.c:59
+#: lib/arrows.c:61
 msgid "Integral Symbol"
 msgstr "Symbol integrálu"
 
-#: lib/arrows.c:60
+#: lib/arrows.c:62
 msgid "Crow Foot"
 msgstr "Vraní stopa"
 
-#: lib/arrows.c:61
+#: lib/arrows.c:63
 msgid "Cross"
 msgstr "Křížek"
 
-#: lib/arrows.c:62
+#: lib/arrows.c:64
 msgid "1-or-many"
 msgstr "1-nebo-mnoho"
 
-#: lib/arrows.c:63
+#: lib/arrows.c:65
 msgid "0-or-many"
 msgstr "0-nebo-mnoho"
 
-#: lib/arrows.c:64
+#: lib/arrows.c:66
 msgid "1-or-0"
 msgstr "1-nebo-0"
 
-#: lib/arrows.c:65
+#: lib/arrows.c:67
 msgid "1 exactly"
 msgstr "právě 1"
 
-#: lib/arrows.c:66
+#: lib/arrows.c:68
 msgid "Filled Concave"
 msgstr "Plná konkáva"
 
-#: lib/arrows.c:67
+#: lib/arrows.c:69
 msgid "Blanked Concave"
 msgstr "Prázdná konkáva"
 
-#: lib/arrows.c:68
+#: lib/arrows.c:70
 msgid "Round"
 msgstr "Kulatý"
 
-#: lib/arrows.c:69
+#: lib/arrows.c:71
 msgid "Open Round"
 msgstr "Otevřený kulatý"
+
+#: lib/arrows.c:72
+msgid "Backslash"
+msgstr "Zpětné lomítko"
 
 #: lib/bezier_conn.c:533
 msgid "Internal error: Setting corner type of endpoint of bezier"
@@ -2123,7 +2125,7 @@ msgstr ""
 msgid "Arrow Properties"
 msgstr "Vlastnosti šipky"
 
-#: lib/diaarrowchooser.c:311 lib/dialinechooser.c:321
+#: lib/diaarrowchooser.c:313 lib/dialinechooser.c:333
 msgid "Details..."
 msgstr "Podrobnosti..."
 
@@ -2170,7 +2172,7 @@ msgstr "_Náhled:"
 msgid "Font Selection"
 msgstr "Výběr písma"
 
-#: lib/dialinechooser.c:287
+#: lib/dialinechooser.c:297
 msgid "Line Style Properties"
 msgstr "Vlastnosti stylu čáry"
 
@@ -2179,7 +2181,7 @@ msgstr "Vlastnosti stylu čáry"
 msgid "Multiple export filters with unique name %s"
 msgstr "Více exportních filtrů s jedinečným názvem %s"
 
-#: lib/font.c:88
+#: lib/font.c:89
 #, c-format
 msgid "Can't load font %s.\n"
 msgstr "Nelze načíst písmo %s.\n"
@@ -2263,15 +2265,15 @@ msgstr ""
 "Nelze otevřít `%s'\n"
 "`%s'"
 
-#: lib/properties.c:62 lib/properties.h:466 lib/widgets.c:806
+#: lib/properties.c:62 lib/properties.h:466 lib/widgets.c:789
 msgid "Left"
 msgstr "Vlevo"
 
-#: lib/properties.c:63 lib/properties.h:467 lib/widgets.c:812
+#: lib/properties.c:63 lib/properties.h:467 lib/widgets.c:795
 msgid "Center"
 msgstr "Uprostřed"
 
-#: lib/properties.c:64 lib/properties.h:468 lib/widgets.c:818
+#: lib/properties.c:64 lib/properties.h:468 lib/widgets.c:801
 msgid "Right"
 msgstr "Vpravo"
 
@@ -2334,59 +2336,59 @@ msgstr "Barva výplně"
 msgid "Text colour"
 msgstr "Barva textu"
 
-#: lib/widgets.c:438
+#: lib/widgets.c:390
 msgid "Other fonts..."
 msgstr "Jiná písma..."
 
-#: lib/widgets.c:541
+#: lib/widgets.c:520
 #, c-format
 msgid "Couldn't find font family for %s\n"
 msgstr "Nelze nalézt rodinu písma pro %s\n"
 
 #. We hit the Other fonts... entry
-#: lib/widgets.c:605
+#: lib/widgets.c:585
 msgid "Select font"
 msgstr "Vyberte písmo"
 
 #. Translators: Menu item Noun/Material/Solid
-#: lib/widgets.c:954 objects/FS/function.c:1063
+#: lib/widgets.c:937 objects/FS/function.c:1063
 msgid "Solid"
 msgstr "Nepřerušovaná"
 
-#: lib/widgets.c:960
+#: lib/widgets.c:943
 msgid "Dashed"
 msgstr "Čárkovaná"
 
-#: lib/widgets.c:966
+#: lib/widgets.c:949
 msgid "Dash-Dot"
 msgstr "Čárka - tečka"
 
-#: lib/widgets.c:972
+#: lib/widgets.c:955
 msgid "Dash-Dot-Dot"
 msgstr "Čárka - tečka - tečka"
 
-#: lib/widgets.c:978
+#: lib/widgets.c:961
 msgid "Dotted"
 msgstr "Tečkovaná"
 
 #. fs->sizebox = GTK_HBOX(box);
-#: lib/widgets.c:997
+#: lib/widgets.c:980
 msgid "Dash length: "
 msgstr "Délka čárky:"
 
-#: lib/widgets.c:1152
+#: lib/widgets.c:1135
 msgid "Select color"
 msgstr "Vyberte barvu"
 
-#: lib/widgets.c:1369
+#: lib/widgets.c:1353
 msgid "Size: "
 msgstr "Velikost: "
 
-#: lib/widgets.c:1516
+#: lib/widgets.c:1502
 msgid "Select image file"
 msgstr "Vyberte soubor s obrázkem"
 
-#: lib/widgets.c:1552
+#: lib/widgets.c:1538
 msgid "Browse"
 msgstr "Probírat"
 
@@ -3652,7 +3654,7 @@ msgid "Vergent type:"
 msgstr "Typ krajnice:"
 
 #: objects/GRAFCET/vergent.c:405 objects/SADT/box.c:445
-#: objects/standard/line.c:241
+#: objects/standard/line.c:228
 msgid "Add connection point"
 msgstr "Přidat bod připojení"
 
@@ -3743,7 +3745,7 @@ msgstr "Identifikátor Aktivity / Dat"
 msgid "The identifier which appears in the lower right corner of the Box"
 msgstr "Identifikátor objevující se v pravém dolním rohu zařízení"
 
-#: objects/SADT/box.c:446 objects/standard/line.c:242
+#: objects/SADT/box.c:446 objects/standard/line.c:229
 msgid "Delete connection point"
 msgstr "Odstranit přípojný bod"
 
@@ -4332,7 +4334,7 @@ msgstr "Přidat úchytku"
 msgid "Delete Handle"
 msgstr "Odstranit úchytku"
 
-#: objects/network/network.c:41
+#: objects/network/network.c:43
 msgid "Network diagram objects"
 msgstr "Objekty síťového diagramu"
 
@@ -4340,23 +4342,23 @@ msgstr "Objekty síťového diagramu"
 msgid "Curve distance"
 msgstr "Vzdálenost křivky"
 
-#: objects/standard/bezier.c:545 objects/standard/beziergon.c:500
+#: objects/standard/bezier.c:545 objects/standard/beziergon.c:501
 msgid "Add Segment"
 msgstr "Přidat segment"
 
-#: objects/standard/bezier.c:546 objects/standard/beziergon.c:501
+#: objects/standard/bezier.c:546 objects/standard/beziergon.c:502
 msgid "Delete Segment"
 msgstr "Odstranit segment"
 
-#: objects/standard/bezier.c:548 objects/standard/beziergon.c:503
+#: objects/standard/bezier.c:548 objects/standard/beziergon.c:504
 msgid "Symmetric control"
 msgstr "Symetrické ovládání"
 
-#: objects/standard/bezier.c:550 objects/standard/beziergon.c:505
+#: objects/standard/bezier.c:550 objects/standard/beziergon.c:506
 msgid "Smooth control"
 msgstr "Hladké ovládání"
 
-#: objects/standard/bezier.c:552 objects/standard/beziergon.c:507
+#: objects/standard/bezier.c:552 objects/standard/beziergon.c:508
 msgid "Cusp control"
 msgstr "Hrotové ovládání"
 
@@ -4376,15 +4378,15 @@ msgstr "Čtverec"
 msgid "Aspect ratio"
 msgstr "Poměr stran"
 
-#: objects/standard/box.c:683 objects/standard/ellipse.c:666
+#: objects/standard/box.c:683 objects/standard/ellipse.c:664
 msgid "Free aspect"
 msgstr "Volný poměr stran"
 
-#: objects/standard/box.c:685 objects/standard/ellipse.c:668
+#: objects/standard/box.c:685 objects/standard/ellipse.c:666
 msgid "Fixed aspect"
 msgstr "Pevný poměr stran"
 
-#: objects/standard/ellipse.c:133 objects/standard/ellipse.c:670
+#: objects/standard/ellipse.c:133 objects/standard/ellipse.c:668
 msgid "Circle"
 msgstr "Kruh"
 
@@ -4417,17 +4419,37 @@ msgstr ""
 msgid "The image file '%s' was not found.\n"
 msgstr "Soubor s obrázkem '%s' nebyl nalezen.\n"
 
-#: objects/standard/line.c:136
+#: objects/standard/line.c:135
 msgid "Arrows"
 msgstr "Šipky"
 
-#: objects/standard/line.c:141
+#: objects/standard/line.c:140
 msgid "Start point"
 msgstr "Počáteční bod"
 
-#: objects/standard/line.c:143
+#: objects/standard/line.c:142
 msgid "End point"
 msgstr "Koncový bod"
+
+#: objects/standard/line.c:143
+msgid "Line gaps"
+msgstr "Mezery v čáře"
+
+#: objects/standard/line.c:145
+msgid "Absolute start gap"
+msgstr "Absolutní začátek mezery"
+
+#: objects/standard/line.c:147
+msgid "Absolute end gap"
+msgstr "Absolutní konec mezery"
+
+#: objects/standard/line.c:149
+msgid "Fractional start gap"
+msgstr "Relativní začátek mezery"
+
+#: objects/standard/line.c:151
+msgid "Fractional end gap"
+msgstr "Relativní konec mezery"
 
 #: objects/standard/polygon.c:460 objects/standard/polyline.c:496
 msgid "Add Corner"
@@ -4510,11 +4532,15 @@ msgstr ""
 "%s\n"
 "%s"
 
-#: plug-ins/pixbuf/pixbuf.c:163 plug-ins/pixbuf/pixbuf.c:174
+#: plug-ins/pixbuf/pixbuf.c:159
+msgid "GdkPixbuf - not antialiased"
+msgstr "GdkPixbuf - nevyhlazováno"
+
+#: plug-ins/pixbuf/pixbuf.c:169
 msgid "GdkPixbuf bitmap"
 msgstr "Bitmapa GdkPixbuf"
 
-#: plug-ins/pixbuf/pixbuf.c:187
+#: plug-ins/pixbuf/pixbuf.c:182
 msgid "gdk-pixbuf based bitmap export/import"
 msgstr "export/import bitmapy založené na gdk-pixbuf"
 
@@ -4530,7 +4556,7 @@ msgstr "Není platné UTF8"
 msgid "TeX PSTricks macros"
 msgstr "Makra formátu TeX PSTricks"
 
-#: plug-ins/python/pydia-render.c:711 plug-ins/wmf/wmf.cpp:1041
+#: plug-ins/python/pydia-render.c:711 plug-ins/wmf/wmf.cpp:1056
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
 msgstr "Nelze otevřít '%s' pro zápis.\n"
@@ -4551,11 +4577,11 @@ msgstr "soubor s tvary Dia"
 msgid "dia shape export filter"
 msgstr "Exportní filtr tvarů Dia"
 
-#: plug-ins/svg/render_svg.c:301 plug-ins/svg/svg-import.c:642
+#: plug-ins/svg/render_svg.c:301 plug-ins/svg/svg-import.c:641
 msgid "Scalable Vector Graphics"
 msgstr "Scalable Vector Graphics"
 
-#: plug-ins/svg/svg-import.c:204 plug-ins/svg/svg-import.c:218
+#: plug-ins/svg/svg-import.c:203 plug-ins/svg/svg-import.c:217
 #: plug-ins/xfig/xfig-import.c:108 plug-ins/xfig/xfig-import.c:159
 #: plug-ins/xfig/xfig-import.c:188 plug-ins/xfig/xfig-import.c:224
 #: plug-ins/xfig/xfig-import.c:261 plug-ins/xfig/xfig-import.c:289
@@ -4564,19 +4590,19 @@ msgstr "Scalable Vector Graphics"
 msgid "Can't find standard object"
 msgstr "Nelze nalézt standardní objekt"
 
-#: plug-ins/svg/svg-import.c:230
+#: plug-ins/svg/svg-import.c:229
 msgid "Unexpected SVG path element"
 msgstr "Neočekávaný element cesty SVG"
 
-#: plug-ins/svg/svg-import.c:288
+#: plug-ins/svg/svg-import.c:287
 msgid "Courier"
 msgstr "Courier"
 
-#: plug-ins/svg/svg-import.c:591
+#: plug-ins/svg/svg-import.c:590
 msgid "Could not find SVG namespace."
 msgstr "Nelze nalézt jmenný prostor SVG"
 
-#: plug-ins/svg/svg-import.c:597
+#: plug-ins/svg/svg-import.c:596
 #, c-format
 msgid "root element was '%s' -- expecting 'svg'."
 msgstr "kořenový element byl '%s' -- očekávalo se 'svg'."
@@ -4585,11 +4611,11 @@ msgstr "kořenový element byl '%s' -- očekávalo se 'svg'."
 msgid "Scalable Vector Graphics import and export filters"
 msgstr "Importní a exportní filtry do formátu Scalable Vector Graphics"
 
-#: plug-ins/wmf/wmf.cpp:1100
+#: plug-ins/wmf/wmf.cpp:1120
 msgid "Windows Meta File"
 msgstr "Windows Meta File"
 
-#: plug-ins/wmf/wmf.cpp:1114
+#: plug-ins/wmf/wmf.cpp:1134
 msgid "WMF export filter"
 msgstr "Exportní filtr formátu WMF"
 
@@ -4650,151 +4676,151 @@ msgstr "Chyba při čtení hlavičky šipky\n"
 msgid "Unknown arrow type %d\n"
 msgstr "Neznámý typ šipky %d\n"
 
-#: plug-ins/xfig/xfig-import.c:712
+#: plug-ins/xfig/xfig-import.c:731
 #, c-format
 msgid "Couldn't read ellipse info: %s\n"
 msgstr "Nelze načíst informace o elipse: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:780
+#: plug-ins/xfig/xfig-import.c:799
 #, c-format
 msgid "Couldn't read polyline info: %s\n"
 msgstr "Nelze načíst informace o lomené čáře: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:795
+#: plug-ins/xfig/xfig-import.c:814
 #, c-format
 msgid "Couldn't read flipped bit: %s\n"
 msgstr "Nelze načíst převrácený bit: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:813
+#: plug-ins/xfig/xfig-import.c:832
 msgid "Negative corner radius, negating"
 msgstr "Negativní poloměr rohu, neguje se"
 
-#: plug-ins/xfig/xfig-import.c:857 plug-ins/xfig/xfig-import.c:1173
+#: plug-ins/xfig/xfig-import.c:876 plug-ins/xfig/xfig-import.c:1192
 #, c-format
 msgid "Unknown polyline subtype: %d\n"
 msgstr "Neznámý podtyp lomené čáry: %d\n"
 
-#: plug-ins/xfig/xfig-import.c:1007 plug-ins/xfig/xfig-import.c:1039
+#: plug-ins/xfig/xfig-import.c:1026 plug-ins/xfig/xfig-import.c:1058
 #, c-format
 msgid "Couldn't read spline info: %s\n"
 msgstr "Nelze načíst informace o křivce: %s\n"
 
 #. Open approximated spline
 #. Closed approximated spline
-#: plug-ins/xfig/xfig-import.c:1026 plug-ins/xfig/xfig-import.c:1044
+#: plug-ins/xfig/xfig-import.c:1045 plug-ins/xfig/xfig-import.c:1063
 msgid "Cannot convert approximated spline yet."
 msgstr "Nelze zatím převést aproximovanou křivku."
 
-#: plug-ins/xfig/xfig-import.c:1084
+#: plug-ins/xfig/xfig-import.c:1103
 #, c-format
 msgid "Unknown spline subtype: %d\n"
 msgstr "Neznámý podtyp křivky: %d\n"
 
-#: plug-ins/xfig/xfig-import.c:1147
+#: plug-ins/xfig/xfig-import.c:1166
 #, c-format
 msgid "Couldn't read arc info: %s\n"
 msgstr "Nelze načíst informace o oblouku: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1237
+#: plug-ins/xfig/xfig-import.c:1256
 #, c-format
 msgid "Couldn't read text info: %s\n"
 msgstr "Nelze načíst informace o textu: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1278
+#: plug-ins/xfig/xfig-import.c:1319
 #, c-format
 msgid "Couldn't identify FIG object: %s\n"
 msgstr "Nelze identifikovat objekt FIG: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1286
+#: plug-ins/xfig/xfig-import.c:1327
 msgid "Compound end outside compound\n"
 msgstr "Složený objekt končí mimo složený objekt\n"
 
-#: plug-ins/xfig/xfig-import.c:1305
+#: plug-ins/xfig/xfig-import.c:1346
 #, c-format
 msgid "Couldn't read color: %s\n"
 msgstr "Nelze načíst barvu: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1350
+#: plug-ins/xfig/xfig-import.c:1391
 #, c-format
 msgid "Couldn't read group extend: %s\n"
 msgstr "Nelze načíst rozšíření skupiny: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1361
+#: plug-ins/xfig/xfig-import.c:1402
 #, c-format
 msgid "Unknown object type %d\n"
 msgstr "Neznámý typ objektu: %d\n"
 
-#: plug-ins/xfig/xfig-import.c:1384
+#: plug-ins/xfig/xfig-import.c:1426
 #, c-format
 msgid "`%s' is not one of `%s' or `%s'\n"
 msgstr "Hodnota `%s' není jedna z hodnot `%s' nebo `%s'\n"
 
-#: plug-ins/xfig/xfig-import.c:1394
+#: plug-ins/xfig/xfig-import.c:1436
 #, c-format
 msgid "Error reading paper size: %s\n"
 msgstr "Chyba při čtení velikosti papíru: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1404
+#: plug-ins/xfig/xfig-import.c:1447
 #, c-format
 msgid "Unknown paper size `%s', using default\n"
 msgstr "Neznámá velikost papíru `%s', používám implicitní\n"
 
-#: plug-ins/xfig/xfig-import.c:1416
+#: plug-ins/xfig/xfig-import.c:1459
 #, c-format
 msgid "Error reading paper orientation: %s\n"
 msgstr "Chyba při čtení orientace papíru: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1426
+#: plug-ins/xfig/xfig-import.c:1469
 #, c-format
 msgid "Error reading justification: %s\n"
 msgstr "Chyba při čtení zarovnání: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1436
+#: plug-ins/xfig/xfig-import.c:1479
 #, c-format
 msgid "Error reading units: %s\n"
 msgstr "Chyba při čtení jednotek: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1450
+#: plug-ins/xfig/xfig-import.c:1493
 #, c-format
 msgid "Error reading magnification: %s\n"
 msgstr "Chyba při čtení zvětšení: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1461
+#: plug-ins/xfig/xfig-import.c:1504
 #, c-format
 msgid "Error reading multipage indicator: %s\n"
 msgstr "Chyba při čtení indikátoru více stran: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1472
+#: plug-ins/xfig/xfig-import.c:1515
 #, c-format
 msgid "Error reading transparent color: %s\n"
 msgstr "Chyba při čtení transparentní barvy: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1481 plug-ins/xfig/xfig-import.c:1536
-#: plug-ins/xfig/xfig-import.c:1554
+#: plug-ins/xfig/xfig-import.c:1524 plug-ins/xfig/xfig-import.c:1579
+#: plug-ins/xfig/xfig-import.c:1597
 #, c-format
 msgid "Error reading FIG file: %s\n"
 msgstr "Chyba při čtení souboru FIG: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1483 plug-ins/xfig/xfig-import.c:1538
+#: plug-ins/xfig/xfig-import.c:1526 plug-ins/xfig/xfig-import.c:1581
 msgid "Premature end of FIG file\n"
 msgstr "Předčasný konec souboru ve formátu FIG\n"
 
-#: plug-ins/xfig/xfig-import.c:1492
+#: plug-ins/xfig/xfig-import.c:1535
 #, c-format
 msgid "Error reading resolution: %s\n"
 msgstr "Chyba při čtení rozlišení: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1523
+#: plug-ins/xfig/xfig-import.c:1566
 #, c-format
 msgid "Doesn't look like a Fig file: %s\n"
 msgstr "To nevypadá jako soubor ve formátu Fig: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1529
+#: plug-ins/xfig/xfig-import.c:1572
 #, c-format
 msgid "This is a FIG version %d.%d file, I may not understand it\n"
 msgstr "Toto je soubor ve formátu FIG verze %d.%d, možná bude nesrozumitelný\n"
 
-#: plug-ins/xfig/xfig-import.c:1577
+#: plug-ins/xfig/xfig-import.c:1620
 msgid "XFig File Format"
 msgstr "Formát souboru XFig"
 
@@ -6037,6 +6063,10 @@ msgstr "Uzel"
 msgid "Note"
 msgstr "Poznámka"
 
+#: sheets/UML.sheet.in.h:24
+msgid "Object"
+msgstr "Objekt"
+
 #: sheets/UML.sheet.in.h:25
 msgid "Realizes, implements a specific interface"
 msgstr "Realizuje, implementuje specifické rozhraní"
@@ -7222,90 +7252,98 @@ msgid "Mobile phone"
 msgstr "Mobilní telefon"
 
 #: sheets/network.sheet.in.h:15
+msgid "Mobile telephony base station"
+msgstr "Základová stanice pro mobilní telefony"
+
+#: sheets/network.sheet.in.h:16
+msgid "Mobile telephony cell"
+msgstr "Buňka pro mobilní telefony"
+
+#: sheets/network.sheet.in.h:17
 msgid "Modular switching system"
 msgstr "Modulární přepínací systém"
 
-#: sheets/network.sheet.in.h:16
+#: sheets/network.sheet.in.h:18
 msgid "Monitor"
 msgstr "Monitor"
 
-#: sheets/network.sheet.in.h:17
+#: sheets/network.sheet.in.h:19
 msgid "Network"
 msgstr "Síť"
 
-#: sheets/network.sheet.in.h:18
+#: sheets/network.sheet.in.h:20
 msgid "Network cloud"
 msgstr "Oblak sítě"
 
-#: sheets/network.sheet.in.h:19
+#: sheets/network.sheet.in.h:21
 msgid "Objects to design network diagrams with"
 msgstr "Objekty pro návrh síťových diagramů"
 
-#: sheets/network.sheet.in.h:20
+#: sheets/network.sheet.in.h:22
 msgid "Plotter"
 msgstr "Plotter"
 
-#: sheets/network.sheet.in.h:21
+#: sheets/network.sheet.in.h:23
 msgid "RJ45 wall-plug"
 msgstr "Zástrčka RJ45"
 
-#: sheets/network.sheet.in.h:22
+#: sheets/network.sheet.in.h:24
 msgid "Router symbol"
 msgstr "Symbol směrovače"
 
-#: sheets/network.sheet.in.h:23
+#: sheets/network.sheet.in.h:25
 msgid "Simple modem"
 msgstr "Jednoduchý modem"
 
-#: sheets/network.sheet.in.h:24
+#: sheets/network.sheet.in.h:26
 msgid "Simple printer"
 msgstr "Jednoduchá tiskárna"
 
-#: sheets/network.sheet.in.h:25
+#: sheets/network.sheet.in.h:27
 msgid "Speaker with integrated amplifier"
 msgstr "Reproduktor se zabudovaným zesilovačem"
 
-#: sheets/network.sheet.in.h:26
+#: sheets/network.sheet.in.h:28
 msgid "Speaker without amplifier"
 msgstr "Reproduktor bez zesilovače"
 
-#: sheets/network.sheet.in.h:27
+#: sheets/network.sheet.in.h:29
 msgid "Stackable hub or switch"
 msgstr "Stohovatelný hub nebo switch"
 
-#: sheets/network.sheet.in.h:28
+#: sheets/network.sheet.in.h:30
 msgid "Storage"
 msgstr "Úložiště"
 
-#: sheets/network.sheet.in.h:29
+#: sheets/network.sheet.in.h:31
 msgid "Switch symbol"
 msgstr "Symbol switche"
 
-#: sheets/network.sheet.in.h:30
+#: sheets/network.sheet.in.h:32
 msgid "Telephone"
 msgstr "Telefon"
 
-#: sheets/network.sheet.in.h:31
+#: sheets/network.sheet.in.h:33
 msgid "UNIX workstation"
 msgstr "Pracovní stanice UNIX"
 
-#: sheets/network.sheet.in.h:32
+#: sheets/network.sheet.in.h:34
 msgid "WAN connection"
 msgstr "Připojení WAN"
 
-#: sheets/network.sheet.in.h:33
+#: sheets/network.sheet.in.h:35
 msgid "WAN link"
 msgstr "Linka WAN"
 
-#: sheets/network.sheet.in.h:34
+#: sheets/network.sheet.in.h:36
 msgid "Wall-plug for the scEAD cabling system"
 msgstr "Zástrčka pro kabelový systém scEAD"
 
-#: sheets/network.sheet.in.h:35
+#: sheets/network.sheet.in.h:37
 msgid "Workstation monitor"
 msgstr "Monitor pracovní stanice"
 
-#: sheets/network.sheet.in.h:36
+#: sheets/network.sheet.in.h:38
 msgid "ZIP disk"
 msgstr "Disk ZIP"
 
