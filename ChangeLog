@@ -1,3 +1,84 @@
+2000-10-21 Hans Breuer <Hans@Breuer.Org>
+	* lib/beziershape.c :
+		The previous code was accessing unowned memory due to IHMO
+		wrong index calculation. Now it appears to be fixed.
+		*Please Review!*
+ 
+	* lib/makefile.msc
+	* plug-ins/makefile.msc
+	* objects/makefile.msc
+	* app/makefile.msc: (new files)
+		Makefiles for Dia on Win32, Micro$oft VC only.
+
+	* plug-ins/pstricks/render_pstricks.c
+	* plug-ins/dxf/dxf-import.c
+	* plug-ins/shape/shape-export.c
+	* plug-ins/svg/render_svg.c
+	* app/commands.c
+	* app/filedlg.c
+	* app/preferences.c
+	* app/render_eps.c
+	* lib/sheet.c
+	* lib/plug-ins.c
+	* objects/custom/custom.c
+	* objects/standard/image.c
+		portability (not only win32): use HAVE_UNISTD_H, HAVE_DIRENT_H 
+		where	appropriate, add missing prototypes like <string.h>
+
+	* plug-ins/wmf/wmf_gdi.cpp
+	* plug-ins/wmf/wmf_gdi.h:
+		start of wmf write functions for non Win32 platform. Not 
+		finished yet. The other way to get it working maybe to
+		link the plug-in against wine libs.
+		
+	* plug-ins/wpg/wpg.c : add missing brace
+
+	* app/load_save.c :
+		Handling for unknown objects at load time. Previously Dia
+		was crashing, if you try to load a file referencing objects
+		whiches plug-ins aren't installed/available. Now it spits out 
+		a warning and ignores the unknown objects.
+
+	* app/interface.c
+		toolbox DND support for files like The Gimp does it.
+
+	* app/main.c
+	* app/app_procs.h
+		Simple splash screen support and usage.
+
+	* app/app_procs.c
+		Splash screen, portability fixes, dont' g_error if there is
+		g_get_homedir return NULL. This may remove the one and only
+		FAQ for Win32.
+
+	* app/menus.c :
+		Make it compile without ENABLE_NLS
+
+	* app/render_libart.c :
+		Sanity check to avoid calling libart with wrong window coordinates.
+		They come from the update handler. Direct Gdk is dealing nicely
+		with coordinates out of range, libart does access un-owned memory
+		in this case, mostly causing crashes.
+
+	* app/winmain.c: (new file) Export the Win32 Gui version of the
+		main function. This file is only required for Windoze.
+
+	* app/splash.c: (new file) splash screen implementation
+
+	* lib/color.h
+	* lib/font.h
+	* lib/diavar.h: (new file)
+		moved special variable export code to diavar.h, because it is
+		needed in color.h and font.h
+
+	* lib/paper.c :
+		M$VC cann't export inlined functions. Quick hack to let it
+		link again. Probably the glib mechanics should be used here?
+
+	* objects/UML/lifeline.c : initialize var before usage
+
+	* objects/GRAFCET/step.c : removed unused var
+
 2000-10-14  James Henstridge  <james@daa.com.au>
 
 	* app/render_gnomeprint.c (draw_image): change code so images
@@ -3276,17 +3357,17 @@ Sun Oct 17 19:46:36 1999  ape@gandalf.spacetec.no  (Asbjorn Pettersen)
 
 	* objects/custom/load_sheet.[ch] (custom_sheet_load): renamed function.
 
-	* objects/custom/custom.c: look in ~/.dia/shapes instead of
+	* objects/custom/custom.c: look in ~/.shapes instead of
 	~/.dia_shapes as the per-user shapes directory.
 
-	* app/preferences.c (prefs_save): save config to ~/.dia/diarc.
-	(prefs_load): load configuration from ~/.dia/diarc.  If the file
+	* app/preferences.c (prefs_save): save config to ~/.diarc.
+	(prefs_load): load configuration from ~/.diarc.  If the file
 	does not exist, fallback on the old ~/.diarc location.
 
 	* app/app_procs.c (create_user_dirs): create the ~/.dia directory
 	on startup.
 	(register_all_objects): look for user specific objects in
-	~/.dia/objects rather than ~/.dia_libs.
+	~/.objects rather than ~/.dia_libs.
 
 1999-10-10  Fredrik Hallenberg  <hallon@lysator.liu.se>
 
@@ -4423,14 +4504,14 @@ Sun Oct 17 19:46:36 1999  ape@gandalf.spacetec.no  (Asbjorn Pettersen)
 
 	Changes from Kim Peasley <kpeasley@ior.com> 
 		
-	* dia/objects/UML/class.c:
+	* objects/UML/class.c:
 	Break lines with long operations so classes won't be
 	so wide.
 
-	* dia/objects/UML/uml.[ch]:
+	* objects/UML/uml.[ch]:
 	Helperfunctions for the above.
 	
-	* dia/objects/UML/objects.c:
+	* objects/UML/objects.c:
 	Fix bug that duplicated the text in the attributes
 	textwidget each time the object was selected.
 	
