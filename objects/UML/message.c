@@ -495,6 +495,9 @@ message_update_data(Message *message)
   connection_update_handles(conn);
   connection_update_boundingbox(conn);
 
+  message->text_width =
+    font_string_width(message->text, message_font, MESSAGE_FONTHEIGHT);
+
   /* Add boundingbox for text: */
   rect.left = message->text_pos.x-message->text_width/2;
   rect.right = rect.left + message->text_width;
@@ -557,11 +560,7 @@ message_load(ObjectNode obj_node, int version, const char *filename)
   if (attr != NULL)
     message->type = (MessageType)data_int(attribute_first_data(attr));
 
-  if (message->text)
-    message->text_width =
-      font_string_width(message->text, message_font, MESSAGE_FONTHEIGHT);
-  else
-    message->text_width = 0;
+  message->text_width = 0;
   
   message->text_handle.id = HANDLE_MOVE_TEXT;
   message->text_handle.type = HANDLE_MINOR_CONTROL;
