@@ -1,3 +1,14 @@
+1999-05-16  Alexander Larsson  <alla@lysator.liu.se>
+
+	* objects/UML/class.[ch]: 
+	* objects/UML/uml.[ch]:
+	Reverted the line wrap changes.
+	Some day this might return, but it has to be selectable and
+	default to off for loaded objects, otherwise it breaks file
+	format compatibility.
+	There was also some complains about how it looked, so a making it
+	selectable is good for this too.
+
 1999-05-15  Alexander Larsson  <alla@lysator.liu.se>
 
 	* objects/UML/class.[ch]:

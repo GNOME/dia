@@ -152,51 +152,6 @@ uml_get_attribute_string(UMLAttribute *attribute)
 }
 
 char *
-uml_get_operation_method_string(UMLOperation *operation)
-{
-  int len;
-  char *str;
-
-  /* Calculate length: */
-  len = 1 + strlen(operation->name)  + 1;
-  
-  /* generate string: */
-  str = g_malloc(sizeof(char)*(len+1));
-
-  str[0] = visible_char[(int) operation->visibility];
-  str[1] = 0;
-
-  strcat(str, operation->name);
-  strcat(str, "(");
-  
-  return str;
-}
-
-char *
-uml_get_operation_type_string(UMLOperation *operation)
-{
-  int len = 0;
-  char *str;
-
-  if (operation->type != NULL) {
-    len += (3 + strlen(operation->type));
-  } else {
-	len += 2;
-  }
- 
-  /* generate string: */
-  str = g_malloc(sizeof(char)*(len+1));
-  strcpy(str," )");
-
-  if (operation->type != NULL) {
-	strcat(str," : ");
-	strcat(str, operation->type);
-  }
-  return str;
-}
-
-
-char *
 uml_get_operation_string(UMLOperation *operation)
 {
   int len;
@@ -277,12 +232,10 @@ uml_get_parameter_string(UMLParameter *param)
   if (param->value != NULL) {
     len += 1 + strlen(param->value) ;
   }
-  /* for spaces */
-  len += 3;
+
   /* Generate string: */
   str = g_malloc(sizeof(char)*(len+1));
-  strcpy(str, "   ");
-  strcat(str, param->name);
+  strcpy(str, param->name);
   strcat(str, ":");
   strcat(str, param->type);
   if (param->value != NULL) {

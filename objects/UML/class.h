@@ -58,8 +58,6 @@ struct _UMLClass {
   int template;
   GList *formal_params;
 
-  int wrap_lines;
-  
   /* Calculated variables: */
   real font_ascent;
   

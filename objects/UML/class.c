@@ -138,12 +138,10 @@ umlclass_draw(UMLClass *umlclass, Renderer *renderer)
 {
   Element *elem;
   real x,y;
-  Point p, p1, p2, p3, pk, pj;
+  Point p, p1, p2, p3;
   Font *font;
   int i;
   GList *list;
-  GList *plist;
-  UMLParameter *param;
   
   assert(umlclass != NULL);
   assert(renderer != NULL);
@@ -248,9 +246,7 @@ umlclass_draw(UMLClass *umlclass, Renderer *renderer)
       }
     }
   }
-  /*
-  ** operations
-  */
+
   if (umlclass->visible_operations) {
     p1.x = x;
     p1.y = y;
@@ -277,65 +273,10 @@ umlclass_draw(UMLClass *umlclass, Renderer *renderer)
 	  font = umlclass->normal_font;
 
 	renderer->ops->set_font(renderer, font, umlclass->font_height);
-    
-	if ( elem->width > font_string_width(umlclass->operations_strings[i],
-					     font, umlclass->font_height)) {
-	  renderer->ops->draw_string(renderer,
-				     umlclass->operations_strings[i],
-				     &p, ALIGN_LEFT, 
-				     &color_black);
-	} else {
-	  /* Break lines */	
-	  renderer->ops->draw_string(renderer,
-				     uml_get_operation_method_string(op),
-				     &p, ALIGN_LEFT, 
-				     &color_black);
-
-	  plist = op->parameters;
-	  while (plist != NULL) {
-	    param = (UMLParameter *) plist->data;
-
-	    if (param != NULL) {
-	      p.y = p.y + 0.1 + umlclass->font_ascent;
-	      pk = p;
-	      pk.x = p.x + font_string_width(uml_get_parameter_string(param), font, umlclass->font_height);
-	      renderer->ops->draw_string(renderer,
-					 uml_get_parameter_string(param),
-					 &p, ALIGN_LEFT, 
-					 &color_black);
-	    }
-	    plist = g_list_next(plist);
-	    if (plist == NULL) {
-	      /* end with paren */
-	      renderer->ops->draw_string(renderer,
-					 uml_get_operation_type_string(op),
-					 &pk, ALIGN_LEFT, 
-					 &color_black);
-	    } else {
-	      /* end with comma */
-	      renderer->ops->draw_string(renderer,
-					 ",",
-					 &pk, ALIGN_LEFT, 
-				   &color_black);
-	    }
-	  }
-/*
- 		p.y = p.y + 0.1 + umlclass->font_ascent;
-		renderer->ops->draw_string(renderer,
-				   uml_get_operation_type_string(op),
-				   &p, ALIGN_LEFT, 
-				   &color_black);
-
-*/
-		}
-
-
-/*
-		renderer->ops->draw_string(renderer,
+	renderer->ops->draw_string(renderer,
 				   umlclass->operations_strings[i],
 				   &p, ALIGN_LEFT, 
 				   &color_black);
-*/
 
 	if (op->class_scope) {
 	  p1 = p; 
@@ -406,7 +347,6 @@ umlclass_update_data(UMLClass *umlclass)
   Object *obj = (Object *)umlclass;
   real x,y;
   GList *list;
-
 
   x = elem->corner.x;
   y = elem->corner.y;
@@ -486,13 +426,8 @@ umlclass_calculate_data(UMLClass *umlclass)
   real font_height;
   int i;
   GList *list;
-  real maxwidth,pwidth;
+  real maxwidth;
   real width;
-  GList *oplist,*plist;
-  int linecount;
-  UMLOperation *op;
-  UMLParameter *param;
-  GList params;
   
   font_height = umlclass->font_height;
   umlclass->font_ascent = font_ascent(umlclass->normal_font, font_height);
@@ -573,69 +508,18 @@ umlclass_calculate_data(UMLClass *umlclass)
   }
 
   /* operations box: */
-
-  /* find width */
-  oplist = umlclass->operations;
-  while (oplist != NULL) {
-    op = (UMLOperation *)oplist->data;
-    plist = op->parameters;
-    if (op->abstract) {
-      pwidth = font_string_width(uml_get_operation_method_string(op),
-				 umlclass->abstract_font, font_height);
-    } else {
-      pwidth = font_string_width(uml_get_operation_method_string(op),
-				 umlclass->normal_font, font_height);
+  if (umlclass->operations_strings != NULL) {
+    for (i=0;i<umlclass->num_operations;i++) {
+      g_free(umlclass->operations_strings[i]);
     }
-    maxwidth = MAX(pwidth, maxwidth);
-    if ( plist == NULL ) {
-      if (op->abstract) {
-	pwidth += font_string_width(uml_get_operation_type_string(op),
-				    umlclass->abstract_font, font_height);
-      } else {
-	pwidth += font_string_width(uml_get_operation_type_string(op),
-				    umlclass->normal_font, font_height);
-      }
-      maxwidth = MAX(pwidth, maxwidth);
-    }
-    while (plist != NULL ) {
-      param = (UMLParameter *)plist->data;
-      if (op->abstract) {
-	pwidth = font_string_width(uml_get_parameter_string(param),
-				   umlclass->abstract_font, font_height);
-      } else {
-	pwidth = font_string_width(uml_get_parameter_string(param),
-				   umlclass->normal_font, font_height);
-      }
-      plist = g_list_next(plist);
-      if (plist == NULL) {
-    	if (op->abstract) {
-	  pwidth += font_string_width(uml_get_operation_type_string(op),
-				      umlclass->abstract_font, font_height);
-	} else {
-	  pwidth += font_string_width(uml_get_operation_type_string(op), umlclass->normal_font, font_height);
-	}
-      }
-      maxwidth = MAX(pwidth, maxwidth);
-    }
-    oplist = g_list_next(oplist);
+    g_free(umlclass->operations_strings);
   }
-  /* find height */
-  oplist = umlclass->operations;
-  linecount = 0;
-  while (oplist != NULL) {
-    op = (UMLOperation *) oplist->data;
-    plist = op->parameters;
-    linecount += 1;
-    linecount += g_list_length(plist);
-    oplist = g_list_next(oplist);
-  }
-
   umlclass->num_operations = g_list_length(umlclass->operations);
-  umlclass->operationsbox_height = font_height * linecount + 2*0.1;
-  
+
+  umlclass->operationsbox_height = font_height * umlclass->num_operations + 2*0.1;
   if ((umlclass->operationsbox_height<0.4) ||
       umlclass->suppress_operations )
-    umlclass->operationsbox_height = 0.4;
+      umlclass->operationsbox_height = 0.4;
   
   umlclass->operations_strings = NULL;
   if (umlclass->num_operations != 0) {
@@ -644,10 +528,17 @@ umlclass_calculate_data(UMLClass *umlclass)
     i = 0;
     list = umlclass->operations;
     while (list != NULL) {
-      
+      UMLOperation *op;
+
       op = (UMLOperation *) list->data;
       umlclass->operations_strings[i] = uml_get_operation_string(op);
       
+      if (op->abstract)
+	width = font_string_width(umlclass->operations_strings[i], umlclass->abstract_font, font_height);
+      else
+	width = font_string_width(umlclass->operations_strings[i], umlclass->normal_font, font_height);
+      maxwidth = MAX(width, maxwidth);
+
       i++;
       list = g_list_next(list);
     }
@@ -660,8 +551,6 @@ umlclass_calculate_data(UMLClass *umlclass)
     umlclass->element.height += umlclass->attributesbox_height;
   if (umlclass->visible_operations)
     umlclass->element.height += umlclass->operationsbox_height;
-
-
 
   /* templates box: */
   if (umlclass->templates_strings != NULL) {
