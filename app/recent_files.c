@@ -154,7 +154,7 @@ recent_file_history_make_menu()
     GList *list_item = g_list_find(GTK_MENU_SHELL(file_menu)->children,
 				   (gpointer)menu_item);
     
-    int_offset = g_list_position(GTK_MENU_SHELL(file_menu)->children,
+    int offset = g_list_position(GTK_MENU_SHELL(file_menu)->children,
 			  list_item) - 1;  /* fudge factor */
 
     for (i = 0; items != NULL && i < prefs.recent_documents_list_size;
