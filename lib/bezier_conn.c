@@ -352,9 +352,9 @@ remove_handles(BezierConn *bez, int pos)
   bez->corner_types = g_realloc(bez->corner_types,
 				bez->numpoints * sizeof(BezCornerType));
 
-  old_handle1 = obj->handles[3*pos-2];
-  old_handle2 = obj->handles[3*pos-1];
-  old_handle3 = obj->handles[3*pos];
+  old_handle1 = obj->handles[3*pos-3];
+  old_handle2 = obj->handles[3*pos-2];
+  old_handle3 = obj->handles[3*pos-1];
   object_remove_handle(&bez->object, old_handle1);
   object_remove_handle(&bez->object, old_handle2);
   object_remove_handle(&bez->object, old_handle3);

@@ -39,6 +39,10 @@ enum change_type {
   TYPE_REMOVE_POINT
 };
 
+/* Invariant:
+   # of handles = 3*(numpoints-1)
+   # of connections = 2*(numpoints-1)
+ */
 struct PointChange {
   ObjectChange obj_change;
 
@@ -370,8 +374,8 @@ remove_handles(BezierShape *bezier, int pos)
   object_remove_handle(&bezier->object, old_handle1);
   object_remove_handle(&bezier->object, old_handle2);
   object_remove_handle(&bezier->object, old_handle3);
-  old_cp1 = obj->connections[2*pos-1];
-  old_cp2 = obj->connections[2*pos];
+  old_cp1 = obj->connections[2*pos-2];
+  old_cp2 = obj->connections[2*pos-1];
   object_remove_connectionpoint(&bezier->object, old_cp1);
   object_remove_connectionpoint(&bezier->object, old_cp2);
 }
@@ -387,22 +391,28 @@ beziershape_add_segment(BezierShape *bezier, int segment, Point *point)
   Handle *new_handle1, *new_handle2, *new_handle3;
   ConnectionPoint *new_cp1, *new_cp2;
   Point startpoint;
+  Point other;
 
-  startpoint = bezier->points[segment].p3;
+  if (segment != 1)
+    startpoint = bezier->points[segment-1].p3;
+  else 
+    startpoint = bezier->points[0].p1;
+  other = bezier->points[segment].p3;
   if (point == NULL) {
-    realpoint.p1.x = (startpoint.x + bezier->points[segment+1].p3.x)/6;
-    realpoint.p1.y = (startpoint.y + bezier->points[segment+1].p3.y)/6;
-    realpoint.p2.x = (startpoint.x + bezier->points[segment+1].p3.x)/3;
-    realpoint.p2.y = (startpoint.y + bezier->points[segment+1].p3.y)/3;
-    realpoint.p3.x = (startpoint.x + bezier->points[segment+1].p3.x)/2;
-    realpoint.p3.y = (startpoint.y + bezier->points[segment+1].p3.y)/2;
+    realpoint.p1.x = (startpoint.x + other.x)/6;
+    realpoint.p1.y = (startpoint.y + other.y)/6;
+    realpoint.p2.x = (startpoint.x + other.x)/3;
+    realpoint.p2.y = (startpoint.y + other.y)/3;
+    realpoint.p3.x = (startpoint.x + other.x)/2;
+    realpoint.p3.y = (startpoint.y + other.y)/2;
   } else {
-    realpoint.p2.x = point->x+(startpoint.x-bezier->points[segment+1].p3.x)/6;
-    realpoint.p2.y = point->y+(startpoint.y-bezier->points[segment+1].p3.y)/6;
+    realpoint.p2.x = point->x+(startpoint.x-other.x)/6;
+    realpoint.p2.y = point->y+(startpoint.y-other.y)/6;
+
     realpoint.p3 = *point;
     /* this really goes into the next segment ... */
-    realpoint.p1.x = point->x-(startpoint.x-bezier->points[segment+1].p3.x)/6;
-    realpoint.p1.y = point->y-(startpoint.y-bezier->points[segment+1].p3.y)/6;
+    realpoint.p1.x = point->x-(startpoint.x-other.x)/6;
+    realpoint.p1.y = point->y-(startpoint.y-other.y)/6;
   }
   realpoint.type = BEZ_CURVE_TO;
 
@@ -434,6 +444,9 @@ beziershape_remove_segment(BezierShape *bezier, int pos)
 
   g_assert(pos > 0);
   g_assert(bezier->numpoints > 2);
+  g_assert(pos < bezier->numpoints);
+
+  printf("Removing pos %d, %d points\n", pos, bezier->numpoints);
 
   old_handle1 = bezier->object.handles[3*pos-3];
   old_handle2 = bezier->object.handles[3*pos-2];
@@ -441,8 +454,8 @@ beziershape_remove_segment(BezierShape *bezier, int pos)
   old_point = bezier->points[pos];
   old_ctype = bezier->corner_types[pos];
 
-  old_cp1 = bezier->object.connections[2*pos-1];
-  old_cp2 = bezier->object.connections[2*pos];
+  old_cp1 = bezier->object.connections[2*pos-2];
+  old_cp2 = bezier->object.connections[2*pos-1];
   
   object_unconnect((Object *)bezier, old_handle1);
   object_unconnect((Object *)bezier, old_handle2);
@@ -735,7 +748,9 @@ beziershape_init(BezierShape *bezier)
   obj->connections[2]->object = obj;
   obj->connections[3]->object = obj;
 
-  beziershape_update_data(bezier);
+  /* The points are not assigned at this point, so don't try to use
+     them */
+  /*  beziershape_update_data(bezier);*/
 }
 
 void

@@ -1,3 +1,15 @@
+2002-05-10  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+
+	* lib/bezier_conn.c (remove_handles): Proper offset for fixing
+	handles. 
+	* lib/beziershape.c (beziershape_init): Removed early call to
+	beziershape_update_data where points aren't set yet.
+	(beziershape_add_segment): Use segment 0 instead of overflowing
+	points array with segment+1.
+	(beziershape_remove_segment): Proper offset for fixing
+	connectionpoints. 
+	(remove_handles): Proper offset.
+
 2002-05-08  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
 
 	* objects/GRAFCET/action.c (action_update_data): Init x value of
