@@ -338,13 +338,35 @@ gboolean strcase_equal(gconstpointer s1, gconstpointer s2)
   return !(g_strcasecmp((char *)s1, (char *)s2));
 }
 
+/** Add a menu item to the menu of known fonts.
+ * Sets the font of the item using marking -- using gtk_widget_modify_font 
+ * didn't always set the font.
+ *
+ * @param fontname A string corresponding to a valid font.  This string will
+ * be retained by the menu item and should not be freed after the call.
+ * @param group A group of menu items that this belongs to (usually contains
+ * all other items made this way)
+ * @param menu A menu to add this item to.
+ * @return The new menu item
+ */
 static GtkWidget *
-dia_font_selector_add_menu_item(gchar *label, GSList **group, GtkWidget *menu) 
+dia_font_selector_add_menu_item(gchar *fontname, GSList **group, GtkWidget *menu) 
 {
   GtkWidget *menuitem;
-  menuitem = gtk_radio_menu_item_new_with_label (*group, label);
+  GtkWidget *label;
+  gchar *markup;
+
+  menuitem = gtk_radio_menu_item_new_with_label (*group, fontname);
+  label = gtk_bin_get_child(GTK_BIN(menuitem));
+  markup = g_strdup_printf("<span face=\"%s\">%s</span>",
+			   fontname, fontname);
+  gtk_label_set_markup(GTK_LABEL(label), markup);
+#if TOOL_TIPS_AVAILABLE
+  if (tool_tips)
+    gtk_tooltips_set_tip(tool_tips, label, fontname, NULL);
+#endif
   *group = gtk_radio_menu_item_get_group(GTK_RADIO_MENU_ITEM(menuitem));
-  gtk_object_set_user_data(GTK_OBJECT(menuitem), label);
+  gtk_object_set_user_data(GTK_OBJECT(menuitem), fontname);
   gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
   gtk_widget_show (menuitem);
   return menuitem;

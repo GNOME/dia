@@ -1,3 +1,10 @@
+2004-10-03  Lars Clausen  <lars@raeder.dk>
+
+	* lib/widgets.c (dia_font_selector_add_menu_item): Make font menu
+	use the fonts in question.  Can't set tooltips with the name since
+	lib objects don't know the tool_tips thing, which is rather
+	app-related.
+
 2004-09-19  Hans Breuer  <hans@breuer.org>
 
         * plug-ins/xslt/*.xsl : s/apply-template match/apply-template select/
