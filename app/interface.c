@@ -18,6 +18,11 @@
 /* $Header$ */
 
 #include "config.h"
+
+#include <string.h>
+
+#include "diagram.h"
+#include "layer_dialog.h"
 #include "interface.h"
 #include "pixmaps.h"
 #include "preferences.h"
@@ -786,6 +791,71 @@ toolbox_destroy (GtkWidget *widget, gpointer data)
   app_exit();
 }
 
+/* HB: file dnd stuff lent by The Gimp, not fully understood but working ...
+ */
+enum
+{
+  DIA_DND_TYPE_URI_LIST,
+  DIA_DND_TYPE_TEXT_PLAIN,
+};
+
+static GtkTargetEntry toolbox_target_table[] =
+{
+  { "text/uri-list", 0, DIA_DND_TYPE_URI_LIST },
+  { "text/plain", 0, DIA_DND_TYPE_TEXT_PLAIN }
+};
+
+static guint toolbox_n_targets = (sizeof (toolbox_target_table) /
+                                 sizeof (toolbox_target_table[0]));
+
+void
+dia_dnd_file_drag_data_received (GtkWidget        *widget,
+                                 GdkDragContext   *context,
+                                 gint              x,
+                                 gint              y,
+                                 GtkSelectionData *data,
+                                 guint             info,
+                                 guint             time)
+{
+  switch (context->action)
+    {
+    case GDK_ACTION_DEFAULT:
+    case GDK_ACTION_COPY:
+    case GDK_ACTION_MOVE:
+    case GDK_ACTION_LINK:
+    case GDK_ACTION_ASK:
+    default:
+      {
+        Diagram *diagram = NULL;
+        DDisplay *ddisp;
+        gchar *sPath = NULL, *pFrom, *pTo; 
+
+        pFrom = strstr((gchar *) data->data, "file:");
+        while (pFrom) {
+          pFrom += 5; /* remove 'file:' */
+          pTo = pFrom;
+	    while (*pTo != 0 && *pTo != 0xd && *pTo != 0xa) pTo ++;
+          sPath = g_strndup(pFrom, pTo - pFrom);
+
+          diagram = diagram_load (sPath, NULL);
+          g_free(sPath);
+
+          if (diagram != NULL) {
+            diagram_update_extents(diagram);
+            layer_dialog_set_diagram(diagram);
+
+            ddisp = new_display(diagram);
+          }
+
+          pFrom = strstr(pTo, "file:");
+        } /* while */
+        gtk_drag_finish (context, TRUE, FALSE, time);
+      }
+      break;
+    }
+  return;
+}
+
 void
 create_toolbox ()
 {
@@ -846,6 +916,15 @@ create_toolbox ()
   create_sheets (wrapbox);
   create_color_area (wrapbox);
   create_lineprops_area (wrapbox);
+
+  /* Setup toolbox area as file drop destination */
+  gtk_drag_dest_set (wrapbox,
+		     GTK_DEST_DEFAULT_ALL,
+		     toolbox_target_table, toolbox_n_targets,
+		     GDK_ACTION_COPY);
+  gtk_signal_connect (GTK_OBJECT (wrapbox), "drag_data_received",
+                      GTK_SIGNAL_FUNC (dia_dnd_file_drag_data_received),
+                      wrapbox);
 
   /* menus -- initialised afterwards, because initing the display menus
    * uses the tool buttons*/
