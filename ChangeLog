@@ -1,3 +1,19 @@
+2001-06-12  Cyrille Chepelov  <chepelov@calixo.net>
+
+	* objects/SADT/box.c: removed lazyprops for standard props.
+	* objects/chronograms/chronoline.c: removed lazyprops (phew !)
+	* objects/chronograms/chronoref.c: ditto 
+
+	* lib/lazyprops.[ch] (DELETED): good riddance.
+
+	* lib/properties.[ch]: new property types:
+	    - PROP_TYPE_STATIC: static text to be displayed in the dialog.
+	    - PROP_TYPE_MULTISTRING: same as string, but renders as a
+	    multi-line entry box.
+	    - PROP_TYPE_NOTEBOOK_BEGIN,_PAGE,_END: stuff to make dialogs
+	    in a tabbed-notebook style (this is a bit complicated to use; 
+	    see objects/chronograms/chronoline.c for an example).
+	       
 2001-06-11  Cyrille Chepelov  <chepelov@calixo.net>
 
 	* objects/GRAFCET/boolequation.[ch]: zap lazyprops. Add standard props.

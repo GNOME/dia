@@ -455,7 +455,7 @@ action_destroy(Action *action)
   connpointline_destroy(action->cps);
   connection_destroy(&action->connection);
 }
-
+ 
 static Object *
 action_load(ObjectNode obj_node, int version, const char *filename)
 {

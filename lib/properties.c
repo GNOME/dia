@@ -3,6 +3,7 @@
  *
  * properties.h: property system for dia objects/shapes.
  * Copyright (C) 2000 James Henstridge
+ * Copyright (C) 2001 Cyrille Chepelov
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -189,6 +190,11 @@ prop_copy(Property *dest, Property *src)
   case PROP_TYPE_ENDPOINTS:
     dest->d = src->d;
     break;
+  case PROP_TYPE_NOTEBOOK_BEGIN:
+  case PROP_TYPE_NOTEBOOK_END:
+  case PROP_TYPE_NOTEBOOK_PAGE:
+    break;
+  case PROP_TYPE_MULTISTRING:
   case PROP_TYPE_STRING:
   case PROP_TYPE_FILE:
     g_free(PROP_VALUE_STRING(*dest));
@@ -196,6 +202,8 @@ prop_copy(Property *dest, Property *src)
       PROP_VALUE_STRING(*dest) = g_strdup(PROP_VALUE_STRING(*src));
     else
       PROP_VALUE_STRING(*dest) = NULL;
+    break;
+  case PROP_TYPE_STATIC:
     break;
   case PROP_TYPE_POINTARRAY:
     g_free(PROP_VALUE_POINTARRAY(*dest).pts);
@@ -266,7 +274,13 @@ prop_free(Property *prop)
   case PROP_TYPE_ENDPOINTS:
   case PROP_TYPE_CONNPOINT_LINE:
   case PROP_TYPE_FONT:
+  case PROP_TYPE_STATIC:
     break;
+  case PROP_TYPE_NOTEBOOK_BEGIN:
+  case PROP_TYPE_NOTEBOOK_END:
+  case PROP_TYPE_NOTEBOOK_PAGE:
+    break;
+  case PROP_TYPE_MULTISTRING:
   case PROP_TYPE_STRING:
   case PROP_TYPE_FILE:
     g_free(PROP_VALUE_STRING(*prop));
@@ -397,11 +411,32 @@ prop_get_widget(Property *prop)
     ret = gtk_spin_button_new(adj, 1.0, 2);
     gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(ret), TRUE);
     break;
+  case PROP_TYPE_NOTEBOOK_BEGIN:
+  case PROP_TYPE_NOTEBOOK_END:
+  case PROP_TYPE_NOTEBOOK_PAGE:
+    g_assert_not_reached();
+    break;
   case PROP_TYPE_STRING:
     ret = gtk_entry_new();
     if (PROP_VALUE_STRING(*prop))
       gtk_entry_set_text(GTK_ENTRY(ret), PROP_VALUE_STRING(*prop));
     break;
+  case PROP_TYPE_MULTISTRING: {
+    GtkWidget *text;
+    /* ret = gtk_hbox_new(FALSE,GPOINTER_TO_INT(prop->extra_data)); */
+    text = gtk_text_new(NULL,NULL);
+    gtk_text_set_editable(GTK_TEXT(text),TRUE);
+    /* gtk_box_pack_start(GTK_BOX(ret),text,TRUE,TRUE); */ 
+    if (PROP_VALUE_STRING(*prop)) {
+      gtk_text_set_point(GTK_TEXT(text), 0);
+      gtk_text_forward_delete(GTK_TEXT(text),
+                              gtk_text_get_length(GTK_TEXT(text)));
+      gtk_text_insert(GTK_TEXT(text), NULL, NULL, NULL,
+                      PROP_VALUE_STRING(*prop),-1);
+    }
+    ret = text;
+    break;
+  }
   case PROP_TYPE_POINT:
   case PROP_TYPE_POINTARRAY:
   case PROP_TYPE_INTARRAY:
@@ -413,6 +448,12 @@ prop_get_widget(Property *prop)
   case PROP_TYPE_TEXT:
   case PROP_TYPE_RECT:
     ret = gtk_label_new(_("No edit widget"));
+    break;
+  case PROP_TYPE_STATIC:
+    if (prop->descr) {
+      ret = gtk_label_new(prop->descr->tooltip);
+      gtk_label_set_justify(GTK_LABEL(ret),GTK_JUSTIFY_LEFT);
+    }
     break;
   case PROP_TYPE_LINESTYLE:
     ret = dia_line_style_selector_new();
@@ -481,10 +522,19 @@ prop_set_from_widget(Property *prop, GtkWidget *widget)
     PROP_VALUE_REAL(*prop) = gtk_spin_button_get_value_as_float(
 					GTK_SPIN_BUTTON(widget));
     break;
+  case PROP_TYPE_MULTISTRING:
+    g_free(PROP_VALUE_STRING(*prop));
+    PROP_VALUE_STRING(*prop) = 
+      gtk_editable_get_chars(GTK_EDITABLE(widget),0, -1);
+    break;
   case PROP_TYPE_STRING:
     g_free(PROP_VALUE_STRING(*prop));
     PROP_VALUE_STRING(*prop) = g_strdup(gtk_entry_get_text(GTK_ENTRY(widget)));
     break;
+  case PROP_TYPE_NOTEBOOK_BEGIN:
+  case PROP_TYPE_NOTEBOOK_END:
+  case PROP_TYPE_NOTEBOOK_PAGE:
+  case PROP_TYPE_STATIC:
   case PROP_TYPE_POINT:
   case PROP_TYPE_POINTARRAY:
   case PROP_TYPE_INTARRAY:
@@ -598,9 +648,16 @@ prop_load(Property *prop, ObjectNode obj_node)
   case PROP_TYPE_REAL:
     PROP_VALUE_REAL(*prop) = data_real(data);
     break;
+  case PROP_TYPE_MULTISTRING:
   case PROP_TYPE_STRING:
     g_free(PROP_VALUE_STRING(*prop));
     PROP_VALUE_STRING(*prop) = data_string(data);
+    break;
+  case PROP_TYPE_NOTEBOOK_BEGIN:
+  case PROP_TYPE_NOTEBOOK_END:
+  case PROP_TYPE_NOTEBOOK_PAGE:
+    break;
+  case PROP_TYPE_STATIC:
     break;
   case PROP_TYPE_POINT:
     data_point(data, &PROP_VALUE_POINT(*prop));
@@ -773,6 +830,13 @@ prop_save(Property *prop, ObjectNode obj_node)
   case PROP_TYPE_REAL:
     data_add_real(attr, PROP_VALUE_REAL(*prop));
     break;
+  case PROP_TYPE_STATIC:
+    break;
+  case PROP_TYPE_NOTEBOOK_BEGIN:
+  case PROP_TYPE_NOTEBOOK_END:
+  case PROP_TYPE_NOTEBOOK_PAGE:
+    break;
+  case PROP_TYPE_MULTISTRING:
   case PROP_TYPE_STRING:
     data_add_string(attr, PROP_VALUE_STRING(*prop));
     break;
@@ -967,6 +1031,13 @@ object_get_props_from_offsets(Object *obj, PropOffset *offsets,
       PROP_VALUE_REAL(props[i]) =
 	struct_member(obj, offsets[j].offset, real);
       break;
+    case PROP_TYPE_STATIC:
+      break;
+    case PROP_TYPE_NOTEBOOK_BEGIN:
+    case PROP_TYPE_NOTEBOOK_END:
+    case PROP_TYPE_NOTEBOOK_PAGE:
+      break;
+    case PROP_TYPE_MULTISTRING:
     case PROP_TYPE_STRING:
       g_free(PROP_VALUE_STRING(props[i]));
       PROP_VALUE_STRING(props[i]) =
@@ -1100,6 +1171,13 @@ object_set_props_from_offsets(Object *obj, PropOffset *offsets,
       struct_member(obj, offsets[j].offset, real) =
 	PROP_VALUE_REAL(props[i]);
       break;
+    case PROP_TYPE_STATIC:
+      break;
+    case PROP_TYPE_NOTEBOOK_BEGIN:
+    case PROP_TYPE_NOTEBOOK_END:
+    case PROP_TYPE_NOTEBOOK_PAGE:
+      break;
+    case PROP_TYPE_MULTISTRING:
     case PROP_TYPE_STRING:
       g_free(struct_member(obj, offsets[j].offset, gchar *));
       struct_member(obj, offsets[j].offset, gchar *) =
@@ -1207,6 +1285,8 @@ object_props_dialog_destroy(GtkWidget *table)
   g_free(widgets);
 }
 
+#define MAXNEST 7
+
 GtkWidget *
 object_create_props_dialog(Object *obj)
 {
@@ -1214,8 +1294,12 @@ object_create_props_dialog(Object *obj)
   Property *props;
   guint nprops = 0, i, j;
   GtkWidget **widgets;
-
   GtkWidget *table, *label;
+  GtkWidget *mainvbox;
+
+  GtkWidget *curcontainer[MAXNEST];
+  int nestlev = -1;
+  gboolean haspage = FALSE;
 
   g_return_val_if_fail(obj->ops->describe_props != NULL, NULL);
   g_return_val_if_fail(obj->ops->get_props != NULL, NULL);
@@ -1237,41 +1321,89 @@ object_create_props_dialog(Object *obj)
       props[j].name       = pdesc[i].name;
       props[j].type       = pdesc[i].type;
       props[j].extra_data = pdesc[i].extra_data;
+      props[j].descr      = &pdesc[i];
       j++;
     }
   obj->ops->get_props(obj, props, nprops);
 
-  table = gtk_table_new(1, 2, FALSE);
+  mainvbox = gtk_vbox_new(FALSE,1);
+  table = NULL;
+  curcontainer[++nestlev] = mainvbox;
 
   /* construct the widgets table */
   for (i = 0, j = 0; pdesc[i].name != NULL; i++)
     if ((pdesc[i].flags & PROP_FLAG_VISIBLE) != 0) {
-      widgets[j] = prop_get_widget(&props[j]);
+      switch(props[j].type) {
+      case PROP_TYPE_NOTEBOOK_BEGIN:
+        {
+          GtkWidget *notebook = gtk_notebook_new();
+          gtk_notebook_set_tab_pos(GTK_NOTEBOOK(notebook),GTK_POS_TOP);
+          gtk_container_set_border_width (GTK_CONTAINER(notebook), 0);
+          gtk_widget_show(notebook);
+          gtk_box_pack_end_defaults(GTK_BOX(curcontainer[nestlev]),notebook);
+          curcontainer[++nestlev] = notebook;
+          table = NULL;
+          /* note: there must be at least one page, immediately after this. */
+          g_assert(nestlev < MAXNEST);
+        } break;
+      case PROP_TYPE_NOTEBOOK_END:
+        {
+          if (haspage) nestlev--;
+          nestlev--;
+          table = NULL;
+          g_assert(nestlev >= 0);
+        } break;
+      case PROP_TYPE_NOTEBOOK_PAGE: 
+        {
+          /* this >must< happen inside a notebook */         
+          GtkWidget *page = gtk_vbox_new(FALSE,1);
+          GtkWidget *pagelabel = gtk_label_new(pdesc[i].description);
+          gtk_container_set_border_width(GTK_CONTAINER(page),1);
+          gtk_widget_show_all(page);
+          gtk_widget_show_all(pagelabel);
+          if (haspage) nestlev--;
+          gtk_notebook_append_page(GTK_NOTEBOOK(curcontainer[nestlev]),
+                                   page,pagelabel);
+          haspage = TRUE;
+          curcontainer[++nestlev] = page;
+          table = NULL;
+          
+          g_assert(nestlev < MAXNEST);
+        } break;
+      default:
+        widgets[j] = prop_get_widget(&props[j]);
 
-      label = gtk_label_new(_(pdesc[i].description));
-      gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.5);
-      gtk_table_attach(GTK_TABLE(table), label, 0,1, j,j+1,
-		       GTK_FILL, GTK_FILL|GTK_EXPAND, 0, 0);
-      gtk_table_attach(GTK_TABLE(table), widgets[j], 1,2, j,j+1,
-		       GTK_FILL|GTK_EXPAND, GTK_FILL|GTK_EXPAND, 0, 0);
+        label = gtk_label_new(_(pdesc[i].description));
+        gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.5);
 
-      gtk_widget_show(label);
-      gtk_widget_show(widgets[j]);
+        if (!table) {
+          table = gtk_table_new(1, 2, FALSE);
+          gtk_widget_show(table);
+          gtk_box_pack_end_defaults(GTK_BOX(curcontainer[nestlev]),table);
+        }
+        gtk_table_attach(GTK_TABLE(table), label, 0,1, j,j+1,
+                         GTK_FILL, GTK_FILL|GTK_EXPAND, 0, 0);
+        gtk_table_attach(GTK_TABLE(table), widgets[j], 1,2, j,j+1,
+                         GTK_FILL|GTK_EXPAND, GTK_FILL|GTK_EXPAND, 0, 0);
 
+        gtk_widget_show(label);
+        gtk_widget_show(widgets[j]);
+        break;
+      }
       j++;
     }
   gtk_table_set_row_spacings(GTK_TABLE(table), 2);
   gtk_table_set_col_spacings(GTK_TABLE(table), 5);
 
-  gtk_object_set_data(GTK_OBJECT(table), prop_array_key,   props);
-  gtk_object_set_data(GTK_OBJECT(table), prop_num_key,
+  gtk_object_set_data(GTK_OBJECT(mainvbox), prop_array_key,   props);
+  gtk_object_set_data(GTK_OBJECT(mainvbox), prop_num_key,
 		      GUINT_TO_POINTER(nprops));
-  gtk_object_set_data(GTK_OBJECT(table), prop_widgets_key, widgets);
+  gtk_object_set_data(GTK_OBJECT(mainvbox), prop_widgets_key, widgets);
 
   gtk_signal_connect(GTK_OBJECT(table), "destroy",
 		     GTK_SIGNAL_FUNC(object_props_dialog_destroy), NULL);
 
-  return table;
+  return mainvbox;
 }
 
 ObjectChange *

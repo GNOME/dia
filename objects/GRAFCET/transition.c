@@ -145,7 +145,7 @@ static PropDescription transition_props[] = {
     N_("Color"),N_("The receptivity's color")},
   { "north_pos",PROP_TYPE_POINT,0,N_("North point"),NULL },
   { "south_pos",PROP_TYPE_POINT,0,N_("South point"),NULL },
-  PROP_DESC_END
+  PROP_DESC_END 
 };
 
 static PropDescription *

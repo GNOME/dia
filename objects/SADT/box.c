@@ -43,7 +43,7 @@
 #include "message.h"
 #include "connpoint_line.h"
 #include "color.h"
-#include "lazyprops.h"
+#include "properties.h"
 
 #include "pixmaps/sadtbox.xpm"
 
@@ -60,21 +60,8 @@ typedef enum {
   ANCHOR_END
 } AnchorShape;
 
-typedef struct _Box Box;
-typedef struct _BoxPropertiesDialog BoxPropertiesDialog;
-typedef struct _BoxDefaultsDialog BoxDefaultsDialog;
-typedef struct _BoxState BoxState;
-typedef struct _BoxDefaults BoxDefaults;
 
-struct _BoxState {
-  ObjectState obj_state;
-
-  real padding;
-  TextAttributes text_attrib;
-  gchar *id;
-};
-
-struct _Box {
+typedef struct _Box {
   Element element;
 
   ConnPointLine *north,*south,*east,*west;
@@ -82,40 +69,9 @@ struct _Box {
   Text *text;
   gchar *id;
   real padding;
-};
 
-struct _BoxPropertiesDialog {
-  AttributeDialog dialog;
-  Box *parent;
-
-  RealAttribute padding;
-  TextFontAttribute text_font;
-  TextFontHeightAttribute text_fontheight;
-  TextColorAttribute text_color;
-  StringAttribute id;
-};
-
-struct _BoxDefaults {
-  Font *font;
-  real font_size;
-  Color fontcolor;
-  real padding;
-};
-
-struct _BoxDefaultsDialog {
-  AttributeDialog dialog;
-  BoxDefaults *parent;
-
-  RealAttribute padding;
-  FontAttribute font;
-  FontHeightAttribute font_size;
-  ColorAttribute fontcolor;
-};
-
-
-static BoxPropertiesDialog *sadtbox_properties_dialog;
-static BoxDefaultsDialog *sadtbox_defaults_dialog;
-static BoxDefaults default_properties;
+  TextAttributes attrs;
+} Box;
 
 static real sadtbox_distance_from(Box *box, Point *point);
 static void sadtbox_select(Box *box, Point *clicked_point,
@@ -131,27 +87,23 @@ static Object *sadtbox_create(Point *startpoint,
 			  Handle **handle1,
 			  Handle **handle2);
 static void sadtbox_destroy(Box *box);
-static Object *sadtbox_copy(Box *box);
-static PROPDLG_TYPE sadtbox_get_properties(Box *box);
-static ObjectChange *sadtbox_apply_properties(Box *box);
-
-static BoxState *sadtbox_get_state(Box *box);
-static void sadtbox_set_state(Box *box, BoxState *state);
-
-static void sadtbox_save(Box *box, ObjectNode obj_node, const char *filename);
-static Object *sadtbox_load(ObjectNode obj_node, int version, const char *filename);
-static PROPDLG_TYPE sadtbox_get_defaults(void);
-static void sadtbox_apply_defaults(void);
-
+static Object *sadtbox_load(ObjectNode obj_node, int version, 
+                            const char *filename);
 static DiaMenu *sadtbox_get_object_menu(Box *box, Point *clickedpoint);
+
+static PropDescription *sadtbox_describe_props(Box *box);
+static void sadtbox_get_props(Box *box, 
+                                 Property *props, guint nprops);
+static void sadtbox_set_props(Box *box, 
+                                 Property *props, guint nprops);
 
 static ObjectTypeOps sadtbox_type_ops =
 {
   (CreateFunc) sadtbox_create,
-  (LoadFunc)   sadtbox_load,
-  (SaveFunc)   sadtbox_save,
-  (GetDefaultsFunc)   sadtbox_get_defaults,
-  (ApplyDefaultsFunc) sadtbox_apply_defaults
+  (LoadFunc)   sadtbox_load/*using_properties*/,
+  (SaveFunc)   object_save_using_properties,
+  (GetDefaultsFunc)   NULL,
+  (ApplyDefaultsFunc) NULL,
 };
 
 ObjectType sadtbox_type =
@@ -168,94 +120,92 @@ static ObjectOps sadtbox_ops = {
   (DrawFunc)            sadtbox_draw,
   (DistanceFunc)        sadtbox_distance_from,
   (SelectFunc)          sadtbox_select,
-  (CopyFunc)            sadtbox_copy,
+  (CopyFunc)            object_copy_using_properties,
   (MoveFunc)            sadtbox_move,
   (MoveHandleFunc)      sadtbox_move_handle,
-  (GetPropertiesFunc)   sadtbox_get_properties,
-  (ApplyPropertiesFunc) sadtbox_apply_properties,
-  (ObjectMenuFunc)      sadtbox_get_object_menu
+  (GetPropertiesFunc)   object_create_props_dialog,
+  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ObjectMenuFunc)      sadtbox_get_object_menu,
+  (DescribePropsFunc)   sadtbox_describe_props,
+  (GetPropsFunc)        sadtbox_get_props,
+  (SetPropsFunc)        sadtbox_set_props
 };
 
-static ObjectChange *
-sadtbox_apply_properties(Box *box)
+static PropNumData text_padding_data = { 0.0, 10.0, 0.1 };
+
+static PropDescription box_props[] = {
+  ELEMENT_COMMON_PROPERTIES,
+  { "padding",PROP_TYPE_REAL,PROP_FLAG_VISIBLE,
+    N_("Text padding"), NULL, &text_padding_data},
+  { "text", PROP_TYPE_TEXT, 0,NULL,NULL},
+  PROP_STD_TEXT_ALIGNMENT,
+  PROP_STD_TEXT_FONT,
+  PROP_STD_TEXT_HEIGHT,
+  PROP_STD_TEXT_COLOUR,
+  { "id", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
+    N_("Activity/Data identifier"),
+    N_("The identifier which appears in the lower right corner of the Box")},
+  { "cpl_north",PROP_TYPE_CONNPOINT_LINE, 0, NULL, NULL},
+  { "cpl_west",PROP_TYPE_CONNPOINT_LINE, 0, NULL, NULL},
+  { "cpl_south",PROP_TYPE_CONNPOINT_LINE, 0, NULL, NULL},
+  { "cpl_east",PROP_TYPE_CONNPOINT_LINE, 0, NULL, NULL},
+  PROP_DESC_END
+};
+
+static PropDescription *
+sadtbox_describe_props(Box *box) 
 {
-  ObjectState *old_state;
-  BoxPropertiesDialog *dlg = sadtbox_properties_dialog;
+  if (box_props[0].quark == 0) {
+    prop_desc_list_calculate_quarks(box_props);
+  }
+  return box_props;
+}    
 
-  PROPDLG_SANITY_CHECK(dlg,box);
-  
-  old_state = (ObjectState *)sadtbox_get_state(box);
+static PropOffset box_offsets[] = {
+  ELEMENT_COMMON_PROPERTIES_OFFSETS,
+  { "padding",PROP_TYPE_REAL,offsetof(Box,padding)},
+  { "text", PROP_TYPE_TEXT, offsetof(Box,text)},
+  { "text_alignment",PROP_TYPE_ENUM,offsetof(Box,attrs.alignment)},
+  { "text_font",PROP_TYPE_FONT,offsetof(Box,attrs.font)},
+  { "text_height",PROP_TYPE_REAL,offsetof(Box,attrs.height)},
+  { "text_color",PROP_TYPE_COLOUR,offsetof(Box,attrs.color)},
+  { "id", PROP_TYPE_STRING, offsetof(Box,id)},
+  { "cpl_north",PROP_TYPE_CONNPOINT_LINE, offsetof(Box,north)},
+  { "cpl_west",PROP_TYPE_CONNPOINT_LINE, offsetof(Box,west)},
+  { "cpl_south",PROP_TYPE_CONNPOINT_LINE, offsetof(Box,south)},
+  { "cpl_east",PROP_TYPE_CONNPOINT_LINE, offsetof(Box,east)},
+  {NULL}
+};
 
-  PROPDLG_APPLY_REAL(dlg, padding);
-  PROPDLG_APPLY_TEXTFONT(dlg,text);
-  PROPDLG_APPLY_TEXTFONTHEIGHT(dlg,text);
-  PROPDLG_APPLY_TEXTCOLOR(dlg,text);
-  PROPDLG_APPLY_STRING(dlg,id);
+static void
+sadtbox_get_props(Box *box, Property *props, guint nprops)
+{  
+  text_get_attributes(box->text,&box->attrs);
+  object_get_props_from_offsets(&box->element.object,
+                                box_offsets,props,nprops);
+}
+
+static void
+sadtbox_set_props(Box *box, Property *props, guint nprops)
+{
+  int i;
+  Property *textprop = NULL;
+
+  object_set_props_from_offsets(&box->element.object,
+                                box_offsets,props,nprops);
+  for (i=0;i<nprops;i++) {
+    if (0 == strcmp(props[i].name,"text")) {
+      textprop = &props[i];
+      break;
+    }
+  }
+
+  if ((!textprop) || (!PROP_VALUE_TEXT(*textprop).enabled)) {
+    /* most likely we're called after the dialog box has been applied */
+    text_set_attributes(box->text,&box->attrs);
+  }
 
   sadtbox_update_data(box, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
-  return new_object_state_change(&box->element.object, 
-                                 old_state, 
-				 (GetStateFunc)sadtbox_get_state,
-				 (SetStateFunc)sadtbox_set_state);
-}
-
-static PROPDLG_TYPE
-sadtbox_get_properties(Box *box)
-{
-  BoxPropertiesDialog *dlg = sadtbox_properties_dialog;
-  
-  PROPDLG_CREATE(dlg,box);
-  
-  PROPDLG_SHOW_REAL(dlg,padding,_("Text padding:"),0.0,10.0,0.1);
-  PROPDLG_SHOW_TEXTFONT(dlg,text,_("Font:"));
-  PROPDLG_SHOW_TEXTFONTHEIGHT(dlg,text,_("Font size:"));
-  PROPDLG_SHOW_TEXTCOLOR(dlg,text,_("Font color:"));
-  PROPDLG_SHOW_STRING(dlg,id,_("Activity/Data identifier"));
-  
-  PROPDLG_READY(dlg);
-  sadtbox_properties_dialog = dlg;
-
-  PROPDLG_RETURN(dlg);
-}
-static void
-sadtbox_apply_defaults(void)
-{
-  BoxDefaultsDialog *dlg = sadtbox_defaults_dialog;
-
-  PROPDLG_APPLY_REAL(dlg,padding);
-  PROPDLG_APPLY_FONT(dlg,font);
-  PROPDLG_APPLY_FONTHEIGHT(dlg,font_size);
-  PROPDLG_APPLY_COLOR(dlg,fontcolor);
-}
-
-static void
-init_default_values(void) {
-  static int defaults_initialized = 0;
-
-  if (!defaults_initialized) {
-    default_properties.padding = 0.5;
-    default_properties.font = font_getfont("Helvetica-Bold");
-    default_properties.font_size = 0.8;
-    default_properties.fontcolor = color_black;
-    defaults_initialized = 1;
-  }
-}
-
-static GtkWidget *
-sadtbox_get_defaults(void)
-{
-  BoxDefaultsDialog *dlg = sadtbox_defaults_dialog;
-
-  init_default_values();
-  PROPDLG_CREATE(dlg, &default_properties);
-  PROPDLG_SHOW_REAL(dlg,padding,_("Text padding:"),0.0,10.0,0.1);
-  PROPDLG_SHOW_FONT(dlg,font,_("Font:"));
-  PROPDLG_SHOW_FONTHEIGHT(dlg,font_size,_("Font size:"));
-  PROPDLG_SHOW_COLOR(dlg,fontcolor,_("Font color:"));
-  PROPDLG_READY(dlg);
-  sadtbox_defaults_dialog = dlg;
-
-  PROPDLG_RETURN(dlg);
 }
 
 static real
@@ -367,41 +317,6 @@ sadtbox_draw(Box *box, Renderer *renderer)
 			     &pos, ALIGN_RIGHT,
 			     &box->text->color);
 }
-
-static void
-sadtbox_free_state(ObjectState *objstate)
-{
-  BoxState *state = (BoxState *)objstate;
-  g_free(state->id);
-  /*  g_free(state); */ /* huh ?? NOT HERE !!! */
-}
-
-static BoxState *
-sadtbox_get_state(Box *box)
-{
-  BoxState *state = g_new0(BoxState, 1);
-
-  state->obj_state.free = sadtbox_free_state;
-
-  state->id = g_strdup(box->id);
-  state->padding = box->padding;
-  text_get_attributes(box->text, &state->text_attrib);
-
-  return state;
-}
-
-static void
-sadtbox_set_state(Box *box, BoxState *state)
-{
-  box->padding = state->padding;
-  text_set_attributes(box->text, &state->text_attrib);
-  if (box->id) g_free(box->id);
-  box->id = state->id;
-  g_free(state);
-  
-  sadtbox_update_data(box, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
-}
-
 
 static void
 sadtbox_update_data(Box *box, AnchorShape horiz, AnchorShape vert)
@@ -572,8 +487,6 @@ sadtbox_create(Point *startpoint,
   Object *obj;
   Point p;
 
-  init_default_values();
-
   box = g_malloc0(sizeof(Box));
   elem = &box->element;
   obj = &elem->object;
@@ -586,14 +499,20 @@ sadtbox_create(Point *startpoint,
   elem->width = DEFAULT_WIDTH;
   elem->height = DEFAULT_HEIGHT;
 
-  box->padding = default_properties.padding;
+  box->padding = 0.5; /* default_values.padding; */
   
   p = *startpoint;
   p.x += elem->width / 2.0;
-  p.y += elem->height / 2.0 + default_properties.font_size / 2;
-  box->text = new_text("", default_properties.font,
+  p.y += elem->height / 2.0 + /*default_properties.font_size*/ 0.8 / 2;
+
+  /*  box->text = new_text("", default_properties.font,
 		       default_properties.font_size, &p, 
 		       &SADTBOX_FG_COLOR,
+		       ALIGN_CENTER);
+  */
+  box->text = new_text("", font_getfont("Helvetica-Bold"),
+		       0.8, &p, 
+		       &color_black,
 		       ALIGN_CENTER);
   box->id = g_strdup("A0"); /* should be made better. 
 				   Automatic counting ? */
@@ -628,91 +547,16 @@ sadtbox_destroy(Box *box)
   element_destroy(&box->element);
 }
 
-static Object *
-sadtbox_copy(Box *box)
-{
-  Box *newbox;
-  Element *elem, *newelem;
-  Object *newobj;
-  int rcc;
-
-  elem = &box->element;
-  
-  newbox = g_malloc0(sizeof(Box));
-  newelem = &newbox->element;
-  newobj = &newelem->object;
-
-  element_copy(elem, newelem);
-  rcc = 0;
-  newbox->north = connpointline_copy(newobj,box->north,&rcc);
-  newbox->west = connpointline_copy(newobj,box->west,&rcc);
-  newbox->south = connpointline_copy(newobj,box->south,&rcc);
-  newbox->east = connpointline_copy(newobj,box->east,&rcc);
-  g_assert(rcc == newobj->num_connections);
-  
-  newbox->id = g_strdup(box->id);
-  newbox->padding = box->padding;
-  newbox->text = text_copy(box->text);  
-
-  return &newbox->element.object;
-}
-
-
-static void
-sadtbox_save(Box *box, ObjectNode obj_node, const char *filename)
-{
-  element_save(&box->element, obj_node);
-
-  save_real(obj_node,"padding",box->padding);
-  save_text(obj_node,"text",box->text);
-  save_int(obj_node,"cpl_north",box->north->num_connections);
-  save_int(obj_node,"cpl_west",box->west->num_connections);
-  save_int(obj_node,"cpl_south",box->south->num_connections);
-  save_int(obj_node,"cpl_east",box->east->num_connections);
-  save_string(obj_node,"id",box->id);
-}
 
 static Object *
 sadtbox_load(ObjectNode obj_node, int version, const char *filename)
 {
-  Box *box;
-  Element *elem;
-  Object *obj;
-  int realconncount;
-  Point p = {0.0,0.0};
-
-  box = g_malloc0(sizeof(Box));
-  elem = &box->element;
-  obj = &elem->object;
-  
-  obj->type = &sadtbox_type;
-  obj->ops = &sadtbox_ops;
-
-  element_load(elem, obj_node);
-
-  box->padding = load_real(obj_node,"padding",default_properties.padding);
-  box->text = load_text(obj_node,"text",NULL);
-  if (!box->text) 
-    box->text = new_text("", default_properties.font,
-			 default_properties.font_size, &p, 
-			 &SADTBOX_FG_COLOR,
-			 ALIGN_CENTER);
-
-  element_init(elem, 8, 0);
-  realconncount = 0;
-
-  box->north = connpointline_load(obj,obj_node,"cpl_north",4,&realconncount);
-  box->west = connpointline_load(obj,obj_node,"cpl_west",3,&realconncount);
-  box->south = connpointline_load(obj,obj_node,"cpl_south",1,&realconncount);
-  box->east = connpointline_load(obj,obj_node,"cpl_east",3,&realconncount);
-
-  box->id = load_string(obj_node,"id",NULL);
-  if (!box->id) box->id = g_strdup("A0");
-  
-  box->element.extra_spacing.border_trans = SADTBOX_LINE_WIDTH/2.0;
-  sadtbox_update_data(box, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
-
-  return &box->element.object;
+  return object_load_using_properties(&sadtbox_type,
+                                      obj_node,version,filename);
 }
+
+
+
+
 
 

@@ -3,6 +3,7 @@
  *
  * properties.h: property system for dia objects/shapes.
  * Copyright (C) 2000 James Henstridge
+ * Copyright (C) 2001 Cyrille Chepelov
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -54,6 +55,7 @@ typedef enum {
   PROP_TYPE_ENUMARRAY,
   PROP_TYPE_HANDLEARRAY,
   PROP_TYPE_REAL,
+  PROP_TYPE_MULTISTRING, /* same as _STRING but with (gint)extra_data lines */
   PROP_TYPE_STRING,
   PROP_TYPE_POINT,
   PROP_TYPE_POINTARRAY,
@@ -68,7 +70,10 @@ typedef enum {
   PROP_TYPE_ENDPOINTS,
   PROP_TYPE_CONNPOINT_LINE,
   PROP_TYPE_TEXT, /* can't be visible */
-
+  PROP_TYPE_STATIC, /* tooltip is used as a (potentially big) static label */
+  PROP_TYPE_NOTEBOOK_BEGIN,
+  PROP_TYPE_NOTEBOOK_END,
+  PROP_TYPE_NOTEBOOK_PAGE,
   PROP_LAST
 } PropType;
 
@@ -97,6 +102,7 @@ struct _PropDescription {
 struct _Property {
   const gchar *name;
   PropType type;
+  const PropDescription *descr;
   gpointer extra_data;
   union {
     gchar char_data;

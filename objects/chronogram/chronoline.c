@@ -2,7 +2,7 @@
  * Copyright (C) 1998 Alexander Larsson
  *
  * Chronogram objects support
- * Copyright (C) 2000 Cyrille Chepelov 
+ * Copyright (C) 2000, 2001 Cyrille Chepelov 
  * 
  * Ultimately forked from Flowchart toolbox -- objects for drawing flowcharts.
  * Copyright (C) 1999 James Henstridge.
@@ -43,7 +43,7 @@
 #include "message.h"
 #include "connpoint_line.h"
 #include "color.h"
-#include "lazyprops.h"
+#include "properties.h"
 
 #include "chronogram.h"
 #include "chronoline_event.h"
@@ -53,33 +53,7 @@
 #define DEFAULT_WIDTH 7.0
 #define DEFAULT_HEIGHT 5.0
 
-typedef struct _Chronoline Chronoline;
-typedef struct _ChronolinePropertiesDialog ChronolinePropertiesDialog;
-typedef struct _ChronolineDefaultsDialog ChronolineDefaultsDialog;
-typedef struct _ChronolineState ChronolineState;
-typedef struct _ChronolineDefaults ChronolineDefaults;
-
-struct _ChronolineState {
-  ObjectState obj_state;
-
-  real main_lwidth;
-  Color color;
-  real start_time;
-  real end_time;
-  real data_lwidth;
-  Color data_color;
-  char *events;
-  char *name;
-  real rise_time;
-  real fall_time;
-  gboolean multibit;
-
-  Font *font;
-  real font_size;
-  Color font_color;
-};
-
-struct _Chronoline {
+typedef struct _Chronoline {
   Element element;
 
   real main_lwidth;
@@ -97,105 +71,17 @@ struct _Chronoline {
   real font_size;
   Color font_color;
   
+  /* computed values : */
   ConnPointLine *snap; /* not saved ; num_connections derived from
 			  the event string. */
   CLEventList *evtlist;
 
   int checksum;
-  /* computed values : */
   real labelwidth;
   real y_down,y_up;
   Color gray, datagray;
-};
+} Chronoline;
 
-struct _ChronolinePropertiesDialog {
-  AttributeDialog dialog;
-  Chronoline *parent;
-  AttributeNotebook notebook;
-
-  struct {
-    AttributePage dialog;
-    Chronoline *parent;
-
-    MultiStringAttribute events;
-    StringAttribute name;
-  } *data_page;
-  struct {
-    AttributePage dialog;
-    Chronoline *parent;
-
-    BoolAttribute multibit;
-    RealAttribute start_time;
-    RealAttribute end_time;
-    RealAttribute rise_time;
-    RealAttribute fall_time;
-  } *parameter_page;
-  struct {
-    AttributePage dialog;
-    Chronoline *parent;
-
-    RealAttribute main_lwidth;
-    RealAttribute data_lwidth;
-    ColorAttribute data_color;
-    ColorAttribute color;
-    FontAttribute font;
-    FontHeightAttribute font_size;
-    ColorAttribute font_color;
-  } *aspect_page;
-};
-
-struct _ChronolineDefaults {
-  char *name;   /* not edited */
-  char *events; /* not edited */
-
-  real main_lwidth;
-  real data_lwidth;
-  Color color;
-  Color data_color;
-
-  real start_time;
-  real end_time;
-  real rise_time;
-  real fall_time;
-  gboolean multibit;
-   
-  Font *font;
-  real font_size;
-  Color font_color;
-};
-
-struct _ChronolineDefaultsDialog {
-  AttributeDialog dialog;
-  ChronolineDefaults *parent;
-  AttributeNotebook notebook;
-
-  struct {
-    AttributePage dialog;
-    ChronolineDefaults *parent;
-
-    BoolAttribute multibit;
-    RealAttribute start_time;
-    RealAttribute end_time;
-    RealAttribute rise_time;
-    RealAttribute fall_time;
-  } *parameter_page;
-  struct {
-    AttributePage dialog;
-    ChronolineDefaults *parent;
-
-    RealAttribute main_lwidth;
-    RealAttribute data_lwidth;
-    ColorAttribute data_color;
-    ColorAttribute color;
-    FontAttribute font;
-    FontHeightAttribute font_size;
-    ColorAttribute font_color;
-  } *aspect_page;
-};
-
-static ChronolinePropertiesDialog *chronoline_properties_dialog;
-static ChronolineDefaultsDialog *chronoline_defaults_dialog;
-static ChronolineDefaults defaults;
 
 static real chronoline_distance_from(Chronoline *chronoline, Point *point);
 static void chronoline_select(Chronoline *chronoline, Point *clicked_point,
@@ -211,28 +97,21 @@ static Object *chronoline_create(Point *startpoint,
 			  Handle **handle1,
 			  Handle **handle2);
 static void chronoline_destroy(Chronoline *chronoline);
-static Object *chronoline_copy(Chronoline *chronoline);
-static PROPDLG_TYPE chronoline_get_properties(Chronoline *chronoline);
-static ObjectChange *chronoline_apply_properties(Chronoline *chronoline);
-
-static ChronolineState *chronoline_get_state(Chronoline *chronoline);
-static void chronoline_set_state(Chronoline *chronoline, ChronolineState *state);
-
-static void chronoline_save(Chronoline *chronoline, ObjectNode obj_node, const char *filename);
-static Object *chronoline_load(ObjectNode obj_node, int version, const char *filename);
-static PROPDLG_TYPE chronoline_get_defaults(void);
-static void chronoline_apply_defaults(void);
-static void chronoline_free_state(ObjectState *objstate);
-
-/*static DiaMenu *chronoline_get_object_menu(Chronoline *chronoline, Point *clickedpoint); */
+static Object *chronoline_load(ObjectNode obj_node, int version, 
+                               const char *filename);
+static PropDescription *chronoline_describe_props(Chronoline *chronoline);
+static void chronoline_get_props(Chronoline *chronoline, 
+                                 Property *props, guint nprops);
+static void chronoline_set_props(Chronoline *chronoline, 
+                                 Property *props, guint nprops);
 
 static ObjectTypeOps chronoline_type_ops =
 {
   (CreateFunc) chronoline_create,
-  (LoadFunc)   chronoline_load,
-  (SaveFunc)   chronoline_save,
-  (GetDefaultsFunc)   chronoline_get_defaults,
-  (ApplyDefaultsFunc) chronoline_apply_defaults
+  (LoadFunc)   chronoline_load/*using properties*/,
+  (SaveFunc)   object_save_using_properties,
+  (GetDefaultsFunc)   NULL,
+  (ApplyDefaultsFunc) NULL
 };
 
 ObjectType chronoline_type =
@@ -249,195 +128,125 @@ static ObjectOps chronoline_ops = {
   (DrawFunc)            chronoline_draw,
   (DistanceFunc)        chronoline_distance_from,
   (SelectFunc)          chronoline_select,
-  (CopyFunc)            chronoline_copy,
+  (CopyFunc)            object_copy_using_properties,
   (MoveFunc)            chronoline_move,
   (MoveHandleFunc)      chronoline_move_handle,
-  (GetPropertiesFunc)   chronoline_get_properties,
-  (ApplyPropertiesFunc) chronoline_apply_properties,
+  (GetPropertiesFunc)   object_create_props_dialog,
+  (ApplyPropertiesFunc) object_apply_props_from_dialog,
   (ObjectMenuFunc)      NULL,
+  (DescribePropsFunc)   chronoline_describe_props,
+  (GetPropsFunc)        chronoline_get_props,
+  (SetPropsFunc)        chronoline_set_props
 };
 
-static ObjectChange *
-chronoline_apply_properties(Chronoline *chronoline)
-{
-  ObjectState *old_state;
-  ChronolinePropertiesDialog *dlg = chronoline_properties_dialog;
+static PropNumData time_range = { -32767.0, 32768.0, 0.1};
+static PropNumData edge_range = { 0.0, 1000.0, 0.1};
 
-  PROPDLG_SANITY_CHECK(dlg,chronoline);
-
-  old_state = (ObjectState *)chronoline_get_state(chronoline);
-  
-  PROPDLG_APPLY_STRING(dlg->data_page,name);
-  PROPDLG_APPLY_MULTISTRING(dlg->data_page,events);
-
-  PROPDLG_APPLY_REAL(dlg->parameter_page,start_time);
-  PROPDLG_APPLY_REAL(dlg->parameter_page,end_time);
-
-  PROPDLG_APPLY_REAL(dlg->parameter_page,rise_time);
-  PROPDLG_APPLY_REAL(dlg->parameter_page,fall_time);
-
-  PROPDLG_APPLY_BOOL(dlg->parameter_page,multibit);
-
-  PROPDLG_APPLY_REAL(dlg->aspect_page,data_lwidth);
-  PROPDLG_APPLY_COLOR(dlg->aspect_page,data_color);
-  PROPDLG_APPLY_REAL(dlg->aspect_page,main_lwidth);
-  PROPDLG_APPLY_COLOR(dlg->aspect_page,color);
-
-  PROPDLG_APPLY_FONT(dlg->aspect_page,font);
-  PROPDLG_APPLY_FONTHEIGHT(dlg->aspect_page,font_size);
-  PROPDLG_APPLY_COLOR(dlg->aspect_page,font_color);
-  
-  /* time_lstep should probably be a multiplier of time_step, but the user
-     is sovereign. */
-  chronoline_update_data(chronoline);
-
-  return new_object_state_change(&chronoline->element.object, 
-                                 old_state, 
-				 (GetStateFunc)chronoline_get_state,
-				 (SetStateFunc)chronoline_set_state);
-}
-
-static PROPDLG_TYPE
-chronoline_get_properties(Chronoline *chronoline)
-{
-  ChronolinePropertiesDialog *dlg = chronoline_properties_dialog;
-  
-  PROPDLG_CREATE(dlg,chronoline);
-  PROPDLG_NOTEBOOK_CREATE(dlg,notebook);
-  PROPDLG_PAGE_CREATE(dlg,notebook,aspect_page,_("Aspect"));
-  PROPDLG_PAGE_CREATE(dlg,notebook,parameter_page,_("Parameters"));
-  PROPDLG_PAGE_CREATE(dlg,notebook,data_page,_("Data"));
-
-  PROPDLG_SHOW_STRING(dlg->data_page,name,_("Data name:"));
-  PROPDLG_SHOW_SEPARATOR(dlg->data_page);
-  PROPDLG_SHOW_MULTISTRING(dlg->data_page,events,_("Events:"),5);
-  PROPDLG_SHOW_STATIC(dlg->data_page,_("Event specification:\n"
+static PropDescription chronoline_props[] = {
+  ELEMENT_COMMON_PROPERTIES,
+  { "nbook", PROP_TYPE_NOTEBOOK_BEGIN, 
+              PROP_FLAG_VISIBLE|PROP_FLAG_DONT_SAVE, NULL, NULL},
+  { "data", PROP_TYPE_NOTEBOOK_PAGE,
+    PROP_FLAG_VISIBLE|PROP_FLAG_DONT_SAVE, 
+    N_("Data"), NULL},
+  { "name", PROP_TYPE_STRING,PROP_FLAG_VISIBLE,N_("Data name"),NULL },
+  { "events", PROP_TYPE_MULTISTRING,PROP_FLAG_VISIBLE,N_("Events"),
+    NULL,GINT_TO_POINTER(5) },
+  { "help", PROP_TYPE_STATIC,PROP_FLAG_VISIBLE|PROP_FLAG_DONT_SAVE,
+    N_("Event specification"),N_(
 			    "@ time    set the pointer at an absolute time.\n"
 			    "( duration  sets the signal up, then wait 'duration'.\n"
 			    ") duration  sets the signal down, then wait 'duration'.\n" 
 			    "u duration  sets the signal to \"unknown\" state, then wait 'duration'.\n"
-			    "example : @ 1.0 (2.0)1.0(2.0)\n" ));
+			    "example : @ 1.0 (2.0)1.0(2.0)\n" )},
 
-  PROPDLG_SHOW_REAL(dlg->parameter_page,start_time,
-		    _("Start time:"),-32767.0,32768.0,0.1);
-  PROPDLG_SHOW_REAL(dlg->parameter_page,end_time,
-		    _("End time:"),-32767.0,32768.0,0.1);
-  PROPDLG_SHOW_REAL(dlg->parameter_page,rise_time,
-		    _("Rise time:"),0.0,1000.0,.1);
-  PROPDLG_SHOW_REAL(dlg->parameter_page,fall_time,
-		    _("Fall time:"),0.0,1000.0,.1);
-  PROPDLG_SHOW_BOOL(dlg->parameter_page,multibit,
-		    _("Multi-bit data"));
+  { "parameters",PROP_TYPE_NOTEBOOK_PAGE,
+    PROP_FLAG_VISIBLE|PROP_FLAG_DONT_SAVE, 
+    N_("Parameters"), NULL},
+  { "start_time",PROP_TYPE_REAL,PROP_FLAG_VISIBLE,
+    N_("Start time"),NULL,&time_range},
+  { "end_time",PROP_TYPE_REAL,PROP_FLAG_VISIBLE,
+    N_("End time"),NULL,&time_range},
+  { "rise_time",PROP_TYPE_REAL,PROP_FLAG_VISIBLE,
+    N_("Rise time"),NULL,&edge_range},
+  { "fall_time",PROP_TYPE_REAL,PROP_FLAG_VISIBLE,
+    N_("Fall time"),NULL,&edge_range},
+  { "multibit",PROP_TYPE_BOOL,PROP_FLAG_VISIBLE, N_("Multi-bit data"),NULL},
 
-  PROPDLG_SHOW_COLOR(dlg->aspect_page,data_color,_("Data color:"));
-  PROPDLG_SHOW_REAL(dlg->aspect_page,data_lwidth,
-		    _("Data line width:"),0.0,10.0,0.1);
-  PROPDLG_SHOW_COLOR(dlg->aspect_page,color,_("Line color:"));
-  PROPDLG_SHOW_REAL(dlg->aspect_page,main_lwidth,
-		    _("Line width:"),0.0,10.0,0.1);
-  PROPDLG_SHOW_FONT(dlg->aspect_page,font,_("Font:"));
-  PROPDLG_SHOW_FONTHEIGHT(dlg->aspect_page,font_size,_("Font size:"));
-  PROPDLG_SHOW_COLOR(dlg->aspect_page,font_color,_("Font color:"));
+  { "aspect",PROP_TYPE_NOTEBOOK_PAGE,
+    PROP_FLAG_VISIBLE|PROP_FLAG_DONT_SAVE, 
+    N_("Aspect"), NULL},
+  { "data_color", PROP_TYPE_COLOUR, PROP_FLAG_VISIBLE,
+    N_("Data color"),NULL},
+  { "data_lwidth", PROP_TYPE_REAL, PROP_FLAG_VISIBLE,
+    N_("Data line width"),NULL, &prop_std_line_width_data},
+  { "color", PROP_TYPE_COLOUR, PROP_FLAG_VISIBLE,
+    N_("Line color"),NULL},
+  { "main_lwidth", PROP_TYPE_REAL, PROP_FLAG_VISIBLE,
+    N_("Line width"),NULL, &prop_std_line_width_data},
 
-  PROPDLG_PAGE_READY(dlg,notebook,data_page);
-  PROPDLG_PAGE_READY(dlg,notebook,parameter_page);
-  PROPDLG_PAGE_READY(dlg,notebook,aspect_page);
-  PROPDLG_NOTEBOOK_READY(dlg,notebook);
+  { "font", PROP_TYPE_FONT, PROP_FLAG_VISIBLE, N_("Font"), NULL, NULL },
+  { "font_size", PROP_TYPE_REAL, PROP_FLAG_VISIBLE,
+    N_("Font size"), NULL, &prop_std_text_height_data },
+  { "font_color", PROP_TYPE_COLOUR, PROP_FLAG_VISIBLE,
+    N_("Text colour"), NULL, NULL },
 
-  PROPDLG_READY(dlg);
-  chronoline_properties_dialog = dlg;
+  { "nbook_end", PROP_TYPE_NOTEBOOK_END, 
+              PROP_FLAG_VISIBLE|PROP_FLAG_DONT_SAVE, NULL, NULL},
+  {NULL}
+};
 
-  PROPDLG_RETURN(dlg);
-}
-static void
-chronoline_apply_defaults(void)
+static PropDescription *
+chronoline_describe_props(Chronoline *chronoline) 
 {
-  ChronolineDefaultsDialog *dlg = chronoline_defaults_dialog;
-
-  PROPDLG_APPLY_REAL(dlg->parameter_page,start_time);
-  PROPDLG_APPLY_REAL(dlg->parameter_page,end_time);
-
-  PROPDLG_APPLY_REAL(dlg->parameter_page,rise_time);
-  PROPDLG_APPLY_REAL(dlg->parameter_page,fall_time);
-
-  PROPDLG_APPLY_BOOL(dlg->parameter_page,multibit);
-
-  PROPDLG_APPLY_REAL(dlg->aspect_page,data_lwidth);
-  PROPDLG_APPLY_COLOR(dlg->aspect_page,data_color);
-  PROPDLG_APPLY_REAL(dlg->aspect_page,main_lwidth);
-  PROPDLG_APPLY_COLOR(dlg->aspect_page,color);
-
-  PROPDLG_APPLY_FONT(dlg->aspect_page,font);
-  PROPDLG_APPLY_FONTHEIGHT(dlg->aspect_page,font_size);
-  PROPDLG_APPLY_COLOR(dlg->aspect_page,font_color);
-}
-
-static void
-chronoline_init_defaults(void) {
-  static int defaults_initialized = 0;
-
-  if (!defaults_initialized) {
-    defaults.name = "";
-    defaults.events = "";
-
-    defaults.font = font_getfont("Helvetica");
-    defaults.font_size = 1.0;
-    defaults.font_color = color_black;
-    defaults.start_time = 0.0;
-    defaults.end_time = 20.0;
-    defaults.rise_time = .3; 
-    defaults.fall_time = .3;
-    defaults.color = color_black;
-    defaults.main_lwidth = .1;
-    defaults.data_lwidth = .1;
-    defaults.data_color.red = 1.0;
-    defaults.data_color.green = 0.0;
-    defaults.data_color.blue = 0.0;
-    defaults.multibit = FALSE;
-
-    defaults_initialized = 1;
+  if (chronoline_props[0].quark == 0) {
+    prop_desc_list_calculate_quarks(chronoline_props);
   }
+  return chronoline_props;
+}    
+
+static PropOffset chronoline_offsets[] = {
+  ELEMENT_COMMON_PROPERTIES_OFFSETS,
+  { "nbook", PROP_TYPE_NOTEBOOK_BEGIN, 0}, 
+
+  { "data", PROP_TYPE_NOTEBOOK_PAGE, 0},
+  { "name", PROP_TYPE_STRING, offsetof(Chronoline,name)},
+  { "events", PROP_TYPE_MULTISTRING, offsetof(Chronoline,events)},
+  { "help", PROP_TYPE_STATIC, 0},
+
+  { "parameters",PROP_TYPE_NOTEBOOK_PAGE, 0},
+  { "start_time",PROP_TYPE_REAL, offsetof(Chronoline,start_time)},
+  { "end_time",PROP_TYPE_REAL, offsetof(Chronoline,end_time)},
+  { "rise_time",PROP_TYPE_REAL, offsetof(Chronoline,rise_time)},
+  { "fall_time",PROP_TYPE_REAL, offsetof(Chronoline,fall_time)},
+  { "multibit",PROP_TYPE_BOOL, offsetof(Chronoline,multibit)},
+
+  { "aspect",PROP_TYPE_NOTEBOOK_PAGE,0},
+  { "data_color", PROP_TYPE_COLOUR, offsetof(Chronoline,data_color)},
+  { "data_lwidth", PROP_TYPE_REAL, offsetof(Chronoline,data_lwidth)},
+  { "color", PROP_TYPE_COLOUR, offsetof(Chronoline,color)},
+  { "main_lwidth", PROP_TYPE_REAL, offsetof(Chronoline,main_lwidth)},
+  { "font", PROP_TYPE_FONT, offsetof(Chronoline,font)},
+  { "font_size", PROP_TYPE_REAL, offsetof(Chronoline,font_size)},
+  { "font_color", PROP_TYPE_COLOUR, offsetof(Chronoline,font_color)},
+
+  { "nbook_end", PROP_TYPE_NOTEBOOK_END, 0}, 
+  {NULL}
+};
+
+static void
+chronoline_get_props(Chronoline *chronoline, Property *props, guint nprops)
+{  
+  object_get_props_from_offsets(&chronoline->element.object,
+                                chronoline_offsets,props,nprops);
 }
 
-static GtkWidget *
-chronoline_get_defaults(void)
+static void
+chronoline_set_props(Chronoline *chronoline, Property *props, guint nprops)
 {
-  ChronolineDefaultsDialog *dlg = chronoline_defaults_dialog;
-
-  chronoline_init_defaults();
-  PROPDLG_CREATE(dlg, &defaults);
-  PROPDLG_NOTEBOOK_CREATE(dlg,notebook);
-  PROPDLG_PAGE_CREATE(dlg,notebook,aspect_page,_("Aspect"));
-  PROPDLG_PAGE_CREATE(dlg,notebook,parameter_page,_("Parameters"));
-
-  PROPDLG_SHOW_REAL(dlg->parameter_page,start_time,_("Start time:"),
-		    -32767.0,32768.0,0.1);
-  PROPDLG_SHOW_REAL(dlg->parameter_page,end_time,_("End time:"),
-		    -32767.0,32768.0,0.1);
-  PROPDLG_SHOW_REAL(dlg->parameter_page,rise_time,_("Rise time:"),
-		    0.0,1000.0,.1);
-  PROPDLG_SHOW_REAL(dlg->parameter_page,fall_time,_("Fall time:"),
-		    0.0,1000.0,.1);
-  PROPDLG_SHOW_BOOL(dlg->parameter_page,multibit,_("Multi-bit data"));
-
-
-  PROPDLG_SHOW_COLOR(dlg->aspect_page,data_color,_("Data color:"));
-  PROPDLG_SHOW_REAL(dlg->aspect_page,data_lwidth,_("Data line width:"),
-		    0.0,10.0,0.1);
-  PROPDLG_SHOW_COLOR(dlg->aspect_page,color,_("Line color:"));
-  PROPDLG_SHOW_REAL(dlg->aspect_page,main_lwidth,_("Line width:"),
-		    0.0,10.0,0.1);
-  PROPDLG_SHOW_FONT(dlg->aspect_page,font,_("Font:"));
-  PROPDLG_SHOW_FONTHEIGHT(dlg->aspect_page,font_size,_("Font size:"));
-  PROPDLG_SHOW_COLOR(dlg->aspect_page,font_color,_("Font color:"));
-
-  PROPDLG_PAGE_READY(dlg,notebook,parameter_page);
-  PROPDLG_PAGE_READY(dlg,notebook,aspect_page);
-  PROPDLG_NOTEBOOK_READY(dlg,notebook);
-  PROPDLG_READY(dlg);
-  chronoline_defaults_dialog = dlg;
-
-  PROPDLG_RETURN(dlg);
+  object_set_props_from_offsets(&chronoline->element.object,
+                                chronoline_offsets,props,nprops);
+  chronoline_update_data(chronoline);
 }
 
 static real
@@ -658,89 +467,6 @@ chronoline_draw(Chronoline *chronoline, Renderer *renderer)
 			     &chronoline->color);
 }
 
-static void
-chronoline_free_state(ObjectState *objstate)
-{
-  ChronolineState *state G_GNUC_UNUSED= (ChronolineState *)objstate;
-
-  OBJECT_FREE_STRING(state,name);
-  OBJECT_FREE_STRING(state,events);
-
-  OBJECT_FREE_REAL(state,start_time);
-  OBJECT_FREE_REAL(state,end_time);
-
-  OBJECT_FREE_REAL(state,rise_time);
-  OBJECT_FREE_REAL(state,fall_time);
-
-  OBJECT_FREE_BOOL(state,multibit);
-
-  OBJECT_FREE_REAL(state,data_lwidth);
-  OBJECT_FREE_COLOR(state,data_color);
-  OBJECT_FREE_REAL(state,main_lwidth);
-  OBJECT_FREE_COLOR(state,color);
-
-  OBJECT_FREE_FONT(state,font);
-  OBJECT_FREE_FONTHEIGHT(state,font_size);
-  OBJECT_FREE_COLOR(state,font_color);
-}
-
-static ChronolineState *
-chronoline_get_state(Chronoline *chronoline)
-{
-  ChronolineState *state = g_new0(ChronolineState, 1);
-
-  state->obj_state.free = chronoline_free_state; 
-
-  OBJECT_GET_STRING(chronoline,state,name);
-  OBJECT_GET_STRING(chronoline,state,events);
-
-  OBJECT_GET_REAL(chronoline,state,start_time);
-  OBJECT_GET_REAL(chronoline,state,end_time);
-
-  OBJECT_GET_REAL(chronoline,state,rise_time);
-  OBJECT_GET_REAL(chronoline,state,fall_time);
-
-  OBJECT_GET_BOOL(chronoline,state,multibit);
-
-  OBJECT_GET_REAL(chronoline,state,data_lwidth);
-  OBJECT_GET_COLOR(chronoline,state,data_color);
-  OBJECT_GET_REAL(chronoline,state,main_lwidth);
-  OBJECT_GET_COLOR(chronoline,state,color);
-
-  OBJECT_GET_FONT(chronoline,state,font);
-  OBJECT_GET_FONTHEIGHT(chronoline,state,font_size);
-  OBJECT_GET_COLOR(chronoline,state,font_color);
-
-  return state;
-}
-
-static void
-chronoline_set_state(Chronoline *chronoline, ChronolineState *state)
-{
-  OBJECT_SET_STRING(chronoline,state,name);
-  OBJECT_SET_STRING(chronoline,state,events);
-
-  OBJECT_SET_REAL(chronoline,state,start_time);
-  OBJECT_SET_REAL(chronoline,state,end_time);
-
-  OBJECT_SET_REAL(chronoline,state,rise_time);
-  OBJECT_SET_REAL(chronoline,state,fall_time);
-
-  OBJECT_SET_BOOL(chronoline,state,multibit);
-
-  OBJECT_SET_REAL(chronoline,state,data_lwidth);
-  OBJECT_SET_COLOR(chronoline,state,data_color);
-  OBJECT_SET_REAL(chronoline,state,main_lwidth);
-  OBJECT_SET_COLOR(chronoline,state,color);
-
-  OBJECT_SET_FONT(chronoline,state,font);
-  OBJECT_SET_FONTHEIGHT(chronoline,state,font_size);
-  OBJECT_SET_COLOR(chronoline,state,font_color);
-
-  chronoline_update_data(chronoline);
-}
-
-
 inline static void grayify(Color *col,Color *src)
 {
   col->red = .5 * (src->red + color_white.red);
@@ -859,20 +585,6 @@ chronoline_update_data(Chronoline *chronoline)
   }
 }
 
-static void chronoline_alloc(Chronoline **chronoline,
-			    Element **elem,
-			    Object **obj)
-{
-  chronoline_init_defaults();
-
-  *chronoline = g_new0(Chronoline,1);
-  *elem = &((*chronoline)->element);
-
-  *obj = &((*chronoline)->element.object);
-  (*obj)->type = &chronoline_type;
-  (*obj)->ops = &chronoline_ops;
-}
-
 static Object *
 chronoline_create(Point *startpoint,
 	   void *user_data,
@@ -883,7 +595,12 @@ chronoline_create(Point *startpoint,
   Element *elem;
   Object *obj;
 
-  chronoline_alloc(&chronoline,&elem,&obj);
+  chronoline = g_new0(Chronoline,1);
+  elem = &(chronoline->element);
+
+  obj = &(chronoline->element.object);
+  obj->type = &chronoline_type;
+  obj->ops = &chronoline_ops;
 
   chronoline->snap = connpointline_create(obj,0); 
 
@@ -893,25 +610,22 @@ chronoline_create(Point *startpoint,
 
   element_init(elem, 8, 0);
 
-  OBJECT_GET_STRING(&defaults,chronoline,name);
-  OBJECT_GET_STRING(&defaults,chronoline,events);
-
-  OBJECT_GET_REAL(&defaults,chronoline,start_time);
-  OBJECT_GET_REAL(&defaults,chronoline,end_time);
-
-  OBJECT_GET_REAL(&defaults,chronoline,rise_time);
-  OBJECT_GET_REAL(&defaults,chronoline,fall_time);
-
-  OBJECT_GET_BOOL(&defaults,chronoline,multibit);
-
-  OBJECT_GET_REAL(&defaults,chronoline,data_lwidth);
-  OBJECT_GET_COLOR(&defaults,chronoline,data_color);
-  OBJECT_GET_REAL(&defaults,chronoline,main_lwidth);
-  OBJECT_GET_COLOR(&defaults,chronoline,color);
-
-  OBJECT_GET_FONT(&defaults,chronoline,font);
-  OBJECT_GET_FONTHEIGHT(&defaults,chronoline,font_size);
-  OBJECT_GET_COLOR(&defaults,chronoline,font_color);
+  chronoline->name = g_strdup("");
+  chronoline->events = g_strdup("");
+  chronoline->font = font_getfont("Helvetica");
+  chronoline->font_size = 1.0;
+  chronoline->font_color = color_black;
+  chronoline->start_time = 0.0;
+  chronoline->end_time = 20.0;
+  chronoline->rise_time = .3;
+  chronoline->fall_time = .3;
+  chronoline->color = color_black;
+  chronoline->main_lwidth = .1;
+  chronoline->data_lwidth = .1;
+  chronoline->data_color.red = 1.0;
+  chronoline->data_color.green = 0.0;
+  chronoline->data_color.blue = 0.0;
+  chronoline->multibit = FALSE;
   
   chronoline->evtlist = NULL;
   chronoline_update_data(chronoline);
@@ -921,7 +635,7 @@ chronoline_create(Point *startpoint,
   return &chronoline->element.object;
 }
 
-static void
+static void 
 chronoline_destroy(Chronoline *chronoline)
 {
   connpointline_destroy(chronoline->snap);
@@ -930,110 +644,8 @@ chronoline_destroy(Chronoline *chronoline)
 }
 
 static Object *
-chronoline_copy(Chronoline *chronoline)
-{
-  Chronoline *newchronoline;
-  Element *elem, *newelem;
-  Object *newobj, *obj;
-  int rcc = 0;
-
-  elem = &chronoline->element; 
-  obj = &elem->object;
-  chronoline_alloc(&newchronoline,&newelem,&newobj);
-  element_copy(elem, newelem);
-
-  newchronoline->snap = connpointline_copy(newobj,chronoline->snap,&rcc); 
-  g_assert(rcc == newobj->num_connections);
-
-
-  OBJECT_GET_STRING(chronoline,newchronoline,name);
-  OBJECT_GET_STRING(chronoline,newchronoline,events);
-
-  OBJECT_GET_REAL(chronoline,newchronoline,start_time);
-  OBJECT_GET_REAL(chronoline,newchronoline,end_time);
-
-  OBJECT_GET_REAL(chronoline,newchronoline,rise_time);
-  OBJECT_GET_REAL(chronoline,newchronoline,fall_time);
-
-  OBJECT_GET_BOOL(chronoline,newchronoline,multibit);
-
-  OBJECT_GET_REAL(chronoline,newchronoline,data_lwidth);
-  OBJECT_GET_COLOR(chronoline,newchronoline,data_color);
-  OBJECT_GET_REAL(chronoline,newchronoline,main_lwidth);
-  OBJECT_GET_COLOR(chronoline,newchronoline,color);
-
-  OBJECT_GET_FONT(chronoline,newchronoline,font);
-  OBJECT_GET_FONTHEIGHT(chronoline,newchronoline,font_size);
-  OBJECT_GET_COLOR(chronoline,newchronoline,font_color);
-
-  newchronoline->evtlist = NULL;
-
-  chronoline_update_data(newchronoline);
-
-  return &newchronoline->element.object;
-}
-
-
-static void
-chronoline_save(Chronoline *chronoline, ObjectNode obj_node, const char *filename)
-{
-  element_save(&chronoline->element, obj_node);
-
-  SAVE_STRING(obj_node,chronoline,name);
-  SAVE_STRING(obj_node,chronoline,events);
-
-  SAVE_REAL(obj_node,chronoline,start_time);
-  SAVE_REAL(obj_node,chronoline,end_time);
-
-  SAVE_REAL(obj_node,chronoline,rise_time);
-  SAVE_REAL(obj_node,chronoline,fall_time);
-
-  SAVE_BOOL(obj_node,chronoline,multibit);
-
-  SAVE_REAL(obj_node,chronoline,data_lwidth);
-  SAVE_COLOR(obj_node,chronoline,data_color);
-  SAVE_REAL(obj_node,chronoline,main_lwidth);
-  SAVE_COLOR(obj_node,chronoline,color);
-
-  SAVE_FONT(obj_node,chronoline,font);
-  SAVE_FONTHEIGHT(obj_node,chronoline,font_size);
-  SAVE_COLOR(obj_node,chronoline,font_color);
-}
-
-static Object *
 chronoline_load(ObjectNode obj_node, int version, const char *filename)
 {
-  Chronoline *chronoline;
-  Element *elem;
-  Object *obj;
-
-  chronoline_alloc(&chronoline,&elem,&obj);
-  chronoline->snap = connpointline_create(obj,0);
-
-  element_load(elem, obj_node);
-  element_init(elem, 8, 0);
-
-  LOAD_STRING(obj_node,chronoline,&defaults,name);
-  LOAD_STRING(obj_node,chronoline,&defaults,events);
-
-  LOAD_REAL(obj_node,chronoline,&defaults,start_time);
-  LOAD_REAL(obj_node,chronoline,&defaults,end_time);
-
-  LOAD_REAL(obj_node,chronoline,&defaults,rise_time);
-  LOAD_REAL(obj_node,chronoline,&defaults,fall_time);
-
-  LOAD_BOOL(obj_node,chronoline,&defaults,multibit);
-
-  LOAD_REAL(obj_node,chronoline,&defaults,data_lwidth);
-  LOAD_COLOR(obj_node,chronoline,&defaults,data_color);
-  LOAD_REAL(obj_node,chronoline,&defaults,main_lwidth);
-  LOAD_COLOR(obj_node,chronoline,&defaults,color);
-
-  LOAD_FONT(obj_node,chronoline,&defaults,font);
-  LOAD_FONTHEIGHT(obj_node,chronoline,&defaults,font_size);
-  LOAD_COLOR(obj_node,chronoline,&defaults,font_color);
-
-  chronoline_update_data(chronoline);
-
-  return &chronoline->element.object;
+  return object_load_using_properties(&chronoline_type,
+                                      obj_node,version,filename);  
 }
