@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia CVS-20020526\n"
-"POT-Creation-Date: 2002-12-05 21:05-0600\n"
-"PO-Revision-Date: 2002-05-26 16:09+0900\n"
-"Last-Translator: Akira TAGOH <tagoh@gnome.gr.jp>\n"
+"POT-Creation-Date: 2003-03-12 18:52-0600\n"
+"PO-Revision-Date: 2003-03-14 09:13-0600\n"
+"Last-Translator: Ken Tsukahara <ken.tsukahara@tmt-d.co.jp>\n"
 "Language-Team: Japanese <translation@gnome.gr.jp>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=euc-jp\n"
@@ -36,48 +36,48 @@ msgid "%s --> %s\n"
 msgstr "%s --> %s\n"
 
 #. &export_file_name
-#: app/app_procs.c:240
+#: app/app_procs.c:242
 msgid "Export loaded file and exit"
 msgstr "読み込んだファイルをエクスポートして終了する"
 
-#: app/app_procs.c:240 app/diaconv.c:94
+#: app/app_procs.c:242 app/diaconv.c:94
 msgid "OUTPUT"
 msgstr "OUTPUT"
 
 #. &export_file_format
-#: app/app_procs.c:242
+#: app/app_procs.c:244
 msgid "Export to file format and exit"
 msgstr "指定したファイル形式へエクスポートして終了する"
 
-#: app/app_procs.c:242 app/diaconv.c:92
+#: app/app_procs.c:244 app/diaconv.c:92
 msgid "eps,png,wmf,cgm,dxf,fig"
 msgstr "eps,png,wmf,cgm,dxf,fig"
 
-#: app/app_procs.c:244
+#: app/app_procs.c:246
 msgid "Don't show the splash screen"
 msgstr "スプラッシュスクリーンを表示しない"
 
-#: app/app_procs.c:246
+#: app/app_procs.c:248
 msgid "Display credits list and exit"
 msgstr ""
 
-#: app/app_procs.c:248
+#: app/app_procs.c:250
 msgid "Display version and exit"
 msgstr ""
 
-#: app/app_procs.c:250 app/diaconv.c:95
+#: app/app_procs.c:252 app/diaconv.c:95
 msgid "Show this help message"
 msgstr "このヘルプメッセージを表示する"
 
-#: app/app_procs.c:280
+#: app/app_procs.c:283
 msgid "Can't connect to session manager!\n"
 msgstr "セッションマネージャに接続できません!\n"
 
-#: app/app_procs.c:294 app/diaconv.c:119
+#: app/app_procs.c:298 app/diaconv.c:119
 msgid "[OPTION...] [FILE...]"
 msgstr "[オプション...][ファイル...]"
 
-#: app/app_procs.c:298 app/diaconv.c:126
+#: app/app_procs.c:302 app/diaconv.c:126
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
@@ -87,22 +87,23 @@ msgstr ""
 "'%s --help'を実行して使用できるコマンドラインオプションの一覧を参照してくださ"
 "い。\n"
 
-#: app/app_procs.c:311
+#: app/app_procs.c:315
 #, c-format
 msgid "%s error: can specify only one of -f or -o."
 msgstr "%s エラー: -f か -o のどちらかだけを指定してください"
 
-#: app/app_procs.c:324
+#. TRANSLATOR: 2nd and 3rd %s are time and date respectively.
+#: app/app_procs.c:328
 #, c-format
 msgid "Dia version %s, compiled %s %s\n"
 msgstr ""
 
-#: app/app_procs.c:326
+#: app/app_procs.c:330
 #, fuzzy, c-format
 msgid "Dia version %s\n"
 msgstr "Dia v %s"
 
-#: app/app_procs.c:413 app/app_procs.c:415 app/diaconv.c:199 app/diaconv.c:201
+#: app/app_procs.c:417 app/app_procs.c:419 app/diaconv.c:199 app/diaconv.c:201
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr ""
@@ -110,7 +111,7 @@ msgstr ""
 "す...\n"
 
 #. no standard buttons
-#: app/app_procs.c:542
+#: app/app_procs.c:546
 #, fuzzy
 msgid ""
 "Modified diagrams exist.\n"
@@ -120,16 +121,16 @@ msgstr ""
 "変更されたダイアグラムがあります。\n"
 "終了してもよろしいですか?"
 
-#: app/app_procs.c:546
+#: app/app_procs.c:550
 #, fuzzy
 msgid "Quit Dia"
 msgstr "Diaについて"
 
-#: app/app_procs.c:608 app/app_procs.c:615
+#: app/app_procs.c:612 app/app_procs.c:619
 msgid "Could not create per-user Dia config directory"
 msgstr "ユーザー別のDia設定ディレクトリを作成できません"
 
-#: app/app_procs.c:617
+#: app/app_procs.c:621
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -137,7 +138,7 @@ msgstr ""
 "ユーザ毎のDia設定ディレクトリを作成出来ませんでした．HOME環境変数が既存のディ"
 "レクトリを指しているか確認してください"
 
-#: app/app_procs.c:639 app/diaconv.c:249
+#: app/app_procs.c:643 app/diaconv.c:249
 msgid "Objects and filters internal to dia"
 msgstr "diaに内蔵されたオブジェクトとフィルタ"
 
@@ -151,14 +152,14 @@ msgid ""
 "Please select those you wish to recover."
 msgstr ""
 
-#: app/color_area.c:301 lib/widgets.c:867
+#: app/color_area.c:314 lib/widgets.c:848
 msgid "Select color"
 msgstr "色の選択"
 
 #: app/commands.c:132
-#, c-format
-msgid "Untitled-%d"
-msgstr "無題-%d"
+#, fuzzy, c-format
+msgid "Diagram%d.dia"
+msgstr "ダイアグラムエディタ"
 
 #: app/commands.c:198
 msgid "No existing object to paste.\n"
@@ -224,18 +225,7 @@ msgstr ""
 msgid "Contributors:"
 msgstr "コントリビュータ一覧:"
 
-#: app/commands.c:762
-msgid ""
-"The anti aliased renderer is buggy, and may cause\n"
-"crashes.  We know there are bugs in it, so don't\n"
-"bother submitting another report if it crashes"
-msgstr ""
-"アンチエイリアスを使ったレンダリングは不具合があり,\n"
-"クラッシュする原因になります. それに不具合があることを\n"
-"知っています. ですので, クラッシュしても別の報告を\n"
-"提出して困らせないでください"
-
-#: app/defaults.c:43 app/defaults.c:139
+#: app/defaults.c:43 app/defaults.c:146
 msgid "Object defaults"
 msgstr "オブジェクトのデフォルト"
 
@@ -243,7 +233,7 @@ msgstr "オブジェクトのデフォルト"
 msgid "This object has no defaults."
 msgstr "このオブジェクトにはデフォルトはありません"
 
-#: app/defaults.c:110
+#: app/defaults.c:111
 #, fuzzy
 msgid "Defaults: "
 msgstr "ビューのデフォルト"
@@ -386,7 +376,7 @@ msgstr "/プロパティ(_P)"
 msgid "/_Hide this type"
 msgstr "/この種類を隠す(_H)"
 
-#: app/diagram_tree_window.c:77
+#: app/diagram_tree_window.c:87
 msgid "Diagram tree"
 msgstr "ダイアグラムツリー"
 
@@ -394,9 +384,9 @@ msgstr "ダイアグラムツリー"
 msgid "Ok"
 msgstr "OK"
 
-#: app/dialogs.c:52 app/layer_dialog.c:988 app/lineprops_area.c:438
-#: app/lineprops_area.c:638 app/linewidth_area.c:244
-#: app/paginate_psprint.c:274
+#: app/dialogs.c:52 app/layer_dialog.c:1006 app/lineprops_area.c:453
+#: app/lineprops_area.c:679 app/linewidth_area.c:252
+#: app/paginate_psprint.c:276
 msgid "Cancel"
 msgstr "キャンセル"
 
@@ -453,43 +443,43 @@ msgstr "対"
 msgid "%0.3gcm x %0.3gcm"
 msgstr "%0.3gcm x %0.3gcm"
 
-#: app/diapagelayout.c:786 app/pagesetup.c:60 app/pagesetup.c:68
+#: app/diapagelayout.c:786 app/pagesetup.c:73
 msgid "Page Setup"
 msgstr "ページ設定"
 
-#: app/dia-props.c:54
+#: app/dia-props.c:61
 msgid "Diagram Properties"
 msgstr "ダイアグラムの設定"
 
-#: app/dia-props.c:87
+#: app/dia-props.c:96
 msgid "x"
 msgstr "x"
 
-#: app/dia-props.c:91
+#: app/dia-props.c:100
 msgid "y"
 msgstr "y"
 
-#: app/dia-props.c:96
+#: app/dia-props.c:105
 msgid "Spacing"
 msgstr "間隔"
 
-#: app/dia-props.c:116
+#: app/dia-props.c:125
 msgid "Visible spacing"
 msgstr "可視間隔"
 
-#: app/dia-props.c:136
+#: app/dia-props.c:145
 msgid "Grid"
 msgstr "グリッド"
 
-#: app/dia-props.c:146
+#: app/dia-props.c:155
 msgid "Background Colour"
 msgstr "背景色"
 
-#: app/dia-props.c:157 lib/diagramdata.c:58
+#: app/dia-props.c:166 lib/diagramdata.c:58
 msgid "Background"
 msgstr "背景"
 
-#: app/disp_callbacks.c:76 app/properties.c:121
+#: app/disp_callbacks.c:76 app/properties.c:125
 msgid ""
 "This object doesn't support Undo/Redo.\n"
 "Undo information erased."
@@ -505,11 +495,11 @@ msgstr "オブジェクトメニューはありません"
 msgid "Diagram modified!"
 msgstr "ダイアグラムが変更されました!"
 
-#: app/display.c:866
+#: app/display.c:890
 msgid "<unnamed>"
 msgstr ""
 
-#: app/display.c:868
+#: app/display.c:892
 #, fuzzy, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -518,23 +508,23 @@ msgstr ""
 "このダイアグラムは保存されていません。\n"
 "変更を今保存しますか?"
 
-#: app/display.c:879
+#: app/display.c:903
 #, fuzzy
 msgid "Close Diagram"
 msgstr "ダイアグラムを閉じますか?"
 
-#: app/display.c:884
+#: app/display.c:908
 #, fuzzy
 msgid "Discard Changes"
 msgstr "開放"
 
-#: app/export_png.c:114 app/load_save.c:746 app/render_eps.c:535
-#: plug-ins/cgm/cgm.c:1156 plug-ins/dxf/dxf-export.c:480
-#: plug-ins/hpgl/hpgl.c:731 plug-ins/metapost/render_metapost.c:733
+#: app/export_png.c:114 app/load_save.c:746 plug-ins/cgm/cgm.c:1156
+#: plug-ins/dxf/dxf-export.c:504 plug-ins/hpgl/hpgl.c:731
+#: plug-ins/metapost/render_metapost.c:733
 #: plug-ins/pstricks/render_pstricks.c:756 plug-ins/python/pydia-render.c:711
 #: plug-ins/shape/shape-export.c:134 plug-ins/svg/render_svg.c:150
 #: plug-ins/wmf/wmf.cpp:1030 plug-ins/wpg/wpg.c:1064
-#: plug-ins/xfig/xfig-export.c:869 plug-ins/xslt/xslt.c:90
+#: plug-ins/xfig/xfig-export.c:869 plug-ins/xslt/xslt.c:83
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
 msgstr "開けないので書き込めません: '%s'\n"
@@ -552,28 +542,28 @@ msgid "Error occurred while writing PNG"
 msgstr "PNGの出力中にエラーが起きました"
 
 #. Create a dialog
-#: app/export_png.c:258
+#: app/export_png.c:263
 msgid "PNG Export Options"
 msgstr "PNGエクスポートオプション"
 
 #. Translators: Menu item Verb/Channel/Export
-#: app/export_png.c:259 objects/FS/function.c:661 objects/FS/function.c:663
+#: app/export_png.c:264 objects/FS/function.c:661 objects/FS/function.c:663
 msgid "Export"
 msgstr "エクスポート"
 
-#: app/export_png.c:264
+#: app/export_png.c:269
 msgid "Image width:"
 msgstr "イメージの幅:"
 
-#: app/export_png.c:267
+#: app/export_png.c:272
 msgid "Image height:"
 msgstr "イメージの高さ:"
 
-#: app/export_png.c:312
+#: app/export_png.c:317
 msgid "Portable Network Graphics"
 msgstr "Portable Network Graphics"
 
-#: app/filedlg.c:102 app/filedlg.c:402
+#: app/filedlg.c:102 app/filedlg.c:370
 msgid "By extension"
 msgstr "拡張子で判断"
 
@@ -581,25 +571,21 @@ msgstr "拡張子で判断"
 msgid "Open Diagram"
 msgstr "ダイアグラムを開く"
 
-#: app/filedlg.c:187
+#: app/filedlg.c:189
 msgid "Open Options"
 msgstr "オプション"
 
-#: app/filedlg.c:195 app/filedlg.c:555
+#: app/filedlg.c:197 app/filedlg.c:485
 msgid "Determine file type:"
 msgstr "ファイルタイプの指定:"
 
-#: app/filedlg.c:236 app/filedlg.c:449
-msgid "File already exists"
-msgstr "ファイルはすでに存在します"
-
-#: app/filedlg.c:242
+#: app/filedlg.c:234
 msgid ""
 "Some characters in the filename are neither UTF-8 nor your local encoding.\n"
 "Some things will break."
 msgstr ""
 
-#: app/filedlg.c:248 app/filedlg.c:452
+#: app/filedlg.c:240 app/filedlg.c:412
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
@@ -608,27 +594,21 @@ msgstr ""
 "ファイル'%s'はすでに存在します。\n"
 "上書きしますか?"
 
-#: app/filedlg.c:259 app/filedlg.c:464 app/preferences.c:595
-#: lib/prop_inttypes.c:151
-msgid "Yes"
-msgstr "はい"
+#: app/filedlg.c:248 app/filedlg.c:418
+msgid "File already exists"
+msgstr "ファイルはすでに存在します"
 
-#: app/filedlg.c:272 app/filedlg.c:477 app/preferences.c:595
-#: app/preferences.c:606 lib/prop_inttypes.c:153 lib/prop_inttypes.c:179
-msgid "No"
-msgstr "いいえ"
-
-#: app/filedlg.c:317
+#: app/filedlg.c:283
 msgid "Save Diagram"
 msgstr "ダイアグラムの保存"
 
 #. Need better way to make it a reasonable size.  Isn't there some
 #. standard look for them (or is that just Gnome?)
-#: app/filedlg.c:325
+#: app/filedlg.c:291
 msgid "Compress diagram files"
 msgstr "ダイアグラムファイルを圧縮"
 
-#: app/filedlg.c:332
+#: app/filedlg.c:298
 msgid ""
 "Compression reduces file size to less than 1/10th size and speeds up loading "
 "and saving.  Some text programs cannot manipulate compressed files."
@@ -636,7 +616,7 @@ msgstr ""
 "圧縮は1/10サイズ未満にファイルサイズを減らし，読み込みと保存を速くします．い"
 "くつかのテキストプログラムは圧縮されたファイルを動かすことができません．"
 
-#: app/filedlg.c:509
+#: app/filedlg.c:437
 #, c-format
 msgid ""
 "Could not determine which export filter\n"
@@ -645,11 +625,11 @@ msgstr ""
 "'%s'の保存でどのエクスポートフィルタを\n"
 "使用したらよいか決定できませんでした。"
 
-#: app/filedlg.c:527
+#: app/filedlg.c:455
 msgid "Export Diagram"
 msgstr "ダイアグラムのエクスポート"
 
-#: app/filedlg.c:547
+#: app/filedlg.c:477
 msgid "Export Options"
 msgstr "エクスポートオプション"
 
@@ -683,8 +663,8 @@ msgstr "テキストを生成します"
 #. PROP_STD_TEXT_FONT,
 #. PROP_STD_TEXT_HEIGHT,
 #. PROP_STD_TEXT_COLOUR,
-#: app/interface.c:59 app/menus.c:219 lib/properties.c:77 lib/properties.h:495
-#: lib/properties.h:498 objects/UML/activity.c:123 objects/UML/actor.c:114
+#: app/interface.c:59 app/menus.c:219 lib/properties.c:77 lib/properties.h:497
+#: lib/properties.h:500 objects/UML/activity.c:123 objects/UML/actor.c:114
 #: objects/UML/classicon.c:137 objects/UML/component.c:120
 #: objects/UML/node.c:119 objects/UML/note.c:113 objects/UML/object.c:141
 #: objects/UML/small_package.c:120 objects/UML/state.c:133
@@ -718,17 +698,17 @@ msgstr "多角形"
 
 #: app/interface.c:78
 msgid "Create Beziergon"
-msgstr "ベジエ曲線を生成します"
+msgstr "ベジエゴンを生成します"
 
 #: app/interface.c:79 app/menus.c:223
 msgid "Beziergon"
-msgstr "ベジエ曲線"
+msgstr "ベジエゴン"
 
 #: app/interface.c:83
 msgid "Create Line"
 msgstr "線を生成します"
 
-#: app/interface.c:84 app/menus.c:225 objects/standard/line.c:242
+#: app/interface.c:84 app/menus.c:225 objects/standard/line.c:246
 msgid "Line"
 msgstr "線 (両側)"
 
@@ -772,15 +752,15 @@ msgstr "イメージを生成します"
 msgid "Image"
 msgstr "イメージ"
 
-#: app/interface.c:468
+#: app/interface.c:470
 msgid "Zoom"
 msgstr "ズーム"
 
-#: app/interface.c:512
+#: app/interface.c:514
 msgid "NULL tooldata in tool_select_update"
 msgstr "tool_select_updateでNULLのtooldataがあります"
 
-#: app/interface.c:973
+#: app/interface.c:975
 msgid ""
 "Foreground & background colors.  The small black and white squares reset "
 "colors.  The small arrows swap colors.  Double click to change colors."
@@ -788,7 +768,7 @@ msgstr ""
 "文字と背景の色です. 黒と白の小さな四角は, 色をリセットします. 小さな矢印は色"
 "を交換します. ダブルクリックで色を変更します."
 
-#: app/interface.c:1122
+#: app/interface.c:1124
 msgid "Diagram Editor"
 msgstr "ダイアグラムエディタ"
 
@@ -808,59 +788,57 @@ msgstr "レイヤを背面に移動する"
 msgid "Delete Layer"
 msgstr "レイヤを削除する"
 
-#: app/layer_dialog.c:206
+#: app/layer_dialog.c:213
 msgid "Layers"
 msgstr "レイヤ"
 
-#: app/layer_dialog.c:218
+#: app/layer_dialog.c:227
 msgid "Diagrams:"
 msgstr "ダイアグラム:"
 
-#: app/layer_dialog.c:263 app/pagesetup.c:83 app/preferences.c:739
+#: app/layer_dialog.c:272
 msgid "Close"
 msgstr "閉じる"
 
-#: app/layer_dialog.c:308
+#: app/layer_dialog.c:317
 msgid "New layer"
 msgstr "新規レイヤ"
 
-#: app/layer_dialog.c:511
+#: app/layer_dialog.c:520
 msgid "none"
 msgstr "なし"
 
-#: app/layer_dialog.c:953
+#: app/layer_dialog.c:968
 msgid "Edit Layer Attributes"
 msgstr "レイヤの属性を編集する"
 
-#: app/layer_dialog.c:969
+#: app/layer_dialog.c:987
 msgid "Layer name:"
 msgstr "レイヤ名:"
 
-#. setup buttons
-#: app/layer_dialog.c:978 app/lineprops_area.c:429 app/lineprops_area.c:628
-#: app/linewidth_area.c:235 app/pagesetup.c:72 app/paginate_psprint.c:266
-#: app/preferences.c:721
+#: app/layer_dialog.c:996 app/lineprops_area.c:444 app/lineprops_area.c:669
+#: app/linewidth_area.c:243 app/paginate_psprint.c:268
 msgid "OK"
 msgstr "OK"
 
-#: app/lineprops_area.c:418
+#: app/lineprops_area.c:429
 msgid "Arrow Properties"
 msgstr "矢印のプロパティ"
 
-#: app/lineprops_area.c:475 app/lineprops_area.c:661
+#: app/lineprops_area.c:505 app/lineprops_area.c:702
 msgid "Details..."
 msgstr "詳細..."
 
-#: app/lineprops_area.c:617
+#: app/lineprops_area.c:658
 msgid "Line Style Properties"
 msgstr "線種のプロパティ"
 
-#: app/linewidth_area.c:216 lib/properties.h:471
+#: app/linewidth_area.c:224 lib/properties.h:473
 #: objects/chronogram/chronoline.c:180 objects/chronogram/chronoref.c:159
 msgid "Line width"
 msgstr "線幅"
 
-#: app/linewidth_area.c:222
+#: app/linewidth_area.c:230
 msgid "Line width:"
 msgstr "線幅:"
 
@@ -893,7 +871,7 @@ msgid "You must specify a file, not a directory.\n"
 msgstr "ディレクトリではなく、ファイルを指定しなくてはなりません。\n"
 
 #: app/load_save.c:262 plug-ins/dxf/dxf-import.c:1304 plug-ins/wpg/wpg.c:1168
-#: plug-ins/xfig/xfig-import.c:1347 plug-ins/xslt/xslt.c:81
+#: plug-ins/xfig/xfig-import.c:1414 plug-ins/xslt/xslt.c:76
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "開けないので読めません: '%s'\n"
@@ -961,7 +939,8 @@ msgid "Modify sheets and their objects"
 msgstr "シートとそれらのオブジェクトを修正します"
 
 #: app/menus.c:61
-msgid "P_lugins"
+#, fuzzy
+msgid "P_lugins..."
 msgstr "プラグイン(_l)"
 
 #: app/menus.c:77
@@ -997,7 +976,6 @@ msgid "Zoom _In"
 msgstr "拡大(_I)"
 
 #: app/menus.c:130
-#, c-format
 msgid "Zoom in 50%"
 msgstr "50%に拡大します"
 
@@ -1006,7 +984,6 @@ msgid "Zoom _Out"
 msgstr "縮小(_O)"
 
 #: app/menus.c:131
-#, c-format
 msgid "Zoom out 50%"
 msgstr "50%に縮小します"
 
@@ -1050,7 +1027,7 @@ msgstr "すべて表示(_A)"
 
 #: app/menus.c:151
 msgid "Redraw"
-msgstr ""
+msgstr "再描画"
 
 #: app/menus.c:156
 msgid "Replace"
@@ -1065,7 +1042,7 @@ msgid "Intersect"
 msgstr "交差"
 
 #. Translators: Menu item Verb/Channel/Export/Remove
-#: app/menus.c:162 app/sheets_dialog.c:783 objects/FS/function.c:671
+#: app/menus.c:162 app/sheets_dialog.c:780 objects/FS/function.c:671
 #: objects/FS/function.c:823 objects/FS/function.c:825
 msgid "Remove"
 msgstr "削除"
@@ -1078,7 +1055,7 @@ msgstr "反転"
 msgid "All"
 msgstr "すべて"
 
-#: app/menus.c:171 lib/widgets.c:1009 objects/UML/association.c:1071
+#: app/menus.c:171 lib/arrows.c:38 objects/UML/association.c:1076
 msgid "None"
 msgstr "なし"
 
@@ -1094,15 +1071,15 @@ msgstr "推移"
 msgid "Same Type"
 msgstr "同種"
 
-#: app/menus.c:182 lib/properties.c:62 lib/properties.h:459 lib/widgets.c:551
+#: app/menus.c:182 lib/properties.c:62 lib/properties.h:461 lib/widgets.c:531
 msgid "Left"
 msgstr "左"
 
-#: app/menus.c:183 lib/properties.c:63 lib/properties.h:460 lib/widgets.c:557
+#: app/menus.c:183 lib/properties.c:63 lib/properties.h:462 lib/widgets.c:537
 msgid "Center"
 msgstr "中央"
 
-#: app/menus.c:184 lib/properties.c:64 lib/properties.h:461 lib/widgets.c:563
+#: app/menus.c:184 lib/properties.c:64 lib/properties.h:463 lib/widgets.c:543
 msgid "Right"
 msgstr "右"
 
@@ -1119,9 +1096,8 @@ msgid "Top"
 msgstr "上"
 
 #: app/menus.c:193
-#, fuzzy
 msgid "Middle"
-msgstr "ファイル"
+msgstr "中央"
 
 #: app/menus.c:194
 msgid "Bottom"
@@ -1129,20 +1105,19 @@ msgstr "下"
 
 #: app/menus.c:202
 msgid "Send to _Back"
-msgstr "背面に送る(_B)"
+msgstr "最背面に送る(_B)"
 
 #: app/menus.c:203
 msgid "Bring to _Front"
-msgstr "前面に送る(_F)"
+msgstr "最前面に送る(_F)"
 
 #: app/menus.c:204
-#, fuzzy
 msgid "Send Backwards"
-msgstr "背面に送る(_B)"
+msgstr "背面に送る"
 
 #: app/menus.c:205
 msgid "Bring Forwards"
-msgstr ""
+msgstr "前面に送る"
 
 #: app/menus.c:207
 msgid "_Group"
@@ -1186,7 +1161,7 @@ msgstr "ダイアログ(_D)"
 
 #: app/menus.c:267
 msgid "_Input Methods"
-msgstr ""
+msgstr "_Input Methods"
 
 #: app/menus.c:278 app/menus.c:313
 msgid "/_File"
@@ -1197,14 +1172,14 @@ msgid "/File/_New"
 msgstr "/ファイル(_F)/新規(_N)"
 
 #: app/menus.c:282 app/menus.c:317
-msgid "/File/_Open"
-msgstr "/ファイル(_F)/開く(_O)"
+msgid "/File/_Open..."
+msgstr "/ファイル(_F)/開く(_O)..."
 
 #. recent file list is dynamically inserted here
 #: app/menus.c:284 app/menus.c:289 app/menus.c:293 app/menus.c:295
 #: app/menus.c:324 app/menus.c:328
 msgid "/File/---"
-msgstr "ファイル(_F)/---"
+msgstr "/ファイル(_F)/---"
 
 #: app/menus.c:285
 msgid "/File/_Diagram tree"
@@ -1219,7 +1194,8 @@ msgid "/File/_Preferences..."
 msgstr "/ファイル(_F)/設定(_P)..."
 
 #: app/menus.c:292
-msgid "/File/P_lugins"
+#, fuzzy
+msgid "/File/P_lugins..."
 msgstr "/ファイル(_F)/プラグイン(_L)"
 
 #: app/menus.c:296 app/menus.c:332
@@ -1239,7 +1215,8 @@ msgid "/Help/---"
 msgstr "/ヘルプ(_H)/---"
 
 #: app/menus.c:303
-msgid "/Help/_About"
+#, fuzzy
+msgid "/Help/_About..."
 msgstr "/ヘルプ(_H)/情報(_A)"
 
 #: app/menus.c:319
@@ -1248,7 +1225,7 @@ msgstr "/ファイル(_F)/保存(_S)"
 
 #: app/menus.c:321
 msgid "/File/Save _As..."
-msgstr "/ファイル(_F)/名前をつけて保存(_A)"
+msgstr "/ファイル(_F)/名前をつけて保存(_A)..."
 
 #: app/menus.c:323
 msgid "/File/_Export..."
@@ -1279,9 +1256,8 @@ msgid "/Edit/_Redo"
 msgstr "/編集(_E)/やり直し(_R)"
 
 #: app/menus.c:340 app/menus.c:349
-#, fuzzy
 msgid "/Edit/---"
-msgstr "/表示(_V)/---"
+msgstr "/編集(_E)/---"
 
 #: app/menus.c:341
 msgid "/Edit/_Copy"
@@ -1328,52 +1304,42 @@ msgid "/View/_Zoom"
 msgstr "/表示(_V)/ズーム(_Z)"
 
 #: app/menus.c:361
-#, c-format
 msgid "/View/Zoom/400%"
 msgstr "/表示(_V)/ズーム(_Z)/400%"
 
 #: app/menus.c:362
-#, c-format
 msgid "/View/Zoom/283%"
 msgstr "/表示(_V)/ズーム(_Z)/283%"
 
 #: app/menus.c:363
-#, c-format
 msgid "/View/Zoom/200%"
 msgstr "/表示(_V)/ズーム(_Z)/200%"
 
 #: app/menus.c:364
-#, c-format
 msgid "/View/Zoom/141%"
 msgstr "/表示(_V)/ズーム(_Z)/141%"
 
 #: app/menus.c:365
-#, c-format
 msgid "/View/Zoom/100%"
 msgstr "/表示(_V)/ズーム(_Z)/100%"
 
 #: app/menus.c:367
-#, c-format
 msgid "/View/Zoom/85%"
 msgstr "/表示(_V)/ズーム(_Z)/85%"
 
 #: app/menus.c:368
-#, c-format
 msgid "/View/Zoom/70.7%"
 msgstr "/表示(_V)/ズーム(_Z)/70.7%"
 
 #: app/menus.c:369
-#, c-format
 msgid "/View/Zoom/50%"
 msgstr "/表示(_V)/ズーム(_Z)/50%"
 
 #: app/menus.c:370
-#, c-format
 msgid "/View/Zoom/35.4%"
 msgstr "/表示(_V)/ズーム(_Z)/35.4%"
 
 #: app/menus.c:371
-#, c-format
 msgid "/View/Zoom/25%"
 msgstr "/表示(_V)/ズーム(_Z)/25%"
 
@@ -1392,7 +1358,7 @@ msgstr "/表示(_V)/アンチエイリアス(_A)"
 #: app/menus.c:377
 #, fuzzy
 msgid "/View/Show _Grid"
-msgstr "/表示(_V)/すべて表示(_A)"
+msgstr "/表示(_V)/グリッドを表示(_G)"
 
 #: app/menus.c:378
 msgid "/View/_Snap To Grid"
@@ -1474,23 +1440,21 @@ msgstr "/オブジェクト(_O)"
 
 #: app/menus.c:407
 msgid "/Objects/Send to _Back"
-msgstr "/オブジェクト(_O)/背面に送る(_B)"
+msgstr "/オブジェクト(_O)/最背面に送る(_B)"
 
 #: app/menus.c:408
 msgid "/Objects/Bring to _Front"
-msgstr "/オブジェクト(_O)/前面に送る(_F)"
+msgstr "/オブジェクト(_O)/最前面に送る(_F)"
 
 #: app/menus.c:409
-#, fuzzy
 msgid "/Objects/Send Backwards"
-msgstr "/オブジェクト(_O)/背面に送る(_B)"
+msgstr "/オブジェクト(_O)/背面に送る"
 
 #: app/menus.c:410
-#, fuzzy
 msgid "/Objects/Bring Forwards"
-msgstr "/オブジェクト(_O)/前面に送る(_F)"
+msgstr "/オブジェクト(_O)/前面に送る"
 
-#: app/menus.c:411 app/menus.c:415 app/menus.c:421 app/menus.c:429
+#: app/menus.c:411 app/menus.c:415
 msgid "/Objects/---"
 msgstr "/オブジェクト(_O)/---"
 
@@ -1519,6 +1483,11 @@ msgstr "/オブジェクト(_O)/水平位置(_H)/中央"
 msgid "/Objects/Align Horizontal/Right"
 msgstr "/オブジェクト(_O)/水平位置(_H)/右"
 
+#: app/menus.c:421
+#, fuzzy
+msgid "/Objects/Align Horizontal/---"
+msgstr "/オブジェクト(_O)/水平位置(_H)"
+
 #: app/menus.c:422
 msgid "/Objects/Align Horizontal/Equal Distance"
 msgstr "/オブジェクト(_O)/水平位置(_H)/等間隔"
@@ -1538,11 +1507,16 @@ msgstr "/オブジェクト(_O)/垂直位置(_V)/上"
 #: app/menus.c:427
 #, fuzzy
 msgid "/Objects/Align Vertical/Middle"
-msgstr "/オブジェクト(_O)/垂直位置(_V)"
+msgstr "/オブジェクト(_O)/垂直位置(_V)/中央"
 
 #: app/menus.c:428
 msgid "/Objects/Align Vertical/Bottom"
 msgstr "/オブジェクト(_O)/垂直位置(_V)/下"
+
+#: app/menus.c:429
+#, fuzzy
+msgid "/Objects/Align Vertical/---"
+msgstr "/オブジェクト(_O)/垂直位置(_V)"
 
 #: app/menus.c:430
 msgid "/Objects/Align Vertical/Equal Distance"
@@ -1554,7 +1528,7 @@ msgstr "/オブジェクト(_O)/垂直位置(_V)/隣接"
 
 #: app/menus.c:433
 msgid "/_Tools"
-msgstr "/ツール(_T)/"
+msgstr "/ツール(_T)"
 
 #: app/menus.c:435
 msgid "/Tools/Modify"
@@ -1586,12 +1560,11 @@ msgstr "/ツール(_T)/多角形"
 
 #: app/menus.c:442
 msgid "/Tools/Beziergon"
-msgstr "/ツール(_T)/ベジエ曲線"
+msgstr "/ツール(_T)/ベジエゴン"
 
 #: app/menus.c:443 app/menus.c:449
-#, fuzzy
 msgid "/Tools/---"
-msgstr "/ツール(_T)/"
+msgstr "/ツール(_T)/---"
 
 #: app/menus.c:444
 msgid "/Tools/Line"
@@ -1622,16 +1595,18 @@ msgid "/_Dialogs"
 msgstr "/ダイアログ(_D)"
 
 #: app/menus.c:453
-msgid "/Dialogs/_Properties"
+#, fuzzy
+msgid "/Dialogs/_Properties..."
 msgstr "/ダイアログ(_D)/プロパティ(_P)"
 
 #: app/menus.c:454
-msgid "/Dialogs/_Layers"
+#, fuzzy
+msgid "/Dialogs/_Layers..."
 msgstr "/ダイアログ(_D)/レイヤ(_L)"
 
 #: app/menus.c:456
 msgid "/_Input Methods"
-msgstr ""
+msgstr "/_Input Methods"
 
 #: app/menus.c:629
 msgid "NULL tooldata in tool_menu_select"
@@ -1653,33 +1628,29 @@ msgstr ""
 msgid "Couldn't get GTK settings"
 msgstr "テキストの情報を読み込むことが出来ませんでした: %s\n"
 
-#: app/pagesetup.c:77 app/preferences.c:730
-msgid "Apply"
-msgstr "適用"
-
-#: app/paginate_psprint.c:226
+#: app/paginate_psprint.c:228
 msgid "Select Printer"
 msgstr "プリンタの選択"
 
-#: app/paginate_psprint.c:238
+#: app/paginate_psprint.c:240
 msgid "Printer"
 msgstr "プリンタ"
 
-#: app/paginate_psprint.c:251
+#: app/paginate_psprint.c:253
 msgid "File"
 msgstr "ファイル"
 
-#: app/paginate_psprint.c:340
+#: app/paginate_psprint.c:342
 #, c-format
 msgid "Could not run command '%s'"
 msgstr "コマンド '%s' は実行出来ませんでした"
 
-#: app/paginate_psprint.c:343
+#: app/paginate_psprint.c:345
 #, c-format
 msgid "Could not open '%s' for writing"
 msgstr "書き込み用に '%s' を開くことが出来ませんでした"
 
-#: app/paginate_psprint.c:367
+#: app/paginate_psprint.c:370
 msgid "Error occured while printing"
 msgstr "印刷中にエラーが発生しました"
 
@@ -1687,64 +1658,64 @@ msgstr "印刷中にエラーが発生しました"
 msgid "Plug-ins"
 msgstr "プラグイン"
 
-#: app/plugin-manager.c:254
+#: app/plugin-manager.c:256
 #, fuzzy
 msgid "Loaded"
 msgstr "読み込み状態:"
 
-#: app/plugin-manager.c:261 objects/UML/class.c:105
+#: app/plugin-manager.c:263 objects/UML/class.c:105
 #: objects/UML/large_package.c:120
 msgid "Name"
 msgstr "名前:"
 
-#: app/plugin-manager.c:267
+#: app/plugin-manager.c:269
 #, fuzzy
 msgid "Description"
 msgstr "説明:"
 
-#: app/plugin-manager.c:276
+#: app/plugin-manager.c:278
 #, fuzzy
 msgid "Load at Startup"
 msgstr "スタート時に自動読み込み"
 
-#: app/plugin-manager.c:283
+#: app/plugin-manager.c:285
 #, fuzzy
 msgid "File Name"
 msgstr "ファイル名:"
 
-#: app/preferences.c:103
+#: app/preferences.c:100
 msgid "User Interface"
 msgstr "ユーザインターフェース"
 
-#: app/preferences.c:104
+#: app/preferences.c:101
 msgid "Diagram Defaults"
 msgstr "ダイアグラムのデフォルト"
 
-#: app/preferences.c:105
+#: app/preferences.c:102
 msgid "View Defaults"
 msgstr "ビューのデフォルト"
 
-#: app/preferences.c:106
+#: app/preferences.c:103
 msgid "Grid Lines"
 msgstr "グリッドオプション"
 
-#: app/preferences.c:107
+#: app/preferences.c:104
 msgid "Diagram Tree"
 msgstr "ダイアグラムツリー"
 
-#: app/preferences.c:121
+#: app/preferences.c:118
 msgid "Reset tools after create:"
 msgstr "生成後にツールをリセットする:"
 
-#: app/preferences.c:122
+#: app/preferences.c:119
 msgid "Compress saved files:"
 msgstr "保存するファイルを圧縮する:"
 
-#: app/preferences.c:123
+#: app/preferences.c:120
 msgid "Number of undo levels:"
 msgstr "元に戻せる回数:"
 
-#: app/preferences.c:124
+#: app/preferences.c:121
 msgid ""
 "Reverse dragging selects\n"
 "intersecting objects:"
@@ -1752,110 +1723,119 @@ msgstr ""
 "ドラッグで交差した\n"
 "オブジェクトを戻す:"
 
-#: app/preferences.c:125
+#: app/preferences.c:122
 msgid "Recent documents list size:"
 msgstr "最近使ったドキュメントリストのサイズ:"
 
-#: app/preferences.c:126
+#: app/preferences.c:123
 msgid "Use menu bar:"
 msgstr "メニューバーを使用する:"
 
-#: app/preferences.c:128
+#: app/preferences.c:125
 msgid "Keep tool box on top of diagram windows:"
 msgstr ""
 
-#: app/preferences.c:130
+#: app/preferences.c:127
 msgid "New diagram:"
 msgstr "新規ダイアグラム:"
 
-#: app/preferences.c:131
+#: app/preferences.c:128
 #, fuzzy
 msgid "Portrait:"
 msgstr "コンストレイント:"
 
-#: app/preferences.c:133
+#: app/preferences.c:130
 msgid "Paper type:"
 msgstr "用紙種別:"
 
-#: app/preferences.c:136
+#: app/preferences.c:133
 msgid "New window:"
 msgstr "新規ウィンドウ:"
 
-#: app/preferences.c:137
+#: app/preferences.c:134
 msgid "Width:"
 msgstr "幅:"
 
-#: app/preferences.c:138
+#: app/preferences.c:135
 msgid "Height:"
 msgstr "高さ:"
 
-#: app/preferences.c:139
+#: app/preferences.c:136
 msgid "Magnify:"
 msgstr "ズーム:"
 
-#: app/preferences.c:141
+#: app/preferences.c:138
 msgid "Connection Points:"
 msgstr "接続点:"
 
 #. { NULL, PREF_NONE, 0, NULL, 3, N_("Grid:") },
-#: app/preferences.c:142 app/preferences.c:145 app/preferences.c:150
+#: app/preferences.c:139 app/preferences.c:142 app/preferences.c:147
 msgid "Visible:"
 msgstr "表示:"
 
-#: app/preferences.c:144
+#: app/preferences.c:141
 msgid "Page breaks:"
 msgstr "ページ分割:"
 
-#: app/preferences.c:146 app/preferences.c:154
+#: app/preferences.c:143 app/preferences.c:151
 msgid "Colour:"
 msgstr "色:"
 
-#: app/preferences.c:147 app/preferences.c:155
+#: app/preferences.c:144 app/preferences.c:152
 msgid "Solid lines:"
 msgstr "実線で描画する"
 
-#: app/preferences.c:151
+#: app/preferences.c:148
 msgid "Snap to:"
 msgstr "オブジェクトをあわせる:"
 
-#: app/preferences.c:152
+#: app/preferences.c:149
 msgid "X Size:"
 msgstr "Xサイズ:"
 
-#: app/preferences.c:153
+#: app/preferences.c:150
 msgid "Y Size:"
 msgstr "Yサイズ:"
 
-#: app/preferences.c:166
+#: app/preferences.c:163
 msgid "Diagram tree window:"
 msgstr "ダイアグラムツリーウィンドウ:"
 
-#: app/preferences.c:168
+#: app/preferences.c:165
 msgid "Show at startup:"
 msgstr "開始時に表示:"
 
-#: app/preferences.c:170
+#: app/preferences.c:167
 msgid "Default width:"
 msgstr "デフォルトの幅:"
 
-#: app/preferences.c:172
+#: app/preferences.c:169
 msgid "Default height:"
 msgstr "デフォルトの高さ:"
 
-#: app/preferences.c:174
+#: app/preferences.c:171
 msgid "Remember last size:"
 msgstr "最後のサイズを記憶する:"
 
-#: app/preferences.c:176
+#: app/preferences.c:173
 msgid "Save hidden object types:"
 msgstr "隠れたオブジェクトタイプを保存:"
 
-#: app/preferences.c:303
+#: app/preferences.c:300
 #, c-format
 msgid "Could not open `%s' for writing"
 msgstr "書き込み用に`%s'を開けませんでした"
 
-#: app/preferences.c:691 app/preferences.c:700
+#: app/preferences.c:575 lib/prop_inttypes.c:151
+msgid "Yes"
+msgstr "はい"
+
+#: app/preferences.c:575 app/preferences.c:586 lib/prop_inttypes.c:153
+#: lib/prop_inttypes.c:179
+msgid "No"
+msgstr "いいえ"
+
+#: app/preferences.c:686
 msgid "Preferences"
 msgstr "設定"
 
@@ -1863,22 +1843,23 @@ msgstr "設定"
 msgid "Object properties"
 msgstr "オブジェクトのプロパティ"
 
-#: app/properties.c:68
+#: app/properties.c:72
 msgid "This object has no properties."
 msgstr "このオブジェクトにはプロパティはありません。"
 
-#: app/properties.c:165
+#: app/properties.c:175
 msgid "Properties: "
 msgstr "プロパティ: "
 
-#: app/properties.c:169
+#: app/properties.c:179
 msgid "Object properties:"
 msgstr "オブジェクトのプロパティ:"
 
 #. Use the Plugins menu item to get a pointer to the File menu,
 #. but any item on the File menu will do
 #: app/recent_files.c:137
-msgid "<Toolbox>/File/Plugins"
+#, fuzzy
+msgid "<Toolbox>/File/Plugins..."
 msgstr "<Toolbox>/ファイル/プラグイン"
 
 #: app/recent_files.c:259
@@ -1889,11 +1870,11 @@ msgstr "<Toolbox>/ファイル/終了"
 msgid "Can't open history file for writing."
 msgstr "書き込み用の履歴ファイルを開くことが出来ません"
 
-#: app/render_eps.c:975
+#: app/render_eps.c:114
 msgid "Encapsulated Postscript"
 msgstr "Encapsulated Postscript"
 
-#: app/render_libart.c:320 lib/dialibartrenderer.c:266
+#: app/render_libart.c:320 lib/dialibartrenderer.c:269
 msgid "gdk_renderer: Unsupported fill mode specified!\n"
 msgstr "gdk_renderer: 指定したフィルモードはサポートしていません!\n"
 
@@ -1915,7 +1896,7 @@ msgstr ""
 "%s\n"
 "ユーザシート"
 
-#: app/sheets.c:261
+#: app/sheets.c:271
 msgid ""
 "Can't get symbol 'custom_type' from any module.\n"
 "Editing shapes is disabled."
@@ -1923,16 +1904,16 @@ msgstr ""
 "モジュールから'custom_type'シンボルを得ることができません\n"
 "シェイプ編集を無効にします"
 
-#: app/sheets.c:363
+#: app/sheets.c:373
 #, c-format
 msgid "Widget not found: %s"
 msgstr "ウィジェットが見つかりません: %s"
 
-#: app/sheets.c:439
+#: app/sheets.c:448
 msgid "SVG Shape"
 msgstr "SVGシェイプ"
 
-#: app/sheets.c:441
+#: app/sheets.c:450
 msgid "Programmed Object"
 msgstr "プログラムされたオブジェクト"
 
@@ -1940,19 +1921,19 @@ msgstr "プログラムされたオブジェクト"
 msgid "Sheets and Objects"
 msgstr "シートとオブジェクト"
 
-#: app/sheets_dialog.c:107 app/sheets_dialog_callbacks.c:186
+#: app/sheets_dialog.c:107 app/sheets_dialog_callbacks.c:177
 msgid "<- Copy"
 msgstr "<- コピー"
 
-#: app/sheets_dialog.c:117 app/sheets_dialog_callbacks.c:188
+#: app/sheets_dialog.c:117 app/sheets_dialog_callbacks.c:179
 msgid "<- Copy All"
 msgstr "<- すべてをコピー"
 
-#: app/sheets_dialog.c:124 app/sheets_dialog_callbacks.c:190
+#: app/sheets_dialog.c:124 app/sheets_dialog_callbacks.c:181
 msgid "<- Move"
 msgstr "<- 移動"
 
-#: app/sheets_dialog.c:134 app/sheets_dialog_callbacks.c:192
+#: app/sheets_dialog.c:134 app/sheets_dialog_callbacks.c:183
 msgid "<- Move All"
 msgstr "<- すべてを移動"
 
@@ -1968,61 +1949,61 @@ msgstr "編集(_E)"
 msgid "Revert"
 msgstr "戻す"
 
-#: app/sheets_dialog.c:353 objects/UML/class_dialog.c:828
+#: app/sheets_dialog.c:350 objects/UML/class_dialog.c:828
 #: objects/UML/class_dialog.c:1752 objects/UML/class_dialog.c:1980
 #: objects/UML/class_dialog.c:2499
 msgid "New"
 msgstr "新規"
 
-#: app/sheets_dialog.c:361 app/sheets_dialog.c:793
+#: app/sheets_dialog.c:358 app/sheets_dialog.c:790
 msgid "Type"
 msgstr "タイプ"
 
-#: app/sheets_dialog.c:376
+#: app/sheets_dialog.c:373
 msgid "Browse..."
 msgstr "一覧..."
 
-#: app/sheets_dialog.c:385
+#: app/sheets_dialog.c:382
 msgid "SVG Shape:"
 msgstr "SVGシェイプ:"
 
-#: app/sheets_dialog.c:412 app/sheets_dialog.c:475
+#: app/sheets_dialog.c:409 app/sheets_dialog.c:472
 msgid "description:"
 msgstr "説明:"
 
-#: app/sheets_dialog.c:424
+#: app/sheets_dialog.c:421
 msgid "Sheet name:"
 msgstr "シート名:"
 
-#: app/sheets_dialog.c:445 app/sheets_dialog_callbacks.c:298
-#: app/sheets_dialog_callbacks.c:1093
+#: app/sheets_dialog.c:442 app/sheets_dialog_callbacks.c:289
+#: app/sheets_dialog_callbacks.c:1085
 msgid "Line Break"
 msgstr "線を切る"
 
-#: app/sheets_dialog.c:567
+#: app/sheets_dialog.c:564
 msgid "Edit Attributes"
 msgstr "属性の編集"
 
-#: app/sheets_dialog.c:582
+#: app/sheets_dialog.c:579
 msgid "Object"
 msgstr "オブジェクト"
 
-#: app/sheets_dialog.c:598 app/sheets_dialog.c:691
+#: app/sheets_dialog.c:595 app/sheets_dialog.c:688
 msgid "Description:"
 msgstr "説明:"
 
-#: app/sheets_dialog.c:617 objects/FS/flow-ortho.c:166 objects/FS/flow.c:144
+#: app/sheets_dialog.c:614 objects/FS/flow.c:144 objects/FS/flow-ortho.c:166
 #: objects/UML/class_dialog.c:877 objects/UML/class_dialog.c:1804
 #: objects/UML/class_dialog.c:2034 objects/UML/class_dialog.c:2548
 msgid "Type:"
 msgstr "型:"
 
-#: app/sheets_dialog.c:655
+#: app/sheets_dialog.c:652
 msgid "Sheet"
 msgstr "シート"
 
-#: app/sheets_dialog.c:671 objects/ER/attribute.c:150 objects/ER/entity.c:128
-#: objects/ER/relationship.c:137 objects/UML/association.c:1049
+#: app/sheets_dialog.c:668 objects/ER/attribute.c:150 objects/ER/entity.c:128
+#: objects/ER/relationship.c:137 objects/UML/association.c:1054
 #: objects/UML/class_dialog.c:865 objects/UML/class_dialog.c:1792
 #: objects/UML/class_dialog.c:2022 objects/UML/class_dialog.c:2536
 #: objects/UML/dependency.c:125 objects/UML/generalization.c:121
@@ -2030,104 +2011,104 @@ msgstr "シート"
 msgid "Name:"
 msgstr "名称:"
 
-#: app/sheets_dialog.c:808
+#: app/sheets_dialog.c:805
 msgid "Object:"
 msgstr "オブジェクト:"
 
-#: app/sheets_dialog.c:835
+#: app/sheets_dialog.c:832
 msgid "Sheet:"
 msgstr "シート:"
 
-#: app/sheets_dialog.c:919
+#: app/sheets_dialog.c:916
 msgid "Select SVG Shape File"
 msgstr "SVGシェイプファイルを選択"
 
-#: app/sheets_dialog_callbacks.c:173
+#: app/sheets_dialog_callbacks.c:164
 msgid "Copy ->"
 msgstr "コピー ->"
 
-#: app/sheets_dialog_callbacks.c:175
+#: app/sheets_dialog_callbacks.c:166
 msgid "Copy All ->"
 msgstr "すべてをコピー ->"
 
-#: app/sheets_dialog_callbacks.c:177
+#: app/sheets_dialog_callbacks.c:168
 msgid "Move ->"
 msgstr "移動 ->"
 
-#: app/sheets_dialog_callbacks.c:179
+#: app/sheets_dialog_callbacks.c:170
 msgid "Move All ->"
 msgstr "すべてを移動 ->"
 
-#: app/sheets_dialog_callbacks.c:312
+#: app/sheets_dialog_callbacks.c:303
 #, fuzzy, c-format
 msgid ""
 "%s\n"
 "Shape"
 msgstr "シェイプ"
 
-#: app/sheets_dialog_callbacks.c:315
+#: app/sheets_dialog_callbacks.c:306
 #, fuzzy, c-format
 msgid ""
 "%s\n"
 "Object"
 msgstr "オブジェクト"
 
-#: app/sheets_dialog_callbacks.c:318
+#: app/sheets_dialog_callbacks.c:309
 #, fuzzy, c-format
 msgid ""
 "%s\n"
 "Unassigned type"
 msgstr "メッセージタイプ:"
 
-#: app/sheets_dialog_callbacks.c:808
+#: app/sheets_dialog_callbacks.c:799
 #, c-format
 msgid "Filename must end with '%s': '%s'"
 msgstr "ファイル名は '%s'で終わらなければなりません: '%s'"
 
-#: app/sheets_dialog_callbacks.c:816
+#: app/sheets_dialog_callbacks.c:807
 #, c-format
 msgid "Error examining %s: %s"
 msgstr "%sを調査中にエラー: %s"
 
-#: app/sheets_dialog_callbacks.c:836
+#: app/sheets_dialog_callbacks.c:827
 #, c-format
 msgid "Could not interpret shape file: '%s'"
 msgstr "シェイプファイルを解釈できませんでした: '%s'"
 
-#: app/sheets_dialog_callbacks.c:905
+#: app/sheets_dialog_callbacks.c:896
 msgid "Sheet must have a Name"
 msgstr "シートは名前を持たなければなりません"
 
-#: app/sheets_dialog_callbacks.c:1594 app/sheets_dialog_callbacks.c:1600
+#: app/sheets_dialog_callbacks.c:1586 app/sheets_dialog_callbacks.c:1592
 #, c-format
 msgid "Couldn't open '%s': %s"
 msgstr "'%s'を開くことができませんでした: %s"
 
-#: app/sheets_dialog_callbacks.c:1651
+#: app/sheets_dialog_callbacks.c:1643
 #, c-format
 msgid "Couldn't open: '%s' for writing"
 msgstr "開けないので書き込めません: '%s'"
 
-#: app/sheets_dialog_callbacks.c:1660
+#: app/sheets_dialog_callbacks.c:1652
 msgid "a user"
 msgstr "ユーザ"
 
-#: app/sheets_dialog_callbacks.c:1673
+#: app/sheets_dialog_callbacks.c:1665
 #, c-format
 msgid "File: %s"
 msgstr "ファイル: %s"
 
-#: app/sheets_dialog_callbacks.c:1676
+#: app/sheets_dialog_callbacks.c:1668
 #, c-format
 msgid "Date: %s"
 msgstr "日付: %s"
 
-#: app/sheets_dialog_callbacks.c:1680
+#: app/sheets_dialog_callbacks.c:1672
 #, c-format
 msgid "For: %s"
 msgstr "作成者: %s"
 
-#: app/sheets_dialog_callbacks.c:1697
+#: app/sheets_dialog_callbacks.c:1689
 msgid "add shapes here"
 msgstr "ここにシェイプを追加"
 
@@ -2135,7 +2116,7 @@ msgstr "ここにシェイプを追加"
 msgid "Loading ..."
 msgstr "読み込み中 ..."
 
-#: app/splash.c:75
+#: app/splash.c:76
 #, c-format
 msgid "Dia v %s"
 msgstr "Dia v %s"
@@ -2145,9 +2126,108 @@ msgstr "Dia v %s"
 msgid "Diagram editor"
 msgstr "ダイアグラムエディタ"
 
+#: lib/arrows.c:39
+msgid "Lines"
+msgstr "線 (両側)"
+
+#: lib/arrows.c:40
+msgid "Hollow Triangle"
+msgstr "三角形 (中空)"
+
+#: lib/arrows.c:41
+msgid "Filled Triangle"
+msgstr "三角形 (塗りつぶし)"
+
+#: lib/arrows.c:42
+msgid "Unfilled Triangle"
+msgstr "三角形 (塗りつぶさない)"
+
+#: lib/arrows.c:43
+#, fuzzy
+msgid "Hollow Diamond"
+msgstr "菱形 (塗りつぶし)"
+
+#: lib/arrows.c:44
+msgid "Filled Diamond"
+msgstr "菱形 (塗りつぶし)"
+
+#: lib/arrows.c:45
+msgid "Half Head"
+msgstr "線 (片側)"
+
+#: lib/arrows.c:46
+msgid "Slashed Cross"
+msgstr ""
+
+#: lib/arrows.c:47
+msgid "Filled Ellipse"
+msgstr "楕円の生成"
+
+#: lib/arrows.c:48
+msgid "Hollow Ellipse"
+msgstr "三角形 (中空)"
+
+#: lib/arrows.c:49
+msgid "Filled Dot"
+msgstr "点 (塗りつぶし)"
+
+#: lib/arrows.c:50
+msgid "Dimension Origin"
+msgstr ""
+
+#: lib/arrows.c:51
+msgid "Blanked Dot"
+msgstr "点 (中空)"
+
+#: lib/arrows.c:52
+msgid "Double Hollow triangle"
+msgstr "三角形 (中空)"
+
+#: lib/arrows.c:53
+msgid "Double Filled triangle"
+msgstr ""
+
+#: lib/arrows.c:54
+msgid "Filled Box"
+msgstr "矩形 (塗りつぶし)"
+
+#: lib/arrows.c:55
+msgid "Blanked Box"
+msgstr "矩形 (中空)"
+
+#: lib/arrows.c:56
+msgid "Slashed"
+msgstr ""
+
+#: lib/arrows.c:57
+msgid "Integral Symbol"
+msgstr ""
+
+#: lib/arrows.c:58
+msgid "Crow Foot"
+msgstr ""
+
+#: lib/arrows.c:59
+msgid "Cross"
+msgstr ""
+
+#: lib/arrows.c:60
+#, fuzzy
+msgid "Filled Concave"
+msgstr "矩形 (塗りつぶし)"
+
+#: lib/arrows.c:61
+#, fuzzy
+msgid "Blanked Concave"
+msgstr "矩形 (中空)"
+
 #: lib/bezier_conn.c:528
 msgid "Internal error: Setting corner type of endpoint of bezier"
 msgstr "内部エラー: ベジエ曲線の端点のタイプの設定"
+
+#: lib/dialibartrenderer.c:1115
+msgid "This Dia version is compiled without libart/text support."
+msgstr ""
 
 #: lib/dia_xml.c:147
 #, c-format
@@ -2177,7 +2257,7 @@ msgstr "座標の解析中にエラーが発生しました"
 msgid "Incorrect y Point value \"%s\" %f; discarding it."
 msgstr "不正なY座標値 \"%s\" %fです; これを捨てます"
 
-#: lib/dia_xml.c:880
+#: lib/dia_xml.c:856
 msgid ""
 "Your local character set is UTF-8. Because of issues with libxml1 and the "
 "support of files generated by previous versions of dia, you will encounter  "
@@ -2187,83 +2267,83 @@ msgstr ""
 "されたファイルのサポートで問題に出くわすかもしれません．もしこのメッセージを"
 "見た場合は，dia-list@gnome.orgへ報告してください．"
 
-#: lib/font.c:81
+#: lib/font.c:87
 #, c-format
 msgid "Can't load font %s.\n"
 msgstr ""
 
 #. This is the default text shown in the preview entry, though the user
 #. can set it. Remember that some fonts only have capital letters.
-#: lib/diagtkfontsel.c:72
+#: lib/diagtkfontsel.c:74
 msgid "abcdefghijk ABCDEFGHIJK"
 msgstr ""
 
-#: lib/diagtkfontsel.c:207
+#: lib/diagtkfontsel.c:209
 #, fuzzy
 msgid "Font name"
 msgstr "ステップ名"
 
-#: lib/diagtkfontsel.c:208
+#: lib/diagtkfontsel.c:210
 msgid "The X string that represents this font."
 msgstr ""
 
-#: lib/diagtkfontsel.c:214
+#: lib/diagtkfontsel.c:216
 #, fuzzy
 msgid "Preview text"
 msgstr "予防"
 
-#: lib/diagtkfontsel.c:215
+#: lib/diagtkfontsel.c:217
 msgid "The text to display in order to demonstrate the selected font."
 msgstr ""
 
-#: lib/diagtkfontsel.c:319
+#: lib/diagtkfontsel.c:321
 msgid "_Family:"
 msgstr ""
 
-#: lib/diagtkfontsel.c:325
+#: lib/diagtkfontsel.c:327
 #, fuzzy
 msgid "_Style:"
 msgstr "倍率:"
 
-#: lib/diagtkfontsel.c:331
+#: lib/diagtkfontsel.c:333
 #, fuzzy
 msgid "Si_ze:"
 msgstr "サイズ"
 
 #. create the text entry widget
-#: lib/diagtkfontsel.c:460
+#: lib/diagtkfontsel.c:462
 #, fuzzy
 msgid "_Preview:"
 msgstr "予防"
 
-#: lib/diagtkfontsel.c:1250
+#: lib/diagtkfontsel.c:1252
 #, fuzzy
 msgid "Font Selection"
 msgstr "対流"
 
-#: lib/message.c:86
+#: lib/message.c:78 lib/message.c:238
+msgid "Error"
+msgstr "エラー"
+
+#: lib/message.c:80 lib/message.c:226
+msgid "Warning"
+msgstr "警告"
+
+#: lib/message.c:106
 msgid "There is one similar message."
 msgstr ""
 
-#: lib/message.c:91
+#: lib/message.c:111
 #, fuzzy
 msgid "Show repeated messages"
 msgstr "メッセージの作成"
 
-#: lib/message.c:104
+#: lib/message.c:170
 #, fuzzy, c-format
 msgid "There are %d similar messages."
 msgstr "メッセージの作成"
 
-#: lib/message.c:115 lib/message.c:194
-msgid "Error"
-msgstr "エラー"
-
-#: lib/message.c:117 lib/message.c:182
-msgid "Warning"
-msgstr "警告"
-
-#: lib/message.c:171
+#: lib/message.c:215
 msgid "Notice"
 msgstr "注意"
 
@@ -2303,212 +2383,124 @@ msgstr "プラグインの初期化関数を`%s'に見つけられません"
 msgid "Missing symbol 'dia_plugin_init'"
 msgstr ""
 
-#: lib/plug-ins.c:257
-msgid "dia_pluin_init() call failed"
+#: lib/plug-ins.c:257 lib/plug-ins.c:265
+msgid "dia_plugin_init() call failed"
 msgstr ""
 
-#: lib/plug-ins.c:276
+#: lib/plug-ins.c:284
 #, c-format
 msgid "%s Plugin could not be unloaded"
 msgstr "%sプラグインはロードできません"
 
-#: lib/plug-ins.c:364
+#: lib/plug-ins.c:372
 #, fuzzy, c-format
 msgid ""
 "Could not open `%s'\n"
 "`%s'"
 msgstr "`%s' を開くことが出来ませんでした"
 
-#: lib/properties.c:71 lib/properties.h:474
+#: lib/properties.c:71 lib/properties.h:476
 msgid "Line colour"
 msgstr "線の色"
 
-#: lib/properties.c:72 lib/properties.h:477
+#: lib/properties.c:72 lib/properties.h:479
 msgid "Line style"
 msgstr "線のスタイル"
 
-#: lib/properties.c:73 lib/properties.h:481
+#: lib/properties.c:73 lib/properties.h:483
 msgid "Fill colour"
 msgstr "塗りつぶす色"
 
-#: lib/properties.c:74 lib/properties.h:484
+#: lib/properties.c:74 lib/properties.h:486
 msgid "Draw background"
 msgstr "背景の描画"
 
-#: lib/properties.c:75 lib/properties.h:488
+#: lib/properties.c:75 lib/properties.h:490
 msgid "Start arrow"
 msgstr "先頭の矢印"
 
-#: lib/properties.c:76 lib/properties.h:491
+#: lib/properties.c:76 lib/properties.h:493
 msgid "End arrow"
 msgstr "末尾の矢印"
 
-#: lib/properties.c:78 lib/properties.h:501
+#: lib/properties.c:78 lib/properties.h:503
 msgid "Text alignment"
 msgstr "文字の配置"
 
-#: lib/properties.c:79 lib/properties.h:504 objects/GRAFCET/condition.c:131
-#: objects/GRAFCET/step.c:162 objects/GRAFCET/transition.c:141
-#: objects/UML/class_dialog.c:327 objects/chronogram/chronoline.c:182
-#: objects/chronogram/chronoref.c:163
+#: lib/properties.c:79 lib/properties.h:506
+#: objects/chronogram/chronoline.c:182 objects/chronogram/chronoref.c:163
+#: objects/GRAFCET/condition.c:131 objects/GRAFCET/step.c:162
+#: objects/GRAFCET/transition.c:141 objects/UML/class_dialog.c:327
 msgid "Font"
 msgstr "フォント"
 
-#: lib/properties.c:80 lib/properties.h:507 objects/GRAFCET/condition.c:133
-#: objects/GRAFCET/step.c:164 objects/GRAFCET/transition.c:143
+#: lib/properties.c:80 lib/properties.h:509
 #: objects/chronogram/chronoline.c:184 objects/chronogram/chronoref.c:165
+#: objects/GRAFCET/condition.c:133 objects/GRAFCET/step.c:164
+#: objects/GRAFCET/transition.c:143
 msgid "Font size"
 msgstr "フォントサイズ"
 
-#: lib/properties.c:81 lib/properties.h:510 objects/GRAFCET/step.c:166
+#: lib/properties.c:81 lib/properties.h:512
 #: objects/chronogram/chronoline.c:186 objects/chronogram/chronoref.c:167
+#: objects/GRAFCET/step.c:166
 msgid "Text colour"
 msgstr "文字色"
 
-#: lib/widgets.c:217
+#: lib/widgets.c:197
 msgid "Other fonts..."
 msgstr ""
 
-#: lib/widgets.c:319
+#: lib/widgets.c:299
 #, fuzzy, c-format
 msgid "Couldn't find font family for %s\n"
 msgstr "色を読み込むことが出来ませんでした: %s\n"
 
 #. We hit the Other fonts... entry
-#: lib/widgets.c:362
+#: lib/widgets.c:342
 #, fuzzy
 msgid "Select font"
 msgstr "プリンタの選択"
 
 #. Translators: Menu item Noun/Material/Solid
-#: lib/widgets.c:672 objects/FS/function.c:1039
+#: lib/widgets.c:652 objects/FS/function.c:1039
 msgid "Solid"
 msgstr "実線"
 
-#: lib/widgets.c:678
+#: lib/widgets.c:658
 msgid "Dashed"
 msgstr "鎖線"
 
-#: lib/widgets.c:684
+#: lib/widgets.c:664
 msgid "Dash-Dot"
 msgstr "一点鎖線"
 
-#: lib/widgets.c:690
+#: lib/widgets.c:670
 msgid "Dash-Dot-Dot"
 msgstr "二点鎖線"
 
-#: lib/widgets.c:696
+#: lib/widgets.c:676
 msgid "Dotted"
 msgstr "点線"
 
 #. fs->sizebox = GTK_HBOX(box);
-#: lib/widgets.c:714
+#: lib/widgets.c:694
 msgid "Dash length: "
 msgstr "鎖線の長さ："
 
-#: lib/widgets.c:1010
-msgid "Lines"
-msgstr "線 (両側)"
-
-#: lib/widgets.c:1011
-msgid "Hollow Triangle"
-msgstr "三角形 (中空)"
-
-#: lib/widgets.c:1012
-msgid "Filled Triangle"
-msgstr "三角形 (塗りつぶし)"
-
-#: lib/widgets.c:1013
-msgid "Unfilled Triangle"
-msgstr "三角形 (塗りつぶさない)"
-
-#: lib/widgets.c:1014
-msgid "Filled Diamond"
-msgstr "菱形 (塗りつぶし)"
-
-#: lib/widgets.c:1015
-msgid "Half Head"
-msgstr "線 (片側)"
-
-#: lib/widgets.c:1016
-msgid "Slashed Cross"
-msgstr ""
-
-#: lib/widgets.c:1017
-msgid "Filled Ellipse"
-msgstr "楕円の生成"
-
-#: lib/widgets.c:1018
-msgid "Hollow Ellipse"
-msgstr "三角形 (中空)"
-
-#: lib/widgets.c:1019
-msgid "Filled Dot"
-msgstr "点 (塗りつぶし)"
-
-#: lib/widgets.c:1020
-msgid "Dimension Origin"
-msgstr ""
-
-#: lib/widgets.c:1021
-msgid "Blanked Dot"
-msgstr "点 (中空)"
-
-#: lib/widgets.c:1022
-msgid "Double Hollow triangle"
-msgstr "三角形 (中空)"
-
-#: lib/widgets.c:1023
-msgid "Double Filled triangle"
-msgstr ""
-
-#: lib/widgets.c:1024
-msgid "Filled Box"
-msgstr "矩形 (塗りつぶし)"
-
-#: lib/widgets.c:1025
-msgid "Blanked Box"
-msgstr "矩形 (中空)"
-
-#: lib/widgets.c:1026
-msgid "Slashed"
-msgstr ""
-
-#: lib/widgets.c:1027
-msgid "Integral Symbol"
-msgstr ""
-
-#: lib/widgets.c:1028
-msgid "Crow Foot"
-msgstr ""
-
-#: lib/widgets.c:1029
-msgid "Cross"
-msgstr ""
-
-#: lib/widgets.c:1030
-#, fuzzy
-msgid "Filled Concave"
-msgstr "矩形 (塗りつぶし)"
-
-#: lib/widgets.c:1031
-#, fuzzy
-msgid "Blanked Concave"
-msgstr "矩形 (中空)"
-
-#: lib/widgets.c:1068
+#: lib/widgets.c:1046
 msgid "Length: "
 msgstr "長さ:"
 
-#: lib/widgets.c:1081
+#: lib/widgets.c:1059
 msgid "Width: "
 msgstr "幅:"
 
-#: lib/widgets.c:1208
+#: lib/widgets.c:1187
 msgid "Select image file"
 msgstr "イメージファイルの選択"
 
-#: lib/widgets.c:1238
+#: lib/widgets.c:1221
 msgid "Browse"
 msgstr "一覧"
 
@@ -2668,18 +2660,18 @@ msgid "Total:"
 msgstr "トータル:"
 
 #: objects/ER/participation.c:395 objects/FS/flow-ortho.c:633
-#: objects/GRAFCET/vector.c:302 objects/SADT/arrow.c:552
-#: objects/UML/association.c:686 objects/UML/dependency.c:351
-#: objects/UML/generalization.c:347 objects/UML/realizes.c:340
-#: objects/standard/zigzagline.c:495
+#: objects/GRAFCET/vector.c:302 objects/SADT/arrow.c:556
+#: objects/standard/zigzagline.c:495 objects/UML/association.c:691
+#: objects/UML/dependency.c:351 objects/UML/generalization.c:347
+#: objects/UML/realizes.c:340
 msgid "Add segment"
 msgstr "セグメントの追加"
 
 #: objects/ER/participation.c:396 objects/FS/flow-ortho.c:634
-#: objects/GRAFCET/vector.c:303 objects/SADT/arrow.c:553
-#: objects/UML/association.c:687 objects/UML/dependency.c:352
-#: objects/UML/generalization.c:348 objects/UML/realizes.c:341
-#: objects/standard/zigzagline.c:496
+#: objects/GRAFCET/vector.c:303 objects/SADT/arrow.c:557
+#: objects/standard/zigzagline.c:496 objects/UML/association.c:692
+#: objects/UML/dependency.c:352 objects/UML/generalization.c:348
+#: objects/UML/realizes.c:341
 msgid "Delete segment"
 msgstr "セグメントの削除"
 
@@ -2707,9 +2699,9 @@ msgstr "関連"
 msgid "Corner radius"
 msgstr "コーナーの丸み付け:"
 
-#: objects/SADT/box.c:136 objects/flowchart/box.c:149
-#: objects/flowchart/diamond.c:147 objects/flowchart/ellipse.c:146
-#: objects/flowchart/parallelogram.c:151
+#: objects/flowchart/box.c:149 objects/flowchart/diamond.c:147
+#: objects/flowchart/ellipse.c:146 objects/flowchart/parallelogram.c:151
+#: objects/SADT/box.c:136
 msgid "Text padding"
 msgstr "文字のパディング"
 
@@ -2722,20 +2714,20 @@ msgid "Shear angle"
 msgstr "シアーの角度:"
 
 #. Translators: Menu item Noun/Energy
-#: objects/FS/flow-ortho.c:157 objects/FS/flow-ortho.c:630
-#: objects/FS/flow.c:135 objects/FS/flow.c:568 objects/FS/function.c:1061
+#: objects/FS/flow.c:135 objects/FS/flow.c:568 objects/FS/flow-ortho.c:157
+#: objects/FS/flow-ortho.c:630 objects/FS/function.c:1061
 msgid "Energy"
 msgstr ""
 
 #. Translators: Menu item Noun/Material
-#: objects/FS/flow-ortho.c:158 objects/FS/flow-ortho.c:631
-#: objects/FS/flow.c:136 objects/FS/flow.c:569 objects/FS/function.c:1037
+#: objects/FS/flow.c:136 objects/FS/flow.c:569 objects/FS/flow-ortho.c:158
+#: objects/FS/flow-ortho.c:631 objects/FS/function.c:1037
 msgid "Material"
 msgstr "材料"
 
 #. Translators: Menu item Verb/Signal
-#: objects/FS/flow-ortho.c:159 objects/FS/flow-ortho.c:632
-#: objects/FS/flow.c:137 objects/FS/flow.c:570 objects/FS/function.c:999
+#: objects/FS/flow.c:137 objects/FS/flow.c:570 objects/FS/flow-ortho.c:159
+#: objects/FS/flow-ortho.c:632 objects/FS/function.c:999
 #: objects/FS/function.c:1001 objects/FS/function.c:1137
 #: objects/FS/function.c:1139
 msgid "Signal"
@@ -3857,7 +3849,7 @@ msgid "Vergent type:"
 msgstr ""
 
 #: objects/GRAFCET/vergent.c:390 objects/SADT/box.c:439
-#: objects/standard/line.c:236
+#: objects/standard/line.c:240
 msgid "Add connection point"
 msgstr "接続点の追加"
 
@@ -3945,7 +3937,7 @@ msgid ""
 "rendered gray"
 msgstr ""
 
-#: objects/SADT/arrow.c:557
+#: objects/SADT/arrow.c:561
 msgid "SADT Arrow"
 msgstr ""
 
@@ -3957,7 +3949,7 @@ msgstr ""
 msgid "The identifier which appears in the lower right corner of the Box"
 msgstr ""
 
-#: objects/SADT/box.c:440 objects/standard/line.c:237
+#: objects/SADT/box.c:440 objects/standard/line.c:241
 msgid "Delete connection point"
 msgstr "接続点の削除"
 
@@ -4034,36 +4026,6 @@ msgstr "開始点"
 msgid "End point"
 msgstr "終了点"
 
-#: objects/standard/line.c:143
-#, fuzzy
-msgid "Line gaps"
-msgstr "線 (両側)"
-
-#: objects/standard/line.c:145
-msgid "Absolute start gap"
-msgstr ""
-
-#: objects/standard/line.c:147
-msgid "Absolute end gap"
-msgstr ""
-
-#: objects/standard/line.c:149
-msgid "Fractional start gap"
-msgstr ""
-
-#: objects/standard/line.c:151
-msgid "Fractional end gap"
-msgstr ""
-
-#: objects/standard/line.c:153
-#, fuzzy
-msgid "Start at object edge"
-msgstr "標準オブジェクト"
-
-#: objects/standard/line.c:155
-msgid "End at object edge"
-msgstr ""
-
 #: objects/standard/polygon.c:452 objects/standard/polyline.c:488
 msgid "Add Corner"
 msgstr "コーナーの追加"
@@ -4086,46 +4048,46 @@ msgstr "GothicBBB-Medium"
 msgid "Actor"
 msgstr "アクター"
 
-#: objects/UML/association.c:1061 objects/UML/class_dialog.c:2070
+#: objects/UML/association.c:1066 objects/UML/class_dialog.c:2070
 msgid "Direction:"
 msgstr "方向:"
 
-#: objects/UML/association.c:1078
+#: objects/UML/association.c:1083
 msgid "From A to B"
 msgstr "A から B へ"
 
-#: objects/UML/association.c:1085
+#: objects/UML/association.c:1090
 msgid "From B to A"
 msgstr "B から A へ"
 
-#: objects/UML/association.c:1109 objects/UML/association.c:1117
+#: objects/UML/association.c:1114 objects/UML/association.c:1122
 msgid "Side A"
 msgstr "サイドA"
 
-#: objects/UML/association.c:1111 objects/UML/association.c:1119
+#: objects/UML/association.c:1116 objects/UML/association.c:1124
 msgid "Side B"
 msgstr "サイドB"
 
-#: objects/UML/association.c:1125
+#: objects/UML/association.c:1130
 msgid "Role:"
 msgstr "役割:"
 
-#: objects/UML/association.c:1137
+#: objects/UML/association.c:1142
 msgid "Multiplicity:"
 msgstr "多様性:"
 
 #. Show arrow:
-#: objects/UML/association.c:1148
+#: objects/UML/association.c:1153
 msgid "Show arrow"
 msgstr "矢印の表示"
 
 #. Aggregate
-#: objects/UML/association.c:1154
+#: objects/UML/association.c:1159
 msgid "Aggregate"
 msgstr "統計"
 
 #. Composition
-#: objects/UML/association.c:1162
+#: objects/UML/association.c:1167
 msgid "Composition"
 msgstr "組成"
 
@@ -4166,17 +4128,28 @@ msgstr "操作の表示"
 msgid "Visible Comments"
 msgstr "操作の表示"
 
-#: objects/UML/class.c:127
+#. Attributes page:
+#: objects/UML/class.c:124 objects/UML/class_dialog.c:800
+#: objects/UML/object.c:147
+msgid "Attributes"
+msgstr "属性"
+
+#. Operations page:
+#: objects/UML/class.c:126 objects/UML/class_dialog.c:1724
+msgid "Operations"
+msgstr "操作"
+
+#: objects/UML/class.c:129
 msgid "Template"
 msgstr "テンプレート"
 
 #. Class page:
-#: objects/UML/class.c:172 objects/UML/class.c:919
+#: objects/UML/class.c:177 objects/UML/class.c:918
 #: objects/UML/class_dialog.c:255
 msgid "Class"
 msgstr "クラス"
 
-#: objects/UML/class.c:178
+#: objects/UML/class.c:183
 #, fuzzy
 msgid "Show comments"
 msgstr "コメント"
@@ -4245,11 +4218,6 @@ msgstr "文字色"
 msgid "Background Color"
 msgstr "背景色"
 
-#. Attributes page:
-#: objects/UML/class_dialog.c:800 objects/UML/object.c:147
-msgid "Attributes"
-msgstr "属性"
-
 #: objects/UML/class_dialog.c:834 objects/UML/class_dialog.c:1758
 #: objects/UML/class_dialog.c:1987 objects/UML/class_dialog.c:2505
 msgid "Delete"
@@ -4296,11 +4264,6 @@ msgstr "実装"
 #: objects/UML/class_dialog.c:963 objects/UML/class_dialog.c:1878
 msgid "Class scope"
 msgstr "クラススコープ"
-
-#. Operations page:
-#: objects/UML/class_dialog.c:1724
-msgid "Operations"
-msgstr "操作"
 
 #: objects/UML/class_dialog.c:1782
 msgid "Operation data"
@@ -4501,7 +4464,7 @@ msgstr "Computer Graphics メタファイルエクスポートフィルタ"
 msgid "Drawing Interchange File import and export filters"
 msgstr "Drawing Interchange ファイルのインポートとエクスポートのフィルタ"
 
-#: plug-ins/dxf/dxf-export.c:522 plug-ins/dxf/dxf-import.c:1379
+#: plug-ins/dxf/dxf-export.c:546 plug-ins/dxf/dxf-import.c:1379
 msgid "Drawing Interchange File"
 msgstr "Drawing Interchange ファイル"
 
@@ -4540,7 +4503,7 @@ msgstr "TeX Metapost エクスポートフィルタ"
 msgid "TeX Metapost macros"
 msgstr "Tex Metapost マクロ"
 
-#: plug-ins/pixbuf/pixbuf.c:90
+#: plug-ins/pixbuf/pixbuf.c:95
 #, fuzzy, c-format
 msgid ""
 "Could not save file:\n"
@@ -4548,11 +4511,11 @@ msgid ""
 "%s"
 msgstr "`%s' を開くことが出来ませんでした"
 
-#: plug-ins/pixbuf/pixbuf.c:154 plug-ins/pixbuf/pixbuf.c:162
+#: plug-ins/pixbuf/pixbuf.c:163 plug-ins/pixbuf/pixbuf.c:172
 msgid "GdkPixbuf bitmap"
 msgstr ""
 
-#: plug-ins/pixbuf/pixbuf.c:175
+#: plug-ins/pixbuf/pixbuf.c:185
 msgid "gdk-pixbuf based bitmap export/import"
 msgstr ""
 
@@ -4580,7 +4543,7 @@ msgstr "libartなしで png をエクスポートすることは出来ません!"
 msgid "dia shape file"
 msgstr "dia shape ファイル"
 
-#: plug-ins/svg/render_svg.c:294 plug-ins/svg/svg-import.c:642
+#: plug-ins/svg/render_svg.c:300 plug-ins/svg/svg-import.c:642
 msgid "Scalable Vector Graphics"
 msgstr "Scalable Vecor Graphics"
 
@@ -4691,172 +4654,173 @@ msgstr ""
 msgid "Negative corner radius, negating"
 msgstr "マイナス角の半径を打ち消します"
 
-#: plug-ins/xfig/xfig-import.c:770 plug-ins/xfig/xfig-import.c:1007
+#: plug-ins/xfig/xfig-import.c:770 plug-ins/xfig/xfig-import.c:1074
 #, c-format
 msgid "Unknown polyline subtype: %d\n"
 msgstr "不明な連続線のサブタイプです: %d\n"
 
-#: plug-ins/xfig/xfig-import.c:865 plug-ins/xfig/xfig-import.c:897
+#: plug-ins/xfig/xfig-import.c:919 plug-ins/xfig/xfig-import.c:951
 #, fuzzy, c-format
 msgid "Couldn't read spline info: %s\n"
 msgstr "連続線の情報を読み込むことが出来ませんでした: %s\n"
 
 #. Open approximated spline
 #. Closed approximated spline
-#: plug-ins/xfig/xfig-import.c:884 plug-ins/xfig/xfig-import.c:902
+#: plug-ins/xfig/xfig-import.c:938 plug-ins/xfig/xfig-import.c:956
 msgid "Cannot convert approximated spline yet."
 msgstr ""
 
-#: plug-ins/xfig/xfig-import.c:923
+#: plug-ins/xfig/xfig-import.c:990
 #, fuzzy, c-format
 msgid "Unknown spline subtype: %d\n"
 msgstr "不明な連続線のサブタイプです: %d\n"
 
-#: plug-ins/xfig/xfig-import.c:984
+#: plug-ins/xfig/xfig-import.c:1051
 #, c-format
 msgid "Couldn't read arc info: %s\n"
 msgstr "円弧の情報を読み込むことが出来ませんでした: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1068
+#: plug-ins/xfig/xfig-import.c:1135
 #, c-format
 msgid "Couldn't read text info: %s\n"
 msgstr "テキストの情報を読み込むことが出来ませんでした: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1109
+#: plug-ins/xfig/xfig-import.c:1176
 #, c-format
 msgid "Couldn't identify FIG object: %s\n"
 msgstr "FIG オブジェクトを確認することが出来ませんでした: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1116
+#: plug-ins/xfig/xfig-import.c:1183
 msgid "Compound end outside compound\n"
 msgstr ""
 
-#: plug-ins/xfig/xfig-import.c:1135
+#: plug-ins/xfig/xfig-import.c:1202
 #, c-format
 msgid "Couldn't read color: %s\n"
 msgstr "色を読み込むことが出来ませんでした: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1180
+#: plug-ins/xfig/xfig-import.c:1247
 #, c-format
 msgid "Couldn't read group extend: %s\n"
 msgstr ""
 
-#: plug-ins/xfig/xfig-import.c:1191
+#: plug-ins/xfig/xfig-import.c:1258
 #, c-format
 msgid "Unknown object type %d\n"
 msgstr "不明なオブジェクトタイプ %d です\n"
 
-#: plug-ins/xfig/xfig-import.c:1214
+#: plug-ins/xfig/xfig-import.c:1281
 #, c-format
 msgid "`%s' is not one of `%s' or `%s'\n"
 msgstr "'%s'は`%s'あるいは`%s'のひとつではありません\n"
 
-#: plug-ins/xfig/xfig-import.c:1224
+#: plug-ins/xfig/xfig-import.c:1291
 #, c-format
 msgid "Error reading paper size: %s\n"
 msgstr "用紙サイズを読み込み中にエラーが発生しました: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1234
+#: plug-ins/xfig/xfig-import.c:1301
 #, c-format
 msgid "Unknown paper size `%s', using default\n"
 msgstr "`%s' は不明な用紙サイズです，デフォルト値を使います\n"
 
-#: plug-ins/xfig/xfig-import.c:1246
+#: plug-ins/xfig/xfig-import.c:1313
 #, c-format
 msgid "Error reading paper orientation: %s\n"
 msgstr "用紙の向きを読み込み中にエラーが発生しました: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1256
+#: plug-ins/xfig/xfig-import.c:1323
 #, c-format
 msgid "Error reading justification: %s\n"
 msgstr ""
 
-#: plug-ins/xfig/xfig-import.c:1266
+#: plug-ins/xfig/xfig-import.c:1333
 #, c-format
 msgid "Error reading units: %s\n"
 msgstr "単位を読み込み中にエラーが発生しました: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1280
+#: plug-ins/xfig/xfig-import.c:1347
 #, c-format
 msgid "Error reading magnification: %s\n"
 msgstr "倍率を読み込み中にエラーが発生しました: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1291
+#: plug-ins/xfig/xfig-import.c:1358
 #, c-format
 msgid "Error reading multipage indicator: %s\n"
 msgstr ""
 
-#: plug-ins/xfig/xfig-import.c:1302
+#: plug-ins/xfig/xfig-import.c:1369
 #, c-format
 msgid "Error reading transparent color: %s\n"
 msgstr "透明色を読み込み中にエラーが発生しました: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1311 plug-ins/xfig/xfig-import.c:1366
+#: plug-ins/xfig/xfig-import.c:1378 plug-ins/xfig/xfig-import.c:1433
 #, c-format
 msgid "Error reading FIG file: %s\n"
 msgstr "FIG ファイルを読み込み中にエラーが発生しました: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1313 plug-ins/xfig/xfig-import.c:1368
+#: plug-ins/xfig/xfig-import.c:1380 plug-ins/xfig/xfig-import.c:1435
 msgid "Premature end of FIG file\n"
 msgstr "FIGファイルの終了には早すぎます\n"
 
-#: plug-ins/xfig/xfig-import.c:1322
+#: plug-ins/xfig/xfig-import.c:1389
 #, c-format
 msgid "Error reading resolution: %s\n"
 msgstr "解像度を読み込み中にエラーが発生しました: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1353
+#: plug-ins/xfig/xfig-import.c:1420
 #, c-format
 msgid "Doesn't look like a Fig file: %s\n"
 msgstr "Fig ファイルのようには見えません: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1359
+#: plug-ins/xfig/xfig-import.c:1426
 #, c-format
 msgid "This is a FIG version %d.%d file, I may not understand it\n"
 msgstr "これは FIG version %d.%d のファイルです，理解出来ないかもしれません\n"
 
-#: plug-ins/xfig/xfig-import.c:1400
+#: plug-ins/xfig/xfig-import.c:1467
 msgid "XFig File Format"
 msgstr "XFig ファイル形式"
 
-#: plug-ins/xslt/xslt.c:73
-msgid "DIA_PLUGIN_PATH not set.  Stylesheets not available.\n"
-msgstr ""
-
-#: plug-ins/xslt/xslt.c:98
+#: plug-ins/xslt/xslt.c:91
 #, fuzzy, c-format
 msgid "Error while parsing %s\n"
 msgstr "矢印の読み込み中にエラーが発生しました\n"
 
-#: plug-ins/xslt/xslt.c:108 plug-ins/xslt/xslt.c:114
+#: plug-ins/xslt/xslt.c:99
 #, fuzzy, c-format
 msgid "Error while parsing stylesheet %s\n"
 msgstr "矢印の読み込み中にエラーが発生しました\n"
 
-#: plug-ins/xslt/xslt.c:126
+#: plug-ins/xslt/xslt.c:105
+#, fuzzy, c-format
+msgid "Error while applying stylesheet %s\n"
+msgstr "単位を読み込み中にエラーが発生しました: %s\n"
+
+#: plug-ins/xslt/xslt.c:113
 #, fuzzy, c-format
 msgid "Error while parsing stylesheet: %s\n"
 msgstr "単位を読み込み中にエラーが発生しました: %s\n"
 
-#: plug-ins/xslt/xslt.c:134
+#: plug-ins/xslt/xslt.c:121
 #, fuzzy, c-format
 msgid "Error while applying stylesheet: %s\n"
 msgstr "単位を読み込み中にエラーが発生しました: %s\n"
 
-#: plug-ins/xslt/xslt.c:182
+#: plug-ins/xslt/xslt.c:283
 #, fuzzy
 msgid "XSL Transformation filter"
 msgstr "処理ファイル"
 
-#: plug-ins/xslt/xslt.c:197
+#: plug-ins/xslt/xslt.c:298
 #, fuzzy, c-format
 msgid "Could not load XSLT library (%s) : %s"
 msgstr ""
 "プラグイン `%s'をロードできません\n"
 "%s"
 
-#: plug-ins/xslt/xslt.c:211
-msgid "Could not load XSLT plugin; DIA_PLUGIN_PATH is not set."
+#: plug-ins/xslt/xslt.c:326
+msgid "No valid configuration files found for the XSLT plugin, not loading."
 msgstr ""
 
 #: plug-ins/xslt/xsltdialog.c:99
@@ -6261,6 +6225,30 @@ msgstr ""
 #: sheets/UML.sheet.in.h:27
 msgid "UML"
 msgstr "UML"
+
+#~ msgid "Untitled-%d"
+#~ msgstr "無題-%d"
+
+#~ msgid ""
+#~ "The anti aliased renderer is buggy, and may cause\n"
+#~ "crashes.  We know there are bugs in it, so don't\n"
+#~ "bother submitting another report if it crashes"
+#~ msgstr ""
+#~ "アンチエイリアスを使ったレンダリングは不具合があり,\n"
+#~ "クラッシュする原因になります. それに不具合があることを\n"
+#~ "知っています. ですので, クラッシュしても別の報告を\n"
+#~ "提出して困らせないでください"
+
+#~ msgid "Apply"
+#~ msgstr "適用"
+
+#, fuzzy
+#~ msgid "Line gaps"
+#~ msgstr "線 (両側)"
+
+#, fuzzy
+#~ msgid "Start at object edge"
+#~ msgstr "標準オブジェクト"
 
 #~ msgid "_Visible Grid"
 #~ msgstr "グリッドの表示(_V)"

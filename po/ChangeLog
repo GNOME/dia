@@ -1,3 +1,8 @@
+2003-03-14  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* ja.po: Updated to fix crash bugs by Ken Tsukahara
+	<ken.tsukahara@tmt-d.co.jp>.
+
 2003-03-06  Pablo Gonzalo del Campo  <pablodc@bigfoot.com>
 
         * es.po: Updated Spanish translation by 
