@@ -1179,3 +1179,9 @@ create_tree_window(void)
     (menus_get_item_from_path("<Toolbox>/File/Diagram tree", NULL));
   create_diagram_tree_window(&prefs.dia_tree, GTK_WIDGET(item));
 }
+
+GtkWidget *
+interface_get_toolbox_shell(void)
+{
+  return toolbox_shell;
+}

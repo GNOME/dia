@@ -85,6 +85,7 @@ static real default_real_zoom = 100.0;
 static int default_int_w = 500;
 static int default_int_h = 400;
 static int default_undo_depth = 15;
+static guint default_recent_documents = 5;
 static Color default_colour = { 0.85, .90, .90 }; /* Grid colour */
 static Color pbreak_colour = { 0.0, 0.0, 0.6 }; 
 static guint default_dtree_width = 220;
@@ -139,6 +140,7 @@ struct DiaPrefsData prefs_data[] =
   { "compress_save", PREF_BOOLEAN, PREF_OFFSET(compress_save), &default_true, 0, N_("Compress saved files:") },
   { "undo_depth", PREF_UINT, PREF_OFFSET(undo_depth), &default_undo_depth, 0, N_("Number of undo levels:") },
   { "reverse_rubberbanding_intersects", PREF_BOOLEAN, PREF_OFFSET(reverse_rubberbanding_intersects), &default_true, 0, N_("Reverse dragging selects\nintersecting objects:") },
+  { "recent_documents_list_size", PREF_UINT, PREF_OFFSET(recent_documents_list_size), &default_recent_documents, 0, N_("Recent documents list size:") },
 
 #ifdef PREF_CHOICE
   { NULL, PREF_NONE, 0, NULL, 1, N_("New diagram:") },

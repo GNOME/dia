@@ -53,6 +53,7 @@ struct DiaPreferences {
   int compress_save;
   int undo_depth;
   int reverse_rubberbanding_intersects;
+  guint recent_documents_list_size;
   
   struct {
     int visible;

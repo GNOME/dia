@@ -45,6 +45,8 @@ void create_toolbox (void);
 void toolbox_show(void);
 void toolbox_hide(void);
 
+GtkWidget *interface_get_toolbox_shell(void);
+
 void tool_select_callback(GtkWidget *widget, gpointer data);
 
 void create_tree_window(void);

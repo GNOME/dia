@@ -2,6 +2,22 @@
 
 	* plug-ins/svg/render_svg.c: fix for #69053, alignment of text
 	exported to SVG
+
+	Patch from M.C. Nelson <mcn@mani.kobayashimaru.org>: 
+
+	* app/recent_files.[ch]: reworked to support GNOME, accelerators,
+	tool tips, preferences, and arbitrarily long ~/.dia/history
+
+	* app/menus.c: made 'Plugins' consistantly spelled and accelerated;
+	removed 'Open Recent'; added new separators for recent documents on
+	File menu.
+
+	* app/interface.[ch] (interface_get_toolbox_shell): new function
+
+	* app/diagram.c: added new parameter to recent_file_history_add() call
+
+	* app/preferences.[ch]: added new 'Recent documents list size'
+	preferences item
 	
 2002-01-18  Akira TAGOH  <tagoh@redhat.com>
 
@@ -12,7 +28,7 @@
 
 2002-01-17  Steffen Macke  <sdteffen@yahoo.com>
 
-	Patch from M.C. Nelson <mcn@mani.kobayasimaru.org>:
+	Patch from M.C. Nelson <mcn@mani.kobayashimaru.org>:
 
 	* app/menus.c: replaced GDK_F1 with "F1" to fix segfault on startup
 	
