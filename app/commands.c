@@ -538,6 +538,7 @@ help_about_callback(gpointer data, guint action, GtkWidget *widget)
     "Fredrik Hallenberg",
     "Francis J. Lacoste",
     "Steffen Macke",
+    "M. C. Nelson",
     "Jacek Pliszka",
     "Henk Jan Priester",
     "Alejandro Aguilar Sierra",

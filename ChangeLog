@@ -1,3 +1,7 @@
+2002-05-13  Steffen Macke <sdteffen@web.de>
+	* AUTHORS:
+	* app/command.c: added M. C. Nelson to the Authors
+
 2002-05-13  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* RELEASE-PROCESS: Added list of files that contain the release
