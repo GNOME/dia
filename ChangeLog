@@ -1,4 +1,9 @@
-2002-12-06  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+2002-12-06  Lars Clausen <lrclause@cs.uiuc.edu>
+
+	* app/diapsft2renderer.h: 
+	* app/diapsft2renderer.c: 
+	* app/diapsrenderer.h: 
+	* app/diapsrenderer.c: Split ps rendering into standard and freetype.
 
 	* app/render_eps.c (export_eps, new_psprint_renderer): Using
 	PS_FT2 renderer when available.  Old render stuff killed.  Yay!
@@ -68,11 +73,11 @@
 	* doc/en/usage-objects.sgml:
 	* doc/en/graphics/line_icon.png: (new) added line icon
 	
-2002-12-02  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+2002-12-02  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* objects/standard/line.c: Binary search object edge line gap.
 
-2002-12-01  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+2002-12-01  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* configure.in: Added Cisco makefile, sorted Makefiles list.
 
@@ -89,7 +94,7 @@
 	* doc/en/usage-loadsave.sgml: updated information on import
 	and export formats
 	
-2002-11-28  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+2002-11-28  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* app/commands.c (edit_copy_callback): Freeing copy_list.
 
@@ -143,7 +148,7 @@
 	* lib/widgets.c: 
 	* lib/widgets.h: Allowing setting preview text for fonts.
 
-2002-11-26  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+2002-11-26  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* objects/bondgraph/Makefile.am: 
 	* objects/bondgraph/bondgraph.c: 

@@ -39,10 +39,6 @@ struct _DiaPsRenderer
   double scale;
   Rectangle extent;
 
-#ifdef HAVE_FREETYPE
-  DiaFont *current_font;
-  real current_height;
-#endif
 };
 
 struct _DiaPsRendererClass
@@ -54,6 +50,8 @@ struct _DiaPsRendererClass
   void (*dump_fonts) (DiaPsRenderer *renderer);
   void (*end_prolog) (DiaPsRenderer *renderer);
 };
+
+void lazy_setcolor(DiaPsRenderer *renderer, Color *color);
 
 G_END_DECLS
 
