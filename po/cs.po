@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-03-16 03:11+0100\n"
-"PO-Revision-Date: 2004-03-16 12:23+0100\n"
+"POT-Creation-Date: 2004-03-18 03:08+0100\n"
+"PO-Revision-Date: 2004-03-18 19:28+0100\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -476,7 +476,7 @@ msgstr "Strom diagramů"
 msgid "Ok"
 msgstr "Ok"
 
-#: app/dialogs.c:52 app/layer_dialog.c:1009 app/paginate_psprint.c:276
+#: app/dialogs.c:52 app/layer_dialog.c:1009 app/paginate_psprint.c:278
 #: lib/diaarrowchooser.c:257 lib/dialinechooser.c:264
 msgid "Cancel"
 msgstr "Zrušit"
@@ -882,7 +882,7 @@ msgstr "Upravit vlastnosti vrstvy"
 msgid "Layer name:"
 msgstr "Název vrstvy:"
 
-#: app/layer_dialog.c:999 app/paginate_psprint.c:268 lib/diaarrowchooser.c:248
+#: app/layer_dialog.c:999 app/paginate_psprint.c:270 lib/diaarrowchooser.c:248
 #: lib/dialinechooser.c:254
 msgid "OK"
 msgstr "OK"
@@ -1438,31 +1438,37 @@ msgstr ""
 msgid "Couldn't get GTK settings"
 msgstr "Nelze získat nastavení GTK"
 
-#: app/paginate_psprint.c:228
+#: app/paginate_psprint.c:230
 msgid "Select Printer"
 msgstr "Vybrat tiskárnu"
 
-#: app/paginate_psprint.c:240 sheets/ciscocomputer.sheet.in.h:25
+#: app/paginate_psprint.c:242 sheets/ciscocomputer.sheet.in.h:25
 msgid "Printer"
 msgstr "Tiskárna"
 
-#: app/paginate_psprint.c:253 sheets/Misc.sheet.in.h:1
+#: app/paginate_psprint.c:255 sheets/Misc.sheet.in.h:1
 msgid "File"
 msgstr "Soubor"
 
-#: app/paginate_psprint.c:353
-#, c-format
-msgid "Could not run command '%s'"
-msgstr "Nelze spustit příkaz '%s'"
-
 #: app/paginate_psprint.c:356
 #, c-format
-msgid "Could not open '%s' for writing"
-msgstr "Nelze otevřít soubor '%s' pro zápis"
+msgid "Could not run command '%s': %s"
+msgstr "Nemohu spustit příkaz '%s': %s"
 
-#: app/paginate_psprint.c:381
-msgid "Error occured while printing"
-msgstr "Při tisku nastala chyba"
+#: app/paginate_psprint.c:359
+#, c-format
+msgid "Could not open '%s' for writing: %s"
+msgstr "Nemohu otevřít '%s' pro zápis: %s"
+
+#: app/paginate_psprint.c:378
+#, c-format
+msgid "Printing error: command '%s' returned %d\n"
+msgstr "Chyba při tisku: příkaz '%s' vrátil %d\n"
+
+#: app/paginate_psprint.c:388
+#, c-format
+msgid "Printing error: command '%s' caused sigpipe."
+msgstr "Chyba při tisku: příkaz '%s' způsobil sigpipe."
 
 #: app/plugin-manager.c:200
 msgid "Plug-ins"
@@ -1778,7 +1784,7 @@ msgid "Sheet name:"
 msgstr "Název listu:"
 
 #: app/sheets_dialog.c:446 app/sheets_dialog_callbacks.c:289
-#: app/sheets_dialog_callbacks.c:1085
+#: app/sheets_dialog_callbacks.c:1090
 msgid "Line Break"
 msgstr "Konec řádky"
 
@@ -1876,55 +1882,55 @@ msgstr ""
 "%s\n"
 "Nepřiřazený typ"
 
-#: app/sheets_dialog_callbacks.c:799
+#: app/sheets_dialog_callbacks.c:800
 #, c-format
 msgid "Filename must end with '%s': '%s'"
 msgstr "Soubor musí končit na '%s': '%s'"
 
-#: app/sheets_dialog_callbacks.c:807
+#: app/sheets_dialog_callbacks.c:808
 #, c-format
 msgid "Error examining %s: %s"
 msgstr "Chyba při zkoumání %s: %s"
 
-#: app/sheets_dialog_callbacks.c:827
+#: app/sheets_dialog_callbacks.c:828
 #, c-format
 msgid "Could not interpret shape file: '%s'"
 msgstr "Nelze interpretovat soubor s tvarem: '%s'"
 
-#: app/sheets_dialog_callbacks.c:896
+#: app/sheets_dialog_callbacks.c:897
 msgid "Sheet must have a Name"
 msgstr "List musí mít název"
 
-#: app/sheets_dialog_callbacks.c:1586 app/sheets_dialog_callbacks.c:1592
+#: app/sheets_dialog_callbacks.c:1594 app/sheets_dialog_callbacks.c:1600
 #, c-format
 msgid "Couldn't open '%s': %s"
 msgstr "Nelze otevřít '%s': %s"
 
-#: app/sheets_dialog_callbacks.c:1643
+#: app/sheets_dialog_callbacks.c:1651
 #, c-format
 msgid "Couldn't open: '%s' for writing"
 msgstr "Nelze otevřít '%s' pro zápis"
 
-#: app/sheets_dialog_callbacks.c:1652
+#: app/sheets_dialog_callbacks.c:1660
 msgid "a user"
 msgstr "uživatel"
 
-#: app/sheets_dialog_callbacks.c:1665
+#: app/sheets_dialog_callbacks.c:1673
 #, c-format
 msgid "File: %s"
 msgstr "Soubor: %s"
 
-#: app/sheets_dialog_callbacks.c:1668
+#: app/sheets_dialog_callbacks.c:1676
 #, c-format
 msgid "Date: %s"
 msgstr "Datum: %s"
 
-#: app/sheets_dialog_callbacks.c:1672
+#: app/sheets_dialog_callbacks.c:1680
 #, c-format
 msgid "For: %s"
 msgstr "Pro: %s"
 
-#: app/sheets_dialog_callbacks.c:1689
+#: app/sheets_dialog_callbacks.c:1697
 msgid "add shapes here"
 msgstr "přidejte tvary zde"
 
@@ -4274,15 +4280,15 @@ msgstr "Převrátit vodorovně"
 msgid "Flip vertical"
 msgstr "Převrátit svisle"
 
-#: objects/custom/custom_object.c:1423
+#: objects/custom/custom_object.c:1422
 msgid "Flip Horizontal"
 msgstr "Převrátit vodorovně"
 
-#: objects/custom/custom_object.c:1424
+#: objects/custom/custom_object.c:1423
 msgid "Flip Vertical"
 msgstr "Převrátit svisle"
 
-#: objects/custom/custom_object.c:1461
+#: objects/custom/custom_object.c:1460
 #, c-format
 msgid "Cannot open icon file %s for object type '%s'."
 msgstr "Nelze otevřít soubor s ikonou %s pro typ objektu '%s'."
