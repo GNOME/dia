@@ -208,21 +208,27 @@ new_pstricks_renderer(DiagramData *data, const char *filename,
 	name = "a user";
   
     fprintf(file,
-	    "%% PSTricks TeX macro\n"
-	    "%% Title: %s\n"
-	    "%% Creator: Dia v%s\n"
-	    "%% CreationDate: %s"
-	    "%% For: %s\n"
-	    "%% \\usepackage{pstricks}\n"
-	    "%% Uncomment these if there is still no such functionality in PSTricks\n"
-	    "%% \\newcommand{\\setlinejoinmode}[1]{}\n"
-	    "%% \\newcommand{\\setlinecaps}[1]{}\n"
-	    "%% This way define your own fonts mapping (for example with ifthen)\n"
-	    "%% \\newcommand{\\setfont}[2]{}\n",
-	    diafilename,
-	    VERSION,
-	    ctime(&time_now),
-	    name);
+	"%% PSTricks TeX macro\n"
+	"%% Title: %s\n"
+	"%% Creator: Dia v%s\n"
+	"%% CreationDate: %s"
+	"%% For: %s\n"
+	"%% \\usepackage{pstricks}\n"
+	"%% The following commands are not supported in PSTricks at present\n"
+	"%% We define them conditionally, so when they are implemented,\n"
+	"%% this pstricks file will use them.\n"
+	"\\ifx\\setlinejoinmode\\undefined\n"
+	"  \\newcommand{\\setlinejoinmode}[1]{}\n"
+	"\\fi\n"
+	"\\ifx\\setlinecaps\\undefined\n"
+	"  \\newcommand{\\setlinecaps}[1]{}\n"
+	"\\fi\n"
+	"%% This way define your own fonts mapping (for example with ifthen)\n"
+	"%% \\newcommand{\\setfont}[2]{}\n",
+	diafilename,
+	VERSION,
+	ctime(&time_now),
+	name);
 
     fprintf(renderer->file,"\\pspicture(%f,%f)(%f,%f)\n",
 	    extent->left * data->paper.scaling,

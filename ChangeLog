@@ -1,3 +1,11 @@
+2000-10-05  James Henstridge  <james@daa.com.au>
+
+	* plug-ins/pstricks/render_pstricks.c (new_pstricks_renderer): fix
+	preamble so that we define \setlinejoinmode and \setlinecaps
+	commands conditionally on them being undefined.  This way, the
+	pstricks output files should work without modification, and will
+	support the commands when they are implemented in pstricks.
+
 2000-10-05  Szabolcs Ban  <shooby@gnome.hu>
 
 	* dia.desktop: added hungarian translations to dia.desktop
