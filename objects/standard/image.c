@@ -207,8 +207,12 @@ image_set_props(Image *image, Property *props, guint nprops)
   object_set_props_from_offsets((Object *)image, image_offsets, props, nprops);
 
   /* handle changing the image. */
-  if (strcmp(image->file, old_file) != 0)
+  if (strcmp(image->file, old_file) != 0) {
+    Element *elem = (Element *)image;
     image->image = dia_image_load(image->file);
+    elem->height = (elem->width*(float)dia_image_height(image->image))/
+      (float)dia_image_width(image->image);
+  }
   g_free(old_file);
 
   image_update_data(image);

@@ -1,5 +1,8 @@
 2000-04-04  Lars Clausen  <lrclause@shasta.cs.uiuc.edu>
 
+	* objects/standard/image.c (image_set_props): 
+	Aspect ratio is back in town.
+
 	* app/Makefile.am (dia_LDADD): 
 	* acconfig.h: 
 	* configure.in: 
