@@ -1,31 +1,48 @@
 REQUIREMENTS:
 =============
 
-Dia needs Gtk+ at least version 1.2.0 installed.
+Dia needs Gtk+ at least version 2.0.0 installed.
 It can be found at:
 
-ftp://ftp.gtk.org/pub/gtk/v1.2/
+ftp://ftp.gtk.org/pub/gtk/v2.0/
 
 Binaries available at:
   ftp://ftp.gtk.org/pub/gtk/binary/devel/RPMS/
 or
   ftp://ftp.gtk.org/pub/gtk/binary/devel/DEBIAN/
 
-As of version 0.30 Dia also needs libxml (aka gnome-xml). I recommend you
-get a fairly recent version, but not version 1.8.0.  It can be found here:
-  ftp://ftp.gnome.org/pub/GNOME/stable/sources/gnome-xml/
+Note that Gtk 2.0 has a number of requirements of its own.
 
-As of version 0.40 Dia needs gdk_imlib, at least version 1.8.2.
+Pango (required by Gtk) needs to be at least version 1.1.5.
+
+As of version 0.91, Dia also needs libxml2, version 2.3.9 or higher.
 It can be found here:
-  ftp://ftp.gnome.org/pub/GNOME/stable/sources/imlib/
+  ftp://ftp.gnome.org/pub/gnome/sources/libxml/
 
-As of version 0.86, Dia requires either gdk_imlib (version 1.8.2 or newer)
-or gdk-pixbuf (version 0.7.0 or newer).  Older versions of Dia used
-gdk_imlib only.  Gdk_imlib will probably be phased out after a while.
-Gdk-pixbuf can be found here:
-  ftp://ftp.gnome.org/pub/GNOME/unstable/sources/gdk-pixbuf/
-Gdk_imlib can be found here:
-  ftp://ftp.gnome.org/pub/GNOME/stable/sources/imlib/
+As of version 0.91, Dia under Unix also needs freetype2, version 2.0.9 or
+higher.  It can be found here:
+  http://www.freetype.org
+
+As of version 0.91, Dia requires intltool version 0.21 or higher.  It is
+also required for Gtk.  It can be found here:
+  ftp://ftp.gnome.org/pub/gnome/sources/intltool/
+
+A number of other libraries are recommends for extra features:
+
+Libart allows anti-aliased rendering and anti-aliased export to PNG:
+  http://www.artofcode.com/libart.html
+Libpng is required for anti-aliased PNG export:
+  http://download.sourceforge.net/libpng/
+Libxslt allows export through XSLT translation schemas:
+  ftp://ftp.gnome.org/pub/GNOME/sources/libxslt/
+Extra Gnome support (limited) is available with installation of the gnome
+  libs:
+  ftp://ftp.gnome.org/pub/GNOME/sources/gnome-libs/
+  Note that ./configure must be run with --enable-gnome to use Gnome.
+Python scripting is possible by adding --with-python and having the
+  following installed:
+  Python: http://www.python.org
+  PyGtk: ftp://ftp.gtk.org/pub/gtk/python/v2.0
 
 BUILDING:
 =========
@@ -63,7 +80,7 @@ COMPILING FROM CVS:
 ===================
 
 If you are using the cvs version of Dia you need to have the following programs:
-automake 1.4, autoconf 2.13, libtool 1.3, GNU gettext 0.10.38
+automake 1.4, autoconf 2.50, libtool 1.3, GNU gettext 0.10.38, intltool 0.21
 
 Then run ./autogen.sh instead of configure to create all needed files.
 

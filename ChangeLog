@@ -1,5 +1,7 @@
 2003-02-03  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* INSTALL (REQUIREMENTS): Updated requirements section.
+
 	* configure.in: Better finite() check from Mårten Svantesson
 	<f95-msv@nada.kth.se>.  Doesn't seem to generate strange dangly
 	if's. 
