@@ -31,6 +31,7 @@
 #include <gtk/gtk.h>
 #include "intl.h"
 #include "filter.h"
+#include "dia_dirs.h"
 #include "display.h"
 #include "message.h"
 #include "layer_dialog.h"
@@ -216,12 +217,15 @@ file_open_callback(gpointer data, guint action, GtkWidget *widget)
 					  NULL);
     gtk_window_set_role(GTK_WINDOW(opendlg), "open_diagram");
     gtk_window_set_position(GTK_WINDOW(opendlg), GTK_WIN_POS_MOUSE);
-    if (dia && dia->filename)
-      filename = g_filename_from_utf8(dia->filename, -1, NULL, NULL, NULL);
-    if (filename == NULL)
-      filename = g_strdup("." G_DIR_SEPARATOR_S);
-    gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(opendlg), filename);
-    g_free(filename);
+    if (dia && dia->filename) {
+      char *fname_temp = g_filename_from_utf8(dia->filename, -1, NULL, NULL, NULL);
+      filename = dia_get_absolute_filename (fname_temp);
+      g_free (fname_temp);
+    }
+    if (filename != NULL) {
+      gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(opendlg), filename);
+      g_free(filename);
+    }
     g_signal_connect(GTK_OBJECT(opendlg), "response",
 		     G_CALLBACK(file_open_response_callback), opendlg);
     g_signal_connect(GTK_OBJECT(opendlg), "delete_event",
@@ -373,12 +377,15 @@ file_save_as_callback(gpointer data, guint action, GtkWidget *widget)
     if (GTK_WIDGET_VISIBLE(savedlg))
       return;
   }
-  if (dia && dia->filename)
-    filename = g_filename_from_utf8(dia->filename, -1, NULL, NULL, NULL);
-  if (filename == NULL)
-    filename = g_strdup("." G_DIR_SEPARATOR_S);
-  gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(savedlg), filename);
-  g_free(filename);
+  if (dia && dia->filename) {
+    char *fname_temp = g_filename_from_utf8(dia->filename, -1, NULL, NULL, NULL);
+    filename = dia_get_absolute_filename (fname_temp);
+    g_free (fname_temp);
+  }
+  if (filename != NULL) {
+    gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(savedlg), filename);
+    g_free(filename);
+  }
   gtk_object_set_user_data(GTK_OBJECT(savedlg), dia);
   diagram_add_related_dialog(dia, savedlg);
   g_object_ref(dia); 
@@ -529,12 +536,15 @@ file_export_callback(gpointer data, guint action, GtkWidget *widget)
 					    NULL);
     gtk_window_set_role(GTK_WINDOW(exportdlg), "export_diagram");
     gtk_window_set_position(GTK_WINDOW(exportdlg), GTK_WIN_POS_MOUSE);
-    if (dia && dia->filename)
-      filename = g_filename_from_utf8(dia->filename, -1, NULL, NULL, NULL);
-    if (filename == NULL)
-      filename = g_strdup("." G_DIR_SEPARATOR_S);
-    gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(exportdlg), filename);
-	g_free(filename);
+    if (dia && dia->filename) {
+      char *fname_temp = g_filename_from_utf8(dia->filename, -1, NULL, NULL, NULL);
+      filename = dia_get_absolute_filename (fname_temp);
+      g_free (fname_temp);
+    }
+    if (filename != NULL) {
+      gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(exportdlg), filename);
+      g_free(filename);
+    }
     g_signal_connect(GTK_OBJECT(exportdlg), "delete_event",
 		     G_CALLBACK(file_dialog_hide), NULL);
     g_signal_connect(GTK_OBJECT(exportdlg), "destroy",
@@ -575,12 +585,15 @@ file_export_callback(gpointer data, guint action, GtkWidget *widget)
   gtk_widget_set_sensitive(exportdlg, TRUE);
   if (GTK_WIDGET_VISIBLE(exportdlg))
     return;
-  if (dia && dia->filename)
-    filename = g_filename_from_utf8(dia->filename, -1, NULL, NULL, NULL);
-  if (filename == NULL)
-    filename = g_strdup("." G_DIR_SEPARATOR_S);
-  gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(exportdlg), filename);
-  g_free(filename);
+  if (dia && dia->filename) {
+    char *fname_temp = g_filename_from_utf8(dia->filename, -1, NULL, NULL, NULL);
+    filename = dia_get_absolute_filename (fname_temp);
+    g_free (fname_temp);
+  }
+  if (filename != NULL) {
+    gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(exportdlg), filename);
+    g_free(filename);
+  }
   export_menu = gtk_option_menu_get_menu(GTK_OPTION_MENU(export_omenu));
   export_item = gtk_menu_get_active(GTK_MENU(export_menu));
   if (export_item)
