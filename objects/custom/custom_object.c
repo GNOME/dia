@@ -259,7 +259,6 @@ custom_get_properties(Custom *custom)
   GtkWidget *alignment;
   GtkWidget *font;
   GtkWidget *font_size;
-  GtkWidget *font_color;
   GtkAdjustment *adj;
 
   if (custom_properties_dialog == NULL) {
@@ -580,7 +579,7 @@ custom_distance_from(Custom *custom, Point *point)
 {
   Element *elem = &custom->element;
   Rectangle rect;
-  Point p;
+  /*Point p;*/
   real dist1, dist2;
 
   rect.left = elem->corner.x - custom->border_width/2;
@@ -715,19 +714,20 @@ custom_draw(Custom *custom, Renderer *renderer)
       renderer->ops->set_linewidth(renderer,
 				   custom->border_width*cur_line);
     }
-    if (el->any.s.linecap == LINECAPS_DEFAULT && cur_caps != LINECAPS_BUTT ||
+    if ((el->any.s.linecap == LINECAPS_DEFAULT && cur_caps != LINECAPS_BUTT) ||
 	el->any.s.linecap != cur_caps) {
       cur_caps = (el->any.s.linecap!=LINECAPS_DEFAULT) ?
 	el->any.s.linecap : LINECAPS_BUTT;
       renderer->ops->set_linecaps(renderer, cur_caps);
     }
-    if (el->any.s.linejoin == LINEJOIN_DEFAULT && cur_join != LINEJOIN_MITER ||
+    if ((el->any.s.linejoin==LINEJOIN_DEFAULT && cur_join!=LINEJOIN_MITER) ||
 	el->any.s.linejoin != cur_join) {
       cur_join = (el->any.s.linejoin!=LINEJOIN_DEFAULT) ?
 	el->any.s.linejoin : LINEJOIN_MITER;
       renderer->ops->set_linejoin(renderer, cur_join);
     }
-    if (el->any.s.linestyle==LINESTYLE_DEFAULT&&cur_style!=custom->line_style||
+    if ((el->any.s.linestyle == LINESTYLE_DEFAULT &&
+	 cur_style != custom->line_style) ||
 	el->any.s.linestyle != cur_style) {
       cur_style = (el->any.s.linestyle!=LINESTYLE_DEFAULT) ?
 	el->any.s.linestyle : custom->line_style;
@@ -847,9 +847,9 @@ custom_draw(Custom *custom, Renderer *renderer)
   }
 
   if (custom->info->has_text) {
-    Rectangle tb;
+    /*Rectangle tb;
     
-    /*if (renderer->is_interactive) {
+      if (renderer->is_interactive) {
       transform_rect(custom, &custom->info->text_bounds, &tb);
       p1.x = tb.left;  p1.y = tb.top;
       p2.x = tb.right; p2.y = tb.bottom;
@@ -975,12 +975,16 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
 
   /* move shape if necessary ... */
   switch (horiz) {
+  case ANCHOR_START:
+    break;
   case ANCHOR_MIDDLE:
     elem->corner.x = center.x - elem->width/2; break;
   case ANCHOR_END:
     elem->corner.x = bottom_right.x - elem->width; break;
   }
   switch (vert) {
+  case ANCHOR_START:
+    break;
   case ANCHOR_MIDDLE:
     elem->corner.y = center.y - elem->height/2; break;
   case ANCHOR_END:
@@ -1070,7 +1074,6 @@ custom_create(Point *startpoint,
   Object *obj;
   ShapeInfo *info = (ShapeInfo *)user_data;
   Point p;
-  Font *font;
   int i;
 
   init_default_values();

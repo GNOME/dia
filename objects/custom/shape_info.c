@@ -910,16 +910,16 @@ shape_info_print(ShapeInfo *info)
       break;
     case GE_POLYLINE:
       g_print("  polyline:");
-      for (i = 0; i < el->polyline.npoints/2; i++)
-	g_print(" (%g, %g)", el->polyline.points[2*i],
-		el->polyline.points[2*i+1]);
+      for (i = 0; i < el->polyline.npoints; i++)
+	g_print(" (%g, %g)", el->polyline.points[i].x,
+		el->polyline.points[i].y);
       g_print("\n");
       break;
     case GE_POLYGON:
       g_print("  polygon:");
-      for (i = 0; i < el->polygon.npoints/2; i++)
-	g_print(" (%g, %g)", el->polygon.points[2*i],
-		el->polygon.points[2*i+1]);
+      for (i = 0; i < el->polygon.npoints; i++)
+	g_print(" (%g, %g)", el->polygon.points[i].x,
+		el->polygon.points[i].y);
       g_print("\n");
       break;
     case GE_RECT:

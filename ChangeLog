@@ -1,5 +1,8 @@
 1999-10-11  James Henstridge  <james@daa.com.au>
 
+	* objects/custom/custom_object.c:
+	* objects/custom/shape_info.c: warning fixes.
+
 	* objects/flowchart/document.shape: a shape file for the `document'
 	flowchart shape.
 
