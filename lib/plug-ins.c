@@ -92,12 +92,14 @@ dia_plugin_info_init(PluginInfo *info, gchar *name, utfchar *description,
 	utfchar *utf;
 
 	g_free(info->name);
-	info->name = g_strdup(name);
 	g_free(info->description);
 #ifdef GTK_DOESNT_TALK_UTF8_WE_DO
+	utf = charconv_local8_to_utf8 (name);
+	info->name = utf;
 	utf = charconv_local8_to_utf8 (description);
 	info->description = utf;
 #else
+	info->name = g_strdup(name);
 	info->description = g_strdup(description);
 #endif
 	info->can_unload_func = can_unload_func;
