@@ -553,7 +553,7 @@ layer_dialog_show()
 {
   if (layer_dialog == NULL || layer_dialog->dialog == NULL)
     create_layer_dialog();
-  gtk_widget_show(layer_dialog->dialog);
+  gtk_window_present(GTK_WINDOW(layer_dialog->dialog));
 }
 
 void
