@@ -1,3 +1,8 @@
+2004-07-17 Sagar Rastogi <rastogi@students.iiit.net>
+
+	* app/disp_callbacks.c: Fixed #144962 (also in KNOWN_BUGS),
+	Disabled keyboard accels when dragging an object.	
+
 2004-07-17  Lars Clausen  <lars@raeder.dk>
 
 	* app/disp_callbacks.c (ddisplay_canvas_events): Patch from

@@ -453,6 +453,7 @@ ddisplay_canvas_events (GtkWidget *canvas,
   int width, height;
   int new_size;
   int im_context_used;
+  static gboolean moving = FALSE;
   
   return_val = FALSE;
  
@@ -574,6 +575,7 @@ ddisplay_canvas_events (GtkWidget *canvas,
               if (transient_tool)
                 break;
                   /* get the focus again, may be lost by zoom combo */
+	      moving = TRUE;
               gtk_widget_grab_focus(canvas);
               if (*active_tool->button_press_func)
                 (*active_tool->button_press_func) (active_tool, bevent, ddisp);
@@ -619,6 +621,8 @@ ddisplay_canvas_events (GtkWidget *canvas,
         switch (bevent->button)
         {
             case 1:
+	      if (moving)
+  		moving = FALSE;		      
               if (*active_tool->button_release_func)
                 (*active_tool->button_release_func) (active_tool,
                                                      bevent, ddisp);
@@ -662,6 +666,8 @@ ddisplay_canvas_events (GtkWidget *canvas,
         break;
 
       case GDK_KEY_PRESS:
+	if (moving)	/*Disable Keyboard accels whilst draggin an object*/ 
+		break;
         display_set_active(ddisp);
         kevent = (GdkEventKey *)event;
         state = kevent->state;
