@@ -1,7 +1,18 @@
 2003-04-18  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* lib/orth_conn.h: 
+	* lib/orth_conn.c: Function to set autorouting on/off, use
+	autorouting in move_handle (turns off when a middle handle is
+	moved), added to standard orthconn props. 
+
+	* app/disp_callbacks.c (create_object_menu, popup_object_menu):
+	Stopped signal emission for check menu items being set to on/off.
+
+	* objects/standard/zigzagline.c: Added autorouting object menu item.
+
 	* lib/autoroute.c: Added last cases of autoroute layout, fixed
-	floating point comparison bug, cleaned up layouters.
+	floating point comparison bug, cleaned up layouters, tweaked
+	badness to allow kinks.	
 
 2003-04-17  Lars Clausen  <lrclause@cs.uiuc.edu>
 

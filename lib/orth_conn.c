@@ -160,6 +160,9 @@ orthconn_move_handle(OrthConn *orth, Handle *handle,
   switch(handle->id) {
   case HANDLE_MOVE_STARTPOINT:
     orth->points[0] = *to;
+    if (orth->autorouting &&
+	autoroute_layout_orthconn(orth))
+      break;
     switch (orth->orientation[0]) {
     case HORIZONTAL:
       orth->points[1].y = to->y;
@@ -172,6 +175,9 @@ orthconn_move_handle(OrthConn *orth, Handle *handle,
   case HANDLE_MOVE_ENDPOINT:
     n = orth->numpoints - 1;
     orth->points[n] = *to;
+    if (orth->autorouting &&
+	autoroute_layout_orthconn(orth))
+      break;
     switch (orth->orientation[n-1]) {
     case HORIZONTAL:
       orth->points[n-1].y = to->y;
@@ -179,12 +185,12 @@ orthconn_move_handle(OrthConn *orth, Handle *handle,
     case VERTICAL:
       orth->points[n-1].x = to->x;
       break;
-    } 
+    }
     break;
   case HANDLE_MIDPOINT:
     n = orth->numpoints - 1;
     handle_nr = get_handle_nr(orth, handle);
-
+    orth->autorouting = FALSE;
     switch (orth->orientation[handle_nr]) {
     case HORIZONTAL:
       orth->points[handle_nr].y = to->y;
@@ -443,19 +449,14 @@ orthconn_set_points(OrthConn *orth, int num_points, Point *points)
 
   /* Set up the orientation array. */
   /* Maybe we could get rid of this array altogether? */
-  if (orth->numpoints < 2) {
-    orth->numorient = 0;
-    if (orth->orientation) g_free(orth->orientation);
-    orth->orientation = NULL;
-  } else {
-    orth->numorient = orth->numpoints-1;
-    if (orth->orientation) g_free(orth->orientation);
-    orth->orientation = g_new(Orientation, orth->numorient);
-    horiz = (fabs(orth->points[0].y-orth->points[1].y) < 0.00000001);
-    for (i = 0; i < orth->numorient; i++) {
-      if (horiz) orth->orientation[i] = HORIZONTAL;
-      else orth->orientation[i] = VERTICAL;
-    }
+  orth->numorient = orth->numpoints-1;
+  if (orth->orientation) g_free(orth->orientation);
+  orth->orientation = g_new(Orientation, orth->numorient);
+  horiz = (fabs(orth->points[0].y-orth->points[1].y) < 0.00001);
+  for (i = 0; i < orth->numorient; i++) {
+    if (horiz) orth->orientation[i] = HORIZONTAL;
+    else orth->orientation[i] = VERTICAL;
+    horiz = !horiz;
   }
 }
 
@@ -712,6 +713,20 @@ orthconn_add_segment(OrthConn *orth, Point *clickedpoint)
   return change;
 }
 
+
+/* Set autorouting on or off.  If setting on, try to autoroute and
+ * return the changes from that.
+ */
+ObjectChange *
+orthconn_set_autorouting(OrthConn *conn, gboolean on)
+{
+  conn->autorouting = on;
+  if (conn->autorouting)
+    autoroute_layout_orthconn(conn);
+  /* Make a change */
+  return NULL;
+}
+
 static void
 delete_point(OrthConn *orth, int pos)
 {
@@ -791,8 +806,6 @@ insert_handle(OrthConn *orth, int segment,
   object_add_handle(&orth->object, handle);
   orth->numhandles = orth->numpoints-1;
 }
-
-
 
 static void
 endsegment_change_free(struct EndSegmentChange *change)

@@ -200,9 +200,14 @@ popup_object_menu(DDisplay *ddisp, GdkEventButton *bevent)
       DiaMenuItem *item = &dia_menu->items[i];
       gtk_widget_set_sensitive(GTK_WIDGET(item->app_data),
 			       item->active & DIAMENU_ACTIVE);
-      if (item->active & DIAMENU_TOGGLE)
+      if (item->active & DIAMENU_TOGGLE) {
+	g_signal_handlers_block_by_func(GTK_CHECK_MENU_ITEM(item->app_data),
+					(GtkSignalFunc)object_menu_proxy, item);
 	gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(item->app_data),
 				       item->active & DIAMENU_TOGGLE_ON);
+	g_signal_handlers_unblock_by_func(GTK_CHECK_MENU_ITEM(item->app_data),
+					  (GtkSignalFunc)object_menu_proxy, item);
+      }
     }
 
     menu = GTK_MENU(dia_menu->app_data);

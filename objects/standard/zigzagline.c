@@ -115,7 +115,7 @@ static ObjectOps zigzagline_ops = {
 };
 
 static PropDescription zigzagline_props[] = {
-  OBJECT_COMMON_PROPERTIES,
+  ORTHCONN_COMMON_PROPERTIES,
   PROP_STD_LINE_WIDTH,
   PROP_STD_LINE_COLOUR,
   PROP_STD_LINE_STYLE,
@@ -133,7 +133,7 @@ zigzagline_describe_props(Zigzagline *zigzagline)
 }
 
 static PropOffset zigzagline_offsets[] = {
-  OBJECT_COMMON_PROPERTIES_OFFSETS,
+  ORTHCONN_COMMON_PROPERTIES_OFFSETS,
   { "line_width", PROP_TYPE_REAL, offsetof(Zigzagline, line_width) },
   { "line_colour", PROP_TYPE_COLOUR, offsetof(Zigzagline, line_color) },
   { "line_style", PROP_TYPE_LINESTYLE,
@@ -186,8 +186,6 @@ zigzagline_move_handle(Zigzagline *zigzagline, Handle *handle,
   assert(to!=NULL);
 
   orthconn_move_handle(orth, handle, to, reason);
-
-  autoroute_layout_orthconn(orth);
 
   zigzagline_update_data(zigzagline);
 }
@@ -244,6 +242,8 @@ zigzagline_create(Point *startpoint,
   obj->ops = &zigzagline_ops;
   
   orthconn_init(orth, startpoint);
+
+  orth->autorouting = TRUE;
 
   zigzagline_update_data(zigzagline);
 
@@ -332,9 +332,24 @@ zigzagline_delete_segment_callback(Object *obj, Point *clicked, gpointer data)
   return change;
 }
 
+static ObjectChange *
+zigzagline_toggle_autorouting_callback(Object *obj, Point *clicked, gpointer data)
+{
+  ObjectChange *change;
+  /* This is kinda hackish.  Since we can't see the menu item, we have to
+   * assume that we're right about toggling and just send !orth->autorouting.
+   */
+  change = orthconn_set_autorouting((OrthConn *)obj, 
+				    !((OrthConn*)obj)->autorouting);
+  zigzagline_update_data((Zigzagline *)obj);
+  return change;
+}
+
 static DiaMenuItem object_menu_items[] = {
   { N_("Add segment"), zigzagline_add_segment_callback, NULL, 1 },
   { N_("Delete segment"), zigzagline_delete_segment_callback, NULL, 1 },
+  { N_("Autorouting"), zigzagline_toggle_autorouting_callback, NULL, 
+  DIAMENU_ACTIVE|DIAMENU_TOGGLE},
 };
 
 static DiaMenu object_menu = {
@@ -353,6 +368,8 @@ zigzagline_get_object_menu(Zigzagline *zigzagline, Point *clickedpoint)
   /* Set entries sensitive/selected etc here */
   object_menu_items[0].active = orthconn_can_add_segment(orth, clickedpoint);
   object_menu_items[1].active = orthconn_can_delete_segment(orth, clickedpoint);
+  object_menu_items[2].active = DIAMENU_ACTIVE|DIAMENU_TOGGLE|
+    (orth->autorouting?DIAMENU_TOGGLE_ON:0);
   return &object_menu;
 }
 

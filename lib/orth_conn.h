@@ -53,6 +53,7 @@ struct _OrthConn {
    * The array of pointers is ordered in segment order.
    */
   PolyBBExtras extra_spacing;
+  gboolean autorouting; /* True if this line is autorouted. */
 };
 
 void orthconn_update_data(OrthConn *orth);
@@ -76,19 +77,22 @@ int orthconn_can_delete_segment(OrthConn *orth, Point *clickedpoint);
 int orthconn_can_add_segment(OrthConn *orth, Point *clickedpoint);
 ObjectChange *orthconn_delete_segment(OrthConn *orth, Point *clickedpoint);
 ObjectChange *orthconn_add_segment(OrthConn *orth, Point *clickedpoint);
+ObjectChange *orthconn_set_autorouting(OrthConn *orth, gboolean on);
 
 /* base property stuff... */
 #define ORTHCONN_COMMON_PROPERTIES \
   OBJECT_COMMON_PROPERTIES, \
   { "orth_points", PROP_TYPE_POINTARRAY, 0, "orthconn points", NULL}, \
-  { "orth_orient", PROP_TYPE_ENUMARRAY, 0, "orthconn orientations", NULL} \
+  { "orth_orient", PROP_TYPE_ENUMARRAY, 0, "orthconn orientations", NULL}, \
+  { "orth_autoroute", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE, N_("Autoroute"), NULL} \
 
 #define ORTHCONN_COMMON_PROPERTIES_OFFSETS \
   OBJECT_COMMON_PROPERTIES_OFFSETS, \
   { "orth_points", PROP_TYPE_POINTARRAY, \
      offsetof(OrthConn,points), offsetof(OrthConn,numpoints)}, \
   { "orth_orient", PROP_TYPE_ENUMARRAY, \
-     offsetof(OrthConn,orientation), offsetof(OrthConn,numorient)} \
+     offsetof(OrthConn,orientation), offsetof(OrthConn,numorient)}, \
+  { "orth_autoroute", PROP_TYPE_BOOL, offsetof(OrthConn,autorouting)} \
 
 #endif /* ORTH_CONN_H */
 
