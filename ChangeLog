@@ -1,3 +1,43 @@
+1998-12-05  Alexander Larsson  <alla@lysator.liu.se>
+
+	* dialog.dtd:
+	Made the val property of string be implied.
+	This makes it possible to save strings that
+	are NULL. Just leave out val.
+
+	* objects/lib/dia_xml.c:
+	Fixed string so that it is possible to save strings
+	that are NULL. Also made an ugly workaround of a
+	bug in gnome-xml which removes empty properties.
+	
+	* objects/lib/orth_conn.c:
+	Fixed a bug in saving. Forgot to step through the
+	directions.
+	
+	* objects/UML/association.c: 
+	* objects/UML/class.c: 
+	* objects/UML/constraint.c: 
+	* objects/UML/dependency.c: 
+	* objects/UML/generalization.c: 
+	* objects/UML/implements.c: 
+	* objects/UML/large_package.c: 
+	* objects/UML/note.c: 
+	* objects/UML/small_package.c:
+	* objects/UML/realizes.c:
+	* objects/UML/usecase.c: 
+	* objects/UML/actor.c: 
+	Fixed UML objects to save as xml.
+	The last two were done by asierra@servidor.unam.mx (asierra-981204)
+	
+	* objects/UML/uml.[ch]:
+	Updated *_write() and *_read() functions to use xml.
+
+	* objects/network/bus.c: 
+	* objects/network/computer.c: 
+	* objects/network/disc.c: 
+	* objects/network/monitor.c:
+	Updated network diagrams to use xml.
+
 1998-12-02  Alexander Larsson  <alla@lysator.liu.se>
 
 	* dialog.dtd:

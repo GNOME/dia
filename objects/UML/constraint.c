@@ -78,8 +78,8 @@ static void constraint_destroy(Constraint *constraint);
 static Object *constraint_copy(Constraint *constraint);
 static GtkWidget *constraint_get_properties(Constraint *constraint);
 static void constraint_apply_properties(Constraint *constraint);
-static void constraint_save(Constraint *constraint, int fd);
-static Object *constraint_load(int fd, int version);
+static void constraint_save(Constraint *constraint, ObjectNode obj_node);
+static Object *constraint_load(ObjectNode obj_node, int version);
 
 
 static ObjectTypeOps constraint_type_ops =
@@ -343,18 +343,21 @@ constraint_update_data(Constraint *constraint)
 
 
 static void
-constraint_save(Constraint *constraint, int fd)
+constraint_save(Constraint *constraint, ObjectNode obj_node)
 {
-  connection_save(&constraint->connection, fd);
+  connection_save(&constraint->connection, obj_node);
 
-  write_string(fd, constraint->text);
-  write_point(fd, &constraint->text_pos);
+  data_add_string(new_attribute(obj_node, "text"),
+		  constraint->text);
+  data_add_point(new_attribute(obj_node, "text_pos"),
+		 &constraint->text_pos);
 }
 
 static Object *
-constraint_load(int fd, int version)
+constraint_load(ObjectNode obj_node, int version)
 {
   Constraint *constraint;
+  AttributeNode attr;
   Connection *conn;
   Object *obj;
 
@@ -369,12 +372,18 @@ constraint_load(int fd, int version)
   obj->type = &constraint_type;
   obj->ops = &constraint_ops;
 
-  connection_load(conn, fd);
+  connection_load(conn, obj_node);
   
   connection_init(conn, 3, 0);
 
-  constraint->text = read_string(fd);
-  read_point(fd, &constraint->text_pos);
+  constraint->text = NULL;
+  attr = object_find_attribute(obj_node, "text");
+  if (attr != NULL)
+    constraint->text = data_string(attribute_first_data(attr));
+
+  attr = object_find_attribute(obj_node, "text_pos");
+  if (attr != NULL)
+    data_point(attribute_first_data(attr), &constraint->text_pos);
 
   constraint->text_width =
       font_string_width(constraint->text, constraint_font, CONSTRAINT_FONTHEIGHT);

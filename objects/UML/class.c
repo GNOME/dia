@@ -47,8 +47,8 @@ static Object *umlclass_create(Point *startpoint,
 static void umlclass_destroy(UMLClass *umlclass);
 static Object *umlclass_copy(UMLClass *umlclass);
 
-static void umlclass_save(UMLClass *umlclass, int fd);
-static Object *umlclass_load(int fd, int version);
+static void umlclass_save(UMLClass *umlclass, ObjectNode obj_node);
+static Object *umlclass_load(ObjectNode obj_node, int version);
 
 static ObjectTypeOps umlclass_type_ops =
 {
@@ -874,54 +874,64 @@ umlclass_copy(UMLClass *umlclass)
 
 
 static void
-umlclass_save(UMLClass *umlclass, int fd)
+umlclass_save(UMLClass *umlclass, ObjectNode obj_node)
 {
   UMLAttribute *attr;
   UMLOperation *op;
   UMLFormalParameter *formal_param;
   GList *list;
+  AttributeNode attr_node;
   
-  element_save(&umlclass->element, fd);
+  element_save(&umlclass->element, obj_node);
 
   /* Class info: */
-  write_string(fd, umlclass->name);
-  write_string(fd, umlclass->stereotype);
-  write_int32(fd, umlclass->abstract);
-  write_int32(fd, umlclass->suppress_attributes);
-  write_int32(fd, umlclass->suppress_operations);
-  write_int32(fd, umlclass->visible_attributes);
-  write_int32(fd, umlclass->visible_operations);
+  data_add_string(new_attribute(obj_node, "name"),
+		  umlclass->name);
+  data_add_string(new_attribute(obj_node, "stereotype"),
+		  umlclass->stereotype);
+  data_add_boolean(new_attribute(obj_node, "abstract"),
+		   umlclass->abstract);
+  data_add_boolean(new_attribute(obj_node, "suppress_attributes"),
+		   umlclass->suppress_attributes);
+  data_add_boolean(new_attribute(obj_node, "suppress_operations"),
+		   umlclass->suppress_operations);
+  data_add_boolean(new_attribute(obj_node, "visible_attributes"),
+		   umlclass->visible_attributes);
+  data_add_boolean(new_attribute(obj_node, "visible_operations"),
+		   umlclass->visible_operations);
 
   /* Attribute info: */
-  write_int32(fd, g_list_length(umlclass->attributes));
+  attr_node = new_attribute(obj_node, "attributes");
   list = umlclass->attributes;
   while (list != NULL) {
     attr = (UMLAttribute *) list->data;
-    uml_attribute_write(fd, attr);
+    uml_attribute_write(attr_node, attr);
     list = g_list_next(list);
   }
-
+  
   /* Operations info: */
-  write_int32(fd, g_list_length(umlclass->operations));
+  attr_node = new_attribute(obj_node, "operations");
   list = umlclass->operations;
   while (list != NULL) {
     op = (UMLOperation *) list->data;
-    uml_operation_write(fd, op);
+    uml_operation_write(attr_node, op);
     list = g_list_next(list);
   }
 
   /* Template info: */
-  write_int32(fd, umlclass->template);
-  write_int32(fd, g_list_length(umlclass->formal_params));
+  data_add_boolean(new_attribute(obj_node, "template"),
+		   umlclass->template);
+  
+  attr_node = new_attribute(obj_node, "templates");
   list = umlclass->formal_params;
   while (list != NULL) {
     formal_param = (UMLFormalParameter *) list->data;
-    uml_formalparameter_write(fd, formal_param);
+    uml_formalparameter_write(attr_node, formal_param);
     list = g_list_next(list);
   }
 }
 
-static Object *umlclass_load(int fd, int version)
+static Object *umlclass_load(ObjectNode obj_node, int version)
 {
   UMLClass *umlclass;
   Element *elem;
@@ -929,6 +939,8 @@ static Object *umlclass_load(int fd, int version)
   UMLAttribute *attr;
   UMLOperation *op;
   UMLFormalParameter *formal_param;
+  AttributeNode attr_node;
+  DataNode composite;
   int i;
   int num, num_attr, num_ops;
   GList *list;
@@ -940,22 +952,51 @@ static Object *umlclass_load(int fd, int version)
   obj->type = &umlclass_type;
   obj->ops = &umlclass_ops;
 
-  element_load(elem, fd);
+  element_load(elem, obj_node);
   
   /* Class info: */
-  umlclass->name = read_string(fd);
-  umlclass->stereotype = read_string(fd);
-  umlclass->abstract = read_int32(fd);
-  umlclass->suppress_attributes = read_int32(fd);
-  umlclass->suppress_operations = read_int32(fd);
-  umlclass->visible_attributes = read_int32(fd);
-  umlclass->visible_operations = read_int32(fd);
-
+  umlclass->name = NULL;
+  attr_node = object_find_attribute(obj_node, "name");
+  if (attr_node != NULL)
+    umlclass->name = data_string(attribute_first_data(attr_node));
+  
+  umlclass->stereotype = NULL;
+  attr_node = object_find_attribute(obj_node, "stereotype");
+  if (attr_node != NULL)
+    umlclass->stereotype = data_string(attribute_first_data(attr_node));
+  
+  umlclass->abstract = FALSE;
+  attr_node = object_find_attribute(obj_node, "abstract");
+  if (attr_node != NULL)
+    umlclass->abstract = data_boolean(attribute_first_data(attr_node));
+  
+  umlclass->suppress_attributes = FALSE;
+  attr_node = object_find_attribute(obj_node, "suppress_attributes");
+  if (attr_node != NULL)
+    umlclass->suppress_attributes = data_boolean(attribute_first_data(attr_node));
+  
+  umlclass->suppress_operations = FALSE;
+  attr_node = object_find_attribute(obj_node, "suppress_operations");
+  if (attr_node != NULL)
+    umlclass->suppress_operations = data_boolean(attribute_first_data(attr_node));
+  
+  umlclass->visible_attributes = FALSE;
+  attr_node = object_find_attribute(obj_node, "visible_attributes");
+  if (attr_node != NULL)
+    umlclass->visible_attributes = data_boolean(attribute_first_data(attr_node));
+  
+  umlclass->visible_operations = FALSE;
+  attr_node = object_find_attribute(obj_node, "visible_operations");
+  if (attr_node != NULL)
+    umlclass->visible_operations = data_boolean(attribute_first_data(attr_node));
+  
   /* Attribute info: */
-  num_attr = num = read_int32(fd);
+  attr_node = object_find_attribute(obj_node, "attributes");
+  num_attr = num = attribute_num_data(attr_node);
+  composite = attribute_first_data(attr_node);
   umlclass->attributes = NULL;
   for (i=0;i<num;i++) {
-    attr = uml_attribute_read(fd);
+    attr = uml_attribute_read(composite);
 
     attr->left_connection = g_new(ConnectionPoint,1);
     attr->left_connection->object = obj;
@@ -966,13 +1007,16 @@ static Object *umlclass_load(int fd, int version)
     attr->right_connection->connected = NULL;
 
     umlclass->attributes = g_list_append(umlclass->attributes, attr);
+    composite = data_next(composite);
   }
 
   /* Operations info: */
-  num_ops = num = read_int32(fd);
+  attr_node = object_find_attribute(obj_node, "operations");
+  num_ops = num = attribute_num_data(attr_node);
+  composite = attribute_first_data(attr_node);
   umlclass->operations = NULL;
   for (i=0;i<num;i++) {
-    op = uml_operation_read(fd);
+    op = uml_operation_read(composite);
 
     op->left_connection = g_new(ConnectionPoint,1);
     op->left_connection->object = obj;
@@ -983,15 +1027,23 @@ static Object *umlclass_load(int fd, int version)
     op->right_connection->connected = NULL;
     
     umlclass->operations = g_list_append(umlclass->operations, op);
+    composite = data_next(composite);
   }
 
-  /* Attribute info: */
-  umlclass->template = read_int32(fd);
-  num = read_int32(fd);
+  /* Template info: */
+  umlclass->template = FALSE;
+  attr_node = object_find_attribute(obj_node, "template");
+  if (attr_node != NULL)
+    umlclass->template = data_boolean(attribute_first_data(attr_node));
+
+  attr_node = object_find_attribute(obj_node, "templates");
+  num = attribute_num_data(attr_node);
+  composite = attribute_first_data(attr_node);
   umlclass->formal_params = NULL;
   for (i=0;i<num;i++) {
-    formal_param = uml_formalparameter_read(fd);
+    formal_param = uml_formalparameter_read(composite);
     umlclass->formal_params = g_list_append(umlclass->formal_params, formal_param);
+    composite = data_next(composite);
   }
 
   if ( (!umlclass->visible_attributes) ||

@@ -75,8 +75,8 @@ static Object *largepackage_create(Point *startpoint,
 static void largepackage_destroy(LargePackage *pkg);
 static Object *largepackage_copy(LargePackage *pkg);
 
-static void largepackage_save(LargePackage *pkg, int fd);
-static Object *largepackage_load(int fd, int version);
+static void largepackage_save(LargePackage *pkg, ObjectNode obj_node);
+static Object *largepackage_load(ObjectNode obj_node, int version);
 
 static void largepackage_update_data(LargePackage *pkg);
 static GtkWidget *largepackage_get_properties(LargePackage *pkg);
@@ -365,18 +365,21 @@ largepackage_copy(LargePackage *pkg)
 
 
 static void
-largepackage_save(LargePackage *pkg, int fd)
+largepackage_save(LargePackage *pkg, ObjectNode obj_node)
 {
-  element_save(&pkg->element, fd);
+  element_save(&pkg->element, obj_node);
 
-  write_string(fd, pkg->stereotype);
-  write_string(fd, pkg->name);
+  data_add_string(new_attribute(obj_node, "name"),
+		  pkg->name);
+  data_add_string(new_attribute(obj_node, "stereotype"),
+		  pkg->stereotype);
 }
 
 static Object *
-largepackage_load(int fd, int version)
+largepackage_load(ObjectNode obj_node, int version)
 {
   LargePackage *pkg;
+  AttributeNode attr;
   Element *elem;
   Object *obj;
   int i;
@@ -388,10 +391,17 @@ largepackage_load(int fd, int version)
   obj->type = &largepackage_type;
   obj->ops = &largepackage_ops;
 
-  element_load(elem, fd);
+  element_load(elem, obj_node);
+
+  pkg->name = NULL;
+  attr = object_find_attribute(obj_node, "name");
+  if (attr != NULL)
+    pkg->name = data_string(attribute_first_data(attr));
   
-  pkg->stereotype = read_string(fd);
-  pkg->name = read_string(fd);
+  pkg->stereotype = NULL;
+  attr = object_find_attribute(obj_node, "stereotype");
+  if (attr != NULL)
+    pkg->stereotype = data_string(attribute_first_data(attr));
 
   pkg->font = font_getfont("Courier");
 

@@ -59,8 +59,8 @@ static Object *note_create(Point *startpoint,
 static void note_destroy(Note *note);
 static Object *note_copy(Note *note);
 
-static void note_save(Note *note, int fd);
-static Object *note_load(int fd, int version);
+static void note_save(Note *note, ObjectNode obj_node);
+static Object *note_load(ObjectNode obj_node, int version);
 
 static void note_update_data(Note *note);
 
@@ -323,17 +323,19 @@ note_copy(Note *note)
 
 
 static void
-note_save(Note *note, int fd)
+note_save(Note *note, ObjectNode obj_node)
 {
-  element_save(&note->element, fd);
+  element_save(&note->element, obj_node);
 
-  write_text(fd, note->text);
+  data_add_text(new_attribute(obj_node, "text"),
+		note->text);
 }
 
 static Object *
-note_load(int fd, int version)
+note_load(ObjectNode obj_node, int version)
 {
   Note *note;
+  AttributeNode attr;
   Element *elem;
   Object *obj;
   int i;
@@ -345,10 +347,13 @@ note_load(int fd, int version)
   obj->type = &note_type;
   obj->ops = &note_ops;
 
-  element_load(elem, fd);
+  element_load(elem, obj_node);
   
-  note->text = read_text(fd);
-  
+  note->text = NULL;
+  attr = object_find_attribute(obj_node, "text");
+  if (attr != NULL)
+    note->text = data_text(attribute_first_data(attr));
+
   element_init(elem, 8, 8);
 
   for (i=0;i<8;i++) {

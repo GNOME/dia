@@ -61,8 +61,8 @@ static Object *smallpackage_create(Point *startpoint,
 static void smallpackage_destroy(SmallPackage *pkg);
 static Object *smallpackage_copy(SmallPackage *pkg);
 
-static void smallpackage_save(SmallPackage *pkg, int fd);
-static Object *smallpackage_load(int fd, int version);
+static void smallpackage_save(SmallPackage *pkg, ObjectNode obj_node);
+static Object *smallpackage_load(ObjectNode obj_node, int version);
 
 static void smallpackage_update_data(SmallPackage *pkg);
 
@@ -322,17 +322,19 @@ smallpackage_copy(SmallPackage *pkg)
 
 
 static void
-smallpackage_save(SmallPackage *pkg, int fd)
+smallpackage_save(SmallPackage *pkg, ObjectNode obj_node)
 {
-  element_save(&pkg->element, fd);
+  element_save(&pkg->element, obj_node);
 
-  write_text(fd, pkg->text);
+  data_add_text(new_attribute(obj_node, "text"),
+		pkg->text);
 }
 
 static Object *
-smallpackage_load(int fd, int version)
+smallpackage_load(ObjectNode obj_node, int version)
 {
   SmallPackage *pkg;
+  AttributeNode attr;
   Element *elem;
   Object *obj;
   int i;
@@ -344,9 +346,12 @@ smallpackage_load(int fd, int version)
   obj->type = &smallpackage_type;
   obj->ops = &smallpackage_ops;
 
-  element_load(elem, fd);
+  element_load(elem, obj_node);
   
-  pkg->text = read_text(fd);
+  pkg->text = NULL;
+  attr = object_find_attribute(obj_node, "text");
+  if (attr != NULL)
+    pkg->text = data_text(attribute_first_data(attr));
   
   element_init(elem, 8, 8);
 

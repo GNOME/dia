@@ -77,8 +77,8 @@ static void realizes_destroy(Realizes *realize);
 static Object *realizes_copy(Realizes *realize);
 static GtkWidget *realizes_get_properties(Realizes *realize);
 static void realizes_apply_properties(Realizes *realize);
-static void realizes_save(Realizes *realize, int fd);
-static Object *realizes_load(int fd, int version);
+static void realizes_save(Realizes *realize, ObjectNode obj_node);
+static Object *realizes_load(ObjectNode obj_node, int version);
 
 static void realizes_update_data(Realizes *realize);
 
@@ -329,18 +329,21 @@ realizes_copy(Realizes *realize)
 
 
 static void
-realizes_save(Realizes *realize, int fd)
+realizes_save(Realizes *realize, ObjectNode obj_node)
 {
-  orthconn_save(&realize->orth, fd);
+  orthconn_save(&realize->orth, obj_node);
 
-  write_string(fd, realize->name);
-  write_string(fd, realize->stereotype);
+  data_add_string(new_attribute(obj_node, "name"),
+		  realize->name);
+  data_add_string(new_attribute(obj_node, "stereotype"),
+		  realize->stereotype);
 }
 
 static Object *
-realizes_load(int fd, int version)
+realizes_load(ObjectNode obj_node, int version)
 {
   Realizes *realize;
+  AttributeNode attr;
   OrthConn *orth;
   Object *obj;
 
@@ -356,10 +359,17 @@ realizes_load(int fd, int version)
   obj->type = &realizes_type;
   obj->ops = &realizes_ops;
 
-  orthconn_load(orth, fd);
+  orthconn_load(orth, obj_node);
+
+  realize->name = NULL;
+  attr = object_find_attribute(obj_node, "name");
+  if (attr != NULL)
+    realize->name = data_string(attribute_first_data(attr));
   
-  realize->name = read_string(fd);
-  realize->stereotype = read_string(fd);
+  realize->stereotype = NULL;
+  attr = object_find_attribute(obj_node, "stereotype");
+  if (attr != NULL)
+    realize->stereotype = data_string(attribute_first_data(attr));
   
   realize->text_width = 0.0;
 

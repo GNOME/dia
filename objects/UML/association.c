@@ -112,8 +112,8 @@ static void association_destroy(Association *assoc);
 static Object *association_copy(Association *assoc);
 static GtkWidget *association_get_properties(Association *assoc);
 static void association_apply_properties(Association *assoc);
-static void association_save(Association *assoc, int fd);
-static Object *association_load(int fd, int version);
+static void association_save(Association *assoc, ObjectNode obj_node);
+static Object *association_load(ObjectNode obj_node, int version);
 
 static void association_update_data(Association *assoc);
 
@@ -563,27 +563,40 @@ association_copy(Association *assoc)
 
 
 static void
-association_save(Association *assoc, int fd)
+association_save(Association *assoc, ObjectNode obj_node)
 {
   int i;
+  AttributeNode attr;
+  DataNode composite;
   
-  orthconn_save(&assoc->orth, fd);
+  orthconn_save(&assoc->orth, obj_node);
 
-  write_string(fd, assoc->name);
-  write_int32(fd, assoc->direction);
+  data_add_string(new_attribute(obj_node, "name"),
+		  assoc->name);
+  data_add_enum(new_attribute(obj_node, "direction"),
+		assoc->direction);
 
+  attr = new_attribute(obj_node, "ends");
   for (i=0;i<2;i++) {
-    write_string(fd, assoc->end[i].role);
-    write_string(fd, assoc->end[i].multiplicity);
-    write_int32(fd, assoc->end[i].arrow);
-    write_int32(fd, assoc->end[i].aggregate);
+    composite = data_add_composite(attr, NULL);
+
+    data_add_string(composite_add_attribute(composite, "role"),
+		    assoc->end[i].role);
+    data_add_string(composite_add_attribute(composite, "multiplicity"),
+		    assoc->end[i].multiplicity);
+    data_add_boolean(composite_add_attribute(composite, "arrow"),
+		  assoc->end[i].arrow);
+    data_add_enum(composite_add_attribute(composite, "aggregate"),
+		  assoc->end[i].aggregate);
   }
 }
 
 static Object *
-association_load(int fd, int version)
+association_load(ObjectNode obj_node, int version)
 {
   Association *assoc;
+  AttributeNode attr;
+  DataNode composite;
   OrthConn *orth;
   Object *obj;
   int i;
@@ -600,23 +613,48 @@ association_load(int fd, int version)
   obj->type = &association_type;
   obj->ops = &association_ops;
 
-  orthconn_load(orth, fd);
+  orthconn_load(orth, obj_node);
+
+  assoc->name = NULL;
+  attr = object_find_attribute(obj_node, "name");
+  if (attr != NULL)
+    assoc->name = data_string(attribute_first_data(attr));
   
-  assoc->name = read_string(fd);
   assoc->text_width = 0.0;
   if (assoc->name != NULL) {
     assoc->text_width =
       font_string_width(assoc->name, assoc_font, ASSOCIATION_FONTHEIGHT);
   }
 
-  assoc->direction = read_int32(fd);
+  assoc->direction = ASSOC_NODIR;
+  attr = object_find_attribute(obj_node, "direction");
+  if (attr != NULL)
+    assoc->direction = data_enum(attribute_first_data(attr));
 
+  attr = object_find_attribute(obj_node, "ends");
+  composite = attribute_first_data(attr);
   for (i=0;i<2;i++) {
-    assoc->end[i].role = read_string(fd);
-    assoc->end[i].multiplicity = read_string(fd);
-    assoc->end[i].arrow = read_int32(fd);
-    assoc->end[i].aggregate = read_int32(fd);
+
+    assoc->end[i].role = NULL;
+    attr = composite_find_attribute(composite, "role");
+    if (attr != NULL)
+      assoc->end[i].role = data_string(attribute_first_data(attr));
     
+    assoc->end[i].multiplicity = NULL;
+    attr = composite_find_attribute(composite, "multiplicity");
+    if (attr != NULL)
+      assoc->end[i].multiplicity = data_string(attribute_first_data(attr));
+    
+    assoc->end[i].arrow = FALSE;
+    attr = composite_find_attribute(composite, "arrow");
+    if (attr != NULL)
+      assoc->end[i].arrow = data_boolean(attribute_first_data(attr));
+
+    assoc->end[i].aggregate = AGGREGATE_NONE;
+    attr = composite_find_attribute(composite, "aggregate");
+    if (attr != NULL)
+      assoc->end[i].aggregate = data_enum(attribute_first_data(attr));
+
     assoc->end[i].text_width = 0.0;
     if (assoc->end[i].role != NULL) {
       assoc->end[i].text_width = 
@@ -629,6 +667,7 @@ association_load(int fd, int version)
 	    font_string_width(assoc->end[i].multiplicity,
 			      assoc_font, ASSOCIATION_FONTHEIGHT) );
     }
+    composite = data_next(composite);
   }
 
   assoc->properties_dialog = NULL;

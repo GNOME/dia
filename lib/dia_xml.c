@@ -300,6 +300,11 @@ data_string(DataNode data)
   }
 
   val = xmlGetProp(data, "val");
+
+  if (val == NULL) {
+    return NULL;
+  }
+  
   str  = g_malloc(sizeof(char)*(strlen(val)+1));
 
   p = str;
@@ -307,6 +312,9 @@ data_string(DataNode data)
     if (*val == '\\') {
       val++;
       switch (*val) {
+      case '0':
+	/* Just skip this. \0 means nothing */
+	break;
       case 'n':
 	*p++ = '\n';
 	break;
@@ -405,7 +413,7 @@ data_add_boolean(AttributeNode attr, int data)
 {
   DataNode data_node;
 
-  data_node = xmlNewChild(attr, NULL, "real", NULL);
+  data_node = xmlNewChild(attr, NULL, "boolean", NULL);
   if (data)
     xmlSetProp(data_node, "val", "true");
   else
@@ -477,33 +485,45 @@ data_add_string(AttributeNode attr, char *str)
   DataNode data_node;
   char *str2, *p;
 
-  str2 = g_malloc(strlen(str)*2+1);
-  p = str2;
-  while (*str) {
-    switch (*str) {
-    case '\\': 
-      *p++ = '\\';
-      *p++ = '\\';
-      break;
-    case '\n':
-      *p++ = '\\';
-      *p++ = 'n';
-      break;
-    case '\t':
-      *p++ = '\\';
-      *p++ = 't';
-      break;
-    default:
-      *p++ = *str;
-    }
-    str++;
-  }
-  *p = 0;
- 
   data_node = xmlNewChild(attr, NULL, "string", NULL);
-  xmlSetProp(data_node, "val", str2);
+  
+  if (str==NULL) {
+    /* No val if NULL */
+  } else if (*str==0) {
+    /* Very ugly fix for bug in gnome-xml. */
+    /* Empty strings are not handled correctly as properties */
+    str2 = "\\0";
 
-  g_free(str2);
+    xmlSetProp(data_node, "val", str2);
+  } else {
+    str2 = g_malloc(strlen(str)*2+1);
+
+    p = str2;
+    while (*str) {
+      switch (*str) {
+      case '\\': 
+	*p++ = '\\';
+	*p++ = '\\';
+	break;
+      case '\n':
+	*p++ = '\\';
+	*p++ = 'n';
+	break;
+      case '\t':
+	*p++ = '\\';
+	*p++ = 't';
+	break;
+      default:
+	*p++ = *str;
+      }
+      str++;
+    }
+    *p = 0;
+
+    xmlSetProp(data_node, "val", str2);
+
+    g_free(str2);
+  }
 }
 
 void

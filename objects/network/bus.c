@@ -68,8 +68,8 @@ static void bus_update_data(Bus *bus);
 static void bus_destroy(Bus *bus);
 static Object *bus_copy(Bus *bus);
 
-static void bus_save(Bus *bus, int fd);
-static Object *bus_load(int fd, int version);
+static void bus_save(Bus *bus, ObjectNode obj_node);
+static Object *bus_load(ObjectNode obj_node, int version);
 static GtkWidget *bus_get_properties(Bus *bus);
 static void bus_apply_properties(Bus *bus);
 
@@ -520,29 +520,28 @@ bus_update_data(Bus *bus)
 
 
 static void
-bus_save(Bus *bus, int fd)
+bus_save(Bus *bus, ObjectNode obj_node)
 {
-  Connection *conn;
   int i;
+  AttributeNode attr;
 
-  conn = &bus->connection;
- 
-  connection_save(conn, fd);
-
-  write_int32(fd, bus->num_handles);
-  for (i=0;i<bus->num_handles;i++) {
-    write_point(fd, &bus->handles[i]->pos);
-  }
-
+  connection_save(&bus->connection, obj_node);
   
+  attr = new_attribute(obj_node, "bus_handles");
+  
+  for (i=0;i<bus->num_handles;i++) {
+    data_add_point(attr, &bus->handles[i]->pos);
+  }
 }
 
 static Object *
-bus_load(int fd, int version)
+bus_load(ObjectNode obj_node, int version)
 {
   Bus *bus;
   Connection *conn;
   Object *obj;
+  AttributeNode attr;
+  DataNode data;
   int i;
 
   bus = g_malloc(sizeof(Bus));
@@ -553,12 +552,17 @@ bus_load(int fd, int version)
   obj->type = &bus_type;
   obj->ops = &bus_ops;
 
-  connection_load(conn, fd);
+  connection_load(conn, obj_node);
 
-  bus->num_handles = read_int32(fd);
+  attr = object_find_attribute(obj_node, "bus_handles");
+
+  bus->num_handles = 0;
+  if (attr != NULL)
+    bus->num_handles = attribute_num_data(attr);
 
   connection_init(conn, 2 + bus->num_handles, 0);
-
+  
+  data = attribute_first_data(attr);
   bus->handles = g_malloc(sizeof(Handle *)*bus->num_handles);
   bus->parallel_points = g_malloc(sizeof(Point)*bus->num_handles);
   for (i=0;i<bus->num_handles;i++) {
@@ -567,8 +571,10 @@ bus_load(int fd, int version)
     bus->handles[i]->type = HANDLE_MINOR_CONTROL;
     bus->handles[i]->connect_type = HANDLE_CONNECTABLE_NOBREAK;
     bus->handles[i]->connected_to = NULL;
-    read_point(fd, &bus->handles[i]->pos);
+    data_point(data, &bus->handles[i]->pos);
     obj->handles[2+i] = bus->handles[i];
+
+    data = data_next(data);
   }
 
   bus_update_data(bus);

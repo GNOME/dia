@@ -81,8 +81,8 @@ static void dependency_destroy(Dependency *dep);
 static Object *dependency_copy(Dependency *dep);
 static GtkWidget *dependency_get_properties(Dependency *dep);
 static void dependency_apply_properties(Dependency *dep);
-static void dependency_save(Dependency *dep, int fd);
-static Object *dependency_load(int fd, int version);
+static void dependency_save(Dependency *dep, ObjectNode obj_node);
+static Object *dependency_load(ObjectNode obj_node, int version);
 
 static void dependency_update_data(Dependency *dep);
 
@@ -343,18 +343,22 @@ dependency_copy(Dependency *dep)
 
 
 static void
-dependency_save(Dependency *dep, int fd)
+dependency_save(Dependency *dep, ObjectNode obj_node)
 {
-  orthconn_save(&dep->orth, fd);
+  orthconn_save(&dep->orth, obj_node);
 
-  write_int32(fd, dep->draw_arrow);
-  write_string(fd, dep->name);
-  write_string(fd, dep->stereotype);
+  data_add_boolean(new_attribute(obj_node, "draw_arrow"),
+		   dep->draw_arrow);
+  data_add_string(new_attribute(obj_node, "name"),
+		  dep->name);
+  data_add_string(new_attribute(obj_node, "stereotype"),
+		  dep->stereotype);
 }
 
 static Object *
-dependency_load(int fd, int version)
+dependency_load(ObjectNode obj_node, int version)
 {
+  AttributeNode attr;
   Dependency *dep;
   OrthConn *orth;
   Object *obj;
@@ -371,11 +375,21 @@ dependency_load(int fd, int version)
   obj->type = &dependency_type;
   obj->ops = &dependency_ops;
 
-  orthconn_load(orth, fd);
+  orthconn_load(orth, obj_node);
+
+  attr = object_find_attribute(obj_node, "draw_arrow");
+  if (attr != NULL)
+    dep->draw_arrow = data_boolean(attribute_first_data(attr));
+
+  dep->name = NULL;
+  attr = object_find_attribute(obj_node, "name");
+  if (attr != NULL)
+    dep->name = data_string(attribute_first_data(attr));
   
-  dep->draw_arrow = read_int32(fd);
-  dep->name = read_string(fd);
-  dep->stereotype = read_string(fd);
+  dep->stereotype = NULL;
+  attr = object_find_attribute(obj_node, "stereotype");
+  if (attr != NULL)
+    dep->stereotype = data_string(attribute_first_data(attr));
 
   dep->text_width = 0.0;
 

@@ -61,8 +61,8 @@ static Object *actor_create(Point *startpoint,
 static void actor_destroy(Actor *actor);
 static Object *actor_copy(Actor *actor);
 
-static void actor_save(Actor *actor, int fd);
-static Object *actor_load(int fd, int version);
+static void actor_save(Actor *actor, ObjectNode obj_node);
+static Object *actor_load(ObjectNode obj_node, int version);
 
 static void actor_update_data(Actor *actor);
 
@@ -148,8 +148,8 @@ actor_draw(Actor *actor, Renderer *renderer)
 {
   Element *elem;
   real x, y, w, h;
-  real r, r1, r2;  
-  Point ch, cb, p, p1, p2, p3;
+  real r, r1;  
+  Point ch, cb, p1, p2;
 
   assert(actor != NULL);
   assert(renderer != NULL);
@@ -348,20 +348,22 @@ actor_copy(Actor *actor)
 
 
 static void
-actor_save(Actor *actor, int fd)
+actor_save(Actor *actor, ObjectNode obj_node)
 {
-  element_save(&actor->element, fd);
+  element_save(&actor->element, obj_node);
 
-  write_text(fd, actor->text);
+  data_add_text(new_attribute(obj_node, "text"),
+		actor->text);
 }
 
 static Object *
-actor_load(int fd, int version)
+actor_load(ObjectNode obj_node, int version)
 {
   Actor *actor;
   Element *elem;
   Object *obj;
   int i;
+  AttributeNode attr;
   
   actor = g_malloc(sizeof(Actor));
   elem = &actor->element;
@@ -370,10 +372,12 @@ actor_load(int fd, int version)
   obj->type = &actor_type;
   obj->ops = &actor_ops;
 
-  element_load(elem, fd);
+  element_load(elem, obj_node);
   
-  actor->text = read_text(fd);
-  
+  attr = object_find_attribute(obj_node, "text");
+  if (attr != NULL)
+      actor->text = data_text(attribute_first_data(attr));
+
   element_init(elem, 8, 8);
 
   for (i=0;i<8;i++) {

@@ -77,8 +77,8 @@ static Object *generalization_copy(Generalization *genlz);
 static GtkWidget *generalization_get_properties(Generalization *genlz);
 static void generalization_apply_properties(Generalization *genlz);
 
-static void generalization_save(Generalization *genlz, int fd);
-static Object *generalization_load(int fd, int version);
+static void generalization_save(Generalization *genlz, ObjectNode obj_node);
+static Object *generalization_load(ObjectNode obj_node, int version);
 
 static void generalization_update_data(Generalization *genlz);
 
@@ -331,18 +331,21 @@ generalization_copy(Generalization *genlz)
 
 
 static void
-generalization_save(Generalization *genlz, int fd)
+generalization_save(Generalization *genlz, ObjectNode obj_node)
 {
-  orthconn_save(&genlz->orth, fd);
+  orthconn_save(&genlz->orth, obj_node);
 
-  write_string(fd, genlz->name);
-  write_string(fd, genlz->stereotype);
+  data_add_string(new_attribute(obj_node, "name"),
+		  genlz->name);
+  data_add_string(new_attribute(obj_node, "stereotype"),
+		  genlz->stereotype);
 }
 
 static Object *
-generalization_load(int fd, int version)
+generalization_load(ObjectNode obj_node, int version)
 {
   Generalization *genlz;
+  AttributeNode attr;
   OrthConn *orth;
   Object *obj;
 
@@ -358,10 +361,17 @@ generalization_load(int fd, int version)
   obj->type = &generalization_type;
   obj->ops = &generalization_ops;
 
-  orthconn_load(orth, fd);
+  orthconn_load(orth, obj_node);
+
+  genlz->name = NULL;
+  attr = object_find_attribute(obj_node, "name");
+  if (attr != NULL)
+    genlz->name = data_string(attribute_first_data(attr));
   
-  genlz->name = read_string(fd);
-  genlz->stereotype = read_string(fd);
+  genlz->stereotype = NULL;
+  attr = object_find_attribute(obj_node, "stereotype");
+  if (attr != NULL)
+    genlz->stereotype = data_string(attribute_first_data(attr));
 
   genlz->text_width = 0.0;
 

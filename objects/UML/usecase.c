@@ -59,8 +59,8 @@ static Object *usecase_create(Point *startpoint,
 static void usecase_destroy(Usecase *usecase);
 static Object *usecase_copy(Usecase *usecase);
 
-static void usecase_save(Usecase *usecase, int fd);
-static Object *usecase_load(int fd, int version);
+static void usecase_save(Usecase *usecase, ObjectNode obj_node);
+static Object *usecase_load(ObjectNode obj_node, int version);
 
 static void usecase_update_data(Usecase *usecase);
 
@@ -329,21 +329,23 @@ usecase_copy(Usecase *usecase)
 
 
 static void
-usecase_save(Usecase *usecase, int fd)
+usecase_save(Usecase *usecase, ObjectNode obj_node)
 {
-  element_save(&usecase->element, fd);
+  element_save(&usecase->element, obj_node);
 
-  write_text(fd, usecase->text);
+  data_add_text(new_attribute(obj_node, "text"),
+		usecase->text);
 }
 
 static Object *
-usecase_load(int fd, int version)
+usecase_load(ObjectNode obj_node, int version)
 {
   Usecase *usecase;
   Element *elem;
   Object *obj;
   int i;
-  
+  AttributeNode attr;
+
   usecase = g_malloc(sizeof(Usecase));
   elem = &usecase->element;
   obj = (Object *) usecase;
@@ -351,9 +353,10 @@ usecase_load(int fd, int version)
   obj->type = &usecase_type;
   obj->ops = &usecase_ops;
 
-  element_load(elem, fd);
-  
-  usecase->text = read_text(fd);
+  element_load(elem, obj_node);
+  attr = object_find_attribute(obj_node, "text");
+  if (attr != NULL)
+      usecase->text = data_text(attribute_first_data(attr));
   
   element_init(elem, 8, 8);
 

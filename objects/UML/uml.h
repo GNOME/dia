@@ -96,12 +96,12 @@ extern UMLOperation *uml_operation_new(void);
 extern UMLParameter *uml_parameter_new(void);
 extern UMLFormalParameter *uml_formalparameter_new(void);
 
-extern void uml_attribute_write(int fd, UMLAttribute *attr);
-extern void uml_operation_write(int fd, UMLOperation *op);
-extern void uml_formalparameter_write(int fd, UMLFormalParameter *param);
-extern UMLAttribute *uml_attribute_read(int fd);
-extern UMLOperation * uml_operation_read(int fd);
-extern UMLFormalParameter *uml_formalparameter_read(int fd);
+extern void uml_attribute_write(AttributeNode attr_node, UMLAttribute *attr);
+extern void uml_operation_write(AttributeNode attr_node, UMLOperation *op);
+extern void uml_formalparameter_write(AttributeNode attr_node, UMLFormalParameter *param);
+extern UMLAttribute *uml_attribute_read(DataNode composite);
+extern UMLOperation * uml_operation_read(DataNode composite);
+extern UMLFormalParameter *uml_formalparameter_read(DataNode composite);
 
 #endif /* UML_H */
 

@@ -26,8 +26,8 @@ static Object *disc_create(Point *startpoint,
 			   void *user_data,
 			   Handle **handle1,
 			   Handle **handle2);
-static void disc_save(RenderObject *disc, int fd);
-static Object *disc_load(int fd, int version);
+static void disc_save(RenderObject *disc, ObjectNode obj_node);
+static Object *disc_load(ObjectNode obj_node, int version);
 
 static ObjectTypeOps disc_type_ops =
 {
@@ -158,16 +158,16 @@ disc_create(Point *startpoint,
 }
 
 static void
-disc_save(RenderObject *disc, int fd)
+disc_save(RenderObject *disc, ObjectNode obj_node)
 {
-  render_object_save(disc, fd);
+  render_object_save(disc, obj_node);
 }
 
 static Object *
-disc_load(int fd, int version)
+disc_load(ObjectNode obj_node, int version)
 {
   if (disc_desc.store == NULL) {
     render_to_store();
   }
-  return render_object_load(fd, &disc_desc);
+  return render_object_load(obj_node, &disc_desc);
 }

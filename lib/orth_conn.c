@@ -556,6 +556,7 @@ orthconn_load(OrthConn *orth, ObjectNode obj_node) /* NOTE: Does object_init() *
   orth->orientation = g_malloc((orth->numpoints-1)*sizeof(Orientation));
   for (i=0;i<orth->numpoints-1;i++) {
     orth->orientation[i] = data_enum(data);
+    data = data_next(data);
   }
 
   obj->handles[0] = &orth->endpoint_handles[0];

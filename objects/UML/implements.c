@@ -80,8 +80,8 @@ static void implements_destroy(Implements *implements);
 static Object *implements_copy(Implements *implements);
 static GtkWidget *implements_get_properties(Implements *implements);
 static void implements_apply_properties(Implements *implements);
-static void implements_save(Implements *implements, int fd);
-static Object *implements_load(int fd, int version);
+static void implements_save(Implements *implements, ObjectNode obj_node);
+static Object *implements_load(ObjectNode obj_node, int version);
 
 
 static ObjectTypeOps implements_type_ops =
@@ -393,20 +393,23 @@ implements_update_data(Implements *implements)
 
 
 static void
-implements_save(Implements *implements, int fd)
+implements_save(Implements *implements, ObjectNode obj_node)
 {
-  connection_save(&implements->connection, fd);
+  connection_save(&implements->connection, obj_node);
 
-  write_real(fd, implements->circle_diameter);
-  write_string(fd, implements->text);
-  write_point(fd, &implements->text_pos);
-  
+  data_add_real(new_attribute(obj_node, "diameter"),
+		implements->circle_diameter);
+  data_add_string(new_attribute(obj_node, "text"),
+		  implements->text);
+  data_add_point(new_attribute(obj_node, "text_pos"),
+		 &implements->text_pos);
 }
 
 static Object *
-implements_load(int fd, int version)
+implements_load(ObjectNode obj_node, int version)
 {
   Implements *implements;
+  AttributeNode attr;
   Connection *conn;
   Object *obj;
 
@@ -421,13 +424,23 @@ implements_load(int fd, int version)
   obj->type = &implements_type;
   obj->ops = &implements_ops;
 
-  connection_load(conn, fd);
+  connection_load(conn, obj_node);
   
   connection_init(conn, 4, 0);
 
-  implements->circle_diameter = read_real(fd);
-  implements->text = read_string(fd);
-  read_point(fd, &implements->text_pos);
+  implements->circle_diameter = 1.0;
+  attr = object_find_attribute(obj_node, "diameter");
+  if (attr != NULL)
+    implements->circle_diameter = data_real(attribute_first_data(attr));
+
+  implements->text = NULL;
+  attr = object_find_attribute(obj_node, "text");
+  if (attr != NULL)
+    implements->text = data_string(attribute_first_data(attr));
+
+  attr = object_find_attribute(obj_node, "text_pos");
+  if (attr != NULL)
+    data_point(attribute_first_data(attr), &implements->text_pos);
 
   implements->text_width =
       font_string_width(implements->text, implements_font,

@@ -442,60 +442,119 @@ uml_formalparameter_new(void)
 }
 
 void
-uml_attribute_write(int fd, UMLAttribute *attr)
+uml_attribute_write(AttributeNode attr_node, UMLAttribute *attr)
 {
-  write_string(fd, attr->name);
-  write_string(fd, attr->type);
-  write_string(fd, attr->value);
-  write_int32(fd, attr->visibility);
-  write_int32(fd, attr->abstract);
-  write_int32(fd, attr->class_scope);
+  DataNode composite;
+
+  composite = data_add_composite(attr_node, "umlattribute");
+
+  data_add_string(composite_add_attribute(composite, "name"),
+		  attr->name);
+  data_add_string(composite_add_attribute(composite, "type"),
+		  attr->type);
+  data_add_string(composite_add_attribute(composite, "value"),
+		  attr->value);
+  data_add_enum(composite_add_attribute(composite, "visibility"),
+		attr->visibility);
+  data_add_boolean(composite_add_attribute(composite, "abstract"),
+		  attr->abstract);
+  data_add_boolean(composite_add_attribute(composite, "class_scope"),
+		  attr->class_scope);
 }
 
 void
-uml_operation_write(int fd, UMLOperation *op)
+uml_operation_write(AttributeNode attr_node, UMLOperation *op)
 {
   GList *list;
   UMLParameter *param;
+  DataNode composite;
+  DataNode composite2;
+  AttributeNode attr_node2;
+
+  composite = data_add_composite(attr_node, "umloperation");
+
+  data_add_string(composite_add_attribute(composite, "name"),
+		  op->name);
+  data_add_string(composite_add_attribute(composite, "type"),
+		  op->type);
+  data_add_enum(composite_add_attribute(composite, "visibility"),
+		op->visibility);
+  data_add_boolean(composite_add_attribute(composite, "abstract"),
+		   op->abstract);
+  data_add_boolean(composite_add_attribute(composite, "class_scope"),
+		   op->class_scope);
   
-  write_string(fd, op->name);
-  write_string(fd, op->type);
-  write_int32(fd, op->visibility);
-  write_int32(fd, op->abstract);
-  write_int32(fd, op->class_scope);
+  attr_node2 = composite_add_attribute(composite, "parameters");
   
-  write_int32(fd, g_list_length(op->parameters));
   list = op->parameters;
   while (list != NULL) {
     param = (UMLParameter *) list->data;
-    write_string(fd, param->name);
-    write_string(fd, param->type);
-    write_string(fd, param->value);
-    write_int32(fd, param->kind);
+
+    composite2 = data_add_composite(attr_node2, "umlparameter");
+
+    data_add_string(composite_add_attribute(composite2, "name"),
+		    param->name);
+    data_add_string(composite_add_attribute(composite2, "type"),
+		    param->type);
+    data_add_string(composite_add_attribute(composite2, "value"),
+		    param->value);
+    data_add_enum(composite_add_attribute(composite2, "kind"),
+		  param->kind);
     list = g_list_next(list);
   }
 }
 
 void
-uml_formalparameter_write(int fd, UMLFormalParameter *param)
+uml_formalparameter_write(AttributeNode attr_node, UMLFormalParameter *param)
 {
-  write_string(fd, param->name);
-  write_string(fd, param->type);
+  DataNode composite;
+
+  composite = data_add_composite(attr_node, "umlformalparameter");
+
+  data_add_string(composite_add_attribute(composite, "name"),
+		  param->name);
+  data_add_string(composite_add_attribute(composite, "type"),
+		  param->type);
 }
 
 UMLAttribute *
-uml_attribute_read(int fd)
+uml_attribute_read(DataNode composite)
 {
   UMLAttribute *attr;
+  AttributeNode attr_node;
   
   attr = g_new(UMLAttribute, 1);
-  attr->name = read_string(fd);
-  attr->type = read_string(fd);
-  attr->value = read_string(fd);
-  attr->visibility = read_int32(fd);
-  attr->abstract = read_int32(fd);
-  attr->class_scope = read_int32(fd);
 
+  attr->name = NULL;
+  attr_node = composite_find_attribute(composite, "name");
+  if (attr_node != NULL)
+    attr->name =  data_string( attribute_first_data(attr_node) );
+
+  attr->type = NULL;
+  attr_node = composite_find_attribute(composite, "type");
+  if (attr_node != NULL)
+    attr->type =  data_string( attribute_first_data(attr_node) );
+
+  attr->value = NULL;
+  attr_node = composite_find_attribute(composite, "value");
+  if (attr_node != NULL)
+    attr->value =  data_string( attribute_first_data(attr_node) );
+  
+  attr->visibility = FALSE;
+  attr_node = composite_find_attribute(composite, "visibility");
+  if (attr_node != NULL)
+    attr->visibility =  data_enum( attribute_first_data(attr_node) );
+  
+  attr->abstract = FALSE;
+  attr_node = composite_find_attribute(composite, "abstract");
+  if (attr_node != NULL)
+    attr->abstract =  data_boolean( attribute_first_data(attr_node) );
+  
+  attr->class_scope = FALSE;
+  attr_node = composite_find_attribute(composite, "class_scope");
+  if (attr_node != NULL)
+    attr->class_scope =  data_boolean( attribute_first_data(attr_node) );
+  
   attr->left_connection = NULL;
   attr->right_connection = NULL;
 
@@ -503,29 +562,71 @@ uml_attribute_read(int fd)
 }
 
 UMLOperation *
-uml_operation_read(int fd)
+uml_operation_read(DataNode composite)
 {
   UMLOperation *op;
   UMLParameter *param;
+  AttributeNode attr_node;
+  AttributeNode attr_node2;
+  DataNode composite2;
   int i, num;
 
   op = g_new(UMLOperation, 1);
-  op->name = read_string(fd);
-  op->type = read_string(fd);
-  op->visibility = read_int32(fd);
-  op->abstract = read_int32(fd);
-  op->class_scope = read_int32(fd);
-  op->parameters = NULL;
 
-  num = read_int32(fd);
+  op->name = NULL;
+  attr_node = composite_find_attribute(composite, "name");
+  if (attr_node != NULL)
+    op->name =  data_string( attribute_first_data(attr_node) );
+
+  op->type = NULL;
+  attr_node = composite_find_attribute(composite, "type");
+  if (attr_node != NULL)
+    op->type =  data_string( attribute_first_data(attr_node) );
+
+  op->visibility = FALSE;
+  attr_node = composite_find_attribute(composite, "visibility");
+  if (attr_node != NULL)
+    op->visibility =  data_enum( attribute_first_data(attr_node) );
+  
+  op->abstract = FALSE;
+  attr_node = composite_find_attribute(composite, "abstract");
+  if (attr_node != NULL)
+    op->abstract =  data_boolean( attribute_first_data(attr_node) );
+  
+  op->class_scope = FALSE;
+  attr_node = composite_find_attribute(composite, "class_scope");
+  if (attr_node != NULL)
+    op->class_scope =  data_boolean( attribute_first_data(attr_node) );
+
+  op->parameters = NULL;
+  attr_node2 = composite_find_attribute(composite, "parameters");
+  num = attribute_num_data(attr_node2);
+  composite2 = attribute_first_data(attr_node2);
   for (i=0;i<num;i++) {
     param = g_new(UMLParameter, 1);
-    param->name = read_string(fd);
-    param->type = read_string(fd);
-    param->value = read_string(fd);
-    param->kind = read_int32(fd);
-
+    
+    param->name = NULL;
+    attr_node = composite_find_attribute(composite2, "name");
+    if (attr_node != NULL)
+      param->name =  data_string( attribute_first_data(attr_node) );
+    
+    param->type = NULL;
+    attr_node = composite_find_attribute(composite2, "type");
+    if (attr_node != NULL)
+      param->type =  data_string( attribute_first_data(attr_node) );
+    
+    param->value = NULL;
+    attr_node = composite_find_attribute(composite2, "value");
+    if (attr_node != NULL)
+      param->value =  data_string( attribute_first_data(attr_node) );
+    
+    param->kind = UML_UNDEF_KIND;
+    attr_node = composite_find_attribute(composite2, "kind");
+    if (attr_node != NULL)
+      param->kind =  data_enum( attribute_first_data(attr_node) );
+    
     op->parameters = g_list_append(op->parameters, param);
+    composite2 = data_next(composite2);
   }
 
   op->left_connection = NULL;
@@ -535,13 +636,22 @@ uml_operation_read(int fd)
 }
 
 UMLFormalParameter *
-uml_formalparameter_read(int fd)
+uml_formalparameter_read(DataNode composite)
 {
   UMLFormalParameter *param;
-
+  AttributeNode attr_node;
+  
   param = g_new(UMLFormalParameter, 1);
-  param->name = read_string(fd);
-  param->type = read_string(fd);
+
+  param->name = NULL;
+  attr_node = composite_find_attribute(composite, "name");
+  if (attr_node != NULL)
+    param->name =  data_string( attribute_first_data(attr_node) );
+
+  param->type = NULL;
+  attr_node = composite_find_attribute(composite, "type");
+  if (attr_node != NULL)
+    param->type =  data_string( attribute_first_data(attr_node) );
 
   return param;
 }

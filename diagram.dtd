@@ -49,7 +49,7 @@
 <!ATTLIST rectangle  val CDATA #REQUIRED>
 
 <!ELEMENT string EMPTY>
-<!ATTLIST string  val CDATA #REQUIRED>
+<!ATTLIST string  val CDATA #IMPLIED>
 
 <!ELEMENT font EMPTY>
 <!ATTLIST font name CDATA #REQUIRED>
