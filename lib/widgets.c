@@ -110,6 +110,12 @@ dia_font_selector_collect_names(gpointer key, gpointer value,
   struct select_pair *pair = (struct select_pair *)userdata;
   pair->array[pair->counter++] = (guchar *)key;
 }
+
+static int
+dia_font_selector_sort_string(void **s1, void **s2) {
+  return strcasecmp((char *)*s1, (char *)*s2);
+}
+
 #endif
 
 static void
@@ -133,11 +139,10 @@ dia_font_selector_init (DiaFontSelector *fs)
   g_hash_table_foreach(freetype_fonts, dia_font_selector_collect_names,
 		       (gpointer)&pair);
   
-  qsort(pair.array, num_fonts, sizeof(guchar *), strcmp);
+  qsort(pair.array, num_fonts, sizeof(guchar *), dia_font_selector_sort_string);
 
   for (i = 0; i < num_fonts; i++) {
     GtkWidget *menuitem;
-
     menuitem = gtk_menu_item_new_with_label (pair.array[i]);
     gtk_object_set_user_data(GTK_OBJECT(menuitem), pair.array[i]);
     gtk_signal_connect(GTK_OBJECT(menuitem), "select", dia_font_selector_scroll_popup, NULL);
