@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-03-07 03:12+0100\n"
-"PO-Revision-Date: 2004-03-07 15:24+0100\n"
+"POT-Creation-Date: 2004-03-10 03:12+0100\n"
+"PO-Revision-Date: 2004-03-10 14:23+0100\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -477,6 +477,7 @@ msgid "Ok"
 msgstr "Ok"
 
 #: app/dialogs.c:52 app/layer_dialog.c:1009 app/paginate_psprint.c:276
+#: lib/diaarrowchooser.c:257 lib/dialinechooser.c:264
 msgid "Cancel"
 msgstr "Zrušit"
 
@@ -701,28 +702,28 @@ msgstr "Exportovat diagram"
 msgid "Export Options"
 msgstr "Volby exportu"
 
-#: app/interface.c:51
+#: app/interface.c:52
 msgid "Modify object(s)"
 msgstr "Upravit objekt(y)"
 
-#: app/interface.c:52
+#: app/interface.c:53
 msgid "Modify"
 msgstr "Upravit"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Magnify
-#: app/interface.c:56 app/interface.c:57 objects/FS/function.c:975
+#: app/interface.c:57 app/interface.c:58 objects/FS/function.c:975
 msgid "Magnify"
 msgstr "Zvětšit"
 
-#: app/interface.c:61
+#: app/interface.c:62
 msgid "Scroll around the diagram"
 msgstr "Posunovat okolo diagramu"
 
-#: app/interface.c:62
+#: app/interface.c:63
 msgid "Scroll"
 msgstr "Posunovat"
 
-#: app/interface.c:66 app/interface.c:67 lib/properties.c:77
+#: app/interface.c:67 app/interface.c:68 lib/properties.c:77
 #: lib/properties.h:514 lib/properties.h:517 objects/UML/activity.c:122
 #: objects/UML/actor.c:120 objects/UML/classicon.c:141
 #: objects/UML/component.c:126 objects/UML/component_feature.c:154
@@ -732,67 +733,67 @@ msgstr "Posunovat"
 msgid "Text"
 msgstr "Text"
 
-#: app/interface.c:71 app/interface.c:72
+#: app/interface.c:72 app/interface.c:73
 msgid "Box"
 msgstr "Čtyřúhelník"
 
-#: app/interface.c:76 app/interface.c:77
+#: app/interface.c:77 app/interface.c:78
 msgid "Ellipse"
 msgstr "Elipsa"
 
-#: app/interface.c:81 app/interface.c:82
+#: app/interface.c:82 app/interface.c:83
 msgid "Polygon"
 msgstr "Mnohoúhelník"
 
-#: app/interface.c:86 app/interface.c:87
+#: app/interface.c:87 app/interface.c:88
 msgid "Beziergon"
 msgstr "Beziérův útvar"
 
-#: app/interface.c:91 app/interface.c:92 objects/standard/line.c:247
+#: app/interface.c:92 app/interface.c:93 objects/standard/line.c:247
 msgid "Line"
 msgstr "Čára"
 
-#: app/interface.c:96 app/interface.c:97
+#: app/interface.c:97 app/interface.c:98
 msgid "Arc"
 msgstr "Oblouk"
 
-#: app/interface.c:101 app/interface.c:102
+#: app/interface.c:102 app/interface.c:103
 msgid "Zigzagline"
 msgstr "Klikatice"
 
-#: app/interface.c:106 app/interface.c:107
+#: app/interface.c:107 app/interface.c:108
 msgid "Polyline"
 msgstr "Lomená čára"
 
-#: app/interface.c:111 app/interface.c:112
+#: app/interface.c:112 app/interface.c:113
 msgid "Bezierline"
 msgstr "Beziérova čára"
 
-#: app/interface.c:116 app/interface.c:117
+#: app/interface.c:117 app/interface.c:118
 msgid "Image"
 msgstr "Obrázek"
 
-#: app/interface.c:389
+#: app/interface.c:390
 msgid "Diagram menu."
 msgstr "Menu diagramu."
 
-#: app/interface.c:427
+#: app/interface.c:428
 msgid "Pops up the Navigation window."
 msgstr "Zobrazí okno Navigace."
 
-#: app/interface.c:507
+#: app/interface.c:508
 msgid "Zoom"
 msgstr "Zvětšit"
 
-#: app/interface.c:521
+#: app/interface.c:522
 msgid "Toggles snap-to-grid for this window."
 msgstr "Přepne lnutí k mřížce pro toto okno."
 
-#: app/interface.c:584
+#: app/interface.c:585
 msgid "NULL tooldata in tool_select_update"
 msgstr "Data s hodnotou NULL v tool_select_update"
 
-#: app/interface.c:1067
+#: app/interface.c:1068
 msgid ""
 "Foreground & background colors for new objects.  The small black and white "
 "squares reset colors.  The small arrows swap colors.  Double click to change "
@@ -801,7 +802,7 @@ msgstr ""
 "Barvy popředí a pozadí pro nové objekty. Malý černý a bílý čtvereček "
 "vynuluje barvy. Šipečky prohazují barvy. Dvojité kliknutí změní barvu."
 
-#: app/interface.c:1082
+#: app/interface.c:1083
 msgid ""
 "Line widths.  Click on a line to set the default line width for new "
 "objects.  Double-click to set the line width more precisely."
@@ -809,7 +810,7 @@ msgstr ""
 "Šířky čar. Kliknutím na čáru nastavíte implicitní šířku čáry pro nové "
 "objekty. Dvojitým kliknutím nastavíte šířku čáry přesněji."
 
-#: app/interface.c:1114
+#: app/interface.c:1115
 msgid ""
 "Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
 "arrow parameters with Details..."
@@ -817,7 +818,7 @@ msgstr ""
 "Styl šipky na začátku nových čar. Kliknutím zvolte šipku nebo nastavte "
 "parametry šipky tlačítkem Podrobnosti..."
 
-#: app/interface.c:1119
+#: app/interface.c:1120
 msgid ""
 "Line style for new lines.  Click to pick a line style, or set line style "
 "parameters with Details..."
@@ -825,7 +826,7 @@ msgstr ""
 "Styl čáry pro nové čáry. Kliknutím zvolte styl čáry nebo nastavte styl čáry "
 "tlačítkem Podrobnosti..."
 
-#: app/interface.c:1125
+#: app/interface.c:1126
 msgid ""
 "Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
 "parameters with Details..."
@@ -833,7 +834,7 @@ msgstr ""
 "Styl šipky na konci nových čar. Kliknutím zvolte šipku nebo nastavte "
 "parametry šipky tlačítkem Podrobnosti..."
 
-#: app/interface.c:1234
+#: app/interface.c:1235
 msgid "Diagram Editor"
 msgstr "Editor diagramu"
 
@@ -881,7 +882,8 @@ msgstr "Upravit vlastnosti vrstvy"
 msgid "Layer name:"
 msgstr "Název vrstvy:"
 
-#: app/layer_dialog.c:999 app/paginate_psprint.c:268
+#: app/layer_dialog.c:999 app/paginate_psprint.c:268 lib/diaarrowchooser.c:248
+#: lib/dialinechooser.c:254
 msgid "OK"
 msgstr "OK"
 
@@ -1668,7 +1670,11 @@ msgstr "Nelze otevřít soubor s historií pro zápis."
 msgid "Encapsulated Postscript (using Pango fonts)"
 msgstr "Zapouzdřený PostScript (používající písma Pango)"
 
-#: app/render_eps.c:163
+#: app/render_eps.c:154
+msgid "Encapsulated Postscript with preview (using Pango fonts)"
+msgstr "Zapouzdřený PostScript s náhledem (používající písma Pango)"
+
+#: app/render_eps.c:164
 msgid "Encapsulated Postscript (using PostScript Latin-1 fonts)"
 msgstr "Zapouzdřený PostScript (používající písma PostScript Latin-1)"
 
@@ -2092,6 +2098,14 @@ msgstr ""
 "programu Dia se můžete setkat s problémy. Nahlaste tyto problémy na adresu "
 "dia-list@gnome.org, pokud vidíte tuto zprávu."
 
+#: lib/diaarrowchooser.c:233
+msgid "Arrow Properties"
+msgstr "Vlastnosti šipky"
+
+#: lib/diaarrowchooser.c:311 lib/dialinechooser.c:287
+msgid "Details..."
+msgstr "Podrobnosti..."
+
 #. This is the default text shown in the preview entry, though the user
 #. can set it. Remember that some fonts only have capital letters.
 #: lib/diagtkfontsel.c:74
@@ -2134,6 +2148,10 @@ msgstr "_Náhled:"
 #: lib/diagtkfontsel.c:1252
 msgid "Font Selection"
 msgstr "Výběr písma"
+
+#: lib/dialinechooser.c:243
+msgid "Line Style Properties"
+msgstr "Vlastnosti stylu čáry"
 
 #: lib/filter.c:120
 #, c-format
@@ -5134,6 +5152,134 @@ msgstr "Výstupní proměnná vnímavosti"
 msgid "Simple output variable"
 msgstr "Jednoduchá výstupní proměnná"
 
+#: sheets/Cybernetics.sheet.in.h:1
+msgid "Constant factor below -1"
+msgstr "Konstantní činitel pod -1"
+
+#: sheets/Cybernetics.sheet.in.h:2
+msgid "Constant factor between 0 and -1"
+msgstr "Konstantní činitel mezi 0 a -1"
+
+#: sheets/Cybernetics.sheet.in.h:3
+msgid "Constant factor between 0 and 1"
+msgstr "Konstantní činitel mezi 0 a 1"
+
+#: sheets/Cybernetics.sheet.in.h:4
+msgid "Constant factor greater 1"
+msgstr "Konstantní činitel nad 1"
+
+#: sheets/Cybernetics.sheet.in.h:5
+msgid "Constant negative shift on the y-axis"
+msgstr "Konstantní záporný posun na ose y"
+
+#: sheets/Cybernetics.sheet.in.h:6
+msgid "Constant positive shift on the y-axis"
+msgstr "Konstantní kladný posun na ose y"
+
+#: sheets/Cybernetics.sheet.in.h:7
+msgid "Cybernetics"
+msgstr "Kybernetika"
+
+#: sheets/Cybernetics.sheet.in.h:8
+msgid "Elements of cybernetic circuits"
+msgstr "Komponenty kybernetických obvodů"
+
+#: sheets/Cybernetics.sheet.in.h:9
+msgid "Full wave rectifier (absolute value)"
+msgstr "Dvoucestný usměrňovač"
+
+#: sheets/Cybernetics.sheet.in.h:10
+msgid "Half wave rectifier or ramp input"
+msgstr "Jednocestný usměrňovač nebo vstup rampy"
+
+#: sheets/Cybernetics.sheet.in.h:11
+msgid "High pass filter"
+msgstr "Horní propust"
+
+#: sheets/Cybernetics.sheet.in.h:12
+msgid "Integrator - input bottom"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:13
+msgid "Integrator - input left"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:14
+msgid "Integrator - input right"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:15
+msgid "Integrator - input top"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:16
+msgid "Low pass filter"
+msgstr "Dolní propust"
+
+#: sheets/Cybernetics.sheet.in.h:17
+msgid "Product"
+msgstr "Výsledek"
+
+#: sheets/Cybernetics.sheet.in.h:18
+msgid "Relay characteristic (sigma)"
+msgstr "Charakteristika relé (sigma)"
+
+#: sheets/Cybernetics.sheet.in.h:19
+msgid "Saturation characteristic"
+msgstr "Charakteristika nasycení"
+
+#: sheets/Cybernetics.sheet.in.h:20
+msgid "Sensor - bottom"
+msgstr "Čidlo - dole"
+
+#: sheets/Cybernetics.sheet.in.h:21
+msgid "Sensor - left"
+msgstr "Čidlo - vlevo"
+
+#: sheets/Cybernetics.sheet.in.h:22
+msgid "Sensor - right"
+msgstr "Čidlo - vpravo"
+
+#: sheets/Cybernetics.sheet.in.h:23
+msgid "Sensor - top"
+msgstr "Čidlo - nahoře"
+
+#: sheets/Cybernetics.sheet.in.h:24
+msgid "Sigmoid characteristic"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:25
+msgid "Sine characteristic or input"
+msgstr "Sinusová charakteristika nebo vstup"
+
+#: sheets/Cybernetics.sheet.in.h:26
+msgid "Sum"
+msgstr "Součet"
+
+#: sheets/Cybernetics.sheet.in.h:27
+msgid "Sum, subtracting bottom input"
+msgstr "Součet, odčítající spodní vstup"
+
+#: sheets/Cybernetics.sheet.in.h:28
+msgid "Sum, subtracting left input"
+msgstr "Součet, odčítající levý vstup"
+
+#: sheets/Cybernetics.sheet.in.h:29
+msgid "Sum, subtracting right input"
+msgstr "Součet, odčítající pravý vstup"
+
+#: sheets/Cybernetics.sheet.in.h:30
+msgid "Sum, subtracting top input"
+msgstr "Součet, odčítající horní vstup"
+
+#: sheets/Cybernetics.sheet.in.h:31
+msgid "Template for custom characteristics"
+msgstr "Šablona pro vlastní charakteristiky"
+
+#: sheets/Cybernetics.sheet.in.h:32
+msgid "Time delay"
+msgstr "Zpoždění času"
+
 #: sheets/EML.sheet.in.h:1
 msgid "EML"
 msgstr "EML"
@@ -5401,6 +5547,111 @@ msgstr "Objekty pro návrh schémat GRAFCET"
 #: sheets/GRAFCET.sheet.in.h:14
 msgid "Transition"
 msgstr "Posun"
+
+#: sheets/IsometricMap.sheet.in.h:1
+msgid "Block 1, 2:4"
+msgstr "Blok 1, 2:4"
+
+#: sheets/IsometricMap.sheet.in.h:2
+msgid "Block 2, 2:8"
+msgstr "Blok 2, 2:8"
+
+#: sheets/IsometricMap.sheet.in.h:3
+msgid "Block 3, 4:4"
+msgstr "Blok 3, 4:4"
+
+#: sheets/IsometricMap.sheet.in.h:4
+msgid "Block 4, 4:8"
+msgstr "Blok 4, 4:8"
+
+#: sheets/IsometricMap.sheet.in.h:5
+msgid "Block 5, 3:3"
+msgstr "Blok 5, 3:3"
+
+#: sheets/IsometricMap.sheet.in.h:6
+msgid "Block 6, 4:6"
+msgstr "Blok 6, 4:6"
+
+#: sheets/IsometricMap.sheet.in.h:7
+msgid "Block 7"
+msgstr "Blok 7"
+
+#: sheets/IsometricMap.sheet.in.h:8
+msgid "Car 1, Front View"
+msgstr "Auto 1, pohled zepředu"
+
+#: sheets/IsometricMap.sheet.in.h:9
+msgid "Car 2, Rear View"
+msgstr "Auto 2, pohled zezadu"
+
+#: sheets/IsometricMap.sheet.in.h:10
+msgid "Corner 1"
+msgstr "Roh 1"
+
+#: sheets/IsometricMap.sheet.in.h:11
+msgid "Corner 2"
+msgstr "Roh 2"
+
+#: sheets/IsometricMap.sheet.in.h:12
+#, fuzzy
+msgid "Crossroads"
+msgstr "Křížek"
+
+#: sheets/IsometricMap.sheet.in.h:13
+msgid "Elevated Road"
+msgstr "Vyvýšená cesta"
+
+#: sheets/IsometricMap.sheet.in.h:14
+msgid "Factory"
+msgstr "Továrna"
+
+#: sheets/IsometricMap.sheet.in.h:15
+msgid "Footbridge, Pedestrian Bridge"
+msgstr "Lávka pro pěší"
+
+#: sheets/IsometricMap.sheet.in.h:16
+msgid "Isometric Directional Map Shapes"
+msgstr "Izometrické tvary směrové mapy"
+
+#: sheets/IsometricMap.sheet.in.h:17
+msgid "Long Straight Road Section"
+msgstr "Dlouhý rovný úsek cesty"
+
+#: sheets/IsometricMap.sheet.in.h:18
+msgid "Map, Isometric"
+msgstr "Mapa, izometrická"
+
+#: sheets/IsometricMap.sheet.in.h:19
+msgid "One Way Road Sign"
+msgstr "Značka jednosměrné cesty"
+
+#: sheets/IsometricMap.sheet.in.h:20
+msgid "River"
+msgstr "Řeka"
+
+#: sheets/IsometricMap.sheet.in.h:21
+msgid "Road Section"
+msgstr "Úsek cesty"
+
+#: sheets/IsometricMap.sheet.in.h:22
+msgid "Roof1"
+msgstr "Střecha1"
+
+#: sheets/IsometricMap.sheet.in.h:23
+msgid "T-Junction"
+msgstr "Křižovatka typu T"
+
+#: sheets/IsometricMap.sheet.in.h:24
+msgid "Train 1, angled downward"
+msgstr "Vlak 1, natočený dolů"
+
+#: sheets/IsometricMap.sheet.in.h:25
+msgid "Train 2, angled upward"
+msgstr "Vlak 1, natočený nahoru"
+
+#: sheets/IsometricMap.sheet.in.h:26
+msgid "Tree 1"
+msgstr "Strom 1"
 
 #: sheets/Logic.sheet.in.h:1
 msgid "AND gate"
@@ -7037,24 +7288,6 @@ msgstr "Datový server Sybase"
 #: sheets/sybase.sheet.in.h:8
 msgid "Sybase replication server"
 msgstr "Replikační server Sybase"
-
-#~ msgid "Line Style Properties"
-#~ msgstr "Vlastnosti stylu čáry"
-
-#~ msgid "Details..."
-#~ msgstr "Podrobnosti..."
-
-#~ msgid "Length: "
-#~ msgstr "Délka:"
-
-#~ msgid "Width: "
-#~ msgstr "Šířka:"
-
-#~ msgid "No object menu"
-#~ msgstr "Žádné menu k objektu"
-
-#~ msgid "Arrow Properties"
-#~ msgstr "Vlastnosti šipky"
 
 #~ msgid "_New diagram"
 #~ msgstr "_Nový diagram"
