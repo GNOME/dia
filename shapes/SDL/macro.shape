@@ -2,7 +2,7 @@
 
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
        xmlns:svg="http://www.w3.org/2000/svg">
-  <name>Macro</name>
+  <name>SDL - Macro</name>
   <description>Macro Call</description>
   <icon>macro.xpm</icon>
   <connections>

@@ -2,7 +2,7 @@
 
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
        xmlns:svg="http://www.w3.org/2000/svg">
-  <name>InOut</name>
+  <name>SDL - InOut</name>
   <description>In/Out Connector</description>
   <icon>inout.xpm</icon>
   <connections>

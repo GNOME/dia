@@ -2,7 +2,7 @@
 
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
        xmlns:svg="http://www.w3.org/2000/svg">
-  <name>Return</name>
+  <name>SDL - Return</name>
   <description>Procedure Return</description>
   <icon>return.xpm</icon>
   <connections>

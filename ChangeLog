@@ -1,3 +1,12 @@
+2001-04-03  Cyrille Chepelov  <chepelov@calixo.net>
+
+	* shapes/SDL/*.shape:
+	* sheets/SDL.sheet: renamed all SDL shapes to conform to the
+	"$LIBRARY - $NAME" convention. THIS REQUIRES FIXING THE EXISTING
+	DIA FILES (well, for files using SDL), see the mailing list
+	archive "SDL (ab)using the global shape namespace" for a script to
+	do this conversion.
+	
 2001-04-02  Cyrille Chepelov  <chepelov@calixo.net>
 
 	* lib/dia_xml.c: made data_point() more paranoid

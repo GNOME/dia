@@ -2,7 +2,7 @@
 
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
        xmlns:svg="http://www.w3.org/2000/svg">
-  <name>Note</name>
+  <name>SDL - Note</name>
   <description>Generic text note</description>
   <icon>note.xpm</icon>
   <connections>

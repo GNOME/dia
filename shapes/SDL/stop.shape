@@ -2,7 +2,7 @@
 
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
        xmlns:svg="http://www.w3.org/2000/svg">
-  <name>Stop</name>
+  <name>SDL - Stop</name>
   <description>Interrupt processing</description>
   <icon>stop.xpm</icon>
   <connections>

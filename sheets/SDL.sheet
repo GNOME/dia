@@ -6,55 +6,55 @@
   <description xml:lang="fr">Langage de spécification et de Description</description>
   
   <contents>
-    <object name="Block">
+    <object name="SDL - Block">
       <description>Block Type Reference</description>
     </object>
-    <object name="Service">
+    <object name="SDL - Service">
       <description>Service Type Reference</description>
     </object>
-    <object name="Process">
+    <object name="SDL - Process">
       <description>Process Type Reference</description>
     </object>
-    <object name="State">
+    <object name="SDL - State">
       <description>State</description>
     </object>
-    <object name="Function Header">
+    <object name="SDL - Function Header">
       <description>Function Header</description>
     </object>
-    <object name="Send">
+    <object name="SDL - Send">
       <description>Send message</description>
     </object>
-    <object name="Receive">
+    <object name="SDL - Receive">
       <description>Receive message</description>
     </object>
-    <object name="Function">
+    <object name="SDL - Function">
       <description>Function call</description>
     </object>
-    <object name="Macro">
+    <object name="SDL - Macro">
       <description>Macro call</description>
     </object>
-    <object name="Task">
+    <object name="SDL - Task">
       <description>Action being executed</description>
     </object>
-    <object name="Save">
+    <object name="SDL - Save">
       <description>Save State</description>
     </object>
-    <object name="Decision">
+    <object name="SDL - Decision">
       <description>Decision</description>
     </object>
-    <object name="InOut">
+    <object name="SDL - InOut">
       <description>In/Out Connector</description>
     </object>
-    <object name="Stop">
+    <object name="SDL - Stop">
       <description>Stop</description>
     </object>
-    <object name="Return">
+    <object name="SDL - Return">
       <description>Procedure Return</description>
     </object>
-    <object name="Comment">
+    <object name="SDL - Comment">
       <description>Comment</description>
     </object>
-    <object name="Note">
+    <object name="SDL - Note">
       <description>Generic Text Note</description>
     </object>
     <!-- TODO : All other objects ... -->

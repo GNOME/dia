@@ -2,7 +2,7 @@
 
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
        xmlns:svg="http://www.w3.org/2000/svg">
-  <name>Block</name>
+  <name>SDL - Block</name>
   <description>Block Type Reference</description>
   <icon>block.xpm</icon>
   <connections>
