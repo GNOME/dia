@@ -10,7 +10,7 @@ msgstr ""
 "Last-Translator: Shooby Ban <bansz@szif.hu>\n"
 "Language-Team: Hungarian <hu@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Type: text/plain; charset=iso-8859-2\n"
 "Content-Transfer-Encoding: 8-bit\n"
 
 #: app/app_procs.c:117
@@ -414,6 +414,8 @@ msgid ""
 "Error loading diagram %s.\n"
 "Unknown file type."
 msgstr ""
+"Nem tudom betölteni a %s diagrammot.\n"
+"Nem ismert fájltípus.\n"
 
 #: app/load_save.c:186
 #, c-format
@@ -1104,15 +1106,15 @@ msgstr "Láthatóság:"
 
 #: objects/UML/class_dialog.c:660 objects/UML/class_dialog.c:1515
 msgid "Public"
-msgstr ""
+msgstr "Közös"
 
 #: objects/UML/class_dialog.c:668 objects/UML/class_dialog.c:1523
 msgid "Private"
-msgstr ""
+msgstr "Saját"
 
 #: objects/UML/class_dialog.c:676 objects/UML/class_dialog.c:1531
 msgid "Protected"
-msgstr ""
+msgstr "Védett"
 
 #: objects/UML/class_dialog.c:684 objects/UML/class_dialog.c:1539
 msgid "Implementation"
@@ -1133,7 +1135,7 @@ msgstr "Mûveletek adatai"
 
 #: objects/UML/class_dialog.c:1561
 msgid "abstract"
-msgstr ""
+msgstr "absztrakt"
 
 #: objects/UML/class_dialog.c:1573
 msgid "Parameters:"
