@@ -1,3 +1,10 @@
+2000-02-29  Alexander Larsson  <alla@lysator.liu.se>
+
+	* objects/ER/Makefile.am:
+	* objects/FS/Makefile.am:
+	* objects/UML/Makefile.am:
+	Don't link object libs with gtk.
+
 2000-02-29  James Henstridge  <james@daa.com.au>
 
 	* app/preferences.c (prefs_save): check to see if the file could

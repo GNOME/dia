@@ -9,7 +9,6 @@ liber_objects_la_SOURCES = \
 			er.c
 
 liber_objects_la_LDFLAGS = -export-dynamic -module -avoid-version
-liber_objects_la_LIBADD = @GTK_LIBS@
 
 INCLUDES = -I$(top_srcdir)/intl -I$(srcdir)/../../lib @GTK_CFLAGS@ @GNOME_CFLAGS@
 

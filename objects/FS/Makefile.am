@@ -8,7 +8,6 @@ libfs_objects_la_SOURCES = \
 			function.c
 
 libfs_objects_la_LDFLAGS = -export-dynamic -module -avoid-version
-libfs_objects_la_LIBADD = @GTK_LIBS@
 
 INCLUDES = -I$(top_srcdir)/intl -I$(srcdir)/../../lib @CFLAGS@ @GTK_CFLAGS@ @GNOME_CFLAGS@
 

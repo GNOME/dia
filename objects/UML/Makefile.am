@@ -28,7 +28,6 @@ libuml_objects_la_SOURCES = \
 			branch.c
 
 libuml_objects_la_LDFLAGS = -export-dynamic -module -avoid-version
-libuml_objects_la_LIBADD = @GTK_LIBS@
 
 INCLUDES = -I$(top_srcdir)/intl -I$(srcdir)/../../lib @CFLAGS@ @GTK_CFLAGS@ @GNOME_CFLAGS@
 
