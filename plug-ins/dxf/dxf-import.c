@@ -456,11 +456,7 @@ void read_entity_ellipse_dxf(FILE *filedxf, DxfData *data, DiagramData *dia){
 }
 
 static PropDescription dxf_text_prop_descs[] = {
-    { "text_alignment", PROP_TYPE_ENUM },
-    { "text_height", PROP_TYPE_REAL },
-    { "text", PROP_TYPE_STRING },
-    { "text_colour", PROP_TYPE_COLOUR },
-    { "text_font", PROP_TYPE_FONT },
+    { "text", PROP_TYPE_TEXT },
     PROP_DESC_END};
 
 void read_entity_text_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
@@ -480,11 +476,7 @@ void read_entity_text_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
     Object *text_obj;
     Color text_colour = { 0.0, 0.0, 0.0 };
 
-    EnumProperty *eprop;
-    StringProperty *sprop;
-    ColorProperty *cprop;
-    FontProperty *fprop;
-    RealProperty *rprop;
+    TextProperty *tprop;
     GPtrArray *props;
 
     Layer *layer = NULL;
@@ -526,24 +518,18 @@ void read_entity_text_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
     text_obj = otype->ops->create(&location, otype->default_user_data,
                                   &h1, &h2);
     layer_add_object(layer, text_obj);
-    
     props = prop_list_from_descs(dxf_text_prop_descs,pdtpp_true);
-    g_assert(props->len == 6);
+    g_assert(props->len == 1);
 
-    eprop = g_ptr_array_index(props,0);
-    eprop->enum_data = textalignment;
-    rprop = g_ptr_array_index(props,1);
-    rprop->real_data = height;
-    sprop = g_ptr_array_index(props,2);
-    g_free(sprop->string_data);
-    sprop->string_data = textvalue;
-    cprop = g_ptr_array_index(props,3);
-    cprop->color_data = text_colour;
-    fprop = g_ptr_array_index(props,4);
-    /* choose default font name for your locale. see also font_data structure
-       in lib/font.c. if "Courier" works for you, it would be better.  */
-    fprop->font_data = font_getfont (_("Courier"));
-    
+    tprop = g_ptr_array_index(props,0);
+    g_free(tprop->text_data);
+    tprop->text_data = textvalue;
+    tprop->attr.alignment = textalignment;
+    tprop->attr.position.x = location.x;
+    tprop->attr.position.y = location.y;
+    tprop->attr.font = font_getfont(_("Courier"));
+    tprop->attr.height = height;
+        
     text_obj->ops->set_props(text_obj, props);
     prop_list_free(props);
 }

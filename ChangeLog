@@ -1,3 +1,10 @@
+2002-04-15  Steffen Macke <sdteffen@web.de>
+
+	* plug-ins/dxf/dxf-import.c: text import works again
+	* shapes/Pneumatic/Makefile.am: added compush shape
+	* sheets/Pneumatic.sheet.in: commented out unavailable shapes dist33
+	and dist53
+	
 2002-04-11  M.C. Nelson <mcn@kobayashimaru.org>
 
 	* All these modifications are for the 'Sheets and Objects' dialog

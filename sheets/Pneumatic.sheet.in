@@ -34,18 +34,18 @@
     <object name="Pneum - dist32">
       <_description>A 3/2 distributor</_description>
     </object>
-    <object name="Pneum - dist33">
+  <!--  <object name="Pneum - dist33">
       <_description>A 3/3 distributor</_description>
-    </object>
+    </object> -->
     <object name="Pneum - dist42">
       <_description>A 4/2 distributor</_description>
     </object>
     <object name="Pneum - dist52">
       <_description>A 5/2 distributor</_description>
     </object>
-    <object name="Pneum - dist53">
+<!--    <object name="Pneum - dist53">
       <_description>A 5/3 distributor</_description>
-    </object>
+    </object> -->
       <br/>
     <object name="Pneum - commusc">
       <_description>Muscular command</_description>

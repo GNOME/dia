@@ -18,6 +18,8 @@ SHAPES = \
 	compilh.xpm	\
 	compilp.shape	\
 	compilp.xpm	\
+	compush.shape	\
+	compush.xpm	\
 	comspr.shape	\
 	comspr.xpm	\
 	dist22.shape	\
