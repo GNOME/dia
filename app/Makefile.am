@@ -90,6 +90,8 @@ dia_SOURCES = \
 	    filedlg.h \
 	    $(print_files)
 
+EFENCE =
+
 dia_LDADD = ../lib/libdia.a ../objects/custom/libcustom_objects.a \
     $(EFENCE) \
     @APP_LIBS@ @XML_LIBS@ @GTK_LIBS@ @INTLLIBS@ @GNOME_LIBS@ @GDK_IMLIB_LIBS@ @LIBART_LIBS@

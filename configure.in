@@ -153,15 +153,22 @@ case "$host" in
     ;;
 esac
 
+DIA_CHECK_CFLAG(-Wall)
+DIA_CHECK_CFLAG(-Wunused)
+DIA_CHECK_CFLAG(-Winline)
+DIA_CHECK_CFLAG(-Wmissing-prototypes)
+DIA_CHECK_CFLAG(-Wmissing-declarations)
+
 dnl Relieve register pressure on i386. Other architectures may become unable
 dnl to debug, and usually have more registers anyway.
 case "$host" in 
   i?86-pc-*)
-    echo CFLAGS="$CFLAGS -fomit-frame-pointer"
+    DIA_CHECK_CFLAG(-fomit-frame-pointer)
     ;;
 esac
 
-CFLAGS="$CFLAGS -Wall -Winline -finline-functions -fstrict-aliasing"
+DIA_CHECK_CFLAG(-finline-functions)
+DIA_CHECK_CFLAG(-fstrict-aliasing)
 
 AC_OUTPUT(
 Makefile

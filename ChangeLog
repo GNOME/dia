@@ -1,3 +1,12 @@
+2000-01-30  James Henstridge  <james@daa.com.au>
+
+	* configure.in: don't add flags to CFLAGS unconditionally.  Instead,
+	check to see if the C compiler accepts the flag beforehand.
+
+	* lib/properties.[ch]: start of properties code.
+
+	* shapes/Contact/Makefile.am (SHAPES): fix up makefile.
+
 2000-01-30  Cyrille Chepelov  <chepelov@calixo.net>
 	
 	* sheets/GRAFCET.sheet:
