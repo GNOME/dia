@@ -10,6 +10,7 @@
 	* objects/standard/polyline.c (polyline_create): 
 	* objects/standard/beziergon.c (beziergon_create): 
 	* objects/standard/bezier.c (bezierline_create): 
+	Moving create.h into lib.
 
 2002-08-13  Lars Clausen  <lrclause@cs.uiuc.edu>
 
