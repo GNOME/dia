@@ -1,3 +1,21 @@
+2002-11-25  David Hoover <jazzdaq@yahoo.com>
+
+	* app/render_libart.c: Added missing #include line for libart.
+
+	* lib/geometry.h:
+	* lib/geometry.c: Added point_convex function.  This computes
+	points inside a line segment (0 <= alpha <= 1) or outside the
+	line segment (alpha < 0 | alpha > 1).
+
+	* objects/standard/line.c: Line now has additional code/attributes
+	which permit the line to extend past the line anchors (gap < 0) or
+	leave a gap without reaching the anchor (gap > 0).  If no gap is
+	specified, the default gap of 0 will result in identical line
+	behavior as before.  If the 'fractional' attributes are TRUE, the
+	gap length is not fixed, but a percentage of the line length.  I
+	did not know how create the GTK widgets so the gap code currently
+	cannot be used without adding XML attributes by hand.
+
 2002-11-25  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
 
 	* lib/diagdkrenderer.c (draw_string): Removed timing bits.

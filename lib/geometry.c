@@ -544,6 +544,16 @@ determinate (Matrix m)
 
 
 
+void
+point_convex(Point *dst, const Point *src1, const Point *src2, real alpha)
+{
+  /* Make convex combination of src1 and src2:
+     dst = alpha * src1 + (1-alpha) * src2;
+  */
+  point_copy(dst,src1);
+  point_scale(dst,alpha);
+  point_add_scaled(dst,src2,1.0 - alpha);
+}
 
 
 

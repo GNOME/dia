@@ -243,6 +243,7 @@ point_copy_add_scaled(Point *dst, const Point *src,
 }
 #endif
 
+void point_convex(Point *dst, const Point *src1, const Point *src2, real alpha);
 
 void rectangle_union(Rectangle *r1, const Rectangle *r2);
 void int_rectangle_union(IntRectangle *r1, const IntRectangle *r2);

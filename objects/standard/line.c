@@ -1,5 +1,6 @@
 /* Dia -- an diagram creation/manipulation program
  * Copyright (C) 1998 Alexander Larsson
+ * Copyright (C) 2002 David Hoover
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -38,6 +39,8 @@
 
 #define DEFAULT_WIDTH 0.25
 
+typedef struct _LineProperties LineProperties;
+
 typedef struct _Line {
   Connection connection;
 
@@ -48,7 +51,16 @@ typedef struct _Line {
   LineStyle line_style;  
   Arrow start_arrow, end_arrow;
   real dashlength;
+  real start_gap, end_gap;
+  gboolean start_fractional_gap, end_fractional_gap;
 } Line;
+
+struct _LineProperties {
+  real start_gap, end_gap;
+  gboolean start_fractional_gap, end_fractional_gap;
+};
+
+static LineProperties default_properties;
 
 static void line_move_handle(Line *line, Handle *handle,
 			     Point *to, HandleMoveReason reason, 
@@ -73,6 +85,8 @@ static void line_set_props(Line *line, GPtrArray *props);
 static void line_save(Line *line, ObjectNode obj_node, const char *filename);
 static Object *line_load(ObjectNode obj_node, int version, const char *filename);
 static DiaMenu *line_get_object_menu(Line *line, Point *clickedpoint);
+
+void calculate_gap_endpoints(Line *line, Point *gap_endpoints);
 
 static ObjectTypeOps line_type_ops =
 {
@@ -120,6 +134,14 @@ static PropDescription line_props[] = {
     N_("Start point"), NULL },
   { "end_point", PROP_TYPE_POINT, 0,
     N_("End point"), NULL },
+  { "start_gap", PROP_TYPE_REAL, 0,
+    N_("Start gap"), NULL },
+  { "end_gap", PROP_TYPE_REAL, 0,
+    N_("End gap"), NULL },
+  { "start_fractional_gap", PROP_TYPE_BOOL, 0,
+    N_("Start fractional gap"), NULL },
+  { "end_fractional_gap", PROP_TYPE_BOOL, 0,
+    N_("End fractional gap"), NULL },
   PROP_DESC_END
 };
 
@@ -141,6 +163,10 @@ static PropOffset line_offsets[] = {
   { "end_arrow", PROP_TYPE_ARROW, offsetof(Line, end_arrow) },
   { "start_point", PROP_TYPE_POINT, offsetof(Connection, endpoints[0]) },
   { "end_point", PROP_TYPE_POINT, offsetof(Connection, endpoints[1]) },
+  { "start_gap", PROP_TYPE_REAL, offsetof(Line, start_gap) },
+  { "end_gap", PROP_TYPE_REAL, offsetof(Line, end_gap) },
+  { "start_fractional_gap", PROP_TYPE_BOOL, offsetof(Line, start_fractional_gap) },
+  { "end_fractional_gap", PROP_TYPE_BOOL, offsetof(Line, end_fractional_gap) },
   { NULL, 0, 0 }
 };
 
@@ -157,6 +183,19 @@ line_set_props(Line *line, GPtrArray *props)
   object_set_props_from_offsets(&line->connection.object, 
                                 line_offsets, props);
   line_update_data(line);
+}
+
+static void
+line_init_defaults() {
+  static int defaults_initialized = 0;
+
+  if (!defaults_initialized) {
+    default_properties.start_gap = 0.0;
+    default_properties.end_gap = 0.0;
+    default_properties.start_fractional_gap = 0;
+    default_properties.end_fractional_gap = 0;
+    defaults_initialized = 1;
+  }
 }
 
 static ObjectChange *
@@ -204,14 +243,52 @@ line_get_object_menu(Line *line, Point *clickedpoint)
   return &object_menu;
 }
 
+/*
+  About start_gap, end_gap, start_fractional_gap, end_fractional_gap
+  
+  Place positive reals (try 1.0, for instance) to create gaps on line
+  end/start.  If fractional_gap is false, these gaps are of fixed
+  length.  If fractional_gap is true, these gaps are a fraction of
+  total line length.  I don't know if fractional gaps are really
+  useful, but since it doesn't complicate the code, why not?
+  If a gap are negative, the line extends past the handle.
+  
+  Gaps as implemented for now do not use any object intersection
+  code.  It would be nice to have gap code that combined a fixed gap
+  length which could be optionally added to the object intersection
+  gap.
+*/
+void
+calculate_gap_endpoints(Line *line, Point *gap_endpoints)
+{
+  Point *endpoints;
+  real line_length;
+
+  endpoints = &line->connection.endpoints[0];
+  line_length = distance_point_point(&endpoints[0],&endpoints[1]);
+
+  point_convex(&gap_endpoints[0],&endpoints[1],&endpoints[0],
+	       line->start_gap/(line->start_fractional_gap ? 100 : line_length));
+  point_convex(&gap_endpoints[1],&endpoints[0],&endpoints[1],
+	       line->end_gap/(line->end_fractional_gap ? 100 : line_length));
+}
+
 static real
 line_distance_from(Line *line, Point *point)
 {
   Point *endpoints;
 
   endpoints = &line->connection.endpoints[0]; 
-  return distance_line_point( &endpoints[0], &endpoints[1],
-			      line->line_width, point);
+  if (line->start_gap || line->end_gap) {
+    Point gap_endpoints[2];
+    
+    calculate_gap_endpoints(line, gap_endpoints);
+    return distance_line_point( &gap_endpoints[0], &gap_endpoints[1],
+				line->line_width, point);
+  } else {
+    return distance_line_point( &endpoints[0], &endpoints[1],
+				line->line_width, point);
+  }
 }
 
 static void
@@ -252,21 +329,22 @@ line_move(Line *line, Point *to)
 static void
 line_draw(Line *line, DiaRenderer *renderer)
 {
+  Point gap_endpoints[2];
+
   DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
-  Point *endpoints;
   
   assert(line != NULL);
   assert(renderer != NULL);
-
-  endpoints = &line->connection.endpoints[0];
 
   renderer_ops->set_linewidth(renderer, line->line_width);
   renderer_ops->set_linestyle(renderer, line->line_style);
   renderer_ops->set_dashlength(renderer, line->dashlength);
   renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
 
+  calculate_gap_endpoints(line, gap_endpoints);
+
   renderer_ops->draw_line_with_arrows(renderer,
-				       &endpoints[0], &endpoints[1],
+				       &gap_endpoints[0], &gap_endpoints[1],
 				       line->line_width,
 				       &line->line_color,
 				       &line->start_arrow,
@@ -284,12 +362,16 @@ line_create(Point *startpoint,
   Object *obj;
   Point defaultlen = { 1.0, 1.0 };
 
-  /*line_init_defaults();*/
+  line_init_defaults();
 
   line = g_malloc0(sizeof(Line));
 
   line->line_width = attributes_get_default_linewidth();
   line->line_color = attributes_get_foreground();
+  line->start_gap = default_properties.start_gap;
+  line->end_gap = default_properties.end_gap;
+  line->start_fractional_gap = default_properties.start_fractional_gap;
+  line->end_fractional_gap = default_properties.end_fractional_gap;
   
   conn = &line->connection;
   conn->endpoints[0] = *startpoint;
@@ -345,6 +427,10 @@ line_copy(Line *line)
   newline->dashlength = line->dashlength;
   newline->start_arrow = line->start_arrow;
   newline->end_arrow = line->end_arrow;
+  newline->start_gap = line->start_gap;
+  newline->end_gap = line->end_gap;
+  newline->start_fractional_gap = line->start_fractional_gap;
+  newline->end_fractional_gap = line->end_fractional_gap;
 
   line_update_data(line);
 
@@ -366,7 +452,16 @@ line_update_data(Line *line)
     extra->start_trans = MAX(extra->start_trans,line->start_arrow.width);
   if (line->end_arrow.type != ARROW_NONE) 
     extra->end_trans = MAX(extra->end_trans,line->end_arrow.width);
-  connection_update_boundingbox(conn);
+
+  if (line->start_gap || line->end_gap) {
+    Point gap_endpoints[2];
+
+    calculate_gap_endpoints(line, gap_endpoints);
+    line_bbox(&gap_endpoints[0],&gap_endpoints[1],
+	      &conn->extra_spacing,&conn->object.bounding_box);
+  } else {
+    connection_update_boundingbox(conn);
+  }
 
   obj->position = conn->endpoints[0];
 
@@ -414,6 +509,19 @@ line_save(Line *line, ObjectNode obj_node, const char *filename)
 		  line->end_arrow.width);
   }
  
+  if (line->start_gap)
+    data_add_real(new_attribute(obj_node, "start_gap"),
+		  line->start_gap);
+  if (line->end_gap)
+    data_add_real(new_attribute(obj_node, "end_gap"),
+		  line->end_gap);
+  if (line->start_fractional_gap)
+    data_add_boolean(new_attribute(obj_node, "start_fractional_gap"),
+		  line->start_fractional_gap);
+  if (line->end_fractional_gap)
+    data_add_boolean(new_attribute(obj_node, "end_fractional_gap"),
+		  line->end_fractional_gap);
+
   if (line->line_style != LINESTYLE_SOLID && line->dashlength != DEFAULT_LINESTYLE_DASHLEN)
     data_add_real(new_attribute(obj_node, "dashlength"),
 		  line->dashlength);
@@ -477,6 +585,23 @@ line_load(ObjectNode obj_node, int version, const char *filename)
   attr = object_find_attribute(obj_node, "end_arrow_width");
   if (attr != NULL)
     line->end_arrow.width = data_real(attribute_first_data(attr));
+
+  line->start_gap = 0.0;
+  attr = object_find_attribute(obj_node, "start_gap");
+  if (attr != NULL)
+    line->start_gap =  data_real( attribute_first_data(attr) );
+  line->end_gap = 0.0;
+  attr = object_find_attribute(obj_node, "end_gap");
+  if (attr != NULL)
+    line->end_gap =  data_real( attribute_first_data(attr) );
+  line->start_fractional_gap = 0;
+  attr = object_find_attribute(obj_node, "start_fractional_gap");
+  if (attr != NULL)
+    line->start_fractional_gap =  data_boolean( attribute_first_data(attr) );
+  line->end_fractional_gap = 0;
+  attr = object_find_attribute(obj_node, "end_fractional_gap");
+  if (attr != NULL)
+    line->end_fractional_gap =  data_boolean( attribute_first_data(attr) );
 
   line->dashlength = DEFAULT_LINESTYLE_DASHLEN;
   attr = object_find_attribute(obj_node, "dashlength");
