@@ -40,9 +40,8 @@ AC_DEFUN(DIA_CHECK_CFLAG, [
 # numbers and dots only.
 
 
-AC_DEFUN([AM_PATH_PYTHON_JH],
+AC_DEFUN([AM_PATH_PYTHON],
  [
-  AC_PROVIDE([AM_PATH_PYTHON])
   dnl Find a version of Python.  I could check for python versions 1.4
   dnl or earlier, but the default installation locations changed from
   dnl $prefix/lib/site-python in 1.4 to $prefix/lib/python1.5/site-packages

@@ -1,3 +1,11 @@
+2001-05-26  James Henstridge  <james@daa.com.au>
+
+	* configure.in: call AM_PATH_PYTHON rather than AM_PATH_PYTHON_JH.
+	This should clear up some of the build problems people have been
+	having.
+
+	* acinclude.m4: call AM_PATH_PYTHON_JH AM_PATH_PYTHON
+
 2001-05-26  Cyrille Chepelov  <chepelov@calixo.net>
 
 	* lib/Makefile.am:
