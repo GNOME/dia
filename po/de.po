@@ -1,16 +1,16 @@
-# German dia translation
+# German dia translation.
 # Copyright (C) 1999-2003 Free Software Foundation, Inc.
 # Karsten Weiss <knweiss@gmx.de>, 1999, 2000, 2002.
 # Daniel Egger <Daniel.Egger@suse.de>, 2000.
-# Benedikt Roth <Benedikt.Roth@gmx.net>, 2000
+# Benedikt Roth <Benedikt.Roth@gmx.net>, 2000.
 # Christian Meyer <chrisime@gnome.org>, 2001.
 # Jörgen Scheibengruber <mfcn@gmx.de>, 2002.
 # Christian Neumair <chris@gnome-de.org>, 2002, 2003.
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.90+ (cvs)\n"
-"POT-Creation-Date: 2003-01-20 22:18+0100\n"
-"PO-Revision-Date: 2003-01-20 22:18+0100\n"
+"POT-Creation-Date: 2003-01-22 20:45+0100\n"
+"PO-Revision-Date: 2003-01-22 20:45+0100\n"
 "Last-Translator: Christian Neumair <chris@gnome-de.org>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -156,7 +156,7 @@ msgstr ""
 "Es existieren automatisch gespeicherte Dateien.\n"
 "Bitte wählen Sie diejenige aus, die Sie wiederherstellen möchten."
 
-#: app/color_area.c:301 lib/widgets.c:867
+#: app/color_area.c:316 lib/widgets.c:870
 msgid "Select color"
 msgstr "Farbe wählen"
 
@@ -241,7 +241,7 @@ msgstr ""
 "und könnte Abstürze verursachen. Wir wissen über die Fehler bescheid\n"
 "und würden Sie bitten KEINE Meldung darüber zu erstattten."
 
-#: app/defaults.c:43 app/defaults.c:145
+#: app/defaults.c:43 app/defaults.c:146
 msgid "Object defaults"
 msgstr "Objekt-Voreinstellungen"
 
@@ -249,7 +249,7 @@ msgstr "Objekt-Voreinstellungen"
 msgid "This object has no defaults."
 msgstr "Dieses Objekt hat keine Voreinstellungen."
 
-#: app/defaults.c:110
+#: app/defaults.c:111
 msgid "Defaults: "
 msgstr "Vorgaben:"
 
@@ -400,8 +400,8 @@ msgstr "Diagrammbaum"
 msgid "Ok"
 msgstr "Ok"
 
-#: app/dialogs.c:52 app/layer_dialog.c:988 app/lineprops_area.c:438
-#: app/lineprops_area.c:638 app/linewidth_area.c:244
+#: app/dialogs.c:52 app/layer_dialog.c:1006 app/lineprops_area.c:452
+#: app/lineprops_area.c:663 app/linewidth_area.c:252
 #: app/paginate_psprint.c:274
 msgid "Cancel"
 msgstr "Abbrechen"
@@ -463,35 +463,35 @@ msgstr "%0.3gcm x %0.3gcm"
 msgid "Page Setup"
 msgstr "Seiteneinstellungen"
 
-#: app/dia-props.c:54
+#: app/dia-props.c:61
 msgid "Diagram Properties"
 msgstr "Diagramm-Eigenschaften"
 
-#: app/dia-props.c:87
+#: app/dia-props.c:96
 msgid "x"
 msgstr "x"
 
-#: app/dia-props.c:91
+#: app/dia-props.c:100
 msgid "y"
 msgstr "y"
 
-#: app/dia-props.c:96
+#: app/dia-props.c:105
 msgid "Spacing"
 msgstr "Abstand"
 
-#: app/dia-props.c:116
+#: app/dia-props.c:125
 msgid "Visible spacing"
 msgstr "Sichtbarer Abstand"
 
-#: app/dia-props.c:136
+#: app/dia-props.c:145
 msgid "Grid"
 msgstr "Gitter"
 
-#: app/dia-props.c:146
+#: app/dia-props.c:155
 msgid "Background Colour"
 msgstr "Hintergrundfarbe"
 
-#: app/dia-props.c:157 lib/diagramdata.c:58
+#: app/dia-props.c:166 lib/diagramdata.c:58
 msgid "Background"
 msgstr "Hintergrund"
 
@@ -542,7 +542,7 @@ msgstr "Änderungen verwerfen"
 #: plug-ins/xfig/xfig-export.c:869 plug-ins/xslt/xslt.c:90
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
-msgstr "Die Datei '%s' konnte nicht zum Schreiben geöffnet werden.\n"
+msgstr "»%s« konnte nicht zum Schreiben geöffnet werden.\n"
 
 #: app/export_png.c:122
 msgid "Could not create PNG write structure"
@@ -578,27 +578,27 @@ msgstr "Bildhöhe:"
 msgid "Portable Network Graphics"
 msgstr "Portable Network Graphics"
 
-#: app/filedlg.c:102 app/filedlg.c:402
+#: app/filedlg.c:109 app/filedlg.c:413
 msgid "By extension"
 msgstr "Nach Erweiterung"
 
-#: app/filedlg.c:161
+#: app/filedlg.c:168
 msgid "Open Diagram"
 msgstr "Diagramm öffnen"
 
-#: app/filedlg.c:187
+#: app/filedlg.c:196
 msgid "Open Options"
 msgstr "Optionen zum Öffnen"
 
-#: app/filedlg.c:195 app/filedlg.c:555
+#: app/filedlg.c:204 app/filedlg.c:568
 msgid "Determine file type:"
 msgstr "Dateityp bestimmen:"
 
-#: app/filedlg.c:236 app/filedlg.c:449
+#: app/filedlg.c:245 app/filedlg.c:460
 msgid "File already exists"
 msgstr "Die Datei exisiert bereits"
 
-#: app/filedlg.c:242
+#: app/filedlg.c:251
 msgid ""
 "Some characters in the filename are neither UTF-8 nor your local encoding.\n"
 "Some things will break."
@@ -607,36 +607,36 @@ msgstr ""
 "Lokalisierungseinstellungen kodiert.\n"
 "Daher funktionieren einige Dinge nicht."
 
-#: app/filedlg.c:248 app/filedlg.c:452
+#: app/filedlg.c:257 app/filedlg.c:463
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
 "Do you want to overwrite it?"
 msgstr ""
-"Die Datei %s existiert bereits.\n"
-"Wollen Sie sie überschreiben?"
+"Die Datei »%s« existiert bereits.\n"
+"Soll sie überschrieben werden?"
 
-#: app/filedlg.c:259 app/filedlg.c:464 app/preferences.c:595
+#: app/filedlg.c:268 app/filedlg.c:475 app/preferences.c:595
 #: lib/prop_inttypes.c:151
 msgid "Yes"
 msgstr "Ja"
 
-#: app/filedlg.c:272 app/filedlg.c:477 app/preferences.c:595
+#: app/filedlg.c:281 app/filedlg.c:488 app/preferences.c:595
 #: app/preferences.c:606 lib/prop_inttypes.c:153 lib/prop_inttypes.c:179
 msgid "No"
 msgstr "Nein"
 
-#: app/filedlg.c:317
+#: app/filedlg.c:326
 msgid "Save Diagram"
 msgstr "Diagramm speichern"
 
 #. Need better way to make it a reasonable size.  Isn't there some
 #. standard look for them (or is that just Gnome?)
-#: app/filedlg.c:325
+#: app/filedlg.c:334
 msgid "Compress diagram files"
 msgstr "Diagrammdateien komprimieren"
 
-#: app/filedlg.c:332
+#: app/filedlg.c:341
 msgid ""
 "Compression reduces file size to less than 1/10th size and speeds up loading "
 "and saving.  Some text programs cannot manipulate compressed files."
@@ -645,7 +645,7 @@ msgstr ""
 "das Laden und Speichern. Einige Texteditoren können komprimierte Dateien "
 "nicht bearbeiten."
 
-#: app/filedlg.c:509
+#: app/filedlg.c:520
 #, c-format
 msgid ""
 "Could not determine which export filter\n"
@@ -654,11 +654,11 @@ msgstr ""
 "Es konnte nicht festgestellt werden, \n"
 "welcher Filter verwendet werden muss, um »%s« zu speichern"
 
-#: app/filedlg.c:527
+#: app/filedlg.c:538
 msgid "Export Diagram"
 msgstr "Diagramm exportieren"
 
-#: app/filedlg.c:547
+#: app/filedlg.c:560
 msgid "Export Options"
 msgstr "Export-Optionen"
 
@@ -818,59 +818,59 @@ msgstr "Ebene absenken"
 msgid "Delete Layer"
 msgstr "Ebene löschen"
 
-#: app/layer_dialog.c:206
+#: app/layer_dialog.c:213
 msgid "Layers"
 msgstr "Ebenen"
 
-#: app/layer_dialog.c:218
+#: app/layer_dialog.c:227
 msgid "Diagrams:"
 msgstr "Diagramme:"
 
-#: app/layer_dialog.c:263 app/pagesetup.c:83 app/preferences.c:739
+#: app/layer_dialog.c:272 app/pagesetup.c:83 app/preferences.c:739
 msgid "Close"
 msgstr "Schließen"
 
-#: app/layer_dialog.c:308
+#: app/layer_dialog.c:317
 msgid "New layer"
 msgstr "Neue Ebene"
 
-#: app/layer_dialog.c:511
+#: app/layer_dialog.c:520
 msgid "none"
 msgstr "keine"
 
-#: app/layer_dialog.c:953
+#: app/layer_dialog.c:968
 msgid "Edit Layer Attributes"
 msgstr "Attribute der Ebene ändern"
 
-#: app/layer_dialog.c:969
+#: app/layer_dialog.c:987
 msgid "Layer name:"
 msgstr "Name der Ebene:"
 
 #. setup buttons
-#: app/layer_dialog.c:978 app/lineprops_area.c:429 app/lineprops_area.c:628
-#: app/linewidth_area.c:235 app/pagesetup.c:72 app/paginate_psprint.c:266
+#: app/layer_dialog.c:996 app/lineprops_area.c:443 app/lineprops_area.c:653
+#: app/linewidth_area.c:243 app/pagesetup.c:72 app/paginate_psprint.c:266
 #: app/preferences.c:721
 msgid "OK"
 msgstr "OK"
 
-#: app/lineprops_area.c:418
+#: app/lineprops_area.c:429
 msgid "Arrow Properties"
 msgstr "Pfeil-Eigenschaften"
 
-#: app/lineprops_area.c:475 app/lineprops_area.c:661
+#: app/lineprops_area.c:491 app/lineprops_area.c:686
 msgid "Details..."
 msgstr "Details..."
 
-#: app/lineprops_area.c:617
+#: app/lineprops_area.c:642
 msgid "Line Style Properties"
 msgstr "Eigenschaften der Linie"
 
-#: app/linewidth_area.c:216 lib/properties.h:472
+#: app/linewidth_area.c:224 lib/properties.h:472
 #: objects/chronogram/chronoline.c:180 objects/chronogram/chronoref.c:159
 msgid "Line width"
 msgstr "Linienbreite"
 
-#: app/linewidth_area.c:222
+#: app/linewidth_area.c:230
 msgid "Line width:"
 msgstr "Linienbreite:"
 
@@ -906,7 +906,7 @@ msgstr "Sie müssen eine Datei und kein Verzeichnis angeben.\n"
 #: plug-ins/xfig/xfig-import.c:1347 plug-ins/xslt/xslt.c:81
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
-msgstr "'%s' kann nicht zum Lesen geöffnet werden.\n"
+msgstr "»%s« konnte nicht zum Lesen geöffnet werden.\n"
 
 #: app/load_save.c:271 app/load_save.c:276
 #, c-format
@@ -940,7 +940,7 @@ msgstr ""
 #: app/load_save.c:779
 #, c-format
 msgid "Failed to save file '%s'.\n"
-msgstr "Datei '%s' konnte nicht gesichert werden.\n"
+msgstr "Datei »%s« konnte nicht gespeichert werden.\n"
 
 #: app/load_save.c:849 app/load_save.c:854
 msgid "Native Dia Diagram"
@@ -1033,7 +1033,7 @@ msgstr "K_antenglättung"
 #. TODO: Show Menu Bar  F9.  Hub's cool code.
 #: app/menus.c:140
 msgid "Show _Grid"
-msgstr "_Gitter zeigen"
+msgstr "_Gitter anzeigen"
 
 #: app/menus.c:142
 msgid "_Snap To Grid"
@@ -1041,11 +1041,11 @@ msgstr "Am Gitter einra_sten"
 
 #: app/menus.c:144
 msgid "Show _Rulers"
-msgstr "_Lineale zeigen"
+msgstr "_Lineale anzeigen"
 
 #: app/menus.c:146
 msgid "Show _Connection Points"
-msgstr "_Verbindungspunkte zeigen"
+msgstr "_Verbindungspunkte anzeigen"
 
 #: app/menus.c:149
 msgid "New _View"
@@ -1053,7 +1053,7 @@ msgstr "Neue An_sicht"
 
 #: app/menus.c:150
 msgid "Show _All"
-msgstr "_Alles zeigen"
+msgstr "_Alles anzeigen"
 
 #: app/menus.c:151
 msgid "Redraw"
@@ -1085,7 +1085,7 @@ msgstr "Invertieren"
 msgid "All"
 msgstr "Alles"
 
-#: app/menus.c:171 lib/widgets.c:1009 objects/UML/association.c:1071
+#: app/menus.c:171 lib/widgets.c:1012 objects/UML/association.c:1071
 msgid "None"
 msgstr "Keine"
 
@@ -1101,15 +1101,15 @@ msgstr "Transitiv"
 msgid "Same Type"
 msgstr "Gleicher Typ"
 
-#: app/menus.c:182 lib/properties.c:62 lib/properties.h:460 lib/widgets.c:551
+#: app/menus.c:182 lib/properties.c:62 lib/properties.h:460 lib/widgets.c:554
 msgid "Left"
 msgstr "Links"
 
-#: app/menus.c:183 lib/properties.c:63 lib/properties.h:461 lib/widgets.c:557
+#: app/menus.c:183 lib/properties.c:63 lib/properties.h:461 lib/widgets.c:560
 msgid "Center"
 msgstr "Mitte"
 
-#: app/menus.c:184 lib/properties.c:64 lib/properties.h:462 lib/widgets.c:563
+#: app/menus.c:184 lib/properties.c:64 lib/properties.h:462 lib/widgets.c:566
 msgid "Right"
 msgstr "Rechts"
 
@@ -1385,7 +1385,7 @@ msgstr "/Ansicht/K_antenglättung"
 
 #: app/menus.c:377
 msgid "/View/Show _Grid"
-msgstr "/Ansicht/_Gitter zeigen"
+msgstr "/Ansicht/_Gitter anzeigen"
 
 #: app/menus.c:378
 msgid "/View/_Snap To Grid"
@@ -1393,11 +1393,11 @@ msgstr "/Ansicht/Am Gitter einras_ten"
 
 #: app/menus.c:379
 msgid "/View/Show _Rulers"
-msgstr "/Ansicht/_Lineale zeigen"
+msgstr "/Ansicht/_Lineale anzeigen"
 
 #: app/menus.c:380
 msgid "/View/Show _Connection Points"
-msgstr "/Ansicht/Ver_bindungspunkte zeigen"
+msgstr "/Ansicht/Ver_bindungspunkte anzeigen"
 
 #: app/menus.c:382
 msgid "/View/New _View"
@@ -1406,7 +1406,7 @@ msgstr "/Ansicht/_Neue Ansicht"
 #. Show All, Best Fit.  Same as the Gimp, Ctrl+E
 #: app/menus.c:384
 msgid "/View/Show _All"
-msgstr "/Ansicht/_Alles zeigen"
+msgstr "/Ansicht/_Alles anzeigen"
 
 #: app/menus.c:385
 msgid "/View/Re_draw"
@@ -1662,12 +1662,12 @@ msgstr "Datei"
 #: app/paginate_psprint.c:340
 #, c-format
 msgid "Could not run command '%s'"
-msgstr "'%s' konnte nicht ausgeführt werden"
+msgstr "Befehl »%s« konnte nicht ausgeführt werden"
 
 #: app/paginate_psprint.c:343
 #, c-format
 msgid "Could not open '%s' for writing"
-msgstr "'%s' konnte nicht zum Schreiben geöffnet werden"
+msgstr "»%s« konnte nicht zum Schreiben geöffnet werden"
 
 #: app/paginate_psprint.c:368
 msgid "Error occured while printing"
@@ -1839,7 +1839,7 @@ msgstr "Verborgene Objekttypen speichern:"
 #: app/preferences.c:303
 #, c-format
 msgid "Could not open `%s' for writing"
-msgstr "Datei '%s' konnte nicht zum Schreiben geöffnet werden"
+msgstr "»%s« konnte nicht zum Schreiben geöffnet werden"
 
 #: app/preferences.c:691 app/preferences.c:700
 msgid "Preferences"
@@ -2072,31 +2072,31 @@ msgstr ""
 #: app/sheets_dialog_callbacks.c:808
 #, c-format
 msgid "Filename must end with '%s': '%s'"
-msgstr "Dateiname muß mit '%s' enden: '%s'"
+msgstr "Dateiname von »%s« muss auf »%s« enden"
 
 #: app/sheets_dialog_callbacks.c:816
 #, c-format
 msgid "Error examining %s: %s"
-msgstr "Fehler beim Begutachten %s: %s"
+msgstr "Fehler beim Begutachten von %s: %s"
 
 #: app/sheets_dialog_callbacks.c:836
 #, c-format
 msgid "Could not interpret shape file: '%s'"
-msgstr "Die Formdatei konnte nicht interpretiert werden: '%s'"
+msgstr "Formdatei »%s« konnte nicht verarbeitet werden"
 
 #: app/sheets_dialog_callbacks.c:905
 msgid "Sheet must have a Name"
-msgstr "Der Objektbogen muß einen Namen haben"
+msgstr "Der Objektbogen muss einen Namen haben"
 
 #: app/sheets_dialog_callbacks.c:1594 app/sheets_dialog_callbacks.c:1600
 #, c-format
 msgid "Couldn't open '%s': %s"
-msgstr "'%s' konnte nicht geöffnet werden: %s"
+msgstr "»%s« konnte nicht geöffnet werden: %s"
 
 #: app/sheets_dialog_callbacks.c:1651
 #, c-format
 msgid "Couldn't open: '%s' for writing"
-msgstr "Die Datei '%s' konnte nicht zum Schreiben geöffnet werden"
+msgstr "»%s« konnte nicht zum Schreiben geöffnet werden"
 
 #: app/sheets_dialog_callbacks.c:1660
 msgid "a user"
@@ -2260,7 +2260,7 @@ msgid ""
 "Error loading defaults '%s'.\n"
 "Not a Dia diagram file."
 msgstr ""
-"Fehler beim Laden von »%s« (vorgegeben).\n"
+"Fehler beim Laden von »%s« (voreingestellt).\n"
 "Keine Dia-Diagrammdatei."
 
 #: lib/plug-ins.c:120
@@ -2357,147 +2357,147 @@ msgstr "Schriftgröße"
 msgid "Text colour"
 msgstr "Schriftfarbe"
 
-#: lib/widgets.c:217
+#: lib/widgets.c:220
 msgid "Other fonts..."
 msgstr "Andere Schriften..."
 
-#: lib/widgets.c:319
+#: lib/widgets.c:322
 #, c-format
 msgid "Couldn't find font family for %s\n"
 msgstr "Schriftfamilie von %s konnte nicht gefunden\n"
 
 #. We hit the Other fonts... entry
-#: lib/widgets.c:362
+#: lib/widgets.c:365
 msgid "Select font"
 msgstr "Schrift wählen"
 
 #. Translators: Menu item Noun/Material/Solid
-#: lib/widgets.c:672 objects/FS/function.c:1039
+#: lib/widgets.c:675 objects/FS/function.c:1039
 msgid "Solid"
 msgstr "Durchgezogen"
 
-#: lib/widgets.c:678
+#: lib/widgets.c:681
 msgid "Dashed"
 msgstr "Gestrichelt"
 
-#: lib/widgets.c:684
+#: lib/widgets.c:687
 msgid "Dash-Dot"
 msgstr "Strich-Punkt"
 
-#: lib/widgets.c:690
+#: lib/widgets.c:693
 msgid "Dash-Dot-Dot"
 msgstr "Strich-Punkt-Punkt"
 
-#: lib/widgets.c:696
+#: lib/widgets.c:699
 msgid "Dotted"
 msgstr "Gepunktet"
 
 #. fs->sizebox = GTK_HBOX(box);
-#: lib/widgets.c:714
+#: lib/widgets.c:717
 msgid "Dash length: "
 msgstr "Strichlänge: "
 
-#: lib/widgets.c:1010
+#: lib/widgets.c:1013
 msgid "Lines"
 msgstr "Linien"
 
-#: lib/widgets.c:1011
+#: lib/widgets.c:1014
 msgid "Hollow Triangle"
 msgstr "Unausgefülltes Dreieck"
 
-#: lib/widgets.c:1012
+#: lib/widgets.c:1015
 msgid "Filled Triangle"
 msgstr "Gefülltes Dreieck"
 
-#: lib/widgets.c:1013
+#: lib/widgets.c:1016
 msgid "Unfilled Triangle"
 msgstr "Unausgefülltes Dreieck"
 
-#: lib/widgets.c:1014
+#: lib/widgets.c:1017
 msgid "Filled Diamond"
 msgstr "Gefüllter Diamant"
 
-#: lib/widgets.c:1015
+#: lib/widgets.c:1018
 msgid "Half Head"
 msgstr "Halber Pfeil"
 
-#: lib/widgets.c:1016
+#: lib/widgets.c:1019
 msgid "Slashed Cross"
 msgstr "Kreuz"
 
-#: lib/widgets.c:1017
+#: lib/widgets.c:1020
 msgid "Filled Ellipse"
 msgstr "Gefüllte Ellipse"
 
-#: lib/widgets.c:1018
+#: lib/widgets.c:1021
 msgid "Hollow Ellipse"
 msgstr "Unausgefüllte Ellipse"
 
-#: lib/widgets.c:1019
+#: lib/widgets.c:1022
 msgid "Filled Dot"
 msgstr "Gefüllter Punkt"
 
-#: lib/widgets.c:1020
+#: lib/widgets.c:1023
 msgid "Dimension Origin"
 msgstr "Dimensionsursprung"
 
-#: lib/widgets.c:1021
+#: lib/widgets.c:1024
 msgid "Blanked Dot"
 msgstr "Unausgefüllter Punkt"
 
-#: lib/widgets.c:1022
+#: lib/widgets.c:1025
 msgid "Double Hollow triangle"
 msgstr "Doppelt unausgefülltes Dreieck"
 
-#: lib/widgets.c:1023
+#: lib/widgets.c:1026
 msgid "Double Filled triangle"
 msgstr "Doppelt gefülltes Dreieck"
 
-#: lib/widgets.c:1024
+#: lib/widgets.c:1027
 msgid "Filled Box"
 msgstr "Gefüllter Kasten"
 
-#: lib/widgets.c:1025
+#: lib/widgets.c:1028
 msgid "Blanked Box"
 msgstr "Unausgefüllter Kasten"
 
-#: lib/widgets.c:1026
+#: lib/widgets.c:1029
 msgid "Slashed"
 msgstr "Gestrichelt"
 
-#: lib/widgets.c:1027
+#: lib/widgets.c:1030
 msgid "Integral Symbol"
 msgstr "Integralsymbol"
 
-#: lib/widgets.c:1028
+#: lib/widgets.c:1031
 msgid "Crow Foot"
 msgstr "Krähenfuß"
 
-#: lib/widgets.c:1029
+#: lib/widgets.c:1032
 msgid "Cross"
 msgstr "Kreuz"
 
-#: lib/widgets.c:1030
+#: lib/widgets.c:1033
 msgid "Filled Concave"
 msgstr "Gefüllte Aushöhlung"
 
-#: lib/widgets.c:1031
+#: lib/widgets.c:1034
 msgid "Blanked Concave"
 msgstr "Leere Aushöhlung"
 
-#: lib/widgets.c:1068
+#: lib/widgets.c:1071
 msgid "Length: "
 msgstr "Länge: "
 
-#: lib/widgets.c:1081
+#: lib/widgets.c:1084
 msgid "Width: "
 msgstr "Breite: "
 
-#: lib/widgets.c:1208
+#: lib/widgets.c:1211
 msgid "Select image file"
 msgstr "Bilddatei auswählen"
 
-#: lib/widgets.c:1238
+#: lib/widgets.c:1241
 msgid "Browse"
 msgstr "Auswählen"
 
@@ -2625,7 +2625,7 @@ msgstr "Vertikal spiegeln"
 #, c-format
 msgid "Cannot open icon file %s for object type '%s'."
 msgstr ""
-"Die Symbol-Datei %s für den Objekttyp '%s' konnte nicht geöffnet werden."
+"Die Symboldatei %s für den Objekttyp »%s« konnte nicht geöffnet werden."
 
 #: objects/ER/attribute.c:152
 msgid "Key:"
@@ -3642,7 +3642,7 @@ msgstr "Druck"
 #. Translators: Menu item Noun/Energy/Hydraulic/Volumetric Flow
 #: objects/FS/function.c:1095
 msgid "Volumetric Flow"
-msgstr "Durchfluß"
+msgstr "Durchfluss"
 
 #. Translators: Menu item Noun/Energy/Thermal
 #: objects/FS/function.c:1097
@@ -3909,7 +3909,7 @@ msgstr "Breite der Pfeillinie des zweiten Pfeils"
 
 #: objects/Misc/analog_clock.c:144
 msgid "Show hours"
-msgstr "Stunden zeigen"
+msgstr "Stunden anzeigen"
 
 #: objects/Misc/libmisc.c:38
 msgid "Miscellaneous objects"
@@ -4032,14 +4032,14 @@ msgid ""
 "The image file '%s' was not found in that directory.\n"
 "Using the file '%s' instead\n"
 msgstr ""
-"Die Bilddatei '%s' wurde in diesem Verzeichnis nicht gefunden.\n"
-"Stattdessen wird die Datei '%s' verwendet\n"
+"Die Bilddatei »%s« konnte in diesem Verzeichnis nicht gefunden werden.\n"
+"Stattdessen wird die Datei »%s« verwendet\n"
 
 #. Didn't find file in current dir.
 #: objects/standard/image.c:680 objects/standard/image.c:706
 #, c-format
 msgid "The image file '%s' was not found.\n"
-msgstr "Die Bilddatei '%s' wurde nicht gefunden.\n"
+msgstr "Die Bilddatei »%s« konnte nicht gefunden werden.\n"
 
 #: objects/standard/line.c:135
 msgid "Arrows"
@@ -4177,7 +4177,7 @@ msgstr "Klasse"
 
 #: objects/UML/class.c:183
 msgid "Show comments"
-msgstr "Kommentare zeigen"
+msgstr "Kommentare anzeigen"
 
 #: objects/UML/class_dialog.c:261
 msgid "Class name:"
@@ -4438,7 +4438,7 @@ msgstr "Aktives Objekt"
 
 #: objects/UML/object.c:152
 msgid "Show attributes"
-msgstr "Attribute zeigen"
+msgstr "Attribute anzeigen"
 
 #: objects/UML/object.c:154
 msgid "Multiple instance"
@@ -4755,7 +4755,7 @@ msgstr "Fehler beim Lesen der Papiergröße: %s\n"
 #: plug-ins/xfig/xfig-import.c:1234
 #, c-format
 msgid "Unknown paper size `%s', using default\n"
-msgstr "Unbekannte Papiergröße '%s', die Vorgabe wird verwendet\n"
+msgstr "Unbekannte Papiergröße »%s«, Vorgabe wird verwendet\n"
 
 #: plug-ins/xfig/xfig-import.c:1246
 #, c-format
@@ -5543,7 +5543,7 @@ msgstr "Übertragungsband"
 
 #: sheets/FS.sheet.in.h:1
 msgid "Create a flow"
-msgstr "Einen Fluß erzeugen"
+msgstr "Einen Fluss erzeugen"
 
 #: sheets/FS.sheet.in.h:2
 msgid "Create a function"
@@ -5551,7 +5551,7 @@ msgstr "Eine Funktion erzeugen"
 
 #: sheets/FS.sheet.in.h:3
 msgid "Create an orthogonal polyline flow"
-msgstr "Erzeuge einen orthogonalen, mehrlinigen Fluß"
+msgstr "Einen orthogonalen, mehrlinigen Fluß erzeugen"
 
 #: sheets/FS.sheet.in.h:4
 msgid "Editor for Function Structure Diagrams."
@@ -5845,11 +5845,11 @@ msgstr "Eine Unix Workstation"
 
 #: sheets/network.sheet.in.h:15
 msgid "A WAN Connection"
-msgstr "Eine WAN Anschluß"
+msgstr "Ein WAN-Anschluss"
 
 #: sheets/network.sheet.in.h:16
 msgid "A WAN Link"
-msgstr "Eine WAN Verbindung"
+msgstr "Eine WAN-Verbindung"
 
 #: sheets/network.sheet.in.h:17
 msgid "A Wall-Plug for the scEAD Cabling System"
