@@ -1,22 +1,16 @@
-# German translation of dia.
-# Copyright (C) 1999, 2000, 2001, 2002 Free Software Foundation, Inc.
-# Christian Neumair <chris@gnome-de.org>, 2002.
+# German dia translation
+# Copyright (C) 1999-2003 Free Software Foundation, Inc.
 # Karsten Weiss <knweiss@gmx.de>, 1999, 2000, 2002.
 # Daniel Egger <Daniel.Egger@suse.de>, 2000.
 # Benedikt Roth <Benedikt.Roth@gmx.net>, 2000
 # Christian Meyer <chrisime@gnome.org>, 2001.
-# J�rgen Scheibengruber <mfcn@gmx.de>, 2002.
-# Christian Neumair <chris@gnome-de.org>, 2002.
-# (Feel free to update this file without asking!)
-# 2000-10-15: Bitte alles infinitivisch nach der deutschen
-# Richtlinie umformen. -cm-
-# 2001-03-06: German Dia translation should be ready for GNOME 1.4. -cm-
-#
+# Jörgen Scheibengruber <mfcn@gmx.de>, 2002.
+# Christian Neumair <chris@gnome-de.org>, 2002, 2003.
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.90+ (cvs)\n"
-"POT-Creation-Date: 2002-12-15 21:18+0100\n"
-"PO-Revision-Date: 2002-12-15 21:17+0100\n"
+"POT-Creation-Date: 2003-01-20 14:12+0100\n"
+"PO-Revision-Date: 2003-01-20 14:12+0100\n"
 "Last-Translator: Christian Neumair <chris@gnome-de.org>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -93,7 +87,7 @@ msgid ""
 "Run '%s --help' to see a full list of available command line options.\n"
 msgstr ""
 "Fehler in Option %s: %s.\n"
-"Starten Sie »%s --help«, um die ganze Liste der verfügbaren Optionen zu "
+"Starten Sie „%s --help”, um die ganze Liste der verfügbaren Optionen zu "
 "erhalten.\n"
 
 #: app/app_procs.c:311
@@ -216,7 +210,7 @@ msgstr ""
 # CHECK: Eigentlich ist "Info" GNOME-Standard
 #: app/commands.c:592
 msgid "About Dia"
-msgstr "Über Dia"
+msgstr "Info zu Dia"
 
 #: app/commands.c:635
 #, c-format
@@ -527,7 +521,7 @@ msgid ""
 "The diagram '%s'\n"
 "has not been saved. Save changes now?"
 msgstr ""
-"Das Diagramm »%s« wurde nicht gespeichert.\n"
+"Das Diagramm „%s” wurde nicht gespeichert.\n"
 "Änderungen jetzt speichern?"
 
 #: app/display.c:879
@@ -658,7 +652,7 @@ msgid ""
 "to use to save '%s'"
 msgstr ""
 "Es konnte nicht festgestellt werden, \n"
-"welcher Filter verwendet werden muss, um \"%s\" zu speichern"
+"welcher Filter verwendet werden muss, um „%s” zu speichern"
 
 #: app/filedlg.c:527
 msgid "Export Diagram"
@@ -698,8 +692,8 @@ msgstr "Text erstellen"
 #. PROP_STD_TEXT_FONT,
 #. PROP_STD_TEXT_HEIGHT,
 #. PROP_STD_TEXT_COLOUR,
-#: app/interface.c:59 app/menus.c:219 lib/properties.c:77 lib/properties.h:495
-#: lib/properties.h:498 objects/UML/activity.c:123 objects/UML/actor.c:114
+#: app/interface.c:59 app/menus.c:219 lib/properties.c:77 lib/properties.h:496
+#: lib/properties.h:499 objects/UML/activity.c:123 objects/UML/actor.c:114
 #: objects/UML/classicon.c:137 objects/UML/component.c:120
 #: objects/UML/node.c:119 objects/UML/note.c:113 objects/UML/object.c:141
 #: objects/UML/small_package.c:120 objects/UML/state.c:133
@@ -787,15 +781,15 @@ msgstr "Bild erzeugen"
 msgid "Image"
 msgstr "Bild"
 
-#: app/interface.c:468
+#: app/interface.c:469
 msgid "Zoom"
 msgstr "Zoom"
 
-#: app/interface.c:512
+#: app/interface.c:513
 msgid "NULL tooldata in tool_select_update"
 msgstr "NULL tooldata in tool_select_update"
 
-#: app/interface.c:973
+#: app/interface.c:974
 msgid ""
 "Foreground & background colors.  The small black and white squares reset "
 "colors.  The small arrows swap colors.  Double click to change colors."
@@ -804,7 +798,7 @@ msgstr ""
 "Quadrate setzen die Farben zurück.  Die kleinen Pfeile vertauschen die "
 "Farben.  Doppelklicken, um die Farbe zu wechseln."
 
-#: app/interface.c:1122
+#: app/interface.c:1123
 msgid "Diagram Editor"
 msgstr "Diagrammeditor"
 
@@ -871,7 +865,7 @@ msgstr "Details..."
 msgid "Line Style Properties"
 msgstr "Eigenschaften der Linie"
 
-#: app/linewidth_area.c:216 lib/properties.h:471
+#: app/linewidth_area.c:216 lib/properties.h:472
 #: objects/chronogram/chronoline.c:180 objects/chronogram/chronoref.c:159
 msgid "Line width"
 msgstr "Linienbreite"
@@ -977,8 +971,8 @@ msgid "Modify sheets and their objects"
 msgstr "Objektbögen bearbeiten"
 
 #: app/menus.c:61
-msgid "P_lugins"
-msgstr "_Plug-ins"
+msgid "P_lugins..."
+msgstr "_Plugins..."
 
 #: app/menus.c:77
 msgid "_Export..."
@@ -1107,15 +1101,15 @@ msgstr "Transitiv"
 msgid "Same Type"
 msgstr "Gleicher Typ"
 
-#: app/menus.c:182 lib/properties.c:62 lib/properties.h:459 lib/widgets.c:551
+#: app/menus.c:182 lib/properties.c:62 lib/properties.h:460 lib/widgets.c:551
 msgid "Left"
 msgstr "Links"
 
-#: app/menus.c:183 lib/properties.c:63 lib/properties.h:460 lib/widgets.c:557
+#: app/menus.c:183 lib/properties.c:63 lib/properties.h:461 lib/widgets.c:557
 msgid "Center"
 msgstr "Mitte"
 
-#: app/menus.c:184 lib/properties.c:64 lib/properties.h:461 lib/widgets.c:563
+#: app/menus.c:184 lib/properties.c:64 lib/properties.h:462 lib/widgets.c:563
 msgid "Right"
 msgstr "Rechts"
 
@@ -1208,7 +1202,7 @@ msgid "/File/_New"
 msgstr "/Datei/_Neu"
 
 #: app/menus.c:282 app/menus.c:317
-msgid "/File/_Open"
+msgid "/File/_Open..."
 msgstr "/Datei/Ö_ffnen"
 
 #. recent file list is dynamically inserted here
@@ -1230,8 +1224,8 @@ msgid "/File/_Preferences..."
 msgstr "/Datei/_Einstellungen..."
 
 #: app/menus.c:292
-msgid "/File/P_lugins"
-msgstr "/Datei/_Plug-ins"
+msgid "/File/P_lugins..."
+msgstr "/Datei/_Plugins..."
 
 #: app/menus.c:296 app/menus.c:332
 msgid "/File/_Quit"
@@ -1250,8 +1244,8 @@ msgid "/Help/---"
 msgstr "/Hulfe/---"
 
 #: app/menus.c:303
-msgid "/Help/_About"
-msgstr "/Hilfe/_Info"
+msgid "/Help/_About..."
+msgstr "/Hilfe/_Info..."
 
 #: app/menus.c:319
 msgid "/File/_Save"
@@ -1616,12 +1610,12 @@ msgid "/_Dialogs"
 msgstr "/Dia_loge"
 
 #: app/menus.c:453
-msgid "/Dialogs/_Properties"
-msgstr "/Dialoge/E_igenschaften"
+msgid "/Dialogs/_Properties..."
+msgstr "/Dialoge/Ei_genschaften..."
 
 #: app/menus.c:454
-msgid "/Dialogs/_Layers"
-msgstr "/Dialoge/_Ebenen"
+msgid "/Dialogs/_Layers..."
+msgstr "/Dialoge/_Ebenen..."
 
 #: app/menus.c:456
 msgid "/_Input Methods"
@@ -1629,7 +1623,7 @@ msgstr "/_Eingabemethoden"
 
 #: app/menus.c:629
 msgid "NULL tooldata in tool_menu_select"
-msgstr "NULL tooldata in tool_menu_select"
+msgstr "Werkzeugdaten in tool_menu_select ist NULL"
 
 #: app/menus.c:796
 msgid "Diagram Menu"
@@ -1641,9 +1635,9 @@ msgid ""
 "Can't find menu entry '%s'!\n"
 "This is probably a i18n problem (try LANG=C)."
 msgstr ""
-"Menüeintrag »%s« konnte nicht gefunden werden!\n"
+"Menüeintrag „%s” konnte nicht gefunden werden!\n"
 "Dies ist wahrscheinlich ein Internationalisierungsproblem\n"
-"(Versuchen Sie's mit »LANG=C«)"
+"(Versuchen Sie's mit „LANG=C”)"
 
 #: app/modify_tool.c:315
 msgid "Couldn't get GTK settings"
@@ -1675,13 +1669,13 @@ msgstr "'%s' konnte nicht ausgeführt werden"
 msgid "Could not open '%s' for writing"
 msgstr "'%s' konnte nicht zum Schreiben geöffnet werden"
 
-#: app/paginate_psprint.c:367
+#: app/paginate_psprint.c:368
 msgid "Error occured while printing"
 msgstr "Während des Druckens trat ein Fehler auf"
 
 #: app/plugin-manager.c:200
 msgid "Plug-ins"
-msgstr "Plug-ins"
+msgstr "Plugins"
 
 #: app/plugin-manager.c:254
 msgid "Loaded"
@@ -1870,8 +1864,8 @@ msgstr "Objekteigenschaften:"
 #. Use the Plugins menu item to get a pointer to the File menu,
 #. but any item on the File menu will do
 #: app/recent_files.c:137
-msgid "<Toolbox>/File/Plugins"
-msgstr "<Werkzeugkasten>/Datei/Plugins"
+msgid "<Toolbox>/File/Plugins..."
+msgstr "<Werkzeugkasten>/Datei/Plugins..."
 
 #: app/recent_files.c:259
 msgid "<Toolbox>/File/Quit"
@@ -2164,7 +2158,7 @@ msgstr "Punktwert von nicht-Punktknoten wird genommen"
 #: lib/dia_xml.c:478
 #, c-format
 msgid "Incorrect x Point value \"%s\" %f; discarding it."
-msgstr "Falscher x-Punktwert \"%s\" %f; wird verworfen."
+msgstr "Falscher x-Punktwert „%s” %f; wird verworfen."
 
 #: lib/dia_xml.c:486
 msgid "Error parsing point."
@@ -2174,7 +2168,7 @@ msgstr "Fehler beim Parsen des Punktes."
 #: lib/dia_xml.c:494
 #, c-format
 msgid "Incorrect y Point value \"%s\" %f; discarding it."
-msgstr "Falscher y-Punktwert \"%s\" %f; wird verworfen."
+msgstr "Falscher y-Punktwert „%s” %f; wird verworfen."
 
 #: lib/dia_xml.c:856
 msgid ""
@@ -2187,7 +2181,7 @@ msgstr ""
 "wurden, gibt, werden Sie auf Fehler stoßen. Bitte wenden Sie sich an dia-"
 "list@gnome.org, wenn Sie diese Meldung erhalten."
 
-#: lib/font.c:86
+#: lib/font.c:87
 #, c-format
 msgid "Can't load font %s.\n"
 msgstr "Schrift %s konnte nicht geladen werden.\n"
@@ -2266,7 +2260,7 @@ msgid ""
 "Error loading defaults '%s'.\n"
 "Not a Dia diagram file."
 msgstr ""
-"Fehler beim Laden von »%s« (vorgegeben).\n"
+"Fehler beim Laden von „%s” (vorgegeben).\n"
 "Keine Dia-Diagrammdatei."
 
 #: lib/plug-ins.c:120
@@ -2276,7 +2270,7 @@ msgstr "???"
 #: lib/plug-ins.c:228
 #, c-format
 msgid "Could not deduce correct path for `%s'"
-msgstr "Der korrekten Pfad für \"%s\" konnte nicht hergeleitet werden."
+msgstr "Der korrekte Pfad für „%s” konnte nicht hergeleitet werden."
 
 #: lib/plug-ins.c:234
 #, c-format
@@ -2284,27 +2278,27 @@ msgid ""
 "Could not load plugin '%s'\n"
 "%s"
 msgstr ""
-"Plugin »%s« konnte nicht geladen werden\n"
+"Plugin „%s” konnte nicht geladen werden\n"
 "%s"
 
 #: lib/plug-ins.c:247
 #, c-format
 msgid "Could not find plugin init function in `%s'"
 msgstr ""
-"Es konnte keine Initialisierungsfunktion im Plugin \"%s\" gefunden werden"
+"Es konnte keine Initialisierungsfunktion im Plugin „%s” gefunden werden"
 
 #: lib/plug-ins.c:249
 msgid "Missing symbol 'dia_plugin_init'"
-msgstr "Symbold »dia_plugin_init« fehlt"
+msgstr "Symbold „dia_plugin_init” fehlt"
 
 #: lib/plug-ins.c:257
 msgid "dia_pluin_init() call failed"
-msgstr "Aufruf von »dia_pluin_init()« fehlgeschlagen"
+msgstr "Aufruf von „dia_pluin_init()” fehlgeschlagen"
 
 #: lib/plug-ins.c:276
 #, c-format
 msgid "%s Plugin could not be unloaded"
-msgstr "Das Plugin \"%s\" konnte nicht entladen werden"
+msgstr "Das Plugin „%s” konnte nicht entladen werden"
 
 #: lib/plug-ins.c:364
 #, c-format
@@ -2312,52 +2306,52 @@ msgid ""
 "Could not open `%s'\n"
 "`%s'"
 msgstr ""
-"»%s« konnte nicht geöffnet werden\n"
-"»%s«"
+"„%s” konnte nicht geöffnet werden\n"
+"„%s”"
 
-#: lib/properties.c:71 lib/properties.h:474
+#: lib/properties.c:71 lib/properties.h:475
 msgid "Line colour"
 msgstr "Zeilenfarbe"
 
-#: lib/properties.c:72 lib/properties.h:477
+#: lib/properties.c:72 lib/properties.h:478
 msgid "Line style"
 msgstr "Linienstil"
 
-#: lib/properties.c:73 lib/properties.h:481
+#: lib/properties.c:73 lib/properties.h:482
 msgid "Fill colour"
 msgstr "Füllfarbe"
 
-#: lib/properties.c:74 lib/properties.h:484
+#: lib/properties.c:74 lib/properties.h:485
 msgid "Draw background"
 msgstr "Hintergrund zeichnen"
 
-#: lib/properties.c:75 lib/properties.h:488
+#: lib/properties.c:75 lib/properties.h:489
 msgid "Start arrow"
 msgstr "Startpfeil"
 
-#: lib/properties.c:76 lib/properties.h:491
+#: lib/properties.c:76 lib/properties.h:492
 msgid "End arrow"
 msgstr "Endpfeil"
 
-#: lib/properties.c:78 lib/properties.h:501
+#: lib/properties.c:78 lib/properties.h:502
 msgid "Text alignment"
 msgstr "Textanordnung"
 
-#: lib/properties.c:79 lib/properties.h:504
+#: lib/properties.c:79 lib/properties.h:505
 #: objects/chronogram/chronoline.c:182 objects/chronogram/chronoref.c:163
 #: objects/GRAFCET/condition.c:131 objects/GRAFCET/step.c:162
 #: objects/GRAFCET/transition.c:141 objects/UML/class_dialog.c:327
 msgid "Font"
 msgstr "Schrift"
 
-#: lib/properties.c:80 lib/properties.h:507
+#: lib/properties.c:80 lib/properties.h:508
 #: objects/chronogram/chronoline.c:184 objects/chronogram/chronoref.c:165
 #: objects/GRAFCET/condition.c:133 objects/GRAFCET/step.c:164
 #: objects/GRAFCET/transition.c:143
 msgid "Font size"
 msgstr "Schriftgröße"
 
-#: lib/properties.c:81 lib/properties.h:510
+#: lib/properties.c:81 lib/properties.h:511
 #: objects/chronogram/chronoline.c:186 objects/chronogram/chronoref.c:167
 #: objects/GRAFCET/step.c:166
 msgid "Text colour"
@@ -2541,10 +2535,10 @@ msgid ""
 "example : @ 1.0 (2.0)1.0(2.0)\n"
 msgstr ""
 "@ Zeit    Den Zeiger auf eine absolute Zeit setzen.\n"
-"( Dauer   Das Signal setzen, dann für \"Dauer\" warten.\n"
-") Dauer   Das Signal herabnehmen, dann für \"Dauer\" warten.\n"
-"u Dauer   Das Signal in einen \"unbekannten\" Zustand setzen, dann für "
-"\"Dauer\" warten.\n"
+"( Dauer   Das Signal setzen, dann für „Dauer” warten.\n"
+") Dauer   Das Signal herabnehmen, dann für „Dauer” warten.\n"
+"u Dauer   Das Signal in den Zustand „unbekannt” setzen, dann für „Dauer” "
+"warten.\n"
 "Beispiel: @ 1.0 (2.0)1.0(2.0)\n"
 
 #: objects/chronogram/chronoline.c:161
@@ -4160,17 +4154,28 @@ msgstr "Sichtbare Operationen"
 msgid "Visible Comments"
 msgstr "Sichtbare Kommentare"
 
-#: objects/UML/class.c:127
+#. Attributes page:
+#: objects/UML/class.c:124 objects/UML/class_dialog.c:800
+#: objects/UML/object.c:147
+msgid "Attributes"
+msgstr "Attribute"
+
+#. Operations page:
+#: objects/UML/class.c:126 objects/UML/class_dialog.c:1724
+msgid "Operations"
+msgstr "Methoden"
+
+#: objects/UML/class.c:129
 msgid "Template"
 msgstr "Vorlage"
 
 #. Class page:
-#: objects/UML/class.c:172 objects/UML/class.c:919
+#: objects/UML/class.c:177 objects/UML/class.c:918
 #: objects/UML/class_dialog.c:255
 msgid "Class"
 msgstr "Klasse"
 
-#: objects/UML/class.c:178
+#: objects/UML/class.c:183
 msgid "Show comments"
 msgstr "Kommentare zeigen"
 
@@ -4235,11 +4240,6 @@ msgstr "Vordergrundfarbe"
 msgid "Background Color"
 msgstr "Hintergrundfarbe"
 
-#. Attributes page:
-#: objects/UML/class_dialog.c:800 objects/UML/object.c:147
-msgid "Attributes"
-msgstr "Attribute"
-
 #: objects/UML/class_dialog.c:834 objects/UML/class_dialog.c:1758
 #: objects/UML/class_dialog.c:1987 objects/UML/class_dialog.c:2505
 msgid "Delete"
@@ -4267,7 +4267,7 @@ msgstr "Wert:"
 msgid "Visibility:"
 msgstr "Sichtbarkeit:"
 
-# CHECK: I wouldn't use "�ffentlich" because "public" is a C++ keyword
+# CHECK: I wouldn't use "Öffentlich" because "public" is a C++ keyword
 #: objects/UML/class_dialog.c:923 objects/UML/class_dialog.c:1838
 msgid "Public"
 msgstr "Public"
@@ -4277,7 +4277,7 @@ msgstr "Public"
 msgid "Private"
 msgstr "Private"
 
-# CHECK: I wouldn't use "Gesch�tzt" because "protected" is a C++ keyword
+# CHECK: I wouldn't use "Geschützt" because "protected" is a C++ keyword
 #: objects/UML/class_dialog.c:939 objects/UML/class_dialog.c:1854
 msgid "Protected"
 msgstr "Protected"
@@ -4289,11 +4289,6 @@ msgstr "Implementierung"
 #: objects/UML/class_dialog.c:963 objects/UML/class_dialog.c:1878
 msgid "Class scope"
 msgstr "Klassen-Gültigkeitsbereich"
-
-#. Operations page:
-#: objects/UML/class_dialog.c:1724
-msgid "Operations"
-msgstr "Methoden"
 
 #: objects/UML/class_dialog.c:1782
 msgid "Operation data"
@@ -4512,7 +4507,7 @@ msgstr "Skalierung: %f\n"
 
 #: plug-ins/dxf/dxf-import.c:1313
 msgid "read_dxf_codes failed\n"
-msgstr "»read_dxf_codes« fehlgeschlagen\n"
+msgstr "„read_dxf_codes” fehlgeschlagen\n"
 
 #: plug-ins/dxf/dxf-import.c:1345
 #, c-format
@@ -4544,7 +4539,7 @@ msgid ""
 "%s\n"
 "%s"
 msgstr ""
-"Datei »%s« konnte nicht gespeichert werden:\n"
+"Datei „%s” konnte nicht gespeichert werden:\n"
 "%s"
 
 #: plug-ins/pixbuf/pixbuf.c:154 plug-ins/pixbuf/pixbuf.c:162
@@ -4612,7 +4607,7 @@ msgstr "SVG-Namespace konnte nicht gefunden werden."
 #: plug-ins/svg/svg-import.c:597
 #, c-format
 msgid "root element was '%s' -- expecting 'svg'."
-msgstr "Wurzelelement ist »%s« - »svg« erwartet."
+msgstr "Wurzelelement ist „%s” - „svg” erwartet."
 
 #: plug-ins/wmf/wmf.cpp:1089
 msgid "Windows Meta File"
@@ -4824,7 +4819,7 @@ msgstr "XFig Dateiformat"
 
 #: plug-ins/xslt/xslt.c:73
 msgid "DIA_PLUGIN_PATH not set.  Stylesheets not available.\n"
-msgstr "»DIA_PLUGIN_PATH« nicht gesetzt. Stilvorlagen nicht verfügbar.\n"
+msgstr "„DIA_PLUGIN_PATH” nicht gesetzt. Stilvorlagen nicht verfügbar.\n"
 
 #: plug-ins/xslt/xslt.c:98
 #, c-format
@@ -4853,12 +4848,12 @@ msgstr "XSL-Transformationsfilter"
 #: plug-ins/xslt/xslt.c:197
 #, c-format
 msgid "Could not load XSLT library (%s) : %s"
-msgstr "XSLT-Bibliothek »%s« konnte nicht geladen werden: %s"
+msgstr "XSLT-Bibliothek „%s” konnte nicht geladen werden: %s"
 
 #: plug-ins/xslt/xslt.c:211
 msgid "Could not load XSLT plugin; DIA_PLUGIN_PATH is not set."
 msgstr ""
-"XSLT-Plugin konnte nicht geladen werden; »DIA_PLUGIN_PATH« wurde nicht "
+"XSLT-Plugin konnte nicht geladen werden; „DIA_PLUGIN_PATH” wurde nicht "
 "gesetzt."
 
 #: plug-ins/xslt/xsltdialog.c:99
