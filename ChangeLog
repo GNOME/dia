@@ -1,3 +1,8 @@
+2003-03-02  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* configure.in: Add freetype-config derived libs to the
+	AC_CHECK_LIB statement for freetype.
+
 2003-02-28  Hans Breuer  <hans@breuer.org>
 
 	[fix for bug #107203]
