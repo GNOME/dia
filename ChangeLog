@@ -1,3 +1,14 @@
+2002-09-12  Cyrille Chepelov  <cyrille@chepelov.org>
+
+	Patch from Angus Ainslie <angusa@deltatee.com>:
+	* plug-ins/dxf/dxf-import.c:
+	* plug-ins/dxf/autocad_pal.h: Import from visio 2002 improvements.
+
+	(plus a couple extra fixes by me, such as the removal of printf's,
+	adapting for recent changes, and killed a couple warnings) 
+
+	* app/authors.h: a 60K patch isn't insignificant, is it?
+	
 2002-09-09  Tor Lillqvist  <tml@iki.fi>
 
 	* configure.in: Check for both pangoft2 (using PKG_CHECK_MODULES,

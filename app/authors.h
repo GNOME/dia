@@ -89,6 +89,7 @@ static const gchar *authors[] =	{
     "Matthieu Sozeau <mattam@netcourrier.com>",
     "Xing Wang <quixon@gnuchina.org>",
     "Andrew Ferrier <andrew@new-destiny.co.uk>",
+    "Angus Ainslie <angusa@deltatee.com>",
     NULL
 };
 
