@@ -888,7 +888,8 @@ text_key_event(Focus *focus, guint keyval, const gchar *str, int strlen,
 
           return_val = TRUE;
           utf = str;
-          for (utf = str ; utf && *utf ; utf = g_utf8_next_char (utf)) {
+          for (utf = str ; utf && *utf && (utf-str <= strlen) ; 
+	       utf = g_utf8_next_char (utf)) {
             c = g_utf8_get_char (utf);
             
             *change = text_create_change (text, TYPE_INSERT_CHAR, c,

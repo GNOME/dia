@@ -1,3 +1,8 @@
+2003-10-24  Steffen Macke <sdteffen@web.de>
+
+	* lib/text.c(text_key_event): enforcing the inserted text length now,
+	fix for bug #125348
+
 2003-10-22  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* MAINTAINERS: Change Debian maintainer to be the default address.
