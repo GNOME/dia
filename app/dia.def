@@ -1,4 +1,6 @@
 EXPORTS 
+ ; for xfig
+ group_create
  ; all these exports are only required for pydia
  ddisplay_active
  ddisplay_add_update_all

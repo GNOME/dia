@@ -1,5 +1,17 @@
 2001-03-24  Hans Breuer  <hans@breuer.org>
 
+	* app/dia.def : some plug-ins (currently only python, xfig) are using 
+	functions from the dia executable. To get them working these functions 
+	need to be explicit exported on win32. IMO the much cleaner way would
+	be to move these functions to libdia, but that would require some
+	long term restructuring ...
+
+	* lib/libdia.def : updated
+
+	* plug-ins/makefile.msc : build xfig plug-in
+
+2001-03-24  Hans Breuer  <hans@breuer.org>
+
 	* app/diagram.c : g_strdup (dia->filename) because it will be
 	g_free ()d
 
@@ -220,7 +232,6 @@
 	* app/render_eps.c: turned off ASCII85 and FILTERS, as this
 	doesn't yet build.
 
->>>>>>> 1.532
 2001-03-08  Kevin Breit <battery841@mediaone.net>
 
 	* doc/en/home_network.png: Added file.

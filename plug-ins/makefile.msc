@@ -1,6 +1,6 @@
 !IFNDEF PACKAGE
 
-PLUGINS = cgm diaimport dummy dxf hpgl pstricks shape svg wmf wpg
+PLUGINS = cgm diaimport dummy dxf hpgl pstricks shape svg wmf wpg xfig
 
 # The main target
 all : sub-all
@@ -22,7 +22,7 @@ PKG_DEF = ..\objects.def
 !INCLUDE $(TOP)\build\win32\make.msc
 
 PKG_CFLAGS = $(GLIB_CFLAGS) $(GTK_CFLAGS) \
-	-I$(LIBXML) -I$(PRJ_TOP)\lib \
+	-I. -I$(LIBXML) -I$(PRJ_TOP)\lib \
 	-DVERSION=\"0.86\"
 
 PKG_LINK = $(GTK_LIBS) $(GLIB_LIBS) \
@@ -62,6 +62,14 @@ OBJECTS = \
 OBJECTS = \
   wmf.obj \
   wmf_gdi.obj
+!ENDIF
+
+!IFDEF OBJ_xfig
+OBJECTS = \
+  xfig.obj \
+  xfig-import.obj
+# this plug-in imports group_create () from dia.exe 
+PKG_LINK = $(PKG_LINK) ..\..\app\dia.lib
 !ENDIF
 
 # just one file ...
