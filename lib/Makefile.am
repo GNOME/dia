@@ -105,7 +105,7 @@ libdia_a_SOURCES =  \
 		boundingbox.h
 
 #		charconv.c \
-#		charconv.h \
+#		charconv.h 
 
 CPPFLAGS = \
 	$(LIBART_CFLAGS) \

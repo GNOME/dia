@@ -1,5 +1,7 @@
 2002-07-18  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* lib/Makefile.am: Removed extra \ that broke stuff.
+
 	* plug-ins/xfig/xfig-import.c: 
 	Spline import for xfig.  Not perfect.
 
