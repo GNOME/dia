@@ -2,6 +2,8 @@
 
 	* lib/charconv.c: corrected the degraded mode for when
 	!HAVE_UNICODE. Thanks to Ben A. Hetland for reporting this.	
+
+	* objects/chronoline/chronoline_events.c: UTF8 compliance.
 	
 2001-06-13  Cyrille Chepelov  <chepelov@calixo.net>
 

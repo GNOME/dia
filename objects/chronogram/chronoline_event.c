@@ -23,6 +23,7 @@
 
 #include <stdlib.h>
 #include <math.h>
+#include "charconv.h"
 #include "chronoline_event.h"
 #include "message.h"
 
@@ -138,7 +139,8 @@ parse_clevent(const gchar *events, real rise, real fall)
 {
   real t = -1E10;
   double dt;
-  const char *p,*p1;
+  const utfchar *p,*p1,*np;
+  unichar uc;
   CLEventType et = CLE_UNKNOWN;
   CLEventType oet = CLE_UNKNOWN;
   CLEventList *clel = NULL;
@@ -152,23 +154,24 @@ parse_clevent(const gchar *events, real rise, real fall)
   rise += CHEAT_CST;
   if (fall <= 0.0) fall = 0.0;
   fall += CHEAT_CST;
-
+  
   while (*p) {
-    switch (*p) { /* skip spaces */
+    np = uni_get_utf8(p,&uc);
+    switch (uc) { /* skip spaces */
     case ' ': 
     case '\t':
     case '\n': 
-      p++; continue;
+      p = np; continue;
     default:
       break;
     }
     if (waitfor == EVENT) {
-      switch(*p) {
+      switch(uc) {
       case 'u':
-      case 'U': et = CLE_UNKNOWN; waitfor = LENGTH; p++; break;
-      case '@': et = CLE_START; waitfor = LENGTH; p++ ; break;
-      case '(': et = CLE_ON; waitfor = LENGTH; p++; break;
-      case ')': et = CLE_OFF; waitfor = LENGTH; p++; break;
+      case 'U': et = CLE_UNKNOWN; waitfor = LENGTH; p = np; break;
+      case '@': et = CLE_START; waitfor = LENGTH; p = np ; break;
+      case '(': et = CLE_ON; waitfor = LENGTH; p = np; break;
+      case ')': et = CLE_OFF; waitfor = LENGTH; p = np; break;
       default:
 	message_warning("Syntax error in event string; waiting one of "
 			"\"()@u\". string=%s",p); 
@@ -179,7 +182,7 @@ parse_clevent(const gchar *events, real rise, real fall)
       if (p1 == p) {
 	/* We were ready for a length argument, we got nothing.
 	   Maybe the user entered a zero-length argument ? */
-	switch(*p) {
+	switch(uc) {
 	case 'u':
 	case 'U':
 	case '@':
@@ -262,6 +265,8 @@ reparse_clevent(const gchar *events, CLEventList **lst,
   *lst = parse_clevent(events,rise,fall);
   *chksum = newsum;
 }
+
+
 
 
 
