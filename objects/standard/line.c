@@ -59,7 +59,6 @@ typedef struct _Line {
 struct _LineProperties {
   real absolute_start_gap, absolute_end_gap;
   real fractional_start_gap, fractional_end_gap;
-  gboolean object_edge_start, object_edge_end;
 };
 
 static LineProperties default_properties;
@@ -141,7 +140,6 @@ static PropDescription line_props[] = {
     N_("Start point"), NULL },
   { "end_point", PROP_TYPE_POINT, 0,
     N_("End point"), NULL },
-  /*
   PROP_FRAME_BEGIN("gaps",0,N_("Line gaps")),
   { "absolute_start_gap", PROP_TYPE_REAL, 0,
     N_("Absolute start gap"), NULL, &gap_range },
@@ -151,12 +149,7 @@ static PropDescription line_props[] = {
     N_("Fractional start gap"), NULL, &gap_range },
   { "fractional_end_gap", PROP_TYPE_REAL, 0,
     N_("Fractional end gap"), NULL, &gap_range },
-  { "object_edge_start", PROP_TYPE_BOOL, 0,
-    N_("Start at object edge"), },
-  { "object_edge_end", PROP_TYPE_BOOL, 0,
-    N_("End at object edge"), },
   PROP_FRAME_END("gaps",0),
-  */
   PROP_DESC_END
 };
 
@@ -178,14 +171,10 @@ static PropOffset line_offsets[] = {
   { "end_arrow", PROP_TYPE_ARROW, offsetof(Line, end_arrow) },
   { "start_point", PROP_TYPE_POINT, offsetof(Connection, endpoints[0]) },
   { "end_point", PROP_TYPE_POINT, offsetof(Connection, endpoints[1]) },
-  /*
   { "absolute_start_gap", PROP_TYPE_REAL, offsetof(Line, absolute_start_gap) },
   { "absolute_end_gap", PROP_TYPE_REAL, offsetof(Line, absolute_end_gap) },
   { "fractional_start_gap", PROP_TYPE_REAL, offsetof(Line, fractional_start_gap) },
   { "fractional_end_gap", PROP_TYPE_REAL, offsetof(Line, fractional_end_gap) },
-  { "object_edge_start", PROP_TYPE_BOOL, offsetof(Line, object_edge_start) },
-  { "object_edge_end", PROP_TYPE_BOOL, offsetof(Line, object_edge_end) },
-  */
   { NULL, 0, 0 }
 };
 
@@ -213,8 +202,6 @@ line_init_defaults() {
     default_properties.absolute_end_gap = 0.0;
     default_properties.fractional_start_gap = 0;
     default_properties.fractional_end_gap = 0;
-    default_properties.object_edge_start = FALSE;
-    default_properties.object_edge_end = FALSE;
     defaults_initialized = 1;
   }
 }
@@ -279,6 +266,7 @@ line_get_object_menu(Line *line, Point *clickedpoint)
   length which could be optionally added to the object intersection
   gap.
 */
+/* This is currently dead code, but may find new use in other places. */
 Point
 calculate_object_edge(Point *objmid, Point *end, DiaObject *obj) 
 {
@@ -484,8 +472,6 @@ line_create(Point *startpoint,
   line->absolute_end_gap = default_properties.absolute_end_gap;
   line->fractional_start_gap = default_properties.fractional_start_gap;
   line->fractional_end_gap = default_properties.fractional_end_gap;
-  line->object_edge_start = default_properties.object_edge_start;
-  line->object_edge_end = default_properties.object_edge_end;
     
   conn = &line->connection;
   conn->endpoints[0] = *startpoint;
@@ -644,12 +630,6 @@ line_save(Line *line, ObjectNode obj_node, const char *filename)
   if (line->fractional_end_gap)
     data_add_real(new_attribute(obj_node, "fractional_end_gap"),
                  line->fractional_end_gap);
-  if (line->object_edge_start)
-    data_add_boolean(new_attribute(obj_node, "object_edge_start"),
-		     line->object_edge_start);
-  if (line->object_edge_end)
-    data_add_boolean(new_attribute(obj_node, "object_edge_end"),
-		     line->object_edge_end);
 
   if (line->line_style != LINESTYLE_SOLID && line->dashlength != DEFAULT_LINESTYLE_DASHLEN)
     data_add_real(new_attribute(obj_node, "dashlength"),
@@ -731,14 +711,6 @@ line_load(ObjectNode obj_node, int version, const char *filename)
   attr = object_find_attribute(obj_node, "fractional_end_gap");
   if (attr != NULL)
     line->fractional_end_gap =  data_real( attribute_first_data(attr) );
-  line->object_edge_start = FALSE;
-  attr = object_find_attribute(obj_node, "object_edge_start");
-  if (attr != NULL)
-    line->object_edge_start = data_boolean( attribute_first_data(attr) );
-  line->object_edge_end = FALSE;
-  attr = object_find_attribute(obj_node, "object_edge_end");
-  if (attr != NULL)
-    line->object_edge_end = data_boolean( attribute_first_data(attr) );
 
   line->dashlength = DEFAULT_LINESTYLE_DASHLEN;
   attr = object_find_attribute(obj_node, "dashlength");

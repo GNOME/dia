@@ -1,3 +1,49 @@
+2004-05-20  Hans Breuer  <hans@breuer.org>
+ 
+        * acinclude.m4 : disable setting of PYTHON_PREFIX
+	and PYTHON_EXEC_PREFIX from prefix and exec_prefix
+	as workaround for bug #142032 (the real fix would 
+	involve some auto* knowledge which I don't have
+	either;)
+	
+	* plug-ins/python/Makefile.am : more python 
+	plug-ins to be installed (especially svg import,
+	but also 'simple scale' should be useable 
+	sometimes)
+	
+	* plug-ins/python/scascale.py : update display
+	after modifying selected objects
+	
+	* plug-ins/python/diasvg_import.py : initialize
+	stroke to none
+	
+2004-05-18  Lars Clausen  <larsrc@linux.local>
+
+	* app/diagram_tree.c (select_node): Use
+	diagram_remove_all_selected to kill selected list.
+
+	* lib/font.c: Set language when using a different context.
+
+	* plug-ins/svg/svg-import.c: Changed isdigit to g_ascii_isdigit
+	and removed ctype include (#142661).
+
+	* lib/paper.c (get_default_paper): Changed isalnum to
+	g_ascii_isalnum and removed ctype include. (#142661)
+
+	* objects/custom/shape_info.c: 
+	* lib/dia_svg.c: 
+	* app/diaunitspinner.c: Removed unrequired ctype.h include. (#142661)
+
+2004-05-17  Hans Breuer  <hans@breuer.org>
+
+	* lib/object_defaults.c : don't 'failed to load external 
+	entity "NULL"' when the defaults file does not exist, 
+	bug #108764
+
+	* lib/widgets.c : fixed possible menu leak
+	* lib/dialinechooser.c lib/diaarrowchooser.c : finally
+	avoid finalization of floating references, bug #142307
+
 2004-05-15  Lars Clausen  <lars@raeder.dk>
 
 	* plug-ins/xfig/xfig-import.c: Handle default fonts and illegal

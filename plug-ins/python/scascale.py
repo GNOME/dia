@@ -137,6 +137,7 @@ def SimpleScale(data, factor) :
 			sMsg = sMsg + "\n%s (%d)" % (s, scaleFailed[s])
 		dia.message(1, sMsg)
 	data.update_extents ()
+	dia.active_display().add_update_all()
 
 def scale_cb(data, flags) :
 	dlg = CScaleDialog(dia.active_display().diagram, data)

@@ -23,7 +23,6 @@
 
 #include "config.h"
 
-#include <ctype.h>
 #include <locale.h>
 #include <string.h>
 #include <stdlib.h>

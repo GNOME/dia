@@ -34,7 +34,6 @@
 #include <libxml/parser.h>
 #include <libxml/xmlmemory.h>
 #include <float.h>
-#include <ctype.h>
 
 #include "intl.h"
 #include "message.h"
@@ -320,7 +319,7 @@ read_poly_svg(xmlNodePtr node, DiagramData *dia, char *object_type) {
     tmp = str = xmlGetProp(node, "points");
     while (tmp[0] != '\0') {
       /* skip junk */
-      while (tmp[0] != '\0' && !isdigit(tmp[0]) && tmp[0]!='.'&&tmp[0]!='-')
+      while (tmp[0] != '\0' && !g_ascii_isdigit(tmp[0]) && tmp[0]!='.'&&tmp[0]!='-')
 	tmp++;
       if (tmp[0] == '\0') break;
       old_locale = setlocale(LC_NUMERIC, "C");

@@ -289,6 +289,8 @@ dia_arrow_chooser_new(gboolean left, DiaChangeArrowCallback callback,
   dia_arrow_chooser_dialog_new(NULL, chooser);
 
   menu = gtk_menu_new();
+  g_object_ref(G_OBJECT(menu));
+  gtk_object_sink(GTK_OBJECT(menu));
   gtk_object_set_data_full(GTK_OBJECT(chooser), button_menu_key, menu,
 			   (GtkDestroyNotify)gtk_widget_unref);
   for (i = 0; arrow_types[i].name != NULL; i++) {

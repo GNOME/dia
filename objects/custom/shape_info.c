@@ -25,7 +25,6 @@
 #include <libxml/parser.h>
 #include <libxml/xmlmemory.h>
 #include <float.h>
-#include <ctype.h>
 #include <string.h>
 #include <locale.h>
 #include "dia_xml_libxml.h"

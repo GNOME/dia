@@ -74,7 +74,7 @@ select_node(DiagramTree *tree, GtkCTreeNode *node, gboolean raise)
     if (is_object_node(node)) {
       if (o) {
 	update_object(tree, node, o);
-	diagram_unselect_objects(d, d->data->selected);
+	diagram_remove_all_selected(d, FALSE);
 	diagram_select(d, o);
       }
     }

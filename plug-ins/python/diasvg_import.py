@@ -58,7 +58,7 @@ def Color(s) :
 	return string.strip(s)
 class Object :
 	def __init__(self) :
-		self.props = {"x" : 0, "y" : 0}
+		self.props = {"x" : 0, "y" : 0, "stroke" : none}
 		# "line_width", "line_colour", "line_style"
 	def style(self, s) :
 		sp1 = string.split(s, ";")

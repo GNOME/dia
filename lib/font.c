@@ -106,6 +106,7 @@ void
 dia_font_push_context(PangoContext *pcontext) {
   pango_contexts = g_list_prepend(pango_contexts, pango_context);
   pango_context = pcontext;
+  pango_context_set_language (pango_context, gtk_get_default_language ());
   g_object_ref(pcontext);
 }
 
@@ -113,6 +114,7 @@ void
 dia_font_pop_context() {
   g_object_unref(pango_context);
   pango_context = (PangoContext*)pango_contexts->data;
+  pango_context_set_language (pango_context, gtk_get_default_language ());
   pango_contexts = g_list_next(pango_contexts);
 }
 
