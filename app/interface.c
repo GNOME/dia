@@ -145,13 +145,16 @@ origin_button_press(GtkWidget *widget, GdkEventButton *event, gpointer data)
   return FALSE;
 }
 
-#ifndef WITHOUT_ZOOM_COMBO
 static void
-zoom_activate_callback(GtkWidget *dummy, gpointer user_data) {
+zoom_activate_callback(GtkWidget *item, gpointer user_data) {
   DDisplay *ddisp = (DDisplay *)user_data;
   const gchar *zoom_text =
-      gtk_entry_get_text(GTK_ENTRY(GTK_COMBO(ddisp->zoom_status)->entry));
+      gtk_entry_get_text(GTK_ENTRY(gtk_object_get_user_data(GTK_OBJECT(ddisp->zoom_status))));
   float zoom_amount, magnify;
+  gchar *zoomamount = g_object_get_data(G_OBJECT(item), "zoomamount");
+  if (zoomamount != NULL) {
+    zoom_text = zoomamount;
+  }
 
   if (sscanf(zoom_text, "%f", &zoom_amount) == 1) {
     Point middle;
@@ -168,52 +171,75 @@ zoom_activate_callback(GtkWidget *dummy, gpointer user_data) {
 }
 
 static void
-zoom_test_callback_1(GtkWidget *entry, gchar *text, gpointer userdata) {
-  printf("Insert-at-cursor");
+zoom_add_zoom_amount(GtkWidget *menu, gchar *text, DDisplay *ddisp) {
+  GtkWidget *menuitem = gtk_menu_item_new_with_label(text);
+  gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuitem);
+  gtk_signal_connect(GTK_OBJECT(menuitem), 
+		     "activate", (GtkSignalFunc)zoom_activate_callback,
+		     ddisp);
+  g_object_set_data(G_OBJECT(menuitem), "zoomamount", text);
 }
 
+static void
+zoom_popup_menu(GtkWidget *button, GdkEventButton *event, gpointer user_data) {
+  /* display_set_active(ddisp); */
+  /* ddisplay_popup_menu(ddisp, event); */
+
+  GtkMenu *menu = GTK_MENU(user_data);
+
+  gtk_menu_popup(menu, NULL, NULL, NULL, NULL, 
+		 event->button, event->time);
+  /* stop the signal emission so the button doesn't grab the
+   * pointer from us */
+  gtk_signal_emit_stop_by_name(GTK_OBJECT(button), "button_press_event");
+}
 
 static GtkWidget*
 create_zoom_widget(DDisplay *ddisp) { 
-  GtkWidget *combo = NULL;
-  GList *items = NULL;
+  GtkWidget *combo;
+  GtkWidget *entry;
+  GtkWidget *menu;
+  GtkWidget *button;
+  GtkWidget *arrow;
 
-  combo = gtk_combo_new();
-  items = g_list_append(items, "400%");
-  items = g_list_append(items, "283%");
-  items = g_list_append(items, "200%");
-  items = g_list_append(items, "141%");
-  items = g_list_append(items, "100%");
-  items = g_list_append(items, "85%");
-  items = g_list_append(items, "70.7%");
-  items = g_list_append(items, "50%");
-  items = g_list_append(items, "35.4%");
-  items = g_list_append(items, "25%");
-  gtk_combo_set_popdown_strings (GTK_COMBO(combo), items);   
-  gtk_combo_set_value_in_list(GTK_COMBO(combo), FALSE, FALSE);
-  gtk_combo_disable_activate(GTK_COMBO(combo));
-
-  gtk_signal_connect (GTK_OBJECT (GTK_COMBO(combo)->entry), "activate",
+  combo = gtk_hbox_new(FALSE, 0);
+  entry = gtk_entry_new();
+  gtk_signal_connect (GTK_OBJECT (entry), "activate",
 		      (GtkSignalFunc) zoom_activate_callback,
 		      ddisp);
+  gtk_box_pack_start_defaults(GTK_BOX(combo), entry);
+  gtk_object_set_user_data(GTK_OBJECT(combo), entry);
+  gtk_entry_set_width_chars(GTK_ENTRY(entry), 8);
+  gtk_widget_show(entry);
 
-  gtk_signal_connect (GTK_OBJECT (GTK_COMBO(combo)->entry), "insert-at-cursor",
-		      (GtkSignalFunc) zoom_test_callback_1,
-		      ddisp);
+  button = gtk_button_new();
+  GTK_WIDGET_UNSET_FLAGS(button, GTK_CAN_FOCUS);
+  arrow = gtk_arrow_new(GTK_ARROW_DOWN, GTK_SHADOW_OUT);
+  gtk_container_add(GTK_CONTAINER(button), arrow);
+  gtk_box_pack_start_defaults(GTK_BOX(combo), button);
+  gtk_object_set_user_data(GTK_OBJECT(combo), entry);
+  gtk_widget_show_all(button);
 
-#if 0
-  gtk_signal_connect (GTK_OBJECT (GTK_COMBO(combo)->list), "unmap",
-		      (GtkSignalFunc) zoom_activate_callback,
-		      ddisp);
+  menu = gtk_menu_new();
+  zoom_add_zoom_amount(menu, "400%", ddisp);
+  zoom_add_zoom_amount(menu, "283%", ddisp);
+  zoom_add_zoom_amount(menu, "200%", ddisp);
+  zoom_add_zoom_amount(menu, "141%", ddisp);
+  zoom_add_zoom_amount(menu, "100%", ddisp);
+  zoom_add_zoom_amount(menu, "85%", ddisp);
+  zoom_add_zoom_amount(menu, "70.7%", ddisp);
+  zoom_add_zoom_amount(menu, "50%", ddisp);
+  zoom_add_zoom_amount(menu, "35.4%", ddisp);
+  zoom_add_zoom_amount(menu, "25%", ddisp);
 
-  gtk_signal_connect (GTK_OBJECT (GTK_COMBO(combo)->list), "selection-changed",
-		      (GtkSignalFunc) zoom_activate_callback,
-		      ddisp);
-#endif
+  gtk_widget_show_all(menu);
+
+  gtk_signal_connect (GTK_OBJECT (button), "button_press_event",
+		      (GtkSignalFunc) zoom_popup_menu,
+		      menu);
 
   return combo;
 }
-#endif
 
 static gboolean
 display_drop_callback(GtkWidget *widget, GdkDragContext *context,
@@ -254,9 +280,7 @@ create_display_shell(DDisplay *ddisp,
   GtkWidget *table, *widget;
   GtkWidget *status_hbox;
   GtkWidget *root_vbox = NULL;
-#ifndef WITHOUT_ZOOM_COMBO
   GtkWidget *zoom_hbox, *zoom_label;
-#endif
   int s_width, s_height;
 
   s_width = gdk_screen_width ();
@@ -437,16 +461,6 @@ create_display_shell(DDisplay *ddisp,
     gtk_signal_connect(GTK_OBJECT(ddisp->origin), "button_press_event",
     GTK_SIGNAL_FUNC(origin_button_press), ddisp);
   */
-#ifdef WITHOUT_ZOOM_COMBO
-  ddisp->zoom_status = gtk_statusbar_new ();
-  gtk_statusbar_set_has_resize_grip (GTK_STATUSBAR (ddisp->zoom_status), FALSE);
-  /* GTKBUG?: the stausbar does not resize with it's text, do it here */
-  gtk_widget_set_size_request (ddisp->zoom_status, 100, -1);
-  ddisp->modified_status = gtk_statusbar_new ();
-  gtk_statusbar_set_has_resize_grip (GTK_STATUSBAR (ddisp->modified_status), FALSE);
-  gtk_box_pack_start (GTK_BOX (status_hbox), ddisp->zoom_status,
-		      FALSE, FALSE, 0);
-#else
   ddisp->zoom_status = create_zoom_widget(ddisp);
   ddisp->modified_status = gtk_statusbar_new ();
 
@@ -459,7 +473,6 @@ create_display_shell(DDisplay *ddisp,
 
   gtk_box_pack_start (GTK_BOX (status_hbox), zoom_hbox, FALSE, FALSE, 0);
 
-#endif
   gtk_table_attach (GTK_TABLE (table), status_hbox, 0, 3, 3, 4,
                     GTK_FILL, GTK_FILL, 0, 0);
 
@@ -473,10 +486,8 @@ create_display_shell(DDisplay *ddisp,
   gtk_widget_show (ddisp->vrule);
   gtk_widget_show (ddisp->canvas);
   gtk_widget_show (ddisp->zoom_status);
-#ifndef WITHOUT_ZOOM_COMBO
   gtk_widget_show (zoom_hbox);
   gtk_widget_show (zoom_label);
-#endif
   gtk_widget_show (ddisp->modified_status);
   gtk_widget_show (status_hbox);
   gtk_widget_show (table);

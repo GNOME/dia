@@ -63,35 +63,14 @@ static guint display_hash(DDisplay *ddisp);
 static void
 update_zoom_status(DDisplay *ddisp)
 {
-#ifndef WITHOUT_ZOOM_COMBO
-  GtkCombo *zoomcombo;
+  GtkWidget *zoomcombo;
   gchar zoom_text[7];
 
-  zoomcombo = GTK_COMBO(ddisp->zoom_status);
+  zoomcombo = ddisp->zoom_status;
   sprintf (zoom_text, "%.1f%%",
 	   ddisp->zoom_factor * 100.0 / DDISPLAY_NORMAL_ZOOM);
-  gtk_entry_set_text(GTK_ENTRY(zoomcombo->entry), zoom_text);
-  
-#else
-  /* HB: if the combo above ever get's the focus, the window
-   * hotkeys won't work anymore; plus IHMO it clutters the UI
-   * and isn't the useful anyway ...
-   */
-  GtkStatusbar *statusbar;
-  guint context_id;
-  gchar *zoom_text;
-
-  statusbar = GTK_STATUSBAR (ddisp->zoom_status);
-  context_id = gtk_statusbar_get_context_id (statusbar, "Zoom");
-  
-  gtk_statusbar_pop (statusbar, context_id); 
-  zoom_text = g_malloc (sizeof (guchar) * (strlen (_("Zoom")) + 1 + 8 + 1));
-  sprintf (zoom_text, "%s % 7.1f%c", _("Zoom"),
-	   ddisp->zoom_factor * 100.0 / DDISPLAY_NORMAL_ZOOM, '%');
-  gtk_statusbar_push (statusbar, context_id, zoom_text);
-
-  g_free (zoom_text);
-#endif
+  gtk_entry_set_text(GTK_ENTRY(gtk_object_get_user_data(GTK_OBJECT(zoomcombo))),
+		     zoom_text);
 }
 
 static void

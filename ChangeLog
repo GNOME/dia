@@ -1,5 +1,17 @@
 2002-08-13  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* app/display.c: 
+	* app/interface.c: Replaced broken zoom combo with entry+menu.
+	Now works beautifully.  Removed WITHOUT_ZOOM_COMBO stuff.
+
+	* app/render_gdk.c (get_text_width): Checks for validity of text.
+	Temporary help while debugging input -- should only activate on
+	invalid input.
+
+	* objects/SADT/annotation.c: 
+	* objects/GRAFCET/transition.c: 
+	* objects/FS/function.c: Removal of gtk.h include.
+
 	* objects/UML/state.c (state_load): Warnings about using State
 	object for initial/final states.
 
