@@ -136,6 +136,7 @@ diagram_print_gdi(Diagram *dia)
 {
   W32::PRINTDLG printDlg;
   W32::DOCINFO  docInfo;
+  W32::DEVMODE* pDevMode;
   DiaExportFilter* pExp = NULL;
   int i;
 
@@ -151,10 +152,36 @@ diagram_print_gdi(Diagram *dia)
   printDlg.hDevNames = hDevNames;
 
   printDlg.Flags = 0;
-  printDlg.Flags |= PD_RETURNDC | PD_NOSELECTION;
   printDlg.nMinPage = printDlg.nMaxPage = 0;
   printDlg.nCopies = 1;
   printDlg.lStructSize = sizeof (W32::PRINTDLG);
+
+  /* Uhmm, first call to initialize device settings ... */
+  if (!printDlg.hDevMode) {
+    printDlg.Flags = PD_RETURNDEFAULT;
+    if (!W32::PrintDlg (&printDlg))
+      g_warning ("Failed to get printer defaults.");
+  }
+
+  pDevMode = (W32::DEVMODE*) W32::GlobalLock (printDlg.hDevMode);
+  if (pDevMode) {
+    /* initialize with Dia default */
+    pDevMode->dmFields |= DM_ORIENTATION;
+    pDevMode->dmOrientation = dia->data->paper.is_portrait ?
+      DMORIENT_PORTRAIT : DMORIENT_LANDSCAPE;
+
+    /* Maybe we could adjust the scaling here as well but are al of:
+     *   dmPaperSize, dmPaperLength, dmPaperWidth, dmScale
+     * initialized despite of the api documentation ?
+     */
+    g_print ("Paper size %d, length %d width %d scale %d\n",
+             pDevMode->dmPaperSize, 
+             pDevMode->dmPaperLength, pDevMode->dmPaperWidth, pDevMode->dmScale);
+
+    W32::GlobalUnlock (printDlg.hDevMode);
+  }
+
+  printDlg.Flags = PD_RETURNDC | PD_NOSELECTION;
 
   if (!W32::PrintDlg (&printDlg)) {
     W32::DWORD dwError = W32::CommDlgExtendedError ();

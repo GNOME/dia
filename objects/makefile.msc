@@ -39,8 +39,7 @@ PKG_CFLAGS = -FImsvc_recommended_pragmas.h \
 	$(GLIB_CFLAGS) $(GTK2_CFLAGS) $(INTL_CFLAGS) \
 	$(LIBXML2_CFLAGS) -I$(PRJ_TOP)\lib \
 
-PKG_LINK = $(GTK2_LIBS) $(GLIB_LIBS) $(INTL_LIBS) \
-	$(LIBXML2_LIBS) \
+PKG_LINK = $(GLIB_LIBS) $(INTL_LIBS) \
 	$(PRJ_TOP)\lib\libdia.lib
 
 #
@@ -61,6 +60,7 @@ OBJECTS = \
 	custom_object.obj \
 	custom_util.obj \
 	shape_info.obj
+PKG_LINK = $(PKG_LINK) $(LIBXML2_LIBS) 
 !ENDIF
 
 !IFDEF OBJ_eml
@@ -210,7 +210,7 @@ OBJECTS = \
 	uml.obj \
 	usecase.obj \
 
-
+PKG_LINK = $(PKG_LINK) $(GTK2_LIBS)
 !ENDIF
 
 

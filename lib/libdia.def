@@ -518,5 +518,4 @@ EXPORTS
  xmlDiaParseFile
  xmlDiaSaveFile
  xmlDoParseFile
- diaXmlNewChild
 

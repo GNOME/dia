@@ -70,7 +70,8 @@ app_splash_init (const gchar* fname)
   gtk_container_set_border_width (GTK_CONTAINER (frame), 1);
   gtk_box_pack_start(GTK_BOX(vbox), frame, FALSE, TRUE, 1);
 
-  gtk_container_add (GTK_CONTAINER(frame), gpixmap);
+  if (gpixmap)
+    gtk_container_add (GTK_CONTAINER(frame), gpixmap);
 
   g_snprintf(str, sizeof(str), _("Dia v %s"), VERSION);
   label = gtk_label_new (str);

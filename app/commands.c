@@ -948,11 +948,11 @@ dialogs_properties_callback(gpointer data, guint action, GtkWidget *widget)
   dia = ddisplay_active()->diagram; 
 
   if (dia->data->selected != NULL) {
-       selected = dia->data->selected->data;
+    selected = dia->data->selected->data;
+    properties_show(dia, selected);
   } else {
-         selected = NULL;
+    diagram_properties_show(dia);
   } 
-  properties_show(dia, selected);
 }
 
 void

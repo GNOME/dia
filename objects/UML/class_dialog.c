@@ -2590,6 +2590,17 @@ switch_page_callback(GtkNotebook *notebook,
   }
 }
 
+void
+destroy_properties_dialog (GtkWidget* widget,
+			   gpointer user_data)
+{
+  /* dialog gone, mark as such */
+  UMLClass *umlclass = (UMLClass *)user_data;
+
+  g_free (umlclass->properties_dialog);
+  umlclass->properties_dialog = NULL;
+}
+
 static void
 fill_in_dialog(UMLClass *umlclass)
 {
@@ -2709,6 +2720,10 @@ umlclass_get_properties(UMLClass *umlclass, gboolean is_default)
     gtk_signal_connect (GTK_OBJECT (notebook),
 			"switch_page",
 			GTK_SIGNAL_FUNC(switch_page_callback),
+			(gpointer) umlclass);
+    gtk_signal_connect (GTK_OBJECT (umlclass->properties_dialog->dialog),
+		        "destroy",
+			GTK_SIGNAL_FUNC(destroy_properties_dialog),
 			(gpointer) umlclass);
     
     create_dialog_pages(GTK_NOTEBOOK( notebook ), umlclass);

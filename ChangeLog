@@ -1,3 +1,24 @@
+2002-12-08  Hans Breuer  <hans@breuer.org>
+
+	* app/commands.c : fixed bug #85315 'give diagram properties, 
+	instead of no object selected error' almost a one-liner
+
+	* app/splash.c : don't make having the logo pixmap
+	mandatory. Fixes bug #96068. 
+
+	* app/defaults.c : avoid crashing from open-dialog,esc,open-dialog
+	sequence by connecting to the "delete_event"
+	* app/objects/uml/class_dialog.c : handle "destroy" for 
+	the same reason.
+
+	* lib/libdia.def : remove diaXmlNewChild again
+
+	* app/paginate_gdiprint.cpp : reflect Dia's page setting
+	portrait/landscape in the windoze print dialog
+
+	* objects/makefile.msc : only UML needs to link against
+	$(GTK2_LIBS) and only custom against $(LIBXML2_LIBS)
+
 2002-12-08  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
 
 	* objects/standard/ellipse.c (ellipse_distance_from): 
