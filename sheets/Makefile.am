@@ -27,7 +27,8 @@ CLEANFILES = sheet-translation-report
 sheet-translation-report: $(SHEETS)
 	-./checktrans $(SHEETS)
 
-#EXTRA_DIST = 
+EXTRA_DIST = sheet-translation-report
 
-sheet_DATA = $(SHEETS) sheet-translation-report
+sheet_DATA = $(SHEETS)
 
+all-local: sheet-translation-report

@@ -1,5 +1,21 @@
 2001-04-03  Cyrille Chepelov  <chepelov@calixo.net>
 
+	* Makefile.am:
+	* po-checktrans (NEW):
+	* po-checktrans.py (NEW): builds core-translation-report:
+	percentages of core (gettext) translations done [Not placed into
+	po/ where that should belong, because of integration fear^Wissues
+	with gettextize]. 
+
+	TO THE KIND ATTENTION OF PACKAGERS: core-translation-report and 
+	sheets/sheet-translation-report probably ought to be copied on the 
+	user's /usr/share/doc/dia (or equivalent) directory.
+
+	* sheets/Makefile.am: sheet-translation-report now a simple
+	EXTRA_DIST; make install won't install it by default. 
+	
+2001-04-03  Cyrille Chepelov  <chepelov@calixo.net>
+
 	* app/preferences.c: changed the default grid colour to something
 	less intrusive.	
 

@@ -1,0 +1,101 @@
+#!/usr/bin/python
+#
+# This quick hack gives translation statistics (from the core translation
+# files).
+#
+# Copyright (C) 2001, Cyrille Chepelov <chepelov@calixo.net>
+#
+# This quick hack is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This quick hack is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this quick hack; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+#
+
+import string,os,sys,math
+
+def slurp_po(fname):
+    """returns a tuple (language_name,ratio) of what has been translated."""
+    base,ext = os.path.splitext(os.path.basename(fname))
+    language_name = base
+
+    idents = 0
+    translations = 0
+    
+    st = ""
+    id = ""
+    
+    fd = open(fname,"r")
+    while 1:
+        s = fd.readline()
+        if not s: break
+
+        s = string.strip(string.split(s,'#')[0])
+        if not s: continue # empty line.
+        
+        sl = string.split(s)
+        if sl[0] == "msgid":
+            #print "id",id,"st",st
+            if st:
+                translations = translations + 1
+            id = sl[0]
+            st = ""
+            del sl[0]
+        elif sl[0] == "msgstr":
+            #print "id",id,"st",st
+            if st:
+                idents = idents + 1
+            id = sl[0]
+            st = ""
+            del sl[0]
+            
+        for k in sl:
+            if k != '""':
+                st = st + k
+    #print "translations:",translations,"idents:",idents
+    return (language_name, float(translations)/idents)
+
+if len(sys.argv)<2:
+    print "Usage: %s <lang.po>" % sys.argv[0]
+    print
+    print " <lang.po>: file name of the translation to check"
+    sys.exit(1)
+
+def maxlen(a,b):
+    if len(a) > len(b):
+        return a
+    return b
+
+translations = map(slurp_po,sys.argv[1:])
+maxlanglen = len(reduce(maxlen,map(lambda (l,p):l,translations),""))
+trans = map(lambda (l,p),mll=maxlanglen: string.ljust("%s:%3d%%  "%(l,p*100),mll),
+            translations)
+lt = len(trans)
+
+collen = maxlanglen + len(":100%  ")
+
+def NoneStr(n):
+    if n is None: return (" " * collen)
+    return n
+
+numcols = int(80 / collen)
+ltnc = int(lt/numcols)
+cols = []
+while trans:
+    c,trans = trans[:ltnc],trans[ltnc:]
+    cols.append(c)
+
+lines = apply(map,tuple([None]+cols))
+
+result = string.join(map(lambda l:string.join(map(NoneStr,list(l)),"  "),lines),
+                     "\n")
+print result
+
