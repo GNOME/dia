@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.86\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-01-12 19:17+0100\n"
+"POT-Creation-Date: 2004-02-24 03:40+0100\n"
 "PO-Revision-Date: 2003-02-13 22:26+0200\n"
 "Last-Translator: Jan-Willem Harmanny <jwharmanny@hotmail.com>\n"
 "Language-Team: Dutch <nl@li.org>\n"
@@ -14,92 +14,92 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8-bit\n"
 
-#: app/app_procs.c:183
+#: app/app_procs.c:189
 #, c-format
 msgid "%s error: don't know how to export into %s\n"
 msgstr "%s fout: weet niet hoe te exporteren in %s\n"
 
-#: app/app_procs.c:193
+#: app/app_procs.c:199
 #, c-format
 msgid "%s error: input and output file name is identical: %s"
 msgstr "%s fout: de invoer en uitvoer bestandsnamen zijn hetzelfde: %s"
 
-#: app/app_procs.c:201
+#: app/app_procs.c:207
 #, c-format
 msgid "%s error: need valid input file %s\n"
 msgstr "%s fout: Geldig invoer bestand nodig %s\n"
 
 #. if (!quiet)
-#: app/app_procs.c:210
+#: app/app_procs.c:216
 #, c-format
 msgid "%s --> %s\n"
 msgstr "%s --> %s\n"
 
-#: app/app_procs.c:258
+#: app/app_procs.c:264
 #, c-format
 msgid "Can't find output format %s\n"
 msgstr "Kan uitvoerformaat %s niet vinden\n"
 
 #. Translators:  The argument is a list of options, not to be translated
-#: app/app_procs.c:344
+#: app/app_procs.c:350
 #, c-format
 msgid "Export to file format and exit.  Supported formats are: %s"
 msgstr "Exporteer naar bestandsformaat en stop. Ondersteunde formaten zijn: %s"
 
 #. &export_file_name
-#: app/app_procs.c:353
+#: app/app_procs.c:359
 msgid "Export loaded file and exit"
 msgstr "Exporteer geladen bestand en sluit af"
 
-#: app/app_procs.c:353 app/diaconv.c:94
+#: app/app_procs.c:359 app/diaconv.c:94
 msgid "OUTPUT"
 msgstr "UITVOER"
 
 #. &export_file_format
-#: app/app_procs.c:355
+#: app/app_procs.c:361
 msgid "FORMAT"
 msgstr "FORMAAT"
 
-#: app/app_procs.c:358
+#: app/app_procs.c:364
 msgid "Export graphics size"
 msgstr "Afbeeldingformaat exporteren"
 
-#: app/app_procs.c:358
+#: app/app_procs.c:364
 msgid "WxH"
 msgstr "BxH"
 
-#: app/app_procs.c:360
+#: app/app_procs.c:366
 msgid "Don't show the splash screen"
 msgstr "Laat het opstartscherm niet zien"
 
-#: app/app_procs.c:362
+#: app/app_procs.c:368
 msgid "Display credits list and exit"
 msgstr "Beeld de lijst ontwikkelaars af, en sluit af"
 
-#: app/app_procs.c:364
+#: app/app_procs.c:370
 msgid "Display version and exit"
 msgstr "Laat versienummer zien en sluit af"
 
-#: app/app_procs.c:366 app/diaconv.c:95
+#: app/app_procs.c:372 app/diaconv.c:95
 msgid "Show this help message"
 msgstr "Laat dit help bericht zien"
 
-#: app/app_procs.c:407
+#: app/app_procs.c:411
 msgid "Can't connect to session manager!\n"
 msgstr "Kan niet verbinden met sessie manager!\n"
 
 #. TRANSLATOR: 2nd and 3rd %s are time and date respectively.
-#: app/app_procs.c:435
+#: app/app_procs.c:439
 #, c-format
 msgid "Dia version %s, compiled %s %s\n"
 msgstr "Dia versie %s, gecompiled %s %s\n"
 
-#: app/app_procs.c:437
+#: app/app_procs.c:441
 #, c-format
 msgid "Dia version %s\n"
 msgstr "Dia versie %s\n"
 
-#: app/app_procs.c:483 app/app_procs.c:485 app/diaconv.c:199 app/diaconv.c:201
+#: app/app_procs.c:487 app/app_procs.c:489 app/diaconv.c:201 app/diaconv.c:203
 #, c-format
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
@@ -107,7 +107,7 @@ msgstr ""
 "Kon standaard objecten tijdens zoeken naar object bibliotheken niet vinden, "
 "gestopt...\n"
 
-#: app/app_procs.c:548
+#: app/app_procs.c:552
 msgid ""
 "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you can cause this message to appear.\n"
@@ -116,7 +116,8 @@ msgstr ""
 "org\n"
 "waarin u kunt omschrijven hoe u deze melding tevoorschijn kon laten komen.\n"
 
-#: app/app_procs.c:560
+#. no standard buttons
+#: app/app_procs.c:564
 msgid ""
 "Modified diagrams exist.\n"
 "Are you sure you want to quit Dia\n"
@@ -125,22 +126,22 @@ msgstr ""
 "Diagram zijn aangepast.\n"
 "Weet u zeker dat u wilt stoppen zonder ze op te slaan?"
 
-#: app/app_procs.c:564
+#: app/app_procs.c:568
 msgid "Quit Dia"
 msgstr "Dia afsluiten"
 
 #. This printf seems to prevent a race condition with unrefs.
 #. Yuck.  -Lars
-#: app/app_procs.c:619
+#: app/app_procs.c:623
 #, c-format
 msgid "Thank you for using Dia.\n"
 msgstr "Dank u voor uw gebruik van Dia.\n"
 
-#: app/app_procs.c:633 app/app_procs.c:640
+#: app/app_procs.c:637 app/app_procs.c:644
 msgid "Could not create per-user Dia config directory"
 msgstr "Kan per-gebruiker Dia configuratie map niet maken"
 
-#: app/app_procs.c:642
+#: app/app_procs.c:646
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -148,15 +149,15 @@ msgstr ""
 "Kan per-gebruiker Dia configuratie map niet maken. Zorg aub dat de "
 "omgevingsvariabele HOME naar een bestaande map wijst."
 
-#: app/app_procs.c:664 app/diaconv.c:249
+#: app/app_procs.c:668 app/diaconv.c:251
 msgid "Objects and filters internal to dia"
 msgstr "Dia's interne objecten en filters"
 
-#: app/app_procs.c:703 app/diaconv.c:119
+#: app/app_procs.c:707 app/diaconv.c:121
 msgid "[OPTION...] [FILE...]"
 msgstr "[OPTIE...] [BESTAND...]"
 
-#: app/app_procs.c:707 app/diaconv.c:126
+#: app/app_procs.c:711 app/diaconv.c:128
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
@@ -339,7 +340,7 @@ msgstr "Bestandsnaam om naar te exporteren"
 msgid "Quiet operation"
 msgstr "Meldingen niet weergeven"
 
-#: app/diaconv.c:147
+#: app/diaconv.c:149
 #, c-format
 msgid ""
 "Error: No arguments found.\n"
@@ -349,12 +350,12 @@ msgstr ""
 "Start '%s --help' om een volledige lijst van beschikbare commandoregel "
 "opties te zien.\n"
 
-#: app/diaconv.c:157
+#: app/diaconv.c:159
 #, c-format
 msgid "%s error: can specify only one of -t or -o."
 msgstr "%s fout: kan slechts één van -t of -o uitvoeren."
 
-#: app/diaconv.c:163
+#: app/diaconv.c:165
 #, c-format
 msgid ""
 "%s error: must specify only one of -t or -o.\n"
@@ -364,17 +365,17 @@ msgstr ""
 "Start '%s --help' om een volledige lijst van beschikbare commandoregel "
 "opties te zien.\n"
 
-#: app/diaconv.c:172
+#: app/diaconv.c:174
 #, c-format
 msgid "%s error: no input file."
 msgstr "%s fout: geen invoer bestand."
 
-#: app/diaconv.c:225
+#: app/diaconv.c:227
 #, c-format
 msgid "%s error: only one input file expected."
 msgstr "%s fout: slechts één invoer bestand verwacht."
 
-#: app/diaconv.c:238
+#: app/diaconv.c:240
 #, c-format
 msgid "%s error: popt library not available on this system"
 msgstr "%s fout: popt bibliotheek niet beschikbaar op dit systeem"
@@ -467,8 +468,8 @@ msgstr "Diagram boom"
 msgid "Ok"
 msgstr "Ok"
 
-#: app/dialogs.c:52 app/layer_dialog.c:1009 app/lineprops_area.c:455
-#: app/lineprops_area.c:681 app/paginate_psprint.c:276
+#: app/dialogs.c:52 app/layer_dialog.c:1009 app/lineprops_area.c:452
+#: app/lineprops_area.c:684 app/paginate_psprint.c:276
 msgid "Cancel"
 msgstr "Annuleren"
 
@@ -529,7 +530,7 @@ msgstr "%0.3gcm x %0.3gcm"
 msgid "Page Setup"
 msgstr "Pagina Instellingen"
 
-#: app/disp_callbacks.c:78 app/properties.c:153
+#: app/disp_callbacks.c:79 app/properties.c:153
 msgid ""
 "This object doesn't support Undo/Redo.\n"
 "Undo information erased."
@@ -537,11 +538,12 @@ msgstr ""
 "Dit object ondersteund geen Ongedaan Maken/Herhalen.\n"
 "Ongedaan Maak informatie verwijdert."
 
-#: app/disp_callbacks.c:220
-msgid "No object menu"
-msgstr "Geen object menu"
+#: app/disp_callbacks.c:179
+#, fuzzy
+msgid "Properties..."
+msgstr "_Eigenschappen..."
 
-#: app/disp_callbacks.c:856
+#: app/disp_callbacks.c:879
 msgid ""
 "The object you dropped cannot fit into its parent. \n"
 "Either expand the parent object, or drop the object elsewhere."
@@ -579,7 +581,7 @@ msgstr "Aanpassingen verwerpen"
 #: plug-ins/hpgl/hpgl.c:732 plug-ins/metapost/render_metapost.c:816
 #: plug-ins/pstricks/render_pstricks.c:800 plug-ins/shape/shape-export.c:135
 #: plug-ins/svg/render_svg.c:151 plug-ins/wpg/wpg.c:1065
-#: plug-ins/xfig/xfig-export.c:1086 plug-ins/xslt/xslt.c:85
+#: plug-ins/xfig/xfig-export.c:1090 plug-ins/xslt/xslt.c:94
 #, c-format
 msgid "Can't open output file %s: %s\n"
 msgstr "Kan uitvoerbestand %s niet openen: %s\n"
@@ -692,29 +694,29 @@ msgstr "Export Diagram"
 msgid "Export Options"
 msgstr "Export Opties"
 
-#: app/interface.c:49
+#: app/interface.c:50
 msgid "Modify object(s)"
 msgstr "Wijzig object(en)"
 
-#: app/interface.c:50 app/menus.c:221
+#: app/interface.c:51 app/menus.c:221
 msgid "Modify"
 msgstr "Wijzigen"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Magnify
-#: app/interface.c:54 app/interface.c:55 app/menus.c:222
+#: app/interface.c:55 app/interface.c:56 app/menus.c:222
 #: objects/FS/function.c:975
 msgid "Magnify"
 msgstr "Vergroten"
 
-#: app/interface.c:59
+#: app/interface.c:60
 msgid "Scroll around the diagram"
 msgstr "Schuif rond het diagram"
 
-#: app/interface.c:60 app/menus.c:223
+#: app/interface.c:61 app/menus.c:223
 msgid "Scroll"
 msgstr "Schuif"
 
-#: app/interface.c:64 app/interface.c:65 app/menus.c:224 lib/properties.c:77
+#: app/interface.c:65 app/interface.c:66 app/menus.c:224 lib/properties.c:77
 #: lib/properties.h:514 lib/properties.h:517 objects/UML/activity.c:122
 #: objects/UML/actor.c:120 objects/UML/classicon.c:141
 #: objects/UML/component.c:126 objects/UML/component_feature.c:154
@@ -724,68 +726,68 @@ msgstr "Schuif"
 msgid "Text"
 msgstr "Tekst"
 
-#: app/interface.c:69 app/interface.c:70 app/menus.c:225
+#: app/interface.c:70 app/interface.c:71 app/menus.c:225
 msgid "Box"
 msgstr "Vierkant"
 
-#: app/interface.c:74 app/interface.c:75 app/menus.c:226
+#: app/interface.c:75 app/interface.c:76 app/menus.c:226
 msgid "Ellipse"
 msgstr "Ellips"
 
-#: app/interface.c:79 app/interface.c:80 app/menus.c:227
+#: app/interface.c:80 app/interface.c:81 app/menus.c:227
 msgid "Polygon"
 msgstr "Polygon"
 
-#: app/interface.c:84 app/interface.c:85 app/menus.c:228
+#: app/interface.c:85 app/interface.c:86 app/menus.c:228
 msgid "Beziergon"
 msgstr "Beziergon"
 
-#: app/interface.c:89 app/interface.c:90 app/menus.c:230
+#: app/interface.c:90 app/interface.c:91 app/menus.c:230
 #: objects/standard/line.c:247
 msgid "Line"
 msgstr "Lijn"
 
-#: app/interface.c:94 app/interface.c:95 app/menus.c:231
+#: app/interface.c:95 app/interface.c:96 app/menus.c:231
 msgid "Arc"
 msgstr "Boog"
 
-#: app/interface.c:99 app/interface.c:100 app/menus.c:232
+#: app/interface.c:100 app/interface.c:101 app/menus.c:232
 msgid "Zigzagline"
 msgstr "Zigzaglijn"
 
-#: app/interface.c:104 app/interface.c:105 app/menus.c:233
+#: app/interface.c:105 app/interface.c:106 app/menus.c:233
 msgid "Polyline"
 msgstr "Polylijn"
 
-#: app/interface.c:109 app/interface.c:110 app/menus.c:234
+#: app/interface.c:110 app/interface.c:111 app/menus.c:234
 msgid "Bezierline"
 msgstr "Kromme lijn"
 
-#: app/interface.c:114 app/interface.c:115 app/menus.c:236
+#: app/interface.c:115 app/interface.c:116 app/menus.c:236
 msgid "Image"
 msgstr "Afbeelding"
 
-#: app/interface.c:386
+#: app/interface.c:388
 msgid "Diagram menu."
 msgstr "Diagram menu."
 
-#: app/interface.c:424
+#: app/interface.c:426
 msgid "Pops up the Navigation window."
 msgstr "Komt tevoorschijn in het Navigatie venster"
 
-#: app/interface.c:504
+#: app/interface.c:506
 msgid "Zoom"
 msgstr "Zoomen"
 
-#: app/interface.c:518
+#: app/interface.c:520
 msgid "Toggles snap-to-grid for this window."
 msgstr "Schakel uitlijnen-op-raster in voor dit venster."
 
-#: app/interface.c:562
+#: app/interface.c:583
 msgid "NULL tooldata in tool_select_update"
 msgstr "NULL tooldata in tool_select_update"
 
-#: app/interface.c:1045
+#: app/interface.c:1066
 msgid ""
 "Foreground & background colors for new objects.  The small black and white "
 "squares reset colors.  The small arrows swap colors.  Double click to change "
@@ -795,7 +797,7 @@ msgstr ""
 "witte vierkantjes resetten de kleuren. De kleine pijlen verwisselen de "
 "kleuren.Dubbelklik om de kleuren te wijzigen."
 
-#: app/interface.c:1060
+#: app/interface.c:1081
 msgid ""
 "Line widths.  Click on a line to set the default line width for new "
 "objects.  Double-click to set the line width more precisely."
@@ -803,7 +805,7 @@ msgstr ""
 "Lijndikte. Klik op een lijn om de standaard lijndikte in te stellen voor "
 "nieuwe objecten. Dubbelklik om de lijndikte meer precies in te stellen."
 
-#: app/interface.c:1092
+#: app/interface.c:1113
 msgid ""
 "Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
 "arrow parameters with Details..."
@@ -811,7 +813,7 @@ msgstr ""
 "Pijl stijl aan het begin van nieuwe lijnen. Klik om een pijl te kiezen, of "
 "stel de pijl-parameters in met Details..."
 
-#: app/interface.c:1097
+#: app/interface.c:1118
 msgid ""
 "Line style for new lines.  Click to pick a line style, or set line style "
 "parameters with Details..."
@@ -819,7 +821,7 @@ msgstr ""
 "Lijn stijl voor nieuwe lijnen. Klik om een lijn stijl te kiezen, of stel de "
 "lijn-parameters in met Details..."
 
-#: app/interface.c:1102
+#: app/interface.c:1124
 msgid ""
 "Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
 "parameters with Details..."
@@ -827,7 +829,7 @@ msgstr ""
 "Pijl stijl aan het einde van nieuwe lijnen. Klik om een pijl te kiezen, of "
 "stel pijl-parameters in met Details..."
 
-#: app/interface.c:1211
+#: app/interface.c:1233
 msgid "Diagram Editor"
 msgstr "Diagram Bewerken"
 
@@ -875,20 +877,20 @@ msgstr "Bewerk Laag Attributen"
 msgid "Layer name:"
 msgstr "Laag naam:"
 
-#: app/layer_dialog.c:999 app/lineprops_area.c:446 app/lineprops_area.c:671
+#: app/layer_dialog.c:999 app/lineprops_area.c:443 app/lineprops_area.c:674
 #: app/paginate_psprint.c:268
 msgid "OK"
 msgstr "OK"
 
-#: app/lineprops_area.c:431
+#: app/lineprops_area.c:428
 msgid "Arrow Properties"
 msgstr "Pijl Eigenschappen"
 
-#: app/lineprops_area.c:507 app/lineprops_area.c:704
+#: app/lineprops_area.c:504 app/lineprops_area.c:707
 msgid "Details..."
 msgstr "Details..."
 
-#: app/lineprops_area.c:660
+#: app/lineprops_area.c:663
 msgid "Line Style Properties"
 msgstr "Lijn Stijl Eigenschappen"
 
@@ -935,7 +937,7 @@ msgid "You must specify a file, not a directory.\n"
 msgstr "Je moet een bestand specificeren, niet een directory.\n"
 
 #: app/load_save.c:325 plug-ins/dxf/dxf-import.c:1304 plug-ins/wpg/wpg.c:1169
-#: plug-ins/xfig/xfig-import.c:1517 plug-ins/xslt/xslt.c:78
+#: plug-ins/xfig/xfig-import.c:1517 plug-ins/xslt/xslt.c:87
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "Kon '%s' niet voor lezen openen.\n"
@@ -974,7 +976,7 @@ msgstr ""
 msgid "Failed to save file '%s'.\n"
 msgstr "Kan bestand '%s' niet opslaan.\n"
 
-#: app/load_save.c:970 app/load_save.c:975
+#: app/load_save.c:971 app/load_save.c:976
 msgid "Native Dia Diagram"
 msgstr "Origineel Dia Diagram"
 
@@ -1135,15 +1137,15 @@ msgstr "Overgankelijk"
 msgid "Same Type"
 msgstr "Zelfde Type"
 
-#: app/menus.c:181 lib/properties.c:62 lib/properties.h:466 lib/widgets.c:587
+#: app/menus.c:181 lib/properties.c:62 lib/properties.h:466 lib/widgets.c:589
 msgid "Left"
 msgstr "Links"
 
-#: app/menus.c:182 lib/properties.c:63 lib/properties.h:467 lib/widgets.c:593
+#: app/menus.c:182 lib/properties.c:63 lib/properties.h:467 lib/widgets.c:595
 msgid "Center"
 msgstr "Midden"
 
-#: app/menus.c:183 lib/properties.c:64 lib/properties.h:468 lib/widgets.c:599
+#: app/menus.c:183 lib/properties.c:64 lib/properties.h:468 lib/widgets.c:601
 msgid "Right"
 msgstr "Rechts"
 
@@ -1940,11 +1942,11 @@ msgstr "<Toolbox>/Bestand/_Afsluiten"
 msgid "Can't open history file for writing."
 msgstr "Kan geschiedenis bestand niet openen voor schrijven."
 
-#: app/render_eps.c:140
+#: app/render_eps.c:145
 msgid "Encapsulated Postscript (using Pango fonts)"
 msgstr "Encapsulated Postscript (gebruikt Pango lettertypen)"
 
-#: app/render_eps.c:149
+#: app/render_eps.c:163
 msgid "Encapsulated Postscript (using PostScript Latin-1 fonts)"
 msgstr "Encapsulated Postscript (gebruikt Postscript Latin-1 lettertypen)"
 
@@ -2345,7 +2347,7 @@ msgstr "Fout bij ontleden van punt."
 msgid "Incorrect y Point value \"%s\" %f; discarding it."
 msgstr "Incorrecte y Punt waarde \"%s\" %f; wordt verworpen."
 
-#: lib/dia_xml.c:865
+#: lib/dia_xml.c:884
 msgid ""
 "Your local character set is UTF-8. Because of issues with libxml1 and the "
 "support of files generated by previous versions of dia, you will encounter  "
@@ -2370,9 +2372,10 @@ msgstr "Lettertypenaam"
 msgid "The X string that represents this font."
 msgstr "De X tekst die dit lettertype representeert."
 
+#. GRUT modified this item
 #: lib/diagtkfontsel.c:216
 msgid "Preview text"
-msgstr "Tekstvoorbeeld weergeven"
+msgstr "Voorbeeldtekst"
 
 #: lib/diagtkfontsel.c:217
 msgid "The text to display in order to demonstrate the selected font."
@@ -2541,59 +2544,59 @@ msgstr "Tekst kleur"
 msgid "Other fonts..."
 msgstr "Andere lettertypen..."
 
-#: lib/widgets.c:321
+#: lib/widgets.c:322
 #, c-format
 msgid "Couldn't find font family for %s\n"
 msgstr "Kan lettertype familie niet vinden voor %s\n"
 
 #. We hit the Other fonts... entry
-#: lib/widgets.c:384
+#: lib/widgets.c:386
 msgid "Select font"
 msgstr "Selecteer lettertype"
 
 #. Translators: Menu item Noun/Material/Solid
-#: lib/widgets.c:724 objects/FS/function.c:1063
+#: lib/widgets.c:726 objects/FS/function.c:1063
 msgid "Solid"
 msgstr "Massief"
 
-#: lib/widgets.c:730
+#: lib/widgets.c:732
 msgid "Dashed"
 msgstr "Gestreept"
 
-#: lib/widgets.c:736
+#: lib/widgets.c:738
 msgid "Dash-Dot"
 msgstr "Streep-Stippel"
 
-#: lib/widgets.c:742
+#: lib/widgets.c:744
 msgid "Dash-Dot-Dot"
 msgstr "Streep-Stippel-Stippel"
 
-#: lib/widgets.c:748
+#: lib/widgets.c:750
 msgid "Dotted"
 msgstr "Gestippeld"
 
 #. fs->sizebox = GTK_HBOX(box);
-#: lib/widgets.c:766
+#: lib/widgets.c:768
 msgid "Dash length: "
 msgstr "Streep lengte:"
 
-#: lib/widgets.c:920
+#: lib/widgets.c:922
 msgid "Select color"
 msgstr "Selecteer kleur"
 
-#: lib/widgets.c:1136
+#: lib/widgets.c:1138
 msgid "Length: "
 msgstr "Lengte:"
 
-#: lib/widgets.c:1149
+#: lib/widgets.c:1151
 msgid "Width: "
 msgstr "Breedte:"
 
-#: lib/widgets.c:1277
+#: lib/widgets.c:1301
 msgid "Select image file"
 msgstr "Selecteer plaatje"
 
-#: lib/widgets.c:1311
+#: lib/widgets.c:1337
 msgid "Browse"
 msgstr "Bladeren"
 
@@ -4484,23 +4487,23 @@ msgstr "Aangepast"
 msgid "Custom XML shapes loader"
 msgstr "Aangepaste XML vormen lader"
 
-#: objects/custom/custom_object.c:177 objects/custom/custom_object.c:196
+#: objects/custom/custom_object.c:178 objects/custom/custom_object.c:197
 msgid "Flip horizontal"
 msgstr "Horizontaal kantelen"
 
-#: objects/custom/custom_object.c:179 objects/custom/custom_object.c:198
+#: objects/custom/custom_object.c:180 objects/custom/custom_object.c:199
 msgid "Flip vertical"
 msgstr "Verticaal kantelen"
 
-#: objects/custom/custom_object.c:1385
+#: objects/custom/custom_object.c:1423
 msgid "Flip Horizontal"
 msgstr "Horizontaal Kantelen"
 
-#: objects/custom/custom_object.c:1386
+#: objects/custom/custom_object.c:1424
 msgid "Flip Vertical"
 msgstr "Verticaal Kantelen"
 
-#: objects/custom/custom_object.c:1423
+#: objects/custom/custom_object.c:1461
 #, c-format
 msgid "Cannot open icon file %s for object type '%s'."
 msgstr "Kan pictogram bestand %s voor object type '%s' niet openen."
@@ -4565,6 +4568,8 @@ msgstr "Rand tekenen"
 msgid "Keep aspect ratio"
 msgstr "Behoud aspect verhouding"
 
+#. Found file in same dir as diagram.
+#. Found file in current dir.
 #: objects/standard/image.c:669 objects/standard/image.c:680
 #, c-format
 msgid ""
@@ -4769,18 +4774,18 @@ msgstr "WPG"
 msgid "WordPerfect Graphics export filter"
 msgstr "WordPerfect Graphics export filter"
 
-#: plug-ins/xfig/xfig-export.c:441
+#: plug-ins/xfig/xfig-export.c:445
 #, c-format
 msgid "FIG format has no equivalent of arrow style %s, using simple arrow.\n"
 msgstr ""
 "Het FIG formaat heeft geen equivalent van pijlstijl %s, simpele pijl wordt "
 "gebruikt.\n"
 
-#: plug-ins/xfig/xfig-export.c:462
+#: plug-ins/xfig/xfig-export.c:466
 msgid "No more user-definable colors - using black"
 msgstr "Geen gebruikergedefinieerde kleuren meer -- zwart wordt gebruikt"
 
-#: plug-ins/xfig/xfig-export.c:1135
+#: plug-ins/xfig/xfig-export.c:1139
 msgid "XFig format"
 msgstr "XFig formaat"
 
@@ -4965,36 +4970,36 @@ msgstr "XFig bestandsformaat"
 msgid "Fig Format import and export filter"
 msgstr "Fig Format import en export filter"
 
-#: plug-ins/xslt/xslt.c:93
+#: plug-ins/xslt/xslt.c:102
 #, c-format
 msgid "Error while parsing %s\n"
 msgstr "Fout tijdens ontleden %s\n"
 
-#: plug-ins/xslt/xslt.c:101
+#: plug-ins/xslt/xslt.c:110
 #, c-format
 msgid "Error while parsing stylesheet %s\n"
 msgstr "Fout tijdens ontleden stylesheet %s\n"
 
-#: plug-ins/xslt/xslt.c:107
+#: plug-ins/xslt/xslt.c:116
 #, c-format
 msgid "Error while applying stylesheet %s\n"
 msgstr "Fout tijdens toepassen stylesheet %s\n"
 
-#: plug-ins/xslt/xslt.c:115
+#: plug-ins/xslt/xslt.c:124
 #, c-format
 msgid "Error while parsing stylesheet: %s\n"
 msgstr "Fout tijdens ontleden stylesheet: %s\n"
 
-#: plug-ins/xslt/xslt.c:123
+#: plug-ins/xslt/xslt.c:132
 #, c-format
 msgid "Error while applying stylesheet: %s\n"
 msgstr "Fout tijdens toepassen stylesheet: %s\n"
 
-#: plug-ins/xslt/xslt.c:303
+#: plug-ins/xslt/xslt.c:312
 msgid "XSL Transformation filter"
 msgstr "XSL transformatie filter"
 
-#: plug-ins/xslt/xslt.c:327
+#: plug-ins/xslt/xslt.c:336
 msgid "No valid configuration files found for the XSLT plugin, not loading."
 msgstr ""
 "Geen geldige configuratiebestanden gevonden voor de XSLT plugin, laden "
@@ -7243,6 +7248,9 @@ msgstr "Sybase dataserver"
 #: sheets/sybase.sheet.in.h:8
 msgid "Sybase replication server"
 msgstr "Sybase replicatieserver"
+
+#~ msgid "No object menu"
+#~ msgstr "Geen object menu"
 
 #~ msgid "Arrow type none -- shouldn't happen\n"
 #~ msgstr "Pijltype geen -- zou niet moeten gebeuren \n"
