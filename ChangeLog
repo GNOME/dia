@@ -1,5 +1,10 @@
 2003-07-06  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* app/menus.c: Patch from Hubert Figuiere: Adds help menu to
+	diagram menus (since they're at the top by default now).  Also
+	move the Properties... menu item from Dialogs to Objects.  Dialogs
+	menu should disappear at some point.
+
 	* autogen.sh: Patch from Hubert Figuiere: Don't automatically call
 	./configure from ./autogen.sh, as configure may need to be run
 	from a different directory.  (Also more standard this way.)

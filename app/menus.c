@@ -209,6 +209,8 @@ static GnomeUIInfo objectsmenu[] = {
   GNOMEUIINFO_SEPARATOR,
   GNOMEUIINFO_SUBTREE(N_("Align _Horizontal"), objects_align_h),
   GNOMEUIINFO_SUBTREE(N_("Align _Vertical"), objects_align_v),
+  GNOMEUIINFO_SEPARATOR,
+  GNOMEUIINFO_ITEM_NONE(N_("_Properties..."), dialogs_properties_callback},
   GNOMEUIINFO_END
 };
 
@@ -233,7 +235,6 @@ static GnomeUIInfo toolsmenu[] = {
 };
 
 static GnomeUIInfo dialogsmenu[] = {
-  GNOMEUIINFO_ITEM_NONE(N_("_Properties"), NULL, dialogs_properties_callback),
   GNOMEUIINFO_ITEM_NONE(N_("_Layers"), NULL, dialogs_layers_callback),
   GNOMEUIINFO_END
 };
@@ -265,6 +266,7 @@ static GnomeUIInfo display_menu[] = {
   GNOMEUIINFO_SUBTREE(N_("_Tools"), toolsmenu),
   GNOMEUIINFO_SUBTREE(N_("_Dialogs"), dialogsmenu),
   GNOMEUIINFO_SUBTREE(N_("_Input Methods"), inputmethod_menu),
+  GNOMEUIINFO_SUBTREE(N_("_Help"), helpmenu),
   GNOMEUIINFO_END
 };
 
@@ -429,7 +431,8 @@ static GtkItemFactoryEntry display_menu_items[] =
   {N_("/Objects/Align Vertical/---"),             NULL,         NULL,        0, "<Separator>"}, 
   {N_("/Objects/Align Vertical/Equal Distance"),   NULL, objects_align_v_callback,    DIA_ALIGN_EQUAL},
   {N_("/Objects/Align Vertical/Adjacent"), NULL, objects_align_v_callback,  DIA_ALIGN_ADJACENT},
-
+  {N_("/Objects/---"),            NULL,     NULL,                           0, "<Separator>"},
+  {N_("/Objects/_Properties..."), NULL,     dialogs_properties_callback,    0},
   {N_("/_Tools"),                 NULL,     NULL,               0, "<Branch>"},
   {   "/Tools/tearoff",           NULL,         NULL,         0, "<Tearoff>" },
   {N_("/Tools/Modify"),           NULL,     NULL,                           0},
@@ -450,11 +453,16 @@ static GtkItemFactoryEntry display_menu_items[] =
   {N_("/Tools/Image"),            NULL,     NULL,                           0},
   {N_("/_Dialogs"),               NULL,     NULL,               0, "<Branch>"},
   {   "/Dialogs/tearoff",         NULL,         NULL,         0, "<Tearoff>" },
-  {N_("/Dialogs/_Properties..."), NULL,     dialogs_properties_callback,    0},
   {N_("/Dialogs/_Layers..."),     NULL,     dialogs_layers_callback,        0},
 
   {N_("/_Input Methods"),         NULL,     NULL,               0, "<Branch>"},
   {   "/Input Methods/tearoff",   NULL,     NULL,               0, "<Tearoff>" },
+  {N_("/_Help"),               NULL,         NULL,       0,    "<Branch>" },
+  {   "/Help/tearoff",         NULL,         NULL,       0,   "<Tearoff>" },
+  {N_("/Help/_Manual"),        "F1",         help_manual_callback,      0,
+      "<StockItem>", GTK_STOCK_HELP },
+  {N_("/Help/---"),            NULL,         NULL,       0, "<Separator>" },
+  {N_("/Help/_About..."),      NULL,         help_about_callback,       0 },
 };
 
 static int display_nmenu_items = (sizeof(display_menu_items) /
