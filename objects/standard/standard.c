@@ -24,6 +24,7 @@ extern ObjectType *_ellipse_type;
 extern ObjectType *_line_type;
 extern ObjectType *_zigzagline_type;
 extern ObjectType *_polyline_type;
+extern ObjectType *_bezierline_type;
 extern ObjectType *_textobj_type;
 extern ObjectType *_image_type;
 
@@ -38,6 +39,7 @@ void register_objects(void) {
   object_register_type(_line_type);
   object_register_type(_polyline_type);
   object_register_type(_zigzagline_type);
+  object_register_type(_bezierline_type);
   object_register_type(_textobj_type);
   object_register_type(_image_type);
 }

@@ -415,7 +415,7 @@ msgid ""
 "Unknown file type."
 msgstr ""
 "Nem tudom betölteni a %s diagrammot.\n"
-"Nem ismert fájltípus.\n"
+"Nem ismert fájltípus."
 
 #: app/load_save.c:186
 #, c-format

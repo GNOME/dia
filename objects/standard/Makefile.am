@@ -8,6 +8,7 @@ libstandard_objects_la_SOURCES = 	arc.c \
 			line.c \
 			zigzagline.c \
 			polyline.c \
+			bezier.c \
 			standard.c \
 			image.c 
 
@@ -22,5 +23,6 @@ EXTRA_DIST = \
 	pixmaps/image.xpm \
 	pixmaps/line.xpm \
 	pixmaps/polyline.xpm \
+	pixmaps/bezier.xpm \
 	pixmaps/text.xpm \
 	pixmaps/zigzag.xpm

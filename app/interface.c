@@ -96,6 +96,10 @@ static ToolButton tool_data[] =
     { CREATE_OBJECT_TOOL, "Standard - PolyLine", NULL }
   },
   { NULL,
+    N_("Create Bezierline"),
+    { CREATE_OBJECT_TOOL, "Standard - BezierLine", NULL }
+  },
+  { NULL,
     N_("Create Image"),
     { CREATE_OBJECT_TOOL, "Standard - Image", NULL }
   }
@@ -325,7 +329,10 @@ create_tools(GtkWidget *parent)
       ObjectType *type;
       type =
 	object_get_type((char *)tool_data[i].callback_data.extra_data);
-      pixmap_data = type->pixmap;
+      if (type == NULL)
+	pixmap_data = tool_data[0].icon_data;
+      else
+	pixmap_data = type->pixmap;
     } else {
       pixmap_data = tool_data[i].icon_data;
     }
