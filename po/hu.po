@@ -1,0 +1,366 @@
+# Dia hungarian po
+# Copyright (C) 1999
+# Shooby Ban <bansz@szif.hu>, 1999.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Dia ?\n"
+"POT-Creation-Date: 1999-01-24 20:24+0100\n"
+"PO-Revision-Date: 1999-03-22 19:03+MET\n"
+"Last-Translator: Shooby Ban <bansz@szif.hu>\n"
+"Language-Team: Hungarian <hu@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Transfer-Encoding: 8-bit\n"
+
+#: app/app_procs.c:191 app/app_procs.c:193
+msgid ""
+"Couldn't find standard objects when looking for object-libs, exiting...\n"
+msgstr ""
+
+#: app/app_procs.c:238
+msgid "Quit, are you sure?"
+msgstr "Kilépsz tényleg?"
+
+#: app/app_procs.c:240
+msgid ""
+"Modified diagrams exists.\n"
+"Are you sure you want to quit?"
+msgstr ""
+"Módosított diagramm van a rajztáblán.\n"
+"Tényleg ki akarsz lépni?"
+
+#: app/app_procs.c:249 app/commands.c:152 app/commands.c:264
+msgid "Yes"
+msgstr "Igen"
+
+#: app/app_procs.c:262 app/commands.c:165 app/commands.c:277
+msgid "No"
+msgstr "Nem"
+
+#: app/app_procs.c:322
+#, c-format
+msgid ""
+"Couldn't find any libraries to load.\n"
+"%s is not a directory.\n"
+msgstr ""
+
+#: app/app_procs.c:329
+#, c-format
+msgid "Couldn't open \"%s\".\n"
+msgstr ""
+
+#: app/app_procs.c:342 app/app_procs.c:373
+#, c-format
+msgid ""
+"Error loading library: \"%s\":\n"
+" %s\n"
+msgstr ""
+
+#: app/app_procs.c:440
+#, c-format
+msgid ""
+"Unable to find register_sheets in library:\n"
+"%s"
+msgstr ""
+
+#: app/menus.c:32 app/menus.c:87
+msgid "/_File"
+msgstr "/:_Fájl"
+
+#. {"/File/tearoff1 ",         NULL,         tearoff,                     0, "<Tearoff>" },
+#: app/menus.c:33 app/menus.c:89
+msgid "/File/_New"
+msgstr "/Fájl/Ú_j"
+
+#: app/menus.c:34 app/menus.c:90
+msgid "/File/_Open"
+msgstr "/Fájl/_Megnyit"
+
+#: app/menus.c:35 app/menus.c:94
+msgid "/File/sep1"
+msgstr "/Fájl/sep1"
+
+#: app/menus.c:36 app/menus.c:96
+msgid "/File/_Quit"
+msgstr "/Fájl/_Kilép"
+
+#: app/menus.c:37
+msgid "/_Help"
+msgstr "_Súgó"
+
+#: app/menus.c:38
+msgid "/Help/_About"
+msgstr "/Súgó/_Névjegy"
+
+#: app/menus.c:45 app/menus.c:58
+msgid "About"
+msgstr "Névjegy"
+
+#: app/menus.c:45 app/menus.c:58
+msgid "Info about this program"
+msgstr "Információk a programról"
+
+#: app/menus.c:69
+msgid "File"
+msgstr "Fájl"
+
+#: app/menus.c:70
+msgid "Help"
+msgstr "Súgó"
+
+#: app/menus.c:91
+msgid "/File/_Save"
+msgstr "/Fájl/Me_nt"
+
+#: app/menus.c:92
+msgid "/File/Save _As..."
+msgstr "/Fájl/Mentés máskén_t..."
+
+#: app/menus.c:93
+msgid "/File/_Export To EPS"
+msgstr "/Fájl/_Export EPS-be"
+
+#: app/menus.c:95
+msgid "/File/_Close"
+msgstr "/Fájl/_Bezár"
+
+#: app/menus.c:97
+msgid "/_Edit"
+msgstr "/_Szerkeszt"
+
+#: app/menus.c:99
+msgid "/Edit/_Copy"
+msgstr "/Szerkeszt/_Másol"
+
+#: app/menus.c:100
+msgid "/Edit/C_ut"
+msgstr "/Szerkeszt/_Kivág"
+
+#: app/menus.c:101
+msgid "/Edit/_Paste"
+msgstr "/Szerkeszt/_Beilleszt"
+
+#: app/menus.c:102
+msgid "/Edit/_Delete"
+msgstr "/Szerkeszt/_Töröl"
+
+#: app/menus.c:103
+msgid "/_View"
+msgstr "/_Nézet"
+
+#: app/menus.c:105
+msgid "/View/Zoom _In"
+msgstr "/Nézet/_Nagyít"
+
+#: app/menus.c:106
+msgid "/View/Zoom _Out"
+msgstr "/Nézet/_Kicsinyít"
+
+#: app/menus.c:107
+msgid "/View/_Zoom"
+msgstr "/Nézet/Nagyí_tás"
+
+#: app/menus.c:108
+msgid "/View/Zoom/400%"
+msgstr "/Nézet/Nagyítás/400%"
+
+#: app/menus.c:109
+msgid "/View/Zoom/283%"
+msgstr "/Nézet/Nagyítás/283%"
+
+#: app/menus.c:110
+msgid "/View/Zoom/200%"
+msgstr "/Nézet/Nagyítás/200%"
+
+#: app/menus.c:111
+msgid "/View/Zoom/141%"
+msgstr "/Nézet/Nagyítás/141%"
+
+#: app/menus.c:112
+msgid "/View/Zoom/100%"
+msgstr "/Nézet/Nagyítás/100%"
+
+#: app/menus.c:113
+msgid "/View/Zoom/85%"
+msgstr "/Nézet/Nagyítás/85%"
+
+#: app/menus.c:114
+msgid "/View/Zoom/70.7%"
+msgstr "/Nézet/Nagyítás/70.7%"
+
+#: app/menus.c:115
+msgid "/View/Zoom/50%"
+msgstr "/Nézet/Nagyítás/50%"
+
+#: app/menus.c:116
+msgid "/View/Zoom/35.4%"
+msgstr "/Nézet/Nagyítás/35.4%"
+
+#: app/menus.c:117
+msgid "/View/Zoom/25%"
+msgstr "/Nézet/Nagyítás/25%"
+
+#: app/menus.c:118
+msgid "/View/Edit Grid..."
+msgstr "/Nézet/Szerkesztõrács..."
+
+#: app/menus.c:119
+msgid "/View/_Visible Grid"
+msgstr "/Nézet/_Látható rács"
+
+#: app/menus.c:120
+msgid "/View/_Snap To Grid"
+msgstr "/Nézet/_Rácsra illeszt"
+
+#: app/menus.c:121
+msgid "/View/Toggle _Rulers"
+msgstr "/Nézet/Vonalzó ki-be"
+
+#: app/menus.c:122
+msgid "/View/sep1"
+msgstr "/Nézet/sep1"
+
+#: app/menus.c:123
+msgid "/View/New _View"
+msgstr "/Nézet/Új _nézet"
+
+#: app/menus.c:124
+msgid "/View/Show _All"
+msgstr "/Nézet/Mutat _Mindent"
+
+#: app/menus.c:125
+msgid "/_Objects"
+msgstr "/_Objektumok"
+
+#: app/menus.c:127
+msgid "/Objects/Place _Under"
+msgstr "/Objektumok/_Alá helyez"
+
+#: app/menus.c:128
+msgid "/Objects/Place _Over"
+msgstr "/Objektumok/_Fölé helyez"
+
+#: app/menus.c:129 app/menus.c:132
+msgid "/Objects/sep1"
+msgstr "/Objektumok/sep1"
+
+#: app/menus.c:130
+msgid "/Objects/_Group"
+msgstr "/Objektumok/_Csoport"
+
+#: app/menus.c:131
+msgid "/Objects/_Ungroup"
+msgstr "/Objektumok/Csoport f_elbonása"
+
+#: app/menus.c:133
+msgid "/Objects/Align _Horizontal"
+msgstr "/Objektumok/_Vizszintes"
+
+#: app/menus.c:134
+msgid "/Objects/Align Horizontal/Top"
+msgstr "/Objektumok/Vizszintes/Fel"
+
+#: app/menus.c:135
+msgid "/Objects/Align Horizontal/Center"
+msgstr "/Objektumok/Vizszintes/Középre"
+
+#: app/menus.c:136
+msgid "/Objects/Align Horizontal/Bottom"
+msgstr "/Objektumok/Vizszintes/Le"
+
+#: app/menus.c:137
+msgid "/Objects/Align _Vertical"
+msgstr "/Objektumok/_Függõleges"
+
+#: app/menus.c:138
+msgid "/Objects/Align Vertical/Left"
+msgstr "/Objektumok/Függõleges/Balra"
+
+#: app/menus.c:139
+msgid "/Objects/Align Vertical/Center"
+msgstr "/Objektumok/Függõleges/Középre"
+
+#: app/menus.c:140
+msgid "/Objects/Align Vertical/Right"
+msgstr "/Objektumok/Függõleges/Jobbra"
+
+#: app/menus.c:143
+msgid "/_Dialogs"
+msgstr "/_Dialógusok"
+
+#: app/menus.c:144
+msgid "/Dialogs/_Properties"
+msgstr "/Dialógusok/_Tulajdonságok"
+
+#: app/menus.c:145
+msgid "/Dialogs/_Layers"
+msgstr "/Dialógusok/_Rétegek"
+
+#: app/menus.c:206
+#, c-format
+msgid "Unable to set sensitivity for menu which doesn't exist: %s"
+msgstr ""
+
+#: app/menus.c:223
+#, c-format
+msgid "Unable to set state for menu which doesn't exist: %s"
+msgstr ""
+
+#: app/commands.c:79
+msgid "Open diagram"
+msgstr "Diagramm megnyitása"
+
+#: app/commands.c:137 app/commands.c:249
+msgid "File already exists"
+msgstr "A fájl már létezik"
+
+#: app/commands.c:140 app/commands.c:252
+#, c-format
+msgid ""
+"The file '%s' already exists.\n"
+"Do you want to overwrite it?"
+msgstr ""
+"A %s nevû fájl már létezik.\n"
+"Fölül szeretnéd írni?"
+
+#: app/commands.c:206
+msgid "Save diagram"
+msgstr "Diagramm mentése"
+
+#: app/commands.c:317
+msgid "Export to postscript"
+msgstr "Postscript-be exportálás"
+
+#: app/commands.c:351
+#, c-format
+msgid "Untitled-%d"
+msgstr "Névtelen-%d"
+
+#: app/commands.c:401
+msgid "No existing object to paste.\n"
+msgstr "Nincs beillesztendõ objektum.\n"
+
+#: app/commands.c:471
+msgid "Copyright (C) 1999"
+msgstr ""
+
+#: app/commands.c:473
+msgid ""
+"Comment line 1\n"
+"Line 2"
+msgstr ""
+"Megjegyzés elsõ sor\n"
+"Második sor"
+
+#: app/commands.c:479
+msgid "About Dia"
+msgstr "Dia névjegye"
+
+#: app/commands.c:498
+msgid "Please visit http://www.lysator.liu.se/~alla/dia for more info"
+msgstr ""
+
+#: app/commands.c:502
+msgid "Ok"
+msgstr ""
