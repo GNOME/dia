@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-03-19 03:12+0100\n"
-"PO-Revision-Date: 2004-03-19 13:44+0100\n"
+"POT-Creation-Date: 2004-04-21 03:15+0200\n"
+"PO-Revision-Date: 2004-04-21 13:56+0200\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -142,11 +142,11 @@ msgstr "Ukončit Dia"
 msgid "Thank you for using Dia.\n"
 msgstr "Děkujeme vám, že používáte Dia.\n"
 
-#: app/app_procs.c:676 app/app_procs.c:683
+#: app/app_procs.c:678 app/app_procs.c:685
 msgid "Could not create per-user Dia config directory"
 msgstr "Nelze vytvořit adresář s uživatelským nastavením Dia"
 
-#: app/app_procs.c:685
+#: app/app_procs.c:687
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -154,15 +154,15 @@ msgstr ""
 "Nelze vytvořit adresář s uživatelským nastavením Dia. Ujistěte se prosím, že "
 "proměnná prostředí HOME ukazuje na existující adresář."
 
-#: app/app_procs.c:707 app/diaconv.c:251
+#: app/app_procs.c:709 app/diaconv.c:251
 msgid "Objects and filters internal to dia"
 msgstr "Objekty a filtry interní pro program Dia"
 
-#: app/app_procs.c:746 app/diaconv.c:121
+#: app/app_procs.c:748 app/diaconv.c:121
 msgid "[OPTION...] [FILE...]"
 msgstr "[VOLBA...] [SOUBOR...]"
 
-#: app/app_procs.c:750 app/diaconv.c:128
+#: app/app_procs.c:752 app/diaconv.c:128
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
@@ -477,7 +477,7 @@ msgid "Ok"
 msgstr "Ok"
 
 #: app/dialogs.c:52 app/layer_dialog.c:1009 app/paginate_psprint.c:278
-#: lib/diaarrowchooser.c:257 lib/dialinechooser.c:264
+#: lib/diaarrowchooser.c:257
 msgid "Cancel"
 msgstr "Zrušit"
 
@@ -834,7 +834,7 @@ msgstr ""
 "Styl šipky na konci nových čar. Kliknutím zvolte šipku nebo nastavte "
 "parametry šipky tlačítkem Podrobnosti..."
 
-#: app/interface.c:1235
+#: app/interface.c:1236
 msgid "Diagram Editor"
 msgstr "Editor diagramu"
 
@@ -883,7 +883,6 @@ msgid "Layer name:"
 msgstr "Název vrstvy:"
 
 #: app/layer_dialog.c:999 app/paginate_psprint.c:270 lib/diaarrowchooser.c:248
-#: lib/dialinechooser.c:254
 msgid "OK"
 msgstr "OK"
 
@@ -1450,22 +1449,22 @@ msgstr "Tiskárna"
 msgid "File"
 msgstr "Soubor"
 
-#: app/paginate_psprint.c:356
+#: app/paginate_psprint.c:358
 #, c-format
 msgid "Could not run command '%s': %s"
 msgstr "Nemohu spustit příkaz '%s': %s"
 
-#: app/paginate_psprint.c:359
+#: app/paginate_psprint.c:361
 #, c-format
 msgid "Could not open '%s' for writing: %s"
 msgstr "Nemohu otevřít '%s' pro zápis: %s"
 
-#: app/paginate_psprint.c:378
+#: app/paginate_psprint.c:380
 #, c-format
 msgid "Printing error: command '%s' returned %d\n"
 msgstr "Chyba při tisku: příkaz '%s' vrátil %d\n"
 
-#: app/paginate_psprint.c:388
+#: app/paginate_psprint.c:390
 #, c-format
 msgid "Printing error: command '%s' caused sigpipe."
 msgstr "Chyba při tisku: příkaz '%s' způsobil sigpipe."
@@ -2124,7 +2123,7 @@ msgstr ""
 msgid "Arrow Properties"
 msgstr "Vlastnosti šipky"
 
-#: lib/diaarrowchooser.c:311 lib/dialinechooser.c:287
+#: lib/diaarrowchooser.c:311 lib/dialinechooser.c:321
 msgid "Details..."
 msgstr "Podrobnosti..."
 
@@ -2171,7 +2170,7 @@ msgstr "_Náhled:"
 msgid "Font Selection"
 msgstr "Výběr písma"
 
-#: lib/dialinechooser.c:243
+#: lib/dialinechooser.c:287
 msgid "Line Style Properties"
 msgstr "Vlastnosti stylu čáry"
 
@@ -4377,15 +4376,15 @@ msgstr "Čtverec"
 msgid "Aspect ratio"
 msgstr "Poměr stran"
 
-#: objects/standard/box.c:683 objects/standard/ellipse.c:659
+#: objects/standard/box.c:683 objects/standard/ellipse.c:666
 msgid "Free aspect"
 msgstr "Volný poměr stran"
 
-#: objects/standard/box.c:685 objects/standard/ellipse.c:661
+#: objects/standard/box.c:685 objects/standard/ellipse.c:668
 msgid "Fixed aspect"
 msgstr "Pevný poměr stran"
 
-#: objects/standard/ellipse.c:133 objects/standard/ellipse.c:663
+#: objects/standard/ellipse.c:133 objects/standard/ellipse.c:670
 msgid "Circle"
 msgstr "Kruh"
 
@@ -5647,9 +5646,8 @@ msgid "Corner 2"
 msgstr "Roh 2"
 
 #: sheets/IsometricMap.sheet.in.h:12
-#, fuzzy
 msgid "Crossroads"
-msgstr "Křížek"
+msgstr "Rozcestí"
 
 #: sheets/IsometricMap.sheet.in.h:13
 msgid "Elevated Road"
