@@ -121,6 +121,46 @@ object_remove_handle(Object *obj, Handle *handle)
     g_realloc(obj->handles, obj->num_handles*sizeof(Handle *));
 }
 
+void
+object_add_connectionpoint(Object *obj, ConnectionPoint *conpoint)
+{
+  obj->num_connections++;
+
+  obj->connections =
+    g_realloc(obj->connections, obj->num_connections*sizeof(ConnectionPoint *));
+  
+  obj->connections[obj->num_connections-1] = conpoint;
+}
+
+void
+object_remove_connectionpoint(Object *obj, ConnectionPoint *conpoint)
+{
+  int i, nr;
+
+  object_remove_connections_to(conpoint);
+
+  nr = -1;
+  for (i=0;i<obj->num_connections;i++) {
+    if (obj->connections[i] == conpoint)
+      nr = i;
+  }
+
+  if (nr < 0) {
+    message_error("Internal error, object_remove_connectionpoint: "
+                  "ConnectionPoint doesn't exist");
+    return;
+  }
+
+  for (i=nr;i<(obj->num_connections-1);i++) {
+    obj->connections[i] = obj->connections[i+1];
+  }
+  obj->connections[obj->num_connections-1] = NULL;
+    
+  obj->num_connections--;
+
+  obj->connections =
+    g_realloc(obj->connections, obj->num_connections*sizeof(ConnectionPoint *));
+}
 
 void
 object_connect(Object *obj, Handle *handle,

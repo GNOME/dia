@@ -167,9 +167,10 @@ umlclass_draw(UMLClass *umlclass, Renderer *renderer)
   /* stereotype: */
   font = umlclass->normal_font;
   p.x = x + elem->width / 2.0;
-  p.y = p1.y + 0.1 + umlclass->font_ascent;
+  p.y = p1.y;
 
   if (umlclass->stereotype != NULL) {
+    p.y += 0.1 + umlclass->font_ascent;
     renderer->ops->set_font(renderer, font, umlclass->font_height);
     renderer->ops->draw_string(renderer,
 			       umlclass->stereotype_string,
@@ -339,24 +340,40 @@ umlclass_update_data(UMLClass *umlclass)
 {
   Element *elem = &umlclass->element;
   Object *obj = (Object *)umlclass;
+  int i;
+  real x,y;
+
+  x = elem->corner.x;
+  y = elem->corner.y;
   
   /* Update connections: */
   umlclass->connections[0].pos = elem->corner;
-  umlclass->connections[1].pos.x = elem->corner.x + elem->width / 2.0;
-  umlclass->connections[1].pos.y = elem->corner.y;
-  umlclass->connections[2].pos.x = elem->corner.x + elem->width;
-  umlclass->connections[2].pos.y = elem->corner.y;
-  umlclass->connections[3].pos.x = elem->corner.x;
-  umlclass->connections[3].pos.y = elem->corner.y + elem->height / 2.0;
-  umlclass->connections[4].pos.x = elem->corner.x + elem->width;
-  umlclass->connections[4].pos.y = elem->corner.y + elem->height / 2.0;
-  umlclass->connections[5].pos.x = elem->corner.x;
-  umlclass->connections[5].pos.y = elem->corner.y + elem->height;
-  umlclass->connections[6].pos.x = elem->corner.x + elem->width / 2.0;
-  umlclass->connections[6].pos.y = elem->corner.y + elem->height;
-  umlclass->connections[7].pos.x = elem->corner.x + elem->width;
-  umlclass->connections[7].pos.y = elem->corner.y + elem->height;
+  umlclass->connections[1].pos.x = x + elem->width / 2.0;
+  umlclass->connections[1].pos.y = y;
+  umlclass->connections[2].pos.x = x + elem->width;
+  umlclass->connections[2].pos.y = y;
+  umlclass->connections[3].pos.x = x;
+  umlclass->connections[3].pos.y = y + umlclass->namebox_height/2.0;
+  umlclass->connections[4].pos.x = x + elem->width;
+  umlclass->connections[4].pos.y = y + umlclass->namebox_height/2.0;
+  umlclass->connections[5].pos.x = x;
+  umlclass->connections[5].pos.y = y + elem->height;
+  umlclass->connections[6].pos.x = x + elem->width / 2.0;
+  umlclass->connections[6].pos.y = y + elem->height;
+  umlclass->connections[7].pos.x = x + elem->width;
+  umlclass->connections[7].pos.y = y + elem->height;
 
+  /* HUBBA HUBBA.... TODOTODOTODO
+  y += umlclass->namebox_height + 0.1 + umlclass->font_height/2;
+  
+  for (i=0;i<umlclass->num_extra_connections/2;i++) {
+    umlclass->extra_connections[2*i].pos.x = x;
+    umlclass->extra_connections[2*i].pos.y = y + umlclass->font_height*i;
+    umlclass->extra_connections[2*i+1].pos.x = x + elem->width;
+    umlclass->extra_connections[2*i+1].pos.y = y + umlclass->font_height*i;
+  }
+  */
+  
   element_update_boundingbox(elem);
   /* fix boundingumlclass for line_width: */
   obj->bounding_box.top -= UMLCLASS_BORDER/2.0;
@@ -399,12 +416,12 @@ umlclass_calculate_data(UMLClass *umlclass)
 				 umlclass->classname_font,
 				 umlclass->classname_font_height);
 
-  umlclass->namebox_height =
-    font_height + umlclass->classname_font_height + 2*0.1;
+  umlclass->namebox_height = umlclass->classname_font_height + 2*0.1;
   if (umlclass->stereotype_string != NULL) {
     g_free(umlclass->stereotype_string);
   }
   if (umlclass->stereotype != NULL) {
+    umlclass->namebox_height += font_height;
     umlclass->stereotype_string =
       g_malloc(sizeof(char)*(strlen(umlclass->stereotype)+2+1));
     

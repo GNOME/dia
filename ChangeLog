@@ -1,3 +1,18 @@
+1998-11-24  Alexander Larsson  <alla@lysator.liu.se>
+
+	* README
+	Some new documentation about handles and connectionpoints.
+	
+	* lib/object.[ch]
+	Added functions object_add_connectionpoint and
+	object_remove_connectionpoint for handling a dynamic
+	number of connectionpoints.
+
+	* objects/UML/class.c:
+	Only reserve space for stereotype when it is shown.
+
+	These changes are from Jerome Abela <Jerome.Abela@solsoft.fr>
+
 1998-11-08  Alexander Larsson  <alla@lysator.liu.se>
 
 	* app/connectionpoint_ops.c:

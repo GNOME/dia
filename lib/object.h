@@ -195,6 +195,9 @@ extern void object_load(Object *obj, int fd);
 
 extern void object_add_handle(Object *obj, Handle *handle);
 extern void object_remove_handle(Object *obj, Handle *handle);
+extern void object_add_connectionpoint(Object *obj, ConnectionPoint *conpoint);
+extern void object_remove_connectionpoint(Object *obj,
+					  ConnectionPoint *conpoint);
 extern void object_connect(Object *obj, Handle *handle,
 			   ConnectionPoint *conpoint);
 extern void object_unconnect(Object *connected_obj, Handle *handle);
@@ -238,7 +241,7 @@ struct _ObjectOps {
 };
 
 /*
-  The base class in the Objecy hierarcy.
+  The base class in the Object hierarcy.
   All information in this structure read-only
   from the application point of view except
   when connection objects. (Then handles and
