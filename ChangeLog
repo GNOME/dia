@@ -1,5 +1,14 @@
 2003-09-10  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* lib/arrows.c (calculate_arrow_point): Some fixing-up of arrow
+	calculation for half diamond and open round.
+
+	* lib/arrows.c: 
+	* objects/UML/component_feature.c: 
+	* lib/arrows.h: Patch from W. Borgert <debacle@debian.org>: Use
+	arrows instead of specific little hacks.  Much nicer, but damn
+	there's a lot of arrows.
+
 	* lib/dialibartrenderer.c (begin_render): 
 	* app/render_libart.c (begin_render): Use correct DPI for screen
 	(well, actually the default DPI of 75 for now).
