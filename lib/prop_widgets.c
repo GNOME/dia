@@ -421,15 +421,7 @@ listprop_get_widget(ListProperty *prop, PropDialog *dialog)
 
 static GtkWidget *
 make_item(const gchar *line) {
-  GtkWidget *ret;
-#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
-  gchar *locbuf = charconv_utf8_to_local8(line);
-  ret = gtk_list_item_new_with_label(locbuf);
-  g_free(locbuf);
-#else
-  ret = gtk_list_item_new_with_label(line);
-#endif
-  return ret;
+  return gtk_list_item_new_with_label(line);
 }
 
 static void 

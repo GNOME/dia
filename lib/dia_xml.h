@@ -22,7 +22,6 @@
 #include "geometry.h"
 #include "color.h"
 #include "font.h"
-#include "charconv.h"
 #include "diavar.h"
 
 DIAVAR int pretty_formated_xml;

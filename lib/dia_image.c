@@ -70,7 +70,7 @@ dia_image_load(gchar *filename)
   DiaImage dia_img;
   GdkPixbuf *image;
 
-  image = gdk_pixbuf_new_from_file(filename);
+  image = gdk_pixbuf_new_from_file(filename, NULL);
   if (image == NULL)
     return NULL;
 

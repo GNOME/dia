@@ -23,7 +23,7 @@
 
 #include "color.h"
 
-static GdkColorContext *color_context = NULL;
+static GdkColormap *colormap = NULL;
 Color color_black = { 0.0f, 0.0f, 0.0f };
 Color color_white = { 1.0f, 1.0f, 1.0f };
 GdkColor color_gdk_black, color_gdk_white;
@@ -31,9 +31,8 @@ GdkColor color_gdk_black, color_gdk_white;
 void 
 color_init(void)
 {
-  GdkVisual *visual = gtk_widget_get_default_visual(); 
-  GdkColormap *colormap = gtk_widget_get_default_colormap(); 
-  color_context = gdk_color_context_new(visual, colormap);
+  GdkVisual *visual = gdk_visual_get_system (); 
+  colormap = gdk_colormap_new (visual, FALSE); 
 
   color_convert(&color_black, &color_gdk_black);
   color_convert(&color_white, &color_gdk_white);
@@ -48,13 +47,8 @@ color_convert(Color *color, GdkColor *gdkcolor)
   gdkcolor->green = color->green*65535;
   gdkcolor->blue = color->blue*65535;
 
-  
-  gdkcolor->pixel =
-    gdk_color_context_get_pixel(color_context,
-				gdkcolor->red,
-				gdkcolor->green,
-				gdkcolor->blue,
-				&failed);
+  if (!gdk_colormap_alloc_color (colormap, gdkcolor, TRUE, TRUE))
+    g_warning ("color_convert failed.");
 }
 
 gboolean

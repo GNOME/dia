@@ -29,7 +29,6 @@
 #include "intl.h"
 #include "utils.h"
 #include "message.h"
-#include "charconv.h"
 
 static void
 gtk_message_internal(char *title, const char *fmt,

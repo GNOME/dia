@@ -30,9 +30,6 @@
 #ifdef HAVE_UNISTD_H
 #include <unistd.h>
 #endif
-#ifdef HAVE_DIRENT_H
-#include <dirent.h>
-#endif
 
 #include <xmlmemory.h>
 #include <parser.h>
@@ -40,11 +37,14 @@
 #include "dia_xml_libxml.h"
 #include "dia_xml.h"
 
-#include "charconv.h"
 #include "plug-ins.h"
 #include "intl.h"
 #include "message.h"
 #include "dia_dirs.h"
+
+#ifdef G_OS_WIN32
+#include <io.h> /* open, close */
+#endif
 
 #if defined(LIBXML_VERSION) && LIBXML_VERSION >= 20000
 #define XML2
@@ -69,27 +69,18 @@ static gboolean plugin_load_inhibited(const gchar *filename);
 static void     info_fill_from_pluginrc(PluginInfo *info);
 
 gboolean
-dia_plugin_info_init(PluginInfo *info, gchar *name, utfchar *description,
+dia_plugin_info_init(PluginInfo *info, gchar *name, gchar *description,
 		     PluginCanUnloadFunc can_unload_func, 
 		     PluginUnloadFunc unload_func)
 {
-	utfchar *utf;
+  g_free(info->name);
+  info->name = g_strdup(name);
+  g_free(info->description);
+  info->description = g_strdup(description);
+  info->can_unload_func = can_unload_func;
+  info->unload_func = unload_func;
 
-	g_free(info->name);
-	g_free(info->description);
-#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
-	utf = charconv_local8_to_utf8 (name);
-	info->name = utf;
-	utf = charconv_local8_to_utf8 (description);
-	info->description = utf;
-#else
-	info->name = g_strdup(name);
-	info->description = g_strdup(description);
-#endif
-	info->can_unload_func = can_unload_func;
-	info->unload_func = unload_func;
-
-	return TRUE;
+  return TRUE;
 }
 
 gchar *
@@ -306,7 +297,7 @@ this_is_a_plugin(const gchar *name)
 #if USING_LIBTOOL
   basename = g_strndup(name,len-PLUG_IN_EXT_LEN);
   soname = g_strconcat(basename,".so",NULL);
-  if ((stat(soname, &statbuf) < 0)||(!S_ISREG(statbuf.st_mode))) {    
+  if (!g_file_test(soname, G_FILE_TEST_IS_REGULAR)) {    
     g_free(basename);
     g_free(soname);
     return FALSE;
@@ -325,44 +316,41 @@ for_each_in_dir(const gchar *directory, ForEachInDirDoFunc dofunc,
                 ForEachInDirFilterFunc filter)
 {
   struct stat statbuf;
-  struct dirent *dirp;
-  DIR *dp;
+  const char *dentry;
+  GDir *dp;
+  GError *error = NULL;
 
   if (stat(directory, &statbuf) < 0)
     return;
-  if (!S_ISDIR(statbuf.st_mode)) {
-    message_warning(_("`%s' is not a directory"), directory);
-    return;
-  }
 
-  dp = opendir(directory);
+  dp = g_dir_open(directory, 0, &error);
   if (dp == NULL) {
-    message_warning(_("Could not open `%s'"), directory);
+    message_warning(_("Could not open `%s'\n`%s'"), directory, error->message);
+    g_error_free (error);
     return;
   }
 
-  while ((dirp = readdir(dp)) != NULL) {
-    gchar *name = g_strconcat(directory,G_DIR_SEPARATOR_S,dirp->d_name,NULL);
+  while ((dentry = g_dir_read_name(dp)) != NULL) {
+    gchar *name = g_strconcat(directory,G_DIR_SEPARATOR_S,dentry,NULL);
 
     if (filter(name)) dofunc(name);
     g_free(name);
   }
-  closedir(dp);
+  g_dir_close(dp);
 }
 
 static gboolean 
 directory_filter(const gchar *name)
 {
   guint len = strlen(name);
-  struct stat statbuf;
 
   if (0 == strcmp(G_DIR_SEPARATOR_S ".",
                   &name[len-strlen(G_DIR_SEPARATOR_S ".")])) return FALSE;
   if (0 == strcmp(G_DIR_SEPARATOR_S "..",
                   &name[len-strlen(G_DIR_SEPARATOR_S "..")])) return FALSE;
 
-  if (stat(name,&statbuf) < 0) return FALSE;
-  if (!S_ISDIR(statbuf.st_mode)) return FALSE;
+  if (!g_file_test (name, G_FILE_TEST_IS_DIR))
+    return FALSE;
 
   return TRUE;
 }
@@ -371,9 +359,9 @@ static gboolean
 dia_plugin_filter(const gchar *name) 
 {
   gint len = strlen(name);
-  struct stat statbuf;
-  if (stat(name,&statbuf) < 0) return FALSE;
-  if (!S_ISREG(statbuf.st_mode) || S_ISDIR(statbuf.st_mode)) return FALSE;
+
+  if (!g_file_test (name, G_FILE_TEST_IS_REGULAR | G_FILE_TEST_IS_DIR))
+    return FALSE;
   
   if (len <= PLUG_IN_EXT_LEN) return FALSE;
 
@@ -584,11 +572,7 @@ info_fill_from_pluginrc(PluginInfo *info)
 	  info->name = g_strdup(content);
 	} else if (!strcmp(node2->name, "description")) {
 	  g_free(info->description);
-#ifdef UNICODE_WORK_IN_PROGRESS
 	  info->description = g_strdup(content);
-#else
-    info->description = charconv_utf8_to_local8(content);
-#endif
 	}
 	xmlFree(content);
       }
@@ -615,22 +599,13 @@ dia_pluginrc_write(void)
 
     pluginnode = xmlNewNode(NULL, "plugin");
     datanode = xmlNewChild(pluginnode, NULL, "name", info->name);
-#ifdef UNICODE_WORK_IN_PROGRESS
+    /* FIXME: UNICODE_WORK_IN_PROGRESS why is this reencoding necessary ?*/
  {
      xmlChar *enc = xmlEncodeEntitiesReentrant(pluginnode->doc,
                                                info->description);
      datanode = xmlNewChild(pluginnode, NULL, "description", enc);
      xmlFree(enc);
  }
-#else
- {
-     gchar *utf = charconv_local8_to_utf8(info->description);
-     xmlChar *enc = xmlEncodeEntitiesReentrant(pluginnode->doc,utf);
-     g_free(utf);
-     datanode = xmlNewChild(pluginnode, NULL, "description", enc);
-     xmlFree(enc);
- }    
-#endif
     if (info->inhibit_load)
       datanode = xmlNewChild(pluginnode, NULL, "inhibit-load", NULL);
 

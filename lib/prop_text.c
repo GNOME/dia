@@ -27,13 +27,13 @@
 #include <config.h>
 #endif
 
+#define GTK_ENABLE_BROKEN /* GtkText */
 #include <gtk/gtk.h>
 #define WIDGET GtkWidget
 #include "widgets.h"
 #include "properties.h"
 #include "propinternals.h"
 #include "text.h"
-#include "charconv.h"
 
 /*****************************************************/
 /* The STRING, FILE and MULTISTRING property types.  */
@@ -93,38 +93,15 @@ stringprop_get_widget(StringProperty *prop, PropDialog *dialog)
 static void 
 stringprop_reset_widget(StringProperty *prop, WIDGET *widget)
 {
-#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
-  gchar *locbuf;
-
-  if (prop->string_data) {
-	  locbuf = charconv_utf8_to_local8 (prop->string_data);
-	  gtk_entry_set_text (GTK_ENTRY (widget), locbuf);
-	  g_free (locbuf);
-  } else {
-	  gtk_entry_set_text (GTK_ENTRY (widget), "");
-  }
-#else
   gtk_entry_set_text(GTK_ENTRY(widget), prop->string_data);
-#endif
 }
 
 static void 
 stringprop_set_from_widget(StringProperty *prop, WIDGET *widget) 
 {
-  gchar *val = gtk_editable_get_chars(GTK_EDITABLE(widget),0,-1);
-#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
-  utfchar *utfbuf = charconv_local8_to_utf8(val);
-  g_free(val);
-  val = utfbuf;
-#elif defined(GTK_TALKS_UTF8_WE_DONT)
-  gchar *locbuf = charconv_utf8_to_local8(val);
-  g_free(val);
-  val = locbuf;
-#else
-  /* general case */
-#endif
   g_free(prop->string_data);
-  prop->string_data = val;
+  prop->string_data =
+    g_strdup (gtk_entry_get_text (GTK_ENTRY(widget)));
 }
 
 static WIDGET *
@@ -139,23 +116,7 @@ multistringprop_get_widget(StringProperty *prop, PropDialog *dialog)
 static void 
 multistringprop_reset_widget(StringProperty *prop, WIDGET *widget)
 {
-#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
-  gchar *locbuf = charconv_utf8_to_local8(prop->string_data);
-  gtk_text_set_point(GTK_TEXT(widget), 0);
-  gtk_text_forward_delete(GTK_TEXT(widget),
-                          gtk_text_get_length(GTK_TEXT(widget)));
-  gtk_text_insert(GTK_TEXT(widget), NULL, NULL, NULL, locbuf,-1);
-  g_free(locbuf);
-#elif defined(GTK_TALKS_UTF8_WE_DONT)
-  utfchar *utfbuf = charconv_local8_to_utf8(prop->string_data);
-  gtk_text_set_point(GTK_TEXT(widget), 0);
-  gtk_text_forward_delete(GTK_TEXT(widget),
-                          gtk_text_get_length(GTK_TEXT(widget)));
-  gtk_text_insert(GTK_TEXT(widget), NULL, NULL, NULL, utfbuf,-1);
-  g_free(utfbuf);
-#else
   gtk_text_insert(GTK_TEXT(widget), NULL, NULL, NULL, prop->string_data,-1);
-#endif
 }
 
 static WIDGET *

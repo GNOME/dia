@@ -69,43 +69,18 @@ charprop_get_widget(CharProperty *prop, PropDialog *dialog)
 static void 
 charprop_reset_widget(CharProperty *prop, WIDGET *widget)
 {
-#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
-  utfchar *utfbuf;
-  gchar *locbuf;
-
-  utfbuf = charconv_unichar_to_utf8(prop->char_data);/*keep for gtk2*/
-  locbuf = charconv_utf8_to_local8(utfbuf);
-  gtk_entry_set_text(GTK_ENTRY(widget), locbuf);
-  g_free(locbuf);
-#elif defined(GTK_TALKS_UTF8_WE_DONT)
-  utfchar *utfbuf;
-  utfbuf = charconv_unichar_to_utf8(prop->char_data);/*keep for gtk2*/
-  gtk_entry_set_text(GTK_ENTRY(widget), utfbuf);
-#else 
-  gchar buf[2];
-  buf[0] = prop->char_data;
-  buf[1] = '\0';
-  gtk_entry_set_text(GTK_ENTRY(widget), buf);
-#endif  
+  gchar ch[7];
+  int unilen = g_unichar_to_utf8 (prop->char_data, ch);
+  ch[unilen] = 0;
+  gtk_entry_set_text(GTK_ENTRY(widget), ch);
 }
 
 static void 
 charprop_set_from_widget(CharProperty *prop, WIDGET *widget) 
 {
-#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
-  gchar *locbuf;
-  utfchar *utfbuf;
-  unichar uc;
-
-  locbuf = gtk_editable_get_chars(GTK_EDITABLE(widget),0,1);
-  utfbuf = charconv_local8_to_utf8(locbuf); g_free(locbuf);
-  uni_get_utf8(utfbuf,&uc); g_free(utfbuf);
-  prop->char_data = uc;
-#else
-  gchar *buf = gtk_entry_get_text(GTK_ENTRY(widget));
-  prop->char_data = buf[0];
+  gchar *buf = gtk_editable_get_chars(GTK_EDITABLE(widget), 0, 1);
+  prop->char_data = g_utf8_get_char(buf);
   g_free(buf);
-#endif
 }
 
 static void 
@@ -114,17 +89,7 @@ charprop_load(CharProperty *prop, AttributeNode attr, DataNode data)
   gchar *str = data_string(data);
   
   if (str && str[0]) {
-#ifdef UNICODE_WORK_IN_PROGRESS
-# if !GLIB_CHECK_VERSION(2,0,0)
-    unichar uc;
-    uni_get_utf8(str,&uc);
-    prop->char_data = uc;
-# else
     prop->char_data = g_utf8_get_char(str);
-# endif
-#else
-    prop->char_data = str[0];
-#endif
     g_free(str);
   } else {
     g_warning("Could not read character data for attribute %s", 
@@ -135,35 +100,24 @@ charprop_load(CharProperty *prop, AttributeNode attr, DataNode data)
 static void 
 charprop_save(CharProperty *prop, AttributeNode attr) 
 {
-#ifdef UNICODE_WORK_IN_PROGRESS
-#  if GLIB_CHECK_VERSION(2,0,0)
-    gchar utf[7];
-    gint n = g_unichar_to_utf8 (prop->char_data, utf);
-    utf[n] = 0;
-    data_add_string (attr, utf);
-#  else
-    data_add_string(attr,charconv_unichar_to_utf8(prop->char_data));
-#  endif
-#else
-    gchar buf[2];
-    buf[0] = prop->char_data;
-    buf[1] = '\0';
-    data_add_string(attr, buf);
-#endif
+  gchar utf[7];
+  gint n = g_unichar_to_utf8 (prop->char_data, utf);
+  utf[n] = 0;
+  data_add_string (attr, utf);
 }
 
 static void 
 charprop_get_from_offset(CharProperty *prop,
                          void *base, guint offset, guint offset2) 
 {
-  prop->char_data = struct_member(base,offset,unichar);
+  prop->char_data = struct_member(base,offset,gunichar);
 }
 
 static void 
 charprop_set_from_offset(CharProperty *prop,
                          void *base, guint offset, guint offset2)
 {
-  struct_member(base,offset,unichar) = prop->char_data;
+  struct_member(base,offset,gunichar) = prop->char_data;
 }
 
 

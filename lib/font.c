@@ -70,7 +70,6 @@
 #include "message.h"
 #include "intl.h"
 #include "text.h"
-#include "charconv.h" 
 #include "font.h"
 
 #ifndef LARS_TRACE_MESSAGES
@@ -965,12 +964,7 @@ freetype_load_string(const char *string, FT_Face face, int len)
 
   num_glyphs = 0;
   for (p = string; (*p); p = uni_next(p)) {
-#if !GLIB_CHECK_VERSION(2,0,0)
-    unichar c;
-    uni_get_utf8(p,&c);
-#else
-    unichar c = g_utf8_get_char(p);
-#endif
+    gunichar c = g_utf8_get_char(p);
     /* If len is less that full string, stop here. */
     if (num_glyphs == len) break;
 
@@ -1043,12 +1037,7 @@ freetype_render_string(FreetypeString *fts, int x, int y,
   string = fts->text;
 
   for (p = string; (*p); p = uni_next(p)) {
-#if !GLIB_CHECK_VERSION(2,0,0)
-    unichar c;
-    uni_get_utf8(p,&c);
-#else
-    unichar c = g_utf8_get_char(p);
-#endif
+    gunichar c = g_utf8_get_char(p);
 
     /* store current pen position */
     /* Why? */
@@ -1276,7 +1265,7 @@ font_get_gdkfont(DiaFont *font, int height)
 }
 
 SuckFont *
-font_get_suckfont (GdkFont *font, utfchar *text)
+font_get_suckfont (GdkFont *font, gchar *text)
 {
 	SuckFont *suckfont;
 	int width, height, x, y;
@@ -1293,23 +1282,10 @@ font_get_suckfont (GdkFont *font, utfchar *text)
 
 	if (!font) return NULL;
 
-#ifndef GTK_TALKS_UTF8
-	str = charconv_utf8_to_local8 (text);
-	length = strlen (str);
-	mbstr = g_strdup (str);
-	wcstr = g_new0 (GdkWChar, length + 1);
-	wclength = mbstowcs (wcstr, mbstr, length);
-	g_free (mbstr);
-#else
-#  if defined (GTK_TALKS_UTF8) && defined (UNICODE_WORK_IN_PROGRESS)
 	str = g_strdup (text);
-#  else
-	str = charconv_local8_to_utf8 (text);
-#  endif
 	length = strlen (text);
 	wcstr = g_new0 (GdkWChar, length + 1);
 	wclength = gdk_mbstowcs (wcstr, str, length);
-#endif
 
 	if (wclength > 0) {
 		length = wclength;
@@ -1468,20 +1444,10 @@ font_string_width(const char *string, DiaFont *font, real height)
   g_return_val_if_fail (string != NULL, 0.0);
 
   if (string[0] == 0) return 0.0;
-#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
-  str = charconv_utf8_to_local8 (string);
-#else 
   str = g_strdup (string);
-#endif
   length = strlen (str);
   wcstr = g_new0 (GdkWChar, length);
-#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
-  mbstr = g_strdup(str);
-  wclength = mbstowcs (wcstr, mbstr, length);
-  g_free (mbstr);
-#else
   wclength = gdk_mbstowcs (wcstr, str, length);
-#endif
 
   if (wclength > 0) {
 	  length = wclength;

@@ -32,7 +32,7 @@
 
 typedef struct {
   Property common;
-  unichar char_data;
+  gunichar char_data;
 } CharProperty;
 
 typedef struct {

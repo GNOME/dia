@@ -26,7 +26,6 @@ typedef struct _Renderer Renderer;
 #include "color.h"
 #include "font.h"
 #include "dia_image.h"
-#include "charconv.h"
 #include "arrows.h"
 
 typedef enum {
@@ -180,7 +179,7 @@ typedef void (*FillBezierFunc) (Renderer *renderer,
 
 /* Print a string at pos, using the current font */
 typedef void (*DrawStringFunc) (Renderer *renderer,
-				const utfchar *text,
+				const gchar *text,
 				Point *pos,
 				Alignment alignment,
 				Color *color);
@@ -203,7 +202,7 @@ typedef void (*DrawImageFunc) (Renderer *renderer,
    was cm.  You shouldn't know about pixels anyway.
  */
 typedef real (*GetTextWidthFunc) (Renderer *renderer,
-				  const utfchar *text, int length);
+				  const gchar *text, int length);
 
 /* Clear the current clipping region.
    This function needs only be defined for interactive

@@ -79,7 +79,7 @@ static void fill_bezier(Renderer *renderer,
 			int numpoints,
 			Color *color);
 static void draw_string(Renderer *renderer,
-			const utfchar *text,
+			const gchar *text,
 			Point *pos, Alignment alignment,
 			Color *color);
 static void draw_image(Renderer *renderer,
@@ -241,7 +241,7 @@ static void fill_bezier(Renderer *renderer,
 			int numpoints,
 			Color *color){}
 static void draw_string(Renderer *renderer,
-			const utfchar *text,
+			const gchar *text,
 			Point *pos, Alignment alignment,
 			Color *color){}
 static void draw_image(Renderer *renderer,

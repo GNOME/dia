@@ -30,7 +30,7 @@ struct _Text {
   /* don't change these values directly, use the text_set* functions */
   
   /* Text data: */
-  utfchar **line;
+  gchar **line;
   int numlines;
   int *strlen;  /* in characters */
   int *alloclen; /* in bytes */

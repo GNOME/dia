@@ -40,8 +40,10 @@
 #include "dia_xml_libxml.h"
 #include "dia_xml.h"
 #include "message.h"
-#include "charconv.h"
 
+#ifdef G_OS_WIN32
+#include <io.h> /* write, close */
+#endif
 
 #if defined(LIBXML_VERSION) && LIBXML_VERSION >= 20000
 #define XML2
@@ -159,11 +161,7 @@ xml_file_check_encoding(const gchar *filename, const gchar *default_enc)
   if (!tmp) tmp = "/tmp";
 
   res = g_strconcat(tmp,G_DIR_SEPARATOR_S,"dia-xml-fix-encodingXXXXXX",NULL);
-#if GLIB_CHECK_VERSION(1,3,2)
   uf = g_mkstemp(res);
-#else
-  uf = mkstemp(res);
-#endif
   write(uf,buf,p-buf);
   write(uf," encoding=\"",11);
   write(uf,default_enc,strlen(default_enc));
@@ -186,7 +184,7 @@ xmlDocPtr
 xmlDiaParseFile(const char *filename) {
   char *local_charset = NULL;
   
-  if (   !get_local_charset(&local_charset)
+  if (   !g_get_charset(&local_charset)
       && local_charset) {
     /* we're not in an UTF-8 environment. */ 
     const gchar *fname = xml_file_check_encoding(filename,local_charset);
@@ -572,11 +570,11 @@ data_rectangle(DataNode data, Rectangle *rect)
   xmlFree(val);
 }
 
-utfchar *
+gchar *
 data_string(DataNode data)
 {
-  utfchar *val;
-  utfchar *str, *p,*str2;
+  gchar *val;
+  gchar *str, *p,*str2;
   int len;
   
   if (data_type(data)!=DATATYPE_STRING) {
@@ -615,11 +613,7 @@ data_string(DataNode data)
     }
     *p = 0;
     xmlFree(val);
-#ifdef UNICODE_WORK_IN_PROGRESS
     str2 = g_strdup(str);  /* to remove the extra space */
-#else
-    str2 = charconv_utf8_to_local8(str);
-#endif
     g_free(str);
     return str2;
   }
@@ -639,13 +633,7 @@ data_string(DataNode data)
 
     str[strlen(str)-1] = 0; /* Remove last '#' */
     
-#ifdef UNICODE_WORK_IN_PROGRESS
     return str;
-#else
-    str2 = charconv_utf8_to_local8(str);
-    g_free(str);
-    return str2;
-#endif
   }
     
   return NULL;
@@ -808,7 +796,7 @@ data_add_rectangle(AttributeNode attr, const Rectangle *rect)
 }
 
 void
-data_add_string (AttributeNode attr, const utfchar *str)
+data_add_string(AttributeNode attr, const char *str)
 {
     DataNode data_node;
     xmlChar *escaped_str;
@@ -819,15 +807,7 @@ data_add_string (AttributeNode attr, const utfchar *str)
         return;
     } 
 
-#ifndef UNICODE_WORK_IN_PROGRESS
-    {
-        utfchar *utfstr = charconv_local8_to_utf8(str);
-        escaped_str = xmlEncodeEntitiesReentrant(attr->doc,utfstr);
-        g_free(utfstr);
-    }
-#else
     escaped_str = xmlEncodeEntitiesReentrant(attr->doc,str);
-#endif
     
     sharped_str = g_strconcat("#", escaped_str, "#", NULL);
 
@@ -926,11 +906,8 @@ int xmlDiaSaveFile(const char *filename,
     }
     if (zoutput == NULL) {
 #endif
-#ifdef WIN32
+        /* b(=binary) required on win32, but portable*/
         output = fopen(filename, "wb");
-#else
-        output = fopen(filename, "w");
-#endif
         if (output == NULL) {
             return(-1);
         }
@@ -1002,8 +979,10 @@ int xmlDiaSaveFile(const char *filename,
                 long unsigned charnum = strtoul(be,(char **)&newbe,0);
                 
                 if (((*newbe) == ';') && (charnum > 127)) {
-                    utfchar *frag = charconv_unichar_to_utf8(charnum);
-                    while (*frag) *(tb++) = *(frag++);
+                    gchar ch[7];
+                    int i = 0, unilen = g_unichar_to_utf8 (c, ch);
+                    ch[unilen] = 0;
+                    while (ch[i]) *(tb++) = ch[i++];
 
                     b = newbe + 1;
                     skip = TRUE;

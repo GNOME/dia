@@ -54,7 +54,6 @@ typedef struct _PropWidgetAssoc PropWidgetAssoc;
 #include "dia_xml.h"
 #include "intl.h"
 #include "textattr.h"
-#include "charconv.h"
 
 
 typedef gboolean (*PropDescToPropPredicate)(const PropDescription *pdesc);

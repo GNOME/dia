@@ -16,21 +16,14 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include <stdlib.h>
-#ifdef HAVE_STRING_H
 #include <string.h>
-#endif
 #include <sys/types.h>
 #include <sys/stat.h>
 #ifdef HAVE_UNISTD_H
 #include <unistd.h>
-#endif
-#ifdef HAVE_DIRENT_H
-#include <dirent.h>
 #endif
 #include <glib.h>
 #include <libxml/tree.h>
@@ -45,25 +38,19 @@
 #include "message.h"
 #include "object.h"
 #include "dia_dirs.h"
-#include "charconv.h"
 
 static GSList *sheets = NULL;
 
 Sheet *
-new_sheet(char *name, utfchar *description, char *filename, SheetScope scope,
+new_sheet(char *name, gchar *description, char *filename, SheetScope scope,
           Sheet *shadowing)
 {
   Sheet *sheet;
 
   sheet = g_new(Sheet, 1);
 
-#ifdef UNICODE_WORK_IN_PROGRESS
   sheet->name = g_strdup(name);
   sheet->description = g_strdup(description);
-#else
-  sheet->name = charconv_utf8_to_local8(name);
-  sheet->description = charconv_utf8_to_local8(description);
-#endif
 
   sheet->filename = filename;
   sheet->scope = scope;
@@ -164,28 +151,18 @@ void load_all_sheets(void) {
 static void 
 load_sheets_from_dir(const gchar *directory, SheetScope scope)
 {
-  DIR *dp;
-  struct dirent *dirp;
-  struct stat statbuf;
+  GDir *dp;
+  const char *dentry;
   gchar *p;
 
-  dp = opendir(directory);
+  dp = g_dir_open(directory, 0, NULL);
   if (!dp) return;
 
-  while ( (dirp = readdir(dp)) ) {
+  while ( (dentry = g_dir_read_name(dp)) ) {
     gchar *filename = g_strconcat(directory,G_DIR_SEPARATOR_S,
-				  dirp->d_name,NULL);
+				  dentry,NULL);
 
-    if (!strcmp(dirp->d_name, ".") || !strcmp(dirp->d_name, "..")) {
-      g_free(filename);
-      continue;
-    }
-    /* filter out non-files */
-    if (stat(filename, &statbuf) < 0) {
-      g_free(filename);
-      continue;
-    }
-    if (!S_ISREG(statbuf.st_mode)) {
+    if (!g_file_test(filename, G_FILE_TEST_IS_REGULAR)) {
       g_free(filename);
       continue;
     }
@@ -202,7 +179,7 @@ load_sheets_from_dir(const gchar *directory, SheetScope scope)
 				
   }
 
-  closedir(dp);
+  g_dir_close(dp);
 }
 
 static void 
@@ -430,11 +407,7 @@ load_register_sheet(const gchar *dirname, const gchar *filename,
 
     sheet_obj = g_new(SheetObject,1);
     sheet_obj->object_type = g_strdup(tmp);
-#ifdef UNICODE_WORK_IN_PROGRESS   
     sheet_obj->description = g_strdup(objdesc);
-#else
-    sheet_obj->description = charconv_utf8_to_local8(objdesc);
-#endif
     xmlFree(objdesc); objdesc = NULL;
 
     sheet_obj->pixmap = NULL;
@@ -482,3 +455,4 @@ load_register_sheet(const gchar *dirname, const gchar *filename,
 
   xmlFreeDoc(doc);
 }
+

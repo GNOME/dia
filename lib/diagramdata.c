@@ -34,7 +34,6 @@ new_diagram_data (void)
 {
 	DiagramData *data;
 	Layer *first_layer;
-	utfchar *utfstr;
    
 	data = g_new (DiagramData, 1);
    
@@ -57,12 +56,7 @@ new_diagram_data (void)
 	data->guides.nvguides = 0;
 	data->guides.vguides = NULL;
 
-#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
-	utfstr = charconv_local8_to_utf8 (_("Background"));
-#else
-	utfstr = g_strdup (_("Background"));
-#endif
-	first_layer = new_layer (utfstr);
+	first_layer = new_layer(g_strdup(_("Background")));
 	data->layers = g_ptr_array_new ();
 	g_ptr_array_add (data->layers, first_layer);
 	data->active_layer = first_layer;
@@ -93,7 +87,7 @@ diagram_data_destroy(DiagramData *data)
 }
 
 Layer *
-new_layer(utfchar *name)
+new_layer(gchar *name)
 {
   Layer *layer;
 
