@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-09-21 11:04+0200\n"
-"PO-Revision-Date: 2004-09-21 14:08+0200\n"
+"POT-Creation-Date: 2004-10-09 18:43+0200\n"
+"PO-Revision-Date: 2004-10-10 00:13+0200\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -801,7 +801,16 @@ msgstr "Přepne lnutí k mřížce pro toto okno."
 msgid "NULL tooldata in tool_select_update"
 msgstr "Data s hodnotou NULL v tool_select_update"
 
-#: app/interface.c:1071
+#: app/interface.c:957
+#, c-format
+msgid "No sheet named %s"
+msgstr "Neexistuje list nazvaný %s"
+
+#: app/interface.c:1046
+msgid "Other sheets"
+msgstr "Ostatní listy"
+
+#: app/interface.c:1123
 msgid ""
 "Foreground & background colors for new objects.  The small black and white "
 "squares reset colors.  The small arrows swap colors.  Double click to change "
@@ -810,7 +819,7 @@ msgstr ""
 "Barvy popředí a pozadí pro nové objekty. Malý černý a bílý čtvereček "
 "vynuluje barvy. Šipečky prohazují barvy. Dvojité kliknutí změní barvu."
 
-#: app/interface.c:1086
+#: app/interface.c:1138
 msgid ""
 "Line widths.  Click on a line to set the default line width for new "
 "objects.  Double-click to set the line width more precisely."
@@ -818,7 +827,7 @@ msgstr ""
 "Šířky čar. Kliknutím na čáru nastavíte implicitní šířku čáry pro nové "
 "objekty. Dvojitým kliknutím nastavíte šířku čáry přesněji."
 
-#: app/interface.c:1126
+#: app/interface.c:1178
 msgid ""
 "Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
 "arrow parameters with Details..."
@@ -826,7 +835,7 @@ msgstr ""
 "Styl šipky na začátku nových čar. Kliknutím zvolte šipku nebo nastavte "
 "parametry šipky tlačítkem Podrobnosti..."
 
-#: app/interface.c:1131
+#: app/interface.c:1183
 msgid ""
 "Line style for new lines.  Click to pick a line style, or set line style "
 "parameters with Details..."
@@ -834,7 +843,7 @@ msgstr ""
 "Styl čáry pro nové čáry. Kliknutím zvolte styl čáry nebo nastavte styl čáry "
 "tlačítkem Podrobnosti..."
 
-#: app/interface.c:1145
+#: app/interface.c:1197
 msgid ""
 "Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
 "parameters with Details..."
@@ -842,7 +851,7 @@ msgstr ""
 "Styl šipky na konci nových čar. Kliknutím zvolte šipku nebo nastavte "
 "parametry šipky tlačítkem Podrobnosti..."
 
-#: app/interface.c:1255
+#: app/interface.c:1307
 msgid "Diagram Editor"
 msgstr "Editor diagramu"
 
@@ -1819,7 +1828,7 @@ msgstr "List"
 
 #: app/sheets_dialog.c:672 objects/ER/attribute.c:151 objects/ER/entity.c:133
 #: objects/ER/relationship.c:138 objects/UML/association.c:200
-#: objects/UML/association.c:1126 objects/UML/class_dialog.c:900
+#: objects/UML/association.c:1213 objects/UML/class_dialog.c:900
 #: objects/UML/class_dialog.c:1834 objects/UML/class_dialog.c:2063
 #: objects/UML/class_dialog.c:2579 objects/UML/dependency.c:133
 #: objects/UML/generalization.c:129 objects/UML/realizes.c:130
@@ -1958,7 +1967,7 @@ msgstr "Editor diagramů Dia"
 msgid "Edit your Diagrams"
 msgstr "Upravte vaše diagramy"
 
-#: lib/arrows.c:40 objects/UML/association.c:1149 objects/Jackson/domain.c:96
+#: lib/arrows.c:40 objects/UML/association.c:1236 objects/Jackson/domain.c:96
 msgid "None"
 msgstr "Nic"
 
@@ -2279,15 +2288,15 @@ msgstr ""
 "Nelze otevřít `%s'\n"
 "`%s'"
 
-#: lib/properties.c:62 lib/properties.h:468 lib/widgets.c:792
+#: lib/properties.c:62 lib/properties.h:468 lib/widgets.c:814
 msgid "Left"
 msgstr "Vlevo"
 
-#: lib/properties.c:63 lib/properties.h:469 lib/widgets.c:798
+#: lib/properties.c:63 lib/properties.h:469 lib/widgets.c:820
 msgid "Center"
 msgstr "Uprostřed"
 
-#: lib/properties.c:64 lib/properties.h:470 lib/widgets.c:804
+#: lib/properties.c:64 lib/properties.h:470 lib/widgets.c:826
 msgid "Right"
 msgstr "Vpravo"
 
@@ -2351,59 +2360,59 @@ msgstr "Barva výplně"
 msgid "Text colour"
 msgstr "Barva textu"
 
-#: lib/widgets.c:396
+#: lib/widgets.c:418
 msgid "Other fonts..."
 msgstr "Jiná písma..."
 
-#: lib/widgets.c:523
+#: lib/widgets.c:545
 #, c-format
 msgid "Couldn't find font family for %s\n"
 msgstr "Nelze nalézt rodinu písma pro %s\n"
 
 #. We hit the Other fonts... entry
-#: lib/widgets.c:588
+#: lib/widgets.c:610
 msgid "Select font"
 msgstr "Vyberte písmo"
 
 #. Translators: Menu item Noun/Material/Solid
-#: lib/widgets.c:940 objects/FS/function.c:1063
+#: lib/widgets.c:962 objects/FS/function.c:1063
 msgid "Solid"
 msgstr "Nepřerušovaná"
 
-#: lib/widgets.c:946
+#: lib/widgets.c:968
 msgid "Dashed"
 msgstr "Čárkovaná"
 
-#: lib/widgets.c:952
+#: lib/widgets.c:974
 msgid "Dash-Dot"
 msgstr "Čárka - tečka"
 
-#: lib/widgets.c:958
+#: lib/widgets.c:980
 msgid "Dash-Dot-Dot"
 msgstr "Čárka - tečka - tečka"
 
-#: lib/widgets.c:964
+#: lib/widgets.c:986
 msgid "Dotted"
 msgstr "Tečkovaná"
 
 #. fs->sizebox = GTK_HBOX(box);
-#: lib/widgets.c:983
+#: lib/widgets.c:1005
 msgid "Dash length: "
 msgstr "Délka čárky:"
 
-#: lib/widgets.c:1138
+#: lib/widgets.c:1160
 msgid "Select color"
 msgstr "Vyberte barvu"
 
-#: lib/widgets.c:1356
+#: lib/widgets.c:1378
 msgid "Size: "
 msgstr "Velikost: "
 
-#: lib/widgets.c:1505
+#: lib/widgets.c:1527
 msgid "Select image file"
 msgstr "Vyberte soubor s obrázkem"
 
-#: lib/widgets.c:1541
+#: lib/widgets.c:1563
 msgid "Browse"
 msgstr "Probírat"
 
@@ -2449,7 +2458,7 @@ msgstr "Celkem:"
 
 #: objects/ER/participation.c:405 objects/FS/flow-ortho.c:644
 #: objects/GRAFCET/vector.c:311 objects/SADT/arrow.c:462
-#: objects/UML/association.c:752 objects/UML/component_feature.c:183
+#: objects/UML/association.c:839 objects/UML/component_feature.c:183
 #: objects/UML/dependency.c:372 objects/UML/generalization.c:368
 #: objects/UML/realizes.c:359 objects/standard/zigzagline.c:346
 msgid "Add segment"
@@ -2457,7 +2466,7 @@ msgstr "Přidat segment"
 
 #: objects/ER/participation.c:406 objects/FS/flow-ortho.c:645
 #: objects/GRAFCET/vector.c:312 objects/SADT/arrow.c:463
-#: objects/UML/association.c:753 objects/UML/component_feature.c:184
+#: objects/UML/association.c:840 objects/UML/component_feature.c:184
 #: objects/UML/dependency.c:373 objects/UML/generalization.c:369
 #: objects/UML/realizes.c:360 objects/standard/zigzagline.c:347
 msgid "Delete segment"
@@ -3782,46 +3791,46 @@ msgstr "Objekty diagramu SADT"
 msgid "Actor"
 msgstr "Účinkující"
 
-#: objects/UML/association.c:1139 objects/UML/class_dialog.c:2107
+#: objects/UML/association.c:1226 objects/UML/class_dialog.c:2107
 msgid "Direction:"
 msgstr "Směr:"
 
-#: objects/UML/association.c:1156
+#: objects/UML/association.c:1243
 msgid "From A to B"
 msgstr "Z A do B"
 
-#: objects/UML/association.c:1163
+#: objects/UML/association.c:1250
 msgid "From B to A"
 msgstr "Z B do A"
 
-#: objects/UML/association.c:1187 objects/UML/association.c:1195
+#: objects/UML/association.c:1274 objects/UML/association.c:1282
 msgid "Side A"
 msgstr "Strana A"
 
-#: objects/UML/association.c:1189 objects/UML/association.c:1197
+#: objects/UML/association.c:1276 objects/UML/association.c:1284
 msgid "Side B"
 msgstr "Strana B"
 
-#: objects/UML/association.c:1203
+#: objects/UML/association.c:1290
 msgid "Role:"
 msgstr "Role:"
 
-#: objects/UML/association.c:1215
+#: objects/UML/association.c:1302
 msgid "Multiplicity:"
 msgstr "Vícenásobnost:"
 
 #. Show arrow:
-#: objects/UML/association.c:1226
+#: objects/UML/association.c:1313
 msgid "Show arrow"
 msgstr "Zobrazovat šipku"
 
 #. Aggregate
-#: objects/UML/association.c:1232
+#: objects/UML/association.c:1319
 msgid "Aggregate"
 msgstr "Agregát"
 
 #. Composition
-#: objects/UML/association.c:1240
+#: objects/UML/association.c:1327
 msgid "Composition"
 msgstr "Kompozice"
 
