@@ -1108,6 +1108,7 @@ void postscript_draw_contour(RendererEPS *renderer,
       int bidi_level;
       int num_glyphs;
       int glyph_idx;
+
       if (font == NULL) {
 	fprintf(stderr, "No font found\n");
 	continue;
@@ -1118,12 +1119,15 @@ void postscript_draw_contour(RendererEPS *renderer,
 		pango_font_description_to_string(pango_font_describe(font)));
 	continue;
       }
+
       /*
-      printf("Got face %s (PS %s) for font %s\n",
+      printf("Got face %s (PS %s) for font %s (diafont %s)\n",
 	     ft_face->family_name,
 	     FT_Get_Postscript_Name(ft_face),
-	     pango_font_description_to_string(pango_font_describe(font)));
+	     pango_font_description_to_string(pango_font_describe(font)),
+	     dia_font_get_family(renderer->current_font));
       */
+
       bidi_level = item->analysis.level;
       num_glyphs = glyphs->num_glyphs;
       

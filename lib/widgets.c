@@ -391,6 +391,7 @@ dia_font_selector_set_styles(DiaFontSelector *fs, FontSelectorEntry *fse,
   GtkWidget *menu = gtk_menu_new();
   long stylebits = 0;
   int menu_item_nr = 0;
+  GSList *group = NULL;
 
   if (fse->family == NULL) {
     PangoFontFamily *pff;
@@ -430,7 +431,8 @@ dia_font_selector_set_styles(DiaFontSelector *fs, FontSelectorEntry *fse,
     int slant = DIA_FONT_STYLE_GET_SLANT(i) >> 2;
     if (DIA_FONT_STYLE_GET_SLANT(i) > DIA_FONT_ITALIC) continue;
     if (!(stylebits & (1 << (3*weight + slant)))) continue;
-    menuitem = gtk_menu_item_new_with_label (style_labels[3*weight+slant]);
+    menuitem = gtk_radio_menu_item_new_with_label (group, style_labels[3*weight+slant]);
+    group = gtk_radio_menu_item_get_group(GTK_RADIO_MENU_ITEM(menuitem));
     gtk_object_set_user_data(GTK_OBJECT(menuitem), GINT_TO_POINTER(i));
     if (dia_style == i) {
       select = menu_item_nr;
