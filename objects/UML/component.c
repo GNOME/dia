@@ -249,17 +249,8 @@ component_move_handle(Component *cmp, Handle *handle,
 static void
 component_move(Component *cmp, Point *to)
 {
-  Point p;
-  
   cmp->element.corner = *to;
 
-  p = *to;
-  p.x += COMPONENT_CWIDTH + COMPONENT_MARGIN_X;
-  p.y += 2*COMPONENT_CHEIGHT;
-  if (strlen(cmp->stereotype) != 0)
-    p.y += cmp->text->height;
-  text_set_position(cmp->text, &p);
-  
   component_update_data(cmp);
 }
 
@@ -331,12 +322,22 @@ component_update_data(Component *cmp)
 {
   Element *elem = &cmp->element;
   Object *obj = &elem->object;
+  Point p;
 
   elem->width = cmp->text->max_width + 2*COMPONENT_MARGIN_X + COMPONENT_CWIDTH;
   elem->width = MAX(elem->width, 2*COMPONENT_CWIDTH);
   elem->height =  cmp->text->height*cmp->text->numlines +
     cmp->text->descent + 0.1 + 2*COMPONENT_MARGIN_Y ;
   elem->height = MAX(elem->height, 5*COMPONENT_CHEIGHT);
+
+  p = elem->corner;
+  p.x += COMPONENT_CWIDTH + COMPONENT_MARGIN_X;
+  p.y += COMPONENT_CHEIGHT;
+  p.y += cmp->text->ascent;
+  if (strlen(cmp->stereotype) != 0)
+    p.y += cmp->text->height;
+  text_set_position(cmp->text, &p);
+
   if (strlen(cmp->stereotype) != 0) {
     Font *font;
     font = cmp->text->font;
