@@ -1,5 +1,8 @@
 1999-01-19  Jeff Garzik  <jgarzik@pobox.com>
 
+	* autogen.sh:
+	Tell automake to auto-install missing files.
+
 	* app/menus.c:
 	Renamed deprecated Gtk+ function.
 
