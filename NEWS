@@ -1,3 +1,11 @@
+dia-0.92-pre2: 11-Sep-2003
+
+* Ensure loading of fonts and (semi-)correct DPI setting for Pango.
+* Use $PRINTER correctly in print dialog.
+* Read comments in XFig files.
+* Change to CHM manual format for Windows.
+* Some minor bug fixes.
+
 dia-0.92-pre1: 2-Sep-2003
 
 Object developers please note:

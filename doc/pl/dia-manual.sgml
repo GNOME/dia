@@ -1,5 +1,5 @@
 <!DOCTYPE Book PUBLIC "-//OASIS//DTD DocBook V4.1//EN"[
-<!ENTITY VERSION "0.92-pre1">
+<!ENTITY VERSION "0.92-pre2">
 <!ENTITY INTRODUCTION SYSTEM "intro.sgml">
 <!ENTITY QUICKSTART SYSTEM "usage-quickstart.sgml">
 <!ENTITY CANVAS SYSTEM "usage-canvas.sgml">

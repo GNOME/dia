@@ -9,7 +9,7 @@
     <!ENTITY % entities SYSTEM "entities.xml">
     %entities;
     
-    <!ENTITY VERSION "0.92-pre1">
+    <!ENTITY VERSION "0.92-pre2">
     <!ENTITY INTRODUCTION SYSTEM "intro.xml">
     <!ENTITY QUICKSTART SYSTEM "usage-quickstart.xml">
     <!ENTITY CANVAS SYSTEM "usage-canvas.xml">
