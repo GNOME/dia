@@ -1,5 +1,17 @@
 2002-10-12  Hans Breuer  <hans@breuer.org>
 
+	[last plug-in ported]
+
+	* plug-ins/xfig/xfig-export.c : ported to new renderer api
+
+	* plug-ins/xfig/xfig-import.c(fig_create_object) : need to
+	scale color values to [0..1.0] to properly reconstruct
+	user colors
+
+	* plug-ins/xfig/xfig-common.c : some cleaning
+
+2002-10-12  Hans Breuer  <hans@breuer.org>
+
 	[decrease inter-plug-in-dependencies]
 
 	* objects/custom/shape_info.[hc] : move parse_style()

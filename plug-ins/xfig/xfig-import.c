@@ -43,7 +43,6 @@
 #include "intl.h"
 #include "message.h"
 #include "geometry.h"
-#include "render.h"
 #include "filter.h"
 #include "object.h"
 #include "properties.h"
@@ -386,10 +385,13 @@ create_standard_group(GList *items, DiagramData *dia) {
 }
 
 static Color
-fig_color(int color_index) {
-    if (color_index == -1) return color_black; /* Default color */
-    if (color_index < 32) return fig_default_colors[color_index];
-    else return fig_colors[color_index-32];
+fig_color(int color_index) 
+{
+    if (color_index == -1) 
+        return color_black; /* Default color */
+    if (color_index < FIG_MAX_DEFAULT_COLORS) 
+        return fig_default_colors[color_index];
+    else return fig_colors[color_index-FIG_MAX_DEFAULT_COLORS];
 }
 
 static Color
@@ -1134,9 +1136,9 @@ fig_read_object(FILE *file, DiagramData *dia) {
 	return FALSE;
     }
 
-    color.red = (colorvalues & 0x00ff0000)>>16;
-    color.green = (colorvalues & 0x0000ff00)>>8;
-    color.blue = colorvalues & 0x000000ff;
+    color.red = ((colorvalues & 0x00ff0000)>>16) / 255.0;
+    color.green = ((colorvalues & 0x0000ff00)>>8) / 255.0;
+    color.blue = (colorvalues & 0x000000ff) / 255.0;
 
     fig_colors[colornumber-32] = color;
     break;

@@ -19,10 +19,11 @@
 #include "intl.h"
 #include "message.h"
 #include "geometry.h"
-#include "render.h"
+#include "diarenderer.h"
 #include "filter.h"
 #include "object.h"
 #include "properties.h"
+#include "dia_image.h"
 #include "../app/group.h"
 
 #include "xfig.h"
@@ -30,9 +31,25 @@
 #define WARNING_OUT_OF_COLORS 0
 #define MAX_WARNING 1
 
-typedef struct _Rendererfig Rendererfig;
-struct _Rendererfig {
-  Renderer renderer;
+#define XFIG_TYPE_RENDERER           (xfig_renderer_get_type ())
+#define XFIG_RENDERER(obj)           (G_TYPE_CHECK_INSTANCE_CAST ((obj), XFIG_TYPE_RENDERER, XfigRenderer))
+#define XFIG_RENDERER_CLASS(klass)   (G_TYPE_CHECK_CLASS_CAST ((klass), XFIG_TYPE_RENDERER, XfigRendererClass))
+#define XFIG_IS_RENDERER(obj)        (G_TYPE_CHECK_INSTANCE_TYPE ((obj), XFIG_TYPE_RENDERER))
+#define XFIG_RENDERER_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS ((obj), XFIG_TYPE_RENDERER, XfigRendererClass))
+
+GType xfig_renderer_get_type (void) G_GNUC_CONST;
+
+typedef struct _XfigRenderer XfigRenderer;
+typedef struct _XfigRendererClass XfigRendererClass;
+
+struct _XfigRendererClass
+{
+  DiaRendererClass parent_class;
+};
+
+struct _XfigRenderer
+{
+  DiaRenderer parent_instance;
 
   FILE *file;
 
@@ -47,207 +64,176 @@ struct _Rendererfig {
   DiaFont *font;
   real fontheight;
 
+  gboolean color_pass;
   Color user_colors[512];
   int max_user_color;
 
   gchar *warnings[MAX_WARNING];
 };
 
-static void begin_render(Rendererfig *renderer, DiagramData *data);
-static void end_render(Rendererfig *renderer);
-static void set_linewidth(Rendererfig *renderer, real linewidth);
-static void set_linecaps(Rendererfig *renderer, LineCaps mode);
-static void set_linejoin(Rendererfig *renderer, LineJoin mode);
-static void set_linestyle(Rendererfig *renderer, LineStyle mode);
-static void set_dashlength(Rendererfig *renderer, real length);
-static void set_fillstyle(Rendererfig *renderer, FillStyle mode);
-static void set_font(Rendererfig *renderer, DiaFont *font, real height);
-static void draw_line(Rendererfig *renderer, 
+static void begin_render(DiaRenderer *self);
+static void end_render(DiaRenderer *renderer);
+static void set_linewidth(DiaRenderer *self, real linewidth);
+static void set_linecaps(DiaRenderer *self, LineCaps mode);
+static void set_linejoin(DiaRenderer *self, LineJoin mode);
+static void set_linestyle(DiaRenderer *self, LineStyle mode);
+static void set_dashlength(DiaRenderer *self, real length);
+static void set_fillstyle(DiaRenderer *self, FillStyle mode);
+static void set_font(DiaRenderer *self, DiaFont *font, real height);
+static void draw_line(DiaRenderer *self, 
 		      Point *start, Point *end, 
 		      Color *color);
-static void draw_polyline(Rendererfig *renderer, 
+static void draw_polyline(DiaRenderer *self, 
 			  Point *points, int num_points, 
 			  Color *color);
-static void draw_polygon(Rendererfig *renderer, 
+static void draw_polygon(DiaRenderer *self, 
 			 Point *points, int num_points, 
 			 Color *color);
-static void fill_polygon(Rendererfig *renderer, 
+static void fill_polygon(DiaRenderer *self, 
 			 Point *points, int num_points, 
 			 Color *color);
-static void draw_rect(Rendererfig *renderer, 
+static void draw_rect(DiaRenderer *self, 
 		      Point *ul_corner, Point *lr_corner,
 		      Color *colour);
-static void fill_rect(Rendererfig *renderer, 
+static void fill_rect(DiaRenderer *self, 
 		      Point *ul_corner, Point *lr_corner,
 		      Color *colour);
-static void draw_arc(Rendererfig *renderer, 
+static void draw_arc(DiaRenderer *self, 
 		     Point *center,
 		     real width, real height,
 		     real angle1, real angle2,
 		     Color *colour);
-static void fill_arc(Rendererfig *renderer, 
+static void fill_arc(DiaRenderer *self, 
 		     Point *center,
 		     real width, real height,
 		     real angle1, real angle2,
 		     Color *colour);
-static void draw_ellipse(Rendererfig *renderer, 
+static void draw_ellipse(DiaRenderer *self, 
 			 Point *center,
 			 real width, real height,
 			 Color *colour);
-static void fill_ellipse(Rendererfig *renderer, 
+static void fill_ellipse(DiaRenderer *self, 
 			 Point *center,
 			 real width, real height,
 			 Color *colour);
-static void draw_bezier(Rendererfig *renderer, 
+static void draw_bezier(DiaRenderer *self, 
 			BezPoint *points,
 			int numpoints,
 			Color *colour);
-static void fill_bezier(Rendererfig *renderer, 
+static void fill_bezier(DiaRenderer *self, 
 			BezPoint *points, /* Last point must be same as first point */
 			int numpoints,
 			Color *colour);
-static void draw_string(Rendererfig *renderer,
+static void draw_string(DiaRenderer *self,
 			const char *text,
 			Point *pos, Alignment alignment,
 			Color *colour);
-static void draw_image(Rendererfig *renderer,
+static void draw_image(DiaRenderer *self,
 		       Point *point,
 		       real width, real height,
 		       DiaImage image);
-static void draw_object(Rendererfig *renderer,
+static void draw_object(DiaRenderer *self,
 			Object *object);
 
-static void color_begin_render(Rendererfig *renderer, DiagramData *data);
-static void color_draw_line(Rendererfig *renderer, 
-		      Point *start, Point *end, 
-		      Color *color);
-static void color_draw_polyline(Rendererfig *renderer, 
-			  Point *points, int num_points, 
-			  Color *color);
-static void color_draw_polygon(Rendererfig *renderer, 
-			 Point *points, int num_points, 
-			 Color *color);
-static void color_fill_polygon(Rendererfig *renderer, 
-			 Point *points, int num_points, 
-			 Color *color);
-static void color_draw_rect(Rendererfig *renderer, 
-		      Point *ul_corner, Point *lr_corner,
-		      Color *colour);
-static void color_fill_rect(Rendererfig *renderer, 
-		      Point *ul_corner, Point *lr_corner,
-		      Color *colour);
-static void color_draw_arc(Rendererfig *renderer, 
-		     Point *center,
-		     real width, real height,
-		     real angle1, real angle2,
-		     Color *colour);
-static void color_fill_arc(Rendererfig *renderer, 
-		     Point *center,
-		     real width, real height,
-		     real angle1, real angle2,
-		     Color *colour);
-static void color_draw_ellipse(Rendererfig *renderer, 
-			 Point *center,
-			 real width, real height,
-			 Color *colour);
-static void color_fill_ellipse(Rendererfig *renderer, 
-			 Point *center,
-			 real width, real height,
-			 Color *colour);
-static void color_draw_bezier(Rendererfig *renderer, 
-			BezPoint *points,
-			int numpoints,
-			Color *colour);
-static void color_fill_bezier(Rendererfig *renderer, 
-			BezPoint *points, /* Last point must be same as first point */
-			int numpoints,
-			Color *colour);
-static void color_draw_string(Rendererfig *renderer,
-			const char *text,
-			Point *pos, Alignment alignment,
-			Color *colour);
-static void color_draw_image(Rendererfig *renderer,
-		       Point *point,
-		       real width, real height,
-		       DiaImage image);
+static void xfig_renderer_class_init (XfigRendererClass *klass);
 
-static RenderOps *figRenderColorOps;
-static RenderOps *figRenderOps;
-static void
-init_fig_renderops()
+static gpointer parent_class = NULL;
+
+GType
+xfig_renderer_get_type (void)
 {
-  figRenderColorOps = create_renderops_table();
-  /* Note that some ops aren't defined for the color prepass. */
-  figRenderColorOps->begin_render = (BeginRenderFunc) color_begin_render;
+  static GType object_type = 0;
+
+  if (!object_type)
+    {
+      static const GTypeInfo object_info =
+      {
+        sizeof (XfigRendererClass),
+        (GBaseInitFunc) NULL,
+        (GBaseFinalizeFunc) NULL,
+        (GClassInitFunc) xfig_renderer_class_init,
+        NULL,           /* class_finalize */
+        NULL,           /* class_data */
+        sizeof (XfigRenderer),
+        0,              /* n_preallocs */
+	NULL            /* init */
+      };
+
+      object_type = g_type_register_static (DIA_TYPE_RENDERER,
+                                            "XfigRenderer",
+                                            &object_info, 0);
+    }
   
-  figRenderColorOps->draw_line = (DrawLineFunc) color_draw_line;
-  figRenderColorOps->draw_polyline = (DrawPolyLineFunc) color_draw_polyline;
-  
-  figRenderColorOps->draw_polygon = (DrawPolygonFunc) color_draw_polygon;
-  figRenderColorOps->fill_polygon = (FillPolygonFunc) color_fill_polygon;
-
-  figRenderColorOps->draw_rect = (DrawRectangleFunc) color_draw_rect;
-  figRenderColorOps->fill_rect = (FillRectangleFunc) color_fill_rect;
-
-  figRenderColorOps->draw_arc = (DrawArcFunc) color_draw_arc;
-  figRenderColorOps->fill_arc = (FillArcFunc) color_fill_arc;
-
-  figRenderColorOps->draw_ellipse = (DrawEllipseFunc) color_draw_ellipse;
-  figRenderColorOps->fill_ellipse = (FillEllipseFunc) color_fill_ellipse;
-
-  figRenderColorOps->draw_bezier = (DrawBezierFunc) color_draw_bezier;
-  figRenderColorOps->fill_bezier = (FillBezierFunc) color_fill_bezier;
-
-  figRenderColorOps->draw_string = (DrawStringFunc) color_draw_string;
-
-  figRenderColorOps->draw_image = (DrawImageFunc) color_draw_image;
-
-  figRenderOps = create_renderops_table();
-
-  figRenderOps->begin_render = (BeginRenderFunc) begin_render;
-  figRenderOps->end_render = (EndRenderFunc) end_render;
-
-  figRenderOps->set_linewidth = (SetLineWidthFunc) set_linewidth;
-  figRenderOps->set_linecaps = (SetLineCapsFunc) set_linecaps;
-  figRenderOps->set_linejoin = (SetLineJoinFunc) set_linejoin;
-  figRenderOps->set_linestyle = (SetLineStyleFunc) set_linestyle;
-  figRenderOps->set_dashlength = (SetDashLengthFunc) set_dashlength;
-  figRenderOps->set_fillstyle = (SetFillStyleFunc) set_fillstyle;
-  figRenderOps->set_font = (SetFontFunc) set_font;
-  
-  figRenderOps->draw_line = (DrawLineFunc) draw_line;
-  figRenderOps->draw_polyline = (DrawPolyLineFunc) draw_polyline;
-  
-  figRenderOps->draw_polygon = (DrawPolygonFunc) draw_polygon;
-  figRenderOps->fill_polygon = (FillPolygonFunc) fill_polygon;
-
-  figRenderOps->draw_rect = (DrawRectangleFunc) draw_rect;
-  figRenderOps->fill_rect = (FillRectangleFunc) fill_rect;
-
-  figRenderOps->draw_arc = (DrawArcFunc) draw_arc;
-  figRenderOps->fill_arc = (FillArcFunc) fill_arc;
-
-  figRenderOps->draw_ellipse = (DrawEllipseFunc) draw_ellipse;
-  figRenderOps->fill_ellipse = (FillEllipseFunc) fill_ellipse;
-
-  figRenderOps->draw_bezier = (DrawBezierFunc) draw_bezier;
-  figRenderOps->fill_bezier = (FillBezierFunc) fill_bezier;
-
-  figRenderOps->draw_string = (DrawStringFunc) draw_string;
-
-  figRenderOps->draw_image = (DrawImageFunc) draw_image;
-
-  figRenderOps->draw_object = (DrawObjectFunc) draw_object;
+  return object_type;
 }
 
-static void figWarn(Rendererfig *renderer, int warning) {
+static void
+xfig_renderer_finalize (GObject *object)
+{
+  XfigRenderer *xfig_renderer = XFIG_RENDERER (object);
+
+  G_OBJECT_CLASS (parent_class)->finalize (object);
+}
+
+static void
+xfig_renderer_class_init (XfigRendererClass *klass)
+{
+  GObjectClass *object_class = G_OBJECT_CLASS (klass);
+  DiaRendererClass *renderer_class = DIA_RENDERER_CLASS (klass);
+
+  parent_class = g_type_class_peek_parent (klass);
+
+  object_class->finalize = xfig_renderer_finalize;
+
+  renderer_class->begin_render = begin_render;
+  renderer_class->end_render = end_render;
+
+  renderer_class->set_linewidth = set_linewidth;
+  renderer_class->set_linecaps = set_linecaps;
+  renderer_class->set_linejoin = set_linejoin;
+  renderer_class->set_linestyle = set_linestyle;
+  renderer_class->set_dashlength = set_dashlength;
+  renderer_class->set_fillstyle = set_fillstyle;
+  renderer_class->set_font = set_font;
+  
+  renderer_class->draw_line = draw_line;
+  renderer_class->draw_polyline = draw_polyline;
+  
+  renderer_class->draw_polygon = draw_polygon;
+  renderer_class->fill_polygon = fill_polygon;
+
+  renderer_class->draw_rect = draw_rect;
+  renderer_class->fill_rect = fill_rect;
+
+  renderer_class->draw_arc = draw_arc;
+  renderer_class->fill_arc = fill_arc;
+
+  renderer_class->draw_ellipse = draw_ellipse;
+  renderer_class->fill_ellipse = fill_ellipse;
+
+  renderer_class->draw_bezier = draw_bezier;
+  renderer_class->fill_bezier = fill_bezier;
+
+  renderer_class->draw_string = draw_string;
+
+  renderer_class->draw_image = draw_image;
+
+  renderer_class->draw_object = draw_object;
+}
+
+/* Helper functions */
+static void 
+figWarn(XfigRenderer *renderer, int warning) 
+{
   if (renderer->warnings[warning]) {
     message_warning(renderer->warnings[warning]);
     renderer->warnings[warning] = NULL;
   }
 }
 
-static int figLineStyle(Rendererfig *renderer) {
+static int 
+figLineStyle(XfigRenderer *renderer) 
+{
   switch (renderer->stylemode) {
   case LINESTYLE_SOLID:
     return 0;
@@ -264,13 +250,19 @@ static int figLineStyle(Rendererfig *renderer) {
   }
 }
 
-static int figLineWidth(Rendererfig *renderer) {
+static int 
+figLineWidth(XfigRenderer *renderer) 
+{
   return (int)((renderer->linewidth / 2.54) * 80.0);
 }
 
 /* Must be called before outputting anything that uses this color,
-   in order to output a color pseudo object */
-static void figCheckColor(Rendererfig *renderer, Color *color) {
+   in order to output a color pseudo object.
+   The color pseudo object even must be placed first in the xfig file. 
+ */
+static void 
+figCheckColor(XfigRenderer *renderer, Color *color) 
+{
   int i;
 
   for (i = 0; i < FIG_MAX_DEFAULT_COLORS; i++) {
@@ -284,47 +276,73 @@ static void figCheckColor(Rendererfig *renderer, Color *color) {
     return;
   }
   renderer->user_colors[renderer->max_user_color] = *color;
-  fprintf(renderer->file, "0 %d #%02x%02x%02x\n", renderer->max_user_color+32,
-	  (int)(color->red*255), (int)(color->green*255), (int)(color->blue*255));
+  fprintf(renderer->file, "0 %d #%02x%02x%02x\n", 
+          renderer->max_user_color + FIG_MAX_DEFAULT_COLORS,
+          (int)(color->red*255), (int)(color->green*255), (int)(color->blue*255));
   renderer->max_user_color++;
 }
-static int figColor(Rendererfig *renderer, Color *color) {
+
+static int 
+figColor(XfigRenderer *renderer, Color *color) 
+{
   int i;
 
   for (i = 0; i < FIG_MAX_DEFAULT_COLORS; i++) {
-    if (color_equals(color, &fig_default_colors[i])) return i;
+    if (color_equals(color, &fig_default_colors[i])) 
+      return i;
   }
   for (i = 0; i < renderer->max_user_color; i++) {
-    if (color_equals(color, &renderer->user_colors[i])) return i+32;
+    if (color_equals(color, &renderer->user_colors[i])) 
+      return i + FIG_MAX_DEFAULT_COLORS;
   }
   return 0;
 }
-static int figDepth(Rendererfig *renderer) {
+
+static int 
+figDepth(XfigRenderer *renderer) 
+{
   return renderer->depth;
 }
-static real figDashLength(Rendererfig *renderer) {
+
+static real 
+figDashLength(XfigRenderer *renderer) 
+{
   return (renderer->dashlength / 2.54) * 80.0;
 }
-static int figJoinStyle(Rendererfig *renderer) {
+
+static int 
+figJoinStyle(XfigRenderer *renderer)
+{
   return renderer->joinmode;
 }
-static int figCapsStyle(Rendererfig *renderer) {
+
+static int 
+figCapsStyle(XfigRenderer *renderer) 
+{
   return renderer->capsmode;
 }
 
-static int figCoord(Rendererfig *renderer, real coord) {
+static int 
+figCoord(XfigRenderer *renderer, real coord) 
+{
   return (int)((coord/2.54)*1200.0);
 }
 
-static real figFloatCoord(Rendererfig *renderer, real coord) {
+static real 
+figFloatCoord(XfigRenderer *renderer, real coord) 
+{
   return (coord/2.54)*1200.0;
 }
 
-static int figAlignment(Rendererfig *renderer, int alignment) {
+static int 
+figAlignment(XfigRenderer *renderer, int alignment) 
+{
   return alignment;
 }
 
-static int figFont(Rendererfig *renderer) {
+static int 
+figFont(XfigRenderer *renderer) 
+{
   int i;
   const char *legacy_name;
 
@@ -338,11 +356,15 @@ static int figFont(Rendererfig *renderer) {
   return -1;
 }
 
-static real figFontSize(Rendererfig *renderer) {
+static real 
+figFontSize(XfigRenderer *renderer) 
+{
   return (renderer->fontheight/2.54)*72.27;
 }
 
-static guchar *figText(Rendererfig *renderer, const guchar *text) {
+static guchar *
+figText(XfigRenderer *renderer, const guchar *text) 
+{
   int i, j;
   int len = strlen(text);
   int newlen = len;
@@ -366,14 +388,18 @@ static guchar *figText(Rendererfig *renderer, const guchar *text) {
   return returntext;
 }
 
-static void color_begin_render(Rendererfig *renderer, DiagramData *data) {
-  /* Set up warnings */
-  renderer->warnings[WARNING_OUT_OF_COLORS] = 
-    _("No more user-definable colors - using black");
-  renderer->max_user_color = 0;
-}
+static void 
+begin_render(DiaRenderer *self) 
+{
+  XfigRenderer *renderer = XFIG_RENDERER(self);
 
-static void begin_render(Rendererfig *renderer, DiagramData *data) {
+  if (renderer->color_pass) {
+    /* Set up warnings */
+    renderer->warnings[WARNING_OUT_OF_COLORS] = 
+      _("No more user-definable colors - using black");
+    renderer->max_user_color = 0;
+  }
+
   renderer->depth = 0;
 
   renderer->linewidth = 0;
@@ -387,118 +413,79 @@ static void begin_render(Rendererfig *renderer, DiagramData *data) {
 
 }
 
-static void end_render(Rendererfig *renderer) {
+static void 
+end_render(DiaRenderer *renderer) 
+{
 }
 
-static void set_linewidth(Rendererfig *renderer, real linewidth) {
+static void 
+set_linewidth(DiaRenderer *self, real linewidth) 
+{
+  XfigRenderer *renderer = XFIG_RENDERER(self);
+
   renderer->linewidth = linewidth;
 }
-static void set_linecaps(Rendererfig *renderer, LineCaps mode) {
+
+static void 
+set_linecaps(DiaRenderer *self, LineCaps mode) 
+{
+  XfigRenderer *renderer = XFIG_RENDERER(self);
+
   renderer->capsmode = mode;
 }
-static void set_linejoin(Rendererfig *renderer, LineJoin mode) {
+
+static void 
+set_linejoin(DiaRenderer *self, LineJoin mode) 
+{
+  XfigRenderer *renderer = XFIG_RENDERER(self);
+
   renderer->joinmode = mode;
 }
-static void set_linestyle(Rendererfig *renderer, LineStyle mode) {
+
+static void 
+set_linestyle(DiaRenderer *self, LineStyle mode) 
+{
+  XfigRenderer *renderer = XFIG_RENDERER(self);
+
   renderer->stylemode = mode;
 }
-static void set_dashlength(Rendererfig *renderer, real length) {
+
+static void 
+set_dashlength(DiaRenderer *self, real length) 
+{
+  XfigRenderer *renderer = XFIG_RENDERER(self);
+
   renderer->dashlength = length;
 }
-static void set_fillstyle(Rendererfig *renderer, FillStyle mode) {
+
+static void 
+set_fillstyle(DiaRenderer *self, FillStyle mode) 
+{
+  XfigRenderer *renderer = XFIG_RENDERER(self);
+
   renderer->fillmode = mode;
 }
-static void set_font(Rendererfig *renderer, DiaFont *font, real height) {
+static void 
+set_font(DiaRenderer *self, DiaFont *font, real height) 
+{
+  XfigRenderer *renderer = XFIG_RENDERER(self);
+
   renderer->font = font;
   renderer->fontheight = height;
 }
-/** Color pass functions */
-static void color_draw_line(Rendererfig *renderer, 
-		      Point *start, Point *end, 
-		      Color *color) {
-  figCheckColor(renderer, color);
-}
-static void color_draw_polyline(Rendererfig *renderer, 
-			  Point *points, int num_points, 
-			  Color *color) {
-  figCheckColor(renderer, color);
-}
 
-static void color_draw_polygon(Rendererfig *renderer, 
-                         Point *points, int num_points, 
-                         Color *color) {
-  figCheckColor(renderer, color);
-}
-static void color_fill_polygon(Rendererfig *renderer, 
-                         Point *points, int num_points, 
-                         Color *color) {
-  figCheckColor(renderer, color);
-}
+static void 
+draw_line(DiaRenderer *self, 
+          Point *start, Point *end, 
+          Color *color) 
+{
+  XfigRenderer *renderer = XFIG_RENDERER(self);
 
-static void color_draw_rect(Rendererfig *renderer, 
-                      Point *ul_corner, Point *lr_corner,
-                      Color *color) {
-  figCheckColor(renderer, color);
-}
-static void color_fill_rect(Rendererfig *renderer, 
-                      Point *ul_corner, Point *lr_corner,
-                      Color *color) {
-  figCheckColor(renderer, color);
-}
-static void color_draw_arc(Rendererfig *renderer, 
-                     Point *center,
-                     real width, real height,
-                     real angle1, real angle2,
-                     Color *color) {
-  figCheckColor(renderer, color);
-}
-static void color_fill_arc(Rendererfig *renderer, 
-		       Point *center,
-		       real width, real height,
-		       real angle1, real angle2,
-		       Color *color) {
-  figCheckColor(renderer, color);
-}
-static void color_draw_ellipse(Rendererfig *renderer, 
-                         Point *center,
-                         real width, real height,
-                         Color *color) {
-  figCheckColor(renderer, color);
-}
-static void color_fill_ellipse(Rendererfig *renderer, 
-                         Point *center,
-                         real width, real height,
-                         Color *color) {
-  figCheckColor(renderer, color);
-}
-static void color_draw_bezier(Rendererfig *renderer, 
-                        BezPoint *points,
-                        int numpoints,
-                        Color *color) {
-  figCheckColor(renderer, color);
-}
-static void color_fill_bezier(Rendererfig *renderer, 
-			 BezPoint *points,
-			 int numpoints,
-			 Color *color) {
-  figCheckColor(renderer, color);
-}
-static void color_draw_string(Rendererfig *renderer,
-                        const char *text,
-                        Point *pos, Alignment alignment,
-                        Color *color) {
-  figCheckColor(renderer, color);
-}
-static void color_draw_image(Rendererfig *renderer,
-		       Point *point,
-		       real width, real height,
-		       DiaImage image) {
-}
+  if (renderer->color_pass) {
+    figCheckColor(renderer, color);
+    return;
+  }
 
-/** Real pass functions */
-static void draw_line(Rendererfig *renderer, 
-		      Point *start, Point *end, 
-		      Color *color) {
   fprintf(renderer->file, "2 1 %d %d %d 0 %d 0 -1 %f %d %d 0 0 0 2\n",
 	  figLineStyle(renderer), figLineWidth(renderer), 
 	  figColor(renderer, color), figDepth(renderer),
@@ -509,10 +496,18 @@ static void draw_line(Rendererfig *renderer,
 	  figCoord(renderer, end->x), figCoord(renderer, end->y));
 }
 
-static void draw_polyline(Rendererfig *renderer, 
-			  Point *points, int num_points, 
-			  Color *color) {
+static void 
+draw_polyline(DiaRenderer *self, 
+              Point *points, int num_points, 
+              Color *color) 
+{
   int i;
+  XfigRenderer *renderer = XFIG_RENDERER(self);
+
+  if (renderer->color_pass) {
+    figCheckColor(renderer, color);
+    return;
+  }
 
   fprintf(renderer->file, "2 1 %d %d %d 0 %d 0 -1 %f %d %d 0 0 0 %d\n",
 	  figLineStyle(renderer), figLineWidth(renderer), 
@@ -526,10 +521,19 @@ static void draw_polyline(Rendererfig *renderer,
   }
   fprintf(renderer->file, "\n");
 }
-static void draw_polygon(Rendererfig *renderer, 
-			 Point *points, int num_points, 
-			 Color *color) {
+
+static void 
+draw_polygon(DiaRenderer *self, 
+             Point *points, int num_points, 
+             Color *color) 
+{
   int i;
+  XfigRenderer *renderer = XFIG_RENDERER(self);
+
+  if (renderer->color_pass) {
+    figCheckColor(renderer, color);
+    return;
+  }
 
   fprintf(renderer->file, "2 3 %d %d %d 0 %d 0 -1 %f %d %d 0 0 0 %d\n",
 	  figLineStyle(renderer), figLineWidth(renderer), 
@@ -544,10 +548,19 @@ static void draw_polygon(Rendererfig *renderer,
   fprintf(renderer->file, "%d %d\n",
 	  figCoord(renderer, points[0].x), figCoord(renderer, points[0].y));
 }
-static void fill_polygon(Rendererfig *renderer, 
-			 Point *points, int num_points, 
-			 Color *color) {
+
+static void 
+fill_polygon(DiaRenderer *self, 
+             Point *points, int num_points, 
+             Color *color) 
+{
   int i;
+  XfigRenderer *renderer = XFIG_RENDERER(self);
+
+  if (renderer->color_pass) {
+    figCheckColor(renderer, color);
+    return;
+  }
 
   fprintf(renderer->file, "2 3 %d 0 %d %d %d 0 20 %f %d %d 0 0 0 %d\n",
 	  figLineStyle(renderer), 
@@ -564,9 +577,18 @@ static void fill_polygon(Rendererfig *renderer,
 	  figCoord(renderer, points[0].x), figCoord(renderer, points[0].y));
 }
 
-static void draw_rect(Rendererfig *renderer, 
-		      Point *ul_corner, Point *lr_corner,
-		      Color *color) {
+static void 
+draw_rect(DiaRenderer *self, 
+          Point *ul_corner, Point *lr_corner,
+          Color *color) 
+{
+  XfigRenderer *renderer = XFIG_RENDERER(self);
+
+  if (renderer->color_pass) {
+    figCheckColor(renderer, color);
+    return;
+  }
+
   fprintf(renderer->file, "2 3 %d %d %d 0 %d 0 -1 %f %d %d 0 0 0 5\n",
 	  figLineStyle(renderer), figLineWidth(renderer), 
 	  figColor(renderer, color), figDepth(renderer),
@@ -579,9 +601,19 @@ static void draw_rect(Rendererfig *renderer,
 	  figCoord(renderer, ul_corner->x), figCoord(renderer, lr_corner->y), 
 	  figCoord(renderer, ul_corner->x), figCoord(renderer, ul_corner->y));
 }
-static void fill_rect(Rendererfig *renderer, 
-		      Point *ul_corner, Point *lr_corner,
-		      Color *color) {
+
+static void 
+fill_rect(DiaRenderer *self, 
+          Point *ul_corner, Point *lr_corner,
+          Color *color) 
+{
+  XfigRenderer *renderer = XFIG_RENDERER(self);
+
+  if (renderer->color_pass) {
+    figCheckColor(renderer, color);
+    return;
+  }
+
   fprintf(renderer->file, "2 3 %d %d %d %d %d -1 20 %f %d %d 0 0 0 5\n",
 	  figLineStyle(renderer), figLineWidth(renderer), 
 	  figColor(renderer, color), figColor(renderer, color),
@@ -595,12 +627,21 @@ static void fill_rect(Rendererfig *renderer,
 	  figCoord(renderer, ul_corner->x), figCoord(renderer, lr_corner->y), 
 	  figCoord(renderer, ul_corner->x), figCoord(renderer, ul_corner->y));
 }
-static void draw_arc(Rendererfig *renderer, 
-		     Point *center,
-		     real width, real height,
-		     real angle1, real angle2,
-		     Color *color) {
+
+static void 
+draw_arc(DiaRenderer *self, 
+         Point *center,
+         real width, real height,
+         real angle1, real angle2,
+         Color *color) 
+{
   Point first, second, last;
+  XfigRenderer *renderer = XFIG_RENDERER(self);
+
+  if (renderer->color_pass) {
+    figCheckColor(renderer, color);
+    return;
+  }
 
   first = *center;
   first.x += (width/2.0)*cos(angle1);
@@ -627,12 +668,21 @@ static void draw_arc(Rendererfig *renderer,
 	  figCoord(renderer, last.x), figCoord(renderer, last.y));
 
 }
-static void fill_arc(Rendererfig *renderer, 
-		     Point *center,
-		     real width, real height,
-		     real angle1, real angle2,
-		     Color *color) {
+
+static void 
+fill_arc(DiaRenderer *self, 
+         Point *center,
+         real width, real height,
+         real angle1, real angle2,
+         Color *color) 
+{
   Point first, second, last;
+  XfigRenderer *renderer = XFIG_RENDERER(self);
+
+  if (renderer->color_pass) {
+    figCheckColor(renderer, color);
+    return;
+  }
 
   first = *center;
   first.x += (width/2.0)*cos(angle1);
@@ -659,10 +709,20 @@ static void fill_arc(Rendererfig *renderer,
 	  figCoord(renderer, last.x), figCoord(renderer, last.y));
 
 }
-static void draw_ellipse(Rendererfig *renderer, 
-			 Point *center,
-			 real width, real height,
-			 Color *color) {
+
+static void 
+draw_ellipse(DiaRenderer *self, 
+             Point *center,
+             real width, real height,
+             Color *color) 
+{
+  XfigRenderer *renderer = XFIG_RENDERER(self);
+
+  if (renderer->color_pass) {
+    figCheckColor(renderer, color);
+    return;
+  }
+
   fprintf(renderer->file, "1 1 %d %d %d -1 %d 0 -1 %f 1 0.0 %d %d %d %d 0 0 0 0\n",
 	  figLineStyle(renderer), 
 	  figLineWidth(renderer), 
@@ -673,10 +733,20 @@ static void draw_ellipse(Rendererfig *renderer,
 	  figCoord(renderer, width/2), figCoord(renderer, height/2));
 
 }
-static void fill_ellipse(Rendererfig *renderer, 
-			 Point *center,
-			 real width, real height,
-			 Color *color) {
+
+static void 
+fill_ellipse(DiaRenderer *self, 
+             Point *center,
+             real width, real height,
+             Color *color) 
+{
+  XfigRenderer *renderer = XFIG_RENDERER(self);
+
+  if (renderer->color_pass) {
+    figCheckColor(renderer, color);
+    return;
+  }
+
   fprintf(renderer->file, "1 1 %d %d %d %d %d 0 20 %f 1 0.0 %d %d %d %d 0 0 0 0\n",
 	  figLineStyle(renderer), 
 	  figLineWidth(renderer), 
@@ -687,22 +757,54 @@ static void fill_ellipse(Rendererfig *renderer,
 	  figCoord(renderer, center->x), figCoord(renderer, center->y),
 	  figCoord(renderer, width/2), figCoord(renderer, height/2));
 }
-static void draw_bezier(Rendererfig *renderer, 
-			BezPoint *points,
-			int numpoints,
-			Color *color) {
-  
+
+static void 
+draw_bezier(DiaRenderer *self, 
+            BezPoint *points,
+            int numpoints,
+            Color *color) 
+{
+  XfigRenderer *renderer = XFIG_RENDERER(self);
+
+  if (renderer->color_pass) {
+    figCheckColor(renderer, color);
+    return;
+  }
+
+  DIA_RENDERER_CLASS(parent_class)->draw_bezier(self, points, numpoints, color);
 }
-static void fill_bezier(Rendererfig *renderer, 
-			BezPoint *points, /* Last point must be same as first point */
-			int numpoints,
-			Color *colour) {
+
+static void 
+fill_bezier(DiaRenderer *self, 
+            BezPoint *points, /* Last point must be same as first point */
+            int numpoints,
+            Color *color) 
+{
+  XfigRenderer *renderer = XFIG_RENDERER(self);
+
+  if (renderer->color_pass) {
+    figCheckColor(renderer, color);
+    return;
+  }
+
+  DIA_RENDERER_CLASS(parent_class)->fill_bezier(self, points, numpoints, color);
 }
-static void draw_string(Rendererfig *renderer,
-			const char *text,
-			Point *pos, Alignment alignment,
-			Color *color) {
-  guchar *figtext = figText(renderer, text);
+
+static void 
+draw_string(DiaRenderer *self,
+            const char *text,
+            Point *pos, Alignment alignment,
+            Color *color) 
+{
+  guchar *figtext = NULL;
+  XfigRenderer *renderer = XFIG_RENDERER(self);
+
+  if (renderer->color_pass) {
+    figCheckColor(renderer, color);
+    return;
+  }
+
+  figtext = figText(renderer, text);
   fprintf(renderer->file, "4 %d %d %d 0 %d %f 0.0 4 0.0 0.0 %d %d %s\\001\n",
 	  figAlignment(renderer, alignment),
 	  figColor(renderer, color), 
@@ -714,10 +816,18 @@ static void draw_string(Rendererfig *renderer,
 	  figtext);
   g_free(figtext);
 }
-static void draw_image(Rendererfig *renderer,
-		       Point *point,
-		       real width, real height,
-		       DiaImage image) {
+
+static void 
+draw_image(DiaRenderer *self,
+           Point *point,
+           real width, real height,
+           DiaImage image) 
+{
+  XfigRenderer *renderer = XFIG_RENDERER(self);
+
+  if (renderer->color_pass)
+    return;
+
   fprintf(renderer->file, "2 5 %d 0 -1 0 %d 0 -1 %f %d %d 0 0 0 5\n",
 	  figLineStyle(renderer), figDepth(renderer),
 	  figDashLength(renderer), figJoinStyle(renderer), 
@@ -731,11 +841,17 @@ static void draw_image(Rendererfig *renderer,
 	  figCoord(renderer, point->x), figCoord(renderer, point->y));
 }
 
-static void draw_object(Rendererfig *renderer,
-			Object *object) {
-  fprintf(renderer->file, "6 0 0 0 0\n");
-  object->ops->draw(object, &renderer->renderer);
-  fprintf(renderer->file, "-6\n");
+static void 
+draw_object(DiaRenderer *self,
+            Object *object) 
+{
+  XfigRenderer *renderer = XFIG_RENDERER(self);
+
+  if (!renderer->color_pass)
+    fprintf(renderer->file, "6 0 0 0 0\n");
+  object->ops->draw(object, DIA_RENDERER(renderer));
+  if (!renderer->color_pass)
+    fprintf(renderer->file, "-6\n");
 }
 
 static void
@@ -743,7 +859,7 @@ export_fig(DiagramData *data, const gchar *filename,
            const gchar *diafilename, void* user_data)
 {
   FILE *file;
-  Rendererfig *renderer;
+  XfigRenderer *renderer;
   int i;
   Layer *layer;
 
@@ -754,11 +870,7 @@ export_fig(DiagramData *data, const gchar *filename,
     return;
   }
 
-if (figRenderColorOps == NULL)
-     init_fig_renderops();
-  renderer = g_new(Rendererfig, 1);
-  renderer->renderer.is_interactive = 0;
-  renderer->renderer.interactive_ops = NULL;
+  renderer = g_object_new(XFIG_TYPE_RENDERER, NULL);
 
   renderer->file = file;
 
@@ -772,31 +884,31 @@ if (figRenderColorOps == NULL)
   fprintf(file, "-2\n");
   fprintf(file, "1200 2\n");
 
-  renderer->renderer.ops = figRenderColorOps;
+  renderer->color_pass = TRUE;
 
-  (((Renderer *)renderer)->ops->begin_render)((Renderer *)renderer);
+  DIA_RENDERER_GET_CLASS(renderer)->begin_render(DIA_RENDERER(renderer));
   
   for (i=0; i<data->layers->len; i++) {
     layer = (Layer *) g_ptr_array_index(data->layers, i);
-    layer_render(layer, (Renderer *)renderer, NULL, NULL, data, 0);
+    layer_render(layer, DIA_RENDERER(renderer), NULL, NULL, data, 0);
     renderer->depth++;
   }
   
-  (((Renderer *)renderer)->ops->end_render)((Renderer *)renderer);
+  DIA_RENDERER_GET_CLASS(renderer)->end_render(DIA_RENDERER(renderer));
 
-  renderer->renderer.ops = figRenderOps;
+  renderer->color_pass = FALSE;
 
-  (((Renderer *)renderer)->ops->begin_render)((Renderer *)renderer);
+  DIA_RENDERER_GET_CLASS(renderer)->begin_render(DIA_RENDERER(renderer));
   
   for (i=0; i<data->layers->len; i++) {
     layer = (Layer *) g_ptr_array_index(data->layers, i);
-    layer_render(layer, (Renderer *)renderer, NULL, NULL, data, 0);
+    layer_render(layer, DIA_RENDERER(renderer), NULL, NULL, data, 0);
     renderer->depth++;
   }
   
-  (((Renderer *)renderer)->ops->end_render)((Renderer *)renderer);
+  DIA_RENDERER_GET_CLASS(renderer)->end_render(DIA_RENDERER(renderer));
 
-  g_free(renderer);
+  g_object_unref(renderer);
 
   fclose(file);
 }
