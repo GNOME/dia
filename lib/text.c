@@ -420,6 +420,13 @@ text_grab_focus(Text *text, Object *object)
 }
 
 void
+text_set_cursor_at_end( Text* text )
+{
+  text->cursor_row = text->numlines - 1 ;
+  text->cursor_pos = text->strlen[text->cursor_row] ;
+}
+
+void
 text_set_cursor(Text *text, Point *clicked_point,
 		Renderer *renderer)
 {

@@ -582,3 +582,10 @@ orthconn_load(OrthConn *orth, ObjectNode obj_node) /* NOTE: Does object_init() *
 
   orthconn_update_data(orth);
 }
+
+Handle*
+orthconn_get_middle_handle( OrthConn *orth )
+{
+  int n = orth->numpoints - 1 ;
+  return orth->midpoint_handles[ n/2 ] ;
+}

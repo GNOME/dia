@@ -69,6 +69,7 @@ extern void text_calc_boundingbox(Text *text, Rectangle *box);
 extern void text_draw(Text *text, Renderer *renderer);
 extern void text_set_cursor(Text *text, Point *clicked_point,
 			    Renderer *interactive_renderer);
+extern void text_set_cursor_at_end( Text* text );
 extern void text_grab_focus(Text *text, Object *object);
 extern int text_is_empty(Text *text);
 

@@ -1,3 +1,4 @@
 ## Process this file with automake to produce Makefile.in
 
-SUBDIRS = standard network UML ER FS
+EXTRA_DIST = function.xpm flow.xpm orthflow.xpm
+

@@ -58,4 +58,5 @@ extern void orthconn_move_handle(OrthConn *orth, Handle *id,
 extern void orthconn_move(OrthConn *orth, Point *to);
 extern real orthconn_distance_from(OrthConn *orth, Point *point,
 				   real line_width);
+extern Handle* orthconn_get_middle_handle(OrthConn *orth);
 #endif /* ORTH_CONN_H */

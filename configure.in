@@ -136,6 +136,8 @@ objects/UML/Makefile
 objects/UML/pixmaps/Makefile
 objects/ER/Makefile
 objects/ER/pixmaps/Makefile
+objects/FS/Makefile
+objects/FS/pixmaps/Makefile
 app/Makefile
 app/pixmaps/Makefile
 samples/Makefile

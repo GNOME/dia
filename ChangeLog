@@ -1,3 +1,16 @@
+1999-06-08  Alexander Larsson  <alla@lysator.liu.se>
+
+        This is a patch from David Thompson <dcthomp@mail.utexas.edu>
+	
+	* lib/orth_conn.[ch]:
+	Added orthconn_get_middle_handle()
+
+	* lib/text.[ch]:
+	Added text_set_cursor_at_end()
+	
+	* objects/FS/*
+	Added first version of functions structure diagrams.
+	
 1999-05-24  Alexander Larsson  <alla@lysator.liu.se>
 
 	* app/modify_tool.c:
