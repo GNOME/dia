@@ -1,3 +1,11 @@
+1999-10-26  Alexander Larsson  <alla@lysator.liu.se>
+
+	* app/render_eps.c: 
+	* app/load_save.c:
+	* app/preferences.c:
+	* app/render_svg.c:
+	fopen files in binary or text mode.
+
 1999-10-26  Alexander Larsson  <alex@cendio.se>
 
 	* app/render_gdk.c (bezier_add_lines):

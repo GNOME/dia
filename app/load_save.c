@@ -433,7 +433,7 @@ diagram_save(Diagram *dia, char *filename)
   xmlNs *name_space;
   int ret;
    
-  file = fopen(filename, "w");
+  file = fopen(filename, "wb");
 
   if (file==NULL) {
     message_error(_("Couldn't open: '%s' for writing.\n"), filename);

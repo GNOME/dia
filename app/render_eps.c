@@ -146,7 +146,7 @@ new_eps_renderer(Diagram *dia, char *filename)
   Rectangle *extent;
   char *name;
  
-  file = fopen(filename, "w");
+  file = fopen(filename, "wb");
 
   if (file==NULL) {
     message_error(_("Couldn't open: '%s' for writing.\n"), filename);
