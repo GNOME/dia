@@ -36,6 +36,7 @@ void dia_image_draw(DiaImage image, GdkWindow *window,
 		    int x, int y, int width, int height);
 
 int dia_image_width(DiaImage image);
+int dia_image_rowstride(DiaImage image);
 int dia_image_height(DiaImage image);
 guint8 *dia_image_rgb_data(DiaImage image);
 guint8 *dia_image_mask_data(DiaImage image);

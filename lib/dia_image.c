@@ -145,21 +145,32 @@ dia_image_height(DiaImage image)
   return gdk_pixbuf_get_height(image->image);
 }
 
+int
+dia_image_rowstride(DiaImage image)
+{
+  return gdk_pixbuf_get_rowstride(image->image);
+}
+
 guint8 *
 dia_image_rgb_data(DiaImage image)
 {
-  int size = gdk_pixbuf_get_width(image->image)*
+  int size = gdk_pixbuf_get_rowstride(image->image)*
     gdk_pixbuf_get_height(image->image);
   guint8 *rgb_pixels = g_malloc(size*3);
+  int width = dia_image_width(image);
+  int height = dia_image_height(image);
+  int rowstride = dia_image_rowstride(image);
 
   if (gdk_pixbuf_get_has_alpha(image->image)) {
     guint8 *pixels = gdk_pixbuf_get_pixels(image->image);
-    int i;
+    int i, j;
 
-    for (i = 0; i < size; i++) {
-      rgb_pixels[i*3] = pixels[i*4];
-      rgb_pixels[i*3+1] = pixels[i*4+1];
-      rgb_pixels[i*3+2] = pixels[i*4+2];
+    for (i = 0; i < height; i++) {
+      for (j = 0; j < width; j++) {
+	rgb_pixels[i*rowstride+j*3] = pixels[i*rowstride+j*4];
+	rgb_pixels[i*rowstride+j*3+1] = pixels[i*rowstride+j*4+1];
+	rgb_pixels[i*rowstride+j*3+2] = pixels[i*rowstride+j*4+2];
+      }
     }
     return rgb_pixels;
   } else {

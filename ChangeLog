@@ -1,3 +1,13 @@
+2002-08-24  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* app/render_eps.c: Refactoring of new_*_renderer.
+
+2002-08-23  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* app/render_eps.c: 
+	* lib/dia_image.h: 
+	* lib/dia_image.c: Support for rowstride != width (odd width images)
+
 2002-08-20  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* lib/paper.c (get_paper_info): Fixed NULL prefs problem.

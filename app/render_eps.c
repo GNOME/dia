@@ -467,25 +467,12 @@ eps_renderer_set_scale(DiagramData *data, RendererEPS *renderer)
 
   /*** PROLOG STUFF ENDS HERE ***/
 
-
 static RendererEPS *
-create_eps_renderer(DiagramData *data, const char *filename,
-		    const char *diafilename)
+create_common_renderer(DiagramData *data, FILE *file)
 {
   RendererEPS *renderer;
-  FILE *file;
-  time_t time_now;
   double scale;
-  Rectangle *extent;
-  char *name;
   PangoFontDescription *font_description;
-
-  file = fopen(filename, "wb");
-
-  if (file==NULL) {
-    message_error(_("Couldn't open: '%s' for writing.\n"), filename);
-    return NULL;
-  }
 
   if (EpsPrologOps == NULL)
     init_eps_renderer();
@@ -495,17 +482,13 @@ create_eps_renderer(DiagramData *data, const char *filename,
   renderer->renderer.is_interactive = 0;
   renderer->renderer.interactive_ops = NULL;
 
-  renderer->is_ps = 0;
   renderer->pagenum = 1;
   renderer->file = file;
   renderer->lcolor.red = -1.0;
-
+  
   renderer->dash_length = 1.0;
   renderer->dot_length = 0.2;
   renderer->saved_line_style = LINESTYLE_SOLID;
-  
-  time_now  = time(NULL);
-  extent = &data->extents;
   
 #ifdef HAVE_FREETYPE
   renderer->context = pango_ft2_get_context (DPI, DPI/*dpi_x, dpi_y*/);
@@ -526,13 +509,38 @@ create_eps_renderer(DiagramData *data, const char *filename,
 #endif
 
   scale = 28.346 * data->paper.scaling;
-#ifdef HAVE_FREETYPE
   renderer->scale = scale;
-#endif
+
+  return renderer;
+}
+
+static RendererEPS *
+create_eps_renderer(DiagramData *data, const char *filename,
+		    const char *diafilename)
+{
+  RendererEPS *renderer;
+  FILE *file;
+  Rectangle *extent;
+  char *name;
+  time_t time_now;
+
+  file = fopen(filename, "wb");
+
+  if (file==NULL) {
+    message_error(_("Couldn't open: '%s' for writing.\n"), filename);
+    return NULL;
+  }
+
+  renderer = create_common_renderer(data, file);
+  renderer->is_ps = FALSE;
+
+  extent = &data->extents;
 
   name = g_get_user_name();
   if (name==NULL)
     name = "a user";
+
+  time_now = time(0);
   
   fprintf(file,
 	  "%%!PS-Adobe-2.0 EPSF-2.0\n"
@@ -549,8 +557,8 @@ create_eps_renderer(DiagramData *data, const char *filename,
 	  VERSION,
 	  ctime(&time_now),
 	  name,
-	  (int) ceil((extent->right - extent->left)*scale),
-	  (int) ceil((extent->bottom - extent->top)*scale) );
+	  (int) ceil((extent->right - extent->left)*renderer->scale),
+	  (int) ceil((extent->bottom - extent->top)*renderer->scale) );
 
   return renderer;
 }
@@ -572,32 +580,18 @@ RendererEPS *
 new_psprint_renderer(Diagram *dia, FILE *file)
 {
   RendererEPS *renderer;
+  gchar *name;
   time_t time_now;
-  char *name;
 
-  if (EpsPrologOps == NULL)
-    init_eps_renderer();
-
-  renderer = g_new(RendererEPS, 1);
-  renderer->renderer.ops = EpsPrologOps;
-  renderer->renderer.is_interactive = 0;
-  renderer->renderer.interactive_ops = NULL;
-
-  renderer->is_ps = 1;
-  renderer->pagenum = 1;
-  renderer->file = file;
-  renderer->lcolor.red = -1.0;
-  
-  renderer->dash_length = 1.0;
-  renderer->dot_length = 0.2;
-  renderer->saved_line_style = LINESTYLE_SOLID;
-  
-  time_now  = time(NULL);
+  renderer = create_common_renderer(dia->data, file);
+  renderer->is_ps = TRUE;
 
   name = g_get_user_name();
   if (name==NULL)
     name = "a user";
   
+  time_now = time(0);
+
   fprintf(file,
 	  "%%!PS-Adobe-2.0\n"
 	  "%%%%Title: %s\n"
@@ -992,8 +986,8 @@ fill_bezier(RendererEPS *renderer,
 /* Such a big mark really is a sign that this should go in its own file:) */
 
 /*======================================================================
-//  outline traversing functions.
-//----------------------------------------------------------------------*/
+  outline traversing functions.
+  ----------------------------------------------------------------------*/
 static int paps_move_to( FT_Vector* to,
 			 void *user_data)
 {
@@ -1218,7 +1212,7 @@ set_font(RendererEPS *renderer, DiaFont *font, real height)
   /* Used to be just as arbitrarily 1.6, but experimentation shows 1.45 
      is better */
   /* 28.346 = 72.0 / 2.54 */
-  renderer->current_height = height*1.45;//*(renderer->scale/28.346);
+  renderer->current_height = height*1.45;
   pango_context_set_font_description(renderer->context, font->pfd);
 }
 
@@ -1494,7 +1488,7 @@ draw_image(RendererEPS *renderer,
 	   real width, real height,
 	   DiaImage image)
 {
-  int img_width, img_height;
+  int img_width, img_height, img_rowstride;
   int v;
   int                 x, y;
   unsigned char      *ptr;
@@ -1503,6 +1497,7 @@ draw_image(RendererEPS *renderer,
   guint8 *mask_data;
 
   img_width = dia_image_width(image);
+  img_rowstride = dia_image_rowstride(image);
   img_height = dia_image_height(image);
 
   rgb_data = dia_image_rgb_data(image);
@@ -1625,15 +1620,15 @@ draw_image(RendererEPS *renderer,
     
 #define ALPHA_TO_WHITE
     ptr = rgb_data;
-    for (y = 0; y < img_width; y++) {
-      for (x = 0; x < img_height; x++) {
+    for (y = 0; y < img_height; y++) {
+      for (x = 0; x < img_width; x++) {
 #ifdef ALPHA_TO_WHITE
 	if (mask_data) {
-	  fprintf(renderer->file, "%02x", 255-(mask_data[y*img_height+x]*(255-*ptr)/255));
+	  fprintf(renderer->file, "%02x", 255-(mask_data[y*img_rowstride+x]*(255-*ptr)/255));
 	  ptr++;
-	  fprintf(renderer->file, "%02x", 255-(mask_data[y*img_height+x]*(255-*ptr)/255));
+	  fprintf(renderer->file, "%02x", 255-(mask_data[y*img_rowstride+x]*(255-*ptr)/255));
 	  ptr++;
-	  fprintf(renderer->file, "%02x", 255-(mask_data[y*img_height+x]*(255-*ptr)/255));
+	  fprintf(renderer->file, "%02x", 255-(mask_data[y*img_rowstride+x]*(255-*ptr)/255));
 	  ptr++;
 	} else {
 	  fprintf(renderer->file, "%02x", (int)(*ptr++));
@@ -1641,7 +1636,7 @@ draw_image(RendererEPS *renderer,
 	  fprintf(renderer->file, "%02x", (int)(*ptr++));
 	}
 #else
-	if (!mask_data || mask_data[y*img_height+x] > 127) {
+	if (!mask_data || mask_data[y*img_rowstride+x] > 127) {
 	  fprintf(renderer->file, "%02x", (int)(*ptr++));
 	  fprintf(renderer->file, "%02x", (int)(*ptr++));
 	  fprintf(renderer->file, "%02x", (int)(*ptr++));
@@ -1652,6 +1647,7 @@ draw_image(RendererEPS *renderer,
 #endif
       }
       fprintf(renderer->file, "\n");
+      ptr += img_rowstride-img_width*3;
     }
 #endif
   } else { /* Grayscale */
