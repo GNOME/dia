@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia v. 0.83\n"
 "POT-Creation-Date: 2000-08-06 10:12+0800\n"
-"PO-Revision-Date: 2000-07-31 02:27+0200\n"
+"PO-Revision-Date: 2000-08-18 02:27+0200\n"
 "Last-Translator: Keld Simonsen <keld@dkuug.dk>\n"
 "Language-Team: Danish <dansk@klid.dk>\n"
 "MIME-Version: 1.0\n"
@@ -132,14 +132,14 @@ msgid "Contributors:"
 msgstr "Bidragsydere:"
 
 #. setup buttons
-#: app/commands.c:553 app/layer_dialog.c:976 app/lineprops_area.c:540
-#: app/lineprops_area.c:737 app/linewidth_area.c:230 app/pagesetup.c:72
-#: app/paginate_psprint.c:234 app/preferences.c:598 app/properties.c:82
-#: lib/message.c:85
+#: app/commands.c:553 app/dia-props.c:84 app/layer_dialog.c:976
+#: app/lineprops_area.c:540 app/lineprops_area.c:737 app/linewidth_area.c:230
+#: app/pagesetup.c:72 app/paginate_psprint.c:234 app/preferences.c:598
+#: app/properties.c:82 lib/message.c:85
 msgid "OK"
 msgstr "Ok"
 
-#: app/commands.c:668
+#: app/commands.c:654
 msgid ""
 "The anti aliased renderer is buggy, and may cause\n"
 "crashes.  We know there are bugs in it, so don't\n"
@@ -147,19 +147,20 @@ msgid ""
 msgstr ""
 "Anti-alias fremviseren er fejlbehæftet, og kan forårsage nedbrud.\n"
 "Vi véd godt at der er fejl i den, så lad være med\n"
-"at indsende en ny fejlrapprt hvis den går ned"
+"at indsende en ny fejlrapport hvis den går ned"
 
 #: app/defaults.c:48 app/defaults.c:56
 msgid "Object defaults"
 msgstr "Standardindstillinger for objekt"
 
-#: app/defaults.c:73 app/pagesetup.c:77 app/preferences.c:607
-#: app/properties.c:91
+#: app/defaults.c:73 app/dia-props.c:93 app/pagesetup.c:77
+#: app/preferences.c:607 app/properties.c:91
 msgid "Apply"
 msgstr "Anvend"
 
-#: app/defaults.c:83 app/layer_dialog.c:261 app/pagesetup.c:83
-#: app/plugin-manager.c:146 app/preferences.c:616 app/properties.c:101
+#: app/defaults.c:83 app/dia-props.c:103 app/layer_dialog.c:261
+#: app/pagesetup.c:83 app/plugin-manager.c:146 app/preferences.c:616
+#: app/properties.c:101
 msgid "Close"
 msgstr "Luk"
 
@@ -167,172 +168,96 @@ msgstr "Luk"
 msgid "This object has no defaults."
 msgstr "Dette objekt har ingen standardindstillinger."
 
-#: app/dia_embedd.c:185
-msgid "File/New diagram"
-msgstr "Filer/nyt diagram"
-
-#: app/dia_embedd.c:189
-msgid "File/Open..."
-msgstr "Filer/Åbn..."
-
-#: app/dia_embedd.c:193
-msgid "File/Save As..."
-msgstr "/Filer/Gem som..."
-
-#: app/dia_embedd.c:197
-msgid "File/Close"
-msgstr "/Filer/Luk"
-
-#: app/dia_embedd.c:201
-msgid "File/Exit"
-msgstr "/Filer/Afslut"
-
-#: app/dia_embedd.c:205
-msgid "View/New View"
-msgstr "/Vis/Ny visning"
-
-#: app/dia_embedd.c:282
+#: app/dia_embedd.c:266
 msgid "Could not initialize Bonobo!"
 msgstr "Kunne ikke initialisere Bonobo!"
 
-#: app/diagram.c:179
-msgid "/Edit/Copy"
-msgstr "/Redigér/Kopiér"
+#: app/dia-props.c:58 app/dia-props.c:65
+msgid "Diagram Properties"
+msgstr "Egenskaber for diagram"
 
-#: app/diagram.c:181
-msgid "/Edit/Cut"
-msgstr "/Redigér/Klip ud"
+#: app/dia-props.c:128
+msgid "x"
+msgstr "x"
 
-#: app/diagram.c:183
-msgid "/Edit/Paste"
-msgstr "/Redigér/Indsæt"
+#: app/dia-props.c:132
+msgid "y"
+msgstr "y"
 
-#: app/diagram.c:186
-msgid "/Edit/Delete"
-msgstr "/Redigér/Slet"
+#: app/dia-props.c:137
+msgid "Spacing"
+msgstr "Mellemrum"
 
-#: app/diagram.c:190 app/menus.c:277
-msgid "/Edit/Copy Text"
-msgstr "/Redigér/Kopiér tekst"
+#: app/dia-props.c:157
+msgid "Visible spacing"
+msgstr "Synligt mellemrum"
 
-#: app/diagram.c:192 app/menus.c:278
-msgid "/Edit/Cut Text"
-msgstr "/Redigér/Klip tekst ud"
+#: app/dia-props.c:177
+msgid "Grid"
+msgstr "Gitternet"
 
-#: app/diagram.c:194
-msgid "/Edit/Paste Text"
-msgstr "/Redigér/Indsæt tekst"
+#: app/dia-props.c:187
+msgid "Background Colour"
+msgstr "Baggrundsfarve"
 
-#: app/diagram.c:197
-msgid "/Objects/Send to Back"
-msgstr "/Objekter/Send bagud"
-
-#: app/diagram.c:199
-msgid "/Objects/Bring to Front"
-msgstr "/Objekter/Hent frem"
-
-#: app/diagram.c:202
-msgid "/Objects/Group"
-msgstr "/Objekter/Gruppér"
-
-#: app/diagram.c:204
-msgid "/Objects/Ungroup"
-msgstr "/Objekter/Afgruppér"
-
-#: app/diagram.c:207 app/menus.c:331
-msgid "/Objects/Align Horizontal/Left"
-msgstr "/Objekter/Justér vandret/Venstre"
-
-#: app/diagram.c:209 app/menus.c:332
-msgid "/Objects/Align Horizontal/Center"
-msgstr "/Objekter/Justér vandret/Midt"
-
-#: app/diagram.c:211 app/menus.c:333
-msgid "/Objects/Align Horizontal/Right"
-msgstr "/Objekter/Justér vandret/Højre"
-
-#: app/diagram.c:213 app/menus.c:334
-msgid "/Objects/Align Horizontal/Equal Distance"
-msgstr "/Objekter/Justér vandret/Samme afstand"
-
-#: app/diagram.c:215 app/menus.c:335
-msgid "/Objects/Align Horizontal/Adjacent"
-msgstr "/Objekter/Justér vandret/Ved siden"
-
-#: app/diagram.c:217 app/menus.c:338
-msgid "/Objects/Align Vertical/Top"
-msgstr "/Objekter/Justér lodret/Øverst"
-
-#: app/diagram.c:219 app/menus.c:339
-msgid "/Objects/Align Vertical/Center"
-msgstr "/Objekter/Justér lodret/Midt"
-
-#: app/diagram.c:221 app/menus.c:340
-msgid "/Objects/Align Vertical/Bottom"
-msgstr "/Objekter/Justér lodret/Bund"
-
-#: app/diagram.c:223 app/menus.c:341
-msgid "/Objects/Align Vertical/Equal Distance"
-msgstr "/Objekter/Justér lodret/Samme afstand"
-
-#: app/diagram.c:225 app/menus.c:342
-msgid "/Objects/Align Vertical/Adjacent"
-msgstr "/Objekter/Justér lodret/Ved siden"
+#: app/dia-props.c:198 lib/diagramdata.c:53
+msgid "Background"
+msgstr "Baggrund"
 
 #. paper size
-#: app/diapagelayout.c:133
+#: app/diapagelayout.c:108
 msgid "Paper Size"
 msgstr "Papirstørrelse"
 
 #. orientation
-#: app/diapagelayout.c:163
+#: app/diapagelayout.c:141
 msgid "Orientation"
 msgstr "Orientering"
 
 #. margins
-#: app/diapagelayout.c:201
+#: app/diapagelayout.c:179
 msgid "Margins"
 msgstr "Marginer"
 
-#: app/diapagelayout.c:213
+#: app/diapagelayout.c:191
 msgid "Top:"
 msgstr "Øverst:"
 
-#: app/diapagelayout.c:226
+#: app/diapagelayout.c:204
 msgid "Bottom:"
 msgstr "Nederst:"
 
-#: app/diapagelayout.c:239
+#: app/diapagelayout.c:217
 msgid "Left:"
 msgstr "Venstre:"
 
-#: app/diapagelayout.c:252
+#: app/diapagelayout.c:230
 msgid "Right:"
 msgstr "Højre:"
 
 #. Scaling
-#: app/diapagelayout.c:266
+#: app/diapagelayout.c:244
 msgid "Scaling"
 msgstr "Sætter målestok"
 
-#: app/diapagelayout.c:277
+#: app/diapagelayout.c:255
 msgid "Scale:"
 msgstr "Målestok:"
 
-#: app/diapagelayout.c:289
+#: app/diapagelayout.c:267
 msgid "Fit to:"
 msgstr "Tilpas til:"
 
-#: app/diapagelayout.c:301
+#: app/diapagelayout.c:279
 msgid "by"
 msgstr "af"
 
-#: app/diapagelayout.c:704
+#: app/diapagelayout.c:674
 #, c-format
 msgid "%0.3gcm x %0.3gcm"
 msgstr "%0.3g cm x %0.3g cm"
 
-#: app/diapagelayout.c:806 app/pagesetup.c:60 app/pagesetup.c:68
+#: app/diapagelayout.c:776 app/pagesetup.c:60 app/pagesetup.c:68
 msgid "Page Setup"
 msgstr "Sideopsætning"
 
@@ -356,11 +281,11 @@ msgstr "Zoom"
 msgid "Diagram modified!"
 msgstr "Diagrammet er ændret!"
 
-#: app/display.c:756 app/display.c:762
+#: app/display.c:753 app/display.c:759
 msgid "Really close?"
 msgstr "Virkelig lukke?"
 
-#: app/display.c:767
+#: app/display.c:764
 msgid ""
 "This diagram has not been saved.\n"
 "Are you sure you want to close this window?"
@@ -368,35 +293,15 @@ msgstr ""
 "Dette diagram er ikke gemt.\n"
 "Er du sikker på at du vil lukke vinduet?"
 
-#: app/display.c:785 app/filedlg.c:241 app/filedlg.c:430 app/preferences.c:492
+#: app/display.c:782 app/filedlg.c:241 app/filedlg.c:430 app/preferences.c:492
 #: lib/properties.c:279
 msgid "Yes"
 msgstr "Ja"
 
-#: app/display.c:795 app/filedlg.c:254 app/filedlg.c:443 app/preferences.c:492
+#: app/display.c:792 app/filedlg.c:254 app/filedlg.c:443 app/preferences.c:492
 #: app/preferences.c:503 lib/properties.c:281 lib/properties.c:302
 msgid "No"
 msgstr "Nej"
-
-#: app/display.c:831
-msgid "/View/Show Rulers"
-msgstr "/Vis/Vis _linealer"
-
-#: app/display.c:833
-msgid "/View/Visible Grid"
-msgstr "/Vis/_Synligt gitter"
-
-#: app/display.c:835
-msgid "/View/Snap To Grid"
-msgstr "/Vis/_Lås til gitter"
-
-#: app/display.c:837
-msgid "/View/Show Connection Points"
-msgstr "/Vis/Vis forbindelsespunkter"
-
-#: app/display.c:840
-msgid "/View/AntiAliased"
-msgstr "/Vis/Antialiaseret"
 
 #: app/export_png.c:78 app/load_save.c:549 app/render_eps.c:162
 #: plug-ins/cgm/cgm.c:1128 plug-ins/dxf/dxf-export.c:512
@@ -937,283 +842,259 @@ msgstr "_Værktøjer"
 msgid "_Dialogs"
 msgstr "_Dialoger"
 
-#: app/menus.c:242 app/menus.c:256
+#: app/menus.c:248 app/menus.c:261
 msgid "/_File"
 msgstr "/_Filer"
 
-#: app/menus.c:243 app/menus.c:258
+#: app/menus.c:249 app/menus.c:262
 msgid "/File/_New"
 msgstr "/Filer/_Ny"
 
-#: app/menus.c:244 app/menus.c:259
+#: app/menus.c:250 app/menus.c:263
 msgid "/File/_Open"
 msgstr "/Filer/Å_bn"
 
-#: app/menus.c:245
+#: app/menus.c:251
 msgid "/File/_Preferences..."
 msgstr "/Filer/_Indstillinger..."
 
-#: app/menus.c:246
+#: app/menus.c:252
 msgid "/File/P_lugins"
 msgstr "/Filer/_Indstik"
 
-#: app/menus.c:247 app/menus.c:263
-msgid "/File/sep1"
-msgstr "/Filer/sep1"
+#: app/menus.c:253 app/menus.c:267 app/menus.c:270
+msgid "/File/---"
+msgstr "/Fil/---"
 
-#: app/menus.c:248 app/menus.c:268
+#: app/menus.c:254 app/menus.c:273
 msgid "/File/_Quit"
 msgstr "/Filer/_Afslut"
 
-#: app/menus.c:249
+#: app/menus.c:255
 msgid "/_Help"
 msgstr "/_Hjælp"
 
-#: app/menus.c:250
+#: app/menus.c:256
 msgid "/Help/_About"
 msgstr "/Hjælp/_Om"
 
-#: app/menus.c:255
-msgid "/tearoff"
-msgstr "/rivvæk"
-
-#: app/menus.c:257
-msgid "/File/tearoff"
-msgstr "/Filer/rivvæk"
-
-#: app/menus.c:260
+#: app/menus.c:264
 msgid "/File/_Save"
 msgstr "/Filer/_Gem"
 
-#: app/menus.c:261
+#: app/menus.c:265
 msgid "/File/Save _As..."
 msgstr "/Filer/Gem _som..."
 
-#: app/menus.c:262
+#: app/menus.c:266
 msgid "/File/_Export..."
 msgstr "/Filer/_Eksportér..."
 
-#: app/menus.c:264
+#: app/menus.c:268
 msgid "/File/Page Set_up..."
 msgstr "/Filer/Side_opsætning..."
 
-#: app/menus.c:265
+#: app/menus.c:269
 msgid "/File/_Print Diagram..."
 msgstr "/File/_Udskriv diagram..."
 
-#: app/menus.c:266
-msgid "/File/sep2"
-msgstr "/Filer/sep2"
-
-#: app/menus.c:267
+#: app/menus.c:271
 msgid "/File/_Close"
 msgstr "/Filer/_Luk"
 
-#: app/menus.c:269
+#: app/menus.c:274
 msgid "/_Edit"
 msgstr "/_Redigér"
 
-#: app/menus.c:270
-msgid "/Edit/tearoff"
-msgstr "/Redigér/rivvæk"
-
-#: app/menus.c:271
+#: app/menus.c:275
 msgid "/Edit/_Copy"
 msgstr "/Redigér/_Kopiér"
 
-#: app/menus.c:272
+#: app/menus.c:276
 msgid "/Edit/C_ut"
 msgstr "/Redigér/K_lip"
 
-#: app/menus.c:273
+#: app/menus.c:277
 msgid "/Edit/_Paste"
 msgstr "/Redigér/_Indsæt"
 
-#: app/menus.c:274
+#: app/menus.c:278
 msgid "/Edit/_Delete"
 msgstr "/Redigér/_Slet"
 
-#: app/menus.c:275
+#: app/menus.c:279
 msgid "/Edit/_Undo"
 msgstr "/Redigér/Fortr_yd"
 
-#: app/menus.c:276
+#: app/menus.c:280
 msgid "/Edit/_Redo"
 msgstr "/Redigér/_Gentag"
 
-#: app/menus.c:279
+#: app/menus.c:281
+msgid "/Edit/Copy Text"
+msgstr "/Redigér/Kopiér tekst"
+
+#: app/menus.c:282
+msgid "/Edit/Cut Text"
+msgstr "/Redigér/Klip tekst ud"
+
+#: app/menus.c:283
 msgid "/Edit/Paste _Text"
 msgstr "/Redigér/Indsæt"
 
-#: app/menus.c:280
+#: app/menus.c:284
 msgid "/_View"
 msgstr "/_Vis"
 
-#: app/menus.c:281
-msgid "/View/tearoff"
-msgstr "/Vis/rivvæk"
-
-#: app/menus.c:282
+#: app/menus.c:285
 msgid "/View/Zoom _In"
 msgstr "/Vis/Zoom _ind"
 
-#: app/menus.c:283
+#: app/menus.c:286
 msgid "/View/Zoom _Out"
 msgstr "/Vis/Zoom _ud"
 
-#: app/menus.c:284
+#: app/menus.c:287
 msgid "/View/_Zoom"
 msgstr "/Vis/_Zoom"
 
-#: app/menus.c:285
-msgid "/View/Zoom/tearoff"
-msgstr "/Vis/Zoom/rivvæk"
-
-#: app/menus.c:286
+#: app/menus.c:288
 #, c-format
 msgid "/View/Zoom/400%"
 msgstr "/Vis/Zoom/400%"
 
-#: app/menus.c:287
+#: app/menus.c:289
 #, c-format
 msgid "/View/Zoom/283%"
 msgstr "/Vis/Zoom/283%"
 
-#: app/menus.c:288
+#: app/menus.c:290
 #, c-format
 msgid "/View/Zoom/200%"
 msgstr "/Vis/Zoom/200%"
 
-#: app/menus.c:289
+#: app/menus.c:291
 #, c-format
 msgid "/View/Zoom/141%"
 msgstr "/Vis/Zoom/141%"
 
-#: app/menus.c:290
+#: app/menus.c:292
 #, c-format
 msgid "/View/Zoom/100%"
 msgstr "/Vis/Zoom/100%"
 
-#: app/menus.c:291
+#: app/menus.c:293
 #, c-format
 msgid "/View/Zoom/85%"
 msgstr "/Vis/Zoom/85%"
 
-#: app/menus.c:292
+#: app/menus.c:294
 #, c-format
 msgid "/View/Zoom/70.7%"
 msgstr "/Vis/Zoom/70.7%"
 
-#: app/menus.c:293
+#: app/menus.c:295
 #, c-format
 msgid "/View/Zoom/50%"
 msgstr "/Vis/Zoom/50%"
 
-#: app/menus.c:294
+#: app/menus.c:296
 #, c-format
 msgid "/View/Zoom/35.4%"
 msgstr "/Vis/Zoom/35.4%"
 
-#: app/menus.c:295
+#: app/menus.c:297
 #, c-format
 msgid "/View/Zoom/25%"
 msgstr "/Vis/Zoom/25%"
 
-#: app/menus.c:296
+#: app/menus.c:298
 msgid "/View/Diagram Properties"
 msgstr "/Vis/Diagram egenskaber"
 
-#: app/menus.c:298
+#: app/menus.c:300
 msgid "/View/_AntiAliased"
 msgstr "/Vis/_Antialiaseret"
 
-#: app/menus.c:300
+#: app/menus.c:302
 msgid "/View/_Visible Grid"
 msgstr "/Vis/_Synligt gitter"
 
-#: app/menus.c:301
+#: app/menus.c:303
 msgid "/View/_Snap To Grid"
 msgstr "/Vis/_Fast til gitter"
 
-#: app/menus.c:302
+#: app/menus.c:304
 msgid "/View/Show _Rulers"
 msgstr "/Vis/Vis _linealer"
 
-#: app/menus.c:303
+#: app/menus.c:305
 msgid "/View/Show _Connection Points"
 msgstr "/Vis/Vis _forbindelsespunkter"
 
-#: app/menus.c:304
-msgid "/View/sep1"
-msgstr "/Vis/sep1"
+#: app/menus.c:306
+msgid "/View/---"
+msgstr "/Vis/---"
 
-#: app/menus.c:305
+#: app/menus.c:307
 msgid "/View/New _View"
 msgstr "/Vis/Ny _visning"
 
-#: app/menus.c:306
+#: app/menus.c:308
 msgid "/View/Show _All"
 msgstr "/Vis/Vis _alt"
 
-#: app/menus.c:307
+#: app/menus.c:309
 msgid "/_Select"
 msgstr "/_Vælg"
 
-#: app/menus.c:308
-msgid "/Select/tearoff"
-msgstr "/Vælg/rivvæk"
-
-#: app/menus.c:309
+#: app/menus.c:310
 msgid "/Select/All"
 msgstr "/Vælg/Alt"
 
-#: app/menus.c:310
+#: app/menus.c:311
 msgid "/Select/None"
 msgstr "/Vælg/Ingenting"
 
-#: app/menus.c:311 app/menus.c:320 app/select.c:254
+#: app/menus.c:312 app/menus.c:321
 msgid "/Select/Invert"
 msgstr "/Vælg/Invertér"
 
-#: app/menus.c:312
+#: app/menus.c:313
 msgid "/Select/Connected"
 msgstr "/Vælg/Tilkoblede"
 
-#: app/menus.c:313
+#: app/menus.c:314
 msgid "/Select/Transitive"
 msgstr "/Vælg/Transitive"
 
-#: app/menus.c:314
+#: app/menus.c:315
 msgid "/Select/Same Type"
 msgstr "/Vælg/Samme type"
 
-#: app/menus.c:315
-msgid "/Select/sep1"
-msgstr "/Vælg/sep1"
+#: app/menus.c:316
+msgid "/Select/---"
+msgstr "/Vælg/---"
 
-#: app/menus.c:316 app/select.c:246
+#: app/menus.c:317
 msgid "/Select/Replace"
 msgstr "/Vælg/Erstat"
 
-#: app/menus.c:317 app/select.c:248
+#: app/menus.c:318
 msgid "/Select/Union"
 msgstr "/Vælg/Union"
 
-#: app/menus.c:318 app/select.c:250
+#: app/menus.c:319
 msgid "/Select/Intersect"
 msgstr "/Vælg/Kryds"
 
-#: app/menus.c:319 app/select.c:252
+#: app/menus.c:320
 msgid "/Select/Remove"
 msgstr "/Vælg/Fjern"
 
-#: app/menus.c:321
+#: app/menus.c:322
 msgid "/_Objects"
 msgstr "/_Objekter"
-
-#: app/menus.c:322
-msgid "/Objects/tearoff1"
-msgstr "/Objekter/rivvæk1"
 
 #: app/menus.c:323
 msgid "/Objects/Send to _Back"
@@ -1224,8 +1105,8 @@ msgid "/Objects/Bring to _Front"
 msgstr "/Objekter/Hent _fremad"
 
 #: app/menus.c:325 app/menus.c:328
-msgid "/Objects/sep1"
-msgstr "/Objekter/sep1"
+msgid "/Objects/---"
+msgstr "/Objekter/---"
 
 #: app/menus.c:326
 msgid "/Objects/_Group"
@@ -1240,106 +1121,126 @@ msgid "/Objects/Align _Horizontal"
 msgstr "/Objekter/Justér vandret"
 
 #: app/menus.c:330
-msgid "/Objects/Align Horizontal/tearoff"
-msgstr "/Objekter/Justér vandret/rivvæk"
+msgid "/Objects/Align Horizontal/Left"
+msgstr "/Objekter/Justér vandret/Venstre"
 
-#: app/menus.c:336
+#: app/menus.c:331
+msgid "/Objects/Align Horizontal/Center"
+msgstr "/Objekter/Justér vandret/Midt"
+
+#: app/menus.c:332
+msgid "/Objects/Align Horizontal/Right"
+msgstr "/Objekter/Justér vandret/Højre"
+
+#: app/menus.c:333
+msgid "/Objects/Align Horizontal/Equal Distance"
+msgstr "/Objekter/Justér vandret/Samme afstand"
+
+#: app/menus.c:334
+msgid "/Objects/Align Horizontal/Adjacent"
+msgstr "/Objekter/Justér vandret/Ved siden"
+
+#: app/menus.c:335
 msgid "/Objects/Align _Vertical"
 msgstr "/Objekter/Justér lodret"
 
-#: app/menus.c:337
-msgid "/Objects/Align Vertical/tearoff"
-msgstr "/Objekter/Justér lodret/rivvæk"
+#: app/menus.c:336
+msgid "/Objects/Align Vertical/Top"
+msgstr "/Objekter/Justér lodret/Øverst"
 
-#: app/menus.c:344
+#: app/menus.c:337
+msgid "/Objects/Align Vertical/Center"
+msgstr "/Objekter/Justér lodret/Midt"
+
+#: app/menus.c:338
+msgid "/Objects/Align Vertical/Bottom"
+msgstr "/Objekter/Justér lodret/Bund"
+
+#: app/menus.c:339
+msgid "/Objects/Align Vertical/Equal Distance"
+msgstr "/Objekter/Justér lodret/Samme afstand"
+
+#: app/menus.c:340
+msgid "/Objects/Align Vertical/Adjacent"
+msgstr "/Objekter/Justér lodret/Ved siden"
+
+#: app/menus.c:342
 msgid "/_Tools"
 msgstr "/_Værktøj"
 
-#: app/menus.c:345
-msgid "/Tools/tearoff"
-msgstr "/Værktøj/rivvæk"
-
-#: app/menus.c:346
+#: app/menus.c:343
 msgid "/Tools/Modify"
 msgstr "/Værktøj/Ændr"
 
-#: app/menus.c:347
+#: app/menus.c:344
 msgid "/Tools/Magnify"
 msgstr "/Værktøj/Forstørrelse"
 
-#: app/menus.c:348
+#: app/menus.c:345
 msgid "/Tools/Scroll"
 msgstr "/Værktøj/Rul"
 
-#: app/menus.c:349
+#: app/menus.c:346
 msgid "/Tools/Text"
 msgstr "/Værktøj/Tekst"
 
-#: app/menus.c:350
+#: app/menus.c:347
 msgid "/Tools/Box"
 msgstr "/Værktøj/Boks"
 
-#: app/menus.c:351
+#: app/menus.c:348
 msgid "/Tools/Ellipse"
 msgstr "/Værktøj/Ellipse"
 
-#: app/menus.c:352
+#: app/menus.c:349
 msgid "/Tools/Polygon"
 msgstr "/Værktøj/Polygon"
 
-#: app/menus.c:353
+#: app/menus.c:350
 msgid "/Tools/Beziergon"
 msgstr "/Værktøj/Beziergon"
 
-#: app/menus.c:354
+#: app/menus.c:351
 msgid "/Tools/Line"
 msgstr "/Værktøj/Linje"
 
-#: app/menus.c:355
+#: app/menus.c:352
 msgid "/Tools/Arc"
 msgstr "/Værktøj/Bue"
 
-#: app/menus.c:356
+#: app/menus.c:353
 msgid "/Tools/Zigzagline"
 msgstr "/Værktøj/zigzag linje"
 
-#: app/menus.c:357
+#: app/menus.c:354
 msgid "/Tools/Polyline"
 msgstr "/Værktøj/Polylinje"
 
-#: app/menus.c:358
+#: app/menus.c:355
 msgid "/Tools/Bezierline"
 msgstr "/Værktøj/Bezierlinje"
 
-#: app/menus.c:359
+#: app/menus.c:356
 msgid "/Tools/Image"
 msgstr "/Værktøj/Billede"
 
-#: app/menus.c:361
+#: app/menus.c:358
 msgid "/_Dialogs"
 msgstr "/_Dialoger"
 
-#: app/menus.c:362
-msgid "/Dialogs/tearoff"
-msgstr "/Dialoger/rivvæk"
-
-#: app/menus.c:363
+#: app/menus.c:359
 msgid "/Dialogs/_Properties"
 msgstr "/Dialoger/_Egenskaber"
 
-#: app/menus.c:364
+#: app/menus.c:360
 msgid "/Dialogs/_Layers"
 msgstr "/Dialoger/_Lag"
 
-#: app/menus.c:423
+#: app/menus.c:532
 msgid "NULL tooldata in tool_menu_select"
 msgstr "NULL værktøjdata i tool_menu_select"
 
-#: app/menus.c:500
-msgid "/Tools/"
-msgstr "/Værktøj/"
-
-#: app/menus.c:513
+#: app/menus.c:806
 msgid "Diagram Menu"
 msgstr "Diagram-menu"
 
@@ -1509,10 +1410,6 @@ msgstr "Encapsulated postscript"
 #: lib/bezier_conn.c:525
 msgid "Internal error: Setting corner type of endpoint of bezier"
 msgstr "Intern fejl: Sætter hjørnetype for slutpunkt af Bezier"
-
-#: lib/diagramdata.c:60
-msgid "Background"
-msgstr "Baggrund"
 
 #: lib/font.c:386
 #, c-format
@@ -2715,6 +2612,121 @@ msgstr "Fil: %s type/version ikke understøttet\n"
 msgid "WordPerfect Graphics export filter"
 msgstr "WordPerfect Grafik eksportfilter"
 
-#: plug-ins/svg/render_svg.c:820
+#: plug-ins/svg/render_svg.c:821
 msgid "Scalable Vector Graphics"
 msgstr "Skalérbar vektorgrafik"
+
+#: plug-ins/svg/svg.c:36
+msgid "Scalable Vector Graphics export filter"
+msgstr "Eksportfilter for skalerbar vektorgrafik"
+
+msgid "File/New diagram"
+msgstr "Filer/nyt diagram"
+
+msgid "File/Open..."
+msgstr "Filer/Åbn..."
+
+msgid "File/Save As..."
+msgstr "/Filer/Gem som..."
+
+msgid "File/Close"
+msgstr "/Filer/Luk"
+
+msgid "File/Exit"
+msgstr "/Filer/Afslut"
+
+msgid "View/New View"
+msgstr "/Vis/Ny visning"
+
+msgid "/Edit/Copy"
+msgstr "/Redigér/Kopiér"
+
+msgid "/Edit/Cut"
+msgstr "/Redigér/Klip ud"
+
+msgid "/Edit/Paste"
+msgstr "/Redigér/Indsæt"
+
+msgid "/Edit/Delete"
+msgstr "/Redigér/Slet"
+
+msgid "/Edit/Paste Text"
+msgstr "/Redigér/Indsæt tekst"
+
+msgid "/Objects/Send to Back"
+msgstr "/Objekter/Send bagud"
+
+msgid "/Objects/Bring to Front"
+msgstr "/Objekter/Hent frem"
+
+msgid "/Objects/Group"
+msgstr "/Objekter/Gruppér"
+
+msgid "/Objects/Ungroup"
+msgstr "/Objekter/Afgruppér"
+
+msgid "/View/Show Rulers"
+msgstr "/Vis/Vis _linealer"
+
+msgid "/View/Visible Grid"
+msgstr "/Vis/_Synligt gitter"
+
+msgid "/View/Snap To Grid"
+msgstr "/Vis/_Lås til gitter"
+
+msgid "/View/Show Connection Points"
+msgstr "/Vis/Vis forbindelsespunkter"
+
+msgid "/View/AntiAliased"
+msgstr "/Vis/Antialiaseret"
+
+msgid "/File/sep1"
+msgstr "/Filer/sep1"
+
+msgid "/tearoff"
+msgstr "/rivvæk"
+
+msgid "/File/tearoff"
+msgstr "/Filer/rivvæk"
+
+msgid "/File/sep2"
+msgstr "/Filer/sep2"
+
+msgid "/Edit/tearoff"
+msgstr "/Redigér/rivvæk"
+
+msgid "/View/tearoff"
+msgstr "/Vis/rivvæk"
+
+msgid "/View/Zoom/tearoff"
+msgstr "/Vis/Zoom/rivvæk"
+
+msgid "/View/sep1"
+msgstr "/Vis/sep1"
+
+msgid "/Select/tearoff"
+msgstr "/Vælg/rivvæk"
+
+msgid "/Select/sep1"
+msgstr "/Vælg/sep1"
+
+msgid "/Objects/tearoff1"
+msgstr "/Objekter/rivvæk1"
+
+msgid "/Objects/sep1"
+msgstr "/Objekter/sep1"
+
+msgid "/Objects/Align Horizontal/tearoff"
+msgstr "/Objekter/Justér vandret/rivvæk"
+
+msgid "/Objects/Align Vertical/tearoff"
+msgstr "/Objekter/Justér lodret/rivvæk"
+
+msgid "/Tools/tearoff"
+msgstr "/Værktøj/rivvæk"
+
+msgid "/Dialogs/tearoff"
+msgstr "/Dialoger/rivvæk"
+
+msgid "/Tools/"
+msgstr "/Værktøj/"
