@@ -88,58 +88,21 @@ dnl
 dnl libart_lgpl
 dnl
 
-dnl AM_PATH_LIBART(2.1.0, [AC_DEFINE(HAVE_LIBART)])
-
-AC_PATH_PROG(LIBART_CONFIG,libart-config,no)
-if test x$LIBART_CONFIG != xno; then
-     echo "Using installed libart_lgpl"
-     LIBART_LIBS=`$LIBART_CONFIG --libs`
-     LIBART_CFLAGS=`$LIBART_CONFIG --cflags`
-     AC_DEFINE(HAVE_LIBART)
-fi
-
-AC_SUBST(LIBART_CFLAGS)
-AC_SUBST(LIBART_LIBS)
+AM_PATH_LIBART(2.1.0,dnl
+ [have_libart=yes
+  AC_DEFINE(HAVE_LIBART)],
+ [have_libart=no])
 
 dnl
-dnl gdk_pixbuf
+dnl gdk_pixbuf or imlib
 dnl
 
-AC_MSG_CHECKING([whether gdk-pixbuf should be used])
-AC_ARG_ENABLE(gdk-pixbuf,
-[  --disable-gdk-pixbuf          disable gdk-pixbuf code (use gdk-imlib)],
-    GDK_PIXBUF=$enable_val,
-    GDK_PIXBUF=yes)
-AC_MSG_RESULT($GDK_PIXBUF)
-if test "$GDK_PIXBUF" = "yes"; then
-  AC_PATH_PROG(GDK_PIXBUF_CONFIG,gdk-pixbuf-config,no)
-  AC_MSG_CHECKING(for gdk-pixbuf >= 0.7.0)
-  vers=`$GDK_PIXBUF_CONFIG --version | awk 'BEGIN {FS=".";} { printf "%d", ($1 * 1000 + $2) * 1000 + $3;}'`
-  if test "$vers" -ge 7000; then
-    AC_MSG_RESULT(found)
-  else
-    AC_MSG_RESULT(not found)
-    GDK_PIXBUF_CONFIG=no
-  fi
-  if test x$GDK_PIXBUF_CONFIG != xno; then
-     echo "Using installed gdk_pixbuf"
-     GDK_PIXBUF_LIBS=`$GDK_PIXBUF_CONFIG --libs`
-     GDK_PIXBUF_CFLAGS=`$GDK_PIXBUF_CONFIG --cflags`
-     AC_DEFINE(HAVE_GDK_PIXBUF)
-  fi
-fi
-
-AC_SUBST(GDK_PIXBUF_CFLAGS)
-AC_SUBST(GDK_PIXBUF_LIBS)
-
-dnl
-dnl Locate the imlib library
-dnl
-if test x$GDK_PIXBUF != xyes; then
-  AM_PATH_GDK_IMLIB()
-fi
-AC_SUBST(GDK_IMLIB_LIBS)
-AC_SUBST(GDK_IMLIB_CFLAGS)
+AM_PATH_GDK_PIXBUF(0.7.0,dnl
+  [have_gdkpixbuf=yes
+   AC_DEFINE(HAVE_GDK_PIXBUF) ],
+  [have_gdkbuf=no
+   AM_PATH_GDK_IMLIB(1.8.0,,dnl
+    AC_MSG_ERROR(you need either gdk-pixbuf or imlib installed)) ])
 
 dnl
 dnl libpng
@@ -283,4 +246,19 @@ sheets/GRAFCET/Makefile
 plug-ins/Makefile
 plug-ins/cgm/Makefile
 plug-ins/pstricks/Makefile
+plug-ins/dxf/Makefile
 )
+
+echo "
+
+Configuration:
+	Source code location:	${srcdir}
+	Compiler:		${CC}
+
+	Use gdk-pixbuf:				${have_gdkpixbuf}
+	Libart (AA rendering, png export):	${have_libart}
+
+	Gnome support:				${GNOME}
+	Build bonobo component (not supported):	${enable_bonobo}
+
+Now type make to build dia."

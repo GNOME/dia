@@ -1,3 +1,23 @@
+2000-05-16  James Henstridge  <james@daa.com.au>
+
+	* configure.in (Configuration): added a status message to the end of
+	the configure script to give the user some idea of what was
+	configured.
+
+	* plug-ins/dxf/Makefile.am: Makefile for new plugin.
+
+	* plug-ins/dxf/dxf.c (dia_plugin_init): added file to initialise the
+	plugin.
+
+	* plug-ins/dxf/dxf-export.c: new file -- Steffen Macke's DXF export
+	filter for dia.
+
+	* configure.in (AM_PATH_LIBART): use the check function provided
+	with libart rather than our own code.  It is more reliable, and
+	it only requires that people who build out of CVS have libart.m4
+	installed (not necessarily all of libart).
+	(AM_PATH_GDK_PIXBUF): same here for gdk-pixbuf.
+
 2000-05-12  Andreas Hyden  <a.hyden@cyberpoint.se>
 
 	* dia.desktop: Added Swedish translation.
