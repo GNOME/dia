@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 1.0\n"
-"POT-Creation-Date: 2003-02-26 10:40-0300\n"
-"PO-Revision-Date: 2003-02-25 22:00-0300\n"
+"POT-Creation-Date: 2003-02-28 04:31+0100\n"
+"PO-Revision-Date: 2003-02-28 02:30-0300\n"
 "Last-Translator: Alexandre Folle de Menezes <afmenez@terra.com.br>\n"
 "Language-Team: Brazilian Portuguese <ldp-br@bazar.conectiva.com.br>\n"
 "MIME-Version: 1.0\n"
@@ -233,8 +233,8 @@ msgstr ""
 #: app/commands.c:536
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
-"Francisco Petrúcio Cavalcante Junior <fpcj@impa.br>Alexandre Folle de "
-"Menezes <afmenez@terra.com.br>"
+"Francisco Petrúcio Cavalcante Junior <fpcj@impa.br>\n"
+"Alexandre Folle de Menezes <afmenez@terra.com.br>"
 
 # dia.desktop.in.h:2
 # dia.desktop.in.h:2
@@ -1321,7 +1321,7 @@ msgstr "Im_primir Diagrama..."
 # app/menus.c:84
 #: app/menus.c:98
 msgid "_Delete"
-msgstr "_Deletar"
+msgstr "_Excluir"
 
 # app/menus.c:90
 # app/menus.c:90
@@ -1784,7 +1784,7 @@ msgstr "/Editar/Co_lar"
 # app/menus.c:292
 #: app/menus.c:347
 msgid "/Edit/_Delete"
-msgstr "/Editar/_Deletar"
+msgstr "/Editar/_Excluir"
 
 # app/menus.c:295
 # app/menus.c:295
@@ -3799,7 +3799,7 @@ msgstr "Adicionar segmento"
 #: objects/UML/dependency.c:352 objects/UML/generalization.c:348
 #: objects/UML/realizes.c:341
 msgid "Delete segment"
-msgstr "Deletar segmento"
+msgstr "Excluir segmento"
 
 # objects/ER/relationship.c:137
 # objects/ER/relationship.c:137
@@ -5506,7 +5506,7 @@ msgstr "Adicionar ponto de conexão"
 # objects/GRAFCET/vergent.c:391
 #: objects/GRAFCET/vergent.c:391
 msgid "Delete  connection point"
-msgstr "Deletar ponto de conexão"
+msgstr "Excluir ponto de conexão"
 
 # objects/GRAFCET/vergent.c:395
 # objects/GRAFCET/vergent.c:395
@@ -6030,7 +6030,7 @@ msgstr "Cor do segundo plano"
 #: objects/UML/class_dialog.c:834 objects/UML/class_dialog.c:1758
 #: objects/UML/class_dialog.c:1987 objects/UML/class_dialog.c:2505
 msgid "Delete"
-msgstr "Deletar"
+msgstr "Excluir"
 
 # objects/UML/class_dialog.c:709 objects/UML/class_dialog.c:1582
 # objects/UML/class_dialog.c:1744 objects/UML/class_dialog.c:2203
