@@ -128,6 +128,59 @@ select_connected_callback(GtkWidget *widget, gpointer data) {
   diagram_flush(dia);
 }
 
+static void
+select_transitively(Diagram *dia, Object *obj) {
+  int i;
+  /* Do breadth-first to avoid overly large stack */
+  GList *newly_selected = NULL;
+
+  for (i = 0; i < obj->num_handles; i++) {
+    Handle *handle = obj->handles[i];
+    
+    if (handle->connected_to != NULL) {
+      if (!diagram_is_selected(dia, handle->connected_to->object)) {
+	diagram_select(dia, handle->connected_to->object);
+	newly_selected = g_list_prepend(newly_selected, handle->connected_to->object);
+      }
+    }      
+  }
+
+  for (i = 0; i < obj->num_connections; i++) {
+    ConnectionPoint *connection = obj->connections[i];
+    GList *conns = connection->connected;
+
+    for (; conns != NULL; conns = g_list_next(conns)) {
+      Object *obj2 = (Object *)conns->data;
+
+      if (!diagram_is_selected(dia, obj2)) {
+	diagram_select(dia, obj2);
+	newly_selected = g_list_prepend(newly_selected, obj2);
+      }
+    }
+  }
+  
+  while (newly_selected != NULL) {
+    select_transitively(dia, (Object *)newly_selected->data);
+    newly_selected = g_list_next(newly_selected);
+  }
+}
+
+void
+select_transitive_callback(GtkWidget *widget, gpointer data) {
+  Diagram *dia = ddisplay_active()->diagram;
+  GList *objects, *tmp;
+
+  objects = dia->data->selected;
+
+  for (tmp = objects; tmp != NULL; tmp = g_list_next(tmp)) {
+    select_transitively(dia, (Object *)tmp->data);
+  }
+
+  diagram_update_menu_sensitivity(dia);
+  object_add_updates_list(dia->data->selected, dia);
+  diagram_flush(dia);
+}
+
 void
 select_same_type_callback(GtkWidget *widget, gpointer data) {
   /* For now, do a brute force version:  Check vs. all earlier selected.
