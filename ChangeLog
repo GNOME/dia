@@ -1,3 +1,16 @@
+2004-07-17  Lars Clausen  <lars@raeder.dkl>
+
+	* Re-added new sample diagrams binarily.
+
+2004-07-14  Lars Clausen  <lars@raeder.dk>
+
+	* app/grid.c (snap_to_grid): Use diagrams grid setting to
+	determine hex grid snap.
+
+	* doc/pl/Makefile.am: Avoid error based on backslash in comment.
+	
+	* app/interface.h: Avoid multiply defined symbols (#147396)
+
 2004-07-10  Lars Clausen  <lars@raeder.dk>
 
 	* app/sheets_dialog_callbacks.c (write_user_sheet): 
