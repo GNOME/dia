@@ -1,0 +1,9 @@
+.cvsignore
+.deps
+.libs
+Makefile
+computer.lo
+monitor.lo
+network.lo
+disc.lo
+libnetwork_objects.la

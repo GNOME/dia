@@ -1,0 +1,17 @@
+.cvsignore
+.deps
+.libs
+Makefile
+class.lo
+dependency.lo
+implements.lo
+constraint.lo
+generalization.lo
+association.lo
+small_package.lo
+large_package.lo
+realizes.lo
+class_dialog.lo
+uml.lo
+note.lo
+libuml_objects.la
