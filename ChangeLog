@@ -1,5 +1,8 @@
 2003-07-15  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* samples/UML-demo.dia: Adjusted for 0.91 font size, saved as
+	non-compressed.  Should fix bug #117381, also look prettier.
+	
 	* Makefile.am: 
 	* dia.desktop.in: Patch from Mark McLoughlin <mark@skynet.ie>:
 	Set up desktop info more properly.
