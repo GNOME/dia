@@ -1,6 +1,6 @@
 2000-04-09  James Henstridge  <james@daa.com.au>
 
-	* lib/dummy_dep.h (dummy_dep): added polyshape to dummy dependencies.
+	* lib/plug-ins.[ch]: add copyright messages to files.
 
 	* plug-ins/cgm/cgm.c (dia_plugin_init): convert plugin over to new
 	plugin interface.
