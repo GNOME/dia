@@ -1,3 +1,8 @@
+2000-02-12  Alexander Larsson  <alla@lysator.liu.se>
+
+	* app/Makefile.am:
+	Add the custom object to DIA_LIB_PATH in run_dia.sh
+
 2000-02-10  Cyrille Chepelov  <chepelov@calixo.net>
 
 	* sheets/Circuit.sheet:
