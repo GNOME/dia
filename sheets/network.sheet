@@ -80,16 +80,20 @@
       <description>An antenna for wireless transmission.</description>
     </object>
     <object name="Network - Cloud">
-      <description>Network Cloud</description>
+      <description xml:lang="no">Nettverkssky</description>
       <description xml:lang="de">Netzwerkwolke</description>
+      <description>Network Cloud</description>
     </object>
     <object name="Network - Router Symbol">
+      <description xml:lang="no">Rutersymbol</description>
       <description>Router Symbol</description>
     </object>
     <object name="Network - Switch Symbol">
+      <description xml:lang="no">Symbol for en switch</description>
       <description>Switch Symbol</description>
     </object>
     <object name="Network - Switch ATM Symbol">
+      <description xml:lang="no">Symbol for en ATM-switch</description>
       <description>ATM Switch Symbol</description>
     </object>
   </contents>

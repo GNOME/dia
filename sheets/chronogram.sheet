@@ -2,6 +2,8 @@
 
 <sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
   <name>Chronogram</name>
+  <description xml:lang="no">Objekter utforming av kronogrammer
+  </description>
   <description xml:lang="fr">Objets pour l'écriture de chronogrammes.
   </description>
   <description xml:lang="de">Objekte für Zeitdiagrammentwurf.
@@ -9,11 +11,13 @@
   <description>Objects to design chronogram charts</description>
   <contents>
     <object name="chronogram - reference">
+      <description xml:lang="no">En tidsskala</description>
       <description xml:lang="fr">Une échelle de temps</description>
       <description xml:lang="de">Eine Zeitscala</description>
       <description>A time scale</description>
     </object>
     <object name="chronogram - line">
+      <description xml:lang="no">En datolinje</description>
       <description xml:lang="fr">Une ligne de données</description>
       <description xml:lang="de">Eine Datenlinie</description>
       <description>A data line</description>
