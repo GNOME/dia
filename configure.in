@@ -343,6 +343,7 @@ objects/GRAFCET/Makefile
 objects/chronogram/Makefile
 objects/SADT/Makefile
 objects/Misc/Makefile
+objects/bondgraph/Makefile
 shapes/Makefile
 shapes/Assorted/Makefile
 shapes/Circuit/Makefile

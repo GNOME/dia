@@ -1,3 +1,10 @@
+2002-11-26  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+
+	* objects/bondgraph/Makefile.am: 
+	* objects/bondgraph/bondgraph.c: 
+	* configure.in: 
+	* objects/Makefile.am: Added bond graph dir.
+
 2002-11-26  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* lib/text.c (text_calc_boundingbox, text_draw): Better cursor size.
