@@ -121,6 +121,8 @@ dia_svg_parse_style(xmlNodePtr node, DiaSvgGraphicStyle *s)
         s->alignment = ALIGN_LEFT;
       else if (!strncmp(ptr, "end", 3))
         s->alignment = ALIGN_RIGHT;
+      else if (!strncmp(ptr, "middle", 6))
+        s->alignment = ALIGN_CENTER;
 
     } else if (!strncmp("stroke-width:", ptr, 13)) {
       ptr += 13;
