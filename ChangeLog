@@ -1,3 +1,8 @@
+2004-09-07  Lars Clausen  <lars@raeder.dk>
+
+	* app/diapagelayout.c: Include from widgets.c rather than
+	diaunitspinner.
+
 2004-09-03  Lars Clausen  <lars@raeder.dk>
 
 	* objects/standard/box.c: Use PROP_TYPE_LENGTH for corner_radius

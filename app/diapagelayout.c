@@ -26,7 +26,7 @@
 #endif
 
 #include "diapagelayout.h"
-#include "diaunitspinner.h"
+#include "widgets.h"
 
 #include "intl.h"
 
