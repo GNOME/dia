@@ -1,5 +1,8 @@
 2004-03-01  Hubert Figuiere  <hfiguiere@teaser.fr>
 
+	* plug-ins/svg/render_svg.c (new_svg_renderer): Add DTD declaration
+	in front of file. Bug #128600.
+
 	* app/Makefile.am:
 	* app/interface.h:
 	* app/lineprops_area.[ch]:

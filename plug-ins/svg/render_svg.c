@@ -144,6 +144,7 @@ new_svg_renderer(DiagramData *data, const char *filename)
   time_t time_now;
   Rectangle *extent;
   const char *name;
+  xmlDtdPtr dtd;
  
   file = fopen(filename, "w");
 
@@ -166,11 +167,12 @@ new_svg_renderer(DiagramData *data, const char *filename)
   renderer->doc = xmlNewDoc("1.0");
   renderer->doc->encoding = xmlStrdup("UTF-8");
   renderer->doc->standalone = FALSE;
-  xmlCreateIntSubset(renderer->doc, "svg",
+  dtd = xmlCreateIntSubset(renderer->doc, "svg",
 		     "-//W3C//DTD SVG 1.0//EN",
 		     "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd");
+  xmlAddChild((xmlNodePtr) renderer->doc, (xmlNodePtr) dtd);
   renderer->root = xmlNewDocNode(renderer->doc, NULL, "svg", NULL);
-  renderer->doc->xmlRootNode = renderer->root;
+  xmlAddSibling(renderer->doc->children, (xmlNodePtr) renderer->root);
 
   /* set the extents of the SVG document */
   extent = &data->extents;
