@@ -1,7 +1,36 @@
+1999-03-22  Alexander Larsson  <alla@lysator.liu.se>
+
+	* configure.in:
+	* po/hu.po:
+	Added hungarian translation. By Shooby Ban <bansz@szif.hu>.
+
+	* app/Makefile.am:
+	Added $* to the dia call in run_dia.sh
+
+1999-03-22  Lars Clausen  <lrclause@shasta.cs.uiuc.edu>
+	
+	* lib/color.[ch]:
+	Added color_equals() call.
+
+	* objects/standard/arc.c:
+	* objects/standard/line.c:
+	Don't save unneccesary data.
+	
+	* objects/standard/box.c:
+	* objects/standard/ellipse.c:
+	* objects/standard/image.c:
+	* objects/standard/polyline.c:
+	* objects/standard/zigzagline.c:
+	Share properties dialog.
+	Don't save unneccesary data.
+	
 1999-03-22  Seth Alves  <alves@hungry.com>
 
-	* app/menus.c: small changes so that gnome menus aren't broken
-
+	* app/menus.c:
+	* app/diagram.c:
+	* app/display.c:
+	small changes so that gnome menus aren't broken
+	
 1999-03-22  Alexander Larsson  <alla@lysator.liu.se>
 
 	* po/da.po:

@@ -546,22 +546,29 @@ line_save(Line *line, ObjectNode obj_node, const char *filename)
 {
   connection_save(&line->connection, obj_node);
 
-  data_add_color(new_attribute(obj_node, "line_color"),
-		 &line->line_color);
-  data_add_real(new_attribute(obj_node, "line_width"),
-		line->line_width);
-  data_add_enum(new_attribute(obj_node, "line_style"),
-		line->line_style);
+  if (!color_equals(&line->line_color, &color_black))
+    data_add_color(new_attribute(obj_node, "line_color"),
+		   &line->line_color);
+  
+  if (line->line_width != 0.1)
+    data_add_real(new_attribute(obj_node, "line_width"),
+		  line->line_width);
+  
+  if (line->line_style != LINESTYLE_SOLID)
+    data_add_enum(new_attribute(obj_node, "line_style"),
+		  line->line_style);
+  
   if (line->start_arrow.type != ARROW_NONE) {
-  data_add_enum(new_attribute(obj_node, "start_arrow"),
+    data_add_enum(new_attribute(obj_node, "start_arrow"),
 		  line->start_arrow.type);
     data_add_real(new_attribute(obj_node, "start_arrow_length"),
 		  line->start_arrow.length);
     data_add_real(new_attribute(obj_node, "start_arrow_width"),
 		  line->start_arrow.width);
   }
+  
   if (line->end_arrow.type != ARROW_NONE) {
-  data_add_enum(new_attribute(obj_node, "end_arrow"),
+    data_add_enum(new_attribute(obj_node, "end_arrow"),
 		  line->end_arrow.type);
     data_add_real(new_attribute(obj_node, "end_arrow_length"),
 		  line->end_arrow.length);

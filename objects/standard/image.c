@@ -28,12 +28,12 @@
 #include "attributes.h"
 #include "widgets.h"
 #include "dia_image.h"
+#include "message.h"
 
 #include "pixmaps/image.xpm"
 
 #define DEFAULT_WIDTH 2.0
 #define DEFAULT_HEIGHT 2.0
-#define DEFAULT_BORDER 0.25
 
 typedef struct _Image Image;
 typedef struct _ImagePropertiesDialog ImagePropertiesDialog;
@@ -52,8 +52,6 @@ struct _Image {
   gchar *file;
   gboolean draw_border;
   gboolean keep_aspect;
-
-  ImagePropertiesDialog *properties_dialog;
 };
 
 typedef struct _ImageProperties {
@@ -78,6 +76,8 @@ struct _ImagePropertiesDialog {
 
   GtkToggleButton *draw_border;
   GtkToggleButton *keep_aspect;
+
+  Image *image;
 };
 
 struct _ImageDefaultsDialog {
@@ -91,6 +91,7 @@ struct _ImageDefaultsDialog {
   GtkToggleButton *keep_aspect;
 };
 
+static ImagePropertiesDialog *image_properties_dialog;
 static ImageDefaultsDialog *image_defaults_dialog;
 static ImageProperties default_properties;
 
@@ -153,19 +154,22 @@ static ObjectOps image_ops = {
 static void
 image_apply_properties(Image *image)
 {
-  ImagePropertiesDialog *prop_dialog;
   gchar *new_file;
 
-  prop_dialog = image->properties_dialog;
+  if (image != image_properties_dialog->image) {
+    message_warning("Image dialog problem:  %p != %p\n", 
+		    image, image_properties_dialog->image);
+    image = image_properties_dialog->image;
+  }
 
-  image->border_width = gtk_spin_button_get_value_as_float(prop_dialog->border_width);
-  dia_color_selector_get_color(prop_dialog->fg_color, &image->border_color);
-  image->line_style = dia_line_style_selector_get_linestyle(prop_dialog->line_style);
+  image->border_width = gtk_spin_button_get_value_as_float(image_properties_dialog->border_width);
+  dia_color_selector_get_color(image_properties_dialog->fg_color, &image->border_color);
+  image->line_style = dia_line_style_selector_get_linestyle(image_properties_dialog->line_style);
 
-  image->draw_border = gtk_toggle_button_get_active(prop_dialog->draw_border);
-  image->keep_aspect = gtk_toggle_button_get_active(prop_dialog->keep_aspect);
+  image->draw_border = gtk_toggle_button_get_active(image_properties_dialog->draw_border);
+  image->keep_aspect = gtk_toggle_button_get_active(image_properties_dialog->keep_aspect);
   
-  new_file = dia_file_selector_get_file(prop_dialog->file);
+  new_file = dia_file_selector_get_file(image_properties_dialog->file);
   if (image->file) g_free(image->file);
   if (image->image) {
     dia_image_release(image->image);
@@ -185,7 +189,6 @@ image_apply_properties(Image *image)
 static GtkWidget *
 image_get_properties(Image *image)
 {
-  ImagePropertiesDialog *prop_dialog;
   GtkWidget *vbox;
   GtkWidget *hbox;
   GtkWidget *label;
@@ -196,19 +199,19 @@ image_get_properties(Image *image)
   GtkWidget *border_width;
   GtkAdjustment *adj;
 
-  if (image->properties_dialog == NULL) {
+  if (image_properties_dialog == NULL) {
   
-    prop_dialog = g_new(ImagePropertiesDialog, 1);
-    image->properties_dialog = prop_dialog;
+    image_properties_dialog = g_new(ImagePropertiesDialog, 1);
+  
     vbox = gtk_vbox_new(FALSE, 5);
-    prop_dialog->vbox = vbox;
+    image_properties_dialog->vbox = vbox;
 
     hbox = gtk_hbox_new(FALSE, 5);
     label = gtk_label_new("Image file:");
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
     gtk_widget_show (label);
     file = dia_file_selector_new();
-    prop_dialog->file = DIAFILESELECTOR(file);
+    image_properties_dialog->file = DIAFILESELECTOR(file);
     gtk_box_pack_start (GTK_BOX (hbox), file, TRUE, TRUE, 0);
     gtk_widget_show (file);
     gtk_widget_show(hbox);
@@ -216,7 +219,7 @@ image_get_properties(Image *image)
 
     hbox = gtk_hbox_new(FALSE, 5);
     checkbox = gtk_check_button_new_with_label("Keep aspect ratio");
-    prop_dialog->keep_aspect = GTK_TOGGLE_BUTTON( checkbox );
+    image_properties_dialog->keep_aspect = GTK_TOGGLE_BUTTON( checkbox );
     gtk_widget_show(checkbox);
     gtk_widget_show(hbox);
     gtk_box_pack_start (GTK_BOX (hbox), checkbox, TRUE, TRUE, 0);
@@ -224,7 +227,7 @@ image_get_properties(Image *image)
 
     hbox = gtk_hbox_new(FALSE, 5);
     checkbox = gtk_check_button_new_with_label("Show border");
-    prop_dialog->draw_border = GTK_TOGGLE_BUTTON( checkbox );
+    image_properties_dialog->draw_border = GTK_TOGGLE_BUTTON( checkbox );
     gtk_widget_show(checkbox);
     gtk_widget_show(hbox);
     gtk_box_pack_start (GTK_BOX (hbox), checkbox, TRUE, TRUE, 0);
@@ -238,7 +241,7 @@ image_get_properties(Image *image)
     border_width = gtk_spin_button_new(adj, 1.0, 2);
     gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(border_width), TRUE);
     gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(border_width), TRUE);
-    prop_dialog->border_width = GTK_SPIN_BUTTON(border_width);
+    image_properties_dialog->border_width = GTK_SPIN_BUTTON(border_width);
     gtk_box_pack_start(GTK_BOX (hbox), border_width, TRUE, TRUE, 0);
     gtk_widget_show (border_width);
     gtk_widget_show(hbox);
@@ -250,7 +253,7 @@ image_get_properties(Image *image)
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
     gtk_widget_show (label);
     color = dia_color_selector_new();
-    prop_dialog->fg_color = DIACOLORSELECTOR(color);
+    image_properties_dialog->fg_color = DIACOLORSELECTOR(color);
     gtk_box_pack_start (GTK_BOX (hbox), color, TRUE, TRUE, 0);
     gtk_widget_show (color);
     gtk_widget_show(hbox);
@@ -261,7 +264,7 @@ image_get_properties(Image *image)
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
     gtk_widget_show (label);
     linestyle = dia_line_style_selector_new();
-    prop_dialog->line_style = DIALINESTYLESELECTOR(linestyle);
+    image_properties_dialog->line_style = DIALINESTYLESELECTOR(linestyle);
     gtk_box_pack_start (GTK_BOX (hbox), linestyle, TRUE, TRUE, 0);
     gtk_widget_show (linestyle);
     gtk_widget_show(hbox);
@@ -270,19 +273,19 @@ image_get_properties(Image *image)
     gtk_widget_show (vbox);
   }
 
-  prop_dialog = image->properties_dialog;
+  image_properties_dialog->image = image;
     
-  gtk_spin_button_set_value(prop_dialog->border_width, 
+  gtk_spin_button_set_value(image_properties_dialog->border_width, 
 			    image->border_width);
-  dia_color_selector_set_color(prop_dialog->fg_color, 
+  dia_color_selector_set_color(image_properties_dialog->fg_color, 
 			       &image->border_color);
-  dia_file_selector_set_file(prop_dialog->file, image->file);
-  dia_line_style_selector_set_linestyle(prop_dialog->line_style,
+  dia_file_selector_set_file(image_properties_dialog->file, image->file);
+  dia_line_style_selector_set_linestyle(image_properties_dialog->line_style,
 					image->line_style);
-  gtk_toggle_button_set_active(prop_dialog->draw_border, image->draw_border);
-  gtk_toggle_button_set_active(prop_dialog->keep_aspect, image->keep_aspect);
+  gtk_toggle_button_set_active(image_properties_dialog->draw_border, image->draw_border);
+  gtk_toggle_button_set_active(image_properties_dialog->keep_aspect, image->keep_aspect);
 
-  return prop_dialog->vbox;
+  return image_properties_dialog->vbox;
 }
 
 static void
@@ -624,8 +627,6 @@ image_create(Point *startpoint,
   image->draw_border = default_properties.draw_border;
   image->keep_aspect = default_properties.keep_aspect;
 
-  image->properties_dialog = NULL;
-
   image_update_data(image);
   
   *handle1 = NULL;
@@ -635,11 +636,6 @@ image_create(Point *startpoint,
 
 static void 
 image_destroy(Image *image) {
-  if (image->properties_dialog != NULL) {
-    gtk_widget_destroy(image->properties_dialog->vbox);
-    g_free(image->properties_dialog);
-  }
-  
   if (image->file != NULL)
     g_free(image->file);
 
@@ -677,8 +673,6 @@ image_copy(Image *image)
     newimage->connections[i].last_pos = image->connections[i].last_pos;
   }
 
-  newimage->properties_dialog = NULL;
-
   newimage->file = g_strdup(image->file);
   if (strcmp(image->file, "")) {
     newimage->image = dia_image_load(image->file);
@@ -714,13 +708,18 @@ image_save(Image *image, ObjectNode obj_node, const char *filename)
   
   element_save(&image->element, obj_node);
 
-  data_add_real(new_attribute(obj_node, "border_width"),
-		image->border_width);
-  data_add_color(new_attribute(obj_node, "border_color"),
-		 &image->border_color);
-  data_add_enum(new_attribute(obj_node, "line_style"),
-		image->line_style);
-
+  if (image->border_width != 0.1)
+    data_add_real(new_attribute(obj_node, "border_width"),
+		  image->border_width);
+  
+  if (!color_equals(&image->border_color, &color_black))
+    data_add_color(new_attribute(obj_node, "border_color"),
+		   &image->border_color);
+  
+  if (image->line_style != LINESTYLE_SOLID)
+    data_add_enum(new_attribute(obj_node, "line_style"),
+		  image->line_style);
+  
   data_add_boolean(new_attribute(obj_node, "draw_border"), image->draw_border);
   data_add_boolean(new_attribute(obj_node, "keep_aspect"), image->keep_aspect);
 
@@ -765,8 +764,6 @@ image_load(ObjectNode obj_node, int version, const char *filename)
 
   element_load(elem, obj_node);
   
-  image->properties_dialog = NULL;
-
   image->border_width = 0.1;
   attr = object_find_attribute(obj_node, "border_width");
   if (attr != NULL)

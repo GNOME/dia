@@ -30,6 +30,7 @@ struct _Color {
 
 extern void color_init(void);
 extern void color_convert(Color *color, GdkColor *gdkcolor);
+extern gboolean color_equals(Color *color1, Color *color2);
 
 extern Color color_black, color_white;
 extern GdkColor color_gdk_black, color_gdk_white;

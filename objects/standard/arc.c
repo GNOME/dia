@@ -727,16 +727,24 @@ arc_save(Arc *arc, ObjectNode obj_node, const char *filename)
 {
   connection_save(&arc->connection, obj_node);
 
-  data_add_color(new_attribute(obj_node, "arc_color"),
-		 &arc->arc_color);
-  data_add_real(new_attribute(obj_node, "curve_distance"),
-		arc->curve_distance);
-  data_add_real(new_attribute(obj_node, "line_width"),
-		arc->line_width);
-  data_add_enum(new_attribute(obj_node, "line_style"),
-		arc->line_style);
+  if (!color_equals(&arc->arc_color, &color_black))
+    data_add_color(new_attribute(obj_node, "arc_color"),
+		   &arc->arc_color);
+  
+  if (arc->curve_distance != 0.1)
+    data_add_real(new_attribute(obj_node, "curve_distance"),
+		  arc->curve_distance);
+  
+  if (arc->line_width != 0.1)
+    data_add_real(new_attribute(obj_node, "line_width"),
+		  arc->line_width);
+  
+  if (arc->line_style != LINESTYLE_SOLID)
+    data_add_enum(new_attribute(obj_node, "line_style"),
+		  arc->line_style);
+  
   if (arc->start_arrow.type != ARROW_NONE) {
-  data_add_enum(new_attribute(obj_node, "start_arrow"),
+    data_add_enum(new_attribute(obj_node, "start_arrow"),
 		  arc->start_arrow.type);
     data_add_real(new_attribute(obj_node, "start_arrow_length"),
 		  arc->start_arrow.length);
@@ -744,7 +752,7 @@ arc_save(Arc *arc, ObjectNode obj_node, const char *filename)
 		  arc->start_arrow.width);
   }
   if (arc->end_arrow.type != ARROW_NONE) {
-  data_add_enum(new_attribute(obj_node, "end_arrow"),
+    data_add_enum(new_attribute(obj_node, "end_arrow"),
 		  arc->end_arrow.type);
     data_add_real(new_attribute(obj_node, "end_arrow_length"),
 		  arc->end_arrow.length);

@@ -25,6 +25,7 @@
 #include "render.h"
 #include "attributes.h"
 #include "widgets.h"
+#include "message.h"
 
 #include "pixmaps/zigzag.xpm"
 
@@ -42,9 +43,6 @@ typedef struct _Zigzagline {
   LineStyle line_style;
   real line_width;
   Arrow start_arrow, end_arrow;
-
-  ZigzaglinePropertiesDialog *properties_dialog;
-
 } Zigzagline;
 
 struct _ZigzaglinePropertiesDialog {
@@ -56,6 +54,8 @@ struct _ZigzaglinePropertiesDialog {
 
   DiaArrowSelector *start_arrow;
   DiaArrowSelector *end_arrow;
+
+  Zigzagline *zigzagline;
 };
 
 typedef struct _ZigzaglineProperties {
@@ -73,6 +73,8 @@ struct _ZigzaglineDefaultsDialog {
   DiaArrowSelector *end_arrow;
 };
 
+
+static ZigzaglinePropertiesDialog *zigzagline_properties_dialog;
 static ZigzaglineDefaultsDialog *zigzagline_defaults_dialog;
 static ZigzaglineProperties default_properties;
 
@@ -139,16 +141,18 @@ static ObjectOps zigzagline_ops = {
 static void
 zigzagline_apply_properties(Zigzagline *zigzagline)
 {
-  ZigzaglinePropertiesDialog *prop_dialog;
+  if (zigzagline != zigzagline_properties_dialog->zigzagline) {
+    message_warning("Zigzagline dialog problem:  %p != %p\n",
+		    zigzagline, zigzagline_properties_dialog->zigzagline);
+    zigzagline = zigzagline_properties_dialog->zigzagline;
+  }
 
-  prop_dialog = zigzagline->properties_dialog;
+  zigzagline->line_width = gtk_spin_button_get_value_as_float(zigzagline_properties_dialog->line_width);
+  dia_color_selector_get_color(zigzagline_properties_dialog->color, &zigzagline->line_color);
+  zigzagline->line_style = dia_line_style_selector_get_linestyle(zigzagline_properties_dialog->line_style);
 
-  zigzagline->line_width = gtk_spin_button_get_value_as_float(prop_dialog->line_width);
-  dia_color_selector_get_color(prop_dialog->color, &zigzagline->line_color);
-  zigzagline->line_style = dia_line_style_selector_get_linestyle(prop_dialog->line_style);
-
-  zigzagline->start_arrow = dia_arrow_selector_get_arrow(prop_dialog->start_arrow);
-  zigzagline->end_arrow = dia_arrow_selector_get_arrow(prop_dialog->end_arrow);
+  zigzagline->start_arrow = dia_arrow_selector_get_arrow(zigzagline_properties_dialog->start_arrow);
+  zigzagline->end_arrow = dia_arrow_selector_get_arrow(zigzagline_properties_dialog->end_arrow);
   
   zigzagline_update_data(zigzagline);
 }
@@ -156,7 +160,6 @@ zigzagline_apply_properties(Zigzagline *zigzagline)
 static GtkWidget *
 zigzagline_get_properties(Zigzagline *zigzagline)
 {
-  ZigzaglinePropertiesDialog *prop_dialog;
   GtkWidget *vbox;
   GtkWidget *hbox;
   GtkWidget *label;
@@ -167,13 +170,12 @@ zigzagline_get_properties(Zigzagline *zigzagline)
   GtkWidget *align;
   GtkAdjustment *adj;
 
-  if (zigzagline->properties_dialog == NULL) {
+  if (zigzagline_properties_dialog == NULL) {
   
-    prop_dialog = g_new(ZigzaglinePropertiesDialog, 1);
-    zigzagline->properties_dialog = prop_dialog;
+    zigzagline_properties_dialog = g_new(ZigzaglinePropertiesDialog, 1);
 
     vbox = gtk_vbox_new(FALSE, 5);
-    prop_dialog->vbox = vbox;
+    zigzagline_properties_dialog->vbox = vbox;
 
     hbox = gtk_hbox_new(FALSE, 5);
     label = gtk_label_new("Line width:");
@@ -183,7 +185,7 @@ zigzagline_get_properties(Zigzagline *zigzagline)
     line_width = gtk_spin_button_new(adj, 1.0, 2);
     gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(line_width), TRUE);
     gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(line_width), TRUE);
-    prop_dialog->line_width = GTK_SPIN_BUTTON(line_width);
+    zigzagline_properties_dialog->line_width = GTK_SPIN_BUTTON(line_width);
     gtk_box_pack_start(GTK_BOX (hbox), line_width, TRUE, TRUE, 0);
     gtk_widget_show (line_width);
     gtk_widget_show(hbox);
@@ -194,7 +196,7 @@ zigzagline_get_properties(Zigzagline *zigzagline)
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
     gtk_widget_show (label);
     color = dia_color_selector_new();
-    prop_dialog->color = DIACOLORSELECTOR(color);
+    zigzagline_properties_dialog->color = DIACOLORSELECTOR(color);
     gtk_box_pack_start (GTK_BOX (hbox), color, TRUE, TRUE, 0);
     gtk_widget_show (color);
     gtk_widget_show(hbox);
@@ -208,7 +210,7 @@ zigzagline_get_properties(Zigzagline *zigzagline)
     gtk_widget_show (label);
     gtk_widget_show(align);
     linestyle = dia_line_style_selector_new();
-    prop_dialog->line_style = DIALINESTYLESELECTOR(linestyle);
+    zigzagline_properties_dialog->line_style = DIALINESTYLESELECTOR(linestyle);
     gtk_box_pack_start (GTK_BOX (hbox), linestyle, TRUE, TRUE, 0);
     gtk_widget_show (linestyle);
     gtk_widget_show(hbox);
@@ -222,7 +224,7 @@ zigzagline_get_properties(Zigzagline *zigzagline)
     gtk_widget_show (label);
     gtk_widget_show(align);
     arrow = dia_arrow_selector_new();
-    prop_dialog->start_arrow = DIAARROWSELECTOR(arrow);
+    zigzagline_properties_dialog->start_arrow = DIAARROWSELECTOR(arrow);
     gtk_box_pack_start (GTK_BOX (hbox), arrow, TRUE, TRUE, 0);
     gtk_widget_show (arrow);
     gtk_widget_show(hbox);
@@ -233,7 +235,7 @@ zigzagline_get_properties(Zigzagline *zigzagline)
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
     gtk_widget_show (label);
     arrow = dia_arrow_selector_new();
-    prop_dialog->end_arrow = DIAARROWSELECTOR(arrow);
+    zigzagline_properties_dialog->end_arrow = DIAARROWSELECTOR(arrow);
     gtk_box_pack_start (GTK_BOX (hbox), arrow, TRUE, TRUE, 0);
     gtk_widget_show (arrow);
     gtk_widget_show(hbox);
@@ -242,18 +244,20 @@ zigzagline_get_properties(Zigzagline *zigzagline)
     gtk_widget_show (vbox);
   }
 
-  prop_dialog = zigzagline->properties_dialog;
+  zigzagline_properties_dialog->zigzagline = zigzagline;
     
-  gtk_spin_button_set_value(prop_dialog->line_width, zigzagline->line_width);
-  dia_color_selector_set_color(prop_dialog->color, &zigzagline->line_color);
-  dia_line_style_selector_set_linestyle(prop_dialog->line_style,
+  gtk_spin_button_set_value(zigzagline_properties_dialog->line_width,
+			    zigzagline->line_width);
+  dia_color_selector_set_color(zigzagline_properties_dialog->color,
+			       &zigzagline->line_color);
+  dia_line_style_selector_set_linestyle(zigzagline_properties_dialog->line_style,
 					zigzagline->line_style);
-  dia_arrow_selector_set_arrow(prop_dialog->start_arrow,
+  dia_arrow_selector_set_arrow(zigzagline_properties_dialog->start_arrow,
 					 zigzagline->start_arrow);
-  dia_arrow_selector_set_arrow(prop_dialog->end_arrow,
+  dia_arrow_selector_set_arrow(zigzagline_properties_dialog->end_arrow,
 					 zigzagline->end_arrow);
   
-  return prop_dialog->vbox;
+  return zigzagline_properties_dialog->vbox;
 }
 
 static void
@@ -442,8 +446,6 @@ zigzagline_create(Point *startpoint,
   zigzagline->start_arrow = default_properties.start_arrow;
   zigzagline->end_arrow = default_properties.end_arrow;
   
-  zigzagline->properties_dialog = NULL;
-  
   *handle1 = &orth->endpoint_handles[0];
   *handle2 = &orth->endpoint_handles[1];
   return (Object *)zigzagline;
@@ -452,10 +454,6 @@ zigzagline_create(Point *startpoint,
 static void
 zigzagline_destroy(Zigzagline *zigzagline)
 {
-  if (zigzagline->properties_dialog != NULL) {
-    gtk_widget_destroy(zigzagline->properties_dialog->vbox);
-    g_free(zigzagline->properties_dialog);
-  }
   orthconn_destroy(&zigzagline->orth);
 }
 
@@ -479,8 +477,6 @@ zigzagline_copy(Zigzagline *zigzagline)
   newzigzagline->line_style = zigzagline->line_style;
   newzigzagline->start_arrow = zigzagline->start_arrow;
   newzigzagline->end_arrow = zigzagline->end_arrow;
-
-  newzigzagline->properties_dialog = NULL;
 
   return (Object *)newzigzagline;
 }
@@ -524,22 +520,29 @@ zigzagline_save(Zigzagline *zigzagline, ObjectNode obj_node,
 {
   orthconn_save(&zigzagline->orth, obj_node);
 
-  data_add_color(new_attribute(obj_node, "line_color"),
-		 &zigzagline->line_color);
-  data_add_real(new_attribute(obj_node, "line_width"),
-		zigzagline->line_width);
-  data_add_enum(new_attribute(obj_node, "line_style"),
-		zigzagline->line_style);
+  if (!color_equals(&zigzagline->line_color, &color_black))
+    data_add_color(new_attribute(obj_node, "line_color"),
+		   &zigzagline->line_color);
+  
+  if (zigzagline->line_width != 0.1)
+    data_add_real(new_attribute(obj_node, "line_width"),
+		  zigzagline->line_width);
+  
+  if (zigzagline->line_style != LINESTYLE_SOLID)
+    data_add_enum(new_attribute(obj_node, "line_style"),
+		  zigzagline->line_style);
+  
   if (zigzagline->start_arrow.type != ARROW_NONE) {
-  data_add_enum(new_attribute(obj_node, "start_arrow"),
+    data_add_enum(new_attribute(obj_node, "start_arrow"),
 		  zigzagline->start_arrow.type);
     data_add_real(new_attribute(obj_node, "start_arrow_length"),
 		  zigzagline->start_arrow.length);
     data_add_real(new_attribute(obj_node, "start_arrow_width"),
 		  zigzagline->start_arrow.width);
   }
+  
   if (zigzagline->end_arrow.type != ARROW_NONE) {
-  data_add_enum(new_attribute(obj_node, "end_arrow"),
+    data_add_enum(new_attribute(obj_node, "end_arrow"),
 		  zigzagline->end_arrow.type);
     data_add_real(new_attribute(obj_node, "end_arrow_length"),
 		  zigzagline->end_arrow.length);
@@ -563,8 +566,6 @@ zigzagline_load(ObjectNode obj_node, int version, const char *filename)
   
   obj->type = &zigzagline_type;
   obj->ops = &zigzagline_ops;
-
-  zigzagline->properties_dialog = NULL;
 
   orthconn_load(orth, obj_node);
 

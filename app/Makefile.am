@@ -84,6 +84,6 @@ run_dia.sh: Makefile.am
 	 echo "export DIA_LIB_PATH" >> run_dia.sh
 	 echo DIA_LIB_PATH=`pwd`/../objects/standard/.libs:`pwd`/../objects/UML/.libs:`pwd`/../objects/ER/.libs:`pwd`/../objects/network/.libs >> run_dia.sh
 	 echo >> run_dia.sh
-	 echo "`pwd`/dia" >> run_dia.sh
+	 echo "`pwd`/dia \$$*" >> run_dia.sh
 	 chmod a+x run_dia.sh
 

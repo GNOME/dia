@@ -25,6 +25,7 @@
 #include "render.h"
 #include "attributes.h"
 #include "widgets.h"
+#include "message.h"
 
 #include "pixmaps/ellipse.xpm"
 
@@ -45,8 +46,6 @@ struct _Ellipse {
   Color border_color;
   Color inner_color;
   LineStyle line_style;
- 
-  EllipsePropertiesDialog *properties_dialog;
 };
 
 
@@ -64,6 +63,8 @@ struct _EllipsePropertiesDialog {
   DiaColorSelector *fg_color;
   DiaColorSelector *bg_color;
   DiaLineStyleSelector *line_style;
+
+  Ellipse *ellipse;
 };
 struct _EllipseDefaultsDialog {
   GtkWidget *vbox;
@@ -71,6 +72,8 @@ struct _EllipseDefaultsDialog {
   DiaLineStyleSelector *line_style;
 };
 
+ 
+static EllipsePropertiesDialog *ellipse_properties_dialog;
 static EllipseDefaultsDialog *ellipse_defaults_dialog;
 static EllipseProperties default_properties;
 
@@ -133,14 +136,16 @@ static ObjectOps ellipse_ops = {
 static void
 ellipse_apply_properties(Ellipse *ellipse)
 {
-  EllipsePropertiesDialog *prop_dialog;
+  if (ellipse != ellipse_properties_dialog->ellipse) {
+    message_warning("Ellipse dialog problem:  %p != %p\n",
+		    ellipse, ellipse_properties_dialog->ellipse);
+    ellipse = ellipse_properties_dialog->ellipse;
+  }
 
-  prop_dialog = ellipse->properties_dialog;
-
-  ellipse->border_width = gtk_spin_button_get_value_as_float(prop_dialog->border_width);
-  dia_color_selector_get_color(prop_dialog->fg_color, &ellipse->border_color);
-  dia_color_selector_get_color(prop_dialog->bg_color, &ellipse->inner_color);
-  ellipse->line_style = dia_line_style_selector_get_linestyle(prop_dialog->line_style);
+  ellipse->border_width = gtk_spin_button_get_value_as_float(ellipse_properties_dialog->border_width);
+  dia_color_selector_get_color(ellipse_properties_dialog->fg_color, &ellipse->border_color);
+  dia_color_selector_get_color(ellipse_properties_dialog->bg_color, &ellipse->inner_color);
+  ellipse->line_style = dia_line_style_selector_get_linestyle(ellipse_properties_dialog->line_style);
   
   ellipse_update_data(ellipse);
 }
@@ -148,7 +153,6 @@ ellipse_apply_properties(Ellipse *ellipse)
 static GtkWidget *
 ellipse_get_properties(Ellipse *ellipse)
 {
-  EllipsePropertiesDialog *prop_dialog;
   GtkWidget *vbox;
   GtkWidget *hbox;
   GtkWidget *label;
@@ -157,13 +161,12 @@ ellipse_get_properties(Ellipse *ellipse)
   GtkWidget *border_width;
   GtkAdjustment *adj;
 
-  if (ellipse->properties_dialog == NULL) {
+  if (ellipse_properties_dialog == NULL) {
   
-    prop_dialog = g_new(EllipsePropertiesDialog, 1);
-    ellipse->properties_dialog = prop_dialog;
+    ellipse_properties_dialog = g_new(EllipsePropertiesDialog, 1);
 
     vbox = gtk_vbox_new(FALSE, 5);
-    prop_dialog->vbox = vbox;
+    ellipse_properties_dialog->vbox = vbox;
 
     hbox = gtk_hbox_new(FALSE, 5);
     label = gtk_label_new("Border width:");
@@ -173,7 +176,7 @@ ellipse_get_properties(Ellipse *ellipse)
     border_width = gtk_spin_button_new(adj, 1.0, 2);
     gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(border_width), TRUE);
     gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(border_width), TRUE);
-    prop_dialog->border_width = GTK_SPIN_BUTTON(border_width);
+    ellipse_properties_dialog->border_width = GTK_SPIN_BUTTON(border_width);
     gtk_box_pack_start(GTK_BOX (hbox), border_width, TRUE, TRUE, 0);
     gtk_widget_show (border_width);
     gtk_widget_show(hbox);
@@ -185,7 +188,7 @@ ellipse_get_properties(Ellipse *ellipse)
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
     gtk_widget_show (label);
     color = dia_color_selector_new();
-    prop_dialog->fg_color = DIACOLORSELECTOR(color);
+    ellipse_properties_dialog->fg_color = DIACOLORSELECTOR(color);
     gtk_box_pack_start (GTK_BOX (hbox), color, TRUE, TRUE, 0);
     gtk_widget_show (color);
     gtk_widget_show(hbox);
@@ -196,7 +199,7 @@ ellipse_get_properties(Ellipse *ellipse)
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
     gtk_widget_show (label);
     color = dia_color_selector_new();
-    prop_dialog->bg_color = DIACOLORSELECTOR(color);
+    ellipse_properties_dialog->bg_color = DIACOLORSELECTOR(color);
     gtk_box_pack_start (GTK_BOX (hbox), color, TRUE, TRUE, 0);
     gtk_widget_show (color);
     gtk_widget_show(hbox);
@@ -207,7 +210,7 @@ ellipse_get_properties(Ellipse *ellipse)
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
     gtk_widget_show (label);
     linestyle = dia_line_style_selector_new();
-    prop_dialog->line_style = DIALINESTYLESELECTOR(linestyle);
+    ellipse_properties_dialog->line_style = DIALINESTYLESELECTOR(linestyle);
     gtk_box_pack_start (GTK_BOX (hbox), linestyle, TRUE, TRUE, 0);
     gtk_widget_show (linestyle);
     gtk_widget_show(hbox);
@@ -216,15 +219,18 @@ ellipse_get_properties(Ellipse *ellipse)
     gtk_widget_show (vbox);
   }
 
-  prop_dialog = ellipse->properties_dialog;
+  ellipse_properties_dialog->ellipse = ellipse;
     
-  gtk_spin_button_set_value(prop_dialog->border_width, ellipse->border_width);
-  dia_color_selector_set_color(prop_dialog->fg_color, &ellipse->border_color);
-  dia_color_selector_set_color(prop_dialog->bg_color, &ellipse->inner_color);
-  dia_line_style_selector_set_linestyle(prop_dialog->line_style,
+  gtk_spin_button_set_value(ellipse_properties_dialog->border_width,
+			    ellipse->border_width);
+  dia_color_selector_set_color(ellipse_properties_dialog->fg_color,
+			       &ellipse->border_color);
+  dia_color_selector_set_color(ellipse_properties_dialog->bg_color,
+			       &ellipse->inner_color);
+  dia_line_style_selector_set_linestyle(ellipse_properties_dialog->line_style,
 					ellipse->line_style);
   
-  return prop_dialog->vbox;
+  return ellipse_properties_dialog->vbox;
 }
 
 static void
@@ -405,8 +411,6 @@ ellipse_create(Point *startpoint,
   ellipse->inner_color = attributes_get_background();
   ellipse->line_style = default_properties.line_style;
 
-  ellipse->properties_dialog = NULL;
-  
   element_init(elem, 8, 8);
 
   for (i=0;i<8;i++) {
@@ -424,10 +428,6 @@ ellipse_create(Point *startpoint,
 static void
 ellipse_destroy(Ellipse *ellipse)
 {
-  if (ellipse->properties_dialog != NULL) {
-    gtk_widget_destroy(ellipse->properties_dialog->vbox);
-    g_free(ellipse->properties_dialog);
-  }
   element_destroy(&ellipse->element);
 }
 
@@ -460,8 +460,6 @@ ellipse_copy(Ellipse *ellipse)
     newellipse->connections[i].last_pos = ellipse->connections[i].last_pos;
   }
 
-  newellipse->properties_dialog = NULL;
-
   return (Object *)newellipse;
 }
 
@@ -471,14 +469,21 @@ ellipse_save(Ellipse *ellipse, ObjectNode obj_node, const char *filename)
 {
   element_save(&ellipse->element, obj_node);
 
-  data_add_real(new_attribute(obj_node, "border_width"),
-		ellipse->border_width);
-  data_add_color(new_attribute(obj_node, "border_color"),
-		 &ellipse->border_color);
-  data_add_color(new_attribute(obj_node, "inner_color"),
-		 &ellipse->inner_color);
-  data_add_enum(new_attribute(obj_node, "line_style"),
-		ellipse->line_style);
+  if (ellipse->border_width != 0.1)
+    data_add_real(new_attribute(obj_node, "border_width"),
+		  ellipse->border_width);
+  
+  if (!color_equals(&ellipse->border_color, &color_black))
+    data_add_color(new_attribute(obj_node, "border_color"),
+		   &ellipse->border_color);
+  
+  if (!color_equals(&ellipse->inner_color, &color_white))
+    data_add_color(new_attribute(obj_node, "inner_color"),
+		   &ellipse->inner_color);
+  
+  if (ellipse->line_style != LINESTYLE_SOLID)
+    data_add_enum(new_attribute(obj_node, "line_style"),
+		  ellipse->line_style);
 }
 
 static Object *ellipse_load(ObjectNode obj_node, int version, const char *filename)
@@ -497,8 +502,6 @@ static Object *ellipse_load(ObjectNode obj_node, int version, const char *filena
   obj->ops = &ellipse_ops;
 
   element_load(elem, obj_node);
-
-  ellipse->properties_dialog = NULL;
 
   ellipse->border_width = 0.1;
   attr = object_find_attribute(obj_node, "border_width");
