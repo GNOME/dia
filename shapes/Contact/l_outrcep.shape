@@ -1,0 +1,30 @@
+<?xml version="1.0"?> <!-- -*- xml -*- -->
+
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
+       xmlns:svg="http://www.w3.org/Graphics/SVG/svg-19990730.dtd">
+  <name>LADDER - outrcep</name>
+  <description>out rcep</description>
+  <icon>l_outrcep.xpm</icon>
+  <connections>
+    <point x="-2" y="0"/>
+    <point x="2" y="0" />
+    <point x="0" y="0" />
+  </connections>
+  <aspectratio type="fixed"/>
+  <svg:svg width="4" height="4">
+    <svg:rect x1="-2" y1="-3" x2="2" y2="1" 
+	      svg:style="stroke:none"/>
+    <svg:polyline points="-2,0 -.75,0"/>
+    <svg:polyline points="2,0 .75,0"/>
+    <svg:path d="M -.5,.75 C -.75,.5 -.75,.25 -.75,0
+	      C -.75,-.25 -.75,-.5 -.5,-.75"/>
+    <svg:path d="M .5,.75 C .75,.5 .75,.25 .75,0
+	      C .75,-.25 .75,-.5 .5,-.75" />
+    <svg:path d="M -.125,-.5 L -.375,.5"/> 
+    <svg:path d="M .375,-.5 L .125,.5"/>
+    <svg:path d="M -.5,-.125 L .5,-.125"/>
+    <svg:path d="M -.5,.25 L .5,.25"/>
+  </svg:svg>
+</shape>
+
+
