@@ -728,7 +728,6 @@ static void
 set_linestyle(RendererEPS *renderer, LineStyle mode)
 {
   real hole_width;
-  char *old_locale;
 
   renderer->saved_line_style = mode;
   
@@ -1421,8 +1420,8 @@ draw_image(RendererEPS *renderer,
     fprintf(renderer->file, "/npixls 0 def\n");
     fprintf(renderer->file, "/rgbindx 0 def\n");
     */
-#define ASCII85
-#define FILTERS
+#undef ASCII85
+#undef FILTERS
 #ifdef FILTERS
 #if RLE
     fprintf(renderer->file, "currentfile\n");

@@ -1,5 +1,14 @@
 ## Process this file with automake to produce Makefile.in
 
+if HAVE_UNICODE
+unicode_files = \
+       ps-utf8.c \
+       ps-utf8.h
+else
+unicode_files =
+endif
+
+
 noinst_LIBRARIES =     libdia.a
 libdia_a_SOURCES =  \
 		diamenu.h \
@@ -75,7 +84,10 @@ libdia_a_SOURCES =  \
 		plug-ins.h \
 		dummy_dep.h \
 		paper.c \
-		paper.h
+		paper.h \
+		charconv.c \
+		charconv.h \
+		$(unicode_files)
 
 CPPFLAGS = \
 	-DLIBDIR=\"$(libdir)\" \
@@ -84,7 +96,8 @@ CPPFLAGS = \
 sheetdir = $(pkgdatadir)/sheets
 
 INCLUDES = -I$(top_srcdir)/intl $(GDK_PIXBUF_CFLAGS) \
-  $(XML_CFLAGS) $(GNOME_CFLAGS) $(GTK_CFLAGS) -DDIA_SHEETDIR=\"$(sheetdir)\"
+  $(XML_CFLAGS) $(GNOME_CFLAGS) $(GTK_CFLAGS) -DDIA_SHEETDIR=\"$(sheetdir)\" \
+  $(UNICODE_CFLAGS)
 
 EXTRA_DIST = \
 	pixmaps/broken.xpm

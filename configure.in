@@ -1,4 +1,4 @@
-dnl Process this file with autoconf to produce a configure script.
+dnl Process this -*- m4 -*- file with autoconf to produce a configure script.
 AC_INIT(app/diagram.c)
 
 AM_INIT_AUTOMAKE(dia, 0.86)
@@ -110,7 +110,8 @@ CPPFLAGS="$CPPFLAGS `glib-config --cflags`"
 
 dnl check for libunicode FIXME: the --enable test doesn't work.
 AC_ARG_ENABLE(unicode, 
-[  --enable-unicode    enable (LIMITED) unicode support],,enable_unicode=yes)
+[  --enable-unicode    enable (LIMITED, EXPERIMENTAL) unicode support],,
+        enable_unicode=no)
 UNICODE_CFLAGS=
 UNICODE_LIBS=
 if test "$enable_unicode" = "yes"; then
@@ -132,24 +133,6 @@ fi
 AC_SUBST(UNICODE_CFLAGS)
 AC_SUBST(UNICODE_LIBS)
 AM_CONDITIONAL(HAVE_UNICODE,$have_unicode)
-
-dnl check for Display PS 
-AC_ARG_ENABLE(dps,
-[  --enable-dps    enable DPS support],,enable_dps=no)
-if test "$enable_dps" = "yes"; then
-  AM_PATH_GTK_DPS
-  GTK_DPS_LIBS="$GTK_DPS_LDFLAGS"
-  have_dps=true
-  AC_DEFINE(HAVE_DPS,, Display Postscript(tm) library available)
-else
-  have_dps=false
-  GTK_DPS_LIBS=
-  GTK_DPS_CFLAGS=
-fi
-AC_SUBST(GTK_DPS_LIBS)
-AC_SUBST(GTK_DPS_CFLAGS)
-AM_CONDITIONAL(HAVE_DPS, $have_dps)
-
 
 CPPFLAGS=$OLDCPPFLAGS
 
@@ -222,7 +205,7 @@ dnl
 dnl i18n
 dnl
 
-ALL_LINGUAS="az ca da de el en_GB es es_ES fi fr ga hu it ja ko nl no pl pt pt_BR ru sl sv tr uk zh_CN.GB2312 zh_TW.Big5"
+ALL_LINGUAS="az ca da de el en_GB es fi fr ga hu it ja ko nl no pl pt pt_BR ru sl sv tr uk zh_CN.GB2312 zh_TW.Big5"
 
 AM_GNU_GETTEXT
 localedir='${prefix}/${DATADIRNAME}/locale'

@@ -1,3 +1,29 @@
+2001-03-09  Cyrille Chepelov  <chepelov@calixo.net>
+
+	* configure.in: removed premature test for DPS. Added -*- m4 -*-
+	at the beginning. Made HAVE_UNICODE non-default. po/es_ES.po has
+	vanished, removed it from ALL_LINGUAS.
+
+	* lib/charconv.[ch] (NEW): a very small wrapper around
+	unicode_iconv to convert strings between utf8 and local charset
+	(actually, ISO-8859-1, though one can do
+	CFLAGS="-DEFAULT_8BIT_CHARSET=\"ISO-8859-2\"" and the like).
+
+	* lib/ps-utf8.[ch] (NEW): A PostScript Unicoder ; a smallish
+	library to help build Postscript streams which use as many custom
+	font encodings as necessary to correctly represent all characters
+	used (testing from users with non-latin1 and/or more than 256
+	characters in routine use *very* welcome).
+
+	* app/Makefile.am, lib/Makefile.am: integrated these into the
+	build process.
+
+	* shapes/Logic/.cvsignore (NEW): .cvsignore
+	
+	* app/render_eps.h: forwarded some changes Lars forgot to include.
+	* app/render_eps.c: turned off ASCII85 and FILTERS, as this
+	doesn't yet build.
+
 2001-03-08  Kevin Breit <battery841@mediaone.net>
 
 	* doc/en/home_network.png: Added file.

@@ -141,7 +141,7 @@ EFENCE =
 dia_LDADD = ../lib/libdia.a \
 	$(EFENCE) \
 	$(APP_LIBS) $(XML_LIBS) $(GTK_LIBS) $(INTLLIBS) $(GNOME_LIBS) \
-	$(LIBART_LIBS) $(PNG_LIBS) $(GDK_PIXBUF_LIBS)
+	$(LIBART_LIBS) $(PNG_LIBS) $(GDK_PIXBUF_LIBS) $(UNICODE_LIBS)
 
 ## Bonobo embeddable dia. Commented out, because it's a bit raw.
 ## Especially the configure/make parts.
@@ -153,7 +153,8 @@ dia_embedd_SOURCES = \
 dia_embedd_LDADD = ../lib/libdia.a \
 	$(EFENCE) \
 	$(APP_LIBS) $(XML_LIBS) $(BONOBO_LIBS) \
-	$(LIBART_LIBS) $(PNG_LIBS) $(GDK_PIXBUF_LIBS) $(INTLLIBS)
+	$(LIBART_LIBS) $(PNG_LIBS) $(GDK_PIXBUF_LIBS) $(INTLLIBS) \
+	$(UNICODE_LIBS)
 
 LDFLAGS = -export-dynamic
 
