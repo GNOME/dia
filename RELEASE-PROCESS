@@ -25,6 +25,8 @@ When a new version is about to be released:
    Advanced users are encouraged to download the CVS HEAD or the
    snapshot tarballs, and pound on them.
 
+   Make sure to check for open Bugzilla bugs with the PATCH keyword.
+
 1) The core developers agree on the next version number. It's called
    $VERSION thereafter. 
 

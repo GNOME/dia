@@ -1,3 +1,7 @@
+2004-03-20  Lars Clausen  <lars@raeder.dk>
+
+	* RELEASE-PROCESS: Mention PATCH keyword in release process.
+
 2004-03-19  Lars Clausen  <lars@raeder.dk>
 
 	* xmldocs.make: Fixed apparent uninstall error.
