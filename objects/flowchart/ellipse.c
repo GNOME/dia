@@ -448,7 +448,7 @@ ellipse_create(Point *startpoint,
 
   elem->corner = *startpoint;
   elem->width = DEFAULT_WIDTH;
-  elem->height = DEFAULT_WIDTH;
+  elem->height = DEFAULT_HEIGHT;
 
   ellipse->border_width =  attributes_get_default_linewidth();
   ellipse->border_color = attributes_get_foreground();

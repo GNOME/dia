@@ -469,7 +469,7 @@ diamond_create(Point *startpoint,
 
   elem->corner = *startpoint;
   elem->width = DEFAULT_WIDTH;
-  elem->height = DEFAULT_WIDTH;
+  elem->height = DEFAULT_HEIGHT;
 
   diamond->border_width =  attributes_get_default_linewidth();
   diamond->border_color = attributes_get_foreground();

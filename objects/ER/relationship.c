@@ -408,7 +408,7 @@ relationship_create(Point *startpoint,
 
   elem->corner = *startpoint;
   elem->width = DEFAULT_WIDTH;
-  elem->height = DEFAULT_WIDTH;
+  elem->height = DEFAULT_HEIGHT;
 
   relationship->border_width =  attributes_get_default_linewidth();
   relationship->border_color = attributes_get_foreground();

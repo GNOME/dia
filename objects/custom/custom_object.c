@@ -1087,7 +1087,7 @@ custom_create(Point *startpoint,
 
   elem->corner = *startpoint;
   elem->width = DEFAULT_WIDTH;
-  elem->height = DEFAULT_WIDTH;
+  elem->height = DEFAULT_HEIGHT;
 
   custom->info = info;
 

@@ -1,5 +1,17 @@
 2003-04-24  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* objects/standard/image.c (image_create): 
+	* objects/standard/ellipse.c (ellipse_create): 
+	* objects/standard/box.c (box_create): 
+	* objects/flowchart/ellipse.c (ellipse_create): 
+	* objects/flowchart/diamond.c (diamond_create): 
+	* objects/flowchart/box.c (box_create): 
+	* objects/custom/custom_object.c (custom_create): 
+	* objects/ER/relationship.c (relationship_create): 
+	* objects/ER/entity.c (entity_create): 
+	* objects/ER/attribute.c (attribute_create): Initialize
+	elem->height to DEFAULT_HEIGHT instead of DEFAULT_WIDTH.
+
 	* lib/dia_svg.c (dia_svg_parse_style): Added case to set center
 	alignment. 
 
