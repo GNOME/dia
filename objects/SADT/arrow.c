@@ -245,6 +245,7 @@ sadtarrow_draw(Sadtarrow *sadtarrow, DiaRenderer *renderer)
   Point *p;
   real zzr;
   Color col;
+  Arrow arrow;
 
   points = &orth->points[0];
   n = orth->numpoints;
@@ -262,138 +263,34 @@ sadtarrow_draw(Sadtarrow *sadtarrow, DiaRenderer *renderer)
     col.blue = GBASE + (GMULT*col.blue);
   }
 
-  /* Now we draw what's in essence a rounded-corner zig-zag line */
-  p = points;
-  zzr = ARROW_CORNER_RADIUS;
+  arrow.type = ARROW_HEAD_TYPE;
+  arrow.length = ARROW_HEAD_LENGTH;
+  arrow.width = ARROW_HEAD_WIDTH;
 
-  /* This code would welcome some optimisations. In the meantime, it sorta 
-     works. */
-  for (i=0; i<(n-2); i++,p++) 
-    {
-      real len1,len2;
-      real rr,cosa,sina,cosb,sinb,/*cosg,*/sing,alpha,beta,/*gamma,*/ca,cb;
-      Point v1,v2,vca,vcb;
-      Point X,Y,m1,m2,M,C,A,B;
-      
-      rr = zzr;
-      
-      len1 = distance_point_point(p,p+1);
-      if ((len1/2) < rr) rr = len1/2;
-      len2 = distance_point_point(p+1,p+2);
-      if ((len2/2) < rr) rr = len2/2;
+  renderer_ops->draw_rounded_polyline_with_arrows
+    (renderer, points, n, ARROW_LINE_WIDTH, &col,
+     sadtarrow->style == SADT_ARROW_DOTTED?&arrow:NULL,
+     sadtarrow->style != SADT_ARROW_DISABLED?&arrow:NULL,
+     ARROW_CORNER_RADIUS);
 
-      M.x = (*(p+1)).x; X.x = p->x; Y.x = (*(p+2)).x;
-      M.y = (*(p+1)).y; X.y = p->y; Y.y = (*(p+2)).y;
-      m1.x = (i==0)?(p->x):((p->x + M.x) / 2);
-      m1.y = (i==0)?(p->y):((p->y + M.y) / 2);
-      m2.x = (i==(n-3))?(Y.x):((M.x + Y.x) / 2);
-      m2.y = (i==(n-3))?(Y.y):((M.y + Y.y) / 2);
-      
-      if (rr < .01) {
-	/* too small corner : we do it a bit faster */
-	renderer_ops->draw_line(renderer,&m1,&M,&col);
-	renderer_ops->draw_line(renderer,&M,&m2,&col);
-       } else {
-         /* full rendering. We know len1 and len2 are nonzero. */
-         v1.x = (M.x - X.x) / len1;
-         v1.y = (M.y - X.y) / len1;
-         v2.x = (Y.x - M.x) / len2;
-         v2.y = (Y.y - M.y) / len2;
-       
-         A.x = M.x - (v1.x * rr);
-         A.y = M.y - (v1.y * rr);
-         renderer_ops->draw_line(renderer,&m1,&A,&col);
-         B.x = M.x + (v2.x * rr);
-         B.y = M.y + (v2.y * rr);
-         renderer_ops->draw_line(renderer,&B,&m2,&col);
-         C.x = A.x + (v2.x * rr); /* (or B.x - v1.x*rr) */
-         C.y = A.y + (v2.y * rr);
-         
-         vca.x = A.x - C.x;
-         vca.y = -(A.y - C.y); /* @#$! coordinate system */
-         vcb.x = B.x - C.x;
-         vcb.y = -(B.y - C.y);
-         
-         ca = distance_point_point(&C,&A);
-	 cb = distance_point_point(&C,&B);
-	 
-	 if ((ca > 1E-7) && (cb > 1E-7)) {
-	   cosa = vca.x / ca; sina = vca.y / ca;
-	   cosb = vcb.x / cb; sinb = vcb.y / cb;
-	   /* Seems that sometimes vca.x > ca etc (though it should be
-	    * impossible), so we make border cases here */
-	   if (cosa > 1.0) cosa = 1.0;
-	   if (cosa < -1.0) cosa = -1.0;
-	   if (cosb > 1.0) cosa = 1.0;
-	   if (cosb < -1.0) cosb = -1.0;
-	   /*cosg = ((M.x-X.x)*(Y.x-M.x) + (M.y-X.y)*(Y.y-M.y))/(len1*len2);*/
-	   sing = (-(M.x-X.x)*(Y.y-M.y) + (Y.x-M.x)*(M.y-X.y)) / (len1*len2);
-
-	   alpha = acos(cosa) * 180.0 / M_PI;
-	   if (sina < 0.0) alpha = -alpha;
-	   beta = acos(cosb) * 180.0 / M_PI ; 
-	   if (sinb < 0.0) beta = -beta;
-	   /* we'll keep gamma in radians, since we're only interested in its
-	      sign */
-	   /* after all, we don't even need to compute cos(gamma), and
-	      we can use sin(gamma) to extract the sign of gamma itself. */
-         
-	   if (alpha < 0.0) alpha += 360.0;
-	   if (beta < 0.0) beta += 360.0;
-	   if (sing /* gamma*/ < 0) {
-	     /* if this happens, we swap alpha and beta, in order to draw
-		the other portion of circle */
-	     real tau;
-	     tau = beta;
-	     beta=alpha;
-	     alpha = tau;
-	   }
-
-	   renderer_ops->draw_arc(renderer,&C,rr*2,rr*2,alpha,beta,
-				   &col);
-	 }
-       }
-    }
-  
-  /* depending on the exact arrow type, we'll draw different gizmos 
-     (arrow heads, dots, tunnel) at different places. */
-
-  /* XXX : chop off a little (.1) the starting and ending segments, so that
-     their ends don't show up in front of the arrow heads ? Ugh.
-  */
-
+  /* Draw the extra stuff. */
   switch (sadtarrow->style) {
-  case SADT_ARROW_NORMAL:
-    draw_arrowhead(renderer,&points[n-1], &points[n-2],&col);
-    break;
   case SADT_ARROW_IMPORTED:
-    draw_arrowhead(renderer,&points[n-1], &points[n-2],&col);
     draw_tunnel(renderer,&points[0],&points[1],&col);
     break;
   case SADT_ARROW_IMPLIED:
-    draw_arrowhead(renderer,&points[n-1], &points[n-2],&col);
     draw_tunnel(renderer,&points[n-1],&points[n-2],&col);
     break;
   case SADT_ARROW_DOTTED:
-    draw_arrowhead(renderer,&points[n-1], &points[n-2],&col);
-    draw_arrowhead(renderer,&points[0], &points[1],&col);
     draw_dot(renderer,&points[n-1], &points[n-2],&col);
     draw_dot(renderer,&points[0], &points[1],&col);
     break;
+  case SADT_ARROW_NORMAL:
   case SADT_ARROW_DISABLED:
-    /* No arrow heads */
     break;
   }
 }
-static void draw_arrowhead(DiaRenderer *renderer,
-		       Point *end, Point *vect, Color *col)
-{
-    arrow_draw(renderer, ARROW_HEAD_TYPE,
-	       end, vect,
-	       ARROW_HEAD_LENGTH, ARROW_HEAD_WIDTH, 
-	       ARROW_LINE_WIDTH,
-	       col, &color_white);
-}
+
 static void draw_dot(DiaRenderer *renderer,
 		     Point *end, Point *vect, Color *col)
 {
@@ -467,7 +364,6 @@ static void draw_tunnel(DiaRenderer *renderer,
   renderer_ops->draw_bezier(renderer,curve1,2,col);
   renderer_ops->draw_bezier(renderer,curve2,2,col);
 }
-
 
 
 static DiaObject *

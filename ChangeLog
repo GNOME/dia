@@ -1,3 +1,8 @@
+2004-06-30  Lars Clausen  <lars@raeder.dk>
+
+	* objects/SADT/arrow.c (sadtarrow_draw): Use new rounded arrow
+	code instead of individual code in here.
+
 2004-06-29  Lars Clausen  <lars@raeder.dk>
 
 	* objects/UML/association.c: Patch from Kiran
