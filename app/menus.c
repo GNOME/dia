@@ -95,7 +95,7 @@ static GnomeUIInfo viewmenu[] = {
 			 view_toggle_rulers_callback, NULL),
   GNOMEUIINFO_SEPARATOR,
   GNOMEUIINFO_ITEM_NONE(N_("New _View"), NULL, view_new_view_callback),
-  GNOMEUIINFO_ITEM_NONE(N_("Show_All"), NULL, view_show_all_callback),
+  GNOMEUIINFO_ITEM_NONE(N_("Show _All"), NULL, view_show_all_callback),
   GNOMEUIINFO_END
 };
 
@@ -135,8 +135,6 @@ static GnomeUIInfo dialogsmenu[] = {
 
 static GnomeUIInfo helpmenu[] = {
   GNOMEUIINFO_MENU_ABOUT_ITEM(help_about_callback, NULL),
-  GNOMEUIINFO_SEPARATOR,
-  GNOMEUIINFO_HELP("help-browser"),
   GNOMEUIINFO_END
 };
 
@@ -343,8 +341,10 @@ GtkWidget *menus_get_item_from_path (char *path)
   /* drop the <Display>/ at the start */
   if (! (path = strchr (path, '/'))) return NULL;
   path ++; /* move past the / */
+
   parentw = gnome_app_find_menu_pos (ddisp->popup, path, &pos);
   if (! parentw) return NULL;
+
   parent = GTK_MENU_SHELL (parentw);
   widget = (GtkWidget *) g_list_nth (parent->children, pos-1)->data;
 
