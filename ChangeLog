@@ -1,5 +1,11 @@
 2001-03-20  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
 
+	* objects/custom/shape_info.c (load_shape_info): 
+	* objects/custom/shape_info.h: 
+	* objects/custom/custom_object.c (custom_update_data): 
+	Better support for text outside the box -- new attributes 'resize'
+	and 'align' for text entity.  Align not fully supported yet.
+
 	* lib/text.c (text_calc_boundingbox): Adding BB for cursor width.
 
 2001-03-20  James Henstridge  <james@daa.com.au>
