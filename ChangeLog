@@ -1,3 +1,11 @@
+2002-06-26  Cyrille Chepelov  <cyrille@chepelov.org>
+
+	* shapes/MSE/demultiplexer.xpm:
+	* shapes/MSE/node_center.xpm:
+	* shapes/MSE/multiplexer.xpm:
+	* shapes/MSE/tacsat.xpm: updated MSE icons (transparency) by Alan
+	Horkan <horkana@tcd.ie>
+
 2002-06-25  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
 
 	* lib/widgets.c: Total rehash of font selector, with font dialog
