@@ -1598,6 +1598,12 @@ dia_file_selector_get_file(DiaFileSelector *fs)
 
 /************* DiaUnitSpinner: ***************/
 
+/** A Spinner that allows a 'favored' unit to display in.  External access
+ *  to the value still happens in cm, but display is in the favored unit.
+ *  Internally, the value is kept in the favored unit to a) allow proper
+ *  limits, and b) avoid rounding problems while editing.
+ */
+
 typedef struct _DiaUnitDef DiaUnitDef;
 struct _DiaUnitDef {
   char* name;
@@ -1649,6 +1655,7 @@ dia_unit_spinner_get_type(void)
   return us_type;
 }
 
+/** Updates the spinner display to show digits and units */
 static void
 dia_unit_spinner_value_changed(GtkAdjustment *adjustment,
 			       DiaUnitSpinner *spinner)
@@ -1658,13 +1665,10 @@ dia_unit_spinner_value_changed(GtkAdjustment *adjustment,
 
   g_snprintf(buf, sizeof(buf), "%0.*f%s", sbutton->digits, adjustment->value,
 	     units[spinner->unit_num].unit);
-  printf("Unit spinner value changed to %g buf %s unit %s\n",
-	 adjustment->value,
-	 buf,
-	 units[spinner->unit_num].unit);
   gtk_entry_set_text(GTK_ENTRY(spinner), buf);
 }
 
+static void dia_unit_spinner_set_value_direct(DiaUnitSpinner *self, gfloat val);
 static gint dia_unit_spinner_focus_out(GtkWidget *widget, GdkEventFocus *ev);
 static gint dia_unit_spinner_button_press(GtkWidget *widget,GdkEventButton*ev);
 static gint dia_unit_spinner_key_press(GtkWidget *widget, GdkEventKey *event);
@@ -1722,14 +1726,23 @@ dia_unit_spinner_new(GtkAdjustment *adjustment, guint digits, DiaUnit adj_unit)
 		     G_CALLBACK(dia_unit_spinner_value_changed),
 		       (gpointer) self);
   }
-  printf("Creating spinner with unit %d (%s)!\n", adj_unit, units[adj_unit].unit);
   dia_unit_spinner_set_value(self, adjustment->value);
 
   return GTK_WIDGET(self);
 }
 
+/** Set the value (in cm).
+ * */
 void
 dia_unit_spinner_set_value(DiaUnitSpinner *self, gfloat val)
+{
+  dia_unit_spinner_set_value_direct(self, val /
+				    (units[self->unit_num].factor / units[DIA_UNIT_CENTIMETER].factor));
+}
+
+/** Set the value (in preferred units) */
+static void
+dia_unit_spinner_set_value_direct(DiaUnitSpinner *self, gfloat val)
 {
   GtkSpinButton *sbutton = GTK_SPIN_BUTTON(self);
 
@@ -1738,16 +1751,17 @@ dia_unit_spinner_set_value(DiaUnitSpinner *self, gfloat val)
   else if (val > sbutton->adjustment->upper)
     val = sbutton->adjustment->upper;
   sbutton->adjustment->value = val;
-  dia_unit_spinner_value_changed(sbutton->adjustment,
-				 self);
+  dia_unit_spinner_value_changed(sbutton->adjustment, self);
 }
 
+/** Get the value (in cm) */
 gfloat
 dia_unit_spinner_get_value(DiaUnitSpinner *self)
 {
   GtkSpinButton *sbutton = GTK_SPIN_BUTTON(self);
 
-  return sbutton->adjustment->value;
+  return sbutton->adjustment->value *
+    (units[self->unit_num].factor / units[DIA_UNIT_CENTIMETER].factor);
 }
 
 static void
@@ -1772,7 +1786,7 @@ dia_unit_spinner_update(DiaUnitSpinner *self)
   }
   /* convert to prefered units */
   val *= factor;
-  dia_unit_spinner_set_value(self, val);
+  dia_unit_spinner_set_value_direct(self, val);
 }
 
 static gint

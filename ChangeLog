@@ -1,3 +1,13 @@
+2004-09-10  Lars Clausen  <lars@raeder.dk>
+
+	* lib/widgets.c: Insulate conversion from outside API by adding
+	internal function to set value.  Adjustment not appropriate for
+	units yet.
+
+	* lib/prop_geomtypes.c (lengthprop_get_widget): Remove debug info
+
+	
+
 2004-09-07  Lars Clausen  <lars@raeder.dk>
 
 	* app/diapagelayout.c: Include from widgets.c rather than
