@@ -564,7 +564,7 @@ extern PropEnumData prop_std_text_align_data[];
   { "frame_" name "_end", PROP_TYPE_FRAME_END, \
       PROP_FLAG_VISIBLE|PROP_FLAG_DONT_SAVE|flags, NULL, NULL}
 #define PROP_OFFSET_FRAME_END(name) \
-  { "frame_" name "_end", PROP_TYPE_NOTEBOOK_END, 0}
+  { "frame_" name "_end", PROP_TYPE_FRAME_END, 0}
 
 
 
