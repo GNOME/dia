@@ -37,7 +37,7 @@ PKG_CFLAGS = -FImsvc_recommended_pragmas.h \
 	-I. $(LIBXML2_CFLAGS) -I$(PRJ_TOP)\lib \
 
 PKG_LINK = $(GTK2_LIBS) $(GLIB_LIBS) \
-	$(LIBXML2_LIBS) \
+	$(LIBXML2_LIBS) $(GDK_PIXBUF_LIBS) \
 	$(PRJ_TOP)\lib\libdia.lib
 
 #
