@@ -1,3 +1,14 @@
+2003-08-25  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* app/diapsft2renderer.c (draw_string): Use
+	dia_font_scaled_build_layout to ensure similarity of text.
+
+	* lib/diagramdata.c: Remove obj from dynobj list when removing
+	from layer to avoid nasty race conditions.
+
+	* app/undo.c (group_objects_revert): Make sure to unparent and
+	remove from dynobj list when changing layers objects.
+
 2003-08-23  Steffen Macke <sdteffen@web.de>
 
 	* plug-ins/wmf/wmf.cpp (draw_image): replaced BitBlt() with 

@@ -332,6 +332,11 @@ draw_string(DiaRenderer *self,
 
   lazy_setcolor(DIA_PS_RENDERER(renderer),color);
 
+  /* Make sure the letters aren't too wide. */
+  layout = dia_font_scaled_build_layout(text, renderer->current_font,
+					renderer->current_height/0.7, 
+					20.0);
+  /*
   dia_font_set_height(renderer->current_font, renderer->current_height);
   layout = pango_layout_new(dia_font_get_context());
 
@@ -343,14 +348,14 @@ draw_string(DiaRenderer *self,
   attr = pango_attr_font_desc_new(renderer->current_font->pfd);
   attr->start_index = 0;
   attr->end_index = length;
-  pango_attr_list_insert(list,attr); /* eats attr */
+  pango_attr_list_insert(list,attr);
     
   pango_layout_set_attributes(layout,list);
   pango_attr_list_unref(list);
 
   pango_layout_set_indent(layout,0);
   pango_layout_set_justify(layout,FALSE);
-
+  */
   switch (alignment) {
   case ALIGN_LEFT:
     pango_layout_set_alignment(layout,PANGO_ALIGN_LEFT);

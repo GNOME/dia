@@ -502,6 +502,7 @@ void
 layer_remove_object(Layer *layer, Object *obj)
 {
   layer->objects = g_list_remove(layer->objects, obj);
+  dynobj_list_remove_object(obj);
   set_parent_layer(obj, NULL);
 }
 
@@ -515,6 +516,7 @@ layer_remove_objects(Layer *layer, GList *obj_list)
     layer->objects = g_list_remove(layer->objects, obj);
     
     obj_list = g_list_next(obj_list);
+    dynobj_list_remove_object(obj);
     set_parent_layer(obj, NULL);
   }
 }
@@ -681,6 +683,7 @@ layer_replace_object_with_list(Layer *layer, Object *remove_obj,
 
   g_assert(list!=NULL);
   set_parent_layer(remove_obj, NULL);
+  dynobj_list_remove_object(remove_obj);
   g_list_foreach(insert_list, set_parent_layer, layer);
 
   if (list->prev == NULL) {
@@ -701,6 +704,7 @@ layer_replace_object_with_list(Layer *layer, Object *remove_obj,
 void layer_set_object_list(Layer *layer, GList *list)
 {
   g_list_foreach(layer->objects, set_parent_layer, NULL);
+  g_list_foreach(layer->objects, dynobj_list_remove_object, NULL);
   g_list_free(layer->objects);
   layer->objects = list;
   g_list_foreach(layer->objects, set_parent_layer, layer);

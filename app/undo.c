@@ -935,7 +935,7 @@ group_objects_revert(struct GroupObjectsChange *change, Diagram *dia)
   object_add_updates(change->group, dia);
 
   old_list = change->layer->objects;
-  change->layer->objects = g_list_copy(change->orig_list);
+  layer_set_object_list(change->layer, g_list_copy(change->orig_list));
   g_list_free(old_list);
   
   object_add_updates_list(change->obj_list, dia);
