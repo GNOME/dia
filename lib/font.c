@@ -33,9 +33,14 @@
 #include <gdk/gdk.h>
 
 #include "font.h"
+#include "message.h"
 #include "intl.h"
 
 static PangoContext* pango_context = NULL;
+/*
+ * Our font size is defined in cm, now we need points
+ * A point is 1/72 inch. Why is this size 20.0 and not 28.35 ?
+ */
 static real global_size_one = 20.0;
 
 static int
@@ -488,6 +493,8 @@ dia_font_build_layout(const char* string, DiaFont* font, real height)
 
 #ifdef HAVE_FREETYPE
     height *= global_size_one;
+#elif defined G_OS_WIN32
+    height *= 0.7;
 #endif
     dia_font_set_height(font,height);
     layout = pango_layout_new(pango_context);

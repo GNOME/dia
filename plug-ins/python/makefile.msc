@@ -63,7 +63,7 @@ all : \
 	dia-python.dll
 
 dia.pyd : $(OBJECTS) pydia.def
-	$(CC) $(CFLAGS) -LD -Fe$@ $(OBJECTS) $(LDFLAGS) $(EXTRALIBS) $(GTK_LIBS) $(GLIB_LIBS) /def:pydia.def
+	$(CC) $(CFLAGS) -LD -Fe$@ $(OBJECTS) $(LDFLAGS) $(EXTRALIBS) $(GLIB_LIBS) /def:pydia.def
 
 dia-python.dll : $(OBJECTS2)
-	$(CC) $(CFLAGS) -LD -Fe$@ $(OBJECTS2) $(LDFLAGS) $(EXTRALIBS) $(GTK_LIBS) $(GLIB_LIBS) dia.lib /def:..\objects.def
+	$(CC) $(CFLAGS) -LD -Fe$@ $(OBJECTS2) $(LDFLAGS) $(EXTRALIBS) $(GLIB_LIBS) dia.lib /def:..\objects.def

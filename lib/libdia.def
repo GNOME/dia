@@ -315,6 +315,11 @@ EXPORTS
  get_paper_rmargin
  get_paper_tmargin
 
+ group_create
+ group_destroy_shallow
+ group_objects
+ group_type
+
  identity_matrix
  int_rectangle_union
 
@@ -368,6 +373,7 @@ EXPORTS
  object_apply_props_from_dialog
  object_connect
  object_copy
+ object_copy_list
  object_copy_using_properties
  object_create_props_dialog
  object_destroy
@@ -376,6 +382,7 @@ EXPORTS
  object_get_props_from_offsets
  object_get_type
  object_init
+ object_list_move_delta
  object_load
  object_load_using_properties
  object_prop_by_name
@@ -412,6 +419,7 @@ EXPORTS
  pdtpp_true
 
  point_add
+ point_convex
  point_copy
  point_dot
  point_len
@@ -510,4 +518,5 @@ EXPORTS
  xmlDiaParseFile
  xmlDiaSaveFile
  xmlDoParseFile
+ diaXmlNewChild
 

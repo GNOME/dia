@@ -9,7 +9,10 @@ PKG_CFLAGS = -FImsvc_recommended_pragmas.h \
 	-DWIN32  -DHAVE_LIBART -DHAVE_LIBPNG \
 	-I.. $(GLIB_CFLAGS) $(GTK2_CFLAGS) \
 	$(LIBXML2_CFLAGS) $(PNG_CFLAGS) \
-	-I$(PRJ_TOP)\lib $(LIBART_CFLAGS)
+	-I$(PRJ_TOP)\lib $(LIBART_CFLAGS) \
+
+# This is broken on win32
+#	$(FREETYPE2_CFLAGS) -I $(PANGO)\pango\fontconfig\org\fontconfig
 
 PKG_LINK = $(GTK2_LIBS) $(GLIB_LIBS) $(PANGOWIN32_LIBS) \
 	$(LIBXML2_LIBS) $(PNG_LIBS) \
@@ -32,6 +35,7 @@ OBJECTS = \
 	diagram_tree_window.obj \
 	dialogs.obj \
 	diapagelayout.obj \
+#	diapsft2renderer.obj \
 	diapsrenderer.obj \
 	dia-props.obj \
 	diaunitspinner.obj \
@@ -41,7 +45,6 @@ OBJECTS = \
 	export_png.obj \
 	filedlg.obj \
 	grid.obj \
-	group.obj \
 	gtkhwrapbox.obj \
 	gtkvwrapbox.obj \
 	gtkwrapbox.obj \

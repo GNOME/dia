@@ -93,7 +93,7 @@ begin_render(DiaRenderer *renderer, DiagramData *data)
     }
     Py_XDECREF (arg);
     Py_DECREF (func);
-    Py_INCREF (self);
+    Py_DECREF (self);
   }
 }
 
@@ -109,7 +109,7 @@ end_render(DiaRenderer *renderer)
     res = PyEval_CallObject (func, (PyObject *)NULL);
     ON_RES(res);
     Py_DECREF(func);
-    Py_INCREF(self);
+    Py_DECREF(self);
   }
 
   Py_DECREF (DIA_PY_RENDERER(renderer)->diagram_data);
@@ -132,7 +132,7 @@ set_linewidth(DiaRenderer *renderer, real linewidth)
     }
     Py_XDECREF (arg);
     Py_DECREF(func);
-    Py_INCREF(self);
+    Py_DECREF(self);
   }
   else /* member optional */
     PyErr_Clear();
@@ -165,7 +165,7 @@ set_linecaps(DiaRenderer *renderer, LineCaps mode)
     }
     Py_XDECREF (arg);
     Py_DECREF(func);
-    Py_INCREF(self);
+    Py_DECREF(self);
   }
   else /* member optional */
     PyErr_Clear();
@@ -198,7 +198,7 @@ set_linejoin(DiaRenderer *renderer, LineJoin mode)
     }
     Py_XDECREF (arg);
     Py_DECREF(func);
-    Py_INCREF(self);
+    Py_DECREF(self);
   }
   else /* member optional */
     PyErr_Clear();
@@ -236,7 +236,7 @@ set_linestyle(DiaRenderer *renderer, LineStyle mode)
     }
     Py_XDECREF (arg);
     Py_DECREF(func);
-    Py_INCREF(self);
+    Py_DECREF(self);
   }
   else /* member optional */
     PyErr_Clear();
@@ -258,7 +258,7 @@ set_dashlength(DiaRenderer *renderer, real length)
     }
     Py_XDECREF (arg);
     Py_DECREF(func);
-    Py_INCREF(self);
+    Py_DECREF(self);
   }
   else /* member optional */
     PyErr_Clear();
@@ -287,7 +287,7 @@ set_fillstyle(DiaRenderer *renderer, FillStyle mode)
     }
     Py_XDECREF (arg);
     Py_DECREF(func);
-    Py_INCREF(self);
+    Py_DECREF(self);
   }
   else /* member optional */
     PyErr_Clear();
@@ -309,7 +309,7 @@ set_font(DiaRenderer *renderer, DiaFont *font, real height)
     }
     Py_XDECREF (arg);
     Py_DECREF(func);
-    Py_INCREF(self);
+    Py_DECREF(self);
   }
   else /* member optional */
     PyErr_Clear();
@@ -335,7 +335,7 @@ draw_line(DiaRenderer *renderer,
     }
     Py_XDECREF (arg);
     Py_DECREF(func);
-    Py_INCREF(self);
+    Py_DECREF(self);
   }
   else /* member optional */
     PyErr_Clear();
@@ -360,7 +360,7 @@ draw_polyline(DiaRenderer *renderer,
     }
     Py_XDECREF (arg);
     Py_DECREF(func);
-    Py_INCREF(self);
+    Py_DEREF(self);
   }
   else /* member optional */
     PyErr_Clear();
@@ -385,7 +385,7 @@ draw_polygon(DiaRenderer *renderer,
     }
     Py_XDECREF (arg);
     Py_DECREF(func);
-    Py_INCREF(self);
+    Py_DECREF(self);
   }
   else /* member optional */
     PyErr_Clear();
@@ -410,7 +410,7 @@ fill_polygon(DiaRenderer *renderer,
     }
     Py_XDECREF (arg);
     Py_DECREF(func);
-    Py_INCREF(self);
+    Py_DECREF(self);
   }
   else /* member optional */
     PyErr_Clear();
@@ -435,7 +435,7 @@ draw_rect(DiaRenderer *renderer,
     }
     Py_XDECREF (arg);
     Py_DECREF(func);
-    Py_INCREF(self);
+    Py_DECREF(self);
   }
   else /* member optional */
     PyErr_Clear();
@@ -460,7 +460,7 @@ fill_rect(DiaRenderer *renderer,
     }
     Py_XDECREF (arg);
     Py_DECREF(func);
-    Py_INCREF(self);
+    Py_DECREF(self);
   }
   else /* member optional */
     PyErr_Clear();
@@ -488,7 +488,7 @@ draw_arc(DiaRenderer *renderer,
     }
     Py_XDECREF (arg);
     Py_DECREF(func);
-    Py_INCREF(self);
+    Py_DECREF(self);
   }
   else /* member optional */
     PyErr_Clear();
@@ -516,7 +516,7 @@ fill_arc(DiaRenderer *renderer,
     }
     Py_XDECREF (arg);
     Py_DECREF(func);
-    Py_INCREF(self);
+    Py_DECREF(self);
   }
   else /* member optional */
     PyErr_Clear();
@@ -543,7 +543,7 @@ draw_ellipse(DiaRenderer *renderer,
     }
     Py_XDECREF (arg);
     Py_DECREF(func);
-    Py_INCREF(self);
+    Py_DECREF(self);
   }
   else /* member optional */
     PyErr_Clear();
@@ -570,7 +570,7 @@ fill_ellipse(DiaRenderer *renderer,
     }
     Py_XDECREF (arg);
     Py_DECREF(func);
-    Py_INCREF(self);
+    Py_DECREF(self);
   }
   else /* member optional */
     PyErr_Clear();
@@ -596,7 +596,7 @@ draw_bezier(DiaRenderer *renderer,
     }
     Py_XDECREF (arg);
     Py_DECREF(func);
-    Py_INCREF(self);
+    Py_DECREF(self);
   }
   else /* member optional */
     PyErr_Clear();
@@ -622,7 +622,7 @@ fill_bezier(DiaRenderer *renderer,
     }
     Py_XDECREF (arg);
     Py_DECREF(func);
-    Py_INCREF(self);
+    Py_DECREF(self);
   }
   else /* member optional */
     PyErr_Clear();
@@ -662,7 +662,7 @@ draw_string(DiaRenderer *renderer,
     }
     Py_XDECREF (arg);
     Py_DECREF(func);
-    Py_INCREF(self);
+    Py_DECREF(self);
   }
   else /* member optional */
     PyErr_Clear();
@@ -689,7 +689,7 @@ draw_image(DiaRenderer *renderer,
     }
     Py_XDECREF (arg);
     Py_DECREF(func);
-    Py_INCREF(self);
+    Py_DECREF(self);
   }
   else /* member optional */
     PyErr_Clear();

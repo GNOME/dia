@@ -125,7 +125,7 @@ DiaPrefData prefs_data[] =
   { "recent_documents_list_size", PREF_UINT, PREF_OFFSET(recent_documents_list_size), &default_recent_documents, 0, N_("Recent documents list size:") },
   { "use_menu_bar", PREF_BOOLEAN, PREF_OFFSET(new_view.use_menu_bar), &default_false, 0, N_("Use menu bar:") },
   { "toolbox_on_top", PREF_BOOLEAN, PREF_OFFSET(toolbox_on_top),
-    &default_true, 0, N_("Keep tool box on top of diagram windows:") },
+    &default_false, 0, N_("Keep tool box on top of diagram windows:") },
   
   { NULL, PREF_NONE, 0, NULL, 1, N_("New diagram:") },
   { "is_portrait", PREF_BOOLEAN, PREF_OFFSET(new_diagram.is_portrait), &default_true, 1, N_("Portrait:") },

@@ -35,8 +35,11 @@
 #include <pango/pango.h>
 #include <pango/pangoft2.h>
 #elif defined G_OS_WIN32
+/* ugly namespace clashes */
+#define Rectangle Win32Rectangle
 #include <pango/pango.h>
 #include <pango/pangowin32.h>
+#undef Rectangle
 #endif
 
 #include <libart_lgpl/art_point.h>
@@ -1045,6 +1048,7 @@ draw_string (DiaRenderer *self,
   /* Pango doesn't have a 'render to raw bits' function, so we have
    * to render based on what other engines are available.
    */
+#define DEPTH 4
 #ifdef HAVE_FREETYPE
   /* Freetype version */
  {
@@ -1070,7 +1074,6 @@ draw_string (DiaRenderer *self,
    ftbitmap.palette_mode = 0;
    ftbitmap.palette = 0;
    pango_ft2_render_layout(&ftbitmap, layout, 0, 0);
-#define DEPTH 4
    bitmap = (guint8*)g_new0(guint8, height*rowstride*DEPTH);
    for (i = 0; i < height; i++) {
      for (j = 0; j < width; j++) {
@@ -1083,7 +1086,7 @@ draw_string (DiaRenderer *self,
    }
    g_free(graybitmap);
  }
-#elif defined G_OS_WIN32
+#elif defined G_OS_WIN32 && defined PANGO_WIN32_FUTURE
  /* duplicating from above, please let extending Pango be allowed, bug 94791 */
  {
    PangoBitmap graybitmap;
@@ -1096,7 +1099,6 @@ draw_string (DiaRenderer *self,
    graybitmap.num_grays = 256;
    g_print("Rendering %s onto bitmap of size %dx%d row %d\n", text, width, height, rowstride);
    pango_win32_render_layout_to_bitmap(&graybitmap, layout, 0, 0);
-#define DEPTH 4
    bitmap = (guint8*)g_new0(guint8, height*rowstride*DEPTH);
    for (i = 0; i < height; i++) {
      for (j = 0; j < width; j++) {
@@ -1107,6 +1109,14 @@ draw_string (DiaRenderer *self,
      }
    }
    g_free(graybitmap.buffer);
+ }
+#else
+ {
+   static int warned_no_text = 0;
+   if (!warned_no_text) {
+     message_warning(_("This is Dia version is compiled without libart/text support."));
+     warned_no_text = 1;
+   }
  }
 #endif
 
@@ -1135,6 +1145,7 @@ draw_string (DiaRenderer *self,
 		    ART_FILTER_NEAREST, NULL);
 
   g_free(bitmap);
+#undef DEPTH
 }
 
 static void

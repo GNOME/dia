@@ -36,6 +36,8 @@
 #include <stdio.h>
 #include <string.h>
 
+#undef GTK_DISABLE_DEPRECATED /* GtkTypeInfo */
+
 #include "gdk/gdk.h"
 #include "gdk/gdkkeysyms.h"
 

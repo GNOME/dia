@@ -18,7 +18,9 @@
 #ifndef GROUP_H
 #define GROUP_H
 
-extern ObjectType group_type;
+#include "diavar.h"
+
+DIAVAR ObjectType group_type;
 
 /* Make sure there are no connections from objects to objects
  * outside of the created group before calling group_create().

@@ -1,3 +1,41 @@
+2002-12-06  Hans Breuer  <hans@breuer.org>
+
+	* app/diapsrenderer.[hc] app/diapsft2renderer.[hc] :
+	removed 0xD 0xD 0xA line ends which get created by
+	cvs if windoze line ends 0xD 0xA are checked in from
+	*nix and checked out on win32.
+
+	* app/preferences.c : changed toolbox_on_top default to
+	false. It is currently not possible to change the behaviour
+	at runtime, at least not on win32.
+
+	* lib/dialibartrenderer.c : bug #94791 'rendering to 
+	bitmap without PangoFt2' got delayed to milestone future 
+	so wrap libart text rendering into PANGO_WIN32_FUTURE. 
+	It is not available without my Pango patch in bugzilla.
+
+	* lib/font.c : added comment to global_size_one and adapt
+	the arbitrary size scaling in dia_font_build_layout() for
+	win32, too. This is needed to get an acceptable font size 
+	approximation for Dia 0.90 and earlier files.
+	Also #include "message.h".
+
+	* app/makfile.msc app/dia.def lib/makefile.msc lib/libdia.def :
+	reflect movement of group.[hc]
+	* lib/group.h : export group_type which gets used by app/*
+
+	* lib/diagtkfontsel.c : added #undef GTK_DISABLE_DEPRECATED
+	to get the GtkTypeInfo definition
+
+	* plug-ins/makefile.msc : dxf and xfig don't need to link
+	against app/ anymore now that group is moved to lib/
+
+	* plug-ins/python/pydia-render.c : remove massive leaking
+	of self, i.e. PyDiaRenderer
+
+	*  plug-ins/python/makefile.msc : remove linking against
+	GTK libs
+
 2002-12-06  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* objects/standard/line.c: Removed properties options for gaps,
