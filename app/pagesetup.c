@@ -55,8 +55,10 @@ pagesetup_respond(GtkWidget *widget,
       pagesetup_apply(widget, ps);
   }
 
-  if (response_id != GTK_RESPONSE_APPLY)
+  if (response_id != GTK_RESPONSE_APPLY) {
+    g_object_unref(ps->dia);
     gtk_widget_destroy(ps->window);
+  }
 
   return 0;
 }
@@ -69,6 +71,7 @@ create_page_setup_dlg(Diagram *dia)
 
   ps = g_new(PageSetup, 1);
   ps->dia = dia;
+  g_object_ref(ps->dia);
   ps->window = gtk_dialog_new_with_buttons(
 			_("Page Setup"),
 			GTK_WINDOW (ddisplay_active()->shell),

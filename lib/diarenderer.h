@@ -38,7 +38,7 @@ struct _DiaRendererClass
   int (*get_width_pixels) (DiaRenderer*);
   int (*get_height_pixels) (DiaRenderer*);
   /* simply calls the objects draw function, which calls this again */
-  void (*draw_object) (DiaRenderer*, Object*);
+  void (*draw_object) (DiaRenderer*, DiaObject*);
   /* Returns the EXACT width of text in cm, using the current font.
      There has been some confusion as to the definition of this.
      It used to say the width was in pixels, but actual width returned

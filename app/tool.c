@@ -128,7 +128,7 @@ tool_options_dialog_show(ToolType type, gpointer extra_data,
 			 gpointer user_data, GtkWidget *button,
                          int invert_persistence) 
 {
-  ObjectType *objtype;
+  DiaObjectType *objtype;
 
   if (active_tool->type != type) 
     tool_select(type,extra_data,user_data,button,invert_persistence);

@@ -55,7 +55,7 @@ object_menu_proxy(GtkWidget *widget, gpointer data)
   ObjectChange *obj_change;
 
   DDisplay *ddisp = ddisplay_active();
-  Object *obj = (Object *)ddisp->diagram->data->selected->data;
+  DiaObject *obj = (DiaObject *)ddisp->diagram->data->selected->data;
 
   dia_menu_item = (DiaMenuItem *) data;
 
@@ -197,7 +197,7 @@ static void
 popup_object_menu(DDisplay *ddisp, GdkEventButton *bevent)
 {
   Diagram *diagram;
-  Object *obj;
+  DiaObject *obj;
   GtkMenu *menu = NULL;
   DiaMenu *dia_menu = NULL;
   GList *selected_list;
@@ -217,7 +217,7 @@ popup_object_menu(DDisplay *ddisp, GdkEventButton *bevent)
     return;
   }
   
-  obj = (Object *)g_list_first(selected_list)->data;
+  obj = (DiaObject *)g_list_first(selected_list)->data;
   
   /* Possibly react differently at a handle? */
 
@@ -357,7 +357,7 @@ ddisplay_popup_menu(DDisplay *ddisp, GdkEventButton *event)
 
 static void handle_key_event(DDisplay *ddisp, Focus *focus, guint keysym,
                              const gchar *str, int strlen) {
-  Object *obj = focus->obj;
+  DiaObject *obj = focus->obj;
   Point p = obj->position;
   ObjectChange *obj_change = NULL;
   gboolean modified;
@@ -375,11 +375,11 @@ static void handle_key_event(DDisplay *ddisp, Focus *focus, guint keysym,
   object_add_updates(obj, ddisp->diagram);
 
   if (modified) {
-    diagram_modified(ddisp->diagram);
     if (obj_change != NULL) {
       undo_object_change(ddisp->diagram, obj, obj_change);
       undo_set_transactionpoint(ddisp->diagram->undo);
     }
+    diagram_modified(ddisp->diagram);
   }
 
   diagram_flush(ddisp->diagram);
@@ -435,6 +435,8 @@ void ddisplay_im_context_preedit_changed(GtkIMContext *context,
 */
 }
 
+/** Main input handler for a diagram canvas.
+ */
 gint
 ddisplay_canvas_events (GtkWidget *canvas,
 			GdkEvent  *event,
@@ -449,7 +451,7 @@ ddisplay_canvas_events (GtkWidget *canvas,
   GdkModifierType tmask;
   guint state = 0;
   Focus *focus;
-  Object *obj;
+  DiaObject *obj;
   Rectangle *visible;
   Point middle;
   int return_val;
@@ -671,24 +673,24 @@ ddisplay_canvas_events (GtkWidget *canvas,
         key_handled = FALSE;
 
         focus = active_focus();
-        if ((focus != NULL) &&
-            !(state & (GDK_CONTROL_MASK | GDK_MOD1_MASK)) ) {
-              /* Keys goes to the active focus. */
-          obj = focus->obj;
-          if (diagram_is_selected(ddisp->diagram, obj)) {
-
-            if (!gtk_im_context_filter_keypress(
-                  GTK_IM_CONTEXT(ddisp->im_context), kevent)) {
-              
-                  /*! key event not swallowed by the input method ? */
-              handle_key_event(ddisp, focus, kevent->keyval,
-                               kevent->string, kevent->length);
-
-              diagram_flush(ddisp->diagram);
-            }
-          }
-          return_val = key_handled = TRUE;
-        }
+        if (focus != NULL) {
+          if ((state & (GDK_CONTROL_MASK | GDK_MOD1_MASK)) ) {
+	    /* Keys goes to the active focus. */
+	    obj = focus->obj;
+	    if (diagram_is_selected(ddisp->diagram, obj)) {
+	      
+	      if (!gtk_im_context_filter_keypress
+		  (GTK_IM_CONTEXT(ddisp->im_context), kevent)) {
+		/*! key event not swallowed by the input method ? */
+		handle_key_event(ddisp, focus, kevent->keyval,
+				 kevent->string, kevent->length);
+		
+		diagram_flush(ddisp->diagram);
+	      }
+	    }
+	    return_val = key_handled = TRUE;
+	  }
+	}
 
         if (!key_handled) {
               /* No focus to receive keys, take care of it ourselves. */
@@ -736,8 +738,13 @@ ddisplay_canvas_events (GtkWidget *canvas,
               default:
                 if (kevent->string && 0 == strcmp(" ",kevent->string)) {
                   tool_select_former();
-                } else { 
+                } else if ((kevent->state & (GDK_MOD1_MASK|GDK_CONTROL_MASK)) == 0 && 
+			   kevent->length != 0) {
+		  /* Find first editable */
+#ifdef NEW_TEXT_EDIT
+		  modify_edit_first_text(ddisp);
                   return_val = FALSE;
+#endif
                 }
           }
         }
@@ -825,14 +832,14 @@ round_up (double x)
 
 
 /* returns NULL if object cannot be created */
-Object *
-ddisplay_drop_object(DDisplay *ddisp, gint x, gint y, ObjectType *otype,
+DiaObject *
+ddisplay_drop_object(DDisplay *ddisp, gint x, gint y, DiaObjectType *otype,
 		     gpointer user_data)
 {
   Point droppoint;
   Point droppoint_orig;
   Handle *handle1, *handle2;
-  Object *obj, *p_obj;
+  DiaObject *obj, *p_obj;
   GList *list;
   real click_distance;
 
@@ -935,9 +942,9 @@ ddisplay_drop_object(DDisplay *ddisp, gint x, gint y, ObjectType *otype,
   list = g_list_prepend(NULL, obj);
   undo_insert_objects(ddisp->diagram, list, 1);
   diagram_update_extents(ddisp->diagram);
-  diagram_modified(ddisp->diagram);
 
   undo_set_transactionpoint(ddisp->diagram->undo);
+  diagram_modified(ddisp->diagram);
   if (prefs.reset_tools_after_create)
     tool_reset();
   return obj;

@@ -15,6 +15,7 @@ G_BEGIN_DECLS
 #define DIA_GDK_RENDERER_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS ((obj), DIA_TYPE_GDK_RENDERER, DiaGdkRendererClass))
 
 GType dia_gdk_renderer_get_type (void) G_GNUC_CONST;
+void dia_gdk_renderer_set_dashes(DiaGdkRenderer *renderer, int offset);
 
 struct _DiaGdkRenderer
 {
@@ -37,6 +38,9 @@ struct _DiaGdkRenderer
   LineStyle saved_line_style;
   int dash_length;
   int dot_length;
+
+  /** If non-NULL, this rendering is a highlighting with the given color. */
+  Color *highlight_color;
 };
 
 struct _DiaGdkRendererClass

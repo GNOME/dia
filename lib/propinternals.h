@@ -63,7 +63,7 @@ void prop_dialog_container_push(PropDialog *dialog, GtkWidget *container);
 GtkWidget *prop_dialog_container_pop(PropDialog *dialog);
 void prop_dialog_add_property(PropDialog *dialog, Property *prop);
 
-PropDialog *prop_dialog_new(Object *obj, gboolean is_default);
+PropDialog *prop_dialog_new(DiaObject *obj, gboolean is_default);
 PropDialog *prop_dialog_from_widget(GtkWidget *dialog_widget);
 void prop_dialog_destroy(PropDialog *dialog);
 void prop_get_data_from_widgets(PropDialog *dialog);

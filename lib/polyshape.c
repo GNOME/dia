@@ -155,7 +155,7 @@ add_handle(PolyShape *poly, int pos, Point *point, Handle *handle,
 	   ConnectionPoint *cp1, ConnectionPoint *cp2)
 {
   int i;
-  Object *obj;
+  DiaObject *obj;
   
   poly->numpoints++;
   poly->points = g_realloc(poly->points, poly->numpoints*sizeof(Point));
@@ -164,22 +164,22 @@ add_handle(PolyShape *poly, int pos, Point *point, Handle *handle,
     poly->points[i] = poly->points[i-1];
   }
   poly->points[pos] = *point;
-  object_add_handle_at((Object*)poly, handle, pos);
-  object_add_connectionpoint_at((Object*)poly, cp1, 2*pos);
-  object_add_connectionpoint_at((Object*)poly, cp2, 2*pos+1);
+  object_add_handle_at((DiaObject*)poly, handle, pos);
+  object_add_connectionpoint_at((DiaObject*)poly, cp1, 2*pos);
+  object_add_connectionpoint_at((DiaObject*)poly, cp2, 2*pos+1);
 
-  obj = (Object *)poly;
+  obj = (DiaObject *)poly;
 }
 
 static void
 remove_handle(PolyShape *poly, int pos)
 {
   int i;
-  Object *obj;
+  DiaObject *obj;
   Handle *old_handle;
   ConnectionPoint *old_cp1, *old_cp2;
 
-  obj = (Object *)poly;
+  obj = (DiaObject *)poly;
 
   /* delete the points */
   poly->numpoints--;
@@ -237,7 +237,7 @@ polyshape_remove_point(PolyShape *poly, int pos)
   old_cp1 = poly->object.connections[2*pos];
   old_cp2 = poly->object.connections[2*pos+1];
   
-  object_unconnect((Object *)poly, old_handle);
+  object_unconnect((DiaObject *)poly, old_handle);
 
   remove_handle(poly, pos);
 
@@ -300,7 +300,7 @@ polyshape_update_data(PolyShape *poly)
 {
   Point next;
   int i;
-  Object *obj = &poly->object;
+  DiaObject *obj = &poly->object;
   
   /* handle the case of whole points array update (via set_prop) */
   if (poly->numpoints != obj->num_handles ||
@@ -393,7 +393,7 @@ polyshape_simple_draw(PolyShape *poly, DiaRenderer *renderer, real width)
 void
 polyshape_init(PolyShape *poly, int num_points)
 {
-  Object *obj;
+  DiaObject *obj;
   int i;
 
   obj = &poly->object;
@@ -442,7 +442,7 @@ void
 polyshape_copy(PolyShape *from, PolyShape *to)
 {
   int i;
-  Object *toobj, *fromobj;
+  DiaObject *toobj, *fromobj;
 
   toobj = &to->object;
   fromobj = &from->object;
@@ -516,7 +516,7 @@ polyshape_load(PolyShape *poly, ObjectNode obj_node) /* NOTE: Does object_init()
   AttributeNode attr;
   DataNode data;
   
-  Object *obj = &poly->object;
+  DiaObject *obj = &poly->object;
 
   object_load(obj, obj_node);
 
@@ -563,7 +563,7 @@ polyshape_change_free(struct PointChange *change)
 }
 
 static void
-polyshape_change_apply(struct PointChange *change, Object *obj)
+polyshape_change_apply(struct PointChange *change, DiaObject *obj)
 {
   change->applied = 1;
   switch (change->type) {
@@ -579,7 +579,7 @@ polyshape_change_apply(struct PointChange *change, Object *obj)
 }
 
 static void
-polyshape_change_revert(struct PointChange *change, Object *obj)
+polyshape_change_revert(struct PointChange *change, DiaObject *obj)
 {
   switch (change->type) {
   case TYPE_ADD_POINT:

@@ -126,6 +126,54 @@ dia_config_ensure_dir(const gchar *filename)
   return exists;
 }
 
+/** Remove all instances of . and .. from an absolute path.
+ * This is not a cheap function.
+ * Returns a newly allocated string, or NULL if too many ..'s were found */
+static gchar *
+dia_get_canonical_path (gchar *path) {
+  if (g_str_has_suffix(path, "/..")) {
+    gchar *prev = g_path_get_dirname(path);
+    path = prev;
+    prev = dia_get_canonical_path(path);
+    g_free(path);
+    if (prev == NULL) return NULL;
+    path = prev;
+    /* Snip! */
+    prev = g_path_get_dirname(prev);
+    if (!strcmp(path, prev)) {
+      /* .. ran over / */
+      return NULL;
+    }
+    g_free(path);
+    return prev;
+  } else if (g_str_has_suffix(path, "/.")) {
+    gchar *prev = g_path_get_dirname(path);
+    path = prev;
+    prev = dia_get_canonical_path(path);
+    g_free(path);
+    return prev;
+  } else {
+    gchar *end = g_path_get_basename(path);
+    gchar *prev = g_path_get_dirname(path);
+    gchar *tmp;
+    if (strcmp(path, prev)) { /* Something got removed */
+      tmp = prev;
+      prev = dia_get_canonical_path(tmp);
+      if (prev == NULL) return NULL;
+      g_free(tmp);
+      tmp = prev;
+      prev = g_build_filename(tmp, end, NULL);
+      g_free(tmp);
+      g_free(end);
+      return prev;
+    } else {
+      g_free(end);
+      g_free(prev);
+      return g_strdup(path);
+    }
+  }
+}
+
 /** Return an absolute filename from an absolute or relative filename.
  * The value returned is newly allocated. 
  */
@@ -134,10 +182,18 @@ dia_get_absolute_filename (const gchar *filename)
 {
   gchar *current_dir;
   gchar *fullname;
+  gchar *canonical;
   if (filename == NULL) return NULL;
   if (g_path_is_absolute(filename)) return g_strdup(filename);
   current_dir = g_get_current_dir();
   fullname = g_build_filename(current_dir, filename, NULL);
   g_free(current_dir);
-  return fullname;
+  if (strchr(fullname, '.') == NULL) return fullname;
+  canonical = dia_get_canonical_path(fullname);
+  if (canonical == NULL) {
+    message_warning("Too many ..'s in filename %s\n", filename);
+    return filename;
+  }
+  free(fullname);
+  return canonical;
 }

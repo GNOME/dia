@@ -30,8 +30,8 @@
 static GtkWidget *dialog = NULL;
 static GtkWidget *dialog_vbox = NULL;
 static GtkWidget *object_part = NULL;
-static ObjectType *current_objtype = NULL;
-static Object *current_object = NULL;
+static DiaObjectType *current_objtype = NULL;
+static DiaObject *current_object = NULL;
 
 static GtkWidget *no_defaults_dialog = NULL;
 
@@ -40,7 +40,7 @@ static gint defaults_respond(GtkWidget *widget, gint response_id, gpointer data)
 static void create_dialog()
 {
   dialog = gtk_dialog_new_with_buttons(
-             _("Object defaults"),
+             _("DiaObject defaults"),
              NULL, 0,
              GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE,
              GTK_STOCK_APPLY, GTK_RESPONSE_APPLY,
@@ -95,10 +95,10 @@ defaults_respond(GtkWidget *widget, gint response_id, gpointer data)
 }
 
 void
-defaults_show(ObjectType *objtype)
+defaults_show(DiaObjectType *objtype)
 {
   GtkWidget *defaults;
-  Object *def_object = NULL;
+  DiaObject *def_object = NULL;
   gchar *title = NULL;
 
   if (objtype != NULL) {
@@ -143,7 +143,7 @@ defaults_show(ObjectType *objtype)
       g_free(title);
     }
   else
-      gtk_window_set_title (GTK_WINDOW (dialog), _("Object defaults"));
+      gtk_window_set_title (GTK_WINDOW (dialog), _("DiaObject defaults"));
 
   if (object_part != defaults) {
     gtk_window_resize (GTK_WINDOW(dialog), 1, 1); /* shrink to default */

@@ -77,6 +77,8 @@ EXTRA_DIST = \
 	diasvg_import.py \
 	group_props.py \
 	otypes.py \
+	scascale.py \
+	select_by.py \
 	pydiadoc.py \
 	scascale.py \
 	select_by.py \

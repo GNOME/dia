@@ -30,7 +30,7 @@ static guint timeout = 0;
 static guint idle_id = 0;
 static guint timer_id = 0;
 
-static void foreach_dynobj(Object* obj, gpointer data) {
+static void foreach_dynobj(DiaObject* obj, gpointer data) {
     gboolean moved = FALSE;
     GList* list = dia_open_diagrams();
 

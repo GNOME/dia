@@ -704,7 +704,7 @@ menus_initialize_updatable_items (UpdatableMenuItems *items,
     g_string_append (g_string_assign(path, display),"/Objects/Properties...");
     items->properties = menus_get_item_from_path(path->str, factory);
     
-    g_string_free (path,FALSE);
+    g_string_free (path,TRUE);
 }
 
 

@@ -28,6 +28,7 @@
 #include "font.h"
 #include "intl.h"
 #include "dia_image.h"
+#include "object.h"
 
 #ifdef HAVE_LIBART
 
@@ -69,15 +70,22 @@ color_to_abgr(Color *col)
 }
 
 static inline guint32 
-color_to_rgba(Color *col)
+color_to_rgba(DiaLibartRenderer *renderer, Color *col)
 {
   int rgba;
 
-  rgba = 0xFF;
-  rgba |= (guint)(0xFF*col->red) << 24;
-  rgba |= (guint)(0xFF*col->green) << 16;
-  rgba |= (guint)(0xFF*col->blue) << 8;
-  
+  if (renderer->highlight_color != NULL) {
+      rgba = 0xFF;
+      rgba |= (guint)(0xFF*renderer->highlight_color->red) << 24;
+      rgba |= (guint)(0xFF*renderer->highlight_color->green) << 16;
+      rgba |= (guint)(0xFF*renderer->highlight_color->blue) << 8;
+  } else {
+    rgba = 0xFF;
+    rgba |= (guint)(0xFF*col->red) << 24;
+    rgba |= (guint)(0xFF*col->green) << 16;
+    rgba |= (guint)(0xFF*col->blue) << 8;
+  }
+
   return rgba;
 }
 
@@ -131,9 +139,13 @@ set_linewidth(DiaRenderer *self, real linewidth)
 {  /* 0 == hairline **/
   DiaLibartRenderer *renderer = DIA_LIBART_RENDERER (self);
 
+  if (renderer->highlight_color != NULL) {
+    /* 6 pixels wide -> 3 pixels beyond normal obj */
+    real border = dia_untransform_length(renderer->transform, 6);
+    linewidth += border;
+  } 
   renderer->line_width =
     dia_transform_length(renderer->transform, linewidth);
-
   if (renderer->line_width<=0.5)
     renderer->line_width = 0.5; /* Minimum 0.5 pixel. */
 }
@@ -143,16 +155,21 @@ set_linecaps(DiaRenderer *self, LineCaps mode)
 {
   DiaLibartRenderer *renderer = DIA_LIBART_RENDERER (self);
 
-  switch(mode) {
-  case LINECAPS_BUTT:
-    renderer->cap_style = ART_PATH_STROKE_CAP_BUTT;
-    break;
-  case LINECAPS_ROUND:
+  if (renderer->highlight_color != NULL) {
+    /* Can't tell that this does anything:( -LC */
     renderer->cap_style = ART_PATH_STROKE_CAP_ROUND;
-    break;
-  case LINECAPS_PROJECTING:
-    renderer->cap_style = ART_PATH_STROKE_CAP_SQUARE;
-    break;
+  } else {
+    switch(mode) {
+    case LINECAPS_BUTT:
+      renderer->cap_style = ART_PATH_STROKE_CAP_BUTT;
+      break;
+    case LINECAPS_ROUND:
+      renderer->cap_style = ART_PATH_STROKE_CAP_ROUND;
+      break;
+    case LINECAPS_PROJECTING:
+      renderer->cap_style = ART_PATH_STROKE_CAP_SQUARE;
+      break;
+    }
   }
 }
 
@@ -161,16 +178,21 @@ set_linejoin(DiaRenderer *self, LineJoin mode)
 {
   DiaLibartRenderer *renderer = DIA_LIBART_RENDERER (self);
 
-  switch(mode) {
-  case LINEJOIN_MITER:
-    renderer->cap_style = ART_PATH_STROKE_JOIN_MITER;
-    break;
-  case LINEJOIN_ROUND:
+  if (renderer->highlight_color != NULL) {
+    /* Can't tell that this does anything:( -LC */
     renderer->cap_style = ART_PATH_STROKE_JOIN_ROUND;
-    break;
-  case LINEJOIN_BEVEL:
-    renderer->cap_style = ART_PATH_STROKE_JOIN_BEVEL;
-    break;
+  } else {
+    switch(mode) {
+    case LINEJOIN_MITER:
+      renderer->cap_style = ART_PATH_STROKE_JOIN_MITER;
+      break;
+    case LINEJOIN_ROUND:
+      renderer->cap_style = ART_PATH_STROKE_JOIN_ROUND;
+      break;
+    case LINEJOIN_BEVEL:
+      renderer->cap_style = ART_PATH_STROKE_JOIN_BEVEL;
+      break;
+    }
   }
 }
 
@@ -289,7 +311,7 @@ draw_line(DiaRenderer *self,
   guint32 rgba;
   double x,y;
 
-  rgba = color_to_rgba(line_color);
+  rgba = color_to_rgba(renderer, line_color);
   
   vpath = art_new (ArtVpath, 3);
   
@@ -345,7 +367,7 @@ draw_polyline(DiaRenderer *self,
   double x,y;
   int i;
 
-  rgba = color_to_rgba(line_color);
+  rgba = color_to_rgba(renderer, line_color);
   
   vpath = art_new (ArtVpath, num_points+1);
 
@@ -399,7 +421,7 @@ draw_polygon(DiaRenderer *self,
   double x,y;
   int i;
   
-  rgba = color_to_rgba(line_color);
+  rgba = color_to_rgba(renderer, line_color);
   
   vpath = art_new (ArtVpath, num_points+2);
 
@@ -459,7 +481,7 @@ fill_polygon(DiaRenderer *self,
   double x,y;
   int i;
   
-  rgba = color_to_rgba(color);
+  rgba = color_to_rgba(renderer, color);
   
   vpath = art_new (ArtVpath, num_points+2);
 
@@ -515,7 +537,7 @@ draw_rect(DiaRenderer *self,
   if ((left>right) || (top>bottom))
     return;
 
-  rgba = color_to_rgba(color);
+  rgba = color_to_rgba(renderer, color);
   
   vpath = art_new (ArtVpath, 6);
 
@@ -583,7 +605,7 @@ fill_rect(DiaRenderer *self,
   if ((left>right) || (top>bottom))
     return;
 
-  rgba = color_to_rgba(color);
+  rgba = color_to_rgba(renderer, color);
   
   vpath = art_new (ArtVpath, 6);
 
@@ -665,7 +687,7 @@ draw_arc(DiaRenderer *self,
   if (num_points<5) /* Don't be too coarse */
     num_points = 5;
 
-  rgba = color_to_rgba(line_color);
+  rgba = color_to_rgba(renderer, line_color);
   
   vpath = art_new (ArtVpath, num_points+1);
 
@@ -751,7 +773,7 @@ fill_arc(DiaRenderer *self,
   if (num_points<5) /* Don't be too coarse */
     num_points = 5;
 
-  rgba = color_to_rgba(color);
+  rgba = color_to_rgba(renderer, color);
   
   vpath = art_new (ArtVpath, num_points+2+1);
 
@@ -820,7 +842,7 @@ draw_bezier(DiaRenderer *self,
   double x,y;
   int i;
 
-  rgba = color_to_rgba(line_color);
+  rgba = color_to_rgba(renderer, line_color);
   
   bpath = art_new (ArtBpath, numpoints+1);
 
@@ -909,7 +931,7 @@ fill_bezier(DiaRenderer *self,
   double x,y;
   int i;
 
-  rgba = color_to_rgba(color);
+  rgba = color_to_rgba(renderer, color);
   
   bpath = art_new (ArtBpath, numpoints+1);
 
@@ -974,6 +996,66 @@ fill_bezier(DiaRenderer *self,
 }
 
 
+/* Draw a highlighted version of a string.
+ */
+static void
+draw_highlighted_string(DiaLibartRenderer *renderer,
+			PangoLayout *layout,
+			real x, real y,
+			guint32 rgba)
+{
+  ArtVpath *vpath;
+  ArtSVP *svp;
+  int width, height;
+  double top, bottom, left, right;
+    
+  pango_layout_get_pixel_size(layout, &width, &height);
+  dia_transform_coords_double(renderer->transform,
+                              x, y, &left, &top);
+  left -= 3;
+  right = left+width+6;
+  bottom = top+height;
+  
+  if ((left>right) || (top>bottom))
+    return;
+
+  vpath = art_new (ArtVpath, 6);
+
+  vpath[0].code = ART_MOVETO;
+  vpath[0].x = left;
+  vpath[0].y = top;
+  vpath[1].code = ART_LINETO;
+  vpath[1].x = right;
+  vpath[1].y = top;
+  vpath[2].code = ART_LINETO;
+  vpath[2].x = right;
+  vpath[2].y = bottom;
+  vpath[3].code = ART_LINETO;
+  vpath[3].x = left;
+  vpath[3].y = bottom;
+  vpath[4].code = ART_LINETO;
+  vpath[4].x = left;
+  vpath[4].y = top;
+  vpath[5].code = ART_END;
+  vpath[5].x = 0;
+  vpath[5].y = 0;
+  
+  svp = art_svp_from_vpath (vpath);
+  
+  art_free( vpath );
+  
+  art_rgb_svp_alpha (svp,
+		     0, 0, 
+		     renderer->pixel_width,
+		     renderer->pixel_height,
+		     rgba,
+		     renderer->rgb_buffer, renderer->pixel_width*3,
+		     NULL);
+
+  art_svp_free( svp );
+}
+
+
 static void
 draw_string (DiaRenderer *self,
 	     const gchar *text,
@@ -994,6 +1076,8 @@ draw_string (DiaRenderer *self,
   double font_height;
 
   point_copy(&start_pos,pos);
+
+  rgba = color_to_rgba(renderer, color);
 
   /* Something's screwed up with the zooming for fonts.
      It's like it zooms double.  Yet removing some of the zooms
@@ -1031,6 +1115,13 @@ draw_string (DiaRenderer *self,
   layout = dia_font_scaled_build_layout(
               text, self->font, self->font_height,
               dia_transform_length(renderer->transform, 1.0));
+
+  if (renderer->highlight_color != NULL) {
+    draw_highlighted_string(renderer, layout, start_pos.x, start_pos.y, rgba);
+    g_object_unref(G_OBJECT(layout));
+    return;
+  }
+
   /*
   ddisp->zoom_factor = old_zoom;
   */
@@ -1139,8 +1230,6 @@ draw_string (DiaRenderer *self,
   
   g_object_unref(G_OBJECT(layout));
 
-  rgba = color_to_rgba(color);
-
   art_affine_identity(affine);
   art_affine_translate(tmpaffine, x, y);
   art_affine_multiply(affine, affine, tmpaffine);
@@ -1203,60 +1292,82 @@ draw_image(DiaRenderer *self,
 	   DiaImage image)
 {
   DiaLibartRenderer *renderer = DIA_LIBART_RENDERER (self);
-  double real_width, real_height;
-  double x,y;
-  int src_width, src_height;
-  guint8 *img_data;
-  double affine[6];
-  int rowstride;
 
   /* Todo: Handle some kind of clipping! */
   
-  real_width = dia_transform_length(renderer->transform, width);
-  real_height = dia_transform_length(renderer->transform, height);
-  dia_transform_coords_double(renderer->transform, 
-                              point->x, point->y, &x, &y);
+  if (renderer->highlight_color != NULL) {
+    Point lr;
+    DiaRendererClass *self_class = DIA_RENDERER_GET_CLASS (self);
 
-  src_width = dia_image_width(image);
-  src_height = dia_image_height(image);
-  rowstride = dia_image_rowstride(image);
-
-  affine[0] = real_width/(double)src_width;
-  affine[1] = 0;
-  affine[2] = 0;
-  affine[3] = real_height/(double)src_height;
-  affine[4] = x;
-  affine[5] = y;
-
-  img_data = dia_image_rgba_data(image);
-
-  if (img_data != NULL) {
-    /* If there is an alpha channel, we can use it directly. */
-    art_rgb_rgba_affine(renderer->rgb_buffer,
-			0, 0,
-			renderer->pixel_width,
-			renderer->pixel_height,
-			renderer->pixel_width*3,
-			img_data, src_width, src_height, 
-			rowstride,
-			affine, ART_FILTER_NEAREST, NULL);
-    /* Note that dia_image_rgba_data doesn't copy */
+    lr = *point;
+    lr.x += width;
+    lr.y += height;
+    self_class->fill_rect(self, point, &lr, renderer->highlight_color);
   } else {
-    img_data = dia_image_rgb_data(image);
+    double real_width, real_height;
+    double x,y;
+    int src_width, src_height;
+    guint8 *img_data;
+    double affine[6];
+    int rowstride;
+    real_width = dia_transform_length(renderer->transform, width);
+    real_height = dia_transform_length(renderer->transform, height);
+    dia_transform_coords_double(renderer->transform, 
+				point->x, point->y, &x, &y);
 
-    art_rgb_affine(renderer->rgb_buffer,
-		   0, 0,
-		   renderer->pixel_width,
-		   renderer->pixel_height,
-		   renderer->pixel_width*3,
-		   img_data, src_width, src_height, 
-		   rowstride,
-		   affine, ART_FILTER_NEAREST, NULL);
+    src_width = dia_image_width(image);
+    src_height = dia_image_height(image);
+    rowstride = dia_image_rowstride(image);
+
+    affine[0] = real_width/(double)src_width;
+    affine[1] = 0;
+    affine[2] = 0;
+    affine[3] = real_height/(double)src_height;
+    affine[4] = x;
+    affine[5] = y;
+
+    img_data = dia_image_rgba_data(image);
+
+    if (img_data != NULL) {
+      /* If there is an alpha channel, we can use it directly. */
+      art_rgb_rgba_affine(renderer->rgb_buffer,
+			  0, 0,
+			  renderer->pixel_width,
+			  renderer->pixel_height,
+			  renderer->pixel_width*3,
+			  img_data, src_width, src_height, 
+			  rowstride,
+			  affine, ART_FILTER_NEAREST, NULL);
+      /* Note that dia_image_rgba_data doesn't copy */
+    } else {
+      img_data = dia_image_rgb_data(image);
+
+      art_rgb_affine(renderer->rgb_buffer,
+		     0, 0,
+		     renderer->pixel_width,
+		     renderer->pixel_height,
+		     renderer->pixel_width*3,
+		     img_data, src_width, src_height, 
+		     rowstride,
+		     affine, ART_FILTER_NEAREST, NULL);
     
-    g_free(img_data);
+      g_free(img_data);
+    }
   }
 }
 
+
+static void
+draw_object (DiaRenderer *renderer, DiaObject *object)
+{
+  if (object->highlight_color != NULL) {
+    DiaLibartRenderer *libart_rend = DIA_LIBART_RENDERER(renderer);
+    libart_rend->highlight_color = object->highlight_color;
+    object->ops->draw(object, renderer);
+    libart_rend->highlight_color = NULL;
+  }
+  object->ops->draw(object, renderer);
+}
 
 static void
 renderer_init (DiaLibartRenderer *renderer, gpointer g_class)
@@ -1271,6 +1382,8 @@ renderer_init (DiaLibartRenderer *renderer, gpointer g_class)
   renderer->dash_enabled = 0;
   renderer->dash_length = 10;
   renderer->dot_length = 1;
+
+  renderer->highlight_color = NULL;
 
   renderer->parent_instance.font = NULL;
 }
@@ -1361,6 +1474,8 @@ dia_libart_renderer_class_init (DiaLibartRendererClass *klass)
   renderer_class->draw_string = draw_string;
 
   renderer_class->draw_image = draw_image;
+
+  renderer_class->draw_object = draw_object;
 
   /* Interactive functions */
   renderer_class->get_text_width = get_text_width;

@@ -32,13 +32,13 @@
 #define DIA_ALIGN_EQUAL 4
 #define DIA_ALIGN_ADJACENT 5
 
-void object_add_updates(Object *obj, Diagram *dia);
+void object_add_updates(DiaObject *obj, Diagram *dia);
 void object_add_updates_list(GList *list, Diagram *dia);
 ConnectionPoint *object_find_connectpoint_display(DDisplay *ddisp,
 						  Point *pos,
-						  Object *notthis);
+						  DiaObject *notthis);
 
-void object_connect_display(DDisplay *ddisp, Object *obj,
+void object_connect_display(DDisplay *ddisp, DiaObject *obj,
 			    Handle *handle);
 /* Adds Undo info for connected objects. */
 

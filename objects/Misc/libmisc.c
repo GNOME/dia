@@ -28,7 +28,7 @@
 #include "intl.h"
 #include "plug-ins.h"
 
-extern ObjectType analog_clock_type;
+extern DiaObjectType analog_clock_type;
 
 DIA_PLUGIN_CHECK_INIT
 

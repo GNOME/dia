@@ -71,7 +71,7 @@ static ObjectChange* constraint_move(Constraint *constraint, Point *to);
 static void constraint_select(Constraint *constraint, Point *clicked_point,
 			      DiaRenderer *interactive_renderer);
 static void constraint_draw(Constraint *constraint, DiaRenderer *renderer);
-static Object *constraint_create(Point *startpoint,
+static DiaObject *constraint_create(Point *startpoint,
 				 void *user_data,
 				 Handle **handle1,
 				 Handle **handle2);
@@ -83,7 +83,7 @@ static PropDescription *constraint_describe_props(Constraint *constraint);
 static void constraint_get_props(Constraint * constraint, GPtrArray *props);
 static void constraint_set_props(Constraint * constraint, GPtrArray *props);
 
-static Object *constraint_load(ObjectNode obj_node, int version,
+static DiaObject *constraint_load(ObjectNode obj_node, int version,
 			       const char *filename);
 
 static ObjectTypeOps constraint_type_ops =
@@ -95,7 +95,7 @@ static ObjectTypeOps constraint_type_ops =
   (ApplyDefaultsFunc) NULL
 };
 
-ObjectType constraint_type =
+DiaObjectType constraint_type =
 {
   "UML - Constraint",        /* name */
   0,                         /* version */
@@ -273,7 +273,7 @@ constraint_draw(Constraint *constraint, DiaRenderer *renderer)
 			     &constraint->text_color);
 }
 
-static Object *
+static DiaObject *
 constraint_create(Point *startpoint,
 		  void *user_data,
 		  Handle **handle1,
@@ -281,7 +281,7 @@ constraint_create(Point *startpoint,
 {
   Constraint *constraint;
   Connection *conn;
-  Object *obj;
+  DiaObject *obj;
   Point defaultlen = { 1.0, 1.0 };
 
   if (constraint_font == NULL) {
@@ -336,7 +336,7 @@ static void
 constraint_update_data(Constraint *constraint)
 {
   Connection *conn = &constraint->connection;
-  Object *obj = &conn->object;
+  DiaObject *obj = &conn->object;
   Rectangle rect;
   LineBBExtras *extra;
 
@@ -380,7 +380,7 @@ constraint_update_data(Constraint *constraint)
 }
 
 
-static Object *
+static DiaObject *
 constraint_load(ObjectNode obj_node, int version, const char *filename)
 {
   return object_load_using_properties(&constraint_type,

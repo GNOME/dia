@@ -74,14 +74,14 @@ static ObjectChange* action_move(Action *action, Point *to);
 static void action_select(Action *action, Point *clicked_point,
 			      DiaRenderer *interactive_renderer);
 static void action_draw(Action *action, DiaRenderer *renderer);
-static Object *action_create(Point *startpoint,
+static DiaObject *action_create(Point *startpoint,
 				 void *user_data,
 				 Handle **handle1,
 				 Handle **handle2);
 static real action_distance_from(Action *action, Point *point);
 static void action_update_data(Action *action);
 static void action_destroy(Action *action);
-static Object *action_load(ObjectNode obj_node, int version,
+static DiaObject *action_load(ObjectNode obj_node, int version,
 			       const char *filename);
 static PropDescription *action_describe_props(Action *action);
 static void action_get_props(Action *action, 
@@ -99,7 +99,7 @@ static ObjectTypeOps action_type_ops =
   (ApplyDefaultsFunc) NULL
 };
 
-ObjectType action_type =
+DiaObjectType action_type =
 {
   "GRAFCET - Action",   /* name */
   0,                         /* version */
@@ -252,7 +252,7 @@ action_update_data(Action *action)
   int i;
   real chunksize;
   Connection *conn = &action->connection;
-  Object *obj = &conn->object;
+  DiaObject *obj = &conn->object;
 
   obj->position = conn->endpoints[0];
   connection_update_boundingbox(conn);
@@ -391,7 +391,7 @@ action_draw(Action *action, DiaRenderer *renderer)
   renderer_ops->draw_rect(renderer,&ul,&br,&color_black);
 }
 
-static Object *
+static DiaObject *
 action_create(Point *startpoint,
 		  void *user_data,
 		  Handle **handle1,
@@ -399,7 +399,7 @@ action_create(Point *startpoint,
 {
   Action *action;
   Connection *conn;
-  Object *obj;
+  DiaObject *obj;
   LineBBExtras *extra;
   Point defaultlen  = {1.0,0.0}, pos;
 
@@ -454,7 +454,7 @@ action_destroy(Action *action)
   connection_destroy(&action->connection);
 }
  
-static Object *
+static DiaObject *
 action_load(ObjectNode obj_node, int version, const char *filename)
 {
   return object_load_using_properties(&action_type,

@@ -38,7 +38,19 @@ struct _NewDiagramData {
   int compress_save;
 };
 
+GType diagram_data_get_type (void) G_GNUC_CONST;
+
+#define DIA_TYPE_DIAGRAM_DATA           (diagram_data_get_type ())
+#define DIA_DIAGRAM_DATA(obj)           (G_TYPE_CHECK_INSTANCE_CAST ((obj), DIA_TYPE_DIAGRAM_DATA, DiagramData))
+#define DIA_DIAGRAM_DATA_CLASS(klass)   (G_TYPE_CHECK_CLASS_CAST ((klass), DIA_TYPE_DIAGRAM_DATA, DiagramDataClass))
+#define DIA_IS_DIAGRAM_DATA(obj)        (G_TYPE_CHECK_INSTANCE_TYPE ((obj), DIA_TYPE_DIAGRAM_DATA))
+#define DIA_DIAGRAM_DATA_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS ((obj), DIA_TYPE_DIAGRAM_DATA, DiagramDataClass))
+
+
+
 struct _DiagramData {
+  GObject parent_instance;
+
   Rectangle extents;      /* The extents of the diagram        */
 
   Color bg_color;
@@ -79,7 +91,15 @@ struct _DiagramData {
   guint selected_count;
   GList *selected;        /* List of objects that are selected,
 			     all from the active layer! */
+
+  /** List of text fields that can be edited in the diagram.
+   *  Updated by text_register_focusable. */
+  GList *text_edits;
 };
+
+typedef struct _DiagramDataClass {
+  GObjectClass parent_class;
+} DiagramDataClass;
 
 struct _Layer {
   char *name;
@@ -90,7 +110,9 @@ struct _Layer {
 			     objects can ONLY be connected to objects
 			     in the same layer! */
 
-  int visible;
+  gboolean visible;
+  gboolean connectable;   /* Whether the layer can currently be connected to.
+			     The selected layer is by default connectable */
 
   DiagramData *parent_diagram; /* Back-pointer to the diagram.  This
 				  must only be set by functions internal
@@ -116,14 +138,14 @@ void data_add_layer(DiagramData *data, Layer *layer);
 void data_add_layer_at(DiagramData *data, Layer *layer, int pos);
 void data_set_active_layer(DiagramData *data, Layer *layer);
 void data_delete_layer(DiagramData *data, Layer *layer);
-void data_select(DiagramData *data, Object *obj);
-void data_unselect(DiagramData *data, Object *obj);
+void data_select(DiagramData *data, DiaObject *obj);
+void data_unselect(DiagramData *data, DiaObject *obj);
 void data_remove_all_selected(DiagramData *data);
 gboolean data_update_extents(DiagramData *data); /* returns true if changed. */
 GList *data_get_sorted_selected(DiagramData *data);
 GList *data_get_sorted_selected_remove(DiagramData *data);
 
-typedef void (*ObjectRenderer)(Object *obj, DiaRenderer *renderer,
+typedef void (*ObjectRenderer)(DiaObject *obj, DiaRenderer *renderer,
 			       int active_layer,
 			       gpointer data);
 void data_render(DiagramData *data, DiaRenderer *renderer, Rectangle *update,
@@ -134,24 +156,24 @@ void layer_render(Layer *layer, DiaRenderer *renderer, Rectangle *update,
 		  gpointer data,
 		  int active_layer);
 
-int layer_object_index(Layer *layer, Object *obj);
-void layer_add_object(Layer *layer, Object *obj);
-void layer_add_object_at(Layer *layer, Object *obj, int pos);
+int layer_object_index(Layer *layer, DiaObject *obj);
+void layer_add_object(Layer *layer, DiaObject *obj);
+void layer_add_object_at(Layer *layer, DiaObject *obj, int pos);
 void layer_add_objects(Layer *layer, GList *obj_list);
 void layer_add_objects_first(Layer *layer, GList *obj_list);
-void layer_remove_object(Layer *layer, Object *obj);
+void layer_remove_object(Layer *layer, DiaObject *obj);
 void layer_remove_objects(Layer *layer, GList *obj_list);
 GList *layer_find_objects_intersecting_rectangle(Layer *layer, Rectangle*rect);
 GList *layer_find_objects_in_rectangle(Layer *layer, Rectangle *rect);
-Object *layer_find_closest_object(Layer *layer, Point *pos, real maxdist);
-Object *layer_find_closest_object_except(Layer *layer, Point *pos,
+DiaObject *layer_find_closest_object(Layer *layer, Point *pos, real maxdist);
+DiaObject *layer_find_closest_object_except(Layer *layer, Point *pos,
 					 real maxdist, GList *avoid);
 real layer_find_closest_connectionpoint(Layer *layer,
 					ConnectionPoint **closest,
 					Point *pos,
-					Object *notthis);
+					DiaObject *notthis);
 int layer_update_extents(Layer *layer); /* returns true if changed. */
-void layer_replace_object_with_list(Layer *layer, Object *obj,
+void layer_replace_object_with_list(Layer *layer, DiaObject *obj,
 				    GList *list);
 void layer_set_object_list(Layer *layer, GList *list);
 DiagramData *layer_get_parent_diagram(Layer *layer);

@@ -66,14 +66,14 @@ static ObjectChange* annotation_move(Annotation *annotation, Point *to);
 static void annotation_select(Annotation *annotation, Point *clicked_point,
 			      DiaRenderer *interactive_renderer);
 static void annotation_draw(Annotation *annotation, DiaRenderer *renderer);
-static Object *annotation_create(Point *startpoint,
+static DiaObject *annotation_create(Point *startpoint,
 				 void *user_data,
 				 Handle **handle1,
 				 Handle **handle2);
 static real annotation_distance_from(Annotation *annotation, Point *point);
 static void annotation_update_data(Annotation *annotation);
 static void annotation_destroy(Annotation *annotation);
-static Object *annotation_load(ObjectNode obj_node, int version,
+static DiaObject *annotation_load(ObjectNode obj_node, int version,
 			       const char *filename);
 static PropDescription *annotation_describe_props(Annotation *annotation);
 static void annotation_get_props(Annotation *annotation, 
@@ -90,7 +90,7 @@ static ObjectTypeOps annotation_type_ops =
   (ApplyDefaultsFunc) NULL
 };
 
-ObjectType sadtannotation_type =
+DiaObjectType sadtannotation_type =
 {
   "SADT - annotation",        /* name */
   0,                         /* version */
@@ -322,7 +322,7 @@ annotation_draw(Annotation *annotation, DiaRenderer *renderer)
   text_draw(annotation->text,renderer);
 }
 
-static Object *
+static DiaObject *
 annotation_create(Point *startpoint,
 		  void *user_data,
 		  Handle **handle1,
@@ -331,7 +331,7 @@ annotation_create(Point *startpoint,
   Annotation *annotation;
   Connection *conn;
   LineBBExtras *extra;
-  Object *obj; 
+  DiaObject *obj; 
   Point offs;
   Point defaultlen = { 1.0, 1.0 };
   DiaFont* font;
@@ -396,7 +396,7 @@ static void
 annotation_update_data(Annotation *annotation)
 {
   Connection *conn = &annotation->connection;
-  Object *obj = &conn->object;
+  DiaObject *obj = &conn->object;
   Rectangle textrect;
   
   obj->position = conn->endpoints[0];
@@ -410,7 +410,7 @@ annotation_update_data(Annotation *annotation)
   rectangle_union(&obj->bounding_box, &textrect);
 }
 
-static Object *
+static DiaObject *
 annotation_load(ObjectNode obj_node, int version, const char *filename)
 {
   return object_load_using_properties(&sadtannotation_type,

@@ -17,7 +17,7 @@ typedef struct _EMLProcessChange EMLProcessChange;
 
 struct _Disconnect {
   ConnectionPoint *cp;
-  Object *other_object;
+  DiaObject *other_object;
   Handle *other_handle;
 };
 
@@ -146,13 +146,13 @@ emlprocess_store_disconnects(EMLProcessDialog *prop_dialog,
 			   ConnectionPoint *cp)
 {
   Disconnect *dis;
-  Object *connected_obj;
+  DiaObject *connected_obj;
   GList *list;
   int i;
   
   list = cp->connected;
   while (list != NULL) {
-    connected_obj = (Object *)list->data;
+    connected_obj = (DiaObject *)list->data;
     
     for (i=0;i<connected_obj->num_handles;i++) {
       if (connected_obj->handles[i]->connected_to == cp) {
@@ -402,14 +402,14 @@ gpointer
 nlc_parameter_new(GNode *node_list)
 {
   EMLProcess *emlprocess;
-  Object *obj;
+  DiaObject *obj;
   EMLProcessDialog *dlg;
   EMLParameter *param;
   NNode *node;
 
   node = (NNode*) node_list->data;
   emlprocess = (EMLProcess*) node->user_data;
-  obj = (Object *) emlprocess;
+  obj = (DiaObject *) emlprocess;
 
   dlg  = emlprocess->properties_dialog;
   param = eml_parameter_new();
@@ -704,14 +704,14 @@ gpointer
 nlc_iffunction_new(GNode *node_list)
 {
   EMLProcess *emlprocess;
-  Object *obj;
+  DiaObject *obj;
   EMLProcessDialog *dlg;
   EMLFunction *fun;
   NNode *node;
 
   node = (NNode*) node_list->data;
   emlprocess = (EMLProcess*) node->user_data;
-  obj = (Object *) emlprocess;
+  obj = (DiaObject *) emlprocess;
 
   dlg  = emlprocess->properties_dialog;
   fun = eml_function_new();
@@ -1161,11 +1161,11 @@ static
 void
 emlprocess_update_connections(EMLProcess *emlprocess)
 {
-  Object *obj;
+  DiaObject *obj;
   GList *list;
   int i;
 
-  obj = (Object *) emlprocess;
+  obj = (DiaObject *) emlprocess;
   obj->num_connections = g_list_length(emlprocess->box_connections);
   obj->connections =
     g_realloc(obj->connections,
@@ -1500,7 +1500,7 @@ emlprocess_get_state(EMLProcess *emlprocess)
 }
 
 static void
-emlprocess_change_apply(EMLProcessChange *change, Object *obj)
+emlprocess_change_apply(EMLProcessChange *change, DiaObject *obj)
 {
   EMLProcessState *old_state;
   GList *list;
@@ -1523,7 +1523,7 @@ emlprocess_change_apply(EMLProcessChange *change, Object *obj)
 }
 
 static void
-emlprocess_change_revert(EMLProcessChange *change, Object *obj)
+emlprocess_change_revert(EMLProcessChange *change, DiaObject *obj)
 {
   EMLProcessState *old_state;
   GList *list;

@@ -29,8 +29,8 @@
 #include "chronogram.h"
 #include "plug-ins.h"
 
-extern ObjectType chronoref_type;
-extern ObjectType chronoline_type;
+extern DiaObjectType chronoref_type;
+extern DiaObjectType chronoline_type;
 
 DIA_PLUGIN_CHECK_INIT
 

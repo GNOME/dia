@@ -242,7 +242,7 @@ dia_arrow_chooser_dialog_new(GtkWidget *widget, gpointer userdata)
     gtk_box_pack_start(GTK_BOX(GTK_DIALOG(chooser->dialog)->vbox), wid,
 		       TRUE, TRUE, 0);
     gtk_widget_show(wid);
-    chooser->selector = DIAARROWSELECTOR(wid);
+    chooser->selector = DIA_ARROW_SELECTOR(wid);
     dia_arrow_selector_set_arrow(chooser->selector, chooser->arrow);
 
     wid = gtk_button_new_with_label(_("OK"));
@@ -365,25 +365,31 @@ dia_arrow_chooser_dialog_destroy (DiaArrowChooser *chooser)
 }
 
 static void
-dia_arrow_chooser_change_arrow_type(GtkMenuItem *mi, DiaArrowChooser *arrow)
+dia_arrow_chooser_change_arrow_type(GtkMenuItem *mi, DiaArrowChooser *chooser)
 {
   ArrowType atype = GPOINTER_TO_INT(gtk_object_get_data(GTK_OBJECT(mi),
 							menuitem_enum_key));
-  dia_arrow_chooser_set_arrow_type(arrow, atype);
+  Arrow arrow;
+  arrow.width = chooser->arrow.width;
+  arrow.length = chooser->arrow.length;
+  arrow.type = atype;
+  dia_arrow_chooser_set_arrow(chooser, &arrow);
 }
 
 /** Set the type of arrow shown by the arrow chooser.
  */
 void
-dia_arrow_chooser_set_arrow_type(DiaArrowChooser *arrow, ArrowType atype) {
-  if (arrow->arrow.type != atype) {
-    dia_arrow_preview_set(arrow->preview, atype, arrow->left);
-    arrow->arrow.type = atype;
-    if (arrow->dialog != NULL)
-      dia_arrow_selector_set_arrow(arrow->selector, arrow->arrow);
-    if (arrow->callback)
-      (* arrow->callback)(arrow->arrow, arrow->user_data);
+dia_arrow_chooser_set_arrow(DiaArrowChooser *chooser, Arrow *arrow) {
+  if (chooser->arrow.type != arrow->type) {
+    dia_arrow_preview_set(chooser->preview, arrow->type, chooser->left);
+    chooser->arrow.type = arrow->type;
+    if (chooser->dialog != NULL)
+      dia_arrow_selector_set_arrow(chooser->selector, chooser->arrow);
+    if (chooser->callback)
+      (* chooser->callback)(chooser->arrow, chooser->user_data);
   }
+  chooser->arrow.width = arrow->width;
+  chooser->arrow.length = arrow->length;
 }
 
 ArrowType dia_arrow_chooser_get_arrow_type(DiaArrowChooser *arrow) {

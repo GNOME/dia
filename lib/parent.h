@@ -21,12 +21,12 @@
 #include "geometry.h"
 
 GList *parent_list_affected(GList *obj_list);
-Rectangle *parent_handle_extents(Object *obj);
+Rectangle *parent_handle_extents(DiaObject *obj);
 Point parent_move_child_delta_out(Rectangle *p_ext, Rectangle *c_ext, const Point *delta);
 Point parent_move_child_delta(Rectangle *p_ext, Rectangle *c_text, Point *delta);
 Rectangle *parent_point_extents(Point *point);
 gboolean parent_list_expand(GList *obj_list);
 GList *parent_list_affected_hierarchy(GList *obj_list);
-gboolean parent_handle_move_out_check(Object *object, Point *to);
-gboolean parent_handle_move_in_check(Object *object, Point *to, Point *start_at);
+gboolean parent_handle_move_out_check(DiaObject *object, Point *to);
+gboolean parent_handle_move_in_check(DiaObject *object, Point *to, Point *start_at);
 

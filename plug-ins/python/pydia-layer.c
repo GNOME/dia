@@ -131,7 +131,7 @@ PyDiaLayer_FindObjectsInRectangle(PyDiaLayer *self, PyObject *args)
     list = layer_find_objects_in_rectangle(self->layer, &rect);
     ret = PyList_New(0);
     for (tmp = list; tmp; tmp = tmp->next)
-	PyList_Append(ret, PyDiaObject_New((Object *)tmp->data));
+	PyList_Append(ret, PyDiaObject_New((DiaObject *)tmp->data));
     g_list_free(list);
     return ret;
 }
@@ -141,7 +141,7 @@ PyDiaLayer_FindClosestObject(PyDiaLayer *self, PyObject *args)
 {
     Point pos;
     real maxdist;
-    Object *obj;
+    DiaObject *obj;
 
     if (!PyArg_ParseTuple(args, "ddd:DiaLayer.find_closest_object",
 			  &pos.x, &pos.y, &maxdist))
@@ -229,7 +229,7 @@ PyDiaLayer_GetAttr(PyDiaLayer *self, gchar *attr)
 
 	ret = PyTuple_New(g_list_length(self->layer->objects));
 	for (i = 0, tmp = self->layer->objects; tmp; i++, tmp = tmp->next)
-	    PyTuple_SetItem(ret, i, PyDiaObject_New((Object *)tmp->data));
+	    PyTuple_SetItem(ret, i, PyDiaObject_New((DiaObject *)tmp->data));
 	return ret;
     } else if (!strcmp(attr, "visible"))
 	return PyInt_FromLong(self->layer->visible);

@@ -114,16 +114,18 @@ void       dia_color_selector_set_color (DiaColorSelector *cs,
 
 
 /* DiaArrowSelector */
-#define DIAARROWSELECTOR(obj)          GTK_CHECK_CAST (obj, dia_arrow_selector_get_type (), DiaArrowSelector)
-#define DIAARROWSELECTOR_CLASS(klass)  GTK_CHECK_CLASS_CAST (klass, dia_arrow_selector_get_type (), DiaArrowSelectorClass)
-#define IS_DIAARROWSELECTOR(obj)       GTK_CHECK_TYPE (obj, dia_arrow_selector_get_type ())
+#define DIA_TYPE_ARROW_SELECTOR           (dia_arrow_selector_get_type())
+#define DIA_ARROW_SELECTOR(obj)           (G_TYPE_CHECK_INSTANCE_CAST (obj, dia_arrow_selector_get_type (), DiaArrowSelector))
+#define DIA_ARROW_SELECTOR_CLASS(klass)   (G_TYPE_CHECK_CLASS_CAST (klass, dia_arrow_selector_get_type (), DiaArrowSelectorClass))
+#define DIA_IS_ARROW_SELECTOR(obj)        (G_TYPE_CHECK_TYPE (obj, dia_arrow_selector_get_type ()))
+#define DIA_ARROW_SELECTOR_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS ((obj), DIA_TYPE_ARROW_SELECTOR, DiaArrowSelectorClass))
 
 #define DEFAULT_ARROW ARROW_NONE
 #define DEFAULT_ARROW_LENGTH DEFAULT_ARROW_SIZE
 #define DEFAULT_ARROW_WIDTH DEFAULT_ARROW_SIZE
 
 
-GtkType    dia_arrow_selector_get_type      (void);
+GType    dia_arrow_selector_get_type        (void);
 GtkWidget* dia_arrow_selector_new           (void);
 Arrow      dia_arrow_selector_get_arrow     (DiaArrowSelector *as);
 void       dia_arrow_selector_set_arrow     (DiaArrowSelector *as,
@@ -154,8 +156,16 @@ void       dia_size_selector_set_size        (DiaSizeSelector *ss, real width, r
 gboolean dia_size_selector_get_size        (DiaSizeSelector *ss, real *width, real *height);
 
 /* **** Util functions for Gtk stuff **** */
-/** Gets the image name 'filename' out of the shared data dir */
+/** Gets the image name 'filename' out of the shared data dir 
+ * To see how to get the image installed, check app/Makefile.am
+ */
 GtkWidget *dia_get_image_from_file(gchar *filename);
+
+/** Create a toggle button with two different images, one for when on and
+ * one for when off.  Images are taken from standard image directory.
+ */
+GtkWidget *dia_toggle_button_new_with_images(gchar *on_file, gchar *off_file);
+
 
 /* Other common defaults */
 

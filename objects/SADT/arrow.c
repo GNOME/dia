@@ -76,7 +76,7 @@ static ObjectChange* sadtarrow_move(Sadtarrow *sadtarrow, Point *to);
 static void sadtarrow_select(Sadtarrow *sadtarrow, Point *clicked_point,
 			      DiaRenderer *interactive_renderer);
 static void sadtarrow_draw(Sadtarrow *sadtarrow, DiaRenderer *renderer);
-static Object *sadtarrow_create(Point *startpoint,
+static DiaObject *sadtarrow_create(Point *startpoint,
 				 void *user_data,
 				 Handle **handle1,
 				 Handle **handle2);
@@ -86,7 +86,7 @@ static void sadtarrow_destroy(Sadtarrow *sadtarrow);
 static DiaMenu *sadtarrow_get_object_menu(Sadtarrow *sadtarrow,
 					   Point *clickedpoint);
 
-static Object *sadtarrow_load(ObjectNode obj_node, int version,
+static DiaObject *sadtarrow_load(ObjectNode obj_node, int version,
 			       const char *filename);
 static PropDescription *sadtarrow_describe_props(Sadtarrow *sadtarrow);
 static void sadtarrow_get_props(Sadtarrow *sadtarrow, 
@@ -104,7 +104,7 @@ static ObjectTypeOps sadtarrow_type_ops =
   (ApplyDefaultsFunc) NULL
 };
 
-ObjectType sadtarrow_type =
+DiaObjectType sadtarrow_type =
 {
   "SADT - arrow",   /* name */
   0,                         /* version */
@@ -470,7 +470,7 @@ static void draw_tunnel(DiaRenderer *renderer,
 
 
 
-static Object *
+static DiaObject *
 sadtarrow_create(Point *startpoint,
 		  void *user_data,
 		  Handle **handle1,
@@ -478,7 +478,7 @@ sadtarrow_create(Point *startpoint,
 {
   Sadtarrow *sadtarrow;
   NewOrthConn *orth;
-  Object *obj;
+  DiaObject *obj;
 
   sadtarrow = g_malloc0(sizeof(Sadtarrow));
   orth = &sadtarrow->orth;
@@ -545,7 +545,7 @@ sadtarrow_update_data(Sadtarrow *sadtarrow)
 }
 
 static ObjectChange *
-sadtarrow_add_segment_callback(Object *obj, Point *clicked, gpointer data)
+sadtarrow_add_segment_callback(DiaObject *obj, Point *clicked, gpointer data)
 {
   ObjectChange *change;
   change = neworthconn_add_segment((NewOrthConn *)obj, clicked);
@@ -554,7 +554,7 @@ sadtarrow_add_segment_callback(Object *obj, Point *clicked, gpointer data)
 }
 
 static ObjectChange *
-sadtarrow_delete_segment_callback(Object *obj, Point *clicked, gpointer data)
+sadtarrow_delete_segment_callback(DiaObject *obj, Point *clicked, gpointer data)
 {
   ObjectChange *change;
   change = neworthconn_delete_segment((NewOrthConn *)obj, clicked);
@@ -588,7 +588,7 @@ sadtarrow_get_object_menu(Sadtarrow *sadtarrow, Point *clickedpoint)
   return &object_menu;
 }
 
-static Object *
+static DiaObject *
 sadtarrow_load(ObjectNode obj_node, int version, const char *filename)
 {
   return object_load_using_properties(&sadtarrow_type,

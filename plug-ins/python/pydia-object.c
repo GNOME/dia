@@ -28,7 +28,7 @@
 #include "pydia-properties.h"
 
 PyObject *
-PyDiaObject_New(Object *object)
+PyDiaObject_New(DiaObject *object)
 {
     PyDiaObject *self;
 
@@ -112,7 +112,7 @@ PyDiaObject_DistanceFrom(PyDiaObject *self, PyObject *args)
 static PyObject *
 PyDiaObject_Copy(PyDiaObject *self, PyObject *args)
 {
-    Object *cp;
+    DiaObject *cp;
 
     if (!PyArg_ParseTuple(args, ":DiaObject.copy"))
 	return NULL;
@@ -235,7 +235,7 @@ PyTypeObject PyDiaObject_Type = {
 };
 
 PyObject *
-PyDiaObjectType_New(ObjectType *otype)
+PyDiaObjectType_New(DiaObjectType *otype)
 {
     PyDiaObjectType *self;
 
@@ -289,7 +289,7 @@ PyDiaObjectType_Create(PyDiaObjectType *self, PyObject *args)
     Point p;
     gint data = 0;
     gpointer user_data;
-    Object *ret;
+    DiaObject *ret;
     Handle *h1 = NULL, *h2 = NULL;
     PyObject *pyret;
 

@@ -27,7 +27,7 @@
 #define DIAMENU_TOGGLE_ON (1<<2)
 
 /* Note: The returned change is already applied. */
-typedef ObjectChange *(*DiaMenuCallback)(Object *obj, Point *pos, gpointer data);
+typedef ObjectChange *(*DiaMenuCallback)(DiaObject *obj, Point *pos, gpointer data);
 
 struct _DiaMenuItem {
   char *text;

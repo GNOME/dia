@@ -20,8 +20,8 @@
 
 #include "diatypes.h"
 
-typedef void (*ObjectChangeApplyFunc)(ObjectChange *change, Object *obj);
-typedef void (*ObjectChangeRevertFunc)(ObjectChange *change, Object *obj);
+typedef void (*ObjectChangeApplyFunc)(ObjectChange *change, DiaObject *obj);
+typedef void (*ObjectChangeRevertFunc)(ObjectChange *change, DiaObject *obj);
 typedef void (*ObjectChangeFreeFunc)(ObjectChange *change);
 
 struct _ObjectChange {
@@ -49,7 +49,7 @@ struct _ObjectState {
   
   The calling function owns the returned reference.
 */
-typedef ObjectState * (*GetStateFunc) (Object* obj);
+typedef ObjectState * (*GetStateFunc) (DiaObject* obj);
 
 /*
   Sets the internal state from the object.
@@ -59,10 +59,10 @@ typedef ObjectState * (*GetStateFunc) (Object* obj);
   The called function owns the reference and is
   responsible for freeing it.
 */
-typedef void (*SetStateFunc) (Object* obj, ObjectState *state);
+typedef void (*SetStateFunc) (DiaObject* obj, ObjectState *state);
 
 
-ObjectChange *new_object_state_change(Object *obj,
+ObjectChange *new_object_state_change(DiaObject *obj,
 				      ObjectState *old_state,
 				      GetStateFunc get_state,
 				      SetStateFunc set_state );

@@ -530,10 +530,12 @@ app_init (int argc, char **argv)
     exit(1);
   }
 
-  prefs_load();
+  persistence_load();
+
+  /** Must load prefs after persistence */
+  prefs_init();
 
   if (dia_is_interactive) {
-    persistence_load();
 
     /* further initialization *before* reading files */  
     active_tool = create_modify_tool();
@@ -542,6 +544,7 @@ app_init (int argc, char **argv)
 
     persistence_register_window_create("layer_window",
 				       (NullaryFunc*)&create_layer_dialog);
+
 
     /*fill recent file menu */
     recent_file_history_init();
@@ -554,11 +557,25 @@ app_init (int argc, char **argv)
     persistence_register_window_create("sheets_main_dialog",
 				       (NullaryFunc*)&sheets_dialog_create);
 
+
     /* In current setup, we can't find the autosaved files. */
     /*autosave_restore_documents();*/
+
   }
+
   made_conversions = handle_all_diagrams(files, export_file_name,
 					 export_file_format, size);
+  if (dia_is_interactive && files == NULL) {
+    Diagram *diagram = new_diagram (_("Diagram1.dia"));
+	      
+    if (diagram != NULL) {
+      diagram_update_extents(diagram);
+      if (app_is_interactive()) {
+	layer_dialog_set_diagram(diagram);
+	new_display(diagram);
+      }
+    }
+  }
   g_slist_free(files);
   if (made_conversions) exit(0);
 
@@ -622,7 +639,6 @@ app_exit(void)
     }
     gtk_widget_destroy(dialog);
   }
-
   prefs_save();
 
   persistence_save();
@@ -653,9 +669,6 @@ app_exit(void)
   /* save pluginrc */
   dia_pluginrc_write();
 
-  /* save recent file history */
-  recent_file_history_write();
-  
   gtk_main_quit();
   /* This printf seems to prevent a race condition with unrefs. */
   /* Yuck.  -Lars */
@@ -765,8 +778,8 @@ process_opts(int argc, char **argv,
 #ifdef HAVE_POPT
       while (poptPeekArg(poptCtx)) {
           char *in_file_name = (char *)poptGetArg(poptCtx);
-
-	  *files = g_slist_append(*files, in_file_name);
+	  if (*in_file_name != '\0')
+	    *files = g_slist_append(*files, in_file_name);
       }
       poptFreeContext(poptCtx);
 #else

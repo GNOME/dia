@@ -29,8 +29,13 @@
 #include "select.h"
 #include "preferences.h"
 #include "cursor.h"
+#include "highlight.h"
 
-static Object *click_select_object(DDisplay *ddisp, Point *clickedpoint,
+#include "diacanvas.h"
+#include "prop_text.h"
+#include "gtk/gtk.h"
+
+static DiaObject *click_select_object(DDisplay *ddisp, Point *clickedpoint,
 				   GdkEventButton *event);
 static int do_if_clicked_handle(DDisplay *ddisp, ModifyTool *tool,
 				Point *clickedpoint,
@@ -43,6 +48,9 @@ static void modify_motion(ModifyTool *tool, GdkEventMotion *event,
 			  DDisplay *ddisp);
 static void modify_double_click(ModifyTool *tool, GdkEventButton *event,
 				DDisplay *ddisp);
+void modify_make_text_edit(DDisplay *ddisp, DiaObject *obj, 
+			   Point *clickedpoint);
+
 
 Tool *
 create_modify_tool(void)
@@ -65,7 +73,6 @@ create_modify_tool(void)
   return (Tool *)tool;
 }
 
-
 void
 free_modify_tool(Tool *tool)
 {
@@ -78,16 +85,16 @@ free_modify_tool(Tool *tool)
 /*
   This function is buggy. Fix it later!
 static void
-transitive_select(DDisplay *ddisp, Point *clickedpoint, Object *obj)
+transitive_select(DDisplay *ddisp, Point *clickedpoint, DiaObject *obj)
 {
   guint i;
   GList *j;
-  Object *obj1;
+  DiaObject *obj1;
 
   for(i = 0; i < obj->num_connections; i++) {
     printf("%d\n", i);
     j = obj->connections[i]->connected;
-    while(j != NULL && (obj1 = (Object *)j->data) != NULL) {
+    while(j != NULL && (obj1 = (DiaObject *)j->data) != NULL) {
       diagram_select(ddisp->diagram, obj1);
       obj1->ops->select(obj1, clickedpoint,
 			(Renderer *)ddisp->renderer);
@@ -98,13 +105,13 @@ transitive_select(DDisplay *ddisp, Point *clickedpoint, Object *obj)
 }
 */
 
-static Object *
+static DiaObject *
 click_select_object(DDisplay *ddisp, Point *clickedpoint,
 		    GdkEventButton *event)
 {
   Diagram *diagram;
   real click_distance;
-  Object *obj;
+  DiaObject *obj;
   
   diagram = ddisp->diagram;
   
@@ -155,9 +162,11 @@ click_select_object(DDisplay *ddisp, Point *clickedpoint,
       if (event->state & GDK_SHIFT_MASK) { /* Multi-select */
 	/* Remove the selected selected */
 	ddisplay_do_update_menu_sensitivity(ddisp);
-	diagram_unselect_object(ddisp->diagram, (Object *)already->data);
+	diagram_unselect_object(ddisp->diagram, (DiaObject *)already->data);
 	diagram_flush(ddisp->diagram);
       } else {
+	/* Maybe start editing text */
+	modify_make_text_edit(ddisp, obj, clickedpoint);
 	return obj;
       }
     }
@@ -178,7 +187,7 @@ time_micro()
 static int do_if_clicked_handle(DDisplay *ddisp, ModifyTool *tool,
 				Point *clickedpoint, GdkEventButton *event)
 {
-  Object *obj;
+  DiaObject *obj;
   Handle *handle;
   real dist;
   
@@ -207,7 +216,7 @@ modify_button_press(ModifyTool *tool, GdkEventButton *event,
 		     DDisplay *ddisp)
 {
   Point clickedpoint;
-  Object *clicked_obj;
+  DiaObject *clicked_obj;
   
   ddisplay_untransform_coords(ddisp,
 			      (int)event->x, (int)event->y,
@@ -264,7 +273,7 @@ modify_double_click(ModifyTool *tool, GdkEventButton *event,
 		    DDisplay *ddisp)
 {
   Point clickedpoint;
-  Object *clicked_obj;
+  DiaObject *clicked_obj;
   
   ddisplay_untransform_coords(ddisp,
 			      (int)event->x, (int)event->y,
@@ -363,14 +372,14 @@ modify_motion(ModifyTool *tool, GdkEventMotion *event,
     if (tool->orig_pos == NULL) {
       GList *list;
       int i;
-      Object *obj;
+      DiaObject *obj;
 
       /* consider non-selected children affected */
       list = parent_list_affected(ddisp->diagram->data->selected);
       tool->orig_pos = g_new(Point, g_list_length(list));
       i=0;
       while (list != NULL) {
-	obj = (Object *)  list->data;
+	obj = (DiaObject *)  list->data;
 	tool->orig_pos[i] = obj->position;
 	list = g_list_next(list); i++;
       }
@@ -435,10 +444,12 @@ modify_motion(ModifyTool *tool, GdkEventMotion *event,
     if ( (tool->handle->connect_type != HANDLE_NONCONNECTABLE) &&
 	 (connectionpoint != NULL) ) {
       to = connectionpoint->pos;
+      highlight_object(connectionpoint->object, NULL, ddisp->diagram);
       ddisplay_set_all_cursor(get_cursor(CURSOR_CONNECT));
     } else {
       /* No connectionopoint near, then snap to grid (if enabled) */
       snap_to_grid(ddisp, &to.x, &to.y);
+      highlight_reset_all(ddisp->diagram);
       ddisplay_set_all_cursor(get_cursor(CURSOR_SCROLL));
     }
 
@@ -521,7 +532,7 @@ modify_button_release(ModifyTool *tool, GdkEventButton *event,
   Point *dest_pos, to;
   GList *list;
   int i;
-  Object *obj;
+  DiaObject *obj;
   ObjectChange *objchange;
   
   tool->break_connections = FALSE;
@@ -547,7 +558,7 @@ modify_button_release(ModifyTool *tool, GdkEventButton *event,
       dest_pos = g_new(Point, g_list_length(list));
       i=0;
       while (list != NULL) {
-	obj = (Object *)  list->data;
+	obj = (DiaObject *)  list->data;
 	dest_pos[i] = obj->position;
 	list = g_list_next(list); i++;
       }
@@ -592,6 +603,7 @@ modify_button_release(ModifyTool *tool, GdkEventButton *event,
       diagram_update_connections_selection(ddisp->diagram);
     }
     
+    highlight_reset_all(ddisp->diagram);
     diagram_flush(ddisp->diagram);
     
     diagram_modified(ddisp->diagram);
@@ -617,7 +629,7 @@ modify_button_release(ModifyTool *tool, GdkEventButton *event,
     {
       Rectangle r;
       GList *list, *list_to_free;
-      Object *obj;
+      DiaObject *obj;
 
       r.left = MIN(tool->start_box.x, tool->end_box.x);
       r.right = MAX(tool->start_box.x, tool->end_box.x);
@@ -647,7 +659,7 @@ modify_button_release(ModifyTool *tool, GdkEventButton *event,
         GList *intersection = NULL;
 
         while (list != NULL) {
-          obj = (Object *)list->data;
+          obj = (DiaObject *)list->data;
           
           if (diagram_is_selected(ddisp->diagram, obj)) {
             intersection = g_list_append(intersection, obj);
@@ -658,7 +670,7 @@ modify_button_release(ModifyTool *tool, GdkEventButton *event,
         list = intersection;
         diagram_remove_all_selected(ddisp->diagram, TRUE);
         while (list != NULL) {
-          obj = (Object *)list->data;
+          obj = (DiaObject *)list->data;
 
           diagram_select(ddisp->diagram, obj);
 
@@ -667,7 +679,7 @@ modify_button_release(ModifyTool *tool, GdkEventButton *event,
         g_list_free(intersection);
       } else {
         while (list != NULL) {
-          obj = (Object *)list->data;
+          obj = (DiaObject *)list->data;
           
           if (selection_style == SELECT_REMOVE) {
             if (diagram_is_selected(ddisp->diagram, obj))
@@ -703,8 +715,195 @@ modify_button_release(ModifyTool *tool, GdkEventButton *event,
   }
 }
 
+#define EDIT_BORDER_WIDTH 5
 
+gboolean
+modify_edit_end(GtkWidget *widget, GdkEventFocus *event, gpointer data)
+{
+  int foo = printf("Ending focus\n");
+  GtkTextView *view = GTK_TEXT_VIEW(widget);
+  DiaObject *obj = (DiaObject*)data;
+  GQuark quark = g_quark_from_string(PROP_TYPE_TEXT);
+  PropDescription *props = obj->ops->describe_props(obj);
+  int i;
 
+  for (i = 0; props[i].name != NULL; i++) {
+    printf("Testing to remove: %s\n", props[i].name);
+    if (props[i].type_quark == quark) {
+      GPtrArray *textprops = g_ptr_array_sized_new(1);
+      TextProperty *textprop;
+      Property *prop = props[i].ops->new_prop(&props[i], pdtpp_true);
+      GtkTextBuffer *buf;
+      GtkTextIter start, end;
+      ObjectChange *change;
 
+      printf("Going to stop %d\n", i);
+      buf = gtk_text_view_get_buffer(view);
+      g_ptr_array_add(textprops, prop);
+      obj->ops->get_props(obj, textprops);
+      textprop = (TextProperty*)prop;
+      if (textprop->text_data != NULL) g_free(textprop->text_data);
+      gtk_text_buffer_get_bounds(buf, &start, &end);
+      textprop->text_data = gtk_text_buffer_get_text(buf, &start, &end, TRUE);
+      printf("Setting text %s\n", textprop->text_data);
+      obj->ops->set_props(obj, textprops);
+      gtk_widget_destroy(widget);
+    }
+  }
+  return FALSE;
+}
 
+/** Start editing the first text among selected objects, if any */
+void
+modify_edit_first_text(DDisplay *ddisp)
+{
+  GList *edits = ddisp->diagram->data->text_edits;
 
+  if (edits != NULL) {
+    Text *text = (Text*)edits->data;
+    modify_start_text_edit(ddisp, text, text->parent_object, NULL);
+  }
+}
+
+void
+modify_start_text_edit(DDisplay *ddisp, Text *text, DiaObject *obj, Point *clickedpoint)
+{
+  GtkWidget *view = gtk_text_view_new();
+  int x, y, i;
+  GtkTextBuffer *buf;
+  GtkTextTag *fonttag;
+  GtkTextIter start, end;
+  real ascent;
+  int ascent_pixels;
+
+  printf("modify_start_text_edit\n");
+  ddisplay_transform_coords(ddisp,
+			    text->position.x,
+			    text->position.y,
+			    &x, &y);
+  ascent = dia_font_scaled_ascent(text->line[0], 
+				  text->font,
+				  text->height,
+				  ddisp->zoom_factor);
+  printf("Text prop string %s pos %d, %d ascent %f\n",
+	 text->line[0], x, y, ascent);
+  ascent_pixels = ddisplay_transform_length(ddisp, ascent);
+  y -= ascent_pixels;
+  dia_canvas_put(DIA_CANVAS(ddisp->canvas), view, 
+		 x-EDIT_BORDER_WIDTH, y-EDIT_BORDER_WIDTH);
+  buf = gtk_text_view_get_buffer(GTK_TEXT_VIEW(view));
+  for (i = 0; i < text->numlines; i++) {
+    gtk_text_buffer_insert_at_cursor(buf, text->line[i], -1);
+  }
+  fonttag = 
+    gtk_text_buffer_create_tag(buf,
+			       NULL,
+			       "font-desc",
+			       text->font->pfd,
+			       NULL);
+  gtk_text_buffer_get_bounds(buf, &start, &end);
+  gtk_text_buffer_apply_tag(buf, fonttag, &start, &end);
+
+  printf("Above lines %d below %d\n",
+	 gtk_text_view_get_pixels_above_lines(GTK_TEXT_VIEW(view)),
+	 gtk_text_view_get_pixels_below_lines(GTK_TEXT_VIEW(view)));
+
+  gtk_text_view_set_border_window_size(GTK_TEXT_VIEW(view), 
+				       GTK_TEXT_WINDOW_LEFT, 
+				       EDIT_BORDER_WIDTH);
+  gtk_text_view_set_border_window_size(GTK_TEXT_VIEW(view), 
+				       GTK_TEXT_WINDOW_RIGHT, 
+				       EDIT_BORDER_WIDTH);
+  gtk_text_view_set_border_window_size(GTK_TEXT_VIEW(view), 
+				       GTK_TEXT_WINDOW_TOP,
+				       EDIT_BORDER_WIDTH);
+  gtk_text_view_set_border_window_size(GTK_TEXT_VIEW(view), 
+				       GTK_TEXT_WINDOW_BOTTOM,
+				       EDIT_BORDER_WIDTH);
+  /* Using deprecated function because the fucking gobject documentation
+   * fucking sucks. */
+#ifdef NEW_TEXT_EDIT
+  gtk_signal_connect(GTK_OBJECT(view), "focus-out-event",
+		     modify_edit_end, obj);
+#endif
+  gtk_widget_grab_focus(view);
+  gtk_widget_show(view);
+}
+
+void
+modify_make_text_edit(DDisplay *ddisp, DiaObject *obj, Point *clickedpoint)
+{
+  PropDescription *props = obj->ops->describe_props(obj);
+  int i;
+  for (i = 0; props[i].name != NULL; i++) {
+    GQuark type = g_quark_from_string(PROP_TYPE_TEXT);
+    printf("Testing %s\n", props[i].type);
+    if (props[i].type_quark == type) {
+      GtkWidget *view = gtk_text_view_new();
+      GPtrArray *textprops = g_ptr_array_sized_new(1);
+      TextProperty *textprop;
+      Property *prop = props[i].ops->new_prop(&props[i], pdtpp_true);
+      int x, y;
+      GtkTextBuffer *buf;
+      GtkTextTag *fonttag;
+      GtkTextIter start, end;
+      real ascent;
+      int ascent_pixels;
+
+      g_ptr_array_add(textprops, prop);
+
+      printf("Found text prop %d\n", i);
+      obj->ops->get_props(obj, textprops);
+      textprop = (TextProperty*)prop;
+      ddisplay_transform_coords(ddisp,
+				textprop->attr.position.x,
+				textprop->attr.position.y,
+				&x, &y);
+      ascent = dia_font_scaled_ascent(textprop->text_data, 
+				      textprop->attr.font,
+				      textprop->attr.height,
+				      ddisp->zoom_factor);
+      printf("Text prop string %s pos %d, %d ascent %f\n",
+	     textprop->text_data, x, y, ascent);
+      ascent_pixels = ddisplay_transform_length(ddisp, ascent);
+      y -= ascent_pixels;
+      dia_canvas_put(DIA_CANVAS(ddisp->canvas), view, 
+		     x-EDIT_BORDER_WIDTH, y-EDIT_BORDER_WIDTH);
+      buf = gtk_text_view_get_buffer(GTK_TEXT_VIEW(view));
+      gtk_text_buffer_insert_at_cursor(buf, textprop->text_data, -1);
+      fonttag = 
+	gtk_text_buffer_create_tag(buf,
+				   NULL,
+				   "font-desc",
+				   textprop->attr.font->pfd,
+				   NULL);
+      gtk_text_buffer_get_bounds(buf, &start, &end);
+      gtk_text_buffer_apply_tag(buf, fonttag, &start, &end);
+
+      printf("Above lines %d below %d\n",
+	     gtk_text_view_get_pixels_above_lines(GTK_TEXT_VIEW(view)),
+	     gtk_text_view_get_pixels_below_lines(GTK_TEXT_VIEW(view)));
+
+      gtk_text_view_set_border_window_size(GTK_TEXT_VIEW(view), 
+					   GTK_TEXT_WINDOW_LEFT, 
+					   EDIT_BORDER_WIDTH);
+      gtk_text_view_set_border_window_size(GTK_TEXT_VIEW(view), 
+					   GTK_TEXT_WINDOW_RIGHT, 
+					   EDIT_BORDER_WIDTH);
+      gtk_text_view_set_border_window_size(GTK_TEXT_VIEW(view), 
+					   GTK_TEXT_WINDOW_TOP,
+					   EDIT_BORDER_WIDTH);
+      gtk_text_view_set_border_window_size(GTK_TEXT_VIEW(view), 
+					   GTK_TEXT_WINDOW_BOTTOM,
+					   EDIT_BORDER_WIDTH);
+      /* Using deprecated function because the fucking gobject documentation
+       * fucking sucks. */
+#ifdef NEW_TEXT_EDIT
+      gtk_signal_connect(GTK_OBJECT(view), "focus-out-event",
+			 modify_edit_end, obj);
+#endif
+      gtk_widget_grab_focus(view);
+      gtk_widget_show(view);
+    }
+  }  
+}

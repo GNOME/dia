@@ -26,19 +26,19 @@
 
 typedef struct {
     PyObject_HEAD
-    Object *object;
+    DiaObject *object;
 } PyDiaObject;
 
 typedef struct {
     PyObject_HEAD
-    ObjectType *otype;
+    DiaObjectType *otype;
 } PyDiaObjectType;
 
 extern PyTypeObject PyDiaObject_Type;
 extern PyTypeObject PyDiaObjectType_Type;
 
-PyObject *PyDiaObject_New(Object *object);
-PyObject *PyDiaObjectType_New(ObjectType *otype);
+PyObject *PyDiaObject_New(DiaObject *object);
+PyObject *PyDiaObjectType_New(DiaObjectType *otype);
 
 #define PyDiaObject_Check(o) ((o)->ob_type == &PyDiaObject_Type)
 #define PyDiaObjectType_Check(o) ((o)->ob_type == &PyDiaObjectType_Type)

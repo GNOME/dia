@@ -88,7 +88,7 @@ static ObjectChange* diamond_move_handle(Diamond *diamond, Handle *handle,
 static ObjectChange* diamond_move(Diamond *diamond, Point *to);
 static void diamond_draw(Diamond *diamond, DiaRenderer *renderer);
 static void diamond_update_data(Diamond *diamond, AnchorShape h,AnchorShape v);
-static Object *diamond_create(Point *startpoint,
+static DiaObject *diamond_create(Point *startpoint,
 			  void *user_data,
 			  Handle **handle1,
 			  Handle **handle2);
@@ -99,7 +99,7 @@ static void diamond_get_props(Diamond *diamond, GPtrArray *props);
 static void diamond_set_props(Diamond *diamond, GPtrArray *props);
 
 static void diamond_save(Diamond *diamond, ObjectNode obj_node, const char *filename);
-static Object *diamond_load(ObjectNode obj_node, int version, const char *filename);
+static DiaObject *diamond_load(ObjectNode obj_node, int version, const char *filename);
 
 static ObjectTypeOps diamond_type_ops =
 {
@@ -110,7 +110,7 @@ static ObjectTypeOps diamond_type_ops =
   (ApplyDefaultsFunc) NULL
 };
 
-ObjectType diamond_type =
+DiaObjectType diamond_type =
 {
   "Flowchart - Diamond",  /* name */
   0,                 /* version */
@@ -356,7 +356,7 @@ static void
 diamond_update_data(Diamond *diamond, AnchorShape horiz, AnchorShape vert)
 {
   Element *elem = &diamond->element;
-  Object *obj = &elem->object;
+  DiaObject *obj = &elem->object;
   ElementBBExtras *extra = &elem->extra_spacing;
   Point center, bottom_right;
   Point p;
@@ -468,7 +468,7 @@ diamond_update_data(Diamond *diamond, AnchorShape horiz, AnchorShape vert)
   element_update_handles(elem);
 }
 
-static Object *
+static DiaObject *
 diamond_create(Point *startpoint,
 	   void *user_data,
 	   Handle **handle1,
@@ -476,7 +476,7 @@ diamond_create(Point *startpoint,
 {
   Diamond *diamond;
   Element *elem;
-  Object *obj;
+  DiaObject *obj;
   Point p;
   int i;
   DiaFont *font = NULL;
@@ -570,12 +570,12 @@ diamond_save(Diamond *diamond, ObjectNode obj_node, const char *filename)
   data_add_text(new_attribute(obj_node, "text"), diamond->text);
 }
 
-static Object *
+static DiaObject *
 diamond_load(ObjectNode obj_node, int version, const char *filename)
 {
   Diamond *diamond;
   Element *elem;
-  Object *obj;
+  DiaObject *obj;
   int i;
   AttributeNode attr;
 

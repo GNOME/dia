@@ -76,19 +76,19 @@ static ObjectChange* ellipse_move_handle(Ellipse *ellipse, Handle *handle,
 static ObjectChange* ellipse_move(Ellipse *ellipse, Point *to);
 static void ellipse_draw(Ellipse *ellipse, DiaRenderer *renderer);
 static void ellipse_update_data(Ellipse *ellipse);
-static Object *ellipse_create(Point *startpoint,
+static DiaObject *ellipse_create(Point *startpoint,
 			      void *user_data,
 			      Handle **handle1,
 			      Handle **handle2);
 static void ellipse_destroy(Ellipse *ellipse);
-static Object *ellipse_copy(Ellipse *ellipse);
+static DiaObject *ellipse_copy(Ellipse *ellipse);
 
 static PropDescription *ellipse_describe_props(Ellipse *ellipse);
 static void ellipse_get_props(Ellipse *ellipse, GPtrArray *props);
 static void ellipse_set_props(Ellipse *ellipse, GPtrArray *props);
 
 static void ellipse_save(Ellipse *ellipse, ObjectNode obj_node, const char *filename);
-static Object *ellipse_load(ObjectNode obj_node, int version, const char *filename);
+static DiaObject *ellipse_load(ObjectNode obj_node, int version, const char *filename);
 static DiaMenu *ellipse_get_object_menu(Ellipse *ellipse, Point *clickedpoint);
 
 static ObjectTypeOps ellipse_type_ops =
@@ -100,7 +100,7 @@ static ObjectTypeOps ellipse_type_ops =
   (ApplyDefaultsFunc) NULL
 };
 
-ObjectType ellipse_type =
+DiaObjectType ellipse_type =
 {
   "Standard - Ellipse",   /* name */
   0,                      /* version */
@@ -109,7 +109,7 @@ ObjectType ellipse_type =
   &ellipse_type_ops       /* ops */
 };
 
-ObjectType *_ellipse_type = (ObjectType *) &ellipse_type;
+DiaObjectType *_ellipse_type = (DiaObjectType *) &ellipse_type;
 
 static ObjectOps ellipse_ops = {
   (DestroyFunc)         ellipse_destroy,
@@ -224,11 +224,10 @@ ellipse_move_handle(Ellipse *ellipse, Handle *handle,
     return ellipse_move(ellipse, &corner_to);
   } else {
     if (ellipse->aspect != FREE_ASPECT){
-        double width, height;
-        double new_width, new_height;
-        double to_width, aspect_width;
+        float width, height;
+        float new_width, new_height;
+        float to_width, aspect_width;
         Point center;
-        Point nw_to, se_to;
 
         width = ellipse->element.width;
         height = ellipse->element.height;
@@ -270,7 +269,6 @@ ellipse_move_handle(Ellipse *ellipse, Handle *handle,
     } else {
         Point center;
         Point opposite_to;
-
         center.x = elem->corner.x + elem->width/2;
         center.y = elem->corner.y + elem->height/2;
         opposite_to.x = center.x - (to->x-center.x);
@@ -334,7 +332,7 @@ ellipse_update_data(Ellipse *ellipse)
 {
   Element *elem = &ellipse->element;
   ElementBBExtras *extra = &elem->extra_spacing;
-  Object *obj = &elem->object;
+  DiaObject *obj = &elem->object;
   Point center;
   real half_x, half_y;
   
@@ -392,7 +390,7 @@ ellipse_update_data(Ellipse *ellipse)
   obj->handles[8]->pos.y = center.y;
 }
 
-static Object *
+static DiaObject *
 ellipse_create(Point *startpoint,
 	       void *user_data,
   	       Handle **handle1,
@@ -400,7 +398,7 @@ ellipse_create(Point *startpoint,
 {
   Ellipse *ellipse;
   Element *elem;
-  Object *obj;
+  DiaObject *obj;
   int i;
 
   ellipse = g_malloc0(sizeof(Ellipse));
@@ -449,13 +447,13 @@ ellipse_destroy(Ellipse *ellipse)
   element_destroy(&ellipse->element);
 }
 
-static Object *
+static DiaObject *
 ellipse_copy(Ellipse *ellipse)
 {
   int i;
   Ellipse *newellipse;
   Element *elem, *newelem;
-  Object *newobj;
+  DiaObject *newobj;
   
   elem = &ellipse->element;
   
@@ -524,11 +522,11 @@ ellipse_save(Ellipse *ellipse, ObjectNode obj_node, const char *filename)
   }
 }
 
-static Object *ellipse_load(ObjectNode obj_node, int version, const char *filename)
+static DiaObject *ellipse_load(ObjectNode obj_node, int version, const char *filename)
 {
   Ellipse *ellipse;
   Element *elem;
-  Object *obj;
+  DiaObject *obj;
   int i;
   AttributeNode attr;
 
@@ -610,7 +608,7 @@ aspect_change_free(struct AspectChange *change)
 }
 
 static void
-aspect_change_apply(struct AspectChange *change, Object *obj)
+aspect_change_apply(struct AspectChange *change, DiaObject *obj)
 {
   Ellipse *ellipse = (Ellipse*)obj;
 
@@ -619,7 +617,7 @@ aspect_change_apply(struct AspectChange *change, Object *obj)
 }
 
 static void
-aspect_change_revert(struct AspectChange *change, Object *obj)
+aspect_change_revert(struct AspectChange *change, DiaObject *obj)
 {
   Ellipse *ellipse = (Ellipse*)obj;
 
@@ -635,7 +633,7 @@ aspect_create_change(Ellipse *ellipse, AspectType aspect)
 {
   struct AspectChange *change;
 
-  change = g_new(struct AspectChange, 1);
+  change = g_new0(struct AspectChange, 1);
 
   change->obj_change.apply = (ObjectChangeApplyFunc) aspect_change_apply;
   change->obj_change.revert = (ObjectChangeRevertFunc) aspect_change_revert;
@@ -652,7 +650,7 @@ aspect_create_change(Ellipse *ellipse, AspectType aspect)
 
 
 static ObjectChange *
-ellipse_set_aspect_callback (Object* obj, Point* clicked, gpointer data)
+ellipse_set_aspect_callback (DiaObject* obj, Point* clicked, gpointer data)
 {
   ObjectChange *change;
 

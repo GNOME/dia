@@ -101,14 +101,14 @@ static ObjectChange* orthflow_move(Orthflow *orthflow, Point *to);
 static void orthflow_select(Orthflow *orthflow, Point *clicked_point,
 			    DiaRenderer *interactive_renderer);
 static void orthflow_draw(Orthflow *orthflow, DiaRenderer *renderer);
-static Object *orthflow_create(Point *startpoint,
+static DiaObject *orthflow_create(Point *startpoint,
 			       void *user_data,
 			       Handle **handle1,
 			       Handle **handle2);
 static real orthflow_distance_from(Orthflow *orthflow, Point *point);
 static void orthflow_update_data(Orthflow *orthflow);
 static void orthflow_destroy(Orthflow *orthflow);
-static Object *orthflow_copy(Orthflow *orthflow);
+static DiaObject *orthflow_copy(Orthflow *orthflow);
 static PropDescription *orthflow_describe_props(Orthflow *mes);
 static void
 orthflow_get_props(Orthflow * orthflow, GPtrArray *props);
@@ -116,7 +116,7 @@ static void
 orthflow_set_props(Orthflow * orthflow, GPtrArray *props);
 static void orthflow_save(Orthflow *orthflow, ObjectNode obj_node,
 			  const char *filename);
-static Object *orthflow_load(ObjectNode obj_node, int version,
+static DiaObject *orthflow_load(ObjectNode obj_node, int version,
 			     const char *filename);
 static DiaMenu *orthflow_get_object_menu(Orthflow *orthflow, Point *clickedpoint) ;
 
@@ -131,7 +131,7 @@ static ObjectTypeOps orthflow_type_ops =
   
 } ;
 
-ObjectType orthflow_type =
+DiaObjectType orthflow_type =
 {
   "FS - Orthflow",		/* name */
   0,				/* version */
@@ -215,7 +215,7 @@ orthflow_set_props(Orthflow *orthflow, GPtrArray *props)
 
 
 static void
-orthflow_change_apply_revert(ObjectChange* objchg, Object* obj)
+orthflow_change_apply_revert(ObjectChange* objchg, DiaObject* obj)
 {
   struct _OrthflowChange* change = (struct _OrthflowChange*) objchg ;
   Orthflow* oflow = (Orthflow*) obj ;
@@ -400,7 +400,7 @@ orthflow_draw(Orthflow *orthflow, DiaRenderer *renderer)
   text_draw(orthflow->text, renderer);
 }
 
-static Object *
+static DiaObject *
 orthflow_create(Point *startpoint,
 		void *user_data,
 		Handle **handle1,
@@ -408,7 +408,7 @@ orthflow_create(Point *startpoint,
 {
   Orthflow *orthflow;
   OrthConn *orth;
-  Object *obj;
+  DiaObject *obj;
   Point p;
   PolyBBExtras *extra;
   DiaFont *font;
@@ -490,12 +490,12 @@ orthflow_destroy(Orthflow *orthflow)
   text_destroy( orthflow->text ) ;
 }
 
-static Object *
+static DiaObject *
 orthflow_copy(Orthflow *orthflow)
 {
   Orthflow *neworthflow;
   OrthConn *orth, *neworth;
-  Object *newobj;
+  DiaObject *newobj;
 
   orth = &orthflow->orth;
   
@@ -519,7 +519,7 @@ static void
 orthflow_update_data(Orthflow *orthflow)
 {
   OrthConn *orth = &orthflow->orth ;
-  Object *obj = &orth->object;
+  DiaObject *obj = &orth->object;
   Rectangle rect;
   Color* color = &orthflow_color_signal;
   
@@ -562,13 +562,13 @@ orthflow_save(Orthflow *orthflow, ObjectNode obj_node, const char *filename)
 	       orthflow->type);
 }
 
-static Object *
+static DiaObject *
 orthflow_load(ObjectNode obj_node, int version, const char *filename)
 {
   Orthflow *orthflow;
   AttributeNode attr;
   OrthConn *orth;
-  Object *obj;
+  DiaObject *obj;
   PolyBBExtras *extra;
 
   if (orthflow_font == NULL) {
@@ -617,7 +617,7 @@ orthflow_load(ObjectNode obj_node, int version, const char *filename)
 }
 
 static ObjectChange *
-orthflow_set_type_callback (Object* obj, Point* clicked, gpointer data)
+orthflow_set_type_callback (DiaObject* obj, Point* clicked, gpointer data)
 {
   ObjectChange* change ;
   change = orthflow_create_change( FLOW_TYPE, ((Orthflow*)obj)->type, 0 ) ;
@@ -629,7 +629,7 @@ orthflow_set_type_callback (Object* obj, Point* clicked, gpointer data)
 }
 
 static ObjectChange *
-orthflow_segment_callback (Object* obj, Point* clicked, gpointer data)
+orthflow_segment_callback (DiaObject* obj, Point* clicked, gpointer data)
 {
   if ( (int)data )
      return orthconn_add_segment( (OrthConn*)obj, clicked ) ;

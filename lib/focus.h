@@ -22,7 +22,7 @@
 #include "object.h"
 
 struct _Focus {
-  Object *obj;
+  DiaObject *obj;
   int has_focus;
   void *user_data; /* To be used by the object using this focus (eg. Text) */
 

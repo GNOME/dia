@@ -29,53 +29,43 @@
 static const Rectangle invalid_extents = { -1.0,-1.0,-1.0,-1.0 };
 static void set_parent_layer(gpointer layer, gpointer object);
 
-DiagramData *
-new_diagram_data (NewDiagramData *prefs)
+static void diagram_data_class_init (DiagramDataClass *klass);
+
+static gpointer parent_class = NULL;
+
+GType
+diagram_data_get_type (void)
 {
-	DiagramData *data;
-	Layer *first_layer;
-   
-	data = g_new (DiagramData, 1);
-   
-	data->extents.left = 0.0; 
-	data->extents.right = 10.0; 
-	data->extents.top = 0.0; 
-	data->extents.bottom = 10.0; 
- 
-	data->bg_color = prefs->bg_color;
-	data->pagebreak_color = prefs->pagebreak_color;
+  static GType object_type = 0;
 
-	get_paper_info (&data->paper, -1, prefs);
+  if (!object_type)
+    {
+      static const GTypeInfo object_info =
+      {
+        sizeof (DiagramDataClass),
+        (GBaseInitFunc) NULL,
+        (GBaseFinalizeFunc) NULL,
+        (GClassInitFunc) diagram_data_class_init,
+        NULL,           /* class_finalize */
+        NULL,           /* class_data */
+        sizeof (DiagramData),
+        0,              /* n_preallocs */
+	NULL            /* init */
+      };
 
-	data->grid.dynamic = TRUE;
-	data->grid.width_x = 1.0;
-	data->grid.width_y = 1.0;
-	data->grid.visible_x = 1;
-	data->grid.visible_y = 1;
-	data->grid.colour = prefs->grid_color;
-
-	data->guides.nhguides = 0;
-	data->guides.hguides = NULL;
-	data->guides.nvguides = 0;
-	data->guides.vguides = NULL;
-
-	first_layer = new_layer(g_strdup(_("Background")),data);
+      object_type = g_type_register_static (G_TYPE_OBJECT,
+                                            "DiagramData",
+                                            &object_info, 0);
+    }
   
-	data->layers = g_ptr_array_new ();
-	g_ptr_array_add (data->layers, first_layer);
-	data->active_layer = first_layer;
-
-	data->selected_count = 0;
-	data->selected = NULL;
-  
-	data->is_compressed = prefs->compress_save; // Overridden by doc
-
-	return data;
+  return object_type;
 }
 
-void
-diagram_data_destroy(DiagramData *data)
+static void
+diagram_data_finalize(GObject *object) 
 {
+  DiagramData *data = DIA_DIAGRAM_DATA(object);
+
   int i;
 
   g_free(data->paper.name);
@@ -89,7 +79,65 @@ diagram_data_destroy(DiagramData *data)
   g_list_free(data->selected);
   data->selected = NULL; /* for safety */
   data->selected_count = 0;
-  g_free(data);
+}
+
+static void
+diagram_data_class_init (DiagramDataClass *klass)
+{
+  GObjectClass *object_class = G_OBJECT_CLASS (klass);
+
+  parent_class = g_type_class_peek_parent (klass);
+
+  object_class->finalize = diagram_data_finalize;
+}
+
+DiagramData *
+new_diagram_data (NewDiagramData *prefs)
+{
+  DiagramData *data;
+  Layer *first_layer;
+   
+  data = g_object_new (DIA_TYPE_DIAGRAM_DATA, NULL);
+   
+  data->extents.left = 0.0; 
+  data->extents.right = 10.0; 
+  data->extents.top = 0.0; 
+  data->extents.bottom = 10.0; 
+ 
+  data->bg_color = prefs->bg_color;
+  data->pagebreak_color = prefs->pagebreak_color;
+
+  get_paper_info (&data->paper, -1, prefs);
+
+  data->grid.dynamic = TRUE;
+  data->grid.width_x = 1.0;
+  data->grid.width_y = 1.0;
+  data->grid.visible_x = 1;
+  data->grid.visible_y = 1;
+  data->grid.colour = prefs->grid_color;
+
+  data->guides.nhguides = 0;
+  data->guides.hguides = NULL;
+  data->guides.nvguides = 0;
+  data->guides.vguides = NULL;
+
+  first_layer = new_layer(g_strdup(_("Background")),data);
+  
+  data->layers = g_ptr_array_new ();
+  g_ptr_array_add (data->layers, first_layer);
+  data->active_layer = first_layer;
+
+  data->selected_count = 0;
+  data->selected = NULL;
+  
+  data->is_compressed = prefs->compress_save; // Overridden by doc
+
+  return data;
+}
+
+void
+diagram_data_destroy(DiagramData *data) {
+  g_object_unref(data);
 }
 
 Layer *
@@ -220,14 +268,14 @@ data_delete_layer(DiagramData *data, Layer *layer)
 }
 
 void
-data_select(DiagramData *data, Object *obj)
+data_select(DiagramData *data, DiaObject *obj)
 {
   data->selected = g_list_prepend(data->selected, obj);
   data->selected_count++;
 }
 
 void
-data_unselect(DiagramData *data, Object *obj)
+data_unselect(DiagramData *data, DiaObject *obj)
 {
   data->selected = g_list_remove(data->selected, obj);
   data->selected_count--;
@@ -341,7 +389,7 @@ data_get_sorted_selected(DiagramData *data)
   GList *list;
   GList *sorted_list;
   GList *found;
-  Object *obj;
+  DiaObject *obj;
 
   if (data->selected_count == 0)
     return NULL;
@@ -351,7 +399,7 @@ data_get_sorted_selected(DiagramData *data)
   while (list != NULL) {
     found = g_list_find(data->selected, list->data);
     if (found) {
-      obj = (Object *)found->data;
+      obj = (DiaObject *)found->data;
       sorted_list = g_list_prepend(sorted_list, obj);
     }
     list = g_list_previous(list);
@@ -369,7 +417,7 @@ data_get_sorted_selected_remove(DiagramData *data)
   GList *list,*tmp;
   GList *sorted_list;
   GList *found;
-  Object *obj;
+  DiaObject *obj;
   
   if (data->selected_count == 0)
     return NULL;
@@ -379,7 +427,7 @@ data_get_sorted_selected_remove(DiagramData *data)
   while (list != NULL) {
     found = g_list_find(data->selected, list->data);
     if (found) {
-      obj = (Object *)found->data;
+      obj = (DiaObject *)found->data;
       sorted_list = g_list_prepend(sorted_list, obj);
 
       tmp = list;
@@ -416,7 +464,7 @@ data_render(DiagramData *data, DiaRenderer *renderer, Rectangle *update,
 }
 
 static void
-normal_render(Object *obj, DiaRenderer *renderer,
+normal_render(DiaObject *obj, DiaRenderer *renderer,
 	      int active_layer,
 	      gpointer data)
 {
@@ -434,7 +482,7 @@ layer_render(Layer *layer, DiaRenderer *renderer, Rectangle *update,
 	     int active_layer)
 {
   GList *list;
-  Object *obj;
+  DiaObject *obj;
 
   if (obj_renderer == NULL)
     obj_renderer = normal_render;
@@ -442,7 +490,7 @@ layer_render(Layer *layer, DiaRenderer *renderer, Rectangle *update,
   /* Draw all objects: */
   list = layer->objects;
   while (list!=NULL) {
-    obj = (Object *) list->data;
+    obj = (DiaObject *) list->data;
 
     if (update==NULL || rectangle_intersects(update, &obj->bounding_box)) {
       if ((render_bounding_boxes) && (renderer->is_interactive)) {
@@ -468,24 +516,24 @@ layer_render(Layer *layer, DiaRenderer *renderer, Rectangle *update,
 
 static void
 set_parent_layer(gpointer element, gpointer user_data) {
-  ((Object*)element)->parent_layer = (Layer*)user_data;
+  ((DiaObject*)element)->parent_layer = (Layer*)user_data;
 }
 
 int
-layer_object_index(Layer *layer, Object *obj)
+layer_object_index(Layer *layer, DiaObject *obj)
 {
   return (int)g_list_index(layer->objects, (gpointer) obj);
 }
 
 void
-layer_add_object(Layer *layer, Object *obj)
+layer_add_object(Layer *layer, DiaObject *obj)
 {
   layer->objects = g_list_append(layer->objects, (gpointer) obj);
   set_parent_layer(obj, layer);
 }
 
 void
-layer_add_object_at(Layer *layer, Object *obj, int pos)
+layer_add_object_at(Layer *layer, DiaObject *obj, int pos)
 {
   layer->objects = g_list_insert(layer->objects, (gpointer) obj, pos);
   set_parent_layer(obj, layer);
@@ -506,7 +554,7 @@ layer_add_objects_first(Layer *layer, GList *obj_list)
 }
 
 void
-layer_remove_object(Layer *layer, Object *obj)
+layer_remove_object(Layer *layer, DiaObject *obj)
 {
   layer->objects = g_list_remove(layer->objects, obj);
   dynobj_list_remove_object(obj);
@@ -516,9 +564,9 @@ layer_remove_object(Layer *layer, Object *obj)
 void
 layer_remove_objects(Layer *layer, GList *obj_list)
 {
-  Object *obj;
+  DiaObject *obj;
   while (obj_list != NULL) {
-    obj = (Object *) obj_list->data;
+    obj = (DiaObject *) obj_list->data;
     
     layer->objects = g_list_remove(layer->objects, obj);
     
@@ -534,12 +582,12 @@ layer_find_objects_intersecting_rectangle(Layer *layer, Rectangle *rect)
 {
   GList *list;
   GList *selected_list;
-  Object *obj;
+  DiaObject *obj;
 
   selected_list = NULL;
   list = layer->objects;
   while (list != NULL) {
-    obj = (Object *)list->data;
+    obj = (DiaObject *)list->data;
 
     if (rectangle_intersects(rect, &obj->bounding_box)) {
       selected_list = g_list_prepend(selected_list, obj);
@@ -556,12 +604,12 @@ layer_find_objects_in_rectangle(Layer *layer, Rectangle *rect)
 {
   GList *list;
   GList *selected_list;
-  Object *obj;
+  DiaObject *obj;
 
   selected_list = NULL;
   list = layer->objects;
   while (list != NULL) {
-    obj = (Object *)list->data;
+    obj = (DiaObject *)list->data;
 
     if (rectangle_in_rectangle(rect, &obj->bounding_box)) {
       selected_list = g_list_prepend(selected_list, obj);
@@ -577,20 +625,20 @@ layer_find_objects_in_rectangle(Layer *layer, Rectangle *rect)
  * no further away than maxdist, and not included in avoid.
  * Stops it if finds an object that includes the point.
  */
-Object *
+DiaObject *
 layer_find_closest_object_except(Layer *layer, Point *pos,
 				 real maxdist, GList *avoid)
 {
   GList *l;
-  Object *closest;
-  Object *obj;
+  DiaObject *closest;
+  DiaObject *obj;
   real dist;
   GList *avoid_tmp;
 
   closest = NULL;
   
   for (l = layer->objects; l!=NULL; l = g_list_next(l)) {
-    obj = (Object *) l->data;
+    obj = (DiaObject *) l->data;
 
     /* Check bounding box here too. Might give speedup. */
     dist = obj->ops->distance_from(obj, pos);
@@ -610,7 +658,7 @@ layer_find_closest_object_except(Layer *layer, Point *pos,
   return closest;
 }
 
-Object *
+DiaObject *
 layer_find_closest_object(Layer *layer, Point *pos, real maxdist)
 {
   return layer_find_closest_object_except(layer, pos, maxdist, NULL);
@@ -620,10 +668,10 @@ layer_find_closest_object(Layer *layer, Point *pos, real maxdist)
 real layer_find_closest_connectionpoint(Layer *layer,
 					ConnectionPoint **closest,
 					Point *pos,
-					Object *notthis)
+					DiaObject *notthis)
 {
   GList *l;
-  Object *obj;
+  DiaObject *obj;
   ConnectionPoint *cp;
   real mindist, dist;
   int i;
@@ -633,7 +681,7 @@ real layer_find_closest_connectionpoint(Layer *layer,
   *closest = NULL;
   
   for (l = layer->objects; l!=NULL; l = g_list_next(l) ) {
-    obj = (Object *) l->data;
+    obj = (DiaObject *) l->data;
 
     if (obj == notthis) continue;
     for (i=0;i<obj->num_connections;i++) {
@@ -654,17 +702,17 @@ real layer_find_closest_connectionpoint(Layer *layer,
 int layer_update_extents(Layer *layer)
 {
   GList *l;
-  Object *obj;
+  DiaObject *obj;
   Rectangle new_extents;
   
   l = layer->objects;
   if (l!=NULL) {
-    obj = (Object *) l->data;
+    obj = (DiaObject *) l->data;
     new_extents = obj->bounding_box;
     l = g_list_next(l);
   
     while(l!=NULL) {
-      obj = (Object *) l->data;
+      obj = (DiaObject *) l->data;
       rectangle_union(&new_extents, &obj->bounding_box);
       l = g_list_next(l);
     }
@@ -679,7 +727,7 @@ int layer_update_extents(Layer *layer)
 }
 
 void
-layer_replace_object_with_list(Layer *layer, Object *remove_obj,
+layer_replace_object_with_list(Layer *layer, DiaObject *remove_obj,
 			       GList *insert_list)
 {
   GList *list;
@@ -709,7 +757,7 @@ layer_replace_object_with_list(Layer *layer, Object *remove_obj,
 static void
 layer_remove_dynobj(gpointer obj, gpointer userdata)
 {
-  dynobj_list_remove_object((Object*)obj);
+  dynobj_list_remove_object((DiaObject*)obj);
 }
 
 void layer_set_object_list(Layer *layer, GList *list)

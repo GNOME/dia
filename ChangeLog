@@ -1,3 +1,10 @@
+2004-05-21  Lars Clausen <lars@raeder.dk>
+
+	* RELEASE-PROCESS: Update with new info about release branches.
+	
+	* Many files:  Moved devel branch back into main trunk.  Should
+	have been done in the opposite way, with release in a branch.  
+	
 2004-05-20  Hans Breuer  <hans@breuer.org>
  
         * acinclude.m4 : disable setting of PYTHON_PREFIX
@@ -17,6 +24,23 @@
 	* plug-ins/python/diasvg_import.py : initialize
 	stroke to none
 	
+2004-05-18  Lars Clausen  <lars@raeder.dk>
+
+	* app/diagram_tree.c (select_node): Use
+	diagram_remove_all_selected to kill selected list.
+
+	* lib/font.c: Set language when using a different context.
+
+	* plug-ins/svg/svg-import.c: Changed isdigit to g_ascii_isdigit
+	and removed ctype include (#142661).
+
+	* lib/paper.c (get_default_paper): Changed isalnum to
+	g_ascii_isalnum and removed ctype include. (#142661)
+
+	* objects/custom/shape_info.c: 
+	* lib/dia_svg.c: 
+	* app/diaunitspinner.c: Removed unrequired ctype.h include. (#142661)
+
 2004-05-17  Hans Breuer  <hans@breuer.org>
 
 	* lib/object_defaults.c : don't 'failed to load external 
@@ -27,37 +51,101 @@
 	* lib/dialinechooser.c lib/diaarrowchooser.c : finally
 	avoid finalization of floating references, bug #142307
 
-2004-04-21  Tomasz Kłoczko <kloczek@pld.org.pl>
+2004-05-15  Lars Clausen  <lars@raeder.dk>
+
+	* plug-ins/xfig/xfig-import.c: Handle default fonts and illegal
+	fonts better (#138655)
+	
+	* doc/pl/Makefile.am (EXTRA_DIST): Also include all xml files here.
+
+	* doc/en/Makefile.am (EXTRA_DIST): Including all required files in
+	dist, xml, dbk and man.  Also the sub-xml files. (#142098)
+
+	* Makefile.am (CLEANFILES): 
+	* sheets/Makefile.am (EXTRA_DIST): Not distributing the
+	translation-reports, they are generated automagically.  THANKS
+	file not considered locally generated, so is not locally
+	cleaned. (#133735) 
+
+	* lib/widgets.[ch]: Changing dia_arrow_selector to be a gobject.
+
+	* lib/diaarrowchooser.c: 
+	* lib/prop_attr.c: Fixing naming for arrowselector.
+
+	* objects/UML/object.c (objet_type): Oops, little too aggressive
+	with the DiaObject thing here:)
+
+	* objects/custom/shape_info.c (parse_svg_node): Use
+	g_ascii_isdigit instead of isdigit.
+
+	* app/diaunitspinner.c (dia_unit_spinner_update): 
+	* lib/dia_svg.c (dia_svg_parse_style): Using g_ascii_isspace
+	instead of isspace avoids char subscript issues (#142467).
+
+	* lib/persistence.c (persistence_get_string): Fixed 0/NULL/FALSE
+	return value conflict.
+
+	* app/display.c (ddisplay_update_handler): Fixed 0/FALSE return
+	value conflict.  Also improved signature. (#142466)
+
+	* app/load_save.c (diagram_data_load): Don't overwrite the list in
+	the layer, but instead free the returned list (#142480)
+
+	* app/pixmaps/Makefile.am (IMAGES): Added png's to be installed
+	for the grid widget.
+
+	* doc/en/Makefile.am (dia.1): Make proper rule for making dia.1
+
+	* configure.in (DB2MAN): Currently just check for two known
+	positions for the docbook xsl.  Don't know a generic way to find
+	this info.  Ought to add an option for it, but then it's really
+	only required for maintainers, I think.  Maybe.
+
+	* app/display.c (update_snap_grid_status): Remove nasty image
+	toggling code not require for grid toggle button anymore. (#142475)
+
+	* app/interface.c (create_display_shell): Use
+	dia_toggle_button_new_with_images to create grid toggle button.
+	Much nicer. (#142475)
+
+	* app/menus.c (menus_initialize_updatable_items): Free the string
+	along with the GString. (#142475)
+
+	* lib/intl.c (free_alias_table): Free hash table entries in a
+	proper way, avoiding duplicate frees. (#142475)
+
+	* lib/object_defaults.c (_obj_store): Only free layer_name if it's
+	not put in the hash (avoid reading freed memory). (#142476)
+
+	* lib/widgets.c (dia_font_selector_set_styles): Stop leaking
+	faces. (#142484)
+	(dia_font_selector_get_family_from_name): Stop leaking
+	families. (#142482) 
+
+2004-05-14  Lars Clausen  <lars@raeder.dk>
+
+	* Transfer of fixes from release branch.  Not the prettiest way to
+	do it, this should be done during release, not afterwards.
+
+	Tomasz Kłoczko <kloczek@pld.org.pl>:
 
 	* acinclude.m4: minor fixes (added missing [] quotation).
 
-2004-04-13  Lars Clausen  <larsØraeder.dk>
+	Lars Clausen  <lars@raeder.dk>:
 
 	* app/interface.c (toolbox_delete): 
 	* app/app_procs.[ch] (app_exit): Stop the delete event if the user
 	cancels quit due to modified diagrams.
 
-2004-04-07  Samúel Jón Gunnarsson  <sammi@techattack.nu>
+	Samúel Jón Gunnarsson  <sammi@techattack.nu>:
 
 	* is.po: Added "is" to ALL_LINGUAS.
 
-2004-04-04  Lars Clausen  <lars@raeder.dk>
-
-	* configure.in: 
-	* dia.spec (Release): 
-	* NEWS: 
-	* config.h.win32: 
-	* doc/{en,pl}/dia.xml: 
-	Update to pre2.
+	Lars Clausen  <lars@raeder.dk>:
 
 	* dia.spec: Updated as per mail from Zhang Lin-bo <zlb@lsec.cc.ac.cn>
 
-2004-04-03  Lars Clausen  <lars@raeder.dk>
-
-	* objects/standard/ellipse.c (ellipse_copy): Properly copy the
-	handle in the middle of the ellipse.
-
-2004-03-21  Hans Breuer  <hans@breuer.org>
+	Hans Breuer  <hans@breuer.org>:
 
 	* lib/makefile.msc : removed -DGTK_DISABLE_DEPRECATED; the 
 	burden should be shared and not be win32 only ;) [this time 
@@ -75,6 +163,319 @@
 	
 	* app/win32print.[ch] : make win32_printer_close() return an
 	error code, it's used as pclose replacement
+
+	Lars Clausen  <lars@raeder.dk>:
+
+	* RELEASE-PROCESS: Mention PATCH keyword in release process.
+
+2004-05-06  Lars Clausen  <lars@raeder.dk>
+
+	* lib/widgets.[ch]: Utility function to make a widget with two
+	images (selected and non-selected).
+
+	* lib/diagramdata.h: Renamed selectable to connectable.
+	Selectable will come later.
+
+	* configure.in: 
+	* app/pixmaps/Makefile.am (imagedir): 
+	* app/pixmaps/connectable.png:
+	* app/pixmaps/connectable-empty.png: New images for the
+	selectability widget.  Proper installation, too.
+
+	* app/layer_dialog.[ch]: Adding new button showing connectability
+	status.  Much cleaner way of doing the button, but some problems
+	with the item getting selected
+
+	* lib/widgets.h: Reminder of how to install images for use by
+	dia_get_image_from_file.
+
+2004-05-05  Lars Clausen  <lars@raeder.dk>
+
+	* objects/network/Makefile.am: 
+	* objects/network/pixmaps/radiocell.xpm: 
+	* objects/network/pixmaps/basestation.xpm: 
+	* objects/network/network.c: 
+	* objects/network/basestation.c: 
+	* objects/network/radiocell.c: 
+	Patch from W. Borgert <debacle@debian.org>: Radio cell and base
+	station objects.
+
+	* lib/arrows.[ch]: Patch from Anthony <anthonym@overture.com>:
+	Backslash arrow head. 
+
+	* app/pagesetup.c (pagesetup_respond): Do not free ps twice.
+	Notify takes care.  Should maybe use that more.
+
+	* lib/diagramdata.[ch]: 
+	* app/filedlg.c (file_export_ok_callback): 
+	* app/diagram.c (diagram_finalize): DiagramData now a GObject.
+
+	* app/dia-props.c (diagram_properties_respond): 
+	* app/diagram.c (diagram_set_modified): 
+	* app/undo.c: 
+	* app/disp_callbacks.c: 
+	* app/commands.c: 
+	* app/load_save.c (diagram_save): 
+	Better handling of undo and modified status -- only diagram
+	properties and page setup explicitly set modified status, all
+	other important changes should be done through the undo stack
+	now.
+
+2004-05-04  Lars Clausen  <lars@raeder.dk>
+
+	* app/app_procs.c (app_init): Consistently open a new diagram if
+	none specified, with standard name Diagram1.dia.
+
+	* app/layer_dialog.c: 
+	* app/diagram.c (diagram_finalize): 
+	* app/commands.c (dialogs_layers_callback): 
+	* app/filedlg.c (file_export_ok_callback): 
+	* app/app_procs.c (app_exit): 
+	* app/display.c (display_set_active): 
+	* app/interface.c (dia_dnd_file_drag_data_received): 
+	* app/recent_files.c: 
+	Undone attempt at unifying the multi-diagram windows (like
+	layers).  It broke the layers and didn't make much sense for the
+	diagram properties dialog anyway.
+
+	* lib/group.c: 
+	* lib/diatypes.h: 
+	* lib/diagramdata.c: 
+	* lib/object.h: 
+	* lib/object.c: Undone attempts at GObject'ifying DiaObject -- too
+	many subclasses have to be fixed.  Fixed remaining
+	Object/ObjectType renaming issues.
+
+2004-05-02  Lars Clausen  <lars@raeder.dk>
+
+	* lib/object.[ch]: Making DiaObject a GObject.  Now can I avoid
+	  having to make all the children objects conform to
+	  GObject style at once?  Warning!  Does not compile right now.
+
+	* many, many files: Rename Object to DiaObject in preparation for
+	  making it a GObject.
+	
+	* app/diagram.[ch]: Turn diagram into a real GObject.
+
+	* app/pagesetup.c: 
+	* app/filedlg.c: Correctly ref and unref diagram. 
+
+	* lib/diagramdata.h: Starting to turn it into a GObject as well.
+
+2004-05-02  Lars Clausen  <lars@raeder.dk>
+
+	* lib/object.[ch]: Starting to convert Object to DiaObject, son of
+	GObject. 
+
+	* app/dia-props.c: Undo the attempt at making it really
+	multi-diagram, now going for a one-diagram dialog.
+
+2004-04-30  Lars Clausen  <lars@raeder.dk>
+
+	* app/undo.c: Undoing broken undo stuff for diagram properties and
+	page setup.  Shouldn't be mixed into undo at all.
+
+	* app/render_gdk.c (draw_pixel_line): Use the dash-setting
+	function to avoid in particular the grid crawling.
+
+	* lib/diagdkrenderer.[ch] (dia_gdk_renderer_set_dashes): Function
+	to allow aligning dashes, so they don't crawl.
+
+2004-04-28  Lars Clausen  <lars@raeder.dk>
+
+	* app/Makefile.am: New files diacanvas.[ch]
+
+	* app/interface.c (create_display_shell): Use new diacanvas that
+	allows placing widgets on canvas, for text edit.
+
+	* lib/object.h: 
+	Early work towards rotation.  No implementation yet.
+
+	* app/layer_dialog.c (undo_layer): 
+	* objects/network/bus.c (bus_create_change): 
+	* objects/standard/box.c (aspect_create_change): 
+	* objects/standard/ellipse.c (aspect_create_change): 
+	Use g_new0 for change struct.
+
+	* app/undo.c (diagram_change_apply_or_revert): 
+	Support for undo of diagram properties and page setup.
+
+	* app/disp_callbacks.c (ddisplay_canvas_events): 
+	* lib/text.h: 
+	* lib/diagramdata.h: 
+	* app/modify_tool.c (click_select_object): 
+	* lib/text.c (text_register_editable): 
+	Starting work on new text editing model.  Guarded by #ifdef so
+	far. 
+
+2004-04-07  Lars Clausen  <lars@raeder.dk>
+
+	* app/recent_files.c (open_recent_file_callback): 
+	* app/interface.c (origin_button_press): 
+	* app/filedlg.c (file_open_ok_callback): 
+	* app/display.c: 
+	* app/diagram.[ch]: 
+	* app/commands.c (dialogs_layers_callback): Using new
+	diagram_set_current() function to ensure auxilliary windows are
+	updated. 
+
+	* app/layer_dialog.c: Trying to unify with dia-props.  Diagram
+	menu now borken.  *sniff*
+
+	* app/dia-props.c: Diagram properties window attempted
+	persistentified.  Trying to make more like layer dialog (since it
+	already changes when the diagram changes), but some things still
+	borken.	
+
+2004-04-06  Lars Clausen  <lars@raeder.dk>
+
+	* lib/dialinechooser.[ch] (dia_line_chooser_set_line_style): 
+	* lib/attributes.c (attributes_set_default_line_style): 
+	* app/interface.c (create_lineprops_area): 
+	Make line style persistent as well.  Added function to directly
+	set the style and dashlength of a dialinechooser. 
+
+2004-04-03  Lars Clausen  <lars@raeder.dk>
+
+	* objects/standard/ellipse.c (ellipse_move_handle, ellipse_copy):
+	Copy the ellipse extra handle correctly.
+
+	* objects/standard/box.c (box_move_handle): Move definitions
+	according to bug #138925.
+
+2004-04-02  Lars Clausen  <lars@raeder.dk>
+
+	* app/recent_files.c: Use absolute name for recent files list.
+
+	* lib/attributes.c: Set start and end arrow types, correctly.
+
+	* lib/widgets.c (dia_arrow_selector_set_arrow): Use new function
+	to get arrow index.
+
+	* lib/diaarrowchooser.[ch]: Support for setting arrow info.
+
+	* app/interface.c (create_lineprops_area): Set persistently stored
+	arrow info.
+
+	* lib/arrows.[ch]: New function to get arrow index (in arrow_types)
+	from arrow type.
+
+	* lib/dia_dirs.c: dia_get_absolute_path now creates a canonical
+	path (i.e. without '.' or '..').  Not tuned for Win32 yet.
+
+	* plug-ins/xfig/xfig-import.c: Redone ordering of import to comply
+	with what xfig does.  Text now converted from latin-1 to utf-8
+	(latin-1, since that's what xfig seems to use.  Would like to see
+	examples of non-latin-1 figs).  String case problems fixed.
+
+2004-04-01  Lars Clausen  <lars@raeder.dk>
+
+	* lib/attributes.c: 
+	* app/interface.c: Default arrows now stored persistently, too.
+
+	* lib/arrows.[ch]: New function to get arrow type from name.
+
+	* app/color_area.c (color_area_create): 
+	* lib/attributes.c: 
+	* app/linewidth_area.c: Also persistent colors and line width.
+	That was easy.  Arrows and line style will take a bit more work,
+	but not much.
+
+2004-04-01  Lars Clausen  <lars@raeder.dk>
+
+	* app/preferences.c:   All preferences are now
+	handled by persistence, old prefs load and store code is gone.
+
+	* lib/persistence.[ch]: Added string and color persistents.  This is
+	a different string from the one used in the printer dialog, that
+	one has a GtkEntry attached -- may want to make that one an
+	encapsulation of this one or something.
+
+2004-03-31  Lars Clausen  <lars@raeder.dk>
+
+	* app/app_procs.c: Do persistence before prefs.  Prefs are to be
+	phased out anyway.
+	
+	* lib/persistence.[ch]: 
+	* app/preferences.c: Adding persistence for integers, reals,
+	booleans.  Fixed stupid list bug.  Test persistence for prefs.
+
+2004-03-30  Lars Clausen  <lars@raeder.dk>
+
+	* app/recent_files.c: 
+	Debugging of deallocation.
+	
+	* lib/widgets.c: 
+	Font menu now uses persistence.  Ordering needs fixing, or it must
+	be sorted.
+
+	* lib/libdia.def: 
+	* lib/Makefile.am (libdia_la_SOURCES): 
+	* app/Makefile.am (dia_core_files): 
+	* app/persistence.[ch]: 
+	* lib/persistence.[ch]: Moved to lib as widgets need it.  Also a
+	number of fixes, including multiple entries now being read
+	properly.  Still some oddity about the persistent list having the
+	role as first entry (which makes the font menu crash after a few
+	iterations). 
+
+2004-03-26  Lars Clausen  <lars@raeder.dk>
+
+	* app/persistence.c:
+	* app/recent_files.[ch]: Redoing the recent-files list using
+	persistence, reducing code by about 50%.  Still a problem when
+	selecting an item from the menu -- possibly it doesn't like the
+	menu being destroyed while in the callback?
+
+2004-03-25  Lars Clausen  <lars@raeder.dk>
+
+	* app/persistence.c (persistence_load_string): Missing semicolon?!?
+
+2004-03-24  Lars Clausen  <lars@raeder.dk>
+
+	* RELEASE-PROCESS: 
+
+	* app/persistence.[ch]: 
+	* app/paginate_psprint.c (diagram_print_ps): New type of data can
+	be stored persistently:  Strings.  Only the printer command/file
+	go in here now, but things like creator, organization, diagram
+	comments etc could also be handled this way.
+
+	* objects/standard/beziergon.c (beziergon_draw): Avoid control
+	lines when the object is not selected.
+
+2004-03-23  Lars Clausen  <lars@raeder.dk>
+
+	* lib/connectionpoint.h: 
+	* app/load_save.c: Allow connection points to have names, and
+	handle that in load/store.
+
+	* lib/dialibartrenderer.c: Better highlighting for text.
+
+	* lib/diagdkrenderer.h (struct _DiaGdkRenderer): 
+	* lib/diagdkrenderer.c: Better highlighting for all, using same
+	principles as libart highlighter.
+
+2004-03-22  Lars Clausen  <lars@raeder.dk>
+
+	* lib/dialibartrenderer.[ch]: 
+	* lib/diagdkrenderer.c: 
+	* lib/object.h: 
+	* app/object_ops.c:
+	* app/diagram.[ch]:
+	* app/display.[ch]:
+	* app/Makefile.am: 
+	* app/modify_tool.c: 
+	* app/create_object.c: 
+	* app/highlight.[ch]: 
+	Added simple object highlighting.  In GDK rendering, highlights
+	the bbox, in libart highlights the outline of the object (except
+	for texts).
+
+2004-03-22  Lars Clausen  <lars@raeder.dk>
+
+	* RELEASE-PROCESS: Added info on how to do a branch for
+	development during release process.
 
 2004-03-20  Lars Clausen  <lars@raeder.dk>
 

@@ -67,7 +67,7 @@ connection_update_boundingbox(Connection *conn)
 void
 connection_init(Connection *conn, int num_handles, int num_connections)
 {
-  Object *obj;
+  DiaObject *obj;
   int i;
 
   obj = &conn->object;
@@ -91,8 +91,8 @@ void
 connection_copy(Connection *from, Connection *to)
 {
   int i;
-  Object *toobj;
-  Object *fromobj;
+  DiaObject *toobj;
+  DiaObject *fromobj;
 
   toobj = &to->object;
   fromobj = &from->object;

@@ -69,7 +69,7 @@ diagram_update_connections_selection(Diagram *dia)
   GList *list = dia->data->selected;
 
   while (list!=NULL) {
-    Object * selected_obj = (Object *) list->data;
+    DiaObject * selected_obj = (DiaObject *) list->data;
     
     diagram_update_connections_object(dia, selected_obj, TRUE);
     
@@ -85,13 +85,13 @@ diagram_update_connections_selection(Diagram *dia)
    in the recursion.
  */
 void
-diagram_update_connections_object(Diagram *dia, Object *obj,
+diagram_update_connections_object(Diagram *dia, DiaObject *obj,
 				  int update_nonmoved)
 {
   int i,j;
   ConnectionPoint *cp;
   GList *list;
-  Object *connected_obj;
+  DiaObject *connected_obj;
   Handle *handle;
 
   for (i=0;i<obj->num_connections;i++) {
@@ -102,7 +102,7 @@ diagram_update_connections_object(Diagram *dia, Object *obj,
 
       list = cp->connected;
       while (list!=NULL) {
-	connected_obj = (Object *) list->data;
+	connected_obj = (DiaObject *) list->data;
 
 	object_add_updates(connected_obj, dia);
 	handle = NULL;
@@ -124,7 +124,7 @@ diagram_update_connections_object(Diagram *dia, Object *obj,
   if (obj->children) {
     GList *child;
     for (child = obj->children; child != NULL; child = child->next) {
-      Object *child_obj = (Object *)child->data;
+      DiaObject *child_obj = (DiaObject *)child->data;
       diagram_update_connections_object(dia, child_obj, update_nonmoved);
     }    
   }
@@ -134,13 +134,13 @@ void
 ddisplay_connect_selected(DDisplay *ddisp)
 {
   GList *list;
-  Object *selected_obj;
+  DiaObject *selected_obj;
   int i;
 
   list = ddisp->diagram->data->selected;
     
   while (list!=NULL) {
-    selected_obj = (Object *) list->data;
+    selected_obj = (DiaObject *) list->data;
     
     for (i=0; i<selected_obj->num_handles; i++) {
       if (selected_obj->handles[i]->connect_type != HANDLE_NONCONNECTABLE) {
@@ -156,14 +156,14 @@ void
 diagram_unconnect_selected(Diagram *dia)
 {
   GList *list;
-  Object *selected_obj;
+  DiaObject *selected_obj;
   Handle *handle;
   int i;
 
   list = dia->data->selected;
     
   while (list!=NULL) {
-    selected_obj = (Object *) list->data;
+    selected_obj = (DiaObject *) list->data;
     
     for (i=0; i<selected_obj->num_handles; i++) {
       handle = selected_obj->handles[i];

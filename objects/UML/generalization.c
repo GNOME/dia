@@ -68,7 +68,7 @@ static ObjectChange* generalization_move_handle(Generalization *genlz, Handle *h
 						HandleMoveReason reason, ModifierKeys modifiers);
 static ObjectChange* generalization_move(Generalization *genlz, Point *to);
 static void generalization_draw(Generalization *genlz, DiaRenderer *renderer);
-static Object *generalization_create(Point *startpoint,
+static DiaObject *generalization_create(Point *startpoint,
 				 void *user_data,
 				 Handle **handle1,
 				 Handle **handle2);
@@ -80,7 +80,7 @@ static PropDescription *generalization_describe_props(Generalization *generaliza
 static void generalization_get_props(Generalization * generalization, GPtrArray *props);
 static void generalization_set_props(Generalization * generalization, GPtrArray *props);
 
-static Object *generalization_load(ObjectNode obj_node, int version,
+static DiaObject *generalization_load(ObjectNode obj_node, int version,
 				   const char *filename);
 
 static void generalization_update_data(Generalization *genlz);
@@ -94,7 +94,7 @@ static ObjectTypeOps generalization_type_ops =
   (ApplyDefaultsFunc) NULL
 };
 
-ObjectType generalization_type =
+DiaObjectType generalization_type =
 {
   "UML - Generalization",   /* name */
   0,                      /* version */
@@ -261,7 +261,7 @@ static void
 generalization_update_data(Generalization *genlz)
 {
   OrthConn *orth = &genlz->orth;
-  Object *obj = &orth->object;
+  DiaObject *obj = &orth->object;
   int num_segm, i;
   Point *points;
   Rectangle rect;
@@ -346,7 +346,7 @@ generalization_update_data(Generalization *genlz)
 }
 
 static ObjectChange *
-generalization_add_segment_callback(Object *obj, Point *clicked, gpointer data)
+generalization_add_segment_callback(DiaObject *obj, Point *clicked, gpointer data)
 {
   ObjectChange *change;
   change = orthconn_add_segment((OrthConn *)obj, clicked);
@@ -355,7 +355,7 @@ generalization_add_segment_callback(Object *obj, Point *clicked, gpointer data)
 }
 
 static ObjectChange *
-generalization_delete_segment_callback(Object *obj, Point *clicked, gpointer data)
+generalization_delete_segment_callback(DiaObject *obj, Point *clicked, gpointer data)
 {
   ObjectChange *change;
   change = orthconn_delete_segment((OrthConn *)obj, clicked);
@@ -392,7 +392,7 @@ generalization_get_object_menu(Generalization *genlz, Point *clickedpoint)
   return &object_menu;
 }
 
-static Object *
+static DiaObject *
 generalization_create(Point *startpoint,
 	       void *user_data,
   	       Handle **handle1,
@@ -400,7 +400,7 @@ generalization_create(Point *startpoint,
 {
   Generalization *genlz;
   OrthConn *orth;
-  Object *obj;
+  DiaObject *obj;
   PolyBBExtras *extra;
 
   if (genlz_font == NULL) {
@@ -409,7 +409,7 @@ generalization_create(Point *startpoint,
   
   genlz = g_new0(Generalization, 1);
   orth = &genlz->orth;
-  obj = (Object *)genlz;
+  obj = (DiaObject *)genlz;
   extra = &orth->extra_spacing;
 
   obj->type = &generalization_type;
@@ -429,7 +429,7 @@ generalization_create(Point *startpoint,
   *handle1 = orth->handles[0];
   *handle2 = orth->handles[orth->numpoints-2];
 
-  return (Object *)genlz;
+  return (DiaObject *)genlz;
 }
 
 static void
@@ -442,7 +442,7 @@ generalization_destroy(Generalization *genlz)
   orthconn_destroy(&genlz->orth);
 }
 
-static Object *
+static DiaObject *
 generalization_load(ObjectNode obj_node, int version,
 		    const char *filename)
 {

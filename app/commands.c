@@ -282,7 +282,7 @@ insert_text(DDisplay *ddisp, Focus *focus, const gchar *text)
 {
   ObjectChange *change = NULL;
   int modified = FALSE, any_modified = FALSE;
-  Object *obj = focus->obj;
+  DiaObject *obj = focus->obj;
 
   while (text != NULL) {
     gchar *next_line = g_utf8_strchr(text, -1, '\n');
@@ -311,8 +311,10 @@ insert_text(DDisplay *ddisp, Focus *focus, const gchar *text)
     diagram_flush(ddisp->diagram);
   }
 
-  if (any_modified) 
+  if (any_modified) {
+    diagram_modified(ddisp->diagram);
     undo_set_transactionpoint(ddisp->diagram->undo);
+  }
 }
 
 
@@ -356,7 +358,7 @@ edit_copy_text_callback(gpointer data, guint action, GtkWidget *widget)
 {
   Focus *focus = active_focus();
   DDisplay *ddisp;
-  Object *obj;
+  DiaObject *obj;
   GPtrArray *textprops;
   TextProperty *prop;
 
@@ -391,7 +393,7 @@ edit_cut_text_callback(gpointer data, guint action, GtkWidget *widget)
 {
   Focus *focus = active_focus();
   DDisplay *ddisp;
-  Object *obj;
+  DiaObject *obj;
   Text *text;
   GPtrArray *textprops;
   TextProperty *prop;
@@ -428,6 +430,7 @@ edit_cut_text_callback(gpointer data, guint action, GtkWidget *widget)
     object_add_updates(obj, ddisp->diagram);
     undo_object_change(ddisp->diagram, obj, change);
     undo_set_transactionpoint(ddisp->diagram->undo);
+    diagram_modified(ddisp->diagram);
     diagram_flush(ddisp->diagram);
   }
 }
@@ -483,6 +486,7 @@ edit_undo_callback(gpointer data, guint action, GtkWidget *widget)
   dia = ddisp->diagram;
 
   undo_revert_to_last_tp(dia->undo);
+  diagram_modified(dia);
 
   diagram_flush(dia);
 } 
@@ -497,6 +501,7 @@ edit_redo_callback(gpointer data, guint action, GtkWidget *widget)
   dia = ddisp->diagram;
 
   undo_apply_to_next_tp(dia->undo);
+  diagram_modified(dia);
 
   diagram_flush(dia);
 } 
@@ -1008,7 +1013,7 @@ void
 dialogs_properties_callback(gpointer data, guint action, GtkWidget *widget)
 {
   Diagram *dia;
-  Object *selected;
+  DiaObject *selected;
 
   dia = ddisplay_active()->diagram; 
 
@@ -1045,6 +1050,7 @@ objects_align_h_callback(gpointer data, guint action, GtkWidget *widget)
   diagram_update_connections_selection(dia);
   object_add_updates_list(objects, dia);
   diagram_flush(dia);     
+  diagram_modified(dia);
 
   undo_set_transactionpoint(dia->undo);
 }
@@ -1066,6 +1072,7 @@ objects_align_v_callback(gpointer data, guint action, GtkWidget *widget)
   diagram_update_connections_selection(dia);
   object_add_updates_list(objects, dia);
   diagram_flush(dia);     
+  diagram_modified(dia);
 
   undo_set_transactionpoint(dia->undo);
 }

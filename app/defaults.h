@@ -21,7 +21,7 @@
 #include "object.h"
 #include "diagram.h"
 
-void defaults_show(ObjectType *obj);
+void defaults_show(DiaObjectType *obj);
 
 
 #endif /* DEFAULTS_H */

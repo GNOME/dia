@@ -166,7 +166,7 @@ static void draw_image(DiaRenderer *self,
 		       real width, real height,
 		       DiaImage image);
 static void draw_object(DiaRenderer *self,
-			Object *object);
+			DiaObject *object);
 
 static void xfig_renderer_class_init (XfigRendererClass *klass);
 
@@ -1074,7 +1074,7 @@ draw_image(DiaRenderer *self,
 
 static void 
 draw_object(DiaRenderer *self,
-            Object *object) 
+            DiaObject *object) 
 {
   XfigRenderer *renderer = XFIG_RENDERER(self);
 

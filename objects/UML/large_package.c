@@ -69,7 +69,7 @@ static ObjectChange* largepackage_move_handle(LargePackage *pkg, Handle *handle,
 					      HandleMoveReason reason, ModifierKeys modifiers);
 static ObjectChange* largepackage_move(LargePackage *pkg, Point *to);
 static void largepackage_draw(LargePackage *pkg, DiaRenderer *renderer);
-static Object *largepackage_create(Point *startpoint,
+static DiaObject *largepackage_create(Point *startpoint,
 				   void *user_data,
 				   Handle **handle1,
 				   Handle **handle2);
@@ -80,7 +80,7 @@ static void largepackage_update_data(LargePackage *pkg);
 static PropDescription *largepackage_describe_props(LargePackage *largepackage);
 static void largepackage_get_props(LargePackage *largepackage, GPtrArray *props);
 static void largepackage_set_props(LargePackage *largepackage, GPtrArray *props);
-static Object *largepackage_load(ObjectNode obj_node, int version, 
+static DiaObject *largepackage_load(ObjectNode obj_node, int version, 
                                  const char *filename);
 
 static ObjectTypeOps largepackage_type_ops =
@@ -92,7 +92,7 @@ static ObjectTypeOps largepackage_type_ops =
   (ApplyDefaultsFunc) NULL
 };
 
-ObjectType largepackage_type =
+DiaObjectType largepackage_type =
 {
   "UML - LargePackage",   /* name */
   0,                      /* version */
@@ -169,7 +169,7 @@ largepackage_set_props(LargePackage *largepackage, GPtrArray *props)
 static real
 largepackage_distance_from(LargePackage *pkg, Point *point)
 {
-  Object *obj = &pkg->element.object;
+  DiaObject *obj = &pkg->element.object;
   return distance_rectangle_point(&obj->bounding_box, point);
 }
 
@@ -276,7 +276,7 @@ static void
 largepackage_update_data(LargePackage *pkg)
 {
   Element *elem = &pkg->element;
-  Object *obj = &elem->object;
+  DiaObject *obj = &elem->object;
 
   pkg->stereotype = remove_stereotype_from_string(pkg->stereotype);
   if (!pkg->st_stereotype) {
@@ -337,7 +337,7 @@ largepackage_update_data(LargePackage *pkg)
   element_update_handles(elem);
 }
 
-static Object *
+static DiaObject *
 largepackage_create(Point *startpoint,
 		    void *user_data,
 		    Handle **handle1,
@@ -345,7 +345,7 @@ largepackage_create(Point *startpoint,
 {
   LargePackage *pkg;
   Element *elem;
-  Object *obj;
+  DiaObject *obj;
   int i;
   
   pkg = g_malloc0(sizeof(LargePackage));
@@ -402,7 +402,7 @@ largepackage_destroy(LargePackage *pkg)
   element_destroy(&pkg->element);
 }
 
-static Object *
+static DiaObject *
 largepackage_load(ObjectNode obj_node, int version, const char *filename)
 {
   return object_load_using_properties(&largepackage_type,

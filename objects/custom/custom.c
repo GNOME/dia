@@ -37,16 +37,16 @@
 #include "plug-ins.h"
 
 void custom_object_new (ShapeInfo *info,
-                        ObjectType **otype);
+                        DiaObjectType **otype);
 
 G_MODULE_EXPORT gboolean custom_object_load(gchar *filename, 
-                                            ObjectType **otype);
+                                            DiaObjectType **otype);
 
 /* Cannot be static, because we may use this fn later when loading
    a new shape via the sheets dialog */
    
 G_MODULE_EXPORT gboolean
-custom_object_load(gchar *filename, ObjectType **otype)
+custom_object_load(gchar *filename, DiaObjectType **otype)
 {
   ShapeInfo *info;
 
@@ -90,7 +90,7 @@ static void load_shapes_from_tree(const gchar *directory)
     
     p = dentry + strlen(dentry) - 6;
     if (0==strcmp(".shape",p)) {
-      ObjectType *ot;
+      DiaObjectType *ot;
 
       if (!custom_object_load(filename, &ot)) {
         g_warning("could not load shape file %s",filename);

@@ -71,7 +71,7 @@ static ObjectChange* implements_move(Implements *implements, Point *to);
 static void implements_select(Implements *implements, Point *clicked_point,
 			      DiaRenderer *interactive_renderer);
 static void implements_draw(Implements *implements, DiaRenderer *renderer);
-static Object *implements_create(Point *startpoint,
+static DiaObject *implements_create(Point *startpoint,
 				 void *user_data,
 				 Handle **handle1,
 				 Handle **handle2);
@@ -83,7 +83,7 @@ static PropDescription *implements_describe_props(Implements *implements);
 static void implements_get_props(Implements * implements, GPtrArray *props);
 static void implements_set_props(Implements * implements, GPtrArray *props);
 
-static Object *implements_load(ObjectNode obj_node, int version,
+static DiaObject *implements_load(ObjectNode obj_node, int version,
 			       const char *filename);
 
 
@@ -96,7 +96,7 @@ static ObjectTypeOps implements_type_ops =
   (ApplyDefaultsFunc) NULL
 };
 
-ObjectType implements_type =
+DiaObjectType implements_type =
 {
   "UML - Implements",   /* name */
   0,                   /* version */
@@ -283,7 +283,7 @@ implements_draw(Implements *implements, DiaRenderer *renderer)
 			       &implements->text_color);
 }
 
-static Object *
+static DiaObject *
 implements_create(Point *startpoint,
 		  void *user_data,
 		  Handle **handle1,
@@ -291,7 +291,7 @@ implements_create(Point *startpoint,
 {
   Implements *implements;
   Connection *conn;
-  Object *obj;
+  DiaObject *obj;
   Point defaultlen = { 1.0, 1.0 };
 
   if (implements_font == NULL) {
@@ -352,7 +352,7 @@ static void
 implements_update_data(Implements *implements)
 {
   Connection *conn = &implements->connection;
-  Object *obj = &conn->object;
+  DiaObject *obj = &conn->object;
   LineBBExtras *extra = &conn->extra_spacing;
   Point delta;
   Point point;
@@ -407,7 +407,7 @@ implements_update_data(Implements *implements)
   rectangle_union(&obj->bounding_box, &rect);
 }
 
-static Object *
+static DiaObject *
 implements_load(ObjectNode obj_node, int version, const char *filename)
 {
   return object_load_using_properties(&implements_type,

@@ -28,7 +28,7 @@
  * New
  */
 PyObject* 
-PyDiaProperties_New (Object* obj)
+PyDiaProperties_New (DiaObject* obj)
 {
   PyDiaProperties *self;
   
@@ -58,7 +58,7 @@ static int
 PyDiaProperties_Compare(PyDiaProperties *self,
                       PyDiaProperties *other)
 {
-  return memcmp(&(self->object), &(other->object), sizeof(Object*));
+  return memcmp(&(self->object), &(other->object), sizeof(DiaObject*));
 }
 
 /*

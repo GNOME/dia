@@ -6,18 +6,20 @@ Summary: A gtk+ based diagram creation program.
 Name: %name
 Version: %ver
 # This indicates changes to the spec file after last time %ver has changed.
-Release: pre2
+Release: cvs
 Copyright: GPL
 Group: Applications/
 Source: ftp://ftp.gnome.org/pub/GNOME/stable/sources/dia/%{name}-%{ver}.tar.gz
-URL: http://www.lysator.liu.se/~alla/dia/dia.html
+URL: http://www.gnome.org/projects/dia/
 BuildRoot: /var/tmp/%{name}-%{ver}-root
 
 Requires: libxml2 >= 2.3.9 gtk2 pango >= 1.1.5 freetype2 >= 2.0.9
 Requires: libgnome libgnomeui popt
+Requires: python python-gtk
 BuildRequires: libxml2-devel >= 2.3.9 gtk2-devel pango-devel >= 1.1.5 
 BuildRequires: freetype2-devel >= 2.0.9 intltool > 0.21
-BuildRequires: libgnome-devel libgnomeui-devel
+BuildRequires: libgnome-devel libgnomeui-devel popt-devel
+BuildRequires: python python-gtk
 
 %description
 Dia is a GNU program designed to be much like the Windows
@@ -28,8 +30,9 @@ flowchart and others.  The native file format for Dia is XML (optionally
 gzip compressed).  It has print support, and can export to a number of formats such as EPS, SVG, CGM and PNG.
 
 %changelog
-* Sat Mar 27 2004 Lars Clausen <lars@raeder.dk>
-- Update requirements to add the optional but always compiled in parts.
+* Mon Mar 29 2004 Lars Clausen <lars@raeder.dk>
+- change url to www.gnome.org, fix freetype2 stuff, add python and gnome
+- dependencies
 * Thu Feb 4 2003 Lars Clausen <lrclause@cs.uiuc.edu>
 - update requirements.
 - update prerelease number, move to release field.
@@ -61,9 +64,9 @@ gzip compressed).  It has print support, and can export to a number of formats s
 unset LINGUAS || :
 
 if [ -x ./configure ]; then
-  CFLAGS=$RPM_OPT_FLAGS ./configure --prefix=%{_prefix} --enable-gnome
+  CFLAGS=$RPM_OPT_FLAGS ./configure --prefix=%{_prefix} --enable-gnome --with-python
 else 
-  CFLAGS=$RPM_OPT_FLAGS ./autogen.sh --prefix=%{_prefix} --enable-gnome
+  CFLAGS=$RPM_OPT_FLAGS ./autogen.sh --prefix=%{_prefix} --enable-gnome --with-python
 fi  
 make
 

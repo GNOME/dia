@@ -62,7 +62,7 @@ static void GHFuncUnknownObjects(gpointer key,
 				 gpointer user_data);
 static GList *read_objects(xmlNodePtr objects, Layer *layer,
 			   GHashTable *objects_hash,
-			   const char *filename, Object *parent);
+			   const char *filename, DiaObject *parent);
 static void hash_free_string(gpointer       key,
 			     gpointer       value,
 			     gpointer       user_data);
@@ -92,11 +92,11 @@ GHFuncUnknownObjects(gpointer key,
 
 static GList *
 read_objects(xmlNodePtr objects, Layer *layer,
-             GHashTable *objects_hash,const char *filename, Object *parent)
+             GHashTable *objects_hash,const char *filename, DiaObject *parent)
 {
   GList *list;
-  ObjectType *type;
-  Object *obj;
+  DiaObjectType *type;
+  DiaObject *obj;
   ObjectNode obj_node;
   char *typestr;
   char *versionstr;
@@ -204,12 +204,12 @@ read_connections(GList *objects, xmlNodePtr layer_node,
   char *tostr;
   char *connstr;
   int handle, conn;
-  Object *to;
+  DiaObject *to;
   
   list = objects;
   obj_node = layer_node->xmlChildrenNode;
   while ((list != NULL) && (obj_node != NULL)) {
-    Object *obj = (Object *) list->data;
+    DiaObject *obj = (DiaObject *) list->data;
 
     while (obj_node && xmlIsBlankNode(obj_node)) obj_node = obj_node->next;
     if (!obj_node) break;
@@ -224,6 +224,7 @@ read_connections(GList *objects, xmlNodePtr layer_node,
       if (connections != NULL) {
 	connection = connections->xmlChildrenNode;
 	while (connection != NULL) {
+	  char *donestr;
           if (xmlIsBlankNode(connection)) {
             connection = connection->next;
             continue;
@@ -233,27 +234,43 @@ read_connections(GList *objects, xmlNodePtr layer_node,
 	  connstr = xmlGetProp(connection, "connection");
 	  
 	  handle = atoi(handlestr);
-	  conn = atoi(connstr);
-	  
-	  to = g_hash_table_lookup(objects_hash, tostr);
+	  conn = strtol(connstr, &donestr, 10);
+	  if (*donestr != '\0') { /* Didn't convert it all -- use string */
+	    conn = -1;
+	  }
 
-	  if (handlestr) xmlFree(handlestr);
-	  if (connstr) xmlFree(connstr);
-	  if (tostr) xmlFree(tostr);
+	  to = g_hash_table_lookup(objects_hash, tostr);
 
 	  if (to == NULL) {
 	    message_error(_("Error loading diagram.\n"
 			    "Linked object not found in document."));
-	  } else if (conn >= 0 && conn >= to->num_connections) {
-	    message_error(_("Error loading diagram.\n"
-			    "connection point does not exist."));
-	  } else if (handle >= 0 && handle >= obj->num_handles) {
+	  } else if (handle < 0 || handle >= obj->num_handles) {
 	    message_error(_("Error loading diagram.\n"
 			    "connection handle does not exist."));
 	  } else {
-	    object_connect(obj, obj->handles[handle],
-			   to->connections[conn]);
+	    if (conn == -1) { /* Find named connpoint */
+	      int i;
+	      for (i = 0; i < to->num_connections; i++) {
+		if (to->connections[i]->name != NULL &&
+		    strcmp(to->connections[i]->name, connstr) == 0) {
+		  conn = i;
+		  break;
+		}
+	      }
+	    }
+	    if (conn >= 0 && conn < to->num_connections) {
+	      object_connect(obj, obj->handles[handle],
+			     to->connections[conn]);
+	    } else {
+	      message_error(_("Error loading diagram.\n"
+			      "connection point %s does not exist."),
+			    connstr);
+	    }
 	  }
+
+	  if (handlestr) xmlFree(handlestr);
+	  if (tostr) xmlFree(tostr);
+	  if (connstr) xmlFree(connstr);
 
 	  connection = connection->next;
 	}
@@ -531,7 +548,9 @@ diagram_data_load(const char *filename, DiagramData *data, void* user_data)
     /* Read in all objects: */
     
     list = read_objects(layer_node, layer, objects_hash, filename, NULL);
-    layer->objects = list;
+    /* Objects should already have been added to the layer by read_objects */
+    /* However, if this is included, we crash.  Need more investigation. XXX */
+    /*    g_list_free(list);*/
     read_connections( list, layer_node, objects_hash);
 
     data_add_layer(data, layer);
@@ -568,7 +587,7 @@ write_objects(GList *objects, xmlNodePtr objects_node,
 
   list = objects;
   while (list != NULL) {
-    Object *obj = (Object *) list->data;
+    DiaObject *obj = (DiaObject *) list->data;
 
     if (g_hash_table_lookup(objects_hash, obj))
     {
@@ -631,7 +650,7 @@ write_connections(GList *objects, xmlNodePtr layer_node,
   list = objects;
   obj_node = layer_node->xmlChildrenNode;
   while ((list != NULL) && (obj_node != NULL)) {
-    Object *obj = (Object *) list->data;
+    DiaObject *obj = (DiaObject *) list->data;
 
     while (obj_node && xmlIsBlankNode(obj_node)) obj_node = obj_node->next;
     if (!obj_node) break;
@@ -649,7 +668,7 @@ write_connections(GList *objects, xmlNodePtr layer_node,
 	con_point = handle->connected_to;
 	
 	if ( con_point != NULL ) {
-	  Object *other_obj;
+	  DiaObject *other_obj;
 	  int con_point_nr;
 	  
 	  other_obj = con_point->object;
@@ -677,16 +696,18 @@ write_connections(GList *objects, xmlNodePtr layer_node,
 
 	  xmlSetProp(connection, "to", buffer);
 	  /* to what connection_point on that object */
-	  g_snprintf(buffer, 30, "%d", con_point_nr);
+	  if (other_obj->connections[con_point_nr]->name != NULL) {
+	    g_snprintf(buffer, 30, "%s", other_obj->connections[con_point_nr]->name);
+	  } else {
+	    g_snprintf(buffer, 30, "%d", con_point_nr);
+	  }
 	  xmlSetProp(connection, "connection", buffer);
-
-
 	}
       }
     }
 
     if (obj->parent) {
-      Object *other_obj = obj->parent;
+      DiaObject *other_obj = obj->parent;
       xmlNodePtr parent;
       g_snprintf(buffer, 30, "O%d",
 		 GPOINTER_TO_INT(g_hash_table_lookup(objects_hash, other_obj)));
@@ -902,8 +923,8 @@ diagram_save(Diagram *dia, const char *filename)
   }
 
   dia->unsaved = FALSE;
-  diagram_set_modified (dia, FALSE);
   undo_mark_save(dia->undo);
+  diagram_set_modified (dia, FALSE);
 
   diagram_cleanup_autosave(dia);
 
@@ -918,7 +939,7 @@ diagram_cleanup_autosave(Diagram *dia)
   struct stat statbuf;
 
   savefile = dia->autosavefilename;
-
+  printf("Cleaning up autosave %s for %s\n", savefile, dia->filename);
   if (savefile == NULL) return;
 
   if (stat(savefile, &statbuf) == 0) { /* Success */

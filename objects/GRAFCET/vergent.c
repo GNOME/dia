@@ -64,14 +64,14 @@ static ObjectChange* vergent_move(Vergent *vergent, Point *to);
 static void vergent_select(Vergent *vergent, Point *clicked_point,
 			      DiaRenderer *interactive_renderer);
 static void vergent_draw(Vergent *vergent, DiaRenderer *renderer);
-static Object *vergent_create(Point *startpoint,
+static DiaObject *vergent_create(Point *startpoint,
 				 void *user_data,
 				 Handle **handle1,
 				 Handle **handle2);
 static real vergent_distance_from(Vergent *vergent, Point *point);
 static void vergent_update_data(Vergent *vergent);
 static void vergent_destroy(Vergent *vergent);
-static Object *vergent_load(ObjectNode obj_node, int version,
+static DiaObject *vergent_load(ObjectNode obj_node, int version,
                             const char *filename);
 static PropDescription *vergent_describe_props(Vergent *vergent);
 static void vergent_get_props(Vergent *vergent, 
@@ -91,7 +91,7 @@ static ObjectTypeOps vergent_type_ops =
   (ApplyDefaultsFunc) NULL  
 };
 
-ObjectType vergent_type =
+DiaObjectType vergent_type =
 {
   "GRAFCET - Vergent",   /* name */
   0,                         /* version */
@@ -277,7 +277,7 @@ vergent_update_data(Vergent *vergent)
 {
   Connection *conn = &vergent->connection;
   LineBBExtras *extra = &conn->extra_spacing;
-  Object *obj = &conn->object;
+  DiaObject *obj = &conn->object;
   Point p0,p1;
   
   conn->endpoints[1].y = conn->endpoints[0].y;
@@ -340,7 +340,7 @@ vergent_update_data(Vergent *vergent)
   connection_update_handles(conn);
 }
 
-/* Object menu handling */
+/* DiaObject menu handling */
 
 typedef struct {
   ObjectChange obj_change;
@@ -348,13 +348,13 @@ typedef struct {
   ObjectChange *north,*south;
 } VergentChange;
 
-static void vergent_change_apply(VergentChange *change, Object *obj)
+static void vergent_change_apply(VergentChange *change, DiaObject *obj)
 {
   change->north->apply(change->north,obj);
   change->south->apply(change->south,obj);
 }
 
-static void vergent_change_revert(VergentChange *change, Object *obj)
+static void vergent_change_revert(VergentChange *change, DiaObject *obj)
 {
   change->north->revert(change->north,obj);
   change->south->revert(change->south,obj);
@@ -390,13 +390,13 @@ vergent_create_change(Vergent *vergent, int add, Point *clicked)
 }
 
 static ObjectChange *
-vergent_add_cp_callback(Object *obj, Point *clicked, gpointer data)
+vergent_add_cp_callback(DiaObject *obj, Point *clicked, gpointer data)
 {
   return vergent_create_change((Vergent *)obj,1,clicked);
 }
 
 static ObjectChange *
-vergent_delete_cp_callback(Object *obj, Point *clicked, gpointer data)
+vergent_delete_cp_callback(DiaObject *obj, Point *clicked, gpointer data)
 { 
   return vergent_create_change((Vergent *)obj,0,clicked); 
 }
@@ -425,7 +425,7 @@ vergent_get_object_menu(Vergent *vergent, Point *clickedpoint)
   return &object_menu;
 }
 
-static Object *
+static DiaObject *
 vergent_create(Point *startpoint,
 		  void *user_data,
 		  Handle **handle1,
@@ -433,7 +433,7 @@ vergent_create(Point *startpoint,
 {
   Vergent *vergent;
   Connection *conn;
-  Object *obj;
+  DiaObject *obj;
   int i;
   Point defaultlen  = {6.0,0.0};
 
@@ -488,7 +488,7 @@ vergent_destroy(Vergent *vergent)
   connection_destroy(&vergent->connection);
 }
 
-static Object *
+static DiaObject *
 vergent_load(ObjectNode obj_node, int version, const char *filename)
 {
   return object_load_using_properties(&vergent_type,

@@ -134,7 +134,7 @@ static PyObject *
 PyDia_GetObjectType(PyObject *self, PyObject *args)
 {
     gchar *name;
-    ObjectType *otype;
+    DiaObjectType *otype;
 
     if (!PyArg_ParseTuple(args, "s:dia.get_object_type", &name))
 	return NULL;
@@ -154,7 +154,7 @@ _ot_item (gpointer key,
           gpointer user_data)
 {
     gchar *name = (gchar *)key;
-    ObjectType *type = (ObjectType *)value;
+    DiaObjectType *type = (DiaObjectType *)value;
     PyObject *dict = (PyObject *)user_data;
     PyObject *k, *v;
 

@@ -23,7 +23,6 @@
 
 #include "config.h"
 
-#include <ctype.h>
 #include <locale.h>
 #include <string.h>
 #include <stdlib.h>
@@ -51,12 +50,12 @@ dia_svg_parse_style(xmlNodePtr node, DiaSvgGraphicStyle *s)
  if (str) {
   while (ptr[0] != '\0') {
     /* skip white space at start */
-    while (ptr[0] != '\0' && isspace(ptr[0])) ptr++;
+    while (ptr[0] != '\0' && g_ascii_isspace(ptr[0])) ptr++;
     if (ptr[0] == '\0') break;
 
      if (!strncmp("font-family:", ptr, 12)) {
       ptr += 12;
-      while ((ptr[0] != '\0') && isspace(ptr[0])) ptr++;
+      while ((ptr[0] != '\0') && g_ascii_isspace(ptr[0])) ptr++;
       i = 0; over = FALSE;
       while (ptr[0] != '\0' && ptr[0] != ';' && !over) {
         if (i < FONT_NAME_LENGTH_MAX) {
@@ -70,7 +69,7 @@ dia_svg_parse_style(xmlNodePtr node, DiaSvgGraphicStyle *s)
       if (!over) family = g_strdup(temp);
      } else if (!strncmp("font-weight:", ptr, 12)) {
       ptr += 12;
-      while ((ptr[0] != '\0') && isspace(ptr[0])) ptr++;
+      while ((ptr[0] != '\0') && g_ascii_isspace(ptr[0])) ptr++;
       i = 0; over = FALSE;
       while (ptr[0] != '\0' && ptr[0] != ';' && !over) {
         if (i < FONT_NAME_LENGTH_MAX) {
@@ -84,7 +83,7 @@ dia_svg_parse_style(xmlNodePtr node, DiaSvgGraphicStyle *s)
       if (!over) weight = g_strdup(temp);
      } else if (!strncmp("font-style:", ptr, 11)) {
       ptr += 11;
-      while ((ptr[0] != '\0') && isspace(ptr[0])) ptr++;
+      while ((ptr[0] != '\0') && g_ascii_isspace(ptr[0])) ptr++;
       i = 0; over = FALSE;
       while (ptr[0] != '\0' && ptr[0] != ';' && !over) {
         if (i < FONT_NAME_LENGTH_MAX) {
@@ -98,7 +97,7 @@ dia_svg_parse_style(xmlNodePtr node, DiaSvgGraphicStyle *s)
       if (!over) style = g_strdup(temp);
      } else if (!strncmp("font-size:", ptr, 10)) {
       ptr += 10;
-      while ((ptr[0] != '\0') && isspace(ptr[0])) ptr++;
+      while ((ptr[0] != '\0') && g_ascii_isspace(ptr[0])) ptr++;
       i = 0; over = FALSE;
       while (ptr[0] != '\0' && ptr[0] != ';' && !over) {
         if (i < FONT_NAME_LENGTH_MAX) {
@@ -116,7 +115,7 @@ dia_svg_parse_style(xmlNodePtr node, DiaSvgGraphicStyle *s)
       }
     } else if (!strncmp("text-anchor:", ptr, 12)) {
       ptr += 12;
-      while ((ptr[0] != '\0') && isspace(ptr[0])) ptr++;
+      while ((ptr[0] != '\0') && g_ascii_isspace(ptr[0])) ptr++;
       if (!strncmp(ptr, "start", 5))
         s->alignment = ALIGN_LEFT;
       else if (!strncmp(ptr, "end", 3))
@@ -130,7 +129,7 @@ dia_svg_parse_style(xmlNodePtr node, DiaSvgGraphicStyle *s)
       s->line_width = strtod(ptr, &ptr);
     } else if (!strncmp("stroke:", ptr, 7)) {
       ptr += 7;
-      while ((ptr[0] != '\0') && isspace(ptr[0])) ptr++;
+      while ((ptr[0] != '\0') && g_ascii_isspace(ptr[0])) ptr++;
       if (ptr[0] == '\0') break;
 
       if (!strncmp(ptr, "none", 4))
@@ -147,7 +146,7 @@ dia_svg_parse_style(xmlNodePtr node, DiaSvgGraphicStyle *s)
 	s->stroke = strtol(ptr+1, NULL, 16) & 0xffffff;
     } else if (!strncmp("fill:", ptr, 5)) {
       ptr += 5;
-      while (ptr[0] != '\0' && isspace(ptr[0])) ptr++;
+      while (ptr[0] != '\0' && g_ascii_isspace(ptr[0])) ptr++;
       if (ptr[0] == '\0') break;
 
       if (!strncmp(ptr, "none", 4))
@@ -164,7 +163,7 @@ dia_svg_parse_style(xmlNodePtr node, DiaSvgGraphicStyle *s)
 	s->fill = strtol(ptr+1, NULL, 16) & 0xffffff;
     } else if (!strncmp("stroke-linecap:", ptr, 15)) {
       ptr += 15;
-      while (ptr[0] != '\0' && isspace(ptr[0])) ptr++;
+      while (ptr[0] != '\0' && g_ascii_isspace(ptr[0])) ptr++;
       if (ptr[0] == '\0') break;
 
       if (!strncmp(ptr, "butt", 4))
@@ -177,7 +176,7 @@ dia_svg_parse_style(xmlNodePtr node, DiaSvgGraphicStyle *s)
 	s->linecap = DIA_SVG_LINECAPS_DEFAULT;
     } else if (!strncmp("stroke-linejoin:", ptr, 16)) {
       ptr += 16;
-      while (ptr[0] != '\0' && isspace(ptr[0])) ptr++;
+      while (ptr[0] != '\0' && g_ascii_isspace(ptr[0])) ptr++;
       if (ptr[0] == '\0') break;
 
       if (!strncmp(ptr, "miter", 5))
@@ -190,7 +189,7 @@ dia_svg_parse_style(xmlNodePtr node, DiaSvgGraphicStyle *s)
 	s->linejoin = DIA_SVG_LINEJOIN_DEFAULT;
     } else if (!strncmp("stroke-pattern:", ptr, 15)) {
       ptr += 15;
-      while (ptr[0] != '\0' && isspace(ptr[0])) ptr++;
+      while (ptr[0] != '\0' && g_ascii_isspace(ptr[0])) ptr++;
       if (ptr[0] == '\0') break;
 
       if (!strncmp(ptr, "solid", 5))
@@ -207,7 +206,7 @@ dia_svg_parse_style(xmlNodePtr node, DiaSvgGraphicStyle *s)
 	s->linestyle = DIA_SVG_LINESTYLE_DEFAULT;
     } else if (!strncmp("stroke-dashlength:", ptr, 18)) {
       ptr += 18;
-      while (ptr[0] != '\0' && isspace(ptr[0])) ptr++;
+      while (ptr[0] != '\0' && g_ascii_isspace(ptr[0])) ptr++;
       if (ptr[0] == '\0') break;
 
       if (!strncmp(ptr, "default", 7))
@@ -224,7 +223,7 @@ dia_svg_parse_style(xmlNodePtr node, DiaSvgGraphicStyle *s)
        */
       s->linestyle = LINESTYLE_DASHED;
       ptr += 17;
-      while (ptr[0] != '\0' && isspace(ptr[0])) ptr++;
+      while (ptr[0] != '\0' && g_ascii_isspace(ptr[0])) ptr++;
       if (ptr[0] == '\0') break;
 
       if (!strncmp(ptr, "default", 7))

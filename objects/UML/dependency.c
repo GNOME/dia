@@ -73,7 +73,7 @@ static ObjectChange* dependency_move_handle(Dependency *dep, Handle *handle,
 					    HandleMoveReason reason, ModifierKeys modifiers);
 static ObjectChange* dependency_move(Dependency *dep, Point *to);
 static void dependency_draw(Dependency *dep, DiaRenderer *renderer);
-static Object *dependency_create(Point *startpoint,
+static DiaObject *dependency_create(Point *startpoint,
 				 void *user_data,
 				 Handle **handle1,
 				 Handle **handle2);
@@ -81,7 +81,7 @@ static void dependency_destroy(Dependency *dep);
 static DiaMenu *dependency_get_object_menu(Dependency *dep,
 					   Point *clickedpoint);
 
-static Object *dependency_load(ObjectNode obj_node, int version,
+static DiaObject *dependency_load(ObjectNode obj_node, int version,
 			       const char *filename);
 static PropDescription *dependency_describe_props(Dependency *dependency);
 static void dependency_get_props(Dependency * dependency, GPtrArray *props);
@@ -98,7 +98,7 @@ static ObjectTypeOps dependency_type_ops =
   (ApplyDefaultsFunc) NULL
 };
 
-ObjectType dependency_type =
+DiaObjectType dependency_type =
 {
   "UML - Dependency",   /* name */
   0,                      /* version */
@@ -269,7 +269,7 @@ static void
 dependency_update_data(Dependency *dep)
 {
   OrthConn *orth = &dep->orth;
-  Object *obj = &orth->object;
+  DiaObject *obj = &orth->object;
   PolyBBExtras *extra = &orth->extra_spacing;
   int num_segm, i;
   Point *points;
@@ -350,7 +350,7 @@ dependency_update_data(Dependency *dep)
 }
 
 static ObjectChange *
-dependency_add_segment_callback(Object *obj, Point *clicked, gpointer data)
+dependency_add_segment_callback(DiaObject *obj, Point *clicked, gpointer data)
 {
   ObjectChange *change;
   change = orthconn_add_segment((OrthConn *)obj, clicked);
@@ -359,7 +359,7 @@ dependency_add_segment_callback(Object *obj, Point *clicked, gpointer data)
 }
 
 static ObjectChange *
-dependency_delete_segment_callback(Object *obj, Point *clicked, gpointer data)
+dependency_delete_segment_callback(DiaObject *obj, Point *clicked, gpointer data)
 {
   ObjectChange *change;
   change = orthconn_delete_segment((OrthConn *)obj, clicked);
@@ -395,7 +395,7 @@ dependency_get_object_menu(Dependency *dep, Point *clickedpoint)
   return &object_menu;
 }
 
-static Object *
+static DiaObject *
 dependency_create(Point *startpoint,
 	       void *user_data,
   	       Handle **handle1,
@@ -403,7 +403,7 @@ dependency_create(Point *startpoint,
 {
   Dependency *dep;
   OrthConn *orth;
-  Object *obj;
+  DiaObject *obj;
 
   if (dep_font == NULL) {
       dep_font = dia_font_new_from_style(DIA_FONT_MONOSPACE, DEPENDENCY_FONTHEIGHT);
@@ -411,7 +411,7 @@ dependency_create(Point *startpoint,
   
   dep = g_new0(Dependency, 1);
   orth = &dep->orth;
-  obj = (Object *)dep;
+  obj = (DiaObject *)dep;
   
   obj->type = &dependency_type;
 
@@ -432,7 +432,7 @@ dependency_create(Point *startpoint,
   *handle1 = orth->handles[0];
   *handle2 = orth->handles[orth->numpoints-2];
 
-  return (Object *)dep;
+  return (DiaObject *)dep;
 }
 
 static void
@@ -445,7 +445,7 @@ dependency_destroy(Dependency *dep)
   orthconn_destroy(&dep->orth);
 }
 
-static Object *
+static DiaObject *
 dependency_load(ObjectNode obj_node, int version, const char *filename)
 {
   return object_load_using_properties(&dependency_type,

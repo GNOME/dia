@@ -28,8 +28,8 @@
 #include "diarenderer.h"
 
 struct _Group {
- /* Object must be first because this is a 'subclass' of it. */
-  Object object;
+ /* DiaObject must be first because this is a 'subclass' of it. */
+  DiaObject object;
   
   Handle resize_handles[8];
 
@@ -46,7 +46,7 @@ static void group_draw(Group *group, DiaRenderer *renderer);
 static void group_update_data(Group *group);
 static void group_update_handles(Group *group);
 static void group_destroy(Group *group);
-static Object *group_copy(Group *group);
+static DiaObject *group_copy(Group *group);
 static const PropDescription *group_describe_props(Group *group);
 static void group_get_props(Group *group, GPtrArray *props);
 static void group_set_props(Group *group, GPtrArray *props);
@@ -67,7 +67,7 @@ static ObjectOps group_ops = {
   (SetPropsFunc)        group_set_props
 };
 
-ObjectType group_type = {
+DiaObjectType group_type = {
   "Group",
   0,
   NULL
@@ -78,13 +78,13 @@ group_distance_from(Group *group, Point *point)
 {
   real dist;
   GList *list;
-  Object *obj;
+  DiaObject *obj;
 
   dist = 100000.0;
   
   list = group->objects;
   while (list != NULL) {
-    obj = (Object *) list->data;
+    obj = (DiaObject *) list->data;
     
     dist = MIN(dist, obj->ops->distance_from(obj, point));
 
@@ -165,11 +165,11 @@ static void
 group_draw(Group *group, DiaRenderer *renderer)
 {
   GList *list;
-  Object *obj;
+  DiaObject *obj;
 
   list = group->objects;
   while (list != NULL) {
-    obj = (Object *) list->data;
+    obj = (DiaObject *) list->data;
     
     DIA_RENDERER_GET_CLASS(renderer)->draw_object(renderer, obj);
 
@@ -178,7 +178,7 @@ group_draw(Group *group, DiaRenderer *renderer)
 }
 
 void 
-group_destroy_shallow(Object *obj)
+group_destroy_shallow(DiaObject *obj)
 {
   Group *group = (Group *)obj;
   if (obj->handles)
@@ -198,7 +198,7 @@ group_destroy_shallow(Object *obj)
 static void 
 group_destroy(Group *group)
 {
-  Object *obj = &group->object;
+  DiaObject *obj = &group->object;
   
   destroy_object_list(group->objects);
 
@@ -212,12 +212,12 @@ group_destroy(Group *group)
   object_destroy(obj);
 }
 
-static Object *
+static DiaObject *
 group_copy(Group *group)
 {
   Group *newgroup;
-  Object *newobj, *obj;
-  Object *listobj;
+  DiaObject *newobj, *obj;
+  DiaObject *listobj;
   GList *list;
   int num_conn, i;
     
@@ -239,7 +239,7 @@ group_copy(Group *group)
   num_conn = 0;
   list = newgroup->objects;
   while (list != NULL) {
-    listobj = (Object *) list->data;
+    listobj = (DiaObject *) list->data;
 
     for (i=0;i<listobj->num_connections;i++) {
       newobj->connections[num_conn++] = listobj->connections[i];
@@ -251,7 +251,7 @@ group_copy(Group *group)
   /* NULL out the property description field */
   newgroup->pdesc = NULL;
 
-  return (Object *)newgroup;
+  return (DiaObject *)newgroup;
 }
 
 
@@ -259,16 +259,16 @@ static void
 group_update_data(Group *group)
 {
   GList *list;
-  Object *obj;
+  DiaObject *obj;
 
   if (group->objects != NULL) {
     list = group->objects;
-    obj = (Object *) list->data;
+    obj = (DiaObject *) list->data;
     group->object.bounding_box = obj->bounding_box;
 
     list = g_list_next(list);
     while (list != NULL) {
-      obj = (Object *) list->data;
+      obj = (DiaObject *) list->data;
       
       rectangle_union(&group->object.bounding_box, &obj->bounding_box);
       
@@ -276,7 +276,7 @@ group_update_data(Group *group)
     }
   }
 
-  obj = (Object *) group->objects->data;
+  obj = (DiaObject *) group->objects->data;
   
   /* Move group by the point of the first object, otherwise a group
      with all objects on grid might be moved off grid. */
@@ -290,11 +290,11 @@ group_update_data(Group *group)
 /* Make sure there are no connections from objects to objects
  * outside of the created group.
  */
-Object *
+DiaObject *
 group_create(GList *objects)
 {
   Group *group;
-  Object *obj, *part_obj;
+  DiaObject *obj, *part_obj;
   int i;
   GList *list;
   int num_conn;
@@ -314,7 +314,7 @@ group_create(GList *objects)
   num_conn = 0;
   list = objects;
   while (list != NULL) {
-    part_obj = (Object *) list->data;
+    part_obj = (DiaObject *) list->data;
 
     num_conn += part_obj->num_connections;
     
@@ -327,7 +327,7 @@ group_create(GList *objects)
   num_conn = 0;
   list = objects;
   while (list != NULL) {
-    part_obj = (Object *) list->data;
+    part_obj = (DiaObject *) list->data;
 
     for (i=0;i<part_obj->num_connections;i++) {
       obj->connections[num_conn++] = part_obj->connections[i];
@@ -344,11 +344,11 @@ group_create(GList *objects)
   }
 
   group_update_data(group);
-  return (Object *)group;
+  return (DiaObject *)group;
 }
 
 GList *
-group_objects(Object *group)
+group_objects(DiaObject *group)
 {
   Group *g;
   g = (Group *)group;
@@ -361,7 +361,7 @@ group_prop_event_deliver(Group *group, Property *prop)
 {
   GList *tmp;
   for (tmp = group->objects; tmp != NULL; tmp = tmp->next) {
-    Object *obj = tmp->data;
+    DiaObject *obj = tmp->data;
 
     if (obj->ops->describe_props) {
       const PropDescription *pdesc,*plist;
@@ -396,7 +396,7 @@ group_describe_props(Group *group)
     /* create list of property descriptions */
     for (tmp = group->objects; tmp != NULL; tmp = tmp->next) {
       const PropDescription *desc = NULL;
-      Object *obj = tmp->data;
+      DiaObject *obj = tmp->data;
 
       desc = object_get_prop_descriptions(obj);
 
@@ -424,7 +424,7 @@ group_get_props(Group *group, GPtrArray *props)
   GList *tmp;
 
   for (tmp = group->objects; tmp != NULL; tmp = tmp->next) {
-    Object *obj = tmp->data;
+    DiaObject *obj = tmp->data;
 
     if (obj->ops->get_props) {
       obj->ops->get_props(obj, props);
@@ -438,7 +438,7 @@ group_set_props(Group *group, GPtrArray *props)
   GList *tmp;
 
   for (tmp = group->objects; tmp != NULL; tmp = tmp->next) {
-    Object *obj = tmp->data;
+    DiaObject *obj = tmp->data;
 
     if (obj->ops->set_props) {
       obj->ops->set_props(obj, props);

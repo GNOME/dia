@@ -186,7 +186,7 @@ static void
 add_handle(PolyConn *poly, int pos, Point *point, Handle *handle)
 {
   int i;
-  Object *obj;
+  DiaObject *obj;
   
   poly->numpoints++;
   poly->points = g_realloc(poly->points, poly->numpoints*sizeof(Point));
@@ -195,9 +195,9 @@ add_handle(PolyConn *poly, int pos, Point *point, Handle *handle)
     poly->points[i] = poly->points[i-1];
   }
   poly->points[pos] = *point;
-  object_add_handle_at((Object*)poly, handle, pos);
+  object_add_handle_at((DiaObject*)poly, handle, pos);
 
-  obj = (Object *)poly;
+  obj = (DiaObject *)poly;
   if (pos==0) {
     obj->handles[1]->type = HANDLE_MINOR_CONTROL;
     obj->handles[1]->id = HANDLE_CORNER;
@@ -212,10 +212,10 @@ static void
 remove_handle(PolyConn *poly, int pos)
 {
   int i;
-  Object *obj;
+  DiaObject *obj;
   Handle *old_handle;
 
-  obj = (Object *)poly;
+  obj = (DiaObject *)poly;
 
   if (pos==0) {
     obj->handles[1]->type = HANDLE_MAJOR_CONTROL;
@@ -272,7 +272,7 @@ polyconn_remove_point(PolyConn *poly, int pos)
   old_point = poly->points[pos];
   connectionpoint = old_handle->connected_to;
   
-  object_unconnect((Object *)poly, old_handle);
+  object_unconnect((DiaObject *)poly, old_handle);
 
   remove_handle(poly, pos);
 
@@ -287,7 +287,7 @@ void
 polyconn_update_data(PolyConn *poly)
 {
   int i;
-  Object *obj = &poly->object;
+  DiaObject *obj = &poly->object;
   
   /* handle the case of whole points array update (via set_prop) */
   if (poly->numpoints != obj->num_handles) {
@@ -347,7 +347,7 @@ polyconn_simple_draw(PolyConn *poly, DiaRenderer *renderer, real width)
 void
 polyconn_init(PolyConn *poly, int num_points)
 {
-  Object *obj;
+  DiaObject *obj;
   int i;
 
   obj = &poly->object;
@@ -393,7 +393,7 @@ void
 polyconn_copy(PolyConn *from, PolyConn *to)
 {
   int i;
-  Object *toobj, *fromobj;
+  DiaObject *toobj, *fromobj;
 
   toobj = &to->object;
   fromobj = &from->object;
@@ -461,7 +461,7 @@ polyconn_load(PolyConn *poly, ObjectNode obj_node) /* NOTE: Does object_init() *
   AttributeNode attr;
   DataNode data;
   
-  Object *obj = &poly->object;
+  DiaObject *obj = &poly->object;
 
   object_load(obj, obj_node);
 
@@ -513,7 +513,7 @@ polyconn_change_free(struct PointChange *change)
 }
 
 static void
-polyconn_change_apply(struct PointChange *change, Object *obj)
+polyconn_change_apply(struct PointChange *change, DiaObject *obj)
 {
   change->applied = 1;
   switch (change->type) {
@@ -529,7 +529,7 @@ polyconn_change_apply(struct PointChange *change, Object *obj)
 }
 
 static void
-polyconn_change_revert(struct PointChange *change, Object *obj)
+polyconn_change_revert(struct PointChange *change, DiaObject *obj)
 {
   switch (change->type) {
   case TYPE_ADD_POINT:

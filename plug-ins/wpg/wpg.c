@@ -1198,7 +1198,7 @@ import_data (const gchar *filename, DiagramData *dia, void* user_data)
         else {
           bRet = (1 == fread(&i16, sizeof(guint16), 1, f));
           if (0x8000 & i16) {
-            DIAG_NOTE(g_print("Large Object: hi:lo %04X", (int)i16));
+            DIAG_NOTE(g_print("Large DiaObject: hi:lo %04X", (int)i16));
             iSize = i16 << 16;
             /* Reading large objects involves major uglyness. Instead of getting 
              * one size, as implied by "Encyclopedia of Graphics File Formats",
@@ -1207,7 +1207,7 @@ import_data (const gchar *filename, DiagramData *dia, void* user_data)
              */
             iSize = 0;
             bRet = (1 == fread(&i16, sizeof(guint16), 1, f));
-            DIAG_NOTE(g_print("Large Object: %d\n", (int)i16));
+            DIAG_NOTE(g_print("Large DiaObject: %d\n", (int)i16));
             iSize += i16;
 #if 1
             /* Ignore this large objec part */

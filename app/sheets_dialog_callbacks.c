@@ -776,8 +776,8 @@ on_sheets_new_dialog_button_ok_clicked (GtkButton       *button,
     gchar *p;
     struct stat stat_buf;
     GList *plugin_list;
-    ObjectType *ot;
-    typedef gboolean (*CustomObjectLoadFunc) (gchar*, ObjectType **);
+    DiaObjectType *ot;
+    typedef gboolean (*CustomObjectLoadFunc) (gchar*, DiaObjectType **);
     CustomObjectLoadFunc custom_object_load_fn;
     gint pos;
     GtkWidget *active_button;

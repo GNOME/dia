@@ -66,14 +66,14 @@ static ObjectChange* beziergon_move(Beziergon *beziergon, Point *to);
 static void beziergon_select(Beziergon *beziergon, Point *clicked_point,
 			     DiaRenderer *interactive_renderer);
 static void beziergon_draw(Beziergon *beziergon, DiaRenderer *renderer);
-static Object *beziergon_create(Point *startpoint,
+static DiaObject *beziergon_create(Point *startpoint,
 				void *user_data,
 				Handle **handle1,
 				Handle **handle2);
 static real beziergon_distance_from(Beziergon *beziergon, Point *point);
 static void beziergon_update_data(Beziergon *beziergon);
 static void beziergon_destroy(Beziergon *beziergon);
-static Object *beziergon_copy(Beziergon *beziergon);
+static DiaObject *beziergon_copy(Beziergon *beziergon);
 
 static PropDescription *beziergon_describe_props(Beziergon *beziergon);
 static void beziergon_get_props(Beziergon *beziergon, GPtrArray *props);
@@ -81,7 +81,7 @@ static void beziergon_set_props(Beziergon *beziergon, GPtrArray *props);
 
 static void beziergon_save(Beziergon *beziergon, ObjectNode obj_node,
 			  const char *filename);
-static Object *beziergon_load(ObjectNode obj_node, int version,
+static DiaObject *beziergon_load(ObjectNode obj_node, int version,
 			     const char *filename);
 static DiaMenu *beziergon_get_object_menu(Beziergon *beziergon,
 					  Point *clickedpoint);
@@ -95,7 +95,7 @@ static ObjectTypeOps beziergon_type_ops =
   (ApplyDefaultsFunc) NULL
 };
 
-static ObjectType beziergon_type =
+static DiaObjectType beziergon_type =
 {
   "Standard - Beziergon",   /* name */
   0,                         /* version */
@@ -106,7 +106,7 @@ static ObjectType beziergon_type =
   0                         /* default_user_data */
 };
 
-ObjectType *_beziergon_type = (ObjectType *) &beziergon_type;
+DiaObjectType *_beziergon_type = (DiaObjectType *) &beziergon_type;
 
 
 static ObjectOps beziergon_ops = {
@@ -258,12 +258,13 @@ beziergon_draw(Beziergon *beziergon, DiaRenderer *renderer)
   /* these lines should only be displayed when object is selected.
    * Unfortunately the draw function is not aware of the selected
    * state.  This is a compromise until I fix this properly. */
-  if (renderer->is_interactive) {
+  if (renderer->is_interactive &&
+      dia_object_is_selected((DiaObject*)beziergon)) {
     beziershape_draw_control_lines(&beziergon->bezier, renderer);
   }
 }
 
-static Object *
+static DiaObject *
 beziergon_create(Point *startpoint,
 		  void *user_data,
 		  Handle **handle1,
@@ -271,7 +272,7 @@ beziergon_create(Point *startpoint,
 {
   Beziergon *beziergon;
   BezierShape *bezier;
-  Object *obj;
+  DiaObject *obj;
   Point defaultx = { 1.0, 0.0 };
   Point defaulty = { 0.0, 1.0 };
 
@@ -328,12 +329,12 @@ beziergon_destroy(Beziergon *beziergon)
   beziershape_destroy(&beziergon->bezier);
 }
 
-static Object *
+static DiaObject *
 beziergon_copy(Beziergon *beziergon)
 {
   Beziergon *newbeziergon;
   BezierShape *bezier, *newbezier;
-  Object *newobj;
+  DiaObject *newobj;
 
   bezier = &beziergon->bezier;
  
@@ -357,7 +358,7 @@ static void
 beziergon_update_data(Beziergon *beziergon)
 {
   BezierShape *bezier = &beziergon->bezier;
-  Object *obj = &bezier->object;
+  DiaObject *obj = &bezier->object;
   ElementBBExtras *extra = &bezier->extra_spacing;
   
   beziershape_update_data(bezier);
@@ -400,12 +401,12 @@ beziergon_save(Beziergon *beziergon, ObjectNode obj_node,
   
 }
 
-static Object *
+static DiaObject *
 beziergon_load(ObjectNode obj_node, int version, const char *filename)
 {
   Beziergon *beziergon;
   BezierShape *bezier;
-  Object *obj;
+  DiaObject *obj;
   AttributeNode attr;
 
   beziergon = g_malloc0(sizeof(Beziergon));
@@ -454,7 +455,7 @@ beziergon_load(ObjectNode obj_node, int version, const char *filename)
 }
 
 static ObjectChange *
-beziergon_add_segment_callback (Object *obj, Point *clicked, gpointer data)
+beziergon_add_segment_callback (DiaObject *obj, Point *clicked, gpointer data)
 {
   Beziergon *bezier = (Beziergon*) obj;
   int segment;
@@ -468,7 +469,7 @@ beziergon_add_segment_callback (Object *obj, Point *clicked, gpointer data)
 }
 
 static ObjectChange *
-beziergon_delete_segment_callback (Object *obj, Point *clicked, gpointer data)
+beziergon_delete_segment_callback (DiaObject *obj, Point *clicked, gpointer data)
 {
   int seg_nr;
   Beziergon *bezier = (Beziergon*) obj;
@@ -482,7 +483,7 @@ beziergon_delete_segment_callback (Object *obj, Point *clicked, gpointer data)
 }
 
 static ObjectChange *
-beziergon_set_corner_type_callback (Object *obj, Point *clicked, gpointer data)
+beziergon_set_corner_type_callback (DiaObject *obj, Point *clicked, gpointer data)
 {
   Handle *closest;
   Beziergon *beziergon = (Beziergon *) obj;

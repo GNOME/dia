@@ -37,10 +37,11 @@
 #include "persistence.h"
 #include "diaarrowchooser.h"
 #include "dialinechooser.h"
+#include "widgets.h"
 
 #include <gdk-pixbuf/gdk-pixbuf.h>
 #include "dia-app-icons.h"
-
+#include "diacanvas.h"
 
 static const GtkTargetEntry create_object_targets[] = {
   { "application/x-dia-object", 0, 0 },
@@ -429,10 +430,11 @@ create_display_shell(DDisplay *ddisp,
   gtk_widget_show(navigation_button);
 
   /*  Canvas  */
-  ddisp->canvas = gtk_drawing_area_new ();
+  /*  ddisp->canvas = gtk_drawing_area_new ();*/
+  ddisp->canvas = dia_canvas_new();
   /* Dia's canvas does it' double buffering alone so switch off GTK's */
   gtk_widget_set_double_buffered (ddisp->canvas, FALSE);
-
+  dia_canvas_set_size(ddisp->canvas, width, height);
   gtk_widget_set_events (ddisp->canvas, CANVAS_EVENT_MASK);
   GTK_WIDGET_SET_FLAGS (ddisp->canvas, GTK_CAN_FOCUS);
   g_signal_connect (GTK_OBJECT (ddisp->canvas), "event",
@@ -447,6 +449,7 @@ create_display_shell(DDisplay *ddisp,
 		    G_CALLBACK(display_data_received_callback), ddisp);
 
   gtk_object_set_user_data (GTK_OBJECT (ddisp->canvas), (gpointer) ddisp);
+
   /*  pack all the widgets  */
   gtk_table_attach (GTK_TABLE (table), ddisp->origin, 0, 1, 0, 1,
                     GTK_FILL, GTK_FILL, 0, 0);
@@ -514,7 +517,7 @@ create_display_shell(DDisplay *ddisp,
   gtk_box_pack_start (GTK_BOX (status_hbox), zoom_hbox, FALSE, FALSE, 0);
 
   /* Grid on/off button */
-  ddisp->grid_status = gtk_toggle_button_new();
+  ddisp->grid_status = dia_toggle_button_new_with_images("on-grid.png", "off-grid.png");
   
   g_signal_connect(G_OBJECT(ddisp->grid_status), "toggled",
 		   grid_toggle_snap, ddisp);
@@ -683,7 +686,7 @@ create_tools(GtkWidget *parent)
     }
     
     if (tool_data[i].icon_data==NULL) {
-      ObjectType *type;
+      DiaObjectType *type;
       type =
 	object_get_type((char *)tool_data[i].callback_data.extra_data);
       if (type == NULL)
@@ -783,7 +786,7 @@ create_sheet_page(GtkWidget *parent, Sheet *sheet)
 			gtk_widget_get_colormap(parent), &mask,
 			&style->bg[GTK_STATE_NORMAL], sheet_obj->pixmap_file);
     } else {
-      ObjectType *type;
+      DiaObjectType *type;
       type = object_get_type(sheet_obj->object_type);
       pixmap = gdk_pixmap_colormap_create_from_xpm_d(NULL,
 			gtk_widget_get_colormap(parent), &mask, 
@@ -883,7 +886,7 @@ fill_sheet_wbox(GtkWidget *menu_item, Sheet *sheet)
                     sheet_obj->pixmap_file,gerror?gerror->message:"[NULL]");
       }
     } else {
-      ObjectType *type;
+      DiaObjectType *type;
       type = object_get_type(sheet_obj->object_type);
       pixmap = gdk_pixmap_colormap_create_from_xpm_d(NULL,
 			gtk_widget_get_colormap(sheet_wbox), &mask, 
@@ -1109,19 +1112,35 @@ static void
 create_lineprops_area(GtkWidget *parent)
 {
   GtkWidget *chooser;
+  Arrow arrow;
+  real dash_length;
+  LineStyle style;
 
   chooser = dia_arrow_chooser_new(TRUE, change_start_arrow_style, NULL, tool_tips);
   gtk_wrap_box_pack_wrapped(GTK_WRAP_BOX(parent), chooser, FALSE, TRUE, FALSE, TRUE, TRUE);
+  arrow.width = persistence_register_real("start-arrow-width", DEFAULT_ARROW_WIDTH);
+  arrow.length = persistence_register_real("start-arrow-length", DEFAULT_ARROW_LENGTH);
+  arrow.type = arrow_type_from_name(persistence_register_string("start-arrow-type", "None"));
+  dia_arrow_chooser_set_arrow(DIA_ARROW_CHOOSER(chooser), &arrow);
+  attributes_set_default_start_arrow(arrow);
   gtk_tooltips_set_tip(tool_tips, chooser, _("Arrow style at the beginning of new lines.  Click to pick an arrow, or set arrow parameters with Details..."), NULL);
   gtk_widget_show(chooser);
 
   chooser = dia_line_chooser_new(change_line_style, NULL);
   gtk_wrap_box_pack(GTK_WRAP_BOX(parent), chooser, TRUE, TRUE, FALSE, TRUE);
   gtk_tooltips_set_tip(tool_tips, chooser, _("Line style for new lines.  Click to pick a line style, or set line style parameters with Details..."), NULL);
+  style = persistence_register_integer("line-style", LINESTYLE_SOLID);
+  dash_length = persistence_register_real("dash-length", DEFAULT_LINESTYLE_DASHLEN);
+  dia_line_chooser_set_line_style(DIA_LINE_CHOOSER(chooser), style, dash_length);
   gtk_widget_show(chooser);
 
   chooser = dia_arrow_chooser_new(FALSE, change_end_arrow_style, NULL, tool_tips);
-  dia_arrow_chooser_set_arrow_type(DIA_ARROW_CHOOSER(chooser), ARROW_FILLED_CONCAVE);
+  arrow.width = persistence_register_real("end-arrow-width", DEFAULT_ARROW_WIDTH);
+  arrow.length = persistence_register_real("end-arrow-length", DEFAULT_ARROW_LENGTH);
+  arrow.type = arrow_type_from_name(persistence_register_string("end-arrow-type", "Filled Concave"));
+  dia_arrow_chooser_set_arrow(DIA_ARROW_CHOOSER(chooser), &arrow);
+  attributes_set_default_end_arrow(arrow);
+
   gtk_wrap_box_pack(GTK_WRAP_BOX(parent), chooser, FALSE, TRUE, FALSE, TRUE);
   gtk_tooltips_set_tip(tool_tips, chooser, _("Arrow style at the end of new lines.  Click to pick an arrow, or set arrow parameters with Details..."), NULL);
   gtk_widget_show(chooser);

@@ -272,8 +272,8 @@ diagram_properties_respond(GtkWidget *widget,
 {
   Diagram *active_diagram = ddisplay_active_diagram();
 
-  if (response_id != GTK_RESPONSE_OK ||
-      response_id != GTK_RESPONSE_APPLY) {
+  if (response_id == GTK_RESPONSE_OK ||
+      response_id == GTK_RESPONSE_APPLY) {
     if (active_diagram) {
       active_diagram->data->grid.dynamic =
         gtk_toggle_button_get_active(GTK_CHECK_BUTTON(dynamic_check));
@@ -293,6 +293,7 @@ diagram_properties_respond(GtkWidget *widget,
   				 &active_diagram->data->pagebreak_color);
       diagram_add_update_all(active_diagram);
       diagram_flush(active_diagram);
+      diagram_set_modified(active_diagram, TRUE);
     }
   }
   if (response_id != GTK_RESPONSE_APPLY)

@@ -34,7 +34,7 @@
 static GtkWidget *dialog = NULL;
 static GtkWidget *dialog_vbox = NULL;
 static GtkWidget *object_part = NULL;
-static Object *current_obj = NULL;
+static DiaObject *current_obj = NULL;
 static Diagram *current_dia = NULL;
 
 static GtkWidget *no_properties_dialog = NULL;
@@ -52,7 +52,7 @@ static void create_dialog()
 /*   GList *buttons; */
 
   dialog = gtk_dialog_new_with_buttons(
-             _("Object properties"),
+             _("DiaObject properties"),
              GTK_WINDOW (ddisplay_active()->shell), 
              GTK_DIALOG_DESTROY_WITH_PARENT,
              GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE,
@@ -166,7 +166,7 @@ properties_respond(GtkWidget *widget,
 }
 
 void
-properties_show(Diagram *dia, Object *obj)
+properties_show(Diagram *dia, DiaObject *obj)
 {
   GtkWidget *properties = NULL;
 
@@ -196,7 +196,7 @@ properties_show(Diagram *dia, Object *obj)
   }
 
   if (obj != NULL) {
-    ObjectType *otype;
+    DiaObjectType *otype;
     gchar *buf;
 
     otype = obj->type;
@@ -204,7 +204,7 @@ properties_show(Diagram *dia, Object *obj)
     gtk_window_set_title(GTK_WINDOW(dialog), buf);
     g_free(buf);
   } else {
-    gtk_window_set_title(GTK_WINDOW(dialog), _("Object properties:"));
+    gtk_window_set_title(GTK_WINDOW(dialog), _("DiaObject properties:"));
   }
 
   g_signal_connect (G_OBJECT (properties), "destroy",
@@ -227,7 +227,7 @@ properties_show(Diagram *dia, Object *obj)
 }
 
 void
-properties_hide_if_shown(Diagram *dia, Object *obj)
+properties_hide_if_shown(Diagram *dia, DiaObject *obj)
 {
   if (current_obj == obj) {
     properties_show(dia, NULL);
@@ -235,7 +235,7 @@ properties_hide_if_shown(Diagram *dia, Object *obj)
 }
 
 void
-properties_update_if_shown(Diagram *dia, Object *obj)
+properties_update_if_shown(Diagram *dia, DiaObject *obj)
 {
   if (current_obj == obj) {
     properties_show(dia, obj);

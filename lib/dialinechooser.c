@@ -259,15 +259,24 @@ dia_line_chooser_change_line_style(GtkMenuItem *mi, DiaLineChooser *lchooser)
   LineStyle lstyle = GPOINTER_TO_INT(g_object_get_data(G_OBJECT(mi),
 						       menuitem_enum_key));
 
-  if (lchooser->lstyle != lstyle) {
+  dia_line_chooser_set_line_style(lchooser, lstyle, lchooser->dash_length);
+}
+
+void
+dia_line_chooser_set_line_style(DiaLineChooser *lchooser, 
+				LineStyle lstyle,
+				real dashlength)
+{
+  if (lstyle != lchooser->lstyle) {
     dia_line_preview_set(lchooser->preview, lstyle);
     lchooser->lstyle = lstyle;
     dia_line_style_selector_set_linestyle(lchooser->selector, lchooser->lstyle,
 					  lchooser->dash_length);
-    if (lchooser->callback)
-      (* lchooser->callback)(lchooser->lstyle, lchooser->dash_length,
-			     lchooser->user_data);
   }
+  lchooser->dash_length = dashlength;
+  if (lchooser->callback)
+    (* lchooser->callback)(lchooser->lstyle, lchooser->dash_length,
+			   lchooser->user_data);
 }
 
 static void

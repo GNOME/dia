@@ -42,8 +42,14 @@
     <object name="Network - Antenna">
       <_description>Antenna for wireless transmission</_description>
     </object>
+    <object name="Network - Base Station">
+      <_description>Mobile telephony base station</_description>
+    </object>
     <object name="Network - Cloud">
       <_description>Network cloud</_description>
+    </object>
+    <object name="Network - Radio Cell">
+      <_description>Mobile telephony cell</_description>
     </object>
     <object name="Network - Router Symbol">
       <_description>Router symbol</_description>

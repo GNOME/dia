@@ -61,11 +61,12 @@ typedef enum {
   ARROW_NONE_OR_MANY,           /* ER-model: 0 or many*/
   ARROW_ONE_OR_NONE,            /* ER-model: 1 or 0 */
   ARROW_ONE_EXACTLY,            /* ER-model: exactly one*/
+  ARROW_BACKSLASH,                  /* -\----  */
 } ArrowType;
 
 struct menudesc {
   char *name;
-  int enum_value;
+  ArrowType enum_value;
 };
 
 /** The number of centimeters long and wide an arrow starts with by default.
@@ -100,5 +101,10 @@ calculate_arrow_point(const Arrow *arrow, const Point *to, const Point *from,
  */
 void arrow_transform_points(Arrow *arrow, Point *start, Point *to,
 			    int linewidth, Point *arrowtip);
+
+/** Returns the ArrowType for a given name of an arrow, or 0 if not found. */
+ArrowType arrow_type_from_name(gchar *name);
+/** Returns the index in arrow_types of the given arrow type. */
+gint arrow_index_from_type(ArrowType type);
 
 #endif /* ARROWS_H */

@@ -61,7 +61,7 @@ static ObjectChange* arc_move(Arc *arc, Point *to);
 static void arc_select(Arc *arc, Point *clicked_point,
 			      DiaRenderer *interactive_renderer);
 static void arc_draw(Arc *arc, DiaRenderer *renderer);
-static Object *arc_create(Point *startpoint,
+static DiaObject *arc_create(Point *startpoint,
 				 void *user_data,
 				 Handle **handle1,
 				 Handle **handle2);
@@ -71,7 +71,7 @@ static void arc_destroy(Arc *arc);
 static DiaMenu *arc_get_object_menu(Arc *arc,
 					   Point *clickedpoint);
 
-static Object *arc_load(ObjectNode obj_node, int version,
+static DiaObject *arc_load(ObjectNode obj_node, int version,
 			       const char *filename);
 static PropDescription *arc_describe_props(Arc *arc);
 static void arc_get_props(Arc *arc, 
@@ -88,7 +88,7 @@ static ObjectTypeOps arc_type_ops =
   (ApplyDefaultsFunc) NULL,
 };
 
-ObjectType old_arc_type =
+DiaObjectType old_arc_type =
 {
   "GRAFCET - Vector",   /* name */
   0,                         /* version */
@@ -97,7 +97,7 @@ ObjectType old_arc_type =
   &arc_type_ops       /* ops */
 };
 
-ObjectType grafcet_arc_type =
+DiaObjectType grafcet_arc_type =
 {
   "GRAFCET - Arc",   /* name */
   0,                         /* version */
@@ -233,7 +233,7 @@ arc_draw(Arc *arc, DiaRenderer *renderer)
   }
 }
 
-static Object *
+static DiaObject *
 arc_create(Point *startpoint,
 		  void *user_data,
 		  Handle **handle1,
@@ -241,7 +241,7 @@ arc_create(Point *startpoint,
 {
   Arc *arc;
   OrthConn *orth;
-  Object *obj;
+  DiaObject *obj;
 
   arc = g_malloc0(sizeof(Arc));
   orth = &arc->orth;
@@ -290,7 +290,7 @@ arc_update_data(Arc *arc)
 
 
 static ObjectChange *
-arc_add_segment_callback(Object *obj, Point *clicked, gpointer data)
+arc_add_segment_callback(DiaObject *obj, Point *clicked, gpointer data)
 {
   ObjectChange *change;
   change = orthconn_add_segment((OrthConn *)obj, clicked);
@@ -299,7 +299,7 @@ arc_add_segment_callback(Object *obj, Point *clicked, gpointer data)
 }
 
 static ObjectChange *
-arc_delete_segment_callback(Object *obj, Point *clicked, gpointer data)
+arc_delete_segment_callback(DiaObject *obj, Point *clicked, gpointer data)
 {
   ObjectChange *change;
   change = orthconn_delete_segment((OrthConn *)obj, clicked);
@@ -334,7 +334,7 @@ arc_get_object_menu(Arc *arc, Point *clickedpoint)
 }
 
 
-static Object *
+static DiaObject *
 arc_load(ObjectNode obj_node, int version, const char *filename)
 {
   return object_load_using_properties(&grafcet_arc_type,

@@ -84,15 +84,15 @@ static ObjectChange* function_move_handle(Function *pkg, Handle *handle,
 					  ModifierKeys modifiers);
 static ObjectChange* function_move(Function *pkg, Point *to);
 static void function_draw(Function *pkg, DiaRenderer *renderer);
-static Object *function_create(Point *startpoint,
+static DiaObject *function_create(Point *startpoint,
 			       void *user_data,
 			       Handle **handle1,
 			       Handle **handle2);
 static void function_destroy(Function *pkg);
-static Object *function_copy(Function *pkg);
+static DiaObject *function_copy(Function *pkg);
 static void function_save(Function *pkg, ObjectNode obj_node,
 			  const char *filename);
-static Object *function_load(ObjectNode obj_node, int version,
+static DiaObject *function_load(ObjectNode obj_node, int version,
 			     const char *filename);
 static void function_update_data(Function *pkg);
 static DiaMenu *function_get_object_menu(Function *func, Point *clickedpoint) ;
@@ -109,7 +109,7 @@ static ObjectTypeOps function_type_ops =
   (SaveFunc)   function_save
 };
 
-ObjectType function_type =
+DiaObjectType function_type =
 {
   "FS - Function",   /* name */
   0,                      /* version */
@@ -185,7 +185,7 @@ function_set_props(Function *function, GPtrArray *props)
 }
 
 static void
-function_change_apply_revert( ObjectChange* objchg, Object* obj)
+function_change_apply_revert( ObjectChange* objchg, DiaObject* obj)
 {
   int tmp ;
   char* ttxt ;
@@ -243,7 +243,7 @@ function_create_change( Function* fcn, enum FuncChangeType change_type )
 static real
 function_distance_from(Function *pkg, Point *point)
 {
-  Object *obj = &pkg->element.object;
+  DiaObject *obj = &pkg->element.object;
   return distance_rectangle_point(&obj->bounding_box, point);
 }
 
@@ -341,7 +341,7 @@ static void
 function_update_data(Function *pkg)
 {
   Element *elem = &pkg->element;
-  Object *obj = &elem->object;
+  DiaObject *obj = &elem->object;
   DiaFont *font;
   Point p1;
   real h, w = 0, font_height;
@@ -415,7 +415,7 @@ function_update_data(Function *pkg)
   element_update_handles(elem);
 }
 
-static Object *
+static DiaObject *
 function_create(Point *startpoint,
 		void *user_data,
 		Handle **handle1,
@@ -423,7 +423,7 @@ function_create(Point *startpoint,
 {
   Function *pkg;
   Element *elem;
-  Object *obj;
+  DiaObject *obj;
   Point p;
   DiaFont *font;
   int i;
@@ -479,13 +479,13 @@ function_destroy(Function *pkg)
   element_destroy(&pkg->element);
 }
 
-static Object *
+static DiaObject *
 function_copy(Function *pkg)
 {
   int i;
   Function *newpkg;
   Element *elem, *newelem;
-  Object *newobj;
+  DiaObject *newobj;
   
   elem = &pkg->element;
   
@@ -530,13 +530,13 @@ function_save(Function *pkg, ObjectNode obj_node, const char *filename)
 		   pkg->is_user);
 }
 
-static Object *
+static DiaObject *
 function_load(ObjectNode obj_node, int version, const char *filename)
 {
   Function *pkg;
   AttributeNode attr;
   Element *elem;
-  Object *obj;
+  DiaObject *obj;
   int i;
   
   pkg = g_malloc0(sizeof(Function));
@@ -600,19 +600,19 @@ function_insert_word( Function* func, const char* word, gboolean newline )
 }
 
 static ObjectChange *
-function_insert_verb( Object* obj, Point* clicked, gpointer data)
+function_insert_verb( DiaObject* obj, Point* clicked, gpointer data)
 {
   return function_insert_word( (Function*)obj, (const char*) data, FALSE ) ;
 }
 
 static ObjectChange *
-function_insert_noun( Object* obj, Point* clicked, gpointer data)
+function_insert_noun( DiaObject* obj, Point* clicked, gpointer data)
 {
   return function_insert_word( (Function*)obj, (const char*) data, TRUE ) ;
 }
 
 static ObjectChange *
-function_toggle_user_function( Object* obj, Point* clicked, gpointer data)
+function_toggle_user_function( DiaObject* obj, Point* clicked, gpointer data)
 {
   Function* func = (Function*)obj ;
   ObjectChange* change = function_create_change( func, USER_FUNC ) ;
@@ -623,7 +623,7 @@ function_toggle_user_function( Object* obj, Point* clicked, gpointer data)
 }
 
 static ObjectChange *
-function_toggle_wish_function( Object* obj, Point* clicked, gpointer data)
+function_toggle_wish_function( DiaObject* obj, Point* clicked, gpointer data)
 {
   Function* func = (Function*)obj ;
   ObjectChange* change = function_create_change( func, WISH_FUNC ) ;

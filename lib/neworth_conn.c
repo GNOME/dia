@@ -306,7 +306,7 @@ void
 neworthconn_update_data(NewOrthConn *orth)
 {
   int i;
-  Object *obj = (Object *)orth;
+  DiaObject *obj = (DiaObject *)orth;
 
   if (!orth->points) {
     g_warning("This NewOrthConn object is very sick !");
@@ -406,14 +406,14 @@ neworthconn_can_add_segment(NewOrthConn *orth, Point *clickedpoint)
 
 /* Needs to have at least 2 handles. 
    The handles are stored in order in the NewOrthConn, but need
-   not be stored in order in the Object.handles array. This
+   not be stored in order in the DiaObject.handles array. This
    is so that derived object can do what they want with
-   Object.handles. */
+   DiaObject.handles. */
 
 void
 neworthconn_init(NewOrthConn *orth, Point *startpoint)
 {
-  Object *obj;
+  DiaObject *obj;
 
   obj = &orth->object;
 
@@ -461,7 +461,7 @@ void
 neworthconn_copy(NewOrthConn *from, NewOrthConn *to)
 {
   int i,rcc;
-  Object *toobj, *fromobj;
+  DiaObject *toobj, *fromobj;
 
   toobj = &to->object;
   fromobj = &from->object;
@@ -514,11 +514,11 @@ neworthconn_destroy(NewOrthConn *orth)
 static void 
 place_handle_by_swapping(NewOrthConn *orth, int index, Handle *handle)
 {
-  Object *obj;
+  DiaObject *obj;
   Handle *tmp;
   int j;
 
-  obj = (Object *)orth;
+  obj = (DiaObject *)orth;
   if (obj->handles[index] == handle)
     return; /* Nothing to do */
 
@@ -566,7 +566,7 @@ neworthconn_load(NewOrthConn *orth, ObjectNode obj_node) /* NOTE: Does object_in
   DataNode data;
   int n;
   
-  Object *obj = &orth->object;
+  DiaObject *obj = &orth->object;
 
   object_load(obj, obj_node);
 
@@ -663,7 +663,7 @@ neworthconn_delete_segment(NewOrthConn *orth, Point *clickedpoint)
 				      orth->handles[segment+1]);
   }
 
-  change->apply(change, (Object *)orth);
+  change->apply(change, (DiaObject *)orth);
   
   return change;
 }
@@ -710,7 +710,7 @@ neworthconn_add_segment(NewOrthConn *orth, Point *clickedpoint)
 				      handle2);
   }
 
-  change->apply(change, (Object *)orth);
+  change->apply(change, (DiaObject *)orth);
 
   return change;
 }
@@ -814,7 +814,7 @@ endsegment_change_free(struct EndSegmentChange *change)
 }
 
 static void
-endsegment_change_apply(struct EndSegmentChange *change, Object *obj)
+endsegment_change_apply(struct EndSegmentChange *change, DiaObject *obj)
 {
   NewOrthConn *orth = (NewOrthConn *)obj;
 
@@ -862,7 +862,7 @@ endsegment_change_apply(struct EndSegmentChange *change, Object *obj)
 }
 
 static void
-endsegment_change_revert(struct EndSegmentChange *change, Object *obj)
+endsegment_change_revert(struct EndSegmentChange *change, DiaObject *obj)
 {
   NewOrthConn *orth = (NewOrthConn *)obj;
 
@@ -956,7 +956,7 @@ midsegment_change_free(struct MidSegmentChange *change)
 }
 
 static void
-midsegment_change_apply(struct MidSegmentChange *change, Object *obj)
+midsegment_change_apply(struct MidSegmentChange *change, DiaObject *obj)
 {
   NewOrthConn *orth = (NewOrthConn *)obj;
   int seg;
@@ -999,7 +999,7 @@ midsegment_change_apply(struct MidSegmentChange *change, Object *obj)
 }
 
 static void
-midsegment_change_revert(struct MidSegmentChange *change, Object *obj)
+midsegment_change_revert(struct MidSegmentChange *change, DiaObject *obj)
 {
   NewOrthConn *orth = (NewOrthConn *)obj;
   

@@ -60,12 +60,12 @@ static ObjectChange* branch_move_handle(Branch *branch, Handle *handle,
 					HandleMoveReason reason, ModifierKeys modifiers);
 static ObjectChange* branch_move(Branch *branch, Point *to);
 static void branch_draw(Branch *branch, DiaRenderer *renderer);
-static Object *branch_create(Point *startpoint,
+static DiaObject *branch_create(Point *startpoint,
 			     void *user_data,
 			     Handle **handle1,
 			     Handle **handle2);
 static void branch_destroy(Branch *branch);
-static Object *branch_load(ObjectNode obj_node, int version,
+static DiaObject *branch_load(ObjectNode obj_node, int version,
 			   const char *filename);
 
 static PropDescription *branch_describe_props(Branch *branch);
@@ -83,7 +83,7 @@ static ObjectTypeOps branch_type_ops =
   (ApplyDefaultsFunc) NULL
 };
 
-ObjectType branch_type =
+DiaObjectType branch_type =
 {
   "UML - Branch",   /* name */
   0,                      /* version */
@@ -151,7 +151,7 @@ branch_set_props(Branch *branch, GPtrArray *props)
 static real
 branch_distance_from(Branch *branch, Point *point)
 {
-  Object *obj = &branch->element.object;
+  DiaObject *obj = &branch->element.object;
   return distance_rectangle_point(&obj->bounding_box, point);
 }
 
@@ -222,7 +222,7 @@ static void branch_draw(Branch *branch, DiaRenderer *renderer)
 static void branch_update_data(Branch *branch)
 {
   Element *elem = &branch->element;
-  Object *obj = &elem->object;
+  DiaObject *obj = &elem->object;
  
   elem->width = BRANCH_WIDTH;
   elem->height = BRANCH_HEIGHT;
@@ -247,11 +247,11 @@ static void branch_update_data(Branch *branch)
   element_update_handles(elem);
 }
 
-static Object *branch_create(Point *startpoint, void *user_data, Handle **handle1, Handle **handle2)
+static DiaObject *branch_create(Point *startpoint, void *user_data, Handle **handle1, Handle **handle2)
 {
   Branch *branch;
   Element *elem;
-  Object *obj;
+  DiaObject *obj;
   int i;
   
   branch = g_malloc0(sizeof(Branch));
@@ -291,7 +291,7 @@ static void branch_destroy(Branch *branch)
   element_destroy(&branch->element);
 }
 
-static Object *branch_load(ObjectNode obj_node, int version, const char *filename)
+static DiaObject *branch_load(ObjectNode obj_node, int version, const char *filename)
 {
   return object_load_using_properties(&branch_type,
                                       obj_node,version,filename);

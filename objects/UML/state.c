@@ -76,12 +76,12 @@ static ObjectChange* state_move_handle(State *state, Handle *handle,
 				       HandleMoveReason reason, ModifierKeys modifiers);
 static ObjectChange* state_move(State *state, Point *to);
 static void state_draw(State *state, DiaRenderer *renderer);
-static Object *state_create(Point *startpoint,
+static DiaObject *state_create(Point *startpoint,
 			   void *user_data,
 			   Handle **handle1,
 			   Handle **handle2);
 static void state_destroy(State *state);
-static Object *state_load(ObjectNode obj_node, int version,
+static DiaObject *state_load(ObjectNode obj_node, int version,
 			    const char *filename);
 static PropDescription *state_describe_props(State *state);
 static void state_get_props(State *state, GPtrArray *props);
@@ -98,7 +98,7 @@ static ObjectTypeOps state_type_ops =
   (ApplyDefaultsFunc) NULL
 };
 
-ObjectType state_type =
+DiaObjectType state_type =
 {
   "UML - State",   /* name */
   0,                      /* version */
@@ -187,7 +187,7 @@ state_set_props(State *state, GPtrArray *props)
 static real
 state_distance_from(State *state, Point *point)
 {
-  Object *obj = &state->element.object;
+  DiaObject *obj = &state->element.object;
   return distance_rectangle_point(&obj->bounding_box, point);
 }
 
@@ -283,7 +283,7 @@ state_update_data(State *state)
   real w, h;
 
   Element *elem = &state->element;
-  Object *obj = &elem->object;
+  DiaObject *obj = &elem->object;
   Point p;
   
   text_calc_boundingbox(state->text, NULL);
@@ -335,7 +335,7 @@ state_update_data(State *state)
   element_update_handles(elem);
 }
 
-static Object *
+static DiaObject *
 state_create(Point *startpoint,
 	       void *user_data,
   	       Handle **handle1,
@@ -343,7 +343,7 @@ state_create(Point *startpoint,
 {
   State *state;
   Element *elem;
-  Object *obj;
+  DiaObject *obj;
   Point p;
   DiaFont *font;
   int i;
@@ -399,7 +399,7 @@ state_destroy(State *state)
   element_destroy(&state->element);
 }
 
-static Object *
+static DiaObject *
 state_load(ObjectNode obj_node, int version, const char *filename)
 {
   State *obj = (State*)object_load_using_properties(&state_type,
@@ -409,5 +409,5 @@ state_load(ObjectNode obj_node, int version, const char *filename)
      * is a pain */
     message_warning(_("This diagram uses the State object for initial/final states.\nThat option will go away in future versions.\nPlease use the Initial/Final State object instead\n"));
   }
-  return (Object *)obj;
+  return (DiaObject *)obj;
 }

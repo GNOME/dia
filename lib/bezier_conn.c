@@ -300,11 +300,11 @@ add_handles(BezierConn *bez, int pos, BezPoint *point,
 	    Handle *handle2, Handle *handle3)
 {
   int i;
-  Object *obj;
+  DiaObject *obj;
 
   g_assert(pos > 0);
   
-  obj = (Object *)bez;
+  obj = (DiaObject *)bez;
   bez->numpoints++;
   bez->points = g_realloc(bez->points, bez->numpoints*sizeof(BezPoint));
   bez->corner_types = g_realloc(bez->corner_types,
@@ -332,13 +332,13 @@ static void
 remove_handles(BezierConn *bez, int pos)
 {
   int i;
-  Object *obj;
+  DiaObject *obj;
   Handle *old_handle1, *old_handle2, *old_handle3;
   Point tmppoint;
 
   g_assert(pos > 0);
 
-  obj = (Object *)bez;
+  obj = (DiaObject *)bez;
 
   if (pos==obj->num_handles-1) {
     obj->handles[obj->num_handles-4]->type = HANDLE_MAJOR_CONTROL;
@@ -436,9 +436,9 @@ bezierconn_remove_segment(BezierConn *bez, int pos)
   cpt2 = old_handle2->connected_to;
   cpt3 = old_handle3->connected_to;
   
-  object_unconnect((Object *)bez, old_handle1);
-  object_unconnect((Object *)bez, old_handle2);
-  object_unconnect((Object *)bez, old_handle3);
+  object_unconnect((DiaObject *)bez, old_handle1);
+  object_unconnect((DiaObject *)bez, old_handle2);
+  object_unconnect((DiaObject *)bez, old_handle3);
 
   remove_handles(bez, pos);
 
@@ -552,7 +552,7 @@ void
 bezierconn_update_data(BezierConn *bez)
 {
   int i;
-  Object *obj = &bez->object;
+  DiaObject *obj = &bez->object;
   
   /* handle the case of whole points array update (via set_prop) */
   if (3*bez->numpoints-2 != obj->num_handles) {
@@ -633,7 +633,7 @@ bezierconn_draw_control_lines(BezierConn *bez, DiaRenderer *renderer)
 void
 new_handles(BezierConn *bez, int num_points)
 {
-  Object *obj;
+  DiaObject *obj;
   int i;
 
   obj = &bez->object;
@@ -662,7 +662,7 @@ new_handles(BezierConn *bez, int num_points)
 void
 bezierconn_init(BezierConn *bez, int num_points)
 {
-  Object *obj;
+  DiaObject *obj;
   int i;
 
   obj = &bez->object;
@@ -707,7 +707,7 @@ void
 bezierconn_copy(BezierConn *from, BezierConn *to)
 {
   int i;
-  Object *toobj, *fromobj;
+  DiaObject *toobj, *fromobj;
 
   toobj = &to->object;
   fromobj = &from->object;
@@ -791,7 +791,7 @@ bezierconn_load(BezierConn *bez, ObjectNode obj_node) /* NOTE: Does object_init(
   AttributeNode attr;
   DataNode data;
   
-  Object *obj = &bez->object;
+  DiaObject *obj = &bez->object;
 
   object_load(obj, obj_node);
 
@@ -876,7 +876,7 @@ bezierconn_point_change_free(struct PointChange *change)
 }
 
 static void
-bezierconn_point_change_apply(struct PointChange *change, Object *obj)
+bezierconn_point_change_apply(struct PointChange *change, DiaObject *obj)
 {
   change->applied = 1;
   switch (change->type) {
@@ -895,7 +895,7 @@ bezierconn_point_change_apply(struct PointChange *change, Object *obj)
 }
 
 static void
-bezierconn_point_change_revert(struct PointChange *change, Object *obj)
+bezierconn_point_change_revert(struct PointChange *change, DiaObject *obj)
 {
   switch (change->type) {
   case TYPE_ADD_POINT:
@@ -951,7 +951,7 @@ bezierconn_create_point_change(BezierConn *bez, enum change_type type,
 
 static void
 bezierconn_corner_change_apply(struct CornerChange *change,
-			       Object *obj) {
+			       DiaObject *obj) {
   BezierConn *bez = (BezierConn *)obj;
   int handle_nr = get_handle_nr(bez, change->handle);
   int comp_nr = get_major_nr(handle_nr);
@@ -965,7 +965,7 @@ bezierconn_corner_change_apply(struct CornerChange *change,
 
 static void
 bezierconn_corner_change_revert(struct CornerChange *change,
-				Object *obj) {
+				DiaObject *obj) {
   BezierConn *bez = (BezierConn *)obj;
   int handle_nr = get_handle_nr(bez, change->handle);
   int comp_nr = get_major_nr(handle_nr);

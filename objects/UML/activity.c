@@ -64,12 +64,12 @@ static ObjectChange* state_move_handle(State *state, Handle *handle,
 				       HandleMoveReason reason, ModifierKeys modifiers);
 static ObjectChange* state_move(State *state, Point *to);
 static void state_draw(State *state, DiaRenderer *renderer);
-static Object *state_create_activity(Point *startpoint,
+static DiaObject *state_create_activity(Point *startpoint,
 			   void *user_data,
 			   Handle **handle1,
 			   Handle **handle2);
 static void state_destroy(State *state);
-static Object *state_load(ObjectNode obj_node, int version,
+static DiaObject *state_load(ObjectNode obj_node, int version,
 			    const char *filename);
 static PropDescription *state_describe_props(State *state);
 static void state_get_props(State *state, GPtrArray *props);
@@ -86,7 +86,7 @@ static ObjectTypeOps activity_type_ops =
   (ApplyDefaultsFunc) NULL
 };
 
-ObjectType activity_type =
+DiaObjectType activity_type =
 {
   "UML - Activity",   /* name */
   0,                      /* version */
@@ -162,7 +162,7 @@ state_set_props(State *state, GPtrArray *props)
 static real
 state_distance_from(State *state, Point *point)
 {
-  Object *obj = &state->element.object;
+  DiaObject *obj = &state->element.object;
   return distance_rectangle_point(&obj->bounding_box, point);
 }
 
@@ -237,7 +237,7 @@ state_update_data(State *state)
   real w, h;
 
   Element *elem = &state->element;
-  Object *obj = &elem->object;
+  DiaObject *obj = &elem->object;
   Point p;
   
   text_calc_boundingbox(state->text, NULL);
@@ -287,7 +287,7 @@ state_update_data(State *state)
 }
 
 
-static Object *
+static DiaObject *
 state_create_activity(Point *startpoint,
 	       void *user_data,
   	       Handle **handle1,
@@ -295,7 +295,7 @@ state_create_activity(Point *startpoint,
 {
   State *state;
   Element *elem;
-  Object *obj;
+  DiaObject *obj;
   Point p;
   DiaFont *font;
   int i;
@@ -346,7 +346,7 @@ state_destroy(State *state)
   element_destroy(&state->element);
 }
 
-static Object *
+static DiaObject *
 state_load(ObjectNode obj_node, int version, const char *filename)
 {
   return object_load_using_properties(&activity_type,

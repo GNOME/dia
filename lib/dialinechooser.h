@@ -88,7 +88,9 @@ struct _DiaLineChooserClass
   GtkButtonClass parent_class;
 };
 
-
+void dia_line_chooser_set_line_style(DiaLineChooser *lchooser, 
+				     LineStyle style,
+				     real dashlength);
 GtkWidget *dia_line_chooser_new  (DiaChangeLineCallback callback,
 				  gpointer user_data);
 

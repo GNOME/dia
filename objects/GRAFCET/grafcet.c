@@ -29,13 +29,13 @@
 #include "grafcet.h"
 #include "plug-ins.h"
 
-extern ObjectType step_type;
-extern ObjectType action_type;
-extern ObjectType transition_type;
-extern ObjectType vergent_type; 
-extern ObjectType grafcet_arc_type;
-extern ObjectType old_arc_type;
-extern ObjectType condition_type;
+extern DiaObjectType step_type;
+extern DiaObjectType action_type;
+extern DiaObjectType transition_type;
+extern DiaObjectType vergent_type; 
+extern DiaObjectType grafcet_arc_type;
+extern DiaObjectType old_arc_type;
+extern DiaObjectType condition_type;
 
 DIA_PLUGIN_CHECK_INIT
 

@@ -20,7 +20,6 @@
 
 #include <stdio.h>
 #include <string.h>
-#include <ctype.h>
 
 #include "paper.h"
 
@@ -86,7 +85,7 @@ get_default_paper(void)
   }
   else if((papersize = fopen("/etc/papersize", "r")) != NULL) {
     while(fgets(paper, sizeof(paper), papersize))
-      if(isalnum(paper[0])) {
+      if(g_ascii_isalnum(paper[0])) {
 	break;
       }
     fclose(papersize);

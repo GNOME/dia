@@ -315,12 +315,12 @@ add_handles(BezierShape *bezier, int pos, BezPoint *point,
 	    ConnectionPoint *cp1, ConnectionPoint *cp2)
 {
   int i, next;
-  Object *obj;
+  DiaObject *obj;
 
   g_assert(pos >= 1);
   g_assert(pos <= bezier->numpoints);
 
-  obj = (Object *)bezier;
+  obj = (DiaObject *)bezier;
   bezier->numpoints++;
   next = pos + 1;
   if (pos == bezier->numpoints - 1)
@@ -340,18 +340,18 @@ add_handles(BezierShape *bezier, int pos, BezPoint *point,
   if (pos == bezier->numpoints - 1)
     bezier->points[0].p1 = bezier->points[0].p3 = bezier->points[pos].p3;
   bezier->corner_types[pos] = corner_type;
-  object_add_handle_at((Object*)bezier, handle1, 3*pos-3);
-  object_add_handle_at((Object*)bezier, handle2, 3*pos-2);
-  object_add_handle_at((Object*)bezier, handle3, 3*pos-1);
-  object_add_connectionpoint_at((Object *)bezier, cp1, 2*pos-1);
-  object_add_connectionpoint_at((Object *)bezier, cp2, 2*pos);
+  object_add_handle_at((DiaObject*)bezier, handle1, 3*pos-3);
+  object_add_handle_at((DiaObject*)bezier, handle2, 3*pos-2);
+  object_add_handle_at((DiaObject*)bezier, handle3, 3*pos-1);
+  object_add_connectionpoint_at((DiaObject *)bezier, cp1, 2*pos-1);
+  object_add_connectionpoint_at((DiaObject *)bezier, cp2, 2*pos);
 }
 
 static void
 remove_handles(BezierShape *bezier, int pos)
 {
   int i;
-  Object *obj;
+  DiaObject *obj;
   Handle *old_handle1, *old_handle2, *old_handle3;
   ConnectionPoint *old_cp1, *old_cp2;
   Point tmppoint;
@@ -360,7 +360,7 @@ remove_handles(BezierShape *bezier, int pos)
   g_assert(pos > 0);
   g_assert(pos < bezier->numpoints);
 
-  obj = (Object *)bezier;
+  obj = (DiaObject *)bezier;
 
   /* delete the points */
   bezier->numpoints--;
@@ -473,9 +473,9 @@ beziershape_remove_segment(BezierShape *bezier, int pos)
   old_cp1 = bezier->object.connections[2*pos-2];
   old_cp2 = bezier->object.connections[2*pos-1];
   
-  object_unconnect((Object *)bezier, old_handle1);
-  object_unconnect((Object *)bezier, old_handle2);
-  object_unconnect((Object *)bezier, old_handle3);
+  object_unconnect((DiaObject *)bezier, old_handle1);
+  object_unconnect((DiaObject *)bezier, old_handle2);
+  object_unconnect((DiaObject *)bezier, old_handle3);
 
   remove_handles(bezier, pos);
 
@@ -613,7 +613,7 @@ beziershape_update_data(BezierShape *bezier)
   int i;
   Point last;
   
-  Object *obj = &bezier->object;
+  DiaObject *obj = &bezier->object;
   
   /* handle the case of whole points array update (via set_prop) */
   if (3*(bezier->numpoints-1) != obj->num_handles ||
@@ -741,7 +741,7 @@ beziershape_draw_control_lines(BezierShape *bez, DiaRenderer *renderer)
 static void
 new_handles_and_connections(BezierShape *bezier, int num_points)
 {
-  Object *obj;
+  DiaObject *obj;
   int i;
 
   obj = &bezier->object;
@@ -776,7 +776,7 @@ new_handles_and_connections(BezierShape *bezier, int num_points)
 void
 beziershape_init(BezierShape *bezier, int num_points)
 {
-  Object *obj;
+  DiaObject *obj;
   int i;
 
   obj = &bezier->object;
@@ -823,7 +823,7 @@ void
 beziershape_copy(BezierShape *from, BezierShape *to)
 {
   int i;
-  Object *toobj, *fromobj;
+  DiaObject *toobj, *fromobj;
 
   toobj = &to->object;
   fromobj = &from->object;
@@ -915,7 +915,7 @@ beziershape_load(BezierShape *bezier, ObjectNode obj_node)
   AttributeNode attr;
   DataNode data;
   
-  Object *obj = &bezier->object;
+  DiaObject *obj = &bezier->object;
 
   object_load(obj, obj_node);
 
@@ -999,7 +999,7 @@ beziershape_point_change_free(struct PointChange *change)
 }
 
 static void
-beziershape_point_change_apply(struct PointChange *change, Object *obj)
+beziershape_point_change_apply(struct PointChange *change, DiaObject *obj)
 {
   change->applied = 1;
   switch (change->type) {
@@ -1019,7 +1019,7 @@ beziershape_point_change_apply(struct PointChange *change, Object *obj)
 }
 
 static void
-beziershape_point_change_revert(struct PointChange *change, Object *obj)
+beziershape_point_change_revert(struct PointChange *change, DiaObject *obj)
 {
   switch (change->type) {
   case TYPE_ADD_POINT:
@@ -1069,7 +1069,7 @@ beziershape_create_point_change(BezierShape *bezier, enum change_type type,
 }
 
 static void
-beziershape_corner_change_apply(struct CornerChange *change, Object *obj)
+beziershape_corner_change_apply(struct CornerChange *change, DiaObject *obj)
 {
   BezierShape *bez = (BezierShape *)obj;
   int handle_nr = get_handle_nr(bez, change->handle);
@@ -1087,7 +1087,7 @@ beziershape_corner_change_apply(struct CornerChange *change, Object *obj)
 }
 
 static void
-beziershape_corner_change_revert(struct CornerChange *change, Object *obj)
+beziershape_corner_change_revert(struct CornerChange *change, DiaObject *obj)
 {
   BezierShape *bez = (BezierShape *)obj;
   int handle_nr = get_handle_nr(bez, change->handle);

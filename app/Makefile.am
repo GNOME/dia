@@ -1,5 +1,7 @@
 ## Process this file with automake to produce Makefile.in
 
+SUBDIRS = pixmaps
+
 INCLUDES = \
 	-I$(top_srcdir) \
 	-I$(top_srcdir)/intl \
@@ -145,10 +147,12 @@ dia_core_files = \
 	    diapsrenderer.c \
 	    diapsft2renderer.h \
 	    diapsft2renderer.c \
-	    persistence.h \
-	    persistence.c \
 	    navigation.h \
 	    navigation.c \
+	    diacanvas.c \
+	    diacanvas.h \
+	    highlight.c \
+	    highlight.h \
 	    $(print_files)
 
 dia_SOURCES = \

@@ -30,10 +30,10 @@
 #include "plug-ins.h"
 #include "intl.h"
 
-extern ObjectType entity_type;
-extern ObjectType relationship_type;
-extern ObjectType attribute_type;
-extern ObjectType participation_type;
+extern DiaObjectType entity_type;
+extern DiaObjectType relationship_type;
+extern DiaObjectType attribute_type;
+extern DiaObjectType participation_type;
 
 DIA_PLUGIN_CHECK_INIT
 

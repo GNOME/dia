@@ -5,6 +5,8 @@ libnetwork_objects_la_SOURCES = \
 			      network.h \
 			      network.c \
 			      bus.c \
+			      radiocell.c \
+			      basestation.c \
 			      wanlink.c 
 
 libnetwork_objects_la_LDFLAGS = -export-dynamic -module -avoid-version
@@ -17,6 +19,8 @@ EXTRA_DIST = \
 	pixmaps/computer.xpm \
 	pixmaps/disc.xpm \
 	pixmaps/flash.xpm \
+	pixmaps/radiocell.xpm \
+	pixmaps/basestation.xpm \
 	pixmaps/wanlink.xpm \
 	pixmaps/hub.xpm \
 	pixmaps/modem.xpm \

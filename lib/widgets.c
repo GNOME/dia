@@ -224,6 +224,7 @@ GtkWidget *
 dia_size_selector_new (real width, real height)
 {
   GtkWidget *wid;
+
   wid = GTK_WIDGET ( gtk_type_new (dia_size_selector_get_type ()));
   dia_size_selector_set_size(DIA_SIZE_SELECTOR(wid), width, height);
   return wid;
@@ -304,7 +305,6 @@ typedef struct {
 
 /* Hash table from font name to FontSelectorEntry */
 static GHashTable *font_hash_table = NULL;
-static GList *menu_entry_list = NULL;
 
 static void dia_font_selector_dialog_callback(GtkWidget *widget, int id, gpointer data);
 static void dia_font_selector_menu_callback(GtkWidget *button, gpointer data);
@@ -321,10 +321,9 @@ dia_font_selector_add_font(const char *lowername, const gchar *fontname,
   fse->name = fontname;
   fse->family = NULL;
   fse->last_select = time(0);
-  fse->entry_nr = g_list_length(menu_entry_list)+4; /* Skip first entries */
+  fse->entry_nr = g_list_length(persistent_list_get_glist("font-menu"))+4; /* Skip first entries */
   g_hash_table_insert(font_hash_table, g_strdup(lowername), fse);
   if (is_other_font) {
-    menu_entry_list = g_list_append(menu_entry_list, g_strdup(fontname));
   } else {
     if (!g_strcasecmp(fontname, "sans")) fse->entry_nr = 0;
     if (!g_strcasecmp(fontname, "serif")) fse->entry_nr = 1;
@@ -337,55 +336,6 @@ static
 gboolean strcase_equal(gconstpointer s1, gconstpointer s2)
 {
   return !(g_strcasecmp((char *)s1, (char *)s2));
-}
-
-static void
-dia_font_selector_read_persistence_file() {
-  gchar *file_contents;
-  gchar *persistence_name;
-  GError *error = NULL;
-
-  font_hash_table = g_hash_table_new(g_str_hash, strcase_equal);
-
-  dia_font_selector_add_font("sans", "Sans", FALSE);
-  dia_font_selector_add_font("serif", "Serif", FALSE);
-  dia_font_selector_add_font("monospace", "Monospace", FALSE);
-
-  persistence_name = dia_config_filename("font_menu");
-  
-  if (g_file_test(persistence_name, G_FILE_TEST_EXISTS) &&
-      g_file_get_contents(persistence_name, &file_contents, NULL, &error)) {
-    /* Should really use some macro for linebreak, but I can't find it */
-    gchar **lines = g_strsplit(file_contents, "\n", -1); 
-    int i;
-    for (i = 0; lines[i] != NULL; i++) {
-      gchar *lowername;
-      if (strlen(lines[i]) == 0) continue;
-      lowername = g_utf8_strdown(lines[i], -1);
-      dia_font_selector_add_font(lowername, lines[i], TRUE);
-      g_free(lowername);
-    }
-    g_free(file_contents);
-  }
-  if (error) g_error_free(error);
-  g_free(persistence_name);
-}
-
-static void
-dia_font_selector_write_persistence_file() {
-  gchar *persistence_name;
-  FILE *pfile;
-
-  persistence_name = dia_config_filename("font_menu");
-  if ((pfile = fopen(persistence_name, "wb")) != NULL) {
-    GList *entry;
-    for (entry = menu_entry_list; entry != NULL; entry = entry->next) {
-      fputs((gchar *)entry->data, pfile);
-      fputs("\n", pfile);
-    }
-    fclose(pfile);
-  }
-  g_free(persistence_name);
 }
 
 static GtkWidget *
@@ -428,7 +378,8 @@ dia_font_selector_build_font_menu(DiaFontSelector *fs) {
   gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
   gtk_widget_show (menuitem);
 
-  for (entry = menu_entry_list; entry != NULL; entry = entry->next) {
+  for (entry = persistent_list_get_glist("font-menu");
+       entry != NULL; entry = entry->next) {
     menuitem = dia_font_selector_add_menu_item((gchar *)entry->data, &group, menu);
   }
   menuitem = gtk_separator_menu_item_new();
@@ -456,8 +407,8 @@ dia_font_selector_get_new_font(DiaFontSelector *fs, const gchar *fontname)
     (FontSelectorEntry*)g_hash_table_lookup(font_hash_table, lowername);
   if (fse == NULL) {
     fse = dia_font_selector_add_font(lowername, fontname, TRUE);
+    persistent_list_add("font-menu", fontname);
     dia_font_selector_build_font_menu(fs);
-    dia_font_selector_write_persistence_file();
   }
   g_free(lowername);
   return fse;
@@ -476,6 +427,30 @@ dia_font_selector_init (DiaFontSelector *fs)
 {
   GtkWidget *menu;
   GtkWidget *omenu;
+
+  persistence_register_list("font-menu");
+
+  if (font_hash_table == NULL) {
+    GList *other_fonts;
+    font_hash_table = g_hash_table_new(g_str_hash, strcase_equal);
+
+    dia_font_selector_add_font("sans", "Sans", FALSE);
+    dia_font_selector_add_font("serif", "Serif", FALSE);
+    dia_font_selector_add_font("monospace", "Monospace", FALSE);
+
+    other_fonts = persistent_list_get_glist("font-menu");
+    printf("Adding %d other fonts\n", g_list_length(other_fonts));
+
+    for (other_fonts = g_list_last(other_fonts);
+	 other_fonts != NULL; other_fonts = g_list_previous(other_fonts)) {
+      printf("Adding font %s\n", (gchar*)other_fonts->data);
+      gchar *lowername = g_ascii_strdown((gchar*)other_fonts->data,
+					 strlen((gchar*)other_fonts->data));
+      dia_font_selector_add_font(lowername,
+				 (gchar*)other_fonts->data, TRUE);
+      g_free(lowername);
+    }
+  }
 
   dia_font_selector_build_font_menu(fs);
   
@@ -512,8 +487,6 @@ dia_font_selector_get_type        (void)
     };
     
     dfs_type = gtk_type_unique (gtk_hbox_get_type (), &dfs_info);
-
-    dia_font_selector_read_persistence_file();
   }
   
   return dfs_type;
@@ -535,10 +508,13 @@ dia_font_selector_get_family_from_name(GtkWidget *widget, const gchar *fontname)
 			       &families, &n_families);
   /* Doing it the slow way until I find a better way */
   for (i = 0; i < n_families; i++) {
-    if (!(g_strcasecmp(pango_font_family_get_name(families[i]), fontname)))
+    if (!(g_strcasecmp(pango_font_family_get_name(families[i]), fontname))) {
+      g_free(families);
       return families[i];
+    }
   }
   g_warning(_("Couldn't find font family for %s\n"), fontname);
+  g_free(families);
   return NULL;
 }
 
@@ -689,6 +665,8 @@ dia_font_selector_set_styles(DiaFontSelector *fs, FontSelectorEntry *fse,
     stylebits |= 1 << (3*weightnr + style);
     pango_font_description_free(pfd);
   }
+
+  g_free(faces);
 
   for (i = DIA_FONT_NORMAL; i <= (DIA_FONT_HEAVY | DIA_FONT_ITALIC); i+=4) {
     GtkWidget *menuitem;
@@ -1305,7 +1283,7 @@ set_size_sensitivity(DiaArrowSelector *as)
 static void
 arrow_type_change_callback(GtkObject *as, gboolean arg1, gpointer data)
 {
-  set_size_sensitivity(DIAARROWSELECTOR(as));
+  set_size_sensitivity(DIA_ARROW_SELECTOR(as));
 }
 
 /* This is actually quite general, but only used here */
@@ -1337,7 +1315,8 @@ static void dia_arrow_fill_menu(GtkMenu *menu, GSList **group,
 
 
 static void
-dia_arrow_selector_init (DiaArrowSelector *as)
+dia_arrow_selector_init (DiaArrowSelector *as,
+			 gpointer g_class)
 {
   GtkWidget *omenu;
   GtkWidget *menu;
@@ -1384,24 +1363,34 @@ dia_arrow_selector_init (DiaArrowSelector *as)
 
 }
 
-GtkType
+GType
 dia_arrow_selector_get_type        (void)
 {
-  static GtkType dfs_type = 0;
+  static GType dfs_type = 0;
 
   if (!dfs_type) {
-    GtkTypeInfo dfs_info = {
-      "DiaArrowSelector",
-      sizeof (DiaArrowSelector),
+    static const GTypeInfo dfs_info = {
+      /*      sizeof (DiaArrowSelector),*/
       sizeof (DiaArrowSelectorClass),
-      (GtkClassInitFunc) dia_arrow_selector_class_init,
+      (GBaseInitFunc) NULL,
+      (GBaseFinalizeFunc) NULL,
+      (GClassInitFunc) dia_arrow_selector_class_init,
+      NULL, /* class_finalize */
+      NULL, /* class_data */
+      sizeof (DiaArrowSelector),
+      0,    /* n_preallocs */
+      (GInstanceInitFunc)dia_arrow_selector_init,  /* init */
+      /*
       (GtkObjectInitFunc) dia_arrow_selector_init,
       NULL,
       NULL,
       (GtkClassInitFunc) NULL,
+      */
     };
     
-    dfs_type = gtk_type_unique (gtk_vbox_get_type (), &dfs_info);
+    dfs_type = g_type_register_static (GTK_TYPE_VBOX,
+				       "DiaArrowSelector",
+				       &dfs_info, 0);
   }
   
   return dfs_type;
@@ -1410,7 +1399,7 @@ dia_arrow_selector_get_type        (void)
 GtkWidget *
 dia_arrow_selector_new ()
 {
-  return GTK_WIDGET ( gtk_type_new (dia_arrow_selector_get_type ()));
+  return GTK_WIDGET ( g_object_new (DIA_TYPE_ARROW_SELECTOR, NULL));
 }
 
 
@@ -1430,16 +1419,8 @@ void
 dia_arrow_selector_set_arrow (DiaArrowSelector *as,
 			      Arrow arrow)
 {
-  int arrow_type_index = 0,i = 0;
-  const struct menudesc *md = arrow_types;
-  
-  while (md->name) {
-    if (md->enum_value == arrow.type) {
-      arrow_type_index = i;
-      break;
-    }
-    md++; i++;
-  }
+  int arrow_type_index = arrow_index_from_type(arrow.type);
+
   gtk_menu_set_active(GTK_MENU (as->arrow_type_menu), arrow_type_index);
   gtk_option_menu_set_history (GTK_OPTION_MENU(as->omenu), arrow_type_index);
 /* TODO: restore CheckMenu version of menu */
@@ -1621,4 +1602,59 @@ dia_get_image_from_file(gchar *filename)
   g_free(imagefile);
   g_free(datadir);
   return image;
+}
+
+struct image_pair { GtkWidget *on; GtkWidget *off; };
+
+static void
+dia_toggle_button_swap_images(GtkToggleButton *widget,
+			      gpointer data) 
+{
+  struct image_pair *images = (struct image_pair *)data;
+  if (gtk_toggle_button_get_active(widget)) {
+    gtk_container_remove(GTK_CONTAINER(widget), 
+			 gtk_bin_get_child(GTK_BIN(widget)));
+    gtk_container_add(GTK_CONTAINER(widget),
+		      images->on);
+    
+  } else {
+    gtk_container_remove(GTK_CONTAINER(widget), 
+			 gtk_bin_get_child(GTK_BIN(widget)));
+    gtk_container_add(GTK_CONTAINER(widget),
+		      images->off);
+  }
+}
+
+static void
+dia_toggle_button_destroy(GtkWidget *widget, gpointer data)
+{
+  struct image_pair *images = (struct image_pair *)data;
+  g_object_unref(images->on);
+  g_object_unref(images->off);
+  g_free(images);
+}
+
+/** Create a toggle button with two images switching (on and off) */
+GtkWidget *
+dia_toggle_button_new_with_images(gchar *on_image, gchar *off_image)
+{
+  GtkWidget *button = gtk_toggle_button_new();
+  struct image_pair *images = g_new0(struct image_pair, 1);
+
+  images->on = dia_get_image_from_file(on_image);
+  g_object_ref(images->on);
+  gtk_widget_show(images->on);
+
+  images->off = dia_get_image_from_file(off_image);
+  g_object_ref(images->off);
+  gtk_widget_show(images->off);
+
+  gtk_container_add(GTK_CONTAINER(button), images->off);
+
+  g_signal_connect(G_OBJECT(button), "toggled", 
+		   dia_toggle_button_swap_images, images);
+  g_signal_connect(G_OBJECT(button), "destroy",
+		   dia_toggle_button_destroy, images);
+
+  return button;
 }

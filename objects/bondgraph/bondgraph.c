@@ -25,10 +25,10 @@
 #include "plug-ins.h"
 
 /*
-extern ObjectType fc_box_type;
-extern ObjectType pgram_type;
-extern ObjectType diamond_type;
-extern ObjectType fc_ellipse_type;
+extern DiaObjectType fc_box_type;
+extern DiaObjectType pgram_type;
+extern DiaObjectType diamond_type;
+extern DiaObjectType fc_ellipse_type;
 */
 
 DIA_PLUGIN_CHECK_INIT

@@ -34,7 +34,6 @@
 #include <libxml/parser.h>
 #include <libxml/xmlmemory.h>
 #include <float.h>
-#include <ctype.h>
 
 #include "intl.h"
 #include "message.h"
@@ -123,7 +122,7 @@ static PropDescription svg_text_prop_descs[] = {
 
 /* apply SVG style to object */
 static void
-apply_style(xmlNodePtr node, Object *obj) {
+apply_style(xmlNodePtr node, DiaObject *obj) {
       DiaSvgGraphicStyle *gs;
       GPtrArray *props;
       LinestyleProperty *lsprop;
@@ -178,8 +177,8 @@ apply_style(xmlNodePtr node, Object *obj) {
 /* read a path */
 static void
 read_path_svg(xmlNodePtr node, DiagramData *dia) {			   
-    ObjectType *otype;
-    Object *new_obj;
+    DiaObjectType *otype;
+    DiaObject *new_obj;
     Handle *h1, *h2;
     BezierCreateData *bcd;
     char *str;
@@ -239,8 +238,8 @@ read_path_svg(xmlNodePtr node, DiagramData *dia) {
 /* read a text */
 void
 read_text_svg(xmlNodePtr node, DiagramData *dia) {
-    ObjectType *otype = object_get_type("Standard - Text");
-    Object *new_obj;
+    DiaObjectType *otype = object_get_type("Standard - Text");
+    DiaObject *new_obj;
     Handle *h1, *h2;
     Point point;
     GPtrArray *props;
@@ -305,8 +304,8 @@ read_text_svg(xmlNodePtr node, DiagramData *dia) {
 /* read a polygon or a polyline */
 void
 read_poly_svg(xmlNodePtr node, DiagramData *dia, char *object_type) {
-    ObjectType *otype = object_get_type(object_type);
-    Object *new_obj;
+    DiaObjectType *otype = object_get_type(object_type);
+    DiaObject *new_obj;
     Handle *h1, *h2;
     MultipointCreateData *pcd;
     Point *points;
@@ -320,7 +319,7 @@ read_poly_svg(xmlNodePtr node, DiagramData *dia, char *object_type) {
     tmp = str = xmlGetProp(node, "points");
     while (tmp[0] != '\0') {
       /* skip junk */
-      while (tmp[0] != '\0' && !isdigit(tmp[0]) && tmp[0]!='.'&&tmp[0]!='-')
+      while (tmp[0] != '\0' && !g_ascii_isdigit(tmp[0]) && tmp[0]!='.'&&tmp[0]!='-')
 	tmp++;
       if (tmp[0] == '\0') break;
       old_locale = setlocale(LC_NUMERIC, "C");
@@ -356,8 +355,8 @@ void
 read_ellipse_svg(xmlNodePtr node, DiagramData *dia) {
 xmlChar *str;
   real width, height;
-  ObjectType *otype = object_get_type("Standard - Ellipse");
-  Object *new_obj;
+  DiaObjectType *otype = object_get_type("Standard - Ellipse");
+  DiaObject *new_obj;
   Handle *h1, *h2;
   GPtrArray *props;
   Point start;
@@ -417,8 +416,8 @@ xmlChar *str;
 void
 read_line_svg(xmlNodePtr node, DiagramData *dia) {
   xmlChar *str;
-  ObjectType *otype = object_get_type("Standard - Line");
-  Object *new_obj;
+  DiaObjectType *otype = object_get_type("Standard - Line");
+  DiaObject *new_obj;
   Handle *h1, *h2;
   PointProperty *ptprop;
   GPtrArray *props;
@@ -484,8 +483,8 @@ void
 read_rect_svg(xmlNodePtr node, DiagramData *dia) {
   xmlChar *str;
   real width, height;
-  ObjectType *otype = object_get_type("Standard - Box");
-  Object *new_obj;
+  DiaObjectType *otype = object_get_type("Standard - Box");
+  DiaObject *new_obj;
   Handle *h1, *h2;
   PointProperty *ptprop;
   RealProperty *rprop;

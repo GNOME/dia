@@ -96,11 +96,11 @@ skip_comments(FILE *file) {
     return FALSE;
 }
 
-static Object *
+static DiaObject *
 create_standard_text(real xpos, real ypos,
 		     DiagramData *dia) {
-    ObjectType *otype = object_get_type("Standard - Text");
-    Object *new_obj;
+    DiaObjectType *otype = object_get_type("Standard - Text");
+    DiaObject *new_obj;
     Handle *h1, *h2;
     Point point;
 
@@ -145,11 +145,11 @@ static GPtrArray *make_element_props(real xpos, real ypos,
     return props;
 }
 
-static Object *
+static DiaObject *
 create_standard_ellipse(real xpos, real ypos, real width, real height,
 			DiagramData *dia) {
-    ObjectType *otype = object_get_type("Standard - Ellipse");
-    Object *new_obj;
+    DiaObjectType *otype = object_get_type("Standard - Ellipse");
+    DiaObject *new_obj;
     Handle *h1, *h2;
     
     GPtrArray *props;
@@ -175,11 +175,11 @@ create_standard_ellipse(real xpos, real ypos, real width, real height,
 }
 
 
-static Object *
+static DiaObject *
 create_standard_box(real xpos, real ypos, real width, real height,
 		    DiagramData *dia) {
-    ObjectType *otype = object_get_type("Standard - Box");
-    Object *new_obj;
+    DiaObjectType *otype = object_get_type("Standard - Box");
+    DiaObject *new_obj;
     Handle *h1, *h2;
     Point point;
     GPtrArray *props;
@@ -208,14 +208,14 @@ static PropDescription xfig_line_prop_descs[] = {
     PROP_STD_END_ARROW,
     PROP_DESC_END};
 
-static Object *
+static DiaObject *
 create_standard_polyline(int num_points, 
 			 Point *points,
 			 Arrow *end_arrow,
 			 Arrow *start_arrow,
 			 DiagramData *dia) {
-    ObjectType *otype = object_get_type("Standard - PolyLine");
-    Object *new_obj;
+    DiaObjectType *otype = object_get_type("Standard - PolyLine");
+    DiaObject *new_obj;
     Handle *h1, *h2;
     MultipointCreateData *pcd;
     GPtrArray *props;
@@ -248,12 +248,12 @@ create_standard_polyline(int num_points,
     return new_obj;
 }
 
-static Object *
+static DiaObject *
 create_standard_polygon(int num_points, 
 			Point *points,
 			DiagramData *dia) {
-    ObjectType *otype = object_get_type("Standard - Polygon");
-    Object *new_obj;
+    DiaObjectType *otype = object_get_type("Standard - Polygon");
+    DiaObject *new_obj;
     Handle *h1, *h2;
     MultipointCreateData *pcd;
 
@@ -273,14 +273,14 @@ create_standard_polygon(int num_points,
     return new_obj;
 }
 
-static Object *
+static DiaObject *
 create_standard_bezierline(int num_points, 
 			   BezPoint *points,
 			   Arrow *end_arrow,
 			   Arrow *start_arrow,
 			   DiagramData *dia) {
-    ObjectType *otype = object_get_type("Standard - BezierLine");
-    Object *new_obj;
+    DiaObjectType *otype = object_get_type("Standard - BezierLine");
+    DiaObject *new_obj;
     Handle *h1, *h2;
     BezierCreateData *bcd;
     GPtrArray *props;
@@ -313,12 +313,12 @@ create_standard_bezierline(int num_points,
     return new_obj;
 }
 
-static Object *
+static DiaObject *
 create_standard_beziergon(int num_points, 
 			  BezPoint *points,
 			  DiagramData *dia) {
-    ObjectType *otype = object_get_type("Standard - Beziergon");
-    Object *new_obj;
+    DiaObjectType *otype = object_get_type("Standard - Beziergon");
+    DiaObject *new_obj;
     Handle *h1, *h2;
     BezierCreateData *bcd;
 
@@ -346,14 +346,14 @@ static PropDescription xfig_arc_prop_descs[] = {
     PROP_STD_END_ARROW,
     PROP_DESC_END};
 
-static Object *
+static DiaObject *
 create_standard_arc(real x1, real y1, real x2, real y2,
 		    real radius, 
 		    Arrow *end_arrow,
 		    Arrow *start_arrow,
 		    DiagramData *dia) {
-    ObjectType *otype = object_get_type("Standard - Arc");
-    Object *new_obj;
+    DiaObjectType *otype = object_get_type("Standard - Arc");
+    DiaObject *new_obj;
     Handle *h1, *h2;
     Point point;
     GPtrArray *props;
@@ -389,11 +389,11 @@ static PropDescription xfig_file_prop_descs[] = {
     { "image_file", PROP_TYPE_FILE },
     PROP_DESC_END};
 
-static Object *
+static DiaObject *
 create_standard_image(real xpos, real ypos, real width, real height,
 		      char *file, DiagramData *dia) {
-    ObjectType *otype = object_get_type("Standard - Image");
-    Object *new_obj;
+    DiaObjectType *otype = object_get_type("Standard - Image");
+    DiaObject *new_obj;
     Handle *h1, *h2;
     Point point;
     GPtrArray *props;
@@ -427,9 +427,9 @@ create_standard_image(real xpos, real ypos, real width, real height,
     return new_obj;
 }
 
-static Object *
+static DiaObject *
 create_standard_group(GList *items, DiagramData *dia) {
-    Object *new_obj;
+    DiaObject *new_obj;
 
     new_obj = group_create((GList*)items);
 
@@ -507,7 +507,7 @@ fig_line_style_to_dia(int line_style)
 }
 
 static void
-fig_simple_properties(Object *obj,
+fig_simple_properties(DiaObject *obj,
 		      int line_style,
 		      float dash_length,
 		      int thickness,
@@ -622,16 +622,20 @@ fig_read_arrow(FILE *file) {
     return arrow;
 }
 
-static void
-fig_fix_text(char *text) {
+static gchar *
+fig_fix_text(gchar *text) {
     int i, j;
     int asciival;
+    GError *err = NULL;
+    gchar *converted;
+    gboolean needs_conversion = FALSE;
 
     for (i = 0, j = 0; text[i] != 0; i++, j++) {
 	if (text[i] == '\\') {
 	    sscanf(text+i+1, "%3o", &asciival);
 	    text[j] = asciival;
 	    i+=3;
+	    needs_conversion = TRUE;
 	} else {
 	    text[j] = text[i];
 	}
@@ -641,6 +645,21 @@ fig_fix_text(char *text) {
     if (text[j-2] == '\001') {
 	text[j-2] = 0;
     }
+    if (needs_conversion) {
+	/* Crudely assuming that fig uses Latin-1 */
+	converted = g_convert(text, strlen(text), "UTF-8", "ISO-8859-1",
+			      NULL, NULL, &err);
+	if (err != NULL) {
+	    printf("Error converting %s: %s\n", text, err->message);
+	    return text;
+	}
+	if (!g_utf8_validate(converted, -1, NULL)) {
+	    printf("Fails to validate %s\n", converted);
+	    return text;
+	}
+	if (text != converted) g_free(text);
+	return converted;
+    } else return text;
 }
 
 static char *
@@ -659,7 +678,7 @@ fig_read_text_line(FILE *file) {
 	text_buf = (char *)g_realloc(text_buf, text_alloc*sizeof(char));
     }
 
-    fig_fix_text(text_buf);
+    text_buf = fig_fix_text(text_buf);
 
     return text_buf;
 }
@@ -674,7 +693,7 @@ static GSList *compound_stack = NULL;
    level.  Best we can do now. */
 static int compound_depth;
 
-static Object *
+static DiaObject *
 fig_read_ellipse(FILE *file, DiagramData *dia) {
     int sub_type;
     int line_style;
@@ -691,7 +710,7 @@ fig_read_ellipse(FILE *file, DiagramData *dia) {
     int radius_x, radius_y;
     int start_x, start_y;
     int end_x, end_y;
-    Object *newobj = NULL;
+    DiaObject *newobj = NULL;
 
     if (fscanf(file, "%d %d %d %d %d %d %d %d %lf %d %lf %d %d %d %d %d %d %d %d\n",
 	       &sub_type,
@@ -738,7 +757,7 @@ fig_read_ellipse(FILE *file, DiagramData *dia) {
     return newobj;
 }
 
-static Object *
+static DiaObject *
 fig_read_polyline(FILE *file, DiagramData *dia) {
     int sub_type;
     int line_style;
@@ -757,7 +776,7 @@ fig_read_polyline(FILE *file, DiagramData *dia) {
     int npoints;
     Point *points;
     GPtrArray *props = g_ptr_array_new();
-    Object *newobj = NULL;
+    DiaObject *newobj = NULL;
     int flipped = 0;
     char *image_file = NULL;
 
@@ -969,7 +988,7 @@ static real matrix_catmull_to_bezier[4][4] =
      {0,      1,   5,   5/6.0},
      {0,      0,   5,   5/6.0}};
 
-static Object *
+static DiaObject *
 fig_read_spline(FILE *file, DiagramData *dia) {
     int sub_type;
     int line_style;
@@ -986,7 +1005,7 @@ fig_read_spline(FILE *file, DiagramData *dia) {
     int npoints;
     Point *points;
     GPtrArray *props = g_ptr_array_new();
-    Object *newobj = NULL;
+    DiaObject *newobj = NULL;
     BezPoint *bezpoints;
     int i;
 
@@ -1104,7 +1123,7 @@ fig_read_spline(FILE *file, DiagramData *dia) {
     return newobj;
 }
 
-static Object *
+static DiaObject *
 fig_read_arc(FILE *file, DiagramData *dia) {
     int sub_type;
     int line_style;
@@ -1119,7 +1138,7 @@ fig_read_arc(FILE *file, DiagramData *dia) {
     int direction;
     int forward_arrow, backward_arrow;
     Arrow *forward_arrow_info = NULL, *backward_arrow_info = NULL;
-    Object *newobj = NULL;
+    DiaObject *newobj = NULL;
     real center_x, center_y;
     int x1, y1;
     int x2, y2;
@@ -1202,12 +1221,12 @@ static PropDescription xfig_text_descs[] = {
     /* Flags */
 };
 
-static Object *
+static DiaObject *
 fig_read_text(FILE *file, DiagramData *dia) {
     GPtrArray *props = NULL;
     TextProperty *tprop;
 
-    Object *newobj = NULL;
+    DiaObject *newobj = NULL;
     int sub_type;
     int color;
     int depth;
@@ -1251,7 +1270,27 @@ fig_read_text(FILE *file, DiagramData *dia) {
     tprop->attr.alignment = sub_type;
     tprop->attr.position.x = x/FIG_UNIT;
     tprop->attr.position.y = y/FIG_UNIT;
-    tprop->attr.font = dia_font_new_from_legacy_name(fig_fonts[font]);
+
+    if (font_flags & 4) {
+	switch (font) {
+	case 0: tprop->attr.font = dia_font_new_from_legacy_name("Times-Roman"); break;
+	case 1: tprop->attr.font = dia_font_new_from_legacy_name("Times-Roman"); break;
+	case 2: tprop->attr.font = dia_font_new_from_legacy_name("Times-Bold"); break;
+	case 3: tprop->attr.font = dia_font_new_from_legacy_name("Times-Italic"); break;
+	case 4: tprop->attr.font = dia_font_new_from_legacy_name("Helvetica"); break;
+	case 5: tprop->attr.font = dia_font_new_from_legacy_name("Courier"); break;
+	default: message_warning("Can't find LaTeX font nr. %d, using sans\n", font);
+	    tprop->attr.font = dia_font_new_from_legacy_name("Helvetica");
+	}
+    } else {
+	if (font == -1) font = "Times Roman"; /* "Default font" - wazzat? */
+	if (font < 0 || font > 34) {
+	    message_warning("Can't find Postscript font nr. %d, using sans\n", font);
+	    tprop->attr.font = dia_font_new_from_legacy_name("Helvetica");
+	} else {
+	    tprop->attr.font = dia_font_new_from_legacy_name(fig_fonts[font]);
+	}
+    }
     tprop->attr.height = font_size*3.54/72.0;
     tprop->attr.color = fig_color(color);
     newobj->ops->set_props(newobj, props);
@@ -1271,7 +1310,7 @@ fig_read_text(FILE *file, DiagramData *dia) {
 static gboolean
 fig_read_object(FILE *file, DiagramData *dia) {
     int objecttype;
-    Object *item = NULL;
+    DiaObject *item = NULL;
 
     if (fscanf(file, "%d ", &objecttype) != 1) {
 	if (!feof(file)) {
@@ -1379,8 +1418,9 @@ fig_read_line_choice(FILE *file, char *choice1, char *choice2) {
     }
 
     buf[strlen(buf)-1] = 0; /* Remove trailing newline */
-    if (!strcmp(buf, choice1)) return 0;
-    if (!strcmp(buf, choice2)) return 1;
+    g_strstrip(buf); /* And any other whitespace */
+    if (!g_strcasecmp(buf, choice1)) return 0;
+    if (!g_strcasecmp(buf, choice2)) return 1;
     message_warning(_("`%s' is not one of `%s' or `%s'\n"), buf, choice1, choice2);
     return 0;
 }
@@ -1396,6 +1436,7 @@ fig_read_paper_size(FILE *file, DiagramData *dia) {
     }
 
     buf[strlen(buf)-1] = 0; /* Remove trailing newline */
+    g_strstrip(buf); /* And any other whitespace */
     if ((paper = find_paper(buf)) != -1) {
 	get_paper_info(&dia->paper, paper, NULL);
 	return TRUE;
@@ -1563,7 +1604,7 @@ import_fig(const gchar *filename, DiagramData *dia, void* user_data) {
     } while (TRUE);
 
     /* Now we can reorder for the depth fields */
-    for (i = 999; i >= 0; i--) {
+    for (i = 0; i < 1000; i++) {
 	if (depths[i] != NULL)
 	    layer_add_objects_first(dia->active_layer, depths[i]);
     }

@@ -21,7 +21,6 @@
 
 #include <config.h>
 
-#include <ctype.h>
 #include <string.h> /* strcmp */
 #include "diaunitspinner.h"
 #include "gdk/gdkkeysyms.h"
@@ -184,7 +183,7 @@ dia_unit_spinner_update(DiaUnitSpinner *self)
   val = g_strtod(gtk_entry_get_text(GTK_ENTRY(self)), &extra);
 
   /* get rid of extra white space after number */
-  while (*extra && isspace(*extra)) extra++;
+  while (*extra && g_ascii_isspace(*extra)) extra++;
   if (*extra) {
     int i;
 

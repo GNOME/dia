@@ -41,6 +41,9 @@
 #include "pixmaps/raise.xpm"
 #include "pixmaps/delete.xpm"
 
+static int select_width = eye_width;
+static int select_height = eye_height;
+
 static struct LayerDialog *layer_dialog = NULL;
 
 typedef struct _ButtonData ButtonData;
@@ -90,6 +93,7 @@ static int num_buttons = sizeof(buttons)/sizeof(ButtonData);
 #define INSENSITIVE 2
 
 static GdkPixmap *eye_pixmap[3] = {NULL, NULL, NULL};
+static GdkPixmap *select_pixmap[3] = {NULL, NULL, NULL};
 
 static GtkWidget *
 create_button_box(GtkWidget *parent)
@@ -627,6 +631,47 @@ dia_layer_widget_class_init(DiaLayerWidgetClass *klass)
   widget_class->unrealize = dia_layer_widget_unrealize;
 }
 
+/** Get the appropriate pixmap for the layer.
+ */
+static GdkPixmap *
+dia_layer_widget_get_pixmap(GdkPixmap **pixmaps, DiaLayerWidget *widget,
+			    gboolean on, gboolean selected)
+{
+  if (on) {
+    if (GTK_WIDGET_IS_SENSITIVE (GTK_WIDGET(widget))) {
+      if (selected)
+	return pixmaps[SELECTED];
+      else
+	return pixmaps[NORMAL];
+    } else {
+      return pixmaps[INSENSITIVE];
+    }
+  } else return NULL;
+}
+
+static void
+dia_layer_widget_init_pixmap(GdkPixmap **pixmaps, GtkWidget *visible,
+			     gchar *bits, int width, int height)
+{
+  if (pixmaps[NORMAL] == NULL) {
+    pixmaps[NORMAL] =
+      gdk_pixmap_create_from_data (visible->window,
+				   (gchar*) bits, width, height, -1,
+				   &visible->style->fg[GTK_STATE_NORMAL],
+				   &visible->style->white);
+    pixmaps[SELECTED] =
+      gdk_pixmap_create_from_data (visible->window,
+				   (gchar*) bits, width, height, -1,
+				   &visible->style->fg[GTK_STATE_SELECTED],
+				   &visible->style->bg[GTK_STATE_SELECTED]);
+    pixmaps[INSENSITIVE] =
+      gdk_pixmap_create_from_data (visible->window,
+				   (gchar*) bits, width, height, -1,
+				   &visible->style->fg[GTK_STATE_INSENSITIVE],
+				   &visible->style->bg[GTK_STATE_INSENSITIVE]);
+  }
+}
+
 static void
 dia_layer_widget_visible_redraw(DiaLayerWidget *layer_widget)
 {
@@ -647,41 +692,42 @@ dia_layer_widget_visible_redraw(DiaLayerWidget *layer_widget)
     color = &layer_widget->visible->style->bg[GTK_STATE_INSENSITIVE];
 
   gdk_window_set_background (layer_widget->visible->window, color);
+  gdk_window_clear (layer_widget->visible->window);
 
-  if (layer_widget->layer->visible) {
-    if (!eye_pixmap[NORMAL]) {
-      eye_pixmap[NORMAL] =
-	gdk_pixmap_create_from_data (layer_widget->visible->window,
-				     (gchar*) eye_bits, eye_width, eye_height, -1,
-				     &layer_widget->visible->style->fg[GTK_STATE_NORMAL],
-				     &layer_widget->visible->style->white);
-      eye_pixmap[SELECTED] =
-	gdk_pixmap_create_from_data (layer_widget->visible->window,
-				     (gchar*) eye_bits, eye_width, eye_height, -1,
-				     &layer_widget->visible->style->fg[GTK_STATE_SELECTED],
-				     &layer_widget->visible->style->bg[GTK_STATE_SELECTED]);
-      eye_pixmap[INSENSITIVE] =
-	gdk_pixmap_create_from_data (layer_widget->visible->window,
-				     (gchar*) eye_bits, eye_width, eye_height, -1,
-				     &layer_widget->visible->style->fg[GTK_STATE_INSENSITIVE],
-				     &layer_widget->visible->style->bg[GTK_STATE_INSENSITIVE]);
-    }
+  dia_layer_widget_init_pixmap(eye_pixmap, layer_widget->visible,
+			       eye_bits, eye_width, eye_height);
 
-    if (GTK_WIDGET_IS_SENSITIVE (GTK_WIDGET(layer_widget))) {
-      if (state == GTK_STATE_SELECTED)
-	pixmap = eye_pixmap[SELECTED];
-      else
-	pixmap = eye_pixmap[NORMAL];
-    } else {
-      pixmap = eye_pixmap[INSENSITIVE];
-    }
-
+  pixmap = dia_layer_widget_get_pixmap(eye_pixmap, 
+				       layer_widget,
+				       layer_widget->layer->visible,
+				       state == GTK_STATE_SELECTED);
+  if (pixmap != NULL)
     gdk_draw_pixmap (layer_widget->visible->window,
 		     layer_widget->visible->style->black_gc,
 		     pixmap, 0, 0, 0, 0, eye_width, eye_height);
-  } else {
-    gdk_window_clear (layer_widget->visible->window);
-  }
+
+}
+
+static void
+dia_layer_widget_set_toggle_color(GtkWidget *widget, gpointer userdata)
+{
+  DiaLayerWidget *layer_widget = DIA_LAYER_WIDGET(widget);
+  GtkWidget *toggle = GTK_WIDGET(userdata);
+  GdkColor *color;
+  GtkStateType state;
+
+  state = GTK_WIDGET(layer_widget)->state;
+
+  if (GTK_WIDGET_IS_SENSITIVE (layer_widget)) {
+      if (state == GTK_STATE_SELECTED)
+	color = &toggle->style->bg[GTK_STATE_SELECTED];
+      else
+	color = &toggle->style->white;
+  } else
+    color = &toggle->style->bg[GTK_STATE_INSENSITIVE];
+
+  gdk_window_set_background (toggle->window, color);
+  gdk_window_clear (toggle->window);
 }
 
 static void
@@ -702,13 +748,6 @@ dia_layer_widget_exclusive_visible(DiaLayerWidget *layer_widget)
   }
 
   /*  Now, toggle the visibility for all layers except the specified one  */
-  for (i=0;i<layer_widget->dia->data->layers->len;i++) {
-    layer = g_ptr_array_index(layer_widget->dia->data->layers, i);
-    if (layer_widget->layer != layer) {
-	visible |= layer->visible;
-    }
-  }
-
   list = GTK_LIST(layer_dialog->layer_list)->children;
   while (list) {
     lw = DIA_LAYER_WIDGET(list->data);
@@ -723,10 +762,46 @@ dia_layer_widget_exclusive_visible(DiaLayerWidget *layer_widget)
   }
 }
 
+static void
+dia_layer_widget_set_connectable(DiaLayerWidget *widget, gboolean on)
+{
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(widget->connectable), on);
+}
+
+static void
+dia_layer_widget_exclusive_connectable(DiaLayerWidget *layer_widget)
+{
+  GList *list;
+  DiaLayerWidget *lw;
+  Layer *layer;
+  int connectable = FALSE;
+  int i;
+
+  /*  First determine if _any_ other layer widgets are set to connectable  */
+  for (i=0;i<layer_widget->dia->data->layers->len;i++) {
+    layer = g_ptr_array_index(layer_widget->dia->data->layers, i);
+    if (layer_widget->layer != layer) {
+	connectable |= layer->connectable;
+    }
+  }
+
+  /*  Now, toggle the selectability for all layers except the specified one  */
+  list = GTK_LIST(layer_dialog->layer_list)->children;
+  while (list) {
+    lw = DIA_LAYER_WIDGET(list->data);
+    if (lw != layer_widget) 
+      dia_layer_widget_set_connectable(lw, !connectable);
+    else 
+      dia_layer_widget_set_connectable(lw, TRUE);
+    
+    list = g_list_next(list);
+  }
+}
+
 static gint
-dia_layer_widget_button_events(GtkWidget *widget,
-			       GdkEvent  *event,
-			       gpointer data)
+dia_layer_widget_visible_button_events(GtkWidget *widget,
+				       GdkEvent  *event,
+				       gpointer data)
 {
   static GtkWidget *click_widget = NULL;
   static int button_down = 0;
@@ -739,6 +814,7 @@ dia_layer_widget_button_events(GtkWidget *widget,
   
   lw = DIA_LAYER_WIDGET(data);
 
+  printf("Button event %d widget %p\n", event->type, widget);
 
   return_val = FALSE;
   switch (event->type) {
@@ -808,11 +884,38 @@ dia_layer_widget_button_events(GtkWidget *widget,
   return return_val;
 }
 
+static gboolean shifted = FALSE;
+
+static gboolean
+dia_layer_widget_connectable_event(GtkWidget *widget,
+				   GdkEventButton *event,
+				   gpointer userdata)
+{
+  shifted = event->state & GDK_SHIFT_MASK;
+  return FALSE;
+}
+
+static void
+dia_layer_widget_connectable_toggled(GtkToggleButton *widget,
+				     gpointer userdata)
+{
+  DiaLayerWidget *lw = DIA_LAYER_WIDGET(userdata);
+  printf("Shifted: %d\n", shifted);
+  if (shifted) {
+    shifted = FALSE;
+    dia_layer_widget_exclusive_connectable(lw);
+  } else {
+    lw->layer->connectable = gtk_toggle_button_get_active(widget);
+  }
+  dia_layer_widget_set_toggle_color(GTK_WIDGET(lw), GTK_WIDGET(widget));
+}
+
 static void
 dia_layer_widget_init(DiaLayerWidget *lw)
 {
   GtkWidget *hbox;
   GtkWidget *visible;
+  GtkWidget *connectable;
   GtkWidget *label;
   GtkWidget *alignment;
 
@@ -824,16 +927,34 @@ dia_layer_widget_init(DiaLayerWidget *lw)
   
   alignment = gtk_alignment_new (0.5, 0.5, 0.0, 0.0);
   lw->visible = visible = gtk_drawing_area_new ();
-  gtk_drawing_area_size (GTK_DRAWING_AREA (visible), eye_width, eye_height);
+  gtk_drawing_area_size (GTK_DRAWING_AREA (visible), 
+			 eye_width, eye_height);
   gtk_widget_set_events (visible, BUTTON_EVENT_MASK);
   g_signal_connect (GTK_OBJECT (visible), "event",
-                      (GtkSignalFunc) dia_layer_widget_button_events,
+                      (GtkSignalFunc) dia_layer_widget_visible_button_events,
                       lw);
   gtk_object_set_user_data (GTK_OBJECT (visible), lw);
   gtk_widget_show(visible);
+
   gtk_container_add (GTK_CONTAINER (alignment), visible);
   gtk_box_pack_start (GTK_BOX (hbox), alignment, FALSE, TRUE, 2);
   gtk_widget_show(alignment);
+
+  lw->connectable = connectable = 
+    dia_toggle_button_new_with_images("selectable.png", 
+				      "selectable-empty.png");
+  printf("Connectable %p\n", connectable);
+
+  gtk_button_set_relief(GTK_BUTTON(connectable),
+			GTK_RELIEF_NONE);
+  gtk_container_set_border_width(GTK_CONTAINER(connectable), 0);
+  g_signal_connect(G_OBJECT(connectable), "button-release-event",
+		   dia_layer_widget_connectable_event, lw);
+  g_signal_connect(G_OBJECT(connectable), "toggled",
+		   dia_layer_widget_connectable_toggled, lw);
+
+  gtk_box_pack_start (GTK_BOX (hbox), connectable, FALSE, TRUE, 2);
+  gtk_widget_show(connectable);
   
   lw->label = label = gtk_label_new("layer_default_label");
   gtk_label_set_justify(GTK_LABEL(label), GTK_JUSTIFY_LEFT);
@@ -1113,7 +1234,7 @@ undo_layer(Diagram *dia, Layer *layer, enum LayerChangeType type, int index)
 {
   struct LayerChange *change;
 
-  change = g_new(struct LayerChange, 1);
+  change = g_new0(struct LayerChange, 1);
   
   change->change.apply = (UndoApplyFunc) layer_change_apply;
   change->change.revert = (UndoRevertFunc) layer_change_revert;

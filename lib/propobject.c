@@ -38,11 +38,11 @@
 #include "propinternals.h"
 
 const PropDescription *
-object_get_prop_descriptions(const Object *obj) {
+object_get_prop_descriptions(const DiaObject *obj) {
   const PropDescription *pdesc;
   if (!obj->ops->describe_props) return NULL;
 
-  pdesc = obj->ops->describe_props((Object *)obj); /* Yes... */
+  pdesc = obj->ops->describe_props((DiaObject *)obj); /* Yes... */
   if (pdesc[0].quark != 0) return pdesc;
 
   prop_desc_list_calculate_quarks((PropDescription *)pdesc); /* Yes again... */
@@ -58,12 +58,12 @@ typedef struct _ObjectPropChange ObjectPropChange;
 struct _ObjectPropChange {
   ObjectChange obj_change;
 
-  Object *obj;
+  DiaObject *obj;
   GPtrArray *saved_props;
 };
 
 static void
-object_prop_change_apply_revert(ObjectPropChange *change, Object *obj)
+object_prop_change_apply_revert(ObjectPropChange *change, DiaObject *obj)
 {
   GPtrArray *old_props;
 
@@ -88,7 +88,7 @@ object_prop_change_free(ObjectPropChange *change)
 }
 
 ObjectChange *
-object_apply_props(Object *obj, GPtrArray *props)
+object_apply_props(DiaObject *obj, GPtrArray *props)
 {
   ObjectPropChange *change;
   GPtrArray *old_props;
@@ -123,7 +123,7 @@ object_apply_props(Object *obj, GPtrArray *props)
 /* Get/Set routines */
 
 gboolean
-object_get_props_from_offsets(Object *obj, PropOffset *offsets,
+object_get_props_from_offsets(DiaObject *obj, PropOffset *offsets,
                               GPtrArray *props)
 {
   prop_offset_list_calculate_quarks(offsets);
@@ -133,7 +133,7 @@ object_get_props_from_offsets(Object *obj, PropOffset *offsets,
 }
 
 gboolean
-object_set_props_from_offsets(Object *obj, PropOffset *offsets,
+object_set_props_from_offsets(DiaObject *obj, PropOffset *offsets,
                               GPtrArray *props)
 {
   prop_offset_list_calculate_quarks(offsets);
@@ -144,14 +144,14 @@ object_set_props_from_offsets(Object *obj, PropOffset *offsets,
 
 
 WIDGET *
-object_create_props_dialog(Object *obj, gboolean is_default)
+object_create_props_dialog(DiaObject *obj, gboolean is_default)
 {
   return prop_dialog_new(obj, is_default)->widget;
 }
 
 
 ObjectChange *
-object_apply_props_from_dialog(Object *obj, WIDGET *dialog_widget)
+object_apply_props_from_dialog(DiaObject *obj, WIDGET *dialog_widget)
 {
   PropDialog *dialog = prop_dialog_from_widget(dialog_widget);
 
@@ -161,7 +161,7 @@ object_apply_props_from_dialog(Object *obj, WIDGET *dialog_widget)
 
 
 gboolean 
-object_complies_with_stdprop(const Object *obj) 
+object_complies_with_stdprop(const DiaObject *obj) 
 {
   if (obj->ops->set_props == NULL) {
     g_warning("No set_props !");
@@ -183,7 +183,7 @@ object_complies_with_stdprop(const Object *obj)
 }
 
 void 
-object_copy_props(Object *dest, const Object *src, gboolean is_default)
+object_copy_props(DiaObject *dest, const DiaObject *src, gboolean is_default)
 {
   GPtrArray *props;
 
@@ -198,16 +198,16 @@ object_copy_props(Object *dest, const Object *src, gboolean is_default)
                                (is_default?pdtpp_do_save_no_standard:
 				pdtpp_do_save));
 
-  src->ops->get_props((Object *)src, props); /* FIXME: really should make
+  src->ops->get_props((DiaObject *)src, props); /* FIXME: really should make
                                                 get_props' first argument
-                                                a (const Object *) */
+                                                a (const DiaObject *) */
   dest->ops->set_props(dest, props);
 
   prop_list_free(props);  
 }
 
 void
-object_load_props(Object *obj, ObjectNode obj_node)
+object_load_props(DiaObject *obj, ObjectNode obj_node)
 {
   GPtrArray *props;
 
@@ -225,7 +225,7 @@ object_load_props(Object *obj, ObjectNode obj_node)
 }
 
 void
-object_save_props(Object *obj, ObjectNode obj_node)
+object_save_props(DiaObject *obj, ObjectNode obj_node)
 {
   GPtrArray *props;
 
@@ -242,7 +242,7 @@ object_save_props(Object *obj, ObjectNode obj_node)
 }
 
 Property *
-object_prop_by_name_type(Object *obj, const char *name, const char *type)
+object_prop_by_name_type(DiaObject *obj, const char *name, const char *type)
 {
   const PropDescription *pdesc;
   GQuark name_quark = g_quark_from_string(name);
@@ -272,7 +272,7 @@ object_prop_by_name_type(Object *obj, const char *name, const char *type)
 }
 
 Property *
-object_prop_by_name(Object *obj, const char *name)
+object_prop_by_name(DiaObject *obj, const char *name)
 {
   return object_prop_by_name_type(obj,name,NULL);
 }

@@ -25,7 +25,6 @@ distclean-local:
 	rm -f intltool-extract
 	rm -f intltool-merge
 	rm -f intltool-update
-	rm -f THANKS
 
 mimedir = $(gnomedatadir)/mime-info
 mime_DATA = dia.mime dia.keys
@@ -54,7 +53,7 @@ distuninstallcheck_listfiles = \
 EXTRA_DIST = dia.xpm dia_gnome_icon.png dia_gnome_menu_icon.png \
 	dia.desktop.in dia.spec KNOWN_BUGS $(pkgdata_DATA) \
 	dia-diagram.png dia.mime dia.keys.in \
-	core-translation-report po-checktrans.py po-checktrans \
+	po-checktrans.py po-checktrans \
 	intltool-extract.in intltool-merge.in intltool-update.in \
 	RELEASE-PROCESS autogen.sh makefile.msc \
 	config.h.win32 readme.win32 AUTHORS THANKS

@@ -35,7 +35,7 @@ gboolean parent_list_expand(GList *obj_list)
   GList *list = obj_list;
   while (list)
   {
-    Object *obj = (Object *) list->data;
+    DiaObject *obj = (DiaObject *) list->data;
 
     if (obj->can_parent && obj->children)
     {
@@ -115,7 +115,7 @@ GList *parent_list_affected(GList *obj_list)
   list = all_list;
   while (list)
   {
-    Object *obj = (Object *) list->data;
+    DiaObject *obj = (DiaObject *) list->data;
     if (!g_hash_table_lookup(object_hash, obj))
     {
       new_list = g_list_append(new_list, obj);
@@ -134,7 +134,7 @@ GList *parent_list_affected(GList *obj_list)
   going any further
 
   returns TRUE if resizing was obstructed*/
-gboolean parent_handle_move_out_check(Object *object, Point *to)
+gboolean parent_handle_move_out_check(DiaObject *object, Point *to)
 {
   Rectangle *p_ext, *c_ext;
   Point new_delta;
@@ -163,7 +163,7 @@ gboolean parent_handle_move_out_check(Object *object, Point *to)
 
    returns TRUE if resizing was obstructed
    */
-gboolean parent_handle_move_in_check(Object *object, Point *to, Point *start_at)
+gboolean parent_handle_move_in_check(DiaObject *object, Point *to, Point *start_at)
 {
   GList *list = object->children;
   Rectangle *common_ext = NULL;
@@ -269,7 +269,7 @@ Rectangle *parent_point_extents(Point *point)
 }
 
 /* the caller must free the returned rectangle */
-Rectangle *parent_handle_extents(Object *obj)
+Rectangle *parent_handle_extents(DiaObject *obj)
 {
   int idx;
   Rectangle *extents = g_new0(Rectangle, 1);

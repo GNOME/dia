@@ -54,7 +54,7 @@
 #define DEFAULT_HEIGHT 1.0
 #define DEFAULT_BORDER 0.25
 
-void custom_object_new(ShapeInfo *info, ObjectType **otype);
+void custom_object_new(ShapeInfo *info, DiaObjectType **otype);
 
 /* used when resizing to decide which side of the shape to expand/shrink */
 typedef enum {
@@ -115,19 +115,19 @@ static ObjectChange* custom_move(Custom *custom, Point *to);
 static void custom_draw(Custom *custom, DiaRenderer *renderer);
 static void custom_update_data(Custom *custom, AnchorShape h, AnchorShape v);
 static void custom_reposition_text(Custom *custom, GraphicElementText *text);
-static Object *custom_create(Point *startpoint,
+static DiaObject *custom_create(Point *startpoint,
 			  void *user_data,
 			  Handle **handle1,
 			  Handle **handle2);
 static void custom_destroy(Custom *custom);
-static Object *custom_copy(Custom *custom);
+static DiaObject *custom_copy(Custom *custom);
 static DiaMenu *custom_get_object_menu(Custom *custom, Point *clickedpoint);
 
 static PropDescription *custom_describe_props(Custom *custom);
 static void custom_get_props(Custom *custom, GPtrArray *props);
 static void custom_set_props(Custom *custom, GPtrArray *props);
 
-static Object *custom_load_using_properties(ObjectNode obj_node, int version, const char *filename);
+static DiaObject *custom_load_using_properties(ObjectNode obj_node, int version, const char *filename);
 
 static ObjectTypeOps custom_type_ops =
 {
@@ -139,10 +139,10 @@ static ObjectTypeOps custom_type_ops =
 };
 
 /* This looks like it could be static, but it can't because we key
-   on it to determine if an ObjectType is a custom/SVG shape */
+   on it to determine if an DiaObjectType is a custom/SVG shape */
 
 G_MODULE_EXPORT 
-ObjectType custom_type =
+DiaObjectType custom_type =
 {
   "Custom - Generic",  /* name */
   0,                 /* version */
@@ -821,7 +821,7 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
 {
   Element *elem = &custom->element;
   ShapeInfo *info = custom->info;
-  Object *obj = &elem->object;
+  DiaObject *obj = &elem->object;
   Point center, bottom_right;
   Point p;
   static GArray *arr = NULL, *barr = NULL;
@@ -1184,7 +1184,7 @@ void custom_reposition_text(Custom *custom, GraphicElementText *text) {
     return;
 }
 
-static Object *
+static DiaObject *
 custom_create(Point *startpoint,
 	   void *user_data,
 	   Handle **handle1,
@@ -1192,7 +1192,7 @@ custom_create(Point *startpoint,
 {
   Custom *custom;
   Element *elem;
-  Object *obj;
+  DiaObject *obj;
   ShapeInfo *info = (ShapeInfo *)user_data;
   Point p;
   int i;
@@ -1281,13 +1281,13 @@ custom_destroy(Custom *custom)
   g_free(custom->connections);
 }
 
-static Object *
+static DiaObject *
 custom_copy(Custom *custom)
 {
   int i;
   Custom *newcustom;
   Element *elem, *newelem;
-  Object *newobj;
+  DiaObject *newobj;
   
   elem = &custom->element;
   
@@ -1332,11 +1332,11 @@ custom_copy(Custom *custom)
   return &newcustom->element.object;
 }
 
-static Object *
+static DiaObject *
 custom_load_using_properties(ObjectNode obj_node, int version, const char *filename)
 {
   Custom *custom;
-  Object *obj;
+  DiaObject *obj;
   Point startpoint = {0.0,0.0};
   Handle *handle1,*handle2;
   Text *init_text;
@@ -1383,7 +1383,7 @@ custom_change_revert(struct CustomObjectChange *change, Custom *custom)
 }
 
 static ObjectChange *
-custom_flip_h_callback (Object *obj, Point *clicked, gpointer data)
+custom_flip_h_callback (DiaObject *obj, Point *clicked, gpointer data)
 {
   Custom *custom = (Custom *)obj;
   struct CustomObjectChange *change = g_new0(struct CustomObjectChange, 1);
@@ -1401,7 +1401,7 @@ custom_flip_h_callback (Object *obj, Point *clicked, gpointer data)
 }
 
 static ObjectChange *
-custom_flip_v_callback (Object *obj, Point *clicked, gpointer data)
+custom_flip_v_callback (DiaObject *obj, Point *clicked, gpointer data)
 {
   Custom *custom = (Custom *)obj;
   struct CustomObjectChange *change = g_new0(struct CustomObjectChange, 1);
@@ -1442,9 +1442,9 @@ custom_get_object_menu(Custom *custom, Point *clickedpoint)
 }
 
 void
-custom_object_new(ShapeInfo *info, ObjectType **otype)
+custom_object_new(ShapeInfo *info, DiaObjectType **otype)
 {
-  ObjectType *obj = g_new0(ObjectType, 1);
+  DiaObjectType *obj = g_new0(DiaObjectType, 1);
 
   *obj = custom_type;
 

@@ -19,6 +19,7 @@
 
 #include "attributes.h"
 #include "intl.h"
+#include "persistence.h"
 
 static Color attributes_foreground = { 0.0f, 0.0f, 0.0f };
 static Color attributes_background = { 1.0f, 1.0f, 1.0f };
@@ -52,12 +53,14 @@ void
 attributes_set_foreground(Color *color)
 {
   attributes_foreground = *color;
+  persistence_set_color("fg_color", color);
 }
 
 void
 attributes_set_background(Color *color)
 {
   attributes_background = *color;
+  persistence_set_color("bg_color", color);
 }
 
 void
@@ -65,15 +68,15 @@ attributes_swap_fgbg(void)
 {
   Color temp;
   temp = attributes_foreground;
-  attributes_foreground = attributes_background;
-  attributes_background = temp;
+  attributes_set_foreground(&attributes_background);
+  attributes_set_background(&temp);
 }
 
 void
 attributes_default_fgbg(void)
 {
-  attributes_foreground = color_black;
-  attributes_background = color_white;
+  attributes_set_foreground(&color_black);
+  attributes_set_background(&color_white);
 }
 
 real
@@ -86,6 +89,7 @@ void
 attributes_set_default_linewidth(real width)
 {
   attributes_default_linewidth = width;
+  persistence_set_real("linewidth", width);
 }
 
 Arrow
@@ -97,6 +101,10 @@ void
 attributes_set_default_start_arrow(Arrow arrow)
 {
   attributes_start_arrow = arrow;
+  persistence_set_string("start-arrow-type", 
+			 arrow_types[arrow_index_from_type(arrow.type)].name);
+  persistence_set_real("start-arrow-width", arrow.width);
+  persistence_set_real("start-arrow-length", arrow.length);
 }
 
 Arrow
@@ -108,6 +116,10 @@ void
 attributes_set_default_end_arrow(Arrow arrow)
 {
   attributes_end_arrow = arrow;
+  persistence_set_string("end-arrow-type", 
+			 arrow_types[arrow_index_from_type(arrow.type)].name);
+  persistence_set_real("end-arrow-width", arrow.width);
+  persistence_set_real("end-arrow-length", arrow.length);
 }
 
 void
@@ -123,6 +135,8 @@ attributes_set_default_line_style(LineStyle style, real dash_length)
 {
   attributes_linestyle = style;
   attributes_dash_length = dash_length;
+  persistence_set_integer("line-style", style);
+  persistence_set_real("dash-length", dash_length);
 }
 
 void

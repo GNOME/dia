@@ -77,12 +77,12 @@ static ObjectChange* analog_clock_move_handle(Analog_Clock *analog_clock,
 static ObjectChange* analog_clock_move(Analog_Clock *analog_clock, Point *to);
 static void analog_clock_draw(Analog_Clock *analog_clock, DiaRenderer *renderer);
 static void analog_clock_update_data(Analog_Clock *analog_clock);
-static Object *analog_clock_create(Point *startpoint,
+static DiaObject *analog_clock_create(Point *startpoint,
                                    void *user_data,
                                    Handle **handle1,
                                    Handle **handle2);
 static void analog_clock_destroy(Analog_Clock *analog_clock);
-static Object *analog_clock_load(ObjectNode obj_node, int version, 
+static DiaObject *analog_clock_load(ObjectNode obj_node, int version, 
                                  const char *filename);
 static PropDescription *analog_clock_describe_props(
   Analog_Clock *analog_clock);
@@ -100,7 +100,7 @@ static ObjectTypeOps analog_clock_type_ops =
   (ApplyDefaultsFunc) NULL
 };
 
-ObjectType analog_clock_type =
+DiaObjectType analog_clock_type =
 {
   "Misc - Analog Clock",  /* name */
   0,                 /* version */
@@ -193,7 +193,7 @@ analog_clock_set_props(Analog_Clock *analog_clock, GPtrArray *props)
 static real
 analog_clock_distance_from(Analog_Clock *analog_clock, Point *point)
 {
-  Object *obj = &analog_clock->element.object;
+  DiaObject *obj = &analog_clock->element.object;
   return distance_rectangle_point(&obj->bounding_box, point);
 }
 
@@ -282,7 +282,7 @@ static void
 analog_clock_update_data(Analog_Clock *analog_clock)
 {
   Element *elem = &analog_clock->element;
-  Object *obj = &elem->object;
+  DiaObject *obj = &elem->object;
   int i;
   ElementBBExtras *extra = &elem->extra_spacing;
 
@@ -375,7 +375,7 @@ analog_clock_draw(Analog_Clock *analog_clock, DiaRenderer *renderer)
 }
 
 
-static Object *
+static DiaObject *
 analog_clock_create(Point *startpoint,
 	   void *user_data,
 	   Handle **handle1,
@@ -383,7 +383,7 @@ analog_clock_create(Point *startpoint,
 {
   Analog_Clock *analog_clock;
   Element *elem;
-  Object *obj;
+  DiaObject *obj;
   unsigned i;
   
   analog_clock = g_new0(Analog_Clock,1);
@@ -461,7 +461,7 @@ analog_clock_destroy(Analog_Clock *analog_clock)
     element_destroy(&analog_clock->element);
 }
 
-static Object *
+static DiaObject *
 analog_clock_load(ObjectNode obj_node, int version, const char *filename)
 {
   return object_load_using_properties(&analog_clock_type,

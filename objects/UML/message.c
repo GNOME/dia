@@ -84,14 +84,14 @@ static ObjectChange* message_move(Message *message, Point *to);
 static void message_select(Message *message, Point *clicked_point,
 			      DiaRenderer *interactive_renderer);
 static void message_draw(Message *message, DiaRenderer *renderer);
-static Object *message_create(Point *startpoint,
+static DiaObject *message_create(Point *startpoint,
 				 void *user_data,
 				 Handle **handle1,
 				 Handle **handle2);
 static real message_distance_from(Message *message, Point *point);
 static void message_update_data(Message *message);
 static void message_destroy(Message *message);
-static Object *message_load(ObjectNode obj_node, int version,
+static DiaObject *message_load(ObjectNode obj_node, int version,
 			    const char *filename);
 
 static PropDescription *message_describe_props(Message *mes);
@@ -107,7 +107,7 @@ static ObjectTypeOps message_type_ops =
   (ApplyDefaultsFunc) NULL
 };
 
-ObjectType message_type =
+DiaObjectType message_type =
 {
   "UML - Message",        /* name */
   0,                         /* version */
@@ -348,7 +348,7 @@ message_draw(Message *message, DiaRenderer *renderer)
 
 }
 
-static Object *
+static DiaObject *
 message_create(Point *startpoint,
 		  void *user_data,
 		  Handle **handle1,
@@ -357,7 +357,7 @@ message_create(Point *startpoint,
   Message *message;
   Connection *conn;
   LineBBExtras *extra;
-  Object *obj;
+  DiaObject *obj;
 
   if (message_font == NULL) {
     message_font = 
@@ -416,7 +416,7 @@ static void
 message_update_data(Message *message)
 {
   Connection *conn = &message->connection;
-  Object *obj = &conn->object;
+  DiaObject *obj = &conn->object;
   Rectangle rect;
   
   obj->position = conn->endpoints[0];
@@ -439,7 +439,7 @@ message_update_data(Message *message)
 }
 
 
-static Object *
+static DiaObject *
 message_load(ObjectNode obj_node, int version, const char *filename)
 {
   return object_load_using_properties(&message_type,

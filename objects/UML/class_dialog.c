@@ -33,7 +33,7 @@
 
 typedef struct _Disconnect {
   ConnectionPoint *cp;
-  Object *other_object;
+  DiaObject *other_object;
   Handle *other_handle;
 } Disconnect;
 
@@ -87,13 +87,13 @@ umlclass_store_disconnects(UMLClassDialog *prop_dialog,
 			   ConnectionPoint *cp)
 {
   Disconnect *dis;
-  Object *connected_obj;
+  DiaObject *connected_obj;
   GList *list;
   int i;
   
   list = cp->connected;
   while (list != NULL) {
-    connected_obj = (Object *)list->data;
+    connected_obj = (DiaObject *)list->data;
     
     for (i=0;i<connected_obj->num_handles;i++) {
       if (connected_obj->handles[i]->connected_to == cp) {
@@ -670,7 +670,7 @@ attributes_read_from_dialog(UMLClass *umlclass,
   UMLAttribute *attr;
   GtkWidget *list_item;
   GList *clear_list;
-  Object *obj;
+  DiaObject *obj;
 
   obj = &umlclass->element.object;
 
@@ -1600,7 +1600,7 @@ operations_read_from_dialog(UMLClass *umlclass,
   UMLOperation *op;
   GtkWidget *list_item;
   GList *clear_list;
-  Object *obj;
+  DiaObject *obj;
 
   obj = &umlclass->element.object;
 
@@ -2635,7 +2635,7 @@ ObjectChange *
 umlclass_apply_properties(UMLClass *umlclass)
 {
   UMLClassDialog *prop_dialog;
-  Object *obj;
+  DiaObject *obj;
   GList *list;
   int num_attrib, num_ops;
   GList *added, *deleted, *disconnected;
@@ -2854,7 +2854,7 @@ static void
 umlclass_update_connectionpoints(UMLClass *umlclass)
 {
   int num_attrib, num_ops;
-  Object *obj;
+  DiaObject *obj;
   GList *list;
   int connection_index;
   UMLClassDialog *prop_dialog;
@@ -2937,7 +2937,7 @@ umlclass_set_state(UMLClass *umlclass, UMLClassState *state)
 }
 
 static void
-umlclass_change_apply(UMLClassChange *change, Object *obj)
+umlclass_change_apply(UMLClassChange *change, DiaObject *obj)
 {
   UMLClassState *old_state;
   GList *list;
@@ -2960,7 +2960,7 @@ umlclass_change_apply(UMLClassChange *change, Object *obj)
 }
 
 static void
-umlclass_change_revert(UMLClassChange *change, Object *obj)
+umlclass_change_revert(UMLClassChange *change, DiaObject *obj)
 {
   UMLClassState *old_state;
   GList *list;

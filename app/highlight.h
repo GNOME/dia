@@ -1,5 +1,5 @@
-/* Dia -- an diagram creation/manipulation program
- * Copyright (C) 2003 Lars Clausen
+/* Dia -- an diagram creation/manipulation program -*- c -*-
+ * Copyright (C) 1998 Alexander Larsson
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,29 +15,27 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
+#ifndef HIGHLIGHT_H
+#define HIGHLIGHT_H
 
-/* persistence.h -- definitions for persistent storage.
+#include "glib.h"
+
+#include "diatypes.h"
+#include "diagram.h"
+#include "color.h"
+
+/* Each object holds the color it is highlighted with.
  */
 
-#ifndef PERSISTENCE_H
-#define PERSISTENCE_H
-#include "config.h"
-
-#include <gtk/gtk.h>
-
-typedef struct {
-  int x, y;
-  int width, height;
-  gboolean isopen;
-  GtkWindow *window;
-} PersistentWindow;
-
-typedef void (NullaryFunc)();
-
-void persistence_load();
-void persistence_restore_window(GtkWindow *window);
-void persistence_save();
-void persistence_register_window(GtkWindow *window);
-void persistence_register_window_create(gchar *role, NullaryFunc *func);
+/** Set an object to be highlighted with a color border..
+ * If color is NULL, a standard #FF0000 color (red) is used.
+ * The exact method used for highlighting depends on the renderer.
+ */
+void highlight_object(DiaObject *obj, Color *col, Diagram *dia);
+/** Remove highlighting from an object.
+ */
+void highlight_object_off(DiaObject *obj, Diagram *dia);
+/** Reset a diagram to have no highlighted objects */
+void highlight_reset_all(Diagram *dia);
 
 #endif

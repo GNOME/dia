@@ -37,14 +37,14 @@
 
 typedef struct {
   Point start,end;
-  Object *parent;
+  DiaObject *parent;
   
   int num_connections;
   GSList *connections;
 } ConnPointLine;
 
 
-ConnPointLine *connpointline_create(Object *parent, 
+ConnPointLine *connpointline_create(DiaObject *parent, 
 				    int num_connections);
 void connpointline_destroy(ConnPointLine *cpl);
 void connpointline_update(ConnPointLine *cpl);
@@ -60,12 +60,12 @@ ObjectChange *connpointline_add_points(ConnPointLine *cpl,
 ObjectChange *connpointline_remove_points(ConnPointLine *cpl, 
 					  Point *clickedpoint, 
 					  int count);
-ConnPointLine *connpointline_load(Object *obj,ObjectNode obj_node,
+ConnPointLine *connpointline_load(DiaObject *obj,ObjectNode obj_node,
 				  const gchar *name, int default_nc,
 				  int *realconncount);
 void connpointline_save(ConnPointLine *cpl,ObjectNode obj_node,
 			const gchar *name);
-ConnPointLine *connpointline_copy(Object *newobj,ConnPointLine *cpl,
+ConnPointLine *connpointline_copy(DiaObject *newobj,ConnPointLine *cpl,
 				  int *realconncount);
 
 #define connpointline_add_point(cpl, clickedpoint) \

@@ -31,12 +31,12 @@ typedef enum {
 
 #define HANDLE_MIDPOINT (HANDLE_CUSTOM1)
 
-/* This is a subclass of Object used to help implementing objects
+/* This is a subclass of DiaObject used to help implementing objects
  * that connect points with orthogonal line-segments.
  */
 struct _OrthConn {
-  /* Object must be first because this is a 'subclass' of it. */
-  Object object;
+  /* DiaObject must be first because this is a 'subclass' of it. */
+  DiaObject object;
 
   int numpoints; /* >= 3 */
   Point *points; /* [numpoints] */
@@ -79,7 +79,7 @@ int orthconn_can_delete_segment(OrthConn *orth, Point *clickedpoint);
 int orthconn_can_add_segment(OrthConn *orth, Point *clickedpoint);
 ObjectChange *orthconn_delete_segment(OrthConn *orth, Point *clickedpoint);
 ObjectChange *orthconn_add_segment(OrthConn *orth, Point *clickedpoint);
-ObjectChange *orthconn_toggle_autorouting_callback(Object *orth,
+ObjectChange *orthconn_toggle_autorouting_callback(DiaObject *orth,
 						   Point *clicked,
 						   gpointer data);
 void orthconn_update_object_menu(OrthConn *orth, Point *clicked,

@@ -29,31 +29,31 @@
 #include "uml.h"
 #include "plug-ins.h"
 
-extern ObjectType umlclass_type;
-extern ObjectType note_type;
-extern ObjectType dependency_type;
-extern ObjectType realizes_type;
-extern ObjectType generalization_type;
-extern ObjectType association_type;
-extern ObjectType implements_type;
-extern ObjectType constraint_type;
-extern ObjectType smallpackage_type;
-extern ObjectType largepackage_type;
-extern ObjectType actor_type;
-extern ObjectType usecase_type;
-extern ObjectType lifeline_type;
-extern ObjectType objet_type;
-extern ObjectType umlobject_type;
-extern ObjectType message_type;
-extern ObjectType component_type;
-extern ObjectType classicon_type;
-extern ObjectType state_type;
-extern ObjectType activity_type;
-extern ObjectType node_type;
-extern ObjectType branch_type;
-extern ObjectType fork_type;
-extern ObjectType state_term_type;
-extern ObjectType compfeat_type;
+extern DiaObjectType umlclass_type;
+extern DiaObjectType note_type;
+extern DiaObjectType dependency_type;
+extern DiaObjectType realizes_type;
+extern DiaObjectType generalization_type;
+extern DiaObjectType association_type;
+extern DiaObjectType implements_type;
+extern DiaObjectType constraint_type;
+extern DiaObjectType smallpackage_type;
+extern DiaObjectType largepackage_type;
+extern DiaObjectType actor_type;
+extern DiaObjectType usecase_type;
+extern DiaObjectType lifeline_type;
+extern DiaObjectType objet_type;
+extern DiaObjectType umlobject_type;
+extern DiaObjectType message_type;
+extern DiaObjectType component_type;
+extern DiaObjectType classicon_type;
+extern DiaObjectType state_type;
+extern DiaObjectType activity_type;
+extern DiaObjectType node_type;
+extern DiaObjectType branch_type;
+extern DiaObjectType fork_type;
+extern DiaObjectType state_term_type;
+extern DiaObjectType compfeat_type;
 
 DIA_PLUGIN_CHECK_INIT
 

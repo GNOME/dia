@@ -61,11 +61,11 @@ gboolean undo_is_saved(UndoStack *stack);
 Change *undo_move_objects(Diagram *dia, Point *orig_pos,
 			  Point *dest_pos, GList *obj_list);
 Change *undo_move_handle(Diagram *dia,
-			 Handle *handle, Object *obj,
+			 Handle *handle, DiaObject *obj,
 			 Point orig_pos, Point dest_pos);
-Change *undo_connect(Diagram *dia, Object *obj, Handle *handle,
+Change *undo_connect(Diagram *dia, DiaObject *obj, Handle *handle,
 		     ConnectionPoint *connectionpoint);
-Change *undo_unconnect(Diagram *dia, Object *obj, Handle *handle);
+Change *undo_unconnect(Diagram *dia, DiaObject *obj, Handle *handle);
 Change *
 undo_delete_objects_children(Diagram *dia, GList *obj_list);
 Change *undo_delete_objects(Diagram *dia, GList *obj_list); /* Reads current obj list */
@@ -73,13 +73,13 @@ Change *undo_insert_objects(Diagram *dia, GList *obj_list,
 			    int applied);
 Change *undo_reorder_objects(Diagram *dia, GList *changed_list,
 			     GList *orig_list); /* Reads current obj list */
-Change *undo_object_change(Diagram *dia, Object *obj,
+Change *undo_object_change(Diagram *dia, DiaObject *obj,
 			   ObjectChange *obj_change);
 Change *undo_group_objects(Diagram *dia, GList *obj_list,
-			   Object *group, GList *orig_list);
+			   DiaObject *group, GList *orig_list);
 Change *undo_ungroup_objects(Diagram *dia, GList *obj_list,
-			     Object *group, int group_index);
-Change *undo_parenting(Diagram *dia, Object *parentobj, Object *childobj,
+			     DiaObject *group, int group_index);
+Change *undo_parenting(Diagram *dia, DiaObject *parentobj, DiaObject *childobj,
 		       gboolean parent);
 
 #endif /* UNDO_H */

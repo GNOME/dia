@@ -30,7 +30,7 @@
    or at a slower rate, at its own convenience.
 
    It is strongly advised against dynobj rates below 1000ms. */
-void dynobj_list_add_object(Object *obj, guint timeout);
+void dynobj_list_add_object(DiaObject *obj, guint timeout);
 
 /* Removes an object from the list of "periodic dynobj" objects. It is
    critical that an object gets removed from that list before it is destroyed.
@@ -38,10 +38,10 @@ void dynobj_list_add_object(Object *obj, guint timeout);
    There is no harmful effect in removing an object which was not in the
    dynobj list beforehand.
 */
-void dynobj_list_remove_object(Object *obj);
+void dynobj_list_remove_object(DiaObject *obj);
 
 /* Performs an object dynobj; called by dynobj_list_perform() */
-typedef void (*ObjectDynobjFunc) (Object *obj, gpointer data);
+typedef void (*ObjectDynobjFunc) (DiaObject *obj, gpointer data);
 
 /* Performs a dynobj of the whole dynobj list.
 

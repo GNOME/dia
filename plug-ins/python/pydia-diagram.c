@@ -213,7 +213,7 @@ PyDiaDiagram_GetSortedSelected(PyDiaDiagram *self, PyObject *args)
     ret = PyTuple_New(len);
 
     for (i = 0, tmp = self->dia->data->selected; tmp; i++, tmp = tmp->next)
-	PyTuple_SetItem(ret, i, PyDiaObject_New((Object *)tmp->data));
+	PyTuple_SetItem(ret, i, PyDiaObject_New((DiaObject *)tmp->data));
     g_list_free(list);
     return ret;
 }
@@ -233,7 +233,7 @@ PyDiaDiagram_GetSortedSelectedRemove(PyDiaDiagram *self, PyObject *args)
     ret = PyTuple_New(len);
 
     for (i = 0, tmp = self->dia->data->selected; tmp; i++, tmp = tmp->next)
-	PyTuple_SetItem(ret, i, PyDiaObject_New((Object *)tmp->data));
+	PyTuple_SetItem(ret, i, PyDiaObject_New((DiaObject *)tmp->data));
     g_list_free(list);
     return ret;
 }
@@ -276,7 +276,7 @@ PyDiaDiagram_FindClickedObject(PyDiaDiagram *self, PyObject *args)
 {
     Point p;
     double dist;
-    Object *obj;
+    DiaObject *obj;
 
     if (!PyArg_ParseTuple(args, "(dd)d:DiaDiagram.find_clicked_object",
 			  &p.x, &p.y, &dist))
@@ -294,7 +294,7 @@ PyDiaDiagram_FindClosestHandle(PyDiaDiagram *self, PyObject *args)
     Point p;
     double dist;
     Handle *handle;
-    Object *obj;
+    DiaObject *obj;
     PyObject *ret;
 
     if (!PyArg_ParseTuple(args, "dd:DiaDiagram.find_closest_handle",
@@ -445,7 +445,7 @@ PyDiaDiagram_GetAttr(PyDiaDiagram *self, gchar *attr)
 	GList *tmp;
 
 	for (i = 0, tmp = self->dia->data->selected; tmp; i++, tmp = tmp->next)
-	    PyTuple_SetItem(ret, i, PyDiaObject_New((Object *)tmp->data));
+	    PyTuple_SetItem(ret, i, PyDiaObject_New((DiaObject *)tmp->data));
 	return ret;
     } else if (!strcmp(attr, "displays")) {
 	PyObject *ret;

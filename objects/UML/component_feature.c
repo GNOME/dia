@@ -89,7 +89,7 @@ static ObjectChange* compfeat_move(Compfeat *compfeat, Point *to);
 static void compfeat_select(Compfeat *compfeat, Point *clicked_point,
 			    DiaRenderer *interactive_renderer);
 static void compfeat_draw(Compfeat *compfeat, DiaRenderer *renderer);
-static Object *compfeat_create(Point *startpoint,
+static DiaObject *compfeat_create(Point *startpoint,
 			       void *user_data,
 			       Handle **handle1,
 			       Handle **handle2);
@@ -101,7 +101,7 @@ static DiaMenu *compfeat_get_object_menu(Compfeat *compfeat,
 static PropDescription *compfeat_describe_props(Compfeat *compfeat);
 static void compfeat_get_props(Compfeat * compfeat, GPtrArray *props);
 static void compfeat_set_props(Compfeat * compfeat, GPtrArray *props);
-static Object *compfeat_load(ObjectNode obj_node, int version,
+static DiaObject *compfeat_load(ObjectNode obj_node, int version,
 			     const char *filename);
 
 
@@ -114,7 +114,7 @@ static ObjectTypeOps compfeat_type_ops =
   (ApplyDefaultsFunc) NULL
 };
 
-ObjectType compfeat_type =
+DiaObjectType compfeat_type =
 {
   "UML - Component Feature",	/* name */
   0,				/* version */
@@ -161,7 +161,7 @@ static PropDescription compfeat_props[] = {
 };
 
 static ObjectChange *
-compfeat_add_segment_callback(Object *obj, Point *clicked, gpointer data)
+compfeat_add_segment_callback(DiaObject *obj, Point *clicked, gpointer data)
 {
   ObjectChange *change;
   change = orthconn_add_segment((OrthConn *)obj, clicked);
@@ -170,7 +170,7 @@ compfeat_add_segment_callback(Object *obj, Point *clicked, gpointer data)
 }
 
 static ObjectChange *
-compfeat_delete_segment_callback(Object *obj, Point *clicked, gpointer data)
+compfeat_delete_segment_callback(DiaObject *obj, Point *clicked, gpointer data)
 {
   ObjectChange *change;
 
@@ -352,7 +352,7 @@ compfeat_draw(Compfeat *compfeat, DiaRenderer *renderer)
   text_draw(compfeat->text, renderer);
 }
 
-static Object *
+static DiaObject *
 compfeat_create(Point *startpoint,
 		void *user_data,
 		Handle **handle1,
@@ -360,7 +360,7 @@ compfeat_create(Point *startpoint,
 {
   Compfeat *compfeat;
   OrthConn *orth;
-  Object *obj;
+  DiaObject *obj;
   Point p;
   DiaFont *font;
 
@@ -423,7 +423,7 @@ compfeat_update_data(Compfeat *compfeat)
   OrthConn *orth = &compfeat->orth;
   PolyBBExtras *extra = &orth->extra_spacing;
   int n;
-  Object *obj = &orth->object;
+  DiaObject *obj = &orth->object;
   Rectangle rect;
   Point *points;
 
@@ -451,7 +451,7 @@ compfeat_update_data(Compfeat *compfeat)
   rectangle_union(&obj->bounding_box, &rect);
 }
 
-static Object *
+static DiaObject *
 compfeat_load(ObjectNode obj_node, int version, const char *filename)
 {
   return object_load_using_properties(&compfeat_type,

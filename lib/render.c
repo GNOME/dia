@@ -119,7 +119,7 @@ static void draw_bezier_with_arrows(Renderer *renderer,
 				    Arrow *start_arrow,
 				    Arrow *end_arrow);
 static void draw_object(Renderer *renderer,
-			Object *object);
+			DiaObject *object);
 
 static RenderOps AbstractRenderOps = {
   begin_render,
@@ -815,6 +815,6 @@ draw_bezier_with_arrows(Renderer *renderer,
 
 static void
 draw_object(Renderer *renderer,
-	    Object *object) {
+	    DiaObject *object) {
   object->ops->draw(object, renderer);
 }

@@ -46,9 +46,9 @@ _obj_create (gpointer key,
              gpointer user_data)
 {
   gchar *name = (gchar *)key;
-  ObjectType *type = (ObjectType *)value;
+  DiaObjectType *type = (DiaObjectType *)value;
   GHashTable *ht = (GHashTable *) user_data;
-  Object *obj;
+  DiaObject *obj;
   Point startpoint = {0.0,0.0};
   Handle *handle1,*handle2;
   
@@ -71,7 +71,7 @@ _obj_create (gpointer key,
 static void
 _obj_destroy (gpointer val)
 {
-  Object *obj = (Object *)val;
+  DiaObject *obj = (DiaObject *)val;
 
   obj->ops->destroy (obj);
 }
@@ -142,7 +142,7 @@ dia_object_defaults_load (const gchar *filename, gboolean create_lazy)
 		  char *version = xmlGetProp(obj_node, "version");
 		  if (typestr)
 		    {
-		      Object *obj = g_hash_table_lookup (defaults_hash, typestr);
+		      DiaObject *obj = g_hash_table_lookup (defaults_hash, typestr);
 		      if (!obj)
 		        {
 			  if (!create_lazy)
@@ -150,7 +150,7 @@ dia_object_defaults_load (const gchar *filename, gboolean create_lazy)
 				       typestr, filename);
 			  else
 			    {
-			      ObjectType *type = object_get_type (typestr);
+			      DiaObjectType *type = object_get_type (typestr);
 			      if (type)
 			        obj = type->ops->load (
 					obj_node,
@@ -166,7 +166,7 @@ dia_object_defaults_load (const gchar *filename, gboolean create_lazy)
 #if 0 /* lots of complaining about missing attributes */
 			  object_load_props(obj, obj_node); /* leaks ?? */
 #else
-			  Object *def_obj;
+			  DiaObject *def_obj;
 			  def_obj = obj->type->ops->load (
 					obj_node,
 			                version ? atoi(version) : 0,
@@ -203,9 +203,9 @@ dia_object_defaults_load (const gchar *filename, gboolean create_lazy)
  * Remember as defaults from a diagram object
  */
 void
-dia_object_default_make (const Object *obj_from)
+dia_object_default_make (const DiaObject *obj_from)
 {
-  Object *obj_to;
+  DiaObject *obj_to;
 
   g_return_if_fail (obj_from);
 
@@ -221,10 +221,10 @@ dia_object_default_make (const Object *obj_from)
  *
  * Allows to edit one defaults object properties
  */
-Object *
-dia_object_default_get (const ObjectType *type)
+DiaObject *
+dia_object_default_get (const DiaObjectType *type)
 {
-  Object *obj;
+  DiaObject *obj;
 
   obj = g_hash_table_lookup (defaults_hash, type->name);
   if (!obj && object_default_create_lazy)
@@ -258,15 +258,15 @@ dia_object_default_get (const ObjectType *type)
  *
  * Create an object respecting defaults if available
  */
-Object *
-dia_object_default_create (const ObjectType *type,
+DiaObject *
+dia_object_default_create (const DiaObjectType *type,
                            Point *startpoint,
                            void *user_data,
                            Handle **handle1,
                            Handle **handle2)
 {
-  const Object *def_obj;
-  Object *obj;
+  const DiaObject *def_obj;
+  DiaObject *obj;
 
   g_return_val_if_fail (type != NULL, NULL);
 
@@ -312,7 +312,7 @@ _obj_store (gpointer key,
             gpointer user_data)
 {
   gchar *name = (gchar *)key;
-  Object *obj = (Object *)value;
+  DiaObject *obj = (DiaObject *)value;
   MyRootInfo *ri = (MyRootInfo *)user_data;
   ObjectNode obj_node;
   gchar *layer_name;
@@ -344,6 +344,8 @@ _obj_store (gpointer key,
       li->pos.x = li->pos.y = 0.0;
       g_hash_table_insert (ri->layer_hash, layer_name, li);
     }
+  else
+    g_free (layer_name);
 
   obj_node = xmlNewChild(li->node, NULL, "object", NULL);
   xmlSetProp(obj_node, "type", obj->type->name);
@@ -358,8 +360,6 @@ _obj_store (gpointer key,
   obj->type->ops->save (obj, obj_node, ri->filename);
   /* arrange following objects below */
   li->pos.y += (obj->bounding_box.bottom - obj->bounding_box.top + 1.0); 
-
-  g_free (layer_name);
 }
 
 /**

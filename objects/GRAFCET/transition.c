@@ -83,7 +83,7 @@ static ObjectChange* transition_move(Transition *transition, Point *to);
 static void transition_select(Transition *transition, Point *clicked_point,
 			      DiaRenderer *interactive_renderer);
 static void transition_draw(Transition *transition, DiaRenderer *renderer);
-static Object *transition_create(Point *startpoint,
+static DiaObject *transition_create(Point *startpoint,
 				 void *user_data,
 				 Handle **handle1,
 				 Handle **handle2);
@@ -91,7 +91,7 @@ static real transition_distance_from(Transition *transition, Point *point);
 static void transition_update_data(Transition *transition);
 static void transition_destroy(Transition *transition);
 
-static Object *transition_load(ObjectNode obj_node, int version,
+static DiaObject *transition_load(ObjectNode obj_node, int version,
 			       const char *filename);
 static PropDescription *transition_describe_props(Transition *transition);
 static void transition_get_props(Transition *transition, 
@@ -108,7 +108,7 @@ static ObjectTypeOps transition_type_ops =
   (ApplyDefaultsFunc) NULL
 };
 
-ObjectType transition_type =
+DiaObjectType transition_type =
 {
   "GRAFCET - Transition",   /* name */
   0,                         /* version */
@@ -196,7 +196,7 @@ static void
 transition_update_data(Transition *transition)
 {
   Element *elem = &transition->element;
-  Object *obj = &elem->object;
+  DiaObject *obj = &elem->object;
   Point *p;
 
   transition->element.extra_spacing.border_trans = TRANSITION_LINE_WIDTH / 2.0;
@@ -363,14 +363,14 @@ transition_draw(Transition *transition, DiaRenderer *renderer)
   boolequation_draw(transition->receptivity,renderer);
 }
 
-static Object *
+static DiaObject *
 transition_create(Point *startpoint,
 		  void *user_data,
 		  Handle **handle1,
 		  Handle **handle2)
 {
   Transition *transition;
-  Object *obj;
+  DiaObject *obj;
   int i;
   Element *elem;
   DiaFont *default_font = NULL; 
@@ -443,7 +443,7 @@ transition_destroy(Transition *transition)
   element_destroy(&transition->element);
 }
 
-static Object *
+static DiaObject *
 transition_load(ObjectNode obj_node, int version, const char *filename)
 {
   return object_load_using_properties(&transition_type,

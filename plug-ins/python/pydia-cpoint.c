@@ -74,7 +74,7 @@ PyDiaConnectionPoint_GetAttr(PyDiaConnectionPoint *self, gchar *attr)
 
 	ret = PyTuple_New(g_list_length(self->cpoint->connected));
 	for (i = 0, tmp = self->cpoint->connected; tmp; i++, tmp = tmp->next)
-	    PyTuple_SetItem(ret, i, PyDiaObject_New((Object *)tmp->data));
+	    PyTuple_SetItem(ret, i, PyDiaObject_New((DiaObject *)tmp->data));
 	return ret;
     }
 

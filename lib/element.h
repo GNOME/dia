@@ -24,11 +24,11 @@
 #include "connectionpoint.h"
 #include "boundingbox.h"
 
-/* This is a subclass of Object used to help implementing objects
+/* This is a subclass of DiaObject used to help implementing objects
  * of a type with 8 handles around ..... more info here. */
 struct _Element {
-  /* Object must be first because this is a 'subclass' of it. */
-  Object object;
+  /* DiaObject must be first because this is a 'subclass' of it. */
+  DiaObject object;
   
   Handle resize_handles[8];
 

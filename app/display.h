@@ -117,6 +117,8 @@ real ddisplay_untransform_length(DDisplay *ddisp, real len);
 void ddisplay_add_update_pixels(DDisplay *ddisp, Point *point,
 				       int pixel_width, int pixel_height);
 void ddisplay_add_update_all(DDisplay *ddisp);
+void ddisplay_add_update_with_border(DDisplay *ddisp, Rectangle *rect,
+				     int pixel_border);
 void ddisplay_add_update(DDisplay *ddisp, Rectangle *rect);
 void ddisplay_add_display_area(DDisplay *ddisp,
 			       int left, int top,
@@ -151,7 +153,7 @@ void ddisplay_scroll_down(DDisplay *ddisp);
 void ddisplay_scroll_left(DDisplay *ddisp);
 void ddisplay_scroll_right(DDisplay *ddisp);
 gboolean ddisplay_scroll_center_point(DDisplay *ddisp, Point *p);
-gboolean ddisplay_scroll_to_object(DDisplay *ddisp, Object *obj);
+gboolean ddisplay_scroll_to_object(DDisplay *ddisp, DiaObject *obj);
 
 void display_update_menu_state(DDisplay *ddisp);
 void ddisplay_update_statusbar(DDisplay *ddisp);
