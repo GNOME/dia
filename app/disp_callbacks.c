@@ -41,6 +41,7 @@
 #include "intl.h"
 #include "magnify.h"
 #include "diamenu.h"
+#include "preferences.h"
 
 /* This contains the point that was clicked to get this menu */
 static Point object_menu_clicked_point;
@@ -755,6 +756,7 @@ ddisplay_drop_object(DDisplay *ddisp, gint x, gint y, ObjectType *otype,
     object_connect_display(ddisp, obj, handle1);
   }
   object_add_updates(obj, ddisp->diagram);
+  ddisplay_do_update_menu_sensitivity(ddisp);
   diagram_flush(ddisp->diagram);
 
   list = g_list_prepend(NULL, obj);
@@ -763,4 +765,6 @@ ddisplay_drop_object(DDisplay *ddisp, gint x, gint y, ObjectType *otype,
   diagram_modified(ddisp->diagram);
 
   undo_set_transactionpoint(ddisp->diagram->undo);
+  if (prefs.reset_tools_after_create)
+    tool_reset();
 }

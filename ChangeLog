@@ -1,5 +1,8 @@
 2003-04-29  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* app/disp_callbacks.c (ddisplay_drop_object): Update menu
+	sensitivity when dropping object in.  Also reset tool to pointer.
+
 	* objects/flowchart/diamond.c (diamond_update_data): 
 	* objects/flowchart/parallelogram.c (pgram_update_data): Added
 	left and right alignment options.
