@@ -1,3 +1,8 @@
+2002-02-11  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+
+	* app/group.c (group_copy): Made new object properly initialized
+	before copy.
+
 2002-02-11  Steffen Macke <sdteffen@yahoo.com>
 
 	* app/Makefile.am: added plug-ins to DIA_LIB_PATH in run_dia.sh

@@ -223,7 +223,7 @@ group_copy(Group *group)
     
   obj = &group->object;
   
-  newgroup =  g_new(Group,1);
+  newgroup =  g_new0(Group,1);
   newobj = &newgroup->object;
 
   object_copy(obj, newobj);
