@@ -1,3 +1,15 @@
+2004-05-31  Lars Clausen  <lars@raeder.dk>
+
+	* lib/widgets.h: 
+	* lib/widgets.c: Use GtkType rather than guint for
+	dia_size_selector_get_type. 
+
+2004-05-29  Lars Clausen  <lars@raeder.dk>
+
+	* app/diapsrenderer.c (fill_bezier): Use even-odd winding rule so
+	that it matches the screen output for selfoverlapping polygons and
+	beziers. 
+
 2004-05-28  Hans Breuer  <hans@breuer.org>
 
 	* app/load_save.c : ignore empty groups on load and don't
@@ -12,7 +24,7 @@
 	* plug-ins/wmf/wmf.cpp : include windows.h if eiher
 	HAVE_WINDOWS_H or G_OS_WIN32 is defined
 
-2004-05-28  Lars Clausen  <lc@pc770.sb.statsbiblioteket.dk>
+2004-05-28  Lars Clausen  <lars@raeder.dk>
 
 	* app/pixmaps/Makefile.am (imagedir): 
 	* app/pixmaps/visible.png:

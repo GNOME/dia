@@ -197,10 +197,10 @@ dia_size_selector_init (DiaSizeSelector *ss)
 		   G_CALLBACK(dia_size_selector_destroy_callback), NULL);
 }
 
-guint
+GtkType
 dia_size_selector_get_type (void)
 {
-  static guint dss_type = 0;
+  static GtkType dss_type = 0;
 
   if (!dss_type) {
     GtkTypeInfo dss_info = {

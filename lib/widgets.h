@@ -149,7 +149,7 @@ const gchar *dia_file_selector_get_file        (DiaFileSelector *fs);
 #define IS_DIA_SIZE_SELECTOR(obj)       GTK_CHECK_TYPE (obj, dia_size_selector_get_type ())
 
 
-guint      dia_size_selector_get_type        (void);
+GtkType    dia_size_selector_get_type        (void);
 GtkWidget* dia_size_selector_new             (real width, real height);
 void       dia_size_selector_set_locked(DiaSizeSelector *ss, gboolean locked);
 void       dia_size_selector_set_size        (DiaSizeSelector *ss, real width, real height);
