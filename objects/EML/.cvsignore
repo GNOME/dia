@@ -1,0 +1,6 @@
+.deps
+.libs
+Makefile
+Makefile.in
+*.lo
+libeml_objects.la
