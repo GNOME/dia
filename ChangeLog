@@ -1,5 +1,13 @@
 2004-01-28  Hans Breuer  <hans@breuer.org>
 
+	[Extented version for UML to C++ conversion by Dave Klotzbach, bug #155255]
+	* plug-ins/xslt/dia-uml2cpp.xsl : (new file) ... handles associataions,
+	generalization, dependancies, parameterized classes ...
+	* plug-ins/xslt/styleshetts.xml : refernce it
+	* plug-ins/xslt/dia-uml.xsl : handle more UML types uesd above
+
+2004-01-28  Hans Breuer  <hans@breuer.org>
+
 	* objects/UML/transition.c : fill out the extra_spacing struct 
 	in the OrtConn member, in order to avoid artifacts when draggin 
 	the transition. (patch by Peter Allin, bug #144956)

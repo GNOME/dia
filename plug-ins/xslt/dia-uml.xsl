@@ -2,7 +2,8 @@
 <!-- 
      Transform dia UML objects to a convenient structure
      
-     Copyright(c) 2002 Matthieu Sozeau <mattam@netcourrier.com>     
+     Copyright(c) 2002 Matthieu Sozeau <mattam@netcourrier.com>
+     Copyright(c) 2004 Dave Klotzbach <dklotzbach@foxvalley.net>     
 
      This program is free software; you can redistribute it and/or modify
      it under the terms of the GNU General Public License as published by
@@ -32,7 +33,10 @@
           <xsl:apply-templates select="*/*/*/dia:object[@type='UML - LargePackage']"/>      
         </xsl:when>
         <xsl:otherwise>
-          <xsl:apply-templates/>
+          <xsl:apply-templates select="//dia:object[@type='UML - Association']"/>
+          <xsl:apply-templates select="//dia:object[@type='UML - Generalization']"/>
+          <xsl:apply-templates select="//dia:object[@type='UML - Dependency']"/>
+          <xsl:apply-templates select="//dia:object[@type='UML - Class']"/>
         </xsl:otherwise>
       </xsl:choose>
     </xsl:element>
@@ -56,23 +60,153 @@
       <xsl:if test="dia:attribute[@name='stereotype']">
         <xsl:attribute name="stereotype">
           <xsl:value-of select="substring-before(substring-after(dia:attribute[@name='stereotype']/dia:string, '#'), '#')"/>                
-        </xsl:attribute>
-      </xsl:if>
-      <xsl:if test="dia:attribute[@name='abstract']/dia:boolean/@val='true'">
-        <xsl:attribute name="abstract">1</xsl:attribute>
-      </xsl:if>
-      <xsl:element name="comment">
-	<xsl:value-of select="substring-before(substring-after(dia:attribute[@name='comment']/dia:string, '#'), '#')"/>
-      </xsl:element>
-      <xsl:element name="attributes">
-        <xsl:apply-templates select="dia:attribute[@name='attributes']"/>
-      </xsl:element>
-      <xsl:element name="operations">
-        <xsl:apply-templates select="dia:attribute[@name='operations']"/>
-      </xsl:element>
-    </xsl:element>    
-  </xsl:template>
+          </xsl:attribute>
+       </xsl:if>        
+       <xsl:if test="dia:attribute[@name='template']/dia:boolean[@val='true']">
+          <xsl:attribute name="template">1</xsl:attribute>
+       </xsl:if> 
+       <xsl:if test="dia:attribute[@name='abstract']/dia:boolean/@val='true'">
+          <xsl:attribute name="abstract">1</xsl:attribute>
+       </xsl:if>
+       <xsl:attribute name="id">
+          <xsl:value-of select="@id"/>
+       </xsl:attribute>
+       <xsl:if test="dia:attribute[@name='template']/dia:boolean[@val='true']">
+          <xsl:element name="TemplateParameters">
+             <xsl:for-each select="dia:attribute[@name='templates']/dia:composite[@type='umlformalparameter']">
+                <xsl:element name="formalParameter">
+                   <xsl:attribute name="name">
+                      <xsl:value-of select="substring-before(substring-after(dia:attribute[@name='name']/dia:string,'#'),'#')"/>
+                   </xsl:attribute>
+                   <xsl:attribute name="class">
+                      <xsl:value-of select="substring-before(substring-after(dia:attribute[@name='type']/dia:string,'#'),'#')"/>
+                   </xsl:attribute>
+                </xsl:element>
+             </xsl:for-each>
+          </xsl:element>
+       </xsl:if> 
+       <xsl:element name="comment">
+          <xsl:value-of select="substring-before(substring-after(dia:attribute[@name='comment']/dia:string, '#'), '#')"/>
+       </xsl:element>
+       <xsl:element name="attributes">
+          <xsl:apply-templates select="dia:attribute[@name='attributes']"/>
+       </xsl:element>
+       <xsl:element name="operations">
+          <xsl:apply-templates select="dia:attribute[@name='operations']"/>
+       </xsl:element>
+    </xsl:element>
+ </xsl:template>
 
+
+ <xsl:template match="dia:object[@type='UML - Generalization']">
+    <xsl:element name="Generalization">
+       <xsl:attribute name="name">
+          <xsl:value-of select="substring-before(substring-after(dia:attribute[@name='name']/dia:string, '#'), '#')"/>
+       </xsl:attribute>
+       <xsl:for-each select="dia:connections/dia:connection">
+          <xsl:choose>
+             <xsl:when test="@handle='0'">
+                <xsl:attribute name="superclass">
+                   <xsl:value-of select="@to"/>
+                </xsl:attribute>
+             </xsl:when>
+             <xsl:when test="@handle='1'">
+                <xsl:attribute name="subclass">
+                   <xsl:value-of select="@to"/>
+                </xsl:attribute>
+             </xsl:when>
+          </xsl:choose>
+       </xsl:for-each>
+       <xsl:attribute name="id">
+          <xsl:value-of select="@id"/>
+       </xsl:attribute>
+    </xsl:element>
+ </xsl:template>
+
+ <xsl:template match="dia:object[@type='UML - Association']">
+    <xsl:element name="Association">
+       <xsl:attribute name="name">
+          <xsl:value-of select="substring-before(substring-after(dia:attribute[@name='name']/dia:string, '#'), '#')"/>
+       </xsl:attribute>
+       <xsl:for-each select="dia:connections/dia:connection">
+          <xsl:choose>
+             <xsl:when test="@handle='0'">
+                <xsl:attribute name="from">
+                   <xsl:value-of select="@to"/>
+                </xsl:attribute>
+             </xsl:when>
+             <xsl:when test="@handle='1'">
+                <xsl:attribute name="to">
+                   <xsl:value-of select="@to"/>
+                </xsl:attribute>
+             </xsl:when>
+          </xsl:choose>
+       </xsl:for-each>
+       <xsl:attribute name="id">
+          <xsl:value-of select="@id"/>
+       </xsl:attribute>
+       <xsl:apply-templates select="dia:attribute[@name='ends']"/>
+    </xsl:element>
+ </xsl:template>
+
+ <xsl:template match="dia:object[@type='UML - Dependency']">
+    <xsl:element name="Dependency">
+       <xsl:attribute name="name">
+          <xsl:value-of select="substring-before(substring-after(dia:attribute[@name='name']/dia:string, '#'), '#')"/>
+       </xsl:attribute>
+       <xsl:if test="dia:attribute[@name='stereotype']">
+          <xsl:attribute name="stereotype">
+             <xsl:value-of select="substring-before(substring-after(dia:attribute[@name='stereotype']/dia:string, '#'), '#')"/>
+          </xsl:attribute>
+       </xsl:if>        
+       <xsl:for-each select="dia:connections/dia:connection">
+          <xsl:choose>
+             <xsl:when test="@handle='0'">
+                <xsl:attribute name="classId">
+                   <xsl:value-of select="@to"/>
+                </xsl:attribute>
+             </xsl:when>
+             <xsl:when test="@handle='1'">
+                <xsl:attribute name="dependsOn">
+                   <xsl:value-of select="@to"/>
+                </xsl:attribute>
+             </xsl:when>
+          </xsl:choose>
+       </xsl:for-each>
+       <xsl:attribute name="id">
+          <xsl:value-of select="@id"/>
+       </xsl:attribute>
+    </xsl:element>
+ </xsl:template>
+
+ <xsl:template match="dia:attribute[@name='ends']">
+    <xsl:for-each select="dia:composite">
+       <xsl:element name="Aggregate">
+          <xsl:attribute name="role">
+             <xsl:value-of select="position()"/>
+          </xsl:attribute>
+          <xsl:attribute name="name">
+             <xsl:value-of select="substring-before(substring-after(dia:attribute[@name='role']/dia:string, '#'), '#')"/>
+          </xsl:attribute>
+          <xsl:attribute name="multiplicity">
+             <xsl:value-of select="substring-before(substring-after(dia:attribute[@name='multiplicity']/dia:string, '#'), '#')"/>
+          </xsl:attribute>
+          <xsl:attribute name="aggregate">
+             <xsl:choose>
+                <xsl:when test="dia:attribute[@name='aggregate']/dia:enum[@val='0']">
+                   <xsl:text>none</xsl:text>
+                </xsl:when>
+                <xsl:when test="dia:attribute[@name='aggregate']/dia:enum[@val='1']">
+                   <xsl:text>aggregation</xsl:text>
+                </xsl:when>
+                <xsl:when test="dia:attribute[@name='aggregate']/dia:enum[@val='2']">
+                   <xsl:text>composition</xsl:text>
+                </xsl:when>
+             </xsl:choose>
+          </xsl:attribute>
+       </xsl:element>
+    </xsl:for-each>
+ </xsl:template>
 
   <xsl:template match="dia:composite[@type='umlattribute']">
     <xsl:element name="attribute">
