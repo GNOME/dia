@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dia-0.86\n"
 "POT-Creation-Date: 2001-09-02 22:50+0200\n"
-"PO-Revision-Date: 2001-08-29 23:50+0400\n"
+"PO-Revision-Date: 2001-09-28 19:27+0400\n"
 "Last-Translator: Valek Filippov <frob@df.ru>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -44,13 +44,12 @@ msgstr "ВЫВОД"
 
 #. &export_file_format
 #: app/app_procs.c:211
-#, fuzzy
 msgid "Export to file format and exit"
-msgstr "Экспортировать загруженный файл и выйти"
+msgstr "Экспортировать в указанный формат и выйти"
 
 #: app/app_procs.c:211
 msgid "eps,png,wmf,cgm,dxf,fig"
-msgstr ""
+msgstr "eps,png,wmf,cgm,dxf,fig"
 
 #: app/app_procs.c:213
 msgid "Don't show the splash screen"
@@ -1740,9 +1739,8 @@ msgid "Blanked Dot"
 msgstr "Пустой круг"
 
 #: lib/widgets.c:673
-#, fuzzy
 msgid "Double Hollow triangle"
-msgstr "Полый треугольник"
+msgstr "Двойной полый треугольник"
 
 #: lib/widgets.c:674
 msgid "Double Filled triangle"
@@ -3767,20 +3765,19 @@ msgstr ""
 
 #: sheets/chronogram.sheet.in.h:3
 msgid "Chronogram"
-msgstr ""
+msgstr "Хронограмма"
 
 #: sheets/chronogram.sheet.in.h:4
 msgid "Objects to design chronogram charts"
 msgstr ""
 
 #: sheets/Circuit.sheet.in.h:1
-#, fuzzy
 msgid "A Horizontal Jumper"
-msgstr "Выравнивание гор."
+msgstr "Горизонтальный переключатель"
 
 #: sheets/Circuit.sheet.in.h:2
 msgid "A Horizontally aligned inductor"
-msgstr ""
+msgstr "Горизонтально ориентированный проводник"
 
 #: sheets/Circuit.sheet.in.h:3
 msgid "A Horizontally aligned inductor (European)"
@@ -3788,7 +3785,7 @@ msgstr ""
 
 #: sheets/Circuit.sheet.in.h:4
 msgid "A Horizontally aligned resistor"
-msgstr ""
+msgstr "Горизонтально ориентированный резистор"
 
 #: sheets/Circuit.sheet.in.h:5
 msgid "A Horizontally aligned resistor (European)"
@@ -3800,11 +3797,11 @@ msgstr ""
 
 #: sheets/Circuit.sheet.in.h:7
 msgid "A Speaker"
-msgstr ""
+msgstr "Громкоговоритель"
 
 #: sheets/Circuit.sheet.in.h:8
 msgid "A Vertically aligned inductor"
-msgstr ""
+msgstr "Вертикально ориентированный проводник"
 
 #: sheets/Circuit.sheet.in.h:9
 msgid "A Vertically aligned inductor (European)"
@@ -3812,7 +3809,7 @@ msgstr ""
 
 #: sheets/Circuit.sheet.in.h:10
 msgid "A Vertically aligned resistor"
-msgstr ""
+msgstr "Вертикально ориентированный резистор"
 
 #: sheets/Circuit.sheet.in.h:11
 msgid "A Vertically aligned resistor (European)"
@@ -3825,31 +3822,31 @@ msgstr "Конечная точка"
 
 #: sheets/Circuit.sheet.in.h:13
 msgid "A horizontally aligned LED"
-msgstr ""
+msgstr "Горизонтально ориентированный светодиод"
 
 #: sheets/Circuit.sheet.in.h:14
 msgid "A horizontally aligned capacitor"
-msgstr ""
+msgstr "Горизонтально ориентированный конденсатор"
 
 #: sheets/Circuit.sheet.in.h:15
 msgid "A horizontally aligned diode"
-msgstr ""
+msgstr "Горизонтально ориентированный диод"
 
 #: sheets/Circuit.sheet.in.h:16
 msgid "A horizontally aligned fuse"
-msgstr ""
+msgstr "Горизонтально ориентированный плавкий предохранитель"
 
 #: sheets/Circuit.sheet.in.h:17
 msgid "A horizontally aligned powersource"
-msgstr ""
+msgstr "Горизонтально ориентированный источник питания"
 
 #: sheets/Circuit.sheet.in.h:18
 msgid "A horizontally aligned zener diode"
-msgstr ""
+msgstr "Горизонтально ориентированный диод Зенера"
 
 #: sheets/Circuit.sheet.in.h:19
 msgid "A lamp"
-msgstr ""
+msgstr "Лампочка"
 
 #: sheets/Circuit.sheet.in.h:20
 msgid "A npn bipolar transistor"
@@ -3861,27 +3858,27 @@ msgstr ""
 
 #: sheets/Circuit.sheet.in.h:22
 msgid "A vertically aligned LED"
-msgstr ""
+msgstr "Вертикально ориентированный светодиод"
 
 #: sheets/Circuit.sheet.in.h:23
 msgid "A vertically aligned capacitor"
-msgstr ""
+msgstr "Вертикально ориентированный конденсатор"
 
 #: sheets/Circuit.sheet.in.h:24
 msgid "A vertically aligned diode"
-msgstr ""
+msgstr "Вертикально ориентированный диод"
 
 #: sheets/Circuit.sheet.in.h:25
 msgid "A vertically aligned fuse"
-msgstr ""
+msgstr "Вертикально ориентированный плавкий предохранитель"
 
 #: sheets/Circuit.sheet.in.h:26
 msgid "A vertically aligned powersource"
-msgstr ""
+msgstr "Вертикально ориентированный источник питания"
 
 #: sheets/Circuit.sheet.in.h:27
 msgid "A vertically aligned zener diode"
-msgstr ""
+msgstr "Вертикально ориентированный диод Зенера"
 
 #: sheets/Circuit.sheet.in.h:28
 msgid "An NMOS transistor"
@@ -3889,12 +3886,11 @@ msgstr ""
 
 #: sheets/Circuit.sheet.in.h:29
 msgid "An operational amplifier"
-msgstr ""
+msgstr "Операционный усилитель"
 
 #: sheets/Circuit.sheet.in.h:30
-#, fuzzy
 msgid "Circuit"
-msgstr "Направление"
+msgstr "Ток"
 
 #: sheets/Circuit.sheet.in.h:31
 msgid "Components for circuit diagrams"
@@ -3909,31 +3905,28 @@ msgid "A Basin"
 msgstr ""
 
 #: sheets/civil.sheet.in.h:3
-#, fuzzy
 msgid "A Container"
-msgstr "Ограничение"
+msgstr "Контейнер"
 
 #: sheets/civil.sheet.in.h:4
 msgid "A Frequency Converter"
-msgstr ""
+msgstr "Преобразователь частоты"
 
 #: sheets/civil.sheet.in.h:5
 msgid "A Gas Bottle"
-msgstr ""
+msgstr "Газовый балон"
 
 #: sheets/civil.sheet.in.h:6
-#, fuzzy
 msgid "A Motor"
-msgstr "Агент"
+msgstr "Мотор"
 
 #: sheets/civil.sheet.in.h:7
 msgid "A Preliminary Clarification Tank"
 msgstr ""
 
 #: sheets/civil.sheet.in.h:8
-#, fuzzy
 msgid "A Rotor"
-msgstr "Агент"
+msgstr "Ротор"
 
 #: sheets/civil.sheet.in.h:9
 msgid "A final-settling Basin"
@@ -3945,7 +3938,7 @@ msgstr ""
 
 #: sheets/civil.sheet.in.h:11
 msgid "A horizontally aligned Arrow"
-msgstr ""
+msgstr "Горизонтально ориентированная стрелка"
 
 #: sheets/civil.sheet.in.h:12
 msgid "A vertical limiting line"
@@ -3953,7 +3946,7 @@ msgstr ""
 
 #: sheets/civil.sheet.in.h:13
 msgid "A vertically aligned Arrow"
-msgstr ""
+msgstr "Вертикально ориентированная стрелка"
 
 #: sheets/civil.sheet.in.h:14
 msgid "An Aerator with bubbles"
@@ -3972,9 +3965,8 @@ msgid "Civil Engineering Components"
 msgstr ""
 
 #: sheets/civil.sheet.in.h:18
-#, fuzzy
 msgid "Horizontal Rest"
-msgstr "Горизонтальное отражение"
+msgstr ""
 
 #: sheets/civil.sheet.in.h:19
 msgid "Horizontally aligned Valve"
@@ -3982,26 +3974,23 @@ msgstr ""
 
 #: sheets/civil.sheet.in.h:20
 msgid "Horizontally aligned compressor"
-msgstr ""
+msgstr "Горизонтально ориентированный компрессор"
 
 #: sheets/civil.sheet.in.h:21
 msgid "Horizontally aligned pump"
-msgstr ""
+msgstr "Горизонтально ориентированный насос"
 
 #: sheets/civil.sheet.in.h:22
-#, fuzzy
 msgid "Reference Line"
-msgstr "Создать линию"
+msgstr ""
 
 #: sheets/civil.sheet.in.h:23
-#, fuzzy
 msgid "Soil"
-msgstr "Сплошная"
+msgstr ""
 
 #: sheets/civil.sheet.in.h:24
-#, fuzzy
 msgid "Vertical Rest"
-msgstr "Вертикальное отражение"
+msgstr ""
 
 #: sheets/civil.sheet.in.h:25
 msgid "Vertically aligned Propeller"
@@ -4013,15 +4002,15 @@ msgstr ""
 
 #: sheets/civil.sheet.in.h:27
 msgid "Vertically aligned compressor"
-msgstr ""
+msgstr "Вертикально ориентированный компрессор"
 
 #: sheets/civil.sheet.in.h:28
 msgid "Vertically aligned pump"
-msgstr ""
+msgstr "Вертикально ориентированный насос"
 
 #: sheets/civil.sheet.in.h:29
 msgid "Water Level"
-msgstr ""
+msgstr "Уровень воды"
 
 #: sheets/Contact.sheet.in.h:1
 msgid "A 'if not' (normally closed) ladder contact"
@@ -4064,9 +4053,8 @@ msgid "A power-saved simple output variable"
 msgstr ""
 
 #: sheets/Contact.sheet.in.h:11
-#, fuzzy
 msgid "A receptivity output variable"
-msgstr "Размер шрифта восприимчивости"
+msgstr ""
 
 #: sheets/Contact.sheet.in.h:12
 msgid "A simple output variable"
@@ -4077,22 +4065,20 @@ msgid "Components for LADDER circuits"
 msgstr ""
 
 #: sheets/Contact.sheet.in.h:14
-#, fuzzy
 msgid "Ladder"
-msgstr "Слои"
+msgstr ""
 
 #: sheets/Electric.sheet.in.h:1 sheets/Pneumatic.sheet.in.h:7
-#, fuzzy
 msgid "A connection point"
-msgstr "Добавить соединительную точку"
+msgstr "Соединительная точка"
 
 #: sheets/Electric.sheet.in.h:2
 msgid "A lamp or indicator light"
-msgstr ""
+msgstr "Лампа или световой индикатор"
 
 #: sheets/Electric.sheet.in.h:3
 msgid "A normally closed contact"
-msgstr ""
+msgstr "Нормально закрытый контакт"
 
 #: sheets/Electric.sheet.in.h:4
 msgid "A normally closed position switch"
@@ -4100,7 +4086,7 @@ msgstr ""
 
 #: sheets/Electric.sheet.in.h:5
 msgid "A normally open contact"
-msgstr ""
+msgstr "Нормально открытый контакт"
 
 #: sheets/Electric.sheet.in.h:6
 msgid "A normally open position switch"
@@ -4115,18 +4101,16 @@ msgid "Components for electric circuits"
 msgstr ""
 
 #: sheets/Electric.sheet.in.h:9
-#, fuzzy
 msgid "Electric"
-msgstr "Электрическая"
+msgstr "Электрика"
 
 #: sheets/Electric.sheet.in.h:10
 msgid "The command organ of a relay"
 msgstr ""
 
 #: sheets/EML.sheet.in.h:1
-#, fuzzy
 msgid "Create a process"
-msgstr "Создать дугу"
+msgstr "Создать процесс"
 
 #: sheets/EML.sheet.in.h:2
 msgid "EML"
@@ -4142,7 +4126,7 @@ msgstr ""
 
 #: sheets/EML.sheet.in.h:5
 msgid "Interaction between processes."
-msgstr ""
+msgstr "Взаимодействие между процессами."
 
 #: sheets/ER.sheet.in.h:2
 msgid "ER"
@@ -4154,35 +4138,32 @@ msgid "Editor for Entity Relations Diagrams"
 msgstr "Объекты диаграммы Сущностей/Отношений"
 
 #: sheets/ER.sheet.in.h:5
-#, fuzzy
 msgid "Participation"
-msgstr "Излучение"
+msgstr ""
 
 #: sheets/ER.sheet.in.h:7
-#, fuzzy
 msgid "Weak Entity"
-msgstr "Сущность"
+msgstr ""
 
 #: sheets/Flowchart.sheet.in.h:1
 msgid "A box with text inside"
-msgstr ""
+msgstr "Прямоугольник с текстом внутри"
 
 #: sheets/Flowchart.sheet.in.h:2
 msgid "A diamond with text inside"
-msgstr ""
+msgstr "Ромб с текстом внутри"
 
 #: sheets/Flowchart.sheet.in.h:3
 msgid "A ellipse with text inside"
-msgstr ""
+msgstr "Эллипс с текстом внутри"
 
 #: sheets/Flowchart.sheet.in.h:4
 msgid "A parallelogram with text inside"
-msgstr ""
+msgstr "Параллелограм с текстом внутри"
 
 #: sheets/Flowchart.sheet.in.h:5
-#, fuzzy
 msgid "Collate"
-msgstr "Вычислить"
+msgstr ""
 
 #: sheets/Flowchart.sheet.in.h:6
 #, fuzzy
@@ -4190,14 +4171,12 @@ msgid "Delay"
 msgstr "Показать"
 
 #: sheets/Flowchart.sheet.in.h:8
-#, fuzzy
 msgid "Document"
-msgstr "Подключить"
+msgstr "Документ"
 
 #: sheets/Flowchart.sheet.in.h:10
-#, fuzzy
 msgid "Flowchart"
-msgstr "Объекты диаграммы потоков"
+msgstr "Диаграмма потоков"
 
 #: sheets/Flowchart.sheet.in.h:11
 #, fuzzy
@@ -4205,33 +4184,28 @@ msgid "Internal Storage"
 msgstr "Символ интеграла"
 
 #: sheets/Flowchart.sheet.in.h:12
-#, fuzzy
 msgid "Magnetic Disk"
-msgstr "Магнитная энергия"
+msgstr "Магнитная диск"
 
 #: sheets/Flowchart.sheet.in.h:13
-#, fuzzy
 msgid "Magnetic Drum"
-msgstr "Магнитная энергия"
+msgstr "Магнитная барабан"
 
 #: sheets/Flowchart.sheet.in.h:14
-#, fuzzy
 msgid "Magnetic Tape"
-msgstr "Магнитная энергия"
+msgstr "Магнитная лента"
 
 #: sheets/Flowchart.sheet.in.h:15
 msgid "Manual Input"
-msgstr ""
+msgstr "Ручной ввод"
 
 #: sheets/Flowchart.sheet.in.h:16
-#, fuzzy
 msgid "Manual Operation"
-msgstr "Операции"
+msgstr "Ручная операция"
 
 #: sheets/Flowchart.sheet.in.h:17
-#, fuzzy
 msgid "Merge"
-msgstr "Измерить"
+msgstr ""
 
 #: sheets/Flowchart.sheet.in.h:18
 msgid "Objects to draw flowcharts"
@@ -4247,7 +4221,7 @@ msgstr ""
 
 #: sheets/Flowchart.sheet.in.h:21
 msgid "Or"
-msgstr ""
+msgstr "Или"
 
 #: sheets/Flowchart.sheet.in.h:22
 #, fuzzy
@@ -4278,9 +4252,8 @@ msgid "Summing Junction"
 msgstr "Функция наибольшего правдоподобия"
 
 #: sheets/Flowchart.sheet.in.h:28
-#, fuzzy
 msgid "Terminal"
-msgstr "Тепловая"
+msgstr "Терминал"
 
 #: sheets/Flowchart.sheet.in.h:29
 #, fuzzy
@@ -4298,9 +4271,8 @@ msgid "Create a flow"
 msgstr "Создать прямоугольник"
 
 #: sheets/FS.sheet.in.h:2
-#, fuzzy
 msgid "Create a function"
-msgstr "Функция пользователя"
+msgstr "Создать функцию"
 
 #: sheets/FS.sheet.in.h:3
 msgid "Create an orthogonal polyline flow"
@@ -4485,9 +4457,8 @@ msgid "An And gate"
 msgstr ""
 
 #: sheets/Logic.sheet.in.h:8
-#, fuzzy
 msgid "An Inverter"
-msgstr "Инвертировать"
+msgstr "Инвертор"
 
 #: sheets/Logic.sheet.in.h:9
 #, fuzzy
@@ -4506,7 +4477,7 @@ msgstr "Заблокировать"
 
 #: sheets/MSE.sheet.in.h:1
 msgid "Demultiplexer"
-msgstr ""
+msgstr "Демультиплексор"
 
 #: sheets/MSE.sheet.in.h:2
 msgid "Large Extension Node"
@@ -4517,9 +4488,8 @@ msgid "MSE"
 msgstr ""
 
 #: sheets/MSE.sheet.in.h:4
-#, fuzzy
 msgid "Multiplexer"
-msgstr "Перемножить"
+msgstr "Мультиплексор"
 
 #: sheets/MSE.sheet.in.h:5
 #, fuzzy
@@ -4540,16 +4510,15 @@ msgstr ""
 
 #: sheets/network.sheet.in.h:1
 msgid "A 3 1/2 inch diskette"
-msgstr ""
+msgstr "3,5\" дискета"
 
 #: sheets/network.sheet.in.h:2
 msgid "A Bigtower PC"
 msgstr ""
 
 #: sheets/network.sheet.in.h:3
-#, fuzzy
 msgid "A Computer"
-msgstr "Добавить уголок"
+msgstr "Компьютер"
 
 #: sheets/network.sheet.in.h:4
 msgid "A Desktop PC"
@@ -4569,7 +4538,7 @@ msgstr ""
 
 #: sheets/network.sheet.in.h:8
 msgid "A Mobile Phone"
-msgstr ""
+msgstr "Мобильный телефон"
 
 #: sheets/network.sheet.in.h:9
 msgid "A RJ45 Wall-Plug"
@@ -4606,20 +4575,19 @@ msgstr ""
 
 #: sheets/network.sheet.in.h:17
 msgid "A monitor"
-msgstr ""
+msgstr "Монитор"
 
 #: sheets/network.sheet.in.h:18
 msgid "A simple Modem"
 msgstr ""
 
 #: sheets/network.sheet.in.h:19
-#, fuzzy
 msgid "A simple printer"
-msgstr "Выбрать принтер"
+msgstr "Принтер"
 
 #: sheets/network.sheet.in.h:20
 msgid "A speaker with integrated amplifier"
-msgstr ""
+msgstr "Громкоговоритель со встроенным усилителем"
 
 #: sheets/network.sheet.in.h:21
 msgid "A speaker without amplifier"
@@ -4631,7 +4599,7 @@ msgstr ""
 
 #: sheets/network.sheet.in.h:23
 msgid "ATM Switch Symbol"
-msgstr ""
+msgstr "Символ ATM-коммутатора"
 
 #: sheets/network.sheet.in.h:24
 msgid "An Ethernet bus"
@@ -4646,32 +4614,28 @@ msgid "An external DAT drive"
 msgstr ""
 
 #: sheets/network.sheet.in.h:27
-#, fuzzy
 msgid "Network"
-msgstr "Новый"
+msgstr "Сеть"
 
 #: sheets/network.sheet.in.h:28
 msgid "Network Cloud"
-msgstr ""
+msgstr "Сетевое облако"
 
 #: sheets/network.sheet.in.h:29
 msgid "Objects to design network diagrams with"
 msgstr ""
 
 #: sheets/network.sheet.in.h:30
-#, fuzzy
 msgid "Router Symbol"
-msgstr "Символ интеграла"
+msgstr "Символ маршрутизатора"
 
 #: sheets/network.sheet.in.h:31
-#, fuzzy
 msgid "Storage"
-msgstr "Хранить"
+msgstr ""
 
 #: sheets/network.sheet.in.h:32
-#, fuzzy
 msgid "Switch Symbol"
-msgstr "Переключить"
+msgstr "Символ коммутатора"
 
 #: sheets/Pneumatic.sheet.in.h:1
 msgid "A 2/2 distributor"
@@ -4758,9 +4722,8 @@ msgid "Muscular command"
 msgstr ""
 
 #: sheets/Pneumatic.sheet.in.h:23
-#, fuzzy
 msgid "Pneumatic/Hydraulic"
-msgstr "Гидравлическое"
+msgstr "Пневматика/Гидравлика"
 
 #: sheets/Pneumatic.sheet.in.h:24
 msgid "Push-button command"
@@ -4796,9 +4759,8 @@ msgid "Block Type Reference"
 msgstr ""
 
 #: sheets/SDL.sheet.in.h:3
-#, fuzzy
 msgid "Comment"
-msgstr "По центру"
+msgstr "Комментарий"
 
 #: sheets/SDL.sheet.in.h:4
 #, fuzzy
@@ -4807,12 +4769,11 @@ msgstr "Описание:"
 
 #: sheets/SDL.sheet.in.h:5
 msgid "Function Header"
-msgstr ""
+msgstr "Заголовок функции"
 
 #: sheets/SDL.sheet.in.h:6
-#, fuzzy
 msgid "Function call"
-msgstr "Вызов макроса"
+msgstr "Вызов функции"
 
 #: sheets/SDL.sheet.in.h:7
 msgid "Generic Text Note"
@@ -4825,7 +4786,7 @@ msgstr "Подключение"
 
 #: sheets/SDL.sheet.in.h:10
 msgid "Procedure Return"
-msgstr ""
+msgstr "Возврат процедуры"
 
 #: sheets/SDL.sheet.in.h:11
 #, fuzzy
@@ -4846,9 +4807,8 @@ msgid "Save State"
 msgstr ""
 
 #: sheets/SDL.sheet.in.h:15
-#, fuzzy
 msgid "Send message"
-msgstr "Сообщение:"
+msgstr "Послать сообщение"
 
 #: sheets/SDL.sheet.in.h:16
 msgid "Service Type Reference"
@@ -4859,9 +4819,8 @@ msgid "Specification and Description Language."
 msgstr ""
 
 #: sheets/SDL.sheet.in.h:18
-#, fuzzy
 msgid "State"
-msgstr "Начать"
+msgstr "Состояние"
 
 #: sheets/sybase.sheet.in.h:1
 msgid "A Sybase Client Application"
@@ -4892,9 +4851,8 @@ msgid "Stable Storage Device"
 msgstr ""
 
 #: sheets/sybase.sheet.in.h:8
-#, fuzzy
 msgid "Sybase"
-msgstr "Заштрихованный"
+msgstr "Sybase"
 
 #: sheets/UML.sheet.in.h:1
 msgid "Aggregation, one class is part of another"
@@ -4913,33 +4871,28 @@ msgid "Create a (large) package"
 msgstr ""
 
 #: sheets/UML.sheet.in.h:5
-#, fuzzy
 msgid "Create a (small) package"
-msgstr "Создать изображение"
+msgstr ""
 
 #: sheets/UML.sheet.in.h:6
-#, fuzzy
 msgid "Create a branch"
-msgstr "Создать дугу"
+msgstr ""
 
 #: sheets/UML.sheet.in.h:7
-#, fuzzy
 msgid "Create a class"
-msgstr "Класс-шаблон"
+msgstr "Создать класс"
 
 #: sheets/UML.sheet.in.h:8
 msgid "Create a class stereotype icon"
 msgstr ""
 
 #: sheets/UML.sheet.in.h:9
-#, fuzzy
 msgid "Create a component"
-msgstr "Создать многоугольник"
+msgstr "Создать компонент"
 
 #: sheets/UML.sheet.in.h:10
-#, fuzzy
 msgid "Create a dependency"
-msgstr "Создать кривую Безье"
+msgstr "Создать зависимость"
 
 #: sheets/UML.sheet.in.h:11
 #, fuzzy
@@ -4947,29 +4900,24 @@ msgid "Create a lifeline"
 msgstr "Создать кривую Безье"
 
 #: sheets/UML.sheet.in.h:12
-#, fuzzy
 msgid "Create a message"
-msgstr "Создать изображение"
+msgstr "Создать сообщение"
 
 #: sheets/UML.sheet.in.h:13
-#, fuzzy
 msgid "Create a node"
-msgstr "Создать линию"
+msgstr "Создать узел"
 
 #: sheets/UML.sheet.in.h:14
-#, fuzzy
 msgid "Create a note"
-msgstr "Создать линию"
+msgstr ""
 
 #: sheets/UML.sheet.in.h:15
-#, fuzzy
 msgid "Create a state machine"
-msgstr "Создать линию"
+msgstr "Создать машину состояний"
 
 #: sheets/UML.sheet.in.h:16
-#, fuzzy
 msgid "Create a template class"
-msgstr "Класс-шаблон"
+msgstr "Создать класс-шаблон"
 
 #: sheets/UML.sheet.in.h:17
 #, fuzzy
@@ -4982,9 +4930,8 @@ msgid "Create an actor"
 msgstr "Создать новую диаграмму"
 
 #: sheets/UML.sheet.in.h:19
-#, fuzzy
 msgid "Create an object"
-msgstr "Создать линию"
+msgstr "Создать объект"
 
 #: sheets/UML.sheet.in.h:20
 msgid "Editor for UML Static Structure Diagrams"
@@ -5004,7 +4951,7 @@ msgstr ""
 
 #: sheets/UML.sheet.in.h:24
 msgid "UML"
-msgstr ""
+msgstr "UML"
 
 #: dia.desktop.in.h:1
 msgid "A Diagram Editor"
