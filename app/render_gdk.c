@@ -1017,13 +1017,12 @@ draw_string (RendererGdk *renderer,
                                                  ddisp->zoom_factor);
     break;
   }
-  
   ddisplay_transform_coords(ddisp, start_pos.x, start_pos.y, &x, &y);
 
   color_convert(color, &gdkcolor);
   gdk_gc_set_foreground(gc, &gdkcolor);
 
-  layout = dia_font_scaled_build_layout(text,renderer->font,
+  layout = dia_font_scaled_build_layout(text, renderer->font,
                                         renderer->font_height,
                                         ddisp->zoom_factor);
   y -= get_layout_first_baseline(layout);  
@@ -1033,6 +1032,7 @@ draw_string (RendererGdk *renderer,
   
   g_object_unref(G_OBJECT(layout));
 
+#if 0
   {
      static Color red = {1.0,0.0,0.0};
      static Color blue = {0.0,0.0,1.0};
@@ -1044,6 +1044,7 @@ draw_string (RendererGdk *renderer,
      draw_pixel_line(renderer,x-5,y+5,x+5,y-5,&blue);
      draw_pixel_line(renderer,x-5,y-5,x+5,y+5,&blue);
   }
+#endif
 }
 
 /* Get the width of the given text in cm */
