@@ -621,12 +621,16 @@ extern DDisplay *ddisplay_active(void)
   GtkWidget *toplevel_widget;
   GdkEvent *event;
 
-  /*  If the popup shell is valid, then get the gdisplay associated with that shell  */
+  /*  If the popup shell is valid, then get the gdisplay
+      associated with that shell  */
   event = gtk_get_current_event ();
   event_widget = gtk_get_event_widget (event);
   gdk_event_free (event);
 
   if (event_widget == NULL)
+    return NULL;
+
+  if (display_ht == NULL)
     return NULL;
 
   toplevel_widget = gtk_widget_get_toplevel (event_widget);
@@ -640,8 +644,10 @@ extern DDisplay *ddisplay_active(void)
     return ddisp;
   }
 
+  /*
   message_error(_("Internal error: "
 		"Strange, shouldn't come here (ddisplay_active())")); 
+  */
   return NULL;
 }
 

@@ -1,3 +1,12 @@
+1999-03-01  Seth Alves  <alves@hungry.com>
+
+	* app/display.c (ddisplay_active): don't fly a warning panel
+	if ddisplay_active is called when no views are open.
+
+	* app/commands.c (set_default_file_selection_directory): set
+	file selector's default directory if there is already
+	a document open.
+
 1999-02-28  Alexander Larsson  <alla@lysator.liu.se>
 
 	* INSTALL:

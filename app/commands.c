@@ -41,6 +41,55 @@
 #include "layer_dialog.h"
 #include "connectionpoint_ops.h"
 
+
+/* if user already has a diagram open, then start out in that directory */
+static void set_default_file_selection_directory (GtkWidget *fs)
+{
+  DDisplay *ddisp = ddisplay_active();
+  if (ddisp && ddisp->diagram && (! ddisp->diagram->unsaved)) {
+    char *last_slash;
+    char *fn = (char *) malloc (strlen (ddisp->diagram->filename) + 10);
+    strcpy (fn, ddisp->diagram->filename);
+    last_slash = strrchr (fn, '/');
+    if (last_slash) {
+      *(last_slash+1) = '\0';
+      gtk_file_selection_set_filename (GTK_FILE_SELECTION (fs), fn);
+    }
+    free (fn);
+  }
+}
+
+
+/* if the a diagram is open and has a file name, set a default
+   file name is given extension */
+static void set_default_file_selection_extension (GtkWidget *fs, char *ext)
+{
+  DDisplay *ddisp = ddisplay_active();
+  if (ddisp && ddisp->diagram && (! ddisp->diagram->unsaved)) {
+    char *last_slash;
+    char *last_dot;
+    char *ext_index;
+    char *fn = (char *) malloc (strlen (ddisp->diagram->filename) +
+				10 + strlen (ext));
+    strcpy (fn, ddisp->diagram->filename);
+    
+    /* put a .ext extention on the file name */
+    last_slash = strrchr (fn, '/');
+    last_dot = strrchr (fn, '.');
+    if (last_slash && last_dot && (last_dot > last_slash))
+      ext_index = last_dot;
+    else if ((! last_slash) && last_dot)
+      ext_index = last_dot;
+    else
+      ext_index = fn + strlen (fn);
+    strcpy (ext_index, ext);
+    
+    gtk_file_selection_set_filename (GTK_FILE_SELECTION (fs), fn);
+    free (fn);
+  }
+}
+
+
 void file_quit_callback(GtkWidget *widget, gpointer data)
 {
   app_exit();
@@ -83,6 +132,8 @@ void file_open_callback(GtkWidget *widget, gpointer data)
   gtk_signal_connect_object (GTK_OBJECT (GTK_FILE_SELECTION (window)->cancel_button),
 			     "clicked", GTK_SIGNAL_FUNC(gtk_widget_destroy),
 			     GTK_OBJECT (window));
+
+  set_default_file_selection_directory (window);
   
   gtk_widget_show (window);
 }
@@ -211,6 +262,8 @@ file_save_as_callback(GtkWidget *widget, gpointer data)
   gtk_signal_connect_object (GTK_OBJECT (GTK_FILE_SELECTION (window)->cancel_button),
 			     "clicked", GTK_SIGNAL_FUNC(gtk_widget_destroy),
 			     GTK_OBJECT (window));
+
+  set_default_file_selection_directory (window);
   
   gtk_widget_show (window);
 
@@ -326,30 +379,8 @@ file_export_to_eps_callback(GtkWidget *widget, gpointer data)
 			     "clicked", GTK_SIGNAL_FUNC(gtk_widget_destroy),
 			     GTK_OBJECT (window));
 
-
-  /* set a default file name */
-  if (! ddisp->diagram->unsaved) {
-    char *last_slash;
-    char *last_dot;
-    char *ext_index;
-    char *fn = (char *) malloc (strlen (ddisp->diagram->filename) + 10);
-    strcpy (fn, ddisp->diagram->filename);
-    
-    /* put a .ps extention on the file name */
-    last_slash = strrchr (fn, '/');
-    last_dot = strrchr (fn, '.');
-    if (last_slash && last_dot && (last_dot > last_slash))
-      ext_index = last_dot;
-    else if ((! last_slash) && last_dot)
-      ext_index = last_dot;
-    else
-      ext_index = fn + strlen (fn);
-    strcpy (ext_index, ".ps");
-    
-    gtk_file_selection_set_filename (fs, fn);
-    free (fn);
-  }
-
+  /* put a .ps extention on the file name */
+  set_default_file_selection_extension (window, ".ps");
   gtk_widget_show (window);
 
   /* Make dialog modal: */
