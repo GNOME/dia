@@ -302,9 +302,8 @@ make_text_prop_singleton(GPtrArray **props, TextProperty **prop)
   g_assert((*props)->len == 1);
 
   *prop = g_ptr_array_index((*props),0);
-  g_free((*prop)->string_data);
-  (*prop)->string_data = NULL;
-  (*prop)->num_lines = 0;
+  g_free((*prop)->text_data);
+  (*prop)->text_data = NULL;
 }
 
 
@@ -315,7 +314,7 @@ edit_copy_text_callback(gpointer data, guint action, GtkWidget *widget)
   DDisplay *ddisp;
   Object *obj;
   GPtrArray *textprops;
-  StringProperty *prop;
+  TextProperty *prop;
 
   if ((focus == NULL) || (!focus->has_focus)) return;
 
@@ -332,7 +331,7 @@ edit_copy_text_callback(gpointer data, guint action, GtkWidget *widget)
   
   if (current_clipboard) g_free(current_clipboard);
 
-  current_clipboard = g_strdup(prop->string_data);
+  current_clipboard = g_strdup(prop->text_data);
   prop_list_free(textprops);
 
   gtk_selection_owner_set(GTK_WIDGET(ddisp->shell),
@@ -351,7 +350,7 @@ edit_cut_text_callback(gpointer data, guint action, GtkWidget *widget)
   Object *obj;
   Text *text;
   GPtrArray *textprops;
-  StringProperty *prop;
+  TextProperty *prop;
   Change *change;
 
   if ((focus == NULL) || (!focus->has_focus)) return;
@@ -370,7 +369,7 @@ edit_cut_text_callback(gpointer data, guint action, GtkWidget *widget)
   
   if (current_clipboard) g_free(current_clipboard);
 
-  current_clipboard = g_strdup(prop->string_data);
+  current_clipboard = g_strdup(prop->text_data);
 
   prop_list_free(textprops);
 
