@@ -381,7 +381,7 @@ app_init (int argc, char **argv)
   setlocale(LC_NUMERIC, "C");
   
   bindtextdomain(GETTEXT_PACKAGE, LOCALEDIR);
-#if defined ENABLE_NLS
+#if defined ENABLE_NLS && defined HAVE_BIND_TEXTDOMAIN_CODESET
   bind_textdomain_codeset(GETTEXT_PACKAGE,"UTF-8");  
 #endif
   textdomain(GETTEXT_PACKAGE);

@@ -1,3 +1,10 @@
+2004-01-19  Hans Breuer  <hans@breuer.org>
+
+	* app/app_procs.c app/diaconv : 
+	only call bind_textdomain_codeset when available, what's good 
+	for The Gimp (bug #131215) can't be wrong for Dia : bug #125926
+	* config.h.win32 : define HAVE_BIND_TEXTDOMAIN_CODESET
+
 2004-01-19  Steffen Macke <sdteffen@web.de>
 
 	* makefile.msc: updated for new GAIM-like installer build; sync'ed

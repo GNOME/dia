@@ -109,7 +109,9 @@ main(int argc, char **argv)
   setlocale(LC_NUMERIC,"C");
 
   bindtextdomain(PACKAGE, LOCALEDIR);
-  /*  bind_textdomain_codeset(PACKAGE,"UTF-8"); */ /* only for GTK2 -- CC */
+#if defined HAVE_BIND_TEXTDOMAIN_CODESET
+  bind_textdomain_codeset(PACKAGE,"UTF-8");
+#endif
   textdomain(PACKAGE);
 
   printf("hi !\n");
