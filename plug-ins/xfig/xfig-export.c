@@ -71,6 +71,12 @@ struct _XfigRenderer
   gchar *warnings[MAX_WARNING];
 };
 
+/* check whether there exists an arrow head */
+static int hasArrow(Arrow *arrow)
+{
+  return (ARROW_NONE==arrow->type) ? 0 : 1;
+}
+
 static void begin_render(DiaRenderer *self);
 static void end_render(DiaRenderer *renderer);
 static void set_linewidth(DiaRenderer *self, real linewidth);
@@ -415,6 +421,9 @@ figText(XfigRenderer *renderer, const guchar *text)
     if (text[i] > 127) {
       sprintf(&returntext[j], "\\%03o", text[i]);
       j+=3;
+    } else if ('\\'==text[i]) { /* backslash must be quoted in xfig */
+      returntext[j++] = '\\';
+      returntext[j]   = '\\';
     } else {
       returntext[j] = text[i];
     }
@@ -583,12 +592,12 @@ draw_line_with_arrows(DiaRenderer *self,
 	  figColor(renderer, color), figDepth(renderer),
 	  figDashLength(renderer), figJoinStyle(renderer), 
 	  figCapsStyle(renderer),
-	  (end_arrow!=NULL?1:0),
-	  (start_arrow!=NULL?1:0));
-  if (end_arrow != NULL) {
+	  hasArrow(end_arrow),
+	  hasArrow(start_arrow));
+  if (hasArrow(end_arrow)) {
     figArrow(renderer, end_arrow, line_width);
   }
-  if (start_arrow != NULL) {
+  if (hasArrow(start_arrow)) {
     figArrow(renderer, start_arrow, line_width);
   }
   fprintf(renderer->file, "\t%d %d %d %d\n",
@@ -643,12 +652,12 @@ draw_polyline_with_arrows(DiaRenderer *self,
 	  figColor(renderer, color), figDepth(renderer),
 	  figDashLength(renderer), figJoinStyle(renderer),
 	  figCapsStyle(renderer),
-	  (end_arrow!=NULL?1:0),
-	  (start_arrow!=NULL?1:0), num_points);
-  if (end_arrow != NULL) {
+	  hasArrow(end_arrow),
+	  hasArrow(start_arrow), num_points);
+  if (hasArrow(end_arrow)) {
     figArrow(renderer, end_arrow, line_width);
   }
-  if (start_arrow != NULL) {
+  if (hasArrow(start_arrow)) {
     figArrow(renderer, start_arrow, line_width);
   }
   fprintf(renderer->file, "\t");
@@ -855,18 +864,18 @@ draw_arc_with_arrows(DiaRenderer *self,
 	  figDepth(renderer),
 	  figDashLength(renderer),
 	  figCapsStyle(renderer),
-	  (end_arrow!=NULL?1:0),
-	  (start_arrow!=NULL?1:0),
+	  hasArrow(end_arrow),
+	  hasArrow(start_arrow),
 	  figCoord(renderer, center.x), 
 	  figCoord(renderer, center.y),
 	  (int)figCoord(renderer, startpoint->x), (int)figCoord(renderer, startpoint->y), 
 	  (int)figCoord(renderer, midpoint->x), (int)figCoord(renderer, midpoint->y), 
 	  (int)figCoord(renderer, endpoint->x), (int)figCoord(renderer, endpoint->y));
 
-  if (end_arrow != NULL) {
+  if (hasArrow(end_arrow)) {
     figArrow(renderer, end_arrow, line_width);
   }
-  if (start_arrow != NULL) {
+  if (hasArrow(start_arrow)) {
     figArrow(renderer, start_arrow, line_width);
   }
 }
@@ -1026,7 +1035,8 @@ draw_string(DiaRenderer *self,
   }
 
   figtext = figText(renderer, text);
-  fprintf(renderer->file, "4 %d %d %d 0 %d %f 0.0 4 0.0 0.0 %d %d %s\\001\n",
+  /* xfig texts are specials */
+  fprintf(renderer->file, "4 %d %d %d 0 %d %f 0.0 6 0.0 0.0 %d %d %s\\001\n",
 	  figAlignment(renderer, alignment),
 	  figColor(renderer, color), 
 	  figDepth(renderer),

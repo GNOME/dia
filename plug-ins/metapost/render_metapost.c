@@ -30,8 +30,6 @@
  * TODO:
  * 1. Include file support.
  * 2. Linestyles really need tweaking.
- * 3. Font selection (I like using the latex font though)
- * 4. Font size
  */
 
 
@@ -51,8 +49,99 @@
 #include "diagramdata.h"
 #include "filter.h"
 #include "dia_image.h"
+#include "font.h"
 
 #define POINTS_in_INCH 28.346
+
+/* An entry in the font-mapping lookup table. */
+typedef struct _font_lookup_entry {
+    char            *dia_name;
+        /* Dia's name for the font. */
+
+    char            *mp_name;
+        /* Second argument for the \usefont command in the embedded TeX 
+         * we'll pass to MetaPost. */
+
+    real            size_mult;
+        /* Converts from a Dia font size to a MetaPost font "scaling factor".
+         * If x is the size of your Dia font, then the size of your MetaPost
+         * font will be (x * size_mult) / (10 pts), and you'll have to use 
+         * (x * size_mult) as the "scale" argument to the label() command. */
+
+} _font_lookup_entry;
+
+#define DEFAULT_MP_FONT "cmr"
+#define DEFAULT_MP_WEIGHT "m"
+#define DEFAULT_MP_SLANT "n"
+
+#define DEFAULT_SIZE_MULT 3.0F
+
+#define MAX_FONT_NAME_LEN 256
+
+/* A lookup table for converting Dia fonts into MetaPost fonts. */
+/* TODO: Make the fonts in this table map more closely. */
+static _font_lookup_entry FONT_LOOKUP_TABLE[] =
+{
+    /* Since Dia doesn't usually have a "computer modern" font, we map Century 
+     * Schoolbook to that font. */
+    {"century schoolbook l", DEFAULT_MP_FONT, DEFAULT_SIZE_MULT},
+
+    /* Sans serif fonts go to phv. */
+    {"arial",       "phv", DEFAULT_SIZE_MULT},
+    {"helvetica",   "phv", DEFAULT_SIZE_MULT},
+    {"sans",        "phv", DEFAULT_SIZE_MULT},
+
+    /* Monospace fonts map to Computer Modern Typewriter. */
+    {"courier",         "cmtt", DEFAULT_SIZE_MULT},
+    {"courier new",     "cmtt", DEFAULT_SIZE_MULT},
+    {"monospace",       "cmtt", DEFAULT_SIZE_MULT},
+    {NULL, NULL, 0.0F}
+        /* Terminator. */
+};
+
+
+/* An entry in the font weight lookup table. */
+typedef struct _weight_lookup_entry {
+    DiaFontStyle    weight;
+        /* Mask your style with DIA_FONT_STYLE_GET_WEIGHT() and compare 
+         * to this... */
+
+    char            *mp_weight;
+        /* Third argument for the \usefont command in the embedded TeX 
+         * we'll pass to MetaPost. */
+} _weight_lookup_entry;
+
+#define STYLE_TERMINATOR ((DiaFontStyle)0xffffffff)
+static _weight_lookup_entry WEIGHT_LOOKUP_TABLE[] = 
+{
+    {DIA_FONT_ULTRALIGHT,       "m"},
+    {DIA_FONT_LIGHT,            "m"},
+    {DIA_FONT_WEIGHT_NORMAL,    "m"},
+    {DIA_FONT_MEDIUM,           "m"},
+    {DIA_FONT_DEMIBOLD,         "b"},
+    {DIA_FONT_BOLD,             "b"},
+    {DIA_FONT_ULTRABOLD,        "b"},
+    {DIA_FONT_HEAVY,            "b"},
+    {STYLE_TERMINATOR, NULL}
+        /* Terminator */
+};
+
+/* An entry in the font slant lookup table. */
+typedef struct _slant_lookup_entry {
+    DiaFontStyle    slant;
+    char            *mp_slant;
+} _slant_lookup_entry;
+
+static _slant_lookup_entry SLANT_LOOKUP_TABLE[] = 
+{
+    {DIA_FONT_NORMAL,   "n"},
+    {DIA_FONT_OBLIQUE,  "sl"},
+    {DIA_FONT_ITALIC,   "it"},
+    {STYLE_TERMINATOR, NULL}
+        /* Terminator */
+};
+
+
 
 static void end_draw_op(MetapostRenderer *renderer);
 static void draw_with_linestyle(MetapostRenderer *renderer);
@@ -155,7 +244,7 @@ metapost_renderer_get_type (void)
 static void
 metapost_renderer_finalize (GObject *object)
 { 
-  MetapostRenderer *metapost_renderer = METAPOST_RENDERER (object);
+/*  MetapostRenderer *metapost_renderer = METAPOST_RENDERER (object); */
 
   G_OBJECT_CLASS (parent_class)->finalize (object);
 }
@@ -373,7 +462,7 @@ set_dashlength(DiaRenderer *self, real length)
 static void
 set_fillstyle(DiaRenderer *self, FillStyle mode)
 {
-    MetapostRenderer *renderer = METAPOST_RENDERER (self);
+    /*MetapostRenderer *renderer = METAPOST_RENDERER (self);*/
 
     switch(mode) {
     case FILLSTYLE_SOLID:
@@ -387,9 +476,59 @@ static void
 set_font(DiaRenderer *self, DiaFont *font, real height)
 {
     MetapostRenderer *renderer = METAPOST_RENDERER (self);
-    /*
-     * TODO: implement size, figure out how to specify tex document font 
-     */
+    int i = -1;
+
+    /* Determine what font Dia is using, so we can convert to the closest
+     * matching MetaPost font. */
+    char *dia_font_name = (char*)dia_font_get_family(font);
+    const DiaFontStyle dia_font_style = dia_font_get_style(font);
+    const real dia_font_height = dia_font_get_height(font);
+
+    /* Catch default Dia fonts. */
+    if (DIA_FONT_STYLE_GET_FAMILY(dia_font_style) == DIA_FONT_SANS) {
+        dia_font_name = "sans";
+    } else if (DIA_FONT_STYLE_GET_FAMILY(dia_font_style) == DIA_FONT_SERIF) {
+        dia_font_name = "serif";
+    } else if (DIA_FONT_STYLE_GET_FAMILY(dia_font_style) 
+            == DIA_FONT_MONOSPACE) 
+    {
+        dia_font_name = "monospace";
+    }
+
+    /* Start out with some sensible defaults. */
+    renderer->mp_font = DEFAULT_MP_FONT;
+    renderer->mp_weight = DEFAULT_MP_WEIGHT;
+    renderer->mp_slant = DEFAULT_MP_SLANT;
+    renderer->mp_font_height = DEFAULT_SIZE_MULT * dia_font_height;
+
+    /* Try to find a better match for the Dia font by checking our lookup
+     * table. */
+    for (i = 0; FONT_LOOKUP_TABLE[i].dia_name != NULL; i++) {
+        if (0 == strncmp(FONT_LOOKUP_TABLE[i].dia_name, dia_font_name,
+                            MAX_FONT_NAME_LEN)) 
+        {
+            /* Found a match. */
+            renderer->mp_font = FONT_LOOKUP_TABLE[i].mp_name;
+            renderer->mp_font_height = FONT_LOOKUP_TABLE[i].size_mult
+                                        * dia_font_height;
+            break;
+        }
+    }
+
+    /* Do the same for the weight and size. */
+    for (i = 0; WEIGHT_LOOKUP_TABLE[i].weight != STYLE_TERMINATOR; i++) {
+        if (DIA_FONT_STYLE_GET_WEIGHT(dia_font_style) 
+                == WEIGHT_LOOKUP_TABLE[i].weight) {
+            renderer->mp_weight = WEIGHT_LOOKUP_TABLE[i].mp_weight;
+        }
+    }
+    for (i = 0; SLANT_LOOKUP_TABLE[i].slant != STYLE_TERMINATOR; i++) {
+        if (DIA_FONT_STYLE_GET_SLANT(dia_font_style) 
+                == SLANT_LOOKUP_TABLE[i].slant) {
+            renderer->mp_slant = SLANT_LOOKUP_TABLE[i].mp_slant;
+        }
+    }
+
 #if 0
     fprintf(renderer->file, "defaultfont:=\"%s\";\n", font_get_psfontname(font));
 #endif
@@ -708,19 +847,28 @@ draw_string(DiaRenderer *self,
     set_line_color(renderer,color);
 
     switch (alignment) {
+    /* We use the "top" modifier to MetaPost's alignment because Dia draws
+      * text _above_ the point at which the text is "located". */
     case ALIGN_LEFT:
-	fprintf(renderer->file,"  label.rt");
+	fprintf(renderer->file,"  label.urt");
 	break;
     case ALIGN_CENTER:
-	fprintf(renderer->file,"  label");
+	fprintf(renderer->file,"  label.top");
 	break;
     case ALIGN_RIGHT:
-	fprintf(renderer->file,"  label.lft");
+	fprintf(renderer->file,"  label.ulft");
 	break;
     }
+
+    /* Ideally, we would be able to use the "infont" macro to print this label
+     * in the proper font.  Unfortunately, though, metapost is in the habit of
+     * converting spaces into visible spaces, which looks rather yucky.  So we
+     * embed some TeX with \usefont commands instead. */
     fprintf(renderer->file,
-	    "(btex %s etex,(%fx,%fy))",
-	    text, pos->x, pos->y);
+            "(btex {\\usefont{OT1}{%s}{%s}{%s} %s} etex scaled %g,(%fx,%fy))",
+            renderer->mp_font, renderer->mp_weight, renderer->mp_slant,
+            text, renderer->mp_font_height, pos->x, pos->y);
+
     if (!color_equals(&renderer->color, &color_black))
         fprintf(renderer->file, "\n    withcolor (%5.4f, %5.4f, %5.4f)", 
                 (double)renderer->color.red, 
@@ -844,6 +992,15 @@ export_metapost(DiagramData *data, const gchar *filename,
 	    VERSION,
 	    ctime(&time_now),
 	    name);
+
+    /* LaTeX header so that our font stuff works properly. */
+    fprintf(renderer->file,
+             "verbatimtex\n"
+             "\%&latex\n"
+             "\\documentclass{minimal}\n"
+             "\\begin{document}\n"
+             "etex\n");
+
  
     fprintf(renderer->file,"  %% picture(%f,%f)(%f,%f)\n",
 	    extent->left * data->paper.scaling,

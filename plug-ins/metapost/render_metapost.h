@@ -58,6 +58,11 @@ struct _MetapostRenderer
   real line_width;
   real dash_length;
   real dot_length;
+
+  char *mp_font;
+  char *mp_weight;
+  char *mp_slant;
+  real mp_font_height;
 };
 
 struct _MetapostRendererClass

@@ -1,3 +1,16 @@
+2004-02-29  Lars Clausen  <lars@raeder.dk>
+
+	* plug-ins/xfig/xfig-export.c: Patch from solworth@cs.uic.edu:
+	Better arrow handling for missing arrows.
+
+	* plug-ins/metapost/render_metapost.[ch]: Patch from
+	phred@cs.berkeley.edu (Fred Reiss): Add font faces and font
+	size. See bug #135363.
+
+	* app/app_procs.c (app_init): If non-interactive, or if
+	--log-to-stderr used, send all messages to stderr.  This should
+	mean that old diaconv == dia --export-to-format=FOO BAR
+
 2004-02-29  Hubert Figuiere  <hfiguiere@teaser.fr>
 
 	* app/menus.c: Get rid of GNOME menus. Deprecated APIs in GNOME 2.
