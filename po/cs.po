@@ -6,14 +6,13 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dia 2\n"
-"POT-Creation-Date: 2002-12-05 21:05-0600\n"
-"PO-Revision-Date: 2002-11-22 16:09GMT\n"
-"Last-Translator: Michal Bukovjan <bukm@centrum.cz>\n"
+"POT-Creation-Date: 2003-01-07 04:58+0100\n"
+"PO-Revision-Date: 2003-01-07 17:44+0100\n"
+"Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 0.9.6\n"
 
 #: app/app_procs.c:160
 #, c-format
@@ -235,7 +234,7 @@ msgstr ""
 "způsobit havárie. O těchto chybách víme, takže se\n"
 "prosíme neobtěžujte hlásit, pokud k havárii dojde."
 
-#: app/defaults.c:43 app/defaults.c:139
+#: app/defaults.c:43 app/defaults.c:145
 msgid "Object defaults"
 msgstr "Výchozí atributy objektu"
 
@@ -525,9 +524,9 @@ msgstr "Zavřít diagram"
 msgid "Discard Changes"
 msgstr "Zahodit změny"
 
-#: app/export_png.c:114 app/load_save.c:746 app/render_eps.c:535
-#: plug-ins/cgm/cgm.c:1156 plug-ins/dxf/dxf-export.c:480
-#: plug-ins/hpgl/hpgl.c:731 plug-ins/metapost/render_metapost.c:733
+#: app/export_png.c:114 app/load_save.c:746 plug-ins/cgm/cgm.c:1156
+#: plug-ins/dxf/dxf-export.c:480 plug-ins/hpgl/hpgl.c:731
+#: plug-ins/metapost/render_metapost.c:733
 #: plug-ins/pstricks/render_pstricks.c:756 plug-ins/python/pydia-render.c:711
 #: plug-ins/shape/shape-export.c:134 plug-ins/svg/render_svg.c:150
 #: plug-ins/wmf/wmf.cpp:1030 plug-ins/wpg/wpg.c:1064
@@ -595,6 +594,8 @@ msgid ""
 "Some characters in the filename are neither UTF-8 nor your local encoding.\n"
 "Some things will break."
 msgstr ""
+"Některé znaky ve jméně souboru nejsou ani v UTF-8 ani ve vašem místním kódování.\n"
+"Něco se pokazí."
 
 #: app/filedlg.c:248 app/filedlg.c:452
 #, c-format
@@ -716,17 +717,17 @@ msgstr "Mnohoúhelník"
 
 #: app/interface.c:78
 msgid "Create Beziergon"
-msgstr "Vytvořit Bézierův útvar"
+msgstr "Vytvořit Beziérův útvar"
 
 #: app/interface.c:79 app/menus.c:223
 msgid "Beziergon"
-msgstr "Bézierův útvar"
+msgstr "Beziérův útvar"
 
 #: app/interface.c:83
 msgid "Create Line"
 msgstr "Vytvořit čáru"
 
-#: app/interface.c:84 app/menus.c:225 objects/standard/line.c:242
+#: app/interface.c:84 app/menus.c:225 objects/standard/line.c:246
 msgid "Line"
 msgstr "Čára"
 
@@ -756,11 +757,11 @@ msgstr "Lomená čára"
 
 #: app/interface.c:103
 msgid "Create Bezierline"
-msgstr "Vytvořit Bézierovu čáru"
+msgstr "Vytvořit Beziérovu čáru"
 
 #: app/interface.c:104 app/menus.c:229
 msgid "Bezierline"
-msgstr "Bézierova čára"
+msgstr "Beziérova čára"
 
 #: app/interface.c:108
 msgid "Create Image"
@@ -995,7 +996,6 @@ msgid "Zoom _In"
 msgstr "Zvětš_it"
 
 #: app/menus.c:130
-#, c-format
 msgid "Zoom in 50%"
 msgstr "Zvětšit o 50%"
 
@@ -1004,7 +1004,6 @@ msgid "Zoom _Out"
 msgstr "Zm_enšit"
 
 #: app/menus.c:131
-#, c-format
 msgid "Zoom out 50%"
 msgstr "Zmenšit o 50%"
 
@@ -1322,52 +1321,42 @@ msgid "/View/_Zoom"
 msgstr "/Zobrazit/_Zvětšení"
 
 #: app/menus.c:361
-#, c-format
 msgid "/View/Zoom/400%"
 msgstr "/Zobrazit/Zvětšení/400%"
 
 #: app/menus.c:362
-#, c-format
 msgid "/View/Zoom/283%"
 msgstr "/Zobrazit/Zvětšení/283%"
 
 #: app/menus.c:363
-#, c-format
 msgid "/View/Zoom/200%"
 msgstr "/Zobrazit/Zvětšení/200%"
 
 #: app/menus.c:364
-#, c-format
 msgid "/View/Zoom/141%"
 msgstr "/Zobrazit/Zvětšení/141%"
 
 #: app/menus.c:365
-#, c-format
 msgid "/View/Zoom/100%"
 msgstr "/Zobrazit/Zvětšení/100%"
 
 #: app/menus.c:367
-#, c-format
 msgid "/View/Zoom/85%"
 msgstr "/Zobrazit/Zvětšení/85%"
 
 #: app/menus.c:368
-#, c-format
 msgid "/View/Zoom/70.7%"
 msgstr "/Zobrazit/Zvětšení/70,7%"
 
 #: app/menus.c:369
-#, c-format
 msgid "/View/Zoom/50%"
 msgstr "/Zobrazit/Zvětšení/50%"
 
 #: app/menus.c:370
-#, c-format
 msgid "/View/Zoom/35.4%"
 msgstr "/Zobrazit/Zvětšení/35,4%"
 
 #: app/menus.c:371
-#, c-format
 msgid "/View/Zoom/25%"
 msgstr "/Zobrazit/Zvětšení/25%"
 
@@ -1575,7 +1564,7 @@ msgstr "/Nástroje/Mnohoúhelník"
 
 #: app/menus.c:442
 msgid "/Tools/Beziergon"
-msgstr "/Nástroje/Bézierův útvar"
+msgstr "/Nástroje/Beziérův útvar"
 
 #: app/menus.c:443 app/menus.c:449
 msgid "/Tools/---"
@@ -1599,7 +1588,7 @@ msgstr "/Nástroje/Lomená čára"
 
 #: app/menus.c:448
 msgid "/Tools/Bezierline"
-msgstr "/Nástroje/Bézierova čára"
+msgstr "/Nástroje/Beziérova čára"
 
 #: app/menus.c:450
 msgid "/Tools/Image"
@@ -1873,11 +1862,11 @@ msgstr "<Toolbox>/Soubor/Konec"
 msgid "Can't open history file for writing."
 msgstr "Nelze otevřít soubor s historií pro zápis."
 
-#: app/render_eps.c:975
+#: app/render_eps.c:114
 msgid "Encapsulated Postscript"
 msgstr "Zapouzdřený PostScript"
 
-#: app/render_libart.c:320 lib/dialibartrenderer.c:266
+#: app/render_libart.c:320 lib/dialibartrenderer.c:269
 msgid "gdk_renderer: Unsupported fill mode specified!\n"
 msgstr "gdk_renderer: Byl zadán nepodporovaný typ výplně!\n"
 
@@ -1995,7 +1984,7 @@ msgstr "Objekt"
 msgid "Description:"
 msgstr "Popis:"
 
-#: app/sheets_dialog.c:617 objects/FS/flow-ortho.c:166 objects/FS/flow.c:144
+#: app/sheets_dialog.c:617 objects/FS/flow.c:144 objects/FS/flow-ortho.c:166
 #: objects/UML/class_dialog.c:877 objects/UML/class_dialog.c:1804
 #: objects/UML/class_dialog.c:2034 objects/UML/class_dialog.c:2548
 msgid "Type:"
@@ -2125,7 +2114,7 @@ msgstr "přidejte tvary zde"
 msgid "Loading ..."
 msgstr "Načítá se ..."
 
-#: app/splash.c:75
+#: app/splash.c:76
 #, c-format
 msgid "Dia v %s"
 msgstr "Dia v %s"
@@ -2136,8 +2125,11 @@ msgstr "Editor diagramů"
 
 #: lib/bezier_conn.c:528
 msgid "Internal error: Setting corner type of endpoint of bezier"
-msgstr ""
-"Interní chyba: Nastavení rohového typu koncového bodu u Bézierovy křivky"
+msgstr "Interní chyba: Nastavení rohového typu koncového bodu u Beziérovy křivky"
+
+#: lib/dialibartrenderer.c:1117
+msgid "This Dia version is compiled without libart/text support."
+msgstr "Tato verze Dia je zkompilována bez podpory libart/text."
 
 #: lib/dia_xml.c:147
 #, c-format
@@ -2167,7 +2159,7 @@ msgstr "Chyba při zpracování bodu."
 msgid "Incorrect y Point value \"%s\" %f; discarding it."
 msgstr "Nesprávná hodnota bodu y \"%s\" %f; ignoruje se."
 
-#: lib/dia_xml.c:880
+#: lib/dia_xml.c:856
 msgid ""
 "Your local character set is UTF-8. Because of issues with libxml1 and the "
 "support of files generated by previous versions of dia, you will encounter  "
@@ -2178,59 +2170,53 @@ msgstr ""
 "programu Dia se můžete setkat s problémy. Nahlaste tyto problémy na adresu "
 "dia-list@gnome.org, pokud vidíte tuto zprávu."
 
-#: lib/font.c:81
+#: lib/font.c:93
 #, c-format
 msgid "Can't load font %s.\n"
-msgstr ""
+msgstr "Nelze načíst písmo %s.\n"
 
 #. This is the default text shown in the preview entry, though the user
 #. can set it. Remember that some fonts only have capital letters.
-#: lib/diagtkfontsel.c:72
+#: lib/diagtkfontsel.c:74
 msgid "abcdefghijk ABCDEFGHIJK"
-msgstr ""
+msgstr "příliš žluťoučký PŘÍLIŠ ŽLUŤOUČKÝ"
 
-#: lib/diagtkfontsel.c:207
-#, fuzzy
+#: lib/diagtkfontsel.c:209
 msgid "Font name"
-msgstr "Název kroku"
+msgstr "Název písma"
 
-#: lib/diagtkfontsel.c:208
+#: lib/diagtkfontsel.c:210
 msgid "The X string that represents this font."
-msgstr ""
+msgstr "Řetězec X, který reprezentuje toto písmo."
 
-#: lib/diagtkfontsel.c:214
-#, fuzzy
+#: lib/diagtkfontsel.c:216
 msgid "Preview text"
-msgstr "Zamezit"
+msgstr "Text náhledu"
 
-#: lib/diagtkfontsel.c:215
+#: lib/diagtkfontsel.c:217
 msgid "The text to display in order to demonstrate the selected font."
-msgstr ""
+msgstr "Text, který zobrazit pro ukázání vybraného písma."
 
-#: lib/diagtkfontsel.c:319
+#: lib/diagtkfontsel.c:321
 msgid "_Family:"
-msgstr ""
+msgstr "_Řez:"
 
-#: lib/diagtkfontsel.c:325
-#, fuzzy
+#: lib/diagtkfontsel.c:327
 msgid "_Style:"
-msgstr "Škála:"
+msgstr "_Styl:"
 
-#: lib/diagtkfontsel.c:331
-#, fuzzy
+#: lib/diagtkfontsel.c:333
 msgid "Si_ze:"
-msgstr "Velikost"
+msgstr "_Velikost:"
 
 #. create the text entry widget
-#: lib/diagtkfontsel.c:460
-#, fuzzy
+#: lib/diagtkfontsel.c:462
 msgid "_Preview:"
-msgstr "Zamezit"
+msgstr "_Náhled:"
 
-#: lib/diagtkfontsel.c:1250
-#, fuzzy
+#: lib/diagtkfontsel.c:1252
 msgid "Font Selection"
-msgstr "Proudění"
+msgstr "Výběr písma"
 
 #: lib/message.c:86
 msgid "There is one similar message."
@@ -2339,21 +2325,23 @@ msgstr "Koncová šipka"
 msgid "Text alignment"
 msgstr "Zarovnání textu"
 
-#: lib/properties.c:79 lib/properties.h:504 objects/GRAFCET/condition.c:131
-#: objects/GRAFCET/step.c:162 objects/GRAFCET/transition.c:141
-#: objects/UML/class_dialog.c:327 objects/chronogram/chronoline.c:182
-#: objects/chronogram/chronoref.c:163
+#: lib/properties.c:79 lib/properties.h:504
+#: objects/chronogram/chronoline.c:182 objects/chronogram/chronoref.c:163
+#: objects/GRAFCET/condition.c:131 objects/GRAFCET/step.c:162
+#: objects/GRAFCET/transition.c:141 objects/UML/class_dialog.c:327
 msgid "Font"
 msgstr "Písmo"
 
-#: lib/properties.c:80 lib/properties.h:507 objects/GRAFCET/condition.c:133
-#: objects/GRAFCET/step.c:164 objects/GRAFCET/transition.c:143
+#: lib/properties.c:80 lib/properties.h:507
 #: objects/chronogram/chronoline.c:184 objects/chronogram/chronoref.c:165
+#: objects/GRAFCET/condition.c:133 objects/GRAFCET/step.c:164
+#: objects/GRAFCET/transition.c:143
 msgid "Font size"
 msgstr "Velikost písma"
 
-#: lib/properties.c:81 lib/properties.h:510 objects/GRAFCET/step.c:166
+#: lib/properties.c:81 lib/properties.h:510
 #: objects/chronogram/chronoline.c:186 objects/chronogram/chronoref.c:167
+#: objects/GRAFCET/step.c:166
 msgid "Text colour"
 msgstr "Barva textu"
 
@@ -2663,17 +2651,17 @@ msgstr "Celkem:"
 
 #: objects/ER/participation.c:395 objects/FS/flow-ortho.c:633
 #: objects/GRAFCET/vector.c:302 objects/SADT/arrow.c:552
-#: objects/UML/association.c:686 objects/UML/dependency.c:351
-#: objects/UML/generalization.c:347 objects/UML/realizes.c:340
-#: objects/standard/zigzagline.c:495
+#: objects/standard/zigzagline.c:495 objects/UML/association.c:686
+#: objects/UML/dependency.c:351 objects/UML/generalization.c:347
+#: objects/UML/realizes.c:340
 msgid "Add segment"
 msgstr "Přidat segment"
 
 #: objects/ER/participation.c:396 objects/FS/flow-ortho.c:634
 #: objects/GRAFCET/vector.c:303 objects/SADT/arrow.c:553
-#: objects/UML/association.c:687 objects/UML/dependency.c:352
-#: objects/UML/generalization.c:348 objects/UML/realizes.c:341
-#: objects/standard/zigzagline.c:496
+#: objects/standard/zigzagline.c:496 objects/UML/association.c:687
+#: objects/UML/dependency.c:352 objects/UML/generalization.c:348
+#: objects/UML/realizes.c:341
 msgid "Delete segment"
 msgstr "Odstranit segment"
 
@@ -2701,9 +2689,9 @@ msgstr "Vztah"
 msgid "Corner radius"
 msgstr "Poloměr rohu"
 
-#: objects/SADT/box.c:136 objects/flowchart/box.c:149
-#: objects/flowchart/diamond.c:147 objects/flowchart/ellipse.c:146
-#: objects/flowchart/parallelogram.c:151
+#: objects/flowchart/box.c:149 objects/flowchart/diamond.c:147
+#: objects/flowchart/ellipse.c:146 objects/flowchart/parallelogram.c:151
+#: objects/SADT/box.c:136
 msgid "Text padding"
 msgstr "Výplň textu"
 
@@ -2716,20 +2704,20 @@ msgid "Shear angle"
 msgstr "Úhel střihu"
 
 #. Translators: Menu item Noun/Energy
-#: objects/FS/flow-ortho.c:157 objects/FS/flow-ortho.c:630
-#: objects/FS/flow.c:135 objects/FS/flow.c:568 objects/FS/function.c:1061
+#: objects/FS/flow.c:135 objects/FS/flow.c:568 objects/FS/flow-ortho.c:157
+#: objects/FS/flow-ortho.c:630 objects/FS/function.c:1061
 msgid "Energy"
 msgstr "Energie"
 
 #. Translators: Menu item Noun/Material
-#: objects/FS/flow-ortho.c:158 objects/FS/flow-ortho.c:631
-#: objects/FS/flow.c:136 objects/FS/flow.c:569 objects/FS/function.c:1037
+#: objects/FS/flow.c:136 objects/FS/flow.c:569 objects/FS/flow-ortho.c:158
+#: objects/FS/flow-ortho.c:631 objects/FS/function.c:1037
 msgid "Material"
 msgstr "Materiál"
 
 #. Translators: Menu item Verb/Signal
-#: objects/FS/flow-ortho.c:159 objects/FS/flow-ortho.c:632
-#: objects/FS/flow.c:137 objects/FS/flow.c:570 objects/FS/function.c:999
+#: objects/FS/flow.c:137 objects/FS/flow.c:570 objects/FS/flow-ortho.c:159
+#: objects/FS/flow-ortho.c:632 objects/FS/function.c:999
 #: objects/FS/function.c:1001 objects/FS/function.c:1137
 #: objects/FS/function.c:1139
 msgid "Signal"
@@ -3851,7 +3839,7 @@ msgid "Vergent type:"
 msgstr "Typ krajnice:"
 
 #: objects/GRAFCET/vergent.c:390 objects/SADT/box.c:439
-#: objects/standard/line.c:236
+#: objects/standard/line.c:240
 msgid "Add connection point"
 msgstr "Přidat bod připojení"
 
@@ -3948,7 +3936,7 @@ msgstr "Identifikátor Aktivity / Dat"
 msgid "The identifier which appears in the lower right corner of the Box"
 msgstr "Identifikátor objevující se v pravém dolním rohu zařízení"
 
-#: objects/SADT/box.c:440 objects/standard/line.c:237
+#: objects/SADT/box.c:440 objects/standard/line.c:241
 msgid "Delete connection point"
 msgstr "Odstranit přípojný bod"
 
@@ -4013,9 +4001,8 @@ msgid "The image file '%s' was not found.\n"
 msgstr "Soubor s obrázkem '%s' nebyl nalezen.\n"
 
 #: objects/standard/line.c:135
-#, fuzzy
 msgid "Arrows"
-msgstr "Šipka nahoru"
+msgstr "Šipky"
 
 #: objects/standard/line.c:140
 msgid "Start point"
@@ -4024,36 +4011,6 @@ msgstr "Počáteční bod"
 #: objects/standard/line.c:142
 msgid "End point"
 msgstr "Koncový bod"
-
-#: objects/standard/line.c:143
-#, fuzzy
-msgid "Line gaps"
-msgstr "Čáry"
-
-#: objects/standard/line.c:145
-msgid "Absolute start gap"
-msgstr ""
-
-#: objects/standard/line.c:147
-msgid "Absolute end gap"
-msgstr ""
-
-#: objects/standard/line.c:149
-msgid "Fractional start gap"
-msgstr ""
-
-#: objects/standard/line.c:151
-msgid "Fractional end gap"
-msgstr ""
-
-#: objects/standard/line.c:153
-#, fuzzy
-msgid "Start at object edge"
-msgstr "Standardní objekty"
-
-#: objects/standard/line.c:155
-msgid "End at object edge"
-msgstr ""
 
 #: objects/standard/polygon.c:452 objects/standard/polyline.c:488
 msgid "Add Corner"
@@ -4863,9 +4820,7 @@ msgstr "Do:"
 msgid ""
 "An Assorted Collection of Polygons, Beziergons and other Miscellaneous "
 "Geometric Shapes"
-msgstr ""
-"Vybraná sbírka mnohoúhelníků, Bézierových útvarů a jiných dalších "
-"geometrických tvarů"
+msgstr "Vybraná sbírka mnohoúhelníků, Beziérových útvarů a jiných dalších geometrických tvarů"
 
 #: sheets/Assorted.sheet.in.h:2
 msgid "Assorted"
@@ -5357,7 +5312,7 @@ msgstr "Běžně uzavřený kontakt"
 
 #: sheets/Electric.sheet.in.h:4
 msgid "A normally closed position switch"
-msgstr "Bežně uzavřený poziční přepínač"
+msgstr "Běžně uzavřený poziční přepínač"
 
 #: sheets/Electric.sheet.in.h:5
 msgid "A normally open contact"
