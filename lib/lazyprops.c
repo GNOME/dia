@@ -42,7 +42,7 @@ __propdlg_build_enum(GtkWidget *dialog,
   
   group = NULL; 
   while (p->desc) { 
-    button = gtk_radio_button_new_with_label(group,p->desc); 
+    button = gtk_radio_button_new_with_label(group, _(p->desc)); 
     gtk_box_pack_start(GTK_BOX(vbox),button,TRUE,TRUE,0); 
     gtk_widget_show(button); 
     p->button = GTK_TOGGLE_BUTTON(button); 
