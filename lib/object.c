@@ -71,12 +71,14 @@ object_copy(Object *from, Object *to)
   to->bounding_box = from->bounding_box;
   
   to->num_handles = from->num_handles;
+  if (to->handles != NULL) g_free(to->handles);
   if (to->num_handles>0)
     to->handles = g_malloc(sizeof(Handle *)*to->num_handles);
   else
     to->handles = NULL;
 
   to->num_connections = from->num_connections;
+  if (to->connections != NULL) g_free(to->connections);
   if (to->num_connections>0)
     to->connections = g_malloc(sizeof(ConnectionPoint *) * to->num_connections);
   else

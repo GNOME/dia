@@ -310,32 +310,56 @@ polyconn_simple_draw(PolyConn *poly, Renderer *renderer, real width)
 
 
 void
-polyconn_init(PolyConn *poly)
+polyconn_init(PolyConn *poly, int num_points)
 {
   Object *obj;
+  int i;
 
   obj = &poly->object;
 
-  object_init(obj, 2, 0);
+  object_init(obj, num_points, 0);
   
-  poly->numpoints = 2;
+  poly->numpoints = num_points;
 
-  poly->points = g_malloc(2*sizeof(Point));
+  poly->points = g_malloc(num_points*sizeof(Point));
 
-  poly->object.handles[0] = g_malloc(sizeof(Handle));
-  poly->object.handles[1] = g_malloc(sizeof(Handle));
+  obj->handles[0] = g_malloc(sizeof(Handle));
 
   obj->handles[0]->connect_type = HANDLE_CONNECTABLE;
   obj->handles[0]->connected_to = NULL;
   obj->handles[0]->type = HANDLE_MAJOR_CONTROL;
   obj->handles[0]->id = HANDLE_MOVE_STARTPOINT;
   
-  obj->handles[1]->connect_type = HANDLE_CONNECTABLE;
-  obj->handles[1]->connected_to = NULL;
-  obj->handles[1]->type = HANDLE_MAJOR_CONTROL;
-  obj->handles[1]->id = HANDLE_MOVE_ENDPOINT;
+  for (i=1;i<num_points-1;i++) {
+    obj->handles[i] = g_malloc(sizeof(Handle));
+    setup_corner_handle(obj->handles[i]);
+  }
+
+  obj->handles[num_points-1] = g_malloc(sizeof(Handle));
+  obj->handles[num_points-1]->connect_type = HANDLE_CONNECTABLE;
+  obj->handles[num_points-1]->connected_to = NULL;
+  obj->handles[num_points-1]->type = HANDLE_MAJOR_CONTROL;
+  obj->handles[num_points-1]->id = HANDLE_MOVE_ENDPOINT;
 
   polyconn_update_data(poly);
+}
+
+/** This function does *not* set up handles */
+void
+polyconn_set_points(PolyConn *poly, int num_points, Point *points) 
+{
+  int i;
+
+  poly->numpoints = num_points;
+
+  if (poly->points)
+    g_free(poly->points);
+
+  poly->points = g_malloc((poly->numpoints)*sizeof(Point));
+
+  for (i=0;i<poly->numpoints;i++) {
+    poly->points[i] = points[i];
+  }
 }
 
 void
@@ -349,23 +373,19 @@ polyconn_copy(PolyConn *from, PolyConn *to)
 
   object_copy(fromobj, toobj);
 
-  to->numpoints = from->numpoints;
-
-  to->points = g_malloc((to->numpoints)*sizeof(Point));
-
-  for (i=0;i<to->numpoints;i++) {
-    to->points[i] = from->points[i];
-  }
-
-  to->object.handles[0] = g_new(Handle,1);
+  to->object.handles[to->numpoints-1] = g_new(Handle,1);
   *to->object.handles[0] = *from->object.handles[0];
+
   for (i=1;i<to->numpoints-1;i++) {
     to->object.handles[i] = g_malloc(sizeof(Handle));
     setup_corner_handle(to->object.handles[i]);
   }
+
   to->object.handles[to->numpoints-1] = g_new(Handle,1);
   *to->object.handles[to->numpoints-1] = *from->object.handles[to->numpoints-1];
 
+  polyconn_set_points(to, from->numpoints, from->points);
+  
   memcpy(&to->extra_spacing,&from->extra_spacing,sizeof(to->extra_spacing));
   polyconn_update_data(to);
 }

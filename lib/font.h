@@ -84,6 +84,7 @@ struct _FreetypeString {
   real height;
   gint num_glyphs;
   FT_Glyph *glyphs;
+  gchar *text;
   real width;
   /* Something that stores a rendering */
 };
@@ -100,11 +101,11 @@ GdkFont *font_get_gdkfont(DiaFont *font, int height);
 SuckFont *font_get_suckfont(DiaFont *font, int height);
 char *font_get_psfontname(DiaFont *font);
 #ifdef HAVE_FREETYPE
+FT_Face font_get_freetypefont(DiaFont *font, real height);
 gboolean freetype_file_is_fontfile(char *filename);
 void freetype_add_font(char *dirname, char *filename);
 void freetype_scan_directory(char *dirname);
 void font_init_freetype();
-FreetypeFamily *font_get_freetypefont(DiaFont *font, int height);
 char *font_get_freetypefontname(DiaFont *font);
 #endif
 real font_string_width(const char *string, DiaFont *font, real height);

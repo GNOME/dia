@@ -404,7 +404,11 @@ set_font(RendererGdk *renderer, DiaFont *font, real height)
   renderer->font_height =
     ddisplay_transform_length(renderer->ddisp, height);
 
+#ifdef HAVE_FREETYPE
+  renderer->freetype_font = font_get_freetypefont(font, renderer->font_height);
+#else
   renderer->gdk_font = font_get_gdkfont(font, renderer->font_height);
+#endif
 }
 
 static void
@@ -898,6 +902,33 @@ draw_string(RendererGdk *renderer,
 	    Point *pos, Alignment alignment,
 	    Color *color)
 {
+#ifdef HAVE_FREETYPE
+  DDisplay *ddisp = renderer->ddisp;
+  GdkGC *gc = renderer->render_gc;
+  GdkColor gdkcolor;
+  int x,y;
+  int iwidth;
+  FreetypeString *fts;
+
+  ddisplay_transform_coords(ddisp, pos->x, pos->y,
+			    &x, &y);
+  
+  fts = freetype_load_string(text, renderer->freetype_font, strlen(text));
+
+  switch (alignment) {
+  case ALIGN_LEFT:
+    break;
+  case ALIGN_CENTER:
+    x -= fts->width/2;
+    break;
+  case ALIGN_RIGHT:
+    x -= fts->width;
+    break;
+  }
+  
+  /* Remember to add color */
+  freetype_render_string(renderer->pixmap, fts, gc, x, y);
+#else
   DDisplay *ddisp = renderer->ddisp;
   GdkGC *gc = renderer->render_gc;
   GdkColor gdkcolor;
@@ -926,6 +957,7 @@ draw_string(RendererGdk *renderer,
   gdk_draw_string(renderer->pixmap,
 		  renderer->gdk_font, gc,
 		  x,y, text);
+#endif
 }
 
 static void
@@ -950,8 +982,11 @@ get_text_width(RendererGdk *renderer,
 	       const char *text, int length)
 {
   int iwidth;
-  
+#ifdef HAVE_FREETYPE
+  iwidth = freetype_load_string(text, renderer->freetype_font, length);
+#else
   iwidth = gdk_text_width(renderer->gdk_font, text, length);
+#endif
 
   return ddisplay_untransform_length(renderer->ddisp, (real) iwidth);
 }

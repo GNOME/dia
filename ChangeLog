@@ -1,3 +1,23 @@
+2001-08-10  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+
+	* app/render_gdk.c: 
+	* app/render_gdk.h: 
+	* lib/font.c:
+	* lib/font.h:
+	* lib/widgets.c:
+	More preliminary freetype support.  Not at all functional, crashes
+	when rendering.
+
+	* lib/poly_conn.h: 
+	* lib/poly_conn.c: 
+	* objects/standard/polyline.c: 
+	Support for creating polyline objects with more than two points.
+	This includes an extra function and a prototype change in the
+	poly_conn lib object.
+
+	* lib/object.c (object_copy): Fixed memory leak of handles and
+	connections.
+
 2001-08-08  Abel Cheung  <maddog@linux.org.hk>
 
 	* dia.desktop: added traditional Chinese strings
@@ -56,6 +76,10 @@
 	too much).
 
 	* objects/custom/custom_object.c: used the above to fix #55073.
+
+2001-08-01  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* configure.in: Remove 2.50 prereq.
 
 2001-07-30  Cyrille Chepelov  <chepelov@calixo.net>
 

@@ -78,7 +78,7 @@ struct _FontCacheItem {
   GdkFont *gdk_font;
   SuckFont *suck_font;
 #ifdef HAVE_FREETYPE
-  FreetypeFamily *freetype_font;
+  FT_Face freetype_font;
 #endif
 };
 
@@ -88,12 +88,18 @@ struct _FontPrivate {
   char **fontname_x11_vec;
   char *fontname_ps;
 #ifdef HAVE_FREETYPE
-  FT_Face *fontcase_freetype;
+  FT_Face fontface_freetype;
 #endif
   FontCacheItem *cache[FONTCACHE_SIZE];
   real ascent_ratio, descent_ratio;
 };
 
+typedef struct _DiaFontFamily DiaFontFamily;
+
+struct _DiaFontFamily {
+  FreetypeFamily *freetype_family;
+  GList *diafonts;
+};
 
 typedef struct _FontData {
   char *fontname;
@@ -379,7 +385,7 @@ init_x11_font(FontPrivate *font)
   char *buffer;
   char *x11_font;
   real height;
-
+  
   fprintf(stderr, "init_x11_font\n");
   for (i=0;i<NUM_X11_FONTS;i++) {
     x11_font = font->fontname_x11_vec[i];
@@ -532,33 +538,255 @@ font_init_freetype()
   }
 }
 
-void
-dia_add_freetype_font(char *key, FreetypeFamily *ft_font, gpointer user_data) {
+static void
+dia_add_freetype_font(char *key, gpointer value, gpointer user_data) {
   FontPrivate *font;
+  FreetypeFamily *ft_font = (FreetypeFamily *)value;
+  DiaFontFamily *diafonts;
   int j;
+  GList *facelist;
 
+  if (g_list_length(ft_font->faces) < 1) {
+    fprintf(stderr, "Warning!  Font with no faces: %s\n", key);
+    return;
+  }
   fprintf(stderr, "Adding font %s with %d faces\n", key, g_list_length(ft_font->faces));
-  font = g_new(FontPrivate, 1);
-  font->public.name = key;
-  font->fontname_freetype = key;
-  /*
-  if (font->ascender > 0 || font->descender > 0) {
-    font->ascent_ratio = font->ascender/(font->ascender+font->descender);
-    font->descent_ratio = font->descender/(font->ascender+font->descender);
-  }
-  */
-  /* XXX: This is bogys */
-  font->fontname_ps = key;
 
-  for (j=0;j<FONTCACHE_SIZE;j++) {
-    font->cache[j] = NULL;
+  diafonts = g_new(DiaFontFamily, 1);
+  diafonts->freetype_family = ft_font;
+  diafonts->diafonts = NULL;
+
+  for (facelist = ft_font->faces; facelist != NULL; facelist = g_list_next(facelist)) {
+    FT_Face face = ((FreetypeFace *)facelist->data)->face;
+
+    font = g_new(FontPrivate, 1);
+    font->fontface_freetype = face;
+    font->public.name = face->family_name;
+    font->public.style = face->style_name;
+
+    if (face->ascender > 0 || face->descender > 0) {
+      font->ascent_ratio = face->ascender/(face->ascender+face->descender);
+      font->descent_ratio = face->descender/(face->ascender+face->descender);
+    }
+
+    for (j=0;j<FONTCACHE_SIZE;j++) {
+      font->cache[j] = NULL;
+    }
+
+    diafonts->diafonts = g_list_append(diafonts->diafonts, font);
   }
 
-  fonts = g_list_append(fonts, font);
-  font_names = g_list_append(font_names, font->public.name);
-  g_hash_table_insert(fonts_hash, font->public.name, font);
+  fonts = g_list_append(fonts, diafonts);
+  font_names = g_list_append(font_names, key);
+  g_hash_table_insert(fonts_hash, key, diafonts);
 }
 
+FreetypeFace *
+get_freetype_font(const char *fontname, const char *fontstyle)
+{
+  FreetypeFamily *ft_font;
+  GList *face;
+  FreetypeFace *ft_face;
+
+  ft_font = (FreetypeFamily*)g_hash_table_lookup(freetype_fonts, fontname);
+  if (fontstyle == NULL) fontstyle = "Regular";
+  for (face = ft_font->faces; face != NULL; face = g_list_next(face)) {
+    ft_face = (FreetypeFace*)face->data;
+    if (!strcmp(ft_face->face->style_name, fontstyle))
+      break;
+  }
+  if (face == NULL) {
+    if (strcmp(fontstyle, "Regular")) {
+      message_warning("%s does not come in %s style, trying Regular",
+		      fontname, fontstyle);
+      return get_freetype_font(fontname, "Regular");
+    }
+    message_warning("Can't find Regular style for %s",
+		    fontname);
+    return NULL;
+  }
+  return ft_face;
+}
+
+FT_Face
+font_get_freetypefont(DiaFont *font, real height)
+{
+  gint error;
+  FT_Face face = ((FontPrivate *)font)->fontface_freetype;
+
+  fprintf(stderr, "font_get_freetypefont: %s, %f\n", font->name, height);
+  error = FT_Set_Char_Size(face,
+			   0,      
+			   (int)(height*72*64/2.54),
+			   0,
+			   0 );
+  if (error) {
+    message_warning("Can't set %s to size %f\n", face->family_name, height);
+    return NULL;
+  }
+
+  return face;
+}
+
+/* Create a glyphed string from scratch */
+FreetypeString *
+freetype_load_string(const char *string, FT_Face face, int len)
+{
+  int i;
+  real width = 0.0;
+  gboolean use_kerning = FALSE;
+  gint glyph_index, previous_index = 0, num_glyphs = 0;
+  gint error;
+  FreetypeString *fts;
+
+  fprintf(stderr, "freetype_load_string %s len %d\n", string, len);
+
+  fts = (FreetypeString*)g_malloc(sizeof(FreetypeString));
+  fts->num_glyphs = len;
+  fts->text = strdup(string);
+  //  fts->glyphs = (FT_Glyph*)g_malloc(sizeof(FT_Glyph*)*len);
+  fts->face = face;
+  fts->width = 0.0;
+
+  for (i = 0; i < len; i++) {
+    fprintf(stderr, "Glyph #%d: %c\n", i, string[i]);
+    // convert character code to glyph index
+    glyph_index = FT_Get_Char_Index( face, string[i] );
+                              
+    // retrieve kerning distance and move pen position
+    if ( use_kerning && previous_index && glyph_index )
+    {
+      FT_Vector  delta;
+                                
+      FT_Get_Kerning( face, previous_index, glyph_index,
+		      ft_kerning_default, &delta );
+                                                
+      width += delta.x >> 6;
+    }
+                            
+    // store current pen position
+    // Why?
+    /*
+      pos[ num_glyphs ].x = pen_x;
+      pos[ num_glyphs ].y = pen_y;
+    */                      
+    
+    // load glyph image into the slot. DO NOT RENDER IT !!
+    error = FT_Load_Glyph( face, glyph_index, FT_LOAD_DEFAULT );
+    if (error) {
+      fprintf(stderr, "Couldn't load glyph #%d: %d\n", i, error);
+      continue;
+    }
+                              
+    // extract glyph image and store it in our table
+    //    error = FT_Get_Glyph( face->glyph, & fts->glyphs[num_glyphs] );
+    //    if (error) continue;  // ignore errors, jump to next glyph
+                              
+    // increment pen position
+    width += face->glyph->advance.x >> 6;
+                              
+    // record current glyph index
+    previous_index = glyph_index;
+                              
+    // increment number of glyphs
+    num_glyphs++;
+  }
+  fts->width = width*2.54/72.0;
+  fprintf(stderr, "Width of %s is %f\n", string, fts->width);
+  return fts;
+}
+
+void
+freetype_free_string(FreetypeString *fts) 
+{
+  if (!fts) return;
+  if (fts->text) g_free(fts->text);
+  g_free(fts);
+}
+
+void
+freetype_copy_glyph_bitmap(GdkPixmap *pixmap, GdkGC *gc,
+			   FT_GlyphSlot glyph, int pen_x, int pen_y)
+{
+  FT_Bitmap *bitmap = &glyph->bitmap;
+  guchar *buffer = bitmap->buffer;
+  int rowstride = bitmap->pitch;
+
+  fprintf(stderr, "freetype_copy_glyph_bitmap: pen_x %d, wxh = %dx%d, rowstride = %d, pixelmode = %d\n", pen_x, bitmap->width, bitmap->rows, rowstride, bitmap->pixel_mode);
+  
+  if (rowstride < 0) { // Cartesian bitmap
+    buffer = buffer+rowstride*(bitmap->rows-1);
+  }
+
+  gdk_draw_gray_image(pixmap, gc, pen_x, pen_y,
+		      bitmap->width, bitmap->rows,
+		      GDK_RGB_DITHER_NONE,
+		      bitmap->buffer, rowstride);
+}
+
+void
+freetype_render_string(GdkPixmap *pixmap, FreetypeString *fts,
+		       GdkGC *gc, int x, int y)
+{
+  gchar *string;
+  int i, len;
+  int previous_index = 0;
+  int use_kerning = FALSE;
+  int pen_x = 0, pen_y = 0;
+  FT_Face face = fts->face;
+
+  fprintf(stderr, "freetype_render_string\n");
+  string = fts->text;
+  len = strlen(string);
+  for (i = 0; i < len; i++) {
+    // convert character code to glyph index
+    int glyph_index = FT_Get_Char_Index( face, string[i] );
+    int error;
+
+    fprintf(stderr, "Rendering for %c\n", string[i]);
+
+    if (glyph_index == -1) {
+      fprintf(stderr, "FT_Get_Char_Index: Couldn't find glyph\n");
+      continue;
+    }
+                              
+    // retrieve kerning distance and move pen position
+    if ( use_kerning && previous_index && glyph_index )
+    {
+      FT_Vector  delta;
+                                
+      error = FT_Get_Kerning( face, previous_index, glyph_index,
+			      ft_kerning_default, &delta );
+      if (error) {
+	fprintf(stderr, "FT_Get_Kerning error %d\n", error);
+      }                                                
+    }
+                            
+    // store current pen position
+    // Why?
+    /*
+      pos[ num_glyphs ].x = pen_x;
+      pos[ num_glyphs ].y = pen_y;
+    */                      
+    
+    // load glyph image into the slot. DO NOT RENDER IT !!
+    error = FT_Load_Glyph( face, glyph_index, FT_LOAD_NO_BITMAP );
+    if (error) continue;  // ignore errors, jump to next glyph
+
+    error = FT_Render_Glyph( face, ft_render_mode_normal );
+    if (error) continue;  // ignore errors, jump to next glyph
+
+    fprintf(stderr, "Copy bitmap\n");
+    // now, draw to our target surface
+    freetype_copy_glyph_bitmap( pixmap, gc, &face->glyph,
+				pen_x + face->glyph->bitmap_left,
+				pen_y - face->glyph->bitmap_top );
+                         
+    // increment pen position 
+    pen_x += face->glyph->advance.x >> 6;
+    pen_y += face->glyph->advance.y >> 6;   // unuseful for now..
+  }
+}
 #endif
 
 void
@@ -594,26 +822,36 @@ font_init(void)
 }
 
 #ifdef HAVE_FREETYPE
-DiaFont
-font_getfont_with_style(const char *name, const char*style)
+DiaFont *
+font_getfont_with_style(const char *name, const char *style)
 {
-  FontPrivate *font;
+  DiaFontFamily *fonts;
+  GList *faces;
 
-  fprintf(stderr, "font_getfont %s\n", name);
+  fprintf(stderr, "font_getfont_with_style %s %s\n", name, style);
   g_assert(name!=NULL);
-  font = (FontPrivate *)g_hash_table_lookup(fonts_hash, (char *)name);
+  fonts = (DiaFontFamily *)g_hash_table_lookup(fonts_hash, name);
 
-  if (font == NULL) {
-    font = g_hash_table_lookup(fonts_hash, "Courier");
-    if (font == NULL) {
-      
-      message_error("Error, couldn't locate font. Shouldn't happend.\n");
+  if (fonts == NULL) {
+    fonts = g_hash_table_lookup(fonts_hash, "Courier");
+    if (fonts == NULL) {
+      fprintf(stderr, "Error, couldn't locate font. Shouldn't happen.\n");
+      message_error(_("Error, couldn't locate font. Shouldn't happen.\n"));
     } else {
+      fprintf(stderr, _("Font %s not found, using Courier instead.\n"), name);
       message_notice(_("Font %s not found, using Courier instead.\n"), name);
     }
   }
  
-  return (DiaFont *)font;
+  for (faces = fonts->diafonts; faces != NULL; faces = g_list_next(faces)) {
+    if (!strcmp(((DiaFont *)faces->data)->style, style)) {
+      return (DiaFont *)faces->data;
+    }
+  }
+
+  message_notice(_("Font %s has no style %s, using %s\n"),
+		 ((DiaFont *)fonts->diafonts->data)->style);
+  return (DiaFont *)fonts->diafonts->data;
 }
 #endif
 
@@ -621,7 +859,7 @@ DiaFont *
 font_getfont(const char *name)
 {
 #ifdef HAVE_FREETYPE
-  font_getfont_with_style(name, "Regular");
+  return font_getfont_with_style(name, "Regular");
 #else
   FontPrivate *font;
 
@@ -692,7 +930,6 @@ font_get_gdkfont_helper(FontPrivate *font, int height)
   return gdk_font;
 }
 
-
 GdkFont *
 font_get_gdkfont(DiaFont *font, int height)
 {
@@ -755,127 +992,23 @@ font_get_psfontname(DiaFont *font)
   return fontprivate->fontname_ps;
 }
 
-#ifdef HAVE_FREETYPE
-FreetypeFace *
-get_freetype_font(const char *fontname, const char *fontstyle)
-{
-  FreetypeFamily *ft_font;
-  GList *face;
-  FreetypeFace *ft_face;
-
-  ft_font = (FreetypeFamily*)g_hash_table_lookup(freetype_fonts, fontname);
-  if (fontstyle == NULL) fontstyle = "Regular";
-  for (face = ft_font->faces; face != NULL; face = g_list_next(face)) {
-    ft_face = (FreetypeFace*)face->data;
-    if (!strcmp(ft_face->face->style_name, fontstyle))
-      break;
-  }
-  if (face == NULL) {
-    if (strcmp(fontstyle, "Regular")) {
-      message_warning("%s does not come in %s style, trying Regular",
-		      fontname, fontstyle);
-      return get_freetype_font(fontname, "Regular");
-    }
-    message_warning("Can't find Regular style for %s",
-		    fontname);
-    return NULL;
-  }
-  return ft_face;
-}
-
-/* Create a glyphed string from scratch */
-FreetypeString *
-freetype_load_string(const char *string, FreetypeFace *ft_face, real height)
-{
-  int i;
-  int len = strlen(string);
-  real width = 0.0;
-  gboolean use_kerning = FALSE;
-  gint glyph_index, previous_index = 0, num_glyphs = 0;
-  gint error;
-  FreetypeString *fts;
-
-  fprintf(stderr, "freetype_load_string %s height %f\n", string, height);
-
-  fts = (FreetypeString*)g_malloc(sizeof(FreetypeString));
-  fts->height = height;
-  fts->num_glyphs = len;
-  fts->glyphs = (FT_Glyph*)g_malloc(sizeof(FT_Glyph*)*len);
-  fts->face = ft_face->face;
-  fts->width = 0.0;
-
-  error = FT_Set_Char_Size(ft_face->face,
-			   0,      
-			   (int)(height*72*64/2.54),
-			   0,
-			   0 );
-  if (error) {
-    message_warning("Can't set %s to size %f\n", ft_face->face->family_name, height);
-    return NULL;
-  }
-
-  for (i = 0; i < len; i++) {
-    // convert character code to glyph index
-    glyph_index = FT_Get_Char_Index( ft_face->face, string[i] );
-                              
-    // retrieve kerning distance and move pen position
-    if ( use_kerning && previous_index && glyph_index )
-    {
-      FT_Vector  delta;
-                                
-      FT_Get_Kerning( ft_face->face, previous_index, glyph_index,
-		      ft_kerning_default, &delta );
-                                                
-      width += delta.x >> 6;
-    }
-                            
-    // store current pen position
-    // Why?
-    /*
-      pos[ num_glyphs ].x = pen_x;
-      pos[ num_glyphs ].y = pen_y;
-    */                      
-    
-    // load glyph image into the slot. DO NOT RENDER IT !!
-    error = FT_Load_Glyph( ft_face->face, glyph_index, FT_LOAD_DEFAULT );
-    if (error) continue;  // ignore errors, jump to next glyph
-                              
-                              // extract glyph image and store it in our table
-    error = FT_Get_Glyph( ft_face->face->glyph, & fts->glyphs[num_glyphs] );
-    if (error) continue;  // ignore errors, jump to next glyph
-                              
-    // increment pen position
-    width += ft_face->face->glyph->advance.x >> 6;
-                              
-    // record current glyph index
-    previous_index = glyph_index;
-                              
-    // increment number of glyphs
-    num_glyphs++;
-  }
-  fts->width = width*2.54/72.0;
-  fprintf(stderr, "Width of %s is %f\n", string, width);
-  return fts;
-}
-#endif
-
 real
 font_string_width(const char *string, DiaFont *font, real height)
 {
-  int iwidth, iheight;
-  double width_height;
-  GdkFont *gdk_font;
 #ifdef HAVE_FREETYPE
-  FreetypeFace *ft_face;
+  FT_Face *face;
   FreetypeString *ft_string;
 
   /* This is currently broken */
   fprintf(stderr, "font_string_width: %s %s\n", font->name, font->style);
-  ft_face = get_freetype_font(font->name, font->style);
-  ft_string = freetype_load_string(string, ft_face, height);
+  face = font_get_freetypefont(font, height);
+  ft_string = freetype_load_string(string, face, strlen(string));
 
   return ft_string->width;
 #else
+  GdkFont *gdk_font;
+  int iwidth, iheight;
+  double width_height;
   /* Note: This is an ugly hack. It tries to overestimate the width with
      some magic stuff. No guarantees. */
   gdk_font = font_get_gdkfont(font, 100);

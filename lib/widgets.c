@@ -66,6 +66,7 @@ static void
 dia_font_selector_init (DiaFontSelector *fs)
 {
 #ifdef HAVE_FREETYPE
+  
 #else
   GtkWidget *menu;
   GtkWidget *submenu;

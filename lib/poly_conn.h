@@ -42,7 +42,8 @@ struct _PolyConn {
 void polyconn_update_data(PolyConn *poly);
 void polyconn_update_boundingbox(PolyConn *poly);
 void polyconn_simple_draw(PolyConn *poly, Renderer *renderer, real width);
-void polyconn_init(PolyConn *poly);
+void polyconn_init(PolyConn *poly, int num_points);
+void polyconn_set_points(PolyConn *poly, int num_points, Point *points);
 void polyconn_destroy(PolyConn *poly);
 void polyconn_copy(PolyConn *from, PolyConn *to);
 void polyconn_save(PolyConn *poly, ObjectNode obj_node);

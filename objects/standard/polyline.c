@@ -39,6 +39,11 @@
 
 #define DEFAULT_WIDTH 0.15
 
+typedef struct _PolylineCreateData {
+  int num_points;
+  Point *points;
+} PolylineCreateData;
+
 
 typedef struct _Polyline {
   PolyConn poly;
@@ -236,6 +241,11 @@ polyline_draw(Polyline *polyline, Renderer *renderer)
   }
 }
 
+/** user_data is a struct polyline_create_data, containing an array of 
+    points and a count.
+    If user_data is NULL, the startpoint is used and a 1x1 line is created.
+    Otherwise, the startpoint is ignored.
+*/
 static Object *
 polyline_create(Point *startpoint,
 		  void *user_data,
@@ -255,12 +265,28 @@ polyline_create(Point *startpoint,
   obj->type = &polyline_type;
   obj->ops = &polyline_ops;
 
-  polyconn_init(poly);
+  if (user_data == NULL) {
+    polyconn_init(poly, 2);
 
-  poly->points[0] = *startpoint;
-  poly->points[1] = *startpoint;
-  point_add(&poly->points[1], &defaultlen);
+    poly->points[0] = *startpoint;
+    poly->points[1] = *startpoint;
 
+    point_add(&poly->points[1], &defaultlen);
+
+    *handle1 = poly->object.handles[0];
+    *handle2 = poly->object.handles[1];
+  } else {
+    PolylineCreateData *pcd = (PolylineCreateData *)user_data;
+
+    polyconn_init(poly, pcd->num_points);
+
+    /* Handles are set up by polyconn_init and polyconn_update_data */
+    polyconn_set_points(poly, pcd->num_points, pcd->points);
+
+    *handle1 = poly->object.handles[0];
+    *handle2 = poly->object.handles[pcd->num_points-1];
+  }
+  
   polyline_update_data(polyline);
 
   polyline->line_width =  attributes_get_default_linewidth();
@@ -270,8 +296,6 @@ polyline_create(Point *startpoint,
   polyline->start_arrow = attributes_get_default_start_arrow();
   polyline->end_arrow = attributes_get_default_end_arrow();
 
-  *handle1 = poly->object.handles[0];
-  *handle2 = poly->object.handles[1];
   return &polyline->poly.object;
 }
 

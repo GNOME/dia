@@ -45,7 +45,11 @@ struct _RendererGdk {
   int dash_length;
   int dot_length;
 
+#ifdef HAVE_FREETYPE
+  FT_Face freetype_font;
+#else
   GdkFont *gdk_font;
+#endif
   int font_height;
 };
 
