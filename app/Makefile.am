@@ -102,6 +102,8 @@ dia_core_files = \
 	    pagesetup.h \
 	    filedlg.c \
 	    filedlg.h \
+	    plugin-manager.c \
+	    plugin-manager.h \
 	    gtkwrapbox.h \
 	    gtkwrapbox.c \
 	    gtkhwrapbox.h \

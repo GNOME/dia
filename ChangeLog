@@ -1,3 +1,15 @@
+2000-04-11  James Henstridge  <james@daa.com.au>
+
+	* app/menus.c: added entries for the plugin manager.
+
+	* app/Makefile.am (dia_core_files): added plugin manager to files
+	list.
+
+	* app/plugin-manager.[ch]: the plugin manager dialog.
+
+	* app/display.c (display_update_menu_state): set the antialiased
+	menu entry to the correct value.
+
 2000-04-11  Cyrille Chepelov  <chepelov@calixo.net>
 
 	* objects/custom/custom_object.c: not all renderers like ellipses with

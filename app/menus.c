@@ -30,6 +30,7 @@
 #include "interface.h"
 #include "display.h"
 #include "filedlg.h"
+#include "plugin-manager.h"
 #include "select.h"
 
 #if GNOME
@@ -38,6 +39,7 @@ static GnomeUIInfo toolbox_filemenu[] = {
 			    file_new_callback, NULL),
   GNOMEUIINFO_MENU_OPEN_ITEM(file_open_callback, NULL),
   GNOMEUIINFO_MENU_PREFERENCES_ITEM(file_preferences_callback, NULL),
+  GNOMEUIINFO_ITEM_NONE(N_("Plug-ins"), NULL, file_plugins_callback),
   GNOMEUIINFO_SEPARATOR,
   GNOMEUIINFO_MENU_EXIT_ITEM(file_quit_callback, NULL),
   GNOMEUIINFO_END  
@@ -227,6 +229,7 @@ static GtkItemFactoryEntry toolbox_menu_items[] =
   {N_("/File/_New"),           "<control>N", file_new_callback,         0 },
   {N_("/File/_Open"),          "<control>O", file_open_callback,        0 },
   {N_("/File/_Preferences..."),NULL,         file_preferences_callback, 0 },
+  {N_("/File/P_lugins"),       NULL,         file_plugins_callback,     0 },
   {N_("/File/sep1"),           NULL,         NULL,                      0, "<Separator>"},
   {N_("/File/_Quit"),          "<control>Q", file_quit_callback,        0 },
   {N_("/_Help"),               NULL,         NULL,                      0, "<Branch>" },

@@ -853,6 +853,9 @@ display_update_menu_state(DDisplay *ddisp)
   static GtkWidget *visible_grid;
   static GtkWidget *snap_to_grid;
   static GtkWidget *show_cx_pts;
+#ifdef HAVE_LIBART
+  static GtkWidget *antialiased;
+#endif
   static GString *path;
   char *display = "<Display>";
 
@@ -866,6 +869,10 @@ display_update_menu_state(DDisplay *ddisp)
     snap_to_grid = menus_get_item_from_path(path->str);
     g_string_append (g_string_assign(path, display),_("/View/Show Connection Points"));
     show_cx_pts  = menus_get_item_from_path(path->str);
+#ifdef HAVE_LIBART
+    g_string_append(g_string_assign(path, display),_("/View/AntiAliased"));
+    antialiased = menus_get_item_from_path(path->str);
+#endif
 
     g_string_free (path,FALSE);
     initialized = 1;
@@ -883,6 +890,10 @@ display_update_menu_state(DDisplay *ddisp)
 				 ddisp->grid.snap);
   gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(show_cx_pts),
 				 ddisp->show_cx_pts); 
+#ifdef HAVE_LIBART
+  gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(antialiased),
+				 ddisp->aa_renderer);
+#endif
 }
 
 /* This is called when ddisp->shell is destroyed... */
