@@ -893,7 +893,6 @@ create_sheets(GtkWidget *parent)
   gtk_widget_show(separator);
 
   sheet_option_menu = gtk_option_menu_new();
-  gtk_widget_set_usize(sheet_option_menu, 20, -1);
   sheet_menu = gtk_menu_new();
   gtk_option_menu_set_menu(GTK_OPTION_MENU(sheet_option_menu), sheet_menu);
   gtk_wrap_box_pack(GTK_WRAP_BOX(parent), sheet_option_menu,
