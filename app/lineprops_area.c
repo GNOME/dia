@@ -278,6 +278,64 @@ dia_arrow_preview_expose(GtkWidget *widget, GdkEventExpose *event)
 	gdk_draw_arc(win,gc,FALSE,x+width-5-8,y+height/2-4,8,8,0,64*360);
       }
       break;
+    case ARROW_DOUBLE_HOLLOW_TRIANGLE:
+      if(arrow->left) {
+      	pts[0].x = x+5;          pts[0].y = y+height/2;
+	pts[1].x = x+5+height/2; pts[1].y = y+5;
+	pts[2].x = x+5+height/2; pts[2].y = y+height-5;
+	pts[3].x = x+5;          pts[3].y = y+height/2;
+	gdk_draw_polygon(win, gc, FALSE, pts, 4);
+     	pts[0].x = x+5+height/2; pts[0].y = y+height/2;
+	pts[1].x = x+5+height;   pts[1].y = y+5;
+	pts[2].x = x+5+height;   pts[2].y = y+height-5;
+	pts[3].x = x+5+height/2; pts[3].y = y+height/2;
+	gdk_draw_polygon(win, gc, FALSE, pts, 4);
+	gdk_draw_line(win, gc, x+5+height, y+height/2, x+width, y+height/2);
+      } else {
+	pts[0].x = x+width-5;          pts[0].y = y+height/2;
+	pts[1].x = x+width-5-height/2; pts[1].y = y+5;
+	pts[2].x = x+width-5-height/2; pts[2].y = y+height-5;
+	pts[3].x = x+width-5;          pts[3].y = y+height/2;
+	gdk_draw_polygon(win, gc, FALSE, pts, 4);
+	pts[0].x = x+width-5-height/2; pts[0].y = y+height/2;
+	pts[1].x = x+width-5-height;   pts[1].y = y+5;
+	pts[2].x = x+width-5-height;   pts[2].y = y+height-5;
+	pts[3].x = x+width-5-height/2; pts[3].y = y+height/2;
+	gdk_draw_polygon(win, gc, FALSE, pts, 4);
+	gdk_draw_line(win, gc, x, y+height/2, x+width-5-height, y+height/2);
+      }
+      break;
+    case ARROW_DOUBLE_FILLED_TRIANGLE:
+      if(arrow->left) {
+      	pts[0].x = x+5;          pts[0].y = y+height/2;
+	pts[1].x = x+5+height/2; pts[1].y = y+5;
+	pts[2].x = x+5+height/2; pts[2].y = y+height-5;
+	pts[3].x = x+5;          pts[3].y = y+height/2;
+	gdk_draw_polygon(win, gc, TRUE, pts, 4);
+	gdk_draw_polygon(win, gc, FALSE, pts, 4);
+      	pts[0].x = x+5+height/2; pts[0].y = y+height/2;
+	pts[1].x = x+5+height; pts[1].y = y+5;
+	pts[2].x = x+5+height; pts[2].y = y+height-5;
+	pts[3].x = x+5+height/2; pts[3].y = y+height/2;
+	gdk_draw_polygon(win, gc, TRUE, pts, 4);
+	gdk_draw_polygon(win, gc, FALSE, pts, 4);
+	gdk_draw_line(win, gc, x+5+height, y+height/2, x+width, y+height/2);
+      } else {
+	pts[0].x = x+width-5;          pts[0].y = y+height/2;
+	pts[1].x = x+width-5-height/2; pts[1].y = y+5;
+	pts[2].x = x+width-5-height/2; pts[2].y = y+height-5;
+	pts[3].x = x+width-5;          pts[3].y = y+height/2;
+	gdk_draw_polygon(win, gc, TRUE, pts, 4);
+	gdk_draw_polygon(win, gc, FALSE, pts, 4);
+	pts[0].x = x+width-5-height/2; pts[0].y = y+height/2;
+	pts[1].x = x+width-5-height; pts[1].y = y+5;
+	pts[2].x = x+width-5-height; pts[2].y = y+height-5;
+	pts[3].x = x+width-5-height/2; pts[3].y = y+height/2;
+	gdk_draw_polygon(win, gc, TRUE, pts, 4);
+	gdk_draw_polygon(win, gc, FALSE, pts, 4);
+	gdk_draw_line(win, gc, x, y+height/2, x+width-5-height, y+height/2);
+      }
+      break;    
     }    
     gdk_gc_set_line_attributes(gc, gcvalues.line_width, gcvalues.line_style,
 			       gcvalues.cap_style, gcvalues.join_style);
@@ -575,7 +633,7 @@ dia_arrow_chooser_new(gboolean left, DiaChangeArrowCallback callback,
   menu = gtk_menu_new();
   gtk_object_set_data_full(GTK_OBJECT(chooser), button_menu_key, menu,
 			   (GtkDestroyNotify)gtk_widget_unref);
-  for (i = 0; i <= ARROW_HOLLOW_ELLIPSE; i++) {
+  for (i = 0; i <= ARROW_DOUBLE_FILLED_TRIANGLE; i++) {
     mi = gtk_menu_item_new();
     gtk_object_set_data(GTK_OBJECT(mi), menuitem_enum_key, GINT_TO_POINTER(i));
     ar = dia_arrow_preview_new(i, left);

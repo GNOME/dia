@@ -712,6 +712,18 @@ dia_arrow_selector_init (DiaArrowSelector *as)
   gtk_menu_append (GTK_MENU (menu), menuitem);
   gtk_widget_show (menuitem);
 
+  menuitem = gtk_radio_menu_item_new_with_label (group, _("Double Hollow Triangle"));
+  gtk_object_set_user_data(GTK_OBJECT(menuitem), GINT_TO_POINTER(ARROW_DOUBLE_HOLLOW_TRIANGLE));
+  group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
+  gtk_menu_append (GTK_MENU (menu), menuitem);
+  gtk_widget_show (menuitem);
+
+  menuitem = gtk_radio_menu_item_new_with_label (group, _("Double Filled Triangle"));
+  gtk_object_set_user_data(GTK_OBJECT(menuitem), GINT_TO_POINTER(ARROW_DOUBLE_FILLED_TRIANGLE));
+  group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
+  gtk_menu_append (GTK_MENU (menu), menuitem);
+  gtk_widget_show (menuitem);
+
   gtk_menu_set_active(GTK_MENU (menu), DEFAULT_ARROW);
   gtk_option_menu_set_menu (GTK_OPTION_MENU (omenu), menu);
   gtk_signal_connect_object(GTK_OBJECT(menu), "selection-done", 

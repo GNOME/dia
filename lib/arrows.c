@@ -318,6 +318,56 @@ draw_slashed_cross(Renderer *renderer, Point *to, Point *from,
   renderer->ops->draw_line(renderer, &poly[4],&poly[5], color);
 }
 
+static void 
+calculate_double_arrow(Point *second_to, Point *second_from, 
+                       Point *to, Point *from, real length)
+{
+  Point delta;
+  real len;
+  
+  delta = *to;
+  point_sub(&delta, from);
+  len = sqrt(point_dot(&delta, &delta));
+  if (len <= 0.0001) {
+    delta.x=1.0;
+    delta.y=0.0;
+  } else {
+    delta.x/=len;
+    delta.y/=len;
+  }
+
+  point_scale(&delta, length/2);
+  
+  *second_to = *to;
+  point_sub(second_to, &delta);
+  point_sub(second_to, &delta);
+  *second_from = *from;
+  point_add(second_from, &delta);
+  point_add(second_from, &delta);
+}
+
+static void 
+draw_double_triangle(Renderer *renderer, Point *to, Point *from,
+      real length, real width, real linewidth, Color *color)
+{
+  Point second_from, second_to;
+  
+  draw_triangle(renderer, to, from, length, width, linewidth, color);
+  calculate_double_arrow(&second_to, &second_from, to, from, length+linewidth);
+  draw_triangle(renderer, &second_to, &second_from, length, width, linewidth, color);
+}
+
+static void 
+fill_double_triangle(Renderer *renderer, Point *to, Point *from,
+       real length, real width, Color *color)
+{
+  Point second_from, second_to;
+  
+  fill_triangle(renderer, to, from, length, width, color);
+  calculate_double_arrow(&second_to, &second_from, to, from, length);
+  fill_triangle(renderer, &second_to, &second_from, length, width, color);
+}
+
 void
 arrow_draw(Renderer *renderer, ArrowType type,
 	   Point *to, Point *from,
@@ -357,6 +407,13 @@ arrow_draw(Renderer *renderer, ArrowType type,
   case ARROW_HOLLOW_ELLIPSE:
     draw_fill_ellipse(renderer,to,from,length,width,linewidth,
 		      fg_color,bg_color);
+    break;
+  case ARROW_DOUBLE_HOLLOW_TRIANGLE:
+    fill_double_triangle(renderer, to, from, length+(linewidth/2), width, bg_color);
+    draw_double_triangle(renderer, to, from, length, width, linewidth, fg_color);  
+    break;
+  case ARROW_DOUBLE_FILLED_TRIANGLE:
+    fill_double_triangle(renderer, to, from, length, width, fg_color);
     break;
   }
   

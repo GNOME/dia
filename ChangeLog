@@ -1,7 +1,16 @@
+2001-03-22  Steffen Macke <sdteffen@yahoo.com>
+
+	* lib/arrows.c
+	* lib/arrows.h
+	* lib/widgets.c
+	* app/lineprops_area.c: added new arrow types with double
+	heads
+	
 2001-03-20  Steffen Macke <sdteffen@yahoo.com>
 
 	* shapes/Civil/civil_gas_bottle.xpm
 	* shapes/Civil/civil_gas_bottle.shape
+	* sheets/civil.sheet
 	* shapes/Civil/Makefile.am: Added gas bottle shape by Arne
 	Battermann
 	
