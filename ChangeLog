@@ -1,3 +1,9 @@
+2003-01-31  Steffen Macke <sdteffen@web.de>
+
+	 objects/UML/class.c (umlclass_calculate_data): fixed crash
+	 when comments were visible, no class comment available and
+	 a attribute comment
+	 
 2003-01-31  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* Prerelease 0.91-pre1 released on a suspecting public.  Tagging

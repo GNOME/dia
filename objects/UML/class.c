@@ -694,7 +694,7 @@ umlclass_calculate_data(UMLClass *umlclass)
     umlclass->stereotype_string = NULL;
   }
 
-  if (umlclass->visible_comments && umlclass->comment[0] != '\0')
+  if (umlclass->visible_comments && umlclass->comment != '\0')
   {
        umlclass->namebox_height += umlclass->comment_font_height;
        width = dia_font_string_width (umlclass->comment,
