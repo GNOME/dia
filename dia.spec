@@ -1,5 +1,5 @@
 %define name dia
-%define ver 0.85
+%define ver 0.86
 %define prefix /usr
 
 Summary: A gtk+ based diagram creation program.
@@ -16,19 +16,22 @@ BuildRoot: /var/tmp/%{name}-%{ver}-root
 Requires: libxml >= 1.8.5
 
 %description
-Dia is a program designed to be much like the Windows
-program 'Visio'. It can be used to draw different kind of diagrams. In
-this first version there is support for UML static structure diagrams
-(class diagrams) and Network diagrams. It can currently load and save
-diagrams to a custom fileformat and export to postscript.
+Dia is a GNU program designed to be much like the Windows
+program 'Visio'. It can be used to draw different kind of diagrams.
+
+It can be used to draw a variety of diagram types, including UML, Network,
+flowchart and others.  The native file format for Dia is XML (optionally
+gzip compressed).  It has print support, and can export to a number of formats such as EPS, SVG, CGM and PNG.
 
 %changelog
+* Sun Aug 6 2000  James Henstridge <james@daa.com.au>
+- update description as it was out of date, and increment version number.
 * Sun Sep 5 1999  James Henstridge <james@daa.com.au>
 - added $(prefix)/share/dia to files list.
 * Thu Apr 29 1999  Enrico Scholz <enrico.scholz@wirtschaft.tu-chemnitz.de>
 - Made %setup quiet
 - Enabled build from cvs
-- Removed superfluous mkdir's
+- Removed superfluous mkdirs
 - using DESTDIR and install-strip
 * Fri Aug 28 1998  Francis J. Lacoste <francis@Contre.COM> 
 - First RPM release.

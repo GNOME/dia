@@ -113,7 +113,7 @@ static RenderOps MyRenderOps = {
 /* Draw an ellipse approximation consisting out of
  * four arcs. 
  */
-void
+static void
 renderer_draw_ellipse_by_arc(
     MyRenderer *renderer, 
     Point *center,

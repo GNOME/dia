@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia v. 0.83\n"
-"POT-Creation-Date: 2000-06-24 10:30+0800\n"
+"POT-Creation-Date: 2000-08-01 23:16+0800\n"
 "PO-Revision-Date: 2000-07-31 02:27+0200\n"
 "Last-Translator: Keld Simonsen <keld@dkuug.dk>\n"
 "Language-Team: Danish <dansk@klid.dk>\n"
@@ -15,27 +15,27 @@ msgstr ""
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8-bit\n"
 
-#: app/app_procs.c:135
+#: app/app_procs.c:134
 msgid "Export loaded file and exit"
 msgstr "Eksportér den indlæste fil og afslut"
 
-#: app/app_procs.c:136
+#: app/app_procs.c:135
 msgid "OUTPUT"
 msgstr "OUTPUT"
 
-#: app/app_procs.c:138
+#: app/app_procs.c:137
 msgid "Show this help message"
 msgstr "Vis denne hjælpemeddelelse"
 
-#: app/app_procs.c:158
+#: app/app_procs.c:157
 msgid "Can't connect to session manager!\n"
 msgstr "Kan ikke kontakte sessionshåndteringen!\n"
 
-#: app/app_procs.c:169
+#: app/app_procs.c:168
 msgid "[OPTION...] [FILE...]"
 msgstr "[FLAG...] [FIL...]"
 
-#: app/app_procs.c:172
+#: app/app_procs.c:171
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
@@ -44,20 +44,20 @@ msgstr ""
 "fejl ved flag %s: %s.\n"
 "Kør '%s --help' for at se en komplet liste over mulige kommandolinieflag.\n"
 
-#: app/app_procs.c:219 app/app_procs.c:221
+#: app/app_procs.c:218 app/app_procs.c:220
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr "Kunne ikke finde standardobjekter i objektbiblioteket, afslutter...\n"
 
-#: app/app_procs.c:238
+#: app/app_procs.c:237
 msgid "Need valid input file\n"
 msgstr "Kræver gyldig inddatafil\n"
 
-#: app/app_procs.c:297 app/app_procs.c:303
+#: app/app_procs.c:296 app/app_procs.c:302
 msgid "Quit, are you sure?"
 msgstr "Afslut, er du sikker?"
 
-#: app/app_procs.c:310
+#: app/app_procs.c:309
 msgid ""
 "Modified diagrams exists.\n"
 "Are you sure you want to quit?"
@@ -65,21 +65,21 @@ msgstr ""
 "Der er ændrede diagrammer.\n"
 "Er du sikker på at du vil afslutte?"
 
-#: app/app_procs.c:320 app/app_procs.c:325
+#: app/app_procs.c:319 app/app_procs.c:324
 msgid "Quit"
 msgstr "Afslut"
 
-#: app/app_procs.c:337 app/layer_dialog.c:986 app/lineprops_area.c:549
+#: app/app_procs.c:336 app/layer_dialog.c:986 app/lineprops_area.c:549
 #: app/lineprops_area.c:747 app/linewidth_area.c:239
 #: app/paginate_psprint.c:242
 msgid "Cancel"
 msgstr "Annullér"
 
-#: app/app_procs.c:405
+#: app/app_procs.c:404
 msgid "Could not create per-user Dia config directory"
 msgstr "Kunne ikke oprette Dia konfigmappe for bruger"
 
-#: app/app_procs.c:425
+#: app/app_procs.c:424
 msgid "Objects and filters internal to dia"
 msgstr "Interne objekter og filtre for dia"
 
@@ -109,37 +109,37 @@ msgstr "Unavngivet-%d"
 msgid "No existing object to paste.\n"
 msgstr "Ingen eksisterende objekter kan indsættes.\n"
 
-#: app/commands.c:463
+#: app/commands.c:464
 msgid "About Dia"
 msgstr "Om dia"
 
-#: app/commands.c:521
+#: app/commands.c:522
 #, c-format
 msgid "Dia v %s by Alexander Larsson"
 msgstr "Dia version %s af Alexander Larsson"
 
-#: app/commands.c:526
+#: app/commands.c:527
 msgid "Maintainer: James Henstridge"
 msgstr "Vedligeholder: James Henstridge"
 
-#: app/commands.c:530
+#: app/commands.c:531
 msgid "Please visit http://www.lysator.liu.se/~alla/dia for more info"
 msgstr ""
 "Besøg venligst http://www.lysator.liu.se/~alla/dia for flere oplysninger"
 
-#: app/commands.c:535
+#: app/commands.c:536
 msgid "Contributors:"
 msgstr "Bidragsydere:"
 
 #. setup buttons
-#: app/commands.c:552 app/layer_dialog.c:976 app/lineprops_area.c:540
+#: app/commands.c:553 app/layer_dialog.c:976 app/lineprops_area.c:540
 #: app/lineprops_area.c:737 app/linewidth_area.c:230 app/pagesetup.c:72
 #: app/paginate_psprint.c:234 app/preferences.c:598 app/properties.c:82
 #: lib/message.c:85
 msgid "OK"
 msgstr "Ok"
 
-#: app/commands.c:667
+#: app/commands.c:668
 msgid ""
 "The anti aliased renderer is buggy, and may cause\n"
 "crashes.  We know there are bugs in it, so don't\n"
@@ -399,9 +399,9 @@ msgid "/View/AntiAliased"
 msgstr "/Vis/Antialiaseret"
 
 #: app/export_png.c:78 app/load_save.c:549 app/render_eps.c:162
-#: app/render_svg.c:150 plug-ins/cgm/cgm.c:1128 plug-ins/dxf/dxf-export.c:512
+#: plug-ins/cgm/cgm.c:1128 plug-ins/dxf/dxf-export.c:512
 #: plug-ins/hpgl/hpgl.c:567 plug-ins/pstricks/render_pstricks.c:185
-#: plug-ins/wpg/wpg.c:937
+#: plug-ins/svg/render_svg.c:177 plug-ins/wpg/wpg.c:937
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
 msgstr "Kunne ikke åbne: '%s' for skriving.\n"
@@ -1505,10 +1505,6 @@ msgstr "Dette objekt har ingen indstillelige egenskaber."
 #: app/render_eps.c:1137
 msgid "Encapsulated Postscript"
 msgstr "Encapsulated postscript"
-
-#: app/render_svg.c:793
-msgid "Scalable Vector Graphics"
-msgstr "Skalérbar vektorgrafik"
 
 #: lib/bezier_conn.c:525
 msgid "Internal error: Setting corner type of endpoint of bezier"
@@ -2718,3 +2714,7 @@ msgstr "Fil: %s type/version ikke understøttet\n"
 #: plug-ins/wpg/wpg.c:1192
 msgid "WordPerfect Graphics export filter"
 msgstr "WordPerfect Grafik eksportfilter"
+
+#: plug-ins/svg/render_svg.c:820
+msgid "Scalable Vector Graphics"
+msgstr "Skalérbar vektorgrafik"

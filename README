@@ -1,3 +1,13 @@
+Dia is a program for drawing structured diagrams.
+
+Dia is a GNU program, and is Free Software.  See the COPYING file for
+the licence.
+
+Documentation is a bit sparse at the moment.  Some info can be
+found in the doc/ directory.
+
+--
+
 I haven't had time to write anything here yet.
 Read INSTALL for some brief installation instructions.
 

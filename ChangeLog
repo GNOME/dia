@@ -1,3 +1,24 @@
+2000-08-06  James Henstridge  <james@daa.com.au>
+
+	* NEWS: fixed date in NEWS file, as I will release today.
+
+	* README: updated the README a little.  Added note that Dia is now
+	a GNU program.
+
+	* dia.spec: fix up spec file.
+
+	* plug-ins/wpg/wpg.c: changed DIAG_NOTE stuff here as well.
+
+	* plug-ins/hpgl/hpgl.c: change Hans's DIAG_NOTE stuff so that we don't
+	get heaps of warnings when you turn off debugging.
+	Also made a few other warning fixes.
+
+2000-08-02  James Henstridge  <james@daa.com.au>
+
+	* plug-ins/svg/Makefile.am (INCLUDES): add XML_CFLAGS to INCLUDES.
+
+	* configure.in: update version number.
+
 2000-08-01  James Henstridge  <james@daa.com.au>
 
 	* app/commands.c (help_about_callback): add Hans to about dialog.

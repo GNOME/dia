@@ -1,4 +1,4 @@
-dia-0.86:  future
+dia-0.86:  6-August-2000
 * Dia is now an official GNU program.
 * Bug fixes to polygon, so that undo/redo of adding a point works correctly,
   and added extra connection points to shape. (james)

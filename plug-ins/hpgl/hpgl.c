@@ -40,6 +40,8 @@
 #include "filter.h"
 #include "plug-ins.h"
 
+/* #DEFINE DEBUG_HPGL */
+
 /* format specific */
 #define HPGL_MAX_PENS 8
 
@@ -75,26 +77,15 @@ struct _MyRenderer {
 /* include function declares and render object "vtable" */
 #include "../renderer.inc"
 
-#define DIAG_NOTE /* my_log */
-void
-my_log(MyRenderer* renderer, char* format, ...)
-{
-    gchar *string;
-    va_list args;
-  
-    g_return_if_fail (format != NULL);
-  
-    va_start (args, format);
-    string = g_strdup_vprintf (format, args);
-    va_end (args);
-
-    g_print(string);
-
-    g_free(string);
-}
+#ifdef DEBUG_HPGL
+#  define DIAG_NOTE(action) action
+#else
+#  define DIAG_NOTE(action)
+#endif
 
 /* hpgl helpers */
-void hpgl_select_pen(MyRenderer* renderer, Color* color, real width)
+static void
+hpgl_select_pen(MyRenderer* renderer, Color* color, real width)
 {
     int nPen = 0;
     int i;
@@ -148,7 +139,7 @@ void hpgl_select_pen(MyRenderer* renderer, Color* color, real width)
     renderer->last_pen = nPen;
 }
 
-int
+static int
 hpgl_scale(MyRenderer *renderer, real val)
 {
     return (int)((val + renderer->offset) * renderer->scale);
@@ -160,7 +151,7 @@ begin_render(MyRenderer *renderer, DiagramData *data)
 {
     int i;
 
-    DIAG_NOTE(renderer, "begin_render\n");
+    DIAG_NOTE(g_message("begin_render"));
 
     /* initialize pens */
     for (i = 0; i < HPGL_MAX_PENS; i++) {
@@ -175,14 +166,14 @@ begin_render(MyRenderer *renderer, DiagramData *data)
 static void
 end_render(MyRenderer *renderer)
 {
-    DIAG_NOTE(renderer, "end_render\n");
+    DIAG_NOTE(g_message("end_render"));
     fclose(renderer->file);
 }
 
 static void
 set_linewidth(MyRenderer *renderer, real linewidth)
 {  
-    DIAG_NOTE(renderer, "set_linewidth %f\n", linewidth);
+    DIAG_NOTE(g_message("set_linewidth %f", linewidth));
 
     hpgl_select_pen(renderer, NULL, linewidth);
 }
@@ -190,7 +181,7 @@ set_linewidth(MyRenderer *renderer, real linewidth)
 static void
 set_linecaps(MyRenderer *renderer, LineCaps mode)
 {
-    DIAG_NOTE(renderer, "set_linecaps %d\n", mode);
+    DIAG_NOTE(g_message("set_linecaps %d", mode));
 
     switch(mode) {
     case LINECAPS_BUTT:
@@ -207,7 +198,7 @@ set_linecaps(MyRenderer *renderer, LineCaps mode)
 static void
 set_linejoin(MyRenderer *renderer, LineJoin mode)
 {
-    DIAG_NOTE(renderer, "set_join %d\n", mode);
+    DIAG_NOTE(g_message("set_join %d", mode));
 
     switch(mode) {
     case LINEJOIN_MITER:
@@ -224,7 +215,7 @@ set_linejoin(MyRenderer *renderer, LineJoin mode)
 static void
 set_linestyle(MyRenderer *renderer, LineStyle mode)
 {
-    DIAG_NOTE(renderer, "set_linestyle %d\n", mode);
+    DIAG_NOTE(g_message("set_linestyle %d", mode));
 
     /* line type */
     switch (mode) {
@@ -254,7 +245,7 @@ set_linestyle(MyRenderer *renderer, LineStyle mode)
 static void
 set_dashlength(MyRenderer *renderer, real length)
 {  
-    DIAG_NOTE(renderer, "set_dashlength %f\n", length);
+    DIAG_NOTE(diag_note("set_dashlength %f", length));
 
     /* dot = 20% of len */
     renderer->dash_length = length;
@@ -263,7 +254,7 @@ set_dashlength(MyRenderer *renderer, real length)
 static void
 set_fillstyle(MyRenderer *renderer, FillStyle mode)
 {
-    DIAG_NOTE(renderer, "set_fillstyle %d\n", mode);
+    DIAG_NOTE(g_message("set_fillstyle %d", mode));
 
     switch(mode) {
     case FILLSTYLE_SOLID:
@@ -276,7 +267,7 @@ set_fillstyle(MyRenderer *renderer, FillStyle mode)
 static void
 set_font(MyRenderer *renderer, Font *font, real height)
 {
-    DIAG_NOTE(renderer, "set_font %f\n", height);
+    DIAG_NOTE(g_message("set_font %f", height));
     renderer->font_height = height;
 }
 
@@ -291,8 +282,8 @@ draw_line(MyRenderer *renderer,
 	  Point *start, Point *end, 
 	  Color *line_colour)
 {
-    DIAG_NOTE(renderer, "draw_line %f,%f -> %f, %f\n", 
-              start->x, start->y, end->x, end->y);
+    DIAG_NOTE(g_message("draw_line %f,%f -> %f, %f", 
+              start->x, start->y, end->x, end->y));
     hpgl_select_pen(renderer, line_colour, 0.0);
     fprintf (renderer->file, 
              "PU%d,%d;PD%d,%d;\n",
@@ -307,8 +298,8 @@ draw_polyline(MyRenderer *renderer,
 {
     int i;
 
-    DIAG_NOTE(renderer, "draw_polyline n:%d %f,%f ...\n", 
-              num_points, points->x, points->y);
+    DIAG_NOTE(g_message("draw_polyline n:%d %f,%f ...", 
+              num_points, points->x, points->y));
 
     g_return_if_fail(1 < num_points);
 
@@ -332,8 +323,8 @@ draw_polygon(MyRenderer *renderer,
 	     Point *points, int num_points, 
 	     Color *line_colour)
 {
-    DIAG_NOTE(renderer, "draw_polygon n:%d %f,%f ...\n", 
-              num_points, points->x, points->y);
+    DIAG_NOTE(g_message("draw_polygon n:%d %f,%f ...", 
+              num_points, points->x, points->y));
     draw_polyline(renderer,points,num_points,line_colour);
     /* last to first */
     draw_line(renderer, &points[num_points-1], &points[0], line_colour);
@@ -344,8 +335,8 @@ fill_polygon(MyRenderer *renderer,
 	     Point *points, int num_points, 
 	     Color *colour)
 {
-    DIAG_NOTE(renderer, "fill_polygon n:%d %f,%f ...\n", 
-              num_points, points->x, points->y);
+    DIAG_NOTE(g_message("fill_polygon n:%d %f,%f ...", 
+              num_points, points->x, points->y));
     draw_polyline(renderer,points,num_points,colour);
 }
 
@@ -354,8 +345,8 @@ draw_rect(MyRenderer *renderer,
 	  Point *ul_corner, Point *lr_corner,
 	  Color *colour)
 {
-    DIAG_NOTE(renderer, "draw_rect %f,%f -> %f,%f\n", 
-              ul_corner->x, ul_corner->y, lr_corner->x, lr_corner->y);
+    DIAG_NOTE(g_message("draw_rect %f,%f -> %f,%f", 
+              ul_corner->x, ul_corner->y, lr_corner->x, lr_corner->y));
     hpgl_select_pen(renderer, colour, 0.0);
     fprintf (renderer->file, "PU%d,%d;PD;EA%d,%d;\n",
              hpgl_scale(renderer, ul_corner->x),
@@ -369,8 +360,8 @@ fill_rect(MyRenderer *renderer,
 	  Point *ul_corner, Point *lr_corner,
 	  Color *colour)
 {
-    DIAG_NOTE(renderer, "fill_rect %f,%f -> %f,%f\n", 
-              ul_corner->x, ul_corner->y, lr_corner->x, lr_corner->y);
+    DIAG_NOTE(g_message("fill_rect %f,%f -> %f,%f", 
+              ul_corner->x, ul_corner->y, lr_corner->x, lr_corner->y));
 #if 0
     hpgl_select_pen(renderer, colour, 0.0);
     fprintf (renderer->file, "PU%d,%d;PD;RA%d,%d;\n",
@@ -393,8 +384,8 @@ draw_arc(MyRenderer *renderer,
 {
     Point start;
 
-    DIAG_NOTE(renderer, "draw_arc %fx%f <%f,<%f\n", 
-              width, height, angle1, angle2);
+    DIAG_NOTE(g_message("draw_arc %fx%f <%f,<%f", 
+              width, height, angle1, angle2));
     hpgl_select_pen(renderer, colour, 0.0);
 
     /* move to start point */
@@ -417,8 +408,8 @@ fill_arc(MyRenderer *renderer,
 	 real angle1, real angle2,
 	 Color *colour)
 {
-    DIAG_NOTE(renderer, "fill_arc %fx%f <%f,<%f\n", 
-              width, height, angle1, angle2);
+    DIAG_NOTE(g_message("fill_arc %fx%f <%f,<%f", 
+              width, height, angle1, angle2));
     g_assert (width == height);
 
     /* move to center */
@@ -437,8 +428,8 @@ draw_ellipse(MyRenderer *renderer,
 	     real width, real height,
 	     Color *colour)
 {
-  DIAG_NOTE(renderer, "draw_ellipse %fx%f center @ %f,%f\n", 
-            width, height, center->x, center->y);
+  DIAG_NOTE(g_message("draw_ellipse %fx%f center @ %f,%f", 
+            width, height, center->x, center->y));
 
   if (width != height)
   {
@@ -461,8 +452,8 @@ fill_ellipse(MyRenderer *renderer,
 	     real width, real height,
 	     Color *colour)
 {
-    DIAG_NOTE(renderer, "fill_ellipse %fx%f center @ %f,%f\n", 
-              width, height, center->x, center->y);
+    DIAG_NOTE(g_message("fill_ellipse %fx%f center @ %f,%f", 
+              width, height, center->x, center->y));
 }
 
 static void
@@ -471,8 +462,8 @@ draw_bezier(MyRenderer *renderer,
 	    int numpoints,
 	    Color *colour)
 {
-    DIAG_NOTE(renderer, "draw_bezier n:%d %fx%f ...\n", 
-              numpoints, points->p1.x, points->p1.y);
+    DIAG_NOTE(g_message("draw_bezier n:%d %fx%f ...", 
+              numpoints, points->p1.x, points->p1.y));
 
     /* @todo: provide bezier rendering by simple render function callback like:
      *
@@ -486,8 +477,8 @@ fill_bezier(MyRenderer *renderer,
 	    int numpoints,
 	    Color *colour)
 {
-    DIAG_NOTE(renderer, "fill_bezier n:%d %fx%f ...\n", 
-              numpoints, points->p1.x, points->p1.y);
+    DIAG_NOTE(g_message("fill_bezier n:%d %fx%f ...", 
+              numpoints, points->p1.x, points->p1.y));
 }
 
 static void
@@ -496,10 +487,8 @@ draw_string(MyRenderer *renderer,
 	    Point *pos, Alignment alignment,
 	    Color *colour)
 {
-    float height, width;
-
-    DIAG_NOTE(renderer, "draw_string %f,%f %s\n", 
-              pos->x, pos->y, text);
+    DIAG_NOTE(g_message("draw_string %f,%f %s", 
+              pos->x, pos->y, text));
 
     /* set position */
     fprintf(renderer->file, "PU%d,%d;",
@@ -547,8 +536,8 @@ draw_image(MyRenderer *renderer,
 	   real width, real height,
 	   DiaImage image)
 {
-    DIAG_NOTE(renderer, "draw_image %fx%f @%f,%f\n", 
-              width, height, point->x, point->y);
+    DIAG_NOTE(g_message("draw_image %fx%f @%f,%f", 
+              width, height, point->x, point->y));
     g_warning("HPGL: images unsupported!");
 }
 
@@ -558,7 +547,6 @@ export_data(DiagramData *data, const gchar *filename, const gchar *diafilename)
     MyRenderer *renderer;
     FILE *file;
     Rectangle *extent;
-    gint len;
     real width, height;
 
     file = fopen(filename, "w"); /* "wb" for binary! */
@@ -578,8 +566,8 @@ export_data(DiagramData *data, const gchar *filename, const gchar *diafilename)
     extent = &data->extents;
 
     /* use extents */
-    DIAG_NOTE(renderer, "export_data extents %f,%f -> %f,%f\n", 
-              extent->left, extent->top, extent->right, extent->bottom);
+    DIAG_NOTE(g_message("export_data extents %f,%f -> %f,%f", 
+              extent->left, extent->top, extent->right, extent->bottom));
 
     width  = extent->right - extent->left;
     height = extent->bottom - extent->top;

@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dia-0.82\n"
-"POT-Creation-Date: 2000-07-31 20:42+0000\n"
+"POT-Creation-Date: 2000-08-01 23:16+0800\n"
 "PO-Revision-Date: 2000-07-31 20:45+00:00\n"
 "Last-Translator: Valek Filippov <frob@df.ru>\n"
 "Language-Team: Russian <ru@li.org>\n"
@@ -12,27 +12,27 @@ msgstr ""
 "Content-Type: text/plain; charset=koi8-r\n"
 "Content-Transfer-Encoding: 8-bit\n"
 
-#: app/app_procs.c:135
+#: app/app_procs.c:134
 msgid "Export loaded file and exit"
 msgstr "Экспортировать загруженный файл и выйти"
 
-#: app/app_procs.c:136
+#: app/app_procs.c:135
 msgid "OUTPUT"
 msgstr "ВЫВОД"
 
-#: app/app_procs.c:138
+#: app/app_procs.c:137
 msgid "Show this help message"
 msgstr "Показывать это сообщение"
 
-#: app/app_procs.c:158
+#: app/app_procs.c:157
 msgid "Can't connect to session manager!\n"
 msgstr "Не удалось установить соединение с диспетчером сеанса!\n"
 
-#: app/app_procs.c:169
+#: app/app_procs.c:168
 msgid "[OPTION...] [FILE...]"
 msgstr "[ПАРАМЕТРЫ...] [ФАЙЛ...]"
 
-#: app/app_procs.c:172
+#: app/app_procs.c:171
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
@@ -42,22 +42,22 @@ msgstr ""
 "Запустите \"%s --help\", чтобы просмотреть полный список доступных "
 "параметров командной строки.\n"
 
-#: app/app_procs.c:219 app/app_procs.c:221
+#: app/app_procs.c:218 app/app_procs.c:220
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr ""
 "Не удалось найти стандартные объекты при поиске object-libs, запуск "
 "прекращен...\n"
 
-#: app/app_procs.c:238
+#: app/app_procs.c:237
 msgid "Need valid input file\n"
 msgstr "Нужен правильный файл ввода\n"
 
-#: app/app_procs.c:297 app/app_procs.c:303
+#: app/app_procs.c:296 app/app_procs.c:302
 msgid "Quit, are you sure?"
 msgstr "Вы уверены, что хотите выйти?"
 
-#: app/app_procs.c:310
+#: app/app_procs.c:309
 msgid ""
 "Modified diagrams exists.\n"
 "Are you sure you want to quit?"
@@ -65,21 +65,21 @@ msgstr ""
 "Есть измененные диаграммы.\n"
 " Вы уверены, что хотите выйти?"
 
-#: app/app_procs.c:320 app/app_procs.c:325
+#: app/app_procs.c:319 app/app_procs.c:324
 msgid "Quit"
 msgstr "Выход"
 
-#: app/app_procs.c:337 app/layer_dialog.c:986 app/lineprops_area.c:549
+#: app/app_procs.c:336 app/layer_dialog.c:986 app/lineprops_area.c:549
 #: app/lineprops_area.c:747 app/linewidth_area.c:239
 #: app/paginate_psprint.c:242
 msgid "Cancel"
 msgstr "Отмена"
 
-#: app/app_procs.c:405
+#: app/app_procs.c:404
 msgid "Could not create per-user Dia config directory"
 msgstr "Невозможно создать пользовательский каталог конфигурации Dia"
 
-#: app/app_procs.c:425
+#: app/app_procs.c:424
 msgid "Objects and filters internal to dia"
 msgstr "Объекты и фильтры внутри Dia"
 
@@ -109,38 +109,38 @@ msgstr "Безымянная-%d"
 msgid "No existing object to paste.\n"
 msgstr "Не существует объекта для вставки.\n"
 
-#: app/commands.c:463
+#: app/commands.c:464
 msgid "About Dia"
 msgstr "О программе"
 
-#: app/commands.c:521
+#: app/commands.c:522
 #, c-format
 msgid "Dia v %s by Alexander Larsson"
 msgstr "Dia версия %s. Автор: Alexander Larsson"
 
-#: app/commands.c:526
+#: app/commands.c:527
 msgid "Maintainer: James Henstridge"
 msgstr "Ведущий разработчик: James Henstridge"
 
-#: app/commands.c:530
+#: app/commands.c:531
 msgid "Please visit http://www.lysator.liu.se/~alla/dia for more info"
 msgstr ""
 "Пожалуйста обращайтесь за дополнительной информацией по адресу "
 "http://www.lysator.liu.se/~alla/dia"
 
-#: app/commands.c:535
+#: app/commands.c:536
 msgid "Contributors:"
 msgstr "Разработчики:"
 
 #. setup buttons
-#: app/commands.c:552 app/layer_dialog.c:976 app/lineprops_area.c:540
+#: app/commands.c:553 app/layer_dialog.c:976 app/lineprops_area.c:540
 #: app/lineprops_area.c:737 app/linewidth_area.c:230 app/pagesetup.c:72
 #: app/paginate_psprint.c:234 app/preferences.c:598 app/properties.c:82
 #: lib/message.c:85
 msgid "OK"
 msgstr "ОК"
 
-#: app/commands.c:667
+#: app/commands.c:668
 msgid ""
 "The anti aliased renderer is buggy, and may cause\n"
 "crashes.  We know there are bugs in it, so don't\n"
@@ -400,9 +400,9 @@ msgid "/View/AntiAliased"
 msgstr "/Вид/Сглаженный"
 
 #: app/export_png.c:78 app/load_save.c:549 app/render_eps.c:162
-#: app/render_svg.c:150 plug-ins/cgm/cgm.c:1128 plug-ins/dxf/dxf-export.c:512
+#: plug-ins/cgm/cgm.c:1128 plug-ins/dxf/dxf-export.c:512
 #: plug-ins/hpgl/hpgl.c:567 plug-ins/pstricks/render_pstricks.c:185
-#: plug-ins/wpg/wpg.c:937
+#: plug-ins/svg/render_svg.c:177 plug-ins/wpg/wpg.c:937
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
 msgstr "Не удалось открыть: '%s' для записи.\n"
@@ -1504,10 +1504,6 @@ msgstr "У этого объекта нет свойств."
 #: app/render_eps.c:1137
 msgid "Encapsulated Postscript"
 msgstr "Encapsulated PostScript"
-
-#: app/render_svg.c:793
-msgid "Scalable Vector Graphics"
-msgstr "Маштабируемая векторная графика (SVG)"
 
 #: lib/bezier_conn.c:525
 msgid "Internal error: Setting corner type of endpoint of bezier"
@@ -2718,3 +2714,7 @@ msgstr "Файл: %s тип/версия не поддерживаются.\n"
 #: plug-ins/wpg/wpg.c:1192
 msgid "WordPerfect Graphics export filter"
 msgstr "Фильтр экспорта файлов WordPerfect Graphics"
+
+#: plug-ins/svg/render_svg.c:820
+msgid "Scalable Vector Graphics"
+msgstr "Маштабируемая векторная графика (SVG)"

@@ -49,6 +49,8 @@
 /* format specific */
 #include "wpg_defs.h"
 
+/* #define DEBUG_WPG */
+
 /* Import is not yet finished but only implemented to check the
  * export capabilities and to investigate other programs WPG
  * formats. 
@@ -86,23 +88,11 @@ struct _MyRenderer {
 /* include function declares and render object "vtable" */
 #include "../renderer.inc"
 
-#define DIAG_NOTE my_log /* */
-void
-my_log(MyRenderer* renderer, char* format, ...)
-{
-    gchar *string;
-    va_list args;
-  
-    g_return_if_fail (format != NULL);
-  
-    va_start (args, format);
-    string = g_strdup_vprintf (format, args);
-    va_end (args);
-
-    g_print(string);
-
-    g_free(string);
-}
+#ifdef DEBUG_WPG
+#  define DIAG_NOTE(action) action
+#else
+#  define DIAG_NOTE(action)
+#endif
 
 #if (G_BYTE_ORDER == G_LITTLE_ENDIAN)
 /* shortcut if testing of indirection isn't needed anymore */
@@ -163,7 +153,7 @@ fwrite_le(void* buf, size_t size, size_t count, FILE* f)
 /* 
  * helper functions 
  */
-guint8
+static guint8
 LookupColor(MyRenderer *renderer, Color* colour)
 {
   /* find nearest color in the renderers color map */
@@ -172,14 +162,14 @@ LookupColor(MyRenderer *renderer, Color* colour)
   unsigned long i = (int)floor(colour->red * (CC_LEN - 1))
                   + (int)floor(colour->green * (CC_LEN - 1)) * CC_LEN
                   + (int)floor(colour->blue * (CC_LEN - 1)) * CC_LEN  * CC_LEN;
-  DIAG_NOTE(renderer, "LookupColor %d.\n", i);
+  DIAG_NOTE(g_message("LookupColor %d.", i));
   if (i >= CC_LEN * CC_LEN * CC_LEN)
     return CC_LEN * CC_LEN * CC_LEN - 1 + WPG_NUM_DEF_COLORS;
   else 
     return i + WPG_NUM_DEF_COLORS;
 }
 
-void
+static void
 WriteRecHead(MyRenderer *renderer, WPG_Type Type, guint32 Size)
 {
   if (Size < 255)
@@ -213,7 +203,7 @@ WriteRecHead(MyRenderer *renderer, WPG_Type Type, guint32 Size)
   }
 }
 
-void
+static void
 WriteLineAttr(MyRenderer *renderer, Color* colour)
 {
   g_assert(4 == sizeof(WPGLineAttr));
@@ -224,7 +214,7 @@ WriteLineAttr(MyRenderer *renderer, Color* colour)
   fwrite_le(&renderer->LineAttr.Width, sizeof(guint16), 1, renderer->file);
 }
 
-void
+static void
 WriteFillAttr(MyRenderer *renderer, Color* colour, gboolean bFill)
 {
   g_assert(2 == sizeof(WPGFillAttr));
@@ -265,7 +255,7 @@ begin_render(MyRenderer *renderer, DiagramData *data)
   guint8* pPal;
   Color color = {1, 1, 1};
 
-  DIAG_NOTE(renderer, "begin_render\n");
+  DIAG_NOTE(g_message("begin_render"));
 
   fwrite(&wpgFileHead, 1, 16, renderer->file);
 
@@ -308,7 +298,7 @@ begin_render(MyRenderer *renderer, DiagramData *data)
 static void
 end_render(MyRenderer *renderer)
 {
-  DIAG_NOTE(renderer, "end_render\n");
+  DIAG_NOTE(g_message("end_render"));
 
   WriteRecHead(renderer, WPG_END, 0); /* no data following */
   fclose(renderer->file);
@@ -317,7 +307,7 @@ end_render(MyRenderer *renderer)
 static void
 set_linewidth(MyRenderer *renderer, real linewidth)
 {  
-  DIAG_NOTE(renderer, "set_linewidth %f\n", linewidth);
+  DIAG_NOTE(g_message("set_linewidth %f", linewidth));
 
   renderer->LineAttr.Width = SC(linewidth);
 }
@@ -325,7 +315,7 @@ set_linewidth(MyRenderer *renderer, real linewidth)
 static void
 set_linecaps(MyRenderer *renderer, LineCaps mode)
 {
-  DIAG_NOTE(renderer, "set_linecaps %d\n", mode);
+  DIAG_NOTE(g_message("set_linecaps %d", mode));
 
   switch(mode) {
   case LINECAPS_BUTT:
@@ -342,7 +332,7 @@ set_linecaps(MyRenderer *renderer, LineCaps mode)
 static void
 set_linejoin(MyRenderer *renderer, LineJoin mode)
 {
-  DIAG_NOTE(renderer, "set_join %d\n", mode);
+  DIAG_NOTE(g_message("set_join %d", mode));
 
   switch(mode) {
   case LINEJOIN_MITER:
@@ -359,7 +349,7 @@ set_linejoin(MyRenderer *renderer, LineJoin mode)
 static void
 set_linestyle(MyRenderer *renderer, LineStyle mode)
 {
-  DIAG_NOTE(renderer, "set_linestyle %d\n", mode);
+  DIAG_NOTE(g_message("set_linestyle %d", mode));
 
   /* line type */
   switch (mode) {
@@ -389,7 +379,7 @@ set_linestyle(MyRenderer *renderer, LineStyle mode)
 static void
 set_dashlength(MyRenderer *renderer, real length)
 {  
-  DIAG_NOTE(renderer, "set_dashlength %f\n", length);
+  DIAG_NOTE(g_message("set_dashlength %f", length));
 
   /* dot = 20% of len */
   renderer->dash_length = length;
@@ -398,7 +388,7 @@ set_dashlength(MyRenderer *renderer, real length)
 static void
 set_fillstyle(MyRenderer *renderer, FillStyle mode)
 {
-  DIAG_NOTE(renderer, "set_fillstyle %d\n", mode);
+  DIAG_NOTE(g_message("set_fillstyle %d", mode));
 
   switch(mode) {
   case FILLSTYLE_SOLID:
@@ -412,7 +402,7 @@ set_fillstyle(MyRenderer *renderer, FillStyle mode)
 static void
 set_font(MyRenderer *renderer, Font *font, real height)
 {
-  DIAG_NOTE(renderer, "set_font %f %s\n", height, font->name);
+  DIAG_NOTE(g_message("set_font %f %s", height, font->name));
   renderer->TextStyle.Height = SC(height);
 
   if (strstr(font->name, "Courier"))
@@ -436,8 +426,8 @@ draw_line(MyRenderer *renderer,
 {
   gint16 pData[4];
 
-  DIAG_NOTE(renderer, "draw_line %f,%f -> %f, %f\n", 
-            start->x, start->y, end->x, end->y);
+  DIAG_NOTE(g_message("draw_line %f,%f -> %f, %f", 
+            start->x, start->y, end->x, end->y));
 
   WriteLineAttr(renderer, line_colour);
   WriteRecHead(renderer, WPG_LINE, 4 * sizeof(gint16));
@@ -459,8 +449,8 @@ draw_polyline(MyRenderer *renderer,
   int i;
   gint16* pData;
 
-  DIAG_NOTE(renderer, "draw_polyline n:%d %f,%f ...\n", 
-            num_points, points->x, points->y);
+  DIAG_NOTE(g_message("draw_polyline n:%d %f,%f ...", 
+            num_points, points->x, points->y));
 
   g_return_if_fail(1 < num_points);
 
@@ -493,8 +483,8 @@ draw_polygon(MyRenderer *renderer,
   gint16* pData;
   int i;
 
-  DIAG_NOTE(renderer, "draw_polygon n:%d %f,%f ...\n", 
-            num_points, points->x, points->y);
+  DIAG_NOTE(g_message("draw_polygon n:%d %f,%f ...", 
+            num_points, points->x, points->y));
 
   WriteLineAttr(renderer, line_colour);
   WriteRecHead(renderer, WPG_POLYGON, (num_points * 2 + 1) * sizeof(gint16));
@@ -522,8 +512,8 @@ fill_polygon(MyRenderer *renderer,
              Point *points, int num_points, 
              Color *colour)
 {
-  DIAG_NOTE(renderer, "fill_polygon n:%d %f,%f ...\n", 
-            num_points, points->x, points->y);
+  DIAG_NOTE(g_message("fill_polygon n:%d %f,%f ...", 
+            num_points, points->x, points->y));
 
   WriteFillAttr(renderer, colour, TRUE);
   draw_polygon(renderer,points,num_points,colour);
@@ -536,8 +526,8 @@ draw_rect(MyRenderer *renderer,
           Color *colour)
 {
   gint16* pData;
-  DIAG_NOTE(renderer, "draw_rect %f,%f -> %f,%f\n", 
-            ul_corner->x, ul_corner->y, lr_corner->x, lr_corner->y);
+  DIAG_NOTE(g_message("draw_rect %f,%f -> %f,%f", 
+            ul_corner->x, ul_corner->y, lr_corner->x, lr_corner->y));
 
   WriteLineAttr(renderer, colour);
   WriteRecHead(renderer, WPG_RECTANGLE, 4*sizeof(gint16));
@@ -558,8 +548,8 @@ fill_rect(MyRenderer *renderer,
           Point *ul_corner, Point *lr_corner,
           Color *colour)
 {
-  DIAG_NOTE(renderer, "fill_rect %f,%f -> %f,%f\n", 
-            ul_corner->x, ul_corner->y, lr_corner->x, lr_corner->y);
+  DIAG_NOTE(g_message("fill_rect %f,%f -> %f,%f", 
+            ul_corner->x, ul_corner->y, lr_corner->x, lr_corner->y));
 
   WriteFillAttr(renderer, colour, TRUE);
   draw_rect(renderer, ul_corner, lr_corner, colour);
@@ -575,8 +565,8 @@ draw_arc(MyRenderer *renderer,
 {
   WPGEllipse ell;
 
-  DIAG_NOTE(renderer, "draw_arc %fx%f <%f,<%f\n", 
-            width, height, angle1, angle2);
+  DIAG_NOTE(g_message("draw_arc %fx%f <%f,<%f", 
+            width, height, angle1, angle2));
 
   ell.x = SC(center->x);
   ell.y = SC(-center->y);
@@ -604,8 +594,8 @@ fill_arc(MyRenderer *renderer,
 {
   WPGEllipse ell;
 
-  DIAG_NOTE(renderer, "fill_arc %fx%f <%f,<%f\n", 
-            width, height, angle1, angle2);
+  DIAG_NOTE(g_message("fill_arc %fx%f <%f,<%f", 
+            width, height, angle1, angle2));
 
   ell.x = SC(center->x);
   ell.y = SC(-center->y);
@@ -634,8 +624,8 @@ draw_ellipse(MyRenderer *renderer,
 {
   WPGEllipse ell;
 
-  DIAG_NOTE(renderer, "draw_ellipse %fx%f center @ %f,%f\n", 
-            width, height, center->x, center->y);
+  DIAG_NOTE(g_message("draw_ellipse %fx%f center @ %f,%f", 
+            width, height, center->x, center->y));
 
   ell.x = SC(center->x);
   ell.y = SC(-center->y);
@@ -660,8 +650,8 @@ fill_ellipse(MyRenderer *renderer,
              real width, real height,
              Color *colour)
 {
-  DIAG_NOTE(renderer, "fill_ellipse %fx%f center @ %f,%f\n", 
-            width, height, center->x, center->y);
+  DIAG_NOTE(g_message("fill_ellipse %fx%f center @ %f,%f", 
+            width, height, center->x, center->y));
 
   WriteFillAttr(renderer, colour, TRUE);
   draw_ellipse(renderer,center,width,height,colour);
@@ -677,8 +667,8 @@ draw_bezier(MyRenderer *renderer,
   gint16* pData;
   int i;
 
-  DIAG_NOTE(renderer, "draw_bezier n:%d %fx%f ...\n", 
-            numpoints, points->p1.x, points->p1.y);
+  DIAG_NOTE(g_message("draw_bezier n:%d %fx%f ...", 
+            numpoints, points->p1.x, points->p1.y));
 
   WriteLineAttr(renderer, colour);
   WriteRecHead(renderer, WPG_POLYCURVE, (numpoints * 2) * 2 * sizeof(gint16) + 3 * sizeof(gint16));
@@ -755,8 +745,8 @@ fill_bezier(MyRenderer *renderer,
             int numpoints,
             Color *colour)
 {
-  DIAG_NOTE(renderer, "fill_bezier n:%d %fx%f ...\n", 
-            numpoints, points->p1.x, points->p1.y);
+  DIAG_NOTE(g_message("fill_bezier n:%d %fx%f ...", 
+            numpoints, points->p1.x, points->p1.y));
 
 }
 
@@ -771,8 +761,8 @@ draw_string(MyRenderer *renderer,
 
   len = strlen(text);
 
-  DIAG_NOTE(renderer, "draw_string(%d) %f,%f %s\n", 
-            len, pos->x, pos->y, text);
+  DIAG_NOTE(g_message("draw_string(%d) %f,%f %s", 
+            len, pos->x, pos->y, text));
 
   if (len < 1) return;
 
@@ -829,7 +819,7 @@ draw_image(MyRenderer *renderer,
 {
   WPGBitmap2 bmp;
   guint8 * pDiaImg = NULL, * pOut = NULL, * pIn = NULL, * p = NULL;
-  guint8 b_1, b, cnt;
+  guint8 b_1 = 0, b = 0, cnt;
   int x, y;
 
   bmp.Angle  = 0;
@@ -845,8 +835,8 @@ draw_image(MyRenderer *renderer,
   bmp.Xdpi = 72; /* ??? */
   bmp.Ydpi = 72;
 
-  DIAG_NOTE(renderer, "draw_image %fx%f [%d,%d] @%f,%f\n", 
-            width, height, bmp.Width, bmp.Height, point->x, point->y);
+  DIAG_NOTE(g_message("draw_image %fx%f [%d,%d] @%f,%f", 
+            width, height, bmp.Width, bmp.Height, point->x, point->y));
 
   pDiaImg = pIn = dia_image_rgb_data(image);
   pOut = g_new(guint8, bmp.Width * bmp.Height * 2); /* space for worst case RLE */
@@ -888,7 +878,7 @@ draw_image(MyRenderer *renderer,
     *p++ = b;
     pIn -= (3 * bmp.Width * 2); /* start of previous line */
   }
-  DIAG_NOTE(renderer, "Width x Height: %d RLE: %d\n", bmp.Width * bmp.Height, p - pOut);
+  DIAG_NOTE(g_message("Width x Height: %d RLE: %d", bmp.Width * bmp.Height, p - pOut));
 
   if ((p - pOut) > 32767) {
     g_warning(MY_RENDERER_NAME ": Bitmap size exceeds blocksize. Ignored.");
@@ -928,7 +918,6 @@ export_data(DiagramData *data, const gchar *filename, const gchar *diafilename)
   MyRenderer *renderer;
   FILE *file;
   Rectangle *extent;
-  gint len;
   real width, height;
 
   file = fopen(filename, "wb"); /* "wb" for binary! */
@@ -948,8 +937,8 @@ export_data(DiagramData *data, const gchar *filename, const gchar *diafilename)
   extent = &data->extents;
 
   /* use extents */
-  DIAG_NOTE(renderer, "export_data extents %f,%f -> %f,%f\n", 
-            extent->left, extent->top, extent->right, extent->bottom);
+  DIAG_NOTE(g_message("export_data extents %f,%f -> %f,%f", 
+            extent->left, extent->top, extent->right, extent->bottom));
 
   width  = extent->right - extent->left;
   height = extent->bottom - extent->top;
@@ -1012,10 +1001,10 @@ import_object(MyRenderer* renderer, DiagramData *dia,
     pInt16 = (gint16*)pData;
     iNum = pInt16[2];
     pts = (WPGPoint*)(pData + 3*sizeof(gint16));
-    DIAG_NOTE(renderer, "POLYCURVE Num pts %d Pre51 %d\n", iNum, iPre51);
+    DIAG_NOTE(g_message("POLYCURVE Num pts %d Pre51 %d\n", iNum, iPre51);
     break;
   } /* switch */
-  DIAG_NOTE(renderer, "Type %d Num pts %d Size %d\n", type, iNum, iSize);
+  DIAG_NOTE(g_message("Type %d Num pts %d Size %d", type, iNum, iSize));
 } 
 
 static gboolean
@@ -1051,7 +1040,7 @@ import_data (const gchar *filename, DiagramData *dia)
 
     ren.pPal = g_new0(WPGColorRGB, 256);
 
-    DIAG_NOTE(&ren, "Parsing: %s \n", filename);
+    DIAG_NOTE(g_message("Parsing: %s", filename));
 
     do {
       if (1 == fread(&rh, sizeof(WPGHead8), 1, f)) {
@@ -1060,7 +1049,7 @@ import_data (const gchar *filename, DiagramData *dia)
         else {
           bRet = (1 == fread(&i16, sizeof(guint16), 1, f));
           if (0x8000 & i16) {
-            DIAG_NOTE(&ren, "Large Object: hi:lo %04X", (int)i16);
+            DIAG_NOTE(g_message("Large Object: hi:lo %04X", (int)i16));
             iSize = i16 << 16;
             /* Reading large objects involves major uglyness. Instead of getting 
              * one size, as implied by "Encyclopedia of Graphics File Formats",
@@ -1069,7 +1058,7 @@ import_data (const gchar *filename, DiagramData *dia)
              */
             iSize = 0;
             bRet = (1 == fread(&i16, sizeof(guint16), 1, f));
-            DIAG_NOTE(&ren, "Large Object: %d\n", (int)i16);
+            DIAG_NOTE(g_message("Large Object: %d\n", (int)i16));
             iSize += i16;
 #if 1
             /* Ignore this large objec part */
@@ -1099,8 +1088,8 @@ import_data (const gchar *filename, DiagramData *dia)
           /* not sure if this is the right thing to do */
           bRet &= (1 == fread(&i8, sizeof(gint8), 1, f));
           bRet &= (1 == fread(&i16, sizeof(gint16), 1, f));
-          DIAG_NOTE(&ren, "Ignoring tag WPG_STARTWPG2, Size %d\n Type? %d Size? %d\n", 
-                    iSize, (int)i8, i16);
+          DIAG_NOTE(g_message("Ignoring tag WPG_STARTWPG2, Size %d\n Type? %d Size? %d", 
+                    iSize, (int)i8, i16));
           fseek(f, iSize - 3, SEEK_CUR);
           break;
         case WPG_LINE:
@@ -1136,9 +1125,9 @@ import_data (const gchar *filename, DiagramData *dia)
             WPGBitmap2 bmp;
 
             fread(&bmp, sizeof(WPGBitmap2), 1, f);
-            DIAG_NOTE(&ren, "Bitmap %dx%d %d bits @%d,%d %d,%d.\n", 
+            DIAG_NOTE(g_message("Bitmap %dx%d %d bits @%d,%d %d,%d.", 
                       bmp.Width, bmp.Height, bmp.Depth, 
-                      bmp.Left, bmp.Top, bmp.Right, bmp.Bottom);
+                      bmp.Left, bmp.Top, bmp.Right, bmp.Bottom));
             fseek(f, iSize - sizeof(WPGBitmap2), SEEK_CUR);
           }
           break;
