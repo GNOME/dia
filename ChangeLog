@@ -1,5 +1,8 @@
 2003-07-30  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* plug-ins/xfig/fig-format-3.2: Added copy of Fig format
+	description for version 3.2, for reference.
+
 	* plug-ins/xfig/xfig-import.c: Added import of arrows.
 
 	* app/menus.c: Removed prefs item from Gnome diagram menu.  Made
