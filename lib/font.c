@@ -105,10 +105,8 @@ typedef struct _FontData {
   char *fontname;
   char *fontname_ps;
   char *fontname_x11[NUM_X11_FONTS]; /* First choice */
-#ifdef HAVE_FREETYPE
-  char *fontname_freetype;
+  char *fontname_freetype; /* Including these in non-freetype doesn't harm */
   char *fontstyle_freetype;
-#endif
 } FontData;
 
 FontData font_data[] = {
@@ -116,25 +114,29 @@ FontData font_data[] = {
     "Times-Roman",
     { "-adobe-times-medium-r-normal-*-%d-*-*-*-*-*-*-*",
       NULL
-    }
+    },
+    "Times New Roman", "Regular"
   }, 
   { "Times-Italic",
     "Times-Italic",
     { "-adobe-times-medium-i-normal-*-%d-*-*-*-*-*-*-*",
       NULL
-    }
+    },
+    "Times New Roman", "Italic"
   }, 
   { "Times-Bold",
     "Times-Bold",
     { "-adobe-times-bold-r-normal-*-%d-*-*-*-*-*-*-*",
       NULL
-    }
+    },
+    "Times New Roman", "Bold"
   }, 
   { "Times-BoldItalic",
     "Times-BoldItalic",
     { "-adobe-times-bold-i-normal-*-%d-*-*-*-*-*-*-*",
       NULL
-    }
+    },
+    "Times New Roman", "Bold Italic"
   }, 
   { "AvantGarde-Book",
     "AvantGarde-Book",
@@ -176,50 +178,58 @@ FontData font_data[] = {
     "Bookman-Light",
     { "-adobe-bookman-light-r-normal-*-%d-*-*-*-*-*-*-*",
       "-adobe-times-medium-r-normal-*-%d-*-*-*-*-*-*-*"
-    }
+    },
+    "URW Bookman L", "Light"
   },
   { "Bookman-LightItalic",
     "Bookman-LightItalic",
     { "-adobe-bookman-light-i-normal-*-%d-*-*-*-*-*-*-*",
       "-adobe-times-medium-i-normal-*-%d-*-*-*-*-*-*-*"
-    }
+    },
+    "URW Bookman L", "Light Italic"
   },
   { "Bookman-Demi",
     "Bookman-Demi",
     { "-adobe-bookman-demibold-r-normal-*-%d-*-*-*-*-*-*-*",
       "-adobe-times-bold-r-normal-*-%d-*-*-*-*-*-*-*"
-    }
+    },
+    "URW Bookman L", "Demi Bold"
   },
   { "Bookman-DemiItalic",
     "Bookman-DemiItalic",
     { "-adobe-bookman-demibold-i-normal-*-%d-*-*-*-*-*-*-*",
       "-adobe-times-bold-i-normal-*-%d-*-*-*-*-*-*-*"
-    }
+    },
+    "URW Bookman L", "Demi Bold Italic"
   },
 #ifndef G_OS_WIN32
   { "Courier",
     "Courier",
     { "-adobe-courier-medium-r-normal-*-%d-*-*-*-*-*-*-*",
       NULL
-    }
+    },
+    "Courier New", "Regular"
   },
   { "Courier-Oblique",
     "Courier-Oblique",
     { "-adobe-courier-medium-o-normal-*-%d-*-*-*-*-*-*-*",
       NULL
-    }
+    },
+    "Courier New", "Italic"
   },
   { "Courier-Bold",
     "Courier-Bold",
     { "-adobe-courier-bold-r-normal-*-%d-*-*-*-*-*-*-*",
       NULL
-    }
+    },
+    "Courier New", "Bold "
   },
   { "Courier-BoldOblique",
     "Courier-BoldOblique",
     { "-adobe-courier-bold-o-normal-*-%d-*-*-*-*-*-*-*",
       NULL
-    }
+    },
+    "Courier New", "Bold Italic"
   },
 #else /* G_OS_WIN32 */
   /* HB: force usage of true type font "Courier New", using the bitmap
@@ -285,49 +295,57 @@ FontData font_data[] = {
     "Helvetica",
     { "-adobe-helvetica-medium-r-normal-*-%d-*-*-*-*-*-*-*",
       NULL
-    }
+    },
+    "Nimbus Sans L", "Regular"
   },
   { "Helvetica-Oblique",
     "Helvetica-Oblique",
     { "-adobe-helvetica-medium-o-normal-*-%d-*-*-*-*-*-*-*",
       NULL
-    }
+    },
+    "Nimbus Sans L", "Italic"
   },
   { "Helvetica-Bold",
     "Helvetica-Bold",
     { "-adobe-helvetica-bold-r-normal-*-%d-*-*-*-*-*-*-*",
       NULL
-    }
+    },
+    "Nimbus Sans L", "Bold"
   },
   { "Helvetica-BoldOblique",
     "Helvetica-BoldOblique",
     { "-adobe-helvetica-bold-o-normal-*-%d-*-*-*-*-*-*-*",
       NULL
-    }
+    },
+    "Nimbus Sans L", "Bold Italic"
   },
   { "Helvetica-Narrow",
     "Helvetica-Narrow",
     { "-adobe-helvetica-medium-r-normal-*-%d-*-*-*-*-*-*-*",
       NULL
-    }
+    },
+    "Nimbus Sans L", "Regular Condensed"
   },
   { "Helvetica-Narrow-Oblique",
     "Helvetica-Narrow-Oblique",
     { "-adobe-helvetica-medium-o-normal-*-%d-*-*-*-*-*-*-*",
       NULL
-    }
+    },
+    "Nimbus Sans L", "Italic Condensed"
   },
   { "Helvetica-Narrow-Bold",
     "Helvetica-Narrow-Bold",
     { "-adobe-helvetica-bold-r-normal-*-%d-*-*-*-*-*-*-*",
       NULL
-    }
+    },
+    "Nimbus Sans L", "Bold Condensed"
   },
   { "Helvetica-Narrow-BoldOblique",
     "Helvetica-Narrow-BoldOblique",
     { "-adobe-helvetica-bold-o-normal-*-%d-*-*-*-*-*-*-*",
       NULL
-    }
+    },
+    "Nimbus Sans L", "Bold Italic Condensed"
   },
   { "MOESung-Medium",
 	"MOESung-Medium",
@@ -339,25 +357,29 @@ FontData font_data[] = {
     "NewCenturySchlbk-Roman",
     { "-adobe-new century schoolbook-medium-r-normal-*-%d-*-*-*-*-*-*-*",
       NULL
-    }
+    },
+    "Century Schoolbook L", "Roman"
   },
   { "NewCenturySchoolbook-Italic",
     "NewCenturySchlbk-Italic",
     { "-adobe-new century schoolbook-medium-i-normal-*-%d-*-*-*-*-*-*-*",
       NULL
-    }
+    },
+    "Century Schoolbook L", "Italic"
   },
   { "NewCenturySchoolbook-Bold",
     "NewCenturySchlbk-Bold",
     { "-adobe-new century schoolbook-bold-r-normal-*-%d-*-*-*-*-*-*-*",
       NULL
-    }
+    },
+    "Century Schoolbook L", "Bold"
   },
   { "NewCenturySchoolbook-BoldItalic",
     "NewCenturySchlbk-BoldItalic",
     { "-adobe-new century schoolbook-bold-i-normal-*-%d-*-*-*-*-*-*-*",
       NULL
-    }
+    },
+    "Century Schoolbook L", "Bold Italic"
   },
   { "Palatino-Roman",
     "Palatino-Roman",
@@ -406,19 +428,22 @@ FontData font_data[] = {
     {
       "-adobe-symbol-medium-r-normal-*-%d-*-*-*-*-*-*-*",
       "-*-symbol-medium-r-normal-*-%d-*-*-*-*-*-*-*"
-    }
+    },
+    "Standard Symbols L", "Regular"
   },
   { "ZapfChancery-MediumItalic",
     "ZapfChancery-MediumItalic",
     { "-adobe-zapf chancery-medium-i-normal-*-%d-*-*-*-*-*-*-*",
       "-*-itc zapf chancery-medium-i-normal-*-%d-*-*-*-*-*-*-*"
-    }
+    },
+    "URW Chancery L", "Medium Italic"
   },
   { "ZapfDingbats",
     "ZapfDingbats",
     { "-adobe-zapf dingbats-medium-r-normal-*-%d-*-*-*-*-*-*-*",
       "-*-itc zapf dingbats-*-*-*-*-%d-*-*-*-*-*-*-*"
-    }
+    },
+    "Dingbats", ""
   },
   { "ZenKai-Medium",
 	"ZenKai-Medium",
@@ -637,9 +662,10 @@ dia_add_freetype_font(char *key, gpointer value, gpointer user_data) {
     font->public.style = face->style_name;
     font->public.family = diafonts;
 
-    if (face->ascender > 0 || face->descender > 0) {
-      font->ascent_ratio = ((real)face->ascender)/(face->ascender+face->descender);
-      font->descent_ratio = ((real)face->descender)/(face->ascender+face->descender);
+    if (face->ascender != 0 || face->descender != 0) {
+      int descent = abs(face->descender);
+      font->ascent_ratio = ((real)face->ascender+1)/(face->ascender+descent);
+      font->descent_ratio = ((real)descent)/(face->ascender+descent);
     }
 
     for (j=0;j<FONTCACHE_SIZE;j++) {
@@ -652,33 +678,6 @@ dia_add_freetype_font(char *key, gpointer value, gpointer user_data) {
   fonts = g_list_append(fonts, diafonts);
   font_names = g_list_append(font_names, key);
   g_hash_table_insert(fonts_hash, key, diafonts);
-}
-
-FreetypeFace *
-get_freetype_font(const char *fontname, const char *fontstyle)
-{
-  FreetypeFamily *ft_font;
-  GList *face;
-  FreetypeFace *ft_face;
-
-  ft_font = (FreetypeFamily*)g_hash_table_lookup(freetype_fonts, fontname);
-  if (fontstyle == NULL) fontstyle = "Regular";
-  for (face = ft_font->faces; face != NULL; face = g_list_next(face)) {
-    ft_face = (FreetypeFace*)face->data;
-    if (!strcmp(ft_face->face->style_name, fontstyle))
-      break;
-  }
-  if (face == NULL) {
-    if (strcmp(fontstyle, "Regular")) {
-      message_warning("%s does not come in %s style, trying Regular",
-		      fontname, fontstyle);
-      return get_freetype_font(fontname, "Regular");
-    }
-    message_warning("Can't find Regular style for %s",
-		    fontname);
-    return NULL;
-  }
-  return ft_face;
 }
 
 FT_Face
@@ -832,7 +831,7 @@ freetype_render_string(FreetypeString *fts, int x, int y,
     // now, draw to our target surface
     (*func)(face->glyph, 
 	    pen_x+face->glyph->bitmap_left,
-	    pen_y-face->glyph->bitmap_top+(face->size->metrics.descender>>6),
+	    pen_y-face->glyph->bitmap_top,
 	    userdata);
     
     // increment pen position 
@@ -887,29 +886,43 @@ font_getfont_with_style(const char *name, const char *style)
 {
   DiaFontFamily *fonts;
   GList *faces;
+  char *realstyle = style;
 
   LC_DEBUG (fprintf(stderr, "font_getfont_with_style %s %s\n", name, style));
   g_assert(name!=NULL);
   fonts = (DiaFontFamily *)g_hash_table_lookup(fonts_hash, name);
 
+  /* If one of the old (hardcoded) fonts, try the list */
+  if (fonts == NULL) {
+    int i;
+    for (i = 0; i < sizeof(font_data)/sizeof(*font_data); i++) {
+      if (!strcmp(font_data[i].fontname, name)) {
+	// Found old-style font
+	if (font_data[i].fontname_freetype == NULL) continue;
+	fonts = (DiaFontFamily *)g_hash_table_lookup(fonts_hash, font_data[i].fontname_freetype);
+	realstyle = font_data[i].fontstyle_freetype;
+	break;
+      }
+    }
+  }
+
   if (fonts == NULL) {
     fonts = g_hash_table_lookup(fonts_hash, "Courier");
     if (fonts == NULL) {
-      LC_DEBUG (fprintf(stderr, "Error, couldn't locate font. Shouldn't happen.\n"));
       message_error(_("Error, couldn't locate font. Shouldn't happen.\n"));
     } else {
-      LC_DEBUG (fprintf(stderr, _("Font %s not found, using Courier instead.\n"), name));
       message_notice(_("Font %s not found, using Courier instead.\n"), name);
     }
   }
  
   for (faces = fonts->diafonts; faces != NULL; faces = g_list_next(faces)) {
-    if (!strcmp(((DiaFont *)faces->data)->style, style)) {
+    if (!strcmp(((DiaFont *)faces->data)->style, realstyle)) {
       return (DiaFont *)faces->data;
     }
   }
 
   message_notice(_("Font %s has no style %s, using %s\n"),
+		 realstyle,
 		 ((DiaFont *)fonts->diafonts->data)->style);
   return (DiaFont *)fonts->diafonts->data;
 }
