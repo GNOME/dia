@@ -8,6 +8,7 @@ libnetwork_objects_la_SOURCES = \
 			      computer.c \
 			      disc.c \
 			      monitor.c \
+			      printer.c \
 			      bus.c \
 			      network.c
 

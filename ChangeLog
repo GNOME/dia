@@ -1,5 +1,19 @@
 1999-02-06  Alexander Larsson  <alla@lysator.liu.se>
 
+	* objects/network/printer.c:
+	* objects/network/network.c:
+	* objects/network/pixmaps/printer.xpm:
+	* objects/network/.cvsignore:
+	* objects/network/Makefile.am:
+	* objects/network/pixmaps/Makefile.am:
+	New printer object in network.
+	From Martin Hawlisch <hawlisch@roxi.rz.fh-mannheim.de>
+
+	* TODO:
+	Added known XML bug.
+	
+1999-02-06  Alexander Larsson  <alla@lysator.liu.se>
+
 	* app/load_save.c:
 	* lib/dia_xml.c:
 	Reverted back from #include <gnome-xml/tree.h> to

@@ -59,6 +59,8 @@ Big stuff:
 
 BUGS:
 =====
+* gnome-xml sometimes have problems saving empty strings.
+
 * Sometimes (dunno when it happens) menu shortcuts don't work in a view
   until the menu is pulled down.
 

@@ -26,6 +26,7 @@ extern ObjectType computer_type;
 extern ObjectType monitor_type;
 extern ObjectType disc_type;
 extern ObjectType bus_type;
+extern ObjectType printer_type;
 
 int get_version(void) {
   return 0;
@@ -36,13 +37,14 @@ void register_objects(void) {
   object_register_type(&monitor_type);
   object_register_type(&disc_type);
   object_register_type(&bus_type);
-
+  object_register_type(&printer_type);
 }
 
 extern SheetObject computer_sheetobj;
 extern SheetObject monitor_sheetobj;
 extern SheetObject disc_sheetobj;
 extern SheetObject bus_sheetobj;
+extern SheetObject printer_sheetobj;
 
 void register_sheets(void) {
   Sheet *sheet;
@@ -53,6 +55,7 @@ void register_sheets(void) {
   sheet_append_sheet_obj(sheet, &monitor_sheetobj);
   sheet_append_sheet_obj(sheet, &disc_sheetobj);
   sheet_append_sheet_obj(sheet, &bus_sheetobj);
+  sheet_append_sheet_obj(sheet, &printer_sheetobj);
 
   register_sheet(sheet);
 

@@ -8,4 +8,5 @@ monitor.lo
 network.lo
 bus.lo
 disc.lo
+printer.lo
 libnetwork_objects.la
