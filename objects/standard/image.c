@@ -209,7 +209,12 @@ image_set_props(Image *image, Property *props, guint nprops)
   /* handle changing the image. */
   if (strcmp(image->file, old_file) != 0) {
     Element *elem = (Element *)image;
-    image->image = dia_image_load(image->file);
+    DiaImage img = dia_image_load(image->file);
+
+    if (img)
+      image->image = img;
+    else
+      image->image = dia_image_get_broken();
     elem->height = (elem->width*(float)dia_image_height(image->image))/
       (float)dia_image_width(image->image);
   }

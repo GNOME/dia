@@ -1,5 +1,8 @@
 2000-10-08  James Henstridge  <james@daa.com.au>
 
+	* objects/standard/image.c (image_set_props): if the file could not
+	be loaded, show the broken image icon.
+
 	* plug-ins/Makefile.am (SUBDIRS): add shape to the subdirs list.
 
 	* plug-ins/shape/*: the shape export plugin by Steffen Macke.
