@@ -273,6 +273,7 @@ shapes/Contact/Makefile
 shapes/network/Makefile
 shapes/Pneumatic/Makefile
 shapes/Electric/Makefile
+shapes/Civil/Makefile
 app/Makefile
 samples/Makefile
 sheets/Makefile

@@ -1,5 +1,16 @@
 2000-05-07  Alexander Larsson  <alla@lysator.liu.se>
 
+	* configure.in:
+ 	* sheets/Makefile.am:
+	* shapes/Makefile.am:
+	* shapes/Civil/Makefile.am:
+ 	* sheets/civil.sheet:
+	* shapes/Civil/*:
+	Added civil/hydraulic/structural engineering objects from
+	sdteffen <macke@heini.fbbwu.fh-lueneburg.de>.
+	
+2000-05-07  Alexander Larsson  <alla@lysator.liu.se>
+
 	* objects/FS/flow-poly.c:
 	* objects/FS/flow.c:
 	Fix division by zero in point_normalize().
