@@ -66,6 +66,7 @@ struct _RendererShape {
   const char *linejoin;
   char *linestyle; /* not const -- must free */
 
+  DiaFont* font;
   real fontsize;
 };
 
@@ -213,22 +214,17 @@ new_shape_renderer(DiagramData *data, const char *filename)
   renderer->dash_length = 1.0;
   renderer->dot_length = 0.2;
   renderer->saved_line_style = LINESTYLE_SOLID;
+  renderer->font = NULL;
 
   /* set up the root node */
   renderer->doc = xmlNewDoc("1.0");
   renderer->doc->encoding = xmlStrdup("UTF-8");
-#if defined(LIBXML_VERSION) && LIBXML_VERSION >= 20000
-  /*
-   * xmlNewGlobalNs is deprececated and broken (does nothing)
-   * with libxml2.4.[2..20] at least
-   */
   renderer->root = xmlNewDocNode(renderer->doc, NULL, "shape", NULL);
-  name_space = xmlNewNs(renderer->root, "http://www.daa.com.au/~james/dia-shape-ns", NULL);
-#else
-  name_space = xmlNewGlobalNs(renderer->doc, "http://www.daa.com.au/~james/dia-shape-ns", NULL);
-  renderer->root = xmlNewDocNode(renderer->doc, name_space, "shape", NULL);
-#endif
-  renderer->svg_name_space = xmlNewNs(renderer->root, "http://www.w3.org/2000/svg", "svg");
+  name_space = xmlNewNs(renderer->root,
+                        "http://www.daa.com.au/~james/dia-shape-ns", NULL);
+
+  renderer->svg_name_space = xmlNewNs(renderer->root,
+                                      "http://www.w3.org/2000/svg", "svg");
   renderer->doc->xmlRootNode = renderer->root;
 
   dirname = g_dirname(filename);
@@ -290,6 +286,7 @@ end_render(RendererShape *renderer)
 static void 
 destroy_shape_renderer(RendererShape *renderer)
 {
+  if (renderer->font) dia_font_unref(renderer->font);  
   g_free(renderer);
 }
 
@@ -419,11 +416,7 @@ static void
 set_font(RendererShape *renderer, DiaFont *font, real height)
 {
   renderer->fontsize = height;
-  /* XXXX todo */
-  /*
-  fprintf(renderer->file, "/%s-latin1 ff %f scf sf\n",
-	  font_get_psfontname(font), (double)height);
-  */
+  renderer->font = dia_font_ref(font);
 }
 
 /* the return value of this function should not be saved anywhere */
@@ -866,12 +859,7 @@ draw_string(RendererShape *renderer,
   char buf[512], *style, *tmp;
   real saved_width;
 
-  /* FIXME: UNICODE_WORK_IN_PROGRESS why is this reencoding necessary ?*/
-  {
-      xmlChar *enc = xmlEncodeEntitiesReentrant(renderer->root->doc,text);
-      node = xmlNewChild(renderer->root, renderer->svg_name_space,
-                         "text", enc);
-  }
+  node = xmlNewChild(renderer->root, renderer->svg_name_space, "text", text);
  
   saved_width = renderer->linewidth;
   renderer->linewidth = 0.001;
@@ -892,7 +880,15 @@ draw_string(RendererShape *renderer,
   g_free(style);
   style = tmp;
 
-  /* have to do something about fonts here ... */
+  if (renderer->font) {
+     tmp = g_strdup_printf("%s; font-family: %s; font-style: %s; "
+                           "font-weight: %s",style,
+                           dia_font_get_family(renderer->font),
+                           dia_font_get_style_string(renderer->font),
+                           dia_font_get_weight_string(renderer->font));
+     g_free(style);
+     style = tmp;
+  }
 
   xmlSetProp(node, "style", style);
   g_free(style);

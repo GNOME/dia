@@ -1,3 +1,19 @@
+2002-06-25  Cyrille Chépélov  <cyrille@chepelov.org>
+
+	* lib/font.h:
+	* lib/font.c: 
+	Added a set of new setter/getters, some of them more specially for
+	the SVG-ish I/O.
+	
+	* plug-ins/shape/shape-export.c: (new_shape_renderer),
+	(destroy_shape_renderer), (set_font), (draw_string):
+	* plug-ins/svg/render_svg.c: (new_svg_renderer),
+	(destroy_svg_renderer), (set_font), (draw_string):
+
+	Actually exported the font face, style, weight and size (sodipodi
+	agrees with dia on how a small sample should look like (a sample
+	0.90 would not even display anyways). Yay !)
+
 2002-06-24  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* objects/standard/textobj.c: Now uses stdprops for defaults.

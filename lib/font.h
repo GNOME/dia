@@ -145,10 +145,32 @@ real dia_font_get_height(const DiaFont* font);
     /* Change the height inside a font record. */
 void dia_font_set_height(DiaFont* font, real height);
 
+    /* Changes the obliquity of an existing font */
+void dia_font_set_obliquity(DiaFont* font, DiaFontObliquity obliquity);
+    /* Changes the weight of an existing font */
+void dia_font_set_weight(DiaFont* font, DiaFontWeight weight);
+    /* Changes the family of an existing font to one of the three standard
+       families */
+void dia_font_set_family(DiaFont* font, DiaFontFamily family);
+    /* Changes the family of an existing font to any family, but the name could
+       be system-dependent. */
+void dia_font_set_any_family(DiaFont* font, const char* family);
+
     /* FIXME: what do we do with this, actually ?
        Name lives for as long as the DiaFont lives. */
 G_CONST_RETURN char *dia_font_get_psfontname(const DiaFont *font);
 
+    /* returns a static string suitable for SVG */
+G_CONST_RETURN char *dia_font_get_weight_string(const DiaFont* font);
+
+    /* returns a static string suitable for SVG */
+G_CONST_RETURN char *dia_font_get_style_string(const DiaFont* font);
+
+    /* uses an SVG style string */
+void dia_font_set_weight_from_string(DiaFont* font, const char* weight);
+
+    /* uses an SVG style string */
+void dia_font_set_obliquity_from_string(DiaFont* font, const char* obli);
 
 /* -------- Font and string functions - unscaled versions.
    Use these version in Objects, primarily. */

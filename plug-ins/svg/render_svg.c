@@ -60,6 +60,7 @@ struct _RendererSVG {
   const char *linejoin;
   char *linestyle; /* not const -- must free */
 
+  DiaFont* font;  
   real fontsize;
 };
 
@@ -202,6 +203,8 @@ new_svg_renderer(DiagramData *data, const char *filename)
   renderer->dot_length = 0.2;
   renderer->saved_line_style = LINESTYLE_SOLID;
 
+  renderer->font = NULL;
+  
   /* set up the root node */
   renderer->doc = xmlNewDoc("1.0");
   renderer->doc->encoding = xmlStrdup("UTF-8");
@@ -274,6 +277,7 @@ end_render(RendererSVG *renderer)
 
 static void destroy_svg_renderer(RendererSVG *renderer)
 {
+  if (renderer->font) dia_font_unref(renderer->font);  
   g_free(renderer);
 }
 
@@ -391,11 +395,8 @@ static void
 set_font(RendererSVG *renderer, DiaFont *font, real height)
 {
   renderer->fontsize = height;
-  /* XXXX todo */
-  /*
-  fprintf(renderer->file, "/%s-latin1 ff %f scf sf\n",
-	  font_get_psfontname(font), (double)height);
-  */
+  if (renderer->font) dia_font_unref(renderer->font);  
+  renderer->font = dia_font_ref(font);
 }
 
 /* the return value of this function should not be saved anywhere */
@@ -805,6 +806,16 @@ draw_string(RendererSVG *renderer,
   tmp = g_strdup_printf("%s; font-size: %g", style, renderer->fontsize);
   g_free(style);
   style = tmp;
+
+  if (renderer->font) {
+     tmp = g_strdup_printf("%s; font-family: %s; font-style: %s; "
+                           "font-weight: %s",style,
+                           dia_font_get_family(renderer->font),
+                           dia_font_get_style_string(renderer->font),
+                           dia_font_get_weight_string(renderer->font));
+     g_free(style);
+     style = tmp;
+  }
 
   /* have to do something about fonts here ... */
 

@@ -99,16 +99,9 @@ dia_font_new(const char *family, DiaFontStyle style, real height)
   return retval;
 }
 
-DiaFont*
-dia_font_new_from_style(DiaFontStyle style, real height)
-{
-  DiaFont* retval;
-  /* in the future we could establish Dia's own default font
-   * matching to be as (font-)system independent as possible.
-   * For now fall back to Pangos configuration --hb
-   */
-  PangoFontDescription* pfd = pango_font_description_new();
-  switch (DIA_FONT_STYLE_GET_FAMILY(style)) {
+static void
+dia_pfd_set_family(PangoFontDescription* pfd, DiaFontFamily fam) {
+  switch (fam) {
   case DIA_FONT_SANS :
     pango_font_description_set_family(pfd, "sans");
     break;
@@ -119,10 +112,14 @@ dia_font_new_from_style(DiaFontStyle style, real height)
     pango_font_description_set_family(pfd, "monospace");
     break;
   default :
-    /* FIXME: does Pango allow font_descs without a name */
-    ;
+          /* Pango does allow fonts without a name */
+      ;
   }
-  switch (DIA_FONT_STYLE_GET_WEIGHT(style)) {
+}
+
+static void
+dia_pfd_set_weight(PangoFontDescription* pfd, DiaFontWeight fw) {
+  switch (fw) {
   case DIA_FONT_ULTRALIGHT :
     pango_font_description_set_weight(pfd, PANGO_WEIGHT_ULTRALIGHT);
     break;
@@ -146,7 +143,11 @@ dia_font_new_from_style(DiaFontStyle style, real height)
   default :
     g_assert_not_reached();
   }
-  switch (DIA_FONT_STYLE_GET_OBLIQUITY(style)) {
+}
+
+static void
+dia_pfd_set_obliquity(PangoFontDescription* pfd, DiaFontObliquity fo) {
+  switch (fo) {
   case DIA_FONT_NORMAL :
     pango_font_description_set_style(pfd,PANGO_STYLE_NORMAL);
     break;
@@ -159,8 +160,28 @@ dia_font_new_from_style(DiaFontStyle style, real height)
   default :
     g_assert_not_reached();
   }
-  pango_font_description_set_size(pfd, dcm_to_pdu(height) );
+}
 
+static void dia_pfd_set_size(PangoFontDescription* pfd, real height)
+{ /* inline candidate... */
+  pango_font_description_set_size(pfd, dcm_to_pdu(height) );
+}
+
+
+DiaFont*
+dia_font_new_from_style(DiaFontStyle style, real height)
+{
+  DiaFont* retval;
+  /* in the future we could establish Dia's own default font
+   * matching to be as (font-)system independent as possible.
+   * For now fall back to Pangos configuration --hb
+   */
+  PangoFontDescription* pfd = pango_font_description_new();
+  dia_pfd_set_family(pfd,DIA_FONT_STYLE_GET_FAMILY(style));
+  dia_pfd_set_weight(pfd,DIA_FONT_STYLE_GET_WEIGHT(style));
+  dia_pfd_set_obliquity(pfd,DIA_FONT_STYLE_GET_OBLIQUITY(style));
+  dia_pfd_set_size(pfd,height);
+  
   retval = DIA_FONT(g_type_create_instance(dia_font_get_type()));
   retval->pfd = pfd;
   dia_font_ref(retval);
@@ -243,12 +264,121 @@ dia_font_get_psfontname(const DiaFont *font)
 G_CONST_RETURN char*
 dia_font_get_legacy_name(const DiaFont *font)
 {
-  /* FIXME: this is broken ! New fonts don't have this ! */
+  /* FIXME: this is broken ! New fonts don't have this ! */    
   if (font->legacy_name)
     return font->legacy_name;
 
   return "Courier";
 }
+
+void dia_font_set_any_family(DiaFont* font, const char* family)
+{
+  g_assert(font != NULL);
+  pango_font_description_set_family(font->pfd, family);
+  if (font->legacy_name) {
+      g_free(font->legacy_name);
+      font->legacy_name = NULL;
+  }
+}
+
+void dia_font_set_family(DiaFont* font, DiaFontFamily family)
+{
+  g_assert(font != NULL);
+  dia_pfd_set_family(font->pfd,family);  
+  if (font->legacy_name) {
+      g_free(font->legacy_name);
+      font->legacy_name = NULL;
+  }
+}
+
+void dia_font_set_weight(DiaFont* font, DiaFontWeight weight)
+{
+  g_assert(font != NULL);    
+  dia_pfd_set_weight(font->pfd,weight);
+}
+
+void dia_font_set_obliquity(DiaFont* font, DiaFontObliquity obliquity)
+{
+  g_assert(font != NULL);    
+  dia_pfd_set_obliquity(font->pfd,obliquity);
+}
+
+
+struct weight_name { DiaFontWeight fw; const char *name; };    
+static const struct weight_name weight_names[] = {
+    {DIA_FONT_ULTRALIGHT, "200"},
+    {DIA_FONT_LIGHT,"300"},
+    {DIA_FONT_WEIGHT_NORMAL,"normal"},
+    {DIA_FONT_WEIGHT_NORMAL,"400"},
+    {DIA_FONT_MEDIUM, "500"},
+    {DIA_FONT_DEMIBOLD, "600"},
+    {DIA_FONT_BOLD, "700"},
+    {DIA_FONT_ULTRABOLD, "800"},
+    {DIA_FONT_HEAVY, "900"},
+    {0,NULL}};
+
+G_CONST_RETURN char *dia_font_get_weight_string(const DiaFont* font)
+{
+    const struct weight_name* p;
+    DiaFontWeight fw = DIA_FONT_STYLE_GET_WEIGHT(dia_font_get_style(font));
+    
+    for (p = weight_names; p->name != NULL; ++p) {
+        if (p->fw == fw) return p->name;
+    }
+    return "normal";
+}
+
+void dia_font_set_weight_from_string(DiaFont* font, const char* weight) {
+    DiaFontWeight fw = DIA_FONT_WEIGHT_NORMAL;
+    const struct weight_name* p;
+
+    for (p = weight_names; p->name != NULL; ++p) {
+        if (0 == strncmp(weight,p->name,8)) {
+            fw = p->fw;
+            break;
+        }
+    }
+
+    dia_font_set_weight(font,fw);    
+}
+
+
+struct obliquity_name { DiaFontObliquity fo; const char *name; };    
+static const struct obliquity_name obliquity_names[] = {
+    { DIA_FONT_NORMAL, "normal"},
+    { DIA_FONT_OBLIQUE, "oblique"},
+    { DIA_FONT_ITALIC, "italic"},
+    { 0, NULL} };
+
+G_CONST_RETURN char *dia_font_get_style_string(const DiaFont* font) {
+    const struct obliquity_name* p;
+    DiaFontObliquity fo =
+    DIA_FONT_STYLE_GET_OBLIQUITY(dia_font_get_style(font));
+    
+    for (p = obliquity_names; p->name != NULL; ++p) {
+        if (p->fo == fo) return p->name;
+    }
+    return "normal";
+}
+
+void dia_font_set_obliquity_from_string(DiaFont* font, const char* obli) {
+    DiaFontObliquity fo = DIA_FONT_NORMAL;
+    const struct obliquity_name* p;
+
+    DiaFontStyle old_style;
+    DiaFontObliquity old_fo;
+    old_style = dia_font_get_style(font);
+    old_fo = DIA_FONT_STYLE_GET_OBLIQUITY(old_style);
+    
+    for (p = obliquity_names; p->name != NULL; ++p) {
+        if (0 == strncmp(obli,p->name,8)) {
+            fo = p->fo;
+            break;
+        }
+    }
+    dia_font_set_obliquity(font,fo);
+}
+
 
 /* ************************************************************************ */
 /* Non-scaled versions of the utility routines                              */
