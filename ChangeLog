@@ -1,3 +1,34 @@
+2002-06-15  Hans Breuer  <hans@breuer.org>
+
+	* objects/uml/class_dialog.c : clean some left-over
+	utf8-mess, return 0 from "focus_out_event" handlers
+	to avoid asserting in gtk (#78305). Reconstruct 
+	stereotype/NULL behaviour to avoid rendering empty
+	stereotypes on classes and member functions
+
+	[#56109 - Provide object defaults for StdProp objects,
+	 some remaining issues are discussed in bugzilla]
+
+	* lib/object_defaults.c : (new file) manage default properties 
+	of dia objects. The serialization is done with standard
+	object methods in a diagram compatible format.
+
+	* lib/object.c : add object_registry_foreach() which allows
+	to iterate over all registered object types
+
+	* lib/object.h : added prototypes object_default*() and
+	object_registry_foreach()
+
+	* lib/makefile.am lib/makefile.msc : add new file to build
+
+	* lib/libdia.def : export new functions
+
+	* app/defaults.c : provide StdProp based defaults if the
+	ObjectType doesn't implement it's own default functions
+
+	* app/create_object.c : through dia_object_default_create()
+	* app/disp_callbacks.c : same here
+
 2002-06-12  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
 
 	* objects/FS/flow-ortho.c (orthflow_get_object_menu): Menu

@@ -341,6 +341,8 @@ app_init (int argc, char **argv)
 
   load_all_sheets();     /* new mechanism */
 
+  dia_object_defaults_load (NULL, TRUE /* prefs.object_defaults_create_lazy */);
+
   debug_break();
 
   if (object_get_type("Standard - Box") == NULL) {
@@ -490,6 +492,8 @@ app_exit(void)
       return;
   }
   
+  dia_object_defaults_save (NULL);
+
   /* Free loads of stuff (toolbox) */
 
   list = open_diagrams;

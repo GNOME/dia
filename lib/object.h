@@ -277,6 +277,7 @@ void object_remove_connections_to(ConnectionPoint *conpoint);
 void object_unconnect_all(Object *connected_obj);
 void object_registry_init(void);
 void object_register_type(ObjectType *type);
+void object_registry_foreach(GHFunc func, gpointer  user_data);
 GSList *object_types_detect_nosheet(void);
 gchar *object_type_get_sheet_name(ObjectType *type);
 gchar *object_type_strip_sheet_from_name(ObjectType *type);
@@ -400,6 +401,17 @@ struct _ObjectType {
   { "obj_pos", PROP_TYPE_POINT, offsetof(Object, position) }, \
   { "obj_bb", PROP_TYPE_RECT, offsetof(Object, bounding_box) }
 
-   
+
+gboolean       dia_object_defaults_load (gchar *filename,
+					 gboolean create_lazy);
+void           dia_object_default_make (Object *obj_from);
+const Object  *dia_object_default_get  (ObjectType *type);
+Object        *dia_object_default_create (ObjectType *type,
+					  Point *startpoint,
+					  void *user_data,
+					  Handle **handle1,
+					  Handle **handle2);
+gboolean       dia_object_defaults_save (gchar *filename);
+
 #endif /* OBJECT_H */
 

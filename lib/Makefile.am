@@ -60,6 +60,7 @@ libdia_a_SOURCES =  \
 		render.c \
 		object.h \
 		object.c \
+		object_defaults.c \
 		connection.c \
 		connection.h \
 		orth_conn.c \

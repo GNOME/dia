@@ -25,11 +25,13 @@
 #include "properties.h"
 #include "object_ops.h"
 #include "connectionpoint_ops.h"
+#include "object.h"
 
 static GtkWidget *dialog = NULL;
 static GtkWidget *dialog_vbox = NULL;
 static GtkWidget *object_part = NULL;
 static ObjectType *current_objtype = NULL;
+static Object *current_object = NULL;
 
 static GtkWidget *no_defaults_dialog = NULL;
 
@@ -45,7 +47,6 @@ static void create_dialog()
              GTK_STOCK_OK, GTK_RESPONSE_OK,
              NULL);
 
-  //GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
   gtk_dialog_set_default_response (GTK_DIALOG(dialog), GTK_RESPONSE_OK);
 
   dialog_vbox = GTK_DIALOG (dialog)->vbox;
@@ -71,6 +72,7 @@ defaults_dialog_destroyed(GtkWidget *widget, gpointer data)
   if (widget == object_part) {
     object_part = NULL;
     current_objtype = NULL;
+    current_object = NULL;
   }
   return 0;
 }
@@ -81,7 +83,10 @@ defaults_respond(GtkWidget *widget, gint response_id, gpointer data)
   if (response_id == GTK_RESPONSE_OK ||
       response_id == GTK_RESPONSE_APPLY) {
     if (current_objtype != NULL) {
-      current_objtype->ops->apply_defaults();
+      if (current_objtype->ops->apply_defaults)
+        current_objtype->ops->apply_defaults();
+      else if (current_object != NULL)
+        object_apply_props_from_dialog (current_object, object_part);
     }
   }
   if (response_id != GTK_RESPONSE_APPLY)
@@ -93,9 +98,17 @@ void
 defaults_show(ObjectType *objtype)
 {
   GtkWidget *defaults;
+  Object *def_object = NULL;
+  gchar *title = NULL;
 
-  if ((objtype != NULL) && (objtype->ops->get_defaults != NULL)) {
-    defaults = objtype->ops->get_defaults();
+  if (objtype != NULL) {
+    if (objtype->ops->get_defaults != NULL)
+      defaults = objtype->ops->get_defaults();
+    else {
+      def_object = dia_object_default_get (objtype);
+      defaults = object_create_props_dialog (def_object);
+    }
+    title = g_strconcat(_("Defaults: "), objtype->name, NULL);
   } else {
     defaults = NULL;
   }
@@ -117,6 +130,15 @@ defaults_show(ObjectType *objtype)
 		      G_CALLBACK(defaults_dialog_destroyed), NULL);
   gtk_box_pack_start(GTK_BOX(dialog_vbox), defaults, TRUE, TRUE, 0);
   gtk_widget_show (defaults);
+
+  if (title)
+    {
+      gtk_window_set_title(GTK_WINDOW(dialog), title);
+      g_free(title);
+    }
+  else
+      gtk_window_set_title (GTK_WINDOW (dialog), _("Object defaults"));
+
   if (object_part != defaults) {
     gtk_window_resize (GTK_WINDOW(dialog), 1, 1); /* shrink to default */
     gdk_window_invalidate_rect (dialog->window, NULL, TRUE);
@@ -124,4 +146,5 @@ defaults_show(ObjectType *objtype)
   gtk_window_present (GTK_WINDOW(dialog));
   object_part = defaults;
   current_objtype = objtype;
+  current_object = def_object;
 }

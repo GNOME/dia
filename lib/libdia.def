@@ -281,6 +281,7 @@ EXPORTS
  object_load
  object_load_using_properties
  object_register_type
+ object_registry_foreach
  object_registry_init
  object_remove_connectionpoint
  object_remove_connections_to
@@ -433,3 +434,9 @@ EXPORTS
  psu_set_font_face
  psu_show_string
  unicode_to_ps_name
+
+ dia_object_defaults_load
+ dia_object_default_make
+ dia_object_default_get
+ dia_object_default_create
+ dia_object_defaults_save

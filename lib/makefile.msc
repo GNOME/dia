@@ -40,6 +40,7 @@ OBJECTS = \
 	neworth_conn.obj \
 	objchange.obj \
 	object.obj \
+	object_defaults.obj \
 	orth_conn.obj \
 	paper.obj \
 	plug-ins.obj \

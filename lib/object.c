@@ -353,6 +353,12 @@ object_register_type(ObjectType *type)
   g_hash_table_insert(object_type_table, type->name, type);
 }
 
+void
+object_registry_foreach (GHFunc func, gpointer user_data)
+{
+  g_hash_table_foreach (object_type_table, func, user_data);
+}
+
 static GSList *object_types_nosheet_list = NULL;
 
 static void

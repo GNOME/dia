@@ -117,13 +117,19 @@ umlclass_store_disconnects(UMLClassDialog *prop_dialog,
 static void
 class_read_from_dialog(UMLClass *umlclass, UMLClassDialog *prop_dialog)
 {
+  const gchar *s;
+
   g_free(umlclass->name);
   umlclass->name = g_strdup (gtk_entry_get_text (prop_dialog->classname));
 
   if (umlclass->stereotype != NULL)
     g_free(umlclass->stereotype);
   
-  umlclass->stereotype = g_strdup (gtk_entry_get_text(prop_dialog->stereotype));
+  s = gtk_entry_get_text(prop_dialog->stereotype);
+  if (s && s[0])
+    umlclass->stereotype = g_strdup (s);
+  else
+    umlclass->stereotype = NULL;
   
   umlclass->abstract = prop_dialog->abstract_class->active;
   umlclass->visible_attributes = prop_dialog->attr_vis->active;
@@ -150,11 +156,10 @@ class_fill_in_dialog(UMLClass *umlclass)
   prop_dialog = umlclass->properties_dialog;
 
   gtk_entry_set_text(prop_dialog->classname, umlclass->name);
-  if (umlclass->stereotype != NULL) {
-	  gtk_entry_set_text(prop_dialog->stereotype, umlclass->stereotype);
-  } else {
-	  gtk_entry_set_text(prop_dialog->stereotype, "");
-  }
+  if (umlclass->stereotype != NULL)
+    gtk_entry_set_text(prop_dialog->stereotype, umlclass->stereotype);
+  else
+    gtk_entry_set_text(prop_dialog->op_stereotype, "");
 
   gtk_toggle_button_set_active(prop_dialog->abstract_class, umlclass->abstract);
   gtk_toggle_button_set_active(prop_dialog->attr_vis, umlclass->visible_attributes);
@@ -694,10 +699,11 @@ attributes_update(GtkWidget *widget, UMLClass *umlclass)
   attributes_get_current_values(umlclass->properties_dialog);
 }
 
-static void
+static int
 attributes_update_event(GtkWidget *widget, GdkEventFocus *ev, UMLClass *umlclass)
 {
   attributes_get_current_values(umlclass->properties_dialog);
+  return 0;
 }
 
 static void 
@@ -1192,8 +1198,7 @@ operations_set_values(UMLClassDialog *prop_dialog, UMLOperation *op)
   GList *list;
   UMLParameter *param;
   GtkWidget *list_item;
-  char *utf_name, *utf_type, *utfstr, *utf_stereotype;
-  char *str;
+  gchar *str;
 
   gtk_entry_set_text(prop_dialog->op_name, op->name);
   if (op->type != NULL)
@@ -1220,9 +1225,10 @@ operations_set_values(UMLClassDialog *prop_dialog, UMLOperation *op)
   while (list != NULL) {
     param = (UMLParameter *)list->data;
 
-    utfstr = uml_get_parameter_string (param);
-    list_item = gtk_list_item_new_with_label (utfstr);
-    g_free (utfstr);
+    str = uml_get_parameter_string (param);
+    list_item = gtk_list_item_new_with_label (str);
+    g_free (str);
+
     gtk_object_set_user_data(GTK_OBJECT(list_item), (gpointer) param);
     gtk_container_add (GTK_CONTAINER (prop_dialog->parameters_list), list_item);
     gtk_widget_show (list_item);
@@ -1249,6 +1255,8 @@ operations_clear_values(UMLClassDialog *prop_dialog)
 static void
 operations_get_values(UMLClassDialog *prop_dialog, UMLOperation *op)
 {
+  const gchar *s;
+
   g_free(op->name);
   if (op->type != NULL)
 	  g_free(op->type);
@@ -1256,7 +1264,11 @@ operations_get_values(UMLClassDialog *prop_dialog, UMLOperation *op)
   op->name = g_strdup(gtk_entry_get_text(prop_dialog->op_name));
   op->type = g_strdup (gtk_entry_get_text(prop_dialog->op_type));
 
-  op->stereotype = g_strdup (gtk_entry_get_text(prop_dialog->op_stereotype));
+  s = gtk_entry_get_text(prop_dialog->op_stereotype);
+  if (s && s[0])
+    op->stereotype = g_strdup (s);
+  else
+    op->stereotype = NULL;
 
   op->visibility = (UMLVisibility)
     GPOINTER_TO_INT(gtk_object_get_user_data(GTK_OBJECT(gtk_menu_get_active(prop_dialog->op_visible))));
@@ -1582,10 +1594,11 @@ operations_update(GtkWidget *widget, UMLClass *umlclass)
   operations_get_current_values(umlclass->properties_dialog);
 }
 
-static void
+static int
 operations_update_event(GtkWidget *widget, GdkEventFocus *ev, UMLClass *umlclass)
 {
   operations_get_current_values(umlclass->properties_dialog);
+  return 0;
 }
 
 static void 
@@ -2305,10 +2318,11 @@ templates_update(GtkWidget *widget, UMLClass *umlclass)
   templates_get_current_values(umlclass->properties_dialog);
 }
 
-static void
+static int
 templates_update_event(GtkWidget *widget, GdkEventFocus *ev, UMLClass *umlclass)
 {
   templates_get_current_values(umlclass->properties_dialog);
+  return 0;
 }
 
 static void 

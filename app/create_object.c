@@ -50,9 +50,11 @@ create_object_button_press(CreateObjectTool *tool, GdkEventButton *event,
   origpoint = clickedpoint;
 
   snap_to_grid(ddisp, &clickedpoint.x, &clickedpoint.y);
-  
-  obj = tool->objtype->ops->create(&clickedpoint, tool->user_data,
-				   &handle1, &handle2);
+
+  obj = dia_object_default_create (tool->objtype, &clickedpoint,
+                                   tool->user_data,
+                                   &handle1, &handle2);
+
   diagram_add_object(ddisp->diagram, obj);
 
   /* Try a connect */

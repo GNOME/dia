@@ -747,7 +747,10 @@ ddisplay_drop_object(DDisplay *ddisp, gint x, gint y, ObjectType *otype,
 
   snap_to_grid(ddisp, &droppoint.x, &droppoint.y);
 
-  obj = otype->ops->create(&droppoint, user_data, &handle1, &handle2);
+  obj = dia_object_default_create (otype, &droppoint,
+                                   user_data,
+                                   &handle1, &handle2);
+
   diagram_add_object(ddisp->diagram, obj);
   diagram_remove_all_selected(ddisp->diagram, TRUE); /* unselect all */
   diagram_select(ddisp->diagram, obj);
