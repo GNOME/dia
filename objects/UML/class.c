@@ -712,7 +712,7 @@ umlclass_create(Point *startpoint,
     umlclass->connections[i].object = obj;
     umlclass->connections[i].connected = NULL;
   }
-  umlclass->element.extra_spacing.border_trans = UMLCLASS_BORDER/2.0;
+  elem->extra_spacing.border_trans = UMLCLASS_BORDER/2.0;
   umlclass_update_data(umlclass);
 
   for (i=0;i<8;i++) {
@@ -1182,7 +1182,7 @@ static Object *umlclass_load(ObjectNode obj_node, int version,
       list = g_list_next(list);
     }
   }
-  umlclass->element.extra_spacing.border_trans = UMLCLASS_BORDER/2.0;
+  elem->extra_spacing.border_trans = UMLCLASS_BORDER/2.0;
   umlclass_update_data(umlclass);
 
   
