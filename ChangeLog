@@ -1,3 +1,11 @@
+2001-04-13  Cyrille Chepelov  <chepelov@calixo.net>
+
+	* sheets/ER.sheet:
+	* sheets/chronogram.sheet:
+	* sheets/jigsaw.sheet:
+	* sheets/sybase.sheet: Updated Dutch sheet translations from Dag
+	Wieers <dag@wieers.com>
+
 2001-04-13  Hans Breuer  <hans@breuer.org>
 
 	* app/app_procs.c (app_exit) : added g_return_if_fail (!app_exit_once)
