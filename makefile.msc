@@ -184,7 +184,7 @@ build\win32\etc: build\win32 ..\etc
 build\win32\dia_logo.png: build\win32 dia_logo.png
 	copy dia_logo.png build\win32
 
-ALL_LINGUAS = am az be ca cs da de el en_GB es fi fr ga hu it ja ko mk mn ml ms nl nn no pl pt pt_BR ro ru sk sl sq sr sr@Latn sv tr uk vi zh_CN zh_TW	
+ALL_LINGUAS = am az be ca cs da de el en_CA en_GB es fi fr ga gu hr hu is it ja ko mk mn ml ms nb nl nn no pl pt pt_BR ro ru sk sl sq sr sr@Latn sv tr uk vi zh_CN zh_TW	
 
 po: build\win32\lib\locale
  	for %d in ($(ALL_LINGUAS)) do md build\win32\lib\locale\%d
@@ -195,6 +195,8 @@ DOCBOOKDIR = c:\program files\docbook-xsl
 
 XSLTPROC = "c:\program files\libxslt\bin\xsltproc.exe"
 
+FOP = "c:\program files\fop\fop.bat"
+
 HHC = "c:\program files\HTML Help Workshop\hhc.exe"
 
 .IGNORE:
@@ -202,8 +204,14 @@ doc: doc\en\dia.xml
 	cd doc\en
 	$(XSLTPROC) -o index.html "$(DOCBOOKDIR)\htmlhelp\profile-htmlhelp.xsl" dia.xml
 	$(HHC) htmlhelp.hhp
-	copy htmlhelp.chm ..\..\build\win32\doc\C\dia-manual.chm
+	$(XSLTPROC) -o dia-manual.fo "$(DOCBOOKDIR)\fo\profile-docbook.xsl" dia.xml
+	$(FOP) dia-manual.fo dia-manual.pdf
+	copy htmlhelp.chm ..\..\build\win32\help\C\dia-manual.chm
+	copy dia-manual.pdf ..\..\build\win32\help\C\dia-manual.pdf
 	cd ..\..\doc\pl
 	$(XSLTPROC) -o index.html "$(DOCBOOKDIR)\htmlhelp\profile-htmlhelp.xsl" dia.xml
 	$(HHC) htmlhelp.hhp
-	copy htmlhelp.com ..\..\build\win32\doc\pl\dia-manual.chm
+	$(XSLTPROC) -o dia-manual.fo "$(DOCBOOKDIR)\fo\profile-docbook.xsl" dia.xml
+	$(FOP) dia-manual.fo dia-manual.pdf
+	copy htmlhelp.chm ..\..\build\win32\help\pl\dia-manual.chm
+	copy dia-manual.pdf ..\..\build\win32\help\pl\dia-manual.pdf

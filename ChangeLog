@@ -1,3 +1,8 @@
+2004-08-26  Steffen Macke <sdteffen@web.de>
+
+	* app/makefile.msc: using /subsystem:windows again
+	* makefile.msc: updated ALL_LINGUAS
+
 2004-08-21  Kjartan Maraas  <kmaraas@gnome.org>
 
 	* configure.in: Add «nb» to ALL_LINGUAS.
