@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: dia HEAD\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2003-12-17 03:10+0100\n"
-"PO-Revision-Date: 2004-01-31 07:10 :40+0000\n"
+"PO-Revision-Date: 2004-02-03 07:10 :40+0000\n"
 "Last-Translator: Alastair McKinstry <mckinstry@computer.org>\n"
 "Language-Team: Irish <gaeilge-gnulinux@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -4328,19 +4328,19 @@ msgstr ""
 
 #: objects/custom/custom_object.c:177 objects/custom/custom_object.c:196
 msgid "Flip horizontal"
-msgstr ""
+msgstr "Cas ar cothromach"
 
 #: objects/custom/custom_object.c:179 objects/custom/custom_object.c:198
 msgid "Flip vertical"
-msgstr ""
+msgstr "Cas ar ingearach"
 
 #: objects/custom/custom_object.c:1384
 msgid "Flip Horizontal"
-msgstr ""
+msgstr "Cas ar Cothromach"
 
 #: objects/custom/custom_object.c:1385
 msgid "Flip Vertical"
-msgstr ""
+msgstr "Cas ar Ingearach"
 
 #: objects/custom/custom_object.c:1422
 #, c-format
@@ -4569,7 +4569,7 @@ msgstr ""
 
 #: plug-ins/svg/svg-import.c:288
 msgid "Courier"
-msgstr ""
+msgstr "Courier"
 
 #: plug-ins/svg/svg-import.c:591
 msgid "Could not find SVG namespace."
@@ -5202,7 +5202,7 @@ msgstr ""
 
 #: sheets/EML.sheet.in.h:1
 msgid "EML"
-msgstr ""
+msgstr "EML"
 
 #: sheets/EML.sheet.in.h:2
 msgid "Editor for EML Static Structure Diagrams."
@@ -5218,7 +5218,7 @@ msgstr ""
 
 #: sheets/ER.sheet.in.h:2
 msgid "ER"
-msgstr ""
+msgstr "ER"
 
 #: sheets/ER.sheet.in.h:3
 msgid "Editor for Entity Relations Diagrams"
@@ -5386,7 +5386,7 @@ msgstr ""
 
 #: sheets/Flowchart.sheet.in.h:26
 msgid "Sort"
-msgstr ""
+msgstr "Sortáil"
 
 #: sheets/Flowchart.sheet.in.h:27
 msgid "Summing junction"
@@ -5782,7 +5782,7 @@ msgstr ""
 
 #: sheets/UML.sheet.in.h:30
 msgid "UML"
-msgstr ""
+msgstr "UML"
 
 #: sheets/UML.sheet.in.h:31
 msgid "Use case"
@@ -6302,7 +6302,7 @@ msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:5
 msgid "6701"
-msgstr ""
+msgstr "6701"
 
 #: sheets/cisconetwork.sheet.in.h:6
 msgid "6705 Integrated access device"
@@ -6342,7 +6342,7 @@ msgstr "BTS 10200"
 
 #: sheets/cisconetwork.sheet.in.h:15
 msgid "Bridge"
-msgstr ""
+msgstr "Droichead"
 
 #: sheets/cisconetwork.sheet.in.h:16
 msgid "CDDI-FDDI"
@@ -7062,7 +7062,7 @@ msgstr ""
 
 #: sheets/sybase.sheet.in.h:5
 msgid "Sybase"
-msgstr ""
+msgstr "Sybase"
 
 #: sheets/sybase.sheet.in.h:6
 msgid "Sybase client application"
