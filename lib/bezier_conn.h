@@ -39,6 +39,7 @@ extern void bezierconn_update_data(BezierConn *bez);
 extern void bezierconn_update_boundingbox(BezierConn *bez);
 extern void bezierconn_simple_draw(BezierConn *bez, Renderer *renderer,
 				 real width);
+extern void bezierconn_draw_control_lines(BezierConn *bez, Renderer *renderer);
 extern void bezierconn_init(BezierConn *bez);
 extern void bezierconn_destroy(BezierConn *bez);
 extern void bezierconn_copy(BezierConn *from, BezierConn *to);

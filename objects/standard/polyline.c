@@ -445,7 +445,8 @@ polyline_draw(Polyline *polyline, Renderer *renderer)
   if (polyline->start_arrow.type != ARROW_NONE) {
     arrow_draw(renderer, polyline->start_arrow.type,
 	       &points[0], &points[1],
-	       0.8, 0.8, polyline->line_width,
+	       polyline->start_arrow.length, polyline->start_arrow.width,
+	       polyline->line_width,
 	       &polyline->line_color, &color_white);
   }
   if (polyline->end_arrow.type != ARROW_NONE) {

@@ -444,7 +444,8 @@ bezierline_draw(Bezierline *bezierline, Renderer *renderer)
   if (bezierline->start_arrow.type != ARROW_NONE) {
     arrow_draw(renderer, bezierline->start_arrow.type,
 	       &bez->points[0].p1, &bez->points[1].p1,
-	       0.8, 0.8, bezierline->line_width,
+	       bezierline->start_arrow.length, bezierline->start_arrow.width,
+	       bezierline->line_width,
 	       &bezierline->line_color, &color_white);
   }
   if (bezierline->end_arrow.type != ARROW_NONE) {
@@ -455,6 +456,12 @@ bezierline_draw(Bezierline *bezierline, Renderer *renderer)
 	       bezierline->line_width,
 	       &bezierline->line_color, &color_white);
   }
+
+  /* these lines should only be displayed when object is selected.
+   * Unfortunately the draw function is not aware of the selected
+   * state.  This is a compromise until I fix this properly. */
+  if (renderer->is_interactive)
+    bezierconn_draw_control_lines(&bezierline->bez, renderer);
 }
 
 static Object *
@@ -724,18 +731,14 @@ bezierline_add_segment_callback (Object *obj, Point *clicked, gpointer data)
 static ObjectChange *
 bezierline_delete_segment_callback (Object *obj, Point *clicked, gpointer data)
 {
-  Handle *handle;
-  int seg_nr, i;
+  int seg_nr;
   Bezierline *bezierline = (Bezierline*) obj;
   ObjectChange *change;
   
-  handle = bezierline_closest_handle(bezierline, clicked);
+  seg_nr = bezierconn_closest_segment(&bezierline->bez, clicked,
+				      bezierline->line_width);
 
-  for (i = 0; i < obj->num_handles; i++) {
-    if (handle == obj->handles[i]) break;
-  }
-  seg_nr = 3 * (i + 2);
-  change = bezierconn_remove_segment(&bezierline->bez, seg_nr);
+  change = bezierconn_remove_segment(&bezierline->bez, seg_nr+1);
   bezierline_update_data(bezierline);
   return change;
 }

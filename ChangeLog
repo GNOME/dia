@@ -1,5 +1,21 @@
 1999-12-06  James Henstridge  <james@daa.com.au>
 
+	* objects/standard/polyline.c (polyline_draw): fix start arrow size.
+
+	* objects/standard/bezier.c (bezierline_draw): draw control lines for
+	bezier curve if we are using an interactive renderer (ie. only if
+	displaying to the screen).
+
+	* lib/bezier_conn.[ch] (bezierconn_draw_control_lines): function
+	to draw control lines on to a bezier curve.  Based on implementation
+	from Lars.
+
+	* objects/standard/bezier.c (bezierline_delete_segment_callback):
+	calculate segment number using closest_segment rather than
+	closest_handle.  Sometimes the closest handle is part of a different
+	segment.
+	(bezierline_draw): use correct size for start arrow.
+
 	The next few entries are from Peter Moulder <reiter@netspace.net.au>:
 	* lib/geometry.c (distance_line_point): added notes to documentation
 	in comment.

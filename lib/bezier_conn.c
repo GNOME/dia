@@ -476,6 +476,29 @@ bezierconn_simple_draw(BezierConn *bez, Renderer *renderer, real width)
   renderer->ops->draw_bezier(renderer, points, bez->numpoints, &color_black);
 }
 
+void
+bezierconn_draw_control_lines(BezierConn *bez, Renderer *renderer)
+{
+  Color line_colour = {0.0, 0.0, 0.6};
+  Point startpoint;
+  int i;
+
+  /* setup renderer ... */
+  renderer->ops->set_linewidth(renderer, 0);
+  renderer->ops->set_linestyle(renderer, LINESTYLE_DOTTED);
+  renderer->ops->set_dashlength(renderer, 1);
+  renderer->ops->set_linejoin(renderer, LINEJOIN_MITER);
+  renderer->ops->set_linecaps(renderer, LINECAPS_BUTT);
+
+  startpoint = bez->points[0].p1;
+  for (i = 1; i < bez->numpoints; i++) {
+    renderer->ops->draw_line(renderer, &startpoint, &bez->points[i].p1,
+			     &line_colour);
+    renderer->ops->draw_line(renderer, &bez->points[i].p2, &bez->points[i].p3,
+			     &line_colour);
+    startpoint = bez->points[i].p3;
+  }
+}
 
 void
 bezierconn_init(BezierConn *bez)
