@@ -1,5 +1,8 @@
 2003-08-13  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* lib/dialibartrenderer.c: Don't include art_config.h if others
+	also do, as it isn't #ifdef'd.
+
 	* objects/flowchart/ellipse.c (ellipse_update_data): Add
 	directions for connection points.
 

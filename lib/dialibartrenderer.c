@@ -42,10 +42,6 @@
 #undef Rectangle
 #endif
 
-/* Bug in libart: at least art_rgb.h uses art_config stuff without 
- * including it first. */
-#include <libart_lgpl/art_config.h>
-
 #include <libart_lgpl/art_point.h>
 #include <libart_lgpl/art_misc.h>
 #include <libart_lgpl/art_affine.h>
