@@ -94,7 +94,8 @@ stringprop_get_widget(StringProperty *prop, PropDialog *dialog)
 static void 
 stringprop_reset_widget(StringProperty *prop, WIDGET *widget)
 {
-  gtk_entry_set_text(GTK_ENTRY(widget), prop->string_data);
+  gtk_entry_set_text(GTK_ENTRY(widget),
+                     prop->string_data ? prop->string_data : "");
 }
 
 static void 
@@ -117,7 +118,8 @@ multistringprop_get_widget(StringProperty *prop, PropDialog *dialog)
 static void 
 multistringprop_reset_widget(StringProperty *prop, WIDGET *widget)
 {
-  gtk_text_insert(GTK_TEXT(widget), NULL, NULL, NULL, prop->string_data,-1);
+  gtk_text_insert(GTK_TEXT(widget), NULL, NULL, NULL, 
+                  prop->string_data ? prop->string_data : "", -1);
 }
 
 static WIDGET *

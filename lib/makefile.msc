@@ -30,6 +30,7 @@ OBJECTS = \
 	dia_image.obj \
 	dia_xml.obj \
 	diagramdata.obj \
+	dynamic_obj.obj \
 	element.obj \
 	filter.obj \
 	focus.obj \

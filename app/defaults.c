@@ -141,7 +141,8 @@ defaults_show(ObjectType *objtype)
 
   if (object_part != defaults) {
     gtk_window_resize (GTK_WINDOW(dialog), 1, 1); /* shrink to default */
-    gdk_window_invalidate_rect (dialog->window, NULL, TRUE);
+    if (dialog->window)
+      gdk_window_invalidate_rect (dialog->window, NULL, TRUE);
   }
   gtk_window_present (GTK_WINDOW(dialog));
   object_part = defaults;

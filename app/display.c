@@ -192,14 +192,14 @@ new_display(Diagram *dia)
 
   
   if (!input_methods_done) {
-      im_menu_item = menus_get_item_from_path("<Display>/Input Methods", NULL);
+      im_menu_item = menus_get_item_from_path("<Display>/Input Methods/tearoff", NULL);
       if (im_menu_item) {
           im_menu = gtk_menu_new();
           gtk_im_multicontext_append_menuitems(GTK_IM_MULTICONTEXT(ddisp->im_context),
                                                GTK_MENU_SHELL(im_menu));
           
-          gtk_menu_item_set_submenu( GTK_MENU_ITEM (im_menu_item), 
-                                     GTK_WIDGET(im_menu));
+          gtk_menu_item_set_submenu( GTK_MENU_ITEM(im_menu_item), 
+                                     im_menu);
           input_methods_done = TRUE;
       }
   }
@@ -805,7 +805,8 @@ ddisp_destroy(DDisplay *ddisp)
   }
 
   g_object_unref (G_OBJECT (ddisp->im_context));
-      
+  ddisp->im_context = NULL;
+
   gtk_widget_destroy (ddisp->shell);
 }
 

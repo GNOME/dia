@@ -56,7 +56,6 @@ gtk_message_internal(const char* title, const char *fmt,
   static gchar *buf = NULL;
   static gint   alloc = 0;
   gint len;
-  GtkWidget *dialog = NULL;
   GtkMessageType type = GTK_MESSAGE_INFO;
   DiaMessageInfo *msginfo;
 
@@ -108,8 +107,9 @@ gtk_message_internal(const char* title, const char *fmt,
     }
     textbuffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(msginfo->repeat_view));
     gtk_text_buffer_insert_at_cursor(textbuffer, buf, -1);
-    gtk_widget_show (dialog);
+    gtk_widget_show (msginfo->dialog);
   } else {
+    GtkWidget *dialog = NULL;
     /* quite dirty to not change Dia's message api */
     if (title) {
       if (0 == strcmp (title, _("Error")))

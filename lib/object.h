@@ -25,7 +25,6 @@ typedef struct _Object Object;
 typedef struct _ObjectOps ObjectOps;
 typedef struct _ObjectType ObjectType;
 typedef struct _ObjectTypeOps ObjectTypeOps;
-typedef enum _ModifierKeys ModifierKeys;
 
 #include "geometry.h"
 #include "render.h"
@@ -39,7 +38,7 @@ typedef enum _ModifierKeys ModifierKeys;
 
 /* This enumeration gives a bitset of modifier keys currently held down.
  */
-enum _ModifierKeys {
+typedef enum {
   MODIFIER_NONE,
   MODIFIER_LEFT_SHIFT,
   MODIFIER_RIGHT_SHIFT,
@@ -50,7 +49,7 @@ enum _ModifierKeys {
   MODIFIER_LEFT_CONTROL = 16,
   MODIFIER_RIGHT_CONTROL = 32,
   MODIFIER_CONTROL = 48
-};
+} ModifierKeys;
 
 /************************************
  ** Some general function prototypes

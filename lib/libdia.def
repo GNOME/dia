@@ -257,6 +257,12 @@ EXPORTS
  distance_polygon_point
  distance_rectangle_point
 
+ dynobj_list_add_object
+ dynobj_list_foreach
+ dynobj_list_get_dynobj_rate
+ dynobj_list_remove_object
+
+
  element_copy
  element_destroy
  element_init
@@ -306,6 +312,7 @@ EXPORTS
  layer_find_closest_object
  layer_find_objects_in_rectangle
  layer_find_objects_intersecting_rectangle
+ layer_get_parent_diagram
  layer_object_index
  layer_remove_object
  layer_remove_objects

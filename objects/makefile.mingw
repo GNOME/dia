@@ -1,7 +1,7 @@
 # Makefile for mingw (with gnu make, but without bash), use :
 # make -f makefile.mingw
 
-OPTIMIZE = -g
+# OPTIMIZE = -g
 
 ifndef PACKAGE
 
@@ -20,14 +20,14 @@ sub-one:
 else
 
 TOP = ../../..
-include $(TOP)/build/win32/make.mingw
+include $(TOP)/glib/build/win32/make.mingw
 PRJ_TOP = ../..
 PKG_DEF = ../objects.def
 
-PKG_CFLAGS = $(GLIB_CFLAGS) $(GTK_CFLAGS) $(INTL_CFLAGS) \
+PKG_CFLAGS = $(GLIB_CFLAGS) $(GTK2_CFLAGS) $(INTL_CFLAGS) \
 	$(LIBXML2_CFLAGS) -I$(PRJ_TOP)/lib \
 
-PKG_LINK = $(GTK_LIBS) $(GLIB_LIBS) $(INTL_LIBS) \
+PKG_LINK = $(GTK2_LIBS) $(GLIB_LIBS) $(INTL_LIBS) \
 	$(LIBXML2_LIBS) \
 	-L $(PRJ_TOP)/lib -llibdia
 
@@ -41,52 +41,53 @@ OBJECTS = \
 	chronoline.o \
 	chronoline_event.o \
 	chronoref.o
+
 endif
 
 ifdef OBJ_custom
 OBJECTS = \
-	shape_info.o \
+	custom.o \
 	custom_object.o \
 	custom_util.o \
-	custom.o
+	shape_info.o
 endif
 
 ifdef OBJ_eml
 OBJECTS = \
-        instantiation.o \
-        process_dialog.o \
-        eml.o \
-        process.o \
-        interaction-ortho.o \
-        interaction.o \
         dbox.o \
+        eml.o \
+        instantiation.o \
+        interaction.o \
+        interaction-ortho.o \
         listfun.o \
-        nlist.o
+        nlist.o \
+        process.o \
+        process_dialog.o
 endif
 
 ifdef OBJ_er
 OBJECTS = \
-	entity.o \
-	relationship.o \
 	attribute.o \
+	entity.o \
+	er.o \
 	participation.o \
-	er.o
+	relationship.o
 endif
 
 ifdef OBJ_flowchart
 OBJECTS = \
 	box.o \
-	parallelogram.o \
 	diamond.o \
 	ellipse.o \
-	flowchart.o
+	flowchart.o \
+	parallelogram.o
 endif
 
 ifdef OBJ_fs
 OBJECTS = \
-	fs.o \
 	flow.o \
 	flow-ortho.o \
+	fs.o \
 	function.o
 endif
 
@@ -94,20 +95,20 @@ ifdef OBJ_grafcet
 OBJECTS = \
 	action.o \
 	action_text_draw.o \
+	boolequation.o \
+	condition.o \
 	grafcet.o \
 	step.o \
 	transition.o \
 	vector.o \
-	vergent.o \
-	boolequation.o \
-	condition.o
+	vergent.o
 endif
 
 ifdef OBJ_labels
 OBJECTS = \
 	labels.o \
-	labeltextobj.o \
-	labelline.o
+	labelline.o \
+	labeltextobj.o
 endif
 
 ifdef OBJ_network
@@ -128,17 +129,17 @@ endif
 ifdef OBJ_standard
 OBJECTS = \
 	arc.o \
+	bezier.o \
 	beziergon.o \
 	box.o \
 	ellipse.o \
-	textobj.o \
-	line.o \
-	zigzagline.o \
-	polyline.o \
-	bezier.o \
-	standard.o \
 	image.o \
+	line.o \
 	polygon.o
+	polyline.o \
+	standard.o \
+	textobj.o \
+	zigzagline.o
 endif
 
 ifdef OBJ_sybase
@@ -148,29 +149,32 @@ endif
 
 ifdef OBJ_uml
 OBJECTS = \
-	uml.o \
+	activity.o \
+	actor.o \
+	association.o \
+	branch.o \
 	class.o \
 	class_dialog.o \
-	note.o \
-	actor.o \
-	usecase.o \
-	realizes.o \
-	constraint.o \
-	small_package.o \
-	large_package.o \
-	implements.o \
-	generalization.o \
-	association.o \
-	dependency.o \
-	message.o \
-	object.o \
-	lifeline.o \
-	component.o \
 	classicon.o \
-	state.o \
-	branch.o \
+	component.o \
+	constraint.o \
+	dependency.o \
+	fork.o \
+	generalization.o \
+	implements.o \
+	large_package.o \
+	lifeline.o \
+	message.o \
 	node.o \
-	stereotype.o
+	note.o \
+	object.o \
+	realizes.o \
+	small_package.o \
+	state.o \
+	state_term.o \
+	stereotype.o \
+	uml.o \
+	usecase.o
 endif
 
 DEPCFLAGS = -I. -I$(PRJ_TOP) -DHAVE_CONFIG_H $(PKG_CFLAGS)
@@ -184,7 +188,7 @@ $(PACKAGE).dll : $(OBJECTS)
 	dllwrap --mno-cygwin --dllname $(PACKAGE).dll --implib $(PACKAGE).lib --output-exp $(PACKAGE).exp --def ../objects.def $(OBJECTS) $(PKG_LINK) -luser32 -lwsock32 -ladvapi32
 
 $(PRJ_TOP)/config.h: $(PRJ_TOP)/config.h.win32
-	copy $(PRJ_TOP)/config.h.win32 $(PRJ_TOP)/config.h
+	copy $(PRJ_TOP)\config.h.win32 $(PRJ_TOP)\config.h
 
 endif
 

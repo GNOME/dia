@@ -19,13 +19,9 @@
 #define HANDLE_H
 
 typedef struct _Handle Handle;
-typedef enum _HandleId HandleId;
-typedef enum _HandleType HandleType;
-typedef enum _HandleMoveReason HandleMoveReason;
-typedef enum _HandleConnectType HandleConnectType;
 
 /* Is this needed? */
-enum _HandleId {
+typedef enum {
   HANDLE_RESIZE_NW,
   HANDLE_RESIZE_N,
   HANDLE_RESIZE_NE,
@@ -47,29 +43,29 @@ enum _HandleId {
   HANDLE_CUSTOM7,
   HANDLE_CUSTOM8,
   HANDLE_CUSTOM9
-};
+} HandleId;
 
-enum _HandleType {
+typedef enum {
   HANDLE_NON_MOVABLE,
   HANDLE_MAJOR_CONTROL,
   HANDLE_MINOR_CONTROL,
 
   NUM_HANDLE_TYPES /* Must be last */
-};
+}  HandleType;
 
-enum _HandleMoveReason {
+typedef enum {
   HANDLE_MOVE_USER,
   HANDLE_MOVE_USER_FINAL,
   HANDLE_MOVE_CONNECTED,
   HANDLE_MOVE_CREATE,       /* the initial drag during object placement */
   HANDLE_MOVE_CREATE_FINAL  /* finish of initial drag */
-};
+} HandleMoveReason;
 
-enum _HandleConnectType {
+typedef enum {
   HANDLE_NONCONNECTABLE,
   HANDLE_CONNECTABLE,
   HANDLE_CONNECTABLE_NOBREAK /* Don't break connection on object move */
-};
+} HandleConnectType;
 
 #include "geometry.h"
 #include "object.h"

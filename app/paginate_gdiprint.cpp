@@ -30,6 +30,16 @@
 #include <math.h>
 #include <string.h>
 
+#ifdef __GNUC__
+/*
+ * Super dirty: hide g++ keyword(?) 'export'
+ *  otherwise we get:
+ * ../lib/filter.h:35: declaration does not declare anything
+ * ../lib/filter.h:35: parse error before `export'
+ */
+#define export Export
+#endif
+
 extern "C" {
 
 #include "paginate_gdiprint.h"
@@ -72,9 +82,9 @@ print_page(DiagramData *data, DiaExportFilter* pExp, W32::HANDLE hDC,
   /* set up clip mask ? */
 
   /* render the region */
-  W32::StartPage(hDC);
-  pExp->export(&page_data, "", "", hDC);
-  W32::EndPage(hDC);
+  W32::StartPage((W32::HDC)hDC);
+  pExp->export(&page_data, "", "", (W32::HDC)hDC);
+  W32::EndPage((W32::HDC)hDC);
 
   return nobjs;
 }

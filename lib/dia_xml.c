@@ -630,7 +630,7 @@ data_string(DataNode data)
 DiaFont *
 data_font(DataNode data)
 {
-  char *name;
+  char *family;
   DiaFont *font;
   
   if (data_type(data)!=DATATYPE_FONT) {
@@ -638,19 +638,21 @@ data_font(DataNode data)
     return NULL;
   }
 
-  name = xmlGetProp(data, "name");
-  if (name) {
-    font = dia_font_new_from_legacy_name(name);
-    xmlFree(name);
-  } else {
+  family = xmlGetProp(data, "family");
+  /* always prefer the new format */
+  if (family) {
     DiaFontStyle style;
-    char* family = xmlGetProp(data, "family");
     char* style_name = xmlGetProp(data, "style");
     style = style_name ? atoi(style_name) : 0;
 
     font = dia_font_new (family, style, 1.0);
     if (family) xmlFree(family);
     if (style_name) xmlFree(style_name);
+  } else {
+    /* Legacy format support */
+    char *name = xmlGetProp(data, "name");
+    font = dia_font_new_from_legacy_name(name);
+    xmlFree(name);
   }
   return font;
 }
@@ -829,6 +831,8 @@ data_add_font(AttributeNode attr, const DiaFont *font)
   g_snprintf(buffer, 20, "%d", dia_font_get_style(font));
  
   xmlSetProp(data_node, "style", buffer);
+  /* Legacy support: don't crash older Dia on missing 'name' attribute */
+  xmlSetProp(data_node, "name", dia_font_get_legacy_name(font));
 }
 
 DataNode

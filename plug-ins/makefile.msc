@@ -48,6 +48,8 @@ OBJECTS = \
   dxf.obj \
   dxf-export.obj \
   dxf-import.obj
+# this plug-in imports group_create () from dia.exe 
+PKG_LINK = $(PKG_LINK) ..\..\app\dia.lib
 !ENDIF
 
 !IFDEF OBJ_metapost

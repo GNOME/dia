@@ -39,6 +39,7 @@ OBJECTS = \
 	diaunitspinner.obj \
 	disp_callbacks.obj \
 	display.obj \
+	dynamic_refresh.obj \
 	export_png.obj \
 	filedlg.obj \
 	grid.obj \
@@ -122,7 +123,7 @@ $(PACKAGE).exe : $(OBJECTS) $(PACKAGE).def $(PACKAGE).res
 	$(CC) $(CFLAGS) -Fe$(PACKAGE).exe $(PACKAGE).res $(OBJECTS) $(PKG_LINK) \
 	gdi32.lib comdlg32.lib user32.lib advapi32.lib shell32.lib wsock32.lib winspool.lib $(LDFLAGS) /def:$(PACKAGE).def
 
-$(PRJ_TOP)\config.h: $(PRJ_TOP)\config.h.win32
+$(PRJ_TOP)/config.h: $(PRJ_TOP)/config.h.win32
 	copy $(PRJ_TOP)\config.h.win32 $(PRJ_TOP)\config.h
 
 .c.obj :

@@ -1,7 +1,7 @@
 !IFNDEF PACKAGE
 
 PLUGINS = chronogram custom er flowchart fs grafcet \
-		network sadt standard uml
+	misc network sadt standard uml
 
 #outdated:	labels
 
@@ -57,48 +57,48 @@ OBJECTS = \
 
 !IFDEF OBJ_custom
 OBJECTS = \
-	shape_info.obj \
+	custom.obj \
 	custom_object.obj \
 	custom_util.obj \
-	custom.obj
+	shape_info.obj
 !ENDIF
 
 !IFDEF OBJ_eml
 OBJECTS = \
-        instantiation.obj \
-        process_dialog.obj \
-        eml.obj \
-        process.obj \
-        interaction-ortho.obj \
-        interaction.obj \
-        dbox.obj \
-        listfun.obj \
-        nlist.obj
+	dbox.obj \
+	eml.obj \
+	instantiation.obj \
+	interaction.obj \
+	interaction-ortho.obj \
+	listfun.obj \
+	nlist.obj \
+	process.obj \
+	process_dialog.obj
 !ENDIF
 
 !IFDEF OBJ_er
 OBJECTS = \
-	entity.obj \
-	relationship.obj \
 	attribute.obj \
+	entity.obj \
+	er.obj \
 	participation.obj \
-	er.obj
+	relationship.obj
 !ENDIF
 
 !IFDEF OBJ_flowchart
 OBJECTS = \
 	box.obj \
-	parallelogram.obj \
 	diamond.obj \
 	ellipse.obj \
-	flowchart.obj
+	flowchart.obj \
+	parallelogram.obj
 !ENDIF
 
 !IFDEF OBJ_fs
 OBJECTS = \
-	fs.obj \
 	flow.obj \
 	flow-ortho.obj \
+	fs.obj \
 	function.obj
 !ENDIF
 
@@ -106,20 +106,26 @@ OBJECTS = \
 OBJECTS = \
 	action.obj \
 	action_text_draw.obj \
+	boolequation.obj \
+	condition.obj \
 	grafcet.obj \
 	step.obj \
 	transition.obj \
 	vector.obj \
-	vergent.obj \
-	boolequation.obj \
-	condition.obj \
+	vergent.obj
 !ENDIF
 
 !IFDEF OBJ_labels
 OBJECTS = \
 	labels.obj \
-	labeltextobj.obj \
-	labelline.obj
+	labelline.obj \
+	labeltextobj.obj
+!ENDIF
+
+!IFDEF OBJ_misc
+OBJECTS = \
+	analog_clock.obj \
+	libmisc.obj
 !ENDIF
 
 !IFDEF OBJ_network
@@ -134,24 +140,23 @@ OBJECTS = \
 	annotation.obj \
 	arrow.obj \
 	box.obj \
-	sadt.obj \
-
+	sadt.obj
 !ENDIF
 
 !IFDEF OBJ_standard
 OBJECTS = \
 	arc.obj \
+	bezier.obj \
 	beziergon.obj \
 	box.obj \
 	ellipse.obj \
-	textobj.obj \
-	line.obj \
-	zigzagline.obj \
-	polyline.obj \
-	bezier.obj \
-	standard.obj \
 	image.obj \
-	polygon.obj
+	line.obj \
+	polygon.obj \
+	polyline.obj \
+	standard.obj \
+	textobj.obj \
+	zigzagline.obj
 !ENDIF
 
 !IFDEF OBJ_specware
@@ -208,24 +213,6 @@ OBJECTS = \
 
 !ENDIF
 
-## common stuff
-## compiler and linker switches
-!IFNDEF DEBUG
-# Full optimization:
-OPTIMIZE = -Ox -MD
-LINKDEBUG =
-!ELSE
-# Debugging:
-OPTIMIZE = -Zi -MDd
-LINKDEBUG = /debug
-!ENDIF
-
-# cl -? describes the options
-CC = cl -G5 -GF $(OPTIMIZE) -W3 -nologo
-
-# No general LDFLAGS needed
-LDFLAGS = /link $(LINKDEBUG)
-INSTALL = copy
 
 CFLAGS = -I. -I$(PRJ_TOP) -DHAVE_CONFIG_H
 

@@ -124,9 +124,9 @@ handle_btn1(Annotation *annotation, Property *prop) {
   col = annotation->attrs.color;
   /* g_message("in handle_btn1 for object %p col=%.2f:%.2f:%.2f",
      annotation,col.red,col.green,col.blue); */
-  col.red = (1.0*random())/RAND_MAX;
-  col.green = (1.0*random())/RAND_MAX;
-  col.blue = (1.0*random())/RAND_MAX;
+  col.red = g_random_double();
+  col.green = g_random_double();
+  col.blue = g_random_double();
   annotation->attrs.color = col;
   text_set_attributes(annotation->text,&annotation->attrs);
   /* g_message("end of handle_btn1 for object %p col=%.2f:%.2f:%.2f",

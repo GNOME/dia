@@ -4,84 +4,82 @@
 TOP = ../..
 PRJ_TOP = ..
 PACKAGE = libdia
-include $(TOP)/build/win32/make.mingw
+include $(TOP)/glib/build/win32/make.mingw
 
-OPTIMIZE = -g
+# OPTIMIZE = -g
 
-GDKPIXBUF = $(TOP)/dia-dev/gdk-pixbuf
-
-PKG_CFLAGS = -I.. \
+PKG_CFLAGS = -I .. \
 	$(GLIB_CFLAGS) \
-	$(GTK_CFLAGS) \
-	-I$(GDKPIXBUF)/.. \
-	$(LIBXML2_CFLAGS) \
+	$(GTK2_CFLAGS) \
+	-DWIN32 $(LIBXML2_CFLAGS) \
 	$(ZLIB_CFLAGS) \
-	-I$(LIBART)/.. \
+	-I $(LIBART)/.. \
 	-DLIBDIA_COMPILATION
 
 # in GTK_CFLAGS: $(GLIB_CFLAGS) 
 
-PKG_LINK = -lm $(GTK_LIBS) $(GLIB_LIBS) \
-	$(LIBXML2_LIBS) $(ZLIB_LIBS) -L $(GDKPIXBUF) -lgdk-pixbuf
+PKG_LINK = -lm $(GTK2_LIBS) $(GLIB_LIBS) $(PANGO_LIBS) \
+	$(LIBXML2_LIBS) $(ZLIB_LIBS)
 
 # Debug
 # OPTIMIZE = -g
 
 OBJECTS = \
-	diagramdata.o \
-	geometry.o \
-	color.o \
-	dia_xml.o \
-	attributes.o \
-	text.o \
-	font.o \
-	utils.o \
 	arrows.o \
-	message.o \
-	focus.o \
-	sheet.o \
-	object.o \
-	connection.o \
-	orth_conn.o \
-	poly_conn.o \
+	attributes.o \
 	bezier_conn.o \
-	element.o \
-	objchange.o \
-	widgets.o \
-	dia_image.o \
-	intl.o \
-	dia_dirs.o \
-	neworth_conn.o \
+	beziershape.o \
+	boundingbox.o \
+	color.o \
+	connection.o \
 	connpoint_line.o \
+	dia_dirs.o \
+	dia_image.o \
+	dia_xml.o \
+	diagramdata.o \
+	dynamic_obj.o \
+	element.o \
 	filter.o \
-	prop_basic.o \
-	prop_inttypes.o \
-	prop_geomtypes.o \
+	focus.o \
+	font.o \
+	geometry.o \
+	intl.o \
+	message.o \
+	neworth_conn.o \
+	objchange.o \
+	object.o \
+	object_defaults.o \
+	orth_conn.o \
+	paper.o \
+	plug-ins.o \
+	poly_conn.o \
+	polyshape.o \
 	prop_attr.o \
+	prop_basic.o \
+	prop_geomtypes.o \
+	prop_inttypes.o \
+	prop_sdarray.o \
 	prop_text.o \
 	prop_widgets.o \
-	prop_sdarray.o \
-	properties.o \
 	propdesc.o \
-	proplist.o \
-	propoffsets.o \
-	propobject.o \
 	propdialogs.o  \
+	properties.o \
+	proplist.o \
+	propobject.o \
+	propoffsets.o \
 	propregistry.o \
-	plug-ins.o \
-	polyshape.o \
-	beziershape.o \
-	paper.o \
-	string_prerenderer.o \
-	boundingbox.o \
-	charconv.o \
-	dllinit.o
+	ps-utf8.o \
+	render.o \
+	sheet.o \
+	text.o \
+	utils.o \
+	widgets.o \
 
-DEPCFLAGS = -I. -DHAVE_CONFIG_H $(PKG_CFLAGS)
+DEPCFLAGS = -I . -DHAVE_CONFIG_H $(PKG_CFLAGS)
 
 ## targets
 all : \
-	$(PRJ_TOP)\config.h \
+	$(PRJ_TOP)/config.h \
 	$(PACKAGE).dll
 
 #$(PACKAGE).lib : $(OBJECTS)
@@ -92,17 +90,14 @@ all : \
 
 # -Wl,-Map,libdia.map 
 $(PACKAGE).dll : $(OBJECTS) $(PACKAGE).def
-	dllwrap --mno-cygwin --dllname $(PACKAGE).dll --implib $(PACKAGE).lib --output-exp $(PACKAGE).exp --def $(PACKAGE).def $(OBJECTS) $(PKG_LINK) -luser32 -lwsock32 -ladvapi32
+	dllwrap --mno-cygwin --dllname $(PACKAGE).dll --output-exp $(PACKAGE).exp --def $(PACKAGE).def $(OBJECTS) $(PKG_LINK) -luser32 -lwsock32 -ladvapi32
 
 # how to get the functions exported ??
 #$(PACKAGE).dll : $(OBJECTS) $(PACKAGE).def
 #	gcc --shared -o $(PACKAGE).dll --def $(PACKAGE).def $(OBJECTS) $(PKG_LINK) -luser32 -lwsock32 -ladvapi32 -Wl,--out-implib,$(PACKAGE).a 
 
 $(PRJ_TOP)/config.h: $(PRJ_TOP)/config.h.win32
-	copy $(PRJ_TOP)/config.h.win32 $(PRJ_TOP)/config.h
-
-#.c.o :
-#	$(CC) $(CFLAGS) -c $(PKG_CFLAGS) $<
+	copy $(PRJ_TOP)\config.h.win32 $(PRJ_TOP)\config.h
 
 clean::
 	del config.h

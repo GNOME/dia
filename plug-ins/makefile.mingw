@@ -1,8 +1,11 @@
-OPTIMIZE = -g
+# Makefile for mingw (with gnu make, but without bash), use :
+# make -f makefile.mingw
+
+# OPTIMIZE = -g
 
 ifndef PACKAGE
 
-PLUGINS = cgm dummy dxf hpgl pstricks shape svg wmf wpg #xfig
+PLUGINS = cgm dummy dxf hpgl pstricks shape svg wmf wpg xfig
 
 # The main target
 all : sub-all
@@ -19,12 +22,12 @@ TOP = ../../..
 PRJ_TOP = ../..
 PKG_DEF = ../objects.def
 
-include $(TOP)/build/win32/make.mingw
+include $(TOP)/glib/build/win32/make.mingw
 
-PKG_CFLAGS = $(GLIB_CFLAGS) $(GTK_CFLAGS) \
+PKG_CFLAGS = $(GLIB_CFLAGS) $(GTK2_CFLAGS) $(PANGO_LIBS) \
 	-I. $(LIBXML2_CFLAGS) -I$(PRJ_TOP)/lib \
 
-PKG_LINK = $(GTK_LIBS) $(GLIB_LIBS) $(LIBXML2_LIBS) \
+PKG_LINK = $(GTK2_LIBS) $(GLIB_LIBS) $(LIBXML2_LIBS) \
 	-L $(PRJ_TOP)/lib -llibdia
 
 #

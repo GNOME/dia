@@ -273,16 +273,6 @@ dia_font_get_psfontname(const DiaFont *font)
   return dia_font_get_legacy_name(font);
 }
 
-G_CONST_RETURN char*
-dia_font_get_legacy_name(const DiaFont *font)
-{
-  /* FIXME: this is broken ! New fonts don't have this ! */    
-  if (font->legacy_name)
-    return font->legacy_name;
-
-  return "Courier";
-}
-
 void dia_font_set_any_family(DiaFont* font, const char* family)
 {
   g_assert(font != NULL);
@@ -684,5 +674,35 @@ dia_font_new_from_legacy_name(const char* name)
   }
   
   return retval;
+}
+
+G_CONST_RETURN char*
+dia_font_get_legacy_name(const DiaFont *font)
+{
+  const char* matched_name = NULL;
+  const char* family;
+  DiaFontStyle style;
+  int i;
+
+  /* if we have loaded it from an old file, use the old name */    
+  if (font->legacy_name)
+    return font->legacy_name;
+
+  family = dia_font_get_family (font);
+  style = dia_font_get_style (font);
+  for (i = 0; i < G_N_ELEMENTS(legacy_fonts); i++) {
+    if (0 == g_strcasecmp (legacy_fonts[i].newname, family)) {
+      /* match weight and slant */
+      DiaFontStyle st = legacy_fonts[i].style;
+      if (   (DIA_FONT_STYLE_GET_SLANT(style) || DIA_FONT_STYLE_GET_WEIGHT(style))
+          == (DIA_FONT_STYLE_GET_SLANT(st) || DIA_FONT_STYLE_GET_WEIGHT(st))) {
+        return legacy_fonts[i].oldname; /* exact match */
+      } else if (0 == (DIA_FONT_STYLE_GET_SLANT(st) || DIA_FONT_STYLE_GET_WEIGHT(st))) {
+        matched_name = legacy_fonts[i].oldname;
+        /* 'unmodified' font, continue matching */
+      }
+    }
+  }
+  return matched_name ? matched_name : "Courier";
 }
 

@@ -272,7 +272,7 @@ ddisplay_realize(GtkWidget *widget, gpointer data)
   ddisp = (DDisplay *)data;
 
   gtk_im_context_set_client_window(GTK_IM_CONTEXT(ddisp->im_context),
-                                   GDK_WINDOW(ddisp->shell));
+                                   GDK_WINDOW(ddisp->shell->window));
 }
 
 void
@@ -285,8 +285,9 @@ ddisplay_unrealize (GtkWidget *widget, gpointer data)
 
   ddisp = (DDisplay *) data;
 
-  gtk_im_context_set_client_window(GTK_IM_CONTEXT(ddisp->im_context),
-                                   GDK_WINDOW(ddisp->shell));
+  if (ddisp->im_context)
+    gtk_im_context_set_client_window(GTK_IM_CONTEXT(ddisp->im_context),
+                                     GDK_WINDOW(ddisp->shell->window));
 }
 
 void

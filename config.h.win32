@@ -12,4 +12,10 @@
 
 #define VERSION "0.90+cvs"
 
+/*
+ * We are linking libxml as DLL with either msvc or mingw, but this
+ * gets only defined form libxml for (_MSC_VER)
+ */
+#define LIBXML_DLL_IMPORT __declspec(dllimport)
+
 #endif
