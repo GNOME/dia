@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.86\n"
-"POT-Creation-Date: 2001-05-11 16:56+0800\n"
+"POT-Creation-Date: 2001-06-08 06:57+0200\n"
 "PO-Revision-Date: 2000-11-27 22:10-0300\n"
 "Last-Translator: Francisco Petrúcio Cavalcante Junior <fpetrucio@mat.ufal."
 "br>\n"
@@ -14,31 +14,32 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Last-revisor: Marcia Norie Nakaza <norie@conectiva.com.br>\n"
 
-#: app/app_procs.c:148
+#. &export_file_name
+#: app/app_procs.c:151
 msgid "Export loaded file and exit"
 msgstr "Exportar arquivo carregado e sair"
 
-#: app/app_procs.c:148
+#: app/app_procs.c:151
 msgid "OUTPUT"
 msgstr "SAÍDA"
 
-#: app/app_procs.c:150
+#: app/app_procs.c:153
 msgid "Don't show the splash screen"
 msgstr ""
 
-#: app/app_procs.c:152
+#: app/app_procs.c:155
 msgid "Show this help message"
 msgstr "Mostrar esta mensagem de ajuda"
 
-#: app/app_procs.c:171
+#: app/app_procs.c:182
 msgid "Can't connect to session manager!\n"
 msgstr "Não foi possível conectar-se ao gerenciador de sessão!\n"
 
-#: app/app_procs.c:182
+#: app/app_procs.c:193
 msgid "[OPTION...] [FILE...]"
 msgstr "[OPÇÃO...] [ARQUIVO...]"
 
-#: app/app_procs.c:185
+#: app/app_procs.c:196
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
@@ -47,22 +48,22 @@ msgstr ""
 "Erro na opção %s: %s.\n"
 "Execute '%s --help' para obter uma lista completa das opções disponíveis.\n"
 
-#: app/app_procs.c:234 app/app_procs.c:236
+#: app/app_procs.c:245 app/app_procs.c:247
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr ""
 "Não foi possível encontrar objetos padrão ao procurar bibliotecas de "
 "objetos, saindo...\n"
 
-#: app/app_procs.c:261
+#: app/app_procs.c:272
 msgid "Need valid input file\n"
 msgstr "É necessário um arquivo de entrada válido\n"
 
-#: app/app_procs.c:327 app/app_procs.c:333
+#: app/app_procs.c:338 app/app_procs.c:344
 msgid "Quit, are you sure?"
 msgstr "Sair, tem certeza?"
 
-#: app/app_procs.c:340
+#: app/app_procs.c:351
 msgid ""
 "Modified diagrams exists.\n"
 "Are you sure you want to quit?"
@@ -70,27 +71,27 @@ msgstr ""
 "Há diagramas modificados.\n"
 "Tem certeza que quer sair?"
 
-#: app/app_procs.c:350 app/app_procs.c:355
+#: app/app_procs.c:361 app/app_procs.c:366
 msgid "Quit"
 msgstr "Sair"
 
-#: app/app_procs.c:367 app/display.c:940 app/layer_dialog.c:989
+#: app/app_procs.c:378 app/display.c:958 app/layer_dialog.c:989
 #: app/lineprops_area.c:741 app/lineprops_area.c:941 app/linewidth_area.c:246
 #: app/paginate_psprint.c:264
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: app/app_procs.c:442 app/app_procs.c:449
+#: app/app_procs.c:453 app/app_procs.c:460
 msgid "Could not create per-user Dia config directory"
 msgstr "Não foi possível criar o diretório de configuração pessoal do Dia"
 
-#: app/app_procs.c:451
+#: app/app_procs.c:462
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
 msgstr ""
 
-#: app/app_procs.c:473
+#: app/app_procs.c:484
 msgid "Objects and filters internal to dia"
 msgstr "Objetos e filtros internos do dia"
 
@@ -148,7 +149,7 @@ msgstr "Contribuidores:"
 #. setup buttons
 #: app/commands.c:645 app/dia-props.c:86 app/layer_dialog.c:979
 #: app/lineprops_area.c:732 app/lineprops_area.c:931 app/linewidth_area.c:237
-#: app/pagesetup.c:72 app/paginate_psprint.c:256 app/preferences.c:604
+#: app/pagesetup.c:72 app/paginate_psprint.c:256 app/preferences.c:611
 #: app/properties.c:92 lib/message.c:87
 msgid "OK"
 msgstr "OK"
@@ -168,12 +169,12 @@ msgid "Object defaults"
 msgstr "Padrões do objeto"
 
 #: app/defaults.c:75 app/dia-props.c:95 app/pagesetup.c:77
-#: app/preferences.c:613 app/properties.c:101
+#: app/preferences.c:620 app/properties.c:101
 msgid "Apply"
 msgstr "Aplicar"
 
 #: app/defaults.c:85 app/dia-props.c:105 app/layer_dialog.c:264
-#: app/pagesetup.c:83 app/plugin-manager.c:146 app/preferences.c:622
+#: app/pagesetup.c:83 app/plugin-manager.c:146 app/preferences.c:629
 #: app/properties.c:111
 msgid "Close"
 msgstr "Fechar"
@@ -214,7 +215,7 @@ msgstr "Grade:"
 msgid "Background Colour"
 msgstr "Cor do segundo plano:"
 
-#: app/dia-props.c:200 lib/diagramdata.c:59
+#: app/dia-props.c:200 lib/diagramdata.c:60
 msgid "Background"
 msgstr "Segundo Plano"
 
@@ -287,7 +288,7 @@ msgstr ""
 msgid "No object menu"
 msgstr "Não há menu de objetos"
 
-#: app/display.c:140 app/display.c:141 app/interface.c:399
+#: app/display.c:140 app/display.c:141 app/interface.c:442
 msgid "Zoom"
 msgstr "Zoom"
 
@@ -295,16 +296,16 @@ msgstr "Zoom"
 msgid "Diagram modified!"
 msgstr "Diagrama modificado!"
 
-#: app/display.c:890
+#: app/display.c:908
 #, fuzzy
 msgid "Close Diagram?"
 msgstr "Abrir Diagrama"
 
-#: app/display.c:896
+#: app/display.c:914
 msgid "Really close?"
 msgstr "Fechar de qualquer modo?"
 
-#: app/display.c:901
+#: app/display.c:919
 #, fuzzy
 msgid ""
 "This diagram has not been saved.\n"
@@ -313,17 +314,17 @@ msgstr ""
 "Este diagrama não foi salvo.\n"
 "Tem certeza que quer fechar esta janela?"
 
-#: app/display.c:919 app/filedlg.c:246 app/filedlg.c:435 app/preferences.c:496
+#: app/display.c:937 app/filedlg.c:246 app/filedlg.c:435 app/preferences.c:503
 #: lib/properties.c:288
 msgid "Yes"
 msgstr "Sim"
 
-#: app/display.c:929 app/filedlg.c:259 app/filedlg.c:448 app/preferences.c:496
-#: app/preferences.c:507 lib/properties.c:290 lib/properties.c:311
+#: app/display.c:947 app/filedlg.c:259 app/filedlg.c:448 app/preferences.c:503
+#: app/preferences.c:514 lib/properties.c:290 lib/properties.c:311
 msgid "No"
 msgstr "Não"
 
-#: app/export_png.c:79 app/load_save.c:584 app/render_eps.c:201
+#: app/export_png.c:79 app/load_save.c:584 app/render_eps.c:212
 #: plug-ins/cgm/cgm.c:1137 plug-ins/dxf/dxf-export.c:519
 #: plug-ins/hpgl/hpgl.c:559 plug-ins/pstricks/render_pstricks.c:188
 #: plug-ins/shape/shape-export.c:195 plug-ins/svg/render_svg.c:180
@@ -508,11 +509,11 @@ msgstr "Criar imagem"
 msgid "Image"
 msgstr "Imagem"
 
-#: app/interface.c:441
+#: app/interface.c:489
 msgid "NULL tooldata in tool_select_update"
 msgstr "Dados de ferramenta NULL em tool_select_update"
 
-#: app/interface.c:887
+#: app/interface.c:935
 msgid ""
 "Foreground & background colors.  The small black and white squares reset "
 "colors.  The small arrows swap colors.  Double click to change colors."
@@ -520,7 +521,7 @@ msgstr ""
 "Cores de primeiro e segundo plano. Os quadrados pequenos voltam às cores "
 "padrão. As setas trocam as cores. Clique duplo para mudar as cores."
 
-#: app/interface.c:1033
+#: app/interface.c:1081
 msgid "Diagram Editor"
 msgstr "Editor de diagramas"
 
@@ -865,15 +866,15 @@ msgstr "_Ferramentas"
 msgid "_Dialogs"
 msgstr "_Diálogos"
 
-#: app/menus.c:248 app/menus.c:269
+#: app/menus.c:248 app/menus.c:273
 msgid "/_File"
 msgstr "/_Arquivo"
 
-#: app/menus.c:250 app/menus.c:271
+#: app/menus.c:250 app/menus.c:275
 msgid "/File/_New"
 msgstr "/Arquivo/_Novo"
 
-#: app/menus.c:251 app/menus.c:272
+#: app/menus.c:251 app/menus.c:276
 msgid "/File/_Open"
 msgstr "/Arquivo/_Abrir"
 
@@ -895,11 +896,11 @@ msgstr "/Arquivo/_Preferências..."
 msgid "/File/P_lugins"
 msgstr "/Arquivo/P_lugins"
 
-#: app/menus.c:257 app/menus.c:276 app/menus.c:279
+#: app/menus.c:257 app/menus.c:280 app/menus.c:283
 msgid "/File/---"
 msgstr "/Arquivo/---"
 
-#: app/menus.c:258 app/menus.c:282
+#: app/menus.c:258 app/menus.c:286
 msgid "/File/_Quit"
 msgstr "/Arquivo/_Sair"
 
@@ -921,369 +922,369 @@ msgstr "/Selecionar/---"
 msgid "/Help/_About"
 msgstr "/Ajuda/_Sobre"
 
-#: app/menus.c:273
+#: app/menus.c:277
 msgid "/File/_Save"
 msgstr "/Arquivo/_Salvar"
 
-#: app/menus.c:274
+#: app/menus.c:278
 msgid "/File/Save _As..."
 msgstr "/Arquivo/Salvar _Como..."
 
-#: app/menus.c:275
+#: app/menus.c:279
 msgid "/File/_Export..."
 msgstr "/Arquivo/_Exportar..."
 
-#: app/menus.c:277
+#: app/menus.c:281
 msgid "/File/Page Set_up..."
 msgstr "/Arquivo/C_onfigurar Impressão..."
 
-#: app/menus.c:278
+#: app/menus.c:282
 msgid "/File/_Print Diagram..."
 msgstr "/Arquivo/_Imprimir Diagrama..."
 
-#: app/menus.c:280
+#: app/menus.c:284
 msgid "/File/_Close"
 msgstr "/Arquivo/_Fechar"
 
-#: app/menus.c:283
+#: app/menus.c:287
 msgid "/_Edit"
 msgstr "/_Editar"
 
-#: app/menus.c:285
+#: app/menus.c:289
 msgid "/Edit/_Copy"
 msgstr "/Editar/_Copiar"
 
-#: app/menus.c:286
+#: app/menus.c:290
 msgid "/Edit/C_ut"
 msgstr "/Editar/C_ortar"
 
-#: app/menus.c:287
+#: app/menus.c:291
 msgid "/Edit/_Paste"
 msgstr "/Editar/Co_lar"
 
-#: app/menus.c:288
+#: app/menus.c:292
 msgid "/Edit/_Delete"
 msgstr "/Editar/_Deletar"
 
-#: app/menus.c:289
+#: app/menus.c:293
 msgid "/Edit/_Undo"
 msgstr "/Editar/_Desfazer"
 
-#: app/menus.c:290
+#: app/menus.c:294
 msgid "/Edit/_Redo"
 msgstr "/Editar/_Refazer"
 
-#: app/menus.c:291
+#: app/menus.c:295
 msgid "/Edit/Copy Text"
 msgstr "/Editar/Copiar texto"
 
-#: app/menus.c:292
+#: app/menus.c:296
 msgid "/Edit/Cut Text"
 msgstr "/Editar/Cortar texto"
 
-#: app/menus.c:293
+#: app/menus.c:297
 msgid "/Edit/Paste _Text"
 msgstr "/Editar/Colar _texto"
 
-#: app/menus.c:294
+#: app/menus.c:298
 msgid "/_View"
 msgstr "/_Visualizar"
 
-#: app/menus.c:296
+#: app/menus.c:300
 msgid "/View/Zoom _In"
 msgstr "/Visualizar/_Aumentar Zoom"
 
-#: app/menus.c:297
+#: app/menus.c:301
 msgid "/View/Zoom _Out"
 msgstr "/Visualizar/_Diminuir Zoom"
 
-#: app/menus.c:298
+#: app/menus.c:302
 msgid "/View/_Zoom"
 msgstr "/Visualizar/_Zoom"
 
-#: app/menus.c:300
+#: app/menus.c:304
 #, c-format
 msgid "/View/Zoom/400%"
 msgstr "/Visualizar/Zoom/400%"
 
-#: app/menus.c:301
+#: app/menus.c:305
 #, c-format
 msgid "/View/Zoom/283%"
 msgstr "/Visualizar/Zoom/283%"
 
-#: app/menus.c:302
+#: app/menus.c:306
 #, c-format
 msgid "/View/Zoom/200%"
 msgstr "/Visualizar/Zoom/200%"
 
-#: app/menus.c:303
+#: app/menus.c:307
 #, c-format
 msgid "/View/Zoom/141%"
 msgstr "/Visualizar/Zoom/141%"
 
-#: app/menus.c:304
+#: app/menus.c:308
 #, c-format
 msgid "/View/Zoom/100%"
 msgstr "/Visualizar/Zoom/100%"
 
-#: app/menus.c:305
+#: app/menus.c:309
 #, c-format
 msgid "/View/Zoom/85%"
 msgstr "/Visualizar/Zoom/85%"
 
-#: app/menus.c:306
+#: app/menus.c:310
 #, c-format
 msgid "/View/Zoom/70.7%"
 msgstr "/Visualizar/Zoom/70.7%"
 
-#: app/menus.c:307
+#: app/menus.c:311
 #, c-format
 msgid "/View/Zoom/50%"
 msgstr "/Visualizar/Zoom/50%"
 
-#: app/menus.c:308
+#: app/menus.c:312
 #, c-format
 msgid "/View/Zoom/35.4%"
 msgstr "/Visualizar/Zoom/35.4%"
 
-#: app/menus.c:309
+#: app/menus.c:313
 #, c-format
 msgid "/View/Zoom/25%"
 msgstr "/Visualizar/Zoom/25%"
 
-#: app/menus.c:310
+#: app/menus.c:314
 msgid "/View/Diagram Properties"
 msgstr "/Visualizar/Propriedades do diagrama"
 
-#: app/menus.c:312
+#: app/menus.c:316
 msgid "/View/_AntiAliased"
 msgstr "/Visualizar/_AntiAliased"
 
-#: app/menus.c:314
+#: app/menus.c:318
 msgid "/View/_Visible Grid"
 msgstr "/Visualizar/Grade _visível"
 
-#: app/menus.c:315
+#: app/menus.c:319
 msgid "/View/_Snap To Grid"
 msgstr "/Visualizar/_Ajustar à grade"
 
-#: app/menus.c:316
+#: app/menus.c:320
 msgid "/View/Show _Rulers"
 msgstr "/Visualizar/Mostrar _réguas"
 
-#: app/menus.c:317
+#: app/menus.c:321
 msgid "/View/Show _Connection Points"
 msgstr "/Visualizar/Mostrar _pontos de conexão"
 
-#: app/menus.c:318
+#: app/menus.c:322
 msgid "/View/---"
 msgstr "/Visualizar/---"
 
-#: app/menus.c:319
+#: app/menus.c:323
 msgid "/View/New _View"
 msgstr "/Visualizar/Nova _visão"
 
-#: app/menus.c:320
+#: app/menus.c:324
 msgid "/View/Show _All"
 msgstr "/Visualizar/_Mostrar Tudo"
 
-#: app/menus.c:321
+#: app/menus.c:325
 msgid "/_Select"
 msgstr "/_Selecionar"
 
-#: app/menus.c:323
+#: app/menus.c:327
 msgid "/Select/All"
 msgstr "/Selecionar/Todos"
 
-#: app/menus.c:324
+#: app/menus.c:328
 msgid "/Select/None"
 msgstr "/Selecionar/Nenhum"
 
-#: app/menus.c:325 app/menus.c:338
+#: app/menus.c:329 app/menus.c:342
 msgid "/Select/Invert"
 msgstr "/Selecionar/Inverter"
 
-#: app/menus.c:326
+#: app/menus.c:330
 msgid "/Select/Connected"
 msgstr "/Selecionar/Conectados"
 
-#: app/menus.c:327
+#: app/menus.c:331
 msgid "/Select/Transitive"
 msgstr "/Selecionar/Transitivo"
 
-#: app/menus.c:328
+#: app/menus.c:332
 msgid "/Select/Same Type"
 msgstr "/Selecionar/Mesmo tipo"
 
-#: app/menus.c:329
+#: app/menus.c:333
 msgid "/Select/---"
 msgstr "/Selecionar/---"
 
-#: app/menus.c:330
+#: app/menus.c:334
 msgid "/Select/Replace"
 msgstr "/Selecionar/Substituir"
 
-#: app/menus.c:332
+#: app/menus.c:336
 msgid "/Select/Union"
 msgstr "/Selecionar/União"
 
-#: app/menus.c:334
+#: app/menus.c:338
 msgid "/Select/Intersect"
 msgstr "/Selecionar/Intersecção"
 
-#: app/menus.c:336
+#: app/menus.c:340
 msgid "/Select/Remove"
 msgstr "/Selecionar/Remover"
 
-#: app/menus.c:340
+#: app/menus.c:344
 msgid "/_Objects"
 msgstr "/_Objetos"
 
-#: app/menus.c:342
+#: app/menus.c:346
 msgid "/Objects/Send to _Back"
 msgstr "/Objetos/Enviar para _trás"
 
-#: app/menus.c:343
+#: app/menus.c:347
 msgid "/Objects/Bring to _Front"
 msgstr "/Objetos/Trazer para _frente"
 
-#: app/menus.c:344 app/menus.c:347
+#: app/menus.c:348 app/menus.c:351
 msgid "/Objects/---"
 msgstr "/Objetos/---"
 
-#: app/menus.c:345
+#: app/menus.c:349
 msgid "/Objects/_Group"
 msgstr "/Objetos/_Agrupar"
 
-#: app/menus.c:346
+#: app/menus.c:350
 msgid "/Objects/_Ungroup"
 msgstr "/Objetos/_Desagrupar"
 
-#: app/menus.c:348
+#: app/menus.c:352
 msgid "/Objects/Align _Horizontal"
 msgstr "/Objetos/Alinhar _Horizontalmente"
 
-#: app/menus.c:350
+#: app/menus.c:354
 msgid "/Objects/Align Horizontal/Left"
 msgstr "/Objetos/Alinhar Horizontalmente/Esquerda"
 
-#: app/menus.c:351
+#: app/menus.c:355
 msgid "/Objects/Align Horizontal/Center"
 msgstr "/Objetos/Alinhar Horizontalmente/Centro"
 
-#: app/menus.c:352
+#: app/menus.c:356
 msgid "/Objects/Align Horizontal/Right"
 msgstr "/Objetos/Alinhar Horizontalmente/Direita"
 
-#: app/menus.c:353
+#: app/menus.c:357
 msgid "/Objects/Align Horizontal/Equal Distance"
 msgstr "/Objetos/Alinhar Horizontalmente/Mesma Distância"
 
-#: app/menus.c:354
+#: app/menus.c:358
 msgid "/Objects/Align Horizontal/Adjacent"
 msgstr "/Objetos/Alinhar Horizontalmente/Adjacente"
 
-#: app/menus.c:355
+#: app/menus.c:359
 msgid "/Objects/Align _Vertical"
 msgstr "/Objetos/Alinhar _Verticalmente"
 
-#: app/menus.c:357
+#: app/menus.c:361
 msgid "/Objects/Align Vertical/Top"
 msgstr "/Objetos/Alinhar Verticalmente/Topo"
 
-#: app/menus.c:358
+#: app/menus.c:362
 msgid "/Objects/Align Vertical/Center"
 msgstr "/Objetos/Alinhar Verticalmente/Centro"
 
-#: app/menus.c:359
+#: app/menus.c:363
 msgid "/Objects/Align Vertical/Bottom"
 msgstr "/Objetos/Alinhar Verticalmente/Fundo"
 
-#: app/menus.c:360
+#: app/menus.c:364
 msgid "/Objects/Align Vertical/Equal Distance"
 msgstr "/Objetos/Alinhar Verticalmente/Mesma Distância"
 
-#: app/menus.c:361
+#: app/menus.c:365
 msgid "/Objects/Align Vertical/Adjacent"
 msgstr "/Objetos/Alinhar Verticalmente/Adjacente"
 
-#: app/menus.c:363
+#: app/menus.c:367
 msgid "/_Tools"
 msgstr "/_Ferramentas"
 
-#: app/menus.c:365
+#: app/menus.c:369
 msgid "/Tools/Modify"
 msgstr "/Ferramentas/Modificar"
 
-#: app/menus.c:366
+#: app/menus.c:370
 msgid "/Tools/Magnify"
 msgstr "/Ferramentas/Ampliar"
 
-#: app/menus.c:367
+#: app/menus.c:371
 msgid "/Tools/Scroll"
 msgstr "/Ferramentas/Rolar"
 
-#: app/menus.c:368
+#: app/menus.c:372
 msgid "/Tools/Text"
 msgstr "/Ferramentas/Texto"
 
-#: app/menus.c:369
+#: app/menus.c:373
 msgid "/Tools/Box"
 msgstr "/Ferramentas/Caixa"
 
-#: app/menus.c:370
+#: app/menus.c:374
 msgid "/Tools/Ellipse"
 msgstr "/Ferramentas/Elipse"
 
-#: app/menus.c:371
+#: app/menus.c:375
 msgid "/Tools/Polygon"
 msgstr "/Ferramentas/Polígono"
 
-#: app/menus.c:372
+#: app/menus.c:376
 msgid "/Tools/Beziergon"
 msgstr "/Ferramentas/Polígono Bezier"
 
-#: app/menus.c:373
+#: app/menus.c:377
 msgid "/Tools/Line"
 msgstr "/Ferramentas/Linha"
 
-#: app/menus.c:374
+#: app/menus.c:378
 msgid "/Tools/Arc"
 msgstr "/Ferramentas/Arco"
 
-#: app/menus.c:375
+#: app/menus.c:379
 msgid "/Tools/Zigzagline"
 msgstr "/Ferramentas/Linha zigue-zague"
 
-#: app/menus.c:376
+#: app/menus.c:380
 msgid "/Tools/Polyline"
 msgstr "/Ferramentas/Linha poligonal"
 
-#: app/menus.c:377
+#: app/menus.c:381
 msgid "/Tools/Bezierline"
 msgstr "/Ferramentas/Linha Bezier"
 
-#: app/menus.c:378
+#: app/menus.c:382
 msgid "/Tools/Image"
 msgstr "/Ferramentas/Imagem"
 
-#: app/menus.c:380
+#: app/menus.c:384
 msgid "/_Dialogs"
 msgstr "/_Diálogos"
 
-#: app/menus.c:382
+#: app/menus.c:386
 msgid "/Dialogs/_Properties"
 msgstr "/Diálogos/_Propriedades"
 
-#: app/menus.c:383
+#: app/menus.c:387
 msgid "/Dialogs/_Layers"
 msgstr "/Diálogos/_Camadas"
 
-#: app/menus.c:558
+#: app/menus.c:559
 msgid "NULL tooldata in tool_menu_select"
 msgstr "Dados de ferramenta NULL em tool_menu_select"
 
-#: app/menus.c:696
+#: app/menus.c:725
 msgid "Diagram Menu"
 msgstr "Menu de diagramas"
 
@@ -1363,31 +1364,31 @@ msgstr "Carregar"
 msgid "Unload"
 msgstr "Descarregar"
 
-#: app/preferences.c:87
+#: app/preferences.c:89
 msgid "User Interface"
 msgstr "Interface"
 
-#: app/preferences.c:88
+#: app/preferences.c:90
 msgid "View Defaults"
 msgstr "Padrões de Visualização"
 
-#: app/preferences.c:89
+#: app/preferences.c:91
 msgid "Grid Lines"
 msgstr "Linhas da grade"
 
-#: app/preferences.c:103
+#: app/preferences.c:105
 msgid "Reset tools after create:"
 msgstr "Reiniciar ferramentas depois de criar:"
 
-#: app/preferences.c:104
+#: app/preferences.c:106
 msgid "Compress saved files:"
 msgstr "Comprimir arquivos:"
 
-#: app/preferences.c:105
+#: app/preferences.c:107
 msgid "Number of undo levels:"
 msgstr "Número máximo de ações a desfazer:"
 
-#: app/preferences.c:106
+#: app/preferences.c:108
 msgid ""
 "Reverse dragging selects\n"
 "intersecting objects:"
@@ -1395,64 +1396,68 @@ msgstr ""
 "Arrastamento reverso seleciona\n"
 "objetos que se intersectam"
 
-#: app/preferences.c:107
+#: app/preferences.c:109
 msgid "New window:"
 msgstr "Nova janela:"
 
-#: app/preferences.c:108
+#: app/preferences.c:110
 msgid "Width:"
 msgstr "Largura:"
 
-#: app/preferences.c:109
+#: app/preferences.c:111
 msgid "Height:"
 msgstr "Altura:"
 
-#: app/preferences.c:110
+#: app/preferences.c:112
 msgid "Magnify:"
 msgstr "Ampliar:"
 
-#: app/preferences.c:112
+#: app/preferences.c:113
+msgid "Use menu bar:"
+msgstr ""
+
+#: app/preferences.c:115
 msgid "Connection Points:"
 msgstr "Pontos de conexão:"
 
-#: app/preferences.c:113 app/preferences.c:116 app/preferences.c:124
+#: app/preferences.c:116 app/preferences.c:119 app/preferences.c:127
 msgid "Visible:"
 msgstr "Visível:"
 
-#: app/preferences.c:115
+#: app/preferences.c:118
 msgid "Grid:"
 msgstr "Grade:"
 
-#: app/preferences.c:117
+#: app/preferences.c:120
 msgid "Snap to:"
 msgstr "Ajustar para:"
 
-#: app/preferences.c:118
+#: app/preferences.c:121
 msgid "X Size:"
 msgstr "Tamanho X:"
 
-#: app/preferences.c:119
+#: app/preferences.c:122
 msgid "Y Size:"
 msgstr "Tamanho Y:"
 
-#: app/preferences.c:120 app/preferences.c:125
+#: app/preferences.c:123 app/preferences.c:128
 msgid "Colour:"
 msgstr "Cor:"
 
-#: app/preferences.c:121 app/preferences.c:126
+#: app/preferences.c:124 app/preferences.c:129
 msgid "Solid lines:"
 msgstr "Linhas sólidas:"
 
-#: app/preferences.c:123
+#: app/preferences.c:126
 msgid "Page breaks:"
 msgstr "Quebras de página:"
 
-#: app/preferences.c:237
+#: app/preferences.c:243
 #, c-format
 msgid "Could not open `%s' for writing"
 msgstr "Não foi possível abrir '%s' para escrita."
 
-#: app/preferences.c:572 app/preferences.c:581
+#: app/preferences.c:579 app/preferences.c:588
 msgid "Preferences"
 msgstr "Preferências"
 
@@ -1474,7 +1479,7 @@ msgstr "_Propriedades"
 msgid "Object properties:"
 msgstr "Propriedades do objeto"
 
-#: app/render_eps.c:1599
+#: app/render_eps.c:1649
 msgid "Encapsulated Postscript"
 msgstr "Postscript Encapsulado"
 
@@ -1504,92 +1509,6 @@ msgstr ""
 msgid "Dia v %s"
 msgstr ""
 
-#: lib/bezier_conn.c:528
-msgid "Internal error: Setting corner type of endpoint of bezier"
-msgstr "Erro interno: Configurando tipo de quina do ponto final da bezier"
-
-#: lib/dia_xml.c:273
-msgid "Taking point value of non-point node."
-msgstr ""
-
-#: lib/dia_xml.c:282
-#, c-format
-msgid "Incorrect x Point value %f; discarding it."
-msgstr ""
-
-#: lib/dia_xml.c:290
-msgid "Error parsing point."
-msgstr ""
-
-#: lib/dia_xml.c:297
-#, c-format
-msgid "Incorrect y Point value %f; discarding it."
-msgstr ""
-
-#: lib/font.c:389
-#, c-format
-msgid ""
-"Warning no X Font for %s found, \n"
-"using %s instead.\n"
-msgstr ""
-"Aviso: nenhuma Fonte X para %s encontrada, \n"
-"vou utilizar %s.\n"
-
-#: lib/font.c:443
-#, c-format
-msgid "Font %s not found, using Courier instead.\n"
-msgstr "Fonte %s não encontrada, usando Courier no lugar desta.\n"
-
-#: lib/message.c:120
-msgid "Notice"
-msgstr "Nota"
-
-#: lib/message.c:131
-msgid "Warning"
-msgstr "Aviso"
-
-#: lib/message.c:143
-msgid "Error"
-msgstr "Erro"
-
-#: lib/plug-ins.c:211
-#, c-format
-msgid "Could not deduce correct path for `%s'"
-msgstr "Não foi possível deduzir o caminho correto para `%s'"
-
-#: lib/plug-ins.c:216
-#, c-format
-msgid ""
-"Could not load plugin `%s'\n"
-"%s"
-msgstr ""
-"Não foi possível carregar o plugin '%s'.\n"
-"%s"
-
-#: lib/plug-ins.c:227
-#, c-format
-msgid "Could not find plugin init function in `%s'"
-msgstr "Não foi possível encontrar a função de inicialização de plugin in `%s'"
-
-#: lib/plug-ins.c:254
-#, c-format
-msgid "%s Plugin could not be unloaded"
-msgstr "Não foi possível carregar o plugin %s"
-
-#: lib/plug-ins.c:307
-#, c-format
-msgid "`%s' is not a directory"
-msgstr "`%s' não é um diretório"
-
-#: lib/plug-ins.c:313
-#, c-format
-msgid "Could not open `%s'"
-msgstr "Não foi possível abrir `%s'."
-
-#: lib/properties.c:382 lib/properties.c:414
-msgid "No edit widget"
-msgstr "Nenhum \"widget\" de edição"
-
 #: lib/properties.c:1256 lib/properties.h:345
 #, fuzzy
 msgid "Line colour"
@@ -1606,7 +1525,7 @@ msgid "Fill colour"
 msgstr "Cor da fonte:"
 
 #: lib/properties.c:1259 lib/properties.h:355
-#: objects/custom/custom_object.c:358 objects/flowchart/box.c:317
+#: objects/custom/custom_object.c:362 objects/flowchart/box.c:317
 #: objects/flowchart/diamond.c:310 objects/flowchart/ellipse.c:310
 #: objects/flowchart/parallelogram.c:321 objects/standard/beziergon.c:222
 #: objects/standard/box.c:232 objects/standard/ellipse.c:220
@@ -1645,6 +1564,74 @@ msgstr "Tamanho:"
 #, fuzzy
 msgid "Text colour"
 msgstr "Cor de texto:"
+
+#: lib/plug-ins.c:211
+#, c-format
+msgid "Could not deduce correct path for `%s'"
+msgstr "Não foi possível deduzir o caminho correto para `%s'"
+
+#: lib/plug-ins.c:216
+#, c-format
+msgid ""
+"Could not load plugin `%s'\n"
+"%s"
+msgstr ""
+"Não foi possível carregar o plugin '%s'.\n"
+"%s"
+
+#: lib/plug-ins.c:227
+#, c-format
+msgid "Could not find plugin init function in `%s'"
+msgstr "Não foi possível encontrar a função de inicialização de plugin in `%s'"
+
+#: lib/plug-ins.c:254
+#, c-format
+msgid "%s Plugin could not be unloaded"
+msgstr "Não foi possível carregar o plugin %s"
+
+#: lib/plug-ins.c:307
+#, c-format
+msgid "`%s' is not a directory"
+msgstr "`%s' não é um diretório"
+
+#: lib/plug-ins.c:313
+#, c-format
+msgid "Could not open `%s'"
+msgstr "Não foi possível abrir `%s'."
+
+#: lib/bezier_conn.c:528
+msgid "Internal error: Setting corner type of endpoint of bezier"
+msgstr "Erro interno: Configurando tipo de quina do ponto final da bezier"
+
+#: lib/font.c:389
+#, c-format
+msgid ""
+"Warning no X Font for %s found, \n"
+"using %s instead.\n"
+msgstr ""
+"Aviso: nenhuma Fonte X para %s encontrada, \n"
+"vou utilizar %s.\n"
+
+#: lib/font.c:443
+#, c-format
+msgid "Font %s not found, using Courier instead.\n"
+msgstr "Fonte %s não encontrada, usando Courier no lugar desta.\n"
+
+#: lib/properties.c:382 lib/properties.c:414
+msgid "No edit widget"
+msgstr "Nenhum \"widget\" de edição"
+
+#: lib/message.c:120
+msgid "Notice"
+msgstr "Nota"
+
+#: lib/message.c:131
+msgid "Warning"
+msgstr "Aviso"
+
+#: lib/message.c:143
+msgid "Error"
+msgstr "Erro"
 
 #: lib/widgets.c:319 objects/FS/function.c:807
 msgid "Solid"
@@ -1765,6 +1752,25 @@ msgstr "Selecione o arquivo com a imagem"
 msgid "Browse"
 msgstr "Procurar"
 
+#: lib/dia_xml.c:273
+msgid "Taking point value of non-point node."
+msgstr ""
+
+#: lib/dia_xml.c:285
+#, c-format
+msgid "Incorrect x Point value \"%s\" %f; discarding it."
+msgstr ""
+
+#: lib/dia_xml.c:293
+msgid "Error parsing point."
+msgstr ""
+
+#. don't bother with useless warnings (see above)
+#: lib/dia_xml.c:301
+#, c-format
+msgid "Incorrect y Point value \"%s\" %f; discarding it."
+msgstr ""
+
 #: objects/ER/attribute.c:151
 #, fuzzy
 msgid "Key:"
@@ -1808,7 +1814,7 @@ msgstr "Total:"
 
 #: objects/ER/participation.c:393 objects/FS/flow-ortho.c:796
 #: objects/GRAFCET/vector.c:412 objects/SADT/arrow.c:660
-#: objects/UML/association.c:618 objects/UML/dependency.c:376
+#: objects/UML/association.c:618 objects/UML/dependency.c:375
 #: objects/UML/generalization.c:369 objects/UML/realizes.c:372
 #: objects/standard/zigzagline.c:339
 msgid "Add segment"
@@ -1816,7 +1822,7 @@ msgstr "Adicionar segmento"
 
 #: objects/ER/participation.c:394 objects/FS/flow-ortho.c:797
 #: objects/GRAFCET/vector.c:413 objects/SADT/arrow.c:661
-#: objects/UML/association.c:619 objects/UML/dependency.c:377
+#: objects/UML/association.c:619 objects/UML/dependency.c:376
 #: objects/UML/generalization.c:370 objects/UML/realizes.c:373
 #: objects/standard/zigzagline.c:340
 msgid "Delete segment"
@@ -2800,7 +2806,7 @@ msgstr "Função desejada"
 #: objects/SADT/box.c:210 objects/SADT/box.c:252
 #: objects/chronogram/chronoline.c:338 objects/chronogram/chronoline.c:430
 #: objects/chronogram/chronoref.c:259 objects/chronogram/chronoref.c:324
-#: objects/custom/custom_object.c:392 objects/flowchart/box.c:353
+#: objects/custom/custom_object.c:396 objects/flowchart/box.c:353
 #: objects/flowchart/diamond.c:332 objects/flowchart/ellipse.c:332
 #: objects/flowchart/parallelogram.c:357 objects/standard/textobj.c:270
 msgid "Font:"
@@ -2812,7 +2818,7 @@ msgstr "Fonte:"
 #: objects/SADT/box.c:211 objects/SADT/box.c:253
 #: objects/chronogram/chronoline.c:339 objects/chronogram/chronoline.c:431
 #: objects/chronogram/chronoref.c:260 objects/chronogram/chronoref.c:325
-#: objects/custom/custom_object.c:403 objects/flowchart/box.c:364
+#: objects/custom/custom_object.c:407 objects/flowchart/box.c:364
 #: objects/flowchart/diamond.c:343 objects/flowchart/ellipse.c:343
 #: objects/flowchart/parallelogram.c:368
 msgid "Font size:"
@@ -2998,7 +3004,7 @@ msgid "SADT Arrow"
 msgstr "Seta SADT"
 
 #: objects/SADT/box.c:209 objects/SADT/box.c:251
-#: objects/custom/custom_object.c:367 objects/flowchart/box.c:339
+#: objects/custom/custom_object.c:371 objects/flowchart/box.c:339
 #: objects/flowchart/diamond.c:318 objects/flowchart/ellipse.c:318
 #: objects/flowchart/parallelogram.c:343
 msgid "Text padding:"
@@ -3073,7 +3079,7 @@ msgid "Name"
 msgstr "Nome:"
 
 #: objects/UML/class.c:102 objects/UML/classicon.c:142
-#: objects/UML/component.c:116 objects/UML/object.c:168
+#: objects/UML/component.c:116 objects/UML/object.c:173
 #: objects/UML/small_package.c:116
 #, fuzzy
 msgid "Stereotype"
@@ -3118,7 +3124,7 @@ msgstr "Nome da classe:"
 
 #: objects/UML/class_dialog.c:197 objects/UML/dependency.c:129
 #: objects/UML/generalization.c:125 objects/UML/large_package.c:617
-#: objects/UML/object.c:830 objects/UML/realizes.c:126
+#: objects/UML/object.c:883 objects/UML/realizes.c:126
 msgid "Stereotype:"
 msgstr "Estereótipo"
 
@@ -3271,64 +3277,64 @@ msgstr "Mostrar foco de controle:"
 msgid "Draw destruction mark:"
 msgstr "Mostrar ponto de destruição"
 
-#: objects/UML/message.c:159
+#: objects/UML/message.c:158
 msgid "Call"
 msgstr "Chamar"
 
-#: objects/UML/message.c:160
+#: objects/UML/message.c:159
 msgid "Create"
 msgstr "Criar"
 
-#: objects/UML/message.c:161
+#: objects/UML/message.c:160
 msgid "Destroy"
 msgstr "Destruir"
 
-#: objects/UML/message.c:162
+#: objects/UML/message.c:161
 msgid "Simple"
 msgstr "Simples"
 
-#: objects/UML/message.c:163
+#: objects/UML/message.c:162
 msgid "Return"
 msgstr "Retornar"
 
-#: objects/UML/message.c:164
+#: objects/UML/message.c:163
 msgid "Send"
 msgstr ""
 
-#: objects/UML/message.c:165
+#: objects/UML/message.c:164
 msgid "Recursive"
 msgstr "Recursiva"
 
-#: objects/UML/message.c:172
+#: objects/UML/message.c:171
 msgid "Message:"
 msgstr "Mensagem:"
 
-#: objects/UML/message.c:174
+#: objects/UML/message.c:173
 msgid "Message type:"
 msgstr "Tipo de mensagem:"
 
-#: objects/UML/object.c:171
+#: objects/UML/object.c:175
 #, fuzzy
 msgid "Class name"
 msgstr "Nome da classe:"
 
-#: objects/UML/object.c:818
+#: objects/UML/object.c:871
 msgid "Explicit state:"
 msgstr "Estado explícito:"
 
-#: objects/UML/object.c:840
+#: objects/UML/object.c:893
 msgid "Attributes:"
 msgstr "Atributos:"
 
-#: objects/UML/object.c:850
+#: objects/UML/object.c:903
 msgid "Show attributes"
 msgstr "Mostrar atributos"
 
-#: objects/UML/object.c:854
+#: objects/UML/object.c:907
 msgid "Active object"
 msgstr "Objeto ativo"
 
-#: objects/UML/object.c:859
+#: objects/UML/object.c:912
 msgid "multiple instance"
 msgstr "Instância múltipla"
 
@@ -3454,25 +3460,30 @@ msgstr "Personalizar"
 msgid "Custom XML shapes loader"
 msgstr "Personalizar carregador de formas XML"
 
-#: objects/custom/custom_object.c:181 objects/custom/custom_object.c:199
+#: objects/custom/custom_object.c:185 objects/custom/custom_object.c:203
 msgid "Flip horizontal"
 msgstr "Inverter horizontalmente"
 
-#: objects/custom/custom_object.c:183 objects/custom/custom_object.c:201
+#: objects/custom/custom_object.c:187 objects/custom/custom_object.c:205
 msgid "Flip vertical"
 msgstr "Inverter verticalmente"
 
-#: objects/custom/custom_object.c:381 objects/standard/textobj.c:259
+#: objects/custom/custom_object.c:385 objects/standard/textobj.c:259
 msgid "Alignment:"
 msgstr "Alinhamento:"
 
-#: objects/custom/custom_object.c:1354
+#: objects/custom/custom_object.c:1546
 msgid "Flip Horizontal"
 msgstr "Inverter Horizontalmente"
 
-#: objects/custom/custom_object.c:1355
+#: objects/custom/custom_object.c:1547
 msgid "Flip Vertical"
 msgstr "Inverter Verticalmente"
+
+#: objects/custom/custom_object.c:1580
+#, c-format
+msgid "Cannot open icon file %s for object type '%s'."
+msgstr ""
 
 #: objects/flowchart/box.c:167 objects/standard/box.c:153
 msgid "Corner radius"
@@ -3507,7 +3518,7 @@ msgstr "Adicionar Conexão"
 msgid "Delete Handle"
 msgstr "Apagar Conexão"
 
-#: objects/network/network.c:52
+#: objects/network/network.c:41
 msgid "Network diagram objects"
 msgstr "Objetos de diagrama de rede"
 
@@ -3598,10 +3609,6 @@ msgstr "Objetos padrão"
 #: objects/standard/textobj.c:281
 msgid "Fontsize:"
 msgstr "Tamanho:"
-
-#: objects/sybase/sybase.c:44
-msgid "Sybase replication domain diagram objects"
-msgstr "Objetos de diagrama de replicação de domínio Sybase"
 
 #: plug-ins/cgm/cgm.c:1086
 msgid ""
@@ -3847,6 +3854,9 @@ msgstr ""
 #: plug-ins/xfig/xfig-import.c:1116
 msgid "XFig File Format"
 msgstr ""
+
+#~ msgid "Sybase replication domain diagram objects"
+#~ msgstr "Objetos de diagrama de replicação de domínio Sybase"
 
 #, fuzzy
 #~ msgid ""

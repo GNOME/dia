@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 1.18\n"
-"POT-Creation-Date: 2001-05-21 18:16+0200\n"
+"POT-Creation-Date: 2001-06-08 06:57+0200\n"
 "PO-Revision-Date: 2000-08-21 20:00+0800\n"
 "Last-Translator: Jing-Jong SHYUE <shyue@sonoma.com.tw>\n"
 "Language-Team: Chinese <LL@li.org>\n"
@@ -14,31 +14,31 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #. &export_file_name
-#: app/app_procs.c:148
+#: app/app_procs.c:151
 msgid "Export loaded file and exit"
 msgstr "匯出載入的檔案並離開"
 
-#: app/app_procs.c:148
+#: app/app_procs.c:151
 msgid "OUTPUT"
 msgstr "輸出"
 
-#: app/app_procs.c:150
+#: app/app_procs.c:153
 msgid "Don't show the splash screen"
 msgstr ""
 
-#: app/app_procs.c:152
+#: app/app_procs.c:155
 msgid "Show this help message"
 msgstr "顯示說明訊息"
 
-#: app/app_procs.c:176
+#: app/app_procs.c:182
 msgid "Can't connect to session manager!\n"
 msgstr "無法與工作管理員連接!\n"
 
-#: app/app_procs.c:187
+#: app/app_procs.c:193
 msgid "[OPTION...] [FILE...]"
 msgstr "[選項...] [檔案...]"
 
-#: app/app_procs.c:190
+#: app/app_procs.c:196
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
@@ -47,20 +47,20 @@ msgstr ""
 "在選項%s發生錯誤: %s.\n"
 "執行 '%s --help' 取得完整選項列表.\n"
 
-#: app/app_procs.c:239 app/app_procs.c:241
+#: app/app_procs.c:245 app/app_procs.c:247
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr "當找尋物件函式中找不到標準物件, 離開程式...\n"
 
-#: app/app_procs.c:266
+#: app/app_procs.c:272
 msgid "Need valid input file\n"
 msgstr "需要合法的輸入檔\n"
 
-#: app/app_procs.c:332 app/app_procs.c:338
+#: app/app_procs.c:338 app/app_procs.c:344
 msgid "Quit, are you sure?"
 msgstr "是否確定離開?"
 
-#: app/app_procs.c:345
+#: app/app_procs.c:351
 msgid ""
 "Modified diagrams exists.\n"
 "Are you sure you want to quit?"
@@ -68,27 +68,27 @@ msgstr ""
 "有被修改過的圖表\n"
 "是否確定離開?"
 
-#: app/app_procs.c:355 app/app_procs.c:360
+#: app/app_procs.c:361 app/app_procs.c:366
 msgid "Quit"
 msgstr "離開"
 
-#: app/app_procs.c:372 app/display.c:958 app/layer_dialog.c:989
+#: app/app_procs.c:378 app/display.c:958 app/layer_dialog.c:989
 #: app/lineprops_area.c:741 app/lineprops_area.c:941 app/linewidth_area.c:246
 #: app/paginate_psprint.c:264
 msgid "Cancel"
 msgstr "取消"
 
-#: app/app_procs.c:447 app/app_procs.c:454
+#: app/app_procs.c:453 app/app_procs.c:460
 msgid "Could not create per-user Dia config directory"
 msgstr "無法建立使用者組態目錄"
 
-#: app/app_procs.c:456
+#: app/app_procs.c:462
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
 msgstr ""
 
-#: app/app_procs.c:478
+#: app/app_procs.c:484
 msgid "Objects and filters internal to dia"
 msgstr "dia 內部的物件與過濾器"
 
@@ -146,7 +146,7 @@ msgstr "散佈者:"
 #. setup buttons
 #: app/commands.c:645 app/dia-props.c:86 app/layer_dialog.c:979
 #: app/lineprops_area.c:732 app/lineprops_area.c:931 app/linewidth_area.c:237
-#: app/pagesetup.c:72 app/paginate_psprint.c:256 app/preferences.c:605
+#: app/pagesetup.c:72 app/paginate_psprint.c:256 app/preferences.c:611
 #: app/properties.c:92 lib/message.c:87
 msgid "OK"
 msgstr "確定"
@@ -166,12 +166,12 @@ msgid "Object defaults"
 msgstr "物件預設值"
 
 #: app/defaults.c:75 app/dia-props.c:95 app/pagesetup.c:77
-#: app/preferences.c:614 app/properties.c:101
+#: app/preferences.c:620 app/properties.c:101
 msgid "Apply"
 msgstr "套用"
 
 #: app/defaults.c:85 app/dia-props.c:105 app/layer_dialog.c:264
-#: app/pagesetup.c:83 app/plugin-manager.c:146 app/preferences.c:623
+#: app/pagesetup.c:83 app/plugin-manager.c:146 app/preferences.c:629
 #: app/properties.c:111
 msgid "Close"
 msgstr "關閉"
@@ -317,13 +317,13 @@ msgstr ""
 "圖表尚未儲存.\n"
 "是否確定關閉此視窗?"
 
-#: app/display.c:937 app/filedlg.c:246 app/filedlg.c:435 app/preferences.c:497
+#: app/display.c:937 app/filedlg.c:246 app/filedlg.c:435 app/preferences.c:503
 #: lib/properties.c:288
 msgid "Yes"
 msgstr "是"
 
-#: app/display.c:947 app/filedlg.c:259 app/filedlg.c:448 app/preferences.c:497
-#: app/preferences.c:508 lib/properties.c:290 lib/properties.c:311
+#: app/display.c:947 app/filedlg.c:259 app/filedlg.c:448 app/preferences.c:503
+#: app/preferences.c:514 lib/properties.c:290 lib/properties.c:311
 msgid "No"
 msgstr "否"
 
@@ -511,26 +511,6 @@ msgstr "建立影像"
 #: app/interface.c:108 app/menus.c:207
 msgid "Image"
 msgstr "影像"
-
-#: app/interface.c:401
-msgid "/View/Show Rulers"
-msgstr "/檢視/顯示尺標"
-
-#: app/interface.c:403
-msgid "/View/Visible Grid"
-msgstr "/檢視/顯示格線"
-
-#: app/interface.c:405
-msgid "/View/Snap To Grid"
-msgstr "/檢視/貼齊格線"
-
-#: app/interface.c:407
-msgid "/View/Show Connection Points"
-msgstr "/檢視/顯示連接點"
-
-#: app/interface.c:410
-msgid "/View/AntiAliased"
-msgstr "/檢視/不對齊"
 
 #: app/interface.c:489
 msgid "NULL tooldata in tool_select_update"
@@ -997,11 +977,11 @@ msgstr "/編輯/復原"
 msgid "/Edit/_Redo"
 msgstr "/編輯/取消復原"
 
-#: app/menus.c:295 app/menus.c:1121
+#: app/menus.c:295
 msgid "/Edit/Copy Text"
 msgstr "/編輯/複製文字"
 
-#: app/menus.c:296 app/menus.c:1123
+#: app/menus.c:296
 msgid "/Edit/Cut Text"
 msgstr "/編輯/剪下文字"
 
@@ -1190,23 +1170,23 @@ msgstr "/物件/取消群組"
 msgid "/Objects/Align _Horizontal"
 msgstr "/物件/水平對齊"
 
-#: app/menus.c:354 app/menus.c:1138
+#: app/menus.c:354
 msgid "/Objects/Align Horizontal/Left"
 msgstr "/物件/水平對齊/靠左"
 
-#: app/menus.c:355 app/menus.c:1140
+#: app/menus.c:355
 msgid "/Objects/Align Horizontal/Center"
 msgstr "/物件/水平對齊/置中"
 
-#: app/menus.c:356 app/menus.c:1142
+#: app/menus.c:356
 msgid "/Objects/Align Horizontal/Right"
 msgstr "/物件/水平對齊/靠右"
 
-#: app/menus.c:357 app/menus.c:1144
+#: app/menus.c:357
 msgid "/Objects/Align Horizontal/Equal Distance"
 msgstr "/物件/水平對齊/等距"
 
-#: app/menus.c:358 app/menus.c:1146
+#: app/menus.c:358
 msgid "/Objects/Align Horizontal/Adjacent"
 msgstr "/物件/水平對齊/緊鄰"
 
@@ -1214,23 +1194,23 @@ msgstr "/物件/水平對齊/緊鄰"
 msgid "/Objects/Align _Vertical"
 msgstr "/物件/垂直對齊"
 
-#: app/menus.c:361 app/menus.c:1148
+#: app/menus.c:361
 msgid "/Objects/Align Vertical/Top"
 msgstr "/物件/垂直對齊/靠上"
 
-#: app/menus.c:362 app/menus.c:1150
+#: app/menus.c:362
 msgid "/Objects/Align Vertical/Center"
 msgstr "/物件/垂直對齊/置中"
 
-#: app/menus.c:363 app/menus.c:1152
+#: app/menus.c:363
 msgid "/Objects/Align Vertical/Bottom"
 msgstr "/物件/垂直對齊/靠下"
 
-#: app/menus.c:364 app/menus.c:1154
+#: app/menus.c:364
 msgid "/Objects/Align Vertical/Equal Distance"
 msgstr "/物件/垂直對齊/等距"
 
-#: app/menus.c:365 app/menus.c:1156
+#: app/menus.c:365
 msgid "/Objects/Align Vertical/Adjacent"
 msgstr "/物件/垂直對齊/緊鄰"
 
@@ -1310,49 +1290,9 @@ msgstr "/對話窗/圖層"
 msgid "NULL tooldata in tool_menu_select"
 msgstr "工具選單選擇中的空工具資料"
 
-#: app/menus.c:626
-msgid "/Tools/"
-msgstr "/工具/"
-
-#: app/menus.c:719
+#: app/menus.c:725
 msgid "Diagram Menu"
 msgstr "圖表選單"
-
-#: app/menus.c:1110
-msgid "/Edit/Copy"
-msgstr "/編輯/複製"
-
-#: app/menus.c:1112
-msgid "/Edit/Cut"
-msgstr "/編輯/剪下"
-
-#: app/menus.c:1114
-msgid "/Edit/Paste"
-msgstr "/編輯/貼上"
-
-#: app/menus.c:1117
-msgid "/Edit/Delete"
-msgstr "/編輯/刪除"
-
-#: app/menus.c:1125
-msgid "/Edit/Paste Text"
-msgstr "/編輯/貼上文字"
-
-#: app/menus.c:1128
-msgid "/Objects/Send to Back"
-msgstr "/物件/移到背後"
-
-#: app/menus.c:1130
-msgid "/Objects/Bring to Front"
-msgstr "/物件/移到前面"
-
-#: app/menus.c:1133
-msgid "/Objects/Group"
-msgstr "/物件/群組"
-
-#: app/menus.c:1135
-msgid "/Objects/Ungroup"
-msgstr "/物件/取消群組"
 
 #: app/paginate_gnomeprint.c:156
 msgid "Print Diagram"
@@ -1431,31 +1371,31 @@ msgstr "載入"
 msgid "Unload"
 msgstr "取消載入"
 
-#: app/preferences.c:87
+#: app/preferences.c:89
 msgid "User Interface"
 msgstr "使用者介面"
 
-#: app/preferences.c:88
+#: app/preferences.c:90
 msgid "View Defaults"
 msgstr "檢視預設值"
 
-#: app/preferences.c:89
+#: app/preferences.c:91
 msgid "Grid Lines"
 msgstr "格線"
 
-#: app/preferences.c:103
+#: app/preferences.c:105
 msgid "Reset tools after create:"
 msgstr "建立後重設工具:"
 
-#: app/preferences.c:104
+#: app/preferences.c:106
 msgid "Compress saved files:"
 msgstr "壓縮儲存檔:"
 
-#: app/preferences.c:105
+#: app/preferences.c:107
 msgid "Number of undo levels:"
 msgstr "復原次數:"
 
-#: app/preferences.c:106
+#: app/preferences.c:108
 msgid ""
 "Reverse dragging selects\n"
 "intersecting objects:"
@@ -1463,68 +1403,68 @@ msgstr ""
 "反向拖曳選擇\n"
 "相交的物件:"
 
-#: app/preferences.c:107
+#: app/preferences.c:109
 msgid "New window:"
 msgstr "新視窗:"
 
-#: app/preferences.c:108
+#: app/preferences.c:110
 msgid "Width:"
 msgstr "寬度:"
 
-#: app/preferences.c:109
+#: app/preferences.c:111
 msgid "Height:"
 msgstr "高度:"
 
-#: app/preferences.c:110
+#: app/preferences.c:112
 msgid "Magnify:"
 msgstr "放大:"
 
-#: app/preferences.c:111
+#: app/preferences.c:113
 msgid "Use menu bar:"
 msgstr ""
 
-#: app/preferences.c:113
+#: app/preferences.c:115
 msgid "Connection Points:"
 msgstr "連接點:"
 
-#: app/preferences.c:114 app/preferences.c:117 app/preferences.c:125
+#: app/preferences.c:116 app/preferences.c:119 app/preferences.c:127
 msgid "Visible:"
 msgstr "顯示:"
 
-#: app/preferences.c:116
+#: app/preferences.c:118
 msgid "Grid:"
 msgstr "格線:"
 
-#: app/preferences.c:118
+#: app/preferences.c:120
 msgid "Snap to:"
 msgstr "貼齊:"
 
-#: app/preferences.c:119
+#: app/preferences.c:121
 msgid "X Size:"
 msgstr "X軸大小:"
 
-#: app/preferences.c:120
+#: app/preferences.c:122
 msgid "Y Size:"
 msgstr "Y軸大小:"
 
-#: app/preferences.c:121 app/preferences.c:126
+#: app/preferences.c:123 app/preferences.c:128
 msgid "Colour:"
 msgstr "顏色"
 
-#: app/preferences.c:122 app/preferences.c:127
+#: app/preferences.c:124 app/preferences.c:129
 msgid "Solid lines:"
 msgstr "實心線"
 
-#: app/preferences.c:124
+#: app/preferences.c:126
 msgid "Page breaks:"
 msgstr "分頁:"
 
-#: app/preferences.c:238
+#: app/preferences.c:243
 #, c-format
 msgid "Could not open `%s' for writing"
 msgstr "無法開啟 '%s' 以供寫入."
 
-#: app/preferences.c:573 app/preferences.c:582
+#: app/preferences.c:579 app/preferences.c:588
 msgid "Preferences"
 msgstr "偏好設定"
 
@@ -1546,7 +1486,7 @@ msgstr "內容[_P]"
 msgid "Object properties:"
 msgstr "物件內容"
 
-#: app/render_eps.c:1635
+#: app/render_eps.c:1649
 msgid "Encapsulated Postscript"
 msgstr "以Postscript封裝"
 
@@ -1575,93 +1515,6 @@ msgstr ""
 #, c-format
 msgid "Dia v %s"
 msgstr ""
-
-#: lib/bezier_conn.c:528
-msgid "Internal error: Setting corner type of endpoint of bezier"
-msgstr "內部錯誤: 設定貝茲曲線結束點角落類別"
-
-#: lib/dia_xml.c:273
-msgid "Taking point value of non-point node."
-msgstr ""
-
-#: lib/dia_xml.c:285
-#, c-format
-msgid "Incorrect x Point value \"\" %f; discarding it."
-msgstr ""
-
-#: lib/dia_xml.c:293
-msgid "Error parsing point."
-msgstr ""
-
-#. don't bother with useless warnings (see above)
-#: lib/dia_xml.c:301
-#, c-format
-msgid "Incorrect y Point value \"%s\" %f; discarding it."
-msgstr ""
-
-#: lib/font.c:389
-#, c-format
-msgid ""
-"Warning no X Font for %s found, \n"
-"using %s instead.\n"
-msgstr ""
-"警告: 沒有給 %s 用的 X 字型,\n"
-"使用 %s.\n"
-
-#: lib/font.c:443
-#, c-format
-msgid "Font %s not found, using Courier instead.\n"
-msgstr "沒有找到字型 %s, 改用 Courier.\n"
-
-#: lib/message.c:120
-msgid "Notice"
-msgstr "注意"
-
-#: lib/message.c:131
-msgid "Warning"
-msgstr "警告"
-
-#: lib/message.c:143
-msgid "Error"
-msgstr "錯誤"
-
-#: lib/plug-ins.c:211
-#, c-format
-msgid "Could not deduce correct path for `%s'"
-msgstr "無法推演出 '%s' 的正確路徑"
-
-#: lib/plug-ins.c:216
-#, c-format
-msgid ""
-"Could not load plugin `%s'\n"
-"%s"
-msgstr ""
-"無法載入 plugin '%s'\n"
-"%s"
-
-#: lib/plug-ins.c:227
-#, c-format
-msgid "Could not find plugin init function in `%s'"
-msgstr "找不到 '%s' 中的 plugin 起始功能"
-
-#: lib/plug-ins.c:254
-#, c-format
-msgid "%s Plugin could not be unloaded"
-msgstr "%s plugin 無法被卸載"
-
-#: lib/plug-ins.c:307
-#, c-format
-msgid "`%s' is not a directory"
-msgstr "'%s' 不是一個目錄"
-
-#: lib/plug-ins.c:313
-#, c-format
-msgid "Could not open `%s'"
-msgstr "無法開啟 '%s'."
-
-#: lib/properties.c:382 lib/properties.c:414
-msgid "No edit widget"
-msgstr "編輯邊界"
 
 #: lib/properties.c:1256 lib/properties.h:345
 #, fuzzy
@@ -1718,6 +1571,74 @@ msgstr "文字大小:"
 #, fuzzy
 msgid "Text colour"
 msgstr "文字顏色:"
+
+#: lib/plug-ins.c:211
+#, c-format
+msgid "Could not deduce correct path for `%s'"
+msgstr "無法推演出 '%s' 的正確路徑"
+
+#: lib/plug-ins.c:216
+#, c-format
+msgid ""
+"Could not load plugin `%s'\n"
+"%s"
+msgstr ""
+"無法載入 plugin '%s'\n"
+"%s"
+
+#: lib/plug-ins.c:227
+#, c-format
+msgid "Could not find plugin init function in `%s'"
+msgstr "找不到 '%s' 中的 plugin 起始功能"
+
+#: lib/plug-ins.c:254
+#, c-format
+msgid "%s Plugin could not be unloaded"
+msgstr "%s plugin 無法被卸載"
+
+#: lib/plug-ins.c:307
+#, c-format
+msgid "`%s' is not a directory"
+msgstr "'%s' 不是一個目錄"
+
+#: lib/plug-ins.c:313
+#, c-format
+msgid "Could not open `%s'"
+msgstr "無法開啟 '%s'."
+
+#: lib/bezier_conn.c:528
+msgid "Internal error: Setting corner type of endpoint of bezier"
+msgstr "內部錯誤: 設定貝茲曲線結束點角落類別"
+
+#: lib/font.c:389
+#, c-format
+msgid ""
+"Warning no X Font for %s found, \n"
+"using %s instead.\n"
+msgstr ""
+"警告: 沒有給 %s 用的 X 字型,\n"
+"使用 %s.\n"
+
+#: lib/font.c:443
+#, c-format
+msgid "Font %s not found, using Courier instead.\n"
+msgstr "沒有找到字型 %s, 改用 Courier.\n"
+
+#: lib/properties.c:382 lib/properties.c:414
+msgid "No edit widget"
+msgstr "編輯邊界"
+
+#: lib/message.c:120
+msgid "Notice"
+msgstr "注意"
+
+#: lib/message.c:131
+msgid "Warning"
+msgstr "警告"
+
+#: lib/message.c:143
+msgid "Error"
+msgstr "錯誤"
 
 #: lib/widgets.c:319 objects/FS/function.c:807
 msgid "Solid"
@@ -1838,6 +1759,25 @@ msgstr "選擇影像檔:"
 msgid "Browse"
 msgstr "瀏覽"
 
+#: lib/dia_xml.c:273
+msgid "Taking point value of non-point node."
+msgstr ""
+
+#: lib/dia_xml.c:285
+#, c-format
+msgid "Incorrect x Point value \"%s\" %f; discarding it."
+msgstr ""
+
+#: lib/dia_xml.c:293
+msgid "Error parsing point."
+msgstr ""
+
+#. don't bother with useless warnings (see above)
+#: lib/dia_xml.c:301
+#, c-format
+msgid "Incorrect y Point value \"%s\" %f; discarding it."
+msgstr ""
+
 #: objects/ER/attribute.c:151
 #, fuzzy
 msgid "Key:"
@@ -1881,7 +1821,7 @@ msgstr "總計:"
 
 #: objects/ER/participation.c:393 objects/FS/flow-ortho.c:796
 #: objects/GRAFCET/vector.c:412 objects/SADT/arrow.c:660
-#: objects/UML/association.c:618 objects/UML/dependency.c:376
+#: objects/UML/association.c:618 objects/UML/dependency.c:375
 #: objects/UML/generalization.c:369 objects/UML/realizes.c:372
 #: objects/standard/zigzagline.c:339
 msgid "Add segment"
@@ -1889,7 +1829,7 @@ msgstr "增加區段"
 
 #: objects/ER/participation.c:394 objects/FS/flow-ortho.c:797
 #: objects/GRAFCET/vector.c:413 objects/SADT/arrow.c:661
-#: objects/UML/association.c:619 objects/UML/dependency.c:377
+#: objects/UML/association.c:619 objects/UML/dependency.c:376
 #: objects/UML/generalization.c:370 objects/UML/realizes.c:373
 #: objects/standard/zigzagline.c:340
 msgid "Delete segment"
@@ -3343,39 +3283,39 @@ msgstr "顯示控制焦點:"
 msgid "Draw destruction mark:"
 msgstr "顯示破壞符號:"
 
-#: objects/UML/message.c:159
+#: objects/UML/message.c:158
 msgid "Call"
 msgstr "聯絡"
 
-#: objects/UML/message.c:160
+#: objects/UML/message.c:159
 msgid "Create"
 msgstr "建立"
 
-#: objects/UML/message.c:161
+#: objects/UML/message.c:160
 msgid "Destroy"
 msgstr "摧毀"
 
-#: objects/UML/message.c:162
+#: objects/UML/message.c:161
 msgid "Simple"
 msgstr "簡單"
 
-#: objects/UML/message.c:163
+#: objects/UML/message.c:162
 msgid "Return"
 msgstr "返回"
 
-#: objects/UML/message.c:164
+#: objects/UML/message.c:163
 msgid "Send"
 msgstr ""
 
-#: objects/UML/message.c:165
+#: objects/UML/message.c:164
 msgid "Recursive"
 msgstr "循環"
 
-#: objects/UML/message.c:172
+#: objects/UML/message.c:171
 msgid "Message:"
 msgstr "訊息:"
 
-#: objects/UML/message.c:174
+#: objects/UML/message.c:173
 msgid "Message type:"
 msgstr "訊息種類:"
 
@@ -3537,15 +3477,15 @@ msgstr "垂直翻轉"
 msgid "Alignment:"
 msgstr "對齊:"
 
-#: objects/custom/custom_object.c:1429
+#: objects/custom/custom_object.c:1546
 msgid "Flip Horizontal"
 msgstr "水平翻轉"
 
-#: objects/custom/custom_object.c:1430
+#: objects/custom/custom_object.c:1547
 msgid "Flip Vertical"
 msgstr "垂直翻轉"
 
-#: objects/custom/custom_object.c:1463
+#: objects/custom/custom_object.c:1580
 #, c-format
 msgid "Cannot open icon file %s for object type '%s'."
 msgstr ""
@@ -3674,10 +3614,6 @@ msgstr "標準物件"
 #: objects/standard/textobj.c:281
 msgid "Fontsize:"
 msgstr "文字大小:"
-
-#: objects/sybase/sybase.c:44
-msgid "Sybase replication domain diagram objects"
-msgstr "Sybase 回覆網域 圖表物件"
 
 #: plug-ins/cgm/cgm.c:1086
 msgid ""
@@ -3924,6 +3860,54 @@ msgstr ""
 #: plug-ins/xfig/xfig-import.c:1116
 msgid "XFig File Format"
 msgstr ""
+
+#~ msgid "/View/Show Rulers"
+#~ msgstr "/檢視/顯示尺標"
+
+#~ msgid "/View/Visible Grid"
+#~ msgstr "/檢視/顯示格線"
+
+#~ msgid "/View/Snap To Grid"
+#~ msgstr "/檢視/貼齊格線"
+
+#~ msgid "/View/Show Connection Points"
+#~ msgstr "/檢視/顯示連接點"
+
+#~ msgid "/View/AntiAliased"
+#~ msgstr "/檢視/不對齊"
+
+#~ msgid "/Tools/"
+#~ msgstr "/工具/"
+
+#~ msgid "/Edit/Copy"
+#~ msgstr "/編輯/複製"
+
+#~ msgid "/Edit/Cut"
+#~ msgstr "/編輯/剪下"
+
+#~ msgid "/Edit/Paste"
+#~ msgstr "/編輯/貼上"
+
+#~ msgid "/Edit/Delete"
+#~ msgstr "/編輯/刪除"
+
+#~ msgid "/Edit/Paste Text"
+#~ msgstr "/編輯/貼上文字"
+
+#~ msgid "/Objects/Send to Back"
+#~ msgstr "/物件/移到背後"
+
+#~ msgid "/Objects/Bring to Front"
+#~ msgstr "/物件/移到前面"
+
+#~ msgid "/Objects/Group"
+#~ msgstr "/物件/群組"
+
+#~ msgid "/Objects/Ungroup"
+#~ msgstr "/物件/取消群組"
+
+#~ msgid "Sybase replication domain diagram objects"
+#~ msgstr "Sybase 回覆網域 圖表物件"
 
 #, fuzzy
 #~ msgid ""

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.86\n"
-"POT-Creation-Date: 2001-06-07 16:13+0200\n"
+"POT-Creation-Date: 2001-06-08 06:57+0200\n"
 "PO-Revision-Date: 2001-06-01 18:08GMT +0200\n"
 "Last-Translator: Vasif İsmayıloğlu MD <azerb_linux@hotmail.com>\n"
 "Language-Team: Azerbaijani Turkish <linuxaz@azerimal.net>\n"
@@ -15,31 +15,31 @@ msgstr ""
 "X-Generator: KBabel 0.8\n"
 
 #. &export_file_name
-#: app/app_procs.c:148
+#: app/app_procs.c:151
 msgid "Export loaded file and exit"
 msgstr "Yüklənən faylı idxal et və çıx"
 
-#: app/app_procs.c:148
+#: app/app_procs.c:151
 msgid "OUTPUT"
 msgstr "ÇIXIŞ"
 
-#: app/app_procs.c:150
+#: app/app_procs.c:153
 msgid "Don't show the splash screen"
 msgstr "Başlanğıc ekranını göstərme"
 
-#: app/app_procs.c:152
+#: app/app_procs.c:155
 msgid "Show this help message"
 msgstr "Bu kömək xəbərini göstər"
 
-#: app/app_procs.c:176
+#: app/app_procs.c:182
 msgid "Can't connect to session manager!\n"
 msgstr "İclas idarəcisinə bağlana bilmədim!\n"
 
-#: app/app_procs.c:187
+#: app/app_procs.c:193
 msgid "[OPTION...] [FILE...]"
 msgstr "[SEÇƏNƏK...] [FAYL...]"
 
-#: app/app_procs.c:190
+#: app/app_procs.c:196
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
@@ -48,21 +48,21 @@ msgstr ""
 "%s seçənəyində xəta var : %s .\n"
 "`%s --help' ilə mövcud əmr seçənəklərini görə bilərsiniz .\n"
 
-#: app/app_procs.c:239 app/app_procs.c:241
+#: app/app_procs.c:245 app/app_procs.c:247
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr ""
 "cism kitabxanasına baxarkən normal cismləri tapa bilmədim, çıxıram ...\n"
 
-#: app/app_procs.c:266
+#: app/app_procs.c:272
 msgid "Need valid input file\n"
 msgstr "Keçərli parametr faylı lazımdır\n"
 
-#: app/app_procs.c:332 app/app_procs.c:338
+#: app/app_procs.c:338 app/app_procs.c:344
 msgid "Quit, are you sure?"
 msgstr "Çıxmaq istəyirsiniz?"
 
-#: app/app_procs.c:345
+#: app/app_procs.c:351
 msgid ""
 "Modified diagrams exists.\n"
 "Are you sure you want to quit?"
@@ -70,21 +70,21 @@ msgstr ""
 "Dəyişikliklər var.\n"
 "Həqiqətən də çıxmaq istəyirsiniz mi?"
 
-#: app/app_procs.c:355 app/app_procs.c:360
+#: app/app_procs.c:361 app/app_procs.c:366
 msgid "Quit"
 msgstr "Çıx"
 
-#: app/app_procs.c:372 app/display.c:958 app/layer_dialog.c:989
+#: app/app_procs.c:378 app/display.c:958 app/layer_dialog.c:989
 #: app/lineprops_area.c:741 app/lineprops_area.c:941 app/linewidth_area.c:246
 #: app/paginate_psprint.c:264
 msgid "Cancel"
 msgstr "Ləğv Et"
 
-#: app/app_procs.c:447 app/app_procs.c:454
+#: app/app_procs.c:453 app/app_procs.c:460
 msgid "Could not create per-user Dia config directory"
 msgstr "Xüsusi Dia qurğu qovluğunu yarada bilmədim"
 
-#: app/app_procs.c:456
+#: app/app_procs.c:462
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -92,7 +92,7 @@ msgstr ""
 "İstifadəçi başına ayrı ayrı cərgə yarada bilmirəm. Lötfən, qlobal dəyişgən "
 "HOMEun mövcud cərgəyə nişanlanıb nişanlanmadığını yoxlayın."
 
-#: app/app_procs.c:478
+#: app/app_procs.c:484
 msgid "Objects and filters internal to dia"
 msgstr "Dianın daxili cism və süzgəcləri"
 
@@ -1473,7 +1473,7 @@ msgstr "Xüsusiyyətlər : "
 msgid "Object properties:"
 msgstr "Cism xüsusiyyətləri:"
 
-#: app/render_eps.c:1635
+#: app/render_eps.c:1649
 msgid "Encapsulated Postscript"
 msgstr "Sıyrılmış Postscript ( EPS )"
 
@@ -1499,94 +1499,6 @@ msgstr "Yüklənir..."
 #, c-format
 msgid "Dia v %s"
 msgstr "Dia v %s"
-
-#: lib/bezier_conn.c:528
-msgid "Internal error: Setting corner type of endpoint of bezier"
-msgstr ""
-"Daxili xəta : Bezyer xəttinin bitiş nöqtəsinin bucaq növünü bildirə bilmədim"
-
-#: lib/dia_xml.c:273
-msgid "Taking point value of non-point node."
-msgstr "Nöqtəvi olmayan düyünün qiymətini alıram."
-
-#: lib/dia_xml.c:285
-#, c-format
-msgid "Incorrect x Point value \"\" %f; discarding it."
-msgstr "Səhv x Nöqtə qiyməti \"\"  %f; nəzərə almıram."
-
-#: lib/dia_xml.c:293
-msgid "Error parsing point."
-msgstr "Xəta darama nöqtəsi."
-
-#. don't bother with useless warnings (see above)
-#: lib/dia_xml.c:301
-#, c-format
-msgid "Incorrect y Point value \"%s\" %f; discarding it."
-msgstr "Səhv y Nöqtə qiyməti  \"%s\" %f; nəzərə almıram."
-
-#: lib/font.c:389
-#, c-format
-msgid ""
-"Warning no X Font for %s found, \n"
-"using %s instead.\n"
-msgstr ""
-"Xəbərdarlıq : %s üçün X yazı növü tapıla bilmədi,\n"
-"Onun yerinə %s'yi istifadə edirəm .\n"
-
-#: lib/font.c:443
-#, c-format
-msgid "Font %s not found, using Courier instead.\n"
-msgstr "Yazı növü %s tapıla bilmədi, onun yerinə Courier'i istifadə edirəm .\n"
-
-#: lib/message.c:120
-msgid "Notice"
-msgstr "Yadıma Sal"
-
-#: lib/message.c:131
-msgid "Warning"
-msgstr "Xəbərdarlıq"
-
-#: lib/message.c:143
-msgid "Error"
-msgstr "Xəta"
-
-#: lib/plug-ins.c:211
-#, c-format
-msgid "Could not deduce correct path for `%s'"
-msgstr "`%s' üçün doğru yolu başa düşmədim"
-
-#: lib/plug-ins.c:216
-#, c-format
-msgid ""
-"Could not load plugin `%s'\n"
-"%s"
-msgstr ""
-"`%s' əlavəini qura bilmədim\n"
-"%s"
-
-#: lib/plug-ins.c:227
-#, c-format
-msgid "Could not find plugin init function in `%s'"
-msgstr "`%s''de əlavə başlanğıc əməliyyatını tapa bilmədim"
-
-#: lib/plug-ins.c:254
-#, c-format
-msgid "%s Plugin could not be unloaded"
-msgstr "%s əlavəi ayrıla bilmədi"
-
-#: lib/plug-ins.c:307
-#, c-format
-msgid "`%s' is not a directory"
-msgstr "`%s' bir qovluq deyildir"
-
-#: lib/plug-ins.c:313
-#, c-format
-msgid "Could not open `%s'"
-msgstr "`%s''ni aça bilmədim"
-
-#: lib/properties.c:382 lib/properties.c:414
-msgid "No edit widget"
-msgstr "Dəyişdirilə bilən bir widget deyildir"
 
 #: lib/properties.c:1256 lib/properties.h:345
 msgid "Line colour"
@@ -1634,6 +1546,75 @@ msgstr "Yazı növü böyüklüyü"
 #: lib/properties.c:1266 lib/properties.h:378
 msgid "Text colour"
 msgstr "Mətn rəngi"
+
+#: lib/plug-ins.c:211
+#, c-format
+msgid "Could not deduce correct path for `%s'"
+msgstr "`%s' üçün doğru yolu başa düşmədim"
+
+#: lib/plug-ins.c:216
+#, c-format
+msgid ""
+"Could not load plugin `%s'\n"
+"%s"
+msgstr ""
+"`%s' əlavəini qura bilmədim\n"
+"%s"
+
+#: lib/plug-ins.c:227
+#, c-format
+msgid "Could not find plugin init function in `%s'"
+msgstr "`%s''de əlavə başlanğıc əməliyyatını tapa bilmədim"
+
+#: lib/plug-ins.c:254
+#, c-format
+msgid "%s Plugin could not be unloaded"
+msgstr "%s əlavəi ayrıla bilmədi"
+
+#: lib/plug-ins.c:307
+#, c-format
+msgid "`%s' is not a directory"
+msgstr "`%s' bir qovluq deyildir"
+
+#: lib/plug-ins.c:313
+#, c-format
+msgid "Could not open `%s'"
+msgstr "`%s''ni aça bilmədim"
+
+#: lib/bezier_conn.c:528
+msgid "Internal error: Setting corner type of endpoint of bezier"
+msgstr ""
+"Daxili xəta : Bezyer xəttinin bitiş nöqtəsinin bucaq növünü bildirə bilmədim"
+
+#: lib/font.c:389
+#, c-format
+msgid ""
+"Warning no X Font for %s found, \n"
+"using %s instead.\n"
+msgstr ""
+"Xəbərdarlıq : %s üçün X yazı növü tapıla bilmədi,\n"
+"Onun yerinə %s'yi istifadə edirəm .\n"
+
+#: lib/font.c:443
+#, c-format
+msgid "Font %s not found, using Courier instead.\n"
+msgstr "Yazı növü %s tapıla bilmədi, onun yerinə Courier'i istifadə edirəm .\n"
+
+#: lib/properties.c:382 lib/properties.c:414
+msgid "No edit widget"
+msgstr "Dəyişdirilə bilən bir widget deyildir"
+
+#: lib/message.c:120
+msgid "Notice"
+msgstr "Yadıma Sal"
+
+#: lib/message.c:131
+msgid "Warning"
+msgstr "Xəbərdarlıq"
+
+#: lib/message.c:143
+msgid "Error"
+msgstr "Xəta"
 
 #: lib/widgets.c:319 objects/FS/function.c:807
 msgid "Solid"
@@ -1747,6 +1728,25 @@ msgstr "Rəsm faylını seç"
 #: lib/widgets.c:879
 msgid "Browse"
 msgstr "Gəz"
+
+#: lib/dia_xml.c:273
+msgid "Taking point value of non-point node."
+msgstr "Nöqtəvi olmayan düyünün qiymətini alıram."
+
+#: lib/dia_xml.c:285
+#, fuzzy, c-format
+msgid "Incorrect x Point value \"%s\" %f; discarding it."
+msgstr "Səhv y Nöqtə qiyməti  \"%s\" %f; nəzərə almıram."
+
+#: lib/dia_xml.c:293
+msgid "Error parsing point."
+msgstr "Xəta darama nöqtəsi."
+
+#. don't bother with useless warnings (see above)
+#: lib/dia_xml.c:301
+#, c-format
+msgid "Incorrect y Point value \"%s\" %f; discarding it."
+msgstr "Səhv y Nöqtə qiyməti  \"%s\" %f; nəzərə almıram."
 
 #: objects/ER/attribute.c:151
 msgid "Key:"
@@ -3452,10 +3452,6 @@ msgstr "Standart cismlər"
 msgid "Fontsize:"
 msgstr "Yazıtipi böyüklüyü :"
 
-#: objects/sybase/sybase.c:44
-msgid "Sybase replication domain diagram objects"
-msgstr "Sybase bölmə verici diaqram cismləri"
-
 #: plug-ins/cgm/cgm.c:1086
 msgid ""
 "Image row length larger than maximum cell array.\n"
@@ -3685,6 +3681,12 @@ msgstr "Bu, FİG buraxılış %d.%d faylıdır. Başa düışə bilmirəm\n"
 #: plug-ins/xfig/xfig-import.c:1116
 msgid "XFig File Format"
 msgstr "XFİG Fayl Şəkli"
+
+#~ msgid "Incorrect x Point value \"\" %f; discarding it."
+#~ msgstr "Səhv x Nöqtə qiyməti \"\"  %f; nəzərə almıram."
+
+#~ msgid "Sybase replication domain diagram objects"
+#~ msgstr "Sybase bölmə verici diaqram cismləri"
 
 #~ msgid "/View/Show Rulers"
 #~ msgstr "/Göstər/_Telləri göstər"

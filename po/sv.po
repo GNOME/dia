@@ -11,7 +11,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
-"POT-Creation-Date: 2001-06-08 03:00+0200\n"
+"POT-Creation-Date: 2001-06-08 06:57+0200\n"
 "PO-Revision-Date: 2001-06-08 03:01+0200\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
@@ -432,6 +432,7 @@ msgid "Create Text"
 msgstr "Skapa text"
 
 #: app/interface.c:58 app/menus.c:197 lib/properties.c:1262
+#: lib/properties.h:366
 msgid "Text"
 msgstr "Text"
 
@@ -583,7 +584,7 @@ msgstr "Detaljer..."
 msgid "Line Style Properties"
 msgstr "Linjeegenskaper"
 
-#: app/linewidth_area.c:216
+#: app/linewidth_area.c:216 lib/properties.h:342
 msgid "Line width"
 msgstr "Linjebredd"
 
@@ -1505,54 +1506,52 @@ msgstr "Läser in..."
 msgid "Dia v %s"
 msgstr "Dia v. %s"
 
-#: lib/bezier_conn.c:528
-msgid "Internal error: Setting corner type of endpoint of bezier"
-msgstr "Internt fel: Inställning av hörntyp på slutpunkten av bezier"
+#: lib/properties.c:1256 lib/properties.h:345
+msgid "Line colour"
+msgstr "Linjefärg"
 
-#: lib/dia_xml.c:273
-msgid "Taking point value of non-point node."
-msgstr "Tar punktvärde hos nod som inte är en punkt."
+#: lib/properties.c:1257 lib/properties.h:348
+msgid "Line style"
+msgstr "Linjetyp"
 
-#: lib/dia_xml.c:285
-#, c-format
-msgid "Incorrect x Point value \"\" %f; discarding it."
-msgstr "Ogiltigt x-punktvärde \"\" %f; kastar det."
+#: lib/properties.c:1258 lib/properties.h:352
+msgid "Fill colour"
+msgstr "Fyllningsfärg"
 
-#: lib/dia_xml.c:293
-msgid "Error parsing point."
-msgstr "Fel vid tolkning av punkt."
+#: lib/properties.c:1259 lib/properties.h:355
+#: objects/custom/custom_object.c:362 objects/flowchart/box.c:317
+#: objects/flowchart/diamond.c:310 objects/flowchart/ellipse.c:310
+#: objects/flowchart/parallelogram.c:321 objects/standard/beziergon.c:222
+#: objects/standard/box.c:232 objects/standard/ellipse.c:220
+#: objects/standard/polygon.c:226
+msgid "Draw background"
+msgstr "Rita bakgrund"
 
-#. don't bother with useless warnings (see above)
-#: lib/dia_xml.c:301
-#, c-format
-msgid "Incorrect y Point value \"%s\" %f; discarding it."
-msgstr "Ogiltigt y-värde \"%s\" %f; kastar det."
+#: lib/properties.c:1260 lib/properties.h:359
+msgid "Start arrow"
+msgstr "Startpil"
 
-#: lib/font.c:389
-#, c-format
-msgid ""
-"Warning no X Font for %s found, \n"
-"using %s instead.\n"
-msgstr ""
-"Varning: Inget X-typsnitt för %s hittades, \n"
-"använder %s i stället.\n"
+#: lib/properties.c:1261 lib/properties.h:362
+msgid "End arrow"
+msgstr "Slutpil"
 
-#: lib/font.c:443
-#, c-format
-msgid "Font %s not found, using Courier instead.\n"
-msgstr "Hittar inte typsnittet %s, använder Courier istället.\n"
+#: lib/properties.c:1263 lib/properties.h:369
+msgid "Text alignment"
+msgstr "Textjustering"
 
-#: lib/message.c:120
-msgid "Notice"
-msgstr "Observera"
+#: lib/properties.c:1264 lib/properties.h:372 objects/GRAFCET/condition.c:131
+#: objects/GRAFCET/transition.c:140
+msgid "Font"
+msgstr "Typsnitt"
 
-#: lib/message.c:131
-msgid "Warning"
-msgstr "Varning"
+#: lib/properties.c:1265 lib/properties.h:375 objects/GRAFCET/condition.c:133
+#: objects/GRAFCET/transition.c:142
+msgid "Font size"
+msgstr "Typsnittsstorlek"
 
-#: lib/message.c:143
-msgid "Error"
-msgstr "Fel"
+#: lib/properties.c:1266 lib/properties.h:378
+msgid "Text colour"
+msgstr "Textfärg"
 
 #: lib/plug-ins.c:211
 #, c-format
@@ -1588,55 +1587,39 @@ msgstr "\"%s\" är inte en katalog"
 msgid "Could not open `%s'"
 msgstr "Kunde inte öppna \"%s\""
 
+#: lib/bezier_conn.c:528
+msgid "Internal error: Setting corner type of endpoint of bezier"
+msgstr "Internt fel: Inställning av hörntyp på slutpunkten av bezier"
+
+#: lib/font.c:389
+#, c-format
+msgid ""
+"Warning no X Font for %s found, \n"
+"using %s instead.\n"
+msgstr ""
+"Varning: Inget X-typsnitt för %s hittades, \n"
+"använder %s i stället.\n"
+
+#: lib/font.c:443
+#, c-format
+msgid "Font %s not found, using Courier instead.\n"
+msgstr "Hittar inte typsnittet %s, använder Courier istället.\n"
+
 #: lib/properties.c:382 lib/properties.c:414
 msgid "No edit widget"
 msgstr "Ingen redigeringskomponent"
 
-#: lib/properties.c:1256
-msgid "Line colour"
-msgstr "Linjefärg"
+#: lib/message.c:120
+msgid "Notice"
+msgstr "Observera"
 
-#: lib/properties.c:1257
-msgid "Line style"
-msgstr "Linjetyp"
+#: lib/message.c:131
+msgid "Warning"
+msgstr "Varning"
 
-#: lib/properties.c:1258
-msgid "Fill colour"
-msgstr "Fyllningsfärg"
-
-#: lib/properties.c:1259 objects/custom/custom_object.c:362
-#: objects/flowchart/box.c:317 objects/flowchart/diamond.c:310
-#: objects/flowchart/ellipse.c:310 objects/flowchart/parallelogram.c:321
-#: objects/standard/beziergon.c:222 objects/standard/box.c:232
-#: objects/standard/ellipse.c:220 objects/standard/polygon.c:226
-msgid "Draw background"
-msgstr "Rita bakgrund"
-
-#: lib/properties.c:1260
-msgid "Start arrow"
-msgstr "Startpil"
-
-#: lib/properties.c:1261
-msgid "End arrow"
-msgstr "Slutpil"
-
-#: lib/properties.c:1263
-msgid "Text alignment"
-msgstr "Textjustering"
-
-#: lib/properties.c:1264 objects/GRAFCET/condition.c:131
-#: objects/GRAFCET/transition.c:140
-msgid "Font"
-msgstr "Typsnitt"
-
-#: lib/properties.c:1265 objects/GRAFCET/condition.c:133
-#: objects/GRAFCET/transition.c:142
-msgid "Font size"
-msgstr "Typsnittsstorlek"
-
-#: lib/properties.c:1266
-msgid "Text colour"
-msgstr "Textfärg"
+#: lib/message.c:143
+msgid "Error"
+msgstr "Fel"
 
 #: lib/widgets.c:319 objects/FS/function.c:807
 msgid "Solid"
@@ -1750,6 +1733,25 @@ msgstr "Välj bildfil"
 #: lib/widgets.c:879
 msgid "Browse"
 msgstr "Bläddra"
+
+#: lib/dia_xml.c:273
+msgid "Taking point value of non-point node."
+msgstr "Tar punktvärde hos nod som inte är en punkt."
+
+#: lib/dia_xml.c:285
+#, fuzzy, c-format
+msgid "Incorrect x Point value \"%s\" %f; discarding it."
+msgstr "Ogiltigt y-värde \"%s\" %f; kastar det."
+
+#: lib/dia_xml.c:293
+msgid "Error parsing point."
+msgstr "Fel vid tolkning av punkt."
+
+#. don't bother with useless warnings (see above)
+#: lib/dia_xml.c:301
+#, c-format
+msgid "Incorrect y Point value \"%s\" %f; discarding it."
+msgstr "Ogiltigt y-värde \"%s\" %f; kastar det."
 
 #: objects/ER/attribute.c:151
 msgid "Key:"
@@ -3457,10 +3459,6 @@ msgstr "Standardobjekt"
 msgid "Fontsize:"
 msgstr "Typsnittsstorlek:"
 
-#: objects/sybase/sybase.c:44
-msgid "Sybase replication domain diagram objects"
-msgstr "Domändiagramobjekt för Sybase-replikationer"
-
 #: plug-ins/cgm/cgm.c:1086
 msgid ""
 "Image row length larger than maximum cell array.\n"
@@ -3691,6 +3689,12 @@ msgstr "Detta är en FIG-fil i version %d.%d, jag kanske inte förstår den\n"
 #: plug-ins/xfig/xfig-import.c:1116
 msgid "XFig File Format"
 msgstr "XFig-filformat"
+
+#~ msgid "Incorrect x Point value \"\" %f; discarding it."
+#~ msgstr "Ogiltigt x-punktvärde \"\" %f; kastar det."
+
+#~ msgid "Sybase replication domain diagram objects"
+#~ msgstr "Domändiagramobjekt för Sybase-replikationer"
 
 #~ msgid "/View/Show Rulers"
 #~ msgstr "/Visa/Visa linjaler"
