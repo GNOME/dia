@@ -23,8 +23,6 @@
 #include <config.h>
 #endif
 
-#undef GTK_DISABLE_DEPRECATED /* GtkTypeInfo, gtk_widget_queue_clear, ... */
-
 #include "intl.h"
 #include "widgets.h"
 #include "dialinechooser.h"
@@ -32,16 +30,9 @@
 static const char *button_menu_key = "dia-button-menu";
 static const char *menuitem_enum_key = "dia-menuitem-value";
 
-static gint close_and_hide(GtkWidget *wid, GdkEventAny *event) 
-{
-  gtk_widget_hide(wid);
-  return TRUE;
-}
-
 
 /* --------------- DiaLinePreview -------------------------------- */
 
-static GtkType dia_line_preview_get_type (void);
 static void dia_line_preview_set(DiaLinePreview *line, LineStyle lstyle);
 
 static void dia_line_preview_class_init (DiaLinePreviewClass  *klass);
@@ -49,25 +40,28 @@ static void dia_line_preview_init       (DiaLinePreview       *arrow);
 static gint dia_line_preview_expose     (GtkWidget      *widget,
 					 GdkEventExpose *event);
 
-static GtkType
+GType
 dia_line_preview_get_type (void)
 {
-  static GtkType line_type = 0;
+  static GType type = 0;
 
-  if (!line_type) {
-      static const GtkTypeInfo line_info = {
-        "DiaLinePreview",
-        sizeof (DiaLinePreview),
-        sizeof (DiaLinePreviewClass),
-        (GtkClassInitFunc) dia_line_preview_class_init,
-        (GtkObjectInitFunc) dia_line_preview_init,
-        /* reserved_1 */ NULL,
-        /* reserved_2 */ NULL,
-        (GtkClassInitFunc) NULL,
-      };
-      line_type = gtk_type_unique (GTK_TYPE_MISC, &line_info);
-    }
-  return line_type;
+  if (!type) {
+    static const GTypeInfo info = {
+      sizeof (DiaLinePreviewClass),
+      (GBaseInitFunc) NULL,
+      (GBaseFinalizeFunc) NULL,
+      (GClassInitFunc) dia_line_preview_class_init,
+      (GClassFinalizeFunc) NULL,
+      NULL,
+      sizeof (DiaLinePreview),
+      0,
+      (GInstanceInitFunc) dia_line_preview_init
+    };
+
+    type = g_type_register_static (GTK_TYPE_MISC, "DiaLinePreview", &info, 0);
+  }
+
+  return type;
 }
 
 static void
@@ -75,7 +69,7 @@ dia_line_preview_class_init (DiaLinePreviewClass *class)
 {
   GtkWidgetClass *widget_class;
 
-  widget_class = (GtkWidgetClass *)class;
+  widget_class = GTK_WIDGET_CLASS(class);
   widget_class->expose_event = dia_line_preview_expose;
 }
 
@@ -87,14 +81,13 @@ dia_line_preview_init (DiaLinePreview *line)
   GTK_WIDGET (line)->requisition.width = 40 + GTK_MISC (line)->xpad * 2;
   GTK_WIDGET (line)->requisition.height = 15 + GTK_MISC (line)->ypad * 2;
 
-  
   line->lstyle = LINESTYLE_SOLID;
 }
 
 GtkWidget *
 dia_line_preview_new (LineStyle lstyle)
 {
-  DiaLinePreview *line = gtk_type_new (dia_line_preview_get_type());
+  DiaLinePreview *line = g_object_new(DIA_TYPE_LINE_PREVIEW, NULL);
 
   line->lstyle = lstyle;
   return GTK_WIDGET(line);
@@ -106,7 +99,7 @@ dia_line_preview_set(DiaLinePreview *line, LineStyle lstyle)
   if (line->lstyle != lstyle) {
     line->lstyle = lstyle;
     if (GTK_WIDGET_DRAWABLE(line))
-      gtk_widget_queue_clear(GTK_WIDGET(line));
+      gtk_widget_queue_draw(GTK_WIDGET(line));
   }
 }
 
@@ -187,32 +180,41 @@ dia_line_preview_expose(GtkWidget *widget, GdkEventExpose *event)
 
 static void dia_line_chooser_class_init (DiaLineChooserClass  *klass);
 static void dia_line_chooser_init       (DiaLineChooser       *arrow);
-static gint dia_line_chooser_event      (GtkWidget *widget,
-					  GdkEvent *event);
-static void dia_line_chooser_dialog_ok  (DiaLineChooser *lchooser);
-static void dia_line_chooser_dialog_cancel (DiaLineChooser *lchooser);
-static void dia_line_chooser_change_line_style (GtkMenuItem *mi,
-						DiaLineChooser *lchooser);
 
-GtkType
+GType
 dia_line_chooser_get_type (void)
 {
-  static GtkType arrow_type = 0;
+  static GType type = 0;
 
-  if (!arrow_type) {
-      static const GtkTypeInfo arrow_info = {
-        "DiaLineChooser",
-        sizeof (DiaLineChooser),
-        sizeof (DiaLineChooserClass),
-        (GtkClassInitFunc) dia_line_chooser_class_init,
-        (GtkObjectInitFunc) dia_line_chooser_init,
-        /* reserved_1 */ NULL,
-        /* reserved_2 */ NULL,
-        (GtkClassInitFunc) NULL,
-      };
-      arrow_type = gtk_type_unique (GTK_TYPE_BUTTON, &arrow_info);
-    }
-  return arrow_type;
+  if (!type) {
+    static const GTypeInfo info = {
+      sizeof (DiaLineChooserClass),
+      (GBaseInitFunc) NULL,
+      (GBaseFinalizeFunc) NULL,
+      (GClassInitFunc) dia_line_chooser_class_init,
+      (GClassFinalizeFunc) NULL,
+      NULL,
+      sizeof (DiaLineChooser),
+      0,
+      (GInstanceInitFunc) dia_line_chooser_init
+    };
+
+    type = g_type_register_static (GTK_TYPE_BUTTON, "DiaLineChooser", &info, 0);
+  }
+
+  return type;
+}
+
+static gint
+dia_line_chooser_event(GtkWidget *widget, GdkEvent *event)
+{
+  if (event->type == GDK_BUTTON_PRESS && event->button.button == 1) {
+    GtkMenu *menu = g_object_get_data(G_OBJECT(widget), button_menu_key);
+    gtk_menu_popup(menu, NULL, NULL, NULL, NULL,
+		   event->button.button, event->button.time);
+    return TRUE;
+  }
+  return FALSE;
 }
 
 static void
@@ -220,8 +222,51 @@ dia_line_chooser_class_init (DiaLineChooserClass *class)
 {
   GtkWidgetClass *widget_class;
 
-  widget_class = (GtkWidgetClass *)class;
+  widget_class = GTK_WIDGET_CLASS(class);
   widget_class->event = dia_line_chooser_event;
+}
+
+static void
+dia_line_chooser_dialog_response (GtkWidget *dialog,
+                                  gint response_id,
+                                  DiaLineChooser *lchooser)
+{
+  LineStyle new_style;
+  real new_dash;
+
+  if (response_id == GTK_RESPONSE_OK) {
+    dia_line_style_selector_get_linestyle(lchooser->selector,
+					  &new_style, &new_dash);
+    if (new_style != lchooser->lstyle || new_dash != lchooser->dash_length) {
+      lchooser->lstyle = new_style;
+      lchooser->dash_length = new_dash;
+      dia_line_preview_set(lchooser->preview, new_style);
+      if (lchooser->callback)
+        (* lchooser->callback)(new_style, new_dash, lchooser->user_data);
+    }
+  } else {
+    dia_line_style_selector_set_linestyle(lchooser->selector,
+                                          lchooser->lstyle,
+                                          lchooser->dash_length);
+  }
+  gtk_widget_hide(lchooser->dialog);
+}
+
+static void
+dia_line_chooser_change_line_style(GtkMenuItem *mi, DiaLineChooser *lchooser)
+{
+  LineStyle lstyle = GPOINTER_TO_INT(g_object_get_data(G_OBJECT(mi),
+						       menuitem_enum_key));
+
+  if (lchooser->lstyle != lstyle) {
+    dia_line_preview_set(lchooser->preview, lstyle);
+    lchooser->lstyle = lstyle;
+    dia_line_style_selector_set_linestyle(lchooser->selector, lchooser->lstyle,
+					  lchooser->dash_length);
+    if (lchooser->callback)
+      (* lchooser->callback)(lchooser->lstyle, lchooser->dash_length,
+			     lchooser->user_data);
+  }
 }
 
 static void
@@ -239,10 +284,18 @@ dia_line_chooser_init (DiaLineChooser *lchooser)
   gtk_widget_show(wid);
   lchooser->preview = DIA_LINE_PREVIEW(wid);
 
-  lchooser->dialog = wid = gtk_dialog_new();
-  gtk_window_set_title(GTK_WINDOW(wid), _("Line Style Properties"));
-  g_signal_connect(GTK_OBJECT(wid), "delete_event",
-		     G_CALLBACK(close_and_hide), NULL);
+  lchooser->dialog = gtk_dialog_new_with_buttons(_("Line Style Properties"),
+                                                 NULL,
+                                                 GTK_DIALOG_NO_SEPARATOR,
+                                                 GTK_STOCK_CANCEL,
+                                                 GTK_RESPONSE_CANCEL,
+                                                 GTK_STOCK_OK,
+                                                 GTK_RESPONSE_OK,
+                                                 NULL);
+  gtk_dialog_set_default_response(GTK_DIALOG(lchooser->dialog),
+                                  GTK_RESPONSE_OK);
+  g_signal_connect(G_OBJECT(lchooser->dialog), "response",
+                   G_CALLBACK(dia_line_chooser_dialog_response), lchooser);
 
   wid = dia_line_style_selector_new();
   gtk_container_set_border_width(GTK_CONTAINER(wid), 5);
@@ -251,112 +304,36 @@ dia_line_chooser_init (DiaLineChooser *lchooser)
   gtk_widget_show(wid);
   lchooser->selector = DIALINESTYLESELECTOR(wid);
 
-  wid = gtk_button_new_with_label(_("OK"));
-  GTK_WIDGET_SET_FLAGS(wid, GTK_CAN_DEFAULT);
-  gtk_container_add(GTK_CONTAINER(GTK_DIALOG(lchooser->dialog)->action_area),
-		    wid);
-  gtk_widget_grab_default(wid);
-  g_signal_connect_swapped(GTK_OBJECT(wid), "clicked",
-			    G_CALLBACK(dia_line_chooser_dialog_ok),
-			    GTK_OBJECT(lchooser));
-  gtk_widget_show(wid);
-
-  wid = gtk_button_new_with_label(_("Cancel"));
-  GTK_WIDGET_SET_FLAGS(wid, GTK_CAN_DEFAULT);
-  gtk_container_add(GTK_CONTAINER(GTK_DIALOG(lchooser->dialog)->action_area),
-		    wid);
-  g_signal_connect_swapped(GTK_OBJECT(wid), "clicked",
-			    G_CALLBACK(dia_line_chooser_dialog_cancel),
-			    GTK_OBJECT(lchooser));
-
   menu = gtk_menu_new();
-  gtk_object_set_data_full(GTK_OBJECT(lchooser), button_menu_key, menu,
-			   (GtkDestroyNotify)gtk_widget_unref);
+  g_object_set_data_full(G_OBJECT(lchooser), button_menu_key, menu,
+			 (GDestroyNotify)gtk_widget_unref);
   for (i = 0; i <= LINESTYLE_DOTTED; i++) {
     mi = gtk_menu_item_new();
-    gtk_object_set_data(GTK_OBJECT(mi), menuitem_enum_key, GINT_TO_POINTER(i));
+    g_object_set_data(G_OBJECT(mi), menuitem_enum_key, GINT_TO_POINTER(i));
     ln = dia_line_preview_new(i);
     gtk_container_add(GTK_CONTAINER(mi), ln);
     gtk_widget_show(ln);
-    g_signal_connect(GTK_OBJECT(mi), "activate",
-		       G_CALLBACK(dia_line_chooser_change_line_style),
-		       lchooser);
-    gtk_container_add(GTK_CONTAINER(menu), mi);
-    gtk_widget_show(mi);
+    g_signal_connect(G_OBJECT(mi), "activate",
+		     G_CALLBACK(dia_line_chooser_change_line_style), lchooser);
+    gtk_menu_shell_append (GTK_MENU_SHELL (menu), mi);
+    gtk_widget_show (mi);
   }
   mi = gtk_menu_item_new_with_label(_("Details..."));
-  g_signal_connect_swapped(GTK_OBJECT(mi), "activate",
-			    G_CALLBACK(gtk_widget_show),
-			    GTK_OBJECT(lchooser->dialog));
-  gtk_container_add(GTK_CONTAINER(menu), mi);
-  gtk_widget_show(mi);
-
-  gtk_widget_show(wid);
+  g_signal_connect_swapped(G_OBJECT(mi), "activate",
+			   G_CALLBACK(gtk_widget_show), lchooser->dialog);
+  gtk_menu_shell_append (GTK_MENU_SHELL (menu), mi);
+  gtk_widget_show (mi);
 }
 
 GtkWidget *
 dia_line_chooser_new(DiaChangeLineCallback callback,
 		     gpointer user_data)
 {
-  DiaLineChooser *chooser = gtk_type_new(dia_line_chooser_get_type());
+  DiaLineChooser *chooser = g_object_new(DIA_TYPE_LINE_CHOOSER, NULL);
 
   chooser->callback = callback;
   chooser->user_data = user_data;
 
   return GTK_WIDGET(chooser);
-}
-
-static gint
-dia_line_chooser_event(GtkWidget *widget, GdkEvent *event)
-{
-  if (event->type == GDK_BUTTON_PRESS && event->button.button == 1) {
-    GtkMenu *menu = gtk_object_get_data(GTK_OBJECT(widget), button_menu_key);
-    gtk_menu_popup(menu, NULL, NULL, NULL, NULL,
-		   event->button.button, event->button.time);
-    return TRUE;
-  }
-  return FALSE;
-}
-
-static void
-dia_line_chooser_dialog_ok (DiaLineChooser *lchooser)
-{
-  LineStyle new_style;
-  real new_dash;
-
-  dia_line_style_selector_get_linestyle(lchooser->selector,
-					&new_style, &new_dash);
-  if (new_style != lchooser->lstyle || new_dash != lchooser->dash_length) {
-    lchooser->lstyle = new_style;
-    lchooser->dash_length = new_dash;
-    dia_line_preview_set(lchooser->preview, new_style);
-    if (lchooser->callback)
-      (* lchooser->callback)(new_style, new_dash, lchooser->user_data);
-  }
-  gtk_widget_hide(lchooser->dialog);
-}
-static void
-dia_line_chooser_dialog_cancel (DiaLineChooser *lchooser)
-{
-  dia_line_style_selector_set_linestyle(lchooser->selector, lchooser->lstyle,
-					lchooser->dash_length);
-  gtk_widget_hide(lchooser->dialog);
-}
-
-static void
-dia_line_chooser_change_line_style(GtkMenuItem *mi, DiaLineChooser *lchooser)
-{
-  LineStyle lstyle = GPOINTER_TO_INT(gtk_object_get_data(GTK_OBJECT(mi),
-							 menuitem_enum_key));
-
-  if (lchooser->lstyle != lstyle) {
-    dia_line_preview_set(lchooser->preview, lstyle);
-    lchooser->lstyle = lstyle;
-    dia_line_style_selector_set_linestyle(lchooser->selector, lchooser->lstyle,
-					  lchooser->dash_length);
-    if (lchooser->callback)
-      (* lchooser->callback)(lchooser->lstyle, lchooser->dash_length,
-			     lchooser->user_data);
-  }
 }
 

@@ -6,4 +6,3 @@ IMAGES = \
 
 EXTRA_DIST = $(IMAGES)
 image_DATA = $(IMAGES)
-

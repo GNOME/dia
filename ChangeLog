@@ -1,3 +1,17 @@
+2004-03-19  Lars Clausen  <lars@raeder.dk>
+
+	* xmldocs.make: Fixed apparent uninstall error.
+
+	* config.h.win32: 
+	* doc/en/dia-manual.xml: 
+	* doc/pl/dia-manual.xml: 
+	* dia.spec: 
+	* configure.in: 
+	* NEWS: Version 0.93-pre1.
+
+	* lib/dialinechooser.[ch]: Patch from pborelli@katamail.com (paolo
+	borelli):  Remove some deprecated stuff.
+
 2004-03-18  Lars Clausen  <lars@raeder.dk>
 
 	* Makefile.am: Try better uninstall thing for scrollkeeper.

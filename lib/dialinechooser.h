@@ -18,6 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
+
 #ifndef DIALINECHOOSER_H
 #define DIALINECHOOSER_H
 
@@ -26,30 +27,41 @@
 #include <gtk/gtk.h>
 
 /* --------------- DiaLinePreview -------------------------------- */
+GType dia_line_preview_get_type (void);
+
+#define DIA_TYPE_LINE_PREVIEW            (dia_line_preview_get_type ())
+#define DIA_LINE_PREVIEW(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), DIA_TYPE_LINE_PREVIEW, DiaLinePreview))
+#define DIA_LINE_PREVIEW_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), DIA_TYPE_LINE_PREVIEW, DiaLinePreviewClass))
+#define DIA_IS_LINE_PREVIEW(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), DIA_TYPE_LINE_PREVIEW))
+#define DIA_IS_LINE_PREVIEW_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), DIA_TYPE_LINE_PREVIEW))
+#define DIA_LINE_PREVIEW_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), DIA_TYPE_LINE_PREVIEW, DiaLinePreviewClass))
+
 typedef struct _DiaLinePreview DiaLinePreview;
 typedef struct _DiaLinePreviewClass DiaLinePreviewClass;
-
-
-#define DIA_LINE_PREVIEW(obj) (GTK_CHECK_CAST((obj),dia_line_preview_get_type(), DiaLinePreview))
-#define DIA_LINE_PREVIEW_CLASS(obj) (GTK_CHECK_CLASS_CAST((obj), dia_line_preview_get_type(), DiaLinePreviewClass))
-
-GtkWidget *dia_line_preview_new (LineStyle lstyle);
 
 struct _DiaLinePreview
 {
   GtkMisc misc;
   LineStyle lstyle;
 };
+
 struct _DiaLinePreviewClass
 {
   GtkMiscClass parent_class;
 };
 
-/* ------- Code for DiaLineChooser ---------------------- */
-GtkType dia_line_chooser_get_type (void);
+GtkWidget *dia_line_preview_new (LineStyle lstyle);
 
-#define DIA_LINE_CHOOSER(obj) (GTK_CHECK_CAST((obj),dia_line_chooser_get_type(), DiaLineChooser))
-#define DIA_LINE_CHOOSER_CLASS(obj) (GTK_CHECK_CLASS_CAST((obj), dia_line_chooser_get_type(), DiaLineChooserClass))
+
+/* ------- Code for DiaLineChooser ---------------------- */
+GType dia_line_chooser_get_type (void);
+
+#define DIA_TYPE_LINE_CHOOSER            (dia_line_chooser_get_type ())
+#define DIA_LINE_CHOOSER(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), DIA_TYPE_LINE_CHOOSER, DiaLineChooser))
+#define DIA_LINE_CHOOSER_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), DIA_TYPE_LINE_CHOOSER, DiaLineChooserClass))
+#define DIA_IS_LINE_CHOOSER(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), DIA_TYPE_LINE_CHOOSER))
+#define DIA_IS_LINE_CHOOSER_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), DIA_TYPE_LINE_CHOOSER))
+#define DIA_LINE_CHOOSER_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), DIA_TYPE_LINE_CHOOSER, DiaLineChooserClass))
 
 typedef struct _DiaLineChooser DiaLineChooser;
 typedef struct _DiaLineChooserClass DiaLineChooserClass;
@@ -70,6 +82,7 @@ struct _DiaLineChooser
   GtkWidget *dialog;
   DiaLineStyleSelector *selector;
 };
+
 struct _DiaLineChooserClass
 {
   GtkButtonClass parent_class;
@@ -79,4 +92,5 @@ struct _DiaLineChooserClass
 GtkWidget *dia_line_chooser_new  (DiaChangeLineCallback callback,
 				  gpointer user_data);
 
-#endif
+
+#endif /* DIALINECHOOSER_H */
