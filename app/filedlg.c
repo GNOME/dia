@@ -26,6 +26,7 @@
 #include "intl.h"
 #include "filter.h"
 #include "display.h"
+#include "message.h"
 
 static GtkWidget *exportdlg = NULL, *export_options = NULL, *export_omenu=NULL;
 
@@ -189,10 +190,12 @@ file_export_ok_callback(GtkWidget *w, GtkFileSelection *fs)
 					   ->menu_item));
   if (!ef)
     ef = filter_guess_export_filter(filename);
-  if (!ef)
-    return; /* do something here */
+  if (ef)
+      ef->export(dia->data, filename, dia->filename);
+  else
+      message_error(_("Could not determine which export filter\n"
+		      "to use to save '%s'"), filename);
 
-  ef->export(dia->data, filename, dia->filename);
   gtk_widget_hide(exportdlg);
 }
 

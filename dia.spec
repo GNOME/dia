@@ -1,5 +1,5 @@
 %define name dia
-%define ver 0.82
+%define ver 0.83
 %define prefix /usr
 
 Summary: A gtk+ based diagram creation program.
@@ -51,7 +51,7 @@ rm -fr $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root)
-%doc README TODO NEWS INSTALL COPYING ChangeLog AUTHORS
+%doc README TODO NEWS INSTALL COPYING ChangeLog AUTHORS doc
 %{prefix}/bin/dia
 %{prefix}/lib/dia
 %{prefix}/man/man1/dia.1

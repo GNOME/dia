@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia cvs\n"
-"POT-Creation-Date: 1999-12-09 10:14+0800\n"
+"POT-Creation-Date: 1999-12-24 22:20+0800\n"
 "PO-Revision-Date: 1999-11-25 14:03+0900\n"
 "Last-Translator: Yukihiro Nakai <nakai@FreeBSD.org>\n"
 "Language-Team: Japanese <translation@gnome.gr.jp>\n"
@@ -14,49 +14,50 @@ msgstr ""
 "Content-Type: text/plain; charset=euc-jp\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: app/app_procs.c:128
-msgid "Export loaded file to postscript and exit"
+#: app/app_procs.c:130
+#, fuzzy
+msgid "Export loaded file and exit"
 msgstr "読み込んだファイルをpostscriptに出力して終了する"
 
-#: app/app_procs.c:129
+#: app/app_procs.c:131
 msgid "OUTPUT"
 msgstr "OUTPUT"
 
-#: app/app_procs.c:131
+#: app/app_procs.c:133
 msgid "Show this help message"
 msgstr "このヘルプメッセージを表示する"
 
-#: app/app_procs.c:150
+#: app/app_procs.c:152
 msgid "Can't connect to session manager!\n"
 msgstr "セッションマネージャに接続できません!\n"
 
-#: app/app_procs.c:161
+#: app/app_procs.c:163
 msgid "[OPTION...] [FILE...]"
 msgstr ""
 
-#: app/app_procs.c:164
+#: app/app_procs.c:166
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
 "Run '%s --help' to see a full list of available command line options.\n"
 msgstr ""
 
-#: app/app_procs.c:202 app/app_procs.c:204
+#: app/app_procs.c:209 app/app_procs.c:211
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr ""
 "object-libsを探しましたが、標準オブジェクトを見つけられなかったので、終了しま"
 "す...\n"
 
-#: app/app_procs.c:219
+#: app/app_procs.c:227
 msgid "Need valid input file\n"
 msgstr "有効な入力ファイルが必要です\n"
 
-#: app/app_procs.c:276
+#: app/app_procs.c:287
 msgid "Quit, are you sure?"
 msgstr "終了します。よろしいですか?"
 
-#: app/app_procs.c:278
+#: app/app_procs.c:289
 msgid ""
 "Modified diagrams exists.\n"
 "Are you sure you want to quit?"
@@ -64,20 +65,20 @@ msgstr ""
 "変更されたダイアグラムがあります。\n"
 "終了してもよろしいですか?"
 
-#: app/app_procs.c:287
+#: app/app_procs.c:298
 msgid "Quit"
 msgstr "終了"
 
-#: app/app_procs.c:299 app/layer_dialog.c:980 app/lineprops_area.c:516
+#: app/app_procs.c:310 app/layer_dialog.c:980 app/lineprops_area.c:516
 #: app/lineprops_area.c:714
 msgid "Cancel"
 msgstr "キャンセル"
 
-#: app/app_procs.c:351
+#: app/app_procs.c:362
 msgid "Could not create per-user Dia config directory"
 msgstr ""
 
-#: app/app_procs.c:408
+#: app/app_procs.c:419
 #, c-format
 msgid ""
 "Couldn't find any libraries to load.\n"
@@ -86,13 +87,13 @@ msgstr ""
 "読み込むライブラリが見つかりません。\n"
 "%sはディレクトリではありません。\n"
 
-#: app/app_procs.c:415
+#: app/app_procs.c:426
 #, c-format
 msgid "Couldn't open \"%s\".\n"
 msgstr "\"%s\"を開けません。\n"
 
-#: app/app_procs.c:428 app/app_procs.c:429 app/app_procs.c:456
-#: app/app_procs.c:457
+#: app/app_procs.c:439 app/app_procs.c:440 app/app_procs.c:467
+#: app/app_procs.c:468
 #, c-format
 msgid ""
 "Error loading library: \"%s\":\n"
@@ -101,12 +102,12 @@ msgstr ""
 "ライブラリの読み込みに失敗しました: \"%s\":\n"
 " %s\n"
 
-#: app/app_procs.c:434 app/app_procs.c:435
+#: app/app_procs.c:445 app/app_procs.c:446
 #, c-format
 msgid "The file \"%s\" is not a Dia object library.\n"
 msgstr "ファイル\"%s\"はDiaオブジェクトライブラリではありません。\n"
 
-#: app/app_procs.c:441 app/app_procs.c:442
+#: app/app_procs.c:452 app/app_procs.c:453
 #, c-format
 msgid ""
 "The object library \"%s\" is from an older version of Dia and cannot be "
@@ -117,7 +118,7 @@ msgstr ""
 "きません。\n"
 "アップグレードしてください。"
 
-#: app/app_procs.c:448 app/app_procs.c:449
+#: app/app_procs.c:459 app/app_procs.c:460
 #, c-format
 msgid ""
 "The object library \"%s\" is from an later version of Dia.\n"
@@ -126,7 +127,7 @@ msgstr ""
 "オブジェクトライブラリ\"%s\"は、新しいバージョンのDiaのものです。\n"
 "これを使う場合には、Diaをアップグレードする必要があります。"
 
-#: app/app_procs.c:523
+#: app/app_procs.c:534
 #, c-format
 msgid ""
 "Unable to find register_sheets in library:\n"
@@ -139,15 +140,15 @@ msgstr ""
 msgid "Select color"
 msgstr "色の選択"
 
-#: app/commands.c:136
+#: app/commands.c:137
 msgid "Open diagram"
 msgstr "ダイアグラムを開く"
 
-#: app/commands.c:197 app/commands.c:368 app/commands.c:486
+#: app/commands.c:198
 msgid "File already exists"
 msgstr "ファイルがすでに存在しています"
 
-#: app/commands.c:200 app/commands.c:371 app/commands.c:489
+#: app/commands.c:201
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
@@ -156,21 +157,20 @@ msgstr ""
 "ファイル'%s'はすでに存在しています。\n"
 "上書きしますか?"
 
-#: app/commands.c:212 app/commands.c:383 app/commands.c:501 app/display.c:743
-#: app/preferences.c:460
+#: app/commands.c:213 app/display.c:743 app/preferences.c:460
 msgid "Yes"
 msgstr "はい"
 
-#: app/commands.c:225 app/commands.c:396 app/commands.c:514 app/display.c:754
-#: app/preferences.c:460 app/preferences.c:471
+#: app/commands.c:226 app/display.c:754 app/preferences.c:460
+#: app/preferences.c:471
 msgid "No"
 msgstr "いいえ"
 
-#: app/commands.c:268
+#: app/commands.c:269
 msgid "Save diagram"
 msgstr "ダイアグラムを保存する"
 
-#: app/commands.c:303
+#: app/commands.c:304
 #, c-format
 msgid ""
 "No such file found\n"
@@ -179,118 +179,109 @@ msgstr ""
 "ファイルが見つかりませんでした\n"
 "%s\n"
 
-#: app/commands.c:323
+#: app/commands.c:324
 msgid "Import from XFig"
 msgstr "XFigからインポートする"
 
-#: app/commands.c:437
-msgid "Export to postscript"
-msgstr "postscriptに出力する"
-
-#: app/commands.c:555
-#, fuzzy
-msgid "Export to SVG"
-msgstr "EPSへの出力(_E)"
-
-#: app/commands.c:615
+#: app/commands.c:380
 #, c-format
 msgid "Untitled-%d"
 msgstr "無題-%d"
 
-#: app/commands.c:676
+#: app/commands.c:441
 msgid "No existing object to paste.\n"
 msgstr "貼り付けるオブジェクトが存在しません。\n"
 
-#: app/commands.c:779
+#: app/commands.c:535
 msgid "About Dia"
 msgstr "Diaについて"
 
-#: app/commands.c:816
+#: app/commands.c:572
 #, c-format
 msgid "Dia v %s by Alexander Larsson"
 msgstr "Dia v %s by Alexander Larsson"
 
-#: app/commands.c:820
+#: app/commands.c:576
 msgid "Please visit http://www.lysator.liu.se/~alla/dia for more info"
 msgstr ""
 "詳細情報については http://www.lysator.liu.se/~alla/dia を参照してください"
 
-#: app/commands.c:829 app/layer_dialog.c:970 app/lineprops_area.c:507
+#: app/commands.c:585 app/layer_dialog.c:970 app/lineprops_area.c:507
 #: app/lineprops_area.c:704 app/preferences.c:544 app/properties.c:54
 #: lib/message.c:72
 msgid "OK"
 msgstr "了解"
 
-#: app/diagram.c:137
+#: app/diagram.c:136
 msgid "/Edit/Copy"
 msgstr "/編集/コピー"
 
-#: app/diagram.c:139
+#: app/diagram.c:138
 msgid "/Edit/Cut"
 msgstr "/編集/切り取り"
 
-#: app/diagram.c:141
+#: app/diagram.c:140
 msgid "/Edit/Paste"
 msgstr "/編集/貼り付け"
 
-#: app/diagram.c:144
+#: app/diagram.c:143
 msgid "/Edit/Delete"
 msgstr "/編集/削除"
 
-#: app/diagram.c:148
+#: app/diagram.c:147
 msgid "/Objects/Send to Back"
 msgstr "/オブジェクト/背面に送る"
 
-#: app/diagram.c:150
+#: app/diagram.c:149
 msgid "/Objects/Bring to Front"
 msgstr "/オブジェクト/前面に移動する"
 
-#: app/diagram.c:153
+#: app/diagram.c:152
 msgid "/Objects/Group"
 msgstr "/オブジェクト/グループ化"
 
-#: app/diagram.c:155
+#: app/diagram.c:154
 msgid "/Objects/Ungroup"
 msgstr "/オブジェクト/グループ解除"
 
-#: app/diagram.c:158 app/menus.c:245
+#: app/diagram.c:157 app/menus.c:243
 msgid "/Objects/Align Horizontal/Left"
 msgstr "/オブジェクト/水平位置/左"
 
-#: app/diagram.c:160 app/menus.c:246
+#: app/diagram.c:159 app/menus.c:244
 msgid "/Objects/Align Horizontal/Center"
 msgstr "/オブジェクト/水平位置/中央"
 
-#: app/diagram.c:162 app/menus.c:247
+#: app/diagram.c:161 app/menus.c:245
 msgid "/Objects/Align Horizontal/Right"
 msgstr "/オブジェクト/水平位置/右"
 
-#: app/diagram.c:164 app/menus.c:248
+#: app/diagram.c:163 app/menus.c:246
 msgid "/Objects/Align Horizontal/Equal Distance"
 msgstr "/オブジェクト/水平位置/同列"
 
-#: app/diagram.c:166 app/menus.c:249
+#: app/diagram.c:165 app/menus.c:247
 #, fuzzy
 msgid "/Objects/Align Horizontal/Adjacent"
 msgstr "/オブジェクト/水平位置/中央"
 
-#: app/diagram.c:168 app/menus.c:251
+#: app/diagram.c:167 app/menus.c:249
 msgid "/Objects/Align Vertical/Top"
 msgstr "/オブジェクト/垂直位置/上"
 
-#: app/diagram.c:170 app/menus.c:252
+#: app/diagram.c:169 app/menus.c:250
 msgid "/Objects/Align Vertical/Center"
 msgstr "/オブジェクト/垂直位置/中央"
 
-#: app/diagram.c:172 app/menus.c:253
+#: app/diagram.c:171 app/menus.c:251
 msgid "/Objects/Align Vertical/Bottom"
 msgstr "/オブジェクト/垂直位置/下"
 
-#: app/diagram.c:174 app/menus.c:254
+#: app/diagram.c:173 app/menus.c:252
 msgid "/Objects/Align Vertical/Equal Distance"
 msgstr "/オブジェクト/垂直位置/同列"
 
-#: app/diagram.c:176 app/menus.c:255
+#: app/diagram.c:175 app/menus.c:253
 #, fuzzy
 msgid "/Objects/Align Vertical/Adjacent"
 msgstr "/オブジェクト/垂直位置/中央"
@@ -343,15 +334,15 @@ msgstr "/表示/グリッドにあわせる"
 msgid "/View/Show Connection Points"
 msgstr "/表示/接続ポイントの表示"
 
-#: app/grid.c:147
+#: app/grid.c:148
 msgid "Grid options"
 msgstr "グリッドオプション"
 
-#: app/grid.c:156
+#: app/grid.c:157
 msgid "Grid x size:"
 msgstr "グリッドの横幅:"
 
-#: app/grid.c:174
+#: app/grid.c:175
 msgid "Grid y size:"
 msgstr "グリッドの縦幅:"
 
@@ -518,399 +509,397 @@ msgstr ""
 "ダイアグラム %s の読み込みでエラーが起こりました。\n"
 "Diaファイルではありません。"
 
-#: app/load_save.c:461 app/render_eps.c:152 app/render_svg.c:144
+#: app/load_save.c:461 app/render_eps.c:161 app/render_svg.c:144
+#: plug-ins/cgm/cgm.c:810
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
 msgstr "開けないので書き込めません: '%s'\n"
 
-#: app/menus.c:34 app/menus.c:44
+#: app/load_save.c:554
+#, fuzzy
+msgid "Native Dia Diagram"
+msgstr "ダイアグラムを保存する"
+
+#: app/menus.c:35 app/menus.c:45
 msgid "_New diagram"
 msgstr "新規ダイアグラム(_N)"
 
-#: app/menus.c:34 app/menus.c:44
+#: app/menus.c:35 app/menus.c:45
 msgid "Create new diagram"
 msgstr "新規ダイアグラムの生成"
 
-#: app/menus.c:51
-msgid "_Export To EPS"
-msgstr "EPSへの出力(_E)"
-
-#: app/menus.c:53
+#: app/menus.c:52
 #, fuzzy
-msgid "Export To S_VG"
-msgstr "EPSへの出力(_E)"
+msgid "_Export..."
+msgstr "   エクスポート"
 
-#: app/menus.c:57
+#: app/menus.c:56
 msgid "Page Set_up..."
 msgstr ""
 
-#: app/menus.c:59
+#: app/menus.c:58
 msgid "_Print Diagram..."
 msgstr ""
 
-#: app/menus.c:74
+#: app/menus.c:73
 #, fuzzy
 msgid "_Delete"
 msgstr "削除"
 
-#: app/menus.c:102
+#: app/menus.c:101
 msgid "Zoom _In"
 msgstr "ズームイン(_I)"
 
-#: app/menus.c:102
+#: app/menus.c:101
 #, c-format
 msgid "Zoom in 50%"
 msgstr "ズームイン50%"
 
-#: app/menus.c:103
+#: app/menus.c:102
 msgid "Zoom _Out"
 msgstr "ズームアウト(_O)"
 
-#: app/menus.c:103
+#: app/menus.c:102
 #, c-format
 msgid "Zoom out 50%"
 msgstr "ズームアウト50%"
 
-#: app/menus.c:104
+#: app/menus.c:103
 msgid "_Zoom"
 msgstr "ズーム(_Z)"
 
-#: app/menus.c:105
+#: app/menus.c:104
 msgid "Edit Grid..."
 msgstr "グリッドの編集..."
 
-#: app/menus.c:106
+#: app/menus.c:105
 msgid "_Visible Grid"
 msgstr "グリッドの表示(_V)"
 
-#: app/menus.c:108
+#: app/menus.c:107
 msgid "_Snap To Grid"
 msgstr "グリッドのスナップ(_S)"
 
-#: app/menus.c:110
+#: app/menus.c:109
 msgid "Show _Rulers"
 msgstr "目盛りの表示(_R)"
 
-#: app/menus.c:112
+#: app/menus.c:111
 msgid "Show _Connection Points"
 msgstr "コネクションポイントの表示(_C)"
 
-#: app/menus.c:115
+#: app/menus.c:114
 msgid "New _View"
 msgstr "新規ビュー(_V)"
 
-#: app/menus.c:116
+#: app/menus.c:115
 msgid "Show _All"
 msgstr "すべてを表示(_A)"
 
-#: app/menus.c:121 lib/widgets.c:176 objects/UML/association.c:1003
+#: app/menus.c:120 lib/widgets.c:176 objects/UML/association.c:1003
 msgid "Left"
 msgstr "左"
 
-#: app/menus.c:122 app/menus.c:131 lib/widgets.c:182
+#: app/menus.c:121 app/menus.c:130 lib/widgets.c:182
 msgid "Center"
 msgstr "中央"
 
-#: app/menus.c:123 lib/widgets.c:188 objects/UML/association.c:996
+#: app/menus.c:122 lib/widgets.c:188 objects/UML/association.c:996
 msgid "Right"
 msgstr "右"
 
-#: app/menus.c:124 app/menus.c:133
+#: app/menus.c:123 app/menus.c:132
 msgid "Equal Distance"
 msgstr "等間隔"
 
-#: app/menus.c:125 app/menus.c:134
+#: app/menus.c:124 app/menus.c:133
 msgid "Adjacent"
 msgstr ""
 
-#: app/menus.c:130
+#: app/menus.c:129
 msgid "Top"
 msgstr "最前面"
 
-#: app/menus.c:132
+#: app/menus.c:131
 msgid "Bottom"
 msgstr "最背面"
 
-#: app/menus.c:139
+#: app/menus.c:138
 msgid "Send to _Back"
 msgstr "背面に送る(_B)"
 
-#: app/menus.c:140
+#: app/menus.c:139
 msgid "Bring to _Front"
 msgstr "前面に送る(_F)"
 
-#: app/menus.c:142
+#: app/menus.c:141
 msgid "_Group"
 msgstr "グループ化(_G)"
 
-#: app/menus.c:143
+#: app/menus.c:142
 msgid "_Ungroup"
 msgstr "グループ解除(_U)"
 
-#: app/menus.c:145
+#: app/menus.c:144
 msgid "Align _Horizontal"
 msgstr "水平位置(_H)"
 
-#: app/menus.c:146
+#: app/menus.c:145
 msgid "Align _Vertical"
 msgstr "垂直位置(_V)"
 
-#: app/menus.c:151
+#: app/menus.c:150
 msgid "_Properties"
 msgstr "プロパティ(_P)"
 
-#: app/menus.c:152
+#: app/menus.c:151
 msgid "_Layers"
 msgstr "レイヤ(_L)"
 
-#: app/menus.c:171
+#: app/menus.c:170
 msgid "Objects"
 msgstr "オブジェクト"
 
-#: app/menus.c:172
+#: app/menus.c:171
 msgid "Dialogs"
 msgstr "ダイアログ"
 
-#: app/menus.c:179 app/menus.c:191
+#: app/menus.c:178 app/menus.c:190
 msgid "/_File"
 msgstr "/ファイル(_F)"
 
 #. {"/File/tearoff1 ",         NULL,         tearoff,                    0, "<Tearoff>" },
-#: app/menus.c:180 app/menus.c:193
+#: app/menus.c:179 app/menus.c:192
 msgid "/File/_New"
 msgstr "/ファイル(_F)/新規(_N)"
 
-#: app/menus.c:181 app/menus.c:194
+#: app/menus.c:180 app/menus.c:193
 msgid "/File/_Open"
 msgstr "/ファイル(_F)/開く(_O)"
 
-#: app/menus.c:182
+#: app/menus.c:181
 msgid "/File/_Preferences..."
 msgstr "/ファイル(_F)/設定(_P)"
 
-#: app/menus.c:183 app/menus.c:199
+#: app/menus.c:182 app/menus.c:197
 msgid "/File/sep1"
 msgstr "/ファイル(_F)/sep1"
 
-#: app/menus.c:184 app/menus.c:204
+#: app/menus.c:183 app/menus.c:202
 msgid "/File/_Quit"
 msgstr "/ファイル(_F)/終了(_Q)"
 
-#: app/menus.c:185
+#: app/menus.c:184
 msgid "/_Help"
 msgstr "/ヘルプ(_H)"
 
-#: app/menus.c:186
+#: app/menus.c:185
 msgid "/Help/_About"
 msgstr "/ヘルプ(_H)/情報(_A)"
 
-#: app/menus.c:195
+#: app/menus.c:194
 msgid "/File/_Save"
 msgstr "/ファイル(_F)/保存(_S)"
 
-#: app/menus.c:196
+#: app/menus.c:195
 msgid "/File/Save _As..."
 msgstr "/ファイル(_F)/名前をつけて保存(_A)"
 
-#: app/menus.c:197
-msgid "/File/_Export To EPS"
+#: app/menus.c:196
+#, fuzzy
+msgid "/File/_Export..."
 msgstr "/ファイル(_F)/EPS出力(_E)"
 
 #: app/menus.c:198
 #, fuzzy
-msgid "/File/Export To S_VG"
-msgstr "/ファイル(_F)/EPS出力(_E)"
-
-#: app/menus.c:200
-#, fuzzy
 msgid "/File/Page Set_up..."
 msgstr "/ファイル(_F)/名前をつけて保存(_A)"
 
-#: app/menus.c:201
+#: app/menus.c:199
 msgid "/File/_Print Diagram..."
 msgstr ""
 
-#: app/menus.c:202
+#: app/menus.c:200
 #, fuzzy
 msgid "/File/sep2"
 msgstr "/ファイル(_F)/sep1"
 
-#: app/menus.c:203
+#: app/menus.c:201
 msgid "/File/_Close"
 msgstr "/ファイル(_F)/閉じる(_C)"
 
-#: app/menus.c:205
+#: app/menus.c:203
 msgid "/_Edit"
 msgstr "/編集(_E)"
 
 #. {"/Edit/tearoff1 ",         NULL,         tearoff,                    0, "<Tearoff>" },
-#: app/menus.c:207
+#: app/menus.c:205
 msgid "/Edit/_Copy"
 msgstr "/編集/コピー(_C)"
 
-#: app/menus.c:208
+#: app/menus.c:206
 msgid "/Edit/C_ut"
 msgstr "/編集/切り取り(_U)"
 
-#: app/menus.c:209
+#: app/menus.c:207
 msgid "/Edit/_Paste"
 msgstr "/編集/貼り付け(_P)"
 
-#: app/menus.c:210
+#: app/menus.c:208
 msgid "/Edit/_Delete"
 msgstr "/編集/削除(_D)"
 
-#: app/menus.c:211
+#: app/menus.c:209
 #, fuzzy
 msgid "/Edit/_Undo"
 msgstr "/編集/取消(_U)"
 
-#: app/menus.c:212
+#: app/menus.c:210
 msgid "/Edit/_Redo"
 msgstr "/編集/やり直し(_R)"
 
-#: app/menus.c:213
+#: app/menus.c:211
 msgid "/_View"
 msgstr "表示(_V)"
 
 #. {"/View/tearoff1 ",         NULL,         tearoff,                     0, "<Tearoff>" },
-#: app/menus.c:215
+#: app/menus.c:213
 msgid "/View/Zoom _In"
 msgstr "/表示/ズームイン(_I)"
 
-#: app/menus.c:216
+#: app/menus.c:214
 msgid "/View/Zoom _Out"
 msgstr "/表示/ズームアウト(_O)"
 
-#: app/menus.c:217
+#: app/menus.c:215
 msgid "/View/_Zoom"
 msgstr "/表示/拡大(_Z)"
 
-#: app/menus.c:218
+#: app/menus.c:216
 #, c-format
 msgid "/View/Zoom/400%"
 msgstr "/表示/拡大/400%"
 
-#: app/menus.c:219
+#: app/menus.c:217
 #, c-format
 msgid "/View/Zoom/283%"
 msgstr "/表示/拡大/283%"
 
-#: app/menus.c:220
+#: app/menus.c:218
 #, c-format
 msgid "/View/Zoom/200%"
 msgstr "/表示/拡大/200%"
 
-#: app/menus.c:221
+#: app/menus.c:219
 #, c-format
 msgid "/View/Zoom/141%"
 msgstr "/表示/拡大/141%"
 
-#: app/menus.c:222
+#: app/menus.c:220
 #, c-format
 msgid "/View/Zoom/100%"
 msgstr "/表示/拡大/100%"
 
-#: app/menus.c:223
+#: app/menus.c:221
 #, c-format
 msgid "/View/Zoom/85%"
 msgstr "/表示/拡大/85%"
 
-#: app/menus.c:224
+#: app/menus.c:222
 #, c-format
 msgid "/View/Zoom/70.7%"
 msgstr "/表示/拡大/70.7%"
 
-#: app/menus.c:225
+#: app/menus.c:223
 #, c-format
 msgid "/View/Zoom/50%"
 msgstr "/表示/拡大/50%"
 
-#: app/menus.c:226
+#: app/menus.c:224
 #, c-format
 msgid "/View/Zoom/35.4%"
 msgstr "/表示/拡大/35.4%"
 
-#: app/menus.c:227
+#: app/menus.c:225
 #, c-format
 msgid "/View/Zoom/25%"
 msgstr "/表示/拡大/25%"
 
-#: app/menus.c:228
+#: app/menus.c:226
 msgid "/View/Edit Grid..."
 msgstr "/表示/拡大/グリッドの編集"
 
-#: app/menus.c:229
+#: app/menus.c:227
 msgid "/View/_Visible Grid"
 msgstr "/表示/グリッドの表示(_V)"
 
-#: app/menus.c:230
+#: app/menus.c:228
 msgid "/View/_Snap To Grid"
 msgstr "/表示/グリッドにあわせる(_S)"
 
-#: app/menus.c:231
+#: app/menus.c:229
 msgid "/View/Show _Rulers"
 msgstr "/表示/目盛りの表示(_R)"
 
-#: app/menus.c:232
+#: app/menus.c:230
 msgid "/View/Show _Connection Points"
 msgstr "/表示/コネクションポイントの表示(_C)"
 
-#: app/menus.c:233
+#: app/menus.c:231
 msgid "/View/sep1"
 msgstr "/表示/sep1"
 
-#: app/menus.c:234
+#: app/menus.c:232
 msgid "/View/New _View"
 msgstr "/表示/新規ビュー(_V)"
 
-#: app/menus.c:235
+#: app/menus.c:233
 msgid "/View/Show _All"
 msgstr "/表示/すべて表示(_A)"
 
-#: app/menus.c:236
+#: app/menus.c:234
 msgid "/_Objects"
 msgstr "/オブジェクト(_O)"
 
 #. {"/Objects/tearoff1 ",      NULL,         tearoff,                    0, "<Tearoff>" },
-#: app/menus.c:238
+#: app/menus.c:236
 msgid "/Objects/Send to _Back"
 msgstr "/オブジェクト/背面に送る(_B)"
 
-#: app/menus.c:239
+#: app/menus.c:237
 msgid "/Objects/Bring to _Front"
 msgstr "/オブジェクト/前面に送る(_F)"
 
-#: app/menus.c:240 app/menus.c:243
+#: app/menus.c:238 app/menus.c:241
 msgid "/Objects/sep1"
 msgstr "/オブジェクト/sep1"
 
-#: app/menus.c:241
+#: app/menus.c:239
 msgid "/Objects/_Group"
 msgstr "/オブジェクト/グループ化(_G)"
 
-#: app/menus.c:242
+#: app/menus.c:240
 msgid "/Objects/_Ungroup"
 msgstr "/オブジェクト/グループ解除(_U)"
 
-#: app/menus.c:244
+#: app/menus.c:242
 msgid "/Objects/Align _Horizontal"
 msgstr "オブジェクト/水平位置(_H)"
 
-#: app/menus.c:250
+#: app/menus.c:248
 msgid "/Objects/Align _Vertical"
 msgstr "オブジェクト/垂直位置(_V)"
 
 #. {"/Objects/tearoff1 ",      NULL,         tearoff,                     0, "<Tearoff>" },
-#: app/menus.c:258
+#: app/menus.c:256
 msgid "/_Dialogs"
 msgstr "/ダイアログ(_D)"
 
-#: app/menus.c:259
+#: app/menus.c:257
 msgid "/Dialogs/_Properties"
 msgstr "/ダイアログ/プロパティ(_P)"
 
-#: app/menus.c:260
+#: app/menus.c:258
 msgid "/Dialogs/_Layers"
 msgstr "/ダイアログ/レイヤ(_L)"
 
@@ -925,6 +914,11 @@ msgstr "適用"
 #: app/properties.c:85
 msgid "This object has no properties."
 msgstr "このオブジェクトにはプロパティはありません。"
+
+#: app/render_eps.c:1101
+#, fuzzy
+msgid "Encapsulated Postscript"
+msgstr "postscriptに出力する"
 
 #: app/defaults.c:43
 msgid "Object defaults"
@@ -1007,6 +1001,10 @@ msgstr "コネクションポイント："
 #: app/preferences.c:535
 msgid "Preferences"
 msgstr "設定"
+
+#: app/render_svg.c:834
+msgid "Scalable Vector Graphics"
+msgstr ""
 
 #: app/lineprops_area.c:496
 #, fuzzy
@@ -1861,3 +1859,28 @@ msgstr "水平位置(_H)"
 #, fuzzy
 msgid "Flip Vertical"
 msgstr "垂直位置(_V)"
+
+#: plug-ins/cgm/cgm.c:765
+msgid ""
+"Image row length larger than maximum cell array.\n"
+"Image not exported to CGM."
+msgstr ""
+
+#: plug-ins/cgm/cgm.c:919
+msgid "Computer Graphics Metafile"
+msgstr ""
+
+#, fuzzy
+#~ msgid "Export to SVG"
+#~ msgstr "EPSへの出力(_E)"
+
+#~ msgid "_Export To EPS"
+#~ msgstr "EPSへの出力(_E)"
+
+#, fuzzy
+#~ msgid "Export To S_VG"
+#~ msgstr "EPSへの出力(_E)"
+
+#, fuzzy
+#~ msgid "/File/Export To S_VG"
+#~ msgstr "/ファイル(_F)/EPS出力(_E)"

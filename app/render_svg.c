@@ -161,8 +161,8 @@ new_svg_renderer(DiagramData *data, const char *filename)
   renderer->doc = xmlNewDoc("1.0");
   renderer->doc->standalone = FALSE;
   xmlCreateIntSubset(renderer->doc, "svg",
-		     "-//W3C//DTD SVG July 1999//EN",
-		     "http://www.w3.org/Graphics/SVG/svg-19990730.dtd");
+		     "-//W3C//DTD SVG December 1999//EN",
+		     "http://www.w3.org/Graphics/SVG/svg-19991203.dtd");
   renderer->root = xmlNewDocNode(renderer->doc, NULL, "svg", NULL);
   renderer->doc->root = renderer->root;
 
@@ -177,7 +177,7 @@ new_svg_renderer(DiagramData *data, const char *filename)
   g_snprintf(buf, sizeof(buf), "%d %d %d %d",
 	     (int)floor(extent->left), (int)floor(extent->top),
 	     (int)ceil(extent->right), (int)ceil(extent->bottom));
-  xmlSetProp(renderer->root, "fitBoxToViewport", buf);
+  xmlSetProp(renderer->root, "viewBox", buf);
   
   time_now = time(NULL);
   name = getlogin();

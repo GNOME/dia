@@ -1,5 +1,34 @@
 1999-12-24  James Henstridge  <james@daa.com.au>
 
+	* po/ru.po: updated russian translation from Valek Filippov.
+	
+	* app/render_svg.c (new_svg_renderer): make output use 19991203
+	version of SVG DTD.  Use viewBox to set the extents of the view.
+
+	* INSTALL (FONTS): updated locations of gnome-xml and imlib.  List
+	ftp.gnome.org as the download.
+
+	* TODO (TODO): weeded out completed todo items and added a few extra.
+
+	* Makefile.am (EXTRA_DIST): added documentation to EXTRA_DIST.
+
+	* doc/sheet.dtd: first stab at a DTD for the sheet files.  It would
+	be good to get rid of the object/shape distinction and separate
+	the custom shape code out from the main application.
+
+	* objects/custom/README, diagram.dtd: moved to new doc directory.
+	Renamed the custom shapes README to custom-shapes.  Also updated
+	custom shape docs a bit and removed the section on sheet files, as
+	that has changed a bit.
+
+	* plug-ins/cgm/cgm.c (draw_image): give an error if the row length
+	of the image data is larger than the maximum cell array.  I should
+	add code to break scan lines down further in this case, but for now
+	an error message is better than an infinite loop.
+
+	* app/filedlg.c (file_export_ok_callback): show a dialog if we
+	couldn't determine the export filter to use.
+
 	* app/commands.c (help_about_callback): fixed up about box logo
 	expose bug.  Now just use a GtkPixmap widget rather than a
 	GtkDrawingArea and calling gdk_imlib_paste_image.

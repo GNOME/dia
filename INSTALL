@@ -7,17 +7,17 @@ It can be found at:
 ftp://ftp.gtk.org/pub/gtk/v1.2/
 
 Binaries availible at:
-ftp://ftp.gtk.org/pub/gtk/binary/devel/RPMS/
+  ftp://ftp.gtk.org/pub/gtk/binary/devel/RPMS/
 or
-ftp://ftp.gtk.org/pub/gtk/binary/devel/DEBIAN/
+  ftp://ftp.gtk.org/pub/gtk/binary/devel/DEBIAN/
 
-As of version 0.30 Dia also needs libxml (also known as gnome-xml) version
-0.99.3. It can be found here:
-ftp://ftp.jimpick.com/pub/mirrors/gnome/sources/libxml/libxml-0.99.3.tar.gz
+As of version 0.30 Dia also needs libxml (aka gnome-xml). I recommend you
+get a fairly recent version, but not version 1.8.0.  It can be found here:
+  ftp://ftp.gnome.org/pub/GNOME/stable/sources/gnome-xml/
 
 As of version 0.40 Dia needs gdk_imlib, at least version 1.8.2.
-Version 1.9.3  can be found here:
-ftp://ftp.jimpick.com/pub/mirrors/gnome/sources/imlib/imlib-1.9.3.tar.gz
+It can be found here:
+  ftp://ftp.gnome.org/pub/GNOME/stable/sources/imlib/
 
 BUILDING:
 =========

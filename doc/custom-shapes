@@ -28,54 +28,6 @@ The rest is taken care of for you (resizing, moving, line connection,
 loading, saving, undo, etc).
 
 
-Sheets
-======
-
-Shapes are organised into sheets in the notebook of the toolbox in
-dia.  The custom shape code decides which sheet a shape is in by which
-directory it is in.
-
-Each sheet of custom objects is a directory under
-$(prefix)/share/dia/shapes, ~/.dia_shapes or any of the directories in
-the DIA_SHAPE_PATH environment variable.
-
-If there is an index.sheet or index.xml file in the sheet directory,
-it lists which shapes exist in that particular sheet.  If one of these
-files does not exist, then all the *.shape and *.xml files are added
-to the sheet, and the directory name is used as the sheet name.
-
-You will need to provide an index.sheet file if you want to specify
-the ordering of of shapes in the sheet, or give a description of the
-sheet.  You will also need an index.sheet file if you want to provide
-translations for the sheet name or description.
-
-The index.sheet file is an xml file that uses the
-http://www.daa.com.au/~james/dia-sheet-ns namespace.  Here is an
-example:
-
-  <?xml version="1.0"?>
-  <sheet xmlns="http://www.daa.com.au/~james/dia-sheet-ns">
-    <name xml:lang="de">German name for sheer</name>
-    <name xml:lang="en_AU">A string that spells grey or colour correctly</name>
-    <name>A default name</name>
-    <description xml:lang="es">Spanish description</description>
-    <description>Default description</description>
-
-    <shapes>
-      <shape>shapefile1.shape</shape>
-      <shape>shapefile2.shape</shape>
-      ...
-    </shapes>
-  </sheet>
-
-Notice that the standard xml:lang attribute is used to mark the
-language of a particular string.  The custom shape code will pick the
-best language based on the contents of the LANG variable.
-
-The <shapes> section specifies the names of all the shapes in the
-sheet.  The file names can be relative to the index.sheet file.
-
-
 Shapes
 ======
 
@@ -243,12 +195,8 @@ Design Notes
 
 The custom shape code is designed so that a sheet of objects can be
 self contained in a single directory.  Installing new shapes can be as
-easy as untaring a .tar.gz file to ~/.dia_shapes or
+easy as untaring a .tar.gz file to ~/.dia/shapes or
 $(prefix)/share/dia/shapes.
-
-In the future, I will look at adding support for overriding the user's
-choice of colour or line style for parts of a drawing, and setting
-line join styles.
 
 If you have any suggestions for this code, please tell me.
 

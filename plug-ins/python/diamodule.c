@@ -92,9 +92,12 @@ PyDia_ActiveDisplay(PyObject *self, PyObject *args)
 static PyObject *
 PyDia_UpdateAll(PyObject *self, PyObject *args)
 {
+    GList *tmp;
+
     if (!PyArg_ParseTuple(args, ":dia.update_all"))
 	return NULL;
-    diagram_add_update_all_all_and_flush();
+    for (tmp = open_diagrams; tmp; tmp = tmp->next)
+	diagram_add_update_all((Diagram *)tmp->data);
     Py_INCREF(Py_None);
     return Py_None;
 }

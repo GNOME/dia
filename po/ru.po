@@ -3,58 +3,62 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Dia-0.81\n"
-"POT-Creation-Date: 1999-12-09 10:14+0800\n"
-"PO-Revision-Date: 1999-07-28 HO:MI+ZONE\n"
+"Project-Id-Version: Dia-0.82\n"
+"POT-Creation-Date: 1999-12-24 22:20+0800\n"
+"PO-Revision-Date: 1999-12-21 16:59+03:00\n"
 "Last-Translator: Valek Filippov <frob@df.ru>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=koi8-r\n"
 "Content-Transfer-Encoding: 8-bit\n"
 
-#: app/app_procs.c:128
-msgid "Export loaded file to postscript and exit"
+#: app/app_procs.c:130
+#, fuzzy
+msgid "Export loaded file and exit"
 msgstr "Экспортировать загруженный файл в  PostScript и выйти"
 
-#: app/app_procs.c:129
+#: app/app_procs.c:131
 msgid "OUTPUT"
 msgstr "ВЫВОД"
 
-#: app/app_procs.c:131
+#: app/app_procs.c:133
 msgid "Show this help message"
-msgstr ""
+msgstr "Показывать это сообщение"
 
-#: app/app_procs.c:150
+#: app/app_procs.c:152
 msgid "Can't connect to session manager!\n"
 msgstr "Не удалось установить соединение с диспетчером сеанса!\n"
 
-#: app/app_procs.c:161
+#: app/app_procs.c:163
 msgid "[OPTION...] [FILE...]"
-msgstr ""
+msgstr "[ПАРАМЕТРЫ...] [ФАЙЛ...]"
 
-#: app/app_procs.c:164
+#: app/app_procs.c:166
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
 "Run '%s --help' to see a full list of available command line options.\n"
 msgstr ""
+"Ошибка в параметре %s: %s.\n"
+"Запустите \"%s --help\", чтобы просмотреть полный список доступных "
+"параметров командной строки.\n"
 
-#: app/app_procs.c:202 app/app_procs.c:204
+#: app/app_procs.c:209 app/app_procs.c:211
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr ""
 "Не удалось найти стандартные объекты при поиске object-libs, запуск "
 "прекращен...\n"
 
-#: app/app_procs.c:219
+#: app/app_procs.c:227
 msgid "Need valid input file\n"
 msgstr "Нужен правильный файл ввода\n"
 
-#: app/app_procs.c:276
+#: app/app_procs.c:287
 msgid "Quit, are you sure?"
 msgstr "Вы уверены, что хотите выйти?"
 
-#: app/app_procs.c:278
+#: app/app_procs.c:289
 msgid ""
 "Modified diagrams exists.\n"
 "Are you sure you want to quit?"
@@ -62,20 +66,20 @@ msgstr ""
 "Есть измененные диаграммы.\n"
 " Вы уверены, что хотите выйти?"
 
-#: app/app_procs.c:287
+#: app/app_procs.c:298
 msgid "Quit"
 msgstr "Выход"
 
-#: app/app_procs.c:299 app/layer_dialog.c:980 app/lineprops_area.c:516
+#: app/app_procs.c:310 app/layer_dialog.c:980 app/lineprops_area.c:516
 #: app/lineprops_area.c:714
 msgid "Cancel"
 msgstr "Отмена"
 
-#: app/app_procs.c:351
+#: app/app_procs.c:362
 msgid "Could not create per-user Dia config directory"
-msgstr ""
+msgstr "Невозможно создать пользовательский каталог конфигурации Dia"
 
-#: app/app_procs.c:408
+#: app/app_procs.c:419
 #, c-format
 msgid ""
 "Couldn't find any libraries to load.\n"
@@ -84,13 +88,13 @@ msgstr ""
 "Не удалось найти никаких библиотек для загрузки.\n"
 "%s не является каталогом.\n"
 
-#: app/app_procs.c:415
+#: app/app_procs.c:426
 #, c-format
 msgid "Couldn't open \"%s\".\n"
 msgstr "Невозможно открыть \"%s\".\n"
 
-#: app/app_procs.c:428 app/app_procs.c:429 app/app_procs.c:456
-#: app/app_procs.c:457
+#: app/app_procs.c:439 app/app_procs.c:440 app/app_procs.c:467
+#: app/app_procs.c:468
 #, c-format
 msgid ""
 "Error loading library: \"%s\":\n"
@@ -99,12 +103,12 @@ msgstr ""
 "Ошибка при загрузке библиотеки: \"%s\":\n"
 " %s\n"
 
-#: app/app_procs.c:434 app/app_procs.c:435
+#: app/app_procs.c:445 app/app_procs.c:446
 #, c-format
 msgid "The file \"%s\" is not a Dia object library.\n"
 msgstr "Файл \"%s\" не является библиотекой объектов Dia.\n"
 
-#: app/app_procs.c:441 app/app_procs.c:442
+#: app/app_procs.c:452 app/app_procs.c:453
 #, c-format
 msgid ""
 "The object library \"%s\" is from an older version of Dia and cannot be "
@@ -115,7 +119,7 @@ msgstr ""
 "использована.\n"
 "Пожалуйста обновите её."
 
-#: app/app_procs.c:448 app/app_procs.c:449
+#: app/app_procs.c:459 app/app_procs.c:460
 #, c-format
 msgid ""
 "The object library \"%s\" is from an later version of Dia.\n"
@@ -124,7 +128,7 @@ msgstr ""
 "Библиотека объектов \"%s\" относится к более поздней версии Dia.\n"
 " Вам надо обновить Dia, чтобы использовать её."
 
-#: app/app_procs.c:523
+#: app/app_procs.c:534
 #, c-format
 msgid ""
 "Unable to find register_sheets in library:\n"
@@ -137,15 +141,15 @@ msgstr ""
 msgid "Select color"
 msgstr "Выбор цвета"
 
-#: app/commands.c:136
+#: app/commands.c:137
 msgid "Open diagram"
 msgstr "Открыть диаграмму"
 
-#: app/commands.c:197 app/commands.c:368 app/commands.c:486
+#: app/commands.c:198
 msgid "File already exists"
 msgstr "Файл уже существует"
 
-#: app/commands.c:200 app/commands.c:371 app/commands.c:489
+#: app/commands.c:201
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
@@ -154,21 +158,20 @@ msgstr ""
 "Файл '%s' уже существует.\n"
 "Вы хотите перезаписать его?"
 
-#: app/commands.c:212 app/commands.c:383 app/commands.c:501 app/display.c:743
-#: app/preferences.c:460
+#: app/commands.c:213 app/display.c:743 app/preferences.c:460
 msgid "Yes"
 msgstr "Да"
 
-#: app/commands.c:225 app/commands.c:396 app/commands.c:514 app/display.c:754
-#: app/preferences.c:460 app/preferences.c:471
+#: app/commands.c:226 app/display.c:754 app/preferences.c:460
+#: app/preferences.c:471
 msgid "No"
 msgstr "Нет"
 
-#: app/commands.c:268
+#: app/commands.c:269
 msgid "Save diagram"
 msgstr "Сохранить диаграмму"
 
-#: app/commands.c:303
+#: app/commands.c:304
 #, c-format
 msgid ""
 "No such file found\n"
@@ -177,117 +180,109 @@ msgstr ""
 "Такой файл не найден\n"
 "%s\n"
 
-#: app/commands.c:323
+#: app/commands.c:324
 msgid "Import from XFig"
 msgstr "Импорт из XFig"
 
-#: app/commands.c:437
-msgid "Export to postscript"
-msgstr "Экспортировать в PostScript"
-
-#: app/commands.c:555
-msgid "Export to SVG"
-msgstr "Экспорт в SVG"
-
-#: app/commands.c:615
+#: app/commands.c:380
 #, c-format
 msgid "Untitled-%d"
 msgstr "Безымянная-%d"
 
-#: app/commands.c:676
+#: app/commands.c:441
 msgid "No existing object to paste.\n"
 msgstr "Не существует объекта для вставки.\n"
 
-#: app/commands.c:779
+#: app/commands.c:535
 msgid "About Dia"
 msgstr "О программе"
 
-#: app/commands.c:816
+#: app/commands.c:572
 #, c-format
 msgid "Dia v %s by Alexander Larsson"
-msgstr ""
+msgstr "Dia версия %s. Автор: Alexander Larsson"
 
-#: app/commands.c:820
+#: app/commands.c:576
 msgid "Please visit http://www.lysator.liu.se/~alla/dia for more info"
 msgstr ""
 "Пожалуйста обращайтесь за дополнительной информацией по адресу "
 "http://www.lysator.liu.se/~alla/dia"
 
-#: app/commands.c:829 app/layer_dialog.c:970 app/lineprops_area.c:507
+#: app/commands.c:585 app/layer_dialog.c:970 app/lineprops_area.c:507
 #: app/lineprops_area.c:704 app/preferences.c:544 app/properties.c:54
 #: lib/message.c:72
 msgid "OK"
-msgstr ""
+msgstr "ОК"
 
-#: app/diagram.c:137
+#: app/diagram.c:136
 msgid "/Edit/Copy"
 msgstr "/Правка/Скопировать"
 
-#: app/diagram.c:139
+#: app/diagram.c:138
 msgid "/Edit/Cut"
 msgstr "/Правка/Вырезать"
 
-#: app/diagram.c:141
+#: app/diagram.c:140
 msgid "/Edit/Paste"
 msgstr "/Правка/Вставить"
 
-#: app/diagram.c:144
+#: app/diagram.c:143
 msgid "/Edit/Delete"
 msgstr "/Правка/Удалить"
 
-#: app/diagram.c:148
+#: app/diagram.c:147
 msgid "/Objects/Send to Back"
 msgstr "/Объекты/Переместить назад"
 
-#: app/diagram.c:150
+#: app/diagram.c:149
 msgid "/Objects/Bring to Front"
 msgstr "/Объекты/Переместить вперед"
 
-#: app/diagram.c:153
+#: app/diagram.c:152
 msgid "/Objects/Group"
 msgstr "/Объекты/Сгруппировать"
 
-#: app/diagram.c:155
+#: app/diagram.c:154
 msgid "/Objects/Ungroup"
 msgstr "/Объекты/Разгруппировать"
 
-#: app/diagram.c:158 app/menus.c:245
+#: app/diagram.c:157 app/menus.c:243
 msgid "/Objects/Align Horizontal/Left"
 msgstr "/Объекты/Выравнивание гор./Влево"
 
-#: app/diagram.c:160 app/menus.c:246
+#: app/diagram.c:159 app/menus.c:244
 msgid "/Objects/Align Horizontal/Center"
 msgstr "/Объекты/Выравнивание гор./По центру"
 
-#: app/diagram.c:162 app/menus.c:247
+#: app/diagram.c:161 app/menus.c:245
 msgid "/Objects/Align Horizontal/Right"
 msgstr "/Объекты/Выравнивание гор./Вправо"
 
-#: app/diagram.c:164 app/menus.c:248
+#: app/diagram.c:163 app/menus.c:246
 msgid "/Objects/Align Horizontal/Equal Distance"
 msgstr "/Объекты/Выравнивание гор./Равные расстояния"
 
-#: app/diagram.c:166 app/menus.c:249
+#: app/diagram.c:165 app/menus.c:247
 msgid "/Objects/Align Horizontal/Adjacent"
 msgstr "/Объекты/Выравнивание гор./Смежное"
 
-#: app/diagram.c:168 app/menus.c:251
+#: app/diagram.c:167 app/menus.c:249
 msgid "/Objects/Align Vertical/Top"
 msgstr "/Объекты/Выравнивание верт./По верху"
 
-#: app/diagram.c:170 app/menus.c:252
+#: app/diagram.c:169 app/menus.c:250
 msgid "/Objects/Align Vertical/Center"
 msgstr "/Объекты/Выравнивание верт./По центру"
 
-#: app/diagram.c:172 app/menus.c:253
+#: app/diagram.c:171 app/menus.c:251
 msgid "/Objects/Align Vertical/Bottom"
 msgstr "/Объекты/Выравнивание верт./По низу"
 
-#: app/diagram.c:174 app/menus.c:254
+#: app/diagram.c:173 app/menus.c:252
 msgid "/Objects/Align Vertical/Equal Distance"
 msgstr "/Объекты/Выравнивание верт./Равные расстояния"
 
-#: app/diagram.c:176 app/menus.c:255
+#: app/diagram.c:175 app/menus.c:253
 msgid "/Objects/Align Vertical/Adjacent"
 msgstr "/Объекты/Выравнивание верт./Смежное"
 
@@ -325,29 +320,29 @@ msgstr ""
 
 #: app/display.c:787
 msgid "/View/Show Rulers"
-msgstr "/Просмотр/Показывать линейки"
+msgstr "/Вид/Показывать линейки"
 
 #: app/display.c:789
 msgid "/View/Visible Grid"
-msgstr "Просмотр/Показывать сетку"
+msgstr "/Вид/Показывать сетку"
 
 #: app/display.c:791
 msgid "/View/Snap To Grid"
-msgstr "/Просмотр/Выравнивать по сетке"
+msgstr "/Вид/Выравнивать по сетке"
 
 #: app/display.c:793
 msgid "/View/Show Connection Points"
-msgstr "/Просмотр/Показывать соединительные точки"
+msgstr "/Вид/Показывать соединительные точки"
 
-#: app/grid.c:147
+#: app/grid.c:148
 msgid "Grid options"
 msgstr "Параметры сетки"
 
-#: app/grid.c:156
+#: app/grid.c:157
 msgid "Grid x size:"
 msgstr "Размер сетки по X:"
 
-#: app/grid.c:174
+#: app/grid.c:175
 msgid "Grid y size:"
 msgstr "Размер сетки по Y:"
 
@@ -392,9 +387,8 @@ msgid "Create Polyline"
 msgstr "Создать ломанную"
 
 #: app/interface.c:99
-#, fuzzy
 msgid "Create Bezierline"
-msgstr "Создать линию"
+msgstr "Создать линию Безье"
 
 #: app/interface.c:103
 msgid "Create Image"
@@ -471,22 +465,20 @@ msgstr ""
 "Связанный объеки не найден в документе."
 
 #: app/load_save.c:135
-#, fuzzy
 msgid ""
 "Error loading diagram.\n"
 "connection point does not exist."
 msgstr ""
 "Ошибка при загрузке диаграммы %s.\n"
-"Неизвестный тип файла."
+"соединительные точки не существуют."
 
 #: app/load_save.c:138
-#, fuzzy
 msgid ""
 "Error loading diagram.\n"
 "connection handle does not exist."
 msgstr ""
-"Ошибка при загрузке диаграммы %s.\n"
-"Неизвестный тип файла."
+"Ошибка при загрузке диаграммы.\n"
+"обработчик соединения не существует."
 
 #: app/load_save.c:183
 #, c-format
@@ -515,393 +507,393 @@ msgstr ""
 "Ошибка при загрузке диаграммы %s.\n"
 "Это не Dia файл."
 
-#: app/load_save.c:461 app/render_eps.c:152 app/render_svg.c:144
+#: app/load_save.c:461 app/render_eps.c:161 app/render_svg.c:144
+#: plug-ins/cgm/cgm.c:810
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
 msgstr "Не удалось открыть: '%s' для записи.\n"
 
-#: app/menus.c:34 app/menus.c:44
+#: app/load_save.c:554
+#, fuzzy
+msgid "Native Dia Diagram"
+msgstr "Сохранить диаграмму"
+
+#: app/menus.c:35 app/menus.c:45
 msgid "_New diagram"
 msgstr "Новая диаграмма"
 
-#: app/menus.c:34 app/menus.c:44
+#: app/menus.c:35 app/menus.c:45
 msgid "Create new diagram"
 msgstr "Создать новую диаграмму"
 
-#: app/menus.c:51
-msgid "_Export To EPS"
-msgstr "Экспорт в EPS"
+#: app/menus.c:52
+#, fuzzy
+msgid "_Export..."
+msgstr "   Экспорт"
 
-#: app/menus.c:53
-msgid "Export To S_VG"
-msgstr "Экспорт в SVG"
-
-#: app/menus.c:57
+#: app/menus.c:56
 msgid "Page Set_up..."
 msgstr "Настройка страницы..."
 
-#: app/menus.c:59
+#: app/menus.c:58
 msgid "_Print Diagram..."
 msgstr "Напечатать Диаграмму..."
 
-#: app/menus.c:74
+#: app/menus.c:73
 msgid "_Delete"
 msgstr "Удалить"
 
-#: app/menus.c:102
+#: app/menus.c:101
 msgid "Zoom _In"
 msgstr "Масштаб +"
 
-#: app/menus.c:102
+#: app/menus.c:101
 #, c-format
 msgid "Zoom in 50%"
 msgstr "Масштаб +50%"
 
-#: app/menus.c:103
+#: app/menus.c:102
 msgid "Zoom _Out"
 msgstr "Масштаб -"
 
-#: app/menus.c:103
+#: app/menus.c:102
 #, c-format
 msgid "Zoom out 50%"
 msgstr "Масштаб -50%"
 
-#: app/menus.c:104
+#: app/menus.c:103
 msgid "_Zoom"
 msgstr "Масштаб"
 
-#: app/menus.c:105
+#: app/menus.c:104
 msgid "Edit Grid..."
 msgstr "Правка сетки..."
 
-#: app/menus.c:106
+#: app/menus.c:105
 msgid "_Visible Grid"
 msgstr "Показывать сетку"
 
-#: app/menus.c:108
+#: app/menus.c:107
 msgid "_Snap To Grid"
 msgstr "Выравнивание по сетке"
 
-#: app/menus.c:110
+#: app/menus.c:109
 msgid "Show _Rulers"
 msgstr "Показывать линейки"
 
-#: app/menus.c:112
+#: app/menus.c:111
 msgid "Show _Connection Points"
 msgstr "Показывать соединительные точки"
 
-#: app/menus.c:115
+#: app/menus.c:114
 msgid "New _View"
 msgstr "Новое окно"
 
-#: app/menus.c:116
+#: app/menus.c:115
 msgid "Show _All"
 msgstr "Показать все"
 
-#: app/menus.c:121 lib/widgets.c:176 objects/UML/association.c:1003
+#: app/menus.c:120 lib/widgets.c:176 objects/UML/association.c:1003
 msgid "Left"
 msgstr "Влево"
 
-#: app/menus.c:122 app/menus.c:131 lib/widgets.c:182
+#: app/menus.c:121 app/menus.c:130 lib/widgets.c:182
 msgid "Center"
 msgstr "По центру"
 
-#: app/menus.c:123 lib/widgets.c:188 objects/UML/association.c:996
+#: app/menus.c:122 lib/widgets.c:188 objects/UML/association.c:996
 msgid "Right"
 msgstr "Вправо"
 
-#: app/menus.c:124 app/menus.c:133
+#: app/menus.c:123 app/menus.c:132
 msgid "Equal Distance"
 msgstr "Равные расстояния"
 
-#: app/menus.c:125 app/menus.c:134
+#: app/menus.c:124 app/menus.c:133
 msgid "Adjacent"
-msgstr ""
+msgstr "Смежность"
 
-#: app/menus.c:130
+#: app/menus.c:129
 msgid "Top"
 msgstr "Вверх"
 
-#: app/menus.c:132
+#: app/menus.c:131
 msgid "Bottom"
 msgstr "Вниз"
 
-#: app/menus.c:139
+#: app/menus.c:138
 msgid "Send to _Back"
 msgstr "Переместить назад"
 
-#: app/menus.c:140
+#: app/menus.c:139
 msgid "Bring to _Front"
 msgstr "Переместить вперед"
 
-#: app/menus.c:142
+#: app/menus.c:141
 msgid "_Group"
 msgstr "Сгруппировать"
 
-#: app/menus.c:143
+#: app/menus.c:142
 msgid "_Ungroup"
 msgstr "Разгруппировать"
 
-#: app/menus.c:145
+#: app/menus.c:144
 msgid "Align _Horizontal"
 msgstr "Выравнивание гор."
 
-#: app/menus.c:146
+#: app/menus.c:145
 msgid "Align _Vertical"
 msgstr "Выравнивание верт."
 
-#: app/menus.c:151
+#: app/menus.c:150
 msgid "_Properties"
 msgstr "Свойства"
 
-#: app/menus.c:152
+#: app/menus.c:151
 msgid "_Layers"
 msgstr "Слои"
 
-#: app/menus.c:171
+#: app/menus.c:170
 msgid "Objects"
 msgstr "Объекты"
 
-#: app/menus.c:172
+#: app/menus.c:171
 msgid "Dialogs"
 msgstr "Диалоги"
 
-#: app/menus.c:179 app/menus.c:191
+#: app/menus.c:178 app/menus.c:190
 msgid "/_File"
 msgstr "/Файл"
 
 #. {"/File/tearoff1 ",         NULL,         tearoff,                    0, "<Tearoff>" },
-#: app/menus.c:180 app/menus.c:193
+#: app/menus.c:179 app/menus.c:192
 msgid "/File/_New"
 msgstr "/Файл/Новый"
 
-#: app/menus.c:181 app/menus.c:194
+#: app/menus.c:180 app/menus.c:193
 msgid "/File/_Open"
 msgstr "/Файл/Открыть"
 
-#: app/menus.c:182
+#: app/menus.c:181
 msgid "/File/_Preferences..."
 msgstr "/Файл/Установки..."
 
-#: app/menus.c:183 app/menus.c:199
+#: app/menus.c:182 app/menus.c:197
 msgid "/File/sep1"
 msgstr "/Файл/sep1"
 
-#: app/menus.c:184 app/menus.c:204
+#: app/menus.c:183 app/menus.c:202
 msgid "/File/_Quit"
 msgstr "/Файл/Выход"
 
-#: app/menus.c:185
+#: app/menus.c:184
 msgid "/_Help"
 msgstr "/Справка"
 
-#: app/menus.c:186
+#: app/menus.c:185
 msgid "/Help/_About"
 msgstr "/Справка/О программе"
 
-#: app/menus.c:195
+#: app/menus.c:194
 msgid "/File/_Save"
 msgstr "/Файл/Сохранить"
 
-#: app/menus.c:196
+#: app/menus.c:195
 msgid "/File/Save _As..."
 msgstr "/Файл/Сохранить как..."
 
-#: app/menus.c:197
-msgid "/File/_Export To EPS"
+#: app/menus.c:196
+#, fuzzy
+msgid "/File/_Export..."
 msgstr "/Файл/Экспорт в EPS"
 
 #: app/menus.c:198
-msgid "/File/Export To S_VG"
-msgstr "/Файл/Экспорт в SVG"
-
-#: app/menus.c:200
 msgid "/File/Page Set_up..."
 msgstr "/Файл/Настройка страницы..."
 
-#: app/menus.c:201
+#: app/menus.c:199
 msgid "/File/_Print Diagram..."
 msgstr "/Файл/Напечатать диаграмму..."
 
-#: app/menus.c:202
+#: app/menus.c:200
 msgid "/File/sep2"
 msgstr "/Файл/sep2"
 
-#: app/menus.c:203
+#: app/menus.c:201
 msgid "/File/_Close"
 msgstr "/Файл/Закрыть"
 
-#: app/menus.c:205
+#: app/menus.c:203
 msgid "/_Edit"
 msgstr "/Правка"
 
 #. {"/Edit/tearoff1 ",         NULL,         tearoff,                    0, "<Tearoff>" },
-#: app/menus.c:207
+#: app/menus.c:205
 msgid "/Edit/_Copy"
 msgstr "/Правка/Скопировать"
 
-#: app/menus.c:208
+#: app/menus.c:206
 msgid "/Edit/C_ut"
 msgstr "/Правка/Вырезать"
 
-#: app/menus.c:209
+#: app/menus.c:207
 msgid "/Edit/_Paste"
 msgstr "/Правка/Вставить"
 
-#: app/menus.c:210
+#: app/menus.c:208
 msgid "/Edit/_Delete"
 msgstr "/Правка/Удалить"
 
-#: app/menus.c:211
+#: app/menus.c:209
 msgid "/Edit/_Undo"
 msgstr "/Правка/Откат"
 
-#: app/menus.c:212
+#: app/menus.c:210
 msgid "/Edit/_Redo"
 msgstr "/Правка/Возврат"
 
-#: app/menus.c:213
+#: app/menus.c:211
 msgid "/_View"
 msgstr "/Вид"
 
 #. {"/View/tearoff1 ",         NULL,         tearoff,                     0, "<Tearoff>" },
-#: app/menus.c:215
+#: app/menus.c:213
 msgid "/View/Zoom _In"
 msgstr "/Вид/Масштаб +"
 
-#: app/menus.c:216
+#: app/menus.c:214
 msgid "/View/Zoom _Out"
 msgstr "/Вид/Масштаб -"
 
-#: app/menus.c:217
+#: app/menus.c:215
 msgid "/View/_Zoom"
 msgstr "/Вид/Масштаб"
 
-#: app/menus.c:218
+#: app/menus.c:216
 #, c-format
 msgid "/View/Zoom/400%"
 msgstr "/Вид/Масштаб/400%"
 
-#: app/menus.c:219
+#: app/menus.c:217
 #, c-format
 msgid "/View/Zoom/283%"
 msgstr "/Вид/Масштаб/283%"
 
-#: app/menus.c:220
+#: app/menus.c:218
 #, c-format
 msgid "/View/Zoom/200%"
 msgstr "/Вид/Масштаб/200%"
 
-#: app/menus.c:221
+#: app/menus.c:219
 #, c-format
 msgid "/View/Zoom/141%"
 msgstr "/Вид/Масштаб/141%"
 
-#: app/menus.c:222
+#: app/menus.c:220
 #, c-format
 msgid "/View/Zoom/100%"
 msgstr "/Вид/Масштаб/100%"
 
-#: app/menus.c:223
+#: app/menus.c:221
 #, c-format
 msgid "/View/Zoom/85%"
 msgstr "/Вид/Масштаб/85%"
 
-#: app/menus.c:224
+#: app/menus.c:222
 #, c-format
 msgid "/View/Zoom/70.7%"
 msgstr "/Вид/Масштаб/70.7%"
 
-#: app/menus.c:225
+#: app/menus.c:223
 #, c-format
 msgid "/View/Zoom/50%"
 msgstr "/Вид/Масштаб/50%"
 
-#: app/menus.c:226
+#: app/menus.c:224
 #, c-format
 msgid "/View/Zoom/35.4%"
 msgstr "/Вид/Масштаб/35.4%"
 
-#: app/menus.c:227
+#: app/menus.c:225
 #, c-format
 msgid "/View/Zoom/25%"
 msgstr "/Вид/Масштаб/25%"
 
-#: app/menus.c:228
+#: app/menus.c:226
 msgid "/View/Edit Grid..."
 msgstr "/Вид/Правка сетки..."
 
-#: app/menus.c:229
+#: app/menus.c:227
 msgid "/View/_Visible Grid"
 msgstr "/Вид/Показывать сетку"
 
-#: app/menus.c:230
+#: app/menus.c:228
 msgid "/View/_Snap To Grid"
 msgstr "/Вид/Выравнивать по сетке"
 
-#: app/menus.c:231
+#: app/menus.c:229
 msgid "/View/Show _Rulers"
 msgstr "/Вид/Показывать линейки"
 
-#: app/menus.c:232
+#: app/menus.c:230
 msgid "/View/Show _Connection Points"
 msgstr "/Вид/Показывать соединительные точки"
 
-#: app/menus.c:233
+#: app/menus.c:231
 msgid "/View/sep1"
 msgstr "/Вид/sep1"
 
-#: app/menus.c:234
+#: app/menus.c:232
 msgid "/View/New _View"
 msgstr "/Вид/Новое окно"
 
-#: app/menus.c:235
+#: app/menus.c:233
 msgid "/View/Show _All"
 msgstr "/Вид/Показать все"
 
-#: app/menus.c:236
+#: app/menus.c:234
 msgid "/_Objects"
 msgstr "/Объекты"
 
 #. {"/Objects/tearoff1 ",      NULL,         tearoff,                    0, "<Tearoff>" },
-#: app/menus.c:238
+#: app/menus.c:236
 msgid "/Objects/Send to _Back"
 msgstr "/Объекты/Переместить назад"
 
-#: app/menus.c:239
+#: app/menus.c:237
 msgid "/Objects/Bring to _Front"
 msgstr "/Объекты/Переместить вперед"
 
-#: app/menus.c:240 app/menus.c:243
+#: app/menus.c:238 app/menus.c:241
 msgid "/Objects/sep1"
 msgstr "/Объекты/sep1"
 
-#: app/menus.c:241
+#: app/menus.c:239
 msgid "/Objects/_Group"
 msgstr "/Объекты/Сгруппировать"
 
-#: app/menus.c:242
+#: app/menus.c:240
 msgid "/Objects/_Ungroup"
 msgstr "/Объекты/Разгруппировать"
 
-#: app/menus.c:244
+#: app/menus.c:242
 msgid "/Objects/Align _Horizontal"
 msgstr "/Объекты/Выравнивание гор."
 
-#: app/menus.c:250
+#: app/menus.c:248
 msgid "/Objects/Align _Vertical"
 msgstr "/Объекты/Выравнивание верт."
 
 #. {"/Objects/tearoff1 ",      NULL,         tearoff,                     0, "<Tearoff>" },
-#: app/menus.c:258
+#: app/menus.c:256
 msgid "/_Dialogs"
 msgstr "/Диалоги"
 
-#: app/menus.c:259
+#: app/menus.c:257
 msgid "/Dialogs/_Properties"
 msgstr "/Диалоги/Свойства"
 
-#: app/menus.c:260
+#: app/menus.c:258
 msgid "/Dialogs/_Layers"
 msgstr "/Диалоги/Слои"
 
@@ -916,6 +908,11 @@ msgstr "Применить"
 #: app/properties.c:85
 msgid "This object has no properties."
 msgstr "У этого объекта нет свойств."
+
+#: app/render_eps.c:1101
+#, fuzzy
+msgid "Encapsulated Postscript"
+msgstr "Экспортировать в PostScript"
 
 #: app/defaults.c:43
 msgid "Object defaults"
@@ -951,11 +948,11 @@ msgstr "Сетка:"
 
 #: app/preferences.c:85 app/preferences.c:98
 msgid "Visible:"
-msgstr ""
+msgstr "Видимость:"
 
 #: app/preferences.c:86
 msgid "Snap to:"
-msgstr ""
+msgstr "Выравнивать по:"
 
 #: app/preferences.c:87
 msgid "X Size:"
@@ -997,6 +994,10 @@ msgstr "Соединительные точки:"
 msgid "Preferences"
 msgstr "Настройки"
 
+#: app/render_svg.c:834
+msgid "Scalable Vector Graphics"
+msgstr ""
+
 #: app/lineprops_area.c:496
 msgid "Arrow Properties"
 msgstr "Свойства стрелки"
@@ -1019,6 +1020,8 @@ msgid ""
 "Warning no X Font for %s found, \n"
 "using %s instead.\n"
 msgstr ""
+"Внимание не был найден шрифт для %s,\n"
+"вместо него используется %s.\n"
 
 #: lib/font.c:398
 #, c-format
@@ -1228,7 +1231,7 @@ msgstr "Переместить вниз"
 
 #: objects/UML/class_dialog.c:697
 msgid "Attribute data"
-msgstr ""
+msgstr "Данные атрибута"
 
 #: objects/UML/class_dialog.c:717 objects/UML/class_dialog.c:1593
 #: objects/UML/class_dialog.c:1755 objects/UML/class_dialog.c:2211
@@ -1266,15 +1269,15 @@ msgstr ""
 #. Operations page:
 #: objects/UML/class_dialog.c:1513
 msgid "Operations"
-msgstr "Действия"
+msgstr "Операции"
 
 #: objects/UML/class_dialog.c:1571
 msgid "Operation data"
-msgstr ""
+msgstr "Данные операции"
 
 #: objects/UML/class_dialog.c:1660
 msgid "abstract"
-msgstr ""
+msgstr "абстрактный"
 
 #: objects/UML/class_dialog.c:1672
 msgid "Parameters:"
@@ -1282,11 +1285,11 @@ msgstr "Параметры:"
 
 #: objects/UML/class_dialog.c:1734
 msgid "Parameter data"
-msgstr ""
+msgstr "Данные параметра"
 
 #: objects/UML/class_dialog.c:1767
 msgid "Def. value:"
-msgstr ""
+msgstr "Исх. значение:"
 
 #. Templates page:
 #: objects/UML/class_dialog.c:2128
@@ -1295,15 +1298,15 @@ msgstr "Шаблоны"
 
 #: objects/UML/class_dialog.c:2134
 msgid "Template class"
-msgstr ""
+msgstr "Класс-шаблон"
 
 #: objects/UML/class_dialog.c:2191
 msgid "Formal parameter data"
-msgstr ""
+msgstr "Данные формального параметра"
 
 #: objects/UML/constraint.c:509
 msgid "Constraint:"
-msgstr ""
+msgstr "Ограничение:"
 
 #: objects/UML/dependency.c:634
 msgid "Show arrow:"
@@ -1319,7 +1322,7 @@ msgstr ""
 
 #: objects/UML/usecase.c:547
 msgid "Collaboration"
-msgstr ""
+msgstr "Кооперация"
 
 #: objects/UML/object.c:753
 msgid "Explicit state:"
@@ -1408,7 +1411,7 @@ msgstr ""
 
 #: objects/ER/entity.c:448 objects/UML/classicon.c:617
 msgid "Entity"
-msgstr ""
+msgstr "Сущность"
 
 #: objects/UML/classicon.c:625
 msgid "Is an object"
@@ -1535,7 +1538,7 @@ msgstr "Стрелка в конце:"
 #: objects/standard/box.c:244 objects/standard/box.c:332
 #: objects/standard/ellipse.c:241 objects/standard/ellipse.c:313
 msgid "Draw background"
-msgstr ""
+msgstr "Нарисовать фон"
 
 #: objects/flowchart/box.c:302 objects/flowchart/box.c:449
 #: objects/standard/box.c:263 objects/standard/box.c:340
@@ -1592,7 +1595,7 @@ msgstr ""
 #: objects/standard/image.c:956 objects/standard/image.c:982
 #, c-format
 msgid "The image file '%s' was not found.\n"
-msgstr ""
+msgstr "Файл изображения \"%s\" не был найден.\n"
 
 #: objects/standard/polyline.c:742
 msgid "Add Corner"
@@ -1839,77 +1842,24 @@ msgstr "Горизонтальное отражение"
 msgid "Flip Vertical"
 msgstr "Вертикальное отражение"
 
-#~ msgid "Create an actor"
-#~ msgstr "Создать агента"
+#: plug-ins/cgm/cgm.c:765
+msgid ""
+"Image row length larger than maximum cell array.\n"
+"Image not exported to CGM."
+msgstr ""
 
-#~ msgid "Association, two classes are associated."
-#~ msgstr "Ассоциация, два класса ассоциированны"
+#: plug-ins/cgm/cgm.c:919
+msgid "Computer Graphics Metafile"
+msgstr ""
 
-#~ msgid "Aggregation, one class is part of another."
-#~ msgstr "Агрегация, один класс - часть другого."
+#~ msgid "Export to SVG"
+#~ msgstr "Экспорт в SVG"
 
-#~ msgid "Create a class"
-#~ msgstr "Создать класс"
+#~ msgid "_Export To EPS"
+#~ msgstr "Экспорт в EPS"
 
-#~ msgid "Create a template class"
-#~ msgstr "Создать шаблон класса"
+#~ msgid "Export To S_VG"
+#~ msgstr "Экспорт в SVG"
 
-#~ msgid "Create a dependency"
-#~ msgstr "Создать зависимость"
-
-#~ msgid "Editor for UML Static Structure Diagrams."
-#~ msgstr "Редактор для диаграмм статических UML структур."
-
-#~ msgid "Create a message"
-#~ msgstr "Создать сообщение"
-
-#~ msgid "Create a state machine"
-#~ msgstr "Создать машину состояний"
-
-#~ msgid "Create a component"
-#~ msgstr "Создать компонент"
-
-#~ msgid "Ethernet bus."
-#~ msgstr "Шина Ethernet."
-
-#~ msgid "A Computer with a tower case."
-#~ msgstr "Компьютер в корпусе \"Башня\""
-
-#~ msgid "The symbol for storage. Disc or database."
-#~ msgstr "Символ для устройства хранения. Диск или база данных."
-
-#~ msgid "A monitor, with a stand"
-#~ msgstr "Монитор на подставке"
-
-#~ msgid "Network"
-#~ msgstr "Сеть"
-
-#~ msgid "Objects to design network diagrams with"
-#~ msgstr "Объекты для конструирования сетевых диаграмм"
-
-#~ msgid "A simple Printer"
-#~ msgstr "Простой принтер"
-
-#~ msgid "A Antenna for wireless transmissions"
-#~ msgstr "Антенна для беспроводной передачи"
-
-#~ msgid "A WAN Connection"
-#~ msgstr "Соединение с глобальной сетью"
-
-#~ msgid "A stackable hub or switch"
-#~ msgstr "Расширяемый концентратор или коммутатор"
-
-#~ msgid "A simple Modem"
-#~ msgstr "Простой модем"
-
-#~ msgid "A modular switching system"
-#~ msgstr "Модульная коммутирующая система"
-
-#~ msgid "A RJ45 Wall-Plug"
-#~ msgstr "Розетка RJ45"
-
-#~ msgid "Create a flow"
-#~ msgstr "Создать поток"
-
-#~ msgid "Create a function"
-#~ msgstr "Создать функцию"
+#~ msgid "/File/Export To S_VG"
+#~ msgstr "/Файл/Экспорт в SVG"

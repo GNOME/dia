@@ -761,12 +761,16 @@ draw_image(RendererCGM *renderer,
     gint chunk, clines = lines;
     guint8 *ptr = dia_image_rgb_data(image);
 
+    if (rowlen > maxlen) {
+	message_error(_("Image row length larger than maximum cell array.\n"
+			"Image not exported to CGM."));
+	return;
+    }
+
     while (lines > 0) {
 	chunk = MIN(rowlen * lines, maxlen);
-	if (chunk == maxlen) {
-	    clines = chunk / rowlen;
-	    chunk = clines * rowlen;
-	}
+	clines = chunk / rowlen;
+	chunk = clines * rowlen;
 
 	write_elhead(renderer->file, 4, 9, 6*REALSIZE + 8 + chunk);
 	write_real(renderer->file, x1); /* first corner */
@@ -799,8 +803,6 @@ export_cgm(DiagramData *data, const gchar *filename, const gchar *diafilename)
     gchar buf[512];
     Rectangle *extent;
     gint len;
-
-    g_message("Exporting %s as %s", diafilename, filename);
 
     file = fopen(filename, "wb");
 

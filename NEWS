@@ -1,3 +1,15 @@
+dia-0.83:
+* Copying/pasting of bezier and image objects should work correctly.
+* New export filter interface, which allows export filters to be
+  loaded from plugins rather than being integrated into the application.
+* New CGM export plugin.  It currently doesn't handle beziers yet, but
+  it does handle all other aspects of rendering.
+* Fixed rendering of logo in about dialog.
+* Don't reencode the symbol font in latin1, as this stops it working.
+* Renamed the --export-to-ps option to --export (the short form is still -e).
+  It now works out which filter to use based on the file extension.
+* Portability fixes.
+
 dia-0.82:
 * Dia has a new maintainer now.
 * It is now possible to rearange the icons in the toolbox by editing

@@ -36,7 +36,7 @@ in lib/render.h.
 XML based objects:
 ------------------
 You can (from version 0.80) create new objects using a SVG like XML languange.
-The file objects/custom/README has more information about this.
+The file doc/custom-shapes has more information about this.
  
 Note on handles and connection points:
 --------------------------------------
