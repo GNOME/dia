@@ -914,7 +914,7 @@ draw_string (RendererGdk *renderer,
   ddisplay_transform_coords(ddisp, pos->x, pos->y,
 			    &x, &y);
   fts = freetype_load_string(text, renderer->freetype_font, strlen(text));
-  iwidth = ddisplay_transform_length(ddisp, fts->width);
+  iwidth = fts->width*72.0/2.54;
 
   switch (alignment) {
   case ALIGN_LEFT:
