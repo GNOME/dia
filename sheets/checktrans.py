@@ -30,26 +30,40 @@ class CounterHandler(saxlib.DocumentHandler):
     def __init__(self):
         self.elemstk = []
         self.langstk = []
-        self.newdoc()
-        
-    def newdoc(self):
+        self.namestk = []
+        self.newdoc('')
+
+    def newdoc(self,name):
         self.langs = {}
+        self.docname = name
         
     def _countlang(self,name):
         locdct = self.langstk[-1]
-        for dct in self.langs,locdct:
-            if dct.has_key(name):
-                dct[name] = dct[name] + 1
-            else:
-                dct[name] = 1
+        if locdct.has_key(name):
+            print "W: duplicate description for %s, language code %s" % \
+                  (self.namestk[-1],name)
+            locdct[name] = locdct[name] + 1
+        else:
+            locdct[name] = 1
+            
+        if self.langs.has_key(name):
+            self.langs[name] = self.langs[name] + 1
+        else:
+            self.langs[name] = 1                
         
     def startElement(self,name,attrs):
         #print "start of ",name,attrs,attrs.map        
+        attmap = attrs.map
         self.elemstk.append(name)
         if (name == "sheet") or (name == "object"):
             self.langstk.append({})
+            if attmap.has_key('name'):
+                name = 'Object "%s"' % attmap['name']
+            else:
+                name = 'Sheet "%s"' % self.docname
+            self.namestk.append(name)
+
         elif (name == "description"):
-            attmap = attrs.map
             if attmap.has_key("xml:lang"):
                 lang = attmap["xml:lang"]
             else:
@@ -62,6 +76,7 @@ class CounterHandler(saxlib.DocumentHandler):
             raise Exception("stack error somewhere...")
         if (name == "sheet") or (name == "object"):
             res = self.langstk.pop()
+            self.namestk.pop()
             #print "end of",name, res
         else:
             #print "end of ",name
@@ -99,7 +114,7 @@ globlangs = {}
 for name in fnames:
     OK=0
     try:
-        ch.newdoc()
+        ch.newdoc(name)
         p.parse(name)
         OK=1
 

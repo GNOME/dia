@@ -1,4 +1,13 @@
-2001-04-05  Cyrille Chepelov  <chepelov@calixo.net>
+2001-04-04  Cyrille Chepelov  <chepelov@calixo.net>
+
+	* sheets/checktrans.py: now emits a warning when two descriptions
+	for a single language code are found.
+
+	* Makefile.am:
+	* sheets/Makefile.am: -translation-reports now also depend on their
+	checktrans.py
+	
+2001-04-04  Cyrille Chepelov  <chepelov@calixo.net>
 
 	* sheets/Circuit.sheet:
 	* sheets/Contact.sheet:
@@ -7,7 +16,7 @@
 	* sheets/sybase.sheet: 
 	Dutch translations from Dag Wieers <dag@wieers.com>
 
-2001-04-05  Cyrille Chepelov  <chepelov@calixo.net>
+2001-04-04  Cyrille Chepelov  <chepelov@calixo.net>
 
 	* po-checktrans.py: Now shows the detailed counts alongside the
 	percentage of translations.

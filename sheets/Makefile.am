@@ -24,7 +24,7 @@ SHEETS = \
 
 CLEANFILES = sheet-translation-report
 
-sheet-translation-report: $(SHEETS)
+sheet-translation-report: $(SHEETS) checktrans checktrans.py
 	-./checktrans $(SHEETS)
 
 EXTRA_DIST = sheet-translation-report
