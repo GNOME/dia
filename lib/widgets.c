@@ -95,7 +95,8 @@ static void dia_font_selector_set_styles(DiaFontSelector *fs,
 			     DiaFontStyle dia_style);
 
 static FontSelectorEntry *
-dia_font_selector_add_font(char *fontname, gboolean is_other_font) {
+dia_font_selector_add_font(char *lowername, gchar *fontname,
+			   gboolean is_other_font) {
   FontSelectorEntry *fse;
   fse = g_new(FontSelectorEntry, 1);
   /* Not using LRU yet, so each line is but a name */
@@ -103,7 +104,7 @@ dia_font_selector_add_font(char *fontname, gboolean is_other_font) {
   fse->family = NULL;
   fse->last_select = time(0);
   fse->entry_nr = g_list_length(menu_entry_list)+4; /* Skip first entries */
-  g_hash_table_insert(font_hash_table, fontname, fse);
+  g_hash_table_insert(font_hash_table, g_strdup(lowername), fse);
   if (is_other_font) {
     menu_entry_list = g_list_append(menu_entry_list, fontname);
   } else {
@@ -128,9 +129,9 @@ dia_font_selector_read_persistence_file() {
 
   font_hash_table = g_hash_table_new(g_str_hash, strcase_equal);
 
-  dia_font_selector_add_font("sans", FALSE);
-  dia_font_selector_add_font("serif", FALSE);
-  dia_font_selector_add_font("monospace", FALSE);
+  dia_font_selector_add_font("sans", "Sans", FALSE);
+  dia_font_selector_add_font("serif", "Serif", FALSE);
+  dia_font_selector_add_font("monospace", "Monospace", FALSE);
 
   persistence_name = dia_config_filename("font_menu");
   if (g_file_get_contents(persistence_name, &file_contents, NULL, &error)) {
@@ -138,8 +139,11 @@ dia_font_selector_read_persistence_file() {
     gchar **lines = g_strsplit(file_contents, "\n", -1); 
     int i;
     for (i = 0; lines[i] != NULL; i++) {
+      gchar *lowername;
       if (strlen(lines[i]) == 0) continue;
-      dia_font_selector_add_font(lines[i], TRUE);
+      lowername = g_utf8_strdown(lines[i], -1);
+      dia_font_selector_add_font(lowername, lines[i], TRUE);
+      g_free(lowername);
     }
     g_free(file_contents);
   }
@@ -222,6 +226,20 @@ dia_font_selector_build_font_menu(DiaFontSelector *fs) {
   gtk_signal_connect(GTK_OBJECT(menu), "unmap", dia_font_selector_menu_callback, fs);
 }
 
+static FontSelectorEntry *
+dia_font_selector_get_new_font(DiaFontSelector *fs, gchar *fontname)
+{
+  gchar *lowername = g_utf8_strdown(fontname, -1);
+  FontSelectorEntry *fse = 
+    (FontSelectorEntry*)g_hash_table_lookup(font_hash_table, lowername);
+  if (fse == NULL) {
+    fse = dia_font_selector_add_font(lowername, fontname, TRUE);
+    dia_font_selector_build_font_menu(fs);
+    dia_font_selector_write_persistence_file();
+  }
+  g_free(lowername);
+  return fse;
+}
 
 static void
 dia_font_selector_class_init (DiaFontSelectorClass *class)
@@ -318,11 +336,7 @@ dia_font_selector_dialog_callback(GtkWidget *widget, int id, gpointer data)
     pfd = pango_font_description_from_string(fontname);
     fontname = pango_font_description_get_family(pfd);
     
-    if (g_hash_table_lookup(font_hash_table, fontname) == NULL) {
-      dia_font_selector_add_font(fontname, TRUE);
-      dia_font_selector_build_font_menu(dfs);
-      dia_font_selector_write_persistence_file();
-    }
+    dia_font_selector_get_new_font(dfs, fontname);
     diafont = dia_font_new(fontname, DIA_FONT_NORMAL | DIA_FONT_WEIGHT_NORMAL, 1.0);
     dia_font_selector_set_font(dfs, diafont);
     break;
@@ -356,7 +370,9 @@ dia_font_selector_menu_callback(GtkWidget *button, gpointer data)
     gtk_widget_show(fsd);
   } else {
     FontSelectorEntry *fse;
-    fse = (FontSelectorEntry*)g_hash_table_lookup(font_hash_table, fontname);
+    gchar *lowername = g_utf8_strdown(fontname, -1);
+    fse = (FontSelectorEntry*)g_hash_table_lookup(font_hash_table, lowername);
+    g_free(lowername);
     dia_font_selector_set_styles(fs, fse, -1);
   }
 }
@@ -479,13 +495,7 @@ dia_font_selector_set_font(DiaFontSelector *fs, DiaFont *font)
   FontSelectorEntry *fse;
   gchar *fontname = dia_font_get_family(font);
 
-  fse = (FontSelectorEntry*)g_hash_table_lookup(font_hash_table, fontname);
-  if (fse == NULL) {
-    g_print("Adding %s\n", fontname);
-    fse = dia_font_selector_add_font(fontname, TRUE);
-    dia_font_selector_build_font_menu(fs);
-    dia_font_selector_write_persistence_file();
-  }
+  fse = dia_font_selector_get_new_font(fs, fontname);
   fse->last_select = time(0);
   dia_font_selector_set_styles(fs, fse, dia_font_get_style(font));
 
@@ -503,10 +513,13 @@ dia_font_selector_get_font(DiaFontSelector *fs)
   char *fontname;
   DiaFontStyle style;
   FontSelectorEntry *fse;
+  gchar *lowername;
 
   menuitem = gtk_menu_get_active(fs->font_menu);
   fontname = (gchar *)gtk_object_get_user_data(GTK_OBJECT(menuitem));
+  lowername = g_utf8_strdown(fontname, -1);
   fse = (FontSelectorEntry*)g_hash_table_lookup(font_hash_table, fontname);
+  g_free(lowername);
   fse->last_select = time(0);
   menuitem = gtk_menu_get_active(fs->style_menu);
   style = GPOINTER_TO_INT(gtk_object_get_user_data(GTK_OBJECT(menuitem)));

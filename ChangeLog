@@ -1,5 +1,7 @@
 2002-11-26  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* lib/widgets.c: Fixed case problems for font menu entries.
+
 	* objects/SADT/annotation.c: Don't run the event test (but leave
 	it here for inspiration).
 
