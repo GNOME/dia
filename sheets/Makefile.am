@@ -25,15 +25,9 @@ SHEETS = \
 CLEANFILES = sheet-translation-report
 
 sheet-translation-report: $(SHEETS)
-	echo "*** Sheet translation report : ***" >sheet-translation-report
-	echo "(Absence of a language code means 0% translation for that language)" >>sheet-translation-report
-	echo "(Help for translations (and/or much more) is of course welcome !)" >>sheet-translation-report
-	-(./checktrans.py $(SHEETS) || \
-	   echo "E:checktrans failed to run. Check that python and python-xml are installed on the build system.") \
-		 >> sheet-translation-report
-	cat sheet-translation-report
+	-./checktrans $(SHEETS)
 
-# EXTRA_DIST = $(SHEETS) 
+EXTRA_DIST = checktrans checktrans.py
 
 sheet_DATA = $(SHEETS) sheet-translation-report
 

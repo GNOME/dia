@@ -28,6 +28,7 @@
 #define childs children
 #endif
 
+#include "intl.h"
 #include "utils.h"
 #include "dia_xml.h"
 #include "message.h"
@@ -260,27 +261,36 @@ data_point(DataNode data, Point *point)
   char *val;
   char *str;
   char *old_locale;
+  real ax,ay;
 
   if (data_type(data)!=DATATYPE_POINT) {
-    message_error("Taking point value of non-point node.");
+    message_error(_("Taking point value of non-point node."));
     return;
   }
   
   val = xmlGetProp(data, "val");
   old_locale = setlocale(LC_NUMERIC, "C");
   point->x = strtod(val, &str);
-  setlocale(LC_NUMERIC, old_locale);
+  ax = fabs(point->x);
+  if ((ax > 1e9) || ((ax < 1e-9) && (ax != 0.0)) || isnan(ax) || isinf(ax)) {
+    g_warning(_("Incorrect x Point value %f; discarding it."),point->x);
+    point->x = 0.0;
+  }
   while ((*str != ',') && (*str!=0))
     str++;
   if (*str==0){
+    setlocale(LC_NUMERIC, old_locale);
     point->y = 0.0;
-    message_error("Error parsing point.");
+    g_error(_("Error parsing point."));
     free(val);
     return;
   }
-    
-  old_locale = setlocale(LC_NUMERIC, "C");
   point->y = strtod(str+1, NULL);
+  ay = fabs(point->y);
+  if ((ay > 1e9) || ((ay < 1e-9) && (ay != 0.0)) || isnan(ay) || isinf(ay)) {
+    g_warning(_("Incorrect y Point value %f; discarding it."),point->y);
+    point->y = 0.0;
+  }
   setlocale(LC_NUMERIC, old_locale);
   free(val);
 }

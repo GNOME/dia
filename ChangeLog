@@ -1,3 +1,13 @@
+2001-04-02  Cyrille Chepelov  <chepelov@calixo.net>
+
+	* lib/dia_xml.c: made data_point() more paranoid
+
+	* sheets/Makefile.am:
+	* sheets/checktrans (NEW):
+	* sheets/checktrans.py: Made checktrans handle more gracefully the
+	absence of python and python-xml packages, and made the error
+	message more helpful.
+	
 2001-04-01  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
 
 	* lib/render_object.c (new_render_object): Made initial handles
