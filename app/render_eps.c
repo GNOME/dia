@@ -29,6 +29,13 @@
 #include "render_eps.h"
 #include "message.h"
 #include "diagramdata.h"
+#include "charconv.h" 
+
+#ifdef HAVE_UNICODE
+#include <unicode.h>
+#include "ps-utf8.h"
+#endif
+
 
 static void begin_render(RendererEPS *renderer, DiagramData *data);
 static void end_render(RendererEPS *renderer);
@@ -127,6 +134,35 @@ static RenderOps EpsRenderOps = {
   (DrawImageFunc) draw_image,
 };
 
+
+#ifdef HAVE_UNICODE
+/* callback functions used by the PSUnicoder: */ 
+static void eps_destroy_ps_font(gpointer usrdata, const gchar *fontname);
+static void eps_build_ps_encoding(gpointer usrdata, 
+                                  const gchar *name,
+                                  const unicode_char_t table[PSEPAGE_SIZE]);
+static void eps_build_ps_font(gpointer usrdata, 
+                              const gchar *name,
+                              const gchar *face,
+                              const gchar *encoding_name);
+static void eps_select_ps_font(gpointer usrdata, 
+                               const gchar *fontname,
+                               float size);
+static void eps_show_string(gpointer usrdata, const gchar *string);
+static void eps_get_string_width(gpointer usrdata, const gchar *string,
+                                 gboolean first);
+
+static PSUnicoderCallbacks eps_unicoder_callbacks = {
+  eps_destroy_ps_font,
+  eps_build_ps_encoding,
+  eps_build_ps_font,
+  eps_select_ps_font,
+  eps_show_string,
+  eps_get_string_width,
+};
+
+#else /* !HAVE_UNICODE */
+
 static void print_reencode_font(FILE *file, char *fontname)
 {
   /* Don't reencode the Symbol font, as it doesn't work in latin1 encoding.
@@ -146,7 +182,7 @@ static void print_reencode_font(FILE *file, char *fontname)
 	    "    currentdict end\n"
 	    "definefont pop\n", fontname, fontname);
 }
-
+#endif /* HAVE_UNICODE */
 
 static RendererEPS *
 create_eps_renderer(DiagramData *data, const char *filename,
@@ -158,7 +194,6 @@ create_eps_renderer(DiagramData *data, const char *filename,
   double scale;
   Rectangle *extent;
   char *name;
-  char *old_locale;
  
   file = fopen(filename, "wb");
 
@@ -175,6 +210,7 @@ create_eps_renderer(DiagramData *data, const char *filename,
   renderer->is_ps = 0;
   renderer->pagenum = 1;
   renderer->file = file;
+  renderer->lcolor.red = -1.0;
 
   renderer->dash_length = 1.0;
   renderer->dot_length = 0.2;
@@ -210,6 +246,7 @@ create_eps_renderer(DiagramData *data, const char *filename,
 	  (int) ceil((extent->bottom - extent->top)*scale) );
 
   fprintf(file, "%%%%BeginProlog\n");
+#ifndef HAVE_UNICODE
   fprintf(file,
 	  "[ /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef\n"
 	  "/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef\n"
@@ -273,8 +310,8 @@ create_eps_renderer(DiagramData *data, const char *filename,
   print_reencode_font(file, "Symbol");
   print_reencode_font(file, "ZapfChancery-MediumItalic");
   print_reencode_font(file, "ZapfDingbats");
+#endif /* !HAVE_UNICODE */
 
-  old_locale = setlocale(LC_NUMERIC, "C");
   fprintf(file,
 	  "/cp {closepath} bind def\n"
 	  "/c {curveto} bind def\n"
@@ -370,8 +407,10 @@ create_eps_renderer(DiagramData *data, const char *filename,
 	  "%%%%EndProlog\n\n\n",
 	  scale, -scale,
 	  -extent->left, -extent->bottom );
-  setlocale(LC_NUMERIC, old_locale);
-  
+#ifdef HAVE_UNICODE
+  renderer->psu = ps_unicoder_new(&eps_unicoder_callbacks,(gpointer)renderer);
+#endif 
+
   return renderer;
 }
 
@@ -384,6 +423,9 @@ new_eps_renderer(Diagram *dia, gchar *filename)
 void
 destroy_eps_renderer(RendererEPS *renderer)
 {
+#ifdef HAVE_UNICODE
+  ps_unicoder_destroy(renderer->psu);
+#endif
   g_free(renderer);
 }
 
@@ -405,7 +447,8 @@ new_psprint_renderer(Diagram *dia, FILE *file)
   renderer->is_ps = 1;
   renderer->pagenum = 1;
   renderer->file = file;
-
+  renderer->lcolor.red = -1.0;
+  
   renderer->dash_length = 1.0;
   renderer->dot_length = 0.2;
   renderer->saved_line_style = LINESTYLE_SOLID;
@@ -438,6 +481,8 @@ new_psprint_renderer(Diagram *dia, FILE *file)
 	  dia->data->paper.is_portrait ? "Portrait" : "Landscape");
 
   fprintf(file, "%%%%BeginProlog\n");
+
+#ifndef HAVE_UNICODE
   fprintf(file,
 	  "[ /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef\n"
 	  "/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef\n"
@@ -501,7 +546,7 @@ new_psprint_renderer(Diagram *dia, FILE *file)
   print_reencode_font(file, "Symbol");
   print_reencode_font(file, "ZapfChancery-MediumItalic");
   print_reencode_font(file, "ZapfDingbats");
-
+#endif /* !HAVE_UNICODE */
   fprintf(file,
 	  "/cp {closepath} bind def\n"
 	  "/c {curveto} bind def\n"
@@ -594,6 +639,9 @@ new_psprint_renderer(Diagram *dia, FILE *file)
 	  */
 	  "%%%%EndProlog\n\n\n");
   
+#ifdef HAVE_UNICODE
+  renderer->psu = ps_unicoder_new(&eps_unicoder_callbacks,(gpointer)renderer);
+#endif 
   return renderer;
 }
 
@@ -612,13 +660,24 @@ end_render(RendererEPS *renderer)
 }
 
 static void
+lazy_setcolor(RendererEPS *renderer,
+              Color *color)
+{
+  if (!color_equals(color, &(renderer->lcolor))) {
+    renderer->lcolor = *color;
+    fprintf(renderer->file, "%f %f %f srgb\n",
+            (double) color->red,
+            (double) color->green,
+            (double) color->blue);    
+  }
+}
+
+
+static void
 set_linewidth(RendererEPS *renderer, real linewidth)
 {  /* 0 == hairline **/
-  char *old_locale;
-
-  old_locale = setlocale(LC_NUMERIC, "C");
+  if (linewidth == 0.0) linewidth=.1; /* Adobe's advice */
   fprintf(renderer->file, "%f slw\n", (double) linewidth);
-  setlocale(LC_NUMERIC, old_locale);
 }
 
 static void
@@ -673,7 +732,6 @@ set_linestyle(RendererEPS *renderer, LineStyle mode)
 
   renderer->saved_line_style = mode;
   
-  old_locale = setlocale(LC_NUMERIC, "C");
   switch(mode) {
   case LINESTYLE_SOLID:
     fprintf(renderer->file, "[] 0 sd\n");
@@ -703,7 +761,6 @@ set_linestyle(RendererEPS *renderer, LineStyle mode)
     fprintf(renderer->file, "[%f] 0 sd\n", renderer->dot_length);
     break;
   }
-  setlocale(LC_NUMERIC, old_locale);
 }
 
 static void
@@ -730,30 +787,14 @@ set_fillstyle(RendererEPS *renderer, FillStyle mode)
 }
 
 static void
-set_font(RendererEPS *renderer, Font *font, real height)
-{
-  char *old_locale;
-
-  old_locale = setlocale(LC_NUMERIC, "C");
-  fprintf(renderer->file, "/%s-latin1 ff %f scf sf\n",
-	  font_get_psfontname(font), (double)height);
-  setlocale(LC_NUMERIC, old_locale);
-}
-
-static void
 draw_line(RendererEPS *renderer, 
 	  Point *start, Point *end, 
 	  Color *line_color)
 {
-  char *old_locale;
-
-  old_locale = setlocale(LC_NUMERIC, "C");
-  fprintf(renderer->file, "%f %f %f srgb\n",
-	  (double) line_color->red, (double) line_color->green, (double) line_color->blue);
+  lazy_setcolor(renderer,line_color);
 
   fprintf(renderer->file, "n %f %f m %f %f l s\n",
 	  start->x, start->y, end->x, end->y);
-  setlocale(LC_NUMERIC, old_locale);
 }
 
 static void
@@ -762,11 +803,8 @@ draw_polyline(RendererEPS *renderer,
 	      Color *line_color)
 {
   int i;
-  char *old_locale;
 
-  old_locale = setlocale(LC_NUMERIC, "C");
-  fprintf(renderer->file, "%f %f %f srgb\n",
-	  (double) line_color->red, (double) line_color->green, (double) line_color->blue);
+  lazy_setcolor(renderer,line_color);
   
   fprintf(renderer->file, "n %f %f m ",
 	  points[0].x, points[0].y);
@@ -777,7 +815,6 @@ draw_polyline(RendererEPS *renderer,
   }
 
   fprintf(renderer->file, "s\n");
-  setlocale(LC_NUMERIC, old_locale);
 }
 
 static void
@@ -786,11 +823,8 @@ draw_polygon(RendererEPS *renderer,
 	      Color *line_color)
 {
   int i;
-  char * old_locale;
   
-  old_locale = setlocale(LC_NUMERIC, "C");
-  fprintf(renderer->file, "%f %f %f srgb\n",
-	  (double) line_color->red, (double) line_color->green, (double) line_color->blue);
+  lazy_setcolor(renderer,line_color);
   
   fprintf(renderer->file, "n %f %f m ",
 	  points[0].x, points[0].y);
@@ -801,20 +835,16 @@ draw_polygon(RendererEPS *renderer,
   }
 
   fprintf(renderer->file, "cp s\n");
-  setlocale(LC_NUMERIC, old_locale);
 }
 
 static void
 fill_polygon(RendererEPS *renderer, 
 	      Point *points, int num_points, 
-	      Color *line_color)
+	      Color *fill_color)
 {
   int i;
-  char *old_locale;
 
-  old_locale = setlocale(LC_NUMERIC, "C");
-  fprintf(renderer->file, "%f %f %f srgb\n",
-	  (double) line_color->red, (double) line_color->green, (double) line_color->blue);
+  lazy_setcolor(renderer,fill_color);
   
   fprintf(renderer->file, "n %f %f m ",
 	  points[0].x, points[0].y);
@@ -825,7 +855,6 @@ fill_polygon(RendererEPS *renderer,
   }
 
   fprintf(renderer->file, "f\n");
-  setlocale(LC_NUMERIC, old_locale);
 }
 
 static void
@@ -833,19 +862,13 @@ draw_rect(RendererEPS *renderer,
 	  Point *ul_corner, Point *lr_corner,
 	  Color *color)
 {
-  char *old_locale;
-
-  old_locale = setlocale(LC_NUMERIC, "C");
-  fprintf(renderer->file, "%f %f %f srgb\n",
-	  (double) color->red, (double) color->green, (double) color->blue);
+  lazy_setcolor(renderer,color);
   
   fprintf(renderer->file, "n %f %f m %f %f l %f %f l %f %f l cp s\n",
 	  (double) ul_corner->x, (double) ul_corner->y,
 	  (double) ul_corner->x, (double) lr_corner->y,
 	  (double) lr_corner->x, (double) lr_corner->y,
 	  (double) lr_corner->x, (double) ul_corner->y );
-  setlocale(LC_NUMERIC, old_locale);
-
 }
 
 static void
@@ -853,18 +876,13 @@ fill_rect(RendererEPS *renderer,
 	  Point *ul_corner, Point *lr_corner,
 	  Color *color)
 {
-  char *old_locale;
-
-  old_locale = setlocale(LC_NUMERIC, "C");
-  fprintf(renderer->file, "%f %f %f srgb\n",
-	  (double) color->red, (double) color->green, (double) color->blue);
+  lazy_setcolor(renderer,color);
 
   fprintf(renderer->file, "n %f %f m %f %f l %f %f l %f %f l f\n",
 	  (double) ul_corner->x, (double) ul_corner->y,
 	  (double) ul_corner->x, (double) lr_corner->y,
 	  (double) lr_corner->x, (double) lr_corner->y,
 	  (double) lr_corner->x, (double) ul_corner->y );
-  setlocale(LC_NUMERIC, old_locale);
 }
 
 static void
@@ -874,17 +892,12 @@ draw_arc(RendererEPS *renderer,
 	 real angle1, real angle2,
 	 Color *color)
 {
-  char *old_locale;
-
-  old_locale = setlocale(LC_NUMERIC, "C");
-  fprintf(renderer->file, "%f %f %f srgb\n",
-	  (double) color->red, (double) color->green, (double) color->blue);
+  lazy_setcolor(renderer,color);
 
   fprintf(renderer->file, "n %f %f %f %f %f %f ellipse s\n",
 	  (double) center->x, (double) center->y,
 	  (double) width/2.0, (double) height/2.0,
 	  (double) 360.0 - angle2, (double) 360.0 - angle1 );
-  setlocale(LC_NUMERIC, old_locale);
 }
 
 static void
@@ -894,18 +907,13 @@ fill_arc(RendererEPS *renderer,
 	 real angle1, real angle2,
 	 Color *color)
 {
-  char *old_locale;
-
-  old_locale = setlocale(LC_NUMERIC, "C");
-  fprintf(renderer->file, "%f %f %f srgb\n",
-	  (double) color->red, (double) color->green, (double) color->blue);
+  lazy_setcolor(renderer,color);
 
   fprintf(renderer->file, "n %f %f m %f %f %f %f %f %f ellipse f\n",
 	  (double) center->x, (double) center->y,
 	  (double) center->x, (double) center->y,
 	  (double) width/2.0, (double) height/2.0,
 	  (double) 360.0 - angle2, (double) 360.0 - angle1 );
-  setlocale(LC_NUMERIC, old_locale);
 }
 
 static void
@@ -914,16 +922,11 @@ draw_ellipse(RendererEPS *renderer,
 	     real width, real height,
 	     Color *color)
 {
-  char *old_locale;
-
-  old_locale = setlocale(LC_NUMERIC, "C");
-  fprintf(renderer->file, "%f %f %f srgb\n",
-	  (double) color->red, (double) color->green, (double) color->blue);
+  lazy_setcolor(renderer,color);
 
   fprintf(renderer->file, "n %f %f %f %f 0 360 ellipse cp s\n",
 	  (double) center->x, (double) center->y,
 	  (double) width/2.0, (double) height/2.0 );
-  setlocale(LC_NUMERIC, old_locale);
 }
 
 static void
@@ -932,16 +935,11 @@ fill_ellipse(RendererEPS *renderer,
 	     real width, real height,
 	     Color *color)
 {
-  char *old_locale;
-
-  old_locale = setlocale(LC_NUMERIC, "C");
-  fprintf(renderer->file, "%f %f %f srgb\n",
-	  (double) color->red, (double) color->green, (double) color->blue);
+  lazy_setcolor(renderer,color);
 
   fprintf(renderer->file, "n %f %f %f %f 0 360 ellipse f\n",
 	  (double) center->x, (double) center->y,
 	  (double) width/2.0, (double) height/2.0 );
-  setlocale(LC_NUMERIC, old_locale);
 }
 
 static void
@@ -951,11 +949,8 @@ draw_bezier(RendererEPS *renderer,
 	    Color *color)
 {
   int i;
-  char *old_locale;
 
-  old_locale = setlocale(LC_NUMERIC, "C");
-  fprintf(renderer->file, "%f %f %f srgb\n",
-	  (double) color->red, (double) color->green, (double) color->blue);
+  lazy_setcolor(renderer,color);
 
   if (points[0].type != BEZ_MOVE_TO)
     g_warning("first BezPoint must be a BEZ_MOVE_TO");
@@ -981,7 +976,6 @@ draw_bezier(RendererEPS *renderer,
     }
 
   fprintf(renderer->file, " s\n");
-  setlocale(LC_NUMERIC, old_locale);
 }
 
 static void
@@ -991,11 +985,8 @@ fill_bezier(RendererEPS *renderer,
 	    Color *color)
 {
   int i;
-  char *old_locale;
 
-  old_locale = setlocale(LC_NUMERIC, "C");
-  fprintf(renderer->file, "%f %f %f srgb\n",
-	  (double) color->red, (double) color->green, (double) color->blue);
+  lazy_setcolor(renderer,color);
 
   if (points[0].type != BEZ_MOVE_TO)
     g_warning("first BezPoint must be a BEZ_MOVE_TO");
@@ -1021,7 +1012,158 @@ fill_bezier(RendererEPS *renderer,
     }
 
   fprintf(renderer->file, " f\n");
-  setlocale(LC_NUMERIC, old_locale);
+}
+
+#ifdef HAVE_UNICODE
+
+/* Note: we don't need to play with LC_NUMERIC locale settings in the 
+   PSUnicoder callback functions ; the locale is set to "C" once, by 
+   draw_string. */
+
+static void 
+eps_destroy_ps_font(gpointer usrdata, const gchar *fontname)
+{
+  RendererEPS *renderer = (RendererEPS *)usrdata;
+  
+  fprintf(renderer->file,"/%s undefinefont\n",fontname);
+}
+
+static void eps_build_ps_encoding(gpointer usrdata, 
+                                  const gchar *name,
+                                  const unicode_char_t table[PSEPAGE_SIZE])
+{
+  /* the table starts at PSEPAGE_BEGIN. Before that, we'll emit
+     /xi (just as /notdef's) */
+  RendererEPS *renderer = (RendererEPS *)usrdata;
+  int i;
+  
+  fprintf(renderer->file, " [");
+  for (i = 0; i<PSEPAGE_BEGIN; i++) {
+    fprintf(renderer->file," /xi");
+    if (!((i+1) % 16)) fprintf(renderer->file,"\n");
+  }
+  for (i=0; i<PSEPAGE_SIZE; i++) {
+    fprintf(renderer->file," /%s",unicode_to_ps_name(table[i]));
+    if (!((i+1) % 16)) fprintf(renderer->file,"\n");
+  }
+  fprintf(renderer->file,"] /%s exch def\n",name);
+}
+
+static void 
+eps_build_ps_font(gpointer usrdata,
+                  const gchar *name,
+                  const gchar *face,
+                  const gchar *encoding_name)
+{
+  RendererEPS *renderer = (RendererEPS *)usrdata;
+  
+  fprintf(renderer->file,
+          "/%s\n"
+          "  /%s findfont\n"
+          "  dup length dict begin\n"
+          "  {1 index /FID ne {def} {pop pop} ifelse} forall\n"
+          "  /Encoding %s def\n"
+          "  currentdict end\n"
+          "definefont pop\n", name, face, encoding_name);
+}
+
+static void 
+eps_select_ps_font(gpointer usrdata, const gchar *fontname, float size )
+{
+  RendererEPS *renderer = (RendererEPS *)usrdata;
+  
+  fprintf(renderer->file, "/%s ff %f scf sf\n", fontname, size);
+}
+
+static void eps_show_string(gpointer usrdata, const gchar *string)
+{
+  RendererEPS *renderer = (RendererEPS *)usrdata;
+  /* string has nothing we would have to escape. */
+  fprintf(renderer->file, "(%s)\n", string);  
+}
+                  
+static void eps_get_string_width(gpointer usrdata, const gchar *string,
+                                 gboolean first)
+{
+  RendererEPS *renderer = (RendererEPS *)usrdata;
+
+  if (first) {
+    fprintf(renderer->file, "(%s) sw\n", string);  
+  } else {
+    fprintf(renderer->file, "(%s) sw add\n", string);  
+  }
+}
+                  
+
+static void
+set_font(RendererEPS *renderer, Font *font, real height)
+{
+  psu_set_font_face(renderer->psu,
+                    font_get_psfontname(font), 
+                    (float)height);
+}
+
+static void
+draw_string(RendererEPS *renderer,
+	    const char *text,
+	    Point *pos, Alignment alignment,
+	    Color *color)
+{
+  char *utf8_buffer;
+  int utf8_len;
+
+  if ((!text)||(text == (const char *)(1))) return;
+
+  lazy_setcolor(renderer,color);
+
+  /* <FIXME:> dia doesn't talk UTF-8 but the local charset (in fact, it 
+     doesn't know what it talks, and assumes it's latin-1). The PSUnicoder
+     talks UTF-8. We do a quick-and-dirty translation for now. */
+  utf8_buffer = charconv_local8_to_utf8(text);
+  /* </FIXME> */
+  utf8_len = strlen(utf8_buffer); /* deliberate */
+
+  if (utf8_len <= 0) {
+    return; /* null string -> we won't display anything 
+               and we will crash the Postscript stack. */
+  }
+  psu_check_string_encodings(renderer->psu,utf8_buffer);
+  
+  switch (alignment) {
+  case ALIGN_LEFT:
+    fprintf(renderer->file, "%f %f m ", pos->x, pos->y);
+    break;
+  case ALIGN_CENTER:
+    psu_get_string_width(renderer->psu,utf8_buffer);
+    if (!strlen(utf8_buffer)) {
+      g_warning("null string.");
+    }
+    fprintf(renderer->file, "2 div %f ex sub %f m ",
+	    pos->x, pos->y);
+    break;
+  case ALIGN_RIGHT:
+    psu_get_string_width(renderer->psu,utf8_buffer);
+    fprintf(renderer->file, "%f ex sub %f m ",
+	    pos->x, pos->y);
+    break;
+  }
+
+  psu_show_string(renderer->psu,utf8_buffer);
+  
+  g_free(utf8_buffer);
+  
+  if (utf8_len>0) {        /* always true, normally. */
+    fprintf(renderer->file, " gs 1 -1 sc sh gr\n");
+  }
+}
+
+#else /* !HAVE_UNICODE*/
+
+static void
+set_font(RendererEPS *renderer, Font *font, real height)
+{
+  fprintf(renderer->file, "/%s-latin1 ff %f scf sf\n",
+	  font_get_psfontname(font), (double)height);
 }
 
 static void
@@ -1033,14 +1175,10 @@ draw_string(RendererEPS *renderer,
   char *buffer;
   const char *str;
   int len;
-  char *old_locale;
 
   /* TODO: Use latin-1 encoding */
 
-  old_locale = setlocale(LC_NUMERIC, "C");
-  fprintf(renderer->file, "%f %f %f srgb\n",
-	  (double) color->red, (double) color->green, (double) color->blue);
-
+  lazy_setcolor(renderer,color);
 
   /* Escape all '(' and ')':  */
   buffer = g_malloc(2*strlen(text)+1);
@@ -1074,8 +1212,162 @@ draw_string(RendererEPS *renderer,
   }
   
   fprintf(renderer->file, " gs 1 -1 sc sh gr\n");
-  setlocale(LC_NUMERIC, old_locale);
 }
+
+#endif /* HAVE_UNICODE */
+
+#define RLE 0
+#if RLE
+/* RLE-encodes as defined in the Red Book */
+enum color_channel {
+  BLACK, RED, GREEN, BLUE
+};
+
+#define CHANNEL_ADD(chan) ((chan)?(chan)-1:0)
+#define CHANNEL_SKIP(chan) ((chan)?3:1)
+
+/* Find the max number of chars < 128 with no triples */
+static int
+find_max_non_replicated(char *src, int srclen, enum color_channel chan)
+{
+  int items = 0;
+
+  while (items*CHANNEL_SKIP(chan) < srclen && 
+	 items < 128) {
+    if (items*CHANNEL_SKIP(chan) == srclen-1) return items+1;
+    if (src[items*CHANNEL_SKIP(chan)+CHANNEL_ADD(chan)] ==
+	src[(items+1)*CHANNEL_SKIP(chan)+CHANNEL_ADD(chan)]) {
+      /* Two of the same */
+      if (items*CHANNEL_SKIP(chan) == srclen-2) return MIN(items+2,128);
+      if (src[(items+1)*CHANNEL_SKIP(chan)+CHANNEL_ADD(chan)] ==
+	  src[(items+2)*CHANNEL_SKIP(chan)+CHANNEL_ADD(chan)]) {
+	return items;
+      } else {
+	items++;
+      }
+    }
+    items ++;
+  }
+  return MIN(items, 128);
+}
+
+static int 
+find_max_replicated(char *src, int srclen, enum color_channel chan)
+{
+  int items = 0;
+
+  while (items*CHANNEL_SKIP(chan) < srclen && 
+	 items < 128) {
+    if (items*CHANNEL_SKIP(chan) == srclen-1) return items+1;
+    if (src[items*CHANNEL_SKIP(chan)+CHANNEL_ADD(chan)] !=
+	src[(items+1)*CHANNEL_SKIP(chan)+CHANNEL_ADD(chan)]) {
+      /* Two different */
+      return items+1;
+    }
+    items++;
+  }
+  return items+1;
+}
+
+/* Return a 128-terminated char array with the RLE-encoding of src */
+static guchar *
+RLE_encode(guchar *src, int srclen, enum color_channel chan, int *len) {
+  char *output;
+  gint output_alloc, output_pos;
+  gint src_pos;
+  
+  output_alloc = 256;
+  output = (char *)g_malloc(output_alloc);
+  output_pos = src_pos = 0;
+
+  while (src_pos < srclen) {
+    /* Find the size of the next block to encode */
+    int max_same = find_max_replicated(src+src_pos, srclen-src_pos, chan);
+    if (max_same > 2) {
+      /* This is a good replication block */
+      output[output_pos] = 257-max_same;
+      output[output_pos+1] = src[src_pos];
+      output_pos += 2;
+      src_pos += max_same;
+    } else {
+      /* Put out a block of non-replicated bytes */
+      int max_non_repl = find_max_non_replicated(src+src_pos, srclen-src_pos, chan);
+      int i;
+
+      output[output_pos] = max_non_repl-1;
+      for (i = 0; i < max_non_repl; i++) {
+	output[output_pos+i+1] = src[src_pos+i*CHANNEL_SKIP(chan)+CHANNEL_ADD(chan)];
+      }
+      output_pos += max_non_repl+1;
+      src_pos += max_non_repl;
+    }
+
+    if (output_alloc < output_pos + 128) {
+      output_alloc *= 2;
+      output = (char *)g_realloc(output, output_alloc);
+    }
+  }
+  output[output_pos++] = 0x80;
+  *len = output_pos;
+  return output;
+}
+
+static guchar *
+ASCII85_encode(guchar *src, int srclen) {
+  int blocks = (srclen+3)/4;
+  guchar *output = (char *)g_malloc(blocks*5+3);
+  int output_pos = 0, i;
+
+  for (i = 0; i < blocks; i++) {
+    if (i == blocks-1) {
+      /* Special treatment for last block */
+      long val;
+      val = src[i*4]<<24;
+      if (srclen%4 != 1) {
+	val += src[i*4+1]<<16;
+	if (srclen%4 != 2) {
+	  val += src[i*4+2]<<8;
+	  if (srclen%4 != 3) {
+	    val += src[i*4+3];
+	  }
+	}
+      }
+      output[output_pos+4] = (val%85)+33;
+      val /= 85;
+      output[output_pos+3] = (val%85)+33;
+      val /= 85;
+      output[output_pos+2] = (val%85)+33;
+      val /= 85;
+      output[output_pos+1] = (val%85)+33;
+      val /= 85;
+      output[output_pos+0] = (val%85)+33;
+      output_pos += 5;
+    } else {
+      unsigned long val;
+      val = (src[i*4]<<24)+(src[i*4+1]<<16)+(src[i*4+2]<<8)+src[i*4+3];
+      if (val == 0) {
+	output[output_pos++] = 'z';
+      } else {
+	output[output_pos+4] = (val%85)+33;
+	val /= 85;
+	output[output_pos+3] = (val%85)+33;
+	val /= 85;
+	output[output_pos+2] = (val%85)+33;
+	val /= 85;
+	output[output_pos+1] = (val%85)+33;
+	val /= 85;
+	output[output_pos+0] = (val%85)+33;
+	output_pos += 5;
+      }
+    }
+  }
+  output[output_pos] = '~';
+  output[output_pos+1] = '>';
+  output[output_pos+2] = 0;
+  return output;
+}
+
+#endif
 
 static void
 draw_image(RendererEPS *renderer,
@@ -1090,9 +1382,7 @@ draw_image(RendererEPS *renderer,
   real ratio;
   guint8 *rgb_data;
   guint8 *mask_data;
-  char *old_locale;
 
-  old_locale = setlocale(LC_NUMERIC, "C");
   img_width = dia_image_width(image);
   img_height = dia_image_height(image);
 
@@ -1104,6 +1394,10 @@ draw_image(RendererEPS *renderer,
 
   fprintf(renderer->file, "gs\n");
   if (1) { /* Color output - experimental */
+    guchar *rle;
+    guchar *ascii;
+    int len;
+
     fprintf(renderer->file, "/pix %i string def\n", img_width * 3);
     fprintf(renderer->file, "%i %i 8\n", img_width, img_height);
     fprintf(renderer->file, "%f %f tr\n", point->x, point->y);
@@ -1115,6 +1409,34 @@ draw_image(RendererEPS *renderer,
     fprintf(renderer->file, "/npixls 0 def\n");
     fprintf(renderer->file, "/rgbindx 0 def\n");
     */
+
+#if RLE
+    fprintf(renderer->file, "currentfile\n");
+    fprintf(renderer->file, "/ASCII85Decode filter\n");
+    fprintf(renderer->file, "0 /RunLengthDecode filter\n");
+    fprintf(renderer->file, "currentfile\n");
+    fprintf(renderer->file, "/ASCII85Decode filter\n");
+    fprintf(renderer->file, "0 /RunLengthDecode filter\n");
+    fprintf(renderer->file, "currentfile\n");
+    fprintf(renderer->file, "/ASCII85Decode filter\n");
+    fprintf(renderer->file, "0 /RunLengthDecode filter\n");
+    fprintf(renderer->file, "true 3 colorimage\n");
+    rle = RLE_encode(rgb_data, img_width*img_height*3, RED, &len);
+    ascii = ASCII85_encode(rle, len);
+    fprintf(renderer->file, "%s\n", ascii);
+    g_free(rle);
+    g_free(ascii);
+    rle = RLE_encode(rgb_data, img_width*img_height*3, GREEN, &len);
+    ascii = ASCII85_encode(rle, len);
+    fprintf(renderer->file, "%s\n", ascii);
+    g_free(rle);
+    g_free(ascii);
+    rle = RLE_encode(rgb_data, img_width*img_height*3, BLUE, &len);
+    ascii = ASCII85_encode(rle, len);
+    fprintf(renderer->file, "%s\n", ascii);
+    g_free(rle);
+    g_free(ascii);
+#else
     fprintf(renderer->file, "{currentfile pix readhexstring pop}\n");
     fprintf(renderer->file, "false 3 colorimage\n");
     fprintf(renderer->file, "\n");
@@ -1149,6 +1471,7 @@ draw_image(RendererEPS *renderer,
       }
       fprintf(renderer->file, "\n");
     }
+#endif
   } else { /* Grayscale */
     fprintf(renderer->file, "/pix %i string def\n", img_width);
     fprintf(renderer->file, "/grays %i string def\n", img_width);
@@ -1176,7 +1499,6 @@ draw_image(RendererEPS *renderer,
   /*  fprintf(renderer->file, "%f %f scale\n", 1.0, 1.0/ratio);*/
   fprintf(renderer->file, "gr\n");
   fprintf(renderer->file, "\n");
-  setlocale(LC_NUMERIC, old_locale);
   
   g_free(rgb_data);
   g_free(mask_data);
