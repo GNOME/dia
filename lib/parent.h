@@ -16,7 +16,9 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-//#include "diagram.h"
+#ifndef PARENT_H
+#define PARENT_H
+
 #include <glib.h>
 #include "geometry.h"
 
@@ -30,3 +32,4 @@ GList *parent_list_affected_hierarchy(GList *obj_list);
 gboolean parent_handle_move_out_check(DiaObject *object, Point *to);
 gboolean parent_handle_move_in_check(DiaObject *object, Point *to, Point *start_at);
 
+#endif /* PARENT_H  */

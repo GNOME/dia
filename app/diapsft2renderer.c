@@ -319,7 +319,7 @@ draw_string(DiaRenderer *self,
 	    Point *pos, Alignment alignment,
 	    Color *color)
 {
-  //DiaPsRenderer *renderer = DIA_PS_RENDERER(self);
+  /* DiaPsRenderer *renderer = DIA_PS_RENDERER(self); */
   DiaPsFt2Renderer *renderer = DIA_PS_FT2_RENDERER(self);
   PangoLayout *layout;
   int width;

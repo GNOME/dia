@@ -60,7 +60,6 @@ static void create_dialog()
              GTK_STOCK_OK, GTK_RESPONSE_OK,
              NULL);
 
-  //GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
   gtk_dialog_set_default_response (GTK_DIALOG(dialog), GTK_RESPONSE_OK);
 
   dialog_vbox = GTK_DIALOG(dialog)->vbox;

@@ -79,8 +79,8 @@ PyDia_GroupCreate(PyObject *self, PyObject *args)
         Py_INCREF(Py_None);
         ret = Py_None;
       }
-    //Urgh : group_create() eats list
-    //g_list_free(list);
+    /* Urgh : group_create() eats list */
+    /* NOT: g_list_free(list); */
 
     return ret;
 }

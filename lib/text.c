@@ -640,7 +640,7 @@ text_delete_forward(Text *text)
   len = strlen (text->line[row]);
   memmove (start, end, text->line[row] + len - start);
 
-  text->strlen[row] = g_utf8_strlen(text->line[row], -1);//text->strlen[row]--;
+  text->strlen[row] = g_utf8_strlen(text->line[row], -1);/*text->strlen[row]--;*/
   
   if (text->cursor_pos > text->strlen[text->cursor_row])
     text->cursor_pos = text->strlen[text->cursor_row];
@@ -788,7 +788,7 @@ text_insert_char(Text *text, gunichar c)
   strncpy (str, ch, unilen);
   line[length + unilen] = 0; /* null terminate */
   text->cursor_pos += 1;
-  text->strlen[row] = g_utf8_strlen(text->line[row], -1);// length + unilen;
+  text->strlen[row] = g_utf8_strlen(text->line[row], -1);/* length + unilen; */
 
   text->row_width[row] =
       dia_font_string_width(text->line[row], text->font, text->height);

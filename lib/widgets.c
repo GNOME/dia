@@ -1675,9 +1675,6 @@ dia_toggle_button_new_with_images(gchar *on_image, gchar *off_image)
   gtk_widget_modify_style (button, rcstyle);
   gtk_rc_style_unref (rcstyle);
 
-  //style = gtk_widget_get_style(button);
-  //gtk_widget_set_style(button, style);
-  // style property focus-padding
   prop = g_new0(GValue, 1);
   g_value_init(prop, G_TYPE_INT);
   gtk_widget_style_get_property(GTK_WIDGET(button), "focus-padding", prop);

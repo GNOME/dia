@@ -212,7 +212,7 @@ diagram_print_ps(Diagram *dia)
    * needed anymore because the pipe handling - which never worked on win32
    * anyway - is replace by "native" postscript printing now ...
    */
-  struct sigaction pipe_action, old_action;
+  __sighandler_t old_action;
 #endif
 
   /* create the dialog */
@@ -364,10 +364,8 @@ diagram_print_ps(Diagram *dia)
 
 #ifndef G_OS_WIN32
   /* set up a SIGPIPE handler to catch IO errors, rather than segfaulting */
-  memset(&pipe_action, '\0', sizeof(pipe_action));
   sigpipe_received = FALSE;
-  pipe_action.sa_handler = pipe_handler;
-  sigaction(SIGPIPE, &pipe_action, &old_action);
+  old_action = signal(SIGPIPE, pipe_handler);
 #endif
 
   paginate_psprint(dia, file);
@@ -382,7 +380,8 @@ diagram_print_ps(Diagram *dia)
     fclose(file);
 
 #ifndef G_OS_WIN32
-  sigaction(SIGPIPE, &old_action, NULL);
+  /* restore original behaviour */
+  signal(SIGPIPE, old_action);
 #endif
   if (sigpipe_received)
     message_error(_("Printing error: command '%s' caused sigpipe."),

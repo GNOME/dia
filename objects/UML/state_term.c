@@ -38,10 +38,6 @@
 #include "pixmaps/state_term.xpm"
 
 typedef struct _State State;
-//typedef struct _StateState StateState;
-
-
-
 struct _State {
   Element element;
 

@@ -51,6 +51,17 @@
 #  define M_SQRT1_2 0.70710678118654752440	/* 1/sqrt(2) */
 #endif
 
+/* gcc -std=c89 doesn't have it either */
+#ifndef M_PI
+#define M_PI G_PI
+#endif
+#ifndef M_SQRT2
+#define M_SQRT2 G_SQRT2
+#endif
+#ifndef M_SQRT1_2
+#define M_SQRT1_2 (1.0/G_SQRT2)
+#endif
+
 /*
   Coordinate system used:
    +---> x

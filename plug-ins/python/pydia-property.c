@@ -436,7 +436,7 @@ int PyDiaProperty_ApplyToObject (DiaObject   *object,
       }
     else
       {
-         //? PROP_TYPE_POINTARRAY, PROP_TYPE_BEZPOINTARRAY, ...
+         /*? PROP_TYPE_POINTARRAY, PROP_TYPE_BEZPOINTARRAY, ... */
          g_warning("PyDiaProperty_ApplyToObject : no tuple conversion %s -> %s",
 	    key, prop->type);
      }

@@ -441,7 +441,7 @@ app_init (int argc, char **argv)
 #endif
   textdomain(GETTEXT_PACKAGE);
 
-  if (argv && dia_is_interactive) {
+  if (argv && dia_is_interactive && !version) {
 #ifdef GNOME
     GnomeProgram *program =
       gnome_program_init (PACKAGE, VERSION, LIBGNOMEUI_MODULE,
@@ -768,9 +768,7 @@ process_opts(int argc, char **argv,
 {
 #ifdef HAVE_POPT
   int rc = 0;
-  //char *const buf;
   poptCtx = poptGetContext(PACKAGE, argc, (const char **)argv, options, 0);
-  //poptSetOtherOptionHelp(poptCtx, g_locale_from_utf8(_("[OPTION...] [FILE...]"), -1, NULL, NULL, NULL));
   poptSetOtherOptionHelp(poptCtx, _("[OPTION...] [FILE...]"));
   while (rc >= 0) {
     if((rc = poptGetNextOpt(poptCtx)) < -1) {

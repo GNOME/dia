@@ -685,8 +685,8 @@ void fillet(Point *p1, Point *p2, Point *p3, Point *p4,
   }
   /* now calculate the actual angles in a form that the draw arc function
      of the renderer can use */
-  start_angle = start_angle*180.0/M_PI;
-  stop_angle  = start_angle + stop_angle*180.0/M_PI;
+  start_angle = start_angle*180.0/G_PI;
+  stop_angle  = start_angle + stop_angle*180.0/G_PI;
   while (start_angle < 0.0) start_angle += 360.0;
   while (stop_angle < 0.0)  stop_angle += 360.0;
   /* swap the start and stop if we had to negate the cross product */

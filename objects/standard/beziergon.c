@@ -276,8 +276,6 @@ beziergon_create(Point *startpoint,
   Point defaultx = { 1.0, 0.0 };
   Point defaulty = { 0.0, 1.0 };
 
-  //  beziergon_init_defaults();
-
   beziergon = g_new0(Beziergon, 1);
   bezier = &beziergon->bezier;
   obj = &bezier->object;

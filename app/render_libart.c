@@ -1076,8 +1076,6 @@ draw_string (RendererLibart *renderer,
     break;
   }
  
-  //  font_height = ddisplay_transform_length(ddisp, renderer->font_height);
-
   start_pos.y -= dia_font_ascent(text, renderer->font, renderer->font_height);
   ddisplay_transform_coords_double(ddisp, start_pos.x, start_pos.y, &x, &y);
 
@@ -1119,7 +1117,6 @@ draw_string (RendererLibart *renderer,
        bitmap[DEPTH*(i*rowstride+j)+2] = color->blue;
        bitmap[DEPTH*(i*rowstride+j)+3] = graybitmap[i*rowstride+j];
      }
-     //     bitmap[4*i+3] = graybitmap[i];
    }
    g_free(graybitmap);
  }
@@ -1169,7 +1166,6 @@ draw_string (RendererLibart *renderer,
 		    width,
 		    height,
 		    rowstride*DEPTH,
-		    //rgba,
 		    affine,
 		    ART_FILTER_NEAREST, NULL);
 

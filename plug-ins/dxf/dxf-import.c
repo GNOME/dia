@@ -959,13 +959,13 @@ DiaObject *read_entity_text_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 		textalignment = ALIGN_RIGHT;
                 break;	
 	      case 3:
-		// FIXME - it's not clear what these are
+		/* FIXME - it's not clear what these are */
                 break;
 	      case 4: 
-		// FIXME - it's not clear what these are
+		/* FIXME - it's not clear what these are */
                 break;	
 	      case 5: 
-		// FIXME - it's not clear what these are
+		/* FIXME - it's not clear what these are */
                 break;	
             }
 	   break;
@@ -974,17 +974,17 @@ DiaObject *read_entity_text_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 	     {
 	      case 0:
 	      case 1:
-		// FIXME - not really the same vertical alignment
-		// 0 = baseline
-		// 1 = bottom
+		/* FIXME - not really the same vertical alignment */
+		/* 0 = baseline */
+		/* 1 = bottom */
 		y_offset = 0;
                 break;
 	      case 2: 
-		// 2 = middle
+		/* 2 = middle */
 		y_offset = 0.5;
                 break;	
 	      case 3:
-		// 3 = top
+		/* 3 = top */
 		y_offset = 1;
                 break;	
             }
@@ -1071,7 +1071,7 @@ void read_entity_measurement_dxf(FILE *filedxf, DxfData *data,
    switch(codedxf)
      {
       case 70:
-	// value 0 = English, 1 = Metric
+	/* value 0 = English, 1 = Metric */
 	if( atoi( data->value ) == 0 )
 	  measure_scale = 2.54;
 	else

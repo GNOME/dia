@@ -454,7 +454,6 @@ color_area_create (int        width,
 {
   GtkWidget *event_box;
 
-  // Won't work on Win32, as color_{black,white} aren't defined.  Why not?
   attributes_set_foreground(persistence_register_color("fg_color", &color_black));
   attributes_set_background(persistence_register_color("bg_color", &color_white));
 

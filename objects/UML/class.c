@@ -268,8 +268,7 @@ umlclass_set_props(UMLClass *umlclass, GPtrArray *props)
 {
   object_set_props_from_offsets(&umlclass->element.object, umlclass_offsets,
                                 props);
-  /* kind of dirty, object_load_props() may leave us in an inconsistent state --hb */
-  fill_in_fontdata(umlclass);
+	
   /* Update data: */
   umlclass_calculate_data(umlclass);
   umlclass_update_data(umlclass);
@@ -1589,6 +1588,9 @@ static DiaObject *umlclass_load(ObjectNode obj_node, int version,
 
   element_load(elem, obj_node);
 
+  /* kind of dirty, object_load_props() may leave us in an inconsistent state --hb */
+  fill_in_fontdata(umlclass);
+  
   object_load_props(obj,obj_node);
   /* a bunch of properties still need their own special handling */
 

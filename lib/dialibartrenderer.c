@@ -293,7 +293,6 @@ static void
 set_font(DiaRenderer *self, DiaFont *font, real height)
 {
   self->font_height = height * FONT_SCALE;
-  //    ddisplay_transform_length(renderer->ddisp, height);
 
   if (self->font)
     dia_font_unref(self->font);
@@ -1164,7 +1163,6 @@ draw_string (DiaRenderer *self,
        bitmap[DEPTH*(i*rowstride+j)+2] = color->blue*255;
        bitmap[DEPTH*(i*rowstride+j)+3] = graybitmap[i*rowstride+j];
      }
-     //     bitmap[4*i+3] = graybitmap[i];
    }
    g_free(graybitmap);
  }
@@ -1244,7 +1242,6 @@ draw_string (DiaRenderer *self,
 		    width,
 		    height,
 		    rowstride*DEPTH,
-		    //rgba,
 		    affine,
 		    ART_FILTER_NEAREST, NULL);
 

@@ -64,7 +64,9 @@ SHAPES = \
 	plotter.shape \
 	plotter.png \
 	digitizing_board.shape \
-	digitizing_board.png
+	digitizing_board.png \
+	patch-panel.shape  \
+	patch-panel.xpm
 
 EXTRA_DIST = $(SHAPES)
 

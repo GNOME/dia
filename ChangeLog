@@ -1,3 +1,24 @@
+2004-07-05  Hans Breuer  <hans@breuer.org>
+
+	* */*.[hc] */*/*.c : a bunch of changes to make Dia compile with
+	-std=c89. Mostly //-comments and M_PI -> G_PI
+	[Istar, Jackson, KAOS were removed from build cause they
+	simply have *too* much C++ comments ;]
+	* object/UML/association.c : use g_strdup() not plain strdup()
+	* app/paginate_psprint.c : avoid storage size of `pipe_action' 
+	isn't known with more portable signal code
+	
+	* app/app_procs.c : don't call gtk_init() if just --version
+	is requested (bug #144321, Vladimir Kondratiev)
+	
+	* lib/prop_attr.c(fontprop_set_from_offset) : only unref 
+	DiaFont* if not NULL
+	* objects/UML/class.c : moved fill_in_fontdata() to 
+	umlclass_load() to avoid such trouble, though unsure if
+	this really is an improvement...
+	
+	* shapes/network/makefile.am : patch-panel added here too
+
 2004-07-04  Hans Breuer  <hans@breuer.org>
 
 	* sheets/network.sheet.in shapes/network/patch-panel.xpm

@@ -74,8 +74,9 @@ struct _DiaCairoRendererClass
 
 G_END_DECLS
 
-//#define DEBUG_CAIRO
-
+/*
+#define DEBUG_CAIRO
+ */
 #ifdef DEBUG_CAIRO
 #  define DIAG_NOTE(action) action
 #  define DIAG_STATE(cr) { if (cairo_status (cr) != CAIRO_STATUS_SUCCESS) g_print ("%s:%d, %s\n", __FILE__, __LINE__, cairo_status_string (cr)); }
@@ -98,8 +99,9 @@ begin_render(DiaRenderer *self)
 
   cairo_set_target_surface (renderer->cr, renderer->surface);
 
-  //FIXME: I'd like this to clear the alpha background, but it doesn't work
-  //cairo_set_alpha (renderer->cr, 0.0);
+  /*FIXME: I'd like this to clear the alpha background, but it doesn't work
+      * cairo_set_alpha (renderer->cr, 0.0);
+      */
   /* clear background */
   cairo_set_rgb_color (renderer->cr,
                        renderer->dia->bg_color.red, 
@@ -109,10 +111,10 @@ begin_render(DiaRenderer *self)
                    renderer->dia->extents.left, renderer->dia->extents.top,
                    renderer->dia->extents.right, renderer->dia->extents.bottom);
   cairo_fill (renderer->cr);
-  //FIXME : how is this supposed to work ?
-  //cairo_set_operator (renderer->cr, DIA_CAIRO_OPERATOR_SRC);
-  //cairo_set_alpha (renderer->cr, 1.0);
-
+  /*FIXME : how is this supposed to work ?
+   * cairo_set_operator (renderer->cr, DIA_CAIRO_OPERATOR_SRC);
+   * cairo_set_alpha (renderer->cr, 1.0);
+    */
   DIAG_STATE(renderer->cr)
 }
 
@@ -155,7 +157,7 @@ set_linecaps(DiaRenderer *self, LineCaps mode)
     cairo_set_line_cap (renderer->cr, CAIRO_LINE_CAP_ROUND);
     break;
   case LINECAPS_PROJECTING:
-    cairo_set_line_cap (renderer->cr, CAIRO_LINE_CAP_SQUARE); //??
+    cairo_set_line_cap (renderer->cr, CAIRO_LINE_CAP_SQUARE); /* ?? */
     break;
   default:
     message_error("DiaCairoRenderer : Unsupported fill mode specified!\n");
@@ -251,8 +253,9 @@ set_fillstyle(DiaRenderer *self, FillStyle mode)
 
   switch(mode) {
   case FILLSTYLE_SOLID:
-    //FIXME: how to set _no_ pattern ?
-    //cairo_set_pattern (renderer->cr, NULL);
+    /* FIXME: how to set _no_ pattern ?
+      * cairo_set_pattern (renderer->cr, NULL);
+      */
     break;
   default:
     message_error("DiaCairoRenderer : Unsupported fill mode specified!\n");
@@ -275,7 +278,7 @@ set_font(DiaRenderer *self, DiaFont *font, real height)
                      family_name,
                      DIA_FONT_STYLE_GET_SLANT(style) == DIA_FONT_NORMAL ? CAIRO_FONT_SLANT_NORMAL : CAIRO_FONT_SLANT_ITALIC,
                      DIA_FONT_STYLE_GET_WEIGHT(style) < DIA_FONT_MEDIUM ? CAIRO_FONT_WEIGHT_NORMAL : CAIRO_FONT_WEIGHT_BOLD); 
-  cairo_scale_font (renderer->cr, height * 0.7); //same magic factor as in lib/font.c
+  cairo_scale_font (renderer->cr, height * 0.7); /* same magic factor as in lib/font.c */
 
   DIAG_STATE(renderer->cr)
 }
@@ -438,9 +441,9 @@ draw_arc(DiaRenderer *self,
   cairo_move_to (renderer->cr, start.x, start.y);
   a1 = - (angle1 / 180.0) * G_PI;
   a2 = - (angle2 / 180.0) * G_PI;
-  //FIXME: to handle width != height some cairo_scale/cairo_translate would be needed
+  /* FIXME: to handle width != height some cairo_scale/cairo_translate would be needed */
   cairo_arc_negative (renderer->cr, center->x, center->y, 
-                      width > height ? height / 2.0 : width / 2.0, //FIXME 2nd radius
+                      width > height ? height / 2.0 : width / 2.0, /* FIXME 2nd radius */
                       a1, a2);
   cairo_stroke (renderer->cr);
   DIAG_STATE(renderer->cr)
@@ -469,9 +472,9 @@ fill_arc(DiaRenderer *self,
   cairo_line_to (renderer->cr, start.x, start.y);
   a1 = - (angle1 / 180.0) * G_PI;
   a2 = - (angle2 / 180.0) * G_PI;
-  //FIXME: to handle width != height some cairo_scale/cairo_translate would be needed
+  /* FIXME: to handle width != height some cairo_scale/cairo_translate would be needed */
   cairo_arc_negative (renderer->cr, center->x, center->y, 
-                      width > height ? height / 2.0 : width / 2.0, //FIXME 2nd radius
+                      width > height ? height / 2.0 : width / 2.0, /* FIXME 2nd radius */
                       a1, a2);
   cairo_line_to (renderer->cr, center->x, center->y);
   cairo_close_path (renderer->cr);
@@ -494,7 +497,7 @@ _ellipse(DiaRenderer *self,
 
   cairo_set_rgb_color (renderer->cr, color->red, color->green, color->blue);
   
-  //FIXME: how to make a perfect ellipse from a bezier ?
+  /* FIXME: how to make a perfect ellipse from a bezier ? */
   co = sqrt(pow(width,2)/4 + pow(height,2)/4);
 
   cairo_new_path (renderer->cr);
@@ -616,7 +619,7 @@ draw_string(DiaRenderer *self,
                       text,
                       &extents);
 
-  y = pos->y; //??
+  y = pos->y; /* ?? */
 
   switch (alignment) {
   case ALIGN_LEFT:
@@ -670,10 +673,10 @@ draw_image(DiaRenderer *self,
           p2[2] = (guint8)((p1[0] * alpha) / 255);
           p2[3] = (guint8)alpha;
 #else
-          p2[0] = p1[2]; //b
-          p2[1] = p1[1]; //g
-          p2[2] = p1[0]; //r
-          p2[3] = p1[3]; //a
+          p2[0] = p1[2]; /* b */
+          p2[1] = p1[1]; /* g */
+          p2[2] = p1[0]; /* r */
+          p2[3] = p1[3]; /* a */
 #endif
           p1+=4;
           p2+=4;
@@ -910,7 +913,7 @@ export_data(DiagramData *data, const gchar *filename,
   }
 
   renderer = g_object_new (DIA_CAIRO_TYPE_RENDERER, NULL);
-  renderer->dia = data; //FIXME: not sure if this a good idea
+  renderer->dia = data; /* FIXME: not sure if this a good idea */
 
   switch (kind) {
 #ifdef CAIRO_HAS_PS_SURFACE
@@ -920,8 +923,8 @@ export_data(DiagramData *data, const gchar *filename,
     renderer->scale = data->paper.scaling;
     DIAG_NOTE(g_message ("PS Surface %dx%d\n", (int)width, (int)height)); 
     renderer->surface = cairo_ps_surface_create (file,
-                                                 width, height, // inches
-                                                 75, 75); // pixels per inch
+                                                 width, height, /*  inches */
+                                                 75, 75); /* pixels per inch */
     break;
 #endif  
 #ifdef CAIRO_HAS_PNG_SURFACE

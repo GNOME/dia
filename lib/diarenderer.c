@@ -1242,9 +1242,9 @@ draw_arc_with_arrows (DiaRenderer *renderer,
     return;
   }
   width = 2*distance_point_point(&center, startpoint);
-  angle1 = -atan2(startpoint->y-center.y, startpoint->x-center.x)*180.0/M_PI;
+  angle1 = -atan2(startpoint->y-center.y, startpoint->x-center.x)*180.0/G_PI;
   while (angle1 < 0.0) angle1 += 360.0;
-  angle2 = -atan2(endpoint->y-center.y, endpoint->x-center.x)*180.0/M_PI;
+  angle2 = -atan2(endpoint->y-center.y, endpoint->x-center.x)*180.0/G_PI;
   while (angle2 < 0.0) angle2 += 360.0;
   if (righthand) {
     real tmp = angle1;

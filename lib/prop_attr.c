@@ -439,7 +439,8 @@ fontprop_set_from_offset(FontProperty *prop,
                          void *base, guint offset, guint offset2)
 {
   if (prop->font_data) {
-    dia_font_unref(struct_member(base,offset,DiaFont *));   
+    if (struct_member(base,offset,DiaFont *))
+      dia_font_unref(struct_member(base,offset,DiaFont *));   
     struct_member(base,offset,DiaFont *) = dia_font_ref(prop->font_data);
   }
 }

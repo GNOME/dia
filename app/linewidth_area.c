@@ -197,8 +197,6 @@ linewidth_area_create (void)
 		    G_CALLBACK(linewidth_area_events),
 		      NULL);
 
-  //  attributes_set_default_linewidth(BASE_WIDTH*active_linewidth);
-
   linewidth_area_widget = linewidth_area;
 
   gtk_container_add(GTK_CONTAINER(event_box), linewidth_area);

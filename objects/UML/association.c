@@ -815,9 +815,9 @@ association_copy(Association *assoc)
   for (i=0;i<2;i++) {
     newassoc->end[i] = assoc->end[i];
     newassoc->end[i].role =
-      (assoc->end[i].role != NULL)?strdup(assoc->end[i].role):NULL;
+      (assoc->end[i].role != NULL)?g_strdup(assoc->end[i].role):NULL;
     newassoc->end[i].multiplicity =
-      (assoc->end[i].multiplicity != NULL)?strdup(assoc->end[i].multiplicity):NULL;
+      (assoc->end[i].multiplicity != NULL)?g_strdup(assoc->end[i].multiplicity):NULL;
   }
 
   newassoc->text_width = assoc->text_width;

@@ -72,7 +72,7 @@ struct menudesc arrow_types[] =
    {N_("Backslash"),ARROW_BACKSLASH},
    {NULL,0}};
 
-///////////// prototypes //////////////
+/**** prototypes ****/
 static void 
 draw_empty_ellipse(DiaRenderer *renderer, Point *to, Point *from,
 		  real length, real width, real linewidth,
@@ -88,8 +88,6 @@ draw_crow_foot(DiaRenderer *renderer, Point *to, Point *from,
 static void
 calculate_diamond(Point *poly/*[4]*/, Point *to, Point *from,
 		  real length, real width);
-
-////////////////////////////////
 
 static void
 calculate_arrow(Point *poly/*[3]*/, Point *to, Point *from,
@@ -152,7 +150,7 @@ calculate_arrow_point(const Arrow *arrow, const Point *to, const Point *from,
   case ARROW_DOUBLE_HOLLOW_TRIANGLE:
     if (arrow->width < 0.0000001) return;
     angle = atan(arrow->length/(arrow->width/2));
-    if (angle < 75*2*M_PI/360.0) {
+    if (angle < 75*2*G_PI/360.0) {
       add_len = .5*linewidth/cos(angle);
     } else {
       add_len = 0;
@@ -166,7 +164,7 @@ calculate_arrow_point(const Arrow *arrow, const Point *to, const Point *from,
   case ARROW_HALF_HEAD:
     if (arrow->width < 0.0000001) return;
     angle = atan(arrow->length/(arrow->width/2));
-    if (angle < 60*2*M_PI/360.0) {
+    if (angle < 60*2*G_PI/360.0) {
       add_len = linewidth/cos(angle);
     } else {
       add_len = 0;
@@ -237,7 +235,7 @@ calculate_arrow_point(const Arrow *arrow, const Point *to, const Point *from,
     /* Set the length to arrow_length - \/2*linewidth */
     tmp = *move_line;
     point_scale(move_line, arrow->length);
-    point_scale(&tmp, M_SQRT2*linewidth);
+    point_scale(&tmp, G_SQRT2*linewidth);
     point_sub(move_line, &tmp);
     return;
   case ARROW_DIMENSION_ORIGIN:
@@ -328,8 +326,9 @@ calculate_crow(Point *poly/*[3]*/, Point *to, Point *from,
   point_add(&poly[2], &orth_delta);
 }
 
-// ER arrow for 0..N according to Modern database management,
-// McFadden/Hoffer/Prescott, Addison-Wessley, 1999
+/* ER arrow for 0..N according to Modern database management,
+ * McFadden/Hoffer/Prescott, Addison-Wessley, 1999
+ */
 static void 
 draw_none_or_many(DiaRenderer *renderer, Point *to, Point *from,
 		  real length, real width, real linewidth,
@@ -341,7 +340,7 @@ draw_none_or_many(DiaRenderer *renderer, Point *to, Point *from,
 		 linewidth, fg_color, bg_color);
 
   calculate_double_arrow(&second_to, &second_from, to, from, length);
-  // use the middle of the arrow 
+  /* use the middle of the arrow */
 
   DIA_RENDERER_GET_CLASS(renderer)->set_linewidth(renderer, linewidth);
   DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID);
@@ -352,8 +351,9 @@ draw_none_or_many(DiaRenderer *renderer, Point *to, Point *from,
 		     width, linewidth, fg_color);
 }
 
-// ER arrow for exactly-one relations according to Modern database management,
-// McFadden/Hoffer/Prescott, Addison-Wessley, 1999
+/* ER arrow for exactly-one relations according to Modern database management,
+ * McFadden/Hoffer/Prescott, Addison-Wessley, 1999
+ */
 static void 
 draw_one_exaclty(DiaRenderer *renderer, Point *to, Point *from,
 		  real length, real width, real linewidth,
@@ -362,7 +362,7 @@ draw_one_exaclty(DiaRenderer *renderer, Point *to, Point *from,
   Point vl,vt;
   Point bs,be;
 
-  // the first line
+  /* the first line */
   point_copy(&vl,from); point_sub(&vl,to);
   if (point_len(&vl) > 0)
     point_normalize(&vl);
@@ -387,8 +387,9 @@ draw_one_exaclty(DiaRenderer *renderer, Point *to, Point *from,
   DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer,&bs,&be,fg_color);
 }
 
-// ER arrow for 1..N according to Modern database management,
-// McFadden/Hoffer/Prescott, Addison-Wessley, 1999
+/* ER arrow for 1..N according to Modern database management,
+ * McFadden/Hoffer/Prescott, Addison-Wessley, 1999
+ */
 static void 
 draw_one_or_many(DiaRenderer *renderer, Point *to, Point *from,
 		 real length, real width, real linewidth,
@@ -410,8 +411,9 @@ draw_one_or_many(DiaRenderer *renderer, Point *to, Point *from,
   DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer, &poly[0],&poly[2], fg_color);
 }
 
-// ER arrow for 0,1 according to Modern database management,
-// McFadden/Hoffer/Prescott, Addison-Wessley, 1999
+/* ER arrow for 0,1 according to Modern database management,
+ * McFadden/Hoffer/Prescott, Addison-Wessley, 1999
+ */
 static void 
 draw_one_or_none(DiaRenderer *renderer, Point *to, Point *from,
 		  real length, real width, real linewidth,
@@ -421,7 +423,7 @@ draw_one_or_none(DiaRenderer *renderer, Point *to, Point *from,
   Point bs,be;
   Point second_from, second_to;
   
-  // the  line
+  /* the  line */
   point_copy(&vl,from); point_sub(&vl,to);
   if (point_len(&vl) > 0)
     point_normalize(&vl);
@@ -437,7 +439,7 @@ draw_one_or_none(DiaRenderer *renderer, Point *to, Point *from,
   point_add_scaled(&bs,&vt,width/2.0);
 
   DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer,&bs,&be,fg_color);
-  // the ellipse
+  /* the ellipse */
   calculate_double_arrow(&second_to, &second_from, to, from, length);
   draw_empty_ellipse(renderer, &second_to, &second_from, length/2, width, linewidth, fg_color); 
 }

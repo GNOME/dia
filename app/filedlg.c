@@ -78,10 +78,11 @@ set_true_callback(GtkWidget *w, int *data)
 static void
 toggle_compress_callback(GtkWidget *w, gpointer data)
 {
-  // Changes prefs exactly when the user toggles the setting, i.e.
-  // the setting really remembers what the user chose last time, but
-  // lets diagrams of the opposite kind stay that way unless the user
-  // intervenes.
+  /* Changes prefs exactly when the user toggles the setting, i.e.
+      * the setting really remembers what the user chose last time, but
+     * lets diagrams of the opposite kind stay that way unless the user
+     * intervenes.
+     */
   prefs.new_diagram.compress_save =
     gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(compressbutton));
 }

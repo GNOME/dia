@@ -231,7 +231,6 @@ get_plugin_manager(void)
                               G_TYPE_POINTER);
   tree_view = gtk_tree_view_new_with_model (GTK_TREE_MODEL (store));
   gtk_tree_view_set_rules_hint (GTK_TREE_VIEW (tree_view), TRUE);
-  //gtk_tree_selection_set_select_function (gtk_tree_view_get_selection (GTK_TREE_VIEW (tree_view)), select_func, NULL, NULL);
 
   /* fill list */
   for (tmp = dia_list_plugins(); tmp != NULL; tmp = tmp->next) {
