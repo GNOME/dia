@@ -690,6 +690,40 @@ fill_bezier(RendererGPrint *renderer,
   gnome_print_fill(renderer->ctx);
 }
 
+static double
+get_width_string (const GnomeFont *font, const utfchar *text)
+{
+	wchar_t *wcs, wcbuf[4000];
+	size_t conv_status, i;
+	double total = 0;
+	int n;
+	gchar *mbstr;
+
+	mbstr = charconv_utf8_to_local8 (text);
+	n = strlen (mbstr);
+	if (n > sizeof (wcbuf) / sizeof (wcbuf[0]))
+		wcs = g_new (wchar_t, n);
+	else
+		wcs = wcbuf;
+
+	conv_status = mbstowcs (wcs, mbstr, n);
+	g_free (mbstr);
+	if (conv_status == (size_t)(-1)) {
+		if (wcs != wcbuf)
+			g_free (wcs);
+		return 0;
+	}
+	for (i = 0; i < conv_status; i++) {
+		total += gnome_font_get_glyph_width (font,
+						     gnome_font_lookup_default (font, wcs[i]));
+	}
+
+	if (wcs != wcbuf)
+		g_free (wcs);
+
+	return total;
+}
+
 static void
 draw_string(RendererGPrint *renderer,
 	    const utfchar *text,
@@ -705,12 +739,12 @@ draw_string(RendererGPrint *renderer,
     break;
   case ALIGN_CENTER:
     gnome_print_moveto(renderer->ctx, pos->x -
-		       gnome_font_get_width_string(renderer->font, text) / 2,
+		       get_width_string (renderer->font, text) / 2,
 		       pos->y);
     break;
   case ALIGN_RIGHT:
     gnome_print_moveto(renderer->ctx, pos->x -
-		       gnome_font_get_width_string(renderer->font, text),
+		       get_width_string (renderer->font, text),
 		       pos->y);
     break;
   }

@@ -1,3 +1,8 @@
+2002-02-20  Akira TAGOH  <tagoh@redhat.com>
+
+	* app/render_gnomeprint.c (get_width_string): add new function.
+	(draw_string): fix non-multibyte specific code.
+
 2002-02-19  Cyrille Chepelov  <cyrille@chepelov.org>
 
 	Patch contributed by Matthieu Sozeau <mattam@netcourrier.com>:
