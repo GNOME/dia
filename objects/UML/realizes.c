@@ -44,6 +44,9 @@ struct _Realizes {
   Point text_pos;
   Alignment text_align;
   real text_width;
+
+  Color text_color;
+  Color line_color;
   
   char *name;
   char *stereotype; /* excluding << and >> */
@@ -121,6 +124,8 @@ static ObjectOps realizes_ops = {
 
 static PropDescription realizes_props[] = {
   ORTHCONN_COMMON_PROPERTIES,
+  PROP_STD_LINE_COLOUR_OPTIONAL, 
+  PROP_STD_TEXT_COLOUR_OPTIONAL, 
   { "name", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
     N_("Name:"), NULL, NULL },
   { "stereotype", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
@@ -139,6 +144,8 @@ realizes_describe_props(Realizes *realizes)
 
 static PropOffset realizes_offsets[] = {
   ORTHCONN_COMMON_PROPERTIES_OFFSETS,
+  { "line_colour", PROP_TYPE_COLOUR, offsetof(Realizes, line_color) },
+  { "text_colour", PROP_TYPE_COLOUR, offsetof(Realizes, text_color) },
   { "name", PROP_TYPE_STRING, offsetof(Realizes, name) },
   { "stereotype", PROP_TYPE_STRING, offsetof(Realizes, stereotype) },
   { NULL, 0, 0 }
@@ -225,7 +232,7 @@ realizes_draw(Realizes *realize, DiaRenderer *renderer)
   arrow.length = REALIZES_TRIANGLESIZE;
   renderer_ops->draw_polyline_with_arrows(renderer, points, n,
 					   REALIZES_WIDTH,
-					   &color_black,
+					   &realize->line_color,
 					   &arrow, NULL);
 
   renderer_ops->set_font(renderer, realize_font, REALIZES_FONTHEIGHT);
@@ -235,7 +242,7 @@ realizes_draw(Realizes *realize, DiaRenderer *renderer)
     renderer_ops->draw_string(renderer,
 			       realize->st_stereotype,
 			       &pos, realize->text_align,
-			       &color_black);
+			       &realize->text_color);
 
     pos.y += REALIZES_FONTHEIGHT;
   }
@@ -244,7 +251,7 @@ realizes_draw(Realizes *realize, DiaRenderer *renderer)
     renderer_ops->draw_string(renderer,
 			       realize->name,
 			       &pos, realize->text_align,
-			       &color_black);
+			       &realize->text_color);
   }
   
 }
@@ -400,7 +407,10 @@ realizes_create(Point *startpoint,
   obj->ops = &realizes_ops;
 
   orthconn_init(orth, startpoint);
-  
+
+  realize->text_color = color_black;
+  realize->line_color = attributes_get_foreground();
+
   realize->name = NULL;
   realize->stereotype = NULL;
   realize->st_stereotype = NULL;

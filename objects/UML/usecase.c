@@ -47,6 +47,9 @@ struct _Usecase {
   int text_outside;
   int collaboration;
   TextAttributes attrs;
+
+  Color line_color;
+  Color fill_color;
 };
 
 
@@ -121,13 +124,15 @@ static ObjectOps usecase_ops = {
 
 static PropDescription usecase_props[] = {
   ELEMENT_COMMON_PROPERTIES,
+  PROP_STD_LINE_COLOUR_OPTIONAL, 
+  PROP_STD_FILL_COLOUR_OPTIONAL, 
   { "text_outside", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE,
   N_("Text outside"), NULL, NULL },
   { "collaboration", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE,
   N_("Collaboration"), NULL, NULL },
   PROP_STD_TEXT_FONT,
   PROP_STD_TEXT_HEIGHT,
-  PROP_STD_TEXT_COLOUR,
+  PROP_STD_TEXT_COLOUR_OPTIONAL,
   { "text", PROP_TYPE_TEXT, 0, N_("Text"), NULL, NULL }, 
   
   PROP_DESC_END
@@ -144,6 +149,8 @@ usecase_describe_props(Usecase *usecase)
 
 static PropOffset usecase_offsets[] = {
   ELEMENT_COMMON_PROPERTIES_OFFSETS,
+  {"line_colour", PROP_TYPE_COLOUR, offsetof(Usecase, line_color) },
+  {"fill_colour", PROP_TYPE_COLOUR, offsetof(Usecase, fill_color) },
   {"text_outside", PROP_TYPE_BOOL, offsetof(Usecase, text_outside) },
   {"collaboration", PROP_TYPE_BOOL, offsetof(Usecase, collaboration) },
   {"text",PROP_TYPE_TEXT,offsetof(Usecase,text)},
@@ -262,11 +269,11 @@ usecase_draw(Usecase *usecase, DiaRenderer *renderer)
   renderer_ops->fill_ellipse(renderer, 
 			     &c,
 			     w, h,
-			     &color_white);
+			     &usecase->fill_color);
   renderer_ops->draw_ellipse(renderer, 
 			     &c,
 			     w, h,
-			     &color_black);  
+			     &usecase->line_color);  
   
   text_draw(usecase->text, renderer);
 }
@@ -400,6 +407,9 @@ usecase_create(Point *startpoint,
   elem->corner = *startpoint;
   elem->width = USECASE_WIDTH;
   elem->height = USECASE_HEIGHT;
+
+  usecase->line_color = attributes_get_foreground();
+  usecase->fill_color = attributes_get_background();
 
   font = dia_font_new_from_style(DIA_FONT_SANS, 0.8);
   p = *startpoint;

@@ -25,6 +25,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h> /* strlen */
+#include <time.h>
 
 #include <pango/pango.h>
 #ifdef HAVE_FREETYPE

@@ -50,6 +50,10 @@ struct _Objet {
   char *exstate;  /* used for explicit state */
   Text *attributes;
 
+  Color text_color;
+  Color line_color;
+  Color fill_color;
+
   Point ex_pos, st_pos;
   int is_active;
   int show_attributes;
@@ -135,10 +139,9 @@ static ObjectOps objet_ops = {
 
 static PropDescription objet_props[] = {
   ELEMENT_COMMON_PROPERTIES,
-  /*PROP_STD_TEXT_ALIGNMENT,
-  PROP_STD_TEXT_FONT,
-  PROP_STD_TEXT_HEIGHT,
-  PROP_STD_TEXT_COLOUR,*/
+  PROP_STD_TEXT_COLOUR_OPTIONAL,
+  PROP_STD_LINE_COLOUR_OPTIONAL, 
+  PROP_STD_FILL_COLOUR_OPTIONAL, 
   { "text", PROP_TYPE_TEXT, 0, N_("Text"), NULL, NULL },
   { "stereotype", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
     N_("Stereotype"), NULL, NULL },
@@ -153,7 +156,7 @@ static PropDescription objet_props[] = {
     N_("Show attributes"),NULL,NULL}, 
   { "multiple", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE,
     N_("Multiple instance"),NULL,NULL}, 
-  { NULL, 0, 0, NULL, NULL, NULL, 0}
+  PROP_DESC_END
 };
 
 static PropDescription *
@@ -167,6 +170,9 @@ objet_describe_props(Objet *ob)
 
 static PropOffset objet_offsets[] = {
   ELEMENT_COMMON_PROPERTIES_OFFSETS,
+  { "text_colour",PROP_TYPE_COLOUR,offsetof(Objet, text_color) },
+  { "line_colour",PROP_TYPE_COLOUR,offsetof(Objet, line_color) },
+  { "fill_colour",PROP_TYPE_COLOUR,offsetof(Objet, fill_color) },
   { "name", PROP_TYPE_STRING, offsetof(Objet, exstate) },
   { "stereotype", PROP_TYPE_STRING, offsetof(Objet, stereotype) },
   { "text", PROP_TYPE_TEXT, offsetof(Objet, text) },
@@ -273,10 +279,10 @@ objet_draw(Objet *ob, DiaRenderer *renderer)
     p2.y -= OBJET_MARGIN_M;
     renderer_ops->fill_rect(renderer, 
 			     &p1, &p2,
-			     &color_white); 
+			     &ob->fill_color);
     renderer_ops->draw_rect(renderer, 
 			     &p1, &p2,
-			     &color_black);
+			     &ob->line_color);
     p1.x -= OBJET_MARGIN_M;
     p1.y += OBJET_MARGIN_M;
     p2.x -= OBJET_MARGIN_M;
@@ -286,10 +292,10 @@ objet_draw(Objet *ob, DiaRenderer *renderer)
     
   renderer_ops->fill_rect(renderer, 
 			   &p1, &p2,
-			   &color_white);
+			   &ob->fill_color);
   renderer_ops->draw_rect(renderer, 
 			   &p1, &p2,
-			   &color_black);
+			   &ob->line_color);
 
   
   text_draw(ob->text, renderer);
@@ -298,14 +304,14 @@ objet_draw(Objet *ob, DiaRenderer *renderer)
       renderer_ops->draw_string(renderer,
 				 ob->st_stereotype,
 				 &ob->st_pos, ALIGN_CENTER,
-				 &color_black);
+				 &ob->text_color);
   }
 
   if ((ob->exstate != NULL) && (ob->exstate[0] != '\0')) {
       renderer_ops->draw_string(renderer,
 				 ob->exstate,
 				 &ob->ex_pos, ALIGN_CENTER,
-				 &color_black);
+				 &ob->text_color);
   }
 
   /* Is there a better way to underline? */
@@ -321,7 +327,7 @@ objet_draw(Objet *ob, DiaRenderer *renderer)
     p2.x = p1.x + ob->text->row_width[i];
     renderer_ops->draw_line(renderer,
 			     &p1, &p2,
-			     &color_black);
+			     &ob->text_color);
     p1.y = p2.y += ob->text->height;
   }
 
@@ -332,7 +338,7 @@ objet_draw(Objet *ob, DiaRenderer *renderer)
       renderer_ops->set_linewidth(renderer, bw);
       renderer_ops->draw_line(renderer,
 			       &p1, &p2,
-			       &color_black);
+			       &ob->line_color);
 
       text_draw(ob->attributes, renderer);
   }
@@ -459,6 +465,10 @@ objet_create(Point *startpoint,
   obj->ops = &objet_ops;
 
   elem->corner = *startpoint;
+
+  ob->text_color = color_black;
+  ob->line_color = attributes_get_foreground();
+  ob->fill_color = attributes_get_background();
 
   font = dia_font_new_from_style(DIA_FONT_SANS, OBJET_FONTHEIGHT);
   

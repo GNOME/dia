@@ -34,6 +34,7 @@
 #include "handle.h"
 #include "arrows.h"
 #include "properties.h"
+#include "attributes.h"
 
 #include "pixmaps/message.xpm"
 
@@ -60,6 +61,9 @@ struct _Message {
   Point text_pos;
   real text_width;
     
+  Color text_color;
+  Color line_color;
+
   MessageType type;
 };
 
@@ -140,6 +144,8 @@ static PropEnumData prop_message_type_data[] = {
 
 static PropDescription message_props[] = {
   CONNECTION_COMMON_PROPERTIES,
+  PROP_STD_TEXT_COLOUR_OPTIONAL,
+  PROP_STD_LINE_COLOUR_OPTIONAL, 
   { "text", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
     N_("Message:"), NULL, NULL },  
   { "type", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE,
@@ -160,6 +166,8 @@ message_describe_props(Message *mes)
 
 static PropOffset message_offsets[] = {
   CONNECTION_COMMON_PROPERTIES_OFFSETS,
+  { "line_colour",PROP_TYPE_COLOUR,offsetof(Message,line_color) },
+  { "text_colour",PROP_TYPE_COLOUR,offsetof(Message,text_color) },
   { "text", PROP_TYPE_STRING, offsetof(Message, text) },
   { "type", PROP_TYPE_ENUM, offsetof(Message, type) },
   { "text_pos", PROP_TYPE_POINT, offsetof(Message,text_pos) }, 
@@ -303,18 +311,18 @@ message_draw(Message *message, DiaRenderer *renderer)
       px.y = p1.y;
       renderer_ops->draw_line(renderer,
 			       &p1, &px,
-			       &color_black);
+			       &message->line_color);
 
       renderer_ops->draw_line(renderer,
 			   &px, &p2,
-			   &color_black);
+			   &message->line_color);
       p1.y = p2.y;
   } 
 
   renderer_ops->draw_line_with_arrows(renderer,
 				       &p1, &p2,
 				       MESSAGE_WIDTH,
-				       &color_black,
+				       &message->line_color,
 				       &arrow, NULL); 
 
   renderer_ops->set_font(renderer, message_font,
@@ -331,7 +339,7 @@ message_draw(Message *message, DiaRenderer *renderer)
       renderer_ops->draw_string(renderer,
 				 mname, /*message->text,*/
 				 &message->text_pos, ALIGN_CENTER,
-				 &color_black);
+				 &message->text_color);
   if (message->type == MESSAGE_CREATE || message->type == MESSAGE_DESTROY)
   {
 	  g_free(mname);
@@ -371,6 +379,8 @@ message_create(Point *startpoint,
   
   connection_init(conn, 3, 0);
 
+  message->text_color = color_black;
+  message->line_color = attributes_get_foreground();
   message->text = g_strdup("");
   message->text_width = 0.0;
   message->text_pos.x = 0.5*(conn->endpoints[0].x + conn->endpoints[1].x);

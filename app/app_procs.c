@@ -39,10 +39,14 @@
 
 #ifdef GNOME
 #include <gnome.h>
-#else
-#ifdef HAVE_POPT_H
-#include <popt.h>
-#endif
+#else 
+#  ifdef HAVE_POPT_H
+#    include <popt.h>
+#  else
+/* sorry about the mess, but one should not use conditional defined types in 
+ * unconditional function call in the first place ... --hb */
+typedef void* poptContext;
+#  endif
 #endif
 
 #include <libxml/parser.h>
@@ -382,8 +386,14 @@ app_init (int argc, char **argv)
 #endif
   textdomain(GETTEXT_PACKAGE);
 
-  process_opts(argc, argv, poptCtx, options, &files,
-	       &export_file_name, &export_file_format, &size);
+  process_opts(argc, argv, 
+#ifdef HAVE_POPT
+               poptCtx, options, 
+#else
+               NULL, NULL,
+#endif
+               &files,
+	     &export_file_name, &export_file_format, &size);
   if (argv) {
 #ifdef GNOME
     GnomeProgram *program =
@@ -434,7 +444,8 @@ app_init (int argc, char **argv)
 
   stdprops_init();
 
-  dia_image_init();
+  if (dia_is_interactive)
+    dia_image_init();
 
   gdk_rgb_init();
 
@@ -445,10 +456,9 @@ app_init (int argc, char **argv)
 
   create_user_dirs();
 
-  color_init();
-
   /* Init cursors: */
   if (dia_is_interactive) {
+    color_init();
     default_cursor = gdk_cursor_new(GDK_LEFT_PTR);
     ddisplay_set_all_cursor(default_cursor);
   }

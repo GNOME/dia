@@ -47,6 +47,9 @@ struct _Node
   ConnectionPoint connections[8];
   Text *name;
   TextAttributes attrs;
+
+  Color line_color;
+  Color fill_color;
 };
 
 static const double NODE_BORDERWIDTH = 0.1;
@@ -114,9 +117,11 @@ static ObjectOps node_ops =
 
 static PropDescription node_props[] = {
   ELEMENT_COMMON_PROPERTIES,
+  PROP_STD_LINE_COLOUR_OPTIONAL, 
+  PROP_STD_FILL_COLOUR_OPTIONAL, 
   PROP_STD_TEXT_FONT,
   PROP_STD_TEXT_HEIGHT,
-  PROP_STD_TEXT_COLOUR,
+  PROP_STD_TEXT_COLOUR_OPTIONAL,
   { "name", PROP_TYPE_TEXT, 0, N_("Text"), NULL, NULL }, 
   
   PROP_DESC_END
@@ -134,6 +139,8 @@ node_describe_props(Node *node)
 
 static PropOffset node_offsets[] = {
   ELEMENT_COMMON_PROPERTIES_OFFSETS,
+  {"line_colour",PROP_TYPE_COLOUR,offsetof(Node,line_color)},
+  {"fill_colour",PROP_TYPE_COLOUR,offsetof(Node,fill_color)},
   {"name",PROP_TYPE_TEXT,offsetof(Node,name)},
   {"text_font",PROP_TYPE_FONT,offsetof(Node,attrs.font)},
   {"text_height",PROP_TYPE_REAL,offsetof(Node,attrs.height)},
@@ -234,23 +241,23 @@ static void node_draw(Node *node, DiaRenderer *renderer)
   points[0].x = x;     points[0].y = y;
   points[1].x = x + w; points[1].y = y + h;
 
-  renderer_ops->fill_rect(renderer, points, points + 1, &color_white);
-  renderer_ops->draw_rect(renderer, points, points + 1, &color_black);
+  renderer_ops->fill_rect(renderer, points, points + 1, &node->fill_color);
+  renderer_ops->draw_rect(renderer, points, points + 1, &node->line_color);
 
   points[1].x = x + NODE_DEPTH, points[1].y = y - NODE_DEPTH;
   points[2].x = x + w + NODE_DEPTH, points[2].y = y - NODE_DEPTH;
   points[3].x = x + w, points[3].y = y;
 
-  renderer_ops->fill_polygon(renderer, points, 4, &color_white);
-  renderer_ops->draw_polygon(renderer, points, 4, &color_black);
+  renderer_ops->fill_polygon(renderer, points, 4, &node->fill_color);
+  renderer_ops->draw_polygon(renderer, points, 4, &node->line_color);
 
   points[0].x = points[3].x, points[0].y = points[3].y;
   points[1].x = points[0].x + NODE_DEPTH, points[1].y = points[0].y - NODE_DEPTH;
   points[2].x = points[0].x + NODE_DEPTH, points[2].y = points[0].y - NODE_DEPTH + h;
   points[3].x = points[0].x, points[3].y = points[0].y + h;
 
-  renderer_ops->fill_polygon(renderer, points, 4, &color_white);
-  renderer_ops->draw_polygon(renderer, points, 4, &color_black);
+  renderer_ops->fill_polygon(renderer, points, 4, &node->fill_color);
+  renderer_ops->draw_polygon(renderer, points, 4, &node->line_color);
 
   text_draw(node->name, renderer);
   
@@ -341,6 +348,9 @@ static Object *node_create(Point *startpoint, void *user_data, Handle **handle1,
   obj->ops = &node_ops;
 
   elem->corner = *startpoint;
+
+  node->line_color = attributes_get_foreground();
+  node->fill_color = attributes_get_background();
 
   font = dia_font_new_from_style (DIA_FONT_SANS, 0.8);
   /* The text position is recalculated later */

@@ -300,6 +300,7 @@ struct _Property {
 #define PXP_SAVED            0x00000040
 #define PXP_GFO              0x00000080
 #define PXP_SFO              0x00000100
+#define PXP_NOTSET           0x00000200
 #define PXP_SHAMELESS        0xFFFFFFFF
 
 /* ***************************************************************** */
@@ -478,12 +479,18 @@ extern PropEnumData prop_std_text_align_data[];
 #define PROP_STD_LINE_COLOUR \
   { "line_colour", PROP_TYPE_COLOUR, PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD, \
     N_("Line colour"), NULL, NULL }
+#define PROP_STD_LINE_COLOUR_OPTIONAL \
+  { "line_colour", PROP_TYPE_COLOUR, PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD|PROP_FLAG_OPTIONAL, \
+    N_("Line colour"), NULL, NULL }
 #define PROP_STD_LINE_STYLE \
   { "line_style", PROP_TYPE_LINESTYLE, PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD, \
     N_("Line style"), NULL, NULL }
 
 #define PROP_STD_FILL_COLOUR \
   { "fill_colour", PROP_TYPE_COLOUR, PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD, \
+    N_("Fill colour"), NULL, NULL }
+#define PROP_STD_FILL_COLOUR_OPTIONAL \
+  { "fill_colour", PROP_TYPE_COLOUR, PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD|PROP_FLAG_OPTIONAL, \
     N_("Fill colour"), NULL, NULL }
 #define PROP_STD_SHOW_BACKGROUND \
   { "show_background", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE, \
@@ -513,6 +520,9 @@ extern PropEnumData prop_std_text_align_data[];
     N_("Font size"), NULL, &prop_std_text_height_data }
 #define PROP_STD_TEXT_COLOUR \
   { "text_colour", PROP_TYPE_COLOUR, PROP_FLAG_VISIBLE|PROP_FLAG_DONT_SAVE|PROP_FLAG_STANDARD, \
+    N_("Text colour"), NULL, NULL }
+#define PROP_STD_TEXT_COLOUR_OPTIONAL \
+  { "text_colour", PROP_TYPE_COLOUR, PROP_FLAG_VISIBLE|PROP_FLAG_DONT_SAVE|PROP_FLAG_STANDARD|PROP_FLAG_OPTIONAL, \
     N_("Text colour"), NULL, NULL }
 
 /* Convenience macros */

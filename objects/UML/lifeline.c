@@ -32,6 +32,7 @@
 #include "handle.h"
 #include "properties.h"
 #include "connpoint_line.h"
+#include "attributes.h"
 
 #include "pixmaps/lifeline.xpm"
 
@@ -51,6 +52,9 @@ struct _Lifeline {
   int draw_focuscontrol;
   int draw_cross;
   
+  Color line_color;
+  Color fill_color;
+
   ConnPointLine *northwest,*southwest,*northeast,*southeast;
 
   /* we're (almost) obliged to do this stupid gymnastic with twin 
@@ -132,6 +136,8 @@ static ObjectOps lifeline_ops = {
 
 static PropDescription lifeline_props[] = {
   CONNECTION_COMMON_PROPERTIES,
+  PROP_STD_LINE_COLOUR_OPTIONAL, 
+  PROP_STD_FILL_COLOUR_OPTIONAL, 
   { "rtop", PROP_TYPE_REAL, 0, NULL,NULL,NULL},
   { "rbot", PROP_TYPE_REAL, 0, NULL,NULL,NULL},
   { "draw_focus", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE,
@@ -155,6 +161,8 @@ lifeline_describe_props(Lifeline *lifeline)
 
 static PropOffset lifeline_offsets[] = {
   CONNECTION_COMMON_PROPERTIES_OFFSETS,
+  { "line_colour",PROP_TYPE_COLOUR,offsetof(Lifeline,line_color)},
+  { "fill_colour",PROP_TYPE_COLOUR,offsetof(Lifeline,fill_color)},
   { "draw_focus", PROP_TYPE_BOOL, offsetof(Lifeline, draw_focuscontrol) },
   { "draw_cross", PROP_TYPE_BOOL, offsetof(Lifeline, draw_cross) },
   { "rtop", PROP_TYPE_REAL, offsetof(Lifeline, rtop) },
@@ -293,7 +301,7 @@ lifeline_draw(Lifeline *lifeline, DiaRenderer *renderer)
 
   renderer_ops->draw_line(renderer,
 			   &endpoints[0], &endpoints[1],
-			   &color_black);
+			   &lifeline->line_color);
 
 
   renderer_ops->set_linewidth(renderer, LIFELINE_BOXWIDTH);
@@ -307,11 +315,11 @@ lifeline_draw(Lifeline *lifeline, DiaRenderer *renderer)
   if (lifeline->draw_focuscontrol) {  
       renderer_ops->fill_rect(renderer, 
 			       &p1, &p2,
-			       &color_white);
+			       &lifeline->fill_color);
   
       renderer_ops->draw_rect(renderer, 
 			       &p1, &p2,
-			       &color_black);
+			       &lifeline->line_color);
   }
     
   if (lifeline->draw_cross) {      
@@ -322,12 +330,12 @@ lifeline_draw(Lifeline *lifeline, DiaRenderer *renderer)
       p2.y = endpoints[1].y - LIFELINE_CROSSLEN;
       renderer_ops->draw_line(renderer,
 			       &p1, &p2,
-			       &color_black);
+			       &lifeline->line_color);
       p1.y = p2.y;
       p2.y = endpoints[1].y + LIFELINE_CROSSLEN;
       renderer_ops->draw_line(renderer,
 			       &p1, &p2,
-			       &color_black);
+			       &lifeline->line_color);
       
   }
 }
@@ -459,6 +467,9 @@ lifeline_create(Point *startpoint,
   obj->ops = &lifeline_ops;
 
   connection_init(conn, 4, 6);
+
+  lifeline->line_color = attributes_get_foreground();
+  lifeline->fill_color = attributes_get_background();
 
   lifeline->rtop = LIFELINE_HEIGHT/3;
   lifeline->rbot = lifeline->rtop+0.7;

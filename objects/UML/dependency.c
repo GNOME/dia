@@ -47,6 +47,9 @@ struct _Dependency {
   Alignment text_align;
   real text_width;
   
+  Color text_color;
+  Color line_color;
+
   int draw_arrow;
   char *name;
   char *stereotype; /* excluding << and >> */
@@ -124,6 +127,8 @@ static ObjectOps dependency_ops = {
 
 static PropDescription dependency_props[] = {
   ORTHCONN_COMMON_PROPERTIES,
+  PROP_STD_TEXT_COLOUR_OPTIONAL,
+  PROP_STD_LINE_COLOUR_OPTIONAL, 
   { "name", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
     N_("Name:"), NULL, NULL },
   { "stereotype", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
@@ -144,6 +149,8 @@ dependency_describe_props(Dependency *dependency)
 
 static PropOffset dependency_offsets[] = {
   ORTHCONN_COMMON_PROPERTIES_OFFSETS,
+  { "text_colour", PROP_TYPE_COLOUR, offsetof(Dependency, text_color) },
+  { "line_colour", PROP_TYPE_COLOUR, offsetof(Dependency, line_color) },
   { "name", PROP_TYPE_STRING, offsetof(Dependency, name) },
   { "stereotype", PROP_TYPE_STRING, offsetof(Dependency, stereotype) },
   { "draw_arrow", PROP_TYPE_BOOL, offsetof(Dependency, draw_arrow) },
@@ -234,7 +241,7 @@ dependency_draw(Dependency *dep, DiaRenderer *renderer)
   renderer_ops->draw_polyline_with_arrows(renderer,
 					   points, n,
 					   DEPENDENCY_WIDTH,
-					   &color_black,
+					   &dep->line_color,
 					   NULL, &arrow);
 
   renderer_ops->set_font(renderer, dep_font, DEPENDENCY_FONTHEIGHT);
@@ -244,7 +251,7 @@ dependency_draw(Dependency *dep, DiaRenderer *renderer)
     renderer_ops->draw_string(renderer,
 			       dep->st_stereotype,
 			       &pos, dep->text_align,
-			       &color_black);
+			       &dep->text_color);
 
     pos.y += DEPENDENCY_FONTHEIGHT;
   }
@@ -253,7 +260,7 @@ dependency_draw(Dependency *dep, DiaRenderer *renderer)
     renderer_ops->draw_string(renderer,
 			       dep->name,
 			       &pos, dep->text_align,
-			       &color_black);
+			       &dep->line_color);
   }
   
 }
@@ -412,6 +419,8 @@ dependency_create(Point *startpoint,
 
   orthconn_init(orth, startpoint);
 
+  dep->text_color = color_black;
+  dep->line_color = attributes_get_foreground();
   dep->draw_arrow = TRUE;
   dep->name = NULL;
   dep->stereotype = NULL;

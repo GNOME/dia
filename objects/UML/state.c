@@ -54,6 +54,9 @@ struct _State {
   int state_type;
 
   TextAttributes attrs;
+
+  Color line_color;
+  Color fill_color;
 };
 
 
@@ -128,9 +131,11 @@ static PropDescription state_props[] = {
   { "type", PROP_TYPE_INT, PROP_FLAG_NO_DEFAULTS|PROP_FLAG_LOAD_ONLY,
     "hack", NULL, NULL },
   
+  PROP_STD_LINE_COLOUR_OPTIONAL, 
+  PROP_STD_FILL_COLOUR_OPTIONAL, 
   PROP_STD_TEXT_FONT,
   PROP_STD_TEXT_HEIGHT,
-  PROP_STD_TEXT_COLOUR,
+  PROP_STD_TEXT_COLOUR_OPTIONAL,
   { "text", PROP_TYPE_TEXT, 0, N_("Text"), NULL, NULL }, 
   
   PROP_DESC_END
@@ -147,6 +152,8 @@ state_describe_props(State *state)
 
 static PropOffset state_offsets[] = {
   ELEMENT_COMMON_PROPERTIES_OFFSETS,
+  {"line_colour",PROP_TYPE_COLOUR,offsetof(State,line_color)},
+  {"fill_colour",PROP_TYPE_COLOUR,offsetof(State,fill_color)},
   {"text",PROP_TYPE_TEXT,offsetof(State,text)},
   {"text_font",PROP_TYPE_FONT,offsetof(State,attrs.font)},
   {"text_height",PROP_TYPE_REAL,offsetof(State,attrs.height)},
@@ -246,25 +253,25 @@ state_draw(State *state, DiaRenderer *renderer)
 	  renderer_ops->fill_ellipse(renderer, 
 				      &p1,
 				      r, r,
-				      &color_white);
+				      &state->fill_color);
 	  
 	  renderer_ops->draw_ellipse(renderer, 
 				      &p1,
 				      r, r,
-				      &color_black);
+				      &state->line_color);
       }  
       r = STATE_RATIO;
       renderer_ops->fill_ellipse(renderer, 
 				  &p1,
 				  r, r,
-				  &color_black);
+				  &state->line_color);
   } else {
       p1.x = x;
       p1.y = y;
       p2.x = x + w;
       p2.y = y + h;
-      renderer_ops->fill_rounded_rect(renderer, &p1, &p2, &color_white, 0.5);
-      renderer_ops->draw_rounded_rect(renderer, &p1, &p2, &color_black, 0.5);
+      renderer_ops->fill_rounded_rect(renderer, &p1, &p2, &state->fill_color, 0.5);
+      renderer_ops->draw_rounded_rect(renderer, &p1, &p2, &state->line_color, 0.5);
       text_draw(state->text, renderer);
   }
 }
@@ -351,6 +358,9 @@ state_create(Point *startpoint,
   elem->width = STATE_WIDTH;
   elem->height = STATE_HEIGHT;
 
+  state->line_color = attributes_get_foreground();
+  state->fill_color = attributes_get_background();
+
   font = dia_font_new_from_style(DIA_FONT_SANS, 0.8);
   p = *startpoint;
   p.x += STATE_WIDTH/2.0;
@@ -401,5 +411,3 @@ state_load(ObjectNode obj_node, int version, const char *filename)
   }
   return (Object *)obj;
 }
-
-

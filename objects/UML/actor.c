@@ -41,6 +41,9 @@ struct _Actor {
 
   Text *text;
   TextAttributes attrs;
+
+  Color line_color;
+  Color fill_color;
 };
 
 #define ACTOR_WIDTH 2.2
@@ -111,7 +114,9 @@ static PropDescription actor_props[] = {
   ELEMENT_COMMON_PROPERTIES,
   PROP_STD_TEXT_FONT,
   PROP_STD_TEXT_HEIGHT,
-  PROP_STD_TEXT_COLOUR,
+  PROP_STD_TEXT_COLOUR_OPTIONAL,
+  PROP_STD_LINE_COLOUR_OPTIONAL, 
+  PROP_STD_FILL_COLOUR_OPTIONAL, 
   { "text", PROP_TYPE_TEXT, 0, N_("Text"), NULL, NULL }, 
   PROP_DESC_END
 };
@@ -131,6 +136,8 @@ static PropOffset actor_offsets[] = {
   {"text_font",PROP_TYPE_FONT,offsetof(Actor,attrs.font)},
   {"text_height",PROP_TYPE_REAL,offsetof(Actor,attrs.height)},
   {"text_colour",PROP_TYPE_COLOUR,offsetof(Actor,attrs.color)},
+  {"line_colour",PROP_TYPE_COLOUR,offsetof(Actor,line_color)},
+  {"fill_colour",PROP_TYPE_COLOUR,offsetof(Actor,fill_color)},
   { NULL, 0, 0 },
 };
 
@@ -229,11 +236,11 @@ actor_draw(Actor *actor, DiaRenderer *renderer)
   renderer_ops->fill_ellipse(renderer, 
 			     &ch,
 			     r, r,
-			     &color_white);
+			     &actor->fill_color);
   renderer_ops->draw_ellipse(renderer, 
 			     &ch,
 			     r, r,
-			     &color_black);  
+			     &actor->line_color);  
   
   /* Arms */
   p1.x = ch.x - r1;
@@ -241,25 +248,25 @@ actor_draw(Actor *actor, DiaRenderer *renderer)
   p1.y = p2.y = ch.y + r;
   renderer_ops->draw_line(renderer, 
 			   &p1, &p2,
-			   &color_black);
+			   &actor->line_color);
 
   p1.x = ch.x;
   p1.y = ch.y + r*0.5;
   /* body & legs  */
   renderer_ops->draw_line(renderer, 
 			   &p1, &cb,
-			   &color_black);
+			   &actor->line_color);
 
   p2.x = ch.x - r1;
   p2.y = y + ACTOR_BODY;
   renderer_ops->draw_line(renderer, 
 			   &cb, &p2,
-			   &color_black);
+			   &actor->line_color);
   
   p2.x =  ch.x + r1;
   renderer_ops->draw_line(renderer, 
 			   &cb, &p2,
-			   &color_black);
+			   &actor->line_color);
   
   text_draw(actor->text, renderer);
 }
@@ -342,6 +349,9 @@ actor_create(Point *startpoint,
   elem->corner = *startpoint;
   elem->width = ACTOR_WIDTH;
   elem->height = ACTOR_HEIGHT;
+
+  actor->line_color = attributes_get_foreground();
+  actor->fill_color = attributes_get_background();
 
   font = dia_font_new_from_style (DIA_FONT_SANS, 0.8);
   p = *startpoint;

@@ -30,6 +30,7 @@
 #include "diarenderer.h"
 #include "handle.h"
 #include "properties.h"
+#include "attributes.h"
 
 #include "pixmaps/implements.xpm"
 
@@ -44,6 +45,9 @@ struct _Implements {
   real circle_diameter;
 
   Point circle_center; /* Calculated from diameter*/
+
+  Color text_color;
+  Color line_color;
 
   gchar *text;
   Point text_pos;
@@ -118,6 +122,8 @@ static ObjectOps implements_ops = {
 
 static PropDescription implements_props[] = {
   CONNECTION_COMMON_PROPERTIES,
+  PROP_STD_LINE_COLOUR_OPTIONAL, 
+  PROP_STD_TEXT_COLOUR_OPTIONAL,
   { "text", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
     N_("Interface:"), NULL, NULL },
   { "text_pos", PROP_TYPE_POINT, 0, NULL, NULL, NULL },
@@ -135,6 +141,8 @@ implements_describe_props(Implements *implements)
 
 static PropOffset implements_offsets[] = {
   CONNECTION_COMMON_PROPERTIES_OFFSETS,
+  { "line_colour",PROP_TYPE_COLOUR,offsetof(Implements, line_color) },
+  { "text_colour",PROP_TYPE_COLOUR,offsetof(Implements, text_color) },
   { "text", PROP_TYPE_STRING, offsetof(Implements, text) },
   { "text_pos", PROP_TYPE_POINT, offsetof(Implements, text_pos) },
   { "diameter", PROP_TYPE_REAL, offsetof(Implements, circle_diameter) },
@@ -255,7 +263,7 @@ implements_draw(Implements *implements, DiaRenderer *renderer)
 
   renderer_ops->draw_line(renderer,
 			   &endpoints[0], &endpoints[1],
-			   &color_black);
+			   &implements->line_color);
 
   renderer_ops->fill_ellipse(renderer, &implements->circle_center,
 			      implements->circle_diameter,
@@ -264,7 +272,7 @@ implements_draw(Implements *implements, DiaRenderer *renderer)
   renderer_ops->draw_ellipse(renderer, &implements->circle_center,
 			      implements->circle_diameter,
 			      implements->circle_diameter,
-			      &color_black);
+			      &implements->line_color);
 
 
   renderer_ops->set_font(renderer, implements_font, IMPLEMENTS_FONTHEIGHT);
@@ -272,7 +280,7 @@ implements_draw(Implements *implements, DiaRenderer *renderer)
     renderer_ops->draw_string(renderer,
 			       implements->text,
 			       &implements->text_pos, ALIGN_LEFT,
-			       &color_black);
+			       &implements->text_color);
 }
 
 static Object *
@@ -305,6 +313,8 @@ implements_create(Point *startpoint,
   
   connection_init(conn, 4, 0);
 
+  implements->line_color = attributes_get_foreground();
+  implements->text_color = color_black;
   implements->text = NULL;
   implements->text_width = 0.0;
   implements->text_pos = conn->endpoints[1];

@@ -48,6 +48,8 @@ struct _Classicon {
   int is_object;
   Text *text;
   TextAttributes attrs;
+  Color line_color;
+  Color fill_color;
 };
 
 enum CLassIconStereotype {
@@ -127,13 +129,15 @@ static PropEnumData prop_classicon_type_data[] = {
 
 static PropDescription classicon_props[] = {
   ELEMENT_COMMON_PROPERTIES,
+  PROP_STD_LINE_COLOUR_OPTIONAL, 
+  PROP_STD_FILL_COLOUR_OPTIONAL, 
   { "stereotype", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE,
   N_("Stereotype"), NULL,  prop_classicon_type_data},
   { "is_object", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE,
   N_("Is object"), NULL, NULL },
   PROP_STD_TEXT_FONT,
   PROP_STD_TEXT_HEIGHT,
-  PROP_STD_TEXT_COLOUR,
+  PROP_STD_TEXT_COLOUR_OPTIONAL,
   { "text", PROP_TYPE_TEXT, 0, N_("Text"), NULL, NULL }, 
   
   PROP_DESC_END
@@ -150,6 +154,8 @@ classicon_describe_props(Classicon *classicon)
 
 static PropOffset classicon_offsets[] = {
   ELEMENT_COMMON_PROPERTIES_OFFSETS,
+  { "line_colour",PROP_TYPE_COLOUR,offsetof(Classicon,line_color) },
+  { "fill_colour",PROP_TYPE_COLOUR,offsetof(Classicon,fill_color) },
   { "stereotype", PROP_TYPE_ENUM, offsetof(Classicon, stereotype) },
   { "is_object", PROP_TYPE_BOOL, offsetof(Classicon, is_object) },
   { "text",PROP_TYPE_TEXT,offsetof(Classicon,text)},
@@ -253,7 +259,7 @@ classicon_draw(Classicon *icon, DiaRenderer *renderer)
   renderer_ops->fill_ellipse(renderer,
 			      &center,
 			      2*r, 2*r,
-			      &color_white);
+			      &icon->fill_color);
 
   renderer_ops->set_linewidth(renderer, CLASSICON_LINEWIDTH);
   renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
@@ -261,7 +267,7 @@ classicon_draw(Classicon *icon, DiaRenderer *renderer)
   renderer_ops->draw_ellipse(renderer,
 			      &center,
 			      2*r, 2*r,
-			      &color_black);
+			      &icon->line_color);
 
 
   switch (icon->stereotype) {
@@ -273,12 +279,12 @@ classicon_draw(Classicon *icon, DiaRenderer *renderer)
       p2.y = p1.y + CLASSICON_ARROW/1.5;
       renderer_ops->draw_line(renderer,
 			       &p1, &p2,
-			       &color_black);
+			       &icon->line_color);
       p2.x = p1.x + CLASSICON_ARROW;
       p2.y = p1.y - CLASSICON_ARROW/1.5;
       renderer_ops->draw_line(renderer,
 			       &p1, &p2,
-			       &color_black);
+			       &icon->line_color);
       break;
 
   case CLASSICON_BOUNDARY:
@@ -287,13 +293,13 @@ classicon_draw(Classicon *icon, DiaRenderer *renderer)
       p1.y = p2.y = center.y;
       renderer_ops->draw_line(renderer,
 			       &p1, &p2,
-			       &color_black);
+			       &icon->line_color);
       p1.x = p2.x;
       p1.y = center.y - r;
       p2.y = center.y + r;
       renderer_ops->draw_line(renderer,
 			       &p1, &p2,
-			       &color_black);
+			       &icon->line_color);
       break;
   case CLASSICON_ENTITY:
       p1.x = center.x - r;
@@ -301,7 +307,7 @@ classicon_draw(Classicon *icon, DiaRenderer *renderer)
       p1.y = p2.y = center.y + r;
       renderer_ops->draw_line(renderer,
 			       &p1, &p2,
-			       &color_black);
+			       &icon->line_color);
       break;
   }
   
@@ -317,7 +323,7 @@ classicon_draw(Classicon *icon, DiaRenderer *renderer)
       p2.x = p1.x + icon->text->row_width[i];
       renderer_ops->draw_line(renderer,
 			       &p1, &p2,
-			       &color_black);
+			       &icon->line_color);
       p1.y = p2.y += icon->text->height;
     }
   }
@@ -425,6 +431,8 @@ classicon_create(Point *startpoint,
   obj->ops = &classicon_ops;
 
   elem->corner = *startpoint;
+  cicon->line_color = attributes_get_foreground();
+  cicon->fill_color = attributes_get_background();
 
   font = dia_font_new_from_style (DIA_FONT_SANS, 0.8);
   

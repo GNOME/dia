@@ -61,8 +61,9 @@ struct _UMLClass {
   int visible_operations;
   int visible_comments;
 
-  Color color_foreground;
-  Color color_background;
+  Color line_color;
+  Color fill_color;
+  Color text_color;
 
   /* Attributes: */
   GList *attributes;
@@ -119,8 +120,9 @@ struct _UMLClassDialog {
   GtkSpinButton *classname_font_height;
   GtkSpinButton *abstract_classname_font_height;
   GtkSpinButton *comment_font_height;
-  DiaColorSelector *fg_color;
-  DiaColorSelector *bg_color;
+  DiaColorSelector *text_color;
+  DiaColorSelector *line_color;
+  DiaColorSelector *fill_color;
 
   GList *disconnected_connections;
   GList *added_connections; 

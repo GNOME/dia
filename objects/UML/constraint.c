@@ -32,6 +32,7 @@
 #include "arrows.h"
 #include "properties.h"
 #include "stereotype.h"
+#include "attributes.h"
 
 #include "pixmaps/constraint.xpm"
 
@@ -46,6 +47,9 @@ struct _Constraint {
   char *brtext;
   Point text_pos;
   real text_width;
+
+  Color text_color;
+  Color line_color;
 };
 
   
@@ -120,6 +124,8 @@ static PropDescription constraint_props[] = {
   { "constraint", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
     N_("Constraint:"), NULL, NULL },
   { "text_pos", PROP_TYPE_POINT, 0, NULL, NULL, NULL},
+  PROP_STD_TEXT_COLOUR_OPTIONAL,
+  PROP_STD_LINE_COLOUR_OPTIONAL, 
   PROP_DESC_END
 };
 
@@ -136,6 +142,8 @@ static PropOffset constraint_offsets[] = {
   CONNECTION_COMMON_PROPERTIES_OFFSETS,
   { "constraint", PROP_TYPE_STRING, offsetof(Constraint, text) },
   { "text_pos", PROP_TYPE_POINT, offsetof(Constraint, text_pos) },
+  { "text_colour",PROP_TYPE_COLOUR,offsetof(Constraint, text_color)},
+  { "line_colour",PROP_TYPE_COLOUR,offsetof(Constraint, line_color)},
   { NULL, 0, 0 }
 };
 
@@ -254,7 +262,7 @@ constraint_draw(Constraint *constraint, DiaRenderer *renderer)
   renderer_ops->draw_line_with_arrows(renderer,
 				       &endpoints[0], &endpoints[1],
 				       CONSTRAINT_WIDTH,
-				       &color_black,
+				       &constraint->line_color,
 				       NULL, &arrow);
   
   renderer_ops->set_font(renderer, constraint_font,
@@ -262,7 +270,7 @@ constraint_draw(Constraint *constraint, DiaRenderer *renderer)
   renderer_ops->draw_string(renderer,
 			     constraint->brtext,
 			     &constraint->text_pos, ALIGN_LEFT,
-			     &color_black);
+			     &constraint->text_color);
 }
 
 static Object *
@@ -295,6 +303,8 @@ constraint_create(Point *startpoint,
   
   connection_init(conn, 3, 0);
 
+  constraint->text_color = color_black;
+  constraint->line_color = attributes_get_foreground();
   constraint->text = g_strdup("");
   constraint->text_pos.x = 0.5*(conn->endpoints[0].x + conn->endpoints[1].x);
   constraint->text_pos.y = 0.5*(conn->endpoints[0].y + conn->endpoints[1].y);

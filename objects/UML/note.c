@@ -42,6 +42,9 @@ struct _Note {
 
   Text *text;
   TextAttributes attrs;
+
+  Color line_color;
+  Color fill_color;
 };
 
 #define NOTE_BORDERWIDTH 0.1
@@ -108,9 +111,11 @@ static ObjectOps note_ops = {
 
 static PropDescription note_props[] = {
   ELEMENT_COMMON_PROPERTIES,
+  PROP_STD_LINE_COLOUR_OPTIONAL, 
+  PROP_STD_FILL_COLOUR_OPTIONAL, 
   PROP_STD_TEXT_FONT,
   PROP_STD_TEXT_HEIGHT,
-  PROP_STD_TEXT_COLOUR,
+  PROP_STD_TEXT_COLOUR_OPTIONAL,
   { "text", PROP_TYPE_TEXT, 0, N_("Text"), NULL, NULL },   
   PROP_DESC_END
 };
@@ -126,6 +131,8 @@ note_describe_props(Note *note)
 
 static PropOffset note_offsets[] = {
   ELEMENT_COMMON_PROPERTIES_OFFSETS,
+  {"line_colour",PROP_TYPE_COLOUR,offsetof(Note,line_color)},
+  {"fill_colour",PROP_TYPE_COLOUR,offsetof(Note,fill_color)},
   {"text",PROP_TYPE_TEXT,offsetof(Note,text)},
   {"text_font",PROP_TYPE_FONT,offsetof(Note,attrs.font)},
   {"text_height",PROP_TYPE_REAL,offsetof(Note,attrs.height)},
@@ -226,10 +233,10 @@ note_draw(Note *note, DiaRenderer *renderer)
 
   renderer_ops->fill_polygon(renderer, 
 			      poly, 5,
-			      &color_white);
+			      &note->fill_color);
   renderer_ops->draw_polygon(renderer, 
 			      poly, 5,
-			      &color_black);
+			      &note->line_color);
 
   poly[0] = poly[1];
   poly[1].x = x + w - NOTE_CORNER;
@@ -239,7 +246,7 @@ note_draw(Note *note, DiaRenderer *renderer)
   renderer_ops->set_linewidth(renderer, NOTE_CORNERWIDTH);
   renderer_ops->draw_polyline(renderer, 
 			   poly, 3,
-			   &color_black);
+			   &note->line_color);
 
   text_draw(note->text, renderer);
 }
@@ -315,6 +322,9 @@ note_create(Point *startpoint,
   obj->ops = &note_ops;
 
   elem->corner = *startpoint;
+
+  note->line_color = attributes_get_foreground();
+  note->fill_color = attributes_get_background();
 
   font = dia_font_new_from_style (DIA_FONT_MONOSPACE, 0.8);
   p = *startpoint;

@@ -47,6 +47,9 @@ struct _SmallPackage {
   
   char *st_stereotype;
   TextAttributes attrs;
+
+  Color line_color;
+  Color fill_color;
 };
 
 #define SMALLPACKAGE_BORDERWIDTH 0.1
@@ -113,6 +116,8 @@ static ObjectOps smallpackage_ops = {
 
 static PropDescription smallpackage_props[] = {
   ELEMENT_COMMON_PROPERTIES,
+  PROP_STD_LINE_COLOUR_OPTIONAL, 
+  PROP_STD_FILL_COLOUR_OPTIONAL, 
   { "stereotype", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
   N_("Stereotype"), NULL, NULL },
   PROP_STD_TEXT_FONT,
@@ -133,6 +138,8 @@ smallpackage_describe_props(SmallPackage *smallpackage)
 
 static PropOffset smallpackage_offsets[] = {
   ELEMENT_COMMON_PROPERTIES_OFFSETS,
+  {"line_colour", PROP_TYPE_COLOUR, offsetof(SmallPackage, line_color) },
+  {"fill_colour", PROP_TYPE_COLOUR, offsetof(SmallPackage, fill_color) },
   {"stereotype", PROP_TYPE_STRING, offsetof(SmallPackage , stereotype) },
   {"text",PROP_TYPE_TEXT,offsetof(SmallPackage,text)},
   {"text_font",PROP_TYPE_FONT,offsetof(SmallPackage,attrs.font)},
@@ -238,21 +245,21 @@ smallpackage_draw(SmallPackage *pkg, DiaRenderer *renderer)
 
   renderer_ops->fill_rect(renderer, 
 			   &p1, &p2,
-			   &color_white);
+			   &pkg->fill_color);
   renderer_ops->draw_rect(renderer, 
 			   &p1, &p2,
-			   &color_black);
+			   &pkg->line_color);
 
   p1.x= x; p1.y = y-SMALLPACKAGE_TOPHEIGHT;
   p2.x = x+SMALLPACKAGE_TOPWIDTH; p2.y = y;
 
   renderer_ops->fill_rect(renderer, 
 			   &p1, &p2,
-			   &color_white);
+			   &pkg->fill_color);
   
   renderer_ops->draw_rect(renderer, 
 			   &p1, &p2,
-			   &color_black);
+			   &pkg->line_color);
 
   text_draw(pkg->text, renderer);
 
@@ -260,7 +267,7 @@ smallpackage_draw(SmallPackage *pkg, DiaRenderer *renderer)
     p1 = pkg->text->position;
     p1.y -= pkg->text->height;
     renderer_ops->draw_string(renderer, pkg->st_stereotype, &p1, 
-			       ALIGN_LEFT, &color_black);
+			       ALIGN_LEFT, &pkg->attrs.color);
   }
 }
 
@@ -374,6 +381,9 @@ smallpackage_create(Point *startpoint,
     pkg->connections[i].connected = NULL;
   }
   elem->extra_spacing.border_trans = SMALLPACKAGE_BORDERWIDTH/2.0;
+
+  pkg->line_color = attributes_get_foreground();
+  pkg->fill_color = attributes_get_background();
 
   pkg->stereotype = NULL;
   pkg->st_stereotype = NULL;

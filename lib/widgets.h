@@ -43,25 +43,6 @@
 #define IS_DIAFONTSELECTOR(obj)       GTK_CHECK_TYPE (obj, dia_font_selector_get_type ())
 
 
-struct _DiaFontSelector
-{
-  GtkHBox hbox;
-
-  GtkOptionMenu *font_omenu;
-  GtkOptionMenu *style_omenu;
-  GtkMenu *font_menu;
-  GtkMenu *style_menu;
-  gint old_font; /* The menu item # that was previously selected, for
-		    when the Other Fonts dialog is cancelled */
-
-  gchar *textsample;
-};
-
-struct _DiaFontSelectorClass
-{
-  GtkHBoxClass parent_class;
-};
-
 guint      dia_font_selector_get_type        (void);
 GtkWidget* dia_font_selector_new             (void);
 void       dia_font_selector_set_font        (DiaFontSelector *fs, DiaFont *font);
@@ -73,18 +54,6 @@ DiaFont *     dia_font_selector_get_font        (DiaFontSelector *fs);
 #define DIAALIGNMENTSELECTOR_CLASS(klass)  GTK_CHECK_CLASS_CAST (klass, dia_alignment_selector_get_type (), DiaAlignmentSelectorClass)
 #define IS_DIAALIGNMENTSELECTOR(obj)       GTK_CHECK_TYPE (obj, dia_alignment_selector_get_type ())
 
-
-struct _DiaAlignmentSelector
-{
-  GtkOptionMenu omenu;
-
-  GtkMenu *alignment_menu;
-};
-
-struct _DiaAlignmentSelectorClass
-{
-  GtkOptionMenuClass parent_class;
-};
 
 guint      dia_alignment_selector_get_type      (void);
 GtkWidget* dia_alignment_selector_new           (void);
@@ -100,22 +69,6 @@ void       dia_alignment_selector_set_alignment (DiaAlignmentSelector *as,
 #define DEFAULT_LINESTYLE LINESTYLE_SOLID
 #define DEFAULT_LINESTYLE_DASHLEN 1.0
 
-
-struct _DiaLineStyleSelector
-{
-  GtkVBox vbox;
-
-  GtkOptionMenu *omenu;
-  GtkMenu *linestyle_menu;
-  GtkLabel *lengthlabel;
-  GtkSpinButton *dashlength;
-    
-};
-
-struct _DiaLineStyleSelectorClass
-{
-  GtkVBoxClass parent_class;
-};
 
 guint      dia_line_style_selector_get_type      (void);
 GtkWidget* dia_line_style_selector_new           (void);
@@ -169,25 +122,6 @@ void       dia_color_selector_set_color (DiaColorSelector *cs,
 #define DEFAULT_ARROW_LENGTH 0.8 
 #define DEFAULT_ARROW_WIDTH 0.8
 
-
-struct _DiaArrowSelector
-{
-  GtkVBox vbox;
-
-  GtkHBox *sizebox;
-  GtkLabel *lengthlabel;
-  GtkSpinButton *length;
-  GtkLabel *widthlabel;
-  GtkSpinButton *width;
-  
-  GtkOptionMenu *omenu;
-  GtkMenu *arrow_type_menu;
-};
-
-struct _DiaArrowSelectorClass
-{
-  GtkVBoxClass parent_class;
-};
 
 guint      dia_arrow_selector_get_type      (void);
 GtkWidget* dia_arrow_selector_new           (void);

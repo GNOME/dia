@@ -41,7 +41,9 @@ do_set_props_from_offsets(void *base,
     for (ofs = offsets; ofs->name ; ofs++) {
       if ((prop->name_quark == ofs->name_quark) &&
           (prop->type_quark == ofs->type_quark)) {
-        prop->ops->set_from_offset(prop,base,ofs->offset,ofs->offset2);
+        /* beware of props not set, see PROP_FLAG_OPTIONAL */
+        if ((prop->experience & PXP_NOTSET) == 0)
+          prop->ops->set_from_offset(prop,base,ofs->offset,ofs->offset2);
         break;
       }                                    
     }

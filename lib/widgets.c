@@ -19,7 +19,7 @@
 #include <config.h>
 #include <string.h>
 #include "intl.h"
-#undef GTK_DISABLE_DEPRECATED /* ... */
+#undef GTK_DISABLE_DEPRECATED /* GtkOptinMenu, ... */
 #include "widgets.h"
 #include "message.h"
 #include "dia_dirs.h"
@@ -36,6 +36,27 @@
 #include "diagtkfontsel.h"
 
 /************* DiaFontSelector: ***************/
+
+struct _DiaFontSelector
+{
+  GtkHBox hbox;
+
+  GtkOptionMenu *font_omenu;
+  GtkOptionMenu *style_omenu;
+  GtkMenu *font_menu;
+  GtkMenu *style_menu;
+  gint old_font; /* The menu item # that was previously selected, for
+		    when the Other Fonts dialog is cancelled */
+
+
+  gchar *textsample;
+};
+
+struct _DiaFontSelectorClass
+{
+  GtkHBoxClass parent_class;
+};
+
 
 /* New and improved font selector:  Contains the three standard fonts
  * and an 'Other fonts...' entry that opens the font dialog.  The fonts
@@ -530,6 +551,18 @@ dia_font_selector_get_font(DiaFontSelector *fs)
 }
 
 /************* DiaAlignmentSelector: ***************/
+struct _DiaAlignmentSelector
+{
+  GtkOptionMenu omenu;
+
+  GtkMenu *alignment_menu;
+};
+
+struct _DiaAlignmentSelectorClass
+{
+  GtkOptionMenuClass parent_class;
+};
+
 static void
 dia_alignment_selector_class_init (DiaAlignmentSelectorClass *class)
 {
@@ -624,6 +657,22 @@ dia_alignment_selector_set_alignment (DiaAlignmentSelector *as,
 }
 
 /************* DiaLineStyleSelector: ***************/
+struct _DiaLineStyleSelector
+{
+  GtkVBox vbox;
+
+  GtkOptionMenu *omenu;
+  GtkMenu *linestyle_menu;
+  GtkLabel *lengthlabel;
+  GtkSpinButton *dashlength;
+    
+};
+
+struct _DiaLineStyleSelectorClass
+{
+  GtkVBoxClass parent_class;
+};
+
 static void
 dia_line_style_selector_class_init (DiaLineStyleSelectorClass *class)
 {
@@ -984,6 +1033,24 @@ dia_color_selector_set_color (DiaColorSelector *cs,
 
 
 /************* DiaArrowSelector: ***************/
+struct _DiaArrowSelector
+{
+  GtkVBox vbox;
+
+  GtkHBox *sizebox;
+  GtkLabel *lengthlabel;
+  GtkSpinButton *length;
+  GtkLabel *widthlabel;
+  GtkSpinButton *width;
+  
+  GtkOptionMenu *omenu;
+  GtkMenu *arrow_type_menu;
+};
+
+struct _DiaArrowSelectorClass
+{
+  GtkVBoxClass parent_class;
+};
 
 static void
 dia_arrow_selector_class_init (DiaArrowSelectorClass *class)

@@ -37,11 +37,15 @@ struct _DiaImage {
 #endif
 };
 
+gboolean _dia_image_initialized = FALSE;
+
 void 
 dia_image_init(void)
 {
-  if (app_is_interactive())
+  if (!_dia_image_initialized) {
     gtk_widget_set_default_colormap(gdk_rgb_get_cmap());
+    _dia_image_initialized = TRUE;
+  }
 }
 
 DiaImage

@@ -49,7 +49,11 @@ struct _LargePackage {
   char *st_stereotype; 
 
   DiaFont *font;
-  
+
+  Color text_color;
+  Color line_color;
+  Color fill_color;
+
   real topwidth;
   real topheight;
 };
@@ -115,6 +119,9 @@ static ObjectOps largepackage_ops = {
 
 static PropDescription largepackage_props[] = {
   ELEMENT_COMMON_PROPERTIES,
+  PROP_STD_LINE_COLOUR_OPTIONAL, 
+  PROP_STD_FILL_COLOUR_OPTIONAL, 
+  PROP_STD_TEXT_COLOUR_OPTIONAL,
   { "stereotype", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
   N_("Stereotype"), NULL, NULL },
   { "name", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
@@ -133,6 +140,9 @@ largepackage_describe_props(LargePackage *largepackage)
 
 static PropOffset largepackage_offsets[] = {
   ELEMENT_COMMON_PROPERTIES_OFFSETS,
+  {"line_colour",PROP_TYPE_COLOUR,offsetof(LargePackage,line_color)},
+  {"fill_colour",PROP_TYPE_COLOUR,offsetof(LargePackage,fill_color)},
+  {"text_colour",PROP_TYPE_COLOUR,offsetof(LargePackage,text_color)},
   {"stereotype", PROP_TYPE_STRING, offsetof(LargePackage , stereotype) },
   {"name", PROP_TYPE_STRING, offsetof(LargePackage , name) },
 
@@ -225,21 +235,21 @@ largepackage_draw(LargePackage *pkg, DiaRenderer *renderer)
 
   renderer_ops->fill_rect(renderer, 
 			   &p1, &p2,
-			   &color_white);
+			   &pkg->fill_color);
   renderer_ops->draw_rect(renderer, 
 			   &p1, &p2,
-			   &color_black);
+			   &pkg->line_color);
 
   p1.x= x; p1.y = y - pkg->topheight;
   p2.x = x + pkg->topwidth; p2.y = y;
 
   renderer_ops->fill_rect(renderer, 
 			   &p1, &p2,
-			   &color_white);
+			   &pkg->fill_color);
   
   renderer_ops->draw_rect(renderer, 
 			   &p1, &p2,
-			   &color_black);
+			   &pkg->line_color);
 
 
   renderer_ops->set_font(renderer, pkg->font, LARGEPACKAGE_FONTHEIGHT);
@@ -253,13 +263,13 @@ largepackage_draw(LargePackage *pkg, DiaRenderer *renderer)
 
   if (pkg->st_stereotype && pkg->st_stereotype[0] != '\0') {
     renderer_ops->draw_string(renderer, pkg->st_stereotype, &p1,
-			       ALIGN_LEFT, &color_black);
+			       ALIGN_LEFT, &pkg->text_color);
   }
   p1.y += LARGEPACKAGE_FONTHEIGHT;
 
   if (pkg->name)
     renderer_ops->draw_string(renderer, pkg->name, &p1,
-			       ALIGN_LEFT, &color_black);
+			       ALIGN_LEFT, &pkg->text_color);
 }
 
 static void
@@ -355,6 +365,9 @@ largepackage_create(Point *startpoint,
   elem->width = 4.0;
   elem->height = 4.0;
   
+  pkg->text_color = color_black;
+  pkg->line_color = attributes_get_foreground();
+  pkg->fill_color = attributes_get_background();
   pkg->font = dia_font_new_from_style(DIA_FONT_MONOSPACE,
                                       LARGEPACKAGE_FONTHEIGHT);
   

@@ -32,12 +32,16 @@ Color color_white = { 1.0f, 1.0f, 1.0f };
 
 GdkColor color_gdk_black, color_gdk_white;
 
+gboolean _color_initialized = FALSE;
+
 void 
 color_init(void)
 {
-  if (app_is_interactive()) { /* Only used interactively */
+  if (!_color_initialized) {
     GdkVisual *visual = gtk_widget_get_default_visual();
     colormap = gdk_colormap_new (visual, FALSE); 
+
+    _color_initialized = TRUE;
 
     color_convert(&color_black, &color_gdk_black);
     color_convert(&color_white, &color_gdk_white);
@@ -51,11 +55,11 @@ color_convert(Color *color, GdkColor *gdkcolor)
   gdkcolor->green = color->green*65535;
   gdkcolor->blue = color->blue*65535;
 
-  if (app_is_interactive()) {
+  if (_color_initialized) {
     if (!gdk_colormap_alloc_color (colormap, gdkcolor, TRUE, TRUE))
       g_warning ("color_convert failed.");
   } else {
-    g_warning("Can't color_convert in non-interactive app");
+    g_warning("Can't color_convert in non-interactive app (w/o color_init())");
   }
 }
 

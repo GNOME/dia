@@ -45,6 +45,8 @@ struct _Branch
 {
   Element element;
   ConnectionPoint connections[8];
+  Color line_color;
+  Color fill_color;
 };
 
 static const double BRANCH_BORDERWIDTH = 0.1;
@@ -99,8 +101,8 @@ static ObjectOps branch_ops =
   (CopyFunc)            object_copy_using_properties,
   (MoveFunc)            branch_move,
   (MoveHandleFunc)      branch_move_handle,
-  (GetPropertiesFunc)   object_return_null,
-  (ApplyPropertiesFunc) object_return_void,
+  (GetPropertiesFunc)   object_create_props_dialog,
+  (ApplyPropertiesFunc) object_apply_props_from_dialog,
   (ObjectMenuFunc)      NULL,
   (DescribePropsFunc)   branch_describe_props,
   (GetPropsFunc)        branch_get_props,
@@ -109,6 +111,8 @@ static ObjectOps branch_ops =
 
 static PropDescription branch_props[] = {
   ELEMENT_COMMON_PROPERTIES,
+  PROP_STD_LINE_COLOUR_OPTIONAL, 
+  PROP_STD_FILL_COLOUR_OPTIONAL, 
   
   PROP_DESC_END
 };
@@ -124,6 +128,8 @@ branch_describe_props(Branch *branch)
 
 static PropOffset branch_offsets[] = {
   ELEMENT_COMMON_PROPERTIES_OFFSETS,
+  {"line_colour",PROP_TYPE_COLOUR,offsetof(Branch,line_color)},
+  {"fill_colour",PROP_TYPE_COLOUR,offsetof(Branch,fill_color)},
   { NULL, 0, 0 },
 };
 
@@ -209,8 +215,8 @@ static void branch_draw(Branch *branch, DiaRenderer *renderer)
   renderer_ops->set_linewidth(renderer, BRANCH_BORDERWIDTH);
   renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
 
-  renderer_ops->fill_polygon(renderer, points, 4, &color_white);
-  renderer_ops->draw_polygon(renderer, points, 4, &color_black);
+  renderer_ops->fill_polygon(renderer, points, 4, &branch->fill_color);
+  renderer_ops->draw_polygon(renderer, points, 4, &branch->line_color);
 }
 
 static void branch_update_data(Branch *branch)
@@ -258,6 +264,9 @@ static Object *branch_create(Point *startpoint, void *user_data, Handle **handle
 
   elem->corner = *startpoint;
   element_init(elem, 8, 8);
+
+  branch->line_color = attributes_get_foreground();
+  branch->fill_color = attributes_get_background();
 
   for (i=0;i<8;i++)
     {

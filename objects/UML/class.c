@@ -100,8 +100,9 @@ static ObjectOps umlclass_ops = {
 
 static PropDescription umlclass_props[] = {
   ELEMENT_COMMON_PROPERTIES,
-  PROP_STD_LINE_COLOUR,
-  PROP_STD_FILL_COLOUR,
+  PROP_STD_TEXT_COLOUR_OPTIONAL,
+  PROP_STD_LINE_COLOUR_OPTIONAL,
+  PROP_STD_FILL_COLOUR_OPTIONAL,
   { "name", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
   N_("Name"), NULL, NULL },
   { "stereotype", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
@@ -144,8 +145,8 @@ umlclass_describe_props(UMLClass *umlclass)
 
 static PropOffset umlclass_offsets[] = {
   ELEMENT_COMMON_PROPERTIES_OFFSETS,
-  { "line_colour", PROP_TYPE_COLOUR, offsetof(UMLClass, color_foreground) },
-  { "fill_colour", PROP_TYPE_COLOUR, offsetof(UMLClass, color_background) },
+  { "line_colour", PROP_TYPE_COLOUR, offsetof(UMLClass, line_color) },
+  { "fill_colour", PROP_TYPE_COLOUR, offsetof(UMLClass, fill_color) },
   { "name", PROP_TYPE_STRING, offsetof(UMLClass, name) },
   { "stereotype", PROP_TYPE_STRING, offsetof(UMLClass, stereotype) },
   { "comment", PROP_TYPE_STRING, offsetof(UMLClass, comment) },
@@ -282,10 +283,10 @@ umlclass_draw(UMLClass *umlclass, DiaRenderer *renderer)
   
   renderer_ops->fill_rect(renderer, 
                            &p1, &p2,
-                           &umlclass->color_background);
+                           &umlclass->fill_color);
   renderer_ops->draw_rect(renderer, 
                            &p1, &p2,
-                           &umlclass->color_foreground);
+                           &umlclass->line_color);
 
   /* stereotype: */
   p.x = x + elem->width / 2.0;
@@ -301,7 +302,7 @@ umlclass_draw(UMLClass *umlclass, DiaRenderer *renderer)
     renderer_ops->draw_string(renderer,
                                umlclass->stereotype_string,
                                &p, ALIGN_CENTER, 
-                               &umlclass->color_foreground);
+                               &umlclass->text_color);
   }
 
   if (umlclass->name != NULL) {
@@ -319,7 +320,7 @@ umlclass_draw(UMLClass *umlclass, DiaRenderer *renderer)
     renderer_ops->draw_string(renderer,
                               umlclass->name,
                               &p, ALIGN_CENTER, 
-                              &umlclass->color_foreground);
+                              &umlclass->text_color);
   }
 
   /* comment */
@@ -334,7 +335,7 @@ umlclass_draw(UMLClass *umlclass, DiaRenderer *renderer)
     renderer_ops->draw_string(renderer,
                                umlclass->comment,
                                &p, ALIGN_CENTER,
-                               &umlclass->color_foreground);
+                               &umlclass->text_color);
   }
             
   if (umlclass->visible_attributes) {
@@ -345,10 +346,10 @@ umlclass_draw(UMLClass *umlclass, DiaRenderer *renderer)
   
     renderer_ops->fill_rect(renderer, 
 			     &p1, &p2,
-			     &umlclass->color_background);
+			     &umlclass->fill_color);
     renderer_ops->draw_rect(renderer, 
 			     &p1, &p2,
-			     &umlclass->color_foreground);
+			     &umlclass->line_color);
 
     if (!umlclass->suppress_attributes) {
       p.x = x + UMLCLASS_BORDER/2.0 + 0.1;
@@ -376,7 +377,7 @@ umlclass_draw(UMLClass *umlclass, DiaRenderer *renderer)
          renderer_ops->draw_string(renderer,
                                     attstr,
                                     &p, ALIGN_LEFT, 
-                                    &umlclass->color_foreground);
+                                    &umlclass->text_color);
 
 
          if (attr->class_scope) {
@@ -387,7 +388,7 @@ umlclass_draw(UMLClass *umlclass, DiaRenderer *renderer)
                                          font, font_height);
            renderer_ops->set_linewidth(renderer, UMLCLASS_UNDERLINEWIDTH);
            renderer_ops->draw_line(renderer,
-                                    &p1, &p3, &umlclass->color_foreground);
+                                    &p1, &p3, &umlclass->line_color);
            renderer_ops->set_linewidth(renderer, UMLCLASS_BORDER);
          }    
          
@@ -407,7 +408,7 @@ umlclass_draw(UMLClass *umlclass, DiaRenderer *renderer)
            renderer_ops->draw_string(renderer,
                                       attr->comment,
                                       &p1, ALIGN_LEFT,
-                                      &umlclass->color_foreground);
+                                      &umlclass->text_color);
            p.y += font_height;
 
          }
@@ -427,10 +428,10 @@ umlclass_draw(UMLClass *umlclass, DiaRenderer *renderer)
     
     renderer_ops->fill_rect(renderer, 
                              &p1, &p2,
-                             &umlclass->color_background);
+                             &umlclass->fill_color);
     renderer_ops->draw_rect(renderer, 
                              &p1, &p2,
-                             &umlclass->color_foreground);
+                             &umlclass->line_color);
     if (!umlclass->suppress_operations) {
       p.x = x + UMLCLASS_BORDER/2.0 + 0.1;
       p.y = p1.y + 0.1;
@@ -462,7 +463,7 @@ umlclass_draw(UMLClass *umlclass, DiaRenderer *renderer)
         renderer_ops->draw_string(renderer,
                                    opstr,
                                    &p, ALIGN_LEFT, 
-                                   &umlclass->color_foreground);
+                                   &umlclass->text_color);
 
         if (op->class_scope) {
           p1 = p; 
@@ -472,7 +473,7 @@ umlclass_draw(UMLClass *umlclass, DiaRenderer *renderer)
                                         font, font_height);
           renderer_ops->set_linewidth(renderer, UMLCLASS_UNDERLINEWIDTH);
           renderer_ops->draw_line(renderer, &p1, &p3,
-                                   &umlclass->color_foreground);
+                                   &umlclass->line_color);
           renderer_ops->set_linewidth(renderer, UMLCLASS_BORDER);
         }
 
@@ -492,7 +493,7 @@ umlclass_draw(UMLClass *umlclass, DiaRenderer *renderer)
           renderer_ops->draw_string(renderer,
                                      op->comment,
                                      &p1, ALIGN_LEFT, 
-                                     &umlclass->color_foreground);
+                                     &umlclass->text_color);
           
           p.y += font_height;
         }
@@ -515,14 +516,14 @@ umlclass_draw(UMLClass *umlclass, DiaRenderer *renderer)
     
     renderer_ops->fill_rect(renderer, 
                              &p1, &p2,
-                             &umlclass->color_background);
+                             &umlclass->fill_color);
 
     renderer_ops->set_linestyle(renderer, LINESTYLE_DASHED);
     renderer_ops->set_dashlength(renderer, 0.3);
     
     renderer_ops->draw_rect(renderer, 
                              &p1, &p2,
-                             &umlclass->color_foreground);
+                             &umlclass->line_color);
 
     p.x = x + 0.3;
 
@@ -539,7 +540,7 @@ umlclass_draw(UMLClass *umlclass, DiaRenderer *renderer)
       renderer_ops->draw_string(renderer,
                                  umlclass->templates_strings[i],
                                  &p, ALIGN_LEFT, 
-                                 &umlclass->color_foreground);      
+                                 &umlclass->text_color);      
       
       list = g_list_next(list);
       i++;
@@ -960,8 +961,9 @@ umlclass_create(Point *startpoint,
   umlclass->operations_strings = NULL;
   umlclass->templates_strings = NULL;
   
-  umlclass->color_foreground = color_black;
-  umlclass->color_background = color_white;
+  umlclass->text_color = color_black;
+  umlclass->line_color = attributes_get_foreground();
+  umlclass->fill_color = attributes_get_background();
 
   umlclass_calculate_data(umlclass);
   
@@ -1126,8 +1128,9 @@ umlclass_copy(UMLClass *umlclass)
   newumlclass->visible_attributes = umlclass->visible_attributes;
   newumlclass->visible_operations = umlclass->visible_operations;
   newumlclass->visible_comments = umlclass->visible_comments;
-  newumlclass->color_foreground = umlclass->color_foreground;
-  newumlclass->color_background = umlclass->color_background;
+  newumlclass->text_color = umlclass->text_color;
+  newumlclass->line_color = umlclass->line_color;
+  newumlclass->fill_color = umlclass->fill_color;
 
   newumlclass->attributes = NULL;
   list = umlclass->attributes;
@@ -1261,10 +1264,12 @@ umlclass_save(UMLClass *umlclass, ObjectNode obj_node,
 		   umlclass->visible_operations);
   data_add_boolean(new_attribute(obj_node, "visible_comments"),
 		   umlclass->visible_comments);
-  data_add_color(new_attribute(obj_node, "foreground_color"), 
-		   &umlclass->color_foreground);		   
-  data_add_color(new_attribute(obj_node, "background_color"), 
-		   &umlclass->color_background);		   
+  data_add_color(new_attribute(obj_node, "line_color"), 
+		   &umlclass->line_color);
+  data_add_color(new_attribute(obj_node, "fill_color"), 
+		   &umlclass->fill_color);
+  data_add_color(new_attribute(obj_node, "text_color"), 
+		   &umlclass->text_color);
   data_add_font (new_attribute (obj_node, "normal_font"),
                  umlclass->normal_font);
   data_add_font (new_attribute (obj_node, "abstract_font"),
@@ -1391,15 +1396,30 @@ static Object *umlclass_load(ObjectNode obj_node, int version,
   if (attr_node != NULL)
     umlclass->visible_comments = data_boolean(attribute_first_data(attr_node));
 
-  umlclass->color_foreground = color_black;
+  umlclass->line_color = color_black;
+  /* support the old name ... */
   attr_node = object_find_attribute(obj_node, "foreground_color");
   if(attr_node != NULL)
-    data_color(attribute_first_data(attr_node), &umlclass->color_foreground); 
+    data_color(attribute_first_data(attr_node), &umlclass->line_color); 
+  umlclass->text_color = umlclass->line_color;
+  /* ... but prefer the new one */
+  attr_node = object_find_attribute(obj_node, "line_color");
+  if(attr_node != NULL)
+    data_color(attribute_first_data(attr_node), &umlclass->line_color); 
   
-  umlclass->color_background = color_white;
+  umlclass->fill_color = color_white;
+  /* support the old name ... */
   attr_node = object_find_attribute(obj_node, "background_color");
   if(attr_node != NULL)
-    data_color(attribute_first_data(attr_node), &umlclass->color_background); 
+    data_color(attribute_first_data(attr_node), &umlclass->fill_color); 
+  /* ... but prefer the new one */
+  attr_node = object_find_attribute(obj_node, "fill_color");
+  if(attr_node != NULL)
+    data_color(attribute_first_data(attr_node), &umlclass->fill_color); 
+
+  attr_node = object_find_attribute(obj_node, "text_color");
+  if(attr_node != NULL)
+    data_color(attribute_first_data(attr_node), &umlclass->text_color); 
 
   umlclass->normal_font = NULL;
   attr_node = object_find_attribute (obj_node, "normal_font");

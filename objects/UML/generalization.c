@@ -46,6 +46,9 @@ struct _Generalization {
   Alignment text_align;
   real text_width;
   
+  Color text_color;
+  Color line_color;
+
   char *name;
   char *stereotype; /* excluding << and >> */
   char *st_stereotype; /* including << and >> */
@@ -120,6 +123,8 @@ static ObjectOps generalization_ops = {
 
 static PropDescription generalization_props[] = {
   ORTHCONN_COMMON_PROPERTIES,
+  PROP_STD_TEXT_COLOUR_OPTIONAL,
+  PROP_STD_LINE_COLOUR_OPTIONAL, 
   { "name", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
     N_("Name:"), NULL, NULL },
   { "stereotype", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
@@ -138,6 +143,8 @@ generalization_describe_props(Generalization *generalization)
 
 static PropOffset generalization_offsets[] = {
   ORTHCONN_COMMON_PROPERTIES_OFFSETS,
+  {"text_colour",PROP_TYPE_COLOUR,offsetof(Generalization,text_color)},
+  {"line_colour",PROP_TYPE_COLOUR,offsetof(Generalization,line_color)},
   { "name", PROP_TYPE_STRING, offsetof(Generalization, name) },
   { "stereotype", PROP_TYPE_STRING, offsetof(Generalization, stereotype) },
   { NULL, 0, 0 }
@@ -226,7 +233,7 @@ generalization_draw(Generalization *genlz, DiaRenderer *renderer)
   renderer_ops->draw_polyline_with_arrows(renderer,
 					   points, n,
 					   GENERALIZATION_WIDTH,
-					   &color_black,
+					   &genlz->line_color,
 					   &arrow, NULL);
 
   renderer_ops->set_font(renderer, genlz_font, GENERALIZATION_FONTHEIGHT);
@@ -236,7 +243,7 @@ generalization_draw(Generalization *genlz, DiaRenderer *renderer)
     renderer_ops->draw_string(renderer,
 			       genlz->st_stereotype,
 			       &pos, genlz->text_align,
-			       &color_black);
+			       &genlz->text_color);
 
     pos.y += GENERALIZATION_FONTHEIGHT;
   }
@@ -245,7 +252,7 @@ generalization_draw(Generalization *genlz, DiaRenderer *renderer)
     renderer_ops->draw_string(renderer,
 			       genlz->name,
 			       &pos, genlz->text_align,
-			       &color_black);
+			       &genlz->text_color);
   }
   
 }
@@ -411,6 +418,8 @@ generalization_create(Point *startpoint,
 
   orthconn_init(orth, startpoint);
 
+  genlz->text_color = color_black;
+  genlz->line_color = attributes_get_foreground();
   genlz->name = NULL;
   genlz->stereotype = NULL;
   genlz->st_stereotype = NULL;

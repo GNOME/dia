@@ -59,6 +59,7 @@ OBJECTS = \
 	main.obj \
 	menus.obj \
 	modify_tool.obj \
+	navigation.obj \
 	object_ops.obj \
 	pagesetup.obj \
 	paginate_gdiprint.obj \
@@ -83,7 +84,10 @@ OBJECTS = \
 	win32print.obj \
 	winmain.obj \
 
-
+dia-app-icons.h :
+	gdk-pixbuf-csource --build-list \
+	dia_diagram_icon ..\dia-diagram.png \
+	dia_app_icon ..\dia_gnome_icon.png > dia-app-icons.h
 
 ## common stuff
 ## compiler and linker switches
@@ -111,6 +115,7 @@ CFLAGS = -I. -I$(PRJ_TOP) -DHAVE_CONFIG_H
 ## targets
 all : \
 	$(PRJ_TOP)\config.h \
+	dia-app-icons.h \
 	$(PACKAGE).exe
 
 $(PACKAGE).res : $(PACKAGE).rc $(PACKAGE).ico

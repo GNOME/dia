@@ -47,6 +47,9 @@ struct _Component {
 
   char *st_stereotype;
   TextAttributes attrs;
+
+  Color line_color;
+  Color fill_color;
 };
 
 #define COMPONENT_BORDERWIDTH 0.1
@@ -113,6 +116,8 @@ static ObjectOps component_ops = {
 
 static PropDescription component_props[] = {
   ELEMENT_COMMON_PROPERTIES,
+  PROP_STD_LINE_COLOUR_OPTIONAL, 
+  PROP_STD_FILL_COLOUR_OPTIONAL, 
   { "stereotype", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
   N_("Stereotype"), NULL, NULL },
   PROP_STD_TEXT_FONT,
@@ -133,6 +138,8 @@ component_describe_props(Component *component)
 
 static PropOffset component_offsets[] = {
   ELEMENT_COMMON_PROPERTIES_OFFSETS,
+  {"line_colour",PROP_TYPE_COLOUR,offsetof(Component,line_color)},
+  {"fill_colour",PROP_TYPE_COLOUR,offsetof(Component,fill_color)},
   {"stereotype", PROP_TYPE_STRING, offsetof(Component , stereotype) },
   {"text",PROP_TYPE_TEXT,offsetof(Component,text)},
   {"text_font",PROP_TYPE_FONT,offsetof(Component,attrs.font)},
@@ -228,32 +235,32 @@ component_draw(Component *cmp, DiaRenderer *renderer)
 
   renderer_ops->fill_rect(renderer, 
 			   &p1, &p2,
-			   &color_white);
+			   &cmp->fill_color);
   renderer_ops->draw_rect(renderer, 
 			   &p1, &p2,
-			   &color_black);
+			   &cmp->line_color);
 
   p1.x= x; p1.y = y +(h - 3*COMPONENT_CHEIGHT)/2.0;
   p2.x = x+COMPONENT_CWIDTH; p2.y = p1.y + COMPONENT_CHEIGHT;
 
   renderer_ops->fill_rect(renderer, 
 			   &p1, &p2,
-			   &color_white);
+			   &cmp->fill_color);
   
   renderer_ops->draw_rect(renderer, 
 			   &p1, &p2,
-			   &color_black);
+			   &cmp->line_color);
   
   p1.y = p2.y + COMPONENT_CHEIGHT;
   p2.y = p1.y + COMPONENT_CHEIGHT;
 
   renderer_ops->fill_rect(renderer, 
 			   &p1, &p2,
-			   &color_white);
+			   &cmp->fill_color);
   
   renderer_ops->draw_rect(renderer, 
 			   &p1, &p2,
-			   &color_black);
+			   &cmp->line_color);
 
   if (cmp->st_stereotype != NULL &&
       cmp->st_stereotype[0] != '\0') {
@@ -261,7 +268,7 @@ component_draw(Component *cmp, DiaRenderer *renderer)
     p1.y -= cmp->text->height;
     renderer_ops->set_font(renderer, cmp->text->font, cmp->text->height);
     renderer_ops->draw_string(renderer, cmp->st_stereotype, &p1, 
-			       ALIGN_LEFT, &color_black);
+			       ALIGN_LEFT, &cmp->attrs.color);
   }
 
   text_draw(cmp->text, renderer);
@@ -382,6 +389,8 @@ component_create(Point *startpoint,
   obj->can_parent = TRUE;
 
   elem->corner = *startpoint;
+  cmp->line_color = attributes_get_foreground();
+  cmp->fill_color = attributes_get_background();
 
   font = dia_font_new_from_style (DIA_FONT_SANS, 0.8);
   p = *startpoint;

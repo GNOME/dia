@@ -192,6 +192,7 @@ EXPORTS
 
  dia_get_data_directory
  dia_get_lib_directory
+ dia_get_absolute_filename
 
  dia_image_add_ref
  dia_image_draw
@@ -218,6 +219,7 @@ EXPORTS
  dia_list_plugins
 
  dia_object_get_parent_layer
+ dia_object_is_selected
 
  dia_object_default_create
  dia_object_default_get
