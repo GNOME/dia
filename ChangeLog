@@ -1,3 +1,11 @@
+2005-04-07  Lars Clausen  <lars@raeder.dk>
+
+	* lib/dia_xml.c: 
+	* plug-ins/svg/render_svg.c: 
+	* lib/diasvgrenderer.c: Patches from ptasz3k@o2.pl (Radek Krahl):
+	Make decimal separators be correct in save file formats
+	(non-localized).  Fixes bugs #172529 and 172531.
+
 2005-04-06  Lars Clausen  <lars@raeder.dk>
 
 	* app/create_object.c (create_object_button_release): 

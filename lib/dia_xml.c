@@ -21,7 +21,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <locale.h>
 #include <math.h>
 #include <fcntl.h>
 
@@ -767,33 +766,40 @@ void
 data_add_point(AttributeNode attr, const Point *point)
 {
   DataNode data_node;
-  char buffer[80+1]; /* Large enought? */
-  char *old_locale;
-
-  old_locale = setlocale(LC_NUMERIC, "C");
-  g_snprintf(buffer, 80, "%g,%g", point->x, point->y);
-  setlocale(LC_NUMERIC, old_locale);
+  gchar *buffer;
+  gchar px_buf[G_ASCII_DTOSTR_BUF_SIZE];
+  gchar py_buf[G_ASCII_DTOSTR_BUF_SIZE];
+  
+  g_ascii_formatd(px_buf, sizeof(px_buf), "%g", point->x);
+  g_ascii_formatd(py_buf, sizeof(py_buf), "%g", point->y);
+  buffer = g_strconcat(px_buf, ",", py_buf, NULL);
   
   data_node = xmlNewChild(attr, NULL, "point", NULL);
   xmlSetProp(data_node, "val", buffer);
+  g_free(buffer);
 }
 
 void
 data_add_rectangle(AttributeNode attr, const Rectangle *rect)
 {
   DataNode data_node;
-  char buffer[160+1]; /* Large enough? */
-  char *old_locale;
+  gchar *buffer;
+  gchar rl_buf[G_ASCII_DTOSTR_BUF_SIZE];
+  gchar rr_buf[G_ASCII_DTOSTR_BUF_SIZE];
+  gchar rt_buf[G_ASCII_DTOSTR_BUF_SIZE];
+  gchar rb_buf[G_ASCII_DTOSTR_BUF_SIZE];
 
-  old_locale = setlocale(LC_NUMERIC, "C");
-  g_snprintf(buffer, 160, "%g,%g;%g,%g",
-	     rect->left, rect->top,
-	     rect->right, rect->bottom);
-  setlocale(LC_NUMERIC, old_locale);
+  g_ascii_formatd(rl_buf, sizeof(rl_buf), "%g", rect->left);
+  g_ascii_formatd(rr_buf, sizeof(rr_buf), "%g", rect->right);
+  g_ascii_formatd(rt_buf, sizeof(rt_buf), "%g", rect->top);
+  g_ascii_formatd(rb_buf, sizeof(rb_buf), "%g", rect->bottom);
+
+  buffer = g_strconcat(rl_buf, ",", rt_buf, ";", rr_buf, ",", rb_buf, NULL);
   
   data_node = xmlNewChild(attr, NULL, "rectangle", NULL);
   xmlSetProp(data_node, "val", buffer);
 
+  g_free(buffer);
 }
 
 void
