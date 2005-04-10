@@ -31,6 +31,7 @@
 #include "custom_util.h"
 #include "custom_object.h"
 #include "dia_image.h"
+#include "message.h"
 #include "intl.h"
 
 #define FONT_HEIGHT_DEFAULT 1

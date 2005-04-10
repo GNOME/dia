@@ -964,7 +964,7 @@ export_data(DiagramData *data, const gchar *filename,
                                                  75, 75); /* pixels per inch */
     break;
 #endif  
-#ifdef CAIRO_HAS_PNG_SURFACE
+#if defined CAIRO_HAS_PNG_SURFACE || defined CAIRO_HAS_PNG_FUNCTIONS
   case OUTPUT_PNGA :
     renderer->with_alpha = TRUE;
     /* fall through */
@@ -974,10 +974,21 @@ export_data(DiagramData *data, const gchar *filename,
     width  = (data->extents.right - data->extents.left) * renderer->scale;
     height = (data->extents.bottom - data->extents.top) * renderer->scale;
 
-    DIAG_NOTE(g_message ("PNG Surface %dx%d\n", (int)width, (int)height)); 
+    DIAG_NOTE(g_message ("PNG Surface %dx%d\n", (int)width, (int)height));
+#if defined CAIRO_HAS_PNG_SURFACE
     renderer->surface = cairo_png_surface_create (file,
                                                   CAIRO_FORMAT_ARGB32,
                                                   (int)width, (int)height);
+#else
+    /* use case screwed by API shakeup. We need to special case */
+    renderer->surface = cairo_image_surface_create(
+						CAIRO_FORMAT_ARGB32,
+						(int)width, (int)height);
+    /* this wasn't necessary either ;-( */
+    renderer->scale /= 20.0;
+    /* an extra refernce to make it survive end_render():cairo_surface_destroy() */
+    cairo_surface_reference(renderer->surface);
+#endif
     /* although it is slow enough with out this prefer quality over speed */
     cairo_surface_set_filter (renderer->surface, CAIRO_FILTER_BEST);
     break;
@@ -1022,6 +1033,13 @@ export_data(DiagramData *data, const gchar *filename,
             data->extents.left, data->extents.top, data->extents.right, data->extents.bottom));
 
   data_render(data, DIA_RENDERER(renderer), NULL, NULL, NULL);
+#if defined CAIRO_HAS_PNG_FUNCTIONS
+  if (OUTPUT_PNGA == kind || OUTPUT_PNG == kind)
+    {
+      cairo_surface_write_png(renderer->surface, file);
+      cairo_surface_destroy(renderer->surface);
+    }
+#endif
   g_object_unref(renderer);
   fclose (file);
 }
@@ -1105,7 +1123,7 @@ _plugin_unload (PluginInfo *info)
 #ifdef CAIRO_HAS_PDF_SURFACE
   filter_unregister_export(&pdf_export_filter);
 #endif
-#ifdef CAIRO_HAS_PNG_SURFACE
+#if defined CAIRO_HAS_PNG_SURFACE || defined CAIRO_HAS_PNG_FUNCTIONS
   filter_unregister_export(&png_export_filter);
   filter_unregister_export(&pnga_export_filter);
 #endif
@@ -1135,7 +1153,7 @@ dia_plugin_init(PluginInfo *info)
 #ifdef CAIRO_HAS_PDF_SURFACE
   filter_register_export(&pdf_export_filter);
 #endif
-#ifdef CAIRO_HAS_PNG_SURFACE
+#if defined CAIRO_HAS_PNG_SURFACE || defined CAIRO_HAS_PNG_FUNCTIONS
   filter_register_export(&png_export_filter);
   filter_register_export(&pnga_export_filter);
 #endif

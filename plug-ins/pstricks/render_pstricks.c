@@ -487,11 +487,12 @@ pstricks_rect(PstricksRenderer *renderer,
 	      Point *ul_corner, Point *lr_corner,
 	      Color *color, gboolean filled)
 {
-    set_line_color(renderer,color);
     gchar ulx_buf[DTOSTR_BUF_SIZE];
     gchar uly_buf[DTOSTR_BUF_SIZE];
     gchar lrx_buf[DTOSTR_BUF_SIZE];
     gchar lry_buf[DTOSTR_BUF_SIZE];
+
+    set_line_color(renderer,color);
 
     pstricks_dtostr(ulx_buf, (gdouble) ul_corner->x);
     pstricks_dtostr(uly_buf, (gdouble) ul_corner->y);

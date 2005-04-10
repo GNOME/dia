@@ -1,3 +1,11 @@
+2005-04-10  Hans Breuer  <hans@breuer.org>
+
+	* plug-ins/cairo/diacairo.c : adapt to Cairo PNG API 
+	changes (somewhat broken)
+	
+	* plug-ins/pstricks/render_pstricks.c : still C89 ...
+	* objects/custom/shape_info.c : ... but with prototypes
+	
 2005-04-07  Lars Clausen  <lars@raeder.dk>
 
 	* lib/dia_xml.c: 
