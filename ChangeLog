@@ -1,10 +1,13 @@
 2005-04-11  Lars Clausen  <lars@raeder.dk>
 
+	* xmldocs.make (all): Fix to put installed docs in right place
+	under disable-gnome.
+
 	* doc/en/Makefile.am: Use xml_files var for xml files, EXTRA_DIST
 	only for dia.dbk.
 
-	* app/commands.c (help_manual_callback): Use standard gnome help
-	if called with Gnome.
+	* app/commands.c (help_manual_callback): Patch from p@kapcoweb.com
+	(Leonardo Boshell): Use standard gnome help if called with Gnome.
 
 	* app/diapsrenderer.c: Patch from ptasz3k@o2.pl (Radek Krahl): Fix
 	locale issues for eps output.  Fixes bug #173135.
