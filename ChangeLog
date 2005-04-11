@@ -1,3 +1,14 @@
+2005-04-11  Lars Clausen  <lars@raeder.dk>
+
+	* doc/en/Makefile.am: Use xml_files var for xml files, EXTRA_DIST
+	only for dia.dbk.
+
+	* app/commands.c (help_manual_callback): Use standard gnome help
+	if called with Gnome.
+
+	* app/diapsrenderer.c: Patch from ptasz3k@o2.pl (Radek Krahl): Fix
+	locale issues for eps output.  Fixes bug #173135.
+
 2005-04-10  Hans Breuer  <hans@breuer.org>
 
 	* plug-ins/cairo/diacairo.c : adapt to Cairo PNG API 

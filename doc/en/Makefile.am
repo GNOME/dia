@@ -9,9 +9,7 @@ dist-hook: app-dist-hook
 
 nodist_include_EXTRAS = dia.1
 
-EXTRA_DIST += \
-	dia.1 \
-	dia.dbk \
+xml_files += \
 	authors.xml \
 	dia.xml \
 	entities.xml \
@@ -25,11 +23,14 @@ EXTRA_DIST += \
 	usage-objects-selecting.xml \
 	usage-objects-special.xml \
 	usage-objects.xml \
-	usage-quickstart.xml \
-	graphics/line_props.png \
-	graphics/home_network.png \
-	graphics/line_icon.png \
-	graphics/greendots.png
+	usage-quickstart.xml
+
+EXTRA_DIST += \
+	dia.dbk
+#	graphics/line_props.png \
+#	graphics/home_network.png \
+#	graphics/line_icon.png \
+#	graphics/greendots.png
 
 if HAVE_DB2MAN
 # If we want misconfigured XML catalogs to not try net access, use

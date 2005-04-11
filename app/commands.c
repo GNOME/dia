@@ -517,6 +517,9 @@ edit_redo_callback(gpointer data, guint action, GtkWidget *widget)
 void
 help_manual_callback(gpointer data, guint action, GtkWidget *widget)
 {
+#ifdef GNOME
+  gnome_help_display("dia", NULL, NULL);
+#else
   char *helpdir, *helpindex = NULL, *command;
   guint bestscore = G_MAXINT;
   GDir *dp;
@@ -578,6 +581,7 @@ help_manual_callback(gpointer data, guint action, GtkWidget *widget)
 #endif
 
   g_free(helpindex);
+#endif
 }
 
 void
