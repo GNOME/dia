@@ -116,7 +116,16 @@ begin_render(DiaRenderer *self)
   if (renderer->with_alpha)
     {
       cairo_set_operator (renderer->cr, CAIRO_OPERATOR_SRC);
+#ifndef CAIRO_API_SHAKEUP_FLAG_DAY
+      /* an IMHO lousy way to build with Cairo cvs and .4 release */
       cairo_set_alpha (renderer->cr, 0.0);
+#else
+      cairo_set_source_rgba (renderer->cr,
+                       renderer->dia->bg_color.red, 
+                       renderer->dia->bg_color.green, 
+                       renderer->dia->bg_color.blue,
+                       0.0);
+#endif
     }
   cairo_set_rgb_color (renderer->cr,
                        renderer->dia->bg_color.red, 
@@ -130,7 +139,15 @@ begin_render(DiaRenderer *self)
     {
       /* restore to default drawing */
       cairo_set_operator (renderer->cr, CAIRO_OPERATOR_OVER);
+#ifndef CAIRO_API_SHAKEUP_FLAG_DAY
       cairo_set_alpha (renderer->cr, 1.0);
+#else
+      cairo_set_source_rgba (renderer->cr,
+                       renderer->dia->bg_color.red, 
+                       renderer->dia->bg_color.green, 
+                       renderer->dia->bg_color.blue,
+                       1.0);
+#endif
     }
   DIAG_STATE(renderer->cr)
 }
@@ -984,8 +1001,6 @@ export_data(DiagramData *data, const gchar *filename,
     renderer->surface = cairo_image_surface_create(
 						CAIRO_FORMAT_ARGB32,
 						(int)width, (int)height);
-    /* this wasn't necessary either ;-( */
-    renderer->scale /= 20.0;
     /* an extra refernce to make it survive end_render():cairo_surface_destroy() */
     cairo_surface_reference(renderer->surface);
 #endif

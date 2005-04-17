@@ -1,3 +1,8 @@
+2005-04-17  Hans Breuer  <hans@breuer.org>
+
+	* plug-ins/cairo/diacairo.c : again adapt to Cairo API 
+	changes (whould compile with current cvs and 0.(3|4).0
+
 2005-04-11  Lars Clausen  <lars@raeder.dk>
 
 	* xmldocs.make (all): Fix to put installed docs in right place
