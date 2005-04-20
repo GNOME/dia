@@ -1,3 +1,12 @@
+2005-04-20  Lars Clausen  <lars@raeder.dk>
+
+	* lib/orth_conn.c (orthconn_update_data): Patch from ptasz3k@o2.pl
+	(Radek Krahl): Make sure there's enough handles for the line.
+	Fixes bug #173031.
+
+	* objects/UML/node.c (node_draw): Better drawing method avoids
+	garbage after moving.  Fixes bug #301032.
+
 2005-04-17  Hans Breuer  <hans@breuer.org>
 
 	* plug-ins/cairo/diacairo.c : again adapt to Cairo API 

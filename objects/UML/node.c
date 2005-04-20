@@ -223,7 +223,7 @@ static void node_draw(Node *node, DiaRenderer *renderer)
   DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Element *elem;
   real x, y, w, h;
-  Point points[4];
+  Point points[7];
   int i;
   
   assert(node != NULL);
@@ -240,29 +240,35 @@ static void node_draw(Node *node, DiaRenderer *renderer)
   renderer_ops->set_linewidth(renderer, NODE_BORDERWIDTH);
   renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
 
-  points[0].x = x;     points[0].y = y;
-  points[1].x = x + w; points[1].y = y + h;
+  /* Draw outer box */
+  points[0].x = x;                  points[0].y = y;
+  points[1].x = x + NODE_DEPTH;     points[1].y = y - NODE_DEPTH;
+  points[2].x = x + w + NODE_DEPTH; points[2].y = y - NODE_DEPTH;
+  points[3].x = x + w + NODE_DEPTH; points[3].y = y + h - NODE_DEPTH;
+  points[4].x = x + w;              points[4].y = y + h;
+  points[5].x = x;                  points[5].y = y + h;
+  points[6].x = x;                  points[6].y = y;
 
-  renderer_ops->fill_rect(renderer, points, points + 1, &node->fill_color);
-  renderer_ops->draw_rect(renderer, points, points + 1, &node->line_color);
+  renderer_ops->fill_polygon(renderer, points, 7, &node->fill_color);
+  renderer_ops->draw_polygon(renderer, points, 7, &node->line_color);
 
-  points[1].x = x + NODE_DEPTH, points[1].y = y - NODE_DEPTH;
-  points[2].x = x + w + NODE_DEPTH, points[2].y = y - NODE_DEPTH;
-  points[3].x = x + w, points[3].y = y;
+  /* Draw interior lines */
+  points[0].x = x;                  points[0].y = y;
+  points[1].x = x + w;              points[1].y = y;
+  renderer_ops->draw_line(renderer, &points[0], &points[1], &node->line_color);
 
-  renderer_ops->fill_polygon(renderer, points, 4, &node->fill_color);
-  renderer_ops->draw_polygon(renderer, points, 4, &node->line_color);
+  points[0].x = x + w;              points[0].y = y;
+  points[1].x = x + w + NODE_DEPTH; points[1].y = y - NODE_DEPTH;
+  renderer_ops->draw_line(renderer, &points[0], &points[1], &node->line_color);
 
-  points[0].x = points[3].x, points[0].y = points[3].y;
-  points[1].x = points[0].x + NODE_DEPTH, points[1].y = points[0].y - NODE_DEPTH;
-  points[2].x = points[0].x + NODE_DEPTH, points[2].y = points[0].y - NODE_DEPTH + h;
-  points[3].x = points[0].x, points[3].y = points[0].y + h;
+  points[0].x = x + w;              points[0].y = y;
+  points[1].x = x + w;              points[1].y = y + h;
+  renderer_ops->draw_line(renderer, &points[0], &points[1], &node->line_color);
 
-  renderer_ops->fill_polygon(renderer, points, 4, &node->fill_color);
-  renderer_ops->draw_polygon(renderer, points, 4, &node->line_color);
-
+  /* Draw text */
   text_draw(node->name, renderer);
   
+  /* Draw underlines (!) */
   renderer_ops->set_linewidth(renderer, NODE_LINEWIDTH);
   points[0].x = node->name->position.x;
   points[0].y = points[1].y = node->name->position.y + node->name->descent;

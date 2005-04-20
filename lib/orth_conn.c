@@ -303,8 +303,18 @@ orthconn_update_data(OrthConn *orth)
   int i;
   DiaObject *obj = (DiaObject *)orth;
   Point *points;
-  ConnectionPoint *start_cp = orth->handles[0]->connected_to;
-  ConnectionPoint *end_cp = orth->handles[orth->numpoints-2]->connected_to;
+  ConnectionPoint *start_cp;
+  ConnectionPoint *end_cp;
+
+  obj->position = orth->points[0];
+
+  /* During startup, handles may not have been setup yet, so do so
+   * temporarily to be able to get the last handle connection.
+   */
+  adjust_handle_count_to(orth, orth->numpoints-1);
+
+  start_cp = orth->handles[0]->connected_to;
+  end_cp = orth->handles[orth->numpoints-2]->connected_to;
 
   if (!orth->points) {
     g_warning("very sick OrthConn object...");
