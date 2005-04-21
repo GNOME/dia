@@ -18,6 +18,7 @@
     <point x="10" y="8"/>
     <point x="10" y="9"/>
     <point x="10" y="10"/>
+    <point x="9.16666666666667" y="5" main="yes"/>
   </connections>
   <svg:svg width="10" height="10">
     <svg:line x1="0" y1="5" x2="10" y2="0"/>

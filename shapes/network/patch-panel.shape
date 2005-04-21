@@ -28,6 +28,7 @@
      <point x="11.125" y=".45"/>
      <point x="11.625" y=".45"/>
      <point x="12.125" y=".45"/>
+     <point x="6.375" y="0.45" main="yes"/>
   </connections>
   <aspectratio type="fixed"/>
 

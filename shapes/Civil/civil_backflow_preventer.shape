@@ -43,6 +43,7 @@ xmlns:svg="http://www.w3.org/2000/svg">
     <point x="0.8" y="0.2" />
 
     <point x="0.5" y="0.5" />
+    <point x="0.5" y="0.5" main="yes"/>
   </connections>
 
   <aspectratio type="fixed" />

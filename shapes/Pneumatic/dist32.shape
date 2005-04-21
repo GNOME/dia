@@ -12,6 +12,7 @@
     <point x="1.25" y="0"/>
     <point x="1.25" y="1"/>
     <point x="1.75" y="1"/>
+    <point x="0.916666666666667" y="0.666666666666667" main="yes"/>
   </connections>
   <aspectratio type="fixed"/>
   <svg:svg width="2" height="1">

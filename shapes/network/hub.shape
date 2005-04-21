@@ -13,6 +13,7 @@
      <point x="3.125" y=".87"/>
      <point x="3.625" y=".87"/>
      <point x="4.125" y=".87"/>
+     <point x="2.38888888888889" y="1.01777777777778" main="yes"/>
   </connections>
   <aspectratio type="fixed"/>
   <textbox x1="0" y1="2.3" x2="5" y2="5.3" align="center" resize="no"/>

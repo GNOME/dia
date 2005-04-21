@@ -16,6 +16,7 @@
     <point x="3.5" y="1.5"/>
     <point x="7.5" y="3.2"/>
     <point x="4" y="5"/>
+    <point x="4.53846153846154" y="3.38076923076923" main="yes"/>
   </connections>
   <aspectratio type="free"/>
   <textbox x1="0.5" y1="0.75" x2="7.5" y2="4.75"/>

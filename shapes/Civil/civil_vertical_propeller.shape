@@ -11,6 +11,7 @@ xmlns:svg="http://www.w3.org/2000/svg">
     <point x="0.5" y="0" />
 
     <point x="0.5" y="0.45" />
+    <point x="0.5" y="0.45" main="yes"/>
   </connections>
 
   <svg:svg>

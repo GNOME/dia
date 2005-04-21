@@ -221,6 +221,7 @@ xmlns:svg="http://www.w3.org/2000/svg">
     <point x="5.8" y="0.4" />
 
     <point x="4.6" y="0.4" />
+    <point x="2.63504361111111" y="0.719533796296297" main="yes"/>
   </connections>
 
   <svg:svg>

@@ -5,6 +5,7 @@
 	<connections>
 		<point x="1.5" y="3"/>
 		<point x="1.5" y="0"/>
+		<point x="1.5" y="1.5" main="yes"/>
 	</connections>
 	<aspectratio type="fixed"/>
 	<svg:svg><svg:g style="fill: bg; stroke-width: 1; stroke: fg">

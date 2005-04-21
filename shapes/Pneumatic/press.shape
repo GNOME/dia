@@ -7,6 +7,7 @@
   <icon>press.png</icon>
   <connections>
     <point x="2" y=".5"/>
+    <point x="2" y="0.5" main="yes"/>
   </connections>
   <aspectratio type="fixed"/>
   <svg:svg width="2" height="1">

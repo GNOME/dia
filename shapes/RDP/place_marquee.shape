@@ -13,6 +13,7 @@ xmlns:svg="http://www.w3.org/2000/svg">
     <point x="0" y="-1.5" />
 
     <point x="0" y="1.5" />
+    <point x="0" y="0" main="yes"/>
   </connections>
   <textbox x1="-0.9" y1="-0.9" x2="0.9" y2="0.9"/>
   <aspectratio type="fixed" />

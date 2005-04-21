@@ -221,6 +221,7 @@ the nearest integer
     <point x="3" y="2"/>
 <!-- group.  X centrepoint.  -->
 
+    <point x="2.76582278481013" y="2.18037974683544" main="yes"/>
   </connections>
   <aspectratio type="fixed"/>
 

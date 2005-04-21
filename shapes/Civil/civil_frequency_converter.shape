@@ -43,6 +43,7 @@ xmlns:svg="http://www.w3.org/2000/svg">
     <point x="3" y="0" />
 
     <point x="1.5" y="1" />
+    <point x="1.5" y="1" main="yes"/>
   </connections>
 
   <textbox x1="0" y1="0" x2="3" y2="2" />

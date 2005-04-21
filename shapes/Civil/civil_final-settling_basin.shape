@@ -99,6 +99,7 @@ xmlns:svg="http://www.w3.org/2000/svg">
     <point x="1.5" y="4" />
 
     <point x="0.6" y="3" />
+    <point x="1.53191489361702" y="1.9531914893617" main="yes"/>
   </connections>
 
   <svg:svg>

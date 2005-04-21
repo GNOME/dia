@@ -22,6 +22,7 @@
     <point x="2.5" y="6.75"/>
     <point x="5"   y="6"/>
     <point x="7.5" y="5.25"/>
+    <point x="5" y="3" main="yes"/>
   </connections>
   <textbox x1="0" y1="0" x2="10" y2="5"/>
   <svg:svg width="10" height="7">

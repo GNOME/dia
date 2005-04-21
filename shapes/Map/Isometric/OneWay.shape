@@ -49,6 +49,7 @@
     <point x="12" y="7"/>
     <point x="6" y="9"/>
     <point x="4" y="11"/>
+    <point x="9.5" y="9.9" main="yes"/>
   </connections>
   <aspectratio type="fixed"/>
 

@@ -8,6 +8,7 @@
     <point x="3.75" y="6.75"/>
     <point x="8.5" y="11"/>
     <point x="13.25" y="6.75"/>
+    <point x="9.45" y="7.15" main="yes"/>
   </connections>
   <aspectratio type="fixed"/>
   <svg:svg>

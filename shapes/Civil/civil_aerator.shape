@@ -7,6 +7,7 @@ xmlns:svg="http://www.w3.org/2000/svg">
 
   <connections>
     <point x="0.5" y="2" />
+    <point x="0.25" y="0.65" main="yes"/>
   </connections>
 
   <aspectratio type="fixed" />

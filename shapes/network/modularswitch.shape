@@ -6,6 +6,7 @@
   <aspectratio type="fixed"/>
   <connections>
      <point x="4.75" y="8.2"/>
+     <point x="4.625" y="5.7" main="yes"/>
   </connections>
   <textbox x1="0" y1="8.3" x2="9.5" y2="11.3" align="center" resize="no"/>
   <svg:svg width="9.5cm" height="8.2cm">

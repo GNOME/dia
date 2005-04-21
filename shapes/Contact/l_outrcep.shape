@@ -9,6 +9,7 @@
     <point x="-2" y="0"/>
     <point x="2" y="0" />
     <point x="0" y="0" />
+    <point x="0" y="0" main="yes"/>
   </connections>
   <aspectratio type="fixed"/>
   <svg:svg width="4" height="4">

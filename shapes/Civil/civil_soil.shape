@@ -47,6 +47,7 @@ xmlns:svg="http://www.w3.org/2000/svg">
     <point x="1.75837" y="1" />
 
     <point x="2.06015" y="0.501" />
+    <point x="1.16031466190476" y="0.432722359142857" main="yes"/>
   </connections>
 
   <svg:svg>

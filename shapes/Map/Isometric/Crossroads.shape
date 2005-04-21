@@ -55,6 +55,7 @@ would be good to improve this but hardly worth the effort.  -->
     <point x="4" y="2.5"/>
     <point x="3" y="2.5"/>
     <point x="1" y="2.5"/>
+    <point x="2.08695652173913" y="1.45652173913043" main="yes"/>
   </connections>
 
   <aspectratio type="fixed"/>

@@ -9,6 +9,7 @@ xmlns:svg="http://www.w3.org/2000/svg">
     <point x="0" y="0" />
 
     <point x="2" y="0" />
+    <point x="0.433333333333333" y="0" main="yes"/>
   </connections>
 
   <svg:svg width="3" height="0.3">

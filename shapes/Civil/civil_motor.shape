@@ -39,6 +39,7 @@ xmlns:svg="http://www.w3.org/2000/svg">
     <point x="0.6" y="0.4" />
 
     <point x="0.7" y="0.5" />
+    <point x="0.5" y="0.488235294117647" main="yes"/>
   </connections>
 
   <aspectratio type="fixed" />

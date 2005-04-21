@@ -16,6 +16,7 @@
     <point x="1.4645" y="8.5355"/>
     <point x="7.5"    y="10"/>
     <point x="10"     y="10"/>
+    <point x="5.75" y="6" main="yes"/>
   </connections>
   <textbox x1="1.4645" y1="1.4645" x2="8.5355" y2="8.5355"/>
   <svg:svg width="10" height="12">

@@ -7,6 +7,7 @@
   <connections>
      <point x="1.4" y="0"/>
      <point x="1.4" y="2.2"/>
+     <point x="1.43333333333333" y="1.71666666666667" main="yes"/>
   </connections>
   <textbox x1="-1" y1="2.3" x2="3.8" y2="5.3" align="center" resize="no"/>
   <svg:svg width="2.8cm" height="2.2cm">

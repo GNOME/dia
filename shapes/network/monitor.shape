@@ -14,6 +14,7 @@
     <point x="18" y="15"/>
     <point x="3" y="18"/>
     <point x="15" y="18"/>
+    <point x="9" y="10.2" main="yes"/>
   </connections>
   <aspectratio type="fixed"/>
   <svg:svg width="19cm" height="19cm" viewBox="0 0 18 18">

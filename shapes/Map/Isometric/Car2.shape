@@ -214,6 +214,7 @@ to allow users to change colour from within Dia.  -->
     <point x="3" y="2"/>
 <!-- centrepoint -->
 
+    <point x="3.5" y="2.2626582278481" main="yes"/>
   </connections>
 
   <aspectratio type="fixed"/>

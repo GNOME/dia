@@ -68,6 +68,7 @@ Probably change it to Building 1 or something -->
     <point x="4" y="5.5"/>
     <point x="6" y="5.5"/>
     <point x="4" y="7.5"/>
+    <point x="2.63461538461538" y="5.94230769230769" main="yes"/>
   </connections>
   <aspectratio type="fixed"/>
   <!-- First two polygons are the roof and the second two are the building walls.  -->

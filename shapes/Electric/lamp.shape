@@ -8,6 +8,7 @@
   <connections>
     <point x="0" y=".5"/>
     <point x="1" y=".5" />
+    <point x="0.5" y="0.5" main="yes"/>
   </connections>
   <textbox x1="-1" y1="-.7" x2="2" y2=".2"/>
   <aspectratio type="fixed"/>

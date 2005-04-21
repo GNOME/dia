@@ -5,6 +5,7 @@
   <connections>
     <point x="21.4" y="18.55"/>
     <point x="21.4" y="20.55"/>
+    <point x="21.4" y="19.55" main="yes"/>
    </connections>
   <aspectratio type="fixed"/>
   <svg:svg>

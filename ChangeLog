@@ -1,3 +1,7 @@
+2005-04-21  Lars Clausen  <lars@raeder.dk>
+
+	* shapes/**/*.shape: All shapes now have midpoints.
+
 2005-04-20  Lars Clausen  <lars@raeder.dk>
 
 	* lib/orth_conn.c (orthconn_update_data): Patch from ptasz3k@o2.pl

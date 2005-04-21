@@ -7,6 +7,7 @@
   <icon>t_transition.png</icon>
   <connections>
     <point x="0" y="0" />
+    <point x="0" y="0" main="yes"/>
   </connections>
   <textbox x1="-0.9" y1="-0.9" x2="0.9" y2="-0.2"/>
   <aspectratio type="fixed"/>

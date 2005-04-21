@@ -134,6 +134,7 @@
     <point x="17" y="0"/>
     <point x="16" y="0.5"/>
     <point x="18" y="0.5"/>
+    <point x="11.2678571428571" y="12.7767857142857" main="yes"/>
   </connections>
   <aspectratio type="fixed"/>
 
