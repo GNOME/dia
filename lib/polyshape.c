@@ -319,7 +319,7 @@ polyshape_update_data(PolyShape *poly)
     }
 
     obj->connections = g_realloc(obj->connections,
-                                 poly->numpoints * 2 * sizeof(ConnectionPoint *));
+                                 NUM_CONNECTIONS(poly) * sizeof(ConnectionPoint *));
     for (i = 0; i < NUM_CONNECTIONS(poly); i++) {
       obj->connections[i] = g_new0(ConnectionPoint, 1);
       obj->connections[i]->object = obj;

@@ -1,5 +1,7 @@
 2005-04-21  Lars Clausen  <lars@raeder.dk>
 
+	* lib/polyshape.c (polyshape_update_data): Fixed numpoint off-by-one.
+
 	* shapes/**/*.shape: All shapes now have midpoints.
 
 2005-04-20  Lars Clausen  <lars@raeder.dk>
