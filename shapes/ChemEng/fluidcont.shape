@@ -25,6 +25,7 @@
     <point x="4" y="11"/>
     <point x="2" y="0.1"/>
     <point x="2" y="11.9"/>
+    <point x="2" y="6.45454545454545" main="yes"/>
   </connections>
   <svg:svg>
     <svg:path style="fill:default; stroke:none" d="M 0 1 C 2,-1 4,1 4,1z"/>

@@ -8,6 +8,7 @@
   <connections>
     <point x="0" y="0"/>
     <point x="0" y="7.5"/>
+    <point x="0" y="3.75" main="yes"/>
   </connections>
   <svg:svg width="3.0" height="3.0">
     <svg:polyline points="0,0 0,2.25 -1,2.5 1,3 -1,3.5 1,4 -1,4.5 1,5 0,5.25 0,7.5" />

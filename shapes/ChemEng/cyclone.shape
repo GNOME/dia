@@ -13,6 +13,7 @@
     <point x="0.5" y="0"/>
     <point x="1" y="0"/>
     <point x="1.5" y="0"/>
+    <point x="1" y="0.7" main="yes"/>
   </connections>
   <svg:svg>
     <svg:polygon style="fill: default" points="0,0 2,0 2,1 1,4 0,1 "/>

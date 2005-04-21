@@ -10,6 +10,7 @@
     <point x="0" y="3"/>
     <point x="3" y="6"/>
     <point x="6" y="3"/>
+    <point x="3" y="3" main="yes"/>
   </connections>
   <svg:svg width="3.0" height="3.0">
    <svg:circle cx="3" cy="3" r="3" style="fill: default" />

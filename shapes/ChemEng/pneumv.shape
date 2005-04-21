@@ -5,6 +5,7 @@
   <connections>
     <point x="2" y="0.5"/>
     <point x="2" y="1.5"/>
+    <point x="2" y="1" main="yes"/>
   </connections>
   <svg:svg>
     <svg:line x1="4" y1="0" x2="0" y2="1"/>

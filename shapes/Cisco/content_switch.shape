@@ -41,5 +41,6 @@ xmlns:svg="http://www.w3.org/2000/svg">
 <point x="5478" y="-2021.5"/>
 <point x="5478" y="-2020"/>
 <point x="5778" y="-1960"/>
+<point x="5579.625" y="-2093.875" main="yes"/>
 </connections>
 </shape>

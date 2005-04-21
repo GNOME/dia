@@ -7,6 +7,7 @@
     <point x="4" y="3"/>
     <point x="2" y="0"/>
     <point x="2" y="3"/>
+    <point x="2" y="2.25" main="yes"/>
   </connections>
   <svg:svg>
     <svg:path style="fill: default; stroke:none" d="M 1 1 C 1,-0.35 3,-0.35 3,1z"/>

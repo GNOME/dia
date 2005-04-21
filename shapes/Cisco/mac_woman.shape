@@ -103,5 +103,6 @@ xmlns:svg="http://www.w3.org/2000/svg">
 <point x="877" y="-3689"/>
 <point x="785" y="-3956"/>
 <point x="1104" y="-3999"/>
+<point x="918.75" y="-3959" main="yes"/>
 </connections>
 </shape>

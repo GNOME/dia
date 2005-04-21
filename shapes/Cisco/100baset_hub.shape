@@ -24,5 +24,6 @@ style="fill: background; stroke: background; stroke-width: 0"/>
 <point x="646" y="-6944"/>
 <point x="274" y="-7054"/>
 <point x="696" y="-7064"/>
+<point x="490.25" y="-7052.25" main="yes"/>
 </connections>
 </shape>

@@ -34,5 +34,6 @@ stroke: background; stroke-width: 0"/>
 <point x="4281" y="-3598"/>
 <point x="4120" y="-3879"/>
 <point x="4330" y="-3647"/>
+<point x="4225" y="-3763" main="yes"/>
 </connections>
 </shape>

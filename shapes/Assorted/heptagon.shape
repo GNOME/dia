@@ -30,6 +30,7 @@
     <point x="9.75" y="4"/>
     <point x="8.75" y="7.75"/>
     <point x="5" y="9.5"/>
+    <point x="5.28846153846154" y="4.78846153846154" main="yes"/>
   </connections>
   <aspectratio type="fixed"/>
   <svg:svg>

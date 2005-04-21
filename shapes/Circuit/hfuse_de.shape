@@ -8,6 +8,7 @@
   <connections>
     <point x="0" y="0"/>
     <point x="6" y="0"/>
+    <point x="3" y="0" main="yes"/>
   </connections>
   <svg:svg width="3.0" height="0.5">
    <svg:rect x="1.5" y="-0.5" width="3" height="1" style="fill: default" /> 

@@ -23,5 +23,6 @@ xmlns:svg="http://www.w3.org/2000/svg">
 <point x="792" y="-2085"/>
 <point x="991.5" y="-2085"/>
 <point x="1191" y="-2085"/>
+<point x="991.5" y="-2199" main="yes"/>
 </connections>
 </shape>

@@ -17,6 +17,7 @@
     <point x="5" y="2"/>
     <point x="5" y="1"/>
     <point x="5" y="0"/>
+    <point x="2.5" y="2.57142857142857" main="yes"/>
   </connections>
   <svg:svg>
     <svg:rect style="fill: default; stroke: none" x="0" y="0" width="5" height="4"/>

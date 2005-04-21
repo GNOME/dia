@@ -19,6 +19,7 @@
     <point x="4" y="7"/>
     <point x="2" y="0.1"/>
     <point x="2" y="7.9"/>
+    <point x="2" y="4" main="yes"/>
   </connections>
   <svg:svg>
     <svg:polygon style="fill:default; stroke:none" points="0,1 0,7 4,7 4,1"/>

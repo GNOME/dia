@@ -92,6 +92,7 @@
     <point x="1" y="6"/>
     <point x="1.75" y="5.25"/>
     <point x="1.25" y="5.5"/>
+    <point x="3.5" y="3.51136363636364" main="yes"/>
   </connections>
   <aspectratio type="fixed"/>
   <!-- I orignally used a nice warm gold colour #ffcc00, but shape files 

@@ -32,5 +32,6 @@ xmlns:svg="http://www.w3.org/2000/svg">
 <point x="1717" y="-3853"/>
 <point x="1717" y="-3739"/>
 <point x="1717" y="-3625"/>
+<point x="1533" y="-3739" main="yes"/>
 </connections>
 </shape>

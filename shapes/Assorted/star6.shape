@@ -50,6 +50,7 @@
     <point x="1.25" y="3.5"/>
     <point x="0.5" y="3"/>
     <point x="0.25" y="2.5"/>
+    <point x="1.55434782608696" y="2.02173913043478" main="yes"/>
   </connections>
   <aspectratio type="free"/>
   <svg:svg>
