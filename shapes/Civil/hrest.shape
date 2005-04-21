@@ -6,7 +6,7 @@ xmlns:svg="http://www.w3.org/2000/svg">
   <icon>hrest.png</icon>
 
   <connections>
-    <point y="0" x="-.7" />
+    <point x="-.7" y="0" />
   </connections>
 
   <aspectratio type="fixed" />
