@@ -22,7 +22,7 @@
 
 #include <Python.h>
 
-#include "object.h"
+#include "lib/object.h"
 
 typedef struct {
     PyObject_HEAD

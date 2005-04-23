@@ -2,8 +2,8 @@
 #define PYDIA_PROPERTIES_H
 
 #include <Python.h>
-#include "object.h"
-#include "properties.h"
+#include "lib/object.h"
+#include "lib/properties.h"
 
 typedef struct {
     PyObject_HEAD

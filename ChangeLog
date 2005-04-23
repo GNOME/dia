@@ -1,5 +1,9 @@
 2005-04-23  Hans Breuer  <hans@breuer.org>
 
+	* plug-ins/python/diamodule.c plug-ins/python/pydia-object.h
+	  plug-ins/python/pydia-properties.h : use lib/ prefix for
+	Dia internal headers with too common names (fixes bug #173061)
+
 	* app/display.c : stop special casing the first display of
 	a diagram. Every display now has it's own refernce. The initial
 	reference gets dropped when there is no display anymore. See

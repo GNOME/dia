@@ -38,8 +38,8 @@
 #include "pydia-error.h"
 #include "pydia-text.h"
 
-#include "object.h"
-#include "group.h"
+#include "lib/object.h"
+#include "lib/group.h"
 #include "app/diagram.h"
 #include "app/display.h"
 #include "app/load_save.h"
