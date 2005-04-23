@@ -1,5 +1,12 @@
 2005-04-23  Hans Breuer  <hans@breuer.org>
 
+	* app/diapsft2renderer.c : locale independent output
+	(Radek Krahl, bug #300847)
+	* app/paginate_psprint.c :  fixing use of setlocale() calls
+	(Radek Krahl, bug #300886)
+	* plug-ins/shape/shape-export.c : fixing use of setlocale() calls
+	(Radek Krahl, bug #300889)
+
 	* objects/UML/class.c : fix another crash with the line 
 	wrapping code (Gabor Simon, bug #160865)
 

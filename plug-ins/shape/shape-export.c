@@ -39,7 +39,6 @@
 #ifdef HAVE_UNISTD_H
 #include <unistd.h>
 #endif
-#include <locale.h>
 
 /* the dots per centimetre to render this diagram at */
 /* this matches the setting `100%' setting in dia. */
@@ -271,12 +270,12 @@ add_connection_point (ShapeRenderer *renderer,
                       Point *point) 
 {
   xmlNodePtr node;
-  char buf[512];
+  gchar buf[G_ASCII_DTOSTR_BUF_SIZE];
   
   node = xmlNewChild(renderer->connection_root, NULL, "point", NULL);
-  g_snprintf(buf, sizeof(buf), "%g", point->x);
+  g_ascii_formatd(buf, sizeof(buf), "%g", point->x);
   xmlSetProp(node, "x", buf);
-  g_snprintf(buf, sizeof(buf), "%g", point->y);
+  g_ascii_formatd(buf, sizeof(buf), "%g", point->y);
   xmlSetProp(node, "y", buf);
 }
 
@@ -311,6 +310,8 @@ draw_polyline(DiaRenderer *self,
   xmlNodePtr node;
   GString *str;
   Point center;
+  gchar px_buf[G_ASCII_DTOSTR_BUF_SIZE];
+  gchar py_buf[G_ASCII_DTOSTR_BUF_SIZE];
 
   node = xmlNewChild(renderer->root, renderer->svg_name_space, "polyline", NULL);
   
@@ -319,7 +320,9 @@ draw_polyline(DiaRenderer *self,
 
   str = g_string_new(NULL);
   for (i = 0; i < num_points; i++) {
-    g_string_sprintfa(str, "%g,%g ", points[i].x, points[i].y);
+    g_string_append_printf(str, "%s,%s ",
+			   g_ascii_formatd(px_buf, sizeof(px_buf), "%g", points[i].x),
+			   g_ascii_formatd(py_buf, sizeof(py_buf), "%g", points[i].y) );
     add_connection_point(SHAPE_RENDERER(self), &points[i]);
   }
   xmlSetProp(node, "points", str->str);
@@ -343,6 +346,8 @@ draw_polygon(DiaRenderer *self,
   xmlNodePtr node;
   GString *str;
   Point center;
+  gchar px_buf[G_ASCII_DTOSTR_BUF_SIZE];
+  gchar py_buf[G_ASCII_DTOSTR_BUF_SIZE];
 
   node = xmlNewChild(renderer->root, renderer->svg_name_space, "polygon", NULL);
   
@@ -351,7 +356,9 @@ draw_polygon(DiaRenderer *self,
 
   str = g_string_new(NULL);
   for (i = 0; i < num_points; i++) {
-    g_string_sprintfa(str, "%g,%g ", points[i].x, points[i].y);
+    g_string_append_printf(str, "%s,%s ",
+			   g_ascii_formatd(px_buf, sizeof(px_buf), "%g", points[i].x),
+			   g_ascii_formatd(py_buf, sizeof(py_buf), "%g", points[i].y) );
     add_connection_point(SHAPE_RENDERER(self), &points[i]);
   }
   for(i = 1; i < num_points; i++) {
@@ -453,7 +460,6 @@ export_shape(DiagramData *data, const gchar *filename,
     gchar *point;
     gchar *png_filename = NULL;
     DiaExportFilter *exportfilter;
-    char *old_locale;
     gfloat old_scaling;
     Rectangle *ext = &data->extents;
     gfloat scaling_x, scaling_y;
@@ -479,7 +485,6 @@ export_shape(DiagramData *data, const gchar *filename,
       data->paper.scaling = old_scaling;
     }
     /* create the shape */
-    old_locale = setlocale(LC_NUMERIC, "C");
     if((renderer = new_shape_renderer(data, filename))) {
       data_render(data, DIA_RENDERER(renderer), NULL, NULL, NULL);
       g_object_unref (renderer);
@@ -488,7 +493,6 @@ export_shape(DiagramData *data, const gchar *filename,
     /* Create a sheet entry if applicable (../../sheets exists) */
     
 
-    setlocale(LC_NUMERIC, old_locale);
     g_free(png_filename);
 }
 

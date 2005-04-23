@@ -278,6 +278,10 @@ void draw_bezier_outline(DiaPsRenderer *renderer,
   FT_Int load_flags = FT_LOAD_DEFAULT|FT_LOAD_NO_BITMAP;
   FT_Glyph glyph;
   FT_Error error;
+  gchar px_buf[G_ASCII_DTOSTR_BUF_SIZE];
+  gchar py_buf[G_ASCII_DTOSTR_BUF_SIZE];
+  gchar d1_buf[G_ASCII_DTOSTR_BUF_SIZE];
+  gchar d2_buf[G_ASCII_DTOSTR_BUF_SIZE];
 
   /* Need to transform */
 
@@ -297,8 +301,11 @@ void draw_bezier_outline(DiaPsRenderer *renderer,
   outline_info.OUT = renderer->file;
 
   fprintf(renderer->file, 
-	  "gsave %f %f translate %f %f scale\n",
-	  pos_x, pos_y, 2.54/72.0, -2.54/72.0);
+	  "gsave %s %s translate %s %s scale\n",
+	  g_ascii_formatd(px_buf, sizeof(px_buf), "%f", pos_x),
+	  g_ascii_formatd(py_buf, sizeof(py_buf), "%f", pos_y),
+	  g_ascii_formatd(d1_buf, sizeof(d1_buf), "%f", 2.54/72.0),
+	  g_ascii_formatd(d2_buf, sizeof(d2_buf), "%f", -2.54/72.0) );
   fprintf(renderer->file, "start_ol\n");
 
   if ((error=FT_Load_Glyph(face, glyph_index, load_flags))) {

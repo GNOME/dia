@@ -24,7 +24,6 @@
 #endif
 
 #include <stdio.h>
-#include <locale.h>
 #include <string.h> /* strlen */
 #include <signal.h>
 #include <errno.h>
@@ -71,6 +70,8 @@ print_page(DiagramData *data, DiaRenderer *diarend, Rectangle *bounds)
   gfloat tmargin = data->paper.tmargin, bmargin = data->paper.bmargin;
   gfloat lmargin = data->paper.lmargin;
   gfloat scale = data->paper.scaling;
+  gchar d1_buf[G_ASCII_DTOSTR_BUF_SIZE];
+  gchar d2_buf[G_ASCII_DTOSTR_BUF_SIZE];
 
   rend->paper = data->paper.name;
   rend->is_portrait = data->paper.is_portrait;
@@ -91,22 +92,38 @@ print_page(DiagramData *data, DiaRenderer *diarend, Rectangle *bounds)
 
   /* transform coordinate system */
   if (data->paper.is_portrait) {
-    fprintf(rend->file, "%f %f scale\n", 28.346457*scale, -28.346457*scale);
-    fprintf(rend->file, "%f %f translate\n", lmargin/scale - bounds->left,
-	    -bmargin/scale - bounds->bottom);
+    fprintf(rend->file, "%s %s scale\n",
+	    g_ascii_formatd(d1_buf, sizeof(d1_buf), "%f", 28.346457*scale),
+	    g_ascii_formatd(d2_buf, sizeof(d2_buf), "%f", -28.346457*scale) );
+    fprintf(rend->file, "%s %s translate\n",
+	    g_ascii_formatd(d1_buf, sizeof(d1_buf), "%f", lmargin/scale - bounds->left),
+	    g_ascii_formatd(d2_buf, sizeof(d2_buf), "%f", -bmargin/scale - bounds->bottom) );
   } else {
     fprintf(rend->file, "90 rotate\n");
-    fprintf(rend->file, "%f %f scale\n", 28.346457*scale, -28.346457*scale);
-    fprintf(rend->file, "%f %f translate\n", lmargin/scale - bounds->left,
-	    tmargin/scale - bounds->top);
+    fprintf(rend->file, "%s %s scale\n",
+	    g_ascii_formatd(d1_buf, sizeof(d1_buf), "%f", 28.346457*scale),
+	    g_ascii_formatd(d2_buf, sizeof(d2_buf), "%f", -28.346457*scale) );
+    fprintf(rend->file, "%s %s translate\n",
+	    g_ascii_formatd(d1_buf, sizeof(d1_buf), "%f", lmargin/scale - bounds->left),
+	    g_ascii_formatd(d2_buf, sizeof(d2_buf), "%f", tmargin/scale - bounds->top) );
   }
 
   /* set up clip mask */
-  fprintf(rend->file, "n %f %f m ", bounds->left, bounds->top);
-  fprintf(rend->file, "%f %f l ", bounds->right, bounds->top);
-  fprintf(rend->file, "%f %f l ", bounds->right, bounds->bottom);
-  fprintf(rend->file, "%f %f l ", bounds->left, bounds->bottom);
-  fprintf(rend->file, "%f %f l ", bounds->left, bounds->top);
+  fprintf(rend->file, "n %s %s m ",
+	  g_ascii_formatd(d1_buf, sizeof(d1_buf), "%f", bounds->left),
+	  g_ascii_formatd(d2_buf, sizeof(d2_buf), "%f", bounds->top) );
+  fprintf(rend->file, "%s %s l ",
+	  g_ascii_formatd(d1_buf, sizeof(d1_buf), "%f", bounds->right),
+	  g_ascii_formatd(d2_buf, sizeof(d2_buf), "%f", bounds->top) );
+  fprintf(rend->file, "%s %s l ",
+	  g_ascii_formatd(d1_buf, sizeof(d1_buf), "%f", bounds->right),
+	  g_ascii_formatd(d2_buf, sizeof(d2_buf), "%f", bounds->bottom) );
+  fprintf(rend->file, "%s %s l ",
+	  g_ascii_formatd(d1_buf, sizeof(d1_buf), "%f", bounds->left),
+	  g_ascii_formatd(d2_buf, sizeof(d2_buf), "%f", bounds->bottom) );
+  fprintf(rend->file, "%s %s l ",
+	  g_ascii_formatd(d1_buf, sizeof(d1_buf), "%f", bounds->left),
+	  g_ascii_formatd(d2_buf, sizeof(d2_buf), "%f", bounds->top) );
   /* Tip from Dov Grobgeld: Clip does not destroy the path, so we should
      do a newpath afterwards */
   fprintf(rend->file, "clip n\n"); 
@@ -131,9 +148,7 @@ paginate_psprint(Diagram *dia, FILE *file)
   gfloat width, height;
   gfloat x, y, initx, inity;
   guint nobjs = 0;
-  char *old_locale;
 
-  old_locale = setlocale(LC_NUMERIC, "C");
   rend = new_psprint_renderer(dia, file);
 
 #ifdef DIA_PS_RENDERER_DUAL_PASS
@@ -171,7 +186,6 @@ paginate_psprint(Diagram *dia, FILE *file)
 
   g_object_unref(rend);
 
-  setlocale(LC_NUMERIC, old_locale);
 }
 
 static void
