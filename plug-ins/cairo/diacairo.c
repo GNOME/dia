@@ -707,10 +707,17 @@ draw_image(DiaRenderer *self,
           p2[2] = (guint8)((p1[0] * alpha) / 255);
           p2[3] = (guint8)alpha;
 #else
+#  if G_BYTE_ORDER == G_LITTLE_ENDIAN
           p2[0] = p1[2]; /* b */
           p2[1] = p1[1]; /* g */
           p2[2] = p1[0]; /* r */
           p2[3] = p1[3]; /* a */
+#  else
+          p2[3] = p1[2]; /* b */
+          p2[2] = p1[1]; /* g */
+          p2[1] = p1[0]; /* r */
+          p2[0] = p1[3]; /* a */
+#  endif
 #endif
           p1+=4;
           p2+=4;
@@ -737,11 +744,18 @@ draw_image(DiaRenderer *self,
         {
           for (x = 0; x < w; x++)
             {
+#if G_BYTE_ORDER == G_LITTLE_ENDIAN
               /* apparently BGR is required */
               p2[x*4  ] = p1[x*3+2];
               p2[x*4+1] = p1[x*3+1];
               p2[x*4+2] = p1[x*3  ];
               p2[x*4+3] = 0x80; /* should not matter */
+#else
+              p2[x*4+3] = p1[x*3+2];
+              p2[x*4+2] = p1[x*3+1];
+              p2[x*4+1] = p1[x*3  ];
+              p2[x*4+0] = 0x80; /* should not matter */
+#endif
             }
           p2 += (w*4);
           p1 += rs;

@@ -1,3 +1,8 @@
+2005-04-23  Hans Breuer  <hans@breuer.org>
+
+	* plug-ins/cairo/diacairo.c : image rendering had an endianess 
+	issue (or is this working around a libpixman bug?;)
+
 2005-04-21  Lars Clausen  <lars@raeder.dk>
 
 	* lib/polyshape.c (polyshape_update_data): Fixed numpoint off-by-one.
