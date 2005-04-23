@@ -507,13 +507,12 @@ umlclass_draw(UMLClass *umlclass, DiaRenderer *renderer)
                              &umlclass->line_color);
     if (!umlclass->suppress_operations) {
       GList *wrapsublist = NULL;
-      gchar *part_opstr;
+      gchar *part_opstr = NULL;
       int wrap_pos, last_wrap_pos, ident, wrapping_needed;
+      int part_opstr_len = 0, part_opstr_need = 0;
 
       p.x = x + UMLCLASS_BORDER/2.0 + 0.1;
       p.y = p1.y + 0.1;
-
-      part_opstr = g_alloca (umlclass->max_wrapped_line_width);
 
       i = 0;
       list = umlclass->operations;
@@ -556,9 +555,19 @@ umlclass_draw(UMLClass *umlclass, DiaRenderer *renderer)
             wrap_pos = GPOINTER_TO_INT( wrapsublist->data);
             
             if( last_wrap_pos == 0) {
+		    part_opstr_need = wrap_pos + 1;
+		    if (part_opstr_len < part_opstr_need) {
+			    part_opstr_len = part_opstr_need;
+			    part_opstr = g_realloc (part_opstr, part_opstr_need);
+		    }
               strncpy( part_opstr, opstr, wrap_pos);  
               memset( part_opstr+wrap_pos, '\0', 1);
             } else {  
+		    part_opstr_need = ident + wrap_pos - last_wrap_pos + 1;
+		    if (part_opstr_len < part_opstr_need) {
+			    part_opstr_len = part_opstr_need;
+			    part_opstr = g_realloc (part_opstr, part_opstr_need);
+		    }
               memset( part_opstr, ' ', ident);
               memset( part_opstr+ident, '\0', 1);
               strncat( part_opstr, opstr+last_wrap_pos, wrap_pos-last_wrap_pos);                
@@ -620,6 +629,9 @@ umlclass_draw(UMLClass *umlclass, DiaRenderer *renderer)
 
         list = g_list_next(list);
         i++;
+      }
+      if (part_opstr) {
+          g_free(part_opstr);
       }
     }
   }

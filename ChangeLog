@@ -1,5 +1,8 @@
 2005-04-23  Hans Breuer  <hans@breuer.org>
 
+	* objects/UML/class.c : fix another crash with the line 
+	wrapping code (Gabor Simon, bug #160865)
+
 	* plug-ins/cairo/diacairo.c : image rendering had an endianess 
 	issue (or is this working around a libpixman bug?;)
 
