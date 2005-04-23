@@ -1,5 +1,10 @@
 2005-04-23  Hans Breuer  <hans@breuer.org>
 
+	* app/display.c : stop special casing the first display of
+	a diagram. Every display now has it's own refernce. The initial
+	reference gets dropped when there is no display anymore. See
+	diagram_remove_ddisplay(). Fixes bug #300744.
+
 	* app/diapsft2renderer.c : locale independent output
 	(Radek Krahl, bug #300847)
 	* app/paginate_psprint.c :  fixing use of setlocale() calls

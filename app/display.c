@@ -165,9 +165,8 @@ new_display(Diagram *dia)
   memset (&ddisp->updatable_menu_items, 0, sizeof (UpdatableMenuItems));
   
   ddisp->diagram = dia;
-  if (dia->display_count > 1)
-    /* The first display gets the initial ref */
-    g_object_ref(dia);
+  /* Every display has it's own reference */
+  g_object_ref(dia);
 
   ddisp->grid.visible = prefs.grid.visible;
   ddisp->grid.snap = prefs.grid.snap;
