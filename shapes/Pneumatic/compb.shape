@@ -1,12 +1,11 @@
-<?xml version="1.0"?> <!-- -*- xml -*- -->
-
-<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
-       xmlns:svg="http://www.w3.org/2000/svg">
+<?xml version="1.0"?>
+<!-- -*- xml -*- -->
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
   <name>Pneum - compb</name>
   <description>compb</description>
   <icon>compb.png</icon>
   <connections>
-  </connections>
+  <point x="0.5" y="0.5" main="yes"/></connections>
   <aspectratio type="fixed"/>
   <svg:svg width="1" height="1">
     <svg:line x1="0" y1="0" x2="1" y2="1" svg:style="stroke:none"/>
@@ -15,11 +14,5 @@
     <svg:line x1=".4" y1=".7" x2=".4" y2=".3" svg:style="stroke-width:1"/>
     <svg:path d="M .4,.3 C .3,.4 .3,.6 .4,.7" svg:style="stroke-width:1"/> 
   </svg:svg>
+
 </shape>
-
-
-
-
-
-
-

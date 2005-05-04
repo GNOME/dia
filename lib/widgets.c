@@ -36,7 +36,7 @@
 #include <pango/pango.h>
 #include <stdio.h>
 #include <time.h>
-#include "gdk/gdkkeysyms.h"
+#include <gdk/gdkkeysyms.h>
 
 #include "diagtkfontsel.h"
 

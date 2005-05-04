@@ -38,8 +38,8 @@
 
 #undef GTK_DISABLE_DEPRECATED /* GtkTypeInfo */
 
-#include "gdk/gdk.h"
-#include "gdk/gdkkeysyms.h"
+#include <gdk/gdk.h>
+#include <gdk/gdkkeysyms.h>
 
 #include "diagtkfontsel.h"
 

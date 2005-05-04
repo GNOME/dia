@@ -77,8 +77,8 @@ ShellExecuteA (long        hwnd,
 #include "text.h"
 #include "dia_dirs.h"
 #include "focus.h"
-#include "gdk/gdk.h"
-#include "gdk/gdkkeysyms.h"
+#include <gdk/gdk.h>
+#include <gdk/gdkkeysyms.h>
 #include "lib/properties.h"
 #include "dia-props.h"
 #include "diagram_tree_window.h"

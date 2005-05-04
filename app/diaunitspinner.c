@@ -25,7 +25,7 @@
 
 #include <string.h> /* strcmp */
 #include "diaunitspinner.h"
-#include "gdk/gdkkeysyms.h"
+#include <gdk/gdkkeysyms.h>
 
 typedef struct _DiaUnitDef DiaUnitDef;
 struct _DiaUnitDef {
