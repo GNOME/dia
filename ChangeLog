@@ -1,3 +1,8 @@
+2005-05-06  Hans Breuer  <hans@breuer.org>
+
+	* app/samples/Self/*.dia : some UML diagrams describing Dia's
+	inner working (our it's future;)
+
 2005-04-26  Lars Clausen  <lars@raeder.dk>
 
 	* app/connectionpoint_ops.c (connectionpoint_draw): Temporary
