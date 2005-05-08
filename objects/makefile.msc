@@ -12,7 +12,7 @@ PLUGINS = bondgraph chronogram custom er flowchart fs grafcet \
 all : sub-all
 
 sub-all: 
-	for %d in ($(PLUGINS)) do nmake -nologo -f makefile.msc sub-one THIS=%d
+	for %d in ($(PLUGINS)) do @nmake -nologo -f makefile.msc sub-one THIS=%d
 
 sub-one:
 	@cd $(THIS)
@@ -20,7 +20,7 @@ sub-one:
 	@cd ..
 
 clean:
-	for %d in ($(PLUGINS)) do nmake -nologo -f makefile.msc sub-clean THIS=%d
+	for %d in ($(PLUGINS)) do @nmake -nologo -f makefile.msc sub-clean THIS=%d
 
 sub-clean:
 	@cd $(THIS)

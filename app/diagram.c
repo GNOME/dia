@@ -23,6 +23,7 @@
 
 #include "intl.h"
 #include "diagram.h"
+#include "object.h"
 #include "group.h"
 #include "object_ops.h"
 #include "render_eps.h"
@@ -44,6 +45,17 @@
 #include "diamarshal.h"
 
 static GList *open_diagrams = NULL;
+
+struct _object_extent
+{
+  DiaObject *object;
+  Rectangle *extent;
+};
+
+typedef struct _object_extent object_extent;
+
+static gint diagram_parent_sort_cb(object_extent ** a, object_extent **b);
+
 
 static void diagram_class_init (DiagramClass *klass);
 static void diagram_init(Diagram *obj, const char *filename);
@@ -890,7 +902,8 @@ strip_connections(DiaObject *obj, GList *not_strip_list, Diagram *dia)
 }
 
 
-gint diagram_parent_sort_cb(object_extent ** a, object_extent **b)
+static gint 
+diagram_parent_sort_cb(object_extent ** a, object_extent **b)
 {
   if ((*a)->extent->left < (*b)->extent->left)
     return 1;

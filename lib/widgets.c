@@ -491,7 +491,8 @@ dia_font_selector_set_style_menu(DiaFontSelector *fs,
   g_free(faces);
 
   if (stylebits == 0) {
-    g_warning ("'%s' has no style!", pango_font_family_get_name (pff));
+    g_warning ("'%s' has no style!", 
+               pango_font_family_get_name (pff) ? pango_font_family_get_name (pff) : "(null font)");
   }
 
   for (i = DIA_FONT_NORMAL; i <= (DIA_FONT_HEAVY | DIA_FONT_ITALIC); i+=4) {
@@ -548,7 +549,8 @@ void
 dia_font_selector_set_font(DiaFontSelector *fs, DiaFont *font)
 {
   gchar *fontname = dia_font_get_family(font);
-  dia_dynamic_menu_add_entry(DIA_DYNAMIC_MENU(fs->font_omenu), fontname);
+  /* side effect: adds fontname to presistence list */
+  dia_dynamic_menu_select_entry(DIA_DYNAMIC_MENU(fs->font_omenu), fontname);
   dia_font_selector_set_styles(fs, fontname, dia_font_get_style (font));
 }
 

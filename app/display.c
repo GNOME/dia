@@ -1010,8 +1010,7 @@ ddisplay_close(DDisplay *ddisp)
   gchar *fname;
   gchar *msg;
 
-  if (!ddisp)
-    return;
+  g_return_if_fail(ddisp != NULL);
 
   dia = ddisp->diagram;
   

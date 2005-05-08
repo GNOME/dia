@@ -23,7 +23,6 @@
 typedef struct _Diagram Diagram;
 
 #include "geometry.h"
-#include "object.h"
 #include "handle.h"
 #include "connectionpoint.h"
 #include "display.h"
@@ -70,14 +69,6 @@ struct _Diagram {
 
   GSList *related_dialogs; /* List of dialogs related to this diagraim, and closed with it */
 };
-
-struct _object_extent
-{
-  DiaObject *object;
-  Rectangle *extent;
-};
-
-typedef struct _object_extent object_extent;
 
 typedef struct _DiagramClass {
   GObjectClass parent_class;
@@ -135,7 +126,6 @@ real diagram_find_closest_connectionpoint(Diagram *dia,
 					  Point *pos,
 					  DiaObject *notthis);
 void diagram_update_extents(Diagram *dia);
-gint diagram_parent_sort_cb(object_extent ** a, object_extent **b);
 
 void diagram_update_menu_sensitivity (Diagram *dia, UpdatableMenuItems *items);
 void diagram_update_menubar_sensitivity(Diagram *dia, UpdatableMenuItems *items);

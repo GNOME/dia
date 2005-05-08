@@ -120,8 +120,10 @@ file_print_callback(gpointer data, guint action, GtkWidget *widget)
 void
 file_close_callback(gpointer data, guint action, GtkWidget *widget)
 {
-  ddisplay_close(ddisplay_active());
-} 
+  /* some people use tear-off menus and insist to close non existing displays */
+  if (ddisplay_active())
+    ddisplay_close(ddisplay_active());
+}
 
 void
 file_new_callback(gpointer data, guint action, GtkWidget *widget)

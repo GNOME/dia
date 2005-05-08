@@ -328,7 +328,7 @@ create_display_shell(DDisplay *ddisp,
       if (pixbuf)
         gtk_window_set_icon (GTK_WINDOW (ddisp->shell), pixbuf);
     }
-    gtk_window_set_default_size(ddisp->shell, width, height);
+    gtk_window_set_default_size(GTK_WINDOW (ddisp->shell), width, height);
   } else {
     ddisp->shell = gtk_event_box_new ();
   }
@@ -435,7 +435,7 @@ create_display_shell(DDisplay *ddisp,
   ddisp->canvas = dia_canvas_new();
   /* Dia's canvas does it' double buffering alone so switch off GTK's */
   gtk_widget_set_double_buffered (ddisp->canvas, FALSE);
-  dia_canvas_set_size(ddisp->canvas, width, height);
+  dia_canvas_set_size(DIA_CANVAS (ddisp->canvas), width, height);
   gtk_widget_set_events (ddisp->canvas, CANVAS_EVENT_MASK);
   GTK_WIDGET_SET_FLAGS (ddisp->canvas, GTK_CAN_FOCUS);
   g_signal_connect (GTK_OBJECT (ddisp->canvas), "event",
@@ -522,7 +522,7 @@ create_display_shell(DDisplay *ddisp,
 							dia_off_grid_icon);
   
   g_signal_connect(G_OBJECT(ddisp->grid_status), "toggled",
-		   grid_toggle_snap, ddisp);
+		   G_CALLBACK (grid_toggle_snap), ddisp);
   gtk_tooltips_set_tip(tool_tips, ddisp->grid_status,
 		       _("Toggles snap-to-grid for this window."), NULL);
   gtk_box_pack_start (GTK_BOX (status_hbox), ddisp->grid_status,
@@ -701,10 +701,10 @@ create_tools(GtkWidget *parent)
 						       &style->bg[GTK_STATE_NORMAL], pixmap_data);
 	pixmapwidget = gtk_pixmap_new(pixmap, mask);
     } else {
-      if (strncmp(tool_data[i].icon_data, "GdkP", 4) == 0) {
+      if (strncmp(tool_data[i].icon_data[0], "GdkP", 4) == 0) {
 	GdkPixbuf *p;
 	printf("Creating icon for %s - this will probably crash\n", tool_data[i].tool_desc);
-	p = gdk_pixbuf_new_from_inline(-1, tool_data[i].icon_data, FALSE, NULL);
+	p = gdk_pixbuf_new_from_inline(-1, tool_data[i].icon_data[0], FALSE, NULL);
 	printf("Got pixbuf %p\n", p);
 	pixmapwidget = gtk_image_new_from_pixbuf(p);
       } else {

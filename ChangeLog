@@ -1,3 +1,35 @@
+2005-05-08  Hans Breuer  <hans@breuer.org>
+
+	* objects/UML/class.c : Reverted to have no center point.
+	At first it looked as if there was only the bug to not increase
+	class.h:UMLCLASS_CONNECTIONPOINTS. But the UMLClass has 
+	potentially much more dynamic connection points (to the left
+	and right of every attribute/operation). Now simply adding one
+	between see static and dynamic will screw up any existing diagram
+	which makes use of the dynamic connection points. The would all
+	be connected with an off-by-one error. I have no idea how to
+	code around that. But breaking backward compatibility is no 
+	option here. Does not completely fix bug #303301 ...
+	
+	* lib/widget.c(dia_font_selector_set_font): actually set the options 
+	menu state. So we are not any longer resetting the font style on Apply.
+	Use "UML - Class" dialog as stress text example.
+
+	* app/command.c : some people insist to close diagrams already
+	closed using tear-off menus. Maybe we should add a dialog 
+	"Do you want to call Dr. Watson now?". If there is no diagram
+	to close anymore just do nothing, fixes bug #303221
+	* app/display.c(ddisplay_close) : use g_return_if_fail(ddisp != NULL);
+	Calling this with no display to close is a pathological case.
+
+	* app/diagram.[hc] : moved object.h and other DiaObject stuff
+	to the implementation in preparation of Big Things(tm)
+
+	* app/interface.c : less warnings and make it compile. strncmp()
+	does not take a char**, neither does gdk_pixbuf_new_from_inline().
+
+	* objects/makefile.msc plug-ins/makefile.msc : less output
+
 2005-05-08  Lars Clausen  <lars@raeder.dk>
 
 	* lib/orth_conn.c (orthconn_init): The right place to set the
@@ -16,7 +48,7 @@
 2005-05-06  Hans Breuer  <hans@breuer.org>
 
 	* app/samples/Self/*.dia : some UML diagrams describing Dia's
-	inner working (our it's future;)
+	inner working (or it's future;)
 
 2005-04-26  Lars Clausen  <lars@raeder.dk>
 
