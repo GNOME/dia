@@ -477,7 +477,7 @@ orthconn_init(OrthConn *orth, Point *startpoint)
   setup_endpoint_handle(orth->handles[2], HANDLE_MOVE_ENDPOINT);
   obj->handles[2] = orth->handles[2];
 
-  orth->autorouting = TRUE;
+  orth->autorouting = FALSE;
 
   /* Just so we have some position: */
   orth->points[0] = *startpoint;
@@ -623,8 +623,7 @@ orthconn_save(OrthConn *orth, ObjectNode obj_node)
     data_add_enum(attr, orth->orientation[i]);
   }
 
-  if (!orth->autorouting)
-    data_add_boolean(new_attribute(obj_node, "autorouting"), FALSE);
+  data_add_boolean(new_attribute(obj_node, "autorouting"), orth->autorouting);
 }
 
 void
@@ -666,7 +665,7 @@ orthconn_load(OrthConn *orth, ObjectNode obj_node) /* NOTE: Does object_init() *
     data = data_next(data);
   }
 
-  orth->autorouting = TRUE;
+  orth->autorouting = FALSE;
   attr = object_find_attribute(obj_node, "autorouting");
   if (attr != NULL)
     orth->autorouting = data_boolean(attribute_first_data(attr));

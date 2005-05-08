@@ -1010,6 +1010,9 @@ ddisplay_close(DDisplay *ddisp)
   gchar *fname;
   gchar *msg;
 
+  if (!ddisp)
+    return;
+
   dia = ddisp->diagram;
   
   if ( (dia->display_count > 1) ||
