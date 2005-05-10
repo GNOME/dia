@@ -95,12 +95,14 @@ autoroute_layout_orthconn(OrthConn *conn,
 	Point otherpoint;
 	startpoint = autolayout_adjust_for_gap(&frompos, startdir, startconn);
 	endpoint = autolayout_adjust_for_gap(&topos, enddir, endconn);
+	/*
 	printf("Startdir %d enddir %d orgstart %.2f, %.2f orgend %.2f, %.2f start %.2f, %.2f end %.2f, %.2f\n",
 	       startdir, enddir,
 	       frompos.x, frompos.y,
 	       topos.x, topos.y,
 	       startpoint.x, startpoint.y,
 	       endpoint.x, endpoint.y);
+	*/
 	normal_enddir = autolayout_normalize_points(startdir, enddir,
 						    startpoint, endpoint,
 						    &otherpoint);

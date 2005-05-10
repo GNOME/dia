@@ -841,6 +841,8 @@ dia_font_scaled_build_layout(const char* string, DiaFont* font,
 /**
  * Compatibility with older files out of pre Pango Time. 
  * Make old files look as similar as possible
+ * List should be kept alphabetically sorted by oldname, in case of
+ * duplicates the one with the preferred newname comes first.
  *
  * FIXME: DIA_FONT_FAMILY_ANY in the list below does mean noone knows better
  */
@@ -849,7 +851,6 @@ static struct _legacy_font {
   gchar*       newname;
   DiaFontStyle style;   /* the DIA_FONT_FAMILY() is used as falback only */
 } legacy_fonts[] = {
-  /* these _MUST_ be sorted alphabetical */
   { "AvantGarde-Book",        "AvantGarde", DIA_FONT_SERIF },
   { "AvantGarde-BookOblique", "AvantGarde", DIA_FONT_SERIF | DIA_FONT_OBLIQUE },
   { "AvantGarde-Demi",        "AvantGarde", DIA_FONT_SERIF | DIA_FONT_DEMIBOLD },
@@ -862,8 +863,11 @@ static struct _legacy_font {
   { "BousungEG-Light-GB", "BousungEG-Light-GB", DIA_FONT_FAMILY_ANY },
   { "Courier",             "monospace", DIA_FONT_MONOSPACE },
   { "Courier",             "Courier New", DIA_FONT_MONOSPACE },
+  { "Courier-Bold",        "monospace", DIA_FONT_MONOSPACE | DIA_FONT_BOLD },
   { "Courier-Bold",        "Courier New", DIA_FONT_MONOSPACE | DIA_FONT_BOLD },
+  { "Courier-BoldOblique", "monospace", DIA_FONT_MONOSPACE | DIA_FONT_OBLIQUE | DIA_FONT_BOLD },
   { "Courier-BoldOblique", "Courier New", DIA_FONT_MONOSPACE | DIA_FONT_OBLIQUE | DIA_FONT_BOLD },
+  { "Courier-Oblique",     "monospace", DIA_FONT_MONOSPACE | DIA_FONT_OBLIQUE},
   { "Courier-Oblique",     "Courier New", DIA_FONT_MONOSPACE | DIA_FONT_OBLIQUE },
   { "Dotum", "Dotum", DIA_FONT_FAMILY_ANY },
   { "GBZenKai-Medium", "GBZenKai-Medium", DIA_FONT_FAMILY_ANY }, 
@@ -872,12 +876,15 @@ static struct _legacy_font {
   { "Headline", "Headline", DIA_FONT_FAMILY_ANY },
   { "Helvetica",             "sans", DIA_FONT_SANS },
   { "Helvetica",             "Arial", DIA_FONT_SANS },
+  { "Helvetica-Bold",        "sans", DIA_FONT_SANS | DIA_FONT_BOLD },
   { "Helvetica-Bold",        "Arial", DIA_FONT_SANS | DIA_FONT_BOLD },
+  { "Helvetica-BoldOblique", "sans", DIA_FONT_SANS | DIA_FONT_BOLD | DIA_FONT_OBLIQUE },
   { "Helvetica-BoldOblique", "Arial", DIA_FONT_SANS | DIA_FONT_BOLD | DIA_FONT_OBLIQUE },
   { "Helvetica-Narrow",             "Arial Narrow", DIA_FONT_SANS | DIA_FONT_MEDIUM },
   { "Helvetica-Narrow-Bold",        "Arial Narrow", DIA_FONT_SANS | DIA_FONT_DEMIBOLD },
   { "Helvetica-Narrow-BoldOblique", "Arial Narrow", DIA_FONT_SANS | DIA_FONT_MEDIUM | DIA_FONT_OBLIQUE },
   { "Helvetica-Narrow-Oblique",     "Arial Narrow", DIA_FONT_SANS | DIA_FONT_MEDIUM | DIA_FONT_OBLIQUE },
+  { "Helvetica-Oblique",     "sans", DIA_FONT_SANS | DIA_FONT_OBLIQUE },
   { "Helvetica-Oblique",     "Arial", DIA_FONT_SANS | DIA_FONT_OBLIQUE },
   { "MOESung-Medium", "MOESung-Medium", DIA_FONT_FAMILY_ANY },
   { "NewCenturySchoolbook-Bold",       "Century Schoolbook SWA", DIA_FONT_SERIF | DIA_FONT_BOLD },
@@ -888,12 +895,15 @@ static struct _legacy_font {
   { "Palatino-BoldItalic", "Palatino", DIA_FONT_FAMILY_ANY | DIA_FONT_BOLD | DIA_FONT_ITALIC }, 
   { "Palatino-Italic",     "Palatino", DIA_FONT_FAMILY_ANY | DIA_FONT_ITALIC }, 
   { "Palatino-Roman",      "Palatino", DIA_FONT_FAMILY_ANY },
-  { "Ryumin-Light", "Ryumin", DIA_FONT_FAMILY_ANY | DIA_FONT_LIGHT },
-  { "ShanHeiSun-Light", "ShanHeiSun", DIA_FONT_FAMILY_ANY | DIA_FONT_LIGHT },
-  { "Song-Medium", "Song-Medium", DIA_FONT_FAMILY_ANY | DIA_FONT_MEDIUM },
-  { "Symbol", "Symbol", DIA_FONT_SANS | DIA_FONT_MEDIUM },
+  { "Ryumin-Light",      "Ryumin", DIA_FONT_FAMILY_ANY | DIA_FONT_LIGHT },
+  { "ShanHeiSun-Light",  "ShanHeiSun", DIA_FONT_FAMILY_ANY | DIA_FONT_LIGHT },
+  { "Song-Medium",       "Song-Medium", DIA_FONT_FAMILY_ANY | DIA_FONT_MEDIUM },
+  { "Symbol",           "Symbol", DIA_FONT_SANS | DIA_FONT_MEDIUM },
+  { "Times-Bold",       "serif", DIA_FONT_SERIF | DIA_FONT_BOLD }, 
   { "Times-Bold",       "Times New Roman", DIA_FONT_SERIF | DIA_FONT_BOLD },
+  { "Times-BoldItalic", "serif", DIA_FONT_SERIF | DIA_FONT_ITALIC | DIA_FONT_BOLD }, 
   { "Times-BoldItalic", "Times New Roman", DIA_FONT_SERIF | DIA_FONT_ITALIC | DIA_FONT_BOLD },
+  { "Times-Italic",     "serif", DIA_FONT_SERIF | DIA_FONT_ITALIC }, 
   { "Times-Italic",     "Times New Roman", DIA_FONT_SERIF | DIA_FONT_ITALIC },
   { "Times-Roman",      "serif", DIA_FONT_SERIF }, 
   { "Times-Roman",      "Times New Roman", DIA_FONT_SERIF }, 
@@ -902,14 +912,6 @@ static struct _legacy_font {
   { "ZenKai-Medium", "ZenKai", DIA_FONT_FAMILY_ANY | DIA_FONT_MEDIUM },
 };
 
-
-static int
-fonts_compare (const void *key, const void *elem)
-{
-  char* a = (char*)key;
-  char* b = ((struct _legacy_font*)elem)->oldname;
-  return strcmp (a, b);
-}
 
 /**
  * Given a legacy name as stored until Dia-0.90 construct
@@ -922,10 +924,14 @@ dia_font_new_from_legacy_name(const char* name)
   DiaFont* retval;
   struct _legacy_font* found;
   real height = 1.0;
+  int i;
 
-  found = bsearch (name, legacy_fonts,
-		   G_N_ELEMENTS(legacy_fonts), sizeof (struct _legacy_font),
-		   fonts_compare);
+  for (i = 0; i < G_N_ELEMENTS(legacy_fonts); i++) {
+    if (!strcmp(name, legacy_fonts[i].oldname)) {
+      found = &legacy_fonts[i];
+      break;
+    }
+  }
   if (found) {
     retval = dia_font_new (found->newname, found->style, height);
     retval->legacy_name = found->oldname;
@@ -956,10 +962,10 @@ dia_font_get_legacy_name(const DiaFont *font)
     if (0 == g_strcasecmp (legacy_fonts[i].newname, family)) {
       /* match weight and slant */
       DiaFontStyle st = legacy_fonts[i].style;
-      if (   (DIA_FONT_STYLE_GET_SLANT(style) || DIA_FONT_STYLE_GET_WEIGHT(style))
-          == (DIA_FONT_STYLE_GET_SLANT(st) || DIA_FONT_STYLE_GET_WEIGHT(st))) {
+      if ((DIA_FONT_STYLE_GET_SLANT(style) | DIA_FONT_STYLE_GET_WEIGHT(style))
+          == (DIA_FONT_STYLE_GET_SLANT(st) | DIA_FONT_STYLE_GET_WEIGHT(st))) {
         return legacy_fonts[i].oldname; /* exact match */
-      } else if (0 == (DIA_FONT_STYLE_GET_SLANT(st) || DIA_FONT_STYLE_GET_WEIGHT(st))) {
+      } else if (0 == (DIA_FONT_STYLE_GET_SLANT(st) | DIA_FONT_STYLE_GET_WEIGHT(st))) {
         matched_name = legacy_fonts[i].oldname;
         /* 'unmodified' font, continue matching */
       }

@@ -1,3 +1,15 @@
+2005-05-10  Lars Clausen  <lars@raeder.dk>
+
+	* lib/font.c: Fix for bug #303695: Allow more than one entry of
+	each legacy name, thereby correctly encoding bold and italic of
+	the three main fonts.  Also use | rather than || to combine slant
+	and weight, so matching works.  Had to remove binary search for
+	new font name, but the list is short enough it's not a problem.
+
+2005-05-09  Lars Clausen  <lars@raeder.dk>
+
+	* lib/autoroute.c (autoroute_layout_orthconn): Remove debugging info.
+
 2005-05-08  Hans Breuer  <hans@breuer.org>
 
 	* objects/UML/class.c : Reverted to have no center point.
