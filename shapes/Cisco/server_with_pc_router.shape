@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
-<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
-xmlns:svg="http://www.w3.org/2000/svg">
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Server with PC Router</name>
 <icon>server_with_pc_router.png</icon>
 <aspectratio type="fixed"/>
@@ -35,6 +34,6 @@ xmlns:svg="http://www.w3.org/2000/svg">
 <point x="3462" y="-3691"/>
 <point x="3462" y="-3615"/>
 <point x="3648" y="-3626"/>
-<point x="3524.75" y="-3741" main="yes"/>
+<point x="2.5" y="1.1" main="yes"/>
 </connections>
 </shape>

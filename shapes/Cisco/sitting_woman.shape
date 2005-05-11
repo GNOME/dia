@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
-<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
-xmlns:svg="http://www.w3.org/2000/svg">
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Sitting woman</name>
 <icon>sitting_woman.png</icon>
 <aspectratio type="fixed"/>
@@ -33,6 +32,6 @@ xmlns:svg="http://www.w3.org/2000/svg">
 <point x="3846" y="-6887"/>
 <point x="3724" y="-7249"/>
 <point x="3990" y="-7175"/>
-<point x="3860.75" y="-7152.5" main="yes"/>
+<point x="2.5" y="1.1" main="yes"/>
 </connections>
 </shape>

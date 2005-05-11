@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
-<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
-xmlns:svg="http://www.w3.org/2000/svg">
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - MAS Gateway</name>
 <icon>mas_gateway.png</icon>
 <aspectratio type="fixed"/>
@@ -39,6 +38,6 @@ xmlns:svg="http://www.w3.org/2000/svg">
 <point x="4337" y="-2077"/>
 <point x="4109" y="-2308"/>
 <point x="4383" y="-2133"/>
-<point x="4273.95" y="-2244.2" main="yes"/>
+<point x="2.5" y="1.1" main="yes"/>
 </connections>
 </shape>

@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
-<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
-xmlns:svg="http://www.w3.org/2000/svg">
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - MGX 8260</name>
 <icon>mgx8260.png</icon>
 <aspectratio type="fixed"/>
@@ -33,6 +32,6 @@ xmlns:svg="http://www.w3.org/2000/svg">
 <point x="1863" y="-635"/>
 <point x="1487" y="-841"/>
 <point x="1939" y="-696"/>
-<point x="1717.875" y="-763.25" main="yes"/>
+<point x="2.5" y="1.1" main="yes"/>
 </connections>
 </shape>

@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
-<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
-xmlns:svg="http://www.w3.org/2000/svg">
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Storage array</name>
 <icon>storage_array.png</icon>
 <aspectratio type="fixed"/>
@@ -39,6 +38,6 @@ xmlns:svg="http://www.w3.org/2000/svg">
 <point x="5341" y="-3854.5"/>
 <point x="5341" y="-3821"/>
 <point x="5599" y="-3635"/>
-<point x="5460.85" y="-3788.75" main="yes"/>
+<point x="2.5" y="1.1" main="yes"/>
 </connections>
 </shape>

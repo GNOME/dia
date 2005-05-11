@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
-<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
-xmlns:svg="http://www.w3.org/2000/svg">
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - VPN Gateway</name>
 <icon>vpn_gateway.png</icon>
 <aspectratio type="fixed"/>
@@ -27,6 +26,6 @@ xmlns:svg="http://www.w3.org/2000/svg">
 <point x="2303.5" y="-6887"/>
 <point x="2482" y="-6887"/>
 <point x="2124" y="-7047"/>
-<point x="2312.57142857143" y="-7007.14285714286" main="yes"/>
+<point x="2.5" y="1.1" main="yes"/>
 </connections>
 </shape>

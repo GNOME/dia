@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
-<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
-xmlns:svg="http://www.w3.org/2000/svg">
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - PC Adapter Card</name>
 <icon>pc_adapter_card.png</icon>
 <aspectratio type="fixed"/>
@@ -52,6 +51,6 @@ xmlns:svg="http://www.w3.org/2000/svg">
 <point x="2634" y="-6183"/>
 <point x="2634" y="-6129"/>
 <point x="2634" y="-6075"/>
-<point x="2491.4" y="-6185.16666666667" main="yes"/>
+<point x="2.5" y="1.1" main="yes"/>
 </connections>
 </shape>

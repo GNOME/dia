@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
-<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
-xmlns:svg="http://www.w3.org/2000/svg">
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Branch office</name>
 <icon>branch_office.png</icon>
 <aspectratio type="fixed"/>
@@ -61,6 +60,6 @@ xmlns:svg="http://www.w3.org/2000/svg">
 <point x="1149" y="-6949"/>
 <point x="971" y="-7240"/>
 <point x="1216" y="-7028"/>
-<point x="1097.25" y="-7129.5" main="yes"/>
+<point x="2.5" y="1.1" main="yes"/>
 </connections>
 </shape>

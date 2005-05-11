@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
-<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
-xmlns:svg="http://www.w3.org/2000/svg">
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Video camera</name>
 <icon>video_camera.png</icon>
 <aspectratio type="fixed"/>
@@ -24,6 +23,6 @@ xmlns:svg="http://www.w3.org/2000/svg">
 <point x="2766" y="-4176"/>
 <point x="2595" y="-3714"/>
 <point x="2450" y="-3769"/>
-<point x="2603.66666666667" y="-3886.33333333333" main="yes"/>
+<point x="2.5" y="1.1" main="yes"/>
 </connections>
 </shape>

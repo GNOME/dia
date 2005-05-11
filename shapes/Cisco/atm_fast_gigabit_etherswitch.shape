@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
-<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
-xmlns:svg="http://www.w3.org/2000/svg">
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - ATM Fast Gigabit Etherswitch</name>
 <icon>atm_fast_gigabit_etherswitch.png</icon>
 <aspectratio type="fixed"/>
@@ -38,6 +37,6 @@ xmlns:svg="http://www.w3.org/2000/svg">
 <point x="1121" y="-4430"/>
 <point x="894" y="-4661"/>
 <point x="1194" y="-4519"/>
-<point x="1045.5" y="-4581.75" main="yes"/>
+<point x="2.5" y="1.1" main="yes"/>
 </connections>
 </shape>

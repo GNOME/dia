@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
-<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
-xmlns:svg="http://www.w3.org/2000/svg">
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Wireless Transport</name>
 <icon>wireless_transport.png</icon>
 <aspectratio type="fixed"/>
@@ -27,6 +26,6 @@ xmlns:svg="http://www.w3.org/2000/svg">
 <point x="5639" y="-3767"/>
 <point x="5302" y="-3999"/>
 <point x="5664" y="-3793"/>
-<point x="5483.1875" y="-3896" main="yes"/>
+<point x="2.5" y="1.1" main="yes"/>
 </connections>
 </shape>

@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
-<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
-xmlns:svg="http://www.w3.org/2000/svg">
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - 6701</name>
 <icon>6701.png</icon>
 <aspectratio type="fixed"/>
@@ -45,6 +44,6 @@ xmlns:svg="http://www.w3.org/2000/svg">
 <point x="3240" y="-6939"/>
 <point x="2882" y="-7055"/>
 <point x="3359" y="-7068"/>
-<point x="3125.1875" y="-7057" main="yes"/>
+<point x="2.5" y="1.1" main="yes"/>
 </connections>
 </shape>

@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
-<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
-xmlns:svg="http://www.w3.org/2000/svg">
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Speaker</name>
 <icon>speaker.png</icon>
 <aspectratio type="fixed"/>
@@ -26,6 +25,6 @@ xmlns:svg="http://www.w3.org/2000/svg">
 <point x="5160" y="-6878"/>
 <point x="4978" y="-7091"/>
 <point x="5227" y="-7099"/>
-<point x="5132.25" y="-7097.25" main="yes"/>
+<point x="2.5" y="1.1" main="yes"/>
 </connections>
 </shape>

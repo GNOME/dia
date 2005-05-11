@@ -1,4 +1,14 @@
+2005-05-11  Lars Clausen  <lars@raeder.dk>
+
+	* many shapes:  Use mid of bounding box for midpoint, better than
+	mid of connection points generally.
+
 2005-05-10  Lars Clausen  <lars@raeder.dk>
+
+	* lib/widgets.c: Decided on one way for the ratio thing in arrow
+	size selector:  Fixed ratio is on by default and keeps the sizes
+	at the given ratio, but doesn't clamp them to be the same.  Fixes
+	bug #302861.
 
 	* lib/font.c: Fix for bug #303695: Allow more than one entry of
 	each legacy name, thereby correctly encoding bold and italic of

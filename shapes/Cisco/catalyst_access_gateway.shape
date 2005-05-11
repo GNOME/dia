@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
-<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
-xmlns:svg="http://www.w3.org/2000/svg">
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Catalyst Access Gateway</name>
 <icon>catalyst_access_gateway.png</icon>
 <aspectratio type="fixed"/>
@@ -29,6 +28,6 @@ xmlns:svg="http://www.w3.org/2000/svg">
 <point x="4328" y="-3571"/>
 <point x="3970" y="-3698"/>
 <point x="4448" y="-3815"/>
-<point x="4298.25" y="-3724.5" main="yes"/>
+<point x="2.5" y="1.1" main="yes"/>
 </connections>
 </shape>

@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
-<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
-xmlns:svg="http://www.w3.org/2000/svg">
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - File cabinet</name>
 <icon>file_cabinet.png</icon>
 <aspectratio type="fixed"/>
@@ -37,6 +36,6 @@ xmlns:svg="http://www.w3.org/2000/svg">
 <point x="342" y="-6183"/>
 <point x="342" y="-6106"/>
 <point x="581" y="-6096"/>
-<point x="460.055555555556" y="-6171.77777777778" main="yes"/>
+<point x="2.5" y="1.1" main="yes"/>
 </connections>
 </shape>

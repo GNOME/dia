@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
-<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
-xmlns:svg="http://www.w3.org/2000/svg">
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Class 4/5 switch</name>
 <icon>class45_switch.png</icon>
 <aspectratio type="fixed"/>
@@ -43,6 +42,6 @@ xmlns:svg="http://www.w3.org/2000/svg">
 <point x="3762" y="-2341"/>
 <point x="3762" y="-2167"/>
 <point x="3762" y="-1993"/>
-<point x="3601.3125" y="-2170.125" main="yes"/>
+<point x="2.5" y="1.1" main="yes"/>
 </connections>
 </shape>

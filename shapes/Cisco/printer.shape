@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
-<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
-xmlns:svg="http://www.w3.org/2000/svg">
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Printer</name>
 <icon>printer.png</icon>
 <aspectratio type="fixed"/>
@@ -29,6 +28,6 @@ xmlns:svg="http://www.w3.org/2000/svg">
 <point x="288" y="-1215"/>
 <point x="288" y="-1169"/>
 <point x="714" y="-1271"/>
-<point x="448.125" y="-1233.83333333333" main="yes"/>
+<point x="2.5" y="1.1" main="yes"/>
 </connections>
 </shape>

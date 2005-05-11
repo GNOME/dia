@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
-<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
-xmlns:svg="http://www.w3.org/2000/svg">
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - TokenRing</name>
 <icon>tokenring.png</icon>
 <aspectratio type="fixed"/>
@@ -13,6 +12,6 @@ xmlns:svg="http://www.w3.org/2000/svg">
 <point x="5516" y="-5318"/>
 <point x="5374" y="-5459"/>
 <point x="5657" y="-5459"/>
-<point x="5515.75" y="-5459" main="yes"/>
+<point x="2.5" y="1.1" main="yes"/>
 </connections>
 </shape>

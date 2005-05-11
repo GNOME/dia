@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
-<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
-xmlns:svg="http://www.w3.org/2000/svg">
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Softphone</name>
 <icon>softphone.png</icon>
 <aspectratio type="fixed"/>
@@ -47,6 +46,6 @@ xmlns:svg="http://www.w3.org/2000/svg">
 <point x="5727" y="-7027"/>
 <point x="5727" y="-7007.5"/>
 <point x="5727" y="-6988"/>
-<point x="5635.33333333333" y="-7029.58333333333" main="yes"/>
+<point x="2.5" y="1.1" main="yes"/>
 </connections>
 </shape>

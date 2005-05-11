@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
-<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
-xmlns:svg="http://www.w3.org/2000/svg">
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - ISDN switch</name>
 <icon>isdn_switch.png</icon>
 <aspectratio type="fixed"/>
@@ -26,6 +25,6 @@ xmlns:svg="http://www.w3.org/2000/svg">
 <point x="1694" y="-2067"/>
 <point x="1467" y="-2298"/>
 <point x="1741" y="-2123"/>
-<point x="1631.65" y="-2234.2" main="yes"/>
+<point x="2.5" y="1.1" main="yes"/>
 </connections>
 </shape>

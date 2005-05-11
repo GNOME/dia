@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
-<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
-xmlns:svg="http://www.w3.org/2000/svg">
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
 <icon>h323.png</icon>
 <name>Cisco - H.323</name>
 <aspectratio type="fixed"/>
@@ -37,6 +36,6 @@ xmlns:svg="http://www.w3.org/2000/svg">
 <point x="1298" y="-5385"/>
 <point x="1298" y="-5384.5"/>
 <point x="1298" y="-5384"/>
-<point x="1206.75" y="-5463.41666666667" main="yes"/>
+<point x="2.5" y="1.1" main="yes"/>
 </connections>
 </shape>

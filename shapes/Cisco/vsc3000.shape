@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
-<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
-xmlns:svg="http://www.w3.org/2000/svg">
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Virtual switch controller (VSC 3000)</name>
 <icon>vsc3000.png</icon>
 <aspectratio type="fixed"/>
@@ -43,6 +42,6 @@ xmlns:svg="http://www.w3.org/2000/svg">
 <point x="3077" y="-6869"/>
 <point x="2896" y="-7269"/>
 <point x="3118" y="-6909"/>
-<point x="3007" y="-7089" main="yes"/>
+<point x="2.5" y="1.1" main="yes"/>
 </connections>
 </shape>

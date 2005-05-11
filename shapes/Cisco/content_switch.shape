@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
-<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
-xmlns:svg="http://www.w3.org/2000/svg">
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Content Switch</name>
 <icon>content_switch.png</icon>
 <aspectratio type="fixed"/>
@@ -41,6 +40,6 @@ xmlns:svg="http://www.w3.org/2000/svg">
 <point x="5478" y="-2021.5"/>
 <point x="5478" y="-2020"/>
 <point x="5778" y="-1960"/>
-<point x="5579.625" y="-2093.875" main="yes"/>
+<point x="2.5" y="1.1" main="yes"/>
 </connections>
 </shape>

@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
-<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
-xmlns:svg="http://www.w3.org/2000/svg">
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Breakout box</name>
 <icon>breakout_box.png</icon>
 <aspectratio type="fixed"/>
@@ -37,6 +36,6 @@ xmlns:svg="http://www.w3.org/2000/svg">
 <point x="1659" y="-6939"/>
 <point x="1492" y="-7255"/>
 <point x="1697" y="-6976"/>
-<point x="1594.5" y="-7115.5" main="yes"/>
+<point x="2.5" y="1.1" main="yes"/>
 </connections>
 </shape>

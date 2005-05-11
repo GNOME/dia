@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
-<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
-xmlns:svg="http://www.w3.org/2000/svg">
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Government Building</name>
 <icon>government_building.png</icon>
 <aspectratio type="fixed"/>
@@ -58,6 +57,6 @@ xmlns:svg="http://www.w3.org/2000/svg">
 <point x="728" y="-5359"/>
 <point x="222" y="-5553"/>
 <point x="728" y="-5553"/>
-<point x="475.833333333333" y="-5422" main="yes"/>
+<point x="2.5" y="1.1" main="yes"/>
 </connections>
 </shape>

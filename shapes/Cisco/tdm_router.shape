@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
-<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
-xmlns:svg="http://www.w3.org/2000/svg">
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - TDM router</name>
 <icon>tdm_router.png</icon>
 <aspectratio type="fixed"/>
@@ -18,10 +17,8 @@ xmlns:svg="http://www.w3.org/2000/svg">
 <svg:path d="M1073.13 -1959.54l71.7 0l0.47 16.68l30.41 -24.24l-30.41 -25.51l-0.47 18.07l-71.7 0z" style="fill: background; stroke: background; stroke-width: 0"/>
 <svg:path d="M1096.71 -1957.82l12.5 0 l0 -11.25l-12.5 0l0 11.25z" style="fill: background; stroke: background; stroke-width: 0"/>
 <svg:path d="M1062 -2005l20 0l0 4l-7 0l0 21l-4 0l0 -21l-8 0l0 -4z" style="fill: background; stroke: background; stroke-width: 0"/>
-<svg:path d="M1087 -2005l12 0c 4 0 8 6 8 11l0 3c0 5 -4 11 -9
-11l-11 0l0 -25 z" style="fill: background; stroke: background; stroke-width: 0"/>
-<svg:path d="M1092 -2000l6 0c4 0 4 5 4 5l0 5c0 6 -4 6 -4 6l-6
-0l0 -16 z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M1087 -2005l12 0c 4 0 8 6 8 11l0 3c0 5 -4 11 -9 11l-11 0l0 -25 z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M1092 -2000l6 0c4 0 4 5 4 5l0 5c0 6 -4 6 -4 6l-6 0l0 -16 z" style="fill: foreground; stroke-width: 0"/>
 <svg:path d="M1116 -2005l7 0l5 20l4 -20l8 0l0 25l-5 0l0 -19l-5 19l-5 0l-5 -19l0 19l-5 0l0 -25z" style="fill: background; stroke: background; stroke-width: 0"/>
 </svg:svg>
 <connections>
@@ -33,6 +30,6 @@ xmlns:svg="http://www.w3.org/2000/svg">
 <point x="1287" y="-2088"/>
 <point x="1287" y="-2035.5"/>
 <point x="1287" y="-1983"/>
-<point x="1103" y="-2035.625" main="yes"/>
+<point x="2.5" y="1.1" main="yes"/>
 </connections>
 </shape>

@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
-<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
-xmlns:svg="http://www.w3.org/2000/svg">
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - File Server</name>
 <icon>file_server.png</icon>
 <aspectratio type="fixed"/>
@@ -25,6 +24,6 @@ xmlns:svg="http://www.w3.org/2000/svg">
 <point x="1141" y="-6119"/>
 <point x="987" y="-6364"/>
 <point x="1190" y="-6168"/>
-<point x="1088.5" y="-6266" main="yes"/>
+<point x="2.5" y="1.1" main="yes"/>
 </connections>
 </shape>

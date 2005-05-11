@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
-<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
-xmlns:svg="http://www.w3.org/2000/svg">
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - BTS 10200</name>
 <icon>bts10200.png</icon>
 <aspectratio type="fixed"/>
@@ -31,6 +30,6 @@ xmlns:svg="http://www.w3.org/2000/svg">
 <point x="2253" y="-3571"/>
 <point x="2067" y="-3889"/>
 <point x="2299" y="-3628"/>
-<point x="2184.875" y="-3751.375" main="yes"/>
+<point x="2.5" y="1.1" main="yes"/>
 </connections>
 </shape>

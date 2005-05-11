@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
-<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
-xmlns:svg="http://www.w3.org/2000/svg">
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - ATM Router</name>
 <icon>atm_router.png</icon>
 <aspectratio type="fixed"/>
@@ -24,6 +23,6 @@ xmlns:svg="http://www.w3.org/2000/svg">
 <point x="5059" y="-5431"/>
 <point x="5059" y="-5379"/>
 <point x="5059" y="-5327"/>
-<point x="4875" y="-5379" main="yes"/>
+<point x="2.5" y="1.1" main="yes"/>
 </connections>
 </shape>

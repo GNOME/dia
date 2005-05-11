@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
-<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
-xmlns:svg="http://www.w3.org/2000/svg">
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - 100BaseT Hub</name>
 <icon>100baset_hub.png</icon>
 <aspectratio type="fixed"/>
@@ -11,9 +10,7 @@ xmlns:svg="http://www.w3.org/2000/svg">
 <svg:path d="M695.87 -7064.62l-0.02 -92.45l-49.7 101.86l0 109.86l49.72 -119.28" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
 <svg:path d="M646.15 -6945.35l0 -109.86l-371.83 0l0.14 109.86l371.69 0z" style="fill: foreground; stroke-width: 0"/>
 <svg:path d="M646.15 -6945.35l0 -109.86l-371.83 0l0.14 109.86l371.69 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
-<svg:path d="M633.35 -7109.12l-139.81 -18.29l-6.46 9.96l-121.59
--0.13l-14.89 16.79l125.72 -0.06l-6.29 9.69l163.32 -17.95z"
-style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M633.35 -7109.12l-139.81 -18.29l-6.46 9.96l-121.59 -0.13l-14.89 16.79l125.72 -0.06l-6.29 9.69l163.32 -17.95z" style="fill: background; stroke: background; stroke-width: 0"/>
 </svg:svg>
 <connections>
 <point x="352" y="-7156"/>
@@ -24,6 +21,6 @@ style="fill: background; stroke: background; stroke-width: 0"/>
 <point x="646" y="-6944"/>
 <point x="274" y="-7054"/>
 <point x="696" y="-7064"/>
-<point x="490.25" y="-7052.25" main="yes"/>
+<point x="2.5" y="1.1" main="yes"/>
 </connections>
 </shape>

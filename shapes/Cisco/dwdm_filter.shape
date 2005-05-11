@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
-<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
-xmlns:svg="http://www.w3.org/2000/svg">
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - DWDM Filter</name>
 <icon>dwdm_filter.png</icon>
 <aspectratio type="fixed"/>
@@ -52,6 +51,6 @@ xmlns:svg="http://www.w3.org/2000/svg">
 <point x="5414" y="-7098"/>
 <point x="5414" y="-7045"/>
 <point x="5654" y="-7128"/>
-<point x="5458.25" y="-7129.625" main="yes"/>
+<point x="2.5" y="1.1" main="yes"/>
 </connections>
 </shape>

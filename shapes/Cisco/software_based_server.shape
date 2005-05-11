@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
-<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
-xmlns:svg="http://www.w3.org/2000/svg">
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Software based server</name>
 <icon>software_based_server.png</icon>
 <aspectratio type="fixed"/>
@@ -50,6 +49,6 @@ xmlns:svg="http://www.w3.org/2000/svg">
 <point x="1762" y="-5337"/>
 <point x="1608" y="-5582"/>
 <point x="1922" y="-5508"/>
-<point x="1757.3125" y="-5525.5" main="yes"/>
+<point x="2.5" y="1.1" main="yes"/>
 </connections>
 </shape>

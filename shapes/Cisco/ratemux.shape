@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
-<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
-xmlns:svg="http://www.w3.org/2000/svg">
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - RateMUX</name>
 <icon>ratemux.png</icon>
 <aspectratio type="fixed"/>
@@ -40,6 +39,6 @@ xmlns:svg="http://www.w3.org/2000/svg">
 <point x="3810" y="-5275"/>
 <point x="3513" y="-5495"/>
 <point x="3857" y="-5322"/>
-<point x="3702.25" y="-5364.16666666667" main="yes"/>
+<point x="2.5" y="1.1" main="yes"/>
 </connections>
 </shape>

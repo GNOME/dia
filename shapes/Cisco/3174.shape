@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
-<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
-xmlns:svg="http://www.w3.org/2000/svg">
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - 3174 (desktop) cluster controller</name>
 <icon>3174.png</icon>
 <aspectratio type="fixed"/>
@@ -27,6 +26,6 @@ xmlns:svg="http://www.w3.org/2000/svg">
 <point x="1826" y="-6957"/>
 <point x="1528" y="-7052"/>
 <point x="1888" y="-7026"/>
-<point x="1710.25" y="-7034.125" main="yes"/>
+<point x="2.5" y="1.1" main="yes"/>
 </connections>
 </shape>

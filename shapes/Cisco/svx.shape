@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
-<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
-xmlns:svg="http://www.w3.org/2000/svg">
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - SVX (interchangeable with End office)</name>
 <icon>svx.png</icon>
 <aspectratio type="fixed"/>
@@ -91,6 +90,6 @@ xmlns:svg="http://www.w3.org/2000/svg">
 <point x="1131" y="-5337"/>
 <point x="915" y="-5557"/>
 <point x="1175" y="-5382"/>
-<point x="1047.0625" y="-5469.125" main="yes"/>
+<point x="2.5" y="1.1" main="yes"/>
 </connections>
 </shape>

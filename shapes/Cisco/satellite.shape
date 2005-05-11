@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
-<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
-xmlns:svg="http://www.w3.org/2000/svg">
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Satellite</name>
 <icon>satellite.png</icon>
 <aspectratio type="fixed"/>
@@ -39,6 +38,6 @@ xmlns:svg="http://www.w3.org/2000/svg">
 <point x="2480" y="-6949"/>
 <point x="3114" y="-7101"/>
 <point x="3114" y="-7088"/>
-<point x="2798.16666666667" y="-7026.5" main="yes"/>
+<point x="2.5" y="1.1" main="yes"/>
 </connections>
 </shape>

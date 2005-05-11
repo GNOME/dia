@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
-<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
-xmlns:svg="http://www.w3.org/2000/svg">
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Tablet</name>
 <icon>tablet.png</icon>
 <aspectratio type="fixed"/>
@@ -34,6 +33,6 @@ xmlns:svg="http://www.w3.org/2000/svg">
 <point x="2509" y="-5365"/>
 <point x="2148" y="-5373"/>
 <point x="2575" y="-5588"/>
-<point x="2336.6" y="-5504.6" main="yes"/>
+<point x="2.5" y="1.1" main="yes"/>
 </connections>
 </shape>

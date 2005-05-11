@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
-<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
-xmlns:svg="http://www.w3.org/2000/svg">
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Gigabit Switch Router (ATM Tag)</name>
 <icon>gigabit_switch_router_atm_tag.png</icon>
 <aspectratio type="fixed"/>
@@ -40,6 +39,6 @@ xmlns:svg="http://www.w3.org/2000/svg">
 <point x="4473" y="-5539"/>
 <point x="4473" y="-5425"/>
 <point x="4473" y="-5311"/>
-<point x="4289" y="-5425" main="yes"/>
+<point x="2.5" y="1.1" main="yes"/>
 </connections>
 </shape>

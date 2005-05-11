@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
-<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
-xmlns:svg="http://www.w3.org/2000/svg">
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - IPTC</name>
 <icon>iptc.png</icon>
 <aspectratio type="fixed"/>
@@ -29,6 +28,6 @@ xmlns:svg="http://www.w3.org/2000/svg">
 <point x="4941" y="-3586"/>
 <point x="4583" y="-3734"/>
 <point x="5061" y="-3707"/>
-<point x="4878.08333333333" y="-3763.33333333333" main="yes"/>
+<point x="2.5" y="1.1" main="yes"/>
 </connections>
 </shape>

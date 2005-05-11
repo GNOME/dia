@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
-<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
-xmlns:svg="http://www.w3.org/2000/svg">
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - BBFW</name>
 <icon>bbfw.png</icon>
 <aspectratio type="fixed"/>
@@ -17,6 +16,6 @@ xmlns:svg="http://www.w3.org/2000/svg">
 <point x="369" y="-6965"/>
 <point x="314" y="-7051"/>
 <point x="314" y="-7007"/>
-<point x="347" y="-7028.625" main="yes"/>
+<point x="2.5" y="1.1" main="yes"/>
 </connections>
 </shape>

@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
-<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
-xmlns:svg="http://www.w3.org/2000/svg">
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - SC2200 (Signalling Controller)</name>
 <icon>sc2200.png</icon>
 <aspectratio type="fixed"/>
@@ -32,6 +31,6 @@ xmlns:svg="http://www.w3.org/2000/svg">
 <point x="2151" y="-3671"/>
 <point x="2419" y="-3801"/>
 <point x="2419" y="-3761"/>
-<point x="2286.05" y="-3744.7" main="yes"/>
+<point x="2.5" y="1.1" main="yes"/>
 </connections>
 </shape>

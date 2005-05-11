@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
-<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
-xmlns:svg="http://www.w3.org/2000/svg">
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Unity server</name>
 <icon>unity_server.png</icon>
 <aspectratio type="fixed"/>
@@ -39,6 +38,6 @@ xmlns:svg="http://www.w3.org/2000/svg">
 <point x="2996" y="-1900"/>
 <point x="2812" y="-2178"/>
 <point x="3045" y="-1949"/>
-<point x="2928.5" y="-2063.5" main="yes"/>
+<point x="2.5" y="1.1" main="yes"/>
 </connections>
 </shape>

@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
-<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
-xmlns:svg="http://www.w3.org/2000/svg">
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - SIP Proxy server</name>
 <icon>sip_proxy_server.png</icon>
 <aspectratio type="fixed"/>
@@ -20,8 +19,7 @@ xmlns:svg="http://www.w3.org/2000/svg">
 <svg:path d="M4258.81 -3767.79l0 27.91l16.81 -13.4l-16.81 -14.51" style="stroke: background; stroke-width: 0.2212; stroke-miterlimit: 4"/>
 <svg:path d="M4141 -3650.92l0 -27.89l-16.81 13.38l16.81 14.51z" style="fill: background; stroke: background; stroke-width: 0"/>
 <svg:path d="M4141 -3650.92l0 -27.89l-16.81 13.38l16.81 14.51" style="stroke: background; stroke-width: 0.2212; stroke-miterlimit: 4"/>
-<svg:path d="M4213 -3714l9 0l0 51l-9 0l0 -51z" style="fill: background;
-stroke: background; stroke-width: 0"/>
+<svg:path d="M4213 -3714l9 0l0 51l-9 0l0 -51z" style="fill: background; stroke: background; stroke-width: 0"/>
 <svg:path d="M4233 -3714l28 0c6 0 11 6 11 13l0 5c0 7 -6 14 -12 14l -17 0l0 19l-10 0l0 -51 z" style="fill: background; stroke: background; stroke-width: 0"/>
 <svg:path d="M4244 -3706l13 0c4 0 4 0 4 4l0 6c0 4 0 4 -4 4l-13 0l0 -14 z" style="fill: foreground; stroke-width: 0"/>
 </svg:svg>
@@ -34,6 +32,6 @@ stroke: background; stroke-width: 0"/>
 <point x="4281" y="-3598"/>
 <point x="4120" y="-3879"/>
 <point x="4330" y="-3647"/>
-<point x="4225" y="-3763" main="yes"/>
+<point x="2.5" y="1.1" main="yes"/>
 </connections>
 </shape>

@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
-<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
-xmlns:svg="http://www.w3.org/2000/svg">
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Cisco Hub</name>
 <icon>cisco_hub.png</icon>
 <aspectratio type="fixed"/>
@@ -30,6 +29,6 @@ xmlns:svg="http://www.w3.org/2000/svg">
 <point x="1213" y="-1912"/>
 <point x="937" y="-2154"/>
 <point x="1245" y="-1944"/>
-<point x="1090.8125" y="-2049" main="yes"/>
+<point x="2.5" y="1.1" main="yes"/>
 </connections>
 </shape>

@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
-<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
-xmlns:svg="http://www.w3.org/2000/svg">
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Wireless Bridge</name>
 <icon>wireless_bridge.png</icon>
 <aspectratio type="fixed"/>
@@ -23,6 +22,6 @@ xmlns:svg="http://www.w3.org/2000/svg">
 <point x="4395" y="-6855"/>
 <point x="4091" y="-7092"/>
 <point x="4446" y="-6897"/>
-<point x="4285.33333333333" y="-6950" main="yes"/>
+<point x="2.5" y="1.1" main="yes"/>
 </connections>
 </shape>

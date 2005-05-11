@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
-<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
-xmlns:svg="http://www.w3.org/2000/svg">
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - SC2200/VSC3000 host</name>
 <icon>sc2200_vsc3000_host.png</icon>
 <aspectratio type="fixed"/>
@@ -36,6 +35,6 @@ xmlns:svg="http://www.w3.org/2000/svg">
 <point x="3034" y="-3609"/>
 <point x="2876" y="-3854"/>
 <point x="3084" y="-3658"/>
-<point x="2982.625" y="-3756" main="yes"/>
+<point x="2.5" y="1.1" main="yes"/>
 </connections>
 </shape>

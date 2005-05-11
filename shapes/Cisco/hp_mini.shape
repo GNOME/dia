@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
-<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
-xmlns:svg="http://www.w3.org/2000/svg">
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - HP Mini</name>
 <icon>hp_mini.png</icon>
 <aspectratio type="fixed"/>
@@ -38,6 +37,6 @@ xmlns:svg="http://www.w3.org/2000/svg">
 <point x="2769" y="-5407.5"/>
 <point x="2769" y="-5382"/>
 <point x="3008" y="-5378"/>
-<point x="2837.28571428571" y="-5454.07142857143" main="yes"/>
+<point x="2.5" y="1.1" main="yes"/>
 </connections>
 </shape>

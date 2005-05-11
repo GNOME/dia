@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
-<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
-xmlns:svg="http://www.w3.org/2000/svg">
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Content Service Router</name>
 <icon>content_service_router.png</icon>
 <aspectratio type="fixed"/>
@@ -27,6 +26,6 @@ xmlns:svg="http://www.w3.org/2000/svg">
 <point x="675" y="-7109"/>
 <point x="675" y="-7056.5"/>
 <point x="675" y="-7004"/>
-<point x="491" y="-7056.375" main="yes"/>
+<point x="2.5" y="1.1" main="yes"/>
 </connections>
 </shape>

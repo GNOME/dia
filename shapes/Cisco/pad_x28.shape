@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
-<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
-xmlns:svg="http://www.w3.org/2000/svg">
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - PAD X.28</name>
 <icon>pad_x28.png</icon>
 <aspectratio type="fixed"/>
@@ -23,17 +22,12 @@ xmlns:svg="http://www.w3.org/2000/svg">
 <svg:path d="M378.52 -2399.14l0 23.12" style="stroke: foreground; stroke-width: 1.2; stroke-miterlimit: 4; stroke-linecap: round; stroke-linejoin: round"/>
 <svg:path d="M627.9 -2229.99l-279.96 -160.03l0 320.07l279.96 -160.04z" style="fill: foreground; stroke-width: 0"/>
 <svg:path d="M627.9 -2229.99l-279.96 -160.03l0 320.07l279.96 -160.04" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
-<svg:path d="M370 -2265l28 0c6 0 11 6 11 13l0 5c0 7 -6 14 -12 14l -17
-0l0 19l-10 0l0 -51 z" style="fill: background; stroke: background; stroke-width: 0"/>
-<svg:path d="M381 -2257l13 0c4 0 4 0 4 4l0 6c0 4 0 4 -4 4l-13 0l0 -14
-z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M425 -2265l11 0l18 50l-9 0l-5 -11l-19 0l-4 11l-10 0l18
--50z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M370 -2265l28 0c6 0 11 6 11 13l0 5c0 7 -6 14 -12 14l -17 0l0 19l-10 0l0 -51 z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M381 -2257l13 0c4 0 4 0 4 4l0 6c0 4 0 4 -4 4l-13 0l0 -14 z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M425 -2265l11 0l18 50l-9 0l-5 -11l-19 0l-4 11l-10 0l18 -50z" style="fill: background; stroke: background; stroke-width: 0"/>
 <svg:path d="M431 -2254l6 19l-12 0l6 -19z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M460 -2265l26 0c 8 0 16 11 16 22l0 7c0 11 -8 22 -19
-22l-23 0l0 -49 z" style="fill: background; stroke: background; stroke-width: 0"/>
-<svg:path d="M471 -2254l12 0c8 0 8 10 8 10l0 13c0 10 -9 10 -9 10l-11
-0l0 -33 z" style="fill: foreground; stroke-width: 0"/>
+<svg:path d="M460 -2265l26 0c 8 0 16 11 16 22l0 7c0 11 -8 22 -19 22l-23 0l0 -49 z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M471 -2254l12 0c8 0 8 10 8 10l0 13c0 10 -9 10 -9 10l-11 0l0 -33 z" style="fill: foreground; stroke-width: 0"/>
 </svg:svg>
 <connections>
 <point x="378" y="-2404"/>
@@ -47,6 +41,6 @@ z" style="fill: foreground; stroke-width: 0"/>
 <point x="242" y="-2168"/>
 <point x="242" y="-2150"/>
 <point x="658" y="-2244"/>
-<point x="301.818181818182" y="-2240.81818181818" main="yes"/>
+<point x="2.5" y="1.1" main="yes"/>
 </connections>
 </shape>

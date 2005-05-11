@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
-<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
-xmlns:svg="http://www.w3.org/2000/svg">
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Workgroup director</name>
 <icon>workgroup_director.png</icon>
 <aspectratio type="fixed"/>
@@ -44,6 +43,6 @@ xmlns:svg="http://www.w3.org/2000/svg">
 <point x="1122" y="-5638"/>
 <point x="859" y="-5652"/>
 <point x="1231" y="-5691"/>
-<point x="1028.3125" y="-5766" main="yes"/>
+<point x="2.5" y="1.1" main="yes"/>
 </connections>
 </shape>

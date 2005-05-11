@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
-<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
-xmlns:svg="http://www.w3.org/2000/svg">
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Distributed Director</name>
 <icon>distributed_director.png</icon>
 <aspectratio type="fixed"/>
@@ -26,6 +25,6 @@ xmlns:svg="http://www.w3.org/2000/svg">
 <point x="3730" y="-6947"/>
 <point x="3349" y="-7198"/>
 <point x="3774" y="-7011"/>
-<point x="3565.4375" y="-7100.375" main="yes"/>
+<point x="2.5" y="1.1" main="yes"/>
 </connections>
 </shape>

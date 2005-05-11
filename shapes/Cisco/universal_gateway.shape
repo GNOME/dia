@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
-<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
-xmlns:svg="http://www.w3.org/2000/svg">
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Universal Gateway</name>
 <icon>universal_gateway.png</icon>
 <aspectratio type="fixed"/>
@@ -35,6 +34,6 @@ xmlns:svg="http://www.w3.org/2000/svg">
 <point x="3510" y="-1926"/>
 <point x="3618" y="-1926"/>
 <point x="3402" y="-2146"/>
-<point x="3548.44444444444" y="-2097.11111111111" main="yes"/>
+<point x="2.5" y="1.1" main="yes"/>
 </connections>
 </shape>

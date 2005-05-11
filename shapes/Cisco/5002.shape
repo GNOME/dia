@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
-<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
-xmlns:svg="http://www.w3.org/2000/svg">
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Workgroup 5002</name>
 <icon>5002.png</icon>
 <aspectratio type="fixed"/>
@@ -16,22 +15,18 @@ xmlns:svg="http://www.w3.org/2000/svg">
 <svg:path d="M5656.34 -7082.36l6.92 -5.68l89.09 0l8.89 -8.88l24.15 10.52l-48.56 13.88l8.59 -9.83l-89.08 0z" style="fill: background; stroke: background; stroke-width: 0"/>
 <svg:path d="M5667.94 -6954.19l45 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
 <svg:path d="M5667.94 -6914.19l45 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
-<svg:path d="M5470 -6935l4 -27l26 0l0 8l-20 0l-2 11l  6 -2l6 0c7 0 12 8 12
-15l0 4c 0 8 -8 16 -16 16l-4 0c -7 0 -14 -7 -14 -14l9 0c 0 3 2 6 5 6l4
-0c 4 0 7 -4 7 -8l0 -4c 0 -4 -2 -8 -6 -8l-4 0l   -5 3l-8 0z" style="fill: background; stroke: background; stroke-width: 0.01"/>
+<svg:path d="M5470 -6935l4 -27l26 0l0 8l-20 0l-2 11l  6 -2l6 0c7 0 12 8 12 15l0 4c 0 8 -8 16 -16 16l-4 0c -7 0 -14 -7 -14 -14l9 0c 0 3 2 6 5 6l4 0c 4 0 7 -4 7 -8l0 -4c 0 -4 -2 -8 -6 -8l-4 0l   -5 3l-8 0z" style="fill: background; stroke: background; stroke-width: 0.01"/>
 <svg:path d="M5520 -6940l0 10c0 10 5 21 15 21l3 0c10 0 15 -11 15 -21l0 -10c0 -10 -5 -21 -15 -21l-3 0lc -10 0 -15 11 -15 21z" style="fill: background; stroke: background; stroke-width: 0"/>
 <svg:path d="M5529 -6940l0 10c0 7 0 14 7 14l2 0c7 0 7 -7 7 -14l0 -10c0 -7 0 -14 -7 -14l-2 0c -7 0 -7 7 -7 14z" style="fill: foreground; stroke-width: 0"/>
 <svg:path d="M5570 -6940l0 10c0 10 5 21 15 21l3 0c10 0 15 -11 15 -21l0 -10c0 -10 -5 -21 -15 -21l-3 0lc -10 0 -15 11 -15 21z" style="fill: background; stroke: background; stroke-width: 0"/>
 <svg:path d="M5579 -6940l0 10c0 7 0 14 7 14l2 0c7 0 7 -7 7 -14l0 -10c0 -7 0 -14 -7 -14l-2 0c -7 0 -7 7 -7 14z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M5620 -6944l0 -4c0 -7 7 -14 14 -14l4 0c7 0 15 6  15 13l0
-5     c 0 18 -27 29 -22 24    l22 0l0 9l-34 0l0 -6c 5 -10 25 -12 25 -26l0 -6c0
--4 -3 -6 -7 -6l-2 0c-4 0 -7 4  -7 8l0 3l-8 0z" style="fill: background; stroke: background; stroke-width: 0"/>
+<svg:path d="M5620 -6944l0 -4c0 -7 7 -14 14 -14l4 0c7 0 15 6  15 13l0 5     c 0 18 -27 29 -22 24    l22 0l0 9l-34 0l0 -6c 5 -10 25 -12 25 -26l0 -6c0 -4 -3 -6 -7 -6l-2 0c-4 0 -7 4  -7 8l0 3l-8 0z" style="fill: background; stroke: background; stroke-width: 0"/>
 </svg:svg>
 <connections>
 <point x="5862" y="-7108"/>
 <point x="5743" y="-6873"/>
 <point x="5385" y="-6992"/>
 <point x="5385" y="-6873"/>
-<point x="5593.75" y="-6961.5" main="yes"/>
+<point x="2.5" y="1.1" main="yes"/>
 </connections>
 </shape>

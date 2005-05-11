@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
-<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
-xmlns:svg="http://www.w3.org/2000/svg">
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - IBM Mini (AS400)</name>
 <icon>ibm_mini.png</icon>
 <aspectratio type="fixed"/>
@@ -25,6 +24,6 @@ xmlns:svg="http://www.w3.org/2000/svg">
 <point x="4071" y="-5342"/>
 <point x="3917" y="-5587"/>
 <point x="4120" y="-5391"/>
-<point x="4021.125" y="-5489" main="yes"/>
+<point x="2.5" y="1.1" main="yes"/>
 </connections>
 </shape>

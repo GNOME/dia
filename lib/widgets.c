@@ -42,7 +42,9 @@
 
 /************* DiaSizeSelector: ***************/
 /* A widget that selects two sizes, width and height, optionally keeping
- * aspect ration.
+ * aspect ratio.  When created, aspect ratio is locked, but the user can
+ * unlock it.  The current users do not store aspect ratio, so we have
+ * to give a good default.  
  */
 struct _DiaSizeSelector
 {
@@ -99,7 +101,8 @@ dia_size_selector_ratio_callback(GtkAdjustment *limits, gpointer userdata)
 
   ss->last_adjusted = limits;
 
-  if (!gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ss->aspect_locked)))
+  if (!gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ss->aspect_locked)) 
+      || ss->ratio == 0.0)
     return;
 
   if (in_progress) return;
@@ -114,12 +117,26 @@ dia_size_selector_ratio_callback(GtkAdjustment *limits, gpointer userdata)
   in_progress = FALSE;
 }
 
+/** Update the ratio of this DSS to be the ratio of width to height.
+ * If height is 0, ratio becomes 0.0.
+ */
+static void
+dia_size_selector_set_ratio(DiaSizeSelector *ss, real width, real height) 
+{
+  if (height > 0.0) 
+    ss->ratio = width/height;
+  else 
+    ss->ratio = 0.0;
+}
+
 static void
 dia_size_selector_lock_pressed(GtkWidget *widget, gpointer data)
 {
   DiaSizeSelector *ss = DIA_SIZE_SELECTOR(data);
 
-  dia_size_selector_ratio_callback(ss->last_adjusted, (gpointer)ss);
+  dia_size_selector_set_ratio(ss, 
+			      gtk_spin_button_get_value(GTK_SPIN_BUTTON(ss->width)),
+			      gtk_spin_button_get_value(GTK_SPIN_BUTTON(ss->height)));
 }
 
 /* Possible args:  Init width, init height, digits */
@@ -127,9 +144,10 @@ dia_size_selector_lock_pressed(GtkWidget *widget, gpointer data)
 static void
 dia_size_selector_init (DiaSizeSelector *ss)
 {
+  ss->ratio = 0.0;
   /* Here's where we set up the real thing */
   GtkAdjustment *adj;
-  adj = GTK_ADJUSTMENT(gtk_adjustment_new(1.0, 0, 10,
+  adj = GTK_ADJUSTMENT(gtk_adjustment_new(1.0, 0.01, 10,
 					  0.1, 1.0, 1.0));
   ss->width = GTK_SPIN_BUTTON(gtk_spin_button_new(adj, 1.0, 2));
   gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(ss->width), TRUE);
@@ -137,7 +155,7 @@ dia_size_selector_init (DiaSizeSelector *ss)
   gtk_box_pack_start(GTK_BOX(ss), GTK_WIDGET(ss->width), FALSE, TRUE, 0);
   gtk_widget_show(GTK_WIDGET(ss->width));
 
-  adj = GTK_ADJUSTMENT(gtk_adjustment_new(1.0, 0, 10,
+  adj = GTK_ADJUSTMENT(gtk_adjustment_new(1.0, 0.01, 10,
 					  0.1, 1.0, 1.0));
   ss->height = GTK_SPIN_BUTTON(gtk_spin_button_new(adj, 1.0, 2));
   gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(ss->height), TRUE);
@@ -153,6 +171,7 @@ dia_size_selector_init (DiaSizeSelector *ss)
     GTK_TOGGLE_BUTTON(dia_toggle_button_new_with_icons
 		      (dia_unbroken_chain_icon,
 		       dia_broken_chain_icon));
+
   gtk_container_set_border_width(GTK_CONTAINER(ss->aspect_locked), 0);
 
   gtk_box_pack_start(GTK_BOX(ss), GTK_WIDGET(ss->aspect_locked), FALSE, TRUE, 0); 
@@ -210,15 +229,21 @@ dia_size_selector_set_size(DiaSizeSelector *ss, real width, real height)
 {
   gtk_spin_button_set_value(GTK_SPIN_BUTTON(ss->width), width);
   gtk_spin_button_set_value(GTK_SPIN_BUTTON(ss->height), height);
-  if (height != 0.0) 
-    ss->ratio = width/height;
+  /*
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ss->aspect_locked),
+			       fabs(width - height) < 0.000001);
+  */
+  dia_size_selector_set_ratio(ss, width, height);
 }
 
 void
 dia_size_selector_set_locked(DiaSizeSelector *ss, gboolean locked)
 {
-  if (!ss->aspect_locked && locked) {
-    dia_size_selector_adjust_height(ss);
+  if (!gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ss->aspect_locked))
+      && locked) {
+    dia_size_selector_set_ratio(ss, 
+				gtk_spin_button_get_value(GTK_SPIN_BUTTON(ss->width)),
+				gtk_spin_button_get_value(GTK_SPIN_BUTTON(ss->height)));
   }
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ss->aspect_locked), locked);
 }
@@ -1135,7 +1160,7 @@ dia_arrow_selector_init (DiaArrowSelector *as,
   gtk_box_pack_start_defaults(GTK_BOX(box), label);
   gtk_widget_show(label);
 
-  size = dia_size_selector_new(DEFAULT_ARROW_WIDTH, DEFAULT_ARROW_LENGTH);
+  size = dia_size_selector_new(0.0, 0.0);
   as->size = DIA_SIZE_SELECTOR(size);
   gtk_box_pack_start_defaults(GTK_BOX(box), size);
   gtk_widget_show(size);  

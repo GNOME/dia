@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
-<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
-xmlns:svg="http://www.w3.org/2000/svg">
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Router with Firewall</name>
 <icon>router_with_firewall.png</icon>
 <aspectratio type="fixed"/>
@@ -52,6 +51,6 @@ xmlns:svg="http://www.w3.org/2000/svg">
 <point x="609" y="-3768"/>
 <point x="609" y="-3715.5"/>
 <point x="609" y="-3663"/>
-<point x="424.375" y="-3721.375" main="yes"/>
+<point x="2.5" y="1.1" main="yes"/>
 </connections>
 </shape>

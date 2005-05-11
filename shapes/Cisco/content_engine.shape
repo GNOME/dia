@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
-<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
-xmlns:svg="http://www.w3.org/2000/svg">
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Content Engine (Cache Director)</name>
 <icon>content_engine.png</icon>
 <aspectratio type="fixed"/>
@@ -30,6 +29,6 @@ xmlns:svg="http://www.w3.org/2000/svg">
 <point x="5157" y="-1893"/>
 <point x="4775" y="-2144"/>
 <point x="5201" y="-1957"/>
-<point x="4992.125" y="-2046.375" main="yes"/>
+<point x="2.5" y="1.1" main="yes"/>
 </connections>
 </shape>

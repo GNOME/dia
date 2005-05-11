@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
-<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
-xmlns:svg="http://www.w3.org/2000/svg">
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Telecommuter</name>
 <icon>telecommuter.png</icon>
 <aspectratio type="fixed"/>
@@ -14,6 +13,6 @@ xmlns:svg="http://www.w3.org/2000/svg">
 <point x="4458" y="-5313"/>
 <point x="4230" y="-5457"/>
 <point x="4522" y="-5462"/>
-<point x="4407" y="-5448.75" main="yes"/>
+<point x="2.5" y="1.1" main="yes"/>
 </connections>
 </shape>

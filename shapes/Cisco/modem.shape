@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
-<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
-xmlns:svg="http://www.w3.org/2000/svg">
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Modem</name>
 <icon>modem.png</icon>
 <aspectratio type="fixed"/>
@@ -25,6 +24,6 @@ xmlns:svg="http://www.w3.org/2000/svg">
 <point x="4886" y="-3808"/>
 <point x="5244" y="-3833"/>
 <point x="5244" y="-3802"/>
-<point x="5102.71428571429" y="-3786.85714285714" main="yes"/>
+<point x="2.5" y="1.1" main="yes"/>
 </connections>
 </shape>

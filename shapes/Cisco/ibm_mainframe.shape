@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
-<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
-xmlns:svg="http://www.w3.org/2000/svg">
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - IBM mainframe</name>
 <icon>ibm_mainframe.png</icon>
 <aspectratio type="fixed"/>
@@ -35,6 +34,6 @@ xmlns:svg="http://www.w3.org/2000/svg">
 <point x="3506" y="-5666"/>
 <point x="3506" y="-5537"/>
 <point x="3506" y="-5408"/>
-<point x="3392.45" y="-5535.35" main="yes"/>
+<point x="2.5" y="1.1" main="yes"/>
 </connections>
 </shape>
