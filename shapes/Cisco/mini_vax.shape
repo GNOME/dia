@@ -4,31 +4,31 @@
 <icon>mini_vax.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
-<svg:path d="M4416.94 -3724.72l203.194 0 l0 -177.637l-203.194 0l0 177.637z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M4416.94 -3724.72l203.194 0 l0 -177.637l-203.194 0l0 177.637" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
-<svg:path d="M4620.14 -3724.72l32.92 -32.93l0 -177.64l-203.19 0l-32.92 32.93l203.19 0l0 177.64z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M4620.14 -3724.72l32.92 -32.93l0 -177.64l-203.19 0l-32.92 32.93l203.19 0l0 177.64" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
-<svg:path d="M4620.14 -3902.35l32.92 -32.93z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M4620.14 -3902.35l32.92 -32.93" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
-<svg:path d="M4555.06 -3724.72l0 -177.64" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
-<svg:path d="M4620.14 -3857.47l-203.19 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
-<svg:path d="M4486.01 -3724.72l0 -177.64" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<!--gsave-->
+<svg:path d="M0 661L703 0L6415 0L5710 661L0 661Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.05; fill: #c9c9b6"/>
+<svg:path d="M17 645L695 7L6407 7L5710 661L17 661L17 645Z" style="stroke: #494936; stroke-width: 0.05; fill: none"/>
+<svg:path d="M0 703L5710 703L5710 5632L0 5632L0 703Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.05; fill: #b7b79d"/>
+<svg:path d="M17 703L5710 703L5710 5632L17 5632L17 703Z" style="stroke: #494936; stroke-width: 0.05; fill: none"/>
+<svg:path d="M5710 5632L6415 4928L6415 0L5710 661L5710 5632Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.05; fill: #7a7a5a"/>
+<svg:path d="M5710 5632L6415 4928L6415 7L6407 7L5710 661L5710 5632L5710 5632Z" style="stroke: #494936; stroke-width: 0.05; fill: none"/>
+<svg:path d="M2599 7L1903 703L1903 5632" style="stroke: #494936; stroke-width: 0.05; fill: none"/>
+<svg:path d="M4462 7L3806 703L3806 5632" style="stroke: #494936; stroke-width: 0.05; fill: none"/>
+<svg:path d="M17 1821L5710 1821L6415 1117" style="stroke: #494936; stroke-width: 0.05; fill: none"/>
+<!--gsave-->
+<!--setmatrix-->
 </svg:svg>
 <connections>
-<point x="4450" y="-3934"/>
-<point x="4551.5" y="-3934"/>
-<point x="4653" y="-3934"/>
-<point x="4417" y="-3724"/>
-<point x="4451.5" y="-3724"/>
-<point x="4486" y="-3724"/>
-<point x="4520.5" y="-3724"/>
-<point x="4555" y="-3724"/>
-<point x="4587.5" y="-3724"/>
-<point x="4620" y="-3724"/>
-<point x="4417" y="-3901"/>
-<point x="4417" y="-3878.5"/>
-<point x="4417" y="-3856"/>
-<point x="4653" y="-3757"/>
-<point x="2.5" y="1.1" main="yes"/>
+<point x="695" y="0"/>
+<point x="6415" y="0"/>
+<point x="3555" y="0"/>
+<point x="0" y="5632"/>
+<point x="5710" y="5632"/>
+<point x="2855" y="5632"/>
+<point x="0" y="645"/>
+<point x="0" y="3138"/>
+<point x="6415" y="4928"/>
+<point x="6415" y="2464"/>
+<point x="3206" y="2807.1" main="yes"/>
 </connections>
+
 </shape>
