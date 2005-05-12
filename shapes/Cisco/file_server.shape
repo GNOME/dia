@@ -4,26 +4,43 @@
 <icon>file_server.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
-<svg:path d="M987.305 -6119.54l153.877 0 l0 -245.116l-153.877 0l0 245.116z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M1141.18 -6364.65l-153.88 0l0 245.12l153.88 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
-<svg:path d="M1141.18 -6119.54l49.15 -49.14l0 -245.12l-153.89 0l-49.14 49.14l153.88 0l0 245.12z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M1141.18 -6119.54l49.15 -49.14l0 -245.12l-153.89 0l-49.14 49.14l153.88 0l0 245.12" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
-<svg:path d="M1141.18 -6364.65l49.15 -49.14z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M1141.18 -6364.65l49.15 -49.14" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
-<svg:path d="M989.79 -6269.17l150 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
-<svg:path d="M989.79 -6156.67l150 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
-<svg:path d="M1024.79 -6326.67l43.75 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
-<svg:path d="M1007.29 -6311.67l77.5 0 l0 -31.25l-77.5 0l0 31.25" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<!--gsave-->
+<svg:path d="M0 455L0 6111L3343 6111L3343 455L0 455Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #b7b79d"/>
+<svg:path d="M0 455L0 6111L3343 6111L3343 455L0 455Z" style="stroke: #494936; stroke-width: 0.01; fill: none"/>
+<svg:path d="M0 455L453 0L3795 0L3343 455L0 455Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #c9c9b6"/>
+<svg:path d="M0 455L453 0L3773 0M3773 23L3343 455L0 455M0 455Z" style="stroke: #494936; stroke-width: 0.01; fill: none"/>
+<svg:path d="M206 784L1733 784L1733 1526L206 1526Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #c9c9b6"/>
+<svg:path d="M206 784L1732 784L1732 1525L206 1525L206 784Z" style="stroke: #626248; stroke-width: 0.01; fill: none"/>
+<!--gsave-->
+<svg:path d="M412 1156L1483 1156" style="stroke: #ecece7; stroke-width: 0.3; fill: none"/>
+<!--gsave-->
+<svg:path d="M3343 6111L3795 5655L3795 0L3343 455L3343 6111Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #7a7a5a"/>
+<svg:path d="M3343 6111L3773 5678M3773 23L3343 455L3343 6111M3343 6111Z" style="stroke: #494936; stroke-width: 0.01; fill: none"/>
+<!--gsave-->
+<svg:path d="M42 5738L3342 5738" style="stroke: #ecece7; stroke-width: 0.3; fill: none"/>
+<!--gsave-->
+<svg:path d="M42 2725L3342 2725" style="stroke: #000000; stroke-width: 0.3; fill: none"/>
+<!--gsave-->
+<svg:path d="M0 5697L3339 5697" style="stroke: #494936; stroke-width: 0.3; fill: none"/>
+<!--gsave-->
+<svg:path d="M0 2683L3339 2683" style="stroke: #000000; stroke-width: 0.3; fill: none"/>
+<!--gsave-->
+<svg:path d="M206 1486L206 784L1691 784" style="stroke: #ecece7; stroke-width: 0.01; fill: none"/>
+<!--gsave-->
+<!--setmatrix-->
 </svg:svg>
 <connections>
-<point x="1036" y="-6413"/>
-<point x="1113" y="-6413"/>
-<point x="1190" y="-6413"/>
-<point x="987" y="-6119"/>
-<point x="1064" y="-6119"/>
-<point x="1141" y="-6119"/>
-<point x="987" y="-6364"/>
-<point x="1190" y="-6168"/>
-<point x="2.5" y="1.1" main="yes"/>
+<point x="453" y="0"/>
+<point x="3795" y="0"/>
+<point x="2124" y="0"/>
+<point x="0" y="6111"/>
+<point x="3343" y="6111"/>
+<point x="1671" y="6111"/>
+<point x="0" y="455"/>
+<point x="0" y="3283"/>
+<point x="3795" y="5678"/>
+<point x="3795" y="2839"/>
+<point x="1897.6" y="3058.8" main="yes"/>
 </connections>
+
 </shape>

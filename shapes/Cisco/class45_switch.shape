@@ -4,44 +4,50 @@
 <icon>class45_switch.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
-<svg:path d="M3691.59 -2271.94l70.42 -69.66l-0.89 0.49l-242.24 0l-79.41 69.67l252.12 0l0 -0.5z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M3691.59 -2271.94l70.42 -69.66l-0.89 0.49l-242.24 0l-79.41 69.67l252.12 0l0 -0.5" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linejoin: mitre"/>
-<svg:path d="M3439.47 -1918.4l252.119 0 l0 -353.047l-252.119 0l0 353.047z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M3439.47 -1918.4l252.119 0 l0 -353.047l-252.119 0l0 353.047" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linejoin: mitre"/>
-<svg:path d="M3691.59 -2106.58l-252.12 0z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M3691.59 -2106.58l-252.12 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linejoin: mitre"/>
-<svg:path d="M3471.07 -2023.52l78.22 0z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M3471.07 -2023.52l78.22 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linejoin: mitre"/>
-<svg:path d="M3471.07 -2006.68l78.22 0z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M3471.07 -2006.68l78.22 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linejoin: mitre"/>
-<svg:path d="M3471.07 -1989.84l78.22 0z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M3471.07 -1989.84l78.22 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linejoin: mitre"/>
-<svg:path d="M3471.07 -1973.01l78.22 0z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M3471.07 -1973.01l78.22 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linejoin: mitre"/>
-<svg:path d="M3471.07 -1956.18l78.22 0z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M3471.07 -1956.18l78.22 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linejoin: mitre"/>
-<svg:path d="M3761.52 -1993.62l0 -347.31l-69.93 69.1l0 353.44l69.93 -75.23z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M3761.52 -1993.62l0 -347.31l-69.93 69.1l0 353.44l69.93 -75.23" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linejoin: mitre"/>
-<svg:path d="M3691.59 -2103.05l-252.12 0z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M3691.59 -2103.05l-252.12 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linejoin: mitre"/>
+<!--gsave-->
+<svg:path d="M1073 0L0 1077L5304 1077L6375 0L1073 0Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #c9c9b6"/>
+<svg:path d="M1073 0L0 1077" style="stroke: #494936; stroke-width: 0.01; fill: none"/>
+<svg:path d="M0 1077L5304 1077" style="stroke: #494936; stroke-width: 0.01; fill: none"/>
+<svg:path d="M5304 1077L6375 0" style="stroke: #494936; stroke-width: 0.01; fill: none"/>
+<svg:path d="M6375 0L1073 0" style="stroke: #494936; stroke-width: 0.01; fill: none"/>
+<svg:path d="M0 8702L0 4665L5304 4665L5304 8702L0 8702Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #b7b79d"/>
+<svg:path d="M0 8702L0 4665" style="stroke: #494936; stroke-width: 0.01; fill: none"/>
+<svg:path d="M0 4665L5304 4665" style="stroke: #494936; stroke-width: 0.01; fill: none"/>
+<svg:path d="M5304 4665L5304 8702" style="stroke: #494936; stroke-width: 0.01; fill: none"/>
+<svg:path d="M5304 8702L0 8702" style="stroke: #494936; stroke-width: 0.01; fill: none"/>
+<svg:path d="M6375 7625L5304 8702L5304 1077L6375 0L6375 7625Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #7a7a5a"/>
+<svg:path d="M6375 7625L5304 8702" style="stroke: #494936; stroke-width: 0.01; fill: none"/>
+<svg:path d="M5304 8702L5304 1077" style="stroke: #494936; stroke-width: 0.01; fill: none"/>
+<svg:path d="M5304 1077L6375 0" style="stroke: #494936; stroke-width: 0.01; fill: none"/>
+<svg:path d="M6375 0L6375 7625" style="stroke: #494936; stroke-width: 0.01; fill: none"/>
+<svg:path d="M0 4665L0 1077L5304 1077L5304 4665L0 4665Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #b7b79d"/>
+<svg:path d="M0 4665L0 1077" style="stroke: #494936; stroke-width: 0.01; fill: none"/>
+<svg:path d="M0 1077L5304 1077" style="stroke: #494936; stroke-width: 0.01; fill: none"/>
+<svg:path d="M5304 1077L5304 4665" style="stroke: #494936; stroke-width: 0.01; fill: none"/>
+<svg:path d="M5304 4665L0 4665" style="stroke: #494936; stroke-width: 0.01; fill: none"/>
+<svg:path d="M59 4725L5275 4725" style="stroke: #dbdbce; stroke-width: 0.60; fill: none"/>
+<svg:path d="M59 4665L5275 4665" style="stroke: #494936; stroke-width: 0.60; fill: none"/>
+<svg:path d="M417 6609L2085 6609" style="stroke: #626248; stroke-width: 0.89; fill: none"/>
+<svg:path d="M417 6997L2085 6997" style="stroke: #626248; stroke-width: 0.89; fill: none"/>
+<svg:path d="M417 7416L2085 7416" style="stroke: #626248; stroke-width: 0.89; fill: none"/>
+<svg:path d="M417 7834L2085 7834" style="stroke: #626248; stroke-width: 0.89; fill: none"/>
+<svg:path d="M417 8253L2085 8253" style="stroke: #626248; stroke-width: 0.89; fill: none"/>
+<!--gsave-->
+<!--setmatrix-->
 </svg:svg>
 <connections>
-<point x="3519" y="-2340"/>
-<point x="3640" y="-2340"/>
-<point x="3761" y="-2340"/>
-<point x="3761.5" y="-2340"/>
-<point x="3762" y="-2340"/>
-<point x="3439" y="-1917"/>
-<point x="3565.5" y="-1917"/>
-<point x="3692" y="-1917"/>
-<point x="3439" y="-2270"/>
-<point x="3439" y="-2188"/>
-<point x="3439" y="-2106"/>
-<point x="3439" y="-2104"/>
-<point x="3439" y="-2102"/>
-<point x="3762" y="-2341"/>
-<point x="3762" y="-2167"/>
-<point x="3762" y="-1993"/>
-<point x="2.5" y="1.1" main="yes"/>
+<point x="1073" y="0"/>
+<point x="6375" y="0"/>
+<point x="3724" y="0"/>
+<point x="0" y="8702"/>
+<point x="5304" y="8702"/>
+<point x="2652" y="8702"/>
+<point x="0" y="1077"/>
+<point x="0" y="4889"/>
+<point x="0" y="6713"/>
+<point x="6375" y="7625"/>
+<point x="6375" y="3812"/>
+<point x="2898" y="4565.63636363636" main="yes"/>
 </connections>
+
 </shape>

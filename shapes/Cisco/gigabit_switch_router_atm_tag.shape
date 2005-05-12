@@ -39,6 +39,7 @@
 <point x="4473" y="-5539"/>
 <point x="4473" y="-5425"/>
 <point x="4473" y="-5311"/>
-<point x="2.5" y="1.1" main="yes"/>
+
+<point x="4289" y="-5425" main="yes"/>
 </connections>
 </shape>

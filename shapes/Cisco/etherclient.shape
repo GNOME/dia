@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
+<name>Cisco - EtherClient</name>
+<icon>etherclient.png</icon>
+<aspectratio type="fixed"/>
+<svg:svg width="5cm" height="2.2cm">
+<!--gsave-->
+<svg:path d="M8247 4650L8247 151L8348 0L8599 0L8699 151L8699 4650L8247 4650Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #005a80"/>
+<svg:path d="M8247 4650L8247 151L8348 0L8599 0L8699 151L8699 4650L8247 4650Z" style="stroke: #aae6ff; stroke-width: 0.01; fill: none"/>
+<svg:path d="M7148 10248L7347 10648L301 10648L50 10248L0 9798L50 9299L200 8850L2600 4300L9647 4300L7298 8850L7098 9299L7047 9798L7148 10248Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #2ac0ff"/>
+<svg:path d="M7148 10248L7347 10648L301 10648L50 10248L0 9798L50 9299L200 8850L2600 4300L9647 4300L7298 8850L7098 9299L7047 9798L7148 10248Z" style="stroke: #aae6ff; stroke-width: 0.01; fill: none"/>
+<svg:path d="M1300 8998L1650 8148L2150 8148L1848 8998L1300 8998Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #ffffff"/>
+<svg:path d="M3350 8998L3649 8148L4149 8148L3849 8998L3350 8998Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #ffffff"/>
+<svg:path d="M5398 8998L5698 8148L6200 8148L5898 8998L5398 8998Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #ffffff"/>
+<svg:path d="M2600 6350L2901 5901L8298 5901L7998 6350L2600 6350Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #ffffff"/>
+<svg:path d="M7148 10248L7347 10648L9898 7298L9847 4798L9647 4300L7298 8850L7098 9299L7047 9798L7148 10248Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #0078aa"/>
+<svg:path d="M7148 10248L7347 10648L9898 7298L9847 4798L9647 4300L7298 8850L7098 9299L7047 9798L7148 10248Z" style="stroke: #aae6ff; stroke-width: 0.01; fill: none"/>
+<!--gsave-->
+<!--setmatrix-->
+</svg:svg>
+<connections>
+<point x="8348" y="0"/>
+<point x="301" y="10648"/>
+<point x="7347" y="10648"/>
+<point x="3824" y="10648"/>
+<point x="0" y="9299"/>
+<point x="9898" y="4798"/>
+<point x="9898" y="7298"/>
+<point x="9898" y="6048"/>
+<point x="6189.25" y="7423.375" main="yes"/>
+</connections>
+
+</shape>

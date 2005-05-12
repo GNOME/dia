@@ -4,69 +4,67 @@
 <icon>ciscosecurity.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
-<svg:path d="M2096.95 -1953.18l314.746 0 l0 -59.062l-314.746 0l0 59.062z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M2096.95 -1953.18l314.746 0 l0 -59.062l-314.746 0l0 59.062" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linejoin: mitre"/>
-<svg:path d="M2315.29 -1978.81l79.38 0z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M2315.29 -1978.81l79.38 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linejoin: mitre"/>
-<svg:path d="M2315.29 -1981.64l79.38 0z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M2315.29 -1981.64l79.38 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linejoin: mitre"/>
-<svg:path d="M2464.53 -2009.18l0 -52.93l-52.87 50.1l0 58.83l52.87 -56z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M2464.53 -2009.18l0 -52.93l-52.87 50.1l0 58.83l52.87 -56" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linejoin: mitre"/>
-<svg:path d="M2355.78 -1905.06l0 -13.26l28.61 -39.55l0 24.22l-28.61 28.59z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M2355.78 -1905.06l0 -13.26l28.61 -39.55l0 24.22l-28.61 28.59" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linejoin: mitre"/>
-<svg:path d="M2103.65 -1905.06l252.129 0 l0 -13.0662l-252.129 0l0 13.0662z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M2103.65 -1905.06l252.129 0 l0 -13.0662l-252.129 0l0 13.0662" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linejoin: mitre"/>
-<svg:path d="M2355.78 -1918.13l-251.32 0l28.59 -39.75l251.34 0l-28.61 39.75z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M2355.78 -1918.13l-251.32 0l28.59 -39.75l251.34 0l-28.61 39.75" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linejoin: mitre"/>
-<svg:path d="M2464.53 -2061.99l-314.84 0l-52.73 49.75l314.75 0l52.83 -49.75z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M2464.53 -2061.99l-314.84 0l-52.73 49.75l314.75 0l52.83 -49.75" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linejoin: mitre"/>
-<svg:path d="M2405.23 -2061.78l-210.7 0l-35.3 33.28l210.69 0l35.31 -33.28z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M2405.23 -2061.78l-210.7 0l-35.3 33.28l210.69 0l35.31 -33.28" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linejoin: mitre"/>
-<svg:path d="M2153.24 -2041.5l217.012 0 l0 -159.062l-217.012 0l0 159.062z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M2153.24 -2041.5l217.012 0 l0 -159.062l-217.012 0l0 159.062" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linejoin: mitre"/>
-<svg:path d="M2171.57 -2165.68c0 -15.98 16.56 -18.34 16.56 -18.34c0 0 127.72 0 143.09 0c20.1 0 19.51 18.93 19.51 18.93c0 0 0 78.05 0 89.3c0 11.23 -15.37 15.96 -15.37 15.96c0 0 -130.68 0 -144.87 0c-14.19 0 -18.93 -14.78 -18.93 -14.78l0 -91.05z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M2171.57 -2165.68c0 -15.98 16.56 -18.34 16.56 -18.34c0 0 127.72 0 143.09 0c20.1 0 19.51 18.93 19.51 18.93c0 0 0 78.05 0 89.3c0 11.23 -15.37 15.96 -15.37 15.96c0 0 -130.68 0 -144.87 0c-14.19 0 -18.93 -14.78 -18.93 -14.78l0 -91.05" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linejoin: mitre"/>
-<svg:path d="M2406.62 -2234.86l-217.01 0l-36.37 34.3l217.01 0l36.37 -34.3z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M2406.62 -2234.86l-217.01 0l-36.37 34.3l217.01 0l36.37 -34.3" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linejoin: mitre"/>
-<svg:path d="M2406.62 -2075.31l0 -159.63l-36.02 34.06l0 159.63l36.02 -34.06z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M2406.62 -2075.31l0 -159.63l-36.02 34.06l0 159.63l36.02 -34.06" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linejoin: mitre"/>
-<svg:path d="M2295.47 -2156.95l0 71.85z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M2295.47 -2156.95l0 71.85" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linejoin: mitre"/>
-<svg:path d="M2225.27 -2085.1l0 -82.35z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M2225.27 -2085.1l0 -82.35" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linejoin: mitre"/>
-<svg:path d="M2225.27 -2084.84c14.84 33.81 28.35 -3.98 28.35 -3.98l66.15 0c-6.75 17.55 -16.2 18.9 -16.2 18.9l-62.11 0c-12.15 -1.35 -16.19 -14.91 -16.19 -14.91z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M2225.27 -2084.84c14.84 33.81 28.35 -3.98 28.35 -3.98l66.15 0c-6.75 17.55 -16.2 18.9 -16.2 18.9l-62.11 0c-12.15 -1.35 -16.19 -14.91 -16.19 -14.91" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linejoin: mitre"/>
-<svg:path d="M2241.46 -2126.88l39.16 0z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M2241.46 -2126.88l39.16 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linejoin: mitre"/>
-<svg:path d="M2241.46 -2118.78l39.16 0z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M2241.46 -2118.78l39.16 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linejoin: mitre"/>
-<svg:path d="M2241.46 -2107.99l39.16 0z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M2241.46 -2107.99l39.16 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linejoin: mitre"/>
-<svg:path d="M2241.46 -2099.88l39.16 0z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M2241.46 -2099.88l39.16 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linejoin: mitre"/>
-<svg:path d="M2294.55 -2159.28l-4.04 -12.15l-65.05 0c0 0 -10.8 -1.36 -13.51 17.54l0 14.86l13.14 0l0 -20.25z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M2294.55 -2159.28l-4.04 -12.15l-65.05 0c0 0 -10.8 -1.36 -13.51 17.54l0 14.86l13.14 0l0 -20.25" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linejoin: mitre"/>
-<svg:path d="M2223.96 -2171.43c0 0 -10.8 -1.36 -13.51 17.54l0 14.86z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M2223.96 -2171.43c0 0 -10.8 -1.36 -13.51 17.54l0 14.86" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linejoin: mitre"/>
-<svg:path d="M2241.46 -2147.13l39.16 0z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M2241.46 -2147.13l39.16 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linejoin: mitre"/>
-<svg:path d="M2241.46 -2155.23l39.16 0z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M2241.46 -2155.23l39.16 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linejoin: mitre"/>
-<svg:path d="M2226.36 -2084.47l0 -76.97z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M2226.36 -2084.47l0 -76.97" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linejoin: mitre"/>
+<!--gsave-->
+<svg:path d="M0 4521L6709 4521L6709 5764L0 5764L0 4521Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #0096d4"/>
+<svg:path d="M0 4521L6709 4521L6709 5764L0 5764L0 4521Z" style="stroke: #aae6ff; stroke-width: 0.02; fill: none"/>
+<svg:path d="M0 4521L712 3844L7422 3844L6709 4521L0 4521Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.02; fill: #00b4ff"/>
+<svg:path d="M0 4521L712 3844L7422 3844L6709 4521L0 4521Z" style="stroke: #aae6ff; stroke-width: 0.02; fill: none"/>
+<svg:path d="M6297 5087L4761 5087" style="stroke: #000000; stroke-width: 1.12; fill: none"/>
+<svg:path d="M6709 5764L7422 5050L7422 3844L6709 4521L6709 5764Z" style="stroke: none; fill-rule: evenodd; stroke-width: 1.12; fill: #005a80"/>
+<svg:path d="M6709 5764L7422 5050L7422 3844L6709 4521L6709 5764Z" style="stroke: #aae6ff; stroke-width: 0.02; fill: none"/>
+<svg:path d="M37 6556L788 5613L5959 5613L5209 6556L37 6556Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.02; fill: #00b4ff"/>
+<svg:path d="M37 6556L788 5613L5959 5613L5209 6556L37 6556Z" style="stroke: #aae6ff; stroke-width: 0.02; fill: none"/>
+<svg:path d="M5209 6707L5959 5954L5959 5613L5209 6556L5209 6707Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.02; fill: #005a80"/>
+<svg:path d="M5209 6707L5959 5954L5959 5613L5209 6556L5209 6707Z" style="stroke: #aae6ff; stroke-width: 0.02; fill: none"/>
+<svg:path d="M37 6556L5209 6556L5209 6744L37 6744L37 6556Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.02; fill: #0096d4"/>
+<svg:path d="M37 6556L5209 6556L5209 6744L37 6744L37 6556Z" style="stroke: #aae6ff; stroke-width: 0.02; fill: none"/>
+<svg:path d="M1050 4409L1575 3844L6334 3844L5809 4409L1050 4409Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.02; fill: #000000"/>
+<svg:path d="M975 490L1500 0L6259 0L5734 490L975 490Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.02; fill: #00b4ff"/>
+<svg:path d="M975 490L1500 0L6259 0L5734 490L975 490Z" style="stroke: #aae6ff; stroke-width: 0.02; fill: none"/>
+<svg:path d="M975 490L5773 490L5773 4295L975 4295Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.02; fill: #0096d4"/>
+<svg:path d="M975 490L5770 490L5770 4293L975 4293L975 490Z" style="stroke: #aae6ff; stroke-width: 0.02; fill: none"/>
+<svg:path d="M1386 980L5359 980L5359 3919L1386 3919Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.02; fill: #ffffff"/>
+<svg:path d="M1386 980L5359 980L5359 3918L1386 3918L1386 980Z" style="stroke: #000000; stroke-width: 0.02; fill: none"/>
+<svg:path d="M5734 4258L6259 3731L6259 0L5734 490L5734 4258Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.02; fill: #005a80"/>
+<svg:path d="M5734 4258L6259 3731L6259 0L5734 490L5734 4258Z" style="stroke: #aae6ff; stroke-width: 0.02; fill: none"/>
+<svg:path d="M2286 1319L3861 1319L4123 1733L4123 3127L4572 3127L4461 3580L2963 3580L2624 3127L2624 1696L2286 1319Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.02; fill: #ffffff"/>
+<svg:path d="M2586 1770L2586 1282L2569 1282L2552 1285L2535 1288L2518 1292L2502 1298L2485 1305L2470 1312L2454 1322L2438 1332L2423 1343L2409 1356L2395 1369L2379 1384L2368 1400L2354 1416L2342 1434L2331 1453L2321 1471L2310 1491L2301 1513L2293 1534L2284 1555L2277 1578L2271 1601L2266 1624L2261 1648L2257 1672L2254 1696L2251 1721L2250 1746L2250 1770L2586 1770Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.02; fill: #ffffff"/>
+<svg:path d="M2586 1282L2569 1282L2552 1285L2535 1288L2518 1292L2502 1298L2485 1305L2470 1312L2454 1322L2438 1332L2423 1343L2409 1356L2395 1369L2379 1384L2368 1400L2354 1416L2342 1434L2331 1453L2321 1471L2310 1491L2301 1513L2293 1534L2284 1555L2277 1578L2271 1601L2266 1624L2261 1648L2257 1672L2254 1696L2251 1721L2250 1746L2250 1770" style="stroke: #000000; stroke-width: 0.02; fill: none"/>
+<svg:path d="M2624 3090L2624 1508" style="stroke: #000000; stroke-width: 0.02; fill: none"/>
+<svg:path d="M2942 3127L2624 3127L2624 3150L2626 3173L2628 3196L2631 3218L2634 3240L2638 3263L2644 3284L2650 3305L2657 3327L2664 3347L2672 3367L2681 3385L2691 3404L2701 3421L2711 3438L2723 3455L2735 3470L2747 3485L2760 3498L2774 3510L2786 3522L2801 3533L2817 3542L2831 3550L2847 3557L2861 3564L2878 3570L2893 3573L2909 3576L2926 3579L2942 3579L2957 3579L2974 3576L2990 3573L3004 3570L3021 3564L3036 3557L3052 3550L3066 3542L3082 3533L3096 3522L3109 3510L3123 3498L3136 3485L3148 3470L3160 3455L3171 3438L3182 3421L3192 3404L3202 3385L3211 3367L3219 3347L3226 3327L3233 3305L3239 3284L3245 3263L3249 3240L3252 3218L3254 3196L3258 3173L3259 3150L3259 3127L2942 3127Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.02; fill: #ffffff"/>
+<svg:path d="M2624 3127L2624 3150L2626 3173L2628 3196L2631 3218L2634 3240L2638 3263L2644 3284L2650 3305L2657 3327L2664 3347L2672 3367L2681 3385L2691 3404L2701 3421L2711 3438L2723 3455L2735 3470L2747 3485L2760 3498L2774 3510L2786 3522L2801 3533L2817 3542L2831 3550L2847 3557L2861 3564L2878 3570L2893 3573L2909 3576L2926 3579L2942 3579L2957 3579L2974 3576L2990 3573L3004 3570L3021 3564L3036 3557L3052 3550L3066 3542L3082 3533L3096 3522L3109 3510L3123 3498L3136 3485L3148 3470L3160 3455L3171 3438L3182 3421L3192 3404L3202 3385L3211 3367L3219 3347L3226 3327L3233 3305L3239 3284L3245 3263L3249 3240L3252 3218L3254 3196L3258 3173L3259 3150L3259 3127" style="stroke: #000000; stroke-width: 0.02; fill: none"/>
+<svg:path d="M2250 1696L2624 1696" style="stroke: #000000; stroke-width: 0.02; fill: none"/>
+<svg:path d="M4123 1696L4123 3090" style="stroke: #000000; stroke-width: 0.02; fill: none"/>
+<svg:path d="M2925 3542L4422 3542" style="stroke: #000000; stroke-width: 0.02; fill: none"/>
+<svg:path d="M3786 1282L2550 1282" style="stroke: #000000; stroke-width: 0.02; fill: none"/>
+<svg:path d="M3823 1770L4159 1770L4159 1746L4157 1721L4154 1696L4152 1672L4147 1648L4143 1624L4137 1601L4132 1578L4125 1555L4116 1534L4108 1513L4098 1491L4087 1471L4078 1453L4067 1434L4054 1416L4040 1400L4028 1384L4014 1370L4000 1356L3986 1343L3970 1332L3954 1322L3939 1312L3923 1305L3906 1298L3891 1292L3874 1288L3857 1285L3840 1282L3823 1282L3823 1770Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.02; fill: #ffffff"/>
+<svg:path d="M4157 1770L4157 1746L4156 1721L4153 1696L4150 1672L4145 1648L4142 1624L4136 1601L4130 1578L4123 1555L4115 1534L4106 1513L4098 1491L4086 1471L4076 1453L4065 1434L4051 1417L4040 1400L4026 1384L4012 1370L3998 1356L3984 1343L3969 1332L3954 1322L3938 1312L3922 1305L3904 1298L3889 1292L3872 1288L3854 1285L3838 1282L3821 1282" style="stroke: #000000; stroke-width: 0.02; fill: none"/>
+<svg:path d="M4420 3127L4420 3579L4438 3579L4456 3576L4473 3573L4490 3569L4507 3563L4523 3556L4541 3549L4557 3540L4573 3529L4589 3517L4604 3506L4618 3492L4632 3478L4645 3463L4659 3446L4670 3429L4682 3411L4693 3392L4703 3374L4711 3352L4720 3332L4728 3311L4734 3290L4740 3267L4745 3244L4750 3221L4752 3199L4755 3174L4757 3152L4757 3127L4420 3127Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.02; fill: #ffffff"/>
+<svg:path d="M4420 3579L4438 3579L4456 3576L4473 3573L4490 3569L4507 3563L4523 3556L4541 3549L4557 3540L4573 3529L4589 3517L4604 3506L4618 3492L4632 3478L4645 3463L4659 3446L4670 3429L4682 3411L4693 3392L4703 3374L4711 3352L4720 3332L4728 3311L4734 3290L4740 3267L4745 3244L4750 3221L4752 3199L4755 3174L4757 3152L4757 3127" style="stroke: #000000; stroke-width: 0.02; fill: none"/>
+<svg:path d="M3225 3127L4723 3127" style="stroke: #000000; stroke-width: 0.02; fill: none"/>
+<svg:path d="M2925 1696L3823 1696" style="stroke: #000000; stroke-width: 0.01; fill: none"/>
+<svg:path d="M2925 1923L3823 1923" style="stroke: #000000; stroke-width: 0.01; fill: none"/>
+<svg:path d="M2925 2299L3823 2299" style="stroke: #000000; stroke-width: 0.01; fill: none"/>
+<svg:path d="M2925 2525L3823 2525" style="stroke: #000000; stroke-width: 0.01; fill: none"/>
+<svg:path d="M2925 2751L3823 2751" style="stroke: #000000; stroke-width: 0.01; fill: none"/>
+<svg:path d="M2925 2976L3823 2976" style="stroke: #000000; stroke-width: 0.01; fill: none"/>
+<svg:path d="M3561 3127L3561 3127" style="stroke: #000000; stroke-width: 0.02; fill: none"/>
+<!--gsave-->
+<!--setmatrix-->
 </svg:svg>
 <connections>
-<point x="2190" y="-2234"/>
-<point x="2298.5" y="-2234"/>
-<point x="2407" y="-2234"/>
-<point x="2104" y="-1904"/>
-<point x="2230" y="-1904"/>
-<point x="2356" y="-1904"/>
-<point x="2097" y="-2011"/>
-<point x="2097" y="-1952"/>
-<point x="2465" y="-2061"/>
-<point x="2465" y="-2034.5"/>
-<point x="2465" y="-2008"/>
-<point x="2.5" y="1.1" main="yes"/>
+<point x="1500" y="0"/>
+<point x="6259" y="0"/>
+<point x="3879" y="0"/>
+<point x="37" y="6744"/>
+<point x="5209" y="6744"/>
+<point x="2624" y="6744"/>
+<point x="0" y="4521"/>
+<point x="0" y="5632"/>
+<point x="7422" y="3844"/>
+<point x="7422" y="5050"/>
+<point x="7422" y="4447"/>
+<point x="3797.63636363636" y="3975.09090909091" main="yes"/>
 </connections>
+
 </shape>

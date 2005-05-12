@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
+<name>Cisco - Carrier Routing System</name>
+<icon>carrier_routing_system.png</icon>
+<aspectratio type="fixed"/>
+<svg:svg width="5cm" height="2.2cm">
+<svg:path d="M288.063 -406.224C288.063 -402.274 296.298 -399.073 306.456 -399.073C316.613 -399.073 324.848 -402.274 324.848 -406.224L324.848 -383.519C324.848 -379.568 316.613 -376.367 306.456 -376.367C296.298 -376.367 288.063 -379.568 288.063 -383.519L288.063 -406.224Z" style="stroke: none; fill: #000000; stroke-miterlimit: 10"/>
+<svg:path d="M288.063 -406.224C288.063 -402.274 296.298 -399.073 306.456 -399.073C316.613 -399.073 324.848 -402.274 324.848 -406.224L324.848 -383.519C324.848 -379.568 316.613 -376.367 306.456 -376.367C296.298 -376.367 288.063 -379.568 288.063 -383.519L288.063 -406.224Z" style="stroke-width: 0.4; stroke: #ffffff; fill: none; stroke-miterlimit: 4"/>
+<svg:path d="M324.793 -406.224C324.793 -402.274 316.556 -399.073 306.4 -399.073C296.242 -399.073 288.008 -402.274 288.008 -406.224L288.008 -383.519C288.008 -379.568 296.242 -376.367 306.4 -376.367C316.556 -376.367 324.793 -379.568 324.793 -383.519L324.793 -406.224Z" style="stroke-width: 0.4; stroke: none; fill: #009cd4; stroke-miterlimit: 4"/>
+<svg:path d="M324.793 -406.224C324.793 -402.274 316.556 -399.073 306.4 -399.073C296.242 -399.073 288.008 -402.274 288.008 -406.224L288.008 -383.519C288.008 -379.568 296.242 -376.367 306.4 -376.367C316.556 -376.367 324.793 -379.568 324.793 -383.519L324.793 -406.224Z" style="stroke-width: 0.4; stroke: #ffffff; fill: none; stroke-miterlimit: 4"/>
+<svg:path d="M306.4 -399.073C316.556 -399.073 324.793 -402.274 324.793 -406.224C324.793 -410.175 316.556 -413.377 306.4 -413.377C296.242 -413.377 288.008 -410.175 288.008 -406.224C288.008 -402.274 296.242 -399.073 306.4 -399.073Z" style="stroke-width: 0.4; stroke: none; fill: #009cd4; stroke-miterlimit: 4"/>
+<svg:path d="M306.4 -399.073C316.556 -399.073 324.793 -402.274 324.793 -406.224C324.793 -410.175 316.556 -413.377 306.4 -413.377C296.242 -413.377 288.008 -410.175 288.008 -406.224C288.008 -402.274 296.242 -399.073 306.4 -399.073Z" style="stroke-width: 0.4; stroke: #ffffff; fill: none; stroke-miterlimit: 4"/>
+<svg:path d="M302.461 -409.269L303.98 -406.99L298.237 -405.663L299.492 -406.708L290.617 -408.224L292.844 -409.894L301.407 -408.444L302.461 -409.269Z" style="stroke-width: 0.4; stroke: none; fill: #ffffff; stroke-miterlimit: 4"/>
+<svg:path d="M310.541 -403.744L309.504 -406.091L314.684 -407.127L313.787 -406.323L322.42 -404.848L320.348 -403.191L311.765 -404.802L310.541 -403.744Z" style="stroke-width: 0.4; stroke: none; fill: #ffffff; stroke-miterlimit: 4"/>
+<svg:path d="M307.709 -410.511L313.51 -412.1L313.58 -409.615L312.129 -409.89L309.297 -407.542L306.596 -407.936L309.517 -410.234L307.709 -410.511Z" style="stroke-width: 0.4; stroke: none; fill: #ffffff; stroke-miterlimit: 4"/>
+<svg:path d="M305.223 -401.603L299.698 -400.568L299.491 -403.122L301.08 -402.777L304.12 -405.373L306.811 -404.918L303.566 -402.086L305.223 -401.603Z" style="stroke-width: 0.4; stroke: none; fill: #ffffff; stroke-miterlimit: 4"/>
+<svg:path d="M309.6 -385.602L302.715 -385.602L302.715 -392.488L309.6 -392.488L309.6 -385.602Z" style="stroke-width: 0.4; stroke: none; fill: #ffffff; stroke-miterlimit: 4"/>
+<svg:path d="M309.6 -385.602L302.715 -385.602L302.715 -392.488L309.6 -392.488L309.6 -385.602Z" style="stroke-width: 0.4; stroke: none; fill: none; stroke-miterlimit: 4"/>
+<svg:path d="M298.094 -397.369L298.096 -394.511L292.912 -394.508L292.91 -397.363L298.094 -397.369Z" style="stroke-width: 0.4; stroke: none; fill: #ffffff; stroke-miterlimit: 4"/>
+<svg:path d="M298.094 -397.369L298.096 -394.511L292.912 -394.508L292.91 -397.363L298.094 -397.369Z" style="stroke-width: 0.4; stroke: none; fill: none; stroke-miterlimit: 4"/>
+<svg:path d="M298.094 -390.228L298.096 -387.371L292.912 -387.367L292.91 -390.223L298.094 -390.228Z" style="stroke-width: 0.4; stroke: none; fill: #ffffff; stroke-miterlimit: 4"/>
+<svg:path d="M298.094 -390.228L298.096 -387.371L292.912 -387.367L292.91 -390.223L298.094 -390.228Z" style="stroke-width: 0.4; stroke: none; fill: none; stroke-miterlimit: 4"/>
+<svg:path d="M298.094 -383.5L298.096 -380.642L292.912 -380.64L292.91 -383.494L298.094 -383.5Z" style="stroke-width: 0.4; stroke: none; fill: #ffffff; stroke-miterlimit: 4"/>
+<svg:path d="M298.094 -383.5L298.096 -380.642L292.912 -380.64L292.91 -383.494L298.094 -383.5Z" style="stroke-width: 0.4; stroke: none; fill: none; stroke-miterlimit: 4"/>
+<svg:path d="M308.76 -383.5L308.761 -380.642L303.578 -380.64L303.576 -383.494L308.76 -383.5Z" style="stroke-width: 0.4; stroke: none; fill: #ffffff; stroke-miterlimit: 4"/>
+<svg:path d="M308.76 -383.5L308.761 -380.642L303.578 -380.64L303.576 -383.494L308.76 -383.5Z" style="stroke-width: 0.4; stroke: none; fill: none; stroke-miterlimit: 4"/>
+<svg:path d="M319.76 -397.369L319.761 -394.511L314.578 -394.508L314.576 -397.363L319.76 -397.369Z" style="stroke-width: 0.4; stroke: none; fill: #ffffff; stroke-miterlimit: 4"/>
+<svg:path d="M319.76 -397.369L319.761 -394.511L314.578 -394.508L314.576 -397.363L319.76 -397.369Z" style="stroke-width: 0.4; stroke: none; fill: none; stroke-miterlimit: 4"/>
+<svg:path d="M308.76 -397.369L308.761 -394.511L303.578 -394.508L303.576 -397.363L308.76 -397.369Z" style="stroke-width: 0.4; stroke: none; fill: #ffffff; stroke-miterlimit: 4"/>
+<svg:path d="M308.76 -397.369L308.761 -394.511L303.578 -394.508L303.576 -397.363L308.76 -397.369Z" style="stroke-width: 0.4; stroke: none; fill: none; stroke-miterlimit: 4"/>
+<svg:path d="M319.76 -390.228L319.761 -387.371L314.578 -387.367L314.576 -390.223L319.76 -390.228Z" style="stroke-width: 0.4; stroke: none; fill: #ffffff; stroke-miterlimit: 4"/>
+<svg:path d="M319.76 -390.228L319.761 -387.371L314.578 -387.367L314.576 -390.223L319.76 -390.228Z" style="stroke-width: 0.4; stroke: none; fill: none; stroke-miterlimit: 4"/>
+<svg:path d="M319.76 -383.5L319.761 -380.642L314.578 -380.64L314.576 -383.494L319.76 -383.5Z" style="stroke-width: 0.4; stroke: none; fill: #ffffff; stroke-miterlimit: 4"/>
+<svg:path d="M319.76 -383.5L319.761 -380.642L314.578 -380.64L314.576 -383.494L319.76 -383.5Z" style="stroke-width: 0.4; stroke: none; fill: none; stroke-miterlimit: 4"/>
+<svg:path d="M295.626 -388.959L317.125 -388.959" style="stroke-width: 0.8; stroke: #ffffff; fill: none; stroke-miterlimit: 4"/>
+<svg:path d="M306.126 -395.458L306.126 -381.959" style="stroke-width: 0.8; stroke: #ffffff; fill: none; stroke-miterlimit: 4"/>
+<svg:path d="M296.501 -381.959L316.375 -395.833" style="stroke-width: 0.8; stroke: #ffffff; fill: none; stroke-miterlimit: 4"/>
+<svg:path d="M316 -381.959L296.126 -395.833" style="stroke-width: 0.8; stroke: #ffffff; fill: none; stroke-miterlimit: 4"/>
+</svg:svg>
+<connections>
+<point x="306.4" y="-413.377"/>
+<point x="306.4" y="-376.367"/>
+<point x="288.008" y="-406.224"/>
+<point x="288.008" y="-383.519"/>
+<point x="288.008" y="-394.8715"/>
+<point x="324.848" y="-406.224"/>
+<point x="324.848" y="-383.519"/>
+<point x="324.848" y="-394.8715"/>
+<point x="306.421" y="-394.871625" main="yes"/>
+</connections>
+
+</shape>

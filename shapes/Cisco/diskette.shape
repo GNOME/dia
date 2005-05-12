@@ -4,31 +4,42 @@
 <icon>diskette.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
-<svg:path d="M4010.95 -7208.57l-6.02 3.55l-233.56 0l5.96 -3.69l233.63 0.14z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M4011 -6977l-0.05 -231.58l-6.02 4.57l0 232.55l6.07 -5.55z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M3781.97 -6971.45l222.95 0l0 -233.57l-233.56 0l0 222.96l10.62 10.61z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M3781.97 -6971.45l222.95 0l0 -233.57l-233.56 0l0 222.96l10.62 10.61" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
-<svg:path d="M3987.23 -7205.02l0 134.74c0 9.8 -7.96 7.96 -7.96 7.96l-183.14 0c0 0 -7.07 0.89 -7.07 -7.07l0 -135.63" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
-<svg:path d="M3774.95 -7181.13l10.625 0 l0 -10.6201l-10.625 0l0 10.6201" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
-<svg:path d="M3990.84 -7181.13l10.615 0 l0 -10.6201l-10.615 0l0 10.6201" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
-<svg:path d="M3949.44 -7039.56l0 65.59l-138.91 0l0 -66.47c0 -7.09 7.97 -6.2 7.97 -6.2l123.86 0c7.96 0 7.08 7.08 7.08 7.08z" style="fill: background; stroke: background; stroke-width: 0"/>
-<svg:path d="M3949.44 -7039.56l0 65.59l-138.91 0l0 -66.47c0 -7.09 7.97 -6.2 7.97 -6.2l123.86 0c7.96 0 7.08 7.08 7.08 7.08" style="stroke: foreground; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
-<svg:path d="M3987.23 -6971.45l0 -68.11c0 0 0.89 -7.08 -7.08 -7.08l-161.46 0c0 0 -7.97 -0.89 -7.97 6.2l0 64.71" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
-<svg:path d="M3837.27 -6978.52l27.4309 0 l0 -63.7061l-27.4309 0l0 63.7061z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M4004.92 -7204.13l6.2 -4.42" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<!--gsave-->
+<svg:path d="M0 178L0 89L0 5589L574 6208L5925 6208L5925 89L44 89L0 178Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #c9c9b6"/>
+<svg:path d="M0 178L0 89L0 5589L574 6208L5925 6208L5925 89L44 89Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #c9c9b6"/>
+<svg:path d="M0 178L0 89L0 5589L574 6208L5925 6208L5925 89L44 89" style="stroke: #494936; stroke-width: 0.01; fill: none"/>
+<svg:path d="M1634 6208L1634 4347L1679 4347L1722 4258L1767 4212L1812 4212L1900 4212L2032 4212L2254 4212L2475 4212L3006 4212L3579 4212L3889 4212L4154 4212L4419 4212L4640 4212L4817 4212L4995 4212L5083 4212L5127 4212L5172 4212L5214 4258L5261 4347L5261 4524L5261 4789L5261 5101L5261 5410L5261 5721L5261 5942L5261 6076L5261 6120L5261 6208L1634 6208Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #a5a585"/>
+<svg:path d="M1634 6208L1634 4347L1679 4347L1722 4258L1767 4212L1812 4212L1900 4212L2032 4212L2254 4212L2475 4212L3006 4212L3579 4212L3889 4212L4154 4212L4419 4212L4640 4212L4817 4212L4995 4212L5083 4212L5127 4212L5172 4212L5214 4258L5261 4347L5261 4524L5261 4789L5261 5101L5261 5410L5261 5721L5261 5942L5261 6076L5261 6120L5261 6208L1634 6208Z" style="stroke: #494936; stroke-width: 0.01; fill: none"/>
+<svg:path d="M619 266L5350 266L5350 4080L619 4080Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #ecece7"/>
+<svg:path d="M619 266L5350 266L5350 4080L619 4080Z" style="stroke: #494936; stroke-width: 0.01; fill: none"/>
+<svg:path d="M1634 6253L1634 4347L1634 4302L1634 4258L1679 4212L1767 4212L1812 4212L1944 4212L2077 4212L2254 4212L2652 4212L3093 4212L3537 4212L3889 4212L4021 4212L4154 4212L4242 4212L4288 4212L4331 4212L4376 4258L4376 4347L4376 4524L4376 4789L4376 5101L4376 5410L4376 5721L4376 5988L4376 6076L4376 6165L4376 6208L4376 6253L1634 6253Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #dbdbce"/>
+<svg:path d="M1634 6253L1634 4347L1634 4302L1634 4258L1679 4212L1767 4212L1812 4212L1944 4212L2077 4212L2254 4212L2652 4212L3093 4212L3537 4212L3889 4212L4021 4212L4154 4212L4242 4212L4288 4212L4331 4212L4376 4258L4376 4347L4376 4524L4376 4789L4376 5101L4376 5410L4376 5721L4376 5988L4376 6076L4376 6165L4376 6208L4376 6253L1634 6253Z" style="stroke: #494936; stroke-width: 0.01; fill: none"/>
+<svg:path d="M1988 4435L2694 4435L2694 5986L1988 5986Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #93936c"/>
+<svg:path d="M1988 4435L2693 4435L2693 5985L1988 5985L1988 4435Z" style="stroke: #494936; stroke-width: 0.01; fill: none"/>
+<svg:path d="M132 533L486 533L486 799L132 799Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #ffffff"/>
+<svg:path d="M132 533L484 533L484 798L132 798L132 533Z" style="stroke: #494936; stroke-width: 0.01; fill: none"/>
+<svg:path d="M5481 533L5789 533L5789 799L5481 799Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #ffffff"/>
+<svg:path d="M5481 533L5788 533L5788 798L5481 798L5481 533Z" style="stroke: #494936; stroke-width: 0.01; fill: none"/>
+<svg:path d="M0 89L87 0L6055 0L5925 89L0 89Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #c9c9b6"/>
+<svg:path d="M0 89L87 0L6055 0L5925 89Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #c9c9b6"/>
+<svg:path d="M0 89L87 0L6055 0L5925 89" style="stroke: #494936; stroke-width: 0.01; fill: none"/>
+<svg:path d="M5925 6165L6055 6076L6055 0L5925 89L5925 6165L5925 6165Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #7a7a5a"/>
+<svg:path d="M5925 6165L6055 6076L6055 0L5925 89L5925 6165Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #7a7a5a"/>
+<svg:path d="M5925 6165L6055 6076L6055 0L5925 89L5925 6165Z" style="stroke: #494936; stroke-width: 0.01; fill: none"/>
+<!--gsave-->
+<!--setmatrix-->
 </svg:svg>
 <connections>
-<point x="3777" y="-7208"/>
-<point x="3894" y="-7208"/>
-<point x="4011" y="-7208"/>
-<point x="3782" y="-6970"/>
-<point x="3884.5" y="-6970"/>
-<point x="3996" y="-6970"/>
-<point x="4005" y="-6970"/>
-<point x="3771" y="-7204"/>
-<point x="3771" y="-7092.5"/>
-<point x="3771" y="-6981"/>
-<point x="4011" y="-6976"/>
-<point x="2.5" y="1.1" main="yes"/>
+<point x="0" y="0"/>
+<point x="6055" y="0"/>
+<point x="3027" y="0"/>
+<point x="574" y="6253"/>
+<point x="5925" y="6253"/>
+<point x="3249" y="6253"/>
+<point x="0" y="5589"/>
+<point x="0" y="2794"/>
+<point x="6055" y="3038"/>
+<point x="2765" y="3353.33333333333" main="yes"/>
 </connections>
+
 </shape>

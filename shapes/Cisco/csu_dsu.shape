@@ -4,30 +4,28 @@
 <icon>csu_dsu.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
-<svg:path d="M1976.45 -6959.28l438.75 0 l0 -171.74l-438.75 0l0 171.74z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M1976.45 -6959.28l438.75 0 l0 -171.74l-438.75 0l0 171.74" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
-<svg:path d="M2020.33 -7176.02l-43.88 45l438.75 0l43.88 -45l-438.75 0z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M2020.33 -7176.02l-43.88 45l438.75 0l43.88 -45l-438.75 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
-<svg:path d="M2459.08 -7004.28l0 -171.74l-43.88 45l0 171.74l43.88 -45z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M2459.08 -7004.28l0 -171.74l-43.88 45l0 171.74l43.88 -45" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
-<svg:path d="M2040 -7080l26 0c 8 0 16 11 16 22l0 7c0 11 -8 22 -19 22l-23 0l0 -49 z" style="fill: background; stroke: background; stroke-width: 0"/>
-<svg:path d="M2051 -7071l12 0c8 0 8 10 8 10l0 13c0 10 -9 10 -9 10l-11 0l0 -33 z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M2090 -7066c0 -7 10 -14 19 -14c10 0 20 8 20 16l -9 0c0 -5 -6 -9 -11 -9c -5 0 -10 3 -10 6l 0 3c0 6 8 3 11 6c 11 6 21 5 21 13l0 4c0 7 -9 15 -18 15l -6 0c-9 0 -18 -8 -18 -17l 9 0c0 5 3 9 7 9l 11 0c3 0 6 -2 6 -5l 0 -5c0 -3 -7 -3 -13 -6c-9 -6 -19 -3 -19 -12l0 -4z" style="fill: background; stroke: background; stroke-width: 0"/>
-<svg:path d="M2140 -7080l7 0cl0 37c0 7 0 7  9 7l3 0c9 0 9 0 9 -7l0 -37l10 0l0 38c0 10 -9 15 -18 15l-5 0c-9 0 -18 -7 -18 -15l0 -38z" style="fill: background; stroke: background; stroke-width: 0"/>
-<svg:path d="M2195 -7080l3 0l-15 51l-3 0l15 -51z" style="fill: background; stroke: background; stroke-width: 0"/>
-<svg:path d="M2200 -7057c0 -11 11 -23 23 -23c 10 0 21 8 21 17l-9 0c0 -7 -6 -9 -12 -9c-7 0 -14 8 -14 16l0 6c0 8 7 16 14 16c6 0 12 -5 12 -11l9 0c 0 9 -10 19 -21 19c -11 0 -23 -11 -23 -23l0 -8z" style="fill: background; stroke: background; stroke-width: 0"/>
-<svg:path d="M2250 -7066c0 -7 10 -14 19 -14c10 0 20 8 20 16l -9 0c0 -5 -6 -9 -11 -9c -5 0 -10 3 -10 6l 0 3c0 6 8 3 11 6c 11 6 21 5 21 13l0 4c0 7 -9 15 -18 15l -6 0c-9 0 -18 -8 -18 -17l 9 0c0 5 3 9 7 9l 11 0c3 0 6 -2 6 -5l 0 -5c0 -3 -7 -3 -13 -6c-9 -6 -19 -3 -19 -12l0 -4z" style="fill: background; stroke: background; stroke-width: 0"/>
-<svg:path d="M2300 -7080l7 0cl0 37c0 7 0 7  9 7l3 0c9 0 9 0 9 -7l0 -37l10 0l0 38c0 10 -9 15 -18 15l-5 0c-9 0 -18 -7 -18 -15l0 -38z" style="fill: background; stroke: background; stroke-width: 0"/>
+<!--gsave-->
+<svg:path d="M0 872L944 0L8000 0L7056 872L0 872Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #c9c9b6"/>
+<svg:path d="M0 872L944 0L8000 0L7056 872L0 872Z" style="stroke: #494936; stroke-width: 0.01; fill: none"/>
+<svg:path d="M0 872L7056 872L7056 3821L0 3821L0 872Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #b7b79d"/>
+<svg:path d="M0 872L7056 872L7056 3821L0 3821L0 872Z" style="stroke: #494936; stroke-width: 0.01; fill: none"/>
+<svg:path d="M7056 3821L8000 2894L8000 0L7056 872L7056 3821Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #7a7a5a"/>
+<svg:path d="M7056 3821L8000 2894L8000 0L7056 872L7056 3821Z" style="stroke: #494936; stroke-width: 0.01; fill: none"/>
+<!--gsave-->
+<!--setmatrix-->
 </svg:svg>
 <connections>
-<point x="2020" y="-7175"/>
-<point x="2239.5" y="-7175"/>
-<point x="2459" y="-7175"/>
-<point x="1976" y="-6958"/>
-<point x="2195.5" y="-6958"/>
-<point x="2415" y="-6958"/>
-<point x="1976" y="-7130"/>
-<point x="2459" y="-7003"/>
-<point x="2.5" y="1.1" main="yes"/>
+<point x="944" y="0"/>
+<point x="8000" y="0"/>
+<point x="4472" y="0"/>
+<point x="0" y="3821"/>
+<point x="7056" y="3821"/>
+<point x="3528" y="3821"/>
+<point x="0" y="872"/>
+<point x="0" y="2347"/>
+<point x="8000" y="2894"/>
+<point x="8000" y="1447"/>
+<point x="4000" y="1902.3" main="yes"/>
 </connections>
+
 </shape>
