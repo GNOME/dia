@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
+<name>Cisco - Newton</name>
+<icon>newton.png</icon>
+<aspectratio type="fixed"/>
+<svg:svg width="5cm" height="2.2cm">
+<!--gsave-->
+<svg:path d="M0 4214L99 4906L400 5398L800 5662L1100 5728L1500 5761L1935 5070L1935 2665L1135 3128L0 4214Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #e4b070"/>
+<svg:path d="M3902 1382L4870 1086L5438 1054L5636 1086L5902 1284L6037 1382L6137 1614L6037 1809L5836 1843L5503 1843L5438 1646L5268 1646L4736 1745L4568 1809L3902 1382Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #e4b070"/>
+<svg:path d="M3902 1382L4870 1086L5438 1054L5636 1086L5902 1284L6037 1382L6137 1614L6037 1809L5836 1843L5503 1843L5438 1646L5268 1646L4736 1745L4568 1809Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #e4b070"/>
+<svg:path d="M3902 1382L4870 1086L5438 1054L5636 1086L5902 1284L6037 1382L6137 1614L6037 1809L5836 1843L5503 1843L5438 1646L5268 1646L4736 1745L4568 1809" style="stroke: #000000; stroke-width: 0.01; fill: none"/>
+<svg:path d="M1767 2436L3868 2239L5236 2172L5737 2106L5902 2106L6002 2272L5968 2404L5870 2568L5603 2634L5137 2732L4637 2996L4301 3259L3601 3918L2968 4509L2567 4608L1434 5761L1767 2436Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #e4b070"/>
+<svg:path d="M1767 2436L3868 2239L5236 2172L5737 2106L5902 2106L6002 2272L5968 2404L5870 2568L5603 2634L5137 2732L4637 2996L4301 3259L3601 3918L2968 4509L2567 4608L1434 5761Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #e4b070"/>
+<svg:path d="M1767 2436L3868 2239L5236 2172L5737 2106L5902 2106L6002 2272L5968 2404L5870 2568L5603 2634L5137 2732L4637 2996L4301 3259L3601 3918L2968 4509L2567 4608L1434 5761" style="stroke: #000000; stroke-width: 0.01; fill: none"/>
+<svg:path d="M2435 1548L2935 824L3468 362L4035 98L4568 33L5201 0L5470 132L5470 296L5438 428L5137 527L4937 592L4501 724L2100 2996L2435 1548Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #e4b070"/>
+<svg:path d="M2435 1548L2935 824L3468 362L4035 98L4568 33L5201 0L5470 132L5470 296L5438 428L5137 527L4937 592L4501 724L2100 2996Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #e4b070"/>
+<svg:path d="M2435 1548L2935 824L3468 362L4035 98L4568 33L5182 1M5204 1L5470 132L5470 296L5438 428L5137 527L4937 592L4501 724L2100 2996" style="stroke: #000000; stroke-width: 0.01; fill: none"/>
+<svg:path d="M33 4180L1068 3194L1167 2469L1400 2172L1667 1809L1835 1482L2000 1120L2200 856L2368 559L2500 626L2635 856L2668 1218L2567 1482L2468 1712L2468 1943L2468 2172L2535 2502L2668 2832L33 4180Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #e4b070"/>
+<svg:path d="M33 4180L1068 3194L1167 2469L1400 2172L1667 1809L1835 1482L2000 1120L2200 856L2368 559L2500 626L2635 856L2668 1218L2567 1482L2468 1712L2468 1943L2468 2172L2535 2502L2668 2832Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #e4b070"/>
+<svg:path d="M33 4180L1068 3194L1167 2469L1400 2172L1667 1809L1835 1482L2000 1120L2200 856L2368 559L2500 626L2635 856L2668 1218L2567 1482L2468 1712L2468 1943L2468 2172L2535 2502L2668 2832" style="stroke: #000000; stroke-width: 0.01; fill: none"/>
+<svg:path d="M1868 2469L4602 2469L6303 362L3701 362L1868 2469Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #888888"/>
+<svg:path d="M1868 2469L4602 2469L6298 369M6298 362L3701 362L1868 2469M1868 2469Z" style="stroke: #000000; stroke-width: 0.01; fill: none"/>
+<svg:path d="M1868 2469L1868 2996L4602 2996L4602 2469L1868 2469Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #777777"/>
+<svg:path d="M1868 2469L1868 2996L4602 2996L4602 2469L1868 2469Z" style="stroke: #000000; stroke-width: 0.01; fill: none"/>
+<svg:path d="M6303 362L6303 856L4602 2996L4602 2469L6303 362Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #555555"/>
+<svg:path d="M6298 863L4602 2996L4602 2469L6298 369M6298 863Z" style="stroke: #000000; stroke-width: 0.01; fill: none"/>
+<svg:path d="M3801 559L5836 559L4637 2074L2500 2074L3801 559Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #e7ecec"/>
+<svg:path d="M3801 559L5836 559L4637 2074L2500 2074L3801 559Z" style="stroke: #444444; stroke-width: 0.01; fill: none"/>
+<svg:path d="M2400 2172L2668 2172L2500 2370L2234 2370L2400 2172Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #bbbbbb"/>
+<svg:path d="M2400 2172L2668 2172L2500 2370L2234 2370L2400 2172Z" style="stroke: #222222; stroke-width: 0.01; fill: none"/>
+<svg:path d="M2866 2172L3135 2172L2968 2370L2700 2370L2866 2172Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #bbbbbb"/>
+<svg:path d="M2866 2172L3135 2172L2968 2370L2700 2370L2866 2172Z" style="stroke: #222222; stroke-width: 0.01; fill: none"/>
+<svg:path d="M3336 2172L3601 2172L3468 2370L3168 2370L3336 2172Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #bbbbbb"/>
+<svg:path d="M3336 2172L3601 2172L3468 2370L3168 2370L3336 2172Z" style="stroke: #222222; stroke-width: 0.01; fill: none"/>
+<svg:path d="M3801 2172L4068 2172L3936 2370L3667 2370L3801 2172Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #bbbbbb"/>
+<svg:path d="M3801 2172L4068 2172L3936 2370L3667 2370L3801 2172Z" style="stroke: #222222; stroke-width: 0.01; fill: none"/>
+<svg:path d="M4301 2172L4568 2172L4401 2370L4136 2370L4301 2172Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #bbbbbb"/>
+<svg:path d="M4301 2172L4568 2172L4401 2370L4136 2370L4301 2172Z" style="stroke: #222222; stroke-width: 0.01; fill: none"/>
+<!--gsave-->
+<!--setmatrix-->
+</svg:svg>
+<connections>
+<point x="4035" y="0"/>
+<point x="5204" y="0"/>
+<point x="4619" y="0"/>
+<point x="800" y="5761"/>
+<point x="1500" y="5761"/>
+<point x="0" y="4180"/>
+<point x="0" y="4906"/>
+<point x="6303" y="362"/>
+<point x="6303" y="863"/>
+<point x="3196" y="2425.88888888889" main="yes"/>
+</connections>
+
+</shape>

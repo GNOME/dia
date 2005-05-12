@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
+<name>Cisco - Phone 2</name>
+<icon>phone_2.png</icon>
+<aspectratio type="fixed"/>
+<svg:svg width="5cm" height="2.2cm">
+<!--gsave-->
+<svg:path d="M0 4863L0 6136L3153 6136L3153 4863L0 4863Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.02; fill: #b7b79d"/>
+<svg:path d="M0 4863L0 6136L3153 6136L3153 4863L0 4863Z" style="stroke: #494936; stroke-width: 0.01; fill: none"/>
+<svg:path d="M0 4863L2598 718L5752 718L3153 4863L0 4863Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #c9c9b6"/>
+<svg:path d="M0 4863L2598 718L5752 718L3153 4863L0 4863Z" style="stroke: #494936; stroke-width: 0.01; fill: none"/>
+<svg:path d="M3153 6136L5752 3537L5752 718L3153 4863L3153 6136Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #7a7a5a"/>
+<svg:path d="M3153 6136L5752 3537L5752 718L3153 4863L3153 6136Z" style="stroke: #494936; stroke-width: 0.01; fill: none"/>
+<svg:path d="M1106 3703L1714 2543L2820 1161L3872 0L4977 0L3817 1215L2711 2653L2158 3703L1106 3703Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #dbdbce"/>
+<svg:path d="M1106 3703L1714 2543L2820 1161L3872 0L4977 0L3817 1215L2711 2653L2158 3703L1106 3703Z" style="stroke: #494936; stroke-width: 0.01; fill: none"/>
+<svg:path d="M1106 3703L1106 4589L2269 4589L2158 3703L1106 3703Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #b7b79d"/>
+<svg:path d="M1106 3703L1106 4589L2269 4589L2158 3703L1106 3703Z" style="stroke: #494936; stroke-width: 0.01; fill: none"/>
+<svg:path d="M4977 0L5089 883L4316 1824L4258 1548L3209 2819L3209 3097L2269 4589L2158 3703L2711 2653L3817 1215L4977 0Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #7a7a5a"/>
+<svg:path d="M4977 0L5089 883L4316 1824L4258 1548L3209 2819L3209 3097L2269 4589L2158 3703L2711 2653L3817 1215L4977 0Z" style="stroke: #494936; stroke-width: 0.01; fill: none"/>
+<!--gsave-->
+<!--setmatrix-->
+</svg:svg>
+<connections>
+<point x="3872" y="0"/>
+<point x="4977" y="0"/>
+<point x="4425" y="0"/>
+<point x="0" y="6136"/>
+<point x="3153" y="6136"/>
+<point x="1576" y="6136"/>
+<point x="0" y="4863"/>
+<point x="0" y="5499"/>
+<point x="5752" y="718"/>
+<point x="5752" y="3537"/>
+<point x="5752" y="2128"/>
+<point x="3205.36363636364" y="3195.72727272727" main="yes"/>
+</connections>
+
+</shape>

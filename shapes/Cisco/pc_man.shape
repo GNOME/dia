@@ -4,136 +4,93 @@
 <icon>pc_man.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
-<svg:path d="M3486.85 -2527.56c15.76 -22.5 -26.99 -33.75 -26.99 -33.75z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M3486.85 -2527.56c15.76 -22.5 -26.99 -33.75 -26.99 -33.75" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: round; stroke-linejoin: mitre"/>
-<svg:path d="M3460.6 -2724.38l-21.74 18l-168.01 0l21.74 -18l168.01 0z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M3460.6 -2724.38l-21.74 18l-168.01 0l21.74 -18l168.01 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
-<svg:path d="M3269.35 -2571.81l169.512 0 l0 -134.257l-169.512 0l0 134.257z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M3269.35 -2571.81l169.512 0 l0 -134.257l-169.512 0l0 134.257" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
-<svg:path d="M3460.6 -2587.64l0 -136.43l-22.5 18l0 136.43l22.5 -18z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M3460.6 -2587.64l0 -136.43l-22.5 18l0 136.43l22.5 -18" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
-<svg:path d="M3212.36 -2737.56c1.49 15 -8.26 25.5 8.99 47.25c2.52 3.17 -3.75 9.37 -6 12.94c-2.25 3.56 -2.99 8.81 -1.5 13.31c-1.49 0 -2.99 3.75 -2.99 6.75c-1.5 7.5 1.5 12.75 -3.01 14.25c-7.5 3.01 -17.99 3.01 -22.5 7.5c-6 4.5 -11.99 12 -15 21.01c-1.5 0 -4.49 0 -6 0c-13.5 -13.51 -30 -42 -49.49 -48c-7.5 -19.5 6 -36.01 15 -52.5c10.49 -18.01 30 -30 51 -31.5z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M3212.36 -2737.56c1.49 15 -8.26 25.5 8.99 47.25c2.52 3.17 -3.75 9.37 -6 12.94c-2.25 3.56 -2.99 8.81 -1.5 13.31c-1.49 0 -2.99 3.75 -2.99 6.75c-1.5 7.5 1.5 12.75 -3.01 14.25c-7.5 3.01 -17.99 3.01 -22.5 7.5c-6 4.5 -11.99 12 -15 21.01c-1.5 0 -4.49 0 -6 0c-13.5 -13.51 -30 -42 -49.49 -48c-7.5 -19.5 6 -36.01 15 -52.5c10.49 -18.01 30 -30 51 -31.5" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
-<svg:path d="M3111.11 -2663.94c2.36 2.37 8.24 -1.63 12.74 -0.13c7.5 3 18.01 4.5 22.5 0c6.01 -4.5 9 -13.5 13.51 -21c0 -1.5 1.49 -4.5 4.49 -6.01c7.5 0 18.01 3 21 -1.49c9 -9 -2.99 -27 10.51 -34.5c10.49 -4.5 28.5 -7.5 25.49 -22.5c-28.5 -15 -60 -30 -91.49 -22.5c-9 3 -16.5 13.5 -24 21c-1.5 3 -4.51 6.01 -4.51 9c-1.49 19.5 -2.99 37.5 1.5 57c1.5 6 3.75 16.63 8.26 21.12z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M3111.11 -2663.94c2.36 2.37 8.24 -1.63 12.74 -0.13c7.5 3 18.01 4.5 22.5 0c6.01 -4.5 9 -13.5 13.51 -21c0 -1.5 1.49 -4.5 4.49 -6.01c7.5 0 18.01 3 21 -1.49c9 -9 -2.99 -27 10.51 -34.5c10.49 -4.5 28.5 -7.5 25.49 -22.5c-28.5 -15 -60 -30 -91.49 -22.5c-9 3 -16.5 13.5 -24 21c-1.5 3 -4.51 6.01 -4.51 9c-1.49 19.5 -2.99 37.5 1.5 57c1.5 6 3.75 16.63 8.26 21.12" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
-<svg:path d="M3267.11 -2305.56c0 12 0 23.99 0 36c-8.26 7.5 -7.5 19.5 -7.5 30c11.99 6.75 26.25 3.75 39 4.5c0 -2.25 0 -5.25 0.74 -5.25c11.99 -1.49 23.24 -2.25 35.25 -3.75c2.99 -8.24 4.49 -18 4.49 -26.99c-10.49 -5.25 -26.25 -4.5 -31.5 -16.5c-4.49 -12 -4.49 -24.75 -3.75 -36.75z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M3267.11 -2305.56c0 12 0 23.99 0 36c-8.26 7.5 -7.5 19.5 -7.5 30c11.99 6.75 26.25 3.75 39 4.5c0 -2.25 0 -5.25 0.74 -5.25c11.99 -1.49 23.24 -2.25 35.25 -3.75c2.99 -8.24 4.49 -18 4.49 -26.99c-10.49 -5.25 -26.25 -4.5 -31.5 -16.5c-4.49 -12 -4.49 -24.75 -3.75 -36.75" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
-<svg:path d="M3225.1 -2321.31c27.75 3 51.76 -12 77.26 -22.5c6.74 -3 16.49 -0.75 24.75 -0.75c2.25 28.51 -2.25 57 -0.76 85.5c14.26 0 27.75 1.5 42.01 -0.74c7.5 -0.75 15 -4.5 21.74 -8.25c0 -39.76 2.26 -79.5 -2.25 -120c-0.74 -4.5 -3.75 -9 -6.74 -13.51c-1.5 -2.25 -4.51 -4.5 -7.5 -5.24c-33.75 -7.5 -39 -3.75 -72.01 -8.25c-2.99 0 7.5 -16.5 5.25 -19.5c-5.92 -7.89 -84 -3.75 -93.75 -3z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M3225.1 -2321.31c27.75 3 51.76 -12 77.26 -22.5c6.74 -3 16.49 -0.75 24.75 -0.75c2.25 28.51 -2.25 57 -0.76 85.5c14.26 0 27.75 1.5 42.01 -0.74c7.5 -0.75 15 -4.5 21.74 -8.25c0 -39.76 2.26 -79.5 -2.25 -120c-0.74 -4.5 -3.75 -9 -6.74 -13.51c-1.5 -2.25 -4.51 -4.5 -7.5 -5.24c-33.75 -7.5 -39 -3.75 -72.01 -8.25c-2.99 0 7.5 -16.5 5.25 -19.5c-5.92 -7.89 -84 -3.75 -93.75 -3" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
-<svg:path d="M3364.61 -2260.56c0 5.24 -1.5 10.5 0.74 15c0.76 2.25 5.25 2.25 8.26 4.5c2.25 2.25 4.49 5.24 7.5 6.75c4.49 2.25 9.75 3 15 3.75c7.5 0.75 15 -1.5 21.74 1.49c0.76 0.75 3.01 0.75 4.51 2.26c4.49 5.24 6 12 2.99 16.49c-6 9 -14.24 15.75 -24.75 18.01c-14.26 2.25 -28.5 0 -42.75 3c-1.5 0 -0.74 0 -1.5 0.75c-0.74 2.25 0.76 8.25 0 8.25c-14.24 0.74 -30.74 3.75 -40.49 -9.76c-3.01 -4.5 -3.75 -11.25 -1.5 -17.25c3.01 -6.01 4.49 -12 6 -18.75c2.25 -5.25 1.5 -5.25 3.75 -10.51c3.01 -7.5 1.5 -15.74 1.5 -23.99z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M3364.61 -2260.56c0 5.24 -1.5 10.5 0.74 15c0.76 2.25 5.25 2.25 8.26 4.5c2.25 2.25 4.49 5.24 7.5 6.75c4.49 2.25 9.75 3 15 3.75c7.5 0.75 15 -1.5 21.74 1.49c0.76 0.75 3.01 0.75 4.51 2.26c4.49 5.24 6 12 2.99 16.49c-6 9 -14.24 15.75 -24.75 18.01c-14.26 2.25 -28.5 0 -42.75 3c-1.5 0 -0.74 0 -1.5 0.75c-0.74 2.25 0.76 8.25 0 8.25c-14.24 0.74 -30.74 3.75 -40.49 -9.76c-3.01 -4.5 -3.75 -11.25 -1.5 -17.25c3.01 -6.01 4.49 -12 6 -18.75c2.25 -5.25 1.5 -5.25 3.75 -10.51c3.01 -7.5 1.5 -15.74 1.5 -23.99" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
-<svg:path d="M3187.6 -2252.3l0 37.5l72.75 -30c12.01 -2.26 15 12.74 15 12.74l0 10.5l-6 0l0 9.76c-6 10.5 -15.74 0 -15.74 0l0 -12l-57.75 26.25l68.24 55.5c9 16.5 0.76 31.5 0.76 31.5c7.5 14.25 -6.01 24 -6.01 24c-17.99 8.99 -17.25 -12.75 -17.25 -12.75c-2.25 -12.75 10.51 -12.75 10.51 -12.75l3.75 -7.5l-79.51 -72l-103.5 59.26l-3.75 8.99c8.26 18.01 -6.75 24 -6.75 24c-21 3.75 -12.75 -15 -12.75 -15c-0.75 -10.5 7.5 -10.5 7.5 -10.5l6 -6.75c0 0 5.25 2.25 -0.74 -3.01c-6 -5.24 -1.5 -19.49 -1.5 -19.49l97.51 -48.01l-32.25 -31.49l-10.51 6.75c0 17.25 -11.99 12 -11.99 12c-12.75 0 -5.25 -13.51 -5.25 -13.51c4.49 -3.75 10.49 -6 10.49 -6l7.5 -16.5l24.76 12.75l28.5 23.99l0 -33z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M3187.6 -2252.3l0 37.5l72.75 -30c12.01 -2.26 15 12.74 15 12.74l0 10.5l-6 0l0 9.76c-6 10.5 -15.74 0 -15.74 0l0 -12l-57.75 26.25l68.24 55.5c9 16.5 0.76 31.5 0.76 31.5c7.5 14.25 -6.01 24 -6.01 24c-17.99 8.99 -17.25 -12.75 -17.25 -12.75c-2.25 -12.75 10.51 -12.75 10.51 -12.75l3.75 -7.5l-79.51 -72l-103.5 59.26l-3.75 8.99c8.26 18.01 -6.75 24 -6.75 24c-21 3.75 -12.75 -15 -12.75 -15c-0.75 -10.5 7.5 -10.5 7.5 -10.5l6 -6.75c0 0 5.25 2.25 -0.74 -3.01c-6 -5.24 -1.5 -19.49 -1.5 -19.49l97.51 -48.01l-32.25 -31.49l-10.51 6.75c0 17.25 -11.99 12 -11.99 12c-12.75 0 -5.25 -13.51 -5.25 -13.51c4.49 -3.75 10.49 -6 10.49 -6l7.5 -16.5l24.76 12.75l28.5 23.99l0 -33" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
-<svg:path d="M3231.11 -2290.56l84.75 -38.25c6 -7.5 -3.75 -18.75 -3.75 -18.75l-79.51 30z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M3231.11 -2290.56l84.75 -38.25c6 -7.5 -3.75 -18.75 -3.75 -18.75l-79.51 30" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
-<svg:path d="M3283.61 -2586.82l140.996 0 l0 -101.25l-140.996 0l0 101.25z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M3283.61 -2586.82l140.996 0 l0 -101.25l-140.996 0l0 101.25" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
-<svg:path d="M3270.76 -2540.21l170.254 0 l0 -24.7461l-170.254 0l0 24.7461z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M3270.76 -2540.21l170.254 0 l0 -24.7461l-170.254 0l0 24.7461" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
-<svg:path d="M3231.85 -2498.31l189.004 0 l0 -8.25195l-189.004 0l0 8.25195z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M3231.85 -2498.31l189.004 0 l0 -8.25195l-189.004 0l0 8.25195" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
-<svg:path d="M3457.62 -2502.06l27.7351 0 l0 -5.99609l-27.7351 0l0 5.99609z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M3457.62 -2502.06l27.7351 0 l0 -5.99609l-27.7351 0l0 5.99609" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
-<svg:path d="M3485.35 -2509.56l12.01 -19.5l-27.75 0l-11.99 19.5l27.74 0z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M3485.35 -2509.56l12.01 -19.5l-27.75 0l-11.99 19.5l27.74 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
-<svg:path d="M3498.1 -2511.81l0 -17.26l-13.5 21.01l0 6l13.5 -9.75z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M3498.1 -2511.81l0 -17.26l-13.5 21.01l0 6l13.5 -9.75" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
-<svg:path d="M3447.85 -2524.56l0 -14.25l-27.74 32.25l0 8.25l27.74 -26.25z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M3447.85 -2524.56l0 -14.25l-27.74 32.25l0 8.25l27.74 -26.25" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
-<svg:path d="M3463.61 -2553.81l0 -31.5l-22.62 19.48l0 33.02l22.62 -21z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M3463.61 -2553.81l0 -31.5l-22.62 19.48l0 33.02l22.62 -21" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
-<svg:path d="M3274.61 -2565.06l165 0 l0 -6.00513l-165 0l0 6.00513z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M3274.61 -2565.06l165 0 l0 -6.00513l-165 0l0 6.00513" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
-<svg:path d="M3461.37 -2582.31l0 -3.83l-23.26 17.26l0 3.83l23.26 -17.26z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M3461.37 -2582.31l0 -3.83l-23.26 17.26l0 3.83l23.26 -17.26" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
-<svg:path d="M3446.37 -2539.56l-25.51 33.75l-188.26 0l30 -33.75l183.77 0z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M3446.37 -2539.56l-25.51 33.75l-188.26 0l30 -33.75l183.77 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
-<svg:path d="M3380.35 -2553.06l46.5 0z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M3380.35 -2553.06l46.5 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
-<svg:path d="M3208.36 -2707.56l-5 8.99l7.99 -1z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M3208.36 -2707.56l-5 8.99l7.99 -1" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
-<svg:path d="M3296.76 -2528.36l10 0.07z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M3296.76 -2528.36l10 0.07" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
-<svg:path d="M3310.76 -2528.27l10 0.07z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M3310.76 -2528.27l10 0.07" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
-<svg:path d="M3267.75 -2528.54l10 0.07z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M3267.75 -2528.54l10 0.07" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
-<svg:path d="M3281.76 -2528.46l10 0.07z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M3281.76 -2528.46l10 0.07" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
-<svg:path d="M3324.77 -2528.17l10 0.06z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M3324.77 -2528.17l10 0.06" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
-<svg:path d="M3338.75 -2528.09l10 0.07z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M3338.75 -2528.09l10 0.07" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
-<svg:path d="M3352.75 -2528l10 0.07z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M3352.75 -2528l10 0.07" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
-<svg:path d="M3366.76 -2527.9l10 0.06z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M3366.76 -2527.9l10 0.06" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
-<svg:path d="M3380.76 -2527.81l10 0.07z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M3380.76 -2527.81l10 0.07" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
-<svg:path d="M3394.77 -2527.72l10 0.07z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M3394.77 -2527.72l10 0.07" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
-<svg:path d="M3408.75 -2527.63l10 0.06z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M3408.75 -2527.63l10 0.06" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
-<svg:path d="M3291.76 -2520.36l10 0.07z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M3291.76 -2520.36l10 0.07" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
-<svg:path d="M3305.76 -2520.26l10 0.06z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M3305.76 -2520.26l10 0.06" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
-<svg:path d="M3262.75 -2520.55l10 0.07z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M3262.75 -2520.55l10 0.07" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
-<svg:path d="M3276.76 -2520.46l10 0.07z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M3276.76 -2520.46l10 0.07" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
-<svg:path d="M3319.77 -2520.18l10 0.07z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M3319.77 -2520.18l10 0.07" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
-<svg:path d="M3333.75 -2520.09l10 0.07z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M3333.75 -2520.09l10 0.07" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
-<svg:path d="M3347.75 -2519.99l10 0.06z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M3347.75 -2519.99l10 0.06" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
-<svg:path d="M3361.76 -2519.9l10 0.07z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M3361.76 -2519.9l10 0.07" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
-<svg:path d="M3375.76 -2519.81l10 0.07z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M3375.76 -2519.81l10 0.07" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
-<svg:path d="M3389.77 -2519.72l10 0.06z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M3389.77 -2519.72l10 0.06" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
-<svg:path d="M3403.75 -2519.63l10 0.07z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M3403.75 -2519.63l10 0.07" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
-<svg:path d="M3286.76 -2512.35l10 0.06z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M3286.76 -2512.35l10 0.06" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
-<svg:path d="M3300.76 -2512.27l10 0.06z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M3300.76 -2512.27l10 0.06" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
-<svg:path d="M3257.75 -2512.55l10 0.07z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M3257.75 -2512.55l10 0.07" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
-<svg:path d="M3271.76 -2512.45l10 0.06z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M3271.76 -2512.45l10 0.06" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
-<svg:path d="M3314.77 -2512.18l10 0.07z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M3314.77 -2512.18l10 0.07" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
-<svg:path d="M3328.75 -2512.09l10 0.07z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M3328.75 -2512.09l10 0.07" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
-<svg:path d="M3342.75 -2511.99l10 0.06z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M3342.75 -2511.99l10 0.06" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
-<svg:path d="M3356.76 -2511.9l10 0.07z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M3356.76 -2511.9l10 0.07" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
-<svg:path d="M3370.76 -2511.82l10 0.07z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M3370.76 -2511.82l10 0.07" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
-<svg:path d="M3384.77 -2511.72l10 0.06z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M3384.77 -2511.72l10 0.06" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
-<svg:path d="M3398.75 -2511.63l10 0.07z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M3398.75 -2511.63l10 0.07" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
-<svg:path d="M3235.6 -2545.56c7.5 0 15.74 1.49 23.24 -0.75c3.75 -1.5 6.76 -6.75 10.51 -8.25c5.25 -1.5 11.25 -2.25 16.5 0.75c0.74 0.75 1.5 2.25 2.99 3c6.76 0.75 13.51 1.5 18.75 6c3.75 3.75 0.76 9.76 1.5 14.26c-1.5 0 -3.75 3 -3.75 1.49c-2.25 -3.75 -2.99 -8.25 -6 -10.5c-4.49 -1.5 -9.75 -2.25 -14.26 0c-0.74 0 0 3.75 2.26 3.75c4.49 0 9.75 3 6.74 6c-9.75 9.76 -24.75 6.76 -38.24 5.25c-4.51 0 -9 -3.75 -14.26 -3.75z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M3235.6 -2545.56c7.5 0 15.74 1.49 23.24 -0.75c3.75 -1.5 6.76 -6.75 10.51 -8.25c5.25 -1.5 11.25 -2.25 16.5 0.75c0.74 0.75 1.5 2.25 2.99 3c6.76 0.75 13.51 1.5 18.75 6c3.75 3.75 0.76 9.76 1.5 14.26c-1.5 0 -3.75 3 -3.75 1.49c-2.25 -3.75 -2.99 -8.25 -6 -10.5c-4.49 -1.5 -9.75 -2.25 -14.26 0c-0.74 0 0 3.75 2.26 3.75c4.49 0 9.75 3 6.74 6c-9.75 9.76 -24.75 6.76 -38.24 5.25c-4.51 0 -9 -3.75 -14.26 -3.75" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
-<svg:path d="M3347.36 -2470.56c3.75 0.74 6 -2.26 9.75 -3.01c2.99 -1.49 6.74 0 9.75 -0.74c6 -2.26 10.51 -6.76 16.5 -9c1.5 -9.75 1.5 -20.25 3.75 -30c0.74 0.75 12.5 -2.75 13.24 -2.75c-0.74 -2.25 1.5 -6 -0.74 -6.75c-8.26 -3 -27.5 -0.24 -36.5 2c-0.74 0 -0.74 -0.75 -0.74 -1.5c-5.25 0 -10.51 -0.74 -15 2.26c-6.01 3.75 -3.01 11.25 -3.75 18c-1.5 3.75 -5.25 6 -8.26 7.5c-2.25 1.5 -6 2.25 -8.24 4.5z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M3347.36 -2470.56c3.75 0.74 6 -2.26 9.75 -3.01c2.99 -1.49 6.74 0 9.75 -0.74c6 -2.26 10.51 -6.76 16.5 -9c1.5 -9.75 1.5 -20.25 3.75 -30c0.74 0.75 12.5 -2.75 13.24 -2.75c-0.74 -2.25 1.5 -6 -0.74 -6.75c-8.26 -3 -27.5 -0.24 -36.5 2c-0.74 0 -0.74 -0.75 -0.74 -1.5c-5.25 0 -10.51 -0.74 -15 2.26c-6.01 3.75 -3.01 11.25 -3.75 18c-1.5 3.75 -5.25 6 -8.26 7.5c-2.25 1.5 -6 2.25 -8.24 4.5" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
-<svg:path d="M3199.61 -2548.56c10.49 0 29.24 -1.49 35.25 3.01c4.49 4.49 8.99 19.49 4.49 25.5c-1.5 3 -13.5 3.75 -19.49 3.75z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M3199.61 -2548.56c10.49 0 29.24 -1.49 35.25 3.01c4.49 4.49 8.99 19.49 4.49 25.5c-1.5 3 -13.5 3.75 -19.49 3.75" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
-<svg:path d="M3107.36 -2661.06c6 0 15 -1.49 17.99 1.5c16.5 12 30 27 42.01 43.5c7.5 13.51 19.49 21.01 22.5 34.5c2.99 12 6 24 10.49 34.5c12.01 21 24 39 37.5 60c3.01 3 10.51 1.5 16.5 4.5c1.5 1.49 3.01 6 4.49 6c9 0 18.01 1.5 25.51 -1.49c13.5 -7.5 28.5 -9 41.99 -13.51c6.01 13.51 25.51 18 25.51 33c-16.5 10.51 -33.01 18.01 -49.49 27c-10.51 4.5 -21.01 13.51 -33.01 13.51c-7.5 0 -41.99 -13.51 -43.5 -10.51c-6 18.01 25.49 51.01 21 72c-6 22.5 -9 42 -13.5 64.5c-1.5 6.01 -4.51 12 -6 19.5c-1.5 4.5 -4.51 9 -7.5 12c-6.01 4.5 -12.01 12 -18.01 13.5c-7.5 3 -15.74 0.75 -23.24 3.75c-4.51 1.5 -9.76 2.26 -14.26 3.75c-7.5 4.5 -18.01 1.5 -19.49 -3c-7.5 -21 -1.5 -45 -9 -66c-15 -42 -27.62 -78.59 -55.51 -126.01c-5.94 -10.1 -27.23 -6.23 -34.5 -18c-23.68 -38.38 -4.5 -100.5 9 -153.01c3 -13.5 15.75 -32.25 29.24 -36.75c4.51 -3 6 -6 10.51 -7.5c6 -4.5 6.74 -11.25 12.75 -11.25z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M3107.36 -2661.06c6 0 15 -1.49 17.99 1.5c16.5 12 30 27 42.01 43.5c7.5 13.51 19.49 21.01 22.5 34.5c2.99 12 6 24 10.49 34.5c12.01 21 24 39 37.5 60c3.01 3 10.51 1.5 16.5 4.5c1.5 1.49 3.01 6 4.49 6c9 0 18.01 1.5 25.51 -1.49c13.5 -7.5 28.5 -9 41.99 -13.51c6.01 13.51 25.51 18 25.51 33c-16.5 10.51 -33.01 18.01 -49.49 27c-10.51 4.5 -21.01 13.51 -33.01 13.51c-7.5 0 -41.99 -13.51 -43.5 -10.51c-6 18.01 25.49 51.01 21 72c-6 22.5 -9 42 -13.5 64.5c-1.5 6.01 -4.51 12 -6 19.5c-1.5 4.5 -4.51 9 -7.5 12c-6.01 4.5 -12.01 12 -18.01 13.5c-7.5 3 -15.74 0.75 -23.24 3.75c-4.51 1.5 -9.76 2.26 -14.26 3.75c-7.5 4.5 -18.01 1.5 -19.49 -3c-7.5 -21 -1.5 -45 -9 -66c-15 -42 -27.62 -78.59 -55.51 -126.01c-5.94 -10.1 -27.23 -6.23 -34.5 -18c-23.68 -38.38 -4.5 -100.5 9 -153.01c3 -13.5 15.75 -32.25 29.24 -36.75c4.51 -3 6 -6 10.51 -7.5c6 -4.5 6.74 -11.25 12.75 -11.25" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
-<svg:path d="M3081.11 -2265.81l69.75 26.25l-0.76 -60c-51.74 -133.5 -60 -132.75 -60 -132.75c-17.25 -9.75 -21.74 -10.5 -21.74 -10.5c-24.75 1.5 -38.25 -27.74 -38.25 -27.74c-8.25 -6.76 -16.5 3 -16.5 3l67.5 201.75z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M3081.11 -2265.81l69.75 26.25l-0.76 -60c-51.74 -133.5 -60 -132.75 -60 -132.75c-17.25 -9.75 -21.74 -10.5 -21.74 -10.5c-24.75 1.5 -38.25 -27.74 -38.25 -27.74c-8.25 -6.76 -16.5 3 -16.5 3l67.5 201.75" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<!--gsave-->
+<svg:path d="M6553 3629L6564 3613L6574 3600L6584 3584L6591 3569L6598 3553L6603 3537L6607 3519L6612 3505L6613 3487L6614 3469L6614 3455L6613 3437L6612 3422L6609 3405L6603 3388L6599 3372L6592 3356L6585 3341L6575 3325L6566 3312L6557 3295L6545 3281L6532 3268L6520 3255L6506 3243L6489 3231L6474 3219L6459 3209L6440 3198L6423 3188L6404 3179L6385 3170L6365 3163L6346 3156L6325 3150L6304 3145L6283 3142L6262 3138L6240 3136L6219 3134L6197 3131L6175 3131L6153 3131L6132 3134L6110 3137L6088 3140L6067 3144L6046 3150L6025 3154L6004 3160L5986 3168L5965 3175L5947 3184L5929 3193L5913 3204L5896 3215L5879 3225L5863 3237L5850 3250L5836 3262L5824 3276L5811 3291" style="stroke: #494936; stroke-width: 0.01; fill: none"/>
+<svg:path d="M6520 3593L6531 3579L6538 3565L6546 3550L6553 3537L6560 3522L6564 3507L6567 3492L6571 3476L6573 3461L6574 3445L6574 3430L6573 3413L6571 3399L6566 3385L6563 3369L6557 3354L6550 3340L6545 3324L6535 3310L6525 3295L6516 3284L6506 3269L6492 3256L6481 3244L6465 3234L6451 3223L6437 3212L6421 3200L6404 3192L6388 3184L6371 3174L6351 3167L6334 3160L6314 3154L6296 3150L6275 3144L6254 3140L6235 3137L6214 3136L6194 3134L6172 3131L6151 3131L6132 3134L6111 3134L6090 3137L6071 3140L6050 3143L6029 3148L6011 3154L5990 3160L5972 3167L5954 3174L5936 3181L5919 3190L5902 3200L5888 3210L5872 3220L5858 3231L5844 3243L5831 3255L5819 3268L5808 3281" style="stroke: #dbdbce; stroke-width: 0.01; fill: none"/>
+<svg:path d="M3514 3131L3847 2801L6203 2801L5872 3131L3514 3131Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #c9c9b6"/>
+<svg:path d="M3514 3131L3847 2801L6203 2801L5872 3131L3514 3131Z" style="stroke: #494936; stroke-width: 0.01; fill: none"/>
+<svg:path d="M3514 3131L5872 3131L5872 3544L3514 3544L3514 3131Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #b7b79d"/>
+<svg:path d="M3514 3131L5872 3131L5872 3544L3514 3544L3514 3131Z" style="stroke: #494936; stroke-width: 0.01; fill: none"/>
+<svg:path d="M5872 3544L6203 3255L6203 2801L5872 3131L5872 3544Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #7a7a5a"/>
+<svg:path d="M5872 3544L6203 3255L6203 2801L5872 3131L5872 3544Z" style="stroke: #494936; stroke-width: 0.01; fill: none"/>
+<svg:path d="M3598 3050L3847 2801L6163 2801L5913 3050L3598 3050Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #000000"/>
+<svg:path d="M3598 3050L3847 2801L6163 2801L5913 3050L3598 3050Z" style="stroke: #000000; stroke-width: 0.01; fill: none"/>
+<svg:path d="M3514 1154L3763 906L6163 906L5872 1154L3514 1154Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #c9c9b6"/>
+<svg:path d="M3514 1154L3763 906L6163 906L5872 1154L3514 1154Z" style="stroke: #494936; stroke-width: 0.01; fill: none"/>
+<svg:path d="M3514 1154L5913 1154L5913 3009L3514 3009Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #b7b79d"/>
+<svg:path d="M3514 1154L5913 1154L5913 3007L3514 3007L3514 1154Z" style="stroke: #494936; stroke-width: 0.01; fill: none"/>
+<svg:path d="M3721 1401L5706 1401L5706 2844L3721 2844Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #000000"/>
+<svg:path d="M3721 1401L5704 1401L5704 2843L3721 2843L3721 1401Z" style="stroke: #494936; stroke-width: 0.01; fill: none"/>
+<svg:path d="M5872 3009L6163 2762L6163 906L5872 1154L5872 3009Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #7a7a5a"/>
+<svg:path d="M5872 3009L6163 2762L6163 906L5872 1154L5872 3009Z" style="stroke: #494936; stroke-width: 0.01; fill: none"/>
+<svg:path d="M3061 3916L3432 3462L5997 3462L5625 3916L3061 3916Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #c9c9b6"/>
+<svg:path d="M3061 3916L3432 3462L5997 3462L5625 3916L3061 3916Z" style="stroke: #494936; stroke-width: 0.01; fill: none"/>
+<svg:path d="M5625 3998L5997 3625L5997 3462L5625 3916L5625 3998Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #7a7a5a"/>
+<svg:path d="M5625 3998L5997 3625L5997 3462L5625 3916L5625 3998Z" style="stroke: #494936; stroke-width: 0.01; fill: none"/>
+<svg:path d="M3061 3916L5625 3916L5625 3998L3061 3998L3061 3916Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #b7b79d"/>
+<svg:path d="M3061 3916L5625 3916L5625 3998L3061 3998L3061 3916Z" style="stroke: #494936; stroke-width: 0.01; fill: none"/>
+<svg:path d="M6163 3874L6326 3586L6659 3586L6492 3874L6163 3874Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #c9c9b6"/>
+<svg:path d="M6163 3874L6326 3586L6659 3586L6492 3874L6163 3874Z" style="stroke: #494936; stroke-width: 0.01; fill: none"/>
+<svg:path d="M6492 3956L6659 3791L6659 3586L6492 3874L6492 3956Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #7a7a5a"/>
+<svg:path d="M6492 3956L6659 3791L6659 3586L6492 3874L6492 3956Z" style="stroke: #494936; stroke-width: 0.01; fill: none"/>
+<svg:path d="M6121 3874L6492 3874L6492 3956L6121 3956L6121 3874Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #b7b79d"/>
+<svg:path d="M6121 3874L6492 3874L6492 3956L6121 3956L6121 3874Z" style="stroke: #494936; stroke-width: 0.01; fill: none"/>
+<svg:path d="M3847 2100L3887 2100" style="stroke: #4eff2a; stroke-width: 0.83; fill: none"/>
+<svg:path d="M4012 2100L4012 2100" style="stroke: #4eff2a; stroke-width: 0.83; fill: none"/>
+<svg:path d="M4136 2100L4176 2100" style="stroke: #4eff2a; stroke-width: 0.83; fill: none"/>
+<svg:path d="M4301 2100L4301 2100" style="stroke: #4eff2a; stroke-width: 0.83; fill: none"/>
+<svg:path d="M4425 2100L4467 2100" style="stroke: #4eff2a; stroke-width: 0.83; fill: none"/>
+<svg:path d="M4590 2100L4590 2100" style="stroke: #4eff2a; stroke-width: 0.83; fill: none"/>
+<svg:path d="M4714 2100L4757 2100" style="stroke: #4eff2a; stroke-width: 0.83; fill: none"/>
+<svg:path d="M4879 2100L4879 2100" style="stroke: #4eff2a; stroke-width: 0.83; fill: none"/>
+<svg:path d="M5006 2100L5046 2100" style="stroke: #4eff2a; stroke-width: 0.83; fill: none"/>
+<svg:path d="M5171 2100L5171 2100" style="stroke: #4eff2a; stroke-width: 0.83; fill: none"/>
+<svg:path d="M5292 2100L5334 2100" style="stroke: #4eff2a; stroke-width: 0.83; fill: none"/>
+<svg:path d="M5459 2100L5459 2100" style="stroke: #4eff2a; stroke-width: 0.83; fill: none"/>
+<svg:path d="M5583 2100L5625 2100" style="stroke: #4eff2a; stroke-width: 0.83; fill: none"/>
+<svg:path d="M4301 6345L4341 6922L4425 6964L4714 7170L4757 7500L4467 7500L4260 7500L4260 7581L3929 7623L3803 7623L3721 7623L3721 7334L3763 7252L3847 7047L3803 6469L4301 6345Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.83; fill: #222222"/>
+<svg:path d="M4301 6345L4341 6922L4425 6964L4714 7170L4757 7500L4467 7500L4260 7500L4260 7581L3929 7623L3803 7623L3721 7623L3721 7334L3763 7252L3847 7047L3803 6469L4301 6345Z" style="stroke: #000000; stroke-width: 0.01; fill: none"/>
+<svg:path d="M2896 4986L3970 5025L4260 4986L4425 5067L4467 5231L4550 6756L4425 7005L4176 7047L3803 7005L3681 5932L2896 4986Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #a5a585"/>
+<svg:path d="M2896 4986L3970 5025L4260 4986L4425 5067L4467 5231L4550 6756L4425 7005L4176 7047L3803 7005L3681 5932L2896 4986Z" style="stroke: #000000; stroke-width: 0.01; fill: none"/>
+<svg:path d="M3103 3337L3432 3337L3681 3173L4012 3255L4136 3298L4219 3380L4176 3586L4136 3586L4052 3462L4012 3380L3847 3462L3970 3503L4012 3503L4012 3586L3638 3625L3390 3586L3144 3586L3103 3337Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #ffc2aa"/>
+<svg:path d="M3103 3337L3432 3337L3681 3173L4012 3255L4136 3298L4219 3380L4176 3586L4136 3586L4052 3462L4012 3380L3847 3462L3970 3503L4012 3503L4012 3586L3638 3625L3390 3586L3144 3586L3103 3337Z" style="stroke: #000000; stroke-width: 0.01; fill: none"/>
+<svg:path d="M1985 3255L3350 3298L3432 3420L3432 3668L2358 3874L1985 3255Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #a5a585"/>
+<svg:path d="M1985 3255L3350 3298L3432 3420L3432 3668L2358 3874L1985 3255Z" style="stroke: #000000; stroke-width: 0.01; fill: none"/>
+<svg:path d="M5292 7087L5212 7500L5334 7500L5583 7663L5913 7663L6038 7706L6079 7829L6038 7953L5706 8159L5583 8199L5375 8199L5046 8241L5046 8364L4923 8364L4757 8364L4633 8324L4508 8241L4508 8036L4590 7829L4633 7706L4714 7581L4798 7170L5292 7087Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #222222"/>
+<svg:path d="M5292 7087L5212 7500L5334 7500L5583 7663L5913 7663L6038 7706L6079 7829L6038 7953L5706 8159L5583 8199L5375 8199L5046 8241L5046 8364L4923 8364L4757 8364L4633 8324L4508 8241L4508 8036L4590 7829L4633 7706L4714 7581L4798 7170L5292 7087Z" style="stroke: #000000; stroke-width: 0.01; fill: none"/>
+<svg:path d="M2316 6799L4467 6057L4508 6138L4508 6138L4508 6138L4508 6263L4508 6263L4467 6345L2400 7087L2316 6799Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #008077"/>
+<svg:path d="M2316 6799L4467 6057L4508 6138L4508 6263L4467 6345L2400 7087L2316 6799Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #008077"/>
+<svg:path d="M2316 6799L4467 6057L4508 6138L4508 6263L4467 6345L2400 7087L2316 6799Z" style="stroke: #000000; stroke-width: 0.01; fill: none"/>
+<svg:path d="M2647 6840L2688 7746L3763 7334L3847 7375L3887 7663L3803 7663L3803 7788L3763 7871L3721 7871L3638 7829L3598 7746L3598 7663L2772 7994L3514 8818L3557 9148L3514 9271L3514 9353L3474 9478L3432 9519L3390 9519L3310 9561L3267 9519L3226 9396L3185 9353L3267 9271L3310 9230L3310 9148L3350 9148L3390 9065L2523 8076L1076 8900L1076 9025L1036 9065L1036 9271L993 9313L953 9353L869 9353L787 9271L869 9065L869 8983L953 8860L911 8612L2275 7911L1819 7500L1737 7581L1698 7663L1614 7746L1449 7623L1449 7581L1491 7500L1614 7458L1655 7334L1862 7170L2358 7623L2358 6922L2647 6840Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #aaaaaa"/>
+<svg:path d="M2647 6840L2688 7746L3763 7334L3847 7375L3887 7663L3803 7663L3803 7788L3763 7871L3721 7871L3638 7829L3598 7746L3598 7663L2772 7994L3514 8818L3557 9148L3514 9271L3514 9353L3474 9478L3432 9519L3390 9519L3310 9561L3267 9519L3226 9396L3185 9353L3267 9271L3310 9230L3310 9148L3350 9148L3390 9065L2523 8076L1076 8900L1076 9025L1036 9065L1036 9271L993 9313L953 9353L869 9353L787 9271L869 9065L869 8983L953 8860L911 8612L2275 7911L1819 7500L1737 7581L1698 7663L1614 7746L1449 7623L1449 7581L1491 7500L1614 7458L1655 7334L1862 7170L2358 7623L2358 6922L2647 6840Z" style="stroke: #000000; stroke-width: 0.01; fill: none"/>
+<svg:path d="M4590 4122L4879 3956L4879 3791L5046 3668L5088 3668L5088 3791L5292 3709L5459 3668L5500 3791L5459 3832L5459 4204L5128 4326L5046 4326L4923 4410L4590 4122Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #ffc2aa"/>
+<svg:path d="M4590 4122L4879 3956L4879 3791L5046 3668L5088 3668L5088 3791L5292 3709L5459 3668L5500 3791L5459 3832L5459 4204L5128 4326L5046 4326L4923 4410L4590 4122Z" style="stroke: #000000; stroke-width: 0.01; fill: none"/>
+<svg:path d="M3185 453L3185 824L3185 906L3310 1194L3267 1276L3185 1276L3185 1442L3103 1442L3144 1485L3144 1485L3103 1648L3061 1773L2978 1812L2854 1812L2688 1937L2523 2225L1862 1648L2191 287L3185 453Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #ffc2aa"/>
+<svg:path d="M3185 453L3185 824L3185 906L3310 1194L3267 1276L3185 1276L3185 1442L3103 1442L3144 1485L3103 1648L3061 1773L2978 1812L2854 1812L2688 1937L2523 2225L1862 1648L2191 287L3185 453Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #ffc2aa"/>
+<svg:path d="M3185 453L3185 824L3185 906L3310 1194L3267 1276L3185 1276L3185 1442L3103 1442L3144 1485L3103 1648L3061 1773L2978 1812L2854 1812L2688 1937L2523 2225L1862 1648L2191 287L3185 453Z" style="stroke: #000000; stroke-width: 0.01; fill: none"/>
+<svg:path d="M2565 1112L2439 1237L2316 1566L1944 1648L1779 1607L1572 1318L1572 824L1572 575L1779 206L2067 0L2523 0L2978 123L3103 206L3310 412L3310 536L3021 618L2812 575L2772 784L2812 1112L2647 1194L2606 1154L2565 1112Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #222222"/>
+<svg:path d="M2565 1112L2439 1237L2316 1566L1944 1648L1779 1607L1572 1318L1572 824L1572 575L1779 206L2067 0L2523 0L2978 123L3103 206L3310 412L3310 536L3021 618L2812 575L2772 784L2812 1112L2647 1194L2606 1154L2565 1112Z" style="stroke: #b7b79d; stroke-width: 0.01; fill: none"/>
+<svg:path d="M4590 6016L2772 6674L3021 5768L2772 5274L3970 5192L4425 5192L4798 5192L5334 5150L5500 5231L5583 5522L5583 5975L5500 6756L5541 7663L5334 7706L5128 7788L4550 7706L4674 6138L4590 5975L4590 6016Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #a5a585"/>
+<svg:path d="M4590 6016L2772 6674L3021 5768L2772 5274L3970 5192L4425 5192L4798 5192L5334 5150L5500 5231L5583 5522L5583 5975L5500 6756L5541 7663L5334 7706L5128 7788L4550 7706L4674 6138L4590 5975Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #a5a585"/>
+<svg:path d="M4590 6016L2772 6674L3021 5768L2772 5274L3970 5192L4425 5192L4798 5192L5334 5150L5500 5231L5583 5522L5583 5975L5500 6756L5541 7663L5334 7706L5128 7788L4550 7706L4674 6138L4590 5975" style="stroke: #000000; stroke-width: 0.01; fill: none"/>
+<svg:path d="M1572 1812L1655 1648L1779 1607L1944 1648L2109 1731L2234 1812L2400 2061L2483 2391L2439 2762L2358 2555L1614 2349L1572 1812Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #ffffff"/>
+<svg:path d="M1572 1812L1655 1648L1779 1607L1944 1648L2109 1731L2234 1812L2400 2061L2483 2391L2439 2762L2358 2555L1614 2349L1572 1812Z" style="stroke: #000000; stroke-width: 0.01; fill: none"/>
+<svg:path d="M1614 1690L1819 1773L1985 1812L2191 1978L2275 2061L2358 2225L2483 2349L2606 2513L2688 3586L2978 4287L3310 4903L3557 5522L3557 5850L3432 6181L3350 6469L3310 6634L3226 6840L2688 7005L2358 7087L1572 5975L1242 5274L662 4534L704 4038L744 3337L787 2637L828 2391L953 2143L1076 1937L1325 1812L1407 1773L1614 1690Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #b7b79d"/>
+<svg:path d="M1614 1690L1819 1773L1985 1812L2191 1978L2275 2061L2358 2225L2483 2349L2606 2513L2688 3586L2978 4287L3310 4903L3557 5522L3557 5850L3432 6181L3350 6469L3310 6634L3226 6840L2688 7005L2358 7087L1572 5975L1242 5274L662 4534L704 4038L744 3337L787 2637L828 2391L953 2143L1076 1937L1325 1812L1407 1773L1614 1690Z" style="stroke: #000000; stroke-width: 0.01; fill: none"/>
+<svg:path d="M2523 2513L2150 2844L2109 3050L2067 3337L2027 3586L2150 4122L2483 4410L2854 4615L3390 4820L3929 4944L4633 4698L5088 4410L4879 4162L4674 4038L3887 4244L3763 4122L3557 4122L3267 3625L3061 3255L2937 3009L2854 2719L2772 2637L2523 2513Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #b7b79d"/>
+<svg:path d="M2523 2513L2150 2844L2109 3050L2067 3337L2027 3586L2150 4122L2483 4410L2854 4615L3390 4820L3929 4944L4633 4698L5088 4410L4879 4162L4674 4038L3887 4244L3763 4122L3557 4122L3267 3625L3061 3255L2937 3009L2854 2719L2772 2637L2523 2513Z" style="stroke: #000000; stroke-width: 0.01; fill: none"/>
+<svg:path d="M249 3625L498 3998L1076 4244L1862 5975L2150 6428L2439 7087L1901 7087L1076 6592L0 3625L249 3625Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #008077"/>
+<svg:path d="M249 3625L498 3998L1076 4244L1862 5975L2150 6428L2439 7087L1901 7087L1076 6592L1 3631M1 3625L249 3625M249 3625Z" style="stroke: #000000; stroke-width: 0.01; fill: none"/>
+<!--gsave-->
+<!--setmatrix-->
 </svg:svg>
 <connections>
-<point x="3130" y="-2771"/>
-<point x="3259" y="-2086"/>
-<point x="3014" y="-2467"/>
-<point x="3498" y="-2511"/>
-<point x="2.5" y="1.1" main="yes"/>
+<point x="2067" y="0"/>
+<point x="2523" y="0"/>
+<point x="3267" y="9561"/>
+<point x="0" y="3625"/>
+<point x="6659" y="3312"/>
+<point x="2903.2" y="3299.6" main="yes"/>
 </connections>
+
 </shape>

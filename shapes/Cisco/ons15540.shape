@@ -1,0 +1,123 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
+<name>Cisco - ONS15500</name>
+<icon>ons15540.png</icon>
+<aspectratio type="fixed"/>
+<svg:svg width="5cm" height="2.2cm">
+<!--gsave-->
+<svg:path d="M69 749L69 6877L7134 6877L7134 749L69 749Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.02; fill: #1c96cc"/>
+<svg:path d="M69 6906L96 6877L96 749L41 749L41 6877L69 6906L41 6877L41 6906L69 6906Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #add6e7"/>
+<svg:path d="M7161 6877L7134 6850L69 6850L69 6906L7134 6906L7161 6877L7134 6906L7161 6906L7161 6877Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #add6e7"/>
+<svg:path d="M7134 720L7105 749L7105 6877L7161 6877L7161 749L7134 720L7161 749L7161 720L7134 720Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #add6e7"/>
+<svg:path d="M41 749L69 775L7134 775L7134 720L69 720L41 749L69 720L41 720L41 749Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #add6e7"/>
+<svg:path d="M69 749L749 67L7813 67L7131 749L69 749Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #3cafe4"/>
+<svg:path d="M749 39L729 46L48 728L87 768L770 87L749 39L749 39L738 39L729 46L749 39Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #add6e7"/>
+<svg:path d="M7834 87L7813 39L749 39L749 95L7813 95L7834 87L7834 87L7881 39L7813 39L7834 87Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #add6e7"/>
+<svg:path d="M7131 775L7150 768L7834 87L7794 46L7111 728L7131 775L7131 775L7143 775L7150 768L7131 775Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #add6e7"/>
+<svg:path d="M48 728L69 775L7131 775L7131 720L69 720L48 728L48 728L0 775L69 775L48 728Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #add6e7"/>
+<svg:path d="M7131 6877L7813 6197L7813 67L7131 749L7131 6877Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #075f87"/>
+<svg:path d="M7841 6197L7794 6177L7111 6858L7150 6897L7834 6216L7841 6197L7834 6216L7841 6209L7841 6197Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #add6e7"/>
+<svg:path d="M7794 46L7786 67L7786 6197L7841 6197L7841 67L7794 46L7841 67L7841 0L7794 46Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #add6e7"/>
+<svg:path d="M7103 749L7150 768L7834 87L7794 46L7111 728L7103 749L7111 728L7103 736L7103 749Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #add6e7"/>
+<svg:path d="M7150 6897L7159 6877L7159 749L7103 749L7103 6877L7150 6897L7103 6877L7103 6944L7150 6897Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #add6e7"/>
+<svg:path d="M3985 2665L6702 1553L6702 2302L3985 2665Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #add6e7"/>
+<svg:path d="M3985 2665L6702 3768L6702 3006L3985 2665Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #3cafe4"/>
+<svg:path d="M3985 2665L6702 3006L6702 2302L3985 2665Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #71c0e4"/>
+<svg:path d="M521 3869L952 3699L952 3846L521 4028L521 3869Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #ffffff"/>
+<svg:path d="M1075 3642L1507 3472L1507 3620L1075 3802L1075 3642Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #ffffff"/>
+<svg:path d="M1642 3415L2072 3245L2072 3403L1642 3586L1642 3415Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #ffffff"/>
+<svg:path d="M2197 3200L2627 3030L2627 3175L2197 3358L2197 3200Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #ffffff"/>
+<svg:path d="M2763 2972L3193 2803L3193 2950L2763 3131L2763 2972Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #ffffff"/>
+<svg:path d="M522 6467L565 6424L565 1202L478 1202L478 6424L522 6467L478 6424L478 6467L522 6467Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #ffffff"/>
+<svg:path d="M6724 6424L6678 6378L522 6378L522 6467L6678 6467L6724 6424L6678 6467L6724 6467L6724 6424Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #ffffff"/>
+<svg:path d="M6678 1158L6636 1202L6636 6424L6724 6424L6724 1202L6678 1158L6724 1202L6724 1158L6678 1158Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #ffffff"/>
+<svg:path d="M478 1202L522 1246L6678 1246L6678 1158L522 1158L478 1202L522 1158L478 1158L478 1202Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #ffffff"/>
+<svg:path d="M3576 2136L1936 5503L5224 5503L3576 2136Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #00688f"/>
+<svg:path d="M1936 5531L1961 5515L3601 2149L3549 2122L1911 5491L1936 5531Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #ffffff"/>
+<svg:path d="M5249 5491L5224 5475L1936 5475L1936 5531L5224 5531L5249 5491Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #ffffff"/>
+<svg:path d="M3549 2122L3549 2149L5199 5515L5249 5491L3601 2122L3549 2122Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #ffffff"/>
+<svg:path d="M3376 4374L2747 4374L2747 4288L2567 4465L2747 4644L2747 4553L3376 4553L3376 4374Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #1f1a17"/>
+<svg:path d="M3505 4250L3058 3805L3121 3747L2868 3744L2868 3995L2932 3931L3378 4377L3505 4250Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #1f1a17"/>
+<svg:path d="M3683 4250L3683 3620L3769 3620L3593 3439L3413 3620L3504 3620L3504 4250L3683 4250Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #1f1a17"/>
+<svg:path d="M3808 4377L4252 3931L4312 3993L4313 3740L4063 3740L4127 3805L3680 4250L3808 4377Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #1f1a17"/>
+<svg:path d="M3808 4558L4438 4558L4438 4645L4618 4468L4438 4290L4438 4378L3808 4378L3808 4558Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #1f1a17"/>
+<svg:path d="M3680 4684L4127 5128L4065 5188L4316 5184L4316 4939L4252 5000L3808 4556L3680 4684Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #1f1a17"/>
+<svg:path d="M3502 4684L3502 5314L3415 5314L3593 5494L3772 5314L3683 5314L3683 4684L3502 4684Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #1f1a17"/>
+<svg:path d="M3378 4556L2932 5000L2871 4940L2871 5191L3122 5191L3058 5128L3505 4681L3378 4556Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #1f1a17"/>
+<svg:path d="M3361 4359L2732 4359L2732 4274L2552 4449L2732 4628L2732 4540L3361 4540L3361 4359Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #ffffff"/>
+<svg:path d="M3490 4234L3045 3790L3104 3733L2854 3728L2854 3980L2917 3915L3364 4361L3490 4234Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #ffffff"/>
+<svg:path d="M3668 4234L3668 3603L3754 3603L3579 3425L3399 3603L3488 3603L3488 4234L3668 4234Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #ffffff"/>
+<svg:path d="M3793 4363L4238 3915L4298 3978L4299 3727L4047 3727L4111 3790L3666 4234L3793 4363Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #ffffff"/>
+<svg:path d="M3794 4543L4424 4543L4424 4631L4602 4453L4424 4274L4424 4365L3794 4365L3794 4543Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #ffffff"/>
+<svg:path d="M3666 4668L4111 5114L4051 5172L4301 5170L4301 4924L4238 4987L3793 4542L3666 4668Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #ffffff"/>
+<svg:path d="M3488 4669L3488 5299L3400 5299L3577 5478L3757 5299L3666 5299L3666 4669L3488 4669Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #ffffff"/>
+<svg:path d="M3364 4542L2917 4987L2854 4924L2857 5175L3107 5175L3043 5113L3490 4668L3364 4542Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #ffffff"/>
+<svg:path d="M3677 4150L3482 4150L3494 4147L3505 4144L3518 4143L3529 4141L3541 4140L3555 4138L3566 4138L3579 4138L3591 4138L3604 4138L3616 4140L3630 4141L3643 4143L3654 4144L3666 4147L3677 4150Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #d9322c"/>
+<svg:path d="M3716 4165L3443 4165L3458 4159L3474 4152L3491 4149L3508 4144L3526 4141L3544 4140L3561 4138L3579 4138L3597 4138L3616 4140L3633 4141L3651 4144L3666 4149L3683 4152L3699 4159L3716 4165Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #d9322c"/>
+<svg:path d="M3482 4150L3677 4150L3694 4156L3713 4164L3729 4172L3744 4180L3415 4180L3431 4172L3447 4164L3463 4156L3482 4150Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #db412e"/>
+<svg:path d="M3443 4165L3716 4165L3730 4172L3743 4178L3755 4186L3769 4192L3390 4192L3404 4186L3415 4178L3429 4172L3443 4165Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #dd4d2e"/>
+<svg:path d="M3415 4180L3744 4180L3755 4186L3766 4192L3777 4199L3788 4206L3372 4206L3381 4199L3392 4192L3404 4186L3415 4180Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #df5830"/>
+<svg:path d="M3390 4192L3769 4192L3777 4199L3788 4206L3797 4213L3805 4221L3354 4221L3361 4213L3372 4206L3381 4199L3390 4192Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #df6230"/>
+<svg:path d="M3372 4206L3788 4206L3797 4213L3805 4221L3813 4227L3821 4234L3338 4234L3346 4227L3354 4221L3361 4213L3372 4206Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #e16d30"/>
+<svg:path d="M3354 4221L3805 4221L3813 4227L3821 4234L3827 4242L3836 4247L3324 4247L3332 4242L3338 4234L3346 4227L3354 4221Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #e37730"/>
+<svg:path d="M3338 4234L3821 4234L3827 4242L3833 4247L3840 4256L3847 4263L3313 4263L3317 4256L3324 4247L3332 4242L3338 4234Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #e38032"/>
+<svg:path d="M3324 4247L3836 4247L3840 4256L3847 4263L3852 4269L3858 4277L3302 4277L3306 4269L3313 4263L3317 4256L3324 4247Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #e78b33"/>
+<svg:path d="M3313 4263L3847 4263L3852 4269L3858 4277L3863 4283L3869 4291L3292 4291L3297 4283L3302 4277L3306 4269L3313 4263Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #e89434"/>
+<svg:path d="M3302 4277L3858 4277L3863 4283L3866 4290L3872 4297L3877 4303L3282 4303L3286 4297L3292 4290L3297 4283L3302 4277Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #e9a036"/>
+<svg:path d="M3292 4291L3869 4291L3872 4297L3877 4303L3880 4312L3885 4318L3274 4318L3278 4312L3282 4303L3286 4297L3292 4291Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #ebab32"/>
+<svg:path d="M3282 4303L3877 4303L3880 4312L3885 4318L3888 4325L3891 4333L3265 4333L3271 4325L3274 4318L3278 4312L3282 4303Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #eeb62a"/>
+<svg:path d="M3274 4318L3885 4318L3888 4325L3891 4333L3896 4339L3899 4345L3260 4345L3263 4339L3265 4333L3271 4325L3274 4318Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #f0c422"/>
+<svg:path d="M3265 4333L3891 4333L3896 4339L3899 4345L3902 4353L3904 4359L3254 4359L3258 4353L3260 4345L3263 4339L3265 4333Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #f1cf19"/>
+<svg:path d="M3260 4345L3899 4345L3902 4353L3904 4359L3907 4368L3910 4374L3249 4374L3252 4368L3254 4359L3258 4353L3260 4345Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #f4df00"/>
+<svg:path d="M3254 4359L3904 4359L3907 4368L3910 4374L3911 4381L3913 4389L3246 4389L3247 4381L3249 4374L3252 4368L3254 4359Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #f5ee00"/>
+<svg:path d="M3249 4374L3910 4374L3911 4381L3913 4389L3915 4395L3916 4400L3240 4400L3243 4395L3246 4389L3247 4381L3249 4374Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #f5ee00"/>
+<svg:path d="M3246 4389L3913 4389L3915 4395L3916 4400L3919 4409L3922 4416L3238 4416L3239 4409L3240 4400L3243 4395L3246 4389Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #f5ee00"/>
+<svg:path d="M3240 4400L3916 4400L3919 4409L3922 4416L3922 4422L3922 4430L3236 4430L3238 4422L3238 4416L3239 4409L3240 4400Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #f5ee00"/>
+<svg:path d="M3238 4416L3922 4416L3922 4422L3922 4430L3924 4436L3924 4443L3235 4443L3235 4436L3236 4430L3238 4422L3238 4416Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #e0e617"/>
+<svg:path d="M3236 4430L3922 4430L3924 4436L3924 4443L3926 4450L3926 4456L3233 4456L3233 4450L3235 4443L3235 4436L3236 4430Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #c9dd2a"/>
+<svg:path d="M3235 4443L3924 4443L3926 4450L3926 4456L3927 4465L3927 4471L3231 4471L3231 4465L3233 4456L3233 4450L3235 4443Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #bad630"/>
+<svg:path d="M3233 4456L3926 4456L3927 4465L3927 4471L3927 4478L3927 4486L3231 4486L3231 4478L3231 4471L3231 4465L3233 4456Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #a7cf37"/>
+<svg:path d="M3231 4471L3927 4471L3927 4478L3927 4486L3927 4492L3927 4499L3231 4499L3231 4492L3231 4486L3231 4478L3231 4471Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #97c93a"/>
+<svg:path d="M3231 4486L3927 4486L3927 4486L3927 4492L3927 4500L3927 4506L3926 4513L3233 4513L3231 4506L3231 4500L3231 4492L3231 4486L3231 4486Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #88c33d"/>
+<svg:path d="M3231 4499L3927 4499L3927 4506L3926 4513L3926 4519L3924 4527L3235 4527L3233 4519L3233 4513L3231 4506L3231 4499Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #78bd3f"/>
+<svg:path d="M3233 4513L3926 4513L3926 4519L3924 4527L3924 4534L3922 4542L3236 4542L3235 4534L3235 4527L3233 4519L3233 4513Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #69b840"/>
+<svg:path d="M3235 4527L3924 4527L3924 4534L3922 4542L3922 4547L3922 4553L3238 4553L3238 4547L3236 4542L3235 4534L3235 4527Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #57b340"/>
+<svg:path d="M3236 4542L3922 4542L3922 4547L3922 4553L3919 4562L3916 4569L3240 4569L3239 4562L3238 4553L3238 4547L3236 4542Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #44ae42"/>
+<svg:path d="M3238 4553L3922 4553L3919 4562L3916 4569L3915 4577L3913 4583L3246 4583L3243 4577L3240 4569L3239 4562L3238 4553Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #2aaa43"/>
+<svg:path d="M3240 4569L3916 4569L3915 4577L3913 4583L3911 4589L3910 4596L3249 4596L3247 4589L3246 4583L3244 4577L3240 4569Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #00a543"/>
+<svg:path d="M3246 4583L3913 4583L3911 4589L3910 4597L3907 4603L3904 4609L3254 4609L3252 4603L3251 4597L3247 4589L3246 4583Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #00a142"/>
+<svg:path d="M3249 4596L3910 4596L3907 4603L3904 4609L3902 4618L3899 4625L3260 4625L3258 4618L3254 4609L3252 4603L3249 4596Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #009c42"/>
+<svg:path d="M3254 4609L3904 4609L3902 4618L3899 4625L3896 4631L3891 4639L3265 4639L3263 4631L3260 4625L3258 4618L3254 4609Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #009847"/>
+<svg:path d="M3260 4625L3899 4625L3896 4631L3891 4639L3888 4645L3885 4653L3274 4653L3271 4645L3265 4639L3263 4631L3260 4625Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #009151"/>
+<svg:path d="M3265 4639L3891 4639L3888 4645L3885 4653L3880 4659L3877 4666L3282 4666L3278 4659L3274 4653L3271 4645L3265 4639Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #008a58"/>
+<svg:path d="M3274 4653L3885 4653L3880 4659L3877 4666L3872 4674L3869 4680L3292 4680L3286 4674L3282 4666L3278 4659L3274 4653Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #008460"/>
+<svg:path d="M3282 4666L3877 4666L3872 4674L3866 4680L3863 4687L3858 4695L3302 4695L3297 4687L3292 4680L3286 4674L3282 4666Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #007e64"/>
+<svg:path d="M3292 4680L3869 4680L3863 4688L3858 4695L3852 4700L3847 4708L3313 4708L3306 4700L3302 4695L3297 4688L3292 4680Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #00776a"/>
+<svg:path d="M3302 4695L3858 4695L3852 4700L3847 4709L3840 4716L3833 4722L3324 4722L3317 4716L3313 4709L3306 4700L3302 4695Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #00726e"/>
+<svg:path d="M3313 4708L3847 4708L3840 4716L3833 4722L3827 4730L3821 4736L3338 4736L3332 4730L3324 4722L3317 4716L3313 4708Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #006a71"/>
+<svg:path d="M3324 4722L3833 4722L3827 4730L3821 4736L3813 4743L3805 4750L3354 4750L3346 4743L3338 4736L3332 4730L3324 4722Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #006574"/>
+<svg:path d="M3338 4736L3821 4736L3813 4743L3805 4750L3797 4756L3788 4763L3372 4763L3361 4756L3354 4750L3346 4743L3338 4736Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #0c5e76"/>
+<svg:path d="M3354 4750L3805 4750L3797 4756L3788 4765L3777 4771L3769 4778L3390 4778L3381 4771L3372 4765L3361 4756L3354 4750Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #175778"/>
+<svg:path d="M3372 4763L3788 4763L3777 4771L3766 4778L3755 4786L3744 4792L3415 4792L3404 4786L3392 4778L3381 4771L3372 4763Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #1f5179"/>
+<svg:path d="M3390 4778L3769 4778L3755 4786L3743 4794L3730 4800L3716 4806L3443 4806L3429 4800L3415 4794L3404 4786L3390 4778Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #264a7b"/>
+<svg:path d="M3415 4792L3744 4792L3729 4800L3713 4808L3702 4811L3694 4814L3686 4818L3677 4819L3482 4819L3474 4818L3463 4814L3455 4811L3447 4808L3431 4800L3415 4792Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #29437b"/>
+<svg:path d="M3443 4806L3716 4806L3699 4813L3683 4818L3666 4822L3651 4825L3633 4830L3616 4831L3597 4834L3579 4834L3561 4834L3544 4831L3526 4830L3508 4825L3491 4822L3474 4818L3458 4813L3443 4806Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #2d3b7b"/>
+<svg:path d="M3482 4819L3677 4819L3665 4822L3654 4825L3641 4828L3630 4830L3616 4831L3604 4831L3591 4834L3579 4834L3566 4834L3555 4831L3541 4831L3529 4830L3518 4828L3505 4825L3494 4822L3482 4819Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.00; fill: #312778"/>
+<svg:path d="M3231 4486L3231 4467L3233 4449L3235 4431L3238 4416L3243 4397L3247 4381L3252 4366L3258 4350L3265 4334L3272 4320L3282 4306L3290 4291L3300 4277L3311 4264L3322 4250L3333 4239L3346 4227L3358 4216L3372 4206L3383 4197L3399 4188L3413 4180L3429 4172L3443 4165L3458 4159L3477 4152L3493 4147L3508 4144L3526 4141L3544 4138L3561 4138L3579 4138L3597 4138L3616 4138L3633 4141L3649 4144L3666 4147L3683 4152L3697 4159L3713 4165L3730 4172L3744 4180L3761 4188L3772 4197L3788 4206L3799 4216L3813 4227L3826 4239L3836 4250L3847 4264L3858 4277L3869 4291L3877 4306L3886 4320L3893 4334L3901 4350L3907 4366L3911 4381L3916 4397L3922 4416L3922 4431L3926 4449L3927 4467L3927 4486L3927 4503L3926 4521L3922 4538L3922 4556L3916 4572L3911 4589L3907 4605L3901 4621L3893 4636L3886 4652L3877 4666L3869 4680L3858 4693L3847 4708L3836 4719L3826 4731L3813 4743L3799 4753L3788 4765L3772 4775L3761 4784L3744 4792L3730 4800L3713 4806L3697 4813L3683 4818L3666 4822L3649 4825L3633 4830L3616 4831L3597 4834L3579 4834L3561 4834L3544 4831L3526 4830L3508 4825L3493 4822L3477 4818L3458 4813L3443 4806L3429 4800L3413 4792L3399 4784L3383 4775L3372 4765L3358 4753L3346 4743L3333 4731L3322 4719L3311 4708L3300 4693L3290 4680L3282 4666L3272 4652L3265 4636L3258 4621L3252 4605L3247 4589L3243 4572L3238 4556L3235 4538L3233 4521L3231 4503L3231 4486Z" style="stroke: #ffffff; stroke-width: 0.29; fill: none"/>
+<!--setmatrix-->
+</svg:svg>
+<connections>
+<point x="729" y="0"/>
+<point x="7881" y="0"/>
+<point x="4305" y="0"/>
+<point x="41" y="6944"/>
+<point x="7161" y="6944"/>
+<point x="3601" y="6944"/>
+<point x="0" y="720"/>
+<point x="0" y="3812"/>
+<point x="7881" y="6216"/>
+<point x="7881" y="3108"/>
+<point x="3948" y="3468.8" main="yes"/>
+</connections>
+
+</shape>
