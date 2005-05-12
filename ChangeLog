@@ -1,3 +1,10 @@
+2005-05-12  Lars Clausen  <lars@raeder.dk>
+
+	* shapes/Cisco/*.{shape,png}:
+	* sheets/cisco*.sheet.in:
+	Updated with color icons from Ian Redfern, closing bug #303889.
+	Added automatic midpoints, not attempt at adjusting them.
+
 2005-05-11  Lars Clausen  <lars@raeder.dk>
 
 	* many shapes:  Use mid of bounding box for midpoint, better than
