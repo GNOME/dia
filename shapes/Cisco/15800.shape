@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
+<name>Cisco - 15800</name>
+<icon>15800.png</icon>
+<aspectratio type="fixed"/>
+<svg:svg width="5cm" height="2.2cm">
+<!--gsave-->
+<svg:path d="M30 880L30 9552L6643 9552L6643 880L30 880Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.02; fill: #008ccf"/>
+<svg:path d="M30 9582L62 9552L62 880L0 880L0 9552L30 9582Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.02; fill: #8dcaef"/>
+<svg:path d="M6675 9552L6643 9520L30 9520L30 9582L6643 9582L6675 9552Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.02; fill: #8dcaef"/>
+<svg:path d="M6643 848L6612 880L6612 9552L6675 9552L6675 880L6643 848Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.02; fill: #8dcaef"/>
+<svg:path d="M0 880L30 910L6643 910L6643 848L30 848L0 880Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.02; fill: #8dcaef"/>
+<svg:path d="M30 880L884 30L7495 30L6643 880L30 880Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.02; fill: #009bdf"/>
+<svg:path d="M884 0L862 9L8 856L53 900L906 53L884 0Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.02; fill: #8dcaef"/>
+<svg:path d="M7516 53L7495 0L884 0L884 62L7495 62L7516 53Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.02; fill: #8dcaef"/>
+<svg:path d="M6643 910L6665 900L7516 53L7472 9L6620 856L6643 910Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.02; fill: #8dcaef"/>
+<svg:path d="M8 856L30 910L6643 910L6643 848L30 848L8 856Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.02; fill: #8dcaef"/>
+<svg:path d="M6643 880L7495 30L7495 8700L6643 9552L6643 880Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.02; fill: #00688f"/>
+<svg:path d="M7525 30L7472 9L6620 856L6665 900L7516 53L7525 30Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.02; fill: #8dcaef"/>
+<svg:path d="M7516 8723L7525 8700L7525 30L7463 30L7463 8700L7516 8723Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.02; fill: #8dcaef"/>
+<svg:path d="M6612 9552L6665 9573L7516 8723L7472 8678L6620 9529L6612 9552Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.02; fill: #8dcaef"/>
+<svg:path d="M6620 856L6612 880L6612 9552L6675 9552L6675 880L6620 856Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.02; fill: #8dcaef"/>
+<svg:path d="M4581 3833L5855 3833L5855 3269L4581 3269L4581 1361L1766 3370L1766 4940L595 4940L595 5508L1766 5508L1766 7076L4581 9083L4581 7187L5855 7187L5855 6624L4581 6624L4581 5509L5855 5509L5855 4947L4581 4947L4581 4940L4581 3833Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.02; fill: #1f1a17"/>
+<svg:path d="M4516 3765L5790 3765L5790 3200L4516 3200L4516 1292L1702 3301L1702 4870L531 4870L531 5440L1702 5440L1702 7006L4516 9014L4516 7119L5790 7119L5790 6554L4516 6554L4516 5440L5790 5440L5790 4877L4516 4877L4516 4870L4516 3765Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.02; fill: #ffffff"/>
+<!--gsave-->
+<!--setmatrix-->
+</svg:svg>
+<connections>
+<point x="862" y="0"/>
+<point x="7525" y="0"/>
+<point x="4194" y="0"/>
+<point x="0" y="9582"/>
+<point x="6675" y="9582"/>
+<point x="3337" y="9582"/>
+<point x="0" y="848"/>
+<point x="0" y="5215"/>
+<point x="7525" y="8723"/>
+<point x="7525" y="4361"/>
+<point x="3764.3" y="4789.3" main="yes"/>
+</connections>
+
+</shape>

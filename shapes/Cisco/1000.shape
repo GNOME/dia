@@ -4,27 +4,42 @@
 <icon>1000.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
-<svg:path d="M471.56 -2063.6l58.95 112.32z" style="fill: #595959; stroke-width: 0"/>
-<svg:path d="M502.66 -2126.67l-101.95 0l-31.1 18.15l101.95 0l31.1 -18.15z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M502.66 -2126.67l-101.95 0l-31.1 18.15l101.95 0l31.1 -18.15" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
-<svg:path d="M530.63 -1951.28l0 44.92l29.42 -18.15l0 -44.92l-57.39 -112.32l0 -44.92l-31.1 18.15l0 44.92z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M530.63 -1951.28l0 44.92l29.42 -18.15l0 -44.92l-57.39 -112.32l0 -44.92l-31.1 18.15l0 44.92" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
-<svg:path d="M530.5 -1951.41l-58.95 -112.32l0 0.12l0 -44.92l-101.95 0l0 44.92l0 -0.12l-57.03 112.32l0.18 0.13l0 44.92l217.99 0l0 -44.92l-0.23 -0.13z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M530.5 -1951.41l-58.95 -112.32l0 0.12l0 -44.92l-101.95 0l0 44.92l0 -0.12l-57.03 112.32l0.18 0.13l0 44.92l217.99 0l0 -44.92l-0.23 -0.13" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
-<svg:path d="M419.83 -2008.72l6.04 0l0 44.28l30.05 0l-33.16 39.59l-32.97 -39.59l30.05 0l-0.01 -44.28z" style="fill: background; stroke: background; stroke-width: 0"/>
-<svg:path d="M425.87 -2008.83l-6.04 0l0.01 -44.29l-30.05 0l33.15 -39.57l32.98 39.57l-30.05 0l0 44.29z" style="fill: background; stroke: background; stroke-width: 0"/>
+<!--gsave-->
+<svg:path d="M2178 2350L4668 2350L6712 4922L44 4922L2178 2350Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #0096d4"/>
+<svg:path d="M6712 4922L6712 6562L44 6562L44 4922L6712 4922Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #0078aa"/>
+<svg:path d="M6712 4922L6712 6562L44 6562L44 4922Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #0078aa"/>
+<svg:path d="M2178 2396L2178 797L4668 797L4668 2437L2178 2396Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #0078aa"/>
+<svg:path d="M2178 2396L2178 797L4668 797L4668 2437Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #0078aa"/>
+<svg:path d="M2134 753L2933 0L5423 0L4623 753L2134 753Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #00b4ff"/>
+<svg:path d="M2134 753L2911 19M5401 19L4623 753L2134 753M2134 753Z" style="stroke: #80daff; stroke-width: 0.01; fill: none"/>
+<svg:path d="M2445 4922L4267 4922L3379 6075L2445 4922Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #e2e2e2"/>
+<svg:path d="M3022 2396L3734 2396L3734 4922L3022 4922L3022 2396Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #ffffff"/>
+<svg:path d="M2623 2396L3379 1197L4134 2396L2623 2396Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #e2e2e2"/>
+<svg:path d="M2134 2350L0 4922L0 6562L6667 6562L6667 4922L4623 2350L4623 753L2134 753L2134 2350Z" style="stroke: #80daff; stroke-width: 0.01; fill: none"/>
+<svg:path d="M7557 5674L6667 6562L6667 4922L7557 4036L7557 5674Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #005a80"/>
+<svg:path d="M7557 5674L6667 6562L6667 4922L7557 4036L7557 5674Z" style="stroke: #80daff; stroke-width: 0.01; fill: none"/>
+<svg:path d="M5423 1550L7557 4036L6667 4922L4623 2350L4623 2350L5423 1550Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #0078aa"/>
+<svg:path d="M5423 1550L7557 4036L6667 4922L4623 2350L5423 1550Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #0078aa"/>
+<svg:path d="M5423 1550L7557 4036L6667 4922L4623 2350L5423 1550Z" style="stroke: #80daff; stroke-width: 0.01; fill: none"/>
+<svg:path d="M5423 0L5423 1550L4623 2350L4623 2350L4623 753L5423 0Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #005a80"/>
+<svg:path d="M5423 0L5423 1550L4623 2350L4623 753L5423 0Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #005a80"/>
+<svg:path d="M5423 19L5423 1550L4623 2350L4623 753L5401 19M5423 19Z" style="stroke: #80daff; stroke-width: 0.01; fill: none"/>
+<!--gsave-->
+<!--setmatrix-->
 </svg:svg>
 <connections>
-<point x="401" y="-2126"/>
-<point x="452" y="-2126"/>
-<point x="503" y="-2126"/>
-<point x="313" y="-1905"/>
-<point x="422" y="-1905"/>
-<point x="531" y="-1905"/>
-<point x="313" y="-1950"/>
-<point x="560" y="-1968"/>
-<point x="560" y="-1946"/>
-<point x="560" y="-1924"/>
-<point x="2.5" y="1.1" main="yes"/>
+<point x="2911" y="0"/>
+<point x="5423" y="0"/>
+<point x="4167" y="0"/>
+<point x="0" y="6562"/>
+<point x="6712" y="6562"/>
+<point x="3356" y="6562"/>
+<point x="0" y="4922"/>
+<point x="0" y="5741"/>
+<point x="7557" y="4036"/>
+<point x="7557" y="5674"/>
+<point x="7557" y="4855"/>
+<point x="4112.72727272727" y="4083.09090909091" main="yes"/>
 </connections>
+
 </shape>
