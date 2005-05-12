@@ -4,24 +4,24 @@
 <icon>atm3800.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
-<svg:path d="M4098.87 -5501.7l21.57 -22.91z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M4098.87 -5501.7l21.57 -22.91" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt"/>
-<svg:path d="M4368.68 -5414.88l-279.96 -160.04l0 320.08l279.96 -160.04z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M4368.68 -5414.88l-279.96 -160.04l0 320.08l279.96 -160.04" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt"/>
-<svg:path d="M4363.61 -5413.15l-273.64 -155l45 -45l273.64 155l-45 45z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M4363.61 -5413.15l-273.64 -155l45 -45l273.64 155l-45 45" style="stroke: background; stroke-width: 1.2; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: round"/>
-<svg:path d="M4157.53 -5491.6l-38.35 28.79l45.87 19.67l-7.52 -48.46z" style="fill: background; stroke: background; stroke-width: 0"/>
-<svg:path d="M4109.41 -5512.68l31.8 39.41" style="stroke: background; stroke-width: 1.6; stroke-miterlimit: 3.86; stroke-linecap: butt; stroke-linejoin: mitre"/>
-<svg:path d="M4157.53 -5329.69l-38.35 -28.79l45.87 -19.67l-7.52 48.46z" style="fill: background; stroke: background; stroke-width: 0"/>
-<svg:path d="M4109.41 -5308.63l31.8 -39.41" style="stroke: background; stroke-width: 1.6; stroke-miterlimit: 3.86; stroke-linecap: butt; stroke-linejoin: mitre"/>
-<svg:path d="M4281.02 -5435.31l-1.36 47.93l43.96 -23.63l-42.6 -24.3z" style="fill: background; stroke: background; stroke-width: 0"/>
-<svg:path d="M4234.58 -5410.8l50.64 -0.33" style="stroke: background; stroke-width: 1.6; stroke-miterlimit: 3.86; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M986 11030l2157 -2291" style="stroke: #add6e7; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt"/>
+<svg:path d="M27968 19711l-27995 -16004l0 32008l27995 -16004z" style="fill: #0096d4; stroke-width: 0"/>
+<svg:path d="M27968 19711l-27995 -16004l0 32008l27995 -16004" style="stroke: #add6e7; stroke-width: 0.05; stroke-miterlimit: 4; stroke-linecap: butt"/>
+<svg:path d="M27460 19885l-27364 -15500l4500 -4500l27364 15500l-4500 4500z" style="fill: #00b4ff; stroke-width: 0"/>
+<svg:path d="M27460 19885l-27364 -15500l4500 -4500l27364 15500l-4500 4500" style="stroke: #add6e7; stroke-width: 0.05; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: round"/>
+<svg:path d="M6852 12039l-3835 2879l4587 1967l-752 -4846z" style="fill: #ffffff; stroke: none; stroke-width: 0"/>
+<svg:path d="M2040 9931l3180 3940" style="stroke: #ffffff; stroke-width: 1.6; stroke-miterlimit: 3.86; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M6852 28231l-3835 -2879l4587 -1967l-752 4846z" style="fill: #ffffff; stroke: none; stroke-width: 0"/>
+<svg:path d="M2040 30336l3180 -3940" style="stroke: #ffffff; stroke-width: 1.6; stroke-miterlimit: 3.86; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M19202 17668l-136 4793l4396 -2363l-4260 -2430z" style="fill: #ffffff; stroke: none; stroke-width: 0"/>
+<svg:path d="M14557 20119l5064 -33" style="stroke: #ffffff; stroke-width: 1.6; stroke-miterlimit: 3.86; stroke-linecap: butt; stroke-linejoin: mitre"/>
 </svg:svg>
 <connections>
-<point x="4135" y="-5612"/>
-<point x="4089" y="-5254"/>
-<point x="4089" y="-5574"/>
-<point x="4409" y="-5457"/>
-<point x="2.5" y="1.1" main="yes"/>
+<point x="4600" y="0"/>
+<point x="0" y="35800"/>
+<point x="0" y="3800"/>
+<point x="32000" y="15500"/>
+<point x="9150" y="13775" main="yes"/>
 </connections>
+
 </shape>
