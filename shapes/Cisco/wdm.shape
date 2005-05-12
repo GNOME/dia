@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
+<name>Cisco - WDM</name>
+<icon>wdm.png</icon>
+<aspectratio type="fixed"/>
+<svg:svg width="5cm" height="2.2cm">
+<!--gsave-->
+<svg:path d="M0 495L0 4641L4550 3879L4550 1255L0 495Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #0096d4"/>
+<svg:path d="M0 495L0 4641L4550 3879L4550 1255L0 495Z" style="stroke: #aae6ff; stroke-width: 0.01; fill: none"/>
+<svg:path d="M0 495L530 0L5081 761L4550 1255L0 495Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #00b4ff"/>
+<svg:path d="M0 495L530 0L5081 761L4550 1255L0 495Z" style="stroke: #aae6ff; stroke-width: 0.01; fill: none"/>
+<svg:path d="M4550 1255L5081 761L5081 3347L4550 3841L4550 1255Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #005a80"/>
+<svg:path d="M4550 1255L5081 761L5081 3347L4550 3841L4550 1255Z" style="stroke: #aae6ff; stroke-width: 0.01; fill: none"/>
+<!--gsave-->
+<!--setmatrix-->
+</svg:svg>
+<connections>
+<point x="530" y="0"/>
+<point x="0" y="4641"/>
+<point x="0" y="495"/>
+<point x="0" y="2568"/>
+<point x="5081" y="761"/>
+<point x="5081" y="3347"/>
+<point x="5081" y="2054"/>
+<point x="2253.28571428571" y="1980.85714285714" main="yes"/>
+</connections>
+
+</shape>

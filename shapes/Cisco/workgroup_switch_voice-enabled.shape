@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
+<name>Cisco - Voice switch</name>
+<icon>workgroup_switch_voice-enabled.png</icon>
+<aspectratio type="fixed"/>
+<svg:svg width="5cm" height="2.2cm">
+<!--gsave-->
+<svg:path d="M25 1714L25 3102L5554 3102L5554 1714L25 1714Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #1c96cc"/>
+<svg:path d="M25 3126L50 3102L50 1714L0 1714L0 3102L25 3126Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #add6e7"/>
+<svg:path d="M5580 3102L5554 3076L25 3076L25 3126L5554 3126L5580 3102Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #add6e7"/>
+<svg:path d="M5554 1689L5530 1714L5530 3102L5580 3102L5580 1714L5554 1689Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #add6e7"/>
+<svg:path d="M0 1714L25 1739L5554 1739L5554 1689L25 1689L0 1714Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #add6e7"/>
+<svg:path d="M5554 1714L7238 23L7238 1412L5554 3102L5554 1714Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #075f87"/>
+<svg:path d="M7263 23L7220 6L5537 1696L5573 1731L7256 41L7263 23Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #add6e7"/>
+<svg:path d="M7256 1431L7263 1412L7263 23L7213 23L7213 1412L7256 1431Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #add6e7"/>
+<svg:path d="M5530 3102L5573 3119L7256 1431L7220 1395L5537 3084L5530 3102Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #add6e7"/>
+<svg:path d="M5537 1696L5530 1714L5530 3102L5580 3102L5580 1714L5537 1696Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #add6e7"/>
+<svg:path d="M5554 1714L7238 23L1710 23L25 1714L5554 1714Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #3cafe4"/>
+<svg:path d="M7238 0L7220 6L5537 1696L5573 1731L7256 41L7238 0Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #add6e7"/>
+<svg:path d="M1691 6L1710 50L7238 50L7238 0L1710 0L1691 6Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #add6e7"/>
+<svg:path d="M25 1739L43 1731L1726 41L1691 6L6 1696L25 1739Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #add6e7"/>
+<svg:path d="M5573 1731L5554 1689L25 1689L25 1739L5554 1739L5573 1731Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #add6e7"/>
+<svg:path d="M3452 881L3252 1080L4692 1078L4447 1325L5616 994L5001 752L4870 881L3452 881Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #131516"/>
+<svg:path d="M4144 188L3943 387L5383 385L5138 632L6307 301L5693 59L5562 188L4144 188Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #131516"/>
+<svg:path d="M2938 1398L3142 1199L1700 1200L1945 954L776 1285L1392 1527L1523 1398L2938 1398Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #131516"/>
+<svg:path d="M3631 705L3831 504L2393 506L2636 261L1468 590L2082 833L2214 705L3631 705Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #131516"/>
+<svg:path d="M3502 931L3304 1131L4742 1130L4498 1375L5666 1045L5051 803L4922 931L3502 931Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #ffffff"/>
+<svg:path d="M4194 238L3994 437L5433 435L5188 682L6356 351L5744 109L5611 238L4194 238Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #ffffff"/>
+<svg:path d="M2991 1448L3191 1249L1751 1250L1995 1004L827 1335L1443 1577L1573 1448L2991 1448Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #ffffff"/>
+<svg:path d="M3681 755L3881 556L2443 556L2687 311L1518 642L2131 884L2264 755L3681 755Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #ffffff"/>
+<svg:path d="M3587 1888L3294 1888L2983 2617L2692 1888L2380 1888L2852 3056L3114 3056L3587 1888Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #131516"/>
+<svg:path d="M3558 1816L3267 1816L2955 2545L2662 1816L2351 1816L2824 2983L3086 2983L3558 1816Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #ffffff"/>
+<!--gsave-->
+<!--setmatrix-->
+</svg:svg>
+<connections>
+<point x="1691" y="0"/>
+<point x="7263" y="0"/>
+<point x="4477" y="0"/>
+<point x="0" y="3126"/>
+<point x="5580" y="3126"/>
+<point x="2789" y="3126"/>
+<point x="0" y="1689"/>
+<point x="0" y="2408"/>
+<point x="7263" y="1431"/>
+<point x="7263" y="715"/>
+<point x="3632.6" y="1562.1" main="yes"/>
+</connections>
+
+</shape>

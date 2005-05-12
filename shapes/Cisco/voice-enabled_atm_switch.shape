@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
+<name>Cisco - Voice ATM Switch</name>
+<icon>voice-enabled_atm_switch.png</icon>
+<aspectratio type="fixed"/>
+<svg:svg width="5cm" height="2.2cm">
+<!--gsave-->
+<svg:path d="M0 523L0 4905L4395 4905L4395 523L0 523Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #0096d4"/>
+<svg:path d="M0 523L0 4905L4395 4905L4395 523L0 523Z" style="stroke: #aae6ff; stroke-width: 0.01; fill: none"/>
+<svg:path d="M0 523L557 0L4954 0L4395 523L0 523Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #00b4ff"/>
+<svg:path d="M0 523L557 0L4954 0L4395 523L0 523Z" style="stroke: #aae6ff; stroke-width: 0.01; fill: none"/>
+<svg:path d="M4395 523L4954 0L4954 4342L4395 4864L4395 523Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #005a80"/>
+<svg:path d="M4395 523L4954 0L4954 4342L4395 4864L4395 523Z" style="stroke: #aae6ff; stroke-width: 0.01; fill: none"/>
+<svg:path d="M877 925L877 1366L1757 1366L2238 2371L2716 1366L3595 1366L3595 925L4156 1487L3595 2050L3595 1650L2956 1650L2438 2774L2956 3900L3595 3900L3595 3498L4156 4060L3595 4622L3595 4221L2716 4221L2238 3176L1757 4221L877 4221L877 4622L320 4060L877 3498L877 3900L1477 3900L2037 2774L1477 1650L877 1650L877 2050L320 1487L877 925Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #000000"/>
+<svg:path d="M918 965L918 1407L1798 1407L2278 2411L2756 1407L3634 1407L3634 965L4195 1527L3634 2091L3634 1687L2995 1687L2477 2815L2995 3941L3634 3941L3634 3537L4195 4100L3634 4663L3634 4261L2756 4261L2278 3216L1798 4261L918 4261L918 4663L357 4100L918 3537L918 3941L1518 3941L2077 2815L1518 1687L918 1687L918 2091L357 1527L918 965Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #ffffff"/>
+<svg:path d="M1437 1929L1437 3578L3036 3578L3036 1929L1437 1929Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #0078aa"/>
+<svg:path d="M1437 1929L1437 3578L3036 3578L3036 1929L1437 1929Z" style="stroke: #aae6ff; stroke-width: 0.1; fill: none"/>
+<svg:path d="M1798 2371L2037 2371L2278 2934L2517 2371L2796 2371L2396 3296L2196 3296L1798 2371Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #000000"/>
+<svg:path d="M1757 2330L1998 2330L2238 2894L2477 2330L2756 2330L2356 3257L2157 3257L1757 2330Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #ffffff"/>
+<!--gsave-->
+<!--setmatrix-->
+</svg:svg>
+<connections>
+<point x="557" y="0"/>
+<point x="4954" y="0"/>
+<point x="2756" y="0"/>
+<point x="0" y="4905"/>
+<point x="4395" y="4905"/>
+<point x="2197" y="4905"/>
+<point x="0" y="523"/>
+<point x="0" y="2714"/>
+<point x="4954" y="4342"/>
+<point x="4954" y="2171"/>
+<point x="2476.7" y="2446.5" main="yes"/>
+</connections>
+
+</shape>

@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
+<name>Cisco - uMG series</name>
+<icon>umg_series.png</icon>
+<aspectratio type="fixed"/>
+<svg:svg width="5cm" height="2.2cm">
+<svg:path d="M3433.88 -2019.56l144.29 -116.66l333.11 0l-119.4 116.66l-357.99 0z" style="fill: #00b4ff; stroke-width: 0; stroke: foreground"/>
+<svg:path d="M3433.88 -2019.56l144.29 -116.66l333.11 0l-119.4 116.66l-357.99 0" style="stroke: #add6e7; stroke-width: 0.79656; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M3791.87 -1903.58l119.4 -128.93l0 -103.52l-119.4 116.46l0 115.98z" style="fill: #005a80; stroke-width: 0; stroke: foreground"/>
+<svg:path d="M3791.87 -1903.58l119.4 -128.93l0 -103.52l-119.4 116.46l0 115.98" style="stroke: #add6e7; stroke-width: 0.79656; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M3434.38 -1903.49l357.49 0 l0 -116.074l-357.49 0l0 116.074z" style="fill: #0096d4; stroke-width: 0; stroke: foreground"/>
+<svg:path d="M3434.38 -1903.49l357.49 0 l0 -116.074l-357.49 0l0 116.074" style="stroke: #add6e7; stroke-width: 0.79656; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M3613.13 -1903.49l0 -116.07z" style="fill: foreground; stroke-width: 0; stroke: foreground"/>
+<svg:path d="M3613.13 -1903.49l0 -116.07" style="stroke: background; stroke-width: 2; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M3680.4 -1926.21l62.11 -35.16l-62.11 -35.16l0 70.31z" style="fill: background; stroke-width: 0; stroke: background"/>
+<svg:path d="M3680.4 -1926.21l62.11 -35.16l-62.11 -35.16l0 70.31" style="stroke: background; stroke-width: 0.79656; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M3572.21 -2075.03l0.02 -0.02l157.67 -0.04l-19.7 18.65l86.86 -24.61l-34.79 -24.61l-19.75 18.63l-157.67 0.04l-12.64 11.95z" style="fill: background; stroke-width: 0; stroke: background"/>
+<svg:path d="M3537.64 -1984.5l-76.46 0l0 -9.68l76.46 0l0 -15.14l44.3 19.98l-44.3 19.96l0 -15.13z" style="fill: background; stroke-width: 0; stroke: background"/>
+<svg:path d="M3537.64 -1930.21l-76.46 0l0 -9.68l76.46 0l0 -15.14l44.3 19.98l-44.3 19.96l0 -15.13z" style="fill: background; stroke-width: 0; stroke: background"/>
+</svg:svg>
+<connections>
+<point x="3578.17" y="-2136.22"/>
+<point x="3911.28" y="-2136.22"/>
+<point x="3744.725" y="-2136.22"/>
+<point x="3434.38" y="-1903.49"/>
+<point x="3791.87" y="-1903.49"/>
+<point x="3433.88" y="-2019.564"/>
+<point x="3433.88" y="-1961.527"/>
+<point x="3911.28" y="-2032.51"/>
+<point x="3911.28" y="-2084.365"/>
+<point x="3683.41611111111" y="-2034.84511111111" main="yes"/>
+</connections>
+
+</shape>

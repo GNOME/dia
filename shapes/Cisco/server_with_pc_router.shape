@@ -4,36 +4,44 @@
 <icon>server_with_pc_router.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
-<svg:path d="M3461.64 -3596.52l161.621 0 l0 -281.856l-161.621 0l0 281.856z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M3461.64 -3596.52l161.621 0 l0 -281.856l-161.621 0l0 281.856" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
-<svg:path d="M3461.64 -3878.38l30.88 -25.1l155.84 0l-25.1 25.1l-161.62 0z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M3461.64 -3878.38l30.88 -25.1l155.84 0l-25.1 25.1l-161.62 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
-<svg:path d="M3623.26 -3596.52l25.1 -30.89l0 -276.06l-25.1 25.1l0 281.86z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M3623.26 -3596.52l25.1 -30.89l0 -276.06l-25.1 25.1l0 281.86" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
-<svg:path d="M3461.58 -3767.64l160.9 0" style="stroke: background; stroke-width: 0.6; stroke-miterlimit: 4"/>
-<svg:path d="M3461.58 -3615.76l160.9 0" style="stroke: background; stroke-width: 0.6; stroke-miterlimit: 4"/>
-<svg:path d="M3530.19 -3678.01l0 23.12l-9.04 0l18.11 23.12l18.59 -23.12l-9.04 0l0 -23.13l-18.61 0z" style="fill: background; stroke: background; stroke-width: 0"/>
-<svg:path d="M3530.19 -3696.37l0 -23.13l-9.04 0l18.11 -23.13l18.59 23.12l-9.04 0l0 23.12l-18.61 0z" style="fill: background; stroke: background; stroke-width: 0"/>
-<svg:path d="M3483.07 -3695.29l23.13 0l0 -9.04l23.13 18.11l-23.12 18.59l0 -9.04l-23.13 0l0 -18.61z" style="fill: background; stroke: background; stroke-width: 0"/>
-<svg:path d="M3595.31 -3695.29l-23.12 0l0 -9.04l-23.12 18.11l23.13 18.59l0 -9.04l23.13 0l0 -18.61z" style="fill: background; stroke: background; stroke-width: 0"/>
-<svg:path d="M3474.47 -3827.6l75 0 l0 -30.8201l-75 0l0 30.8201z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M3481.97 -3841.95l60.84 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
-<svg:path d="M3550.31 -3858.61l-75.84 0l0 30" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
-<svg:path d="M3473.04 -3826.95l76.67 0l0 -32.5" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<!--gsave-->
+<svg:path d="M0 571L0 7702L4202 7702L4202 571L0 571Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.02; fill: #0096d4"/>
+<svg:path d="M0 571L0 7702L4202 7702L4202 571L0 571Z" style="stroke: #aae6ff; stroke-width: 0.01; fill: none"/>
+<svg:path d="M0 571L572 0L4773 0L4202 571L0 571Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #00b4ff"/>
+<svg:path d="M0 571L572 0L4773 0L4202 571L0 571Z" style="stroke: #aae6ff; stroke-width: 0.01; fill: none"/>
+<svg:path d="M261 988L2180 988L2180 1925L261 1925Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #2ac0ff"/>
+<svg:path d="M261 988L2178 988L2178 1924L261 1924L261 988Z" style="stroke: #005a80; stroke-width: 0.01; fill: none"/>
+<svg:path d="M572 1457L1817 1457" style="stroke: #aae6ff; stroke-width: 0.3; fill: none"/>
+<svg:path d="M4202 7702L4773 7131L4773 0L4202 571L4202 7702Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.3; fill: #005a80"/>
+<svg:path d="M4202 7702L4773 7131L4773 0L4202 571L4202 7702Z" style="stroke: #aae6ff; stroke-width: 0.01; fill: none"/>
+<svg:path d="M104 7234L4151 7234" style="stroke: #aae6ff; stroke-width: 0.3; fill: none"/>
+<svg:path d="M104 3437L4151 3437" style="stroke: #aae6ff; stroke-width: 0.3; fill: none"/>
+<svg:path d="M53 7183L4151 7183" style="stroke: #005a80; stroke-width: 0.3; fill: none"/>
+<svg:path d="M53 3382L4151 3382" style="stroke: #005a80; stroke-width: 0.3; fill: none"/>
+<svg:path d="M261 1875L261 988L2127 988" style="stroke: #aae6ff; stroke-width: 0.01; fill: none"/>
+<svg:path d="M2284 5569L1817 5569L1817 6089L1505 6089L2076 6663L2595 6089L2284 6089L2284 5569Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #ffffff"/>
+<svg:path d="M2284 5569L1817 5569L1817 6089L1505 6089L2076 6663L2595 6089L2284 6089L2284 5569Z" style="stroke: #003c55; stroke-width: 0.01; fill: none"/>
+<svg:path d="M1817 5100L2284 5100L2284 4476L2595 4476L2025 3905L1505 4476L1817 4476L1817 5100Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #ffffff"/>
+<svg:path d="M1817 5100L2284 5100L2284 4476L2595 4476L2025 3905L1505 4476L1817 4476L1817 5100Z" style="stroke: #003c55; stroke-width: 0.01; fill: none"/>
+<svg:path d="M261 5100L261 5569L1193 5569L1193 5881L1764 5362L1247 4788L1247 5100L261 5100Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #ffffff"/>
+<svg:path d="M261 5100L261 5569L1193 5569L1193 5881L1764 5362L1247 4788L1247 5100L261 5100Z" style="stroke: #003c55; stroke-width: 0.01; fill: none"/>
+<svg:path d="M3840 5518L3840 5100L2854 5100L2854 4737L2284 5308L2854 5881L2854 5518L3840 5518Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #ffffff"/>
+<svg:path d="M3840 5518L3840 5100L2854 5100L2854 4737L2284 5308L2854 5881L2854 5518L3840 5518Z" style="stroke: #003c55; stroke-width: 0.01; fill: none"/>
+<!--gsave-->
+<!--setmatrix-->
 </svg:svg>
 <connections>
-<point x="3493" y="-3902"/>
-<point x="3570.5" y="-3902"/>
-<point x="3648" y="-3902"/>
-<point x="3462" y="-3596"/>
-<point x="3542.5" y="-3596"/>
-<point x="3623" y="-3596"/>
-<point x="3462" y="-3877"/>
-<point x="3462" y="-3822"/>
-<point x="3462" y="-3767"/>
-<point x="3462" y="-3691"/>
-<point x="3462" y="-3615"/>
-<point x="3648" y="-3626"/>
-<point x="2.5" y="1.1" main="yes"/>
+<point x="572" y="0"/>
+<point x="4773" y="0"/>
+<point x="2672" y="0"/>
+<point x="0" y="7702"/>
+<point x="4202" y="7702"/>
+<point x="2101" y="7702"/>
+<point x="0" y="571"/>
+<point x="0" y="3382"/>
+<point x="4773" y="7131"/>
+<point x="4773" y="3565"/>
+<point x="2386.6" y="3775.5" main="yes"/>
 </connections>
+
 </shape>

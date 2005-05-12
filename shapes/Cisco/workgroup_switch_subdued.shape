@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
+<name>Cisco - Workgroup switch Subdued</name>
+<icon>workgroup_switch_subdued.png</icon>
+<aspectratio type="fixed"/>
+<svg:svg width="5cm" height="2.2cm">
+<!--gsave-->
+<svg:path d="M0 1062L0 1962L3644 1962L3644 1062L0 1062Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #aaaaaa"/>
+<svg:path d="M24 1962L3644 1962L3644 1062L24 1062L24 1962Z" style="stroke: #555555; stroke-width: 0.01; fill: none"/>
+<svg:path d="M3644 1062L4772 0L4772 901L3644 1962L3644 1062Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #717171"/>
+<svg:path d="M3644 1062L4772 0L4772 901L3644 1962L3644 1062Z" style="stroke: #555555; stroke-width: 0.01; fill: none"/>
+<svg:path d="M3644 1062L4772 0L1126 0L0 1062L3644 1062Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #c7c7c7"/>
+<svg:path d="M3644 1062L4772 0L1126 0L24 1039L24 1062L3644 1062M3644 1062Z" style="stroke: #555555; stroke-width: 0.01; fill: none"/>
+<svg:path d="M2285 548L2153 675L3081 675L2950 837L3712 643L3315 482L3214 548L2285 548Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #000000"/>
+<svg:path d="M2750 129L2618 257L3546 257L3380 418L4175 193L3744 32L3678 129L2750 129Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #000000"/>
+<svg:path d="M1955 901L2088 773L1126 773L1291 612L528 804L927 965L994 901L1955 901Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #000000"/>
+<svg:path d="M2387 450L2519 323L1590 323L1756 160L960 385L1390 548L1457 450L2387 450Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #000000"/>
+<svg:path d="M2319 579L2187 707L3115 707L2982 868L3744 675L3347 515L3249 579L2319 579Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #ffffff"/>
+<svg:path d="M2783 160L2650 290L3578 290L3413 450L4208 225L3777 65L3712 160L2783 160Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #ffffff"/>
+<svg:path d="M1987 932L2120 804L1160 804L1325 643L562 837L960 998L1026 932L1987 932Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #ffffff"/>
+<svg:path d="M2419 482L2551 354L1622 354L1789 193L994 418L1425 579L1489 482L2419 482Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #ffffff"/>
+<!--gsave-->
+<!--setmatrix-->
+</svg:svg>
+<connections>
+<point x="1126" y="0"/>
+<point x="4772" y="0"/>
+<point x="2950" y="0"/>
+<point x="0" y="1962"/>
+<point x="3644" y="1962"/>
+<point x="1822" y="1962"/>
+<point x="0" y="1039"/>
+<point x="4772" y="901"/>
+<point x="2385.75" y="978.25" main="yes"/>
+</connections>
+
+</shape>

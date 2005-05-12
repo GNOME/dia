@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
+<name>Cisco - WAN</name>
+<icon>wan.png</icon>
+<aspectratio type="fixed"/>
+<svg:svg width="5cm" height="2.2cm">
+<!--gsave-->
+<svg:path d="M0 873L939 0L5745 0L4806 873L0 873Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.02; fill: #c9c9b6"/>
+<svg:path d="M0 873L938 0L5743 0L4806 873L0 873L0 873Z" style="stroke: #494936; stroke-width: 0.01; fill: none"/>
+<svg:path d="M0 873L4806 873L4806 3822L0 3822L0 873Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #b7b79d"/>
+<svg:path d="M0 873L4806 873L4806 3822L0 3822L0 873Z" style="stroke: #494936; stroke-width: 0.01; fill: none"/>
+<svg:path d="M4806 3822L5745 2894L5745 0L4806 873L4806 3822Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #7a7a5a"/>
+<svg:path d="M4806 3822L5745 2894L5745 0L5743 0L4806 873L4806 3822L4806 3822Z" style="stroke: #494936; stroke-width: 0.01; fill: none"/>
+<!--gsave-->
+<!--setmatrix-->
+</svg:svg>
+<connections>
+<point x="938" y="0"/>
+<point x="5745" y="0"/>
+<point x="3341" y="0"/>
+<point x="0" y="3822"/>
+<point x="4806" y="3822"/>
+<point x="2403" y="3822"/>
+<point x="0" y="873"/>
+<point x="0" y="2347"/>
+<point x="5745" y="2894"/>
+<point x="5745" y="1447"/>
+<point x="2872.3" y="1902.7" main="yes"/>
+</connections>
+
+</shape>

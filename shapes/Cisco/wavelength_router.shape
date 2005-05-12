@@ -4,30 +4,72 @@
 <icon>wavelength_router.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
-<svg:path d="M3758.44 -7048.15l0 95l-87.25 69.78l-181.27 0l-90.65 -69.78l0 -95z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M3758.44 -7048.15l0 95l-87.25 69.78l-181.27 0l-90.65 -69.78l0 -95" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
-<svg:path d="M3669.49 -7116.62l-177.87 0l-92.34 68.47l90.65 69.78l181.27 0l87.25 -69.78l-88.95 -68.47z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M3669.49 -7116.62l-177.87 0l-92.34 68.47l90.65 69.78l181.27 0l87.25 -69.78l-88.95 -68.47" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
-<svg:path d="M3543.53 -7074.43l13.85 20.76l-52.34 12.1l11.44 -9.52l-66.97 -14.21l20.3 -15.22l64.11 13.6l9.61 -7.52z" style="fill: background; stroke: background; stroke-width: 0"/>
-<svg:path d="M3617.19 -7024.08l-9.45 -21.4l47.23 -9.44l-8.19 7.33l69.93 11.99l-18.87 15.12l-69.47 -13.25l-11.17 9.65z" style="fill: background; stroke: background; stroke-width: 0"/>
-<svg:path d="M3595.12 -7090.77l52.89 -14.48l0.63 22.67l-13.22 -2.52l-25.81 21.41l-24.63 -3.59l26.65 -20.93l-16.5 -2.55z" style="fill: background; stroke: background; stroke-width: 0"/>
-<svg:path d="M3562.84 -6999.94l-50.36 9.44l-1.87 -23.29l14.47 3.13l27.71 -23.68l24.53 4.17l-29.59 25.82l15.11 4.41z" style="fill: background; stroke: background; stroke-width: 0"/>
-<svg:path d="M3488.34 -6884.49l0 -93.89" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
-<svg:path d="M3670.84 -6884.49l0 -93.89" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<!--gsave-->
+<svg:path d="M1729 2710L0 1281L1729 0L6373 0L8151 1281L6423 2710L1729 2710Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #00b4ff"/>
+<svg:path d="M1729 2710L0 1281" style="stroke: #aae6ff; stroke-width: 0.01; fill: none"/>
+<svg:path d="M0 1281L0 1281" style="stroke: #aae6ff; stroke-width: 0.01; fill: none"/>
+<svg:path d="M0 1281L1729 0" style="stroke: #aae6ff; stroke-width: 0.01; fill: none"/>
+<svg:path d="M1729 0L1729 0" style="stroke: #aae6ff; stroke-width: 0.01; fill: none"/>
+<svg:path d="M1729 0L6373 0" style="stroke: #aae6ff; stroke-width: 0.01; fill: none"/>
+<svg:path d="M6373 0L6373 0" style="stroke: #aae6ff; stroke-width: 0.01; fill: none"/>
+<svg:path d="M6373 0L8151 1281" style="stroke: #aae6ff; stroke-width: 0.01; fill: none"/>
+<svg:path d="M8151 1281L8151 1281" style="stroke: #aae6ff; stroke-width: 0.01; fill: none"/>
+<svg:path d="M8151 1281L6423 2710" style="stroke: #aae6ff; stroke-width: 0.01; fill: none"/>
+<svg:path d="M6423 2710L6423 2710" style="stroke: #aae6ff; stroke-width: 0.01; fill: none"/>
+<svg:path d="M6423 2710L1729 2710" style="stroke: #aae6ff; stroke-width: 0.01; fill: none"/>
+<svg:path d="M1729 2710L1729 2710" style="stroke: #aae6ff; stroke-width: 0.01; fill: none"/>
+<svg:path d="M4198 1034L4790 1231L6175 688L6868 837L6520 344L4790 344L5534 492L4198 1034Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #000000"/>
+<svg:path d="M3953 1626L3359 1429L1927 1971L1282 1823L1629 2315L3310 2315L2617 2119L3953 1626Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #000000"/>
+<svg:path d="M1432 492L2027 295L3457 886L4100 688L3754 1183L2027 1183L2767 1034L1432 492Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #000000"/>
+<svg:path d="M6768 2169L6175 2365L4743 1823L4100 1971L4445 1479L6127 1479L5434 1626L6768 2169Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #000000"/>
+<svg:path d="M4247 1083L4841 1281L6225 688L6917 886L6520 394L4841 394L5584 541L4247 1083Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #ffffff"/>
+<svg:path d="M4001 1626L3410 1429L1975 2021L1332 1823L1681 2315L3359 2315L2668 2169L4001 1626Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #ffffff"/>
+<svg:path d="M1482 541L2074 344L3457 886L4148 738L3803 1231L2074 1231L2815 1083L1482 541Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #ffffff"/>
+<svg:path d="M6817 2217L6225 2414L4790 1823L4148 2021L4495 1526L6175 1526L5484 1675L6817 2217Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #ffffff"/>
+<svg:path d="M1729 2710L1729 4831L6423 4831L6423 2710L1729 2710Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #0078aa"/>
+<svg:path d="M1729 2710L1729 4831" style="stroke: #aae6ff; stroke-width: 0.01; fill: none"/>
+<svg:path d="M1729 4831L1729 4831" style="stroke: #aae6ff; stroke-width: 0.01; fill: none"/>
+<svg:path d="M1729 4831L6423 4831" style="stroke: #aae6ff; stroke-width: 0.01; fill: none"/>
+<svg:path d="M6423 4831L6423 4831" style="stroke: #aae6ff; stroke-width: 0.01; fill: none"/>
+<svg:path d="M6423 4831L6423 2710" style="stroke: #aae6ff; stroke-width: 0.01; fill: none"/>
+<svg:path d="M6423 2710L6423 2710" style="stroke: #aae6ff; stroke-width: 0.01; fill: none"/>
+<svg:path d="M6423 2710L1729 2710" style="stroke: #aae6ff; stroke-width: 0.01; fill: none"/>
+<svg:path d="M1729 2710L1729 2710" style="stroke: #aae6ff; stroke-width: 0.01; fill: none"/>
+<svg:path d="M6423 2710L6423 4831L8151 3400L8151 1281L6423 2710Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #004866"/>
+<svg:path d="M6423 2710L6423 4831" style="stroke: #aae6ff; stroke-width: 0.01; fill: none"/>
+<svg:path d="M6423 4831L6423 4831" style="stroke: #aae6ff; stroke-width: 0.01; fill: none"/>
+<svg:path d="M6423 4831L8151 3400" style="stroke: #aae6ff; stroke-width: 0.01; fill: none"/>
+<svg:path d="M8151 3400L8151 3400" style="stroke: #aae6ff; stroke-width: 0.01; fill: none"/>
+<svg:path d="M8151 3400L8151 1281" style="stroke: #aae6ff; stroke-width: 0.01; fill: none"/>
+<svg:path d="M8151 1281L8151 1281" style="stroke: #aae6ff; stroke-width: 0.01; fill: none"/>
+<svg:path d="M8151 1281L6423 2710" style="stroke: #aae6ff; stroke-width: 0.01; fill: none"/>
+<svg:path d="M6423 2710L6423 2710" style="stroke: #aae6ff; stroke-width: 0.01; fill: none"/>
+<svg:path d="M1729 2710L1729 4831L0 3302L0 1281L1729 2710Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #00b4ff"/>
+<svg:path d="M1729 2710L1729 4831" style="stroke: #aae6ff; stroke-width: 0.01; fill: none"/>
+<svg:path d="M1729 4831L1729 4831" style="stroke: #aae6ff; stroke-width: 0.01; fill: none"/>
+<svg:path d="M1729 4831L0 3302" style="stroke: #aae6ff; stroke-width: 0.01; fill: none"/>
+<svg:path d="M0 3302L0 3302" style="stroke: #aae6ff; stroke-width: 0.01; fill: none"/>
+<svg:path d="M0 3302L0 1281" style="stroke: #aae6ff; stroke-width: 0.01; fill: none"/>
+<svg:path d="M0 1281L0 1281" style="stroke: #aae6ff; stroke-width: 0.01; fill: none"/>
+<svg:path d="M0 1281L1729 2710" style="stroke: #aae6ff; stroke-width: 0.01; fill: none"/>
+<svg:path d="M1729 2710L1729 2710" style="stroke: #aae6ff; stroke-width: 0.01; fill: none"/>
+<!--gsave-->
+<!--setmatrix-->
 </svg:svg>
 <connections>
-<point x="3492" y="-7116"/>
-<point x="3580.5" y="-7116"/>
-<point x="3669" y="-7116"/>
-<point x="3490" y="-6882"/>
-<point x="3580.5" y="-6882"/>
-<point x="3671" y="-6882"/>
-<point x="3399" y="-7047"/>
-<point x="3399" y="-6999.5"/>
-<point x="3399" y="-6952"/>
-<point x="3758" y="-7047"/>
-<point x="3758" y="-6999.5"/>
-<point x="3758" y="-6952"/>
-<point x="2.5" y="1.1" main="yes"/>
+<point x="1729" y="0"/>
+<point x="6373" y="0"/>
+<point x="4051" y="0"/>
+<point x="1729" y="4831"/>
+<point x="6423" y="4831"/>
+<point x="4076" y="4831"/>
+<point x="0" y="1281"/>
+<point x="0" y="3302"/>
+<point x="0" y="2291"/>
+<point x="8151" y="1281"/>
+<point x="8151" y="3400"/>
+<point x="8151" y="2340"/>
+<point x="4069.5" y="2365.66666666667" main="yes"/>
 </connections>
+
 </shape>

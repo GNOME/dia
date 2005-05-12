@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
+<name>Cisco - Wireless router</name>
+<icon>wireless_router.png</icon>
+<aspectratio type="fixed"/>
+<svg:svg width="5cm" height="2.2cm">
+<svg:path d="M318.109 -395.983L318.109 -412.343" style="stroke-width: 0.4; stroke: #00aed9; fill: none; stroke-miterlimit: 4"/>
+<svg:path d="M318.109 -396.247L318.109 -407.469" style="stroke-width: 2; stroke: #00aed9; fill: none; stroke-miterlimit: 4"/>
+<svg:path d="M318.584 -410.771L317.584 -410.771L317.584 -412.771L318.584 -412.771L318.584 -410.771Z" style="stroke-width: 2; stroke: none; fill: #000000; stroke-miterlimit: 4"/>
+<svg:path d="M318.584 -410.771L317.584 -410.771L317.584 -412.771L318.584 -412.771L318.584 -410.771Z" style="stroke: #00aed9; fill: none; stroke-miterlimit: 4"/>
+<svg:path d="M293.859 -395.983L293.859 -412.343" style="stroke-width: 0.4; stroke: #00aed9; fill: none; stroke-miterlimit: 4"/>
+<svg:path d="M293.859 -396.247L293.859 -407.469" style="stroke-width: 2; stroke: #00aed9; fill: none; stroke-miterlimit: 4"/>
+<svg:path d="M294.334 -410.771L293.334 -410.771L293.334 -412.771L294.334 -412.771L294.334 -410.771Z" style="stroke-width: 2; stroke: none; fill: #000000; stroke-miterlimit: 4"/>
+<svg:path d="M294.334 -410.771L293.334 -410.771L293.334 -412.771L294.334 -412.771L294.334 -410.771Z" style="stroke: #00aed9; fill: none; stroke-miterlimit: 4"/>
+<svg:path d="M324.892 -393.906C324.892 -389.956 316.658 -386.754 306.5 -386.754C296.342 -386.754 288.108 -389.956 288.108 -393.906L288.108 -383.43C288.108 -379.479 296.342 -376.277 306.5 -376.277C316.658 -376.277 324.892 -379.479 324.892 -383.43L324.892 -393.906Z" style="stroke: none; fill: #00aed9; stroke-miterlimit: 4"/>
+<svg:path d="M324.892 -393.906C324.892 -389.956 316.658 -386.754 306.5 -386.754C296.342 -386.754 288.108 -389.956 288.108 -393.906L288.108 -383.43C288.108 -379.479 296.342 -376.277 306.5 -376.277C316.658 -376.277 324.892 -379.479 324.892 -383.43L324.892 -393.906Z" style="stroke-width: 0.4; stroke: #ffffff; fill: none; stroke-miterlimit: 4"/>
+<svg:path d="M306.5 -386.754C316.658 -386.754 324.892 -389.956 324.892 -393.906C324.892 -397.857 316.658 -401.059 306.5 -401.059C296.342 -401.059 288.108 -397.857 288.108 -393.906C288.108 -389.956 296.342 -386.754 306.5 -386.754Z" style="stroke-width: 0.4; stroke: none; fill: #00aed9; stroke-miterlimit: 4"/>
+<svg:path d="M306.5 -386.754C316.658 -386.754 324.892 -389.956 324.892 -393.906C324.892 -397.857 316.658 -401.059 306.5 -401.059C296.342 -401.059 288.108 -397.857 288.108 -393.906C288.108 -389.956 296.342 -386.754 306.5 -386.754Z" style="stroke-width: 0.4; stroke: #ffffff; fill: none; stroke-miterlimit: 4"/>
+<svg:path d="M302.3 -396.703L303.819 -394.425L298.077 -393.098L299.331 -394.142L290.456 -395.659L292.683 -397.328L301.246 -395.878L302.3 -396.703Z" style="stroke-width: 0.4; stroke: none; fill: #ffffff; stroke-miterlimit: 4"/>
+<svg:path d="M310.381 -391.179L309.344 -393.527L314.523 -394.562L313.625 -393.758L322.258 -392.283L320.188 -390.626L311.605 -392.237L310.381 -391.179Z" style="stroke-width: 0.4; stroke: none; fill: #ffffff; stroke-miterlimit: 4"/>
+<svg:path d="M307.548 -397.947L313.35 -399.535L313.418 -397.048L311.969 -397.325L309.136 -394.977L306.435 -395.371L309.357 -397.668L307.548 -397.947Z" style="stroke-width: 0.4; stroke: none; fill: #ffffff; stroke-miterlimit: 4"/>
+<svg:path d="M305.062 -389.037L299.538 -388.002L299.331 -390.556L300.918 -390.212L303.959 -392.809L306.651 -392.353L303.405 -389.521L305.062 -389.037Z" style="stroke-width: 0.4; stroke: none; fill: #ffffff; stroke-miterlimit: 4"/>
+</svg:svg>
+<connections>
+<point x="293.334" y="-412.771"/>
+<point x="318.584" y="-412.771"/>
+<point x="306.5" y="-376.277"/>
+<point x="288.108" y="-393.906"/>
+<point x="288.108" y="-383.43"/>
+<point x="288.108" y="-388.668"/>
+<point x="324.892" y="-393.906"/>
+<point x="324.892" y="-383.43"/>
+<point x="324.892" y="-388.668"/>
+<point x="306.379777777778" y="-392.647444444444" main="yes"/>
+</connections>
+
+</shape>
