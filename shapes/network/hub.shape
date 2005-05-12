@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
-<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
-       xmlns:svg="http://www.w3.org/2000/svg">
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
   <name>Network - Hub</name>
   <icon>hub.png</icon>
   <connections>
@@ -13,30 +12,20 @@
      <point x="3.125" y=".87"/>
      <point x="3.625" y=".87"/>
      <point x="4.125" y=".87"/>
-     <point x="2.38888888888889" y="1.01777777777778" main="yes"/>
+     <point x="2.5" y="1.1" main="yes"/>
   </connections>
   <aspectratio type="fixed"/>
   <textbox x1="0" y1="2.3" x2="5" y2="5.3" align="center" resize="no"/>
   <svg:svg width="5cm" height="2.2cm">
-    <svg:rect style="stroke: foreground; stroke-width:.8; fill:#B3B3B3"
-     x="0" y="0" width="5" height="2.2"/>
+    <svg:rect style="stroke: foreground; stroke-width:.8; fill:#B3B3B3" x="0" y="0" width="5" height="2.2"/>
 
-    <svg:rect style="stroke:none; fill:foreground"
-     x=".5" y=".75" width=".25" height=".24"/>
-    <svg:rect style="stroke:none; fill:foreground"
-     x="1" y=".75" width=".25" height=".24"/>
-    <svg:rect style="stroke:none; fill:foreground"
-     x="1.5" y=".75" width=".25" height=".24"/>
-    <svg:rect style="stroke:none; fill:foreground"
-     x="2" y=".75" width=".25" height=".24"/>
-    <svg:rect style="stroke:none; fill:foreground"
-     x="2.5" y=".75" width=".25" height=".24"/>
-    <svg:rect style="stroke:none; fill:foreground"
-     x="3" y=".75" width=".25" height=".24"/>
-    <svg:rect style="stroke:none; fill:foreground"
-     x="3.5" y=".75" width=".25" height=".24"/>
-    <svg:rect style="stroke:none; fill:foreground"
-     x="4" y=".75" width=".25" height=".24"/>
+    <svg:rect style="stroke:none; fill:foreground" x=".5" y=".75" width=".25" height=".24"/>
+    <svg:rect style="stroke:none; fill:foreground" x="1" y=".75" width=".25" height=".24"/>
+    <svg:rect style="stroke:none; fill:foreground" x="1.5" y=".75" width=".25" height=".24"/>
+    <svg:rect style="stroke:none; fill:foreground" x="2" y=".75" width=".25" height=".24"/>
+    <svg:rect style="stroke:none; fill:foreground" x="2.5" y=".75" width=".25" height=".24"/>
+    <svg:rect style="stroke:none; fill:foreground" x="3" y=".75" width=".25" height=".24"/>
+    <svg:rect style="stroke:none; fill:foreground" x="3.5" y=".75" width=".25" height=".24"/>
+    <svg:rect style="stroke:none; fill:foreground" x="4" y=".75" width=".25" height=".24"/>
   </svg:svg>
 </shape>
-

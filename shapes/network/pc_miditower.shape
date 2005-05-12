@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
-<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
-       xmlns:svg="http://www.w3.org/2000/svg">
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
   <name>Network - A Miditower PC</name>
   <icon>pc_miditower.png</icon>
   <connections>
@@ -12,7 +11,7 @@
    <point x="12" y="10"/>
    <point x="7" y="0"/>
    <point x="7" y="20"/>
-   <point x="7" y="10" main="yes"/>
+   <point x="5.5" y="15" main="yes"/>
   </connections>
   <aspectratio type="fixed"/>
   <svg:svg width="11cm" height="30cm" viewBox="1 -1 13 30">

@@ -1,7 +1,5 @@
 <?xml version="1.0"?>
-
-<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
-       xmlns:svg="http://www.w3.org/2000/svg">
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
   <name>SDL - InOut</name>
   <description>In/Out Connector</description>
   <icon>inout.png</icon>
@@ -10,7 +8,7 @@
     <point x="1" y="0.5"/>
     <point x="1" y="0.5"/>
     <point x="0.5" y="1"/>
-    <point x="0.75" y="0.5" main="yes"/>
+    <point x="0.5" y="0.5" main="yes"/>
   </connections>
   <textbox x1="0.15" y1="0.15" x2="0.85" y2="0.85"/>
   <svg:svg width="1" height="1">

@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
-<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
-       xmlns:svg="http://www.w3.org/2000/svg">
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
   <name>Network - A Workstation Monitor</name>
   <icon>monitor.png</icon>
   <connections>
@@ -14,7 +13,7 @@
     <point x="18" y="15"/>
     <point x="3" y="18"/>
     <point x="15" y="18"/>
-    <point x="9" y="10.2" main="yes"/>
+    <point x="9.5" y="9.5" main="yes"/>
   </connections>
   <aspectratio type="fixed"/>
   <svg:svg width="19cm" height="19cm" viewBox="0 0 18 18">

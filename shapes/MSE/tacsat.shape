@@ -1,7 +1,5 @@
 <?xml version="1.0"?>
-
-<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
-       xmlns:svg="http://www.w3.org/2000/svg">
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
   <name>Tactical Satellite Communications Terminal</name>
   <description>Tactical Satellite Communications Terminal</description>
   <icon>tacsat.png</icon>
@@ -10,7 +8,7 @@
     <point x="3.6667" y="10"/>
     <point x="6.3333" y="10"/>
     <point x="9" y="10"/>
-    <point x="5" y="10" main="yes"/>
+    <point x="6" y="5" main="yes"/>
   </connections>
   <svg:svg width="12" height="10">
     <svg:line x1="1" y1="10" x2="5" y2="6"/>

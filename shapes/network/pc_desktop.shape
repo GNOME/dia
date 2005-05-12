@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
-<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
-       xmlns:svg="http://www.w3.org/2000/svg">
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
   <name>Network - A Desktop PC</name>
   <icon>pc_desktop.png</icon>
   <connections>
@@ -12,7 +11,7 @@
    <point x="21" y="3.5"/>
    <point x="10.5" y="0"/>
    <point x="10.5" y="7"/>
-   <point x="10.5" y="3.5" main="yes"/>
+   <point x="11" y="4" main="yes"/>
   </connections>
   <aspectratio type="fixed"/>
   <svg:svg width="22cm" height="8cm" viewBox="-1 -1 22 8">

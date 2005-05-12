@@ -1,7 +1,5 @@
 <?xml version="1.0"?>
-
-<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
-       xmlns:svg="http://www.w3.org/2000/svg">
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
   <name>Small Extension Node</name>
   <description>Small Extension Node</description>
   <icon>small_extension_node.png</icon>
@@ -23,4 +21,3 @@
     <svg:line x1="8" y1="0" x2="8" y2="6"/>
   </svg:svg>
 </shape>
-

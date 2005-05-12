@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
-<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
-       xmlns:svg="http://www.w3.org/2000/svg">
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
   <name>Network - A Diskette</name>
   <icon>diskette.png</icon>
   <connections>
@@ -13,7 +12,7 @@
    <point x="16" y="8.75"/>
    <point x="8" y="0"/>
    <point x="8" y="17.5"/>
-   <point x="7.22222222222222" y="9.61111111111111" main="yes"/>
+   <point x="8.5" y="9" main="yes"/>
   </connections>
   <aspectratio type="fixed"/>
   <svg:svg width="17cm" height="18cm" viewBox="-1 -1 17 18">

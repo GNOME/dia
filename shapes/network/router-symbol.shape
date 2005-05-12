@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
-<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
-       xmlns:svg="http://www.w3.org/2000/svg">
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
   <name>Network - Router Symbol</name>
   <icon>router-symbol.png</icon>
   <connections>
@@ -8,7 +7,7 @@
     <point x="0.5" y="0"/>
     <point x="0.5" y="1"/>
     <point x="1" y="0.5"/>
-    <point x="0.65" y="0.94" main="yes"/>
+    <point x="0.75" y="0.75" main="yes"/>
   </connections>
   <aspectratio type="fixed"/>
   <svg:svg width="1.5cm" height="1.5cm" viewBox="-1 -1 2 2">
@@ -24,4 +23,3 @@
     <svg:polygon style="fill: #000000" points="0.40,0.76 0.45,0.86 0.50,0.76"/>
   </svg:svg>
 </shape>
-

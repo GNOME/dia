@@ -1,7 +1,5 @@
 <?xml version="1.0"?>
-
-<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
-       xmlns:svg="http://www.w3.org/2000/svg">
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
   <name>Demultiplexer</name>
   <description>Demultiplexer</description>
   <icon>demultiplexer.png</icon>
@@ -18,7 +16,7 @@
     <point x="0" y="8"/>
     <point x="0" y="9"/>
     <point x="0" y="10"/>
-    <point x="0.833333333333333" y="5" main="yes"/>
+    <point x="5" y="5" main="yes"/>
   </connections>
   <svg:svg width="10" height="10">
     <svg:line x1="10" y1="5" x2="0" y2="0"/>
