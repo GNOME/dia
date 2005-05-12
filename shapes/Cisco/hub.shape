@@ -4,28 +4,48 @@
 <icon>hub.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
-<svg:path d="M5370.89 -5267.67l276.543 0 l0 -241.738l-276.543 0l0 241.738z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M5370.89 -5267.67l276.543 0 l0 -241.738l-276.543 0l0 241.738" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
-<svg:path d="M5402.74 -5542.08l-31.85 32.68l276.54 0l31.88 -32.68l-276.56 0z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M5402.74 -5542.08l-31.85 32.68l276.54 0l31.88 -32.68l-276.56 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
-<svg:path d="M5679.31 -5300.35l0 -241.73l-31.87 32.68l0 241.74l31.88 -32.69z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M5679.31 -5300.35l0 -241.73l-31.87 32.68l0 241.74l31.88 -32.69" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
-<svg:path d="M5391.51 -5287.24l150.781 0 l0 -199.024l-150.781 0l0 199.024" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
-<svg:path d="M5417.43 -5305.73l0 -161.6" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
-<svg:path d="M5441.26 -5305.73l0 -161.6" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
-<svg:path d="M5465.09 -5305.73l0 -161.6" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
-<svg:path d="M5489.44 -5305.73l0 -161.6" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
-<svg:path d="M5513.25 -5305.73l0 -161.6" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>
+<!--gsave-->
+<svg:path d="M0 450L0 6044L7058 6044L7058 450L0 450Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #0096d4"/>
+<svg:path d="M0 450L0 6044L7058 6044L7058 450L0 450Z" style="stroke: #aae6ff; stroke-width: 0.01; fill: none"/>
+<svg:path d="M0 450L453 0L7511 0L7058 450L0 450Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #00b4ff"/>
+<svg:path d="M0 450L453 0L7511 0L7058 450L0 450Z" style="stroke: #aae6ff; stroke-width: 0.01; fill: none"/>
+<svg:path d="M453 939L4290 939L4290 5674L453 5674L453 939Z" style="stroke: #aae6ff; stroke-width: 0.03; fill: none"/>
+<svg:path d="M7058 6044L7511 5593L7511 0L7058 450L7058 6044Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.03; fill: #005a80"/>
+<svg:path d="M7058 6044L7511 5593L7511 0L7058 450L7058 6044Z" style="stroke: #aae6ff; stroke-width: 0.01; fill: none"/>
+<!--gsave-->
+<svg:path d="M1198 5267L1198 1469" style="stroke: #aae6ff; stroke-width: 0.03; fill: none"/>
+<!--gsave-->
+<svg:path d="M1817 5267L1817 1469" style="stroke: #000000; stroke-width: 0.03; fill: none"/>
+<!--gsave-->
+<svg:path d="M2434 5267L2434 1469" style="stroke: #000000; stroke-width: 0.03; fill: none"/>
+<!--gsave-->
+<svg:path d="M3054 5267L3054 1469" style="stroke: #000000; stroke-width: 0.03; fill: none"/>
+<!--gsave-->
+<svg:path d="M3673 5267L3673 1469" style="stroke: #000000; stroke-width: 0.03; fill: none"/>
+<!--gsave-->
+<svg:path d="M1114 5184L1114 1388" style="stroke: #003c55; stroke-width: 0.03; fill: none"/>
+<!--gsave-->
+<svg:path d="M1734 5184L1734 1388" style="stroke: #000000; stroke-width: 0.03; fill: none"/>
+<!--gsave-->
+<svg:path d="M2351 5184L2351 1388" style="stroke: #000000; stroke-width: 0.03; fill: none"/>
+<!--gsave-->
+<svg:path d="M2970 5184L2970 1388" style="stroke: #000000; stroke-width: 0.03; fill: none"/>
+<!--gsave-->
+<svg:path d="M3590 5184L3590 1388" style="stroke: #000000; stroke-width: 0.03; fill: none"/>
+<!--gsave-->
+<!--setmatrix-->
 </svg:svg>
 <connections>
-<point x="5403" y="-5541"/>
-<point x="5541" y="-5541"/>
-<point x="5679" y="-5541"/>
-<point x="5371" y="-5267"/>
-<point x="5509" y="-5267"/>
-<point x="5647" y="-5267"/>
-<point x="5371" y="-5508"/>
-<point x="5679" y="-5299"/>
-<point x="2.5" y="1.1" main="yes"/>
+<point x="453" y="0"/>
+<point x="7511" y="0"/>
+<point x="3982" y="0"/>
+<point x="0" y="6044"/>
+<point x="7058" y="6044"/>
+<point x="3529" y="6044"/>
+<point x="0" y="3247"/>
+<point x="7511" y="5593"/>
+<point x="7511" y="2796"/>
+<point x="4172.77777777778" y="3307.55555555556" main="yes"/>
 </connections>
+
 </shape>

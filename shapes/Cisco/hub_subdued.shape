@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
+<name>Cisco - Hub subdued</name>
+<icon>hub_subdued.png</icon>
+<aspectratio type="fixed"/>
+<svg:svg width="5cm" height="2.2cm">
+<!--gsave-->
+<svg:path d="M0 450L0 6044L7058 6044L7058 450L0 450Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #b7b79d"/>
+<svg:path d="M0 450L0 6044L7058 6044L7058 450L0 450Z" style="stroke: #494936; stroke-width: 0.01; fill: none"/>
+<svg:path d="M0 450L453 0L7511 0L7058 450L0 450Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #c9c9b6"/>
+<svg:path d="M0 450L453 0L7511 0L7058 450L0 450Z" style="stroke: #494936; stroke-width: 0.01; fill: none"/>
+<svg:path d="M453 939L4290 939L4290 5674L453 5674L453 939Z" style="stroke: #ecece7; stroke-width: 0.03; fill: none"/>
+<svg:path d="M7058 6044L7511 5593L7511 0L7058 450L7058 6044Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.03; fill: #7a7a5a"/>
+<svg:path d="M7058 6044L7511 5593L7511 0L7058 450L7058 6044Z" style="stroke: #494936; stroke-width: 0.01; fill: none"/>
+<!--gsave-->
+<svg:path d="M1198 5267L1198 1469" style="stroke: #ecece7; stroke-width: 0.03; fill: none"/>
+<!--gsave-->
+<svg:path d="M1817 5267L1817 1469" style="stroke: #000000; stroke-width: 0.03; fill: none"/>
+<!--gsave-->
+<svg:path d="M2433 5267L2433 1469" style="stroke: #000000; stroke-width: 0.03; fill: none"/>
+<!--gsave-->
+<svg:path d="M3054 5267L3054 1469" style="stroke: #000000; stroke-width: 0.03; fill: none"/>
+<!--gsave-->
+<svg:path d="M3672 5267L3672 1469" style="stroke: #000000; stroke-width: 0.03; fill: none"/>
+<!--gsave-->
+<svg:path d="M1114 5184L1114 1388" style="stroke: #494936; stroke-width: 0.03; fill: none"/>
+<!--gsave-->
+<svg:path d="M1735 5184L1735 1388" style="stroke: #000000; stroke-width: 0.03; fill: none"/>
+<!--gsave-->
+<svg:path d="M2352 5184L2352 1388" style="stroke: #000000; stroke-width: 0.03; fill: none"/>
+<!--gsave-->
+<svg:path d="M2971 5184L2971 1388" style="stroke: #000000; stroke-width: 0.03; fill: none"/>
+<!--gsave-->
+<svg:path d="M3590 5184L3590 1388" style="stroke: #000000; stroke-width: 0.03; fill: none"/>
+<!--gsave-->
+<!--setmatrix-->
+</svg:svg>
+<connections>
+<point x="453" y="0"/>
+<point x="7511" y="0"/>
+<point x="3982" y="0"/>
+<point x="0" y="6044"/>
+<point x="7058" y="6044"/>
+<point x="3529" y="6044"/>
+<point x="0" y="3247"/>
+<point x="7511" y="5593"/>
+<point x="7511" y="2797"/>
+<point x="4172.77777777778" y="3307.66666666667" main="yes"/>
+</connections>
+
+</shape>

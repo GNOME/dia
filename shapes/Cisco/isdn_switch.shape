@@ -4,27 +4,36 @@
 <icon>isdn_switch.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
-<svg:path d="M1467.65 -2068.34l226.758 0 l0 -230.732l-226.758 0l0 230.732z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M1467.65 -2068.34l226.758 0 l0 -230.732l-226.758 0l0 230.732" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
-<svg:path d="M1503.64 -2220.67l33.91 -33.91l-36.71 -4.14l2.8 38.05z" style="fill: background; stroke: background; stroke-width: 0"/>
-<svg:path d="M1651.37 -2142.19l-33.91 33.91l36.71 4.14l-2.8 -38.05z" style="fill: background; stroke: background; stroke-width: 0"/>
-<svg:path d="M1740.32 -2345.02l-45.92 45.87l-227.02 0l49.03 -45.87l223.91 0z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M1740.32 -2345.02l-45.92 45.87l-227.02 0l49.03 -45.87l223.91 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
-<svg:path d="M1740.6 -2123.93l0 -220.94l-46.2 45.94l0 229.69l46.2 -54.69z" style="fill: foreground; stroke-width: 0"/>
-<svg:path d="M1740.6 -2123.93l0 -220.94l-46.2 45.94l0 229.69l46.2 -54.69" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
-<svg:path d="M1518.73 -2240.79l119.06 119.07" style="stroke: background; stroke-width: 2.85; stroke-miterlimit: 3.86; stroke-linecap: butt; stroke-linejoin: mitre; stroke-dasharray: 32.001,12.8; stroke-pattern: dashed"/>
+<!--gsave-->
+<svg:path d="M0 649L0 6091L5465 6091L5465 649L0 649Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #0096d4"/>
+<svg:path d="M6 6091L5465 6091L5465 649L6 649M6 6091Z" style="stroke: #aae6ff; stroke-width: 0.01; fill: none"/>
+<svg:path d="M0 649L694 0L6161 0L5465 649L0 649Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #00b4ff"/>
+<svg:path d="M6 642L693 0M6159 0L5465 649L6 649M6 642Z" style="stroke: #aae6ff; stroke-width: 0.01; fill: none"/>
+<svg:path d="M5465 649L6161 0L6161 5391L5465 6040L5465 649Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #005a80"/>
+<svg:path d="M5465 649L6159 0M6161 0L6161 5391L5465 6040L5465 649M5465 649Z" style="stroke: #aae6ff; stroke-width: 0.01; fill: none"/>
+<svg:path d="M594 1147L594 1996L844 1747L1491 2346L1787 2047L1193 1397L1441 1147L594 1147Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #000000"/>
+<svg:path d="M5069 5641L5069 4793L4819 5043L4174 4394L3825 4741L4472 5391L4224 5641L5069 5641Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #000000"/>
+<svg:path d="M2534 3394L2881 3046L2086 2296L1737 2644L2534 3394Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #000000"/>
+<svg:path d="M3528 4444L3875 4093L3131 3344L2784 3694L3528 4444Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #000000"/>
+<svg:path d="M547 1247L547 2047L793 1796L1441 2444L1787 2097L1142 1499L1391 1247L547 1247Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #ffffff"/>
+<svg:path d="M5069 5691L5069 4894L4819 5141L4174 4493L3825 4843L4472 5441L4224 5691L5069 5691Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #ffffff"/>
+<svg:path d="M2485 3494L2833 3144L2086 2397L1737 2746L2485 3494Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #ffffff"/>
+<svg:path d="M3528 4541L3875 4191L3131 3444L2784 3743L3528 4541Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #ffffff"/>
+<!--gsave-->
+<!--setmatrix-->
 </svg:svg>
 <connections>
-<point x="1516" y="-2344"/>
-<point x="1628" y="-2344"/>
-<point x="1740" y="-2344"/>
-<point x="1740.5" y="-2344"/>
-<point x="1741" y="-2344"/>
-<point x="1468" y="-2067"/>
-<point x="1581" y="-2067"/>
-<point x="1694" y="-2067"/>
-<point x="1467" y="-2298"/>
-<point x="1741" y="-2123"/>
-<point x="2.5" y="1.1" main="yes"/>
+<point x="693" y="0"/>
+<point x="6161" y="0"/>
+<point x="3427" y="0"/>
+<point x="0" y="6091"/>
+<point x="5465" y="6091"/>
+<point x="2732" y="6091"/>
+<point x="0" y="642"/>
+<point x="0" y="3366"/>
+<point x="6161" y="5391"/>
+<point x="6161" y="2695"/>
+<point x="3080" y="3036.7" main="yes"/>
 </connections>
+
 </shape>

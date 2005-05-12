@@ -1,0 +1,169 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
+<name>Cisco - LAN2LAN Switch</name>
+<icon>lan2lan_switch.png</icon>
+<aspectratio type="fixed"/>
+<svg:svg width="5cm" height="2.2cm">
+<!--gsave-->
+<svg:path d="M0 668L0 6213L5642 6213L5642 668L0 668Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #0078aa"/>
+<!--gsave-->
+<svg:path d="M0 668L0 6211" style="stroke: #aae6ff; stroke-width: 0.01; fill: none"/>
+<!--gsave-->
+<svg:path d="M0 6213L5639 6213" style="stroke: #000000; stroke-width: 0.01; fill: none"/>
+<!--gsave-->
+<svg:path d="M5642 6211L5642 668" style="stroke: #000000; stroke-width: 0.01; fill: none"/>
+<!--gsave-->
+<svg:path d="M5639 668L0 668" style="stroke: #000000; stroke-width: 0.01; fill: none"/>
+<!--gsave-->
+<svg:path d="M4974 3029L4306 3439L4306 3029L4306 2719L4974 3029Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #55cdff"/>
+<!--gsave-->
+<svg:path d="M4973 3029L4973 3029" style="stroke: #55cdff; stroke-width: 0.01; fill: none"/>
+<!--gsave-->
+<svg:path d="M4306 3437L4306 3029" style="stroke: #000000; stroke-width: 0.01; fill: none"/>
+<!--gsave-->
+<svg:path d="M4306 3027L4306 2719" style="stroke: #000000; stroke-width: 0.01; fill: none"/>
+<!--gsave-->
+<svg:path d="M4305 2719L4306 2720" style="stroke: #000000; stroke-width: 0.01; fill: none"/>
+<!--gsave-->
+<svg:path d="M1692 3231L4562 3231L4562 3031L1692 3031Z" style="stroke: none; stroke-width: 0.01; fill: #55cdff"/>
+<!--gsave-->
+<svg:path d="M4974 4723L4306 5081L4306 4723L4306 4364L4974 4723Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #55cdff"/>
+<!--gsave-->
+<svg:path d="M4976 4723L4973 4724" style="stroke: #55cdff; stroke-width: 0.01; fill: none"/>
+<!--gsave-->
+<svg:path d="M4306 5080L4306 4723" style="stroke: #000000; stroke-width: 0.01; fill: none"/>
+<!--gsave-->
+<svg:path d="M4306 4719L4306 4364" style="stroke: #000000; stroke-width: 0.01; fill: none"/>
+<!--gsave-->
+<svg:path d="M4306 4362L4309 4364" style="stroke: #000000; stroke-width: 0.01; fill: none"/>
+<!--gsave-->
+<svg:path d="M1692 4625L4562 4625L4562 4825L1692 4825Z" style="stroke: none; stroke-width: 0.01; fill: #55cdff"/>
+<!--gsave-->
+<svg:path d="M924 3902L1589 3490L1589 3902L1589 4260L924 3902Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #55cdff"/>
+<!--gsave-->
+<svg:path d="M924 3901L928 3899" style="stroke: #55cdff; stroke-width: 0.01; fill: none"/>
+<!--gsave-->
+<svg:path d="M1589 3490L1589 3899" style="stroke: #000000; stroke-width: 0.01; fill: none"/>
+<!--gsave-->
+<svg:path d="M1589 3902L1589 4259" style="stroke: #000000; stroke-width: 0.01; fill: none"/>
+<!--gsave-->
+<svg:path d="M1587 4259L1585 4259" style="stroke: #000000; stroke-width: 0.01; fill: none"/>
+<!--gsave-->
+<svg:path d="M1487 3802L4357 3802L4357 4002L1487 4002Z" style="stroke: none; stroke-width: 0.01; fill: #55cdff"/>
+<!--gsave-->
+<svg:path d="M924 2259L1589 1899L1589 2259L1589 2617L924 2259Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #55cdff"/>
+<!--gsave-->
+<svg:path d="M924 2257L926 2256" style="stroke: #55cdff; stroke-width: 0.01; fill: none"/>
+<!--gsave-->
+<svg:path d="M1589 1899L1589 2256" style="stroke: #000000; stroke-width: 0.01; fill: none"/>
+<!--gsave-->
+<svg:path d="M1589 2259L1589 2616" style="stroke: #000000; stroke-width: 0.01; fill: none"/>
+<!--gsave-->
+<svg:path d="M1587 2617L1585 2616" style="stroke: #000000; stroke-width: 0.01; fill: none"/>
+<!--gsave-->
+<svg:path d="M1487 2161L4357 2161L4357 2361L1487 2361Z" style="stroke: none; stroke-width: 0.01; fill: #55cdff"/>
+<!--gsave-->
+<svg:path d="M668 1335L1948 1437L2409 1796L3129 1848L3538 2311L4204 2464L4410 2925L4821 3081L5283 3543L5694 4004L5694 668L51 717L51 1181L668 1335Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #005a80"/>
+<svg:path d="M820 873L1897 924L2360 1231L3077 1281L3487 1796L4154 1899L4359 2361L4769 2567L5232 3029L5642 3439L5847 3696L6154 256L770 256L0 668L820 873Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #0096d4"/>
+<!--gsave-->
+<svg:path d="M820 872L827 873" style="stroke: #aae6ff; stroke-width: 0.01; fill: none"/>
+<!--gsave-->
+<svg:path d="M1896 924L1897 924" style="stroke: #000000; stroke-width: 0.01; fill: none"/>
+<!--gsave-->
+<svg:path d="M2330 1231L2360 1233" style="stroke: #000000; stroke-width: 0.01; fill: none"/>
+<!--gsave-->
+<svg:path d="M3076 1281L3077 1282" style="stroke: #000000; stroke-width: 0.01; fill: none"/>
+<!--gsave-->
+<svg:path d="M3481 1796L3487 1796" style="stroke: #000000; stroke-width: 0.01; fill: none"/>
+<!--gsave-->
+<svg:path d="M4153 1899L4154 1900" style="stroke: #000000; stroke-width: 0.01; fill: none"/>
+<!--gsave-->
+<svg:path d="M4357 2361L4359 2362" style="stroke: #000000; stroke-width: 0.01; fill: none"/>
+<!--gsave-->
+<svg:path d="M4769 2566L4769 2567" style="stroke: #000000; stroke-width: 0.01; fill: none"/>
+<!--gsave-->
+<svg:path d="M5232 3028L5232 3029" style="stroke: #000000; stroke-width: 0.01; fill: none"/>
+<!--gsave-->
+<svg:path d="M5640 3439L5642 3440" style="stroke: #000000; stroke-width: 0.01; fill: none"/>
+<!--gsave-->
+<svg:path d="M5846 3694L5847 3689" style="stroke: #000000; stroke-width: 0.01; fill: none"/>
+<!--gsave-->
+<svg:path d="M6153 256L770 256" style="stroke: #000000; stroke-width: 0.01; fill: none"/>
+<!--gsave-->
+<svg:path d="M771 256L768 258" style="stroke: #000000; stroke-width: 0.01; fill: none"/>
+<!--gsave-->
+<svg:path d="M0 666L4 668" style="stroke: #000000; stroke-width: 0.01; fill: none"/>
+<!--gsave-->
+<svg:path d="M0 668L717 0L6359 0L5642 668L0 668Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #00b4ff"/>
+<!--gsave-->
+<svg:path d="M0 667L2 665" style="stroke: #aae6ff; stroke-width: 0.01; fill: none"/>
+<!--gsave-->
+<svg:path d="M717 0L6356 0" style="stroke: #000000; stroke-width: 0.01; fill: none"/>
+<!--gsave-->
+<svg:path d="M6358 0L6356 2" style="stroke: #000000; stroke-width: 0.01; fill: none"/>
+<!--gsave-->
+<svg:path d="M5639 668L0 668" style="stroke: #000000; stroke-width: 0.01; fill: none"/>
+<!--gsave-->
+<svg:path d="M5642 668L6359 0L6359 5493L5642 6213L5642 668Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #005a80"/>
+<!--gsave-->
+<svg:path d="M5642 666L5643 665" style="stroke: #aae6ff; stroke-width: 0.01; fill: none"/>
+<!--gsave-->
+<svg:path d="M6359 0L6359 5491" style="stroke: #000000; stroke-width: 0.01; fill: none"/>
+<!--gsave-->
+<svg:path d="M6361 5493L6356 5498" style="stroke: #000000; stroke-width: 0.01; fill: none"/>
+<!--gsave-->
+<svg:path d="M5642 6211L5642 668" style="stroke: #000000; stroke-width: 0.01; fill: none"/>
+<!--gsave-->
+<svg:path d="M2051 1078L2360 1281L3026 1335L3438 1796L4204 1796L4204 1181L2256 1181L2256 924L2051 1078Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #ffffff"/>
+<svg:path d="M3180 6058L3026 5852L2718 5443L2718 5443L2205 5185L1539 4929L1078 4723L770 4313L359 4004L0 3748L0 4313L0 6213L4001 6213L3231 6111L3180 6058Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #0096d4"/>
+<!--gsave-->
+<svg:path d="M3178 6055L3177 6053" style="stroke: #aae6ff; stroke-width: 0.01; fill: none"/>
+<!--gsave-->
+<svg:path d="M3025 5852L3024 5852" style="stroke: #000000; stroke-width: 0.01; fill: none"/>
+<!--gsave-->
+<svg:path d="M2718 5443L2718 5443" style="stroke: #000000; stroke-width: 0.01; fill: none"/>
+<!--gsave-->
+<svg:path d="M2718 5442L2709 5438" style="stroke: #000000; stroke-width: 0.01; fill: none"/>
+<!--gsave-->
+<svg:path d="M2204 5185L2198 5183" style="stroke: #000000; stroke-width: 0.01; fill: none"/>
+<!--gsave-->
+<svg:path d="M1536 4927L1535 4927" style="stroke: #000000; stroke-width: 0.01; fill: none"/>
+<!--gsave-->
+<svg:path d="M1077 4725L1075 4723" style="stroke: #000000; stroke-width: 0.01; fill: none"/>
+<!--gsave-->
+<svg:path d="M768 4311L768 4310" style="stroke: #000000; stroke-width: 0.01; fill: none"/>
+<!--gsave-->
+<svg:path d="M357 4003L356 4001" style="stroke: #000000; stroke-width: 0.01; fill: none"/>
+<!--gsave-->
+<svg:path d="M0 3748L0 4311" style="stroke: #000000; stroke-width: 0.01; fill: none"/>
+<!--gsave-->
+<svg:path d="M0 4313L0 6211" style="stroke: #000000; stroke-width: 0.01; fill: none"/>
+<!--gsave-->
+<svg:path d="M0 6213L3998 6213" style="stroke: #000000; stroke-width: 0.01; fill: none"/>
+<!--gsave-->
+<svg:path d="M3998 6211L3994 6211" style="stroke: #000000; stroke-width: 0.01; fill: none"/>
+<!--gsave-->
+<svg:path d="M3228 6106L3228 6106" style="stroke: #000000; stroke-width: 0.01; fill: none"/>
+<!--gsave-->
+<svg:path d="M976 4517L256 4313L615 4159L820 4313L976 4517Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #ffffff"/>
+<svg:path d="M2462 5287L2153 5134L1383 5134L1383 5699L2974 5699L2873 5546L2770 5443L2462 5287Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #ffffff"/>
+<!--gsave-->
+<!--setmatrix-->
+</svg:svg>
+<connections>
+<point x="717" y="0"/>
+<point x="6359" y="0"/>
+<point x="3538" y="0"/>
+<point x="0" y="6213"/>
+<point x="5642" y="6213"/>
+<point x="2821" y="6213"/>
+<point x="3998" y="6213"/>
+<point x="4820" y="6213"/>
+<point x="0" y="665"/>
+<point x="0" y="3439"/>
+<point x="6361" y="5498"/>
+<point x="6361" y="2749"/>
+<point x="3384.75" y="3618" main="yes"/>
+</connections>
+
+</shape>

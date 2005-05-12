@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
+<name>Cisco - IP Old-style</name>
+<icon>ip_old-style.png</icon>
+<aspectratio type="fixed"/>
+<svg:svg width="5cm" height="2.2cm">
+<!--gsave-->
+<svg:path d="M0 714L0 3954L6091 3954L6091 714L0 714Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.02; fill: #0096d4"/>
+<svg:path d="M0 714L0 3954L6091 3954L6091 714L0 714Z" style="stroke: #aae6ff; stroke-width: 0.01; fill: none"/>
+<svg:path d="M6091 714L6868 0L6868 3185L6091 3898L6091 714Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #005a80"/>
+<svg:path d="M6091 714L6849 16M6868 16L6868 3185L6091 3898L6091 714M6091 714Z" style="stroke: #aae6ff; stroke-width: 0.01; fill: none"/>
+<svg:path d="M0 714L775 0L6868 0L6091 714L0 714Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #2ac0ff"/>
+<svg:path d="M0 714L756 16M6849 16L6091 714L0 714M0 714Z" style="stroke: #aae6ff; stroke-width: 0.01; fill: none"/>
+<svg:path d="M1165 3185L1165 1481L941 1481L1382 1043L1884 1481L1662 1481L1662 3185L1884 3185L1382 3625L941 3185L1165 3185Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #000000"/>
+<svg:path d="M2824 3185L2824 1481L2603 1481L3046 1043L3544 1481L3322 1481L3322 3185L3544 3185L3046 3625L2603 3185L2824 3185Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #000000"/>
+<svg:path d="M4485 3185L4485 1481L4263 1481L4707 1043L5206 1481L4984 1481L4984 3185L5206 3185L4707 3625L4263 3185L4485 3185Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #000000"/>
+<svg:path d="M1218 3241L1218 1537L996 1537L1438 1098L1884 1537L1662 1537L1662 3241L1937 3241L1438 3678L996 3241L1218 3241Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #ffffff"/>
+<svg:path d="M2879 3241L2879 1537L2659 1537L3101 1098L3544 1537L3322 1537L3322 3241L3600 3241L3101 3678L2659 3241L2879 3241Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #ffffff"/>
+<svg:path d="M4538 3241L4538 1537L4319 1537L4762 1098L5206 1537L4984 1537L4984 3241L5259 3241L4762 3678L4319 3241L4538 3241Z" style="stroke: none; fill-rule: evenodd; stroke-width: 0.01; fill: #ffffff"/>
+<!--gsave-->
+<!--setmatrix-->
+</svg:svg>
+<connections>
+<point x="756" y="0"/>
+<point x="6868" y="0"/>
+<point x="3812" y="0"/>
+<point x="0" y="3954"/>
+<point x="6091" y="3954"/>
+<point x="3045" y="3954"/>
+<point x="0" y="714"/>
+<point x="0" y="2334"/>
+<point x="6868" y="3185"/>
+<point x="6868" y="1592"/>
+<point x="3430.8" y="1968.7" main="yes"/>
+</connections>
+
+</shape>

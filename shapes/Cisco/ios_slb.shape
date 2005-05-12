@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
+<name>Cisco - IOS SLB</name>
+<icon>ios_slb.png</icon>
+<aspectratio type="fixed"/>
+<svg:svg width="5cm" height="2.2cm">
+<svg:path d="M2651.2 -3636.8l321.479 0 l0 -104.355l-321.479 0l0 104.355z" style="fill: #0096d4; stroke-width: 0; stroke: #add6e7"/>
+<svg:path d="M2650.36 -3740.63l129.86 -105.23l299.97 0l-107.81 105.23l-322.01 0z" style="fill: #00b4ff; stroke-width: 0; stroke: #add6e7"/>
+<svg:path d="M2650.36 -3740.63l129.86 -105.23l299.97 0l-107.81 105.23l-322.01 0" style="stroke: #add6e7; stroke-width: 0.79998; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M2972.5 -3633.5l107.38 -107.64l0.07 -104.55l-107.45 104.91l0 107.28z" style="fill: #005a80; stroke-width: 0; stroke: foreground"/>
+<svg:path d="M2972.5 -3633.5l107.38 -107.64l0.07 -104.55l-107.45 104.91l0 107.28" style="stroke: #add6e7; stroke-width: 0.79998; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>
+<svg:path d="M2838.8 -3768.01l-6.24 5.12l-80.18 0l-7.99 8l-21.74 -9.47l43.7 -12.49l-7.73 8.85l80.18 0z" style="fill: background; stroke-width: 0; stroke: background"/>
+<svg:path d="M2901.8 -3807.38l-6.23 5.12l-80.19 0l-7.99 8l-21.74 -9.47l43.7 -12.49l-7.73 8.85l80.18 0z" style="fill: background; stroke-width: 0; stroke: background"/>
+<svg:path d="M2852.95 -3781.91l6.23 -5.12l80.19 0l7.99 -7.99l21.75 9.47l-43.71 12.49l7.73 -8.86l-80.18 0z" style="fill: background; stroke-width: 0; stroke: background"/>
+<svg:path d="M2894.57 -3821.29l6.23 -5.12l80.19 0l8 -7.99l21.74 9.47l-43.71 12.49l7.73 -8.86l-80.18 0z" style="fill: background; stroke-width: 0; stroke: background"/>
+<svg:path d="M2811.83 -3683.2l57.86 0l0 9.14l21.84 -13.5l-21.84 -13.52l0 9.16l-57.86 0l0 8.71z" style="fill: background; stroke-width: 0; stroke: background"/>
+<svg:path d="M2810.49 -3698.2l54.38 -18.46l3.36 8.61l15.57 -19.66l-25.49 -5.73l3.37 8.6l-54.38 18.46l3.2 8.17z" style="fill: background; stroke-width: 0; stroke: background"/>
+<svg:path d="M2810.49 -3677.27l54.38 18.46l3.36 -8.59l15.57 19.65l-25.49 5.72l3.37 -8.59l-54.38 -18.46l3.2 -8.18z" style="fill: background; stroke-width: 0; stroke: background"/>
+<svg:path d="M2722.1 -3683.2l55.78 0l0 9.14l21.85 -13.5l-21.85 -13.52l0 9.16l-55.78 0l0 8.71z" style="fill: background; stroke-width: 0; stroke: background"/>
+</svg:svg>
+<connections>
+<point x="2780.22" y="-3845.86"/>
+<point x="3080.19" y="-3845.86"/>
+<point x="2930.205" y="-3845.86"/>
+<point x="2972.5" y="-3633.5"/>
+<point x="2650.36" y="-3741.155"/>
+<point x="2650.36" y="-3636.8"/>
+<point x="2650.36" y="-3688.9775"/>
+<point x="3080.19" y="-3741.14"/>
+<point x="3080.19" y="-3793.5"/>
+<point x="2874.95277777778" y="-3752.51694444444" main="yes"/>
+</connections>
+
+</shape>
