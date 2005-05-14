@@ -205,7 +205,7 @@ dia_embedd_LDADD = ../lib/libdia.la \
 #$(BONOBO_LIBS)
 
 if HAVE_GCC
-dia_LDFLAGS += -export-dynamic
+dia_LDFLAGS = -export-dynamic
 endif
 
 EXTRA_DIST = \
