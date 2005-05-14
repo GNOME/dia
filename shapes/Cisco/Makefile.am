@@ -49,8 +49,6 @@ SHAPES = \
   atm_router.png\
   atm_switch.shape\
   atm_switch.png\
-  atm_tag_sw_gigabit_router.shape\
-  atm_tag_sw_gigabit_router.png\
   atm_tag_switch_router.shape\
   atm_tag_switch_router.png\
   bbfw.shape\
@@ -79,14 +77,10 @@ SHAPES = \
   car.png\
   catalyst_access_gateway.shape\
   catalyst_access_gateway.png\
-  cddi_fddi.shape\
-  cddi_fddi.png\
   cdm.shape\
   cdm.png\
   cellular_phone.shape\
   cellular_phone.png\
-  centri.shape\
-  centri.png\
   cisco_hub.shape\
   cisco_hub.png\
   ciscosecurity.shape\
@@ -101,12 +95,8 @@ SHAPES = \
   communications_server.png\
   content_engine.shape\
   content_engine.png\
-  content_service_router.shape\
-  content_service_router.png\
   content_switch.shape\
   content_switch.png\
-  content_switch_module.shape\
-  content_switch_module.png\
   css1100.shape\
   css1100.png\
   csu_dsu.shape\
@@ -193,8 +183,6 @@ SHAPES = \
   ip_softphone.png\
   ip_telephony_router.shape\
   ip_telephony_router.png\
-  iptc.shape\
-  iptc.png\
   iptv_broadcast_server.shape\
   iptv_broadcast_server.png\
   iptv_content_manager.shape\
@@ -265,8 +253,6 @@ SHAPES = \
   network_management.png\
   octel.shape\
   octel.png\
-  ons15500.shape\
-  ons15500.png\
   optical_amplifier.shape\
   optical_amplifier.png\
   optical_services_router.shape\
@@ -275,8 +261,6 @@ SHAPES = \
   optical_transport.png\
   pad.shape\
   pad.png\
-  pad_x28.shape\
-  pad_x28.png\
   pbx.shape\
   pbx.png\
   pbx_switch.shape\
@@ -351,8 +335,6 @@ SHAPES = \
   small_hub.png\
   softphone.shape\
   softphone.png\
-  software_based_server.shape\
-  software_based_server.png\
   speaker.shape\
   speaker.png\
   standing_man.shape\
@@ -395,8 +377,6 @@ SHAPES = \
   turret.png\
   tv.shape\
   tv.png\
-  ubr910.shape\
-  ubr910.png\
   unity_server.shape\
   unity_server.png\
   universal_gateway.shape\
@@ -409,14 +389,6 @@ SHAPES = \
   video_camera.png\
   vip.shape\
   vip.png\
-  voice_atm_switch.shape\
-  voice_atm_switch.png\
-  voice_commserver.shape\
-  voice_commserver.png\
-  voice_router.shape\
-  voice_router.png\
-  voice_switch.shape\
-  voice_switch.png\
   voice_switch2.shape\
   voice_switch2.png\
   vpn_concentrator.shape\
@@ -445,6 +417,37 @@ SHAPES = \
   workstation.png\
   www_server.shape\
   www_server.png
+
+# Old ones that have been replaced.  Ian, please check.
+#  atm_tag_sw_gigabit_router.shape\
+#  atm_tag_sw_gigabit_router.png\
+#  cddi_fddi.shape\
+#  cddi_fddi.png\
+#  centri.shape\
+#  centri.png\
+#  content_service_router.shape\
+#  content_service_router.png\
+#  content_switch_module.shape\
+#  content_switch_module.png\
+#  iptc.shape\
+#  iptc.png\
+#  ons15500.shape\
+#  ons15500.png\
+#  pad_x28.shape\
+#  pad_x28.png\
+#  software_based_server.shape\
+#  software_based_server.png\
+#  ubr910.shape\
+#  ubr910.png\
+#  voice_atm_switch.shape\
+#  voice_atm_switch.png\
+#  voice_commserver.shape\
+#  voice_commserver.png\
+#  voice_router.shape\
+#  voice_router.png\
+#  voice_switch.shape\
+#  voice_switch.png\
+#
 
 EXTRA_DIST = $(SHAPES)
 
