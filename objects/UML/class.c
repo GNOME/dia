@@ -701,8 +701,7 @@ umlclass_update_data(UMLClass *umlclass)
   /* there are four corner points and two side points, thus all
    * remaining points are on the top/bottom width
    */
-  /* But remember that the last point of the fixed ones are in the center */
-  pointswide = (UMLCLASS_CONNECTIONPOINTS - 7) / 2;
+  pointswide = (UMLCLASS_CONNECTIONPOINTS - 6) / 2;
   pointspacing = elem->width / (pointswide + 1.0);
 
   /* across the top connection points */
@@ -712,28 +711,28 @@ umlclass_update_data(UMLClass *umlclass)
     umlclass->connections[i].directions = DIR_NORTH;
   }
 
-  i = ((UMLCLASS_CONNECTIONPOINTS-1) / 2) - 2;
+  i = (UMLCLASS_CONNECTIONPOINTS / 2) - 2;
   umlclass->connections[i].pos.x = x + elem->width;
   umlclass->connections[i].pos.y = y;
   umlclass->connections[i].directions = DIR_NORTH|DIR_EAST;
 
-  i = ((UMLCLASS_CONNECTIONPOINTS-1) / 2) - 1;
+  i = (UMLCLASS_CONNECTIONPOINTS / 2) - 1;
   umlclass->connections[i].pos.x = x;
   umlclass->connections[i].pos.y = y + umlclass->namebox_height / 2.0;
   umlclass->connections[i].directions = DIR_WEST;
 
-  i = ((UMLCLASS_CONNECTIONPOINTS-1) / 2);
+  i = (UMLCLASS_CONNECTIONPOINTS / 2);
   umlclass->connections[i].pos.x = x + elem->width;
   umlclass->connections[i].pos.y = y + umlclass->namebox_height / 2.0;
   umlclass->connections[i].directions = DIR_EAST;
 
-  i = ((UMLCLASS_CONNECTIONPOINTS-1) / 2) + 1;
+  i = (UMLCLASS_CONNECTIONPOINTS / 2) + 1;
   umlclass->connections[i].pos.x = x;
   umlclass->connections[i].pos.y = y + elem->height;
   umlclass->connections[i].directions = DIR_WEST|DIR_SOUTH;
 
   /* across the bottom connection points */
-  lowerleftcorner = ((UMLCLASS_CONNECTIONPOINTS-1) / 2) + 1;
+  lowerleftcorner = (UMLCLASS_CONNECTIONPOINTS / 2) + 1;
   for (i=1;i<=pointswide;i++) {
     umlclass->connections[lowerleftcorner + i].pos.x = x + (pointspacing * i);
     umlclass->connections[lowerleftcorner + i].pos.y = y + elem->height;
@@ -741,14 +740,9 @@ umlclass_update_data(UMLClass *umlclass)
   }
 
   /* bottom-right corner */
-  i = (UMLCLASS_CONNECTIONPOINTS-1) - 1;
+  i = (UMLCLASS_CONNECTIONPOINTS) - 1;
   umlclass->connections[i].pos.x = x + elem->width;
   umlclass->connections[i].pos.y = y + elem->height;
-  umlclass->connections[i].directions = DIR_EAST|DIR_SOUTH;
-
-  i++;
-  umlclass->connections[i].pos.x = x + elem->width / 2;
-  umlclass->connections[i].pos.y = y + elem->height / 2;
   umlclass->connections[i].directions = DIR_EAST|DIR_SOUTH;
 
   y += umlclass->namebox_height + 0.1 + umlclass->font_height/2;
@@ -1218,7 +1212,6 @@ umlclass_create(Point *startpoint,
     umlclass->connections[i].object = obj;
     umlclass->connections[i].connected = NULL;
   }
-  umlclass->connections[UMLCLASS_CONNECTIONPOINTS-1].flags = CP_FLAGS_MAIN;
   elem->extra_spacing.border_trans = UMLCLASS_BORDER/2.0;
   umlclass_update_data(umlclass);
 
@@ -1456,7 +1449,6 @@ umlclass_copy(UMLClass *umlclass)
     newumlclass->connections[i].connected = NULL;
     newumlclass->connections[i].pos = umlclass->connections[i].pos;
     newumlclass->connections[i].last_pos = umlclass->connections[i].last_pos;
-    newumlclass->connections[i].flags = umlclass->connections[i].flags;
   }
 
   umlclass_calculate_data(newumlclass);
