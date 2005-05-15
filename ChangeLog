@@ -1,5 +1,10 @@
 2005-05-15  Hans Breuer  <hans@breuer.org>
 
+	* lib/bezier_conn.c(remove_handles) : don't try to remove 
+	non-exisitng handles (patch from Radek Krahl, bug #302273)
+
+2005-05-15  Hans Breuer  <hans@breuer.org>
+
 	* plug-ins/metapost/render_metapost.c : locale independent output
 	(Radek Krahl, bug #301866)
 
