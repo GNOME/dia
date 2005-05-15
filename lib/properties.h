@@ -256,7 +256,8 @@ typedef void (*FreeRecordFunc)(gpointer rec);
 struct _PropDescCommonArrayExtra { /* don't use this directly. 
                                       Use one of below */
   PropDescription *record;
-  const gchar *composite_type; /* can be NULL. */ 
+  PropOffset      *offsets; /* the offsets into the structs in the list/array */
+  const gchar     *composite_type; /* can be NULL. */ 
 };
 
 struct _PropDescDArrayExtra {

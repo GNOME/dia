@@ -99,6 +99,11 @@ static ObjectOps umlclass_ops = {
   (SetPropsFunc)        umlclass_set_props
 };
 
+extern PropDescDArrayExtra umlattribute_extra;
+extern PropDescDArrayExtra umloperation_extra;
+extern PropDescDArrayExtra umlparameter_extra;
+extern PropDescDArrayExtra umlformalparameter_extra;
+
 static PropDescription umlclass_props[] = {
   ELEMENT_COMMON_PROPERTIES,
   PROP_STD_TEXT_COLOUR_OPTIONAL,
@@ -167,12 +172,13 @@ static PropDescription umlclass_props[] = {
   PROP_STD_MULTICOL_END,
   PROP_STD_NOTEBOOK_END,
 
-  { "attributes", PROP_TYPE_STRINGLIST, PROP_FLAG_DONT_SAVE,
-  N_("Attributes"), NULL, NULL }, 
-  { "operations", PROP_TYPE_STRINGLIST, PROP_FLAG_DONT_SAVE,
-  N_("Operations"), NULL, NULL }, 
-
-  /* formal_params XXX */
+  { "attributes", PROP_TYPE_DARRAY, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
+  N_("Attributes"), NULL, NULL /* umlattribute_extra */ }, 
+  { "operations", PROP_TYPE_DARRAY, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
+  N_("Operations"), NULL, NULL /* umloperations_extra */ }, 
+  /* the naming is questionable, but kept for compatibility */
+  { "templates", PROP_TYPE_DARRAY, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
+  N_("Template Parameters"), NULL, NULL /* umlformalparameters_extra */ }, 
 
   PROP_DESC_END
 };
@@ -180,8 +186,33 @@ static PropDescription umlclass_props[] = {
 static PropDescription *
 umlclass_describe_props(UMLClass *umlclass)
 {
-  if (umlclass_props[0].quark == 0)
+  if (umlclass_props[0].quark == 0) {
+    int i = 0;
+
     prop_desc_list_calculate_quarks(umlclass_props);
+    while (umlclass_props[i].name != NULL) {
+      /* can't do this static, at least not on win32 
+       * due to relocation (initializer not a constant)
+       */
+      if (0 == strcmp(umlclass_props[i].name, "attributes"))
+        umlclass_props[i].extra_data = &umlattribute_extra;
+      else if (0 == strcmp(umlclass_props[i].name, "operations")) {
+        PropDescription *records = umloperation_extra.common.record;
+        int j = 0;
+
+        umlclass_props[i].extra_data = &umloperation_extra;
+	while (records[j].name != NULL) {
+          if (0 == strcmp(records[j].name, "parameters"))
+	    records[j].extra_data = &umlparameter_extra;
+	  j++;
+	}
+      }
+      else if (0 == strcmp(umlclass_props[i].name, "templates"))
+        umlclass_props[i].extra_data = &umlformalparameter_extra;
+
+      i++;
+    }
+  }
   return umlclass_props;
 }
 
@@ -224,8 +255,9 @@ static PropOffset umlclass_offsets[] = {
   { "comment_font_height", PROP_TYPE_REAL, offsetof(UMLClass, comment_font_height) },
   PROP_OFFSET_STD_MULTICOL_END,
 
-  { "operations", PROP_TYPE_STRINGLIST, offsetof(UMLClass , operations_strings) },
-  { "attributes", PROP_TYPE_STRINGLIST, offsetof(UMLClass , attributes_strings) },
+  { "operations", PROP_TYPE_DARRAY, offsetof(UMLClass , operations) },
+  { "attributes", PROP_TYPE_DARRAY, offsetof(UMLClass , attributes) } ,
+  { "templates",  PROP_TYPE_DARRAY, offsetof(UMLClass , formal_params) } ,
 
   { NULL, 0, 0 },
 };
@@ -1254,8 +1286,6 @@ umlclass_destroy(UMLClass *umlclass)
   list = umlclass->attributes;
   while (list != NULL) {
     attr = (UMLAttribute *)list->data;
-    g_free(attr->left_connection);
-    g_free(attr->right_connection);
     uml_attribute_destroy(attr);
     list = g_list_next(list);
   }
@@ -1264,8 +1294,6 @@ umlclass_destroy(UMLClass *umlclass)
   list = umlclass->operations;
   while (list != NULL) {
     op = (UMLOperation *)list->data;
-    g_free(op->left_connection);
-    g_free(op->right_connection);
     uml_operation_destroy(op);
     list = g_list_next(list);
   }
@@ -1388,13 +1416,9 @@ umlclass_copy(UMLClass *umlclass)
     attr = (UMLAttribute *)list->data;
     newattr = uml_attribute_copy(attr);
     
-    newattr->left_connection = g_new0(ConnectionPoint,1);
-    *newattr->left_connection = *attr->left_connection;
     newattr->left_connection->object = newobj;
     newattr->left_connection->connected = NULL;
     
-    newattr->right_connection = g_new0(ConnectionPoint,1);
-    *newattr->right_connection = *attr->right_connection;
     newattr->right_connection->object = newobj;
     newattr->right_connection->connected = NULL;
     
@@ -1408,13 +1432,9 @@ umlclass_copy(UMLClass *umlclass)
   while (list != NULL) {
     op = (UMLOperation *)list->data;
     newop = uml_operation_copy(op);
-    newop->left_connection = g_new0(ConnectionPoint,1);
-    *newop->left_connection = *op->left_connection;
     newop->left_connection->object = newobj;
     newop->left_connection->connected = NULL;
 
-    newop->right_connection = g_new0(ConnectionPoint,1);
-    *newop->right_connection = *op->right_connection;
     newop->right_connection->object = newobj;
     newop->right_connection->connected = NULL;
     
@@ -1587,8 +1607,6 @@ static DiaObject *umlclass_load(ObjectNode obj_node, int version,
   UMLClass *umlclass;
   Element *elem;
   DiaObject *obj;
-  UMLAttribute *attr;
-  UMLOperation *op;
   UMLFormalParameter *formal_param;
   AttributeNode attr_node;
   DataNode composite;
@@ -1755,44 +1773,33 @@ static DiaObject *umlclass_load(ObjectNode obj_node, int version,
     umlclass->comment_font_height = data_real(attribute_first_data(attr_node));
   }
 
- /* Attribute info: */
-  attr_node = object_find_attribute(obj_node, "attributes");
-  num_attr = num = attribute_num_data(attr_node);
-  composite = attribute_first_data(attr_node);
-  umlclass->attributes = NULL;
-  for (i=0;i<num;i++) {
-    attr = uml_attribute_read(composite);
+  /* Attribute info: */
+  list = umlclass->attributes;
+  num_attr = g_list_length (umlclass->attributes);
+  while (list) {
+    UMLAttribute *attr = list->data;
+    g_assert(attr);
 
-    attr->left_connection = g_new0(ConnectionPoint,1);
     attr->left_connection->object = obj;
     attr->left_connection->connected = NULL;
-
-    attr->right_connection = g_new0(ConnectionPoint,1);
     attr->right_connection->object = obj;
     attr->right_connection->connected = NULL;
-
-    umlclass->attributes = g_list_append(umlclass->attributes, attr);
-    composite = data_next(composite);
+    list = g_list_next(list);
   }
 
   /* Operations info: */
-  attr_node = object_find_attribute(obj_node, "operations");
-  num_ops = num = attribute_num_data(attr_node);
-  composite = attribute_first_data(attr_node);
-  umlclass->operations = NULL;
-  for (i=0;i<num;i++) {
-    op = uml_operation_read(composite);
+  list = umlclass->operations;
+  num_ops = g_list_length (umlclass->operations);
+  while (list) {
+    UMLOperation *op = (UMLOperation *)list->data;
+    g_assert(op);
 
-    op->left_connection = g_new0(ConnectionPoint,1);
     op->left_connection->object = obj;
     op->left_connection->connected = NULL;
 
-    op->right_connection = g_new0(ConnectionPoint,1);
     op->right_connection->object = obj;
     op->right_connection->connected = NULL;
-    
-    umlclass->operations = g_list_append(umlclass->operations, op);
-    composite = data_next(composite);
+    list = g_list_next(list);
   }
 
   /* Template info: */
@@ -1800,16 +1807,6 @@ static DiaObject *umlclass_load(ObjectNode obj_node, int version,
   attr_node = object_find_attribute(obj_node, "template");
   if (attr_node != NULL)
     umlclass->template = data_boolean(attribute_first_data(attr_node));
-
-  attr_node = object_find_attribute(obj_node, "templates");
-  num = attribute_num_data(attr_node);
-  composite = attribute_first_data(attr_node);
-  umlclass->formal_params = NULL;
-  for (i=0;i<num;i++) {
-    formal_param = uml_formalparameter_read(composite);
-    umlclass->formal_params = g_list_append(umlclass->formal_params, formal_param);
-    composite = data_next(composite);
-  }
 
   if ( (!umlclass->visible_attributes) ||
        (umlclass->suppress_attributes))
@@ -1837,7 +1834,6 @@ static DiaObject *umlclass_load(ObjectNode obj_node, int version,
     umlclass->connections[i].object = obj;
     umlclass->connections[i].connected = NULL;
   }
-  umlclass->connections[UMLCLASS_CONNECTIONPOINTS-1].flags = CP_FLAGS_MAIN;
 
   i = UMLCLASS_CONNECTIONPOINTS;
 
@@ -1845,7 +1841,7 @@ static DiaObject *umlclass_load(ObjectNode obj_node, int version,
        (!umlclass->suppress_attributes)) {
     list = umlclass->attributes;
     while (list != NULL) {
-      attr = (UMLAttribute *)list->data;
+      UMLAttribute *attr = (UMLAttribute *)list->data;
       obj->connections[i++] = attr->left_connection;
       obj->connections[i++] = attr->right_connection;
       
@@ -1857,7 +1853,7 @@ static DiaObject *umlclass_load(ObjectNode obj_node, int version,
        (!umlclass->suppress_operations)) {
     list = umlclass->operations;
     while (list != NULL) {
-      op = (UMLOperation *)list->data;
+      UMLOperation *op = (UMLOperation *)list->data;
       obj->connections[i++] = op->left_connection;
       obj->connections[i++] = op->right_connection;
       

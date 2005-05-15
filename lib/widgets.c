@@ -331,15 +331,17 @@ dia_font_selector_create_string_item(DiaDynamicMenu *ddm, gchar *string)
   GtkWidget *item = gtk_menu_item_new_with_label(string);
   if (strchr(string, '&')) {
     gchar *escaped = replace_ampersands(string);
-    gtk_label_set_markup(GTK_LABEL(gtk_bin_get_child(GTK_BIN(item))),
-			 g_strdup_printf("<span face=\"%s\" size=\"medium\">%s</span>",
-					   escaped, escaped));
+    gchar *label = g_strdup_printf("<span face=\"%s\" size=\"medium\">%s</span>",
+				   escaped, escaped);
+    gtk_label_set_markup(GTK_LABEL(gtk_bin_get_child(GTK_BIN(item))), label);
+    g_free(label);
     g_free(escaped);
   } else {
-    gtk_label_set_markup(GTK_LABEL(gtk_bin_get_child(GTK_BIN(item))),
-			 g_strdup_printf("<span face=\"%s\" size=\"medium\">%s</span>",
-					 string, string));
-    }
+    gchar *label = g_strdup_printf("<span face=\"%s\" size=\"medium\">%s</span>",
+				   string, string);
+    gtk_label_set_markup(GTK_LABEL(gtk_bin_get_child(GTK_BIN(item))), label);
+    g_free(label);
+  }
   return item;
 }
 
@@ -913,11 +915,13 @@ dia_color_selector_create_string_item(DiaDynamicMenu *ddm, gchar *string)
   /* See http://web.umr.edu/~rhall/commentary/color_readability.htm for
    * explanation of this formula */
   if (r*299+g*587+b*114 > 500 * 256) {
-    gtk_label_set_markup(GTK_LABEL(gtk_bin_get_child(GTK_BIN(item))),
-			 g_strdup_printf("<span foreground=\"black\" background=\"%s\">%s</span>", string, string));
+    gchar *label = g_strdup_printf("<span foreground=\"black\" background=\"%s\">%s</span>", string, string);
+    gtk_label_set_markup(GTK_LABEL(gtk_bin_get_child(GTK_BIN(item))), label);
+    g_free(label);
   } else {
-    gtk_label_set_markup(GTK_LABEL(gtk_bin_get_child(GTK_BIN(item))),
-			 g_strdup_printf("<span foreground=\"white\" background=\"%s\">%s</span>", string, string));
+    gchar *label = g_strdup_printf("<span foreground=\"white\" background=\"%s\">%s</span>", string, string);
+    gtk_label_set_markup(GTK_LABEL(gtk_bin_get_child(GTK_BIN(item))), label);
+    g_free(label);
   }
   
   return item;

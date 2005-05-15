@@ -243,6 +243,10 @@ OBJECTS = \
 	stereotype.obj \
 	transition.obj \
 	uml.obj \
+	umlattribute.obj \
+	umlformalparameter.obj \
+	umloperation.obj \
+	umlparameter.obj \
 	usecase.obj \
 
 PKG_LINK = $(PKG_LINK) $(GTK2_LIBS)

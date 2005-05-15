@@ -32,7 +32,11 @@ libuml_objects_la_SOURCES = \
 			fork.c \
 			stereotype.c \
 			stereotype.h \
-			transition.c
+			transition.c \
+			umlattribute.c \
+			umloperation.c \
+			umlparameter.c \
+			umlformalparameter.c
 
 libuml_objects_la_LDFLAGS = -export-dynamic -module -avoid-version
 

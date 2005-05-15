@@ -152,7 +152,7 @@ prop_list_load(GPtrArray *props, DataNode data, GError **err)
     Property *prop = g_ptr_array_index(props,i);
     AttributeNode attr = object_find_attribute(data, prop->name);
     DataNode data = attr ? attribute_first_data(attr) : NULL;
-    if (!attr && prop->descr->flags & PROP_FLAG_OPTIONAL) {
+    if ((!attr || !data) && prop->descr->flags & PROP_FLAG_OPTIONAL) {
       prop->experience |= PXP_NOTSET;
       continue;
     }

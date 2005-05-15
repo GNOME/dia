@@ -38,15 +38,11 @@
 /* The SARRAY and DARRAY property types.  */
 /******************************************/
 
-typedef PropDescCommonArrayExtra PDCAE;
-typedef PropDescSArrayExtra PDSAE;
-typedef PropDescDArrayExtra PDDAE;
-
 static ArrayProperty *
 arrayprop_new(const PropDescription *pdesc, PropDescToPropPredicate reason)
 {
   ArrayProperty *prop = g_new0(ArrayProperty,1);
-  const PDCAE *extra = pdesc->extra_data;
+  const PropDescCommonArrayExtra *extra = pdesc->extra_data;
 
   initialize_property(&prop->common, pdesc, reason);  
   prop->ex_props = prop_list_from_descs(extra->record,reason);
@@ -91,7 +87,7 @@ arrayprop_copy(ArrayProperty *src)
 static void 
 arrayprop_load(ArrayProperty *prop, AttributeNode attr, DataNode data)
 {
-  const PDCAE *extra = prop->common.descr->extra_data;
+  const PropDescCommonArrayExtra *extra = prop->common.descr->extra_data;
   DataNode composite;
   GError *err = NULL;
 
@@ -116,7 +112,7 @@ static void
 arrayprop_save(ArrayProperty *prop, AttributeNode attr) 
 {
   int i;
-  const PDCAE *extra = prop->common.descr->extra_data;
+  const PropDescCommonArrayExtra *extra = prop->common.descr->extra_data;
   
   for (i = 0; i < prop->records->len; i++) {
     prop_list_save(g_ptr_array_index(prop->records,i),
@@ -128,8 +124,8 @@ static void
 sarrayprop_get_from_offset(ArrayProperty *prop,
                            void *base, guint offset, guint offset2) 
 {
-  const PDSAE *extra = prop->common.descr->extra_data;
-  PropOffset *suboffsets = struct_member(base,offset2,PropOffset *);
+  const PropDescSArrayExtra *extra = prop->common.descr->extra_data;
+  PropOffset *suboffsets = extra->common.offsets;
   guint i;
 
   prop_offset_list_calculate_quarks(suboffsets);
@@ -153,8 +149,8 @@ static void
 sarrayprop_set_from_offset(ArrayProperty *prop,
                          void *base, guint offset, guint offset2)
 {
-  const PDSAE *extra = prop->common.descr->extra_data;
-  PropOffset *suboffsets = struct_member(base,offset2,PropOffset *);
+  const PropDescSArrayExtra *extra = prop->common.descr->extra_data;
+  PropOffset *suboffsets = extra->common.offsets;
   guint i;
 
   g_assert(prop->records->len == extra->array_len);
@@ -176,7 +172,8 @@ darrayprop_get_from_offset(ArrayProperty *prop,
                            void *base, guint offset, guint offset2) 
 {
   /* This sucks. We do almost exactly like in sarrayprop_get_from_offset(). */
-  PropOffset *suboffsets = struct_member(base,offset2,PropOffset *);
+  const PropDescSArrayExtra *extra = prop->common.descr->extra_data;
+  PropOffset *suboffsets = extra->common.offsets;
   guint i;
   GList *obj_rec = struct_member(base,offset,GList *);
 
@@ -199,17 +196,19 @@ darrayprop_get_from_offset(ArrayProperty *prop,
 
 static GList *
 darrayprop_adjust_object_records(ArrayProperty *prop,
-                                 const PDDAE *extra,
+                                 const PropDescDArrayExtra *extra,
                                  GList *obj_rec) {
   guint list_len = g_list_length(obj_rec);
 
-  while (list_len < prop->records->len) {
-    obj_rec = g_list_append(obj_rec,extra->newrec());
-  }
-  while (list_len < prop->records->len) {
+  while (list_len > prop->records->len) {
     gpointer rec = obj_rec->data;
     obj_rec = g_list_remove(obj_rec,rec);
     extra->freerec(rec);
+    list_len--;
+  }
+  while (list_len < prop->records->len) {
+    obj_rec = g_list_append(obj_rec,extra->newrec());
+    list_len++;
   }
   return obj_rec;
 }
@@ -219,8 +218,8 @@ darrayprop_set_from_offset(ArrayProperty *prop,
                            void *base, guint offset, guint offset2)
 {
   /* This sucks. We do almost exactly like in darrayprop_set_from_offset(). */
-  const PDDAE *extra = prop->common.descr->extra_data;
-  PropOffset *suboffsets = struct_member(base,offset2,PropOffset *);
+  const PropDescDArrayExtra *extra = prop->common.descr->extra_data;
+  PropOffset *suboffsets = extra->common.offsets;
   guint i;
   GList *obj_rec = struct_member(base,offset,GList *);
 

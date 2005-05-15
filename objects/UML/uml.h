@@ -116,9 +116,6 @@ extern UMLFormalParameter *uml_formalparameter_new(void);
 extern void uml_attribute_write(AttributeNode attr_node, UMLAttribute *attr);
 extern void uml_operation_write(AttributeNode attr_node, UMLOperation *op);
 extern void uml_formalparameter_write(AttributeNode attr_node, UMLFormalParameter *param);
-extern UMLAttribute *uml_attribute_read(DataNode composite);
-extern UMLOperation * uml_operation_read(DataNode composite);
-extern UMLFormalParameter *uml_formalparameter_read(DataNode composite);
 
 #endif /* UML_H */
 

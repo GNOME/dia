@@ -1,5 +1,38 @@
 2005-05-15  Hans Breuer  <hans@breuer.org>
 
+	* lib/group.c object/UML/classicon.c : fixed leftovers of
+	'Adding connectionpoint to _move_handle
+
+	* lib/widgets.c : gtk+ *NEVER* eats strings, so gtk_something(widget, g_strdup())
+	is *ALWAYS* a memory leak. Plug some more.
+
+	[
+	 In preparation to make UML operations/attributes/parameters setable by Python
+	 UML class became more StdProp conformant. A nice experience to be the first 
+	 to use the PROP_TYPE_DARRAY stuff about four years after it was written ;-)  
+	]
+	* objects/UML/umlattribute.c objects/UML/umloperation.c 
+	  objects/UML/umlparameter.c objects/UML/umlformalparameter.c : (new files) 
+	split from objects/UML/uml.c and made StdProp aware
+	* objects/UML/class.c : finally make "attributes", "operations", "templates"
+	<template parameters> first class StdProps citizens.
+	(umlclass_load) : removed hand-written parsing for the above, it is all done
+	by object_load_props() now. The old write code is still in place, so be very
+	careful when changing something - at the moment load/save it is 100% compatible 
+	as it needs to be.
+	* objects/UML/uml.c : now just type registration here, as it is supposed to be
+	* objects/UML/Makefile.am objects/makefile.msc : build the new files
+
+	* lib/properties.h(PropDescCommonAreaExtra) : need a place to store the 
+	in-record offsets
+	* lib/prop_sdarray.c : made the DARRAY case work, SARRAY still untested
+	(darray_prop_adjust_object_records) : don't loop forever
+	(whole file) : use the new (working) way to get on the second level offsets.
+	Also resolved some abbreviations, it is complicated enough without them ;)
+	* lib/proplist.c : even complete list contents may be optional
+
+2005-05-15  Hans Breuer  <hans@breuer.org>
+
 	* lib/bezier_conn.c(remove_handles) : don't try to remove 
 	non-exisitng handles (patch from Radek Krahl, bug #302273)
 

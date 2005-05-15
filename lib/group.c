@@ -40,7 +40,8 @@ struct _Group {
 
 static real group_distance_from(Group *group, Point *point);
 static void group_select(Group *group);
-static ObjectChange* group_move_handle(Group *group, Handle *handle, Point *to);
+static ObjectChange* group_move_handle(Group *group, Handle *handle, Point *to, ConnectionPoint *cp,
+					         HandleMoveReason reason, ModifierKeys modifiers);
 static ObjectChange* group_move(Group *group, Point *to);
 static void group_draw(Group *group, DiaRenderer *renderer);
 static void group_update_data(Group *group);
@@ -139,7 +140,8 @@ group_update_handles(Group *group)
 }
 
 static ObjectChange*
-group_move_handle(Group *group, Handle *handle, Point *to)
+group_move_handle(Group *group, Handle *handle, Point *to, ConnectionPoint *cp,
+		      HandleMoveReason reason, ModifierKeys modifiers)
 {
 
   return NULL;
