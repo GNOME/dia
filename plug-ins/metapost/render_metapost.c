@@ -52,6 +52,9 @@
 #include "font.h"
 
 #define POINTS_in_INCH 28.346
+#define DTOSTR_BUF_SIZE G_ASCII_DTOSTR_BUF_SIZE
+#define mp_dtostr(buf,d) \
+	g_ascii_formatd(buf, sizeof(buf), "%f", d)
 
 /* An entry in the font-mapping lookup table. */
 typedef struct _font_lookup_entry {
@@ -297,14 +300,18 @@ metapost_renderer_class_init (MetapostRendererClass *klass)
 static void
 end_draw_op(MetapostRenderer *renderer)
 {
-    fprintf(renderer->file, "\n    withpen pencircle scaled %5.4fx", 
-            (double)renderer->line_width);
+    gchar d1_buf[DTOSTR_BUF_SIZE];
+    gchar d2_buf[DTOSTR_BUF_SIZE];
+    gchar d3_buf[DTOSTR_BUF_SIZE];
+    
+    fprintf(renderer->file, "\n    withpen pencircle scaled %sx", 
+            g_ascii_formatd(d1_buf, sizeof(d1_buf), "%5.4f", (gdouble) renderer->line_width) );
     
     if (!color_equals(&renderer->color, &color_black))
-        fprintf(renderer->file, "\n    withcolor (%5.4f, %5.4f, %5.4f)", 
-                (double)renderer->color.red,
-                (double)renderer->color.green,
-                (double)renderer->color.blue);
+        fprintf(renderer->file, "\n    withcolor (%s, %s, %s)", 
+                g_ascii_formatd(d1_buf, sizeof(d1_buf), "%5.4f", (gdouble) renderer->color.red),
+                g_ascii_formatd(d2_buf, sizeof(d2_buf), "%5.4f", (gdouble) renderer->color.green),
+                g_ascii_formatd(d3_buf, sizeof(d3_buf), "%5.4f", (gdouble) renderer->color.blue) );
     
     draw_with_linestyle(renderer);
     fprintf(renderer->file, ";\n");
@@ -313,9 +320,15 @@ end_draw_op(MetapostRenderer *renderer)
 static void 
 set_line_color(MetapostRenderer *renderer,Color *color)
 {
+    gchar red_buf[DTOSTR_BUF_SIZE];
+    gchar green_buf[DTOSTR_BUF_SIZE];
+    gchar blue_buf[DTOSTR_BUF_SIZE];
+    
     renderer->color = *color;
-    fprintf(renderer->file, "%% set_line_color %f, %f, %f\n", 
-            (double)color->red, (double)color->green, (double)color->blue);
+    fprintf(renderer->file, "%% set_line_color %s, %s, %s\n", 
+            mp_dtostr(red_buf, (gdouble)color->red),
+	    mp_dtostr(green_buf, (gdouble)color->green),
+	    mp_dtostr(blue_buf, (gdouble)color->blue) );
 }
 
 static void 
@@ -343,8 +356,10 @@ end_render(DiaRenderer *self)
 static void
 set_linewidth(DiaRenderer *self, real linewidth)
 {  /* 0 == hairline **/
+    gchar buf[DTOSTR_BUF_SIZE];
     MetapostRenderer *renderer = METAPOST_RENDERER (self);
-    fprintf(renderer->file, "%% set_linewidth %f\n", linewidth);
+
+    fprintf(renderer->file, "%% set_linewidth %s\n", mp_dtostr(buf,linewidth) );
     renderer->line_width = linewidth;
 }
 
@@ -410,37 +425,46 @@ static void
 draw_with_linestyle(MetapostRenderer *renderer)
 {
     real hole_width;
+    gchar dash_length_buf[DTOSTR_BUF_SIZE];
+    gchar dot_lenght_buf[DTOSTR_BUF_SIZE];
+    gchar hole_width_buf[DTOSTR_BUF_SIZE];
 
     switch(renderer->saved_line_style) {
     case LINESTYLE_SOLID:
 	break;
     case LINESTYLE_DASHED:
-	fprintf(renderer->file, "\n    dashed dashpattern (on %fx off %fx)", 
-		renderer->dash_length,
-		renderer->dash_length);
+	mp_dtostr(dash_length_buf, renderer->dash_length);
+	fprintf(renderer->file, "\n    dashed dashpattern (on %sx off %sx)", 
+		dash_length_buf, dash_length_buf);
 	break;
     case LINESTYLE_DASH_DOT:
 	hole_width = (renderer->dash_length - renderer->dot_length) / 2.0;
-	fprintf(renderer->file, "\n    dashed dashpattern (on %fx off %fx on %fx off %fx)",
-		renderer->dash_length,
-		hole_width,
-		renderer->dot_length,
-		hole_width );
+
+	mp_dtostr(dash_length_buf, renderer->dash_length);
+	mp_dtostr(dot_lenght_buf, renderer->dot_length);
+	mp_dtostr(hole_width_buf, hole_width);
+	
+	fprintf(renderer->file, "\n    dashed dashpattern (on %sx off %sx on %sx off %sx)",
+		dash_length_buf, hole_width_buf,
+		dot_lenght_buf, hole_width_buf);
 	break;
     case LINESTYLE_DASH_DOT_DOT:
 	hole_width = (renderer->dash_length - 2.0*renderer->dot_length) / 3.0;
-	fprintf(renderer->file, "\n    dashed dashpattern (on %fx off %fx on %fx off %fx on %fx off %fx)",
-		renderer->dash_length,
-		hole_width,
-		renderer->dot_length,
-		hole_width,
-		renderer->dot_length,
-		hole_width );
+
+	mp_dtostr(dash_length_buf, renderer->dash_length);
+	mp_dtostr(dot_lenght_buf, renderer->dot_length);
+	mp_dtostr(hole_width_buf, hole_width);
+
+	fprintf(renderer->file, "\n    dashed dashpattern (on %sx off %sx on %sx off %sx on %sx off %sx)",
+		dash_length_buf, hole_width_buf,
+		dot_lenght_buf, hole_width_buf,
+		dot_lenght_buf, hole_width_buf );
 	break;
     case LINESTYLE_DOTTED:
-	fprintf(renderer->file, "\n    dashed dashpattern (on %fx off %fx)", 
-		renderer->dot_length,
-		renderer->dot_length);
+	mp_dtostr(dot_lenght_buf, renderer->dot_length);
+
+	fprintf(renderer->file, "\n    dashed dashpattern (on %sx off %sx)", 
+		dot_lenght_buf, dot_lenght_buf);
 	break;
     }
 }
@@ -540,11 +564,16 @@ draw_line(DiaRenderer *self,
 	  Color *line_color)
 {
     MetapostRenderer *renderer = METAPOST_RENDERER (self);
+    gchar sx_buf[DTOSTR_BUF_SIZE];
+    gchar sy_buf[DTOSTR_BUF_SIZE];
+    gchar ex_buf[DTOSTR_BUF_SIZE];
+    gchar ey_buf[DTOSTR_BUF_SIZE];
 
     set_line_color(renderer,line_color);
 
-    fprintf(renderer->file, "  draw (%fx,%fy)--(%fx,%fy)",
-	    start->x, start->y, end->x, end->y);
+    fprintf(renderer->file, "  draw (%sx,%sy)--(%sx,%sy)",
+	    mp_dtostr(sx_buf, start->x), mp_dtostr(sy_buf, start->y),
+	    mp_dtostr(ex_buf, end->x), mp_dtostr(ey_buf, end->y) );
     end_draw_op(renderer);
 }
 
@@ -555,16 +584,20 @@ draw_polyline(DiaRenderer *self,
 {
     MetapostRenderer *renderer = METAPOST_RENDERER (self);
     int i;
+    gchar px_buf[DTOSTR_BUF_SIZE];
+    gchar py_buf[DTOSTR_BUF_SIZE];
     
     set_line_color(renderer,line_color);
   
     fprintf(renderer->file, 
-	    "  draw (%fx,%fy)",
-	    points[0].x, points[0].y);
+	    "  draw (%sx,%sy)",
+	    mp_dtostr(px_buf, points[0].x),
+	    mp_dtostr(py_buf, points[0].y) );
 
     for (i=1;i<num_points;i++) {
-	fprintf(renderer->file, "--(%fx,%fy)",
-		points[i].x, points[i].y);
+	fprintf(renderer->file, "--(%sx,%sy)",
+		mp_dtostr(px_buf, points[i].x),
+		mp_dtostr(py_buf, points[i].y) );
     }
     end_draw_op(renderer);
 }
@@ -576,16 +609,20 @@ draw_polygon(DiaRenderer *self,
 {
     MetapostRenderer *renderer = METAPOST_RENDERER (self);
     int i;
+    gchar px_buf[DTOSTR_BUF_SIZE];
+    gchar py_buf[DTOSTR_BUF_SIZE];
 
     set_line_color(renderer,line_color);
   
     fprintf(renderer->file, 
-	    "  draw (%fx,%fy)",
-	    points[0].x, points[0].y);
+	    "  draw (%sx,%sy)",
+	    mp_dtostr(px_buf, points[0].x),
+	    mp_dtostr(py_buf, points[0].y) );
 
     for (i=1;i<num_points;i++) {
-	fprintf(renderer->file, "--(%fx,%fy)",
-		points[i].x, points[i].y);
+	fprintf(renderer->file, "--(%sx,%sy)",
+		mp_dtostr(px_buf, points[i].x),
+		mp_dtostr(py_buf, points[i].y) );
     }
     fprintf(renderer->file,"--cycle");
     end_draw_op(renderer);
@@ -598,18 +635,22 @@ fill_polygon(DiaRenderer *self,
 {
     MetapostRenderer *renderer = METAPOST_RENDERER (self);
     int i;
+    gchar px_buf[DTOSTR_BUF_SIZE];
+    gchar py_buf[DTOSTR_BUF_SIZE];
 
     set_line_color(renderer,line_color);
     
     fprintf(renderer->file, "%% fill_polygon\n");
     fprintf(renderer->file, 
 	    "  path p;\n"
-	    "  p = (%fx,%fy)",
-	    points[0].x, points[0].y);
+	    "  p = (%sx,%sy)",
+	    mp_dtostr(px_buf, points[0].x),
+	    mp_dtostr(py_buf, points[0].y) );
 
     for (i=1;i<num_points;i++) {
-	fprintf(renderer->file, "--(%fx,%fy)",
-		points[i].x, points[i].y);
+	fprintf(renderer->file, "--(%sx,%sy)",
+		mp_dtostr(px_buf, points[i].x),
+		mp_dtostr(py_buf, points[i].y) );
     }
     fprintf(renderer->file,"--cycle;\n");
     fprintf(renderer->file,"  fill p ");
@@ -622,15 +663,24 @@ draw_rect(DiaRenderer *self,
 	  Color *color)
 {
     MetapostRenderer *renderer = METAPOST_RENDERER (self);
+    gchar ulx_buf[DTOSTR_BUF_SIZE];
+    gchar uly_buf[DTOSTR_BUF_SIZE];
+    gchar lrx_buf[DTOSTR_BUF_SIZE];
+    gchar lry_buf[DTOSTR_BUF_SIZE];
+
+    mp_dtostr(ulx_buf, (gdouble) ul_corner->x);
+    mp_dtostr(uly_buf, (gdouble) ul_corner->y);
+    mp_dtostr(lrx_buf, (gdouble) lr_corner->x);
+    mp_dtostr(lry_buf, (gdouble) lr_corner->y);
 
     set_line_color(renderer,color);
 
     fprintf(renderer->file, 
-	    "  draw (%fx,%fy)--(%fx,%fy)--(%fx,%fy)--(%fx,%fy)--cycle",
-	    (double) ul_corner->x, (double) ul_corner->y,
-	    (double) ul_corner->x, (double) lr_corner->y,
-	    (double) lr_corner->x, (double) lr_corner->y,
-	    (double) lr_corner->x, (double) ul_corner->y );
+	    "  draw (%sx,%sy)--(%sx,%sy)--(%sx,%sy)--(%sx,%sy)--cycle",
+	    ulx_buf, uly_buf,
+	    ulx_buf, lry_buf,
+	    lrx_buf, lry_buf,
+	    lrx_buf, uly_buf );
     end_draw_op(renderer);
 }
 
@@ -640,17 +690,31 @@ fill_rect(DiaRenderer *self,
 	  Color *color)
 {
     MetapostRenderer *renderer = METAPOST_RENDERER (self);
+    gchar ulx_buf[DTOSTR_BUF_SIZE];
+    gchar uly_buf[DTOSTR_BUF_SIZE];
+    gchar lrx_buf[DTOSTR_BUF_SIZE];
+    gchar lry_buf[DTOSTR_BUF_SIZE];
+    gchar red_buf[DTOSTR_BUF_SIZE];
+    gchar green_buf[DTOSTR_BUF_SIZE];
+    gchar blue_buf[DTOSTR_BUF_SIZE];
+
+    mp_dtostr(ulx_buf, (gdouble) ul_corner->x);
+    mp_dtostr(uly_buf, (gdouble) ul_corner->y);
+    mp_dtostr(lrx_buf, (gdouble) lr_corner->x);
+    mp_dtostr(lry_buf, (gdouble) lr_corner->y);
 
     fprintf(renderer->file, 
 	    "  path p;\n"
-	    "  p = (%fx,%fy)--(%fx,%fy)--(%fx,%fy)--(%fx,%fy)--cycle;\n",
-	    (double) ul_corner->x, (double) ul_corner->y,
-	    (double) ul_corner->x, (double) lr_corner->y,
-	    (double) lr_corner->x, (double) lr_corner->y,
-	    (double) lr_corner->x, (double) ul_corner->y );
+	    "  p = (%sx,%sy)--(%sx,%sy)--(%sx,%sy)--(%sx,%sy)--cycle;\n",
+	    ulx_buf, uly_buf,
+	    ulx_buf, lry_buf,
+	    lrx_buf, lry_buf,
+	    lrx_buf, uly_buf );
     fprintf(renderer->file,
-	    "  fill p withcolor (%f,%f,%f);\n",
-	    (double) color->red, (double) color->green, (double) color->blue);
+	    "  fill p withcolor (%s,%s,%s);\n",
+	    mp_dtostr(red_buf, (gdouble) color->red),
+	    mp_dtostr(green_buf, (gdouble) color->green),
+	    mp_dtostr(blue_buf, (gdouble) color->blue) );
 }
 
 static void
@@ -664,17 +728,19 @@ metapost_arc(MetapostRenderer *renderer,
     double angle3;
     double cx = (double) center->x;
     double cy = (double) center->y;
+    gchar d1_buf[DTOSTR_BUF_SIZE];
+    gchar d2_buf[DTOSTR_BUF_SIZE];
 
     radius1=(double) width/2.0;
     radius2=(double) height/2.0;
 
     fprintf(renderer->file,"%%metapost_arc\n");
-    fprintf(renderer->file, "%% %s = %f", "center->x", center->x);
-    fprintf(renderer->file, "%% %s = %f", "center->y", center->y);
-    fprintf(renderer->file, "%% %s = %f", "width", width);
-    fprintf(renderer->file, "%% %s = %f", "height", height);
-    fprintf(renderer->file, "%% %s = %f", "angle1", angle1);
-    fprintf(renderer->file, "%% %s = %f", "angle2", angle2);
+    fprintf(renderer->file, "%% %s = %s", "center->x", mp_dtostr(d1_buf, center->x));
+    fprintf(renderer->file, "%% %s = %s", "center->y", mp_dtostr(d1_buf, center->y));
+    fprintf(renderer->file, "%% %s = %s", "width", mp_dtostr(d1_buf, width));
+    fprintf(renderer->file, "%% %s = %s", "height", mp_dtostr(d1_buf, height));
+    fprintf(renderer->file, "%% %s = %s", "angle1", mp_dtostr(d1_buf, angle1));
+    fprintf(renderer->file, "%% %s = %s", "angle2", mp_dtostr(d1_buf, angle2));
     
     
     angle1 = angle1*M_PI/180;
@@ -685,11 +751,15 @@ metapost_arc(MetapostRenderer *renderer,
 
     set_line_color(renderer,color);
 
-    fprintf(renderer->file,
-	    "  draw (%fx,%fy)..(%fx,%fy)..(%fx,%fy)",
-	    cx + radius1*cos(angle1), cy - radius2*sin(angle1),
-	    cx + radius1*cos(angle3), cy - radius2*sin(angle3),
-	    cx + radius1*cos(angle2), cy - radius2*sin(angle2));
+    fprintf(renderer->file, "  draw (%sx,%sy)..",
+	    mp_dtostr(d1_buf, cx + radius1*cos(angle1)),
+	    mp_dtostr(d2_buf, cy - radius2*sin(angle1)) );
+    fprintf(renderer->file, "(%sx,%sy)..",
+	    mp_dtostr(d1_buf, cx + radius1*cos(angle3)),
+	    mp_dtostr(d2_buf, cy - radius2*sin(angle3)) );
+    fprintf(renderer->file, "(%sx,%sy)",
+	    mp_dtostr(d1_buf, cx + radius1*cos(angle2)),
+	    mp_dtostr(d2_buf, cy - radius2*sin(angle2)) );
     end_draw_op(renderer);
 }
 
@@ -724,15 +794,23 @@ draw_ellipse(DiaRenderer *self,
 	     Color *color)
 {
     MetapostRenderer *renderer = METAPOST_RENDERER (self);
+    gchar d1_buf[DTOSTR_BUF_SIZE];
+    gchar d2_buf[DTOSTR_BUF_SIZE];
 
     set_line_color(renderer,color);
     
-    fprintf(renderer->file, 
-	    "  draw (%fx,%fy)..(%fx,%fy)..(%fx,%fy)..(%fx,%fy)..cycle",
-	    (double) center->x+width/2.0, (double) center->y,
-	    (double) center->x,           (double) center->y+height/2.0,
-	    (double) center->x-width/2.0, (double) center->y,
-	    (double) center->x,           (double) center->y-height/2.0);
+    fprintf(renderer->file, "  draw (%sx,%sy)..",
+	    mp_dtostr(d1_buf, (gdouble) center->x+width/2.0),
+	    mp_dtostr(d2_buf, (gdouble) center->y) );
+    fprintf(renderer->file, "(%sx,%sy)..",
+	    mp_dtostr(d1_buf, (gdouble) center->x),
+	    mp_dtostr(d2_buf, (gdouble) center->y+height/2.0) );
+    fprintf(renderer->file, "(%sx,%sy)..",
+	    mp_dtostr(d1_buf, (gdouble) center->x-width/2.0),
+	    mp_dtostr(d2_buf, (gdouble) center->y) );
+    fprintf(renderer->file, "(%sx,%sy)..cycle",
+	    mp_dtostr(d1_buf, (gdouble) center->x),
+	    mp_dtostr(d2_buf, (gdouble) center->y-height/2.0) );
     end_draw_op(renderer);
 }
 
@@ -743,18 +821,32 @@ fill_ellipse(DiaRenderer *self,
 	     Color *color)
 {
     MetapostRenderer *renderer = METAPOST_RENDERER (self);
+    gchar d1_buf[DTOSTR_BUF_SIZE];
+    gchar d2_buf[DTOSTR_BUF_SIZE];
+    gchar red_buf[DTOSTR_BUF_SIZE];
+    gchar green_buf[DTOSTR_BUF_SIZE];
+    gchar blue_buf[DTOSTR_BUF_SIZE];
 
     fprintf(renderer->file, 
 	    "  path p;\n"
-	    "  p = (%fx,%fy)..(%fx,%fy)..(%fx,%fy)..(%fx,%fy)..cycle;\n",
-	    (double) center->x+width/2.0, (double) center->y,
-	    (double) center->x,           (double) center->y+height/2.0,
-	    (double) center->x-width/2.0, (double) center->y,
-	    (double) center->x,           (double) center->y-height/2.0);
+	    "  p = (%sx,%sy)..",
+	    mp_dtostr(d1_buf, (gdouble) center->x+width/2.0),
+	    mp_dtostr(d2_buf, (gdouble) center->y) );
+    fprintf(renderer->file, "(%sx,%sy)..",
+	    mp_dtostr(d1_buf, (gdouble) center->x),
+	    mp_dtostr(d2_buf, (gdouble) center->y+height/2.0) );
+    fprintf(renderer->file, "(%sx,%sy)..",
+	    mp_dtostr(d1_buf, (gdouble) center->x-width/2.0),
+	    mp_dtostr(d2_buf, (gdouble) center->y) );
+    fprintf(renderer->file, "(%sx,%sy)..cycle;\n",
+	    mp_dtostr(d1_buf, (gdouble) center->x),
+	    mp_dtostr(d2_buf, (gdouble) center->y-height/2.0) );
 
     fprintf(renderer->file,
-	    "  fill p withcolor (%f,%f,%f);\n",
-	    (double) color->red, (double) color->green, (double) color->blue);
+	    "  fill p withcolor (%s,%s,%s);\n",
+	    mp_dtostr(red_buf, (gdouble) color->red),
+	    mp_dtostr(green_buf, (gdouble) color->green),
+	    mp_dtostr(blue_buf, (gdouble) color->blue) );
 }
 
 
@@ -766,15 +858,22 @@ draw_bezier(DiaRenderer *self,
 	    Color *color)
 {
     MetapostRenderer *renderer = METAPOST_RENDERER (self);
-    int i;
+    gint i;
+    gchar p1x_buf[DTOSTR_BUF_SIZE];
+    gchar p1y_buf[DTOSTR_BUF_SIZE];
+    gchar p2x_buf[DTOSTR_BUF_SIZE];
+    gchar p2y_buf[DTOSTR_BUF_SIZE];
+    gchar p3x_buf[DTOSTR_BUF_SIZE];
+    gchar p3y_buf[DTOSTR_BUF_SIZE];
 
     set_line_color(renderer,color);
 
     if (points[0].type != BEZ_MOVE_TO)
 	g_warning("first BezPoint must be a BEZ_MOVE_TO");
 
-    fprintf(renderer->file, "  draw (%fx,%fy)",
-	    (double) points[0].p1.x, (double) points[0].p1.y);
+    fprintf(renderer->file, "  draw (%sx,%sy)",
+	    mp_dtostr(p1x_buf, (gdouble) points[0].p1.x),
+	    mp_dtostr(p1y_buf, (gdouble) points[0].p1.y) );
   
     for (i = 1; i < numpoints; i++)
 	switch (points[i].type) {
@@ -782,14 +881,18 @@ draw_bezier(DiaRenderer *self,
 	    g_warning("only first BezPoint can be a BEZ_MOVE_TO");
 	    break;
 	case BEZ_LINE_TO:
-	    fprintf(renderer->file, "--(%fx,%fy)",
-		    (double) points[i].p1.x, (double) points[i].p1.y);
+	    fprintf(renderer->file, "--(%sx,%sy)",
+		    mp_dtostr(p1x_buf, (gdouble) points[i].p1.x),
+		    mp_dtostr(p1y_buf, (gdouble) points[i].p1.y) );
 	    break;
 	case BEZ_CURVE_TO:
-	    fprintf(renderer->file, "..controls (%fx,%fy) and (%fx,%fy)\n    ..(%fx,%fy)",
-		    (double) points[i].p1.x, (double) points[i].p1.y,
-		    (double) points[i].p2.x, (double) points[i].p2.y,
-		    (double) points[i].p3.x, (double) points[i].p3.y);
+	    fprintf(renderer->file, "..controls (%sx,%sy) and (%sx,%sy)\n    ..(%sx,%sy)",
+		    mp_dtostr(p1x_buf, (gdouble) points[i].p1.x),
+		    mp_dtostr(p1y_buf, (gdouble) points[i].p1.y),
+		    mp_dtostr(p2x_buf, (gdouble) points[i].p2.x),
+		    mp_dtostr(p2y_buf, (gdouble) points[i].p2.y),
+		    mp_dtostr(p3x_buf, (gdouble) points[i].p3.x),
+		    mp_dtostr(p3y_buf, (gdouble) points[i].p3.y) );
 	    break;
 	}
     end_draw_op(renderer);
@@ -804,14 +907,24 @@ fill_bezier(DiaRenderer *self,
 	    Color *color)
 {
     MetapostRenderer *renderer = METAPOST_RENDERER (self);
-    int i;
+    gint i;
+    gchar p1x_buf[DTOSTR_BUF_SIZE];
+    gchar p1y_buf[DTOSTR_BUF_SIZE];
+    gchar p2x_buf[DTOSTR_BUF_SIZE];
+    gchar p2y_buf[DTOSTR_BUF_SIZE];
+    gchar p3x_buf[DTOSTR_BUF_SIZE];
+    gchar p3y_buf[DTOSTR_BUF_SIZE];
+    gchar red_buf[DTOSTR_BUF_SIZE];
+    gchar green_buf[DTOSTR_BUF_SIZE];
+    gchar blue_buf[DTOSTR_BUF_SIZE];
 
     if (points[0].type != BEZ_MOVE_TO)
 	g_warning("first BezPoint must be a BEZ_MOVE_TO");
 
     fprintf(renderer->file, "  path p;\n");
-    fprintf(renderer->file, "  p = (%fx,%fy)",
-	    (double) points[0].p1.x, (double) points[0].p1.y);
+    fprintf(renderer->file, "  p = (%sx,%sy)",
+	    mp_dtostr(p1x_buf, (gdouble) points[0].p1.x),
+	    mp_dtostr(p1y_buf, (gdouble) points[0].p1.y) );
   
     for (i = 1; i < numpoints; i++)
 	switch (points[i].type) {
@@ -819,21 +932,27 @@ fill_bezier(DiaRenderer *self,
 	    g_warning("only first BezPoint can be a BEZ_MOVE_TO");
 	    break;
 	case BEZ_LINE_TO:
-	    fprintf(renderer->file, "--(%fx,%fy)",
-		    (double) points[i].p1.x, (double) points[i].p1.y);
+	    fprintf(renderer->file, "--(%sx,%sy)",
+		    mp_dtostr(p1x_buf, (gdouble) points[i].p1.x),
+		    mp_dtostr(p1y_buf, (gdouble) points[i].p1.y) );
 	    break;
 	case BEZ_CURVE_TO:
-	    fprintf(renderer->file, "..controls (%fx,%fy) and (%fx,%fy)\n    ..(%fx,%fy)",
-		    (double) points[i].p1.x, (double) points[i].p1.y,
-		    (double) points[i].p2.x, (double) points[i].p2.y,
-		    (double) points[i].p3.x, (double) points[i].p3.y);
+	    fprintf(renderer->file, "..controls (%sx,%sy) and (%sx,%sy)\n    ..(%sx,%sy)",
+		    mp_dtostr(p1x_buf, (gdouble) points[i].p1.x),
+		    mp_dtostr(p1y_buf, (gdouble) points[i].p1.y),
+		    mp_dtostr(p2x_buf, (gdouble) points[i].p2.x),
+		    mp_dtostr(p2y_buf, (gdouble) points[i].p2.y),
+		    mp_dtostr(p3x_buf, (gdouble) points[i].p3.x),
+		    mp_dtostr(p3y_buf, (gdouble) points[i].p3.y) );
 	    break;
 	}
     fprintf(renderer->file, "\n    ..cycle;\n");
 
     fprintf(renderer->file,
-	    "  fill p withcolor (%f,%f,%f);\n",
-	    (double) color->red, (double) color->green, (double) color->blue);
+	    "  fill p withcolor (%s,%s,%s);\n",
+	    mp_dtostr(red_buf, (gdouble) color->red),
+	    mp_dtostr(green_buf, (gdouble) color->green),
+	    mp_dtostr(blue_buf, (gdouble) color->blue) );
 }
 
 static void
@@ -843,6 +962,12 @@ draw_string(DiaRenderer *self,
 	    Color *color)
 {
     MetapostRenderer *renderer = METAPOST_RENDERER (self);
+    gchar height_buf[DTOSTR_BUF_SIZE];
+    gchar px_buf[DTOSTR_BUF_SIZE];
+    gchar py_buf[DTOSTR_BUF_SIZE];
+    gchar red_buf[DTOSTR_BUF_SIZE];
+    gchar green_buf[DTOSTR_BUF_SIZE];
+    gchar blue_buf[DTOSTR_BUF_SIZE];
 
     set_line_color(renderer,color);
 
@@ -865,15 +990,18 @@ draw_string(DiaRenderer *self,
      * converting spaces into visible spaces, which looks rather yucky.  So we
      * embed some TeX with \usefont commands instead. */
     fprintf(renderer->file,
-            "(btex {\\usefont{OT1}{%s}{%s}{%s} %s} etex scaled %g,(%fx,%fy))",
+            "(btex {\\usefont{OT1}{%s}{%s}{%s} %s} etex scaled %s,(%sx,%sy))",
             renderer->mp_font, renderer->mp_weight, renderer->mp_slant,
-            text, renderer->mp_font_height, pos->x, pos->y);
+            text,
+	    g_ascii_formatd(height_buf, sizeof(height_buf), "%g", renderer->mp_font_height),
+	    mp_dtostr(px_buf, pos->x),
+	    mp_dtostr(py_buf, pos->y) );
 
     if (!color_equals(&renderer->color, &color_black))
-        fprintf(renderer->file, "\n    withcolor (%5.4f, %5.4f, %5.4f)", 
-                (double)renderer->color.red, 
-                (double)renderer->color.green,
-                (double)renderer->color.blue);
+        fprintf(renderer->file, "\n    withcolor (%s, %s, %s)", 
+                g_ascii_formatd(red_buf, sizeof(red_buf), "%5.4f", (gdouble) renderer->color.red), 
+                g_ascii_formatd(green_buf, sizeof(green_buf), "%5.4f", (gdouble) renderer->color.green),
+                g_ascii_formatd(blue_buf, sizeof(blue_buf), "%5.4f", (gdouble) renderer->color.blue) );
 
     fprintf(renderer->file,";\n");
 }
@@ -891,6 +1019,9 @@ draw_image(DiaRenderer *self,
     guint8 *rgb_data;
     guint8 *mask_data;
     double ix, iy;
+    gchar d1_buf[DTOSTR_BUF_SIZE];
+    gchar d2_buf[DTOSTR_BUF_SIZE];
+    gchar d3_buf[DTOSTR_BUF_SIZE];
 
     MetapostRenderer *renderer = METAPOST_RENDERER (self);
 
@@ -907,9 +1038,9 @@ draw_image(DiaRenderer *self,
     rgb_data = dia_image_rgb_data(image);
     mask_data = dia_image_mask_data(image);
 
-    fprintf(renderer->file, "  pickup pensquare scaled %fx scaled %f;\n",
-            (double) xstep,
-            (double) (ystep/xstep));
+    fprintf(renderer->file, "  pickup pensquare scaled %sx scaled %s;\n",
+            mp_dtostr(d1_buf, (gdouble) xstep),
+            mp_dtostr(d2_buf, (gdouble) (ystep/xstep)) );
 
 
     if (mask_data) {
@@ -918,11 +1049,15 @@ draw_image(DiaRenderer *self,
             for (x = 0, ix = point->x; x < img_width; x++, ix += xstep) {
                 int i = y*img_rowstride+x*3;
                 int m = y*img_width+x;
-                fprintf(renderer->file, "  draw (%fx, %fy) withcolor (%5.4f, %5.4f, %5.4f);\n",
-                        ix, iy,
-                        (255-(mask_data[m]*(255-rgb_data[i])/255)/255.0),
-                        (255-(mask_data[m]*(255-rgb_data[i+1])/255))/255.0,
-                        (255-(mask_data[m]*(255-rgb_data[i+2])/255))/255.0);
+		fprintf(renderer->file, "  draw (%sx, %sy) ",
+			mp_dtostr(d1_buf, ix), mp_dtostr(d2_buf, iy) );
+                fprintf(renderer->file, "withcolor (%s, %s, %s);\n",
+                        g_ascii_formatd(d1_buf, sizeof(d1_buf), "%5.4f",
+					(255-(mask_data[m]*(255-rgb_data[i])/255)/255.0)),
+                        g_ascii_formatd(d2_buf, sizeof(d2_buf), "%5.4f",
+					(255-(mask_data[m]*(255-rgb_data[i+1])/255))/255.0),
+                        g_ascii_formatd(d3_buf, sizeof(d3_buf), "%5.4f",
+					(255-(mask_data[m]*(255-rgb_data[i+2])/255))/255.0) );
             }
             fprintf(renderer->file, "\n");
         }
@@ -930,11 +1065,15 @@ draw_image(DiaRenderer *self,
         for (y = 0, iy = point->y; y < img_height; y++, iy += ystep) {
             for (x = 0, ix = point->x; x < img_width; x++, ix += xstep) {
                 int i = y*img_rowstride+x*3;
-                fprintf(renderer->file, "  draw (%fx, %fy) withcolor (%5.4f, %5.4f, %5.4f);\n",
-                        ix, iy,
-                        (double)(rgb_data[i])/255.0,
-                        (double)(rgb_data[i+1])/255.0,
-                        (double)(rgb_data[i+2])/255.0);
+		fprintf(renderer->file, "  draw (%sx, %sy) ",
+			mp_dtostr(d1_buf, ix), mp_dtostr(d2_buf, iy) );
+                fprintf(renderer->file, "withcolor (%s, %s, %s);\n",
+                        g_ascii_formatd(d1_buf, sizeof(d1_buf), "%5.4f",
+					(gdouble) (rgb_data[i])/255.0),
+                        g_ascii_formatd(d2_buf, sizeof(d2_buf), "%5.4f",
+					(gdouble) (rgb_data[i+1])/255.0),
+                        g_ascii_formatd(d3_buf, sizeof(d3_buf), "%5.4f",
+					(gdouble) (rgb_data[i+2])/255.0) );
             }
             fprintf(renderer->file, "\n");
         }
@@ -955,6 +1094,10 @@ export_metapost(DiagramData *data, const gchar *filename,
     double scale;
     Rectangle *extent;
     const char *name;
+    gchar d1_buf[DTOSTR_BUF_SIZE];
+    gchar d2_buf[DTOSTR_BUF_SIZE];
+    gchar d3_buf[DTOSTR_BUF_SIZE];
+    gchar d4_buf[DTOSTR_BUF_SIZE];
 
     Color initial_color;
  
@@ -1002,15 +1145,14 @@ export_metapost(DiagramData *data, const gchar *filename,
              "etex\n");
 
  
-    fprintf(renderer->file,"  %% picture(%f,%f)(%f,%f)\n",
-	    extent->left * data->paper.scaling,
-	    -extent->bottom * data->paper.scaling,
-	    extent->right * data->paper.scaling,
-	    -extent->top * data->paper.scaling
-	    );
-    fprintf(renderer->file,"  x = %fcm; y = %fcm;\n\n",
-	    data->paper.scaling,
-	    -data->paper.scaling);
+    fprintf(renderer->file,"  %% picture(%s,%s)(%s,%s)\n",
+	    mp_dtostr(d1_buf, extent->left * data->paper.scaling),
+	    mp_dtostr(d2_buf, -extent->bottom * data->paper.scaling),
+	    mp_dtostr(d3_buf, extent->right * data->paper.scaling),
+	    mp_dtostr(d4_buf, -extent->top * data->paper.scaling) );
+    fprintf(renderer->file,"  x = %scm; y = %scm;\n\n",
+	    mp_dtostr(d1_buf, data->paper.scaling),
+	    mp_dtostr(d2_buf, -data->paper.scaling) );
 
    
     initial_color.red=0.;
