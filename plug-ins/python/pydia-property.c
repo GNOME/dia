@@ -18,6 +18,8 @@
  */
 
 #include <config.h>
+#undef HAVE_STDLIB_H
+#undef HAVE_FCNTL_H
 
 #include <glib.h>
 
@@ -35,7 +37,7 @@
 #include "prop_geomtypes.h"
 #include "prop_attr.h"
 #include "prop_text.h"
-
+#include "prop_sdarray.h"
 
 /*
  * New
@@ -204,6 +206,8 @@ static PyObject * PyDia_get_Color (ColorProperty *prop)
 static PyObject * PyDia_get_Font (FontProperty *prop)
 { return PyDiaFont_New (prop->font_data); }
 
+static PyObject * PyDia_get_Array (ArrayProperty *prop);
+
 struct {
   char *type;
   PyObject *(*propget)();
@@ -230,8 +234,56 @@ struct {
   { PROP_TYPE_RECT, PyDia_get_Rect },
   { PROP_TYPE_ARROW, PyDia_get_Arrow },
   { PROP_TYPE_COLOUR, PyDia_get_Color },
-  { PROP_TYPE_FONT, PyDia_get_Font }
+  { PROP_TYPE_FONT, PyDia_get_Font },
+  { PROP_TYPE_SARRAY, PyDia_get_Array },
+  { PROP_TYPE_DARRAY, PyDia_get_Array }
 };
+
+static PyObject * PyDia_get_Array (ArrayProperty *prop)
+{
+  PyObject *ret;
+  int num, num_props;
+
+  num_props = prop->ex_props->len;
+  num = prop->records->len;
+  ret = PyTuple_New (num);
+
+  /* fill it with tuples or single types */
+  if (num > 0) {
+    PyDiaPropGetFunc *getters = g_new0(PyDiaPropGetFunc, num_props);
+    int i;
+
+    /* resolve the getter functions once */
+    for (i = 0; i < num_props; i++) {
+      int j;
+      for (j = 0; j < G_N_ELEMENTS(prop_type_map); j++) {
+        Property *inner = g_ptr_array_index(prop->ex_props, i);
+        if (prop_type_map[j].quark == inner->type_quark)
+          getters[i] = (PyDiaPropGetFunc)prop_type_map[j].propget;
+      }
+    }
+    for (i = 0; i < num; i++) {
+      PyObject *o;
+      GPtrArray *p = g_ptr_array_index(prop->records, i);
+      int j = 0;
+
+      if (1 == num_props) {
+        Property *sub = g_ptr_array_index(p,j);
+        o = getters[j](sub);
+      } else {
+        o = PyTuple_New (num_props);
+        for (j = 0; j < num_props; j++) {
+          Property *sub = g_ptr_array_index(p,j);
+          PyTuple_SetItem(o, j, getters[j](sub));
+        }
+      }
+      PyTuple_SetItem(ret, i, o);
+    }
+    g_free(getters);
+  }
+
+  return ret;
+}
 
 /*
  * GetAttr

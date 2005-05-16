@@ -1,3 +1,16 @@
+2005-05-16  Hans Breuer  <hans@breuer.org>
+
+	* lib/widget.c : variable declarations need to be at the start of a block,
+	at least as we are not using C++ or C99
+
+	* plug-ins/python/pydia-property.c : implment the read part for Property
+	arrays - aka. umlclass.properties["operations"], umlclass.properties["attributes"]
+	They are working quite well as can be seen with export-object.py
+
+	* plug-ins/python/codegen.py : prove it once more with the generation of C++
+	or Python code from an UML Diagram. Simply save as .py or .cxx ...
+	* plug-ins/python/Makefile.am : install it
+
 2005-05-16  Lars Clausen  <lars@raeder.dk>
 
 	* app/Makefile.am: Dependencies for pixmaps.

@@ -144,9 +144,10 @@ dia_size_selector_lock_pressed(GtkWidget *widget, gpointer data)
 static void
 dia_size_selector_init (DiaSizeSelector *ss)
 {
+  GtkAdjustment *adj;
+
   ss->ratio = 0.0;
   /* Here's where we set up the real thing */
-  GtkAdjustment *adj;
   adj = GTK_ADJUSTMENT(gtk_adjustment_new(1.0, 0.01, 10,
 					  0.1, 1.0, 1.0));
   ss->width = GTK_SPIN_BUTTON(gtk_spin_button_new(adj, 1.0, 2));
