@@ -46,7 +46,20 @@ ICON_PNG_PAIRS= \
 	dia_app_icon ../dia_gnome_icon.png \
 	dia_arrow_tool_icon pixmaps/visible.png 
 
-dia-app-icons.h:
+ICON_PNGS= \
+	pixmaps/connectable.png \
+	pixmaps/connectable-empty.png \
+	pixmaps/selectable.png \
+	pixmaps/selectable-empty.png \
+	pixmaps/on-grid.png \
+	pixmaps/off-grid.png \
+	pixmaps/visible.png \
+	pixmaps/visible-empty.png \
+	../dia-diagram.png \
+	../dia_gnome_icon.png \
+	pixmaps/visible.png 
+
+dia-app-icons.h: $(ICON_PNGS)
 	gdk-pixbuf-csource --raw --build-list $(ICON_PNG_PAIRS) > dia-app-icons.h
 
 BUILT_SOURCES = dia-app-icons.h
@@ -205,6 +218,7 @@ dia_embedd_LDADD = ../lib/libdia.la \
 #$(BONOBO_LIBS)
 
 if HAVE_GCC
+# OS X would like += rather than =, but Linux automake no like that.  Grrr.
 dia_LDFLAGS = -export-dynamic
 endif
 

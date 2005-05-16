@@ -1,3 +1,10 @@
+2005-05-16  Lars Clausen  <lars@raeder.dk>
+
+	* app/Makefile.am: Dependencies for pixmaps.
+
+	* app/pixmaps/connectable.png: An icon that actually makes sense
+	for switching connectability.
+
 2005-05-15  Hans Breuer  <hans@breuer.org>
 
 	* lib/group.c object/UML/classicon.c : fixed leftovers of
