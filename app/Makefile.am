@@ -44,7 +44,9 @@ ICON_PNG_PAIRS= \
 	dia_visible_empty_icon pixmaps/visible-empty.png \
         dia_diagram_icon ../dia-diagram.png \
 	dia_app_icon ../dia_gnome_icon.png \
-	dia_arrow_tool_icon pixmaps/visible.png 
+	dia_arrow_tool_icon pixmaps/visible.png \
+	dia_group_icon pixmaps/group.png \
+	dia_ungroup_icon pixmaps/ungroup.png
 
 ICON_PNGS= \
 	pixmaps/connectable.png \
@@ -57,7 +59,9 @@ ICON_PNGS= \
 	pixmaps/visible-empty.png \
 	../dia-diagram.png \
 	../dia_gnome_icon.png \
-	pixmaps/visible.png 
+	pixmaps/visible.png \
+	pixmaps/group.png \
+	pixmaps/ungroup.png
 
 dia-app-icons.h: $(ICON_PNGS)
 	gdk-pixbuf-csource --raw --build-list $(ICON_PNG_PAIRS) > dia-app-icons.h

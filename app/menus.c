@@ -38,6 +38,7 @@
 #include "diagram_tree_window.h"
 #include "object_ops.h"
 #include "sheets.h"
+#include "dia-app-icons.h"
 
 static void plugin_callback (GtkWidget *widget, gpointer data);
 
@@ -185,9 +186,11 @@ static GtkItemFactoryEntry display_menu_items[] =
   {N_("/Objects/Bring Forwards"),"<control><shift>F", objects_place_up_callback,0,
       "<StockItem>", GTK_STOCK_GO_UP},
   {N_("/Objects/---"),            NULL,         NULL,        0, "<Separator>"},
-  {N_("/Objects/_Group"),         "<control>G", objects_group_callback,     0},
+  {N_("/Objects/_Group"),         "<control>G", objects_group_callback,     0, 
+  "<ImageItem>", dia_group_icon},
   /* deliberately not using Ctrl+U for Ungroup */
-  {N_("/Objects/_Ungroup"),       "<control><shift>G", objects_ungroup_callback,   0}, 
+  {N_("/Objects/_Ungroup"),       "<control><shift>G", objects_ungroup_callback, 0,
+  "<ImageItem>", dia_ungroup_icon}, 
   {N_("/Objects/---"),            NULL,         NULL,        0, "<Separator>"},
   {N_("/Objects/_Parent"),         "<control>L", objects_parent_callback,     0},
   {N_("/Objects/_Unparent"),       "<control><shift>L", objects_unparent_callback,   0},
