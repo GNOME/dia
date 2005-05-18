@@ -1,5 +1,8 @@
 2005-05-18  Lars Clausen  <lars@raeder.dk>
 
+	* objects/standard/line.c: Make line adjust its actual endpoints
+	for autogap -- looks and feels better.
+
 	* objects/standard/arc.c: 
 	* lib/geometry.h: 
 	* app/modify_tool.c: Patch from Grégoire Dooms

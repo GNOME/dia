@@ -85,7 +85,8 @@ static void line_save(Line *line, ObjectNode obj_node, const char *filename);
 static DiaObject *line_load(ObjectNode obj_node, int version, const char *filename);
 static DiaMenu *line_get_object_menu(Line *line, Point *clickedpoint);
 
-void calculate_gap_endpoints(Line *line, Point *gap_endpoints);
+void line_adjust_for_autogap(Line *line);
+void line_adjust_for_absolute_gap(Line *line, Point *gap_endpoints);
 
 static ObjectTypeOps line_type_ops =
 {
@@ -303,8 +304,49 @@ calculate_object_edge(Point *objmid, Point *end, DiaObject *obj)
   return mid2;
 }
 
+
+/** Adjust line endings for autogap.  This function actually moves the
+ * ends of the line, but only when the end is connected to 
+ * a mainpoint.
+ */
 void
-calculate_gap_endpoints(Line *line, Point *gap_endpoints)
+line_adjust_for_autogap(Line *line)
+{
+  Point endpoints[2];
+  ConnectionPoint *start_cp, *end_cp;
+  real line_length;
+
+  start_cp = line->connection.endpoint_handles[0].connected_to;
+  end_cp = line->connection.endpoint_handles[1].connected_to;
+
+  endpoints[0] = line->connection.endpoints[0];
+  endpoints[1] = line->connection.endpoints[1];
+
+  if (connpoint_is_autogap(start_cp)) {
+    endpoints[0] = start_cp->pos;
+  }
+  if (connpoint_is_autogap(end_cp)) {    
+    endpoints[1] = end_cp->pos;
+  }
+
+  if (connpoint_is_autogap(start_cp)) {
+    line->connection.endpoints[0] = calculate_object_edge(&endpoints[0],
+							  &endpoints[1],
+							  start_cp->object);
+  }
+  if (connpoint_is_autogap(end_cp)) {    
+    line->connection.endpoints[1] = calculate_object_edge(&endpoints[1],
+							  &endpoints[0],
+							  end_cp->object);
+  }
+}
+
+/** Calculate the absolute gap -- this gap is 'transient', in that
+ * the actual end of the line is not moved, but it is made to look like
+ * it is shorter.
+ */
+void
+line_adjust_for_absolute_gap(Line *line, Point *gap_endpoints)
 {
   Point endpoints[2];
   ConnectionPoint *start_cp, *end_cp;
@@ -313,31 +355,15 @@ calculate_gap_endpoints(Line *line, Point *gap_endpoints)
   endpoints[0] = line->connection.endpoints[0];
   endpoints[1] = line->connection.endpoints[1];
 
-  start_cp = line->connection.endpoint_handles[0].connected_to;
-  end_cp = line->connection.endpoint_handles[1].connected_to;
-
-  if (connpoint_is_autogap(start_cp)) {
-      endpoints[0] = calculate_object_edge(&line->connection.endpoints[0],
-					   &line->connection.endpoints[1],
-					   start_cp->object);
-  }
-  if (connpoint_is_autogap(end_cp)) {    
-      endpoints[1] = calculate_object_edge(&line->connection.endpoints[1],
-					   &line->connection.endpoints[0],
-					   end_cp->object);
-  }
-
-  line_length = distance_point_point(&endpoints[0],&endpoints[1]);
+  line_length = distance_point_point(&endpoints[0], &endpoints[1]);
 
   /* puts new 0 to x% of  0->1  */
-  point_convex(&gap_endpoints[0],&endpoints[0],&endpoints[1],
-              1 - line->absolute_start_gap/line_length
-              );
+  point_convex(&gap_endpoints[0], &endpoints[0], &endpoints[1],
+              1 - line->absolute_start_gap/line_length);
 
   /* puts new 1 to x% of  1->0  */
-  point_convex(&gap_endpoints[1],&endpoints[1],&endpoints[0],
-              1 - line->absolute_end_gap/line_length 
-              );
+  point_convex(&gap_endpoints[1], &endpoints[1], &endpoints[0],
+              1 - line->absolute_end_gap/line_length);
 }
 
 static real
@@ -347,12 +373,10 @@ line_distance_from(Line *line, Point *point)
 
   endpoints = &line->connection.endpoints[0]; 
 
-  if (connpoint_is_autogap(line->connection.endpoint_handles[0].connected_to) ||
-      connpoint_is_autogap(line->connection.endpoint_handles[1].connected_to) ||
-      line->absolute_start_gap || line->absolute_end_gap ) {
+  if (line->absolute_start_gap || line->absolute_end_gap ) {
     Point gap_endpoints[2];  /* Visible endpoints of line */
 
-    calculate_gap_endpoints(line, gap_endpoints);
+    line_adjust_for_absolute_gap(line, gap_endpoints);
     return distance_line_point( &gap_endpoints[0], &gap_endpoints[1],
                                line->line_width, point);
   } else {
@@ -416,10 +440,8 @@ line_draw(Line *line, DiaRenderer *renderer)
   renderer_ops->set_dashlength(renderer, line->dashlength);
   renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
 
-  if (connpoint_is_autogap(line->connection.endpoint_handles[0].connected_to) ||
-      connpoint_is_autogap(line->connection.endpoint_handles[1].connected_to) ||
-      line->absolute_start_gap || line->absolute_end_gap ) {
-    calculate_gap_endpoints(line, gap_endpoints);
+  if (line->absolute_start_gap || line->absolute_end_gap ) {
+    line_adjust_for_absolute_gap(line, gap_endpoints);
 
     renderer_ops->draw_line_with_arrows(renderer,
 					&gap_endpoints[0], &gap_endpoints[1],
@@ -539,11 +561,13 @@ line_update_data(Line *line)
     extra->end_trans = MAX(extra->end_trans,line->end_arrow.width);
 
   if (connpoint_is_autogap(line->connection.endpoint_handles[0].connected_to) ||
-      connpoint_is_autogap(line->connection.endpoint_handles[1].connected_to) ||
-      line->absolute_start_gap || line->absolute_end_gap ) {
+      connpoint_is_autogap(line->connection.endpoint_handles[1].connected_to)) {
+    line_adjust_for_autogap(line);
+  }
+  if (line->absolute_start_gap || line->absolute_end_gap ) {
     Point gap_endpoints[2];
 
-    calculate_gap_endpoints(line, gap_endpoints);
+    line_adjust_for_absolute_gap(line, gap_endpoints);
     line_bbox(&gap_endpoints[0],&gap_endpoints[1],
 	      &conn->extra_spacing,&conn->object.bounding_box);
     start = gap_endpoints[0];
