@@ -1,3 +1,11 @@
+2005-05-18  Lars Clausen  <lars@raeder.dk>
+
+	* objects/standard/arc.c: 
+	* lib/geometry.h: 
+	* app/modify_tool.c: Patch from Grégoire Dooms
+	<dooms@info.ucl.ac.be>:  First stab at autogap for arcs, and
+	shifted arc angle movement.
+
 2005-05-16  Hans Breuer  <hans@breuer.org>
 
 	* lib/widget.c : variable declarations need to be at the start of a block,
@@ -12,6 +20,11 @@
 	* plug-ins/python/Makefile.am : install it
 
 2005-05-16  Lars Clausen  <lars@raeder.dk>
+
+	* app/pixmaps/{un}group.png: 
+	* app/Makefile.am (ICON_PNG_PAIRS): 
+	* app/menus.c (display_menu_items): 
+	New icons for grou/ungroup finally added, closing bug #105519.
 
 	* app/Makefile.am: Dependencies for pixmaps.
 

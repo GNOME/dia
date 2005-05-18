@@ -60,6 +60,7 @@ struct _Arc {
 
 };
 
+/* updates both endpoints and arc->curve_distance */
 static ObjectChange* arc_move_handle(Arc *arc, Handle *handle,
 				     Point *to, ConnectionPoint *cp,
 				     HandleMoveReason reason, ModifierKeys modifiers);
@@ -83,6 +84,9 @@ static void arc_set_props(Arc *arc, GPtrArray *props);
 
 static void arc_save(Arc *arc, ObjectNode obj_node, const char *filename);
 static DiaObject *arc_load(ObjectNode obj_node, int version, const char *filename);
+static int arc_compute_midpoint(Arc *arc, const Point * ep0, const Point * ep1 , Point * midpoint);
+static void calculate_arc_object_edge(Arc *arc, real ang_start, real ang_end, DiaObject *obj, Point *target);
+static void arc_get_point_at_angle(Arc *arc, Point* point, real angle);
 
 static ObjectTypeOps arc_type_ops =
 {
@@ -243,8 +247,151 @@ arc_update_handles(Arc *arc)
       arc->curve_distance*dx/dist;
   }
 }
+/** returns the number of intersection the circle has with the horizontal line at y=horiz
+ * if 1 point intersects then *int1 is that point
+ * if 2 points intersect then *int1 and *int2 are these points
+ */
+static int
+arc_circle_intersects_horiz(const Arc *arc, real horiz, Point *int1, Point *int2){
+  /* inject y=horiz into r^2 = (x-x_c)^2 + (y-y_c)^2 
+   * this is r^2 = (x-x_c)^2 + (horiz-y_c)^2 
+   * translate to x^2 + b*x + c = 0 
+   * b = -2 x_c 
+   * c = x_c^2 - r^2 + (horiz-y_c)^2 
+   * and solve classically */
+  real b, c, delta;
+  b = -2.0 * arc->center.x;
+  c =  arc->center.x * arc->center.x + (horiz - arc->center.y) * (horiz - arc->center.y) - arc->radius * arc->radius;
+  delta = b*b - 4 * c;
+  if (delta < 0)
+          return 0;
+  else if (delta == 0){
+         int1->x = -b/2; 
+         int1->y = horiz;
+         return 1; 
+  }
+  else {
+         int1->x = (sqrt(delta)-b)/2; 
+         int1->y = horiz;
+         int2->x = (-sqrt(delta)-b)/2; 
+         int2->y = horiz;
+          return 2;
+  }
+}
+/** returns the number of intersection the circle has with the vertical line at x=vert
+ * if 1 point intersects then *int1 is that point
+ * if 2 points intersect then *int1 and *int2 are these points
+ */
+static int
+arc_circle_intersects_vert(const Arc *arc, real vert, Point *int1, Point *int2){
+  /* inject x=vert into r^2 = (x-x_c)^2 + (y-y_c)^2 
+   * this is r^2 = (vert-x_c)^2 + (y-y_c)^2 
+   * translate to y^2 + b*y + c = 0 and solve classically */
+  real b, c, delta;
+  b = -2*arc->center.y;
+  c =  arc->center.y * arc->center.y + (vert - arc->center.x) * (vert - arc->center.x) - arc->radius * arc->radius;
+  delta = b*b - 4 * c;
+  if (delta < 0)
+          return 0;
+  else if (delta == 0){
+         int1->y = -b/2; 
+         int1->x = vert;
+         return 1; 
+  }
+  else {
+         int1->y = (sqrt(delta)-b)/2; 
+         int1->x = vert;
+         int2->y = (-sqrt(delta)-b)/2; 
+         int2->x = vert;
+         return 2;
+  }
+}
+        
+        
+            
+
+static real
+arc_compute_curve_distance(const Arc *arc, const Point *start, const Point *end, const Point *mid)
+{
+    Point a,b;
+    real tmp,cd;
+
+    b = *mid;
+    point_sub(&b, start);
+   
+    a = *end;
+    point_sub(&a, start);
+
+    tmp = point_dot(&a,&b);
+    cd =
+      sqrt(fabs(point_dot(&b,&b) - tmp*tmp/point_dot(&a,&a)));
+    
+    if (a.x*b.y - a.y*b.x < 0) 
+      cd = - cd;
+    return cd;
+}
+
+/** rotates p around the center by an angle given in radians 
+ * a positive angle is ccw on the screen*/
+static void
+rotate_point_around_point(Point *p, const Point *center, real angle)
+{
+        real radius;
+        real a;
+        point_sub(p,center);
+        radius = point_len(p);
+        a = -atan2(p->y,p->x); /* y axis points down*/
+        a += angle;
+        p->x = cos(a); p->y = -sin(a);/* y axis points down*/
+        point_scale(p,radius);
+        point_add(p,center);
+}
 
 
+/* finds the point intersecting the full circle 
+ * on the vector defined by the center and Point *to
+ * that point is returned in Point *best if 1 is returned */
+static int
+arc_find_radial(const Arc *arc, const Point *to, Point *best)
+{
+        Point tmp;
+        tmp = *to;
+        point_sub(&tmp, &arc->center);
+        point_normalize(&tmp);
+        point_scale(&tmp,arc->radius);
+        point_add(&tmp, &arc->center);
+        *best = tmp;
+        return 1;
+        
+}
+
+/* finds the closest point intersecting the full circle 
+ * at any position on the vertical and horizontal lines going through Point to
+ * that point is returned in Point *best if 1 is returned */
+static int
+arc_find_closest_vert_horiz(const Arc *arc, const Point *to, Point *best){
+     Point i1,i2;
+     int nh,nv;
+        nh = arc_circle_intersects_horiz(arc, to->y, &i1, &i2);
+        if (nh==2){
+           *best = *closest_to(to,&i1,&i2);
+        }
+        else if (nh==1) {
+           *best = i1;
+        }
+        nv = arc_circle_intersects_vert(arc, to->x, &i1, &i2);
+        if (nv==2){
+           Point tmp;
+           tmp = *closest_to(to,&i1,&i2);
+           *best = *closest_to(to,&tmp,best);
+        }
+        else if (nv==1) {
+           *best = *closest_to(to,&i1,best);
+        }
+        if (nv|nh)
+                return 1;
+        return 0;
+}
 static ObjectChange*
 arc_move_handle(Arc *arc, Handle *handle,
 		Point *to, ConnectionPoint *cp,
@@ -253,26 +400,40 @@ arc_move_handle(Arc *arc, Handle *handle,
   assert(arc!=NULL);
   assert(handle!=NULL);
   assert(to!=NULL);
-
   if (handle->id == HANDLE_MIDDLE) {
-    Point a,b;
-    real tmp;
-
-    b = *to;
-    point_sub(&b, &arc->connection.endpoints[0]);
-   
-    a = arc->connection.endpoints[1];
-    point_sub(&a, &arc->connection.endpoints[0]);
-
-    tmp = point_dot(&a,&b);
-    arc->curve_distance =
-      sqrt(fabs(point_dot(&b,&b) - tmp*tmp/point_dot(&a,&a)));
-    
-    if (a.x*b.y - a.y*b.x < 0) 
-      arc->curve_distance = -arc->curve_distance;
+          printf("curve_dist: %.2f \n",arc->curve_distance);
+          arc->curve_distance = arc_compute_curve_distance(arc, &arc->connection.endpoints[0], &arc->connection.endpoints[1], to);
+          printf("curve_dist: %.2f \n",arc->curve_distance);
 
   } else {
-    connection_move_handle(&arc->connection, handle->id, to, cp, reason, modifiers);
+        Point best;
+        printf("Modifiers: %d \n",modifiers);
+        if (modifiers & MODIFIER_SHIFT)
+        /* if(arc->end_arrow.type == ARROW_NONE)*/
+        {
+          printf("SHIFT USED, to at %.2f %.2f  ",to->x,to->y);
+          if (arc_find_radial(arc, to, &best)){
+            /* needs to move two handles at the same time 
+             * compute pos of middle handle */
+            Point midpoint;
+            int ok;
+            if (handle == (&arc->connection.endpoint_handles[0]))
+              ok = arc_compute_midpoint(arc, &best , &arc->connection.endpoints[1], &midpoint);
+            else
+              ok = arc_compute_midpoint(arc,  &arc->connection.endpoints[0], &best , &midpoint);
+            if (!ok)
+              return NULL;
+            connection_move_handle(&arc->connection, handle->id, &best, cp, reason, modifiers);
+            /* recompute curve distance equiv. move middle handle */
+            arc->curve_distance = arc_compute_curve_distance(arc, &arc->connection.endpoints[0], &arc->connection.endpoints[1], &midpoint);
+            printf("curve_dist: %.2f \n",arc->curve_distance);
+          }
+          else {
+            printf("NO best\n");
+          }
+       } else {
+          connection_move_handle(&arc->connection, handle->id, to, cp, reason, modifiers);
+       }
   }
 
   arc_update_data(arc);
@@ -297,17 +458,128 @@ arc_move(Arc *arc, Point *to)
   return NULL;
 }
 
+static int 
+arc_compute_midpoint(Arc *arc, const Point * ep0, const Point * ep1 , Point * midpoint)
+{
+            real angle;
+            Point midpos;
+            Point *oep0, *oep1;
+            
+            oep0 = &arc->connection.endpoints[0];
+            oep1 = &arc->connection.endpoints[1];
+
+            /* angle is total delta of angle of both endpoints */
+            angle = -atan2(ep0->y - arc->center.y, ep0->x - arc->center.x); /* angle of new */
+            angle -= -atan2(oep0->y - arc->center.y, oep0->x - arc->center.x); /* minus angle of old */
+            angle += -atan2(ep1->y - arc->center.y, ep1->x - arc->center.x); /* plus angle of new */
+            angle -= -atan2(oep1->y - arc->center.y, oep1->x - arc->center.x); /* minus angle of old */
+            if (!finite(angle)){
+                    return 0;
+            }
+            if (angle < -1 * M_PI){
+                    printf("angle: %.2f ",angle);
+                    angle += 2*M_PI;
+                    printf("angle: %.2f ",angle);
+            }
+            if (angle > 1 * M_PI){
+                    printf("angle: %.2f ",angle);
+                    angle -= 2*M_PI;
+                    printf("angle: %.2f ",angle);
+            }
+
+            midpos = arc->middle_handle.pos;
+            /*rotate middle handle by half the angle */
+            printf("\nmidpos before: %.2f %.2f \n",midpos.x, midpos.y);
+            rotate_point_around_point(&midpos, &arc->center, angle/2); 
+            printf("\nmidpos after : %.2f %.2f \n",midpos.x, midpos.y);
+            *midpoint = midpos;
+            return 1;
+}
+/** updates point to the point on the arc at angle angle */
+void arc_get_point_at_angle(Arc *arc, Point* point, real angle)
+{
+        Point vec;
+        vec.x = cos(angle/180.0*M_PI);
+        vec.y = sin(angle/180.0*M_PI);
+        point_copy(point,&arc->center);
+        point_add_scaled(point,&vec,arc->radius);
+}
+static void
+calculate_arc_object_edge(Arc *arc, real ang_start, real ang_end, DiaObject *obj, Point *target) 
+{
+#define MAXITER 25
+#ifdef TRACE_DIST
+  real trace[MAXITER];
+  real disttrace[MAXITER];
+#endif
+  real mid1, mid2, mid3;
+  real dist;
+  int i = 0;
+
+  mid1 = ang_start;
+  mid2 = (ang_start + ang_end)/2;
+  mid3 = ang_end;
+
+  /* If the other end is inside the object */
+  arc_get_point_at_angle(arc,target,mid3);
+  dist = obj->ops->distance_from(obj, target );
+  if (dist < 0.001){
+          arc_get_point_at_angle(arc,target,mid1);
+          return ;
+  }
+  do {
+    arc_get_point_at_angle(arc, target, mid2);
+    dist = obj->ops->distance_from(obj, target);
+    if (dist < 0.0000001) {
+      mid1 = mid2;
+    } else {
+      mid3 = mid2;
+    }
+    mid2 = (mid1 + mid3) / 2;
+    
+#ifdef TRACE_DIST
+    trace[i] = mid2;
+    disttrace[i] = dist;
+#endif
+    i++;
+  } while (i < MAXITER && (dist < 0.0000001 || dist > 0.001));
+  
+#ifdef TRACE_DIST
+  if (i == MAXITER) {
+    for (i = 0; i < MAXITER; i++) {
+      printf("%d: %f, %f: %f\n", i, trace[i].x, trace[i].y, disttrace[i]);
+    }
+    printf("i = %d, dist = %f\n", i, dist);
+  }
+#endif
+  arc_get_point_at_angle(arc,target,mid2);
+  return ;
+}
 static void
 arc_draw(Arc *arc, DiaRenderer *renderer)
 {
   DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Point *endpoints;
-  real width;
+  Point gaptmp[3];
+  ConnectionPoint *start_cp, *end_cp;  
     
   assert(arc != NULL);
   assert(renderer != NULL);
 
   endpoints = &arc->connection.endpoints[0];
+
+  gaptmp[0] = endpoints[0];
+  gaptmp[1] = endpoints[1];
+  start_cp = arc->connection.endpoint_handles[0].connected_to;
+  end_cp = arc->connection.endpoint_handles[1].connected_to;
+
+  if (connpoint_is_autogap(start_cp)) 
+     calculate_arc_object_edge(arc, arc->angle1, arc->angle2, start_cp->object, &gaptmp[0]);
+  if (connpoint_is_autogap(end_cp)) 
+     calculate_arc_object_edge(arc, arc->angle2, arc->angle1, end_cp->object, &gaptmp[1]);
+
+  /* compute new middle_point */
+  arc_compute_midpoint(arc, &gaptmp[0], &gaptmp[1], &gaptmp[2]); 
 
   renderer_ops->set_linewidth(renderer, arc->line_width);
   renderer_ops->set_linestyle(renderer, arc->line_style);
@@ -315,9 +587,10 @@ arc_draw(Arc *arc, DiaRenderer *renderer)
   renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
   
   /* Special case when almost line: */
-  if (fabs(arc->curve_distance) <= 0.0001) {
+  if (fabs(arc->curve_distance) <= 0.01) {
+          printf("drawing like a line\n"); 
     renderer_ops->draw_line_with_arrows(renderer,
-					 &endpoints[0], &endpoints[1],
+					 &gaptmp[0], &gaptmp[1],
 					 arc->line_width,
 					 &arc->arc_color,
 					 &arc->start_arrow,
@@ -326,15 +599,13 @@ arc_draw(Arc *arc, DiaRenderer *renderer)
   }
 
   renderer_ops->draw_arc_with_arrows(renderer,
-				      &arc->connection.endpoints[0],
-				      &arc->connection.endpoints[1],
-				      &arc->middle_handle.pos,
+				      &gaptmp[0],
+				      &gaptmp[1],
+				      &gaptmp[2],
 				      arc->line_width,
 				      &arc->arc_color,
 				      &arc->start_arrow,
 				      &arc->end_arrow);
-  width = 2*arc->radius;
-  
 }
 
 static DiaObject *

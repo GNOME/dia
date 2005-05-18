@@ -36,6 +36,7 @@
 #include "prop_text.h"
 #include "gtk/gtk.h"
 
+
 static DiaObject *click_select_object(DDisplay *ddisp, Point *clickedpoint,
 				   GdkEventButton *event);
 static int do_if_clicked_handle(DDisplay *ddisp, ModifyTool *tool,
@@ -76,6 +77,18 @@ create_modify_tool(void)
   return (Tool *)tool;
 }
 
+ModifierKeys gdk_event_to_dia_ModifierKeys(guint event_state){
+        ModifierKeys mod = MODIFIER_NONE;
+        if (event_state & GDK_SHIFT_MASK)
+                mod |= MODIFIER_SHIFT;
+   /*     Used intenally do not propagate
+    *     if (event_state & GDK_CONTROL_MASK) 
+                mod | MODIFIER_CONTROL;  
+                */
+        return mod;
+}
+
+        
 void
 free_modify_tool(Tool *tool)
 {
@@ -518,7 +531,7 @@ modify_motion(ModifyTool *tool, GdkEventMotion *event,
     /* Handle undo */
     objchange = tool->object->ops->move_handle(tool->object, tool->handle, 
 					       &to, connectionpoint,
-					       HANDLE_MOVE_USER, 0);
+					       HANDLE_MOVE_USER, gdk_event_to_dia_ModifierKeys(event->state));
     if (objchange != NULL) {
       undo_object_change(ddisp->diagram, tool->object, objchange);
     }
@@ -652,7 +665,7 @@ modify_button_release(ModifyTool *tool, GdkEventButton *event,
     object_add_updates(tool->object, ddisp->diagram);
     objchange = tool->object->ops->move_handle(tool->object, tool->handle,
 					       &tool->last_to, NULL,
-					       HANDLE_MOVE_USER_FINAL,0);
+					       HANDLE_MOVE_USER_FINAL,gdk_event_to_dia_ModifierKeys(event->state));
     if (objchange != NULL) {
       undo_object_change(ddisp->diagram, tool->object, objchange);
     }
