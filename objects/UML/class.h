@@ -25,8 +25,12 @@
 
 #include "uml.h"
 
+/* The number of regular connectionpoints on the class (not cps for
+ * attributes and operands and not the mainpoint). */
 #define UMLCLASS_CONNECTIONPOINTS 8
 #define UMLCLASS_WRAP_AFTER_CHAR 40
+
+#undef UML_MAINPOINT 
 
 typedef struct _UMLClass UMLClass;
 typedef struct _UMLClassDialog UMLClassDialog;
@@ -34,7 +38,11 @@ typedef struct _UMLClassDialog UMLClassDialog;
 struct _UMLClass {
   Element element;
 
+#ifdef UML_MAINPOINT
+  ConnectionPoint connections[UMLCLASS_CONNECTIONPOINTS + 1];
+#else
   ConnectionPoint connections[UMLCLASS_CONNECTIONPOINTS];
+#endif
 
   /* Class info: */
 

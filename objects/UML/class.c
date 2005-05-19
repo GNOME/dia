@@ -777,6 +777,15 @@ umlclass_update_data(UMLClass *umlclass)
   umlclass->connections[i].pos.y = y + elem->height;
   umlclass->connections[i].directions = DIR_EAST|DIR_SOUTH;
 
+#ifdef UML_MAINPOINT
+  /* Main point */
+  i = UMLCLASS_CONNECTIONPOINTS;
+  umlclass->connections[i].pos.x = x + elem->width / 2;
+  umlclass->connections[i].pos.y = y + elem->height / 2;
+  umlclass->connections[i].directions = DIR_ALL;  
+  umlclass->connections[i].flags = CP_FLAGS_MAIN;
+#endif
+
   y += umlclass->namebox_height + 0.1 + umlclass->font_height/2;
 
   list = umlclass->attributes;
@@ -1199,7 +1208,11 @@ umlclass_create(Point *startpoint,
 
   elem->corner = *startpoint;
 
+#ifdef UML_MAINPOINT
+  element_init(elem, 8, UMLCLASS_CONNECTIONPOINTS + 1); /* No attribs or ops => 0 extra connectionpoints. */
+#else
   element_init(elem, 8, UMLCLASS_CONNECTIONPOINTS); /* No attribs or ops => 0 extra connectionpoints. */
+#endif
 
   umlclass->properties_dialog = NULL;
   fill_in_fontdata(umlclass);
@@ -1244,6 +1257,14 @@ umlclass_create(Point *startpoint,
     umlclass->connections[i].object = obj;
     umlclass->connections[i].connected = NULL;
   }
+#ifdef UML_MAINPOINT
+  /* Put mainpoint at the end, after conditional attr/oprn points,
+   * but store it in the local connectionpoint array. */
+  obj->connections[i] = &umlclass->connections[UMLCLASS_CONNECTIONPOINTS];
+  umlclass->connections[UMLCLASS_CONNECTIONPOINTS].object = obj;
+  umlclass->connections[UMLCLASS_CONNECTIONPOINTS].connected = NULL;
+#endif
+
   elem->extra_spacing.border_trans = UMLCLASS_BORDER/2.0;
   umlclass_update_data(umlclass);
 
@@ -1816,7 +1837,11 @@ static DiaObject *umlclass_load(ObjectNode obj_node, int version,
        (umlclass->suppress_operations))
     num_ops = 0;
   
+#ifdef UML_MAINPOINT
+  element_init(elem, 8, UMLCLASS_CONNECTIONPOINTS + num_attr*2 + num_ops*2 + 1);
+#else
   element_init(elem, 8, UMLCLASS_CONNECTIONPOINTS + num_attr*2 + num_ops*2);
+#endif
 
   umlclass->properties_dialog = NULL;
   fill_in_fontdata(umlclass);
@@ -1860,6 +1885,11 @@ static DiaObject *umlclass_load(ObjectNode obj_node, int version,
       list = g_list_next(list);
     }
   }
+#ifdef UML_MAINPOINT
+  /* Place the main point at the end of the list, where it doesn't
+   * disturb the rest */
+  obj->connections[i++] = &umlclass->connections[UMLCLASS_CONNECTIONPOINTS];
+#endif
   elem->extra_spacing.border_trans = UMLCLASS_BORDER/2.0;
   umlclass_update_data(umlclass);
 

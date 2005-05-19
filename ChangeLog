@@ -1,3 +1,10 @@
+2005-05-19  Lars Clausen  <lars@raeder.dk>
+
+	* objects/UML/class.c: 
+	* objects/UML/class.h: 
+	* objects/UML/class_dialog.c: Work on getting a proper mainpoint
+	for uml class object.  #ifdef'd out right now.
+
 2005-05-18  Lars Clausen  <lars@raeder.dk>
 
 	* objects/standard/line.c: Make line adjust its actual endpoints

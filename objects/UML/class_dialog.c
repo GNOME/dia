@@ -2684,7 +2684,13 @@ umlclass_apply_props_from_dialog(UMLClass *umlclass, GtkWidget *widget)
   else
     num_ops = 0;
   obj = &umlclass->element.object;
-  obj->num_connections = UMLCLASS_CONNECTIONPOINTS + num_attrib*2 + num_ops*2;
+#ifdef UML_MAINPOINT
+  obj->num_connections =
+    UMLCLASS_CONNECTIONPOINTS + num_attrib*2 + num_ops*2 + 1;
+#else
+  obj->num_connections =
+    UMLCLASS_CONNECTIONPOINTS + num_attrib*2 + num_ops*2;
+#endif
   obj->connections =
     g_realloc(obj->connections,
 	      obj->num_connections*sizeof(ConnectionPoint *));
@@ -2901,7 +2907,11 @@ umlclass_update_connectionpoints(UMLClass *umlclass)
     num_ops = 0;
   
   obj = &umlclass->element.object;
+#ifdef UML_MAINPOINT
+  obj->num_connections = UMLCLASS_CONNECTIONPOINTS + num_attrib*2 + num_ops*2 + 1;
+#else
   obj->num_connections = UMLCLASS_CONNECTIONPOINTS + num_attrib*2 + num_ops*2;
+#endif
   obj->connections =
     g_realloc(obj->connections,
 	      obj->num_connections*sizeof(ConnectionPoint *));
