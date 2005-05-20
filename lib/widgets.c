@@ -292,10 +292,10 @@ struct _DiaFontSelectorClass
  */
 
 static void dia_font_selector_fontmenu_callback(DiaDynamicMenu *button,
-						gchar *fontname,
+						const gchar *fontname,
 						gpointer data);
 static void dia_font_selector_set_styles(DiaFontSelector *fs,
-					 gchar *name,
+					 const gchar *name,
 					 DiaFontStyle dia_style);
 static void dia_font_selector_set_style_menu(DiaFontSelector *fs,
 					     PangoFontFamily *pff,
@@ -363,7 +363,7 @@ dia_font_selector_init (DiaFontSelector *fs)
   /* Doing it the slow way until I find a better way */
   for (i = 0; i < n_families; i++) {
     fontnames = g_list_append(fontnames, 
-			      pango_font_family_get_name(families[i]));
+			      g_strdup(pango_font_family_get_name(families[i])));
   }
   g_free (families);
 
@@ -448,7 +448,7 @@ dia_font_selector_get_family_from_name(GtkWidget *widget, const gchar *fontname)
 }
 
 static void
-dia_font_selector_fontmenu_callback(DiaDynamicMenu *ddm, gchar *fontname, gpointer data) 
+dia_font_selector_fontmenu_callback(DiaDynamicMenu *ddm, const gchar *fontname, gpointer data) 
 {
   DiaFontSelector *fs = DIAFONTSELECTOR(data);
   dia_font_selector_set_styles(fs, fontname, -1);
@@ -554,7 +554,7 @@ dia_font_selector_set_style_menu(DiaFontSelector *fs,
 
 static void
 dia_font_selector_set_styles(DiaFontSelector *fs,
-			     gchar *name, DiaFontStyle dia_style)
+			     const gchar *name, DiaFontStyle dia_style)
 {
   PangoFontFamily *pff;
   pff = dia_font_selector_get_family_from_name(GTK_WIDGET(fs), name);
@@ -576,7 +576,7 @@ dia_font_selector_set_preview(DiaFontSelector *fs, gchar *text) {
 void
 dia_font_selector_set_font(DiaFontSelector *fs, DiaFont *font)
 {
-  gchar *fontname = dia_font_get_family(font);
+  const gchar *fontname = dia_font_get_family(font);
   /* side effect: adds fontname to presistence list */
   dia_dynamic_menu_select_entry(DIA_DYNAMIC_MENU(fs->font_omenu), fontname);
   dia_font_selector_set_styles(fs, fontname, dia_font_get_style (font));
@@ -932,38 +932,39 @@ static void
 dia_color_selector_more_ok(GtkWidget *ok, gpointer userdata)
 {
   DiaDynamicMenu *ddm = g_object_get_data(G_OBJECT(userdata), "ddm");
-  GtkWidget *colorsel = GTK_COLOR_SELECTION_DIALOG(userdata);
+  GtkWidget *colorsel = GTK_WIDGET(userdata);
   GdkColor gcol;
-  
+  gchar *entry;
+
   gtk_color_selection_get_current_color(
 	GTK_COLOR_SELECTION(
 	    GTK_COLOR_SELECTION_DIALOG(colorsel)->colorsel),
 	&gcol);
 
-  dia_dynamic_menu_select_entry(ddm,
-				g_strdup_printf("#%02X%02X%02X",
-						gcol.red/256, 
-						gcol.green/256,
-						gcol.blue/256));
+  entry = g_strdup_printf("#%02X%02X%02X", gcol.red/256, gcol.green/256, gcol.blue/256);
+  dia_dynamic_menu_select_entry(ddm, entry);
+  g_free(entry);
+
   gtk_widget_destroy(colorsel);
 }
 
 static void
-dia_color_selector_activate(DiaDynamicMenu *ddm, gchar *entry, gpointer data)
+dia_color_selector_activate(DiaDynamicMenu *ddm, const gchar *entry, gpointer data)
 {
 }
 
 static void
 dia_color_selector_more_callback(GtkWidget *widget, gpointer userdata)
 {
-  GtkColorSelectionDialog *dialog = gtk_color_selection_dialog_new(_("Select color"));
+  GtkColorSelectionDialog *dialog = GTK_COLOR_SELECTION_DIALOG (gtk_color_selection_dialog_new(_("Select color")));
   DiaDynamicMenu *ddm = DIA_DYNAMIC_MENU(userdata);
-  GtkColorSelection *colorsel = GTK_COLOR_SELECTION(GTK_COLOR_SELECTION_DIALOG (dialog)->colorsel);
+  GtkColorSelection *colorsel = GTK_COLOR_SELECTION(dialog->colorsel);
   GString *palette = g_string_new ("");
 
   gchar *old_color = dia_dynamic_menu_get_entry(ddm);
   /* Force history to the old place */
   dia_dynamic_menu_select_entry(ddm, old_color);
+  g_free (old_color);
 
   if (ddm->default_entries != NULL) {
     GList *tmplist;
@@ -1026,7 +1027,7 @@ dia_color_selector_new ()
   GtkWidget *ddm = dia_dynamic_menu_new(dia_color_selector_create_string_item,
 					dia_color_selector_activate,
 					NULL,
-					otheritem,
+					GTK_MENU_ITEM(otheritem),
 					"color-menu");
   dia_dynamic_menu_add_default_entry(DIA_DYNAMIC_MENU(ddm),
 				     "#000000");
@@ -1039,7 +1040,7 @@ dia_color_selector_new ()
   dia_dynamic_menu_add_default_entry(DIA_DYNAMIC_MENU(ddm),
 				     "#0000FF");
   g_signal_connect(G_OBJECT(otheritem), "activate",
-		   dia_color_selector_more_callback, ddm);
+		   G_CALLBACK(dia_color_selector_more_callback), ddm);
   gtk_widget_show(otheritem);
   return ddm;
 }
@@ -1062,8 +1063,6 @@ void
 dia_color_selector_set_color (GtkWidget *widget,
 			      const Color *color)
 {
-  GdkColor col;
-  
   gint red, green, blue;
   gchar *entry;
   red = color->red * 255;
@@ -1078,6 +1077,7 @@ dia_color_selector_set_color (GtkWidget *widget,
   }
   entry = g_strdup_printf("#%02X%02X%02X", red, green, blue);
   dia_dynamic_menu_select_entry(DIA_DYNAMIC_MENU(widget), entry);
+  g_free (entry);
 }
 
 
@@ -1117,7 +1117,7 @@ set_size_sensitivity(DiaArrowSelector *as)
 }
 
 static void
-arrow_type_change_callback(DiaDynamicMenu *ddm, gchar *name, gpointer userdata)
+arrow_type_change_callback(DiaDynamicMenu *ddm, const gchar *name, gpointer userdata)
 {
   set_size_sensitivity(DIA_ARROW_SELECTOR(userdata));
 }
@@ -1573,7 +1573,6 @@ dia_unit_spinner_get_value(DiaUnitSpinner *self)
 static void
 dia_unit_spinner_update(DiaUnitSpinner *self)
 {
-  GtkSpinButton *sbutton = GTK_SPIN_BUTTON(self);
   gfloat val, factor = 1.0;
   gchar *extra = NULL;
 
@@ -1638,6 +1637,7 @@ static void dia_dynamic_menu_create_sublist(DiaDynamicMenu *ddm,
 					    GList *items, 
 					    DDMCreateItemFunc create);
 static void dia_dynamic_menu_create_menu(DiaDynamicMenu *ddm);
+static void dia_dynamic_menu_destroy(GtkObject *object);
 
 GtkType
 dia_dynamic_menu_get_type(void)
@@ -1663,11 +1663,28 @@ dia_dynamic_menu_get_type(void)
 static void
 dia_dynamic_menu_class_init(DiaDynamicMenuClass *class)
 {
+  GtkObjectClass *object_class = (GtkObjectClass*)class;
+
+  object_class->destroy = dia_dynamic_menu_destroy;
 }
 
 static void
 dia_dynamic_menu_init(DiaDynamicMenu *self)
 {
+}
+
+void 
+dia_dynamic_menu_destroy(GtkObject *object)
+{
+  DiaDynamicMenu *ddm = DIA_DYNAMIC_MENU(object);
+  GtkObjectClass *parent_class = GTK_OBJECT_CLASS(g_type_class_peek_parent(GTK_OBJECT_GET_CLASS(object)));
+
+  if (ddm->active)
+    g_free(ddm->active);
+  ddm->active = NULL;
+
+  if (parent_class->destroy)
+    (* parent_class->destroy) (object);
 }
 
 /** Create a new dynamic menu.  The entries are represented with
@@ -1861,6 +1878,7 @@ dia_dynamic_menu_add_entry(DiaDynamicMenu *ddm, const gchar *entry)
   GList *tmp;
   gboolean existed;
 
+  g_free(ddm->active);
   ddm->active = g_strdup(entry);
 
   for (tmp = ddm->default_entries; tmp != NULL; tmp = g_list_next(tmp)) {
@@ -1910,7 +1928,7 @@ dia_dynamic_menu_create_menu(DiaDynamicMenu *ddm)
       GtkWidget *item =  (ddm->create_func)(ddm, tmplist->data);
       g_object_set_data(G_OBJECT(item), "ddm_name", tmplist->data);
       g_signal_connect(G_OBJECT(item), "activate", 
-		       dia_dynamic_menu_activate, ddm);
+		       G_CALLBACK(dia_dynamic_menu_activate), ddm);
       gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
       gtk_widget_show(item);
     }
@@ -1924,7 +1942,7 @@ dia_dynamic_menu_create_menu(DiaDynamicMenu *ddm)
     GtkWidget *item = (ddm->create_func)(ddm, tmplist->data);
     g_object_set_data(G_OBJECT(item), "ddm_name", tmplist->data);
     g_signal_connect(G_OBJECT(item), "activate", 
-		     dia_dynamic_menu_activate, ddm);
+		     G_CALLBACK(dia_dynamic_menu_activate), ddm);
     gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
     gtk_widget_show(item);
   }
@@ -1939,7 +1957,7 @@ dia_dynamic_menu_create_menu(DiaDynamicMenu *ddm)
 
   item = gtk_menu_item_new_with_label(_("Reset menu"));
   gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
-  g_signal_connect(G_OBJECT(item), "activate", dia_dynamic_menu_reset, ddm);
+  g_signal_connect(G_OBJECT(item), "activate", G_CALLBACK(dia_dynamic_menu_reset), ddm);
   gtk_widget_show(item);
 
   gtk_option_menu_set_menu(GTK_OPTION_MENU(ddm), menu);
@@ -1963,7 +1981,7 @@ dia_dynamic_menu_reset(GtkWidget *item, gpointer userdata)
 {
   DiaDynamicMenu *ddm = DIA_DYNAMIC_MENU(userdata);
   PersistentList *plist = persistent_list_get(ddm->persistent_name);
-  g_list_foreach(plist->glist, g_free, NULL);
+  g_list_foreach(plist->glist, (GFunc)g_free, NULL);
   g_list_free(plist->glist);
   plist->glist = NULL;
   dia_dynamic_menu_create_menu(ddm);
@@ -1980,20 +1998,6 @@ dia_dynamic_menu_set_max_entries(DiaDynamicMenu *ddm, gint max)
 
 
 /* ************************ Misc. util functions ************************ */
-/** Get a GtkImage from the data in Dia data file filename.
- * On Unix, this could be /usr/local/share/dia/image/<filename>
- */
-GtkWidget *
-dia_get_image_from_file(gchar *filename)
-{
-  gchar *datadir = dia_get_data_directory("images");
-  gchar *imagefile = g_strconcat(datadir, G_DIR_SEPARATOR_S, filename, NULL);
-  GtkWidget *image = gtk_image_new_from_file(imagefile);
-  g_free(imagefile);
-  g_free(datadir);
-  return image;
-}
-
 struct image_pair { GtkWidget *on; GtkWidget *off; };
 
 static void
@@ -2037,7 +2041,6 @@ dia_toggle_button_new(GtkWidget *on_widget, GtkWidget *off_widget)
 {
   GtkWidget *button = gtk_toggle_button_new();
   GtkRcStyle *rcstyle;
-  GtkStyle *style;
   GValue *prop;
   gint i;
   struct image_pair *images;
@@ -2079,20 +2082,11 @@ dia_toggle_button_new(GtkWidget *on_widget, GtkWidget *off_widget)
   gtk_container_add(GTK_CONTAINER(button), images->off);
 
   g_signal_connect(G_OBJECT(button), "toggled", 
-		   dia_toggle_button_swap_images, images);
+		   G_CALLBACK(dia_toggle_button_swap_images), images);
   g_signal_connect(G_OBJECT(button), "destroy",
-		   dia_toggle_button_destroy, images);
+		   G_CALLBACK(dia_toggle_button_destroy), images);
 
   return button;
-}
-
-/** Create a toggle button with two images switching (on and off) */
-GtkWidget *
-dia_toggle_button_new_with_images(const gchar *on_image, 
-				  const gchar *off_image)
-{
-  return dia_toggle_button_new(dia_get_image_from_file(on_image),
-			       dia_get_image_from_file(off_image));
 }
 
 /** Create a toggle button with two icons (created with gdk-pixbuf-csource,

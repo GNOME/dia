@@ -1,4 +1,33 @@
-2005-05-19  Lars Clausen  <lars@raeder.dk>
+2005-05-20  Hans Breuer  <hans@breuer.org>
+
+	* lib/text.c : advice from valgrind and data_string() review:
+	neither g_free() memory on the stack
+	* objects/GRAFCET/boolequation.c : ... nor const strings 
+	* objects/UML/association.c:934 : definitely lost. Even g_strdup("")
+	wants to be freed
+
+	* app/diagram.c : a g_object_ref() following g_object_new() is almost
+	always wrong. Why would we need two refernces?
+	* app/app_procs.c : same here.If it crashes later on someone is dropping
+	refernces he does not own, and *that* needs to be fixed. This is reverting
+	"Remember to ref g_object_new'd object" (bug #170972) below, which 
+	causes more harm (leaking, hiding bugs elsewhere) than good.
+
+	* app/app_procs.c lib/diagramdata.[ch] lib/libdia.def : get rid of
+	diagramdata_destroy() which was only a wrapper to g_object_unref()
+
+	* app/display.c(selection_changed) : don't g_strdup_printf() without
+	g_free() later /or/ a C++ comment of me mostly denotes an error
+
+	* app/diagram.c : diagram_parent_sort_cb make signature match GCompareFunc
+
+	* lib/widget.c : dia_dynamic_menu_select_entry() cleanup. If it takes a
+	const gchar* entry it must not eat memory, added a lot of g_free() and
+	some const. Fixed a bunch - i.e. *all* - warnings.
+	* lib/widget.h : removed unused/deleted functions
+
+	* app/layer_dialog.c(dia_layer_widget_connectable_toggled) : trying to
+	avoid 'Invalid write of size 4', no luck yet2005-05-19  Lars Clausen  <lars@raeder.dk>
 
 	* objects/UML/class.c: 
 	* objects/UML/class.h: 

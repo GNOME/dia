@@ -102,8 +102,6 @@ struct _Layer {
 
 DIAVAR int render_bounding_boxes;
 
-void diagram_data_destroy(DiagramData *data);
-
 Layer *new_layer (char *name, DiagramData *parent);
 void layer_destroy(Layer *layer);
 

@@ -933,7 +933,9 @@ association_load(ObjectNode obj_node, int version, const char *filename)
     if (attr != NULL) {
       assoc->end[i].role = data_string(attribute_first_data(attr));
     }
-    if (assoc->end[i].role != NULL && !strcmp(assoc->end[i].role, "")) {
+    if (   assoc->end[i].role != NULL 
+        && 0 == strcmp(assoc->end[i].role, "")) {
+      g_free(assoc->end[i].role);
       assoc->end[i].role = NULL;
     }
     
@@ -942,8 +944,9 @@ association_load(ObjectNode obj_node, int version, const char *filename)
     if (attr != NULL) {
       assoc->end[i].multiplicity = data_string(attribute_first_data(attr));
     }
-    if (assoc->end[i].multiplicity != NULL &&
-	!strcmp(assoc->end[i].multiplicity, "")) {
+    if (   assoc->end[i].multiplicity != NULL
+	&& 0 == strcmp(assoc->end[i].multiplicity, "")) {
+      g_free(assoc->end[i].multiplicity);
       assoc->end[i].multiplicity = NULL;
     }
     

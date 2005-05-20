@@ -266,17 +266,6 @@ gchar *dia_dynamic_menu_get_entry(DiaDynamicMenu *ddm);
 void dia_dynamic_menu_select_entry(DiaDynamicMenu *ddm, const gchar *entry);
 
 /* **** Util functions for Gtk stuff **** */
-/** Gets the image name 'filename' out of the shared data dir 
- * To see how to get the image installed, check app/Makefile.am
- */
-GtkWidget *dia_get_image_from_file(gchar *filename);
-
-/** Create a toggle button with two different images, one for when on and
- * one for when off.  Images are taken from standard image directory.
- */
-GtkWidget *dia_toggle_button_new_with_images(const gchar *on_file,
-					     const gchar *off_file);
-
 /** Create a toggle button with two icons (created with gdk-pixbuf-csource,
  * for instance).  The icons represent on and off.
  */

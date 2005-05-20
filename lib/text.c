@@ -973,7 +973,7 @@ data_add_text(AttributeNode attr, Text *text)
 Text *
 data_text(AttributeNode text_attr)
 {
-  char *string = "";
+  char *string = NULL;
   DiaFont *font;
   real height;
   Point pos = {0.0, 0.0};
@@ -1015,7 +1015,7 @@ data_text(AttributeNode text_attr)
   if (attr != NULL)
     align = data_enum(attribute_first_data(attr));
   
-  text = new_text(string, font, height, &pos, &col, align);
+  text = new_text(string ? string : "", font, height, &pos, &col, align);
   if (font) dia_font_unref(font);
   if (string) g_free(string);
   return text;

@@ -601,16 +601,19 @@ load_boolequation(ObjectNode obj_node,
 		 DiaFont *font,
 		 real fontheight, Color *color)
 {
-  const gchar *value = NULL;
+  gchar *value = NULL;
   Boolequation *booleq;
   AttributeNode attr;
 
   booleq = boolequation_create(NULL,font,fontheight,color);
   attr = object_find_attribute(obj_node,attrname);
-  if (attr) value = data_string(attribute_first_data(attr));
-  else value = (gchar *)defaultvalue;
-  if (value) boolequation_set_value(booleq,value);
-  g_free((gchar *)value);
+  if (attr) 
+    value = data_string(attribute_first_data(attr));
+  else if (defaultvalue)
+    value = g_strdup (defaultvalue);
+  if (value) 
+    boolequation_set_value(booleq,value);
+  g_free(value);
 
   return booleq;
 }

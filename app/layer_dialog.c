@@ -481,8 +481,12 @@ layer_dialog_update_diagram_list(void)
   int i;
   int current_nr;
 
-  if (layer_dialog == NULL || layer_dialog->dialog == NULL)
-    create_layer_dialog();
+  if (layer_dialog == NULL || layer_dialog->dialog == NULL) {
+    if (!dia_open_diagrams())
+      return; /* shortcut; maybe session end w/o this dialog */
+    else
+      create_layer_dialog();
+  }
         
   new_menu = gtk_menu_new();
 
@@ -726,6 +730,8 @@ dia_layer_widget_connectable_toggled(GtkToggleButton *widget,
 				     gpointer userdata)
 {
   DiaLayerWidget *lw = DIA_LAYER_WIDGET(userdata);
+  if (!lw->layer)
+    return;
   if (shifted) {
     shifted = FALSE;
     dia_layer_widget_exclusive_connectable(lw);

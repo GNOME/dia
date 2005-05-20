@@ -116,7 +116,7 @@ selection_changed (Diagram* dia, int n, DDisplay* ddisp)
     msg = g_strdup_printf (_("Selection of %d objects"), n);
     gtk_statusbar_pop (statusbar, context_id);
     gtk_statusbar_push (statusbar, context_id, msg);
-    //g_free (msg);
+    g_free (msg);
   }
   else if (n == 1)
   {

@@ -54,7 +54,7 @@ struct _object_extent
 
 typedef struct _object_extent object_extent;
 
-static gint diagram_parent_sort_cb(object_extent ** a, object_extent **b);
+static gint diagram_parent_sort_cb(gconstpointer a, gconstpointer b);
 
 
 static void diagram_class_init (DiagramClass *klass);
@@ -101,7 +101,6 @@ static void
 diagram_finalize(GObject *object) 
 {
   Diagram *dia = DIA_DIAGRAM(object);
-  Diagram *other_diagram;
 
   assert(dia->displays==NULL);
   
@@ -169,7 +168,6 @@ diagram_class_init (DiagramClass *klass)
 Diagram *
 diagram_new() {
   Diagram *dia = g_object_new(DIA_TYPE_DIAGRAM, NULL);
-  g_object_ref(dia);
   return dia;
 }
 
@@ -185,6 +183,8 @@ dia_open_diagrams(void)
 static void
 diagram_init(Diagram *dia, const char *filename)
 {
+  gchar *newfilename = NULL;
+ 
   dia->data = &dia->parent_instance; /* compatibility */
 
   dia->pagebreak_color = prefs.new_diagram.pagebreak_color;
@@ -210,7 +210,8 @@ diagram_init(Diagram *dia, const char *filename)
   /* Make sure the filename is absolute */
   if (!g_path_is_absolute(filename)) {
     gchar *pwd = g_get_current_dir();
-    gchar *newfilename = g_build_filename(pwd, filename, NULL);
+
+    newfilename = g_build_filename(pwd, filename, NULL);
     g_free(pwd);
     filename = newfilename;
   }
@@ -231,6 +232,8 @@ diagram_init(Diagram *dia, const char *filename)
 
   if (app_is_interactive())
     layer_dialog_update_diagram_list();
+
+  g_free(newfilename);
 }
 
 int
@@ -902,9 +905,13 @@ strip_connections(DiaObject *obj, GList *not_strip_list, Diagram *dia)
 }
 
 
+/* GCompareFunc */
 static gint 
-diagram_parent_sort_cb(object_extent ** a, object_extent **b)
+diagram_parent_sort_cb(gconstpointer _a, gconstpointer _b)
 {
+  object_extent **a = (object_extent **)_a;
+  object_extent **b = (object_extent **)_b;
+
   if ((*a)->extent->left < (*b)->extent->left)
     return 1;
   else if ((*a)->extent->left > (*b)->extent->left)

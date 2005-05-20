@@ -394,7 +394,6 @@ do_convert(const char *infname,
   }
   
   diagdata = g_object_new (DIA_TYPE_DIAGRAM_DATA, NULL);
-  g_object_ref(diagdata);
 
   if (!inf->import_func(infname,diagdata,inf->user_data)) {
     g_error(_("%s error: need valid input file %s\n"),
@@ -424,7 +423,7 @@ do_convert(const char *infname,
   /* if (!quiet) */ fprintf(stdout,
                       _("%s --> %s\n"),
                         infname,outfname);
-  diagram_data_destroy(diagdata);
+  g_object_unref(diagdata);
   return TRUE;
 }
 
