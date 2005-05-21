@@ -1,3 +1,10 @@
+2005-05-21  Lars Clausen  <lars@raeder.dk>
+
+	* lib/diaarrowchooser.c: 
+	* lib/arrows.[ch]: Patch from Radek Krahl <ptasz3k@o2.pl>: Add
+	'infinite' line (three dots) arrowhead.  Fix line length in arrow
+	preview.  And fix typo.  Fixes bug #303904. 
+
 2005-05-20  Hans Breuer  <hans@breuer.org>
 
 	* lib/text.c : advice from valgrind and data_string() review:
@@ -27,7 +34,9 @@
 	* lib/widget.h : removed unused/deleted functions
 
 	* app/layer_dialog.c(dia_layer_widget_connectable_toggled) : trying to
-	avoid 'Invalid write of size 4', no luck yet2005-05-19  Lars Clausen  <lars@raeder.dk>
+	avoid 'Invalid write of size 4', no luck yet
+
+2005-05-19  Lars Clausen  <lars@raeder.dk>
 
 	* objects/UML/class.c: 
 	* objects/UML/class.h: 

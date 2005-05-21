@@ -70,6 +70,7 @@ struct menudesc arrow_types[] =
    {N_("Round"), ARROW_ROUNDED},
    {N_("Open Round"), ARROW_OPEN_ROUNDED},
    {N_("Backslash"),ARROW_BACKSLASH},
+   {N_("Infinite Line"),ARROW_THREE_DOTS},
    {NULL,0}};
 
 /**** prototypes ****/
@@ -280,6 +281,16 @@ calculate_arrow_point(const Arrow *arrow, const Point *to, const Point *from,
     point_normalize(move_line);
     point_scale(move_line, arrow->length + arrow->width);
     return;
+  case ARROW_THREE_DOTS:
+    *move_line = *to;
+    point_sub(move_line, from);
+    add_len = point_len(move_line);
+    point_normalize(move_line);
+    if (add_len > 4*arrow->length)
+      point_scale(move_line, 2*arrow->length);
+    else
+      point_scale(move_line, arrow->length);
+    return;
   case ARROW_ONE_EXACTLY:
   case ARROW_ONE_OR_NONE:
   case ARROW_ONE_OR_MANY:
@@ -355,7 +366,7 @@ draw_none_or_many(DiaRenderer *renderer, Point *to, Point *from,
  * McFadden/Hoffer/Prescott, Addison-Wessley, 1999
  */
 static void 
-draw_one_exaclty(DiaRenderer *renderer, Point *to, Point *from,
+draw_one_exactly(DiaRenderer *renderer, Point *to, Point *from,
 		  real length, real width, real linewidth,
 		  Color *fg_color,Color *bg_color)
 {
@@ -1339,6 +1350,39 @@ draw_filled_dot_n_triangle(DiaRenderer *renderer, Point *to, Point *from,
   DIA_RENDERER_GET_CLASS(renderer)->fill_polygon(renderer, poly, 3, fg_color);
 }
 
+static void
+draw_three_dots(DiaRenderer *renderer, Point *to, Point *from,
+               real length, real width, real linewidth, Color *fg_color)
+{
+
+  gdouble dot_width;
+  gdouble hole_width;
+  gdouble len;
+  gint i;
+  Point delta, dot_from, dot_to;
+
+  delta = *to;
+  point_sub(&delta, from);
+  len = point_len(&delta);
+  point_normalize(&delta);
+
+  if (len > 4 * width)
+    width *= 2;
+  dot_width = width * 0.2;
+  hole_width = width / 3 - dot_width;
+  
+  DIA_RENDERER_GET_CLASS(renderer)->set_linewidth(renderer, linewidth);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID);
+
+  for (i = 0; i < 3; i++) {
+    dot_from.x = to->x - i  * (dot_width + hole_width) * delta.x;
+    dot_from.y = to->y - i  * (dot_width + hole_width) * delta.y;
+    dot_to.x = to->x - ((i + 1) * dot_width + i * hole_width) * delta.x;
+    dot_to.y = to->y - ((i + 1) * dot_width + i * hole_width) * delta.y;
+    DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer, &dot_from, &dot_to, fg_color);
+  }
+}
+
 void
 arrow_draw(DiaRenderer *renderer, ArrowType type,
 	   Point *to, Point *from,
@@ -1421,7 +1465,7 @@ arrow_draw(DiaRenderer *renderer, ArrowType type,
     draw_none_or_many(renderer,to,from,length,width,linewidth,fg_color,bg_color);
     break;
   case ARROW_ONE_EXACTLY:
-    draw_one_exaclty(renderer,to,from,length,width,linewidth,fg_color,bg_color);
+    draw_one_exactly(renderer,to,from,length,width,linewidth,fg_color,bg_color);
     break;
   case ARROW_ONE_OR_NONE:
     draw_one_or_none(renderer,to,from,length,width,linewidth,fg_color,bg_color);
@@ -1451,6 +1495,9 @@ arrow_draw(DiaRenderer *renderer, ArrowType type,
     break;
   case ARROW_BACKSLASH:
     draw_backslash(renderer,to,from,length,width,linewidth,fg_color);
+    break;
+  case ARROW_THREE_DOTS:
+    draw_three_dots(renderer,to,from,length,width,linewidth,fg_color);
     break;
   } 
 }

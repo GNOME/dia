@@ -30,7 +30,8 @@
 #define UMLCLASS_CONNECTIONPOINTS 8
 #define UMLCLASS_WRAP_AFTER_CHAR 40
 
-#undef UML_MAINPOINT 
+#undef UML_MAINPOINT
+
 
 typedef struct _UMLClass UMLClass;
 typedef struct _UMLClassDialog UMLClassDialog;

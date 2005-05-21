@@ -109,8 +109,10 @@ dia_arrow_preview_expose(GtkWidget *widget, GdkEventExpose *event)
 {
   if (GTK_WIDGET_DRAWABLE(widget)) {
     Point from, to;
+    Point move_arrow, move_line, arrow_head;
     DiaRenderer *renderer;
     DiaArrowPreview *arrow = DIA_ARROW_PREVIEW(widget);
+    Arrow arrow_type;
     GtkMisc *misc = GTK_MISC(widget);
     gint width, height;
     gint x, y;
@@ -133,16 +135,32 @@ dia_arrow_preview_expose(GtkWidget *widget, GdkEventExpose *event)
       from.x = 0;
       to.x = width-linewidth;
     }
+
+    /* here we must do some acrobaticts and construct Arrow type
+     * variable
+     */
+    arrow_type.type = arrow->atype;
+    arrow_type.length = .75*((real)height-linewidth); 
+    arrow_type.width = .75*((real)height-linewidth);
+    
+    /* and here we calculate new arrow start and end of line points */
+    calculate_arrow_point(&arrow_type, &from, &to,
+                          &move_arrow, &move_line,
+			  linewidth);
+    arrow_head = to;
+    point_add(&arrow_head, &move_arrow);
+    point_add(&to, &move_line);
+
     renderer = new_pixmap_renderer(win, width, height);
     renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
     renderer_pixmap_set_pixmap(renderer, win, x, y, width, height);
     renderer_ops->begin_render(renderer);
     renderer_ops->set_linewidth(renderer, linewidth);
-    renderer_ops->draw_line(renderer, &to, &from, &color_black);
-    arrow_draw (renderer, arrow->atype, 
-                &to, &from, 
-		.75*((real)height-linewidth), 
-		.75*((real)height-linewidth),
+    renderer_ops->draw_line(renderer, &from, &to, &color_black);
+    arrow_draw (renderer, arrow_type.type, 
+                &arrow_head, &from, 
+		arrow_type.length, 
+		arrow_type.width,
                 linewidth, &color_black, &color_white);
     renderer_ops->end_render(renderer);
     g_object_unref(renderer);
