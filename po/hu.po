@@ -13,14 +13,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-04-23 10:51+0000\n"
-"PO-Revision-Date: 2005-04-24 00:20+0200\n"
+"POT-Creation-Date: 2005-05-16 18:52+0000\n"
+"PO-Revision-Date: 2005-05-21 08:37+0200\n"
 "Last-Translator: Gabor Kelemen <kelemeng@gnome.hu>\n"
 "Language-Team: Hungarian <gnome@gnome.hu>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.3.1\n"
+"X-Generator: KBabel 1.10\n"
 "Plural-Forms:  nplurals=1; plural=0;\n"
 
 #. This is not an errror
@@ -105,7 +105,9 @@ msgstr "WxH"
 msgid ""
 "Show only specified layers (e.g. when exporting). Can be either the layer "
 "name or a range of layer numbers (X-Y)"
-msgstr "Csak a megadott réteget mutassa (pl. exportáláskor). Vagy a réteg neve vagy rétegszámok tartománya (X-Y) lehet."
+msgstr ""
+"Csak a megadott réteget mutassa (pl. exportáláskor). Vagy a réteg neve vagy "
+"rétegszámok tartománya (X-Y) lehet."
 
 #: ../app/app_procs.c:684 ../app/app_procs.c:710
 msgid "LAYER,LAYER,..."
@@ -295,20 +297,20 @@ msgstr "Előtérszín kiválasztása"
 msgid "Select background color"
 msgstr "Háttérszín kiválasztása"
 
-#: ../app/commands.c:134
+#: ../app/commands.c:136
 #, c-format
 msgid "Diagram%d.dia"
 msgstr "Diagram%d.dia"
 
-#: ../app/commands.c:205
+#: ../app/commands.c:207
 msgid "No existing object to paste.\n"
 msgstr "Nincs beillesztendő objektum.\n"
 
-#: ../app/commands.c:531 ../app/commands.c:569
+#: ../app/commands.c:533 ../app/commands.c:571
 msgid "Could not find help directory"
 msgstr "Nem található a súgó könyvtára"
 
-#: ../app/commands.c:538
+#: ../app/commands.c:540
 #, c-format
 msgid ""
 "Could not open help directory:\n"
@@ -322,7 +324,7 @@ msgstr ""
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: ../app/commands.c:609
+#: ../app/commands.c:611
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 "Bán Szabolcs <shooby@gnome.hu>\n"
@@ -332,15 +334,15 @@ msgstr ""
 "Kovács Emese <emese@gnome.hu>\n"
 "Varga Szabolcs <shirokuma@shirokuma.hu>"
 
-#: ../app/commands.c:623
+#: ../app/commands.c:625
 msgid "Dia"
 msgstr "Dia"
 
-#: ../app/commands.c:625
+#: ../app/commands.c:627
 msgid "Copyright (C) 1998-2002 The Free Software Foundation and the authors"
 msgstr "Copyright © 1998-2002  A Free Software Foundation és a szerzők"
 
-#: ../app/commands.c:626
+#: ../app/commands.c:628
 msgid ""
 "Dia is a program for drawing structured diagrams.\n"
 "Please visit http://www.gnome.org/projects/dia for more information."
@@ -349,27 +351,27 @@ msgstr ""
 "Látogasson el a http://www.gnome.org/projects/dia oldalra további "
 "információkért."
 
-#: ../app/commands.c:665
+#: ../app/commands.c:667
 msgid "About Dia"
 msgstr "Dia névjegye"
 
-#: ../app/commands.c:708
+#: ../app/commands.c:710
 #, c-format
 msgid "Dia v %s by Alexander Larsson"
 msgstr "Dia v %s. Szerző: Alexander Larsson"
 
 #. Exact spelling is Ch&eacute;p&eacute;lov (using *ML entities)
-#: ../app/commands.c:714
+#: ../app/commands.c:716
 msgid "Maintainers: Lars Clausen and Cyrille Chepelov"
 msgstr "Karbantartók: Lars Clausen és Cyrille Chépélov"
 
-#: ../app/commands.c:718
+#: ../app/commands.c:720
 msgid "Please visit http://www.gnome.org/projects/dia for more information"
 msgstr ""
 "Látogasson el a http://www.gnome.org/projects/dia oldalra további "
 "információkért"
 
-#: ../app/commands.c:723
+#: ../app/commands.c:725
 msgid "Contributors:"
 msgstr "Hozzájárultak:"
 
@@ -618,7 +620,7 @@ msgstr "Diagramfa"
 msgid "Ok"
 msgstr "OK"
 
-#: ../app/dialogs.c:52 ../app/paginate_psprint.c:292
+#: ../app/dialogs.c:52 ../app/paginate_psprint.c:306
 msgid "Cancel"
 msgstr "Mégsem"
 
@@ -713,11 +715,11 @@ msgstr "%d objektum kiválasztása"
 msgid "Selected '%s'"
 msgstr "'%s' kiválasztva"
 
-#: ../app/display.c:1024
+#: ../app/display.c:1025
 msgid "<unnamed>"
 msgstr "<névtelen>"
 
-#: ../app/display.c:1026
+#: ../app/display.c:1027
 #, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -726,20 +728,20 @@ msgstr ""
 "A(z) '%s' diagram\n"
 "nem lett mentve. Menti most a változásokat?"
 
-#: ../app/display.c:1037
+#: ../app/display.c:1038
 msgid "Close Diagram"
 msgstr "Diagram bezárása"
 
-#: ../app/display.c:1042
+#: ../app/display.c:1043
 msgid "Discard Changes"
 msgstr "Változások elvetése"
 
 #: ../app/export_png.c:134 ../app/load_save.c:913 ../app/render_eps.c:103
-#: ../plug-ins/cairo/diacairo.c:964 ../plug-ins/cgm/cgm.c:1157
+#: ../plug-ins/cairo/diacairo.c:978 ../plug-ins/cgm/cgm.c:1157
 #: ../plug-ins/dxf/dxf-export.c:509 ../plug-ins/hpgl/hpgl.c:718
-#: ../plug-ins/metapost/render_metapost.c:964
+#: ../plug-ins/metapost/render_metapost.c:1107
 #: ../plug-ins/pstricks/render_pstricks.c:910
-#: ../plug-ins/shape/shape-export.c:135 ../plug-ins/svg/render_svg.c:151
+#: ../plug-ins/shape/shape-export.c:134 ../plug-ins/svg/render_svg.c:151
 #: ../plug-ins/wpg/wpg.c:1067 ../plug-ins/xfig/xfig-export.c:1138
 #: ../plug-ins/xslt/xslt.c:94
 #, c-format
@@ -896,8 +898,8 @@ msgid "Scroll"
 msgstr "Görgetés"
 
 #: ../app/interface.c:69 ../app/interface.c:70 ../lib/properties.c:77
-#: ../lib/properties.h:516 ../objects/UML/activity.c:126
-#: ../objects/UML/actor.c:122 ../objects/UML/classicon.c:143
+#: ../lib/properties.h:517 ../objects/UML/activity.c:126
+#: ../objects/UML/actor.c:122 ../objects/UML/classicon.c:144
 #: ../objects/UML/component.c:128 ../objects/UML/component_feature.c:154
 #: ../objects/UML/node.c:127 ../objects/UML/note.c:121
 #: ../objects/UML/object.c:147 ../objects/UML/small_package.c:128
@@ -1068,7 +1070,7 @@ msgstr "Réteg attribútumainak szerkesztése"
 msgid "Layer name:"
 msgstr "Réteg neve:"
 
-#: ../app/linewidth_area.c:246 ../lib/properties.h:480 ../lib/properties.h:483
+#: ../app/linewidth_area.c:246 ../lib/properties.h:481 ../lib/properties.h:484
 #: ../objects/chronogram/chronoline.c:181
 #: ../objects/chronogram/chronoref.c:160
 msgid "Line width"
@@ -1157,15 +1159,15 @@ msgstr "Nem sikerült menteni a(z) '%s' fájlt.\n"
 msgid "Dia Diagram File"
 msgstr "Dia-diagramfájl"
 
-#: ../app/menus.c:49 ../app/menus.c:87
+#: ../app/menus.c:50 ../app/menus.c:88
 msgid "/_File"
 msgstr "/_Fájl"
 
-#: ../app/menus.c:51 ../app/menus.c:89
+#: ../app/menus.c:52 ../app/menus.c:90
 msgid "/File/_New"
 msgstr "/Fájl/Ú_j"
 
-#: ../app/menus.c:53 ../app/menus.c:91
+#: ../app/menus.c:54 ../app/menus.c:92
 msgid "/File/_Open..."
 msgstr "/Fájl/_Megnyitás..."
 
@@ -1175,464 +1177,464 @@ msgstr "/Fájl/_Megnyitás..."
 #. recent file list is dynamically inserted here
 #. {N_("/Open _Recent"),           NULL,         NULL,           0, "<Branch>"},
 #. {   "/Open Recent/tearoff",     NULL,         NULL,         0, "<Tearoff>" },
-#: ../app/menus.c:57 ../app/menus.c:62 ../app/menus.c:67 ../app/menus.c:69
-#: ../app/menus.c:95 ../app/menus.c:102 ../app/menus.c:106
+#: ../app/menus.c:58 ../app/menus.c:63 ../app/menus.c:68 ../app/menus.c:70
+#: ../app/menus.c:96 ../app/menus.c:103 ../app/menus.c:107
 msgid "/File/---"
 msgstr "/Fájl/---"
 
-#: ../app/menus.c:58
+#: ../app/menus.c:59
 msgid "/File/_Diagram tree"
 msgstr "/Fájl/_Diagramfa"
 
-#: ../app/menus.c:60
+#: ../app/menus.c:61
 msgid "/File/Sheets and Objects..."
 msgstr "/Fájl/Munkalapok és objektumok..."
 
-#: ../app/menus.c:63
+#: ../app/menus.c:64
 msgid "/File/_Preferences..."
 msgstr "/Fájl/_Beállítások..."
 
 # app/menus.c:252
-#: ../app/menus.c:65
+#: ../app/menus.c:66
 msgid "/File/P_lugins..."
 msgstr "/Fájl/Bő_vítmények..."
 
-#: ../app/menus.c:70 ../app/menus.c:110
+#: ../app/menus.c:71 ../app/menus.c:111
 msgid "/File/_Quit"
 msgstr "/Fájl/_Kilépés"
 
-#: ../app/menus.c:72 ../app/menus.c:257
+#: ../app/menus.c:73 ../app/menus.c:260
 msgid "/_Help"
 msgstr "/_Súgó"
 
-#: ../app/menus.c:74 ../app/menus.c:259
+#: ../app/menus.c:75 ../app/menus.c:262
 msgid "/Help/_Contents"
 msgstr "/Súgó/_Tartalom"
 
-#: ../app/menus.c:76 ../app/menus.c:261
+#: ../app/menus.c:77 ../app/menus.c:264
 msgid "/Help/---"
 msgstr "/Súgó/---"
 
-#: ../app/menus.c:77 ../app/menus.c:262
+#: ../app/menus.c:78 ../app/menus.c:265
 msgid "/Help/_About..."
 msgstr "/Súgó/_Névjegy..."
 
-#: ../app/menus.c:96
+#: ../app/menus.c:97
 msgid "/File/_Save"
 msgstr "/Fájl/M_entés"
 
-#: ../app/menus.c:98
+#: ../app/menus.c:99
 msgid "/File/Save _As..."
 msgstr "/Fájl/Men_tés másként..."
 
-#: ../app/menus.c:100
+#: ../app/menus.c:101
 msgid "/File/_Export..."
 msgstr "/Fájl/_Exportálás..."
 
-#: ../app/menus.c:103
+#: ../app/menus.c:104
 msgid "/File/Page Set_up..."
 msgstr "/Fájl/_Oldalbeállítás..."
 
-#: ../app/menus.c:104
+#: ../app/menus.c:105
 msgid "/File/_Print Diagram..."
 msgstr "/Fájl/Diagram _nyomtatása..."
 
-#: ../app/menus.c:107
+#: ../app/menus.c:108
 msgid "/File/_Close"
 msgstr "/Fájl/_Bezárás"
 
-#: ../app/menus.c:112
+#: ../app/menus.c:113
 msgid "/_Edit"
 msgstr "/S_zerkesztés"
 
-#: ../app/menus.c:114
+#: ../app/menus.c:115
 msgid "/Edit/_Undo"
 msgstr "/Szerkesztés/_Visszavonás"
 
-#: ../app/menus.c:116
+#: ../app/menus.c:117
 msgid "/Edit/_Redo"
 msgstr "/Szerkesztés/Új_ra"
 
-#: ../app/menus.c:118 ../app/menus.c:128
+#: ../app/menus.c:119 ../app/menus.c:129
 msgid "/Edit/---"
 msgstr "/Szerkesztés/---"
 
-#: ../app/menus.c:119
+#: ../app/menus.c:120
 msgid "/Edit/_Copy"
 msgstr "/Szerkesztés/_Másolás"
 
-#: ../app/menus.c:121
+#: ../app/menus.c:122
 msgid "/Edit/C_ut"
 msgstr "/Szerkesztés/_Kivágás"
 
-#: ../app/menus.c:123
+#: ../app/menus.c:124
 msgid "/Edit/_Paste"
 msgstr "/Szerkesztés/_Beillesztés"
 
-#: ../app/menus.c:125
+#: ../app/menus.c:126
 msgid "/Edit/_Duplicate"
 msgstr "/Szerkesztés/Más_olat"
 
-#: ../app/menus.c:126
+#: ../app/menus.c:127
 msgid "/Edit/_Delete"
 msgstr "/Szerkesztés/_Törlés"
 
-#: ../app/menus.c:129
+#: ../app/menus.c:130
 msgid "/Edit/Copy Text"
 msgstr "/Szerkesztés/Szöveg másolása"
 
-#: ../app/menus.c:131
+#: ../app/menus.c:132
 msgid "/Edit/Cut Text"
 msgstr "/Szerkesztés/Szöveg kivágása"
 
-#: ../app/menus.c:133
+#: ../app/menus.c:134
 msgid "/Edit/Paste _Text"
 msgstr "/Szerkesztés/_Szöveg beillesztése"
 
-#: ../app/menus.c:135
+#: ../app/menus.c:136
 msgid "/_Diagram"
 msgstr "/_Diagram"
 
-#: ../app/menus.c:137
+#: ../app/menus.c:138
 msgid "/Diagram/_Properties..."
 msgstr "/Diagram/_Tulajdonságok..."
 
-#: ../app/menus.c:139
+#: ../app/menus.c:140
 msgid "/Diagram/_Layers..."
 msgstr "/Diagram/_Rétegek..."
 
-#: ../app/menus.c:140
+#: ../app/menus.c:141
 msgid "/_View"
 msgstr "/_Nézet"
 
-#: ../app/menus.c:142
+#: ../app/menus.c:143
 msgid "/View/Zoom _In"
 msgstr "/Nézet/_Nagyítás"
 
-#: ../app/menus.c:144
+#: ../app/menus.c:145
 msgid "/View/Zoom _Out"
 msgstr "/Nézet/_Kicsinyítés"
 
-#: ../app/menus.c:146
+#: ../app/menus.c:147
 msgid "/View/_Zoom"
 msgstr "/Nézet/_Nagyítás"
 
-#: ../app/menus.c:148
+#: ../app/menus.c:149
 msgid "/View/Zoom/1600%"
 msgstr "/Nézet/Nagyítás/1600%"
 
-#: ../app/menus.c:149
+#: ../app/menus.c:150
 msgid "/View/Zoom/800%"
 msgstr "/Nézet/Nagyítás/800%"
 
-#: ../app/menus.c:150
+#: ../app/menus.c:151
 msgid "/View/Zoom/400%"
 msgstr "/Nézet/Nagyítás/400%"
 
-#: ../app/menus.c:151
+#: ../app/menus.c:152
 msgid "/View/Zoom/283%"
 msgstr "/Nézet/Nagyítás/283%"
 
-#: ../app/menus.c:152
+#: ../app/menus.c:153
 msgid "/View/Zoom/200%"
 msgstr "/Nézet/Nagyítás/200%"
 
-#: ../app/menus.c:153
+#: ../app/menus.c:154
 msgid "/View/Zoom/141%"
 msgstr "/Nézet/Nagyítás/141%"
 
-#: ../app/menus.c:154
+#: ../app/menus.c:155
 msgid "/View/Zoom/100%"
 msgstr "/Nézet/Nagyítás/100%"
 
-#: ../app/menus.c:156
+#: ../app/menus.c:157
 msgid "/View/Zoom/85%"
 msgstr "/Nézet/Nagyítás/85%"
 
-#: ../app/menus.c:157
+#: ../app/menus.c:158
 msgid "/View/Zoom/70.7%"
 msgstr "/Nézet/Nagyítás/70.7%"
 
-#: ../app/menus.c:158
+#: ../app/menus.c:159
 msgid "/View/Zoom/50%"
 msgstr "/Nézet/Nagyítás/50%"
 
-#: ../app/menus.c:159
+#: ../app/menus.c:160
 msgid "/View/Zoom/35.4%"
 msgstr "/Nézet/Nagyítás/35.4%"
 
-#: ../app/menus.c:160
+#: ../app/menus.c:161
 msgid "/View/Zoom/25%"
 msgstr "/Nézet/Nagyítás/25%"
 
-#: ../app/menus.c:161 ../app/menus.c:170
+#: ../app/menus.c:162 ../app/menus.c:171
 msgid "/View/---"
 msgstr "/Nézet/---"
 
-#: ../app/menus.c:162
+#: ../app/menus.c:163
 msgid "/View/Fullscr_een"
 msgstr "/Nézet/_Teljes képernyő"
 
-#: ../app/menus.c:164
+#: ../app/menus.c:165
 msgid "/View/_AntiAliased"
 msgstr "/Nézet/Él_simított"
 
-#: ../app/menus.c:166
+#: ../app/menus.c:167
 msgid "/View/Show _Grid"
 msgstr "/Nézet/_Rács megjelenítése"
 
-#: ../app/menus.c:167
+#: ../app/menus.c:168
 msgid "/View/_Snap To Grid"
 msgstr "/Nézet/Rácsra _illeszt"
 
-#: ../app/menus.c:168
+#: ../app/menus.c:169
 msgid "/View/Show _Rulers"
 msgstr "/Nézet/_Vonalzók megjelenítése"
 
-#: ../app/menus.c:169
+#: ../app/menus.c:170
 msgid "/View/Show _Connection Points"
 msgstr "/Nézet/_Csatlakozási pontok megjelenítése"
 
-#: ../app/menus.c:171
+#: ../app/menus.c:172
 msgid "/View/New _View"
 msgstr "/Nézet/Új _nézet"
 
 #. Show All, Best Fit.  Same as the Gimp, Ctrl+E
-#: ../app/menus.c:173
+#: ../app/menus.c:174
 msgid "/View/Show _All"
 msgstr "/Nézet/_Mindent megjelenít"
 
-#: ../app/menus.c:175
+#: ../app/menus.c:176
 msgid "/View/Re_draw"
 msgstr "/Nézet/Új_rarajzolás"
 
-#: ../app/menus.c:177
+#: ../app/menus.c:178
 msgid "/_Objects"
 msgstr "/_Objektumok"
 
-#: ../app/menus.c:179
+#: ../app/menus.c:180
 msgid "/Objects/Send to _Back"
 msgstr "/Objektumok/_Háttérbe tesz"
 
-#: ../app/menus.c:181
+#: ../app/menus.c:182
 msgid "/Objects/Bring to _Front"
 msgstr "/Objektumok/_Előtérbe hoz"
 
-#: ../app/menus.c:183
+#: ../app/menus.c:184
 msgid "/Objects/Send Backwards"
 msgstr "/Objektumok/Háttérbe tesz"
 
-#: ../app/menus.c:185
+#: ../app/menus.c:186
 msgid "/Objects/Bring Forwards"
 msgstr "/Objektumok/Előtérbe hoz"
 
-#: ../app/menus.c:187 ../app/menus.c:191 ../app/menus.c:195 ../app/menus.c:213
+#: ../app/menus.c:188 ../app/menus.c:194 ../app/menus.c:198 ../app/menus.c:216
 msgid "/Objects/---"
 msgstr "/Objektumok/---"
 
-#: ../app/menus.c:188
+#: ../app/menus.c:189
 msgid "/Objects/_Group"
 msgstr "/Objektumok/_Csoportosítás"
 
 #. deliberately not using Ctrl+U for Ungroup
-#: ../app/menus.c:190
+#: ../app/menus.c:192
 msgid "/Objects/_Ungroup"
 msgstr "/Objektumok/Csoport f_elbontása"
 
-#: ../app/menus.c:192
+#: ../app/menus.c:195
 msgid "/Objects/_Parent"
 msgstr "/Objektumok/_Szülőhöz kötés"
 
-#: ../app/menus.c:193
+#: ../app/menus.c:196
 msgid "/Objects/_Unparent"
 msgstr "/Objektumok/Szülőtől _elválasztás"
 
-#: ../app/menus.c:194
+#: ../app/menus.c:197
 msgid "/Objects/_Unparent Children"
 msgstr "/Objektumok/Gyermekek _leválasztása"
 
-#: ../app/menus.c:196
+#: ../app/menus.c:199
 msgid "/Objects/Align"
 msgstr "/Objektumok/Igazítás"
 
-#: ../app/menus.c:198
+#: ../app/menus.c:201
 msgid "/Objects/Align/Left"
 msgstr "/Objektumok/Igazítás/Balra"
 
-#: ../app/menus.c:200
+#: ../app/menus.c:203
 msgid "/Objects/Align/Center"
 msgstr "/Objektumok/Igazítás/Középre"
 
-#: ../app/menus.c:202
+#: ../app/menus.c:205
 msgid "/Objects/Align/Right"
 msgstr "/Objektumok/Igazítás/Jobbra"
 
-#: ../app/menus.c:204 ../app/menus.c:208
+#: ../app/menus.c:207 ../app/menus.c:211
 msgid "/Objects/Align/---"
 msgstr "/Objektumok/Igazítás/---"
 
-#: ../app/menus.c:205
+#: ../app/menus.c:208
 msgid "/Objects/Align/Top"
 msgstr "/Objektumok/Igazítás/Felülre"
 
-#: ../app/menus.c:206
+#: ../app/menus.c:209
 msgid "/Objects/Align/Middle"
 msgstr "/Objektumok/Igazítás/Függőlegesen középre"
 
-#: ../app/menus.c:207
+#: ../app/menus.c:210
 msgid "/Objects/Align/Bottom"
 msgstr "/Objektumok/Igazítás/Alulra"
 
-#: ../app/menus.c:209
+#: ../app/menus.c:212
 msgid "/Objects/Align/Spread Out Horizontally"
 msgstr "/Objektumok/Igazítás/Vízszintes elosztás"
 
-#: ../app/menus.c:210
+#: ../app/menus.c:213
 msgid "/Objects/Align/Spread Out Vertically"
 msgstr "/Objektumok/Igazítás/Függőleges elosztás"
 
-#: ../app/menus.c:211
+#: ../app/menus.c:214
 msgid "/Objects/Align/Adjacent"
 msgstr "/Objektumok/Igazítás/Egymás mellé"
 
-#: ../app/menus.c:212
+#: ../app/menus.c:215
 msgid "/Objects/Align/Stacked"
 msgstr "/Objektumok/Igazítás/Egymásra"
 
-#: ../app/menus.c:214
+#: ../app/menus.c:217
 msgid "/Objects/_Properties..."
 msgstr "/Objektum/_Tulajdonságok..."
 
-#: ../app/menus.c:216
+#: ../app/menus.c:219
 msgid "/_Select"
 msgstr "/_Kijelölés"
 
-#: ../app/menus.c:218
+#: ../app/menus.c:221
 msgid "/Select/All"
 msgstr "/Kijelölés/Mindent"
 
-#: ../app/menus.c:219
+#: ../app/menus.c:222
 msgid "/Select/None"
 msgstr "/Kijelölés/Semmit"
 
-#: ../app/menus.c:220
+#: ../app/menus.c:223
 msgid "/Select/Invert"
 msgstr "/Kijelölés/Megfordítás"
 
-#: ../app/menus.c:221 ../app/menus.c:225
+#: ../app/menus.c:224 ../app/menus.c:228
 msgid "/Select/---"
 msgstr "/Kijelölés/---"
 
-#: ../app/menus.c:222
+#: ../app/menus.c:225
 msgid "/Select/Transitive"
 msgstr "/Kijelöl/Tranzitív"
 
-#: ../app/menus.c:223
+#: ../app/menus.c:226
 msgid "/Select/Connected"
 msgstr "/Kijelölés/Összekötött"
 
-#: ../app/menus.c:224
+#: ../app/menus.c:227
 msgid "/Select/Same Type"
 msgstr "/Kijelölés/Azonos típus"
 
-#: ../app/menus.c:226
+#: ../app/menus.c:229
 msgid "/Select/Replace"
 msgstr "/Kijelölés/Cserél"
 
-#: ../app/menus.c:228
+#: ../app/menus.c:231
 msgid "/Select/Union"
 msgstr "/Kijelölés/Unió"
 
-#: ../app/menus.c:230
+#: ../app/menus.c:233
 msgid "/Select/Intersection"
 msgstr "/Kijelölés/Metszet"
 
-#: ../app/menus.c:232
+#: ../app/menus.c:235
 msgid "/Select/Remove"
 msgstr "/Kijelölés/Töröl"
 
 #. Cannot also be called Invert, duplicate names caused keybinding problems
-#: ../app/menus.c:235
+#: ../app/menus.c:238
 msgid "/Select/Inverse"
 msgstr "/Kijelölés/Megfordítás"
 
-#: ../app/menus.c:237
+#: ../app/menus.c:240
 msgid "/_Tools"
 msgstr "/_Eszközök"
 
-#: ../app/menus.c:239
+#: ../app/menus.c:242
 msgid "/Tools/Modify"
 msgstr "/Eszközök/Módosítás"
 
-#: ../app/menus.c:240
+#: ../app/menus.c:243
 msgid "/Tools/Magnify"
 msgstr "/Eszközök/Nagyítás"
 
-#: ../app/menus.c:241
+#: ../app/menus.c:244
 msgid "/Tools/Scroll"
 msgstr "/Eszközök/Görgetés"
 
-#: ../app/menus.c:242
+#: ../app/menus.c:245
 msgid "/Tools/Text"
 msgstr "/Eszközök/Szöveg"
 
-#: ../app/menus.c:243
+#: ../app/menus.c:246
 msgid "/Tools/Box"
 msgstr "/Eszközök/Doboz"
 
-#: ../app/menus.c:244
+#: ../app/menus.c:247
 msgid "/Tools/Ellipse"
 msgstr "/Eszközök/Ellipszis"
 
-#: ../app/menus.c:245
+#: ../app/menus.c:248
 msgid "/Tools/Polygon"
 msgstr "/Eszközök/Sokszög"
 
-#: ../app/menus.c:246
+#: ../app/menus.c:249
 msgid "/Tools/Beziergon"
 msgstr "/Eszközök/Bezier-síkidom"
 
-#: ../app/menus.c:247 ../app/menus.c:253
+#: ../app/menus.c:250 ../app/menus.c:256
 msgid "/Tools/---"
 msgstr "/Eszközök/---"
 
-#: ../app/menus.c:248
+#: ../app/menus.c:251
 msgid "/Tools/Line"
 msgstr "/Eszközök/Vonal"
 
-#: ../app/menus.c:249
+#: ../app/menus.c:252
 msgid "/Tools/Arc"
 msgstr "/Eszközök/Körív"
 
-#: ../app/menus.c:250
+#: ../app/menus.c:253
 msgid "/Tools/Zigzagline"
 msgstr "/Eszközök/Cikkcakkvonal"
 
-#: ../app/menus.c:251
+#: ../app/menus.c:254
 msgid "/Tools/Polyline"
 msgstr "/Eszközök/Töröttvonal"
 
-#: ../app/menus.c:252
+#: ../app/menus.c:255
 msgid "/Tools/Bezierline"
 msgstr "/Eszközök/Bezier-görbe"
 
-#: ../app/menus.c:254
+#: ../app/menus.c:257
 msgid "/Tools/Image"
 msgstr "/Eszközök/Kép"
 
-#: ../app/menus.c:255
+#: ../app/menus.c:258
 msgid "/_Input Methods"
 msgstr "/_Beviteli eljárások"
 
-#: ../app/menus.c:427
+#: ../app/menus.c:430
 msgid "NULL tooldata in tool_menu_select"
 msgstr "NULL tooldata a tool_menu_select-ben"
 
-#: ../app/menus.c:525
+#: ../app/menus.c:528
 msgid "Diagram Menu"
 msgstr "Diagrammenü"
 
-#: ../app/menus.c:660
+#: ../app/menus.c:663
 #, c-format
 msgid ""
 "Can't find menu entry '%s'!\n"
@@ -1645,38 +1647,38 @@ msgstr ""
 msgid "Couldn't get GTK settings"
 msgstr "Nem lehet lekérni a GTK-beállításokat"
 
-#: ../app/paginate_psprint.c:243
+#: ../app/paginate_psprint.c:257
 msgid "Select Printer"
 msgstr "Nyomtató kiválasztása"
 
-#: ../app/paginate_psprint.c:255 ../sheets/ciscocomputer.sheet.in.h:25
+#: ../app/paginate_psprint.c:269 ../sheets/ciscocomputer.sheet.in.h:36
 msgid "Printer"
 msgstr "Nyomtató"
 
-#: ../app/paginate_psprint.c:269 ../sheets/Misc.sheet.in.h:1
+#: ../app/paginate_psprint.c:283 ../sheets/Misc.sheet.in.h:1
 msgid "File"
 msgstr "Fájl"
 
-#: ../app/paginate_psprint.c:284
+#: ../app/paginate_psprint.c:298
 msgid "OK"
 msgstr "OK"
 
-#: ../app/paginate_psprint.c:379
+#: ../app/paginate_psprint.c:393
 #, c-format
 msgid "Could not run command '%s': %s"
 msgstr "Nem lehet futtatni a(z) '%s' parancsot: %s"
 
-#: ../app/paginate_psprint.c:382
+#: ../app/paginate_psprint.c:396
 #, c-format
 msgid "Could not open '%s' for writing: %s"
 msgstr "Nem lehet írásra megnyitni a(z) '%s'-t: %s"
 
-#: ../app/paginate_psprint.c:399
+#: ../app/paginate_psprint.c:413
 #, c-format
 msgid "Printing error: command '%s' returned %d\n"
 msgstr "Nyomtatási hiba: a(z) '%s' parancs %d-t adott vissza\n"
 
-#: ../app/paginate_psprint.c:410
+#: ../app/paginate_psprint.c:424
 #, c-format
 msgid "Printing error: command '%s' caused sigpipe."
 msgstr "Nyomtatási hiba: a(z) '%s' parancs sigpipe-ot okozott."
@@ -1690,7 +1692,7 @@ msgstr "Bővítmények"
 msgid "Loaded"
 msgstr "Betöltve"
 
-#: ../app/plugin-manager.c:262 ../objects/UML/class.c:111
+#: ../app/plugin-manager.c:262 ../objects/UML/class.c:116
 #: ../objects/UML/large_package.c:130
 msgid "Name"
 msgstr "Név"
@@ -2496,15 +2498,15 @@ msgstr ""
 msgid "Group with %d objects"
 msgstr "Csoportosítás %d objektummal"
 
-#: ../lib/properties.c:62 ../lib/properties.h:468 ../lib/widgets.c:608
+#: ../lib/properties.c:62 ../lib/properties.h:469 ../lib/widgets.c:638
 msgid "Left"
 msgstr "Balra"
 
-#: ../lib/properties.c:63 ../lib/properties.h:469 ../lib/widgets.c:614
+#: ../lib/properties.c:63 ../lib/properties.h:470 ../lib/widgets.c:644
 msgid "Center"
 msgstr "Középre"
 
-#: ../lib/properties.c:64 ../lib/properties.h:470 ../lib/widgets.c:620
+#: ../lib/properties.c:64 ../lib/properties.h:471 ../lib/widgets.c:650
 msgid "Right"
 msgstr "Jobbra"
 
@@ -2513,7 +2515,7 @@ msgstr "Jobbra"
 msgid "Line color"
 msgstr "Vonal színe"
 
-#: ../lib/properties.c:72 ../lib/properties.h:492 ../lib/properties.h:495
+#: ../lib/properties.c:72 ../lib/properties.h:493 ../lib/properties.h:496
 msgid "Line style"
 msgstr "Vonal stílusa"
 
@@ -2521,32 +2523,32 @@ msgstr "Vonal stílusa"
 msgid "Fill color"
 msgstr "Kitöltési szín"
 
-#: ../lib/properties.c:74 ../lib/properties.h:505
+#: ../lib/properties.c:74 ../lib/properties.h:506
 msgid "Draw background"
 msgstr "Háttér rajzolása"
 
-#: ../lib/properties.c:75 ../lib/properties.h:509
+#: ../lib/properties.c:75 ../lib/properties.h:510
 msgid "Start arrow"
 msgstr "Kezdő nyíl"
 
-#: ../lib/properties.c:76 ../lib/properties.h:512
+#: ../lib/properties.c:76 ../lib/properties.h:513
 msgid "End arrow"
 msgstr "Bezáró nyíl"
 
-#: ../lib/properties.c:78 ../lib/properties.h:522
+#: ../lib/properties.c:78 ../lib/properties.h:523
 msgid "Text alignment"
 msgstr "Szöveg elhelyezkedése"
 
 #. all this just to make the defaults selectable ...
-#: ../lib/properties.c:79 ../lib/properties.h:527
+#: ../lib/properties.c:79 ../lib/properties.h:528
 #: ../objects/GRAFCET/condition.c:132 ../objects/GRAFCET/step.c:165
-#: ../objects/GRAFCET/transition.c:142 ../objects/UML/class.c:137
+#: ../objects/GRAFCET/transition.c:142 ../objects/UML/class.c:142
 #: ../objects/UML/class_dialog.c:351 ../objects/chronogram/chronoline.c:183
 #: ../objects/chronogram/chronoref.c:164
 msgid "Font"
 msgstr "Betűkészlet"
 
-#: ../lib/properties.c:80 ../lib/properties.h:533
+#: ../lib/properties.c:80 ../lib/properties.h:534
 #: ../objects/GRAFCET/condition.c:134 ../objects/GRAFCET/step.c:167
 #: ../objects/GRAFCET/transition.c:144 ../objects/chronogram/chronoline.c:185
 #: ../objects/chronogram/chronoref.c:166
@@ -2559,15 +2561,15 @@ msgstr "Betűméret"
 msgid "Text color"
 msgstr "Szövegszín"
 
-#: ../lib/properties.h:486 ../lib/properties.h:489
+#: ../lib/properties.h:487 ../lib/properties.h:490
 msgid "Line colour"
 msgstr "Vonalszín"
 
-#: ../lib/properties.h:499 ../lib/properties.h:502
+#: ../lib/properties.h:500 ../lib/properties.h:503
 msgid "Fill colour"
 msgstr "Előtérszín"
 
-#: ../lib/properties.h:539
+#: ../lib/properties.h:540
 msgid "Text colour"
 msgstr "Szövegszín"
 
@@ -2576,66 +2578,66 @@ msgstr "Szövegszín"
 msgid "No attribute '%s' (%p) or no data(%p) in this attribute"
 msgstr "Nincs '%s' attribútum (%p) vagy nincs adat (%p) az attribútumban"
 
-#: ../lib/widgets.c:347
+#: ../lib/widgets.c:375
 msgid "Other fonts"
 msgstr "Egyéb betűkészletek"
 
-#: ../lib/widgets.c:417
+#: ../lib/widgets.c:445
 #, c-format
 msgid "Couldn't find font family for %s\n"
 msgstr "Nem található a(z) %s betűtípuscsalád\n"
 
 #. Translators: Menu item Noun/Material/Solid
-#: ../lib/widgets.c:756 ../objects/FS/function.c:1074
+#: ../lib/widgets.c:786 ../objects/FS/function.c:1074
 msgid "Solid"
 msgstr "Teli"
 
-#: ../lib/widgets.c:762
+#: ../lib/widgets.c:792
 msgid "Dashed"
 msgstr "Szaggatott"
 
-#: ../lib/widgets.c:768
+#: ../lib/widgets.c:798
 msgid "Dash-Dot"
 msgstr "Vonal-Pont"
 
-#: ../lib/widgets.c:774
+#: ../lib/widgets.c:804
 msgid "Dash-Dot-Dot"
 msgstr "Vonal-Pont-Pont"
 
-#: ../lib/widgets.c:780
+#: ../lib/widgets.c:810
 msgid "Dotted"
 msgstr "Pontozott"
 
 #. fs->sizebox = GTK_HBOX(box);
-#: ../lib/widgets.c:799
+#: ../lib/widgets.c:829
 msgid "Dash length: "
 msgstr "Vonal hossza: "
 
-#: ../lib/widgets.c:927
+#: ../lib/widgets.c:959
 msgid "Select color"
 msgstr "Szín kiválasztása"
 
-#: ../lib/widgets.c:993
+#: ../lib/widgets.c:1025
 msgid "More colors..."
 msgstr "További színek..."
 
-#: ../lib/widgets.c:1118
+#: ../lib/widgets.c:1150
 msgid "More arrows"
 msgstr "További nyilak"
 
-#: ../lib/widgets.c:1131
+#: ../lib/widgets.c:1163
 msgid "Size: "
 msgstr "Méret: "
 
-#: ../lib/widgets.c:1276
+#: ../lib/widgets.c:1308
 msgid "Select image file"
 msgstr "Válasszon ki egy képfájlt"
 
-#: ../lib/widgets.c:1312
+#: ../lib/widgets.c:1344
 msgid "Browse"
 msgstr "Tallózás"
 
-#: ../lib/widgets.c:1908
+#: ../lib/widgets.c:1940
 msgid "Reset menu"
 msgstr "Menü visszaállítása"
 
@@ -2667,7 +2669,7 @@ msgstr "Gyenge:"
 msgid "Associative:"
 msgstr "Társított:"
 
-#: ../objects/ER/entity.c:413 ../objects/UML/classicon.c:128
+#: ../objects/ER/entity.c:413 ../objects/UML/classicon.c:129
 #: ../sheets/ER.sheet.in.h:4
 msgid "Entity"
 msgstr "Egyed"
@@ -2988,7 +2990,7 @@ msgid "Mount"
 msgstr "Felkapcsolás"
 
 #. Translators: Menu item Verb/Support/Secure/Lock
-#: ../objects/FS/function.c:794 ../sheets/ciscomisc.sheet.in.h:21
+#: ../objects/FS/function.c:794 ../sheets/ciscomisc.sheet.in.h:19
 msgid "Lock"
 msgstr "Zárolás"
 
@@ -3321,7 +3323,7 @@ msgstr "Szabályozás"
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Control
 #. Translators: Menu item Noun/Signal/Control
 #: ../objects/FS/function.c:960 ../objects/FS/function.c:1178
-#: ../objects/UML/classicon.c:126
+#: ../objects/UML/classicon.c:127
 msgid "Control"
 msgstr "Vezérlés"
 
@@ -3955,7 +3957,7 @@ msgstr "Vegyes objektumok"
 
 #  property rows
 #. property rows
-#: ../objects/SADT/arrow.c:134 ../objects/UML/class.c:142
+#: ../objects/SADT/arrow.c:134 ../objects/UML/class.c:147
 #: ../objects/UML/class_dialog.c:357
 msgid "Normal"
 msgstr "Normál"
@@ -4097,87 +4099,91 @@ msgstr "Aggregálás"
 msgid "Composition"
 msgstr "Kompozíció"
 
-#: ../objects/UML/class.c:109 ../objects/UML/class.c:247
-#: ../objects/UML/class.c:1169 ../sheets/UML.sheet.in.h:6
+#: ../objects/UML/class.c:114 ../objects/UML/class.c:279
+#: ../objects/UML/class.c:1207 ../sheets/UML.sheet.in.h:6
 msgid "Class"
 msgstr "Osztály"
 
-#: ../objects/UML/class.c:113 ../objects/UML/classicon.c:137
+#: ../objects/UML/class.c:118 ../objects/UML/classicon.c:138
 #: ../objects/UML/component.c:124 ../objects/UML/large_package.c:128
 #: ../objects/UML/object.c:149 ../objects/UML/small_package.c:124
 msgid "Stereotype"
 msgstr "Sztereotípia"
 
-#: ../objects/UML/class.c:115 ../objects/UML/class.c:152
+#: ../objects/UML/class.c:120 ../objects/UML/class.c:157
 #: ../objects/UML/class_dialog.c:382 ../sheets/SDL.sheet.in.h:3
 msgid "Comment"
 msgstr "Megjegyzés"
 
-#: ../objects/UML/class.c:117 ../objects/UML/class.c:146
+#: ../objects/UML/class.c:122 ../objects/UML/class.c:151
 #: ../objects/UML/class_dialog.c:296 ../objects/UML/class_dialog.c:367
 #: ../objects/UML/class_dialog.c:1940
 msgid "Abstract"
 msgstr "Absztrakt"
 
-#: ../objects/UML/class.c:119
+#: ../objects/UML/class.c:124
 msgid "Template"
 msgstr "Sablon"
 
-#: ../objects/UML/class.c:122 ../objects/UML/class_dialog.c:305
+#: ../objects/UML/class.c:127 ../objects/UML/class_dialog.c:305
 msgid "Suppress Attributes"
 msgstr "Attribútumok elnyomása"
 
-#: ../objects/UML/class.c:124
+#: ../objects/UML/class.c:129
 msgid "Suppress Operations"
 msgstr "Műveletek elnyomása"
 
-#: ../objects/UML/class.c:126
+#: ../objects/UML/class.c:131
 msgid "Visible Attributes"
 msgstr "Attribútumok megjelenítése"
 
-#: ../objects/UML/class.c:128
+#: ../objects/UML/class.c:133
 msgid "Visible Operations"
 msgstr "Műveletek megjelenítése"
 
-#: ../objects/UML/class.c:130
+#: ../objects/UML/class.c:135
 msgid "Visible Comments"
 msgstr "Megjegyzések megjelenítése"
 
-#: ../objects/UML/class.c:132 ../objects/UML/class_dialog.c:321
+#: ../objects/UML/class.c:137 ../objects/UML/class_dialog.c:321
 msgid "Wrap Operations"
 msgstr "Műveletek áttörése"
 
-#: ../objects/UML/class.c:134
+#: ../objects/UML/class.c:139
 msgid "Wrap after char"
 msgstr "Adott karakter után sortörés"
 
-#: ../objects/UML/class.c:144 ../objects/UML/class_dialog.c:362
+#: ../objects/UML/class.c:149 ../objects/UML/class_dialog.c:362
 msgid "Polymorphic"
 msgstr "Polimorf"
 
-#: ../objects/UML/class.c:148
+#: ../objects/UML/class.c:153
 msgid "Classname"
 msgstr "Osztálynév"
 
-#: ../objects/UML/class.c:150
+#: ../objects/UML/class.c:155
 msgid "Abstract Classname"
 msgstr "Absztrakt osztálynév"
 
-#: ../objects/UML/class.c:156 ../objects/UML/class.c:158
-#: ../objects/UML/class.c:160 ../objects/UML/class.c:162
-#: ../objects/UML/class.c:164 ../objects/UML/class.c:166
+#: ../objects/UML/class.c:161 ../objects/UML/class.c:163
+#: ../objects/UML/class.c:165 ../objects/UML/class.c:167
+#: ../objects/UML/class.c:169 ../objects/UML/class.c:171
 msgid " "
 msgstr " "
 
-#: ../objects/UML/class.c:171 ../objects/UML/object.c:153
+#: ../objects/UML/class.c:176 ../objects/UML/object.c:153
 msgid "Attributes"
 msgstr "Attribútumok"
 
-#: ../objects/UML/class.c:173
+#: ../objects/UML/class.c:178
 msgid "Operations"
 msgstr "Műveletek"
 
-#: ../objects/UML/class.c:241
+#: ../objects/UML/class.c:181
+msgid "Template Parameters"
+msgstr "Sablon paraméterei"
+
+#: ../objects/UML/class.c:273
 msgid "Show Comments"
 msgstr "Megjegyzések megjelenítése"
 
@@ -4359,11 +4365,11 @@ msgstr "Sablonosztály"
 msgid "Formal parameter data"
 msgstr "Formális paraméteradat"
 
-#: ../objects/UML/classicon.c:127
+#: ../objects/UML/classicon.c:128
 msgid "Boundary"
 msgstr "Határ"
 
-#: ../objects/UML/classicon.c:139
+#: ../objects/UML/classicon.c:140
 msgid "Is object"
 msgstr "Objektum?"
 
@@ -4501,7 +4507,7 @@ msgstr "Művelet"
 msgid "Action to perform when this transition is taken"
 msgstr "A végrehajtandó művelet az átmenet bekövetkeztekor"
 
-#: ../objects/UML/transition.c:133
+#: ../objects/UML/transition.c:133 ../sheets/cisconetwork.sheet.in.h:43
 msgid "Guard"
 msgstr "Őr"
 
@@ -5010,35 +5016,35 @@ msgstr "Sarok törlése"
 msgid "Standard objects"
 msgstr "Szabványos objektumok"
 
-#: ../plug-ins/cairo/diacairo.c:1064
+#: ../plug-ins/cairo/diacairo.c:1078
 msgid "Cairo PostScript"
 msgstr "Cairo PostScript"
 
-#: ../plug-ins/cairo/diacairo.c:1073
+#: ../plug-ins/cairo/diacairo.c:1087
 msgid "Cairo Portable Document Format"
 msgstr "Cairo Portable Document Format"
 
-#: ../plug-ins/cairo/diacairo.c:1082
+#: ../plug-ins/cairo/diacairo.c:1096
 msgid "Cairo PNG"
 msgstr "Cairo PNG"
 
-#: ../plug-ins/cairo/diacairo.c:1090
+#: ../plug-ins/cairo/diacairo.c:1104
 msgid "Cairo PNG (with alpha)"
 msgstr "Cairo PNG (alfával)"
 
-#: ../plug-ins/cairo/diacairo.c:1099
+#: ../plug-ins/cairo/diacairo.c:1113
 msgid "Cairo WMF"
 msgstr "Cairo WMF"
 
-#: ../plug-ins/cairo/diacairo.c:1108
+#: ../plug-ins/cairo/diacairo.c:1122
 msgid "Cairo old WMF"
 msgstr "Cairo régi WMF"
 
-#: ../plug-ins/cairo/diacairo.c:1117
+#: ../plug-ins/cairo/diacairo.c:1131
 msgid "Cairo Clipboard"
 msgstr "Cairo-vágólap"
 
-#: ../plug-ins/cairo/diacairo.c:1160
+#: ../plug-ins/cairo/diacairo.c:1174
 msgid "Cairo based Rendering"
 msgstr "Cairo alapú előállítás"
 
@@ -5123,7 +5129,7 @@ msgstr "HP Graphics Language exportálási szűrő"
 msgid "TeX Metapost export filter"
 msgstr "TeX Metapost exportálási szűrő"
 
-#: ../plug-ins/metapost/render_metapost.c:1033
+#: ../plug-ins/metapost/render_metapost.c:1175
 msgid "TeX Metapost macros"
 msgstr "TeX Metapost makrók"
 
@@ -5163,11 +5169,11 @@ msgstr "Nem lehet írásra megnyitni a(z) '%s'-t.\n"
 msgid "Python scripting support"
 msgstr "Python makrózás támogatása"
 
-#: ../plug-ins/shape/shape-export.c:470
+#: ../plug-ins/shape/shape-export.c:476
 msgid "Can't export png without libart!"
 msgstr "Nem lehet png-be exportálni libart nélkül!"
 
-#: ../plug-ins/shape/shape-export.c:497
+#: ../plug-ins/shape/shape-export.c:501
 msgid "Dia Shape File"
 msgstr "Dia-alakfájl"
 
@@ -5911,7 +5917,7 @@ msgstr "Vízszintesen elrendezett Zener-dióda"
 msgid "Lamp"
 msgstr "Lámpa"
 
-#: ../sheets/Circuit.sheet.in.h:16 ../sheets/ciscomisc.sheet.in.h:26
+#: ../sheets/Circuit.sheet.in.h:16 ../sheets/ciscomisc.sheet.in.h:30
 msgid "Microphone"
 msgstr "Mikrofon"
 
@@ -5939,7 +5945,7 @@ msgstr "PMOS tranzisztor"
 msgid "PNP bipolar transistor"
 msgstr "PNP bipoláris tranzisztor"
 
-#: ../sheets/Circuit.sheet.in.h:26 ../sheets/ciscomisc.sheet.in.h:39
+#: ../sheets/Circuit.sheet.in.h:26 ../sheets/ciscomisc.sheet.in.h:42
 msgid "Speaker"
 msgstr "Hangszóró"
 
@@ -7098,484 +7104,684 @@ msgid "Time scale"
 msgstr "Időskála"
 
 #: ../sheets/ciscocomputer.sheet.in.h:1
+msgid "BBS"
+msgstr "BBS"
+
+#: ../sheets/ciscocomputer.sheet.in.h:2
 msgid "Cisco - Computer"
 msgstr "Cisco - Számítógép"
 
-#: ../sheets/ciscocomputer.sheet.in.h:2
+#: ../sheets/ciscocomputer.sheet.in.h:3
 msgid "Cisco CA"
 msgstr "Cisco CA"
 
-#: ../sheets/ciscocomputer.sheet.in.h:3
+#: ../sheets/ciscocomputer.sheet.in.h:4
 msgid "CiscoSecurity"
 msgstr "CiscoSecurity"
 
-#: ../sheets/ciscocomputer.sheet.in.h:4
+#: ../sheets/ciscocomputer.sheet.in.h:5
 msgid "CiscoWorks workstation"
 msgstr "CiscoWorks munkaállomás"
 
-#: ../sheets/ciscocomputer.sheet.in.h:5
-msgid "Communications server"
-msgstr "Kommunikációs szerver"
-
 #: ../sheets/ciscocomputer.sheet.in.h:6
 msgid "Computer shapes by Cisco"
-msgstr "Számítógépes alakok a Ciscótól"
+msgstr "Számítógépes alakok a Ciscotól"
 
 #: ../sheets/ciscocomputer.sheet.in.h:7
-msgid "Directory Server"
-msgstr "Könyvtárkiszolgáló"
+msgid "Disk subsystem"
+msgstr "Lemez alrendszer"
 
 #: ../sheets/ciscocomputer.sheet.in.h:8
+msgid "Diskette"
+msgstr "Floppy"
+
+#: ../sheets/ciscocomputer.sheet.in.h:9
+msgid "EtherClient"
+msgstr "EtherClient"
+
+#: ../sheets/ciscocomputer.sheet.in.h:10
+msgid "FC Storage"
+msgstr "FC tároló"
+
+#: ../sheets/ciscocomputer.sheet.in.h:11
 msgid "File Server"
 msgstr "Fájlkiszolgáló"
 
-#: ../sheets/ciscocomputer.sheet.in.h:9
+#: ../sheets/ciscocomputer.sheet.in.h:12
+msgid "Front End Processor"
+msgstr "Előoldali processzor"
+
+#: ../sheets/ciscocomputer.sheet.in.h:13
 msgid "HP Mini"
 msgstr "HP Mini"
 
-#: ../sheets/ciscocomputer.sheet.in.h:10
+#: ../sheets/ciscocomputer.sheet.in.h:14
 msgid "Handheld"
 msgstr "Kézi számítógép"
 
-#: ../sheets/ciscocomputer.sheet.in.h:11
+#: ../sheets/ciscocomputer.sheet.in.h:15
 msgid "Host"
 msgstr "Gazda"
 
-#: ../sheets/ciscocomputer.sheet.in.h:12
+#: ../sheets/ciscocomputer.sheet.in.h:16
 msgid "IBM Mini (AS400)"
 msgstr "IBM Mini (AS400)"
 
-#: ../sheets/ciscocomputer.sheet.in.h:13
+#: ../sheets/ciscocomputer.sheet.in.h:17
 msgid "IBM Tower"
 msgstr "IBM torony"
 
-#: ../sheets/ciscocomputer.sheet.in.h:14
+#: ../sheets/ciscocomputer.sheet.in.h:18
 msgid "IBM mainframe"
 msgstr "IBM nagygép"
 
-#: ../sheets/ciscocomputer.sheet.in.h:15
-msgid "IP Softphone"
-msgstr "IP szoftveres telefon"
+#: ../sheets/ciscocomputer.sheet.in.h:19
+msgid "IBM mainframe with FEP"
+msgstr "IBM nagygép FEP-pel"
 
-#: ../sheets/ciscocomputer.sheet.in.h:16
-msgid "IPTV broadcast server"
-msgstr "IPTV műsorszóró kiszolgáló"
+#: ../sheets/ciscocomputer.sheet.in.h:20
+msgid "JBOD"
+msgstr "JBOD"
 
-#: ../sheets/ciscocomputer.sheet.in.h:17
+#: ../sheets/ciscocomputer.sheet.in.h:21
 msgid "Laptop"
 msgstr "Hordozható PC"
 
-#: ../sheets/ciscocomputer.sheet.in.h:18
+#: ../sheets/ciscocomputer.sheet.in.h:22
 msgid "Macintosh"
 msgstr "Macintosh"
 
-#: ../sheets/ciscocomputer.sheet.in.h:19
+#: ../sheets/ciscocomputer.sheet.in.h:23
 msgid "MicroWebserver"
 msgstr "MicroWebserver"
 
-#: ../sheets/ciscocomputer.sheet.in.h:20
+#: ../sheets/ciscocomputer.sheet.in.h:24
 msgid "Mini VAX"
 msgstr "Mini VAX"
 
-#: ../sheets/ciscocomputer.sheet.in.h:21
-msgid "MoH server (Music on Hold)"
-msgstr "MoH (Music on Hold) kiszolgáló"
+#: ../sheets/ciscocomputer.sheet.in.h:25
+msgid "Modem"
+msgstr "Modem"
 
-#: ../sheets/ciscocomputer.sheet.in.h:22
+#: ../sheets/ciscocomputer.sheet.in.h:26 ../sheets/network.sheet.in.h:19
+msgid "Monitor"
+msgstr "Monitor"
+
+#: ../sheets/ciscocomputer.sheet.in.h:27
+msgid "Newton"
+msgstr "Newton"
+
+#: ../sheets/ciscocomputer.sheet.in.h:28
 msgid "PC"
 msgstr "PC"
 
-#: ../sheets/ciscocomputer.sheet.in.h:23
+#: ../sheets/ciscocomputer.sheet.in.h:29
+msgid "PC Adapter Card"
+msgstr "PC csatlakozókártya"
+
+#: ../sheets/ciscocomputer.sheet.in.h:30
+msgid "PC Card"
+msgstr "PC kártya"
+
+#: ../sheets/ciscocomputer.sheet.in.h:31
+msgid "PC Router Card"
+msgstr "PC útválasztó kártya"
+
+#: ../sheets/ciscocomputer.sheet.in.h:32
+msgid "PC Software"
+msgstr "PC szoftver"
+
+#: ../sheets/ciscocomputer.sheet.in.h:33
 msgid "PC Video"
 msgstr "PC Video"
 
-#: ../sheets/ciscocomputer.sheet.in.h:24
+#: ../sheets/ciscocomputer.sheet.in.h:34
+msgid "PC with Router-Based Software"
+msgstr "PC útválasztó-alapú szoftverrel"
+
+#: ../sheets/ciscocomputer.sheet.in.h:35
 msgid "PDA"
 msgstr "PDA"
 
-#: ../sheets/ciscocomputer.sheet.in.h:26
+#: ../sheets/ciscocomputer.sheet.in.h:37
 msgid "Relational Database"
 msgstr "Relációs adatbázis"
 
-#: ../sheets/ciscocomputer.sheet.in.h:27
-msgid "SC2200/VSC3000 host"
-msgstr "SC2200/VSC3000 gép"
-
-#: ../sheets/ciscocomputer.sheet.in.h:28
-msgid "SIP Proxy server"
-msgstr "SIP proxykiszolgáló"
-
-#: ../sheets/ciscocomputer.sheet.in.h:29
-msgid "STB (set top box)"
-msgstr "STB (set-top doboz)"
-
-#: ../sheets/ciscocomputer.sheet.in.h:30
+#: ../sheets/ciscocomputer.sheet.in.h:38
 msgid "SUN workstation"
 msgstr "SUN munkaállomás"
 
-#: ../sheets/ciscocomputer.sheet.in.h:31
+#: ../sheets/ciscocomputer.sheet.in.h:39
 msgid "Scanner"
 msgstr "Lapolvasó"
 
-#: ../sheets/ciscocomputer.sheet.in.h:32
+#: ../sheets/ciscocomputer.sheet.in.h:40
 msgid "Server with PC Router"
 msgstr "Kiszolgáló PC-útválasztóval"
 
-#: ../sheets/ciscocomputer.sheet.in.h:33
-msgid "Softphone"
-msgstr "Szoftveres telefon"
+#: ../sheets/ciscocomputer.sheet.in.h:41
+msgid "Software-Based Router on File Server"
+msgstr "Szoftver alapú útválasztó a fájlkiszolgálón"
 
-#: ../sheets/ciscocomputer.sheet.in.h:34
-msgid "Software based server"
-msgstr "Szoftver alapú kiszolgáló"
-
-#: ../sheets/ciscocomputer.sheet.in.h:35
+#: ../sheets/ciscocomputer.sheet.in.h:42
 msgid "Storage array"
 msgstr "Tárolótömb"
 
-#: ../sheets/ciscocomputer.sheet.in.h:36
+#: ../sheets/ciscocomputer.sheet.in.h:43
 msgid "Supercomputer"
 msgstr "Szuperszámítógép"
 
-#: ../sheets/ciscocomputer.sheet.in.h:37
-msgid "TV"
-msgstr "TV"
+#: ../sheets/ciscocomputer.sheet.in.h:44
+msgid "Tablet"
+msgstr "Tábla"
 
-#: ../sheets/ciscocomputer.sheet.in.h:38
+#: ../sheets/ciscocomputer.sheet.in.h:45
+msgid "Tape array"
+msgstr "Szalagos tömb"
+
+#: ../sheets/ciscocomputer.sheet.in.h:46
 msgid "Terminal"
 msgstr "Terminál"
 
-#: ../sheets/ciscocomputer.sheet.in.h:39
-msgid "Turret"
-msgstr "Torony"
-
-#: ../sheets/ciscocomputer.sheet.in.h:40
-msgid "Unity server"
-msgstr "Unity kiszolgáló"
-
-#: ../sheets/ciscocomputer.sheet.in.h:41
-msgid "Voice commserver"
-msgstr "Hangkommunikációs kiszolgáló"
-
-#: ../sheets/ciscocomputer.sheet.in.h:42
+#: ../sheets/ciscocomputer.sheet.in.h:47
 msgid "WWW server"
 msgstr "WWW kiszolgáló"
 
-#: ../sheets/ciscocomputer.sheet.in.h:43
+#: ../sheets/ciscocomputer.sheet.in.h:48
 msgid "Web browser"
 msgstr "Webböngésző"
 
-#: ../sheets/ciscocomputer.sheet.in.h:44
+#: ../sheets/ciscocomputer.sheet.in.h:49
 msgid "Web cluster"
 msgstr "Web cluster"
 
-#: ../sheets/ciscocomputer.sheet.in.h:45
+#: ../sheets/ciscocomputer.sheet.in.h:50
 msgid "Wireless"
 msgstr "Vezeték nélküli"
 
-#: ../sheets/ciscocomputer.sheet.in.h:46
+#: ../sheets/ciscocomputer.sheet.in.h:51
 msgid "Workgroup director"
 msgstr "Munkacsoport-vezérlő"
 
-#: ../sheets/ciscocomputer.sheet.in.h:47
-msgid "Workstation"
-msgstr "Munkaállomás"
-
 #: ../sheets/ciscohub.sheet.in.h:1
-msgid "100BaseT hub"
+msgid "100BaseT Hub"
 msgstr "100BaseT elosztó"
 
 #: ../sheets/ciscohub.sheet.in.h:2
-msgid "ATM fast gigabit etherswitch"
-msgstr "ATM Fast Gigabit Etherswitch"
+msgid "7500ARS (7513) Router"
+msgstr "7500ARS (7513) útválasztó"
 
 #: ../sheets/ciscohub.sheet.in.h:3
-msgid "ATM switch"
-msgstr "ATM-kapcsoló"
+msgid "7505 Router"
+msgstr "7505 útválasztó"
 
 #: ../sheets/ciscohub.sheet.in.h:4
-msgid "Cisco - Hub"
-msgstr "Cisco - Elosztó"
+msgid "7507 Router"
+msgstr "7507 útválasztó"
 
 #: ../sheets/ciscohub.sheet.in.h:5
-msgid "Cisco hub"
-msgstr "Cisco elosztó"
+msgid "ASIC Processor"
+msgstr "ASIC processzor"
 
 #: ../sheets/ciscohub.sheet.in.h:6
-msgid "Class 4/5 switch"
-msgstr "4/5. osztályú kapcsoló"
+msgid "ATM 3800"
+msgstr "ATM 3800"
 
 #: ../sheets/ciscohub.sheet.in.h:7
-msgid "Content service switch 1100"
-msgstr "1100-as tartalomszolgáltató kapcsoló"
+msgid "ATM Fast Gigabit Etherswitch"
+msgstr "ATM Fast Gigabit Etherswitch"
 
 #: ../sheets/ciscohub.sheet.in.h:8
-msgid "Content switch"
-msgstr "Tartalomkapcsoló"
+msgid "ATM Switch"
+msgstr "ATM-kapcsoló"
 
 #: ../sheets/ciscohub.sheet.in.h:9
-msgid "Content switch module"
-msgstr "Tartalomkapcsoló modul"
+msgid "ATM Tag Switch Router"
+msgstr "ATM-címkekapcsoló útválasztó"
 
 #: ../sheets/ciscohub.sheet.in.h:10
-msgid "Generic softswitch"
-msgstr "Általános szoftveres kapcsoló"
+msgid "Access Gateway"
+msgstr "Hozzáférési átjáró"
 
 #: ../sheets/ciscohub.sheet.in.h:11
+msgid "BBSM"
+msgstr "BBSM"
+
+#: ../sheets/ciscohub.sheet.in.h:12
+msgid "Broadband router"
+msgstr "Szélessávú útválasztó"
+
+#: ../sheets/ciscohub.sheet.in.h:13
+msgid "CSM-S"
+msgstr "CSM-S"
+
+#: ../sheets/ciscohub.sheet.in.h:14
+msgid "Carrier Routing System"
+msgstr "Vivőhang útválasztó rendszer"
+
+#: ../sheets/ciscohub.sheet.in.h:15
+msgid "Cisco - Switch"
+msgstr "Cisco - Kapcsoló"
+
+#: ../sheets/ciscohub.sheet.in.h:16
+msgid "Cisco 1000"
+msgstr "Cisco 1000"
+
+#: ../sheets/ciscohub.sheet.in.h:17
+msgid "Cisco Hub"
+msgstr "Cisco elosztó"
+
+#: ../sheets/ciscohub.sheet.in.h:18
+msgid "Content Router"
+msgstr "Tartalom-útválasztó"
+
+#: ../sheets/ciscohub.sheet.in.h:19
+msgid "Content Service Module"
+msgstr "Tartalomszolgáltatási modul"
+
+#: ../sheets/ciscohub.sheet.in.h:20
+msgid "Content Service Switch 1100"
+msgstr "1100-as tartalomszolgáltató kapcsoló"
+
+#: ../sheets/ciscohub.sheet.in.h:21
+msgid "Content Switch"
+msgstr "Tartalomkapcsoló"
+
+#: ../sheets/ciscohub.sheet.in.h:22
+msgid "Data Center Switch"
+msgstr "Adatközpont kapcsoló"
+
+#: ../sheets/ciscohub.sheet.in.h:23
+msgid "Data Center Switch Reversed"
+msgstr "Fordított adatközpont kapcsoló"
+
+#: ../sheets/ciscohub.sheet.in.h:24
+msgid "Data Switch Processor"
+msgstr "Adatkapcsoló processzor"
+
+#: ../sheets/ciscohub.sheet.in.h:25
+msgid "Director-class Fibre Channel intelligent switch"
+msgstr "Igazgató-osztályú Fibre Channel intelligens kapcsoló"
+
+#: ../sheets/ciscohub.sheet.in.h:26
+msgid "Edge Label Switch Router"
+msgstr "Perem címkekapcsoló útválasztó"
+
+#: ../sheets/ciscohub.sheet.in.h:27
+msgid "Edge Label Switch Router with NetFlow"
+msgstr "Perem címkekapcsoló útválasztó NetFlow-val"
+
+#: ../sheets/ciscohub.sheet.in.h:28
+msgid "Generic Processor"
+msgstr "Általános feldolgozó"
+
+#: ../sheets/ciscohub.sheet.in.h:29
 msgid "Hub"
 msgstr "Elosztó"
 
-#: ../sheets/ciscohub.sheet.in.h:12
-msgid "Hub and switch shapes by Cisco"
-msgstr "Cisco elosztó és kapcsoló alakok"
+#: ../sheets/ciscohub.sheet.in.h:30
+msgid "Hub subdued"
+msgstr "Elfojtott elosztó"
 
-#: ../sheets/ciscohub.sheet.in.h:13
+#: ../sheets/ciscohub.sheet.in.h:31
 msgid "ISDN switch"
 msgstr "ISDN kapcsoló"
 
-#: ../sheets/ciscohub.sheet.in.h:14
-msgid "Layer 3 switch"
-msgstr "Layer 3 kapcsoló"
+#: ../sheets/ciscohub.sheet.in.h:32
+msgid "LAN2LAN Switch"
+msgstr "LAN2LAN kapcsoló"
 
-#: ../sheets/ciscohub.sheet.in.h:15
-msgid "MGX 8220 switch"
-msgstr "MGX 8220 kapcsoló"
+#: ../sheets/ciscohub.sheet.in.h:33
+msgid "Label Switch Router"
+msgstr "Címkekapcsoló útválasztó"
 
-#: ../sheets/ciscohub.sheet.in.h:16
-msgid "MGX 8240 switch"
-msgstr "MGX 8240 kapcsoló"
+#: ../sheets/ciscohub.sheet.in.h:34
+msgid "MGX 8220"
+msgstr "MGX 8220"
 
-#: ../sheets/ciscohub.sheet.in.h:17
-msgid "MGX 8260 switch"
-msgstr "MGX 8260 kapcsoló"
+#: ../sheets/ciscohub.sheet.in.h:35
+msgid "MGX 8240"
+msgstr "MGX 8240"
 
-#: ../sheets/ciscohub.sheet.in.h:18
-msgid "MultiSwitch device"
+#: ../sheets/ciscohub.sheet.in.h:36
+msgid "MGX 8260"
+msgstr "MGX 8260"
+
+#: ../sheets/ciscohub.sheet.in.h:37
+msgid "MultiSwitch Device"
 msgstr "MultiSwitch eszköz"
 
-#: ../sheets/ciscohub.sheet.in.h:19
-msgid "Multilayer switch"
+#: ../sheets/ciscohub.sheet.in.h:38
+msgid "Multilayer Switch"
 msgstr "Többrétegű kapcsoló"
 
-#: ../sheets/ciscohub.sheet.in.h:20
-msgid "PBX switch"
-msgstr "PBX kapcsoló"
+#: ../sheets/ciscohub.sheet.in.h:39
+msgid "Multilayer Switch with Silicon"
+msgstr "Többrétegű kapcsoló Siliconnal"
 
-#: ../sheets/ciscohub.sheet.in.h:21
-msgid "Programmable switch"
+#: ../sheets/ciscohub.sheet.in.h:40
+msgid "Multilayer Switch with Silicon subdued"
+msgstr "Elfojtott többrétegű kapcsoló Siliconnal"
+
+#: ../sheets/ciscohub.sheet.in.h:41
+msgid "NetFlow router"
+msgstr "NetFlow útválasztó"
+
+#: ../sheets/ciscohub.sheet.in.h:42
+msgid "NetRanger"
+msgstr "NetRanger"
+
+#: ../sheets/ciscohub.sheet.in.h:43
+msgid "NetSonar"
+msgstr "NetSonar"
+
+#: ../sheets/ciscohub.sheet.in.h:44
+msgid "Optical Services Router"
+msgstr "Optikai szolgáltatások útválasztója"
+
+#: ../sheets/ciscohub.sheet.in.h:45
+msgid "PXF"
+msgstr "PXF"
+
+#: ../sheets/ciscohub.sheet.in.h:46
+msgid "Programmable Switch"
 msgstr "Programozható kapcsoló"
 
-#: ../sheets/ciscohub.sheet.in.h:22
-msgid "Route switch processor"
+#: ../sheets/ciscohub.sheet.in.h:47
+msgid "RateMUX"
+msgstr "RateMUX"
+
+#: ../sheets/ciscohub.sheet.in.h:48
+msgid "Route Switch Processor"
 msgstr "Útvonalkapcsoló processzor"
 
-#: ../sheets/ciscohub.sheet.in.h:23
-msgid "Small hub"
+#: ../sheets/ciscohub.sheet.in.h:49
+msgid "Route Switch Processor with Si"
+msgstr "Útvonalkapcsoló processzor Si-vel"
+
+#: ../sheets/ciscohub.sheet.in.h:50
+msgid "Router"
+msgstr "Útválasztó"
+
+#: ../sheets/ciscohub.sheet.in.h:51
+msgid "Router and switch shapes by Cisco"
+msgstr "Cisco elosztó és kapcsoló alakok"
+
+#: ../sheets/ciscohub.sheet.in.h:52
+msgid "Router subdued"
+msgstr "Elfojtott útválasztó"
+
+#: ../sheets/ciscohub.sheet.in.h:53
+msgid "Router with Firewall"
+msgstr "Útválasztó tűzfallal"
+
+#: ../sheets/ciscohub.sheet.in.h:54
+msgid "Router with Silicon Switch"
+msgstr "Útválasztó szilíciumkapcsolóval"
+
+#: ../sheets/ciscohub.sheet.in.h:55
+msgid "Small Hub"
 msgstr "Kis elosztó"
 
-#: ../sheets/ciscohub.sheet.in.h:24
-msgid "Voice ATM switch"
-msgstr "Hang ATM-kapcsoló"
+#: ../sheets/ciscohub.sheet.in.h:56
+msgid "Storage Router"
+msgstr "Tároló útválasztó"
 
-#: ../sheets/ciscohub.sheet.in.h:25
-msgid "Voice switch"
-msgstr "Hangkapcsoló"
+#: ../sheets/ciscohub.sheet.in.h:57
+msgid "Switch Processor"
+msgstr "Kapcsoló processzor"
 
-#: ../sheets/ciscohub.sheet.in.h:26
-msgid "Voice switch 2"
-msgstr "Hangkapcsoló 2"
+#: ../sheets/ciscohub.sheet.in.h:58
+msgid "Universal Gateway"
+msgstr "Univerzális átjáró"
 
-#: ../sheets/ciscohub.sheet.in.h:27
+#: ../sheets/ciscohub.sheet.in.h:59
+msgid "Wavelength router"
+msgstr "Hullámhossz-útválasztó"
+
+#: ../sheets/ciscohub.sheet.in.h:60
+msgid "Wireless router"
+msgstr "Vezeték nélküli útválasztó"
+
+#: ../sheets/ciscohub.sheet.in.h:61
+msgid "Workgroup 5000"
+msgstr "Munkacsoport 5000"
+
+#: ../sheets/ciscohub.sheet.in.h:62
+msgid "Workgroup 5002"
+msgstr "Munkacsoport 5002"
+
+#: ../sheets/ciscohub.sheet.in.h:63
+msgid "Workgroup 5500"
+msgstr "Munkacsoport 5500"
+
+#: ../sheets/ciscohub.sheet.in.h:64
+msgid "Workgroup Fibre Channel intelligent switch"
+msgstr "Munkacsoport Fibre Channel intelligens kapcsoló"
+
+#: ../sheets/ciscohub.sheet.in.h:65
+msgid "Workgroup Switch Voice-Enabled"
+msgstr "Munkacsoportos kapcsoló hanggal"
+
+#: ../sheets/ciscohub.sheet.in.h:66
 msgid "Workgroup switch"
 msgstr "Munkacsoportos kapcsoló"
 
+#: ../sheets/ciscohub.sheet.in.h:67
+msgid "Workgroup switch Subdued"
+msgstr "Elfojtott munkacsoportos kapcsoló"
+
+#: ../sheets/ciscohub.sheet.in.h:68
+msgid "iSCSI switch"
+msgstr "iSCSI kapcsoló"
+
 #: ../sheets/ciscomisc.sheet.in.h:1
-msgid "BBFW"
-msgstr "BBFW"
+msgid "Androgynous Person"
+msgstr "Személy"
 
 #: ../sheets/ciscomisc.sheet.in.h:2
-msgid "BBFW media"
-msgstr "BBFW közeg"
+msgid "Antenna"
+msgstr "Antenna"
 
 #: ../sheets/ciscomisc.sheet.in.h:3
 msgid "Branch office"
 msgstr "Fiókiroda"
 
 #: ../sheets/ciscomisc.sheet.in.h:4
-msgid "Breakout box"
-msgstr "Csatlakozódoboz"
+msgid "Branch office blue"
+msgstr "Fiókiroda - kék"
 
 #: ../sheets/ciscomisc.sheet.in.h:5
-msgid "Car"
-msgstr "Autó"
+msgid "Branch office subdued"
+msgstr "Elfojtott fiókiroda"
 
 #: ../sheets/ciscomisc.sheet.in.h:6
-msgid "Cellular phone"
-msgstr "Rádiótelefon"
+msgid "Car"
+msgstr "Autó"
 
 #: ../sheets/ciscomisc.sheet.in.h:7
 msgid "Cisco - Misc"
 msgstr "Cisco - Egyéb"
 
 #: ../sheets/ciscomisc.sheet.in.h:8
-msgid "Diskette"
-msgstr "Floppy"
+msgid "CiscoWorks Man"
+msgstr "CiscoWorks férfi"
 
 #: ../sheets/ciscomisc.sheet.in.h:9
-msgid "Dot-Dot"
-msgstr "Pont-Pont"
-
-#: ../sheets/ciscomisc.sheet.in.h:10
-msgid "End office"
-msgstr "Végiroda"
-
-#: ../sheets/ciscomisc.sheet.in.h:11
-msgid "Fax"
-msgstr "Fax"
-
-#: ../sheets/ciscomisc.sheet.in.h:12
 msgid "File cabinet"
 msgstr "Iratrendező"
 
-#: ../sheets/ciscomisc.sheet.in.h:13
-msgid "Generic building"
+#: ../sheets/ciscomisc.sheet.in.h:10
+msgid "Generic Building"
 msgstr "Általános épület"
 
-#: ../sheets/ciscomisc.sheet.in.h:14
-msgid "Government building"
+#: ../sheets/ciscomisc.sheet.in.h:11
+msgid "Generic Building blue"
+msgstr "Általános épület - kék"
+
+#: ../sheets/ciscomisc.sheet.in.h:12
+msgid "Generic Building subdued"
+msgstr "Elfojtott általános épület"
+
+#: ../sheets/ciscomisc.sheet.in.h:13
+msgid "Government Building"
 msgstr "Kormányzati épület"
 
+#: ../sheets/ciscomisc.sheet.in.h:14
+msgid "Headphones"
+msgstr "Fejhallgató"
+
 #: ../sheets/ciscomisc.sheet.in.h:15
-msgid "H.323"
-msgstr "H.323"
+msgid "Home office"
+msgstr "Otthoni iroda"
 
 #: ../sheets/ciscomisc.sheet.in.h:16
-msgid "HootPhone"
-msgstr "HootPhone"
+msgid "House"
+msgstr "Ház"
 
 #: ../sheets/ciscomisc.sheet.in.h:17
-msgid "IP phone"
-msgstr "IP telefon"
+msgid "House blue"
+msgstr "Ház - kék"
 
 #: ../sheets/ciscomisc.sheet.in.h:18
-msgid "ITP"
-msgstr "ITP"
-
-#: ../sheets/ciscomisc.sheet.in.h:19
 msgid "Key"
 msgstr "Kulcs"
 
 #: ../sheets/ciscomisc.sheet.in.h:20
-msgid "LAN to LAN"
-msgstr "LAN-LAN"
+msgid "Lock and Key"
+msgstr "Zár és kulcs"
 
-#: ../sheets/ciscomisc.sheet.in.h:22
-msgid "MAU"
-msgstr "MAU"
-
-#: ../sheets/ciscomisc.sheet.in.h:23
+#: ../sheets/ciscomisc.sheet.in.h:21
 msgid "MDU"
 msgstr "MDU"
 
-#: ../sheets/ciscomisc.sheet.in.h:24
-msgid "Mac woman"
+#: ../sheets/ciscomisc.sheet.in.h:22
+msgid "Mac Woman"
 msgstr "Macintosh-os nő"
 
+#: ../sheets/ciscomisc.sheet.in.h:23
+msgid "Man"
+msgstr "Férfi"
+
+#: ../sheets/ciscomisc.sheet.in.h:24
+msgid "Man blue"
+msgstr "Férfi -kék"
+
 #: ../sheets/ciscomisc.sheet.in.h:25
-msgid "Man/Woman"
-msgstr "Férfi/nő"
+msgid "Man gold"
+msgstr "Férfi - arany"
+
+#: ../sheets/ciscomisc.sheet.in.h:26
+msgid "Man red"
+msgstr "Férfi - vörös"
 
 #: ../sheets/ciscomisc.sheet.in.h:27
+msgid "Medium Building"
+msgstr "Közepes épület"
+
+#: ../sheets/ciscomisc.sheet.in.h:28
+msgid "Medium Building blue"
+msgstr "Közepes épület - kék"
+
+#: ../sheets/ciscomisc.sheet.in.h:29
+msgid "Medium Building subdued"
+msgstr "Elfojtott közepes épület"
+
+#: ../sheets/ciscomisc.sheet.in.h:31
 msgid "Miscellaneous shapes by Cisco"
 msgstr "Egyéb alakok a Ciscótól"
 
-#: ../sheets/ciscomisc.sheet.in.h:28
-msgid "PC man"
+#: ../sheets/ciscomisc.sheet.in.h:32
+msgid "PC Man"
 msgstr "PC-s férfi"
 
-#: ../sheets/ciscomisc.sheet.in.h:29
-msgid "Phone"
-msgstr "Telefon"
-
-#: ../sheets/ciscomisc.sheet.in.h:30
-msgid "Phone/Fax"
-msgstr "Telefon/fax"
-
-#: ../sheets/ciscomisc.sheet.in.h:31
-msgid "RPS"
-msgstr "RPS"
-
-#: ../sheets/ciscomisc.sheet.in.h:32
-msgid "Radio tower"
-msgstr "Rádiótorony"
-
 #: ../sheets/ciscomisc.sheet.in.h:33
-msgid "Running man"
-msgstr "Futó ember"
+msgid "PC Man left"
+msgstr "PC-s férfi balra"
 
 #: ../sheets/ciscomisc.sheet.in.h:34
-msgid "SVX (interchangeable with End office)"
-msgstr "SVX (felcserélhető a végirodával)"
+msgid "Running man"
+msgstr "Futó férfi"
 
 #: ../sheets/ciscomisc.sheet.in.h:35
+msgid "Running man subdued"
+msgstr "Elfojtott futó férfi"
+
+#: ../sheets/ciscomisc.sheet.in.h:36
+msgid "Running woman"
+msgstr "Futó nő"
+
+#: ../sheets/ciscomisc.sheet.in.h:37
 msgid "Satellite"
 msgstr "Műhold"
 
-#: ../sheets/ciscomisc.sheet.in.h:36
+#: ../sheets/ciscomisc.sheet.in.h:38
 msgid "Satellite dish"
 msgstr "Műholdvevő antenna"
 
-#: ../sheets/ciscomisc.sheet.in.h:37
-msgid "Sitting woman"
+#: ../sheets/ciscomisc.sheet.in.h:39
+msgid "Sitting Woman"
 msgstr "Ülő nő"
 
-#: ../sheets/ciscomisc.sheet.in.h:38
-msgid "Small business"
-msgstr "Kisvállalkozás"
-
 #: ../sheets/ciscomisc.sheet.in.h:40
-msgid "Standing man"
-msgstr "Álló férfi"
+msgid "Sitting Woman right"
+msgstr "Ülő nő jobbra"
 
 #: ../sheets/ciscomisc.sheet.in.h:41
-msgid "Tablet"
-msgstr "Tábla"
+msgid "Small Business"
+msgstr "Kisvállalkozás"
 
-#: ../sheets/ciscomisc.sheet.in.h:42
+#: ../sheets/ciscomisc.sheet.in.h:43
+msgid "Standing Man"
+msgstr "Álló férfi"
+
+#: ../sheets/ciscomisc.sheet.in.h:44
+msgid "Standing woman"
+msgstr "Álló nő"
+
+#: ../sheets/ciscomisc.sheet.in.h:45
 msgid "Telecommuter"
 msgstr "Távmunkás"
 
-#: ../sheets/ciscomisc.sheet.in.h:43
+#: ../sheets/ciscomisc.sheet.in.h:46
 msgid "Telecommuter house"
 msgstr "Távmunkás otthona"
 
-#: ../sheets/ciscomisc.sheet.in.h:44
-msgid "Telecommuter house/router"
-msgstr "Távmunkás otthona/router"
+#: ../sheets/ciscomisc.sheet.in.h:47
+msgid "Telecommuter house subdued"
+msgstr "Elfojtott távmunkás otthona"
 
-#: ../sheets/ciscomisc.sheet.in.h:45
-msgid "TokenRing"
-msgstr "Token Ring"
-
-#: ../sheets/ciscomisc.sheet.in.h:46
+#: ../sheets/ciscomisc.sheet.in.h:48
 msgid "Truck"
 msgstr "Kamion"
 
-#: ../sheets/ciscomisc.sheet.in.h:47
-msgid "UPS"
-msgstr "UPS"
-
-#: ../sheets/ciscomisc.sheet.in.h:48
+#: ../sheets/ciscomisc.sheet.in.h:49
 msgid "University"
 msgstr "Egyetem"
 
-#: ../sheets/ciscomisc.sheet.in.h:49
-msgid "Video camera"
+#: ../sheets/ciscomisc.sheet.in.h:50
+msgid "Video Camera"
 msgstr "Videokamera"
 
-#: ../sheets/ciscomisc.sheet.in.h:50
-msgid "Wireless transport"
-msgstr "Vezeték nélküli adatátvitel"
+#: ../sheets/ciscomisc.sheet.in.h:51
+msgid "Video Camera right"
+msgstr "Videokamera jobbra"
+
+#: ../sheets/ciscomisc.sheet.in.h:52
+msgid "Woman"
+msgstr "Nő"
+
+#: ../sheets/ciscomisc.sheet.in.h:53
+msgid "Woman blue"
+msgstr "Nő - kék"
+
+#: ../sheets/ciscomisc.sheet.in.h:54
+msgid "Woman gold"
+msgstr "Nő - arany"
+
+#: ../sheets/ciscomisc.sheet.in.h:55
+msgid "Woman red"
+msgstr "Nő - vörös"
 
 #: ../sheets/cisconetwork.sheet.in.h:1
 msgid "10700"
@@ -7586,424 +7792,596 @@ msgid "15200"
 msgstr "15200"
 
 #: ../sheets/cisconetwork.sheet.in.h:3
+msgid "15800"
+msgstr "15800"
+
+#: ../sheets/cisconetwork.sheet.in.h:4
 msgid "3174 (desktop) cluster controller"
 msgstr "3174 (asztali) clustervezérlő"
 
-#: ../sheets/cisconetwork.sheet.in.h:4
+#: ../sheets/cisconetwork.sheet.in.h:5
 msgid "3X74 (floor) cluster controller"
 msgstr "3X74 (padlón álló) clustervezérlő"
 
-#: ../sheets/cisconetwork.sheet.in.h:5
-msgid "6701"
-msgstr "6701"
-
 #: ../sheets/cisconetwork.sheet.in.h:6
-msgid "6705 Integrated access device"
-msgstr "6705 Integrált hozzáférési eszköz"
+msgid "Access Server"
+msgstr "Hozzáférési kiszolgáló"
 
 #: ../sheets/cisconetwork.sheet.in.h:7
-msgid "6732 Multiservice access platform"
-msgstr "6732 Többszolgáltatásos hozzáférési platform"
-
-#: ../sheets/cisconetwork.sheet.in.h:8
-msgid "ADM"
-msgstr "ADM"
-
-#: ../sheets/cisconetwork.sheet.in.h:9
-msgid "ASIC processor"
-msgstr "ASIC processzor"
-
-#: ../sheets/cisconetwork.sheet.in.h:10
-msgid "ATA"
-msgstr "ATA"
-
-#: ../sheets/cisconetwork.sheet.in.h:11
-msgid "ATM 3800"
-msgstr "ATM 3800"
-
-#: ../sheets/cisconetwork.sheet.in.h:12
 msgid "AccessPoint"
 msgstr "Hozzáférési pont"
 
-#: ../sheets/cisconetwork.sheet.in.h:13
-msgid "BBSM"
-msgstr "BBSM"
+#: ../sheets/cisconetwork.sheet.in.h:8
+msgid "Automatic Protection Switching"
+msgstr "Automatikus védelmi kapcsolás"
 
-#: ../sheets/cisconetwork.sheet.in.h:14
-msgid "BTS 10200"
-msgstr "BTS 10200"
+#: ../sheets/cisconetwork.sheet.in.h:9
+msgid "BBFW"
+msgstr "BBFW"
 
-#: ../sheets/cisconetwork.sheet.in.h:15
+#: ../sheets/cisconetwork.sheet.in.h:10
+msgid "BBFW media"
+msgstr "BBFW közeg"
+
+#: ../sheets/cisconetwork.sheet.in.h:11
+msgid "Breakout box"
+msgstr "Csatlakozódoboz"
+
+#: ../sheets/cisconetwork.sheet.in.h:12
 msgid "Bridge"
 msgstr "Híd"
 
-#: ../sheets/cisconetwork.sheet.in.h:16
-msgid "CDDI-FDDI"
-msgstr "CDDI-FDDI"
+#: ../sheets/cisconetwork.sheet.in.h:13
+msgid "CDDI/FDDI Concentrator"
+msgstr "CDDI/FDDI gyűjtő"
 
-#: ../sheets/cisconetwork.sheet.in.h:17
-msgid "CDM Content distribution manager"
+#: ../sheets/cisconetwork.sheet.in.h:14
+msgid "CDM Content Distribution Manager"
 msgstr "CDM Tartalomterjesztés-kezelő"
 
-#: ../sheets/cisconetwork.sheet.in.h:18
+#: ../sheets/cisconetwork.sheet.in.h:15
 msgid "CSU/DSU"
 msgstr "CSU/DSU"
 
-#: ../sheets/cisconetwork.sheet.in.h:19
-msgid "Cable modem"
+#: ../sheets/cisconetwork.sheet.in.h:16
+msgid "Cable Modem"
 msgstr "Kábelmodem"
 
-#: ../sheets/cisconetwork.sheet.in.h:20
-msgid "CallManager"
-msgstr "Híváskezelő"
-
-#: ../sheets/cisconetwork.sheet.in.h:21
-msgid "Catalyst access gateway"
+#: ../sheets/cisconetwork.sheet.in.h:17
+msgid "Catalyst Access Gateway"
 msgstr "Catalyst hozzáférési átjáró"
 
-#: ../sheets/cisconetwork.sheet.in.h:22
-msgid "Centri firewall"
+#: ../sheets/cisconetwork.sheet.in.h:18
+msgid "Centri Firewall"
 msgstr "Centri tűzfal"
 
-#: ../sheets/cisconetwork.sheet.in.h:23
+#: ../sheets/cisconetwork.sheet.in.h:19
+msgid "Channelized Pipe"
+msgstr "Rovátkolt cső"
+
+#: ../sheets/cisconetwork.sheet.in.h:20
 msgid "Cisco - Network"
 msgstr "Cisco - Hálózatok"
 
-#: ../sheets/cisconetwork.sheet.in.h:24
+#: ../sheets/cisconetwork.sheet.in.h:21
 msgid "Cloud"
 msgstr "Felhő"
 
+#: ../sheets/cisconetwork.sheet.in.h:22
+msgid "Cloud Dark"
+msgstr "Sötét felhő"
+
+#: ../sheets/cisconetwork.sheet.in.h:23
+msgid "Cloud Gold"
+msgstr "Arany felhő"
+
+#: ../sheets/cisconetwork.sheet.in.h:24
+msgid "Cloud White"
+msgstr "Fehér felhő"
+
 #: ../sheets/cisconetwork.sheet.in.h:25
-msgid "Content engine (Cache director)"
-msgstr "Tartalomkezelő alrendszer (Cache-vezérlő)"
+msgid "Concatenated Payload"
+msgstr "Láncolt hasznos teher"
 
 #: ../sheets/cisconetwork.sheet.in.h:26
-msgid "Content transformation engine (CTE)"
-msgstr "Tartalomátalakító alrendszer (CTE)"
+msgid "Content Engine (Cache Director)"
+msgstr "Tartalomkezelő alrendszer (Cache-vezérlő)"
 
 #: ../sheets/cisconetwork.sheet.in.h:27
-msgid "DPT"
-msgstr "DPT"
+msgid "Content Transformation Engine (CTE)"
+msgstr "Tartalomátalakító alrendszer (CTE)"
 
 #: ../sheets/cisconetwork.sheet.in.h:28
 msgid "DSLAM"
 msgstr "DSLAM"
 
 #: ../sheets/cisconetwork.sheet.in.h:29
-msgid "DWDM filter"
+msgid "DWDM Filter"
 msgstr "DWDM szűrő"
 
 #: ../sheets/cisconetwork.sheet.in.h:30
-msgid "Distributed director"
-msgstr "Elosztott vezérlő"
+msgid "Detector"
+msgstr "Érzékelő"
 
 #: ../sheets/cisconetwork.sheet.in.h:31
-msgid "FC storage"
-msgstr "FC tároló"
+msgid "Digital Cross-Connect"
+msgstr "Digitális keresztkötés"
 
 #: ../sheets/cisconetwork.sheet.in.h:32
-msgid "FDDI ring"
-msgstr "FDDI gyűrű"
+msgid "Directory Server"
+msgstr "Könyvtárkiszolgáló"
 
 #: ../sheets/cisconetwork.sheet.in.h:33
+msgid "Distributed Director"
+msgstr "Elosztott vezérlő"
+
+#: ../sheets/cisconetwork.sheet.in.h:34
+msgid "Dual Mode AccessPoint"
+msgstr "Kétszeres módú hozzáférési pont"
+
+#: ../sheets/cisconetwork.sheet.in.h:35
+msgid "FDDI Ring"
+msgstr "FDDI gyűrű"
+
+#: ../sheets/cisconetwork.sheet.in.h:36
+msgid "File Engine"
+msgstr "Fájl-alrendszer"
+
+#: ../sheets/cisconetwork.sheet.in.h:37
 msgid "Firewall"
 msgstr "Tűzfal"
 
-#: ../sheets/cisconetwork.sheet.in.h:34
-msgid "Front end processor"
-msgstr "Előoldali processzor"
-
-#: ../sheets/cisconetwork.sheet.in.h:35
-msgid "General appliance"
-msgstr "Általános berendezés"
-
-#: ../sheets/cisconetwork.sheet.in.h:36
-msgid "Generic gateway"
-msgstr "Általános átjáró"
-
-#: ../sheets/cisconetwork.sheet.in.h:37
-msgid "Generic processor"
-msgstr "Általános feldolgozó"
-
 #: ../sheets/cisconetwork.sheet.in.h:38
-msgid "ICM"
-msgstr "ICM"
+msgid "Firewall Service Module"
+msgstr "Tűzfalszolgáltatási modul"
 
 #: ../sheets/cisconetwork.sheet.in.h:39
-msgid "ICS"
-msgstr "ICS"
+msgid "Firewall horizontal"
+msgstr "Vízszintes tűzfal"
 
 #: ../sheets/cisconetwork.sheet.in.h:40
-msgid "IOS firewall"
-msgstr "IOS tűzfal"
+msgid "Firewall subdued"
+msgstr "Elfojtott tűzfal"
 
 #: ../sheets/cisconetwork.sheet.in.h:41
+msgid "General Appliance"
+msgstr "Általános berendezés"
+
+#: ../sheets/cisconetwork.sheet.in.h:42
+msgid "Generic Gateway"
+msgstr "Általános átjáró"
+
+#: ../sheets/cisconetwork.sheet.in.h:44
+msgid "IOS Firewall"
+msgstr "IOS tűzfal"
+
+#: ../sheets/cisconetwork.sheet.in.h:45
+msgid "IOS SLB"
+msgstr "IOS SLB"
+
+#: ../sheets/cisconetwork.sheet.in.h:46
 msgid "IP"
 msgstr "IP"
 
-#: ../sheets/cisconetwork.sheet.in.h:42
-msgid "IP DSL"
-msgstr "IP DSL"
+#: ../sheets/cisconetwork.sheet.in.h:47
+msgid "IP DSL Switch"
+msgstr "IP DSL kapcsoló"
 
-#: ../sheets/cisconetwork.sheet.in.h:43
-msgid "IPTC"
-msgstr "IPTC"
+#: ../sheets/cisconetwork.sheet.in.h:48
+msgid "IP Old-style"
+msgstr "Régi stílusú IP"
 
-#: ../sheets/cisconetwork.sheet.in.h:44
+#: ../sheets/cisconetwork.sheet.in.h:49
+msgid "IP Transport Concentrator"
+msgstr "IP átvitel gyűjtő"
+
+#: ../sheets/cisconetwork.sheet.in.h:50
+msgid "IPTV broadcast server"
+msgstr "IPTV műsorszóró kiszolgáló"
+
+#: ../sheets/cisconetwork.sheet.in.h:51
 msgid "IPTV content manager"
 msgstr "IPTV tartalomvezérlő"
 
-#: ../sheets/cisconetwork.sheet.in.h:45
+#: ../sheets/cisconetwork.sheet.in.h:52
+msgid "LAN to LAN"
+msgstr "LAN-LAN"
+
+#: ../sheets/cisconetwork.sheet.in.h:53
 msgid "LocalDirector"
 msgstr "LocalDirector"
 
-#: ../sheets/cisconetwork.sheet.in.h:46
+#: ../sheets/cisconetwork.sheet.in.h:54
 msgid "LongReach CPE"
 msgstr "LongReach CPE"
 
-#: ../sheets/cisconetwork.sheet.in.h:47
-msgid "MAS gateway"
+#: ../sheets/cisconetwork.sheet.in.h:55
+msgid "MAS Gateway"
 msgstr "MAS átjáró"
 
-#: ../sheets/cisconetwork.sheet.in.h:48
+#: ../sheets/cisconetwork.sheet.in.h:56
+msgid "MAU"
+msgstr "MAU"
+
+#: ../sheets/cisconetwork.sheet.in.h:57
 msgid "ME 1100"
 msgstr "ME 1100"
 
-#: ../sheets/cisconetwork.sheet.in.h:49
+#: ../sheets/cisconetwork.sheet.in.h:58
 msgid "MUX"
 msgstr "MUX"
 
-#: ../sheets/cisconetwork.sheet.in.h:50
+#: ../sheets/cisconetwork.sheet.in.h:59
 msgid "Metro 1500"
 msgstr "Metro 1500"
 
-#: ../sheets/cisconetwork.sheet.in.h:51
-msgid "Modem"
-msgstr "Modem"
+#: ../sheets/cisconetwork.sheet.in.h:60
+msgid "NAT"
+msgstr "NAT"
 
-#: ../sheets/cisconetwork.sheet.in.h:52
-msgid "NetRanger intrusion detection system"
-msgstr "NetRanger behatolásfelderítő rendszer"
-
-#: ../sheets/cisconetwork.sheet.in.h:53
-msgid "NetSonar security scanner"
-msgstr "NetSonar biztonsági szkenner"
-
-#: ../sheets/cisconetwork.sheet.in.h:54
-msgid "Network management"
+#: ../sheets/cisconetwork.sheet.in.h:61
+msgid "Network Management"
 msgstr "Hálózatfelügyelet"
 
-#: ../sheets/cisconetwork.sheet.in.h:55
+#: ../sheets/cisconetwork.sheet.in.h:62
 msgid "Network shapes by Cisco"
 msgstr "Hálózati alakok a Ciscótól"
 
-#: ../sheets/cisconetwork.sheet.in.h:56
-msgid "ONS15500 DWDM platform"
-msgstr "ONS15500 DWDM platform"
+#: ../sheets/cisconetwork.sheet.in.h:63
+msgid "ONS15104"
+msgstr "ONS15104"
 
-#: ../sheets/cisconetwork.sheet.in.h:57
-msgid "Octel"
-msgstr "Octel"
+#: ../sheets/cisconetwork.sheet.in.h:64
+msgid "ONS15540"
+msgstr "ONS15540"
 
-#: ../sheets/cisconetwork.sheet.in.h:58
-msgid "Optical amplifier"
+#: ../sheets/cisconetwork.sheet.in.h:65
+msgid "Optical Amplifier"
 msgstr "Optikai erősítő"
 
-#: ../sheets/cisconetwork.sheet.in.h:59
-msgid "Optical transport"
+#: ../sheets/cisconetwork.sheet.in.h:66
+msgid "Optical Cross-Connect"
+msgstr "Optikai keresztkötés"
+
+#: ../sheets/cisconetwork.sheet.in.h:67
+msgid "Optical Fiber"
+msgstr "Optikai szál"
+
+#: ../sheets/cisconetwork.sheet.in.h:68
+msgid "Optical Transport"
 msgstr "Optikai átvitel"
 
-#: ../sheets/cisconetwork.sheet.in.h:60
+#: ../sheets/cisconetwork.sheet.in.h:69
 msgid "PAD"
 msgstr "PAD"
 
-#: ../sheets/cisconetwork.sheet.in.h:61
-msgid "PAD X.28"
-msgstr "PAD X.28"
-
-#: ../sheets/cisconetwork.sheet.in.h:62
-msgid "PBX"
-msgstr "PBX"
-
-#: ../sheets/cisconetwork.sheet.in.h:63
-msgid "PC adapter card"
-msgstr "PC csatlakozókártya"
-
-#: ../sheets/cisconetwork.sheet.in.h:64
-msgid "PC router card"
-msgstr "PC útválasztó kártya"
-
-#: ../sheets/cisconetwork.sheet.in.h:65
-msgid "PIX firewall"
+#: ../sheets/cisconetwork.sheet.in.h:70
+msgid "PIX Firewall"
 msgstr "PIX tűzfal"
 
-#: ../sheets/cisconetwork.sheet.in.h:66
-msgid "PXF"
-msgstr "PXF"
+#: ../sheets/cisconetwork.sheet.in.h:71
+msgid "PIX Firewall Left"
+msgstr "PIX tűzfal balra"
 
-#: ../sheets/cisconetwork.sheet.in.h:67
-msgid "Protocol translator"
+#: ../sheets/cisconetwork.sheet.in.h:72
+msgid "Protocol Translator"
 msgstr "Protokollfordító"
 
-#: ../sheets/cisconetwork.sheet.in.h:68
-msgid "RateMUX"
-msgstr "RateMUX"
+#: ../sheets/cisconetwork.sheet.in.h:73
+msgid "RPS"
+msgstr "RPS"
 
-#: ../sheets/cisconetwork.sheet.in.h:69
+#: ../sheets/cisconetwork.sheet.in.h:74
 msgid "Repeater"
 msgstr "Erősítő"
 
-#: ../sheets/cisconetwork.sheet.in.h:70
-msgid "SC2200 (Signalling controller)"
-msgstr "SC2200 (Jelzésvezérlő)"
+#: ../sheets/cisconetwork.sheet.in.h:75
+msgid "SSL Terminator"
+msgstr "SSL terminátor"
 
-#: ../sheets/cisconetwork.sheet.in.h:71
-msgid "STP"
-msgstr "STP"
+#: ../sheets/cisconetwork.sheet.in.h:76
+msgid "STB (set top box)"
+msgstr "STB (set-top doboz)"
 
-#: ../sheets/cisconetwork.sheet.in.h:72
+#: ../sheets/cisconetwork.sheet.in.h:77
+msgid "Storage Solution Engine"
+msgstr "Tárolómegoldás-alrendszer"
+
+#: ../sheets/cisconetwork.sheet.in.h:78
 msgid "System controller"
 msgstr "Rendszervezérlő"
 
-#: ../sheets/cisconetwork.sheet.in.h:73
-msgid "Transpath"
+#: ../sheets/cisconetwork.sheet.in.h:79
+msgid "TV"
+msgstr "TV"
+
+#: ../sheets/cisconetwork.sheet.in.h:80
+msgid "Terminal Server"
+msgstr "Terminálkiszolgáló"
+
+#: ../sheets/cisconetwork.sheet.in.h:81
+msgid "TokenRing"
+msgstr "Token Ring"
+
+#: ../sheets/cisconetwork.sheet.in.h:82
+msgid "TransPath"
 msgstr "Transpath"
 
-#: ../sheets/cisconetwork.sheet.in.h:74
-msgid "Universal gateway"
-msgstr "Univerzális átjáró"
+#: ../sheets/cisconetwork.sheet.in.h:83
+msgid "UPS"
+msgstr "UPS"
 
-#: ../sheets/cisconetwork.sheet.in.h:75
+#: ../sheets/cisconetwork.sheet.in.h:84
 msgid "VIP"
 msgstr "VIP"
 
-#: ../sheets/cisconetwork.sheet.in.h:76
-msgid "VPN concentrator"
+#: ../sheets/cisconetwork.sheet.in.h:85
+msgid "VN2900"
+msgstr "VN2900"
+
+#: ../sheets/cisconetwork.sheet.in.h:86
+msgid "VN5900"
+msgstr "VN5900"
+
+#: ../sheets/cisconetwork.sheet.in.h:87
+msgid "VN5902"
+msgstr "VN5902"
+
+#: ../sheets/cisconetwork.sheet.in.h:88
+msgid "VPN Concentrator"
 msgstr "VPN gyűjtő"
 
-#: ../sheets/cisconetwork.sheet.in.h:77
-msgid "VPN gateway"
+#: ../sheets/cisconetwork.sheet.in.h:89
+msgid "VPN Gateway"
 msgstr "VPN átjáró"
 
-#: ../sheets/cisconetwork.sheet.in.h:78
-msgid "Virtual switch controller (VSC 3000)"
-msgstr "Virtuális kapcsolóvezérlő (VSC 3000)"
+#: ../sheets/cisconetwork.sheet.in.h:90
+msgid "WAN"
+msgstr "WAN"
 
-#: ../sheets/cisconetwork.sheet.in.h:79
-msgid "Wireless bridge"
+#: ../sheets/cisconetwork.sheet.in.h:91
+msgid "WDM"
+msgstr "WDM"
+
+#: ../sheets/cisconetwork.sheet.in.h:92
+msgid "Wireless Bridge"
 msgstr "Vezeték nélküli híd"
 
-#: ../sheets/ciscorouter.sheet.in.h:1
-msgid "7500ARS (7513)"
-msgstr "7500ARS (7513)"
+#: ../sheets/cisconetwork.sheet.in.h:93
+msgid "Wireless Connectivity"
+msgstr "Vezeték nélküli összekapcsolhatóság"
 
-#: ../sheets/ciscorouter.sheet.in.h:2
-msgid "7505"
-msgstr "7505"
+#: ../sheets/cisconetwork.sheet.in.h:94
+msgid "Wireless Transport"
+msgstr "Vezeték nélküli adatátvitel"
 
-#: ../sheets/ciscorouter.sheet.in.h:3
-msgid "7507"
-msgstr "7507"
+#: ../sheets/cisconetwork.sheet.in.h:95
+msgid "uBR910 Cable DSU"
+msgstr "uBR910 kábel DSU"
 
-#: ../sheets/ciscorouter.sheet.in.h:4
-msgid "ATM router"
-msgstr "ATM útválasztó"
+#: ../sheets/ciscotelephony.sheet.in.h:1
+msgid "6701"
+msgstr "6701"
 
-#: ../sheets/ciscorouter.sheet.in.h:5
-msgid "ATM tag sw gigabit router"
-msgstr "ATM címke SW gigabites útválasztó"
+#: ../sheets/ciscotelephony.sheet.in.h:2
+msgid "6705"
+msgstr "6705"
 
-#: ../sheets/ciscorouter.sheet.in.h:6
-msgid "ATM tag switch router"
-msgstr "ATM-címkekapcsoló útválasztó"
+#: ../sheets/ciscotelephony.sheet.in.h:3
+msgid "6732"
+msgstr "6732"
 
-#: ../sheets/ciscorouter.sheet.in.h:7
-msgid "Broadband router"
-msgstr "Szélessávú útválasztó"
+#: ../sheets/ciscotelephony.sheet.in.h:4
+msgid "ADM"
+msgstr "ADM"
 
-#: ../sheets/ciscorouter.sheet.in.h:8
-msgid "Cisco - Router"
-msgstr "Cisco - Útválasztók"
+#: ../sheets/ciscotelephony.sheet.in.h:5
+msgid "ATA"
+msgstr "ATA"
 
-#: ../sheets/ciscorouter.sheet.in.h:9
-msgid "Cisco 1000"
-msgstr "Cisco 1000"
+#: ../sheets/ciscotelephony.sheet.in.h:6
+msgid "BTS 10200"
+msgstr "BTS 10200"
 
-#: ../sheets/ciscorouter.sheet.in.h:10
-msgid "Content service router"
-msgstr "Tartalomszolgáltatási útválasztó"
+#: ../sheets/ciscotelephony.sheet.in.h:7
+msgid "CallManager"
+msgstr "Híváskezelő"
 
-#: ../sheets/ciscorouter.sheet.in.h:11
-msgid "Gigabit switch router (ATM tag)"
-msgstr "Gigabites kapcsoló útválasztó (ATM címke)"
+#: ../sheets/ciscotelephony.sheet.in.h:8
+msgid "Cellular Phone"
+msgstr "Rádiótelefon"
 
-#: ../sheets/ciscorouter.sheet.in.h:12
+#: ../sheets/ciscotelephony.sheet.in.h:9
+msgid "Cisco - Telephony"
+msgstr "Cisco - Telefónia"
+
+#: ../sheets/ciscotelephony.sheet.in.h:10
+msgid "Class 4/5 switch"
+msgstr "4/5. osztályú kapcsoló"
+
+#: ../sheets/ciscotelephony.sheet.in.h:11
+msgid "End Office"
+msgstr "Végiroda"
+
+#: ../sheets/ciscotelephony.sheet.in.h:12
+msgid "Fax"
+msgstr "Fax"
+
+#: ../sheets/ciscotelephony.sheet.in.h:13
+msgid "Gatekeeper"
+msgstr "Forgalomirányító"
+
+#: ../sheets/ciscotelephony.sheet.in.h:14
+msgid "Generic softswitch"
+msgstr "Általános szoftveres kapcsoló"
+
+#: ../sheets/ciscotelephony.sheet.in.h:15
+msgid "H.323"
+msgstr "H.323"
+
+#: ../sheets/ciscotelephony.sheet.in.h:16
+msgid "HootPhone"
+msgstr "HootPhone"
+
+#: ../sheets/ciscotelephony.sheet.in.h:17
 msgid "IAD router"
 msgstr "IAD útválasztó"
 
-#: ../sheets/ciscorouter.sheet.in.h:13
-msgid "IP telephony router"
+#: ../sheets/ciscotelephony.sheet.in.h:18
+msgid "ICM"
+msgstr "ICM"
+
+#: ../sheets/ciscotelephony.sheet.in.h:19
+msgid "ICS"
+msgstr "ICS"
+
+#: ../sheets/ciscotelephony.sheet.in.h:20
+msgid "IP Phone"
+msgstr "IP telefon"
+
+#: ../sheets/ciscotelephony.sheet.in.h:21
+msgid "IP Softphone"
+msgstr "IP szoftveres telefon"
+
+#: ../sheets/ciscotelephony.sheet.in.h:22
+msgid "IP Telephony Router"
 msgstr "IP-telefon útválasztó"
 
-#: ../sheets/ciscorouter.sheet.in.h:14
-msgid "NetFlow router"
-msgstr "NetFlow útválasztó"
+#: ../sheets/ciscotelephony.sheet.in.h:23
+msgid "ITP"
+msgstr "ITP"
 
-#: ../sheets/ciscorouter.sheet.in.h:15
-msgid "Optical services router"
-msgstr "Optikai szolgáltatások útválasztója"
+#: ../sheets/ciscotelephony.sheet.in.h:24
+msgid "IntelliSwitch Stack"
+msgstr "IntelliSwitch verem"
 
-#: ../sheets/ciscorouter.sheet.in.h:16
-msgid "Router"
-msgstr "Útválasztó"
+#: ../sheets/ciscotelephony.sheet.in.h:25
+msgid "MCU"
+msgstr "MCU"
 
-#: ../sheets/ciscorouter.sheet.in.h:17
-msgid "Router in building"
-msgstr "Útválasztó épületben"
+#: ../sheets/ciscotelephony.sheet.in.h:26
+msgid "MGX 8000 Series Voice Gateway"
+msgstr "MGX 8000 sorozatú hang-forgalomirányító"
 
-#: ../sheets/ciscorouter.sheet.in.h:18
-msgid "Router shapes by Cisco"
-msgstr "Útválasztó alakok a Ciscótól"
+#: ../sheets/ciscotelephony.sheet.in.h:27
+msgid "MoH server (Music on Hold)"
+msgstr "MoH (Music on Hold) kiszolgáló"
 
-#: ../sheets/ciscorouter.sheet.in.h:19
-msgid "Router with firewall"
-msgstr "Útválasztó tűzfallal"
+#: ../sheets/ciscotelephony.sheet.in.h:28
+msgid "Mobile Access IP Phone"
+msgstr "Mobil hozzáférésű IP-telefon"
 
-#: ../sheets/ciscorouter.sheet.in.h:20
-msgid "Router with silicon switch"
-msgstr "Útválasztó szilíciumkapcsolóval"
+#: ../sheets/ciscotelephony.sheet.in.h:29
+msgid "Mobile Access Router"
+msgstr "Mobil hozzáférésű útválasztó"
 
-#: ../sheets/ciscorouter.sheet.in.h:21
-msgid "Storage router"
-msgstr "Tároló útválasztó"
+#: ../sheets/ciscotelephony.sheet.in.h:30
+msgid "Octel"
+msgstr "Octel"
 
-#: ../sheets/ciscorouter.sheet.in.h:22
+#: ../sheets/ciscotelephony.sheet.in.h:31
+msgid "PBX"
+msgstr "PBX"
+
+#: ../sheets/ciscotelephony.sheet.in.h:32
+msgid "PBX Switch"
+msgstr "PBX kapcsoló"
+
+#: ../sheets/ciscotelephony.sheet.in.h:33
+msgid "Pager"
+msgstr "Személyhívó"
+
+#: ../sheets/ciscotelephony.sheet.in.h:34
+msgid "Phone"
+msgstr "Telefon"
+
+#: ../sheets/ciscotelephony.sheet.in.h:35
+msgid "Phone 2"
+msgstr "Telefon 2"
+
+#: ../sheets/ciscotelephony.sheet.in.h:36
+msgid "Phone Appliance"
+msgstr "Telefonberendezés"
+
+#: ../sheets/ciscotelephony.sheet.in.h:37
+msgid "Phone Ethernet"
+msgstr "Ethernet telefon"
+
+#: ../sheets/ciscotelephony.sheet.in.h:38
+msgid "Phone Feature"
+msgstr "Telefonszolgáltatás"
+
+#: ../sheets/ciscotelephony.sheet.in.h:39
+msgid "Phone/Fax"
+msgstr "Telefon/fax"
+
+#: ../sheets/ciscotelephony.sheet.in.h:40
+msgid "Radio Tower"
+msgstr "Rádiótorony"
+
+#: ../sheets/ciscotelephony.sheet.in.h:41
+msgid "SC2200 (Signalling Controller)"
+msgstr "SC2200 (Jelzésvezérlő)"
+
+#: ../sheets/ciscotelephony.sheet.in.h:42
+msgid "SC2200/VSC3000 host"
+msgstr "SC2200/VSC3000 gép"
+
+#: ../sheets/ciscotelephony.sheet.in.h:43
+msgid "SIP Proxy Server"
+msgstr "SIP proxykiszolgáló"
+
+#: ../sheets/ciscotelephony.sheet.in.h:44
+msgid "SONET MUX"
+msgstr "SONET MUX"
+
+#: ../sheets/ciscotelephony.sheet.in.h:45
+msgid "STP"
+msgstr "STP"
+
+#: ../sheets/ciscotelephony.sheet.in.h:46
+msgid "Softphone"
+msgstr "Szoftveres telefon"
+
+#: ../sheets/ciscotelephony.sheet.in.h:47
 msgid "TDM router"
 msgstr "TDM útválasztó"
 
-#: ../sheets/ciscorouter.sheet.in.h:23
-msgid "Voice router"
-msgstr "Hang-útválasztó"
+#: ../sheets/ciscotelephony.sheet.in.h:48
+msgid "Telephony shapes by Cisco"
+msgstr "Telefónia alakok a Ciscótól"
 
-#: ../sheets/ciscorouter.sheet.in.h:24
-msgid "Wavelength router"
-msgstr "Hullámhossz-útválasztó"
+#: ../sheets/ciscotelephony.sheet.in.h:49
+msgid "Turret"
+msgstr "Torony"
 
-#: ../sheets/ciscorouter.sheet.in.h:25
-msgid "Workgroup 5000 multilayer switch"
-msgstr "Workgroup 5000 többrétegű kapcsoló"
+#: ../sheets/ciscotelephony.sheet.in.h:50
+msgid "Unity Express"
+msgstr "Unity Express"
 
-#: ../sheets/ciscorouter.sheet.in.h:26
-msgid "Workgroup 5002 multilayer switch"
-msgstr "Workgroup 5002 többrétegű kapcsoló"
+#: ../sheets/ciscotelephony.sheet.in.h:51
+msgid "Unity server"
+msgstr "Unity kiszolgáló"
 
-#: ../sheets/ciscorouter.sheet.in.h:27
-msgid "Workgroup 5500 multilayer switch"
-msgstr "Workgroup 5500 többrétegű kapcsoló"
+#: ../sheets/ciscotelephony.sheet.in.h:52
+msgid "Virtual switch controller (VSC 3000)"
+msgstr "Virtuális kapcsolóvezérlő (VSC 3000)"
 
-#: ../sheets/ciscorouter.sheet.in.h:28
-msgid "uBR910"
-msgstr "uBR910"
+#: ../sheets/ciscotelephony.sheet.in.h:53
+msgid "Voice-Enabled ATM Switch"
+msgstr "Hang-képes ATM-kapcsoló"
+
+#: ../sheets/ciscotelephony.sheet.in.h:54
+msgid "Voice-Enabled Access Server"
+msgstr "Hang-képes hozzáférési kiszolgáló"
+
+#: ../sheets/ciscotelephony.sheet.in.h:55
+msgid "Voice-Enabled Router"
+msgstr "Hang-képes útválasztó"
+
+#: ../sheets/ciscotelephony.sheet.in.h:56
+msgid "uMG series"
+msgstr "uMG sorozatok"
 
 #: ../sheets/civil.sheet.in.h:1
 msgid "Aerator with bubbles"
@@ -8264,10 +8642,6 @@ msgstr "Mobiltelefon cella"
 #: ../sheets/network.sheet.in.h:18
 msgid "Modular switching system"
 msgstr "Moduláris kapcsolórendszer"
-
-#: ../sheets/network.sheet.in.h:19
-msgid "Monitor"
-msgstr "Monitor"
 
 #: ../sheets/network.sheet.in.h:20
 msgid "Network"
