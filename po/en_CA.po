@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-05-19 13:50-0400\n"
-"PO-Revision-Date: 2005-05-19 16:52-0400\n"
+"POT-Creation-Date: 2005-05-23 13:01-0400\n"
+"PO-Revision-Date: 2005-05-23 16:52-0400\n"
 "Last-Translator: Adam Weinberger <adamw@gnome.org>\n"
 "Language-Team: Canadian English <adamw@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -47,54 +47,54 @@ msgstr "%s error: do not know how to export into %s\n"
 msgid "%s error: input and output file name is identical: %s"
 msgstr "%s error: input and output file name is identical: %s"
 
-#: ../app/app_procs.c:400
+#: ../app/app_procs.c:399
 #, c-format
 msgid "%s error: need valid input file %s\n"
 msgstr "%s error: need valid input file %s\n"
 
 #. if (!quiet)
-#: ../app/app_procs.c:425
+#: ../app/app_procs.c:424
 #, c-format
 msgid "%s --> %s\n"
 msgstr "%s --> %s\n"
 
-#: ../app/app_procs.c:571
+#: ../app/app_procs.c:570
 #, c-format
 msgid "Can't find output format/filter %s\n"
 msgstr "Cannot find output format/filter %s\n"
 
 #. Translators:  The argument is a list of options, not to be translated
-#: ../app/app_procs.c:658
+#: ../app/app_procs.c:657
 #, c-format
 msgid "Select the filter/format out of: %s"
 msgstr "Select the filter/format out of: %s"
 
 #. &export_file_name
-#: ../app/app_procs.c:677 ../app/app_procs.c:702
+#: ../app/app_procs.c:676 ../app/app_procs.c:701
 msgid "Export loaded file and exit"
 msgstr "Export loaded file and exit"
 
-#: ../app/app_procs.c:677 ../app/app_procs.c:702 ../app/diaconv.c:94
+#: ../app/app_procs.c:676 ../app/app_procs.c:701 ../app/diaconv.c:94
 msgid "OUTPUT"
 msgstr "OUTPUT"
 
 #. &export_file_format
 #. &export_format_string
 #. &export_file_format
-#: ../app/app_procs.c:679 ../app/app_procs.c:704
+#: ../app/app_procs.c:678 ../app/app_procs.c:703
 msgid "TYPE"
 msgstr "TYPE"
 
-#: ../app/app_procs.c:681 ../app/app_procs.c:707
+#: ../app/app_procs.c:680 ../app/app_procs.c:706
 msgid "Export graphics size"
 msgstr "Export graphics size"
 
-#: ../app/app_procs.c:681 ../app/app_procs.c:707
+#: ../app/app_procs.c:680 ../app/app_procs.c:706
 msgid "WxH"
 msgstr "WxH"
 
 #. 13.3.2004 sampo@iki.fi
-#: ../app/app_procs.c:683 ../app/app_procs.c:709
+#: ../app/app_procs.c:682 ../app/app_procs.c:708
 msgid ""
 "Show only specified layers (e.g. when exporting). Can be either the layer "
 "name or a range of layer numbers (X-Y)"
@@ -102,50 +102,50 @@ msgstr ""
 "Show only specified layers (e.g. when exporting). Can be either the layer "
 "name or a range of layer numbers (X-Y)"
 
-#: ../app/app_procs.c:684 ../app/app_procs.c:710
+#: ../app/app_procs.c:683 ../app/app_procs.c:709
 msgid "LAYER,LAYER,..."
 msgstr "LAYER,LAYER,..."
 
-#: ../app/app_procs.c:686 ../app/app_procs.c:712
+#: ../app/app_procs.c:685 ../app/app_procs.c:711
 msgid "Don't show the splash screen"
 msgstr "Do not show the splash screen"
 
-#: ../app/app_procs.c:688 ../app/app_procs.c:714
+#: ../app/app_procs.c:687 ../app/app_procs.c:713
 msgid "Send error messages to stderr instead of showing dialogs."
 msgstr "Send error messages to stderr instead of showing dialogues."
 
-#: ../app/app_procs.c:690 ../app/app_procs.c:716
+#: ../app/app_procs.c:689 ../app/app_procs.c:715
 msgid "Display credits list and exit"
 msgstr "Display credits list and exit"
 
-#: ../app/app_procs.c:692 ../app/app_procs.c:718
+#: ../app/app_procs.c:691 ../app/app_procs.c:717
 msgid "Generate verbose output"
 msgstr "Generate verbose output"
 
-#: ../app/app_procs.c:694 ../app/app_procs.c:720
+#: ../app/app_procs.c:693 ../app/app_procs.c:719
 msgid "Display version and exit"
 msgstr "Display version and exit"
 
-#: ../app/app_procs.c:721 ../app/diaconv.c:95
+#: ../app/app_procs.c:720 ../app/diaconv.c:95
 msgid "Show this help message"
 msgstr "Show this help message"
 
-#: ../app/app_procs.c:769
+#: ../app/app_procs.c:768
 msgid "Can't connect to session manager!\n"
 msgstr "Cannot connect to session manager!\n"
 
 #. TRANSLATOR: 2nd and 3rd %s are time and date respectively.
-#: ../app/app_procs.c:801
+#: ../app/app_procs.c:800
 #, c-format
 msgid "Dia version %s, compiled %s %s\n"
 msgstr "Dia version %s, compiled %s %s\n"
 
-#: ../app/app_procs.c:803
+#: ../app/app_procs.c:802
 #, c-format
 msgid "Dia version %s\n"
 msgstr "Dia version %s\n"
 
-#: ../app/app_procs.c:865 ../app/app_procs.c:867 ../app/diaconv.c:201
+#: ../app/app_procs.c:864 ../app/app_procs.c:866 ../app/diaconv.c:201
 #: ../app/diaconv.c:203
 #, c-format
 msgid ""
@@ -153,11 +153,11 @@ msgid ""
 msgstr ""
 "Could not find standard objects when looking for object-libs, exiting...\n"
 
-#: ../app/app_procs.c:908
+#: ../app/app_procs.c:907
 msgid "Diagram1.dia"
 msgstr "Diagram1.dia"
 
-#: ../app/app_procs.c:950
+#: ../app/app_procs.c:949
 msgid ""
 "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you can cause this message to appear.\n"
@@ -166,7 +166,7 @@ msgstr ""
 "describing how you can cause this message to appear.\n"
 
 #. no standard buttons
-#: ../app/app_procs.c:963
+#: ../app/app_procs.c:962
 msgid ""
 "Modified diagrams exist.\n"
 "Are you sure you want to quit Dia\n"
@@ -176,21 +176,21 @@ msgstr ""
 "Are you sure you want to quit Dia\n"
 "without saving them?"
 
-#: ../app/app_procs.c:966
+#: ../app/app_procs.c:965
 msgid "Quit Dia"
 msgstr "Quit Dia"
 
 #. This printf seems to prevent a race condition with unrefs.
 #. Yuck.  -Lars
-#: ../app/app_procs.c:1019
+#: ../app/app_procs.c:1018
 msgid "Thank you for using Dia.\n"
 msgstr "Thank you for using Dia.\n"
 
-#: ../app/app_procs.c:1036 ../app/app_procs.c:1043
+#: ../app/app_procs.c:1035 ../app/app_procs.c:1042
 msgid "Could not create per-user Dia config directory"
 msgstr "Could not create per-user Dia config directory"
 
-#: ../app/app_procs.c:1045
+#: ../app/app_procs.c:1044
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -198,15 +198,15 @@ msgstr ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
 
-#: ../app/app_procs.c:1067 ../app/diaconv.c:251
+#: ../app/app_procs.c:1066 ../app/diaconv.c:251
 msgid "Objects and filters internal to dia"
 msgstr "Objects and filters internal to dia"
 
-#: ../app/app_procs.c:1109 ../app/diaconv.c:121
+#: ../app/app_procs.c:1108 ../app/diaconv.c:121
 msgid "[OPTION...] [FILE...]"
 msgstr "[OPTION...] [FILE...]"
 
-#: ../app/app_procs.c:1112 ../app/diaconv.c:128
+#: ../app/app_procs.c:1111 ../app/diaconv.c:128
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
@@ -215,16 +215,16 @@ msgstr ""
 "Error on option %s: %s.\n"
 "Run '%s --help' to see a full list of available command line options.\n"
 
-#: ../app/app_procs.c:1136
+#: ../app/app_procs.c:1135
 msgid "[FILE...]"
 msgstr "[FILE...]"
 
-#: ../app/app_procs.c:1151
+#: ../app/app_procs.c:1150
 #, c-format
 msgid "'%s' not found!\n"
 msgstr "'%s' not found!\n"
 
-#: ../app/app_procs.c:1230
+#: ../app/app_procs.c:1229
 msgid ""
 "The original author of Dia was:\n"
 "\n"
@@ -232,7 +232,7 @@ msgstr ""
 "The original author of Dia was:\n"
 "\n"
 
-#: ../app/app_procs.c:1235
+#: ../app/app_procs.c:1234
 msgid ""
 "\n"
 "The current maintainers of Dia are:\n"
@@ -242,7 +242,7 @@ msgstr ""
 "The current maintainers of Dia are:\n"
 "\n"
 
-#: ../app/app_procs.c:1240
+#: ../app/app_procs.c:1239
 msgid ""
 "\n"
 "Other authors are:\n"
@@ -252,7 +252,7 @@ msgstr ""
 "Other authors are:\n"
 "\n"
 
-#: ../app/app_procs.c:1245
+#: ../app/app_procs.c:1244
 msgid ""
 "\n"
 "Dia is documented by:\n"
@@ -1013,15 +1013,15 @@ msgstr "Diagram:"
 msgid "New layer %d"
 msgstr "New layer %d"
 
-#: ../app/layer_dialog.c:521
+#: ../app/layer_dialog.c:525
 msgid "none"
 msgstr "none"
 
-#: ../app/layer_dialog.c:952
+#: ../app/layer_dialog.c:958
 msgid "Edit Layer Attributes"
 msgstr "Edit Layer Attributes"
 
-#: ../app/layer_dialog.c:971
+#: ../app/layer_dialog.c:977
 msgid "Layer name:"
 msgstr "Layer name:"
 
@@ -1979,7 +1979,7 @@ msgstr "Sheet"
 
 #: ../app/sheets_dialog.c:672 ../objects/ER/attribute.c:153
 #: ../objects/ER/entity.c:135 ../objects/ER/relationship.c:140
-#: ../objects/UML/association.c:237 ../objects/UML/association.c:1162
+#: ../objects/UML/association.c:237 ../objects/UML/association.c:1165
 #: ../objects/UML/class_dialog.c:907 ../objects/UML/class_dialog.c:1841
 #: ../objects/UML/class_dialog.c:2070 ../objects/UML/class_dialog.c:2586
 #: ../objects/UML/dependency.c:133 ../objects/UML/generalization.c:129
@@ -2119,7 +2119,7 @@ msgstr "Dia Diagram Editor"
 msgid "Edit your Diagrams"
 msgstr "Edit your Diagrams"
 
-#: ../lib/arrows.c:40 ../objects/UML/association.c:1185
+#: ../lib/arrows.c:40 ../objects/UML/association.c:1188
 #: ../objects/Jackson/domain.c:96
 msgid "None"
 msgstr "None"
@@ -2252,6 +2252,10 @@ msgstr "Open Round"
 msgid "Backslash"
 msgstr "Backslash"
 
+#: ../lib/arrows.c:73
+msgid "Infinite Line"
+msgstr "Infinite Line"
+
 #: ../lib/bezier_conn.c:533
 msgid "Internal error: Setting corner type of endpoint of bezier"
 msgstr "Internal error: Setting corner type of endpoint of bezier"
@@ -2294,11 +2298,11 @@ msgstr ""
 "support of files generated by previous versions of dia, you will encounter  "
 "problems. Please report to dia-list@gnome.org if you see this message."
 
-#: ../lib/diaarrowchooser.c:251
+#: ../lib/diaarrowchooser.c:269
 msgid "Arrow Properties"
 msgstr "Arrow Properties"
 
-#: ../lib/diaarrowchooser.c:333 ../lib/dialinechooser.c:333
+#: ../lib/diaarrowchooser.c:351 ../lib/dialinechooser.c:333
 msgid "Details..."
 msgstr "Details..."
 
@@ -2562,7 +2566,7 @@ msgstr "Dash length: "
 msgid "Select color"
 msgstr "Select colour"
 
-#: ../lib/widgets.c:1025
+#: ../lib/widgets.c:1026
 msgid "More colors..."
 msgstr "More colours..."
 
@@ -2582,7 +2586,7 @@ msgstr "Select image file"
 msgid "Browse"
 msgstr "Browse"
 
-#: ../lib/widgets.c:1940
+#: ../lib/widgets.c:1958
 msgid "Reset menu"
 msgstr "Reset menu"
 
@@ -3968,76 +3972,76 @@ msgstr "SADT diagram objects"
 msgid "Actor"
 msgstr "Actor"
 
-#: ../objects/UML/association.c:1175 ../objects/UML/class_dialog.c:2114
+#: ../objects/UML/association.c:1178 ../objects/UML/class_dialog.c:2114
 msgid "Direction:"
 msgstr "Direction:"
 
-#: ../objects/UML/association.c:1192
+#: ../objects/UML/association.c:1195
 msgid "From A to B"
 msgstr "From A to B"
 
-#: ../objects/UML/association.c:1199
+#: ../objects/UML/association.c:1202
 msgid "From B to A"
 msgstr "From B to A"
 
-#: ../objects/UML/association.c:1223 ../objects/UML/association.c:1231
+#: ../objects/UML/association.c:1226 ../objects/UML/association.c:1234
 msgid "Side A"
 msgstr "Side A"
 
-#: ../objects/UML/association.c:1225 ../objects/UML/association.c:1233
+#: ../objects/UML/association.c:1228 ../objects/UML/association.c:1236
 msgid "Side B"
 msgstr "Side B"
 
-#: ../objects/UML/association.c:1239
+#: ../objects/UML/association.c:1242
 msgid "Role:"
 msgstr "Role:"
 
-#: ../objects/UML/association.c:1251
+#: ../objects/UML/association.c:1254
 msgid "Multiplicity:"
 msgstr "Multiplicity:"
 
-#: ../objects/UML/association.c:1262 ../objects/UML/class_dialog.c:952
+#: ../objects/UML/association.c:1265 ../objects/UML/class_dialog.c:952
 #: ../objects/UML/class_dialog.c:1876
 msgid "Visibility:"
 msgstr "Visibility:"
 
-#: ../objects/UML/association.c:1271 ../objects/UML/class_dialog.c:961
+#: ../objects/UML/association.c:1274 ../objects/UML/class_dialog.c:961
 #: ../objects/UML/class_dialog.c:1885
 msgid "Public"
 msgstr "Public"
 
-#: ../objects/UML/association.c:1281 ../objects/UML/class_dialog.c:969
+#: ../objects/UML/association.c:1284 ../objects/UML/class_dialog.c:969
 #: ../objects/UML/class_dialog.c:1893
 msgid "Private"
 msgstr "Private"
 
-#: ../objects/UML/association.c:1291 ../objects/UML/class_dialog.c:977
+#: ../objects/UML/association.c:1294 ../objects/UML/class_dialog.c:977
 #: ../objects/UML/class_dialog.c:1901
 msgid "Protected"
 msgstr "Protected"
 
-#: ../objects/UML/association.c:1301 ../objects/UML/class_dialog.c:985
+#: ../objects/UML/association.c:1304 ../objects/UML/class_dialog.c:985
 #: ../objects/UML/class_dialog.c:1909
 msgid "Implementation"
 msgstr "Implementation"
 
 #. Show arrow:
-#: ../objects/UML/association.c:1320
+#: ../objects/UML/association.c:1323
 msgid "Show arrow"
 msgstr "Show arrow"
 
 #. Aggregate
-#: ../objects/UML/association.c:1326
+#: ../objects/UML/association.c:1329
 msgid "Aggregate"
 msgstr "Aggregate"
 
 #. Composition
-#: ../objects/UML/association.c:1334
+#: ../objects/UML/association.c:1337
 msgid "Composition"
 msgstr "Composition"
 
 #: ../objects/UML/class.c:114 ../objects/UML/class.c:279
-#: ../objects/UML/class.c:1207 ../sheets/UML.sheet.in.h:6
+#: ../objects/UML/class.c:1220 ../sheets/UML.sheet.in.h:6
 msgid "Class"
 msgstr "Class"
 
