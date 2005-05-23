@@ -1,3 +1,7 @@
+2005-05-23  Lars Clausen  <lars@raeder.dk>
+
+	* lib/paper.c: Added Ledger size paper.  Fixes bug #305254.
+
 2005-05-21  Lars Clausen  <lars@raeder.dk>
 
 	* lib/diaarrowchooser.c: 
