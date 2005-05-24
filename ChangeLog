@@ -1,3 +1,9 @@
+2005-05-24  Lars Clausen  <lars@raeder.dk>
+
+	* lib/font.c: Change to make DIA_FONT_ITALIC turn into -Oblique PS
+	fonts for legacy fonts.  They don't have DIA_FONT_OBLIQUE setting
+	anyway. 
+
 2005-05-23  Lars Clausen  <lars@raeder.dk>
 
 	* lib/paper.c: Added Ledger size paper.  Fixes bug #305254.
