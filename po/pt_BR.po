@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-04-07 10:41+0000\n"
-"PO-Revision-Date: 2005-04-11 10:32-0300\n"
+"POT-Creation-Date: 2005-05-17 02:52+0000\n"
+"PO-Revision-Date: 2005-05-29 01:21-0300\n"
 "Last-Translator: Afonso Celso Medina <medina@maua.br>\n"
 "Language-Team: Portuguese/Brazil <gnome-l10n-br@listas.cipsga.org.br>\n"
 "MIME-Version: 1.0\n"
@@ -287,20 +287,20 @@ msgstr "Selecionar cor de frente"
 msgid "Select background color"
 msgstr "Selecionar cor de fundo"
 
-#: ../app/commands.c:134
+#: ../app/commands.c:136
 #, c-format
 msgid "Diagram%d.dia"
 msgstr "Diagrama%d.dia"
 
-#: ../app/commands.c:205
+#: ../app/commands.c:207
 msgid "No existing object to paste.\n"
 msgstr "Não existe objeto para colar.\n"
 
-#: ../app/commands.c:528 ../app/commands.c:566
+#: ../app/commands.c:533 ../app/commands.c:571
 msgid "Could not find help directory"
 msgstr "Não foi possível encontrar o diretório de ajuda"
 
-#: ../app/commands.c:535
+#: ../app/commands.c:540
 #, c-format
 msgid ""
 "Could not open help directory:\n"
@@ -314,7 +314,7 @@ msgstr ""
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: ../app/commands.c:605
+#: ../app/commands.c:611
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 "Afonso Celso Medina <medina@maua.br>\n"
@@ -324,15 +324,15 @@ msgstr ""
 
 # dia.desktop.in.h:2
 # dia.desktop.in.h:2
-#: ../app/commands.c:619
+#: ../app/commands.c:625
 msgid "Dia"
 msgstr "Dia"
 
-#: ../app/commands.c:621
+#: ../app/commands.c:627
 msgid "Copyright (C) 1998-2002 The Free Software Foundation and the authors"
 msgstr "Copyright (C) 1998-2002 The Free Software Foundation e os autores"
 
-#: ../app/commands.c:622
+#: ../app/commands.c:628
 msgid ""
 "Dia is a program for drawing structured diagrams.\n"
 "Please visit http://www.gnome.org/projects/dia for more information."
@@ -340,26 +340,26 @@ msgstr ""
 "Dia é um programa para desenhar diagramas estruturados.\n"
 "Visite http://www.gnome.org/projects/dia/ para maiores informações."
 
-#: ../app/commands.c:661
+#: ../app/commands.c:667
 msgid "About Dia"
 msgstr "Sobre o Dia"
 
-#: ../app/commands.c:704
+#: ../app/commands.c:710
 #, c-format
 msgid "Dia v %s by Alexander Larsson"
 msgstr "Dia v %s por Alexander Larsson"
 
 #. Exact spelling is Ch&eacute;p&eacute;lov (using *ML entities)
-#: ../app/commands.c:710
+#: ../app/commands.c:716
 msgid "Maintainers: Lars Clausen and Cyrille Chepelov"
 msgstr "Mantenedores: Lars Clausen e Cyrille Chepelov"
 
-#: ../app/commands.c:714
+#: ../app/commands.c:720
 msgid "Please visit http://www.gnome.org/projects/dia for more information"
 msgstr ""
 "Por favor, visite http://www.gnome.org/projects/dia/ para mais informações"
 
-#: ../app/commands.c:719
+#: ../app/commands.c:725
 msgid "Contributors:"
 msgstr "Contribuidores:"
 
@@ -598,7 +598,7 @@ msgstr "Árvore de diagramas"
 msgid "Ok"
 msgstr "Ok"
 
-#: ../app/dialogs.c:52 ../app/paginate_psprint.c:292
+#: ../app/dialogs.c:52 ../app/paginate_psprint.c:306
 msgid "Cancel"
 msgstr "Cancelar"
 
@@ -693,11 +693,11 @@ msgstr "Seleção de %d objetos"
 msgid "Selected '%s'"
 msgstr "Selecionado '%s'"
 
-#: ../app/display.c:1024
+#: ../app/display.c:1025
 msgid "<unnamed>"
 msgstr "<semnome>"
 
-#: ../app/display.c:1026
+#: ../app/display.c:1027
 #, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -706,20 +706,20 @@ msgstr ""
 "O diagrama '%s' não foi salvo.\n"
 "Salvar as alterações agora?"
 
-#: ../app/display.c:1037
+#: ../app/display.c:1038
 msgid "Close Diagram"
 msgstr "Fechar o Diagrama"
 
-#: ../app/display.c:1042
+#: ../app/display.c:1043
 msgid "Discard Changes"
 msgstr "Descartar as Alterações"
 
 #: ../app/export_png.c:134 ../app/load_save.c:913 ../app/render_eps.c:103
-#: ../plug-ins/cairo/diacairo.c:947 ../plug-ins/cgm/cgm.c:1157
+#: ../plug-ins/cairo/diacairo.c:978 ../plug-ins/cgm/cgm.c:1157
 #: ../plug-ins/dxf/dxf-export.c:509 ../plug-ins/hpgl/hpgl.c:718
-#: ../plug-ins/metapost/render_metapost.c:964
-#: ../plug-ins/pstricks/render_pstricks.c:909
-#: ../plug-ins/shape/shape-export.c:135 ../plug-ins/svg/render_svg.c:152
+#: ../plug-ins/metapost/render_metapost.c:1107
+#: ../plug-ins/pstricks/render_pstricks.c:910
+#: ../plug-ins/shape/shape-export.c:134 ../plug-ins/svg/render_svg.c:151
 #: ../plug-ins/wpg/wpg.c:1067 ../plug-ins/xfig/xfig-export.c:1138
 #: ../plug-ins/xslt/xslt.c:94
 #, c-format
@@ -867,8 +867,8 @@ msgid "Scroll"
 msgstr "Mudar Enquadramento"
 
 #: ../app/interface.c:69 ../app/interface.c:70 ../lib/properties.c:77
-#: ../lib/properties.h:516 ../objects/UML/activity.c:126
-#: ../objects/UML/actor.c:122 ../objects/UML/classicon.c:143
+#: ../lib/properties.h:517 ../objects/UML/activity.c:126
+#: ../objects/UML/actor.c:122 ../objects/UML/classicon.c:144
 #: ../objects/UML/component.c:128 ../objects/UML/component_feature.c:154
 #: ../objects/UML/node.c:127 ../objects/UML/note.c:121
 #: ../objects/UML/object.c:147 ../objects/UML/small_package.c:128
@@ -1039,7 +1039,7 @@ msgstr "Editar Atributos da Camada"
 msgid "Layer name:"
 msgstr "Nome da camada:"
 
-#: ../app/linewidth_area.c:246 ../lib/properties.h:480 ../lib/properties.h:483
+#: ../app/linewidth_area.c:246 ../lib/properties.h:481 ../lib/properties.h:484
 #: ../objects/chronogram/chronoline.c:181
 #: ../objects/chronogram/chronoref.c:160
 msgid "Line width"
@@ -1128,15 +1128,15 @@ msgstr "Impossível salvar o arquivo '%s'.\n"
 msgid "Dia Diagram File"
 msgstr "Arquivo de Diagrama Dia"
 
-#: ../app/menus.c:49 ../app/menus.c:87
+#: ../app/menus.c:50 ../app/menus.c:88
 msgid "/_File"
 msgstr "/_Arquivo"
 
-#: ../app/menus.c:51 ../app/menus.c:89
+#: ../app/menus.c:52 ../app/menus.c:90
 msgid "/File/_New"
 msgstr "/Arquivo/_Novo"
 
-#: ../app/menus.c:53 ../app/menus.c:91
+#: ../app/menus.c:54 ../app/menus.c:92
 msgid "/File/_Open..."
 msgstr "/Arquivo/_Abrir..."
 
@@ -1145,463 +1145,463 @@ msgstr "/Arquivo/_Abrir..."
 #. recent file list is dynamically inserted here
 #. {N_("/Open _Recent"),           NULL,         NULL,           0, "<Branch>"},
 #. {   "/Open Recent/tearoff",     NULL,         NULL,         0, "<Tearoff>" },
-#: ../app/menus.c:57 ../app/menus.c:62 ../app/menus.c:67 ../app/menus.c:69
-#: ../app/menus.c:95 ../app/menus.c:102 ../app/menus.c:106
+#: ../app/menus.c:58 ../app/menus.c:63 ../app/menus.c:68 ../app/menus.c:70
+#: ../app/menus.c:96 ../app/menus.c:103 ../app/menus.c:107
 msgid "/File/---"
 msgstr "/Arquivo/---"
 
-#: ../app/menus.c:58
+#: ../app/menus.c:59
 msgid "/File/_Diagram tree"
 msgstr "/Arquivo/Árvore de _Diagramas"
 
-#: ../app/menus.c:60
+#: ../app/menus.c:61
 msgid "/File/Sheets and Objects..."
 msgstr "/Arquivo/Folhas e Objetos..."
 
-#: ../app/menus.c:63
+#: ../app/menus.c:64
 msgid "/File/_Preferences..."
 msgstr "/Arquivo/_Preferências..."
 
-#: ../app/menus.c:65
+#: ../app/menus.c:66
 msgid "/File/P_lugins..."
 msgstr "/Arquivo/P_lugins..."
 
-#: ../app/menus.c:70 ../app/menus.c:110
+#: ../app/menus.c:71 ../app/menus.c:111
 msgid "/File/_Quit"
 msgstr "/Arquivo/_Sair"
 
-#: ../app/menus.c:72 ../app/menus.c:257
+#: ../app/menus.c:73 ../app/menus.c:260
 msgid "/_Help"
 msgstr "/Aj_uda"
 
-#: ../app/menus.c:74 ../app/menus.c:259
+#: ../app/menus.c:75 ../app/menus.c:262
 msgid "/Help/_Contents"
 msgstr "/Ajuda/_Tópicos"
 
-#: ../app/menus.c:76 ../app/menus.c:261
+#: ../app/menus.c:77 ../app/menus.c:264
 msgid "/Help/---"
 msgstr "/Ajuda/---"
 
-#: ../app/menus.c:77 ../app/menus.c:262
+#: ../app/menus.c:78 ../app/menus.c:265
 msgid "/Help/_About..."
 msgstr "/Ajuda/_Sobre..."
 
-#: ../app/menus.c:96
+#: ../app/menus.c:97
 msgid "/File/_Save"
 msgstr "/Arquivo/_Salvar"
 
-#: ../app/menus.c:98
+#: ../app/menus.c:99
 msgid "/File/Save _As..."
 msgstr "/Arquivo/Salvar _Como..."
 
-#: ../app/menus.c:100
+#: ../app/menus.c:101
 msgid "/File/_Export..."
 msgstr "/Arquivo/_Exportar..."
 
-#: ../app/menus.c:103
+#: ../app/menus.c:104
 msgid "/File/Page Set_up..."
 msgstr "/Arquivo/C_onfigurar Página..."
 
-#: ../app/menus.c:104
+#: ../app/menus.c:105
 msgid "/File/_Print Diagram..."
 msgstr "/Arquivo/_Imprimir Diagrama..."
 
-#: ../app/menus.c:107
+#: ../app/menus.c:108
 msgid "/File/_Close"
 msgstr "/Arquivo/_Fechar"
 
-#: ../app/menus.c:112
+#: ../app/menus.c:113
 msgid "/_Edit"
 msgstr "/_Editar"
 
-#: ../app/menus.c:114
+#: ../app/menus.c:115
 msgid "/Edit/_Undo"
 msgstr "/Editar/_Desfazer"
 
-#: ../app/menus.c:116
+#: ../app/menus.c:117
 msgid "/Edit/_Redo"
 msgstr "/Editar/_Refazer"
 
-#: ../app/menus.c:118 ../app/menus.c:128
+#: ../app/menus.c:119 ../app/menus.c:129
 msgid "/Edit/---"
 msgstr "/Editar/---"
 
-#: ../app/menus.c:119
+#: ../app/menus.c:120
 msgid "/Edit/_Copy"
 msgstr "/Editar/_Copiar"
 
-#: ../app/menus.c:121
+#: ../app/menus.c:122
 msgid "/Edit/C_ut"
 msgstr "/Editar/C_ortar"
 
-#: ../app/menus.c:123
+#: ../app/menus.c:124
 msgid "/Edit/_Paste"
 msgstr "/Editar/Co_lar"
 
-#: ../app/menus.c:125
+#: ../app/menus.c:126
 msgid "/Edit/_Duplicate"
 msgstr "/Editar/D_uplicar"
 
-#: ../app/menus.c:126
+#: ../app/menus.c:127
 msgid "/Edit/_Delete"
 msgstr "/Editar/_Excluir"
 
-#: ../app/menus.c:129
+#: ../app/menus.c:130
 msgid "/Edit/Copy Text"
 msgstr "/Editar/Copiar Texto"
 
-#: ../app/menus.c:131
+#: ../app/menus.c:132
 msgid "/Edit/Cut Text"
 msgstr "/Editar/Cortar Texto"
 
-#: ../app/menus.c:133
+#: ../app/menus.c:134
 msgid "/Edit/Paste _Text"
 msgstr "/Editar/Colar _Texto"
 
-#: ../app/menus.c:135
+#: ../app/menus.c:136
 msgid "/_Diagram"
 msgstr "/_Diagrama"
 
-#: ../app/menus.c:137
+#: ../app/menus.c:138
 msgid "/Diagram/_Properties..."
 msgstr "/Diagrama/_Propriedades..."
 
-#: ../app/menus.c:139
+#: ../app/menus.c:140
 msgid "/Diagram/_Layers..."
 msgstr "/Diagrama/_Camadas..."
 
-#: ../app/menus.c:140
+#: ../app/menus.c:141
 msgid "/_View"
 msgstr "/_Ver"
 
-#: ../app/menus.c:142
+#: ../app/menus.c:143
 msgid "/View/Zoom _In"
 msgstr "/Ver/_Aproximar"
 
-#: ../app/menus.c:144
+#: ../app/menus.c:145
 msgid "/View/Zoom _Out"
 msgstr "/Ver/A_fastar"
 
-#: ../app/menus.c:146
+#: ../app/menus.c:147
 msgid "/View/_Zoom"
 msgstr "/Ver/_Zoom"
 
-#: ../app/menus.c:148
+#: ../app/menus.c:149
 msgid "/View/Zoom/1600%"
 msgstr "/Ver/Zoom/1600%"
 
-#: ../app/menus.c:149
+#: ../app/menus.c:150
 msgid "/View/Zoom/800%"
 msgstr "/Ver/Zoom/800%"
 
-#: ../app/menus.c:150
+#: ../app/menus.c:151
 msgid "/View/Zoom/400%"
 msgstr "/Ver/Zoom/400%"
 
-#: ../app/menus.c:151
+#: ../app/menus.c:152
 msgid "/View/Zoom/283%"
 msgstr "/Ver/Zoom/283%"
 
-#: ../app/menus.c:152
+#: ../app/menus.c:153
 msgid "/View/Zoom/200%"
 msgstr "/Ver/Zoom/200%"
 
-#: ../app/menus.c:153
+#: ../app/menus.c:154
 msgid "/View/Zoom/141%"
 msgstr "/Ver/Zoom/141%"
 
-#: ../app/menus.c:154
+#: ../app/menus.c:155
 msgid "/View/Zoom/100%"
 msgstr "/Ver/Zoom/100%"
 
-#: ../app/menus.c:156
+#: ../app/menus.c:157
 msgid "/View/Zoom/85%"
 msgstr "/Ver/Zoom/85%"
 
-#: ../app/menus.c:157
+#: ../app/menus.c:158
 msgid "/View/Zoom/70.7%"
 msgstr "/Ver/Zoom/70.7%"
 
-#: ../app/menus.c:158
+#: ../app/menus.c:159
 msgid "/View/Zoom/50%"
 msgstr "/Ver/Zoom/50%"
 
-#: ../app/menus.c:159
+#: ../app/menus.c:160
 msgid "/View/Zoom/35.4%"
 msgstr "/Ver/Zoom/35.4%"
 
-#: ../app/menus.c:160
+#: ../app/menus.c:161
 msgid "/View/Zoom/25%"
 msgstr "/Ver/Zoom/25%"
 
-#: ../app/menus.c:161 ../app/menus.c:170
+#: ../app/menus.c:162 ../app/menus.c:171
 msgid "/View/---"
 msgstr "/Ver/---"
 
-#: ../app/menus.c:162
+#: ../app/menus.c:163
 msgid "/View/Fullscr_een"
 msgstr "/Ver/_Tela Cheia"
 
-#: ../app/menus.c:164
+#: ../app/menus.c:165
 msgid "/View/_AntiAliased"
 msgstr "/Ver/An_tiAlisamento"
 
-#: ../app/menus.c:166
+#: ../app/menus.c:167
 msgid "/View/Show _Grid"
 msgstr "/Ver/Mostrar _Grade"
 
-#: ../app/menus.c:167
+#: ../app/menus.c:168
 msgid "/View/_Snap To Grid"
 msgstr "/Ver/Alin_har à Grade"
 
-#: ../app/menus.c:168
+#: ../app/menus.c:169
 msgid "/View/Show _Rulers"
 msgstr "/Ver/Mostrar _Réguas"
 
-#: ../app/menus.c:169
+#: ../app/menus.c:170
 msgid "/View/Show _Connection Points"
 msgstr "/Ver/Mostrar _Pontos de Conexão"
 
-#: ../app/menus.c:171
+#: ../app/menus.c:172
 msgid "/View/New _View"
 msgstr "/Ver/Nova _Vista"
 
 #. Show All, Best Fit.  Same as the Gimp, Ctrl+E
-#: ../app/menus.c:173
+#: ../app/menus.c:174
 msgid "/View/Show _All"
 msgstr "/Ver/_Mostrar Tudo"
 
-#: ../app/menus.c:175
+#: ../app/menus.c:176
 msgid "/View/Re_draw"
 msgstr "/Ver/Re_desenhar"
 
-#: ../app/menus.c:177
+#: ../app/menus.c:178
 msgid "/_Objects"
 msgstr "/_Objetos"
 
-#: ../app/menus.c:179
+#: ../app/menus.c:180
 msgid "/Objects/Send to _Back"
 msgstr "/Objetos/Enviar para _Trás"
 
-#: ../app/menus.c:181
+#: ../app/menus.c:182
 msgid "/Objects/Bring to _Front"
 msgstr "/Objetos/Enviar para _Frente"
 
-#: ../app/menus.c:183
+#: ../app/menus.c:184
 msgid "/Objects/Send Backwards"
 msgstr "/Objetos/Recuar o Objeto"
 
-#: ../app/menus.c:185
+#: ../app/menus.c:186
 msgid "/Objects/Bring Forwards"
 msgstr "/Objetos/Avançar o Objeto"
 
-#: ../app/menus.c:187 ../app/menus.c:191 ../app/menus.c:195 ../app/menus.c:213
+#: ../app/menus.c:188 ../app/menus.c:194 ../app/menus.c:198 ../app/menus.c:216
 msgid "/Objects/---"
 msgstr "/Objetos/---"
 
-#: ../app/menus.c:188
+#: ../app/menus.c:189
 msgid "/Objects/_Group"
 msgstr "/Objetos/_Agrupar"
 
 #. deliberately not using Ctrl+U for Ungroup
-#: ../app/menus.c:190
+#: ../app/menus.c:192
 msgid "/Objects/_Ungroup"
 msgstr "/Objetos/_Desagrupar"
 
-#: ../app/menus.c:192
+#: ../app/menus.c:195
 msgid "/Objects/_Parent"
 msgstr "/Objetos/_Pai"
 
-#: ../app/menus.c:193
+#: ../app/menus.c:196
 msgid "/Objects/_Unparent"
 msgstr "/Objetos/_Remover do Pai"
 
-#: ../app/menus.c:194
+#: ../app/menus.c:197
 msgid "/Objects/_Unparent Children"
 msgstr "/Objetos/Remo_ver Filho do Pai"
 
-#: ../app/menus.c:196
+#: ../app/menus.c:199
 msgid "/Objects/Align"
 msgstr "/Objetos/Alinhar"
 
-#: ../app/menus.c:198
+#: ../app/menus.c:201
 msgid "/Objects/Align/Left"
 msgstr "/Objetos/Alinhar/Esquerda"
 
-#: ../app/menus.c:200
+#: ../app/menus.c:203
 msgid "/Objects/Align/Center"
 msgstr "/Objetos/Alinhar/Centrar"
 
-#: ../app/menus.c:202
+#: ../app/menus.c:205
 msgid "/Objects/Align/Right"
 msgstr "/Objetos/Alinhar/Direita"
 
-#: ../app/menus.c:204 ../app/menus.c:208
+#: ../app/menus.c:207 ../app/menus.c:211
 msgid "/Objects/Align/---"
 msgstr "/Objetos/Alinhar/---"
 
-#: ../app/menus.c:205
+#: ../app/menus.c:208
 msgid "/Objects/Align/Top"
 msgstr "/Objetos/Alinhar/Superior"
 
-#: ../app/menus.c:206
+#: ../app/menus.c:209
 msgid "/Objects/Align/Middle"
 msgstr "/Objetos/Alinhar/Centro"
 
-#: ../app/menus.c:207
+#: ../app/menus.c:210
 msgid "/Objects/Align/Bottom"
 msgstr "/Objetos/Alinhar/Inferior"
 
-#: ../app/menus.c:209
+#: ../app/menus.c:212
 msgid "/Objects/Align/Spread Out Horizontally"
 msgstr "/Objetos/Alinhar/Distribuir Horizontalmente"
 
-#: ../app/menus.c:210
+#: ../app/menus.c:213
 msgid "/Objects/Align/Spread Out Vertically"
 msgstr "/Objetos/Alinhar/Distribuir Verticalmente"
 
-#: ../app/menus.c:211
+#: ../app/menus.c:214
 msgid "/Objects/Align/Adjacent"
 msgstr "/Objetos/Alinhar/Adjacente"
 
-#: ../app/menus.c:212
+#: ../app/menus.c:215
 msgid "/Objects/Align/Stacked"
 msgstr "/Objetos/Alinhar/Empilhar"
 
-#: ../app/menus.c:214
+#: ../app/menus.c:217
 msgid "/Objects/_Properties..."
 msgstr "/Objetos/Propri_edades..."
 
-#: ../app/menus.c:216
+#: ../app/menus.c:219
 msgid "/_Select"
 msgstr "/_Selecionar"
 
-#: ../app/menus.c:218
+#: ../app/menus.c:221
 msgid "/Select/All"
 msgstr "/Selecionar/Tudo"
 
-#: ../app/menus.c:219
+#: ../app/menus.c:222
 msgid "/Select/None"
 msgstr "/Selecionar/Nada"
 
-#: ../app/menus.c:220
+#: ../app/menus.c:223
 msgid "/Select/Invert"
 msgstr "/Selecionar/Inverter"
 
-#: ../app/menus.c:221 ../app/menus.c:225
+#: ../app/menus.c:224 ../app/menus.c:228
 msgid "/Select/---"
 msgstr "/Selecionar/---"
 
-#: ../app/menus.c:222
+#: ../app/menus.c:225
 msgid "/Select/Transitive"
 msgstr "/Selecionar/Transitivo"
 
-#: ../app/menus.c:223
+#: ../app/menus.c:226
 msgid "/Select/Connected"
 msgstr "/Selecionar/Conectados"
 
-#: ../app/menus.c:224
+#: ../app/menus.c:227
 msgid "/Select/Same Type"
 msgstr "/Selecionar/Mesmo Tipo"
 
-#: ../app/menus.c:226
+#: ../app/menus.c:229
 msgid "/Select/Replace"
 msgstr "/Selecionar/Substituir"
 
-#: ../app/menus.c:228
+#: ../app/menus.c:231
 msgid "/Select/Union"
 msgstr "/Selecionar/União"
 
-#: ../app/menus.c:230
+#: ../app/menus.c:233
 msgid "/Select/Intersection"
 msgstr "/Selecionar/Intersecção "
 
-#: ../app/menus.c:232
+#: ../app/menus.c:235
 msgid "/Select/Remove"
 msgstr "/Selecionar/Remover"
 
 #. Cannot also be called Invert, duplicate names caused keybinding problems
-#: ../app/menus.c:235
+#: ../app/menus.c:238
 msgid "/Select/Inverse"
 msgstr "/Selecionar/Inverso"
 
-#: ../app/menus.c:237
+#: ../app/menus.c:240
 msgid "/_Tools"
 msgstr "/_Ferramentas"
 
-#: ../app/menus.c:239
+#: ../app/menus.c:242
 msgid "/Tools/Modify"
 msgstr "/Ferramentas/Modificar"
 
-#: ../app/menus.c:240
+#: ../app/menus.c:243
 msgid "/Tools/Magnify"
 msgstr "/Ferramentas/Aproximar"
 
-#: ../app/menus.c:241
+#: ../app/menus.c:244
 msgid "/Tools/Scroll"
 msgstr "/Ferramentas/Rolar"
 
-#: ../app/menus.c:242
+#: ../app/menus.c:245
 msgid "/Tools/Text"
 msgstr "/Ferramentas/Texto"
 
-#: ../app/menus.c:243
+#: ../app/menus.c:246
 msgid "/Tools/Box"
 msgstr "/Ferramentas/Caixa"
 
-#: ../app/menus.c:244
+#: ../app/menus.c:247
 msgid "/Tools/Ellipse"
 msgstr "/Ferramentas/Elipse"
 
-#: ../app/menus.c:245
+#: ../app/menus.c:248
 msgid "/Tools/Polygon"
 msgstr "/Ferramentas/Polígono"
 
-#: ../app/menus.c:246
+#: ../app/menus.c:249
 msgid "/Tools/Beziergon"
 msgstr "/Ferramentas/Curva de Bézier Fechada"
 
-#: ../app/menus.c:247 ../app/menus.c:253
+#: ../app/menus.c:250 ../app/menus.c:256
 msgid "/Tools/---"
 msgstr "/Ferramentas/---"
 
-#: ../app/menus.c:248
+#: ../app/menus.c:251
 msgid "/Tools/Line"
 msgstr "/Ferramentas/Linha"
 
-#: ../app/menus.c:249
+#: ../app/menus.c:252
 msgid "/Tools/Arc"
 msgstr "/Ferramentas/Arco"
 
-#: ../app/menus.c:250
+#: ../app/menus.c:253
 msgid "/Tools/Zigzagline"
 msgstr "/Ferramentas/Linha em Zigue-Zague"
 
-#: ../app/menus.c:251
+#: ../app/menus.c:254
 msgid "/Tools/Polyline"
 msgstr "/Ferramentas/Polilinha"
 
-#: ../app/menus.c:252
+#: ../app/menus.c:255
 msgid "/Tools/Bezierline"
 msgstr "/Ferramentas/Curva de Bézier"
 
-#: ../app/menus.c:254
+#: ../app/menus.c:257
 msgid "/Tools/Image"
 msgstr "/Ferramentas/Imagem"
 
-#: ../app/menus.c:255
+#: ../app/menus.c:258
 msgid "/_Input Methods"
 msgstr "/_Métodos de Entrada"
 
-#: ../app/menus.c:427
+#: ../app/menus.c:430
 msgid "NULL tooldata in tool_menu_select"
 msgstr "Não há dados de ferramenta em tool_menu_select"
 
-#: ../app/menus.c:525
+#: ../app/menus.c:528
 msgid "Diagram Menu"
 msgstr "Menu do Diagrama"
 
-#: ../app/menus.c:660
+#: ../app/menus.c:663
 #, c-format
 msgid ""
 "Can't find menu entry '%s'!\n"
@@ -1614,38 +1614,38 @@ msgstr ""
 msgid "Couldn't get GTK settings"
 msgstr "Impossível obter definições GTK"
 
-#: ../app/paginate_psprint.c:243
+#: ../app/paginate_psprint.c:257
 msgid "Select Printer"
 msgstr "Selecionar Impressora"
 
-#: ../app/paginate_psprint.c:255 ../sheets/ciscocomputer.sheet.in.h:25
+#: ../app/paginate_psprint.c:269 ../sheets/ciscocomputer.sheet.in.h:36
 msgid "Printer"
 msgstr "Impressora"
 
-#: ../app/paginate_psprint.c:269 ../sheets/Misc.sheet.in.h:1
+#: ../app/paginate_psprint.c:283 ../sheets/Misc.sheet.in.h:1
 msgid "File"
 msgstr "Arquivo"
 
-#: ../app/paginate_psprint.c:284
+#: ../app/paginate_psprint.c:298
 msgid "OK"
 msgstr "OK"
 
-#: ../app/paginate_psprint.c:379
+#: ../app/paginate_psprint.c:393
 #, c-format
 msgid "Could not run command '%s': %s"
 msgstr "Impossível executar o comando '%s': %s"
 
-#: ../app/paginate_psprint.c:382
+#: ../app/paginate_psprint.c:396
 #, c-format
 msgid "Could not open '%s' for writing: %s"
 msgstr "Impossível abrir '%s' para escrita: %s"
 
-#: ../app/paginate_psprint.c:399
+#: ../app/paginate_psprint.c:413
 #, c-format
 msgid "Printing error: command '%s' returned %d\n"
 msgstr "Erro de impressão: o comando '%s' retornou %d\n"
 
-#: ../app/paginate_psprint.c:410
+#: ../app/paginate_psprint.c:424
 #, c-format
 msgid "Printing error: command '%s' caused sigpipe."
 msgstr "Erro de impressão: o comando '%s' causou um sigpipe."
@@ -1658,7 +1658,7 @@ msgstr "Plug-ins"
 msgid "Loaded"
 msgstr "Carregado"
 
-#: ../app/plugin-manager.c:262 ../objects/UML/class.c:111
+#: ../app/plugin-manager.c:262 ../objects/UML/class.c:116
 #: ../objects/UML/large_package.c:130
 msgid "Name"
 msgstr "Nome"
@@ -2269,7 +2269,7 @@ msgid "Internal error: Setting corner type of endpoint of bezier"
 msgstr ""
 "Erro interno ao configurar tipo de canto do ponto final da curva de bézier"
 
-#: ../lib/dia_xml.c:154
+#: ../lib/dia_xml.c:153
 #, c-format
 msgid ""
 "The file %s has no encoding specification;\n"
@@ -2278,26 +2278,26 @@ msgstr ""
 "O arquivo %s não possui informação de codificação;\n"
 "supondo que está codificado em %s"
 
-#: ../lib/dia_xml.c:471
+#: ../lib/dia_xml.c:470
 msgid "Taking point value of non-point node."
 msgstr "Tomando o valor do ponto de um nó que não é um ponto."
 
-#: ../lib/dia_xml.c:482
+#: ../lib/dia_xml.c:481
 #, c-format
 msgid "Incorrect x Point value \"%s\" %f; discarding it."
 msgstr "Valor x do ponto \"%s\" %f incorreto; descartando-o."
 
-#: ../lib/dia_xml.c:489
+#: ../lib/dia_xml.c:488
 msgid "Error parsing point."
 msgstr "Erro analisando o ponto."
 
 #. don't bother with useless warnings (see above)
-#: ../lib/dia_xml.c:497
+#: ../lib/dia_xml.c:496
 #, c-format
 msgid "Incorrect y Point value \"%s\" %f; discarding it."
 msgstr "Valor y do ponto \"%s\" %f incorreto; descartando-o."
 
-#: ../lib/dia_xml.c:865
+#: ../lib/dia_xml.c:871
 msgid ""
 "Your local character set is UTF-8. Because of issues with libxml1 and the "
 "support of files generated by previous versions of dia, you will encounter  "
@@ -2457,15 +2457,15 @@ msgstr ""
 msgid "Group with %d objects"
 msgstr "Grupo com %d objetos"
 
-#: ../lib/properties.c:62 ../lib/properties.h:468 ../lib/widgets.c:608
+#: ../lib/properties.c:62 ../lib/properties.h:469 ../lib/widgets.c:638
 msgid "Left"
 msgstr "Esquerda"
 
-#: ../lib/properties.c:63 ../lib/properties.h:469 ../lib/widgets.c:614
+#: ../lib/properties.c:63 ../lib/properties.h:470 ../lib/widgets.c:644
 msgid "Center"
 msgstr "Centralizar"
 
-#: ../lib/properties.c:64 ../lib/properties.h:470 ../lib/widgets.c:620
+#: ../lib/properties.c:64 ../lib/properties.h:471 ../lib/widgets.c:650
 msgid "Right"
 msgstr "Direita"
 
@@ -2474,7 +2474,7 @@ msgstr "Direita"
 msgid "Line color"
 msgstr "Cor da linha"
 
-#: ../lib/properties.c:72 ../lib/properties.h:492 ../lib/properties.h:495
+#: ../lib/properties.c:72 ../lib/properties.h:493 ../lib/properties.h:496
 msgid "Line style"
 msgstr "Estilo de linha"
 
@@ -2482,32 +2482,32 @@ msgstr "Estilo de linha"
 msgid "Fill color"
 msgstr "Cor de preenchimento"
 
-#: ../lib/properties.c:74 ../lib/properties.h:505
+#: ../lib/properties.c:74 ../lib/properties.h:506
 msgid "Draw background"
 msgstr "Transparente"
 
-#: ../lib/properties.c:75 ../lib/properties.h:509
+#: ../lib/properties.c:75 ../lib/properties.h:510
 msgid "Start arrow"
 msgstr "Seta inicial"
 
-#: ../lib/properties.c:76 ../lib/properties.h:512
+#: ../lib/properties.c:76 ../lib/properties.h:513
 msgid "End arrow"
 msgstr "Seta final"
 
-#: ../lib/properties.c:78 ../lib/properties.h:522
+#: ../lib/properties.c:78 ../lib/properties.h:523
 msgid "Text alignment"
 msgstr "Alinhamento do texto"
 
 #. all this just to make the defaults selectable ...
-#: ../lib/properties.c:79 ../lib/properties.h:527
+#: ../lib/properties.c:79 ../lib/properties.h:528
 #: ../objects/GRAFCET/condition.c:132 ../objects/GRAFCET/step.c:165
-#: ../objects/GRAFCET/transition.c:142 ../objects/UML/class.c:137
+#: ../objects/GRAFCET/transition.c:142 ../objects/UML/class.c:142
 #: ../objects/UML/class_dialog.c:351 ../objects/chronogram/chronoline.c:183
 #: ../objects/chronogram/chronoref.c:164
 msgid "Font"
 msgstr "Fonte"
 
-#: ../lib/properties.c:80 ../lib/properties.h:533
+#: ../lib/properties.c:80 ../lib/properties.h:534
 #: ../objects/GRAFCET/condition.c:134 ../objects/GRAFCET/step.c:167
 #: ../objects/GRAFCET/transition.c:144 ../objects/chronogram/chronoline.c:185
 #: ../objects/chronogram/chronoref.c:166
@@ -2520,15 +2520,15 @@ msgstr "Tamanho da fonte"
 msgid "Text color"
 msgstr "Cor do texto"
 
-#: ../lib/properties.h:486 ../lib/properties.h:489
+#: ../lib/properties.h:487 ../lib/properties.h:490
 msgid "Line colour"
 msgstr "Cor da linha"
 
-#: ../lib/properties.h:499 ../lib/properties.h:502
+#: ../lib/properties.h:500 ../lib/properties.h:503
 msgid "Fill colour"
 msgstr "Cor de preenchimento"
 
-#: ../lib/properties.h:539
+#: ../lib/properties.h:540
 msgid "Text colour"
 msgstr "Cor do texto"
 
@@ -2537,66 +2537,66 @@ msgstr "Cor do texto"
 msgid "No attribute '%s' (%p) or no data(%p) in this attribute"
 msgstr "Nenhum atributo '%s' (%p) ou nenhum dado(%p) neste atributo"
 
-#: ../lib/widgets.c:347
+#: ../lib/widgets.c:375
 msgid "Other fonts"
 msgstr "Outras fontes"
 
-#: ../lib/widgets.c:417
+#: ../lib/widgets.c:445
 #, c-format
 msgid "Couldn't find font family for %s\n"
 msgstr "Impossível encontrar a família da fonte para %s\n"
 
 #. Translators: Menu item Noun/Material/Solid
-#: ../lib/widgets.c:756 ../objects/FS/function.c:1074
+#: ../lib/widgets.c:786 ../objects/FS/function.c:1074
 msgid "Solid"
 msgstr "Sólido"
 
-#: ../lib/widgets.c:762
+#: ../lib/widgets.c:792
 msgid "Dashed"
 msgstr "Tracejado"
 
-#: ../lib/widgets.c:768
+#: ../lib/widgets.c:798
 msgid "Dash-Dot"
 msgstr "Traço-Ponto"
 
-#: ../lib/widgets.c:774
+#: ../lib/widgets.c:804
 msgid "Dash-Dot-Dot"
 msgstr "Traço-Ponto-Ponto"
 
-#: ../lib/widgets.c:780
+#: ../lib/widgets.c:810
 msgid "Dotted"
 msgstr "Pontilhado"
 
 #. fs->sizebox = GTK_HBOX(box);
-#: ../lib/widgets.c:799
+#: ../lib/widgets.c:829
 msgid "Dash length: "
 msgstr "Tamanho do traço: "
 
-#: ../lib/widgets.c:927
+#: ../lib/widgets.c:959
 msgid "Select color"
 msgstr "Selecionar cor"
 
-#: ../lib/widgets.c:993
+#: ../lib/widgets.c:1025
 msgid "More colors..."
 msgstr "Mais cores..."
 
-#: ../lib/widgets.c:1118
+#: ../lib/widgets.c:1150
 msgid "More arrows"
 msgstr "Mais setas"
 
-#: ../lib/widgets.c:1131
+#: ../lib/widgets.c:1163
 msgid "Size: "
 msgstr "Tamanho: "
 
-#: ../lib/widgets.c:1276
+#: ../lib/widgets.c:1308
 msgid "Select image file"
 msgstr "Selecione o arquivo de imagem"
 
-#: ../lib/widgets.c:1312
+#: ../lib/widgets.c:1344
 msgid "Browse"
 msgstr "Navegar"
 
-#: ../lib/widgets.c:1908
+#: ../lib/widgets.c:1940
 msgid "Reset menu"
 msgstr "Redefine o menu"
 
@@ -2628,7 +2628,7 @@ msgstr "Fraca:"
 msgid "Associative:"
 msgstr "Associativo:"
 
-#: ../objects/ER/entity.c:413 ../objects/UML/classicon.c:128
+#: ../objects/ER/entity.c:413 ../objects/UML/classicon.c:129
 #: ../sheets/ER.sheet.in.h:4
 msgid "Entity"
 msgstr "Entidade"
@@ -2945,7 +2945,7 @@ msgid "Mount"
 msgstr "Montar"
 
 #. Translators: Menu item Verb/Support/Secure/Lock
-#: ../objects/FS/function.c:794 ../sheets/ciscomisc.sheet.in.h:21
+#: ../objects/FS/function.c:794 ../sheets/ciscomisc.sheet.in.h:19
 msgid "Lock"
 msgstr "Trava"
 
@@ -3278,7 +3278,7 @@ msgstr "Regular"
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Control
 #. Translators: Menu item Noun/Signal/Control
 #: ../objects/FS/function.c:960 ../objects/FS/function.c:1178
-#: ../objects/UML/classicon.c:126
+#: ../objects/UML/classicon.c:127
 msgid "Control"
 msgstr "Controlar"
 
@@ -3908,7 +3908,7 @@ msgid "Miscellaneous objects"
 msgstr "Miscelânea de objetos"
 
 #. property rows
-#: ../objects/SADT/arrow.c:134 ../objects/UML/class.c:142
+#: ../objects/SADT/arrow.c:134 ../objects/UML/class.c:147
 #: ../objects/UML/class_dialog.c:357
 msgid "Normal"
 msgstr "Normal"
@@ -4050,87 +4050,91 @@ msgstr "Agregação"
 msgid "Composition"
 msgstr "Composição"
 
-#: ../objects/UML/class.c:109 ../objects/UML/class.c:247
-#: ../objects/UML/class.c:1169 ../sheets/UML.sheet.in.h:6
+#: ../objects/UML/class.c:114 ../objects/UML/class.c:279
+#: ../objects/UML/class.c:1207 ../sheets/UML.sheet.in.h:6
 msgid "Class"
 msgstr "Classe"
 
-#: ../objects/UML/class.c:113 ../objects/UML/classicon.c:137
+#: ../objects/UML/class.c:118 ../objects/UML/classicon.c:138
 #: ../objects/UML/component.c:124 ../objects/UML/large_package.c:128
 #: ../objects/UML/object.c:149 ../objects/UML/small_package.c:124
 msgid "Stereotype"
 msgstr "Estereótipo"
 
-#: ../objects/UML/class.c:115 ../objects/UML/class.c:152
+#: ../objects/UML/class.c:120 ../objects/UML/class.c:157
 #: ../objects/UML/class_dialog.c:382 ../sheets/SDL.sheet.in.h:3
 msgid "Comment"
 msgstr "Comentário"
 
-#: ../objects/UML/class.c:117 ../objects/UML/class.c:146
+#: ../objects/UML/class.c:122 ../objects/UML/class.c:151
 #: ../objects/UML/class_dialog.c:296 ../objects/UML/class_dialog.c:367
 #: ../objects/UML/class_dialog.c:1940
 msgid "Abstract"
 msgstr "Abstrata"
 
-#: ../objects/UML/class.c:119
+#: ../objects/UML/class.c:124
 msgid "Template"
 msgstr "Modelo"
 
-#: ../objects/UML/class.c:122 ../objects/UML/class_dialog.c:305
+#: ../objects/UML/class.c:127 ../objects/UML/class_dialog.c:305
 msgid "Suppress Attributes"
 msgstr "Suprimir Atributos"
 
-#: ../objects/UML/class.c:124
+#: ../objects/UML/class.c:129
 msgid "Suppress Operations"
 msgstr "Suprimir Operações"
 
-#: ../objects/UML/class.c:126
+#: ../objects/UML/class.c:131
 msgid "Visible Attributes"
 msgstr "Atributos Visíveis"
 
-#: ../objects/UML/class.c:128
+#: ../objects/UML/class.c:133
 msgid "Visible Operations"
 msgstr "Operações Visíveis"
 
-#: ../objects/UML/class.c:130
+#: ../objects/UML/class.c:135
 msgid "Visible Comments"
 msgstr "Comentários Visíveis"
 
-#: ../objects/UML/class.c:132 ../objects/UML/class_dialog.c:321
+#: ../objects/UML/class.c:137 ../objects/UML/class_dialog.c:321
 msgid "Wrap Operations"
 msgstr "Operações de Quebra de Linha"
 
-#: ../objects/UML/class.c:134
+#: ../objects/UML/class.c:139
 msgid "Wrap after char"
 msgstr "Quebra de linha após o caractere"
 
-#: ../objects/UML/class.c:144 ../objects/UML/class_dialog.c:362
+#: ../objects/UML/class.c:149 ../objects/UML/class_dialog.c:362
 msgid "Polymorphic"
 msgstr "Polimórfica"
 
-#: ../objects/UML/class.c:148
+#: ../objects/UML/class.c:153
 msgid "Classname"
 msgstr "Classname"
 
-#: ../objects/UML/class.c:150
+#: ../objects/UML/class.c:155
 msgid "Abstract Classname"
 msgstr "Classname Abstrata"
 
-#: ../objects/UML/class.c:156 ../objects/UML/class.c:158
-#: ../objects/UML/class.c:160 ../objects/UML/class.c:162
-#: ../objects/UML/class.c:164 ../objects/UML/class.c:166
+#: ../objects/UML/class.c:161 ../objects/UML/class.c:163
+#: ../objects/UML/class.c:165 ../objects/UML/class.c:167
+#: ../objects/UML/class.c:169 ../objects/UML/class.c:171
 msgid " "
 msgstr " "
 
-#: ../objects/UML/class.c:171 ../objects/UML/object.c:153
+#: ../objects/UML/class.c:176 ../objects/UML/object.c:153
 msgid "Attributes"
 msgstr "Atributos"
 
-#: ../objects/UML/class.c:173
+#: ../objects/UML/class.c:178
 msgid "Operations"
 msgstr "Operações"
 
-#: ../objects/UML/class.c:241
+#: ../objects/UML/class.c:181
+msgid "Template Parameters"
+msgstr "Parâmetros do Modelo"
+
+#: ../objects/UML/class.c:273
 msgid "Show Comments"
 msgstr "Mostrar Comentários"
 
@@ -4309,11 +4313,11 @@ msgstr "Classe modelo"
 msgid "Formal parameter data"
 msgstr "Parâmetros"
 
-#: ../objects/UML/classicon.c:127
+#: ../objects/UML/classicon.c:128
 msgid "Boundary"
 msgstr "Limite"
 
-#: ../objects/UML/classicon.c:139
+#: ../objects/UML/classicon.c:140
 msgid "Is object"
 msgstr "É um objeto"
 
@@ -4449,7 +4453,7 @@ msgstr "Ação"
 msgid "Action to perform when this transition is taken"
 msgstr "Ação a ser realizada quando esta transição se inicia"
 
-#: ../objects/UML/transition.c:133
+#: ../objects/UML/transition.c:133 ../sheets/cisconetwork.sheet.in.h:43
 msgid "Guard"
 msgstr "Guarda"
 
@@ -4891,7 +4895,7 @@ msgstr "Quadrado"
 
 #: ../objects/standard/box.c:152 ../objects/standard/ellipse.c:144
 msgid "Aspect ratio"
-msgstr "Taxa de proporção"
+msgstr "Proporção"
 
 #: ../objects/standard/box.c:690 ../objects/standard/ellipse.c:668
 msgid "Free aspect"
@@ -4915,7 +4919,7 @@ msgstr "Desenhar borda"
 
 #: ../objects/standard/image.c:134
 msgid "Keep aspect ratio"
-msgstr "Manter a mesma taxa de proporção"
+msgstr "Manter a mesma proporção"
 
 #. Found file in same dir as diagram.
 #. Found file in current dir.
@@ -4958,35 +4962,35 @@ msgstr "Apagar Canto"
 msgid "Standard objects"
 msgstr "Objetos padrão"
 
-#: ../plug-ins/cairo/diacairo.c:1031
+#: ../plug-ins/cairo/diacairo.c:1078
 msgid "Cairo PostScript"
 msgstr "PostScript Cairo"
 
-#: ../plug-ins/cairo/diacairo.c:1040
+#: ../plug-ins/cairo/diacairo.c:1087
 msgid "Cairo Portable Document Format"
 msgstr "Cairo Portable Document Format"
 
-#: ../plug-ins/cairo/diacairo.c:1049
+#: ../plug-ins/cairo/diacairo.c:1096
 msgid "Cairo PNG"
 msgstr "PNG Cairo"
 
-#: ../plug-ins/cairo/diacairo.c:1057
+#: ../plug-ins/cairo/diacairo.c:1104
 msgid "Cairo PNG (with alpha)"
 msgstr "Cairo PNG (com alpha)"
 
-#: ../plug-ins/cairo/diacairo.c:1066
+#: ../plug-ins/cairo/diacairo.c:1113
 msgid "Cairo WMF"
 msgstr "Cairo WMF"
 
-#: ../plug-ins/cairo/diacairo.c:1075
+#: ../plug-ins/cairo/diacairo.c:1122
 msgid "Cairo old WMF"
 msgstr "Cairo WMF antigo"
 
-#: ../plug-ins/cairo/diacairo.c:1084
+#: ../plug-ins/cairo/diacairo.c:1131
 msgid "Cairo Clipboard"
 msgstr "Cairo Bloco de Notas"
 
-#: ../plug-ins/cairo/diacairo.c:1127
+#: ../plug-ins/cairo/diacairo.c:1174
 msgid "Cairo based Rendering"
 msgstr "Renderização baseada no Cairo"
 
@@ -5072,7 +5076,7 @@ msgstr "Filtro de exportação para Linguagem Gráfica HP"
 msgid "TeX Metapost export filter"
 msgstr "Filtro de exportação para TeX Metapost"
 
-#: ../plug-ins/metapost/render_metapost.c:1033
+#: ../plug-ins/metapost/render_metapost.c:1175
 msgid "TeX Metapost macros"
 msgstr "Macros TeX Metapost"
 
@@ -5095,11 +5099,11 @@ msgstr "Importação/exportação de imagens baseadas no gdk-pixbuf"
 msgid "TeX Pstricks export filter"
 msgstr "Filtro de exportação para TeX Pstricks"
 
-#: ../plug-ins/pstricks/render_pstricks.c:730
+#: ../plug-ins/pstricks/render_pstricks.c:731
 msgid "Not valid UTF8"
 msgstr "Codificação UTF8 inválida"
 
-#: ../plug-ins/pstricks/render_pstricks.c:979
+#: ../plug-ins/pstricks/render_pstricks.c:980
 msgid "TeX PSTricks macros"
 msgstr "Macros TeX PSTricks"
 
@@ -5112,11 +5116,11 @@ msgstr "Impossível abrir '%s' para escrita.\n"
 msgid "Python scripting support"
 msgstr "Suporte aos scripts Python"
 
-#: ../plug-ins/shape/shape-export.c:470
+#: ../plug-ins/shape/shape-export.c:476
 msgid "Can't export png without libart!"
 msgstr "Impossível exportar para PNG sem libart!"
 
-#: ../plug-ins/shape/shape-export.c:497
+#: ../plug-ins/shape/shape-export.c:501
 msgid "Dia Shape File"
 msgstr "Arquivo de Formas do Dia"
 
@@ -5124,7 +5128,7 @@ msgstr "Arquivo de Formas do Dia"
 msgid "dia shape export filter"
 msgstr "filtro de exportação para formas do Dia"
 
-#: ../plug-ins/svg/render_svg.c:301 ../plug-ins/svg/svg-import.c:669
+#: ../plug-ins/svg/render_svg.c:291 ../plug-ins/svg/svg-import.c:669
 msgid "Scalable Vector Graphics"
 msgstr "Scalable Vector Graphics"
 
@@ -5799,7 +5803,7 @@ msgstr "Resfriador de Água"
 
 #: ../sheets/ChemEng.sheet.in.h:54
 msgid "Water Cooler, vertical"
-msgstr "Reafriador de Água, vertical"
+msgstr "Resfriador de Água, vertical"
 
 #: ../sheets/Circuit.sheet.in.h:1
 msgid "Circuit"
@@ -5861,7 +5865,7 @@ msgstr "Diodo zener alinhado horizontalmente"
 msgid "Lamp"
 msgstr "Lâmpada"
 
-#: ../sheets/Circuit.sheet.in.h:16 ../sheets/ciscomisc.sheet.in.h:26
+#: ../sheets/Circuit.sheet.in.h:16 ../sheets/ciscomisc.sheet.in.h:30
 msgid "Microphone"
 msgstr "Microfone"
 
@@ -5889,7 +5893,7 @@ msgstr "Transistor PMOS"
 msgid "PNP bipolar transistor"
 msgstr "Transistor bipolar PNP"
 
-#: ../sheets/Circuit.sheet.in.h:26 ../sheets/ciscomisc.sheet.in.h:39
+#: ../sheets/Circuit.sheet.in.h:26 ../sheets/ciscomisc.sheet.in.h:42
 msgid "Speaker"
 msgstr "Autofalante"
 
@@ -7048,484 +7052,684 @@ msgid "Time scale"
 msgstr "Escala de tempo"
 
 #: ../sheets/ciscocomputer.sheet.in.h:1
-msgid "Cisco - Computer"
-msgstr "Computador - Cisco"
+msgid "BBS"
+msgstr "BBS"
 
 #: ../sheets/ciscocomputer.sheet.in.h:2
+msgid "Cisco - Computer"
+msgstr "Cisco - Computador"
+
+#: ../sheets/ciscocomputer.sheet.in.h:3
 msgid "Cisco CA"
 msgstr "Cisco CA"
 
-#: ../sheets/ciscocomputer.sheet.in.h:3
+#: ../sheets/ciscocomputer.sheet.in.h:4
 msgid "CiscoSecurity"
 msgstr "Segurança Cisco"
 
-#: ../sheets/ciscocomputer.sheet.in.h:4
+#: ../sheets/ciscocomputer.sheet.in.h:5
 msgid "CiscoWorks workstation"
 msgstr "Estação de trabalho CiscoWorks"
-
-#: ../sheets/ciscocomputer.sheet.in.h:5
-msgid "Communications server"
-msgstr "Servidor de comunicação"
 
 #: ../sheets/ciscocomputer.sheet.in.h:6
 msgid "Computer shapes by Cisco"
 msgstr "Figuras de computadores da Cisco"
 
 #: ../sheets/ciscocomputer.sheet.in.h:7
-msgid "Directory Server"
-msgstr "Servidor de Diretório"
+msgid "Disk subsystem"
+msgstr "Subsistema de disco"
 
 #: ../sheets/ciscocomputer.sheet.in.h:8
+msgid "Diskette"
+msgstr "Disquete"
+
+#: ../sheets/ciscocomputer.sheet.in.h:9
+msgid "EtherClient"
+msgstr "EtherClient"
+
+#: ../sheets/ciscocomputer.sheet.in.h:10
+msgid "FC Storage"
+msgstr "Armazenagem FC"
+
+#: ../sheets/ciscocomputer.sheet.in.h:11
 msgid "File Server"
 msgstr "Servidor de Arquivos"
 
-#: ../sheets/ciscocomputer.sheet.in.h:9
+#: ../sheets/ciscocomputer.sheet.in.h:12
+msgid "Front End Processor"
+msgstr "Processador Front End"
+
+#: ../sheets/ciscocomputer.sheet.in.h:13
 msgid "HP Mini"
 msgstr "Mini HP"
 
-#: ../sheets/ciscocomputer.sheet.in.h:10
+#: ../sheets/ciscocomputer.sheet.in.h:14
 msgid "Handheld"
 msgstr "Handheld"
 
-#: ../sheets/ciscocomputer.sheet.in.h:11
+#: ../sheets/ciscocomputer.sheet.in.h:15
 msgid "Host"
 msgstr "Máquina"
 
-#: ../sheets/ciscocomputer.sheet.in.h:12
+#: ../sheets/ciscocomputer.sheet.in.h:16
 msgid "IBM Mini (AS400)"
 msgstr "Mini IBM (AS400)"
 
-#: ../sheets/ciscocomputer.sheet.in.h:13
+#: ../sheets/ciscocomputer.sheet.in.h:17
 msgid "IBM Tower"
 msgstr "Torre IBM"
 
-#: ../sheets/ciscocomputer.sheet.in.h:14
+#: ../sheets/ciscocomputer.sheet.in.h:18
 msgid "IBM mainframe"
 msgstr "Mainframe IBM"
 
-#: ../sheets/ciscocomputer.sheet.in.h:15
-msgid "IP Softphone"
-msgstr "IP Softphone"
+#: ../sheets/ciscocomputer.sheet.in.h:19
+msgid "IBM mainframe with FEP"
+msgstr "Mainframe IBM com FEP"
 
-#: ../sheets/ciscocomputer.sheet.in.h:16
-msgid "IPTV broadcast server"
-msgstr "Servidor de broadcast IPTV"
+#: ../sheets/ciscocomputer.sheet.in.h:20
+msgid "JBOD"
+msgstr "JBOD"
 
-#: ../sheets/ciscocomputer.sheet.in.h:17
+#: ../sheets/ciscocomputer.sheet.in.h:21
 msgid "Laptop"
-msgstr "PC Portátil"
+msgstr "Laptop"
 
-#: ../sheets/ciscocomputer.sheet.in.h:18
+#: ../sheets/ciscocomputer.sheet.in.h:22
 msgid "Macintosh"
 msgstr "Macintosh"
 
-#: ../sheets/ciscocomputer.sheet.in.h:19
+#: ../sheets/ciscocomputer.sheet.in.h:23
 msgid "MicroWebserver"
 msgstr "Microservidor Web"
 
-#: ../sheets/ciscocomputer.sheet.in.h:20
+#: ../sheets/ciscocomputer.sheet.in.h:24
 msgid "Mini VAX"
 msgstr "Mini VAX"
 
-#: ../sheets/ciscocomputer.sheet.in.h:21
-msgid "MoH server (Music on Hold)"
-msgstr "Servidor MoH (Música e Espera)"
+#: ../sheets/ciscocomputer.sheet.in.h:25
+msgid "Modem"
+msgstr "Modem"
 
-#: ../sheets/ciscocomputer.sheet.in.h:22
+#: ../sheets/ciscocomputer.sheet.in.h:26 ../sheets/network.sheet.in.h:19
+msgid "Monitor"
+msgstr "Monitor"
+
+#: ../sheets/ciscocomputer.sheet.in.h:27
+msgid "Newton"
+msgstr "Newton"
+
+#: ../sheets/ciscocomputer.sheet.in.h:28
 msgid "PC"
 msgstr "PC"
 
-#: ../sheets/ciscocomputer.sheet.in.h:23
+#: ../sheets/ciscocomputer.sheet.in.h:29
+msgid "PC Adapter Card"
+msgstr "Cartão Adaptador de PC"
+
+#: ../sheets/ciscocomputer.sheet.in.h:30
+msgid "PC Card"
+msgstr "Cartão para PC"
+
+#: ../sheets/ciscocomputer.sheet.in.h:31
+msgid "PC Router Card"
+msgstr "Cartão Roteador de PC"
+
+#: ../sheets/ciscocomputer.sheet.in.h:32
+msgid "PC Software"
+msgstr "Software para PC"
+
+#: ../sheets/ciscocomputer.sheet.in.h:33
 msgid "PC Video"
 msgstr "Vídeo PC"
 
-#: ../sheets/ciscocomputer.sheet.in.h:24
+#: ../sheets/ciscocomputer.sheet.in.h:34
+msgid "PC with Router-Based Software"
+msgstr "PC com Software Baseado em Roteador"
+
+#: ../sheets/ciscocomputer.sheet.in.h:35
 msgid "PDA"
 msgstr "PDA"
 
-#: ../sheets/ciscocomputer.sheet.in.h:26
+#: ../sheets/ciscocomputer.sheet.in.h:37
 msgid "Relational Database"
 msgstr "Banco de Dados Relacional"
 
-#: ../sheets/ciscocomputer.sheet.in.h:27
-msgid "SC2200/VSC3000 host"
-msgstr "Máquina SC2200/VSC3000"
-
-#: ../sheets/ciscocomputer.sheet.in.h:28
-msgid "SIP Proxy server"
-msgstr "Servidor Proxy SIP"
-
-#: ../sheets/ciscocomputer.sheet.in.h:29
-msgid "STB (set top box)"
-msgstr "STB (set top box)"
-
-#: ../sheets/ciscocomputer.sheet.in.h:30
+#: ../sheets/ciscocomputer.sheet.in.h:38
 msgid "SUN workstation"
 msgstr "Estação de Trabalho SUN"
 
-#: ../sheets/ciscocomputer.sheet.in.h:31
+#: ../sheets/ciscocomputer.sheet.in.h:39
 msgid "Scanner"
 msgstr "Scanner"
 
-#: ../sheets/ciscocomputer.sheet.in.h:32
+#: ../sheets/ciscocomputer.sheet.in.h:40
 msgid "Server with PC Router"
 msgstr "Servidor com Roteador PC"
 
-#: ../sheets/ciscocomputer.sheet.in.h:33
-msgid "Softphone"
-msgstr "Softphone"
+#: ../sheets/ciscocomputer.sheet.in.h:41
+msgid "Software-Based Router on File Server"
+msgstr "Roteador Baseado em Software no Servidor de Arquivos"
 
-#: ../sheets/ciscocomputer.sheet.in.h:34
-msgid "Software based server"
-msgstr "Servidor baseado em software"
-
-#: ../sheets/ciscocomputer.sheet.in.h:35
+#: ../sheets/ciscocomputer.sheet.in.h:42
 msgid "Storage array"
 msgstr "Storage array"
 
-#: ../sheets/ciscocomputer.sheet.in.h:36
+#: ../sheets/ciscocomputer.sheet.in.h:43
 msgid "Supercomputer"
 msgstr "Supercomputador"
 
-#: ../sheets/ciscocomputer.sheet.in.h:37
-msgid "TV"
-msgstr "TV"
+#: ../sheets/ciscocomputer.sheet.in.h:44
+msgid "Tablet"
+msgstr "Tablet"
 
-#: ../sheets/ciscocomputer.sheet.in.h:38
+#: ../sheets/ciscocomputer.sheet.in.h:45
+msgid "Tape array"
+msgstr "Tape array"
+
+#: ../sheets/ciscocomputer.sheet.in.h:46
 msgid "Terminal"
 msgstr "Terminal"
 
-#: ../sheets/ciscocomputer.sheet.in.h:39
-msgid "Turret"
-msgstr "Torre"
-
-#: ../sheets/ciscocomputer.sheet.in.h:40
-msgid "Unity server"
-msgstr "Servidor Unity"
-
-#: ../sheets/ciscocomputer.sheet.in.h:41
-msgid "Voice commserver"
-msgstr "Servidor de comunicação de voz"
-
-#: ../sheets/ciscocomputer.sheet.in.h:42
+#: ../sheets/ciscocomputer.sheet.in.h:47
 msgid "WWW server"
 msgstr "Servidor WWW"
 
-#: ../sheets/ciscocomputer.sheet.in.h:43
+#: ../sheets/ciscocomputer.sheet.in.h:48
 msgid "Web browser"
 msgstr "Navegador Web"
 
-#: ../sheets/ciscocomputer.sheet.in.h:44
+#: ../sheets/ciscocomputer.sheet.in.h:49
 msgid "Web cluster"
 msgstr "Cluster web"
 
-#: ../sheets/ciscocomputer.sheet.in.h:45
+#: ../sheets/ciscocomputer.sheet.in.h:50
 msgid "Wireless"
 msgstr "Wireless"
 
-#: ../sheets/ciscocomputer.sheet.in.h:46
+#: ../sheets/ciscocomputer.sheet.in.h:51
 msgid "Workgroup director"
 msgstr "Diretor de grupo de trabalho"
 
-#: ../sheets/ciscocomputer.sheet.in.h:47
-msgid "Workstation"
-msgstr "Estação de Trabalho"
-
 #: ../sheets/ciscohub.sheet.in.h:1
-msgid "100BaseT hub"
+msgid "100BaseT Hub"
 msgstr "Hub 100BaseT"
 
 #: ../sheets/ciscohub.sheet.in.h:2
-msgid "ATM fast gigabit etherswitch"
-msgstr "Comutador gigabit da ATM"
+msgid "7500ARS (7513) Router"
+msgstr "Roteador 7500ARS (7513)"
 
 #: ../sheets/ciscohub.sheet.in.h:3
-msgid "ATM switch"
-msgstr "Comutador ATM"
+msgid "7505 Router"
+msgstr "Roteador 7505"
 
 #: ../sheets/ciscohub.sheet.in.h:4
-msgid "Cisco - Hub"
-msgstr "Hub - Cisco"
+msgid "7507 Router"
+msgstr "Roteador 7507"
 
 #: ../sheets/ciscohub.sheet.in.h:5
-msgid "Cisco hub"
-msgstr "Hub Cisco"
+msgid "ASIC Processor"
+msgstr "Processador ASIC"
 
 #: ../sheets/ciscohub.sheet.in.h:6
-msgid "Class 4/5 switch"
-msgstr "Comutador classe 4/5"
+msgid "ATM 3800"
+msgstr "ATM 3800"
 
 #: ../sheets/ciscohub.sheet.in.h:7
-msgid "Content service switch 1100"
-msgstr "Comutador de servidor de conteúdo 1100"
+msgid "ATM Fast Gigabit Etherswitch"
+msgstr "Etherswitch de Gigabit Rápido ATM"
 
 #: ../sheets/ciscohub.sheet.in.h:8
-msgid "Content switch"
-msgstr "Comutador de conteúdo"
+msgid "ATM Switch"
+msgstr "Switch ATM"
 
 #: ../sheets/ciscohub.sheet.in.h:9
-msgid "Content switch module"
-msgstr "Módulo comutador de conteúdo"
+msgid "ATM Tag Switch Router"
+msgstr "Roteador Switch ATM"
 
 #: ../sheets/ciscohub.sheet.in.h:10
-msgid "Generic softswitch"
-msgstr "Softcomutador genérico"
+msgid "Access Gateway"
+msgstr "Gateway de Acesso"
 
 #: ../sheets/ciscohub.sheet.in.h:11
+msgid "BBSM"
+msgstr "BBSM"
+
+#: ../sheets/ciscohub.sheet.in.h:12
+msgid "Broadband router"
+msgstr "Roteador broadband"
+
+#: ../sheets/ciscohub.sheet.in.h:13
+msgid "CSM-S"
+msgstr "CSM-S"
+
+#: ../sheets/ciscohub.sheet.in.h:14
+msgid "Carrier Routing System"
+msgstr "Sistema de Roteamento de Carregador"
+
+#: ../sheets/ciscohub.sheet.in.h:15
+msgid "Cisco - Switch"
+msgstr "Cisco - Switch"
+
+#: ../sheets/ciscohub.sheet.in.h:16
+msgid "Cisco 1000"
+msgstr "Cisco 1000"
+
+#: ../sheets/ciscohub.sheet.in.h:17
+msgid "Cisco Hub"
+msgstr "Cisco - Hub"
+
+#: ../sheets/ciscohub.sheet.in.h:18
+msgid "Content Router"
+msgstr "Roteador de Conteúdo"
+
+#: ../sheets/ciscohub.sheet.in.h:19
+msgid "Content Service Module"
+msgstr "Módulo de Serviço de Conteúdo"
+
+#: ../sheets/ciscohub.sheet.in.h:20
+msgid "Content Service Switch 1100"
+msgstr "Switch de Servidor de Conteúdo 1100"
+
+#: ../sheets/ciscohub.sheet.in.h:21
+msgid "Content Switch"
+msgstr "Switch de Conteúdo"
+
+#: ../sheets/ciscohub.sheet.in.h:22
+msgid "Data Center Switch"
+msgstr "Switch de Centro de Dados"
+
+#: ../sheets/ciscohub.sheet.in.h:23
+msgid "Data Center Switch Reversed"
+msgstr "Switch de Centro de Dados Revertido"
+
+#: ../sheets/ciscohub.sheet.in.h:24
+msgid "Data Switch Processor"
+msgstr "Processador de Switch de Dados"
+
+#: ../sheets/ciscohub.sheet.in.h:25
+msgid "Director-class Fibre Channel intelligent switch"
+msgstr "Switch inteligente de Canal de Fibra de Classe Diretora"
+
+#: ../sheets/ciscohub.sheet.in.h:26
+msgid "Edge Label Switch Router"
+msgstr "Roteador Switch de Rótulo de Canto"
+
+#: ../sheets/ciscohub.sheet.in.h:27
+msgid "Edge Label Switch Router with NetFlow"
+msgstr "Roteador de Comutação de Rótulo de Canto com NetFlow"
+
+#: ../sheets/ciscohub.sheet.in.h:28
+msgid "Generic Processor"
+msgstr "Processador Genérico"
+
+#: ../sheets/ciscohub.sheet.in.h:29
 msgid "Hub"
 msgstr "Hub"
 
-#: ../sheets/ciscohub.sheet.in.h:12
-msgid "Hub and switch shapes by Cisco"
-msgstr "Formas de hub e comutador da Cisco"
+#: ../sheets/ciscohub.sheet.in.h:30
+msgid "Hub subdued"
+msgstr "HUb enfraquecido"
 
-#: ../sheets/ciscohub.sheet.in.h:13
+#: ../sheets/ciscohub.sheet.in.h:31
 msgid "ISDN switch"
-msgstr "Comutador ISDN"
+msgstr "Switch ISDN"
 
-#: ../sheets/ciscohub.sheet.in.h:14
-msgid "Layer 3 switch"
-msgstr "Layer 3 switch"
+#: ../sheets/ciscohub.sheet.in.h:32
+msgid "LAN2LAN Switch"
+msgstr "Switch LAN2LAN"
 
-#: ../sheets/ciscohub.sheet.in.h:15
-msgid "MGX 8220 switch"
-msgstr "Comutador MGX 8220"
+#: ../sheets/ciscohub.sheet.in.h:33
+msgid "Label Switch Router"
+msgstr "Label Switch Router"
 
-#: ../sheets/ciscohub.sheet.in.h:16
-msgid "MGX 8240 switch"
-msgstr "Comutador MGX 8240"
+#: ../sheets/ciscohub.sheet.in.h:34
+msgid "MGX 8220"
+msgstr "MGX 8220"
 
-#: ../sheets/ciscohub.sheet.in.h:17
-msgid "MGX 8260 switch"
-msgstr "Comutador MGX 8260"
+#: ../sheets/ciscohub.sheet.in.h:35
+msgid "MGX 8240"
+msgstr "MGX 8240"
 
-#: ../sheets/ciscohub.sheet.in.h:18
-msgid "MultiSwitch device"
-msgstr "Dispositivo MultiComutador"
+#: ../sheets/ciscohub.sheet.in.h:36
+msgid "MGX 8260"
+msgstr "MGX 8260"
 
-#: ../sheets/ciscohub.sheet.in.h:19
-msgid "Multilayer switch"
-msgstr "Comutador Multicamada"
+#: ../sheets/ciscohub.sheet.in.h:37
+msgid "MultiSwitch Device"
+msgstr "Dispositivo MultiSwitch"
 
-#: ../sheets/ciscohub.sheet.in.h:20
-msgid "PBX switch"
-msgstr "Comutador PBX"
+#: ../sheets/ciscohub.sheet.in.h:38
+msgid "Multilayer Switch"
+msgstr "Switch Multicamada"
 
-#: ../sheets/ciscohub.sheet.in.h:21
-msgid "Programmable switch"
-msgstr "Comutador Programável"
+#: ../sheets/ciscohub.sheet.in.h:39
+msgid "Multilayer Switch with Silicon"
+msgstr "Switch Multicamada com Silicon"
 
-#: ../sheets/ciscohub.sheet.in.h:22
-msgid "Route switch processor"
-msgstr "Processador de comutação de rota"
+#: ../sheets/ciscohub.sheet.in.h:40
+msgid "Multilayer Switch with Silicon subdued"
+msgstr "Switch Multicamadas com Silicon enfraquecido"
 
-#: ../sheets/ciscohub.sheet.in.h:23
-msgid "Small hub"
-msgstr "Hub pequeno"
+#: ../sheets/ciscohub.sheet.in.h:41
+msgid "NetFlow router"
+msgstr "Roteador NetFlow"
 
-#: ../sheets/ciscohub.sheet.in.h:24
-msgid "Voice ATM switch"
-msgstr "Comutador de voz ATM"
+#: ../sheets/ciscohub.sheet.in.h:42
+msgid "NetRanger"
+msgstr "NetRanger"
 
-#: ../sheets/ciscohub.sheet.in.h:25
-msgid "Voice switch"
-msgstr "Comutador de voz"
+#: ../sheets/ciscohub.sheet.in.h:43
+msgid "NetSonar"
+msgstr "NetSonar"
 
-#: ../sheets/ciscohub.sheet.in.h:26
-msgid "Voice switch 2"
-msgstr "Comutador de voz 2"
+#: ../sheets/ciscohub.sheet.in.h:44
+msgid "Optical Services Router"
+msgstr "Roteador de Serviços Óticos"
 
-#: ../sheets/ciscohub.sheet.in.h:27
+#: ../sheets/ciscohub.sheet.in.h:45
+msgid "PXF"
+msgstr "PXF"
+
+#: ../sheets/ciscohub.sheet.in.h:46
+msgid "Programmable Switch"
+msgstr "Switch Programável"
+
+#: ../sheets/ciscohub.sheet.in.h:47
+msgid "RateMUX"
+msgstr "RateMUX"
+
+#: ../sheets/ciscohub.sheet.in.h:48
+msgid "Route Switch Processor"
+msgstr "Route Switch Processor"
+
+#: ../sheets/ciscohub.sheet.in.h:49
+msgid "Route Switch Processor with Si"
+msgstr "Route Switch Processor com Si"
+
+#: ../sheets/ciscohub.sheet.in.h:50
+msgid "Router"
+msgstr "Roteador"
+
+#: ../sheets/ciscohub.sheet.in.h:51
+msgid "Router and switch shapes by Cisco"
+msgstr "Formas de roteador e switch da Cisco"
+
+#: ../sheets/ciscohub.sheet.in.h:52
+msgid "Router subdued"
+msgstr "Roteador enfraquecido"
+
+#: ../sheets/ciscohub.sheet.in.h:53
+msgid "Router with Firewall"
+msgstr "Roteador com Firewall"
+
+#: ../sheets/ciscohub.sheet.in.h:54
+msgid "Router with Silicon Switch"
+msgstr "Roteador com Switch Silicon"
+
+#: ../sheets/ciscohub.sheet.in.h:55
+msgid "Small Hub"
+msgstr "Hub Pequeno"
+
+#: ../sheets/ciscohub.sheet.in.h:56
+msgid "Storage Router"
+msgstr "Roteador de Armazenamento"
+
+#: ../sheets/ciscohub.sheet.in.h:57
+msgid "Switch Processor"
+msgstr "Processador de Switch"
+
+#: ../sheets/ciscohub.sheet.in.h:58
+msgid "Universal Gateway"
+msgstr "Gateway Universal"
+
+#: ../sheets/ciscohub.sheet.in.h:59
+msgid "Wavelength router"
+msgstr "Roteador de Wavelenght"
+
+#: ../sheets/ciscohub.sheet.in.h:60
+msgid "Wireless router"
+msgstr "Roteador Wireless"
+
+#: ../sheets/ciscohub.sheet.in.h:61
+msgid "Workgroup 5000"
+msgstr "Workgroup 5000"
+
+#: ../sheets/ciscohub.sheet.in.h:62
+msgid "Workgroup 5002"
+msgstr "Workgroup 5002"
+
+#: ../sheets/ciscohub.sheet.in.h:63
+msgid "Workgroup 5500"
+msgstr "Workgroup 5500"
+
+#: ../sheets/ciscohub.sheet.in.h:64
+msgid "Workgroup Fibre Channel intelligent switch"
+msgstr "Switch Inteligente de Canal de Fibra de Grupo de Trabalho"
+
+#: ../sheets/ciscohub.sheet.in.h:65
+msgid "Workgroup Switch Voice-Enabled"
+msgstr "Switch de Grupo de Trabalho Habilitado por Voz"
+
+#: ../sheets/ciscohub.sheet.in.h:66
 msgid "Workgroup switch"
-msgstr "Comutador de grupo de trabalho"
+msgstr "Switch de grupo de trabalho"
+
+#: ../sheets/ciscohub.sheet.in.h:67
+msgid "Workgroup switch Subdued"
+msgstr "Switch de grupo de trabalho enfraquecido"
+
+#: ../sheets/ciscohub.sheet.in.h:68
+msgid "iSCSI switch"
+msgstr "Switch iSCSI"
 
 #: ../sheets/ciscomisc.sheet.in.h:1
-msgid "BBFW"
-msgstr "BBFW"
+msgid "Androgynous Person"
+msgstr "Pessoa Andrógena"
 
 #: ../sheets/ciscomisc.sheet.in.h:2
-msgid "BBFW media"
-msgstr "Mídia BBFW"
+msgid "Antenna"
+msgstr "Antena"
 
 #: ../sheets/ciscomisc.sheet.in.h:3
 msgid "Branch office"
 msgstr "Ramo do escritório"
 
 #: ../sheets/ciscomisc.sheet.in.h:4
-msgid "Breakout box"
-msgstr "Caixa de breakout"
+msgid "Branch office blue"
+msgstr "Ramo do escritório azul"
 
 #: ../sheets/ciscomisc.sheet.in.h:5
+msgid "Branch office subdued"
+msgstr "Ramo do escritório enfraquecido"
+
+#: ../sheets/ciscomisc.sheet.in.h:6
 msgid "Car"
 msgstr "Carro"
 
-#: ../sheets/ciscomisc.sheet.in.h:6
-msgid "Cellular phone"
-msgstr "Telefone celular"
-
 #: ../sheets/ciscomisc.sheet.in.h:7
 msgid "Cisco - Misc"
-msgstr "Miscelânea - Cisco"
+msgstr "Cisco - Miscelânea"
 
 #: ../sheets/ciscomisc.sheet.in.h:8
-msgid "Diskette"
-msgstr "Disquete"
+msgid "CiscoWorks Man"
+msgstr "Homem CiscoWorks"
 
 #: ../sheets/ciscomisc.sheet.in.h:9
-msgid "Dot-Dot"
-msgstr "Ponto-Ponto"
-
-#: ../sheets/ciscomisc.sheet.in.h:10
-msgid "End office"
-msgstr "Fim do escritório"
-
-#: ../sheets/ciscomisc.sheet.in.h:11
-msgid "Fax"
-msgstr "Fax"
-
-#: ../sheets/ciscomisc.sheet.in.h:12
 msgid "File cabinet"
 msgstr "Gabinete de arquivo"
 
+#: ../sheets/ciscomisc.sheet.in.h:10
+msgid "Generic Building"
+msgstr "Prédio Genérico"
+
+#: ../sheets/ciscomisc.sheet.in.h:11
+msgid "Generic Building blue"
+msgstr "Prédio Genérico azul"
+
+#: ../sheets/ciscomisc.sheet.in.h:12
+msgid "Generic Building subdued"
+msgstr "Prédio Genérico enfraquecido"
+
 #: ../sheets/ciscomisc.sheet.in.h:13
-msgid "Generic building"
-msgstr "Prédio genérico"
+msgid "Government Building"
+msgstr "Prédio Governamental"
 
 #: ../sheets/ciscomisc.sheet.in.h:14
-msgid "Government building"
-msgstr "Prédio governamental"
+msgid "Headphones"
+msgstr "Fones de Ouvido"
 
 #: ../sheets/ciscomisc.sheet.in.h:15
-msgid "H.323"
-msgstr "H.323"
+msgid "Home office"
+msgstr "Escritório residencial"
 
 #: ../sheets/ciscomisc.sheet.in.h:16
-msgid "HootPhone"
-msgstr "HootPhone"
+msgid "House"
+msgstr "Casa"
 
 #: ../sheets/ciscomisc.sheet.in.h:17
-msgid "IP phone"
-msgstr "Telefone IP"
+msgid "House blue"
+msgstr "Casa azul"
 
 #: ../sheets/ciscomisc.sheet.in.h:18
-msgid "ITP"
-msgstr "ITP"
-
-#: ../sheets/ciscomisc.sheet.in.h:19
 msgid "Key"
 msgstr "Chave"
 
 #: ../sheets/ciscomisc.sheet.in.h:20
-msgid "LAN to LAN"
-msgstr "LAN para LAN"
+msgid "Lock and Key"
+msgstr "Trava e Chave"
 
-#: ../sheets/ciscomisc.sheet.in.h:22
-msgid "MAU"
-msgstr "MAU"
-
-#: ../sheets/ciscomisc.sheet.in.h:23
+#: ../sheets/ciscomisc.sheet.in.h:21
 msgid "MDU"
 msgstr "MDU"
 
-#: ../sheets/ciscomisc.sheet.in.h:24
-msgid "Mac woman"
+#: ../sheets/ciscomisc.sheet.in.h:22
+msgid "Mac Woman"
 msgstr "Mulher Mac"
 
+#: ../sheets/ciscomisc.sheet.in.h:23
+msgid "Man"
+msgstr "Homem"
+
+#: ../sheets/ciscomisc.sheet.in.h:24
+msgid "Man blue"
+msgstr "Homem azul"
+
 #: ../sheets/ciscomisc.sheet.in.h:25
-msgid "Man/Woman"
-msgstr "Homem e Mulher"
+msgid "Man gold"
+msgstr "Homem ouro"
+
+#: ../sheets/ciscomisc.sheet.in.h:26
+msgid "Man red"
+msgstr "Homem vermelho"
 
 #: ../sheets/ciscomisc.sheet.in.h:27
+msgid "Medium Building"
+msgstr "Prédio Médio"
+
+#: ../sheets/ciscomisc.sheet.in.h:28
+msgid "Medium Building blue"
+msgstr "Prédio Médio azul"
+
+#: ../sheets/ciscomisc.sheet.in.h:29
+msgid "Medium Building subdued"
+msgstr "Prédio Médio enfraquecido"
+
+#: ../sheets/ciscomisc.sheet.in.h:31
 msgid "Miscellaneous shapes by Cisco"
 msgstr "Miscelânea de Formas da Cisco"
 
-#: ../sheets/ciscomisc.sheet.in.h:28
-msgid "PC man"
+#: ../sheets/ciscomisc.sheet.in.h:32
+msgid "PC Man"
 msgstr "Homem usando PC"
 
-#: ../sheets/ciscomisc.sheet.in.h:29
-msgid "Phone"
-msgstr "Telefone"
-
-#: ../sheets/ciscomisc.sheet.in.h:30
-msgid "Phone/Fax"
-msgstr "Telefone/Fax"
-
-#: ../sheets/ciscomisc.sheet.in.h:31
-msgid "RPS"
-msgstr "RPS"
-
-#: ../sheets/ciscomisc.sheet.in.h:32
-msgid "Radio tower"
-msgstr "Torre de rádio"
-
 #: ../sheets/ciscomisc.sheet.in.h:33
+msgid "PC Man left"
+msgstr "Homem à esquerda do PC"
+
+#: ../sheets/ciscomisc.sheet.in.h:34
 msgid "Running man"
 msgstr "Homem correndo"
 
-#: ../sheets/ciscomisc.sheet.in.h:34
-msgid "SVX (interchangeable with End office)"
-msgstr "SVX (pode ser trocado com Fim do escrtório)"
-
 #: ../sheets/ciscomisc.sheet.in.h:35
+msgid "Running man subdued"
+msgstr "Homem correndo enfraquecido"
+
+#: ../sheets/ciscomisc.sheet.in.h:36
+msgid "Running woman"
+msgstr "Mulher correndo"
+
+#: ../sheets/ciscomisc.sheet.in.h:37
 msgid "Satellite"
 msgstr "Satélite"
 
-#: ../sheets/ciscomisc.sheet.in.h:36
+#: ../sheets/ciscomisc.sheet.in.h:38
 msgid "Satellite dish"
 msgstr "Antena parabólica"
 
-#: ../sheets/ciscomisc.sheet.in.h:37
-msgid "Sitting woman"
-msgstr "Mulher sentada"
-
-#: ../sheets/ciscomisc.sheet.in.h:38
-msgid "Small business"
-msgstr "Negócio pequeno"
+#: ../sheets/ciscomisc.sheet.in.h:39
+msgid "Sitting Woman"
+msgstr "Mulher Sentada"
 
 #: ../sheets/ciscomisc.sheet.in.h:40
-msgid "Standing man"
-msgstr "Homem parado"
+msgid "Sitting Woman right"
+msgstr "Mulher Sentada à direita"
 
 #: ../sheets/ciscomisc.sheet.in.h:41
-msgid "Tablet"
-msgstr "Tabuleta"
+msgid "Small Business"
+msgstr "Negócio Pequeno"
 
-#: ../sheets/ciscomisc.sheet.in.h:42
+#: ../sheets/ciscomisc.sheet.in.h:43
+msgid "Standing Man"
+msgstr "Homem Parado"
+
+#: ../sheets/ciscomisc.sheet.in.h:44
+msgid "Standing woman"
+msgstr "Mulher parada"
+
+#: ../sheets/ciscomisc.sheet.in.h:45
 msgid "Telecommuter"
 msgstr "Telecomutador"
 
-#: ../sheets/ciscomisc.sheet.in.h:43
+#: ../sheets/ciscomisc.sheet.in.h:46
 msgid "Telecommuter house"
 msgstr "Telecomutador caseiro"
 
-#: ../sheets/ciscomisc.sheet.in.h:44
-msgid "Telecommuter house/router"
-msgstr "Telecomutador caseiro/roteador"
+#: ../sheets/ciscomisc.sheet.in.h:47
+msgid "Telecommuter house subdued"
+msgstr "Telecomutador caseiro enfraquecido"
 
-#: ../sheets/ciscomisc.sheet.in.h:45
-msgid "TokenRing"
-msgstr "TokenRing"
-
-#: ../sheets/ciscomisc.sheet.in.h:46
+#: ../sheets/ciscomisc.sheet.in.h:48
 msgid "Truck"
 msgstr "Caminhão"
 
-#: ../sheets/ciscomisc.sheet.in.h:47
-msgid "UPS"
-msgstr "UPS"
-
-#: ../sheets/ciscomisc.sheet.in.h:48
+#: ../sheets/ciscomisc.sheet.in.h:49
 msgid "University"
 msgstr "Universidade"
 
-#: ../sheets/ciscomisc.sheet.in.h:49
-msgid "Video camera"
-msgstr "Câmera de vídeo"
-
 #: ../sheets/ciscomisc.sheet.in.h:50
-msgid "Wireless transport"
-msgstr "Transporte sem fio"
+msgid "Video Camera"
+msgstr "Câmera de Vídeo"
+
+#: ../sheets/ciscomisc.sheet.in.h:51
+msgid "Video Camera right"
+msgstr "Câmera de Vídeo à direita"
+
+#: ../sheets/ciscomisc.sheet.in.h:52
+msgid "Woman"
+msgstr "Mulher"
+
+#: ../sheets/ciscomisc.sheet.in.h:53
+msgid "Woman blue"
+msgstr "Mulher azul"
+
+#: ../sheets/ciscomisc.sheet.in.h:54
+msgid "Woman gold"
+msgstr "Mulher ouro"
+
+#: ../sheets/ciscomisc.sheet.in.h:55
+msgid "Woman red"
+msgstr "Mulher vermelha"
 
 #: ../sheets/cisconetwork.sheet.in.h:1
 msgid "10700"
@@ -7536,424 +7740,596 @@ msgid "15200"
 msgstr "15200"
 
 #: ../sheets/cisconetwork.sheet.in.h:3
+msgid "15800"
+msgstr "15800"
+
+#: ../sheets/cisconetwork.sheet.in.h:4
 msgid "3174 (desktop) cluster controller"
 msgstr "Controlador de cluster 3174 (área de trabalho)"
 
-#: ../sheets/cisconetwork.sheet.in.h:4
+#: ../sheets/cisconetwork.sheet.in.h:5
 msgid "3X74 (floor) cluster controller"
 msgstr "Controlador de cluster 3X74 (chão)"
 
-#: ../sheets/cisconetwork.sheet.in.h:5
-msgid "6701"
-msgstr "6701"
-
 #: ../sheets/cisconetwork.sheet.in.h:6
-msgid "6705 Integrated access device"
-msgstr "Dispositivo de acesso integrado 6705"
+msgid "Access Server"
+msgstr "Servidor de Acesso"
 
 #: ../sheets/cisconetwork.sheet.in.h:7
-msgid "6732 Multiservice access platform"
-msgstr "Plataforma de acesso a multiserviços 6732"
-
-#: ../sheets/cisconetwork.sheet.in.h:8
-msgid "ADM"
-msgstr "ADM"
-
-#: ../sheets/cisconetwork.sheet.in.h:9
-msgid "ASIC processor"
-msgstr "Processador ASIC"
-
-#: ../sheets/cisconetwork.sheet.in.h:10
-msgid "ATA"
-msgstr "ATA"
-
-#: ../sheets/cisconetwork.sheet.in.h:11
-msgid "ATM 3800"
-msgstr "ATM 3800"
-
-#: ../sheets/cisconetwork.sheet.in.h:12
 msgid "AccessPoint"
 msgstr "AccessPoint"
 
-#: ../sheets/cisconetwork.sheet.in.h:13
-msgid "BBSM"
-msgstr "BBSM"
+#: ../sheets/cisconetwork.sheet.in.h:8
+msgid "Automatic Protection Switching"
+msgstr "Switch de Proteção Automático"
 
-#: ../sheets/cisconetwork.sheet.in.h:14
-msgid "BTS 10200"
-msgstr "BTS 10200"
+#: ../sheets/cisconetwork.sheet.in.h:9
+msgid "BBFW"
+msgstr "BBFW"
 
-#: ../sheets/cisconetwork.sheet.in.h:15
+#: ../sheets/cisconetwork.sheet.in.h:10
+msgid "BBFW media"
+msgstr "Mídia BBFW"
+
+#: ../sheets/cisconetwork.sheet.in.h:11
+msgid "Breakout box"
+msgstr "Caixa de breakout"
+
+#: ../sheets/cisconetwork.sheet.in.h:12
 msgid "Bridge"
 msgstr "Ponte"
 
-#: ../sheets/cisconetwork.sheet.in.h:16
-msgid "CDDI-FDDI"
-msgstr "CDDI-FDDI"
+#: ../sheets/cisconetwork.sheet.in.h:13
+msgid "CDDI/FDDI Concentrator"
+msgstr "Concentrador CDDI/FDDI"
 
-#: ../sheets/cisconetwork.sheet.in.h:17
-msgid "CDM Content distribution manager"
-msgstr "Distribuidor de conteúdo CDM"
+#: ../sheets/cisconetwork.sheet.in.h:14
+msgid "CDM Content Distribution Manager"
+msgstr "Gerenciador de Distribuição de Conteúdo GDM"
 
-#: ../sheets/cisconetwork.sheet.in.h:18
+#: ../sheets/cisconetwork.sheet.in.h:15
 msgid "CSU/DSU"
 msgstr "CSU/DSU"
 
-#: ../sheets/cisconetwork.sheet.in.h:19
-msgid "Cable modem"
-msgstr "Modem de cabo"
+#: ../sheets/cisconetwork.sheet.in.h:16
+msgid "Cable Modem"
+msgstr "Modem de Cabo"
 
-#: ../sheets/cisconetwork.sheet.in.h:20
-msgid "CallManager"
-msgstr "CallManager"
+#: ../sheets/cisconetwork.sheet.in.h:17
+msgid "Catalyst Access Gateway"
+msgstr "Gateway de Acesso Catalyst"
 
-#: ../sheets/cisconetwork.sheet.in.h:21
-msgid "Catalyst access gateway"
-msgstr "Gateway de acesso Catalyst"
-
-#: ../sheets/cisconetwork.sheet.in.h:22
-msgid "Centri firewall"
+#: ../sheets/cisconetwork.sheet.in.h:18
+msgid "Centri Firewall"
 msgstr "Firewall Centri"
 
-#: ../sheets/cisconetwork.sheet.in.h:23
-msgid "Cisco - Network"
-msgstr "Rede - Cisco"
+#: ../sheets/cisconetwork.sheet.in.h:19
+msgid "Channelized Pipe"
+msgstr "Sinal Canalizado"
 
-#: ../sheets/cisconetwork.sheet.in.h:24
+#: ../sheets/cisconetwork.sheet.in.h:20
+msgid "Cisco - Network"
+msgstr "Cisco - Rede"
+
+#: ../sheets/cisconetwork.sheet.in.h:21
 msgid "Cloud"
 msgstr "Nuvem"
 
+#: ../sheets/cisconetwork.sheet.in.h:22
+msgid "Cloud Dark"
+msgstr "Nuvem Escura"
+
+#: ../sheets/cisconetwork.sheet.in.h:23
+msgid "Cloud Gold"
+msgstr "Nuvem Ouro"
+
+#: ../sheets/cisconetwork.sheet.in.h:24
+msgid "Cloud White"
+msgstr "Nuvem Branca"
+
 #: ../sheets/cisconetwork.sheet.in.h:25
-msgid "Content engine (Cache director)"
-msgstr "Máquina de conteúdo (Diretor de cache)"
+msgid "Concatenated Payload"
+msgstr "Sobrecarga Concatenada"
 
 #: ../sheets/cisconetwork.sheet.in.h:26
-msgid "Content transformation engine (CTE)"
-msgstr "Máquina de transformação de conteúdo (CTE)"
+msgid "Content Engine (Cache Director)"
+msgstr "Máquina de Conteúdo (Diretor de Cache)"
 
 #: ../sheets/cisconetwork.sheet.in.h:27
-msgid "DPT"
-msgstr "DPT"
+msgid "Content Transformation Engine (CTE)"
+msgstr "Máquina de Transformação de Conteúdo (CTE)"
 
 #: ../sheets/cisconetwork.sheet.in.h:28
 msgid "DSLAM"
 msgstr "DSLAM"
 
 #: ../sheets/cisconetwork.sheet.in.h:29
-msgid "DWDM filter"
+msgid "DWDM Filter"
 msgstr "Filtro DWDM"
 
 #: ../sheets/cisconetwork.sheet.in.h:30
-msgid "Distributed director"
-msgstr "Diretor distribuído"
+msgid "Detector"
+msgstr "Detector"
 
 #: ../sheets/cisconetwork.sheet.in.h:31
-msgid "FC storage"
-msgstr "Armazenagem FC"
+msgid "Digital Cross-Connect"
+msgstr "Conector Cruzado Digital"
 
 #: ../sheets/cisconetwork.sheet.in.h:32
-msgid "FDDI ring"
-msgstr "Anel FDDI"
+msgid "Directory Server"
+msgstr "Servidor de Diretório"
 
 #: ../sheets/cisconetwork.sheet.in.h:33
+msgid "Distributed Director"
+msgstr "Diretor Distribuído"
+
+#: ../sheets/cisconetwork.sheet.in.h:34
+msgid "Dual Mode AccessPoint"
+msgstr "AccessPoint de Modo Dual"
+
+#: ../sheets/cisconetwork.sheet.in.h:35
+msgid "FDDI Ring"
+msgstr "Anel FDDI"
+
+#: ../sheets/cisconetwork.sheet.in.h:36
+msgid "File Engine"
+msgstr "Ferramenta de Arquivo"
+
+#: ../sheets/cisconetwork.sheet.in.h:37
 msgid "Firewall"
 msgstr "Firewall"
 
-#: ../sheets/cisconetwork.sheet.in.h:34
-msgid "Front end processor"
-msgstr "Processador front end"
-
-#: ../sheets/cisconetwork.sheet.in.h:35
-msgid "General appliance"
-msgstr "Ferramenta genérica"
-
-#: ../sheets/cisconetwork.sheet.in.h:36
-msgid "Generic gateway"
-msgstr "Gateway genérico"
-
-#: ../sheets/cisconetwork.sheet.in.h:37
-msgid "Generic processor"
-msgstr "Processador genérico"
-
 #: ../sheets/cisconetwork.sheet.in.h:38
-msgid "ICM"
-msgstr "ICM"
+msgid "Firewall Service Module"
+msgstr "Módulo de Serviço Firewall"
 
 #: ../sheets/cisconetwork.sheet.in.h:39
-msgid "ICS"
-msgstr "ICS"
+msgid "Firewall horizontal"
+msgstr "Firewall horizontal"
 
 #: ../sheets/cisconetwork.sheet.in.h:40
-msgid "IOS firewall"
-msgstr "Firewall IOS"
+msgid "Firewall subdued"
+msgstr "Firewall enfraquecido"
 
 #: ../sheets/cisconetwork.sheet.in.h:41
+msgid "General Appliance"
+msgstr "Ferramenta Genérica"
+
+#: ../sheets/cisconetwork.sheet.in.h:42
+msgid "Generic Gateway"
+msgstr "Gateway Genérico"
+
+#: ../sheets/cisconetwork.sheet.in.h:44
+msgid "IOS Firewall"
+msgstr "Firewall IOS"
+
+#: ../sheets/cisconetwork.sheet.in.h:45
+msgid "IOS SLB"
+msgstr "IOS SLB"
+
+#: ../sheets/cisconetwork.sheet.in.h:46
 msgid "IP"
 msgstr "IP"
 
-#: ../sheets/cisconetwork.sheet.in.h:42
-msgid "IP DSL"
-msgstr "IP DSL"
+#: ../sheets/cisconetwork.sheet.in.h:47
+msgid "IP DSL Switch"
+msgstr "Switch IP DSL"
 
-#: ../sheets/cisconetwork.sheet.in.h:43
-msgid "IPTC"
-msgstr "IPTC"
+#: ../sheets/cisconetwork.sheet.in.h:48
+msgid "IP Old-style"
+msgstr "IP no Estilo Antigo"
 
-#: ../sheets/cisconetwork.sheet.in.h:44
+#: ../sheets/cisconetwork.sheet.in.h:49
+msgid "IP Transport Concentrator"
+msgstr "Concentrador de Transporte IP"
+
+#: ../sheets/cisconetwork.sheet.in.h:50
+msgid "IPTV broadcast server"
+msgstr "Servidor de broadcast IPTV"
+
+#: ../sheets/cisconetwork.sheet.in.h:51
 msgid "IPTV content manager"
 msgstr "Gerenciador de conteúdo IPTV"
 
-#: ../sheets/cisconetwork.sheet.in.h:45
+#: ../sheets/cisconetwork.sheet.in.h:52
+msgid "LAN to LAN"
+msgstr "LAN para LAN"
+
+#: ../sheets/cisconetwork.sheet.in.h:53
 msgid "LocalDirector"
 msgstr "LocalDirector"
 
-#: ../sheets/cisconetwork.sheet.in.h:46
+#: ../sheets/cisconetwork.sheet.in.h:54
 msgid "LongReach CPE"
 msgstr "LongReach CPE"
 
-#: ../sheets/cisconetwork.sheet.in.h:47
-msgid "MAS gateway"
+#: ../sheets/cisconetwork.sheet.in.h:55
+msgid "MAS Gateway"
 msgstr "Gateway MAS"
 
-#: ../sheets/cisconetwork.sheet.in.h:48
+#: ../sheets/cisconetwork.sheet.in.h:56
+msgid "MAU"
+msgstr "MAU"
+
+#: ../sheets/cisconetwork.sheet.in.h:57
 msgid "ME 1100"
 msgstr "ME 1100"
 
-#: ../sheets/cisconetwork.sheet.in.h:49
+#: ../sheets/cisconetwork.sheet.in.h:58
 msgid "MUX"
 msgstr "MUX"
 
-#: ../sheets/cisconetwork.sheet.in.h:50
+#: ../sheets/cisconetwork.sheet.in.h:59
 msgid "Metro 1500"
 msgstr "Metro 1500"
 
-#: ../sheets/cisconetwork.sheet.in.h:51
-msgid "Modem"
-msgstr "Modem"
+#: ../sheets/cisconetwork.sheet.in.h:60
+msgid "NAT"
+msgstr "NAT"
 
-#: ../sheets/cisconetwork.sheet.in.h:52
-msgid "NetRanger intrusion detection system"
-msgstr "Sistema de detecção de intrusão NetRanger"
+#: ../sheets/cisconetwork.sheet.in.h:61
+msgid "Network Management"
+msgstr "Gerenciado de Rede"
 
-#: ../sheets/cisconetwork.sheet.in.h:53
-msgid "NetSonar security scanner"
-msgstr "Scanner de segurança NetSonar"
-
-#: ../sheets/cisconetwork.sheet.in.h:54
-msgid "Network management"
-msgstr "Gerenciado de rede"
-
-#: ../sheets/cisconetwork.sheet.in.h:55
+#: ../sheets/cisconetwork.sheet.in.h:62
 msgid "Network shapes by Cisco"
 msgstr "Formas de rede da Cisco"
 
-#: ../sheets/cisconetwork.sheet.in.h:56
-msgid "ONS15500 DWDM platform"
-msgstr "ONS15500 plataforma DWDM"
+#: ../sheets/cisconetwork.sheet.in.h:63
+msgid "ONS15104"
+msgstr "ONS15104"
 
-#: ../sheets/cisconetwork.sheet.in.h:57
-msgid "Octel"
-msgstr "Octel"
+#: ../sheets/cisconetwork.sheet.in.h:64
+msgid "ONS15540"
+msgstr "ONS15540"
 
-#: ../sheets/cisconetwork.sheet.in.h:58
-msgid "Optical amplifier"
-msgstr "Amplificador ótico"
+#: ../sheets/cisconetwork.sheet.in.h:65
+msgid "Optical Amplifier"
+msgstr "Amplificador Ótico"
 
-#: ../sheets/cisconetwork.sheet.in.h:59
-msgid "Optical transport"
-msgstr "Transporte ótico"
+#: ../sheets/cisconetwork.sheet.in.h:66
+msgid "Optical Cross-Connect"
+msgstr "Conexão Cruzada Ótica"
 
-#: ../sheets/cisconetwork.sheet.in.h:60
+#: ../sheets/cisconetwork.sheet.in.h:67
+msgid "Optical Fiber"
+msgstr "Fibra Ótica"
+
+#: ../sheets/cisconetwork.sheet.in.h:68
+msgid "Optical Transport"
+msgstr "Transporte Ótico"
+
+#: ../sheets/cisconetwork.sheet.in.h:69
 msgid "PAD"
 msgstr "PAD"
 
-#: ../sheets/cisconetwork.sheet.in.h:61
-msgid "PAD X.28"
-msgstr "PAD X.28"
-
-#: ../sheets/cisconetwork.sheet.in.h:62
-msgid "PBX"
-msgstr "PBX"
-
-#: ../sheets/cisconetwork.sheet.in.h:63
-msgid "PC adapter card"
-msgstr "Cartão adaptador de PC"
-
-#: ../sheets/cisconetwork.sheet.in.h:64
-msgid "PC router card"
-msgstr "Cartão roteador de PC"
-
-#: ../sheets/cisconetwork.sheet.in.h:65
-msgid "PIX firewall"
+#: ../sheets/cisconetwork.sheet.in.h:70
+msgid "PIX Firewall"
 msgstr "Firewall PIX"
 
-#: ../sheets/cisconetwork.sheet.in.h:66
-msgid "PXF"
-msgstr "PXF"
+#: ../sheets/cisconetwork.sheet.in.h:71
+msgid "PIX Firewall Left"
+msgstr "Firewall PIX Esquerda"
 
-#: ../sheets/cisconetwork.sheet.in.h:67
-msgid "Protocol translator"
-msgstr "Tradutor de protocolo"
+#: ../sheets/cisconetwork.sheet.in.h:72
+msgid "Protocol Translator"
+msgstr "Tradutor de Protocolo"
 
-#: ../sheets/cisconetwork.sheet.in.h:68
-msgid "RateMUX"
-msgstr "RateMUX"
+#: ../sheets/cisconetwork.sheet.in.h:73
+msgid "RPS"
+msgstr "RPS"
 
-#: ../sheets/cisconetwork.sheet.in.h:69
+#: ../sheets/cisconetwork.sheet.in.h:74
 msgid "Repeater"
 msgstr "Repetidor"
 
-#: ../sheets/cisconetwork.sheet.in.h:70
-msgid "SC2200 (Signalling controller)"
-msgstr "SC2200 (Controlador de sinalização)"
+#: ../sheets/cisconetwork.sheet.in.h:75
+msgid "SSL Terminator"
+msgstr "Terminal SSL"
 
-#: ../sheets/cisconetwork.sheet.in.h:71
-msgid "STP"
-msgstr "STP"
+#: ../sheets/cisconetwork.sheet.in.h:76
+msgid "STB (set top box)"
+msgstr "STB (set top box)"
 
-#: ../sheets/cisconetwork.sheet.in.h:72
+#: ../sheets/cisconetwork.sheet.in.h:77
+msgid "Storage Solution Engine"
+msgstr "Ferramenta de Solução de Armazenamento"
+
+#: ../sheets/cisconetwork.sheet.in.h:78
 msgid "System controller"
 msgstr "Controlador do sistema"
 
-#: ../sheets/cisconetwork.sheet.in.h:73
-msgid "Transpath"
-msgstr "Transpath"
+#: ../sheets/cisconetwork.sheet.in.h:79
+msgid "TV"
+msgstr "TV"
 
-#: ../sheets/cisconetwork.sheet.in.h:74
-msgid "Universal gateway"
-msgstr "Gateway universal"
+#: ../sheets/cisconetwork.sheet.in.h:80
+msgid "Terminal Server"
+msgstr "Servidor de Terminal"
 
-#: ../sheets/cisconetwork.sheet.in.h:75
+#: ../sheets/cisconetwork.sheet.in.h:81
+msgid "TokenRing"
+msgstr "TokenRing"
+
+#: ../sheets/cisconetwork.sheet.in.h:82
+msgid "TransPath"
+msgstr "TransPath"
+
+#: ../sheets/cisconetwork.sheet.in.h:83
+msgid "UPS"
+msgstr "UPS"
+
+#: ../sheets/cisconetwork.sheet.in.h:84
 msgid "VIP"
 msgstr "VIP"
 
-#: ../sheets/cisconetwork.sheet.in.h:76
-msgid "VPN concentrator"
+#: ../sheets/cisconetwork.sheet.in.h:85
+msgid "VN2900"
+msgstr "VN2900"
+
+#: ../sheets/cisconetwork.sheet.in.h:86
+msgid "VN5900"
+msgstr "VN5900"
+
+#: ../sheets/cisconetwork.sheet.in.h:87
+msgid "VN5902"
+msgstr "VN5902"
+
+#: ../sheets/cisconetwork.sheet.in.h:88
+msgid "VPN Concentrator"
 msgstr "Concentrador VPN"
 
-#: ../sheets/cisconetwork.sheet.in.h:77
-msgid "VPN gateway"
+#: ../sheets/cisconetwork.sheet.in.h:89
+msgid "VPN Gateway"
 msgstr "Gateway VPN"
 
-#: ../sheets/cisconetwork.sheet.in.h:78
-msgid "Virtual switch controller (VSC 3000)"
-msgstr "Controlador de comutador virtual (VSC 3000)"
+#: ../sheets/cisconetwork.sheet.in.h:90
+msgid "WAN"
+msgstr "WAN"
 
-#: ../sheets/cisconetwork.sheet.in.h:79
-msgid "Wireless bridge"
-msgstr "Ponte wireless"
+#: ../sheets/cisconetwork.sheet.in.h:91
+msgid "WDM"
+msgstr "WDM"
 
-#: ../sheets/ciscorouter.sheet.in.h:1
-msgid "7500ARS (7513)"
-msgstr "7500ARS (7513)"
+#: ../sheets/cisconetwork.sheet.in.h:92
+msgid "Wireless Bridge"
+msgstr "Ponte sem Fio"
 
-#: ../sheets/ciscorouter.sheet.in.h:2
-msgid "7505"
-msgstr "7505"
+#: ../sheets/cisconetwork.sheet.in.h:93
+msgid "Wireless Connectivity"
+msgstr "Conectividade sem Fio"
 
-#: ../sheets/ciscorouter.sheet.in.h:3
-msgid "7507"
-msgstr "7507"
+#: ../sheets/cisconetwork.sheet.in.h:94
+msgid "Wireless Transport"
+msgstr "Transporte sem Fio"
 
-#: ../sheets/ciscorouter.sheet.in.h:4
-msgid "ATM router"
-msgstr "Roteador ATM"
+#: ../sheets/cisconetwork.sheet.in.h:95
+msgid "uBR910 Cable DSU"
+msgstr "Cabo DSU uBR910"
 
-#: ../sheets/ciscorouter.sheet.in.h:5
-msgid "ATM tag sw gigabit router"
-msgstr "Comutador roteador gigabit ATM"
+#: ../sheets/ciscotelephony.sheet.in.h:1
+msgid "6701"
+msgstr "6701"
 
-#: ../sheets/ciscorouter.sheet.in.h:6
-msgid "ATM tag switch router"
-msgstr "Roteador comutador ATM"
+#: ../sheets/ciscotelephony.sheet.in.h:2
+msgid "6705"
+msgstr "6705"
 
-#: ../sheets/ciscorouter.sheet.in.h:7
-msgid "Broadband router"
-msgstr "Roteador broadband"
+#: ../sheets/ciscotelephony.sheet.in.h:3
+msgid "6732"
+msgstr "6732"
 
-#: ../sheets/ciscorouter.sheet.in.h:8
-msgid "Cisco - Router"
-msgstr "Roteador - Cisco"
+#: ../sheets/ciscotelephony.sheet.in.h:4
+msgid "ADM"
+msgstr "ADM"
 
-#: ../sheets/ciscorouter.sheet.in.h:9
-msgid "Cisco 1000"
-msgstr "Cisco 1000"
+#: ../sheets/ciscotelephony.sheet.in.h:5
+msgid "ATA"
+msgstr "ATA"
 
-#: ../sheets/ciscorouter.sheet.in.h:10
-msgid "Content service router"
-msgstr "Roteador de serviço de conteúdo"
+#: ../sheets/ciscotelephony.sheet.in.h:6
+msgid "BTS 10200"
+msgstr "BTS 10200"
 
-#: ../sheets/ciscorouter.sheet.in.h:11
-msgid "Gigabit switch router (ATM tag)"
-msgstr "Roteador de comutador gigabit (ATM)"
+#: ../sheets/ciscotelephony.sheet.in.h:7
+msgid "CallManager"
+msgstr "CallManager"
 
-#: ../sheets/ciscorouter.sheet.in.h:12
+#: ../sheets/ciscotelephony.sheet.in.h:8
+msgid "Cellular Phone"
+msgstr "Telefone Celular"
+
+#: ../sheets/ciscotelephony.sheet.in.h:9
+msgid "Cisco - Telephony"
+msgstr "Cisco - Telefonia"
+
+#: ../sheets/ciscotelephony.sheet.in.h:10
+msgid "Class 4/5 switch"
+msgstr "Switch classe 4/5"
+
+#: ../sheets/ciscotelephony.sheet.in.h:11
+msgid "End Office"
+msgstr "Fim do Escritório"
+
+#: ../sheets/ciscotelephony.sheet.in.h:12
+msgid "Fax"
+msgstr "Fax"
+
+#: ../sheets/ciscotelephony.sheet.in.h:13
+msgid "Gatekeeper"
+msgstr "Gatekeeper"
+
+#: ../sheets/ciscotelephony.sheet.in.h:14
+msgid "Generic softswitch"
+msgstr "Softswitch genérico"
+
+#: ../sheets/ciscotelephony.sheet.in.h:15
+msgid "H.323"
+msgstr "H.323"
+
+#: ../sheets/ciscotelephony.sheet.in.h:16
+msgid "HootPhone"
+msgstr "HootPhone"
+
+#: ../sheets/ciscotelephony.sheet.in.h:17
 msgid "IAD router"
 msgstr "Roteador IAD"
 
-#: ../sheets/ciscorouter.sheet.in.h:13
-msgid "IP telephony router"
-msgstr "Roteador de telefonia IP"
+#: ../sheets/ciscotelephony.sheet.in.h:18
+msgid "ICM"
+msgstr "ICM"
 
-#: ../sheets/ciscorouter.sheet.in.h:14
-msgid "NetFlow router"
-msgstr "Roteador NetFlow"
+#: ../sheets/ciscotelephony.sheet.in.h:19
+msgid "ICS"
+msgstr "ICS"
 
-#: ../sheets/ciscorouter.sheet.in.h:15
-msgid "Optical services router"
-msgstr "Roteador de serviços óticos"
+#: ../sheets/ciscotelephony.sheet.in.h:20
+msgid "IP Phone"
+msgstr "Telefone IP"
 
-#: ../sheets/ciscorouter.sheet.in.h:16
-msgid "Router"
-msgstr "Roteador"
+#: ../sheets/ciscotelephony.sheet.in.h:21
+msgid "IP Softphone"
+msgstr "IP Softphone"
 
-#: ../sheets/ciscorouter.sheet.in.h:17
-msgid "Router in building"
-msgstr "Roteador no prédio"
+#: ../sheets/ciscotelephony.sheet.in.h:22
+msgid "IP Telephony Router"
+msgstr "Roteador de Telefonia IP"
 
-#: ../sheets/ciscorouter.sheet.in.h:18
-msgid "Router shapes by Cisco"
-msgstr "Roteador desenhado pela Cisco"
+#: ../sheets/ciscotelephony.sheet.in.h:23
+msgid "ITP"
+msgstr "ITP"
 
-#: ../sheets/ciscorouter.sheet.in.h:19
-msgid "Router with firewall"
-msgstr "Roteador com firewall"
+#: ../sheets/ciscotelephony.sheet.in.h:24
+msgid "IntelliSwitch Stack"
+msgstr "Pilha IntelliSwitch"
 
-#: ../sheets/ciscorouter.sheet.in.h:20
-msgid "Router with silicon switch"
-msgstr "Roteador com comutador de silicone"
+#: ../sheets/ciscotelephony.sheet.in.h:25
+msgid "MCU"
+msgstr "MCU"
 
-#: ../sheets/ciscorouter.sheet.in.h:21
-msgid "Storage router"
-msgstr "Roteador de armazenamento"
+#: ../sheets/ciscotelephony.sheet.in.h:26
+msgid "MGX 8000 Series Voice Gateway"
+msgstr "MGX 8000 Series Voice Gateway"
 
-#: ../sheets/ciscorouter.sheet.in.h:22
+#: ../sheets/ciscotelephony.sheet.in.h:27
+msgid "MoH server (Music on Hold)"
+msgstr "Servidor MoH (Música e Espera)"
+
+#: ../sheets/ciscotelephony.sheet.in.h:28
+msgid "Mobile Access IP Phone"
+msgstr "Telefone IP de Acesso Móvel"
+
+#: ../sheets/ciscotelephony.sheet.in.h:29
+msgid "Mobile Access Router"
+msgstr "Roteador de Acesso Móvel"
+
+#: ../sheets/ciscotelephony.sheet.in.h:30
+msgid "Octel"
+msgstr "Octel"
+
+#: ../sheets/ciscotelephony.sheet.in.h:31
+msgid "PBX"
+msgstr "PBX"
+
+#: ../sheets/ciscotelephony.sheet.in.h:32
+msgid "PBX Switch"
+msgstr "Switch PBX"
+
+#: ../sheets/ciscotelephony.sheet.in.h:33
+msgid "Pager"
+msgstr "Pager"
+
+#: ../sheets/ciscotelephony.sheet.in.h:34
+msgid "Phone"
+msgstr "Telefone"
+
+#: ../sheets/ciscotelephony.sheet.in.h:35
+msgid "Phone 2"
+msgstr "Telefone 2"
+
+#: ../sheets/ciscotelephony.sheet.in.h:36
+msgid "Phone Appliance"
+msgstr "Ferramenta Telefônica"
+
+#: ../sheets/ciscotelephony.sheet.in.h:37
+msgid "Phone Ethernet"
+msgstr "Ethernet de Telefone"
+
+#: ../sheets/ciscotelephony.sheet.in.h:38
+msgid "Phone Feature"
+msgstr "Ferramenta de Telefonia"
+
+#: ../sheets/ciscotelephony.sheet.in.h:39
+msgid "Phone/Fax"
+msgstr "Telefone/Fax"
+
+#: ../sheets/ciscotelephony.sheet.in.h:40
+msgid "Radio Tower"
+msgstr "Torre de Rádio"
+
+#: ../sheets/ciscotelephony.sheet.in.h:41
+msgid "SC2200 (Signalling Controller)"
+msgstr "SC2200 (Controlador de Sinalização)"
+
+#: ../sheets/ciscotelephony.sheet.in.h:42
+msgid "SC2200/VSC3000 host"
+msgstr "Máquina SC2200/VSC3000"
+
+#: ../sheets/ciscotelephony.sheet.in.h:43
+msgid "SIP Proxy Server"
+msgstr "Servidor Proxy SIP"
+
+#: ../sheets/ciscotelephony.sheet.in.h:44
+msgid "SONET MUX"
+msgstr "SONET MUX"
+
+#: ../sheets/ciscotelephony.sheet.in.h:45
+msgid "STP"
+msgstr "STP"
+
+#: ../sheets/ciscotelephony.sheet.in.h:46
+msgid "Softphone"
+msgstr "Softphone"
+
+#: ../sheets/ciscotelephony.sheet.in.h:47
 msgid "TDM router"
 msgstr "Roteador TDM"
 
-#: ../sheets/ciscorouter.sheet.in.h:23
-msgid "Voice router"
-msgstr "Roteador de voz"
+#: ../sheets/ciscotelephony.sheet.in.h:48
+msgid "Telephony shapes by Cisco"
+msgstr "Formas de telefonia da Cisco"
 
-#: ../sheets/ciscorouter.sheet.in.h:24
-msgid "Wavelength router"
-msgstr "Roteador de comprimento de onda"
+#: ../sheets/ciscotelephony.sheet.in.h:49
+msgid "Turret"
+msgstr "Torre"
 
-#: ../sheets/ciscorouter.sheet.in.h:25
-msgid "Workgroup 5000 multilayer switch"
-msgstr "Comutador multicamada 5000"
+#: ../sheets/ciscotelephony.sheet.in.h:50
+msgid "Unity Express"
+msgstr "Unity Express"
 
-#: ../sheets/ciscorouter.sheet.in.h:26
-msgid "Workgroup 5002 multilayer switch"
-msgstr "Comutador multicamada 5002"
+#: ../sheets/ciscotelephony.sheet.in.h:51
+msgid "Unity server"
+msgstr "Servidor Unity"
 
-#: ../sheets/ciscorouter.sheet.in.h:27
-msgid "Workgroup 5500 multilayer switch"
-msgstr "Comutador multicamada 5500"
+#: ../sheets/ciscotelephony.sheet.in.h:52
+msgid "Virtual switch controller (VSC 3000)"
+msgstr "Controlador de switch virtual (VSC 3000)"
 
-#: ../sheets/ciscorouter.sheet.in.h:28
-msgid "uBR910"
-msgstr "uBR910"
+#: ../sheets/ciscotelephony.sheet.in.h:53
+msgid "Voice-Enabled ATM Switch"
+msgstr "ATM Switch Habilitado por Voz"
+
+#: ../sheets/ciscotelephony.sheet.in.h:54
+msgid "Voice-Enabled Access Server"
+msgstr "Servidor de Acesso Habilitado por Voz"
+
+#: ../sheets/ciscotelephony.sheet.in.h:55
+msgid "Voice-Enabled Router"
+msgstr "Roteador Habilitado por Voz"
+
+#: ../sheets/ciscotelephony.sheet.in.h:56
+msgid "uMG series"
+msgstr "uMG series"
 
 #: ../sheets/civil.sheet.in.h:1
 msgid "Aerator with bubbles"
@@ -8153,7 +8529,7 @@ msgstr "Disquete de 3 1/2\""
 
 #: ../sheets/network.sheet.in.h:3
 msgid "ATM switch symbol"
-msgstr "Símbolo de comutador ATM"
+msgstr "Símbolo de switch ATM"
 
 #: ../sheets/network.sheet.in.h:4
 msgid "Antenna for wireless transmission"
@@ -8215,10 +8591,6 @@ msgstr "Telefone móvel celular"
 msgid "Modular switching system"
 msgstr "Sistema de comutação modular"
 
-#: ../sheets/network.sheet.in.h:19
-msgid "Monitor"
-msgstr "Monitor"
-
 #: ../sheets/network.sheet.in.h:20
 msgid "Network"
 msgstr "Rede"
@@ -8261,7 +8633,7 @@ msgstr "Autofalante sem amplificador"
 
 #: ../sheets/network.sheet.in.h:30
 msgid "Stackable hub or switch"
-msgstr "Hub ou comutador empilhável"
+msgstr "Hub ou switch empilhável"
 
 #: ../sheets/network.sheet.in.h:31
 msgid "Storage"
@@ -8269,7 +8641,7 @@ msgstr "Armazenagem"
 
 #: ../sheets/network.sheet.in.h:32
 msgid "Switch symbol"
-msgstr "Símbolo de comutador"
+msgstr "Símbolo de switch"
 
 #: ../sheets/network.sheet.in.h:33
 msgid "Telephone"
@@ -8330,6 +8702,99 @@ msgstr "Servidor de dados Sybase"
 #: ../sheets/sybase.sheet.in.h:8
 msgid "Sybase replication server"
 msgstr "Servidor de replicação Sybase"
+
+#~ msgid "Communications server"
+#~ msgstr "Servidor de comunicação"
+
+#~ msgid "Workstation"
+#~ msgstr "Estação de Trabalho"
+
+#~ msgid "Cisco hub"
+#~ msgstr "Hub Cisco"
+
+#~ msgid "Content switch module"
+#~ msgstr "Módulo comutador de conteúdo"
+
+#~ msgid "Layer 3 switch"
+#~ msgstr "Layer 3 switch"
+
+#~ msgid "Voice switch"
+#~ msgstr "Comutador de voz"
+
+#~ msgid "Voice switch 2"
+#~ msgstr "Comutador de voz 2"
+
+#~ msgid "Dot-Dot"
+#~ msgstr "Ponto-Ponto"
+
+#~ msgid "SVX (interchangeable with End office)"
+#~ msgstr "SVX (pode ser trocado com Fim do escrtório)"
+
+#~ msgid "Telecommuter house/router"
+#~ msgstr "Telecomutador caseiro/roteador"
+
+#~ msgid "6705 Integrated access device"
+#~ msgstr "Dispositivo de acesso integrado 6705"
+
+#~ msgid "6732 Multiservice access platform"
+#~ msgstr "Plataforma de acesso a multiserviços 6732"
+
+#~ msgid "CDDI-FDDI"
+#~ msgstr "CDDI-FDDI"
+
+#~ msgid "DPT"
+#~ msgstr "DPT"
+
+#~ msgid "IPTC"
+#~ msgstr "IPTC"
+
+#~ msgid "NetRanger intrusion detection system"
+#~ msgstr "Sistema de detecção de intrusão NetRanger"
+
+#~ msgid "NetSonar security scanner"
+#~ msgstr "Scanner de segurança NetSonar"
+
+#~ msgid "ONS15500 DWDM platform"
+#~ msgstr "ONS15500 plataforma DWDM"
+
+#~ msgid "PAD X.28"
+#~ msgstr "PAD X.28"
+
+#~ msgid "7505"
+#~ msgstr "7505"
+
+#~ msgid "7507"
+#~ msgstr "7507"
+
+#~ msgid "ATM router"
+#~ msgstr "Roteador ATM"
+
+#~ msgid "ATM tag sw gigabit router"
+#~ msgstr "Comutador roteador gigabit ATM"
+
+#~ msgid "Cisco - Router"
+#~ msgstr "Roteador - Cisco"
+
+#~ msgid "Gigabit switch router (ATM tag)"
+#~ msgstr "Roteador de comutador gigabit (ATM)"
+
+#~ msgid "Router in building"
+#~ msgstr "Roteador no prédio"
+
+#~ msgid "Router shapes by Cisco"
+#~ msgstr "Roteador desenhado pela Cisco"
+
+#~ msgid "Workgroup 5000 multilayer switch"
+#~ msgstr "Comutador multicamada 5000"
+
+#~ msgid "Workgroup 5002 multilayer switch"
+#~ msgstr "Comutador multicamada 5002"
+
+#~ msgid "Workgroup 5500 multilayer switch"
+#~ msgstr "Comutador multicamada 5500"
+
+#~ msgid "uBR910"
+#~ msgstr "uBR910"
 
 #~ msgid "/Help/_Manual"
 #~ msgstr "/Ajuda/_Manual"
