@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-05-19 18:52+0000\n"
-"PO-Revision-Date: 2005-05-22 13:11+0200\n"
+"POT-Creation-Date: 2005-05-29 02:53+0000\n"
+"PO-Revision-Date: 2005-05-29 12:32+0200\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -48,54 +48,54 @@ msgstr "Chyba %s: není známo, jak exportovat do %s\n"
 msgid "%s error: input and output file name is identical: %s"
 msgstr "Chyba %s: názvy vstupního a výstupního souboru jsou shodné: %s"
 
-#: ../app/app_procs.c:400
+#: ../app/app_procs.c:399
 #, c-format
 msgid "%s error: need valid input file %s\n"
 msgstr "Chyba %s: je třeba platný vstupní soubor %s\n"
 
 #. if (!quiet)
-#: ../app/app_procs.c:425
+#: ../app/app_procs.c:424
 #, c-format
 msgid "%s --> %s\n"
 msgstr "%s --> %s\n"
 
-#: ../app/app_procs.c:571
+#: ../app/app_procs.c:570
 #, c-format
 msgid "Can't find output format/filter %s\n"
 msgstr "Nemohu najít výstupní formát/filtr %s\n"
 
 #. Translators:  The argument is a list of options, not to be translated
-#: ../app/app_procs.c:658
+#: ../app/app_procs.c:657
 #, c-format
 msgid "Select the filter/format out of: %s"
 msgstr "Vyberte filtr/formát z: %s"
 
 #. &export_file_name
-#: ../app/app_procs.c:677 ../app/app_procs.c:702
+#: ../app/app_procs.c:676 ../app/app_procs.c:701
 msgid "Export loaded file and exit"
 msgstr "Exportovat načtený soubor a skončit"
 
-#: ../app/app_procs.c:677 ../app/app_procs.c:702 ../app/diaconv.c:94
+#: ../app/app_procs.c:676 ../app/app_procs.c:701 ../app/diaconv.c:94
 msgid "OUTPUT"
 msgstr "VÝSTUP"
 
 #. &export_file_format
 #. &export_format_string
 #. &export_file_format
-#: ../app/app_procs.c:679 ../app/app_procs.c:704
+#: ../app/app_procs.c:678 ../app/app_procs.c:703
 msgid "TYPE"
 msgstr "TYP"
 
-#: ../app/app_procs.c:681 ../app/app_procs.c:707
+#: ../app/app_procs.c:680 ../app/app_procs.c:706
 msgid "Export graphics size"
 msgstr "Velikost exportované grafiky"
 
-#: ../app/app_procs.c:681 ../app/app_procs.c:707
+#: ../app/app_procs.c:680 ../app/app_procs.c:706
 msgid "WxH"
 msgstr "Š×V"
 
 #. 13.3.2004 sampo@iki.fi
-#: ../app/app_procs.c:683 ../app/app_procs.c:709
+#: ../app/app_procs.c:682 ../app/app_procs.c:708
 msgid ""
 "Show only specified layers (e.g. when exporting). Can be either the layer "
 "name or a range of layer numbers (X-Y)"
@@ -103,61 +103,61 @@ msgstr ""
 "Zobrazit jen určené vrstvy (např. při exportu). Může být buď název vrstvy "
 "nebo rozsah čísel vrstev (X-Y)"
 
-#: ../app/app_procs.c:684 ../app/app_procs.c:710
+#: ../app/app_procs.c:683 ../app/app_procs.c:709
 msgid "LAYER,LAYER,..."
 msgstr "VRSTVA,VRSTVA,..."
 
-#: ../app/app_procs.c:686 ../app/app_procs.c:712
+#: ../app/app_procs.c:685 ../app/app_procs.c:711
 msgid "Don't show the splash screen"
 msgstr "Nezobrazovat titulní obrazovku (splashscreen)"
 
-#: ../app/app_procs.c:688 ../app/app_procs.c:714
+#: ../app/app_procs.c:687 ../app/app_procs.c:713
 msgid "Send error messages to stderr instead of showing dialogs."
 msgstr "Posílat chybové zprávy na stderr místo zobrazování dialogů."
 
-#: ../app/app_procs.c:690 ../app/app_procs.c:716
+#: ../app/app_procs.c:689 ../app/app_procs.c:715
 msgid "Display credits list and exit"
 msgstr "Zobrazit seznam kreditů a skončit"
 
-#: ../app/app_procs.c:692 ../app/app_procs.c:718
+#: ../app/app_procs.c:691 ../app/app_procs.c:717
 msgid "Generate verbose output"
 msgstr "Generovat podrobný výstup"
 
-#: ../app/app_procs.c:694 ../app/app_procs.c:720
+#: ../app/app_procs.c:693 ../app/app_procs.c:719
 msgid "Display version and exit"
 msgstr "Zobrazit verzi a skončit"
 
-#: ../app/app_procs.c:721 ../app/diaconv.c:95
+#: ../app/app_procs.c:720 ../app/diaconv.c:95
 msgid "Show this help message"
 msgstr "Zobrazit tuto nápovědu"
 
-#: ../app/app_procs.c:769
+#: ../app/app_procs.c:768
 msgid "Can't connect to session manager!\n"
 msgstr "Nelze se připojit ke správci sezení!\n"
 
 #. TRANSLATOR: 2nd and 3rd %s are time and date respectively.
-#: ../app/app_procs.c:801
+#: ../app/app_procs.c:800
 #, c-format
 msgid "Dia version %s, compiled %s %s\n"
 msgstr "Dia verze %s, sestavená %s %s\n"
 
-#: ../app/app_procs.c:803
+#: ../app/app_procs.c:802
 #, c-format
 msgid "Dia version %s\n"
 msgstr "Dia verze %s\n"
 
-#: ../app/app_procs.c:865 ../app/app_procs.c:867 ../app/diaconv.c:201
+#: ../app/app_procs.c:864 ../app/app_procs.c:866 ../app/diaconv.c:201
 #: ../app/diaconv.c:203
 #, c-format
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr "Nelze nalézt standardní objekty při hledání object-libs, končím...\n"
 
-#: ../app/app_procs.c:908
+#: ../app/app_procs.c:907
 msgid "Diagram1.dia"
 msgstr "Diagram1.dia"
 
-#: ../app/app_procs.c:950
+#: ../app/app_procs.c:949
 msgid ""
 "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you can cause this message to appear.\n"
@@ -166,7 +166,7 @@ msgstr ""
 "a popište, jak jste způsobili zobrazení této zprávy.\n"
 
 #. no standard buttons
-#: ../app/app_procs.c:963
+#: ../app/app_procs.c:962
 msgid ""
 "Modified diagrams exist.\n"
 "Are you sure you want to quit Dia\n"
@@ -176,21 +176,21 @@ msgstr ""
 "Jste si jisti, že chcete ukončit program Dia\n"
 "bez uložení těchto změn?"
 
-#: ../app/app_procs.c:966
+#: ../app/app_procs.c:965
 msgid "Quit Dia"
 msgstr "Ukončit Dia"
 
 #. This printf seems to prevent a race condition with unrefs.
 #. Yuck.  -Lars
-#: ../app/app_procs.c:1019
+#: ../app/app_procs.c:1018
 msgid "Thank you for using Dia.\n"
 msgstr "Děkujeme vám, že používáte Dia.\n"
 
-#: ../app/app_procs.c:1036 ../app/app_procs.c:1043
+#: ../app/app_procs.c:1035 ../app/app_procs.c:1042
 msgid "Could not create per-user Dia config directory"
 msgstr "Nelze vytvořit adresář s uživatelským nastavením Dia"
 
-#: ../app/app_procs.c:1045
+#: ../app/app_procs.c:1044
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -198,15 +198,15 @@ msgstr ""
 "Nelze vytvořit adresář s uživatelským nastavením Dia. Ujistěte se prosím, že "
 "proměnná prostředí HOME ukazuje na existující adresář."
 
-#: ../app/app_procs.c:1067 ../app/diaconv.c:251
+#: ../app/app_procs.c:1066 ../app/diaconv.c:251
 msgid "Objects and filters internal to dia"
 msgstr "Objekty a filtry interní pro program Dia"
 
-#: ../app/app_procs.c:1109 ../app/diaconv.c:121
+#: ../app/app_procs.c:1108 ../app/diaconv.c:121
 msgid "[OPTION...] [FILE...]"
 msgstr "[VOLBA...] [SOUBOR...]"
 
-#: ../app/app_procs.c:1112 ../app/diaconv.c:128
+#: ../app/app_procs.c:1111 ../app/diaconv.c:128
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
@@ -216,16 +216,16 @@ msgstr ""
 "Spuštěním '%s --help' zobrazíte kompletní seznam voleb dostupných z "
 "příkazové řádky.\n"
 
-#: ../app/app_procs.c:1136
+#: ../app/app_procs.c:1135
 msgid "[FILE...]"
 msgstr "[SOUBOR...]"
 
-#: ../app/app_procs.c:1151
+#: ../app/app_procs.c:1150
 #, c-format
 msgid "'%s' not found!\n"
 msgstr "'%s' nenalezeno!\n"
 
-#: ../app/app_procs.c:1230
+#: ../app/app_procs.c:1229
 msgid ""
 "The original author of Dia was:\n"
 "\n"
@@ -233,7 +233,7 @@ msgstr ""
 "Původní autor Dia byl:\n"
 "\n"
 
-#: ../app/app_procs.c:1235
+#: ../app/app_procs.c:1234
 msgid ""
 "\n"
 "The current maintainers of Dia are:\n"
@@ -243,7 +243,7 @@ msgstr ""
 "Současní správci Dia jsou:\n"
 "\n"
 
-#: ../app/app_procs.c:1240
+#: ../app/app_procs.c:1239
 msgid ""
 "\n"
 "Other authors are:\n"
@@ -253,7 +253,7 @@ msgstr ""
 "Další autoři jsou:\n"
 "\n"
 
-#: ../app/app_procs.c:1245
+#: ../app/app_procs.c:1244
 msgid ""
 "\n"
 "Dia is documented by:\n"
@@ -1018,15 +1018,15 @@ msgstr "Diagram:"
 msgid "New layer %d"
 msgstr "Nová vrstva %d"
 
-#: ../app/layer_dialog.c:521
+#: ../app/layer_dialog.c:525
 msgid "none"
 msgstr "nic"
 
-#: ../app/layer_dialog.c:952
+#: ../app/layer_dialog.c:958
 msgid "Edit Layer Attributes"
 msgstr "Upravit vlastnosti vrstvy"
 
-#: ../app/layer_dialog.c:971
+#: ../app/layer_dialog.c:977
 msgid "Layer name:"
 msgstr "Název vrstvy:"
 
@@ -1984,7 +1984,7 @@ msgstr "List"
 
 #: ../app/sheets_dialog.c:672 ../objects/ER/attribute.c:153
 #: ../objects/ER/entity.c:135 ../objects/ER/relationship.c:140
-#: ../objects/UML/association.c:237 ../objects/UML/association.c:1162
+#: ../objects/UML/association.c:237 ../objects/UML/association.c:1165
 #: ../objects/UML/class_dialog.c:907 ../objects/UML/class_dialog.c:1841
 #: ../objects/UML/class_dialog.c:2070 ../objects/UML/class_dialog.c:2586
 #: ../objects/UML/dependency.c:133 ../objects/UML/generalization.c:129
@@ -2124,7 +2124,7 @@ msgstr "Editor diagramů Dia"
 msgid "Edit your Diagrams"
 msgstr "Upravte vaše diagramy"
 
-#: ../lib/arrows.c:40 ../objects/UML/association.c:1185
+#: ../lib/arrows.c:40 ../objects/UML/association.c:1188
 #: ../objects/Jackson/domain.c:96
 msgid "None"
 msgstr "Nic"
@@ -2258,6 +2258,10 @@ msgstr "Otevřený kulatý"
 msgid "Backslash"
 msgstr "Zpětné lomítko"
 
+#: ../lib/arrows.c:73
+msgid "Infinite Line"
+msgstr "Nekonečná přímka"
+
 #: ../lib/bezier_conn.c:533
 msgid "Internal error: Setting corner type of endpoint of bezier"
 msgstr ""
@@ -2302,11 +2306,11 @@ msgstr ""
 "programu Dia se můžete setkat s problémy. Nahlaste tyto problémy na adresu "
 "dia-list@gnome.org, pokud vidíte tuto zprávu."
 
-#: ../lib/diaarrowchooser.c:251
+#: ../lib/diaarrowchooser.c:269
 msgid "Arrow Properties"
 msgstr "Vlastnosti šipky"
 
-#: ../lib/diaarrowchooser.c:333 ../lib/dialinechooser.c:333
+#: ../lib/diaarrowchooser.c:351 ../lib/dialinechooser.c:333
 msgid "Details..."
 msgstr "Podrobnosti..."
 
@@ -2570,7 +2574,7 @@ msgstr "Délka čárky:"
 msgid "Select color"
 msgstr "Vyberte barvu"
 
-#: ../lib/widgets.c:1025
+#: ../lib/widgets.c:1026
 msgid "More colors..."
 msgstr "Další barvy..."
 
@@ -2591,7 +2595,7 @@ msgid "Browse"
 msgstr "Probírat"
 
 # ???
-#: ../lib/widgets.c:1940
+#: ../lib/widgets.c:1958
 msgid "Reset menu"
 msgstr "Vynulovat menu"
 
@@ -3977,76 +3981,76 @@ msgstr "Objekty diagramu SADT"
 msgid "Actor"
 msgstr "Účinkující"
 
-#: ../objects/UML/association.c:1175 ../objects/UML/class_dialog.c:2114
+#: ../objects/UML/association.c:1178 ../objects/UML/class_dialog.c:2114
 msgid "Direction:"
 msgstr "Směr:"
 
-#: ../objects/UML/association.c:1192
+#: ../objects/UML/association.c:1195
 msgid "From A to B"
 msgstr "Z A do B"
 
-#: ../objects/UML/association.c:1199
+#: ../objects/UML/association.c:1202
 msgid "From B to A"
 msgstr "Z B do A"
 
-#: ../objects/UML/association.c:1223 ../objects/UML/association.c:1231
+#: ../objects/UML/association.c:1226 ../objects/UML/association.c:1234
 msgid "Side A"
 msgstr "Strana A"
 
-#: ../objects/UML/association.c:1225 ../objects/UML/association.c:1233
+#: ../objects/UML/association.c:1228 ../objects/UML/association.c:1236
 msgid "Side B"
 msgstr "Strana B"
 
-#: ../objects/UML/association.c:1239
+#: ../objects/UML/association.c:1242
 msgid "Role:"
 msgstr "Role:"
 
-#: ../objects/UML/association.c:1251
+#: ../objects/UML/association.c:1254
 msgid "Multiplicity:"
 msgstr "Vícenásobnost:"
 
-#: ../objects/UML/association.c:1262 ../objects/UML/class_dialog.c:952
+#: ../objects/UML/association.c:1265 ../objects/UML/class_dialog.c:952
 #: ../objects/UML/class_dialog.c:1876
 msgid "Visibility:"
 msgstr "Viditelnost:"
 
-#: ../objects/UML/association.c:1271 ../objects/UML/class_dialog.c:961
+#: ../objects/UML/association.c:1274 ../objects/UML/class_dialog.c:961
 #: ../objects/UML/class_dialog.c:1885
 msgid "Public"
 msgstr "Veřejný"
 
-#: ../objects/UML/association.c:1281 ../objects/UML/class_dialog.c:969
+#: ../objects/UML/association.c:1284 ../objects/UML/class_dialog.c:969
 #: ../objects/UML/class_dialog.c:1893
 msgid "Private"
 msgstr "Soukromý"
 
-#: ../objects/UML/association.c:1291 ../objects/UML/class_dialog.c:977
+#: ../objects/UML/association.c:1294 ../objects/UML/class_dialog.c:977
 #: ../objects/UML/class_dialog.c:1901
 msgid "Protected"
 msgstr "Chráněný"
 
-#: ../objects/UML/association.c:1301 ../objects/UML/class_dialog.c:985
+#: ../objects/UML/association.c:1304 ../objects/UML/class_dialog.c:985
 #: ../objects/UML/class_dialog.c:1909
 msgid "Implementation"
 msgstr "Implementace"
 
 #. Show arrow:
-#: ../objects/UML/association.c:1320
+#: ../objects/UML/association.c:1323
 msgid "Show arrow"
 msgstr "Zobrazovat šipku"
 
 #. Aggregate
-#: ../objects/UML/association.c:1326
+#: ../objects/UML/association.c:1329
 msgid "Aggregate"
 msgstr "Agregát"
 
 #. Composition
-#: ../objects/UML/association.c:1334
+#: ../objects/UML/association.c:1337
 msgid "Composition"
 msgstr "Kompozice"
 
 #: ../objects/UML/class.c:114 ../objects/UML/class.c:279
-#: ../objects/UML/class.c:1207 ../sheets/UML.sheet.in.h:6
+#: ../objects/UML/class.c:1220 ../sheets/UML.sheet.in.h:6
 msgid "Class"
 msgstr "Třída"
 
@@ -4126,9 +4130,8 @@ msgid "Operations"
 msgstr "Operace"
 
 #: ../objects/UML/class.c:181
-#, fuzzy
 msgid "Template Parameters"
-msgstr "Parametry"
+msgstr "Parametry šablony"
 
 #: ../objects/UML/class.c:273
 msgid "Show Comments"
@@ -7323,9 +7326,8 @@ msgid "Cisco Hub"
 msgstr "Hub Cisco"
 
 #: ../sheets/ciscohub.sheet.in.h:18
-#, fuzzy
 msgid "Content Router"
-msgstr "Směrovač služeb obsahu"
+msgstr "Směrovač obsahu"
 
 #: ../sheets/ciscohub.sheet.in.h:19
 #, fuzzy
@@ -7333,7 +7335,6 @@ msgid "Content Service Module"
 msgstr "Směrovač služeb obsahu"
 
 #: ../sheets/ciscohub.sheet.in.h:20
-#, fuzzy
 msgid "Content Service Switch 1100"
 msgstr "Switch služeb obsahu 1100"
 
@@ -8184,7 +8185,7 @@ msgstr "Fax"
 
 #: ../sheets/ciscotelephony.sheet.in.h:13
 msgid "Gatekeeper"
-msgstr ""
+msgstr "Gatekeeper"
 
 #: ../sheets/ciscotelephony.sheet.in.h:14
 msgid "Generic softswitch"
