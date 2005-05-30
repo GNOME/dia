@@ -1,3 +1,7 @@
+2005-05-30  Pawan Chitrakar  <pawan@nplinux.org>
+
+	* configure.in: Added ne in ALL_LINGUAS
+
 2005-05-24  Lars Clausen  <lars@raeder.dk>
 
 	* lib/font.c: Change to make DIA_FONT_ITALIC turn into -Oblique PS
