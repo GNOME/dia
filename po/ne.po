@@ -1,0 +1,8211 @@
+# translation of dia.HEAD.po to Nepali
+# This file is distributed under the same license as the PACKAGE package.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
+# Pawan Chitrakar <pawan@mpp.org.np>, 2005.
+# Shiva Prasad Pokharel <pokharelshiva@hotmail.com>, 2005.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: dia.HEAD\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2005-04-04 02:51+0200\n"
+"PO-Revision-Date: 2005-05-29 16:36+0545\n"
+"Last-Translator: Shiva Prasad Pokharel <pokharelshiva@hotmail.com>\n"
+"Language-Team: Nepali <info@mpp.org.np>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.9.1\n"
+"Plural-Forms: Nplurals=2;plural=(n!=1)\n"
+
+#: app/app_procs.c:228
+#, c-format
+msgid "%s error: don't know how to export into %s\n"
+msgstr "%sभित्र कसरी पठाउने भन्ने कुरा%sगल्तिलाइ थाहा हुन सकेन\n"
+
+#: app/app_procs.c:237
+#, c-format
+msgid "%s error: input and output file name is identical: %s"
+msgstr "आगत निर्गत फाईलको नाम:$2%s हो $1%s गल्ती: "
+
+#: app/app_procs.c:246
+#, c-format
+msgid "%s error: need valid input file %s\n"
+msgstr "$2%s गल्ती: भएकोले मान्यता प्राप्त आगत फाईल $1%s को आवश्यक्ता\n"
+
+#. if (!quiet)
+#: app/app_procs.c:291
+#, c-format
+msgid "%s --> %s\n"
+msgstr "%s --> %s\n"
+
+#: app/app_procs.c:437
+#, c-format
+msgid "Can't find output format/filter %s\n"
+msgstr "%s निर्गत शैली/फिल्टर भेट्टाउन सकेन \n"
+
+#. Translators:  The argument is a list of options, not to be translated
+#: app/app_procs.c:524
+#, c-format
+msgid "Select the filter/format out of: %s"
+msgstr "%s वाट फिल्टर/शैली छान्नुहोस्:"
+
+#. &export_file_name
+#: app/app_procs.c:543 app/app_procs.c:567
+msgid "Export loaded file and exit"
+msgstr "लोड गरियको फाईललाई निर्यात गर्नुहोस् र निस्कनुहोस्"
+
+#: app/app_procs.c:543 app/app_procs.c:567 app/diaconv.c:94
+msgid "OUTPUT"
+msgstr "निर्गत"
+
+#. &export_file_format
+#. &export_format_string
+#. &export_file_format
+#: app/app_procs.c:545 app/app_procs.c:569
+msgid "TYPE"
+msgstr "टाइप"
+
+#: app/app_procs.c:547 app/app_procs.c:572
+msgid "Export graphics size"
+msgstr "ग्राफिक आकार लाई निर्यात गर्नुहोस्"
+
+#: app/app_procs.c:547 app/app_procs.c:572
+msgid "WxH"
+msgstr "डव्ल्यू एक्स एच"
+
+#. 13.3.2004 sampo@iki.fi
+#: app/app_procs.c:549 app/app_procs.c:574
+msgid "Show only specified layers (e.g. when exporting)"
+msgstr "तोकियका तहहरुमात्रै देखाउनुहोस्(जस्तै. निर्यात गरिरहेको वेलामा)"
+
+#: app/app_procs.c:549 app/app_procs.c:574
+msgid "LAYER,LAYER,..."
+msgstr "तह,तह,..."
+
+#: app/app_procs.c:551 app/app_procs.c:576
+msgid "Don't show the splash screen"
+msgstr "स्पलास पर्दा नदेखाउनुहोस्"
+
+#: app/app_procs.c:553 app/app_procs.c:578
+msgid "Send error messages to stderr instead of showing dialogs."
+msgstr "डायलगहरु देखाउनुको सट्टामा एस टि डि ई आर आर मा गल्ति सुचना पठाउनुहोस् "
+
+#: app/app_procs.c:555 app/app_procs.c:580
+msgid "Display credits list and exit"
+msgstr "क्रेडिट तालिका देखाउनुहोस् र निस्कनुहोस्"
+
+#: app/app_procs.c:557 app/app_procs.c:582
+msgid "Generate verbose output"
+msgstr "वढी निर्गत पैदा गर्नुहोस्"
+
+#: app/app_procs.c:559 app/app_procs.c:584
+msgid "Display version and exit"
+msgstr "संस्करण देखाउनुहोस् र निस्कनुहोस्"
+
+#: app/app_procs.c:585 app/diaconv.c:95
+msgid "Show this help message"
+msgstr "यो सहायरता सन्देश देखाउनुहोस"
+
+#: app/app_procs.c:633
+msgid "Can't connect to session manager!\n"
+msgstr "सत्र व्यावस्थापक संग जोडिन सकेन !\n"
+
+#. TRANSLATOR: 2nd and 3rd %s are time and date respectively.
+#: app/app_procs.c:665
+#, c-format
+msgid "Dia version %s, compiled %s %s\n"
+msgstr "डिआईए संस्करण $1%sले $2%s $3%s लाई कम्पाईल गराँउछ \n"
+
+#: app/app_procs.c:667
+#, c-format
+msgid "Dia version %s\n"
+msgstr "डाय संस्करण %s\n"
+
+#: app/app_procs.c:729 app/app_procs.c:731 app/diaconv.c:201 app/diaconv.c:203
+#, c-format
+msgid "Couldn't find standard objects when looking for object-libs, exiting...\n"
+msgstr "वस्तु-लिबस् हेर्दा खेरी मानक वस्तु भेट्टाउन सकेन, निस्कदै....\n"
+
+#: app/app_procs.c:772
+msgid "Diagram1.dia"
+msgstr "आकृति1.डाय"
+
+#: app/app_procs.c:814
+msgid ""
+"This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
+"describing how you can cause this message to appear.\n"
+msgstr "यो हुन हुन्थेन.यो सन्देश कसरी देखियो भन्ने कारण व्याख्या गर्दै \nवगजिल्ला जिनोम.ओ.आर.जि. मा वग प्रतिवेदन फाईल गर्नुहोस्.\n"
+
+#. no standard buttons
+#: app/app_procs.c:827
+msgid ""
+"Modified diagrams exist.\n"
+"Are you sure you want to quit Dia\n"
+"without saving them?"
+msgstr ""
+"संसोधित आकृति  रहेको छ\n"
+"के तपाई निश्चित हुनुहुन्छ तपाई डाय.\n "
+"लाई वचत नगरी मेट्नको लागी?"
+
+#: app/app_procs.c:830
+msgid "Quit Dia"
+msgstr "डाय लाई वन्द गर्नुहोस"
+
+#. This printf seems to prevent a race condition with unrefs.
+#. Yuck.  -Lars
+#: app/app_procs.c:883
+msgid "Thank you for using Dia.\n"
+msgstr "डाय प्रयोग गरेक मा तपाइलाई धन्यवाद.\n"
+
+#: app/app_procs.c:900 app/app_procs.c:907
+msgid "Could not create per-user Dia config directory"
+msgstr "डाय कन्फिग डाईरेक्टोरी हरेक-प्रयोगकर्ताको लागी सृजना गर्न सकेन"
+
+#: app/app_procs.c:909
+msgid ""
+"Could not create per-user Dia config directory. Please make sure that the "
+"environment variable HOME points to an existing directory."
+msgstr ""
+"डाय कन्फिग डाईरेक्टोरी प्रत्येक-प्रयोगकर्ताको लागी सृजना गर्न सकेन. "
+"कृपया रहने डाईरेक्टोरीमा वातावरणीय चल गृह विन्दुहरु छन् भन्ने निश्चित हुनुहोस्"
+
+#: app/app_procs.c:931 app/diaconv.c:251
+msgid "Objects and filters internal to dia"
+msgstr "डायको लागी वस्तुहरु र फिल्टरहरु आन्तरिक"
+
+#: app/app_procs.c:973 app/diaconv.c:121
+msgid "[OPTION...] [FILE...]"
+msgstr "[विकल्प...] [फाईल...]"
+
+#: app/app_procs.c:976 app/diaconv.c:128
+#, c-format
+msgid ""
+"Error on option %s: %s.\n"
+"Run '%s --help' to see a full list of available command line options.\n"
+msgstr "$1%s:$2%s विकल्पमा गल्ति छ.\n उपलव्ध पुरा आदेशको रेखाको विकल्पहरु लाई हेर्नको लागि '$3%s --सहायता': लाई लाई  चलानुहोस्छगल्लुगर.\n"
+
+#: app/app_procs.c:1000
+msgid "[FILE...]"
+msgstr "[फाईल...]"
+
+#: app/app_procs.c:1015
+#, c-format
+msgid "'%s' not found!\n"
+msgstr "'%s' भेटिएन!\n"
+
+#: app/app_procs.c:1094
+msgid ""
+"The original author of Dia was:\n"
+"\n"
+msgstr ""
+"डायको सक्कली लेखक हुनुहुन्छ:\n"
+"\n"
+
+#: app/app_procs.c:1099
+msgid ""
+"\n"
+"The current maintainers of Dia are:\n"
+"\n"
+msgstr ""
+"\n"
+"डाय का चालु संम्भारकहरु हुन:\n"
+"\n"
+
+#: app/app_procs.c:1104
+msgid ""
+"\n"
+"Other authors are:\n"
+"\n"
+msgstr ""
+"\n"
+"अरु लेखक हरु:\n हुन"
+"\n"
+
+#: app/app_procs.c:1109
+msgid ""
+"\n"
+"Dia is documented by:\n"
+"\n"
+msgstr ""
+"\n"
+"डाय:\n वाट लिखित संग्रहित गरियको हो"
+"\n"
+
+#: app/autosave.c:93
+msgid "Recovering autosaved diagrams"
+msgstr "आफै वचत भएका आकृतिहरु पुन:प्रप्त गर्दै"
+
+#: app/autosave.c:101
+msgid ""
+"Autosaved files exist.\n"
+"Please select those you wish to recover."
+msgstr ""
+"आफै वचत भएका फाईलहरु अवस्थित छन.\n"
+"कृपया तपाईले पुन:प्रप्त गर्न चाहनु भयका हरुलाई छान्नुहोस्"
+
+#: app/color_area.c:317 app/color_area.c:364
+msgid "Select foreground color"
+msgstr "अग्रभुमि रङ्ग छान्नुहोस्"
+
+#: app/color_area.c:318 app/color_area.c:365
+msgid "Select background color"
+msgstr "पृष्ठभुमि रङ्ग छान्नुहोस्"
+
+#: app/commands.c:134
+#, c-format
+msgid "Diagram%d.dia"
+msgstr "%d.आकृति डाय"
+
+#: app/commands.c:205
+msgid "No existing object to paste.\n"
+msgstr "टाँस्नको लागी कुनै वस्तुहरु अवस्थित छैन.\n"
+
+#: app/commands.c:528 app/commands.c:566
+msgid "Could not find help directory"
+msgstr "सहायता डाईरेक्टोरी भेट्टाउन सकेन"
+
+#: app/commands.c:535
+#, c-format
+msgid ""
+"Could not open help directory:\n"
+"%s"
+msgstr "%sसहायता डाईरेक्टोरी:\n खुल्न सकेन"
+
+#.
+#. * Translators should localize the following string
+#. * which will give them credit in the About box.
+#. * E.g. "Fulano de Tal <fulano@detal.com>"
+#.
+#: app/commands.c:605
+msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
+msgstr "<info@mpp.org.np>"
+
+#: app/commands.c:619
+msgid "Dia"
+msgstr "डाय"
+
+#: app/commands.c:621
+msgid "Copyright (C) 1998-2002 The Free Software Foundation and the authors"
+msgstr "सर्वाधिकार (सि) 1998-2002 निशुल्क सफ्टवेयर संस्थापन र लेखकहरु"
+
+#: app/commands.c:622
+msgid ""
+"Dia is a program for drawing structured diagrams.\n"
+"Please visit http://www.gnome.org/projects/dia for more information."
+msgstr ""
+"डाय एउटा रचनात्मक आकृतीहरु रचना गर्ने कार्यक्रम हो\n"
+"कृपया विस्तृत जानकारीको लागी http://www.gnome.org/projects/dia भेट्नुहोला"
+
+#: app/commands.c:661
+msgid "About Dia"
+msgstr "डायको वारेमा"
+
+#: app/commands.c:704
+#, c-format
+msgid "Dia v %s by Alexander Larsson"
+msgstr "एलेकजेनडर लार्सन को डाय भी %s"
+
+#. Exact spelling is Ch&eacute;p&eacute;lov (using *ML entities)
+#: app/commands.c:710
+msgid "Maintainers: Lars Clausen and Cyrille Chepelov"
+msgstr "सम्भारकर्ता: लार्स क्लउसेन र साईरिल चेपलोभ"
+
+#: app/commands.c:714
+msgid "Please visit http://www.gnome.org/projects/dia for more information"
+msgstr "कृपया विस्तृत जानकारीको लागि http://www.gnome.org/projects/dia हेर्नुहोस्"
+
+#: app/commands.c:719
+msgid "Contributors:"
+msgstr "दाताहरू:"
+
+#: app/defaults.c:43 app/defaults.c:146
+msgid "Object defaults"
+msgstr "वस्तुको पुर्वनिर्धारण"
+
+#: app/defaults.c:61
+msgid "This object has no defaults."
+msgstr "यो वस्तुको पुर्वनिर्धारण छैन"
+
+#: app/defaults.c:111
+msgid "Defaults: "
+msgstr "पूर्वनिर्धारण: "
+
+#: app/dia-props.c:85
+msgid "Diagram Properties"
+msgstr "चित्रका गुणहरु"
+
+#: app/dia-props.c:119
+msgid "Dynamic grid"
+msgstr "डायनामिक ग्रिड"
+
+#: app/dia-props.c:127
+msgid "x"
+msgstr "एक्स"
+
+#: app/dia-props.c:131
+msgid "y"
+msgstr "हो"
+
+#: app/dia-props.c:136
+msgid "Spacing"
+msgstr "स्पेसिङ्ग"
+
+#: app/dia-props.c:156
+msgid "Visible spacing"
+msgstr "दृश्यात्मक खाली ठाँउथान"
+
+#. Hexes!
+#: app/dia-props.c:177 app/preferences.c:162
+msgid "Hex grid"
+msgstr "हेक्स ग्रिड"
+
+#: app/dia-props.c:185
+msgid "Hex grid size"
+msgstr "हेक्स ग्रिड आकार"
+
+#: app/dia-props.c:198
+msgid "Grid"
+msgstr "ग्रिड"
+
+#: app/dia-props.c:209 lib/diagramdata.c:83
+msgid "Background"
+msgstr "पृष्ठभूमि"
+
+#: app/dia-props.c:220 app/preferences.c:105
+msgid "Grid Lines"
+msgstr "ग्रिड रेखाहरु"
+
+#: app/dia-props.c:231
+msgid "Page Breaks"
+msgstr "पृष्ठ टुक्राहरु"
+
+#: app/dia-props.c:242
+msgid "Colors"
+msgstr "रंगहरु"
+
+#. Can we be sure that the filename is the 'proper title'?
+#: app/dia-props.c:263
+#, c-format
+msgid "Diagram Properties: %s"
+msgstr "चित्रका गुणहरु: %s"
+
+#: app/dia_embedd.c:352
+msgid "Could not initialize Bonobo!"
+msgstr "बोनोबो थालनि भएन!"
+
+#: app/diacanvas.c:121
+msgid "X position"
+msgstr "एक्स स्थिति"
+
+#: app/diacanvas.c:122
+msgid "X position of child widget"
+msgstr "शाखा औजारको एक्स स्थिति"
+
+#: app/diacanvas.c:131
+msgid "Y position"
+msgstr "वाई स्थिति"
+
+#: app/diacanvas.c:132
+msgid "Y position of child widget"
+msgstr "शाखा औजारको वाई स्थिति"
+
+#. &export_file_format
+#: app/diaconv.c:92
+msgid "Export format to use"
+msgstr "प्रयोगको लागी फर्मेट पठाउनुहोस्"
+
+#: app/diaconv.c:92
+msgid "eps,png,wmf,cgm,dxf,fig"
+msgstr "ईपिएस,पिएनजि,डव्ल्यूएमएफ,सिजिएम,डिएक्सएफ,एफआईजि"
+
+#. &export_file_name
+#: app/diaconv.c:94
+msgid "Export file name to use"
+msgstr "प्रयोगको लागी फाईलको नाम पठाउनुहोस्"
+
+#: app/diaconv.c:96
+msgid "Quiet operation"
+msgstr "शान्तसंग सन्चालन"
+
+#: app/diaconv.c:149
+#, c-format
+msgid ""
+"Error: No arguments found.\n"
+"Run '%s --help' to see a full list of available command line options.\n"
+msgstr ""
+"गल्ति:कुनै तर्कहरु भेटियन\n"
+"पुरा उपल्व्ध तालिका आज्ञा रेखा विकल्प हेर्नको लागी '%s --सहायता'चलाउनुहोस्\n"
+
+#: app/diaconv.c:159
+#, c-format
+msgid "%s error: can specify only one of -t or -o."
+msgstr "%s गल्ति: -टि वा -ओ एउटा मात्रे तोक्नसक्छ "
+
+#: app/diaconv.c:165
+#, c-format
+msgid ""
+"%s error: must specify only one of -t or -o.\n"
+"Run '%s --help' to see a full list of available command line options.\n"
+msgstr "$1%s गल्ति:-टि वा -ओ एउटा मात्र तोक्नै पर्छ\n पुरा उपल्व्ध तालिका आज्ञा रेखा विकल्प हेर्नको लागी '$2%s --सहायता'चलाउनुहोस्\n"
+
+#: app/diaconv.c:174
+#, c-format
+msgid "%s error: no input file."
+msgstr "%s गल्ति:आगत फाईलहरु छैन"
+
+#: app/diaconv.c:227
+#, c-format
+msgid "%s error: only one input file expected."
+msgstr "%s गल्ति: एउटा मात्र आगत फाईल आशा गरियको छ"
+
+#: app/diaconv.c:240
+#, c-format
+msgid "%s error: popt library not available on this system"
+msgstr "%s गल्ति: यो प्रणालिमा पप्ट पुस्तकालय उपलव्ध छैन"
+
+#: app/diagram_tree_menu.c:45
+msgid "/_Sort objects"
+msgstr "/_ वस्तुहरु श्रेणिवद्द्द गर्नुहोस"
+
+#: app/diagram_tree_menu.c:46
+msgid "/Sort objects/by _name"
+msgstr "/नाम_वाट/ वस्तुहरु श्रेणिवद्द्द गर्नुहोस"
+
+#: app/diagram_tree_menu.c:48
+msgid "/Sort objects/by _type"
+msgstr "/किसिम_वाट/ वस्तुहरु श्रेणिवद्द्द गर्नुहोस"
+
+#: app/diagram_tree_menu.c:50
+msgid "/Sort objects/as _inserted"
+msgstr "/तानिएको_किसिमले/ वस्तुहरु श्रेणिवद्द्द गर्नुहोस"
+
+#: app/diagram_tree_menu.c:53
+msgid "/Sort objects/All by name"
+msgstr "/सवै नामवाट/ वस्तुहरु श्रेणिवद्द्द गर्नुहोस"
+
+#: app/diagram_tree_menu.c:55
+msgid "/Sort objects/All by type"
+msgstr "/सवै किसिमवाट/ वस्तुहरु श्रेणिवद्द्द गर्नुहोस"
+
+#: app/diagram_tree_menu.c:57
+msgid "/Sort objects/All as inserted"
+msgstr "/सवै तानिएको तरिकाले/ वस्तुहरु श्रेणिवद्द्द गर्नुहोस"
+
+#: app/diagram_tree_menu.c:59
+msgid "/Sort objects/_Default"
+msgstr "/_पूर्वनिर्धारित/ वस्तुहरु श्रेणिवद्द्द गर्नुहोस"
+
+#: app/diagram_tree_menu.c:60
+msgid "/Sort objects/Default/by _name"
+msgstr "/पूर्वनिर्धारित/नाम_वाट/वस्तुहरु श्रेणिवद्द्द गर्नुहोस"
+
+#: app/diagram_tree_menu.c:62
+msgid "/Sort objects/Default/by _type"
+msgstr "/पूर्वनिर्धारित/किसिम_वाट/वस्तुहरु श्रेणिवद्द्द गर्नुहोस"
+
+#: app/diagram_tree_menu.c:64
+msgid "/Sort objects/Default/as _inserted"
+msgstr "/पूर्वनिर्धारित/तानेको_किसिमले/वस्तुहरु श्रेणिवद्द्द गर्नुहोस"
+
+#: app/diagram_tree_menu.c:66
+msgid "/Sort _diagrams"
+msgstr "/चित्र हरु_श्रेणिवद्द्द गर्नुहोस"
+
+#: app/diagram_tree_menu.c:67
+msgid "/Sort _diagrams/by _name"
+msgstr "नाम_वाट/चित्र हरु_श्रेणिवद्द्द गर्नुहोस"
+
+#: app/diagram_tree_menu.c:69
+msgid "/Sort _diagrams/as _inserted"
+msgstr "/तानेको_किसिमले/चित्रहरु_श्रेणीवद्द गर्नुहोस्"
+
+#: app/diagram_tree_menu.c:71
+msgid "/Sort diagrams/_Default"
+msgstr "_पूर्वनिर्धारित/चित्रहरु श्रेणीवद्द गर्नुहोस्"
+
+#: app/diagram_tree_menu.c:72
+msgid "/Sort diagrams/Default/by _name"
+msgstr "/पूर्वनिर्धारित/नाम_वाट/चित्रहरु श्रेणिवद्द्द गर्नुहोस"
+
+#: app/diagram_tree_menu.c:74
+msgid "/Sort diagrams/Default/as _inserted"
+msgstr "/पूर्वनिर्धारित/तानेको_किसिमले/चित्रहरु श्रेणिवद्द्द गर्नुहोस"
+
+#: app/diagram_tree_menu.c:82 app/diagram_tree_menu.c:93
+msgid "/_Locate"
+msgstr "/_देखाउनु"
+
+#: app/diagram_tree_menu.c:83
+msgid "/_Properties"
+msgstr "/_गुणहरु"
+
+#: app/diagram_tree_menu.c:84
+msgid "/_Hide this type"
+msgstr "/_यस्तो किसिमको लाई लुकाउनुहोस्"
+
+#: app/diagram_tree_window.c:73
+msgid "Diagram tree"
+msgstr "चित्र वृक्ष"
+
+#: app/dialogs.c:51
+msgid "Ok"
+msgstr "ठिक छ"
+
+#: app/dialogs.c:52 app/paginate_psprint.c:292
+msgid "Cancel"
+msgstr "रद्द गर्नुहोस्"
+
+#. paper size
+#: app/diapagelayout.c:116
+msgid "Paper Size"
+msgstr "कागजको आकार"
+
+#. orientation
+#: app/diapagelayout.c:149
+msgid "Orientation"
+msgstr "अभिमुखीकरण"
+
+#. margins
+#: app/diapagelayout.c:187
+msgid "Margins"
+msgstr "सिमान्त्जिन"
+
+#: app/diapagelayout.c:199
+msgid "Top:"
+msgstr "माथि:"
+
+#: app/diapagelayout.c:212
+msgid "Bottom:"
+msgstr "तल:"
+
+#: app/diapagelayout.c:225
+msgid "Left:"
+msgstr "बायाँ:"
+
+#: app/diapagelayout.c:238
+msgid "Right:"
+msgstr "दायाँ:"
+
+#. Scaling
+#: app/diapagelayout.c:252
+msgid "Scaling"
+msgstr "स्केलिङ्ग"
+
+#: app/diapagelayout.c:263
+msgid "Scale:"
+msgstr "स्केल:"
+
+#: app/diapagelayout.c:275
+msgid "Fit to:"
+msgstr "लाई मिलेको:"
+
+#: app/diapagelayout.c:287
+msgid "by"
+msgstr "द्वरा"
+
+#: app/diapagelayout.c:682
+#, c-format
+msgid "%0.3gcm x %0.3gcm"
+msgstr "%0.3gcm x %0.3gcm"
+
+#: app/diapagelayout.c:786 app/pagesetup.c:76
+msgid "Page Setup"
+msgstr "पेज सेटअप"
+
+#: app/disp_callbacks.c:83 app/properties.c:152
+msgid ""
+"This object doesn't support Undo/Redo.\n"
+"Undo information erased."
+msgstr ""
+"यो वस्तुले पुर्वावस्था/अर्को अवस्था लाई साहारा दिन सक्दैन.\n"
+"मेटिएको जानकारी पुर्वावस्थामा ल्याउनुहोस्"
+
+#: app/disp_callbacks.c:118
+msgid "Properties..."
+msgstr "गुणहरु..."
+
+#: app/disp_callbacks.c:938
+msgid ""
+"The object you dropped cannot fit into its parent. \n"
+"Either expand the parent object, or drop the object elsewhere."
+msgstr ""
+"तपाईले ड्रप गर्नुभएको वस्तु यस्को प्रमूलमा मिल्न सक्दैन\n"
+"या प्रमूल वस्तुलाई वढाउनुभएमा,वा वस्तुलाई कतै अरु ठाउमा ड्रप गर्नुभएमा"
+
+#: app/display.c:92
+msgid "Diagram modified!"
+msgstr "चित्र परिमार्जन गरियो!"
+
+#: app/display.c:116
+#, c-format
+msgid "Selection of %d objects"
+msgstr "%d वस्तुहरुको चयन"
+
+#: app/display.c:126
+#, c-format
+msgid "Selected '%s'"
+msgstr "छानियको '%s'"
+
+#: app/display.c:1024
+msgid "<unnamed>"
+msgstr "<unnamed>"
+
+#: app/display.c:1026
+#, c-format
+msgid ""
+"The diagram '%s'\n"
+"has not been saved. Save changes now?"
+msgstr "'%s'\n यो चित्र वचत भएको छैन.परिवर्तन गरियको लाई वचत गर्नुहुन्छ? "
+
+#: app/display.c:1037
+msgid "Close Diagram"
+msgstr "चित्र वन्द गर्नुहोस्"
+
+#: app/display.c:1042
+msgid "Discard Changes"
+msgstr "परिवर्तनहरू उपेक्षा गर"
+
+#: app/export_png.c:134 app/load_save.c:913 app/render_eps.c:103
+#: plug-ins/cairo/diacairo.c:947 plug-ins/cgm/cgm.c:1157
+#: plug-ins/dxf/dxf-export.c:509 plug-ins/hpgl/hpgl.c:718
+#: plug-ins/metapost/render_metapost.c:964
+#: plug-ins/pstricks/render_pstricks.c:909 plug-ins/shape/shape-export.c:135
+#: plug-ins/svg/render_svg.c:152 plug-ins/wpg/wpg.c:1067
+#: plug-ins/xfig/xfig-export.c:1138 plug-ins/xslt/xslt.c:94
+#, c-format
+msgid "Can't open output file %s: %s\n"
+msgstr "%s: %sनिर्गत फाईल खोल्न सकेन\n"
+
+#: app/export_png.c:142
+msgid "Could not create PNG write structure"
+msgstr "पि एन जि लेखन संरचना सृजना गर्न सकेन "
+
+#: app/export_png.c:151
+msgid "Could not create PNG header info structure"
+msgstr "पि एन जि  शिर्षक जानकारी संरचना सृजना गर्न सकेन "
+
+#: app/export_png.c:159
+msgid "Error occurred while writing PNG"
+msgstr "पि एन जि लेख्दा गल्ति रहन गयो"
+
+#. Create a dialog
+#: app/export_png.c:299
+msgid "PNG Export Options"
+msgstr "पि एन जि निर्यात विकल्पहरु"
+
+#. Translators: Menu item Verb/Channel/Export
+#. Translators: Menu item Verb/Channel/Export/Export
+#: app/export_png.c:300 objects/FS/function.c:696 objects/FS/function.c:698
+msgid "Export"
+msgstr "निकासि गर्नुहोस्"
+
+#: app/export_png.c:305
+msgid "Image width:"
+msgstr "तस्विरको चौडाई:"
+
+#: app/export_png.c:308
+msgid "Image height:"
+msgstr "तस्विरको उचाई:"
+
+#: app/export_png.c:354
+msgid "Portable Network Graphics"
+msgstr "चलायमान सन्जाल ग्रफिक्स"
+
+#: app/filedlg.c:127 app/filedlg.c:493
+msgid "By extension"
+msgstr "विस्तारक द्वारा"
+
+#: app/filedlg.c:200
+msgid "Open Diagram"
+msgstr "चित्र खोल्नुहोस्"
+
+#: app/filedlg.c:228
+msgid "Open Options"
+msgstr "विकल्पहरु खोल्नुहोस्"
+
+#: app/filedlg.c:236 app/filedlg.c:628
+msgid "Determine file type:"
+msgstr "फाईलको किसिम निर्क्यौल गर्नुहोस्:"
+
+#: app/filedlg.c:252 app/filedlg.c:641
+msgid "All Files"
+msgstr "सबै फाईलहरु"
+
+#: app/filedlg.c:257 app/filedlg.c:646
+msgid "Supported Formats"
+msgstr "साहारा भएको ढाँचा"
+
+#: app/filedlg.c:293
+msgid ""
+"Some characters in the filename are neither UTF-8\n"
+"nor your local encoding.\n"
+"Some things will break."
+msgstr "फाईलनामका केहि अक्षरहरु न UTF-8\n हुन््न त तपाईको स्थानिय लिपि हुन.\n केही वस्तुहरु भाँचिन सक्छन् "
+
+#: app/filedlg.c:300 app/filedlg.c:538
+#, c-format
+msgid ""
+"The file '%s' already exists.\n"
+"Do you want to overwrite it?"
+msgstr ""
+"'%s'फाईल पहिले नै अवस्थित छ.\n"
+"के तपाई यसमाथी लेख्न चाहनुहुन्छ?"
+
+#: app/filedlg.c:308 app/filedlg.c:545
+msgid "File already exists"
+msgstr "पहिले नै अवस्थित फाईल"
+
+#: app/filedlg.c:351
+msgid "Save Diagram"
+msgstr "चित्र लाई वचत गर्नुहोस्"
+
+#. Need better way to make it a reasonable size.  Isn't there some
+#. standard look for them (or is that just Gnome?)
+#: app/filedlg.c:362
+msgid "Compress diagram files"
+msgstr "चित्र फाईलहरुलाई सङ्कुचन गर्नुहोस्"
+
+#: app/filedlg.c:371
+msgid ""
+"Compression reduces file size to less than 1/10th size and speeds up loading "
+"and saving.  Some text programs cannot manipulate compressed files."
+msgstr "सङ्कुचनले फाईलको आकारलाई 1/10 भाग भन्दा सानो पार्दछ र अपलोडिङ्ग र वचत गति लाई वढाउछ.केहि पाठ्य कार्यक्रमहरु सङ्कुचन फाईलहरु निर्माण गर्न सक्दैन. "
+
+#: app/filedlg.c:567
+#, c-format
+msgid ""
+"Could not determine which export filter\n"
+"to use to save '%s'"
+msgstr "'%s'वचत गर्नको लागी कुन निर्यात फिल्टर प्रयोग गर्ने\n भन्ने कुरा निर्क्यौल गर्न सकेन "
+
+#: app/filedlg.c:590
+msgid "Export Diagram"
+msgstr "चित्र निर्यात गर्नुहोस्"
+
+#: app/filedlg.c:620
+msgid "Export Options"
+msgstr "निर्यात विकल्पहरु"
+
+#: app/interface.c:54
+msgid "Modify object(s)"
+msgstr "वस्तु(हरु) परिमार्जन गर्नुहोस्"
+
+#: app/interface.c:55
+msgid "Modify"
+msgstr "परिमार्जन गर्नुहोस्"
+
+#. Translators: Menu item Verb/Control Magnitude/Change/Magnify
+#: app/interface.c:59 app/interface.c:60 objects/FS/function.c:986
+msgid "Magnify"
+msgstr "ठुलो वनाउनुहोस"
+
+#: app/interface.c:64
+msgid "Scroll around the diagram"
+msgstr "चित्रको वरिपरि स्क्रोल गर्नुहोस्"
+
+#: app/interface.c:65
+msgid "Scroll"
+msgstr "स्क्रोल गर्नुहोस्"
+
+#: app/interface.c:69 app/interface.c:70 lib/properties.c:77
+#: lib/properties.h:516 objects/UML/activity.c:126 objects/UML/actor.c:122
+#: objects/UML/classicon.c:143 objects/UML/component.c:128
+#: objects/UML/component_feature.c:154 objects/UML/node.c:127
+#: objects/UML/note.c:121 objects/UML/object.c:147
+#: objects/UML/small_package.c:128 objects/UML/state.c:141
+#: objects/UML/usecase.c:138 objects/Jackson/requirement.c:142
+#: objects/network/basestation.c:133 objects/network/radiocell.c:146
+msgid "Text"
+msgstr "पाठ"
+
+#: app/interface.c:74 app/interface.c:75
+msgid "Box"
+msgstr "बाकस"
+
+#: app/interface.c:79 app/interface.c:80
+msgid "Ellipse"
+msgstr "दीर्घवृत"
+
+#: app/interface.c:84 app/interface.c:85
+msgid "Polygon"
+msgstr "बहुभुज"
+
+#: app/interface.c:89 app/interface.c:90
+msgid "Beziergon"
+msgstr "वेजिरगन"
+
+#: app/interface.c:94 app/interface.c:95 objects/standard/line.c:225
+msgid "Line"
+msgstr "रेखाक्ति"
+
+#: app/interface.c:99 app/interface.c:100
+msgid "Arc"
+msgstr "चाप"
+
+#: app/interface.c:104 app/interface.c:105
+msgid "Zigzagline"
+msgstr "बाङ्गोटिङ्गो रेखा"
+
+#: app/interface.c:109 app/interface.c:110
+msgid "Polyline"
+msgstr "संयुक्तरेखा"
+
+#: app/interface.c:114 app/interface.c:115
+msgid "Bezierline"
+msgstr "बेजिररेखा"
+
+#: app/interface.c:119 app/interface.c:120
+msgid "Image"
+msgstr "छवि"
+
+#: app/interface.c:392
+msgid "Diagram menu."
+msgstr "चित्र मेनु"
+
+#: app/interface.c:430
+msgid "Pops up the Navigation window."
+msgstr "नेभिगेसन सन्झ्याललाई पप्स अप गर्नुहोस् "
+
+#: app/interface.c:512
+msgid "Zoom"
+msgstr "जुमम॒"
+
+#: app/interface.c:527
+msgid "Toggles snap-to-grid for this window."
+msgstr "यो सन्झ्यालको लागी ग्रिडमा टोगल सट्टाउनुहोस्"
+
+#: app/interface.c:590
+msgid "NULL tooldata in tool_select_update"
+msgstr "औजार लगतलाई औजार_छान्नुहोस्_नविकरण गर्नुहोस मा लाइ"
+
+#: app/interface.c:870
+#, c-format
+msgid "No sheet named %s"
+msgstr " %sनाम भएको कुनै सिट छैन"
+
+#: app/interface.c:902
+msgid "Other sheets"
+msgstr "अरु सिटहरु"
+
+#: app/interface.c:960 sheets/Misc.sheet.in.h:3
+msgid "Misc"
+msgstr "विविध"
+
+#: app/interface.c:1021
+msgid ""
+"Foreground & background colors for new objects.  The small black and white "
+"squares reset colors.  The small arrows swap colors.  Double click to change "
+"colors."
+msgstr ""
+"नयाँ वस्तुहरुको लागि अग्रभुमि र पृष्ठभुमि रङ्गहरु.  "
+"साना काला र सेता रङ्गहरु पुन:सेट गरियका रङ्गहरु.  सानो तिरहरु साटियको रङ्गहरु.  "
+"रङ्ग परिवर्तन गर्नु परेमा दुई पटक क्लिक गर्नुहोस "
+
+#: app/interface.c:1036
+msgid ""
+"Line widths.  Click on a line to set the default line width for new "
+"objects.  Double-click to set the line width more precisely."
+msgstr "चौडाई लाई रेखाकृत गर्नुहोस्.  नयाँ वस्तुकोलागी पुर्वानिर्धारित रेखा वनाउनको लागी रेखामा क्लिक गर्नुहोस्.  अझ रेखाको चौडाई ठिक तरिकासंग मिलाउन दुईपटक क्लिक गर्नुहोस्"
+
+#: app/interface.c:1076
+msgid ""
+"Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
+"arrow parameters with Details..."
+msgstr "नयाँ रेखाको शुरुमा गरिने तिर को शैली.  तिर झिक्नुहोस, वा तिरको अस्थिरता विवरणसंग मिलाउनु होस्..."
+
+#: app/interface.c:1081
+msgid ""
+"Line style for new lines.  Click to pick a line style, or set line style "
+"parameters with Details..."
+msgstr "नयाँ रेखाको लागी रेखाको शैली.  रेखा शैलि लिनको लागी क्लिक गर्नुहोस् ,वा रेखा शैली अस्थिरतासंग विवरण...सेट गर्नुहोस"
+
+#: app/interface.c:1095
+msgid ""
+"Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
+"parameters with Details..."
+msgstr "नयाँ रेखाको अन्त्यमा तिर शैलीशैल....   रेखा शैलि लिनको लागी क्लिक गर्नुहोस् ,वा रेखा शैली अस्थिरतासंग विवरण...सेट गर्नुहोस"
+
+#: app/interface.c:1202
+msgid "Diagram Editor"
+msgstr "चित्र संपादक"
+
+#: app/layer_dialog.c:69
+msgid "New Layer"
+msgstr "नयाँ तह"
+
+#: app/layer_dialog.c:70
+msgid "Raise Layer"
+msgstr "तह उठाउनुहोस्"
+
+#: app/layer_dialog.c:71
+msgid "Lower Layer"
+msgstr "तह तल लैजानुहोस्"
+
+#: app/layer_dialog.c:72
+msgid "Delete Layer"
+msgstr "तह लाई मेटाउनुहोस्"
+
+#: app/layer_dialog.c:193
+msgid "Layers"
+msgstr "तहहरु"
+
+#: app/layer_dialog.c:207
+msgid "Diagram:"
+msgstr "चित्र:"
+
+#: app/layer_dialog.c:313
+#, c-format
+msgid "New layer %d"
+msgstr "नया तह  %d"
+
+#: app/layer_dialog.c:521
+msgid "none"
+msgstr "कुनै पनि होईन"
+
+#: app/layer_dialog.c:952
+msgid "Edit Layer Attributes"
+msgstr "तहका विशेषताहरु सम्पादन गर्नुहोस्"
+
+#: app/layer_dialog.c:971
+msgid "Layer name:"
+msgstr "तहको नाम:"
+
+#: app/linewidth_area.c:246 lib/properties.h:480 lib/properties.h:483
+#: objects/chronogram/chronoline.c:181 objects/chronogram/chronoref.c:160
+msgid "Line width"
+msgstr "रेखाको चौडाई"
+
+#: app/linewidth_area.c:258
+msgid "Line width:"
+msgstr "रेखाको चौडाई:"
+
+#: app/load_save.c:260
+msgid ""
+"Error loading diagram.\n"
+"Linked object not found in document."
+msgstr ""
+"चित्र लोडिङ्ग गर्दा गल्ति.\n"
+"संवन्धित वस्तु डकुमेन्टमा भेट्टाउन सकेन"
+
+#: app/load_save.c:263
+msgid ""
+"Error loading diagram.\n"
+"connection handle does not exist."
+msgstr ""
+"चित्र लोडिङ्ग गर्दा गल्ति.\n"
+"जडान ह्याण्डल अवस्थित हुन सकेनन."
+
+#: app/load_save.c:280
+#, c-format
+msgid ""
+"Error loading diagram.\n"
+"connection point %s does not exist."
+msgstr ""
+"चित्र लोडिङ्ग गर्दा गल्ति.\n"
+"जडान विन्दु  %s अवस्थित हुन सकेनन."
+
+#: app/load_save.c:305
+#, c-format
+msgid "Can't find parent %s of %s object\n"
+msgstr "Can't find parent %s of %s object\n"
+
+#: app/load_save.c:351
+msgid "You must specify a file, not a directory.\n"
+msgstr "तपाइ डाईरेक्टोरिलाई होईन कि,फाइललाई किटान गर्नु अत्यावशेक हुन्छ\n"
+
+#: app/load_save.c:358 plug-ins/dxf/dxf-import.c:1304 plug-ins/wpg/wpg.c:1171
+#: plug-ins/xfig/xfig-import.c:1560 plug-ins/xslt/xslt.c:87
+#, c-format
+msgid "Couldn't open: '%s' for reading.\n"
+msgstr "पढ्नको लागी: '%s' खोल्न सकेन.\n"
+
+#: app/load_save.c:375 app/load_save.c:380
+#, c-format
+msgid ""
+"Error loading diagram %s.\n"
+"Unknown file type."
+msgstr ""
+"%sचित्र लोडिङ्ग गर्न गल्ति.\n"
+"अपरिचित फाईल किसिम."
+
+#: app/load_save.c:387
+#, c-format
+msgid ""
+"Error loading diagram %s.\n"
+"Not a Dia file."
+msgstr ""
+" %s.चित्र लोडिङ्ग गर्न गल्ति.\n"
+"डाय फाइल होईन."
+
+#: app/load_save.c:592
+#, c-format
+msgid ""
+"Error loading diagram:\n"
+"%s.\n"
+"A valid Dia file defines at least one layer."
+msgstr ""
+"चित्र लोडिङ्ग गर्न गल्ति.\n"
+"%s.\n"
+"एउटा मान्य डाय फाईलले न्यूनतम एक तह परिभाषित गर्दछिम."
+
+#: app/load_save.c:946
+#, c-format
+msgid "Failed to save file '%s'.\n"
+msgstr "'%s' फाईललाई वचत गर्न असफल भयो.\n"
+
+#: app/load_save.c:1018 app/load_save.c:1023
+msgid "Dia Diagram File"
+msgstr "डाय चित्र फाईल"
+
+#: app/menus.c:49 app/menus.c:87
+msgid "/_File"
+msgstr "/_फाइल"
+
+#: app/menus.c:51 app/menus.c:89
+msgid "/File/_New"
+msgstr "/फाईल/_नयाँ"
+
+#: app/menus.c:53 app/menus.c:91
+msgid "/File/_Open..."
+msgstr "/फाईल/_खोल्नुहोस्..."
+
+#. {N_("/Open _Recent"),           NULL,         NULL,           0, "<Branch>"},
+#. {   "/Open Recent/tearoff",     NULL,         NULL,         0, "<Tearoff>" },
+#. recent file list is dynamically inserted here
+#. {N_("/Open _Recent"),           NULL,         NULL,           0, "<Branch>"},
+#. {   "/Open Recent/tearoff",     NULL,         NULL,         0, "<Tearoff>" },
+#: app/menus.c:57 app/menus.c:62 app/menus.c:67 app/menus.c:69 app/menus.c:95
+#: app/menus.c:102 app/menus.c:106
+msgid "/File/---"
+msgstr "/फाइल/---"
+
+#: app/menus.c:58
+msgid "/File/_Diagram tree"
+msgstr "/फाइल/_चित्र वृक्ष"
+
+#: app/menus.c:60
+msgid "/File/Sheets and Objects..."
+msgstr "/फाइल/पाना र वस्तुहरु..."
+
+#: app/menus.c:63
+msgid "/File/_Preferences..."
+msgstr "/फाइल/_प्राथमिकताहरु..."
+
+#: app/menus.c:65
+msgid "/File/P_lugins..."
+msgstr "/फाइल/प_ल्गिन्स..."
+
+#: app/menus.c:70 app/menus.c:110
+msgid "/File/_Quit"
+msgstr "/फाइल/_वन्द गर्नुहोनुहोस"
+
+#: app/menus.c:72 app/menus.c:257
+msgid "/_Help"
+msgstr "/_सहायतादत"
+
+#: app/menus.c:74 app/menus.c:259
+msgid "/Help/_Contents"
+msgstr "/सहायता/_सामग्रीहरु"
+
+#: app/menus.c:76 app/menus.c:261
+msgid "/Help/---"
+msgstr "/सहायता/---"
+
+#: app/menus.c:77 app/menus.c:262
+msgid "/Help/_About..."
+msgstr "/सहायता/_वारेमा..."
+
+#: app/menus.c:96
+msgid "/File/_Save"
+msgstr "/फाइल/_वचत"
+
+#: app/menus.c:98
+msgid "/File/Save _As..."
+msgstr "/फाइल/यस _रुपमा वचत गर्नुहोस..."
+
+#: app/menus.c:100
+msgid "/File/_Export..."
+msgstr "/फाइल/_निर्यात गर्नुहोस..."
+
+#: app/menus.c:103
+msgid "/File/Page Set_up..."
+msgstr "/फाइल/पृष्ठ_सेटअ..."
+
+#: app/menus.c:104
+msgid "/File/_Print Diagram..."
+msgstr "/फाइल/_चित्र छाप्नुहोसप..."
+
+#: app/menus.c:107
+msgid "/File/_Close"
+msgstr "/फाइल/_वन्द गर्नुहोस"
+
+#: app/menus.c:112
+msgid "/_Edit"
+msgstr "/_सम्पादन गर्नुहोस"
+
+#: app/menus.c:114
+msgid "/Edit/_Undo"
+msgstr "/सम्पादन गर्नुहोस/_पुर्व स्थितिको लागि"
+
+#: app/menus.c:116
+msgid "/Edit/_Redo"
+msgstr "/सम्पादन गर्नुहोस/_रिडुितिको लागि"
+
+#: app/menus.c:118 app/menus.c:128
+msgid "/Edit/---"
+msgstr "/सम्पादन गर्नुहोस---"
+
+#: app/menus.c:119
+msgid "/Edit/_Copy"
+msgstr "/सम्पादन गर्नुहोस/_प्रतिकल"
+
+#: app/menus.c:121
+msgid "/Edit/C_ut"
+msgstr "/सम्पादन गर्नुहोस/का_ट्नुहोस"
+
+#: app/menus.c:123
+msgid "/Edit/_Paste"
+msgstr "/सम्पादन गर्नुहोस/_टाँस्नुहोस"
+
+#: app/menus.c:125
+msgid "/Edit/_Duplicate"
+msgstr "/सम्पादन गर्नुहोस/_नक्कल प्रति"
+
+#: app/menus.c:126
+msgid "/Edit/_Delete"
+msgstr "/सम्पादन गर्नुहोस/_मेट्नुहोस्नुहोस"
+
+#: app/menus.c:129
+msgid "/Edit/Copy Text"
+msgstr "/सम्पादन गर्नुहोस/प्रति पाठ Text"
+
+#: app/menus.c:131
+msgid "/Edit/Cut Text"
+msgstr "/सम्पादन गर्नुहोस/पाठ काट्नुहोस"
+
+#: app/menus.c:133
+msgid "/Edit/Paste _Text"
+msgstr "/सम्पादन गर्नुहोस/पाठ_टाँस्नुहोसुहोस"
+
+#: app/menus.c:135
+msgid "/_Diagram"
+msgstr "/_चित्र"
+
+#: app/menus.c:137
+msgid "/Diagram/_Properties..."
+msgstr "/चित्र/_गुणहरु..."
+
+#: app/menus.c:139
+msgid "/Diagram/_Layers..."
+msgstr "/चित्र/_तहहरुरु..."
+
+#: app/menus.c:140
+msgid "/_View"
+msgstr "/_दृश्य"
+
+#: app/menus.c:142
+msgid "/View/Zoom _In"
+msgstr "/दृश्य/जुम _ईनुहोस"
+
+#: app/menus.c:144
+msgid "/View/Zoom _Out"
+msgstr "/दृश्य/जुम _आउट"
+
+#: app/menus.c:146
+msgid "/View/_Zoom"
+msgstr "/दृश्य/_जुम"
+
+#: app/menus.c:148
+msgid "/View/Zoom/1600%"
+msgstr "/दृश्य/जुम/1600%"
+
+#: app/menus.c:149
+msgid "/View/Zoom/800%"
+msgstr "/दृश्य/जुम/800%"
+
+#: app/menus.c:150
+msgid "/View/Zoom/400%"
+msgstr "/दृश्य/जुम/400%"
+
+#: app/menus.c:151
+msgid "/View/Zoom/283%"
+msgstr "/दृश्य/जुम/283%"
+
+#: app/menus.c:152
+msgid "/View/Zoom/200%"
+msgstr "/दृश्य/जुम/200%"
+
+#: app/menus.c:153
+msgid "/View/Zoom/141%"
+msgstr "/दृश्य/जुम/141%"
+
+#: app/menus.c:154
+msgid "/View/Zoom/100%"
+msgstr "/दृश्य/जुम/100%"
+
+#: app/menus.c:156
+msgid "/View/Zoom/85%"
+msgstr "/दृश्य/जुम/85%"
+
+#: app/menus.c:157
+msgid "/View/Zoom/70.7%"
+msgstr "/दृश्य/जुम/70.7%"
+
+#: app/menus.c:158
+msgid "/View/Zoom/50%"
+msgstr "/दृश्य/जुम/50%"
+
+#: app/menus.c:159
+msgid "/View/Zoom/35.4%"
+msgstr "/दृश्य/जुम/35.4%"
+
+#: app/menus.c:160
+msgid "/View/Zoom/25%"
+msgstr "/दृश्य/जुम/25%"
+
+#: app/menus.c:161 app/menus.c:170
+msgid "/View/---"
+msgstr "/दृश्य/---"
+
+#: app/menus.c:162
+msgid "/View/Fullscr_een"
+msgstr "/दृश्य/पुरा_पर्दाा"
+
+#: app/menus.c:164
+msgid "/View/_AntiAliased"
+msgstr "/दृश्य/_एन्टिएलाइज्ड"
+
+#: app/menus.c:166
+msgid "/View/Show _Grid"
+msgstr "/दृश्य/ग्रिड _देखाउनुहोस"
+
+#: app/menus.c:167
+msgid "/View/_Snap To Grid"
+msgstr "/दृश्य/_ग्रिड मा सटाउनुहोसुहोस"
+
+#: app/menus.c:168
+msgid "/View/Show _Rulers"
+msgstr "/दृश्य/रुलरहरु_देखाउ सउनुहोसुहोस"
+
+#: app/menus.c:169
+msgid "/View/Show _Connection Points"
+msgstr "/दृश्य/जडान विन्दुहरु_देखाउनुहोस"
+
+#: app/menus.c:171
+msgid "/View/New _View"
+msgstr "/दृश्य/नयाँ्दृश्येखाउनुहोस"
+
+#. Show All, Best Fit.  Same as the Gimp, Ctrl+E
+#: app/menus.c:173
+msgid "/View/Show _All"
+msgstr "/दृश्य/सवै_देखाउनुहोस"
+
+#: app/menus.c:175
+msgid "/View/Re_draw"
+msgstr "/दृश्य/पुन_चित्रित गर्नुहोस"
+
+#: app/menus.c:177
+msgid "/_Objects"
+msgstr "/_वस्तुहरु"
+
+#: app/menus.c:179
+msgid "/Objects/Send to _Back"
+msgstr "/वस्तुहरु/पछाडी _पठाउनुहोस्"
+
+#: app/menus.c:181
+msgid "/Objects/Bring to _Front"
+msgstr "/वस्तुहरु/अगाडी _ल्याउनुहोस्"
+
+#: app/menus.c:183
+msgid "/Objects/Send Backwards"
+msgstr "/वस्तुहरु/पछाडी तिर पठाउनुहोस्"
+
+#: app/menus.c:185
+msgid "/Objects/Bring Forwards"
+msgstr "/वस्तुहरु/अगाडी ल्यााउनुहोस्"
+
+#: app/menus.c:187 app/menus.c:191 app/menus.c:195 app/menus.c:213
+msgid "/Objects/---"
+msgstr "/वस्तुहरु/---नुहोस्"
+
+#: app/menus.c:188
+msgid "/Objects/_Group"
+msgstr "/वस्तुहरु/_समुहस्"
+
+#. deliberately not using Ctrl+U for Ungroup
+#: app/menus.c:190
+msgid "/Objects/_Ungroup"
+msgstr "/वस्तुहरु/_समुह विहिनस्"
+
+#: app/menus.c:192
+msgid "/Objects/_Parent"
+msgstr "/वस्तुहरु/_प्रमूलस्"
+
+#: app/menus.c:193
+msgid "/Objects/_Unparent"
+msgstr "/वस्तुहरु/_अप्रमूल"
+
+#: app/menus.c:194
+msgid "/Objects/_Unparent Children"
+msgstr "/वस्तुहरु/_प्रमूल वच्चाहरु"
+
+#: app/menus.c:196
+msgid "/Objects/Align"
+msgstr "/वस्तुहरु/पङ्गतिवद्द"
+
+#: app/menus.c:198
+msgid "/Objects/Align/Left"
+msgstr "/वस्तुहरु/पङ्गतिवद्द/वायाँ"
+
+#: app/menus.c:200
+msgid "/Objects/Align/Center"
+msgstr "/वस्तुहरु/पङ्गतिवद्द/केन्द्रमा"
+
+#: app/menus.c:202
+msgid "/Objects/Align/Right"
+msgstr "/वस्तुहरु/पङ्गतिवद्द/दायाँ"
+
+#: app/menus.c:204 app/menus.c:208
+msgid "/Objects/Align/---"
+msgstr "/वस्तुहरु/पङ्गतिवद्द/---"
+
+#: app/menus.c:205
+msgid "/Objects/Align/Top"
+msgstr "/वस्तुहरु/पङ्गतिवद्द/सवै भन्दा माथी"
+
+#: app/menus.c:206
+msgid "/Objects/Align/Middle"
+msgstr "/वस्तुहरु/पङ्गतिवद्द/विचमा"
+
+#: app/menus.c:207
+msgid "/Objects/Align/Bottom"
+msgstr "/वस्तुहरु/पङ्गतिवद्द/तल"
+
+#: app/menus.c:209
+msgid "/Objects/Align/Spread Out Horizontally"
+msgstr "/वस्तुहरु/पङ्गतिवद्द/तेर्सो गरी वाहिर छरिएकका"
+
+#: app/menus.c:210
+msgid "/Objects/Align/Spread Out Vertically"
+msgstr "/वस्तुहरु/पङ्गतिवद्द/ठाडो गरी वाहिर छरिएकका"
+
+#: app/menus.c:211
+msgid "/Objects/Align/Adjacent"
+msgstr "/वस्तुहरु/पङ्गतिवद्द/अन्नासन"
+
+#: app/menus.c:212
+msgid "/Objects/Align/Stacked"
+msgstr "/वस्तुहरु/पङ्गतिवद्द/थाक"
+
+#: app/menus.c:214
+msgid "/Objects/_Properties..."
+msgstr "/वस्तुहरु/_गुणहरु..."
+
+#: app/menus.c:216
+msgid "/_Select"
+msgstr "/_छान्नुहोस्"
+
+#: app/menus.c:218
+msgid "/Select/All"
+msgstr "/छान्नुहोस/सवै"
+
+#: app/menus.c:219
+msgid "/Select/None"
+msgstr "/नछान्नुहोस/कुनै पनिै"
+
+#: app/menus.c:220
+msgid "/Select/Invert"
+msgstr "/छान्नुहोस/उल्टो"
+
+#: app/menus.c:221 app/menus.c:225
+msgid "/Select/---"
+msgstr "/छान्नुहोस/---"
+
+#: app/menus.c:222
+msgid "/Select/Transitive"
+msgstr "/छान्नुहोस/सक्रमक"
+
+#: app/menus.c:223
+msgid "/Select/Connected"
+msgstr "/छान्नुहोस/जडानभएका"
+
+#: app/menus.c:224
+msgid "/Select/Same Type"
+msgstr "/छान्नुहोस/उस्तै किसिमको"
+
+#: app/menus.c:226
+msgid "/Select/Replace"
+msgstr "/छान्नुहोस/पुन्स्थापन"
+
+#: app/menus.c:228
+msgid "/Select/Union"
+msgstr "/छान्नुहोस/संयोग"
+
+#: app/menus.c:230
+msgid "/Select/Intersection"
+msgstr "/छान्नुहोस/काटियका"
+
+#: app/menus.c:232
+msgid "/Select/Remove"
+msgstr "/छान्नुहोस/हटाउनुहोस"
+
+#. Cannot also be called Invert, duplicate names caused keybinding problems
+#: app/menus.c:235
+msgid "/Select/Inverse"
+msgstr "/छान्नुहोस/उल्टो दिशामा"
+
+#: app/menus.c:237
+msgid "/_Tools"
+msgstr "/_औजारहरु"
+
+#: app/menus.c:239
+msgid "/Tools/Modify"
+msgstr "/औजारहरु/परिमार्जन"
+
+#: app/menus.c:240
+msgid "/Tools/Magnify"
+msgstr "/औजारहरु/ठुलो आकार पार्नुहोस"
+
+#: app/menus.c:241
+msgid "/Tools/Scroll"
+msgstr "/औजारहरु/स्क्रोल गर्नुहोस्"
+
+#: app/menus.c:242
+msgid "/Tools/Text"
+msgstr "/औजारहरु/पाठ"
+
+#: app/menus.c:243
+msgid "/Tools/Box"
+msgstr "/औजारहरु/वाकस"
+
+#: app/menus.c:244
+msgid "/Tools/Ellipse"
+msgstr "/औजारहरु/दीर्घवृत"
+
+#: app/menus.c:245
+msgid "/Tools/Polygon"
+msgstr "/औजारहरु/वहुभुज"
+
+#: app/menus.c:246
+msgid "/Tools/Beziergon"
+msgstr "/औजारहरु/बेजिरगन"
+
+#: app/menus.c:247 app/menus.c:253
+msgid "/Tools/---"
+msgstr "/औजारहरु/---"
+
+#: app/menus.c:248
+msgid "/Tools/Line"
+msgstr "/औजारहरु/रेखा"
+
+#: app/menus.c:249
+msgid "/Tools/Arc"
+msgstr "/औजारहरु/चाप"
+
+#: app/menus.c:250
+msgid "/Tools/Zigzagline"
+msgstr "/औजारहरु/वाङ्गोटिङ्गो रेखा"
+
+#: app/menus.c:251
+msgid "/Tools/Polyline"
+msgstr "/औजारहरु/वहु रेखा"
+
+#: app/menus.c:252
+msgid "/Tools/Bezierline"
+msgstr "/औजारहरु/वेजिररेखा"
+
+#: app/menus.c:254
+msgid "/Tools/Image"
+msgstr "/औजारहरु/तस्विर"
+
+#: app/menus.c:255
+msgid "/_Input Methods"
+msgstr "/_आगत तरिकाहरु"
+
+#: app/menus.c:427
+msgid "NULL tooldata in tool_menu_select"
+msgstr "औजार_मेनु_छान्नुहोस मा औजार पाठ खाली गर्नुहोस्"
+
+#: app/menus.c:525
+msgid "Diagram Menu"
+msgstr "चित्र मेनु"
+
+#: app/menus.c:660
+#, c-format
+msgid ""
+"Can't find menu entry '%s'!\n"
+"This is probably a i18n problem (try LANG=C)."
+msgstr ""
+" '%s'!\n मेनु प्रविष्ठि भेट्टाउन सकेन "
+"यो सायद एउटा i18एन समस्या हो(एल ए एन जि‌ =सि कोशिस गर्नुहोस्)"
+
+#: app/modify_tool.c:327
+msgid "Couldn't get GTK settings"
+msgstr "जिटिके मिलान भेट्टाउन सकेन"
+
+#: app/paginate_psprint.c:243
+msgid "Select Printer"
+msgstr "मुद्रक छान्नुहोस"
+
+#: app/paginate_psprint.c:255 sheets/ciscocomputer.sheet.in.h:25
+msgid "Printer"
+msgstr "छाप्नेयन्त्र॒"
+
+#: app/paginate_psprint.c:269 sheets/Misc.sheet.in.h:1
+msgid "File"
+msgstr "फाईल॒"
+
+#: app/paginate_psprint.c:284
+msgid "OK"
+msgstr "ठीक छ"
+
+#: app/paginate_psprint.c:379
+#, c-format
+msgid "Could not run command '%s': %s"
+msgstr " '%s': %s आज्ञा चालु हुन सकेन"
+
+#: app/paginate_psprint.c:382
+#, c-format
+msgid "Could not open '%s' for writing: %s"
+msgstr "$2%sलाई लेख्नको लागि $1%s खुल्न सकेन"
+
+#: app/paginate_psprint.c:399
+#, c-format
+msgid "Printing error: command '%s' returned %d\n"
+msgstr "मुद्रण गल्ति:आज्ञा '%s' फर्क्यौ %d\n"
+
+#: app/paginate_psprint.c:410
+#, c-format
+msgid "Printing error: command '%s' caused sigpipe."
+msgstr "'%s'आज्ञाले सिगपाइप हुन्छ.मुद्रण गल्ति"
+
+#: app/plugin-manager.c:200
+msgid "Plug-ins"
+msgstr "प्लग-इनस्"
+
+#: app/plugin-manager.c:255
+msgid "Loaded"
+msgstr "लोडेड"
+
+#: app/plugin-manager.c:262 objects/UML/class.c:111
+#: objects/UML/large_package.c:130
+msgid "Name"
+msgstr "नाम"
+
+#: app/plugin-manager.c:268
+msgid "Description"
+msgstr "विवरण"
+
+#: app/plugin-manager.c:277
+msgid "Load at Startup"
+msgstr "शुरुमा लोड"
+
+#: app/plugin-manager.c:284
+msgid "File Name"
+msgstr "फाइलको नाम"
+
+#: app/preferences.c:102
+msgid "User Interface"
+msgstr "प्रयोगकर्ता को लागि ईन्टरफेस"
+
+#: app/preferences.c:103
+msgid "Diagram Defaults"
+msgstr "पूर्वनिर्धारित चित्र"
+
+#: app/preferences.c:104
+msgid "View Defaults"
+msgstr "पूर्वनिर्धारित दृश्य"
+
+#: app/preferences.c:106
+msgid "Diagram Tree"
+msgstr "चित्र वृक्ष"
+
+#: app/preferences.c:120
+msgid "Reset tools after create"
+msgstr "सृजना गरेपछि औजारहरु पुनसेट गर्नुहोस"
+
+#: app/preferences.c:121
+msgid "Compress saved files"
+msgstr "सङ्कुचित वचत फाइलहरु"
+
+#: app/preferences.c:122
+msgid "Number of undo levels:"
+msgstr "पूर्वस्थिति स्तर संख्या:"
+
+#: app/preferences.c:123
+msgid ""
+"Reverse dragging selects\n"
+"intersecting objects"
+msgstr ""
+"उल्टो ड्रयागिङ्ग छनाईले\n"
+"वस्तुहरुको कटाइ गर्दछ"
+
+#: app/preferences.c:124
+msgid "Recent documents list size:"
+msgstr "चालु कागजातग्रि तालिकाको आकार:"
+
+#: app/preferences.c:125
+msgid "Use menu bar"
+msgstr "मेनु पट्टि प्रयोग गर्नुहोस"
+
+#: app/preferences.c:127
+msgid "Keep tool box on top of diagram windows"
+msgstr "औजार वाकस चित्र सन्झ्यालको माथी राख्नुहोस"
+
+#: app/preferences.c:129
+msgid "New diagram:"
+msgstr "नयाँ चित्र:"
+
+#: app/preferences.c:130
+msgid "Portrait"
+msgstr "पोर्ट्रेट"
+
+#: app/preferences.c:132
+msgid "Paper type:"
+msgstr "कागजको प्रकार:"
+
+#: app/preferences.c:135
+msgid "Background Color:"
+msgstr "पृष्ठभुमि रङ्ग:"
+
+#: app/preferences.c:138
+msgid "New window:"
+msgstr "नयाँ सन्झ्याल:"
+
+#: app/preferences.c:139
+msgid "Width:"
+msgstr "चौडाई:"
+
+#: app/preferences.c:140
+msgid "Height:"
+msgstr "उचाई:"
+
+#: app/preferences.c:141
+msgid "Magnify:"
+msgstr "आकार वढाउनुहोस:"
+
+#: app/preferences.c:144
+msgid "Connection Points:"
+msgstr "जडान विन्दुहरु:"
+
+#. { NULL, PREF_NONE, 0, NULL, 3, N_("Grid:") },
+#: app/preferences.c:145 app/preferences.c:149 app/preferences.c:155
+msgid "Visible"
+msgstr "दृश्यात्मक"
+
+#: app/preferences.c:148
+msgid "Page breaks:"
+msgstr "पाना टुक्रियको ठाउहरु:"
+
+#: app/preferences.c:150 app/preferences.c:160
+msgid "Color:"
+msgstr "रङ्ग:"
+
+#: app/preferences.c:151
+msgid "Solid lines"
+msgstr "ठोस पंक्ति"
+
+#: app/preferences.c:156
+msgid "Snap to"
+msgstr "ध्यान दिनु"
+
+#: app/preferences.c:157
+msgid "Dynamic grid resizing"
+msgstr "डायनामिक ग्रिड पुन:आकार मिलाईदै"
+
+#: app/preferences.c:158
+msgid "X Size:"
+msgstr "एक्स आकार:"
+
+#: app/preferences.c:159
+msgid "Y Size:"
+msgstr "वाई आकार:"
+
+#: app/preferences.c:161
+msgid "Lines per major line"
+msgstr "प्रति मेजर रेखामा रेखाहरु"
+
+#: app/preferences.c:163
+msgid "Hex Size:"
+msgstr "हेक्स साईज:"
+
+#: app/preferences.c:179
+msgid "Diagram tree window:"
+msgstr "चित्र वृक्ष सन्झ्याल:"
+
+#: app/preferences.c:181
+msgid "Save hidden object types"
+msgstr "लुकाईएको वस्तु प्रकारहरुलाई वचत गर्नुहोस"
+
+#: app/preferences.c:386 lib/prop_inttypes.c:158
+msgid "Yes"
+msgstr "हो"
+
+#: app/preferences.c:386 app/preferences.c:397 lib/prop_inttypes.c:160
+#: lib/prop_inttypes.c:186
+msgid "No"
+msgstr "होइन"
+
+#: app/preferences.c:499
+msgid "Preferences"
+msgstr "प्राथमिकताहरु"
+
+#: app/properties.c:55
+msgid "Object properties"
+msgstr "वस्तु गुणहरु"
+
+#: app/properties.c:80
+msgid "This object has no properties."
+msgstr "यो वस्तुको गुणहरु छैन"
+
+#: app/properties.c:202
+msgid "Properties: "
+msgstr "गुणहरु: "
+
+#: app/properties.c:206
+msgid "Object properties:"
+msgstr "वस्तु गुणहरु:"
+
+#. Use the Plugins menu item to get a pointer to the File menu,
+#. but any item on the File menu will do
+#: app/recent_files.c:61
+msgid "<Toolbox>/File/Plugins..."
+msgstr "<Toolbox>/फाईल/प्लगिन्स..."
+
+#: app/recent_files.c:70 app/recent_files.c:143
+msgid "<Toolbox>/File/Quit"
+msgstr "<Toolbox>/फाईल/वन्द गर्नुहोस"
+
+#: app/render_eps.c:145
+msgid "Encapsulated Postscript (using Pango fonts)"
+msgstr "ई पी एस (पिङ्गो अक्षर प्रयोग गर्दै)स"
+
+#: app/render_eps.c:154
+msgid "Encapsulated Postscript with preview (using Pango fonts)"
+msgstr "पुर्व दृश्य संगै ई पी एस (पिङ्गो अक्षर प्रयोग गर्दै)"
+
+#: app/render_eps.c:164
+msgid "Encapsulated Postscript (using PostScript Latin-1 fonts)"
+msgstr "ई पी एस (पोष्ट स्क्रिप्ट ल्याटिन-१ फन्ट प्रयोग गर्दै)"
+
+#: app/render_libart.c:318 lib/dialibartrenderer.c:288
+msgid "gdk_renderer: Unsupported fill mode specified!\n"
+msgstr "जि टि के_दाता:सहायता रहित भर्ने अवस्था वताईएको!\n"
+
+#: app/sheets.c:155
+#, c-format
+msgid ""
+"%s\n"
+"System sheet"
+msgstr ""
+"%s\n"
+"प्रणाली पाना"
+
+#: app/sheets.c:157
+#, c-format
+msgid ""
+"%s\n"
+"User sheet"
+msgstr ""
+"%s\n"
+"प्रयोगकर्ता पाना"
+
+#: app/sheets.c:272
+msgid ""
+"Can't get symbol 'custom_type' from any module.\n"
+"Editing shapes is disabled."
+msgstr ""
+"कुनै मोड्युल वाट 'अनुकुल_प्रकार' पाउन सकसन.\n"
+"सम्पादन आकार लाई असक्षम पारियको छ.केनकार' "
+
+#: app/sheets.c:380
+#, c-format
+msgid "Widget not found: %s"
+msgstr "%sऔजार फेला परेन:"
+
+#: app/sheets.c:455
+msgid "SVG Shape"
+msgstr "एस भि जि आकार"
+
+#: app/sheets.c:457
+msgid "Programmed DiaObject"
+msgstr "प्रोग्राम गरियको डाय वस्तु"
+
+#: app/sheets_dialog.c:83
+msgid "Sheets and Objects"
+msgstr "पानाहरु र वस्तुहरु"
+
+#: app/sheets_dialog.c:109 app/sheets_dialog_callbacks.c:177
+msgid "<- Copy"
+msgstr "<- नक्कल"
+
+#: app/sheets_dialog.c:119 app/sheets_dialog_callbacks.c:179
+msgid "<- Copy All"
+msgstr "<- सवै नक्कल गर्नुहोस"
+
+#: app/sheets_dialog.c:126 app/sheets_dialog_callbacks.c:181
+msgid "<- Move"
+msgstr "<- लैजानुहोस"
+
+#: app/sheets_dialog.c:136 app/sheets_dialog_callbacks.c:183
+msgid "<- Move All"
+msgstr "<- सवै लैजानुहोस"
+
+#: app/sheets_dialog.c:233
+msgid "Edit"
+msgstr "सम्पादन गर्नुहोस्"
+
+#: app/sheets_dialog.c:235
+msgid "_Edit"
+msgstr "_सम्पादन गर्नुहोस्"
+
+#: app/sheets_dialog.c:266
+msgid "Revert"
+msgstr "पछाडि फर्कनुहोस्"
+
+#: app/sheets_dialog.c:354
+msgid "New"
+msgstr "नयाँ"
+
+#: app/sheets_dialog.c:362 app/sheets_dialog.c:794 objects/Istar/actor.c:144
+#: objects/Istar/actor.c:145 objects/Istar/other.c:148
+#: objects/Istar/other.c:149 objects/KAOS/other.c:151 objects/KAOS/other.c:152
+msgid "Type"
+msgstr "प्रकार"
+
+#: app/sheets_dialog.c:377
+msgid "Browse..."
+msgstr "खोतल्नुहोस्"
+
+#: app/sheets_dialog.c:386
+msgid "SVG Shape:"
+msgstr "एस भि जि आकार:"
+
+#: app/sheets_dialog.c:413 app/sheets_dialog.c:476
+msgid "description:"
+msgstr "विवरण:"
+
+#: app/sheets_dialog.c:425
+msgid "Sheet name:"
+msgstr "पानाको नाम:"
+
+#: app/sheets_dialog.c:446 app/sheets_dialog_callbacks.c:289
+#: app/sheets_dialog_callbacks.c:1090
+msgid "Line Break"
+msgstr "सम्वन्ध छुट्योु"
+
+#: app/sheets_dialog.c:568
+msgid "Edit Attributes"
+msgstr "विशेषताहरु सम्पादन गर्नुहोस"
+
+#: app/sheets_dialog.c:583
+msgid "DiaObject"
+msgstr "डाय वस्तु"
+
+#: app/sheets_dialog.c:599 app/sheets_dialog.c:692
+msgid "Description:"
+msgstr "वर्णन:"
+
+#: app/sheets_dialog.c:618 objects/FS/flow-ortho.c:168 objects/FS/flow.c:146
+#: objects/UML/class_dialog.c:918 objects/UML/class_dialog.c:1852
+#: objects/UML/class_dialog.c:2081 objects/UML/class_dialog.c:2597
+#: objects/Istar/link.c:165 objects/Jackson/phenomenon.c:144
+#: objects/KAOS/metaandorrel.c:164 objects/KAOS/metabinrel.c:171
+msgid "Type:"
+msgstr "प्रकार:"
+
+#: app/sheets_dialog.c:656
+msgid "Sheet"
+msgstr "पाना"
+
+#: app/sheets_dialog.c:672 objects/ER/attribute.c:153 objects/ER/entity.c:135
+#: objects/ER/relationship.c:140 objects/UML/association.c:237
+#: objects/UML/association.c:1162 objects/UML/class_dialog.c:907
+#: objects/UML/class_dialog.c:1841 objects/UML/class_dialog.c:2070
+#: objects/UML/class_dialog.c:2586 objects/UML/dependency.c:133
+#: objects/UML/generalization.c:129 objects/UML/realizes.c:130
+msgid "Name:"
+msgstr "नाम:"
+
+#. Translators: Menu item Verb/Channel/Export/Remove
+#. Translators: Menu item Verb/Branch/Separate/Remove
+#. Translators: Menu item Verb/Branch/Separate/Remove/Remove
+#: app/sheets_dialog.c:784 objects/FS/function.c:706 objects/FS/function.c:858
+#: objects/FS/function.c:860
+msgid "Remove"
+msgstr "हटाउनुहोस्"
+
+#: app/sheets_dialog.c:809
+msgid "DiaObject:"
+msgstr "डाय वस्तु:"
+
+#: app/sheets_dialog.c:836
+msgid "Sheet:"
+msgstr "पाना:"
+
+#: app/sheets_dialog.c:920
+msgid "Select SVG Shape File"
+msgstr "एस भि जि आकार फाईललाई छान्नुहोस"
+
+#: app/sheets_dialog_callbacks.c:164
+msgid "Copy ->"
+msgstr "नक्कल गर्नुहोस ->"
+
+#: app/sheets_dialog_callbacks.c:166
+msgid "Copy All ->"
+msgstr "सवै नक्कल गर्नुहोस ->"
+
+#: app/sheets_dialog_callbacks.c:168
+msgid "Move ->"
+msgstr "लैजानुहोस ->"
+
+#: app/sheets_dialog_callbacks.c:170
+msgid "Move All ->"
+msgstr "सवै लैजानुहोस ->"
+
+#: app/sheets_dialog_callbacks.c:303
+#, c-format
+msgid ""
+"%s\n"
+"Shape"
+msgstr ""
+"%s\n"
+"आकार"
+
+#: app/sheets_dialog_callbacks.c:306
+#, c-format
+msgid ""
+"%s\n"
+"Object"
+msgstr ""
+"%s\n"
+"वस्तु"
+
+#: app/sheets_dialog_callbacks.c:309
+#, c-format
+msgid ""
+"%s\n"
+"Unassigned type"
+msgstr ""
+"%s\n"
+"मानाङ्कन नगरियको किसिम"
+
+#: app/sheets_dialog_callbacks.c:800
+#, c-format
+msgid "Filename must end with '%s': '%s'"
+msgstr "फाइलको नाम '%s': '%s'वाटै अन्त्य हुनु पर्छु पर्"
+
+#: app/sheets_dialog_callbacks.c:808
+#, c-format
+msgid "Error examining %s: %s"
+msgstr "'%s': '%s' गल्ति जाँच गरिँदै"
+
+#: app/sheets_dialog_callbacks.c:828
+#, c-format
+msgid "Could not interpret shape file: '%s'"
+msgstr "'%s' फाइल आकार वताउन सकेन:फाईल आकार वताउन सकेन:"
+
+#: app/sheets_dialog_callbacks.c:897
+msgid "Sheet must have a Name"
+msgstr "पाना मा नाम हुनै पर्छ"
+
+#: app/sheets_dialog_callbacks.c:1594 app/sheets_dialog_callbacks.c:1600
+#, c-format
+msgid "Couldn't open '%s': %s"
+msgstr "'%s': %s खोल्न सकेन"
+
+#: app/sheets_dialog_callbacks.c:1651
+#, c-format
+msgid "Couldn't open: '%s' for writing"
+msgstr "लेख्नको लागि '%s' खुल्न सकेन:"
+
+#: app/sheets_dialog_callbacks.c:1660
+msgid "a user"
+msgstr "एउटा प्रयोगकर्ता"
+
+#: app/sheets_dialog_callbacks.c:1673
+#, c-format
+msgid "File: %s"
+msgstr "%s फाइल:"
+
+#: app/sheets_dialog_callbacks.c:1676
+#, c-format
+msgid "Date: %s"
+msgstr "मिति: %s"
+
+#: app/sheets_dialog_callbacks.c:1680
+#, c-format
+msgid "For: %s"
+msgstr "%s:को लागी"
+
+#: app/sheets_dialog_callbacks.c:1697
+msgid "add shapes here"
+msgstr "यहा आकारहरु थप्नुहोस"
+
+#: app/splash.c:58
+msgid "Loading ..."
+msgstr "लोड हुंदैछ ..."
+
+#: app/splash.c:76
+#, c-format
+msgid "Dia v %s"
+msgstr "डाय भि %s"
+
+#: dia.desktop.in.h:1
+msgid "Dia Diagram Editor"
+msgstr "डाय चित्र सम्पादक"
+
+#: dia.desktop.in.h:2
+msgid "Edit your Diagrams"
+msgstr "तपाइको चित्रहरुलाइ सम्पादन गर्नुहोसर्नुहोस"
+
+#: lib/arrows.c:40 objects/UML/association.c:1185 objects/Jackson/domain.c:96
+msgid "None"
+msgstr "कोहिपनि होइन"
+
+#: lib/arrows.c:41
+msgid "Lines"
+msgstr "रेखाहरुक्ति"
+
+#: lib/arrows.c:42
+msgid "Hollow Triangle"
+msgstr "खाली त्रोकोण"
+
+#: lib/arrows.c:43
+msgid "Filled Triangle"
+msgstr "भरियको त्रिभुज"
+
+#: lib/arrows.c:44
+msgid "Unfilled Triangle"
+msgstr "नभरियको त्रिभुज"
+
+#: lib/arrows.c:45
+msgid "Hollow Diamond"
+msgstr "खाली हिरा"
+
+#: lib/arrows.c:46
+msgid "Filled Diamond"
+msgstr "भरियको हिरा"
+
+#: lib/arrows.c:47
+msgid "Half Diamond"
+msgstr "आदि हिरा"
+
+#: lib/arrows.c:48
+msgid "Half Head"
+msgstr "आदि शिर्ष"
+
+#: lib/arrows.c:49
+msgid "Slashed Cross"
+msgstr "स्ल्यास गरियको कटाई"
+
+#: lib/arrows.c:50
+msgid "Filled Ellipse"
+msgstr "भरियको दीर्धवृत"
+
+#: lib/arrows.c:51
+msgid "Hollow Ellipse"
+msgstr "खाली दिर्धवृत"
+
+#: lib/arrows.c:52
+msgid "Filled Dot"
+msgstr "भरियको थोप्लो"
+
+#: lib/arrows.c:53
+msgid "Dimension Origin"
+msgstr "आयामिक शुरुवात"
+
+#: lib/arrows.c:54
+msgid "Blanked Dot"
+msgstr "खाली थोप्लो"
+
+#: lib/arrows.c:55
+msgid "Double Hollow Triangle"
+msgstr "दुई वटा प्वाल भएको त्रिभुज"
+
+#: lib/arrows.c:56
+msgid "Double Filled Triangle"
+msgstr "दुई पटक भरियको त्रिभुज"
+
+#: lib/arrows.c:57
+msgid "Filled Dot and Triangle"
+msgstr "भरियको थोप्लो र त्रिभुज"
+
+#: lib/arrows.c:58
+msgid "Filled Box"
+msgstr "भरियको वाकस"
+
+#: lib/arrows.c:59
+msgid "Blanked Box"
+msgstr "खाली वाकस"
+
+#: lib/arrows.c:60
+msgid "Slashed"
+msgstr "स्ल्यास गरियको"
+
+#: lib/arrows.c:61
+msgid "Integral Symbol"
+msgstr "पुर्ण संकेतेत"
+
+#: lib/arrows.c:62
+msgid "Crow Foot"
+msgstr "कागको खुट्टारी"
+
+#: lib/arrows.c:63
+msgid "Cross"
+msgstr "क्रस"
+
+#: lib/arrows.c:64
+msgid "1-or-many"
+msgstr "१-वा-थुप्रै"
+
+#: lib/arrows.c:65
+msgid "0-or-many"
+msgstr "०-वा-थुप्रै"
+
+#: lib/arrows.c:66
+msgid "1-or-0"
+msgstr "१-वा-०"
+
+#: lib/arrows.c:67
+msgid "1 exactly"
+msgstr "ठिक १"
+
+#: lib/arrows.c:68
+msgid "Filled Concave"
+msgstr "नतोदर भरियको"
+
+#: lib/arrows.c:69
+msgid "Blanked Concave"
+msgstr "खाली नतोदर"
+
+#: lib/arrows.c:70
+msgid "Round"
+msgstr "गोलाकार"
+
+#: lib/arrows.c:71
+msgid "Open Round"
+msgstr "गोलाकार लाई खोल्नुहोस"
+
+#: lib/arrows.c:72
+msgid "Backslash"
+msgstr "पछाडि स्ल्यास"
+
+#: lib/bezier_conn.c:533
+msgid "Internal error: Setting corner type of endpoint of bezier"
+msgstr "आन्तरिक गल्ति: बेजिरको अन्तिमविन्दु कुनो किसिम मिलान गर्दै"
+
+#: lib/dia_xml.c:154
+#, c-format
+msgid ""
+"The file %s has no encoding specification;\n"
+"assuming it is encoded in %s"
+msgstr "$2%s मा लिपि मान्यता गर्दै \n फाइल $1%s मा कुनै विवरण छैन;;"
+
+#: lib/dia_xml.c:471
+msgid "Taking point value of non-point node."
+msgstr "थोप्लो-विहिन गाँठोको थोप्लो मुल्य लिँदैै"
+
+#: lib/dia_xml.c:482
+#, c-format
+msgid "Incorrect x Point value \"%s\" %f; discarding it."
+msgstr "गलत एक्स विन्दु मुल्य \"%s\" %f; यस्लाइ छाड्दै"
+
+#: lib/dia_xml.c:489
+msgid "Error parsing point."
+msgstr "गल्ति थाहा दिने विन्दु."
+
+#. don't bother with useless warnings (see above)
+#: lib/dia_xml.c:497
+#, c-format
+msgid "Incorrect y Point value \"%s\" %f; discarding it."
+msgstr "गल्ति वाई विन्दु मुल्य  \"%s\" %f;यस्लाई छाड्दै."
+
+#: lib/dia_xml.c:865
+msgid ""
+"Your local character set is UTF-8. Because of issues with libxml1 and the "
+"support of files generated by previous versions of dia, you will encounter  "
+"problems. Please report to dia-list@gnome.org if you see this message."
+msgstr "तपाईको स्थानिय क्यारेक्टर सेट यू टि एफ-८हो.लिव एक्स एम एल१ र डायको पुरानो संस्करणको फाइलले पैदा गरेको सहायता को कारणले गर्दा,तपाई समस्या ग्रस्त हुनुहुने छ .यदि तपाइले यो समस्या देख्नु भएमा कृपया dia-list@gnome.org मा जानकारी दिनुहोला."
+
+#: lib/diaarrowchooser.c:251
+msgid "Arrow Properties"
+msgstr "तिर गुणहरु"
+
+#: lib/diaarrowchooser.c:333 lib/dialinechooser.c:333
+msgid "Details..."
+msgstr "विवरणहरु..."
+
+#. This is the default text shown in the preview entry, though the user
+#. can set it. Remember that some fonts only have capital letters.
+#: lib/diagtkfontsel.c:74
+msgid "abcdefghijk ABCDEFGHIJK"
+msgstr "ए बि सि डि ई एफ जि एच आई जे के ए बि सि डि ई एफ जि एच आई जे के"
+
+#: lib/diagtkfontsel.c:209
+msgid "Font name"
+msgstr "फन्टको नाम"
+
+#: lib/diagtkfontsel.c:210
+msgid "The X string that represents this font."
+msgstr "एक्स स्ट्रिन्जले यो फन्टको प्रतिनिधीत्व गर्छ."
+
+#: lib/diagtkfontsel.c:216
+msgid "Preview text"
+msgstr "पाठलाई पूर्वदृश्य गर्नुहोस्होस्"
+
+#: lib/diagtkfontsel.c:217
+msgid "The text to display in order to demonstrate the selected font."
+msgstr "छानियका फन्टलाई प््दर्शन गर्न देखाउनु पर्ने पाठ.गर्न"
+
+#: lib/diagtkfontsel.c:321
+msgid "_Family:"
+msgstr "_परिवार:"
+
+#: lib/diagtkfontsel.c:327
+msgid "_Style:"
+msgstr "_शैलि:"
+
+#: lib/diagtkfontsel.c:333
+msgid "Si_ze:"
+msgstr "आ_कार:"
+
+#. create the text entry widget
+#: lib/diagtkfontsel.c:462
+msgid "_Preview:"
+msgstr "_पुर्वाावलोकन:"
+
+#: lib/diagtkfontsel.c:1252
+msgid "Font Selection"
+msgstr "फन्ट छनोट"
+
+#: lib/dialinechooser.c:297
+msgid "Line Style Properties"
+msgstr "रेखा शैलि गुणहरु"
+
+#: lib/filter.c:126
+#, c-format
+msgid "Multiple export filters with unique name %s"
+msgstr "एकल नाम %s संग वहुविध निर््या फिल्टरहरुत फिल्टरहरु"
+
+#: lib/font.c:89
+#, c-format
+msgid "Can't load font %s.\n"
+msgstr "%s.फन्ट लोड गर्न सकेन.\n"
+
+#: lib/message.c:78 lib/message.c:238
+msgid "Error"
+msgstr "गल्ती"
+
+#: lib/message.c:80 lib/message.c:226
+msgid "Warning"
+msgstr "चेतावनी"
+
+#: lib/message.c:106
+msgid "There is one similar message."
+msgstr "त्याहाँ एउटा मिल्दो शन्देस छ"
+
+#: lib/message.c:111
+msgid "Show repeated messages"
+msgstr "दोहोरिने शन्देसहरु लाई देखाउनुहोसनुहोस"
+
+#: lib/message.c:170
+#, c-format
+msgid "There are %d similar messages."
+msgstr "त्याहाँ %d मिल्दा जुल्दा सन्देशहरु छन"
+
+#: lib/message.c:215
+msgid "Notice"
+msgstr "सुचना"
+
+#: lib/object_defaults.c:127
+#, c-format
+msgid ""
+"Error loading defaults '%s'.\n"
+"Not a Dia diagram file."
+msgstr ""
+"'%s' पूर्वनिर्धारित लोडिङ्ग गल्ति.\n"
+"डाय चित्र फाईल होइन."
+
+#: lib/plug-ins.c:120
+msgid "???"
+msgstr "???"
+
+#: lib/plug-ins.c:227
+#, c-format
+msgid "Could not deduce correct path for `%s'"
+msgstr "`%s' को लागि ठिक वाटो निर्क्यौल गर्न सकेन"
+
+#: lib/plug-ins.c:233
+#, c-format
+msgid ""
+"Could not load plugin '%s'\n"
+"%s"
+msgstr ""
+"'%s'\n"
+"%s"
+"प्लगइन लोड गर्न सकेन "
+
+#: lib/plug-ins.c:246
+#, c-format
+msgid "Could not find plugin init function in `%s'"
+msgstr "`%s'को कार्यमा पल्गिन भेट्टाउन सकेन.न"
+
+#: lib/plug-ins.c:248
+msgid "Missing symbol 'dia_plugin_init'"
+msgstr "'डाय_प्लगिन_यस्मा' संकेत छुटेको "
+
+#: lib/plug-ins.c:256 lib/plug-ins.c:264
+msgid "dia_plugin_init() call failed"
+msgstr "डाय_प्लगिन_यस्मा() वोलाई असफल भयो"
+
+#: lib/plug-ins.c:283
+#, c-format
+msgid "%s Plugin could not be unloaded"
+msgstr "%s प्लगिन अनलोड हुन सकेन"
+
+#: lib/plug-ins.c:371
+#, c-format
+msgid ""
+"Could not open `%s'\n"
+"`%s'"
+msgstr ""
+"`%s'\n"
+"`%s'खुल्न सकेन"
+
+#: lib/prop_text.c:466
+#, c-format
+msgid "Group with %d objects"
+msgstr "%d वस्तुहरु संग समुहुह"
+
+#: lib/properties.c:62 lib/properties.h:468 lib/widgets.c:608
+msgid "Left"
+msgstr "वायाँ"
+
+#: lib/properties.c:63 lib/properties.h:469 lib/widgets.c:614
+msgid "Center"
+msgstr "केन्द्र"
+
+#: lib/properties.c:64 lib/properties.h:470 lib/widgets.c:620
+msgid "Right"
+msgstr "दायाँ"
+
+#: lib/properties.c:71 objects/chronogram/chronoline.c:179
+#: objects/chronogram/chronoref.c:158
+msgid "Line color"
+msgstr "रेखाको रङ्ग"
+
+#: lib/properties.c:72 lib/properties.h:492 lib/properties.h:495
+msgid "Line style"
+msgstr "रेखाको शैली"
+
+#: lib/properties.c:73
+msgid "Fill color"
+msgstr "रंग भर्नुहोस्"
+
+#: lib/properties.c:74 lib/properties.h:505
+msgid "Draw background"
+msgstr "पृष्ठभुमि रेखाङ्कन गर्नुहोस्"
+
+#: lib/properties.c:75 lib/properties.h:509
+msgid "Start arrow"
+msgstr "तिर शुरु गर्नुहोस"
+
+#: lib/properties.c:76 lib/properties.h:512
+msgid "End arrow"
+msgstr "तिर अन्तय गर्नुहोस"
+
+#: lib/properties.c:78 lib/properties.h:522
+msgid "Text alignment"
+msgstr "पाठ पङ्गतिवद्द गर्नुहोस"
+
+#. all this just to make the defaults selectable ...
+#: lib/properties.c:79 lib/properties.h:527 objects/GRAFCET/condition.c:132
+#: objects/GRAFCET/step.c:165 objects/GRAFCET/transition.c:142
+#: objects/UML/class.c:137 objects/UML/class_dialog.c:351
+#: objects/chronogram/chronoline.c:183 objects/chronogram/chronoref.c:164
+msgid "Font"
+msgstr "फन्ट्ण"
+
+#: lib/properties.c:80 lib/properties.h:533 objects/GRAFCET/condition.c:134
+#: objects/GRAFCET/step.c:167 objects/GRAFCET/transition.c:144
+#: objects/chronogram/chronoline.c:185 objects/chronogram/chronoref.c:166
+msgid "Font size"
+msgstr "फन्टको आकार"
+
+#: lib/properties.c:81 objects/GRAFCET/step.c:169
+#: objects/chronogram/chronoline.c:187 objects/chronogram/chronoref.c:168
+msgid "Text color"
+msgstr "पाठ रङ्ग"
+
+#: lib/properties.h:486 lib/properties.h:489
+msgid "Line colour"
+msgstr "रेखा को रङ्ग"
+
+#: lib/properties.h:499 lib/properties.h:502
+msgid "Fill colour"
+msgstr "रङ्ग भर्नुहोस"
+
+#: lib/properties.h:539
+msgid "Text colour"
+msgstr "पाठको रङ्ग"
+
+#: lib/proplist.c:163
+#, c-format
+msgid "No attribute '%s' (%p) or no data(%p) in this attribute"
+msgstr "'%s' (%p)  विशेषता छैन वायो विशेषतामा (%p) पाठ छैनन"
+
+#: lib/widgets.c:347
+msgid "Other fonts"
+msgstr "अरु फन्टहरु"
+
+#: lib/widgets.c:417
+#, c-format
+msgid "Couldn't find font family for %s\n"
+msgstr "%s को लागि फन्ट परिवार भेट्टाउन सकेन\n"
+
+#. Translators: Menu item Noun/Material/Solid
+#: lib/widgets.c:756 objects/FS/function.c:1074
+msgid "Solid"
+msgstr "ठोस"
+
+#: lib/widgets.c:762
+msgid "Dashed"
+msgstr "टुक्रा पारेको"
+
+#: lib/widgets.c:768
+msgid "Dash-Dot"
+msgstr "टुक्रा-थोप्लो"
+
+#: lib/widgets.c:774
+msgid "Dash-Dot-Dot"
+msgstr "टुक्रा-थोप्लो-थोप्लो"
+
+#: lib/widgets.c:780
+msgid "Dotted"
+msgstr "थोप्ला थोप्ला भयको"
+
+#. fs->sizebox = GTK_HBOX(box);
+#: lib/widgets.c:799
+msgid "Dash length: "
+msgstr "ड्यासको लम्वाई: "
+
+#: lib/widgets.c:927
+msgid "Select color"
+msgstr "रङ्ग छान्नुहोस्"
+
+#: lib/widgets.c:993
+msgid "More colors..."
+msgstr "अरु रङ्गहरु..."
+
+#: lib/widgets.c:1118
+msgid "More arrows"
+msgstr "अरु तीरहरु"
+
+#: lib/widgets.c:1131
+msgid "Size: "
+msgstr "आकार: "
+
+#: lib/widgets.c:1276
+msgid "Select image file"
+msgstr "तस्विर फाईल छान्नुहोस"
+
+#: lib/widgets.c:1312
+msgid "Browse"
+msgstr "खोतल्नुहोस्"
+
+#: lib/widgets.c:1908
+msgid "Reset menu"
+msgstr "मेनुलाई पुन:सेट गर्नुहोस"
+
+#: objects/ER/attribute.c:155
+msgid "Key:"
+msgstr "कुञ्ज:"
+
+#: objects/ER/attribute.c:157
+msgid "Weak key:"
+msgstr "कमजोर कुञ्ज:"
+
+#: objects/ER/attribute.c:159
+msgid "Derived:"
+msgstr "व्युत्पन्न:"
+
+#: objects/ER/attribute.c:161
+msgid "Multivalue:"
+msgstr "वहुमुल्य:"
+
+#: objects/ER/attribute.c:434 sheets/ER.sheet.in.h:1
+msgid "Attribute"
+msgstr "विशेषता"
+
+#: objects/ER/entity.c:137
+msgid "Weak:"
+msgstr "कमजोर:"
+
+#: objects/ER/entity.c:139
+msgid "Associative:"
+msgstr "सम्बन्धित:"
+
+#: objects/ER/entity.c:413 objects/UML/classicon.c:128 sheets/ER.sheet.in.h:4
+msgid "Entity"
+msgstr "अस्तित्व॒"
+
+#: objects/ER/er.c:44
+msgid "Entity/Relationship diagram objects"
+msgstr "अस्तित्व/नाता चित्र वस्तुहरु"
+
+#: objects/ER/participation.c:115
+msgid "Total:"
+msgstr "जम्मा:"
+
+#: objects/ER/participation.c:405 objects/FS/flow-ortho.c:644
+#: objects/GRAFCET/vector.c:311 objects/SADT/arrow.c:457
+#: objects/UML/association.c:774 objects/UML/component_feature.c:183
+#: objects/UML/dependency.c:372 objects/UML/generalization.c:368
+#: objects/UML/realizes.c:359 objects/UML/transition.c:156
+#: objects/standard/zigzagline.c:347
+msgid "Add segment"
+msgstr "भागहरु थप्नुहोस"
+
+#: objects/ER/participation.c:406 objects/FS/flow-ortho.c:645
+#: objects/GRAFCET/vector.c:312 objects/SADT/arrow.c:458
+#: objects/UML/association.c:775 objects/UML/component_feature.c:184
+#: objects/UML/dependency.c:373 objects/UML/generalization.c:369
+#: objects/UML/realizes.c:360 objects/UML/transition.c:157
+#: objects/standard/zigzagline.c:348
+msgid "Delete segment"
+msgstr "भागहरु मेट्नुहोस"
+
+#: objects/ER/relationship.c:142
+msgid "Left Cardinality:"
+msgstr "वायाँ आधारिकिकरण:"
+
+#: objects/ER/relationship.c:144
+msgid "Right Cardinality:"
+msgstr "दायाँ आधारिकिकरण::ा:"
+
+#: objects/ER/relationship.c:146
+msgid "Rotate:"
+msgstr "घुमाउनुहोस:"
+
+#: objects/ER/relationship.c:148
+msgid "Identifying:"
+msgstr "चिनाउदै:"
+
+#: objects/ER/relationship.c:457 sheets/ER.sheet.in.h:6
+msgid "Relationship"
+msgstr "सम्बन्ध"
+
+#. Translators: Menu item Noun/Energy
+#: objects/FS/flow-ortho.c:159 objects/FS/flow-ortho.c:641
+#: objects/FS/flow.c:137 objects/FS/flow.c:576 objects/FS/function.c:1096
+msgid "Energy"
+msgstr "शक्ति"
+
+#. Translators: Menu item Noun/Material
+#: objects/FS/flow-ortho.c:160 objects/FS/flow-ortho.c:642
+#: objects/FS/flow.c:138 objects/FS/flow.c:577 objects/FS/function.c:1072
+msgid "Material"
+msgstr "सामान"
+
+#. Translators: Menu item Verb/Signal
+#. Translators: Menu item Verb/Signal/Signal
+#. Translators: Menu item Noun/Signal
+#. Translators: Menu item Noun/Signal/Signal
+#: objects/FS/flow-ortho.c:161 objects/FS/flow-ortho.c:643
+#: objects/FS/flow.c:139 objects/FS/flow.c:578 objects/FS/function.c:1034
+#: objects/FS/function.c:1036 objects/FS/function.c:1172
+#: objects/FS/function.c:1174
+msgid "Signal"
+msgstr "संकेत"
+
+#: objects/FS/fs.c:43
+msgid "Function structure diagram objects"
+msgstr "कार्य संरचनाका वस्तु चित्रहरु"
+
+#: objects/FS/function.c:142
+msgid "Wish function"
+msgstr "कार्य चाहना"
+
+#: objects/FS/function.c:144
+msgid "User function"
+msgstr "प्रयोगकर्ता कार्य"
+
+#. Translators: Menu item Verb
+#: objects/FS/function.c:676
+msgid "Verb"
+msgstr "क्रिया"
+
+#. Translators: Menu item Verb/Channel
+#. Translators: Menu item Verb/Channel/Channel
+#. Translators: Menu item Verb/Channel/Transfer/Transport/Channel
+#: objects/FS/function.c:678 objects/FS/function.c:680
+#: objects/FS/function.c:720
+msgid "Channel"
+msgstr "च्यानल"
+
+#. Translators: Menu item Verb/Channel/Import
+#. Translators: Menu item Verb/Channel/Import/Import
+#: objects/FS/function.c:682 objects/FS/function.c:684
+msgid "Import"
+msgstr "आयात"
+
+#. Translators: Menu item Verb/Channel/Import/Input
+#: objects/FS/function.c:686 objects/KAOS/metabinrel.c:163
+msgid "Input"
+msgstr "आगतेश"
+
+#. Translators: Menu item Verb/Channel/Import/Receive
+#: objects/FS/function.c:688
+msgid "Receive"
+msgstr "प्राप्त"
+
+#. Translators: Menu item Verb/Channel/Import/Allow
+#. Translators: Menu item Verb/Control Magnitude/Regulate/Allow
+#: objects/FS/function.c:690 objects/FS/function.c:962
+msgid "Allow"
+msgstr "अनुमती दिनुहोस्"
+
+#. Translators: Menu item Verb/Channel/Import/Form Entrance
+#: objects/FS/function.c:692
+msgid "Form Entrance"
+msgstr "फारम प्रवेश"
+
+#. Translators: Menu item Verb/Channel/Import/Capture
+#. Translators: Menu item Verb/Provision/Store/Capture
+#: objects/FS/function.c:694 objects/FS/function.c:928
+msgid "Capture"
+msgstr "पकड"
+
+#. Translators: Menu item Verb/Channel/Export/Discharge
+#: objects/FS/function.c:700
+msgid "Discharge"
+msgstr "छुटाउनहोस्"
+
+#. Translators: Menu item Verb/Channel/Export/Eject
+#: objects/FS/function.c:702
+msgid "Eject"
+msgstr "निकाल"
+
+#. Translators: Menu item Verb/Channel/Export/Dispose
+#: objects/FS/function.c:704
+msgid "Dispose"
+msgstr "किनारा लगाउनुहोस"
+
+#. Translators: Menu item Verb/Channel/Transfer
+#. Translators: Menu item Verb/Channel/Transfer/Transfer
+#. Translators: Menu item Verb/Channel/Transfer/Transmit/Transfer
+#: objects/FS/function.c:708 objects/FS/function.c:710
+#: objects/FS/function.c:728
+msgid "Transfer"
+msgstr "स्थानान्तर गर्नुहोस्"
+
+#. Translators: Menu item Verb/Channel/Transfer/Transport
+#. Translators: Menu item Verb/Channel/Transfer/Transport/Transport
+#: objects/FS/function.c:712 objects/FS/function.c:714
+msgid "Transport"
+msgstr "ढुवानि"
+
+#. Translators: Menu item Verb/Channel/Transfer/Transport/Lift
+#: objects/FS/function.c:716
+msgid "Lift"
+msgstr "उचाल्नुहोस"
+
+#. Translators: Menu item Verb/Channel/Transfer/Transport/Move
+#: objects/FS/function.c:718
+msgid "Move"
+msgstr "सार्नु"
+
+#. Translators: Menu item Verb/Channel/Transfer/Transmit
+#. Translators: Menu item Verb/Channel/Transfer/Transmit/Transmit
+#: objects/FS/function.c:722 objects/FS/function.c:724
+msgid "Transmit"
+msgstr "प्रसारण गर्नुहोस्"
+
+#. Translators: Menu item Verb/Channel/Transfer/Transmit/Conduct
+#: objects/FS/function.c:726
+msgid "Conduct"
+msgstr "परिचालन गर्नुहोस "
+
+#. Translators: Menu item Verb/Channel/Transfer/Transmit/Convey
+#: objects/FS/function.c:730
+msgid "Convey"
+msgstr "पुर्याउनुहोस्"
+
+#. Translators: Menu item Verb/Channel/Guide
+#. Translators: Menu item Verb/Channel/Guide/Guide
+#. Translators: Menu item Verb/Channel/Guide/Guide/Guide
+#: objects/FS/function.c:732 objects/FS/function.c:734
+#: objects/FS/function.c:736
+msgid "Guide"
+msgstr "पथ पर्दशक"
+
+#. Translators: Menu item Verb/Channel/Guide/Guide/Direct
+#: objects/FS/function.c:738
+msgid "Direct"
+msgstr "प्रतक्ष्य"
+
+#. Translators: Menu item Verb/Channel/Guide/Guide/Straighten
+#: objects/FS/function.c:740
+msgid "Straighten"
+msgstr "सिधा गराउनुहोस"
+
+#. Translators: Menu item Verb/Channel/Guide/Guide/Steer
+#: objects/FS/function.c:742
+msgid "Steer"
+msgstr "तिकियको दिशामा लैजानुहोस"
+
+#. Translators: Menu item Verb/Channel/Guide/Translate
+#: objects/FS/function.c:744
+msgid "Translate"
+msgstr "रूपान्तर गर्नहोस्"
+
+#. Translators: Menu item Verb/Channel/Guide/Rotate
+#. Translators: Menu item Verb/Channel/Guide/Rotate/Rotate
+#: objects/FS/function.c:746 objects/FS/function.c:748
+msgid "Rotate"
+msgstr "घुमाउनुहोस्"
+
+#. Translators: Menu item Verb/Channel/Guide/Rotate/Turn
+#: objects/FS/function.c:750
+msgid "Turn"
+msgstr "घुमाउनुहोस"
+
+#. Translators: Menu item Verb/Channel/Guide/Rotate/Spin
+#: objects/FS/function.c:752
+msgid "Spin"
+msgstr "जालो जस्तो त्यान्द्रो वनाउनुहोस"
+
+#. Translators: Menu item Verb/Channel/Guide/Allow DOF
+#. Translators: Menu item Verb/Channel/Guide/Allow DOF/Allow DOF
+#: objects/FS/function.c:754 objects/FS/function.c:756
+msgid "Allow DOF"
+msgstr "डि ओ एफ लाई अनुमति दिनुहोस"
+
+#. Translators: Menu item Verb/Channel/Guide/Allow DOF/Constrain
+#: objects/FS/function.c:758
+msgid "Constrain"
+msgstr "सम्हाल्नु"
+
+#. Translators: Menu item Verb/Channel/Guide/Allow DOF/Unlock
+#: objects/FS/function.c:760
+msgid "Unlock"
+msgstr "ताल्चा फुकाउनुहोसहोस"
+
+#. Translators: Menu item Verb/Support
+#. Translators: Menu item Verb/Support/Support
+#: objects/FS/function.c:762 objects/FS/function.c:764
+msgid "Support"
+msgstr "समर्थन॒"
+
+#. Translators: Menu item Verb/Support/Stop
+#. Translators: Menu item Verb/Support/Stop/Stop
+#: objects/FS/function.c:766 objects/FS/function.c:768
+#: sheets/SDL.sheet.in.h:19
+msgid "Stop"
+msgstr "रोकनुहोस्"
+
+#. Translators: Menu item Verb/Support/Stop/Insulate
+#: objects/FS/function.c:770
+msgid "Insulate"
+msgstr "अलग्याउनुहोस"
+
+#. Translators: Menu item Verb/Support/Stop/Protect
+#: objects/FS/function.c:772
+msgid "Protect"
+msgstr "वचाउनुहोस"
+
+#. Translators: Menu item Verb/Support/Stop/Prevent
+#. Translators: Menu item Verb/Control Magnitude/Regulate/Prevent
+#: objects/FS/function.c:774 objects/FS/function.c:964
+msgid "Prevent"
+msgstr "छेक्नुहोस्"
+
+#. Translators: Menu item Verb/Support/Stop/Shield
+#: objects/FS/function.c:776
+msgid "Shield"
+msgstr "रक्षक"
+
+#. Translators: Menu item Verb/Support/Stop/Inhibit
+#: objects/FS/function.c:778
+msgid "Inhibit"
+msgstr "निशेध गर्नुहोस"
+
+#. Translators: Menu item Verb/Support/Stabilize
+#. Translators: Menu item Verb/Support/Stabilize/Stabilize
+#: objects/FS/function.c:780 objects/FS/function.c:782
+msgid "Stabilize"
+msgstr "स्थिर गराउनुहोस्"
+
+#. Translators: Menu item Verb/Support/Stabilize/Steady
+#: objects/FS/function.c:784
+msgid "Steady"
+msgstr "स्थिर"
+
+#. Translators: Menu item Verb/Support/Secure
+#. Translators: Menu item Verb/Support/Secure/Secure
+#: objects/FS/function.c:786 objects/FS/function.c:788
+msgid "Secure"
+msgstr "सुरक्षित"
+
+#. Translators: Menu item Verb/Support/Secure/Attach
+#. Translators: Menu item Verb/Connect/Couple/Attach
+#: objects/FS/function.c:790 objects/FS/function.c:822
+msgid "Attach"
+msgstr "संलग्न गर्नुहोस्"
+
+#. Translators: Menu item Verb/Support/Secure/Mount
+#: objects/FS/function.c:792
+msgid "Mount"
+msgstr "माउन्ट"
+
+#. Translators: Menu item Verb/Support/Secure/Lock
+#: objects/FS/function.c:794 sheets/ciscomisc.sheet.in.h:21
+msgid "Lock"
+msgstr "चाँवी"
+
+#. Translators: Menu item Verb/Support/Secure/Fasten
+#: objects/FS/function.c:796
+msgid "Fasten"
+msgstr "छिटो गराउनुहोस"
+
+#. Translators: Menu item Verb/Support/Secure/Hold
+#: objects/FS/function.c:798
+msgid "Hold"
+msgstr "समाउनुहोस"
+
+#. Translators: Menu item Verb/Support/Position
+#. Translators: Menu item Verb/Support/Position/Position
+#: objects/FS/function.c:800 objects/FS/function.c:802
+#: objects/Istar/actor.c:70
+msgid "Position"
+msgstr "स्थिति"
+
+#. Translators: Menu item Verb/Support/Position/Orient
+#: objects/FS/function.c:804
+msgid "Orient"
+msgstr "पूर्वदिशा"
+
+#. Translators: Menu item Verb/Support/Position/Align
+#: objects/FS/function.c:806
+msgid "Align"
+msgstr "पङ्गतिमा राख्नुहोस्"
+
+#. Translators: Menu item Verb/Support/Position/Locate
+#. Translators: Menu item Verb/Signal/Sense/Locate
+#: objects/FS/function.c:808 objects/FS/function.c:1050
+msgid "Locate"
+msgstr "वताउनुहोस"
+
+#. Translators: Menu item Verb/Connect
+#. Translators: Menu item Verb/Connect/Connect
+#: objects/FS/function.c:810 objects/FS/function.c:812
+msgid "Connect"
+msgstr "जडान गर्नुहोस्"
+
+#. Translators: Menu item Verb/Connect/Couple
+#. Translators: Menu item Verb/Connect/Couple/Couple
+#: objects/FS/function.c:814 objects/FS/function.c:816
+msgid "Couple"
+msgstr "जोडि"
+
+#. Translators: Menu item Verb/Connect/Couple/Join
+#: objects/FS/function.c:818
+msgid "Join"
+msgstr "जोड्नुहोस"
+
+#. Translators: Menu item Verb/Connect/Couple/Assemble
+#: objects/FS/function.c:820
+msgid "Assemble"
+msgstr "जोर जार पार्नुहोस"
+
+#. Translators: Menu item Verb/Connect/Mix
+#. Translators: Menu item Verb/Connect/Mix/Mix
+#: objects/FS/function.c:824 objects/FS/function.c:826
+msgid "Mix"
+msgstr "मिसाउनुहोस"
+
+#. Translators: Menu item Verb/Connect/Mix/Combine
+#: objects/FS/function.c:828
+msgid "Combine"
+msgstr "संगठित गर्नुहोस"
+
+#. Translators: Menu item Verb/Connect/Mix/Blend
+#: objects/FS/function.c:830
+msgid "Blend"
+msgstr "मिसाउनुहोस"
+
+#. Translators: Menu item Verb/Connect/Mix/Add
+#: objects/FS/function.c:832
+msgid "Add"
+msgstr "थप्नुहोस्"
+
+#. Translators: Menu item Verb/Connect/Mix/Pack
+#: objects/FS/function.c:834
+msgid "Pack"
+msgstr "प्याक"
+
+#. Translators: Menu item Verb/Connect/Mix/Coalesce
+#: objects/FS/function.c:836
+msgid "Coalesce"
+msgstr "जोड्नुहोस"
+
+#. Translators: Menu item Verb/Branch
+#. Translators: Menu item Verb/Branch/Branch
+#: objects/FS/function.c:838 objects/FS/function.c:840 sheets/UML.sheet.in.h:5
+msgid "Branch"
+msgstr "शाखा"
+
+#. Translators: Menu item Verb/Branch/Separate
+#. Translators: Menu item Verb/Branch/Separate/Separate
+#. Translators: Menu item Verb/Branch/Separate/Separate/Separate
+#: objects/FS/function.c:842 objects/FS/function.c:844
+#: objects/FS/function.c:846
+msgid "Separate"
+msgstr "छुट्टयाउनुहोस"
+
+#. Translators: Menu item Verb/Branch/Separate/Separate/Switch
+#: objects/FS/function.c:848
+msgid "Switch"
+msgstr "बटन दबाउनुहोस्"
+
+#. Translators: Menu item Verb/Branch/Separate/Separate/Divide
+#: objects/FS/function.c:850
+msgid "Divide"
+msgstr "भाग गर्नुहोस्"
+
+#. Translators: Menu item Verb/Branch/Separate/Separate/Release
+#: objects/FS/function.c:852
+msgid "Release"
+msgstr "निष्काशन॒"
+
+#. Translators: Menu item Verb/Branch/Separate/Separate/Detach
+#: objects/FS/function.c:854
+msgid "Detach"
+msgstr "छुट्टयाउनुहोस"
+
+#. Translators: Menu item Verb/Branch/Separate/Separate/Disconnect
+#: objects/FS/function.c:856
+msgid "Disconnect"
+msgstr "विच्छेद गर्नुहोस्"
+
+#. Translators: Menu item Verb/Branch/Separate/Remove/Cut
+#: objects/FS/function.c:862
+msgid "Cut"
+msgstr "काट्नुहोस्ट"
+
+#. Translators: Menu item Verb/Branch/Separate/Remove/Polish
+#: objects/FS/function.c:864
+msgid "Polish"
+msgstr "पोलिस॒"
+
+#. Translators: Menu item Verb/Branch/Separate/Remove/Sand
+#: objects/FS/function.c:866
+msgid "Sand"
+msgstr "बालुवा"
+
+#. Translators: Menu item Verb/Branch/Separate/Remove/Drill
+#: objects/FS/function.c:868
+msgid "Drill"
+msgstr "प्वाल पार्नु"
+
+#. Translators: Menu item Verb/Branch/Separate/Remove/Lathe
+#: objects/FS/function.c:870
+msgid "Lathe"
+msgstr "चक्का"
+
+#. Translators: Menu item Verb/Branch/Refine
+#. Translators: Menu item Verb/Branch/Refine/Refine
+#: objects/FS/function.c:872 objects/FS/function.c:874
+msgid "Refine"
+msgstr "पुनशुध्दिकरण गर्नुहोस"
+
+#. Translators: Menu item Verb/Branch/Refine/Purify
+#: objects/FS/function.c:876
+msgid "Purify"
+msgstr "शुध्दिकरण गर्नुहोस"
+
+#. Translators: Menu item Verb/Branch/Refine/Strain
+#: objects/FS/function.c:878
+msgid "Strain"
+msgstr "तन्क्याउनुहोस"
+
+#. Translators: Menu item Verb/Branch/Refine/Filter
+#: objects/FS/function.c:880
+msgid "Filter"
+msgstr "Filter"
+
+#. Translators: Menu item Verb/Branch/Refine/Percolate
+#: objects/FS/function.c:882
+msgid "Percolate"
+msgstr "छिचल्नुहोस"
+
+#. Translators: Menu item Verb/Branch/Refine/Clear
+#: objects/FS/function.c:884
+msgid "Clear"
+msgstr "हटाउनुहोस्र॒"
+
+#. Translators: Menu item Verb/Branch/Distribute
+#. Translators: Menu item Verb/Branch/Distribute/Distribute
+#: objects/FS/function.c:886 objects/FS/function.c:888
+msgid "Distribute"
+msgstr "वितरण गर्नुहोस्"
+
+#. Translators: Menu item Verb/Branch/Distribute/Diverge
+#: objects/FS/function.c:890
+msgid "Diverge"
+msgstr "छुट्टयानुहोसोस"
+
+#. Translators: Menu item Verb/Branch/Distribute/Scatter
+#: objects/FS/function.c:892
+msgid "Scatter"
+msgstr "छर्नु"
+
+#. Translators: Menu item Verb/Branch/Distribute/Disperse
+#: objects/FS/function.c:894
+msgid "Disperse"
+msgstr "तितरवितर गर्नुहोस"
+
+#. Translators: Menu item Verb/Branch/Distribute/Diffuse
+#. Translators: Menu item Verb/Branch/Dissipate/Diffuse
+#: objects/FS/function.c:896 objects/FS/function.c:910
+msgid "Diffuse"
+msgstr "खुकुलो पार्नु"
+
+#. Translators: Menu item Verb/Branch/Distribute/Empty
+#: objects/FS/function.c:898
+msgid "Empty"
+msgstr "खाली"
+
+#. Translators: Menu item Verb/Branch/Dissipate
+#. Translators: Menu item Verb/Branch/Dissipate/Dissipate
+#: objects/FS/function.c:900 objects/FS/function.c:902
+msgid "Dissipate"
+msgstr "छर्नुहोस"
+
+#. Translators: Menu item Verb/Branch/Dissipate/Absorb
+#: objects/FS/function.c:904
+msgid "Absorb"
+msgstr "सोस्नु"
+
+#. Translators: Menu item Verb/Branch/Dissipate/Dampen
+#: objects/FS/function.c:906
+msgid "Dampen"
+msgstr "ओसाउनु"
+
+#. Translators: Menu item Verb/Branch/Dissipate/Dispel
+#: objects/FS/function.c:908
+msgid "Dispel"
+msgstr "हटाउनुहोस"
+
+#. Translators: Menu item Verb/Branch/Dissipate/Resist
+#: objects/FS/function.c:912
+msgid "Resist"
+msgstr "पचाउनु"
+
+#. Translators: Menu item Verb/Provision
+#. Translators: Menu item Verb/Provision/Provision
+#: objects/FS/function.c:914 objects/FS/function.c:916
+msgid "Provision"
+msgstr "व्यवस्था"
+
+#. Translators: Menu item Verb/Provision/Store
+#. Translators: Menu item Verb/Provision/Store/Store
+#: objects/FS/function.c:918 objects/FS/function.c:920
+msgid "Store"
+msgstr "भण्डार"
+
+#. Translators: Menu item Verb/Provision/Store/Contain
+#: objects/FS/function.c:922
+msgid "Contain"
+msgstr "राख्नु"
+
+#. Translators: Menu item Verb/Provision/Store/Collect
+#: objects/FS/function.c:924
+msgid "Collect"
+msgstr "जम्मा गर्नुहोस"
+
+#. Translators: Menu item Verb/Provision/Store/Reserve
+#: objects/FS/function.c:926
+msgid "Reserve"
+msgstr "संग्रह"
+
+#. Translators: Menu item Verb/Provision/Supply
+#. Translators: Menu item Verb/Provision/Supply/Supply
+#: objects/FS/function.c:930 objects/FS/function.c:932
+msgid "Supply"
+msgstr "पुर्ति"
+
+#. Translators: Menu item Verb/Provision/Supply/Fill
+#: objects/FS/function.c:934
+msgid "Fill"
+msgstr "भर्नुहोस्"
+
+#. Translators: Menu item Verb/Provision/Supply/Provide
+#: objects/FS/function.c:936
+msgid "Provide"
+msgstr "प्रदान गरनुहोस"
+
+#. Translators: Menu item Verb/Provision/Supply/Replenish
+#: objects/FS/function.c:938
+msgid "Replenish"
+msgstr "पुन:भर्नु्नु"
+
+#. Translators: Menu item Verb/Provision/Supply/Expose
+#: objects/FS/function.c:940
+msgid "Expose"
+msgstr "प्रदर्शन गर्नुहोस"
+
+#. Translators: Menu item Verb/Provision/Extract
+#: objects/FS/function.c:942 sheets/Flowchart.sheet.in.h:8
+msgid "Extract"
+msgstr "वाहिर निकालनुहोस्"
+
+#. Translators: Menu item Verb/Control Magnitude
+#. Translators: Menu item Verb/Control Magnitude/Control Magnitude
+#: objects/FS/function.c:944 objects/FS/function.c:946
+msgid "Control Magnitude"
+msgstr "नियन्त्रण म्याग्निच्युड"
+
+#. Translators: Menu item Verb/Control Magnitude/Actuate
+#. Translators: Menu item Verb/Control Magnitude/Actuate/Actuate
+#: objects/FS/function.c:948 objects/FS/function.c:950
+msgid "Actuate"
+msgstr "क्रियाशिल पार्नुहोसुहोस"
+
+#. Translators: Menu item Verb/Control Magnitude/Actuate/Start
+#: objects/FS/function.c:952
+msgid "Start"
+msgstr "शुरु गर्नुहोस्"
+
+#. Translators: Menu item Verb/Control Magnitude/Actuate/Initiate
+#: objects/FS/function.c:954
+msgid "Initiate"
+msgstr "चालु गर्नहोस"
+
+#. Translators: Menu item Verb/Control Magnitude/Regulate
+#. Translators: Menu item Verb/Control Magnitude/Regulate/Regulate
+#: objects/FS/function.c:956 objects/FS/function.c:958
+msgid "Regulate"
+msgstr "नियमित गर्नुहोस्"
+
+#. Translators: Menu item Verb/Control Magnitude/Regulate/Control
+#. Translators: Menu item Noun/Signal/Control
+#: objects/FS/function.c:960 objects/FS/function.c:1178
+#: objects/UML/classicon.c:126
+msgid "Control"
+msgstr "नियन्त्रण"
+
+#. Translators: Menu item Verb/Control Magnitude/Regulate/Enable
+#: objects/FS/function.c:966
+msgid "Enable"
+msgstr "सक्षम॒"
+
+#. Translators: Menu item Verb/Control Magnitude/Regulate/Disable
+#: objects/FS/function.c:968
+msgid "Disable"
+msgstr "असक्षम"
+
+#. Translators: Menu item Verb/Control Magnitude/Regulate/Limit
+#: objects/FS/function.c:970
+msgid "Limit"
+msgstr "सिमा"
+
+#. Translators: Menu item Verb/Control Magnitude/Regulate/Interrupt
+#: objects/FS/function.c:972
+msgid "Interrupt"
+msgstr "रोक(अबरोध)"
+
+#. Translators: Menu item Verb/Control Magnitude/Change
+#. Translators: Menu item Verb/Control Magnitude/Change/Change
+#: objects/FS/function.c:974 objects/FS/function.c:976
+msgid "Change"
+msgstr "परिवर्तन गर्नुहोस"
+
+#. Translators: Menu item Verb/Control Magnitude/Change/Increase
+#: objects/FS/function.c:978
+msgid "Increase"
+msgstr "बढ्नु"
+
+#. Translators: Menu item Verb/Control Magnitude/Change/Decrease
+#: objects/FS/function.c:980
+msgid "Decrease"
+msgstr "घट्नु"
+
+#. Translators: Menu item Verb/Control Magnitude/Change/Amplify
+#: objects/FS/function.c:982
+msgid "Amplify"
+msgstr "परिवर्तित गर्नुहोस"
+
+#. Translators: Menu item Verb/Control Magnitude/Change/Reduce
+#: objects/FS/function.c:984
+msgid "Reduce"
+msgstr "घटाउनुहोस"
+
+#. Translators: Menu item Verb/Control Magnitude/Change/Normalize
+#: objects/FS/function.c:988
+msgid "Normalize"
+msgstr "सामान्य वनाउनुहोस"
+
+#. Translators: Menu item Verb/Control Magnitude/Change/Multiply
+#: objects/FS/function.c:990
+msgid "Multiply"
+msgstr "गुणन"
+
+#. Translators: Menu item Verb/Control Magnitude/Change/Scale
+#: objects/FS/function.c:992
+msgid "Scale"
+msgstr "स्केल"
+
+#. Translators: Menu item Verb/Control Magnitude/Change/Rectify
+#: objects/FS/function.c:994
+msgid "Rectify"
+msgstr "सच्याउनुहोस"
+
+#. Translators: Menu item Verb/Control Magnitude/Change/Adjust
+#: objects/FS/function.c:996
+msgid "Adjust"
+msgstr "समायोजन गर्नु"
+
+#. Translators: Menu item Verb/Control Magnitude/Form
+#. Translators: Menu item Verb/Control Magnitude/Form/Form
+#: objects/FS/function.c:998 objects/FS/function.c:1000
+msgid "Form"
+msgstr "फारम"
+
+#. Translators: Menu item Verb/Control Magnitude/Form/Compact
+#: objects/FS/function.c:1002
+msgid "Compact"
+msgstr "खदिलो"
+
+#. Translators: Menu item Verb/Control Magnitude/Form/Crush
+#: objects/FS/function.c:1004
+msgid "Crush"
+msgstr "मिच्नु"
+
+#. Translators: Menu item Verb/Control Magnitude/Form/Shape
+#: objects/FS/function.c:1006
+msgid "Shape"
+msgstr "आकार"
+
+#. Translators: Menu item Verb/Control Magnitude/Form/Compress
+#: objects/FS/function.c:1008
+msgid "Compress"
+msgstr "सङ्कुचन"
+
+#. Translators: Menu item Verb/Control Magnitude/Form/Pierce
+#: objects/FS/function.c:1010
+msgid "Pierce"
+msgstr "छेड्नुहोस"
+
+#. Translators: Menu item Verb/Convert
+#. Translators: Menu item Verb/Convert/Convert
+#: objects/FS/function.c:1012 objects/FS/function.c:1014
+msgid "Convert"
+msgstr "परिवर्तन गर्नुहोस"
+
+#. Translators: Menu item Verb/Convert/Transform
+#: objects/FS/function.c:1016
+msgid "Transform"
+msgstr "रुप आकार परिवर्तन गर्नु"
+
+#. Translators: Menu item Verb/Convert/Liquefy
+#: objects/FS/function.c:1018
+msgid "Liquefy"
+msgstr "ठोस लाइ तरलमा परिवर्तन गर्नु"
+
+#. Translators: Menu item Verb/Convert/Solidify
+#: objects/FS/function.c:1020
+msgid "Solidify"
+msgstr "ठोसमा परिवर्तन गर्नु"
+
+#. Translators: Menu item Verb/Convert/Evaporate
+#: objects/FS/function.c:1022
+msgid "Evaporate"
+msgstr "उड्नु"
+
+#. Translators: Menu item Verb/Convert/Sublimate
+#: objects/FS/function.c:1024
+msgid "Sublimate"
+msgstr "ठोसवाट वायुमा परिवर्तन गर्नु"
+
+#. Translators: Menu item Verb/Convert/Condense
+#: objects/FS/function.c:1026
+msgid "Condense"
+msgstr "सघन गर्नुहोस"
+
+#. Translators: Menu item Verb/Convert/Integrate
+#: objects/FS/function.c:1028
+msgid "Integrate"
+msgstr "एकिकृत गर्नुहोस"
+
+#. Translators: Menu item Verb/Convert/Differentiate
+#: objects/FS/function.c:1030
+msgid "Differentiate"
+msgstr "छुट्याउनुहोस"
+
+#. Translators: Menu item Verb/Convert/Process
+#: objects/FS/function.c:1032 sheets/EML.sheet.in.h:5
+msgid "Process"
+msgstr "प्रक्रिया॒"
+
+#. Translators: Menu item Verb/Signal/Sense
+#. Translators: Menu item Verb/Signal/Sense/Sense
+#: objects/FS/function.c:1038 objects/FS/function.c:1040
+msgid "Sense"
+msgstr "संवेदन"
+
+#. Translators: Menu item Verb/Signal/Sense/Perceive
+#: objects/FS/function.c:1042
+msgid "Perceive"
+msgstr "अवगत गर्नुहोस"
+
+#. Translators: Menu item Verb/Signal/Sense/Recognize
+#: objects/FS/function.c:1044
+msgid "Recognize"
+msgstr "चिन्नुहोस"
+
+#. Translators: Menu item Verb/Signal/Sense/Discern
+#: objects/FS/function.c:1046
+msgid "Discern"
+msgstr "विवेचना गर्नुहोस"
+
+#. Translators: Menu item Verb/Signal/Sense/Check
+#: objects/FS/function.c:1048
+msgid "Check"
+msgstr "परिक्षण गर्नुहोस"
+
+#. Translators: Menu item Verb/Signal/Sense/Verify
+#: objects/FS/function.c:1052
+msgid "Verify"
+msgstr "रूजु गर्नुहोस्/मिलाउनुहोस्"
+
+#. Translators: Menu item Verb/Signal/Indicate
+#. Translators: Menu item Verb/Signal/Indicate/Indicate
+#: objects/FS/function.c:1054 objects/FS/function.c:1056
+msgid "Indicate"
+msgstr "देखाउनुहोस"
+
+#. Translators: Menu item Verb/Signal/Indicate/Mark
+#: objects/FS/function.c:1058
+msgid "Mark"
+msgstr "चिन्ह लगाउनुहोस"
+
+#. Translators: Menu item Verb/Signal/Display
+#: objects/FS/function.c:1060 sheets/Flowchart.sheet.in.h:6
+msgid "Display"
+msgstr "प्रदर्शन गर्नुहोस"
+
+#. Translators: Menu item Verb/Signal/Measure
+#. Translators: Menu item Verb/Signal/Measure/Measure
+#: objects/FS/function.c:1062 objects/FS/function.c:1064
+msgid "Measure"
+msgstr "नाप्नुहोस"
+
+#. Translators: Menu item Verb/Signal/Measure/Calculate
+#: objects/FS/function.c:1066
+msgid "Calculate"
+msgstr "हिसाव गर्नुहोस"
+
+#. Translators: Menu item Verb/Signal/Represent
+#: objects/FS/function.c:1068
+msgid "Represent"
+msgstr "प्रतिनिधीत्व गर्नुहोस"
+
+#. Translators: Menu item Noun
+#: objects/FS/function.c:1070
+msgid "Noun"
+msgstr "नाम"
+
+#. Translators: Menu item Noun/Material/Liquid
+#: objects/FS/function.c:1076
+msgid "Liquid"
+msgstr "तरल"
+
+#. Translators: Menu item Noun/Material/Gas
+#: objects/FS/function.c:1078
+msgid "Gas"
+msgstr "वायु"
+
+#. Translators: Menu item Noun/Material/Human
+#. Translators: Menu item Noun/Material/Human/Human
+#. Translators: Menu item Noun/Energy/Human
+#: objects/FS/function.c:1080 objects/FS/function.c:1082
+#: objects/FS/function.c:1166
+msgid "Human"
+msgstr "मानवे"
+
+#. Translators: Menu item Noun/Material/Human/Hand
+#: objects/FS/function.c:1084
+msgid "Hand"
+msgstr "हात"
+
+#. Translators: Menu item Noun/Material/Human/Foot
+#: objects/FS/function.c:1086
+msgid "Foot"
+msgstr "खुट्टो"
+
+#. Translators: Menu item Noun/Material/Human/Head
+#: objects/FS/function.c:1088
+msgid "Head"
+msgstr "शिर"
+
+#. Translators: Menu item Noun/Material/Human/Finger
+#: objects/FS/function.c:1090
+msgid "Finger"
+msgstr "औंला"
+
+#. Translators: Menu item Noun/Material/Human/Toe
+#: objects/FS/function.c:1092
+msgid "Toe"
+msgstr "खुरा"
+
+#. Translators: Menu item Noun/Material/Biological
+#: objects/FS/function.c:1094
+msgid "Biological"
+msgstr "जैविक"
+
+#. Translators: Menu item Noun/Energy/Mechanical
+#: objects/FS/function.c:1098
+msgid "Mechanical"
+msgstr "यान्त्रिक"
+
+#. Translators: Menu item Noun/Energy/Mechanical/Mech. Energy
+#: objects/FS/function.c:1100
+msgid "Mech. Energy"
+msgstr "यान्त्रिक. शक्ति"
+
+#. Translators: Menu item Noun/Energy/Mechanical/Translation
+#: objects/FS/function.c:1102
+msgid "Translation"
+msgstr "अनुवाद"
+
+#. Translators: Menu item Noun/Energy/Mechanical/Force
+#: objects/FS/function.c:1104
+msgid "Force"
+msgstr "बल"
+
+#. Translators: Menu item Noun/Energy/Mechanical/Rotation
+#: objects/FS/function.c:1106
+msgid "Rotation"
+msgstr "परिक्रम"
+
+#. Translators: Menu item Noun/Energy/Mechanical/Torque
+#: objects/FS/function.c:1108
+msgid "Torque"
+msgstr "वटारियको धातुको हार"
+
+#. Translators: Menu item Noun/Energy/Mechanical/Random Motion
+#: objects/FS/function.c:1110
+msgid "Random Motion"
+msgstr "जथाभावि गति"
+
+#. Translators: Menu item Noun/Energy/Mechanical/Vibration
+#: objects/FS/function.c:1112
+msgid "Vibration"
+msgstr "कम्पन"
+
+#. Translators: Menu item Noun/Energy/Mechanical/Rotational Energy
+#: objects/FS/function.c:1114
+msgid "Rotational Energy"
+msgstr "परिक्रमित शक्ति"
+
+#. Translators: Menu item Noun/Energy/Mechanical/Translational Energy
+#: objects/FS/function.c:1116
+msgid "Translational Energy"
+msgstr "गतिशिल शक्ति"
+
+#. Translators: Menu item Noun/Energy/Electricity
+#: objects/FS/function.c:1118
+msgid "Electrical"
+msgstr "विधुतिय"
+
+#. Translators: Menu item Noun/Energy/Electricity/Electricity
+#: objects/FS/function.c:1120
+msgid "Electricity"
+msgstr "विधुत"
+
+#. Translators: Menu item Noun/Energy/Electricity/Voltage
+#: objects/FS/function.c:1122
+msgid "Voltage"
+msgstr "भोल्टेज"
+
+#. Translators: Menu item Noun/Energy/Electricity/Current
+#: objects/FS/function.c:1124
+msgid "Current"
+msgstr "चालु"
+
+#. Translators: Menu item Noun/Energy/Hydraulic
+#: objects/FS/function.c:1126
+msgid "Hydraulic"
+msgstr "जलप्रेरित"
+
+#. Translators: Menu item Noun/Energy/Hydraulic/Pressure
+#: objects/FS/function.c:1128
+msgid "Pressure"
+msgstr "दवाव"
+
+#. Translators: Menu item Noun/Energy/Hydraulic/Volumetric Flow
+#: objects/FS/function.c:1130
+msgid "Volumetric Flow"
+msgstr "परिमाणक वहाई"
+
+#. Translators: Menu item Noun/Energy/Thermal
+#: objects/FS/function.c:1132
+msgid "Thermal"
+msgstr "थर्मल"
+
+#. Translators: Menu item Noun/Energy/Thermal/Heat
+#: objects/FS/function.c:1134
+msgid "Heat"
+msgstr "ताप"
+
+#. Translators: Menu item Noun/Energy/Thermal/Conduction
+#: objects/FS/function.c:1136
+msgid "Conduction"
+msgstr "संवाहन"
+
+#. Translators: Menu item Noun/Energy/Thermal/Convection
+#: objects/FS/function.c:1138
+msgid "Convection"
+msgstr "वाहन"
+
+#. Translators: Menu item Noun/Energy/Thermal/Radiation
+#. Translators: Menu item Noun/Energy/Radioactive/Radiation
+#: objects/FS/function.c:1140 objects/FS/function.c:1148
+msgid "Radiation"
+msgstr "जैविकिकरण"
+
+#. Translators: Menu item Noun/Energy/Pneumatic
+#: objects/FS/function.c:1142
+msgid "Pneumatic"
+msgstr "वायुविय"
+
+#. Translators: Menu item Noun/Energy/Chemical
+#: objects/FS/function.c:1144
+msgid "Chemical"
+msgstr "रासायनिक"
+
+#. Translators: Menu item Noun/Energy/Radioactive
+#: objects/FS/function.c:1146
+msgid "Radioactive"
+msgstr "रेडियोक्टिभ"
+
+#. Translators: Menu item Noun/Energy/Radioactive/Microwaves
+#: objects/FS/function.c:1150
+msgid "Microwaves"
+msgstr "शुक्ष्मतरङ्ग"
+
+#. Translators: Menu item Noun/Energy/Radioactive/Radio waves
+#: objects/FS/function.c:1152
+msgid "Radio waves"
+msgstr "रेडियो तरङ्ग"
+
+#. Translators: Menu item Noun/Energy/Radioactive/X-Rays
+#: objects/FS/function.c:1154
+msgid "X-Rays"
+msgstr "एक्स-किरणहरु"
+
+#. Translators: Menu item Noun/Energy/Radioactive/Gamma Rays
+#: objects/FS/function.c:1156
+msgid "Gamma Rays"
+msgstr "गामा किरण"
+
+#. Translators: Menu item Noun/Energy/Acoustic Energy
+#: objects/FS/function.c:1158
+msgid "Acoustic Energy"
+msgstr "अटोकास्टिक शक्ति"
+
+#. Translators: Menu item Noun/Energy/Optical Energy
+#: objects/FS/function.c:1160
+msgid "Optical Energy"
+msgstr "ध्रुवण शक्ति"
+
+#. Translators: Menu item Noun/Energy/Solar Energy
+#: objects/FS/function.c:1162
+msgid "Solar Energy"
+msgstr "सौर्य शक्ति"
+
+#. Translators: Menu item Noun/Energy/Magnetic Energy
+#: objects/FS/function.c:1164
+msgid "Magnetic Energy"
+msgstr "चुम्वकिय शक्ति"
+
+#. Translators: Menu item Noun/Energy/Human/Human Motion
+#: objects/FS/function.c:1168
+msgid "Human Motion"
+msgstr "मानव गति"
+
+#. Translators: Menu item Noun/Energy/Human/Human Force
+#: objects/FS/function.c:1170
+msgid "Human Force"
+msgstr "मानव वल"
+
+#. Translators: Menu item Noun/Signal/Status
+#: objects/FS/function.c:1176
+msgid "Status"
+msgstr "स्थिति"
+
+#: objects/FS/function.c:1180
+msgid "User/Device Fn"
+msgstr "प्रयोगकर्ता/यन्त्र एफ एन"
+
+#: objects/FS/function.c:1181
+msgid "Wish Fn"
+msgstr "एफ एन चाहनुहोस"
+
+#: objects/GRAFCET/action.c:135 sheets/SDL.sheet.in.h:9
+msgid "Macro call"
+msgstr "म्याक्रो वोलाउनुहोस"
+
+#: objects/GRAFCET/action.c:135
+msgid "This action is a call to a macro-step"
+msgstr "यो क्रिया लाई म्याक्रो -पाईला भन्दछ"
+
+#: objects/GRAFCET/condition.c:130
+msgid "Condition"
+msgstr "अवस्था॒"
+
+#: objects/GRAFCET/condition.c:130
+msgid "The boolean equation of the condition"
+msgstr "सर्तको बुलियन समिकरण"
+
+#: objects/GRAFCET/condition.c:132
+msgid "The condition's font"
+msgstr ""
+
+#: objects/GRAFCET/condition.c:134
+msgid "The condition's font size"
+msgstr ""
+
+#: objects/GRAFCET/condition.c:137 objects/GRAFCET/transition.c:147
+msgid "Color"
+msgstr "रङ्ग"
+
+#: objects/GRAFCET/condition.c:137
+msgid "The condition's color"
+msgstr ""
+
+#: objects/GRAFCET/grafcet.c:45
+msgid "GRAFCET diagram objects"
+msgstr ""
+
+#: objects/GRAFCET/step.c:146 sheets/GRAFCET.sheet.in.h:13
+msgid "Regular step"
+msgstr ""
+
+#: objects/GRAFCET/step.c:147 sheets/GRAFCET.sheet.in.h:6
+msgid "Initial step"
+msgstr ""
+
+#: objects/GRAFCET/step.c:148 sheets/GRAFCET.sheet.in.h:8
+msgid "Macro entry step"
+msgstr ""
+
+#: objects/GRAFCET/step.c:149 sheets/GRAFCET.sheet.in.h:9
+msgid "Macro exit step"
+msgstr ""
+
+#: objects/GRAFCET/step.c:150 sheets/GRAFCET.sheet.in.h:7
+msgid "Macro call step"
+msgstr ""
+
+#: objects/GRAFCET/step.c:151
+msgid "Subprogram call step"
+msgstr ""
+
+#: objects/GRAFCET/step.c:158
+msgid "Step name"
+msgstr ""
+
+#: objects/GRAFCET/step.c:158
+msgid "The name of the step"
+msgstr ""
+
+#: objects/GRAFCET/step.c:161
+msgid "Step type"
+msgstr ""
+
+#: objects/GRAFCET/step.c:161
+msgid "The kind of step"
+msgstr ""
+
+#: objects/GRAFCET/step.c:163
+msgid "Active"
+msgstr "सक्रिय गर्नुहोस्"
+
+#: objects/GRAFCET/step.c:163
+msgid "Shows a red dot to figure the step's activity"
+msgstr ""
+
+#: objects/GRAFCET/transition.c:140
+msgid "Receptivity"
+msgstr "ग्रहणशीलता"
+
+#: objects/GRAFCET/transition.c:140
+msgid "The boolean equation of the receptivity"
+msgstr ""
+
+#: objects/GRAFCET/transition.c:142
+msgid "The receptivity's font"
+msgstr ""
+
+#: objects/GRAFCET/transition.c:144
+msgid "The receptivity's font size"
+msgstr ""
+
+#: objects/GRAFCET/transition.c:147
+msgid "The receptivity's color"
+msgstr ""
+
+#: objects/GRAFCET/transition.c:148
+msgid "North point"
+msgstr ""
+
+#: objects/GRAFCET/transition.c:149
+msgid "South point"
+msgstr ""
+
+#: objects/GRAFCET/vector.c:128
+msgid "Draw arrow heads on upward arcs:"
+msgstr ""
+
+#: objects/GRAFCET/vergent.c:122
+msgid "OR"
+msgstr "वा"
+
+#: objects/GRAFCET/vergent.c:123
+msgid "AND"
+msgstr "र"
+
+#: objects/GRAFCET/vergent.c:134
+msgid "Vergent type:"
+msgstr ""
+
+#: objects/GRAFCET/vergent.c:405 objects/SADT/box.c:445
+#: objects/Istar/other.c:469 objects/Jackson/domain.c:531
+#: objects/KAOS/goal.c:572 objects/KAOS/other.c:525
+#: objects/standard/line.c:219
+msgid "Add connection point"
+msgstr ""
+
+#: objects/GRAFCET/vergent.c:406
+msgid "Delete  connection point"
+msgstr ""
+
+#: objects/GRAFCET/vergent.c:410
+msgid "GRAFCET OR/AND vergent"
+msgstr ""
+
+#: objects/Misc/analog_clock.c:137
+msgid "Arrow color"
+msgstr ""
+
+#: objects/Misc/analog_clock.c:139
+msgid "Arrow line width"
+msgstr ""
+
+#: objects/Misc/analog_clock.c:141
+msgid "Seconds arrow color"
+msgstr ""
+
+#: objects/Misc/analog_clock.c:143
+msgid "Seconds arrow line width"
+msgstr ""
+
+#: objects/Misc/analog_clock.c:145
+msgid "Show hours"
+msgstr ""
+
+#: objects/Misc/libmisc.c:38
+msgid "Miscellaneous objects"
+msgstr ""
+
+#. property rows
+#: objects/SADT/arrow.c:134 objects/UML/class.c:142
+#: objects/UML/class_dialog.c:357
+msgid "Normal"
+msgstr "सामान्य"
+
+#: objects/SADT/arrow.c:135
+msgid "Import resource (not shown upstairs)"
+msgstr ""
+
+#: objects/SADT/arrow.c:136
+msgid "Imply resource (not shown downstairs)"
+msgstr ""
+
+#: objects/SADT/arrow.c:137
+msgid "Dotted arrow"
+msgstr ""
+
+#: objects/SADT/arrow.c:138
+msgid "disable arrow heads"
+msgstr ""
+
+#: objects/SADT/arrow.c:144
+msgid "Flow style:"
+msgstr ""
+
+#: objects/SADT/arrow.c:146
+msgid "Automatically gray vertical flows:"
+msgstr ""
+
+#: objects/SADT/arrow.c:147
+msgid ""
+"To improve the ease of reading, flows which begin and end vertically can be "
+"rendered gray"
+msgstr ""
+
+#: objects/SADT/arrow.c:463
+msgid "SADT Arrow"
+msgstr ""
+
+#: objects/SADT/box.c:137 objects/flowchart/box.c:152
+#: objects/flowchart/diamond.c:150 objects/flowchart/ellipse.c:149
+#: objects/flowchart/parallelogram.c:154
+msgid "Text padding"
+msgstr ""
+
+#: objects/SADT/box.c:144
+msgid "Activity/Data identifier"
+msgstr ""
+
+#: objects/SADT/box.c:145
+msgid "The identifier which appears in the lower right corner of the Box"
+msgstr ""
+
+#: objects/SADT/box.c:446 objects/Istar/other.c:470
+#: objects/Jackson/domain.c:532 objects/KAOS/goal.c:573
+#: objects/KAOS/other.c:526 objects/standard/line.c:220
+msgid "Delete connection point"
+msgstr ""
+
+#: objects/SADT/box.c:451
+msgid "SADT box"
+msgstr ""
+
+#: objects/SADT/sadt.c:41
+msgid "SADT diagram objects"
+msgstr ""
+
+#: objects/UML/actor.c:364 objects/UML/actor.c:366 sheets/UML.sheet.in.h:2
+msgid "Actor"
+msgstr "पात्र"
+
+#: objects/UML/association.c:1175 objects/UML/class_dialog.c:2114
+msgid "Direction:"
+msgstr ""
+
+#: objects/UML/association.c:1192
+msgid "From A to B"
+msgstr ""
+
+#: objects/UML/association.c:1199
+msgid "From B to A"
+msgstr ""
+
+#: objects/UML/association.c:1223 objects/UML/association.c:1231
+msgid "Side A"
+msgstr ""
+
+#: objects/UML/association.c:1225 objects/UML/association.c:1233
+msgid "Side B"
+msgstr ""
+
+#: objects/UML/association.c:1239
+msgid "Role:"
+msgstr ""
+
+#: objects/UML/association.c:1251
+msgid "Multiplicity:"
+msgstr ""
+
+#: objects/UML/association.c:1262 objects/UML/class_dialog.c:952
+#: objects/UML/class_dialog.c:1876
+msgid "Visibility:"
+msgstr "दृश्यता:"
+
+#: objects/UML/association.c:1271 objects/UML/class_dialog.c:961
+#: objects/UML/class_dialog.c:1885
+msgid "Public"
+msgstr "सार्बजनिक"
+
+#: objects/UML/association.c:1281 objects/UML/class_dialog.c:969
+#: objects/UML/class_dialog.c:1893
+msgid "Private"
+msgstr "ब्यक्तिगत"
+
+#: objects/UML/association.c:1291 objects/UML/class_dialog.c:977
+#: objects/UML/class_dialog.c:1901
+msgid "Protected"
+msgstr "सुरक्षित"
+
+#: objects/UML/association.c:1301 objects/UML/class_dialog.c:985
+#: objects/UML/class_dialog.c:1909
+msgid "Implementation"
+msgstr "कार्वान्वयन गर्नु"
+
+#. Show arrow:
+#: objects/UML/association.c:1320
+msgid "Show arrow"
+msgstr ""
+
+#. Aggregate
+#: objects/UML/association.c:1326
+msgid "Aggregate"
+msgstr "सम्पूर्ण योग"
+
+#. Composition
+#: objects/UML/association.c:1334
+msgid "Composition"
+msgstr ""
+
+#: objects/UML/class.c:109 objects/UML/class.c:247 objects/UML/class.c:1169
+#: sheets/UML.sheet.in.h:6
+msgid "Class"
+msgstr "कक्षा"
+
+#: objects/UML/class.c:113 objects/UML/classicon.c:137
+#: objects/UML/component.c:124 objects/UML/large_package.c:128
+#: objects/UML/object.c:149 objects/UML/small_package.c:124
+msgid "Stereotype"
+msgstr "स्टेरियोप्रकार"
+
+#: objects/UML/class.c:115 objects/UML/class.c:152
+#: objects/UML/class_dialog.c:382 sheets/SDL.sheet.in.h:3
+msgid "Comment"
+msgstr "टिप्पणि"
+
+#: objects/UML/class.c:117 objects/UML/class.c:146
+#: objects/UML/class_dialog.c:296 objects/UML/class_dialog.c:367
+#: objects/UML/class_dialog.c:1940
+msgid "Abstract"
+msgstr "अव्यावहारिक"
+
+#: objects/UML/class.c:119
+msgid "Template"
+msgstr "टेमप्लेट॒"
+
+#: objects/UML/class.c:122 objects/UML/class_dialog.c:305
+msgid "Suppress Attributes"
+msgstr ""
+
+#: objects/UML/class.c:124
+msgid "Suppress Operations"
+msgstr ""
+
+#: objects/UML/class.c:126
+msgid "Visible Attributes"
+msgstr ""
+
+#: objects/UML/class.c:128
+msgid "Visible Operations"
+msgstr ""
+
+#: objects/UML/class.c:130
+msgid "Visible Comments"
+msgstr ""
+
+#: objects/UML/class.c:132 objects/UML/class_dialog.c:321
+msgid "Wrap Operations"
+msgstr ""
+
+#: objects/UML/class.c:134
+msgid "Wrap after char"
+msgstr ""
+
+#: objects/UML/class.c:144 objects/UML/class_dialog.c:362
+msgid "Polymorphic"
+msgstr ""
+
+#: objects/UML/class.c:148
+msgid "Classname"
+msgstr ""
+
+#: objects/UML/class.c:150
+msgid "Abstract Classname"
+msgstr ""
+
+#: objects/UML/class.c:156 objects/UML/class.c:158 objects/UML/class.c:160
+#: objects/UML/class.c:162 objects/UML/class.c:164 objects/UML/class.c:166
+msgid " "
+msgstr ". "
+
+#: objects/UML/class.c:171 objects/UML/object.c:153
+msgid "Attributes"
+msgstr "बिषेषताहरु"
+
+#: objects/UML/class.c:173
+msgid "Operations"
+msgstr ""
+
+#: objects/UML/class.c:241
+msgid "Show Comments"
+msgstr ""
+
+#. Class page:
+#: objects/UML/class_dialog.c:265
+msgid "_Class"
+msgstr ""
+
+#: objects/UML/class_dialog.c:273
+msgid "Class name:"
+msgstr ""
+
+#: objects/UML/class_dialog.c:281 objects/UML/class_dialog.c:1863
+#: objects/UML/dependency.c:135 objects/UML/generalization.c:131
+#: objects/UML/realizes.c:132
+msgid "Stereotype:"
+msgstr ""
+
+#: objects/UML/class_dialog.c:288 objects/UML/class_dialog.c:940
+#: objects/UML/class_dialog.c:1981 objects/UML/class_dialog.c:2103
+msgid "Comment:"
+msgstr "टिप्पणि:"
+
+#: objects/UML/class_dialog.c:302
+msgid "Attributes visible"
+msgstr ""
+
+#: objects/UML/class_dialog.c:311
+msgid "Operations visible"
+msgstr ""
+
+#: objects/UML/class_dialog.c:314
+msgid "Suppress operations"
+msgstr ""
+
+#: objects/UML/class_dialog.c:328
+msgid "Wrap after this length: "
+msgstr ""
+
+#: objects/UML/class_dialog.c:335
+msgid "Comments visible"
+msgstr ""
+
+#. head line
+#: objects/UML/class_dialog.c:348
+msgid "Kind"
+msgstr ""
+
+#: objects/UML/class_dialog.c:353
+msgid "Size"
+msgstr "आकार"
+
+#: objects/UML/class_dialog.c:372
+msgid "Class Name"
+msgstr ""
+
+#: objects/UML/class_dialog.c:377
+msgid "Abstract Class"
+msgstr ""
+
+#. should probably be refactored too.
+#: objects/UML/class_dialog.c:394
+msgid "Text Color"
+msgstr "पाठको रंग"
+
+#: objects/UML/class_dialog.c:402
+msgid "Foreground Color"
+msgstr ""
+
+#: objects/UML/class_dialog.c:410
+msgid "Background Color"
+msgstr "पृष्ठभुमि रंग"
+
+#. Attributes page:
+#: objects/UML/class_dialog.c:840
+msgid "_Attributes"
+msgstr ""
+
+#: objects/UML/class_dialog.c:868 objects/UML/class_dialog.c:1799
+#: objects/UML/class_dialog.c:2027 objects/UML/class_dialog.c:2547
+msgid "_New"
+msgstr "_नयाँ"
+
+#: objects/UML/class_dialog.c:874 objects/UML/class_dialog.c:1805
+#: objects/UML/class_dialog.c:2034 objects/UML/class_dialog.c:2553
+msgid "_Delete"
+msgstr "_मेट्नुहोस्"
+
+#: objects/UML/class_dialog.c:880 objects/UML/class_dialog.c:1811
+#: objects/UML/class_dialog.c:2041 objects/UML/class_dialog.c:2559
+msgid "Move up"
+msgstr "माथि लैजानुहोस्"
+
+#: objects/UML/class_dialog.c:886 objects/UML/class_dialog.c:1817
+#: objects/UML/class_dialog.c:2048 objects/UML/class_dialog.c:2565
+msgid "Move down"
+msgstr "तल लैजानुहोस्"
+
+#: objects/UML/class_dialog.c:897
+msgid "Attribute data"
+msgstr ""
+
+#: objects/UML/class_dialog.c:929
+msgid "Value:"
+msgstr ""
+
+#: objects/UML/class_dialog.c:1006 objects/UML/class_dialog.c:1925
+msgid "Class scope"
+msgstr ""
+
+#. Operations page:
+#: objects/UML/class_dialog.c:1771
+msgid "_Operations"
+msgstr ""
+
+#: objects/UML/class_dialog.c:1829
+msgid "Operation data"
+msgstr ""
+
+#: objects/UML/class_dialog.c:1931
+msgid "Inheritance type:"
+msgstr ""
+
+#: objects/UML/class_dialog.c:1948
+msgid "Polymorphic (virtual)"
+msgstr ""
+
+#: objects/UML/class_dialog.c:1956
+msgid "Leaf (final)"
+msgstr ""
+
+#: objects/UML/class_dialog.c:1974
+msgid "Query"
+msgstr "क्वेरी"
+
+#: objects/UML/class_dialog.c:1998
+msgid "Parameters:"
+msgstr ""
+
+#: objects/UML/class_dialog.c:2060
+msgid "Parameter data"
+msgstr ""
+
+#: objects/UML/class_dialog.c:2092
+msgid "Def. value:"
+msgstr ""
+
+#: objects/UML/class_dialog.c:2123
+msgid "Undefined"
+msgstr "अपरिभाषित"
+
+#: objects/UML/class_dialog.c:2131
+msgid "In"
+msgstr "भित्र "
+
+#: objects/UML/class_dialog.c:2140
+msgid "Out"
+msgstr "बाहिर"
+
+#: objects/UML/class_dialog.c:2149
+msgid "In & Out"
+msgstr ""
+
+#. Templates page:
+#: objects/UML/class_dialog.c:2513
+msgid "_Templates"
+msgstr ""
+
+#: objects/UML/class_dialog.c:2519 sheets/UML.sheet.in.h:29
+msgid "Template class"
+msgstr ""
+
+#: objects/UML/class_dialog.c:2576
+msgid "Formal parameter data"
+msgstr ""
+
+#: objects/UML/classicon.c:127
+msgid "Boundary"
+msgstr ""
+
+#: objects/UML/classicon.c:139
+msgid "Is object"
+msgstr ""
+
+#: objects/UML/component_feature.c:144 sheets/UML.sheet.in.h:14
+msgid "Facet"
+msgstr ""
+
+#: objects/UML/component_feature.c:145 sheets/UML.sheet.in.h:26
+msgid "Receptacle"
+msgstr ""
+
+#: objects/UML/component_feature.c:146 sheets/UML.sheet.in.h:13
+msgid "Event Source"
+msgstr ""
+
+#: objects/UML/component_feature.c:147 sheets/UML.sheet.in.h:12
+msgid "Event Sink"
+msgstr ""
+
+#: objects/UML/constraint.c:125
+msgid "Constraint:"
+msgstr ""
+
+#: objects/UML/dependency.c:137
+msgid "Show arrow:"
+msgstr ""
+
+#: objects/UML/implements.c:128
+msgid "Interface:"
+msgstr "ईन्टरफेस:"
+
+#: objects/UML/lifeline.c:144
+msgid "Draw focus of control:"
+msgstr ""
+
+#: objects/UML/lifeline.c:146
+msgid "Draw destruction mark:"
+msgstr ""
+
+#: objects/UML/lifeline.c:417
+msgid "Add connection points"
+msgstr ""
+
+#: objects/UML/lifeline.c:418
+msgid "Remove connection points"
+msgstr ""
+
+#: objects/UML/lifeline.c:422
+msgid "UML Lifeline"
+msgstr ""
+
+#: objects/UML/message.c:135
+msgid "Call"
+msgstr "वोलाउनुहोस्"
+
+#: objects/UML/message.c:136
+msgid "Create"
+msgstr "सृजना॒ गर्नुहोस्"
+
+#: objects/UML/message.c:137
+msgid "Destroy"
+msgstr "नाश गर्नुहोस्"
+
+#: objects/UML/message.c:138
+msgid "Simple"
+msgstr "साधारण"
+
+#: objects/UML/message.c:139
+msgid "Return"
+msgstr "फर्कनुहोस्"
+
+#: objects/UML/message.c:140
+msgid "Send"
+msgstr "पठाउनुहोस्"
+
+#: objects/UML/message.c:141
+msgid "Recursive"
+msgstr ""
+
+#: objects/UML/message.c:150 objects/Jackson/phenomenon.c:142
+msgid "Message:"
+msgstr "खबर:"
+
+#: objects/UML/message.c:152
+msgid "Message type:"
+msgstr ""
+
+#: objects/UML/object.c:151
+msgid "Explicit state"
+msgstr "स्पष्ट स्थिति"
+
+#: objects/UML/object.c:156
+msgid "Active object"
+msgstr ""
+
+#: objects/UML/object.c:158
+msgid "Show attributes"
+msgstr ""
+
+#: objects/UML/object.c:160
+msgid "Multiple instance"
+msgstr ""
+
+#. Would like to create a state_term instead, but making the connections
+#. * is a pain
+#: objects/UML/state.c:390
+msgid ""
+"This diagram uses the State object for initial/final states.\n"
+"That option will go away in future versions.\n"
+"Please use the Initial/Final State object instead\n"
+msgstr ""
+
+#: objects/UML/state_term.c:120
+msgid "Is final"
+msgstr ""
+
+#: objects/UML/transition.c:129
+msgid "Trigger"
+msgstr ""
+
+#: objects/UML/transition.c:130
+msgid "The event that causes this transition to be taken"
+msgstr ""
+
+#: objects/UML/transition.c:131
+msgid "Action"
+msgstr "कार्य"
+
+#: objects/UML/transition.c:132
+msgid "Action to perform when this transition is taken"
+msgstr ""
+
+#: objects/UML/transition.c:133
+msgid "Guard"
+msgstr ""
+
+#: objects/UML/transition.c:134
+msgid "Condition for taking this transition when the event is fired"
+msgstr ""
+
+#: objects/UML/uml.c:65
+msgid "Unified Modelling Language diagram objects"
+msgstr ""
+
+#: objects/UML/usecase.c:132
+msgid "Text outside"
+msgstr ""
+
+#: objects/UML/usecase.c:134
+msgid "Collaboration"
+msgstr "सहकार्य"
+
+#: objects/bondgraph/bondgraph.c:39
+msgid "Bond graph objects"
+msgstr ""
+
+#: objects/chronogram/chronogram.c:40
+msgid "Chronogram diagram objects"
+msgstr ""
+
+#: objects/chronogram/chronoline.c:148
+msgid "Data"
+msgstr "लगत"
+
+#: objects/chronogram/chronoline.c:150
+msgid "Data name"
+msgstr ""
+
+#: objects/chronogram/chronoline.c:152
+msgid "Events"
+msgstr "घटनाहरू"
+
+#: objects/chronogram/chronoline.c:155
+msgid "Event specification"
+msgstr ""
+
+#: objects/chronogram/chronoline.c:156
+msgid ""
+"@ time    set the pointer at an absolute time.\n"
+"( duration  sets the signal up, then wait 'duration'.\n"
+") duration  sets the signal down, then wait 'duration'.\n"
+"u duration  sets the signal to \"unknown\" state, then wait 'duration'.\n"
+"example : @ 1.0 (2.0)1.0(2.0)\n"
+msgstr ""
+
+#: objects/chronogram/chronoline.c:162
+msgid "Parameters"
+msgstr ""
+
+#: objects/chronogram/chronoline.c:164 objects/chronogram/chronoref.c:146
+msgid "Start time"
+msgstr ""
+
+#: objects/chronogram/chronoline.c:166 objects/chronogram/chronoref.c:148
+msgid "End time"
+msgstr ""
+
+#: objects/chronogram/chronoline.c:168
+msgid "Rise time"
+msgstr ""
+
+#: objects/chronogram/chronoline.c:170
+msgid "Fall time"
+msgstr ""
+
+#: objects/chronogram/chronoline.c:171
+msgid "Multi-bit data"
+msgstr ""
+
+#: objects/chronogram/chronoline.c:173 objects/chronogram/chronoref.c:156
+msgid "Aspect"
+msgstr ""
+
+#: objects/chronogram/chronoline.c:175
+msgid "Data color"
+msgstr ""
+
+#: objects/chronogram/chronoline.c:177
+msgid "Data line width"
+msgstr ""
+
+#: objects/chronogram/chronoref.c:144
+msgid "Time data"
+msgstr ""
+
+#: objects/chronogram/chronoref.c:150
+msgid "Major time step"
+msgstr ""
+
+#: objects/chronogram/chronoref.c:152
+msgid "Minor time step"
+msgstr ""
+
+#: objects/chronogram/chronoref.c:162
+msgid "Minor step line width"
+msgstr ""
+
+#: objects/custom/custom.c:117
+msgid "Custom"
+msgstr "अनुकुल"
+
+#: objects/custom/custom.c:117
+msgid "Custom XML shapes loader"
+msgstr ""
+
+#: objects/custom/custom_object.c:178 objects/custom/custom_object.c:197
+msgid "Flip horizontal"
+msgstr ""
+
+#: objects/custom/custom_object.c:180 objects/custom/custom_object.c:199
+msgid "Flip vertical"
+msgstr ""
+
+#: objects/custom/custom_object.c:1448
+msgid "Flip Horizontal"
+msgstr ""
+
+#: objects/custom/custom_object.c:1449
+msgid "Flip Vertical"
+msgstr ""
+
+#: objects/custom/custom_object.c:1486
+#, c-format
+msgid "Cannot open icon file %s for object type '%s'."
+msgstr ""
+
+#: objects/flowchart/box.c:150 objects/standard/box.c:150
+#: objects/standard/polyline.c:134 objects/standard/zigzagline.c:129
+msgid "Corner radius"
+msgstr ""
+
+#: objects/flowchart/flowchart.c:37
+msgid "Flowchart objects"
+msgstr ""
+
+#: objects/flowchart/parallelogram.c:152
+msgid "Shear angle"
+msgstr ""
+
+#: objects/Istar/actor.c:68 objects/Istar/link.c:153
+msgid "Unspecified"
+msgstr ""
+
+#: objects/Istar/actor.c:69 objects/KAOS/other.c:75
+msgid "Agent"
+msgstr ""
+
+#: objects/Istar/actor.c:71
+msgid "Role"
+msgstr "भुमिका"
+
+#: objects/Istar/goal.c:76 objects/KAOS/goal.c:79
+msgid "Softgoal"
+msgstr ""
+
+#: objects/Istar/goal.c:77 objects/KAOS/goal.c:80
+msgid "Goal"
+msgstr ""
+
+#: objects/Istar/goal.c:155 objects/Istar/goal.c:156 objects/KAOS/goal.c:157
+#: objects/KAOS/goal.c:158
+msgid "Goal Type"
+msgstr ""
+
+#: objects/Istar/istar.c:46
+msgid "Istar diagram"
+msgstr ""
+
+#: objects/Istar/link.c:154
+msgid "Positive Contrib"
+msgstr ""
+
+#: objects/Istar/link.c:155
+msgid "Negative contrib"
+msgstr ""
+
+#: objects/Istar/link.c:156 sheets/UML.sheet.in.h:10
+msgid "Dependency"
+msgstr ""
+
+#: objects/Istar/link.c:157
+msgid "Decomposition"
+msgstr ""
+
+#: objects/Istar/link.c:158
+msgid "Means-Ends"
+msgstr ""
+
+#: objects/Istar/other.c:73
+msgid "Resource"
+msgstr "श्रोत"
+
+#: objects/Istar/other.c:74
+msgid "Task"
+msgstr "कार्य"
+
+#: objects/Istar/other.c:475
+msgid "i* other"
+msgstr ""
+
+#: objects/Jackson/domain.c:79
+msgid "Given Domain"
+msgstr ""
+
+#: objects/Jackson/domain.c:80
+msgid "Designed Domain"
+msgstr ""
+
+#: objects/Jackson/domain.c:81
+msgid "Machine Domain"
+msgstr ""
+
+#: objects/Jackson/domain.c:97
+msgid "Causal"
+msgstr ""
+
+#: objects/Jackson/domain.c:98
+msgid "Biddable"
+msgstr ""
+
+#: objects/Jackson/domain.c:99
+msgid "Lexical"
+msgstr ""
+
+#: objects/Jackson/domain.c:176 objects/Jackson/domain.c:177
+msgid "Domain Type"
+msgstr ""
+
+#: objects/Jackson/domain.c:181
+msgid "Domain Kind"
+msgstr ""
+
+#: objects/Jackson/domain.c:182
+msgid "Optional kind which appears in the lower right corner of the Domain"
+msgstr ""
+
+#: objects/Jackson/domain.c:537
+msgid "Jackson domain"
+msgstr ""
+
+#: objects/Jackson/jackson.c:47
+msgid "Jackson diagram"
+msgstr ""
+
+#: objects/Jackson/phenomenon.c:134
+msgid "Shared"
+msgstr ""
+
+#: objects/Jackson/phenomenon.c:135 objects/KAOS/goal.c:81
+msgid "Requirement"
+msgstr ""
+
+#: objects/KAOS/goal.c:82
+msgid "Assumption"
+msgstr ""
+
+#: objects/KAOS/goal.c:83
+msgid "Obstacle"
+msgstr ""
+
+#: objects/KAOS/goal.c:578
+msgid "KAOS goal"
+msgstr ""
+
+#: objects/KAOS/kaos.c:49
+msgid "KAOS diagram"
+msgstr ""
+
+#: objects/KAOS/metaandorrel.c:151
+msgid "AND Refinement"
+msgstr ""
+
+#: objects/KAOS/metaandorrel.c:152
+msgid "Complete AND Refinement"
+msgstr ""
+
+#: objects/KAOS/metaandorrel.c:153
+msgid "OR Refinement"
+msgstr ""
+
+#: objects/KAOS/metaandorrel.c:154
+msgid "Operationalization"
+msgstr ""
+
+#: objects/KAOS/metaandorrel.c:161
+msgid "Text:"
+msgstr ""
+
+#: objects/KAOS/metabinrel.c:155
+msgid "Contributes"
+msgstr ""
+
+#: objects/KAOS/metabinrel.c:156
+msgid "Obstructs"
+msgstr ""
+
+#: objects/KAOS/metabinrel.c:157
+msgid "Conflicts"
+msgstr ""
+
+#: objects/KAOS/metabinrel.c:158
+msgid "Responsibility"
+msgstr ""
+
+#: objects/KAOS/metabinrel.c:159
+msgid "Monitors"
+msgstr ""
+
+#: objects/KAOS/metabinrel.c:160
+msgid "Controls"
+msgstr "नियन्त्रणहरु"
+
+#: objects/KAOS/metabinrel.c:161
+msgid "CapableOf"
+msgstr ""
+
+#: objects/KAOS/metabinrel.c:162
+msgid "Performs"
+msgstr ""
+
+#: objects/KAOS/metabinrel.c:164
+msgid "Output"
+msgstr "निर्गत"
+
+#: objects/KAOS/other.c:531
+msgid "KAOS other"
+msgstr ""
+
+#: objects/network/basestation.c:135
+msgid "Sectors"
+msgstr ""
+
+#: objects/network/basestation.c:393 objects/network/basestation.c:395
+msgid "Base Station"
+msgstr ""
+
+#: objects/network/bus.c:599
+msgid "Add Handle"
+msgstr ""
+
+#: objects/network/bus.c:600
+msgid "Delete Handle"
+msgstr ""
+
+#: objects/network/network.c:43
+msgid "Network diagram objects"
+msgstr ""
+
+#: objects/network/radiocell.c:130
+msgid "Macro Cell"
+msgstr ""
+
+#: objects/network/radiocell.c:131
+msgid "Micro Cell"
+msgstr ""
+
+#: objects/network/radiocell.c:132
+msgid "Pico Cell"
+msgstr ""
+
+#: objects/network/radiocell.c:138
+msgid "Radius"
+msgstr ""
+
+#: objects/network/radiocell.c:140
+msgid "Cell Type:"
+msgstr ""
+
+#: objects/network/radiocell.c:152
+msgid "Subscribers"
+msgstr ""
+
+#: objects/standard/arc.c:131
+msgid "Curve distance"
+msgstr ""
+
+#: objects/standard/bezier.c:137 objects/standard/line.c:141
+#: objects/standard/polyline.c:135
+msgid "Line gaps"
+msgstr ""
+
+#: objects/standard/bezier.c:139 objects/standard/line.c:143
+#: objects/standard/polyline.c:137
+msgid "Absolute start gap"
+msgstr ""
+
+#: objects/standard/bezier.c:141 objects/standard/line.c:145
+#: objects/standard/polyline.c:139
+msgid "Absolute end gap"
+msgstr ""
+
+#: objects/standard/bezier.c:732 objects/standard/beziergon.c:488
+msgid "Add Segment"
+msgstr ""
+
+#: objects/standard/bezier.c:733 objects/standard/beziergon.c:489
+msgid "Delete Segment"
+msgstr ""
+
+#: objects/standard/bezier.c:735 objects/standard/beziergon.c:491
+msgid "Symmetric control"
+msgstr "सममिति नियन्त्रण"
+
+#: objects/standard/bezier.c:737 objects/standard/beziergon.c:493
+msgid "Smooth control"
+msgstr ""
+
+#: objects/standard/bezier.c:739 objects/standard/beziergon.c:495
+msgid "Cusp control"
+msgstr ""
+
+#: objects/standard/box.c:137 objects/standard/ellipse.c:131
+msgid "Free"
+msgstr "मुक्त"
+
+#: objects/standard/box.c:138 objects/standard/ellipse.c:132
+msgid "Fixed"
+msgstr ""
+
+#: objects/standard/box.c:139 objects/standard/box.c:694
+msgid "Square"
+msgstr "वर्ग"
+
+#: objects/standard/box.c:152 objects/standard/ellipse.c:144
+msgid "Aspect ratio"
+msgstr ""
+
+#: objects/standard/box.c:690 objects/standard/ellipse.c:668
+msgid "Free aspect"
+msgstr ""
+
+#: objects/standard/box.c:692 objects/standard/ellipse.c:670
+msgid "Fixed aspect"
+msgstr ""
+
+#: objects/standard/ellipse.c:133 objects/standard/ellipse.c:672
+msgid "Circle"
+msgstr ""
+
+#: objects/standard/image.c:130
+msgid "Image file"
+msgstr ""
+
+#: objects/standard/image.c:132
+msgid "Draw border"
+msgstr ""
+
+#: objects/standard/image.c:134
+msgid "Keep aspect ratio"
+msgstr ""
+
+#. Found file in same dir as diagram.
+#. Found file in current dir.
+#: objects/standard/image.c:672 objects/standard/image.c:683
+#, c-format
+msgid ""
+"The image file '%s' was not found in that directory.\n"
+"Using the file '%s' instead\n"
+msgstr ""
+
+#. Didn't find file in current dir.
+#: objects/standard/image.c:689 objects/standard/image.c:711
+#, c-format
+msgid "The image file '%s' was not found.\n"
+msgstr ""
+
+#: objects/standard/line.c:132
+msgid "Arrows"
+msgstr "तीरहरु"
+
+#: objects/standard/line.c:137
+msgid "Start point"
+msgstr ""
+
+#: objects/standard/line.c:139
+msgid "End point"
+msgstr ""
+
+#: objects/standard/polygon.c:460 objects/standard/polyline.c:605
+msgid "Add Corner"
+msgstr ""
+
+#: objects/standard/polygon.c:461 objects/standard/polyline.c:606
+msgid "Delete Corner"
+msgstr ""
+
+#: objects/standard/standard.c:45
+msgid "Standard objects"
+msgstr ""
+
+#: plug-ins/cairo/diacairo.c:1031
+msgid "Cairo PostScript"
+msgstr ""
+
+#: plug-ins/cairo/diacairo.c:1040
+msgid "Cairo Portable Document Format"
+msgstr ""
+
+#: plug-ins/cairo/diacairo.c:1049
+msgid "Cairo PNG"
+msgstr ""
+
+#: plug-ins/cairo/diacairo.c:1057
+msgid "Cairo PNG (with alpha)"
+msgstr ""
+
+#: plug-ins/cairo/diacairo.c:1066
+msgid "Cairo WMF"
+msgstr ""
+
+#: plug-ins/cairo/diacairo.c:1075
+msgid "Cairo old WMF"
+msgstr ""
+
+#: plug-ins/cairo/diacairo.c:1084
+msgid "Cairo Clipboard"
+msgstr ""
+
+#: plug-ins/cairo/diacairo.c:1127
+msgid "Cairo based Rendering"
+msgstr ""
+
+#: plug-ins/cgm/cgm.c:1109
+msgid ""
+"Image row length larger than maximum cell array.\n"
+"Image not exported to CGM."
+msgstr ""
+
+#: plug-ins/cgm/cgm.c:1365
+msgid "Computer Graphics Metafile"
+msgstr ""
+
+#: plug-ins/cgm/cgm.c:1390
+msgid "Computer Graphics Metafile export filter"
+msgstr ""
+
+#: plug-ins/dxf/dxf-export.c:551 plug-ins/dxf/dxf-import.c:1379
+msgid "Drawing Interchange File"
+msgstr ""
+
+#: plug-ins/dxf/dxf-import.c:481 plug-ins/dxf/dxf-import.c:498
+msgid "Bad vertex bulge\n"
+msgstr ""
+
+#: plug-ins/dxf/dxf-import.c:1051
+#, c-format
+msgid "Scale: %f\n"
+msgstr ""
+
+#: plug-ins/dxf/dxf-import.c:1313
+msgid "read_dxf_codes failed\n"
+msgstr ""
+
+#: plug-ins/dxf/dxf-import.c:1345
+#, c-format
+msgid "Unknown dxf code %d\n"
+msgstr ""
+
+#: plug-ins/dxf/dxf.c:50
+msgid "Drawing Interchange File import and export filters"
+msgstr ""
+
+#: plug-ins/gprint/diagnomeprint.c:79
+#, c-format
+msgid ""
+"GNOME Print Backend\n"
+" '%s'\n"
+" not available"
+msgstr ""
+
+#: plug-ins/gprint/diagnomeprint.c:110
+msgid "GNOME PostScript"
+msgstr ""
+
+#: plug-ins/gprint/diagnomeprint.c:119
+msgid "GNOME Portable Document Format"
+msgstr ""
+
+#: plug-ins/gprint/diagnomeprint.c:128
+msgid "GNOME Scalable Vector Graphic"
+msgstr ""
+
+#: plug-ins/gprint/diagnomeprint.c:159
+msgid "GNOME Print based Rendering"
+msgstr ""
+
+#: plug-ins/hpgl/hpgl.c:758
+msgid "HP Graphics Language"
+msgstr ""
+
+#: plug-ins/hpgl/hpgl.c:783
+msgid "HP Graphics Language export filter"
+msgstr ""
+
+#: plug-ins/metapost/metapost.c:46
+msgid "TeX Metapost export filter"
+msgstr ""
+
+#: plug-ins/metapost/render_metapost.c:1033
+msgid "TeX Metapost macros"
+msgstr ""
+
+#: plug-ins/pixbuf/pixbuf.c:90
+#, c-format
+msgid ""
+"Could not save file:\n"
+"%s\n"
+"%s"
+msgstr ""
+
+#: plug-ins/pixbuf/pixbuf.c:197
+msgid "gdk-pixbuf based bitmap export/import"
+msgstr ""
+
+#: plug-ins/pstricks/pstricks.c:26
+msgid "TeX Pstricks export filter"
+msgstr ""
+
+#: plug-ins/pstricks/render_pstricks.c:730
+msgid "Not valid UTF8"
+msgstr ""
+
+#: plug-ins/pstricks/render_pstricks.c:979
+msgid "TeX PSTricks macros"
+msgstr ""
+
+#: plug-ins/python/pydia-render.c:717 plug-ins/wmf/wmf.cpp:1182
+#, c-format
+msgid "Couldn't open: '%s' for writing.\n"
+msgstr ""
+
+#: plug-ins/python/python.c:92
+msgid "Python scripting support"
+msgstr ""
+
+#: plug-ins/shape/shape-export.c:470
+msgid "Can't export png without libart!"
+msgstr ""
+
+#: plug-ins/shape/shape-export.c:497
+msgid "Dia Shape File"
+msgstr ""
+
+#: plug-ins/shape/shape.c:36
+msgid "dia shape export filter"
+msgstr ""
+
+#: plug-ins/svg/render_svg.c:301 plug-ins/svg/svg-import.c:669
+msgid "Scalable Vector Graphics"
+msgstr ""
+
+#: plug-ins/svg/svg-import.c:201 plug-ins/xfig/xfig-import.c:108
+#: plug-ins/xfig/xfig-import.c:159 plug-ins/xfig/xfig-import.c:188
+#: plug-ins/xfig/xfig-import.c:224 plug-ins/xfig/xfig-import.c:261
+#: plug-ins/xfig/xfig-import.c:289 plug-ins/xfig/xfig-import.c:326
+#: plug-ins/xfig/xfig-import.c:362 plug-ins/xfig/xfig-import.c:403
+msgid "Can't find standard object"
+msgstr ""
+
+#: plug-ins/svg/svg-import.c:650
+#, c-format
+msgid "root element was '%s' -- expecting 'svg'."
+msgstr ""
+
+#: plug-ins/svg/svg.c:50
+msgid "Scalable Vector Graphics import and export filters"
+msgstr ""
+
+#: plug-ins/wmf/wmf.cpp:1249
+msgid "Windows Meta File"
+msgstr ""
+
+#: plug-ins/wmf/wmf.cpp:1265
+msgid "WMF export filter"
+msgstr ""
+
+#: plug-ins/wpg/wpg.c:1183
+#, c-format
+msgid "File: %s type/version unsupported.\n"
+msgstr ""
+
+#: plug-ins/wpg/wpg.c:1313 plug-ins/wpg/wpg.c:1320
+msgid "WPG"
+msgstr ""
+
+#: plug-ins/wpg/wpg.c:1348
+msgid "WordPerfect Graphics export filter"
+msgstr ""
+
+#: plug-ins/xfig/xfig-export.c:461
+#, c-format
+msgid "FIG format has no equivalent of arrow style %s, using simple arrow.\n"
+msgstr ""
+
+#: plug-ins/xfig/xfig-export.c:483
+msgid "No more user-definable colors - using black"
+msgstr ""
+
+#: plug-ins/xfig/xfig-export.c:1187
+msgid "XFig format"
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:472
+msgid "Patterns are not supported by Dia"
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:500
+msgid "Triple-dotted lines are not supported by Dia, using double-dotted"
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:504
+#, c-format
+msgid "Line style %d should not appear\n"
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:573
+#, c-format
+msgid "Error while reading %dth of %d points: %s\n"
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:595
+msgid "Error while reading arrowhead\n"
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:615
+#, c-format
+msgid "Unknown arrow type %d\n"
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:731
+#, c-format
+msgid "Couldn't read ellipse info: %s\n"
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:799
+#, c-format
+msgid "Couldn't read polyline info: %s\n"
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:814
+#, c-format
+msgid "Couldn't read flipped bit: %s\n"
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:832
+msgid "Negative corner radius, negating"
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:876 plug-ins/xfig/xfig-import.c:1192
+#, c-format
+msgid "Unknown polyline subtype: %d\n"
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:1026 plug-ins/xfig/xfig-import.c:1058
+#, c-format
+msgid "Couldn't read spline info: %s\n"
+msgstr ""
+
+#. Open approximated spline
+#. Closed approximated spline
+#: plug-ins/xfig/xfig-import.c:1045 plug-ins/xfig/xfig-import.c:1063
+msgid "Cannot convert approximated spline yet."
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:1103
+#, c-format
+msgid "Unknown spline subtype: %d\n"
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:1166
+#, c-format
+msgid "Couldn't read arc info: %s\n"
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:1256
+#, c-format
+msgid "Couldn't read text info: %s\n"
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:1319
+#, c-format
+msgid "Couldn't identify FIG object: %s\n"
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:1327
+msgid "Compound end outside compound\n"
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:1346
+#, c-format
+msgid "Couldn't read color: %s\n"
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:1391
+#, c-format
+msgid "Couldn't read group extend: %s\n"
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:1402
+#, c-format
+msgid "Unknown object type %d\n"
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:1426
+#, c-format
+msgid "`%s' is not one of `%s' or `%s'\n"
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:1436
+#, c-format
+msgid "Error reading paper size: %s\n"
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:1447
+#, c-format
+msgid "Unknown paper size `%s', using default\n"
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:1459
+#, c-format
+msgid "Error reading paper orientation: %s\n"
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:1469
+#, c-format
+msgid "Error reading justification: %s\n"
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:1479
+#, c-format
+msgid "Error reading units: %s\n"
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:1493
+#, c-format
+msgid "Error reading magnification: %s\n"
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:1504
+#, c-format
+msgid "Error reading multipage indicator: %s\n"
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:1515
+#, c-format
+msgid "Error reading transparent color: %s\n"
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:1524 plug-ins/xfig/xfig-import.c:1579
+#: plug-ins/xfig/xfig-import.c:1597
+#, c-format
+msgid "Error reading FIG file: %s\n"
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:1526 plug-ins/xfig/xfig-import.c:1581
+msgid "Premature end of FIG file\n"
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:1535
+#, c-format
+msgid "Error reading resolution: %s\n"
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:1566
+#, c-format
+msgid "Doesn't look like a Fig file: %s\n"
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:1572
+#, c-format
+msgid "This is a FIG version %d.%d file, I may not understand it\n"
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:1620
+msgid "XFig File Format"
+msgstr ""
+
+#: plug-ins/xfig/xfig.c:51
+msgid "Fig Format import and export filter"
+msgstr ""
+
+#: plug-ins/xslt/xslt.c:102
+#, c-format
+msgid "Error while parsing %s\n"
+msgstr ""
+
+#: plug-ins/xslt/xslt.c:110
+#, c-format
+msgid "Error while parsing stylesheet %s\n"
+msgstr ""
+
+#: plug-ins/xslt/xslt.c:116
+#, c-format
+msgid "Error while applying stylesheet %s\n"
+msgstr ""
+
+#: plug-ins/xslt/xslt.c:124
+#, c-format
+msgid "Error while parsing stylesheet: %s\n"
+msgstr ""
+
+#: plug-ins/xslt/xslt.c:132
+#, c-format
+msgid "Error while applying stylesheet: %s\n"
+msgstr ""
+
+#: plug-ins/xslt/xslt.c:317
+msgid "XSL Transformation filter"
+msgstr ""
+
+#: plug-ins/xslt/xslt.c:341
+msgid "No valid configuration files found for the XSLT plugin, not loading."
+msgstr ""
+
+#: plug-ins/xslt/xsltdialog.c:99
+msgid "Export through XSLT"
+msgstr ""
+
+#: plug-ins/xslt/xsltdialog.c:114
+msgid "From:"
+msgstr "द्वारा:"
+
+#: plug-ins/xslt/xsltdialog.c:149
+msgid "To:"
+msgstr "लाइ:"
+
+#. Sheet Name: Assorted, was Geometric, maybe Basic Shapes instead?
+#. Leave as is for now, renaming too much hassle.
+#. Will probably need to split into seperate sheets soon anyway.
+#: sheets/Assorted.sheet.in.h:4
+msgid ""
+"An Assorted Collection of Polygons, Beziergons and other Miscellaneous "
+"Geometric Shapes"
+msgstr ""
+
+#. Please talk to me before making any changes to this sheet
+#: sheets/Assorted.sheet.in.h:6
+msgid "Assorted"
+msgstr ""
+
+#: sheets/Assorted.sheet.in.h:7
+msgid "Chevron"
+msgstr ""
+
+#: sheets/Assorted.sheet.in.h:8
+msgid "Curved eight point star"
+msgstr ""
+
+#: sheets/Assorted.sheet.in.h:9
+msgid "Curved four point star"
+msgstr ""
+
+#: sheets/Assorted.sheet.in.h:10
+msgid "Diamond"
+msgstr ""
+
+#: sheets/Assorted.sheet.in.h:11
+msgid "Down arrow"
+msgstr ""
+
+#: sheets/Assorted.sheet.in.h:12
+msgid "Eight point star"
+msgstr ""
+
+#: sheets/Assorted.sheet.in.h:13
+msgid "Five point star"
+msgstr ""
+
+#: sheets/Assorted.sheet.in.h:14
+msgid "Four point star"
+msgstr ""
+
+#: sheets/Assorted.sheet.in.h:15
+msgid "Heart"
+msgstr ""
+
+#: sheets/Assorted.sheet.in.h:16
+msgid "Heptagon. Seven sided shape"
+msgstr ""
+
+#: sheets/Assorted.sheet.in.h:17
+msgid "Hexagon. Six sided shape"
+msgstr ""
+
+#: sheets/Assorted.sheet.in.h:18
+msgid "Horizontal parallelogram"
+msgstr ""
+
+#: sheets/Assorted.sheet.in.h:19
+msgid "Isoceles triangle"
+msgstr ""
+
+#: sheets/Assorted.sheet.in.h:20
+msgid "Left arrow"
+msgstr ""
+
+#: sheets/Assorted.sheet.in.h:21
+msgid "Left-right arrow"
+msgstr ""
+
+#: sheets/Assorted.sheet.in.h:22
+msgid "Left-right-up arrow"
+msgstr ""
+
+#: sheets/Assorted.sheet.in.h:23
+msgid "Left-up arrow"
+msgstr ""
+
+#: sheets/Assorted.sheet.in.h:24
+msgid "Maltese cross"
+msgstr ""
+
+#: sheets/Assorted.sheet.in.h:25
+msgid "Notched left arrow"
+msgstr ""
+
+#: sheets/Assorted.sheet.in.h:26
+msgid "Notched right arrow"
+msgstr ""
+
+#: sheets/Assorted.sheet.in.h:27
+msgid "Octogon. Eight sided shape"
+msgstr ""
+
+#: sheets/Assorted.sheet.in.h:28
+msgid "Pentagon block arrow"
+msgstr ""
+
+#: sheets/Assorted.sheet.in.h:29
+msgid "Pentagon. Five sided shape"
+msgstr ""
+
+#: sheets/Assorted.sheet.in.h:30
+msgid "Perfect circle"
+msgstr ""
+
+#: sheets/Assorted.sheet.in.h:31
+msgid "Perfect square, height equals width"
+msgstr ""
+
+#: sheets/Assorted.sheet.in.h:32
+msgid "Quad arrow"
+msgstr ""
+
+#: sheets/Assorted.sheet.in.h:33
+msgid "Quarter circle"
+msgstr ""
+
+#: sheets/Assorted.sheet.in.h:34
+msgid "Quarter moon"
+msgstr ""
+
+#: sheets/Assorted.sheet.in.h:35
+msgid "Right angle triangle"
+msgstr ""
+
+#: sheets/Assorted.sheet.in.h:36
+msgid "Right arrow"
+msgstr ""
+
+#: sheets/Assorted.sheet.in.h:37
+msgid "Seven point star"
+msgstr ""
+
+#: sheets/Assorted.sheet.in.h:38
+msgid "Sharp eight point star"
+msgstr ""
+
+#: sheets/Assorted.sheet.in.h:39
+msgid "Six point star"
+msgstr ""
+
+#: sheets/Assorted.sheet.in.h:40
+msgid "Sun"
+msgstr ""
+
+#: sheets/Assorted.sheet.in.h:41
+msgid "Swiss cross"
+msgstr ""
+
+#: sheets/Assorted.sheet.in.h:42
+msgid "Trapezoid"
+msgstr ""
+
+#: sheets/Assorted.sheet.in.h:43
+msgid "Turn-up arrow"
+msgstr ""
+
+#: sheets/Assorted.sheet.in.h:44
+msgid "Up arrow"
+msgstr ""
+
+#: sheets/Assorted.sheet.in.h:45
+msgid "Up-down arrow"
+msgstr ""
+
+#: sheets/Assorted.sheet.in.h:46
+msgid "Up-down-left arrow"
+msgstr ""
+
+#: sheets/Assorted.sheet.in.h:47
+msgid "Vertical parallelogram"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:1
+msgid "AC Generator"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:2
+msgid "Air Cooler"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:3
+msgid "Autoclave"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:4
+msgid "Axial Flow Fan"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:5
+msgid "Basic Filter"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:6
+msgid "Centrifugal Pump or Fan"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:7
+msgid "Centrifuge"
+msgstr ""
+
+#. For: zenith
+#: sheets/ChemEng.sheet.in.h:9
+msgid "ChemEng"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:10
+msgid "Clarifier or Settling Tank"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:11
+msgid "Collection for chemical engineering"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:12
+msgid "Compressor or Turbine"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:13
+msgid "Covered tank"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:14
+msgid "Cyclone and hydrocyclone"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:15
+msgid "Double-Pipe Exchanger"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:16
+msgid "Ejector or Injector"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:17
+msgid "Fan or Stirrer"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:18
+msgid "Fixed-Sheet Exchanger"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:19
+msgid "Floating-Head or U-Tube Exchanger"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:20
+msgid "Fluid Contacting Vessel, simple"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:21
+msgid "Forced-Flow Air Cooler"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:22
+msgid "Gas Holder, basic"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:23
+msgid "Heating/Cooling Coil"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:24
+msgid "Heating/Cooling Coil, vertical"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:25
+msgid "Induced-Flow Air Cooler"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:26
+msgid "Kettle Reboiler"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:27
+msgid "Knock-out Drum (with demister pad)"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:28
+msgid "Measurement"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:29
+msgid "Mixer"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:30
+msgid "Open Tank"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:31
+msgid "Plate Exchanger"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:32
+msgid "Pneumatic Line"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:33
+msgid "Pneumatic Line, vertical"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:34
+msgid "Positive Displacement Rotary Pump or Compressor"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:35
+msgid "Reactor or Absorption Vessel, simple"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:36
+msgid "Reciprocating Compressor or Pump"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:37
+msgid "Regulable Valve"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:38
+msgid "Regulable Valve, vertical"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:39
+msgid "Sealed Tank"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:40
+msgid "Simple Furnace"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:41
+msgid "Simple Heat Exchanger"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:42
+msgid "Simple Heat Exchanger, vertical"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:43
+msgid "Simple Vessel"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:44
+msgid "Spray Drier"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:45
+msgid "Spraying Device"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:46
+msgid "Storage Sphere"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:47
+msgid "Tank with Fixed Roof"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:48
+msgid "Tank with Floating Roof"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:49
+msgid "Tray Column, detailed"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:50
+msgid "Tray Column, simple"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:51
+msgid "Valve"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:52
+msgid "Valve, vertical"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:53
+msgid "Water Cooler"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:54
+msgid "Water Cooler, vertical"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:1
+msgid "Circuit"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:2
+msgid "Components for circuit diagrams"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:3
+msgid "Ground point"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:4
+msgid "Horizontal jumper"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:5
+msgid "Horizontally aligned LED"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:6
+msgid "Horizontally aligned capacitor"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:7
+msgid "Horizontally aligned diode"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:8
+msgid "Horizontally aligned fuse"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:9
+msgid "Horizontally aligned inductor"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:10
+msgid "Horizontally aligned inductor (European)"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:11
+msgid "Horizontally aligned powersource"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:12
+msgid "Horizontally aligned resistor"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:13
+msgid "Horizontally aligned resistor (European)"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:14
+msgid "Horizontally aligned zener diode"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:15
+msgid "Lamp"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:16 sheets/ciscomisc.sheet.in.h:26
+msgid "Microphone"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:17
+msgid "NMOS transistor"
+msgstr ""
+
+#.
+#.
+#: sheets/Circuit.sheet.in.h:20
+msgid "NPN bipolar transistor"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:21
+msgid "Operational amplifier"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:22
+msgid "PMOS transistor"
+msgstr ""
+
+#.
+#.
+#: sheets/Circuit.sheet.in.h:25
+msgid "PNP bipolar transistor"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:26 sheets/ciscomisc.sheet.in.h:39
+msgid "Speaker"
+msgstr "स्पिकर"
+
+#: sheets/Circuit.sheet.in.h:27
+msgid "Vertically aligned LED"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:28
+msgid "Vertically aligned capacitor"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:29
+msgid "Vertically aligned diode"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:30
+msgid "Vertically aligned fuse"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:31
+msgid "Vertically aligned inductor"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:32
+msgid "Vertically aligned inductor (European)"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:33
+msgid "Vertically aligned powersource"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:34
+msgid "Vertically aligned resistor"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:35
+msgid "Vertically aligned resistor (European)"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:36
+msgid "Vertically aligned zener diode"
+msgstr ""
+
+#: sheets/Contact.sheet.in.h:1
+msgid "'if not' (normally closed) ladder contact"
+msgstr ""
+
+#: sheets/Contact.sheet.in.h:2
+msgid "'if' (normally open) ladder contact"
+msgstr ""
+
+#: sheets/Contact.sheet.in.h:3
+msgid "'jump' output variable"
+msgstr ""
+
+#: sheets/Contact.sheet.in.h:4
+msgid "'reset' output variable"
+msgstr ""
+
+#: sheets/Contact.sheet.in.h:5
+msgid "'set' output variable"
+msgstr ""
+
+#: sheets/Contact.sheet.in.h:6
+msgid "Components for LADDER circuits"
+msgstr ""
+
+#: sheets/Contact.sheet.in.h:7
+msgid "Ladder"
+msgstr ""
+
+#: sheets/Contact.sheet.in.h:8
+msgid "Negative output variable"
+msgstr ""
+
+#: sheets/Contact.sheet.in.h:9
+msgid "Power-saved 'reset' output variable"
+msgstr ""
+
+#: sheets/Contact.sheet.in.h:10
+msgid "Power-saved 'set' output variable"
+msgstr ""
+
+#: sheets/Contact.sheet.in.h:11
+msgid "Power-saved negative output variable"
+msgstr ""
+
+#: sheets/Contact.sheet.in.h:12
+msgid "Power-saved simple output variable"
+msgstr ""
+
+#: sheets/Contact.sheet.in.h:13
+msgid "Receptivity output variable"
+msgstr ""
+
+#: sheets/Contact.sheet.in.h:14
+msgid "Simple output variable"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:1
+msgid "Constant factor below -1"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:2
+msgid "Constant factor between 0 and -1"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:3
+msgid "Constant factor between 0 and 1"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:4
+msgid "Constant factor greater 1"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:5
+msgid "Constant negative shift on the y-axis"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:6
+msgid "Constant positive shift on the y-axis"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:7
+msgid "Cybernetics"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:8
+msgid "Elements of cybernetic circuits"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:9
+msgid "Full wave rectifier (absolute value)"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:10
+msgid "Half wave rectifier or ramp input"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:11
+msgid "High pass filter"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:12
+msgid "Integrator - input bottom"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:13
+msgid "Integrator - input left"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:14
+msgid "Integrator - input right"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:15
+msgid "Integrator - input top"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:16
+msgid "Low pass filter"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:17
+msgid "Product"
+msgstr "उत्पादन"
+
+#: sheets/Cybernetics.sheet.in.h:18
+msgid "Relay characteristic (sigma)"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:19
+msgid "Saturation characteristic"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:20
+msgid "Sensor - bottom"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:21
+msgid "Sensor - left"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:22
+msgid "Sensor - right"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:23
+msgid "Sensor - top"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:24
+msgid "Sigmoid characteristic"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:25
+msgid "Sine characteristic or input"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:26
+msgid "Sum"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:27
+msgid "Sum, subtracting bottom input"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:28
+msgid "Sum, subtracting left input"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:29
+msgid "Sum, subtracting right input"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:30
+msgid "Sum, subtracting top input"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:31
+msgid "Template for custom characteristics"
+msgstr ""
+
+#: sheets/Cybernetics.sheet.in.h:32
+msgid "Time delay"
+msgstr ""
+
+#: sheets/EML.sheet.in.h:1
+msgid "EML"
+msgstr ""
+
+#: sheets/EML.sheet.in.h:2
+msgid "Editor for EML Static Structure Diagrams."
+msgstr ""
+
+#: sheets/EML.sheet.in.h:3
+msgid "Instantiation. One process create others"
+msgstr ""
+
+#: sheets/EML.sheet.in.h:4
+msgid "Interaction between processes."
+msgstr ""
+
+#: sheets/ER.sheet.in.h:2
+msgid "ER"
+msgstr ""
+
+#: sheets/ER.sheet.in.h:3
+msgid "Editor for Entity Relations Diagrams"
+msgstr ""
+
+#: sheets/ER.sheet.in.h:5
+msgid "Participation"
+msgstr ""
+
+#: sheets/ER.sheet.in.h:7
+msgid "Weak entity"
+msgstr ""
+
+#: sheets/Electric.sheet.in.h:1
+msgid "Components for electric circuits"
+msgstr ""
+
+#: sheets/Electric.sheet.in.h:2 sheets/Pneumatic.sheet.in.h:9
+msgid "Connection point"
+msgstr ""
+
+#: sheets/Electric.sheet.in.h:3
+msgid "Electric"
+msgstr ""
+
+#: sheets/Electric.sheet.in.h:4
+msgid "Lamp or indicator light (horizontal)"
+msgstr ""
+
+#: sheets/Electric.sheet.in.h:5
+msgid "Lamp or indicator light (vertical)"
+msgstr ""
+
+#: sheets/Electric.sheet.in.h:6
+msgid "Normally closed contact (horizontal)"
+msgstr ""
+
+#: sheets/Electric.sheet.in.h:7
+msgid "Normally closed contact (vertical)"
+msgstr ""
+
+#: sheets/Electric.sheet.in.h:8
+msgid "Normally closed position switch (horizontal)"
+msgstr ""
+
+#: sheets/Electric.sheet.in.h:9
+msgid "Normally closed position switch (vertical)"
+msgstr ""
+
+#: sheets/Electric.sheet.in.h:10
+msgid "Normally open contact (horizontal)"
+msgstr ""
+
+#: sheets/Electric.sheet.in.h:11
+msgid "Normally open contact (vertical)"
+msgstr ""
+
+#: sheets/Electric.sheet.in.h:12
+msgid "Normally open position switch (horizontal)"
+msgstr ""
+
+#: sheets/Electric.sheet.in.h:13
+msgid "Normally open position switch (vertical)"
+msgstr ""
+
+#: sheets/Electric.sheet.in.h:14
+msgid "Relay (horizontal)"
+msgstr ""
+
+#: sheets/Electric.sheet.in.h:15
+msgid "Relay (vertical)"
+msgstr ""
+
+#: sheets/Electric.sheet.in.h:16
+msgid "The command organ of a relay (horizontal)"
+msgstr ""
+
+#: sheets/Electric.sheet.in.h:17
+msgid "The command organ of a relay (vertical)"
+msgstr ""
+
+#: sheets/FS.sheet.in.h:1
+msgid "Editor for Function Structure Diagrams."
+msgstr ""
+
+#: sheets/FS.sheet.in.h:2
+msgid "FS"
+msgstr "एफ एस"
+
+#: sheets/FS.sheet.in.h:3
+msgid "Flow"
+msgstr "बग्नु"
+
+#: sheets/FS.sheet.in.h:4
+msgid "Function"
+msgstr "कार्य॒"
+
+#: sheets/FS.sheet.in.h:5
+msgid "Orthogonal polyline flow"
+msgstr ""
+
+#. XXX
+#: sheets/Flowchart.sheet.in.h:2
+msgid "Collate"
+msgstr "कोलेट गर्नुहोस्"
+
+#: sheets/Flowchart.sheet.in.h:3
+msgid "Connector"
+msgstr ""
+
+#: sheets/Flowchart.sheet.in.h:4 sheets/SDL.sheet.in.h:4
+msgid "Decision"
+msgstr ""
+
+#: sheets/Flowchart.sheet.in.h:5
+msgid "Delay"
+msgstr "ढिला"
+
+#: sheets/Flowchart.sheet.in.h:7
+msgid "Document"
+msgstr "लेखोट"
+
+#: sheets/Flowchart.sheet.in.h:9
+msgid "Flowchart"
+msgstr "फ्लोचार्ट"
+
+#: sheets/Flowchart.sheet.in.h:10
+msgid "Input/Output"
+msgstr "आगत/निर्गतिफल"
+
+#: sheets/Flowchart.sheet.in.h:11
+msgid "Internal storage"
+msgstr ""
+
+#: sheets/Flowchart.sheet.in.h:12
+msgid "Magnetic disk"
+msgstr ""
+
+#: sheets/Flowchart.sheet.in.h:13
+msgid "Magnetic drum"
+msgstr ""
+
+#: sheets/Flowchart.sheet.in.h:14
+msgid "Magnetic tape"
+msgstr ""
+
+#: sheets/Flowchart.sheet.in.h:15
+msgid "Manual input"
+msgstr ""
+
+#: sheets/Flowchart.sheet.in.h:16
+msgid "Manual operation"
+msgstr ""
+
+#: sheets/Flowchart.sheet.in.h:17
+msgid "Merge"
+msgstr "गाभ्नु"
+
+#: sheets/Flowchart.sheet.in.h:18
+msgid "Objects to draw flowcharts"
+msgstr ""
+
+#. XXX
+#: sheets/Flowchart.sheet.in.h:20
+msgid "Off page connector"
+msgstr ""
+
+#: sheets/Flowchart.sheet.in.h:21
+msgid "Offline storage"
+msgstr ""
+
+#: sheets/Flowchart.sheet.in.h:22
+msgid "Or"
+msgstr "वा"
+
+#: sheets/Flowchart.sheet.in.h:23
+msgid "Predefined process"
+msgstr ""
+
+#: sheets/Flowchart.sheet.in.h:24
+msgid "Preparation"
+msgstr ""
+
+#: sheets/Flowchart.sheet.in.h:25
+msgid "Process/Auxiliary Operation"
+msgstr ""
+
+#: sheets/Flowchart.sheet.in.h:26
+msgid "Punched card"
+msgstr ""
+
+#: sheets/Flowchart.sheet.in.h:27
+msgid "Punched tape"
+msgstr ""
+
+#: sheets/Flowchart.sheet.in.h:28
+msgid "Sort"
+msgstr "किसिम"
+
+#. XXX
+#: sheets/Flowchart.sheet.in.h:30
+msgid "Summing junction"
+msgstr ""
+
+#: sheets/Flowchart.sheet.in.h:31
+msgid "Terminal Interrupt"
+msgstr ""
+
+#: sheets/Flowchart.sheet.in.h:32
+msgid "Transaction file"
+msgstr ""
+
+#: sheets/Flowchart.sheet.in.h:33
+msgid "Transmittal tape"
+msgstr ""
+
+#: sheets/GRAFCET.sheet.in.h:1
+msgid "AND vergent"
+msgstr ""
+
+#: sheets/GRAFCET.sheet.in.h:2
+msgid "Action to associate to a step"
+msgstr ""
+
+#: sheets/GRAFCET.sheet.in.h:3
+msgid "Arc (upward)"
+msgstr ""
+
+#: sheets/GRAFCET.sheet.in.h:4
+msgid "Condition (of an action)"
+msgstr ""
+
+#: sheets/GRAFCET.sheet.in.h:5
+msgid "GRAFCET"
+msgstr ""
+
+#: sheets/GRAFCET.sheet.in.h:10
+msgid "Macro sub-program call step"
+msgstr ""
+
+#: sheets/GRAFCET.sheet.in.h:11
+msgid "OR vergent"
+msgstr ""
+
+#: sheets/GRAFCET.sheet.in.h:12
+msgid "Objects to design GRAFCET charts"
+msgstr ""
+
+#: sheets/GRAFCET.sheet.in.h:14 sheets/UML.sheet.in.h:30
+msgid "Transition"
+msgstr ""
+
+#: sheets/IsometricMap.sheet.in.h:1
+msgid "Block 1, 2:4"
+msgstr ""
+
+#: sheets/IsometricMap.sheet.in.h:2
+msgid "Block 2, 2:8"
+msgstr ""
+
+#: sheets/IsometricMap.sheet.in.h:3
+msgid "Block 3, 4:4"
+msgstr ""
+
+#: sheets/IsometricMap.sheet.in.h:4
+msgid "Block 4, 4:8"
+msgstr ""
+
+#: sheets/IsometricMap.sheet.in.h:5
+msgid "Block 5, 3:3"
+msgstr ""
+
+#: sheets/IsometricMap.sheet.in.h:6
+msgid "Block 6, 4:6"
+msgstr ""
+
+#: sheets/IsometricMap.sheet.in.h:7
+msgid "Block 7"
+msgstr ""
+
+#: sheets/IsometricMap.sheet.in.h:8
+msgid "Car 1, Front View"
+msgstr ""
+
+#: sheets/IsometricMap.sheet.in.h:9
+msgid "Car 2, Rear View"
+msgstr ""
+
+#: sheets/IsometricMap.sheet.in.h:10
+msgid "Corner 1"
+msgstr ""
+
+#: sheets/IsometricMap.sheet.in.h:11
+msgid "Corner 2"
+msgstr ""
+
+#: sheets/IsometricMap.sheet.in.h:12
+msgid "Crossroads"
+msgstr ""
+
+#: sheets/IsometricMap.sheet.in.h:13
+msgid "Elevated Road"
+msgstr ""
+
+#: sheets/IsometricMap.sheet.in.h:14
+msgid "Factory"
+msgstr "कारखाना"
+
+#: sheets/IsometricMap.sheet.in.h:15
+msgid "Footbridge, Pedestrian Bridge"
+msgstr ""
+
+#. use dc:description instead?
+#: sheets/IsometricMap.sheet.in.h:17
+msgid "Isometric Directional Map Shapes"
+msgstr ""
+
+#: sheets/IsometricMap.sheet.in.h:18
+msgid "Long Straight Road Section"
+msgstr ""
+
+#. use dc:title instead?
+#: sheets/IsometricMap.sheet.in.h:20
+msgid "Map, Isometric"
+msgstr ""
+
+#: sheets/IsometricMap.sheet.in.h:21
+msgid "One Way Road Sign"
+msgstr ""
+
+#: sheets/IsometricMap.sheet.in.h:22
+msgid "River"
+msgstr ""
+
+#: sheets/IsometricMap.sheet.in.h:23
+msgid "Road Section"
+msgstr ""
+
+#: sheets/IsometricMap.sheet.in.h:24
+msgid "Roof1"
+msgstr ""
+
+#: sheets/IsometricMap.sheet.in.h:25
+msgid "T-Junction"
+msgstr ""
+
+#: sheets/IsometricMap.sheet.in.h:26
+msgid "Train 1, angled downward"
+msgstr ""
+
+#: sheets/IsometricMap.sheet.in.h:27
+msgid "Train 2, angled upward"
+msgstr ""
+
+#: sheets/IsometricMap.sheet.in.h:28
+msgid "Tree 1"
+msgstr ""
+
+#: sheets/Istar.sheet.in.h:1
+msgid "An i* agent"
+msgstr ""
+
+#: sheets/Istar.sheet.in.h:2
+msgid "An i* decomposition link"
+msgstr ""
+
+#: sheets/Istar.sheet.in.h:3
+msgid "An i* dependency link"
+msgstr ""
+
+#: sheets/Istar.sheet.in.h:4
+msgid "An i* goal"
+msgstr ""
+
+#: sheets/Istar.sheet.in.h:5
+msgid "An i* means-ends link"
+msgstr ""
+
+#: sheets/Istar.sheet.in.h:6
+msgid "An i* negative contribution"
+msgstr ""
+
+#: sheets/Istar.sheet.in.h:7
+msgid "An i* position"
+msgstr ""
+
+#: sheets/Istar.sheet.in.h:8
+msgid "An i* positive contribution"
+msgstr ""
+
+#: sheets/Istar.sheet.in.h:9
+msgid "An i* resource"
+msgstr ""
+
+#: sheets/Istar.sheet.in.h:10
+msgid "An i* role"
+msgstr ""
+
+#: sheets/Istar.sheet.in.h:11
+msgid "An i* softgoal"
+msgstr ""
+
+#: sheets/Istar.sheet.in.h:12
+msgid "An i* task"
+msgstr ""
+
+#: sheets/Istar.sheet.in.h:13
+msgid "An i* unspecified actor"
+msgstr ""
+
+#: sheets/Istar.sheet.in.h:14
+msgid "An i* unspecified link"
+msgstr ""
+
+#: sheets/Istar.sheet.in.h:15
+msgid "Objects to design i* diagrams"
+msgstr ""
+
+#: sheets/Istar.sheet.in.h:16
+msgid "RE-i*"
+msgstr ""
+
+#: sheets/Jackson.sheet.in.h:1
+msgid "A Jackson designed domain"
+msgstr ""
+
+#: sheets/Jackson.sheet.in.h:2
+msgid "A Jackson given domain"
+msgstr ""
+
+#: sheets/Jackson.sheet.in.h:3
+msgid "A Jackson machine domain"
+msgstr ""
+
+#: sheets/Jackson.sheet.in.h:4
+msgid "A Jackson requirement"
+msgstr ""
+
+#: sheets/Jackson.sheet.in.h:5
+msgid "A Jackson requirement phenomenon"
+msgstr ""
+
+#: sheets/Jackson.sheet.in.h:6
+msgid "A Jackson shared phenomenon"
+msgstr ""
+
+#: sheets/Jackson.sheet.in.h:7
+msgid "Objects to design Jackson diagrams"
+msgstr ""
+
+#: sheets/Jackson.sheet.in.h:8
+msgid "RE-Jackson"
+msgstr ""
+
+#: sheets/KAOS.sheet.in.h:1
+msgid "A KAOS AND refinement"
+msgstr ""
+
+#: sheets/KAOS.sheet.in.h:2
+msgid "A KAOS OR refinement"
+msgstr ""
+
+#: sheets/KAOS.sheet.in.h:3
+msgid "A KAOS agent"
+msgstr ""
+
+#: sheets/KAOS.sheet.in.h:4
+msgid "A KAOS assumption"
+msgstr ""
+
+#: sheets/KAOS.sheet.in.h:5
+msgid "A KAOS binary conflict"
+msgstr ""
+
+#: sheets/KAOS.sheet.in.h:6
+msgid "A KAOS capable-of"
+msgstr ""
+
+#: sheets/KAOS.sheet.in.h:7
+msgid "A KAOS complete AND refinement"
+msgstr ""
+
+#: sheets/KAOS.sheet.in.h:8
+msgid "A KAOS complete OR refinement"
+msgstr ""
+
+#: sheets/KAOS.sheet.in.h:9
+msgid "A KAOS contribution"
+msgstr ""
+
+#: sheets/KAOS.sheet.in.h:10
+msgid "A KAOS control link"
+msgstr ""
+
+#: sheets/KAOS.sheet.in.h:11
+msgid "A KAOS goal"
+msgstr ""
+
+#: sheets/KAOS.sheet.in.h:12
+msgid "A KAOS input"
+msgstr ""
+
+#: sheets/KAOS.sheet.in.h:13
+msgid "A KAOS monitor link"
+msgstr ""
+
+#: sheets/KAOS.sheet.in.h:14
+msgid "A KAOS obstacle"
+msgstr ""
+
+#: sheets/KAOS.sheet.in.h:15
+msgid "A KAOS obstruction"
+msgstr ""
+
+#: sheets/KAOS.sheet.in.h:16
+msgid "A KAOS operation"
+msgstr ""
+
+#: sheets/KAOS.sheet.in.h:17
+msgid "A KAOS operationalization"
+msgstr ""
+
+#: sheets/KAOS.sheet.in.h:18
+msgid "A KAOS output"
+msgstr ""
+
+#: sheets/KAOS.sheet.in.h:19
+msgid "A KAOS performs"
+msgstr ""
+
+#: sheets/KAOS.sheet.in.h:20
+msgid "A KAOS requirement"
+msgstr ""
+
+#: sheets/KAOS.sheet.in.h:21
+msgid "A KAOS responsibility"
+msgstr ""
+
+#: sheets/KAOS.sheet.in.h:22
+msgid "A KAOS softgoal"
+msgstr ""
+
+#: sheets/KAOS.sheet.in.h:23
+msgid "Objects to design KAOS diagrams"
+msgstr ""
+
+#: sheets/KAOS.sheet.in.h:24
+msgid "RE-KAOS"
+msgstr ""
+
+#: sheets/Logic.sheet.in.h:1
+msgid "AND gate"
+msgstr ""
+
+#: sheets/Logic.sheet.in.h:2
+msgid "Boolean Logic"
+msgstr ""
+
+#: sheets/Logic.sheet.in.h:3
+msgid "Crossconnector"
+msgstr ""
+
+#: sheets/Logic.sheet.in.h:4
+msgid "Inverter"
+msgstr ""
+
+#: sheets/Logic.sheet.in.h:5
+msgid "Logic"
+msgstr "तर्क"
+
+#: sheets/Logic.sheet.in.h:6
+msgid "NAND gate"
+msgstr ""
+
+#: sheets/Logic.sheet.in.h:7
+msgid "NOR gate"
+msgstr ""
+
+#: sheets/Logic.sheet.in.h:8
+msgid "NOT"
+msgstr ""
+
+#: sheets/Logic.sheet.in.h:9
+msgid "OR gate"
+msgstr ""
+
+#: sheets/Logic.sheet.in.h:10
+msgid "Simple buffer"
+msgstr ""
+
+#: sheets/Logic.sheet.in.h:11
+msgid "XOR gate"
+msgstr ""
+
+#: sheets/MSE.sheet.in.h:1
+msgid "Demultiplexer"
+msgstr ""
+
+#: sheets/MSE.sheet.in.h:2
+msgid "Large extension node"
+msgstr ""
+
+#: sheets/MSE.sheet.in.h:3
+msgid "MSE"
+msgstr ""
+
+#: sheets/MSE.sheet.in.h:4
+msgid "Multiplexer"
+msgstr ""
+
+#: sheets/MSE.sheet.in.h:5
+msgid "Node center"
+msgstr ""
+
+#: sheets/MSE.sheet.in.h:6
+msgid "Small extension node"
+msgstr ""
+
+#: sheets/MSE.sheet.in.h:7
+msgid "Tactical satellite communications terminal"
+msgstr ""
+
+#: sheets/MSE.sheet.in.h:8
+msgid "U.S. Army Mobile Subscriber Equipment Components"
+msgstr ""
+
+#: sheets/Misc.sheet.in.h:2
+msgid "Folder"
+msgstr "फोल्डर"
+
+#: sheets/Misc.sheet.in.h:4
+msgid "Miscellaneous Shapes"
+msgstr ""
+
+#: sheets/Misc.sheet.in.h:5
+msgid "Traditional clock"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:1
+msgid "2/2 distributor"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:2
+msgid "3/2 distributor"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:3
+msgid "3/3 distributor"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:4
+msgid "4/2 distributor"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:5
+msgid "5/2 distributor"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:6
+msgid "5/3 distributor"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:7
+msgid "Air exhaust orifice"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:8
+msgid "Components for pneumatic and hydraulic circuits"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:10
+msgid "Double-effect jack"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:11
+msgid "Electric command (double coil)"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:12
+msgid "Electric command (single coil)"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:13
+msgid "Generic pressure source"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:14
+msgid "Hydraulic pressure source"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:15
+msgid "Indirect command by hydraulic driver"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:16
+msgid "Indirect command by pneumatic driver"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:17
+msgid "Mechanical command by spring"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:18
+msgid "Mechanical command by tappet"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:19
+msgid "Muscular command"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:20
+msgid "Normally-in simple-effect jack"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:21
+msgid "Normally-out simple-effect jack"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:22
+msgid "Pneumatic pressure source"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:23
+msgid "Pneumatic/Hydraulic"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:24
+msgid "Push-button command"
+msgstr ""
+
+#: sheets/SADT.sheet.in.h:1
+msgid "Activity/data box"
+msgstr ""
+
+#: sheets/SADT.sheet.in.h:2
+msgid "Activity/data flow arrow"
+msgstr ""
+
+#: sheets/SADT.sheet.in.h:3
+msgid "Flow label"
+msgstr ""
+
+#: sheets/SADT.sheet.in.h:4
+msgid "Objects to design SADT diagrams"
+msgstr ""
+
+#: sheets/SADT.sheet.in.h:5
+msgid "SADT/IDEF0"
+msgstr ""
+
+#: sheets/SDL.sheet.in.h:1
+msgid "Action being executed"
+msgstr ""
+
+#: sheets/SDL.sheet.in.h:2
+msgid "Block type reference"
+msgstr ""
+
+#: sheets/SDL.sheet.in.h:5
+msgid "Function call"
+msgstr ""
+
+#: sheets/SDL.sheet.in.h:6
+msgid "Function header"
+msgstr ""
+
+#: sheets/SDL.sheet.in.h:7
+msgid "Generic text note"
+msgstr ""
+
+#: sheets/SDL.sheet.in.h:8
+msgid "In/Out connector"
+msgstr ""
+
+#: sheets/SDL.sheet.in.h:10
+msgid "Procedure return"
+msgstr ""
+
+#: sheets/SDL.sheet.in.h:11
+msgid "Process type reference"
+msgstr ""
+
+#: sheets/SDL.sheet.in.h:12
+msgid "Receive message"
+msgstr ""
+
+#: sheets/SDL.sheet.in.h:13
+msgid "SDL"
+msgstr ""
+
+#: sheets/SDL.sheet.in.h:14
+msgid "Save state"
+msgstr ""
+
+#: sheets/SDL.sheet.in.h:15
+msgid "Send message"
+msgstr ""
+
+#: sheets/SDL.sheet.in.h:16
+msgid "Service type reference"
+msgstr ""
+
+#: sheets/SDL.sheet.in.h:17
+msgid "Specification and Description Language."
+msgstr ""
+
+#: sheets/SDL.sheet.in.h:18 sheets/UML.sheet.in.h:28
+msgid "State"
+msgstr "स्थिति॒"
+
+#: sheets/UML.sheet.in.h:1
+msgid "Activity"
+msgstr ""
+
+#: sheets/UML.sheet.in.h:3
+msgid "Aggregation, one class is part of another"
+msgstr ""
+
+#: sheets/UML.sheet.in.h:4
+msgid "Association, two classes are associated"
+msgstr ""
+
+#: sheets/UML.sheet.in.h:7
+msgid "Class stereotype icon"
+msgstr ""
+
+#: sheets/UML.sheet.in.h:8
+msgid "Component"
+msgstr "पुर्जा"
+
+#: sheets/UML.sheet.in.h:9
+msgid "Constraint, place a constraint on something"
+msgstr ""
+
+#: sheets/UML.sheet.in.h:11
+msgid "Editor for UML Static Structure Diagrams"
+msgstr ""
+
+#: sheets/UML.sheet.in.h:15
+msgid "Fork/union"
+msgstr ""
+
+#: sheets/UML.sheet.in.h:16
+msgid "Generalization, class inheritance"
+msgstr ""
+
+#: sheets/UML.sheet.in.h:17
+msgid "Implements, class implements a specific interface"
+msgstr ""
+
+#: sheets/UML.sheet.in.h:18
+msgid "Initial/end state"
+msgstr ""
+
+#: sheets/UML.sheet.in.h:19
+msgid "Large package"
+msgstr ""
+
+#: sheets/UML.sheet.in.h:20
+msgid "Lifeline"
+msgstr ""
+
+#: sheets/UML.sheet.in.h:21
+msgid "Message"
+msgstr "सन्देश"
+
+#: sheets/UML.sheet.in.h:22
+msgid "Node"
+msgstr ""
+
+#: sheets/UML.sheet.in.h:23
+msgid "Note"
+msgstr "टिपोट"
+
+#: sheets/UML.sheet.in.h:24
+msgid "Object"
+msgstr ""
+
+#: sheets/UML.sheet.in.h:25
+msgid "Realizes, implements a specific interface"
+msgstr ""
+
+#: sheets/UML.sheet.in.h:27
+msgid "Small package"
+msgstr ""
+
+#: sheets/UML.sheet.in.h:31
+msgid "UML"
+msgstr ""
+
+#: sheets/UML.sheet.in.h:32
+msgid "Use case"
+msgstr ""
+
+#: sheets/chronogram.sheet.in.h:1
+msgid "Chronogram"
+msgstr ""
+
+#: sheets/chronogram.sheet.in.h:2
+msgid "Data line"
+msgstr ""
+
+#: sheets/chronogram.sheet.in.h:3
+msgid "Objects to design chronogram charts"
+msgstr ""
+
+#: sheets/chronogram.sheet.in.h:4
+msgid "Time scale"
+msgstr ""
+
+#: sheets/ciscocomputer.sheet.in.h:1
+msgid "Cisco - Computer"
+msgstr ""
+
+#: sheets/ciscocomputer.sheet.in.h:2
+msgid "Cisco CA"
+msgstr ""
+
+#: sheets/ciscocomputer.sheet.in.h:3
+msgid "CiscoSecurity"
+msgstr ""
+
+#: sheets/ciscocomputer.sheet.in.h:4
+msgid "CiscoWorks workstation"
+msgstr ""
+
+#: sheets/ciscocomputer.sheet.in.h:5
+msgid "Communications server"
+msgstr ""
+
+#: sheets/ciscocomputer.sheet.in.h:6
+msgid "Computer shapes by Cisco"
+msgstr ""
+
+#: sheets/ciscocomputer.sheet.in.h:7
+msgid "Directory Server"
+msgstr ""
+
+#: sheets/ciscocomputer.sheet.in.h:8
+msgid "File Server"
+msgstr ""
+
+#: sheets/ciscocomputer.sheet.in.h:9
+msgid "HP Mini"
+msgstr ""
+
+#: sheets/ciscocomputer.sheet.in.h:10
+msgid "Handheld"
+msgstr ""
+
+#: sheets/ciscocomputer.sheet.in.h:11
+msgid "Host"
+msgstr "होस्ट"
+
+#: sheets/ciscocomputer.sheet.in.h:12
+msgid "IBM Mini (AS400)"
+msgstr ""
+
+#: sheets/ciscocomputer.sheet.in.h:13
+msgid "IBM Tower"
+msgstr ""
+
+#: sheets/ciscocomputer.sheet.in.h:14
+msgid "IBM mainframe"
+msgstr ""
+
+#: sheets/ciscocomputer.sheet.in.h:15
+msgid "IP Softphone"
+msgstr ""
+
+#: sheets/ciscocomputer.sheet.in.h:16
+msgid "IPTV broadcast server"
+msgstr ""
+
+#: sheets/ciscocomputer.sheet.in.h:17
+msgid "Laptop"
+msgstr ""
+
+#: sheets/ciscocomputer.sheet.in.h:18
+msgid "Macintosh"
+msgstr ""
+
+#: sheets/ciscocomputer.sheet.in.h:19
+msgid "MicroWebserver"
+msgstr ""
+
+#: sheets/ciscocomputer.sheet.in.h:20
+msgid "Mini VAX"
+msgstr ""
+
+#: sheets/ciscocomputer.sheet.in.h:21
+msgid "MoH server (Music on Hold)"
+msgstr ""
+
+#: sheets/ciscocomputer.sheet.in.h:22
+msgid "PC"
+msgstr ""
+
+#: sheets/ciscocomputer.sheet.in.h:23
+msgid "PC Video"
+msgstr ""
+
+#: sheets/ciscocomputer.sheet.in.h:24
+msgid "PDA"
+msgstr ""
+
+#: sheets/ciscocomputer.sheet.in.h:26
+msgid "Relational Database"
+msgstr ""
+
+#: sheets/ciscocomputer.sheet.in.h:27
+msgid "SC2200/VSC3000 host"
+msgstr ""
+
+#: sheets/ciscocomputer.sheet.in.h:28
+msgid "SIP Proxy server"
+msgstr ""
+
+#: sheets/ciscocomputer.sheet.in.h:29
+msgid "STB (set top box)"
+msgstr ""
+
+#: sheets/ciscocomputer.sheet.in.h:30
+msgid "SUN workstation"
+msgstr ""
+
+#: sheets/ciscocomputer.sheet.in.h:31
+msgid "Scanner"
+msgstr ""
+
+#: sheets/ciscocomputer.sheet.in.h:32
+msgid "Server with PC Router"
+msgstr ""
+
+#: sheets/ciscocomputer.sheet.in.h:33
+msgid "Softphone"
+msgstr ""
+
+#: sheets/ciscocomputer.sheet.in.h:34
+msgid "Software based server"
+msgstr ""
+
+#: sheets/ciscocomputer.sheet.in.h:35
+msgid "Storage array"
+msgstr ""
+
+#: sheets/ciscocomputer.sheet.in.h:36
+msgid "Supercomputer"
+msgstr ""
+
+#: sheets/ciscocomputer.sheet.in.h:37
+msgid "TV"
+msgstr ""
+
+#: sheets/ciscocomputer.sheet.in.h:38
+msgid "Terminal"
+msgstr "टर्मिनल"
+
+#: sheets/ciscocomputer.sheet.in.h:39
+msgid "Turret"
+msgstr ""
+
+#: sheets/ciscocomputer.sheet.in.h:40
+msgid "Unity server"
+msgstr ""
+
+#: sheets/ciscocomputer.sheet.in.h:41
+msgid "Voice commserver"
+msgstr ""
+
+#: sheets/ciscocomputer.sheet.in.h:42
+msgid "WWW server"
+msgstr ""
+
+#: sheets/ciscocomputer.sheet.in.h:43
+msgid "Web browser"
+msgstr ""
+
+#: sheets/ciscocomputer.sheet.in.h:44
+msgid "Web cluster"
+msgstr ""
+
+#: sheets/ciscocomputer.sheet.in.h:45
+msgid "Wireless"
+msgstr "ताररहित"
+
+#: sheets/ciscocomputer.sheet.in.h:46
+msgid "Workgroup director"
+msgstr ""
+
+#: sheets/ciscocomputer.sheet.in.h:47
+msgid "Workstation"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:1
+msgid "100BaseT hub"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:2
+msgid "ATM fast gigabit etherswitch"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:3
+msgid "ATM switch"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:4
+msgid "Cisco - Hub"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:5
+msgid "Cisco hub"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:6
+msgid "Class 4/5 switch"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:7
+msgid "Content service switch 1100"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:8
+msgid "Content switch"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:9
+msgid "Content switch module"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:10
+msgid "Generic softswitch"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:11
+msgid "Hub"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:12
+msgid "Hub and switch shapes by Cisco"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:13
+msgid "ISDN switch"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:14
+msgid "Layer 3 switch"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:15
+msgid "MGX 8220 switch"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:16
+msgid "MGX 8240 switch"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:17
+msgid "MGX 8260 switch"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:18
+msgid "MultiSwitch device"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:19
+msgid "Multilayer switch"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:20
+msgid "PBX switch"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:21
+msgid "Programmable switch"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:22
+msgid "Route switch processor"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:23
+msgid "Small hub"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:24
+msgid "Voice ATM switch"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:25
+msgid "Voice switch"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:26
+msgid "Voice switch 2"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:27
+msgid "Workgroup switch"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:1
+msgid "BBFW"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:2
+msgid "BBFW media"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:3
+msgid "Branch office"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:4
+msgid "Breakout box"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:5
+msgid "Car"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:6
+msgid "Cellular phone"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:7
+msgid "Cisco - Misc"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:8
+msgid "Diskette"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:9
+msgid "Dot-Dot"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:10
+msgid "End office"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:11
+msgid "Fax"
+msgstr "फ्याक्स"
+
+#: sheets/ciscomisc.sheet.in.h:12
+msgid "File cabinet"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:13
+msgid "Generic building"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:14
+msgid "Government building"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:15
+msgid "H.323"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:16
+msgid "HootPhone"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:17
+msgid "IP phone"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:18
+msgid "ITP"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:19
+msgid "Key"
+msgstr "कुञ्ज"
+
+#: sheets/ciscomisc.sheet.in.h:20
+msgid "LAN to LAN"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:22
+msgid "MAU"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:23
+msgid "MDU"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:24
+msgid "Mac woman"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:25
+msgid "Man/Woman"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:27
+msgid "Miscellaneous shapes by Cisco"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:28
+msgid "PC man"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:29
+msgid "Phone"
+msgstr "फोन"
+
+#: sheets/ciscomisc.sheet.in.h:30
+msgid "Phone/Fax"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:31
+msgid "RPS"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:32
+msgid "Radio tower"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:33
+msgid "Running man"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:34
+msgid "SVX (interchangeable with End office)"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:35
+msgid "Satellite"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:36
+msgid "Satellite dish"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:37
+msgid "Sitting woman"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:38
+msgid "Small business"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:40
+msgid "Standing man"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:41
+msgid "Tablet"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:42
+msgid "Telecommuter"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:43
+msgid "Telecommuter house"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:44
+msgid "Telecommuter house/router"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:45
+msgid "TokenRing"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:46
+msgid "Truck"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:47
+msgid "UPS"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:48
+msgid "University"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:49
+msgid "Video camera"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:50
+msgid "Wireless transport"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:1
+msgid "10700"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:2
+msgid "15200"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:3
+msgid "3174 (desktop) cluster controller"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:4
+msgid "3X74 (floor) cluster controller"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:5
+msgid "6701"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:6
+msgid "6705 Integrated access device"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:7
+msgid "6732 Multiservice access platform"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:8
+msgid "ADM"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:9
+msgid "ASIC processor"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:10
+msgid "ATA"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:11
+msgid "ATM 3800"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:12
+msgid "AccessPoint"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:13
+msgid "BBSM"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:14
+msgid "BTS 10200"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:15
+msgid "Bridge"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:16
+msgid "CDDI-FDDI"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:17
+msgid "CDM Content distribution manager"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:18
+msgid "CSU/DSU"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:19
+msgid "Cable modem"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:20
+msgid "CallManager"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:21
+msgid "Catalyst access gateway"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:22
+msgid "Centri firewall"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:23
+msgid "Cisco - Network"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:24
+msgid "Cloud"
+msgstr "बादल"
+
+#: sheets/cisconetwork.sheet.in.h:25
+msgid "Content engine (Cache director)"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:26
+msgid "Content transformation engine (CTE)"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:27
+msgid "DPT"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:28
+msgid "DSLAM"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:29
+msgid "DWDM filter"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:30
+msgid "Distributed director"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:31
+msgid "FC storage"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:32
+msgid "FDDI ring"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:33
+msgid "Firewall"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:34
+msgid "Front end processor"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:35
+msgid "General appliance"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:36
+msgid "Generic gateway"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:37
+msgid "Generic processor"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:38
+msgid "ICM"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:39
+msgid "ICS"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:40
+msgid "IOS firewall"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:41
+msgid "IP"
+msgstr "आई पी"
+
+#: sheets/cisconetwork.sheet.in.h:42
+msgid "IP DSL"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:43
+msgid "IPTC"
+msgstr "आइ पि टि सि"
+
+#: sheets/cisconetwork.sheet.in.h:44
+msgid "IPTV content manager"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:45
+msgid "LocalDirector"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:46
+msgid "LongReach CPE"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:47
+msgid "MAS gateway"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:48
+msgid "ME 1100"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:49
+msgid "MUX"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:50
+msgid "Metro 1500"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:51
+msgid "Modem"
+msgstr "मोडेम"
+
+#: sheets/cisconetwork.sheet.in.h:52
+msgid "NetRanger intrusion detection system"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:53
+msgid "NetSonar security scanner"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:54
+msgid "Network management"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:55
+msgid "Network shapes by Cisco"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:56
+msgid "ONS15500 DWDM platform"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:57
+msgid "Octel"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:58
+msgid "Optical amplifier"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:59
+msgid "Optical transport"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:60
+msgid "PAD"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:61
+msgid "PAD X.28"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:62
+msgid "PBX"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:63
+msgid "PC adapter card"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:64
+msgid "PC router card"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:65
+msgid "PIX firewall"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:66
+msgid "PXF"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:67
+msgid "Protocol translator"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:68
+msgid "RateMUX"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:69
+msgid "Repeater"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:70
+msgid "SC2200 (Signalling controller)"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:71
+msgid "STP"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:72
+msgid "System controller"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:73
+msgid "Transpath"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:74
+msgid "Universal gateway"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:75
+msgid "VIP"
+msgstr "भि आइ पि"
+
+#: sheets/cisconetwork.sheet.in.h:76
+msgid "VPN concentrator"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:77
+msgid "VPN gateway"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:78
+msgid "Virtual switch controller (VSC 3000)"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:79
+msgid "Wireless bridge"
+msgstr ""
+
+#: sheets/ciscorouter.sheet.in.h:1
+msgid "7500ARS (7513)"
+msgstr ""
+
+#: sheets/ciscorouter.sheet.in.h:2
+msgid "7505"
+msgstr ""
+
+#: sheets/ciscorouter.sheet.in.h:3
+msgid "7507"
+msgstr ""
+
+#: sheets/ciscorouter.sheet.in.h:4
+msgid "ATM router"
+msgstr ""
+
+#: sheets/ciscorouter.sheet.in.h:5
+msgid "ATM tag sw gigabit router"
+msgstr ""
+
+#: sheets/ciscorouter.sheet.in.h:6
+msgid "ATM tag switch router"
+msgstr ""
+
+#: sheets/ciscorouter.sheet.in.h:7
+msgid "Broadband router"
+msgstr ""
+
+#: sheets/ciscorouter.sheet.in.h:8
+msgid "Cisco - Router"
+msgstr ""
+
+#: sheets/ciscorouter.sheet.in.h:9
+msgid "Cisco 1000"
+msgstr ""
+
+#: sheets/ciscorouter.sheet.in.h:10
+msgid "Content service router"
+msgstr ""
+
+#: sheets/ciscorouter.sheet.in.h:11
+msgid "Gigabit switch router (ATM tag)"
+msgstr ""
+
+#: sheets/ciscorouter.sheet.in.h:12
+msgid "IAD router"
+msgstr ""
+
+#: sheets/ciscorouter.sheet.in.h:13
+msgid "IP telephony router"
+msgstr ""
+
+#: sheets/ciscorouter.sheet.in.h:14
+msgid "NetFlow router"
+msgstr ""
+
+#: sheets/ciscorouter.sheet.in.h:15
+msgid "Optical services router"
+msgstr ""
+
+#: sheets/ciscorouter.sheet.in.h:16
+msgid "Router"
+msgstr ""
+
+#: sheets/ciscorouter.sheet.in.h:17
+msgid "Router in building"
+msgstr ""
+
+#: sheets/ciscorouter.sheet.in.h:18
+msgid "Router shapes by Cisco"
+msgstr ""
+
+#: sheets/ciscorouter.sheet.in.h:19
+msgid "Router with firewall"
+msgstr ""
+
+#: sheets/ciscorouter.sheet.in.h:20
+msgid "Router with silicon switch"
+msgstr ""
+
+#: sheets/ciscorouter.sheet.in.h:21
+msgid "Storage router"
+msgstr ""
+
+#: sheets/ciscorouter.sheet.in.h:22
+msgid "TDM router"
+msgstr ""
+
+#: sheets/ciscorouter.sheet.in.h:23
+msgid "Voice router"
+msgstr ""
+
+#: sheets/ciscorouter.sheet.in.h:24
+msgid "Wavelength router"
+msgstr ""
+
+#: sheets/ciscorouter.sheet.in.h:25
+msgid "Workgroup 5000 multilayer switch"
+msgstr ""
+
+#: sheets/ciscorouter.sheet.in.h:26
+msgid "Workgroup 5002 multilayer switch"
+msgstr ""
+
+#: sheets/ciscorouter.sheet.in.h:27
+msgid "Workgroup 5500 multilayer switch"
+msgstr ""
+
+#: sheets/ciscorouter.sheet.in.h:28
+msgid "uBR910"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:1
+msgid "Aerator with bubbles"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:2
+msgid "Backflow preventer"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:3
+msgid "Basin"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:4
+msgid "Bivalent vertical rest"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:5
+msgid "Civil"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:6
+msgid "Civil Engineering Components"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:7
+msgid "Container"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:8
+msgid "Final-settling basin"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:9
+msgid "Frequency converter"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:10
+msgid "Gas bottle"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:11
+msgid "Horizontal limiting line"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:12
+msgid "Horizontal rest"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:13
+msgid "Horizontally aligned arrow"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:14
+msgid "Horizontally aligned compressor"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:15
+msgid "Horizontally aligned pump"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:16
+msgid "Horizontally aligned valve"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:17
+msgid "Motor"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:18
+msgid "Preliminary clarification tank"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:19
+msgid "Reference line"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:20
+msgid "Rotor"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:21
+msgid "Soil"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:22
+msgid "Vertical limiting line"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:23
+msgid "Vertical rest"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:24
+msgid "Vertically aligned arrow"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:25
+msgid "Vertically aligned compressor"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:26
+msgid "Vertically aligned propeller"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:27
+msgid "Vertically aligned pump"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:28
+msgid "Vertically aligned valve"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:29
+msgid "Water level"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:1
+msgid "Jigsaw"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:2
+msgid "Jigsaw - part_iiii"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:3
+msgid "Jigsaw - part_iiio"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:4
+msgid "Jigsaw - part_iioi"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:5
+msgid "Jigsaw - part_iioo"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:6
+msgid "Jigsaw - part_ioii"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:7
+msgid "Jigsaw - part_ioio"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:8
+msgid "Jigsaw - part_iooi"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:9
+msgid "Jigsaw - part_iooo"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:10
+msgid "Jigsaw - part_oiii"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:11
+msgid "Jigsaw - part_oiio"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:12
+msgid "Jigsaw - part_oioi"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:13
+msgid "Jigsaw - part_oioo"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:14
+msgid "Jigsaw - part_ooii"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:15
+msgid "Jigsaw - part_ooio"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:16
+msgid "Jigsaw - part_oooi"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:17
+msgid "Jigsaw - part_oooo"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:18
+msgid "Pieces of a jigsaw"
+msgstr ""
+
+#: sheets/network.sheet.in.h:1
+msgid "24 Port Patch Panel"
+msgstr ""
+
+#: sheets/network.sheet.in.h:2
+msgid "3 1/2 inch diskette"
+msgstr ""
+
+#: sheets/network.sheet.in.h:3
+msgid "ATM switch symbol"
+msgstr ""
+
+#: sheets/network.sheet.in.h:4
+msgid "Antenna for wireless transmission"
+msgstr ""
+
+#: sheets/network.sheet.in.h:5
+msgid "Bigtower PC"
+msgstr ""
+
+#: sheets/network.sheet.in.h:6
+msgid "Computer"
+msgstr "कम्प्युटर"
+
+#: sheets/network.sheet.in.h:7
+msgid "Desktop PC"
+msgstr ""
+
+#: sheets/network.sheet.in.h:8
+msgid "Digitizing board"
+msgstr ""
+
+#: sheets/network.sheet.in.h:9
+msgid "Ethernet bus"
+msgstr ""
+
+#: sheets/network.sheet.in.h:10
+msgid "External DAT drive"
+msgstr ""
+
+#: sheets/network.sheet.in.h:11
+msgid "Firewall router"
+msgstr ""
+
+#: sheets/network.sheet.in.h:12
+msgid "Laptop PC"
+msgstr ""
+
+#: sheets/network.sheet.in.h:13
+msgid "Miditower PC"
+msgstr ""
+
+#: sheets/network.sheet.in.h:14
+msgid "Minitower PC"
+msgstr ""
+
+#: sheets/network.sheet.in.h:15
+msgid "Mobile phone"
+msgstr ""
+
+#: sheets/network.sheet.in.h:16
+msgid "Mobile telephony base station"
+msgstr ""
+
+#: sheets/network.sheet.in.h:17
+msgid "Mobile telephony cell"
+msgstr ""
+
+#: sheets/network.sheet.in.h:18
+msgid "Modular switching system"
+msgstr ""
+
+#: sheets/network.sheet.in.h:19
+msgid "Monitor"
+msgstr "मनिटर"
+
+#: sheets/network.sheet.in.h:20
+msgid "Network"
+msgstr "सञ्जाल"
+
+#: sheets/network.sheet.in.h:21
+msgid "Network cloud"
+msgstr ""
+
+#: sheets/network.sheet.in.h:22
+msgid "Objects to design network diagrams with"
+msgstr ""
+
+#: sheets/network.sheet.in.h:23
+msgid "Plotter"
+msgstr ""
+
+#: sheets/network.sheet.in.h:24
+msgid "RJ45 wall-plug"
+msgstr ""
+
+#: sheets/network.sheet.in.h:25
+msgid "Router symbol"
+msgstr ""
+
+#: sheets/network.sheet.in.h:26
+msgid "Simple modem"
+msgstr ""
+
+#: sheets/network.sheet.in.h:27
+msgid "Simple printer"
+msgstr ""
+
+#: sheets/network.sheet.in.h:28
+msgid "Speaker with integrated amplifier"
+msgstr ""
+
+#: sheets/network.sheet.in.h:29
+msgid "Speaker without amplifier"
+msgstr ""
+
+#: sheets/network.sheet.in.h:30
+msgid "Stackable hub or switch"
+msgstr ""
+
+#: sheets/network.sheet.in.h:31
+msgid "Storage"
+msgstr "संग्रहण"
+
+#: sheets/network.sheet.in.h:32
+msgid "Switch symbol"
+msgstr ""
+
+#: sheets/network.sheet.in.h:33
+msgid "Telephone"
+msgstr "टेलिफोन"
+
+#: sheets/network.sheet.in.h:34
+msgid "UNIX workstation"
+msgstr "यनिक्सको कार्य स्थान"
+
+#: sheets/network.sheet.in.h:35
+msgid "WAN connection"
+msgstr "वान जडान "
+
+#: sheets/network.sheet.in.h:36
+msgid "WAN link"
+msgstr "वान लिङ्क"
+
+#: sheets/network.sheet.in.h:37
+msgid "Wall-plug for the scEAD cabling system"
+msgstr "एससि ई ए डि तार प्रणालीलाई भित्ते प्लग"
+
+#: sheets/network.sheet.in.h:38
+msgid "Workstation monitor"
+msgstr "कार्यस्थान मोनिटर"
+
+#: sheets/network.sheet.in.h:39
+msgid "ZIP disk"
+msgstr "जिप चक्का"
+
+#: sheets/sybase.sheet.in.h:1
+msgid "Log transfer manager or rep agent"
+msgstr "रेप प्रतिनिधि वा लग स्थानान्तरण व्यवस्थापक"
+
+#: sheets/sybase.sheet.in.h:2
+msgid "Objects to design Sybase replication domain diagrams with"
+msgstr "सेवेस प्रतिकरण डोमेन चित्रसंग डिजाईन गर्नुपर्ने वस्तुहरु"
+
+#: sheets/sybase.sheet.in.h:3
+msgid "Replication server manager"
+msgstr ""
+
+#: sheets/sybase.sheet.in.h:4
+msgid "Stable storage device"
+msgstr ""
+
+#: sheets/sybase.sheet.in.h:5
+msgid "Sybase"
+msgstr ""
+
+#: sheets/sybase.sheet.in.h:6
+msgid "Sybase client application"
+msgstr ""
+
+#: sheets/sybase.sheet.in.h:7
+msgid "Sybase dataserver"
+msgstr ""
+
+#: sheets/sybase.sheet.in.h:8
+msgid "Sybase replication server"
+msgstr ""
+
