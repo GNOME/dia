@@ -1,3 +1,7 @@
+2005-05-31  Lars Clausen  <lars@raeder.dk>
+
+	* sheets/ER.sheet.in: No more xpms referenced in sheets.
+
 2005-05-30  Pawan Chitrakar  <pawan@nplinux.org>
 
 	* configure.in: Added ne in ALL_LINGUAS
