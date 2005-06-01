@@ -1,4 +1,4 @@
-# Copyright (C) 2001-2002 Free Software Foundation, Inc.
+﻿# Copyright (C) 2001-2002 Free Software Foundation, Inc.
 # -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 # Aktualną wersję tego pliku możesz odnaleźć w repozytorium cvs.gnome.pl
 # (:pserver:anonymous@cvs.gnome.pl:/gnomepl, puste hasło)
@@ -1345,19 +1345,19 @@ msgstr "/_Obiekty"
 
 #: app/menus.c:179
 msgid "/Objects/Send to _Back"
-msgstr "/Obiekty/Przesuń w tył"
+msgstr "/Obiekty/Przesuń na sam spód"
 
 #: app/menus.c:181
 msgid "/Objects/Bring to _Front"
-msgstr "/Obiekty/Przesuń w przód"
+msgstr "/Obiekty/Przesuń na sam wierzch"
 
 #: app/menus.c:183
 msgid "/Objects/Send Backwards"
-msgstr "/Obiekty/Przesuń pod spód"
+msgstr "/Obiekty/Przesuń w tył"
 
 #: app/menus.c:185
 msgid "/Objects/Bring Forwards"
-msgstr "/Obiekty/Przesuń na wierzch"
+msgstr "/Obiekty/Przesuń w przód"
 
 #: app/menus.c:187 app/menus.c:191 app/menus.c:195 app/menus.c:213
 msgid "/Objects/---"
@@ -5268,7 +5268,7 @@ msgstr "Nieznany rozmiar papieru \"%s\". Wykorzystano domyślny.\n"
 #: plug-ins/xfig/xfig-import.c:1459
 #, c-format
 msgid "Error reading paper orientation: %s\n"
-msgstr "Błąd przy odczycie ułożenia dokumentu: %s\n"
+msgstr "Błąd przy odczycie ułożenia do﻿kumentu: %s\n"
 
 #: plug-ins/xfig/xfig-import.c:1469
 #, c-format

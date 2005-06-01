@@ -1,4 +1,4 @@
-# translation of es.po to 
+﻿# translation of es.po to 
 # traducción de es.po al Spanish
 # translation of es.po to Spanish
 # translation of dia.HEAD.po to Spanish
@@ -1206,7 +1206,7 @@ msgstr "/Archivo/_Salir"
 
 #: ../app/menus.c:72 ../app/menus.c:257
 msgid "/_Help"
-msgstr "/_Ayuda"
+msgstr "/A_yuda"
 
 #: ../app/menus.c:74 ../app/menus.c:259
 msgid "/Help/_Contents"
@@ -1628,7 +1628,7 @@ msgstr "/Herramientas/Imagen"
 
 #: ../app/menus.c:255
 msgid "/_Input Methods"
-msgstr "/Métodos de _entrada"
+msgstr "/Mé_todos de entrada"
 
 # Traduzco "tooldata". RizOX.
 #: ../app/menus.c:427
@@ -4762,7 +4762,7 @@ msgstr "Contribución negativa"
 msgid "Dependency"
 msgstr "Dependencia"
 
-#: ../objects/Istar/link.c:157
+#: ../objects﻿/Istar/link.c:157
 msgid "Decomposition"
 msgstr "Descomposición"
 

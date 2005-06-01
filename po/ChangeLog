@@ -1,3 +1,9 @@
+2005-06-01  Hans Breuer  <hans@breuer.org>
+
+	* es.po: adjust acelerators, fixes bug #306074
+	
+	* pl.po : menu translation fix, bug #306075
+	
 2005-05-30  Kjartan Maraas  <kmaraas@gnome.org>
 
 	* nb.po: Updated Norwegian bokmål translation
