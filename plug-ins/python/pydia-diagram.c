@@ -32,6 +32,7 @@
 #include "pydia-color.h"
 
 #include "app/load_save.h"
+#include "app/connectionpoint_ops.h"
 
 PyObject *
 PyDiaDiagram_New(Diagram *dia)
@@ -194,6 +195,19 @@ PyDiaDiagram_AddUpdateAll(PyDiaDiagram *self, PyObject *args)
 }
 
 static PyObject *
+PyDiaDiagram_UpdateConnections(PyDiaDiagram *self, PyObject *args)
+{
+    PyDiaObject *obj;
+
+    if (!PyArg_ParseTuple(args, "O!:Diagram.update_connections",
+                          &PyDiaObject_Type, &obj))
+	return NULL;
+    diagram_update_connections_object(self->dia, obj->object, TRUE);
+    Py_INCREF(Py_None);
+    return Py_None;
+}
+
+static PyObject *
 PyDiaDiagram_Flush(PyDiaDiagram *self, PyObject *args)
 {
     if (!PyArg_ParseTuple(args, ":Diagram.flush"))
@@ -327,6 +341,7 @@ static PyMethodDef PyDiaDiagram_Methods[] = {
      (PyCFunction)PyDiaDiagram_GetSortedSelectedRemove, 1},
     {"add_update", (PyCFunction)PyDiaDiagram_AddUpdate, 1},
     {"add_update_all", (PyCFunction)PyDiaDiagram_AddUpdateAll, 1},
+    {"update_connections", (PyCFunction)PyDiaDiagram_UpdateConnections, 1},
     {"flush", (PyCFunction)PyDiaDiagram_Flush, 1},
     {"find_clicked_object", (PyCFunction)PyDiaDiagram_FindClickedObject, 1},
     {"find_closest_handle", (PyCFunction)PyDiaDiagram_FindClosestHandle, 1},

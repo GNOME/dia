@@ -34,4 +34,5 @@ EXPORTS
  diagram_ungroup_selected
  diagram_unselect_object
  diagram_update_extents
+ diagram_update_connections_object
  dia_open_diagrams

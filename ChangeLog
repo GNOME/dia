@@ -1,5 +1,11 @@
 2005-06-01  Hans Breuer  <hans@breuer.org>
 
+	* app/dia.def : export diagram_update_connections_object
+	* plug-ins/python/pydia-diagram.c : wrap diagram_update_connections_object
+	Patch from Paolo Bernardi, together with the property setting closes bug #300572
+
+2005-06-01  Hans Breuer  <hans@breuer.org>
+
 	* plug-ins/python/pydia-property.c : complete refactoring of property 
 	setting, now also supports setting of property arrays
 	* plug-ins/python/pydia-*.c plug-ins/python/diamodule.c : adapt to 
