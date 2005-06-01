@@ -124,7 +124,7 @@ PyDiaText_Str(PyDiaText *self)
 PyTypeObject PyDiaText_Type = {
     PyObject_HEAD_INIT(&PyType_Type)
     0,
-    "DiaText",
+    "dia.Text",
     sizeof(PyDiaText),
     0,
     (destructor)PyDiaText_Dealloc,
@@ -139,6 +139,9 @@ PyTypeObject PyDiaText_Type = {
     (hashfunc)PyDiaText_Hash,
     (ternaryfunc)0,
     (reprfunc)PyDiaText_Str,
-    0L,0L,0L,0L,
-    NULL
+    (getattrofunc)0,
+    (setattrofunc)0,
+    (PyBufferProcs *)0,
+    0L, /* Flags */
+    "Many objects (dia.Object) having text to display provide this property."
 };

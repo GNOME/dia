@@ -157,8 +157,11 @@ PyDiaProperties_Keys(PyDiaProperties *self, PyObject *args)
     desc = self->object->ops->describe_props(self->object);
   if (desc) {
     int i;
-    for (i = 0; desc[i].name; i++)
-      PyList_Append(list, PyString_FromString(desc[i].name));
+    for (i = 0; desc[i].name; i++) {
+      /* at the moment I see no use case to access these from Python */
+      if ((desc[i].flags & PROP_FLAG_WIDGET_ONLY) == 0)
+        PyList_Append(list, PyString_FromString(desc[i].name));
+    }
   }
 
   return list;
@@ -274,7 +277,7 @@ PyDiaProperties_GetAttr(PyDiaProperties *self, gchar *attr)
 PyTypeObject PyDiaProperties_Type = {
     PyObject_HEAD_INIT(&PyType_Type)
     0,
-    "DiaProperties",
+    "dia.Properties",
     sizeof(PyDiaProperties),
     0,
     (destructor)PyDiaProperties_Dealloc,
@@ -289,6 +292,11 @@ PyTypeObject PyDiaProperties_Type = {
     (hashfunc)PyDiaProperties_Hash,
     (ternaryfunc)0,
     (reprfunc)PyDiaProperties_Str,
-    0L,0L,0L,0L,
-    NULL
+    (getattrofunc)0,
+    (setattrofunc)0,
+    (PyBufferProcs *)0,
+    0L, /* Flags */
+    "A dictionary interface to dia.Object's standard properties. Many properties"
+    "can be get and set through this. If there is a specific method to change an"
+    "objects property like o.move() or o.move_handle() use that instead."
 };

@@ -123,6 +123,10 @@ PyTypeObject PyDiaColor_Type = {
     (hashfunc)PyDiaColor_Hash,
     (ternaryfunc)0,
     (reprfunc)PyDiaColor_Str,
-    0L,0L,0L,0L,
-    NULL
+    (getattrofunc)0,
+    (setattrofunc)0,
+    (PyBufferProcs *)0,
+    0L, /* Flags */
+    "A color either defined by a color string or by a tuple with three elements "
+    "(r, g, b) with type float 0.0 ... 1.0 or range int 0 ... 65535"
 };

@@ -33,11 +33,21 @@ def _log(s, append=1) :
 def otypes_cb(data, flags) :
 
 	diagram = dia.new("Object Types.dia")
-	layer = diagram.layers[0]
+	layer = diagram.data.active_layer
 
 	otypes = dia.registered_types()
 	keys = otypes.keys()
 	keys.sort()
+
+	# property keys w/o overlap
+	object_props = ["obj_pos", "obj_bb"]
+	element_props = ["elem_corner", "elem_width", "elem_height"]
+	orthconn_props = ["orth_points", "orth_orient", "orth_autoroute"]
+	shape_props = ["flip_horizontal", "flip_vertical"]
+	# the following are not exclusuve to any objects type
+	line_props = ["line_width", "line_style", "line_colour"]
+	fill_props = ["fill_colour", "show_background"]
+	text_props = ["text_colour", "text_font", "text_height", "text"] # "text_alignment", "text_pos"
 
 	packages = {}
 	for s in keys :
@@ -58,74 +68,110 @@ def otypes_cb(data, flags) :
 
 	dtp = dia.get_object_type("UML - LargePackage")
 	dtc = dia.get_object_type("UML - Class")
-	np = 0
+	cy = 0
+	maxy = 0
+	maxx = 0
 
 	for sp in packages.keys() :
 		pkg = packages[sp]
-		op, h1, h2 = dtp.create(0, np * 10.0)
+		op, h1, h2 = dtp.create(0.0, cy + 1.0)
 		op.properties["name"] = sp
 		layer.add_object(op)
-		nc = 0
+		cx = 0
 		for st in pkg :
-			oc, h3, h4 = dtc.create(nc * 10.0 + 1.0, np * 10.0 + 1.0)
+			if st == "Group" :
+				continue # too special to handle
+			oc, h3, h4 = dtc.create(cx + 1.0, cy + 4.0)
 			oc.properties["name"] = st
-			layer.add_object(oc)
-			nc = nc + 1
-		h = op.handles[7]
-		op.move_handle(h,(nc * 10.0 - 3.0, h.pos[0] + 3.0), 0, 0)
-		np = np + 1
-	diagram.display()
-	diagram.update_extents()
-	diagram.flush()
-
-def objects_cb(data, flags) :
-	# copied from above
-	diagram = dia.new("The Object.dia")
-	layer = diagram.layers[0]
-
-	otypes = dia.registered_types()
-	keys = otypes.keys()
-	keys.sort()
-
-	packages = {}
-	for s in keys :
-		kt = string.split(s, " - ")
-		if len(kt) == 2 :
-			if len(kt[0]) == 0 :
-				sp = "<unnamed>"
+			attrs = []
+			# we detect inheritance by common props
+			n_object = 0
+			n_element = 0
+			n_orthconn = 0
+			n_shape = 0
+			n_line = 0
+			n_fill = 0
+			n_text = 0
+			if otypes.has_key(st) :
+				o_real, h5, h6 = dia.get_object_type(st).create(0,0)
+			elif otypes.has_key(sp + " - " + st) :
+				o_real, h5, h6 = dia.get_object_type(sp + " - " + st).create(0,0)
 			else :
-				sp = kt[0]
-			st = kt[1]
-		else :
-			sp = "<broken>"
-			st = kt[0]
-		if packages.has_key(sp) :
-			packages[sp].append(st)
-		else :
-			packages[sp] = [st] 
-	np = 0
-	for sp in packages.keys() :
-		pkg = packages[sp]
-		# a layer for every package
-		layer = diagram.add_layer(sp)
-		nc = 0
-		for st in pkg :
-			try :
-				obj = dia.get_object_type(st)
-			except :
-				print "Failed to create", st
-				continue
-			oc, h3, h4 = obj.create(nc * 10.0 + 1.0, np * 10.0 + 1.0)
+				o_real = None
+				print "Failed to create object", sp, st
+			formal_params = []
+			if not o_real is None :
+				for p in o_real.properties.keys() :
+					if p in object_props : n_object = n_object + 1
+					elif p in orthconn_props : n_orthconn = n_orthconn + 1
+					elif p in element_props : n_element = n_element + 1
+					elif p in shape_props : n_shape = n_shape + 1
+					elif p in line_props : n_line = n_line + 1
+					elif p in text_props : n_text = n_text + 1
+					elif p in fill_props : n_fill = n_fill + 1
+					else : # don't replicate common props
+						attrs.append((p, o_real.properties[p].type, '', '', 0, 0, 0))
+				if n_line == len(line_props) :
+					formal_params.append(('Line', ''))
+				else : # need to add the incomplete set
+					for pp in line_props : 
+						if o_real.properties.has_key(pp) :
+							attrs.append((pp, o_real.properties[pp].type, '', '', 0, 0, 0))
+				if n_fill == len(fill_props) :
+					formal_params.append(('Fill', ''))
+				else :
+					for pp in fill_props : 
+						if o_real.properties.has_key(pp) :
+							attrs.append((pp, o_real.properties[pp].type, '', '', 0, 0, 0))
+				if n_text == len(text_props) :
+					formal_params.append(('Text', ''))
+				else :
+					for pp in text_props : 
+						if o_real.properties.has_key(pp) :
+							attrs.append((pp, o_real.properties[pp].type, '', '', 0, 0, 0))
+			if n_orthconn == len(orthconn_props) :
+				oc.properties["stereotype"] = "OrthConn"
+				oc.properties["fill_colour"] = "light blue"
+			elif n_shape == len(shape_props) :
+				oc.properties["stereotype"] = "Shape"
+				oc.properties["fill_colour"] = "light cyan"
+			elif n_element == len(element_props) :
+				oc.properties["stereotype"] = "Element"
+				oc.properties["fill_colour"] = "light yellow"
+			elif n_object == len(object_props) :
+				oc.properties["stereotype"] = "Object"
+			else :
+				print "Huh?", st
+				oc.properties["fill_colour"] = "red"
+			oc.properties["attributes"] = attrs
+			if len(formal_params) > 0 :
+				oc.properties["template"] = 1
+				oc.properties["templates"] = formal_params
 			layer.add_object(oc)
-			nc = nc + 1
-		np = np + 1
+			# XXX: there really should be a way to safely delete an object. This one will crash:
+			# - when the object got added somewhere 
+			# - any object method gets called afterwards
+			if not o_real is None :
+				o_real.destroy()
+				del o_real
+			cx = oc.bounding_box.right
+			if maxy < oc.bounding_box.bottom :
+				maxy = oc.bounding_box.bottom
+			if maxx < cx :
+				maxx = cx
+			# wrapping too long lines
+			if cx > 300 :
+				cx = 0
+				cy = maxy
+		h = op.handles[7]
+		# adjust the package size to fit the objects
+		op.move_handle(h,(maxx + 1.0, maxy + 1.0), 0, 0)
+		cy = maxy + 2.0
+		maxx = 0 # every package a new size
 	diagram.display()
 	diagram.update_extents()
 	diagram.flush()
-	
+
 dia.register_callback ("Dia Object Types", 
                        "<Toolbox>/Help/Self Doc/Object Types", 
                        otypes_cb)
-dia.register_callback ("Dia Object Types", 
-                       "<Toolbox>/Help/Self Doc/The Objects", 
-                       objects_cb)

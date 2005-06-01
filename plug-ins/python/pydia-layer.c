@@ -68,7 +68,7 @@ PyDiaLayer_Str(PyDiaLayer *self)
 static PyObject *
 PyDiaLayer_Destroy(PyDiaLayer *self, PyObject *args)
 {
-    if (!PyArg_ParseTuple(args, ":DiaLayer.destroy"))
+    if (!PyArg_ParseTuple(args, ":Layer.destroy"))
 	return NULL;
     layer_destroy(self->layer);
     self->layer = NULL; /* we need some error checking elsewhere */
@@ -81,7 +81,7 @@ PyDiaLayer_ObjectIndex(PyDiaLayer *self, PyObject *args)
 {
     PyDiaObject *obj;
 
-    if (!PyArg_ParseTuple(args, "O!:DiaLayer.object_index",
+    if (!PyArg_ParseTuple(args, "O!:Layer.object_index",
 			  &PyDiaObject_Type, &obj))
 	return NULL;
     return PyInt_FromLong(layer_object_index(self->layer, obj->object));
@@ -93,7 +93,7 @@ PyDiaLayer_AddObject(PyDiaLayer *self, PyObject *args)
     PyDiaObject *obj;
     int pos = -1;
 
-    if (!PyArg_ParseTuple(args, "O!|i:DiaLayer.add_object",
+    if (!PyArg_ParseTuple(args, "O!|i:Layer.add_object",
 			  &PyDiaObject_Type, &obj,
 			  &pos))
 	return NULL;
@@ -110,7 +110,7 @@ PyDiaLayer_RemoveObject(PyDiaLayer *self, PyObject *args)
 {
     PyDiaObject *obj;
 
-    if (!PyArg_ParseTuple(args, "O!:DiaLayer.remove_object",
+    if (!PyArg_ParseTuple(args, "O!:Layer.remove_object",
 			  &PyDiaObject_Type, &obj))
 	return NULL;
     layer_remove_object(self->layer, obj->object);
@@ -125,7 +125,7 @@ PyDiaLayer_FindObjectsInRectangle(PyDiaLayer *self, PyObject *args)
     GList *list, *tmp;
     PyObject *ret;
 
-    if (!PyArg_ParseTuple(args, "dddd:DiaLayer.find_objects_in_rectange",
+    if (!PyArg_ParseTuple(args, "dddd:Layer.find_objects_in_rectange",
 			  &rect.top, &rect.left, &rect.bottom, &rect.right))
 	return NULL;
     list = layer_find_objects_in_rectangle(self->layer, &rect);
@@ -143,7 +143,7 @@ PyDiaLayer_FindClosestObject(PyDiaLayer *self, PyObject *args)
     real maxdist;
     DiaObject *obj;
 
-    if (!PyArg_ParseTuple(args, "ddd:DiaLayer.find_closest_object",
+    if (!PyArg_ParseTuple(args, "ddd:Layer.find_closest_object",
 			  &pos.x, &pos.y, &maxdist))
 	return NULL;
     obj = layer_find_closest_object(self->layer, &pos, maxdist);
@@ -161,7 +161,7 @@ PyDiaLayer_FindClosestConnectionPoint(PyDiaLayer *self, PyObject *args)
     real dist;
     PyObject *ret;
 
-    if (!PyArg_ParseTuple(args, "dd:DiaLayer.find_closest_connection_point",
+    if (!PyArg_ParseTuple(args, "dd:Layer.find_closest_connection_point",
 			  &pos.x, &pos.y))
 	return NULL;
     dist = layer_find_closest_connectionpoint(self->layer, &cpoint, &pos, NULL);
@@ -180,7 +180,7 @@ PyDiaLayer_FindClosestConnectionPoint(PyDiaLayer *self, PyObject *args)
 static PyObject *
 PyDiaLayer_UpdateExtents(PyDiaLayer *self, PyObject *args)
 {
-    if (!PyArg_ParseTuple(args, ":DiaLayer.update_extents"))
+    if (!PyArg_ParseTuple(args, ":Layer.update_extents"))
 	return NULL;
     return PyInt_FromLong(layer_update_extents(self->layer));
 }
@@ -240,7 +240,7 @@ PyDiaLayer_GetAttr(PyDiaLayer *self, gchar *attr)
 PyTypeObject PyDiaLayer_Type = {
     PyObject_HEAD_INIT(&PyType_Type)
     0,
-    "DiaLayer",
+    "dia.Layer",
     sizeof(PyDiaLayer),
     0,
     (destructor)PyDiaLayer_Dealloc,
@@ -255,6 +255,9 @@ PyTypeObject PyDiaLayer_Type = {
     (hashfunc)PyDiaLayer_Hash,
     (ternaryfunc)0,
     (reprfunc)PyDiaLayer_Str,
-    0L,0L,0L,0L,
-    NULL
+    (getattrofunc)0,
+    (setattrofunc)0,
+    (PyBufferProcs *)0,
+    0L, /* Flags */
+    "A Layer is part of a Diagram and can contain objects."
 };

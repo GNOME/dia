@@ -85,7 +85,7 @@ PyDiaConnectionPoint_GetAttr(PyDiaConnectionPoint *self, gchar *attr)
 PyTypeObject PyDiaConnectionPoint_Type = {
     PyObject_HEAD_INIT(&PyType_Type)
     0,
-    "DiaConnectionPoint",
+    "dia.ConnectionPoint",
     sizeof(PyDiaConnectionPoint),
     0,
     (destructor)PyDiaConnectionPoint_Dealloc,
@@ -100,6 +100,10 @@ PyTypeObject PyDiaConnectionPoint_Type = {
     (hashfunc)PyDiaConnectionPoint_Hash,
     (ternaryfunc)0,
     (reprfunc)0,
-    0L,0L,0L,0L,
-    NULL
+    (getattrofunc)0,
+    (setattrofunc)0,
+    (PyBufferProcs *)0,
+    0L, /* Flags */
+    "One of the major features of Dia are connectable objects. They work by this type accesible "
+    "through dia.Object.connections[]."
 };

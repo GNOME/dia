@@ -33,8 +33,11 @@ PyObject* PyDiaFont_New (DiaFont* font)
   
   self = PyObject_NEW(PyDiaFont, &PyDiaFont_Type);
   if (!self) return NULL;
-  
-  self->font = dia_font_ref (font);
+
+  if (font)
+    self->font = dia_font_ref (font);
+  else
+    self->font = NULL;
 
   return (PyObject *)self;
 }
@@ -45,7 +48,8 @@ PyObject* PyDiaFont_New (DiaFont* font)
 static void
 PyDiaFont_Dealloc(PyDiaFont *self)
 {
-  dia_font_unref (self->font);
+  if (self->font)
+    dia_font_unref (self->font);
   PyMem_DEL(self);
 }
 
@@ -60,6 +64,10 @@ PyDiaFont_Compare(PyDiaFont *self,
 
   if (self->font == other->font)
     return 0;
+  else if (!self->font)
+    return 1;
+  else if (!other->font)
+    return -1;
 
   ret = strcmp (dia_font_get_family (self->font), 
                 dia_font_get_family (other->font));
@@ -105,10 +113,10 @@ static PyObject *
 PyDiaFont_Str(PyDiaFont *self)
 {
   PyObject *ret;
-  gchar *s = g_strdup_printf ("%s %s %s",
+  gchar *s = self->font ? g_strdup_printf ("%s %s %s",
   	dia_font_get_family (self->font),
 	dia_font_get_weight_string (self->font),
-	dia_font_get_slant_string (self->font));
+	dia_font_get_slant_string (self->font)) : g_strdup("<DiaFont NULL>");
 
   ret = PyString_FromString(s);
   g_free (s);
@@ -122,7 +130,7 @@ PyDiaFont_Str(PyDiaFont *self)
 PyTypeObject PyDiaFont_Type = {
     PyObject_HEAD_INIT(&PyType_Type)
     0,
-    "DiaFont",
+    "dia.Font",
     sizeof(PyDiaFont),
     0,
     (destructor)PyDiaFont_Dealloc,
@@ -137,7 +145,10 @@ PyTypeObject PyDiaFont_Type = {
     (hashfunc)PyDiaFont_Hash,
     (ternaryfunc)0,
     (reprfunc)PyDiaFont_Str,
-    0L,0L,0L,0L,
-    NULL
+    (getattrofunc)0,
+    (setattrofunc)0,
+    (PyBufferProcs *)0,
+    0L, /* Flags */
+    "Provides access to the some objects font property."
 };
 

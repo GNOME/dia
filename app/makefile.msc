@@ -14,7 +14,7 @@ PKG_CFLAGS = -FImsvc_recommended_pragmas.h \
 	$(LIBXML2_CFLAGS) $(PNG_CFLAGS) \
 	-I$(PRJ_TOP)\lib $(LIBART_CFLAGS) \
 
-PKG_LINK = $(GTK2_LIBS) $(GLIB_LIBS) $(PANGOWIN32_LIBS) \
+PKG_LINK = $(GTK2_LIBS) $(GLIB_LIBS) $(GTHREAD_LIBS) $(PANGOWIN32_LIBS) \
 	$(LIBXML2_LIBS) $(PNG_LIBS) \
 	$(PRJ_TOP)\lib\libdia.lib $(LIBART_LIBS) \
 	$(GDK_PIXBUF_LIBS) $(INTL_LIBS) \
@@ -88,6 +88,7 @@ OBJECTS = \
 	win32print.obj \
 	winmain.obj \
 
+
 ICON_PNG_PAIRS = \
 	dia_connectable_icon pixmaps\connectable.png \
 	dia_connectable_empty_icon pixmaps\connectable-empty.png \
@@ -97,32 +98,24 @@ ICON_PNG_PAIRS = \
 	dia_off_grid_icon pixmaps\off-grid.png \
 	dia_visible_icon pixmaps\visible.png \
 	dia_visible_empty_icon pixmaps\visible-empty.png \
-        dia_diagram_icon ..\dia-diagram.png \
-	dia_app_icon ..\dia_gnome_icon.png
+	dia_diagram_icon ..\dia-diagram.png \
+	dia_app_icon ..\dia_gnome_icon.png \
+	dia_arrow_tool_icon pixmaps\visible.png \
+	dia_group_icon pixmaps\group.png \
+	dia_ungroup_icon pixmaps\ungroup.png \
 
-dia-app-icons.h :
+dia-app-icons.h : makefile.msc
 	gdk-pixbuf-csource --build-list \
 	$(ICON_PNG_PAIRS) > dia-app-icons.h
 
 ## common stuff
-## compiler and linker switches
-!IFNDEF DEBUG
-# Full optimization:
-OPTIMIZE = -Ox -Zi -MD
-LINKDEBUG =
-!ELSE
-# Debugging:
-OPTIMIZE = -Zi -MDd
-LINKDEBUG = /debug /debugtype:both
-!ENDIF
-
 # cl -? describes the options
-CC = cl -G5 -GF $(OPTIMIZE) -W3 -nologo
+CC = cl -G5 -GF $(OPTIMIZE) $(CRUNTIME) -W3 -nologo
 
 # No general LDFLAGS needed
 # Use /subsystem:console to enable console output
-#LDFLAGS = /link $(LINKDEBUG) /subsystem:console /machine:ix86
-LDFLAGS = /link $(LINKDEBUG) /subsystem:windows /machine:ix86
+LDFLAGS = /link $(LINKDEBUG) /subsystem:console /machine:ix86
+#LDFLAGS = /link $(LINKDEBUG) /subsystem:windows /machine:ix86
 INSTALL = copy
 
 CFLAGS = -I. -I$(PRJ_TOP) -DHAVE_CONFIG_H

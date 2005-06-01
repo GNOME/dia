@@ -300,7 +300,7 @@ parse_svg_node(ShapeInfo *info, xmlNodePtr node, xmlNsPtr svg_ns,
       if (str) {
         text->string = g_strdup(str);
         xmlFree(str);
-      } else text->string = "";
+      } else text->string = g_strdup("");
     } else if (!strcmp(node->name, "circle")) {
       GraphicElementEllipse *ellipse = g_new0(GraphicElementEllipse, 1);
 
@@ -402,6 +402,8 @@ parse_svg_node(ShapeInfo *info, xmlNodePtr node, xmlNsPtr svg_ns,
     }
     if (el) {
       el->any.s = s;
+      if (el->any.s.font)
+        el->any.s.font = g_object_ref(s.font);
       info->display_list = g_list_append(info->display_list, el);
     }
     if (s.font)

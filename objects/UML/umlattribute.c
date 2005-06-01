@@ -30,6 +30,8 @@
 #include "uml.h"
 #include "properties.h"
 
+extern PropEnumData _uml_visibilities[];
+
 static PropDescription umlattribute_props[] = {
   { "name", PROP_TYPE_STRING, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
   N_("Name"), NULL, NULL },
@@ -40,7 +42,7 @@ static PropDescription umlattribute_props[] = {
   { "comment", PROP_TYPE_STRING, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
   N_("Comment"), NULL, NULL },
   { "visibility", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
-  N_("Visibility"), NULL, NULL },
+  N_("Visibility"), NULL, _uml_visibilities },
   { "abstract", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
   N_("Abstract (?)"), NULL, NULL },
   { "class_scope", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
@@ -131,7 +133,9 @@ uml_attribute_destroy(UMLAttribute *attr)
     g_free(attr->value);
   if (attr->comment != NULL)
     g_free(attr->comment);
+  object_remove_connections_to(attr->left_connection);
   g_free(attr->left_connection);
+  object_remove_connections_to(attr->right_connection);
   g_free(attr->right_connection);
   g_free(attr);
 }

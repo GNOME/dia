@@ -200,14 +200,15 @@ object_list_move_delta_r(GList *objects, Point *delta, gboolean affected)
 
     if (obj->parent && affected)
     {
-      Rectangle *p_ext = parent_handle_extents(obj->parent);
-      Rectangle *c_ext = parent_handle_extents(obj);
-      Point new_delta = parent_move_child_delta(p_ext, c_ext, delta);
+      Rectangle p_ext;
+      Rectangle c_ext;
+      Point new_delta;
+
+      parent_handle_extents(obj->parent, &p_ext);
+      parent_handle_extents(obj, &c_ext);
+      new_delta = parent_move_child_delta(&p_ext, &c_ext, delta);
       point_add(&pos, &new_delta);
       point_add(delta, &new_delta);
-
-      g_free(p_ext);
-      g_free(c_ext);
     }
     objchange = obj->ops->move(obj, &pos);
 

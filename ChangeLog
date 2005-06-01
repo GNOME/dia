@@ -1,3 +1,48 @@
+2005-06-01  Hans Breuer  <hans@breuer.org>
+
+	* plug-ins/python/pydia-property.c : complete refactoring of property 
+	setting, now also supports setting of property arrays
+	* plug-ins/python/pydia-*.c plug-ins/python/diamodule.c : adapt to 
+	Python namespacing conventions
+	* plug-ins/python/pydiadoc.py : use the stuff above to produce more 
+	complete UML Classes with attributes and operations
+	* plug-ins/python/otypes.py : now also show the properties of the objects
+
+	* objects/UML/class.c(umlclass_set_props) : need to update object::connections
+	(pointers), they might be changed with attributes and opertions changing
+
+	* plug-ins/python/pydia-property.c : PointArray and BezPointArray property getters
+	were broken. Apparently noone used them before.
+
+	* plug-ins/python/pydia-diagram.c plug-ins/python/pydia-diagramdata.c : moved methods
+	which only operate on the DiagramData to the latter file. To get on the DiagramData
+	object of a Diagram use diagram.data. [In C the Diagram is a subclass of DiagramData, 
+	but I don't know how to reflect that in the bindings. And for backward compatibility 
+	there also is the 'data' member.]
+
+	* objects/UML/uml.c objects/UML/umlattribute.c objects/UML/umloperation.c 
+	  objects/UML/umlparameter.c : describe enums with PropEnumData
+
+	* app/commands.c(view_show_all_callback) : if there is something selected show 
+	that instead of all exisiting objects. If there is noting or all selcted it 
+	"Show all" shows the old behaviour.
+
+	* lib/parent.[hc] lib/object.c app/disp_callbacks.c app/diagram.c : plug some memory 
+	leaks and use less allocations caused by misguided API. Also some adaption to common 
+	coding style
+
+	* objects/UML/class.h : add some comment about the brokeness of UML_MAINPOINT
+
+	* app/makefile.msc : added new icons and build as console app while 
+	not releaseing to the general public
+
+	* objects/custom/shape_info.c : use g_strdup("") for a field to be g_free()'d
+	and keep a refernce when storing the a font from style="" in s.font. This should
+	finally allow to have shapes with fully predefined text (and no 'random' crashes)
+
+	* plug-ins/gprint/diagnomeprint.c : disable GNOME_SVG until I've found a program
+	capable to interpret it's output
+
 2005-05-31  Lars Clausen  <lars@raeder.dk>
 
 	* sheets/ER.sheet.in: No more xpms referenced in sheets.

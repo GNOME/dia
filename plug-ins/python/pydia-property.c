@@ -1,6 +1,6 @@
 /* Python plug-in for dia
  * Copyright (C) 1999  James Henstridge
- * Copyright (C) 2000  Hans Breuer
+ * Copyright (C) 2000-2005  Hans Breuer
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -177,8 +177,8 @@ static PyObject * PyDia_get_PointArray (PointarrayProperty *prop)
 
   for (i = 0; i < num; i++)
     PyTuple_SetItem(ret, i, 
-                    PyDia_get_Point(&g_array_index(prop->pointarray_data,
-                                    PointProperty, i)));
+                    PyDiaPoint_New(&g_array_index(prop->pointarray_data,
+                                   Point, i)));
   return ret;
 }
 static PyObject * PyDia_get_BezPoint (BezPointProperty *prop) 
@@ -193,8 +193,8 @@ static PyObject * PyDia_get_BezPointArray (BezPointarrayProperty *prop)
 
   for (i = 0; i < num; i++)
     PyTuple_SetItem(ret, i, 
-                    PyDia_get_BezPoint(&g_array_index(prop->bezpointarray_data,
-                                       BezPointProperty, i)));
+                    PyDiaBezPoint_New(&g_array_index(prop->bezpointarray_data,
+                                      BezPoint, i)));
   return ret;
 }
 static PyObject * PyDia_get_Rect (RectProperty *prop)
@@ -208,38 +208,298 @@ static PyObject * PyDia_get_Font (FontProperty *prop)
 
 static PyObject * PyDia_get_Array (ArrayProperty *prop);
 
+static int
+PyDia_set_Bool (Property *prop, PyObject *val)
+{
+  BoolProperty *p = (BoolProperty *)prop;
+  if (PyInt_Check(val)) {
+    p->bool_data = !!PyInt_AsLong(val);
+    return 0;
+  }
+  return -1;
+}
+static int
+PyDia_set_Int (Property *prop, PyObject *val)
+{
+  IntProperty *p = (IntProperty *)prop;
+  if (PyInt_Check(val)) {
+    p->int_data = PyInt_AsLong(val);
+    return 0;
+  }
+  return -1;
+}
+static int
+PyDia_set_IntArray(Property *prop, PyObject *val)
+{
+  IntarrayProperty *p = (IntarrayProperty *)prop;
+  if (PyTuple_Check(val)) {
+    int i, len = PyTuple_Size(val);
+    g_array_set_size(p->intarray_data, len);
+    for (i = 0; i < len; i++) {
+      PyObject *o = PyTuple_GetItem(val, i);
+      g_array_index(p->intarray_data, gint, i) = PyInt_Check(o) ? PyInt_AsLong(o) : 0;
+    }
+    return 0;
+  } else if (PyList_Check(val)) {
+    int i, len = PyList_Size(val);
+    g_array_set_size(p->intarray_data, len);
+    for (i = 0; i < len; i++) {
+      PyObject *o = PyList_GetItem(val, i);
+      g_array_index(p->intarray_data, gint, i) = PyInt_Check(o) ? PyInt_AsLong(o) : 0;
+    }
+    return 0;
+  }
+  return -1;
+}
+static int
+PyDia_set_Enum (Property *prop, PyObject *val)
+{
+  EnumProperty *p = (EnumProperty *)prop;
+  /* XXX a range check would not hurt */
+  if (PyInt_Check(val)) {
+    p->enum_data = PyInt_AsLong(val);
+    return 0;
+  }
+  return -1;
+}
+static int
+PyDia_set_Color (Property *prop, PyObject *val)
+{
+  ColorProperty *p = (ColorProperty*)prop;
+  if (PyString_Check(val)) {
+    gchar *str = PyString_AsString(val);
+    PangoColor color;
+    if (pango_color_parse(&color, str)) {
+      p->color_data.red = color.red / 65535.0; 
+      p->color_data.green = color.green / 65535.0; 
+      p->color_data.blue = color.blue / 65535.0;
+      return 0;
+    } else
+      g_warning("Failed to parse color string '%s'", str);
+  } else if (PyTuple_Check (val)) {
+    int i, len = PyTuple_Size(val);
+    real f[3];
+    if (len < 3)
+      return -1;
+    for (i = 0; i < 3; i++) {
+      PyObject *o = PyTuple_GetItem(val, i);
+      if (PyFloat_Check(o))
+	f[i] = PyFloat_AsDouble(o);
+      else if (PyInt_Check(o))
+        f[i] = PyInt_AsLong(o) / 65535.;
+      else
+	f[i] = 0.0;
+    }
+    p->color_data.red = f[0]; 
+    p->color_data.green = f[1]; 
+    p->color_data.blue = f[2];
+    return 0;
+  }
+  /* also convert char/255 ? */
+  return -1;
+}
+static int
+PyDia_set_LineStyle(Property *prop, PyObject *val)
+{
+  LinestyleProperty *p = (LinestyleProperty*)prop;
+  if (PyTuple_Check(val) && PyTuple_Size(val) == 2) {
+    p->style = PyInt_AsLong(PyTuple_GetItem(val, 0));
+    p->dash  = PyInt_AsLong(PyTuple_GetItem(val, 1));
+    return 0;
+  }
+  return -1;
+}
+static int
+PyDia_set_Real(Property *prop, PyObject *val)
+{
+  RealProperty *p = (RealProperty *)prop;
+  if (PyFloat_Check(val)) {
+    p->real_data = PyFloat_AsDouble(val);
+    return 0;
+  } else if (PyInt_Check(val)) {
+    /* be tolerant for up-casting */
+    p->real_data = PyInt_AsLong(val);
+    return 0;
+  }
+  return -1;
+}
+static int
+PyDia_set_String(Property *prop, PyObject *val)
+{
+  StringProperty *p = (StringProperty *)prop;
+  if (Py_None == val) {
+    /* XXX: maybe a little dangerous, string = NULL not handle in everystring prop */
+    g_free (p->string_data);
+    p->string_data = NULL;
+    p->num_lines = 0;
+    return 0;
+  } else if (PyString_Check (val)) {
+    gchar *str = PyString_AsString (val);
+    g_free (p->string_data);
+    p->string_data = g_strdup (str);
+    p->num_lines = 1;
+    return 0;
+  }
+  return -1;
+}
+static int
+PyDia_set_Text(Property *prop, PyObject *val)
+{
+  TextProperty *p = (TextProperty *)prop;
+  if (PyString_Check (val)) {
+    gchar *str = PyString_AsString (val);
+    g_free (p->text_data);
+    p->text_data = g_strdup (str);
+    /* XXX: update size calculation ? */
+    return 0;
+  }
+  return -1;
+}
+static int
+PyDia_set_Point(Property *prop, PyObject *val)
+{
+  PointProperty *p = (PointProperty*)prop;
+  if (PyTuple_Check(val) && PyTuple_Size(val) == 2) {
+    p->point_data.x = PyFloat_AsDouble(PyTuple_GetItem(val, 0));
+    p->point_data.y = PyFloat_AsDouble(PyTuple_GetItem(val, 1));
+    return 0;
+  }
+  return -1;
+}
+static int
+PyDia_set_PointArray(Property *prop, PyObject *val)
+{
+  /* accept either tuple or list */
+  PointarrayProperty *ptp = (PointarrayProperty *)prop;
+  if (PyTuple_Check(val) || PyList_Check(val)) {
+    Point pt;
+    gboolean is_list = !PyTuple_Check(val);
+    int i, len = is_list ? PyList_Size(val) : PyTuple_Size(val);
+    gboolean is_flat = TRUE;
+    g_array_set_size(ptp->pointarray_data,len);
+    for (i = 0; i < len; i++) {
+      PyObject *o = is_list ? PyList_GetItem(val, i) : PyTuple_GetItem(val, i);
+      if (PyTuple_Check(o)) {
+	pt.x = PyFloat_AsDouble(PyTuple_GetItem(o, 0));
+	pt.y = PyFloat_AsDouble(PyTuple_GetItem(o, 1));
+        g_array_index(ptp->pointarray_data,Point,i) = pt;
+	is_flat = FALSE;
+      } else {
+	if (i % 2) {
+	  pt.x = PyFloat_AsDouble(PyTuple_GetItem(val, i-1));
+	  pt.y = PyFloat_AsDouble(PyTuple_GetItem(val, i));
+          g_array_index(ptp->pointarray_data,Point,i/2) = pt;
+	}
+      }
+    }
+    if (is_flat)
+      g_array_set_size(ptp->pointarray_data,len/2);
+    return 0;
+  }
+  return -1;
+}
+static int
+PyDia_set_BezPointArray(Property *prop, PyObject *val)
+{
+  /* accept either tuple or list */
+  BezPointarrayProperty *ptp = (BezPointarrayProperty *)prop;
+  if (PyTuple_Check(val) || PyList_Check(val)) {
+    BezPoint bpt;
+    gboolean is_list = !PyTuple_Check(val);
+    int i, len = is_list ? PyList_Size(val) : PyTuple_Size(val);
+    g_array_set_size(ptp->bezpointarray_data,len);
+    for (i = 0; i < len; i++) {
+      /* a tuple of at least (int,double,double) */
+      PyObject *o = is_list ? PyList_GetItem(val, i) : PyTuple_GetItem(val, i);
+      int tp = PyInt_AsLong(PyTuple_GetItem(o, 0));
+
+      bpt.p1.x = PyFloat_AsDouble(PyTuple_GetItem(o, 1));
+      bpt.p1.y = PyFloat_AsDouble(PyTuple_GetItem(o, 2));
+      if (BEZ_CURVE_TO == tp) {
+        bpt.type = BEZ_CURVE_TO;
+        bpt.p2.x = PyFloat_AsDouble(PyTuple_GetItem(o, 3));
+        bpt.p2.y = PyFloat_AsDouble(PyTuple_GetItem(o, 4));
+        bpt.p3.x = PyFloat_AsDouble(PyTuple_GetItem(o, 5));
+        bpt.p3.y = PyFloat_AsDouble(PyTuple_GetItem(o, 6));
+      } else {
+        if (0 == i && tp != BEZ_MOVE_TO)
+          g_warning("First bezpoint must be BEZ_MOVE_TO");
+        if (0 < i && tp != BEZ_LINE_TO)
+          g_warning("Further bezpoint must be BEZ_LINE_TO or BEZ_CURVE_TO");
+
+        bpt.type = (0 == i) ? BEZ_MOVE_TO : BEZ_LINE_TO;
+        /* not strictly needed */
+        bpt.p2 = bpt.p3 = bpt.p1;
+      }
+      g_array_index(ptp->bezpointarray_data,BezPoint,i) = bpt;
+    }
+    return 0;
+  }
+  return -1;
+}
+static int
+PyDia_set_Rect(Property *prop, PyObject *val)
+{
+  RectProperty *p = (RectProperty*)prop;
+  if (PyTuple_Check(val) && PyTuple_Size(val) == 4) {
+    p->rect_data.left = PyFloat_AsDouble(PyTuple_GetItem(val, 0));
+    p->rect_data.top = PyFloat_AsDouble(PyTuple_GetItem(val, 1));
+    p->rect_data.right = PyFloat_AsDouble(PyTuple_GetItem(val, 2));
+    p->rect_data.bottom = PyFloat_AsDouble(PyTuple_GetItem(val, 3));
+    return 0;
+  }
+  return -1;
+}
+
+static int PyDia_set_Array(Property*, PyObject*);
+
 struct {
   char *type;
   PyObject *(*propget)();
+  int (*propset)(Property*, PyObject*);
   GQuark quark;
 } prop_type_map [] =
 {
   { PROP_TYPE_CHAR, PyDia_get_Char },
-  { PROP_TYPE_BOOL, PyDia_get_Bool },
-  { PROP_TYPE_INT,  PyDia_get_Int },
-  { PROP_TYPE_INTARRAY, PyDia_get_IntArray },
-  { PROP_TYPE_ENUM, PyDia_get_Enum },
-  { PROP_TYPE_ENUMARRAY, PyDia_get_IntArray }, /* Enum == Int */
-  { PROP_TYPE_LINESTYLE, PyDia_get_LineStyle },
-  { PROP_TYPE_REAL, PyDia_get_Real },
-  { PROP_TYPE_STRING, PyDia_get_String },
+  { PROP_TYPE_BOOL, PyDia_get_Bool, PyDia_set_Bool },
+  { PROP_TYPE_INT,  PyDia_get_Int, PyDia_set_Int },
+  { PROP_TYPE_INTARRAY, PyDia_get_IntArray, PyDia_set_IntArray },
+  { PROP_TYPE_ENUM, PyDia_get_Enum, PyDia_set_Enum },
+  { PROP_TYPE_ENUMARRAY, PyDia_get_IntArray, PyDia_set_IntArray }, /* Enum == Int */
+  { PROP_TYPE_LINESTYLE, PyDia_get_LineStyle, PyDia_set_LineStyle },
+  { PROP_TYPE_REAL, PyDia_get_Real, PyDia_set_Real },
+  { PROP_TYPE_STRING, PyDia_get_String, PyDia_set_String },
   { PROP_TYPE_STRINGLIST, PyDia_get_StringList },
-  { PROP_TYPE_FILE, PyDia_get_String },
+  { PROP_TYPE_FILE, PyDia_get_String, PyDia_set_String },
   { PROP_TYPE_MULTISTRING, PyDia_get_String },
-  { PROP_TYPE_TEXT, PyDia_get_Text },
-  { PROP_TYPE_POINT, PyDia_get_Point },
-  { PROP_TYPE_POINTARRAY, PyDia_get_PointArray },
+  { PROP_TYPE_TEXT, PyDia_get_Text, PyDia_set_Text },
+  { PROP_TYPE_POINT, PyDia_get_Point, PyDia_set_Point },
+  { PROP_TYPE_POINTARRAY, PyDia_get_PointArray, PyDia_set_PointArray },
   { PROP_TYPE_BEZPOINT, PyDia_get_BezPoint },
-  { PROP_TYPE_BEZPOINTARRAY, PyDia_get_BezPointArray },
-  { PROP_TYPE_RECT, PyDia_get_Rect },
+  { PROP_TYPE_BEZPOINTARRAY, PyDia_get_BezPointArray, PyDia_set_BezPointArray },
+  { PROP_TYPE_RECT, PyDia_get_Rect, PyDia_set_Rect },
   { PROP_TYPE_ARROW, PyDia_get_Arrow },
-  { PROP_TYPE_COLOUR, PyDia_get_Color },
+  { PROP_TYPE_COLOUR, PyDia_get_Color, PyDia_set_Color },
   { PROP_TYPE_FONT, PyDia_get_Font },
-  { PROP_TYPE_SARRAY, PyDia_get_Array },
-  { PROP_TYPE_DARRAY, PyDia_get_Array }
+  { PROP_TYPE_SARRAY, PyDia_get_Array, PyDia_set_Array },
+  { PROP_TYPE_DARRAY, PyDia_get_Array, PyDia_set_Array }
 };
 
-static PyObject * PyDia_get_Array (ArrayProperty *prop)
+void
+ensure_quarks(void)
+{
+  static gboolean type_quarks_calculated = FALSE;
+  int i;
+  if (!type_quarks_calculated) {
+    for (i = 0; i < G_N_ELEMENTS(prop_type_map); i++) {
+      prop_type_map[i].quark = g_quark_from_string (prop_type_map[i].type);
+    }
+    type_quarks_calculated = TRUE;
+  }
+}
+
+static PyObject * 
+PyDia_get_Array (ArrayProperty *prop)
 {
   PyObject *ret;
   int num, num_props;
@@ -285,13 +545,79 @@ static PyObject * PyDia_get_Array (ArrayProperty *prop)
   return ret;
 }
 
+static int
+PyDia_set_Array (Property *prop, PyObject *val)
+{
+  ArrayProperty *p = (ArrayProperty *)prop;
+  guint i, num_props = p->ex_props->len;
+  PyDiaPropSetFunc *setters = g_new0(PyDiaPropSetFunc, num_props);
+  int ret = 0;
+
+  /* resolve the getter functions once */
+  for (i = 0; i < num_props; i++) {
+    Property *ex = g_ptr_array_index(p->ex_props, i);
+    int j;
+    for (j = 0; j < G_N_ELEMENTS(prop_type_map); j++) {
+      if (prop_type_map[j].quark == ex->type_quark)
+	setters[i] = (PyDiaPropSetFunc)prop_type_map[j].propset;
+    }
+    if (!setters[i]) {
+      g_warning("No setter for '%s'", ex->type);
+      g_free(setters);
+      return -1;
+    }
+  }
+  /* tuple or list containing tuples */
+  if (PyTuple_Check(val) || PyList_Check(val)) {
+    gboolean is_list = !PyTuple_Check(val);
+    guint len = is_list ? PyList_Size(val) : PyTuple_Size(val);
+    for (i = 0; i < p->records->len; i++) {
+      GPtrArray *record = g_ptr_array_index(p->records, i);
+      guint j;
+      for (j = 0; j < num_props; j++) {
+	Property *inner =g_ptr_array_index(record,j);
+	inner->ops->free(inner);
+      }
+      g_ptr_array_free(record, TRUE);
+    }
+    g_ptr_array_set_size(p->records, 0);
+    for (i = 0; i < len; i++) {
+      PyObject *t = is_list ? PyList_GetItem(val, i) : PyTuple_GetItem(val, i);
+      GPtrArray *record = g_ptr_array_new();
+      guint j;
+      if (!PyTuple_Check(t) || PyTuple_Size(t) != num_props) {
+        g_warning("PyDia_set_Array: no tuple or wrong size.");
+	ret = -1;
+	break;
+      }
+      g_ptr_array_set_size(record, 0);
+      for (j = 0; j < num_props; j++) {
+	Property *ex = g_ptr_array_index(p->ex_props, j);
+	Property *inner = ex->ops->copy(ex);
+	PyObject *v = PyTuple_GetItem(t, j);
+
+	if (0 != setters[j] (inner, v)) {
+	  inner->ops->free(inner);
+	  ret = -1;
+	  break;
+	}
+	g_ptr_array_add(record, inner);
+      }
+      g_ptr_array_add(p->records, record);
+      if (ret != 0)
+        break;
+    }
+  }
+  g_free(setters);
+  return ret;
+}
+
 /*
  * GetAttr
  */
 static PyObject *
 PyDiaProperty_GetAttr(PyDiaProperty *self, gchar *attr)
 {
-  static gboolean type_quarks_calculated = FALSE;
 
   if (!strcmp(attr, "__members__"))
     return Py_BuildValue("[ssss]", "name", "type", "value", "visible");
@@ -304,13 +630,7 @@ PyDiaProperty_GetAttr(PyDiaProperty *self, gchar *attr)
   else if (!strcmp(attr, "value")) {
     int i;
 
-    if (!type_quarks_calculated) {
-      for (i = 0; i < G_N_ELEMENTS(prop_type_map); i++) {
-        prop_type_map[i].quark = g_quark_from_string (prop_type_map[i].type);
-      }
-      type_quarks_calculated = TRUE;
-    }
-
+    ensure_quarks();
     for (i = 0; i < G_N_ELEMENTS(prop_type_map); i++)
       if (prop_type_map[i].quark == self->property->type_quark)
         return prop_type_map[i].propget(self->property);
@@ -334,7 +654,6 @@ int PyDiaProperty_ApplyToObject (DiaObject   *object,
                                  Property *prop, 
                                  PyObject *val)
 {
-  /* XXX: implement by means of prop_type_map or ... */
   PyObject *obj = NULL;
   int ret = -1;
 
@@ -342,215 +661,35 @@ int PyDiaProperty_ApplyToObject (DiaObject   *object,
     /* must be a Property object ? Or PyDiaRect etc ? */
     Property* inprop = ((PyDiaProperty*)val)->property;
 
-    if (0 == strcmp (prop->type, inprop->type)) 
-      {
-        GPtrArray *plist;
-        /* apply it */
-        prop->ops->free (prop); /* release this one */
-        prop = inprop->ops->copy(inprop);
-        /* apply property to object */
-        plist = prop_list_from_single (prop);
-        object->ops->set_props(object, plist);
-        prop_list_free (plist);
-
-        return 0;
-      }
-    else
-      {
-         g_warning("PyDiaProperty_ApplyToObject : no property conversion %s -> %s",
-	    inprop->type, prop->type);
-      }
-  } else if (PyString_Check (val)) {
-    gchar    *str = PyString_AsString (val);
-
-    if (   0 == strcmp (PROP_TYPE_STRING, prop->type)
-        || 0 == strcmp (PROP_TYPE_FILE, prop->type)
-        || 0 == strcmp (PROP_TYPE_MULTISTRING, prop->type)) 
-      {
-        StringProperty *p = (StringProperty *)prop;
-        g_free (p->string_data);
-        p->string_data = g_strdup (str);
-        p->num_lines = 1;
-        ret = 0; /* everything fine */
-      } 
-    else if (0 == strcmp (PROP_TYPE_TEXT, prop->type)) 
-      {
-        TextProperty *p = (TextProperty *)prop;
-        g_free (p->text_data);
-        p->text_data = g_strdup (str);
-        /* XXX: update size calculation ? */
-        ret = 0; /* got it */
-      }
-    else if (0 == strcmp (PROP_TYPE_COLOUR, prop->type))
-      {
-        PangoColor color;
-        if (pango_color_parse(&color, str))
-          {
-            ColorProperty *p = (ColorProperty*)prop;
-            p->color_data.red = color.red / 65535.0; 
-            p->color_data.green = color.green / 65535.0; 
-            p->color_data.blue = color.blue / 65535.0;
-            ret = 0;
-          }
-        else
-          g_warning("Failed to parse color string '%s'", str);
-      }
-  } else if (PyFloat_Check (val)) {
-    if (0 == strcmp(PROP_TYPE_REAL, prop->type))
-      {
-        RealProperty *p = (RealProperty*)prop;
-        p->real_data = PyFloat_AsDouble(val);
-        ret = 0;
-      }
-    else if (0 == strcmp(PROP_TYPE_INT, prop->type))
-      {
-        IntProperty *p = (IntProperty*)prop;
-        p->int_data = (int)PyFloat_AsDouble(val);
-        ret = 0;
-      }
-    else
-      {
-         g_warning("PyDiaProperty_ApplyToObject : no conversion %s -> %s",
-	    key, prop->type);
-      }
-  } else if (PyInt_Check(val)) {
-    if (0 == strcmp(PROP_TYPE_BOOL, prop->type))
-      {
-        BoolProperty *p = (BoolProperty*)prop;
-        p->bool_data = !!PyInt_AsLong(val);
-        ret = 0;
-      }
-    else if (0 == strcmp(PROP_TYPE_ENUM, prop->type))
-      {
-        EnumProperty *p = (EnumProperty*)prop;
-        p->enum_data = PyInt_AsLong(val);
-        ret = 0;
-      }
-    else if (0 == strcmp(PROP_TYPE_INT, prop->type))
-      {
-        IntProperty *p = (IntProperty*)prop;
-        p->int_data = (int)PyInt_AsLong(val);
-        ret = 0;
-      }
-    else
-      {
-         g_warning("PyDiaProperty_ApplyToObject : no conversion %s -> %s",
-	    key, prop->type);
-      }
-  } else if (PyTuple_Check (val)) {
-    int i, len = PyTuple_Size(val);
-    double *p = g_new(real, len);
-
-    for (i = 0; i < len; i++)
-      {
-         PyObject *o = PyTuple_GetItem(val, i);
-         if (PyInt_Check(o))
-           p[i] = PyInt_AsLong(o);
-         else if (PyFloat_Check(o))
-           p[i] = PyFloat_AsDouble(o);
-         else
-           {
-             g_warning("Tuple(%d) with type '%s' ignoring",
-                       i, ((PyTypeObject*)PyObject_Type(o))->tp_name);
-             p[i] = 0.0;
-           }
-      }
-    if (2 == len && 0 == strcmp (PROP_TYPE_LINESTYLE, prop->type))
-      {
-        LinestyleProperty *ptp = (LinestyleProperty*)prop;
-        ptp->style = (int)p[0];
-        ptp->dash  = p[1];
-        ret = 0;
-      }
-    else if (2 >= len && 0 == strcmp (PROP_TYPE_POINT, prop->type))
-      {
-        PointProperty *ptp = (PointProperty*)prop;
-        ptp->point_data.x = p[0];
-        ptp->point_data.y = p[1];
-        ret = 0;
-      }
-    else if (3 == len && 0 == strcmp(PROP_TYPE_COLOUR, prop->type))
-      {
-        ColorProperty *ctp = (ColorProperty*)prop;
-        ctp->color_data.red   = p[0];
-        ctp->color_data.green = p[1];
-        ctp->color_data.blue  = p[2];
-        ret = 0;
-      }
-    else if (4 >= len && 0 == strcmp(PROP_TYPE_RECT, prop->type))
-      {
-        RectProperty* rtp = (RectProperty*)prop;
-        rtp->rect_data.left   = p[0];
-        rtp->rect_data.top    = p[1];
-        rtp->rect_data.right  = p[2];
-        rtp->rect_data.bottom = p[3];
-        ret = 0;
-      }
-    else
-      {
-         /*? PROP_TYPE_POINTARRAY, PROP_TYPE_BEZPOINTARRAY, ... */
-         g_warning("PyDiaProperty_ApplyToObject : no tuple conversion %s -> %s",
-	    key, prop->type);
-     }
-    g_free (p);
-  } else if PyList_Check(val) {
-    int i, len = PyList_Size(val);
-
-    if (0 == strcmp(PROP_TYPE_POINTARRAY, prop->type))
-      {
-        PointarrayProperty *ptp = (PointarrayProperty *)prop;
-        Point pt;
-        g_array_set_size(ptp->pointarray_data,len);
-        for (i = 0; i < len; i++)
-          {
-            PyObject *o = PyList_GetItem(val, i);
-
-            pt.x = PyFloat_AsDouble(PyTuple_GetItem(o, 0));
-            pt.y = PyFloat_AsDouble(PyTuple_GetItem(o, 1));
-            g_array_index(ptp->pointarray_data,Point,i) = pt;
-          }
-        ret = 0;
-      }
-    else if (0 == strcmp(PROP_TYPE_BEZPOINTARRAY, prop->type))
-      {
-        BezPointarrayProperty *ptp = (BezPointarrayProperty *)prop;
-        BezPoint bpt;
-        g_array_set_size(ptp->bezpointarray_data,len);
-        for (i = 0; i < len; i++)
-          {
-            /* a tuple of at least (int,double,double) */
-            PyObject *o = PyList_GetItem(val, i);
-            int tp = PyInt_AsLong(PyTuple_GetItem(o, 0));
-
-            bpt.p1.x = PyFloat_AsDouble(PyTuple_GetItem(o, 1));
-            bpt.p1.y = PyFloat_AsDouble(PyTuple_GetItem(o, 2));
-            if (BEZ_CURVE_TO == tp)
-              {
-                 bpt.type = BEZ_CURVE_TO;
-                 bpt.p2.x = PyFloat_AsDouble(PyTuple_GetItem(o, 3));
-                 bpt.p2.y = PyFloat_AsDouble(PyTuple_GetItem(o, 4));
-                 bpt.p3.x = PyFloat_AsDouble(PyTuple_GetItem(o, 5));
-                 bpt.p3.y = PyFloat_AsDouble(PyTuple_GetItem(o, 6));
-              }
-            else
-              {
-                 if (0 == i && tp != BEZ_MOVE_TO)
-                   g_warning("First bezpoint must be BEZ_MOVE_TO");
-                 if (0 < i && tp != BEZ_LINE_TO)
-                   g_warning("Further bezpoint must be BEZ_LINE_TO or BEZ_CURVE_TO");
-
-                 bpt.type = (0 == i) ? BEZ_MOVE_TO : BEZ_LINE_TO;
-                 /* not strictly needed */
-                 bpt.p2 = bpt.p3 = bpt.p1;
-              }
-
-            g_array_index(ptp->bezpointarray_data,BezPoint,i) = bpt;
-          }
-        ret = 0;
-      }
+    if (0 == strcmp (prop->type, inprop->type)) {
+      GPtrArray *plist;
+      /* apply it */
+      prop->ops->free (prop); /* release this one */
+      prop = inprop->ops->copy(inprop);
+      /* apply property to object */
+      plist = prop_list_from_single (prop);
+      object->ops->set_props(object, plist);
+      prop_list_free (plist);
+      return 0;
+    } else {
+      g_warning("PyDiaProperty_ApplyToObject : no property conversion %s -> %s",
+	             inprop->type, prop->type);
+    }
   } else {
-    g_warning("PyDiaProperty_ApplyToObject : no conversion %s -> %s",
-	key, prop->type);
+    int i;
+    ensure_quarks();
+    for (i = 0; i < G_N_ELEMENTS(prop_type_map); i++) {
+      if (prop_type_map[i].quark == prop->type_quark) {
+	if (!prop_type_map[i].propset)
+	  g_warning("Setter for '%s' not implemented.", prop_type_map[i].type);
+	else if (0 == prop_type_map[i].propset(prop, val))
+	  ret = 0;
+	break;
+      }
+    }
+    if (ret != 0)
+      g_warning("PyDiaProperty_ApplyToObject : no conversion %s -> %s",
+	             key, prop->type);
   }
 
   if (0 == ret) {
@@ -589,7 +728,7 @@ PyDiaProperty_Str(PyDiaProperty *self)
 PyTypeObject PyDiaProperty_Type = {
     PyObject_HEAD_INIT(&PyType_Type)
     0,
-    "DiaProperty",
+    "dia.Property",
     sizeof(PyDiaProperty),
     0,
     (destructor)PyDiaProperty_Dealloc,
@@ -604,6 +743,10 @@ PyTypeObject PyDiaProperty_Type = {
     (hashfunc)PyDiaProperty_Hash,
     (ternaryfunc)0,
     (reprfunc)PyDiaProperty_Str,
-    0L,0L,0L,0L,
-    NULL
+    (getattrofunc)0,
+    (setattrofunc)0,
+    (PyBufferProcs *)0,
+    0L, /* Flags */
+    "Interface to so called StdProps, the mechanism to control "
+    "most of Dia's canvas objects properties. "
 };

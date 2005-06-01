@@ -974,15 +974,31 @@ view_show_all_callback(gpointer data, guint action, GtkWidget *widget)
   width = dia_renderer_get_width_pixels (ddisp->renderer);
   height = dia_renderer_get_height_pixels (ddisp->renderer);
 
-  magnify_x = (real)width /
-    (dia->data->extents.right - dia->data->extents.left) / ddisp->zoom_factor;
-  magnify_y = (real)height /
-    (dia->data->extents.bottom - dia->data->extents.top) / ddisp->zoom_factor;
+  /* if there is something selected show that instead of all exisiting objects */
+  if (dia->data->selected) {
+    GList *list = dia->data->selected;
+    Rectangle extents = ((DiaObject*)list->data)->bounding_box;
+    list = g_list_next(list);
+    while (list) {
+      DiaObject *obj = (DiaObject *)list->data;
+      rectangle_union(&extents, &(obj->bounding_box));
+      list = g_list_next(list);
+    }
+    magnify_x = (real)width / (extents.right - extents.left) / ddisp->zoom_factor;
+    magnify_y = (real)height / (extents.bottom - extents.top) / ddisp->zoom_factor;
+    middle.x = extents.left + (extents.right - extents.left) / 2.0;
+    middle.y = extents.top + (extents.bottom - extents.top) / 2.0;
+  } else {
+    magnify_x = (real)width /
+      (dia->data->extents.right - dia->data->extents.left) / ddisp->zoom_factor;
+    magnify_y = (real)height /
+      (dia->data->extents.bottom - dia->data->extents.top) / ddisp->zoom_factor;
 
-  middle.x = dia->data->extents.left +
-    (dia->data->extents.right - dia->data->extents.left) / 2.0;
-  middle.y = dia->data->extents.top +
-    (dia->data->extents.bottom - dia->data->extents.top) / 2.0;
+    middle.x = dia->data->extents.left +
+      (dia->data->extents.right - dia->data->extents.left) / 2.0;
+    middle.y = dia->data->extents.top +
+      (dia->data->extents.bottom - dia->data->extents.top) / 2.0;
+  }
 
   ddisplay_zoom (ddisp, &middle, 
 		 ((magnify_x<magnify_y)?magnify_x:magnify_y)/1.05);

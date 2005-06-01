@@ -31,6 +31,8 @@
 
 #include <libgnomeprint/gnome-print.h>
 
+#undef USE_GNOME_SVG /* apparently gnome-print SVG is quite broken */
+
 /* dia export funtion */
 static void
 export_data(DiagramData *data, const gchar *filename, 
@@ -123,6 +125,7 @@ static DiaExportFilter pdf_export_filter = {
     "gnome-pdf"
 };
 
+#ifdef USE_GNOME_SVG
 static const gchar *svg_extensions[] = { "svg", NULL };
 static DiaExportFilter svg_export_filter = {
     N_("GNOME Scalable Vector Graphic"),
@@ -131,6 +134,7 @@ static DiaExportFilter svg_export_filter = {
     (void*)2,
     "gnome-svg"
 };
+#endif
 
 static gboolean
 _plugin_can_unload (PluginInfo *info)
@@ -143,8 +147,9 @@ _plugin_unload (PluginInfo *info)
 {
   filter_unregister_export(&ps_export_filter);
   filter_unregister_export(&pdf_export_filter);
+#ifdef USE_GNOME_SVG
   filter_unregister_export(&svg_export_filter);
-
+#endif
   /* anything more to do? */
 }
 
@@ -163,7 +168,9 @@ dia_plugin_init(PluginInfo *info)
 
   filter_register_export(&ps_export_filter);
   filter_register_export(&pdf_export_filter);
+#ifdef USE_GNOME_SVG
   filter_register_export(&svg_export_filter);
+#endif
 
   return DIA_PLUGIN_INIT_OK;
 }

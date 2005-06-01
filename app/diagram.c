@@ -46,13 +46,13 @@
 
 static GList *open_diagrams = NULL;
 
-struct _object_extent
+struct _ObjectExtent
 {
   DiaObject *object;
-  Rectangle *extent;
+  Rectangle extent;
 };
 
-typedef struct _object_extent object_extent;
+typedef struct _ObjectExtent ObjectExtent;
 
 static gint diagram_parent_sort_cb(gconstpointer a, gconstpointer b);
 
@@ -909,17 +909,17 @@ strip_connections(DiaObject *obj, GList *not_strip_list, Diagram *dia)
 static gint 
 diagram_parent_sort_cb(gconstpointer _a, gconstpointer _b)
 {
-  object_extent **a = (object_extent **)_a;
-  object_extent **b = (object_extent **)_b;
+  ObjectExtent **a = (ObjectExtent **)_a;
+  ObjectExtent **b = (ObjectExtent **)_b;
 
-  if ((*a)->extent->left < (*b)->extent->left)
+  if ((*a)->extent.left < (*b)->extent.left)
     return 1;
-  else if ((*a)->extent->left > (*b)->extent->left)
+  else if ((*a)->extent.left > (*b)->extent.left)
     return -1;
   else
-    if ((*a)->extent->top < (*b)->extent->top)
+    if ((*a)->extent.top < (*b)->extent.top)
       return 1;
-    else if ((*a)->extent->top > (*b)->extent->top)
+    else if ((*a)->extent.top > (*b)->extent.top)
       return -1;
     else
       return 0;
@@ -933,48 +933,48 @@ void diagram_parent_selected(Diagram *dia)
   GList *list = dia->data->selected;
   int length = g_list_length(list);
   int idx, idx2;
-  object_extent *oe;
+  ObjectExtent *oe;
   gboolean any_parented = FALSE;
-  GPtrArray *rects = g_ptr_array_sized_new(length);
+  GPtrArray *extents = g_ptr_array_sized_new(length);
   while (list)
   {
-    oe = g_new(object_extent, 1);
+    oe = g_new(ObjectExtent, 1);
     oe->object = list->data;
-    oe->extent = parent_handle_extents(list->data);
-    g_ptr_array_add(rects, oe);
+    parent_handle_extents(list->data, &oe->extent);
+    g_ptr_array_add(extents, oe);
     list = g_list_next(list);
   }
-  /* sort all the objects by its left position */
-  g_ptr_array_sort(rects, diagram_parent_sort_cb);
+  /* sort all the objects by their left position */
+  g_ptr_array_sort(extents, diagram_parent_sort_cb);
 
   for (idx = 0; idx < length; idx++)
   {
-    object_extent *rect = g_ptr_array_index(rects, idx);
-    if (rect->object->parent)
+    ObjectExtent *oe1 = g_ptr_array_index(extents, idx);
+    if (oe1->object->parent)
       continue;
 
     for (idx2 = idx + 1; idx2 < length; idx2++)
     {
-      object_extent *rect2 = g_ptr_array_index(rects, idx2);
-      if (!rect2->object->can_parent)
+      ObjectExtent *oe2 = g_ptr_array_index(extents, idx2);
+      if (!oe2->object->can_parent)
         continue;
 
-      if (rect->extent->right <= rect2->extent->right
-        && rect->extent->bottom <= rect2->extent->bottom)
+      if (oe1->extent.right <= oe2->extent.right
+        && oe1->extent.bottom <= oe2->extent.bottom)
       {
 	Change *change;
-	change = undo_parenting(dia, rect2->object, rect->object, TRUE);
+	change = undo_parenting(dia, oe2->object, oe1->object, TRUE);
 	(change->apply)(change, dia);
 	any_parented = TRUE;
 	/*
-        rect->object->parent = rect2->object;
-	rect2->object->children = g_list_append(rect2->object->children, rect->object);
+        oe1->object->parent = oe2->object;
+	oe2->object->children = g_list_append(oe2->object->children, oe1->object);
 	*/
 	break;
       }
     }
   }
-  g_ptr_array_free(rects, TRUE);
+  g_ptr_array_free(extents, TRUE);
   if (any_parented) {
     diagram_modified(dia);
     diagram_flush(dia);

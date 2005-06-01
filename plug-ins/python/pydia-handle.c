@@ -64,7 +64,7 @@ PyDiaHandle_Connect(PyDiaHandle *self, PyObject *args)
 {
   PyDiaObject *obj;
 
-  if (!PyArg_ParseTuple(args, "O:DiaHandle.connect", &obj))
+  if (!PyArg_ParseTuple(args, "O:Handle.connect", &obj))
 	return NULL;
 
   if (PyDiaConnectionPoint_Check (obj)) {
@@ -116,7 +116,7 @@ PyDiaHandle_GetAttr(PyDiaHandle *self, gchar *attr)
 PyTypeObject PyDiaHandle_Type = {
     PyObject_HEAD_INIT(&PyType_Type)
     0,
-    "DiaHandle",
+    "dia.Handle",
     sizeof(PyDiaHandle),
     0,
     (destructor)PyDiaHandle_Dealloc,
@@ -131,6 +131,9 @@ PyTypeObject PyDiaHandle_Type = {
     (hashfunc)PyDiaHandle_Hash,
     (ternaryfunc)0,
     (reprfunc)0,
-    0L,0L,0L,0L,
-    NULL
+    (getattrofunc)0,
+    (setattrofunc)0,
+    (PyBufferProcs *)0,
+    0L, /* Flags */
+    "A handle is used to connect objects or for object resizing."
 };

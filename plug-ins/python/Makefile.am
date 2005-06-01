@@ -58,6 +58,7 @@ pkgdata_DATA = python-startup.py
 pyplugindir = $(pkgdatadir)/python
 pyplugin_DATA = \
 	gtkcons.py \
+	codegen.py \
 	diasvg.py \
 	diasvg_import.py \
 	group_props.py \

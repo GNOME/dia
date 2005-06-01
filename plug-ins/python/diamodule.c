@@ -398,18 +398,32 @@ PyDia_Message (PyObject *self, PyObject *args)
 }
 
 static PyMethodDef dia_methods[] = {
-    { "group_create", PyDia_GroupCreate, 1 },
-    { "diagrams", PyDia_Diagrams, 1 },
-    { "load", PyDia_Load, 1 },
-    { "message", PyDia_Message, 1 },
-    { "new", PyDia_New, 1 },
-    { "get_object_type", PyDia_GetObjectType, 1 },
-    { "registered_types", PyDia_RegisteredTypes, 1 },
-    { "active_display", PyDia_ActiveDisplay, 1 },
-    { "update_all", PyDia_UpdateAll, 1 },
-    { "register_export", PyDia_RegisterExport, 1 },
-    { "register_import", PyDia_RegisterImport, 1 },
-    { "register_callback", PyDia_RegisterCallback, 1},
+    { "group_create", PyDia_GroupCreate, METH_VARARGS,
+      "create a group containing the given list of dia.Object(s)" },
+    { "diagrams", PyDia_Diagrams, METH_VARARGS,
+      "returns the list of currently open diagrams" },
+    { "load", PyDia_Load, METH_VARARGS,
+      "loads a diagram from the given filename" },
+    { "message", PyDia_Message, METH_VARARGS,
+      "popup a dialog with given message" },
+    { "new", PyDia_New, METH_VARARGS,
+      "create an empty diagram" },
+    { "get_object_type", PyDia_GetObjectType, METH_VARARGS,
+      "from a type name like \"Standard - Line\" return the factory to create objects of that type, see: DiaObjectType" },
+    { "registered_types", PyDia_RegisteredTypes, METH_VARARGS,
+      "a dictionary of all registered object factories, aka. DiaObjectType" },
+    { "active_display", PyDia_ActiveDisplay, METH_VARARGS,
+      "delivers the currently active display 'dia.Display' or None" },
+    { "update_all", PyDia_UpdateAll, METH_VARARGS,
+      "force a global update of all existing diagrams" },
+    { "register_export", PyDia_RegisterExport, METH_VARARGS,
+      "allows to register an export filter written in Python. It needs to conform to the DiaRenderer interface." },
+    { "register_import", PyDia_RegisterImport, METH_VARARGS,
+      "allows to register an import filter written in Python, that is mainly a callback function which fills the"
+      "given DiaDiagramData from the given filename" },
+    { "register_callback", PyDia_RegisterCallback, METH_VARARGS,
+      "register a callback function which appears in the menu. Depending on the menu path used during registration"
+      "the callback gets called with the current DiaDiagramData object" },
     { NULL, NULL }
 };
 
@@ -449,45 +463,52 @@ initdia(void)
     m = Py_InitModule("dia", dia_methods);
     d = PyModule_GetDict(m);
 
-    PyDict_SetItemString(d, "DiaDiagramType",
+    /* 
+     * The postfix 'Type' should not be there (one obvious exception, but there
+     * it isn't a Postfix). That is: names here and in the respective 
+     * PyTypeObject must match.
+     * The extra namespacing (prefix 'Dia') isn't necessary either, we use the
+     * pythonesque namespacing instead.
+     */
+    PyDict_SetItemString(d, "Diagram",
 			 (PyObject *)&PyDiaDiagram_Type);
-    PyDict_SetItemString(d, "DiaDisplayType",
+    PyDict_SetItemString(d, "Display",
 			 (PyObject *)&PyDiaDisplay_Type);
-    PyDict_SetItemString(d, "DiaLayerType",
+    PyDict_SetItemString(d, "Layer",
 			 (PyObject *)&PyDiaLayer_Type);
-    PyDict_SetItemString(d, "DiaObjectType",
+    PyDict_SetItemString(d, "Object",
 			 (PyObject *)&PyDiaObject_Type);
-    PyDict_SetItemString(d, "DiaObjectTypeType",
+    PyDict_SetItemString(d, "ObjectType",
 			 (PyObject *)&PyDiaObjectType_Type);
-    PyDict_SetItemString(d, "DiaConnectionPointType",
+    PyDict_SetItemString(d, "ConnectionPoint",
 			 (PyObject *)&PyDiaConnectionPoint_Type);
-    PyDict_SetItemString(d, "DiaHandleType",
+    PyDict_SetItemString(d, "Handle",
 			 (PyObject *)&PyDiaHandle_Type);
-    PyDict_SetItemString(d, "DiaExportFilter",
+    PyDict_SetItemString(d, "ExportFilter",
 			 (PyObject *)&PyDiaExportFilter_Type);
-    PyDict_SetItemString(d, "DiaDiagramData",
+    PyDict_SetItemString(d, "DiagramData",
 			 (PyObject *)&PyDiaDiagramData_Type);
-    PyDict_SetItemString(d, "DiaPoint",
+    PyDict_SetItemString(d, "Point",
 			 (PyObject *)&PyDiaPoint_Type);
-    PyDict_SetItemString(d, "DiaRectangle",
+    PyDict_SetItemString(d, "Rectangle",
 			 (PyObject *)&PyDiaRectangle_Type);
-    PyDict_SetItemString(d, "DiaBezPoint",
+    PyDict_SetItemString(d, "BezPoint",
 			 (PyObject *)&PyDiaBezPoint_Type);
-    PyDict_SetItemString(d, "DiaFont",
+    PyDict_SetItemString(d, "Font",
 			 (PyObject *)&PyDiaFont_Type);
-    PyDict_SetItemString(d, "DiaColor",
+    PyDict_SetItemString(d, "Color",
 			 (PyObject *)&PyDiaColor_Type);
-    PyDict_SetItemString(d, "DiaImage",
+    PyDict_SetItemString(d, "Image",
 			 (PyObject *)&PyDiaImage_Type);
-    PyDict_SetItemString(d, "DiaProperty",
+    PyDict_SetItemString(d, "Property",
 			 (PyObject *)&PyDiaProperty_Type);
-    PyDict_SetItemString(d, "DiaProperties",
+    PyDict_SetItemString(d, "Properties",
 			 (PyObject *)&PyDiaProperties_Type);
-    PyDict_SetItemString(d, "DiaError",
+    PyDict_SetItemString(d, "Error",
 			 (PyObject *)&PyDiaError_Type);
-    PyDict_SetItemString(d, "DiaArrow",
+    PyDict_SetItemString(d, "Arrow",
 			 (PyObject *)&PyDiaArrow_Type);
-    PyDict_SetItemString(d, "DiaText",
+    PyDict_SetItemString(d, "Text",
 			 (PyObject *)&PyDiaText_Type);
 
     if (PyErr_Occurred())

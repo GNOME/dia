@@ -135,23 +135,20 @@ GList *parent_list_affected(GList *obj_list)
   going any further
 
   returns TRUE if resizing was obstructed*/
-gboolean parent_handle_move_out_check(DiaObject *object, Point *to)
+gboolean 
+parent_handle_move_out_check(DiaObject *object, Point *to)
 {
-  Rectangle *p_ext, *c_ext;
+  Rectangle p_ext, c_ext;
   Point new_delta;
 
   if (!object->parent)
     return FALSE;
 
-  p_ext = parent_handle_extents(object->parent);
-  c_ext = parent_point_extents(to);
+  parent_handle_extents(object->parent, &p_ext);
+  parent_point_extents(to, &c_ext);
 
-
-  new_delta = parent_move_child_delta(p_ext, c_ext, NULL);
+  new_delta = parent_move_child_delta(&p_ext, &c_ext, NULL);
   point_add(to, &new_delta);
-
-  g_free(p_ext);
-  g_free(c_ext);
 
   if (new_delta.x || new_delta.y)
     return TRUE;
@@ -167,24 +164,27 @@ gboolean parent_handle_move_out_check(DiaObject *object, Point *to)
 gboolean parent_handle_move_in_check(DiaObject *object, Point *to, Point *start_at)
 {
   GList *list = object->children;
-  Rectangle *common_ext = NULL;
-  Rectangle *p_ext;
+  gboolean once = TRUE;
+  Rectangle common_ext;
+  Rectangle p_ext;
   Point new_delta;
 
   if (!object->can_parent || !object->children)
     return FALSE;
 
-  p_ext = parent_point_extents(to);
+  parent_point_extents(to, &p_ext);
   while (list)
   {
-    if (!common_ext)
-      common_ext = g_memdup(parent_handle_extents(list->data), sizeof(Rectangle));
-    else
-      rectangle_union(common_ext, parent_handle_extents(list->data));
-
+    if (once) {
+      parent_handle_extents(list->data, &common_ext);
+      once = FALSE;
+    } else {
+      parent_handle_extents (list->data, &p_ext);
+      rectangle_union(&common_ext, &p_ext);
+    }
     list = g_list_next(list);
   }
-  new_delta = parent_move_child_delta_out(p_ext, common_ext, start_at);
+  new_delta = parent_move_child_delta_out(&p_ext, &common_ext, start_at);
   point_add(to, &new_delta);
 
   if (new_delta.x || new_delta.y)
@@ -258,26 +258,28 @@ Point parent_move_child_delta(Rectangle *p_ext, Rectangle *c_ext, Point *delta)
 }
 
 /* the caller must free the returned rectangle */
-Rectangle *parent_point_extents(Point *point)
+void
+parent_point_extents(Point *point, Rectangle *extents)
 {
-  Rectangle *extents = g_new0(Rectangle, 1);
   extents->left = point->x;
   extents->right = point->x;
   extents->top = point->y;
   extents->bottom = point->y;
-
-  return extents;
 }
 
-/* the caller must free the returned rectangle */
-Rectangle *parent_handle_extents(DiaObject *obj)
+/**
+ * the caller must provide the 'returned' rectangle,
+ * which is initialized to the biggest rectangle containing
+ * all the objects handles
+ */
+gboolean
+parent_handle_extents(DiaObject *obj, Rectangle *extents)
 {
   int idx;
-  Rectangle *extents = g_new0(Rectangle, 1);
   coord *left_most = NULL, *top_most = NULL, *bottom_most = NULL, *right_most = NULL;
 
   if (obj->num_handles == 0)
-    return NULL;
+    return FALSE;
 
   for (idx = 0; idx < obj->num_handles; idx++)
   {
@@ -298,5 +300,5 @@ Rectangle *parent_handle_extents(DiaObject *obj)
   extents->top = *top_most;
   extents->bottom = *bottom_most;
 
-  return extents;
+  return TRUE;
 }

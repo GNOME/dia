@@ -172,6 +172,7 @@ static PropDescription umlclass_props[] = {
   PROP_STD_MULTICOL_END,
   PROP_STD_NOTEBOOK_END,
 
+  /* these are used during load, but currently not during save */
   { "attributes", PROP_TYPE_DARRAY, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
   N_("Attributes"), NULL, NULL /* umlattribute_extra */ }, 
   { "operations", PROP_TYPE_DARRAY, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
@@ -304,10 +305,52 @@ ObjectChange *umlclass_show_comments_callback(DiaObject *obj, Point *pos, gpoint
 static void
 umlclass_set_props(UMLClass *umlclass, GPtrArray *props)
 {
+  /* now that operations/attributes can be set here as well we need to 
+   * take for the number of connections update as well
+   */
+  DiaObject *obj = &umlclass->element.object;
+  GList *list;
+  int num;
+
   object_set_props_from_offsets(&umlclass->element.object, umlclass_offsets,
                                 props);
-	
+
+  num = UMLCLASS_CONNECTIONPOINTS
+      + ((!umlclass->visible_attributes || umlclass->suppress_attributes) ? 0 : g_list_length (umlclass->attributes) * 2)
+      + ((!umlclass->visible_operations || umlclass->suppress_operations) ? 0 : g_list_length (umlclass->operations) * 2);
   /* Update data: */
+  if (num > UMLCLASS_CONNECTIONPOINTS) {
+    /* this is just updating pointers to ConnectionPoint, the real connection handling is elsewhere.
+     * Note: Can't optimize here on number change cause the ops/attribs may have changed regardless of that.
+     */
+    int i;
+    obj->num_connections = num;
+    obj->connections =  g_realloc(obj->connections, obj->num_connections*sizeof(ConnectionPoint *));
+    i = UMLCLASS_CONNECTIONPOINTS;
+    list = (!umlclass->visible_attributes || umlclass->suppress_attributes) ? NULL : umlclass->attributes;
+    while (list != NULL) {
+      UMLAttribute *attr = (UMLAttribute *)list->data;
+
+      obj->connections[i] = attr->left_connection;
+      obj->connections[i]->object = obj;
+      i++;
+      obj->connections[i] = attr->right_connection;
+      obj->connections[i]->object = obj;
+      i++;
+      list = g_list_next(list);
+    }
+    list = (!umlclass->visible_operations || umlclass->suppress_operations) ? NULL : umlclass->operations;
+    while (list != NULL) {
+      UMLOperation *op = (UMLOperation *)list->data;
+      obj->connections[i] = op->left_connection;
+      obj->connections[i]->object = obj;
+      i++;
+      obj->connections[i] = op->right_connection;
+      obj->connections[i]->object = obj;
+      i++;
+      list = g_list_next(list);
+    }
+  }
   umlclass_calculate_data(umlclass);
   umlclass_update_data(umlclass);
 }

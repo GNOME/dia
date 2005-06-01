@@ -74,7 +74,7 @@ PyDiaObject_Str(PyDiaObject *self)
 static PyObject *
 PyDiaObject_Destroy(PyDiaObject *self, PyObject *args)
 {
-    if (!PyArg_ParseTuple(args, ":DiaObject.destroy"))
+    if (!PyArg_ParseTuple(args, ":Object.destroy"))
 	return NULL;
 
     if (!self->object->ops->destroy) {
@@ -94,7 +94,7 @@ PyDiaObject_DistanceFrom(PyDiaObject *self, PyObject *args)
 {
     Point point;
 
-    if (!PyArg_ParseTuple(args, "dd:DiaObject.distance_from",
+    if (!PyArg_ParseTuple(args, "dd:Object.distance_from",
 			  &point.x, &point.y))
 	return NULL;
 
@@ -114,7 +114,7 @@ PyDiaObject_Copy(PyDiaObject *self, PyObject *args)
 {
     DiaObject *cp;
 
-    if (!PyArg_ParseTuple(args, ":DiaObject.copy"))
+    if (!PyArg_ParseTuple(args, ":Object.copy"))
 	return NULL;
 
     if (!self->object->ops->copy) {
@@ -134,7 +134,7 @@ PyDiaObject_Move(PyDiaObject *self, PyObject *args)
 {
     Point point;
 
-    if (!PyArg_ParseTuple(args, "dd:DiaObject.move", &point.x, &point.y))
+    if (!PyArg_ParseTuple(args, "dd:Object.move", &point.x, &point.y))
 	return NULL;
 
     if (!self->object->ops->move) {
@@ -155,7 +155,7 @@ PyDiaObject_MoveHandle(PyDiaObject *self, PyObject *args)
     HandleMoveReason reason;
     ModifierKeys modifiers;
 
-    if (!PyArg_ParseTuple(args, "O!(dd)ii:DiaObject.move_handle",
+    if (!PyArg_ParseTuple(args, "O!(dd)ii:Object.move_handle",
 			  &PyDiaHandle_Type, &handle, &point.x, &point.y,
 			  &reason, &modifiers))
 	return NULL;
@@ -215,7 +215,7 @@ PyDiaObject_GetAttr(PyDiaObject *self, gchar *attr)
 PyTypeObject PyDiaObject_Type = {
     PyObject_HEAD_INIT(&PyType_Type)
     0,
-    "DiaObject",
+    "dia.Object",
     sizeof(PyDiaObject),
     0,
     (destructor)PyDiaObject_Dealloc,
@@ -230,8 +230,11 @@ PyTypeObject PyDiaObject_Type = {
     (hashfunc)PyDiaObject_Hash,
     (ternaryfunc)0,
     (reprfunc)PyDiaObject_Str,
-    0L,0L,0L,0L,
-    NULL
+    (getattrofunc)0,
+    (setattrofunc)0,
+    (PyBufferProcs *)0,
+    0L, /* Flags */
+    "The main building block of diagrams."
 };
 
 PyObject *
@@ -293,10 +296,15 @@ PyDiaObjectType_Create(PyDiaObjectType *self, PyObject *args)
     Handle *h1 = NULL, *h2 = NULL;
     PyObject *pyret;
 
-    if (!PyArg_ParseTuple(args, "dd|i:DiaObjectType.create", &p.x,&p.y, &data))
+    if (!PyArg_ParseTuple(args, "dd|i:ObjectType.create", &p.x,&p.y, &data))
 	return NULL;
     user_data = GINT_TO_POINTER(data);
-    ret = self->otype->ops->create(&p, user_data, &h1, &h2);
+    if (!self->otype->ops) {
+	PyErr_SetString(PyExc_RuntimeError, "Type has no ops!?");
+	return NULL;
+    }
+    ret = self->otype->ops->create(&p, 
+		  user_data ? user_data : self->otype->default_user_data, &h1, &h2);
     if (!ret) {
 	PyErr_SetString(PyExc_RuntimeError, "could not create new object");
 	return NULL;
@@ -339,7 +347,7 @@ PyDiaObjectType_GetAttr(PyDiaObjectType *self, gchar *attr)
 PyTypeObject PyDiaObjectType_Type = {
     PyObject_HEAD_INIT(&PyType_Type)
     0,
-    "DiaObjectType",
+    "dia.ObjectType",
     sizeof(PyDiaObjectType),
     0,
     (destructor)PyDiaObjectType_Dealloc,
@@ -354,7 +362,11 @@ PyTypeObject PyDiaObjectType_Type = {
     (hashfunc)PyDiaObjectType_Hash,
     (ternaryfunc)0,
     (reprfunc)PyDiaObjectType_Str,
-    0L,0L,0L,0L,
-    NULL
+    (getattrofunc)0,
+    (setattrofunc)0,
+    (PyBufferProcs *)0,
+    0L, /* Flags */
+    "The dia.Object factory. Allows to create objects of the specific type. "
+    "Use: factory = get_object_type(<type name>) to get a grip on it."
 };
 

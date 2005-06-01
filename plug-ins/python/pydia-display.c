@@ -68,7 +68,7 @@ PyDiaDisplay_Str(PyDiaDisplay *self)
 static PyObject *
 PyDiaDisplay_AddUpdateAll(PyDiaDisplay *self, PyObject *args)
 {
-    if (!PyArg_ParseTuple(args, ":DiaDisplay.add_update_all"))
+    if (!PyArg_ParseTuple(args, ":Display.add_update_all"))
 	return NULL;
     ddisplay_add_update_all(self->disp);
     Py_INCREF(Py_None);
@@ -78,7 +78,7 @@ PyDiaDisplay_AddUpdateAll(PyDiaDisplay *self, PyObject *args)
 static PyObject *
 PyDiaDisplay_Flush(PyDiaDisplay *self, PyObject *args)
 {
-    if (!PyArg_ParseTuple(args, ":DiaDisplay.flush"))
+    if (!PyArg_ParseTuple(args, ":Display.flush"))
 	return NULL;
     ddisplay_flush(self->disp);
     Py_INCREF(Py_None);
@@ -90,7 +90,7 @@ PyDiaDisplay_SetOrigion(PyDiaDisplay *self, PyObject *args)
 {
     double x, y;
 
-    if (!PyArg_ParseTuple(args, "dd:DiaDisplay.set_origion", &x, &y))
+    if (!PyArg_ParseTuple(args, "dd:Display.set_origion", &x, &y))
 	return NULL;
     ddisplay_set_origo(self->disp, x, y);
     Py_INCREF(Py_None);
@@ -103,7 +103,7 @@ PyDiaDisplay_Zoom(PyDiaDisplay *self, PyObject *args)
     Point p;
     double zoom;
 
-    if (!PyArg_ParseTuple(args, "(dd)d:DiaDisplay.zoom", &p.x, &p.y, &zoom))
+    if (!PyArg_ParseTuple(args, "(dd)d:Display.zoom", &p.x, &p.y, &zoom))
 	return NULL;
     ddisplay_zoom(self->disp, &p, zoom);
     Py_INCREF(Py_None);
@@ -115,7 +115,7 @@ PyDiaDisplay_ResizeCanvas(PyDiaDisplay *self, PyObject *args)
 {
     int width, height;
 
-    if (!PyArg_ParseTuple(args, "ii:DiaDisplay.resize_canvas", &width,&height))
+    if (!PyArg_ParseTuple(args, "ii:Display.resize_canvas", &width,&height))
 	return NULL;
     ddisplay_resize_canvas(self->disp, width, height);
     Py_INCREF(Py_None);
@@ -125,7 +125,7 @@ PyDiaDisplay_ResizeCanvas(PyDiaDisplay *self, PyObject *args)
 static PyObject *
 PyDiaDisplay_Close(PyDiaDisplay *self, PyObject *args)
 {
-    if (!PyArg_ParseTuple(args, ":DiaDisplay.close"))
+    if (!PyArg_ParseTuple(args, ":Display.close"))
 	return NULL;
     ddisplay_close(self->disp);
     Py_INCREF(Py_None);
@@ -137,7 +137,7 @@ PyDiaDisplay_SetTitle(PyDiaDisplay *self, PyObject *args)
 {
     gchar *title;
 
-    if (!PyArg_ParseTuple(args, "s:DiaDisplay.set_title", &title))
+    if (!PyArg_ParseTuple(args, "s:Display.set_title", &title))
 	return NULL;
     ddisplay_set_title(self->disp, title);
     Py_INCREF(Py_None);
@@ -149,7 +149,7 @@ PyDiaDisplay_Scroll(PyDiaDisplay *self, PyObject *args)
 {
     Point delta;
 
-    if (!PyArg_ParseTuple(args, "dd:DiaDisplay.scroll", &delta.x, &delta.y))
+    if (!PyArg_ParseTuple(args, "dd:Display.scroll", &delta.x, &delta.y))
 	return NULL;
     ddisplay_scroll(self->disp, &delta);
     Py_INCREF(Py_None);
@@ -159,7 +159,7 @@ PyDiaDisplay_Scroll(PyDiaDisplay *self, PyObject *args)
 static PyObject *
 PyDiaDisplay_ScrollUp(PyDiaDisplay *self, PyObject *args)
 {
-    if (!PyArg_ParseTuple(args, ":DiaDisplay.scroll_up"))
+    if (!PyArg_ParseTuple(args, ":Display.scroll_up"))
 	return NULL;
     ddisplay_scroll_up(self->disp);
     Py_INCREF(Py_None);
@@ -169,7 +169,7 @@ PyDiaDisplay_ScrollUp(PyDiaDisplay *self, PyObject *args)
 static PyObject *
 PyDiaDisplay_ScrollDown(PyDiaDisplay *self, PyObject *args)
 {
-    if (!PyArg_ParseTuple(args, ":DiaDisplay.scroll_down"))
+    if (!PyArg_ParseTuple(args, ":Display.scroll_down"))
 	return NULL;
     ddisplay_scroll_down(self->disp);
     Py_INCREF(Py_None);
@@ -179,7 +179,7 @@ PyDiaDisplay_ScrollDown(PyDiaDisplay *self, PyObject *args)
 static PyObject *
 PyDiaDisplay_ScrollLeft(PyDiaDisplay *self, PyObject *args)
 {
-    if (!PyArg_ParseTuple(args, ":DiaDisplay.scroll_left"))
+    if (!PyArg_ParseTuple(args, ":Display.scroll_left"))
 	return NULL;
     ddisplay_scroll_left(self->disp);
     Py_INCREF(Py_None);
@@ -189,7 +189,7 @@ PyDiaDisplay_ScrollLeft(PyDiaDisplay *self, PyObject *args)
 static PyObject *
 PyDiaDisplay_ScrollRight(PyDiaDisplay *self, PyObject *args)
 {
-    if (!PyArg_ParseTuple(args, ":DiaDisplay.scroll_right"))
+    if (!PyArg_ParseTuple(args, ":Display.scroll_right"))
 	return NULL;
     ddisplay_scroll_right(self->disp);
     Py_INCREF(Py_None);
@@ -237,7 +237,7 @@ PyDiaDisplay_GetAttr(PyDiaDisplay *self, gchar *attr)
 PyTypeObject PyDiaDisplay_Type = {
     PyObject_HEAD_INIT(&PyType_Type)
     0,
-    "DiaDisplay",
+    "dia.Display",
     sizeof(PyDiaDisplay),
     0,
     (destructor)PyDiaDisplay_Dealloc,
@@ -252,6 +252,9 @@ PyTypeObject PyDiaDisplay_Type = {
     (hashfunc)PyDiaDisplay_Hash,
     (ternaryfunc)0,
     (reprfunc)PyDiaDisplay_Str,
-    0L,0L,0L,0L,
-    NULL
+    (getattrofunc)0,
+    (setattrofunc)0,
+    (PyBufferProcs *)0,
+    0L, /* Flags */
+    "A Diagram can have multiple displays but every Display has just one Diagram."
 };

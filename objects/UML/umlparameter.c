@@ -30,6 +30,14 @@
 #include "uml.h"
 #include "properties.h"
 
+static PropEnumData _uml_parameter_kinds[] = {
+  { N_("Undefined"), UML_UNDEF_KIND} ,
+  { N_("In"), UML_IN },
+  { N_("Out"), UML_OUT },
+  { N_("In & Out"), UML_INOUT },
+  { NULL, 0 }
+};
+
 static PropDescription umlparameter_props[] = {
   { "name", PROP_TYPE_STRING, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
   N_("Name"), NULL, NULL },
@@ -40,7 +48,7 @@ static PropDescription umlparameter_props[] = {
   { "comment", PROP_TYPE_STRING, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
   N_("Comment"), NULL, NULL },
   { "kind", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
-  N_("Kind"), NULL, NULL },
+  N_("Kind"), NULL, _uml_parameter_kinds },
 
   PROP_DESC_END
 };

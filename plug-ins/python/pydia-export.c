@@ -84,7 +84,7 @@ PyDiaExportFilter_GetAttr(PyDiaExportFilter *self, gchar *attr)
 PyTypeObject PyDiaExportFilter_Type = {
     PyObject_HEAD_INIT(&PyType_Type)
     0,
-    "DiaExportFilter",
+    "dia.ExportFilter",
     sizeof(PyDiaExportFilter),
     0,
     (destructor)PyDiaExportFilter_Dealloc,
@@ -99,6 +99,9 @@ PyTypeObject PyDiaExportFilter_Type = {
     (hashfunc)PyDiaExportFilter_Hash,
     (ternaryfunc)0,
     (reprfunc)PyDiaExportFilter_Str,
-    0L,0L,0L,0L,
-    NULL
+    (getattrofunc)0,
+    (setattrofunc)0,
+    (PyBufferProcs *)0,
+    0L, /* Flags */
+    "returned by dia.register_export() but not used otherwise yet."
 };

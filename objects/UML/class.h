@@ -30,6 +30,12 @@
 #define UMLCLASS_CONNECTIONPOINTS 8
 #define UMLCLASS_WRAP_AFTER_CHAR 40
 
+/* The code behind the following preprocessor symbol should stay disabled until 
+ * the dynamic relocation of connection points (caused by attribute and 
+ * operation changes) is taken into account. It probably has other issues we are 
+ * not aware of yet. Some more information maybe available at 
+ * http://bugzilla.gnome.org/show_bug.cgi?id=303301
+ */
 #undef UML_MAINPOINT
 
 

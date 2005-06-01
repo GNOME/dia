@@ -54,6 +54,9 @@ for c in theClasses :
 #include "uml.h"
 #include "properties.h"
 
+extern PropEnumData _uml_visibilities[];
+extern PropEnumData _uml_inheritances[];
+
 static PropDescription umloperation_props[] = {
   { "name", PROP_TYPE_STRING, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
   N_("Name"), NULL, NULL },
@@ -65,9 +68,9 @@ static PropDescription umloperation_props[] = {
   N_("Stereotype"), NULL, NULL },
   /* visibility: public, protected, private (other languages?) */
   { "visibility", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
-  N_("Visibility"), NULL, NULL },
+  N_("Visibility"), NULL, _uml_visibilities },
   { "inheritance_type", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
-  N_("Inheritance type"), NULL, NULL },
+  N_("Inheritance type"), NULL, _uml_inheritances },
   { "query", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
   N_("Query (const)"), NULL, NULL },
   { "class_scope", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
@@ -201,7 +204,9 @@ uml_operation_destroy(UMLOperation *op)
     uml_parameter_destroy(param);
     list = g_list_next(list);
   }
+  object_remove_connections_to(op->left_connection);
   g_free(op->left_connection);
+  object_remove_connections_to(op->right_connection);
   g_free(op->right_connection);
   g_free(op);
 }

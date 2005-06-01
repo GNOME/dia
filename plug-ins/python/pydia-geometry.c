@@ -456,7 +456,7 @@ static PySequenceMethods rect_as_sequence = {
 PyTypeObject PyDiaPoint_Type = {
     PyObject_HEAD_INIT(&PyType_Type)
     0,
-    "DiaPoint",
+    "dia.Point",
     sizeof(PyDiaPoint),
     0,
     (destructor)PyDiaGeometry_Dealloc,
@@ -471,14 +471,17 @@ PyTypeObject PyDiaPoint_Type = {
     (hashfunc)PyDiaGeometry_Hash,
     (ternaryfunc)0,
     (reprfunc)PyDiaPoint_Str,
-    0L,0L,0L,0L,
-    NULL
+    (getattrofunc)0,
+    (setattrofunc)0,
+    (PyBufferProcs *)0,
+    0L, /* Flags */
+    "The dia.Point does not only provide access trough it's members but also via a sequence interface."
 };
 
 PyTypeObject PyDiaRectangle_Type = {
     PyObject_HEAD_INIT(&PyType_Type)
     0,
-    "DiaRectangle",
+    "dia.Rectangle",
     sizeof(PyDiaRectangle),
     0,
     (destructor)PyDiaGeometry_Dealloc,
@@ -493,14 +496,17 @@ PyTypeObject PyDiaRectangle_Type = {
     (hashfunc)PyDiaGeometry_Hash,
     (ternaryfunc)0,
     (reprfunc)PyDiaRectangle_Str,
-    0L, 0L, 0L,0L,
-    NULL
+    (getattrofunc)0,
+    (setattrofunc)0,
+    (PyBufferProcs *)0,
+    0L, /* Flags */
+    "The dia.Rectangle does not only provide access trough it's members but also via a sequence interface."
 };
 
 PyTypeObject PyDiaBezPoint_Type = {
     PyObject_HEAD_INIT(&PyType_Type)
     0,
-    "DiaBezPoint",
+    "dia.BezPoint",
     sizeof(PyDiaBezPoint),
     0,
     (destructor)PyDiaGeometry_Dealloc,
@@ -515,14 +521,17 @@ PyTypeObject PyDiaBezPoint_Type = {
     (hashfunc)PyDiaGeometry_Hash,
     (ternaryfunc)0,
     (reprfunc)PyDiaBezPoint_Str,
-    0L,0L,0L,0L,
-    NULL
+    (getattrofunc)0,
+    (setattrofunc)0,
+    (PyBufferProcs *)0,
+    0L, /* Flags */
+    "A dia.Point, a bezier type and two control points (dia.Point) make a bezier point."
 };
 
 PyTypeObject PyDiaArrow_Type = {
     PyObject_HEAD_INIT(&PyType_Type)
     0,
-    "DiaArrow",
+    "dia.Arrow",
     sizeof(PyDiaArrow),
     0,
     (destructor)PyDiaGeometry_Dealloc,
@@ -537,6 +546,9 @@ PyTypeObject PyDiaArrow_Type = {
     (hashfunc)PyDiaGeometry_Hash,
     (ternaryfunc)0,
     (reprfunc)PyDiaArrow_Str,
-    0L,0L,0L,0L,
-    NULL
+    (getattrofunc)0,
+    (setattrofunc)0,
+    (PyBufferProcs *)0,
+    0L, /* Flags */
+    "Dia's line objects usually ends with an dia.Arrow"
 };

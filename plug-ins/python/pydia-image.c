@@ -143,7 +143,7 @@ PyDiaImage_Str(PyDiaImage *self)
 PyTypeObject PyDiaImage_Type = {
     PyObject_HEAD_INIT(&PyType_Type)
     0,
-    "DiaImage",
+    "dia.Image",
     sizeof(PyDiaImage),
     0,
     (destructor)PyDiaImage_Dealloc,
@@ -158,6 +158,9 @@ PyTypeObject PyDiaImage_Type = {
     (hashfunc)PyDiaImage_Hash,
     (ternaryfunc)0,
     (reprfunc)PyDiaImage_Str,
-    0L,0L,0L,0L,
-    NULL
+    (getattrofunc)0,
+    (setattrofunc)0,
+    (PyBufferProcs *)0,
+    0L, /* Flags */
+    "dia.Image gets passed into DiaRenderer.draw_image"
 };

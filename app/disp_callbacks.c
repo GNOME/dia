@@ -890,7 +890,7 @@ ddisplay_drop_object(DDisplay *ddisp, gint x, gint y, DiaObjectType *otype,
 
   if (p_obj && p_obj->can_parent) /* the tool was dropped inside an object that takes children*/
   {
-    Rectangle *p_ext, *c_ext;
+    Rectangle p_ext, c_ext;
     real parent_height, child_height, parent_width, child_width;
     real vadjust = 0.0, hadjust = 0.0;
     Point new_pos;
@@ -903,35 +903,32 @@ ddisplay_drop_object(DDisplay *ddisp, gint x, gint y, DiaObjectType *otype,
      * since we don't have the 'rendered bbox'.
      * -Lars
      */
-    p_ext = parent_handle_extents(p_obj);
-    c_ext = parent_handle_extents(obj);
+    parent_handle_extents(p_obj, &p_ext);
+    parent_handle_extents(obj, &c_ext);
 
-    parent_height = p_ext->bottom - p_ext->top;
-    child_height = c_ext->bottom - c_ext->top;
+    parent_height = p_ext.bottom - p_ext.top;
+    child_height = c_ext.bottom - c_ext.top;
 
-    parent_width = p_ext->right - p_ext->left;
-    child_width = c_ext->right - c_ext->left;
+    parent_width = p_ext.right - p_ext.left;
+    child_width = c_ext.right - c_ext.left;
 
     /* we need the pre-snap position, but must remember that handles can
      * be to the left of the droppoint */
-    c_ext->left = droppoint_orig.x - (obj->position.x - c_ext->left);
-    c_ext->top  = droppoint_orig.y - (obj->position.y - c_ext->top);
-    c_ext->right = c_ext->left + child_width;
-    c_ext->bottom = c_ext->top + child_height;
+    c_ext.left = droppoint_orig.x - (obj->position.x - c_ext.left);
+    c_ext.top  = droppoint_orig.y - (obj->position.y - c_ext.top);
+    c_ext.right = c_ext.left + child_width;
+    c_ext.bottom = c_ext.top + child_height;
 
-    if (c_ext->left < p_ext->left) {
-      hadjust = p_ext->left - c_ext->left;
-    } else if (c_ext->right > p_ext->right) {
-      hadjust = p_ext->right - c_ext->right;
+    if (c_ext.left < p_ext.left) {
+      hadjust = p_ext.left - c_ext.left;
+    } else if (c_ext.right > p_ext.right) {
+      hadjust = p_ext.right - c_ext.right;
     }
-    if (c_ext->top < p_ext->top) {
-      vadjust = p_ext->top - c_ext->top;
-    } else if (c_ext->bottom > p_ext->bottom) {
-      vadjust = p_ext->bottom - c_ext->bottom;
+    if (c_ext.top < p_ext.top) {
+      vadjust = p_ext.top - c_ext.top;
+    } else if (c_ext.bottom > p_ext.bottom) {
+      vadjust = p_ext.bottom - c_ext.bottom;
     }
-
-    g_free(p_ext);
-    g_free(c_ext);
 
     if (child_width > parent_width ||
 	child_height > parent_height) {
@@ -947,7 +944,6 @@ ddisplay_drop_object(DDisplay *ddisp, gint x, gint y, DiaObjectType *otype,
       obj->ops->move(obj, &new_pos);
     }
   }
-
 
   diagram_add_object(ddisp->diagram, obj);
   diagram_remove_all_selected(ddisp->diagram, TRUE); /* unselect all */

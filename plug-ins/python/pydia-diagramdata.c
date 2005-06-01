@@ -80,7 +80,7 @@ PyDiaDiagramData_Str(PyDiaDiagramData *self)
 static PyObject *
 PyDiaDiagramData_UpdateExtents(PyDiaDiagramData *self, PyObject *args)
 {
-    if (!PyArg_ParseTuple(args, ":DiaDiagramData.update_extents"))
+    if (!PyArg_ParseTuple(args, ":DiagramData.update_extents"))
 	return NULL;
     data_update_extents(self->data);
     Py_INCREF(Py_None);
@@ -94,7 +94,7 @@ PyDiaDiagramData_GetSortedSelected(PyDiaDiagramData *self, PyObject *args)
     PyObject *ret;
     guint i, len;
 
-    if (!PyArg_ParseTuple(args, ":DiaDiagramData.get_sorted_selected"))
+    if (!PyArg_ParseTuple(args, ":DiagramData.get_sorted_selected"))
 	return NULL;
     list = tmp = data_get_sorted_selected(self->data);
 
@@ -107,7 +107,6 @@ PyDiaDiagramData_GetSortedSelected(PyDiaDiagramData *self, PyObject *args)
     return ret;
 }
 
-/* copy of PyDiaDiagramData_AddLayer */
 static PyObject *
 PyDiaDiagramData_AddLayer(PyDiaDiagramData *self, PyObject *args)
 {
@@ -115,7 +114,7 @@ PyDiaDiagramData_AddLayer(PyDiaDiagramData *self, PyObject *args)
     int pos = -1;
     Layer *layer;
 
-    if (!PyArg_ParseTuple(args, "s|i:DiaDiagramData.add_layer", &name, &pos))
+    if (!PyArg_ParseTuple(args, "s|i:DiagramData.add_layer", &name, &pos))
 	return NULL;
     layer = new_layer(g_strdup(name),self->data);
     if (pos != -1)
@@ -125,10 +124,68 @@ PyDiaDiagramData_AddLayer(PyDiaDiagramData *self, PyObject *args)
     return PyDiaLayer_New(layer);
 }
 
+static PyObject *
+PyDiaDiagramData_RaiseLayer(PyDiaDiagramData *self, PyObject *args)
+{
+    PyDiaLayer *layer;
+
+    if (!PyArg_ParseTuple(args, "O!:DiagramData.raise_layer",
+			  &PyDiaLayer_Type, &layer))
+	return NULL;
+    data_raise_layer(self->data, layer->layer);
+    Py_INCREF(Py_None);
+    return Py_None;
+}
+
+static PyObject *
+PyDiaDiagramData_LowerLayer(PyDiaDiagramData *self, PyObject *args)
+{
+    PyDiaLayer *layer;
+
+    if (!PyArg_ParseTuple(args, "O!:DiagramData.lower_layer",
+			  &PyDiaLayer_Type, &layer))
+	return NULL;
+    data_lower_layer(self->data, layer->layer);
+    Py_INCREF(Py_None);
+    return Py_None;
+}
+
+static PyObject *
+PyDiaDiagramData_SetActiveLayer(PyDiaDiagramData *self, PyObject *args)
+{
+    PyDiaLayer *layer;
+
+    if (!PyArg_ParseTuple(args, "O!:DiagramData.set_active_layer",
+			  &PyDiaLayer_Type, &layer))
+	return NULL;
+    data_set_active_layer(self->data, layer->layer);
+    Py_INCREF(Py_None);
+    return Py_None;
+}
+
+static PyObject *
+PyDiaDiagramData_DeleteLayer(PyDiaDiagramData *self, PyObject *args)
+{
+    PyDiaLayer *layer;
+
+    if (!PyArg_ParseTuple(args, "O!:DiagramData.delete_layer",
+			  &PyDiaLayer_Type, &layer))
+	return NULL;
+    data_delete_layer(self->data, layer->layer);
+    layer_destroy(layer->layer);
+    layer->layer = NULL;
+    Py_INCREF(Py_None);
+    return Py_None;
+}
+
 static PyMethodDef PyDiaDiagramData_Methods[] = {
     {"update_extents", (PyCFunction)PyDiaDiagramData_UpdateExtents, 1},
     {"get_sorted_selected", (PyCFunction)PyDiaDiagramData_GetSortedSelected, 1},
     {"add_layer", (PyCFunction)PyDiaDiagramData_AddLayer, 1},
+    {"raise_layer", (PyCFunction)PyDiaDiagramData_RaiseLayer, 1},
+    {"lower_layer", (PyCFunction)PyDiaDiagramData_LowerLayer, 1},
+    {"set_active_layer", (PyCFunction)PyDiaDiagramData_SetActiveLayer, 1},
+    {"delete_layer", (PyCFunction)PyDiaDiagramData_DeleteLayer, 1},
     {NULL, 0, 0, NULL}
 };
 
@@ -138,9 +195,10 @@ PyDiaDiagramData_GetAttr(PyDiaDiagramData *self, gchar *attr)
     Diagram *diagram = DIA_DIAGRAM(self->data);
 
     if (!strcmp(attr, "__members__"))
-	return Py_BuildValue("[ssssssssss]", 
+	return Py_BuildValue("[ssssssssssss]",
                            "extents", "bg_color", "paper",
-                           "grid.width", "grid.visible", 
+                           "layers", "active_layer", 
+                           "grid_width", "grid_visible", 
                            "hguides", "vguides",
                            "layers", "active_layer",
                            "selected" );
@@ -149,13 +207,24 @@ PyDiaDiagramData_GetAttr(PyDiaDiagramData *self, gchar *attr)
     else if (!strcmp(attr, "bg_color")) {
       return PyDiaColor_New (&(self->data->bg_color));
     }
-    else if (!strcmp(attr, "paper")) {
+    else if (!strcmp(attr, "layers")) {
+	guint i, len = self->data->layers->len;
+	PyObject *ret = PyTuple_New(len);
+
+	for (i = 0; i < len; i++)
+	    PyTuple_SetItem(ret, i, PyDiaLayer_New(
+			g_ptr_array_index(self->data->layers, i)));
+	return ret;
+    } else if (!strcmp(attr, "active_layer")) {
+	return PyDiaLayer_New(self->data->active_layer);
+    } else if (!strcmp(attr, "paper")) {
       /* XXX */
-      return NULL;
+      Py_INCREF(Py_None);
+      return Py_None;
     }
-    else if (diagram && !strcmp(attr, "grid.width")) 
+    else if (diagram && !strcmp(attr, "grid_width")) 
       return Py_BuildValue("(dd)", diagram->grid.width_x, diagram->grid.width_y);
-    else if (diagram && !strcmp(attr, "grid.visible")) 
+    else if (diagram && !strcmp(attr, "grid_visible")) 
       return Py_BuildValue("(ii)", diagram->grid.visible_x, diagram->grid.visible_y);
     else if (diagram && !strcmp(attr, "hguides")) {
       int len = diagram->guides.nhguides;
@@ -202,7 +271,7 @@ PyDiaDiagramData_GetAttr(PyDiaDiagramData *self, gchar *attr)
 PyTypeObject PyDiaDiagramData_Type = {
     PyObject_HEAD_INIT(&PyType_Type)
     0,
-    "DiagramData",
+    "dia.DiagramData",
     sizeof(PyDiaDiagramData),
     0,
     (destructor)PyDiaDiagramData_Dealloc,
@@ -217,6 +286,11 @@ PyTypeObject PyDiaDiagramData_Type = {
     (hashfunc)PyDiaDiagramData_Hash,
     (ternaryfunc)0,
     (reprfunc)PyDiaDiagramData_Str,
-    0L,0L,0L,0L,
-    NULL
+    (getattrofunc)0,
+    (setattrofunc)0,
+    (PyBufferProcs *)0,
+    0L, /* Flags */
+    "The 'low level' diagram object. It contains everything to manipulate diagrams from im- and export "
+    "filters as well as from the UI. It does not provide any access to GUI elements related to the diagram."
+    "Use the subclass dia.Diagram object for such matters."
 };
