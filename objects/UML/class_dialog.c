@@ -576,6 +576,14 @@ attributes_list_new_callback(GtkWidget *button,
 
   attr = uml_attribute_new();
 
+  /* need to make the new ConnectionPoint valid and remember them */
+  attr->left_connection->object = &umlclass->element.object;
+  prop_dialog->added_connections = 
+    g_list_prepend(prop_dialog->added_connections, attr->left_connection);
+  attr->right_connection->object = &umlclass->element.object;
+  prop_dialog->added_connections = 
+    g_list_prepend(prop_dialog->added_connections, attr->right_connection);
+
   utfstr = uml_get_attribute_string (attr);
   list_item = gtk_list_item_new_with_label (utfstr);
   gtk_widget_show (list_item);
@@ -614,10 +622,10 @@ attributes_list_delete_callback(GtkWidget *button,
     if (attr->left_connection != NULL) {
       prop_dialog->deleted_connections =
 	g_list_prepend(prop_dialog->deleted_connections,
-		       attr->left_connection);
+		       g_memdup(attr->left_connection, sizeof(ConnectionPoint)));
       prop_dialog->deleted_connections =
 	g_list_prepend(prop_dialog->deleted_connections,
-		       attr->right_connection);
+		       g_memdup(attr->right_connection, sizeof(ConnectionPoint)));
     }
     
     list = g_list_prepend(NULL, gtklist->selection->data);
@@ -725,23 +733,6 @@ attributes_read_from_dialog(UMLClass *umlclass,
     gtk_object_set_user_data(GTK_OBJECT(list_item), NULL);
     umlclass->attributes = g_list_append(umlclass->attributes, attr);
     
-    if (attr->left_connection == NULL) {
-      attr->left_connection = g_new0(ConnectionPoint,1);
-      attr->left_connection->object = obj;
-      attr->left_connection->connected = NULL;
-      
-      attr->right_connection = g_new0(ConnectionPoint,1);
-      attr->right_connection->object = obj;
-      attr->right_connection->connected = NULL;
-
-      prop_dialog->added_connections =
-	g_list_prepend(prop_dialog->added_connections,
-		       attr->left_connection);
-      prop_dialog->added_connections =
-	g_list_prepend(prop_dialog->added_connections,
-		       attr->right_connection);
-    } 
-
     if ( (prop_dialog->attr_vis->active) &&
 	 (!prop_dialog->attr_supp->active) ) { 
       obj->connections[connection_index++] = attr->left_connection;
@@ -782,6 +773,9 @@ attributes_fill_in_dialog(UMLClass *umlclass)
       list_item =
 	gtk_list_item_new_with_label (g_list_nth(umlclass->attributes_strings, i)->data);
       attr_copy = uml_attribute_copy(attr);
+      attr_copy->left_connection->object = &umlclass->element.object;
+      attr_copy->right_connection->object = &umlclass->element.object;
+
       gtk_object_set_user_data(GTK_OBJECT(list_item), (gpointer) attr_copy);
       gtk_signal_connect (GTK_OBJECT (list_item), "destroy",
 			  GTK_SIGNAL_FUNC (attribute_list_item_destroy_callback),
@@ -1505,6 +1499,15 @@ operations_list_new_callback(GtkWidget *button,
 
   op = uml_operation_new();
 
+  /* need to make new ConnectionPoints valid and remember them */
+  op->left_connection->object = &umlclass->element.object;
+  prop_dialog->added_connections = 
+    g_list_prepend(prop_dialog->added_connections, op->left_connection);
+  op->right_connection->object = &umlclass->element.object;
+  prop_dialog->added_connections = 
+    g_list_prepend(prop_dialog->added_connections, op->right_connection);
+
+
   utfstr = uml_get_operation_string (op);
   list_item = gtk_list_item_new_with_label (utfstr);
   gtk_widget_show (list_item);
@@ -1544,10 +1547,10 @@ operations_list_delete_callback(GtkWidget *button,
     if (op->left_connection != NULL) {
       prop_dialog->deleted_connections =
 	g_list_prepend(prop_dialog->deleted_connections,
-		       op->left_connection);
+		       g_memdup(op->left_connection, sizeof(ConnectionPoint)));
       prop_dialog->deleted_connections =
 	g_list_prepend(prop_dialog->deleted_connections,
-		       op->right_connection);
+		       g_memdup(op->right_connection, sizeof(ConnectionPoint)));
     }
 
     list = g_list_prepend(NULL, gtklist->selection->data);
@@ -1655,23 +1658,6 @@ operations_read_from_dialog(UMLClass *umlclass,
     gtk_object_set_user_data(GTK_OBJECT(list_item), NULL);
     umlclass->operations = g_list_append(umlclass->operations, op);
     
-    if (op->left_connection == NULL) {
-      op->left_connection = g_new0(ConnectionPoint,1);
-      op->left_connection->object = obj;
-      op->left_connection->connected = NULL;
-      
-      op->right_connection = g_new0(ConnectionPoint,1);
-      op->right_connection->object = obj;
-      op->right_connection->connected = NULL;
-      
-      prop_dialog->added_connections =
-	g_list_prepend(prop_dialog->added_connections,
-		       op->left_connection);
-      prop_dialog->added_connections =
-	g_list_prepend(prop_dialog->added_connections,
-		       op->right_connection);
-    }
-    
     if ( (prop_dialog->op_vis->active) &&
 	 (!prop_dialog->op_supp->active) ) { 
       obj->connections[connection_index++] = op->left_connection;
@@ -1711,6 +1697,8 @@ operations_fill_in_dialog(UMLClass *umlclass)
       list_item =
 	gtk_list_item_new_with_label (g_list_nth(umlclass->operations_strings, i)->data);
       op_copy = uml_operation_copy(op);
+      op_copy->left_connection->object = &umlclass->element.object;
+      op_copy->right_connection->object = &umlclass->element.object;
       gtk_object_set_user_data(GTK_OBJECT(list_item), (gpointer) op_copy);
       gtk_signal_connect (GTK_OBJECT (list_item), "destroy",
 			  GTK_SIGNAL_FUNC (operations_list_item_destroy_callback),
@@ -2848,6 +2836,8 @@ umlclass_get_state(UMLClass *umlclass)
     UMLAttribute *attr_copy;
       
     attr_copy = uml_attribute_copy(attr);
+    attr_copy->left_connection->object = &umlclass->element.object;
+    attr_copy->right_connection->object = &umlclass->element.object;
 
     state->attributes = g_list_append(state->attributes, attr_copy);
     list = g_list_next(list);
@@ -2861,6 +2851,8 @@ umlclass_get_state(UMLClass *umlclass)
     UMLOperation *op_copy;
       
     op_copy = uml_operation_copy(op);
+    op_copy->left_connection->object = &umlclass->element.object;
+    op_copy->right_connection->object = &umlclass->element.object;
 
     state->operations = g_list_append(state->operations, op_copy);
     list = g_list_next(list);

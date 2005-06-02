@@ -1,3 +1,12 @@
+2005-06-02  Hans Breuer  <hans@breuer.org>
+
+	* objects/UML/class_dialog.c : the memory managment with respect to
+	attribute/operation connections was/is a mess. But it should work again ;)
+
+	* samples/UMLPackages.dia samples/Composite-Action.dia : some diagrams
+	directly from the UML Specification - to show the power of Dia and 
+	some weakness. Watch the bug reports following ;)
+
 2005-06-01  Hans Breuer  <hans@breuer.org>
 
 	* app/dia.def : export diagram_update_connections_object
