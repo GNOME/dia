@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: dia.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-04-04 02:51+0200\n"
-"PO-Revision-Date: 2005-05-29 16:36+0545\n"
+"PO-Revision-Date: 2005-06-01 17:27+0545\n"
 "Last-Translator: Shiva Prasad Pokharel <pokharelshiva@hotmail.com>\n"
 "Language-Team: Nepali <info@mpp.org.np>\n"
 "MIME-Version: 1.0\n"
@@ -3673,11 +3673,11 @@ msgstr "सर्तको बुलियन समिकरण"
 
 #: objects/GRAFCET/condition.c:132
 msgid "The condition's font"
-msgstr ""
+msgstr "सर्तको फन्ट"
 
 #: objects/GRAFCET/condition.c:134
 msgid "The condition's font size"
-msgstr ""
+msgstr "सर्तको फन्ट आकार"
 
 #: objects/GRAFCET/condition.c:137 objects/GRAFCET/transition.c:147
 msgid "Color"
@@ -3685,51 +3685,51 @@ msgstr "रङ्ग"
 
 #: objects/GRAFCET/condition.c:137
 msgid "The condition's color"
-msgstr ""
+msgstr "सर्तको रङ्ग"
 
 #: objects/GRAFCET/grafcet.c:45
 msgid "GRAFCET diagram objects"
-msgstr ""
+msgstr "ग्राफसेट चित्र वस्तुहरु"
 
 #: objects/GRAFCET/step.c:146 sheets/GRAFCET.sheet.in.h:13
 msgid "Regular step"
-msgstr ""
+msgstr "लगातार चरण"
 
 #: objects/GRAFCET/step.c:147 sheets/GRAFCET.sheet.in.h:6
 msgid "Initial step"
-msgstr ""
+msgstr "शुरुको चरण"
 
 #: objects/GRAFCET/step.c:148 sheets/GRAFCET.sheet.in.h:8
 msgid "Macro entry step"
-msgstr ""
+msgstr "म्याक्रो प्रविष्ठि चरण"
 
 #: objects/GRAFCET/step.c:149 sheets/GRAFCET.sheet.in.h:9
 msgid "Macro exit step"
-msgstr ""
+msgstr "म्याक्रो निस्कने चरण"
 
 #: objects/GRAFCET/step.c:150 sheets/GRAFCET.sheet.in.h:7
 msgid "Macro call step"
-msgstr ""
+msgstr "म्याक्रो वोलाउने चरण"
 
 #: objects/GRAFCET/step.c:151
 msgid "Subprogram call step"
-msgstr ""
+msgstr "सहायक कार्यक्रम वोलाउने चरण"
 
 #: objects/GRAFCET/step.c:158
 msgid "Step name"
-msgstr ""
+msgstr "चरण नाम"
 
 #: objects/GRAFCET/step.c:158
 msgid "The name of the step"
-msgstr ""
+msgstr "चरणको नाम"
 
 #: objects/GRAFCET/step.c:161
 msgid "Step type"
-msgstr ""
+msgstr "चरण किसिम"
 
 #: objects/GRAFCET/step.c:161
 msgid "The kind of step"
-msgstr ""
+msgstr "चरणका किसिमहरु"
 
 #: objects/GRAFCET/step.c:163
 msgid "Active"
@@ -3737,7 +3737,7 @@ msgstr "सक्रिय गर्नुहोस्"
 
 #: objects/GRAFCET/step.c:163
 msgid "Shows a red dot to figure the step's activity"
-msgstr ""
+msgstr "चरणको सक्रियताले अंकमा रातो थोप्लो देखाउछ"
 
 #: objects/GRAFCET/transition.c:140
 msgid "Receptivity"
@@ -3745,31 +3745,31 @@ msgstr "ग्रहणशीलता"
 
 #: objects/GRAFCET/transition.c:140
 msgid "The boolean equation of the receptivity"
-msgstr ""
+msgstr "ग्रहणताको बुलियन समिकर"
 
 #: objects/GRAFCET/transition.c:142
 msgid "The receptivity's font"
-msgstr ""
+msgstr "ग्रहणताको फन्ट"
 
 #: objects/GRAFCET/transition.c:144
 msgid "The receptivity's font size"
-msgstr ""
+msgstr "ग्रहणताको फन्ट आकार"
 
 #: objects/GRAFCET/transition.c:147
 msgid "The receptivity's color"
-msgstr ""
+msgstr "ग्रहणताको रङ्ग"
 
 #: objects/GRAFCET/transition.c:148
 msgid "North point"
-msgstr ""
+msgstr "उत्तर विन्दु"
 
 #: objects/GRAFCET/transition.c:149
 msgid "South point"
-msgstr ""
+msgstr "दक्षिण विन्दु"
 
 #: objects/GRAFCET/vector.c:128
 msgid "Draw arrow heads on upward arcs:"
-msgstr ""
+msgstr "माथीतिरको चापहरुमा शिर्ष तिरहरु कोर्नुहोस"
 
 #: objects/GRAFCET/vergent.c:122
 msgid "OR"
@@ -3781,46 +3781,46 @@ msgstr "र"
 
 #: objects/GRAFCET/vergent.c:134
 msgid "Vergent type:"
-msgstr ""
+msgstr "भरजेन्ट किसिम:"
 
 #: objects/GRAFCET/vergent.c:405 objects/SADT/box.c:445
 #: objects/Istar/other.c:469 objects/Jackson/domain.c:531
 #: objects/KAOS/goal.c:572 objects/KAOS/other.c:525
 #: objects/standard/line.c:219
 msgid "Add connection point"
-msgstr ""
+msgstr "जडान विन्दु जोड्नुहो"
 
 #: objects/GRAFCET/vergent.c:406
 msgid "Delete  connection point"
-msgstr ""
+msgstr "जडान विन्दु मेट्नुहोस"
 
 #: objects/GRAFCET/vergent.c:410
 msgid "GRAFCET OR/AND vergent"
-msgstr ""
+msgstr "ग्राफसेट वा/र भरजेन्ट"
 
 #: objects/Misc/analog_clock.c:137
 msgid "Arrow color"
-msgstr ""
+msgstr "वाणको रङ्ग"
 
 #: objects/Misc/analog_clock.c:139
 msgid "Arrow line width"
-msgstr ""
+msgstr "वाण रेखाको चौडाई"
 
 #: objects/Misc/analog_clock.c:141
 msgid "Seconds arrow color"
-msgstr ""
+msgstr "वाण रङ्गाउन लाग्ने सेकेण्ड"
 
 #: objects/Misc/analog_clock.c:143
 msgid "Seconds arrow line width"
-msgstr ""
+msgstr "वाण रेखा चौडा पार्न लाग्ने समय"
 
 #: objects/Misc/analog_clock.c:145
 msgid "Show hours"
-msgstr ""
+msgstr "घन्टाहरु देखाउनुहोस"
 
 #: objects/Misc/libmisc.c:38
 msgid "Miscellaneous objects"
-msgstr ""
+msgstr "विविध वस्तुहरु"
 
 #. property rows
 #: objects/SADT/arrow.c:134 objects/UML/class.c:142
@@ -3830,65 +3830,65 @@ msgstr "सामान्य"
 
 #: objects/SADT/arrow.c:135
 msgid "Import resource (not shown upstairs)"
-msgstr ""
+msgstr "स्रोत आयात गर्नुहोस(माथि देखाईएको छैन)"
 
 #: objects/SADT/arrow.c:136
 msgid "Imply resource (not shown downstairs)"
-msgstr ""
+msgstr "स्रोतलाइ कार्वान्वयन गर्नुहोस(तल देखाईएको छैन)"
 
 #: objects/SADT/arrow.c:137
 msgid "Dotted arrow"
-msgstr ""
+msgstr "थोप्ला भयको वाण"
 
 #: objects/SADT/arrow.c:138
 msgid "disable arrow heads"
-msgstr ""
+msgstr "वाण शिर्षहरु असक्षम "
 
 #: objects/SADT/arrow.c:144
 msgid "Flow style:"
-msgstr ""
+msgstr "वहाव शैली:"
 
 #: objects/SADT/arrow.c:146
 msgid "Automatically gray vertical flows:"
-msgstr ""
+msgstr "ठाडो वहावलाइ स्वत: खैरो वनाउनुहोस"
 
 #: objects/SADT/arrow.c:147
 msgid ""
 "To improve the ease of reading, flows which begin and end vertically can be "
 "rendered gray"
-msgstr ""
+msgstr "अध्ययनको सजिलोपना वढाउनको लागी;ठाडो गरि शुरु र अन्त्य हुने वहाव खैरो रुपमा दिन सक्छ"
 
 #: objects/SADT/arrow.c:463
 msgid "SADT Arrow"
-msgstr ""
+msgstr "स्याड्ट वाण"
 
 #: objects/SADT/box.c:137 objects/flowchart/box.c:152
 #: objects/flowchart/diamond.c:150 objects/flowchart/ellipse.c:149
 #: objects/flowchart/parallelogram.c:154
 msgid "Text padding"
-msgstr ""
+msgstr "पाठ पट्टिकरण"
 
 #: objects/SADT/box.c:144
 msgid "Activity/Data identifier"
-msgstr ""
+msgstr "सक्रियता/पाठ परिचायक"
 
 #: objects/SADT/box.c:145
 msgid "The identifier which appears in the lower right corner of the Box"
-msgstr ""
+msgstr "बाकसमा तलको दायाँ कुनामा देखिने,परिचायक"
 
 #: objects/SADT/box.c:446 objects/Istar/other.c:470
 #: objects/Jackson/domain.c:532 objects/KAOS/goal.c:573
 #: objects/KAOS/other.c:526 objects/standard/line.c:220
 msgid "Delete connection point"
-msgstr ""
+msgstr "जडान विन्दुलाई मेट्नुहोस"
 
 #: objects/SADT/box.c:451
 msgid "SADT box"
-msgstr ""
+msgstr "स्याड्ट बाकस"
 
 #: objects/SADT/sadt.c:41
 msgid "SADT diagram objects"
-msgstr ""
+msgstr "स्याड्ट चित्र वस्तुहरु"
 
 #: objects/UML/actor.c:364 objects/UML/actor.c:366 sheets/UML.sheet.in.h:2
 msgid "Actor"
@@ -3896,31 +3896,31 @@ msgstr "पात्र"
 
 #: objects/UML/association.c:1175 objects/UML/class_dialog.c:2114
 msgid "Direction:"
-msgstr ""
+msgstr "दिशा:"
 
 #: objects/UML/association.c:1192
 msgid "From A to B"
-msgstr ""
+msgstr "ए देखी बि सम्म"
 
 #: objects/UML/association.c:1199
 msgid "From B to A"
-msgstr ""
+msgstr "बि देखि ए सम्म"
 
 #: objects/UML/association.c:1223 objects/UML/association.c:1231
 msgid "Side A"
-msgstr ""
+msgstr "ए छेउ"
 
 #: objects/UML/association.c:1225 objects/UML/association.c:1233
 msgid "Side B"
-msgstr ""
+msgstr "बि छेउ"
 
 #: objects/UML/association.c:1239
 msgid "Role:"
-msgstr ""
+msgstr "भुमिका:"
 
 #: objects/UML/association.c:1251
 msgid "Multiplicity:"
-msgstr ""
+msgstr "गुणकत्व:"
 
 #: objects/UML/association.c:1262 objects/UML/class_dialog.c:952
 #: objects/UML/class_dialog.c:1876
@@ -3950,7 +3950,7 @@ msgstr "कार्वान्वयन गर्नु"
 #. Show arrow:
 #: objects/UML/association.c:1320
 msgid "Show arrow"
-msgstr ""
+msgstr "वाण देखाउनुहोस"
 
 #. Aggregate
 #: objects/UML/association.c:1326
@@ -3960,7 +3960,7 @@ msgstr "सम्पूर्ण योग"
 #. Composition
 #: objects/UML/association.c:1334
 msgid "Composition"
-msgstr ""
+msgstr "मिश्रण"
 
 #: objects/UML/class.c:109 objects/UML/class.c:247 objects/UML/class.c:1169
 #: sheets/UML.sheet.in.h:6
@@ -3990,43 +3990,43 @@ msgstr "टेमप्लेट॒"
 
 #: objects/UML/class.c:122 objects/UML/class_dialog.c:305
 msgid "Suppress Attributes"
-msgstr ""
+msgstr "विशेषताहरु लाई सप्रेस पार्नुहोस"
 
 #: objects/UML/class.c:124
 msgid "Suppress Operations"
-msgstr ""
+msgstr "सञ्चालनलाई सप्रेस गर्नुहोस"
 
 #: objects/UML/class.c:126
 msgid "Visible Attributes"
-msgstr ""
+msgstr "दृश्य विशेषताहरु"
 
 #: objects/UML/class.c:128
 msgid "Visible Operations"
-msgstr ""
+msgstr "दृश्य सन्चालन"
 
 #: objects/UML/class.c:130
 msgid "Visible Comments"
-msgstr ""
+msgstr "दृश्य टिप्पणीहरु"
 
 #: objects/UML/class.c:132 objects/UML/class_dialog.c:321
 msgid "Wrap Operations"
-msgstr ""
+msgstr "सन्चालनलाई वेर्नुहोस्"
 
 #: objects/UML/class.c:134
 msgid "Wrap after char"
-msgstr ""
+msgstr "क्यार पछि वेर्नुहोस"
 
 #: objects/UML/class.c:144 objects/UML/class_dialog.c:362
 msgid "Polymorphic"
-msgstr ""
+msgstr "वहुआकारिय"
 
 #: objects/UML/class.c:148
 msgid "Classname"
-msgstr ""
+msgstr "कक्षाकोनाम"
 
 #: objects/UML/class.c:150
 msgid "Abstract Classname"
-msgstr ""
+msgstr "कक्षाको नाम निकाल्नुहोस"
 
 #: objects/UML/class.c:156 objects/UML/class.c:158 objects/UML/class.c:160
 #: objects/UML/class.c:162 objects/UML/class.c:164 objects/UML/class.c:166
@@ -4039,26 +4039,26 @@ msgstr "बिषेषताहरु"
 
 #: objects/UML/class.c:173
 msgid "Operations"
-msgstr ""
+msgstr "सञ्चालन"
 
 #: objects/UML/class.c:241
 msgid "Show Comments"
-msgstr ""
+msgstr "टिप्पणि देखाउनुहोस"
 
 #. Class page:
 #: objects/UML/class_dialog.c:265
 msgid "_Class"
-msgstr ""
+msgstr "_कक्षा"
 
 #: objects/UML/class_dialog.c:273
 msgid "Class name:"
-msgstr ""
+msgstr "कक्षाको नाम:"
 
 #: objects/UML/class_dialog.c:281 objects/UML/class_dialog.c:1863
 #: objects/UML/dependency.c:135 objects/UML/generalization.c:131
 #: objects/UML/realizes.c:132
 msgid "Stereotype:"
-msgstr ""
+msgstr "स्टेरियोटाइप:"
 
 #: objects/UML/class_dialog.c:288 objects/UML/class_dialog.c:940
 #: objects/UML/class_dialog.c:1981 objects/UML/class_dialog.c:2103
@@ -4067,28 +4067,28 @@ msgstr "टिप्पणि:"
 
 #: objects/UML/class_dialog.c:302
 msgid "Attributes visible"
-msgstr ""
+msgstr "दृश्य विशेषताहरु"
 
 #: objects/UML/class_dialog.c:311
 msgid "Operations visible"
-msgstr ""
+msgstr "दृश्य सन्चालन"
 
 #: objects/UML/class_dialog.c:314
 msgid "Suppress operations"
-msgstr ""
+msgstr "सन्चालनलाई सप्रेस पार्नुहोस"
 
 #: objects/UML/class_dialog.c:328
 msgid "Wrap after this length: "
-msgstr ""
+msgstr "यो लम्वाई पछि बेर्नुहोस: "
 
 #: objects/UML/class_dialog.c:335
 msgid "Comments visible"
-msgstr ""
+msgstr "दृश्य टिप्पणीहरु"
 
 #. head line
 #: objects/UML/class_dialog.c:348
 msgid "Kind"
-msgstr ""
+msgstr "किसम"
 
 #: objects/UML/class_dialog.c:353
 msgid "Size"
@@ -4096,11 +4096,11 @@ msgstr "आकार"
 
 #: objects/UML/class_dialog.c:372
 msgid "Class Name"
-msgstr ""
+msgstr "कक्षा नाम"
 
 #: objects/UML/class_dialog.c:377
 msgid "Abstract Class"
-msgstr ""
+msgstr "कक्षा निकाल्नुहोस"
 
 #. should probably be refactored too.
 #: objects/UML/class_dialog.c:394
@@ -4109,7 +4109,7 @@ msgstr "पाठको रंग"
 
 #: objects/UML/class_dialog.c:402
 msgid "Foreground Color"
-msgstr ""
+msgstr "अग्रभुमि रङ्ग"
 
 #: objects/UML/class_dialog.c:410
 msgid "Background Color"
@@ -4118,7 +4118,7 @@ msgstr "पृष्ठभुमि रंग"
 #. Attributes page:
 #: objects/UML/class_dialog.c:840
 msgid "_Attributes"
-msgstr ""
+msgstr "_विशेषताहरु"
 
 #: objects/UML/class_dialog.c:868 objects/UML/class_dialog.c:1799
 #: objects/UML/class_dialog.c:2027 objects/UML/class_dialog.c:2547
@@ -4142,36 +4142,36 @@ msgstr "तल लैजानुहोस्"
 
 #: objects/UML/class_dialog.c:897
 msgid "Attribute data"
-msgstr ""
+msgstr "विशेषता लगत"
 
 #: objects/UML/class_dialog.c:929
 msgid "Value:"
-msgstr ""
+msgstr "मुल्य:"
 
 #: objects/UML/class_dialog.c:1006 objects/UML/class_dialog.c:1925
 msgid "Class scope"
-msgstr ""
+msgstr "कक्षाको भविष्य"
 
 #. Operations page:
 #: objects/UML/class_dialog.c:1771
 msgid "_Operations"
-msgstr ""
+msgstr "_सन्चालन"
 
 #: objects/UML/class_dialog.c:1829
 msgid "Operation data"
-msgstr ""
+msgstr "सन्चालन लगत"
 
 #: objects/UML/class_dialog.c:1931
 msgid "Inheritance type:"
-msgstr ""
+msgstr "वंशानुक्रम प्रकार:"
 
 #: objects/UML/class_dialog.c:1948
 msgid "Polymorphic (virtual)"
-msgstr ""
+msgstr "वहुआकारि (अवास्तविक)"
 
 #: objects/UML/class_dialog.c:1956
 msgid "Leaf (final)"
-msgstr ""
+msgstr "पात (अन्तिम)"
 
 #: objects/UML/class_dialog.c:1974
 msgid "Query"
@@ -4179,15 +4179,15 @@ msgstr "क्वेरी"
 
 #: objects/UML/class_dialog.c:1998
 msgid "Parameters:"
-msgstr ""
+msgstr "परिमितिहरु:"
 
 #: objects/UML/class_dialog.c:2060
 msgid "Parameter data"
-msgstr ""
+msgstr "परिमिति लगत"
 
 #: objects/UML/class_dialog.c:2092
 msgid "Def. value:"
-msgstr ""
+msgstr "डेफ.मुल्य:"
 
 #: objects/UML/class_dialog.c:2123
 msgid "Undefined"
@@ -4203,52 +4203,52 @@ msgstr "बाहिर"
 
 #: objects/UML/class_dialog.c:2149
 msgid "In & Out"
-msgstr ""
+msgstr "भित्र र वाहिर"
 
 #. Templates page:
 #: objects/UML/class_dialog.c:2513
 msgid "_Templates"
-msgstr ""
+msgstr "_टेम्पलेटहरु"
 
 #: objects/UML/class_dialog.c:2519 sheets/UML.sheet.in.h:29
 msgid "Template class"
-msgstr ""
+msgstr "टेम्पलेट श्रेणि"
 
 #: objects/UML/class_dialog.c:2576
 msgid "Formal parameter data"
-msgstr ""
+msgstr "औपचारिक परिमिति लगत"
 
 #: objects/UML/classicon.c:127
 msgid "Boundary"
-msgstr ""
+msgstr "सिमा"
 
 #: objects/UML/classicon.c:139
 msgid "Is object"
-msgstr ""
+msgstr "वस्तु हो"
 
 #: objects/UML/component_feature.c:144 sheets/UML.sheet.in.h:14
 msgid "Facet"
-msgstr ""
+msgstr "फलिका"
 
 #: objects/UML/component_feature.c:145 sheets/UML.sheet.in.h:26
 msgid "Receptacle"
-msgstr ""
+msgstr "राख्ने ठाउ"
 
 #: objects/UML/component_feature.c:146 sheets/UML.sheet.in.h:13
 msgid "Event Source"
-msgstr ""
+msgstr "घटना स्रोत"
 
 #: objects/UML/component_feature.c:147 sheets/UML.sheet.in.h:12
 msgid "Event Sink"
-msgstr ""
+msgstr "घटना विलिन हुन"
 
 #: objects/UML/constraint.c:125
 msgid "Constraint:"
-msgstr ""
+msgstr "सिमा:"
 
 #: objects/UML/dependency.c:137
 msgid "Show arrow:"
-msgstr ""
+msgstr "वाण देखाउनुहोस:"
 
 #: objects/UML/implements.c:128
 msgid "Interface:"
@@ -4256,23 +4256,23 @@ msgstr "ईन्टरफेस:"
 
 #: objects/UML/lifeline.c:144
 msgid "Draw focus of control:"
-msgstr ""
+msgstr "नियन्त्रणको फोकस चित्रित गर्नुहोस"
 
 #: objects/UML/lifeline.c:146
 msgid "Draw destruction mark:"
-msgstr ""
+msgstr "नाशक चिन्ह कोर्नुहोस्:"
 
 #: objects/UML/lifeline.c:417
 msgid "Add connection points"
-msgstr ""
+msgstr "जडान विन्दुहरु जोड्नुहोस"
 
 #: objects/UML/lifeline.c:418
 msgid "Remove connection points"
-msgstr ""
+msgstr "जडान विन्दुहरु हटाउनुहोस"
 
 #: objects/UML/lifeline.c:422
 msgid "UML Lifeline"
-msgstr ""
+msgstr "यू एम एल जिवन रेखा"
 
 #: objects/UML/message.c:135
 msgid "Call"
@@ -4300,7 +4300,7 @@ msgstr "पठाउनुहोस्"
 
 #: objects/UML/message.c:141
 msgid "Recursive"
-msgstr ""
+msgstr "पुनरावर्तिय"
 
 #: objects/UML/message.c:150 objects/Jackson/phenomenon.c:142
 msgid "Message:"
@@ -4308,7 +4308,7 @@ msgstr "खबर:"
 
 #: objects/UML/message.c:152
 msgid "Message type:"
-msgstr ""
+msgstr "सन्देश प्रकार:"
 
 #: objects/UML/object.c:151
 msgid "Explicit state"
@@ -4316,15 +4316,15 @@ msgstr "स्पष्ट स्थिति"
 
 #: objects/UML/object.c:156
 msgid "Active object"
-msgstr ""
+msgstr "वस्तुलाई सक्रिय पार्नुहोस"
 
 #: objects/UML/object.c:158
 msgid "Show attributes"
-msgstr ""
+msgstr "विशेषताहरु देखाउनुहोस"
 
 #: objects/UML/object.c:160
 msgid "Multiple instance"
-msgstr ""
+msgstr "वहु दृष्टान्त"
 
 #. Would like to create a state_term instead, but making the connections
 #. * is a pain
@@ -4334,18 +4334,21 @@ msgid ""
 "That option will go away in future versions.\n"
 "Please use the Initial/Final State object instead\n"
 msgstr ""
+"यो चित्रले शुरुवात/अन्त्य अवस्थाहरुको लागि भएको वस्तु प्रयोग गर्दछ.\n"
+"त्यो विकल्प भविस्यात्मक संस्करणहरुमा जान्छ.\n"
+"कृपया शुरु/अन्त्य स्थित वस्तु सट्टामा प्रयोग गर्नुहोस\n"
 
 #: objects/UML/state_term.c:120
 msgid "Is final"
-msgstr ""
+msgstr "अन्त्य हो"
 
 #: objects/UML/transition.c:129
 msgid "Trigger"
-msgstr ""
+msgstr "ट्रिगर"
 
 #: objects/UML/transition.c:130
 msgid "The event that causes this transition to be taken"
-msgstr ""
+msgstr "यो सङ्कक्रमण गर्ने घटनालाई लिनु पर्दछई "
 
 #: objects/UML/transition.c:131
 msgid "Action"
@@ -4353,23 +4356,23 @@ msgstr "कार्य"
 
 #: objects/UML/transition.c:132
 msgid "Action to perform when this transition is taken"
-msgstr ""
+msgstr "यो सङ्कक्रमणलाई लिदा गर्नु पर्ने कार्य"
 
 #: objects/UML/transition.c:133
 msgid "Guard"
-msgstr ""
+msgstr "शुरक्षा पर्दान गर्नु"
 
 #: objects/UML/transition.c:134
 msgid "Condition for taking this transition when the event is fired"
-msgstr ""
+msgstr "घटनालाई जलाइएको वेलामा,यो सङ्कक्रमणलाई लिने शर्त "
 
 #: objects/UML/uml.c:65
 msgid "Unified Modelling Language diagram objects"
-msgstr ""
+msgstr "एकिकृत वहुलकिय भाषा चित्र वस्तुहरु"
 
 #: objects/UML/usecase.c:132
 msgid "Text outside"
-msgstr ""
+msgstr "पाठलाई वाहिर गर्नुहोस"
 
 #: objects/UML/usecase.c:134
 msgid "Collaboration"
@@ -4377,11 +4380,11 @@ msgstr "सहकार्य"
 
 #: objects/bondgraph/bondgraph.c:39
 msgid "Bond graph objects"
-msgstr ""
+msgstr "ग्राफ वस्तुहरु वाधनुहोस"
 
 #: objects/chronogram/chronogram.c:40
 msgid "Chronogram diagram objects"
-msgstr ""
+msgstr "क्रोनोग्राम चित्र वस्तुहरु"
 
 #: objects/chronogram/chronoline.c:148
 msgid "Data"
@@ -4389,7 +4392,7 @@ msgstr "लगत"
 
 #: objects/chronogram/chronoline.c:150
 msgid "Data name"
-msgstr ""
+msgstr "लगत नाम"
 
 #: objects/chronogram/chronoline.c:152
 msgid "Events"
@@ -4397,7 +4400,7 @@ msgstr "घटनाहरू"
 
 #: objects/chronogram/chronoline.c:155
 msgid "Event specification"
-msgstr ""
+msgstr "घटना विशेषता"
 
 #: objects/chronogram/chronoline.c:156
 msgid ""
@@ -4407,58 +4410,63 @@ msgid ""
 "u duration  sets the signal to \"unknown\" state, then wait 'duration'.\n"
 "example : @ 1.0 (2.0)1.0(2.0)\n"
 msgstr ""
+"@समय    सुचकलाई ठिक समयमा सेट गर्नुहोस.\n"
+"(अवधि  चिन्ह लाइ माथितिर सेट गर्नुहोस,त्यसपछि 'अवधि'लाई पर्खिनुहोस.\n"
+") अवधिम  चिन्हलाइ तलतिर सेट गर्नुहोस,त्यसपछि 'अवधि'लाई पर्खिनुहोस.\n"
+"यू अवधि  चिन्हलाई \"अपरिचित\" अवस्थामा सेट गर्नुहोस,त्यसपछि 'अवधि'लाई पर्खिनुहोस.\n"
+"उदाहरण : @ 1.0 (2.0)1.0(2.0)\n"
 
 #: objects/chronogram/chronoline.c:162
 msgid "Parameters"
-msgstr ""
+msgstr "परिमितिहरु"
 
 #: objects/chronogram/chronoline.c:164 objects/chronogram/chronoref.c:146
 msgid "Start time"
-msgstr ""
+msgstr "समय शुरु"
 
 #: objects/chronogram/chronoline.c:166 objects/chronogram/chronoref.c:148
 msgid "End time"
-msgstr ""
+msgstr "अन्त्य समय"
 
 #: objects/chronogram/chronoline.c:168
 msgid "Rise time"
-msgstr ""
+msgstr "समय उठाउनुहोस"
 
 #: objects/chronogram/chronoline.c:170
 msgid "Fall time"
-msgstr ""
+msgstr "झरेको समय"
 
 #: objects/chronogram/chronoline.c:171
 msgid "Multi-bit data"
-msgstr ""
+msgstr "वहु-विट लगत"
 
 #: objects/chronogram/chronoline.c:173 objects/chronogram/chronoref.c:156
 msgid "Aspect"
-msgstr ""
+msgstr "भाव"
 
 #: objects/chronogram/chronoline.c:175
 msgid "Data color"
-msgstr ""
+msgstr "लगत रङ्ग"
 
 #: objects/chronogram/chronoline.c:177
 msgid "Data line width"
-msgstr ""
+msgstr "लगत रेखा चौडाई"
 
 #: objects/chronogram/chronoref.c:144
 msgid "Time data"
-msgstr ""
+msgstr "समय लगत"
 
 #: objects/chronogram/chronoref.c:150
 msgid "Major time step"
-msgstr ""
+msgstr "मेजर समय पङ्गति"
 
 #: objects/chronogram/chronoref.c:152
 msgid "Minor time step"
-msgstr ""
+msgstr "माइनर न्य समय पङ्गति"
 
 #: objects/chronogram/chronoref.c:162
 msgid "Minor step line width"
-msgstr ""
+msgstr "माईनर पङ्गति रेखा चौडाई"
 
 #: objects/custom/custom.c:117
 msgid "Custom"
@@ -4466,49 +4474,49 @@ msgstr "अनुकुल"
 
 #: objects/custom/custom.c:117
 msgid "Custom XML shapes loader"
-msgstr ""
+msgstr "अनुकुल एक्सएमएल आकार लोडर"
 
 #: objects/custom/custom_object.c:178 objects/custom/custom_object.c:197
 msgid "Flip horizontal"
-msgstr ""
+msgstr "तेर्सो गरी फ्लिप गर्नु"
 
 #: objects/custom/custom_object.c:180 objects/custom/custom_object.c:199
 msgid "Flip vertical"
-msgstr ""
+msgstr "तेर्सो गरी फ्लिप गर्नु"
 
 #: objects/custom/custom_object.c:1448
 msgid "Flip Horizontal"
-msgstr ""
+msgstr "ठाडो गरी फ्लिप गर्नु"
 
 #: objects/custom/custom_object.c:1449
 msgid "Flip Vertical"
-msgstr ""
+msgstr "तेर्सो गरि फ्लिप गर्नु"
 
 #: objects/custom/custom_object.c:1486
 #, c-format
 msgid "Cannot open icon file %s for object type '%s'."
-msgstr ""
+msgstr "'%s' वस्तु किसिमको लागि, %s प्रतिमा फाईल खुल्न सकेन"
 
 #: objects/flowchart/box.c:150 objects/standard/box.c:150
 #: objects/standard/polyline.c:134 objects/standard/zigzagline.c:129
 msgid "Corner radius"
-msgstr ""
+msgstr "कुनाको अर्धव्यास"
 
 #: objects/flowchart/flowchart.c:37
 msgid "Flowchart objects"
-msgstr ""
+msgstr "फ्लोचार्टका  वस्तुहरु"
 
 #: objects/flowchart/parallelogram.c:152
 msgid "Shear angle"
-msgstr ""
+msgstr "काटेको कोण"
 
 #: objects/Istar/actor.c:68 objects/Istar/link.c:153
 msgid "Unspecified"
-msgstr ""
+msgstr "अविवरणिय"
 
 #: objects/Istar/actor.c:69 objects/KAOS/other.c:75
 msgid "Agent"
-msgstr ""
+msgstr "प्रतिनिधि"
 
 #: objects/Istar/actor.c:71
 msgid "Role"
@@ -4516,40 +4524,40 @@ msgstr "भुमिका"
 
 #: objects/Istar/goal.c:76 objects/KAOS/goal.c:79
 msgid "Softgoal"
-msgstr ""
+msgstr "नरम लक्ष्य"
 
 #: objects/Istar/goal.c:77 objects/KAOS/goal.c:80
 msgid "Goal"
-msgstr ""
+msgstr "लक्ष्य"
 
 #: objects/Istar/goal.c:155 objects/Istar/goal.c:156 objects/KAOS/goal.c:157
 #: objects/KAOS/goal.c:158
 msgid "Goal Type"
-msgstr ""
+msgstr "लक्ष्य प्रकार"
 
 #: objects/Istar/istar.c:46
 msgid "Istar diagram"
-msgstr ""
+msgstr "इस्टर चित्र"
 
 #: objects/Istar/link.c:154
 msgid "Positive Contrib"
-msgstr ""
+msgstr "घनात्मक कन्ट्रिव"
 
 #: objects/Istar/link.c:155
 msgid "Negative contrib"
-msgstr ""
+msgstr "ऋणात्मक कन्ट्रिव"
 
 #: objects/Istar/link.c:156 sheets/UML.sheet.in.h:10
 msgid "Dependency"
-msgstr ""
+msgstr "भरपर्नु"
 
 #: objects/Istar/link.c:157
 msgid "Decomposition"
-msgstr ""
+msgstr "अपिघट गर्नुन"
 
 #: objects/Istar/link.c:158
 msgid "Means-Ends"
-msgstr ""
+msgstr "साधन-अन्त्यहरु"
 
 #: objects/Istar/other.c:73
 msgid "Resource"
@@ -4561,115 +4569,115 @@ msgstr "कार्य"
 
 #: objects/Istar/other.c:475
 msgid "i* other"
-msgstr ""
+msgstr "i* अरु"
 
 #: objects/Jackson/domain.c:79
 msgid "Given Domain"
-msgstr ""
+msgstr "दिईएको डोमेन"
 
 #: objects/Jackson/domain.c:80
 msgid "Designed Domain"
-msgstr ""
+msgstr "खाका वनाईएको डोमेन"
 
 #: objects/Jackson/domain.c:81
 msgid "Machine Domain"
-msgstr ""
+msgstr "यन्त्र डोमेन"
 
 #: objects/Jackson/domain.c:97
 msgid "Causal"
-msgstr ""
+msgstr "कारक"
 
 #: objects/Jackson/domain.c:98
 msgid "Biddable"
-msgstr ""
+msgstr "निर्देशन मान्ने किसिमको"
 
 #: objects/Jackson/domain.c:99
 msgid "Lexical"
-msgstr ""
+msgstr "शव्द संग सम्वन्धित"
 
 #: objects/Jackson/domain.c:176 objects/Jackson/domain.c:177
 msgid "Domain Type"
-msgstr ""
+msgstr "डोमेन प्रकार"
 
 #: objects/Jackson/domain.c:181
 msgid "Domain Kind"
-msgstr ""
+msgstr "डोमेन किसिम"
 
 #: objects/Jackson/domain.c:182
 msgid "Optional kind which appears in the lower right corner of the Domain"
-msgstr ""
+msgstr "डोमेनको तल्लो दाहिने कुना मा देखिने वैकल्पिक किसिम"
 
 #: objects/Jackson/domain.c:537
 msgid "Jackson domain"
-msgstr ""
+msgstr "ज्याक्सन डोमेन"
 
 #: objects/Jackson/jackson.c:47
 msgid "Jackson diagram"
-msgstr ""
+msgstr "ज्याक्सन चित्र"
 
 #: objects/Jackson/phenomenon.c:134
 msgid "Shared"
-msgstr ""
+msgstr "वरावर वाडिएको"
 
 #: objects/Jackson/phenomenon.c:135 objects/KAOS/goal.c:81
 msgid "Requirement"
-msgstr ""
+msgstr "आवश्यक्ता"
 
 #: objects/KAOS/goal.c:82
 msgid "Assumption"
-msgstr ""
+msgstr "मान्यता"
 
 #: objects/KAOS/goal.c:83
 msgid "Obstacle"
-msgstr ""
+msgstr "अवरोध"
 
 #: objects/KAOS/goal.c:578
 msgid "KAOS goal"
-msgstr ""
+msgstr "काओस उदेश्य"
 
 #: objects/KAOS/kaos.c:49
 msgid "KAOS diagram"
-msgstr ""
+msgstr "काओस चित्र"
 
 #: objects/KAOS/metaandorrel.c:151
 msgid "AND Refinement"
-msgstr ""
+msgstr "एण्ड पुन:शुध्दिकरण"
 
 #: objects/KAOS/metaandorrel.c:152
 msgid "Complete AND Refinement"
-msgstr ""
+msgstr "सकिनु एण्ड पुन:शुध्दिकरण"
 
 #: objects/KAOS/metaandorrel.c:153
 msgid "OR Refinement"
-msgstr ""
+msgstr "अर पुन:शुध्दिकरण"
 
 #: objects/KAOS/metaandorrel.c:154
 msgid "Operationalization"
-msgstr ""
+msgstr "सन्चालिकिकरण"
 
 #: objects/KAOS/metaandorrel.c:161
 msgid "Text:"
-msgstr ""
+msgstr "पाठ:"
 
 #: objects/KAOS/metabinrel.c:155
 msgid "Contributes"
-msgstr ""
+msgstr "योगदान गर्छ"
 
 #: objects/KAOS/metabinrel.c:156
 msgid "Obstructs"
-msgstr ""
+msgstr "वाधा गर्छ"
 
 #: objects/KAOS/metabinrel.c:157
 msgid "Conflicts"
-msgstr ""
+msgstr "दोधारहरु"
 
 #: objects/KAOS/metabinrel.c:158
 msgid "Responsibility"
-msgstr ""
+msgstr "दायित्व"
 
 #: objects/KAOS/metabinrel.c:159
 msgid "Monitors"
-msgstr ""
+msgstr "निरिक्षकरु"
 
 #: objects/KAOS/metabinrel.c:160
 msgid "Controls"
@@ -4677,11 +4685,11 @@ msgstr "नियन्त्रणहरु"
 
 #: objects/KAOS/metabinrel.c:161
 msgid "CapableOf"
-msgstr ""
+msgstr "को सक्षम"
 
 #: objects/KAOS/metabinrel.c:162
 msgid "Performs"
-msgstr ""
+msgstr "कार्य गरेर देखाउनु"
 
 #: objects/KAOS/metabinrel.c:164
 msgid "Output"
@@ -4689,78 +4697,78 @@ msgstr "निर्गत"
 
 #: objects/KAOS/other.c:531
 msgid "KAOS other"
-msgstr ""
+msgstr "काओस अरु"
 
 #: objects/network/basestation.c:135
 msgid "Sectors"
-msgstr ""
+msgstr "भागहरु"
 
 #: objects/network/basestation.c:393 objects/network/basestation.c:395
 msgid "Base Station"
-msgstr ""
+msgstr "आधार स्टेसन"
 
 #: objects/network/bus.c:599
 msgid "Add Handle"
-msgstr ""
+msgstr "ह्याण्डल थप्नुहोस"
 
 #: objects/network/bus.c:600
 msgid "Delete Handle"
-msgstr ""
+msgstr "ह्याण्डल मेट्नुहोस"
 
 #: objects/network/network.c:43
 msgid "Network diagram objects"
-msgstr ""
+msgstr "सन्जाल चित्र वस्तुहरु"
 
 #: objects/network/radiocell.c:130
 msgid "Macro Cell"
-msgstr ""
+msgstr "म्याक्रो कोष"
 
 #: objects/network/radiocell.c:131
 msgid "Micro Cell"
-msgstr ""
+msgstr "माईक्रो कोस"
 
 #: objects/network/radiocell.c:132
 msgid "Pico Cell"
-msgstr ""
+msgstr "पिको कोष"
 
 #: objects/network/radiocell.c:138
 msgid "Radius"
-msgstr ""
+msgstr "अर्धव्यास"
 
 #: objects/network/radiocell.c:140
 msgid "Cell Type:"
-msgstr ""
+msgstr "कोष प्रकार:"
 
 #: objects/network/radiocell.c:152
 msgid "Subscribers"
-msgstr ""
+msgstr "ग्राहकहरु"
 
 #: objects/standard/arc.c:131
 msgid "Curve distance"
-msgstr ""
+msgstr "दुरीलाई वक्र पार्नुहोस"
 
 #: objects/standard/bezier.c:137 objects/standard/line.c:141
 #: objects/standard/polyline.c:135
 msgid "Line gaps"
-msgstr ""
+msgstr "रेखा अन्तरहरु"
 
 #: objects/standard/bezier.c:139 objects/standard/line.c:143
 #: objects/standard/polyline.c:137
 msgid "Absolute start gap"
-msgstr ""
+msgstr "निश्चीत शुरु अन्तर"
 
 #: objects/standard/bezier.c:141 objects/standard/line.c:145
 #: objects/standard/polyline.c:139
 msgid "Absolute end gap"
-msgstr ""
+msgstr "निश्चीत अन्त्य अन्तर"
 
 #: objects/standard/bezier.c:732 objects/standard/beziergon.c:488
 msgid "Add Segment"
-msgstr ""
+msgstr "खण्ड जोड्नुहोस"
 
 #: objects/standard/bezier.c:733 objects/standard/beziergon.c:489
 msgid "Delete Segment"
-msgstr ""
+msgstr "खण्ड मेट्नुहोस"
 
 #: objects/standard/bezier.c:735 objects/standard/beziergon.c:491
 msgid "Symmetric control"
@@ -4768,11 +4776,11 @@ msgstr "सममिति नियन्त्रण"
 
 #: objects/standard/bezier.c:737 objects/standard/beziergon.c:493
 msgid "Smooth control"
-msgstr ""
+msgstr "सरल नियन्त्रण"
 
 #: objects/standard/bezier.c:739 objects/standard/beziergon.c:495
 msgid "Cusp control"
-msgstr ""
+msgstr "विन्दु नियन्त्रण"
 
 #: objects/standard/box.c:137 objects/standard/ellipse.c:131
 msgid "Free"
@@ -4780,7 +4788,7 @@ msgstr "मुक्त"
 
 #: objects/standard/box.c:138 objects/standard/ellipse.c:132
 msgid "Fixed"
-msgstr ""
+msgstr "निश्चीत गरियको"
 
 #: objects/standard/box.c:139 objects/standard/box.c:694
 msgid "Square"
@@ -4788,31 +4796,31 @@ msgstr "वर्ग"
 
 #: objects/standard/box.c:152 objects/standard/ellipse.c:144
 msgid "Aspect ratio"
-msgstr ""
+msgstr "अनुपात आशा गर्नुहोस"
 
 #: objects/standard/box.c:690 objects/standard/ellipse.c:668
 msgid "Free aspect"
-msgstr ""
+msgstr "मुक्त अनुपात"
 
 #: objects/standard/box.c:692 objects/standard/ellipse.c:670
 msgid "Fixed aspect"
-msgstr ""
+msgstr "निश्चित आशा"
 
 #: objects/standard/ellipse.c:133 objects/standard/ellipse.c:672
 msgid "Circle"
-msgstr ""
+msgstr "वृत"
 
 #: objects/standard/image.c:130
 msgid "Image file"
-msgstr ""
+msgstr "छवि फाईल"
 
 #: objects/standard/image.c:132
 msgid "Draw border"
-msgstr ""
+msgstr "किनारा चित्रित गर्नुहोस"
 
 #: objects/standard/image.c:134
 msgid "Keep aspect ratio"
-msgstr ""
+msgstr "आशा अनुपात राख्नुहोस"
 
 #. Found file in same dir as diagram.
 #. Found file in current dir.
@@ -4822,12 +4830,14 @@ msgid ""
 "The image file '%s' was not found in that directory.\n"
 "Using the file '%s' instead\n"
 msgstr ""
+"'$1%s' छवि फाईल त्यो डाइरेक्टोरिमा भेट्टाउन सकेन.\n"
+"सट्टामा '$2%s'फाईल प्रयोग गर्दै\n"
 
 #. Didn't find file in current dir.
 #: objects/standard/image.c:689 objects/standard/image.c:711
 #, c-format
 msgid "The image file '%s' was not found.\n"
-msgstr ""
+msgstr "'%s' छवि फाईल त्यो डाइरेक्टोरिमा भेट्टाउन सकेन.\n"
 
 #: objects/standard/line.c:132
 msgid "Arrows"
@@ -4835,95 +4845,97 @@ msgstr "तीरहरु"
 
 #: objects/standard/line.c:137
 msgid "Start point"
-msgstr ""
+msgstr "शुरु विन्दु"
 
 #: objects/standard/line.c:139
 msgid "End point"
-msgstr ""
+msgstr "अन्त्य विन्दु"
 
 #: objects/standard/polygon.c:460 objects/standard/polyline.c:605
 msgid "Add Corner"
-msgstr ""
+msgstr "कुनो थप्नुहोस"
 
 #: objects/standard/polygon.c:461 objects/standard/polyline.c:606
 msgid "Delete Corner"
-msgstr ""
+msgstr "कुनो मेट्नुहोस"
 
 #: objects/standard/standard.c:45
 msgid "Standard objects"
-msgstr ""
+msgstr "सर्वमान्य वस्तु"
 
 #: plug-ins/cairo/diacairo.c:1031
 msgid "Cairo PostScript"
-msgstr ""
+msgstr "काईरो पि एस"
 
 #: plug-ins/cairo/diacairo.c:1040
 msgid "Cairo Portable Document Format"
-msgstr ""
+msgstr "काईरो वहनयोग्य कागजात फरमेट"
 
 #: plug-ins/cairo/diacairo.c:1049
 msgid "Cairo PNG"
-msgstr ""
+msgstr "काईरो पिएनजि"
 
 #: plug-ins/cairo/diacairo.c:1057
 msgid "Cairo PNG (with alpha)"
-msgstr ""
+msgstr "काईरो पिएनजि(अल्फा संगै)"
 
 #: plug-ins/cairo/diacairo.c:1066
 msgid "Cairo WMF"
-msgstr ""
+msgstr "काईरो डव्ल्यूएमएफ"
 
 #: plug-ins/cairo/diacairo.c:1075
 msgid "Cairo old WMF"
-msgstr ""
+msgstr "काईरो पुरानो डव्ल्यूएमएफ"
 
 #: plug-ins/cairo/diacairo.c:1084
 msgid "Cairo Clipboard"
-msgstr ""
+msgstr "काईरो क्लिपवोर्ड"
 
 #: plug-ins/cairo/diacairo.c:1127
 msgid "Cairo based Rendering"
-msgstr ""
+msgstr "काईरो मा आधारित प्रतिपादन"
 
 #: plug-ins/cgm/cgm.c:1109
 msgid ""
 "Image row length larger than maximum cell array.\n"
 "Image not exported to CGM."
 msgstr ""
+"अधिकतम कोष श्रेणि भन्दा ठुलो छविको तेर्रो रेखा लम्वाई.\n"
+"छवि जिसिएम मा निर्यात भएन."
 
 #: plug-ins/cgm/cgm.c:1365
 msgid "Computer Graphics Metafile"
-msgstr ""
+msgstr "कम्प्यूटर ग्राफिक मेटाफाईल"
 
 #: plug-ins/cgm/cgm.c:1390
 msgid "Computer Graphics Metafile export filter"
-msgstr ""
+msgstr "कम्प्यूटर ग्राफिक मेटाफाईल निर्यात फिल्टर"
 
 #: plug-ins/dxf/dxf-export.c:551 plug-ins/dxf/dxf-import.c:1379
 msgid "Drawing Interchange File"
-msgstr ""
+msgstr "चित्र फेरवदल फाईल"
 
 #: plug-ins/dxf/dxf-import.c:481 plug-ins/dxf/dxf-import.c:498
 msgid "Bad vertex bulge\n"
-msgstr ""
+msgstr "खराव तरिकाले माथि उम्रिनु\n"
 
 #: plug-ins/dxf/dxf-import.c:1051
 #, c-format
 msgid "Scale: %f\n"
-msgstr ""
+msgstr "नाप: %f\n"
 
 #: plug-ins/dxf/dxf-import.c:1313
 msgid "read_dxf_codes failed\n"
-msgstr ""
+msgstr "पढ्नुहोस_डिएफएक्स_कोडहरु असफल\n"
 
 #: plug-ins/dxf/dxf-import.c:1345
 #, c-format
 msgid "Unknown dxf code %d\n"
-msgstr ""
+msgstr "अपरिचित डिएफएक्स कोड %d\n"
 
 #: plug-ins/dxf/dxf.c:50
 msgid "Drawing Interchange File import and export filters"
-msgstr ""
+msgstr "चित्र फेरवदल फाईल आयात र निर्याल फिल्टरहरु"
 
 #: plug-ins/gprint/diagnomeprint.c:79
 #, c-format
@@ -4932,38 +4944,41 @@ msgid ""
 " '%s'\n"
 " not available"
 msgstr ""
+"जिनोम छपाई पृष्ठअन्त\n"
+" '%s'\n"
+" उपलव्ध छैन"
 
 #: plug-ins/gprint/diagnomeprint.c:110
 msgid "GNOME PostScript"
-msgstr ""
+msgstr "जिनोम पोस्टस्क्रिप्ट"
 
 #: plug-ins/gprint/diagnomeprint.c:119
 msgid "GNOME Portable Document Format"
-msgstr ""
+msgstr "जिनोम वहनयोग्य कागजात फरमेट"
 
 #: plug-ins/gprint/diagnomeprint.c:128
 msgid "GNOME Scalable Vector Graphic"
-msgstr ""
+msgstr "जिनोम मापनिय ठाडो ग्राफिक"
 
 #: plug-ins/gprint/diagnomeprint.c:159
 msgid "GNOME Print based Rendering"
-msgstr ""
+msgstr "जिनोम छपाई आधारित प्रतिपादन"
 
 #: plug-ins/hpgl/hpgl.c:758
 msgid "HP Graphics Language"
-msgstr ""
+msgstr "एचपि ग्राफिक भाषा"
 
 #: plug-ins/hpgl/hpgl.c:783
 msgid "HP Graphics Language export filter"
-msgstr ""
+msgstr "एचपि ग्राफिक भाषा निर्यात फिल्टर"
 
 #: plug-ins/metapost/metapost.c:46
 msgid "TeX Metapost export filter"
-msgstr ""
+msgstr "टेक्स मेटापोस्ट निर्यात फिल्टर"
 
 #: plug-ins/metapost/render_metapost.c:1033
 msgid "TeX Metapost macros"
-msgstr ""
+msgstr "टेक्स मेटापोस्ट म्याक्रोज"
 
 #: plug-ins/pixbuf/pixbuf.c:90
 #, c-format
@@ -4972,47 +4987,50 @@ msgid ""
 "%s\n"
 "%s"
 msgstr ""
+"फाइललाई वचत गर्न सकेन:\n"
+"%s\n"
+"%s"
 
 #: plug-ins/pixbuf/pixbuf.c:197
 msgid "gdk-pixbuf based bitmap export/import"
-msgstr ""
+msgstr "जिडिके-पिक्सबफ आधारित विटम्याप निर्यात/आयात"
 
 #: plug-ins/pstricks/pstricks.c:26
 msgid "TeX Pstricks export filter"
-msgstr ""
+msgstr "टे एक्स पि स्ट्रिक्स निर्यात फिल्टर"
 
 #: plug-ins/pstricks/render_pstricks.c:730
 msgid "Not valid UTF8"
-msgstr ""
+msgstr "अमान्य युटिएफ८"
 
 #: plug-ins/pstricks/render_pstricks.c:979
 msgid "TeX PSTricks macros"
-msgstr ""
+msgstr "टे एक्स पि स्ट्रिक्स म्याक्रोज"
 
 #: plug-ins/python/pydia-render.c:717 plug-ins/wmf/wmf.cpp:1182
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
-msgstr ""
+msgstr "लेख्नको लागि '%s'खुल्न सकेन.\n"
 
 #: plug-ins/python/python.c:92
 msgid "Python scripting support"
-msgstr ""
+msgstr "अजिङ्गर स्क्रिप्टिङ्ग सहायता"
 
 #: plug-ins/shape/shape-export.c:470
 msgid "Can't export png without libart!"
-msgstr ""
+msgstr "लिबर्ट विना पिएनजि निर्यात गर्न सक्दैन!"
 
 #: plug-ins/shape/shape-export.c:497
 msgid "Dia Shape File"
-msgstr ""
+msgstr "डाय आकारको फाईल"
 
 #: plug-ins/shape/shape.c:36
 msgid "dia shape export filter"
-msgstr ""
+msgstr "डाय आकारको निर्यात फिल्टरल"
 
 #: plug-ins/svg/render_svg.c:301 plug-ins/svg/svg-import.c:669
 msgid "Scalable Vector Graphics"
-msgstr ""
+msgstr "मापनिय योग्य शिर्ष ग्रफिक"
 
 #: plug-ins/svg/svg-import.c:201 plug-ins/xfig/xfig-import.c:108
 #: plug-ins/xfig/xfig-import.c:159 plug-ins/xfig/xfig-import.c:188
@@ -5020,206 +5038,208 @@ msgstr ""
 #: plug-ins/xfig/xfig-import.c:289 plug-ins/xfig/xfig-import.c:326
 #: plug-ins/xfig/xfig-import.c:362 plug-ins/xfig/xfig-import.c:403
 msgid "Can't find standard object"
-msgstr ""
+msgstr "सर्वमान्य वस्ततु भेट्टाउन सक्दैन"
 
 #: plug-ins/svg/svg-import.c:650
 #, c-format
 msgid "root element was '%s' -- expecting 'svg'."
-msgstr ""
+msgstr "मुल तत्वल '%s' -- ले 'एसभिजि' आशा गरिरहेको थियो"
 
 #: plug-ins/svg/svg.c:50
 msgid "Scalable Vector Graphics import and export filters"
-msgstr ""
+msgstr "मापनिय शिर्ष ग्राफिक आयात र निर्यात फिल्टरहरु"
 
 #: plug-ins/wmf/wmf.cpp:1249
 msgid "Windows Meta File"
-msgstr ""
+msgstr "सन्झ्याल मेटा फाईल"
 
 #: plug-ins/wmf/wmf.cpp:1265
 msgid "WMF export filter"
-msgstr ""
+msgstr "डव्ल्युएमएफ निर्यात फिल्टर"
 
 #: plug-ins/wpg/wpg.c:1183
 #, c-format
 msgid "File: %s type/version unsupported.\n"
-msgstr ""
+msgstr "%s प्रकार/संस्करण फाईल: सहायताविहिन.\n"
 
 #: plug-ins/wpg/wpg.c:1313 plug-ins/wpg/wpg.c:1320
 msgid "WPG"
-msgstr ""
+msgstr "डव्ल्युपिजि"
 
 #: plug-ins/wpg/wpg.c:1348
 msgid "WordPerfect Graphics export filter"
-msgstr ""
+msgstr "शव्द पोख्त ग्राफिक निर्यात फिल्टर"
 
 #: plug-ins/xfig/xfig-export.c:461
 #, c-format
 msgid "FIG format has no equivalent of arrow style %s, using simple arrow.\n"
 msgstr ""
+"एफआईजि फरमेट वरावर वाण शैलि%s छैन, "
+"साधारण वाण प्रयोग गरिदै.\n"
 
 #: plug-ins/xfig/xfig-export.c:483
 msgid "No more user-definable colors - using black"
-msgstr ""
+msgstr "प्रयोगकर्ता-परिभाषित अरु रङ्गहरु छैनन् - कालो प्रयोग गरिँदै"
 
 #: plug-ins/xfig/xfig-export.c:1187
 msgid "XFig format"
-msgstr ""
+msgstr "एक्सफिग फरमेट"
 
 #: plug-ins/xfig/xfig-import.c:472
 msgid "Patterns are not supported by Dia"
-msgstr ""
+msgstr "डाय द्वारा नमुनाहरुलाइ सहायता दिईएन"
 
 #: plug-ins/xfig/xfig-import.c:500
 msgid "Triple-dotted lines are not supported by Dia, using double-dotted"
-msgstr ""
+msgstr "तिन-पटक गरियका थोप्लाहरु डाय द्वारा सहायता गरियन,दुई-पटक गरियका थोप्लाहरु प्रयिग गरिदै "
 
 #: plug-ins/xfig/xfig-import.c:504
 #, c-format
 msgid "Line style %d should not appear\n"
-msgstr ""
+msgstr "%d रेखा शैलि देखिनु हुदैन\n"
 
 #: plug-ins/xfig/xfig-import.c:573
 #, c-format
 msgid "Error while reading %dth of %d points: %s\n"
-msgstr ""
+msgstr "%d विन्दुको %d पढ्दा%s गल्ति:\n"
 
 #: plug-ins/xfig/xfig-import.c:595
 msgid "Error while reading arrowhead\n"
-msgstr ""
+msgstr "वाँण शिर्ष पढ्दा गल्ति\n"
 
 #: plug-ins/xfig/xfig-import.c:615
 #, c-format
 msgid "Unknown arrow type %d\n"
-msgstr ""
+msgstr "अपरिचित वाँणको प्रकार%d\n"
 
 #: plug-ins/xfig/xfig-import.c:731
 #, c-format
 msgid "Couldn't read ellipse info: %s\n"
-msgstr ""
+msgstr "%s दीर्धवृत जानकारी पढ्न सकेन:\n"
 
 #: plug-ins/xfig/xfig-import.c:799
 #, c-format
 msgid "Couldn't read polyline info: %s\n"
-msgstr ""
+msgstr "%s वहुरेखा जानकारी पढ्न सकेन:\n"
 
 #: plug-ins/xfig/xfig-import.c:814
 #, c-format
 msgid "Couldn't read flipped bit: %s\n"
-msgstr ""
+msgstr "%s चम्किएको विट जानकारी पढ्न सकेन:\n"
 
 #: plug-ins/xfig/xfig-import.c:832
 msgid "Negative corner radius, negating"
-msgstr ""
+msgstr "ऋणात्मक कुनो अर्धव्यास, अस्विकारगरिदै"
 
 #: plug-ins/xfig/xfig-import.c:876 plug-ins/xfig/xfig-import.c:1192
 #, c-format
 msgid "Unknown polyline subtype: %d\n"
-msgstr ""
+msgstr "अपरिचित वहुरेखाको %d सह:प्रकार:\n"
 
 #: plug-ins/xfig/xfig-import.c:1026 plug-ins/xfig/xfig-import.c:1058
 #, c-format
 msgid "Couldn't read spline info: %s\n"
-msgstr ""
+msgstr "स्पलाईन जानकारी%s पढ्न सकेन:\n"
 
 #. Open approximated spline
 #. Closed approximated spline
 #: plug-ins/xfig/xfig-import.c:1045 plug-ins/xfig/xfig-import.c:1063
 msgid "Cannot convert approximated spline yet."
-msgstr ""
+msgstr "समिप भएको स्पलाईन लाई अहिले परिवर्तन गर्न सक्दैन."
 
 #: plug-ins/xfig/xfig-import.c:1103
 #, c-format
 msgid "Unknown spline subtype: %d\n"
-msgstr ""
+msgstr "अपरिचित स्पलाईन सह:प्रकार%d:\n"
 
 #: plug-ins/xfig/xfig-import.c:1166
 #, c-format
 msgid "Couldn't read arc info: %s\n"
-msgstr ""
+msgstr "चाप जानकारि %s पढ्न सकेन:\n"
 
 #: plug-ins/xfig/xfig-import.c:1256
 #, c-format
 msgid "Couldn't read text info: %s\n"
-msgstr ""
+msgstr "पाठ जानकारि %s पढ्न सकेन:\n"
 
 #: plug-ins/xfig/xfig-import.c:1319
 #, c-format
 msgid "Couldn't identify FIG object: %s\n"
-msgstr ""
+msgstr "%s एफआईजी वस्तु चिन्न सकेन:\n"
 
 #: plug-ins/xfig/xfig-import.c:1327
 msgid "Compound end outside compound\n"
-msgstr ""
+msgstr "मिश्रित अन्त्यले मिश्रणलाई वाहिर गर्छ\n"
 
 #: plug-ins/xfig/xfig-import.c:1346
 #, c-format
 msgid "Couldn't read color: %s\n"
-msgstr ""
+msgstr "%s रङ्गलाई पढ्न सकेन:\n"
 
 #: plug-ins/xfig/xfig-import.c:1391
 #, c-format
 msgid "Couldn't read group extend: %s\n"
-msgstr ""
+msgstr "%s समुह विस्तारलाई पढ्न सकेन:\n"
 
 #: plug-ins/xfig/xfig-import.c:1402
 #, c-format
 msgid "Unknown object type %d\n"
-msgstr ""
+msgstr "%d अपरिचित वस्तु प्रकार\n"
 
 #: plug-ins/xfig/xfig-import.c:1426
 #, c-format
 msgid "`%s' is not one of `%s' or `%s'\n"
-msgstr ""
+msgstr "`$1%s` $2%s' वा `$3%s' मध्येको एउटा होईन\n"
 
 #: plug-ins/xfig/xfig-import.c:1436
 #, c-format
 msgid "Error reading paper size: %s\n"
-msgstr ""
+msgstr "%s कागज आकार पढ्न गल्ति:\n"
 
 #: plug-ins/xfig/xfig-import.c:1447
 #, c-format
 msgid "Unknown paper size `%s', using default\n"
-msgstr ""
+msgstr "`%s' अपरिचित कागज आकार,पुर्वनिर्धारित प्रयोग गर्दै\n"
 
 #: plug-ins/xfig/xfig-import.c:1459
 #, c-format
 msgid "Error reading paper orientation: %s\n"
-msgstr ""
+msgstr "%s कागज अभिमुखिकरण पढ्दा गल्ति:\n"
 
 #: plug-ins/xfig/xfig-import.c:1469
 #, c-format
 msgid "Error reading justification: %s\n"
-msgstr ""
+msgstr "%s समरेखन पढ्दा गल्ति:\n"
 
 #: plug-ins/xfig/xfig-import.c:1479
 #, c-format
 msgid "Error reading units: %s\n"
-msgstr ""
+msgstr "%s ईकाई पढ्नमा गल्ति:\n"
 
 #: plug-ins/xfig/xfig-import.c:1493
 #, c-format
 msgid "Error reading magnification: %s\n"
-msgstr ""
+msgstr "%s आकार ठुलो देखाउनेलाई पढ्न गल्ति:\n"
 
 #: plug-ins/xfig/xfig-import.c:1504
 #, c-format
 msgid "Error reading multipage indicator: %s\n"
-msgstr ""
+msgstr "%s वहुपृष्ठ सुचक पढ्नमा गल्ति:\n"
 
 #: plug-ins/xfig/xfig-import.c:1515
 #, c-format
 msgid "Error reading transparent color: %s\n"
-msgstr ""
+msgstr "%s पारदर्शक रङ्गक पढ्नमा गल्ति:\n"
 
 #: plug-ins/xfig/xfig-import.c:1524 plug-ins/xfig/xfig-import.c:1579
 #: plug-ins/xfig/xfig-import.c:1597
 #, c-format
 msgid "Error reading FIG file: %s\n"
-msgstr ""
+msgstr "%s एफआईजि फाईलक पढ्नमा गल्ति:\n"
 
 #: plug-ins/xfig/xfig-import.c:1526 plug-ins/xfig/xfig-import.c:1581
 msgid "Premature end of FIG file\n"
-msgstr ""
+msgstr "एफआईजि फाईलको अपरिपक्क अन्त्य\n"
 
 #: plug-ins/xfig/xfig-import.c:1535
 #, c-format
