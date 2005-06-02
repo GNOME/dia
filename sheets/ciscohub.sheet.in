@@ -69,5 +69,10 @@
 <object name="Cisco - iSCSI switch"><_description>iSCSI switch</_description></object>
 <object name="Cisco - Workgroup Fibre Channel intelligent switch"><_description>Workgroup Fibre Channel intelligent switch</_description></object>
 <object name="Cisco - Director-class Fibre Channel intelligent switch"><_description>Director-class Fibre Channel intelligent switch</_description></object>
+<object name="Cisco - Multi-Fabric Server Switch"><_description>Multi-Fabric Server Switch</_description></object>
+<object name="Cisco - Server Switch"><_description>Server Switch</_description></object>
+<object name="Cisco - Multilayer Remote Switch"><_description>Multilayer Remote Switch</_description></object>
+<object name="Cisco - Layer 2 Remote Switch"><_description>Layer 2 Remote Switch</_description></object>
+<object name="Cisco - Virtual Layer Switch"><_description>Virtual Layer Switch</_description></object>
   </contents>
 </sheet>

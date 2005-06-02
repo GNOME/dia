@@ -1,3 +1,12 @@
+2005-06-02  Lars Clausen  <lars@raeder.dk>
+
+	* objects/UML/class_dialog.c:
+	* objects/UML/class.[ch]:
+	The final fixes for mainpoint on UML Class.
+
+	* sheets/cisco*.in, shapes/Cisco/*: New set of Cisco icons from
+	Ian Redfern, now in color and with mainpoints!  Very pretty!
+
 2005-06-02  Hans Breuer  <hans@breuer.org>
 
 	* objects/UML/class_dialog.c : the memory managment with respect to

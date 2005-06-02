@@ -23,6 +23,7 @@
 <object name="Cisco - PIX Firewall Left"><_description>PIX Firewall Left</_description></object>
 <object name="Cisco - Centri Firewall"><_description>Centri Firewall</_description></object>
 <object name="Cisco - Guard"><_description>Guard</_description></object>
+<object name="Cisco - Security appliance"><_description>Security appliance</_description></object>
 <object name="Cisco - VPN concentrator"><_description>VPN Concentrator</_description></object>
 <object name="Cisco - VPN Gateway"><_description>VPN Gateway</_description></object>
 <object name="Cisco - LAN to LAN"><_description>LAN to LAN</_description></object>
@@ -35,6 +36,11 @@
 <object name="Cisco - AccessPoint"><_description>AccessPoint</_description></object>
 <object name="Cisco - Wireless Bridge"><_description>Wireless Bridge</_description></object>
 <object name="Cisco - Dual Mode AccessPoint"><_description>Dual Mode AccessPoint</_description></object>
+<object name="Cisco - Wi-Fi Tag"><_description>Wi-Fi Tag</_description></object>
+<object name="Cisco - Wireless Location Appliance"><_description>Wireless Location Appliance</_description></object>
+<object name="Cisco - Location server"><_description>Location server</_description></object>
+<object name="Cisco - Lightweight AP"><_description>Lightweight AP</_description></object>
+<object name="Cisco - WLAN controller"><_description>WLAN controller</_description></object>
 <object name="Cisco - BBFW"><_description>BBFW</_description></object>
 <object name="Cisco - BBFW media"><_description>BBFW media</_description></object>
 <object name="Cisco - Channelized Pipe"><_description>Channelized Pipe</_description></object>
@@ -96,5 +102,6 @@
 <object name="Cisco - ME 1100"><_description>ME 1100</_description></object>
 <object name="Cisco - MAS Gateway"><_description>MAS Gateway</_description></object>
 <object name="Cisco - File Engine"><_description>File Engine</_description></object>
+<object name="Cisco - Service Control"><_description>Service Control</_description></object>
   </contents>
 </sheet>
