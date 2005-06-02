@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
+xmlns:svg="http://www.w3.org/2000/svg">
+<name>Cisco - Service Control</name>
+<icon>service_control.png</icon>
+<aspectratio type="fixed"/>
+<svg:svg width="5cm" height="2.2cm">
+<svg:path d="M311 224L311 34L4 34L4 224L311 224Z" style="stroke: none; stroke-width: 0.46; fill: #0096d4"/>
+<svg:path d="M311 224L311 34L4 34L4 224L311 224Z" style="stroke: #ffffff; stroke-width: 0.46; fill: none"/>
+<svg:path d="M310 34L4 34L52 -3L349 -3L310 34Z" style="stroke: none; stroke-width: 0.46; fill: #00b4ff"/>
+<svg:path d="M349 -3L349 184L310 224L310 35L310 34Z" style="stroke: none; stroke-width: 0.46; fill: #005a80"/>
+<svg:path d="M310 34L4 34L52 -3L349 -3L349 -3L349 184L310 224L310 35L310 34Z" style="stroke: #ffffff; stroke-width: 0.46; fill: none"/>
+<svg:path d="M310 34L350 -4Z" style="stroke: none; stroke-width: 0.46; fill: #000000"/>
+<svg:path d="M310 34L350 -4" style="stroke: #ffffff; stroke-width: 0.46; fill: none"/>
+<svg:path d="M82 117L82 140Z" style="stroke: none; stroke-width: 1.0; fill: #ffffff"/>
+<svg:path d="M50 206L85 206L125 166L162 166L202 206L270 206L270 178L218 178L178 138L126 138L87 98L49 98L49 93L34 108L48 123L48 117L79 117L79 143L50 143L50 138L34 153L49 168L49 163L79 162L79 187L50 187L50 182L34 197L49 212L49 206Z" style="stroke: none; stroke-width: 1.0; fill: #ffffff"/>
+<svg:path d="M264 49L228 49L189 89L151 89L111 50L43 50L43 78L95 78L135 118L187 118L227 157L264 157L264 163L279 147L265 132L265 138L234 138L234 112L264 112L264 117L279 102L264 87L264 93L234 93L234 68L264 68L264 73L279 58L264 43L264 49Z" style="stroke: none; stroke-width: 1.0; fill: #ffffff"/>
+</svg:svg>
+<connections>
+<point x="350" y="-4"/>
+<point x="4" y="224"/>
+<point x="311" y="224"/>
+<point x="157.5" y="224"/>
+<point x="4" y="34"/>
+<point x="4" y="129"/>
+<point x="177" y="110" main="yes"/>
+</connections>
+</shape>

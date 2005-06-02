@@ -28,7 +28,7 @@
 <point x="2077" y="6907"/>
 <point x="0" y="2963"/>
 <point x="4974" y="2894"/>
-<point x="2379.75" y="3191" main="yes"/>
+<point x="2379.75" y="0" main="yes"/>
 </connections>
 
 </shape>

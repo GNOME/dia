@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
+xmlns:svg="http://www.w3.org/2000/svg">
+<name>Cisco - Wireless Location Appliance</name>
+<icon>wireless_location_appliance.png</icon>
+<aspectratio type="fixed"/>
+<svg:svg width="5cm" height="2.2cm">
+<svg:path d="M1 302L263 302L263 51L1 51L1 302Z" style="stroke: none; stroke-width: 0.4; fill: #0096d4"/>
+<svg:path d="M1 302L263 302L263 51L1 51L1 302Z" style="stroke: #ffffff; stroke-width: 0.4; fill: none"/>
+<svg:path d="M307 249L263 302L263 51L307 -1L307 249Z" style="stroke: none; stroke-width: 0.4; fill: #036796"/>
+<svg:path d="M307 249L263 302L263 51L307 -1L307 249Z" style="stroke: #ffffff; stroke-width: 0.4; fill: none"/>
+<svg:path d="M67 -1L307 -1L263 51L1 51L67 -1Z" style="stroke: none; stroke-width: 0.4; fill: #00b4ff"/>
+<svg:path d="M67 -1L307 -1L263 51L1 51L67 -1Z" style="stroke: #ffffff; stroke-width: 0.4; fill: none"/>
+<svg:path d="M188 138C188 147 165 154 136 154C108 154 85 147 85 138L85 203C85 211 108 218 136 218C165 218 188 211 188 203L188 138Z" style="stroke: none; stroke-width: 0.4; fill: #ffffff"/>
+<svg:path d="M136 154C165 154 188 147 188 138C188 130 165 123 136 123C108 123 85 130 85 138C85 147 108 154 136 154Z" style="stroke: none; stroke-width: 0.8; fill: #000000"/>
+<svg:path d="M136 154C165 154 188 147 188 138C188 130 165 123 136 123C108 123 85 130 85 138C85 147 108 154 136 154Z" style="stroke: #ffffff; stroke-width: 0.8; fill: none"/>
+<svg:path d="M136 226C165 226 188 219 188 210C188 202 165 195 136 195C108 195 85 202 85 210C85 219 108 226 136 226Z" style="stroke: none; stroke-width: 0.8; fill: #ffffff"/>
+<svg:path d="M136 226C165 226 188 219 188 210C188 202 165 195 136 195C108 195 85 202 85 210C85 219 108 226 136 226Z" style="stroke: #ffffff; stroke-width: 0.8; fill: none"/>
+</svg:svg>
+<connections>
+<point x="67" y="-1"/>
+<point x="307" y="-1"/>
+<point x="187" y="-1"/>
+<point x="1" y="302"/>
+<point x="263" y="302"/>
+<point x="132" y="302"/>
+<point x="1" y="51"/>
+<point x="1" y="176.5"/>
+<point x="307" y="249"/>
+<point x="307" y="124"/>
+<point x="154" y="150.5" main="yes"/>
+</connections>
+</shape>

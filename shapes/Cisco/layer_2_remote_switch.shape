@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
+xmlns:svg="http://www.w3.org/2000/svg">
+<name>Cisco - Layer 2 Remote Switch</name>
+<icon>layer_2_remote_switch.png</icon>
+<aspectratio type="fixed"/>
+<svg:svg width="5cm" height="2.2cm">
+<svg:path d="M2 111L146 -5L479 -5L360 111L2 111Z" style="stroke: none; stroke-width: 0.4; fill: #00b4ff"/>
+<svg:path d="M2 111L146 -5L479 -5L360 111L2 111Z" style="stroke: #ffffff; stroke-width: 0.4; fill: none"/>
+<svg:path d="M329 56L338 47L366 59L317 73L328 59L239 59L243 56L329 56Z" style="stroke: none; stroke-width: 0.7; fill: #000000"/>
+<svg:path d="M276 26L273 29L182 29L169 40L145 28L199 13L185 26L276 26Z" style="stroke: none; stroke-width: 0.7; fill: #000000"/>
+<svg:path d="M226 76L223 79L132 79L118 89L94 78L149 63L136 76L226 76Z" style="stroke: none; stroke-width: 0.7; fill: #000000"/>
+<svg:path d="M380 14L389 5L417 17L368 31L379 17L290 17L293 14L380 14Z" style="stroke: none; stroke-width: 0.7; fill: #000000"/>
+<svg:path d="M330 59L338 50L363 60L314 74L326 62L237 62L240 59L330 59Z" style="stroke: none; stroke-width: 0.7; fill: #ffffff"/>
+<svg:path d="M273 29L270 32L181 32L172 41L148 30L196 17L184 29L273 29Z" style="stroke: none; stroke-width: 0.7; fill: #ffffff"/>
+<svg:path d="M360 227L479 98L479 -5L360 111L360 227Z" style="stroke: none; stroke-width: 0.4; fill: #005a80"/>
+<svg:path d="M360 227L479 98L479 -5L360 111L360 227Z" style="stroke: #ffffff; stroke-width: 0.4; fill: none"/>
+<svg:path d="M223 79L219 82L130 82L121 91L97 81L146 67L133 79L223 79Z" style="stroke: none; stroke-width: 0.7; fill: #ffffff"/>
+<svg:path d="M380 17L389 8L413 18L365 32L377 20L288 20L291 17L380 17Z" style="stroke: none; stroke-width: 0.7; fill: #ffffff"/>
+<svg:path d="M375 20L364 31" style="stroke: #000000; stroke-width: 0.28; fill: none"/>
+<svg:path d="M321 65L315 72" style="stroke: #000000; stroke-width: 0.168; fill: none"/>
+<svg:path d="M241 58L238 61" style="stroke: #000000; stroke-width: 0.168; fill: none"/>
+<svg:path d="M293 15L288 19" style="stroke: #000000; stroke-width: 0.28; fill: none"/>
+<svg:path d="M360 227L360 111L2 111L2 227L360 227Z" style="stroke: none; stroke-width: 0.4; fill: #009cd4"/>
+<svg:path d="M360 227L360 111L2 111L2 227L360 227Z" style="stroke: #ffffff; stroke-width: 0.4; fill: none"/>
+<svg:path d="M97 155L97 131L101 131L96 123L90 131L94 131L94 155L97 155Z" style="stroke: none; stroke-width: 1.0; fill: #ffffff"/>
+<svg:path d="M86 158L69 142L72 139L62 137L64 147L67 144L83 161L86 158Z" style="stroke: none; stroke-width: 1.0; fill: #ffffff"/>
+<svg:path d="M80 169L56 169L56 165L48 171L56 176L56 172L80 172L80 169Z" style="stroke: none; stroke-width: 1.0; fill: #ffffff"/>
+<svg:path d="M83 181L67 197L64 194L62 204L72 202L69 200L86 183L83 181Z" style="stroke: none; stroke-width: 1.0; fill: #ffffff"/>
+<svg:path d="M94 187L94 210L90 210L96 219L101 210L97 210L97 187L94 187Z" style="stroke: none; stroke-width: 1.0; fill: #ffffff"/>
+<svg:path d="M108 161L125 144L127 147L129 137L119 139L122 142L105 158L108 161Z" style="stroke: none; stroke-width: 1.0; fill: #ffffff"/>
+<svg:path d="M108 183L124 200L121 202L132 204L129 194L127 197L110 181L108 183Z" style="stroke: none; stroke-width: 1.0; fill: #ffffff"/>
+<svg:path d="M109 171L262 171" style="stroke: #ffffff; stroke-width: 1.0; fill: none"/>
+<svg:path d="M272 181L272 197L269 197L273 203L277 197L275 197L275 181L272 181Z" style="stroke: none; stroke-width: 1.0; fill: #ffffff"/>
+<svg:path d="M280 179L292 190L290 192L297 194L296 186L294 188L282 177L280 179Z" style="stroke: none; stroke-width: 1.0; fill: #ffffff"/>
+<svg:path d="M284 171L301 171L301 174L307 170L301 166L301 169L284 169L284 171Z" style="stroke: none; stroke-width: 1.0; fill: #ffffff"/>
+<svg:path d="M282 163L294 151L296 153L297 146L290 148L292 150L280 161L282 163Z" style="stroke: none; stroke-width: 1.0; fill: #ffffff"/>
+<svg:path d="M275 159L275 143L277 143L273 136L269 143L272 143L272 159L275 159Z" style="stroke: none; stroke-width: 1.0; fill: #ffffff"/>
+<svg:path d="M264 177L253 188L251 186L250 194L257 192L255 190L266 179L264 177Z" style="stroke: none; stroke-width: 1.0; fill: #ffffff"/>
+<svg:path d="M265 161L253 150L255 148L248 146L250 153L251 151L263 163L265 161Z" style="stroke: none; stroke-width: 1.0; fill: #ffffff"/>
+<svg:path d="M110 190C121 182 123 167 116 157C108 146 93 143 82 151C71 158 69 173 76 184C84 195 99 198 110 190Z" style="stroke: none; stroke-width: 1.0; fill: #e4405c"/>
+<svg:path d="M263 156C256 162 254 172 259 180C265 187 275 189 283 184C290 179 292 168 287 160C281 153 271 151 263 156Z" style="stroke: none; stroke-width: 1.0; fill: #e4405c"/>
+</svg:svg>
+<connections>
+<point x="146" y="-5"/>
+<point x="479" y="-5"/>
+<point x="312.5" y="-5"/>
+<point x="2" y="227"/>
+<point x="360" y="227"/>
+<point x="181" y="227"/>
+<point x="2" y="111"/>
+<point x="2" y="169"/>
+<point x="479" y="98"/>
+<point x="479" y="46.5"/>
+<point x="240.5" y="111" main="yes"/>
+</connections>
+</shape>

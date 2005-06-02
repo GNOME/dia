@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
+xmlns:svg="http://www.w3.org/2000/svg">
+<name>Cisco - Location server</name>
+<icon>location_server.png</icon>
+<aspectratio type="fixed"/>
+<svg:svg width="5cm" height="2.2cm">
+<svg:path d="M2 110L142 -2L465 -2L349 110L2 110Z" style="stroke: none; stroke-width: 0.4; fill: #00b4ff"/>
+<svg:path d="M2 110L142 -2L465 -2L349 110L2 110Z" style="stroke: #ffffff; stroke-width: 0.4; fill: none"/>
+<svg:path d="M349 254L465 136L465 -2L349 110L349 254Z" style="stroke: none; stroke-width: 0.4; fill: #005a80"/>
+<svg:path d="M349 254L465 136L465 -2L349 110L349 254Z" style="stroke: #ffffff; stroke-width: 0.4; fill: none"/>
+<svg:path d="M349 254L349 110L3 110L3 254L349 254Z" style="stroke: none; stroke-width: 0.4; fill: #0096d4"/>
+<svg:path d="M349 254L349 110L3 110L3 254L349 254Z" style="stroke: #ffffff; stroke-width: 0.4; fill: none"/>
+<svg:path d="M118 70L162 40L154 40L123 60L142 40L135 40L104 60L123 40L115 40L92 70L99 70L131 45L111 70Z" style="stroke: none; stroke-width: 0.847244; fill-rule: evenodd; fill: #ffffff"/>
+<svg:path d="M350 58L370 58L375 52L358 52L365 45L384 45L390 40L363 40L330 70L358 70L363 64L343 64Z" style="stroke: none; stroke-width: 0.847201; fill-rule: evenodd; fill: #ffffff"/>
+<svg:path d="M 218.89286,85.642857 C 220.10715,82.285714 218.42857,82.535714 218.42857,80.535714 C 216.10714,79.428571 217.92857,79.285714 213.28572,78.750000 C 204.28572,78.750000 196.89286,81.642857 190.89286,85.642857 C 186.50000,88.928571 187.32143,91.642857 191.89286,92.642857 L 195.89286,93.642857 C 198.57143,94.285714 198.03572,97.607143 197.89286,97.642857 C 195.89286,100.64286 189.10715,103.57143 185.10715,103.57143 C 179.10715,103.57143 179.89286,98.642857 183.89286,96.642857 L 175.89286,96.642857 C 169.89286,102.64286 170.89286,109.64286 180.89286,109.64286 C 189.89286,109.64286 197.75000,106.25000 204.75000,98.250000 C 205.82143,96.928571 205.64286,92.607143 203.92857,91.785714 L 200.17857,89.178571 C 196.17857,88.178571 197.85715,87.178572 198.78572,85.714286 C 201.78572,83.714286 205.25000,82.678571 207.64285,82.500000 C 209.25000,82.142857 216.50000,82.928571 211.89286,85.642857 L 218.89286,85.642857 z" style="stroke: none; stroke-width: 0.847244; fill-rule: evenodd; fill: #ffffff"/>
+<svg:path d="M276 30L283 30L317 0L309 0L286 20L294 0L286 0L253 30L261 30L284 10Z" style="stroke: none; stroke-width: 0.847244; fill-rule: evenodd; fill: #ffffff"/>
+<svg:path d="M256 53C253 56 243 59 235 59C226 59 222 56 226 53C229 50 239 48 247 48C256 48 260 50 256 53Z" style="stroke: none; stroke-width: 1.0; fill: #ffffff"/>
+<svg:path d="M238 51L271 27L250 51Z" style="stroke: none; stroke-width: 1.0; fill: #ffffff"/>
+<svg:path d="M234 54L213 78L246 54Z" style="stroke: none; stroke-width: 1.0; fill: #ffffff"/>
+<svg:path d="M232 55L169 53L237 51Z" style="stroke: none; stroke-width: 1.0; fill: #ffffff"/>
+<svg:path d="M242 55L310 53L247 51Z" style="stroke: none; stroke-width: 1.0; fill: #ffffff"/>
+<svg:path d="M237 57L203 63L231 53Z" style="stroke: none; stroke-width: 1.0; fill: #ffffff"/>
+<svg:path d="M247 54L280 43L242 51Z" style="stroke: none; stroke-width: 1.0; fill: #ffffff"/>
+<svg:path d="M250 54L257 64L237 57Z" style="stroke: none; stroke-width: 1.0; fill: #ffffff"/>
+<svg:path d="M245 51L225 43L233 54Z" style="stroke: none; stroke-width: 1.0; fill: #ffffff"/>
+<svg:path d="M295 45C298 56 276 68 246 74C215 79 188 75 184 64C181 54 203 41 234 36C264 31 292 35 295 45Z" style="stroke: #ffffff; stroke-width: 0.4; fill: none"/>
+</svg:svg>
+<connections>
+<point x="142" y="-2"/>
+<point x="465" y="-2"/>
+<point x="303.5" y="-2"/>
+<point x="3" y="254"/>
+<point x="349" y="254"/>
+<point x="176" y="254"/>
+<point x="2" y="110"/>
+<point x="465" y="136"/>
+<point x="465" y="67"/>
+<point x="233.5" y="126" main="yes"/>
+</connections>
+</shape>

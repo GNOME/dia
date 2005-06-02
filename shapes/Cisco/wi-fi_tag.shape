@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
+xmlns:svg="http://www.w3.org/2000/svg">
+<name>Cisco - Wi-Fi Tag</name>
+<icon>wi-fi_tag.png</icon>
+<aspectratio type="fixed"/>
+<svg:svg width="5cm" height="2.2cm">
+<svg:path d="M106 95C70 102 44 188 44 188C31 226 8 256 8 256L247 256C247 256 275 222 295 188C295 188 321 102 357 95L106 95Z" style="stroke: none; stroke-width: 0.4; fill: #0096d4"/>
+<svg:path d="M106 95C70 102 44 188 44 188C31 226 8 256 8 256L247 256C247 256 275 222 295 188C295 188 321 102 357 95L106 95Z" style="stroke: #ffffff; stroke-width: 0.4; fill: none"/>
+<svg:path d="M247 256L247 296L352 187L352 96C335 100 311 129 292 156C281 171 274 185 266 195Z" style="stroke: none; stroke-width: 0.4; fill: #005a80"/>
+<svg:path d="M247 256L247 296L352 187L352 96C335 100 311 129 292 156C281 171 274 185 266 195Z" style="stroke: #ffffff; stroke-width: 0.4; fill: none"/>
+<svg:path d="M173 45C191 29 215 18 238 19C262 19 279 32 283 50" style="stroke: #036796; stroke-width: 0.4; fill: none"/>
+<svg:path d="M164 69C182 53 206 43 229 44C253 44 269 57 274 75" style="stroke: #036796; stroke-width: 0.4; fill: none"/>
+<svg:path d="M155 94C173 78 197 68 220 68C244 69 260 81 265 99" style="stroke: #036796; stroke-width: 0.4; fill: none"/>
+<svg:path d="M145 119C163 103 187 92 210 93C234 93 251 106 255 124Z" style="stroke: none; stroke-width: 0.4; fill: #0096d4"/>
+<svg:path d="M145 119C163 103 187 92 210 93C234 93 251 106 255 124" style="stroke: #ffffff; stroke-width: 0.4; fill: none"/>
+<svg:path d="M173 45C191 29 215 18 238 19C262 19 279 32 283 50" style="stroke: #036796; stroke-width: 0.4; fill: none"/>
+<svg:path d="M183 21C200 4 224 -5 247 -4C271 -4 288 8 292 26" style="stroke: #036796; stroke-width: 0.4; fill: none"/>
+<svg:path d="M164 69C182 53 206 43 229 44C253 44 269 57 274 75" style="stroke: #036796; stroke-width: 0.4; fill: none"/>
+<svg:path d="M155 94C173 78 197 68 220 68C244 69 260 81 265 99" style="stroke: #036796; stroke-width: 0.4; fill: none"/>
+<svg:path d="M145 119C163 103 187 92 210 93C234 93 251 106 255 124" style="stroke: #ffffff; stroke-width: 0.4; fill: none"/>
+<svg:path d="M275 172C277 200 229 227 167 233C106 238 54 219 52 191C49 162 97 135 159 130C221 125 272 144 275 172Z" style="stroke: none; stroke-width: 0.4; fill: #036796"/>
+<svg:path d="M275 172C277 200 229 227 167 233C106 238 54 219 52 191C49 162 97 135 159 130C221 125 272 144 275 172Z" style="stroke: #ffffff; stroke-width: 0.4; fill: none"/>
+<svg:path d="M264 165C267 191 223 216 167 220C111 225 64 208 62 182C59 156 103 132 159 127C215 122 262 139 264 165Z" style="stroke: none; stroke-width: 0.4; fill: #00b4ff"/>
+<svg:path d="M264 165C267 191 223 216 167 220C111 225 64 208 62 182C59 156 103 132 159 127C215 122 262 139 264 165Z" style="stroke: #ffffff; stroke-width: 0.4; fill: none"/>
+<svg:path d="M8 298L247 297L247 254L8 254L8 298Z" style="stroke: none; stroke-width: 0.4; fill: #0096d4"/>
+<svg:path d="M8 298L247 297L247 254L8 254L8 298Z" style="stroke: #ffffff; stroke-width: 0.4; fill: none"/>
+</svg:svg>
+<connections>
+<point x="244" y="-4"/>
+<point x="250" y="295"/>
+<point x="8" y="298"/>
+<point x="8" y="254"/>
+<point x="8" y="276"/>
+<point x="106" y="95"/>
+<point x="352" y="95"/>
+<point x="352" y="187"/>
+<point x="182.5" y="147" main="yes"/>
+</connections>
+</shape>

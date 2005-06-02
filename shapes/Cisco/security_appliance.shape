@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
+xmlns:svg="http://www.w3.org/2000/svg">
+<name>Cisco - Security appliance</name>
+<icon>security_appliance.png</icon>
+<aspectratio type="fixed"/>
+<svg:svg width="5cm" height="2.2cm">
+<svg:path d="M1 221L1 318L239 318L239 221L1 221Z" style="stroke: none; stroke-width: 0.4; fill: #aa0000"/>
+<svg:path d="M1 221L1 318L239 318L239 221L1 221Z" style="stroke: #ffffff; stroke-width: 0.4; fill: none"/>
+<svg:path d="M1 31L43 0L280 0L238 31L1 31Z" style="stroke: none; stroke-width: 0.4; fill: #00b4ff"/>
+<svg:path d="M1 31L43 0L280 0L238 31L1 31Z" style="stroke: #ffffff; stroke-width: 0.4; fill: none"/>
+<svg:path d="M239 318L279 283L279 187L239 219L239 318Z" style="stroke: none; stroke-width: 0.4; fill: #770000"/>
+<svg:path d="M239 318L279 283L279 187L239 219L239 318Z" style="stroke: #ffffff; stroke-width: 0.4; fill: none"/>
+<svg:path d="M239 252L3 252Z" style="stroke: none; stroke-width: 0.4; fill: #009cd4"/>
+<svg:path d="M239 252L3 252" style="stroke: #ffffff; stroke-width: 0.4; fill: none"/>
+<svg:path d="M239 284L1 284Z" style="stroke: none; stroke-width: 0.4; fill: #009cd4"/>
+<svg:path d="M239 284L1 284" style="stroke: #ffffff; stroke-width: 0.4; fill: none"/>
+<svg:path d="M278 256L241 285Z" style="stroke: none; stroke-width: 0.4; fill: #009cd4"/>
+<svg:path d="M278 256L241 285" style="stroke: #ffffff; stroke-width: 0.4; fill: none"/>
+<svg:path d="M73 286L73 316Z" style="stroke: none; stroke-width: 0.4; fill: #009cd4"/>
+<svg:path d="M73 286L73 316" style="stroke: #ffffff; stroke-width: 0.4; fill: none"/>
+<svg:path d="M164 286L164 316Z" style="stroke: none; stroke-width: 0.4; fill: #009cd4"/>
+<svg:path d="M164 286L164 316" style="stroke: #ffffff; stroke-width: 0.4; fill: none"/>
+<svg:path d="M120 253L120 283Z" style="stroke: none; stroke-width: 0.4; fill: #009cd4"/>
+<svg:path d="M120 253L120 283" style="stroke: #ffffff; stroke-width: 0.4; fill: none"/>
+<svg:path d="M29 253L29 283Z" style="stroke: none; stroke-width: 0.4; fill: #009cd4"/>
+<svg:path d="M29 253L29 283" style="stroke: #ffffff; stroke-width: 0.4; fill: none"/>
+<svg:path d="M212 253L212 283Z" style="stroke: none; stroke-width: 0.4; fill: #009cd4"/>
+<svg:path d="M212 253L212 283" style="stroke: #ffffff; stroke-width: 0.4; fill: none"/>
+<svg:path d="M240 29L240 252L1 252L1 29L240 29Z" style="stroke: none; stroke-width: 0.4; fill: #009cd4"/>
+<svg:path d="M240 29L240 252L1 252L1 29L240 29Z" style="stroke: #ffffff; stroke-width: 0.4; fill: none"/>
+<svg:path d="M280 217L280 0L240 30L240 250L280 217Z" style="stroke: none; stroke-width: 0.4; fill: #075f87"/>
+<svg:path d="M280 217L280 0L240 30L240 250L280 217Z" style="stroke: #ffffff; stroke-width: 0.4; fill: none"/>
+<svg:path d="M271 226L271 262Z" style="stroke: none; stroke-width: 0.4; fill: #009cd4"/>
+<svg:path d="M271 226L271 262" style="stroke: #ffffff; stroke-width: 0.4; fill: none"/>
+<svg:path d="M258 272L258 308Z" style="stroke: none; stroke-width: 0.4; fill: #009cd4"/>
+<svg:path d="M258 272L258 308" style="stroke: #ffffff; stroke-width: 0.4; fill: none"/>
+<svg:path d="M85 292Z" style="stroke: none; stroke-width: 0.4; fill: #009cd4"/>
+<svg:path d="M85 292" style="stroke: #ffffff; stroke-width: 0.4; fill: none"/>
+<svg:path d="M47 114L140 114L140 108L160 120L140 133L140 127L47 127L47 114Z" style="stroke: none; stroke-width: 1.0; fill: #ffffff"/>
+<svg:path d="M189 147L112 147L112 141L91 153L112 166L112 160L189 160L189 147Z" style="stroke: none; stroke-width: 1.0; fill: #ffffff"/>
+<svg:path d="M219 226C215 226 211 223 211 219C210 215 213 211 217 211C222 210 225 213 226 218C226 222 223 226 219 226Z" style="stroke: none; stroke-width: 0.2; fill: #ffffff"/>
+<svg:path d="M219 226C215 226 211 223 211 219C210 215 213 211 217 211C222 210 225 213 226 218C226 222 223 226 219 226Z" style="stroke: #000000; stroke-width: 0.2; fill: none"/>
+<svg:path d="M224 210L211 226L164 188L177 171L224 210Z" style="stroke: none; stroke-width: 0.2; fill: #ffffff"/>
+<svg:path d="M224 210L211 226L164 188L177 171L224 210Z" style="stroke: #000000; stroke-width: 0.2; fill: none"/>
+<svg:path d="M54 126C50 165 78 200 116 204C155 209 190 181 195 142C199 103 171 68 132 64C94 59 58 87 54 126L64 127C68 94 98 70 131 74C165 77 189 108 185 141C181 174 151 198 117 195C84 191 60 160 64 127Z" style="stroke: none; stroke-width: 0.2; fill-rule: evenodd; fill: #ffffff"/>
+<svg:path d="M54 126C50 165 78 200 116 204C155 209 190 181 195 142C199 103 171 68 132 64C94 59 58 87 54 126ZM64 127C68 94 98 70 131 74C165 77 189 108 185 141C181 174 151 198 117 195C84 191 60 160 64 127Z" style="stroke: #000000; stroke-width: 0.2; fill: none"/>
+<svg:path d="M45 129C41 168 69 203 108 208C146 212 182 184 186 145C190 106 163 71 124 67C85 62 50 90 45 129L55 130C59 97 89 73 123 77C156 80 180 111 176 144C172 177 142 201 109 198C75 194 51 164 55 130Z" style="stroke: none; stroke-width: 0.2; fill-rule: evenodd; fill: #ffffff"/>
+<svg:path d="M45 129C41 168 69 203 108 208C146 212 182 184 186 145C190 106 163 71 124 67C85 62 50 90 45 129ZM55 130C59 97 89 73 123 77C156 80 180 111 176 144C172 177 142 201 109 198C75 194 51 164 55 130Z" style="stroke: #000000; stroke-width: 0.2; fill: none"/>
+<svg:path d="M218 218Z" style="stroke: none; stroke-width: 0.24; fill: #000000"/>
+<svg:path d="M189 155L229 155" style="stroke: #ffffff; stroke-width: 0.5; fill: none"/>
+<svg:path d="M15 120L54 120" style="stroke: #ffffff; stroke-width: 0.5; fill: none"/>
+</svg:svg>
+<connections>
+<point x="43" y="0"/>
+<point x="280" y="0"/>
+<point x="161.5" y="0"/>
+<point x="1" y="318"/>
+<point x="239" y="318"/>
+<point x="120" y="318"/>
+<point x="1" y="29"/>
+<point x="1" y="173.5"/>
+<point x="280" y="217"/>
+<point x="140.5" y="159" main="yes"/>
+</connections>
+</shape>

@@ -18,26 +18,14 @@
 <!--setmatrix-->
 </svg:svg>
 <connections>
-<point x="2375" y="0"/>
-<point x="4934" y="0"/>
 <point x="3654" y="0"/>
-<point x="2908" y="0"/>
-<point x="4131" y="0"/>
-<point x="2390" y="5141"/>
-<point x="4934" y="5141"/>
 <point x="3662" y="5141"/>
-<point x="2908" y="5141"/>
-<point x="4192" y="5141"/>
 <point x="0" y="984"/>
 <point x="0" y="4141"/>
 <point x="0" y="2562"/>
-<point x="0" y="1418"/>
-<point x="0" y="3621"/>
 <point x="7324" y="1000"/>
 <point x="7324" y="4141"/>
 <point x="7324" y="2570"/>
-<point x="7324" y="1504"/>
-<point x="7324" y="3637"/>
 <point x="3635.4" y="2564.15" main="yes"/>
 </connections>
 
