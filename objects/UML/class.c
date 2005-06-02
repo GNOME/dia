@@ -66,6 +66,7 @@ static void umlclass_get_props(UMLClass *umlclass, GPtrArray *props);
 static void umlclass_set_props(UMLClass *umlclass, GPtrArray *props);
 
 static void fill_in_fontdata(UMLClass *umlclass);
+static int umlclass_num_dynamic_connectionpoints(UMLClass *class);
 
 static ObjectTypeOps umlclass_type_ops =
 {
@@ -315,18 +316,20 @@ umlclass_set_props(UMLClass *umlclass, GPtrArray *props)
   object_set_props_from_offsets(&umlclass->element.object, umlclass_offsets,
                                 props);
 
-  num = UMLCLASS_CONNECTIONPOINTS
-      + ((!umlclass->visible_attributes || umlclass->suppress_attributes) ? 0 : g_list_length (umlclass->attributes) * 2)
-      + ((!umlclass->visible_operations || umlclass->suppress_operations) ? 0 : g_list_length (umlclass->operations) * 2);
+  num = UMLCLASS_CONNECTIONPOINTS + umlclass_num_dynamic_connectionpoints(umlclass);
   /* Update data: */
   if (num > UMLCLASS_CONNECTIONPOINTS) {
+    int i;
     /* this is just updating pointers to ConnectionPoint, the real connection handling is elsewhere.
      * Note: Can't optimize here on number change cause the ops/attribs may have changed regardless of that.
      */
-    int i;
+#ifdef UML_MAINPOINT
+    obj->num_connections = num + 1;
+#else
     obj->num_connections = num;
-    obj->connections =  g_realloc(obj->connections, obj->num_connections*sizeof(ConnectionPoint *));
+#endif
     i = UMLCLASS_CONNECTIONPOINTS;
+    obj->connections =  g_realloc(obj->connections, obj->num_connections*sizeof(ConnectionPoint *));
     list = (!umlclass->visible_attributes || umlclass->suppress_attributes) ? NULL : umlclass->attributes;
     while (list != NULL) {
       UMLAttribute *attr = (UMLAttribute *)list->data;
@@ -350,6 +353,11 @@ umlclass_set_props(UMLClass *umlclass, GPtrArray *props)
       i++;
       list = g_list_next(list);
     }
+#ifdef UML_MAINPOINT
+    obj->connections[i] = &umlclass->connections[UMLCLASS_CONNECTIONPOINTS];
+    obj->connections[i]->object = obj;
+    i++;
+#endif
   }
   umlclass_calculate_data(umlclass);
   umlclass_update_data(umlclass);
@@ -821,7 +829,7 @@ umlclass_update_data(UMLClass *umlclass)
   umlclass->connections[i].directions = DIR_EAST|DIR_SOUTH;
 
 #ifdef UML_MAINPOINT
-  /* Main point */
+  /* Main point -- lives just after fixed connpoints in umlclass array */
   i = UMLCLASS_CONNECTIONPOINTS;
   umlclass->connections[i].pos.x = x + elem->width / 2;
   umlclass->connections[i].pos.y = y + elem->height / 2;
@@ -1303,6 +1311,7 @@ umlclass_create(Point *startpoint,
 #ifdef UML_MAINPOINT
   /* Put mainpoint at the end, after conditional attr/oprn points,
    * but store it in the local connectionpoint array. */
+  i += umlclass_num_dynamic_connectionpoints(umlclass);
   obj->connections[i] = &umlclass->connections[UMLCLASS_CONNECTIONPOINTS];
   umlclass->connections[UMLCLASS_CONNECTIONPOINTS].object = obj;
   umlclass->connections[UMLCLASS_CONNECTIONPOINTS].connected = NULL;
@@ -1561,6 +1570,19 @@ umlclass_copy(UMLClass *umlclass)
       list = g_list_next(list);
     }
   }
+
+#ifdef UML_MAINPOINT
+  newobj->connections[i] = &newumlclass->connections[UMLCLASS_CONNECTIONPOINTS];
+  newumlclass->connections[UMLCLASS_CONNECTIONPOINTS].object = newobj;
+  newumlclass->connections[UMLCLASS_CONNECTIONPOINTS].connected = NULL;
+  newumlclass->connections[UMLCLASS_CONNECTIONPOINTS].pos = 
+    umlclass->connections[UMLCLASS_CONNECTIONPOINTS].pos;
+  newumlclass->connections[UMLCLASS_CONNECTIONPOINTS].last_pos =
+    umlclass->connections[UMLCLASS_CONNECTIONPOINTS].last_pos;
+  newumlclass->connections[UMLCLASS_CONNECTIONPOINTS].flags = 
+    umlclass->connections[UMLCLASS_CONNECTIONPOINTS].flags;
+  i++;
+#endif
 
   umlclass_update_data(newumlclass);
   
@@ -1942,4 +1964,24 @@ static DiaObject *umlclass_load(ObjectNode obj_node, int version,
   }
 
   return &umlclass->element.object;
+}
+
+/** Returns the number of connection points used by the attributes and
+ * connections in the current state of the object. 
+ */
+static int
+umlclass_num_dynamic_connectionpoints(UMLClass *umlclass) {
+  int num = 0;
+  if ( (umlclass->visible_attributes) &&
+       (!umlclass->suppress_attributes)) {
+    GList *list = umlclass->attributes;
+    num += 2 * g_list_length(list);
+  }
+  
+  if ( (umlclass->visible_operations) &&
+       (!umlclass->suppress_operations)) {
+    GList *list = umlclass->operations;
+    num += 2 * g_list_length(list);
+  }
+  return num;
 }

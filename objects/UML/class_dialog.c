@@ -2691,6 +2691,12 @@ umlclass_apply_props_from_dialog(UMLClass *umlclass, GtkWidget *widget)
   operations_read_from_dialog(umlclass, prop_dialog, UMLCLASS_CONNECTIONPOINTS+num_attrib*2);
   templates_read_from_dialog(umlclass, prop_dialog);
 
+  /* Reestablish mainpoint */
+#ifdef UML_MAINPOINT
+  obj->connections[obj->num_connections-1] =
+    &umlclass->connections[UMLCLASS_CONNECTIONPOINTS];
+#endif
+
   /* unconnect from all deleted connectionpoints. */
   list = prop_dialog->deleted_connections;
   while (list != NULL) {
@@ -2858,7 +2864,6 @@ umlclass_get_state(UMLClass *umlclass)
     list = g_list_next(list);
   }
 
-
   state->template = umlclass->template;
   
   state->formal_params = NULL;
@@ -2938,6 +2943,10 @@ umlclass_update_connectionpoints(UMLClass *umlclass)
     list = g_list_next(list);
   }
   gtk_list_clear_items (GTK_LIST (prop_dialog->operations_list), 0, -1);
+
+#ifdef UML_MAINPOINT
+  obj->connections[connection_index++] = &umlclass->connections[UMLCLASS_CONNECTIONPOINTS];
+#endif
   
 }
 

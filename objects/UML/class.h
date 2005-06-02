@@ -36,7 +36,7 @@
  * not aware of yet. Some more information maybe available at 
  * http://bugzilla.gnome.org/show_bug.cgi?id=303301
  */
-#undef UML_MAINPOINT
+#define UML_MAINPOINT 1
 
 
 typedef struct _UMLClass UMLClass;
