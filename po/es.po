@@ -1,4 +1,4 @@
-﻿# translation of es.po to 
+# translation of es.po to 
 # traducción de es.po al Spanish
 # translation of es.po to Spanish
 # translation of dia.HEAD.po to Spanish
@@ -18,7 +18,7 @@ msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-05-01 17:55+0200\n"
-"PO-Revision-Date: 2005-05-01 18:12+0200\n"
+"PO-Revision-Date: 2005-06-02 19:53-0700\n"
 "Last-Translator: \n"
 "Language-Team:  <en@li.org>\n"
 "MIME-Version: 1.0\n"
