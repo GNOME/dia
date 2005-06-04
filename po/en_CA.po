@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-06-02 11:30-0400\n"
-"PO-Revision-Date: 2005-06-02 16:52-0400\n"
+"POT-Creation-Date: 2005-06-03 23:47-0400\n"
+"PO-Revision-Date: 2005-06-03 16:52-0400\n"
 "Last-Translator: Adam Weinberger <adamw@gnome.org>\n"
 "Language-Team: Canadian English <adamw@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -1638,7 +1638,7 @@ msgstr "Plug-ins"
 msgid "Loaded"
 msgstr "Loaded"
 
-#: app/plugin-manager.c:262 objects/UML/class.c:116
+#: app/plugin-manager.c:262 objects/UML/class.c:117
 #: objects/UML/large_package.c:130
 msgid "Name"
 msgstr "Name"
@@ -1958,8 +1958,8 @@ msgid "Description:"
 msgstr "Description:"
 
 #: app/sheets_dialog.c:618 objects/FS/flow-ortho.c:168 objects/FS/flow.c:146
-#: objects/UML/class_dialog.c:918 objects/UML/class_dialog.c:1852
-#: objects/UML/class_dialog.c:2081 objects/UML/class_dialog.c:2597
+#: objects/UML/class_dialog.c:912 objects/UML/class_dialog.c:1840
+#: objects/UML/class_dialog.c:2069 objects/UML/class_dialog.c:2585
 #: objects/Istar/link.c:165 objects/Jackson/phenomenon.c:144
 #: objects/KAOS/metaandorrel.c:164 objects/KAOS/metabinrel.c:171
 msgid "Type:"
@@ -1971,9 +1971,9 @@ msgstr "Sheet"
 
 #: app/sheets_dialog.c:672 objects/ER/attribute.c:153 objects/ER/entity.c:135
 #: objects/ER/relationship.c:140 objects/UML/association.c:237
-#: objects/UML/association.c:1165 objects/UML/class_dialog.c:907
-#: objects/UML/class_dialog.c:1841 objects/UML/class_dialog.c:2070
-#: objects/UML/class_dialog.c:2586 objects/UML/dependency.c:133
+#: objects/UML/association.c:1165 objects/UML/class_dialog.c:901
+#: objects/UML/class_dialog.c:1829 objects/UML/class_dialog.c:2058
+#: objects/UML/class_dialog.c:2574 objects/UML/dependency.c:133
 #: objects/UML/generalization.c:129 objects/UML/realizes.c:130
 msgid "Name:"
 msgstr "Name:"
@@ -2481,7 +2481,7 @@ msgstr "Text alignment"
 #. all this just to make the defaults selectable ...
 #: lib/properties.c:79 lib/properties.h:528 objects/GRAFCET/condition.c:132
 #: objects/GRAFCET/step.c:165 objects/GRAFCET/transition.c:142
-#: objects/UML/class.c:142 objects/UML/class_dialog.c:351
+#: objects/UML/class.c:143 objects/UML/class_dialog.c:351
 #: objects/chronogram/chronoline.c:183 objects/chronogram/chronoref.c:164
 msgid "Font"
 msgstr "Font"
@@ -3881,7 +3881,7 @@ msgid "Miscellaneous objects"
 msgstr "Miscellaneous objects"
 
 #. property rows
-#: objects/SADT/arrow.c:134 objects/UML/class.c:147
+#: objects/SADT/arrow.c:134 objects/UML/class.c:148
 #: objects/UML/class_dialog.c:357
 msgid "Normal"
 msgstr "Normal"
@@ -3954,7 +3954,7 @@ msgstr "SADT diagram objects"
 msgid "Actor"
 msgstr "Actor"
 
-#: objects/UML/association.c:1178 objects/UML/class_dialog.c:2114
+#: objects/UML/association.c:1178 objects/UML/class_dialog.c:2102
 msgid "Direction:"
 msgstr "Direction:"
 
@@ -3982,28 +3982,28 @@ msgstr "Role:"
 msgid "Multiplicity:"
 msgstr "Multiplicity:"
 
-#: objects/UML/association.c:1265 objects/UML/class_dialog.c:952
-#: objects/UML/class_dialog.c:1876
+#: objects/UML/association.c:1265 objects/UML/class_dialog.c:946
+#: objects/UML/class_dialog.c:1864
 msgid "Visibility:"
 msgstr "Visibility:"
 
-#: objects/UML/association.c:1274 objects/UML/class_dialog.c:961
-#: objects/UML/class_dialog.c:1885 objects/UML/uml.c:101
+#: objects/UML/association.c:1274 objects/UML/class_dialog.c:955
+#: objects/UML/class_dialog.c:1873 objects/UML/uml.c:101
 msgid "Public"
 msgstr "Public"
 
-#: objects/UML/association.c:1284 objects/UML/class_dialog.c:969
-#: objects/UML/class_dialog.c:1893 objects/UML/uml.c:102
+#: objects/UML/association.c:1284 objects/UML/class_dialog.c:963
+#: objects/UML/class_dialog.c:1881 objects/UML/uml.c:102
 msgid "Private"
 msgstr "Private"
 
-#: objects/UML/association.c:1294 objects/UML/class_dialog.c:977
-#: objects/UML/class_dialog.c:1901 objects/UML/uml.c:103
+#: objects/UML/association.c:1294 objects/UML/class_dialog.c:971
+#: objects/UML/class_dialog.c:1889 objects/UML/uml.c:103
 msgid "Protected"
 msgstr "Protected"
 
-#: objects/UML/association.c:1304 objects/UML/class_dialog.c:985
-#: objects/UML/class_dialog.c:1909
+#: objects/UML/association.c:1304 objects/UML/class_dialog.c:979
+#: objects/UML/class_dialog.c:1897
 msgid "Implementation"
 msgstr "Implementation"
 
@@ -4022,90 +4022,90 @@ msgstr "Aggregate"
 msgid "Composition"
 msgstr "Composition"
 
-#: objects/UML/class.c:114 objects/UML/class.c:280 objects/UML/class.c:1263
+#: objects/UML/class.c:115 objects/UML/class.c:281 objects/UML/class.c:1271
 #: sheets/UML.sheet.in.h:6
 msgid "Class"
 msgstr "Class"
 
-#: objects/UML/class.c:118 objects/UML/classicon.c:138
+#: objects/UML/class.c:119 objects/UML/classicon.c:138
 #: objects/UML/component.c:124 objects/UML/large_package.c:128
 #: objects/UML/object.c:149 objects/UML/small_package.c:124
 msgid "Stereotype"
 msgstr "Stereotype"
 
-#: objects/UML/class.c:120 objects/UML/class.c:157
+#: objects/UML/class.c:121 objects/UML/class.c:158
 #: objects/UML/class_dialog.c:382 sheets/SDL.sheet.in.h:3
 msgid "Comment"
 msgstr "Comment"
 
-#: objects/UML/class.c:122 objects/UML/class.c:151
+#: objects/UML/class.c:123 objects/UML/class.c:152
 #: objects/UML/class_dialog.c:296 objects/UML/class_dialog.c:367
-#: objects/UML/class_dialog.c:1940 objects/UML/uml.c:109
+#: objects/UML/class_dialog.c:1928 objects/UML/uml.c:109
 msgid "Abstract"
 msgstr "Abstract"
 
-#: objects/UML/class.c:124
+#: objects/UML/class.c:125
 msgid "Template"
 msgstr "Template"
 
-#: objects/UML/class.c:127 objects/UML/class_dialog.c:305
+#: objects/UML/class.c:128 objects/UML/class_dialog.c:305
 msgid "Suppress Attributes"
 msgstr "Suppress Attributes"
 
-#: objects/UML/class.c:129
+#: objects/UML/class.c:130
 msgid "Suppress Operations"
 msgstr "Suppress Operations"
 
-#: objects/UML/class.c:131
+#: objects/UML/class.c:132
 msgid "Visible Attributes"
 msgstr "Visible Attributes"
 
-#: objects/UML/class.c:133
+#: objects/UML/class.c:134
 msgid "Visible Operations"
 msgstr "Visible Operations"
 
-#: objects/UML/class.c:135
+#: objects/UML/class.c:136
 msgid "Visible Comments"
 msgstr "Visible Comments"
 
-#: objects/UML/class.c:137 objects/UML/class_dialog.c:321
+#: objects/UML/class.c:138 objects/UML/class_dialog.c:321
 msgid "Wrap Operations"
 msgstr "Wrap Operations"
 
-#: objects/UML/class.c:139
+#: objects/UML/class.c:140
 msgid "Wrap after char"
 msgstr "Wrap after char"
 
-#: objects/UML/class.c:149 objects/UML/class_dialog.c:362
+#: objects/UML/class.c:150 objects/UML/class_dialog.c:362
 msgid "Polymorphic"
 msgstr "Polymorphic"
 
-#: objects/UML/class.c:153
+#: objects/UML/class.c:154
 msgid "Classname"
 msgstr "Classname"
 
-#: objects/UML/class.c:155
+#: objects/UML/class.c:156
 msgid "Abstract Classname"
 msgstr "Abstract Classname"
 
-#: objects/UML/class.c:161 objects/UML/class.c:163 objects/UML/class.c:165
-#: objects/UML/class.c:167 objects/UML/class.c:169 objects/UML/class.c:171
+#: objects/UML/class.c:162 objects/UML/class.c:164 objects/UML/class.c:166
+#: objects/UML/class.c:168 objects/UML/class.c:170 objects/UML/class.c:172
 msgid " "
 msgstr " "
 
-#: objects/UML/class.c:177 objects/UML/object.c:153
+#: objects/UML/class.c:178 objects/UML/object.c:153
 msgid "Attributes"
 msgstr "Attributes"
 
-#: objects/UML/class.c:179
+#: objects/UML/class.c:180
 msgid "Operations"
 msgstr "Operations"
 
-#: objects/UML/class.c:182
+#: objects/UML/class.c:183
 msgid "Template Parameters"
 msgstr "Template Parameters"
 
-#: objects/UML/class.c:274
+#: objects/UML/class.c:275
 msgid "Show Comments"
 msgstr "Show Comments"
 
@@ -4118,14 +4118,14 @@ msgstr "_Class"
 msgid "Class name:"
 msgstr "Class name:"
 
-#: objects/UML/class_dialog.c:281 objects/UML/class_dialog.c:1863
+#: objects/UML/class_dialog.c:281 objects/UML/class_dialog.c:1851
 #: objects/UML/dependency.c:135 objects/UML/generalization.c:131
 #: objects/UML/realizes.c:132
 msgid "Stereotype:"
 msgstr "Stereotype:"
 
-#: objects/UML/class_dialog.c:288 objects/UML/class_dialog.c:940
-#: objects/UML/class_dialog.c:1981 objects/UML/class_dialog.c:2103
+#: objects/UML/class_dialog.c:288 objects/UML/class_dialog.c:934
+#: objects/UML/class_dialog.c:1969 objects/UML/class_dialog.c:2091
 msgid "Comment:"
 msgstr "Comment:"
 
@@ -4180,105 +4180,105 @@ msgid "Background Color"
 msgstr "Background Colour"
 
 #. Attributes page:
-#: objects/UML/class_dialog.c:840
+#: objects/UML/class_dialog.c:834
 msgid "_Attributes"
 msgstr "_Attributes"
 
-#: objects/UML/class_dialog.c:868 objects/UML/class_dialog.c:1799
-#: objects/UML/class_dialog.c:2027 objects/UML/class_dialog.c:2547
+#: objects/UML/class_dialog.c:862 objects/UML/class_dialog.c:1787
+#: objects/UML/class_dialog.c:2015 objects/UML/class_dialog.c:2535
 msgid "_New"
 msgstr "_New"
 
-#: objects/UML/class_dialog.c:874 objects/UML/class_dialog.c:1805
-#: objects/UML/class_dialog.c:2034 objects/UML/class_dialog.c:2553
+#: objects/UML/class_dialog.c:868 objects/UML/class_dialog.c:1793
+#: objects/UML/class_dialog.c:2022 objects/UML/class_dialog.c:2541
 msgid "_Delete"
 msgstr "_Delete"
 
-#: objects/UML/class_dialog.c:880 objects/UML/class_dialog.c:1811
-#: objects/UML/class_dialog.c:2041 objects/UML/class_dialog.c:2559
+#: objects/UML/class_dialog.c:874 objects/UML/class_dialog.c:1799
+#: objects/UML/class_dialog.c:2029 objects/UML/class_dialog.c:2547
 msgid "Move up"
 msgstr "Move up"
 
-#: objects/UML/class_dialog.c:886 objects/UML/class_dialog.c:1817
-#: objects/UML/class_dialog.c:2048 objects/UML/class_dialog.c:2565
+#: objects/UML/class_dialog.c:880 objects/UML/class_dialog.c:1805
+#: objects/UML/class_dialog.c:2036 objects/UML/class_dialog.c:2553
 msgid "Move down"
 msgstr "Move down"
 
-#: objects/UML/class_dialog.c:897
+#: objects/UML/class_dialog.c:891
 msgid "Attribute data"
 msgstr "Attribute data"
 
-#: objects/UML/class_dialog.c:929
+#: objects/UML/class_dialog.c:923
 msgid "Value:"
 msgstr "Value:"
 
-#: objects/UML/class_dialog.c:1006 objects/UML/class_dialog.c:1925
+#: objects/UML/class_dialog.c:1000 objects/UML/class_dialog.c:1913
 msgid "Class scope"
 msgstr "Class scope"
 
 #. Operations page:
-#: objects/UML/class_dialog.c:1771
+#: objects/UML/class_dialog.c:1759
 msgid "_Operations"
 msgstr "_Operations"
 
-#: objects/UML/class_dialog.c:1829
+#: objects/UML/class_dialog.c:1817
 msgid "Operation data"
 msgstr "Operation data"
 
-#: objects/UML/class_dialog.c:1931
+#: objects/UML/class_dialog.c:1919
 msgid "Inheritance type:"
 msgstr "Inheritance type:"
 
-#: objects/UML/class_dialog.c:1948 objects/UML/uml.c:110
+#: objects/UML/class_dialog.c:1936 objects/UML/uml.c:110
 msgid "Polymorphic (virtual)"
 msgstr "Polymorphic (virtual)"
 
-#: objects/UML/class_dialog.c:1956 objects/UML/uml.c:111
+#: objects/UML/class_dialog.c:1944 objects/UML/uml.c:111
 msgid "Leaf (final)"
 msgstr "Leaf (final)"
 
-#: objects/UML/class_dialog.c:1974
+#: objects/UML/class_dialog.c:1962
 msgid "Query"
 msgstr "Query"
 
-#: objects/UML/class_dialog.c:1998
+#: objects/UML/class_dialog.c:1986
 msgid "Parameters:"
 msgstr "Parameters:"
 
-#: objects/UML/class_dialog.c:2060
+#: objects/UML/class_dialog.c:2048
 msgid "Parameter data"
 msgstr "Parameter data"
 
-#: objects/UML/class_dialog.c:2092
+#: objects/UML/class_dialog.c:2080
 msgid "Def. value:"
 msgstr "Def. value:"
 
-#: objects/UML/class_dialog.c:2123
+#: objects/UML/class_dialog.c:2111
 msgid "Undefined"
 msgstr "Undefined"
 
-#: objects/UML/class_dialog.c:2131
+#: objects/UML/class_dialog.c:2119
 msgid "In"
 msgstr "In"
 
-#: objects/UML/class_dialog.c:2140
+#: objects/UML/class_dialog.c:2128
 msgid "Out"
 msgstr "Out"
 
-#: objects/UML/class_dialog.c:2149
+#: objects/UML/class_dialog.c:2137
 msgid "In & Out"
 msgstr "In & Out"
 
 #. Templates page:
-#: objects/UML/class_dialog.c:2513
+#: objects/UML/class_dialog.c:2501
 msgid "_Templates"
 msgstr "_Templates"
 
-#: objects/UML/class_dialog.c:2519 sheets/UML.sheet.in.h:29
+#: objects/UML/class_dialog.c:2507 sheets/UML.sheet.in.h:29
 msgid "Template class"
 msgstr "Template class"
 
-#: objects/UML/class_dialog.c:2576
+#: objects/UML/class_dialog.c:2564
 msgid "Formal parameter data"
 msgstr "Formal parameter data"
 
@@ -7346,142 +7346,162 @@ msgid "Label Switch Router"
 msgstr "Label Switch Router"
 
 #: sheets/ciscohub.sheet.in.h:34
+msgid "Layer 2 Remote Switch"
+msgstr "Layer 2 Remote Switch"
+
+#: sheets/ciscohub.sheet.in.h:35
 msgid "MGX 8220"
 msgstr "MGX 8220"
 
-#: sheets/ciscohub.sheet.in.h:35
+#: sheets/ciscohub.sheet.in.h:36
 msgid "MGX 8240"
 msgstr "MGX 8240"
 
-#: sheets/ciscohub.sheet.in.h:36
+#: sheets/ciscohub.sheet.in.h:37
 msgid "MGX 8260"
 msgstr "MGX 8260"
 
-#: sheets/ciscohub.sheet.in.h:37
+#: sheets/ciscohub.sheet.in.h:38
+msgid "Multi-Fabric Server Switch"
+msgstr "Multi-Fabric Server Switch"
+
+#: sheets/ciscohub.sheet.in.h:39
 msgid "MultiSwitch Device"
 msgstr "MultiSwitch Device"
 
-#: sheets/ciscohub.sheet.in.h:38
+#: sheets/ciscohub.sheet.in.h:40
+msgid "Multilayer Remote Switch"
+msgstr "Multilayer Remote Switch"
+
+#: sheets/ciscohub.sheet.in.h:41
 msgid "Multilayer Switch"
 msgstr "Multilayer Switch"
 
-#: sheets/ciscohub.sheet.in.h:39
+#: sheets/ciscohub.sheet.in.h:42
 msgid "Multilayer Switch with Silicon"
 msgstr "Multilayer Switch with Silicon"
 
-#: sheets/ciscohub.sheet.in.h:40
+#: sheets/ciscohub.sheet.in.h:43
 msgid "Multilayer Switch with Silicon subdued"
 msgstr "Multilayer Switch with Silicon subdued"
 
-#: sheets/ciscohub.sheet.in.h:41
+#: sheets/ciscohub.sheet.in.h:44
 msgid "NetFlow router"
 msgstr "NetFlow router"
 
-#: sheets/ciscohub.sheet.in.h:42
+#: sheets/ciscohub.sheet.in.h:45
 msgid "NetRanger"
 msgstr "NetRanger"
 
-#: sheets/ciscohub.sheet.in.h:43
+#: sheets/ciscohub.sheet.in.h:46
 msgid "NetSonar"
 msgstr "NetSonar"
 
-#: sheets/ciscohub.sheet.in.h:44
+#: sheets/ciscohub.sheet.in.h:47
 msgid "Optical Services Router"
 msgstr "Optical Services Router"
 
-#: sheets/ciscohub.sheet.in.h:45
+#: sheets/ciscohub.sheet.in.h:48
 msgid "PXF"
 msgstr "PXF"
 
-#: sheets/ciscohub.sheet.in.h:46
+#: sheets/ciscohub.sheet.in.h:49
 msgid "Programmable Switch"
 msgstr "Programmable Switch"
 
-#: sheets/ciscohub.sheet.in.h:47
+#: sheets/ciscohub.sheet.in.h:50
 msgid "RateMUX"
 msgstr "RateMUX"
 
-#: sheets/ciscohub.sheet.in.h:48
+#: sheets/ciscohub.sheet.in.h:51
 msgid "Route Switch Processor"
 msgstr "Route Switch Processor"
 
-#: sheets/ciscohub.sheet.in.h:49
+#: sheets/ciscohub.sheet.in.h:52
 msgid "Route Switch Processor with Si"
 msgstr "Route Switch Processor with Silicon"
 
-#: sheets/ciscohub.sheet.in.h:50
+#: sheets/ciscohub.sheet.in.h:53
 msgid "Router"
 msgstr "Router"
 
-#: sheets/ciscohub.sheet.in.h:51
+#: sheets/ciscohub.sheet.in.h:54
 msgid "Router and switch shapes by Cisco"
 msgstr "Router and switch shapes by Cisco"
 
-#: sheets/ciscohub.sheet.in.h:52
+#: sheets/ciscohub.sheet.in.h:55
 msgid "Router subdued"
 msgstr "Router subdued"
 
-#: sheets/ciscohub.sheet.in.h:53
+#: sheets/ciscohub.sheet.in.h:56
 msgid "Router with Firewall"
 msgstr "Router with Firewall"
 
-#: sheets/ciscohub.sheet.in.h:54
+#: sheets/ciscohub.sheet.in.h:57
 msgid "Router with Silicon Switch"
 msgstr "Router with Silicon Switch"
 
-#: sheets/ciscohub.sheet.in.h:55
+#: sheets/ciscohub.sheet.in.h:58
+msgid "Server Switch"
+msgstr "Server Switch"
+
+#: sheets/ciscohub.sheet.in.h:59
 msgid "Small Hub"
 msgstr "Small Hub"
 
-#: sheets/ciscohub.sheet.in.h:56
+#: sheets/ciscohub.sheet.in.h:60
 msgid "Storage Router"
 msgstr "Storage Router"
 
-#: sheets/ciscohub.sheet.in.h:57
+#: sheets/ciscohub.sheet.in.h:61
 msgid "Switch Processor"
 msgstr "Switch Processor"
 
-#: sheets/ciscohub.sheet.in.h:58
+#: sheets/ciscohub.sheet.in.h:62
 msgid "Universal Gateway"
 msgstr "Universal Gateway"
 
-#: sheets/ciscohub.sheet.in.h:59
+#: sheets/ciscohub.sheet.in.h:63
+msgid "Virtual Layer Switch"
+msgstr "Virtual Layer Switch"
+
+#: sheets/ciscohub.sheet.in.h:64
 msgid "Wavelength router"
 msgstr "Wavelength router"
 
-#: sheets/ciscohub.sheet.in.h:60
+#: sheets/ciscohub.sheet.in.h:65
 msgid "Wireless router"
 msgstr "Wireless router"
 
-#: sheets/ciscohub.sheet.in.h:61
+#: sheets/ciscohub.sheet.in.h:66
 msgid "Workgroup 5000"
 msgstr "Workgroup 5000"
 
-#: sheets/ciscohub.sheet.in.h:62
+#: sheets/ciscohub.sheet.in.h:67
 msgid "Workgroup 5002"
 msgstr "Workgroup 5002"
 
-#: sheets/ciscohub.sheet.in.h:63
+#: sheets/ciscohub.sheet.in.h:68
 msgid "Workgroup 5500"
 msgstr "Workgroup 5500"
 
-#: sheets/ciscohub.sheet.in.h:64
+#: sheets/ciscohub.sheet.in.h:69
 msgid "Workgroup Fibre Channel intelligent switch"
 msgstr "Workgroup Fibre Channel intelligent switch"
 
-#: sheets/ciscohub.sheet.in.h:65
+#: sheets/ciscohub.sheet.in.h:70
 msgid "Workgroup Switch Voice-Enabled"
 msgstr "Workgroup Switch Voice-Enabled"
 
-#: sheets/ciscohub.sheet.in.h:66
+#: sheets/ciscohub.sheet.in.h:71
 msgid "Workgroup switch"
 msgstr "Workgroup switch"
 
-#: sheets/ciscohub.sheet.in.h:67
+#: sheets/ciscohub.sheet.in.h:72
 msgid "Workgroup switch Subdued"
 msgstr "Workgroup switch Subdued"
 
-#: sheets/ciscohub.sheet.in.h:68
+#: sheets/ciscohub.sheet.in.h:73
 msgid "iSCSI switch"
 msgstr "iSCSI switch"
 
@@ -7898,174 +7918,202 @@ msgid "LAN to LAN"
 msgstr "LAN to LAN"
 
 #: sheets/cisconetwork.sheet.in.h:53
+msgid "Lightweight AP"
+msgstr "Lightweight AP"
+
+#: sheets/cisconetwork.sheet.in.h:54
 msgid "LocalDirector"
 msgstr "LocalDirector"
 
-#: sheets/cisconetwork.sheet.in.h:54
+#: sheets/cisconetwork.sheet.in.h:55
+msgid "Location server"
+msgstr "Location server"
+
+#: sheets/cisconetwork.sheet.in.h:56
 msgid "LongReach CPE"
 msgstr "LongReach CPE"
 
-#: sheets/cisconetwork.sheet.in.h:55
+#: sheets/cisconetwork.sheet.in.h:57
 msgid "MAS Gateway"
 msgstr "MAS Gateway"
 
-#: sheets/cisconetwork.sheet.in.h:56
+#: sheets/cisconetwork.sheet.in.h:58
 msgid "MAU"
 msgstr "MAU"
 
-#: sheets/cisconetwork.sheet.in.h:57
+#: sheets/cisconetwork.sheet.in.h:59
 msgid "ME 1100"
 msgstr "ME 1100"
 
-#: sheets/cisconetwork.sheet.in.h:58
+#: sheets/cisconetwork.sheet.in.h:60
 msgid "MUX"
 msgstr "MUX"
 
-#: sheets/cisconetwork.sheet.in.h:59
+#: sheets/cisconetwork.sheet.in.h:61
 msgid "Metro 1500"
 msgstr "Metro 1500"
 
-#: sheets/cisconetwork.sheet.in.h:60
+#: sheets/cisconetwork.sheet.in.h:62
 msgid "NAT"
 msgstr "NAT"
 
-#: sheets/cisconetwork.sheet.in.h:61
+#: sheets/cisconetwork.sheet.in.h:63
 msgid "Network Management"
 msgstr "Network Management"
 
-#: sheets/cisconetwork.sheet.in.h:62
+#: sheets/cisconetwork.sheet.in.h:64
 msgid "Network shapes by Cisco"
 msgstr "Network shapes by Cisco"
 
-#: sheets/cisconetwork.sheet.in.h:63
+#: sheets/cisconetwork.sheet.in.h:65
 msgid "ONS15104"
 msgstr "ONS15104"
 
-#: sheets/cisconetwork.sheet.in.h:64
+#: sheets/cisconetwork.sheet.in.h:66
 msgid "ONS15540"
 msgstr "ONS15540"
 
-#: sheets/cisconetwork.sheet.in.h:65
+#: sheets/cisconetwork.sheet.in.h:67
 msgid "Optical Amplifier"
 msgstr "Optical Amplifier"
 
-#: sheets/cisconetwork.sheet.in.h:66
+#: sheets/cisconetwork.sheet.in.h:68
 msgid "Optical Cross-Connect"
 msgstr "Optical Cross-Connect"
 
-#: sheets/cisconetwork.sheet.in.h:67
+#: sheets/cisconetwork.sheet.in.h:69
 msgid "Optical Fiber"
 msgstr "Optical Fiber"
 
-#: sheets/cisconetwork.sheet.in.h:68
+#: sheets/cisconetwork.sheet.in.h:70
 msgid "Optical Transport"
 msgstr "Optical Transport"
 
-#: sheets/cisconetwork.sheet.in.h:69
+#: sheets/cisconetwork.sheet.in.h:71
 msgid "PAD"
 msgstr "PAD"
 
-#: sheets/cisconetwork.sheet.in.h:70
+#: sheets/cisconetwork.sheet.in.h:72
 msgid "PIX Firewall"
 msgstr "PIX Firewall"
 
-#: sheets/cisconetwork.sheet.in.h:71
+#: sheets/cisconetwork.sheet.in.h:73
 msgid "PIX Firewall Left"
 msgstr "PIX Firewall Left"
 
-#: sheets/cisconetwork.sheet.in.h:72
+#: sheets/cisconetwork.sheet.in.h:74
 msgid "Protocol Translator"
 msgstr "Protocol Translator"
 
-#: sheets/cisconetwork.sheet.in.h:73
+#: sheets/cisconetwork.sheet.in.h:75
 msgid "RPS"
 msgstr "RPS"
 
-#: sheets/cisconetwork.sheet.in.h:74
+#: sheets/cisconetwork.sheet.in.h:76
 msgid "Repeater"
 msgstr "Repeater"
 
-#: sheets/cisconetwork.sheet.in.h:75
+#: sheets/cisconetwork.sheet.in.h:77
 msgid "SSL Terminator"
 msgstr "SSL Terminator"
 
-#: sheets/cisconetwork.sheet.in.h:76
+#: sheets/cisconetwork.sheet.in.h:78
 msgid "STB (set top box)"
 msgstr "STB (set top box)"
 
-#: sheets/cisconetwork.sheet.in.h:77
+#: sheets/cisconetwork.sheet.in.h:79
+msgid "Security appliance"
+msgstr "Security appliance"
+
+#: sheets/cisconetwork.sheet.in.h:80
+msgid "Service Control"
+msgstr "Service Control"
+
+#: sheets/cisconetwork.sheet.in.h:81
 msgid "Storage Solution Engine"
 msgstr "Storage Solution Engine"
 
-#: sheets/cisconetwork.sheet.in.h:78
+#: sheets/cisconetwork.sheet.in.h:82
 msgid "System controller"
 msgstr "System controller"
 
-#: sheets/cisconetwork.sheet.in.h:79
+#: sheets/cisconetwork.sheet.in.h:83
 msgid "TV"
 msgstr "TV"
 
-#: sheets/cisconetwork.sheet.in.h:80
+#: sheets/cisconetwork.sheet.in.h:84
 msgid "Terminal Server"
 msgstr "Terminal Server"
 
-#: sheets/cisconetwork.sheet.in.h:81
+#: sheets/cisconetwork.sheet.in.h:85
 msgid "TokenRing"
 msgstr "TokenRing"
 
-#: sheets/cisconetwork.sheet.in.h:82
+#: sheets/cisconetwork.sheet.in.h:86
 msgid "TransPath"
 msgstr "TransPath"
 
-#: sheets/cisconetwork.sheet.in.h:83
+#: sheets/cisconetwork.sheet.in.h:87
 msgid "UPS"
 msgstr "UPS"
 
-#: sheets/cisconetwork.sheet.in.h:84
+#: sheets/cisconetwork.sheet.in.h:88
 msgid "VIP"
 msgstr "VIP"
 
-#: sheets/cisconetwork.sheet.in.h:85
+#: sheets/cisconetwork.sheet.in.h:89
 msgid "VN2900"
 msgstr "VN2900"
 
-#: sheets/cisconetwork.sheet.in.h:86
+#: sheets/cisconetwork.sheet.in.h:90
 msgid "VN5900"
 msgstr "VN5900"
 
-#: sheets/cisconetwork.sheet.in.h:87
+#: sheets/cisconetwork.sheet.in.h:91
 msgid "VN5902"
 msgstr "VN5902"
 
-#: sheets/cisconetwork.sheet.in.h:88
+#: sheets/cisconetwork.sheet.in.h:92
 msgid "VPN Concentrator"
 msgstr "VPN Concentrator"
 
-#: sheets/cisconetwork.sheet.in.h:89
+#: sheets/cisconetwork.sheet.in.h:93
 msgid "VPN Gateway"
 msgstr "VPN Gateway"
 
-#: sheets/cisconetwork.sheet.in.h:90
+#: sheets/cisconetwork.sheet.in.h:94
 msgid "WAN"
 msgstr "WAN"
 
-#: sheets/cisconetwork.sheet.in.h:91
+#: sheets/cisconetwork.sheet.in.h:95
 msgid "WDM"
 msgstr "WDM"
 
-#: sheets/cisconetwork.sheet.in.h:92
+#: sheets/cisconetwork.sheet.in.h:96
+msgid "WLAN controller"
+msgstr "WLAN controller"
+
+#: sheets/cisconetwork.sheet.in.h:97
+msgid "Wi-Fi Tag"
+msgstr "Wi-Fi Tag"
+
+#: sheets/cisconetwork.sheet.in.h:98
 msgid "Wireless Bridge"
 msgstr "Wireless Bridge"
 
-#: sheets/cisconetwork.sheet.in.h:93
+#: sheets/cisconetwork.sheet.in.h:99
 msgid "Wireless Connectivity"
 msgstr "Wireless Connectivity"
 
-#: sheets/cisconetwork.sheet.in.h:94
+#: sheets/cisconetwork.sheet.in.h:100
+msgid "Wireless Location Appliance"
+msgstr "Wireless Location Appliance"
+
+#: sheets/cisconetwork.sheet.in.h:101
 msgid "Wireless Transport"
 msgstr "Wireless Transport"
 
-#: sheets/cisconetwork.sheet.in.h:95
+#: sheets/cisconetwork.sheet.in.h:102
 msgid "uBR910 Cable DSU"
 msgstr "uBR910 Cable DSU"
 
