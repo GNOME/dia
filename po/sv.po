@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: dia\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-03-27 16:18+0200\n"
-"PO-Revision-Date: 2004-03-25 11:35+0100\n"
+"PO-Revision-Date: 2005-06-05 02:06+0200\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -5331,22 +5331,22 @@ msgstr "Fel vid tolkning av %s\n"
 #: plug-ins/xslt/xslt.c:110
 #, c-format
 msgid "Error while parsing stylesheet %s\n"
-msgstr "Fel vid tolkning av stilmallen %s\n"
+msgstr "Fel vid tolkning av formatmallen %s\n"
 
 #: plug-ins/xslt/xslt.c:116
 #, c-format
 msgid "Error while applying stylesheet %s\n"
-msgstr "Fel vid tillämpning av stilmallen %s\n"
+msgstr "Fel vid tillämpning av formatmallen %s\n"
 
 #: plug-ins/xslt/xslt.c:124
 #, c-format
 msgid "Error while parsing stylesheet: %s\n"
-msgstr "Fel vid tolkning av stilmall: %s\n"
+msgstr "Fel vid tolkning av formatmall: %s\n"
 
 #: plug-ins/xslt/xslt.c:132
 #, c-format
 msgid "Error while applying stylesheet: %s\n"
-msgstr "Fel vid tillämpning av stilmall: %s\n"
+msgstr "Fel vid tillämpning av formatmall: %s\n"
 
 #: plug-ins/xslt/xslt.c:317
 msgid "XSL Transformation filter"
@@ -8873,7 +8873,7 @@ msgstr "Sybase-replikationsserver"
 
 #~ msgid "DIA_PLUGIN_PATH not set.  Stylesheets not available.\n"
 #~ msgstr ""
-#~ "DIA_PLUGIN_PATH är inte inställt. Stilmallar är inte tillgängliga.\n"
+#~ "DIA_PLUGIN_PATH är inte inställt. Formatmallar är inte tillgängliga.\n"
 
 #~ msgid "Could not load XSLT plugin; DIA_PLUGIN_PATH is not set."
 #~ msgstr ""
