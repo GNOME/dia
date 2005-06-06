@@ -20,6 +20,7 @@ Focus *textedit_move_focus(DDisplay *ddisp, Focus *focus, gboolean forwards);
 
 void textedit_activate_focus(DDisplay *ddisp, Focus *focus, Point *clicked);
 void textedit_activate_object(DDisplay *ddisp, DiaObject *obj, Point *clicked);
+void textedit_activate_first(DDisplay *ddisp);
 void textedit_deactivate_focus();
 void textedit_remove_focus(DiaObject *obj, Diagram *diagram);
 void textedit_remove_focus_all(Diagram *diagram);

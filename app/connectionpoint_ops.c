@@ -45,6 +45,7 @@ connectionpoint_draw(ConnectionPoint *conpoint,
   /* Don't draw the "whole object" connpoints */
   if (conpoint->flags & CP_FLAG_ANYPLACE) {
     /* Temporarily draw it extra visible! */
+    /*
     ddisplay_transform_coords(ddisp, point->x, point->y, &x, &y);
     
     renderer_ops->set_linewidth (renderer, 0.1);
@@ -59,6 +60,7 @@ connectionpoint_draw(ConnectionPoint *conpoint,
 				x+CP_SZ,y-CP_SZ,
 				x-CP_SZ,y+CP_SZ,
 				&midpoint_color);
+    */
     return;
   }
 

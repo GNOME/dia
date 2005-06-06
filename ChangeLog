@@ -1,3 +1,13 @@
+2005-06-06  Lars Clausen  <lars@raeder.dk>
+
+	* app/diagram.c: 
+	* app/modify_tool.c:
+	* app/textedit.[ch]:
+	Better support for text edit highlight.
+
+	* app/connectionpoint_ops.c (connectionpoint_draw): Stop making
+	the mainpoint extra visible.
+
 2005-06-02  Lars Clausen  <lars@raeder.dk>
 
 	* objects/UML/class_dialog.c:

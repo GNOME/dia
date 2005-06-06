@@ -123,6 +123,30 @@ textedit_activate_object(DDisplay *ddisp, DiaObject *obj, Point *clicked)
   }
 }
 
+/** Call to activate the first editable selected object.
+ * Deactivates the old edit.
+ */
+void
+textedit_activate_first(DDisplay *ddisp)
+{
+  Focus *new_focus = NULL;
+  GList *selected = diagram_get_sorted_selected(ddisp->diagram);
+
+  if (active_focus()) {
+    Focus *focus = active_focus();
+    textedit_end_edit(ddisp, focus);
+  }
+  while (new_focus != NULL && selected != NULL) {
+    DiaObject *obj = (DiaObject*) selected->data;
+    new_focus = focus_get_first_on_object(obj);
+  }
+  if (new_focus != NULL) {
+    give_focus(new_focus); 
+    textedit_begin_edit(ddisp, new_focus);
+    diagram_flush(ddisp->diagram);
+  }  
+}
+
 /** Call when something causes the text focus to disappear.
  * Does not remove objects from the focus list, but removes the
  * focus highlight and stuff.

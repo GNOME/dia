@@ -665,6 +665,9 @@ diagram_select_list(Diagram *dia, GList *list)
 
     list = g_list_next(list);
   }
+  if (active_focus() == NULL) {
+    textedit_activate_first(ddisplay_active());
+  }
   g_signal_handlers_unblock_by_func (dia, _diagram_selection_changed, NULL);
   g_signal_emit (dia, diagram_signals[SELECTION_CHANGED], 0, g_list_length (dia->data->selected));
 }

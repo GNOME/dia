@@ -765,10 +765,7 @@ modify_button_release(ModifyTool *tool, GdkEventButton *event,
 	diagram_is_selected(ddisp->diagram, active_obj)) {
       textedit_activate_object(ddisp, obj, NULL);
     } else {
-      GList *selected = diagram_get_sorted_selected(ddisp->diagram);
-      if (selected != NULL) {
-	textedit_activate_object(ddisp, (DiaObject*)(selected->data), NULL);
-      }
+      textedit_activate_first(ddisp);
     }
     ddisplay_do_update_menu_sensitivity(ddisp);
     ddisplay_flush(ddisp);
