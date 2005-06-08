@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-06-03 23:47-0400\n"
-"PO-Revision-Date: 2005-06-03 16:52-0400\n"
+"POT-Creation-Date: 2005-06-08 17:31-0400\n"
+"PO-Revision-Date: 2005-06-08 16:52-0400\n"
 "Last-Translator: Adam Weinberger <adamw@gnome.org>\n"
 "Language-Team: Canadian English <adamw@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -851,13 +851,14 @@ msgid "Scroll"
 msgstr "Scroll"
 
 #: app/interface.c:69 app/interface.c:70 lib/properties.c:77
-#: lib/properties.h:517 objects/UML/activity.c:126 objects/UML/actor.c:122
+#: lib/properties.h:517 objects/Jackson/requirement.c:142
+#: objects/UML/activity.c:126 objects/UML/actor.c:122
 #: objects/UML/classicon.c:144 objects/UML/component.c:128
 #: objects/UML/component_feature.c:154 objects/UML/node.c:127
 #: objects/UML/note.c:121 objects/UML/object.c:147
 #: objects/UML/small_package.c:128 objects/UML/state.c:141
-#: objects/UML/usecase.c:138 objects/Jackson/requirement.c:142
-#: objects/network/basestation.c:133 objects/network/radiocell.c:146
+#: objects/UML/usecase.c:138 objects/network/basestation.c:133
+#: objects/network/radiocell.c:146
 msgid "Text"
 msgstr "Text"
 
@@ -1639,7 +1640,9 @@ msgid "Loaded"
 msgstr "Loaded"
 
 #: app/plugin-manager.c:262 objects/UML/class.c:117
-#: objects/UML/large_package.c:130
+#: objects/UML/large_package.c:130 objects/UML/umlattribute.c:37
+#: objects/UML/umlformalparameter.c:35 objects/UML/umloperation.c:62
+#: objects/UML/umlparameter.c:43
 msgid "Name"
 msgstr "Name"
 
@@ -1921,6 +1924,8 @@ msgstr "New"
 #: app/sheets_dialog.c:362 app/sheets_dialog.c:794 objects/Istar/actor.c:144
 #: objects/Istar/actor.c:145 objects/Istar/other.c:148
 #: objects/Istar/other.c:149 objects/KAOS/other.c:151 objects/KAOS/other.c:152
+#: objects/UML/umlattribute.c:39 objects/UML/umlformalparameter.c:37
+#: objects/UML/umloperation.c:64 objects/UML/umlparameter.c:45
 msgid "Type"
 msgstr "Type"
 
@@ -1958,10 +1963,10 @@ msgid "Description:"
 msgstr "Description:"
 
 #: app/sheets_dialog.c:618 objects/FS/flow-ortho.c:168 objects/FS/flow.c:146
-#: objects/UML/class_dialog.c:912 objects/UML/class_dialog.c:1840
-#: objects/UML/class_dialog.c:2069 objects/UML/class_dialog.c:2585
 #: objects/Istar/link.c:165 objects/Jackson/phenomenon.c:144
 #: objects/KAOS/metaandorrel.c:164 objects/KAOS/metabinrel.c:171
+#: objects/UML/class_dialog.c:912 objects/UML/class_dialog.c:1840
+#: objects/UML/class_dialog.c:2069 objects/UML/class_dialog.c:2585
 msgid "Type:"
 msgstr "Type:"
 
@@ -2110,7 +2115,7 @@ msgstr "Dia Diagram Editor"
 msgid "Edit your Diagrams"
 msgstr "Edit your Diagrams"
 
-#: lib/arrows.c:40 objects/UML/association.c:1188 objects/Jackson/domain.c:96
+#: lib/arrows.c:40 objects/Jackson/domain.c:96 objects/UML/association.c:1188
 msgid "None"
 msgstr "None"
 
@@ -3841,10 +3846,9 @@ msgstr "AND"
 msgid "Vergent type:"
 msgstr "Vergent type:"
 
-#: objects/GRAFCET/vergent.c:405 objects/SADT/box.c:445
-#: objects/Istar/other.c:469 objects/Jackson/domain.c:531
-#: objects/KAOS/goal.c:572 objects/KAOS/other.c:525
-#: objects/standard/line.c:220
+#: objects/GRAFCET/vergent.c:405 objects/Istar/other.c:469
+#: objects/Jackson/domain.c:531 objects/KAOS/goal.c:572
+#: objects/KAOS/other.c:525 objects/SADT/box.c:445 objects/standard/line.c:220
 msgid "Add connection point"
 msgstr "Add connection point"
 
@@ -3855,6 +3859,205 @@ msgstr "Delete  connection point"
 #: objects/GRAFCET/vergent.c:410
 msgid "GRAFCET OR/AND vergent"
 msgstr "GRAFCET OR/AND vergent"
+
+#: objects/Istar/actor.c:68 objects/Istar/link.c:153
+msgid "Unspecified"
+msgstr "Unspecified"
+
+#: objects/Istar/actor.c:69 objects/KAOS/other.c:75
+msgid "Agent"
+msgstr "Agent"
+
+#: objects/Istar/actor.c:71
+msgid "Role"
+msgstr "Role"
+
+#: objects/Istar/goal.c:76 objects/KAOS/goal.c:79
+msgid "Softgoal"
+msgstr "Softgoal"
+
+#: objects/Istar/goal.c:77 objects/KAOS/goal.c:80
+msgid "Goal"
+msgstr "Goal"
+
+#: objects/Istar/goal.c:155 objects/Istar/goal.c:156 objects/KAOS/goal.c:157
+#: objects/KAOS/goal.c:158
+msgid "Goal Type"
+msgstr "Goal Type"
+
+#: objects/Istar/istar.c:46
+msgid "Istar diagram"
+msgstr "Istar diagram"
+
+#: objects/Istar/link.c:154
+msgid "Positive Contrib"
+msgstr "Positive Contrib"
+
+#: objects/Istar/link.c:155
+msgid "Negative contrib"
+msgstr "Negative contrib"
+
+#: objects/Istar/link.c:156 sheets/UML.sheet.in.h:10
+msgid "Dependency"
+msgstr "Dependency"
+
+#: objects/Istar/link.c:157
+msgid "Decomposition"
+msgstr "Decomposition"
+
+#: objects/Istar/link.c:158
+msgid "Means-Ends"
+msgstr "Means-Ends"
+
+#: objects/Istar/other.c:73
+msgid "Resource"
+msgstr "Resource"
+
+#: objects/Istar/other.c:74
+msgid "Task"
+msgstr "Task"
+
+#: objects/Istar/other.c:470 objects/Jackson/domain.c:532
+#: objects/KAOS/goal.c:573 objects/KAOS/other.c:526 objects/SADT/box.c:446
+#: objects/standard/line.c:221
+msgid "Delete connection point"
+msgstr "Delete connection point"
+
+#: objects/Istar/other.c:475
+msgid "i* other"
+msgstr "i* other"
+
+#: objects/Jackson/domain.c:79
+msgid "Given Domain"
+msgstr "Given Domain"
+
+#: objects/Jackson/domain.c:80
+msgid "Designed Domain"
+msgstr "Designed Domain"
+
+#: objects/Jackson/domain.c:81
+msgid "Machine Domain"
+msgstr "Machine Domain"
+
+#: objects/Jackson/domain.c:97
+msgid "Causal"
+msgstr "Causal"
+
+#: objects/Jackson/domain.c:98
+msgid "Biddable"
+msgstr "Biddable"
+
+#: objects/Jackson/domain.c:99
+msgid "Lexical"
+msgstr "Lexical"
+
+#: objects/Jackson/domain.c:176 objects/Jackson/domain.c:177
+msgid "Domain Type"
+msgstr "Domain Type"
+
+#: objects/Jackson/domain.c:181
+msgid "Domain Kind"
+msgstr "Domain Kind"
+
+#: objects/Jackson/domain.c:182
+msgid "Optional kind which appears in the lower right corner of the Domain"
+msgstr "Optional kind which appears in the lower right corner of the Domain"
+
+#: objects/Jackson/domain.c:537
+msgid "Jackson domain"
+msgstr "Jackson domain"
+
+#: objects/Jackson/jackson.c:47
+msgid "Jackson diagram"
+msgstr "Jackson diagram"
+
+#: objects/Jackson/phenomenon.c:134
+msgid "Shared"
+msgstr "Shared"
+
+#: objects/Jackson/phenomenon.c:135 objects/KAOS/goal.c:81
+msgid "Requirement"
+msgstr "Requirement"
+
+#: objects/Jackson/phenomenon.c:142 objects/UML/message.c:150
+msgid "Message:"
+msgstr "Message:"
+
+#: objects/KAOS/goal.c:82
+msgid "Assumption"
+msgstr "Assumption"
+
+#: objects/KAOS/goal.c:83
+msgid "Obstacle"
+msgstr "Obstacle"
+
+#: objects/KAOS/goal.c:578
+msgid "KAOS goal"
+msgstr "KAOS goal"
+
+#: objects/KAOS/kaos.c:49
+msgid "KAOS diagram"
+msgstr "KAOS diagram"
+
+#: objects/KAOS/metaandorrel.c:151
+msgid "AND Refinement"
+msgstr "AND Refinement"
+
+#: objects/KAOS/metaandorrel.c:152
+msgid "Complete AND Refinement"
+msgstr "Complete AND Refinement"
+
+#: objects/KAOS/metaandorrel.c:153
+msgid "OR Refinement"
+msgstr "OR Refinement"
+
+#: objects/KAOS/metaandorrel.c:154
+msgid "Operationalization"
+msgstr "Operationalization"
+
+#: objects/KAOS/metaandorrel.c:161
+msgid "Text:"
+msgstr "Text:"
+
+#: objects/KAOS/metabinrel.c:155
+msgid "Contributes"
+msgstr "Contributes"
+
+#: objects/KAOS/metabinrel.c:156
+msgid "Obstructs"
+msgstr "Obstructs"
+
+#: objects/KAOS/metabinrel.c:157
+msgid "Conflicts"
+msgstr "Conflicts"
+
+#: objects/KAOS/metabinrel.c:158
+msgid "Responsibility"
+msgstr "Responsibility"
+
+#: objects/KAOS/metabinrel.c:159
+msgid "Monitors"
+msgstr "Monitors"
+
+#: objects/KAOS/metabinrel.c:160
+msgid "Controls"
+msgstr "Controls"
+
+#: objects/KAOS/metabinrel.c:161
+msgid "CapableOf"
+msgstr "CapableOf"
+
+#: objects/KAOS/metabinrel.c:162
+msgid "Performs"
+msgstr "Performs"
+
+#: objects/KAOS/metabinrel.c:164
+msgid "Output"
+msgstr "Output"
+
+#: objects/KAOS/other.c:531
+msgid "KAOS other"
+msgstr "KAOS other"
 
 #: objects/Misc/analog_clock.c:137
 msgid "Arrow color"
@@ -3935,12 +4138,6 @@ msgstr "Activity/Data identifier"
 #: objects/SADT/box.c:145
 msgid "The identifier which appears in the lower right corner of the Box"
 msgstr "The identifier which appears in the lower right corner of the Box"
-
-#: objects/SADT/box.c:446 objects/Istar/other.c:470
-#: objects/Jackson/domain.c:532 objects/KAOS/goal.c:573
-#: objects/KAOS/other.c:526 objects/standard/line.c:221
-msgid "Delete connection point"
-msgstr "Delete connection point"
 
 #: objects/SADT/box.c:451
 msgid "SADT box"
@@ -4030,11 +4227,14 @@ msgstr "Class"
 #: objects/UML/class.c:119 objects/UML/classicon.c:138
 #: objects/UML/component.c:124 objects/UML/large_package.c:128
 #: objects/UML/object.c:149 objects/UML/small_package.c:124
+#: objects/UML/umloperation.c:68
 msgid "Stereotype"
 msgstr "Stereotype"
 
 #: objects/UML/class.c:121 objects/UML/class.c:158
-#: objects/UML/class_dialog.c:382 sheets/SDL.sheet.in.h:3
+#: objects/UML/class_dialog.c:382 objects/UML/umlattribute.c:43
+#: objects/UML/umloperation.c:66 objects/UML/umlparameter.c:49
+#: sheets/SDL.sheet.in.h:3
 msgid "Comment"
 msgstr "Comment"
 
@@ -4150,7 +4350,7 @@ msgid "Comments visible"
 msgstr "Comments visible"
 
 #. head line
-#: objects/UML/class_dialog.c:348
+#: objects/UML/class_dialog.c:348 objects/UML/umlparameter.c:51
 msgid "Kind"
 msgstr "Kind"
 
@@ -4253,19 +4453,19 @@ msgstr "Parameter data"
 msgid "Def. value:"
 msgstr "Def. value:"
 
-#: objects/UML/class_dialog.c:2111
+#: objects/UML/class_dialog.c:2111 objects/UML/umlparameter.c:34
 msgid "Undefined"
 msgstr "Undefined"
 
-#: objects/UML/class_dialog.c:2119
+#: objects/UML/class_dialog.c:2119 objects/UML/umlparameter.c:35
 msgid "In"
 msgstr "In"
 
-#: objects/UML/class_dialog.c:2128
+#: objects/UML/class_dialog.c:2128 objects/UML/umlparameter.c:36
 msgid "Out"
 msgstr "Out"
 
-#: objects/UML/class_dialog.c:2137
+#: objects/UML/class_dialog.c:2137 objects/UML/umlparameter.c:37
 msgid "In & Out"
 msgstr "In & Out"
 
@@ -4366,10 +4566,6 @@ msgstr "Send"
 msgid "Recursive"
 msgstr "Recursive"
 
-#: objects/UML/message.c:150 objects/Jackson/phenomenon.c:142
-msgid "Message:"
-msgstr "Message:"
-
 #: objects/UML/message.c:152
 msgid "Message type:"
 msgstr "Message type:"
@@ -4438,6 +4634,34 @@ msgstr "Unified Modelling Language diagram objects"
 msgid "Implmentation"
 msgstr "Implmentation"
 
+#: objects/UML/umlattribute.c:41 objects/UML/umlparameter.c:47
+msgid "Value"
+msgstr "Value"
+
+#: objects/UML/umlattribute.c:45 objects/UML/umloperation.c:71
+msgid "Visibility"
+msgstr "Visibility"
+
+#: objects/UML/umlattribute.c:47
+msgid "Abstract (?)"
+msgstr "Abstract (?)"
+
+#: objects/UML/umlattribute.c:49 objects/UML/umloperation.c:77
+msgid "Class scope (static)"
+msgstr "Class scope (static)"
+
+#: objects/UML/umloperation.c:73
+msgid "Inheritance type"
+msgstr "Inheritance type"
+
+#: objects/UML/umloperation.c:75
+msgid "Query (const)"
+msgstr "Query (const)"
+
+#: objects/UML/umloperation.c:79 objects/chronogram/chronoline.c:162
+msgid "Parameters"
+msgstr "Parameters"
+
 #: objects/UML/usecase.c:132
 msgid "Text outside"
 msgstr "Text outside"
@@ -4483,10 +4707,6 @@ msgstr ""
 ") duration  sets the signal down, then wait 'duration'.\n"
 "u duration  sets the signal to \"unknown\" state, then wait 'duration'.\n"
 "example : @ 1.0 (2.0)1.0(2.0)\n"
-
-#: objects/chronogram/chronoline.c:162
-msgid "Parameters"
-msgstr "Parameters"
 
 #: objects/chronogram/chronoline.c:164 objects/chronogram/chronoref.c:146
 msgid "Start time"
@@ -4577,195 +4797,6 @@ msgstr "Flowchart objects"
 #: objects/flowchart/parallelogram.c:152
 msgid "Shear angle"
 msgstr "Shear angle"
-
-#: objects/Istar/actor.c:68 objects/Istar/link.c:153
-msgid "Unspecified"
-msgstr "Unspecified"
-
-#: objects/Istar/actor.c:69 objects/KAOS/other.c:75
-msgid "Agent"
-msgstr "Agent"
-
-#: objects/Istar/actor.c:71
-msgid "Role"
-msgstr "Role"
-
-#: objects/Istar/goal.c:76 objects/KAOS/goal.c:79
-msgid "Softgoal"
-msgstr "Softgoal"
-
-#: objects/Istar/goal.c:77 objects/KAOS/goal.c:80
-msgid "Goal"
-msgstr "Goal"
-
-#: objects/Istar/goal.c:155 objects/Istar/goal.c:156 objects/KAOS/goal.c:157
-#: objects/KAOS/goal.c:158
-msgid "Goal Type"
-msgstr "Goal Type"
-
-#: objects/Istar/istar.c:46
-msgid "Istar diagram"
-msgstr "Istar diagram"
-
-#: objects/Istar/link.c:154
-msgid "Positive Contrib"
-msgstr "Positive Contrib"
-
-#: objects/Istar/link.c:155
-msgid "Negative contrib"
-msgstr "Negative contrib"
-
-#: objects/Istar/link.c:156 sheets/UML.sheet.in.h:10
-msgid "Dependency"
-msgstr "Dependency"
-
-#: objects/Istar/link.c:157
-msgid "Decomposition"
-msgstr "Decomposition"
-
-#: objects/Istar/link.c:158
-msgid "Means-Ends"
-msgstr "Means-Ends"
-
-#: objects/Istar/other.c:73
-msgid "Resource"
-msgstr "Resource"
-
-#: objects/Istar/other.c:74
-msgid "Task"
-msgstr "Task"
-
-#: objects/Istar/other.c:475
-msgid "i* other"
-msgstr "i* other"
-
-#: objects/Jackson/domain.c:79
-msgid "Given Domain"
-msgstr "Given Domain"
-
-#: objects/Jackson/domain.c:80
-msgid "Designed Domain"
-msgstr "Designed Domain"
-
-#: objects/Jackson/domain.c:81
-msgid "Machine Domain"
-msgstr "Machine Domain"
-
-#: objects/Jackson/domain.c:97
-msgid "Causal"
-msgstr "Causal"
-
-#: objects/Jackson/domain.c:98
-msgid "Biddable"
-msgstr "Biddable"
-
-#: objects/Jackson/domain.c:99
-msgid "Lexical"
-msgstr "Lexical"
-
-#: objects/Jackson/domain.c:176 objects/Jackson/domain.c:177
-msgid "Domain Type"
-msgstr "Domain Type"
-
-#: objects/Jackson/domain.c:181
-msgid "Domain Kind"
-msgstr "Domain Kind"
-
-#: objects/Jackson/domain.c:182
-msgid "Optional kind which appears in the lower right corner of the Domain"
-msgstr "Optional kind which appears in the lower right corner of the Domain"
-
-#: objects/Jackson/domain.c:537
-msgid "Jackson domain"
-msgstr "Jackson domain"
-
-#: objects/Jackson/jackson.c:47
-msgid "Jackson diagram"
-msgstr "Jackson diagram"
-
-#: objects/Jackson/phenomenon.c:134
-msgid "Shared"
-msgstr "Shared"
-
-#: objects/Jackson/phenomenon.c:135 objects/KAOS/goal.c:81
-msgid "Requirement"
-msgstr "Requirement"
-
-#: objects/KAOS/goal.c:82
-msgid "Assumption"
-msgstr "Assumption"
-
-#: objects/KAOS/goal.c:83
-msgid "Obstacle"
-msgstr "Obstacle"
-
-#: objects/KAOS/goal.c:578
-msgid "KAOS goal"
-msgstr "KAOS goal"
-
-#: objects/KAOS/kaos.c:49
-msgid "KAOS diagram"
-msgstr "KAOS diagram"
-
-#: objects/KAOS/metaandorrel.c:151
-msgid "AND Refinement"
-msgstr "AND Refinement"
-
-#: objects/KAOS/metaandorrel.c:152
-msgid "Complete AND Refinement"
-msgstr "Complete AND Refinement"
-
-#: objects/KAOS/metaandorrel.c:153
-msgid "OR Refinement"
-msgstr "OR Refinement"
-
-#: objects/KAOS/metaandorrel.c:154
-msgid "Operationalization"
-msgstr "Operationalization"
-
-#: objects/KAOS/metaandorrel.c:161
-msgid "Text:"
-msgstr "Text:"
-
-#: objects/KAOS/metabinrel.c:155
-msgid "Contributes"
-msgstr "Contributes"
-
-#: objects/KAOS/metabinrel.c:156
-msgid "Obstructs"
-msgstr "Obstructs"
-
-#: objects/KAOS/metabinrel.c:157
-msgid "Conflicts"
-msgstr "Conflicts"
-
-#: objects/KAOS/metabinrel.c:158
-msgid "Responsibility"
-msgstr "Responsibility"
-
-#: objects/KAOS/metabinrel.c:159
-msgid "Monitors"
-msgstr "Monitors"
-
-#: objects/KAOS/metabinrel.c:160
-msgid "Controls"
-msgstr "Controls"
-
-#: objects/KAOS/metabinrel.c:161
-msgid "CapableOf"
-msgstr "CapableOf"
-
-#: objects/KAOS/metabinrel.c:162
-msgid "Performs"
-msgstr "Performs"
-
-#: objects/KAOS/metabinrel.c:164
-msgid "Output"
-msgstr "Output"
-
-#: objects/KAOS/other.c:531
-msgid "KAOS other"
-msgstr "KAOS other"
 
 #: objects/network/basestation.c:135
 msgid "Sectors"
