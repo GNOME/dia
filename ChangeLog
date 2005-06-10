@@ -1,3 +1,12 @@
+2005-06-10  Hans Breuer  <hans@breuer.org>
+
+	* app/interface.c(toolbox_delete): avoid random return value.
+	Patch from Stanislaw Brabec, fixes bug #307143
+
+	* shapes/Cisco/Makefile.am : added a bunch of new shapes/pngs.
+	Patch from Torben H. Nielsen (bugzilla is still the preferred way)
+	http://mail.gnome.org/archives/dia-list/2005-June/msg00015.html
+
 2005-06-06  Lars Clausen  <lars@raeder.dk>
 
 	* app/diagram.c: 

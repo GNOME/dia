@@ -1116,6 +1116,7 @@ toolbox_delete (GtkWidget *widget, GdkEvent *event, gpointer data)
     /** If the app didn't exit, don't close the window */
     return (!app_exit());
   }
+  return FALSE;
 }
 
 

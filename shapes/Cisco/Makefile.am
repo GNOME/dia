@@ -11,6 +11,8 @@ SHAPES = \
   10700.png\
   15200.shape\
   15200.png\
+  15800.shape\
+  15800.png\
   3174.shape\
   3174.png\
   3x74.shape\
@@ -33,10 +35,18 @@ SHAPES = \
   7505.png\
   7507.shape\
   7507.png\
+  access_gateway.shape\
+  access_gateway.png\
   accesspoint.shape\
   accesspoint.png\
+  access_server.shape\
+  access_server.png\
   adm.shape\
   adm.png\
+  androgynous_person.shape\
+  androgynous_person.png\
+  antenna.shape\
+  antenna.png\
   asic.shape\
   asic.png\
   ata.shape\
@@ -46,19 +56,27 @@ SHAPES = \
   atm_fast_gigabit_etherswitch.shape\
   atm_fast_gigabit_etherswitch.png\
   atm_router.shape\
-  atm_router.png\
+  edge_label_switch_router.png\
   atm_switch.shape\
   atm_switch.png\
   atm_tag_switch_router.shape\
   atm_tag_switch_router.png\
+  automatic_protection_switching.shape\
+  automatic_protection_switching.png\
   bbfw.shape\
   bbfw.png\
   bbfw_media.shape\
   bbfw_media.png\
   bbsm.shape\
   bbsm.png\
+  bbs.shape\
+  bbs.png\
+  branch_office_blue.shape\
+  branch_office_blue.png\
   branch_office.shape\
   branch_office.png\
+  branch_office_subdued.shape\
+  branch_office_subdued.png\
   breakout_box.shape\
   breakout_box.png\
   bridge.shape\
@@ -75,38 +93,76 @@ SHAPES = \
   callmanager.png\
   car.shape\
   car.png\
+  carrier_routing_system.shape\
+  carrier_routing_system.png\
   catalyst_access_gateway.shape\
   catalyst_access_gateway.png\
+  cddi_fddi_concentrator.shape\
+  cddi_fddi_concentrator.png\
   cdm.shape\
   cdm.png\
   cellular_phone.shape\
   cellular_phone.png\
+  centri_firewall.shape\
+  centri_firewall.png\
+  channelized_pipe.shape\
+  channelized_pipe.png\
   cisco_hub.shape\
   cisco_hub.png\
   ciscosecurity.shape\
   ciscosecurity.png\
+  ciscoworks_man.shape\
+  ciscoworks_man.png\
   ciscoworks.shape\
   ciscoworks.png\
   class45_switch.shape\
   class45_switch.png\
+  cloud_dark.shape\
+  cloud_dark.png\
+  cloud_gold.shape\
+  cloud_gold.png\
   cloud.shape\
   cloud.png\
+  cloud_white.shape\
+  cloud_white.png\
   communications_server.shape\
   communications_server.png\
+  concatenated_payload.shape\
+  concatenated_payload.png\
   content_engine.shape\
   content_engine.png\
+  content_router.shape\
+  content_router.png\
+  content_service_module.shape\
+  content_service_module.png\
   content_switch.shape\
   content_switch.png\
+  csm-s.shape\
+  csm-s.png\
   css1100.shape\
   css1100.png\
   csu_dsu.shape\
   csu_dsu.png\
   cte.shape\
   cte.png\
+  data_center_switch.shape\
+  data_center_switch.png\
+  data_center_switch_reversed.shape\
+  data_center_switch_reversed.png\
+  data_switch_processor.shape\
+  data_switch_processor.png\
+  detector.shape\
+  detector.png\
+  digital_cross-connect.shape\
+  digital_cross-connect.png\
+  director_fcis.shape\
+  director_fcis.png\
   directory_server.shape\
   directory_server.png\
   diskette.shape\
   diskette.png\
+  disk_subsystem.shape\
+  disk_subsystem.png\
   distributed_director.shape\
   distributed_director.png\
   dot_dot.shape\
@@ -115,10 +171,16 @@ SHAPES = \
   dpt.png\
   dslam.shape\
   dslam.png\
+  dual_mode_accesspoint.shape\
+  dual_mode_accesspoint.png\
   dwdm_filter.shape\
   dwdm_filter.png\
+  edge_label_switch_router_with_netflow.shape\
+  edge_label_switch_router_with_netflow.png\
   end_office.shape\
   end_office.png\
+  etherclient.shape\
+  etherclient.png\
   fax.shape\
   fax.png\
   fc_storage.shape\
@@ -127,16 +189,28 @@ SHAPES = \
   fddi_ring.png\
   file_cabinet.shape\
   file_cabinet.png\
+  file_engine.shape\
+  file_engine.png\
   file_server.shape\
   file_server.png\
+  firewall_horizontal.shape\
+  firewall_horizontal.png\
   firewall.shape\
   firewall.png\
+  firewall_subdued.shape\
+  firewall_subdued.png\
   front_end_processor.shape\
   front_end_processor.png\
+  fwsm.shape\
+  fwsm.png\
   general_appliance.shape\
   general_appliance.png\
+  generic_building_blue.shape\
+  generic_building_blue.png\
   generic_building.shape\
   generic_building.png\
+  generic_building_subdued.shape\
+  generic_building_subdued.png\
   generic_gateway.shape\
   generic_gateway.png\
   generic_processor.shape\
@@ -147,22 +221,36 @@ SHAPES = \
   gigabit_switch_router_atm_tag.png\
   government_building.shape\
   government_building.png\
+  guard.shape\
+  guard.png\
   h323.shape\
   h323.png\
   handheld.shape\
   handheld.png\
+  headphones.shape\
+  headphones.png\
+  home_office.shape\
+  home_office.png\
   hootphone.shape\
   hootphone.png\
   host.shape\
   host.png\
+  house_blue.shape\
+  house_blue.png\
+  house.shape\
+  house.png\
   hp_mini.shape\
   hp_mini.png\
   hub.shape\
   hub.png\
+  hub_subdued.shape\
+  hub_subdued.png\
   iad_router.shape\
   iad_router.png\
   ibm_mainframe.shape\
   ibm_mainframe.png\
+  ibm_mainframe_with_fep.shape\
+  ibm_mainframe_with_fep.png\
   ibm_mini.shape\
   ibm_mini.png\
   ibm_tower.shape\
@@ -171,56 +259,100 @@ SHAPES = \
   icm.png\
   ics.shape\
   ics.png\
+  intelliswitch_stack.shape\
+  intelliswitch_stack.png\
   ios_firewall.shape\
   ios_firewall.png\
+  ios_slb.shape\
+  ios_slb.png\
   ip.shape\
   ip.png\
   ip_dsl.shape\
   ip_dsl.png\
+  ip_old-style.shape\
+  ip_old-style.png\
   ip_phone.shape\
   ip_phone.png\
   ip_softphone.shape\
   ip_softphone.png\
   ip_telephony_router.shape\
   ip_telephony_router.png\
+  ip_transport_concentrator.shape\
+  ip_transport_concentrator.png\
   iptv_broadcast_server.shape\
   iptv_broadcast_server.png\
   iptv_content_manager.shape\
   iptv_content_manager.png\
+  iscsi_switch.shape\
+  iscsi_switch.png\
   isdn_switch.shape\
   isdn_switch.png\
   itp.shape\
   itp.png\
+  jbod.shape\
+  jbod.png\
   key.shape\
   key.png\
+  label_switch_router.shape\
+  label_switch_router.png\
+  lan2lan_switch.shape\
+  lan2lan_switch.png\
   lan_to_lan.shape\
   lan_to_lan.png\
+  lightweight_ap.shape\
+  lightweight_ap.png\
   laptop.shape\
   laptop.png\
+  layer_2_remote_switch.shape\
+  layer_2_remote_switch.png\
   layer3_switch.shape\
   layer3_switch.png\
   localdirector.shape\
   localdirector.png\
+  location_server.shape\
+  location_server.png\
+  lock_and_key.shape\
+  lock_and_key.png\
   lock.shape\
   lock.png\
   longreach_cpe.shape\
   longreach_cpe.png\
   mac_woman.shape\
   mac_woman.png\
+  mac_woman_right.shape\
+  mac_woman_right.png\
   macintosh.shape\
   macintosh.png\
+  man.shape\
+  man.png\
+  man_blue.shape\
+  man_blue.png\
+  man_gold.shape\
+  man_gold.png\
+  man_red.shape\
+  man_red.png\
   man_woman.shape\
   man_woman.png\
   mas_gateway.shape\
   mas_gateway.png\
   mau.shape\
   mau.png\
+  mcu.shape\
+  mcu.png\
   mdu.shape\
   mdu.png\
+  medium_building.shape\
+  medium_building.png\
+  medium_building_blue.shape\
+  medium_building_blue.png\
+  medium_building_subdued.shape\
+  medium_building_subdued.png\
   me1100.shape\
   me1100.png\
   metro1500.shape\
   metro1500.png\
+  mgx_8000_series_voice_gateway.shape\
+  mgx_8000_series_voice_gateway.png\
   mgx8220.shape\
   mgx8220.png\
   mgx8240.shape\
@@ -233,16 +365,32 @@ SHAPES = \
   microwebserver.png\
   mini_vax.shape\
   mini_vax.png\
+  mobile_access_ip_phone.shape\
+  mobile_access_ip_phone.png\
+  mobile_access_router.shape\
+  mobile_access_router.png\
   modem.shape\
   modem.png\
   moh_server.shape\
   moh_server.png\
+  monitor.shape\
+  monitor.png\
+  multi-fabric_server_switch.shape\
+  multi-fabric_server_switch.png\
+  multilayer_remote_switch.shape\
+  multilayer_remote_switch.png\
   multilayer_switch.shape\
   multilayer_switch.png\
+  multilayer_switch_with_silicon.shape\
+  multilayer_switch_with_silicon.png\
+  multilayer_switch_with_silicon_subdued.shape\
+  multilayer_switch_with_silicon_subdued.png\
   multiswitch_device.shape\
   multiswitch_device.png\
   mux.shape\
   mux.png\
+  nat.shape\
+  nat.png\
   netflow_router.shape\
   netflow_router.png\
   netranger.shape\
@@ -251,16 +399,28 @@ SHAPES = \
   netsonar.png\
   network_management.shape\
   network_management.png\
+  newton.shape\
+  newton.png\
   octel.shape\
   octel.png\
+  ons15104.shape\
+  ons15104.png\
+  ons15540.shape\
+  ons15540.png\
   optical_amplifier.shape\
   optical_amplifier.png\
+  optical_cross-connect.shape\
+  optical_cross-connect.png\
+  optical_fiber.shape\
+  optical_fiber.png\
   optical_services_router.shape\
   optical_services_router.png\
   optical_transport.shape\
   optical_transport.png\
   pad.shape\
   pad.png\
+  pager.shape\
+  pager.png\
   pbx.shape\
   pbx.png\
   pbx_switch.shape\
@@ -269,20 +429,38 @@ SHAPES = \
   pc.png\
   pc_adapter_card.shape\
   pc_adapter_card.png\
+  pc_card.shape\
+  pc_card.png\
   pc_man.shape\
   pc_man.png\
+  pc_man_left.shape\
+  pc_man_left.png\
   pc_router_card.shape\
   pc_router_card.png\
+  pc_software.shape\
+  pc_software.png\
   pc_video.shape\
   pc_video.png\
+  pc_with_router-based_software.shape\
+  pc_with_router-based_software.png\
   pda.shape\
   pda.png\
   phone.shape\
   phone.png\
+  phone_2.shape\
+  phone_2.png\
+  phone_appliance.shape\
+  phone_appliance.png\
+  phone_ethernet.shape\
+  phone_ethernet.png\
   phone_fax.shape\
   phone_fax.png\
+  phone_feature.shape\
+  phone_feature.png\
   pix_firewall.shape\
   pix_firewall.png\
+  pix_firewall_left.shape\
+  pix_firewall_left.png\
   printer.shape\
   printer.png\
   programmable_switch.shape\
@@ -301,10 +479,14 @@ SHAPES = \
   repeater.png\
   route_switch_processor.shape\
   route_switch_processor.png\
+  route_switch_processor_with_si.shape\
+  route_switch_processor_with_si.png\
   router.shape\
   router.png\
   router_in_building.shape\
   router_in_building.png\
+  router_subdued.shape\
+  router_subdued.png\
   router_with_firewall.shape\
   router_with_firewall.png\
   router_with_silicon_switch.shape\
@@ -313,6 +495,10 @@ SHAPES = \
   rps.png\
   running_man.shape\
   running_man.png\
+  running_man_subdued.shape\
+  running_man_subdued.png\
+  running_woman.shape\
+  running_woman.png\
   satellite.shape\
   satellite.png\
   satellite_dish.shape\
@@ -323,8 +509,14 @@ SHAPES = \
   sc2200_vsc3000_host.png\
   scanner.shape\
   scanner.png\
+  security_appliance.shape\
+  security_appliance.png\
+  server_switch.shape\
+  server_switch.png\
   server_with_pc_router.shape\
   server_with_pc_router.png\
+  service_control.shape\
+  service_control.png\
   sip_proxy_server.shape\
   sip_proxy_server.png\
   sitting_woman.shape\
@@ -335,8 +527,14 @@ SHAPES = \
   small_hub.png\
   softphone.shape\
   softphone.png\
+  software-based_router_on_file_server.shape\
+  software-based_router_on_file_server.png\
+  sonet_mux.shape\
+  sonet_mux.png\
   speaker.shape\
   speaker.png\
+  ssl_terminator.shape\
+  ssl_terminator.png\
   standing_man.shape\
   standing_man.png\
   stb.shape\
@@ -345,6 +543,8 @@ SHAPES = \
   storage_array.png\
   storage_router.shape\
   storage_router.png\
+  storage_solution_engine.shape\
+  storage_solution_engine.png\
   stp.shape\
   stp.png\
   sun_workstation.shape\
@@ -353,10 +553,14 @@ SHAPES = \
   supercomputer.png\
   svx.shape\
   svx.png\
+  switch_processor.shape\
+  switch_processor.png\
   system_controller.shape\
   system_controller.png\
   tablet.shape\
   tablet.png\
+  tape_array.shape\
+  tape_array.png\
   tdm_router.shape\
   tdm_router.png\
   telecommuter.shape\
@@ -365,8 +569,12 @@ SHAPES = \
   telecommuter_house.png\
   telecommuter_house_router.shape\
   telecommuter_house_router.png\
+  telecommuter_house_subdued.shape\
+  telecommuter_house_subdued.png\
   terminal.shape\
   terminal.png\
+  terminal_server.shape\
+  terminal_server.png\
   tokenring.shape\
   tokenring.png\
   transpath.shape\
@@ -377,6 +585,12 @@ SHAPES = \
   turret.png\
   tv.shape\
   tv.png\
+  ubr910_cable_dsu.shape\
+  ubr910_cable_dsu.png\
+  umg_series.shape\
+  umg_series.png\
+  unity_express.shape\
+  unity_express.png\
   unity_server.shape\
   unity_server.png\
   universal_gateway.shape\
@@ -387,8 +601,24 @@ SHAPES = \
   ups.png\
   video_camera.shape\
   video_camera.png\
+  video_camera_right.shape\
+  video_camera_right.png\
   vip.shape\
   vip.png\
+  virtual_layer_switch.shape\
+  virtual_layer_switch.png\
+  vn2900.shape\
+  vn2900.png\
+  vn5900.shape\
+  vn5900.png\
+  vn5902.shape\
+  vn5902.png\
+  voice-enabled_access_server.shape\
+  voice-enabled_access_server.png\
+  voice-enabled_atm_switch.shape\
+  voice-enabled_atm_switch.png\
+  voice-enabled_router.shape\
+  voice-enabled_router.png\
   voice_switch2.shape\
   voice_switch2.png\
   vpn_concentrator.shape\
@@ -397,22 +627,50 @@ SHAPES = \
   vpn_gateway.png\
   vsc3000.shape\
   vsc3000.png\
+  wan.shape\
+  wan.png\
   wavelength_router.shape\
   wavelength_router.png\
+  wdm.shape\
+  wdm.png\
   web_browser.shape\
   web_browser.png\
   web_cluster.shape\
   web_cluster.png\
+  wi-fi_tag.shape\
+  wi-fi_tag.png\
   wireless.shape\
   wireless.png\
   wireless_bridge.shape\
   wireless_bridge.png\
+  wireless_connectivity.shape\
+  wireless_connectivity.png\
+  wireless_location_appliance.shape\
+  wireless_location_appliance.png\
+  wireless_router.shape\
+  wireless_router.png\
   wireless_transport.shape\
   wireless_transport.png\
+  wlan_controller.shape\
+  wlan_controller.png\
+  woman.shape\
+  woman.png\
+  woman_blue.shape\
+  woman_blue.png\
+  woman_gold.shape\
+  woman_gold.png\
+  woman_red.shape\
+  woman_red.png\
   workgroup_director.shape\
   workgroup_director.png\
+  workgroup_fcis.shape\
+  workgroup_fcis.png\
   workgroup_switch.shape\
   workgroup_switch.png\
+  workgroup_switch_subdued.shape\
+  workgroup_switch_subdued.png\
+  workgroup_switch_voice-enabled.shape\
+  workgroup_switch_voice-enabled.png\
   workstation.shape\
   workstation.png\
   www_server.shape\
