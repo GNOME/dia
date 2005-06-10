@@ -550,7 +550,7 @@ help_manual_callback(gpointer data, guint action, GtkWidget *widget)
     if (score < bestscore) {
       if (helpindex)
 	g_free(helpindex);
-      #ifdef G_OS_WIN32
+#ifdef G_OS_WIN32
       /* use HTML Help on win32 if available */
       helpindex = g_strconcat(helpdir, G_DIR_SEPARATOR_S, dentry,
 			      G_DIR_SEPARATOR_S "dia-manual.chm", NULL);
@@ -558,10 +558,10 @@ help_manual_callback(gpointer data, guint action, GtkWidget *widget)
 	helpindex = g_strconcat(helpdir, G_DIR_SEPARATOR_S, dentry,
 			      G_DIR_SEPARATOR_S "index.html", NULL);
       }
-      #else
+#else
       helpindex = g_strconcat(helpdir, G_DIR_SEPARATOR_S, dentry,
 			      G_DIR_SEPARATOR_S "index.html", NULL);
-      #endif
+#endif
       bestscore = score;
     }
   }
@@ -573,11 +573,11 @@ help_manual_callback(gpointer data, guint action, GtkWidget *widget)
   }
 
 #ifdef G_OS_WIN32
-  #define SW_SHOWNORMAL 1
+# define SW_SHOWNORMAL 1
   ShellExecuteA (0, "open", helpindex, NULL, helpdir, SW_SHOWNORMAL);
 #else
   command = getenv("BROWSER");
-  command = g_strdup_printf("%s 'file://%s' &", command ? command : "netscape", helpindex);
+  command = g_strdup_printf("%s 'file://%s' &", command ? command : "gnome-open", helpindex);
   system(command);
   g_free(command);
 #endif
@@ -618,13 +618,13 @@ help_about_callback(gpointer data, guint action, GtkWidget *widget)
     g_snprintf(logo_file, sizeof(logo_file),
                              "%s%sdia_logo.png", datadir, G_DIR_SEPARATOR_S);
 
-  	logo = gdk_pixbuf_new_from_file(logo_file, NULL);
+    logo = gdk_pixbuf_new_from_file(logo_file, NULL);
     g_free(datadir);
   
     about = gnome_about_new(
       _("Dia"),
       VERSION,
-      _("Copyright (C) 1998-2002 The Free Software Foundation and the authors"),
+      _("Copyright (C) 1998-2005 The Free Software Foundation and the authors"),
       _("Dia is a program for drawing structured diagrams.\n"
       "Please visit http://www.gnome.org/projects/dia for more information."),
       authors,
@@ -634,11 +634,11 @@ help_about_callback(gpointer data, guint action, GtkWidget *widget)
       logo);
   
     if (logo)
-        g_object_unref (logo);
+      g_object_unref (logo);
       
-  	g_signal_connect (about, "destroy",
-         G_CALLBACK (gtk_widget_destroyed),
-         &about);
+    g_signal_connect (about, "destroy",
+      G_CALLBACK (gtk_widget_destroyed),
+      &about);
   }
 
   gtk_widget_show_now (about);

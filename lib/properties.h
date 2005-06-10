@@ -504,6 +504,9 @@ extern PropEnumData prop_std_text_align_data[];
 #define PROP_STD_SHOW_BACKGROUND \
   { "show_background", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE, \
     N_("Draw background"), NULL, NULL }
+#define PROP_STD_SHOW_BACKGROUND_OPTIONAL \
+  { "show_background", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL, \
+    N_("Draw background"), NULL, NULL }
 
 #define PROP_STD_START_ARROW \
   { "start_arrow", PROP_TYPE_ARROW, PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD, \

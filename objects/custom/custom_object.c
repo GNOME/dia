@@ -172,11 +172,11 @@ static PropDescription custom_props[] = {
   PROP_STD_LINE_WIDTH_OPTIONAL,
   PROP_STD_LINE_COLOUR_OPTIONAL,
   PROP_STD_FILL_COLOUR_OPTIONAL,
-  PROP_STD_SHOW_BACKGROUND,
+  PROP_STD_SHOW_BACKGROUND_OPTIONAL,
   PROP_STD_LINE_STYLE_OPTIONAL,
-  { "flip_horizontal", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE,
+  { "flip_horizontal", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL,
     N_("Flip horizontal"), NULL, NULL },
-  { "flip_vertical", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE,
+  { "flip_vertical", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL,
     N_("Flip vertical"), NULL, NULL },
   PROP_DESC_END
 };
@@ -186,16 +186,22 @@ static PropDescription custom_props_text[] = {
   PROP_STD_LINE_WIDTH_OPTIONAL,
   PROP_STD_LINE_COLOUR_OPTIONAL,
   PROP_STD_FILL_COLOUR_OPTIONAL,
-  PROP_STD_SHOW_BACKGROUND,
+  PROP_STD_SHOW_BACKGROUND_OPTIONAL,
   PROP_STD_LINE_STYLE_OPTIONAL,
   PROP_STD_TEXT_ALIGNMENT,
   PROP_STD_TEXT_FONT,
   PROP_STD_TEXT_HEIGHT,
   PROP_STD_TEXT_COLOUR,
-  PROP_STD_SAVED_TEXT,
-  { "flip_horizontal", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE,
+  /* BEWARE: the following makes the whole Text optional during load. Normally this
+   * would leave the object in an inconsitent state but here we have a proper default 
+   * initialization even in the load case. See custom_load_using_properties()  --hb
+   */
+  { "text", PROP_TYPE_TEXT, PROP_FLAG_OPTIONAL,
+    N_("Text"), NULL, NULL },
+
+  { "flip_horizontal", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL,
     N_("Flip horizontal"), NULL, NULL },
-  { "flip_vertical", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE,
+  { "flip_vertical", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL,
     N_("Flip vertical"), NULL, NULL },
   PROP_DESC_END
 };

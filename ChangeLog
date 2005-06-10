@@ -1,5 +1,18 @@
 2005-06-10  Hans Breuer  <hans@breuer.org>
 
+	* lib/properties.h : define PROP_STD_SHOW_BACKGROUND_OPTIONAL ...
+	* objects/custom/custom_object.c : ... and use it to avoid 
+	complains about missing attribute "show_background". It is 
+	safe to leave this uninitialized. Same for flip_* and "text",
+	the latter with comment cause it usually is *not* safe to do 
+	it for the general case. Fixes remaining issues with bug #169006
+	which where caused by an incompatible change in the shape file.
+
+	* app/commands.c : use "gnome-open" instead of "netscape" as
+	fallback for $BROWSER not set. Still not optimal but better
+	to try some common desktop tool than an obsolete browser;)
+	Fixes bug #307142. Also some whitespace changes.
+
 	* app/interface.c(toolbox_delete): avoid random return value.
 	Patch from Stanislav Brabec, fixes bug #307143
 
