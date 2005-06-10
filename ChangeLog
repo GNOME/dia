@@ -1,7 +1,7 @@
 2005-06-10  Hans Breuer  <hans@breuer.org>
 
 	* app/interface.c(toolbox_delete): avoid random return value.
-	Patch from Stanislaw Brabec, fixes bug #307143
+	Patch from Stanislav Brabec, fixes bug #307143
 
 	* shapes/Cisco/Makefile.am : added a bunch of new shapes/pngs.
 	Patch from Torben H. Nielsen (bugzilla is still the preferred way)
