@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-04-04 02:51+0200\n"
+"POT-Creation-Date: 2005-06-11 13:40+0200\n"
 "PO-Revision-Date: 2005-06-01 17:27+0545\n"
 "Last-Translator: Shiva Prasad Pokharel <pokharelshiva@hotmail.com>\n"
 "Language-Team: Nepali <info@mpp.org.np>\n"
@@ -18,183 +18,211 @@ msgstr ""
 "X-Generator: KBabel 1.9.1\n"
 "Plural-Forms: Nplurals=2;plural=(n!=1)\n"
 
-#: app/app_procs.c:228
+#. This is not an errror
+#: app/app_procs.c:260
+#, c-format
+msgid "Warning: invalid layer range %lu - %lu\n"
+msgstr ""
+
+#: app/app_procs.c:272
+#, c-format
+msgid "Warning: Layer %lu (%s) selected more than once.\n"
+msgstr ""
+
+#: app/app_procs.c:298
+#, c-format
+msgid "Warning: Layer %d (%s) selected more than once.\n"
+msgstr ""
+
+#: app/app_procs.c:307
+#, c-format
+msgid "Warning: There is no layer named %s\n"
+msgstr ""
+
+#: app/app_procs.c:389
 #, c-format
 msgid "%s error: don't know how to export into %s\n"
 msgstr "%sभित्र कसरी पठाउने भन्ने कुरा%sगल्तिलाइ थाहा हुन सकेन\n"
 
-#: app/app_procs.c:237
+#: app/app_procs.c:398
 #, c-format
 msgid "%s error: input and output file name is identical: %s"
 msgstr "आगत निर्गत फाईलको नाम:$2%s हो $1%s गल्ती: "
 
-#: app/app_procs.c:246
+#: app/app_procs.c:406
 #, c-format
 msgid "%s error: need valid input file %s\n"
 msgstr "$2%s गल्ती: भएकोले मान्यता प्राप्त आगत फाईल $1%s को आवश्यक्ता\n"
 
 #. if (!quiet)
-#: app/app_procs.c:291
+#: app/app_procs.c:431
 #, c-format
 msgid "%s --> %s\n"
 msgstr "%s --> %s\n"
 
-#: app/app_procs.c:437
+#: app/app_procs.c:577
 #, c-format
 msgid "Can't find output format/filter %s\n"
 msgstr "%s निर्गत शैली/फिल्टर भेट्टाउन सकेन \n"
 
 #. Translators:  The argument is a list of options, not to be translated
-#: app/app_procs.c:524
+#: app/app_procs.c:664
 #, c-format
 msgid "Select the filter/format out of: %s"
 msgstr "%s वाट फिल्टर/शैली छान्नुहोस्:"
 
 #. &export_file_name
-#: app/app_procs.c:543 app/app_procs.c:567
+#: app/app_procs.c:683 app/app_procs.c:708
 msgid "Export loaded file and exit"
 msgstr "लोड गरियको फाईललाई निर्यात गर्नुहोस् र निस्कनुहोस्"
 
-#: app/app_procs.c:543 app/app_procs.c:567 app/diaconv.c:94
+#: app/app_procs.c:683 app/app_procs.c:708 app/diaconv.c:94
 msgid "OUTPUT"
 msgstr "निर्गत"
 
 #. &export_file_format
 #. &export_format_string
-#. &export_file_format
-#: app/app_procs.c:545 app/app_procs.c:569
+#: app/app_procs.c:685 app/app_procs.c:710
 msgid "TYPE"
 msgstr "टाइप"
 
-#: app/app_procs.c:547 app/app_procs.c:572
+#: app/app_procs.c:687 app/app_procs.c:713
 msgid "Export graphics size"
 msgstr "ग्राफिक आकार लाई निर्यात गर्नुहोस्"
 
-#: app/app_procs.c:547 app/app_procs.c:572
+#: app/app_procs.c:687 app/app_procs.c:713
 msgid "WxH"
 msgstr "डव्ल्यू एक्स एच"
 
 #. 13.3.2004 sampo@iki.fi
-#: app/app_procs.c:549 app/app_procs.c:574
-msgid "Show only specified layers (e.g. when exporting)"
+#: app/app_procs.c:689 app/app_procs.c:715
+#, fuzzy
+msgid ""
+"Show only specified layers (e.g. when exporting). Can be either the layer "
+"name or a range of layer numbers (X-Y)"
 msgstr "तोकियका तहहरुमात्रै देखाउनुहोस्(जस्तै. निर्यात गरिरहेको वेलामा)"
 
-#: app/app_procs.c:549 app/app_procs.c:574
+#: app/app_procs.c:690 app/app_procs.c:716
 msgid "LAYER,LAYER,..."
 msgstr "तह,तह,..."
 
-#: app/app_procs.c:551 app/app_procs.c:576
+#: app/app_procs.c:692 app/app_procs.c:718
 msgid "Don't show the splash screen"
 msgstr "स्पलास पर्दा नदेखाउनुहोस्"
 
-#: app/app_procs.c:553 app/app_procs.c:578
+#: app/app_procs.c:694 app/app_procs.c:720
 msgid "Send error messages to stderr instead of showing dialogs."
 msgstr "डायलगहरु देखाउनुको सट्टामा एस टि डि ई आर आर मा गल्ति सुचना पठाउनुहोस् "
 
-#: app/app_procs.c:555 app/app_procs.c:580
+#: app/app_procs.c:696 app/app_procs.c:722
 msgid "Display credits list and exit"
 msgstr "क्रेडिट तालिका देखाउनुहोस् र निस्कनुहोस्"
 
-#: app/app_procs.c:557 app/app_procs.c:582
+#: app/app_procs.c:698 app/app_procs.c:724
 msgid "Generate verbose output"
 msgstr "वढी निर्गत पैदा गर्नुहोस्"
 
-#: app/app_procs.c:559 app/app_procs.c:584
+#: app/app_procs.c:700 app/app_procs.c:726
 msgid "Display version and exit"
 msgstr "संस्करण देखाउनुहोस् र निस्कनुहोस्"
 
-#: app/app_procs.c:585 app/diaconv.c:95
+#: app/app_procs.c:727 app/diaconv.c:95
 msgid "Show this help message"
 msgstr "यो सहायरता सन्देश देखाउनुहोस"
 
-#: app/app_procs.c:633
+#: app/app_procs.c:777
 msgid "Can't connect to session manager!\n"
 msgstr "सत्र व्यावस्थापक संग जोडिन सकेन !\n"
 
 #. TRANSLATOR: 2nd and 3rd %s are time and date respectively.
-#: app/app_procs.c:665
+#: app/app_procs.c:809
 #, c-format
 msgid "Dia version %s, compiled %s %s\n"
 msgstr "डिआईए संस्करण $1%sले $2%s $3%s लाई कम्पाईल गराँउछ \n"
 
-#: app/app_procs.c:667
+#: app/app_procs.c:811
 #, c-format
 msgid "Dia version %s\n"
 msgstr "डाय संस्करण %s\n"
 
-#: app/app_procs.c:729 app/app_procs.c:731 app/diaconv.c:201 app/diaconv.c:203
-#, c-format
-msgid "Couldn't find standard objects when looking for object-libs, exiting...\n"
+#: app/app_procs.c:873 app/app_procs.c:875 app/diaconv.c:201 app/diaconv.c:203
+msgid ""
+"Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr "वस्तु-लिबस् हेर्दा खेरी मानक वस्तु भेट्टाउन सकेन, निस्कदै....\n"
 
-#: app/app_procs.c:772
+#: app/app_procs.c:916
 msgid "Diagram1.dia"
 msgstr "आकृति1.डाय"
 
-#: app/app_procs.c:814
+#: app/app_procs.c:958
 msgid ""
 "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you can cause this message to appear.\n"
-msgstr "यो हुन हुन्थेन.यो सन्देश कसरी देखियो भन्ने कारण व्याख्या गर्दै \nवगजिल्ला जिनोम.ओ.आर.जि. मा वग प्रतिवेदन फाईल गर्नुहोस्.\n"
+msgstr ""
+"यो हुन हुन्थेन.यो सन्देश कसरी देखियो भन्ने कारण व्याख्या गर्दै \n"
+"वगजिल्ला जिनोम.ओ.आर.जि. मा वग प्रतिवेदन फाईल गर्नुहोस्.\n"
 
 #. no standard buttons
-#: app/app_procs.c:827
+#: app/app_procs.c:971
 msgid ""
 "Modified diagrams exist.\n"
 "Are you sure you want to quit Dia\n"
 "without saving them?"
 msgstr ""
 "संसोधित आकृति  रहेको छ\n"
-"के तपाई निश्चित हुनुहुन्छ तपाई डाय.\n "
-"लाई वचत नगरी मेट्नको लागी?"
+"के तपाई निश्चित हुनुहुन्छ तपाई डाय.\n"
+" लाई वचत नगरी मेट्नको लागी?"
 
-#: app/app_procs.c:830
+#: app/app_procs.c:974
 msgid "Quit Dia"
 msgstr "डाय लाई वन्द गर्नुहोस"
 
 #. This printf seems to prevent a race condition with unrefs.
 #. Yuck.  -Lars
-#: app/app_procs.c:883
+#: app/app_procs.c:1027
 msgid "Thank you for using Dia.\n"
 msgstr "डाय प्रयोग गरेक मा तपाइलाई धन्यवाद.\n"
 
-#: app/app_procs.c:900 app/app_procs.c:907
+#: app/app_procs.c:1044 app/app_procs.c:1051
 msgid "Could not create per-user Dia config directory"
 msgstr "डाय कन्फिग डाईरेक्टोरी हरेक-प्रयोगकर्ताको लागी सृजना गर्न सकेन"
 
-#: app/app_procs.c:909
+#: app/app_procs.c:1053
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
 msgstr ""
-"डाय कन्फिग डाईरेक्टोरी प्रत्येक-प्रयोगकर्ताको लागी सृजना गर्न सकेन. "
-"कृपया रहने डाईरेक्टोरीमा वातावरणीय चल गृह विन्दुहरु छन् भन्ने निश्चित हुनुहोस्"
+"डाय कन्फिग डाईरेक्टोरी प्रत्येक-प्रयोगकर्ताको लागी सृजना गर्न सकेन. कृपया रहने "
+"डाईरेक्टोरीमा वातावरणीय चल गृह विन्दुहरु छन् भन्ने निश्चित हुनुहोस्"
 
-#: app/app_procs.c:931 app/diaconv.c:251
+#: app/app_procs.c:1075 app/diaconv.c:251
 msgid "Objects and filters internal to dia"
 msgstr "डायको लागी वस्तुहरु र फिल्टरहरु आन्तरिक"
 
-#: app/app_procs.c:973 app/diaconv.c:121
+#: app/app_procs.c:1117 app/diaconv.c:121
 msgid "[OPTION...] [FILE...]"
 msgstr "[विकल्प...] [फाईल...]"
 
-#: app/app_procs.c:976 app/diaconv.c:128
+#: app/app_procs.c:1120 app/diaconv.c:128
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
 "Run '%s --help' to see a full list of available command line options.\n"
-msgstr "$1%s:$2%s विकल्पमा गल्ति छ.\n उपलव्ध पुरा आदेशको रेखाको विकल्पहरु लाई हेर्नको लागि '$3%s --सहायता': लाई लाई  चलानुहोस्छगल्लुगर.\n"
+msgstr ""
+"$1%s:$2%s विकल्पमा गल्ति छ.\n"
+" उपलव्ध पुरा आदेशको रेखाको विकल्पहरु लाई हेर्नको लागि '$3%s --सहायता': लाई लाई  "
+"चलानुहोस्छगल्लुगर.\n"
 
-#: app/app_procs.c:1000
+#: app/app_procs.c:1144
 msgid "[FILE...]"
 msgstr "[फाईल...]"
 
-#: app/app_procs.c:1015
+#: app/app_procs.c:1159
 #, c-format
 msgid "'%s' not found!\n"
 msgstr "'%s' भेटिएन!\n"
 
-#: app/app_procs.c:1094
+#: app/app_procs.c:1238
 msgid ""
 "The original author of Dia was:\n"
 "\n"
@@ -202,7 +230,7 @@ msgstr ""
 "डायको सक्कली लेखक हुनुहुन्छ:\n"
 "\n"
 
-#: app/app_procs.c:1099
+#: app/app_procs.c:1243
 msgid ""
 "\n"
 "The current maintainers of Dia are:\n"
@@ -212,25 +240,25 @@ msgstr ""
 "डाय का चालु संम्भारकहरु हुन:\n"
 "\n"
 
-#: app/app_procs.c:1104
+#: app/app_procs.c:1248
 msgid ""
 "\n"
 "Other authors are:\n"
 "\n"
 msgstr ""
 "\n"
-"अरु लेखक हरु:\n हुन"
-"\n"
+"अरु लेखक हरु:\n"
+" हुन\n"
 
-#: app/app_procs.c:1109
+#: app/app_procs.c:1253
 msgid ""
 "\n"
 "Dia is documented by:\n"
 "\n"
 msgstr ""
 "\n"
-"डाय:\n वाट लिखित संग्रहित गरियको हो"
-"\n"
+"डाय:\n"
+" वाट लिखित संग्रहित गरियको हो\n"
 
 #: app/autosave.c:93
 msgid "Recovering autosaved diagrams"
@@ -252,44 +280,47 @@ msgstr "अग्रभुमि रङ्ग छान्नुहोस्"
 msgid "Select background color"
 msgstr "पृष्ठभुमि रङ्ग छान्नुहोस्"
 
-#: app/commands.c:134
+#: app/commands.c:136
 #, c-format
 msgid "Diagram%d.dia"
 msgstr "%d.आकृति डाय"
 
-#: app/commands.c:205
+#: app/commands.c:207
 msgid "No existing object to paste.\n"
 msgstr "टाँस्नको लागी कुनै वस्तुहरु अवस्थित छैन.\n"
 
-#: app/commands.c:528 app/commands.c:566
+#: app/commands.c:533 app/commands.c:571
 msgid "Could not find help directory"
 msgstr "सहायता डाईरेक्टोरी भेट्टाउन सकेन"
 
-#: app/commands.c:535
+#: app/commands.c:540
 #, c-format
 msgid ""
 "Could not open help directory:\n"
 "%s"
-msgstr "%sसहायता डाईरेक्टोरी:\n खुल्न सकेन"
+msgstr ""
+"%sसहायता डाईरेक्टोरी:\n"
+" खुल्न सकेन"
 
 #.
 #. * Translators should localize the following string
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: app/commands.c:605
+#: app/commands.c:611
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr "<info@mpp.org.np>"
 
-#: app/commands.c:619
+#: app/commands.c:625
 msgid "Dia"
 msgstr "डाय"
 
-#: app/commands.c:621
-msgid "Copyright (C) 1998-2002 The Free Software Foundation and the authors"
+#: app/commands.c:627
+#, fuzzy
+msgid "Copyright (C) 1998-2005 The Free Software Foundation and the authors"
 msgstr "सर्वाधिकार (सि) 1998-2002 निशुल्क सफ्टवेयर संस्थापन र लेखकहरु"
 
-#: app/commands.c:622
+#: app/commands.c:628
 msgid ""
 "Dia is a program for drawing structured diagrams.\n"
 "Please visit http://www.gnome.org/projects/dia for more information."
@@ -297,25 +328,25 @@ msgstr ""
 "डाय एउटा रचनात्मक आकृतीहरु रचना गर्ने कार्यक्रम हो\n"
 "कृपया विस्तृत जानकारीको लागी http://www.gnome.org/projects/dia भेट्नुहोला"
 
-#: app/commands.c:661
+#: app/commands.c:667
 msgid "About Dia"
 msgstr "डायको वारेमा"
 
-#: app/commands.c:704
+#: app/commands.c:710
 #, c-format
 msgid "Dia v %s by Alexander Larsson"
 msgstr "एलेकजेनडर लार्सन को डाय भी %s"
 
 #. Exact spelling is Ch&eacute;p&eacute;lov (using *ML entities)
-#: app/commands.c:710
+#: app/commands.c:716
 msgid "Maintainers: Lars Clausen and Cyrille Chepelov"
 msgstr "सम्भारकर्ता: लार्स क्लउसेन र साईरिल चेपलोभ"
 
-#: app/commands.c:714
+#: app/commands.c:720
 msgid "Please visit http://www.gnome.org/projects/dia for more information"
 msgstr "कृपया विस्तृत जानकारीको लागि http://www.gnome.org/projects/dia हेर्नुहोस्"
 
-#: app/commands.c:719
+#: app/commands.c:725
 msgid "Contributors:"
 msgstr "दाताहरू:"
 
@@ -447,7 +478,9 @@ msgstr "%s गल्ति: -टि वा -ओ एउटा मात्रे 
 msgid ""
 "%s error: must specify only one of -t or -o.\n"
 "Run '%s --help' to see a full list of available command line options.\n"
-msgstr "$1%s गल्ति:-टि वा -ओ एउटा मात्र तोक्नै पर्छ\n पुरा उपल्व्ध तालिका आज्ञा रेखा विकल्प हेर्नको लागी '$2%s --सहायता'चलाउनुहोस्\n"
+msgstr ""
+"$1%s गल्ति:-टि वा -ओ एउटा मात्र तोक्नै पर्छ\n"
+" पुरा उपल्व्ध तालिका आज्ञा रेखा विकल्प हेर्नको लागी '$2%s --सहायता'चलाउनुहोस्\n"
 
 #: app/diaconv.c:174
 #, c-format
@@ -552,7 +585,7 @@ msgstr "चित्र वृक्ष"
 msgid "Ok"
 msgstr "ठिक छ"
 
-#: app/dialogs.c:52 app/paginate_psprint.c:292
+#: app/dialogs.c:52 app/paginate_psprint.c:306
 msgid "Cancel"
 msgstr "रद्द गर्नुहोस्"
 
@@ -625,7 +658,7 @@ msgstr ""
 msgid "Properties..."
 msgstr "गुणहरु..."
 
-#: app/disp_callbacks.c:938
+#: app/disp_callbacks.c:935
 msgid ""
 "The object you dropped cannot fit into its parent. \n"
 "Either expand the parent object, or drop the object elsewhere."
@@ -647,31 +680,33 @@ msgstr "%d वस्तुहरुको चयन"
 msgid "Selected '%s'"
 msgstr "छानियको '%s'"
 
-#: app/display.c:1024
+#: app/display.c:1025
 msgid "<unnamed>"
 msgstr "<unnamed>"
 
-#: app/display.c:1026
+#: app/display.c:1027
 #, c-format
 msgid ""
 "The diagram '%s'\n"
 "has not been saved. Save changes now?"
-msgstr "'%s'\n यो चित्र वचत भएको छैन.परिवर्तन गरियको लाई वचत गर्नुहुन्छ? "
+msgstr ""
+"'%s'\n"
+" यो चित्र वचत भएको छैन.परिवर्तन गरियको लाई वचत गर्नुहुन्छ? "
 
-#: app/display.c:1037
+#: app/display.c:1038
 msgid "Close Diagram"
 msgstr "चित्र वन्द गर्नुहोस्"
 
-#: app/display.c:1042
+#: app/display.c:1043
 msgid "Discard Changes"
 msgstr "परिवर्तनहरू उपेक्षा गर"
 
 #: app/export_png.c:134 app/load_save.c:913 app/render_eps.c:103
-#: plug-ins/cairo/diacairo.c:947 plug-ins/cgm/cgm.c:1157
+#: plug-ins/cairo/diacairo.c:978 plug-ins/cgm/cgm.c:1157
 #: plug-ins/dxf/dxf-export.c:509 plug-ins/hpgl/hpgl.c:718
-#: plug-ins/metapost/render_metapost.c:964
-#: plug-ins/pstricks/render_pstricks.c:909 plug-ins/shape/shape-export.c:135
-#: plug-ins/svg/render_svg.c:152 plug-ins/wpg/wpg.c:1067
+#: plug-ins/metapost/render_metapost.c:1107
+#: plug-ins/pstricks/render_pstricks.c:910 plug-ins/shape/shape-export.c:134
+#: plug-ins/svg/render_svg.c:151 plug-ins/wpg/wpg.c:1067
 #: plug-ins/xfig/xfig-export.c:1138 plug-ins/xslt/xslt.c:94
 #, c-format
 msgid "Can't open output file %s: %s\n"
@@ -695,7 +730,6 @@ msgid "PNG Export Options"
 msgstr "पि एन जि निर्यात विकल्पहरु"
 
 #. Translators: Menu item Verb/Channel/Export
-#. Translators: Menu item Verb/Channel/Export/Export
 #: app/export_png.c:300 objects/FS/function.c:696 objects/FS/function.c:698
 msgid "Export"
 msgstr "निकासि गर्नुहोस्"
@@ -741,7 +775,10 @@ msgid ""
 "Some characters in the filename are neither UTF-8\n"
 "nor your local encoding.\n"
 "Some things will break."
-msgstr "फाईलनामका केहि अक्षरहरु न UTF-8\n हुन््न त तपाईको स्थानिय लिपि हुन.\n केही वस्तुहरु भाँचिन सक्छन् "
+msgstr ""
+"फाईलनामका केहि अक्षरहरु न UTF-8\n"
+" हुन््न त तपाईको स्थानिय लिपि हुन.\n"
+" केही वस्तुहरु भाँचिन सक्छन् "
 
 #: app/filedlg.c:300 app/filedlg.c:538
 #, c-format
@@ -770,14 +807,18 @@ msgstr "चित्र फाईलहरुलाई सङ्कुचन ग
 msgid ""
 "Compression reduces file size to less than 1/10th size and speeds up loading "
 "and saving.  Some text programs cannot manipulate compressed files."
-msgstr "सङ्कुचनले फाईलको आकारलाई 1/10 भाग भन्दा सानो पार्दछ र अपलोडिङ्ग र वचत गति लाई वढाउछ.केहि पाठ्य कार्यक्रमहरु सङ्कुचन फाईलहरु निर्माण गर्न सक्दैन. "
+msgstr ""
+"सङ्कुचनले फाईलको आकारलाई 1/10 भाग भन्दा सानो पार्दछ र अपलोडिङ्ग र वचत गति लाई "
+"वढाउछ.केहि पाठ्य कार्यक्रमहरु सङ्कुचन फाईलहरु निर्माण गर्न सक्दैन. "
 
 #: app/filedlg.c:567
 #, c-format
 msgid ""
 "Could not determine which export filter\n"
 "to use to save '%s'"
-msgstr "'%s'वचत गर्नको लागी कुन निर्यात फिल्टर प्रयोग गर्ने\n भन्ने कुरा निर्क्यौल गर्न सकेन "
+msgstr ""
+"'%s'वचत गर्नको लागी कुन निर्यात फिल्टर प्रयोग गर्ने\n"
+" भन्ने कुरा निर्क्यौल गर्न सकेन "
 
 #: app/filedlg.c:590
 msgid "Export Diagram"
@@ -809,12 +850,13 @@ msgid "Scroll"
 msgstr "स्क्रोल गर्नुहोस्"
 
 #: app/interface.c:69 app/interface.c:70 lib/properties.c:77
-#: lib/properties.h:516 objects/UML/activity.c:126 objects/UML/actor.c:122
-#: objects/UML/classicon.c:143 objects/UML/component.c:128
+#: lib/properties.h:520 objects/Jackson/requirement.c:142
+#: objects/UML/activity.c:126 objects/UML/actor.c:122
+#: objects/UML/classicon.c:144 objects/UML/component.c:128
 #: objects/UML/component_feature.c:154 objects/UML/node.c:127
 #: objects/UML/note.c:121 objects/UML/object.c:147
 #: objects/UML/small_package.c:128 objects/UML/state.c:141
-#: objects/UML/usecase.c:138 objects/Jackson/requirement.c:142
+#: objects/UML/usecase.c:138 objects/custom/custom_object.c:200
 #: objects/network/basestation.c:133 objects/network/radiocell.c:146
 msgid "Text"
 msgstr "पाठ"
@@ -835,7 +877,7 @@ msgstr "बहुभुज"
 msgid "Beziergon"
 msgstr "वेजिरगन"
 
-#: app/interface.c:94 app/interface.c:95 objects/standard/line.c:225
+#: app/interface.c:94 app/interface.c:95 objects/standard/line.c:226
 msgid "Line"
 msgstr "रेखाक्ति"
 
@@ -898,35 +940,42 @@ msgid ""
 "squares reset colors.  The small arrows swap colors.  Double click to change "
 "colors."
 msgstr ""
-"नयाँ वस्तुहरुको लागि अग्रभुमि र पृष्ठभुमि रङ्गहरु.  "
-"साना काला र सेता रङ्गहरु पुन:सेट गरियका रङ्गहरु.  सानो तिरहरु साटियको रङ्गहरु.  "
-"रङ्ग परिवर्तन गर्नु परेमा दुई पटक क्लिक गर्नुहोस "
+"नयाँ वस्तुहरुको लागि अग्रभुमि र पृष्ठभुमि रङ्गहरु.  साना काला र सेता रङ्गहरु पुन:सेट गरियका "
+"रङ्गहरु.  सानो तिरहरु साटियको रङ्गहरु.  रङ्ग परिवर्तन गर्नु परेमा दुई पटक क्लिक गर्नुहोस "
 
 #: app/interface.c:1036
 msgid ""
 "Line widths.  Click on a line to set the default line width for new "
 "objects.  Double-click to set the line width more precisely."
-msgstr "चौडाई लाई रेखाकृत गर्नुहोस्.  नयाँ वस्तुकोलागी पुर्वानिर्धारित रेखा वनाउनको लागी रेखामा क्लिक गर्नुहोस्.  अझ रेखाको चौडाई ठिक तरिकासंग मिलाउन दुईपटक क्लिक गर्नुहोस्"
+msgstr ""
+"चौडाई लाई रेखाकृत गर्नुहोस्.  नयाँ वस्तुकोलागी पुर्वानिर्धारित रेखा वनाउनको लागी रेखामा "
+"क्लिक गर्नुहोस्.  अझ रेखाको चौडाई ठिक तरिकासंग मिलाउन दुईपटक क्लिक गर्नुहोस्"
 
 #: app/interface.c:1076
 msgid ""
 "Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
 "arrow parameters with Details..."
-msgstr "नयाँ रेखाको शुरुमा गरिने तिर को शैली.  तिर झिक्नुहोस, वा तिरको अस्थिरता विवरणसंग मिलाउनु होस्..."
+msgstr ""
+"नयाँ रेखाको शुरुमा गरिने तिर को शैली.  तिर झिक्नुहोस, वा तिरको अस्थिरता विवरणसंग "
+"मिलाउनु होस्..."
 
 #: app/interface.c:1081
 msgid ""
 "Line style for new lines.  Click to pick a line style, or set line style "
 "parameters with Details..."
-msgstr "नयाँ रेखाको लागी रेखाको शैली.  रेखा शैलि लिनको लागी क्लिक गर्नुहोस् ,वा रेखा शैली अस्थिरतासंग विवरण...सेट गर्नुहोस"
+msgstr ""
+"नयाँ रेखाको लागी रेखाको शैली.  रेखा शैलि लिनको लागी क्लिक गर्नुहोस् ,वा रेखा शैली "
+"अस्थिरतासंग विवरण...सेट गर्नुहोस"
 
 #: app/interface.c:1095
 msgid ""
 "Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
 "parameters with Details..."
-msgstr "नयाँ रेखाको अन्त्यमा तिर शैलीशैल....   रेखा शैलि लिनको लागी क्लिक गर्नुहोस् ,वा रेखा शैली अस्थिरतासंग विवरण...सेट गर्नुहोस"
+msgstr ""
+"नयाँ रेखाको अन्त्यमा तिर शैलीशैल....   रेखा शैलि लिनको लागी क्लिक गर्नुहोस् ,वा रेखा शैली "
+"अस्थिरतासंग विवरण...सेट गर्नुहोस"
 
-#: app/interface.c:1202
+#: app/interface.c:1203
 msgid "Diagram Editor"
 msgstr "चित्र संपादक"
 
@@ -959,19 +1008,19 @@ msgstr "चित्र:"
 msgid "New layer %d"
 msgstr "नया तह  %d"
 
-#: app/layer_dialog.c:521
+#: app/layer_dialog.c:525
 msgid "none"
 msgstr "कुनै पनि होईन"
 
-#: app/layer_dialog.c:952
+#: app/layer_dialog.c:958
 msgid "Edit Layer Attributes"
 msgstr "तहका विशेषताहरु सम्पादन गर्नुहोस्"
 
-#: app/layer_dialog.c:971
+#: app/layer_dialog.c:977
 msgid "Layer name:"
 msgstr "तहको नाम:"
 
-#: app/linewidth_area.c:246 lib/properties.h:480 lib/properties.h:483
+#: app/linewidth_area.c:246 lib/properties.h:481 lib/properties.h:484
 #: objects/chronogram/chronoline.c:181 objects/chronogram/chronoref.c:160
 msgid "Line width"
 msgstr "रेखाको चौडाई"
@@ -1058,524 +1107,522 @@ msgstr "'%s' फाईललाई वचत गर्न असफल भयो
 msgid "Dia Diagram File"
 msgstr "डाय चित्र फाईल"
 
-#: app/menus.c:49 app/menus.c:87
+#: app/menus.c:50 app/menus.c:88
 msgid "/_File"
 msgstr "/_फाइल"
 
-#: app/menus.c:51 app/menus.c:89
+#: app/menus.c:52 app/menus.c:90
 msgid "/File/_New"
 msgstr "/फाईल/_नयाँ"
 
-#: app/menus.c:53 app/menus.c:91
+#: app/menus.c:54 app/menus.c:92
 msgid "/File/_Open..."
 msgstr "/फाईल/_खोल्नुहोस्..."
 
 #. {N_("/Open _Recent"),           NULL,         NULL,           0, "<Branch>"},
 #. {   "/Open Recent/tearoff",     NULL,         NULL,         0, "<Tearoff>" },
-#. recent file list is dynamically inserted here
-#. {N_("/Open _Recent"),           NULL,         NULL,           0, "<Branch>"},
-#. {   "/Open Recent/tearoff",     NULL,         NULL,         0, "<Tearoff>" },
-#: app/menus.c:57 app/menus.c:62 app/menus.c:67 app/menus.c:69 app/menus.c:95
-#: app/menus.c:102 app/menus.c:106
+#: app/menus.c:58 app/menus.c:63 app/menus.c:68 app/menus.c:70 app/menus.c:96
+#: app/menus.c:103 app/menus.c:107
 msgid "/File/---"
 msgstr "/फाइल/---"
 
-#: app/menus.c:58
+#: app/menus.c:59
 msgid "/File/_Diagram tree"
 msgstr "/फाइल/_चित्र वृक्ष"
 
-#: app/menus.c:60
+#: app/menus.c:61
 msgid "/File/Sheets and Objects..."
 msgstr "/फाइल/पाना र वस्तुहरु..."
 
-#: app/menus.c:63
+#: app/menus.c:64
 msgid "/File/_Preferences..."
 msgstr "/फाइल/_प्राथमिकताहरु..."
 
-#: app/menus.c:65
+#: app/menus.c:66
 msgid "/File/P_lugins..."
 msgstr "/फाइल/प_ल्गिन्स..."
 
-#: app/menus.c:70 app/menus.c:110
+#: app/menus.c:71 app/menus.c:111
 msgid "/File/_Quit"
 msgstr "/फाइल/_वन्द गर्नुहोनुहोस"
 
-#: app/menus.c:72 app/menus.c:257
+#: app/menus.c:73 app/menus.c:260
 msgid "/_Help"
 msgstr "/_सहायतादत"
 
-#: app/menus.c:74 app/menus.c:259
+#: app/menus.c:75 app/menus.c:262
 msgid "/Help/_Contents"
 msgstr "/सहायता/_सामग्रीहरु"
 
-#: app/menus.c:76 app/menus.c:261
+#: app/menus.c:77 app/menus.c:264
 msgid "/Help/---"
 msgstr "/सहायता/---"
 
-#: app/menus.c:77 app/menus.c:262
+#: app/menus.c:78 app/menus.c:265
 msgid "/Help/_About..."
 msgstr "/सहायता/_वारेमा..."
 
-#: app/menus.c:96
+#: app/menus.c:97
 msgid "/File/_Save"
 msgstr "/फाइल/_वचत"
 
-#: app/menus.c:98
+#: app/menus.c:99
 msgid "/File/Save _As..."
 msgstr "/फाइल/यस _रुपमा वचत गर्नुहोस..."
 
-#: app/menus.c:100
+#: app/menus.c:101
 msgid "/File/_Export..."
 msgstr "/फाइल/_निर्यात गर्नुहोस..."
 
-#: app/menus.c:103
+#: app/menus.c:104
 msgid "/File/Page Set_up..."
 msgstr "/फाइल/पृष्ठ_सेटअ..."
 
-#: app/menus.c:104
+#: app/menus.c:105
 msgid "/File/_Print Diagram..."
 msgstr "/फाइल/_चित्र छाप्नुहोसप..."
 
-#: app/menus.c:107
+#: app/menus.c:108
 msgid "/File/_Close"
 msgstr "/फाइल/_वन्द गर्नुहोस"
 
-#: app/menus.c:112
+#: app/menus.c:113
 msgid "/_Edit"
 msgstr "/_सम्पादन गर्नुहोस"
 
-#: app/menus.c:114
+#: app/menus.c:115
 msgid "/Edit/_Undo"
 msgstr "/सम्पादन गर्नुहोस/_पुर्व स्थितिको लागि"
 
-#: app/menus.c:116
+#: app/menus.c:117
 msgid "/Edit/_Redo"
 msgstr "/सम्पादन गर्नुहोस/_रिडुितिको लागि"
 
-#: app/menus.c:118 app/menus.c:128
+#: app/menus.c:119 app/menus.c:129
 msgid "/Edit/---"
 msgstr "/सम्पादन गर्नुहोस---"
 
-#: app/menus.c:119
+#: app/menus.c:120
 msgid "/Edit/_Copy"
 msgstr "/सम्पादन गर्नुहोस/_प्रतिकल"
 
-#: app/menus.c:121
+#: app/menus.c:122
 msgid "/Edit/C_ut"
 msgstr "/सम्पादन गर्नुहोस/का_ट्नुहोस"
 
-#: app/menus.c:123
+#: app/menus.c:124
 msgid "/Edit/_Paste"
 msgstr "/सम्पादन गर्नुहोस/_टाँस्नुहोस"
 
-#: app/menus.c:125
+#: app/menus.c:126
 msgid "/Edit/_Duplicate"
 msgstr "/सम्पादन गर्नुहोस/_नक्कल प्रति"
 
-#: app/menus.c:126
+#: app/menus.c:127
 msgid "/Edit/_Delete"
 msgstr "/सम्पादन गर्नुहोस/_मेट्नुहोस्नुहोस"
 
-#: app/menus.c:129
+#: app/menus.c:130
 msgid "/Edit/Copy Text"
 msgstr "/सम्पादन गर्नुहोस/प्रति पाठ Text"
 
-#: app/menus.c:131
+#: app/menus.c:132
 msgid "/Edit/Cut Text"
 msgstr "/सम्पादन गर्नुहोस/पाठ काट्नुहोस"
 
-#: app/menus.c:133
+#: app/menus.c:134
 msgid "/Edit/Paste _Text"
 msgstr "/सम्पादन गर्नुहोस/पाठ_टाँस्नुहोसुहोस"
 
-#: app/menus.c:135
+#: app/menus.c:136
 msgid "/_Diagram"
 msgstr "/_चित्र"
 
-#: app/menus.c:137
+#: app/menus.c:138
 msgid "/Diagram/_Properties..."
 msgstr "/चित्र/_गुणहरु..."
 
-#: app/menus.c:139
+#: app/menus.c:140
 msgid "/Diagram/_Layers..."
 msgstr "/चित्र/_तहहरुरु..."
 
-#: app/menus.c:140
+#: app/menus.c:141
 msgid "/_View"
 msgstr "/_दृश्य"
 
-#: app/menus.c:142
+#: app/menus.c:143
 msgid "/View/Zoom _In"
 msgstr "/दृश्य/जुम _ईनुहोस"
 
-#: app/menus.c:144
+#: app/menus.c:145
 msgid "/View/Zoom _Out"
 msgstr "/दृश्य/जुम _आउट"
 
-#: app/menus.c:146
+#: app/menus.c:147
 msgid "/View/_Zoom"
 msgstr "/दृश्य/_जुम"
 
-#: app/menus.c:148
+#: app/menus.c:149
 msgid "/View/Zoom/1600%"
 msgstr "/दृश्य/जुम/1600%"
 
-#: app/menus.c:149
+#: app/menus.c:150
 msgid "/View/Zoom/800%"
 msgstr "/दृश्य/जुम/800%"
 
-#: app/menus.c:150
+#: app/menus.c:151
 msgid "/View/Zoom/400%"
 msgstr "/दृश्य/जुम/400%"
 
-#: app/menus.c:151
+#: app/menus.c:152
 msgid "/View/Zoom/283%"
 msgstr "/दृश्य/जुम/283%"
 
-#: app/menus.c:152
+#: app/menus.c:153
 msgid "/View/Zoom/200%"
 msgstr "/दृश्य/जुम/200%"
 
-#: app/menus.c:153
+#: app/menus.c:154
 msgid "/View/Zoom/141%"
 msgstr "/दृश्य/जुम/141%"
 
-#: app/menus.c:154
+#: app/menus.c:155
 msgid "/View/Zoom/100%"
 msgstr "/दृश्य/जुम/100%"
 
-#: app/menus.c:156
+#: app/menus.c:157
 msgid "/View/Zoom/85%"
 msgstr "/दृश्य/जुम/85%"
 
-#: app/menus.c:157
+#: app/menus.c:158
 msgid "/View/Zoom/70.7%"
 msgstr "/दृश्य/जुम/70.7%"
 
-#: app/menus.c:158
+#: app/menus.c:159
 msgid "/View/Zoom/50%"
 msgstr "/दृश्य/जुम/50%"
 
-#: app/menus.c:159
+#: app/menus.c:160
 msgid "/View/Zoom/35.4%"
 msgstr "/दृश्य/जुम/35.4%"
 
-#: app/menus.c:160
+#: app/menus.c:161
 msgid "/View/Zoom/25%"
 msgstr "/दृश्य/जुम/25%"
 
-#: app/menus.c:161 app/menus.c:170
+#: app/menus.c:162 app/menus.c:171
 msgid "/View/---"
 msgstr "/दृश्य/---"
 
-#: app/menus.c:162
+#: app/menus.c:163
 msgid "/View/Fullscr_een"
 msgstr "/दृश्य/पुरा_पर्दाा"
 
-#: app/menus.c:164
+#: app/menus.c:165
 msgid "/View/_AntiAliased"
 msgstr "/दृश्य/_एन्टिएलाइज्ड"
 
-#: app/menus.c:166
+#: app/menus.c:167
 msgid "/View/Show _Grid"
 msgstr "/दृश्य/ग्रिड _देखाउनुहोस"
 
-#: app/menus.c:167
+#: app/menus.c:168
 msgid "/View/_Snap To Grid"
 msgstr "/दृश्य/_ग्रिड मा सटाउनुहोसुहोस"
 
-#: app/menus.c:168
+#: app/menus.c:169
 msgid "/View/Show _Rulers"
 msgstr "/दृश्य/रुलरहरु_देखाउ सउनुहोसुहोस"
 
-#: app/menus.c:169
+#: app/menus.c:170
 msgid "/View/Show _Connection Points"
 msgstr "/दृश्य/जडान विन्दुहरु_देखाउनुहोस"
 
-#: app/menus.c:171
+#: app/menus.c:172
 msgid "/View/New _View"
 msgstr "/दृश्य/नयाँ्दृश्येखाउनुहोस"
 
 #. Show All, Best Fit.  Same as the Gimp, Ctrl+E
-#: app/menus.c:173
+#: app/menus.c:174
 msgid "/View/Show _All"
 msgstr "/दृश्य/सवै_देखाउनुहोस"
 
-#: app/menus.c:175
+#: app/menus.c:176
 msgid "/View/Re_draw"
 msgstr "/दृश्य/पुन_चित्रित गर्नुहोस"
 
-#: app/menus.c:177
+#: app/menus.c:178
 msgid "/_Objects"
 msgstr "/_वस्तुहरु"
 
-#: app/menus.c:179
+#: app/menus.c:180
 msgid "/Objects/Send to _Back"
 msgstr "/वस्तुहरु/पछाडी _पठाउनुहोस्"
 
-#: app/menus.c:181
+#: app/menus.c:182
 msgid "/Objects/Bring to _Front"
 msgstr "/वस्तुहरु/अगाडी _ल्याउनुहोस्"
 
-#: app/menus.c:183
+#: app/menus.c:184
 msgid "/Objects/Send Backwards"
 msgstr "/वस्तुहरु/पछाडी तिर पठाउनुहोस्"
 
-#: app/menus.c:185
+#: app/menus.c:186
 msgid "/Objects/Bring Forwards"
 msgstr "/वस्तुहरु/अगाडी ल्यााउनुहोस्"
 
-#: app/menus.c:187 app/menus.c:191 app/menus.c:195 app/menus.c:213
+#: app/menus.c:188 app/menus.c:194 app/menus.c:198 app/menus.c:216
 msgid "/Objects/---"
 msgstr "/वस्तुहरु/---नुहोस्"
 
-#: app/menus.c:188
+#: app/menus.c:189
 msgid "/Objects/_Group"
 msgstr "/वस्तुहरु/_समुहस्"
 
 #. deliberately not using Ctrl+U for Ungroup
-#: app/menus.c:190
+#: app/menus.c:192
 msgid "/Objects/_Ungroup"
 msgstr "/वस्तुहरु/_समुह विहिनस्"
 
-#: app/menus.c:192
+#: app/menus.c:195
 msgid "/Objects/_Parent"
 msgstr "/वस्तुहरु/_प्रमूलस्"
 
-#: app/menus.c:193
+#: app/menus.c:196
 msgid "/Objects/_Unparent"
 msgstr "/वस्तुहरु/_अप्रमूल"
 
-#: app/menus.c:194
+#: app/menus.c:197
 msgid "/Objects/_Unparent Children"
 msgstr "/वस्तुहरु/_प्रमूल वच्चाहरु"
 
-#: app/menus.c:196
+#: app/menus.c:199
 msgid "/Objects/Align"
 msgstr "/वस्तुहरु/पङ्गतिवद्द"
 
-#: app/menus.c:198
+#: app/menus.c:201
 msgid "/Objects/Align/Left"
 msgstr "/वस्तुहरु/पङ्गतिवद्द/वायाँ"
 
-#: app/menus.c:200
+#: app/menus.c:203
 msgid "/Objects/Align/Center"
 msgstr "/वस्तुहरु/पङ्गतिवद्द/केन्द्रमा"
 
-#: app/menus.c:202
+#: app/menus.c:205
 msgid "/Objects/Align/Right"
 msgstr "/वस्तुहरु/पङ्गतिवद्द/दायाँ"
 
-#: app/menus.c:204 app/menus.c:208
+#: app/menus.c:207 app/menus.c:211
 msgid "/Objects/Align/---"
 msgstr "/वस्तुहरु/पङ्गतिवद्द/---"
 
-#: app/menus.c:205
+#: app/menus.c:208
 msgid "/Objects/Align/Top"
 msgstr "/वस्तुहरु/पङ्गतिवद्द/सवै भन्दा माथी"
 
-#: app/menus.c:206
+#: app/menus.c:209
 msgid "/Objects/Align/Middle"
 msgstr "/वस्तुहरु/पङ्गतिवद्द/विचमा"
 
-#: app/menus.c:207
+#: app/menus.c:210
 msgid "/Objects/Align/Bottom"
 msgstr "/वस्तुहरु/पङ्गतिवद्द/तल"
 
-#: app/menus.c:209
+#: app/menus.c:212
 msgid "/Objects/Align/Spread Out Horizontally"
 msgstr "/वस्तुहरु/पङ्गतिवद्द/तेर्सो गरी वाहिर छरिएकका"
 
-#: app/menus.c:210
+#: app/menus.c:213
 msgid "/Objects/Align/Spread Out Vertically"
 msgstr "/वस्तुहरु/पङ्गतिवद्द/ठाडो गरी वाहिर छरिएकका"
 
-#: app/menus.c:211
+#: app/menus.c:214
 msgid "/Objects/Align/Adjacent"
 msgstr "/वस्तुहरु/पङ्गतिवद्द/अन्नासन"
 
-#: app/menus.c:212
+#: app/menus.c:215
 msgid "/Objects/Align/Stacked"
 msgstr "/वस्तुहरु/पङ्गतिवद्द/थाक"
 
-#: app/menus.c:214
+#: app/menus.c:217
 msgid "/Objects/_Properties..."
 msgstr "/वस्तुहरु/_गुणहरु..."
 
-#: app/menus.c:216
+#: app/menus.c:219
 msgid "/_Select"
 msgstr "/_छान्नुहोस्"
 
-#: app/menus.c:218
+#: app/menus.c:221
 msgid "/Select/All"
 msgstr "/छान्नुहोस/सवै"
 
-#: app/menus.c:219
+#: app/menus.c:222
 msgid "/Select/None"
 msgstr "/नछान्नुहोस/कुनै पनिै"
 
-#: app/menus.c:220
+#: app/menus.c:223
 msgid "/Select/Invert"
 msgstr "/छान्नुहोस/उल्टो"
 
-#: app/menus.c:221 app/menus.c:225
+#: app/menus.c:224 app/menus.c:228
 msgid "/Select/---"
 msgstr "/छान्नुहोस/---"
 
-#: app/menus.c:222
+#: app/menus.c:225
 msgid "/Select/Transitive"
 msgstr "/छान्नुहोस/सक्रमक"
 
-#: app/menus.c:223
+#: app/menus.c:226
 msgid "/Select/Connected"
 msgstr "/छान्नुहोस/जडानभएका"
 
-#: app/menus.c:224
+#: app/menus.c:227
 msgid "/Select/Same Type"
 msgstr "/छान्नुहोस/उस्तै किसिमको"
 
-#: app/menus.c:226
+#: app/menus.c:229
 msgid "/Select/Replace"
 msgstr "/छान्नुहोस/पुन्स्थापन"
 
-#: app/menus.c:228
+#: app/menus.c:231
 msgid "/Select/Union"
 msgstr "/छान्नुहोस/संयोग"
 
-#: app/menus.c:230
+#: app/menus.c:233
 msgid "/Select/Intersection"
 msgstr "/छान्नुहोस/काटियका"
 
-#: app/menus.c:232
+#: app/menus.c:235
 msgid "/Select/Remove"
 msgstr "/छान्नुहोस/हटाउनुहोस"
 
 #. Cannot also be called Invert, duplicate names caused keybinding problems
-#: app/menus.c:235
+#: app/menus.c:238
 msgid "/Select/Inverse"
 msgstr "/छान्नुहोस/उल्टो दिशामा"
 
-#: app/menus.c:237
+#: app/menus.c:240
 msgid "/_Tools"
 msgstr "/_औजारहरु"
 
-#: app/menus.c:239
+#: app/menus.c:242
 msgid "/Tools/Modify"
 msgstr "/औजारहरु/परिमार्जन"
 
-#: app/menus.c:240
+#: app/menus.c:243
 msgid "/Tools/Magnify"
 msgstr "/औजारहरु/ठुलो आकार पार्नुहोस"
 
-#: app/menus.c:241
+#: app/menus.c:244
 msgid "/Tools/Scroll"
 msgstr "/औजारहरु/स्क्रोल गर्नुहोस्"
 
-#: app/menus.c:242
+#: app/menus.c:245
 msgid "/Tools/Text"
 msgstr "/औजारहरु/पाठ"
 
-#: app/menus.c:243
+#: app/menus.c:246
 msgid "/Tools/Box"
 msgstr "/औजारहरु/वाकस"
 
-#: app/menus.c:244
+#: app/menus.c:247
 msgid "/Tools/Ellipse"
 msgstr "/औजारहरु/दीर्घवृत"
 
-#: app/menus.c:245
+#: app/menus.c:248
 msgid "/Tools/Polygon"
 msgstr "/औजारहरु/वहुभुज"
 
-#: app/menus.c:246
+#: app/menus.c:249
 msgid "/Tools/Beziergon"
 msgstr "/औजारहरु/बेजिरगन"
 
-#: app/menus.c:247 app/menus.c:253
+#: app/menus.c:250 app/menus.c:256
 msgid "/Tools/---"
 msgstr "/औजारहरु/---"
 
-#: app/menus.c:248
+#: app/menus.c:251
 msgid "/Tools/Line"
 msgstr "/औजारहरु/रेखा"
 
-#: app/menus.c:249
+#: app/menus.c:252
 msgid "/Tools/Arc"
 msgstr "/औजारहरु/चाप"
 
-#: app/menus.c:250
+#: app/menus.c:253
 msgid "/Tools/Zigzagline"
 msgstr "/औजारहरु/वाङ्गोटिङ्गो रेखा"
 
-#: app/menus.c:251
+#: app/menus.c:254
 msgid "/Tools/Polyline"
 msgstr "/औजारहरु/वहु रेखा"
 
-#: app/menus.c:252
+#: app/menus.c:255
 msgid "/Tools/Bezierline"
 msgstr "/औजारहरु/वेजिररेखा"
 
-#: app/menus.c:254
+#: app/menus.c:257
 msgid "/Tools/Image"
 msgstr "/औजारहरु/तस्विर"
 
-#: app/menus.c:255
+#: app/menus.c:258
 msgid "/_Input Methods"
 msgstr "/_आगत तरिकाहरु"
 
-#: app/menus.c:427
+#: app/menus.c:430
 msgid "NULL tooldata in tool_menu_select"
 msgstr "औजार_मेनु_छान्नुहोस मा औजार पाठ खाली गर्नुहोस्"
 
-#: app/menus.c:525
+#: app/menus.c:528
 msgid "Diagram Menu"
 msgstr "चित्र मेनु"
 
-#: app/menus.c:660
+#: app/menus.c:663
 #, c-format
 msgid ""
 "Can't find menu entry '%s'!\n"
 "This is probably a i18n problem (try LANG=C)."
 msgstr ""
-" '%s'!\n मेनु प्रविष्ठि भेट्टाउन सकेन "
-"यो सायद एउटा i18एन समस्या हो(एल ए एन जि‌ =सि कोशिस गर्नुहोस्)"
+" '%s'!\n"
+" मेनु प्रविष्ठि भेट्टाउन सकेन यो सायद एउटा i18एन समस्या हो(एल ए एन जि‌ =सि कोशिस "
+"गर्नुहोस्)"
 
-#: app/modify_tool.c:327
+#: app/modify_tool.c:340
 msgid "Couldn't get GTK settings"
 msgstr "जिटिके मिलान भेट्टाउन सकेन"
 
-#: app/paginate_psprint.c:243
+#: app/paginate_psprint.c:257
 msgid "Select Printer"
 msgstr "मुद्रक छान्नुहोस"
 
-#: app/paginate_psprint.c:255 sheets/ciscocomputer.sheet.in.h:25
+#: app/paginate_psprint.c:269 sheets/ciscocomputer.sheet.in.h:36
 msgid "Printer"
 msgstr "छाप्नेयन्त्र॒"
 
-#: app/paginate_psprint.c:269 sheets/Misc.sheet.in.h:1
+#: app/paginate_psprint.c:283 sheets/Misc.sheet.in.h:1
 msgid "File"
 msgstr "फाईल॒"
 
-#: app/paginate_psprint.c:284
+#: app/paginate_psprint.c:298
 msgid "OK"
 msgstr "ठीक छ"
 
-#: app/paginate_psprint.c:379
+#: app/paginate_psprint.c:393
 #, c-format
 msgid "Could not run command '%s': %s"
 msgstr " '%s': %s आज्ञा चालु हुन सकेन"
 
-#: app/paginate_psprint.c:382
+#: app/paginate_psprint.c:396
 #, c-format
 msgid "Could not open '%s' for writing: %s"
 msgstr "$2%sलाई लेख्नको लागि $1%s खुल्न सकेन"
 
-#: app/paginate_psprint.c:399
+#: app/paginate_psprint.c:413
 #, c-format
 msgid "Printing error: command '%s' returned %d\n"
 msgstr "मुद्रण गल्ति:आज्ञा '%s' फर्क्यौ %d\n"
 
-#: app/paginate_psprint.c:410
+#: app/paginate_psprint.c:424
 #, c-format
 msgid "Printing error: command '%s' caused sigpipe."
 msgstr "'%s'आज्ञाले सिगपाइप हुन्छ.मुद्रण गल्ति"
@@ -1588,8 +1635,10 @@ msgstr "प्लग-इनस्"
 msgid "Loaded"
 msgstr "लोडेड"
 
-#: app/plugin-manager.c:262 objects/UML/class.c:111
-#: objects/UML/large_package.c:130
+#: app/plugin-manager.c:262 objects/UML/class.c:117
+#: objects/UML/large_package.c:130 objects/UML/umlattribute.c:37
+#: objects/UML/umlformalparameter.c:35 objects/UML/umloperation.c:62
+#: objects/UML/umlparameter.c:43
 msgid "Name"
 msgstr "नाम"
 
@@ -1871,6 +1920,8 @@ msgstr "नयाँ"
 #: app/sheets_dialog.c:362 app/sheets_dialog.c:794 objects/Istar/actor.c:144
 #: objects/Istar/actor.c:145 objects/Istar/other.c:148
 #: objects/Istar/other.c:149 objects/KAOS/other.c:151 objects/KAOS/other.c:152
+#: objects/UML/umlattribute.c:39 objects/UML/umlformalparameter.c:37
+#: objects/UML/umloperation.c:64 objects/UML/umlparameter.c:45
 msgid "Type"
 msgstr "प्रकार"
 
@@ -1908,10 +1959,10 @@ msgid "Description:"
 msgstr "वर्णन:"
 
 #: app/sheets_dialog.c:618 objects/FS/flow-ortho.c:168 objects/FS/flow.c:146
-#: objects/UML/class_dialog.c:918 objects/UML/class_dialog.c:1852
-#: objects/UML/class_dialog.c:2081 objects/UML/class_dialog.c:2597
 #: objects/Istar/link.c:165 objects/Jackson/phenomenon.c:144
 #: objects/KAOS/metaandorrel.c:164 objects/KAOS/metabinrel.c:171
+#: objects/UML/class_dialog.c:912 objects/UML/class_dialog.c:1840
+#: objects/UML/class_dialog.c:2069 objects/UML/class_dialog.c:2585
 msgid "Type:"
 msgstr "प्रकार:"
 
@@ -1921,16 +1972,14 @@ msgstr "पाना"
 
 #: app/sheets_dialog.c:672 objects/ER/attribute.c:153 objects/ER/entity.c:135
 #: objects/ER/relationship.c:140 objects/UML/association.c:237
-#: objects/UML/association.c:1162 objects/UML/class_dialog.c:907
-#: objects/UML/class_dialog.c:1841 objects/UML/class_dialog.c:2070
-#: objects/UML/class_dialog.c:2586 objects/UML/dependency.c:133
+#: objects/UML/association.c:1165 objects/UML/class_dialog.c:901
+#: objects/UML/class_dialog.c:1829 objects/UML/class_dialog.c:2058
+#: objects/UML/class_dialog.c:2574 objects/UML/dependency.c:133
 #: objects/UML/generalization.c:129 objects/UML/realizes.c:130
 msgid "Name:"
 msgstr "नाम:"
 
 #. Translators: Menu item Verb/Channel/Export/Remove
-#. Translators: Menu item Verb/Branch/Separate/Remove
-#. Translators: Menu item Verb/Branch/Separate/Remove/Remove
 #: app/sheets_dialog.c:784 objects/FS/function.c:706 objects/FS/function.c:858
 #: objects/FS/function.c:860
 msgid "Remove"
@@ -2060,7 +2109,7 @@ msgstr "डाय चित्र सम्पादक"
 msgid "Edit your Diagrams"
 msgstr "तपाइको चित्रहरुलाइ सम्पादन गर्नुहोसर्नुहोस"
 
-#: lib/arrows.c:40 objects/UML/association.c:1185 objects/Jackson/domain.c:96
+#: lib/arrows.c:40 objects/Jackson/domain.c:96 objects/UML/association.c:1188
 msgid "None"
 msgstr "कोहिपनि होइन"
 
@@ -2192,48 +2241,57 @@ msgstr "गोलाकार लाई खोल्नुहोस"
 msgid "Backslash"
 msgstr "पछाडि स्ल्यास"
 
+#: lib/arrows.c:73
+msgid "Infinite Line"
+msgstr ""
+
 #: lib/bezier_conn.c:533
 msgid "Internal error: Setting corner type of endpoint of bezier"
 msgstr "आन्तरिक गल्ति: बेजिरको अन्तिमविन्दु कुनो किसिम मिलान गर्दै"
 
-#: lib/dia_xml.c:154
+#: lib/dia_xml.c:153
 #, c-format
 msgid ""
 "The file %s has no encoding specification;\n"
 "assuming it is encoded in %s"
-msgstr "$2%s मा लिपि मान्यता गर्दै \n फाइल $1%s मा कुनै विवरण छैन;;"
+msgstr ""
+"$2%s मा लिपि मान्यता गर्दै \n"
+" फाइल $1%s मा कुनै विवरण छैन;;"
 
-#: lib/dia_xml.c:471
+#: lib/dia_xml.c:470
 msgid "Taking point value of non-point node."
 msgstr "थोप्लो-विहिन गाँठोको थोप्लो मुल्य लिँदैै"
 
-#: lib/dia_xml.c:482
+#: lib/dia_xml.c:481
 #, c-format
 msgid "Incorrect x Point value \"%s\" %f; discarding it."
 msgstr "गलत एक्स विन्दु मुल्य \"%s\" %f; यस्लाइ छाड्दै"
 
-#: lib/dia_xml.c:489
+#: lib/dia_xml.c:488
 msgid "Error parsing point."
 msgstr "गल्ति थाहा दिने विन्दु."
 
 #. don't bother with useless warnings (see above)
-#: lib/dia_xml.c:497
+#: lib/dia_xml.c:496
 #, c-format
 msgid "Incorrect y Point value \"%s\" %f; discarding it."
 msgstr "गल्ति वाई विन्दु मुल्य  \"%s\" %f;यस्लाई छाड्दै."
 
-#: lib/dia_xml.c:865
+#: lib/dia_xml.c:871
 msgid ""
 "Your local character set is UTF-8. Because of issues with libxml1 and the "
 "support of files generated by previous versions of dia, you will encounter  "
 "problems. Please report to dia-list@gnome.org if you see this message."
-msgstr "तपाईको स्थानिय क्यारेक्टर सेट यू टि एफ-८हो.लिव एक्स एम एल१ र डायको पुरानो संस्करणको फाइलले पैदा गरेको सहायता को कारणले गर्दा,तपाई समस्या ग्रस्त हुनुहुने छ .यदि तपाइले यो समस्या देख्नु भएमा कृपया dia-list@gnome.org मा जानकारी दिनुहोला."
+msgstr ""
+"तपाईको स्थानिय क्यारेक्टर सेट यू टि एफ-८हो.लिव एक्स एम एल१ र डायको पुरानो संस्करणको "
+"फाइलले पैदा गरेको सहायता को कारणले गर्दा,तपाई समस्या ग्रस्त हुनुहुने छ .यदि तपाइले यो "
+"समस्या देख्नु भएमा कृपया dia-list@gnome.org मा जानकारी दिनुहोला."
 
-#: lib/diaarrowchooser.c:251
+#: lib/diaarrowchooser.c:269
 msgid "Arrow Properties"
 msgstr "तिर गुणहरु"
 
-#: lib/diaarrowchooser.c:333 lib/dialinechooser.c:333
+#: lib/diaarrowchooser.c:351 lib/dialinechooser.c:333
 msgid "Details..."
 msgstr "विवरणहरु..."
 
@@ -2344,8 +2402,7 @@ msgid ""
 "%s"
 msgstr ""
 "'%s'\n"
-"%s"
-"प्लगइन लोड गर्न सकेन "
+"%sप्लगइन लोड गर्न सकेन "
 
 #: lib/plug-ins.c:246
 #, c-format
@@ -2379,15 +2436,15 @@ msgstr ""
 msgid "Group with %d objects"
 msgstr "%d वस्तुहरु संग समुहुह"
 
-#: lib/properties.c:62 lib/properties.h:468 lib/widgets.c:608
+#: lib/properties.c:62 lib/properties.h:469 lib/widgets.c:638
 msgid "Left"
 msgstr "वायाँ"
 
-#: lib/properties.c:63 lib/properties.h:469 lib/widgets.c:614
+#: lib/properties.c:63 lib/properties.h:470 lib/widgets.c:644
 msgid "Center"
 msgstr "केन्द्र"
 
-#: lib/properties.c:64 lib/properties.h:470 lib/widgets.c:620
+#: lib/properties.c:64 lib/properties.h:471 lib/widgets.c:650
 msgid "Right"
 msgstr "दायाँ"
 
@@ -2396,7 +2453,7 @@ msgstr "दायाँ"
 msgid "Line color"
 msgstr "रेखाको रङ्ग"
 
-#: lib/properties.c:72 lib/properties.h:492 lib/properties.h:495
+#: lib/properties.c:72 lib/properties.h:493 lib/properties.h:496
 msgid "Line style"
 msgstr "रेखाको शैली"
 
@@ -2404,31 +2461,31 @@ msgstr "रेखाको शैली"
 msgid "Fill color"
 msgstr "रंग भर्नुहोस्"
 
-#: lib/properties.c:74 lib/properties.h:505
+#: lib/properties.c:74 lib/properties.h:506 lib/properties.h:509
 msgid "Draw background"
 msgstr "पृष्ठभुमि रेखाङ्कन गर्नुहोस्"
 
-#: lib/properties.c:75 lib/properties.h:509
+#: lib/properties.c:75 lib/properties.h:513
 msgid "Start arrow"
 msgstr "तिर शुरु गर्नुहोस"
 
-#: lib/properties.c:76 lib/properties.h:512
+#: lib/properties.c:76 lib/properties.h:516
 msgid "End arrow"
 msgstr "तिर अन्तय गर्नुहोस"
 
-#: lib/properties.c:78 lib/properties.h:522
+#: lib/properties.c:78 lib/properties.h:526
 msgid "Text alignment"
 msgstr "पाठ पङ्गतिवद्द गर्नुहोस"
 
 #. all this just to make the defaults selectable ...
-#: lib/properties.c:79 lib/properties.h:527 objects/GRAFCET/condition.c:132
+#: lib/properties.c:79 lib/properties.h:531 objects/GRAFCET/condition.c:132
 #: objects/GRAFCET/step.c:165 objects/GRAFCET/transition.c:142
-#: objects/UML/class.c:137 objects/UML/class_dialog.c:351
+#: objects/UML/class.c:143 objects/UML/class_dialog.c:351
 #: objects/chronogram/chronoline.c:183 objects/chronogram/chronoref.c:164
 msgid "Font"
 msgstr "फन्ट्ण"
 
-#: lib/properties.c:80 lib/properties.h:533 objects/GRAFCET/condition.c:134
+#: lib/properties.c:80 lib/properties.h:537 objects/GRAFCET/condition.c:134
 #: objects/GRAFCET/step.c:167 objects/GRAFCET/transition.c:144
 #: objects/chronogram/chronoline.c:185 objects/chronogram/chronoref.c:166
 msgid "Font size"
@@ -2439,15 +2496,15 @@ msgstr "फन्टको आकार"
 msgid "Text color"
 msgstr "पाठ रङ्ग"
 
-#: lib/properties.h:486 lib/properties.h:489
+#: lib/properties.h:487 lib/properties.h:490
 msgid "Line colour"
 msgstr "रेखा को रङ्ग"
 
-#: lib/properties.h:499 lib/properties.h:502
+#: lib/properties.h:500 lib/properties.h:503
 msgid "Fill colour"
 msgstr "रङ्ग भर्नुहोस"
 
-#: lib/properties.h:539
+#: lib/properties.h:543
 msgid "Text colour"
 msgstr "पाठको रङ्ग"
 
@@ -2456,66 +2513,66 @@ msgstr "पाठको रङ्ग"
 msgid "No attribute '%s' (%p) or no data(%p) in this attribute"
 msgstr "'%s' (%p)  विशेषता छैन वायो विशेषतामा (%p) पाठ छैनन"
 
-#: lib/widgets.c:347
+#: lib/widgets.c:375
 msgid "Other fonts"
 msgstr "अरु फन्टहरु"
 
-#: lib/widgets.c:417
+#: lib/widgets.c:445
 #, c-format
 msgid "Couldn't find font family for %s\n"
 msgstr "%s को लागि फन्ट परिवार भेट्टाउन सकेन\n"
 
 #. Translators: Menu item Noun/Material/Solid
-#: lib/widgets.c:756 objects/FS/function.c:1074
+#: lib/widgets.c:786 objects/FS/function.c:1074
 msgid "Solid"
 msgstr "ठोस"
 
-#: lib/widgets.c:762
+#: lib/widgets.c:792
 msgid "Dashed"
 msgstr "टुक्रा पारेको"
 
-#: lib/widgets.c:768
+#: lib/widgets.c:798
 msgid "Dash-Dot"
 msgstr "टुक्रा-थोप्लो"
 
-#: lib/widgets.c:774
+#: lib/widgets.c:804
 msgid "Dash-Dot-Dot"
 msgstr "टुक्रा-थोप्लो-थोप्लो"
 
-#: lib/widgets.c:780
+#: lib/widgets.c:810
 msgid "Dotted"
 msgstr "थोप्ला थोप्ला भयको"
 
 #. fs->sizebox = GTK_HBOX(box);
-#: lib/widgets.c:799
+#: lib/widgets.c:829
 msgid "Dash length: "
 msgstr "ड्यासको लम्वाई: "
 
-#: lib/widgets.c:927
+#: lib/widgets.c:959
 msgid "Select color"
 msgstr "रङ्ग छान्नुहोस्"
 
-#: lib/widgets.c:993
+#: lib/widgets.c:1026
 msgid "More colors..."
 msgstr "अरु रङ्गहरु..."
 
-#: lib/widgets.c:1118
+#: lib/widgets.c:1150
 msgid "More arrows"
 msgstr "अरु तीरहरु"
 
-#: lib/widgets.c:1131
+#: lib/widgets.c:1163
 msgid "Size: "
 msgstr "आकार: "
 
-#: lib/widgets.c:1276
+#: lib/widgets.c:1308
 msgid "Select image file"
 msgstr "तस्विर फाईल छान्नुहोस"
 
-#: lib/widgets.c:1312
+#: lib/widgets.c:1344
 msgid "Browse"
 msgstr "खोतल्नुहोस्"
 
-#: lib/widgets.c:1908
+#: lib/widgets.c:1958
 msgid "Reset menu"
 msgstr "मेनुलाई पुन:सेट गर्नुहोस"
 
@@ -2547,7 +2604,7 @@ msgstr "कमजोर:"
 msgid "Associative:"
 msgstr "सम्बन्धित:"
 
-#: objects/ER/entity.c:413 objects/UML/classicon.c:128 sheets/ER.sheet.in.h:4
+#: objects/ER/entity.c:413 objects/UML/classicon.c:129 sheets/ER.sheet.in.h:4
 msgid "Entity"
 msgstr "अस्तित्व॒"
 
@@ -2610,9 +2667,6 @@ msgid "Material"
 msgstr "सामान"
 
 #. Translators: Menu item Verb/Signal
-#. Translators: Menu item Verb/Signal/Signal
-#. Translators: Menu item Noun/Signal
-#. Translators: Menu item Noun/Signal/Signal
 #: objects/FS/flow-ortho.c:161 objects/FS/flow-ortho.c:643
 #: objects/FS/flow.c:139 objects/FS/flow.c:578 objects/FS/function.c:1034
 #: objects/FS/function.c:1036 objects/FS/function.c:1172
@@ -2638,15 +2692,12 @@ msgid "Verb"
 msgstr "क्रिया"
 
 #. Translators: Menu item Verb/Channel
-#. Translators: Menu item Verb/Channel/Channel
-#. Translators: Menu item Verb/Channel/Transfer/Transport/Channel
 #: objects/FS/function.c:678 objects/FS/function.c:680
 #: objects/FS/function.c:720
 msgid "Channel"
 msgstr "च्यानल"
 
 #. Translators: Menu item Verb/Channel/Import
-#. Translators: Menu item Verb/Channel/Import/Import
 #: objects/FS/function.c:682 objects/FS/function.c:684
 msgid "Import"
 msgstr "आयात"
@@ -2662,7 +2713,6 @@ msgid "Receive"
 msgstr "प्राप्त"
 
 #. Translators: Menu item Verb/Channel/Import/Allow
-#. Translators: Menu item Verb/Control Magnitude/Regulate/Allow
 #: objects/FS/function.c:690 objects/FS/function.c:962
 msgid "Allow"
 msgstr "अनुमती दिनुहोस्"
@@ -2673,7 +2723,6 @@ msgid "Form Entrance"
 msgstr "फारम प्रवेश"
 
 #. Translators: Menu item Verb/Channel/Import/Capture
-#. Translators: Menu item Verb/Provision/Store/Capture
 #: objects/FS/function.c:694 objects/FS/function.c:928
 msgid "Capture"
 msgstr "पकड"
@@ -2694,15 +2743,12 @@ msgid "Dispose"
 msgstr "किनारा लगाउनुहोस"
 
 #. Translators: Menu item Verb/Channel/Transfer
-#. Translators: Menu item Verb/Channel/Transfer/Transfer
-#. Translators: Menu item Verb/Channel/Transfer/Transmit/Transfer
 #: objects/FS/function.c:708 objects/FS/function.c:710
 #: objects/FS/function.c:728
 msgid "Transfer"
 msgstr "स्थानान्तर गर्नुहोस्"
 
 #. Translators: Menu item Verb/Channel/Transfer/Transport
-#. Translators: Menu item Verb/Channel/Transfer/Transport/Transport
 #: objects/FS/function.c:712 objects/FS/function.c:714
 msgid "Transport"
 msgstr "ढुवानि"
@@ -2718,7 +2764,6 @@ msgid "Move"
 msgstr "सार्नु"
 
 #. Translators: Menu item Verb/Channel/Transfer/Transmit
-#. Translators: Menu item Verb/Channel/Transfer/Transmit/Transmit
 #: objects/FS/function.c:722 objects/FS/function.c:724
 msgid "Transmit"
 msgstr "प्रसारण गर्नुहोस्"
@@ -2734,8 +2779,6 @@ msgid "Convey"
 msgstr "पुर्याउनुहोस्"
 
 #. Translators: Menu item Verb/Channel/Guide
-#. Translators: Menu item Verb/Channel/Guide/Guide
-#. Translators: Menu item Verb/Channel/Guide/Guide/Guide
 #: objects/FS/function.c:732 objects/FS/function.c:734
 #: objects/FS/function.c:736
 msgid "Guide"
@@ -2762,7 +2805,6 @@ msgid "Translate"
 msgstr "रूपान्तर गर्नहोस्"
 
 #. Translators: Menu item Verb/Channel/Guide/Rotate
-#. Translators: Menu item Verb/Channel/Guide/Rotate/Rotate
 #: objects/FS/function.c:746 objects/FS/function.c:748
 msgid "Rotate"
 msgstr "घुमाउनुहोस्"
@@ -2778,7 +2820,6 @@ msgid "Spin"
 msgstr "जालो जस्तो त्यान्द्रो वनाउनुहोस"
 
 #. Translators: Menu item Verb/Channel/Guide/Allow DOF
-#. Translators: Menu item Verb/Channel/Guide/Allow DOF/Allow DOF
 #: objects/FS/function.c:754 objects/FS/function.c:756
 msgid "Allow DOF"
 msgstr "डि ओ एफ लाई अनुमति दिनुहोस"
@@ -2794,13 +2835,11 @@ msgid "Unlock"
 msgstr "ताल्चा फुकाउनुहोसहोस"
 
 #. Translators: Menu item Verb/Support
-#. Translators: Menu item Verb/Support/Support
 #: objects/FS/function.c:762 objects/FS/function.c:764
 msgid "Support"
 msgstr "समर्थन॒"
 
 #. Translators: Menu item Verb/Support/Stop
-#. Translators: Menu item Verb/Support/Stop/Stop
 #: objects/FS/function.c:766 objects/FS/function.c:768
 #: sheets/SDL.sheet.in.h:19
 msgid "Stop"
@@ -2817,7 +2856,6 @@ msgid "Protect"
 msgstr "वचाउनुहोस"
 
 #. Translators: Menu item Verb/Support/Stop/Prevent
-#. Translators: Menu item Verb/Control Magnitude/Regulate/Prevent
 #: objects/FS/function.c:774 objects/FS/function.c:964
 msgid "Prevent"
 msgstr "छेक्नुहोस्"
@@ -2833,7 +2871,6 @@ msgid "Inhibit"
 msgstr "निशेध गर्नुहोस"
 
 #. Translators: Menu item Verb/Support/Stabilize
-#. Translators: Menu item Verb/Support/Stabilize/Stabilize
 #: objects/FS/function.c:780 objects/FS/function.c:782
 msgid "Stabilize"
 msgstr "स्थिर गराउनुहोस्"
@@ -2844,13 +2881,11 @@ msgid "Steady"
 msgstr "स्थिर"
 
 #. Translators: Menu item Verb/Support/Secure
-#. Translators: Menu item Verb/Support/Secure/Secure
 #: objects/FS/function.c:786 objects/FS/function.c:788
 msgid "Secure"
 msgstr "सुरक्षित"
 
 #. Translators: Menu item Verb/Support/Secure/Attach
-#. Translators: Menu item Verb/Connect/Couple/Attach
 #: objects/FS/function.c:790 objects/FS/function.c:822
 msgid "Attach"
 msgstr "संलग्न गर्नुहोस्"
@@ -2861,7 +2896,7 @@ msgid "Mount"
 msgstr "माउन्ट"
 
 #. Translators: Menu item Verb/Support/Secure/Lock
-#: objects/FS/function.c:794 sheets/ciscomisc.sheet.in.h:21
+#: objects/FS/function.c:794 sheets/ciscomisc.sheet.in.h:19
 msgid "Lock"
 msgstr "चाँवी"
 
@@ -2876,7 +2911,6 @@ msgid "Hold"
 msgstr "समाउनुहोस"
 
 #. Translators: Menu item Verb/Support/Position
-#. Translators: Menu item Verb/Support/Position/Position
 #: objects/FS/function.c:800 objects/FS/function.c:802
 #: objects/Istar/actor.c:70
 msgid "Position"
@@ -2893,19 +2927,16 @@ msgid "Align"
 msgstr "पङ्गतिमा राख्नुहोस्"
 
 #. Translators: Menu item Verb/Support/Position/Locate
-#. Translators: Menu item Verb/Signal/Sense/Locate
 #: objects/FS/function.c:808 objects/FS/function.c:1050
 msgid "Locate"
 msgstr "वताउनुहोस"
 
 #. Translators: Menu item Verb/Connect
-#. Translators: Menu item Verb/Connect/Connect
 #: objects/FS/function.c:810 objects/FS/function.c:812
 msgid "Connect"
 msgstr "जडान गर्नुहोस्"
 
 #. Translators: Menu item Verb/Connect/Couple
-#. Translators: Menu item Verb/Connect/Couple/Couple
 #: objects/FS/function.c:814 objects/FS/function.c:816
 msgid "Couple"
 msgstr "जोडि"
@@ -2921,7 +2952,6 @@ msgid "Assemble"
 msgstr "जोर जार पार्नुहोस"
 
 #. Translators: Menu item Verb/Connect/Mix
-#. Translators: Menu item Verb/Connect/Mix/Mix
 #: objects/FS/function.c:824 objects/FS/function.c:826
 msgid "Mix"
 msgstr "मिसाउनुहोस"
@@ -2952,14 +2982,11 @@ msgid "Coalesce"
 msgstr "जोड्नुहोस"
 
 #. Translators: Menu item Verb/Branch
-#. Translators: Menu item Verb/Branch/Branch
 #: objects/FS/function.c:838 objects/FS/function.c:840 sheets/UML.sheet.in.h:5
 msgid "Branch"
 msgstr "शाखा"
 
 #. Translators: Menu item Verb/Branch/Separate
-#. Translators: Menu item Verb/Branch/Separate/Separate
-#. Translators: Menu item Verb/Branch/Separate/Separate/Separate
 #: objects/FS/function.c:842 objects/FS/function.c:844
 #: objects/FS/function.c:846
 msgid "Separate"
@@ -3016,7 +3043,6 @@ msgid "Lathe"
 msgstr "चक्का"
 
 #. Translators: Menu item Verb/Branch/Refine
-#. Translators: Menu item Verb/Branch/Refine/Refine
 #: objects/FS/function.c:872 objects/FS/function.c:874
 msgid "Refine"
 msgstr "पुनशुध्दिकरण गर्नुहोस"
@@ -3047,7 +3073,6 @@ msgid "Clear"
 msgstr "हटाउनुहोस्र॒"
 
 #. Translators: Menu item Verb/Branch/Distribute
-#. Translators: Menu item Verb/Branch/Distribute/Distribute
 #: objects/FS/function.c:886 objects/FS/function.c:888
 msgid "Distribute"
 msgstr "वितरण गर्नुहोस्"
@@ -3068,7 +3093,6 @@ msgid "Disperse"
 msgstr "तितरवितर गर्नुहोस"
 
 #. Translators: Menu item Verb/Branch/Distribute/Diffuse
-#. Translators: Menu item Verb/Branch/Dissipate/Diffuse
 #: objects/FS/function.c:896 objects/FS/function.c:910
 msgid "Diffuse"
 msgstr "खुकुलो पार्नु"
@@ -3079,7 +3103,6 @@ msgid "Empty"
 msgstr "खाली"
 
 #. Translators: Menu item Verb/Branch/Dissipate
-#. Translators: Menu item Verb/Branch/Dissipate/Dissipate
 #: objects/FS/function.c:900 objects/FS/function.c:902
 msgid "Dissipate"
 msgstr "छर्नुहोस"
@@ -3105,13 +3128,11 @@ msgid "Resist"
 msgstr "पचाउनु"
 
 #. Translators: Menu item Verb/Provision
-#. Translators: Menu item Verb/Provision/Provision
 #: objects/FS/function.c:914 objects/FS/function.c:916
 msgid "Provision"
 msgstr "व्यवस्था"
 
 #. Translators: Menu item Verb/Provision/Store
-#. Translators: Menu item Verb/Provision/Store/Store
 #: objects/FS/function.c:918 objects/FS/function.c:920
 msgid "Store"
 msgstr "भण्डार"
@@ -3132,7 +3153,6 @@ msgid "Reserve"
 msgstr "संग्रह"
 
 #. Translators: Menu item Verb/Provision/Supply
-#. Translators: Menu item Verb/Provision/Supply/Supply
 #: objects/FS/function.c:930 objects/FS/function.c:932
 msgid "Supply"
 msgstr "पुर्ति"
@@ -3163,13 +3183,11 @@ msgid "Extract"
 msgstr "वाहिर निकालनुहोस्"
 
 #. Translators: Menu item Verb/Control Magnitude
-#. Translators: Menu item Verb/Control Magnitude/Control Magnitude
 #: objects/FS/function.c:944 objects/FS/function.c:946
 msgid "Control Magnitude"
 msgstr "नियन्त्रण म्याग्निच्युड"
 
 #. Translators: Menu item Verb/Control Magnitude/Actuate
-#. Translators: Menu item Verb/Control Magnitude/Actuate/Actuate
 #: objects/FS/function.c:948 objects/FS/function.c:950
 msgid "Actuate"
 msgstr "क्रियाशिल पार्नुहोसुहोस"
@@ -3185,15 +3203,13 @@ msgid "Initiate"
 msgstr "चालु गर्नहोस"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate
-#. Translators: Menu item Verb/Control Magnitude/Regulate/Regulate
 #: objects/FS/function.c:956 objects/FS/function.c:958
 msgid "Regulate"
 msgstr "नियमित गर्नुहोस्"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Control
-#. Translators: Menu item Noun/Signal/Control
 #: objects/FS/function.c:960 objects/FS/function.c:1178
-#: objects/UML/classicon.c:126
+#: objects/UML/classicon.c:127
 msgid "Control"
 msgstr "नियन्त्रण"
 
@@ -3218,7 +3234,6 @@ msgid "Interrupt"
 msgstr "रोक(अबरोध)"
 
 #. Translators: Menu item Verb/Control Magnitude/Change
-#. Translators: Menu item Verb/Control Magnitude/Change/Change
 #: objects/FS/function.c:974 objects/FS/function.c:976
 msgid "Change"
 msgstr "परिवर्तन गर्नुहोस"
@@ -3269,7 +3284,6 @@ msgid "Adjust"
 msgstr "समायोजन गर्नु"
 
 #. Translators: Menu item Verb/Control Magnitude/Form
-#. Translators: Menu item Verb/Control Magnitude/Form/Form
 #: objects/FS/function.c:998 objects/FS/function.c:1000
 msgid "Form"
 msgstr "फारम"
@@ -3300,7 +3314,6 @@ msgid "Pierce"
 msgstr "छेड्नुहोस"
 
 #. Translators: Menu item Verb/Convert
-#. Translators: Menu item Verb/Convert/Convert
 #: objects/FS/function.c:1012 objects/FS/function.c:1014
 msgid "Convert"
 msgstr "परिवर्तन गर्नुहोस"
@@ -3351,7 +3364,6 @@ msgid "Process"
 msgstr "प्रक्रिया॒"
 
 #. Translators: Menu item Verb/Signal/Sense
-#. Translators: Menu item Verb/Signal/Sense/Sense
 #: objects/FS/function.c:1038 objects/FS/function.c:1040
 msgid "Sense"
 msgstr "संवेदन"
@@ -3382,7 +3394,6 @@ msgid "Verify"
 msgstr "रूजु गर्नुहोस्/मिलाउनुहोस्"
 
 #. Translators: Menu item Verb/Signal/Indicate
-#. Translators: Menu item Verb/Signal/Indicate/Indicate
 #: objects/FS/function.c:1054 objects/FS/function.c:1056
 msgid "Indicate"
 msgstr "देखाउनुहोस"
@@ -3398,7 +3409,6 @@ msgid "Display"
 msgstr "प्रदर्शन गर्नुहोस"
 
 #. Translators: Menu item Verb/Signal/Measure
-#. Translators: Menu item Verb/Signal/Measure/Measure
 #: objects/FS/function.c:1062 objects/FS/function.c:1064
 msgid "Measure"
 msgstr "नाप्नुहोस"
@@ -3429,8 +3439,6 @@ msgid "Gas"
 msgstr "वायु"
 
 #. Translators: Menu item Noun/Material/Human
-#. Translators: Menu item Noun/Material/Human/Human
-#. Translators: Menu item Noun/Energy/Human
 #: objects/FS/function.c:1080 objects/FS/function.c:1082
 #: objects/FS/function.c:1166
 msgid "Human"
@@ -3572,7 +3580,6 @@ msgid "Convection"
 msgstr "वाहन"
 
 #. Translators: Menu item Noun/Energy/Thermal/Radiation
-#. Translators: Menu item Noun/Energy/Radioactive/Radiation
 #: objects/FS/function.c:1140 objects/FS/function.c:1148
 msgid "Radiation"
 msgstr "जैविकिकरण"
@@ -3783,10 +3790,9 @@ msgstr "र"
 msgid "Vergent type:"
 msgstr "भरजेन्ट किसिम:"
 
-#: objects/GRAFCET/vergent.c:405 objects/SADT/box.c:445
-#: objects/Istar/other.c:469 objects/Jackson/domain.c:531
-#: objects/KAOS/goal.c:572 objects/KAOS/other.c:525
-#: objects/standard/line.c:219
+#: objects/GRAFCET/vergent.c:405 objects/Istar/other.c:469
+#: objects/Jackson/domain.c:531 objects/KAOS/goal.c:572
+#: objects/KAOS/other.c:525 objects/SADT/box.c:445 objects/standard/line.c:220
 msgid "Add connection point"
 msgstr "जडान विन्दु जोड्नुहो"
 
@@ -3797,6 +3803,205 @@ msgstr "जडान विन्दु मेट्नुहोस"
 #: objects/GRAFCET/vergent.c:410
 msgid "GRAFCET OR/AND vergent"
 msgstr "ग्राफसेट वा/र भरजेन्ट"
+
+#: objects/Istar/actor.c:68 objects/Istar/link.c:153
+msgid "Unspecified"
+msgstr "अविवरणिय"
+
+#: objects/Istar/actor.c:69 objects/KAOS/other.c:75
+msgid "Agent"
+msgstr "प्रतिनिधि"
+
+#: objects/Istar/actor.c:71
+msgid "Role"
+msgstr "भुमिका"
+
+#: objects/Istar/goal.c:76 objects/KAOS/goal.c:79
+msgid "Softgoal"
+msgstr "नरम लक्ष्य"
+
+#: objects/Istar/goal.c:77 objects/KAOS/goal.c:80
+msgid "Goal"
+msgstr "लक्ष्य"
+
+#: objects/Istar/goal.c:155 objects/Istar/goal.c:156 objects/KAOS/goal.c:157
+#: objects/KAOS/goal.c:158
+msgid "Goal Type"
+msgstr "लक्ष्य प्रकार"
+
+#: objects/Istar/istar.c:46
+msgid "Istar diagram"
+msgstr "इस्टर चित्र"
+
+#: objects/Istar/link.c:154
+msgid "Positive Contrib"
+msgstr "घनात्मक कन्ट्रिव"
+
+#: objects/Istar/link.c:155
+msgid "Negative contrib"
+msgstr "ऋणात्मक कन्ट्रिव"
+
+#: objects/Istar/link.c:156 sheets/UML.sheet.in.h:10
+msgid "Dependency"
+msgstr "भरपर्नु"
+
+#: objects/Istar/link.c:157
+msgid "Decomposition"
+msgstr "अपिघट गर्नुन"
+
+#: objects/Istar/link.c:158
+msgid "Means-Ends"
+msgstr "साधन-अन्त्यहरु"
+
+#: objects/Istar/other.c:73
+msgid "Resource"
+msgstr "श्रोत"
+
+#: objects/Istar/other.c:74
+msgid "Task"
+msgstr "कार्य"
+
+#: objects/Istar/other.c:470 objects/Jackson/domain.c:532
+#: objects/KAOS/goal.c:573 objects/KAOS/other.c:526 objects/SADT/box.c:446
+#: objects/standard/line.c:221
+msgid "Delete connection point"
+msgstr "जडान विन्दुलाई मेट्नुहोस"
+
+#: objects/Istar/other.c:475
+msgid "i* other"
+msgstr "i* अरु"
+
+#: objects/Jackson/domain.c:79
+msgid "Given Domain"
+msgstr "दिईएको डोमेन"
+
+#: objects/Jackson/domain.c:80
+msgid "Designed Domain"
+msgstr "खाका वनाईएको डोमेन"
+
+#: objects/Jackson/domain.c:81
+msgid "Machine Domain"
+msgstr "यन्त्र डोमेन"
+
+#: objects/Jackson/domain.c:97
+msgid "Causal"
+msgstr "कारक"
+
+#: objects/Jackson/domain.c:98
+msgid "Biddable"
+msgstr "निर्देशन मान्ने किसिमको"
+
+#: objects/Jackson/domain.c:99
+msgid "Lexical"
+msgstr "शव्द संग सम्वन्धित"
+
+#: objects/Jackson/domain.c:176 objects/Jackson/domain.c:177
+msgid "Domain Type"
+msgstr "डोमेन प्रकार"
+
+#: objects/Jackson/domain.c:181
+msgid "Domain Kind"
+msgstr "डोमेन किसिम"
+
+#: objects/Jackson/domain.c:182
+msgid "Optional kind which appears in the lower right corner of the Domain"
+msgstr "डोमेनको तल्लो दाहिने कुना मा देखिने वैकल्पिक किसिम"
+
+#: objects/Jackson/domain.c:537
+msgid "Jackson domain"
+msgstr "ज्याक्सन डोमेन"
+
+#: objects/Jackson/jackson.c:47
+msgid "Jackson diagram"
+msgstr "ज्याक्सन चित्र"
+
+#: objects/Jackson/phenomenon.c:134
+msgid "Shared"
+msgstr "वरावर वाडिएको"
+
+#: objects/Jackson/phenomenon.c:135 objects/KAOS/goal.c:81
+msgid "Requirement"
+msgstr "आवश्यक्ता"
+
+#: objects/Jackson/phenomenon.c:142 objects/UML/message.c:150
+msgid "Message:"
+msgstr "खबर:"
+
+#: objects/KAOS/goal.c:82
+msgid "Assumption"
+msgstr "मान्यता"
+
+#: objects/KAOS/goal.c:83
+msgid "Obstacle"
+msgstr "अवरोध"
+
+#: objects/KAOS/goal.c:578
+msgid "KAOS goal"
+msgstr "काओस उदेश्य"
+
+#: objects/KAOS/kaos.c:49
+msgid "KAOS diagram"
+msgstr "काओस चित्र"
+
+#: objects/KAOS/metaandorrel.c:151
+msgid "AND Refinement"
+msgstr "एण्ड पुन:शुध्दिकरण"
+
+#: objects/KAOS/metaandorrel.c:152
+msgid "Complete AND Refinement"
+msgstr "सकिनु एण्ड पुन:शुध्दिकरण"
+
+#: objects/KAOS/metaandorrel.c:153
+msgid "OR Refinement"
+msgstr "अर पुन:शुध्दिकरण"
+
+#: objects/KAOS/metaandorrel.c:154
+msgid "Operationalization"
+msgstr "सन्चालिकिकरण"
+
+#: objects/KAOS/metaandorrel.c:161
+msgid "Text:"
+msgstr "पाठ:"
+
+#: objects/KAOS/metabinrel.c:155
+msgid "Contributes"
+msgstr "योगदान गर्छ"
+
+#: objects/KAOS/metabinrel.c:156
+msgid "Obstructs"
+msgstr "वाधा गर्छ"
+
+#: objects/KAOS/metabinrel.c:157
+msgid "Conflicts"
+msgstr "दोधारहरु"
+
+#: objects/KAOS/metabinrel.c:158
+msgid "Responsibility"
+msgstr "दायित्व"
+
+#: objects/KAOS/metabinrel.c:159
+msgid "Monitors"
+msgstr "निरिक्षकरु"
+
+#: objects/KAOS/metabinrel.c:160
+msgid "Controls"
+msgstr "नियन्त्रणहरु"
+
+#: objects/KAOS/metabinrel.c:161
+msgid "CapableOf"
+msgstr "को सक्षम"
+
+#: objects/KAOS/metabinrel.c:162
+msgid "Performs"
+msgstr "कार्य गरेर देखाउनु"
+
+#: objects/KAOS/metabinrel.c:164
+msgid "Output"
+msgstr "निर्गत"
+
+#: objects/KAOS/other.c:531
+msgid "KAOS other"
+msgstr "काओस अरु"
 
 #: objects/Misc/analog_clock.c:137
 msgid "Arrow color"
@@ -3823,7 +4028,7 @@ msgid "Miscellaneous objects"
 msgstr "विविध वस्तुहरु"
 
 #. property rows
-#: objects/SADT/arrow.c:134 objects/UML/class.c:142
+#: objects/SADT/arrow.c:134 objects/UML/class.c:148
 #: objects/UML/class_dialog.c:357
 msgid "Normal"
 msgstr "सामान्य"
@@ -3856,7 +4061,8 @@ msgstr "ठाडो वहावलाइ स्वत: खैरो वना�
 msgid ""
 "To improve the ease of reading, flows which begin and end vertically can be "
 "rendered gray"
-msgstr "अध्ययनको सजिलोपना वढाउनको लागी;ठाडो गरि शुरु र अन्त्य हुने वहाव खैरो रुपमा दिन सक्छ"
+msgstr ""
+"अध्ययनको सजिलोपना वढाउनको लागी;ठाडो गरि शुरु र अन्त्य हुने वहाव खैरो रुपमा दिन सक्छ"
 
 #: objects/SADT/arrow.c:463
 msgid "SADT Arrow"
@@ -3876,12 +4082,6 @@ msgstr "सक्रियता/पाठ परिचायक"
 msgid "The identifier which appears in the lower right corner of the Box"
 msgstr "बाकसमा तलको दायाँ कुनामा देखिने,परिचायक"
 
-#: objects/SADT/box.c:446 objects/Istar/other.c:470
-#: objects/Jackson/domain.c:532 objects/KAOS/goal.c:573
-#: objects/KAOS/other.c:526 objects/standard/line.c:220
-msgid "Delete connection point"
-msgstr "जडान विन्दुलाई मेट्नुहोस"
-
 #: objects/SADT/box.c:451
 msgid "SADT box"
 msgstr "स्याड्ट बाकस"
@@ -3894,154 +4094,162 @@ msgstr "स्याड्ट चित्र वस्तुहरु"
 msgid "Actor"
 msgstr "पात्र"
 
-#: objects/UML/association.c:1175 objects/UML/class_dialog.c:2114
+#: objects/UML/association.c:1178 objects/UML/class_dialog.c:2102
 msgid "Direction:"
 msgstr "दिशा:"
 
-#: objects/UML/association.c:1192
+#: objects/UML/association.c:1195
 msgid "From A to B"
 msgstr "ए देखी बि सम्म"
 
-#: objects/UML/association.c:1199
+#: objects/UML/association.c:1202
 msgid "From B to A"
 msgstr "बि देखि ए सम्म"
 
-#: objects/UML/association.c:1223 objects/UML/association.c:1231
+#: objects/UML/association.c:1226 objects/UML/association.c:1234
 msgid "Side A"
 msgstr "ए छेउ"
 
-#: objects/UML/association.c:1225 objects/UML/association.c:1233
+#: objects/UML/association.c:1228 objects/UML/association.c:1236
 msgid "Side B"
 msgstr "बि छेउ"
 
-#: objects/UML/association.c:1239
+#: objects/UML/association.c:1242
 msgid "Role:"
 msgstr "भुमिका:"
 
-#: objects/UML/association.c:1251
+#: objects/UML/association.c:1254
 msgid "Multiplicity:"
 msgstr "गुणकत्व:"
 
-#: objects/UML/association.c:1262 objects/UML/class_dialog.c:952
-#: objects/UML/class_dialog.c:1876
+#: objects/UML/association.c:1265 objects/UML/class_dialog.c:946
+#: objects/UML/class_dialog.c:1864
 msgid "Visibility:"
 msgstr "दृश्यता:"
 
-#: objects/UML/association.c:1271 objects/UML/class_dialog.c:961
-#: objects/UML/class_dialog.c:1885
+#: objects/UML/association.c:1274 objects/UML/class_dialog.c:955
+#: objects/UML/class_dialog.c:1873 objects/UML/uml.c:101
 msgid "Public"
 msgstr "सार्बजनिक"
 
-#: objects/UML/association.c:1281 objects/UML/class_dialog.c:969
-#: objects/UML/class_dialog.c:1893
+#: objects/UML/association.c:1284 objects/UML/class_dialog.c:963
+#: objects/UML/class_dialog.c:1881 objects/UML/uml.c:102
 msgid "Private"
 msgstr "ब्यक्तिगत"
 
-#: objects/UML/association.c:1291 objects/UML/class_dialog.c:977
-#: objects/UML/class_dialog.c:1901
+#: objects/UML/association.c:1294 objects/UML/class_dialog.c:971
+#: objects/UML/class_dialog.c:1889 objects/UML/uml.c:103
 msgid "Protected"
 msgstr "सुरक्षित"
 
-#: objects/UML/association.c:1301 objects/UML/class_dialog.c:985
-#: objects/UML/class_dialog.c:1909
+#: objects/UML/association.c:1304 objects/UML/class_dialog.c:979
+#: objects/UML/class_dialog.c:1897
 msgid "Implementation"
 msgstr "कार्वान्वयन गर्नु"
 
 #. Show arrow:
-#: objects/UML/association.c:1320
+#: objects/UML/association.c:1323
 msgid "Show arrow"
 msgstr "वाण देखाउनुहोस"
 
 #. Aggregate
-#: objects/UML/association.c:1326
+#: objects/UML/association.c:1329
 msgid "Aggregate"
 msgstr "सम्पूर्ण योग"
 
 #. Composition
-#: objects/UML/association.c:1334
+#: objects/UML/association.c:1337
 msgid "Composition"
 msgstr "मिश्रण"
 
-#: objects/UML/class.c:109 objects/UML/class.c:247 objects/UML/class.c:1169
+#: objects/UML/class.c:115 objects/UML/class.c:281 objects/UML/class.c:1271
 #: sheets/UML.sheet.in.h:6
 msgid "Class"
 msgstr "कक्षा"
 
-#: objects/UML/class.c:113 objects/UML/classicon.c:137
+#: objects/UML/class.c:119 objects/UML/classicon.c:138
 #: objects/UML/component.c:124 objects/UML/large_package.c:128
 #: objects/UML/object.c:149 objects/UML/small_package.c:124
+#: objects/UML/umloperation.c:68
 msgid "Stereotype"
 msgstr "स्टेरियोप्रकार"
 
-#: objects/UML/class.c:115 objects/UML/class.c:152
-#: objects/UML/class_dialog.c:382 sheets/SDL.sheet.in.h:3
+#: objects/UML/class.c:121 objects/UML/class.c:158
+#: objects/UML/class_dialog.c:382 objects/UML/umlattribute.c:43
+#: objects/UML/umloperation.c:66 objects/UML/umlparameter.c:49
+#: sheets/SDL.sheet.in.h:3
 msgid "Comment"
 msgstr "टिप्पणि"
 
-#: objects/UML/class.c:117 objects/UML/class.c:146
+#: objects/UML/class.c:123 objects/UML/class.c:152
 #: objects/UML/class_dialog.c:296 objects/UML/class_dialog.c:367
-#: objects/UML/class_dialog.c:1940
+#: objects/UML/class_dialog.c:1928 objects/UML/uml.c:109
 msgid "Abstract"
 msgstr "अव्यावहारिक"
 
-#: objects/UML/class.c:119
+#: objects/UML/class.c:125
 msgid "Template"
 msgstr "टेमप्लेट॒"
 
-#: objects/UML/class.c:122 objects/UML/class_dialog.c:305
+#: objects/UML/class.c:128 objects/UML/class_dialog.c:305
 msgid "Suppress Attributes"
 msgstr "विशेषताहरु लाई सप्रेस पार्नुहोस"
 
-#: objects/UML/class.c:124
+#: objects/UML/class.c:130
 msgid "Suppress Operations"
 msgstr "सञ्चालनलाई सप्रेस गर्नुहोस"
 
-#: objects/UML/class.c:126
+#: objects/UML/class.c:132
 msgid "Visible Attributes"
 msgstr "दृश्य विशेषताहरु"
 
-#: objects/UML/class.c:128
+#: objects/UML/class.c:134
 msgid "Visible Operations"
 msgstr "दृश्य सन्चालन"
 
-#: objects/UML/class.c:130
+#: objects/UML/class.c:136
 msgid "Visible Comments"
 msgstr "दृश्य टिप्पणीहरु"
 
-#: objects/UML/class.c:132 objects/UML/class_dialog.c:321
+#: objects/UML/class.c:138 objects/UML/class_dialog.c:321
 msgid "Wrap Operations"
 msgstr "सन्चालनलाई वेर्नुहोस्"
 
-#: objects/UML/class.c:134
+#: objects/UML/class.c:140
 msgid "Wrap after char"
 msgstr "क्यार पछि वेर्नुहोस"
 
-#: objects/UML/class.c:144 objects/UML/class_dialog.c:362
+#: objects/UML/class.c:150 objects/UML/class_dialog.c:362
 msgid "Polymorphic"
 msgstr "वहुआकारिय"
 
-#: objects/UML/class.c:148
+#: objects/UML/class.c:154
 msgid "Classname"
 msgstr "कक्षाकोनाम"
 
-#: objects/UML/class.c:150
+#: objects/UML/class.c:156
 msgid "Abstract Classname"
 msgstr "कक्षाको नाम निकाल्नुहोस"
 
-#: objects/UML/class.c:156 objects/UML/class.c:158 objects/UML/class.c:160
 #: objects/UML/class.c:162 objects/UML/class.c:164 objects/UML/class.c:166
+#: objects/UML/class.c:168 objects/UML/class.c:170 objects/UML/class.c:172
 msgid " "
 msgstr ". "
 
-#: objects/UML/class.c:171 objects/UML/object.c:153
+#: objects/UML/class.c:178 objects/UML/object.c:153
 msgid "Attributes"
 msgstr "बिषेषताहरु"
 
-#: objects/UML/class.c:173
+#: objects/UML/class.c:180
 msgid "Operations"
 msgstr "सञ्चालन"
 
-#: objects/UML/class.c:241
+#: objects/UML/class.c:183
+#, fuzzy
+msgid "Template Parameters"
+msgstr "परिमितिहरु"
+
+#: objects/UML/class.c:275
 msgid "Show Comments"
 msgstr "टिप्पणि देखाउनुहोस"
 
@@ -4054,14 +4262,14 @@ msgstr "_कक्षा"
 msgid "Class name:"
 msgstr "कक्षाको नाम:"
 
-#: objects/UML/class_dialog.c:281 objects/UML/class_dialog.c:1863
+#: objects/UML/class_dialog.c:281 objects/UML/class_dialog.c:1851
 #: objects/UML/dependency.c:135 objects/UML/generalization.c:131
 #: objects/UML/realizes.c:132
 msgid "Stereotype:"
 msgstr "स्टेरियोटाइप:"
 
-#: objects/UML/class_dialog.c:288 objects/UML/class_dialog.c:940
-#: objects/UML/class_dialog.c:1981 objects/UML/class_dialog.c:2103
+#: objects/UML/class_dialog.c:288 objects/UML/class_dialog.c:934
+#: objects/UML/class_dialog.c:1969 objects/UML/class_dialog.c:2091
 msgid "Comment:"
 msgstr "टिप्पणि:"
 
@@ -4086,7 +4294,7 @@ msgid "Comments visible"
 msgstr "दृश्य टिप्पणीहरु"
 
 #. head line
-#: objects/UML/class_dialog.c:348
+#: objects/UML/class_dialog.c:348 objects/UML/umlparameter.c:51
 msgid "Kind"
 msgstr "किसम"
 
@@ -4116,113 +4324,113 @@ msgid "Background Color"
 msgstr "पृष्ठभुमि रंग"
 
 #. Attributes page:
-#: objects/UML/class_dialog.c:840
+#: objects/UML/class_dialog.c:834
 msgid "_Attributes"
 msgstr "_विशेषताहरु"
 
-#: objects/UML/class_dialog.c:868 objects/UML/class_dialog.c:1799
-#: objects/UML/class_dialog.c:2027 objects/UML/class_dialog.c:2547
+#: objects/UML/class_dialog.c:862 objects/UML/class_dialog.c:1787
+#: objects/UML/class_dialog.c:2015 objects/UML/class_dialog.c:2535
 msgid "_New"
 msgstr "_नयाँ"
 
-#: objects/UML/class_dialog.c:874 objects/UML/class_dialog.c:1805
-#: objects/UML/class_dialog.c:2034 objects/UML/class_dialog.c:2553
+#: objects/UML/class_dialog.c:868 objects/UML/class_dialog.c:1793
+#: objects/UML/class_dialog.c:2022 objects/UML/class_dialog.c:2541
 msgid "_Delete"
 msgstr "_मेट्नुहोस्"
 
-#: objects/UML/class_dialog.c:880 objects/UML/class_dialog.c:1811
-#: objects/UML/class_dialog.c:2041 objects/UML/class_dialog.c:2559
+#: objects/UML/class_dialog.c:874 objects/UML/class_dialog.c:1799
+#: objects/UML/class_dialog.c:2029 objects/UML/class_dialog.c:2547
 msgid "Move up"
 msgstr "माथि लैजानुहोस्"
 
-#: objects/UML/class_dialog.c:886 objects/UML/class_dialog.c:1817
-#: objects/UML/class_dialog.c:2048 objects/UML/class_dialog.c:2565
+#: objects/UML/class_dialog.c:880 objects/UML/class_dialog.c:1805
+#: objects/UML/class_dialog.c:2036 objects/UML/class_dialog.c:2553
 msgid "Move down"
 msgstr "तल लैजानुहोस्"
 
-#: objects/UML/class_dialog.c:897
+#: objects/UML/class_dialog.c:891
 msgid "Attribute data"
 msgstr "विशेषता लगत"
 
-#: objects/UML/class_dialog.c:929
+#: objects/UML/class_dialog.c:923
 msgid "Value:"
 msgstr "मुल्य:"
 
-#: objects/UML/class_dialog.c:1006 objects/UML/class_dialog.c:1925
+#: objects/UML/class_dialog.c:1000 objects/UML/class_dialog.c:1913
 msgid "Class scope"
 msgstr "कक्षाको भविष्य"
 
 #. Operations page:
-#: objects/UML/class_dialog.c:1771
+#: objects/UML/class_dialog.c:1759
 msgid "_Operations"
 msgstr "_सन्चालन"
 
-#: objects/UML/class_dialog.c:1829
+#: objects/UML/class_dialog.c:1817
 msgid "Operation data"
 msgstr "सन्चालन लगत"
 
-#: objects/UML/class_dialog.c:1931
+#: objects/UML/class_dialog.c:1919
 msgid "Inheritance type:"
 msgstr "वंशानुक्रम प्रकार:"
 
-#: objects/UML/class_dialog.c:1948
+#: objects/UML/class_dialog.c:1936 objects/UML/uml.c:110
 msgid "Polymorphic (virtual)"
 msgstr "वहुआकारि (अवास्तविक)"
 
-#: objects/UML/class_dialog.c:1956
+#: objects/UML/class_dialog.c:1944 objects/UML/uml.c:111
 msgid "Leaf (final)"
 msgstr "पात (अन्तिम)"
 
-#: objects/UML/class_dialog.c:1974
+#: objects/UML/class_dialog.c:1962
 msgid "Query"
 msgstr "क्वेरी"
 
-#: objects/UML/class_dialog.c:1998
+#: objects/UML/class_dialog.c:1986
 msgid "Parameters:"
 msgstr "परिमितिहरु:"
 
-#: objects/UML/class_dialog.c:2060
+#: objects/UML/class_dialog.c:2048
 msgid "Parameter data"
 msgstr "परिमिति लगत"
 
-#: objects/UML/class_dialog.c:2092
+#: objects/UML/class_dialog.c:2080
 msgid "Def. value:"
 msgstr "डेफ.मुल्य:"
 
-#: objects/UML/class_dialog.c:2123
+#: objects/UML/class_dialog.c:2111 objects/UML/umlparameter.c:34
 msgid "Undefined"
 msgstr "अपरिभाषित"
 
-#: objects/UML/class_dialog.c:2131
+#: objects/UML/class_dialog.c:2119 objects/UML/umlparameter.c:35
 msgid "In"
 msgstr "भित्र "
 
-#: objects/UML/class_dialog.c:2140
+#: objects/UML/class_dialog.c:2128 objects/UML/umlparameter.c:36
 msgid "Out"
 msgstr "बाहिर"
 
-#: objects/UML/class_dialog.c:2149
+#: objects/UML/class_dialog.c:2137 objects/UML/umlparameter.c:37
 msgid "In & Out"
 msgstr "भित्र र वाहिर"
 
 #. Templates page:
-#: objects/UML/class_dialog.c:2513
+#: objects/UML/class_dialog.c:2501
 msgid "_Templates"
 msgstr "_टेम्पलेटहरु"
 
-#: objects/UML/class_dialog.c:2519 sheets/UML.sheet.in.h:29
+#: objects/UML/class_dialog.c:2507 sheets/UML.sheet.in.h:29
 msgid "Template class"
 msgstr "टेम्पलेट श्रेणि"
 
-#: objects/UML/class_dialog.c:2576
+#: objects/UML/class_dialog.c:2564
 msgid "Formal parameter data"
 msgstr "औपचारिक परिमिति लगत"
 
-#: objects/UML/classicon.c:127
+#: objects/UML/classicon.c:128
 msgid "Boundary"
 msgstr "सिमा"
 
-#: objects/UML/classicon.c:139
+#: objects/UML/classicon.c:140
 msgid "Is object"
 msgstr "वस्तु हो"
 
@@ -4302,10 +4510,6 @@ msgstr "पठाउनुहोस्"
 msgid "Recursive"
 msgstr "पुनरावर्तिय"
 
-#: objects/UML/message.c:150 objects/Jackson/phenomenon.c:142
-msgid "Message:"
-msgstr "खबर:"
-
 #: objects/UML/message.c:152
 msgid "Message type:"
 msgstr "सन्देश प्रकार:"
@@ -4358,7 +4562,7 @@ msgstr "कार्य"
 msgid "Action to perform when this transition is taken"
 msgstr "यो सङ्कक्रमणलाई लिदा गर्नु पर्ने कार्य"
 
-#: objects/UML/transition.c:133
+#: objects/UML/transition.c:133 sheets/cisconetwork.sheet.in.h:43
 msgid "Guard"
 msgstr "शुरक्षा पर्दान गर्नु"
 
@@ -4369,6 +4573,44 @@ msgstr "घटनालाई जलाइएको वेलामा,यो �
 #: objects/UML/uml.c:65
 msgid "Unified Modelling Language diagram objects"
 msgstr "एकिकृत वहुलकिय भाषा चित्र वस्तुहरु"
+
+#: objects/UML/uml.c:104
+#, fuzzy
+msgid "Implmentation"
+msgstr "कार्वान्वयन गर्नु"
+
+#: objects/UML/umlattribute.c:41 objects/UML/umlparameter.c:47
+#, fuzzy
+msgid "Value"
+msgstr "मुल्य:"
+
+#: objects/UML/umlattribute.c:45 objects/UML/umloperation.c:71
+#, fuzzy
+msgid "Visibility"
+msgstr "दृश्यता:"
+
+#: objects/UML/umlattribute.c:47
+#, fuzzy
+msgid "Abstract (?)"
+msgstr "अव्यावहारिक"
+
+#: objects/UML/umlattribute.c:49 objects/UML/umloperation.c:77
+#, fuzzy
+msgid "Class scope (static)"
+msgstr "कक्षाको भविष्य"
+
+#: objects/UML/umloperation.c:73
+#, fuzzy
+msgid "Inheritance type"
+msgstr "वंशानुक्रम प्रकार:"
+
+#: objects/UML/umloperation.c:75
+msgid "Query (const)"
+msgstr ""
+
+#: objects/UML/umloperation.c:79 objects/chronogram/chronoline.c:162
+msgid "Parameters"
+msgstr "परिमितिहरु"
 
 #: objects/UML/usecase.c:132
 msgid "Text outside"
@@ -4415,10 +4657,6 @@ msgstr ""
 ") अवधिम  चिन्हलाइ तलतिर सेट गर्नुहोस,त्यसपछि 'अवधि'लाई पर्खिनुहोस.\n"
 "यू अवधि  चिन्हलाई \"अपरिचित\" अवस्थामा सेट गर्नुहोस,त्यसपछि 'अवधि'लाई पर्खिनुहोस.\n"
 "उदाहरण : @ 1.0 (2.0)1.0(2.0)\n"
-
-#: objects/chronogram/chronoline.c:162
-msgid "Parameters"
-msgstr "परिमितिहरु"
 
 #: objects/chronogram/chronoline.c:164 objects/chronogram/chronoref.c:146
 msgid "Start time"
@@ -4476,23 +4714,23 @@ msgstr "अनुकुल"
 msgid "Custom XML shapes loader"
 msgstr "अनुकुल एक्सएमएल आकार लोडर"
 
-#: objects/custom/custom_object.c:178 objects/custom/custom_object.c:197
+#: objects/custom/custom_object.c:178 objects/custom/custom_object.c:203
 msgid "Flip horizontal"
 msgstr "तेर्सो गरी फ्लिप गर्नु"
 
-#: objects/custom/custom_object.c:180 objects/custom/custom_object.c:199
+#: objects/custom/custom_object.c:180 objects/custom/custom_object.c:205
 msgid "Flip vertical"
 msgstr "तेर्सो गरी फ्लिप गर्नु"
 
-#: objects/custom/custom_object.c:1448
+#: objects/custom/custom_object.c:1454
 msgid "Flip Horizontal"
 msgstr "ठाडो गरी फ्लिप गर्नु"
 
-#: objects/custom/custom_object.c:1449
+#: objects/custom/custom_object.c:1455
 msgid "Flip Vertical"
 msgstr "तेर्सो गरि फ्लिप गर्नु"
 
-#: objects/custom/custom_object.c:1486
+#: objects/custom/custom_object.c:1492
 #, c-format
 msgid "Cannot open icon file %s for object type '%s'."
 msgstr "'%s' वस्तु किसिमको लागि, %s प्रतिमा फाईल खुल्न सकेन"
@@ -4509,195 +4747,6 @@ msgstr "फ्लोचार्टका  वस्तुहरु"
 #: objects/flowchart/parallelogram.c:152
 msgid "Shear angle"
 msgstr "काटेको कोण"
-
-#: objects/Istar/actor.c:68 objects/Istar/link.c:153
-msgid "Unspecified"
-msgstr "अविवरणिय"
-
-#: objects/Istar/actor.c:69 objects/KAOS/other.c:75
-msgid "Agent"
-msgstr "प्रतिनिधि"
-
-#: objects/Istar/actor.c:71
-msgid "Role"
-msgstr "भुमिका"
-
-#: objects/Istar/goal.c:76 objects/KAOS/goal.c:79
-msgid "Softgoal"
-msgstr "नरम लक्ष्य"
-
-#: objects/Istar/goal.c:77 objects/KAOS/goal.c:80
-msgid "Goal"
-msgstr "लक्ष्य"
-
-#: objects/Istar/goal.c:155 objects/Istar/goal.c:156 objects/KAOS/goal.c:157
-#: objects/KAOS/goal.c:158
-msgid "Goal Type"
-msgstr "लक्ष्य प्रकार"
-
-#: objects/Istar/istar.c:46
-msgid "Istar diagram"
-msgstr "इस्टर चित्र"
-
-#: objects/Istar/link.c:154
-msgid "Positive Contrib"
-msgstr "घनात्मक कन्ट्रिव"
-
-#: objects/Istar/link.c:155
-msgid "Negative contrib"
-msgstr "ऋणात्मक कन्ट्रिव"
-
-#: objects/Istar/link.c:156 sheets/UML.sheet.in.h:10
-msgid "Dependency"
-msgstr "भरपर्नु"
-
-#: objects/Istar/link.c:157
-msgid "Decomposition"
-msgstr "अपिघट गर्नुन"
-
-#: objects/Istar/link.c:158
-msgid "Means-Ends"
-msgstr "साधन-अन्त्यहरु"
-
-#: objects/Istar/other.c:73
-msgid "Resource"
-msgstr "श्रोत"
-
-#: objects/Istar/other.c:74
-msgid "Task"
-msgstr "कार्य"
-
-#: objects/Istar/other.c:475
-msgid "i* other"
-msgstr "i* अरु"
-
-#: objects/Jackson/domain.c:79
-msgid "Given Domain"
-msgstr "दिईएको डोमेन"
-
-#: objects/Jackson/domain.c:80
-msgid "Designed Domain"
-msgstr "खाका वनाईएको डोमेन"
-
-#: objects/Jackson/domain.c:81
-msgid "Machine Domain"
-msgstr "यन्त्र डोमेन"
-
-#: objects/Jackson/domain.c:97
-msgid "Causal"
-msgstr "कारक"
-
-#: objects/Jackson/domain.c:98
-msgid "Biddable"
-msgstr "निर्देशन मान्ने किसिमको"
-
-#: objects/Jackson/domain.c:99
-msgid "Lexical"
-msgstr "शव्द संग सम्वन्धित"
-
-#: objects/Jackson/domain.c:176 objects/Jackson/domain.c:177
-msgid "Domain Type"
-msgstr "डोमेन प्रकार"
-
-#: objects/Jackson/domain.c:181
-msgid "Domain Kind"
-msgstr "डोमेन किसिम"
-
-#: objects/Jackson/domain.c:182
-msgid "Optional kind which appears in the lower right corner of the Domain"
-msgstr "डोमेनको तल्लो दाहिने कुना मा देखिने वैकल्पिक किसिम"
-
-#: objects/Jackson/domain.c:537
-msgid "Jackson domain"
-msgstr "ज्याक्सन डोमेन"
-
-#: objects/Jackson/jackson.c:47
-msgid "Jackson diagram"
-msgstr "ज्याक्सन चित्र"
-
-#: objects/Jackson/phenomenon.c:134
-msgid "Shared"
-msgstr "वरावर वाडिएको"
-
-#: objects/Jackson/phenomenon.c:135 objects/KAOS/goal.c:81
-msgid "Requirement"
-msgstr "आवश्यक्ता"
-
-#: objects/KAOS/goal.c:82
-msgid "Assumption"
-msgstr "मान्यता"
-
-#: objects/KAOS/goal.c:83
-msgid "Obstacle"
-msgstr "अवरोध"
-
-#: objects/KAOS/goal.c:578
-msgid "KAOS goal"
-msgstr "काओस उदेश्य"
-
-#: objects/KAOS/kaos.c:49
-msgid "KAOS diagram"
-msgstr "काओस चित्र"
-
-#: objects/KAOS/metaandorrel.c:151
-msgid "AND Refinement"
-msgstr "एण्ड पुन:शुध्दिकरण"
-
-#: objects/KAOS/metaandorrel.c:152
-msgid "Complete AND Refinement"
-msgstr "सकिनु एण्ड पुन:शुध्दिकरण"
-
-#: objects/KAOS/metaandorrel.c:153
-msgid "OR Refinement"
-msgstr "अर पुन:शुध्दिकरण"
-
-#: objects/KAOS/metaandorrel.c:154
-msgid "Operationalization"
-msgstr "सन्चालिकिकरण"
-
-#: objects/KAOS/metaandorrel.c:161
-msgid "Text:"
-msgstr "पाठ:"
-
-#: objects/KAOS/metabinrel.c:155
-msgid "Contributes"
-msgstr "योगदान गर्छ"
-
-#: objects/KAOS/metabinrel.c:156
-msgid "Obstructs"
-msgstr "वाधा गर्छ"
-
-#: objects/KAOS/metabinrel.c:157
-msgid "Conflicts"
-msgstr "दोधारहरु"
-
-#: objects/KAOS/metabinrel.c:158
-msgid "Responsibility"
-msgstr "दायित्व"
-
-#: objects/KAOS/metabinrel.c:159
-msgid "Monitors"
-msgstr "निरिक्षकरु"
-
-#: objects/KAOS/metabinrel.c:160
-msgid "Controls"
-msgstr "नियन्त्रणहरु"
-
-#: objects/KAOS/metabinrel.c:161
-msgid "CapableOf"
-msgstr "को सक्षम"
-
-#: objects/KAOS/metabinrel.c:162
-msgid "Performs"
-msgstr "कार्य गरेर देखाउनु"
-
-#: objects/KAOS/metabinrel.c:164
-msgid "Output"
-msgstr "निर्गत"
-
-#: objects/KAOS/other.c:531
-msgid "KAOS other"
-msgstr "काओस अरु"
 
 #: objects/network/basestation.c:135
 msgid "Sectors"
@@ -4743,21 +4792,21 @@ msgstr "कोष प्रकार:"
 msgid "Subscribers"
 msgstr "ग्राहकहरु"
 
-#: objects/standard/arc.c:131
+#: objects/standard/arc.c:135
 msgid "Curve distance"
 msgstr "दुरीलाई वक्र पार्नुहोस"
 
-#: objects/standard/bezier.c:137 objects/standard/line.c:141
+#: objects/standard/bezier.c:137 objects/standard/line.c:142
 #: objects/standard/polyline.c:135
 msgid "Line gaps"
 msgstr "रेखा अन्तरहरु"
 
-#: objects/standard/bezier.c:139 objects/standard/line.c:143
+#: objects/standard/bezier.c:139 objects/standard/line.c:144
 #: objects/standard/polyline.c:137
 msgid "Absolute start gap"
 msgstr "निश्चीत शुरु अन्तर"
 
-#: objects/standard/bezier.c:141 objects/standard/line.c:145
+#: objects/standard/bezier.c:141 objects/standard/line.c:146
 #: objects/standard/polyline.c:139
 msgid "Absolute end gap"
 msgstr "निश्चीत अन्त्य अन्तर"
@@ -4823,7 +4872,6 @@ msgid "Keep aspect ratio"
 msgstr "आशा अनुपात राख्नुहोस"
 
 #. Found file in same dir as diagram.
-#. Found file in current dir.
 #: objects/standard/image.c:672 objects/standard/image.c:683
 #, c-format
 msgid ""
@@ -4839,15 +4887,15 @@ msgstr ""
 msgid "The image file '%s' was not found.\n"
 msgstr "'%s' छवि फाईल त्यो डाइरेक्टोरिमा भेट्टाउन सकेन.\n"
 
-#: objects/standard/line.c:132
+#: objects/standard/line.c:133
 msgid "Arrows"
 msgstr "तीरहरु"
 
-#: objects/standard/line.c:137
+#: objects/standard/line.c:138
 msgid "Start point"
 msgstr "शुरु विन्दु"
 
-#: objects/standard/line.c:139
+#: objects/standard/line.c:140
 msgid "End point"
 msgstr "अन्त्य विन्दु"
 
@@ -4863,35 +4911,35 @@ msgstr "कुनो मेट्नुहोस"
 msgid "Standard objects"
 msgstr "सर्वमान्य वस्तु"
 
-#: plug-ins/cairo/diacairo.c:1031
+#: plug-ins/cairo/diacairo.c:1078
 msgid "Cairo PostScript"
 msgstr "काईरो पि एस"
 
-#: plug-ins/cairo/diacairo.c:1040
+#: plug-ins/cairo/diacairo.c:1087
 msgid "Cairo Portable Document Format"
 msgstr "काईरो वहनयोग्य कागजात फरमेट"
 
-#: plug-ins/cairo/diacairo.c:1049
+#: plug-ins/cairo/diacairo.c:1096
 msgid "Cairo PNG"
 msgstr "काईरो पिएनजि"
 
-#: plug-ins/cairo/diacairo.c:1057
+#: plug-ins/cairo/diacairo.c:1104
 msgid "Cairo PNG (with alpha)"
 msgstr "काईरो पिएनजि(अल्फा संगै)"
 
-#: plug-ins/cairo/diacairo.c:1066
+#: plug-ins/cairo/diacairo.c:1113
 msgid "Cairo WMF"
 msgstr "काईरो डव्ल्यूएमएफ"
 
-#: plug-ins/cairo/diacairo.c:1075
+#: plug-ins/cairo/diacairo.c:1122
 msgid "Cairo old WMF"
 msgstr "काईरो पुरानो डव्ल्यूएमएफ"
 
-#: plug-ins/cairo/diacairo.c:1084
+#: plug-ins/cairo/diacairo.c:1131
 msgid "Cairo Clipboard"
 msgstr "काईरो क्लिपवोर्ड"
 
-#: plug-ins/cairo/diacairo.c:1127
+#: plug-ins/cairo/diacairo.c:1174
 msgid "Cairo based Rendering"
 msgstr "काईरो मा आधारित प्रतिपादन"
 
@@ -4937,7 +4985,7 @@ msgstr "अपरिचित डिएफएक्स कोड %d\n"
 msgid "Drawing Interchange File import and export filters"
 msgstr "चित्र फेरवदल फाईल आयात र निर्याल फिल्टरहरु"
 
-#: plug-ins/gprint/diagnomeprint.c:79
+#: plug-ins/gprint/diagnomeprint.c:81
 #, c-format
 msgid ""
 "GNOME Print Backend\n"
@@ -4948,19 +4996,19 @@ msgstr ""
 " '%s'\n"
 " उपलव्ध छैन"
 
-#: plug-ins/gprint/diagnomeprint.c:110
+#: plug-ins/gprint/diagnomeprint.c:112
 msgid "GNOME PostScript"
 msgstr "जिनोम पोस्टस्क्रिप्ट"
 
-#: plug-ins/gprint/diagnomeprint.c:119
+#: plug-ins/gprint/diagnomeprint.c:121
 msgid "GNOME Portable Document Format"
 msgstr "जिनोम वहनयोग्य कागजात फरमेट"
 
-#: plug-ins/gprint/diagnomeprint.c:128
+#: plug-ins/gprint/diagnomeprint.c:131
 msgid "GNOME Scalable Vector Graphic"
 msgstr "जिनोम मापनिय ठाडो ग्राफिक"
 
-#: plug-ins/gprint/diagnomeprint.c:159
+#: plug-ins/gprint/diagnomeprint.c:164
 msgid "GNOME Print based Rendering"
 msgstr "जिनोम छपाई आधारित प्रतिपादन"
 
@@ -4976,7 +5024,7 @@ msgstr "एचपि ग्राफिक भाषा निर्यात �
 msgid "TeX Metapost export filter"
 msgstr "टेक्स मेटापोस्ट निर्यात फिल्टर"
 
-#: plug-ins/metapost/render_metapost.c:1033
+#: plug-ins/metapost/render_metapost.c:1175
 msgid "TeX Metapost macros"
 msgstr "टेक्स मेटापोस्ट म्याक्रोज"
 
@@ -4999,11 +5047,11 @@ msgstr "जिडिके-पिक्सबफ आधारित विटम
 msgid "TeX Pstricks export filter"
 msgstr "टे एक्स पि स्ट्रिक्स निर्यात फिल्टर"
 
-#: plug-ins/pstricks/render_pstricks.c:730
+#: plug-ins/pstricks/render_pstricks.c:731
 msgid "Not valid UTF8"
 msgstr "अमान्य युटिएफ८"
 
-#: plug-ins/pstricks/render_pstricks.c:979
+#: plug-ins/pstricks/render_pstricks.c:980
 msgid "TeX PSTricks macros"
 msgstr "टे एक्स पि स्ट्रिक्स म्याक्रोज"
 
@@ -5016,11 +5064,11 @@ msgstr "लेख्नको लागि '%s'खुल्न सकेन.\n"
 msgid "Python scripting support"
 msgstr "अजिङ्गर स्क्रिप्टिङ्ग सहायता"
 
-#: plug-ins/shape/shape-export.c:470
+#: plug-ins/shape/shape-export.c:476
 msgid "Can't export png without libart!"
 msgstr "लिबर्ट विना पिएनजि निर्यात गर्न सक्दैन!"
 
-#: plug-ins/shape/shape-export.c:497
+#: plug-ins/shape/shape-export.c:501
 msgid "Dia Shape File"
 msgstr "डाय आकारको फाईल"
 
@@ -5028,7 +5076,7 @@ msgstr "डाय आकारको फाईल"
 msgid "dia shape export filter"
 msgstr "डाय आकारको निर्यात फिल्टरल"
 
-#: plug-ins/svg/render_svg.c:301 plug-ins/svg/svg-import.c:669
+#: plug-ins/svg/render_svg.c:291 plug-ins/svg/svg-import.c:669
 msgid "Scalable Vector Graphics"
 msgstr "मापनिय योग्य शिर्ष ग्रफिक"
 
@@ -5073,9 +5121,7 @@ msgstr "शव्द पोख्त ग्राफिक निर्यात
 #: plug-ins/xfig/xfig-export.c:461
 #, c-format
 msgid "FIG format has no equivalent of arrow style %s, using simple arrow.\n"
-msgstr ""
-"एफआईजि फरमेट वरावर वाण शैलि%s छैन, "
-"साधारण वाण प्रयोग गरिदै.\n"
+msgstr "एफआईजि फरमेट वरावर वाण शैलि%s छैन, साधारण वाण प्रयोग गरिदै.\n"
 
 #: plug-ins/xfig/xfig-export.c:483
 msgid "No more user-definable colors - using black"
@@ -5091,7 +5137,9 @@ msgstr "डाय द्वारा नमुनाहरुलाइ सहा
 
 #: plug-ins/xfig/xfig-import.c:500
 msgid "Triple-dotted lines are not supported by Dia, using double-dotted"
-msgstr "तिन-पटक गरियका थोप्लाहरु डाय द्वारा सहायता गरियन,दुई-पटक गरियका थोप्लाहरु प्रयिग गरिदै "
+msgstr ""
+"तिन-पटक गरियका थोप्लाहरु डाय द्वारा सहायता गरियन,दुई-पटक गरियका थोप्लाहरु प्रयिग "
+"गरिदै "
 
 #: plug-ins/xfig/xfig-import.c:504
 #, c-format
@@ -5760,7 +5808,7 @@ msgstr ""
 msgid "Lamp"
 msgstr ""
 
-#: sheets/Circuit.sheet.in.h:16 sheets/ciscomisc.sheet.in.h:26
+#: sheets/Circuit.sheet.in.h:16 sheets/ciscomisc.sheet.in.h:30
 msgid "Microphone"
 msgstr ""
 
@@ -5788,7 +5836,7 @@ msgstr ""
 msgid "PNP bipolar transistor"
 msgstr ""
 
-#: sheets/Circuit.sheet.in.h:26 sheets/ciscomisc.sheet.in.h:39
+#: sheets/Circuit.sheet.in.h:26 sheets/ciscomisc.sheet.in.h:42
 msgid "Speaker"
 msgstr "स्पिकर"
 
@@ -6946,23 +6994,23 @@ msgid "Time scale"
 msgstr ""
 
 #: sheets/ciscocomputer.sheet.in.h:1
-msgid "Cisco - Computer"
+msgid "BBS"
 msgstr ""
 
 #: sheets/ciscocomputer.sheet.in.h:2
-msgid "Cisco CA"
+msgid "Cisco - Computer"
 msgstr ""
 
 #: sheets/ciscocomputer.sheet.in.h:3
-msgid "CiscoSecurity"
+msgid "Cisco CA"
 msgstr ""
 
 #: sheets/ciscocomputer.sheet.in.h:4
-msgid "CiscoWorks workstation"
+msgid "CiscoSecurity"
 msgstr ""
 
 #: sheets/ciscocomputer.sheet.in.h:5
-msgid "Communications server"
+msgid "CiscoWorks workstation"
 msgstr ""
 
 #: sheets/ciscocomputer.sheet.in.h:6
@@ -6970,279 +7018,496 @@ msgid "Computer shapes by Cisco"
 msgstr ""
 
 #: sheets/ciscocomputer.sheet.in.h:7
-msgid "Directory Server"
+msgid "Disk subsystem"
 msgstr ""
 
 #: sheets/ciscocomputer.sheet.in.h:8
-msgid "File Server"
+msgid "Diskette"
 msgstr ""
 
 #: sheets/ciscocomputer.sheet.in.h:9
-msgid "HP Mini"
+msgid "EtherClient"
 msgstr ""
 
 #: sheets/ciscocomputer.sheet.in.h:10
-msgid "Handheld"
-msgstr ""
+#, fuzzy
+msgid "FC Storage"
+msgstr "संग्रहण"
 
 #: sheets/ciscocomputer.sheet.in.h:11
-msgid "Host"
-msgstr "होस्ट"
+msgid "File Server"
+msgstr ""
 
 #: sheets/ciscocomputer.sheet.in.h:12
-msgid "IBM Mini (AS400)"
+msgid "Front End Processor"
 msgstr ""
 
 #: sheets/ciscocomputer.sheet.in.h:13
-msgid "IBM Tower"
+msgid "HP Mini"
 msgstr ""
 
 #: sheets/ciscocomputer.sheet.in.h:14
-msgid "IBM mainframe"
+msgid "Handheld"
 msgstr ""
 
 #: sheets/ciscocomputer.sheet.in.h:15
-msgid "IP Softphone"
-msgstr ""
+msgid "Host"
+msgstr "होस्ट"
 
 #: sheets/ciscocomputer.sheet.in.h:16
-msgid "IPTV broadcast server"
+msgid "IBM Mini (AS400)"
 msgstr ""
 
 #: sheets/ciscocomputer.sheet.in.h:17
-msgid "Laptop"
+msgid "IBM Tower"
 msgstr ""
 
 #: sheets/ciscocomputer.sheet.in.h:18
-msgid "Macintosh"
+msgid "IBM mainframe"
 msgstr ""
 
 #: sheets/ciscocomputer.sheet.in.h:19
-msgid "MicroWebserver"
+msgid "IBM mainframe with FEP"
 msgstr ""
 
 #: sheets/ciscocomputer.sheet.in.h:20
-msgid "Mini VAX"
+msgid "JBOD"
 msgstr ""
 
 #: sheets/ciscocomputer.sheet.in.h:21
-msgid "MoH server (Music on Hold)"
+msgid "Laptop"
 msgstr ""
 
 #: sheets/ciscocomputer.sheet.in.h:22
-msgid "PC"
+msgid "Macintosh"
 msgstr ""
 
 #: sheets/ciscocomputer.sheet.in.h:23
-msgid "PC Video"
+msgid "MicroWebserver"
 msgstr ""
 
 #: sheets/ciscocomputer.sheet.in.h:24
-msgid "PDA"
+msgid "Mini VAX"
 msgstr ""
 
-#: sheets/ciscocomputer.sheet.in.h:26
-msgid "Relational Database"
-msgstr ""
+#: sheets/ciscocomputer.sheet.in.h:25
+msgid "Modem"
+msgstr "मोडेम"
+
+#: sheets/ciscocomputer.sheet.in.h:26 sheets/network.sheet.in.h:19
+msgid "Monitor"
+msgstr "मनिटर"
 
 #: sheets/ciscocomputer.sheet.in.h:27
-msgid "SC2200/VSC3000 host"
-msgstr ""
+#, fuzzy
+msgid "Newton"
+msgstr "नयाँ"
 
 #: sheets/ciscocomputer.sheet.in.h:28
-msgid "SIP Proxy server"
+msgid "PC"
 msgstr ""
 
 #: sheets/ciscocomputer.sheet.in.h:29
-msgid "STB (set top box)"
+msgid "PC Adapter Card"
 msgstr ""
 
 #: sheets/ciscocomputer.sheet.in.h:30
-msgid "SUN workstation"
+msgid "PC Card"
 msgstr ""
 
 #: sheets/ciscocomputer.sheet.in.h:31
-msgid "Scanner"
+msgid "PC Router Card"
 msgstr ""
 
 #: sheets/ciscocomputer.sheet.in.h:32
-msgid "Server with PC Router"
+msgid "PC Software"
 msgstr ""
 
 #: sheets/ciscocomputer.sheet.in.h:33
-msgid "Softphone"
+msgid "PC Video"
 msgstr ""
 
 #: sheets/ciscocomputer.sheet.in.h:34
-msgid "Software based server"
+msgid "PC with Router-Based Software"
 msgstr ""
 
 #: sheets/ciscocomputer.sheet.in.h:35
-msgid "Storage array"
-msgstr ""
-
-#: sheets/ciscocomputer.sheet.in.h:36
-msgid "Supercomputer"
+msgid "PDA"
 msgstr ""
 
 #: sheets/ciscocomputer.sheet.in.h:37
-msgid "TV"
+msgid "Relational Database"
 msgstr ""
 
 #: sheets/ciscocomputer.sheet.in.h:38
-msgid "Terminal"
-msgstr "टर्मिनल"
+msgid "SUN workstation"
+msgstr ""
 
 #: sheets/ciscocomputer.sheet.in.h:39
-msgid "Turret"
+msgid "Scanner"
 msgstr ""
 
 #: sheets/ciscocomputer.sheet.in.h:40
-msgid "Unity server"
+msgid "Server with PC Router"
 msgstr ""
 
 #: sheets/ciscocomputer.sheet.in.h:41
-msgid "Voice commserver"
+msgid "Software-Based Router on File Server"
 msgstr ""
 
 #: sheets/ciscocomputer.sheet.in.h:42
-msgid "WWW server"
+msgid "Storage array"
 msgstr ""
 
 #: sheets/ciscocomputer.sheet.in.h:43
-msgid "Web browser"
+msgid "Supercomputer"
 msgstr ""
 
 #: sheets/ciscocomputer.sheet.in.h:44
-msgid "Web cluster"
+msgid "Tablet"
 msgstr ""
 
 #: sheets/ciscocomputer.sheet.in.h:45
+msgid "Tape array"
+msgstr ""
+
+#: sheets/ciscocomputer.sheet.in.h:46
+msgid "Terminal"
+msgstr "टर्मिनल"
+
+#: sheets/ciscocomputer.sheet.in.h:47
+msgid "WWW server"
+msgstr ""
+
+#: sheets/ciscocomputer.sheet.in.h:48
+msgid "Web browser"
+msgstr ""
+
+#: sheets/ciscocomputer.sheet.in.h:49
+msgid "Web cluster"
+msgstr ""
+
+#: sheets/ciscocomputer.sheet.in.h:50
 msgid "Wireless"
 msgstr "ताररहित"
 
-#: sheets/ciscocomputer.sheet.in.h:46
+#: sheets/ciscocomputer.sheet.in.h:51
 msgid "Workgroup director"
 msgstr ""
 
-#: sheets/ciscocomputer.sheet.in.h:47
-msgid "Workstation"
-msgstr ""
-
 #: sheets/ciscohub.sheet.in.h:1
-msgid "100BaseT hub"
+msgid "100BaseT Hub"
 msgstr ""
 
 #: sheets/ciscohub.sheet.in.h:2
-msgid "ATM fast gigabit etherswitch"
+msgid "7500ARS (7513) Router"
 msgstr ""
 
 #: sheets/ciscohub.sheet.in.h:3
-msgid "ATM switch"
+msgid "7505 Router"
 msgstr ""
 
 #: sheets/ciscohub.sheet.in.h:4
-msgid "Cisco - Hub"
+msgid "7507 Router"
 msgstr ""
 
 #: sheets/ciscohub.sheet.in.h:5
-msgid "Cisco hub"
-msgstr ""
+#, fuzzy
+msgid "ASIC Processor"
+msgstr "प्रक्रिया॒"
 
 #: sheets/ciscohub.sheet.in.h:6
-msgid "Class 4/5 switch"
+msgid "ATM 3800"
 msgstr ""
 
 #: sheets/ciscohub.sheet.in.h:7
-msgid "Content service switch 1100"
+msgid "ATM Fast Gigabit Etherswitch"
 msgstr ""
 
 #: sheets/ciscohub.sheet.in.h:8
-msgid "Content switch"
-msgstr ""
+#, fuzzy
+msgid "ATM Switch"
+msgstr "बटन दबाउनुहोस्"
 
 #: sheets/ciscohub.sheet.in.h:9
-msgid "Content switch module"
+msgid "ATM Tag Switch Router"
 msgstr ""
 
 #: sheets/ciscohub.sheet.in.h:10
-msgid "Generic softswitch"
+msgid "Access Gateway"
 msgstr ""
 
 #: sheets/ciscohub.sheet.in.h:11
-msgid "Hub"
+msgid "BBSM"
 msgstr ""
 
 #: sheets/ciscohub.sheet.in.h:12
-msgid "Hub and switch shapes by Cisco"
+msgid "Broadband router"
 msgstr ""
 
 #: sheets/ciscohub.sheet.in.h:13
-msgid "ISDN switch"
+msgid "CSM-S"
 msgstr ""
 
 #: sheets/ciscohub.sheet.in.h:14
-msgid "Layer 3 switch"
+msgid "Carrier Routing System"
 msgstr ""
 
 #: sheets/ciscohub.sheet.in.h:15
-msgid "MGX 8220 switch"
-msgstr ""
+#, fuzzy
+msgid "Cisco - Switch"
+msgstr "बटन दबाउनुहोस्"
 
 #: sheets/ciscohub.sheet.in.h:16
-msgid "MGX 8240 switch"
+msgid "Cisco 1000"
 msgstr ""
 
 #: sheets/ciscohub.sheet.in.h:17
-msgid "MGX 8260 switch"
+msgid "Cisco Hub"
 msgstr ""
 
 #: sheets/ciscohub.sheet.in.h:18
-msgid "MultiSwitch device"
-msgstr ""
+#, fuzzy
+msgid "Content Router"
+msgstr "केन्द्र"
 
 #: sheets/ciscohub.sheet.in.h:19
-msgid "Multilayer switch"
+msgid "Content Service Module"
 msgstr ""
 
 #: sheets/ciscohub.sheet.in.h:20
-msgid "PBX switch"
+msgid "Content Service Switch 1100"
 msgstr ""
 
 #: sheets/ciscohub.sheet.in.h:21
-msgid "Programmable switch"
-msgstr ""
+#, fuzzy
+msgid "Content Switch"
+msgstr "बटन दबाउनुहोस्"
 
 #: sheets/ciscohub.sheet.in.h:22
-msgid "Route switch processor"
-msgstr ""
+#, fuzzy
+msgid "Data Center Switch"
+msgstr "लगत रेखा चौडाई"
 
 #: sheets/ciscohub.sheet.in.h:23
-msgid "Small hub"
+msgid "Data Center Switch Reversed"
 msgstr ""
 
 #: sheets/ciscohub.sheet.in.h:24
-msgid "Voice ATM switch"
+msgid "Data Switch Processor"
 msgstr ""
 
 #: sheets/ciscohub.sheet.in.h:25
-msgid "Voice switch"
+msgid "Director-class Fibre Channel intelligent switch"
 msgstr ""
 
 #: sheets/ciscohub.sheet.in.h:26
-msgid "Voice switch 2"
+msgid "Edge Label Switch Router"
 msgstr ""
 
 #: sheets/ciscohub.sheet.in.h:27
+msgid "Edge Label Switch Router with NetFlow"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:28
+msgid "Generic Processor"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:29
+msgid "Hub"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:30
+msgid "Hub subdued"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:31
+msgid "ISDN switch"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:32
+#, fuzzy
+msgid "LAN2LAN Switch"
+msgstr "बटन दबाउनुहोस्"
+
+#: sheets/ciscohub.sheet.in.h:33
+msgid "Label Switch Router"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:34
+msgid "Layer 2 Remote Switch"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:35
+msgid "MGX 8220"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:36
+msgid "MGX 8240"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:37
+msgid "MGX 8260"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:38
+msgid "Multi-Fabric Server Switch"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:39
+msgid "MultiSwitch Device"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:40
+msgid "Multilayer Remote Switch"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:41
+#, fuzzy
+msgid "Multilayer Switch"
+msgstr "वहु दृष्टान्त"
+
+#: sheets/ciscohub.sheet.in.h:42
+msgid "Multilayer Switch with Silicon"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:43
+msgid "Multilayer Switch with Silicon subdued"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:44
+msgid "NetFlow router"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:45
+msgid "NetRanger"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:46
+#, fuzzy
+msgid "NetSonar"
+msgstr "सञ्जाल"
+
+#: sheets/ciscohub.sheet.in.h:47
+msgid "Optical Services Router"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:48
+msgid "PXF"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:49
+#, fuzzy
+msgid "Programmable Switch"
+msgstr "प्रोग्राम गरियको डाय वस्तु"
+
+#: sheets/ciscohub.sheet.in.h:50
+msgid "RateMUX"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:51
+msgid "Route Switch Processor"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:52
+msgid "Route Switch Processor with Si"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:53
+msgid "Router"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:54
+msgid "Router and switch shapes by Cisco"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:55
+msgid "Router subdued"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:56
+msgid "Router with Firewall"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:57
+msgid "Router with Silicon Switch"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:58
+#, fuzzy
+msgid "Server Switch"
+msgstr "बटन दबाउनुहोस्"
+
+#: sheets/ciscohub.sheet.in.h:59
+msgid "Small Hub"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:60
+#, fuzzy
+msgid "Storage Router"
+msgstr "संग्रहण"
+
+#: sheets/ciscohub.sheet.in.h:61
+#, fuzzy
+msgid "Switch Processor"
+msgstr "प्रक्रिया॒"
+
+#: sheets/ciscohub.sheet.in.h:62
+msgid "Universal Gateway"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:63
+msgid "Virtual Layer Switch"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:64
+msgid "Wavelength router"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:65
+#, fuzzy
+msgid "Wireless router"
+msgstr "ताररहित"
+
+#: sheets/ciscohub.sheet.in.h:66
+msgid "Workgroup 5000"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:67
+msgid "Workgroup 5002"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:68
+msgid "Workgroup 5500"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:69
+msgid "Workgroup Fibre Channel intelligent switch"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:70
+msgid "Workgroup Switch Voice-Enabled"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:71
 msgid "Workgroup switch"
 msgstr ""
 
+#: sheets/ciscohub.sheet.in.h:72
+msgid "Workgroup switch Subdued"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:73
+#, fuzzy
+msgid "iSCSI switch"
+msgstr "बटन दबाउनुहोस्"
+
 #: sheets/ciscomisc.sheet.in.h:1
-msgid "BBFW"
+msgid "Androgynous Person"
 msgstr ""
 
 #: sheets/ciscomisc.sheet.in.h:2
-msgid "BBFW media"
+msgid "Antenna"
 msgstr ""
 
 #: sheets/ciscomisc.sheet.in.h:3
@@ -7250,15 +7515,15 @@ msgid "Branch office"
 msgstr ""
 
 #: sheets/ciscomisc.sheet.in.h:4
-msgid "Breakout box"
+msgid "Branch office blue"
 msgstr ""
 
 #: sheets/ciscomisc.sheet.in.h:5
-msgid "Car"
+msgid "Branch office subdued"
 msgstr ""
 
 #: sheets/ciscomisc.sheet.in.h:6
-msgid "Cellular phone"
+msgid "Car"
 msgstr ""
 
 #: sheets/ciscomisc.sheet.in.h:7
@@ -7266,164 +7531,191 @@ msgid "Cisco - Misc"
 msgstr ""
 
 #: sheets/ciscomisc.sheet.in.h:8
-msgid "Diskette"
+msgid "CiscoWorks Man"
 msgstr ""
 
 #: sheets/ciscomisc.sheet.in.h:9
-msgid "Dot-Dot"
-msgstr ""
-
-#: sheets/ciscomisc.sheet.in.h:10
-msgid "End office"
-msgstr ""
-
-#: sheets/ciscomisc.sheet.in.h:11
-msgid "Fax"
-msgstr "फ्याक्स"
-
-#: sheets/ciscomisc.sheet.in.h:12
 msgid "File cabinet"
 msgstr ""
 
+#: sheets/ciscomisc.sheet.in.h:10
+msgid "Generic Building"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:11
+msgid "Generic Building blue"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:12
+msgid "Generic Building subdued"
+msgstr ""
+
 #: sheets/ciscomisc.sheet.in.h:13
-msgid "Generic building"
+msgid "Government Building"
 msgstr ""
 
 #: sheets/ciscomisc.sheet.in.h:14
-msgid "Government building"
-msgstr ""
+#, fuzzy
+msgid "Headphones"
+msgstr "टेलिफोन"
 
 #: sheets/ciscomisc.sheet.in.h:15
-msgid "H.323"
+msgid "Home office"
 msgstr ""
 
 #: sheets/ciscomisc.sheet.in.h:16
-msgid "HootPhone"
-msgstr ""
+#, fuzzy
+msgid "House"
+msgstr "होस्ट"
 
 #: sheets/ciscomisc.sheet.in.h:17
-msgid "IP phone"
+msgid "House blue"
 msgstr ""
 
 #: sheets/ciscomisc.sheet.in.h:18
-msgid "ITP"
-msgstr ""
-
-#: sheets/ciscomisc.sheet.in.h:19
 msgid "Key"
 msgstr "कुञ्ज"
 
 #: sheets/ciscomisc.sheet.in.h:20
-msgid "LAN to LAN"
+msgid "Lock and Key"
 msgstr ""
 
-#: sheets/ciscomisc.sheet.in.h:22
-msgid "MAU"
-msgstr ""
-
-#: sheets/ciscomisc.sheet.in.h:23
+#: sheets/ciscomisc.sheet.in.h:21
 msgid "MDU"
 msgstr ""
 
+#: sheets/ciscomisc.sheet.in.h:22
+#, fuzzy
+msgid "Mac Woman"
+msgstr "यन्त्र डोमेन"
+
+#: sheets/ciscomisc.sheet.in.h:23
+#, fuzzy
+msgid "Man"
+msgstr "ठुलो वनाउनुहोस"
+
 #: sheets/ciscomisc.sheet.in.h:24
-msgid "Mac woman"
+msgid "Man blue"
 msgstr ""
 
 #: sheets/ciscomisc.sheet.in.h:25
-msgid "Man/Woman"
+msgid "Man gold"
 msgstr ""
 
+#: sheets/ciscomisc.sheet.in.h:26
+#, fuzzy
+msgid "Man red"
+msgstr "वरावर वाडिएको"
+
 #: sheets/ciscomisc.sheet.in.h:27
-msgid "Miscellaneous shapes by Cisco"
+msgid "Medium Building"
 msgstr ""
 
 #: sheets/ciscomisc.sheet.in.h:28
-msgid "PC man"
+msgid "Medium Building blue"
 msgstr ""
 
 #: sheets/ciscomisc.sheet.in.h:29
-msgid "Phone"
-msgstr "फोन"
-
-#: sheets/ciscomisc.sheet.in.h:30
-msgid "Phone/Fax"
+msgid "Medium Building subdued"
 msgstr ""
 
 #: sheets/ciscomisc.sheet.in.h:31
-msgid "RPS"
+msgid "Miscellaneous shapes by Cisco"
 msgstr ""
 
 #: sheets/ciscomisc.sheet.in.h:32
-msgid "Radio tower"
+msgid "PC Man"
 msgstr ""
 
 #: sheets/ciscomisc.sheet.in.h:33
-msgid "Running man"
+msgid "PC Man left"
 msgstr ""
 
 #: sheets/ciscomisc.sheet.in.h:34
-msgid "SVX (interchangeable with End office)"
+msgid "Running man"
 msgstr ""
 
 #: sheets/ciscomisc.sheet.in.h:35
-msgid "Satellite"
+msgid "Running man subdued"
 msgstr ""
 
 #: sheets/ciscomisc.sheet.in.h:36
-msgid "Satellite dish"
+msgid "Running woman"
 msgstr ""
 
 #: sheets/ciscomisc.sheet.in.h:37
-msgid "Sitting woman"
+msgid "Satellite"
 msgstr ""
 
 #: sheets/ciscomisc.sheet.in.h:38
-msgid "Small business"
+msgid "Satellite dish"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:39
+msgid "Sitting Woman"
 msgstr ""
 
 #: sheets/ciscomisc.sheet.in.h:40
-msgid "Standing man"
+msgid "Sitting Woman right"
 msgstr ""
 
 #: sheets/ciscomisc.sheet.in.h:41
-msgid "Tablet"
-msgstr ""
-
-#: sheets/ciscomisc.sheet.in.h:42
-msgid "Telecommuter"
+msgid "Small Business"
 msgstr ""
 
 #: sheets/ciscomisc.sheet.in.h:43
-msgid "Telecommuter house"
+msgid "Standing Man"
 msgstr ""
 
 #: sheets/ciscomisc.sheet.in.h:44
-msgid "Telecommuter house/router"
+msgid "Standing woman"
 msgstr ""
 
 #: sheets/ciscomisc.sheet.in.h:45
-msgid "TokenRing"
+msgid "Telecommuter"
 msgstr ""
 
 #: sheets/ciscomisc.sheet.in.h:46
-msgid "Truck"
+msgid "Telecommuter house"
 msgstr ""
 
 #: sheets/ciscomisc.sheet.in.h:47
-msgid "UPS"
+msgid "Telecommuter house subdued"
 msgstr ""
 
 #: sheets/ciscomisc.sheet.in.h:48
-msgid "University"
+msgid "Truck"
 msgstr ""
 
 #: sheets/ciscomisc.sheet.in.h:49
-msgid "Video camera"
+msgid "University"
 msgstr ""
 
 #: sheets/ciscomisc.sheet.in.h:50
-msgid "Wireless transport"
+msgid "Video Camera"
 msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:51
+msgid "Video Camera right"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:52
+#, fuzzy
+msgid "Woman"
+msgstr "मानवे"
+
+#: sheets/ciscomisc.sheet.in.h:53
+msgid "Woman blue"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:54
+msgid "Woman gold"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:55
+#, fuzzy
+msgid "Woman red"
+msgstr "डोमेन किसिम"
 
 #: sheets/cisconetwork.sheet.in.h:1
 msgid "10700"
@@ -7434,103 +7726,110 @@ msgid "15200"
 msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:3
-msgid "3174 (desktop) cluster controller"
+msgid "15800"
 msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:4
-msgid "3X74 (floor) cluster controller"
+msgid "3174 (desktop) cluster controller"
 msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:5
-msgid "6701"
+msgid "3X74 (floor) cluster controller"
 msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:6
-msgid "6705 Integrated access device"
-msgstr ""
+#, fuzzy
+msgid "Access Server"
+msgstr "संग्रह"
 
 #: sheets/cisconetwork.sheet.in.h:7
-msgid "6732 Multiservice access platform"
-msgstr ""
-
-#: sheets/cisconetwork.sheet.in.h:8
-msgid "ADM"
-msgstr ""
-
-#: sheets/cisconetwork.sheet.in.h:9
-msgid "ASIC processor"
-msgstr ""
-
-#: sheets/cisconetwork.sheet.in.h:10
-msgid "ATA"
-msgstr ""
-
-#: sheets/cisconetwork.sheet.in.h:11
-msgid "ATM 3800"
-msgstr ""
-
-#: sheets/cisconetwork.sheet.in.h:12
 msgid "AccessPoint"
 msgstr ""
 
-#: sheets/cisconetwork.sheet.in.h:13
-msgid "BBSM"
+#: sheets/cisconetwork.sheet.in.h:8
+msgid "Automatic Protection Switching"
 msgstr ""
 
-#: sheets/cisconetwork.sheet.in.h:14
-msgid "BTS 10200"
+#: sheets/cisconetwork.sheet.in.h:9
+msgid "BBFW"
 msgstr ""
 
-#: sheets/cisconetwork.sheet.in.h:15
+#: sheets/cisconetwork.sheet.in.h:10
+msgid "BBFW media"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:11
+msgid "Breakout box"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:12
 msgid "Bridge"
 msgstr ""
 
-#: sheets/cisconetwork.sheet.in.h:16
-msgid "CDDI-FDDI"
+#: sheets/cisconetwork.sheet.in.h:13
+msgid "CDDI/FDDI Concentrator"
 msgstr ""
 
-#: sheets/cisconetwork.sheet.in.h:17
-msgid "CDM Content distribution manager"
+#: sheets/cisconetwork.sheet.in.h:14
+msgid "CDM Content Distribution Manager"
 msgstr ""
 
-#: sheets/cisconetwork.sheet.in.h:18
+#: sheets/cisconetwork.sheet.in.h:15
 msgid "CSU/DSU"
 msgstr ""
 
-#: sheets/cisconetwork.sheet.in.h:19
-msgid "Cable modem"
+#: sheets/cisconetwork.sheet.in.h:16
+#, fuzzy
+msgid "Cable Modem"
+msgstr "मोडेम"
+
+#: sheets/cisconetwork.sheet.in.h:17
+msgid "Catalyst Access Gateway"
 msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:18
+msgid "Centri Firewall"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:19
+#, fuzzy
+msgid "Channelized Pipe"
+msgstr "च्यानल"
 
 #: sheets/cisconetwork.sheet.in.h:20
-msgid "CallManager"
-msgstr ""
-
-#: sheets/cisconetwork.sheet.in.h:21
-msgid "Catalyst access gateway"
-msgstr ""
-
-#: sheets/cisconetwork.sheet.in.h:22
-msgid "Centri firewall"
-msgstr ""
-
-#: sheets/cisconetwork.sheet.in.h:23
 msgid "Cisco - Network"
 msgstr ""
 
-#: sheets/cisconetwork.sheet.in.h:24
+#: sheets/cisconetwork.sheet.in.h:21
 msgid "Cloud"
 msgstr "बादल"
 
+#: sheets/cisconetwork.sheet.in.h:22
+#, fuzzy
+msgid "Cloud Dark"
+msgstr "बादल"
+
+#: sheets/cisconetwork.sheet.in.h:23
+#, fuzzy
+msgid "Cloud Gold"
+msgstr "बादल"
+
+#: sheets/cisconetwork.sheet.in.h:24
+#, fuzzy
+msgid "Cloud White"
+msgstr "बादल"
+
 #: sheets/cisconetwork.sheet.in.h:25
-msgid "Content engine (Cache director)"
+msgid "Concatenated Payload"
 msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:26
-msgid "Content transformation engine (CTE)"
-msgstr ""
+#, fuzzy
+msgid "Content Engine (Cache Director)"
+msgstr "सहायता डाईरेक्टोरी भेट्टाउन सकेन"
 
 #: sheets/cisconetwork.sheet.in.h:27
-msgid "DPT"
+msgid "Content Transformation Engine (CTE)"
 msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:28
@@ -7538,319 +7837,546 @@ msgid "DSLAM"
 msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:29
-msgid "DWDM filter"
-msgstr ""
+#, fuzzy
+msgid "DWDM Filter"
+msgstr "Filter"
 
 #: sheets/cisconetwork.sheet.in.h:30
-msgid "Distributed director"
-msgstr ""
+#, fuzzy
+msgid "Detector"
+msgstr "भागहरु"
 
 #: sheets/cisconetwork.sheet.in.h:31
-msgid "FC storage"
+msgid "Digital Cross-Connect"
 msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:32
-msgid "FDDI ring"
+msgid "Directory Server"
 msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:33
-msgid "Firewall"
-msgstr ""
+#, fuzzy
+msgid "Distributed Director"
+msgstr "वितरण गर्नुहोस्"
 
 #: sheets/cisconetwork.sheet.in.h:34
-msgid "Front end processor"
+msgid "Dual Mode AccessPoint"
 msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:35
-msgid "General appliance"
+msgid "FDDI Ring"
 msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:36
-msgid "Generic gateway"
-msgstr ""
+#, fuzzy
+msgid "File Engine"
+msgstr "भरियको दीर्धवृत"
 
 #: sheets/cisconetwork.sheet.in.h:37
-msgid "Generic processor"
+msgid "Firewall"
 msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:38
-msgid "ICM"
+msgid "Firewall Service Module"
 msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:39
-msgid "ICS"
-msgstr ""
+#, fuzzy
+msgid "Firewall horizontal"
+msgstr "तेर्सो गरी फ्लिप गर्नु"
 
 #: sheets/cisconetwork.sheet.in.h:40
-msgid "IOS firewall"
+msgid "Firewall subdued"
 msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:41
-msgid "IP"
-msgstr "आई पी"
-
-#: sheets/cisconetwork.sheet.in.h:42
-msgid "IP DSL"
+msgid "General Appliance"
 msgstr ""
 
-#: sheets/cisconetwork.sheet.in.h:43
-msgid "IPTC"
-msgstr "आइ पि टि सि"
+#: sheets/cisconetwork.sheet.in.h:42
+msgid "Generic Gateway"
+msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:44
-msgid "IPTV content manager"
+msgid "IOS Firewall"
 msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:45
-msgid "LocalDirector"
+msgid "IOS SLB"
 msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:46
-msgid "LongReach CPE"
-msgstr ""
+msgid "IP"
+msgstr "आई पी"
 
 #: sheets/cisconetwork.sheet.in.h:47
-msgid "MAS gateway"
-msgstr ""
+#, fuzzy
+msgid "IP DSL Switch"
+msgstr "बटन दबाउनुहोस्"
 
 #: sheets/cisconetwork.sheet.in.h:48
-msgid "ME 1100"
+msgid "IP Old-style"
 msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:49
-msgid "MUX"
+msgid "IP Transport Concentrator"
 msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:50
-msgid "Metro 1500"
+msgid "IPTV broadcast server"
 msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:51
-msgid "Modem"
-msgstr "मोडेम"
+msgid "IPTV content manager"
+msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:52
-msgid "NetRanger intrusion detection system"
+msgid "LAN to LAN"
 msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:53
-msgid "NetSonar security scanner"
+msgid "Lightweight AP"
 msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:54
-msgid "Network management"
+msgid "LocalDirector"
 msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:55
-msgid "Network shapes by Cisco"
+msgid "Location server"
 msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:56
-msgid "ONS15500 DWDM platform"
+msgid "LongReach CPE"
 msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:57
-msgid "Octel"
+msgid "MAS Gateway"
 msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:58
-msgid "Optical amplifier"
+msgid "MAU"
 msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:59
-msgid "Optical transport"
+msgid "ME 1100"
 msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:60
-msgid "PAD"
+msgid "MUX"
 msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:61
-msgid "PAD X.28"
+msgid "Metro 1500"
 msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:62
-msgid "PBX"
+msgid "NAT"
 msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:63
-msgid "PC adapter card"
-msgstr ""
+#, fuzzy
+msgid "Network Management"
+msgstr "सन्जाल चित्र वस्तुहरु"
 
 #: sheets/cisconetwork.sheet.in.h:64
-msgid "PC router card"
+msgid "Network shapes by Cisco"
 msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:65
-msgid "PIX firewall"
+msgid "ONS15104"
 msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:66
-msgid "PXF"
+msgid "ONS15540"
 msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:67
-msgid "Protocol translator"
-msgstr ""
+#, fuzzy
+msgid "Optical Amplifier"
+msgstr "ध्रुवण शक्ति"
 
 #: sheets/cisconetwork.sheet.in.h:68
-msgid "RateMUX"
+msgid "Optical Cross-Connect"
 msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:69
-msgid "Repeater"
-msgstr ""
+#, fuzzy
+msgid "Optical Fiber"
+msgstr "ध्रुवण शक्ति"
 
 #: sheets/cisconetwork.sheet.in.h:70
-msgid "SC2200 (Signalling controller)"
-msgstr ""
+#, fuzzy
+msgid "Optical Transport"
+msgstr "ढुवानि"
 
 #: sheets/cisconetwork.sheet.in.h:71
-msgid "STP"
+msgid "PAD"
 msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:72
-msgid "System controller"
+msgid "PIX Firewall"
 msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:73
-msgid "Transpath"
+msgid "PIX Firewall Left"
 msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:74
-msgid "Universal gateway"
-msgstr ""
+#, fuzzy
+msgid "Protocol Translator"
+msgstr "अनुवाद"
 
 #: sheets/cisconetwork.sheet.in.h:75
-msgid "VIP"
-msgstr "भि आइ पि"
+msgid "RPS"
+msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:76
-msgid "VPN concentrator"
+msgid "Repeater"
 msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:77
-msgid "VPN gateway"
-msgstr ""
+#, fuzzy
+msgid "SSL Terminator"
+msgstr "टर्मिनल"
 
 #: sheets/cisconetwork.sheet.in.h:78
-msgid "Virtual switch controller (VSC 3000)"
+msgid "STB (set top box)"
 msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:79
-msgid "Wireless bridge"
+msgid "Security appliance"
 msgstr ""
 
-#: sheets/ciscorouter.sheet.in.h:1
-msgid "7500ARS (7513)"
+#: sheets/cisconetwork.sheet.in.h:80
+#, fuzzy
+msgid "Service Control"
+msgstr "सममिति नियन्त्रण"
+
+#: sheets/cisconetwork.sheet.in.h:81
+msgid "Storage Solution Engine"
 msgstr ""
 
-#: sheets/ciscorouter.sheet.in.h:2
-msgid "7505"
+#: sheets/cisconetwork.sheet.in.h:82
+msgid "System controller"
 msgstr ""
 
-#: sheets/ciscorouter.sheet.in.h:3
-msgid "7507"
+#: sheets/cisconetwork.sheet.in.h:83
+msgid "TV"
 msgstr ""
 
-#: sheets/ciscorouter.sheet.in.h:4
-msgid "ATM router"
+#: sheets/cisconetwork.sheet.in.h:84
+#, fuzzy
+msgid "Terminal Server"
+msgstr "टर्मिनल"
+
+#: sheets/cisconetwork.sheet.in.h:85
+msgid "TokenRing"
 msgstr ""
 
-#: sheets/ciscorouter.sheet.in.h:5
-msgid "ATM tag sw gigabit router"
+#: sheets/cisconetwork.sheet.in.h:86
+#, fuzzy
+msgid "TransPath"
+msgstr "रूपान्तर गर्नहोस्"
+
+#: sheets/cisconetwork.sheet.in.h:87
+msgid "UPS"
 msgstr ""
 
-#: sheets/ciscorouter.sheet.in.h:6
-msgid "ATM tag switch router"
+#: sheets/cisconetwork.sheet.in.h:88
+msgid "VIP"
+msgstr "भि आइ पि"
+
+#: sheets/cisconetwork.sheet.in.h:89
+msgid "VN2900"
 msgstr ""
 
-#: sheets/ciscorouter.sheet.in.h:7
-msgid "Broadband router"
+#: sheets/cisconetwork.sheet.in.h:90
+msgid "VN5900"
 msgstr ""
 
-#: sheets/ciscorouter.sheet.in.h:8
-msgid "Cisco - Router"
+#: sheets/cisconetwork.sheet.in.h:91
+msgid "VN5902"
 msgstr ""
 
-#: sheets/ciscorouter.sheet.in.h:9
-msgid "Cisco 1000"
+#: sheets/cisconetwork.sheet.in.h:92
+msgid "VPN Concentrator"
 msgstr ""
 
-#: sheets/ciscorouter.sheet.in.h:10
-msgid "Content service router"
+#: sheets/cisconetwork.sheet.in.h:93
+msgid "VPN Gateway"
 msgstr ""
 
-#: sheets/ciscorouter.sheet.in.h:11
-msgid "Gigabit switch router (ATM tag)"
+#: sheets/cisconetwork.sheet.in.h:94
+#, fuzzy
+msgid "WAN"
+msgstr "र"
+
+#: sheets/cisconetwork.sheet.in.h:95
+msgid "WDM"
 msgstr ""
 
-#: sheets/ciscorouter.sheet.in.h:12
+#: sheets/cisconetwork.sheet.in.h:96
+#, fuzzy
+msgid "WLAN controller"
+msgstr "वान जडान "
+
+#: sheets/cisconetwork.sheet.in.h:97
+msgid "Wi-Fi Tag"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:98
+#, fuzzy
+msgid "Wireless Bridge"
+msgstr "ताररहित"
+
+#: sheets/cisconetwork.sheet.in.h:99
+msgid "Wireless Connectivity"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:100
+msgid "Wireless Location Appliance"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:101
+#, fuzzy
+msgid "Wireless Transport"
+msgstr "ढुवानि"
+
+#: sheets/cisconetwork.sheet.in.h:102
+msgid "uBR910 Cable DSU"
+msgstr ""
+
+#: sheets/ciscotelephony.sheet.in.h:1
+msgid "6701"
+msgstr ""
+
+#: sheets/ciscotelephony.sheet.in.h:2
+msgid "6705"
+msgstr ""
+
+#: sheets/ciscotelephony.sheet.in.h:3
+msgid "6732"
+msgstr ""
+
+#: sheets/ciscotelephony.sheet.in.h:4
+msgid "ADM"
+msgstr ""
+
+#: sheets/ciscotelephony.sheet.in.h:5
+msgid "ATA"
+msgstr ""
+
+#: sheets/ciscotelephony.sheet.in.h:6
+msgid "BTS 10200"
+msgstr ""
+
+#: sheets/ciscotelephony.sheet.in.h:7
+msgid "CallManager"
+msgstr ""
+
+#: sheets/ciscotelephony.sheet.in.h:8
+msgid "Cellular Phone"
+msgstr ""
+
+#: sheets/ciscotelephony.sheet.in.h:9
+#, fuzzy
+msgid "Cisco - Telephony"
+msgstr "टेलिफोन"
+
+#: sheets/ciscotelephony.sheet.in.h:10
+msgid "Class 4/5 switch"
+msgstr ""
+
+#: sheets/ciscotelephony.sheet.in.h:11
+#, fuzzy
+msgid "End Office"
+msgstr "अन्त्य समय"
+
+#: sheets/ciscotelephony.sheet.in.h:12
+msgid "Fax"
+msgstr "फ्याक्स"
+
+#: sheets/ciscotelephony.sheet.in.h:13
+msgid "Gatekeeper"
+msgstr ""
+
+#: sheets/ciscotelephony.sheet.in.h:14
+msgid "Generic softswitch"
+msgstr ""
+
+#: sheets/ciscotelephony.sheet.in.h:15
+msgid "H.323"
+msgstr ""
+
+#: sheets/ciscotelephony.sheet.in.h:16
+msgid "HootPhone"
+msgstr ""
+
+#: sheets/ciscotelephony.sheet.in.h:17
 msgid "IAD router"
 msgstr ""
 
-#: sheets/ciscorouter.sheet.in.h:13
-msgid "IP telephony router"
+#: sheets/ciscotelephony.sheet.in.h:18
+msgid "ICM"
 msgstr ""
 
-#: sheets/ciscorouter.sheet.in.h:14
-msgid "NetFlow router"
+#: sheets/ciscotelephony.sheet.in.h:19
+msgid "ICS"
 msgstr ""
 
-#: sheets/ciscorouter.sheet.in.h:15
-msgid "Optical services router"
+#: sheets/ciscotelephony.sheet.in.h:20
+#, fuzzy
+msgid "IP Phone"
+msgstr "फोन"
+
+#: sheets/ciscotelephony.sheet.in.h:21
+msgid "IP Softphone"
 msgstr ""
 
-#: sheets/ciscorouter.sheet.in.h:16
-msgid "Router"
+#: sheets/ciscotelephony.sheet.in.h:22
+#, fuzzy
+msgid "IP Telephony Router"
+msgstr "टेलिफोन"
+
+#: sheets/ciscotelephony.sheet.in.h:23
+msgid "ITP"
 msgstr ""
 
-#: sheets/ciscorouter.sheet.in.h:17
-msgid "Router in building"
+#: sheets/ciscotelephony.sheet.in.h:24
+msgid "IntelliSwitch Stack"
 msgstr ""
 
-#: sheets/ciscorouter.sheet.in.h:18
-msgid "Router shapes by Cisco"
+#: sheets/ciscotelephony.sheet.in.h:25
+msgid "MCU"
 msgstr ""
 
-#: sheets/ciscorouter.sheet.in.h:19
-msgid "Router with firewall"
+#: sheets/ciscotelephony.sheet.in.h:26
+msgid "MGX 8000 Series Voice Gateway"
 msgstr ""
 
-#: sheets/ciscorouter.sheet.in.h:20
-msgid "Router with silicon switch"
+#: sheets/ciscotelephony.sheet.in.h:27
+msgid "MoH server (Music on Hold)"
 msgstr ""
 
-#: sheets/ciscorouter.sheet.in.h:21
-msgid "Storage router"
+#: sheets/ciscotelephony.sheet.in.h:28
+msgid "Mobile Access IP Phone"
 msgstr ""
 
-#: sheets/ciscorouter.sheet.in.h:22
+#: sheets/ciscotelephony.sheet.in.h:29
+msgid "Mobile Access Router"
+msgstr ""
+
+#: sheets/ciscotelephony.sheet.in.h:30
+msgid "Octel"
+msgstr ""
+
+#: sheets/ciscotelephony.sheet.in.h:31
+msgid "PBX"
+msgstr ""
+
+#: sheets/ciscotelephony.sheet.in.h:32
+#, fuzzy
+msgid "PBX Switch"
+msgstr "बटन दबाउनुहोस्"
+
+#: sheets/ciscotelephony.sheet.in.h:33
+#, fuzzy
+msgid "Pager"
+msgstr "पृष्ठ टुक्राहरु"
+
+#: sheets/ciscotelephony.sheet.in.h:34
+msgid "Phone"
+msgstr "फोन"
+
+#: sheets/ciscotelephony.sheet.in.h:35
+#, fuzzy
+msgid "Phone 2"
+msgstr "फोन"
+
+#: sheets/ciscotelephony.sheet.in.h:36
+msgid "Phone Appliance"
+msgstr ""
+
+#: sheets/ciscotelephony.sheet.in.h:37
+msgid "Phone Ethernet"
+msgstr ""
+
+#: sheets/ciscotelephony.sheet.in.h:38
+msgid "Phone Feature"
+msgstr ""
+
+#: sheets/ciscotelephony.sheet.in.h:39
+msgid "Phone/Fax"
+msgstr ""
+
+#: sheets/ciscotelephony.sheet.in.h:40
+#, fuzzy
+msgid "Radio Tower"
+msgstr "रेडियो तरङ्ग"
+
+#: sheets/ciscotelephony.sheet.in.h:41
+msgid "SC2200 (Signalling Controller)"
+msgstr ""
+
+#: sheets/ciscotelephony.sheet.in.h:42
+msgid "SC2200/VSC3000 host"
+msgstr ""
+
+#: sheets/ciscotelephony.sheet.in.h:43
+msgid "SIP Proxy Server"
+msgstr ""
+
+#: sheets/ciscotelephony.sheet.in.h:44
+msgid "SONET MUX"
+msgstr ""
+
+#: sheets/ciscotelephony.sheet.in.h:45
+msgid "STP"
+msgstr ""
+
+#: sheets/ciscotelephony.sheet.in.h:46
+msgid "Softphone"
+msgstr ""
+
+#: sheets/ciscotelephony.sheet.in.h:47
 msgid "TDM router"
 msgstr ""
 
-#: sheets/ciscorouter.sheet.in.h:23
-msgid "Voice router"
+#: sheets/ciscotelephony.sheet.in.h:48
+msgid "Telephony shapes by Cisco"
 msgstr ""
 
-#: sheets/ciscorouter.sheet.in.h:24
-msgid "Wavelength router"
+#: sheets/ciscotelephony.sheet.in.h:49
+msgid "Turret"
 msgstr ""
 
-#: sheets/ciscorouter.sheet.in.h:25
-msgid "Workgroup 5000 multilayer switch"
+#: sheets/ciscotelephony.sheet.in.h:50
+msgid "Unity Express"
 msgstr ""
 
-#: sheets/ciscorouter.sheet.in.h:26
-msgid "Workgroup 5002 multilayer switch"
+#: sheets/ciscotelephony.sheet.in.h:51
+msgid "Unity server"
 msgstr ""
 
-#: sheets/ciscorouter.sheet.in.h:27
-msgid "Workgroup 5500 multilayer switch"
+#: sheets/ciscotelephony.sheet.in.h:52
+msgid "Virtual switch controller (VSC 3000)"
 msgstr ""
 
-#: sheets/ciscorouter.sheet.in.h:28
-msgid "uBR910"
+#: sheets/ciscotelephony.sheet.in.h:53
+msgid "Voice-Enabled ATM Switch"
+msgstr ""
+
+#: sheets/ciscotelephony.sheet.in.h:54
+msgid "Voice-Enabled Access Server"
+msgstr ""
+
+#: sheets/ciscotelephony.sheet.in.h:55
+msgid "Voice-Enabled Router"
+msgstr ""
+
+#: sheets/ciscotelephony.sheet.in.h:56
+msgid "uMG series"
 msgstr ""
 
 #: sheets/civil.sheet.in.h:1
@@ -8113,10 +8639,6 @@ msgstr ""
 msgid "Modular switching system"
 msgstr ""
 
-#: sheets/network.sheet.in.h:19
-msgid "Monitor"
-msgstr "मनिटर"
-
 #: sheets/network.sheet.in.h:20
 msgid "Network"
 msgstr "सञ्जाल"
@@ -8229,3 +8751,5 @@ msgstr ""
 msgid "Sybase replication server"
 msgstr ""
 
+#~ msgid "IPTC"
+#~ msgstr "आइ पि टि सि"

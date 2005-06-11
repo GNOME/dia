@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: be\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-03-27 16:18+0200\n"
+"POT-Creation-Date: 2005-06-11 13:40+0200\n"
 "PO-Revision-Date: 2003-07-20 17:11+0300\n"
 "Last-Translator: Vital Khilko <dojlid@mova.org>\n"
 "Language-Team: Belarusian <i18n@mova.org>\n"
@@ -17,127 +17,150 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.0\n"
 
-#: app/app_procs.c:228
+#. This is not an errror
+#: app/app_procs.c:260
+#, c-format
+msgid "Warning: invalid layer range %lu - %lu\n"
+msgstr ""
+
+#: app/app_procs.c:272
+#, c-format
+msgid "Warning: Layer %lu (%s) selected more than once.\n"
+msgstr ""
+
+#: app/app_procs.c:298
+#, c-format
+msgid "Warning: Layer %d (%s) selected more than once.\n"
+msgstr ""
+
+#: app/app_procs.c:307
+#, c-format
+msgid "Warning: There is no layer named %s\n"
+msgstr ""
+
+#: app/app_procs.c:389
 #, c-format
 msgid "%s error: don't know how to export into %s\n"
 msgstr ""
 
-#: app/app_procs.c:237
+#: app/app_procs.c:398
 #, c-format
 msgid "%s error: input and output file name is identical: %s"
 msgstr ""
 
-#: app/app_procs.c:246
+#: app/app_procs.c:406
 #, c-format
 msgid "%s error: need valid input file %s\n"
 msgstr ""
 
 #. if (!quiet)
-#: app/app_procs.c:291
+#: app/app_procs.c:431
 #, c-format
 msgid "%s --> %s\n"
 msgstr "%s --> %s\n"
 
-#: app/app_procs.c:437
+#: app/app_procs.c:577
 #, fuzzy, c-format
 msgid "Can't find output format/filter %s\n"
 msgstr "Немагчыма адшукаць сямейства шрыфта для %s\n"
 
 #. Translators:  The argument is a list of options, not to be translated
-#: app/app_procs.c:524
+#: app/app_procs.c:664
 #, c-format
 msgid "Select the filter/format out of: %s"
 msgstr ""
 
 #. &export_file_name
-#: app/app_procs.c:543 app/app_procs.c:567
+#: app/app_procs.c:683 app/app_procs.c:708
 msgid "Export loaded file and exit"
 msgstr "Экспартаваць загружаны файл і выйсьці"
 
-#: app/app_procs.c:543 app/app_procs.c:567 app/diaconv.c:94
+#: app/app_procs.c:683 app/app_procs.c:708 app/diaconv.c:94
 msgid "OUTPUT"
 msgstr "ВЫВАД"
 
 #. &export_file_format
 #. &export_format_string
-#: app/app_procs.c:545 app/app_procs.c:569
+#: app/app_procs.c:685 app/app_procs.c:710
 msgid "TYPE"
 msgstr ""
 
-#: app/app_procs.c:547 app/app_procs.c:572
+#: app/app_procs.c:687 app/app_procs.c:713
 msgid "Export graphics size"
 msgstr ""
 
-#: app/app_procs.c:547 app/app_procs.c:572
+#: app/app_procs.c:687 app/app_procs.c:713
 msgid "WxH"
 msgstr ""
 
 #. 13.3.2004 sampo@iki.fi
-#: app/app_procs.c:549 app/app_procs.c:574
-msgid "Show only specified layers (e.g. when exporting)"
+#: app/app_procs.c:689 app/app_procs.c:715
+msgid ""
+"Show only specified layers (e.g. when exporting). Can be either the layer "
+"name or a range of layer numbers (X-Y)"
 msgstr ""
 
-#: app/app_procs.c:549 app/app_procs.c:574
+#: app/app_procs.c:690 app/app_procs.c:716
 msgid "LAYER,LAYER,..."
 msgstr ""
 
-#: app/app_procs.c:551 app/app_procs.c:576
+#: app/app_procs.c:692 app/app_procs.c:718
 msgid "Don't show the splash screen"
 msgstr "Не адлюстроўваць застаўку"
 
-#: app/app_procs.c:553 app/app_procs.c:578
+#: app/app_procs.c:694 app/app_procs.c:720
 msgid "Send error messages to stderr instead of showing dialogs."
 msgstr ""
 
-#: app/app_procs.c:555 app/app_procs.c:580
+#: app/app_procs.c:696 app/app_procs.c:722
 msgid "Display credits list and exit"
 msgstr "Адлюстраваць сьпіс падзякаў і выйсьці"
 
-#: app/app_procs.c:557 app/app_procs.c:582
+#: app/app_procs.c:698 app/app_procs.c:724
 msgid "Generate verbose output"
 msgstr ""
 
-#: app/app_procs.c:559 app/app_procs.c:584
+#: app/app_procs.c:700 app/app_procs.c:726
 msgid "Display version and exit"
 msgstr "Адлюстраваць вэрсыю й выйсьці"
 
-#: app/app_procs.c:585 app/diaconv.c:95
+#: app/app_procs.c:727 app/diaconv.c:95
 msgid "Show this help message"
 msgstr "Адлюстроўвае гэтае паведамленьне даведкі"
 
-#: app/app_procs.c:633
+#: app/app_procs.c:777
 msgid "Can't connect to session manager!\n"
 msgstr "Немагчыма далучыцца да кіраўніка сэансаў!\n"
 
 #. TRANSLATOR: 2nd and 3rd %s are time and date respectively.
-#: app/app_procs.c:665
+#: app/app_procs.c:809
 #, c-format
 msgid "Dia version %s, compiled %s %s\n"
 msgstr "Дыя вэрсыі %s, скампілявана %s %s\n"
 
-#: app/app_procs.c:667
+#: app/app_procs.c:811
 #, c-format
 msgid "Dia version %s\n"
 msgstr "Дыя вэрсыі %s\n"
 
-#: app/app_procs.c:729 app/app_procs.c:731 app/diaconv.c:201 app/diaconv.c:203
+#: app/app_procs.c:873 app/app_procs.c:875 app/diaconv.c:201 app/diaconv.c:203
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr ""
 
-#: app/app_procs.c:772
+#: app/app_procs.c:916
 #, fuzzy
 msgid "Diagram1.dia"
 msgstr "Дыяграма-%d.dia"
 
-#: app/app_procs.c:814
+#: app/app_procs.c:958
 msgid ""
 "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you can cause this message to appear.\n"
 msgstr ""
 
 #. no standard buttons
-#: app/app_procs.c:827
+#: app/app_procs.c:971
 msgid ""
 "Modified diagrams exist.\n"
 "Are you sure you want to quit Dia\n"
@@ -147,35 +170,35 @@ msgstr ""
 "Вы сапраўды жадаеце выйсьці з Дыя\n"
 "бяз іхняга захаваньня?"
 
-#: app/app_procs.c:830
+#: app/app_procs.c:974
 msgid "Quit Dia"
 msgstr "Выйсьці з Дыя"
 
 #. This printf seems to prevent a race condition with unrefs.
 #. Yuck.  -Lars
-#: app/app_procs.c:883
+#: app/app_procs.c:1027
 msgid "Thank you for using Dia.\n"
 msgstr ""
 
-#: app/app_procs.c:900 app/app_procs.c:907
+#: app/app_procs.c:1044 app/app_procs.c:1051
 msgid "Could not create per-user Dia config directory"
 msgstr ""
 
-#: app/app_procs.c:909
+#: app/app_procs.c:1053
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
 msgstr ""
 
-#: app/app_procs.c:931 app/diaconv.c:251
+#: app/app_procs.c:1075 app/diaconv.c:251
 msgid "Objects and filters internal to dia"
 msgstr ""
 
-#: app/app_procs.c:973 app/diaconv.c:121
+#: app/app_procs.c:1117 app/diaconv.c:121
 msgid "[OPTION...] [FILE...]"
 msgstr "[ВЫБАР...] [ФАЙЛ...]"
 
-#: app/app_procs.c:976 app/diaconv.c:128
+#: app/app_procs.c:1120 app/diaconv.c:128
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
@@ -185,37 +208,37 @@ msgstr ""
 "Выканайце '%s --help' каб убачыць поўны сьпіс даступных выбараў каманднага "
 "радка.\n"
 
-#: app/app_procs.c:1000
+#: app/app_procs.c:1144
 #, fuzzy
 msgid "[FILE...]"
 msgstr "[ВЫБАР...] [ФАЙЛ...]"
 
-#: app/app_procs.c:1015
+#: app/app_procs.c:1159
 #, c-format
 msgid "'%s' not found!\n"
 msgstr ""
 
-#: app/app_procs.c:1094
+#: app/app_procs.c:1238
 msgid ""
 "The original author of Dia was:\n"
 "\n"
 msgstr ""
 
-#: app/app_procs.c:1099
+#: app/app_procs.c:1243
 msgid ""
 "\n"
 "The current maintainers of Dia are:\n"
 "\n"
 msgstr ""
 
-#: app/app_procs.c:1104
+#: app/app_procs.c:1248
 msgid ""
 "\n"
 "Other authors are:\n"
 "\n"
 msgstr ""
 
-#: app/app_procs.c:1109
+#: app/app_procs.c:1253
 msgid ""
 "\n"
 "Dia is documented by:\n"
@@ -244,20 +267,20 @@ msgstr "Асноўны колер"
 msgid "Select background color"
 msgstr "Колер тла"
 
-#: app/commands.c:134
+#: app/commands.c:136
 #, c-format
 msgid "Diagram%d.dia"
 msgstr "Дыяграма-%d.dia"
 
-#: app/commands.c:205
+#: app/commands.c:207
 msgid "No existing object to paste.\n"
 msgstr "Няма аб'екта каб уставіць.\n"
 
-#: app/commands.c:528 app/commands.c:566
+#: app/commands.c:533 app/commands.c:571
 msgid "Could not find help directory"
 msgstr "Немагчыма адшукаць каталёг даведкі"
 
-#: app/commands.c:535
+#: app/commands.c:540
 #, c-format
 msgid ""
 "Could not open help directory:\n"
@@ -271,24 +294,25 @@ msgstr ""
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: app/commands.c:605
+#: app/commands.c:611
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 "Belarusian Language Linux Team\n"
 "Пляцоўка: http://www.mova.linux.by\n"
 "Э.скрыня:  i18n@mova.org"
 
-#: app/commands.c:619
+#: app/commands.c:625
 msgid "Dia"
 msgstr "Дыя"
 
-#: app/commands.c:621
-msgid "Copyright (C) 1998-2002 The Free Software Foundation and the authors"
+#: app/commands.c:627
+#, fuzzy
+msgid "Copyright (C) 1998-2005 The Free Software Foundation and the authors"
 msgstr ""
 "Аўтарскія правы © 1998-2002 Фонд вольнага праграмовага забясьпячэньня й "
 "аўтары"
 
-#: app/commands.c:622
+#: app/commands.c:628
 #, fuzzy
 msgid ""
 "Dia is a program for drawing structured diagrams.\n"
@@ -298,28 +322,28 @@ msgstr ""
 "Калі ласка, наведайце http://www.lysator.liu.se/~alla/dia для \n"
 "атрыманьня дадатковых зьвестак"
 
-#: app/commands.c:661
+#: app/commands.c:667
 msgid "About Dia"
 msgstr "Пра Дыя"
 
-#: app/commands.c:704
+#: app/commands.c:710
 #, c-format
 msgid "Dia v %s by Alexander Larsson"
 msgstr "Дыя в.%s ад Аляксандра Лярсан"
 
 #. Exact spelling is Ch&eacute;p&eacute;lov (using *ML entities)
-#: app/commands.c:710
+#: app/commands.c:716
 msgid "Maintainers: Lars Clausen and Cyrille Chepelov"
 msgstr "Майнтайнэры: Лярс Кляўзэн і Кірыл Чэпелеў"
 
-#: app/commands.c:714
+#: app/commands.c:720
 #, fuzzy
 msgid "Please visit http://www.gnome.org/projects/dia for more information"
 msgstr ""
 "Калі ласка, наведайце http://www.lysator.liu.se/~alla/dia для атрыманьня "
 "дадатковых зьвестак"
 
-#: app/commands.c:719
+#: app/commands.c:725
 msgid "Contributors:"
 msgstr "Памочнікі:"
 
@@ -561,7 +585,7 @@ msgstr "Дрэва дыяграмы"
 msgid "Ok"
 msgstr "Добра"
 
-#: app/dialogs.c:52 app/paginate_psprint.c:292
+#: app/dialogs.c:52 app/paginate_psprint.c:306
 msgid "Cancel"
 msgstr "Адмяніць"
 
@@ -635,7 +659,7 @@ msgstr ""
 msgid "Properties..."
 msgstr "_Уласьцівасьці"
 
-#: app/disp_callbacks.c:938
+#: app/disp_callbacks.c:935
 msgid ""
 "The object you dropped cannot fit into its parent. \n"
 "Either expand the parent object, or drop the object elsewhere."
@@ -655,11 +679,11 @@ msgstr "Табліцы й аб'екты"
 msgid "Selected '%s'"
 msgstr "_Вылучэньне"
 
-#: app/display.c:1024
+#: app/display.c:1025
 msgid "<unnamed>"
 msgstr "<бяз назвы>"
 
-#: app/display.c:1026
+#: app/display.c:1027
 #, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -668,21 +692,21 @@ msgstr ""
 "Дыяграма '%s'\n"
 "не была захавана. Захаваць зьмены зараз?"
 
-#: app/display.c:1037
+#: app/display.c:1038
 msgid "Close Diagram"
 msgstr "Закрыць дыяграму"
 
-#: app/display.c:1042
+#: app/display.c:1043
 msgid "Discard Changes"
 msgstr "Адмяніць зьмены"
 
 #: app/export_png.c:134 app/load_save.c:913 app/render_eps.c:103
-#: plug-ins/cairo/diacairo.c:947 plug-ins/cgm/cgm.c:1157
+#: plug-ins/cairo/diacairo.c:978 plug-ins/cgm/cgm.c:1157
 #: plug-ins/dxf/dxf-export.c:509 plug-ins/hpgl/hpgl.c:718
-#: plug-ins/metapost/render_metapost.c:964
-#: plug-ins/pstricks/render_pstricks.c:804 plug-ins/shape/shape-export.c:135
-#: plug-ins/svg/render_svg.c:152 plug-ins/wpg/wpg.c:1067
-#: plug-ins/xfig/xfig-export.c:1100 plug-ins/xslt/xslt.c:94
+#: plug-ins/metapost/render_metapost.c:1107
+#: plug-ins/pstricks/render_pstricks.c:910 plug-ins/shape/shape-export.c:134
+#: plug-ins/svg/render_svg.c:151 plug-ins/wpg/wpg.c:1067
+#: plug-ins/xfig/xfig-export.c:1138 plug-ins/xslt/xslt.c:94
 #, fuzzy, c-format
 msgid "Can't open output file %s: %s\n"
 msgstr "Немагчыма адкрыць '%s': %s"
@@ -819,13 +843,14 @@ msgid "Scroll"
 msgstr "Пракрутка"
 
 #: app/interface.c:69 app/interface.c:70 lib/properties.c:77
-#: lib/properties.h:516 objects/UML/activity.c:126 objects/UML/actor.c:122
-#: objects/UML/classicon.c:143 objects/UML/component.c:128
+#: lib/properties.h:520 objects/Jackson/requirement.c:142
+#: objects/UML/activity.c:126 objects/UML/actor.c:122
+#: objects/UML/classicon.c:144 objects/UML/component.c:128
 #: objects/UML/component_feature.c:154 objects/UML/node.c:127
 #: objects/UML/note.c:121 objects/UML/object.c:147
 #: objects/UML/small_package.c:128 objects/UML/state.c:141
-#: objects/UML/usecase.c:138 objects/Jackson/requirement.c:142
-#: objects/network/basestation.c:131 objects/network/radiocell.c:146
+#: objects/UML/usecase.c:138 objects/custom/custom_object.c:200
+#: objects/network/basestation.c:133 objects/network/radiocell.c:146
 msgid "Text"
 msgstr "Тэкст"
 
@@ -845,7 +870,7 @@ msgstr "Палігон"
 msgid "Beziergon"
 msgstr ""
 
-#: app/interface.c:94 app/interface.c:95 objects/standard/line.c:225
+#: app/interface.c:94 app/interface.c:95 objects/standard/line.c:226
 msgid "Line"
 msgstr "Рыса"
 
@@ -937,7 +962,7 @@ msgid ""
 "parameters with Details..."
 msgstr ""
 
-#: app/interface.c:1202
+#: app/interface.c:1203
 msgid "Diagram Editor"
 msgstr "Рэдактар дыяграмы"
 
@@ -971,19 +996,19 @@ msgstr "Дыяграмы:"
 msgid "New layer %d"
 msgstr "Новы слой"
 
-#: app/layer_dialog.c:521
+#: app/layer_dialog.c:525
 msgid "none"
 msgstr "няма"
 
-#: app/layer_dialog.c:952
+#: app/layer_dialog.c:958
 msgid "Edit Layer Attributes"
 msgstr "Рэдагаваньне атрыбутаў слоя"
 
-#: app/layer_dialog.c:971
+#: app/layer_dialog.c:977
 msgid "Layer name:"
 msgstr "Назва слоя:"
 
-#: app/linewidth_area.c:246 lib/properties.h:480 lib/properties.h:483
+#: app/linewidth_area.c:246 lib/properties.h:481 lib/properties.h:484
 #: objects/chronogram/chronoline.c:181 objects/chronogram/chronoref.c:160
 msgid "Line width"
 msgstr "Шырыня рысы"
@@ -1068,543 +1093,543 @@ msgstr "Збой захаваньня файла '%s'.\n"
 msgid "Dia Diagram File"
 msgstr "Свая дыяграма Дыя"
 
-#: app/menus.c:49 app/menus.c:87
+#: app/menus.c:50 app/menus.c:88
 msgid "/_File"
 msgstr "/_Файл"
 
-#: app/menus.c:51 app/menus.c:89
+#: app/menus.c:52 app/menus.c:90
 msgid "/File/_New"
 msgstr "/Файл/Стварыць"
 
-#: app/menus.c:53 app/menus.c:91
+#: app/menus.c:54 app/menus.c:92
 msgid "/File/_Open..."
 msgstr "/Файл/_Адкрыць..."
 
 #. {N_("/Open _Recent"),           NULL,         NULL,           0, "<Branch>"},
 #. {   "/Open Recent/tearoff",     NULL,         NULL,         0, "<Tearoff>" },
-#: app/menus.c:57 app/menus.c:62 app/menus.c:67 app/menus.c:69 app/menus.c:95
-#: app/menus.c:102 app/menus.c:106
+#: app/menus.c:58 app/menus.c:63 app/menus.c:68 app/menus.c:70 app/menus.c:96
+#: app/menus.c:103 app/menus.c:107
 msgid "/File/---"
 msgstr "/Файл/---"
 
-#: app/menus.c:58
+#: app/menus.c:59
 msgid "/File/_Diagram tree"
 msgstr "/Файл/_Дрэва дыяграмы"
 
-#: app/menus.c:60
+#: app/menus.c:61
 msgid "/File/Sheets and Objects..."
 msgstr "/Файл/Табліцыы й аб'екты..."
 
-#: app/menus.c:63
+#: app/menus.c:64
 msgid "/File/_Preferences..."
 msgstr "/Файл/_Уласьцівасьці..."
 
-#: app/menus.c:65
+#: app/menus.c:66
 msgid "/File/P_lugins..."
 msgstr "/Файл/_Дадаткі..."
 
-#: app/menus.c:70 app/menus.c:110
+#: app/menus.c:71 app/menus.c:111
 msgid "/File/_Quit"
 msgstr "/Файл/_Выйсьці"
 
-#: app/menus.c:72 app/menus.c:257
+#: app/menus.c:73 app/menus.c:260
 msgid "/_Help"
 msgstr "/_Дапамога"
 
-#: app/menus.c:74 app/menus.c:259
+#: app/menus.c:75 app/menus.c:262
 #, fuzzy
 msgid "/Help/_Contents"
 msgstr "/Дапамога/_Пра праграму..."
 
-#: app/menus.c:76 app/menus.c:261
+#: app/menus.c:77 app/menus.c:264
 msgid "/Help/---"
 msgstr "/Дапамога/---"
 
-#: app/menus.c:77 app/menus.c:262
+#: app/menus.c:78 app/menus.c:265
 msgid "/Help/_About..."
 msgstr "/Дапамога/_Пра праграму..."
 
-#: app/menus.c:96
+#: app/menus.c:97
 msgid "/File/_Save"
 msgstr "/Файл/_Захаваць"
 
-#: app/menus.c:98
+#: app/menus.c:99
 msgid "/File/Save _As..."
 msgstr "/Файл/Захаваць _як..."
 
-#: app/menus.c:100
+#: app/menus.c:101
 msgid "/File/_Export..."
 msgstr "/Файл/_Экспартаваць..."
 
-#: app/menus.c:103
+#: app/menus.c:104
 msgid "/File/Page Set_up..."
 msgstr "/Файл/Усталёўкі старонкі..."
 
-#: app/menus.c:104
+#: app/menus.c:105
 msgid "/File/_Print Diagram..."
 msgstr "/Файл/_Друкаваць дыяграму..."
 
-#: app/menus.c:107
+#: app/menus.c:108
 msgid "/File/_Close"
 msgstr "/Файл/_Закрыць"
 
-#: app/menus.c:112
+#: app/menus.c:113
 msgid "/_Edit"
 msgstr "/_Рэдагаваньне"
 
-#: app/menus.c:114
+#: app/menus.c:115
 msgid "/Edit/_Undo"
 msgstr "/Рэдагаваньне/_Адмяніць"
 
-#: app/menus.c:116
+#: app/menus.c:117
 msgid "/Edit/_Redo"
 msgstr "/Рэдагаваньне/_Вярнуць"
 
-#: app/menus.c:118 app/menus.c:128
+#: app/menus.c:119 app/menus.c:129
 msgid "/Edit/---"
 msgstr "/Рэдагаваньне/---"
 
-#: app/menus.c:119
+#: app/menus.c:120
 msgid "/Edit/_Copy"
 msgstr "/Рэдагаваньне/_Капіяваць"
 
-#: app/menus.c:121
+#: app/menus.c:122
 msgid "/Edit/C_ut"
 msgstr "/Рэдагаваньне/Вы_разаць"
 
-#: app/menus.c:123
+#: app/menus.c:124
 msgid "/Edit/_Paste"
 msgstr "/Рэдагаваньне/_Уставіць"
 
-#: app/menus.c:125
+#: app/menus.c:126
 #, fuzzy
 msgid "/Edit/_Duplicate"
 msgstr "/Рэдагаваньне/Вы_даліць"
 
-#: app/menus.c:126
+#: app/menus.c:127
 msgid "/Edit/_Delete"
 msgstr "/Рэдагаваньне/Вы_даліць"
 
-#: app/menus.c:129
+#: app/menus.c:130
 msgid "/Edit/Copy Text"
 msgstr "/Рэдагаваньне/Капіяваць тэкст"
 
-#: app/menus.c:131
+#: app/menus.c:132
 msgid "/Edit/Cut Text"
 msgstr "/Рэдагаваньне/Выразаць тэкст"
 
-#: app/menus.c:133
+#: app/menus.c:134
 msgid "/Edit/Paste _Text"
 msgstr "/Рэдагаваньне/Уставіць _тэкст"
 
-#: app/menus.c:135
+#: app/menus.c:136
 #, fuzzy
 msgid "/_Diagram"
 msgstr "Дыяграмы:"
 
-#: app/menus.c:137
+#: app/menus.c:138
 #, fuzzy
 msgid "/Diagram/_Properties..."
 msgstr "Уласьцівасьці дыяграмы..."
 
-#: app/menus.c:139
+#: app/menus.c:140
 #, fuzzy
 msgid "/Diagram/_Layers..."
 msgstr "/Дыялёгі/_Слаі..."
 
-#: app/menus.c:140
+#: app/menus.c:141
 msgid "/_View"
 msgstr "/_Выгляд"
 
-#: app/menus.c:142
+#: app/menus.c:143
 msgid "/View/Zoom _In"
 msgstr "/Выгляд/Па_вялічыць маштаб"
 
-#: app/menus.c:144
+#: app/menus.c:145
 msgid "/View/Zoom _Out"
 msgstr "/Выгляд/Па_меншыць маштаб"
 
-#: app/menus.c:146
+#: app/menus.c:147
 msgid "/View/_Zoom"
 msgstr "/Выгляд/_Маштаб"
 
-#: app/menus.c:148
+#: app/menus.c:149
 #, fuzzy
 msgid "/View/Zoom/1600%"
 msgstr "/Выгляд/Маштаб/100%"
 
-#: app/menus.c:149
+#: app/menus.c:150
 #, fuzzy
 msgid "/View/Zoom/800%"
 msgstr "/Выгляд/Маштаб/400%"
 
-#: app/menus.c:150
+#: app/menus.c:151
 msgid "/View/Zoom/400%"
 msgstr "/Выгляд/Маштаб/400%"
 
-#: app/menus.c:151
+#: app/menus.c:152
 msgid "/View/Zoom/283%"
 msgstr "/Выгляд/Маштаб/283%"
 
-#: app/menus.c:152
+#: app/menus.c:153
 msgid "/View/Zoom/200%"
 msgstr "/Выгляд/Маштаб/200%"
 
-#: app/menus.c:153
+#: app/menus.c:154
 msgid "/View/Zoom/141%"
 msgstr "/Выгляд/Маштаб/141%"
 
-#: app/menus.c:154
+#: app/menus.c:155
 msgid "/View/Zoom/100%"
 msgstr "/Выгляд/Маштаб/100%"
 
-#: app/menus.c:156
+#: app/menus.c:157
 msgid "/View/Zoom/85%"
 msgstr "/Выгляд/Маштаб/85%"
 
-#: app/menus.c:157
+#: app/menus.c:158
 msgid "/View/Zoom/70.7%"
 msgstr "/Выгляд/Маштаб/70,7%"
 
-#: app/menus.c:158
+#: app/menus.c:159
 msgid "/View/Zoom/50%"
 msgstr "/Выгляд/Маштаб/50%"
 
-#: app/menus.c:159
+#: app/menus.c:160
 msgid "/View/Zoom/35.4%"
 msgstr "/Выгляд/Маштаб/35,4%"
 
-#: app/menus.c:160
+#: app/menus.c:161
 msgid "/View/Zoom/25%"
 msgstr "/Выгляд/Маштаб/25%"
 
-#: app/menus.c:161 app/menus.c:170
+#: app/menus.c:162 app/menus.c:171
 msgid "/View/---"
 msgstr "/Выгляд/---"
 
-#: app/menus.c:162
+#: app/menus.c:163
 msgid "/View/Fullscr_een"
 msgstr ""
 
-#: app/menus.c:164
+#: app/menus.c:165
 msgid "/View/_AntiAliased"
 msgstr "/Выгляд/З_гладзіць"
 
-#: app/menus.c:166
+#: app/menus.c:167
 msgid "/View/Show _Grid"
 msgstr "/Выгляд/Паказываць _сетку"
 
-#: app/menus.c:167
+#: app/menus.c:168
 msgid "/View/_Snap To Grid"
 msgstr "/Выгляд/_Трымацца сеткі"
 
-#: app/menus.c:168
+#: app/menus.c:169
 msgid "/View/Show _Rulers"
 msgstr "/Выгляд/Паказаць _лінаркі"
 
-#: app/menus.c:169
+#: app/menus.c:170
 msgid "/View/Show _Connection Points"
 msgstr "/Выгляд/Паказаць пункты _далучэньня"
 
-#: app/menus.c:171
+#: app/menus.c:172
 msgid "/View/New _View"
 msgstr "/Выгляд/Новы _выгляд"
 
 #. Show All, Best Fit.  Same as the Gimp, Ctrl+E
-#: app/menus.c:173
+#: app/menus.c:174
 msgid "/View/Show _All"
 msgstr "/Выгляд/Паказаць усё"
 
-#: app/menus.c:175
+#: app/menus.c:176
 msgid "/View/Re_draw"
 msgstr "/Выгляд/Пера_рысаваць"
 
-#: app/menus.c:177
+#: app/menus.c:178
 msgid "/_Objects"
 msgstr "/Аб'екты"
 
-#: app/menus.c:179
+#: app/menus.c:180
 msgid "/Objects/Send to _Back"
 msgstr "/Аб'екты/Даслаць _долу"
 
-#: app/menus.c:181
+#: app/menus.c:182
 msgid "/Objects/Bring to _Front"
 msgstr "/Аб'екты/Даслаць у_гору"
 
-#: app/menus.c:183
+#: app/menus.c:184
 msgid "/Objects/Send Backwards"
 msgstr "/Аб'екты/Апусьціць ніжэй"
 
-#: app/menus.c:185
+#: app/menus.c:186
 msgid "/Objects/Bring Forwards"
 msgstr "/Аб'екты/Падняць вышэй"
 
-#: app/menus.c:187 app/menus.c:191 app/menus.c:195 app/menus.c:213
+#: app/menus.c:188 app/menus.c:194 app/menus.c:198 app/menus.c:216
 msgid "/Objects/---"
 msgstr "/Аб'екты/---"
 
-#: app/menus.c:188
+#: app/menus.c:189
 msgid "/Objects/_Group"
 msgstr "/Аб'екты/_Згрупаваць"
 
 #. deliberately not using Ctrl+U for Ungroup
-#: app/menus.c:190
+#: app/menus.c:192
 msgid "/Objects/_Ungroup"
 msgstr "/Аб'екты/_Разгрупаваць"
 
-#: app/menus.c:192
+#: app/menus.c:195
 #, fuzzy
 msgid "/Objects/_Parent"
 msgstr "/Аб'екты/_Згрупаваць"
 
-#: app/menus.c:193
+#: app/menus.c:196
 #, fuzzy
 msgid "/Objects/_Unparent"
 msgstr "/Аб'екты/_Разгрупаваць"
 
-#: app/menus.c:194
+#: app/menus.c:197
 msgid "/Objects/_Unparent Children"
 msgstr ""
 
-#: app/menus.c:196
+#: app/menus.c:199
 #, fuzzy
 msgid "/Objects/Align"
 msgstr "/Аб'екты/Раўнаньне па _вэртыкалі"
 
-#: app/menus.c:198
+#: app/menus.c:201
 #, fuzzy
 msgid "/Objects/Align/Left"
 msgstr "/Аб'екты/Раўнаньне па гарызанталі/Леваруч"
 
-#: app/menus.c:200
+#: app/menus.c:203
 #, fuzzy
 msgid "/Objects/Align/Center"
 msgstr "/Аб'екты/Раўнаньне па гарызанталі/Цэнтар"
 
-#: app/menus.c:202
+#: app/menus.c:205
 #, fuzzy
 msgid "/Objects/Align/Right"
 msgstr "/Аб'екты/Раўнаньне па гарызанталі/Праваруч"
 
-#: app/menus.c:204 app/menus.c:208
+#: app/menus.c:207 app/menus.c:211
 #, fuzzy
 msgid "/Objects/Align/---"
 msgstr "/Аб'екты/---"
 
-#: app/menus.c:205
+#: app/menus.c:208
 #, fuzzy
 msgid "/Objects/Align/Top"
 msgstr "/Аб'екты/Раўнаньне па вэртыкалі/Верх"
 
-#: app/menus.c:206
+#: app/menus.c:209
 #, fuzzy
 msgid "/Objects/Align/Middle"
 msgstr "/Аб'екты/Раўнаньне па вэртыкалі/Сярэдзіна"
 
-#: app/menus.c:207
+#: app/menus.c:210
 #, fuzzy
 msgid "/Objects/Align/Bottom"
 msgstr "/Аб'екты/Раўнаньне па вэртыкалі/Долу"
 
-#: app/menus.c:209
+#: app/menus.c:212
 #, fuzzy
 msgid "/Objects/Align/Spread Out Horizontally"
 msgstr "/Аб'екты/Раўнаньне па _гарызанталі"
 
-#: app/menus.c:210
+#: app/menus.c:213
 #, fuzzy
 msgid "/Objects/Align/Spread Out Vertically"
 msgstr "/Аб'екты/Раўнаньне па _вэртыкалі"
 
-#: app/menus.c:211
+#: app/menus.c:214
 #, fuzzy
 msgid "/Objects/Align/Adjacent"
 msgstr "/Аб'екты/Раўнаньне па вэртыкалі/Сумежнасьць"
 
-#: app/menus.c:212
+#: app/menus.c:215
 #, fuzzy
 msgid "/Objects/Align/Stacked"
 msgstr "/Аб'екты/Раўнаньне па _вэртыкалі"
 
-#: app/menus.c:214
+#: app/menus.c:217
 #, fuzzy
 msgid "/Objects/_Properties..."
 msgstr "Уласьцівасьці аб'екта"
 
-#: app/menus.c:216
+#: app/menus.c:219
 msgid "/_Select"
 msgstr "/_Вылучэньне"
 
-#: app/menus.c:218
+#: app/menus.c:221
 msgid "/Select/All"
 msgstr "/Вылучэньне/Усё"
 
-#: app/menus.c:219
+#: app/menus.c:222
 msgid "/Select/None"
 msgstr "/Вылучэньне/Нічога"
 
-#: app/menus.c:220
+#: app/menus.c:223
 msgid "/Select/Invert"
 msgstr "/Вылучэньне/Інвэртаваць"
 
-#: app/menus.c:221 app/menus.c:225
+#: app/menus.c:224 app/menus.c:228
 msgid "/Select/---"
 msgstr "/Вылучэньне/---"
 
-#: app/menus.c:222
+#: app/menus.c:225
 msgid "/Select/Transitive"
 msgstr "/Вылучэньне/Транзытыўнае"
 
-#: app/menus.c:223
+#: app/menus.c:226
 msgid "/Select/Connected"
 msgstr "/Вылучэньне/Далучанае"
 
-#: app/menus.c:224
+#: app/menus.c:227
 msgid "/Select/Same Type"
 msgstr "/Вылучэньне/Таго ж тыпу"
 
-#: app/menus.c:226
+#: app/menus.c:229
 msgid "/Select/Replace"
 msgstr "/Вылучэньне/Замяніць"
 
-#: app/menus.c:228
+#: app/menus.c:231
 msgid "/Select/Union"
 msgstr "/Вылучэньне/Аб'яднаньне"
 
-#: app/menus.c:230
+#: app/menus.c:233
 #, fuzzy
 msgid "/Select/Intersection"
 msgstr "/Вылучэньне/Перакрыжаваньне"
 
-#: app/menus.c:232
+#: app/menus.c:235
 msgid "/Select/Remove"
 msgstr "/Вылучэньне/Выдаліць"
 
 #. Cannot also be called Invert, duplicate names caused keybinding problems
-#: app/menus.c:235
+#: app/menus.c:238
 #, fuzzy
 msgid "/Select/Inverse"
 msgstr "/Вылучэньне/Інвэртаваць"
 
-#: app/menus.c:237
+#: app/menus.c:240
 msgid "/_Tools"
 msgstr "/_Інструмэнты"
 
-#: app/menus.c:239
+#: app/menus.c:242
 msgid "/Tools/Modify"
 msgstr "/Інструмэнты/Зьмена"
 
-#: app/menus.c:240
+#: app/menus.c:243
 msgid "/Tools/Magnify"
 msgstr "/Інструмэнты/Павялічэньне"
 
-#: app/menus.c:241
+#: app/menus.c:244
 msgid "/Tools/Scroll"
 msgstr "/Інструмэнты/Пракрутка"
 
-#: app/menus.c:242
+#: app/menus.c:245
 msgid "/Tools/Text"
 msgstr "/Інструмэнты/Тэкст"
 
-#: app/menus.c:243
+#: app/menus.c:246
 msgid "/Tools/Box"
 msgstr "/Інструмэнты/Прамакутнік"
 
-#: app/menus.c:244
+#: app/menus.c:247
 msgid "/Tools/Ellipse"
 msgstr "/Інструмэнты/Эліпс"
 
-#: app/menus.c:245
+#: app/menus.c:248
 msgid "/Tools/Polygon"
 msgstr "/Інструмэнты/Палігон"
 
-#: app/menus.c:246
+#: app/menus.c:249
 msgid "/Tools/Beziergon"
 msgstr "/Інструмэнты/Бязьекутнік"
 
-#: app/menus.c:247 app/menus.c:253
+#: app/menus.c:250 app/menus.c:256
 msgid "/Tools/---"
 msgstr "/Інструмэнты/---"
 
-#: app/menus.c:248
+#: app/menus.c:251
 msgid "/Tools/Line"
 msgstr "/Інструмэнты/Рыса"
 
-#: app/menus.c:249
+#: app/menus.c:252
 msgid "/Tools/Arc"
 msgstr "/Інструмэнты/Дуга"
 
-#: app/menus.c:250
+#: app/menus.c:253
 msgid "/Tools/Zigzagline"
 msgstr "/Інструмэнты/Зігзаг"
 
-#: app/menus.c:251
+#: app/menus.c:254
 msgid "/Tools/Polyline"
 msgstr "/Інструмэнты/Ломаная"
 
-#: app/menus.c:252
+#: app/menus.c:255
 msgid "/Tools/Bezierline"
 msgstr "/Інструмэнты/Крывая Бязье"
 
-#: app/menus.c:254
+#: app/menus.c:257
 msgid "/Tools/Image"
 msgstr "/Інструмэнты/Відарыс"
 
-#: app/menus.c:255
+#: app/menus.c:258
 msgid "/_Input Methods"
 msgstr "/Мэтады _ўводу"
 
-#: app/menus.c:427
+#: app/menus.c:430
 msgid "NULL tooldata in tool_menu_select"
 msgstr "NULL даньні інструмэнта ў tool_menu_select"
 
-#: app/menus.c:525
+#: app/menus.c:528
 msgid "Diagram Menu"
 msgstr "Мэню дыяграмы"
 
-#: app/menus.c:660
+#: app/menus.c:663
 #, c-format
 msgid ""
 "Can't find menu entry '%s'!\n"
 "This is probably a i18n problem (try LANG=C)."
 msgstr ""
 
-#: app/modify_tool.c:327
+#: app/modify_tool.c:340
 msgid "Couldn't get GTK settings"
 msgstr "Немагчыма атрымаць усталёўкі GTK"
 
-#: app/paginate_psprint.c:243
+#: app/paginate_psprint.c:257
 msgid "Select Printer"
 msgstr "Выбярыце друкарку"
 
-#: app/paginate_psprint.c:255 sheets/ciscocomputer.sheet.in.h:25
+#: app/paginate_psprint.c:269 sheets/ciscocomputer.sheet.in.h:36
 msgid "Printer"
 msgstr "Друкарка"
 
-#: app/paginate_psprint.c:269 sheets/Misc.sheet.in.h:1
+#: app/paginate_psprint.c:283 sheets/Misc.sheet.in.h:1
 msgid "File"
 msgstr "Файл"
 
-#: app/paginate_psprint.c:284
+#: app/paginate_psprint.c:298
 msgid "OK"
 msgstr "Добра"
 
-#: app/paginate_psprint.c:379
+#: app/paginate_psprint.c:393
 #, fuzzy, c-format
 msgid "Could not run command '%s': %s"
 msgstr "Немагчыма выканаць каманду '%s'"
 
-#: app/paginate_psprint.c:382
+#: app/paginate_psprint.c:396
 #, fuzzy, c-format
 msgid "Could not open '%s' for writing: %s"
 msgstr "Немагчыма адкрыць '%s' для запісу"
 
-#: app/paginate_psprint.c:399
+#: app/paginate_psprint.c:413
 #, c-format
 msgid "Printing error: command '%s' returned %d\n"
 msgstr ""
 
-#: app/paginate_psprint.c:410
+#: app/paginate_psprint.c:424
 #, c-format
 msgid "Printing error: command '%s' caused sigpipe."
 msgstr ""
@@ -1617,8 +1642,10 @@ msgstr "Дадаткі"
 msgid "Loaded"
 msgstr "Загружанае"
 
-#: app/plugin-manager.c:262 objects/UML/class.c:111
-#: objects/UML/large_package.c:130
+#: app/plugin-manager.c:262 objects/UML/class.c:117
+#: objects/UML/large_package.c:130 objects/UML/umlattribute.c:37
+#: objects/UML/umlformalparameter.c:35 objects/UML/umloperation.c:62
+#: objects/UML/umlparameter.c:43
 msgid "Name"
 msgstr "Назва"
 
@@ -1910,6 +1937,8 @@ msgstr "Стварыць"
 #: app/sheets_dialog.c:362 app/sheets_dialog.c:794 objects/Istar/actor.c:144
 #: objects/Istar/actor.c:145 objects/Istar/other.c:148
 #: objects/Istar/other.c:149 objects/KAOS/other.c:151 objects/KAOS/other.c:152
+#: objects/UML/umlattribute.c:39 objects/UML/umlformalparameter.c:37
+#: objects/UML/umloperation.c:64 objects/UML/umlparameter.c:45
 msgid "Type"
 msgstr "Тып"
 
@@ -1948,10 +1977,10 @@ msgid "Description:"
 msgstr "Апісаньне:"
 
 #: app/sheets_dialog.c:618 objects/FS/flow-ortho.c:168 objects/FS/flow.c:146
-#: objects/UML/class_dialog.c:918 objects/UML/class_dialog.c:1852
-#: objects/UML/class_dialog.c:2081 objects/UML/class_dialog.c:2597
 #: objects/Istar/link.c:165 objects/Jackson/phenomenon.c:144
 #: objects/KAOS/metaandorrel.c:164 objects/KAOS/metabinrel.c:171
+#: objects/UML/class_dialog.c:912 objects/UML/class_dialog.c:1840
+#: objects/UML/class_dialog.c:2069 objects/UML/class_dialog.c:2585
 msgid "Type:"
 msgstr "Тып:"
 
@@ -1961,9 +1990,9 @@ msgstr "Табліца"
 
 #: app/sheets_dialog.c:672 objects/ER/attribute.c:153 objects/ER/entity.c:135
 #: objects/ER/relationship.c:140 objects/UML/association.c:237
-#: objects/UML/association.c:1162 objects/UML/class_dialog.c:907
-#: objects/UML/class_dialog.c:1841 objects/UML/class_dialog.c:2070
-#: objects/UML/class_dialog.c:2586 objects/UML/dependency.c:133
+#: objects/UML/association.c:1165 objects/UML/class_dialog.c:901
+#: objects/UML/class_dialog.c:1829 objects/UML/class_dialog.c:2058
+#: objects/UML/class_dialog.c:2574 objects/UML/dependency.c:133
 #: objects/UML/generalization.c:129 objects/UML/realizes.c:130
 msgid "Name:"
 msgstr "Назва:"
@@ -2101,7 +2130,7 @@ msgstr "Рэдактар дыяграмы"
 msgid "Edit your Diagrams"
 msgstr "Экспартаваць дыяграму"
 
-#: lib/arrows.c:40 objects/UML/association.c:1185 objects/Jackson/domain.c:96
+#: lib/arrows.c:40 objects/Jackson/domain.c:96 objects/UML/association.c:1188
 msgid "None"
 msgstr "Няма"
 
@@ -2238,48 +2267,52 @@ msgstr "Выбары адкрыцьця"
 msgid "Backslash"
 msgstr ""
 
+#: lib/arrows.c:73
+msgid "Infinite Line"
+msgstr ""
+
 #: lib/bezier_conn.c:533
 msgid "Internal error: Setting corner type of endpoint of bezier"
 msgstr ""
 
-#: lib/dia_xml.c:154
+#: lib/dia_xml.c:153
 #, c-format
 msgid ""
 "The file %s has no encoding specification;\n"
 "assuming it is encoded in %s"
 msgstr ""
 
-#: lib/dia_xml.c:471
+#: lib/dia_xml.c:470
 msgid "Taking point value of non-point node."
 msgstr "Узяць значэньне пункту бязкропкавага вузла."
 
-#: lib/dia_xml.c:482
+#: lib/dia_xml.c:481
 #, c-format
 msgid "Incorrect x Point value \"%s\" %f; discarding it."
 msgstr "Памылковае значэньне пункту x \"%s\" %f; адкідаем яго."
 
-#: lib/dia_xml.c:489
+#: lib/dia_xml.c:488
 msgid "Error parsing point."
 msgstr "Памылка апрацоўкі пункта."
 
 #. don't bother with useless warnings (see above)
-#: lib/dia_xml.c:497
+#: lib/dia_xml.c:496
 #, c-format
 msgid "Incorrect y Point value \"%s\" %f; discarding it."
 msgstr "Памылковае значэньне пункта y \"%s\" %f; адкідаем яго."
 
-#: lib/dia_xml.c:865
+#: lib/dia_xml.c:871
 msgid ""
 "Your local character set is UTF-8. Because of issues with libxml1 and the "
 "support of files generated by previous versions of dia, you will encounter  "
 "problems. Please report to dia-list@gnome.org if you see this message."
 msgstr ""
 
-#: lib/diaarrowchooser.c:251
+#: lib/diaarrowchooser.c:269
 msgid "Arrow Properties"
 msgstr "Уласьцівасьці стрэлкі"
 
-#: lib/diaarrowchooser.c:333 lib/dialinechooser.c:333
+#: lib/diaarrowchooser.c:351 lib/dialinechooser.c:333
 msgid "Details..."
 msgstr "Падрабязнасьці..."
 
@@ -2422,15 +2455,15 @@ msgstr ""
 msgid "Group with %d objects"
 msgstr ""
 
-#: lib/properties.c:62 lib/properties.h:468 lib/widgets.c:608
+#: lib/properties.c:62 lib/properties.h:469 lib/widgets.c:638
 msgid "Left"
 msgstr "Леваруч"
 
-#: lib/properties.c:63 lib/properties.h:469 lib/widgets.c:614
+#: lib/properties.c:63 lib/properties.h:470 lib/widgets.c:644
 msgid "Center"
 msgstr "Цэнтар"
 
-#: lib/properties.c:64 lib/properties.h:470 lib/widgets.c:620
+#: lib/properties.c:64 lib/properties.h:471 lib/widgets.c:650
 msgid "Right"
 msgstr "Праваруч"
 
@@ -2439,7 +2472,7 @@ msgstr "Праваруч"
 msgid "Line color"
 msgstr "Колер рысы"
 
-#: lib/properties.c:72 lib/properties.h:492 lib/properties.h:495
+#: lib/properties.c:72 lib/properties.h:493 lib/properties.h:496
 msgid "Line style"
 msgstr "Стыль рысы"
 
@@ -2448,31 +2481,31 @@ msgstr "Стыль рысы"
 msgid "Fill color"
 msgstr "Колер запаўненьня"
 
-#: lib/properties.c:74 lib/properties.h:505
+#: lib/properties.c:74 lib/properties.h:506 lib/properties.h:509
 msgid "Draw background"
 msgstr "Рысаваць тло"
 
-#: lib/properties.c:75 lib/properties.h:509
+#: lib/properties.c:75 lib/properties.h:513
 msgid "Start arrow"
 msgstr "Пачатковая стрэлка"
 
-#: lib/properties.c:76 lib/properties.h:512
+#: lib/properties.c:76 lib/properties.h:516
 msgid "End arrow"
 msgstr "Канчатковая стрэлка"
 
-#: lib/properties.c:78 lib/properties.h:522
+#: lib/properties.c:78 lib/properties.h:526
 msgid "Text alignment"
 msgstr ""
 
 #. all this just to make the defaults selectable ...
-#: lib/properties.c:79 lib/properties.h:527 objects/GRAFCET/condition.c:132
+#: lib/properties.c:79 lib/properties.h:531 objects/GRAFCET/condition.c:132
 #: objects/GRAFCET/step.c:165 objects/GRAFCET/transition.c:142
-#: objects/UML/class.c:137 objects/UML/class_dialog.c:351
+#: objects/UML/class.c:143 objects/UML/class_dialog.c:351
 #: objects/chronogram/chronoline.c:183 objects/chronogram/chronoref.c:164
 msgid "Font"
 msgstr "Шрыфт"
 
-#: lib/properties.c:80 lib/properties.h:533 objects/GRAFCET/condition.c:134
+#: lib/properties.c:80 lib/properties.h:537 objects/GRAFCET/condition.c:134
 #: objects/GRAFCET/step.c:167 objects/GRAFCET/transition.c:144
 #: objects/chronogram/chronoline.c:185 objects/chronogram/chronoref.c:166
 msgid "Font size"
@@ -2484,15 +2517,15 @@ msgstr "Памер шрыфта"
 msgid "Text color"
 msgstr "Колер тэкста"
 
-#: lib/properties.h:486 lib/properties.h:489
+#: lib/properties.h:487 lib/properties.h:490
 msgid "Line colour"
 msgstr "Колер рысы"
 
-#: lib/properties.h:499 lib/properties.h:502
+#: lib/properties.h:500 lib/properties.h:503
 msgid "Fill colour"
 msgstr "Колер запаўненьня"
 
-#: lib/properties.h:539
+#: lib/properties.h:543
 msgid "Text colour"
 msgstr "Колер тэкста"
 
@@ -2501,69 +2534,69 @@ msgstr "Колер тэкста"
 msgid "No attribute '%s' (%p) or no data(%p) in this attribute"
 msgstr ""
 
-#: lib/widgets.c:347
+#: lib/widgets.c:375
 #, fuzzy
 msgid "Other fonts"
 msgstr "Іншыя шрыфты..."
 
-#: lib/widgets.c:417
+#: lib/widgets.c:445
 #, c-format
 msgid "Couldn't find font family for %s\n"
 msgstr "Немагчыма адшукаць сямейства шрыфта для %s\n"
 
 #. Translators: Menu item Noun/Material/Solid
-#: lib/widgets.c:756 objects/FS/function.c:1074
+#: lib/widgets.c:786 objects/FS/function.c:1074
 msgid "Solid"
 msgstr ""
 
-#: lib/widgets.c:762
+#: lib/widgets.c:792
 msgid "Dashed"
 msgstr ""
 
-#: lib/widgets.c:768
+#: lib/widgets.c:798
 msgid "Dash-Dot"
 msgstr ""
 
-#: lib/widgets.c:774
+#: lib/widgets.c:804
 msgid "Dash-Dot-Dot"
 msgstr ""
 
-#: lib/widgets.c:780
+#: lib/widgets.c:810
 msgid "Dotted"
 msgstr ""
 
 #. fs->sizebox = GTK_HBOX(box);
-#: lib/widgets.c:799
+#: lib/widgets.c:829
 msgid "Dash length: "
 msgstr ""
 
-#: lib/widgets.c:927
+#: lib/widgets.c:959
 msgid "Select color"
 msgstr "Выбярыце колер"
 
-#: lib/widgets.c:993
+#: lib/widgets.c:1026
 msgid "More colors..."
 msgstr ""
 
-#: lib/widgets.c:1118
+#: lib/widgets.c:1150
 #, fuzzy
 msgid "More arrows"
 msgstr "Кропкавая стрэлка"
 
-#: lib/widgets.c:1131
+#: lib/widgets.c:1163
 #, fuzzy
 msgid "Size: "
 msgstr "_Памер:"
 
-#: lib/widgets.c:1276
+#: lib/widgets.c:1308
 msgid "Select image file"
 msgstr "Выбярыце файл відарыса"
 
-#: lib/widgets.c:1312
+#: lib/widgets.c:1344
 msgid "Browse"
 msgstr "Прагляд"
 
-#: lib/widgets.c:1908
+#: lib/widgets.c:1958
 #, fuzzy
 msgid "Reset menu"
 msgstr "Выкарыстоўваць панэлю мэню:"
@@ -2597,7 +2630,7 @@ msgstr "Тыдзень:"
 msgid "Associative:"
 msgstr "Актыўны"
 
-#: objects/ER/entity.c:413 objects/UML/classicon.c:128 sheets/ER.sheet.in.h:4
+#: objects/ER/entity.c:413 objects/UML/classicon.c:129 sheets/ER.sheet.in.h:4
 msgid "Entity"
 msgstr ""
 
@@ -2614,7 +2647,7 @@ msgstr "Агулам:"
 #: objects/UML/association.c:774 objects/UML/component_feature.c:183
 #: objects/UML/dependency.c:372 objects/UML/generalization.c:368
 #: objects/UML/realizes.c:359 objects/UML/transition.c:156
-#: objects/standard/zigzagline.c:346
+#: objects/standard/zigzagline.c:347
 msgid "Add segment"
 msgstr "Дадаць сегмэнт"
 
@@ -2623,7 +2656,7 @@ msgstr "Дадаць сегмэнт"
 #: objects/UML/association.c:775 objects/UML/component_feature.c:184
 #: objects/UML/dependency.c:373 objects/UML/generalization.c:369
 #: objects/UML/realizes.c:360 objects/UML/transition.c:157
-#: objects/standard/zigzagline.c:347
+#: objects/standard/zigzagline.c:348
 msgid "Delete segment"
 msgstr "Выдаліць сегмэнт"
 
@@ -2889,7 +2922,7 @@ msgid "Mount"
 msgstr "Падмацоўваць"
 
 #. Translators: Menu item Verb/Support/Secure/Lock
-#: objects/FS/function.c:794 sheets/ciscomisc.sheet.in.h:21
+#: objects/FS/function.c:794 sheets/ciscomisc.sheet.in.h:19
 msgid "Lock"
 msgstr "Блякаваць"
 
@@ -3202,7 +3235,7 @@ msgstr "Рэгуляваць"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Control
 #: objects/FS/function.c:960 objects/FS/function.c:1178
-#: objects/UML/classicon.c:126
+#: objects/UML/classicon.c:127
 msgid "Control"
 msgstr "Кіраваць"
 
@@ -3783,10 +3816,9 @@ msgstr "І"
 msgid "Vergent type:"
 msgstr ""
 
-#: objects/GRAFCET/vergent.c:405 objects/SADT/box.c:445
-#: objects/Istar/other.c:469 objects/Jackson/domain.c:531
-#: objects/KAOS/goal.c:572 objects/KAOS/other.c:525
-#: objects/standard/line.c:219
+#: objects/GRAFCET/vergent.c:405 objects/Istar/other.c:469
+#: objects/Jackson/domain.c:531 objects/KAOS/goal.c:572
+#: objects/KAOS/other.c:525 objects/SADT/box.c:445 objects/standard/line.c:220
 msgid "Add connection point"
 msgstr "Дадаць пункт далучэньня"
 
@@ -3797,728 +3829,6 @@ msgstr "Выдаліць пункт далучэньня"
 #: objects/GRAFCET/vergent.c:410
 msgid "GRAFCET OR/AND vergent"
 msgstr ""
-
-#: objects/Misc/analog_clock.c:137
-#, fuzzy
-msgid "Arrow color"
-msgstr "Колер стрэлкі"
-
-#: objects/Misc/analog_clock.c:139
-msgid "Arrow line width"
-msgstr "Шырыня рысы стрэлкі"
-
-#: objects/Misc/analog_clock.c:141
-#, fuzzy
-msgid "Seconds arrow color"
-msgstr "Колер стрэлкі"
-
-#: objects/Misc/analog_clock.c:143
-msgid "Seconds arrow line width"
-msgstr ""
-
-#: objects/Misc/analog_clock.c:145
-msgid "Show hours"
-msgstr "Паказаць гадзіны"
-
-#: objects/Misc/libmisc.c:38
-msgid "Miscellaneous objects"
-msgstr "Розныя аб'екты"
-
-#. property rows
-#: objects/SADT/arrow.c:134 objects/UML/class.c:142
-#: objects/UML/class_dialog.c:357
-msgid "Normal"
-msgstr "Звычайны"
-
-#: objects/SADT/arrow.c:135
-msgid "Import resource (not shown upstairs)"
-msgstr ""
-
-#: objects/SADT/arrow.c:136
-msgid "Imply resource (not shown downstairs)"
-msgstr ""
-
-#: objects/SADT/arrow.c:137
-msgid "Dotted arrow"
-msgstr "Кропкавая стрэлка"
-
-#: objects/SADT/arrow.c:138
-msgid "disable arrow heads"
-msgstr ""
-
-#: objects/SADT/arrow.c:144
-msgid "Flow style:"
-msgstr "Стыль плыні:"
-
-#: objects/SADT/arrow.c:146
-msgid "Automatically gray vertical flows:"
-msgstr "Аўтаматычна вылучаць вэртыкальныя плыні:"
-
-#: objects/SADT/arrow.c:147
-msgid ""
-"To improve the ease of reading, flows which begin and end vertically can be "
-"rendered gray"
-msgstr ""
-
-#: objects/SADT/arrow.c:463
-msgid "SADT Arrow"
-msgstr "SADT стрэлка"
-
-#: objects/SADT/box.c:137 objects/flowchart/box.c:152
-#: objects/flowchart/diamond.c:150 objects/flowchart/ellipse.c:149
-#: objects/flowchart/parallelogram.c:154
-msgid "Text padding"
-msgstr ""
-
-#: objects/SADT/box.c:144
-msgid "Activity/Data identifier"
-msgstr "Ідэнтыфікатар актыўнасьці/даньняў"
-
-#: objects/SADT/box.c:145
-msgid "The identifier which appears in the lower right corner of the Box"
-msgstr ""
-
-#: objects/SADT/box.c:446 objects/Istar/other.c:470
-#: objects/Jackson/domain.c:532 objects/KAOS/goal.c:573
-#: objects/KAOS/other.c:526 objects/standard/line.c:220
-msgid "Delete connection point"
-msgstr "Выдаліць пункт далучэньня"
-
-#: objects/SADT/box.c:451
-msgid "SADT box"
-msgstr "Ячэя SADT"
-
-#: objects/SADT/sadt.c:41
-msgid "SADT diagram objects"
-msgstr ""
-
-#: objects/UML/actor.c:364 objects/UML/actor.c:366 sheets/UML.sheet.in.h:2
-msgid "Actor"
-msgstr "Агент"
-
-#: objects/UML/association.c:1175 objects/UML/class_dialog.c:2114
-msgid "Direction:"
-msgstr "Накірунак:"
-
-#: objects/UML/association.c:1192
-msgid "From A to B"
-msgstr "Ад А да В"
-
-#: objects/UML/association.c:1199
-msgid "From B to A"
-msgstr "Ад В да А"
-
-#: objects/UML/association.c:1223 objects/UML/association.c:1231
-msgid "Side A"
-msgstr "Бок А"
-
-#: objects/UML/association.c:1225 objects/UML/association.c:1233
-msgid "Side B"
-msgstr "Бок В"
-
-#: objects/UML/association.c:1239
-msgid "Role:"
-msgstr "Роля:"
-
-#: objects/UML/association.c:1251
-msgid "Multiplicity:"
-msgstr ""
-
-#: objects/UML/association.c:1262 objects/UML/class_dialog.c:952
-#: objects/UML/class_dialog.c:1876
-msgid "Visibility:"
-msgstr "Бачнасьць:"
-
-#: objects/UML/association.c:1271 objects/UML/class_dialog.c:961
-#: objects/UML/class_dialog.c:1885
-msgid "Public"
-msgstr "Агульны (Public)"
-
-#: objects/UML/association.c:1281 objects/UML/class_dialog.c:969
-#: objects/UML/class_dialog.c:1893
-msgid "Private"
-msgstr "Прыватны (Private)"
-
-#: objects/UML/association.c:1291 objects/UML/class_dialog.c:977
-#: objects/UML/class_dialog.c:1901
-msgid "Protected"
-msgstr "Абаронены (Protected)"
-
-#: objects/UML/association.c:1301 objects/UML/class_dialog.c:985
-#: objects/UML/class_dialog.c:1909
-msgid "Implementation"
-msgstr ""
-
-#. Show arrow:
-#: objects/UML/association.c:1320
-msgid "Show arrow"
-msgstr ""
-
-#. Aggregate
-#: objects/UML/association.c:1326
-msgid "Aggregate"
-msgstr "Агрэгаваць"
-
-#. Composition
-#: objects/UML/association.c:1334
-msgid "Composition"
-msgstr "Кампазыцыя"
-
-#: objects/UML/class.c:109 objects/UML/class.c:247 objects/UML/class.c:1169
-#: sheets/UML.sheet.in.h:6
-msgid "Class"
-msgstr "Кляса"
-
-#: objects/UML/class.c:113 objects/UML/classicon.c:137
-#: objects/UML/component.c:124 objects/UML/large_package.c:128
-#: objects/UML/object.c:149 objects/UML/small_package.c:124
-msgid "Stereotype"
-msgstr "Стэрэатып"
-
-#: objects/UML/class.c:115 objects/UML/class.c:152
-#: objects/UML/class_dialog.c:382 sheets/SDL.sheet.in.h:3
-msgid "Comment"
-msgstr "Камэнтар"
-
-#: objects/UML/class.c:117 objects/UML/class.c:146
-#: objects/UML/class_dialog.c:296 objects/UML/class_dialog.c:367
-#: objects/UML/class_dialog.c:1940
-msgid "Abstract"
-msgstr "Абстракцыя"
-
-#: objects/UML/class.c:119
-msgid "Template"
-msgstr "Шаблён"
-
-#: objects/UML/class.c:122 objects/UML/class_dialog.c:305
-msgid "Suppress Attributes"
-msgstr ""
-
-#: objects/UML/class.c:124
-msgid "Suppress Operations"
-msgstr ""
-
-#: objects/UML/class.c:126
-msgid "Visible Attributes"
-msgstr "Бачныя атрыбуты"
-
-#: objects/UML/class.c:128
-msgid "Visible Operations"
-msgstr "Бачныя апэрацыі"
-
-#: objects/UML/class.c:130
-msgid "Visible Comments"
-msgstr "Бачныя камэнтары"
-
-#: objects/UML/class.c:132 objects/UML/class_dialog.c:321
-#, fuzzy
-msgid "Wrap Operations"
-msgstr "Апэрацыі"
-
-#: objects/UML/class.c:134
-msgid "Wrap after char"
-msgstr ""
-
-#: objects/UML/class.c:144 objects/UML/class_dialog.c:362
-msgid "Polymorphic"
-msgstr ""
-
-#: objects/UML/class.c:148
-#, fuzzy
-msgid "Classname"
-msgstr "Назва клясы:"
-
-#: objects/UML/class.c:150
-#, fuzzy
-msgid "Abstract Classname"
-msgstr "Абстрактная кляса"
-
-#: objects/UML/class.c:156 objects/UML/class.c:158 objects/UML/class.c:160
-#: objects/UML/class.c:162 objects/UML/class.c:164 objects/UML/class.c:166
-msgid " "
-msgstr ""
-
-#: objects/UML/class.c:171 objects/UML/object.c:153
-msgid "Attributes"
-msgstr "Атрыбуты"
-
-#: objects/UML/class.c:173
-msgid "Operations"
-msgstr "Апэрацыі"
-
-#: objects/UML/class.c:241
-#, fuzzy
-msgid "Show Comments"
-msgstr "Паказаць камэнтары"
-
-#. Class page:
-#: objects/UML/class_dialog.c:265
-#, fuzzy
-msgid "_Class"
-msgstr "Кляса"
-
-#: objects/UML/class_dialog.c:273
-msgid "Class name:"
-msgstr "Назва клясы:"
-
-#: objects/UML/class_dialog.c:281 objects/UML/class_dialog.c:1863
-#: objects/UML/dependency.c:135 objects/UML/generalization.c:131
-#: objects/UML/realizes.c:132
-msgid "Stereotype:"
-msgstr "Стэрэатып:"
-
-#: objects/UML/class_dialog.c:288 objects/UML/class_dialog.c:940
-#: objects/UML/class_dialog.c:1981 objects/UML/class_dialog.c:2103
-msgid "Comment:"
-msgstr "Камэнтар:"
-
-#: objects/UML/class_dialog.c:302
-msgid "Attributes visible"
-msgstr "Бачнасьць атрыбутаў"
-
-#: objects/UML/class_dialog.c:311
-msgid "Operations visible"
-msgstr "Бачнасьць апэрацыяў"
-
-#: objects/UML/class_dialog.c:314
-msgid "Suppress operations"
-msgstr ""
-
-#: objects/UML/class_dialog.c:328
-msgid "Wrap after this length: "
-msgstr ""
-
-#: objects/UML/class_dialog.c:335
-msgid "Comments visible"
-msgstr "Бачнасьць камэнтараў"
-
-#. head line
-#: objects/UML/class_dialog.c:348
-msgid "Kind"
-msgstr ""
-
-#: objects/UML/class_dialog.c:353
-msgid "Size"
-msgstr "Памер"
-
-#: objects/UML/class_dialog.c:372
-msgid "Class Name"
-msgstr "Назва клясы"
-
-#: objects/UML/class_dialog.c:377
-msgid "Abstract Class"
-msgstr "Абстрактная кляса"
-
-#. should probably be refactored too.
-#: objects/UML/class_dialog.c:394
-#, fuzzy
-msgid "Text Color"
-msgstr "Колер тэкста"
-
-#: objects/UML/class_dialog.c:402
-msgid "Foreground Color"
-msgstr "Асноўны колер"
-
-#: objects/UML/class_dialog.c:410
-msgid "Background Color"
-msgstr "Колер тла"
-
-#. Attributes page:
-#: objects/UML/class_dialog.c:840
-#, fuzzy
-msgid "_Attributes"
-msgstr "Атрыбуты"
-
-#: objects/UML/class_dialog.c:868 objects/UML/class_dialog.c:1799
-#: objects/UML/class_dialog.c:2027 objects/UML/class_dialog.c:2547
-#, fuzzy
-msgid "_New"
-msgstr "Стварыць"
-
-#: objects/UML/class_dialog.c:874 objects/UML/class_dialog.c:1805
-#: objects/UML/class_dialog.c:2034 objects/UML/class_dialog.c:2553
-msgid "_Delete"
-msgstr "Вы_даліць"
-
-#: objects/UML/class_dialog.c:880 objects/UML/class_dialog.c:1811
-#: objects/UML/class_dialog.c:2041 objects/UML/class_dialog.c:2559
-msgid "Move up"
-msgstr "Пасунуць угору"
-
-#: objects/UML/class_dialog.c:886 objects/UML/class_dialog.c:1817
-#: objects/UML/class_dialog.c:2048 objects/UML/class_dialog.c:2565
-msgid "Move down"
-msgstr "Пасунуць долу"
-
-#: objects/UML/class_dialog.c:897
-msgid "Attribute data"
-msgstr "Даньні атрыбута"
-
-#: objects/UML/class_dialog.c:929
-msgid "Value:"
-msgstr "Значэньне:"
-
-#: objects/UML/class_dialog.c:1006 objects/UML/class_dialog.c:1925
-msgid "Class scope"
-msgstr ""
-
-#. Operations page:
-#: objects/UML/class_dialog.c:1771
-#, fuzzy
-msgid "_Operations"
-msgstr "Апэрацыі"
-
-#: objects/UML/class_dialog.c:1829
-msgid "Operation data"
-msgstr "Даньні апэрацыі"
-
-#: objects/UML/class_dialog.c:1931
-msgid "Inheritance type:"
-msgstr ""
-
-#: objects/UML/class_dialog.c:1948
-msgid "Polymorphic (virtual)"
-msgstr ""
-
-#: objects/UML/class_dialog.c:1956
-msgid "Leaf (final)"
-msgstr ""
-
-#: objects/UML/class_dialog.c:1974
-msgid "Query"
-msgstr "Запыт"
-
-#: objects/UML/class_dialog.c:1998
-msgid "Parameters:"
-msgstr "Парамэтры:"
-
-#: objects/UML/class_dialog.c:2060
-msgid "Parameter data"
-msgstr "Даньні парамэтра"
-
-#: objects/UML/class_dialog.c:2092
-msgid "Def. value:"
-msgstr "Вызн. значэньне:"
-
-#: objects/UML/class_dialog.c:2123
-msgid "Undefined"
-msgstr "Невызначаны"
-
-#: objects/UML/class_dialog.c:2131
-msgid "In"
-msgstr "У"
-
-#: objects/UML/class_dialog.c:2140
-msgid "Out"
-msgstr "З"
-
-#: objects/UML/class_dialog.c:2149
-msgid "In & Out"
-msgstr "У й З"
-
-#. Templates page:
-#: objects/UML/class_dialog.c:2513
-#, fuzzy
-msgid "_Templates"
-msgstr "Шаблёны"
-
-#: objects/UML/class_dialog.c:2519 sheets/UML.sheet.in.h:29
-msgid "Template class"
-msgstr "Шаблён клясы"
-
-#: objects/UML/class_dialog.c:2576
-msgid "Formal parameter data"
-msgstr ""
-
-#: objects/UML/classicon.c:127
-msgid "Boundary"
-msgstr "Межы"
-
-#: objects/UML/classicon.c:139
-msgid "Is object"
-msgstr "Гэта аб'ект"
-
-#: objects/UML/component_feature.c:144 sheets/UML.sheet.in.h:14
-#, fuzzy
-msgid "Facet"
-msgstr "Сумежнасьць"
-
-#: objects/UML/component_feature.c:145 sheets/UML.sheet.in.h:26
-#, fuzzy
-msgid "Receptacle"
-msgstr "Замяніць"
-
-#: objects/UML/component_feature.c:146 sheets/UML.sheet.in.h:13
-msgid "Event Source"
-msgstr ""
-
-#: objects/UML/component_feature.c:147 sheets/UML.sheet.in.h:12
-#, fuzzy
-msgid "Event Sink"
-msgstr "Падзеі"
-
-#: objects/UML/constraint.c:125
-msgid "Constraint:"
-msgstr "Абмежаваньне:"
-
-#: objects/UML/dependency.c:137
-msgid "Show arrow:"
-msgstr ""
-
-#: objects/UML/implements.c:128
-msgid "Interface:"
-msgstr "Інтэрфэйс:"
-
-#: objects/UML/lifeline.c:144
-msgid "Draw focus of control:"
-msgstr ""
-
-#: objects/UML/lifeline.c:146
-msgid "Draw destruction mark:"
-msgstr ""
-
-#: objects/UML/lifeline.c:417
-msgid "Add connection points"
-msgstr "Дадаць пункт далучэньня"
-
-#: objects/UML/lifeline.c:418
-msgid "Remove connection points"
-msgstr "Выдаліць пункт далучэньня"
-
-#: objects/UML/lifeline.c:422
-msgid "UML Lifeline"
-msgstr "Лінія жыцьця UML"
-
-#: objects/UML/message.c:135
-msgid "Call"
-msgstr "Выклік"
-
-#: objects/UML/message.c:136
-msgid "Create"
-msgstr "Стварыць"
-
-#: objects/UML/message.c:137
-msgid "Destroy"
-msgstr "Зьнішчыць"
-
-#: objects/UML/message.c:138
-msgid "Simple"
-msgstr "Просты"
-
-#: objects/UML/message.c:139
-msgid "Return"
-msgstr "Вярнуць"
-
-#: objects/UML/message.c:140
-msgid "Send"
-msgstr "Даслаць"
-
-#: objects/UML/message.c:141
-msgid "Recursive"
-msgstr "Рэкурсыўна"
-
-#: objects/UML/message.c:150 objects/Jackson/phenomenon.c:142
-msgid "Message:"
-msgstr "Паведамленьне:"
-
-#: objects/UML/message.c:152
-msgid "Message type:"
-msgstr "Тып паведамленьня:"
-
-#: objects/UML/object.c:151
-msgid "Explicit state"
-msgstr "Выключны стан"
-
-#: objects/UML/object.c:156
-msgid "Active object"
-msgstr "Актыўны аб'ект"
-
-#: objects/UML/object.c:158
-msgid "Show attributes"
-msgstr "Паказаць атрыбуты"
-
-#: objects/UML/object.c:160
-msgid "Multiple instance"
-msgstr ""
-
-#. Would like to create a state_term instead, but making the connections
-#. * is a pain
-#: objects/UML/state.c:390
-msgid ""
-"This diagram uses the State object for initial/final states.\n"
-"That option will go away in future versions.\n"
-"Please use the Initial/Final State object instead\n"
-msgstr ""
-
-#: objects/UML/state_term.c:120
-msgid "Is final"
-msgstr "Гэта канец"
-
-#: objects/UML/transition.c:129
-#, fuzzy
-msgid "Trigger"
-msgstr "Палец"
-
-#: objects/UML/transition.c:130
-msgid "The event that causes this transition to be taken"
-msgstr ""
-
-#: objects/UML/transition.c:131
-#, fuzzy
-msgid "Action"
-msgstr "Агент"
-
-#: objects/UML/transition.c:132
-msgid "Action to perform when this transition is taken"
-msgstr ""
-
-#: objects/UML/transition.c:133
-#, fuzzy
-msgid "Guard"
-msgstr "Сетка"
-
-#: objects/UML/transition.c:134
-msgid "Condition for taking this transition when the event is fired"
-msgstr ""
-
-#: objects/UML/uml.c:65
-msgid "Unified Modelling Language diagram objects"
-msgstr ""
-
-#: objects/UML/usecase.c:132
-msgid "Text outside"
-msgstr ""
-
-#: objects/UML/usecase.c:134
-msgid "Collaboration"
-msgstr ""
-
-#: objects/bondgraph/bondgraph.c:39
-msgid "Bond graph objects"
-msgstr ""
-
-#: objects/chronogram/chronogram.c:40
-msgid "Chronogram diagram objects"
-msgstr ""
-
-#: objects/chronogram/chronoline.c:148
-msgid "Data"
-msgstr "Даньні"
-
-#: objects/chronogram/chronoline.c:150
-msgid "Data name"
-msgstr "Назва даньняў"
-
-#: objects/chronogram/chronoline.c:152
-msgid "Events"
-msgstr "Падзеі"
-
-#: objects/chronogram/chronoline.c:155
-msgid "Event specification"
-msgstr "Спэцыфікацыя падзеі"
-
-#: objects/chronogram/chronoline.c:156
-msgid ""
-"@ time    set the pointer at an absolute time.\n"
-"( duration  sets the signal up, then wait 'duration'.\n"
-") duration  sets the signal down, then wait 'duration'.\n"
-"u duration  sets the signal to \"unknown\" state, then wait 'duration'.\n"
-"example : @ 1.0 (2.0)1.0(2.0)\n"
-msgstr ""
-
-#: objects/chronogram/chronoline.c:162
-msgid "Parameters"
-msgstr "Парамэтры"
-
-#: objects/chronogram/chronoline.c:164 objects/chronogram/chronoref.c:146
-msgid "Start time"
-msgstr "Час пачатку"
-
-#: objects/chronogram/chronoline.c:166 objects/chronogram/chronoref.c:148
-msgid "End time"
-msgstr "Час заканчэньня"
-
-#: objects/chronogram/chronoline.c:168
-msgid "Rise time"
-msgstr ""
-
-#: objects/chronogram/chronoline.c:170
-msgid "Fall time"
-msgstr ""
-
-#: objects/chronogram/chronoline.c:171
-msgid "Multi-bit data"
-msgstr "Мультыбітныя даньні"
-
-#: objects/chronogram/chronoline.c:173 objects/chronogram/chronoref.c:156
-msgid "Aspect"
-msgstr "Від"
-
-#: objects/chronogram/chronoline.c:175
-msgid "Data color"
-msgstr "Колер даньняў"
-
-#: objects/chronogram/chronoline.c:177
-msgid "Data line width"
-msgstr "Шырыня рысы даньняў"
-
-#: objects/chronogram/chronoref.c:144
-msgid "Time data"
-msgstr ""
-
-#: objects/chronogram/chronoref.c:150
-msgid "Major time step"
-msgstr ""
-
-#: objects/chronogram/chronoref.c:152
-msgid "Minor time step"
-msgstr ""
-
-#: objects/chronogram/chronoref.c:162
-msgid "Minor step line width"
-msgstr ""
-
-#: objects/custom/custom.c:117
-msgid "Custom"
-msgstr ""
-
-#: objects/custom/custom.c:117
-msgid "Custom XML shapes loader"
-msgstr "Загрузчык XML-форм карыстальніка"
-
-#: objects/custom/custom_object.c:178 objects/custom/custom_object.c:197
-msgid "Flip horizontal"
-msgstr "Гарызантальнае люстра"
-
-#: objects/custom/custom_object.c:180 objects/custom/custom_object.c:199
-msgid "Flip vertical"
-msgstr "Вэртыкальнае люстра"
-
-#: objects/custom/custom_object.c:1448
-msgid "Flip Horizontal"
-msgstr "Гарызантальнае люстра"
-
-#: objects/custom/custom_object.c:1449
-msgid "Flip Vertical"
-msgstr "Вэртыкальнае люстра"
-
-#: objects/custom/custom_object.c:1486
-#, c-format
-msgid "Cannot open icon file %s for object type '%s'."
-msgstr "Немагчыма адкрыць файл піктаграмаў %s для аб'екта тыпу \"%s\"."
-
-#: objects/flowchart/box.c:150 objects/standard/box.c:150
-#: objects/standard/polyline.c:134 objects/standard/zigzagline.c:129
-msgid "Corner radius"
-msgstr "Радыюс кута"
-
-#: objects/flowchart/flowchart.c:37
-msgid "Flowchart objects"
-msgstr ""
-
-#: objects/flowchart/parallelogram.c:152
-msgid "Shear angle"
-msgstr "Кут зруху"
 
 #: objects/Istar/actor.c:68 objects/Istar/link.c:153
 #, fuzzy
@@ -4587,6 +3897,12 @@ msgstr "Паслабляць"
 msgid "Task"
 msgstr ""
 
+#: objects/Istar/other.c:470 objects/Jackson/domain.c:532
+#: objects/KAOS/goal.c:573 objects/KAOS/other.c:526 objects/SADT/box.c:446
+#: objects/standard/line.c:221
+msgid "Delete connection point"
+msgstr "Выдаліць пункт далучэньня"
+
 #: objects/Istar/other.c:475
 msgid "i* other"
 msgstr ""
@@ -4649,6 +3965,10 @@ msgstr "Фармаваць"
 #, fuzzy
 msgid "Requirement"
 msgstr "Прадастаўляць"
+
+#: objects/Jackson/phenomenon.c:142 objects/UML/message.c:150
+msgid "Message:"
+msgstr "Паведамленьне:"
 
 #: objects/KAOS/goal.c:82
 msgid "Assumption"
@@ -4738,12 +4058,764 @@ msgstr "З"
 msgid "KAOS other"
 msgstr "Плотэр"
 
-#: objects/network/basestation.c:133
+#: objects/Misc/analog_clock.c:137
+#, fuzzy
+msgid "Arrow color"
+msgstr "Колер стрэлкі"
+
+#: objects/Misc/analog_clock.c:139
+msgid "Arrow line width"
+msgstr "Шырыня рысы стрэлкі"
+
+#: objects/Misc/analog_clock.c:141
+#, fuzzy
+msgid "Seconds arrow color"
+msgstr "Колер стрэлкі"
+
+#: objects/Misc/analog_clock.c:143
+msgid "Seconds arrow line width"
+msgstr ""
+
+#: objects/Misc/analog_clock.c:145
+msgid "Show hours"
+msgstr "Паказаць гадзіны"
+
+#: objects/Misc/libmisc.c:38
+msgid "Miscellaneous objects"
+msgstr "Розныя аб'екты"
+
+#. property rows
+#: objects/SADT/arrow.c:134 objects/UML/class.c:148
+#: objects/UML/class_dialog.c:357
+msgid "Normal"
+msgstr "Звычайны"
+
+#: objects/SADT/arrow.c:135
+msgid "Import resource (not shown upstairs)"
+msgstr ""
+
+#: objects/SADT/arrow.c:136
+msgid "Imply resource (not shown downstairs)"
+msgstr ""
+
+#: objects/SADT/arrow.c:137
+msgid "Dotted arrow"
+msgstr "Кропкавая стрэлка"
+
+#: objects/SADT/arrow.c:138
+msgid "disable arrow heads"
+msgstr ""
+
+#: objects/SADT/arrow.c:144
+msgid "Flow style:"
+msgstr "Стыль плыні:"
+
+#: objects/SADT/arrow.c:146
+msgid "Automatically gray vertical flows:"
+msgstr "Аўтаматычна вылучаць вэртыкальныя плыні:"
+
+#: objects/SADT/arrow.c:147
+msgid ""
+"To improve the ease of reading, flows which begin and end vertically can be "
+"rendered gray"
+msgstr ""
+
+#: objects/SADT/arrow.c:463
+msgid "SADT Arrow"
+msgstr "SADT стрэлка"
+
+#: objects/SADT/box.c:137 objects/flowchart/box.c:152
+#: objects/flowchart/diamond.c:150 objects/flowchart/ellipse.c:149
+#: objects/flowchart/parallelogram.c:154
+msgid "Text padding"
+msgstr ""
+
+#: objects/SADT/box.c:144
+msgid "Activity/Data identifier"
+msgstr "Ідэнтыфікатар актыўнасьці/даньняў"
+
+#: objects/SADT/box.c:145
+msgid "The identifier which appears in the lower right corner of the Box"
+msgstr ""
+
+#: objects/SADT/box.c:451
+msgid "SADT box"
+msgstr "Ячэя SADT"
+
+#: objects/SADT/sadt.c:41
+msgid "SADT diagram objects"
+msgstr ""
+
+#: objects/UML/actor.c:364 objects/UML/actor.c:366 sheets/UML.sheet.in.h:2
+msgid "Actor"
+msgstr "Агент"
+
+#: objects/UML/association.c:1178 objects/UML/class_dialog.c:2102
+msgid "Direction:"
+msgstr "Накірунак:"
+
+#: objects/UML/association.c:1195
+msgid "From A to B"
+msgstr "Ад А да В"
+
+#: objects/UML/association.c:1202
+msgid "From B to A"
+msgstr "Ад В да А"
+
+#: objects/UML/association.c:1226 objects/UML/association.c:1234
+msgid "Side A"
+msgstr "Бок А"
+
+#: objects/UML/association.c:1228 objects/UML/association.c:1236
+msgid "Side B"
+msgstr "Бок В"
+
+#: objects/UML/association.c:1242
+msgid "Role:"
+msgstr "Роля:"
+
+#: objects/UML/association.c:1254
+msgid "Multiplicity:"
+msgstr ""
+
+#: objects/UML/association.c:1265 objects/UML/class_dialog.c:946
+#: objects/UML/class_dialog.c:1864
+msgid "Visibility:"
+msgstr "Бачнасьць:"
+
+#: objects/UML/association.c:1274 objects/UML/class_dialog.c:955
+#: objects/UML/class_dialog.c:1873 objects/UML/uml.c:101
+msgid "Public"
+msgstr "Агульны (Public)"
+
+#: objects/UML/association.c:1284 objects/UML/class_dialog.c:963
+#: objects/UML/class_dialog.c:1881 objects/UML/uml.c:102
+msgid "Private"
+msgstr "Прыватны (Private)"
+
+#: objects/UML/association.c:1294 objects/UML/class_dialog.c:971
+#: objects/UML/class_dialog.c:1889 objects/UML/uml.c:103
+msgid "Protected"
+msgstr "Абаронены (Protected)"
+
+#: objects/UML/association.c:1304 objects/UML/class_dialog.c:979
+#: objects/UML/class_dialog.c:1897
+msgid "Implementation"
+msgstr ""
+
+#. Show arrow:
+#: objects/UML/association.c:1323
+msgid "Show arrow"
+msgstr ""
+
+#. Aggregate
+#: objects/UML/association.c:1329
+msgid "Aggregate"
+msgstr "Агрэгаваць"
+
+#. Composition
+#: objects/UML/association.c:1337
+msgid "Composition"
+msgstr "Кампазыцыя"
+
+#: objects/UML/class.c:115 objects/UML/class.c:281 objects/UML/class.c:1271
+#: sheets/UML.sheet.in.h:6
+msgid "Class"
+msgstr "Кляса"
+
+#: objects/UML/class.c:119 objects/UML/classicon.c:138
+#: objects/UML/component.c:124 objects/UML/large_package.c:128
+#: objects/UML/object.c:149 objects/UML/small_package.c:124
+#: objects/UML/umloperation.c:68
+msgid "Stereotype"
+msgstr "Стэрэатып"
+
+#: objects/UML/class.c:121 objects/UML/class.c:158
+#: objects/UML/class_dialog.c:382 objects/UML/umlattribute.c:43
+#: objects/UML/umloperation.c:66 objects/UML/umlparameter.c:49
+#: sheets/SDL.sheet.in.h:3
+msgid "Comment"
+msgstr "Камэнтар"
+
+#: objects/UML/class.c:123 objects/UML/class.c:152
+#: objects/UML/class_dialog.c:296 objects/UML/class_dialog.c:367
+#: objects/UML/class_dialog.c:1928 objects/UML/uml.c:109
+msgid "Abstract"
+msgstr "Абстракцыя"
+
+#: objects/UML/class.c:125
+msgid "Template"
+msgstr "Шаблён"
+
+#: objects/UML/class.c:128 objects/UML/class_dialog.c:305
+msgid "Suppress Attributes"
+msgstr ""
+
+#: objects/UML/class.c:130
+msgid "Suppress Operations"
+msgstr ""
+
+#: objects/UML/class.c:132
+msgid "Visible Attributes"
+msgstr "Бачныя атрыбуты"
+
+#: objects/UML/class.c:134
+msgid "Visible Operations"
+msgstr "Бачныя апэрацыі"
+
+#: objects/UML/class.c:136
+msgid "Visible Comments"
+msgstr "Бачныя камэнтары"
+
+#: objects/UML/class.c:138 objects/UML/class_dialog.c:321
+#, fuzzy
+msgid "Wrap Operations"
+msgstr "Апэрацыі"
+
+#: objects/UML/class.c:140
+msgid "Wrap after char"
+msgstr ""
+
+#: objects/UML/class.c:150 objects/UML/class_dialog.c:362
+msgid "Polymorphic"
+msgstr ""
+
+#: objects/UML/class.c:154
+#, fuzzy
+msgid "Classname"
+msgstr "Назва клясы:"
+
+#: objects/UML/class.c:156
+#, fuzzy
+msgid "Abstract Classname"
+msgstr "Абстрактная кляса"
+
+#: objects/UML/class.c:162 objects/UML/class.c:164 objects/UML/class.c:166
+#: objects/UML/class.c:168 objects/UML/class.c:170 objects/UML/class.c:172
+msgid " "
+msgstr ""
+
+#: objects/UML/class.c:178 objects/UML/object.c:153
+msgid "Attributes"
+msgstr "Атрыбуты"
+
+#: objects/UML/class.c:180
+msgid "Operations"
+msgstr "Апэрацыі"
+
+#: objects/UML/class.c:183
+#, fuzzy
+msgid "Template Parameters"
+msgstr "Парамэтры"
+
+#: objects/UML/class.c:275
+#, fuzzy
+msgid "Show Comments"
+msgstr "Паказаць камэнтары"
+
+#. Class page:
+#: objects/UML/class_dialog.c:265
+#, fuzzy
+msgid "_Class"
+msgstr "Кляса"
+
+#: objects/UML/class_dialog.c:273
+msgid "Class name:"
+msgstr "Назва клясы:"
+
+#: objects/UML/class_dialog.c:281 objects/UML/class_dialog.c:1851
+#: objects/UML/dependency.c:135 objects/UML/generalization.c:131
+#: objects/UML/realizes.c:132
+msgid "Stereotype:"
+msgstr "Стэрэатып:"
+
+#: objects/UML/class_dialog.c:288 objects/UML/class_dialog.c:934
+#: objects/UML/class_dialog.c:1969 objects/UML/class_dialog.c:2091
+msgid "Comment:"
+msgstr "Камэнтар:"
+
+#: objects/UML/class_dialog.c:302
+msgid "Attributes visible"
+msgstr "Бачнасьць атрыбутаў"
+
+#: objects/UML/class_dialog.c:311
+msgid "Operations visible"
+msgstr "Бачнасьць апэрацыяў"
+
+#: objects/UML/class_dialog.c:314
+msgid "Suppress operations"
+msgstr ""
+
+#: objects/UML/class_dialog.c:328
+msgid "Wrap after this length: "
+msgstr ""
+
+#: objects/UML/class_dialog.c:335
+msgid "Comments visible"
+msgstr "Бачнасьць камэнтараў"
+
+#. head line
+#: objects/UML/class_dialog.c:348 objects/UML/umlparameter.c:51
+msgid "Kind"
+msgstr ""
+
+#: objects/UML/class_dialog.c:353
+msgid "Size"
+msgstr "Памер"
+
+#: objects/UML/class_dialog.c:372
+msgid "Class Name"
+msgstr "Назва клясы"
+
+#: objects/UML/class_dialog.c:377
+msgid "Abstract Class"
+msgstr "Абстрактная кляса"
+
+#. should probably be refactored too.
+#: objects/UML/class_dialog.c:394
+#, fuzzy
+msgid "Text Color"
+msgstr "Колер тэкста"
+
+#: objects/UML/class_dialog.c:402
+msgid "Foreground Color"
+msgstr "Асноўны колер"
+
+#: objects/UML/class_dialog.c:410
+msgid "Background Color"
+msgstr "Колер тла"
+
+#. Attributes page:
+#: objects/UML/class_dialog.c:834
+#, fuzzy
+msgid "_Attributes"
+msgstr "Атрыбуты"
+
+#: objects/UML/class_dialog.c:862 objects/UML/class_dialog.c:1787
+#: objects/UML/class_dialog.c:2015 objects/UML/class_dialog.c:2535
+#, fuzzy
+msgid "_New"
+msgstr "Стварыць"
+
+#: objects/UML/class_dialog.c:868 objects/UML/class_dialog.c:1793
+#: objects/UML/class_dialog.c:2022 objects/UML/class_dialog.c:2541
+msgid "_Delete"
+msgstr "Вы_даліць"
+
+#: objects/UML/class_dialog.c:874 objects/UML/class_dialog.c:1799
+#: objects/UML/class_dialog.c:2029 objects/UML/class_dialog.c:2547
+msgid "Move up"
+msgstr "Пасунуць угору"
+
+#: objects/UML/class_dialog.c:880 objects/UML/class_dialog.c:1805
+#: objects/UML/class_dialog.c:2036 objects/UML/class_dialog.c:2553
+msgid "Move down"
+msgstr "Пасунуць долу"
+
+#: objects/UML/class_dialog.c:891
+msgid "Attribute data"
+msgstr "Даньні атрыбута"
+
+#: objects/UML/class_dialog.c:923
+msgid "Value:"
+msgstr "Значэньне:"
+
+#: objects/UML/class_dialog.c:1000 objects/UML/class_dialog.c:1913
+msgid "Class scope"
+msgstr ""
+
+#. Operations page:
+#: objects/UML/class_dialog.c:1759
+#, fuzzy
+msgid "_Operations"
+msgstr "Апэрацыі"
+
+#: objects/UML/class_dialog.c:1817
+msgid "Operation data"
+msgstr "Даньні апэрацыі"
+
+#: objects/UML/class_dialog.c:1919
+msgid "Inheritance type:"
+msgstr ""
+
+#: objects/UML/class_dialog.c:1936 objects/UML/uml.c:110
+msgid "Polymorphic (virtual)"
+msgstr ""
+
+#: objects/UML/class_dialog.c:1944 objects/UML/uml.c:111
+msgid "Leaf (final)"
+msgstr ""
+
+#: objects/UML/class_dialog.c:1962
+msgid "Query"
+msgstr "Запыт"
+
+#: objects/UML/class_dialog.c:1986
+msgid "Parameters:"
+msgstr "Парамэтры:"
+
+#: objects/UML/class_dialog.c:2048
+msgid "Parameter data"
+msgstr "Даньні парамэтра"
+
+#: objects/UML/class_dialog.c:2080
+msgid "Def. value:"
+msgstr "Вызн. значэньне:"
+
+#: objects/UML/class_dialog.c:2111 objects/UML/umlparameter.c:34
+msgid "Undefined"
+msgstr "Невызначаны"
+
+#: objects/UML/class_dialog.c:2119 objects/UML/umlparameter.c:35
+msgid "In"
+msgstr "У"
+
+#: objects/UML/class_dialog.c:2128 objects/UML/umlparameter.c:36
+msgid "Out"
+msgstr "З"
+
+#: objects/UML/class_dialog.c:2137 objects/UML/umlparameter.c:37
+msgid "In & Out"
+msgstr "У й З"
+
+#. Templates page:
+#: objects/UML/class_dialog.c:2501
+#, fuzzy
+msgid "_Templates"
+msgstr "Шаблёны"
+
+#: objects/UML/class_dialog.c:2507 sheets/UML.sheet.in.h:29
+msgid "Template class"
+msgstr "Шаблён клясы"
+
+#: objects/UML/class_dialog.c:2564
+msgid "Formal parameter data"
+msgstr ""
+
+#: objects/UML/classicon.c:128
+msgid "Boundary"
+msgstr "Межы"
+
+#: objects/UML/classicon.c:140
+msgid "Is object"
+msgstr "Гэта аб'ект"
+
+#: objects/UML/component_feature.c:144 sheets/UML.sheet.in.h:14
+#, fuzzy
+msgid "Facet"
+msgstr "Сумежнасьць"
+
+#: objects/UML/component_feature.c:145 sheets/UML.sheet.in.h:26
+#, fuzzy
+msgid "Receptacle"
+msgstr "Замяніць"
+
+#: objects/UML/component_feature.c:146 sheets/UML.sheet.in.h:13
+msgid "Event Source"
+msgstr ""
+
+#: objects/UML/component_feature.c:147 sheets/UML.sheet.in.h:12
+#, fuzzy
+msgid "Event Sink"
+msgstr "Падзеі"
+
+#: objects/UML/constraint.c:125
+msgid "Constraint:"
+msgstr "Абмежаваньне:"
+
+#: objects/UML/dependency.c:137
+msgid "Show arrow:"
+msgstr ""
+
+#: objects/UML/implements.c:128
+msgid "Interface:"
+msgstr "Інтэрфэйс:"
+
+#: objects/UML/lifeline.c:144
+msgid "Draw focus of control:"
+msgstr ""
+
+#: objects/UML/lifeline.c:146
+msgid "Draw destruction mark:"
+msgstr ""
+
+#: objects/UML/lifeline.c:417
+msgid "Add connection points"
+msgstr "Дадаць пункт далучэньня"
+
+#: objects/UML/lifeline.c:418
+msgid "Remove connection points"
+msgstr "Выдаліць пункт далучэньня"
+
+#: objects/UML/lifeline.c:422
+msgid "UML Lifeline"
+msgstr "Лінія жыцьця UML"
+
+#: objects/UML/message.c:135
+msgid "Call"
+msgstr "Выклік"
+
+#: objects/UML/message.c:136
+msgid "Create"
+msgstr "Стварыць"
+
+#: objects/UML/message.c:137
+msgid "Destroy"
+msgstr "Зьнішчыць"
+
+#: objects/UML/message.c:138
+msgid "Simple"
+msgstr "Просты"
+
+#: objects/UML/message.c:139
+msgid "Return"
+msgstr "Вярнуць"
+
+#: objects/UML/message.c:140
+msgid "Send"
+msgstr "Даслаць"
+
+#: objects/UML/message.c:141
+msgid "Recursive"
+msgstr "Рэкурсыўна"
+
+#: objects/UML/message.c:152
+msgid "Message type:"
+msgstr "Тып паведамленьня:"
+
+#: objects/UML/object.c:151
+msgid "Explicit state"
+msgstr "Выключны стан"
+
+#: objects/UML/object.c:156
+msgid "Active object"
+msgstr "Актыўны аб'ект"
+
+#: objects/UML/object.c:158
+msgid "Show attributes"
+msgstr "Паказаць атрыбуты"
+
+#: objects/UML/object.c:160
+msgid "Multiple instance"
+msgstr ""
+
+#. Would like to create a state_term instead, but making the connections
+#. * is a pain
+#: objects/UML/state.c:390
+msgid ""
+"This diagram uses the State object for initial/final states.\n"
+"That option will go away in future versions.\n"
+"Please use the Initial/Final State object instead\n"
+msgstr ""
+
+#: objects/UML/state_term.c:120
+msgid "Is final"
+msgstr "Гэта канец"
+
+#: objects/UML/transition.c:129
+#, fuzzy
+msgid "Trigger"
+msgstr "Палец"
+
+#: objects/UML/transition.c:130
+msgid "The event that causes this transition to be taken"
+msgstr ""
+
+#: objects/UML/transition.c:131
+#, fuzzy
+msgid "Action"
+msgstr "Агент"
+
+#: objects/UML/transition.c:132
+msgid "Action to perform when this transition is taken"
+msgstr ""
+
+#: objects/UML/transition.c:133 sheets/cisconetwork.sheet.in.h:43
+#, fuzzy
+msgid "Guard"
+msgstr "Сетка"
+
+#: objects/UML/transition.c:134
+msgid "Condition for taking this transition when the event is fired"
+msgstr ""
+
+#: objects/UML/uml.c:65
+msgid "Unified Modelling Language diagram objects"
+msgstr ""
+
+#: objects/UML/uml.c:104
+#, fuzzy
+msgid "Implmentation"
+msgstr "Арыентацыя"
+
+#: objects/UML/umlattribute.c:41 objects/UML/umlparameter.c:47
+#, fuzzy
+msgid "Value"
+msgstr "Значэньне:"
+
+#: objects/UML/umlattribute.c:45 objects/UML/umloperation.c:71
+#, fuzzy
+msgid "Visibility"
+msgstr "Бачнасьць:"
+
+#: objects/UML/umlattribute.c:47
+#, fuzzy
+msgid "Abstract (?)"
+msgstr "Абстракцыя"
+
+#: objects/UML/umlattribute.c:49 objects/UML/umloperation.c:77
+msgid "Class scope (static)"
+msgstr ""
+
+#: objects/UML/umloperation.c:73
+msgid "Inheritance type"
+msgstr ""
+
+#: objects/UML/umloperation.c:75
+msgid "Query (const)"
+msgstr ""
+
+#: objects/UML/umloperation.c:79 objects/chronogram/chronoline.c:162
+msgid "Parameters"
+msgstr "Парамэтры"
+
+#: objects/UML/usecase.c:132
+msgid "Text outside"
+msgstr ""
+
+#: objects/UML/usecase.c:134
+msgid "Collaboration"
+msgstr ""
+
+#: objects/bondgraph/bondgraph.c:39
+msgid "Bond graph objects"
+msgstr ""
+
+#: objects/chronogram/chronogram.c:40
+msgid "Chronogram diagram objects"
+msgstr ""
+
+#: objects/chronogram/chronoline.c:148
+msgid "Data"
+msgstr "Даньні"
+
+#: objects/chronogram/chronoline.c:150
+msgid "Data name"
+msgstr "Назва даньняў"
+
+#: objects/chronogram/chronoline.c:152
+msgid "Events"
+msgstr "Падзеі"
+
+#: objects/chronogram/chronoline.c:155
+msgid "Event specification"
+msgstr "Спэцыфікацыя падзеі"
+
+#: objects/chronogram/chronoline.c:156
+msgid ""
+"@ time    set the pointer at an absolute time.\n"
+"( duration  sets the signal up, then wait 'duration'.\n"
+") duration  sets the signal down, then wait 'duration'.\n"
+"u duration  sets the signal to \"unknown\" state, then wait 'duration'.\n"
+"example : @ 1.0 (2.0)1.0(2.0)\n"
+msgstr ""
+
+#: objects/chronogram/chronoline.c:164 objects/chronogram/chronoref.c:146
+msgid "Start time"
+msgstr "Час пачатку"
+
+#: objects/chronogram/chronoline.c:166 objects/chronogram/chronoref.c:148
+msgid "End time"
+msgstr "Час заканчэньня"
+
+#: objects/chronogram/chronoline.c:168
+msgid "Rise time"
+msgstr ""
+
+#: objects/chronogram/chronoline.c:170
+msgid "Fall time"
+msgstr ""
+
+#: objects/chronogram/chronoline.c:171
+msgid "Multi-bit data"
+msgstr "Мультыбітныя даньні"
+
+#: objects/chronogram/chronoline.c:173 objects/chronogram/chronoref.c:156
+msgid "Aspect"
+msgstr "Від"
+
+#: objects/chronogram/chronoline.c:175
+msgid "Data color"
+msgstr "Колер даньняў"
+
+#: objects/chronogram/chronoline.c:177
+msgid "Data line width"
+msgstr "Шырыня рысы даньняў"
+
+#: objects/chronogram/chronoref.c:144
+msgid "Time data"
+msgstr ""
+
+#: objects/chronogram/chronoref.c:150
+msgid "Major time step"
+msgstr ""
+
+#: objects/chronogram/chronoref.c:152
+msgid "Minor time step"
+msgstr ""
+
+#: objects/chronogram/chronoref.c:162
+msgid "Minor step line width"
+msgstr ""
+
+#: objects/custom/custom.c:117
+msgid "Custom"
+msgstr ""
+
+#: objects/custom/custom.c:117
+msgid "Custom XML shapes loader"
+msgstr "Загрузчык XML-форм карыстальніка"
+
+#: objects/custom/custom_object.c:178 objects/custom/custom_object.c:203
+msgid "Flip horizontal"
+msgstr "Гарызантальнае люстра"
+
+#: objects/custom/custom_object.c:180 objects/custom/custom_object.c:205
+msgid "Flip vertical"
+msgstr "Вэртыкальнае люстра"
+
+#: objects/custom/custom_object.c:1454
+msgid "Flip Horizontal"
+msgstr "Гарызантальнае люстра"
+
+#: objects/custom/custom_object.c:1455
+msgid "Flip Vertical"
+msgstr "Вэртыкальнае люстра"
+
+#: objects/custom/custom_object.c:1492
+#, c-format
+msgid "Cannot open icon file %s for object type '%s'."
+msgstr "Немагчыма адкрыць файл піктаграмаў %s для аб'екта тыпу \"%s\"."
+
+#: objects/flowchart/box.c:150 objects/standard/box.c:150
+#: objects/standard/polyline.c:134 objects/standard/zigzagline.c:129
+msgid "Corner radius"
+msgstr "Радыюс кута"
+
+#: objects/flowchart/flowchart.c:37
+msgid "Flowchart objects"
+msgstr ""
+
+#: objects/flowchart/parallelogram.c:152
+msgid "Shear angle"
+msgstr "Кут зруху"
+
+#: objects/network/basestation.c:135
 #, fuzzy
 msgid "Sectors"
 msgstr "Агент"
 
-#: objects/network/basestation.c:388 objects/network/basestation.c:390
+#: objects/network/basestation.c:393 objects/network/basestation.c:395
 #, fuzzy
 msgid "Base Station"
 msgstr "Арыентацыя"
@@ -4787,22 +4859,22 @@ msgstr "Тып:"
 msgid "Subscribers"
 msgstr ""
 
-#: objects/standard/arc.c:131
+#: objects/standard/arc.c:135
 msgid "Curve distance"
 msgstr "Даўжыня крывой"
 
-#: objects/standard/bezier.c:137 objects/standard/line.c:141
+#: objects/standard/bezier.c:137 objects/standard/line.c:142
 #: objects/standard/polyline.c:135
 #, fuzzy
 msgid "Line gaps"
 msgstr "Рысы"
 
-#: objects/standard/bezier.c:139 objects/standard/line.c:143
+#: objects/standard/bezier.c:139 objects/standard/line.c:144
 #: objects/standard/polyline.c:137
 msgid "Absolute start gap"
 msgstr ""
 
-#: objects/standard/bezier.c:141 objects/standard/line.c:145
+#: objects/standard/bezier.c:141 objects/standard/line.c:146
 #: objects/standard/polyline.c:139
 msgid "Absolute end gap"
 msgstr ""
@@ -4887,15 +4959,15 @@ msgstr ""
 msgid "The image file '%s' was not found.\n"
 msgstr ""
 
-#: objects/standard/line.c:132
+#: objects/standard/line.c:133
 msgid "Arrows"
 msgstr "Стрэлкі"
 
-#: objects/standard/line.c:137
+#: objects/standard/line.c:138
 msgid "Start point"
 msgstr "Пачатковы пункт"
 
-#: objects/standard/line.c:139
+#: objects/standard/line.c:140
 msgid "End point"
 msgstr "Канчатковы пункт"
 
@@ -4911,35 +4983,35 @@ msgstr "Выдаліць кут"
 msgid "Standard objects"
 msgstr "Стандартныя аб'екты"
 
-#: plug-ins/cairo/diacairo.c:1031
+#: plug-ins/cairo/diacairo.c:1078
 msgid "Cairo PostScript"
 msgstr ""
 
-#: plug-ins/cairo/diacairo.c:1040
+#: plug-ins/cairo/diacairo.c:1087
 msgid "Cairo Portable Document Format"
 msgstr ""
 
-#: plug-ins/cairo/diacairo.c:1049
+#: plug-ins/cairo/diacairo.c:1096
 msgid "Cairo PNG"
 msgstr ""
 
-#: plug-ins/cairo/diacairo.c:1057
+#: plug-ins/cairo/diacairo.c:1104
 msgid "Cairo PNG (with alpha)"
 msgstr ""
 
-#: plug-ins/cairo/diacairo.c:1066
+#: plug-ins/cairo/diacairo.c:1113
 msgid "Cairo WMF"
 msgstr ""
 
-#: plug-ins/cairo/diacairo.c:1075
+#: plug-ins/cairo/diacairo.c:1122
 msgid "Cairo old WMF"
 msgstr ""
 
-#: plug-ins/cairo/diacairo.c:1084
+#: plug-ins/cairo/diacairo.c:1131
 msgid "Cairo Clipboard"
 msgstr ""
 
-#: plug-ins/cairo/diacairo.c:1127
+#: plug-ins/cairo/diacairo.c:1174
 msgid "Cairo based Rendering"
 msgstr ""
 
@@ -4983,7 +5055,7 @@ msgstr "Невядомы код dxf %d\n"
 msgid "Drawing Interchange File import and export filters"
 msgstr "Фільтар экспартаваньня/імпартаваньня DIF (Drawing Interchange File)"
 
-#: plug-ins/gprint/diagnomeprint.c:79
+#: plug-ins/gprint/diagnomeprint.c:81
 #, c-format
 msgid ""
 "GNOME Print Backend\n"
@@ -4991,20 +5063,20 @@ msgid ""
 " not available"
 msgstr ""
 
-#: plug-ins/gprint/diagnomeprint.c:110
+#: plug-ins/gprint/diagnomeprint.c:112
 msgid "GNOME PostScript"
 msgstr ""
 
-#: plug-ins/gprint/diagnomeprint.c:119
+#: plug-ins/gprint/diagnomeprint.c:121
 msgid "GNOME Portable Document Format"
 msgstr ""
 
-#: plug-ins/gprint/diagnomeprint.c:128
+#: plug-ins/gprint/diagnomeprint.c:131
 #, fuzzy
 msgid "GNOME Scalable Vector Graphic"
 msgstr "Здольная маштабавацца вэктарная графіка (SVG)"
 
-#: plug-ins/gprint/diagnomeprint.c:159
+#: plug-ins/gprint/diagnomeprint.c:164
 msgid "GNOME Print based Rendering"
 msgstr ""
 
@@ -5020,7 +5092,7 @@ msgstr ""
 msgid "TeX Metapost export filter"
 msgstr ""
 
-#: plug-ins/metapost/render_metapost.c:1033
+#: plug-ins/metapost/render_metapost.c:1175
 msgid "TeX Metapost macros"
 msgstr "Макрас TeX Metapost"
 
@@ -5043,11 +5115,11 @@ msgstr ""
 msgid "TeX Pstricks export filter"
 msgstr ""
 
-#: plug-ins/pstricks/render_pstricks.c:653
+#: plug-ins/pstricks/render_pstricks.c:731
 msgid "Not valid UTF8"
 msgstr ""
 
-#: plug-ins/pstricks/render_pstricks.c:877
+#: plug-ins/pstricks/render_pstricks.c:980
 msgid "TeX PSTricks macros"
 msgstr "Макрас TeX Pstricks"
 
@@ -5060,11 +5132,11 @@ msgstr "Немагчыма адкрыць: '%s' для запісу.\n"
 msgid "Python scripting support"
 msgstr "Падтрымка сцэнараў Python"
 
-#: plug-ins/shape/shape-export.c:470
+#: plug-ins/shape/shape-export.c:476
 msgid "Can't export png without libart!"
 msgstr "Немагчыма экспартаваць png бяз libart!"
 
-#: plug-ins/shape/shape-export.c:497
+#: plug-ins/shape/shape-export.c:501
 #, fuzzy
 msgid "Dia Shape File"
 msgstr "файл формы Дыя"
@@ -5073,7 +5145,7 @@ msgstr "файл формы Дыя"
 msgid "dia shape export filter"
 msgstr ""
 
-#: plug-ins/svg/render_svg.c:301 plug-ins/svg/svg-import.c:669
+#: plug-ins/svg/render_svg.c:291 plug-ins/svg/svg-import.c:669
 msgid "Scalable Vector Graphics"
 msgstr "Здольная маштабавацца вэктарная графіка (SVG)"
 
@@ -5115,16 +5187,16 @@ msgstr "WPG"
 msgid "WordPerfect Graphics export filter"
 msgstr "Фільтар экспартаваньня файлаў WordPerfect Graphics"
 
-#: plug-ins/xfig/xfig-export.c:454
+#: plug-ins/xfig/xfig-export.c:461
 #, c-format
 msgid "FIG format has no equivalent of arrow style %s, using simple arrow.\n"
 msgstr ""
 
-#: plug-ins/xfig/xfig-export.c:475
+#: plug-ins/xfig/xfig-export.c:483
 msgid "No more user-definable colors - using black"
 msgstr ""
 
-#: plug-ins/xfig/xfig-export.c:1149
+#: plug-ins/xfig/xfig-export.c:1187
 msgid "XFig format"
 msgstr "Фармат XFig"
 
@@ -5843,7 +5915,7 @@ msgstr ""
 msgid "Lamp"
 msgstr "Лямпа"
 
-#: sheets/Circuit.sheet.in.h:16 sheets/ciscomisc.sheet.in.h:26
+#: sheets/Circuit.sheet.in.h:16 sheets/ciscomisc.sheet.in.h:30
 #, fuzzy
 msgid "Microphone"
 msgstr "Мікрафон"
@@ -5877,7 +5949,7 @@ msgstr "Транзыстар PMOS"
 msgid "PNP bipolar transistor"
 msgstr "Біпалярны транзыстар n-P-n"
 
-#: sheets/Circuit.sheet.in.h:26 sheets/ciscomisc.sheet.in.h:39
+#: sheets/Circuit.sheet.in.h:26 sheets/ciscomisc.sheet.in.h:42
 #, fuzzy
 msgid "Speaker"
 msgstr "Дынамік"
@@ -7103,324 +7175,552 @@ msgid "Time scale"
 msgstr "Стыль рысы"
 
 #: sheets/ciscocomputer.sheet.in.h:1
+msgid "BBS"
+msgstr ""
+
+#: sheets/ciscocomputer.sheet.in.h:2
 #, fuzzy
 msgid "Cisco - Computer"
 msgstr "Кампутар"
 
-#: sheets/ciscocomputer.sheet.in.h:2
+#: sheets/ciscocomputer.sheet.in.h:3
 msgid "Cisco CA"
 msgstr ""
 
-#: sheets/ciscocomputer.sheet.in.h:3
+#: sheets/ciscocomputer.sheet.in.h:4
 #, fuzzy
 msgid "CiscoSecurity"
 msgstr "Адлучаць"
 
-#: sheets/ciscocomputer.sheet.in.h:4
+#: sheets/ciscocomputer.sheet.in.h:5
 msgid "CiscoWorks workstation"
 msgstr ""
-
-#: sheets/ciscocomputer.sheet.in.h:5
-#, fuzzy
-msgid "Communications server"
-msgstr "Загаловак функцыі"
 
 #: sheets/ciscocomputer.sheet.in.h:6
 msgid "Computer shapes by Cisco"
 msgstr ""
 
 #: sheets/ciscocomputer.sheet.in.h:7
-msgid "Directory Server"
+msgid "Disk subsystem"
 msgstr ""
 
 #: sheets/ciscocomputer.sheet.in.h:8
+msgid "Diskette"
+msgstr ""
+
+#: sheets/ciscocomputer.sheet.in.h:9
+#, fuzzy
+msgid "EtherClient"
+msgstr "Шына Ethernet"
+
+#: sheets/ciscocomputer.sheet.in.h:10
+#, fuzzy
+msgid "FC Storage"
+msgstr "Сховішча"
+
+#: sheets/ciscocomputer.sheet.in.h:11
 #, fuzzy
 msgid "File Server"
 msgstr "/Файл/_Захаваць"
 
-#: sheets/ciscocomputer.sheet.in.h:9
+#: sheets/ciscocomputer.sheet.in.h:12
+#, fuzzy
+msgid "Front End Processor"
+msgstr "Стварае працэс"
+
+#: sheets/ciscocomputer.sheet.in.h:13
 msgid "HP Mini"
 msgstr ""
 
-#: sheets/ciscocomputer.sheet.in.h:10
+#: sheets/ciscocomputer.sheet.in.h:14
 #, fuzzy
 msgid "Handheld"
 msgstr "Рука"
 
-#: sheets/ciscocomputer.sheet.in.h:11
+#: sheets/ciscocomputer.sheet.in.h:15
 msgid "Host"
 msgstr ""
 
-#: sheets/ciscocomputer.sheet.in.h:12
+#: sheets/ciscocomputer.sheet.in.h:16
 msgid "IBM Mini (AS400)"
 msgstr ""
 
-#: sheets/ciscocomputer.sheet.in.h:13
+#: sheets/ciscocomputer.sheet.in.h:17
 msgid "IBM Tower"
 msgstr ""
 
-#: sheets/ciscocomputer.sheet.in.h:14
+#: sheets/ciscocomputer.sheet.in.h:18
 msgid "IBM mainframe"
 msgstr ""
 
-#: sheets/ciscocomputer.sheet.in.h:15
-msgid "IP Softphone"
+#: sheets/ciscocomputer.sheet.in.h:19
+msgid "IBM mainframe with FEP"
 msgstr ""
 
-#: sheets/ciscocomputer.sheet.in.h:16
-msgid "IPTV broadcast server"
+#: sheets/ciscocomputer.sheet.in.h:20
+msgid "JBOD"
 msgstr ""
 
-#: sheets/ciscocomputer.sheet.in.h:17
+#: sheets/ciscocomputer.sheet.in.h:21
 #, fuzzy
 msgid "Laptop"
 msgstr "ПК \"Laptop\""
 
-#: sheets/ciscocomputer.sheet.in.h:18
+#: sheets/ciscocomputer.sheet.in.h:22
 #, fuzzy
 msgid "Macintosh"
 msgstr "Палі"
 
-#: sheets/ciscocomputer.sheet.in.h:19
+#: sheets/ciscocomputer.sheet.in.h:23
 msgid "MicroWebserver"
 msgstr ""
 
-#: sheets/ciscocomputer.sheet.in.h:20
+#: sheets/ciscocomputer.sheet.in.h:24
 msgid "Mini VAX"
 msgstr ""
 
-#: sheets/ciscocomputer.sheet.in.h:21
-msgid "MoH server (Music on Hold)"
+#: sheets/ciscocomputer.sheet.in.h:25
+msgid "Modem"
 msgstr ""
 
-#: sheets/ciscocomputer.sheet.in.h:22
+#: sheets/ciscocomputer.sheet.in.h:26 sheets/network.sheet.in.h:19
+#, fuzzy
+msgid "Monitor"
+msgstr "Манітор"
+
+#: sheets/ciscocomputer.sheet.in.h:27
+#, fuzzy
+msgid "Newton"
+msgstr "Стварыць"
+
+#: sheets/ciscocomputer.sheet.in.h:28
 msgid "PC"
 msgstr ""
 
-#: sheets/ciscocomputer.sheet.in.h:23
+#: sheets/ciscocomputer.sheet.in.h:29
+#, fuzzy
+msgid "PC Adapter Card"
+msgstr "Абаронены (Protected)"
+
+#: sheets/ciscocomputer.sheet.in.h:30
+#, fuzzy
+msgid "PC Card"
+msgstr "Ачысьціць"
+
+#: sheets/ciscocomputer.sheet.in.h:31
+#, fuzzy
+msgid "PC Router Card"
+msgstr "Абаронены (Protected)"
+
+#: sheets/ciscocomputer.sheet.in.h:32
+msgid "PC Software"
+msgstr ""
+
+#: sheets/ciscocomputer.sheet.in.h:33
 msgid "PC Video"
 msgstr ""
 
-#: sheets/ciscocomputer.sheet.in.h:24
+#: sheets/ciscocomputer.sheet.in.h:34
+msgid "PC with Router-Based Software"
+msgstr ""
+
+#: sheets/ciscocomputer.sheet.in.h:35
 msgid "PDA"
 msgstr ""
 
-#: sheets/ciscocomputer.sheet.in.h:26
+#: sheets/ciscocomputer.sheet.in.h:37
 #, fuzzy
 msgid "Relational Database"
 msgstr "Даньні апэрацыі"
 
-#: sheets/ciscocomputer.sheet.in.h:27
-msgid "SC2200/VSC3000 host"
-msgstr ""
-
-#: sheets/ciscocomputer.sheet.in.h:28
-msgid "SIP Proxy server"
-msgstr ""
-
-#: sheets/ciscocomputer.sheet.in.h:29
-msgid "STB (set top box)"
-msgstr ""
-
-#: sheets/ciscocomputer.sheet.in.h:30
+#: sheets/ciscocomputer.sheet.in.h:38
 #, fuzzy
 msgid "SUN workstation"
 msgstr "Працоўная станцыя UNIX"
 
-#: sheets/ciscocomputer.sheet.in.h:31
+#: sheets/ciscocomputer.sheet.in.h:39
 #, fuzzy
 msgid "Scanner"
 msgstr "Маштабаваць"
 
-#: sheets/ciscocomputer.sheet.in.h:32
+#: sheets/ciscocomputer.sheet.in.h:40
 msgid "Server with PC Router"
 msgstr ""
 
-#: sheets/ciscocomputer.sheet.in.h:33
-#, fuzzy
-msgid "Softphone"
-msgstr "Паўднёвы пункт"
-
-#: sheets/ciscocomputer.sheet.in.h:34
-msgid "Software based server"
+#: sheets/ciscocomputer.sheet.in.h:41
+msgid "Software-Based Router on File Server"
 msgstr ""
 
-#: sheets/ciscocomputer.sheet.in.h:35
+#: sheets/ciscocomputer.sheet.in.h:42
 #, fuzzy
 msgid "Storage array"
 msgstr "Сховішча"
 
-#: sheets/ciscocomputer.sheet.in.h:36
+#: sheets/ciscocomputer.sheet.in.h:43
 #, fuzzy
 msgid "Supercomputer"
 msgstr "Кампутар"
 
-#: sheets/ciscocomputer.sheet.in.h:37
-msgid "TV"
-msgstr ""
+#: sheets/ciscocomputer.sheet.in.h:44
+#, fuzzy
+msgid "Tablet"
+msgstr "Уключыць"
 
-#: sheets/ciscocomputer.sheet.in.h:38
+#: sheets/ciscocomputer.sheet.in.h:45
+#, fuzzy
+msgid "Tape array"
+msgstr "Сховішча"
+
+#: sheets/ciscocomputer.sheet.in.h:46
 msgid "Terminal"
 msgstr "Тэрмінал"
 
-#: sheets/ciscocomputer.sheet.in.h:39
-#, fuzzy
-msgid "Turret"
-msgstr "Тэкст"
-
-#: sheets/ciscocomputer.sheet.in.h:40
-msgid "Unity server"
-msgstr ""
-
-#: sheets/ciscocomputer.sheet.in.h:41
-msgid "Voice commserver"
-msgstr ""
-
-#: sheets/ciscocomputer.sheet.in.h:42
+#: sheets/ciscocomputer.sheet.in.h:47
 msgid "WWW server"
 msgstr ""
 
-#: sheets/ciscocomputer.sheet.in.h:43
+#: sheets/ciscocomputer.sheet.in.h:48
 msgid "Web browser"
 msgstr ""
 
-#: sheets/ciscocomputer.sheet.in.h:44
+#: sheets/ciscocomputer.sheet.in.h:49
 msgid "Web cluster"
 msgstr ""
 
-#: sheets/ciscocomputer.sheet.in.h:45
+#: sheets/ciscocomputer.sheet.in.h:50
 msgid "Wireless"
 msgstr ""
 
-#: sheets/ciscocomputer.sheet.in.h:46
+#: sheets/ciscocomputer.sheet.in.h:51
 msgid "Workgroup director"
 msgstr ""
 
-#: sheets/ciscocomputer.sheet.in.h:47
-#, fuzzy
-msgid "Workstation"
-msgstr "Працоўная станцыя UNIX"
-
 #: sheets/ciscohub.sheet.in.h:1
-msgid "100BaseT hub"
+msgid "100BaseT Hub"
 msgstr ""
 
 #: sheets/ciscohub.sheet.in.h:2
-msgid "ATM fast gigabit etherswitch"
+msgid "7500ARS (7513) Router"
 msgstr ""
 
 #: sheets/ciscohub.sheet.in.h:3
 #, fuzzy
-msgid "ATM switch"
-msgstr "Пераключаць"
+msgid "7505 Router"
+msgstr "Паварочваць"
 
 #: sheets/ciscohub.sheet.in.h:4
-msgid "Cisco - Hub"
-msgstr ""
+#, fuzzy
+msgid "7507 Router"
+msgstr "Паварочваць"
 
 #: sheets/ciscohub.sheet.in.h:5
-msgid "Cisco hub"
-msgstr ""
+#, fuzzy
+msgid "ASIC Processor"
+msgstr "Стварае працэс"
 
 #: sheets/ciscohub.sheet.in.h:6
-msgid "Class 4/5 switch"
+msgid "ATM 3800"
 msgstr ""
 
 #: sheets/ciscohub.sheet.in.h:7
-msgid "Content service switch 1100"
+msgid "ATM Fast Gigabit Etherswitch"
 msgstr ""
 
 #: sheets/ciscohub.sheet.in.h:8
-msgid "Content switch"
-msgstr ""
+#, fuzzy
+msgid "ATM Switch"
+msgstr "Пераключаць"
 
 #: sheets/ciscohub.sheet.in.h:9
-msgid "Content switch module"
+msgid "ATM Tag Switch Router"
 msgstr ""
 
 #: sheets/ciscohub.sheet.in.h:10
-msgid "Generic softswitch"
+msgid "Access Gateway"
 msgstr ""
 
 #: sheets/ciscohub.sheet.in.h:11
-msgid "Hub"
+msgid "BBSM"
 msgstr ""
 
 #: sheets/ciscohub.sheet.in.h:12
-msgid "Hub and switch shapes by Cisco"
+msgid "Broadband router"
 msgstr ""
 
 #: sheets/ciscohub.sheet.in.h:13
+msgid "CSM-S"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:14
+msgid "Carrier Routing System"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:15
+#, fuzzy
+msgid "Cisco - Switch"
+msgstr "Сетка"
+
+#: sheets/ciscohub.sheet.in.h:16
+msgid "Cisco 1000"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:17
+msgid "Cisco Hub"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:18
+#, fuzzy
+msgid "Content Router"
+msgstr "Файервол"
+
+#: sheets/ciscohub.sheet.in.h:19
+msgid "Content Service Module"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:20
+msgid "Content Service Switch 1100"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:21
+#, fuzzy
+msgid "Content Switch"
+msgstr "Шырыня рысы"
+
+#: sheets/ciscohub.sheet.in.h:22
+#, fuzzy
+msgid "Data Center Switch"
+msgstr "Шырыня рысы даньняў"
+
+#: sheets/ciscohub.sheet.in.h:23
+msgid "Data Center Switch Reversed"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:24
+msgid "Data Switch Processor"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:25
+msgid "Director-class Fibre Channel intelligent switch"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:26
+msgid "Edge Label Switch Router"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:27
+msgid "Edge Label Switch Router with NetFlow"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:28
+#, fuzzy
+msgid "Generic Processor"
+msgstr "Стварае працэс"
+
+#: sheets/ciscohub.sheet.in.h:29
+msgid "Hub"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:30
+msgid "Hub subdued"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:31
 #, fuzzy
 msgid "ISDN switch"
 msgstr "Пераключаць"
 
-#: sheets/ciscohub.sheet.in.h:14
+#: sheets/ciscohub.sheet.in.h:32
 #, fuzzy
-msgid "Layer 3 switch"
-msgstr "Слаі"
-
-#: sheets/ciscohub.sheet.in.h:15
-msgid "MGX 8220 switch"
-msgstr ""
-
-#: sheets/ciscohub.sheet.in.h:16
-msgid "MGX 8240 switch"
-msgstr ""
-
-#: sheets/ciscohub.sheet.in.h:17
-msgid "MGX 8260 switch"
-msgstr ""
-
-#: sheets/ciscohub.sheet.in.h:18
-msgid "MultiSwitch device"
-msgstr ""
-
-#: sheets/ciscohub.sheet.in.h:19
-msgid "Multilayer switch"
-msgstr ""
-
-#: sheets/ciscohub.sheet.in.h:20
-#, fuzzy
-msgid "PBX switch"
+msgid "LAN2LAN Switch"
 msgstr "Пераключаць"
 
-#: sheets/ciscohub.sheet.in.h:21
+#: sheets/ciscohub.sheet.in.h:33
+msgid "Label Switch Router"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:34
 #, fuzzy
-msgid "Programmable switch"
+msgid "Layer 2 Remote Switch"
+msgstr "Слаі"
+
+#: sheets/ciscohub.sheet.in.h:35
+msgid "MGX 8220"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:36
+msgid "MGX 8240"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:37
+msgid "MGX 8260"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:38
+msgid "Multi-Fabric Server Switch"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:39
+msgid "MultiSwitch Device"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:40
+msgid "Multilayer Remote Switch"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:41
+#, fuzzy
+msgid "Multilayer Switch"
+msgstr "Слаі"
+
+#: sheets/ciscohub.sheet.in.h:42
+msgid "Multilayer Switch with Silicon"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:43
+msgid "Multilayer Switch with Silicon subdued"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:44
+msgid "NetFlow router"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:45
+msgid "NetRanger"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:46
+#, fuzzy
+msgid "NetSonar"
+msgstr "Сетка"
+
+#: sheets/ciscohub.sheet.in.h:47
+#, fuzzy
+msgid "Optical Services Router"
+msgstr "Аптычная энэргія"
+
+#: sheets/ciscohub.sheet.in.h:48
+msgid "PXF"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:49
+#, fuzzy
+msgid "Programmable Switch"
 msgstr "Запраграмаваны аб'ект"
 
-#: sheets/ciscohub.sheet.in.h:22
-msgid "Route switch processor"
-msgstr ""
-
-#: sheets/ciscohub.sheet.in.h:23
-msgid "Small hub"
-msgstr ""
-
-#: sheets/ciscohub.sheet.in.h:24
-msgid "Voice ATM switch"
-msgstr ""
-
-#: sheets/ciscohub.sheet.in.h:25
+#: sheets/ciscohub.sheet.in.h:50
 #, fuzzy
-msgid "Voice switch"
-msgstr "Шырыня рысы"
+msgid "RateMUX"
+msgstr "Паварочваць"
 
-#: sheets/ciscohub.sheet.in.h:26
-msgid "Voice switch 2"
+#: sheets/ciscohub.sheet.in.h:51
+#, fuzzy
+msgid "Route Switch Processor"
+msgstr "Стварае працэс"
+
+#: sheets/ciscohub.sheet.in.h:52
+msgid "Route Switch Processor with Si"
 msgstr ""
 
-#: sheets/ciscohub.sheet.in.h:27
+#: sheets/ciscohub.sheet.in.h:53
+#, fuzzy
+msgid "Router"
+msgstr "Паварочваць"
+
+#: sheets/ciscohub.sheet.in.h:54
+#, fuzzy
+msgid "Router and switch shapes by Cisco"
+msgstr "Розныя формы"
+
+#: sheets/ciscohub.sheet.in.h:55
+#, fuzzy
+msgid "Router subdued"
+msgstr "Сымбаль шляхавіка"
+
+#: sheets/ciscohub.sheet.in.h:56
+msgid "Router with Firewall"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:57
+msgid "Router with Silicon Switch"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:58
+#, fuzzy
+msgid "Server Switch"
+msgstr "Пераключаць"
+
+#: sheets/ciscohub.sheet.in.h:59
+msgid "Small Hub"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:60
+#, fuzzy
+msgid "Storage Router"
+msgstr "Сховішча"
+
+#: sheets/ciscohub.sheet.in.h:61
+#, fuzzy
+msgid "Switch Processor"
+msgstr "Стварае працэс"
+
+#: sheets/ciscohub.sheet.in.h:62
+#, fuzzy
+msgid "Universal Gateway"
+msgstr "Інвэртаваць"
+
+#: sheets/ciscohub.sheet.in.h:63
+#, fuzzy
+msgid "Virtual Layer Switch"
+msgstr "Слаі"
+
+#: sheets/ciscohub.sheet.in.h:64
+msgid "Wavelength router"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:65
+#, fuzzy
+msgid "Wireless router"
+msgstr "Файервол"
+
+#: sheets/ciscohub.sheet.in.h:66
+msgid "Workgroup 5000"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:67
+msgid "Workgroup 5002"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:68
+msgid "Workgroup 5500"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:69
+msgid "Workgroup Fibre Channel intelligent switch"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:70
+msgid "Workgroup Switch Voice-Enabled"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:71
 msgid "Workgroup switch"
 msgstr ""
 
+#: sheets/ciscohub.sheet.in.h:72
+msgid "Workgroup switch Subdued"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:73
+#, fuzzy
+msgid "iSCSI switch"
+msgstr "Пераключаць"
+
 #: sheets/ciscomisc.sheet.in.h:1
-msgid "BBFW"
+msgid "Androgynous Person"
 msgstr ""
 
 #: sheets/ciscomisc.sheet.in.h:2
-msgid "BBFW media"
+msgid "Antenna"
 msgstr ""
 
 #: sheets/ciscomisc.sheet.in.h:3
@@ -7430,191 +7730,214 @@ msgstr "Разгалінаць"
 
 #: sheets/ciscomisc.sheet.in.h:4
 #, fuzzy
-msgid "Breakout box"
-msgstr "Стварае прамакутнік"
+msgid "Branch office blue"
+msgstr "Разгалінаць"
 
 #: sheets/ciscomisc.sheet.in.h:5
 #, fuzzy
-msgid "Car"
-msgstr "Ачысьціць"
+msgid "Branch office subdued"
+msgstr "Разгалінаць"
 
 #: sheets/ciscomisc.sheet.in.h:6
-msgid "Cellular phone"
-msgstr ""
+#, fuzzy
+msgid "Car"
+msgstr "Ачысьціць"
 
 #: sheets/ciscomisc.sheet.in.h:7
 msgid "Cisco - Misc"
 msgstr ""
 
 #: sheets/ciscomisc.sheet.in.h:8
-msgid "Diskette"
+msgid "CiscoWorks Man"
 msgstr ""
 
 #: sheets/ciscomisc.sheet.in.h:9
-msgid "Dot-Dot"
-msgstr ""
-
-#: sheets/ciscomisc.sheet.in.h:10
-#, fuzzy
-msgid "End office"
-msgstr "Час заканчэньня"
-
-#: sheets/ciscomisc.sheet.in.h:11
-msgid "Fax"
-msgstr ""
-
-#: sheets/ciscomisc.sheet.in.h:12
 #, fuzzy
 msgid "File cabinet"
 msgstr "Назва файла"
 
+#: sheets/ciscomisc.sheet.in.h:10
+msgid "Generic Building"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:11
+msgid "Generic Building blue"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:12
+msgid "Generic Building subdued"
+msgstr ""
+
 #: sheets/ciscomisc.sheet.in.h:13
-msgid "Generic building"
+msgid "Government Building"
 msgstr ""
 
 #: sheets/ciscomisc.sheet.in.h:14
-msgid "Government building"
-msgstr ""
-
-#: sheets/ciscomisc.sheet.in.h:15
-msgid "H.323"
-msgstr ""
-
-#: sheets/ciscomisc.sheet.in.h:16
-msgid "HootPhone"
-msgstr ""
-
-#: sheets/ciscomisc.sheet.in.h:17
 #, fuzzy
-msgid "IP phone"
+msgid "Headphones"
 msgstr "Тэлефон"
 
-#: sheets/ciscomisc.sheet.in.h:18
-msgid "ITP"
+#: sheets/ciscomisc.sheet.in.h:15
+#, fuzzy
+msgid "Home office"
+msgstr "Час заканчэньня"
+
+#: sheets/ciscomisc.sheet.in.h:16
+#, fuzzy
+msgid "House"
+msgstr "Закрыць"
+
+#: sheets/ciscomisc.sheet.in.h:17
+msgid "House blue"
 msgstr ""
 
-#: sheets/ciscomisc.sheet.in.h:19
+#: sheets/ciscomisc.sheet.in.h:18
 #, fuzzy
 msgid "Key"
 msgstr "Ключ:"
 
 #: sheets/ciscomisc.sheet.in.h:20
-msgid "LAN to LAN"
+msgid "Lock and Key"
 msgstr ""
 
-#: sheets/ciscomisc.sheet.in.h:22
-msgid "MAU"
-msgstr ""
-
-#: sheets/ciscomisc.sheet.in.h:23
+#: sheets/ciscomisc.sheet.in.h:21
 msgid "MDU"
 msgstr ""
 
+#: sheets/ciscomisc.sheet.in.h:22
+msgid "Mac Woman"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:23
+#, fuzzy
+msgid "Man"
+msgstr "Павялічвае"
+
 #: sheets/ciscomisc.sheet.in.h:24
-msgid "Mac woman"
+msgid "Man blue"
 msgstr ""
 
 #: sheets/ciscomisc.sheet.in.h:25
-msgid "Man/Woman"
+msgid "Man gold"
 msgstr ""
 
+#: sheets/ciscomisc.sheet.in.h:26
+#, fuzzy
+msgid "Man red"
+msgstr "Фармаваць"
+
 #: sheets/ciscomisc.sheet.in.h:27
+msgid "Medium Building"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:28
+msgid "Medium Building blue"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:29
+msgid "Medium Building subdued"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:31
 #, fuzzy
 msgid "Miscellaneous shapes by Cisco"
 msgstr "Розныя формы"
 
-#: sheets/ciscomisc.sheet.in.h:28
-msgid "PC man"
-msgstr ""
-
-#: sheets/ciscomisc.sheet.in.h:29
-#, fuzzy
-msgid "Phone"
-msgstr "Няма"
-
-#: sheets/ciscomisc.sheet.in.h:30
-msgid "Phone/Fax"
-msgstr ""
-
-#: sheets/ciscomisc.sheet.in.h:31
-msgid "RPS"
-msgstr ""
-
 #: sheets/ciscomisc.sheet.in.h:32
-#, fuzzy
-msgid "Radio tower"
-msgstr "Радыёхвалі"
+msgid "PC Man"
+msgstr ""
 
 #: sheets/ciscomisc.sheet.in.h:33
-msgid "Running man"
+msgid "PC Man left"
 msgstr ""
 
 #: sheets/ciscomisc.sheet.in.h:34
-msgid "SVX (interchangeable with End office)"
+msgid "Running man"
 msgstr ""
 
 #: sheets/ciscomisc.sheet.in.h:35
+msgid "Running man subdued"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:36
+msgid "Running woman"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:37
 #, fuzzy
 msgid "Satellite"
 msgstr "Стварае эліпс"
 
-#: sheets/ciscomisc.sheet.in.h:36
+#: sheets/ciscomisc.sheet.in.h:38
 msgid "Satellite dish"
 msgstr ""
 
-#: sheets/ciscomisc.sheet.in.h:37
-msgid "Sitting woman"
-msgstr ""
-
-#: sheets/ciscomisc.sheet.in.h:38
-msgid "Small business"
+#: sheets/ciscomisc.sheet.in.h:39
+msgid "Sitting Woman"
 msgstr ""
 
 #: sheets/ciscomisc.sheet.in.h:40
-msgid "Standing man"
+msgid "Sitting Woman right"
 msgstr ""
 
 #: sheets/ciscomisc.sheet.in.h:41
-#, fuzzy
-msgid "Tablet"
-msgstr "Уключыць"
-
-#: sheets/ciscomisc.sheet.in.h:42
-msgid "Telecommuter"
+msgid "Small Business"
 msgstr ""
 
 #: sheets/ciscomisc.sheet.in.h:43
-msgid "Telecommuter house"
+msgid "Standing Man"
 msgstr ""
 
 #: sheets/ciscomisc.sheet.in.h:44
-msgid "Telecommuter house/router"
+msgid "Standing woman"
 msgstr ""
 
 #: sheets/ciscomisc.sheet.in.h:45
-msgid "TokenRing"
+msgid "Telecommuter"
 msgstr ""
 
 #: sheets/ciscomisc.sheet.in.h:46
-msgid "Truck"
+msgid "Telecommuter house"
 msgstr ""
 
 #: sheets/ciscomisc.sheet.in.h:47
-msgid "UPS"
+msgid "Telecommuter house subdued"
 msgstr ""
 
 #: sheets/ciscomisc.sheet.in.h:48
+msgid "Truck"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:49
 #, fuzzy
 msgid "University"
 msgstr "Інвэртаваць"
 
-#: sheets/ciscomisc.sheet.in.h:49
-msgid "Video camera"
+#: sheets/ciscomisc.sheet.in.h:50
+msgid "Video Camera"
 msgstr ""
 
-#: sheets/ciscomisc.sheet.in.h:50
-msgid "Wireless transport"
+#: sheets/ciscomisc.sheet.in.h:51
+msgid "Video Camera right"
 msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:52
+#, fuzzy
+msgid "Woman"
+msgstr "Чалавек"
+
+#: sheets/ciscomisc.sheet.in.h:53
+msgid "Woman blue"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:54
+msgid "Woman gold"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:55
+#, fuzzy
+msgid "Woman red"
+msgstr "Таго ж тыпу"
 
 #: sheets/cisconetwork.sheet.in.h:1
 msgid "10700"
@@ -7625,110 +7948,115 @@ msgid "15200"
 msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:3
-msgid "3174 (desktop) cluster controller"
+msgid "15800"
 msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:4
-msgid "3X74 (floor) cluster controller"
+msgid "3174 (desktop) cluster controller"
 msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:5
-msgid "6701"
+msgid "3X74 (floor) cluster controller"
 msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:6
-msgid "6705 Integrated access device"
-msgstr ""
+#, fuzzy
+msgid "Access Server"
+msgstr "/Файл/_Захаваць"
 
 #: sheets/cisconetwork.sheet.in.h:7
-msgid "6732 Multiservice access platform"
-msgstr ""
-
-#: sheets/cisconetwork.sheet.in.h:8
-#, fuzzy
-msgid "ADM"
-msgstr "І"
-
-#: sheets/cisconetwork.sheet.in.h:9
-#, fuzzy
-msgid "ASIC processor"
-msgstr "Стварае працэс"
-
-#: sheets/cisconetwork.sheet.in.h:10
-msgid "ATA"
-msgstr ""
-
-#: sheets/cisconetwork.sheet.in.h:11
-msgid "ATM 3800"
-msgstr ""
-
-#: sheets/cisconetwork.sheet.in.h:12
 msgid "AccessPoint"
 msgstr ""
 
-#: sheets/cisconetwork.sheet.in.h:13
-msgid "BBSM"
+#: sheets/cisconetwork.sheet.in.h:8
+msgid "Automatic Protection Switching"
 msgstr ""
 
-#: sheets/cisconetwork.sheet.in.h:14
-msgid "BTS 10200"
+#: sheets/cisconetwork.sheet.in.h:9
+msgid "BBFW"
 msgstr ""
 
-#: sheets/cisconetwork.sheet.in.h:15
+#: sheets/cisconetwork.sheet.in.h:10
+msgid "BBFW media"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:11
+#, fuzzy
+msgid "Breakout box"
+msgstr "Стварае прамакутнік"
+
+#: sheets/cisconetwork.sheet.in.h:12
 #, fuzzy
 msgid "Bridge"
 msgstr "Прадастаўляць"
 
-#: sheets/cisconetwork.sheet.in.h:16
-msgid "CDDI-FDDI"
+#: sheets/cisconetwork.sheet.in.h:13
+msgid "CDDI/FDDI Concentrator"
 msgstr ""
 
-#: sheets/cisconetwork.sheet.in.h:17
-msgid "CDM Content distribution manager"
+#: sheets/cisconetwork.sheet.in.h:14
+msgid "CDM Content Distribution Manager"
 msgstr ""
 
-#: sheets/cisconetwork.sheet.in.h:18
+#: sheets/cisconetwork.sheet.in.h:15
 msgid "CSU/DSU"
 msgstr ""
 
-#: sheets/cisconetwork.sheet.in.h:19
-msgid "Cable modem"
+#: sheets/cisconetwork.sheet.in.h:16
+#, fuzzy
+msgid "Cable Modem"
+msgstr "Просты мадэм"
+
+#: sheets/cisconetwork.sheet.in.h:17
+msgid "Catalyst Access Gateway"
 msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:18
+#, fuzzy
+msgid "Centri Firewall"
+msgstr "Запаўняць"
+
+#: sheets/cisconetwork.sheet.in.h:19
+#, fuzzy
+msgid "Channelized Pipe"
+msgstr "Канал"
 
 #: sheets/cisconetwork.sheet.in.h:20
-#, fuzzy
-msgid "CallManager"
-msgstr "Вылічаць"
-
-#: sheets/cisconetwork.sheet.in.h:21
-msgid "Catalyst access gateway"
-msgstr ""
-
-#: sheets/cisconetwork.sheet.in.h:22
-msgid "Centri firewall"
-msgstr ""
-
-#: sheets/cisconetwork.sheet.in.h:23
 #, fuzzy
 msgid "Cisco - Network"
 msgstr "Сетка"
 
-#: sheets/cisconetwork.sheet.in.h:24
+#: sheets/cisconetwork.sheet.in.h:21
 #, fuzzy
 msgid "Cloud"
 msgstr "Колер:"
 
-#: sheets/cisconetwork.sheet.in.h:25
+#: sheets/cisconetwork.sheet.in.h:22
 #, fuzzy
-msgid "Content engine (Cache director)"
-msgstr "Немагчыма адшукаць каталёг даведкі"
+msgid "Cloud Dark"
+msgstr "Колер:"
 
-#: sheets/cisconetwork.sheet.in.h:26
-msgid "Content transformation engine (CTE)"
+#: sheets/cisconetwork.sheet.in.h:23
+#, fuzzy
+msgid "Cloud Gold"
+msgstr "Колер:"
+
+#: sheets/cisconetwork.sheet.in.h:24
+#, fuzzy
+msgid "Cloud White"
+msgstr "Колер:"
+
+#: sheets/cisconetwork.sheet.in.h:25
+msgid "Concatenated Payload"
 msgstr ""
 
+#: sheets/cisconetwork.sheet.in.h:26
+#, fuzzy
+msgid "Content Engine (Cache Director)"
+msgstr "Немагчыма адшукаць каталёг даведкі"
+
 #: sheets/cisconetwork.sheet.in.h:27
-msgid "DPT"
+msgid "Content Transformation Engine (CTE)"
 msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:28
@@ -7736,342 +8064,571 @@ msgid "DSLAM"
 msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:29
-msgid "DWDM filter"
-msgstr ""
+#, fuzzy
+msgid "DWDM Filter"
+msgstr "Фільтраваць"
 
 #: sheets/cisconetwork.sheet.in.h:30
-msgid "Distributed director"
-msgstr ""
+#, fuzzy
+msgid "Detector"
+msgstr "Агент"
 
 #: sheets/cisconetwork.sheet.in.h:31
 #, fuzzy
-msgid "FC storage"
-msgstr "Сховішча"
+msgid "Digital Cross-Connect"
+msgstr "Адлучаць"
 
 #: sheets/cisconetwork.sheet.in.h:32
-msgid "FDDI ring"
+msgid "Directory Server"
 msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:33
+msgid "Distributed Director"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:34
+msgid "Dual Mode AccessPoint"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:35
+msgid "FDDI Ring"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:36
+#, fuzzy
+msgid "File Engine"
+msgstr "Назва файла"
+
+#: sheets/cisconetwork.sheet.in.h:37
 #, fuzzy
 msgid "Firewall"
 msgstr "Запаўняць"
 
-#: sheets/cisconetwork.sheet.in.h:34
-#, fuzzy
-msgid "Front end processor"
-msgstr "Стварае працэс"
-
-#: sheets/cisconetwork.sheet.in.h:35
-msgid "General appliance"
-msgstr ""
-
-#: sheets/cisconetwork.sheet.in.h:36
-msgid "Generic gateway"
-msgstr ""
-
-#: sheets/cisconetwork.sheet.in.h:37
-#, fuzzy
-msgid "Generic processor"
-msgstr "Стварае працэс"
-
 #: sheets/cisconetwork.sheet.in.h:38
-msgid "ICM"
-msgstr ""
+#, fuzzy
+msgid "Firewall Service Module"
+msgstr "Файервол"
 
 #: sheets/cisconetwork.sheet.in.h:39
-msgid "ICS"
-msgstr ""
+#, fuzzy
+msgid "Firewall horizontal"
+msgstr "Гарызантальнае люстра"
 
 #: sheets/cisconetwork.sheet.in.h:40
 #, fuzzy
-msgid "IOS firewall"
-msgstr "Гэта канец"
+msgid "Firewall subdued"
+msgstr "Файервол"
 
 #: sheets/cisconetwork.sheet.in.h:41
-msgid "IP"
+msgid "General Appliance"
 msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:42
-msgid "IP DSL"
-msgstr ""
-
-#: sheets/cisconetwork.sheet.in.h:43
-msgid "IPTC"
+msgid "Generic Gateway"
 msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:44
-msgid "IPTV content manager"
-msgstr ""
+#, fuzzy
+msgid "IOS Firewall"
+msgstr "Гэта канец"
 
 #: sheets/cisconetwork.sheet.in.h:45
-#, fuzzy
-msgid "LocalDirector"
-msgstr "Накірунак"
+msgid "IOS SLB"
+msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:46
-msgid "LongReach CPE"
+msgid "IP"
 msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:47
-msgid "MAS gateway"
-msgstr ""
+#, fuzzy
+msgid "IP DSL Switch"
+msgstr "Пераключаць"
 
 #: sheets/cisconetwork.sheet.in.h:48
-msgid "ME 1100"
+msgid "IP Old-style"
 msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:49
-msgid "MUX"
+msgid "IP Transport Concentrator"
 msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:50
-msgid "Metro 1500"
+msgid "IPTV broadcast server"
 msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:51
-msgid "Modem"
+msgid "IPTV content manager"
 msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:52
-msgid "NetRanger intrusion detection system"
+msgid "LAN to LAN"
 msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:53
-msgid "NetSonar security scanner"
+msgid "Lightweight AP"
 msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:54
 #, fuzzy
-msgid "Network management"
-msgstr "Аб'екты сеткавае дыяграмы"
+msgid "LocalDirector"
+msgstr "Накірунак"
 
 #: sheets/cisconetwork.sheet.in.h:55
-msgid "Network shapes by Cisco"
-msgstr ""
+#, fuzzy
+msgid "Location server"
+msgstr "Загаловак функцыі"
 
 #: sheets/cisconetwork.sheet.in.h:56
-msgid "ONS15500 DWDM platform"
+msgid "LongReach CPE"
 msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:57
-msgid "Octel"
+msgid "MAS Gateway"
 msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:58
-#, fuzzy
-msgid "Optical amplifier"
-msgstr "Апэрацыйны ўзмацняльнік"
+msgid "MAU"
+msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:59
-#, fuzzy
-msgid "Optical transport"
-msgstr "Аптычная энэргія"
+msgid "ME 1100"
+msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:60
+msgid "MUX"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:61
+msgid "Metro 1500"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:62
+msgid "NAT"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:63
+#, fuzzy
+msgid "Network Management"
+msgstr "Аб'екты сеткавае дыяграмы"
+
+#: sheets/cisconetwork.sheet.in.h:64
+msgid "Network shapes by Cisco"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:65
+msgid "ONS15104"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:66
+msgid "ONS15540"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:67
+#, fuzzy
+msgid "Optical Amplifier"
+msgstr "Апэрацыйны ўзмацняльнік"
+
+#: sheets/cisconetwork.sheet.in.h:68
+#, fuzzy
+msgid "Optical Cross-Connect"
+msgstr "Аптычная энэргія"
+
+#: sheets/cisconetwork.sheet.in.h:69
+#, fuzzy
+msgid "Optical Fiber"
+msgstr "Аптычная энэргія"
+
+#: sheets/cisconetwork.sheet.in.h:70
+#, fuzzy
+msgid "Optical Transport"
+msgstr "Аптычная энэргія"
+
+#: sheets/cisconetwork.sheet.in.h:71
 #, fuzzy
 msgid "PAD"
 msgstr "І"
 
-#: sheets/cisconetwork.sheet.in.h:61
-msgid "PAD X.28"
-msgstr ""
-
-#: sheets/cisconetwork.sheet.in.h:62
-msgid "PBX"
-msgstr ""
-
-#: sheets/cisconetwork.sheet.in.h:63
-msgid "PC adapter card"
-msgstr ""
-
-#: sheets/cisconetwork.sheet.in.h:64
+#: sheets/cisconetwork.sheet.in.h:72
 #, fuzzy
-msgid "PC router card"
-msgstr "Абаронены (Protected)"
-
-#: sheets/cisconetwork.sheet.in.h:65
-#, fuzzy
-msgid "PIX firewall"
+msgid "PIX Firewall"
 msgstr "Гэта канец"
 
-#: sheets/cisconetwork.sheet.in.h:66
-msgid "PXF"
-msgstr ""
-
-#: sheets/cisconetwork.sheet.in.h:67
-msgid "Protocol translator"
-msgstr ""
-
-#: sheets/cisconetwork.sheet.in.h:68
+#: sheets/cisconetwork.sheet.in.h:73
 #, fuzzy
-msgid "RateMUX"
-msgstr "Паварочваць"
+msgid "PIX Firewall Left"
+msgstr "Гэта канец"
 
-#: sheets/cisconetwork.sheet.in.h:69
+#: sheets/cisconetwork.sheet.in.h:74
+msgid "Protocol Translator"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:75
+msgid "RPS"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:76
 #, fuzzy
 msgid "Repeater"
 msgstr "Выпускаць"
 
-#: sheets/cisconetwork.sheet.in.h:70
-msgid "SC2200 (Signalling controller)"
+#: sheets/cisconetwork.sheet.in.h:77
+#, fuzzy
+msgid "SSL Terminator"
+msgstr "Тэрмінал"
+
+#: sheets/cisconetwork.sheet.in.h:78
+msgid "STB (set top box)"
 msgstr ""
 
-#: sheets/cisconetwork.sheet.in.h:71
-msgid "STP"
+#: sheets/cisconetwork.sheet.in.h:79
+msgid "Security appliance"
 msgstr ""
 
-#: sheets/cisconetwork.sheet.in.h:72
+#: sheets/cisconetwork.sheet.in.h:80
+#, fuzzy
+msgid "Service Control"
+msgstr "Сымэтрычны пункт"
+
+#: sheets/cisconetwork.sheet.in.h:81
+#, fuzzy
+msgid "Storage Solution Engine"
+msgstr "Сховішча"
+
+#: sheets/cisconetwork.sheet.in.h:82
 #, fuzzy
 msgid "System controller"
 msgstr "Сымэтрычны пункт"
 
-#: sheets/cisconetwork.sheet.in.h:73
-#, fuzzy
-msgid "Transpath"
-msgstr "Транспарт"
-
-#: sheets/cisconetwork.sheet.in.h:74
-msgid "Universal gateway"
+#: sheets/cisconetwork.sheet.in.h:83
+msgid "TV"
 msgstr ""
 
-#: sheets/cisconetwork.sheet.in.h:75
+#: sheets/cisconetwork.sheet.in.h:84
+#, fuzzy
+msgid "Terminal Server"
+msgstr "Перарваць"
+
+#: sheets/cisconetwork.sheet.in.h:85
+msgid "TokenRing"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:86
+#, fuzzy
+msgid "TransPath"
+msgstr "Транспарт"
+
+#: sheets/cisconetwork.sheet.in.h:87
+msgid "UPS"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:88
 msgid "VIP"
 msgstr ""
 
-#: sheets/cisconetwork.sheet.in.h:76
-msgid "VPN concentrator"
+#: sheets/cisconetwork.sheet.in.h:89
+msgid "VN2900"
 msgstr ""
 
-#: sheets/cisconetwork.sheet.in.h:77
-msgid "VPN gateway"
+#: sheets/cisconetwork.sheet.in.h:90
+msgid "VN5900"
 msgstr ""
 
-#: sheets/cisconetwork.sheet.in.h:78
-msgid "Virtual switch controller (VSC 3000)"
+#: sheets/cisconetwork.sheet.in.h:91
+msgid "VN5902"
 msgstr ""
 
-#: sheets/cisconetwork.sheet.in.h:79
-msgid "Wireless bridge"
+#: sheets/cisconetwork.sheet.in.h:92
+msgid "VPN Concentrator"
 msgstr ""
 
-#: sheets/ciscorouter.sheet.in.h:1
-msgid "7500ARS (7513)"
+#: sheets/cisconetwork.sheet.in.h:93
+msgid "VPN Gateway"
 msgstr ""
 
-#: sheets/ciscorouter.sheet.in.h:2
-msgid "7505"
-msgstr ""
-
-#: sheets/ciscorouter.sheet.in.h:3
-msgid "7507"
-msgstr ""
-
-#: sheets/ciscorouter.sheet.in.h:4
+#: sheets/cisconetwork.sheet.in.h:94
 #, fuzzy
-msgid "ATM router"
-msgstr "Кампутар"
+msgid "WAN"
+msgstr "І"
 
-#: sheets/ciscorouter.sheet.in.h:5
-msgid "ATM tag sw gigabit router"
+#: sheets/cisconetwork.sheet.in.h:95
+#, fuzzy
+msgid "WDM"
+msgstr "І"
+
+#: sheets/cisconetwork.sheet.in.h:96
+#, fuzzy
+msgid "WLAN controller"
+msgstr "Сымэтрычны пункт"
+
+#: sheets/cisconetwork.sheet.in.h:97
+msgid "Wi-Fi Tag"
 msgstr ""
 
-#: sheets/ciscorouter.sheet.in.h:6
-msgid "ATM tag switch router"
+#: sheets/cisconetwork.sheet.in.h:98
+msgid "Wireless Bridge"
 msgstr ""
 
-#: sheets/ciscorouter.sheet.in.h:7
-msgid "Broadband router"
+#: sheets/cisconetwork.sheet.in.h:99
+msgid "Wireless Connectivity"
 msgstr ""
 
-#: sheets/ciscorouter.sheet.in.h:8
-msgid "Cisco - Router"
+#: sheets/cisconetwork.sheet.in.h:100
+msgid "Wireless Location Appliance"
 msgstr ""
 
-#: sheets/ciscorouter.sheet.in.h:9
-msgid "Cisco 1000"
+#: sheets/cisconetwork.sheet.in.h:101
+#, fuzzy
+msgid "Wireless Transport"
+msgstr "Транспарт"
+
+#: sheets/cisconetwork.sheet.in.h:102
+msgid "uBR910 Cable DSU"
 msgstr ""
 
-#: sheets/ciscorouter.sheet.in.h:10
-msgid "Content service router"
+#: sheets/ciscotelephony.sheet.in.h:1
+msgid "6701"
 msgstr ""
 
-#: sheets/ciscorouter.sheet.in.h:11
-msgid "Gigabit switch router (ATM tag)"
+#: sheets/ciscotelephony.sheet.in.h:2
+msgid "6705"
 msgstr ""
 
-#: sheets/ciscorouter.sheet.in.h:12
+#: sheets/ciscotelephony.sheet.in.h:3
+msgid "6732"
+msgstr ""
+
+#: sheets/ciscotelephony.sheet.in.h:4
+#, fuzzy
+msgid "ADM"
+msgstr "І"
+
+#: sheets/ciscotelephony.sheet.in.h:5
+msgid "ATA"
+msgstr ""
+
+#: sheets/ciscotelephony.sheet.in.h:6
+msgid "BTS 10200"
+msgstr ""
+
+#: sheets/ciscotelephony.sheet.in.h:7
+#, fuzzy
+msgid "CallManager"
+msgstr "Вылічаць"
+
+#: sheets/ciscotelephony.sheet.in.h:8
+msgid "Cellular Phone"
+msgstr ""
+
+#: sheets/ciscotelephony.sheet.in.h:9
+#, fuzzy
+msgid "Cisco - Telephony"
+msgstr "Сетка"
+
+#: sheets/ciscotelephony.sheet.in.h:10
+msgid "Class 4/5 switch"
+msgstr ""
+
+#: sheets/ciscotelephony.sheet.in.h:11
+#, fuzzy
+msgid "End Office"
+msgstr "Час заканчэньня"
+
+#: sheets/ciscotelephony.sheet.in.h:12
+msgid "Fax"
+msgstr ""
+
+#: sheets/ciscotelephony.sheet.in.h:13
+msgid "Gatekeeper"
+msgstr ""
+
+#: sheets/ciscotelephony.sheet.in.h:14
+msgid "Generic softswitch"
+msgstr ""
+
+#: sheets/ciscotelephony.sheet.in.h:15
+msgid "H.323"
+msgstr ""
+
+#: sheets/ciscotelephony.sheet.in.h:16
+msgid "HootPhone"
+msgstr ""
+
+#: sheets/ciscotelephony.sheet.in.h:17
 #, fuzzy
 msgid "IAD router"
 msgstr "Кампутар"
 
-#: sheets/ciscorouter.sheet.in.h:13
+#: sheets/ciscotelephony.sheet.in.h:18
+msgid "ICM"
+msgstr ""
+
+#: sheets/ciscotelephony.sheet.in.h:19
+msgid "ICS"
+msgstr ""
+
+#: sheets/ciscotelephony.sheet.in.h:20
 #, fuzzy
-msgid "IP telephony router"
+msgid "IP Phone"
 msgstr "Тэлефон"
 
-#: sheets/ciscorouter.sheet.in.h:14
-msgid "NetFlow router"
+#: sheets/ciscotelephony.sheet.in.h:21
+msgid "IP Softphone"
 msgstr ""
 
-#: sheets/ciscorouter.sheet.in.h:15
-msgid "Optical services router"
-msgstr ""
-
-#: sheets/ciscorouter.sheet.in.h:16
+#: sheets/ciscotelephony.sheet.in.h:22
 #, fuzzy
-msgid "Router"
-msgstr "Паварочваць"
+msgid "IP Telephony Router"
+msgstr "Тэлефон"
 
-#: sheets/ciscorouter.sheet.in.h:17
-msgid "Router in building"
+#: sheets/ciscotelephony.sheet.in.h:23
+msgid "ITP"
 msgstr ""
 
-#: sheets/ciscorouter.sheet.in.h:18
-msgid "Router shapes by Cisco"
+#: sheets/ciscotelephony.sheet.in.h:24
+msgid "IntelliSwitch Stack"
 msgstr ""
 
-#: sheets/ciscorouter.sheet.in.h:19
-msgid "Router with firewall"
+#: sheets/ciscotelephony.sheet.in.h:25
+msgid "MCU"
 msgstr ""
 
-#: sheets/ciscorouter.sheet.in.h:20
-msgid "Router with silicon switch"
+#: sheets/ciscotelephony.sheet.in.h:26
+msgid "MGX 8000 Series Voice Gateway"
 msgstr ""
 
-#: sheets/ciscorouter.sheet.in.h:21
+#: sheets/ciscotelephony.sheet.in.h:27
+msgid "MoH server (Music on Hold)"
+msgstr ""
+
+#: sheets/ciscotelephony.sheet.in.h:28
 #, fuzzy
-msgid "Storage router"
-msgstr "Сховішча"
+msgid "Mobile Access IP Phone"
+msgstr "Мабільны тэлефон"
 
-#: sheets/ciscorouter.sheet.in.h:22
+#: sheets/ciscotelephony.sheet.in.h:29
+#, fuzzy
+msgid "Mobile Access Router"
+msgstr "Файервол"
+
+#: sheets/ciscotelephony.sheet.in.h:30
+msgid "Octel"
+msgstr ""
+
+#: sheets/ciscotelephony.sheet.in.h:31
+msgid "PBX"
+msgstr ""
+
+#: sheets/ciscotelephony.sheet.in.h:32
+#, fuzzy
+msgid "PBX Switch"
+msgstr "Пераключаць"
+
+#: sheets/ciscotelephony.sheet.in.h:33
+#, fuzzy
+msgid "Pager"
+msgstr "Межы старонкі:"
+
+#: sheets/ciscotelephony.sheet.in.h:34
+#, fuzzy
+msgid "Phone"
+msgstr "Няма"
+
+#: sheets/ciscotelephony.sheet.in.h:35
+#, fuzzy
+msgid "Phone 2"
+msgstr "Няма"
+
+#: sheets/ciscotelephony.sheet.in.h:36
+msgid "Phone Appliance"
+msgstr ""
+
+#: sheets/ciscotelephony.sheet.in.h:37
+#, fuzzy
+msgid "Phone Ethernet"
+msgstr "Шына Ethernet"
+
+#: sheets/ciscotelephony.sheet.in.h:38
+msgid "Phone Feature"
+msgstr ""
+
+#: sheets/ciscotelephony.sheet.in.h:39
+msgid "Phone/Fax"
+msgstr ""
+
+#: sheets/ciscotelephony.sheet.in.h:40
+#, fuzzy
+msgid "Radio Tower"
+msgstr "Радыёхвалі"
+
+#: sheets/ciscotelephony.sheet.in.h:41
+msgid "SC2200 (Signalling Controller)"
+msgstr ""
+
+#: sheets/ciscotelephony.sheet.in.h:42
+msgid "SC2200/VSC3000 host"
+msgstr ""
+
+#: sheets/ciscotelephony.sheet.in.h:43
+msgid "SIP Proxy Server"
+msgstr ""
+
+#: sheets/ciscotelephony.sheet.in.h:44
+msgid "SONET MUX"
+msgstr ""
+
+#: sheets/ciscotelephony.sheet.in.h:45
+msgid "STP"
+msgstr ""
+
+#: sheets/ciscotelephony.sheet.in.h:46
+#, fuzzy
+msgid "Softphone"
+msgstr "Паўднёвы пункт"
+
+#: sheets/ciscotelephony.sheet.in.h:47
 #, fuzzy
 msgid "TDM router"
 msgstr "Кампутар"
 
-#: sheets/ciscorouter.sheet.in.h:23
+#: sheets/ciscotelephony.sheet.in.h:48
 #, fuzzy
-msgid "Voice router"
+msgid "Telephony shapes by Cisco"
+msgstr "Розныя формы"
+
+#: sheets/ciscotelephony.sheet.in.h:49
+#, fuzzy
+msgid "Turret"
+msgstr "Тэкст"
+
+#: sheets/ciscotelephony.sheet.in.h:50
+msgid "Unity Express"
+msgstr ""
+
+#: sheets/ciscotelephony.sheet.in.h:51
+msgid "Unity server"
+msgstr ""
+
+#: sheets/ciscotelephony.sheet.in.h:52
+msgid "Virtual switch controller (VSC 3000)"
+msgstr ""
+
+#: sheets/ciscotelephony.sheet.in.h:53
+#, fuzzy
+msgid "Voice-Enabled ATM Switch"
+msgstr "Шырыня рысы"
+
+#: sheets/ciscotelephony.sheet.in.h:54
+msgid "Voice-Enabled Access Server"
+msgstr ""
+
+#: sheets/ciscotelephony.sheet.in.h:55
+#, fuzzy
+msgid "Voice-Enabled Router"
 msgstr "Файервол"
 
-#: sheets/ciscorouter.sheet.in.h:24
-msgid "Wavelength router"
-msgstr ""
-
-#: sheets/ciscorouter.sheet.in.h:25
-msgid "Workgroup 5000 multilayer switch"
-msgstr ""
-
-#: sheets/ciscorouter.sheet.in.h:26
-msgid "Workgroup 5002 multilayer switch"
-msgstr ""
-
-#: sheets/ciscorouter.sheet.in.h:27
-msgid "Workgroup 5500 multilayer switch"
-msgstr ""
-
-#: sheets/ciscorouter.sheet.in.h:28
-msgid "uBR910"
+#: sheets/ciscotelephony.sheet.in.h:56
+msgid "uMG series"
 msgstr ""
 
 #: sheets/civil.sheet.in.h:1
@@ -8355,11 +8912,6 @@ msgstr "Мабільны тэлефон"
 msgid "Modular switching system"
 msgstr ""
 
-#: sheets/network.sheet.in.h:19
-#, fuzzy
-msgid "Monitor"
-msgstr "Манітор"
-
 #: sheets/network.sheet.in.h:20
 msgid "Network"
 msgstr "Сетка"
@@ -8489,6 +9041,14 @@ msgstr ""
 msgid "Sybase replication server"
 msgstr ""
 
+#, fuzzy
+#~ msgid "Workstation"
+#~ msgstr "Працоўная станцыя UNIX"
+
+#, fuzzy
+#~ msgid "ATM router"
+#~ msgstr "Кампутар"
+
 #~ msgid "Export to file format and exit"
 #~ msgstr "Экспартаваць у фармат файла й выйсьці"
 
@@ -8518,9 +9078,6 @@ msgstr ""
 
 #~ msgid "Create Image"
 #~ msgstr "Стварае відарыс"
-
-#~ msgid "Close"
-#~ msgstr "Закрыць"
 
 #~ msgid "_New diagram"
 #~ msgstr "_Стварыць дыяграму"

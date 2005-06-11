@@ -1,3 +1,42 @@
+* Read/Write support for nested properties like operations
+  with paramaters (DARRAY, StdProp). This potentially allows
+  to write round-trip engineering plug-ins (UML+Python)
+
+* Many plug-ins now create locale independent output
+
+* The SVG import got improved (still far from complete 
+  coverage, which isn't feasible for Dia anyway)
+
+* Simple auto-routing of 'othogonal' connection lines
+
+* Most Objects now have a center point, which allows to 
+  connect to but the line starts at the bounding box 
+  of the object.
+
+* Shapes with text should finally work
+
+* Dynamic grid improvements (magic grid size;)
+
+* Finally allow to load/unload most of the plug-ins 
+  without restart
+
+* With something selected Show All now shows that
+
+* Improved command line handling: allows to select layers
+  and more fine control about the filters to use
+
+* Show selection info on status bar
+
+* Experimental libgnomeprint usage again
+
+* Full Screen Mode
+
+* Still experimental Cairo plug-in
+
+* Change in focus mechanism to allow highlight of
+  current input object, multiple inputs per object, and tabbing
+  between objects.
+
 dia-0.94: 17-Aug-2004
 
 Nothing new happened since last prerelease, releasing.

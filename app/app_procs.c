@@ -54,6 +54,13 @@ typedef void* poptContext;
 #  endif
 #endif
 
+/* apparently there is no clean way to use glib-2.6 GOption with gnome */
+#if GLIB_CHECK_VERSION(2,5,5) && !defined GNOME
+#  define USE_GOPTION 1
+#else
+#  define USE_GOPTION 0
+#endif
+
 #ifdef HAVE_FREETYPE
 #include <pango/pangoft2.h>
 #endif
@@ -106,7 +113,7 @@ handle_initial_diagram(const char *input_file_name,
 static void create_user_dirs(void);
 static PluginInitResult internal_plugin_init(PluginInfo *info);
 static void process_opts(int argc, char **argv,
-#if GLIB_CHECK_VERSION(2,5,5)
+#if USE_GOPTION
 			 GOptionContext* context, GOptionEntry options[],
 #elif defined HAVE_POPT
 			 poptContext poptCtx, struct poptOption options[],
@@ -668,7 +675,7 @@ app_init (int argc, char **argv)
 		    "shape, svg, tex, " WMF
 		    "wpg");
 
-#if GLIB_CHECK_VERSION(2,5,5)
+#if USE_GOPTION 
   GOptionContext *context = NULL;
   static GOptionEntry options[] =
   {
@@ -722,7 +729,7 @@ app_init (int argc, char **argv)
   };
 #endif
 
-#if GLIB_CHECK_VERSION(2,5,5)
+#if USE_GOPTION
   options[0].arg_data = &export_file_name;
   options[1].arg_data = &export_file_format;
   options[1].description = export_format_string;
@@ -744,7 +751,7 @@ app_init (int argc, char **argv)
   textdomain(GETTEXT_PACKAGE);
 
   process_opts(argc, argv, 
-#if defined HAVE_POPT || GLIB_CHECK_VERSION(2,5,5)
+#if defined HAVE_POPT || USE_GOPTION
                context, options, 
 #endif
                &files,
@@ -759,7 +766,9 @@ app_init (int argc, char **argv)
 #ifdef GNOME
     GnomeProgram *program =
       gnome_program_init (PACKAGE, VERSION, LIBGNOMEUI_MODULE,
-			  argc, argv, GNOME_PARAM_POPT_TABLE, options,
+			  argc, argv,
+			  /* haven't found a quick way to pass GOption here */
+			  GNOME_PARAM_POPT_TABLE, options,
 			  GNOME_PROGRAM_STANDARD_PROPERTIES,
 			  GNOME_PARAM_NONE);
     g_object_get(program, "popt-context", &context, NULL);
@@ -1093,7 +1102,7 @@ internal_plugin_init(PluginInfo *info)
 /* Note: running in locale encoding */
 static void
 process_opts(int argc, char **argv,
-#if GLIB_CHECK_VERSION(2,5,5)
+#if USE_GOPTION
 	     GOptionContext *context, GOptionEntry options[],
 #elif defined HAVE_POPT
 	     poptContext poptCtx, struct poptOption options[],
@@ -1102,7 +1111,7 @@ process_opts(int argc, char **argv,
 	     char **export_file_format, char **size,
 	     char **show_layers, gboolean* nosplash)
 {
-#if defined HAVE_POPT && !GLIB_CHECK_VERSION(2,5,5)
+#if defined HAVE_POPT && !USE_GOPTION
   int rc = 0;
   poptCtx = poptGetContext(PACKAGE, argc, (const char **)argv, options, 0);
   poptSetOtherOptionHelp(poptCtx, _("[OPTION...] [FILE...]"));
@@ -1121,23 +1130,23 @@ process_opts(int argc, char **argv,
   }
 #endif
   if (argv) {
-#if defined HAVE_POPT && !GLIB_CHECK_VERSION(2,5,5)
+#if defined HAVE_POPT && !USE_GOPTION
       while (poptPeekArg(poptCtx)) {
           char *in_file_name = (char *)poptGetArg(poptCtx);
 	  if (*in_file_name != '\0')
 	    *files = g_slist_append(*files, in_file_name);
       }
       poptFreeContext(poptCtx);
-#elif GLIB_CHECK_VERSION(2,5,5)
+#elif USE_GOPTION
       GError *error = NULL;
       int i;
       
       context = g_option_context_new(_("[FILE...]"));
       g_option_context_add_main_entries (context, options, GETTEXT_PACKAGE);
-#if GTK_CHECK_VERSION(2,5,7)
+#  if GTK_CHECK_VERSION(2,5,7)
       /* at least Gentoo was providing GLib-2.6 but Gtk+-2.4.14 */
       g_option_context_add_group (context, gtk_get_option_group (FALSE));
-#endif
+#  endif
       if (!g_option_context_parse (context, &argc, &argv, &error)) {
 	g_print (error->message);
 	g_error_free (error);

@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-06-08 00:24+0200\n"
+"POT-Creation-Date: 2005-06-11 13:40+0200\n"
 "PO-Revision-Date: 2005-06-08 00:24+0200\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
@@ -21,146 +21,144 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #. This is not an errror
-#: app/app_procs.c:253
+#: app/app_procs.c:260
 #, c-format
 msgid "Warning: invalid layer range %lu - %lu\n"
 msgstr ""
 
-#: app/app_procs.c:265
+#: app/app_procs.c:272
 #, c-format
 msgid "Warning: Layer %lu (%s) selected more than once.\n"
 msgstr ""
 
-#: app/app_procs.c:291
+#: app/app_procs.c:298
 #, c-format
 msgid "Warning: Layer %d (%s) selected more than once.\n"
 msgstr ""
 
-#: app/app_procs.c:300
+#: app/app_procs.c:307
 #, c-format
 msgid "Warning: There is no layer named %s\n"
 msgstr ""
 
-#: app/app_procs.c:382
+#: app/app_procs.c:389
 #, c-format
 msgid "%s error: don't know how to export into %s\n"
 msgstr "%s-fel: vet inte hur man exporterar till %s\n"
 
-#: app/app_procs.c:391
+#: app/app_procs.c:398
 #, c-format
 msgid "%s error: input and output file name is identical: %s"
 msgstr "%s-fel: indata- och utdatafilnamn är indentiska: %s"
 
-#: app/app_procs.c:399
+#: app/app_procs.c:406
 #, c-format
 msgid "%s error: need valid input file %s\n"
 msgstr "%s-fel: behöver en giltig indatafil %s\n"
 
 #. if (!quiet)
-#: app/app_procs.c:424
+#: app/app_procs.c:431
 #, c-format
 msgid "%s --> %s\n"
 msgstr "%s --> %s\n"
 
-#: app/app_procs.c:570
+#: app/app_procs.c:577
 #, fuzzy, c-format
 msgid "Can't find output format/filter %s\n"
 msgstr "Kan inte hitta utdataformatet %s\n"
 
 #. Translators:  The argument is a list of options, not to be translated
-#: app/app_procs.c:657
+#: app/app_procs.c:664
 #, c-format
 msgid "Select the filter/format out of: %s"
 msgstr ""
 
 #. &export_file_name
-#: app/app_procs.c:676 app/app_procs.c:701
+#: app/app_procs.c:683 app/app_procs.c:708
 msgid "Export loaded file and exit"
 msgstr "Exportera inläst fil och avsluta"
 
-#: app/app_procs.c:676 app/app_procs.c:701 app/diaconv.c:94
+#: app/app_procs.c:683 app/app_procs.c:708 app/diaconv.c:94
 msgid "OUTPUT"
 msgstr "UTDATA"
 
 #. &export_file_format
 #. &export_format_string
-#. &export_file_format
-#: app/app_procs.c:678 app/app_procs.c:703
+#: app/app_procs.c:685 app/app_procs.c:710
 msgid "TYPE"
 msgstr ""
 
-#: app/app_procs.c:680 app/app_procs.c:706
+#: app/app_procs.c:687 app/app_procs.c:713
 msgid "Export graphics size"
 msgstr "Exportera grafikstorlek"
 
-#: app/app_procs.c:680 app/app_procs.c:706
+#: app/app_procs.c:687 app/app_procs.c:713
 msgid "WxH"
 msgstr "B×H"
 
 #. 13.3.2004 sampo@iki.fi
-#: app/app_procs.c:682 app/app_procs.c:708
+#: app/app_procs.c:689 app/app_procs.c:715
 msgid ""
 "Show only specified layers (e.g. when exporting). Can be either the layer "
 "name or a range of layer numbers (X-Y)"
 msgstr ""
 
-#: app/app_procs.c:683 app/app_procs.c:709
+#: app/app_procs.c:690 app/app_procs.c:716
 msgid "LAYER,LAYER,..."
 msgstr ""
 
-#: app/app_procs.c:685 app/app_procs.c:711
+#: app/app_procs.c:692 app/app_procs.c:718
 msgid "Don't show the splash screen"
 msgstr "Visa inte startbilden"
 
-#: app/app_procs.c:687 app/app_procs.c:713
+#: app/app_procs.c:694 app/app_procs.c:720
 msgid "Send error messages to stderr instead of showing dialogs."
 msgstr ""
 
-#: app/app_procs.c:689 app/app_procs.c:715
+#: app/app_procs.c:696 app/app_procs.c:722
 msgid "Display credits list and exit"
 msgstr "Visa tacklista och avsluta"
 
-#: app/app_procs.c:691 app/app_procs.c:717
+#: app/app_procs.c:698 app/app_procs.c:724
 msgid "Generate verbose output"
 msgstr ""
 
-#: app/app_procs.c:693 app/app_procs.c:719
+#: app/app_procs.c:700 app/app_procs.c:726
 msgid "Display version and exit"
 msgstr "Visa versionsnummer och avsluta"
 
-#: app/app_procs.c:720 app/diaconv.c:95
+#: app/app_procs.c:727 app/diaconv.c:95
 msgid "Show this help message"
 msgstr "Visa detta hjälpmeddelande"
 
-#: app/app_procs.c:768
+#: app/app_procs.c:777
 msgid "Can't connect to session manager!\n"
 msgstr "Kan inte få kontakt med sessionshanteraren!\n"
 
 #. TRANSLATOR: 2nd and 3rd %s are time and date respectively.
-#: app/app_procs.c:800
+#: app/app_procs.c:809
 #, c-format
 msgid "Dia version %s, compiled %s %s\n"
 msgstr "Dia version %s, kompilerad %s %s\n"
 
-#: app/app_procs.c:802
+#: app/app_procs.c:811
 #, c-format
 msgid "Dia version %s\n"
 msgstr "Dia version %s\n"
 
-#: app/app_procs.c:864 app/app_procs.c:866 app/diaconv.c:201 app/diaconv.c:203
-#, c-format
+#: app/app_procs.c:873 app/app_procs.c:875 app/diaconv.c:201 app/diaconv.c:203
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr ""
 "Kunde inte hitta standardobjekt vid sökning efter objektbibliotek, "
 "avslutar...\n"
 
-#: app/app_procs.c:907
+#: app/app_procs.c:916
 #, fuzzy
 msgid "Diagram1.dia"
 msgstr "Diagram%d.dia"
 
-#: app/app_procs.c:949
+#: app/app_procs.c:958
 msgid ""
 "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you can cause this message to appear.\n"
@@ -169,7 +167,7 @@ msgstr ""
 "och beskriv hur du fick detta meddelande att visas.\n"
 
 #. no standard buttons
-#: app/app_procs.c:962
+#: app/app_procs.c:971
 msgid ""
 "Modified diagrams exist.\n"
 "Are you sure you want to quit Dia\n"
@@ -179,21 +177,21 @@ msgstr ""
 "Är du säker på att du vill avsluta\n"
 "Dia utan att spara dem?"
 
-#: app/app_procs.c:965
+#: app/app_procs.c:974
 msgid "Quit Dia"
 msgstr "Avsluta Dia"
 
 #. This printf seems to prevent a race condition with unrefs.
 #. Yuck.  -Lars
-#: app/app_procs.c:1018
+#: app/app_procs.c:1027
 msgid "Thank you for using Dia.\n"
 msgstr "Tack för att du använder Dia.\n"
 
-#: app/app_procs.c:1035 app/app_procs.c:1042
+#: app/app_procs.c:1044 app/app_procs.c:1051
 msgid "Could not create per-user Dia config directory"
 msgstr "Kunde inte skapa katalog med personliga Dia-inställningar."
 
-#: app/app_procs.c:1044
+#: app/app_procs.c:1053
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -201,15 +199,15 @@ msgstr ""
 "Kunde inte skapa en personlig Dia-konfigurationskatalog. Kontrollera att "
 "miljövariabeln HOME pekar till en existerande katalog."
 
-#: app/app_procs.c:1066 app/diaconv.c:251
+#: app/app_procs.c:1075 app/diaconv.c:251
 msgid "Objects and filters internal to dia"
 msgstr "Interna objekt och filter i dia"
 
-#: app/app_procs.c:1108 app/diaconv.c:121
+#: app/app_procs.c:1117 app/diaconv.c:121
 msgid "[OPTION...] [FILE...]"
 msgstr "[FLAGGA...] [FIL...]"
 
-#: app/app_procs.c:1111 app/diaconv.c:128
+#: app/app_procs.c:1120 app/diaconv.c:128
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
@@ -219,37 +217,37 @@ msgstr ""
 "Kör \"%s --help\" för att se en fullständig lista över tillgängliga "
 "kommandoradsalternativ.\n"
 
-#: app/app_procs.c:1135
+#: app/app_procs.c:1144
 #, fuzzy
 msgid "[FILE...]"
 msgstr "[FLAGGA...] [FIL...]"
 
-#: app/app_procs.c:1150
+#: app/app_procs.c:1159
 #, c-format
 msgid "'%s' not found!\n"
 msgstr ""
 
-#: app/app_procs.c:1229
+#: app/app_procs.c:1238
 msgid ""
 "The original author of Dia was:\n"
 "\n"
 msgstr ""
 
-#: app/app_procs.c:1234
+#: app/app_procs.c:1243
 msgid ""
 "\n"
 "The current maintainers of Dia are:\n"
 "\n"
 msgstr ""
 
-#: app/app_procs.c:1239
+#: app/app_procs.c:1248
 msgid ""
 "\n"
 "Other authors are:\n"
 "\n"
 msgstr ""
 
-#: app/app_procs.c:1244
+#: app/app_procs.c:1253
 msgid ""
 "\n"
 "Dia is documented by:\n"
@@ -318,7 +316,8 @@ msgid "Dia"
 msgstr "Dia"
 
 #: app/commands.c:627
-msgid "Copyright (C) 1998-2002 The Free Software Foundation and the authors"
+#, fuzzy
+msgid "Copyright (C) 1998-2005 The Free Software Foundation and the authors"
 msgstr "Copyright © 1998-2002 The Free Software Foundation och författarna"
 
 #: app/commands.c:628
@@ -738,7 +737,6 @@ msgid "PNG Export Options"
 msgstr "PNG-exportalternativ"
 
 #. Translators: Menu item Verb/Channel/Export
-#. Translators: Menu item Verb/Channel/Export/Export
 #: app/export_png.c:300 objects/FS/function.c:696 objects/FS/function.c:698
 msgid "Export"
 msgstr "Exportera"
@@ -862,14 +860,14 @@ msgid "Scroll"
 msgstr "Rulla"
 
 #: app/interface.c:69 app/interface.c:70 lib/properties.c:77
-#: lib/properties.h:517 objects/Jackson/requirement.c:142
+#: lib/properties.h:520 objects/Jackson/requirement.c:142
 #: objects/UML/activity.c:126 objects/UML/actor.c:122
 #: objects/UML/classicon.c:144 objects/UML/component.c:128
 #: objects/UML/component_feature.c:154 objects/UML/node.c:127
 #: objects/UML/note.c:121 objects/UML/object.c:147
 #: objects/UML/small_package.c:128 objects/UML/state.c:141
-#: objects/UML/usecase.c:138 objects/network/basestation.c:133
-#: objects/network/radiocell.c:146
+#: objects/UML/usecase.c:138 objects/custom/custom_object.c:200
+#: objects/network/basestation.c:133 objects/network/radiocell.c:146
 msgid "Text"
 msgstr "Text"
 
@@ -991,7 +989,7 @@ msgstr ""
 "Pilstil vid slutet på nya linjer. Klicka för att välja en pil eller ställ in "
 "pilparametrar med Detaljer..."
 
-#: app/interface.c:1202
+#: app/interface.c:1203
 msgid "Diagram Editor"
 msgstr "Diagramredigerare"
 
@@ -1137,9 +1135,6 @@ msgstr "/Arkiv/_Ny"
 msgid "/File/_Open..."
 msgstr "/Arkiv/_Öppna..."
 
-#. {N_("/Open _Recent"),           NULL,         NULL,           0, "<Branch>"},
-#. {   "/Open Recent/tearoff",     NULL,         NULL,         0, "<Tearoff>" },
-#. recent file list is dynamically inserted here
 #. {N_("/Open _Recent"),           NULL,         NULL,           0, "<Branch>"},
 #. {   "/Open Recent/tearoff",     NULL,         NULL,         0, "<Tearoff>" },
 #: app/menus.c:58 app/menus.c:63 app/menus.c:68 app/menus.c:70 app/menus.c:96
@@ -2009,8 +2004,6 @@ msgid "Name:"
 msgstr "Namn:"
 
 #. Translators: Menu item Verb/Channel/Export/Remove
-#. Translators: Menu item Verb/Branch/Separate/Remove
-#. Translators: Menu item Verb/Branch/Separate/Remove/Remove
 #: app/sheets_dialog.c:784 objects/FS/function.c:706 objects/FS/function.c:858
 #: objects/FS/function.c:860
 msgid "Remove"
@@ -2496,31 +2489,31 @@ msgstr "Linjetyp"
 msgid "Fill color"
 msgstr "Fyllnadsfärg"
 
-#: lib/properties.c:74 lib/properties.h:506
+#: lib/properties.c:74 lib/properties.h:506 lib/properties.h:509
 msgid "Draw background"
 msgstr "Rita bakgrund"
 
-#: lib/properties.c:75 lib/properties.h:510
+#: lib/properties.c:75 lib/properties.h:513
 msgid "Start arrow"
 msgstr "Startpil"
 
-#: lib/properties.c:76 lib/properties.h:513
+#: lib/properties.c:76 lib/properties.h:516
 msgid "End arrow"
 msgstr "Slutpil"
 
-#: lib/properties.c:78 lib/properties.h:523
+#: lib/properties.c:78 lib/properties.h:526
 msgid "Text alignment"
 msgstr "Textjustering"
 
 #. all this just to make the defaults selectable ...
-#: lib/properties.c:79 lib/properties.h:528 objects/GRAFCET/condition.c:132
+#: lib/properties.c:79 lib/properties.h:531 objects/GRAFCET/condition.c:132
 #: objects/GRAFCET/step.c:165 objects/GRAFCET/transition.c:142
 #: objects/UML/class.c:143 objects/UML/class_dialog.c:351
 #: objects/chronogram/chronoline.c:183 objects/chronogram/chronoref.c:164
 msgid "Font"
 msgstr "Typsnitt"
 
-#: lib/properties.c:80 lib/properties.h:534 objects/GRAFCET/condition.c:134
+#: lib/properties.c:80 lib/properties.h:537 objects/GRAFCET/condition.c:134
 #: objects/GRAFCET/step.c:167 objects/GRAFCET/transition.c:144
 #: objects/chronogram/chronoline.c:185 objects/chronogram/chronoref.c:166
 msgid "Font size"
@@ -2539,7 +2532,7 @@ msgstr "Linjefärg"
 msgid "Fill colour"
 msgstr "Fyllnadsfärg"
 
-#: lib/properties.h:540
+#: lib/properties.h:543
 msgid "Text colour"
 msgstr "Textfärg"
 
@@ -2706,9 +2699,6 @@ msgid "Material"
 msgstr "Material"
 
 #. Translators: Menu item Verb/Signal
-#. Translators: Menu item Verb/Signal/Signal
-#. Translators: Menu item Noun/Signal
-#. Translators: Menu item Noun/Signal/Signal
 #: objects/FS/flow-ortho.c:161 objects/FS/flow-ortho.c:643
 #: objects/FS/flow.c:139 objects/FS/flow.c:578 objects/FS/function.c:1034
 #: objects/FS/function.c:1036 objects/FS/function.c:1172
@@ -2734,15 +2724,12 @@ msgid "Verb"
 msgstr "Verb"
 
 #. Translators: Menu item Verb/Channel
-#. Translators: Menu item Verb/Channel/Channel
-#. Translators: Menu item Verb/Channel/Transfer/Transport/Channel
 #: objects/FS/function.c:678 objects/FS/function.c:680
 #: objects/FS/function.c:720
 msgid "Channel"
 msgstr "Kanal"
 
 #. Translators: Menu item Verb/Channel/Import
-#. Translators: Menu item Verb/Channel/Import/Import
 #: objects/FS/function.c:682 objects/FS/function.c:684
 msgid "Import"
 msgstr "Importera"
@@ -2758,7 +2745,6 @@ msgid "Receive"
 msgstr "Ta emot"
 
 #. Translators: Menu item Verb/Channel/Import/Allow
-#. Translators: Menu item Verb/Control Magnitude/Regulate/Allow
 #: objects/FS/function.c:690 objects/FS/function.c:962
 msgid "Allow"
 msgstr "Tillåt"
@@ -2769,7 +2755,6 @@ msgid "Form Entrance"
 msgstr "Formuläringång"
 
 #. Translators: Menu item Verb/Channel/Import/Capture
-#. Translators: Menu item Verb/Provision/Store/Capture
 #: objects/FS/function.c:694 objects/FS/function.c:928
 msgid "Capture"
 msgstr "Fånga"
@@ -2790,15 +2775,12 @@ msgid "Dispose"
 msgstr "Kasta"
 
 #. Translators: Menu item Verb/Channel/Transfer
-#. Translators: Menu item Verb/Channel/Transfer/Transfer
-#. Translators: Menu item Verb/Channel/Transfer/Transmit/Transfer
 #: objects/FS/function.c:708 objects/FS/function.c:710
 #: objects/FS/function.c:728
 msgid "Transfer"
 msgstr "Överför"
 
 #. Translators: Menu item Verb/Channel/Transfer/Transport
-#. Translators: Menu item Verb/Channel/Transfer/Transport/Transport
 #: objects/FS/function.c:712 objects/FS/function.c:714
 msgid "Transport"
 msgstr "Transportera"
@@ -2814,7 +2796,6 @@ msgid "Move"
 msgstr "Flytta"
 
 #. Translators: Menu item Verb/Channel/Transfer/Transmit
-#. Translators: Menu item Verb/Channel/Transfer/Transmit/Transmit
 #: objects/FS/function.c:722 objects/FS/function.c:724
 msgid "Transmit"
 msgstr "Sänd ut"
@@ -2830,8 +2811,6 @@ msgid "Convey"
 msgstr "Transportera"
 
 #. Translators: Menu item Verb/Channel/Guide
-#. Translators: Menu item Verb/Channel/Guide/Guide
-#. Translators: Menu item Verb/Channel/Guide/Guide/Guide
 #: objects/FS/function.c:732 objects/FS/function.c:734
 #: objects/FS/function.c:736
 msgid "Guide"
@@ -2858,7 +2837,6 @@ msgid "Translate"
 msgstr "Översätt"
 
 #. Translators: Menu item Verb/Channel/Guide/Rotate
-#. Translators: Menu item Verb/Channel/Guide/Rotate/Rotate
 #: objects/FS/function.c:746 objects/FS/function.c:748
 msgid "Rotate"
 msgstr "Rotera"
@@ -2874,7 +2852,6 @@ msgid "Spin"
 msgstr "Rotera"
 
 #. Translators: Menu item Verb/Channel/Guide/Allow DOF
-#. Translators: Menu item Verb/Channel/Guide/Allow DOF/Allow DOF
 #: objects/FS/function.c:754 objects/FS/function.c:756
 msgid "Allow DOF"
 msgstr "Tillåt DOF"
@@ -2890,13 +2867,11 @@ msgid "Unlock"
 msgstr "Lås upp"
 
 #. Translators: Menu item Verb/Support
-#. Translators: Menu item Verb/Support/Support
 #: objects/FS/function.c:762 objects/FS/function.c:764
 msgid "Support"
 msgstr "Stöd"
 
 #. Translators: Menu item Verb/Support/Stop
-#. Translators: Menu item Verb/Support/Stop/Stop
 #: objects/FS/function.c:766 objects/FS/function.c:768
 #: sheets/SDL.sheet.in.h:19
 msgid "Stop"
@@ -2913,7 +2888,6 @@ msgid "Protect"
 msgstr "Skydda"
 
 #. Translators: Menu item Verb/Support/Stop/Prevent
-#. Translators: Menu item Verb/Control Magnitude/Regulate/Prevent
 #: objects/FS/function.c:774 objects/FS/function.c:964
 msgid "Prevent"
 msgstr "Förebygg"
@@ -2929,7 +2903,6 @@ msgid "Inhibit"
 msgstr "Begränsa"
 
 #. Translators: Menu item Verb/Support/Stabilize
-#. Translators: Menu item Verb/Support/Stabilize/Stabilize
 #: objects/FS/function.c:780 objects/FS/function.c:782
 msgid "Stabilize"
 msgstr "Stabilisera"
@@ -2940,13 +2913,11 @@ msgid "Steady"
 msgstr "Stadga"
 
 #. Translators: Menu item Verb/Support/Secure
-#. Translators: Menu item Verb/Support/Secure/Secure
 #: objects/FS/function.c:786 objects/FS/function.c:788
 msgid "Secure"
 msgstr "Säkra"
 
 #. Translators: Menu item Verb/Support/Secure/Attach
-#. Translators: Menu item Verb/Connect/Couple/Attach
 #: objects/FS/function.c:790 objects/FS/function.c:822
 msgid "Attach"
 msgstr "Bifoga"
@@ -2972,7 +2943,6 @@ msgid "Hold"
 msgstr "Håll"
 
 #. Translators: Menu item Verb/Support/Position
-#. Translators: Menu item Verb/Support/Position/Position
 #: objects/FS/function.c:800 objects/FS/function.c:802
 #: objects/Istar/actor.c:70
 msgid "Position"
@@ -2989,19 +2959,16 @@ msgid "Align"
 msgstr "Justera"
 
 #. Translators: Menu item Verb/Support/Position/Locate
-#. Translators: Menu item Verb/Signal/Sense/Locate
 #: objects/FS/function.c:808 objects/FS/function.c:1050
 msgid "Locate"
 msgstr "Sök"
 
 #. Translators: Menu item Verb/Connect
-#. Translators: Menu item Verb/Connect/Connect
 #: objects/FS/function.c:810 objects/FS/function.c:812
 msgid "Connect"
 msgstr "Anslut"
 
 #. Translators: Menu item Verb/Connect/Couple
-#. Translators: Menu item Verb/Connect/Couple/Couple
 #: objects/FS/function.c:814 objects/FS/function.c:816
 msgid "Couple"
 msgstr "Para ihop"
@@ -3017,7 +2984,6 @@ msgid "Assemble"
 msgstr "Sätt ihop"
 
 #. Translators: Menu item Verb/Connect/Mix
-#. Translators: Menu item Verb/Connect/Mix/Mix
 #: objects/FS/function.c:824 objects/FS/function.c:826
 msgid "Mix"
 msgstr "Mixa"
@@ -3048,14 +3014,11 @@ msgid "Coalesce"
 msgstr "Väx samman"
 
 #. Translators: Menu item Verb/Branch
-#. Translators: Menu item Verb/Branch/Branch
 #: objects/FS/function.c:838 objects/FS/function.c:840 sheets/UML.sheet.in.h:5
 msgid "Branch"
 msgstr "Grena"
 
 #. Translators: Menu item Verb/Branch/Separate
-#. Translators: Menu item Verb/Branch/Separate/Separate
-#. Translators: Menu item Verb/Branch/Separate/Separate/Separate
 #: objects/FS/function.c:842 objects/FS/function.c:844
 #: objects/FS/function.c:846
 msgid "Separate"
@@ -3112,7 +3075,6 @@ msgid "Lathe"
 msgstr "Svarva"
 
 #. Translators: Menu item Verb/Branch/Refine
-#. Translators: Menu item Verb/Branch/Refine/Refine
 #: objects/FS/function.c:872 objects/FS/function.c:874
 msgid "Refine"
 msgstr "Förfina"
@@ -3143,7 +3105,6 @@ msgid "Clear"
 msgstr "Rensa"
 
 #. Translators: Menu item Verb/Branch/Distribute
-#. Translators: Menu item Verb/Branch/Distribute/Distribute
 #: objects/FS/function.c:886 objects/FS/function.c:888
 msgid "Distribute"
 msgstr "Distribuera"
@@ -3164,7 +3125,6 @@ msgid "Disperse"
 msgstr "Skingra"
 
 #. Translators: Menu item Verb/Branch/Distribute/Diffuse
-#. Translators: Menu item Verb/Branch/Dissipate/Diffuse
 #: objects/FS/function.c:896 objects/FS/function.c:910
 msgid "Diffuse"
 msgstr "Sprid"
@@ -3175,7 +3135,6 @@ msgid "Empty"
 msgstr "Töm"
 
 #. Translators: Menu item Verb/Branch/Dissipate
-#. Translators: Menu item Verb/Branch/Dissipate/Dissipate
 #: objects/FS/function.c:900 objects/FS/function.c:902
 msgid "Dissipate"
 msgstr "Splittra"
@@ -3201,13 +3160,11 @@ msgid "Resist"
 msgstr "Motstå"
 
 #. Translators: Menu item Verb/Provision
-#. Translators: Menu item Verb/Provision/Provision
 #: objects/FS/function.c:914 objects/FS/function.c:916
 msgid "Provision"
 msgstr "Förbered"
 
 #. Translators: Menu item Verb/Provision/Store
-#. Translators: Menu item Verb/Provision/Store/Store
 #: objects/FS/function.c:918 objects/FS/function.c:920
 msgid "Store"
 msgstr "Lagra"
@@ -3228,7 +3185,6 @@ msgid "Reserve"
 msgstr "Reservera"
 
 #. Translators: Menu item Verb/Provision/Supply
-#. Translators: Menu item Verb/Provision/Supply/Supply
 #: objects/FS/function.c:930 objects/FS/function.c:932
 msgid "Supply"
 msgstr "Leverera"
@@ -3260,13 +3216,11 @@ msgid "Extract"
 msgstr "Extrahera"
 
 #. Translators: Menu item Verb/Control Magnitude
-#. Translators: Menu item Verb/Control Magnitude/Control Magnitude
 #: objects/FS/function.c:944 objects/FS/function.c:946
 msgid "Control Magnitude"
 msgstr "Styr magnitud"
 
 #. Translators: Menu item Verb/Control Magnitude/Actuate
-#. Translators: Menu item Verb/Control Magnitude/Actuate/Actuate
 #: objects/FS/function.c:948 objects/FS/function.c:950
 msgid "Actuate"
 msgstr "Driv"
@@ -3282,13 +3236,11 @@ msgid "Initiate"
 msgstr "Initiera"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate
-#. Translators: Menu item Verb/Control Magnitude/Regulate/Regulate
 #: objects/FS/function.c:956 objects/FS/function.c:958
 msgid "Regulate"
 msgstr "Reglera"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Control
-#. Translators: Menu item Noun/Signal/Control
 #: objects/FS/function.c:960 objects/FS/function.c:1178
 #: objects/UML/classicon.c:127
 msgid "Control"
@@ -3315,7 +3267,6 @@ msgid "Interrupt"
 msgstr "Avbryt"
 
 #. Translators: Menu item Verb/Control Magnitude/Change
-#. Translators: Menu item Verb/Control Magnitude/Change/Change
 #: objects/FS/function.c:974 objects/FS/function.c:976
 msgid "Change"
 msgstr "Ändra"
@@ -3366,7 +3317,6 @@ msgid "Adjust"
 msgstr "Justera"
 
 #. Translators: Menu item Verb/Control Magnitude/Form
-#. Translators: Menu item Verb/Control Magnitude/Form/Form
 #: objects/FS/function.c:998 objects/FS/function.c:1000
 msgid "Form"
 msgstr "Bilda"
@@ -3397,7 +3347,6 @@ msgid "Pierce"
 msgstr "Genomborra"
 
 #. Translators: Menu item Verb/Convert
-#. Translators: Menu item Verb/Convert/Convert
 #: objects/FS/function.c:1012 objects/FS/function.c:1014
 msgid "Convert"
 msgstr "Konvertera"
@@ -3448,7 +3397,6 @@ msgid "Process"
 msgstr "Bearbeta"
 
 #. Translators: Menu item Verb/Signal/Sense
-#. Translators: Menu item Verb/Signal/Sense/Sense
 #: objects/FS/function.c:1038 objects/FS/function.c:1040
 msgid "Sense"
 msgstr "Känn av"
@@ -3479,7 +3427,6 @@ msgid "Verify"
 msgstr "Verifiera"
 
 #. Translators: Menu item Verb/Signal/Indicate
-#. Translators: Menu item Verb/Signal/Indicate/Indicate
 #: objects/FS/function.c:1054 objects/FS/function.c:1056
 msgid "Indicate"
 msgstr "Indikera"
@@ -3495,7 +3442,6 @@ msgid "Display"
 msgstr "Visa"
 
 #. Translators: Menu item Verb/Signal/Measure
-#. Translators: Menu item Verb/Signal/Measure/Measure
 #: objects/FS/function.c:1062 objects/FS/function.c:1064
 msgid "Measure"
 msgstr "Mät"
@@ -3526,8 +3472,6 @@ msgid "Gas"
 msgstr "Gas"
 
 #. Translators: Menu item Noun/Material/Human
-#. Translators: Menu item Noun/Material/Human/Human
-#. Translators: Menu item Noun/Energy/Human
 #: objects/FS/function.c:1080 objects/FS/function.c:1082
 #: objects/FS/function.c:1166
 msgid "Human"
@@ -3670,7 +3614,6 @@ msgid "Convection"
 msgstr "Konvektion"
 
 #. Translators: Menu item Noun/Energy/Thermal/Radiation
-#. Translators: Menu item Noun/Energy/Radioactive/Radiation
 #: objects/FS/function.c:1140 objects/FS/function.c:1148
 msgid "Radiation"
 msgstr "Strålning"
@@ -4846,23 +4789,23 @@ msgstr "Anpassad"
 msgid "Custom XML shapes loader"
 msgstr "Inläsare för anpassade XML-figurer"
 
-#: objects/custom/custom_object.c:178 objects/custom/custom_object.c:197
+#: objects/custom/custom_object.c:178 objects/custom/custom_object.c:203
 msgid "Flip horizontal"
 msgstr "Vänd horisontellt"
 
-#: objects/custom/custom_object.c:180 objects/custom/custom_object.c:199
+#: objects/custom/custom_object.c:180 objects/custom/custom_object.c:205
 msgid "Flip vertical"
 msgstr "Vänd vertikalt"
 
-#: objects/custom/custom_object.c:1448
+#: objects/custom/custom_object.c:1454
 msgid "Flip Horizontal"
 msgstr "Vänd horisontellt"
 
-#: objects/custom/custom_object.c:1449
+#: objects/custom/custom_object.c:1455
 msgid "Flip Vertical"
 msgstr "Vänd vertikalt"
 
-#: objects/custom/custom_object.c:1486
+#: objects/custom/custom_object.c:1492
 #, c-format
 msgid "Cannot open icon file %s for object type '%s'."
 msgstr "Kan inte öppna ikonfilen %s för objekttypen \"%s\"."
@@ -5004,7 +4947,6 @@ msgid "Keep aspect ratio"
 msgstr "Behåll proportioner"
 
 #. Found file in same dir as diagram.
-#. Found file in current dir.
 #: objects/standard/image.c:672 objects/standard/image.c:683
 #, c-format
 msgid ""

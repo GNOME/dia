@@ -1,3 +1,21 @@
+2005-06-11  Hans Breuer  <hans@breuer.org>
+
+	* configure.in config.h.win32.h : mark as +cvs (should have been 
+	done directly after the 0.94 release)
+	* NEWS : attempt to summarize 2/3 year of development
+
+	[ 
+	  WANTK_AUTOMAKE=1.7 ./autogen.sh && ./conifugre  --enable-maintatiner-mode && make distcheck
+	  finally passes again
+	]
+	* app/app_procs.c : force use of POPT for the GNOME case, otherwise
+	app/run_dia.sh --credits > THANKS => Segmentation fault
+	* app/pixmaps/Makefile.am : added group.png and ungroup.png
+	* Makefile.am : work around scrollkeeper bug
+	* doc/en/Makefile.am : explicit list DISTCLEANFILES = dia.1
+
+	* po/*.po : 'noise' produced by make dist
+
 2005-06-10  Hans Breuer  <hans@breuer.org>
 
 	* lib/properties.h : define PROP_STD_SHOW_BACKGROUND_OPTIONAL ...
@@ -101,7 +119,7 @@
 
 2005-05-31  Lars Clausen  <lars@raeder.dk>
 
-	* sheets/ER.sheet.in: No more xpms referenced in sheets.
+	* sheets/ER.sheet.in: No more xpms referenced in sheets. Fixes bug #151811.
 
 2005-05-30  Pawan Chitrakar  <pawan@nplinux.org>
 

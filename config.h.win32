@@ -18,7 +18,7 @@
 #define GETTEXT_PACKAGE "dia"
 #define LOCALEDIR "../lib/locale"
 
-#define VERSION "0.94"
+#define VERSION "0.94+cvs"
 
 /*
  * We are linking libxml as DLL with either msvc or mingw, but this

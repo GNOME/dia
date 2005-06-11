@@ -42,10 +42,8 @@ all-local: core-translation-report po/Makefile
 
 # on uninstall scrollkeeper will leave behind an empty database
 # See http://mail.gnome.org/archives/desktop-devel-list/2003-July/msg00144.html
-# That advice didn't work, turning check off till scrollkeeper is fixed
-# or we get a better check here.
-distuninstallcheck_listfiles = \
-  find . -type f -a ! -path \*scrollkeeper\*
+# Requires automake-1.7, so 'export WANT_AUTOMAKE=1.7' before './autogen.sh'
+distuninstallcheck_listfiles = find . -type f -print | grep -v '^\./var/scrollkeeper'
 
 #distuninstallcheck:
 #	@:

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.91\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-03-27 16:18+0200\n"
+"POT-Creation-Date: 2005-06-11 13:40+0200\n"
 "PO-Revision-Date: 2003-05-27 03:41+0800\n"
 "Last-Translator: Abel Cheung <maddog@linux.org.hk>\n"
 "Language-Team: Chinese (traditional) <zh-l10n@linux.org.hk>\n"
@@ -15,128 +15,151 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: app/app_procs.c:228
+#. This is not an errror
+#: app/app_procs.c:260
+#, c-format
+msgid "Warning: invalid layer range %lu - %lu\n"
+msgstr ""
+
+#: app/app_procs.c:272
+#, c-format
+msgid "Warning: Layer %lu (%s) selected more than once.\n"
+msgstr ""
+
+#: app/app_procs.c:298
+#, c-format
+msgid "Warning: Layer %d (%s) selected more than once.\n"
+msgstr ""
+
+#: app/app_procs.c:307
+#, c-format
+msgid "Warning: There is no layer named %s\n"
+msgstr ""
+
+#: app/app_procs.c:389
 #, c-format
 msgid "%s error: don't know how to export into %s\n"
 msgstr "%s 錯誤：無法決定如何將內容匯出至 %s\n"
 
-#: app/app_procs.c:237
+#: app/app_procs.c:398
 #, c-format
 msgid "%s error: input and output file name is identical: %s"
 msgstr "%s 錯誤：輸入檔及輸出檔的檔名相同：%s"
 
-#: app/app_procs.c:246
+#: app/app_procs.c:406
 #, c-format
 msgid "%s error: need valid input file %s\n"
 msgstr "%s 錯誤：需要有效的輸入檔 %s\n"
 
 #. if (!quiet)
-#: app/app_procs.c:291
+#: app/app_procs.c:431
 #, c-format
 msgid "%s --> %s\n"
 msgstr "%s → %s\n"
 
-#: app/app_procs.c:437
+#: app/app_procs.c:577
 #, fuzzy, c-format
 msgid "Can't find output format/filter %s\n"
 msgstr "無法開啟輸出檔 %s：%s\n"
 
 #. Translators:  The argument is a list of options, not to be translated
-#: app/app_procs.c:524
+#: app/app_procs.c:664
 #, c-format
 msgid "Select the filter/format out of: %s"
 msgstr ""
 
 #. &export_file_name
-#: app/app_procs.c:543 app/app_procs.c:567
+#: app/app_procs.c:683 app/app_procs.c:708
 msgid "Export loaded file and exit"
 msgstr "匯出已載入的檔案並結束"
 
-#: app/app_procs.c:543 app/app_procs.c:567 app/diaconv.c:94
+#: app/app_procs.c:683 app/app_procs.c:708 app/diaconv.c:94
 msgid "OUTPUT"
 msgstr "輸出"
 
 #. &export_file_format
 #. &export_format_string
-#: app/app_procs.c:545 app/app_procs.c:569
+#: app/app_procs.c:685 app/app_procs.c:710
 msgid "TYPE"
 msgstr ""
 
-#: app/app_procs.c:547 app/app_procs.c:572
+#: app/app_procs.c:687 app/app_procs.c:713
 #, fuzzy
 msgid "Export graphics size"
 msgstr "匯出的檔案格式"
 
-#: app/app_procs.c:547 app/app_procs.c:572
+#: app/app_procs.c:687 app/app_procs.c:713
 msgid "WxH"
 msgstr ""
 
 #. 13.3.2004 sampo@iki.fi
-#: app/app_procs.c:549 app/app_procs.c:574
-msgid "Show only specified layers (e.g. when exporting)"
+#: app/app_procs.c:689 app/app_procs.c:715
+msgid ""
+"Show only specified layers (e.g. when exporting). Can be either the layer "
+"name or a range of layer numbers (X-Y)"
 msgstr ""
 
-#: app/app_procs.c:549 app/app_procs.c:574
+#: app/app_procs.c:690 app/app_procs.c:716
 msgid "LAYER,LAYER,..."
 msgstr ""
 
-#: app/app_procs.c:551 app/app_procs.c:576
+#: app/app_procs.c:692 app/app_procs.c:718
 msgid "Don't show the splash screen"
 msgstr "不顯示啟動畫面"
 
-#: app/app_procs.c:553 app/app_procs.c:578
+#: app/app_procs.c:694 app/app_procs.c:720
 msgid "Send error messages to stderr instead of showing dialogs."
 msgstr ""
 
-#: app/app_procs.c:555 app/app_procs.c:580
+#: app/app_procs.c:696 app/app_procs.c:722
 msgid "Display credits list and exit"
 msgstr "顯示鳴謝清單後結束"
 
-#: app/app_procs.c:557 app/app_procs.c:582
+#: app/app_procs.c:698 app/app_procs.c:724
 msgid "Generate verbose output"
 msgstr ""
 
-#: app/app_procs.c:559 app/app_procs.c:584
+#: app/app_procs.c:700 app/app_procs.c:726
 msgid "Display version and exit"
 msgstr "顯示版本後結束"
 
-#: app/app_procs.c:585 app/diaconv.c:95
+#: app/app_procs.c:727 app/diaconv.c:95
 msgid "Show this help message"
 msgstr "顯示本說明訊息"
 
-#: app/app_procs.c:633
+#: app/app_procs.c:777
 msgid "Can't connect to session manager!\n"
 msgstr "無法連接作業階段總管！\n"
 
 #. TRANSLATOR: 2nd and 3rd %s are time and date respectively.
-#: app/app_procs.c:665
+#: app/app_procs.c:809
 #, c-format
 msgid "Dia version %s, compiled %s %s\n"
 msgstr "Dia %s 版本，編譯於 %s %s\n"
 
-#: app/app_procs.c:667
+#: app/app_procs.c:811
 #, c-format
 msgid "Dia version %s\n"
 msgstr "Dia %s 版本\n"
 
-#: app/app_procs.c:729 app/app_procs.c:731 app/diaconv.c:201 app/diaconv.c:203
+#: app/app_procs.c:873 app/app_procs.c:875 app/diaconv.c:201 app/diaconv.c:203
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr "搜尋物件函式時找不到標準物件，結束程式...\n"
 
-#: app/app_procs.c:772
+#: app/app_procs.c:916
 #, fuzzy
 msgid "Diagram1.dia"
 msgstr "Diagram%d.dia"
 
-#: app/app_procs.c:814
+#: app/app_procs.c:958
 msgid ""
 "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you can cause this message to appear.\n"
 msgstr ""
 
 #. no standard buttons
-#: app/app_procs.c:827
+#: app/app_procs.c:971
 msgid ""
 "Modified diagrams exist.\n"
 "Are you sure you want to quit Dia\n"
@@ -146,35 +169,35 @@ msgstr ""
 "是否確定離開而且\n"
 "不儲存圖表？"
 
-#: app/app_procs.c:830
+#: app/app_procs.c:974
 msgid "Quit Dia"
 msgstr "結束 Dia"
 
 #. This printf seems to prevent a race condition with unrefs.
 #. Yuck.  -Lars
-#: app/app_procs.c:883
+#: app/app_procs.c:1027
 msgid "Thank you for using Dia.\n"
 msgstr ""
 
-#: app/app_procs.c:900 app/app_procs.c:907
+#: app/app_procs.c:1044 app/app_procs.c:1051
 msgid "Could not create per-user Dia config directory"
 msgstr "無法建立 Dia 個人組態目錄"
 
-#: app/app_procs.c:909
+#: app/app_procs.c:1053
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
 msgstr "無法建立 Dia 個人組態目錄。請確定 HOME 環境變數是一個已存在的目錄。"
 
-#: app/app_procs.c:931 app/diaconv.c:251
+#: app/app_procs.c:1075 app/diaconv.c:251
 msgid "Objects and filters internal to dia"
 msgstr "dia 內部物件及過濾器"
 
-#: app/app_procs.c:973 app/diaconv.c:121
+#: app/app_procs.c:1117 app/diaconv.c:121
 msgid "[OPTION...] [FILE...]"
 msgstr "[選項...] [檔案...]"
 
-#: app/app_procs.c:976 app/diaconv.c:128
+#: app/app_procs.c:1120 app/diaconv.c:128
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
@@ -183,37 +206,37 @@ msgstr ""
 "選項 %s 發生錯誤：%s。\n"
 "執行‘%s --help’可列出完整的選項。\n"
 
-#: app/app_procs.c:1000
+#: app/app_procs.c:1144
 #, fuzzy
 msgid "[FILE...]"
 msgstr "[選項...] [檔案...]"
 
-#: app/app_procs.c:1015
+#: app/app_procs.c:1159
 #, c-format
 msgid "'%s' not found!\n"
 msgstr ""
 
-#: app/app_procs.c:1094
+#: app/app_procs.c:1238
 msgid ""
 "The original author of Dia was:\n"
 "\n"
 msgstr ""
 
-#: app/app_procs.c:1099
+#: app/app_procs.c:1243
 msgid ""
 "\n"
 "The current maintainers of Dia are:\n"
 "\n"
 msgstr ""
 
-#: app/app_procs.c:1104
+#: app/app_procs.c:1248
 msgid ""
 "\n"
 "Other authors are:\n"
 "\n"
 msgstr ""
 
-#: app/app_procs.c:1109
+#: app/app_procs.c:1253
 msgid ""
 "\n"
 "Dia is documented by:\n"
@@ -240,20 +263,20 @@ msgstr "選取前景顏色"
 msgid "Select background color"
 msgstr "選取背景顏色"
 
-#: app/commands.c:134
+#: app/commands.c:136
 #, c-format
 msgid "Diagram%d.dia"
 msgstr "Diagram%d.dia"
 
-#: app/commands.c:205
+#: app/commands.c:207
 msgid "No existing object to paste.\n"
 msgstr "沒有現存的物件可供貼上。\n"
 
-#: app/commands.c:528 app/commands.c:566
+#: app/commands.c:533 app/commands.c:571
 msgid "Could not find help directory"
 msgstr "找不到說明文件目錄"
 
-#: app/commands.c:535
+#: app/commands.c:540
 #, c-format
 msgid ""
 "Could not open help directory:\n"
@@ -267,7 +290,7 @@ msgstr ""
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: app/commands.c:605
+#: app/commands.c:611
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 "i18n 程式中文化計劃\n"
@@ -276,15 +299,16 @@ msgstr ""
 "Abel Cheung <maddog@linux.org.hk>, 2001,2003\n"
 "Jing-Jong Shyue <shyue@sonoma.com.tw>, 2000"
 
-#: app/commands.c:619
+#: app/commands.c:625
 msgid "Dia"
 msgstr "Dia"
 
-#: app/commands.c:621
-msgid "Copyright (C) 1998-2002 The Free Software Foundation and the authors"
+#: app/commands.c:627
+#, fuzzy
+msgid "Copyright (C) 1998-2005 The Free Software Foundation and the authors"
 msgstr "版權所有 ©1998-2002 自由軟體基金會及軟體開發者"
 
-#: app/commands.c:622
+#: app/commands.c:628
 #, fuzzy
 msgid ""
 "Dia is a program for drawing structured diagrams.\n"
@@ -293,26 +317,26 @@ msgstr ""
 "Dia 是用來繪製結構性圖表的程式。\n"
 "請瀏覽 http://www.lysator.liu.se/~alla/dia 獲取更多資料。"
 
-#: app/commands.c:661
+#: app/commands.c:667
 msgid "About Dia"
 msgstr "關於 Dia"
 
-#: app/commands.c:704
+#: app/commands.c:710
 #, c-format
 msgid "Dia v %s by Alexander Larsson"
 msgstr "Dia %s 版本由 Alexander Larsson 編寫"
 
 #. Exact spelling is Ch&eacute;p&eacute;lov (using *ML entities)
-#: app/commands.c:710
+#: app/commands.c:716
 msgid "Maintainers: Lars Clausen and Cyrille Chepelov"
 msgstr "維護者：Lars Clausen 及 Cyrille Chépélov"
 
-#: app/commands.c:714
+#: app/commands.c:720
 #, fuzzy
 msgid "Please visit http://www.gnome.org/projects/dia for more information"
 msgstr "請瀏覽 http://www.lysator.liu.se/~alla/dia 獲取進一步的資料"
 
-#: app/commands.c:719
+#: app/commands.c:725
 msgid "Contributors:"
 msgstr "貢獻者："
 
@@ -555,7 +579,7 @@ msgstr "圖表結構樹"
 msgid "Ok"
 msgstr "確定"
 
-#: app/dialogs.c:52 app/paginate_psprint.c:292
+#: app/dialogs.c:52 app/paginate_psprint.c:306
 msgid "Cancel"
 msgstr "取消"
 
@@ -629,7 +653,7 @@ msgstr ""
 msgid "Properties..."
 msgstr "屬性(_P)"
 
-#: app/disp_callbacks.c:938
+#: app/disp_callbacks.c:935
 msgid ""
 "The object you dropped cannot fit into its parent. \n"
 "Either expand the parent object, or drop the object elsewhere."
@@ -649,11 +673,11 @@ msgstr "標準物件"
 msgid "Selected '%s'"
 msgstr "選取(_S)"
 
-#: app/display.c:1024
+#: app/display.c:1025
 msgid "<unnamed>"
 msgstr "<未命名>"
 
-#: app/display.c:1026
+#: app/display.c:1027
 #, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -662,21 +686,21 @@ msgstr ""
 "圖表‘%s’\n"
 "尚未儲存。是否現在儲存？"
 
-#: app/display.c:1037
+#: app/display.c:1038
 msgid "Close Diagram"
 msgstr "關閉圖表"
 
-#: app/display.c:1042
+#: app/display.c:1043
 msgid "Discard Changes"
 msgstr "放棄更改內容"
 
 #: app/export_png.c:134 app/load_save.c:913 app/render_eps.c:103
-#: plug-ins/cairo/diacairo.c:947 plug-ins/cgm/cgm.c:1157
+#: plug-ins/cairo/diacairo.c:978 plug-ins/cgm/cgm.c:1157
 #: plug-ins/dxf/dxf-export.c:509 plug-ins/hpgl/hpgl.c:718
-#: plug-ins/metapost/render_metapost.c:964
-#: plug-ins/pstricks/render_pstricks.c:804 plug-ins/shape/shape-export.c:135
-#: plug-ins/svg/render_svg.c:152 plug-ins/wpg/wpg.c:1067
-#: plug-ins/xfig/xfig-export.c:1100 plug-ins/xslt/xslt.c:94
+#: plug-ins/metapost/render_metapost.c:1107
+#: plug-ins/pstricks/render_pstricks.c:910 plug-ins/shape/shape-export.c:134
+#: plug-ins/svg/render_svg.c:151 plug-ins/wpg/wpg.c:1067
+#: plug-ins/xfig/xfig-export.c:1138 plug-ins/xslt/xslt.c:94
 #, c-format
 msgid "Can't open output file %s: %s\n"
 msgstr "無法開啟輸出檔 %s：%s\n"
@@ -821,13 +845,14 @@ msgid "Scroll"
 msgstr "捲動"
 
 #: app/interface.c:69 app/interface.c:70 lib/properties.c:77
-#: lib/properties.h:516 objects/UML/activity.c:126 objects/UML/actor.c:122
-#: objects/UML/classicon.c:143 objects/UML/component.c:128
+#: lib/properties.h:520 objects/Jackson/requirement.c:142
+#: objects/UML/activity.c:126 objects/UML/actor.c:122
+#: objects/UML/classicon.c:144 objects/UML/component.c:128
 #: objects/UML/component_feature.c:154 objects/UML/node.c:127
 #: objects/UML/note.c:121 objects/UML/object.c:147
 #: objects/UML/small_package.c:128 objects/UML/state.c:141
-#: objects/UML/usecase.c:138 objects/Jackson/requirement.c:142
-#: objects/network/basestation.c:131 objects/network/radiocell.c:146
+#: objects/UML/usecase.c:138 objects/custom/custom_object.c:200
+#: objects/network/basestation.c:133 objects/network/radiocell.c:146
 msgid "Text"
 msgstr "文字"
 
@@ -847,7 +872,7 @@ msgstr "多邊形"
 msgid "Beziergon"
 msgstr "貝茲封閉曲線"
 
-#: app/interface.c:94 app/interface.c:95 objects/standard/line.c:225
+#: app/interface.c:94 app/interface.c:95 objects/standard/line.c:226
 msgid "Line"
 msgstr "直線"
 
@@ -940,7 +965,7 @@ msgid ""
 "parameters with Details..."
 msgstr ""
 
-#: app/interface.c:1202
+#: app/interface.c:1203
 msgid "Diagram Editor"
 msgstr "圖表編輯器"
 
@@ -974,19 +999,19 @@ msgstr "圖表："
 msgid "New layer %d"
 msgstr "新圖層"
 
-#: app/layer_dialog.c:521
+#: app/layer_dialog.c:525
 msgid "none"
 msgstr "無"
 
-#: app/layer_dialog.c:952
+#: app/layer_dialog.c:958
 msgid "Edit Layer Attributes"
 msgstr "修改圖層屬性"
 
-#: app/layer_dialog.c:971
+#: app/layer_dialog.c:977
 msgid "Layer name:"
 msgstr "圖層名稱："
 
-#: app/linewidth_area.c:246 lib/properties.h:480 lib/properties.h:483
+#: app/linewidth_area.c:246 lib/properties.h:481 lib/properties.h:484
 #: objects/chronogram/chronoline.c:181 objects/chronogram/chronoref.c:160
 msgid "Line width"
 msgstr "線段寬度"
@@ -1073,501 +1098,501 @@ msgstr "無法儲存檔案‘%s’。\n"
 msgid "Dia Diagram File"
 msgstr "圖表結構樹"
 
-#: app/menus.c:49 app/menus.c:87
+#: app/menus.c:50 app/menus.c:88
 msgid "/_File"
 msgstr "/檔案(_F)"
 
-#: app/menus.c:51 app/menus.c:89
+#: app/menus.c:52 app/menus.c:90
 msgid "/File/_New"
 msgstr "/檔案(F)/新增(_N)"
 
-#: app/menus.c:53 app/menus.c:91
+#: app/menus.c:54 app/menus.c:92
 msgid "/File/_Open..."
 msgstr "/檔案(F)/開啟(_O)..."
 
 #. {N_("/Open _Recent"),           NULL,         NULL,           0, "<Branch>"},
 #. {   "/Open Recent/tearoff",     NULL,         NULL,         0, "<Tearoff>" },
-#: app/menus.c:57 app/menus.c:62 app/menus.c:67 app/menus.c:69 app/menus.c:95
-#: app/menus.c:102 app/menus.c:106
+#: app/menus.c:58 app/menus.c:63 app/menus.c:68 app/menus.c:70 app/menus.c:96
+#: app/menus.c:103 app/menus.c:107
 msgid "/File/---"
 msgstr "/檔案(F)/---"
 
-#: app/menus.c:58
+#: app/menus.c:59
 msgid "/File/_Diagram tree"
 msgstr "/檔案(F)/圖表結構樹(_D)"
 
-#: app/menus.c:60
+#: app/menus.c:61
 msgid "/File/Sheets and Objects..."
 msgstr ""
 
-#: app/menus.c:63
+#: app/menus.c:64
 msgid "/File/_Preferences..."
 msgstr "/檔案(F)/偏好設定(_P)..."
 
-#: app/menus.c:65
+#: app/menus.c:66
 msgid "/File/P_lugins..."
 msgstr "/檔案(F)/增效模組(_L)"
 
-#: app/menus.c:70 app/menus.c:110
+#: app/menus.c:71 app/menus.c:111
 msgid "/File/_Quit"
 msgstr "/檔案(F)/結束(_Q)"
 
-#: app/menus.c:72 app/menus.c:257
+#: app/menus.c:73 app/menus.c:260
 msgid "/_Help"
 msgstr "/求助(_H)"
 
-#: app/menus.c:74 app/menus.c:259
+#: app/menus.c:75 app/menus.c:262
 #, fuzzy
 msgid "/Help/_Contents"
 msgstr "/求助(H)/關於(_A)..."
 
-#: app/menus.c:76 app/menus.c:261
+#: app/menus.c:77 app/menus.c:264
 msgid "/Help/---"
 msgstr "/求助(H)/---"
 
-#: app/menus.c:77 app/menus.c:262
+#: app/menus.c:78 app/menus.c:265
 msgid "/Help/_About..."
 msgstr "/求助(H)/關於(_A)..."
 
-#: app/menus.c:96
+#: app/menus.c:97
 msgid "/File/_Save"
 msgstr "/檔案(F)/儲存(_S)"
 
-#: app/menus.c:98
+#: app/menus.c:99
 msgid "/File/Save _As..."
 msgstr "/檔案(F)/另存新檔(_A)..."
 
-#: app/menus.c:100
+#: app/menus.c:101
 msgid "/File/_Export..."
 msgstr "/檔案(F)/匯出(_E)..."
 
-#: app/menus.c:103
+#: app/menus.c:104
 msgid "/File/Page Set_up..."
 msgstr "/檔案(F)/頁面設定(_U)..."
 
-#: app/menus.c:104
+#: app/menus.c:105
 msgid "/File/_Print Diagram..."
 msgstr "/檔案(F)/列印圖表(_P)..."
 
-#: app/menus.c:107
+#: app/menus.c:108
 msgid "/File/_Close"
 msgstr "/檔案(F)/關閉(_C)"
 
-#: app/menus.c:112
+#: app/menus.c:113
 msgid "/_Edit"
 msgstr "/編輯(_E)"
 
-#: app/menus.c:114
+#: app/menus.c:115
 msgid "/Edit/_Undo"
 msgstr "/編輯(E)/復原(_U)"
 
-#: app/menus.c:116
+#: app/menus.c:117
 msgid "/Edit/_Redo"
 msgstr "/編輯(E)/取消復原(_R)"
 
-#: app/menus.c:118 app/menus.c:128
+#: app/menus.c:119 app/menus.c:129
 msgid "/Edit/---"
 msgstr "/編輯(E)/---"
 
-#: app/menus.c:119
+#: app/menus.c:120
 msgid "/Edit/_Copy"
 msgstr "/編輯(E)/複製(_C)"
 
-#: app/menus.c:121
+#: app/menus.c:122
 msgid "/Edit/C_ut"
 msgstr "/編輯(E)/剪下(_U)"
 
-#: app/menus.c:123
+#: app/menus.c:124
 msgid "/Edit/_Paste"
 msgstr "/編輯(E)/貼上(_P)"
 
-#: app/menus.c:125
+#: app/menus.c:126
 #, fuzzy
 msgid "/Edit/_Duplicate"
 msgstr "/編輯(E)/刪除(_D)"
 
-#: app/menus.c:126
+#: app/menus.c:127
 msgid "/Edit/_Delete"
 msgstr "/編輯(E)/刪除(_D)"
 
-#: app/menus.c:129
+#: app/menus.c:130
 msgid "/Edit/Copy Text"
 msgstr "/編輯(E)/複製文字"
 
-#: app/menus.c:131
+#: app/menus.c:132
 msgid "/Edit/Cut Text"
 msgstr "/編輯(E)/剪下文字"
 
-#: app/menus.c:133
+#: app/menus.c:134
 msgid "/Edit/Paste _Text"
 msgstr "/編輯(E)/貼上文字(_T)"
 
-#: app/menus.c:135
+#: app/menus.c:136
 #, fuzzy
 msgid "/_Diagram"
 msgstr "圖表："
 
-#: app/menus.c:137
+#: app/menus.c:138
 #, fuzzy
 msgid "/Diagram/_Properties..."
 msgstr "圖表屬性..."
 
-#: app/menus.c:139
+#: app/menus.c:140
 #, fuzzy
 msgid "/Diagram/_Layers..."
 msgstr "/對話方塊(D)/圖層(_L)..."
 
-#: app/menus.c:140
+#: app/menus.c:141
 msgid "/_View"
 msgstr "/顯示(_V)"
 
-#: app/menus.c:142
+#: app/menus.c:143
 msgid "/View/Zoom _In"
 msgstr "/顯示(V)/放大(_I)"
 
-#: app/menus.c:144
+#: app/menus.c:145
 msgid "/View/Zoom _Out"
 msgstr "/顯示(V)/縮小(_O)"
 
-#: app/menus.c:146
+#: app/menus.c:147
 msgid "/View/_Zoom"
 msgstr "/顯示(V)/縮放(_Z)"
 
-#: app/menus.c:148
+#: app/menus.c:149
 #, fuzzy
 msgid "/View/Zoom/1600%"
 msgstr "/顯示(V)/縮放/100%"
 
-#: app/menus.c:149
+#: app/menus.c:150
 #, fuzzy
 msgid "/View/Zoom/800%"
 msgstr "/顯示(V)/縮放/400%"
 
-#: app/menus.c:150
+#: app/menus.c:151
 msgid "/View/Zoom/400%"
 msgstr "/顯示(V)/縮放/400%"
 
-#: app/menus.c:151
+#: app/menus.c:152
 msgid "/View/Zoom/283%"
 msgstr "/顯示(V)/縮放/283%"
 
-#: app/menus.c:152
+#: app/menus.c:153
 msgid "/View/Zoom/200%"
 msgstr "/顯示(V)/縮放/200%"
 
-#: app/menus.c:153
+#: app/menus.c:154
 msgid "/View/Zoom/141%"
 msgstr "/顯示(V)/縮放/141%"
 
-#: app/menus.c:154
+#: app/menus.c:155
 msgid "/View/Zoom/100%"
 msgstr "/顯示(V)/縮放/100%"
 
-#: app/menus.c:156
+#: app/menus.c:157
 msgid "/View/Zoom/85%"
 msgstr "/顯示(V)/縮放/85%"
 
-#: app/menus.c:157
+#: app/menus.c:158
 msgid "/View/Zoom/70.7%"
 msgstr "/顯示(V)/縮放/70.7%"
 
-#: app/menus.c:158
+#: app/menus.c:159
 msgid "/View/Zoom/50%"
 msgstr "/顯示(V)/縮放/50%"
 
-#: app/menus.c:159
+#: app/menus.c:160
 msgid "/View/Zoom/35.4%"
 msgstr "/顯示(V)/縮放/35.4%"
 
-#: app/menus.c:160
+#: app/menus.c:161
 msgid "/View/Zoom/25%"
 msgstr "/顯示(V)/縮放/25%"
 
-#: app/menus.c:161 app/menus.c:170
+#: app/menus.c:162 app/menus.c:171
 msgid "/View/---"
 msgstr "/顯示(V)/---"
 
-#: app/menus.c:162
+#: app/menus.c:163
 msgid "/View/Fullscr_een"
 msgstr ""
 
-#: app/menus.c:164
+#: app/menus.c:165
 msgid "/View/_AntiAliased"
 msgstr "/顯示(V)/平滑化(_A)"
 
-#: app/menus.c:166
+#: app/menus.c:167
 msgid "/View/Show _Grid"
 msgstr "/顯示(V)/顯示格線(_G)"
 
-#: app/menus.c:167
+#: app/menus.c:168
 msgid "/View/_Snap To Grid"
 msgstr "/顯示(V)/貼齊格線(_S)"
 
-#: app/menus.c:168
+#: app/menus.c:169
 msgid "/View/Show _Rulers"
 msgstr "/顯示(V)/顯示尺規(_R)"
 
-#: app/menus.c:169
+#: app/menus.c:170
 msgid "/View/Show _Connection Points"
 msgstr "/顯示(V)/顯示連接點(_C)"
 
-#: app/menus.c:171
+#: app/menus.c:172
 msgid "/View/New _View"
 msgstr ""
 
 #. Show All, Best Fit.  Same as the Gimp, Ctrl+E
-#: app/menus.c:173
+#: app/menus.c:174
 msgid "/View/Show _All"
 msgstr "/顯示(V)/顯示所有內容(_A)"
 
-#: app/menus.c:175
+#: app/menus.c:176
 msgid "/View/Re_draw"
 msgstr "/顯示(V)/重新整理(_D)"
 
-#: app/menus.c:177
+#: app/menus.c:178
 msgid "/_Objects"
 msgstr "/物件(_O)"
 
-#: app/menus.c:179
+#: app/menus.c:180
 msgid "/Objects/Send to _Back"
 msgstr "/物件/送到後層(_B)"
 
-#: app/menus.c:181
+#: app/menus.c:182
 msgid "/Objects/Bring to _Front"
 msgstr "/物件/送到前層(_F)"
 
-#: app/menus.c:183
+#: app/menus.c:184
 msgid "/Objects/Send Backwards"
 msgstr ""
 
-#: app/menus.c:185
+#: app/menus.c:186
 msgid "/Objects/Bring Forwards"
 msgstr ""
 
-#: app/menus.c:187 app/menus.c:191 app/menus.c:195 app/menus.c:213
+#: app/menus.c:188 app/menus.c:194 app/menus.c:198 app/menus.c:216
 msgid "/Objects/---"
 msgstr "/物件/---"
 
-#: app/menus.c:188
+#: app/menus.c:189
 msgid "/Objects/_Group"
 msgstr "/物件/組成群組(_G)"
 
 #. deliberately not using Ctrl+U for Ungroup
-#: app/menus.c:190
+#: app/menus.c:192
 msgid "/Objects/_Ungroup"
 msgstr "/物件/解散群組(_U)"
 
-#: app/menus.c:192
+#: app/menus.c:195
 #, fuzzy
 msgid "/Objects/_Parent"
 msgstr "/物件/組成群組(_G)"
 
-#: app/menus.c:193
+#: app/menus.c:196
 #, fuzzy
 msgid "/Objects/_Unparent"
 msgstr "/物件/解散群組(_U)"
 
-#: app/menus.c:194
+#: app/menus.c:197
 msgid "/Objects/_Unparent Children"
 msgstr ""
 
-#: app/menus.c:196
+#: app/menus.c:199
 #, fuzzy
 msgid "/Objects/Align"
 msgstr "/物件/垂直對齊(_V)"
 
-#: app/menus.c:198
+#: app/menus.c:201
 #, fuzzy
 msgid "/Objects/Align/Left"
 msgstr "/物件/水平對齊/靠左"
 
-#: app/menus.c:200
+#: app/menus.c:203
 #, fuzzy
 msgid "/Objects/Align/Center"
 msgstr "/物件/水平對齊/置中"
 
-#: app/menus.c:202
+#: app/menus.c:205
 #, fuzzy
 msgid "/Objects/Align/Right"
 msgstr "/物件/水平對齊/靠右"
 
-#: app/menus.c:204 app/menus.c:208
+#: app/menus.c:207 app/menus.c:211
 #, fuzzy
 msgid "/Objects/Align/---"
 msgstr "/物件/---"
 
-#: app/menus.c:205
+#: app/menus.c:208
 #, fuzzy
 msgid "/Objects/Align/Top"
 msgstr "/物件/垂直對齊/靠上"
 
-#: app/menus.c:206
+#: app/menus.c:209
 #, fuzzy
 msgid "/Objects/Align/Middle"
 msgstr "/物件/垂直對齊/中央"
 
-#: app/menus.c:207
+#: app/menus.c:210
 #, fuzzy
 msgid "/Objects/Align/Bottom"
 msgstr "/物件/垂直對齊/靠下"
 
-#: app/menus.c:209
+#: app/menus.c:212
 #, fuzzy
 msgid "/Objects/Align/Spread Out Horizontally"
 msgstr "/物件/水平對齊(_H)"
 
-#: app/menus.c:210
+#: app/menus.c:213
 #, fuzzy
 msgid "/Objects/Align/Spread Out Vertically"
 msgstr "/物件/垂直對齊(_V)"
 
-#: app/menus.c:211
+#: app/menus.c:214
 #, fuzzy
 msgid "/Objects/Align/Adjacent"
 msgstr "/物件/垂直對齊/貼緊"
 
-#: app/menus.c:212
+#: app/menus.c:215
 #, fuzzy
 msgid "/Objects/Align/Stacked"
 msgstr "/物件/垂直對齊(_V)"
 
-#: app/menus.c:214
+#: app/menus.c:217
 #, fuzzy
 msgid "/Objects/_Properties..."
 msgstr "物件屬性"
 
-#: app/menus.c:216
+#: app/menus.c:219
 msgid "/_Select"
 msgstr "/選取(_S)"
 
-#: app/menus.c:218
+#: app/menus.c:221
 msgid "/Select/All"
 msgstr "/選取(S)/全部"
 
-#: app/menus.c:219
+#: app/menus.c:222
 msgid "/Select/None"
 msgstr "/選取(S)/無"
 
-#: app/menus.c:220
+#: app/menus.c:223
 msgid "/Select/Invert"
 msgstr "/選取(S)/相反區域"
 
-#: app/menus.c:221 app/menus.c:225
+#: app/menus.c:224 app/menus.c:228
 msgid "/Select/---"
 msgstr "/選取(S)/---"
 
-#: app/menus.c:222
+#: app/menus.c:225
 msgid "/Select/Transitive"
 msgstr ""
 
-#: app/menus.c:223
+#: app/menus.c:226
 msgid "/Select/Connected"
 msgstr "/選取(S)/已連接"
 
-#: app/menus.c:224
+#: app/menus.c:227
 msgid "/Select/Same Type"
 msgstr "/選取(S)/相同類別"
 
-#: app/menus.c:226
+#: app/menus.c:229
 msgid "/Select/Replace"
 msgstr "/選取(S)/取代"
 
-#: app/menus.c:228
+#: app/menus.c:231
 msgid "/Select/Union"
 msgstr "/選取(S)/合併"
 
-#: app/menus.c:230
+#: app/menus.c:233
 #, fuzzy
 msgid "/Select/Intersection"
 msgstr "/選取(S)/相交"
 
-#: app/menus.c:232
+#: app/menus.c:235
 msgid "/Select/Remove"
 msgstr "/選取(S)/移除"
 
 #. Cannot also be called Invert, duplicate names caused keybinding problems
-#: app/menus.c:235
+#: app/menus.c:238
 #, fuzzy
 msgid "/Select/Inverse"
 msgstr "/選取(S)/相反區域"
 
-#: app/menus.c:237
+#: app/menus.c:240
 msgid "/_Tools"
 msgstr "/工具(_T)"
 
-#: app/menus.c:239
+#: app/menus.c:242
 msgid "/Tools/Modify"
 msgstr "/工具(T)/修改"
 
-#: app/menus.c:240
+#: app/menus.c:243
 msgid "/Tools/Magnify"
 msgstr "/工具(T)/放大"
 
-#: app/menus.c:241
+#: app/menus.c:244
 msgid "/Tools/Scroll"
 msgstr "/工具(T)/捲動"
 
-#: app/menus.c:242
+#: app/menus.c:245
 msgid "/Tools/Text"
 msgstr "/工具(T)/文字"
 
-#: app/menus.c:243
+#: app/menus.c:246
 msgid "/Tools/Box"
 msgstr "/工具(T)/方塊"
 
-#: app/menus.c:244
+#: app/menus.c:247
 msgid "/Tools/Ellipse"
 msgstr "工具/橢圓"
 
-#: app/menus.c:245
+#: app/menus.c:248
 msgid "/Tools/Polygon"
 msgstr "/工具(T)/多邊形"
 
-#: app/menus.c:246
+#: app/menus.c:249
 msgid "/Tools/Beziergon"
 msgstr "/工具(T)/貝茲封閉曲線"
 
-#: app/menus.c:247 app/menus.c:253
+#: app/menus.c:250 app/menus.c:256
 msgid "/Tools/---"
 msgstr "/工具(T)/---"
 
-#: app/menus.c:248
+#: app/menus.c:251
 msgid "/Tools/Line"
 msgstr "/工具(T)/直線"
 
-#: app/menus.c:249
+#: app/menus.c:252
 msgid "/Tools/Arc"
 msgstr "/工具(T)/弧線"
 
-#: app/menus.c:250
+#: app/menus.c:253
 msgid "/Tools/Zigzagline"
 msgstr "/工具(T)/Z 形線"
 
-#: app/menus.c:251
+#: app/menus.c:254
 msgid "/Tools/Polyline"
 msgstr "/工具(T)/自由線段"
 
-#: app/menus.c:252
+#: app/menus.c:255
 msgid "/Tools/Bezierline"
 msgstr "/工具(T)/貝茲曲線"
 
-#: app/menus.c:254
+#: app/menus.c:257
 msgid "/Tools/Image"
 msgstr "/工具(T)/圖像"
 
-#: app/menus.c:255
+#: app/menus.c:258
 msgid "/_Input Methods"
 msgstr "/輸入法(_I)"
 
-#: app/menus.c:427
+#: app/menus.c:430
 msgid "NULL tooldata in tool_menu_select"
 msgstr "在 tool_menu_select 中 tooldata 的值為 NULL"
 
-#: app/menus.c:525
+#: app/menus.c:528
 msgid "Diagram Menu"
 msgstr "圖表選單"
 
-#: app/menus.c:660
+#: app/menus.c:663
 #, c-format
 msgid ""
 "Can't find menu entry '%s'!\n"
@@ -1576,42 +1601,42 @@ msgstr ""
 "找不到選單項目‘%s’！\n"
 "這可能是圖際化方面的問題 (請嘗試使用 LANG=C 執行)。"
 
-#: app/modify_tool.c:327
+#: app/modify_tool.c:340
 msgid "Couldn't get GTK settings"
 msgstr "無法獲取 GTK 設定"
 
-#: app/paginate_psprint.c:243
+#: app/paginate_psprint.c:257
 msgid "Select Printer"
 msgstr "選取印表機"
 
-#: app/paginate_psprint.c:255 sheets/ciscocomputer.sheet.in.h:25
+#: app/paginate_psprint.c:269 sheets/ciscocomputer.sheet.in.h:36
 msgid "Printer"
 msgstr "印表機"
 
-#: app/paginate_psprint.c:269 sheets/Misc.sheet.in.h:1
+#: app/paginate_psprint.c:283 sheets/Misc.sheet.in.h:1
 msgid "File"
 msgstr "檔案"
 
-#: app/paginate_psprint.c:284
+#: app/paginate_psprint.c:298
 msgid "OK"
 msgstr "確定"
 
-#: app/paginate_psprint.c:379
+#: app/paginate_psprint.c:393
 #, fuzzy, c-format
 msgid "Could not run command '%s': %s"
 msgstr "無法執行指令‘%s’"
 
-#: app/paginate_psprint.c:382
+#: app/paginate_psprint.c:396
 #, fuzzy, c-format
 msgid "Could not open '%s' for writing: %s"
 msgstr "無法開啟‘%s’來寫入資料"
 
-#: app/paginate_psprint.c:399
+#: app/paginate_psprint.c:413
 #, c-format
 msgid "Printing error: command '%s' returned %d\n"
 msgstr ""
 
-#: app/paginate_psprint.c:410
+#: app/paginate_psprint.c:424
 #, c-format
 msgid "Printing error: command '%s' caused sigpipe."
 msgstr ""
@@ -1624,8 +1649,10 @@ msgstr "增效模組"
 msgid "Loaded"
 msgstr "已載入"
 
-#: app/plugin-manager.c:262 objects/UML/class.c:111
-#: objects/UML/large_package.c:130
+#: app/plugin-manager.c:262 objects/UML/class.c:117
+#: objects/UML/large_package.c:130 objects/UML/umlattribute.c:37
+#: objects/UML/umlformalparameter.c:35 objects/UML/umloperation.c:62
+#: objects/UML/umlparameter.c:43
 msgid "Name"
 msgstr "名稱"
 
@@ -1915,6 +1942,8 @@ msgstr "新增"
 #: app/sheets_dialog.c:362 app/sheets_dialog.c:794 objects/Istar/actor.c:144
 #: objects/Istar/actor.c:145 objects/Istar/other.c:148
 #: objects/Istar/other.c:149 objects/KAOS/other.c:151 objects/KAOS/other.c:152
+#: objects/UML/umlattribute.c:39 objects/UML/umlformalparameter.c:37
+#: objects/UML/umloperation.c:64 objects/UML/umlparameter.c:45
 msgid "Type"
 msgstr "類別"
 
@@ -1953,10 +1982,10 @@ msgid "Description:"
 msgstr "說明："
 
 #: app/sheets_dialog.c:618 objects/FS/flow-ortho.c:168 objects/FS/flow.c:146
-#: objects/UML/class_dialog.c:918 objects/UML/class_dialog.c:1852
-#: objects/UML/class_dialog.c:2081 objects/UML/class_dialog.c:2597
 #: objects/Istar/link.c:165 objects/Jackson/phenomenon.c:144
 #: objects/KAOS/metaandorrel.c:164 objects/KAOS/metabinrel.c:171
+#: objects/UML/class_dialog.c:912 objects/UML/class_dialog.c:1840
+#: objects/UML/class_dialog.c:2069 objects/UML/class_dialog.c:2585
 msgid "Type:"
 msgstr "類別："
 
@@ -1966,9 +1995,9 @@ msgstr ""
 
 #: app/sheets_dialog.c:672 objects/ER/attribute.c:153 objects/ER/entity.c:135
 #: objects/ER/relationship.c:140 objects/UML/association.c:237
-#: objects/UML/association.c:1162 objects/UML/class_dialog.c:907
-#: objects/UML/class_dialog.c:1841 objects/UML/class_dialog.c:2070
-#: objects/UML/class_dialog.c:2586 objects/UML/dependency.c:133
+#: objects/UML/association.c:1165 objects/UML/class_dialog.c:901
+#: objects/UML/class_dialog.c:1829 objects/UML/class_dialog.c:2058
+#: objects/UML/class_dialog.c:2574 objects/UML/dependency.c:133
 #: objects/UML/generalization.c:129 objects/UML/realizes.c:130
 msgid "Name:"
 msgstr "名稱："
@@ -2106,7 +2135,7 @@ msgstr "圖表編輯器"
 msgid "Edit your Diagrams"
 msgstr "匯出圖表"
 
-#: lib/arrows.c:40 objects/UML/association.c:1185 objects/Jackson/domain.c:96
+#: lib/arrows.c:40 objects/Jackson/domain.c:96 objects/UML/association.c:1188
 msgid "None"
 msgstr "無"
 
@@ -2243,11 +2272,15 @@ msgstr "開啟選項"
 msgid "Backslash"
 msgstr ""
 
+#: lib/arrows.c:73
+msgid "Infinite Line"
+msgstr ""
+
 #: lib/bezier_conn.c:533
 msgid "Internal error: Setting corner type of endpoint of bezier"
 msgstr "內部錯誤：設定貝茲曲線終點的角落的類型"
 
-#: lib/dia_xml.c:154
+#: lib/dia_xml.c:153
 #, c-format
 msgid ""
 "The file %s has no encoding specification;\n"
@@ -2256,26 +2289,26 @@ msgstr ""
 "檔案 %s 沒有編碼規格；\n"
 "假設它的編碼是 %s"
 
-#: lib/dia_xml.c:471
+#: lib/dia_xml.c:470
 msgid "Taking point value of non-point node."
 msgstr ""
 
-#: lib/dia_xml.c:482
+#: lib/dia_xml.c:481
 #, c-format
 msgid "Incorrect x Point value \"%s\" %f; discarding it."
 msgstr ""
 
-#: lib/dia_xml.c:489
+#: lib/dia_xml.c:488
 msgid "Error parsing point."
 msgstr ""
 
 #. don't bother with useless warnings (see above)
-#: lib/dia_xml.c:497
+#: lib/dia_xml.c:496
 #, c-format
 msgid "Incorrect y Point value \"%s\" %f; discarding it."
 msgstr ""
 
-#: lib/dia_xml.c:865
+#: lib/dia_xml.c:871
 msgid ""
 "Your local character set is UTF-8. Because of issues with libxml1 and the "
 "support of files generated by previous versions of dia, you will encounter  "
@@ -2285,11 +2318,11 @@ msgstr ""
 "來的檔案支援不足，您將會遇到問題。當您看到這個訊息時，請向 dia-list@gnome."
 "org 匯報。"
 
-#: lib/diaarrowchooser.c:251
+#: lib/diaarrowchooser.c:269
 msgid "Arrow Properties"
 msgstr "箭頭屬性"
 
-#: lib/diaarrowchooser.c:333 lib/dialinechooser.c:333
+#: lib/diaarrowchooser.c:351 lib/dialinechooser.c:333
 msgid "Details..."
 msgstr "細節..."
 
@@ -2432,15 +2465,15 @@ msgstr ""
 msgid "Group with %d objects"
 msgstr ""
 
-#: lib/properties.c:62 lib/properties.h:468 lib/widgets.c:608
+#: lib/properties.c:62 lib/properties.h:469 lib/widgets.c:638
 msgid "Left"
 msgstr "靠左"
 
-#: lib/properties.c:63 lib/properties.h:469 lib/widgets.c:614
+#: lib/properties.c:63 lib/properties.h:470 lib/widgets.c:644
 msgid "Center"
 msgstr "置中"
 
-#: lib/properties.c:64 lib/properties.h:470 lib/widgets.c:620
+#: lib/properties.c:64 lib/properties.h:471 lib/widgets.c:650
 msgid "Right"
 msgstr "靠右"
 
@@ -2449,7 +2482,7 @@ msgstr "靠右"
 msgid "Line color"
 msgstr "線段顏色"
 
-#: lib/properties.c:72 lib/properties.h:492 lib/properties.h:495
+#: lib/properties.c:72 lib/properties.h:493 lib/properties.h:496
 msgid "Line style"
 msgstr "線段樣式"
 
@@ -2458,31 +2491,31 @@ msgstr "線段樣式"
 msgid "Fill color"
 msgstr "填入顏色"
 
-#: lib/properties.c:74 lib/properties.h:505
+#: lib/properties.c:74 lib/properties.h:506 lib/properties.h:509
 msgid "Draw background"
 msgstr "繪製背景"
 
-#: lib/properties.c:75 lib/properties.h:509
+#: lib/properties.c:75 lib/properties.h:513
 msgid "Start arrow"
 msgstr "開始箭頭"
 
-#: lib/properties.c:76 lib/properties.h:512
+#: lib/properties.c:76 lib/properties.h:516
 msgid "End arrow"
 msgstr "結束箭頭"
 
-#: lib/properties.c:78 lib/properties.h:522
+#: lib/properties.c:78 lib/properties.h:526
 msgid "Text alignment"
 msgstr "對齊文字"
 
 #. all this just to make the defaults selectable ...
-#: lib/properties.c:79 lib/properties.h:527 objects/GRAFCET/condition.c:132
+#: lib/properties.c:79 lib/properties.h:531 objects/GRAFCET/condition.c:132
 #: objects/GRAFCET/step.c:165 objects/GRAFCET/transition.c:142
-#: objects/UML/class.c:137 objects/UML/class_dialog.c:351
+#: objects/UML/class.c:143 objects/UML/class_dialog.c:351
 #: objects/chronogram/chronoline.c:183 objects/chronogram/chronoref.c:164
 msgid "Font"
 msgstr "字型"
 
-#: lib/properties.c:80 lib/properties.h:533 objects/GRAFCET/condition.c:134
+#: lib/properties.c:80 lib/properties.h:537 objects/GRAFCET/condition.c:134
 #: objects/GRAFCET/step.c:167 objects/GRAFCET/transition.c:144
 #: objects/chronogram/chronoline.c:185 objects/chronogram/chronoref.c:166
 msgid "Font size"
@@ -2494,15 +2527,15 @@ msgstr "字型大小"
 msgid "Text color"
 msgstr "文字顏色"
 
-#: lib/properties.h:486 lib/properties.h:489
+#: lib/properties.h:487 lib/properties.h:490
 msgid "Line colour"
 msgstr "線段顏色"
 
-#: lib/properties.h:499 lib/properties.h:502
+#: lib/properties.h:500 lib/properties.h:503
 msgid "Fill colour"
 msgstr "填入顏色"
 
-#: lib/properties.h:539
+#: lib/properties.h:543
 msgid "Text colour"
 msgstr "文字顏色"
 
@@ -2511,69 +2544,69 @@ msgstr "文字顏色"
 msgid "No attribute '%s' (%p) or no data(%p) in this attribute"
 msgstr ""
 
-#: lib/widgets.c:347
+#: lib/widgets.c:375
 #, fuzzy
 msgid "Other fonts"
 msgstr "其它字型..."
 
-#: lib/widgets.c:417
+#: lib/widgets.c:445
 #, c-format
 msgid "Couldn't find font family for %s\n"
 msgstr "找不到 %s 所屬的字集\n"
 
 #. Translators: Menu item Noun/Material/Solid
-#: lib/widgets.c:756 objects/FS/function.c:1074
+#: lib/widgets.c:786 objects/FS/function.c:1074
 msgid "Solid"
 msgstr "實心"
 
-#: lib/widgets.c:762
+#: lib/widgets.c:792
 msgid "Dashed"
 msgstr "虛線"
 
-#: lib/widgets.c:768
+#: lib/widgets.c:798
 msgid "Dash-Dot"
 msgstr "虛線-點"
 
-#: lib/widgets.c:774
+#: lib/widgets.c:804
 msgid "Dash-Dot-Dot"
 msgstr "虛線-點-點"
 
-#: lib/widgets.c:780
+#: lib/widgets.c:810
 msgid "Dotted"
 msgstr "點狀"
 
 #. fs->sizebox = GTK_HBOX(box);
-#: lib/widgets.c:799
+#: lib/widgets.c:829
 msgid "Dash length: "
 msgstr "虛線長度："
 
-#: lib/widgets.c:927
+#: lib/widgets.c:959
 msgid "Select color"
 msgstr "選取色彩"
 
-#: lib/widgets.c:993
+#: lib/widgets.c:1026
 msgid "More colors..."
 msgstr ""
 
-#: lib/widgets.c:1118
+#: lib/widgets.c:1150
 #, fuzzy
 msgid "More arrows"
 msgstr "點狀箭頭"
 
-#: lib/widgets.c:1131
+#: lib/widgets.c:1163
 #, fuzzy
 msgid "Size: "
 msgstr "大小(_Z)："
 
-#: lib/widgets.c:1276
+#: lib/widgets.c:1308
 msgid "Select image file"
 msgstr "選取圖像檔"
 
-#: lib/widgets.c:1312
+#: lib/widgets.c:1344
 msgid "Browse"
 msgstr "瀏覽"
 
-#: lib/widgets.c:1908
+#: lib/widgets.c:1958
 #, fuzzy
 msgid "Reset menu"
 msgstr "上升時間"
@@ -2607,7 +2640,7 @@ msgstr ""
 msgid "Associative:"
 msgstr "啟動"
 
-#: objects/ER/entity.c:413 objects/UML/classicon.c:128 sheets/ER.sheet.in.h:4
+#: objects/ER/entity.c:413 objects/UML/classicon.c:129 sheets/ER.sheet.in.h:4
 msgid "Entity"
 msgstr "本體"
 
@@ -2624,7 +2657,7 @@ msgstr "總計："
 #: objects/UML/association.c:774 objects/UML/component_feature.c:183
 #: objects/UML/dependency.c:372 objects/UML/generalization.c:368
 #: objects/UML/realizes.c:359 objects/UML/transition.c:156
-#: objects/standard/zigzagline.c:346
+#: objects/standard/zigzagline.c:347
 msgid "Add segment"
 msgstr "新增區段"
 
@@ -2633,7 +2666,7 @@ msgstr "新增區段"
 #: objects/UML/association.c:775 objects/UML/component_feature.c:184
 #: objects/UML/dependency.c:373 objects/UML/generalization.c:369
 #: objects/UML/realizes.c:360 objects/UML/transition.c:157
-#: objects/standard/zigzagline.c:347
+#: objects/standard/zigzagline.c:348
 msgid "Delete segment"
 msgstr "刪除區段"
 
@@ -2899,7 +2932,7 @@ msgid "Mount"
 msgstr ""
 
 #. Translators: Menu item Verb/Support/Secure/Lock
-#: objects/FS/function.c:794 sheets/ciscomisc.sheet.in.h:21
+#: objects/FS/function.c:794 sheets/ciscomisc.sheet.in.h:19
 msgid "Lock"
 msgstr "鎖定"
 
@@ -3212,7 +3245,7 @@ msgstr "調整"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Control
 #: objects/FS/function.c:960 objects/FS/function.c:1178
-#: objects/UML/classicon.c:126
+#: objects/UML/classicon.c:127
 msgid "Control"
 msgstr "控制"
 
@@ -3793,10 +3826,9 @@ msgstr "AND"
 msgid "Vergent type:"
 msgstr ""
 
-#: objects/GRAFCET/vergent.c:405 objects/SADT/box.c:445
-#: objects/Istar/other.c:469 objects/Jackson/domain.c:531
-#: objects/KAOS/goal.c:572 objects/KAOS/other.c:525
-#: objects/standard/line.c:219
+#: objects/GRAFCET/vergent.c:405 objects/Istar/other.c:469
+#: objects/Jackson/domain.c:531 objects/KAOS/goal.c:572
+#: objects/KAOS/other.c:525 objects/SADT/box.c:445 objects/standard/line.c:220
 msgid "Add connection point"
 msgstr "增加連接點"
 
@@ -3806,734 +3838,6 @@ msgstr "刪除連接點"
 
 #: objects/GRAFCET/vergent.c:410
 msgid "GRAFCET OR/AND vergent"
-msgstr ""
-
-#: objects/Misc/analog_clock.c:137
-#, fuzzy
-msgid "Arrow color"
-msgstr "箭頭顏色"
-
-#: objects/Misc/analog_clock.c:139
-msgid "Arrow line width"
-msgstr ""
-
-#: objects/Misc/analog_clock.c:141
-#, fuzzy
-msgid "Seconds arrow color"
-msgstr "箭頭顏色"
-
-#: objects/Misc/analog_clock.c:143
-msgid "Seconds arrow line width"
-msgstr ""
-
-#: objects/Misc/analog_clock.c:145
-msgid "Show hours"
-msgstr "顯示時針"
-
-#: objects/Misc/libmisc.c:38
-msgid "Miscellaneous objects"
-msgstr "其它物件"
-
-#. property rows
-#: objects/SADT/arrow.c:134 objects/UML/class.c:142
-#: objects/UML/class_dialog.c:357
-msgid "Normal"
-msgstr "普通"
-
-#: objects/SADT/arrow.c:135
-msgid "Import resource (not shown upstairs)"
-msgstr ""
-
-#: objects/SADT/arrow.c:136
-msgid "Imply resource (not shown downstairs)"
-msgstr ""
-
-#: objects/SADT/arrow.c:137
-msgid "Dotted arrow"
-msgstr "點狀箭頭"
-
-#: objects/SADT/arrow.c:138
-msgid "disable arrow heads"
-msgstr "關閉箭頭"
-
-#: objects/SADT/arrow.c:144
-msgid "Flow style:"
-msgstr "流程樣式："
-
-#: objects/SADT/arrow.c:146
-msgid "Automatically gray vertical flows:"
-msgstr "自動將垂直流程變為灰階："
-
-#: objects/SADT/arrow.c:147
-msgid ""
-"To improve the ease of reading, flows which begin and end vertically can be "
-"rendered gray"
-msgstr "為方便閱讀，起點與終點垂直的流程可用灰色繪畫"
-
-#: objects/SADT/arrow.c:463
-msgid "SADT Arrow"
-msgstr "SADT 箭頭"
-
-#: objects/SADT/box.c:137 objects/flowchart/box.c:152
-#: objects/flowchart/diamond.c:150 objects/flowchart/ellipse.c:149
-#: objects/flowchart/parallelogram.c:154
-msgid "Text padding"
-msgstr ""
-
-#: objects/SADT/box.c:144
-msgid "Activity/Data identifier"
-msgstr "「活動/資料」識別"
-
-#: objects/SADT/box.c:145
-msgid "The identifier which appears in the lower right corner of the Box"
-msgstr "在方塊右下角顯示的識別資料"
-
-#: objects/SADT/box.c:446 objects/Istar/other.c:470
-#: objects/Jackson/domain.c:532 objects/KAOS/goal.c:573
-#: objects/KAOS/other.c:526 objects/standard/line.c:220
-msgid "Delete connection point"
-msgstr "刪除連接點"
-
-#: objects/SADT/box.c:451
-msgid "SADT box"
-msgstr "SADT 方塊"
-
-#: objects/SADT/sadt.c:41
-msgid "SADT diagram objects"
-msgstr "SADT 圖表物件"
-
-#: objects/UML/actor.c:364 objects/UML/actor.c:366 sheets/UML.sheet.in.h:2
-msgid "Actor"
-msgstr "相關角色"
-
-#: objects/UML/association.c:1175 objects/UML/class_dialog.c:2114
-msgid "Direction:"
-msgstr "方向："
-
-#: objects/UML/association.c:1192
-msgid "From A to B"
-msgstr "從 A 到 B"
-
-#: objects/UML/association.c:1199
-msgid "From B to A"
-msgstr "從 B 到 A"
-
-#: objects/UML/association.c:1223 objects/UML/association.c:1231
-msgid "Side A"
-msgstr "A 面"
-
-#: objects/UML/association.c:1225 objects/UML/association.c:1233
-msgid "Side B"
-msgstr "B 面"
-
-#: objects/UML/association.c:1239
-msgid "Role:"
-msgstr "角色："
-
-#: objects/UML/association.c:1251
-msgid "Multiplicity:"
-msgstr ""
-
-#: objects/UML/association.c:1262 objects/UML/class_dialog.c:952
-#: objects/UML/class_dialog.c:1876
-msgid "Visibility:"
-msgstr "可見度："
-
-#: objects/UML/association.c:1271 objects/UML/class_dialog.c:961
-#: objects/UML/class_dialog.c:1885
-msgid "Public"
-msgstr "公開"
-
-#: objects/UML/association.c:1281 objects/UML/class_dialog.c:969
-#: objects/UML/class_dialog.c:1893
-msgid "Private"
-msgstr "私用"
-
-#: objects/UML/association.c:1291 objects/UML/class_dialog.c:977
-#: objects/UML/class_dialog.c:1901
-msgid "Protected"
-msgstr "保護"
-
-#: objects/UML/association.c:1301 objects/UML/class_dialog.c:985
-#: objects/UML/class_dialog.c:1909
-msgid "Implementation"
-msgstr ""
-
-#. Show arrow:
-#: objects/UML/association.c:1320
-msgid "Show arrow"
-msgstr "顯示箭頭"
-
-#. Aggregate
-#: objects/UML/association.c:1326
-msgid "Aggregate"
-msgstr "聚集"
-
-#. Composition
-#: objects/UML/association.c:1334
-msgid "Composition"
-msgstr "組成"
-
-#: objects/UML/class.c:109 objects/UML/class.c:247 objects/UML/class.c:1169
-#: sheets/UML.sheet.in.h:6
-msgid "Class"
-msgstr "階層"
-
-#: objects/UML/class.c:113 objects/UML/classicon.c:137
-#: objects/UML/component.c:124 objects/UML/large_package.c:128
-#: objects/UML/object.c:149 objects/UML/small_package.c:124
-msgid "Stereotype"
-msgstr "定型"
-
-#: objects/UML/class.c:115 objects/UML/class.c:152
-#: objects/UML/class_dialog.c:382 sheets/SDL.sheet.in.h:3
-msgid "Comment"
-msgstr "備註"
-
-#: objects/UML/class.c:117 objects/UML/class.c:146
-#: objects/UML/class_dialog.c:296 objects/UML/class_dialog.c:367
-#: objects/UML/class_dialog.c:1940
-msgid "Abstract"
-msgstr "摘要"
-
-#: objects/UML/class.c:119
-msgid "Template"
-msgstr "模板"
-
-#: objects/UML/class.c:122 objects/UML/class_dialog.c:305
-msgid "Suppress Attributes"
-msgstr "抑制屬性"
-
-#: objects/UML/class.c:124
-msgid "Suppress Operations"
-msgstr "抑制動作"
-
-#: objects/UML/class.c:126
-msgid "Visible Attributes"
-msgstr "可見屬性"
-
-#: objects/UML/class.c:128
-msgid "Visible Operations"
-msgstr "可見運作"
-
-#: objects/UML/class.c:130
-msgid "Visible Comments"
-msgstr ""
-
-#: objects/UML/class.c:132 objects/UML/class_dialog.c:321
-#, fuzzy
-msgid "Wrap Operations"
-msgstr "運作"
-
-#: objects/UML/class.c:134
-msgid "Wrap after char"
-msgstr ""
-
-#: objects/UML/class.c:144 objects/UML/class_dialog.c:362
-msgid "Polymorphic"
-msgstr ""
-
-#: objects/UML/class.c:148
-#, fuzzy
-msgid "Classname"
-msgstr "階層名稱："
-
-#: objects/UML/class.c:150
-#, fuzzy
-msgid "Abstract Classname"
-msgstr "階層名稱："
-
-#: objects/UML/class.c:156 objects/UML/class.c:158 objects/UML/class.c:160
-#: objects/UML/class.c:162 objects/UML/class.c:164 objects/UML/class.c:166
-msgid " "
-msgstr ""
-
-#: objects/UML/class.c:171 objects/UML/object.c:153
-msgid "Attributes"
-msgstr "屬性"
-
-#: objects/UML/class.c:173
-msgid "Operations"
-msgstr "運作"
-
-#: objects/UML/class.c:241
-#, fuzzy
-msgid "Show Comments"
-msgstr "顯示備註"
-
-#. Class page:
-#: objects/UML/class_dialog.c:265
-#, fuzzy
-msgid "_Class"
-msgstr "階層"
-
-#: objects/UML/class_dialog.c:273
-msgid "Class name:"
-msgstr "階層名稱："
-
-#: objects/UML/class_dialog.c:281 objects/UML/class_dialog.c:1863
-#: objects/UML/dependency.c:135 objects/UML/generalization.c:131
-#: objects/UML/realizes.c:132
-msgid "Stereotype:"
-msgstr "定型："
-
-#: objects/UML/class_dialog.c:288 objects/UML/class_dialog.c:940
-#: objects/UML/class_dialog.c:1981 objects/UML/class_dialog.c:2103
-msgid "Comment:"
-msgstr "備註："
-
-#: objects/UML/class_dialog.c:302
-msgid "Attributes visible"
-msgstr "可見屬性"
-
-#: objects/UML/class_dialog.c:311
-msgid "Operations visible"
-msgstr "可見動作"
-
-#: objects/UML/class_dialog.c:314
-msgid "Suppress operations"
-msgstr "抑制動作"
-
-#: objects/UML/class_dialog.c:328
-msgid "Wrap after this length: "
-msgstr ""
-
-#: objects/UML/class_dialog.c:335
-msgid "Comments visible"
-msgstr ""
-
-#. head line
-#: objects/UML/class_dialog.c:348
-msgid "Kind"
-msgstr ""
-
-#: objects/UML/class_dialog.c:353
-msgid "Size"
-msgstr "大小"
-
-#: objects/UML/class_dialog.c:372
-msgid "Class Name"
-msgstr ""
-
-#: objects/UML/class_dialog.c:377
-msgid "Abstract Class"
-msgstr ""
-
-#. should probably be refactored too.
-#: objects/UML/class_dialog.c:394
-#, fuzzy
-msgid "Text Color"
-msgstr "文字顏色"
-
-#: objects/UML/class_dialog.c:402
-msgid "Foreground Color"
-msgstr "前景顏色"
-
-#: objects/UML/class_dialog.c:410
-msgid "Background Color"
-msgstr "背景顏色"
-
-#. Attributes page:
-#: objects/UML/class_dialog.c:840
-#, fuzzy
-msgid "_Attributes"
-msgstr "屬性"
-
-#: objects/UML/class_dialog.c:868 objects/UML/class_dialog.c:1799
-#: objects/UML/class_dialog.c:2027 objects/UML/class_dialog.c:2547
-#, fuzzy
-msgid "_New"
-msgstr "新增"
-
-#: objects/UML/class_dialog.c:874 objects/UML/class_dialog.c:1805
-#: objects/UML/class_dialog.c:2034 objects/UML/class_dialog.c:2553
-msgid "_Delete"
-msgstr "刪除(_D)"
-
-#: objects/UML/class_dialog.c:880 objects/UML/class_dialog.c:1811
-#: objects/UML/class_dialog.c:2041 objects/UML/class_dialog.c:2559
-msgid "Move up"
-msgstr "上移"
-
-#: objects/UML/class_dialog.c:886 objects/UML/class_dialog.c:1817
-#: objects/UML/class_dialog.c:2048 objects/UML/class_dialog.c:2565
-msgid "Move down"
-msgstr "下移"
-
-#: objects/UML/class_dialog.c:897
-msgid "Attribute data"
-msgstr "屬性資料"
-
-#: objects/UML/class_dialog.c:929
-msgid "Value:"
-msgstr "數值："
-
-#: objects/UML/class_dialog.c:1006 objects/UML/class_dialog.c:1925
-msgid "Class scope"
-msgstr ""
-
-#. Operations page:
-#: objects/UML/class_dialog.c:1771
-#, fuzzy
-msgid "_Operations"
-msgstr "運作"
-
-#: objects/UML/class_dialog.c:1829
-msgid "Operation data"
-msgstr "運作資料"
-
-#: objects/UML/class_dialog.c:1931
-msgid "Inheritance type:"
-msgstr ""
-
-#: objects/UML/class_dialog.c:1948
-msgid "Polymorphic (virtual)"
-msgstr ""
-
-#: objects/UML/class_dialog.c:1956
-msgid "Leaf (final)"
-msgstr ""
-
-#: objects/UML/class_dialog.c:1974
-msgid "Query"
-msgstr ""
-
-#: objects/UML/class_dialog.c:1998
-msgid "Parameters:"
-msgstr "參數："
-
-#: objects/UML/class_dialog.c:2060
-msgid "Parameter data"
-msgstr "參數資料"
-
-#: objects/UML/class_dialog.c:2092
-msgid "Def. value:"
-msgstr "定義值："
-
-#: objects/UML/class_dialog.c:2123
-msgid "Undefined"
-msgstr ""
-
-#: objects/UML/class_dialog.c:2131
-msgid "In"
-msgstr ""
-
-#: objects/UML/class_dialog.c:2140
-msgid "Out"
-msgstr ""
-
-#: objects/UML/class_dialog.c:2149
-msgid "In & Out"
-msgstr ""
-
-#. Templates page:
-#: objects/UML/class_dialog.c:2513
-#, fuzzy
-msgid "_Templates"
-msgstr "模板"
-
-#: objects/UML/class_dialog.c:2519 sheets/UML.sheet.in.h:29
-msgid "Template class"
-msgstr ""
-
-#: objects/UML/class_dialog.c:2576
-msgid "Formal parameter data"
-msgstr "正式參數資料"
-
-#: objects/UML/classicon.c:127
-msgid "Boundary"
-msgstr "邊界"
-
-#: objects/UML/classicon.c:139
-msgid "Is object"
-msgstr "是一個物件"
-
-#: objects/UML/component_feature.c:144 sheets/UML.sheet.in.h:14
-#, fuzzy
-msgid "Facet"
-msgstr "貼緊"
-
-#: objects/UML/component_feature.c:145 sheets/UML.sheet.in.h:26
-#, fuzzy
-msgid "Receptacle"
-msgstr "取代"
-
-#: objects/UML/component_feature.c:146 sheets/UML.sheet.in.h:13
-msgid "Event Source"
-msgstr ""
-
-#: objects/UML/component_feature.c:147 sheets/UML.sheet.in.h:12
-#, fuzzy
-msgid "Event Sink"
-msgstr "事件"
-
-#: objects/UML/constraint.c:125
-msgid "Constraint:"
-msgstr "限制："
-
-#: objects/UML/dependency.c:137
-msgid "Show arrow:"
-msgstr "顯示箭頭："
-
-#: objects/UML/implements.c:128
-msgid "Interface:"
-msgstr "界面："
-
-#: objects/UML/lifeline.c:144
-msgid "Draw focus of control:"
-msgstr "顯示控制焦點："
-
-#: objects/UML/lifeline.c:146
-msgid "Draw destruction mark:"
-msgstr "顯示破壞符號："
-
-#: objects/UML/lifeline.c:417
-msgid "Add connection points"
-msgstr "增加連接點"
-
-#: objects/UML/lifeline.c:418
-msgid "Remove connection points"
-msgstr "刪除連接點"
-
-#: objects/UML/lifeline.c:422
-msgid "UML Lifeline"
-msgstr ""
-
-#: objects/UML/message.c:135
-msgid "Call"
-msgstr ""
-
-#: objects/UML/message.c:136
-msgid "Create"
-msgstr "建立"
-
-#: objects/UML/message.c:137
-msgid "Destroy"
-msgstr "摧毀"
-
-#: objects/UML/message.c:138
-msgid "Simple"
-msgstr "簡單"
-
-#: objects/UML/message.c:139
-msgid "Return"
-msgstr "返回"
-
-#: objects/UML/message.c:140
-msgid "Send"
-msgstr "送出"
-
-#: objects/UML/message.c:141
-msgid "Recursive"
-msgstr "循環"
-
-#: objects/UML/message.c:150 objects/Jackson/phenomenon.c:142
-msgid "Message:"
-msgstr "訊息："
-
-#: objects/UML/message.c:152
-msgid "Message type:"
-msgstr "訊息種類："
-
-#: objects/UML/object.c:151
-msgid "Explicit state"
-msgstr ""
-
-#: objects/UML/object.c:156
-msgid "Active object"
-msgstr "運作物件"
-
-#: objects/UML/object.c:158
-msgid "Show attributes"
-msgstr "顯示屬性"
-
-#: objects/UML/object.c:160
-msgid "Multiple instance"
-msgstr ""
-
-#. Would like to create a state_term instead, but making the connections
-#. * is a pain
-#: objects/UML/state.c:390
-msgid ""
-"This diagram uses the State object for initial/final states.\n"
-"That option will go away in future versions.\n"
-"Please use the Initial/Final State object instead\n"
-msgstr ""
-
-#: objects/UML/state_term.c:120
-msgid "Is final"
-msgstr ""
-
-#: objects/UML/transition.c:129
-#, fuzzy
-msgid "Trigger"
-msgstr "手指"
-
-#: objects/UML/transition.c:130
-msgid "The event that causes this transition to be taken"
-msgstr ""
-
-#: objects/UML/transition.c:131
-#, fuzzy
-msgid "Action"
-msgstr "相關角色"
-
-#: objects/UML/transition.c:132
-msgid "Action to perform when this transition is taken"
-msgstr ""
-
-#: objects/UML/transition.c:133
-#, fuzzy
-msgid "Guard"
-msgstr "格線"
-
-#: objects/UML/transition.c:134
-msgid "Condition for taking this transition when the event is fired"
-msgstr ""
-
-#: objects/UML/uml.c:65
-msgid "Unified Modelling Language diagram objects"
-msgstr "「統一模型語言」(UML) 圖表物件"
-
-#: objects/UML/usecase.c:132
-msgid "Text outside"
-msgstr ""
-
-#: objects/UML/usecase.c:134
-msgid "Collaboration"
-msgstr ""
-
-#: objects/bondgraph/bondgraph.c:39
-msgid "Bond graph objects"
-msgstr ""
-
-#: objects/chronogram/chronogram.c:40
-msgid "Chronogram diagram objects"
-msgstr "「年代表」圖表物件"
-
-#: objects/chronogram/chronoline.c:148
-msgid "Data"
-msgstr "資料"
-
-#: objects/chronogram/chronoline.c:150
-msgid "Data name"
-msgstr "資料名稱："
-
-#: objects/chronogram/chronoline.c:152
-msgid "Events"
-msgstr "事件"
-
-#: objects/chronogram/chronoline.c:155
-msgid "Event specification"
-msgstr "事件格式"
-
-#: objects/chronogram/chronoline.c:156
-msgid ""
-"@ time    set the pointer at an absolute time.\n"
-"( duration  sets the signal up, then wait 'duration'.\n"
-") duration  sets the signal down, then wait 'duration'.\n"
-"u duration  sets the signal to \"unknown\" state, then wait 'duration'.\n"
-"example : @ 1.0 (2.0)1.0(2.0)\n"
-msgstr ""
-"@ 時間      設定指標於絕對時間。\n"
-"( 經過時間  設定信號啟動，並等待「經過時間」。\n"
-") 經過時間  設定信號停止，並等待「經過時間」。\n"
-"u 經過時間  設定信號為「未知」，並等待「經過時間」。\n"
-"例子：@ 1.0 (2.0)1.0(2.0)\n"
-
-#: objects/chronogram/chronoline.c:162
-msgid "Parameters"
-msgstr "參數"
-
-#: objects/chronogram/chronoline.c:164 objects/chronogram/chronoref.c:146
-msgid "Start time"
-msgstr "開始時間"
-
-#: objects/chronogram/chronoline.c:166 objects/chronogram/chronoref.c:148
-msgid "End time"
-msgstr "結束時間"
-
-#: objects/chronogram/chronoline.c:168
-msgid "Rise time"
-msgstr "上升時間"
-
-#: objects/chronogram/chronoline.c:170
-msgid "Fall time"
-msgstr "下降時間"
-
-#: objects/chronogram/chronoline.c:171
-msgid "Multi-bit data"
-msgstr "多位元資料"
-
-#: objects/chronogram/chronoline.c:173 objects/chronogram/chronoref.c:156
-msgid "Aspect"
-msgstr "顯示方式"
-
-#: objects/chronogram/chronoline.c:175
-msgid "Data color"
-msgstr "資料顏色"
-
-#: objects/chronogram/chronoline.c:177
-#, fuzzy
-msgid "Data line width"
-msgstr "資料行寬"
-
-#: objects/chronogram/chronoref.c:144
-msgid "Time data"
-msgstr "時間設定"
-
-#: objects/chronogram/chronoref.c:150
-msgid "Major time step"
-msgstr "主要刻度的時間長度"
-
-#: objects/chronogram/chronoref.c:152
-msgid "Minor time step"
-msgstr "細刻度的時間長度"
-
-#: objects/chronogram/chronoref.c:162
-msgid "Minor step line width"
-msgstr "細刻度的線段寬度"
-
-#: objects/custom/custom.c:117
-msgid "Custom"
-msgstr "自選"
-
-#: objects/custom/custom.c:117
-msgid "Custom XML shapes loader"
-msgstr "自選 XML 圖形載入程序"
-
-#: objects/custom/custom_object.c:178 objects/custom/custom_object.c:197
-msgid "Flip horizontal"
-msgstr "使用水平鏡像"
-
-#: objects/custom/custom_object.c:180 objects/custom/custom_object.c:199
-msgid "Flip vertical"
-msgstr "使用垂直鏡像"
-
-#: objects/custom/custom_object.c:1448
-msgid "Flip Horizontal"
-msgstr "使用水平鏡像"
-
-#: objects/custom/custom_object.c:1449
-msgid "Flip Vertical"
-msgstr "使用垂直鏡像"
-
-#: objects/custom/custom_object.c:1486
-#, c-format
-msgid "Cannot open icon file %s for object type '%s'."
-msgstr "無法開啟物件類別‘%2$s’所用的圖示檔 %1$s。"
-
-#: objects/flowchart/box.c:150 objects/standard/box.c:150
-#: objects/standard/polyline.c:134 objects/standard/zigzagline.c:129
-msgid "Corner radius"
-msgstr "角落半徑"
-
-#: objects/flowchart/flowchart.c:37
-msgid "Flowchart objects"
-msgstr "流程圖物件"
-
-#: objects/flowchart/parallelogram.c:152
-msgid "Shear angle"
 msgstr ""
 
 #: objects/Istar/actor.c:68 objects/Istar/link.c:153
@@ -4601,6 +3905,12 @@ msgstr "減少"
 msgid "Task"
 msgstr ""
 
+#: objects/Istar/other.c:470 objects/Jackson/domain.c:532
+#: objects/KAOS/goal.c:573 objects/KAOS/other.c:526 objects/SADT/box.c:446
+#: objects/standard/line.c:221
+msgid "Delete connection point"
+msgstr "刪除連接點"
+
 #: objects/Istar/other.c:475
 msgid "i* other"
 msgstr ""
@@ -4663,6 +3973,10 @@ msgstr "形狀"
 #, fuzzy
 msgid "Requirement"
 msgstr "表示"
+
+#: objects/Jackson/phenomenon.c:142 objects/UML/message.c:150
+msgid "Message:"
+msgstr "訊息："
 
 #: objects/KAOS/goal.c:82
 msgid "Assumption"
@@ -4752,12 +4066,770 @@ msgstr ""
 msgid "KAOS other"
 msgstr ""
 
-#: objects/network/basestation.c:133
+#: objects/Misc/analog_clock.c:137
+#, fuzzy
+msgid "Arrow color"
+msgstr "箭頭顏色"
+
+#: objects/Misc/analog_clock.c:139
+msgid "Arrow line width"
+msgstr ""
+
+#: objects/Misc/analog_clock.c:141
+#, fuzzy
+msgid "Seconds arrow color"
+msgstr "箭頭顏色"
+
+#: objects/Misc/analog_clock.c:143
+msgid "Seconds arrow line width"
+msgstr ""
+
+#: objects/Misc/analog_clock.c:145
+msgid "Show hours"
+msgstr "顯示時針"
+
+#: objects/Misc/libmisc.c:38
+msgid "Miscellaneous objects"
+msgstr "其它物件"
+
+#. property rows
+#: objects/SADT/arrow.c:134 objects/UML/class.c:148
+#: objects/UML/class_dialog.c:357
+msgid "Normal"
+msgstr "普通"
+
+#: objects/SADT/arrow.c:135
+msgid "Import resource (not shown upstairs)"
+msgstr ""
+
+#: objects/SADT/arrow.c:136
+msgid "Imply resource (not shown downstairs)"
+msgstr ""
+
+#: objects/SADT/arrow.c:137
+msgid "Dotted arrow"
+msgstr "點狀箭頭"
+
+#: objects/SADT/arrow.c:138
+msgid "disable arrow heads"
+msgstr "關閉箭頭"
+
+#: objects/SADT/arrow.c:144
+msgid "Flow style:"
+msgstr "流程樣式："
+
+#: objects/SADT/arrow.c:146
+msgid "Automatically gray vertical flows:"
+msgstr "自動將垂直流程變為灰階："
+
+#: objects/SADT/arrow.c:147
+msgid ""
+"To improve the ease of reading, flows which begin and end vertically can be "
+"rendered gray"
+msgstr "為方便閱讀，起點與終點垂直的流程可用灰色繪畫"
+
+#: objects/SADT/arrow.c:463
+msgid "SADT Arrow"
+msgstr "SADT 箭頭"
+
+#: objects/SADT/box.c:137 objects/flowchart/box.c:152
+#: objects/flowchart/diamond.c:150 objects/flowchart/ellipse.c:149
+#: objects/flowchart/parallelogram.c:154
+msgid "Text padding"
+msgstr ""
+
+#: objects/SADT/box.c:144
+msgid "Activity/Data identifier"
+msgstr "「活動/資料」識別"
+
+#: objects/SADT/box.c:145
+msgid "The identifier which appears in the lower right corner of the Box"
+msgstr "在方塊右下角顯示的識別資料"
+
+#: objects/SADT/box.c:451
+msgid "SADT box"
+msgstr "SADT 方塊"
+
+#: objects/SADT/sadt.c:41
+msgid "SADT diagram objects"
+msgstr "SADT 圖表物件"
+
+#: objects/UML/actor.c:364 objects/UML/actor.c:366 sheets/UML.sheet.in.h:2
+msgid "Actor"
+msgstr "相關角色"
+
+#: objects/UML/association.c:1178 objects/UML/class_dialog.c:2102
+msgid "Direction:"
+msgstr "方向："
+
+#: objects/UML/association.c:1195
+msgid "From A to B"
+msgstr "從 A 到 B"
+
+#: objects/UML/association.c:1202
+msgid "From B to A"
+msgstr "從 B 到 A"
+
+#: objects/UML/association.c:1226 objects/UML/association.c:1234
+msgid "Side A"
+msgstr "A 面"
+
+#: objects/UML/association.c:1228 objects/UML/association.c:1236
+msgid "Side B"
+msgstr "B 面"
+
+#: objects/UML/association.c:1242
+msgid "Role:"
+msgstr "角色："
+
+#: objects/UML/association.c:1254
+msgid "Multiplicity:"
+msgstr ""
+
+#: objects/UML/association.c:1265 objects/UML/class_dialog.c:946
+#: objects/UML/class_dialog.c:1864
+msgid "Visibility:"
+msgstr "可見度："
+
+#: objects/UML/association.c:1274 objects/UML/class_dialog.c:955
+#: objects/UML/class_dialog.c:1873 objects/UML/uml.c:101
+msgid "Public"
+msgstr "公開"
+
+#: objects/UML/association.c:1284 objects/UML/class_dialog.c:963
+#: objects/UML/class_dialog.c:1881 objects/UML/uml.c:102
+msgid "Private"
+msgstr "私用"
+
+#: objects/UML/association.c:1294 objects/UML/class_dialog.c:971
+#: objects/UML/class_dialog.c:1889 objects/UML/uml.c:103
+msgid "Protected"
+msgstr "保護"
+
+#: objects/UML/association.c:1304 objects/UML/class_dialog.c:979
+#: objects/UML/class_dialog.c:1897
+msgid "Implementation"
+msgstr ""
+
+#. Show arrow:
+#: objects/UML/association.c:1323
+msgid "Show arrow"
+msgstr "顯示箭頭"
+
+#. Aggregate
+#: objects/UML/association.c:1329
+msgid "Aggregate"
+msgstr "聚集"
+
+#. Composition
+#: objects/UML/association.c:1337
+msgid "Composition"
+msgstr "組成"
+
+#: objects/UML/class.c:115 objects/UML/class.c:281 objects/UML/class.c:1271
+#: sheets/UML.sheet.in.h:6
+msgid "Class"
+msgstr "階層"
+
+#: objects/UML/class.c:119 objects/UML/classicon.c:138
+#: objects/UML/component.c:124 objects/UML/large_package.c:128
+#: objects/UML/object.c:149 objects/UML/small_package.c:124
+#: objects/UML/umloperation.c:68
+msgid "Stereotype"
+msgstr "定型"
+
+#: objects/UML/class.c:121 objects/UML/class.c:158
+#: objects/UML/class_dialog.c:382 objects/UML/umlattribute.c:43
+#: objects/UML/umloperation.c:66 objects/UML/umlparameter.c:49
+#: sheets/SDL.sheet.in.h:3
+msgid "Comment"
+msgstr "備註"
+
+#: objects/UML/class.c:123 objects/UML/class.c:152
+#: objects/UML/class_dialog.c:296 objects/UML/class_dialog.c:367
+#: objects/UML/class_dialog.c:1928 objects/UML/uml.c:109
+msgid "Abstract"
+msgstr "摘要"
+
+#: objects/UML/class.c:125
+msgid "Template"
+msgstr "模板"
+
+#: objects/UML/class.c:128 objects/UML/class_dialog.c:305
+msgid "Suppress Attributes"
+msgstr "抑制屬性"
+
+#: objects/UML/class.c:130
+msgid "Suppress Operations"
+msgstr "抑制動作"
+
+#: objects/UML/class.c:132
+msgid "Visible Attributes"
+msgstr "可見屬性"
+
+#: objects/UML/class.c:134
+msgid "Visible Operations"
+msgstr "可見運作"
+
+#: objects/UML/class.c:136
+msgid "Visible Comments"
+msgstr ""
+
+#: objects/UML/class.c:138 objects/UML/class_dialog.c:321
+#, fuzzy
+msgid "Wrap Operations"
+msgstr "運作"
+
+#: objects/UML/class.c:140
+msgid "Wrap after char"
+msgstr ""
+
+#: objects/UML/class.c:150 objects/UML/class_dialog.c:362
+msgid "Polymorphic"
+msgstr ""
+
+#: objects/UML/class.c:154
+#, fuzzy
+msgid "Classname"
+msgstr "階層名稱："
+
+#: objects/UML/class.c:156
+#, fuzzy
+msgid "Abstract Classname"
+msgstr "階層名稱："
+
+#: objects/UML/class.c:162 objects/UML/class.c:164 objects/UML/class.c:166
+#: objects/UML/class.c:168 objects/UML/class.c:170 objects/UML/class.c:172
+msgid " "
+msgstr ""
+
+#: objects/UML/class.c:178 objects/UML/object.c:153
+msgid "Attributes"
+msgstr "屬性"
+
+#: objects/UML/class.c:180
+msgid "Operations"
+msgstr "運作"
+
+#: objects/UML/class.c:183
+#, fuzzy
+msgid "Template Parameters"
+msgstr "參數"
+
+#: objects/UML/class.c:275
+#, fuzzy
+msgid "Show Comments"
+msgstr "顯示備註"
+
+#. Class page:
+#: objects/UML/class_dialog.c:265
+#, fuzzy
+msgid "_Class"
+msgstr "階層"
+
+#: objects/UML/class_dialog.c:273
+msgid "Class name:"
+msgstr "階層名稱："
+
+#: objects/UML/class_dialog.c:281 objects/UML/class_dialog.c:1851
+#: objects/UML/dependency.c:135 objects/UML/generalization.c:131
+#: objects/UML/realizes.c:132
+msgid "Stereotype:"
+msgstr "定型："
+
+#: objects/UML/class_dialog.c:288 objects/UML/class_dialog.c:934
+#: objects/UML/class_dialog.c:1969 objects/UML/class_dialog.c:2091
+msgid "Comment:"
+msgstr "備註："
+
+#: objects/UML/class_dialog.c:302
+msgid "Attributes visible"
+msgstr "可見屬性"
+
+#: objects/UML/class_dialog.c:311
+msgid "Operations visible"
+msgstr "可見動作"
+
+#: objects/UML/class_dialog.c:314
+msgid "Suppress operations"
+msgstr "抑制動作"
+
+#: objects/UML/class_dialog.c:328
+msgid "Wrap after this length: "
+msgstr ""
+
+#: objects/UML/class_dialog.c:335
+msgid "Comments visible"
+msgstr ""
+
+#. head line
+#: objects/UML/class_dialog.c:348 objects/UML/umlparameter.c:51
+msgid "Kind"
+msgstr ""
+
+#: objects/UML/class_dialog.c:353
+msgid "Size"
+msgstr "大小"
+
+#: objects/UML/class_dialog.c:372
+msgid "Class Name"
+msgstr ""
+
+#: objects/UML/class_dialog.c:377
+msgid "Abstract Class"
+msgstr ""
+
+#. should probably be refactored too.
+#: objects/UML/class_dialog.c:394
+#, fuzzy
+msgid "Text Color"
+msgstr "文字顏色"
+
+#: objects/UML/class_dialog.c:402
+msgid "Foreground Color"
+msgstr "前景顏色"
+
+#: objects/UML/class_dialog.c:410
+msgid "Background Color"
+msgstr "背景顏色"
+
+#. Attributes page:
+#: objects/UML/class_dialog.c:834
+#, fuzzy
+msgid "_Attributes"
+msgstr "屬性"
+
+#: objects/UML/class_dialog.c:862 objects/UML/class_dialog.c:1787
+#: objects/UML/class_dialog.c:2015 objects/UML/class_dialog.c:2535
+#, fuzzy
+msgid "_New"
+msgstr "新增"
+
+#: objects/UML/class_dialog.c:868 objects/UML/class_dialog.c:1793
+#: objects/UML/class_dialog.c:2022 objects/UML/class_dialog.c:2541
+msgid "_Delete"
+msgstr "刪除(_D)"
+
+#: objects/UML/class_dialog.c:874 objects/UML/class_dialog.c:1799
+#: objects/UML/class_dialog.c:2029 objects/UML/class_dialog.c:2547
+msgid "Move up"
+msgstr "上移"
+
+#: objects/UML/class_dialog.c:880 objects/UML/class_dialog.c:1805
+#: objects/UML/class_dialog.c:2036 objects/UML/class_dialog.c:2553
+msgid "Move down"
+msgstr "下移"
+
+#: objects/UML/class_dialog.c:891
+msgid "Attribute data"
+msgstr "屬性資料"
+
+#: objects/UML/class_dialog.c:923
+msgid "Value:"
+msgstr "數值："
+
+#: objects/UML/class_dialog.c:1000 objects/UML/class_dialog.c:1913
+msgid "Class scope"
+msgstr ""
+
+#. Operations page:
+#: objects/UML/class_dialog.c:1759
+#, fuzzy
+msgid "_Operations"
+msgstr "運作"
+
+#: objects/UML/class_dialog.c:1817
+msgid "Operation data"
+msgstr "運作資料"
+
+#: objects/UML/class_dialog.c:1919
+msgid "Inheritance type:"
+msgstr ""
+
+#: objects/UML/class_dialog.c:1936 objects/UML/uml.c:110
+msgid "Polymorphic (virtual)"
+msgstr ""
+
+#: objects/UML/class_dialog.c:1944 objects/UML/uml.c:111
+msgid "Leaf (final)"
+msgstr ""
+
+#: objects/UML/class_dialog.c:1962
+msgid "Query"
+msgstr ""
+
+#: objects/UML/class_dialog.c:1986
+msgid "Parameters:"
+msgstr "參數："
+
+#: objects/UML/class_dialog.c:2048
+msgid "Parameter data"
+msgstr "參數資料"
+
+#: objects/UML/class_dialog.c:2080
+msgid "Def. value:"
+msgstr "定義值："
+
+#: objects/UML/class_dialog.c:2111 objects/UML/umlparameter.c:34
+msgid "Undefined"
+msgstr ""
+
+#: objects/UML/class_dialog.c:2119 objects/UML/umlparameter.c:35
+msgid "In"
+msgstr ""
+
+#: objects/UML/class_dialog.c:2128 objects/UML/umlparameter.c:36
+msgid "Out"
+msgstr ""
+
+#: objects/UML/class_dialog.c:2137 objects/UML/umlparameter.c:37
+msgid "In & Out"
+msgstr ""
+
+#. Templates page:
+#: objects/UML/class_dialog.c:2501
+#, fuzzy
+msgid "_Templates"
+msgstr "模板"
+
+#: objects/UML/class_dialog.c:2507 sheets/UML.sheet.in.h:29
+msgid "Template class"
+msgstr ""
+
+#: objects/UML/class_dialog.c:2564
+msgid "Formal parameter data"
+msgstr "正式參數資料"
+
+#: objects/UML/classicon.c:128
+msgid "Boundary"
+msgstr "邊界"
+
+#: objects/UML/classicon.c:140
+msgid "Is object"
+msgstr "是一個物件"
+
+#: objects/UML/component_feature.c:144 sheets/UML.sheet.in.h:14
+#, fuzzy
+msgid "Facet"
+msgstr "貼緊"
+
+#: objects/UML/component_feature.c:145 sheets/UML.sheet.in.h:26
+#, fuzzy
+msgid "Receptacle"
+msgstr "取代"
+
+#: objects/UML/component_feature.c:146 sheets/UML.sheet.in.h:13
+msgid "Event Source"
+msgstr ""
+
+#: objects/UML/component_feature.c:147 sheets/UML.sheet.in.h:12
+#, fuzzy
+msgid "Event Sink"
+msgstr "事件"
+
+#: objects/UML/constraint.c:125
+msgid "Constraint:"
+msgstr "限制："
+
+#: objects/UML/dependency.c:137
+msgid "Show arrow:"
+msgstr "顯示箭頭："
+
+#: objects/UML/implements.c:128
+msgid "Interface:"
+msgstr "界面："
+
+#: objects/UML/lifeline.c:144
+msgid "Draw focus of control:"
+msgstr "顯示控制焦點："
+
+#: objects/UML/lifeline.c:146
+msgid "Draw destruction mark:"
+msgstr "顯示破壞符號："
+
+#: objects/UML/lifeline.c:417
+msgid "Add connection points"
+msgstr "增加連接點"
+
+#: objects/UML/lifeline.c:418
+msgid "Remove connection points"
+msgstr "刪除連接點"
+
+#: objects/UML/lifeline.c:422
+msgid "UML Lifeline"
+msgstr ""
+
+#: objects/UML/message.c:135
+msgid "Call"
+msgstr ""
+
+#: objects/UML/message.c:136
+msgid "Create"
+msgstr "建立"
+
+#: objects/UML/message.c:137
+msgid "Destroy"
+msgstr "摧毀"
+
+#: objects/UML/message.c:138
+msgid "Simple"
+msgstr "簡單"
+
+#: objects/UML/message.c:139
+msgid "Return"
+msgstr "返回"
+
+#: objects/UML/message.c:140
+msgid "Send"
+msgstr "送出"
+
+#: objects/UML/message.c:141
+msgid "Recursive"
+msgstr "循環"
+
+#: objects/UML/message.c:152
+msgid "Message type:"
+msgstr "訊息種類："
+
+#: objects/UML/object.c:151
+msgid "Explicit state"
+msgstr ""
+
+#: objects/UML/object.c:156
+msgid "Active object"
+msgstr "運作物件"
+
+#: objects/UML/object.c:158
+msgid "Show attributes"
+msgstr "顯示屬性"
+
+#: objects/UML/object.c:160
+msgid "Multiple instance"
+msgstr ""
+
+#. Would like to create a state_term instead, but making the connections
+#. * is a pain
+#: objects/UML/state.c:390
+msgid ""
+"This diagram uses the State object for initial/final states.\n"
+"That option will go away in future versions.\n"
+"Please use the Initial/Final State object instead\n"
+msgstr ""
+
+#: objects/UML/state_term.c:120
+msgid "Is final"
+msgstr ""
+
+#: objects/UML/transition.c:129
+#, fuzzy
+msgid "Trigger"
+msgstr "手指"
+
+#: objects/UML/transition.c:130
+msgid "The event that causes this transition to be taken"
+msgstr ""
+
+#: objects/UML/transition.c:131
+#, fuzzy
+msgid "Action"
+msgstr "相關角色"
+
+#: objects/UML/transition.c:132
+msgid "Action to perform when this transition is taken"
+msgstr ""
+
+#: objects/UML/transition.c:133 sheets/cisconetwork.sheet.in.h:43
+#, fuzzy
+msgid "Guard"
+msgstr "格線"
+
+#: objects/UML/transition.c:134
+msgid "Condition for taking this transition when the event is fired"
+msgstr ""
+
+#: objects/UML/uml.c:65
+msgid "Unified Modelling Language diagram objects"
+msgstr "「統一模型語言」(UML) 圖表物件"
+
+#: objects/UML/uml.c:104
+#, fuzzy
+msgid "Implmentation"
+msgstr "方向"
+
+#: objects/UML/umlattribute.c:41 objects/UML/umlparameter.c:47
+#, fuzzy
+msgid "Value"
+msgstr "數值："
+
+#: objects/UML/umlattribute.c:45 objects/UML/umloperation.c:71
+#, fuzzy
+msgid "Visibility"
+msgstr "可見度："
+
+#: objects/UML/umlattribute.c:47
+#, fuzzy
+msgid "Abstract (?)"
+msgstr "摘要"
+
+#: objects/UML/umlattribute.c:49 objects/UML/umloperation.c:77
+msgid "Class scope (static)"
+msgstr ""
+
+#: objects/UML/umloperation.c:73
+msgid "Inheritance type"
+msgstr ""
+
+#: objects/UML/umloperation.c:75
+msgid "Query (const)"
+msgstr ""
+
+#: objects/UML/umloperation.c:79 objects/chronogram/chronoline.c:162
+msgid "Parameters"
+msgstr "參數"
+
+#: objects/UML/usecase.c:132
+msgid "Text outside"
+msgstr ""
+
+#: objects/UML/usecase.c:134
+msgid "Collaboration"
+msgstr ""
+
+#: objects/bondgraph/bondgraph.c:39
+msgid "Bond graph objects"
+msgstr ""
+
+#: objects/chronogram/chronogram.c:40
+msgid "Chronogram diagram objects"
+msgstr "「年代表」圖表物件"
+
+#: objects/chronogram/chronoline.c:148
+msgid "Data"
+msgstr "資料"
+
+#: objects/chronogram/chronoline.c:150
+msgid "Data name"
+msgstr "資料名稱："
+
+#: objects/chronogram/chronoline.c:152
+msgid "Events"
+msgstr "事件"
+
+#: objects/chronogram/chronoline.c:155
+msgid "Event specification"
+msgstr "事件格式"
+
+#: objects/chronogram/chronoline.c:156
+msgid ""
+"@ time    set the pointer at an absolute time.\n"
+"( duration  sets the signal up, then wait 'duration'.\n"
+") duration  sets the signal down, then wait 'duration'.\n"
+"u duration  sets the signal to \"unknown\" state, then wait 'duration'.\n"
+"example : @ 1.0 (2.0)1.0(2.0)\n"
+msgstr ""
+"@ 時間      設定指標於絕對時間。\n"
+"( 經過時間  設定信號啟動，並等待「經過時間」。\n"
+") 經過時間  設定信號停止，並等待「經過時間」。\n"
+"u 經過時間  設定信號為「未知」，並等待「經過時間」。\n"
+"例子：@ 1.0 (2.0)1.0(2.0)\n"
+
+#: objects/chronogram/chronoline.c:164 objects/chronogram/chronoref.c:146
+msgid "Start time"
+msgstr "開始時間"
+
+#: objects/chronogram/chronoline.c:166 objects/chronogram/chronoref.c:148
+msgid "End time"
+msgstr "結束時間"
+
+#: objects/chronogram/chronoline.c:168
+msgid "Rise time"
+msgstr "上升時間"
+
+#: objects/chronogram/chronoline.c:170
+msgid "Fall time"
+msgstr "下降時間"
+
+#: objects/chronogram/chronoline.c:171
+msgid "Multi-bit data"
+msgstr "多位元資料"
+
+#: objects/chronogram/chronoline.c:173 objects/chronogram/chronoref.c:156
+msgid "Aspect"
+msgstr "顯示方式"
+
+#: objects/chronogram/chronoline.c:175
+msgid "Data color"
+msgstr "資料顏色"
+
+#: objects/chronogram/chronoline.c:177
+#, fuzzy
+msgid "Data line width"
+msgstr "資料行寬"
+
+#: objects/chronogram/chronoref.c:144
+msgid "Time data"
+msgstr "時間設定"
+
+#: objects/chronogram/chronoref.c:150
+msgid "Major time step"
+msgstr "主要刻度的時間長度"
+
+#: objects/chronogram/chronoref.c:152
+msgid "Minor time step"
+msgstr "細刻度的時間長度"
+
+#: objects/chronogram/chronoref.c:162
+msgid "Minor step line width"
+msgstr "細刻度的線段寬度"
+
+#: objects/custom/custom.c:117
+msgid "Custom"
+msgstr "自選"
+
+#: objects/custom/custom.c:117
+msgid "Custom XML shapes loader"
+msgstr "自選 XML 圖形載入程序"
+
+#: objects/custom/custom_object.c:178 objects/custom/custom_object.c:203
+msgid "Flip horizontal"
+msgstr "使用水平鏡像"
+
+#: objects/custom/custom_object.c:180 objects/custom/custom_object.c:205
+msgid "Flip vertical"
+msgstr "使用垂直鏡像"
+
+#: objects/custom/custom_object.c:1454
+msgid "Flip Horizontal"
+msgstr "使用水平鏡像"
+
+#: objects/custom/custom_object.c:1455
+msgid "Flip Vertical"
+msgstr "使用垂直鏡像"
+
+#: objects/custom/custom_object.c:1492
+#, c-format
+msgid "Cannot open icon file %s for object type '%s'."
+msgstr "無法開啟物件類別‘%2$s’所用的圖示檔 %1$s。"
+
+#: objects/flowchart/box.c:150 objects/standard/box.c:150
+#: objects/standard/polyline.c:134 objects/standard/zigzagline.c:129
+msgid "Corner radius"
+msgstr "角落半徑"
+
+#: objects/flowchart/flowchart.c:37
+msgid "Flowchart objects"
+msgstr "流程圖物件"
+
+#: objects/flowchart/parallelogram.c:152
+msgid "Shear angle"
+msgstr ""
+
+#: objects/network/basestation.c:135
 #, fuzzy
 msgid "Sectors"
 msgstr "相關角色"
 
-#: objects/network/basestation.c:388 objects/network/basestation.c:390
+#: objects/network/basestation.c:393 objects/network/basestation.c:395
 #, fuzzy
 msgid "Base Station"
 msgstr "方向"
@@ -4801,22 +4873,22 @@ msgstr "類別："
 msgid "Subscribers"
 msgstr ""
 
-#: objects/standard/arc.c:131
+#: objects/standard/arc.c:135
 msgid "Curve distance"
 msgstr "曲線距離"
 
-#: objects/standard/bezier.c:137 objects/standard/line.c:141
+#: objects/standard/bezier.c:137 objects/standard/line.c:142
 #: objects/standard/polyline.c:135
 #, fuzzy
 msgid "Line gaps"
 msgstr "線段"
 
-#: objects/standard/bezier.c:139 objects/standard/line.c:143
+#: objects/standard/bezier.c:139 objects/standard/line.c:144
 #: objects/standard/polyline.c:137
 msgid "Absolute start gap"
 msgstr ""
 
-#: objects/standard/bezier.c:141 objects/standard/line.c:145
+#: objects/standard/bezier.c:141 objects/standard/line.c:146
 #: objects/standard/polyline.c:139
 msgid "Absolute end gap"
 msgstr ""
@@ -4903,15 +4975,15 @@ msgstr ""
 msgid "The image file '%s' was not found.\n"
 msgstr "找不到圖像檔‘%s’。\n"
 
-#: objects/standard/line.c:132
+#: objects/standard/line.c:133
 msgid "Arrows"
 msgstr "箭頭"
 
-#: objects/standard/line.c:137
+#: objects/standard/line.c:138
 msgid "Start point"
 msgstr "起點"
 
-#: objects/standard/line.c:139
+#: objects/standard/line.c:140
 msgid "End point"
 msgstr "終點"
 
@@ -4927,35 +4999,35 @@ msgstr "刪除角落"
 msgid "Standard objects"
 msgstr "標準物件"
 
-#: plug-ins/cairo/diacairo.c:1031
+#: plug-ins/cairo/diacairo.c:1078
 msgid "Cairo PostScript"
 msgstr ""
 
-#: plug-ins/cairo/diacairo.c:1040
+#: plug-ins/cairo/diacairo.c:1087
 msgid "Cairo Portable Document Format"
 msgstr ""
 
-#: plug-ins/cairo/diacairo.c:1049
+#: plug-ins/cairo/diacairo.c:1096
 msgid "Cairo PNG"
 msgstr ""
 
-#: plug-ins/cairo/diacairo.c:1057
+#: plug-ins/cairo/diacairo.c:1104
 msgid "Cairo PNG (with alpha)"
 msgstr ""
 
-#: plug-ins/cairo/diacairo.c:1066
+#: plug-ins/cairo/diacairo.c:1113
 msgid "Cairo WMF"
 msgstr ""
 
-#: plug-ins/cairo/diacairo.c:1075
+#: plug-ins/cairo/diacairo.c:1122
 msgid "Cairo old WMF"
 msgstr ""
 
-#: plug-ins/cairo/diacairo.c:1084
+#: plug-ins/cairo/diacairo.c:1131
 msgid "Cairo Clipboard"
 msgstr ""
 
-#: plug-ins/cairo/diacairo.c:1127
+#: plug-ins/cairo/diacairo.c:1174
 msgid "Cairo based Rendering"
 msgstr ""
 
@@ -5001,7 +5073,7 @@ msgstr ""
 msgid "Drawing Interchange File import and export filters"
 msgstr "繪圖交換檔 (DIF) 匯入/匯出過濾器"
 
-#: plug-ins/gprint/diagnomeprint.c:79
+#: plug-ins/gprint/diagnomeprint.c:81
 #, c-format
 msgid ""
 "GNOME Print Backend\n"
@@ -5009,20 +5081,20 @@ msgid ""
 " not available"
 msgstr ""
 
-#: plug-ins/gprint/diagnomeprint.c:110
+#: plug-ins/gprint/diagnomeprint.c:112
 msgid "GNOME PostScript"
 msgstr ""
 
-#: plug-ins/gprint/diagnomeprint.c:119
+#: plug-ins/gprint/diagnomeprint.c:121
 msgid "GNOME Portable Document Format"
 msgstr ""
 
-#: plug-ins/gprint/diagnomeprint.c:128
+#: plug-ins/gprint/diagnomeprint.c:131
 #, fuzzy
 msgid "GNOME Scalable Vector Graphic"
 msgstr "可縮放向量圖 (SVG)"
 
-#: plug-ins/gprint/diagnomeprint.c:159
+#: plug-ins/gprint/diagnomeprint.c:164
 msgid "GNOME Print based Rendering"
 msgstr ""
 
@@ -5038,7 +5110,7 @@ msgstr "HP 圖形語言 (HP-GL) 匯出過濾器"
 msgid "TeX Metapost export filter"
 msgstr "TeX Metapost 匯出過濾器"
 
-#: plug-ins/metapost/render_metapost.c:1033
+#: plug-ins/metapost/render_metapost.c:1175
 msgid "TeX Metapost macros"
 msgstr "TeX Metapost 巨集"
 
@@ -5061,11 +5133,11 @@ msgstr "以 gdk-pixbuf 為基礎的點陣圖匯出/匯入過濾器"
 msgid "TeX Pstricks export filter"
 msgstr "TeX Pstricks 匯出過濾器"
 
-#: plug-ins/pstricks/render_pstricks.c:653
+#: plug-ins/pstricks/render_pstricks.c:731
 msgid "Not valid UTF8"
 msgstr ""
 
-#: plug-ins/pstricks/render_pstricks.c:877
+#: plug-ins/pstricks/render_pstricks.c:980
 msgid "TeX PSTricks macros"
 msgstr "TeX PSTricks 巨集"
 
@@ -5078,11 +5150,11 @@ msgstr "無法開啟‘%s’來寫入資料。\n"
 msgid "Python scripting support"
 msgstr ""
 
-#: plug-ins/shape/shape-export.c:470
+#: plug-ins/shape/shape-export.c:476
 msgid "Can't export png without libart!"
 msgstr "無法在沒有 libart 的情況下匯出成為 png！"
 
-#: plug-ins/shape/shape-export.c:497
+#: plug-ins/shape/shape-export.c:501
 #, fuzzy
 msgid "Dia Shape File"
 msgstr "dia 形狀檔案"
@@ -5091,7 +5163,7 @@ msgstr "dia 形狀檔案"
 msgid "dia shape export filter"
 msgstr "dia 形狀匯出過濾器"
 
-#: plug-ins/svg/render_svg.c:301 plug-ins/svg/svg-import.c:669
+#: plug-ins/svg/render_svg.c:291 plug-ins/svg/svg-import.c:669
 msgid "Scalable Vector Graphics"
 msgstr "可縮放向量圖 (SVG)"
 
@@ -5133,16 +5205,16 @@ msgstr "WPG"
 msgid "WordPerfect Graphics export filter"
 msgstr "WordPerfect 圖形匯出過濾器"
 
-#: plug-ins/xfig/xfig-export.c:454
+#: plug-ins/xfig/xfig-export.c:461
 #, c-format
 msgid "FIG format has no equivalent of arrow style %s, using simple arrow.\n"
 msgstr ""
 
-#: plug-ins/xfig/xfig-export.c:475
+#: plug-ins/xfig/xfig-export.c:483
 msgid "No more user-definable colors - using black"
 msgstr ""
 
-#: plug-ins/xfig/xfig-export.c:1149
+#: plug-ins/xfig/xfig-export.c:1187
 msgid "XFig format"
 msgstr "XFig 格式"
 
@@ -5841,7 +5913,7 @@ msgstr "水平放置的齊納二極管"
 msgid "Lamp"
 msgstr "燈"
 
-#: sheets/Circuit.sheet.in.h:16 sheets/ciscomisc.sheet.in.h:26
+#: sheets/Circuit.sheet.in.h:16 sheets/ciscomisc.sheet.in.h:30
 msgid "Microphone"
 msgstr "擴音器"
 
@@ -5869,7 +5941,7 @@ msgstr "PMOS 電晶體"
 msgid "PNP bipolar transistor"
 msgstr "PNP 二極電晶體"
 
-#: sheets/Circuit.sheet.in.h:26 sheets/ciscomisc.sheet.in.h:39
+#: sheets/Circuit.sheet.in.h:26 sheets/ciscomisc.sheet.in.h:42
 msgid "Speaker"
 msgstr "揚聲器"
 
@@ -7063,327 +7135,562 @@ msgid "Time scale"
 msgstr "時間線"
 
 #: sheets/ciscocomputer.sheet.in.h:1
+msgid "BBS"
+msgstr ""
+
+#: sheets/ciscocomputer.sheet.in.h:2
 #, fuzzy
 msgid "Cisco - Computer"
 msgstr "電腦"
 
-#: sheets/ciscocomputer.sheet.in.h:2
+#: sheets/ciscocomputer.sheet.in.h:3
 msgid "Cisco CA"
 msgstr ""
 
-#: sheets/ciscocomputer.sheet.in.h:3
+#: sheets/ciscocomputer.sheet.in.h:4
 #, fuzzy
 msgid "CiscoSecurity"
 msgstr "斷線"
 
-#: sheets/ciscocomputer.sheet.in.h:4
+#: sheets/ciscocomputer.sheet.in.h:5
 #, fuzzy
 msgid "CiscoWorks workstation"
 msgstr "UNIX 工作站"
-
-#: sheets/ciscocomputer.sheet.in.h:5
-#, fuzzy
-msgid "Communications server"
-msgstr "Sybase 備援伺服器"
 
 #: sheets/ciscocomputer.sheet.in.h:6
 msgid "Computer shapes by Cisco"
 msgstr ""
 
 #: sheets/ciscocomputer.sheet.in.h:7
-msgid "Directory Server"
+msgid "Disk subsystem"
 msgstr ""
 
 #: sheets/ciscocomputer.sheet.in.h:8
 #, fuzzy
+msgid "Diskette"
+msgstr "散佈"
+
+#: sheets/ciscocomputer.sheet.in.h:9
+#, fuzzy
+msgid "EtherClient"
+msgstr "Ethernet 匯流排"
+
+#: sheets/ciscocomputer.sheet.in.h:10
+#, fuzzy
+msgid "FC Storage"
+msgstr "儲存裝置"
+
+#: sheets/ciscocomputer.sheet.in.h:11
+#, fuzzy
 msgid "File Server"
 msgstr "/檔案(F)/儲存(_S)"
 
-#: sheets/ciscocomputer.sheet.in.h:9
+#: sheets/ciscocomputer.sheet.in.h:12
+#, fuzzy
+msgid "Front End Processor"
+msgstr "水平放置的壓縮機"
+
+#: sheets/ciscocomputer.sheet.in.h:13
 msgid "HP Mini"
 msgstr ""
 
-#: sheets/ciscocomputer.sheet.in.h:10
+#: sheets/ciscocomputer.sheet.in.h:14
 #, fuzzy
 msgid "Handheld"
 msgstr "手"
 
-#: sheets/ciscocomputer.sheet.in.h:11
+#: sheets/ciscocomputer.sheet.in.h:15
 msgid "Host"
 msgstr ""
 
-#: sheets/ciscocomputer.sheet.in.h:12
+#: sheets/ciscocomputer.sheet.in.h:16
 msgid "IBM Mini (AS400)"
 msgstr ""
 
-#: sheets/ciscocomputer.sheet.in.h:13
+#: sheets/ciscocomputer.sheet.in.h:17
 msgid "IBM Tower"
 msgstr ""
 
-#: sheets/ciscocomputer.sheet.in.h:14
+#: sheets/ciscocomputer.sheet.in.h:18
 msgid "IBM mainframe"
 msgstr ""
 
-#: sheets/ciscocomputer.sheet.in.h:15
-msgid "IP Softphone"
+#: sheets/ciscocomputer.sheet.in.h:19
+msgid "IBM mainframe with FEP"
 msgstr ""
 
-#: sheets/ciscocomputer.sheet.in.h:16
-msgid "IPTV broadcast server"
+#: sheets/ciscocomputer.sheet.in.h:20
+msgid "JBOD"
 msgstr ""
 
-#: sheets/ciscocomputer.sheet.in.h:17
+#: sheets/ciscocomputer.sheet.in.h:21
 #, fuzzy
 msgid "Laptop"
 msgstr "攜帶型電腦"
 
-#: sheets/ciscocomputer.sheet.in.h:18
+#: sheets/ciscocomputer.sheet.in.h:22
 #, fuzzy
 msgid "Macintosh"
 msgstr "邊界"
 
-#: sheets/ciscocomputer.sheet.in.h:19
+#: sheets/ciscocomputer.sheet.in.h:23
 msgid "MicroWebserver"
 msgstr ""
 
-#: sheets/ciscocomputer.sheet.in.h:20
+#: sheets/ciscocomputer.sheet.in.h:24
 msgid "Mini VAX"
 msgstr ""
 
-#: sheets/ciscocomputer.sheet.in.h:21
-msgid "MoH server (Music on Hold)"
-msgstr ""
+#: sheets/ciscocomputer.sheet.in.h:25
+#, fuzzy
+msgid "Modem"
+msgstr "移動"
 
-#: sheets/ciscocomputer.sheet.in.h:22
+#: sheets/ciscocomputer.sheet.in.h:26 sheets/network.sheet.in.h:19
+msgid "Monitor"
+msgstr "螢幕"
+
+#: sheets/ciscocomputer.sheet.in.h:27
+#, fuzzy
+msgid "Newton"
+msgstr "新增"
+
+#: sheets/ciscocomputer.sheet.in.h:28
 msgid "PC"
 msgstr ""
 
-#: sheets/ciscocomputer.sheet.in.h:23
+#: sheets/ciscocomputer.sheet.in.h:29
+#, fuzzy
+msgid "PC Adapter Card"
+msgstr "穿孔卡片"
+
+#: sheets/ciscocomputer.sheet.in.h:30
+#, fuzzy
+msgid "PC Card"
+msgstr "清除"
+
+#: sheets/ciscocomputer.sheet.in.h:31
+#, fuzzy
+msgid "PC Router Card"
+msgstr "穿孔卡片"
+
+#: sheets/ciscocomputer.sheet.in.h:32
+msgid "PC Software"
+msgstr ""
+
+#: sheets/ciscocomputer.sheet.in.h:33
 msgid "PC Video"
 msgstr ""
 
-#: sheets/ciscocomputer.sheet.in.h:24
+#: sheets/ciscocomputer.sheet.in.h:34
+msgid "PC with Router-Based Software"
+msgstr ""
+
+#: sheets/ciscocomputer.sheet.in.h:35
 msgid "PDA"
 msgstr ""
 
-#: sheets/ciscocomputer.sheet.in.h:26
+#: sheets/ciscocomputer.sheet.in.h:37
 #, fuzzy
 msgid "Relational Database"
 msgstr "運作資料"
 
-#: sheets/ciscocomputer.sheet.in.h:27
-msgid "SC2200/VSC3000 host"
-msgstr ""
-
-#: sheets/ciscocomputer.sheet.in.h:28
-msgid "SIP Proxy server"
-msgstr ""
-
-#: sheets/ciscocomputer.sheet.in.h:29
-msgid "STB (set top box)"
-msgstr ""
-
-#: sheets/ciscocomputer.sheet.in.h:30
+#: sheets/ciscocomputer.sheet.in.h:38
 #, fuzzy
 msgid "SUN workstation"
 msgstr "UNIX 工作站"
 
-#: sheets/ciscocomputer.sheet.in.h:31
+#: sheets/ciscocomputer.sheet.in.h:39
 #, fuzzy
 msgid "Scanner"
 msgstr "比例："
 
-#: sheets/ciscocomputer.sheet.in.h:32
+#: sheets/ciscocomputer.sheet.in.h:40
 #, fuzzy
 msgid "Server with PC Router"
 msgstr "沒有增幅器的揚聲器"
 
-#: sheets/ciscocomputer.sheet.in.h:33
+#: sheets/ciscocomputer.sheet.in.h:41
 #, fuzzy
-msgid "Softphone"
-msgstr "擴音器"
-
-#: sheets/ciscocomputer.sheet.in.h:34
-#, fuzzy
-msgid "Software based server"
+msgid "Software-Based Router on File Server"
 msgstr "Sybase 數據庫"
 
-#: sheets/ciscocomputer.sheet.in.h:35
+#: sheets/ciscocomputer.sheet.in.h:42
 #, fuzzy
 msgid "Storage array"
 msgstr "儲存裝置"
 
-#: sheets/ciscocomputer.sheet.in.h:36
+#: sheets/ciscocomputer.sheet.in.h:43
 #, fuzzy
 msgid "Supercomputer"
 msgstr "電腦"
 
-#: sheets/ciscocomputer.sheet.in.h:37
-msgid "TV"
-msgstr ""
+#: sheets/ciscocomputer.sheet.in.h:44
+#, fuzzy
+msgid "Tablet"
+msgstr "啟用"
 
-#: sheets/ciscocomputer.sheet.in.h:38
+#: sheets/ciscocomputer.sheet.in.h:45
+#, fuzzy
+msgid "Tape array"
+msgstr "儲存裝置"
+
+#: sheets/ciscocomputer.sheet.in.h:46
 msgid "Terminal"
 msgstr "終端機"
 
-#: sheets/ciscocomputer.sheet.in.h:39
-#, fuzzy
-msgid "Turret"
-msgstr "電流"
-
-#: sheets/ciscocomputer.sheet.in.h:40
-msgid "Unity server"
-msgstr ""
-
-#: sheets/ciscocomputer.sheet.in.h:41
-msgid "Voice commserver"
-msgstr ""
-
-#: sheets/ciscocomputer.sheet.in.h:42
+#: sheets/ciscocomputer.sheet.in.h:47
 msgid "WWW server"
 msgstr ""
 
-#: sheets/ciscocomputer.sheet.in.h:43
+#: sheets/ciscocomputer.sheet.in.h:48
 msgid "Web browser"
 msgstr ""
 
-#: sheets/ciscocomputer.sheet.in.h:44
+#: sheets/ciscocomputer.sheet.in.h:49
 msgid "Web cluster"
 msgstr ""
 
-#: sheets/ciscocomputer.sheet.in.h:45
+#: sheets/ciscocomputer.sheet.in.h:50
 msgid "Wireless"
 msgstr ""
 
-#: sheets/ciscocomputer.sheet.in.h:46
+#: sheets/ciscocomputer.sheet.in.h:51
 msgid "Workgroup director"
 msgstr ""
 
-#: sheets/ciscocomputer.sheet.in.h:47
-#, fuzzy
-msgid "Workstation"
-msgstr "UNIX 工作站"
-
 #: sheets/ciscohub.sheet.in.h:1
-msgid "100BaseT hub"
+msgid "100BaseT Hub"
 msgstr ""
 
 #: sheets/ciscohub.sheet.in.h:2
-msgid "ATM fast gigabit etherswitch"
+msgid "7500ARS (7513) Router"
 msgstr ""
 
 #: sheets/ciscohub.sheet.in.h:3
 #, fuzzy
-msgid "ATM switch"
-msgstr "ATM 交換器(switch)"
+msgid "7505 Router"
+msgstr "轉子"
 
 #: sheets/ciscohub.sheet.in.h:4
-msgid "Cisco - Hub"
-msgstr ""
+#, fuzzy
+msgid "7507 Router"
+msgstr "轉子"
 
 #: sheets/ciscohub.sheet.in.h:5
-msgid "Cisco hub"
-msgstr ""
+#, fuzzy
+msgid "ASIC Processor"
+msgstr "程序"
 
 #: sheets/ciscohub.sheet.in.h:6
-msgid "Class 4/5 switch"
+msgid "ATM 3800"
 msgstr ""
 
 #: sheets/ciscohub.sheet.in.h:7
-msgid "Content service switch 1100"
+msgid "ATM Fast Gigabit Etherswitch"
 msgstr ""
 
 #: sheets/ciscohub.sheet.in.h:8
-msgid "Content switch"
-msgstr ""
+#, fuzzy
+msgid "ATM Switch"
+msgstr "ATM 交換器(switch)"
 
 #: sheets/ciscohub.sheet.in.h:9
-msgid "Content switch module"
-msgstr ""
+#, fuzzy
+msgid "ATM Tag Switch Router"
+msgstr "ATM 交換器(switch)"
 
 #: sheets/ciscohub.sheet.in.h:10
-msgid "Generic softswitch"
-msgstr ""
+#, fuzzy
+msgid "Access Gateway"
+msgstr "及閘"
 
 #: sheets/ciscohub.sheet.in.h:11
-msgid "Hub"
+msgid "BBSM"
 msgstr ""
 
 #: sheets/ciscohub.sheet.in.h:12
-msgid "Hub and switch shapes by Cisco"
+msgid "Broadband router"
 msgstr ""
 
 #: sheets/ciscohub.sheet.in.h:13
-#, fuzzy
-msgid "ISDN switch"
-msgstr "轉換"
-
-#: sheets/ciscohub.sheet.in.h:14
-#, fuzzy
-msgid "Layer 3 switch"
-msgstr "圖層"
-
-#: sheets/ciscohub.sheet.in.h:15
-msgid "MGX 8220 switch"
+msgid "CSM-S"
 msgstr ""
 
+#: sheets/ciscohub.sheet.in.h:14
+msgid "Carrier Routing System"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:15
+#, fuzzy
+msgid "Cisco - Switch"
+msgstr "網路"
+
 #: sheets/ciscohub.sheet.in.h:16
-msgid "MGX 8240 switch"
+msgid "Cisco 1000"
 msgstr ""
 
 #: sheets/ciscohub.sheet.in.h:17
-msgid "MGX 8260 switch"
+msgid "Cisco Hub"
 msgstr ""
 
 #: sheets/ciscohub.sheet.in.h:18
-msgid "MultiSwitch device"
-msgstr ""
+#, fuzzy
+msgid "Content Router"
+msgstr "防火牆"
 
 #: sheets/ciscohub.sheet.in.h:19
-msgid "Multilayer switch"
+msgid "Content Service Module"
 msgstr ""
 
 #: sheets/ciscohub.sheet.in.h:20
-#, fuzzy
-msgid "PBX switch"
-msgstr "轉換"
+msgid "Content Service Switch 1100"
+msgstr ""
 
 #: sheets/ciscohub.sheet.in.h:21
-msgid "Programmable switch"
-msgstr ""
+#, fuzzy
+msgid "Content Switch"
+msgstr "線段寬度"
 
 #: sheets/ciscohub.sheet.in.h:22
-msgid "Route switch processor"
-msgstr ""
+#, fuzzy
+msgid "Data Center Switch"
+msgstr "資料行寬"
 
 #: sheets/ciscohub.sheet.in.h:23
-msgid "Small hub"
+msgid "Data Center Switch Reversed"
 msgstr ""
 
 #: sheets/ciscohub.sheet.in.h:24
 #, fuzzy
-msgid "Voice ATM switch"
+msgid "Data Switch Processor"
 msgstr "ATM 交換器(switch)"
 
 #: sheets/ciscohub.sheet.in.h:25
-#, fuzzy
-msgid "Voice switch"
-msgstr "線段寬度"
-
-#: sheets/ciscohub.sheet.in.h:26
-msgid "Voice switch 2"
+msgid "Director-class Fibre Channel intelligent switch"
 msgstr ""
 
+#: sheets/ciscohub.sheet.in.h:26
+#, fuzzy
+msgid "Edge Label Switch Router"
+msgstr "沒有增幅器的揚聲器"
+
 #: sheets/ciscohub.sheet.in.h:27
+msgid "Edge Label Switch Router with NetFlow"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:28
+#, fuzzy
+msgid "Generic Processor"
+msgstr "一般壓力來源"
+
+#: sheets/ciscohub.sheet.in.h:29
+msgid "Hub"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:30
+msgid "Hub subdued"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:31
+#, fuzzy
+msgid "ISDN switch"
+msgstr "轉換"
+
+#: sheets/ciscohub.sheet.in.h:32
+#, fuzzy
+msgid "LAN2LAN Switch"
+msgstr "轉換"
+
+#: sheets/ciscohub.sheet.in.h:33
+#, fuzzy
+msgid "Label Switch Router"
+msgstr "沒有增幅器的揚聲器"
+
+#: sheets/ciscohub.sheet.in.h:34
+#, fuzzy
+msgid "Layer 2 Remote Switch"
+msgstr "圖層"
+
+#: sheets/ciscohub.sheet.in.h:35
+msgid "MGX 8220"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:36
+msgid "MGX 8240"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:37
+msgid "MGX 8260"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:38
+msgid "Multi-Fabric Server Switch"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:39
+msgid "MultiSwitch Device"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:40
+msgid "Multilayer Remote Switch"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:41
+#, fuzzy
+msgid "Multilayer Switch"
+msgstr "圖層"
+
+#: sheets/ciscohub.sheet.in.h:42
+msgid "Multilayer Switch with Silicon"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:43
+msgid "Multilayer Switch with Silicon subdued"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:44
+#, fuzzy
+msgid "NetFlow router"
+msgstr "防火牆"
+
+#: sheets/ciscohub.sheet.in.h:45
+msgid "NetRanger"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:46
+#, fuzzy
+msgid "NetSonar"
+msgstr "網路"
+
+#: sheets/ciscohub.sheet.in.h:47
+#, fuzzy
+msgid "Optical Services Router"
+msgstr "光學能量"
+
+#: sheets/ciscohub.sheet.in.h:48
+msgid "PXF"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:49
+#, fuzzy
+msgid "Programmable Switch"
+msgstr "「年代表」圖表物件"
+
+#: sheets/ciscohub.sheet.in.h:50
+#, fuzzy
+msgid "RateMUX"
+msgstr "旋轉"
+
+#: sheets/ciscohub.sheet.in.h:51
+#, fuzzy
+msgid "Route Switch Processor"
+msgstr "一般壓力來源"
+
+#: sheets/ciscohub.sheet.in.h:52
+msgid "Route Switch Processor with Si"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:53
+#, fuzzy
+msgid "Router"
+msgstr "轉子"
+
+#: sheets/ciscohub.sheet.in.h:54
+#, fuzzy
+msgid "Router and switch shapes by Cisco"
+msgstr "其它形狀"
+
+#: sheets/ciscohub.sheet.in.h:55
+#, fuzzy
+msgid "Router subdued"
+msgstr "路由器符號"
+
+#: sheets/ciscohub.sheet.in.h:56
+msgid "Router with Firewall"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:57
+msgid "Router with Silicon Switch"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:58
+#, fuzzy
+msgid "Server Switch"
+msgstr "沒有增幅器的揚聲器"
+
+#: sheets/ciscohub.sheet.in.h:59
+msgid "Small Hub"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:60
+#, fuzzy
+msgid "Storage Router"
+msgstr "儲存裝置"
+
+#: sheets/ciscohub.sheet.in.h:61
+#, fuzzy
+msgid "Switch Processor"
+msgstr "一般壓力來源"
+
+#: sheets/ciscohub.sheet.in.h:62
+#, fuzzy
+msgid "Universal Gateway"
+msgstr "相反區域"
+
+#: sheets/ciscohub.sheet.in.h:63
+#, fuzzy
+msgid "Virtual Layer Switch"
+msgstr "圖層"
+
+#: sheets/ciscohub.sheet.in.h:64
+msgid "Wavelength router"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:65
+#, fuzzy
+msgid "Wireless router"
+msgstr "防火牆"
+
+#: sheets/ciscohub.sheet.in.h:66
+msgid "Workgroup 5000"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:67
+msgid "Workgroup 5002"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:68
+msgid "Workgroup 5500"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:69
+msgid "Workgroup Fibre Channel intelligent switch"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:70
+msgid "Workgroup Switch Voice-Enabled"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:71
 msgid "Workgroup switch"
 msgstr ""
 
+#: sheets/ciscohub.sheet.in.h:72
+msgid "Workgroup switch Subdued"
+msgstr ""
+
+#: sheets/ciscohub.sheet.in.h:73
+#, fuzzy
+msgid "iSCSI switch"
+msgstr "轉換"
+
 #: sheets/ciscomisc.sheet.in.h:1
-msgid "BBFW"
+msgid "Androgynous Person"
 msgstr ""
 
 #: sheets/ciscomisc.sheet.in.h:2
-msgid "BBFW media"
+msgid "Antenna"
 msgstr ""
 
 #: sheets/ciscomisc.sheet.in.h:3
@@ -7393,18 +7700,18 @@ msgstr "分支"
 
 #: sheets/ciscomisc.sheet.in.h:4
 #, fuzzy
-msgid "Breakout box"
-msgstr "繪畫方框"
+msgid "Branch office blue"
+msgstr "分支"
 
 #: sheets/ciscomisc.sheet.in.h:5
 #, fuzzy
-msgid "Car"
-msgstr "清除"
+msgid "Branch office subdued"
+msgstr "分支"
 
 #: sheets/ciscomisc.sheet.in.h:6
 #, fuzzy
-msgid "Cellular phone"
-msgstr "電話"
+msgid "Car"
+msgstr "清除"
 
 #: sheets/ciscomisc.sheet.in.h:7
 msgid "Cisco - Misc"
@@ -7412,175 +7719,197 @@ msgstr ""
 
 #: sheets/ciscomisc.sheet.in.h:8
 #, fuzzy
-msgid "Diskette"
-msgstr "散佈"
+msgid "CiscoWorks Man"
+msgstr "UNIX 工作站"
 
 #: sheets/ciscomisc.sheet.in.h:9
-#, fuzzy
-msgid "Dot-Dot"
-msgstr "虛線-點-點"
-
-#: sheets/ciscomisc.sheet.in.h:10
-#, fuzzy
-msgid "End office"
-msgstr "結束時間"
-
-#: sheets/ciscomisc.sheet.in.h:11
-msgid "Fax"
-msgstr ""
-
-#: sheets/ciscomisc.sheet.in.h:12
 #, fuzzy
 msgid "File cabinet"
 msgstr "檔案名稱"
 
+#: sheets/ciscomisc.sheet.in.h:10
+msgid "Generic Building"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:11
+msgid "Generic Building blue"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:12
+msgid "Generic Building subdued"
+msgstr ""
+
 #: sheets/ciscomisc.sheet.in.h:13
-msgid "Generic building"
+msgid "Government Building"
 msgstr ""
 
 #: sheets/ciscomisc.sheet.in.h:14
-msgid "Government building"
-msgstr ""
+#, fuzzy
+msgid "Headphones"
+msgstr "電話"
 
 #: sheets/ciscomisc.sheet.in.h:15
-msgid "H.323"
-msgstr ""
+#, fuzzy
+msgid "Home office"
+msgstr "結束時間"
 
 #: sheets/ciscomisc.sheet.in.h:16
-msgid "HootPhone"
-msgstr ""
+#, fuzzy
+msgid "House"
+msgstr "關閉"
 
 #: sheets/ciscomisc.sheet.in.h:17
-#, fuzzy
-msgid "IP phone"
-msgstr "行動電話"
-
-#: sheets/ciscomisc.sheet.in.h:18
-msgid "ITP"
+msgid "House blue"
 msgstr ""
 
-#: sheets/ciscomisc.sheet.in.h:19
+#: sheets/ciscomisc.sheet.in.h:18
 msgid "Key"
 msgstr ""
 
 #: sheets/ciscomisc.sheet.in.h:20
-msgid "LAN to LAN"
+msgid "Lock and Key"
 msgstr ""
 
-#: sheets/ciscomisc.sheet.in.h:22
-msgid "MAU"
-msgstr ""
-
-#: sheets/ciscomisc.sheet.in.h:23
+#: sheets/ciscomisc.sheet.in.h:21
 msgid "MDU"
 msgstr ""
 
+#: sheets/ciscomisc.sheet.in.h:22
+msgid "Mac Woman"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:23
+#, fuzzy
+msgid "Man"
+msgstr "放大"
+
 #: sheets/ciscomisc.sheet.in.h:24
-msgid "Mac woman"
+msgid "Man blue"
 msgstr ""
 
 #: sheets/ciscomisc.sheet.in.h:25
-msgid "Man/Woman"
+msgid "Man gold"
 msgstr ""
 
+#: sheets/ciscomisc.sheet.in.h:26
+#, fuzzy
+msgid "Man red"
+msgstr "形狀"
+
 #: sheets/ciscomisc.sheet.in.h:27
+msgid "Medium Building"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:28
+msgid "Medium Building blue"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:29
+msgid "Medium Building subdued"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:31
 #, fuzzy
 msgid "Miscellaneous shapes by Cisco"
 msgstr "其它形狀"
 
-#: sheets/ciscomisc.sheet.in.h:28
-msgid "PC man"
-msgstr ""
-
-#: sheets/ciscomisc.sheet.in.h:29
-#, fuzzy
-msgid "Phone"
-msgstr "無"
-
-#: sheets/ciscomisc.sheet.in.h:30
-msgid "Phone/Fax"
-msgstr ""
-
-#: sheets/ciscomisc.sheet.in.h:31
-msgid "RPS"
-msgstr ""
-
 #: sheets/ciscomisc.sheet.in.h:32
-#, fuzzy
-msgid "Radio tower"
-msgstr "無線電波"
+msgid "PC Man"
+msgstr ""
 
 #: sheets/ciscomisc.sheet.in.h:33
-msgid "Running man"
+msgid "PC Man left"
 msgstr ""
 
 #: sheets/ciscomisc.sheet.in.h:34
-msgid "SVX (interchangeable with End office)"
+msgid "Running man"
 msgstr ""
 
 #: sheets/ciscomisc.sheet.in.h:35
+msgid "Running man subdued"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:36
+msgid "Running woman"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:37
 #, fuzzy
 msgid "Satellite"
 msgstr "繪畫橢圓"
 
-#: sheets/ciscomisc.sheet.in.h:36
+#: sheets/ciscomisc.sheet.in.h:38
 msgid "Satellite dish"
 msgstr ""
 
-#: sheets/ciscomisc.sheet.in.h:37
-msgid "Sitting woman"
-msgstr ""
-
-#: sheets/ciscomisc.sheet.in.h:38
-msgid "Small business"
+#: sheets/ciscomisc.sheet.in.h:39
+msgid "Sitting Woman"
 msgstr ""
 
 #: sheets/ciscomisc.sheet.in.h:40
-msgid "Standing man"
+msgid "Sitting Woman right"
 msgstr ""
 
 #: sheets/ciscomisc.sheet.in.h:41
-#, fuzzy
-msgid "Tablet"
-msgstr "啟用"
+msgid "Small Business"
+msgstr ""
 
-#: sheets/ciscomisc.sheet.in.h:42
+#: sheets/ciscomisc.sheet.in.h:43
+msgid "Standing Man"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:44
+msgid "Standing woman"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:45
 #, fuzzy
 msgid "Telecommuter"
 msgstr "電腦"
 
-#: sheets/ciscomisc.sheet.in.h:43
+#: sheets/ciscomisc.sheet.in.h:46
 msgid "Telecommuter house"
 msgstr ""
 
-#: sheets/ciscomisc.sheet.in.h:44
-msgid "Telecommuter house/router"
-msgstr ""
+#: sheets/ciscomisc.sheet.in.h:47
+#, fuzzy
+msgid "Telecommuter house subdued"
+msgstr "電腦"
 
-#: sheets/ciscomisc.sheet.in.h:45
-msgid "TokenRing"
-msgstr ""
-
-#: sheets/ciscomisc.sheet.in.h:46
+#: sheets/ciscomisc.sheet.in.h:48
 msgid "Truck"
 msgstr ""
 
-#: sheets/ciscomisc.sheet.in.h:47
-msgid "UPS"
-msgstr ""
-
-#: sheets/ciscomisc.sheet.in.h:48
+#: sheets/ciscomisc.sheet.in.h:49
 #, fuzzy
 msgid "University"
 msgstr "相反區域"
 
-#: sheets/ciscomisc.sheet.in.h:49
-msgid "Video camera"
+#: sheets/ciscomisc.sheet.in.h:50
+msgid "Video Camera"
 msgstr ""
 
-#: sheets/ciscomisc.sheet.in.h:50
-msgid "Wireless transport"
+#: sheets/ciscomisc.sheet.in.h:51
+msgid "Video Camera right"
 msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:52
+#, fuzzy
+msgid "Woman"
+msgstr "人類"
+
+#: sheets/ciscomisc.sheet.in.h:53
+msgid "Woman blue"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:54
+msgid "Woman gold"
+msgstr ""
+
+#: sheets/ciscomisc.sheet.in.h:55
+#, fuzzy
+msgid "Woman red"
+msgstr "相同類型"
 
 #: sheets/cisconetwork.sheet.in.h:1
 msgid "10700"
@@ -7591,110 +7920,115 @@ msgid "15200"
 msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:3
-msgid "3174 (desktop) cluster controller"
+msgid "15800"
 msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:4
-msgid "3X74 (floor) cluster controller"
+msgid "3174 (desktop) cluster controller"
 msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:5
-msgid "6701"
+msgid "3X74 (floor) cluster controller"
 msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:6
-msgid "6705 Integrated access device"
-msgstr ""
+#, fuzzy
+msgid "Access Server"
+msgstr "/檔案(F)/儲存(_S)"
 
 #: sheets/cisconetwork.sheet.in.h:7
-msgid "6732 Multiservice access platform"
-msgstr ""
-
-#: sheets/cisconetwork.sheet.in.h:8
-#, fuzzy
-msgid "ADM"
-msgstr "AND"
-
-#: sheets/cisconetwork.sheet.in.h:9
-msgid "ASIC processor"
-msgstr ""
-
-#: sheets/cisconetwork.sheet.in.h:10
-msgid "ATA"
-msgstr ""
-
-#: sheets/cisconetwork.sheet.in.h:11
-msgid "ATM 3800"
-msgstr ""
-
-#: sheets/cisconetwork.sheet.in.h:12
 msgid "AccessPoint"
 msgstr ""
 
-#: sheets/cisconetwork.sheet.in.h:13
-msgid "BBSM"
+#: sheets/cisconetwork.sheet.in.h:8
+msgid "Automatic Protection Switching"
 msgstr ""
 
-#: sheets/cisconetwork.sheet.in.h:14
-msgid "BTS 10200"
+#: sheets/cisconetwork.sheet.in.h:9
+msgid "BBFW"
 msgstr ""
 
-#: sheets/cisconetwork.sheet.in.h:15
+#: sheets/cisconetwork.sheet.in.h:10
+msgid "BBFW media"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:11
+#, fuzzy
+msgid "Breakout box"
+msgstr "繪畫方框"
+
+#: sheets/cisconetwork.sheet.in.h:12
 #, fuzzy
 msgid "Bridge"
 msgstr "提供"
 
-#: sheets/cisconetwork.sheet.in.h:16
-msgid "CDDI-FDDI"
+#: sheets/cisconetwork.sheet.in.h:13
+msgid "CDDI/FDDI Concentrator"
 msgstr ""
 
-#: sheets/cisconetwork.sheet.in.h:17
-msgid "CDM Content distribution manager"
+#: sheets/cisconetwork.sheet.in.h:14
+msgid "CDM Content Distribution Manager"
 msgstr ""
 
-#: sheets/cisconetwork.sheet.in.h:18
+#: sheets/cisconetwork.sheet.in.h:15
 msgid "CSU/DSU"
 msgstr ""
 
-#: sheets/cisconetwork.sheet.in.h:19
+#: sheets/cisconetwork.sheet.in.h:16
 #, fuzzy
-msgid "Cable modem"
+msgid "Cable Modem"
 msgstr "普通數據機"
 
-#: sheets/cisconetwork.sheet.in.h:20
+#: sheets/cisconetwork.sheet.in.h:17
+msgid "Catalyst Access Gateway"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:18
 #, fuzzy
-msgid "CallManager"
-msgstr "計算"
+msgid "Centri Firewall"
+msgstr "防火牆"
 
-#: sheets/cisconetwork.sheet.in.h:21
-msgid "Catalyst access gateway"
-msgstr ""
+#: sheets/cisconetwork.sheet.in.h:19
+#, fuzzy
+msgid "Channelized Pipe"
+msgstr "頻道"
 
-#: sheets/cisconetwork.sheet.in.h:22
-msgid "Centri firewall"
-msgstr ""
-
-#: sheets/cisconetwork.sheet.in.h:23
+#: sheets/cisconetwork.sheet.in.h:20
 #, fuzzy
 msgid "Cisco - Network"
 msgstr "網路"
 
-#: sheets/cisconetwork.sheet.in.h:24
+#: sheets/cisconetwork.sheet.in.h:21
 #, fuzzy
 msgid "Cloud"
 msgstr "顏色："
 
-#: sheets/cisconetwork.sheet.in.h:25
+#: sheets/cisconetwork.sheet.in.h:22
 #, fuzzy
-msgid "Content engine (Cache director)"
-msgstr "找不到說明文件目錄"
+msgid "Cloud Dark"
+msgstr "顏色："
 
-#: sheets/cisconetwork.sheet.in.h:26
-msgid "Content transformation engine (CTE)"
+#: sheets/cisconetwork.sheet.in.h:23
+#, fuzzy
+msgid "Cloud Gold"
+msgstr "顏色："
+
+#: sheets/cisconetwork.sheet.in.h:24
+#, fuzzy
+msgid "Cloud White"
+msgstr "顏色："
+
+#: sheets/cisconetwork.sheet.in.h:25
+msgid "Concatenated Payload"
 msgstr ""
 
+#: sheets/cisconetwork.sheet.in.h:26
+#, fuzzy
+msgid "Content Engine (Cache Director)"
+msgstr "找不到說明文件目錄"
+
 #: sheets/cisconetwork.sheet.in.h:27
-msgid "DPT"
+msgid "Content Transformation Engine (CTE)"
 msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:28
@@ -7703,342 +8037,573 @@ msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:29
 #, fuzzy
-msgid "DWDM filter"
+msgid "DWDM Filter"
 msgstr "WMF 匯出過濾器"
 
 #: sheets/cisconetwork.sheet.in.h:30
 #, fuzzy
-msgid "Distributed director"
-msgstr "散佈"
+msgid "Detector"
+msgstr "相關角色"
 
 #: sheets/cisconetwork.sheet.in.h:31
-#, fuzzy
-msgid "FC storage"
-msgstr "儲存裝置"
+msgid "Digital Cross-Connect"
+msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:32
-msgid "FDDI ring"
+msgid "Directory Server"
 msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:33
 #, fuzzy
-msgid "Firewall"
-msgstr "防火牆"
+msgid "Distributed Director"
+msgstr "散佈"
 
 #: sheets/cisconetwork.sheet.in.h:34
-#, fuzzy
-msgid "Front end processor"
-msgstr "水平放置的壓縮機"
+msgid "Dual Mode AccessPoint"
+msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:35
-msgid "General appliance"
+msgid "FDDI Ring"
 msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:36
-msgid "Generic gateway"
-msgstr ""
+#, fuzzy
+msgid "File Engine"
+msgstr "檔案名稱"
 
 #: sheets/cisconetwork.sheet.in.h:37
 #, fuzzy
-msgid "Generic processor"
-msgstr "一般壓力來源"
+msgid "Firewall"
+msgstr "防火牆"
 
 #: sheets/cisconetwork.sheet.in.h:38
-msgid "ICM"
-msgstr ""
+#, fuzzy
+msgid "Firewall Service Module"
+msgstr "防火牆"
 
 #: sheets/cisconetwork.sheet.in.h:39
-msgid "ICS"
-msgstr ""
+#, fuzzy
+msgid "Firewall horizontal"
+msgstr "使用水平鏡像"
 
 #: sheets/cisconetwork.sheet.in.h:40
-msgid "IOS firewall"
-msgstr ""
+#, fuzzy
+msgid "Firewall subdued"
+msgstr "防火牆"
 
 #: sheets/cisconetwork.sheet.in.h:41
-msgid "IP"
+msgid "General Appliance"
 msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:42
-msgid "IP DSL"
-msgstr ""
-
-#: sheets/cisconetwork.sheet.in.h:43
-msgid "IPTC"
+msgid "Generic Gateway"
 msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:44
-msgid "IPTV content manager"
-msgstr ""
+#, fuzzy
+msgid "IOS Firewall"
+msgstr "防火牆"
 
 #: sheets/cisconetwork.sheet.in.h:45
-#, fuzzy
-msgid "LocalDirector"
-msgstr "方向："
+msgid "IOS SLB"
+msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:46
-msgid "LongReach CPE"
+msgid "IP"
 msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:47
 #, fuzzy
-msgid "MAS gateway"
-msgstr "及閘"
+msgid "IP DSL Switch"
+msgstr "轉換"
 
 #: sheets/cisconetwork.sheet.in.h:48
-msgid "ME 1100"
+msgid "IP Old-style"
 msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:49
-msgid "MUX"
+msgid "IP Transport Concentrator"
 msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:50
-msgid "Metro 1500"
+msgid "IPTV broadcast server"
 msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:51
-#, fuzzy
-msgid "Modem"
-msgstr "移動"
+msgid "IPTV content manager"
+msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:52
-msgid "NetRanger intrusion detection system"
+msgid "LAN to LAN"
 msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:53
-msgid "NetSonar security scanner"
+msgid "Lightweight AP"
 msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:54
 #, fuzzy
-msgid "Network management"
-msgstr "網路圖表物件"
+msgid "LocalDirector"
+msgstr "方向："
 
 #: sheets/cisconetwork.sheet.in.h:55
-msgid "Network shapes by Cisco"
-msgstr ""
+#, fuzzy
+msgid "Location server"
+msgstr "Sybase 備援伺服器"
 
 #: sheets/cisconetwork.sheet.in.h:56
-msgid "ONS15500 DWDM platform"
+msgid "LongReach CPE"
 msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:57
-msgid "Octel"
-msgstr ""
+#, fuzzy
+msgid "MAS Gateway"
+msgstr "及閘"
 
 #: sheets/cisconetwork.sheet.in.h:58
-#, fuzzy
-msgid "Optical amplifier"
-msgstr "運算放大器"
+msgid "MAU"
+msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:59
-#, fuzzy
-msgid "Optical transport"
-msgstr "光學能量"
+msgid "ME 1100"
+msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:60
+msgid "MUX"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:61
+msgid "Metro 1500"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:62
+#, fuzzy
+msgid "NAT"
+msgstr "反閘"
+
+#: sheets/cisconetwork.sheet.in.h:63
+#, fuzzy
+msgid "Network Management"
+msgstr "網路圖表物件"
+
+#: sheets/cisconetwork.sheet.in.h:64
+msgid "Network shapes by Cisco"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:65
+msgid "ONS15104"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:66
+msgid "ONS15540"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:67
+#, fuzzy
+msgid "Optical Amplifier"
+msgstr "運算放大器"
+
+#: sheets/cisconetwork.sheet.in.h:68
+#, fuzzy
+msgid "Optical Cross-Connect"
+msgstr "光學能量"
+
+#: sheets/cisconetwork.sheet.in.h:69
+#, fuzzy
+msgid "Optical Fiber"
+msgstr "光學能量"
+
+#: sheets/cisconetwork.sheet.in.h:70
+#, fuzzy
+msgid "Optical Transport"
+msgstr "光學能量"
+
+#: sheets/cisconetwork.sheet.in.h:71
 #, fuzzy
 msgid "PAD"
 msgstr "AND"
 
-#: sheets/cisconetwork.sheet.in.h:61
-msgid "PAD X.28"
-msgstr ""
-
-#: sheets/cisconetwork.sheet.in.h:62
-msgid "PBX"
-msgstr ""
-
-#: sheets/cisconetwork.sheet.in.h:63
-msgid "PC adapter card"
-msgstr ""
-
-#: sheets/cisconetwork.sheet.in.h:64
+#: sheets/cisconetwork.sheet.in.h:72
 #, fuzzy
-msgid "PC router card"
-msgstr "穿孔卡片"
+msgid "PIX Firewall"
+msgstr "防火牆"
 
-#: sheets/cisconetwork.sheet.in.h:65
-msgid "PIX firewall"
-msgstr ""
-
-#: sheets/cisconetwork.sheet.in.h:66
-msgid "PXF"
-msgstr ""
-
-#: sheets/cisconetwork.sheet.in.h:67
-msgid "Protocol translator"
-msgstr ""
-
-#: sheets/cisconetwork.sheet.in.h:68
+#: sheets/cisconetwork.sheet.in.h:73
 #, fuzzy
-msgid "RateMUX"
-msgstr "旋轉"
+msgid "PIX Firewall Left"
+msgstr "防火牆"
 
-#: sheets/cisconetwork.sheet.in.h:69
+#: sheets/cisconetwork.sheet.in.h:74
+msgid "Protocol Translator"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:75
+msgid "RPS"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:76
 #, fuzzy
 msgid "Repeater"
 msgstr "揚聲器"
 
-#: sheets/cisconetwork.sheet.in.h:70
-msgid "SC2200 (Signalling controller)"
+#: sheets/cisconetwork.sheet.in.h:77
+#, fuzzy
+msgid "SSL Terminator"
+msgstr "終端機"
+
+#: sheets/cisconetwork.sheet.in.h:78
+msgid "STB (set top box)"
 msgstr ""
 
-#: sheets/cisconetwork.sheet.in.h:71
-msgid "STP"
-msgstr ""
+#: sheets/cisconetwork.sheet.in.h:79
+#, fuzzy
+msgid "Security appliance"
+msgstr "Sybase 客戶端程式"
 
-#: sheets/cisconetwork.sheet.in.h:72
+#: sheets/cisconetwork.sheet.in.h:80
+#, fuzzy
+msgid "Service Control"
+msgstr "對稱控制"
+
+#: sheets/cisconetwork.sheet.in.h:81
+#, fuzzy
+msgid "Storage Solution Engine"
+msgstr "儲存裝置"
+
+#: sheets/cisconetwork.sheet.in.h:82
 #, fuzzy
 msgid "System controller"
 msgstr "對稱控制"
 
-#: sheets/cisconetwork.sheet.in.h:73
-#, fuzzy
-msgid "Transpath"
-msgstr "輸送"
-
-#: sheets/cisconetwork.sheet.in.h:74
-msgid "Universal gateway"
+#: sheets/cisconetwork.sheet.in.h:83
+msgid "TV"
 msgstr ""
 
-#: sheets/cisconetwork.sheet.in.h:75
+#: sheets/cisconetwork.sheet.in.h:84
+#, fuzzy
+msgid "Terminal Server"
+msgstr "中斷"
+
+#: sheets/cisconetwork.sheet.in.h:85
+msgid "TokenRing"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:86
+#, fuzzy
+msgid "TransPath"
+msgstr "輸送"
+
+#: sheets/cisconetwork.sheet.in.h:87
+msgid "UPS"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:88
 msgid "VIP"
 msgstr ""
 
-#: sheets/cisconetwork.sheet.in.h:76
-msgid "VPN concentrator"
+#: sheets/cisconetwork.sheet.in.h:89
+msgid "VN2900"
 msgstr ""
 
-#: sheets/cisconetwork.sheet.in.h:77
+#: sheets/cisconetwork.sheet.in.h:90
+msgid "VN5900"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:91
+msgid "VN5902"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:92
+msgid "VPN Concentrator"
+msgstr ""
+
+#: sheets/cisconetwork.sheet.in.h:93
 #, fuzzy
-msgid "VPN gateway"
+msgid "VPN Gateway"
 msgstr "反或閘"
 
-#: sheets/cisconetwork.sheet.in.h:78
-msgid "Virtual switch controller (VSC 3000)"
-msgstr ""
-
-#: sheets/cisconetwork.sheet.in.h:79
-msgid "Wireless bridge"
-msgstr ""
-
-#: sheets/ciscorouter.sheet.in.h:1
-msgid "7500ARS (7513)"
-msgstr ""
-
-#: sheets/ciscorouter.sheet.in.h:2
-msgid "7505"
-msgstr ""
-
-#: sheets/ciscorouter.sheet.in.h:3
-msgid "7507"
-msgstr ""
-
-#: sheets/ciscorouter.sheet.in.h:4
-msgid "ATM router"
-msgstr ""
-
-#: sheets/ciscorouter.sheet.in.h:5
-msgid "ATM tag sw gigabit router"
-msgstr ""
-
-#: sheets/ciscorouter.sheet.in.h:6
+#: sheets/cisconetwork.sheet.in.h:94
 #, fuzzy
-msgid "ATM tag switch router"
-msgstr "ATM 交換器(switch)"
+msgid "WAN"
+msgstr "AND"
 
-#: sheets/ciscorouter.sheet.in.h:7
-msgid "Broadband router"
+#: sheets/cisconetwork.sheet.in.h:95
+#, fuzzy
+msgid "WDM"
+msgstr "AND"
+
+#: sheets/cisconetwork.sheet.in.h:96
+#, fuzzy
+msgid "WLAN controller"
+msgstr "對稱控制"
+
+#: sheets/cisconetwork.sheet.in.h:97
+msgid "Wi-Fi Tag"
 msgstr ""
 
-#: sheets/ciscorouter.sheet.in.h:8
-msgid "Cisco - Router"
+#: sheets/cisconetwork.sheet.in.h:98
+msgid "Wireless Bridge"
 msgstr ""
 
-#: sheets/ciscorouter.sheet.in.h:9
-msgid "Cisco 1000"
+#: sheets/cisconetwork.sheet.in.h:99
+msgid "Wireless Connectivity"
 msgstr ""
 
-#: sheets/ciscorouter.sheet.in.h:10
-msgid "Content service router"
+#: sheets/cisconetwork.sheet.in.h:100
+msgid "Wireless Location Appliance"
 msgstr ""
 
-#: sheets/ciscorouter.sheet.in.h:11
-msgid "Gigabit switch router (ATM tag)"
+#: sheets/cisconetwork.sheet.in.h:101
+#, fuzzy
+msgid "Wireless Transport"
+msgstr "輸送"
+
+#: sheets/cisconetwork.sheet.in.h:102
+msgid "uBR910 Cable DSU"
 msgstr ""
 
-#: sheets/ciscorouter.sheet.in.h:12
+#: sheets/ciscotelephony.sheet.in.h:1
+msgid "6701"
+msgstr ""
+
+#: sheets/ciscotelephony.sheet.in.h:2
+msgid "6705"
+msgstr ""
+
+#: sheets/ciscotelephony.sheet.in.h:3
+msgid "6732"
+msgstr ""
+
+#: sheets/ciscotelephony.sheet.in.h:4
+#, fuzzy
+msgid "ADM"
+msgstr "AND"
+
+#: sheets/ciscotelephony.sheet.in.h:5
+msgid "ATA"
+msgstr ""
+
+#: sheets/ciscotelephony.sheet.in.h:6
+msgid "BTS 10200"
+msgstr ""
+
+#: sheets/ciscotelephony.sheet.in.h:7
+#, fuzzy
+msgid "CallManager"
+msgstr "計算"
+
+#: sheets/ciscotelephony.sheet.in.h:8
+#, fuzzy
+msgid "Cellular Phone"
+msgstr "電話"
+
+#: sheets/ciscotelephony.sheet.in.h:9
+#, fuzzy
+msgid "Cisco - Telephony"
+msgstr "網路"
+
+#: sheets/ciscotelephony.sheet.in.h:10
+msgid "Class 4/5 switch"
+msgstr ""
+
+#: sheets/ciscotelephony.sheet.in.h:11
+#, fuzzy
+msgid "End Office"
+msgstr "結束時間"
+
+#: sheets/ciscotelephony.sheet.in.h:12
+msgid "Fax"
+msgstr ""
+
+#: sheets/ciscotelephony.sheet.in.h:13
+msgid "Gatekeeper"
+msgstr ""
+
+#: sheets/ciscotelephony.sheet.in.h:14
+msgid "Generic softswitch"
+msgstr ""
+
+#: sheets/ciscotelephony.sheet.in.h:15
+msgid "H.323"
+msgstr ""
+
+#: sheets/ciscotelephony.sheet.in.h:16
+msgid "HootPhone"
+msgstr ""
+
+#: sheets/ciscotelephony.sheet.in.h:17
 msgid "IAD router"
 msgstr ""
 
-#: sheets/ciscorouter.sheet.in.h:13
-msgid "IP telephony router"
+#: sheets/ciscotelephony.sheet.in.h:18
+msgid "ICM"
 msgstr ""
 
-#: sheets/ciscorouter.sheet.in.h:14
+#: sheets/ciscotelephony.sheet.in.h:19
+msgid "ICS"
+msgstr ""
+
+#: sheets/ciscotelephony.sheet.in.h:20
 #, fuzzy
-msgid "NetFlow router"
+msgid "IP Phone"
+msgstr "行動電話"
+
+#: sheets/ciscotelephony.sheet.in.h:21
+msgid "IP Softphone"
+msgstr ""
+
+#: sheets/ciscotelephony.sheet.in.h:22
+#, fuzzy
+msgid "IP Telephony Router"
+msgstr "電話"
+
+#: sheets/ciscotelephony.sheet.in.h:23
+msgid "ITP"
+msgstr ""
+
+#: sheets/ciscotelephony.sheet.in.h:24
+msgid "IntelliSwitch Stack"
+msgstr ""
+
+#: sheets/ciscotelephony.sheet.in.h:25
+msgid "MCU"
+msgstr ""
+
+#: sheets/ciscotelephony.sheet.in.h:26
+msgid "MGX 8000 Series Voice Gateway"
+msgstr ""
+
+#: sheets/ciscotelephony.sheet.in.h:27
+msgid "MoH server (Music on Hold)"
+msgstr ""
+
+#: sheets/ciscotelephony.sheet.in.h:28
+#, fuzzy
+msgid "Mobile Access IP Phone"
+msgstr "行動電話"
+
+#: sheets/ciscotelephony.sheet.in.h:29
+#, fuzzy
+msgid "Mobile Access Router"
 msgstr "防火牆"
 
-#: sheets/ciscorouter.sheet.in.h:15
-msgid "Optical services router"
+#: sheets/ciscotelephony.sheet.in.h:30
+msgid "Octel"
 msgstr ""
 
-#: sheets/ciscorouter.sheet.in.h:16
+#: sheets/ciscotelephony.sheet.in.h:31
+msgid "PBX"
+msgstr ""
+
+#: sheets/ciscotelephony.sheet.in.h:32
 #, fuzzy
-msgid "Router"
-msgstr "轉子"
+msgid "PBX Switch"
+msgstr "轉換"
 
-#: sheets/ciscorouter.sheet.in.h:17
-msgid "Router in building"
-msgstr ""
-
-#: sheets/ciscorouter.sheet.in.h:18
-msgid "Router shapes by Cisco"
-msgstr ""
-
-#: sheets/ciscorouter.sheet.in.h:19
-msgid "Router with firewall"
-msgstr ""
-
-#: sheets/ciscorouter.sheet.in.h:20
-msgid "Router with silicon switch"
-msgstr ""
-
-#: sheets/ciscorouter.sheet.in.h:21
+#: sheets/ciscotelephony.sheet.in.h:33
 #, fuzzy
-msgid "Storage router"
-msgstr "儲存裝置"
+msgid "Pager"
+msgstr "分頁線："
 
-#: sheets/ciscorouter.sheet.in.h:22
+#: sheets/ciscotelephony.sheet.in.h:34
+#, fuzzy
+msgid "Phone"
+msgstr "無"
+
+#: sheets/ciscotelephony.sheet.in.h:35
+#, fuzzy
+msgid "Phone 2"
+msgstr "無"
+
+#: sheets/ciscotelephony.sheet.in.h:36
+msgid "Phone Appliance"
+msgstr ""
+
+#: sheets/ciscotelephony.sheet.in.h:37
+#, fuzzy
+msgid "Phone Ethernet"
+msgstr "Ethernet 匯流排"
+
+#: sheets/ciscotelephony.sheet.in.h:38
+msgid "Phone Feature"
+msgstr ""
+
+#: sheets/ciscotelephony.sheet.in.h:39
+msgid "Phone/Fax"
+msgstr ""
+
+#: sheets/ciscotelephony.sheet.in.h:40
+#, fuzzy
+msgid "Radio Tower"
+msgstr "無線電波"
+
+#: sheets/ciscotelephony.sheet.in.h:41
+msgid "SC2200 (Signalling Controller)"
+msgstr ""
+
+#: sheets/ciscotelephony.sheet.in.h:42
+msgid "SC2200/VSC3000 host"
+msgstr ""
+
+#: sheets/ciscotelephony.sheet.in.h:43
+msgid "SIP Proxy Server"
+msgstr ""
+
+#: sheets/ciscotelephony.sheet.in.h:44
+msgid "SONET MUX"
+msgstr ""
+
+#: sheets/ciscotelephony.sheet.in.h:45
+msgid "STP"
+msgstr ""
+
+#: sheets/ciscotelephony.sheet.in.h:46
+#, fuzzy
+msgid "Softphone"
+msgstr "擴音器"
+
+#: sheets/ciscotelephony.sheet.in.h:47
 msgid "TDM router"
 msgstr ""
 
-#: sheets/ciscorouter.sheet.in.h:23
+#: sheets/ciscotelephony.sheet.in.h:48
 #, fuzzy
-msgid "Voice router"
+msgid "Telephony shapes by Cisco"
+msgstr "其它形狀"
+
+#: sheets/ciscotelephony.sheet.in.h:49
+#, fuzzy
+msgid "Turret"
+msgstr "電流"
+
+#: sheets/ciscotelephony.sheet.in.h:50
+msgid "Unity Express"
+msgstr ""
+
+#: sheets/ciscotelephony.sheet.in.h:51
+msgid "Unity server"
+msgstr ""
+
+#: sheets/ciscotelephony.sheet.in.h:52
+msgid "Virtual switch controller (VSC 3000)"
+msgstr ""
+
+#: sheets/ciscotelephony.sheet.in.h:53
+#, fuzzy
+msgid "Voice-Enabled ATM Switch"
+msgstr "ATM 交換器(switch)"
+
+#: sheets/ciscotelephony.sheet.in.h:54
+msgid "Voice-Enabled Access Server"
+msgstr ""
+
+#: sheets/ciscotelephony.sheet.in.h:55
+#, fuzzy
+msgid "Voice-Enabled Router"
 msgstr "防火牆"
 
-#: sheets/ciscorouter.sheet.in.h:24
-msgid "Wavelength router"
-msgstr ""
-
-#: sheets/ciscorouter.sheet.in.h:25
-msgid "Workgroup 5000 multilayer switch"
-msgstr ""
-
-#: sheets/ciscorouter.sheet.in.h:26
-msgid "Workgroup 5002 multilayer switch"
-msgstr ""
-
-#: sheets/ciscorouter.sheet.in.h:27
-msgid "Workgroup 5500 multilayer switch"
-msgstr ""
-
-#: sheets/ciscorouter.sheet.in.h:28
-msgid "uBR910"
+#: sheets/ciscotelephony.sheet.in.h:56
+msgid "uMG series"
 msgstr ""
 
 #: sheets/civil.sheet.in.h:1
@@ -8302,10 +8867,6 @@ msgstr "行動電話"
 msgid "Modular switching system"
 msgstr ""
 
-#: sheets/network.sheet.in.h:19
-msgid "Monitor"
-msgstr "螢幕"
-
 #: sheets/network.sheet.in.h:20
 msgid "Network"
 msgstr "網路"
@@ -8418,6 +8979,14 @@ msgstr "Sybase 數據庫"
 msgid "Sybase replication server"
 msgstr "Sybase 備援伺服器"
 
+#, fuzzy
+#~ msgid "Workstation"
+#~ msgstr "UNIX 工作站"
+
+#, fuzzy
+#~ msgid "Dot-Dot"
+#~ msgstr "虛線-點-點"
+
 #~ msgid "Export to file format and exit"
 #~ msgstr "匯出至指定的檔案格式並結束"
 
@@ -8429,9 +8998,6 @@ msgstr "Sybase 備援伺服器"
 
 #~ msgid "No object menu"
 #~ msgstr "沒有物件選單"
-
-#~ msgid "Close"
-#~ msgstr "關閉"
 
 #~ msgid "_New diagram"
 #~ msgstr "新增圖表(_N)"

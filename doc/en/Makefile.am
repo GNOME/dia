@@ -33,11 +33,13 @@ EXTRA_DIST += \
 #	graphics/greendots.png
 
 if HAVE_DB2MAN
+# Anyone out there who understands automake?
+DISTCLEANFILES = dia.1
 # If we want misconfigured XML catalogs to not try net access, use
 # --nonet.  But I don't think that's going to solve more problems
 # than it causes.
 dia.1: dia.dbk
-	xsltproc --nonet --novalid $(DB2MAN) dia.dbk >dia.1
+	xsltproc --nonet --novalid $(DB2MAN) $< >dia.1
 endif
 
 man_MANS = dia.1
