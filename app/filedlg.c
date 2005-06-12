@@ -596,20 +596,6 @@ file_export_callback(gpointer data, guint action, GtkWidget *widget)
 					    NULL);
     gtk_window_set_role(GTK_WINDOW(exportdlg), "export_diagram");
     gtk_window_set_position(GTK_WINDOW(exportdlg), GTK_WIN_POS_MOUSE);
-    if (dia && dia->filename)
-      filename = g_filename_from_utf8(dia->filename, -1, NULL, NULL, NULL);
-    if (filename != NULL) {
-      gchar *fnabs = dia_get_absolute_filename (filename);
-      if (fnabs) {
-        gchar *base = g_path_get_basename(fnabs);
-        gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(exportdlg), fnabs);
-        /* FileChooser api insist on exiting files for set_filename  */
-        gtk_file_chooser_set_current_name(GTK_FILE_CHOOSER(exportdlg), base);
-        g_free(base);
-      }
-      g_free (fnabs);
-      g_free(filename);
-    }
     g_signal_connect(GTK_OBJECT(exportdlg), "destroy",
 		     G_CALLBACK(gtk_widget_destroyed), &exportdlg);
   }
@@ -658,19 +644,26 @@ file_export_callback(gpointer data, guint action, GtkWidget *widget)
   g_object_ref(dia); 
   gtk_object_set_user_data(GTK_OBJECT(exportdlg), dia);
   gtk_widget_set_sensitive(exportdlg, TRUE);
-  if (GTK_WIDGET_VISIBLE(exportdlg))
-    return;
+
   if (dia && dia->filename)
     filename = g_filename_from_utf8(dia->filename, -1, NULL, NULL, NULL);
   if (filename != NULL) {
     char* fnabs = dia_get_absolute_filename (filename);
-    if (fnabs)
-      gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(exportdlg), fnabs);
+    if (fnabs) {
+      char *folder = g_path_get_dirname (fnabs);
+      char *basename = g_path_get_basename (fnabs);
+      /* can't use gtk_file_chooser_set_filename for various reasons, see e.g. bug #305850 */
+      gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER(exportdlg), folder);
+      gtk_file_chooser_set_current_name (GTK_FILE_CHOOSER(exportdlg), basename);
+      g_free (folder);
+      g_free (basename);
+    }
     g_free(fnabs);
     g_free(filename);
   }
   export_set_extension(GTK_WIDGET(g_object_get_data(G_OBJECT(exportdlg), 
 						    "export-menu")));
 
-  gtk_widget_show(exportdlg);
+  if (GTK_WIDGET_VISIBLE(exportdlg))
+    gtk_widget_show(exportdlg);
 }

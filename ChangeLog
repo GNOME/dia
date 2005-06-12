@@ -1,3 +1,8 @@
+2005-06-12  Hans Breuer  <hans@breuer.org>
+
+	* app/filedlg.c : really fix the file extension mismatch on export dialog
+	by working around some gtk+-2.6 behaviour (bug #307378). Fixes bug #305850
+
 2005-06-11  Hans Breuer  <hans@breuer.org>
 
 	* configure.in config.h.win32.h : mark as +cvs (should have been 
@@ -5,7 +10,7 @@
 	* NEWS : attempt to summarize 2/3 year of development
 
 	[ 
-	  WANTK_AUTOMAKE=1.7 ./autogen.sh && ./conifugre  --enable-maintatiner-mode && make distcheck
+	  WANT_AUTOMAKE=1.7 ./autogen.sh && ./conifugre  --enable-maintatiner-mode && make distcheck
 	  finally passes again
 	]
 	* app/app_procs.c : force use of POPT for the GNOME case, otherwise
