@@ -18,6 +18,8 @@
  */
 
 #include <config.h>
+
+#include <Python.h>
 #include <glib.h>
 
 #include <locale.h>
@@ -78,7 +80,7 @@ struct _DiaPyRendererClass
  * Members overwritable by Python scripts
  */
 static void
-begin_render(DiaRenderer *renderer, DiagramData *data)
+begin_render(DiaRenderer *renderer)
 {
   PyObject *func, *res, *arg, *self = PYDIA_RENDERER (renderer);
 
@@ -706,8 +708,6 @@ PyDia_export_data(DiagramData *data, const gchar *filename,
                   const gchar *diafilename, void* user_data)
 {
   DiaPyRenderer *renderer;
-  Rectangle *extent;
-  gint len;
 
   {
     FILE *file;
@@ -773,7 +773,10 @@ dia_py_renderer_get_type (void)
 static void
 dia_py_renderer_finalize (GObject *object)
 {
-  DiaPyRenderer *dia_py_renderer = DIA_PY_RENDERER (object);
+  DiaPyRenderer *renderer = DIA_PY_RENDERER (object);
+
+  if (renderer->filename)
+    g_free (renderer->filename);
 
   G_OBJECT_CLASS (parent_class)->finalize (object);
 }

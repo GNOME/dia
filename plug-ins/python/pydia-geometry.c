@@ -19,8 +19,6 @@
 
 #include <config.h>
 
-#include <glib.h>
-
 #include "pydia-object.h"
 #include "pydia-geometry.h"
 
@@ -343,7 +341,7 @@ PyDiaArrow_Str(PyDiaArrow *self)
     gchar* s = g_strdup_printf ("(%f,%f, %d)",
                                 (float)(self->arrow.width), 
                                 (float)(self->arrow.length),
-                                (float)(self->arrow.type));
+                                (int)(self->arrow.type));
     py_s = PyString_FromString(s);
     g_free(s);
     return py_s;

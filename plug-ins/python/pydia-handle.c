@@ -19,8 +19,6 @@
 
 #include <config.h>
 
-#include <glib.h>
-
 #include "pydia-handle.h"
 #include "pydia-cpoint.h"
 #include "pydia-geometry.h"
@@ -62,7 +60,7 @@ PyDiaHandle_Hash(PyDiaHandle *self)
 static PyObject *
 PyDiaHandle_Connect(PyDiaHandle *self, PyObject *args)
 {
-  PyDiaObject *obj;
+  PyObject *obj;
 
   if (!PyArg_ParseTuple(args, "O:Handle.connect", &obj))
 	return NULL;

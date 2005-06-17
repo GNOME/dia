@@ -18,9 +18,8 @@
  */
 
 #include <config.h>
-#undef HAVE_STDLIB_H
-#undef HAVE_FCNTL_H
 
+#include <Python.h>
 #include <glib.h>
 
 #include <pango/pango-attributes.h>
@@ -32,7 +31,7 @@
 #include "pydia-color.h"
 #include "pydia-text.h"
 
-/*#include "propinternals.h" /* include mess: needs tree.h, we don't */
+/* include mess: propinternals.h needs tree.h, we don't */
 #include "prop_inttypes.h"
 #include "prop_geomtypes.h"
 #include "prop_attr.h"
@@ -93,25 +92,6 @@ PyDiaProperty_Hash(PyObject *self)
  */
 typedef PyObject * (*PyDiaPropGetFunc) (Property*);
 typedef int (*PyDiaPropSetFunc) (Property*, PyObject *val);
-
-static PyObject *
-PyDia_get_tuple (GPtrArray *pa, PyDiaPropGetFunc subfn)
-{
-  PyObject* ret;
-  int i, num;
-
-  num = pa->len;
-  ret = PyTuple_New (num);
-  if (ret) {
-    for (i = 0; i < num; i++)
-      PyTuple_SetItem(ret, i, subfn(g_ptr_array_index(pa,i)));
-  }
-  else {
-    Py_INCREF(Py_None);
-    ret = Py_None;
-  }
-  return ret;
-}
 
 static PyObject * PyDia_get_Char (CharProperty *prop) 
 { return PyInt_FromLong(prop->char_data); }
@@ -485,7 +465,7 @@ struct {
   { PROP_TYPE_DARRAY, PyDia_get_Array, PyDia_set_Array }
 };
 
-void
+static void
 ensure_quarks(void)
 {
   static gboolean type_quarks_calculated = FALSE;
@@ -654,7 +634,6 @@ int PyDiaProperty_ApplyToObject (DiaObject   *object,
                                  Property *prop, 
                                  PyObject *val)
 {
-  PyObject *obj = NULL;
   int ret = -1;
 
   if PyDiaProperty_Check(val) {
@@ -709,10 +688,9 @@ static PyObject *
 PyDiaProperty_Str(PyDiaProperty *self)
 {
   PyObject* py_s;
-  gchar* tname = "OTHER";
   gchar* s;
 
-  s = g_strdup_printf("<DiaProperty at 0x%08x, \"%s\", %s>",
+  s = g_strdup_printf("<DiaProperty at %p, \"%s\", %s>",
                       self,
                       self->property->name,
                       self->property->type);

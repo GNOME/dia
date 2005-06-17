@@ -19,8 +19,6 @@
 
 #include <config.h>
 
-#include <glib.h>
-
 #include "pydia-object.h"
 #include "pydia-image.h"
 
@@ -126,14 +124,13 @@ static PyObject *
 PyDiaImage_Str(PyDiaImage *self)
 {
   PyObject* py_s;
-  gchar* name = dia_image_filename(self->image);
+  const gchar* name = dia_image_filename(self->image);
   gchar* s = g_strdup_printf("%ix%i,%s",
                              dia_image_width(self->image),
                              dia_image_height(self->image),
-                             name);
+                             name ? name : "(null)");
   py_s = PyString_FromString(s);
   g_free (s);
-  g_free (name);
   return py_s;
 }
 

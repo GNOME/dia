@@ -19,8 +19,6 @@
 
 #include <config.h>
 
-#include <glib.h>
-
 #include "pydia-object.h"
 #include "pydia-diagramdata.h"
 
@@ -68,7 +66,7 @@ static PyObject *
 PyDiaDiagramData_Str(PyDiaDiagramData *self)
 {
     PyObject* py_s;
-    gchar* s = g_strdup_printf ("<PyDiaDiagramData 0x%08x>", self);
+    gchar* s = g_strdup_printf ("<PyDiaDiagramData %p>", self);
     py_s = PyString_FromString(s);
     g_free(s);
     return py_s;

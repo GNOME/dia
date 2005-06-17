@@ -226,7 +226,10 @@ PyDia_RegisterExport(PyObject *self, PyObject *args)
 
     filter = g_new0 (DiaExportFilter, 1);
     filter->description = g_strdup (name);
-    filter->extensions = g_new (gchar*, 2);
+    /* the following is usually declared as a static const string array, but we can't
+     * cause there needs to be one for every export filter defined in Python. Silence gcc. 
+     */
+    filter->extensions = (const gchar**)g_new (gchar*, 2);
     filter->extensions[0] = g_strdup (ext);
     filter->extensions[1] = NULL;
     filter->export_func = &PyDia_export_data;
@@ -245,7 +248,7 @@ PyDia_RegisterExport(PyObject *self, PyObject *args)
  * It needs to be registered before via Python function 
  * dia.register_import
  */
-gboolean
+static gboolean
 PyDia_import_data (const gchar* filename, DiagramData *dia, void *user_data)
 {
     PyObject *diaobj, *res, *arg, *func = user_data;
@@ -298,7 +301,8 @@ PyDia_RegisterImport(PyObject *self, PyObject *args)
 
     filter = g_new0 (DiaImportFilter, 1);
     filter->description = g_strdup (name);
-    filter->extensions = g_new (gchar*, 2);
+    /* expects const gchar** but we can't really do that, silence gcc. */
+    filter->extensions = (const gchar**)g_new (gchar*, 2);
     filter->extensions[0] = g_strdup (ext);
     filter->extensions[1] = NULL;
     filter->import_func = &PyDia_import_data;
@@ -316,7 +320,7 @@ PyDia_RegisterImport(PyObject *self, PyObject *args)
  * It needs to be registered before via Python function 
  * dia.register_callback
  */
-void
+static void
 PyDia_callback_func (DiagramData *dia, guint flags, void *user_data)
 {
     PyObject *diaobj, *res, *arg, *func = user_data;

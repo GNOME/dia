@@ -1,3 +1,27 @@
+2005-06-17  Hans Breuer  <hans@breuer.org>
+
+	* plug-ins/python/pydia-*.c : include order tweaking to 
+	get rid of redefinition warnings. Ensure to include <Python.h> 
+	before any 'system' header, some dragged in by glib.h
+	* plug-ins/python/pydia-diagramdata.c(PyDiaDiagramData_Str)
+	  pydia-properties.c(PyDiaProperties_Str)
+	  plug-ins/python/pydia-property.c(PyDiaProperty_Str) : 
+	use %p to format pointers
+	* plug-ins/python/pydia-geometry.c(PyDiaArrow_Str) : 
+	dont cast to float for %d
+	* plug-ins/python/pydia-handle.c(PyDiaHandle_Connect) : 
+	use correct pointer type
+	* plug-ins/python/pydia-image.c(PyDiaImage_Str) :
+	dont discard qualifier aka dont free const strings
+	* plug-ins/python/pydia-properties.c : casts to PyCFunction
+	* plug-ins/python/pydia-property.c : removed unused function,
+	make ensure_quarks() static
+	* plug-ins/python/pydia-render.c : removed unused vars, use
+	the correct signature for begin_render
+	(dia_py_renderer_finalize): pluged a leak
+	=> except -fno-strict-aliasing there is no warning left in 
+	   all of PyDia
+
 2005-06-12  Hans Breuer  <hans@breuer.org>
 
 	* app/filedlg.c : really fix the file extension mismatch on export dialog

@@ -19,8 +19,6 @@
 
 #include <config.h>
 
-#include <glib.h>
-
 #include "pydia-display.h"
 #include "pydia-diagram.h"
 #include "pydia-object.h" /* for PyObject_HEAD_INIT */

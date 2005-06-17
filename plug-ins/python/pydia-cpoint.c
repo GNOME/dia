@@ -19,8 +19,6 @@
 
 #include <config.h>
 
-#include <glib.h>
-
 #include "pydia-geometry.h"
 #include "pydia-cpoint.h"
 #include "pydia-object.h"

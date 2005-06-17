@@ -19,8 +19,6 @@
 
 #include <config.h>
 
-#include <glib.h>
-
 #include "pydia-object.h"
 #include "pydia-properties.h"
 
@@ -77,7 +75,7 @@ static PyObject *
 PyDiaProperties_Str(PyDiaProperties *self)
 {
   PyObject* py_s;
-  gchar* s = g_strdup_printf("<DiaProperties at 0x%08x of DiaObject at 0x%08x>",
+  gchar* s = g_strdup_printf("<DiaProperties at %p of DiaObject at %p>",
                              self, self->object );
   py_s = PyString_FromString(s);
   g_free (s);
@@ -256,9 +254,9 @@ static PyMappingMethods PyDiaProperties_AsMapping = {
 };
 
 static PyMethodDef mapp_methods[] = {
-	{"get",     PyDiaProperties_Get,     METH_VARARGS},
-	{"has_key",	PyDiaProperties_HasKey,  METH_VARARGS},
-	{"keys",	PyDiaProperties_Keys},
+	{"get",     (PyCFunction)PyDiaProperties_Get,     METH_VARARGS},
+	{"has_key", (PyCFunction)PyDiaProperties_HasKey,  METH_VARARGS},
+	{"keys",    (PyCFunction)PyDiaProperties_Keys},
 	{NULL,		NULL}		/* sentinel */
 };
 
