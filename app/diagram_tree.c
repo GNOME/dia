@@ -254,13 +254,14 @@ create_diagram_children(DiagramTree *tree, GtkCTreeNode *node,
 			Diagram *diagram)
 {
   GList *objects = get_diagram_objects(diagram);
+  GList *org = objects;
   while (objects) {
     if (!is_hidden_object(tree, objects->data)) {
       create_object_node(tree, node, (DiaObject *)objects->data);
     }
     objects = g_list_next(objects);
   }
-  g_list_free(objects);
+  g_list_free(org);
 }
 
 static void

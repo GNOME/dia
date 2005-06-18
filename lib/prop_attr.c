@@ -373,6 +373,7 @@ fontprop_free(FontProperty *prop)
 {
   if (prop->font_data)
     dia_font_unref(prop->font_data);
+  g_free(prop);
 }
 
 static FontProperty *

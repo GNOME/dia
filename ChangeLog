@@ -1,5 +1,18 @@
 2005-06-18  Hans Breuer  <hans@breuer.org>
 
+	* NEWS : mention new file dialog
+
+	[plugged remaining leaks from bug #142669]
+	* lib/prop_attr.c(fontprop_free) : not only unref the font
+	but free the property itself, too. 
+	* app/diagram_tree.c(create_diagram_children): remember the
+	original list start to not only free the last element 
+
+	* lib/prop_sdarray.c:64: warning: `arrayprop_free' defined 
+	but not used. Here it meant a potentially huge leak.
+
+2005-06-18  Hans Breuer  <hans@breuer.org>
+
 	* po/POTFILES.in : removed app/diaconv.c which isn't referenced 
 	by app/Makefile.am anymore either. Should finally fix 'make distcheck' 
 	for others, too. ( Roland Stigge, bug #144527 )

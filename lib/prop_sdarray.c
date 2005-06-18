@@ -247,7 +247,7 @@ arrayprop_can_merge(const PropDescription *pd1, const PropDescription *pd2)
 
 static const PropertyOps sarrayprop_ops = {
   (PropertyType_New) arrayprop_new,
-  (PropertyType_Free) noopprop_free,
+  (PropertyType_Free) arrayprop_free,
   (PropertyType_Copy) arrayprop_copy,
   (PropertyType_Load) arrayprop_load,
   (PropertyType_Save) arrayprop_save,
@@ -263,7 +263,7 @@ static const PropertyOps sarrayprop_ops = {
 
 static const PropertyOps darrayprop_ops = {
   (PropertyType_New) arrayprop_new,
-  (PropertyType_Free) noopprop_free,
+  (PropertyType_Free) arrayprop_free,
   (PropertyType_Copy) arrayprop_copy,
   (PropertyType_Load) arrayprop_load,
   (PropertyType_Save) arrayprop_save,

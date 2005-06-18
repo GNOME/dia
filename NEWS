@@ -2,7 +2,7 @@
   with paramaters (DARRAY, StdProp). This potentially allows
   to write round-trip engineering plug-ins (UML+Python)
 
-* Many plug-ins now create locale independent output
+* Many plug-ins now correctly create locale independent output
 
 * The SVG import got improved (still far from complete 
   coverage, which isn't feasible for Dia anyway)
@@ -28,6 +28,8 @@
 * Show selection info on status bar
 
 * Experimental libgnomeprint usage again
+
+* Finally using the new Gtk+ File Dialog
 
 * Full Screen Mode
 
