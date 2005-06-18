@@ -123,21 +123,6 @@ diagram_data_class_init (DiagramDataClass *klass)
   object_class->finalize = diagram_data_finalize;
 }
 
-DiagramData *
-new_diagram_data (NewDiagramData *prefs)
-{
-  DiagramData *data;
-   
-  data = g_object_new (DIA_TYPE_DIAGRAM_DATA, NULL);
-   
-  return data;
-}
-
-void
-diagram_data_destroy(DiagramData *data) {
-  g_object_unref(data);
-}
-
 Layer *
 new_layer(gchar *name, DiagramData *parent)
 {

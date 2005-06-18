@@ -1,3 +1,13 @@
+2005-06-18  Hans Breuer  <hans@breuer.org>
+
+	* lib/diagramdata.c : really get rid of diagram_data_destroy 
+	and new_diagram_data [ no previous prototype for `...' is either
+	a sign of missing static or of a function to vanish :-]
+
+	* lib/geometry.c : apparently the G_INLINE stuff was working only
+	with particular GLib version(s), glib-2.6.4 does not. Conditionally
+	reverting to the old mecanics.
+
 2005-06-17  Hans Breuer  <hans@breuer.org>
 
 	* plug-ins/python/pydia-*.c : include order tweaking to 
