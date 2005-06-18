@@ -864,7 +864,7 @@ modify_start_text_edit(DDisplay *ddisp, Text *text, DiaObject *obj, Point *click
     gtk_text_buffer_create_tag(buf,
 			       NULL,
 			       "font-desc",
-			       text->font->pfd,
+			       dia_font_get_description(text->font),
 			       NULL);
   gtk_text_buffer_get_bounds(buf, &start, &end);
   gtk_text_buffer_apply_tag(buf, fonttag, &start, &end);
@@ -940,7 +940,7 @@ modify_make_text_edit(DDisplay *ddisp, DiaObject *obj, Point *clickedpoint)
 	gtk_text_buffer_create_tag(buf,
 				   NULL,
 				   "font-desc",
-				   textprop->attr.font->pfd,
+				   dia_font_get_description(textprop->attr.font),
 				   NULL);
       gtk_text_buffer_get_bounds(buf, &start, &end);
       gtk_text_buffer_apply_tag(buf, fonttag, &start, &end);

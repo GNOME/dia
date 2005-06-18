@@ -576,6 +576,7 @@ ddisplay_render_pixmap(DDisplay *ddisp, Rectangle *update)
 
   /* Erase background */
   g_return_if_fail (renderer->fill_pixel_rect != NULL);
+  DIA_RENDERER_GET_CLASS(ddisp->renderer)->begin_render(ddisp->renderer);
   renderer->fill_pixel_rect (ddisp->renderer,
 			     0, 0,
 		             dia_renderer_get_width_pixels (ddisp->renderer),
@@ -601,6 +602,7 @@ ddisplay_render_pixmap(DDisplay *ddisp, Rectangle *update)
      }
     list = g_list_next(list);
   }
+  DIA_RENDERER_GET_CLASS(ddisp->renderer)->end_render(ddisp->renderer);
 }
 
 void
@@ -894,9 +896,6 @@ ddisplay_set_renderer(DDisplay *ddisp, int aa_renderer)
   int width, height;
 
   if (ddisp->renderer)
-    DIA_RENDERER_GET_CLASS(ddisp->renderer)->end_render(ddisp->renderer);
-
-  if (ddisp->renderer)
     g_object_unref (ddisp->renderer);
 
   ddisp->aa_renderer = aa_renderer;
@@ -913,7 +912,6 @@ ddisplay_set_renderer(DDisplay *ddisp, int aa_renderer)
   }
 
   dia_renderer_set_size(ddisp->renderer, ddisp->canvas->window, width, height);
-  DIA_RENDERER_GET_CLASS(ddisp->renderer)->begin_render(ddisp->renderer);
 }
 
 void

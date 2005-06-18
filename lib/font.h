@@ -34,7 +34,7 @@
 
 
 /** 
- * In a goodly selection of fonts, 500 is very common, yet they don't name it.
+ * In a goodly selection of fonts, 500 is very common, yet Pango doesn't name it.
  * I am calling 500 'medium' and 600 'demibold'.
  * We should really have a more flexible system where 300 or 400 is normal, 
  * the next one up bold, or something.  But this will do for now.
@@ -99,14 +99,6 @@ struct _DiaFontClass {
     GObjectClass parent_class;
 };
 
-struct _DiaFont {
-    GObject parent_instance;
-
-        /* Do not access directly !*/
-    PangoFontDescription* pfd;    
-    /* mutable */ char* legacy_name;    
-};
-
 /* Set the PangoContext used to render text.
  */
 void dia_font_init(PangoContext* pcontext);
@@ -145,6 +137,8 @@ DiaFontStyle dia_font_get_style(const DiaFont* font);
 
     /* Retrieves the family of the font. Caller must NOT free. */
 G_CONST_RETURN char* dia_font_get_family(const DiaFont* font);
+/* Acessor for the PangoFontDescription */
+G_CONST_RETURN PangoFontDescription *dia_font_get_description (const DiaFont* font);
 
     /* Retrieves the height of the font */
 real dia_font_get_height(const DiaFont* font);

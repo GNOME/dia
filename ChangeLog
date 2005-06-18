@@ -1,4 +1,14 @@
-2005-06-17  Hans Breuer  <hans@breuer.org>
+2005-06-18  Hans Breuer  <hans@breuer.org>
+
+	* lib/font.h lib/font.c : _DiaFont is now private to prepare bigger 
+	changes but doesn't hurt anyway. See bug #162034 
+	* app/diapsft2renderer.c app/modify_tool.c 
+	  plug-ins/gprint/diagnomeprintrenderer.c : use dia_font_get_description() 
+	instead of messing with internals
+	* app/display.c : give interactive renderers more begin/end render. 
+	It is guaranteed that the scale wont change between these.
+
+2005-06-18  Hans Breuer  <hans@breuer.org>
 
 	* app/app_procs.c : const correctness for stderr_message_internal
 	* app/dia-props.c : gtk_toggle_*() functions want GTK_TOGGLE_BUTTON 

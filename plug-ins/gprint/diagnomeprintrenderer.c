@@ -640,7 +640,7 @@ draw_string(DiaRenderer *self,
   pango_layout_set_text (layout, text, len);
 
   list = pango_attr_list_new ();
-  attr = pango_attr_font_desc_new (renderer->font->pfd);
+  attr = pango_attr_font_desc_new (dia_font_get_description(renderer->font));
   attr->start_index = 0;
   attr->end_index = len;
   pango_attr_list_insert (list, attr); /* eats attr */

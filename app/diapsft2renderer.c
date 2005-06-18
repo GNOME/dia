@@ -82,7 +82,8 @@ set_font(DiaRenderer *self, DiaFont *font, real height)
   renderer->current_font = font;
   /* Dammit!  We have a random factor once again! */
   renderer->current_height = height*4.3;
-  pango_context_set_font_description(dia_font_get_context(), font->pfd);
+  pango_context_set_font_description(dia_font_get_context(), 
+                                     dia_font_get_description(font));
 }
 
 /* ********************************************************* */
@@ -206,10 +207,6 @@ void postscript_draw_contour(DiaPsRenderer *renderer,
     PangoGlyphString *glyphs = run->glyphs;
     PangoAnalysis *analysis = &item->analysis;
     PangoFont *font = analysis->font;
-    /*
-      PangoFont *font = pango_context_load_font(renderer->context,
-      renderer->current_font->pfd);
-    */
     FT_Face ft_face;
     int bidi_level;
     int num_glyphs;
@@ -326,7 +323,6 @@ draw_string(DiaRenderer *self,
 	    Point *pos, Alignment alignment,
 	    Color *color)
 {
-  /* DiaPsRenderer *renderer = DIA_PS_RENDERER(self); */
   DiaPsFt2Renderer *renderer = DIA_PS_FT2_RENDERER(self);
   PangoLayout *layout;
   int width;
@@ -353,7 +349,7 @@ draw_string(DiaRenderer *self,
         
   list = pango_attr_list_new();
 
-  attr = pango_attr_font_desc_new(renderer->current_font->pfd);
+  attr = pango_attr_font_desc_new(dia_font_get_description(renderer->current_font));
   attr->start_index = 0;
   attr->end_index = length;
   pango_attr_list_insert(list,attr);

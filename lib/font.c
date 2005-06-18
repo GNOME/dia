@@ -40,6 +40,15 @@
 
 static PangoContext* pango_context = NULL;
 
+struct _DiaFont 
+{
+    GObject parent_instance;
+
+    PangoFontDescription* pfd;    
+    /* mutable */ char* legacy_name;    
+};
+
+
 /* This is the global factor that says what zoom factor is 100%.  It's
  * normally 20.0 (and likely to stay that way).  It is defined by how many
  * pixels one cm is represented as.
@@ -352,6 +361,12 @@ G_CONST_RETURN char*
 dia_font_get_family(const DiaFont* font)
 {
   return pango_font_description_get_family(font->pfd);
+}
+
+G_CONST_RETURN PangoFontDescription *
+dia_font_get_description(const DiaFont* font)
+{
+  return font->pfd;
 }
 
 real
