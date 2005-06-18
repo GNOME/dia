@@ -131,7 +131,7 @@ dia_config_ensure_dir(const gchar *filename)
  * This is not a cheap function.
  * Returns a newly allocated string, or NULL if too many ..'s were found */
 static gchar *
-dia_get_canonical_path (gchar *path) 
+dia_get_canonical_path (const gchar *path) 
 {
   gchar  *ret = NULL;
   gchar **list = g_strsplit (path, G_DIR_SEPARATOR_S, -1);

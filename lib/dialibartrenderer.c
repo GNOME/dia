@@ -180,17 +180,17 @@ set_linejoin(DiaRenderer *self, LineJoin mode)
 
   if (renderer->highlight_color != NULL) {
     /* Can't tell that this does anything:( -LC */
-    renderer->cap_style = ART_PATH_STROKE_JOIN_ROUND;
+    renderer->join_style = ART_PATH_STROKE_JOIN_ROUND;
   } else {
     switch(mode) {
     case LINEJOIN_MITER:
-      renderer->cap_style = ART_PATH_STROKE_JOIN_MITER;
+      renderer->join_style = ART_PATH_STROKE_JOIN_MITER;
       break;
     case LINEJOIN_ROUND:
-      renderer->cap_style = ART_PATH_STROKE_JOIN_ROUND;
+      renderer->join_style = ART_PATH_STROKE_JOIN_ROUND;
       break;
     case LINEJOIN_BEVEL:
-      renderer->cap_style = ART_PATH_STROKE_JOIN_BEVEL;
+      renderer->join_style = ART_PATH_STROKE_JOIN_BEVEL;
       break;
     }
   }
@@ -1364,8 +1364,8 @@ renderer_init (DiaLibartRenderer *renderer, gpointer g_class)
   renderer->rgb_buffer = NULL;
 
   renderer->line_width = 1.0;
-  renderer->cap_style = GDK_CAP_BUTT;
-  renderer->join_style = GDK_JOIN_MITER;
+  renderer->cap_style = ART_PATH_STROKE_CAP_BUTT;
+  renderer->join_style = ART_PATH_STROKE_JOIN_MITER;
   
   renderer->saved_line_style = LINESTYLE_SOLID;
   renderer->dash_enabled = 0;

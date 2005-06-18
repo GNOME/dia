@@ -218,7 +218,7 @@ object_find_attribute(ObjectNode obj_node,
 		      const char *attrname)
 {
   AttributeNode attr;
-  char *name;
+  xmlChar *name;
 
   while (obj_node && xmlIsBlankNode(obj_node)) 
     obj_node = obj_node->next;
@@ -248,7 +248,7 @@ composite_find_attribute(DataNode composite_node,
 			 const char *attrname)
 {
   AttributeNode attr;
-  char *name;
+  xmlChar *name;
 
   while (composite_node && xmlIsBlankNode(composite_node)) 
     composite_node = composite_node->next;
@@ -346,7 +346,7 @@ data_type(DataNode data)
 int
 data_int(DataNode data)
 {
-  char *val;
+  xmlChar *val;
   int res;
   
   if (data_type(data)!=DATATYPE_INT) {
@@ -363,7 +363,7 @@ data_int(DataNode data)
 
 int data_enum(DataNode data)
 {
-  char *val;
+  xmlChar *val;
   int res;
   
   if (data_type(data)!=DATATYPE_ENUM) {
@@ -381,7 +381,7 @@ int data_enum(DataNode data)
 real
 data_real(DataNode data)
 {
-  char *val;
+  xmlChar *val;
   real res;
 
   if (data_type(data)!=DATATYPE_REAL) {
@@ -399,7 +399,7 @@ data_real(DataNode data)
 int
 data_boolean(DataNode data)
 {
-  char *val;
+  xmlChar *val;
   int res;
   
   if (data_type(data)!=DATATYPE_BOOLEAN) {
@@ -433,7 +433,7 @@ static int hex_digit(char c)
 void
 data_color(DataNode data, Color *col)
 {
-  char *val;
+  xmlChar *val;
   int r=0, g=0, b=0;
   
   if (data_type(data)!=DATATYPE_COLOR) {
@@ -462,8 +462,8 @@ data_color(DataNode data, Color *col)
 void
 data_point(DataNode data, Point *point)
 {
-  char *val;
-  char *str;
+  xmlChar *val;
+  xmlChar *str;
   real ax,ay;
 
   if (data_type(data)!=DATATYPE_POINT) {
@@ -502,8 +502,8 @@ data_point(DataNode data, Point *point)
 void
 data_rectangle(DataNode data, Rectangle *rect)
 {
-  char *val;
-  char *str;
+  xmlChar *val;
+  xmlChar *str;
   
   if (data_type(data)!=DATATYPE_RECTANGLE) {
     message_error("Taking rectangle value of non-rectangle node.");
@@ -553,7 +553,7 @@ data_rectangle(DataNode data, Rectangle *rect)
 gchar *
 data_string(DataNode data)
 {
-  gchar *val;
+  xmlChar *val;
   gchar *str, *p,*str2;
   int len;
   
@@ -631,7 +631,7 @@ data_filename(DataNode data)
 DiaFont *
 data_font(DataNode data)
 {
-  char *family;
+  xmlChar *family;
   DiaFont *font;
   
   if (data_type(data)!=DATATYPE_FONT) {
@@ -643,7 +643,7 @@ data_font(DataNode data)
   /* always prefer the new format */
   if (family) {
     DiaFontStyle style;
-    char* style_name = xmlGetProp(data, "style");
+    xmlChar* style_name = xmlGetProp(data, "style");
     style = style_name ? atoi(style_name) : 0;
 
     font = dia_font_new (family, style, 1.0);

@@ -1,17 +1,16 @@
 #ifndef _CONFIG_H_
 #define _CONFIG_H_
 
-#define HAVE_CTYPE_H 
-#define HAVE_STDLIB_H 
-#define HAVE_MALLOC_H 
-#define HAVE_TIME_H 
-#define HAVE_SYS_SOCKET_H 
-#define HAVE_FCNTL_H 
-#define HAVE_GDK_PIXBUF
-#define HAVE_DIRENT_H
+#define HAVE_CTYPE_H 1
+#define HAVE_STDLIB_H 1
+#define HAVE_MALLOC_H 1
+#define HAVE_TIME_H 1
+#define HAVE_SYS_SOCKET_H 1
+#define HAVE_FCNTL_H 1
+#define HAVE_GDK_PIXBUF 1
 
 /* #undef HAVE_CAIRO */
-#define HAVE_CAIRO
+#define HAVE_CAIRO 1
 
 #define ENABLE_NLS
 #define HAVE_BIND_TEXTDOMAIN_CODESET

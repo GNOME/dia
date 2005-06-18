@@ -789,7 +789,7 @@ modify_edit_end(GtkWidget *widget, GdkEventFocus *event, gpointer data)
   GtkTextView *view = GTK_TEXT_VIEW(widget);
   DiaObject *obj = (DiaObject*)data;
   GQuark quark = g_quark_from_string(PROP_TYPE_TEXT);
-  PropDescription *props = obj->ops->describe_props(obj);
+  const PropDescription *props = obj->ops->describe_props(obj);
   int i;
 
   for (i = 0; props[i].name != NULL; i++) {
@@ -898,7 +898,7 @@ modify_start_text_edit(DDisplay *ddisp, Text *text, DiaObject *obj, Point *click
 void
 modify_make_text_edit(DDisplay *ddisp, DiaObject *obj, Point *clickedpoint)
 {
-  PropDescription *props = obj->ops->describe_props(obj);
+  const PropDescription *props = obj->ops->describe_props(obj);
   int i;
   for (i = 0; props[i].name != NULL; i++) {
     GQuark type = g_quark_from_string(PROP_TYPE_TEXT);

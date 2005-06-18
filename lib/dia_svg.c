@@ -117,7 +117,7 @@ enum
 void
 dia_svg_parse_style(xmlNodePtr node, DiaSvgStyle *s)
 {
-  char *str;
+  xmlChar *str;
   gchar temp[FONT_NAME_LENGTH_MAX+1]; /* font-family names will be limited to 40 characters */
   int i = 0;
   gboolean over = FALSE;  
@@ -126,7 +126,7 @@ dia_svg_parse_style(xmlNodePtr node, DiaSvgStyle *s)
   str = xmlGetProp(node, "style");
 
   if (str) {
-    char *ptr = str;
+    xmlChar *ptr = str;
     while (ptr[0] != '\0') {
       /* skip white space at start */
       while (ptr[0] != '\0' && g_ascii_isspace(ptr[0])) ptr++;

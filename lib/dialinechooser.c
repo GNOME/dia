@@ -114,7 +114,7 @@ dia_line_preview_expose(GtkWidget *widget, GdkEventExpose *event)
   GdkWindow *win;
   GdkGC *gc;
   GdkGCValues gcvalues;
-  char dash_list[6];
+  gint8 dash_list[6];
   int line_width = 2;
 
   if (GTK_WIDGET_DRAWABLE(widget)) {

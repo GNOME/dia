@@ -1183,7 +1183,7 @@ dia_gtk_font_selection_dialog_get_type (void)
 	(GtkObjectInitFunc) dia_gtk_font_selection_dialog_init,
 	/* reserved_1 */ NULL,
 	/* reserved_2 */ NULL,
-        (GtkClassInitFunc) NULL,
+        (GtkClassInitFunc) NULL
       };
       
       font_selection_dialog_type = gtk_type_unique (GTK_TYPE_DIALOG,

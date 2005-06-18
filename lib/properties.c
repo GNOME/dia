@@ -29,7 +29,9 @@
 #endif
 
 #include "geometry.h"
-#define LIBDIA_COMPILATION
+#ifndef LIBDIA_COMPILATION
+#  define LIBDIA_COMPILATION
+#endif
 #undef G_INLINE_FUNC
 #define G_INLINE_FUNC extern
 #define G_CAN_INLINE 1

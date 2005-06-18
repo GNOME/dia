@@ -755,7 +755,7 @@ gchar *interface_current_sheet_name;
 static Sheet *
 get_sheet_by_name(gchar *name)
 {
-  GList *tmp;
+  GSList *tmp;
   for (tmp = get_sheets_list(); tmp != NULL; tmp = tmp->next) {
     Sheet *sheet = tmp->data;
     if (!g_strcasecmp(name, sheet->name)) return sheet;
@@ -863,7 +863,7 @@ fill_sheet_wbox(Sheet *sheet)
 }
 
 static void
-sheet_menu_callback(GtkMenuItem *menu_item, gchar *string)
+sheet_menu_callback(DiaDynamicMenu *menu, const gchar *string, void *user_data)
 {
   Sheet *sheet = get_sheet_by_name(string);
   if (sheet == NULL) {
@@ -877,7 +877,7 @@ sheet_menu_callback(GtkMenuItem *menu_item, gchar *string)
 GList *
 get_sheet_names()
 {
-  GList *tmp;
+  GSList *tmp;
   GList *names = NULL;
   for (tmp = get_sheets_list(); tmp != NULL; tmp = tmp->next) {
     Sheet *sheet = tmp->data;

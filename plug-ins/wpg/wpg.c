@@ -289,7 +289,7 @@ begin_render(DiaRenderer *self)
   fwrite_le(&renderer->Box.Width, sizeof(guint16), 2, renderer->file);
 #endif
   /* initialize a well known colormap, see LookupColor */
-  pPal = g_new(gint8, CC_LEN*CC_LEN*CC_LEN*3);
+  pPal = g_new(guint8, CC_LEN*CC_LEN*CC_LEN*3);
   for (i = 0; i < CC_LEN * CC_LEN * CC_LEN; i++)
   {
     pPal[3*i  ] = ((i % CC_LEN) * 255) / (CC_LEN - 1);   /* red */

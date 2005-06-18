@@ -338,7 +338,7 @@ set_linejoin (DiaRenderer *object, LineJoin mode)
 void
 dia_gdk_renderer_set_dashes(DiaGdkRenderer *renderer, int offset)
 {
-  char dash_list[6];
+  gint8 dash_list[6];
   int hole_width;
   int pattern_length;
   

@@ -549,7 +549,7 @@ ddisplay_canvas_events (GtkWidget *canvas,
             case 1:
               if (transient_tool)
                 break;
-              if (*active_tool->double_click_func)
+              if (active_tool->double_click_func)
                 (*active_tool->double_click_func) (active_tool, bevent, ddisp);
               break;
 
@@ -582,7 +582,7 @@ ddisplay_canvas_events (GtkWidget *canvas,
                   /* get the focus again, may be lost by zoom combo */
 	      moving = TRUE;
               gtk_widget_grab_focus(canvas);
-              if (*active_tool->button_press_func)
+              if (active_tool->button_press_func)
                 (*active_tool->button_press_func) (active_tool, bevent, ddisp);
               break;
 
@@ -628,7 +628,7 @@ ddisplay_canvas_events (GtkWidget *canvas,
             case 1:
 	      if (moving)
   		moving = FALSE;		      
-              if (*active_tool->button_release_func)
+              if (active_tool->button_release_func)
                 (*active_tool->button_release_func) (active_tool,
                                                      bevent, ddisp);
               break;
@@ -666,7 +666,7 @@ ddisplay_canvas_events (GtkWidget *canvas,
         }
         if (transient_tool && (*transient_tool->motion_func)) 
           (*transient_tool->motion_func) (transient_tool, mevent, ddisp);
-        else if (*active_tool->motion_func)
+        else if (active_tool->motion_func)
           (*active_tool->motion_func) (active_tool, mevent, ddisp);
         break;
 

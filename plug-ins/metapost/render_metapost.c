@@ -1139,7 +1139,7 @@ export_metapost(DiagramData *data, const gchar *filename,
     /* LaTeX header so that our font stuff works properly. */
     fprintf(renderer->file,
              "verbatimtex\n"
-             "\%&latex\n"
+             "%%&latex\n"
              "\\documentclass{minimal}\n"
              "\\begin{document}\n"
              "etex\n");

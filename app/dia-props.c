@@ -54,11 +54,11 @@ diagram_properties_update_sensitivity(GtkToggleButton *widget,
     return; /* safety first */
   
   dia->grid.dynamic =
-        gtk_toggle_button_get_active(GTK_CHECK_BUTTON(dynamic_check));
+        gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dynamic_check));
   dyn_grid = dia->grid.dynamic;
   if (!dyn_grid)
     dia->grid.hex =
-        gtk_toggle_button_get_active(GTK_CHECK_BUTTON(hex_check));
+        gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(hex_check));
 
   square_grid = !dyn_grid && !dia->grid.hex;
   hex_grid = !dyn_grid && dia->grid.hex;
@@ -120,7 +120,7 @@ create_diagram_properties_dialog(Diagram *dia)
   gtk_table_attach(GTK_TABLE(table), dynamic_check, 1,2, 0,1,
 		   GTK_FILL, GTK_FILL, 0, 0);
   g_signal_connect(G_OBJECT(dynamic_check), "toggled", 
-		   diagram_properties_update_sensitivity, NULL);
+		   G_CALLBACK(diagram_properties_update_sensitivity), NULL);
 	    
   gtk_widget_show(dynamic_check);
 
@@ -178,7 +178,7 @@ create_diagram_properties_dialog(Diagram *dia)
   gtk_table_attach(GTK_TABLE(table), hex_check, 1,2, 4,5,
 		   GTK_FILL, GTK_FILL, 0, 0);
   g_signal_connect(G_OBJECT(hex_check), "toggled", 
-		   diagram_properties_update_sensitivity, NULL);
+		   G_CALLBACK(diagram_properties_update_sensitivity), NULL);
 	    
   gtk_widget_show(hex_check);
 
@@ -264,7 +264,7 @@ diagram_properties_retrieve(Diagram *dia)
   gtk_window_set_title(GTK_WINDOW(dialog), title);
   g_free(name);
   g_free(title);
-  gtk_toggle_button_set_active(GTK_CHECK_BUTTON(dynamic_check),
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(dynamic_check),
 			   dia->grid.dynamic);
   gtk_spin_button_set_value(GTK_SPIN_BUTTON(width_x_entry),
 			    dia->grid.width_x);
@@ -274,7 +274,7 @@ diagram_properties_retrieve(Diagram *dia)
 			    dia->grid.visible_x);
   gtk_spin_button_set_value(GTK_SPIN_BUTTON(visible_y_entry),
 			    dia->grid.visible_y);
-  gtk_toggle_button_set_active(GTK_CHECK_BUTTON(hex_check),
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(hex_check),
 			   dia->grid.hex);
   gtk_spin_button_set_value(GTK_SPIN_BUTTON(hex_size_entry),
 			    dia->grid.hex_size);
@@ -319,7 +319,7 @@ diagram_properties_respond(GtkWidget *widget,
       response_id == GTK_RESPONSE_APPLY) {
     if (active_diagram) {
       active_diagram->grid.dynamic =
-        gtk_toggle_button_get_active(GTK_CHECK_BUTTON(dynamic_check));
+        gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dynamic_check));
       active_diagram->grid.width_x =
         gtk_spin_button_get_value(GTK_SPIN_BUTTON(width_x_entry));
       active_diagram->grid.width_y =
@@ -329,7 +329,7 @@ diagram_properties_respond(GtkWidget *widget,
       active_diagram->grid.visible_y =
         gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(visible_y_entry));
       active_diagram->grid.hex =
-        gtk_toggle_button_get_active(GTK_CHECK_BUTTON(hex_check));
+        gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(hex_check));
       active_diagram->grid.hex_size =
         gtk_spin_button_get_value(GTK_SPIN_BUTTON(hex_size_entry));
       dia_color_selector_get_color(bg_colour,

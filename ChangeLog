@@ -1,3 +1,30 @@
+2005-06-17  Hans Breuer  <hans@breuer.org>
+
+	* app/app_procs.c : const correctness for stderr_message_internal
+	* app/dia-props.c : gtk_toggle_*() functions want GTK_TOGGLE_BUTTON 
+	not GTK_CHECK_BUTTON, also some G_CALLBACK casts
+	* app/disp_callbacks.c : don't dereference the to the function call
+	when the function pointer in meant to be checked against 0
+	* app/interface.c : warning fixes by using correct types
+	* app/modify_tool.c : describe_props() members returns const pointer
+	* app/render_libart.c : removed most of the render function again.
+	They happily live in lib/dialibartrenderer.c since almost 3 years
+	http://cvs.gnome.org/viewcvs/dia/app/render_libart.c?r1=1.31&r2=1.32
+	* lib/dia_dirs.c : dia_get_canonical_path() const correctness
+	* lib/dia_svg.c lib/dia_xml.c : some char to xmlChar changes
+	* lib/dialibartrenderer.c(set_line_join): actually set the join_style
+	instead of the cap_style. Don't initialize Art* enums with GDK_* constants.
+	Both mentioned in bug #159814 and not warned by most other compilers.
+	* lib/diagtkfontsel.c : at least the watcom compiler did not like the
+	trailing colon in the GtkTypeInfo initialization
+	* lib/properties.c : avoid redefinition of LIBDIA_COMPILATION
+	* lib/dialinechooser.c lib/diagdkrenderer.c : there may be a difference 
+	between char and gint8
+	* plug-ins/metapost/render_metapost.c : replace invalid escape \% with %%
+	* plug-ins/wpg/wpg.c : consitently use guint8
+	* config.h.win32 : change HAVE_* defines to 1 not empty, avoids 
+	redefinition warnings for python and xslt plug-ins
+
 2005-06-18  Hans Breuer  <hans@breuer.org>
 
 	* lib/diagramdata.c : really get rid of diagram_data_destroy 
