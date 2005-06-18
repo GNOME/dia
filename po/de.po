@@ -803,7 +803,7 @@ msgstr ""
 
 #: app/filedlg.c:308 app/filedlg.c:545
 msgid "File already exists"
-msgstr "Die Datei exisiert bereits"
+msgstr "Die Datei existiert bereits"
 
 #: app/filedlg.c:351
 msgid "Save Diagram"
@@ -3667,7 +3667,7 @@ msgstr "Gamma-Strahlung"
 #. Translators: Menu item Noun/Energy/Acoustic Energy
 #: objects/FS/function.c:1158
 msgid "Acoustic Energy"
-msgstr "Akkustische Energie"
+msgstr "Akustische Energie"
 
 #. Translators: Menu item Noun/Energy/Optical Energy
 #: objects/FS/function.c:1160
@@ -5073,12 +5073,12 @@ msgstr "GNOME Skalierbare Vektorgrafik"
 msgid "GNOME Print based Rendering"
 msgstr "GNOME Print-basierte Darstellung"
 
-# HP Graphics Language ist ein Name. Nicht uebersetzen.
+# HP Graphics Language ist ein Name. Nicht übersetzen.
 #: plug-ins/hpgl/hpgl.c:758
 msgid "HP Graphics Language"
 msgstr "HP Graphics Language"
 
-# HP Graphics Language ist ein Name. Nicht uebersetzen.
+# HP Graphics Language ist ein Name. Nicht übersetzen.
 #: plug-ins/hpgl/hpgl.c:783
 msgid "HP Graphics Language export filter"
 msgstr "HP Graphics Language Exportfilter"
@@ -5284,7 +5284,7 @@ msgstr "FIG-Objekt konnte nicht identifiziert werden: %s\n"
 
 #: plug-ins/xfig/xfig-import.c:1327
 msgid "Compound end outside compound\n"
-msgstr "Verbund endete ausserhalb des Verbundes\n"
+msgstr "Verbund endete außerhalb des Verbundes\n"
 
 #: plug-ins/xfig/xfig-import.c:1346
 #, c-format
@@ -5606,7 +5606,7 @@ msgstr "Pfeil nach oben, unten und links"
 
 #: sheets/Assorted.sheet.in.h:47
 msgid "Vertical parallelogram"
-msgstr "Vertikales Parallelogram"
+msgstr "Vertikales Parallelogramm"
 
 #: sheets/ChemEng.sheet.in.h:1
 msgid "AC Generator"
@@ -8929,7 +8929,7 @@ msgstr "Replikations-Server-Manager"
 
 #: sheets/sybase.sheet.in.h:4
 msgid "Stable storage device"
-msgstr "Stabiles Speichersytem"
+msgstr "Stabiles Speichersystem"
 
 #: sheets/sybase.sheet.in.h:5
 msgid "Sybase"
