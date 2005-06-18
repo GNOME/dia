@@ -1,5 +1,11 @@
 2005-06-18  Hans Breuer  <hans@breuer.org>
 
+	* plug-ins/wmf/Makefile.am : prevent installation. It 
+	doesn't do anything useful on *NIX and even seems to be
+	linked wrong by gcc (or me;). Fixes bug #172830 
+
+2005-06-18  Hans Breuer  <hans@breuer.org>
+
 	* app/textedit.[hc] lib/arrows.[hc] plug-ins/xslt/xslt.h
 	  plug-ins/xslt/xsltdialog.c plug-ins/xslt/xslt.c : fix for sloppiness
 	in function declarations. 'f();' for a function without parameters is

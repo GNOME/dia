@@ -11,3 +11,6 @@ INCLUDES = -I$(top_srcdir)/intl -I$(top_srcdir)/lib \
 
 EXTRA_DIST = 
 
+# Prevent installation
+install-pkglibLTLIBRARIES:
+	:
