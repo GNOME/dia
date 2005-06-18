@@ -59,8 +59,8 @@ extern fromxsl_t *froms;
 extern toxsl_t *xsl_to;
 extern fromxsl_t *xsl_from;
 
-void xslt_dialog_create();
-void xslt_ok();
-void xslt_clear();
+void xslt_dialog_create(void);
+void xslt_ok(void);
+void xslt_clear(void);
 void xslt_unload(PluginInfo *info);
 gboolean xslt_can_unload(PluginInfo *info);

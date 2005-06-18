@@ -153,7 +153,7 @@ textedit_activate_first(DDisplay *ddisp)
  * Calling remove_focus on the active object or remove_focus_all
  * implies deactivating the focus. */
 void
-textedit_deactivate_focus()
+textedit_deactivate_focus(void)
 {
   Focus *focus = active_focus();
   if (focus != NULL) {

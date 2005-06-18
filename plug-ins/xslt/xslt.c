@@ -47,8 +47,6 @@ toxsl_t *xsl_to;
 fromxsl_t *xsl_from;
 
 
-void xslt_ok(void);
-
 static char *diafilename;
 static char *filename;
 
@@ -70,7 +68,7 @@ export_xslt(DiagramData *data, const gchar *f,
 
 
 void
-xslt_ok() 
+xslt_ok(void) 
 {
 	FILE *file, *out;
 	int err;

@@ -1,5 +1,21 @@
 2005-06-18  Hans Breuer  <hans@breuer.org>
 
+	* app/textedit.[hc] lib/arrows.[hc] plug-ins/xslt/xslt.h
+	  plug-ins/xslt/xsltdialog.c plug-ins/xslt/xslt.c : fix for sloppiness
+	in function declarations. 'f();' for a function without parameters is
+	a C++ism. Though I can't get any of my compilers to warn about it.
+	Finally fixes bug #142663.
+
+2005-06-18  Hans Breuer  <hans@breuer.org>
+
+	* app/textedit.[hc] lib/arrows.[hc] plug-ins/xslt/xslt.h
+	  plug-ins/xslt/xsltdialog.c plug-ins/xslt/xslt.c : fix for sloppiness
+	in function declarations. 'f();' for a function without parameters is
+	a C++ism. Though I can't get any of my compilers to warn about it.
+	Finally fixes the rest of bug #142663.
+
+2005-06-18  Hans Breuer  <hans@breuer.org>
+
 	* lib/font.h lib/font.c : _DiaFont is now private to prepare bigger 
 	changes but doesn't hurt anyway. See bug #162034 
 	* app/diapsft2renderer.c app/modify_tool.c 

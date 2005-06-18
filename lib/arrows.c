@@ -1530,7 +1530,7 @@ arrow_index_from_type(ArrowType atype)
 }
 
 GList *
-get_arrow_names()
+get_arrow_names(void)
 {
   int i = 0;
   GList *arrows = NULL;

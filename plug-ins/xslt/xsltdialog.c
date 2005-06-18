@@ -32,9 +32,6 @@
 #include <gtk/gtk.h>
 
 
-void xslt_dialog_create(void);
-void xslt_clear(void);
-
 static void
 from_deactivate(fromxsl_t *xsls);
 
@@ -200,7 +197,7 @@ xslt_dialog_create(void) {
 
 }
 
-void xslt_clear() {
+void xslt_clear(void) {
 	gtk_widget_destroy(dialog);
 }
 
