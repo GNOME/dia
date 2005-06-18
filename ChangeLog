@@ -1,5 +1,11 @@
 2005-06-18  Hans Breuer  <hans@breuer.org>
 
+	* po/POTFILES.in : removed app/diaconv.c which isn't referenced 
+	by app/Makefile.am anymore either. Should finally fix 'make distcheck' 
+	for others, too. ( Roland Stigge, bug #144527 )
+
+2005-06-18  Hans Breuer  <hans@breuer.org>
+
 	* plug-ins/wmf/Makefile.am : prevent installation. It 
 	doesn't do anything useful on *NIX and even seems to be
 	linked wrong by gcc (or me;). Fixes bug #172830 
