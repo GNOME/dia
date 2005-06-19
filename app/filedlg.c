@@ -664,6 +664,5 @@ file_export_callback(gpointer data, guint action, GtkWidget *widget)
   export_set_extension(GTK_WIDGET(g_object_get_data(G_OBJECT(exportdlg), 
 						    "export-menu")));
 
-  if (GTK_WIDGET_VISIBLE(exportdlg))
-    gtk_widget_show(exportdlg);
+  gtk_widget_show(exportdlg);
 }

@@ -86,8 +86,7 @@ OBJECTS = \
 	tool.obj \
 	undo.obj \
 	win32print.obj \
-	winmain.obj \
-
+	winmain.obj
 
 ICON_PNG_PAIRS = \
 	dia_connectable_icon pixmaps\connectable.png \
@@ -145,10 +144,10 @@ $(PRJ_TOP)/config.h: $(PRJ_TOP)/config.h.win32
 	copy $(PRJ_TOP)\config.h.win32 $(PRJ_TOP)\config.h
 
 .c.obj :
-	$(CC) $(CFLAGS) -GD -c $(PKG_CFLAGS) $<
+	$(CC) $(CFLAGS) -c $(PKG_CFLAGS) $<
 
 .cpp.obj :
-	$(CC) $(CFLAGS) -GD -c $(PKG_CFLAGS) $<
+	$(CC) $(CFLAGS) -c $(PKG_CFLAGS) $<
 
 clean::
 	del config.h
