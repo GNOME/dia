@@ -1,5 +1,10 @@
 2005-06-19  Hans Breuer  <hans@breuer.org>
 
+	* plug-ins/python/Makefile.am : added codegen.py to EXTRA_DIST
+	as suggested by Roland Stigge, bug #308310
+
+2005-06-19  Hans Breuer  <hans@breuer.org>
+
 	* app/filedlg.c(file_export_callback) : oops, gtk_widget_show() wasn't 
 	called anymore
 

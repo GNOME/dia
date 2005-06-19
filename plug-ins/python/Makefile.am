@@ -72,6 +72,7 @@ endif
 EXTRA_DIST = \
 	python-startup.py \
 	debug_objects.py \
+	codegen.py \
 	export-object.py \
 	export-render.py \
 	diasvg.py \
