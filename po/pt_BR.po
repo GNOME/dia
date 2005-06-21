@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-06-08 10:52+0000\n"
-"PO-Revision-Date: 2005-06-08 15:27-0300\n"
+"POT-Creation-Date: 2005-06-20 18:55+0000\n"
+"PO-Revision-Date: 2005-06-20 16:38-0300\n"
 "Last-Translator: Afonso Celso Medina <medina@maua.br>\n"
 "Language-Team: Portuguese/Brazil <gnome-l10n-br@listas.cipsga.org.br>\n"
 "MIME-Version: 1.0\n"
@@ -21,84 +21,84 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit"
 
 #. This is not an errror
-#: ../app/app_procs.c:253
+#: ../app/app_procs.c:260
 #, c-format
 msgid "Warning: invalid layer range %lu - %lu\n"
 msgstr "Aviso: intervalo de camada inválido %lu - %lu\n"
 
-#: ../app/app_procs.c:265
+#: ../app/app_procs.c:272
 #, c-format
 msgid "Warning: Layer %lu (%s) selected more than once.\n"
 msgstr "Aviso: A camada %lu (%s) foi selecionada mais de uma vez.\n"
 
-#: ../app/app_procs.c:291
+#: ../app/app_procs.c:298
 #, c-format
 msgid "Warning: Layer %d (%s) selected more than once.\n"
 msgstr "Aviso: A camada %d (%s) foi selecionada mais de uma vez.\n"
 
-#: ../app/app_procs.c:300
+#: ../app/app_procs.c:307
 #, c-format
 msgid "Warning: There is no layer named %s\n"
 msgstr "Aviso: Não existe nenhuma camada denominada %s\n"
 
-#: ../app/app_procs.c:382
+#: ../app/app_procs.c:389
 #, c-format
 msgid "%s error: don't know how to export into %s\n"
 msgstr "erro %s: impossível exportar para %s\n"
 
-#: ../app/app_procs.c:391
+#: ../app/app_procs.c:398
 #, c-format
 msgid "%s error: input and output file name is identical: %s"
 msgstr "erro %s: os nomes dos arquivos de entrada e saída são idênticos: %s"
 
-#: ../app/app_procs.c:399
+#: ../app/app_procs.c:406
 #, c-format
 msgid "%s error: need valid input file %s\n"
 msgstr "erro %s: é necessário um arquivo de entrada válido %s\n"
 
 #. if (!quiet)
-#: ../app/app_procs.c:424
+#: ../app/app_procs.c:431
 #, c-format
 msgid "%s --> %s\n"
 msgstr "%s --> %s\n"
 
-#: ../app/app_procs.c:570
+#: ../app/app_procs.c:577
 #, c-format
 msgid "Can't find output format/filter %s\n"
 msgstr "Impossível localizar o formato de filtro %s\n"
 
 #. Translators:  The argument is a list of options, not to be translated
-#: ../app/app_procs.c:657
+#: ../app/app_procs.c:664
 #, c-format
 msgid "Select the filter/format out of: %s"
 msgstr "Selecione o filtro/formato fora de: %s"
 
 #. &export_file_name
-#: ../app/app_procs.c:676 ../app/app_procs.c:701
+#: ../app/app_procs.c:683 ../app/app_procs.c:708
 msgid "Export loaded file and exit"
 msgstr "Exportar o arquivo carregado e sair"
 
-#: ../app/app_procs.c:676 ../app/app_procs.c:701 ../app/diaconv.c:94
+#: ../app/app_procs.c:683 ../app/app_procs.c:708
 msgid "OUTPUT"
 msgstr "SAÍDA"
 
 #. &export_file_format
 #. &export_format_string
 #. &export_file_format
-#: ../app/app_procs.c:678 ../app/app_procs.c:703
+#: ../app/app_procs.c:685 ../app/app_procs.c:710
 msgid "TYPE"
 msgstr "TIPO"
 
-#: ../app/app_procs.c:680 ../app/app_procs.c:706
+#: ../app/app_procs.c:687 ../app/app_procs.c:713
 msgid "Export graphics size"
 msgstr "Tamanho do gráfico exportado"
 
-#: ../app/app_procs.c:680 ../app/app_procs.c:706
+#: ../app/app_procs.c:687 ../app/app_procs.c:713
 msgid "WxH"
 msgstr "LxA"
 
 #. 13.3.2004 sampo@iki.fi
-#: ../app/app_procs.c:682 ../app/app_procs.c:708
+#: ../app/app_procs.c:689 ../app/app_procs.c:715
 msgid ""
 "Show only specified layers (e.g. when exporting). Can be either the layer "
 "name or a range of layer numbers (X-Y)"
@@ -106,62 +106,60 @@ msgstr ""
 "Mostrar apenas camadas especificadas (por exemplo, quando exportando). Pode "
 "ser tanto o nome da camada quanto o intervalo dos números da camadas (X-Y)"
 
-#: ../app/app_procs.c:683 ../app/app_procs.c:709
+#: ../app/app_procs.c:690 ../app/app_procs.c:716
 msgid "LAYER,LAYER,..."
 msgstr "CAMADA,CAMADA,..."
 
-#: ../app/app_procs.c:685 ../app/app_procs.c:711
+#: ../app/app_procs.c:692 ../app/app_procs.c:718
 msgid "Don't show the splash screen"
 msgstr "Não mostrar a tela de abertura"
 
-#: ../app/app_procs.c:687 ../app/app_procs.c:713
+#: ../app/app_procs.c:694 ../app/app_procs.c:720
 msgid "Send error messages to stderr instead of showing dialogs."
 msgstr "Enviar mensagens de erro pra stderr ao contrário de mostrar diálogos."
 
-#: ../app/app_procs.c:689 ../app/app_procs.c:715
+#: ../app/app_procs.c:696 ../app/app_procs.c:722
 msgid "Display credits list and exit"
 msgstr "Mostrar a lista de créditos e sair"
 
-#: ../app/app_procs.c:691 ../app/app_procs.c:717
+#: ../app/app_procs.c:698 ../app/app_procs.c:724
 msgid "Generate verbose output"
 msgstr "Gerar saída do interpretador"
 
-#: ../app/app_procs.c:693 ../app/app_procs.c:719
+#: ../app/app_procs.c:700 ../app/app_procs.c:726
 msgid "Display version and exit"
 msgstr "Mostrar a versão e sair"
 
-#: ../app/app_procs.c:720 ../app/diaconv.c:95
+#: ../app/app_procs.c:727
 msgid "Show this help message"
 msgstr "Mostrar esta mensagem de ajuda"
 
-#: ../app/app_procs.c:768
+#: ../app/app_procs.c:777
 msgid "Can't connect to session manager!\n"
 msgstr "Impossível se conectar ao gerenciador de sessão!\n"
 
 #. TRANSLATOR: 2nd and 3rd %s are time and date respectively.
-#: ../app/app_procs.c:800
+#: ../app/app_procs.c:809
 #, c-format
 msgid "Dia version %s, compiled %s %s\n"
 msgstr "Versão do Dia %s, compilado %s %s\n"
 
-#: ../app/app_procs.c:802
+#: ../app/app_procs.c:811
 #, c-format
 msgid "Dia version %s\n"
 msgstr "Versão do Dia %s\n"
 
-#: ../app/app_procs.c:864 ../app/app_procs.c:866 ../app/diaconv.c:201
-#: ../app/diaconv.c:203
-#, c-format
+#: ../app/app_procs.c:873 ../app/app_procs.c:875
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr ""
 "Impossível encontrar os objetos padrão ao procurar object-libs, saindo...\n"
 
-#: ../app/app_procs.c:907
+#: ../app/app_procs.c:916
 msgid "Diagram1.dia"
 msgstr "Diagrama1.dia"
 
-#: ../app/app_procs.c:949
+#: ../app/app_procs.c:958
 msgid ""
 "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you can cause this message to appear.\n"
@@ -170,7 +168,7 @@ msgstr ""
 "bugzilla.gnome.org descrevendo a situação que gerou esta mensagem.\n"
 
 #. no standard buttons
-#: ../app/app_procs.c:962
+#: ../app/app_procs.c:971
 msgid ""
 "Modified diagrams exist.\n"
 "Are you sure you want to quit Dia\n"
@@ -180,21 +178,21 @@ msgstr ""
 "Tem certeza de que deseja sair do Dia\n"
 "sem salvá-los?"
 
-#: ../app/app_procs.c:965
+#: ../app/app_procs.c:974
 msgid "Quit Dia"
 msgstr "Sair do Dia"
 
 #. This printf seems to prevent a race condition with unrefs.
 #. Yuck.  -Lars
-#: ../app/app_procs.c:1018
+#: ../app/app_procs.c:1027
 msgid "Thank you for using Dia.\n"
 msgstr "Obrigado por utilizar o Dia.\n"
 
-#: ../app/app_procs.c:1035 ../app/app_procs.c:1042
+#: ../app/app_procs.c:1044 ../app/app_procs.c:1051
 msgid "Could not create per-user Dia config directory"
 msgstr "Não foi possível criar o diretório de configuração pessoal do Dia"
 
-#: ../app/app_procs.c:1044
+#: ../app/app_procs.c:1053
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -203,15 +201,15 @@ msgstr ""
 "Certifique-se de que a variável de ambiente HOME aponta para um diretório "
 "existente."
 
-#: ../app/app_procs.c:1066 ../app/diaconv.c:251
+#: ../app/app_procs.c:1075
 msgid "Objects and filters internal to dia"
 msgstr "Objetos e filtros internos do Dia"
 
-#: ../app/app_procs.c:1108 ../app/diaconv.c:121
+#: ../app/app_procs.c:1117
 msgid "[OPTION...] [FILE...]"
 msgstr "[OPÇÃO...] [ARQUIVO...]"
 
-#: ../app/app_procs.c:1111 ../app/diaconv.c:128
+#: ../app/app_procs.c:1120
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
@@ -220,16 +218,16 @@ msgstr ""
 "Erro na opção %s: %s.\n"
 "Execute '%s --help' para obter uma lista completa das opções disponíveis.\n"
 
-#: ../app/app_procs.c:1135
+#: ../app/app_procs.c:1144
 msgid "[FILE...]"
 msgstr "[ARQUIVO...]"
 
-#: ../app/app_procs.c:1150
+#: ../app/app_procs.c:1159
 #, c-format
 msgid "'%s' not found!\n"
 msgstr "'%s' não encontrado!\n"
 
-#: ../app/app_procs.c:1229
+#: ../app/app_procs.c:1238
 msgid ""
 "The original author of Dia was:\n"
 "\n"
@@ -237,7 +235,7 @@ msgstr ""
 "O autor original do Dia foi:\n"
 "\n"
 
-#: ../app/app_procs.c:1234
+#: ../app/app_procs.c:1243
 msgid ""
 "\n"
 "The current maintainers of Dia are:\n"
@@ -247,7 +245,7 @@ msgstr ""
 "Os mantenedores atuais do Dia são:\n"
 "\n"
 
-#: ../app/app_procs.c:1239
+#: ../app/app_procs.c:1248
 msgid ""
 "\n"
 "Other authors are:\n"
@@ -257,7 +255,7 @@ msgstr ""
 "Os outros autores são:\n"
 "\n"
 
-#: ../app/app_procs.c:1244
+#: ../app/app_procs.c:1253
 msgid ""
 "\n"
 "Dia is documented by:\n"
@@ -329,8 +327,8 @@ msgid "Dia"
 msgstr "Dia"
 
 #: ../app/commands.c:627
-msgid "Copyright (C) 1998-2002 The Free Software Foundation and the authors"
-msgstr "Copyright (C) 1998-2002 The Free Software Foundation e os autores"
+msgid "Copyright (C) 1998-2005 The Free Software Foundation and the authors"
+msgstr "Copyright (C) 1998-2005 The Free Software Foundation e os autores"
 
 #: ../app/commands.c:628
 msgid ""
@@ -453,62 +451,6 @@ msgstr "Posição Y"
 #: ../app/diacanvas.c:132
 msgid "Y position of child widget"
 msgstr "Posição Y do componente filho"
-
-#. &export_file_format
-#: ../app/diaconv.c:92
-msgid "Export format to use"
-msgstr "Formato de exportação a ser utilizado"
-
-#: ../app/diaconv.c:92
-msgid "eps,png,wmf,cgm,dxf,fig"
-msgstr "eps,png,wmf,cgm,dxf,fig"
-
-#. &export_file_name
-#: ../app/diaconv.c:94
-msgid "Export file name to use"
-msgstr "Nome do arquivo de exportação a ser utilizado"
-
-#: ../app/diaconv.c:96
-msgid "Quiet operation"
-msgstr "Operação silenciosa"
-
-#: ../app/diaconv.c:149
-#, c-format
-msgid ""
-"Error: No arguments found.\n"
-"Run '%s --help' to see a full list of available command line options.\n"
-msgstr ""
-"Erro: Nenhum argumento encontrado.\n"
-"Execute '%s --help' para obter uma lista completa das opções disponíveis.\n"
-
-#: ../app/diaconv.c:159
-#, c-format
-msgid "%s error: can specify only one of -t or -o."
-msgstr "Erro %s: pode especificar apenas um entre -t ou -o"
-
-#: ../app/diaconv.c:165
-#, c-format
-msgid ""
-"%s error: must specify only one of -t or -o.\n"
-"Run '%s --help' to see a full list of available command line options.\n"
-msgstr ""
-"Erro %s: deve ser especificado uma das opções entre -t ou -o.\n"
-"Execute '%s --help' para obter uma lista completa das opções disponíveis.\n"
-
-#: ../app/diaconv.c:174
-#, c-format
-msgid "%s error: no input file."
-msgstr "Erro %s: nenhum arquivo de entrada."
-
-#: ../app/diaconv.c:227
-#, c-format
-msgid "%s error: only one input file expected."
-msgstr "Erro %s: espera-se somente um arquivo de entrada."
-
-#: ../app/diaconv.c:240
-#, c-format
-msgid "%s error: popt library not available on this system"
-msgstr "Erro %s: a biblioteca popt não está disponível neste sistema"
 
 #: ../app/diagram_tree_menu.c:45
 msgid "/_Sort objects"
@@ -693,11 +635,11 @@ msgstr "Seleção de %d objetos"
 msgid "Selected '%s'"
 msgstr "Selecionado '%s'"
 
-#: ../app/display.c:1025
+#: ../app/display.c:1023
 msgid "<unnamed>"
 msgstr "<semnome>"
 
-#: ../app/display.c:1027
+#: ../app/display.c:1025
 #, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -706,11 +648,11 @@ msgstr ""
 "O diagrama '%s' não foi salvo.\n"
 "Salvar as alterações agora?"
 
-#: ../app/display.c:1038
+#: ../app/display.c:1036
 msgid "Close Diagram"
 msgstr "Fechar o Diagrama"
 
-#: ../app/display.c:1043
+#: ../app/display.c:1041
 msgid "Discard Changes"
 msgstr "Descartar as Alterações"
 
@@ -721,7 +663,7 @@ msgstr "Descartar as Alterações"
 #: ../plug-ins/pstricks/render_pstricks.c:910
 #: ../plug-ins/shape/shape-export.c:134 ../plug-ins/svg/render_svg.c:151
 #: ../plug-ins/wpg/wpg.c:1067 ../plug-ins/xfig/xfig-export.c:1138
-#: ../plug-ins/xslt/xslt.c:94
+#: ../plug-ins/xslt/xslt.c:92
 #, c-format
 msgid "Can't open output file %s: %s\n"
 msgstr "Impossível abrir o arquivo de saída %s: %s\n"
@@ -774,15 +716,15 @@ msgstr "Abrir Diagrama"
 msgid "Open Options"
 msgstr "Opções de Abertura"
 
-#: ../app/filedlg.c:236 ../app/filedlg.c:628
+#: ../app/filedlg.c:236 ../app/filedlg.c:614
 msgid "Determine file type:"
 msgstr "Determinar o tipo de arquivo:"
 
-#: ../app/filedlg.c:252 ../app/filedlg.c:641
+#: ../app/filedlg.c:252 ../app/filedlg.c:627
 msgid "All Files"
 msgstr "Todos os Arquivos"
 
-#: ../app/filedlg.c:257 ../app/filedlg.c:646
+#: ../app/filedlg.c:257 ../app/filedlg.c:632
 msgid "Supported Formats"
 msgstr "Formatos Suportados"
 
@@ -841,7 +783,7 @@ msgstr ""
 msgid "Export Diagram"
 msgstr "Exportar o Diagrama"
 
-#: ../app/filedlg.c:620
+#: ../app/filedlg.c:606
 msgid "Export Options"
 msgstr "Opções de Exportação"
 
@@ -866,15 +808,15 @@ msgstr "Muda o enquadramento do diagrama na janela"
 msgid "Scroll"
 msgstr "Mudar Enquadramento"
 
-#: ../app/interface.c:69 ../app/interface.c:70 ../lib/properties.c:77
-#: ../lib/properties.h:517 ../objects/Jackson/requirement.c:142
+#: ../app/interface.c:69 ../app/interface.c:70 ../lib/properties.c:79
+#: ../lib/properties.h:520 ../objects/Jackson/requirement.c:142
 #: ../objects/UML/activity.c:126 ../objects/UML/actor.c:122
 #: ../objects/UML/classicon.c:144 ../objects/UML/component.c:128
 #: ../objects/UML/component_feature.c:154 ../objects/UML/node.c:127
 #: ../objects/UML/note.c:121 ../objects/UML/object.c:147
 #: ../objects/UML/small_package.c:128 ../objects/UML/state.c:141
-#: ../objects/UML/usecase.c:138 ../objects/network/basestation.c:133
-#: ../objects/network/radiocell.c:146
+#: ../objects/UML/usecase.c:138 ../objects/custom/custom_object.c:200
+#: ../objects/network/basestation.c:133 ../objects/network/radiocell.c:146
 msgid "Text"
 msgstr "Texto"
 
@@ -994,7 +936,7 @@ msgstr ""
 "Estilo de seta no final de novas linhas.  Clique para escolher um seta ou "
 "defina os parâmetros de estilo de seta através da opção Detalhes..."
 
-#: ../app/interface.c:1202
+#: ../app/interface.c:1203
 msgid "Diagram Editor"
 msgstr "Editor de Diagramas"
 
@@ -1085,7 +1027,7 @@ msgstr "Você deve especificar um arquivo, não um diretório.\n"
 
 #: ../app/load_save.c:358 ../plug-ins/dxf/dxf-import.c:1304
 #: ../plug-ins/wpg/wpg.c:1171 ../plug-ins/xfig/xfig-import.c:1560
-#: ../plug-ins/xslt/xslt.c:87
+#: ../plug-ins/xslt/xslt.c:85
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "Impossível abrir '%s' para leitura.\n"
@@ -1859,10 +1801,6 @@ msgstr "Postscript Encapsulado com pré-visualização (usando fontes Pango)"
 msgid "Encapsulated Postscript (using PostScript Latin-1 fonts)"
 msgstr "Postscript Encapsulado (usando fontes PostScript Latin-1)"
 
-#: ../app/render_libart.c:318 ../lib/dialibartrenderer.c:288
-msgid "gdk_renderer: Unsupported fill mode specified!\n"
-msgstr "gdk_renderer: O modo de preenchimento especificado não é suportado!\n"
-
 #: ../app/sheets.c:155
 #, c-format
 msgid ""
@@ -2367,6 +2305,10 @@ msgstr "_Visualizar:"
 msgid "Font Selection"
 msgstr "Seleção de Fonte"
 
+#: ../lib/dialibartrenderer.c:288
+msgid "gdk_renderer: Unsupported fill mode specified!\n"
+msgstr "gdk_renderer: O modo de preenchimento especificado não é suportado!\n"
+
 #: ../lib/dialinechooser.c:297
 msgid "Line Style Properties"
 msgstr "Propriedades do Estilo de Linha"
@@ -2376,7 +2318,7 @@ msgstr "Propriedades do Estilo de Linha"
 msgid "Multiple export filters with unique name %s"
 msgstr "Múltiplos filtros de exportação com um único nome %s"
 
-#: ../lib/font.c:89
+#: ../lib/font.c:98
 #, c-format
 msgid "Can't load font %s.\n"
 msgstr "Impossível carregar fonte %s.\n"
@@ -2465,49 +2407,49 @@ msgstr ""
 msgid "Group with %d objects"
 msgstr "Grupo com %d objetos"
 
-#: ../lib/properties.c:62 ../lib/properties.h:469 ../lib/widgets.c:638
+#: ../lib/properties.c:64 ../lib/properties.h:469 ../lib/widgets.c:638
 msgid "Left"
 msgstr "Esquerda"
 
-#: ../lib/properties.c:63 ../lib/properties.h:470 ../lib/widgets.c:644
+#: ../lib/properties.c:65 ../lib/properties.h:470 ../lib/widgets.c:644
 msgid "Center"
 msgstr "Centralizar"
 
-#: ../lib/properties.c:64 ../lib/properties.h:471 ../lib/widgets.c:650
+#: ../lib/properties.c:66 ../lib/properties.h:471 ../lib/widgets.c:650
 msgid "Right"
 msgstr "Direita"
 
-#: ../lib/properties.c:71 ../objects/chronogram/chronoline.c:179
+#: ../lib/properties.c:73 ../objects/chronogram/chronoline.c:179
 #: ../objects/chronogram/chronoref.c:158
 msgid "Line color"
 msgstr "Cor da linha"
 
-#: ../lib/properties.c:72 ../lib/properties.h:493 ../lib/properties.h:496
+#: ../lib/properties.c:74 ../lib/properties.h:493 ../lib/properties.h:496
 msgid "Line style"
 msgstr "Estilo de linha"
 
-#: ../lib/properties.c:73
+#: ../lib/properties.c:75
 msgid "Fill color"
 msgstr "Cor de preenchimento"
 
-#: ../lib/properties.c:74 ../lib/properties.h:506
+#: ../lib/properties.c:76 ../lib/properties.h:506 ../lib/properties.h:509
 msgid "Draw background"
 msgstr "Transparente"
 
-#: ../lib/properties.c:75 ../lib/properties.h:510
+#: ../lib/properties.c:77 ../lib/properties.h:513
 msgid "Start arrow"
 msgstr "Seta inicial"
 
-#: ../lib/properties.c:76 ../lib/properties.h:513
+#: ../lib/properties.c:78 ../lib/properties.h:516
 msgid "End arrow"
 msgstr "Seta final"
 
-#: ../lib/properties.c:78 ../lib/properties.h:523
+#: ../lib/properties.c:80 ../lib/properties.h:526
 msgid "Text alignment"
 msgstr "Alinhamento do texto"
 
 #. all this just to make the defaults selectable ...
-#: ../lib/properties.c:79 ../lib/properties.h:528
+#: ../lib/properties.c:81 ../lib/properties.h:531
 #: ../objects/GRAFCET/condition.c:132 ../objects/GRAFCET/step.c:165
 #: ../objects/GRAFCET/transition.c:142 ../objects/UML/class.c:143
 #: ../objects/UML/class_dialog.c:351 ../objects/chronogram/chronoline.c:183
@@ -2515,14 +2457,14 @@ msgstr "Alinhamento do texto"
 msgid "Font"
 msgstr "Fonte"
 
-#: ../lib/properties.c:80 ../lib/properties.h:534
+#: ../lib/properties.c:82 ../lib/properties.h:537
 #: ../objects/GRAFCET/condition.c:134 ../objects/GRAFCET/step.c:167
 #: ../objects/GRAFCET/transition.c:144 ../objects/chronogram/chronoline.c:185
 #: ../objects/chronogram/chronoref.c:166
 msgid "Font size"
 msgstr "Tamanho da fonte"
 
-#: ../lib/properties.c:81 ../objects/GRAFCET/step.c:169
+#: ../lib/properties.c:83 ../objects/GRAFCET/step.c:169
 #: ../objects/chronogram/chronoline.c:187
 #: ../objects/chronogram/chronoref.c:168
 msgid "Text color"
@@ -2536,7 +2478,7 @@ msgstr "Cor da linha"
 msgid "Fill colour"
 msgstr "Cor de preenchimento"
 
-#: ../lib/properties.h:540
+#: ../lib/properties.h:543
 msgid "Text colour"
 msgstr "Cor do texto"
 
@@ -4803,23 +4745,23 @@ msgstr "Personalizar"
 msgid "Custom XML shapes loader"
 msgstr "Carregador de formas XML personalizadas"
 
-#: ../objects/custom/custom_object.c:178 ../objects/custom/custom_object.c:197
+#: ../objects/custom/custom_object.c:178 ../objects/custom/custom_object.c:203
 msgid "Flip horizontal"
 msgstr "Inverter horizontalmente"
 
-#: ../objects/custom/custom_object.c:180 ../objects/custom/custom_object.c:199
+#: ../objects/custom/custom_object.c:180 ../objects/custom/custom_object.c:205
 msgid "Flip vertical"
 msgstr "Inverter verticalmente"
 
-#: ../objects/custom/custom_object.c:1448
+#: ../objects/custom/custom_object.c:1454
 msgid "Flip Horizontal"
 msgstr "Inverter Horizontalmente"
 
-#: ../objects/custom/custom_object.c:1449
+#: ../objects/custom/custom_object.c:1455
 msgid "Flip Vertical"
 msgstr "Inverter Verticalmente"
 
-#: ../objects/custom/custom_object.c:1486
+#: ../objects/custom/custom_object.c:1492
 #, c-format
 msgid "Cannot open icon file %s for object type '%s'."
 msgstr "Impossível abrir ícone %s para o tipo de objeto '%s'."
@@ -5404,50 +5346,50 @@ msgstr "Formato de arquivo do XFig"
 msgid "Fig Format import and export filter"
 msgstr "Filtro de importação e exportação para o formato Fig"
 
-#: ../plug-ins/xslt/xslt.c:102
+#: ../plug-ins/xslt/xslt.c:100
 #, c-format
 msgid "Error while parsing %s\n"
 msgstr "Erro ao analisar %s\n"
 
-#: ../plug-ins/xslt/xslt.c:110
+#: ../plug-ins/xslt/xslt.c:108
 #, c-format
 msgid "Error while parsing stylesheet %s\n"
 msgstr "Erro ao analisar folha de estilos %s\n"
 
-#: ../plug-ins/xslt/xslt.c:116
+#: ../plug-ins/xslt/xslt.c:114
 #, c-format
 msgid "Error while applying stylesheet %s\n"
 msgstr "Erro ao aplicar folha de estilos %s\n"
 
-#: ../plug-ins/xslt/xslt.c:124
+#: ../plug-ins/xslt/xslt.c:122
 #, c-format
 msgid "Error while parsing stylesheet: %s\n"
 msgstr "Erro ao analisar folha de estilos: %s\n"
 
-#: ../plug-ins/xslt/xslt.c:132
+#: ../plug-ins/xslt/xslt.c:130
 #, c-format
 msgid "Error while applying stylesheet: %s\n"
 msgstr "Erro ao aplicar folha de estilos: %s\n"
 
-#: ../plug-ins/xslt/xslt.c:317
+#: ../plug-ins/xslt/xslt.c:315
 msgid "XSL Transformation filter"
 msgstr "Filtro de Transformação XSL"
 
-#: ../plug-ins/xslt/xslt.c:341
+#: ../plug-ins/xslt/xslt.c:339
 msgid "No valid configuration files found for the XSLT plugin, not loading."
 msgstr ""
 "Nenhum arquivo de configuração válido encontrado para o plugin XSLT, não "
 "carregando."
 
-#: ../plug-ins/xslt/xsltdialog.c:99
+#: ../plug-ins/xslt/xsltdialog.c:96
 msgid "Export through XSLT"
 msgstr "Exportar através de XSLT"
 
-#: ../plug-ins/xslt/xsltdialog.c:114
+#: ../plug-ins/xslt/xsltdialog.c:111
 msgid "From:"
 msgstr "De:"
 
-#: ../plug-ins/xslt/xsltdialog.c:149
+#: ../plug-ins/xslt/xsltdialog.c:146
 msgid "To:"
 msgstr "Para:"
 
@@ -8789,6 +8731,46 @@ msgstr "Servidor de dados Sybase"
 #: ../sheets/sybase.sheet.in.h:8
 msgid "Sybase replication server"
 msgstr "Servidor de replicação Sybase"
+
+#~ msgid "Export format to use"
+#~ msgstr "Formato de exportação a ser utilizado"
+
+#~ msgid "eps,png,wmf,cgm,dxf,fig"
+#~ msgstr "eps,png,wmf,cgm,dxf,fig"
+
+#~ msgid "Export file name to use"
+#~ msgstr "Nome do arquivo de exportação a ser utilizado"
+
+#~ msgid "Quiet operation"
+#~ msgstr "Operação silenciosa"
+
+#~ msgid ""
+#~ "Error: No arguments found.\n"
+#~ "Run '%s --help' to see a full list of available command line options.\n"
+#~ msgstr ""
+#~ "Erro: Nenhum argumento encontrado.\n"
+#~ "Execute '%s --help' para obter uma lista completa das opções "
+#~ "disponíveis.\n"
+
+#~ msgid "%s error: can specify only one of -t or -o."
+#~ msgstr "Erro %s: pode especificar apenas um entre -t ou -o"
+
+#~ msgid ""
+#~ "%s error: must specify only one of -t or -o.\n"
+#~ "Run '%s --help' to see a full list of available command line options.\n"
+#~ msgstr ""
+#~ "Erro %s: deve ser especificado uma das opções entre -t ou -o.\n"
+#~ "Execute '%s --help' para obter uma lista completa das opções "
+#~ "disponíveis.\n"
+
+#~ msgid "%s error: no input file."
+#~ msgstr "Erro %s: nenhum arquivo de entrada."
+
+#~ msgid "%s error: only one input file expected."
+#~ msgstr "Erro %s: espera-se somente um arquivo de entrada."
+
+#~ msgid "%s error: popt library not available on this system"
+#~ msgstr "Erro %s: a biblioteca popt não está disponível neste sistema"
 
 #~ msgid "Workstation"
 #~ msgstr "Estação de Trabalho"
