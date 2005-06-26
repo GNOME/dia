@@ -63,11 +63,9 @@ static PropOffset umlparameter_offsets[] = {
 };
 
 PropDescDArrayExtra umlparameter_extra = {
-  umlparameter_props,
-  umlparameter_offsets,
-  "umlparameter",
-  uml_parameter_new,
-  uml_parameter_destroy
+  { umlparameter_props, umlparameter_offsets, "umlparameter" },
+  (NewRecordFunc)uml_parameter_new,
+  (FreeRecordFunc)uml_parameter_destroy
 };
 
 UMLParameter *

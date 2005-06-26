@@ -804,8 +804,6 @@ dia_gnome_print_renderer_init (DiaGnomePrintRenderer *renderer, void *p)
 static void
 dia_gnome_print_renderer_finalize (GObject *object)
 {
-  DiaGnomePrintRenderer *dia_gnome_print_renderer = DIA_GNOME_PRINT_RENDERER (object);
-
   G_OBJECT_CLASS (parent_class)->finalize (object);
 }
 

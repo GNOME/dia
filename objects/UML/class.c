@@ -274,7 +274,6 @@ umlclass_get_props(UMLClass * umlclass, GPtrArray *props)
 static DiaMenuItem umlclass_menu_items[] = {
         { N_("Show Comments"), umlclass_show_comments_callback, NULL, 
           DIAMENU_ACTIVE|DIAMENU_TOGGLE },
-        NULL
 };
 
 static DiaMenu umlclass_menu = {
@@ -1693,11 +1692,8 @@ static DiaObject *umlclass_load(ObjectNode obj_node, int version,
   UMLClass *umlclass;
   Element *elem;
   DiaObject *obj;
-  UMLFormalParameter *formal_param;
   AttributeNode attr_node;
-  DataNode composite;
-  int i;
-  int num, num_attr, num_ops;
+  int i, num_attr, num_ops;
   GList *list;
   
 

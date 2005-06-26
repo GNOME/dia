@@ -104,6 +104,7 @@ matching_extensions_filter (const GtkFileFilterInfo* fi,
  * a refernce to it. As a result we could access the diagram even when the
  * display of it is gone ...
  */
+#if 0
 static void
 diagram_removed (Diagram* dia, GtkWidget* dialog)
 {
@@ -112,6 +113,7 @@ diagram_removed (Diagram* dia, GtkWidget* dialog)
 
   gtk_widget_destroy (dialog);
 }
+#endif
 
 /**
  * Create the combobox menu to select Import Filter options

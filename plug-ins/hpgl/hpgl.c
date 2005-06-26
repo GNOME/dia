@@ -352,8 +352,6 @@ draw_polygon(DiaRenderer *object,
 	     Point *points, int num_points, 
 	     Color *line_colour)
 {
-    HpglRenderer *renderer = HPGL_RENDERER (object);
-
     DIAG_NOTE(g_message("draw_polygon n:%d %f,%f ...", 
               num_points, points->x, points->y));
     draw_polyline(object,points,num_points,line_colour);
@@ -393,11 +391,11 @@ fill_rect(DiaRenderer *object,
 	  Point *ul_corner, Point *lr_corner,
 	  Color *colour)
 {
-    HpglRenderer *renderer = HPGL_RENDERER (object);
-
     DIAG_NOTE(g_message("fill_rect %f,%f -> %f,%f", 
               ul_corner->x, ul_corner->y, lr_corner->x, lr_corner->y));
 #if 0
+    HpglRenderer *renderer = HPGL_RENDERER (object);
+
     hpgl_select_pen(renderer, colour, 0.0);
     fprintf (renderer->file, "PU%d,%d;PD;RA%d,%d;\n",
              hpgl_scale(renderer, ul_corner->x),
@@ -549,16 +547,6 @@ fill_ellipse(DiaRenderer *object,
 }
 
 static void
-fill_bezier(DiaRenderer *object, 
-	    BezPoint *points, /* Last point must be same as first point */
-	    int numpoints,
-	    Color *colour)
-{
-    DIAG_NOTE(g_message("fill_bezier n:%d %fx%f ...", 
-              numpoints, points->p1.x, points->p1.y));
-}
-
-static void
 draw_string(DiaRenderer *object,
 	    const char *text,
 	    Point *pos, Alignment alignment,
@@ -656,8 +644,6 @@ hpgl_renderer_get_type (void)
 static void
 hpgl_renderer_finalize (GObject *object)
 {
-  HpglRenderer *renderer = HPGL_RENDERER (object);
-
   G_OBJECT_CLASS (parent_class)->finalize (object);
 }
 

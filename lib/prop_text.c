@@ -125,7 +125,7 @@ multistringprop_get_widget(StringProperty *prop, PropDialog *dialog)
   gtk_frame_set_shadow_type(GTK_FRAME(frame), GTK_SHADOW_IN);
   gtk_container_add(GTK_CONTAINER(frame), ret);
   g_signal_connect(G_OBJECT(ret), "key-release-event", 
-		   multistringprop_handle_key, NULL);
+		   G_CALLBACK(multistringprop_handle_key), NULL);
   gtk_widget_show(ret);
   prophandler_connect(&prop->common,GTK_OBJECT(ret),"changed");
   return frame;

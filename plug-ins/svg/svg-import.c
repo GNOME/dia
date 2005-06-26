@@ -183,7 +183,6 @@ read_path_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list)
     Handle *h1, *h2;
     BezierCreateData *bcd;
     gchar *str, *pathdata, *unparsed = NULL;
-    GList *tmp;
     GArray *bezpoints;
     gboolean closed = FALSE;
     
@@ -613,7 +612,6 @@ import_svg(const gchar *filename, DiagramData *dia, void* user_data)
   xmlNsPtr svg_ns;
   xmlNodePtr root;
   GList *items, *item;
-  DiaObject *obj;
 
   if (!doc) {
     message_warning("parse error for %s", filename);
@@ -627,8 +625,12 @@ import_svg(const gchar *filename, DiagramData *dia, void* user_data)
 
   if (!(svg_ns = xmlSearchNsByHref(doc, root, "http://www.w3.org/2000/svg"))) {
     /* correct filetype vs. robust import */
-    /*xmlFreeDoc(doc);
-    return FALSE;*/
+#if 0
+    xmlFreeDoc(doc);
+    return FALSE;
+#else
+    message_warning(_("Expected SVG Namespace not found in file"));
+#endif
   }
   /* search for some svg in the file, this allows us to read the
    * svg part of our own shape file ...

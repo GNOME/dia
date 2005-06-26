@@ -94,11 +94,9 @@ static PropOffset umloperation_offsets[] = {
 };
 
 PropDescDArrayExtra umloperation_extra = {
-  umloperation_props,
-  umloperation_offsets,
-  "umloperation",
-  uml_operation_new,
-  uml_operation_destroy
+  { umloperation_props, umloperation_offsets, "umloperation" },
+  (NewRecordFunc)uml_operation_new,
+  (FreeRecordFunc)uml_operation_destroy
 };
 
 UMLOperation *

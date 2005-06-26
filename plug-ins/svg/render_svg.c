@@ -113,8 +113,6 @@ svg_renderer_get_type (void)
 static void
 svg_renderer_finalize (GObject *object)
 {
-  SvgRenderer *svg_renderer = SVG_RENDERER (object);
-
   G_OBJECT_CLASS (parent_class)->finalize (object);
 }
 

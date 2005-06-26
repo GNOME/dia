@@ -126,7 +126,7 @@ dia_svg_parse_style(xmlNodePtr node, DiaSvgStyle *s)
   str = xmlGetProp(node, "style");
 
   if (str) {
-    xmlChar *ptr = str;
+    gchar *ptr = (gchar *)str;
     while (ptr[0] != '\0') {
       /* skip white space at start */
       while (ptr[0] != '\0' && g_ascii_isspace(ptr[0])) ptr++;
@@ -741,7 +741,7 @@ dia_svg_parse_path(const gchar *path_str, gchar **unparsed, gboolean *closed)
     case PATH_ARC :
       {
         real  rx, ry;
-        real  xrot, arc;
+        real  xrot;
         int   largearc, sweep;
 	Point dest, dest_c;
 

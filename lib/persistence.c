@@ -241,7 +241,7 @@ static GHashTable *type_handlers;
 static void
 persistence_load_type(xmlNodePtr node)
 {
-  gchar *typename = node->name;
+  const gchar *typename = node->name;
   gchar *name;
 
   PersistenceLoadFunc func =
@@ -497,10 +497,10 @@ persistence_save()
 
 /* Returns the name used for a window in persistence.
  */
-static gchar *
+static const gchar *
 persistence_get_window_name(GtkWindow *window)
 {
-  gchar *name = gtk_window_get_role(window);
+  const gchar *name = gtk_window_get_role(window);
   if (name == NULL) {
     printf("Internal:  Window %s has no role.\n", gtk_window_get_title(window));
     return NULL;
@@ -525,7 +525,7 @@ persistence_store_window_info(GtkWindow *window, PersistentWindow *wininfo,
 static gboolean
 persistence_update_window(GtkWindow *window, GdkEvent *event, gpointer data)
 {
-  gchar *name = persistence_get_window_name(window);
+  const gchar *name = persistence_get_window_name(window);
   PersistentWindow *wininfo;
   gboolean isclosed;
 
@@ -561,7 +561,7 @@ persistence_update_window(GtkWindow *window, GdkEvent *event, gpointer data)
 void
 persistence_register_window(GtkWindow *window)
 {
-  gchar *name = persistence_get_window_name(window);
+  const gchar *name = persistence_get_window_name(window);
   PersistentWindow *wininfo;
 
   if (name == NULL) return;

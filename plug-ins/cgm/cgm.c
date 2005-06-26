@@ -85,12 +85,6 @@ write_uint32(FILE *fp, guint32 n)
 }
 
 static void
-write_int32(FILE *fp, gint32 n)
-{
-    write_uint32(fp, (guint32) n);
-}
-
-static void
 write_colour(FILE *fp, Color *c)
 {
     putc((int)(c->red   * 255), fp);
@@ -1310,8 +1304,6 @@ cgm_renderer_get_type (void)
 static void
 cgm_renderer_finalize (GObject *object)
 {
-  CgmRenderer *cgm_renderer = CGM_RENDERER (object);
-
   G_OBJECT_CLASS (parent_class)->finalize (object);
 }
 

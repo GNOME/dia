@@ -55,12 +55,7 @@ struct _DiaFont
  */
 static real global_zoom_factor = 20.0;
 
-static int
-compare(const void *p1, const void *p2) {
-  return g_ascii_strcasecmp(pango_font_family_get_name(*(PangoFontFamily **)p1),
-			    pango_font_family_get_name(*(PangoFontFamily **)p2));
-}
-
+#if 0
 /* For debugging: Sort families */
 static int
 cmp_families (const void *a, const void *b)
@@ -84,7 +79,9 @@ list_families()
   for (i = 0; i < nfamilies; i++) {
     puts(pango_font_family_get_name(families[i]));
   }
+  g_free(families);
 }
+#endif
 
 static void
 dia_font_check_for_font(int font) {
@@ -937,7 +934,7 @@ dia_font_new_from_legacy_name(const char* name)
 {
   /* do NOT translate anything here !!! */
   DiaFont* retval;
-  struct _legacy_font* found;
+  struct _legacy_font* found = NULL;
   real height = 1.0;
   int i;
 

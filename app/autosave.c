@@ -46,9 +46,6 @@
 
 gboolean autosave_check_autosave(gpointer data);
 
-static void autosave_make_restore_dialog(GList *files);
-static void autosave_restore_documents(void);
-
 static void
 autosave_save_diagram(gpointer data)
 {
@@ -83,6 +80,7 @@ autosave_check_autosave(gpointer data)
 }
 
 /* This is old stuff for a restore dialog */
+#if 0
 /* Doesn't work with autosave files stored in the files dir */
 
 /** Create a dialog that asks for files to be restore */
@@ -133,3 +131,4 @@ autosave_restore_documents(void)
   g_free(savedir);
   g_list_free(files);
 }
+#endif

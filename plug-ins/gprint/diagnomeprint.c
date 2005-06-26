@@ -43,7 +43,6 @@ export_data(DiagramData *data, const gchar *filename,
   DiaGnomePrintRenderer *renderer;
   real width, height;
   gboolean portrait = data->paper.is_portrait;
-  gdouble matrix[6] = { 1.0, 0.0, -1.0, 0.0, 0.0, 0.0 };
   real magic = 72.0 / 2.54;
 
   width = data->paper.width * data->paper.scaling * magic;

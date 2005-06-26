@@ -25,10 +25,6 @@
 
 static Color connectionpoint_color = { 0.4, 0.4, 1.0 };
 
-/* Temporary color for checking midpoints */
-static Color midpoint_color = { 1.0, 0.0, 0.0 };
-
-
 #define CP_SZ (CONNECTIONPOINT_SIZE/2)
 
 void
@@ -46,6 +42,8 @@ connectionpoint_draw(ConnectionPoint *conpoint,
   if (conpoint->flags & CP_FLAG_ANYPLACE) {
     /* Temporarily draw it extra visible! */
     /*
+    static Color midpoint_color = { 1.0, 0.0, 0.0 };
+
     ddisplay_transform_coords(ddisp, point->x, point->y, &x, &y);
     
     renderer_ops->set_linewidth (renderer, 0.1);

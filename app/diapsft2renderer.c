@@ -80,7 +80,9 @@ set_font(DiaRenderer *self, DiaFont *font, real height)
   DiaPsFt2Renderer *renderer = DIA_PS_FT2_RENDERER(self);
 
   renderer->current_font = font;
-  /* Dammit!  We have a random factor once again! */
+  /* Dammit!  We have a random factor once again! 
+   * And not only here but also in dia_font_scaled_build_layout() below ...
+   */
   renderer->current_height = height*4.3;
   pango_context_set_font_description(dia_font_get_context(), 
                                      dia_font_get_description(font));
@@ -100,8 +102,8 @@ static int paps_move_to( FT_Vector* to,
 {
   OutlineInfo *outline_info = (OutlineInfo*)user_data;
   fprintf(outline_info->OUT, "%d %d moveto\n",
-	  to->x ,
-	  to->y );
+	  (int)to->x ,
+	  (int)to->y );
   return 0;
 }
 
@@ -110,8 +112,8 @@ static int paps_line_to( FT_Vector*  to,
 {
   OutlineInfo *outline_info = (OutlineInfo*)user_data;
   fprintf(outline_info->OUT, "%d %d lineto\n",
-	  to->x ,
-	  to->y );
+	  (int)to->x ,
+	  (int)to->y );
   return 0;
 }
 
@@ -121,10 +123,10 @@ static int paps_conic_to( FT_Vector*  control,
 {
   OutlineInfo *outline_info = (OutlineInfo*)user_data;
   fprintf(outline_info->OUT, "%d %d %d %d conicto\n",
-	  control->x  ,
-	  control->y  ,
-	  to->x   ,
-	  to->y  );
+	  (int)control->x  ,
+	  (int)control->y  ,
+	  (int)to->x   ,
+	  (int)to->y  );
   return 0;
 }
 
@@ -136,12 +138,12 @@ static int paps_cubic_to( FT_Vector*  control1,
   OutlineInfo *outline_info = (OutlineInfo*)user_data;
   fprintf(outline_info->OUT,
 	  "%d %d %d %d %d %d curveto\n",
-	  control1->x , 
-	  control1->y ,
-	  control2->x ,
-	  control2->y ,
-	  to->x ,
-	  to->y );
+	  (int)control1->x , 
+	  (int)control1->y ,
+	  (int)control2->x ,
+	  (int)control2->y ,
+	  (int)to->x ,
+	  (int)to->y );
   return 0;
 }
 
@@ -185,16 +187,11 @@ void postscript_draw_contour(DiaPsRenderer *renderer,
 {
   GSList *runs_list;
   int num_runs = 0;
-  PangoRectangle ink_rect, logical_rect;
-  int byte_width;
-  FT_Bitmap bitmap;
-  guchar *buf;
 
   /* First calculate number of runs in text */
   runs_list = pango_line->runs;
   while(runs_list)
   {
-    PangoLayoutRun *run = runs_list->data;
     num_runs++;
     runs_list = runs_list->next;
   }
@@ -328,19 +325,29 @@ draw_string(DiaRenderer *self,
   int width;
   int line, linecount;
   double xpos = pos->x, ypos = pos->y;
+/* Using the global PangoContext does not allow to have renderer specific 
+ * different ones. Or it implies the push/pop _context mess. Anyway just 
+ * get rid of warnings for now. But the local code may be resurreted 
+ * sooner or later...                                               --hb
+ */
+#define USE_GLOBAL_CONTEXT
+#ifndef USE_GLOBAL_CONTEXT
   PangoAttrList* list;
   PangoAttribute* attr;
   guint length;
+#endif
 
   if ((!text)||(text == (const char *)(1))) return;
 
   lazy_setcolor(DIA_PS_RENDERER(renderer),color);
 
   /* Make sure the letters aren't too wide. */
+#ifdef USE_GLOBAL_CONTEXT
   layout = dia_font_scaled_build_layout(text, renderer->current_font,
 					renderer->current_height/0.7, 
 					20.0);
-  /*
+#else
+  /* approximately what would be required but w/o dia_font_get_context() */
   dia_font_set_height(renderer->current_font, renderer->current_height);
   layout = pango_layout_new(dia_font_get_context());
 
@@ -359,7 +366,8 @@ draw_string(DiaRenderer *self,
 
   pango_layout_set_indent(layout,0);
   pango_layout_set_justify(layout,FALSE);
-  */
+#endif
+
   switch (alignment) {
   case ALIGN_LEFT:
     pango_layout_set_alignment(layout,PANGO_ALIGN_LEFT);
@@ -441,8 +449,6 @@ dia_ps_ft2_renderer_get_type (void)
 static void
 dia_ps_ft2_renderer_finalize (GObject *object)
 {
-  DiaPsFt2Renderer *dia_ps_ft2_renderer = DIA_PS_FT2_RENDERER (object);
-
   G_OBJECT_CLASS (parent_class)->finalize (object);
 }
 

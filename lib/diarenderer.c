@@ -673,7 +673,7 @@ draw_polyline (DiaRenderer *renderer,
        (ie, angle between lines p1,p2 and p2,p3)
      then maxr = c * sin(a/2)
  */
-real
+static real
 calculate_min_radius( Point *p1, Point *p2, Point *p3 )
 {
   real c;

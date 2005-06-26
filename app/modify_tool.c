@@ -77,7 +77,9 @@ create_modify_tool(void)
   return (Tool *)tool;
 }
 
-ModifierKeys gdk_event_to_dia_ModifierKeys(guint event_state){
+static ModifierKeys 
+gdk_event_to_dia_ModifierKeys(guint event_state)
+{
         ModifierKeys mod = MODIFIER_NONE;
         if (event_state & GDK_SHIFT_MASK)
                 mod |= MODIFIER_SHIFT;
@@ -607,7 +609,7 @@ modify_button_release(ModifyTool *tool, GdkEventButton *event,
   Point *dest_pos, to;
   GList *list;
   int i;
-  DiaObject *obj, *active_obj;
+  DiaObject *active_obj = NULL;
   ObjectChange *objchange;
   
   tool->break_connections = FALSE;
@@ -633,7 +635,7 @@ modify_button_release(ModifyTool *tool, GdkEventButton *event,
       dest_pos = g_new(Point, g_list_length(list));
       i=0;
       while (list != NULL) {
-	obj = (DiaObject *)  list->data;
+	DiaObject *obj = (DiaObject *)  list->data;
 	dest_pos[i] = obj->position;
 	list = g_list_next(list); i++;
       }
@@ -718,7 +720,7 @@ modify_button_release(ModifyTool *tool, GdkEventButton *event,
         GList *intersection = NULL;
 
         while (list != NULL) {
-          obj = (DiaObject *)list->data;
+          DiaObject *obj = (DiaObject *)list->data;
           
           if (diagram_is_selected(ddisp->diagram, obj)) {
             intersection = g_list_append(intersection, obj);
@@ -729,7 +731,7 @@ modify_button_release(ModifyTool *tool, GdkEventButton *event,
         list = intersection;
         diagram_remove_all_selected(ddisp->diagram, TRUE);
         while (list != NULL) {
-          obj = (DiaObject *)list->data;
+          DiaObject *obj = (DiaObject *)list->data;
 
           diagram_select(ddisp->diagram, obj);
 
@@ -738,7 +740,7 @@ modify_button_release(ModifyTool *tool, GdkEventButton *event,
         g_list_free(intersection);
       } else {
         while (list != NULL) {
-          obj = (DiaObject *)list->data;
+          DiaObject *obj = (DiaObject *)list->data;
           
           if (selection_style == SELECT_REMOVE) {
             if (diagram_is_selected(ddisp->diagram, obj))
@@ -763,7 +765,7 @@ modify_button_release(ModifyTool *tool, GdkEventButton *event,
     
     if (active_obj != NULL &&
 	diagram_is_selected(ddisp->diagram, active_obj)) {
-      textedit_activate_object(ddisp, obj, NULL);
+      textedit_activate_object(ddisp, active_obj, NULL);
     } else {
       textedit_activate_first(ddisp);
     }
@@ -782,10 +784,10 @@ modify_button_release(ModifyTool *tool, GdkEventButton *event,
 
 #define EDIT_BORDER_WIDTH 5
 
-gboolean
+static gboolean
 modify_edit_end(GtkWidget *widget, GdkEventFocus *event, gpointer data)
 {
-  int foo = printf("Ending focus\n");
+  printf("Ending focus\n");
   GtkTextView *view = GTK_TEXT_VIEW(widget);
   DiaObject *obj = (DiaObject*)data;
   GQuark quark = g_quark_from_string(PROP_TYPE_TEXT);
@@ -800,7 +802,6 @@ modify_edit_end(GtkWidget *widget, GdkEventFocus *event, gpointer data)
       Property *prop = props[i].ops->new_prop(&props[i], pdtpp_true);
       GtkTextBuffer *buf;
       GtkTextIter start, end;
-      ObjectChange *change;
 
       printf("Going to stop %d\n", i);
       buf = gtk_text_view_get_buffer(view);
@@ -819,7 +820,7 @@ modify_edit_end(GtkWidget *widget, GdkEventFocus *event, gpointer data)
 }
 
 /** Start editing the first text among selected objects, if any */
-void
+static void
 modify_edit_first_text(DDisplay *ddisp)
 {
   GList *edits = ddisp->diagram->data->text_edits;

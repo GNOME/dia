@@ -206,8 +206,6 @@ xfig_renderer_get_type (void)
 static void
 xfig_renderer_finalize (GObject *object)
 {
-  XfigRenderer *xfig_renderer = XFIG_RENDERER (object);
-
   G_OBJECT_CLASS (parent_class)->finalize (object);
 }
 

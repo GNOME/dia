@@ -100,7 +100,7 @@ update_modified_status(DDisplay *ddisp)
   }
 }
 
-void
+static void
 selection_changed (Diagram* dia, int n, DDisplay* ddisp)
 {
   GtkStatusbar *statusbar;
@@ -190,7 +190,7 @@ new_display(Diagram *dia)
   }
 
   diagram_add_ddisplay(dia, ddisp);
-  g_signal_connect (dia, "selection_changed", selection_changed, ddisp);
+  g_signal_connect (dia, "selection_changed", G_CALLBACK(selection_changed), ddisp);
   ddisp->origo.x = 0.0;
   ddisp->origo.y = 0.0;
   ddisp->zoom_factor = prefs.new_view.zoom/100.0*DDISPLAY_NORMAL_ZOOM;
@@ -644,8 +644,6 @@ ddisplay_set_origo(DDisplay *ddisp, coord x, coord y)
   Rectangle *visible = &ddisp->visible;
   int width, height;
 
-  gchar *postext;
-
   /*  updaterar origo+visible+rulers */
   ddisp->origo.x = x;
   ddisp->origo.y = y;
@@ -714,7 +712,7 @@ ddisplay_set_snap_to_grid(DDisplay *ddisp, gboolean snap)
   if (ddisp->menu_bar == NULL) {
     snap_to_grid = GTK_CHECK_MENU_ITEM(menus_get_item_from_path("<Display>/View/Snap To Grid", NULL));
   } else {
-    snap_to_grid = ddisp->snap_to_grid;
+    snap_to_grid = GTK_CHECK_MENU_ITEM(ddisp->snap_to_grid);
   }
 
   /* Currently, this can cause double emit, but that's a small problem.

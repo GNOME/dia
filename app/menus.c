@@ -479,7 +479,6 @@ menus_set_tools_callback (const char * menu_name, GtkItemFactory *item_factory)
 static void
 menus_init(void)
 {
-  GtkWidget *menuitem;
   gchar *accelfilename;
   GList *cblist;
 

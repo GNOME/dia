@@ -94,6 +94,10 @@ begin_render(DiaRenderer *self)
           g_get_user_name(),
           renderer->is_portrait ? "Portrait" : "Landscape");
 
+  if (renderer_is_epsi(renderer)) {
+    g_assert(!"Preview image not implmented");
+    /* but it *may* belong here ... */
+  }
   if (renderer_is_eps(renderer))
     fprintf(renderer->file,
             "%%%%Magnification: 1.0000\n"
@@ -264,7 +268,7 @@ set_fillstyle(DiaRenderer *self, FillStyle mode)
     break;
   default:
     message_error("%s : Unsupported fill mode specified!\n",
-                  G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (self)));
+                  G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));
   }
 }
 
@@ -660,7 +664,6 @@ draw_image(DiaRenderer *self,
 {
   DiaPsRenderer *renderer = DIA_PS_RENDERER(self);
   int img_width, img_height, img_rowstride;
-  int v;
   int x, y;
   real ratio;
   guint8 *rgb_data;
@@ -706,7 +709,6 @@ draw_image(DiaRenderer *self,
       fprintf(renderer->file, "\n");
     }
   } else {
-    guint8 *ptr = rgb_data;
     for (y = 0; y < img_height; y++) {
       for (x = 0; x < img_width; x++) {
 	int i = y*img_rowstride+x*3;

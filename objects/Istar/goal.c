@@ -106,7 +106,6 @@ static DiaObject *goal_create(Point *startpoint,
 static void goal_destroy(Goal *goal);
 static DiaObject *goal_load(ObjectNode obj_node, int version,
                             const char *filename);
-static DiaMenu *goal_get_object_menu(Goal *goal, Point *clickedpoint);
 
 static PropDescription *goal_describe_props(Goal *goal);
 static void goal_get_props(Goal *goal, GPtrArray *props);

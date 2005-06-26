@@ -110,21 +110,6 @@ undo_remove_redo_info(UndoStack *stack)
   }
 }
 
-static int
-depth(UndoStack *stack)
-{
-  int i;
-  Change *change;
-  change = stack->current_change;
-
-  i = 0;
-  while (change->prev != NULL) {
-    change = change->prev;
-    i++;
-  }
-  return i;
-}
-
 void
 undo_push_change(UndoStack *stack, Change *change)
 {
@@ -936,8 +921,6 @@ group_objects_apply(struct GroupObjectsChange *change, Diagram *dia)
 static void
 group_objects_revert(struct GroupObjectsChange *change, Diagram *dia)
 {
-  GList *old_list;
-  
   DEBUG_PRINTF(("group_objects_revert()\n"));
   change->applied = 0;
   

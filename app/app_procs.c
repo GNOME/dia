@@ -417,7 +417,7 @@ do_convert(const char *infname,
    * are quite some filter selecting their output format by it. --hb
    */
   if (size) {
-    if (ef == filter_get_by_name ("png-libart"))
+    if (ef == filter_get_by_name ("png-libart")) /* the warning we get is appropriate, don't cast */
       ef->export_func(diagdata, outfname, infname, size);
     else {
       g_warning ("--size parameter unsupported for %s filter", 
@@ -443,7 +443,7 @@ debug_break(void)
     debug_break_dont_optimize -= 1;
 }
 
-void
+static void
 dump_dependencies(void)
 {
 #ifdef __GNUC__

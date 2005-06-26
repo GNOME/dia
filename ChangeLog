@@ -1,5 +1,49 @@
 2005-06-26  Hans Breuer  <hans@breuer.org>
 
+	[ Cyrille would call it: warningectomy :-]
+
+	* lib/font.c app/create_object.c : `...' might be used uninitialized
+	in this function. Yes they were.
+	* app/modify_tool.c : modify_tool.c:610: warning: `obj' might be used 
+	uninitialized in this function. Yes it was with textedit_activate_object()
+	Also some static correctness.
+	* lib/diarenderer.c:678: warning: no previous prototype for 
+	`calculate_min_radius'. Made static.
+	* lib/dia_svg.c : ptr is a gchar *
+	* dia_xml.c(data_point,data_rectangle) : gchar *str for parsing
+	* lib/prop_text.c(multistringprop_get_widget) : use G_CALLBACK
+	* app/app_procs.c : confirm warning and make dump_dependencies() static
+	* app/autosave.c : #if 0'd old stuff
+	* app/display.c : GTK_CHECK_MENU_ITEM() for snap_to_grid
+	* 
+	* lib/text.c lib/font.c objects/standard/line.c object/UML/class.c
+	  objects/Istar/goal.c objects/standard/bezier.c objects/standard/beziergon.c
+	  plug-ins/cgm/cgm.c plug-ins/cairo/diacairo.c plug-ins/hpgl/hpgl.c
+	  plug-ins/wpg/wpg.c plug-ins/svg/svg-import.c plug-ins/shape/shape-export.c
+	  plug-ins/dxf/dxf-export.c plug-ins/gprint/diagnomeprintrenderer.c
+	  plug-ins/gprint/diagnomeprint.c  plug-ins/xfig/xfig-export.c
+	  app/diagram_tree_menu_callbacks.c app/recent_files.c app/undo.c app/menus.c
+	  app/diapsrenderer.c app/diagram.c app/disp_callback.c : 
+	removed unused variables and functions
+	* objects/UML/umlattribute.c objects/UML/umloperation.c 
+	  objects/UML/umlparameter.c objects/UML/umlformalparameter.c : 
+	neither 'missing braces around initializer' nor 'initialization from 
+	incompatible pointer type'
+	* objects/UML/class_dialog.c : more static
+	* app/interface.c : static and almost const correctness and some
+	less unitialized variables.
+	* app/diapsft2renderer.c : use (int) casts like the original 
+	(http://imagic.weizmann.ac.il/~dov/freesw/paps/ v0.4) does
+	* app/render_gdk.c: stop assignment from incompatible pointer type,
+	make member functions match the prototype.
+	* app/render_libart.c : Dito. Also stop caching the copy_gc in
+	a static variable. Otherwise it finally leaks and also may cause 
+	BadMatch with changing windows
+	=> warning count down from about 250 to about 60, one or two hand full 
+	   crash bugs less.
+
+2005-06-26  Hans Breuer  <hans@breuer.org>
+
 	* lib/libdia.def : added dia_font_get_description, missing
 	from my last commit
 

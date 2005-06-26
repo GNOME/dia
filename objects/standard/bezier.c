@@ -198,10 +198,6 @@ bezierline_distance_from(Bezierline *bezierline, Point *point)
   }
 }
 
-static Handle *bezierline_closest_handle(Bezierline *bezierline, Point *point) {
-  return bezierconn_closest_handle(&bezierline->bez, point);
-}
-
 static int bezierline_closest_segment(Bezierline *bezierline, Point *point) {
   BezierConn *bez = &bezierline->bez;
   return bezierconn_closest_segment(bez, point, bezierline->line_width);

@@ -139,7 +139,9 @@ new_psprint_renderer(Diagram *dia, FILE *file)
 }
 
 static const gchar *eps_extensions[] = { "eps", NULL };
+#if 0
 static const gchar *epsi_extensions[] = { "epsi", NULL };
+#endif
 #ifdef HAVE_FREETYPE
 DiaExportFilter eps_ft2_export_filter = {
   N_("Encapsulated Postscript (using Pango fonts)"),

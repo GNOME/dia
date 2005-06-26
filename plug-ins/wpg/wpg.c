@@ -710,6 +710,7 @@ fill_ellipse(DiaRenderer *self,
   WriteFillAttr(renderer, colour, FALSE);
 }
 
+#ifdef USE_OUR_DRAW_BEZIER
 static void
 draw_bezier(DiaRenderer *self, 
             BezPoint *points,
@@ -791,6 +792,7 @@ draw_bezier(DiaRenderer *self,
   fwrite_le(pData, sizeof(gint16), numpoints*4, renderer->file);
   g_free(pData);
 }
+#endif /* USE_OUR_DRAW_BEZIER */
 
 static void
 draw_string(DiaRenderer *self,
@@ -1043,9 +1045,10 @@ wpg_renderer_class_init (WpgRendererClass *klass)
   renderer_class->draw_polyline  = draw_polyline;
   renderer_class->draw_polygon   = draw_polygon;
 
-  /* The bezier implementation above does not match, use base class approximation
+#ifdef USE_OUR_DRAW_BEZIER
+  /* The bezier implementation above does not match, use base class approximation */
   renderer_class->draw_bezier   = draw_bezier;
-   */
+#endif
   /* Implemented by base class approximation
   renderer_class->fill_bezier   = fill_bezier;
    */

@@ -66,7 +66,7 @@ enum {
   LAST_SIGNAL
 };
 
-static diagram_signals[LAST_SIGNAL] = { 0 };
+static guint diagram_signals[LAST_SIGNAL] = { 0, };
 static gpointer parent_class = NULL;
 
 GType
@@ -162,13 +162,6 @@ diagram_class_init (DiagramClass *klass)
   klass->selection_changed = _diagram_selection_changed;
 
   object_class->finalize = diagram_finalize;
-}
-
-/** Creates the raw, uninitialize diagram */
-Diagram *
-diagram_new() {
-  Diagram *dia = g_object_new(DIA_TYPE_DIAGRAM, NULL);
-  return dia;
 }
 
 GList *
@@ -277,7 +270,7 @@ diagram_load(const char *filename, DiaImportFilter *ifilter)
 Diagram *
 new_diagram(const char *filename)  /* Note: filename is copied */
 {
-  Diagram *dia = diagram_new();
+  Diagram *dia = g_object_new(DIA_TYPE_DIAGRAM, NULL);
 
   diagram_init(dia, filename);
 
@@ -1020,7 +1013,6 @@ void diagram_unparent_selected(Diagram *dia)
 void diagram_unparent_children_selected(Diagram *dia)
 {
   GList *list;
-  GList *child_ptr;
   DiaObject *obj, *child;
   gboolean any_unparented = FALSE;
   for (list = dia->data->selected; list != NULL; list = g_list_next(list))
@@ -1041,23 +1033,9 @@ void diagram_unparent_children_selected(Diagram *dia)
       /* This will remove one item from the list, so the while terminates. */
       (change->apply)(change, dia);
     }
-    /*
-    for (child_ptr = obj->children; child_ptr != NULL; 
-	 child_ptr = g_list_next(child_ptr))
-    {
-      Change *change;
-      child = (DiaObject *) child_ptr->data;
-      change = undo_parenting(dia, obj, child, FALSE);
-      (change->apply)(change, dia);
-    }
-    */
     if (obj->children != NULL)
       printf("Obj still has %d children\n",
 	     g_list_length(obj->children));
-    /*
-    g_list_free(obj->children);
-    obj->children = NULL;
-    */
   }
   if (any_unparented) {
     diagram_modified(dia);

@@ -314,7 +314,6 @@ line_adjust_for_autogap(Line *line)
 {
   Point endpoints[2];
   ConnectionPoint *start_cp, *end_cp;
-  real line_length;
 
   start_cp = line->connection.endpoint_handles[0].connected_to;
   end_cp = line->connection.endpoint_handles[1].connected_to;
@@ -349,7 +348,6 @@ void
 line_adjust_for_absolute_gap(Line *line, Point *gap_endpoints)
 {
   Point endpoints[2];
-  ConnectionPoint *start_cp, *end_cp;
   real line_length;
 
   endpoints[0] = line->connection.endpoints[0];

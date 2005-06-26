@@ -217,8 +217,6 @@ shape_renderer_get_type (void)
 static void
 shape_renderer_finalize (GObject *object)
 {
-  ShapeRenderer *shape_renderer = SHAPE_RENDERER (object);
-
   G_OBJECT_CLASS (parent_class)->finalize (object);
 }
 
@@ -407,7 +405,6 @@ draw_rect (DiaRenderer *self,
            Point *ul_corner, Point *lr_corner,
            Color *colour) 
 {
-  Point center;
   ShapeRenderer *renderer = SHAPE_RENDERER(self);
 
   /* use base class implementation */

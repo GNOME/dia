@@ -185,7 +185,7 @@ create_object_motion(CreateObjectTool *tool, GdkEventMotion *event,
 		   DDisplay *ddisp)
 {
   Point to;
-  ConnectionPoint *connectionpoint;
+  ConnectionPoint *connectionpoint = NULL;
   gchar *postext;
   GtkStatusbar *statusbar;
   guint context_id;

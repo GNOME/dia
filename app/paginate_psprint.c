@@ -315,7 +315,7 @@ diagram_print_ps(Diagram *dia)
   gtk_entry_set_text(GTK_ENTRY(cmd), win32_printer_default ());
 #else
   {
-    gchar *printer = g_getenv("PRINTER");
+    const gchar *printer = g_getenv("PRINTER");
     
     if (printer) {
       printcmd = g_strdup_printf("lpr -P%s", printer);

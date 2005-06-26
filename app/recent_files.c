@@ -66,9 +66,6 @@ static void
 recent_file_history_clear_menu()
 {
     GtkWidget *file_menu = recent_file_filemenu_get();
-    GtkMenuItem *menu_item = 
-	menus_get_item_from_path(N_("<Toolbox>/File/Quit"), NULL);
-
     GList *menu_items = GTK_MENU_SHELL(file_menu)->children;
     GList *next_item;
     
@@ -78,7 +75,6 @@ recent_file_history_clear_menu()
 	item = GTK_MENU_ITEM(menu_items->data);
 	if (g_signal_handler_find(G_OBJECT(item), G_SIGNAL_MATCH_FUNC,
 				  0, 0, NULL, open_recent_file_callback, NULL)) {
-	    GList *tmplist;
 	    /* Unlink first, then destroy */
 	    g_list_remove_link(GTK_MENU_SHELL(file_menu)->children,
 			       menu_items);
@@ -95,10 +91,10 @@ static void
 recent_file_menuitem_create(GtkWidget *menu, gchar *filename, 
 			    guint pos, guint offset)
 {
-    gchar *basename, *escaped, *label;
+    gchar *basename, *label;
     GtkWidget *item;
     GtkAccelGroup *accel_group;
-    
+    /* FIXME: filename encoding, but we need utf-8 here */
     basename = g_path_get_basename(filename);
     
     label = g_strdup_printf("%d. %s", pos+1, basename);
@@ -130,7 +126,7 @@ recent_file_menuitem_create(GtkWidget *menu, gchar *filename,
 }
 
 /** Build and insert the recent files menu */
-void
+static void
 recent_file_history_make_menu()
 {
     guint i;
@@ -174,9 +170,8 @@ recent_file_history_add(const char *fname)
 
 /* load the recent file history */
 void
-recent_file_history_init() {
-    PersistentList *plist;
-
+recent_file_history_init() 
+{
     prefs.recent_documents_list_size = 
 	CLAMP(prefs.recent_documents_list_size, 0, 16);
     

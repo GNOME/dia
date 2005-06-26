@@ -109,7 +109,6 @@ static void bernstein_develop(const real p[4],real *A,real *B,real *C,real *D);
 static real bezier_eval(const real p[4],real u);
 static real bezier_eval_tangent(const real p[4],real u);
 static Point bezier_line_eval(BezPoint *line,int p,real u);
-static Point bezier_line_eval_tangent(BezPoint *line,int p, real u);
 static Point compute_annot(Point* p1, Point* p2, Point* pm, double f, double d);
 static void compute_dependency(BezPoint *line, BezPoint *bpl);
 static void compute_line(Point* p1, Point* p2, Point *pm, BezPoint* line);
@@ -306,26 +305,6 @@ static Point bezier_line_eval(BezPoint *line,int p,real u) {
 
   res.x=bezier_eval(bx,u);
   res.y=bezier_eval(by,u);
-
-  return res;
-}
-
-static Point bezier_line_eval_tangent(BezPoint *line,int p, real u) {
-  real bx[4],by[4];
-  Point res;
-
-  bx[0]=line[p-1].p3.x;
-  bx[1]=line[p].p1.x;
-  bx[2]=line[p].p2.x;
-  bx[3]=line[p].p3.x;
-
-  by[0]=line[p-1].p3.y;
-  by[1]=line[p].p1.y;
-  by[2]=line[p].p2.y;
-  by[3]=line[p].p3.y;
-
-  res.x=bezier_eval_tangent(bx,u);
-  res.y=bezier_eval_tangent(by,u);
 
   return res;
 }

@@ -2627,7 +2627,7 @@ switch_page_callback(GtkNotebook *notebook,
   }
 }
 
-void
+static void
 destroy_properties_dialog (GtkWidget* widget,
 			   gpointer user_data)
 {

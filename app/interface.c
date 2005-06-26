@@ -667,8 +667,8 @@ create_tools(GtkWidget *parent)
 {
   GtkWidget *button;
   GtkWidget *pixmapwidget;
-  GdkPixmap *pixmap;
-  GdkBitmap *mask;
+  GdkPixmap *pixmap = NULL;
+  GdkBitmap *mask = NULL;
   GtkStyle *style;
   char **pixmap_data;
   int i;
@@ -734,7 +734,7 @@ create_tools(GtkWidget *parent)
       tool_setup_drag_source(button, &tool_data[i].callback_data,
 			     pixmap, mask);
 
-    gdk_pixmap_unref(pixmap);
+    if (pixmap) gdk_pixmap_unref(pixmap);
     if (mask) gdk_bitmap_unref(mask);
 
     tool_data[i].callback_data.widget = button;
@@ -753,7 +753,7 @@ static GtkWidget *sheet_wbox;
 gchar *interface_current_sheet_name;
 
 static Sheet *
-get_sheet_by_name(gchar *name)
+get_sheet_by_name(const gchar *name)
 {
   GSList *tmp;
   for (tmp = get_sheets_list(); tmp != NULL; tmp = tmp->next) {
@@ -874,7 +874,7 @@ sheet_menu_callback(DiaDynamicMenu *menu, const gchar *string, void *user_data)
   }
 }
 
-GList *
+static GList *
 get_sheet_names()
 {
   GSList *tmp;

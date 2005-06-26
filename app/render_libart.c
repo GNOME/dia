@@ -31,9 +31,6 @@
 #include "font.h"
 #include "color.h"
 
-static real get_text_width(DiaRenderer *self,
-			   const char *text, int length);
-
 static void clip_region_clear(DiaRenderer *self);
 static void clip_region_add_rect(DiaRenderer *self,
 				 Rectangle *rect);
@@ -50,9 +47,9 @@ static void fill_pixel_rect(DiaRenderer *self,
 				 int x, int y,
 				 int width, int height,
 				 Color *color);
-static void set_size(DiaRenderer *self, GdkWindow *window,
+static void set_size(DiaRenderer *self, gpointer window,
                      int width, int height);
-static void copy_to_window (DiaRenderer *self, GdkWindow *window,
+static void copy_to_window (DiaRenderer *self, gpointer window,
                             int x, int y, int width, int height);
 
 
@@ -99,7 +96,7 @@ new_libart_renderer(DiaTransform *trans, int interactive)
 }
 
 static void
-set_size(DiaRenderer *self, GdkWindow *window,
+set_size(DiaRenderer *self, gpointer window,
          int width, int height)
 {
   DiaLibartRenderer *renderer = DIA_LIBART_RENDERER (self);
@@ -121,16 +118,14 @@ set_size(DiaRenderer *self, GdkWindow *window,
 }
 
 static void
-copy_to_window (DiaRenderer *self, GdkWindow *window,
+copy_to_window (DiaRenderer *self, gpointer window,
                 int x, int y, int width, int height)
 {
-  static GdkGC *copy_gc = NULL;
+  GdkGC *copy_gc;
   DiaLibartRenderer *renderer = DIA_LIBART_RENDERER (self);
   int w;
 
-  if (copy_gc == NULL) {
-    copy_gc = gdk_gc_new(window);
-  }
+  copy_gc = gdk_gc_new(GDK_WINDOW(window));
 
   w = renderer->pixel_width;
   
@@ -141,22 +136,8 @@ copy_to_window (DiaRenderer *self, GdkWindow *window,
 		     GDK_RGB_DITHER_NONE,
 		     renderer->rgb_buffer+x*3+y*3*w,
 		     w*3);
+  g_object_unref(copy_gc);
 }
-
-static real
-get_text_width(DiaRenderer *self,
-	       const char *text, int length)
-{
-  DiaLibartRenderer *renderer = DIA_LIBART_RENDERER (self);
-  int iwidth;
-  
-  iwidth = dia_font_string_width(text,
-				 renderer->parent_instance.font, 
-				 renderer->parent_instance.font_height);
-
-  return dia_untransform_length(renderer->transform, (real) iwidth);
-}
-
 
 static void
 clip_region_clear(DiaRenderer *self)

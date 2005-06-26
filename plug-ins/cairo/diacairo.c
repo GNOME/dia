@@ -281,8 +281,6 @@ set_dashlength(DiaRenderer *self, real length)
 static void
 set_fillstyle(DiaRenderer *self, FillStyle mode)
 {
-  DiaCairoRenderer *renderer = DIA_CAIRO_RENDERER (self);
-
   DIAG_NOTE(g_message("set_fillstyle %d", mode));
 
   switch(mode) {
@@ -1108,6 +1106,7 @@ static DiaExportFilter pnga_export_filter = {
     "cairo-alpha-png"
 };
 
+#ifdef CAIRO_HAS_WIN32X_SURFACE
 static const gchar *emf_extensions[] = { "wmf", NULL };
 static DiaExportFilter emf_export_filter = {
     N_("Cairo WMF"),
@@ -1134,6 +1133,7 @@ static DiaExportFilter cb_export_filter = {
     (void*)OUTPUT_CB,
     "cairo-clipboard"
 };
+#endif /* CAIRO_HAS_WIN32X_SURFACE */
 
 #endif /* HAVE_CAIRO */
 

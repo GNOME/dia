@@ -44,10 +44,10 @@ static void fill_pixel_rect(DiaRenderer *renderer,
                             int width, int height,
                             Color *color);
 static void set_size (DiaRenderer *renderer, 
-                      GdkWindow *window,
+                      gpointer window,
                       int width, int height);
 static void copy_to_window (DiaRenderer *renderer, 
-                GdkWindow *window,
+                gpointer window,
                 int x, int y, int width, int height);
 
 static void dia_gdk_renderer_iface_init (DiaInteractiveRendererInterface* iface)
@@ -95,7 +95,7 @@ new_gdk_renderer(DDisplay *ddisp)
 }
 
 static void
-set_size(DiaRenderer *object, GdkWindow *window,
+set_size(DiaRenderer *object, gpointer window,
 		      int width, int height)
 {
   DiaGdkRenderer *renderer = DIA_GDK_RENDERER (object);
@@ -103,7 +103,7 @@ set_size(DiaRenderer *object, GdkWindow *window,
   if (renderer->pixmap != NULL)
     gdk_drawable_unref(renderer->pixmap);
 
-  renderer->pixmap = gdk_pixmap_new(window,  width, height, -1);
+  renderer->pixmap = gdk_pixmap_new(GDK_WINDOW(window),  width, height, -1);
 
   if (renderer->gc == NULL) {
     renderer->gc = gdk_gc_new(renderer->pixmap);
@@ -117,7 +117,7 @@ set_size(DiaRenderer *object, GdkWindow *window,
 }
 
 static void
-copy_to_window (DiaRenderer *object, GdkWindow *window,
+copy_to_window (DiaRenderer *object, gpointer window,
                 int x, int y, int width, int height)
 {
   DiaGdkRenderer *renderer = DIA_GDK_RENDERER (object);
@@ -126,7 +126,7 @@ copy_to_window (DiaRenderer *object, GdkWindow *window,
   if (!copy_gc)
     copy_gc = gdk_gc_new(window);
 
-  gdk_draw_pixmap (window,
+  gdk_draw_pixmap (GDK_WINDOW(window),
                    copy_gc,
                    renderer->pixmap,
                    x, y,

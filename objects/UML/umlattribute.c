@@ -64,11 +64,9 @@ static PropOffset umlattribute_offsets[] = {
 
 
 PropDescDArrayExtra umlattribute_extra = {
-  umlattribute_props,
-  umlattribute_offsets,
-  "umlattribute",
-  uml_attribute_new,
-  uml_attribute_destroy
+  { umlattribute_props, umlattribute_offsets, "umlattribute" },
+  (NewRecordFunc)uml_attribute_new,
+  (FreeRecordFunc)uml_attribute_destroy
 };
 
 

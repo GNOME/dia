@@ -463,7 +463,7 @@ void
 data_point(DataNode data, Point *point)
 {
   xmlChar *val;
-  xmlChar *str;
+  gchar *str;
   real ax,ay;
 
   if (data_type(data)!=DATATYPE_POINT) {
@@ -503,7 +503,7 @@ void
 data_rectangle(DataNode data, Rectangle *rect)
 {
   xmlChar *val;
-  xmlChar *str;
+  gchar *str;
   
   if (data_type(data)!=DATATYPE_RECTANGLE) {
     message_error("Taking rectangle value of non-rectangle node.");

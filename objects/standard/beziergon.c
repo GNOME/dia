@@ -176,12 +176,6 @@ beziergon_distance_from(Beziergon *beziergon, Point *point)
 				   beziergon->line_width);
 }
 
-static Handle *
-beziergon_closest_handle(Beziergon *beziergon, Point *point)
-{
-  return beziershape_closest_handle(&beziergon->bezier, point);
-}
-
 static int
 beziergon_closest_segment(Beziergon *beziergon, Point *point)
 {

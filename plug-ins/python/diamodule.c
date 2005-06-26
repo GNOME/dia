@@ -251,8 +251,9 @@ PyDia_RegisterExport(PyObject *self, PyObject *args)
 static gboolean
 PyDia_import_data (const gchar* filename, DiagramData *dia, void *user_data)
 {
-    PyObject *diaobj, *res, *arg, *func = user_data;
+    PyObject *diaobj, *arg, *func = user_data;
     char* old_locale;
+    gboolean bRet = FALSE;
 
     if (!func || !PyCallable_Check (func)) {
         message_error ("Import called without valid callback function.");
@@ -272,8 +273,9 @@ PyDia_import_data (const gchar* filename, DiagramData *dia, void *user_data)
 
     arg = Py_BuildValue ("(sO)", filename, diaobj);
     if (arg) {
-      res = PyEval_CallObject (func, arg);
+      PyObject *res = PyEval_CallObject (func, arg);
       ON_RES(res, TRUE);
+      bRet = !!res;
     }
     Py_XDECREF (arg);
 
@@ -282,7 +284,7 @@ PyDia_import_data (const gchar* filename, DiagramData *dia, void *user_data)
 
     setlocale(LC_NUMERIC, old_locale);
 
-    return !!res;
+    return bRet;
 }
 
 static PyObject *

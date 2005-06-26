@@ -54,12 +54,6 @@ struct _DxfRendererClass
 
 #define IS_ODD(n) (n & 0x01)
 
-static void
-init_fonts(void)
-{
-    
-}
-
 /* --- dxf line attributes --- */
 typedef struct _LineAttrdxf
 {
@@ -201,8 +195,6 @@ dxf_renderer_get_type (void)
 static void
 dxf_renderer_finalize (GObject *object)
 {
-  DxfRenderer *dxf_renderer = DXF_RENDERER (object);
-
   G_OBJECT_CLASS (parent_class)->finalize (object);
 }
 
@@ -248,23 +240,6 @@ init_attributes( DxfRenderer *renderer )
 {
     renderer->lcurrent.style = renderer->fcurrent.style = "CONTINUOUS";
 }
-
-static void
-write_line_attributes( DxfRenderer *renderer, Color *color )
-{
-}
-
-static void
-write_filledge_attributes( DxfRenderer *renderer, Color *fill_color,
-                           Color *edge_color )
-{
-}
-
-static void
-write_text_attributes( DxfRenderer *renderer, Color *text_color)
-{
-}
-
 
 static void
 begin_render(DiaRenderer *self)
