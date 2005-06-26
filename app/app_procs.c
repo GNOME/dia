@@ -478,7 +478,7 @@ dump_dependencies(void)
    */
   g_print ("Library versions\n");
 #ifdef HAVE_LIBPNG
-  g_print ("libpng  : %s (%s)\n", png_libpng_ver, PNG_LIBPNG_VER_STRING);
+  g_print ("libpng  : %s (%s)\n", png_get_header_ver(NULL), PNG_LIBPNG_VER_STRING);
 #endif
 #ifdef HAVE_FREETYPE
   {
