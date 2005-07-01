@@ -90,6 +90,8 @@ First prerelease of version 0.94.  News in this version:
 * New renderer plug-in for Cairo rendering API.
 
 * New renderer plug-in for WMF outside of Windows.
+  (at the moment it just builds on *NIX but does not produce any
+   useful output, so it's only of interest for developers)
 
 * New arrow head: Backslash.
 

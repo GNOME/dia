@@ -787,12 +787,13 @@ modify_button_release(ModifyTool *tool, GdkEventButton *event,
 static gboolean
 modify_edit_end(GtkWidget *widget, GdkEventFocus *event, gpointer data)
 {
-  printf("Ending focus\n");
   GtkTextView *view = GTK_TEXT_VIEW(widget);
   DiaObject *obj = (DiaObject*)data;
   GQuark quark = g_quark_from_string(PROP_TYPE_TEXT);
   const PropDescription *props = obj->ops->describe_props(obj);
   int i;
+
+  printf("Ending focus\n");
 
   for (i = 0; props[i].name != NULL; i++) {
     printf("Testing to remove: %s\n", props[i].name);

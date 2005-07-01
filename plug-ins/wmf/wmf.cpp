@@ -105,6 +105,7 @@ struct _WmfRenderer
 
     int nDashLen; /* the scaled dash length */
     gboolean platform_is_nt; /* advanced line styles supported */
+    gboolean target_emf; /* write enhanced metafile */
 };
 
 struct _WmfRendererClass
@@ -136,7 +137,7 @@ UsePen(WmfRenderer* renderer, Color* colour)
     if (colour) {
 	W32::COLORREF rgb = W32COLOR(colour);
 #ifdef G_OS_WIN32
-	if (renderer->platform_is_nt && renderer->hPrintDC) {
+	if ((renderer->platform_is_nt && renderer->hPrintDC) || renderer->target_emf) {
           W32::LOGBRUSH logbrush;
 	  W32::DWORD    dashes[6];
 	  int num_dashes = 0;
@@ -257,7 +258,7 @@ end_render(DiaRenderer *self)
     DIAG_NOTE(renderer, "end_render\n");
     hEmf = W32::CloseEnhMetaFile(renderer->hFileDC);
 
-#ifndef SAVE_EMF
+#if !definded SAVE_EMF && defined G_OS_WIN32 /* the later offers both */
     /* Don't do it when printing */
     if (renderer->sFileName && strlen (renderer->sFileName)) {
 
@@ -265,14 +266,19 @@ end_render(DiaRenderer *self)
 
         f = fopen(renderer->sFileName, "wb");
 
-	/* write the placeable header */
-	fwrite(&renderer->pmh, 1, 22 /* NOT: sizeof(PLACEABLEMETAHEADER) */, f);
-
-	/* get size */
-	nSize = W32::GetWinMetaFileBits(hEmf, 0, NULL, MM_ANISOTROPIC, hdc);
-	pData = g_new(W32::BYTE, nSize);
-	/* get data */
-	nSize = W32::GetWinMetaFileBits(hEmf, nSize, pData, MM_ANISOTROPIC, hdc);
+	if (renderer->target_emf) {
+	  nSize = W32::GetEnhMetaFileBits (hEmf, 0, NULL);
+	  pData = g_new(W32::BYTE, nSize);
+	  nSize = W32::GetEnhMetaFileBits (hEmf, nSize, pData);
+	} else {
+	  /* write the placeable header */
+	  fwrite(&renderer->pmh, 1, 22 /* NOT: sizeof(PLACEABLEMETAHEADER) */, f);
+	  /* get size */
+	  nSize = W32::GetWinMetaFileBits(hEmf, 0, NULL, MM_ANISOTROPIC, hdc);
+	  pData = g_new(W32::BYTE, nSize);
+	  /* get data */
+	  nSize = W32::GetWinMetaFileBits(hEmf, nSize, pData, MM_ANISOTROPIC, hdc);
+	}
 
 	/* write file */
 	fwrite(pData,1,nSize,f);
@@ -1187,8 +1193,12 @@ export_data(DiagramData *data, const gchar *filename,
 
     renderer->hFileDC = file;
     renderer->sFileName = g_strdup(filename);
-    renderer->hPrintDC = (W32::HDC)user_data;
-
+    if (user_data == (void*)1) {
+	renderer->target_emf = TRUE;
+	renderer->hPrintDC = 0;
+    } else {
+        renderer->hPrintDC = (W32::HDC)user_data;
+    }
     /* printing is platform dependent */
     renderer->platform_is_nt = (W32::GetVersion () < 0x80000000);
 
@@ -1244,13 +1254,22 @@ export_data(DiagramData *data, const gchar *filename,
     W32::ReleaseDC (NULL, refDC);
 }
 
-static const gchar *extensions[] = { "wmf", NULL };
-static DiaExportFilter my_export_filter = {
+static const gchar *wmf_extensions[] = { "wmf", NULL };
+static DiaExportFilter wmf_export_filter = {
     N_("Windows Meta File"),
-    extensions,
+    wmf_extensions,
     export_data,
     NULL, /* user data */
     "wmf"
+};
+
+static const gchar *emf_extensions[] = { "emf", NULL };
+static DiaExportFilter emf_export_filter = {
+    N_("Enhanced Meta File"),
+    emf_extensions,
+    export_data,
+    (void*)1, /* user data: urgh, reused as bool and pointer */
+    "emf"
 };
 
 
@@ -1272,7 +1291,8 @@ dia_plugin_init(PluginInfo *info)
      * useful at compile/develoment time. The output is broken
      * when processed by wmf_gdi.cpp ...
      */
-    filter_register_export(&my_export_filter);
+    filter_register_export(&wmf_export_filter);
+    filter_register_export(&emf_export_filter);
 #endif
 
     return DIA_PLUGIN_INIT_OK;

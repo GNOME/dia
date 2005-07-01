@@ -1,3 +1,18 @@
+2005-07-01  Hans Breuer  <hans@breuer.org>
+
+	* lib/widgets.c(dia_color_selector_more_callback): dont 
+	free old_color twice
+
+	* plug-ins/wmf/wmf.cpp : finally added enahnced meta file
+	option. Thus linestyles can be preserved on export - at 
+	least on NT based systems.
+
+	* NEWS : clarify the wmf outside of windows issue
+
+	* app/modify_too.c : fix C99ism
+
+	* objects/standard/arc.c : debug spew optional at compile time
+
 2005-06-26  Hans Breuer  <hans@breuer.org>
 
 	[ Cyrille would call it: warningectomy :-]

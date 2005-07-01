@@ -964,7 +964,6 @@ dia_color_selector_more_callback(GtkWidget *widget, gpointer userdata)
   gchar *old_color = dia_dynamic_menu_get_entry(ddm);
   /* Force history to the old place */
   dia_dynamic_menu_select_entry(ddm, old_color);
-  g_free (old_color);
 
   if (ddm->default_entries != NULL) {
     GList *tmplist;

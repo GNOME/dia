@@ -39,6 +39,9 @@
 
 #define HANDLE_MIDDLE HANDLE_CUSTOM1
 
+/* If you wan debug spew */
+#define TRACE(fun) /*fun*/
+
 typedef struct _Arc Arc;
 
 struct _Arc {
@@ -401,17 +404,17 @@ arc_move_handle(Arc *arc, Handle *handle,
   assert(handle!=NULL);
   assert(to!=NULL);
   if (handle->id == HANDLE_MIDDLE) {
-          printf("curve_dist: %.2f \n",arc->curve_distance);
+          TRACE(printf("curve_dist: %.2f \n",arc->curve_distance));
           arc->curve_distance = arc_compute_curve_distance(arc, &arc->connection.endpoints[0], &arc->connection.endpoints[1], to);
-          printf("curve_dist: %.2f \n",arc->curve_distance);
+          TRACE(printf("curve_dist: %.2f \n",arc->curve_distance));
 
   } else {
         Point best;
-        printf("Modifiers: %d \n",modifiers);
+        TRACE(printf("Modifiers: %d \n",modifiers));
         if (modifiers & MODIFIER_SHIFT)
         /* if(arc->end_arrow.type == ARROW_NONE)*/
         {
-          printf("SHIFT USED, to at %.2f %.2f  ",to->x,to->y);
+          TRACE(printf("SHIFT USED, to at %.2f %.2f  ",to->x,to->y));
           if (arc_find_radial(arc, to, &best)){
             /* needs to move two handles at the same time 
              * compute pos of middle handle */
@@ -426,10 +429,10 @@ arc_move_handle(Arc *arc, Handle *handle,
             connection_move_handle(&arc->connection, handle->id, &best, cp, reason, modifiers);
             /* recompute curve distance equiv. move middle handle */
             arc->curve_distance = arc_compute_curve_distance(arc, &arc->connection.endpoints[0], &arc->connection.endpoints[1], &midpoint);
-            printf("curve_dist: %.2f \n",arc->curve_distance);
+            TRACE(printf("curve_dist: %.2f \n",arc->curve_distance));
           }
           else {
-            printf("NO best\n");
+            TRACE(printf("NO best\n"));
           }
        } else {
           connection_move_handle(&arc->connection, handle->id, to, cp, reason, modifiers);
@@ -477,21 +480,21 @@ arc_compute_midpoint(Arc *arc, const Point * ep0, const Point * ep1 , Point * mi
                     return 0;
             }
             if (angle < -1 * M_PI){
-                    printf("angle: %.2f ",angle);
+                    TRACE(printf("angle: %.2f ",angle));
                     angle += 2*M_PI;
-                    printf("angle: %.2f ",angle);
+                    TRACE(printf("angle: %.2f ",angle));
             }
             if (angle > 1 * M_PI){
-                    printf("angle: %.2f ",angle);
+                    TRACE(printf("angle: %.2f ",angle));
                     angle -= 2*M_PI;
-                    printf("angle: %.2f ",angle);
+                    TRACE(printf("angle: %.2f ",angle));
             }
 
             midpos = arc->middle_handle.pos;
             /*rotate middle handle by half the angle */
-            printf("\nmidpos before: %.2f %.2f \n",midpos.x, midpos.y);
+            TRACE(printf("\nmidpos before: %.2f %.2f \n",midpos.x, midpos.y));
             rotate_point_around_point(&midpos, &arc->center, angle/2); 
-            printf("\nmidpos after : %.2f %.2f \n",midpos.x, midpos.y);
+            TRACE(printf("\nmidpos after : %.2f %.2f \n",midpos.x, midpos.y));
             *midpoint = midpos;
             return 1;
 }
@@ -588,7 +591,7 @@ arc_draw(Arc *arc, DiaRenderer *renderer)
   
   /* Special case when almost line: */
   if (fabs(arc->curve_distance) <= 0.01) {
-          printf("drawing like a line\n"); 
+          TRACE(printf("drawing like a line\n")); 
     renderer_ops->draw_line_with_arrows(renderer,
 					 &gaptmp[0], &gaptmp[1],
 					 arc->line_width,
