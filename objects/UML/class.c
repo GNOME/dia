@@ -1349,11 +1349,8 @@ umlclass_destroy(UMLClass *umlclass)
   element_destroy(&umlclass->element);  
   
   g_free(umlclass->name);
-  if (umlclass->stereotype != NULL)
-    g_free(umlclass->stereotype);
-  
-  if (umlclass->comment != NULL)
-    g_free(umlclass->comment);
+  g_free(umlclass->stereotype);
+  g_free(umlclass->comment);
 
   list = umlclass->attributes;
   while (list != NULL) {
@@ -1713,50 +1710,12 @@ static DiaObject *umlclass_load(ObjectNode obj_node, int version,
   /* a bunch of properties still need their own special handling */
 
   /* Class info: */
-  umlclass->name = NULL;
-  attr_node = object_find_attribute(obj_node, "name");
-  if (attr_node != NULL)
-    umlclass->name = data_string(attribute_first_data(attr_node));
-  
-  umlclass->stereotype = NULL;
-  attr_node = object_find_attribute(obj_node, "stereotype");
-  if (attr_node != NULL)
-    umlclass->stereotype = data_string(attribute_first_data(attr_node));
-  
-  umlclass->comment = NULL;
-  attr_node = object_find_attribute(obj_node, "comment");
-  if (attr_node != NULL)
-    umlclass->comment = data_string(attribute_first_data(attr_node));
 
-  umlclass->abstract = FALSE;
-  attr_node = object_find_attribute(obj_node, "abstract");
-  if (attr_node != NULL)
-    umlclass->abstract = data_boolean(attribute_first_data(attr_node));
-  
-  umlclass->suppress_attributes = FALSE;
-  attr_node = object_find_attribute(obj_node, "suppress_attributes");
-  if (attr_node != NULL)
-    umlclass->suppress_attributes = data_boolean(attribute_first_data(attr_node));
-  
-  umlclass->suppress_operations = FALSE;
-  attr_node = object_find_attribute(obj_node, "suppress_operations");
-  if (attr_node != NULL)
-    umlclass->suppress_operations = data_boolean(attribute_first_data(attr_node));
-  
-  umlclass->visible_attributes = FALSE;
-  attr_node = object_find_attribute(obj_node, "visible_attributes");
-  if (attr_node != NULL)
-    umlclass->visible_attributes = data_boolean(attribute_first_data(attr_node));
-  
-  umlclass->visible_operations = FALSE;
-  attr_node = object_find_attribute(obj_node, "visible_operations");
-  if (attr_node != NULL)
-    umlclass->visible_operations = data_boolean(attribute_first_data(attr_node));
-  
-  umlclass->visible_comments = FALSE;
-  attr_node = object_find_attribute(obj_node, "visible_comments");
-  if (attr_node != NULL)
-    umlclass->visible_comments = data_boolean(attribute_first_data(attr_node));
+  /* parameters loaded via StdProp dont belong here anymore. In case of strings they 
+   * will produce leaks. Otherwise the are just wasteing time (at runtime and while 
+   * reading the code). Except maybe for some compatibility stuff. 
+   * Although that *could* probably done via StdProp too.                      --hb
+   */
 
   /* new since 0.94, don't wrap by default to keep old diagrams intact */
   umlclass->wrap_operations = FALSE;
@@ -1789,71 +1748,6 @@ static DiaObject *umlclass_load(ObjectNode obj_node, int version,
   attr_node = object_find_attribute(obj_node, "fill_color");
   if(attr_node != NULL)
     data_color(attribute_first_data(attr_node), &umlclass->fill_color); 
-
-  attr_node = object_find_attribute(obj_node, "text_color");
-  if(attr_node != NULL)
-    data_color(attribute_first_data(attr_node), &umlclass->text_color); 
-
-  attr_node = object_find_attribute(obj_node, "normal_font");
-  if (attr_node != NULL) {
-    dia_font_unref(umlclass->normal_font);
-    umlclass->normal_font = data_font(attribute_first_data(attr_node));
-  }
-  attr_node = object_find_attribute(obj_node, "abstract_font");
-  if (attr_node != NULL) {
-    dia_font_unref(umlclass->abstract_font);
-    umlclass->abstract_font = data_font(attribute_first_data(attr_node));
-  }
-  attr_node = object_find_attribute(obj_node, "polymorphic_font");
-  if (attr_node != NULL) {
-    dia_font_unref(umlclass->polymorphic_font);
-    umlclass->polymorphic_font = data_font(attribute_first_data(attr_node));
-  }
-  attr_node = object_find_attribute(obj_node, "classname_font");
-  if (attr_node != NULL) {
-    dia_font_unref(umlclass->classname_font);
-    umlclass->classname_font = data_font(attribute_first_data(attr_node));
-  }
-  attr_node = object_find_attribute(obj_node, "abstract_classname_font");
-  if (attr_node != NULL) {
-    dia_font_unref(umlclass->abstract_classname_font);
-    umlclass->abstract_classname_font = data_font(attribute_first_data(attr_node));
-  }
-  attr_node = object_find_attribute(obj_node, "comment_font");
-  if (attr_node != NULL) {
-    dia_font_unref(umlclass->comment_font);
-    umlclass->comment_font = data_font(attribute_first_data(attr_node));
-  }
-
-  attr_node = object_find_attribute(obj_node, "font_height");
-  if (attr_node != NULL) {
-    umlclass->font_height = data_real(attribute_first_data(attr_node));
-  }
-
-  attr_node = object_find_attribute(obj_node, "polymorphic_font_height");
-  if (attr_node != NULL) {
-    umlclass->polymorphic_font_height = data_real(attribute_first_data(attr_node));
-  }
-
-  attr_node = object_find_attribute(obj_node, "abstract_font_height");
-  if (attr_node != NULL) {
-    umlclass->abstract_font_height = data_real(attribute_first_data(attr_node));
-  }
-
-  attr_node = object_find_attribute(obj_node, "classname_font_height");
-  if (attr_node != NULL) {
-    umlclass->classname_font_height = data_real(attribute_first_data(attr_node));
-  }
-
-  attr_node = object_find_attribute(obj_node, "abstract_classname_font_height");
-  if (attr_node != NULL) {
-    umlclass->abstract_classname_font_height = data_real(attribute_first_data(attr_node));
-  }
-
-  attr_node = object_find_attribute(obj_node, "comment_font_height");
-  if (attr_node != NULL) {
-    umlclass->comment_font_height = data_real(attribute_first_data(attr_node));
-  }
 
   /* Attribute info: */
   list = umlclass->attributes;

@@ -604,7 +604,10 @@ handle_initial_diagram(const char *in_file_name,
       diagram_update_extents(diagram);
       if (app_is_interactive()) {
 	layer_dialog_set_diagram(diagram);
+        /* the display initial diagram holds two references */
 	ddisp = new_display(diagram);
+      } else {
+        g_object_unref(diagram);
       }
     }
   }
@@ -1150,17 +1153,22 @@ process_opts(int argc, char **argv,
       if (!g_option_context_parse (context, &argc, &argv, &error)) {
 	g_print (error->message);
 	g_error_free (error);
+        g_option_context_free(context);
 	exit(0);
       }
-      if (argc < 2)
+      if (argc < 2) {
+        g_option_context_free(context);
 	return;
+      }
       for (i = 1; i < argc; i++) {
 	if (!g_file_test (argv[i], G_FILE_TEST_IS_REGULAR)) {
 	  g_print (_("'%s' not found!\n"), argv[i]);
+          g_option_context_free(context);
 	  exit(2);
 	}
 	*files = g_slist_append(*files, argv[i]);
       }
+      g_option_context_free(context);
 #else
       int i;
 

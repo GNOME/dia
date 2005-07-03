@@ -1,3 +1,21 @@
+2005-07-03  Hans Breuer  <hans@breuer.org>
+
+	* app/diagram_tree.c : dont leak display name
+	* app/app_procs.c : dont leak GOptionContext
+	* app/prop_widgets.c(frame_beginprop_get_widget) : 
+	Gtk api still not eating strings ...
+
+	* objects/UML/class.c() : don't load properties	once more 
+	which are already loaded by StdProps. In case of strings 
+	(data_string) it has even produced leaks.
+
+	* app/paginate_psprint.c app/diagram.[hc] : the last
+	of the related dialogs is gone and with it the 
+	misconception of destroying widgets from 
+	diagram::finalize()
+	* app/display.c : ensure the diagram is still threre
+	when we remove the display from it's list
+
 2005-07-01  Hans Breuer  <hans@breuer.org>
 
 	* lib/widgets.c(dia_color_selector_more_callback): dont 

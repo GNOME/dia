@@ -66,8 +66,6 @@ struct _Diagram {
   GSList *displays;       /* List of all displays showing this diagram */
 
   UndoStack *undo;
-
-  GSList *related_dialogs; /* List of dialogs related to this diagraim, and closed with it */
 };
 
 typedef struct _DiagramClass {
@@ -149,10 +147,6 @@ int diagram_modified_exists(void);
 void diagram_redraw_all(void);
 
 void diagram_object_modified(Diagram *dia, DiaObject *object);
-
-void diagram_close_related_dialogs(Diagram *dia);
-void diagram_add_related_dialog(Diagram *dia, gpointer data);
-void diagram_remove_related_dialog(Diagram *dia, gpointer data);
 
 #endif /* DIAGRAM_H */
 

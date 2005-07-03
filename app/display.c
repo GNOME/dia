@@ -958,7 +958,6 @@ ddisp_destroy(DDisplay *ddisp)
 
   g_signal_handlers_disconnect_by_func (ddisp->diagram, selection_changed, ddisp);
 
-  g_object_unref (G_OBJECT (ddisp->diagram));
   g_object_unref (G_OBJECT (ddisp->im_context));
   ddisp->im_context = NULL;
 
@@ -1129,14 +1128,16 @@ ddisplay_do_update_menu_sensitivity (DDisplay *ddisp)
 void
 ddisplay_really_destroy(DDisplay *ddisp)
 {
-  Diagram *dia;
-
   if (active_display == ddisp)
     display_set_active(NULL);
 
-  dia = ddisp->diagram;
   
-  diagram_remove_ddisplay(dia, ddisp);
+  if (ddisp->diagram) {
+    diagram_remove_ddisplay(ddisp->diagram, ddisp);
+    /* if we are the last user of the diagram it will be unref'ed */
+    g_object_unref(ddisp->diagram);
+    ddisp->diagram = NULL;
+  }
 
   g_object_unref (ddisp->renderer);
   ddisp->renderer = NULL;

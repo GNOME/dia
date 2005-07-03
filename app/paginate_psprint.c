@@ -211,11 +211,11 @@ pipe_handler(int signum)
 static gboolean
 diagram_print_destroy(GtkWidget *widget)
 {
-  Diagram **dia;
+  Diagram *dia;
 
   if ((dia = gtk_object_get_user_data(GTK_OBJECT(widget))) != NULL) {
-    diagram_remove_related_dialog(*dia, widget);
-    *dia = NULL;
+    g_object_unref(dia);
+    gtk_object_set_user_data(GTK_OBJECT(widget), NULL);
   }
 
   return FALSE;
@@ -244,8 +244,9 @@ diagram_print_ps(Diagram *dia)
 
   /* create the dialog */
   dialog = gtk_dialog_new();
-  diagram_add_related_dialog(dia, dialog);
-  gtk_object_set_user_data(GTK_OBJECT(dialog), &dia);
+  /* the dialog has it's own reference to the diagram */
+  g_object_ref(dia);
+  gtk_object_set_user_data(GTK_OBJECT(dialog), dia);
   g_signal_connect(GTK_OBJECT(dialog), "destroy",
 		   G_CALLBACK(diagram_print_destroy), NULL);
   g_signal_connect(GTK_OBJECT(dialog), "delete_event",

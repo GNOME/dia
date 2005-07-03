@@ -131,6 +131,9 @@ frame_beginprop_get_widget(FrameProperty *prop, PropDialog *dialog)
   
   struct FoldButtonInfo *info = g_new(struct FoldButtonInfo, 1);
 
+  g_free(foldstring);
+  g_free(unfoldstring);
+
   info->frame = frame;
   info->unfoldbutton = unfoldbutton;
 

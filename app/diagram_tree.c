@@ -209,8 +209,10 @@ get_object_name(DiaObject *object)
 {
   enum {SIZE = 31};
   static gchar BUFFER[SIZE];
-  
-  g_snprintf(BUFFER, SIZE, " %s", object_get_displayname (object));
+
+  gchar *name = object_get_displayname (object);
+  g_snprintf(BUFFER, SIZE, " %s", name);
+  g_free(name);
 
   return BUFFER;
 }
