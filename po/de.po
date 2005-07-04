@@ -7,15 +7,15 @@
 # Jörgen Scheibengruber <mfcn@gmx.de>, 2002.
 # Christian Neumair <chris@gnome-de.org>, 2002, 2003, 2004.
 # Frank Arnold <frank@scirocco-5v-turbo.de>, 2005.
-# 
+# Hendrik Richter <hendi@gnome-de.org>, 2005. 
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-06-11 13:40+0200\n"
-"PO-Revision-Date: 2005-03-16 10:01+0100\n"
-"Last-Translator: Frank Arnold <frank@scirocco-5v-turbo.de>\n"
+"PO-Revision-Date: 2005-07-04 17:16+0200\n"
+"Last-Translator: Hendrik Richter <hendi@gnome-de.org>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -3317,7 +3317,7 @@ msgstr "Skalieren"
 #. Translators: Menu item Verb/Control Magnitude/Change/Rectify
 #: objects/FS/function.c:994
 msgid "Rectify"
-msgstr "Berrichtigen"
+msgstr "Berichtigen"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Adjust
 #: objects/FS/function.c:996
@@ -6104,7 +6104,7 @@ msgstr "Sensor - oben"
 
 #: sheets/Cybernetics.sheet.in.h:24
 msgid "Sigmoid characteristic"
-msgstr "S-förmige Charakterstik"
+msgstr "S-förmige Charakteristik"
 
 #: sheets/Cybernetics.sheet.in.h:25
 msgid "Sine characteristic or input"
@@ -8909,7 +8909,7 @@ msgstr "Steckdose für das Verkabelungssystem scEAD"
 
 #: sheets/network.sheet.in.h:38
 msgid "Workstation monitor"
-msgstr "Worksation-Monitor"
+msgstr "Workstation-Monitor"
 
 #: sheets/network.sheet.in.h:39
 msgid "ZIP disk"
