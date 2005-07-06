@@ -50,17 +50,17 @@ static const GtkTargetEntry create_object_targets[] = {
 
 ToolButton tool_data[] =
 {
-  { (char **) scroll_xpm,
+  { (char **) dia_modify_tool_icon,
     N_("Modify object(s)"),
     N_("Modify"),
     { MODIFY_TOOL, NULL, NULL}
   },
-  { (char **) magnify_xpm,
+  { (char **) dia_zoom_tool_icon,
     N_("Magnify"),
     N_("Magnify"),
     { MAGNIFY_TOOL, NULL, NULL}
   },
-  { (char **) scroll_xpm,
+  { (char **) dia_scroll_tool_icon,
     N_("Scroll around the diagram"),
     N_("Scroll"),
     { SCROLL_TOOL, NULL, NULL}
@@ -662,6 +662,33 @@ tool_select_callback(GtkWidget *widget, gpointer data) {
 }
 */
 
+static GtkWidget *
+create_widget_from_xpm_or_gdkp(gchar *icon_data, GtkWidget *button) 
+{
+  GtkWidget *pixmapwidget;
+
+  if (strncmp(icon_data, "GdkP", 4) == 0) {
+    GdkPixbuf *p;
+    printf("Creating icon - this will probably crash\n");
+    p = gdk_pixbuf_new_from_inline(-1, icon_data, TRUE, NULL);
+    printf("Got pixbuf %p\n", p);
+    pixmapwidget = gtk_image_new_from_pixbuf(p);
+  } else {
+    GdkBitmap *mask = NULL;
+    GtkStyle *style;
+    char **pixmap_data;
+    GdkPixmap *pixmap = NULL;
+
+    pixmap_data = icon_data;
+    style = gtk_widget_get_style(button);
+    pixmap = gdk_pixmap_colormap_create_from_xpm_d(NULL,
+						   gtk_widget_get_colormap(button), &mask,
+						   &style->bg[GTK_STATE_NORMAL], pixmap_data);
+    pixmapwidget = gtk_pixmap_new(pixmap, mask);
+  }
+  return pixmapwidget;
+}
+
 static void
 create_tools(GtkWidget *parent)
 {
@@ -695,26 +722,9 @@ create_tools(GtkWidget *parent)
 	pixmap_data = tool_data[0].icon_data;
       else
 	pixmap_data = type->pixmap;
-	style = gtk_widget_get_style(button);
-	pixmap = gdk_pixmap_colormap_create_from_xpm_d(NULL,
-						       gtk_widget_get_colormap(button), &mask,
-						       &style->bg[GTK_STATE_NORMAL], pixmap_data);
-	pixmapwidget = gtk_pixmap_new(pixmap, mask);
+      pixmapwidget = create_widget_from_xpm_or_gdkp(pixmap_data, button);
     } else {
-      if (strncmp(tool_data[i].icon_data[0], "GdkP", 4) == 0) {
-	GdkPixbuf *p;
-	printf("Creating icon for %s - this will probably crash\n", tool_data[i].tool_desc);
-	p = gdk_pixbuf_new_from_inline(-1, tool_data[i].icon_data[0], FALSE, NULL);
-	printf("Got pixbuf %p\n", p);
-	pixmapwidget = gtk_image_new_from_pixbuf(p);
-      } else {
-	pixmap_data = tool_data[i].icon_data;
-	style = gtk_widget_get_style(button);
-	pixmap = gdk_pixmap_colormap_create_from_xpm_d(NULL,
-						       gtk_widget_get_colormap(button), &mask,
-						       &style->bg[GTK_STATE_NORMAL], pixmap_data);
-	pixmapwidget = gtk_pixmap_new(pixmap, mask);
-      }
+      pixmapwidget = create_widget_from_xpm_or_gdkp(tool_data[i].icon_data, button);
     }
     
     /* GTKBUG:? padding changes */

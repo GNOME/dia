@@ -8,6 +8,8 @@ IMAGES = \
 	on-grid.png \
 	off-grid.png \
 	visible.png \
-	visible-empty.png
+	visible-empty.png \
+	group.png \
+	ungroup.png
 
 EXTRA_DIST = $(IMAGES)

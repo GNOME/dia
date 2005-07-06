@@ -44,7 +44,9 @@ ICON_PNG_PAIRS= \
 	dia_visible_empty_icon pixmaps/visible-empty.png \
         dia_diagram_icon ../dia-diagram.png \
 	dia_app_icon ../dia_gnome_icon.png \
-	dia_arrow_tool_icon pixmaps/visible.png \
+	dia_modify_tool_icon pixmaps/modify-24x24.png \
+	dia_scroll_tool_icon pixmaps/scroll-24x24.png \
+	dia_zoom_tool_icon pixmaps/zoom-24x24.png \
 	dia_group_icon pixmaps/group.png \
 	dia_ungroup_icon pixmaps/ungroup.png
 
@@ -59,7 +61,9 @@ ICON_PNGS= \
 	pixmaps/visible-empty.png \
 	../dia-diagram.png \
 	../dia_gnome_icon.png \
-	pixmaps/visible.png \
+	pixmaps/modify-24x24.png \
+	pixmaps/scroll-24x24.png \
+	pixmaps/zoom-24x24.png \
 	pixmaps/group.png \
 	pixmaps/ungroup.png
 
@@ -240,6 +244,7 @@ EXTRA_DIST = \
 	dia.ico \
 	dia.rc \
 	\
+	pixmaps/arrow.xpm \
 	pixmaps/swap.xpm \
 	pixmaps/default.xpm \
 	pixmaps/magnify.xpm \

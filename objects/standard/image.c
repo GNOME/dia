@@ -37,6 +37,7 @@
 #include "properties.h"
 
 #include "pixmaps/image.xpm"
+#include "tool-icons.h"
 
 #define DEFAULT_WIDTH 2.0
 #define DEFAULT_HEIGHT 2.0
@@ -101,7 +102,7 @@ DiaObjectType image_type =
 {
   "Standard - Image",  /* name */
   0,                 /* version */
-  (char **) image_xpm, /* pixmap */
+  (char **) image_icon, /* pixmap */
 
   &image_type_ops      /* ops */
 };

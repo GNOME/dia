@@ -34,6 +34,7 @@
 #include "properties.h"
 
 #include "pixmaps/box.xpm"
+#include "tool-icons.h"
 
 #define DEFAULT_WIDTH 2.0
 #define DEFAULT_HEIGHT 1.0
@@ -108,7 +109,7 @@ DiaObjectType box_type =
 {
   "Standard - Box",  /* name */
   0,                 /* version */
-  (char **) box_xpm, /* pixmap */
+  (char **) box_icon, /* pixmap */
 
   &box_type_ops      /* ops */
 };

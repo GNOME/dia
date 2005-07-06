@@ -36,6 +36,7 @@
 #include "properties.h"
 
 #include "pixmaps/line.xpm"
+#include "tool-icons.h"
 
 #define DEFAULT_WIDTH 0.25
 
@@ -101,7 +102,7 @@ DiaObjectType line_type =
 {
   "Standard - Line",   /* name */
   0,                   /* version */
-  (char **) line_xpm,  /* pixmap */
+  (char **) line_icon,  /* pixmap */
   &line_type_ops       /* ops */
 };
 

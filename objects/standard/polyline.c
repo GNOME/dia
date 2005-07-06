@@ -37,6 +37,7 @@
 #include "create.h"
 
 #include "pixmaps/polyline.xpm"
+#include "tool-icons.h"
 
 #define DEFAULT_WIDTH 0.15
 
@@ -94,7 +95,7 @@ static DiaObjectType polyline_type =
 {
   "Standard - PolyLine",   /* name */
   0,                         /* version */
-  (char **) polyline_xpm,      /* pixmap */
+  (char **) polyline_icon,      /* pixmap */
   
   &polyline_type_ops,       /* ops */
   NULL, /* pixmap_file */

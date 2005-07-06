@@ -39,6 +39,7 @@
 #include "create.h"
 
 #include "pixmaps/beziergon.xpm"
+#include "tool-icons.h"
 
 #define DEFAULT_WIDTH 0.15
 
@@ -99,7 +100,7 @@ static DiaObjectType beziergon_type =
 {
   "Standard - Beziergon",   /* name */
   0,                         /* version */
-  (char **) beziergon_xpm,      /* pixmap */
+  (char **) beziergon_icon,      /* pixmap */
   
   &beziergon_type_ops,      /* ops */
   NULL,                     /* pixmap_file */

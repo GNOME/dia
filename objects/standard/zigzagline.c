@@ -35,6 +35,7 @@
 #include "autoroute.h"
 
 #include "pixmaps/zigzag.xpm"
+#include "tool-icons.h"
 
 #define DEFAULT_WIDTH 0.15
 
@@ -92,7 +93,7 @@ static DiaObjectType zigzagline_type =
 {
   "Standard - ZigZagLine",   /* name */
   0,                         /* version */
-  (char **) zigzag_xpm,      /* pixmap */
+  (char **) zigzagline_icon,      /* pixmap */
   
   &zigzagline_type_ops       /* ops */
 };

@@ -34,6 +34,7 @@
 #include "properties.h"
 
 #include "pixmaps/ellipse.xpm"
+#include "tool-icons.h"
 
 #define DEFAULT_WIDTH 2.0
 #define DEFAULT_HEIGHT 1.0
@@ -104,7 +105,7 @@ DiaObjectType ellipse_type =
 {
   "Standard - Ellipse",   /* name */
   0,                      /* version */
-  (char **) ellipse_xpm,  /* pixmap */
+  (char **) ellipse_icon,  /* pixmap */
   
   &ellipse_type_ops       /* ops */
 };

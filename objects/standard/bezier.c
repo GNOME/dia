@@ -39,6 +39,7 @@
 #include "create.h"
 
 #include "pixmaps/bezier.xpm"
+#include "tool-icons.h"
 
 #define DEFAULT_WIDTH 0.15
 
@@ -99,7 +100,7 @@ static DiaObjectType bezierline_type =
 {
   "Standard - BezierLine",   /* name */
   0,                         /* version */
-  (char **) bezier_xpm,      /* pixmap */
+  (char **) bezierline_icon,      /* pixmap */
   
   &bezierline_type_ops,      /* ops */
   NULL,                      /* pixmap_file */

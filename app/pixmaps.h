@@ -22,4 +22,4 @@
 #include "pixmaps/default.xpm"
 #include "pixmaps/magnify.xpm"
 #include "pixmaps/scroll.xpm"
-
+#include "pixmaps/arrow.xpm"

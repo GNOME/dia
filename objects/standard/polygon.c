@@ -35,6 +35,7 @@
 #include "properties.h"
 
 #include "pixmaps/polygon.xpm"
+#include "tool-icons.h"
 
 #include "create.h"
 
@@ -102,7 +103,7 @@ static DiaObjectType polygon_type =
 {
   "Standard - Polygon",   /* name */
   0,                         /* version */
-  (char **) polygon_xpm,      /* pixmap */
+  (char **) polygon_icon,      /* pixmap */
   
   &polygon_type_ops,       /* ops */
   NULL, /* pixmap_file */
