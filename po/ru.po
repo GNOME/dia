@@ -6,9 +6,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dia 0.94\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-06-11 13:40+0200\n"
-"PO-Revision-Date: 2004-07-10 04:43MSK\n"
-"Last-Translator: Vitaly Lipatov <lav@altlinux.ru>\n"
+"POT-Creation-Date: 2005-07-06 18:39+0400\n"
+"PO-Revision-Date: 2005-07-10 04:43MSK\n"
+"Last-Translator: Sergey Kvyato <kvantos@sun-tel.net>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,22 +21,22 @@ msgstr ""
 #: app/app_procs.c:260
 #, c-format
 msgid "Warning: invalid layer range %lu - %lu\n"
-msgstr ""
+msgstr "Внимание: неправильный диапазон слоя %lu - %lu\n"
 
 #: app/app_procs.c:272
 #, c-format
 msgid "Warning: Layer %lu (%s) selected more than once.\n"
-msgstr ""
+msgstr "Внимание: Слой %lu (%s) выбран более одного раза.\n"
 
 #: app/app_procs.c:298
 #, c-format
 msgid "Warning: Layer %d (%s) selected more than once.\n"
-msgstr ""
+msgstr "Внимание: Слой %d (%s) выбран более одного раза.\n"
 
 #: app/app_procs.c:307
 #, c-format
 msgid "Warning: There is no layer named %s\n"
-msgstr ""
+msgstr "Внимание: Слоя с именем %s не существует\n"
 
 #: app/app_procs.c:389
 #, c-format
@@ -60,103 +60,106 @@ msgid "%s --> %s\n"
 msgstr "%s --> %s\n"
 
 #: app/app_procs.c:577
-#, fuzzy, c-format
+#, c-format
 msgid "Can't find output format/filter %s\n"
-msgstr "Невозможно найти выходной формат %s\n"
+msgstr "Невозможно найти выходной формат/фильтр %s\n"
 
 #. Translators:  The argument is a list of options, not to be translated
-#: app/app_procs.c:664
+#: app/app_procs.c:667
 #, c-format
 msgid "Select the filter/format out of: %s"
-msgstr ""
+msgstr "Выделить фильтр/формат из: %s"
 
 #. &export_file_name
-#: app/app_procs.c:683 app/app_procs.c:708
+#: app/app_procs.c:686 app/app_procs.c:711
 msgid "Export loaded file and exit"
 msgstr "Экспортировать загруженный файл и выйти"
 
-#: app/app_procs.c:683 app/app_procs.c:708 app/diaconv.c:94
+#: app/app_procs.c:686 app/app_procs.c:711
 msgid "OUTPUT"
 msgstr "ВЫВОД"
 
 #. &export_file_format
 #. &export_format_string
-#: app/app_procs.c:685 app/app_procs.c:710
+#. &export_file_format
+#: app/app_procs.c:688 app/app_procs.c:713
 msgid "TYPE"
-msgstr ""
+msgstr "ТИП"
 
-#: app/app_procs.c:687 app/app_procs.c:713
+#: app/app_procs.c:690 app/app_procs.c:716
 msgid "Export graphics size"
 msgstr "Размер экспортируемой графики"
 
-#: app/app_procs.c:687 app/app_procs.c:713
+#: app/app_procs.c:690 app/app_procs.c:716
 msgid "WxH"
-msgstr ""
+msgstr "ШхВ"
 
 #. 13.3.2004 sampo@iki.fi
-#: app/app_procs.c:689 app/app_procs.c:715
+#: app/app_procs.c:692 app/app_procs.c:718
 msgid ""
 "Show only specified layers (e.g. when exporting). Can be either the layer "
 "name or a range of layer numbers (X-Y)"
 msgstr ""
+"Показать только те слои которые были выбраны для экспортирования. "
+"Значениеможет быть именем слоя или интервалом номеров (от-до)"
 
-#: app/app_procs.c:690 app/app_procs.c:716
+#: app/app_procs.c:693 app/app_procs.c:719
 msgid "LAYER,LAYER,..."
-msgstr ""
+msgstr "СЛОЙ, СЛОЙ,..."
 
-#: app/app_procs.c:692 app/app_procs.c:718
+#: app/app_procs.c:695 app/app_procs.c:721
 msgid "Don't show the splash screen"
 msgstr "Не показывать заставку при запуске"
 
-#: app/app_procs.c:694 app/app_procs.c:720
+#: app/app_procs.c:697 app/app_procs.c:723
 msgid "Send error messages to stderr instead of showing dialogs."
 msgstr ""
 "Выводить сообщения об ошибках на стандартный вывод ошибок вместо вывода "
 "диалоговых окон."
 
-#: app/app_procs.c:696 app/app_procs.c:722
+#: app/app_procs.c:699 app/app_procs.c:725
 msgid "Display credits list and exit"
 msgstr "Показать список благодарностей и выйти"
 
-#: app/app_procs.c:698 app/app_procs.c:724
+#: app/app_procs.c:701 app/app_procs.c:727
 msgid "Generate verbose output"
-msgstr ""
+msgstr "Создать детальный вывод"
 
-#: app/app_procs.c:700 app/app_procs.c:726
+#: app/app_procs.c:703 app/app_procs.c:729
 msgid "Display version and exit"
 msgstr "Показать версию и выйти"
 
-#: app/app_procs.c:727 app/diaconv.c:95
+#: app/app_procs.c:730
 msgid "Show this help message"
 msgstr "Показывать это сообщение"
 
-#: app/app_procs.c:777
+#: app/app_procs.c:780
 msgid "Can't connect to session manager!\n"
 msgstr "Не удалось установить соединение с диспетчером сеанса!\n"
 
 #. TRANSLATOR: 2nd and 3rd %s are time and date respectively.
-#: app/app_procs.c:809
+#: app/app_procs.c:812
 #, c-format
 msgid "Dia version %s, compiled %s %s\n"
 msgstr "Версия Dia %s, скомпилировано %s в %s\n"
 
-#: app/app_procs.c:811
+#: app/app_procs.c:814
 #, c-format
 msgid "Dia version %s\n"
 msgstr "Версия Dia %s\n"
 
-#: app/app_procs.c:873 app/app_procs.c:875 app/diaconv.c:201 app/diaconv.c:203
+#: app/app_procs.c:876 app/app_procs.c:878
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr ""
 "Не удалось найти стандартные объекты при поиске object-libs, запуск "
 "прекращён...\n"
 
-#: app/app_procs.c:916
+#: app/app_procs.c:919
 msgid "Diagram1.dia"
 msgstr "Диаграмма1.dia"
 
-#: app/app_procs.c:958
+#: app/app_procs.c:961
 msgid ""
 "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you can cause this message to appear.\n"
@@ -166,7 +169,7 @@ msgstr ""
 "с описанием, как вам удалось добиться появления данного сообщения.\n"
 
 #. no standard buttons
-#: app/app_procs.c:971
+#: app/app_procs.c:974
 msgid ""
 "Modified diagrams exist.\n"
 "Are you sure you want to quit Dia\n"
@@ -176,21 +179,21 @@ msgstr ""
 "Вы уверены, что хотите выйти из Dia\n"
 "без её сохранения?"
 
-#: app/app_procs.c:974
+#: app/app_procs.c:977
 msgid "Quit Dia"
 msgstr "Выйти из Dia"
 
 #. This printf seems to prevent a race condition with unrefs.
 #. Yuck.  -Lars
-#: app/app_procs.c:1027
+#: app/app_procs.c:1030
 msgid "Thank you for using Dia.\n"
 msgstr "Благодарим за использование Dia.\n"
 
-#: app/app_procs.c:1044 app/app_procs.c:1051
+#: app/app_procs.c:1047 app/app_procs.c:1054
 msgid "Could not create per-user Dia config directory"
 msgstr "Невозможно создать пользовательский каталог конфигурации Dia"
 
-#: app/app_procs.c:1053
+#: app/app_procs.c:1056
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -198,15 +201,15 @@ msgstr ""
 "Не удалось создать пользовательский каталог настроек Dia. Убедитесь, что "
 "переменная окружения HOME указывает на существующий каталог."
 
-#: app/app_procs.c:1075 app/diaconv.c:251
+#: app/app_procs.c:1078
 msgid "Objects and filters internal to dia"
 msgstr "Объекты и фильтры внутри Dia"
 
-#: app/app_procs.c:1117 app/diaconv.c:121
+#: app/app_procs.c:1120
 msgid "[OPTION...] [FILE...]"
 msgstr "[ПАРАМЕТРЫ...] [ФАЙЛ...]"
 
-#: app/app_procs.c:1120 app/diaconv.c:128
+#: app/app_procs.c:1123
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
@@ -216,17 +219,16 @@ msgstr ""
 "Запустите \"%s --help\", чтобы просмотреть полный список доступных "
 "параметров командной строки.\n"
 
-#: app/app_procs.c:1144
-#, fuzzy
+#: app/app_procs.c:1147
 msgid "[FILE...]"
-msgstr "[ПАРАМЕТРЫ...] [ФАЙЛ...]"
+msgstr "[ФАЙЛ...]"
 
-#: app/app_procs.c:1159
+#: app/app_procs.c:1165
 #, c-format
 msgid "'%s' not found!\n"
-msgstr ""
+msgstr "'%s' не найдено!\n"
 
-#: app/app_procs.c:1238
+#: app/app_procs.c:1246
 msgid ""
 "The original author of Dia was:\n"
 "\n"
@@ -234,7 +236,7 @@ msgstr ""
 "Первым автором Dia был:\n"
 "\n"
 
-#: app/app_procs.c:1243
+#: app/app_procs.c:1251
 msgid ""
 "\n"
 "The current maintainers of Dia are:\n"
@@ -244,7 +246,7 @@ msgstr ""
 "Текущие разработчики Dia:\n"
 "\n"
 
-#: app/app_procs.c:1248
+#: app/app_procs.c:1256
 msgid ""
 "\n"
 "Other authors are:\n"
@@ -254,7 +256,7 @@ msgstr ""
 "Другие авторы:\n"
 "\n"
 
-#: app/app_procs.c:1253
+#: app/app_procs.c:1261
 msgid ""
 "\n"
 "Dia is documented by:\n"
@@ -264,11 +266,11 @@ msgstr ""
 "Документация для Dia составлена:\n"
 "\n"
 
-#: app/autosave.c:93
+#: app/autosave.c:91
 msgid "Recovering autosaved diagrams"
 msgstr "Восстановление автосохранённой диаграммы"
 
-#: app/autosave.c:101
+#: app/autosave.c:99
 msgid ""
 "Autosaved files exist.\n"
 "Please select those you wish to recover."
@@ -315,16 +317,15 @@ msgstr ""
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 "Valek Filippov <frob@df.ru>\n"
-"Vitaly Lipatov <lav@altlinux.ru>"
+"Vitaly Lipatov <lav@altlinux.ru>Sergey Kvayto <kvantos@sun-tel.net>"
 
 #: app/commands.c:625
 msgid "Dia"
 msgstr "Dia"
 
 #: app/commands.c:627
-#, fuzzy
 msgid "Copyright (C) 1998-2005 The Free Software Foundation and the authors"
-msgstr "Авторское право (c) 1998-2003 The Free Software Foundation и авторы"
+msgstr "Авторское право (C) 1998-2005 The Free Software Foundation и авторы"
 
 #: app/commands.c:628
 msgid ""
@@ -397,12 +398,11 @@ msgstr "Видимый интервал"
 #. Hexes!
 #: app/dia-props.c:177 app/preferences.c:162
 msgid "Hex grid"
-msgstr ""
+msgstr "Шестиугольная сетка"
 
 #: app/dia-props.c:185
-#, fuzzy
 msgid "Hex grid size"
-msgstr "Размер экспортируемой графики"
+msgstr "Размер шестиугольной сетки"
 
 #: app/dia-props.c:198
 msgid "Grid"
@@ -449,64 +449,6 @@ msgstr "Позиция по Y"
 #: app/diacanvas.c:132
 msgid "Y position of child widget"
 msgstr "Позиция Y дочернего виджета"
-
-#. &export_file_format
-#: app/diaconv.c:92
-msgid "Export format to use"
-msgstr "Используемый формат экспорта"
-
-#: app/diaconv.c:92
-msgid "eps,png,wmf,cgm,dxf,fig"
-msgstr "eps,png,wmf,cgm,dxf,fig"
-
-#. &export_file_name
-#: app/diaconv.c:94
-msgid "Export file name to use"
-msgstr "Название файла для экспорта"
-
-#: app/diaconv.c:96
-msgid "Quiet operation"
-msgstr "Выполнение без вопросов"
-
-#: app/diaconv.c:149
-#, c-format
-msgid ""
-"Error: No arguments found.\n"
-"Run '%s --help' to see a full list of available command line options.\n"
-msgstr ""
-"Ошибка: Не указаны параметры\n"
-"Запустите \"%s --help\", чтобы просмотреть полный список доступных "
-"параметров командной строки.\n"
-
-#: app/diaconv.c:159
-#, c-format
-msgid "%s error: can specify only one of -t or -o."
-msgstr "%s ошибка: можно указать только либо -t либо -o"
-
-#: app/diaconv.c:165
-#, c-format
-msgid ""
-"%s error: must specify only one of -t or -o.\n"
-"Run '%s --help' to see a full list of available command line options.\n"
-msgstr ""
-"%s ошибка: должен быть оказан только либо -t либо -o.\n"
-"Запустите \"%s --help\", чтобы просмотреть полный список доступных "
-"параметров командной строки.\n"
-
-#: app/diaconv.c:174
-#, c-format
-msgid "%s error: no input file."
-msgstr "%s ошибка: нет входного файла."
-
-#: app/diaconv.c:227
-#, c-format
-msgid "%s error: only one input file expected."
-msgstr "%s ошибка: ожидается только один входной файл."
-
-#: app/diaconv.c:240
-#, c-format
-msgid "%s error: popt library not available on this system"
-msgstr "%s ошибка: библиотека popt недоступна в данной системе"
 
 #: app/diagram_tree_menu.c:45
 msgid "/_Sort objects"
@@ -596,7 +538,7 @@ msgstr "Дерево диаграммы"
 msgid "Ok"
 msgstr "Ok"
 
-#: app/dialogs.c:52 app/paginate_psprint.c:306
+#: app/dialogs.c:52 app/paginate_psprint.c:307
 msgid "Cancel"
 msgstr "Отменить"
 
@@ -669,7 +611,7 @@ msgstr ""
 msgid "Properties..."
 msgstr "Свойства..."
 
-#: app/disp_callbacks.c:935
+#: app/disp_callbacks.c:925
 msgid ""
 "The object you dropped cannot fit into its parent. \n"
 "Either expand the parent object, or drop the object elsewhere."
@@ -683,20 +625,20 @@ msgid "Diagram modified!"
 msgstr "Диаграмма изменена!"
 
 #: app/display.c:116
-#, fuzzy, c-format
+#, c-format
 msgid "Selection of %d objects"
-msgstr "Категории и объекты"
+msgstr "Выделение %d объектов"
 
 #: app/display.c:126
 #, c-format
 msgid "Selected '%s'"
-msgstr ""
+msgstr "Выделено '%s'"
 
-#: app/display.c:1025
+#: app/display.c:1020
 msgid "<unnamed>"
 msgstr "<без названия>"
 
-#: app/display.c:1027
+#: app/display.c:1022
 #, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -705,21 +647,21 @@ msgstr ""
 "Диаграмма '%s'\n"
 "не была сохранена. Сохранить изменения сейчас?"
 
-#: app/display.c:1038
+#: app/display.c:1033
 msgid "Close Diagram"
 msgstr "Закрыть диаграмму"
 
-#: app/display.c:1043
+#: app/display.c:1038
 msgid "Discard Changes"
 msgstr "Отказаться от изменений"
 
 #: app/export_png.c:134 app/load_save.c:913 app/render_eps.c:103
-#: plug-ins/cairo/diacairo.c:978 plug-ins/cgm/cgm.c:1157
-#: plug-ins/dxf/dxf-export.c:509 plug-ins/hpgl/hpgl.c:718
+#: plug-ins/cairo/diacairo.c:976 plug-ins/cgm/cgm.c:1151
+#: plug-ins/dxf/dxf-export.c:484 plug-ins/hpgl/hpgl.c:704
 #: plug-ins/metapost/render_metapost.c:1107
 #: plug-ins/pstricks/render_pstricks.c:910 plug-ins/shape/shape-export.c:134
-#: plug-ins/svg/render_svg.c:151 plug-ins/wpg/wpg.c:1067
-#: plug-ins/xfig/xfig-export.c:1138 plug-ins/xslt/xslt.c:94
+#: plug-ins/svg/render_svg.c:149 plug-ins/wpg/wpg.c:1070
+#: plug-ins/xfig/xfig-export.c:1136 plug-ins/xslt/xslt.c:92
 #, c-format
 msgid "Can't open output file %s: %s\n"
 msgstr "Невозможно открыть выходной файл %s: %s\n"
@@ -742,6 +684,7 @@ msgid "PNG Export Options"
 msgstr "Параметры экспорта PNG"
 
 #. Translators: Menu item Verb/Channel/Export
+#. Translators: Menu item Verb/Channel/Export/Export
 #: app/export_png.c:300 objects/FS/function.c:696 objects/FS/function.c:698
 msgid "Export"
 msgstr "Экспорт"
@@ -758,34 +701,31 @@ msgstr "Высота изображения:"
 msgid "Portable Network Graphics"
 msgstr "Переносимая сетевая графика (PNG)"
 
-#: app/filedlg.c:127 app/filedlg.c:493
+#: app/filedlg.c:129 app/filedlg.c:495
 msgid "By extension"
 msgstr "По расширению"
 
-#: app/filedlg.c:200
+#: app/filedlg.c:202
 msgid "Open Diagram"
 msgstr "Открыть диаграмму"
 
-#: app/filedlg.c:228
+#: app/filedlg.c:230
 msgid "Open Options"
 msgstr "Параметры открытия"
 
-#: app/filedlg.c:236 app/filedlg.c:628
+#: app/filedlg.c:238 app/filedlg.c:616
 msgid "Determine file type:"
 msgstr "Определять тип файла:"
 
-#: app/filedlg.c:252 app/filedlg.c:641
-#, fuzzy
+#: app/filedlg.c:254 app/filedlg.c:629
 msgid "All Files"
-msgstr "Файл"
+msgstr "Все файлы"
 
-#: app/filedlg.c:257 app/filedlg.c:646
-#, fuzzy
+#: app/filedlg.c:259 app/filedlg.c:634
 msgid "Supported Formats"
-msgstr "Подавить действия"
+msgstr "Поддерживаемые форматы"
 
-#: app/filedlg.c:293
-#, fuzzy
+#: app/filedlg.c:295
 msgid ""
 "Some characters in the filename are neither UTF-8\n"
 "nor your local encoding.\n"
@@ -793,9 +733,10 @@ msgid ""
 msgstr ""
 "Некоторые символы в названии файла не в UTF-8 и не в вашей локальной "
 "кодировке.\n"
-"Что-то у вас испорчено."
+"Это может привести к сбою, а также имя файла, возможно, будет отображатся "
+"покореженно."
 
-#: app/filedlg.c:300 app/filedlg.c:538
+#: app/filedlg.c:302 app/filedlg.c:540
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
@@ -804,21 +745,21 @@ msgstr ""
 "Файл '%s' уже существует.\n"
 "Хотите переписать его?"
 
-#: app/filedlg.c:308 app/filedlg.c:545
+#: app/filedlg.c:310 app/filedlg.c:547
 msgid "File already exists"
 msgstr "Файл уже существует"
 
-#: app/filedlg.c:351
+#: app/filedlg.c:353
 msgid "Save Diagram"
 msgstr "Сохранить диаграмму"
 
 #. Need better way to make it a reasonable size.  Isn't there some
 #. standard look for them (or is that just Gnome?)
-#: app/filedlg.c:362
+#: app/filedlg.c:364
 msgid "Compress diagram files"
 msgstr "Сжимать сохраняемые файлы"
 
-#: app/filedlg.c:371
+#: app/filedlg.c:373
 msgid ""
 "Compression reduces file size to less than 1/10th size and speeds up loading "
 "and saving.  Some text programs cannot manipulate compressed files."
@@ -827,7 +768,7 @@ msgstr ""
 "сохранение.  Некоторые программы работы с текстом не могут обрабатывать "
 "сжатые файлы."
 
-#: app/filedlg.c:567
+#: app/filedlg.c:569
 #, c-format
 msgid ""
 "Could not determine which export filter\n"
@@ -836,11 +777,11 @@ msgstr ""
 "Невозможно определить какой экспортный\n"
 "фильтр использовать для сохранения '%s'"
 
-#: app/filedlg.c:590
+#: app/filedlg.c:592
 msgid "Export Diagram"
 msgstr "Экспорт диаграммы"
 
-#: app/filedlg.c:620
+#: app/filedlg.c:608
 msgid "Export Options"
 msgstr "Экспорт параметров"
 
@@ -865,7 +806,7 @@ msgstr "Перемещаться по диаграмме"
 msgid "Scroll"
 msgstr "Перемещать"
 
-#: app/interface.c:69 app/interface.c:70 lib/properties.c:77
+#: app/interface.c:69 app/interface.c:70 lib/properties.c:79
 #: lib/properties.h:520 objects/Jackson/requirement.c:142
 #: objects/UML/activity.c:126 objects/UML/actor.c:122
 #: objects/UML/classicon.c:144 objects/UML/component.c:128
@@ -938,16 +879,13 @@ msgid "NULL tooldata in tool_select_update"
 msgstr "NULL данные инструмента в tool_select_update"
 
 #: app/interface.c:870
-#, fuzzy, c-format
+#, c-format
 msgid "No sheet named %s"
-msgstr "Название категории:"
+msgstr "Библиотеки элементов с названием %s несуществует"
 
 #: app/interface.c:902
-#, fuzzy
 msgid "Other sheets"
-msgstr ""
-"%s\n"
-"Пользовательская категория"
+msgstr "Другие библиотеки элементов"
 
 #: app/interface.c:960 sheets/Misc.sheet.in.h:3
 msgid "Misc"
@@ -1021,14 +959,13 @@ msgid "Layers"
 msgstr "Слои"
 
 #: app/layer_dialog.c:207
-#, fuzzy
 msgid "Diagram:"
-msgstr "Диаграммы:"
+msgstr "Диаграмма:"
 
 #: app/layer_dialog.c:313
-#, fuzzy, c-format
+#, c-format
 msgid "New layer %d"
-msgstr "Новый слой"
+msgstr "Новый слой %d"
 
 #: app/layer_dialog.c:525
 msgid "none"
@@ -1085,8 +1022,8 @@ msgstr "Невозможно найти родителей %s объекта %s\
 msgid "You must specify a file, not a directory.\n"
 msgstr "Вы должны указать файл, а не каталог.\n"
 
-#: app/load_save.c:358 plug-ins/dxf/dxf-import.c:1304 plug-ins/wpg/wpg.c:1171
-#: plug-ins/xfig/xfig-import.c:1560 plug-ins/xslt/xslt.c:87
+#: app/load_save.c:358 plug-ins/dxf/dxf-import.c:1304 plug-ins/wpg/wpg.c:1174
+#: plug-ins/xfig/xfig-import.c:1560 plug-ins/xslt/xslt.c:85
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "Не удалось открыть: '%s' для чтения.\n"
@@ -1126,9 +1063,8 @@ msgid "Failed to save file '%s'.\n"
 msgstr "Не удалось сохранить файл '%s'.\n"
 
 #: app/load_save.c:1018 app/load_save.c:1023
-#, fuzzy
 msgid "Dia Diagram File"
-msgstr "Собственный формат диаграмм Dia"
+msgstr "Собственный формат Dia"
 
 #: app/menus.c:50 app/menus.c:88
 msgid "/_File"
@@ -1142,6 +1078,9 @@ msgstr "/Файл/_Создать"
 msgid "/File/_Open..."
 msgstr "/Файл/_Открыть..."
 
+#. {N_("/Open _Recent"),           NULL,         NULL,           0, "<Branch>"},
+#. {   "/Open Recent/tearoff",     NULL,         NULL,         0, "<Tearoff>" },
+#. recent file list is dynamically inserted here
 #. {N_("/Open _Recent"),           NULL,         NULL,           0, "<Branch>"},
 #. {   "/Open Recent/tearoff",     NULL,         NULL,         0, "<Tearoff>" },
 #: app/menus.c:58 app/menus.c:63 app/menus.c:68 app/menus.c:70 app/menus.c:96
@@ -1159,7 +1098,7 @@ msgstr "/Файл/Категории и объекты..."
 
 #: app/menus.c:64
 msgid "/File/_Preferences..."
-msgstr "/Файл/_Настройки..."
+msgstr "/Файл/_Параметры..."
 
 #: app/menus.c:66
 msgid "/File/P_lugins..."
@@ -1171,12 +1110,11 @@ msgstr "/Файл/_Выйти"
 
 #: app/menus.c:73 app/menus.c:260
 msgid "/_Help"
-msgstr "/_Помощь"
+msgstr "/_Справка"
 
 #: app/menus.c:75 app/menus.c:262
-#, fuzzy
 msgid "/Help/_Contents"
-msgstr "/Помощь/_О программе..."
+msgstr "/Справка/_Содержание"
 
 #: app/menus.c:77 app/menus.c:264
 msgid "/Help/---"
@@ -1184,7 +1122,7 @@ msgstr "/Справка/---"
 
 #: app/menus.c:78 app/menus.c:265
 msgid "/Help/_About..."
-msgstr "/Помощь/_О программе..."
+msgstr "/Справка/_О программе..."
 
 #: app/menus.c:97
 msgid "/File/_Save"
@@ -1216,11 +1154,11 @@ msgstr "/_Правка"
 
 #: app/menus.c:115
 msgid "/Edit/_Undo"
-msgstr "/Правка/_Откатить"
+msgstr "/Правка/_Отменить"
 
 #: app/menus.c:117
 msgid "/Edit/_Redo"
-msgstr "/Правка/_Вернуть"
+msgstr "/Правка/_Возвратить"
 
 #: app/menus.c:119 app/menus.c:129
 msgid "/Edit/---"
@@ -1287,14 +1225,12 @@ msgid "/View/_Zoom"
 msgstr "/Вид/_Масштаб"
 
 #: app/menus.c:149
-#, fuzzy
 msgid "/View/Zoom/1600%"
-msgstr "/Вид/Масштаб/100%"
+msgstr "/Вид/Масштаб/1600%"
 
 #: app/menus.c:150
-#, fuzzy
 msgid "/View/Zoom/800%"
-msgstr "/Вид/Масштаб/400%"
+msgstr "/Вид/Масштаб/800%"
 
 #: app/menus.c:151
 msgid "/View/Zoom/400%"
@@ -1342,7 +1278,7 @@ msgstr "/Вид/---"
 
 #: app/menus.c:163
 msgid "/View/Fullscr_een"
-msgstr ""
+msgstr "/Вид/На весь экран"
 
 #: app/menus.c:165
 msgid "/View/_AntiAliased"
@@ -1512,12 +1448,11 @@ msgstr "/Выделение/Заменить"
 
 #: app/menus.c:231
 msgid "/Select/Union"
-msgstr "/Выделение/Объединение"
+msgstr "/Выделение/Объединить"
 
 #: app/menus.c:233
-#, fuzzy
 msgid "/Select/Intersection"
-msgstr "/Выделение/Пересечение"
+msgstr "/Выделение/Пересечь"
 
 #: app/menus.c:235
 msgid "/Select/Remove"
@@ -1525,7 +1460,6 @@ msgstr "/Выделение/Удалить"
 
 #. Cannot also be called Invert, duplicate names caused keybinding problems
 #: app/menus.c:238
-#, fuzzy
 msgid "/Select/Inverse"
 msgstr "/Выделение/Инвертировать"
 
@@ -1601,11 +1535,11 @@ msgstr "/_Способы ввода"
 msgid "NULL tooldata in tool_menu_select"
 msgstr "NULL данные инструмента в tool_menu_select"
 
-#: app/menus.c:528
+#: app/menus.c:527
 msgid "Diagram Menu"
 msgstr "Меню диаграммы"
 
-#: app/menus.c:663
+#: app/menus.c:662
 #, c-format
 msgid ""
 "Can't find menu entry '%s'!\n"
@@ -1614,42 +1548,42 @@ msgstr ""
 "Невозможно найти позицию меню '%s'\n"
 "Это возможно проблема i18n (try LANG=C)."
 
-#: app/modify_tool.c:340
+#: app/modify_tool.c:342
 msgid "Couldn't get GTK settings"
 msgstr "Невозможно получить настройки GTK"
 
-#: app/paginate_psprint.c:257
+#: app/paginate_psprint.c:258
 msgid "Select Printer"
 msgstr "Выбрать принтер"
 
-#: app/paginate_psprint.c:269 sheets/ciscocomputer.sheet.in.h:36
+#: app/paginate_psprint.c:270 sheets/ciscocomputer.sheet.in.h:36
 msgid "Printer"
 msgstr "Принтер"
 
-#: app/paginate_psprint.c:283 sheets/Misc.sheet.in.h:1
+#: app/paginate_psprint.c:284 sheets/Misc.sheet.in.h:1
 msgid "File"
 msgstr "Файл"
 
-#: app/paginate_psprint.c:298
+#: app/paginate_psprint.c:299
 msgid "OK"
 msgstr "ОК"
 
-#: app/paginate_psprint.c:393
+#: app/paginate_psprint.c:394
 #, c-format
 msgid "Could not run command '%s': %s"
 msgstr "Невозможно выполнить команду '%s': %s"
 
-#: app/paginate_psprint.c:396
+#: app/paginate_psprint.c:397
 #, c-format
 msgid "Could not open '%s' for writing: %s"
 msgstr "Невозможно открыть '%s' для записи: %s"
 
-#: app/paginate_psprint.c:413
+#: app/paginate_psprint.c:414
 #, c-format
 msgid "Printing error: command '%s' returned %d\n"
 msgstr "Ошибка печати: команда '%s' возвратила %d\n"
 
-#: app/paginate_psprint.c:424
+#: app/paginate_psprint.c:425
 #, c-format
 msgid "Printing error: command '%s' caused sigpipe."
 msgstr "Ошибка печати: команда '%s' вызвала сигнал sigpipe."
@@ -1803,9 +1737,8 @@ msgid "Lines per major line"
 msgstr "Линий на главные линии"
 
 #: app/preferences.c:163
-#, fuzzy
 msgid "Hex Size:"
-msgstr "Размер X:"
+msgstr "Размер шестигранной сетки:"
 
 #: app/preferences.c:179
 msgid "Diagram tree window:"
@@ -1826,7 +1759,7 @@ msgstr "Нет"
 
 #: app/preferences.c:499
 msgid "Preferences"
-msgstr "Настройки"
+msgstr "Параметры"
 
 #: app/properties.c:55
 msgid "Object properties"
@@ -1850,25 +1783,21 @@ msgstr "Свойства объекта:"
 msgid "<Toolbox>/File/Plugins..."
 msgstr "<Toolbox> Файл/Модули расширения..."
 
-#: app/recent_files.c:70 app/recent_files.c:143
+#: app/recent_files.c:139
 msgid "<Toolbox>/File/Quit"
 msgstr "<Toolbox>/Файл/Выйти"
 
-#: app/render_eps.c:145
+#: app/render_eps.c:147
 msgid "Encapsulated Postscript (using Pango fonts)"
 msgstr "Encapsulated PostScript (используя шрифты Pango)"
 
-#: app/render_eps.c:154
+#: app/render_eps.c:156
 msgid "Encapsulated Postscript with preview (using Pango fonts)"
-msgstr ""
+msgstr "Encapsulated Postscript с предпросмотром (используя шрифты Pango)"
 
-#: app/render_eps.c:164
+#: app/render_eps.c:166
 msgid "Encapsulated Postscript (using PostScript Latin-1 fonts)"
-msgstr "Встраиваемый PostScript (используя PostScript-шрифты Latin-1)"
-
-#: app/render_libart.c:318 lib/dialibartrenderer.c:288
-msgid "gdk_renderer: Unsupported fill mode specified!\n"
-msgstr "gdk_renderer: Указан не поддерживаемый режим заполнения!\n"
+msgstr "Encapsulated PostScript (используя PostScript-шрифты Latin-1)"
 
 #: app/sheets.c:155
 #, c-format
@@ -1987,7 +1916,7 @@ msgid "Description:"
 msgstr "Описание:"
 
 #: app/sheets_dialog.c:618 objects/FS/flow-ortho.c:168 objects/FS/flow.c:146
-#: objects/Istar/link.c:165 objects/Jackson/phenomenon.c:144
+#: objects/Istar/link.c:164 objects/Jackson/phenomenon.c:144
 #: objects/KAOS/metaandorrel.c:164 objects/KAOS/metabinrel.c:171
 #: objects/UML/class_dialog.c:912 objects/UML/class_dialog.c:1840
 #: objects/UML/class_dialog.c:2069 objects/UML/class_dialog.c:2585
@@ -2008,6 +1937,8 @@ msgid "Name:"
 msgstr "Название:"
 
 #. Translators: Menu item Verb/Channel/Export/Remove
+#. Translators: Menu item Verb/Branch/Separate/Remove
+#. Translators: Menu item Verb/Branch/Separate/Remove/Remove
 #: app/sheets_dialog.c:784 objects/FS/function.c:706 objects/FS/function.c:858
 #: objects/FS/function.c:860
 msgid "Remove"
@@ -2047,8 +1978,8 @@ msgid ""
 "%s\n"
 "Shape"
 msgstr ""
-"%s\n"
-"Фигура"
+"Элемент\n"
+"%s"
 
 #: app/sheets_dialog_callbacks.c:306
 #, c-format
@@ -2130,14 +2061,12 @@ msgid "Dia v %s"
 msgstr "Dia версии %s"
 
 #: dia.desktop.in.h:1
-#, fuzzy
 msgid "Dia Diagram Editor"
-msgstr "Dia - Редактор диаграмм"
+msgstr "Dia -- Редактор диаграмм"
 
 #: dia.desktop.in.h:2
-#, fuzzy
 msgid "Edit your Diagrams"
-msgstr "Экспорт диаграммы"
+msgstr "Редактировать ваши Диаграммы"
 
 #: lib/arrows.c:40 objects/Jackson/domain.c:96 objects/UML/association.c:1188
 msgid "None"
@@ -2228,9 +2157,8 @@ msgid "Integral Symbol"
 msgstr "Символ интеграла"
 
 #: lib/arrows.c:62
-#, fuzzy
 msgid "Crow Foot"
-msgstr "Нога"
+msgstr "Куриная лапка"
 
 #: lib/arrows.c:63
 msgid "Cross"
@@ -2262,20 +2190,19 @@ msgstr "Пустую впадину"
 
 #: lib/arrows.c:70
 msgid "Round"
-msgstr ""
+msgstr "Полукруг"
 
 #: lib/arrows.c:71
-#, fuzzy
 msgid "Open Round"
-msgstr "Раскрыть"
+msgstr "Раскрытый полукруг"
 
 #: lib/arrows.c:72
 msgid "Backslash"
-msgstr ""
+msgstr "Обратный слеш"
 
 #: lib/arrows.c:73
 msgid "Infinite Line"
-msgstr ""
+msgstr "Бесконечная линия"
 
 #: lib/bezier_conn.c:533
 msgid "Internal error: Setting corner type of endpoint of bezier"
@@ -2371,6 +2298,10 @@ msgstr "_Предварительный просмотр:"
 msgid "Font Selection"
 msgstr "Выбор шрифта"
 
+#: lib/dialibartrenderer.c:288
+msgid "gdk_renderer: Unsupported fill mode specified!\n"
+msgstr "gdk_renderer: Указан не поддерживаемый режим заполнения!\n"
+
 #: lib/dialinechooser.c:297
 msgid "Line Style Properties"
 msgstr "Свойства стиля линии"
@@ -2380,7 +2311,7 @@ msgstr "Свойства стиля линии"
 msgid "Multiple export filters with unique name %s"
 msgstr "Множество фильтров экспорта с уникальным названием %s"
 
-#: lib/font.c:89
+#: lib/font.c:95
 #, c-format
 msgid "Can't load font %s.\n"
 msgstr "Невозможно загрузить шрифт %s.\n"
@@ -2467,64 +2398,64 @@ msgstr ""
 #: lib/prop_text.c:466
 #, c-format
 msgid "Group with %d objects"
-msgstr ""
+msgstr "Сгрупировать с %d объектами"
 
-#: lib/properties.c:62 lib/properties.h:469 lib/widgets.c:638
+#: lib/properties.c:64 lib/properties.h:469 lib/widgets.c:638
 msgid "Left"
 msgstr "Влево"
 
-#: lib/properties.c:63 lib/properties.h:470 lib/widgets.c:644
+#: lib/properties.c:65 lib/properties.h:470 lib/widgets.c:644
 msgid "Center"
 msgstr "По середине"
 
-#: lib/properties.c:64 lib/properties.h:471 lib/widgets.c:650
+#: lib/properties.c:66 lib/properties.h:471 lib/widgets.c:650
 msgid "Right"
 msgstr "Вправо"
 
-#: lib/properties.c:71 objects/chronogram/chronoline.c:179
+#: lib/properties.c:73 objects/chronogram/chronoline.c:179
 #: objects/chronogram/chronoref.c:158
 msgid "Line color"
 msgstr "Цвет линии"
 
-#: lib/properties.c:72 lib/properties.h:493 lib/properties.h:496
+#: lib/properties.c:74 lib/properties.h:493 lib/properties.h:496
 msgid "Line style"
 msgstr "Стиль линии"
 
-#: lib/properties.c:73
+#: lib/properties.c:75
 msgid "Fill color"
 msgstr "Цвет заполнения"
 
-#: lib/properties.c:74 lib/properties.h:506 lib/properties.h:509
+#: lib/properties.c:76 lib/properties.h:506 lib/properties.h:509
 msgid "Draw background"
 msgstr "Нарисовать фон"
 
-#: lib/properties.c:75 lib/properties.h:513
+#: lib/properties.c:77 lib/properties.h:513
 msgid "Start arrow"
 msgstr "Начальная стрелка"
 
-#: lib/properties.c:76 lib/properties.h:516
+#: lib/properties.c:78 lib/properties.h:516
 msgid "End arrow"
 msgstr "Конечная стрелка"
 
-#: lib/properties.c:78 lib/properties.h:526
+#: lib/properties.c:80 lib/properties.h:526
 msgid "Text alignment"
 msgstr "Выравнивание текста"
 
 #. all this just to make the defaults selectable ...
-#: lib/properties.c:79 lib/properties.h:531 objects/GRAFCET/condition.c:132
+#: lib/properties.c:81 lib/properties.h:531 objects/GRAFCET/condition.c:132
 #: objects/GRAFCET/step.c:165 objects/GRAFCET/transition.c:142
 #: objects/UML/class.c:143 objects/UML/class_dialog.c:351
 #: objects/chronogram/chronoline.c:183 objects/chronogram/chronoref.c:164
 msgid "Font"
 msgstr "Шрифт"
 
-#: lib/properties.c:80 lib/properties.h:537 objects/GRAFCET/condition.c:134
+#: lib/properties.c:82 lib/properties.h:537 objects/GRAFCET/condition.c:134
 #: objects/GRAFCET/step.c:167 objects/GRAFCET/transition.c:144
 #: objects/chronogram/chronoline.c:185 objects/chronogram/chronoref.c:166
 msgid "Font size"
 msgstr "Размер шрифта"
 
-#: lib/properties.c:81 objects/GRAFCET/step.c:169
+#: lib/properties.c:83 objects/GRAFCET/step.c:169
 #: objects/chronogram/chronoline.c:187 objects/chronogram/chronoref.c:168
 msgid "Text color"
 msgstr "Цвет текста"
@@ -2544,12 +2475,11 @@ msgstr "Цвет текста"
 #: lib/proplist.c:163
 #, c-format
 msgid "No attribute '%s' (%p) or no data(%p) in this attribute"
-msgstr ""
+msgstr "Свойство '%s' (%p) отсутствует или не содержит (%p) данных"
 
 #: lib/widgets.c:375
-#, fuzzy
 msgid "Other fonts"
-msgstr "Другие шрифты..."
+msgstr "Другие шрифты"
 
 #: lib/widgets.c:445
 #, c-format
@@ -2586,31 +2516,29 @@ msgstr "Длина штриха: "
 msgid "Select color"
 msgstr "Выбор цвета"
 
-#: lib/widgets.c:1026
+#: lib/widgets.c:1025
 msgid "More colors..."
-msgstr ""
+msgstr "Другие цвета..."
 
-#: lib/widgets.c:1150
-#, fuzzy
+#: lib/widgets.c:1149
 msgid "More arrows"
-msgstr "Точечная стрелка"
+msgstr "Другие стрелки"
 
-#: lib/widgets.c:1163
+#: lib/widgets.c:1162
 msgid "Size: "
 msgstr "Размер: "
 
-#: lib/widgets.c:1308
+#: lib/widgets.c:1307
 msgid "Select image file"
 msgstr "Выбрать файл изображения"
 
-#: lib/widgets.c:1344
+#: lib/widgets.c:1343
 msgid "Browse"
 msgstr "Выбрать..."
 
-#: lib/widgets.c:1958
-#, fuzzy
+#: lib/widgets.c:1957
 msgid "Reset menu"
-msgstr "Использовать строку меню"
+msgstr "Прочитать по новой меню"
 
 #: objects/ER/attribute.c:155
 msgid "Key:"
@@ -2703,6 +2631,9 @@ msgid "Material"
 msgstr "Материал"
 
 #. Translators: Menu item Verb/Signal
+#. Translators: Menu item Verb/Signal/Signal
+#. Translators: Menu item Noun/Signal
+#. Translators: Menu item Noun/Signal/Signal
 #: objects/FS/flow-ortho.c:161 objects/FS/flow-ortho.c:643
 #: objects/FS/flow.c:139 objects/FS/flow.c:578 objects/FS/function.c:1034
 #: objects/FS/function.c:1036 objects/FS/function.c:1172
@@ -2728,12 +2659,15 @@ msgid "Verb"
 msgstr "Глагол"
 
 #. Translators: Menu item Verb/Channel
+#. Translators: Menu item Verb/Channel/Channel
+#. Translators: Menu item Verb/Channel/Transfer/Transport/Channel
 #: objects/FS/function.c:678 objects/FS/function.c:680
 #: objects/FS/function.c:720
 msgid "Channel"
 msgstr "Проводить"
 
 #. Translators: Menu item Verb/Channel/Import
+#. Translators: Menu item Verb/Channel/Import/Import
 #: objects/FS/function.c:682 objects/FS/function.c:684
 msgid "Import"
 msgstr "Импортировать"
@@ -2749,6 +2683,7 @@ msgid "Receive"
 msgstr "Принимать"
 
 #. Translators: Menu item Verb/Channel/Import/Allow
+#. Translators: Menu item Verb/Control Magnitude/Regulate/Allow
 #: objects/FS/function.c:690 objects/FS/function.c:962
 msgid "Allow"
 msgstr "Разрешать"
@@ -2759,6 +2694,7 @@ msgid "Form Entrance"
 msgstr "Составлять вход"
 
 #. Translators: Menu item Verb/Channel/Import/Capture
+#. Translators: Menu item Verb/Provision/Store/Capture
 #: objects/FS/function.c:694 objects/FS/function.c:928
 msgid "Capture"
 msgstr "Захватывать"
@@ -2779,12 +2715,15 @@ msgid "Dispose"
 msgstr "Располагать"
 
 #. Translators: Menu item Verb/Channel/Transfer
+#. Translators: Menu item Verb/Channel/Transfer/Transfer
+#. Translators: Menu item Verb/Channel/Transfer/Transmit/Transfer
 #: objects/FS/function.c:708 objects/FS/function.c:710
 #: objects/FS/function.c:728
 msgid "Transfer"
 msgstr "Переносить"
 
 #. Translators: Menu item Verb/Channel/Transfer/Transport
+#. Translators: Menu item Verb/Channel/Transfer/Transport/Transport
 #: objects/FS/function.c:712 objects/FS/function.c:714
 msgid "Transport"
 msgstr "Перевозить"
@@ -2800,6 +2739,7 @@ msgid "Move"
 msgstr "Перемещать"
 
 #. Translators: Menu item Verb/Channel/Transfer/Transmit
+#. Translators: Menu item Verb/Channel/Transfer/Transmit/Transmit
 #: objects/FS/function.c:722 objects/FS/function.c:724
 msgid "Transmit"
 msgstr "Передавать"
@@ -2815,6 +2755,8 @@ msgid "Convey"
 msgstr "Преобразовать"
 
 #. Translators: Menu item Verb/Channel/Guide
+#. Translators: Menu item Verb/Channel/Guide/Guide
+#. Translators: Menu item Verb/Channel/Guide/Guide/Guide
 #: objects/FS/function.c:732 objects/FS/function.c:734
 #: objects/FS/function.c:736
 msgid "Guide"
@@ -2841,6 +2783,7 @@ msgid "Translate"
 msgstr "Переводить"
 
 #. Translators: Menu item Verb/Channel/Guide/Rotate
+#. Translators: Menu item Verb/Channel/Guide/Rotate/Rotate
 #: objects/FS/function.c:746 objects/FS/function.c:748
 msgid "Rotate"
 msgstr "Вращать"
@@ -2856,6 +2799,7 @@ msgid "Spin"
 msgstr "Крутить"
 
 #. Translators: Menu item Verb/Channel/Guide/Allow DOF
+#. Translators: Menu item Verb/Channel/Guide/Allow DOF/Allow DOF
 #: objects/FS/function.c:754 objects/FS/function.c:756
 msgid "Allow DOF"
 msgstr "Позволять DOF"
@@ -2871,11 +2815,13 @@ msgid "Unlock"
 msgstr "Разблокировать"
 
 #. Translators: Menu item Verb/Support
+#. Translators: Menu item Verb/Support/Support
 #: objects/FS/function.c:762 objects/FS/function.c:764
 msgid "Support"
 msgstr "Поддерживать"
 
 #. Translators: Menu item Verb/Support/Stop
+#. Translators: Menu item Verb/Support/Stop/Stop
 #: objects/FS/function.c:766 objects/FS/function.c:768
 #: sheets/SDL.sheet.in.h:19
 msgid "Stop"
@@ -2892,6 +2838,7 @@ msgid "Protect"
 msgstr "Защищать"
 
 #. Translators: Menu item Verb/Support/Stop/Prevent
+#. Translators: Menu item Verb/Control Magnitude/Regulate/Prevent
 #: objects/FS/function.c:774 objects/FS/function.c:964
 msgid "Prevent"
 msgstr "Предотвращать"
@@ -2907,6 +2854,7 @@ msgid "Inhibit"
 msgstr "Препятствовать"
 
 #. Translators: Menu item Verb/Support/Stabilize
+#. Translators: Menu item Verb/Support/Stabilize/Stabilize
 #: objects/FS/function.c:780 objects/FS/function.c:782
 msgid "Stabilize"
 msgstr "Стабилизировать"
@@ -2917,11 +2865,13 @@ msgid "Steady"
 msgstr "Остепенять"
 
 #. Translators: Menu item Verb/Support/Secure
+#. Translators: Menu item Verb/Support/Secure/Secure
 #: objects/FS/function.c:786 objects/FS/function.c:788
 msgid "Secure"
 msgstr "Защищать"
 
 #. Translators: Menu item Verb/Support/Secure/Attach
+#. Translators: Menu item Verb/Connect/Couple/Attach
 #: objects/FS/function.c:790 objects/FS/function.c:822
 msgid "Attach"
 msgstr "Присоединять"
@@ -2947,6 +2897,7 @@ msgid "Hold"
 msgstr "Сохранять"
 
 #. Translators: Menu item Verb/Support/Position
+#. Translators: Menu item Verb/Support/Position/Position
 #: objects/FS/function.c:800 objects/FS/function.c:802
 #: objects/Istar/actor.c:70
 msgid "Position"
@@ -2963,16 +2914,19 @@ msgid "Align"
 msgstr "Выравнивать"
 
 #. Translators: Menu item Verb/Support/Position/Locate
+#. Translators: Menu item Verb/Signal/Sense/Locate
 #: objects/FS/function.c:808 objects/FS/function.c:1050
 msgid "Locate"
 msgstr "Располагать"
 
 #. Translators: Menu item Verb/Connect
+#. Translators: Menu item Verb/Connect/Connect
 #: objects/FS/function.c:810 objects/FS/function.c:812
 msgid "Connect"
 msgstr "Связывать"
 
 #. Translators: Menu item Verb/Connect/Couple
+#. Translators: Menu item Verb/Connect/Couple/Couple
 #: objects/FS/function.c:814 objects/FS/function.c:816
 msgid "Couple"
 msgstr "Соединять"
@@ -2988,6 +2942,7 @@ msgid "Assemble"
 msgstr "Собирать"
 
 #. Translators: Menu item Verb/Connect/Mix
+#. Translators: Menu item Verb/Connect/Mix/Mix
 #: objects/FS/function.c:824 objects/FS/function.c:826
 msgid "Mix"
 msgstr "Перемешивать"
@@ -3018,11 +2973,14 @@ msgid "Coalesce"
 msgstr "Сращивать"
 
 #. Translators: Menu item Verb/Branch
+#. Translators: Menu item Verb/Branch/Branch
 #: objects/FS/function.c:838 objects/FS/function.c:840 sheets/UML.sheet.in.h:5
 msgid "Branch"
 msgstr "Разветвлять"
 
 #. Translators: Menu item Verb/Branch/Separate
+#. Translators: Menu item Verb/Branch/Separate/Separate
+#. Translators: Menu item Verb/Branch/Separate/Separate/Separate
 #: objects/FS/function.c:842 objects/FS/function.c:844
 #: objects/FS/function.c:846
 msgid "Separate"
@@ -3079,6 +3037,7 @@ msgid "Lathe"
 msgstr "Вытачивать"
 
 #. Translators: Menu item Verb/Branch/Refine
+#. Translators: Menu item Verb/Branch/Refine/Refine
 #: objects/FS/function.c:872 objects/FS/function.c:874
 msgid "Refine"
 msgstr "Облагораживать"
@@ -3109,6 +3068,7 @@ msgid "Clear"
 msgstr "Очищать"
 
 #. Translators: Menu item Verb/Branch/Distribute
+#. Translators: Menu item Verb/Branch/Distribute/Distribute
 #: objects/FS/function.c:886 objects/FS/function.c:888
 msgid "Distribute"
 msgstr "Распределять"
@@ -3129,6 +3089,7 @@ msgid "Disperse"
 msgstr "Рассеивать"
 
 #. Translators: Menu item Verb/Branch/Distribute/Diffuse
+#. Translators: Menu item Verb/Branch/Dissipate/Diffuse
 #: objects/FS/function.c:896 objects/FS/function.c:910
 msgid "Diffuse"
 msgstr "Распылять"
@@ -3139,6 +3100,7 @@ msgid "Empty"
 msgstr "Пусто"
 
 #. Translators: Menu item Verb/Branch/Dissipate
+#. Translators: Menu item Verb/Branch/Dissipate/Dissipate
 #: objects/FS/function.c:900 objects/FS/function.c:902
 msgid "Dissipate"
 msgstr "Расточать"
@@ -3164,11 +3126,13 @@ msgid "Resist"
 msgstr "Сопротивляться"
 
 #. Translators: Menu item Verb/Provision
+#. Translators: Menu item Verb/Provision/Provision
 #: objects/FS/function.c:914 objects/FS/function.c:916
 msgid "Provision"
 msgstr "Снабжать продовольствием"
 
 #. Translators: Menu item Verb/Provision/Store
+#. Translators: Menu item Verb/Provision/Store/Store
 #: objects/FS/function.c:918 objects/FS/function.c:920
 msgid "Store"
 msgstr "Хранить"
@@ -3189,6 +3153,7 @@ msgid "Reserve"
 msgstr "Запасать"
 
 #. Translators: Menu item Verb/Provision/Supply
+#. Translators: Menu item Verb/Provision/Supply/Supply
 #: objects/FS/function.c:930 objects/FS/function.c:932
 msgid "Supply"
 msgstr "Поддерживать"
@@ -3214,16 +3179,18 @@ msgid "Expose"
 msgstr "Выставлять"
 
 #. Translators: Menu item Verb/Provision/Extract
-#: objects/FS/function.c:942 sheets/Flowchart.sheet.in.h:8
+#: objects/FS/function.c:942 sheets/Flowchart.sheet.in.h:7
 msgid "Extract"
 msgstr "Извлекать"
 
 #. Translators: Menu item Verb/Control Magnitude
+#. Translators: Menu item Verb/Control Magnitude/Control Magnitude
 #: objects/FS/function.c:944 objects/FS/function.c:946
 msgid "Control Magnitude"
 msgstr "Контрольное значение"
 
 #. Translators: Menu item Verb/Control Magnitude/Actuate
+#. Translators: Menu item Verb/Control Magnitude/Actuate/Actuate
 #: objects/FS/function.c:948 objects/FS/function.c:950
 msgid "Actuate"
 msgstr "Привести в действие"
@@ -3239,11 +3206,13 @@ msgid "Initiate"
 msgstr "Инициировать"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate
+#. Translators: Menu item Verb/Control Magnitude/Regulate/Regulate
 #: objects/FS/function.c:956 objects/FS/function.c:958
 msgid "Regulate"
 msgstr "Регулировать"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Control
+#. Translators: Menu item Noun/Signal/Control
 #: objects/FS/function.c:960 objects/FS/function.c:1178
 #: objects/UML/classicon.c:127
 msgid "Control"
@@ -3270,6 +3239,7 @@ msgid "Interrupt"
 msgstr "Прерывать"
 
 #. Translators: Menu item Verb/Control Magnitude/Change
+#. Translators: Menu item Verb/Control Magnitude/Change/Change
 #: objects/FS/function.c:974 objects/FS/function.c:976
 msgid "Change"
 msgstr "Изменять"
@@ -3320,6 +3290,7 @@ msgid "Adjust"
 msgstr "Подбирать"
 
 #. Translators: Menu item Verb/Control Magnitude/Form
+#. Translators: Menu item Verb/Control Magnitude/Form/Form
 #: objects/FS/function.c:998 objects/FS/function.c:1000
 msgid "Form"
 msgstr "Формировать"
@@ -3350,6 +3321,7 @@ msgid "Pierce"
 msgstr "Пронзать"
 
 #. Translators: Menu item Verb/Convert
+#. Translators: Menu item Verb/Convert/Convert
 #: objects/FS/function.c:1012 objects/FS/function.c:1014
 msgid "Convert"
 msgstr "Преобразовать"
@@ -3400,6 +3372,7 @@ msgid "Process"
 msgstr "Обрабатывать"
 
 #. Translators: Menu item Verb/Signal/Sense
+#. Translators: Menu item Verb/Signal/Sense/Sense
 #: objects/FS/function.c:1038 objects/FS/function.c:1040
 msgid "Sense"
 msgstr "Ощущать"
@@ -3430,6 +3403,7 @@ msgid "Verify"
 msgstr "Проверять"
 
 #. Translators: Menu item Verb/Signal/Indicate
+#. Translators: Menu item Verb/Signal/Indicate/Indicate
 #: objects/FS/function.c:1054 objects/FS/function.c:1056
 msgid "Indicate"
 msgstr "Указывать"
@@ -3440,11 +3414,12 @@ msgid "Mark"
 msgstr "Помечать"
 
 #. Translators: Menu item Verb/Signal/Display
-#: objects/FS/function.c:1060 sheets/Flowchart.sheet.in.h:6
+#: objects/FS/function.c:1060 sheets/Flowchart.sheet.in.h:5
 msgid "Display"
 msgstr "Показывать"
 
 #. Translators: Menu item Verb/Signal/Measure
+#. Translators: Menu item Verb/Signal/Measure/Measure
 #: objects/FS/function.c:1062 objects/FS/function.c:1064
 msgid "Measure"
 msgstr "Измерять"
@@ -3475,6 +3450,8 @@ msgid "Gas"
 msgstr "Газ"
 
 #. Translators: Menu item Noun/Material/Human
+#. Translators: Menu item Noun/Material/Human/Human
+#. Translators: Menu item Noun/Energy/Human
 #: objects/FS/function.c:1080 objects/FS/function.c:1082
 #: objects/FS/function.c:1166
 msgid "Human"
@@ -3616,6 +3593,7 @@ msgid "Convection"
 msgstr "Конвекция"
 
 #. Translators: Menu item Noun/Energy/Thermal/Radiation
+#. Translators: Menu item Noun/Energy/Radioactive/Radiation
 #: objects/FS/function.c:1140 objects/FS/function.c:1148
 msgid "Radiation"
 msgstr "Излучение"
@@ -3628,7 +3606,7 @@ msgstr "Пневматическая"
 #. Translators: Menu item Noun/Energy/Chemical
 #: objects/FS/function.c:1144
 msgid "Chemical"
-msgstr "Химическая"
+msgstr "Химия"
 
 #. Translators: Menu item Noun/Energy/Radioactive
 #: objects/FS/function.c:1146
@@ -3840,7 +3818,7 @@ msgstr "Удалить соединительную точку"
 msgid "GRAFCET OR/AND vergent"
 msgstr "GRAFCET И/ИЛИ хребет"
 
-#: objects/Istar/actor.c:68 objects/Istar/link.c:153
+#: objects/Istar/actor.c:68 objects/Istar/link.c:152
 msgid "Unspecified"
 msgstr "Неопределённый"
 
@@ -3854,13 +3832,13 @@ msgstr "Роль"
 
 #: objects/Istar/goal.c:76 objects/KAOS/goal.c:79
 msgid "Softgoal"
-msgstr ""
+msgstr "Приблизительная цель"
 
 #: objects/Istar/goal.c:77 objects/KAOS/goal.c:80
 msgid "Goal"
 msgstr "Цель"
 
-#: objects/Istar/goal.c:155 objects/Istar/goal.c:156 objects/KAOS/goal.c:157
+#: objects/Istar/goal.c:154 objects/Istar/goal.c:155 objects/KAOS/goal.c:157
 #: objects/KAOS/goal.c:158
 msgid "Goal Type"
 msgstr "Тип цели"
@@ -3869,27 +3847,25 @@ msgstr "Тип цели"
 msgid "Istar diagram"
 msgstr "Диаграмма istar"
 
-#: objects/Istar/link.c:154
-#, fuzzy
+#: objects/Istar/link.c:153
 msgid "Positive Contrib"
-msgstr "Помещать"
+msgstr "Положительный жертва"
 
-#: objects/Istar/link.c:155
-#, fuzzy
+#: objects/Istar/link.c:154
 msgid "Negative contrib"
-msgstr "Негативная выходная переменная"
+msgstr "Отрицательная жертва"
 
-#: objects/Istar/link.c:156 sheets/UML.sheet.in.h:10
+#: objects/Istar/link.c:155 sheets/UML.sheet.in.h:10
 msgid "Dependency"
 msgstr "Зависимость"
 
-#: objects/Istar/link.c:157
+#: objects/Istar/link.c:156
 msgid "Decomposition"
 msgstr "Декомпозиция"
 
-#: objects/Istar/link.c:158
+#: objects/Istar/link.c:157
 msgid "Means-Ends"
-msgstr ""
+msgstr "Смысл-конец"
 
 #: objects/Istar/other.c:73
 msgid "Resource"
@@ -3897,7 +3873,7 @@ msgstr "Ресурс"
 
 #: objects/Istar/other.c:74
 msgid "Task"
-msgstr ""
+msgstr "Задача"
 
 #: objects/Istar/other.c:470 objects/Jackson/domain.c:532
 #: objects/KAOS/goal.c:573 objects/KAOS/other.c:526 objects/SADT/box.c:446
@@ -3906,70 +3882,60 @@ msgid "Delete connection point"
 msgstr "Удалить соединительную точку"
 
 #: objects/Istar/other.c:475
-#, fuzzy
 msgid "i* other"
-msgstr "Голосовой маршрутизатор"
+msgstr "i* другие"
 
 #: objects/Jackson/domain.c:79
 msgid "Given Domain"
-msgstr ""
+msgstr "Заданный домен"
 
 #: objects/Jackson/domain.c:80
 msgid "Designed Domain"
-msgstr ""
+msgstr "Запланированный домен"
 
 #: objects/Jackson/domain.c:81
-#, fuzzy
 msgid "Machine Domain"
-msgstr "Женщина, работающая на Макинтоше"
+msgstr "Машинный домен"
 
 #: objects/Jackson/domain.c:97
-#, fuzzy
 msgid "Causal"
-msgstr "Вызов"
+msgstr "Казуальный"
 
 #: objects/Jackson/domain.c:98
-#, fuzzy
 msgid "Biddable"
-msgstr "Отключать"
+msgstr "Послушный"
 
 #: objects/Jackson/domain.c:99
-#, fuzzy
 msgid "Lexical"
-msgstr "Химическая"
+msgstr "Лексический"
 
 #: objects/Jackson/domain.c:176 objects/Jackson/domain.c:177
 msgid "Domain Type"
-msgstr ""
+msgstr "Тип домена"
 
 #: objects/Jackson/domain.c:181
 msgid "Domain Kind"
-msgstr ""
+msgstr "Род домена"
 
 #: objects/Jackson/domain.c:182
-#, fuzzy
 msgid "Optional kind which appears in the lower right corner of the Domain"
-msgstr "Идентификатор, который располагается в нижнем правом углу объекта"
+msgstr "Дополнительный род который располагается в нижнем правом углу домена"
 
 #: objects/Jackson/domain.c:537
-#, fuzzy
 msgid "Jackson domain"
-msgstr "Женщина, работающая на Макинтоше"
+msgstr "Домен Джексона"
 
 #: objects/Jackson/jackson.c:47
-#, fuzzy
 msgid "Jackson diagram"
-msgstr "/Упорядочивать _диаграммы"
+msgstr "Диаграмма Джексона"
 
 #: objects/Jackson/phenomenon.c:134
-#, fuzzy
 msgid "Shared"
-msgstr "Придавать форму"
+msgstr "Совместный"
 
 #: objects/Jackson/phenomenon.c:135 objects/KAOS/goal.c:81
-#, fuzzy
 msgid "Requirement"
-msgstr "Предоставлять"
+msgstr "Требование"
 
 #: objects/Jackson/phenomenon.c:142 objects/UML/message.c:150
 msgid "Message:"
@@ -3977,88 +3943,79 @@ msgstr "Сообщение:"
 
 #: objects/KAOS/goal.c:82
 msgid "Assumption"
-msgstr ""
+msgstr "Предположение"
 
 #: objects/KAOS/goal.c:83
-#, fuzzy
 msgid "Obstacle"
-msgstr "Абстракция"
+msgstr "Препятствие"
 
 #: objects/KAOS/goal.c:578
 msgid "KAOS goal"
-msgstr ""
+msgstr "Цель KAOS"
 
 #: objects/KAOS/kaos.c:49
 msgid "KAOS diagram"
 msgstr "Диаграмма KAOS:"
 
 #: objects/KAOS/metaandorrel.c:151
-#, fuzzy
 msgid "AND Refinement"
-msgstr "И"
+msgstr "И уточнение"
 
 #: objects/KAOS/metaandorrel.c:152
 msgid "Complete AND Refinement"
-msgstr ""
+msgstr "Полное И уточнение"
 
 #: objects/KAOS/metaandorrel.c:153
-#, fuzzy
 msgid "OR Refinement"
-msgstr "Облагораживать"
+msgstr "ИЛИ уточнение"
 
 #: objects/KAOS/metaandorrel.c:154
-#, fuzzy
 msgid "Operationalization"
-msgstr "Данные операции"
+msgstr "Сведение к операции"
 
 #: objects/KAOS/metaandorrel.c:161
 msgid "Text:"
 msgstr "Текст:"
 
 #: objects/KAOS/metabinrel.c:155
-#, fuzzy
 msgid "Contributes"
-msgstr "Разработчики:"
+msgstr "Дополняет"
 
 #: objects/KAOS/metabinrel.c:156
-#, fuzzy
 msgid "Obstructs"
-msgstr "Абстракция"
+msgstr "Заслоняет"
 
 #: objects/KAOS/metabinrel.c:157
-#, fuzzy
 msgid "Conflicts"
-msgstr "Сопровождать"
+msgstr "Конфликты"
 
 #: objects/KAOS/metabinrel.c:158
-#, fuzzy
 msgid "Responsibility"
-msgstr "Видимость:"
+msgstr "Ответственность"
 
 #: objects/KAOS/metabinrel.c:159
 msgid "Monitors"
-msgstr ""
+msgstr "Наблюдатели"
 
 #: objects/KAOS/metabinrel.c:160
 msgid "Controls"
-msgstr ""
+msgstr "Управление"
 
 #: objects/KAOS/metabinrel.c:161
 msgid "CapableOf"
-msgstr ""
+msgstr "Возможность"
 
 #: objects/KAOS/metabinrel.c:162
 msgid "Performs"
-msgstr ""
+msgstr "Производит"
 
 #: objects/KAOS/metabinrel.c:164
 msgid "Output"
 msgstr "Вывод"
 
 #: objects/KAOS/other.c:531
-#, fuzzy
 msgid "KAOS other"
-msgstr "Компьютер"
+msgstr "KAOS иное"
 
 #: objects/Misc/analog_clock.c:137
 msgid "Arrow color"
@@ -4220,7 +4177,7 @@ msgstr "Агрегировать"
 msgid "Composition"
 msgstr "Композиция"
 
-#: objects/UML/class.c:115 objects/UML/class.c:281 objects/UML/class.c:1271
+#: objects/UML/class.c:115 objects/UML/class.c:280 objects/UML/class.c:1270
 #: sheets/UML.sheet.in.h:6
 msgid "Class"
 msgstr "Класс"
@@ -4251,33 +4208,31 @@ msgstr "Шаблон"
 
 #: objects/UML/class.c:128 objects/UML/class_dialog.c:305
 msgid "Suppress Attributes"
-msgstr "Подавить атрибуты"
+msgstr "Подавить Атрибуты"
 
 #: objects/UML/class.c:130
 msgid "Suppress Operations"
-msgstr "Подавить действия"
+msgstr "Подавить Действия"
 
 #: objects/UML/class.c:132
 msgid "Visible Attributes"
-msgstr "Видимые атрибуты"
+msgstr "Видимые Атрибуты"
 
 #: objects/UML/class.c:134
 msgid "Visible Operations"
-msgstr "Видимые действия"
+msgstr "Видимые Действия"
 
 #: objects/UML/class.c:136
 msgid "Visible Comments"
-msgstr "Видимые комментарии"
+msgstr "Видимые Комментарии"
 
 #: objects/UML/class.c:138 objects/UML/class_dialog.c:321
-#, fuzzy
 msgid "Wrap Operations"
-msgstr "Операции"
+msgstr "Переносить Действия"
 
 #: objects/UML/class.c:140
-#, fuzzy
 msgid "Wrap after char"
-msgstr "Плата адаптера для ПК"
+msgstr "Переносить после символа"
 
 #: objects/UML/class.c:150 objects/UML/class_dialog.c:362
 msgid "Polymorphic"
@@ -4294,7 +4249,7 @@ msgstr "Название абстрактного класса"
 #: objects/UML/class.c:162 objects/UML/class.c:164 objects/UML/class.c:166
 #: objects/UML/class.c:168 objects/UML/class.c:170 objects/UML/class.c:172
 msgid " "
-msgstr ""
+msgstr " "
 
 #: objects/UML/class.c:178 objects/UML/object.c:153
 msgid "Attributes"
@@ -4305,12 +4260,10 @@ msgid "Operations"
 msgstr "Операции"
 
 #: objects/UML/class.c:183
-#, fuzzy
 msgid "Template Parameters"
-msgstr "Параметры"
+msgstr "Параметры Шаблона"
 
 #: objects/UML/class.c:275
-#, fuzzy
 msgid "Show Comments"
 msgstr "Показать комментарии"
 
@@ -4348,7 +4301,7 @@ msgstr "Подавить действия"
 
 #: objects/UML/class_dialog.c:328
 msgid "Wrap after this length: "
-msgstr ""
+msgstr "Переносить после этой длины: "
 
 #: objects/UML/class_dialog.c:335
 msgid "Comments visible"
@@ -4501,7 +4454,7 @@ msgstr "Грань"
 
 #: objects/UML/component_feature.c:145 sheets/UML.sheet.in.h:26
 msgid "Receptacle"
-msgstr ""
+msgstr "Заменить"
 
 #: objects/UML/component_feature.c:146 sheets/UML.sheet.in.h:13
 msgid "Event Source"
@@ -4609,69 +4562,60 @@ msgid "Is final"
 msgstr "Окончание"
 
 #: objects/UML/transition.c:129
-#, fuzzy
 msgid "Trigger"
-msgstr "Палец"
+msgstr "Тригер"
 
 #: objects/UML/transition.c:130
 msgid "The event that causes this transition to be taken"
-msgstr ""
+msgstr "Событие которое вызывает переход"
 
 #: objects/UML/transition.c:131
-#, fuzzy
 msgid "Action"
-msgstr "Агент"
+msgstr "Действие"
 
 #: objects/UML/transition.c:132
 msgid "Action to perform when this transition is taken"
-msgstr ""
+msgstr "Действие во время перехода"
 
 #: objects/UML/transition.c:133 sheets/cisconetwork.sheet.in.h:43
-#, fuzzy
 msgid "Guard"
-msgstr "Сетка"
+msgstr "Хранитель"
 
 #: objects/UML/transition.c:134
 msgid "Condition for taking this transition when the event is fired"
-msgstr ""
+msgstr "Условие перехода при возникновении события"
 
 #: objects/UML/uml.c:65
 msgid "Unified Modelling Language diagram objects"
 msgstr "Объекты диаграмм Унифицированного языка моделирования (UML)"
 
 #: objects/UML/uml.c:104
-#, fuzzy
 msgid "Implmentation"
 msgstr "Реализация"
 
 #: objects/UML/umlattribute.c:41 objects/UML/umlparameter.c:47
-#, fuzzy
 msgid "Value"
-msgstr "Значение:"
+msgstr "Значение"
 
 #: objects/UML/umlattribute.c:45 objects/UML/umloperation.c:71
-#, fuzzy
 msgid "Visibility"
-msgstr "Видимость:"
+msgstr "Видимость"
 
 #: objects/UML/umlattribute.c:47
-#, fuzzy
 msgid "Abstract (?)"
-msgstr "Абстракция"
+msgstr "Абстракция (?)"
 
 #: objects/UML/umlattribute.c:49 objects/UML/umloperation.c:77
-#, fuzzy
 msgid "Class scope (static)"
-msgstr "Размах класса"
+msgstr "Видимость класса (static)"
 
 #: objects/UML/umloperation.c:73
-#, fuzzy
 msgid "Inheritance type"
 msgstr "Тип наследования"
 
 #: objects/UML/umloperation.c:75
 msgid "Query (const)"
-msgstr ""
+msgstr "Запрос (const)"
 
 #: objects/UML/umloperation.c:79 objects/chronogram/chronoline.c:162
 msgid "Parameters"
@@ -4788,15 +4732,15 @@ msgstr "Горизонтальное отражение"
 msgid "Flip vertical"
 msgstr "Вертикальное отражение"
 
-#: objects/custom/custom_object.c:1454
+#: objects/custom/custom_object.c:1432
 msgid "Flip Horizontal"
 msgstr "Горизонтальное отражение"
 
-#: objects/custom/custom_object.c:1455
+#: objects/custom/custom_object.c:1433
 msgid "Flip Vertical"
 msgstr "Вертикальное отражение"
 
-#: objects/custom/custom_object.c:1492
+#: objects/custom/custom_object.c:1470
 #, c-format
 msgid "Cannot open icon file %s for object type '%s'."
 msgstr "Невозможно открыть файл пиктограммы %s для объекта типа \"%s\"."
@@ -4815,14 +4759,12 @@ msgid "Shear angle"
 msgstr "Угол смещения"
 
 #: objects/network/basestation.c:135
-#, fuzzy
 msgid "Sectors"
-msgstr "Агент"
+msgstr "Секторы"
 
 #: objects/network/basestation.c:393 objects/network/basestation.c:395
-#, fuzzy
 msgid "Base Station"
-msgstr "Ориентация"
+msgstr "Опорная станция"
 
 #: objects/network/bus.c:599
 msgid "Add Handle"
@@ -4837,22 +4779,20 @@ msgid "Network diagram objects"
 msgstr "Объекты диаграммы сети"
 
 #: objects/network/radiocell.c:130
-#, fuzzy
 msgid "Macro Cell"
-msgstr "Вызов макроса"
+msgstr "Макроячейка"
 
 #: objects/network/radiocell.c:131
-#, fuzzy
 msgid "Micro Cell"
-msgstr "Вызов макроса"
+msgstr "Микроячейка"
 
 #: objects/network/radiocell.c:132
 msgid "Pico Cell"
-msgstr ""
+msgstr "Пикоячейка"
 
 #: objects/network/radiocell.c:138
 msgid "Radius"
-msgstr ""
+msgstr "Радиус"
 
 #: objects/network/radiocell.c:140
 msgid "Cell Type:"
@@ -4860,45 +4800,44 @@ msgstr "Тип ячейки:"
 
 #: objects/network/radiocell.c:152
 msgid "Subscribers"
-msgstr ""
+msgstr "Подписчики"
 
-#: objects/standard/arc.c:135
+#: objects/standard/arc.c:138
 msgid "Curve distance"
 msgstr "Длина кривой"
 
 #: objects/standard/bezier.c:137 objects/standard/line.c:142
 #: objects/standard/polyline.c:135
-#, fuzzy
 msgid "Line gaps"
-msgstr "Линии"
+msgstr "Пробелы линии"
 
 #: objects/standard/bezier.c:139 objects/standard/line.c:144
 #: objects/standard/polyline.c:137
 msgid "Absolute start gap"
-msgstr ""
+msgstr "Пробел абсолютного начала"
 
 #: objects/standard/bezier.c:141 objects/standard/line.c:146
 #: objects/standard/polyline.c:139
 msgid "Absolute end gap"
-msgstr ""
+msgstr "Пробел абсолютного конца"
 
-#: objects/standard/bezier.c:732 objects/standard/beziergon.c:488
+#: objects/standard/bezier.c:728 objects/standard/beziergon.c:482
 msgid "Add Segment"
 msgstr "Добавить сегмент"
 
-#: objects/standard/bezier.c:733 objects/standard/beziergon.c:489
+#: objects/standard/bezier.c:729 objects/standard/beziergon.c:483
 msgid "Delete Segment"
 msgstr "Удалить сегмент"
 
-#: objects/standard/bezier.c:735 objects/standard/beziergon.c:491
+#: objects/standard/bezier.c:731 objects/standard/beziergon.c:485
 msgid "Symmetric control"
 msgstr "Симметричная точка"
 
-#: objects/standard/bezier.c:737 objects/standard/beziergon.c:493
+#: objects/standard/bezier.c:733 objects/standard/beziergon.c:487
 msgid "Smooth control"
 msgstr "Гладкая точка"
 
-#: objects/standard/bezier.c:739 objects/standard/beziergon.c:495
+#: objects/standard/bezier.c:735 objects/standard/beziergon.c:489
 msgid "Cusp control"
 msgstr "Управляющая точка"
 
@@ -4943,6 +4882,7 @@ msgid "Keep aspect ratio"
 msgstr "Сохранять пропорции"
 
 #. Found file in same dir as diagram.
+#. Found file in current dir.
 #: objects/standard/image.c:672 objects/standard/image.c:683
 #, c-format
 msgid ""
@@ -4982,39 +4922,39 @@ msgstr "Удалить уголок"
 msgid "Standard objects"
 msgstr "Стандартные объекты"
 
-#: plug-ins/cairo/diacairo.c:1078
+#: plug-ins/cairo/diacairo.c:1076
 msgid "Cairo PostScript"
-msgstr ""
+msgstr "Cairo PostScript"
 
-#: plug-ins/cairo/diacairo.c:1087
+#: plug-ins/cairo/diacairo.c:1085
 msgid "Cairo Portable Document Format"
-msgstr ""
+msgstr "Cairo Portable Document Format"
 
-#: plug-ins/cairo/diacairo.c:1096
+#: plug-ins/cairo/diacairo.c:1094
 msgid "Cairo PNG"
-msgstr ""
+msgstr "Cairo PNG"
 
-#: plug-ins/cairo/diacairo.c:1104
+#: plug-ins/cairo/diacairo.c:1102
 msgid "Cairo PNG (with alpha)"
-msgstr ""
+msgstr "Cairo PNG (с прозрачностью)"
 
-#: plug-ins/cairo/diacairo.c:1113
+#: plug-ins/cairo/diacairo.c:1112
 msgid "Cairo WMF"
-msgstr ""
+msgstr "Cairo WMF"
 
-#: plug-ins/cairo/diacairo.c:1122
+#: plug-ins/cairo/diacairo.c:1121
 msgid "Cairo old WMF"
-msgstr ""
+msgstr "Cairo старый WMF"
 
-#: plug-ins/cairo/diacairo.c:1131
+#: plug-ins/cairo/diacairo.c:1130
 msgid "Cairo Clipboard"
-msgstr ""
+msgstr "Буфер Cairo"
 
 #: plug-ins/cairo/diacairo.c:1174
 msgid "Cairo based Rendering"
-msgstr ""
+msgstr "Отрисовка с использованием Cairo"
 
-#: plug-ins/cgm/cgm.c:1109
+#: plug-ins/cgm/cgm.c:1103
 msgid ""
 "Image row length larger than maximum cell array.\n"
 "Image not exported to CGM."
@@ -5022,15 +4962,15 @@ msgstr ""
 "Длина строки изображения больше чем максимальный массив ячеек.\n"
 "Изображение не экспортировано в CGM."
 
-#: plug-ins/cgm/cgm.c:1365
+#: plug-ins/cgm/cgm.c:1357
 msgid "Computer Graphics Metafile"
 msgstr "Computer Graphics Metafile"
 
-#: plug-ins/cgm/cgm.c:1390
+#: plug-ins/cgm/cgm.c:1382
 msgid "Computer Graphics Metafile export filter"
 msgstr "Фильтр экспорта файлов Computer Graphics Metafile"
 
-#: plug-ins/dxf/dxf-export.c:551 plug-ins/dxf/dxf-import.c:1379
+#: plug-ins/dxf/dxf-export.c:526 plug-ins/dxf/dxf-import.c:1379
 msgid "Drawing Interchange File"
 msgstr "DIF (формат файла обмена изображениями)"
 
@@ -5056,36 +4996,38 @@ msgstr "Неизвестный код dxf %d\n"
 msgid "Drawing Interchange File import and export filters"
 msgstr "Фильтр экспорта/импорта DIF (Drawing Interchange File)"
 
-#: plug-ins/gprint/diagnomeprint.c:81
+#: plug-ins/gprint/diagnomeprint.c:80
 #, c-format
 msgid ""
 "GNOME Print Backend\n"
 " '%s'\n"
 " not available"
 msgstr ""
+"Компонент печати GNOME\n"
+" '%s'\n"
+" не доступен"
 
-#: plug-ins/gprint/diagnomeprint.c:112
+#: plug-ins/gprint/diagnomeprint.c:111
 msgid "GNOME PostScript"
-msgstr ""
+msgstr "GNOME Язык Описания Страниц PostScript (PS)"
 
-#: plug-ins/gprint/diagnomeprint.c:121
+#: plug-ins/gprint/diagnomeprint.c:120
 msgid "GNOME Portable Document Format"
-msgstr ""
+msgstr "GNOME Портируемый Формат Документа (PDF)"
 
-#: plug-ins/gprint/diagnomeprint.c:131
-#, fuzzy
+#: plug-ins/gprint/diagnomeprint.c:130
 msgid "GNOME Scalable Vector Graphic"
-msgstr "Маштабируемая векторная графика (SVG)"
+msgstr "GNOME Маштабируемая Векторная Графика (SVG)"
 
-#: plug-ins/gprint/diagnomeprint.c:164
+#: plug-ins/gprint/diagnomeprint.c:163
 msgid "GNOME Print based Rendering"
-msgstr ""
+msgstr "Отрисовка на основе системы печати GNOME"
 
-#: plug-ins/hpgl/hpgl.c:758
+#: plug-ins/hpgl/hpgl.c:744
 msgid "HP Graphics Language"
 msgstr "Графический язык HP"
 
-#: plug-ins/hpgl/hpgl.c:783
+#: plug-ins/hpgl/hpgl.c:769
 msgid "HP Graphics Language export filter"
 msgstr "Фильтр экспорта файлов HPGL"
 
@@ -5124,7 +5066,7 @@ msgstr "Неверный UTF8"
 msgid "TeX PSTricks macros"
 msgstr "Макрос TeX Pstricks"
 
-#: plug-ins/python/pydia-render.c:717 plug-ins/wmf/wmf.cpp:1182
+#: plug-ins/python/pydia-render.c:717 plug-ins/wmf/wmf.cpp:1188
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
 msgstr "Не удалось открыть: '%s' для записи.\n"
@@ -5133,24 +5075,23 @@ msgstr "Не удалось открыть: '%s' для записи.\n"
 msgid "Python scripting support"
 msgstr "Поддержка скриптов Python"
 
-#: plug-ins/shape/shape-export.c:476
+#: plug-ins/shape/shape-export.c:473
 msgid "Can't export png without libart!"
 msgstr "Невозможно экспортировать png без libart!"
 
-#: plug-ins/shape/shape-export.c:501
-#, fuzzy
+#: plug-ins/shape/shape-export.c:498
 msgid "Dia Shape File"
-msgstr "файл формы dia"
+msgstr "Файл Форм Dia"
 
 #: plug-ins/shape/shape.c:36
 msgid "dia shape export filter"
 msgstr "Фильтр экспорта форм dia"
 
-#: plug-ins/svg/render_svg.c:291 plug-ins/svg/svg-import.c:669
+#: plug-ins/svg/render_svg.c:289 plug-ins/svg/svg-import.c:671
 msgid "Scalable Vector Graphics"
 msgstr "Маштабируемая векторная графика (SVG)"
 
-#: plug-ins/svg/svg-import.c:201 plug-ins/xfig/xfig-import.c:108
+#: plug-ins/svg/svg-import.c:200 plug-ins/xfig/xfig-import.c:108
 #: plug-ins/xfig/xfig-import.c:159 plug-ins/xfig/xfig-import.c:188
 #: plug-ins/xfig/xfig-import.c:224 plug-ins/xfig/xfig-import.c:261
 #: plug-ins/xfig/xfig-import.c:289 plug-ins/xfig/xfig-import.c:326
@@ -5158,7 +5099,11 @@ msgstr "Маштабируемая векторная графика (SVG)"
 msgid "Can't find standard object"
 msgstr "Стандартный объект не найден"
 
-#: plug-ins/svg/svg-import.c:650
+#: plug-ins/svg/svg-import.c:632
+msgid "Expected SVG Namespace not found in file"
+msgstr "В файле не найдено ожидаемое пространство имен SVG"
+
+#: plug-ins/svg/svg-import.c:652
 #, c-format
 msgid "root element was '%s' -- expecting 'svg'."
 msgstr "корневой элемент был '%s', а ожидается 'svg'."
@@ -5167,39 +5112,43 @@ msgstr "корневой элемент был '%s', а ожидается 'svg'
 msgid "Scalable Vector Graphics import and export filters"
 msgstr "Фильтры импорта и экспорта масштабируемой векторной графики"
 
-#: plug-ins/wmf/wmf.cpp:1249
+#: plug-ins/wmf/wmf.cpp:1259
 msgid "Windows Meta File"
 msgstr "Windows Meta File"
 
-#: plug-ins/wmf/wmf.cpp:1265
+#: plug-ins/wmf/wmf.cpp:1268
+msgid "Enhanced Meta File"
+msgstr "Улучшенный Meta File"
+
+#: plug-ins/wmf/wmf.cpp:1284
 msgid "WMF export filter"
 msgstr "фильтр экспорта в WMF"
 
-#: plug-ins/wpg/wpg.c:1183
+#: plug-ins/wpg/wpg.c:1186
 #, c-format
 msgid "File: %s type/version unsupported.\n"
 msgstr "Файл: %s тип или версия не поддерживается.\n"
 
-#: plug-ins/wpg/wpg.c:1313 plug-ins/wpg/wpg.c:1320
+#: plug-ins/wpg/wpg.c:1316 plug-ins/wpg/wpg.c:1323
 msgid "WPG"
 msgstr "WPG"
 
-#: plug-ins/wpg/wpg.c:1348
+#: plug-ins/wpg/wpg.c:1351
 msgid "WordPerfect Graphics export filter"
 msgstr "Фильтр экспорта файлов WordPerfect Graphics"
 
-#: plug-ins/xfig/xfig-export.c:461
+#: plug-ins/xfig/xfig-export.c:459
 #, c-format
 msgid "FIG format has no equivalent of arrow style %s, using simple arrow.\n"
 msgstr ""
 "Формат FIG не имеет аналога для стиля стрелок %s, используем простую "
 "стрелку.\n"
 
-#: plug-ins/xfig/xfig-export.c:483
+#: plug-ins/xfig/xfig-export.c:481
 msgid "No more user-definable colors - using black"
 msgstr "Недостаточно цветов, определяемых пользователем - используем чёрный"
 
-#: plug-ins/xfig/xfig-export.c:1187
+#: plug-ins/xfig/xfig-export.c:1185
 msgid "XFig format"
 msgstr "Файл в формате XFig"
 
@@ -5382,230 +5331,225 @@ msgstr "Файл в формате XFig"
 msgid "Fig Format import and export filter"
 msgstr "Фильтр импорта/экспорта формата Fig"
 
-#: plug-ins/xslt/xslt.c:102
+#: plug-ins/xslt/xslt.c:100
 #, c-format
 msgid "Error while parsing %s\n"
 msgstr "Ошибка при разборе %s\n"
 
-#: plug-ins/xslt/xslt.c:110
+#: plug-ins/xslt/xslt.c:108
 #, c-format
 msgid "Error while parsing stylesheet %s\n"
 msgstr "Ошибка при разборе таблицы стилей %s\n"
 
-#: plug-ins/xslt/xslt.c:116
+#: plug-ins/xslt/xslt.c:114
 #, c-format
 msgid "Error while applying stylesheet %s\n"
 msgstr "Ошибка при применении таблицы стилей %s\n"
 
-#: plug-ins/xslt/xslt.c:124
+#: plug-ins/xslt/xslt.c:122
 #, c-format
 msgid "Error while parsing stylesheet: %s\n"
 msgstr "Ошибка при обработке таблицы стилей: %s\n"
 
-#: plug-ins/xslt/xslt.c:132
+#: plug-ins/xslt/xslt.c:130
 #, c-format
 msgid "Error while applying stylesheet: %s\n"
 msgstr "Ошибка при применении таблицы стилей: %s\n"
 
-#: plug-ins/xslt/xslt.c:317
+#: plug-ins/xslt/xslt.c:315
 msgid "XSL Transformation filter"
 msgstr "Фильтр преобразования XSL"
 
-#: plug-ins/xslt/xslt.c:341
+#: plug-ins/xslt/xslt.c:339
 msgid "No valid configuration files found for the XSLT plugin, not loading."
 msgstr ""
 "Не найдено корректного конфигурационного файла для дополнительного модуля "
 "XSLT, он не будет загружен."
 
-#: plug-ins/xslt/xsltdialog.c:99
+#: plug-ins/xslt/xsltdialog.c:96
 msgid "Export through XSLT"
 msgstr "Экспортировать через XSLT"
 
-#: plug-ins/xslt/xsltdialog.c:114
+#: plug-ins/xslt/xsltdialog.c:111
 msgid "From:"
 msgstr "От:"
 
-#: plug-ins/xslt/xsltdialog.c:149
+#: plug-ins/xslt/xsltdialog.c:146
 msgid "To:"
 msgstr "Куда:"
 
-#. Sheet Name: Assorted, was Geometric, maybe Basic Shapes instead?
-#. Leave as is for now, renaming too much hassle.
-#. Will probably need to split into seperate sheets soon anyway.
-#: sheets/Assorted.sheet.in.h:4
+#: sheets/Assorted.sheet.in.h:1
 msgid ""
 "An Assorted Collection of Polygons, Beziergons and other Miscellaneous "
 "Geometric Shapes"
 msgstr ""
 "Коллекция различных полигонов, безьегонов и других геометрических фигур"
 
-#. Please talk to me before making any changes to this sheet
-#: sheets/Assorted.sheet.in.h:6
+#: sheets/Assorted.sheet.in.h:2
 msgid "Assorted"
 msgstr "Разное"
 
-#: sheets/Assorted.sheet.in.h:7
+#: sheets/Assorted.sheet.in.h:3
 msgid "Chevron"
 msgstr "Шеврон"
 
-#: sheets/Assorted.sheet.in.h:8
+#: sheets/Assorted.sheet.in.h:4
 msgid "Curved eight point star"
 msgstr "Криволинейная восьмиконечная звезда"
 
-#: sheets/Assorted.sheet.in.h:9
+#: sheets/Assorted.sheet.in.h:5
 msgid "Curved four point star"
 msgstr "Криволинейная четырёхконечная звезда"
 
-#: sheets/Assorted.sheet.in.h:10
+#: sheets/Assorted.sheet.in.h:6
 msgid "Diamond"
 msgstr "Ромб"
 
-#: sheets/Assorted.sheet.in.h:11
+#: sheets/Assorted.sheet.in.h:7
 msgid "Down arrow"
 msgstr "Стрелка вниз"
 
-#: sheets/Assorted.sheet.in.h:12
+#: sheets/Assorted.sheet.in.h:8
 msgid "Eight point star"
 msgstr "Восьмиконечная звезда"
 
-#: sheets/Assorted.sheet.in.h:13
-#, fuzzy
+#: sheets/Assorted.sheet.in.h:9
 msgid "Five point star"
 msgstr "Семиконечная звезда"
 
-#: sheets/Assorted.sheet.in.h:14
+#: sheets/Assorted.sheet.in.h:10
 msgid "Four point star"
 msgstr "Четырёхконечная звезда"
 
-#: sheets/Assorted.sheet.in.h:15
+#: sheets/Assorted.sheet.in.h:11
 msgid "Heart"
 msgstr "Сердце"
 
-#: sheets/Assorted.sheet.in.h:16
+#: sheets/Assorted.sheet.in.h:12
 msgid "Heptagon. Seven sided shape"
 msgstr "Гептагон. Семисторонний многогранник"
 
-#: sheets/Assorted.sheet.in.h:17
+#: sheets/Assorted.sheet.in.h:13
 msgid "Hexagon. Six sided shape"
 msgstr "Гексагон. Шестисторонник многогранник"
 
-#: sheets/Assorted.sheet.in.h:18
+#: sheets/Assorted.sheet.in.h:14
 msgid "Horizontal parallelogram"
 msgstr "Горизонтальный параллелограмм"
 
-#: sheets/Assorted.sheet.in.h:19
+#: sheets/Assorted.sheet.in.h:15
 msgid "Isoceles triangle"
 msgstr "Изоклинальный треугольник"
 
-#: sheets/Assorted.sheet.in.h:20
+#: sheets/Assorted.sheet.in.h:16
 msgid "Left arrow"
 msgstr "Слева влево"
 
-#: sheets/Assorted.sheet.in.h:21
+#: sheets/Assorted.sheet.in.h:17
 msgid "Left-right arrow"
 msgstr "Стрелка слева направо"
 
-#: sheets/Assorted.sheet.in.h:22
+#: sheets/Assorted.sheet.in.h:18
 msgid "Left-right-up arrow"
 msgstr "Стрелка слева направо вверх"
 
-#: sheets/Assorted.sheet.in.h:23
+#: sheets/Assorted.sheet.in.h:19
 msgid "Left-up arrow"
 msgstr "Стрелка слева наверх"
 
-#: sheets/Assorted.sheet.in.h:24
+#: sheets/Assorted.sheet.in.h:20
 msgid "Maltese cross"
 msgstr "Мальтийский крест"
 
-#: sheets/Assorted.sheet.in.h:25
+#: sheets/Assorted.sheet.in.h:21
 msgid "Notched left arrow"
 msgstr "Зубчатая стрелка влево"
 
-#: sheets/Assorted.sheet.in.h:26
+#: sheets/Assorted.sheet.in.h:22
 msgid "Notched right arrow"
 msgstr "Зубчатая стрелка вправо"
 
-#: sheets/Assorted.sheet.in.h:27
+#: sheets/Assorted.sheet.in.h:23
 msgid "Octogon. Eight sided shape"
 msgstr "Октогон. Восьмисторонний многогранник"
 
-#: sheets/Assorted.sheet.in.h:28
+#: sheets/Assorted.sheet.in.h:24
 msgid "Pentagon block arrow"
 msgstr "Пятиугольный блок в виде стрелки"
 
-#: sheets/Assorted.sheet.in.h:29
+#: sheets/Assorted.sheet.in.h:25
 msgid "Pentagon. Five sided shape"
 msgstr "Гептагон. Семисторонний многогранник"
 
-#: sheets/Assorted.sheet.in.h:30
+#: sheets/Assorted.sheet.in.h:26
 msgid "Perfect circle"
 msgstr "Точный круг"
 
-#: sheets/Assorted.sheet.in.h:31
+#: sheets/Assorted.sheet.in.h:27
 msgid "Perfect square, height equals width"
 msgstr "Точный квадрат, высота равна ширине"
 
-#: sheets/Assorted.sheet.in.h:32
+#: sheets/Assorted.sheet.in.h:28
 msgid "Quad arrow"
 msgstr "Четверная стрелка"
 
-#: sheets/Assorted.sheet.in.h:33
+#: sheets/Assorted.sheet.in.h:29
 msgid "Quarter circle"
 msgstr "Четверть круга"
 
-#: sheets/Assorted.sheet.in.h:34
+#: sheets/Assorted.sheet.in.h:30
 msgid "Quarter moon"
 msgstr "Четверть луны"
 
-#: sheets/Assorted.sheet.in.h:35
+#: sheets/Assorted.sheet.in.h:31
 msgid "Right angle triangle"
 msgstr "Прямоугольный треугольник"
 
-#: sheets/Assorted.sheet.in.h:36
+#: sheets/Assorted.sheet.in.h:32
 msgid "Right arrow"
 msgstr "Стрелка направо"
 
-#: sheets/Assorted.sheet.in.h:37
+#: sheets/Assorted.sheet.in.h:33
 msgid "Seven point star"
 msgstr "Семиконечная звезда"
 
-#: sheets/Assorted.sheet.in.h:38
+#: sheets/Assorted.sheet.in.h:34
 msgid "Sharp eight point star"
 msgstr "Фигура восьмиконечной звезды"
 
-#: sheets/Assorted.sheet.in.h:39
+#: sheets/Assorted.sheet.in.h:35
 msgid "Six point star"
 msgstr "Шестиконечная звезда"
 
-#: sheets/Assorted.sheet.in.h:40
+#: sheets/Assorted.sheet.in.h:36
 msgid "Sun"
 msgstr "Солнце"
 
-#: sheets/Assorted.sheet.in.h:41
+#: sheets/Assorted.sheet.in.h:37
 msgid "Swiss cross"
 msgstr "Швейцарский крест"
 
-#: sheets/Assorted.sheet.in.h:42
+#: sheets/Assorted.sheet.in.h:38
 msgid "Trapezoid"
 msgstr "Трапеция"
 
-#: sheets/Assorted.sheet.in.h:43
+#: sheets/Assorted.sheet.in.h:39
 msgid "Turn-up arrow"
 msgstr "Приподнятая стрелка"
 
-#: sheets/Assorted.sheet.in.h:44
+#: sheets/Assorted.sheet.in.h:40
 msgid "Up arrow"
 msgstr "Стрелка вверх"
 
-#: sheets/Assorted.sheet.in.h:45
+#: sheets/Assorted.sheet.in.h:41
 msgid "Up-down arrow"
 msgstr "Стрелка сверху вниз"
 
-#: sheets/Assorted.sheet.in.h:46
+#: sheets/Assorted.sheet.in.h:42
 msgid "Up-down-left arrow"
 msgstr "Стрелка сверху вниз налево"
 
-#: sheets/Assorted.sheet.in.h:47
+#: sheets/Assorted.sheet.in.h:43
 msgid "Vertical parallelogram"
 msgstr "Вертикальный параллелограмм"
 
@@ -5622,211 +5566,202 @@ msgid "Autoclave"
 msgstr "Автоклав"
 
 #: sheets/ChemEng.sheet.in.h:4
-#, fuzzy
 msgid "Axial Flow Fan"
-msgstr "Позволять DOF"
+msgstr "Вентелятор создающий оссимметричный поток"
 
 #: sheets/ChemEng.sheet.in.h:5
 msgid "Basic Filter"
-msgstr "Основной фильтр"
+msgstr "Просто фильтр"
 
 #: sheets/ChemEng.sheet.in.h:6
 msgid "Centrifugal Pump or Fan"
-msgstr "Центробежный нанос или вентилятор"
+msgstr "Центробежный насос или вентилятор"
 
 #: sheets/ChemEng.sheet.in.h:7
 msgid "Centrifuge"
 msgstr "Центрифуга"
 
-#. For: zenith
-#: sheets/ChemEng.sheet.in.h:9
+#: sheets/ChemEng.sheet.in.h:8
 msgid "ChemEng"
-msgstr "Химические"
+msgstr "Химия"
+
+#: sheets/ChemEng.sheet.in.h:9
+msgid "Clarifier or Settling Tank"
+msgstr "Очиститель или отстойник"
 
 #: sheets/ChemEng.sheet.in.h:10
-msgid "Clarifier or Settling Tank"
-msgstr ""
+msgid "Collection for chemical engineering"
+msgstr "Подборака для химического проектирования"
 
 #: sheets/ChemEng.sheet.in.h:11
-msgid "Collection for chemical engineering"
-msgstr ""
-
-#: sheets/ChemEng.sheet.in.h:12
 msgid "Compressor or Turbine"
 msgstr "Компрессор или турбина"
 
-#: sheets/ChemEng.sheet.in.h:13
-#, fuzzy
+#: sheets/ChemEng.sheet.in.h:12
 msgid "Covered tank"
-msgstr "Преобразовать"
+msgstr "Ёмкость с крышкой"
+
+#: sheets/ChemEng.sheet.in.h:13
+msgid "Cyclone and hydrocyclone"
+msgstr "Циклон или гидроциклон"
 
 #: sheets/ChemEng.sheet.in.h:14
-msgid "Cyclone and hydrocyclone"
-msgstr ""
+msgid "Double-Pipe Exchanger"
+msgstr "Двутрубный обменник"
 
 #: sheets/ChemEng.sheet.in.h:15
-#, fuzzy
-msgid "Double-Pipe Exchanger"
-msgstr "Двойной заполненный треугольник"
+msgid "Ejector or Injector"
+msgstr "Эжектор или инжектор"
 
 #: sheets/ChemEng.sheet.in.h:16
-msgid "Ejector or Injector"
-msgstr ""
+msgid "Fan or Stirrer"
+msgstr "Вентилятор или мешалка"
 
 #: sheets/ChemEng.sheet.in.h:17
-msgid "Fan or Stirrer"
-msgstr ""
+msgid "Fixed-Sheet Exchanger"
+msgstr "Обменник с фиксированным сведением"
 
 #: sheets/ChemEng.sheet.in.h:18
-msgid "Fixed-Sheet Exchanger"
-msgstr ""
+msgid "Floating-Head or U-Tube Exchanger"
+msgstr "Обменник с плавающей головкой или U-образной трубкой"
 
 #: sheets/ChemEng.sheet.in.h:19
-msgid "Floating-Head or U-Tube Exchanger"
-msgstr ""
+msgid "Fluid Contacting Vessel, simple"
+msgstr "Сосуд, содержащий жидкость"
 
 #: sheets/ChemEng.sheet.in.h:20
-msgid "Fluid Contacting Vessel, simple"
-msgstr ""
+msgid "Forced-Flow Air Cooler"
+msgstr "Охладитель с принужденным воздушным обдувом"
 
 #: sheets/ChemEng.sheet.in.h:21
-msgid "Forced-Flow Air Cooler"
-msgstr ""
+msgid "Gas Holder, basic"
+msgstr "Простая ёмкость для газа"
 
 #: sheets/ChemEng.sheet.in.h:22
-msgid "Gas Holder, basic"
-msgstr ""
+msgid "Heating/Cooling Coil"
+msgstr "Нагревательный/охлаждающий змеевик"
 
 #: sheets/ChemEng.sheet.in.h:23
-msgid "Heating/Cooling Coil"
-msgstr ""
+msgid "Heating/Cooling Coil, vertical"
+msgstr "Вертикальный нагревательный/охлаждающий змеевик"
 
 #: sheets/ChemEng.sheet.in.h:24
-msgid "Heating/Cooling Coil, vertical"
-msgstr ""
+msgid "Induced-Flow Air Cooler"
+msgstr "Охладитель с индуцированным воздушным потоком"
 
 #: sheets/ChemEng.sheet.in.h:25
-msgid "Induced-Flow Air Cooler"
-msgstr ""
+msgid "Kettle Reboiler"
+msgstr "Нагреватель Kettle"
 
 #: sheets/ChemEng.sheet.in.h:26
-msgid "Kettle Reboiler"
-msgstr ""
+msgid "Knock-out Drum (with demister pad)"
+msgstr "Выбивающий барабан (с подставкой)"
 
 #: sheets/ChemEng.sheet.in.h:27
-msgid "Knock-out Drum (with demister pad)"
-msgstr ""
+msgid "Measurement"
+msgstr "Измерение"
 
 #: sheets/ChemEng.sheet.in.h:28
-#, fuzzy
-msgid "Measurement"
-msgstr "Измерять"
-
-#: sheets/ChemEng.sheet.in.h:29
 msgid "Mixer"
 msgstr "Смеситель"
 
-#: sheets/ChemEng.sheet.in.h:30
-#, fuzzy
+#: sheets/ChemEng.sheet.in.h:29
 msgid "Open Tank"
-msgstr "Раскрыть"
+msgstr "Открытая ёмкость"
+
+#: sheets/ChemEng.sheet.in.h:30
+msgid "Plate Exchanger"
+msgstr "Пластинчатый обменник"
 
 #: sheets/ChemEng.sheet.in.h:31
-msgid "Plate Exchanger"
-msgstr ""
-
-#: sheets/ChemEng.sheet.in.h:32
 msgid "Pneumatic Line"
 msgstr "Пневматическая линия"
 
-#: sheets/ChemEng.sheet.in.h:33
+#: sheets/ChemEng.sheet.in.h:32
 msgid "Pneumatic Line, vertical"
-msgstr ""
+msgstr "Вертикальная пневматическая линия"
+
+#: sheets/ChemEng.sheet.in.h:33
+msgid "Positive Displacement Rotary Pump or Compressor"
+msgstr "Вращательный насос или компрессор положительного смещения"
 
 #: sheets/ChemEng.sheet.in.h:34
-msgid "Positive Displacement Rotary Pump or Compressor"
-msgstr ""
+msgid "Reactor or Absorption Vessel, simple"
+msgstr "Простой реактор или абсорбционный сосуд"
 
 #: sheets/ChemEng.sheet.in.h:35
-msgid "Reactor or Absorption Vessel, simple"
-msgstr ""
+msgid "Reciprocating Compressor or Pump"
+msgstr "Поршневой компрессор или насос"
 
 #: sheets/ChemEng.sheet.in.h:36
-msgid "Reciprocating Compressor or Pump"
-msgstr ""
-
-#: sheets/ChemEng.sheet.in.h:37
 msgid "Regulable Valve"
 msgstr "Регулируемый клапан"
 
-#: sheets/ChemEng.sheet.in.h:38
+#: sheets/ChemEng.sheet.in.h:37
 msgid "Regulable Valve, vertical"
 msgstr "Регулируемый клапан, вертикальный"
 
-#: sheets/ChemEng.sheet.in.h:39
+#: sheets/ChemEng.sheet.in.h:38
 msgid "Sealed Tank"
-msgstr ""
+msgstr "Запаянный сосуд"
+
+#: sheets/ChemEng.sheet.in.h:39
+msgid "Simple Furnace"
+msgstr "Печка"
 
 #: sheets/ChemEng.sheet.in.h:40
-#, fuzzy
-msgid "Simple Furnace"
-msgstr "Простой принтер"
+msgid "Simple Heat Exchanger"
+msgstr "Теплообменник"
 
 #: sheets/ChemEng.sheet.in.h:41
-msgid "Simple Heat Exchanger"
-msgstr ""
+msgid "Simple Heat Exchanger, vertical"
+msgstr "Горизонтальный теплообменник"
 
 #: sheets/ChemEng.sheet.in.h:42
-msgid "Simple Heat Exchanger, vertical"
-msgstr ""
+msgid "Simple Vessel"
+msgstr "Простой сосуд"
 
 #: sheets/ChemEng.sheet.in.h:43
-#, fuzzy
-msgid "Simple Vessel"
-msgstr "Простой модем"
+msgid "Spray Drier"
+msgstr "Распыляющая сушилка"
 
 #: sheets/ChemEng.sheet.in.h:44
-msgid "Spray Drier"
-msgstr ""
+msgid "Spraying Device"
+msgstr "Распылитель"
 
 #: sheets/ChemEng.sheet.in.h:45
-msgid "Spraying Device"
-msgstr ""
+msgid "Storage Sphere"
+msgstr "Сферический накопитель"
 
 #: sheets/ChemEng.sheet.in.h:46
-#, fuzzy
-msgid "Storage Sphere"
-msgstr "Хранилище"
+msgid "Tank with Fixed Roof"
+msgstr "Резервуар с закрепленной кровлей"
 
 #: sheets/ChemEng.sheet.in.h:47
-msgid "Tank with Fixed Roof"
-msgstr ""
+msgid "Tank with Floating Roof"
+msgstr "Резервуар с подвижной кровлей"
 
 #: sheets/ChemEng.sheet.in.h:48
-msgid "Tank with Floating Roof"
-msgstr ""
+msgid "Tray Column, detailed"
+msgstr "Колонна лотков, детальная"
 
 #: sheets/ChemEng.sheet.in.h:49
-msgid "Tray Column, detailed"
-msgstr ""
+msgid "Tray Column, simple"
+msgstr "Колонна лотков, простая"
 
 #: sheets/ChemEng.sheet.in.h:50
-msgid "Tray Column, simple"
-msgstr ""
-
-#: sheets/ChemEng.sheet.in.h:51
 msgid "Valve"
 msgstr "Клапан"
 
-#: sheets/ChemEng.sheet.in.h:52
+#: sheets/ChemEng.sheet.in.h:51
 msgid "Valve, vertical"
 msgstr "Клапан, вертикальный"
 
-#: sheets/ChemEng.sheet.in.h:53
+#: sheets/ChemEng.sheet.in.h:52
 msgid "Water Cooler"
 msgstr "Водяной охладитель"
 
-#: sheets/ChemEng.sheet.in.h:54
+#: sheets/ChemEng.sheet.in.h:53
 msgid "Water Cooler, vertical"
 msgstr "Водяной охладитель, вертикальный"
 
@@ -5840,7 +5775,7 @@ msgstr "Компоненты для электрических схем"
 
 #: sheets/Circuit.sheet.in.h:3
 msgid "Ground point"
-msgstr "Общая точка"
+msgstr "Земля"
 
 #: sheets/Circuit.sheet.in.h:4
 msgid "Horizontal jumper"
@@ -5898,77 +5833,73 @@ msgstr "Микрофон"
 msgid "NMOS transistor"
 msgstr "NMOS-транзистор"
 
-#.
-#.
-#: sheets/Circuit.sheet.in.h:20
+#: sheets/Circuit.sheet.in.h:18
 msgid "NPN bipolar transistor"
 msgstr "npn-транзистор, биполярный"
 
-#: sheets/Circuit.sheet.in.h:21
+#: sheets/Circuit.sheet.in.h:19
 msgid "Operational amplifier"
 msgstr "Операционный усилитель"
 
-#: sheets/Circuit.sheet.in.h:22
+#: sheets/Circuit.sheet.in.h:20
 msgid "PMOS transistor"
 msgstr "PMOS-транзистор"
 
-#.
-#.
-#: sheets/Circuit.sheet.in.h:25
+#: sheets/Circuit.sheet.in.h:21
 msgid "PNP bipolar transistor"
 msgstr "npn-транзистор, биполярный"
 
-#: sheets/Circuit.sheet.in.h:26 sheets/ciscomisc.sheet.in.h:42
+#: sheets/Circuit.sheet.in.h:22 sheets/ciscomisc.sheet.in.h:42
 msgid "Speaker"
 msgstr "Диктор"
 
-#: sheets/Circuit.sheet.in.h:27
+#: sheets/Circuit.sheet.in.h:23
 msgid "Vertically aligned LED"
 msgstr "Вертикально выровненный ЖКИ"
 
-#: sheets/Circuit.sheet.in.h:28
+#: sheets/Circuit.sheet.in.h:24
 msgid "Vertically aligned capacitor"
 msgstr "Вертикально выровненный конденсатор"
 
-#: sheets/Circuit.sheet.in.h:29
+#: sheets/Circuit.sheet.in.h:25
 msgid "Vertically aligned diode"
 msgstr "Вертикально выровненный диод"
 
-#: sheets/Circuit.sheet.in.h:30
+#: sheets/Circuit.sheet.in.h:26
 msgid "Vertically aligned fuse"
 msgstr "Вертикально выровненный предохранитель"
 
-#: sheets/Circuit.sheet.in.h:31
+#: sheets/Circuit.sheet.in.h:27
 msgid "Vertically aligned inductor"
 msgstr "Вертикально выровненная индуктивность"
 
-#: sheets/Circuit.sheet.in.h:32
+#: sheets/Circuit.sheet.in.h:28
 msgid "Vertically aligned inductor (European)"
 msgstr "Вертикально выровненная индуктивность (По-европейски)"
 
-#: sheets/Circuit.sheet.in.h:33
+#: sheets/Circuit.sheet.in.h:29
 msgid "Vertically aligned powersource"
 msgstr "Вертикально выровненный источник питания"
 
-#: sheets/Circuit.sheet.in.h:34
+#: sheets/Circuit.sheet.in.h:30
 msgid "Vertically aligned resistor"
 msgstr "Вертикально выровненный резистор"
 
-#: sheets/Circuit.sheet.in.h:35
+#: sheets/Circuit.sheet.in.h:31
 msgid "Vertically aligned resistor (European)"
 msgstr "Вертикально выровненный резистор (По-европейски)"
 
-#: sheets/Circuit.sheet.in.h:36
+#: sheets/Circuit.sheet.in.h:32
 msgid "Vertically aligned zener diode"
 msgstr "Вертикально выровненный зенеровский диод"
 
 #: sheets/Contact.sheet.in.h:1
 msgid "'if not' (normally closed) ladder contact"
-msgstr "'если не' (нормально закрытый) контакт ladder"
+msgstr "'если не' (нормально закрытый) контакт"
 
 #: sheets/Contact.sheet.in.h:2
 msgid "'if' (normally open) ladder contact"
-msgstr "'если не' (нормально открытый) контакт ladder"
+msgstr "'если не' (нормально открытый) контакт"
 
 #: sheets/Contact.sheet.in.h:3
 msgid "'jump' output variable"
@@ -5984,11 +5915,11 @@ msgstr "Выходная переменная 'установить'"
 
 #: sheets/Contact.sheet.in.h:6
 msgid "Components for LADDER circuits"
-msgstr "Компоненты для цепей LADDER"
+msgstr "Компоненты для контактных цепей"
 
 #: sheets/Contact.sheet.in.h:7
 msgid "Ladder"
-msgstr ""
+msgstr "Контактные цепи"
 
 #: sheets/Contact.sheet.in.h:8
 msgid "Negative output variable"
@@ -6036,11 +5967,11 @@ msgstr "Постоянный множитель больше 1"
 
 #: sheets/Cybernetics.sheet.in.h:5
 msgid "Constant negative shift on the y-axis"
-msgstr ""
+msgstr "Постоянное отрицательное смещение по Оу"
 
 #: sheets/Cybernetics.sheet.in.h:6
 msgid "Constant positive shift on the y-axis"
-msgstr ""
+msgstr "Постоянное положительное смещение по Оу"
 
 #: sheets/Cybernetics.sheet.in.h:7
 msgid "Cybernetics"
@@ -6052,11 +5983,11 @@ msgstr "Компоненты кибернетических цепей"
 
 #: sheets/Cybernetics.sheet.in.h:9
 msgid "Full wave rectifier (absolute value)"
-msgstr "Выпрямитель полного периода (абсолютное значение)"
+msgstr "Двухполупериодный выпрямитель (абсолютное значение)"
 
 #: sheets/Cybernetics.sheet.in.h:10
 msgid "Half wave rectifier or ramp input"
-msgstr ""
+msgstr "Однополупериодный выпрямитель"
 
 #: sheets/Cybernetics.sheet.in.h:11
 msgid "High pass filter"
@@ -6188,7 +6119,7 @@ msgstr "Соединительная точка"
 
 #: sheets/Electric.sheet.in.h:3
 msgid "Electric"
-msgstr "Электрика"
+msgstr "Электрические схемы"
 
 #: sheets/Electric.sheet.in.h:4
 msgid "Lamp or indicator light (horizontal)"
@@ -6200,35 +6131,35 @@ msgstr "Лампа или световой индикатор (вертикал�
 
 #: sheets/Electric.sheet.in.h:6
 msgid "Normally closed contact (horizontal)"
-msgstr "Нормально закрытый контакт (горизонтально)"
+msgstr "Нормально замкнутый выключатель (горизонтально)"
 
 #: sheets/Electric.sheet.in.h:7
 msgid "Normally closed contact (vertical)"
-msgstr "Нормально закрытый контакт (вертикально)"
+msgstr "Нормально замкнутый выключатель (вертикально)"
 
 #: sheets/Electric.sheet.in.h:8
 msgid "Normally closed position switch (horizontal)"
-msgstr "Нормально закрытый переключатель (горизонтальный)"
+msgstr "Нормально замкнутый переключатель (горизонтальный)"
 
 #: sheets/Electric.sheet.in.h:9
 msgid "Normally closed position switch (vertical)"
-msgstr ""
+msgstr "Нормально замкнутый переключатель (вертикальный)"
 
 #: sheets/Electric.sheet.in.h:10
 msgid "Normally open contact (horizontal)"
-msgstr "Нормально открытый контакт (горизонтально)"
+msgstr "Нормально разомкнутый выключатель (горизонтально)"
 
 #: sheets/Electric.sheet.in.h:11
 msgid "Normally open contact (vertical)"
-msgstr "Нормально открытый контакт (вертикально)"
+msgstr "Нормально разомкнутый выключатель (вертикально)"
 
 #: sheets/Electric.sheet.in.h:12
 msgid "Normally open position switch (horizontal)"
-msgstr "Нормально открытый переключатель (горизонтально)"
+msgstr "Нормально разомкнутый переключатель (горизонтально)"
 
 #: sheets/Electric.sheet.in.h:13
 msgid "Normally open position switch (vertical)"
-msgstr "Нормально открытый переключатель (вертикально)"
+msgstr "Нормально разомкнутый переключатель (вертикально)"
 
 #: sheets/Electric.sheet.in.h:14
 msgid "Relay (horizontal)"
@@ -6239,14 +6170,12 @@ msgid "Relay (vertical)"
 msgstr "Реле (вертикальное)"
 
 #: sheets/Electric.sheet.in.h:16
-#, fuzzy
 msgid "The command organ of a relay (horizontal)"
-msgstr "команда"
+msgstr "Управляющий орган реле (горизонтально)"
 
 #: sheets/Electric.sheet.in.h:17
-#, fuzzy
 msgid "The command organ of a relay (vertical)"
-msgstr "команда"
+msgstr "Управляющий орган реле (вертикально)"
 
 #: sheets/FS.sheet.in.h:1
 msgid "Editor for Function Structure Diagrams."
@@ -6268,137 +6197,129 @@ msgstr "Функция"
 msgid "Orthogonal polyline flow"
 msgstr "Ортогональный многолинейный поток"
 
-#. XXX
-#: sheets/Flowchart.sheet.in.h:2
+#: sheets/Flowchart.sheet.in.h:1
 msgid "Collate"
 msgstr "Сопоставлять"
 
-#: sheets/Flowchart.sheet.in.h:3
+#: sheets/Flowchart.sheet.in.h:2
 msgid "Connector"
 msgstr "Коннектор"
 
-#: sheets/Flowchart.sheet.in.h:4 sheets/SDL.sheet.in.h:4
+#: sheets/Flowchart.sheet.in.h:3 sheets/SDL.sheet.in.h:4
 msgid "Decision"
 msgstr "Решение"
 
-#: sheets/Flowchart.sheet.in.h:5
+#: sheets/Flowchart.sheet.in.h:4
 msgid "Delay"
 msgstr "Задержка"
 
-#: sheets/Flowchart.sheet.in.h:7
+#: sheets/Flowchart.sheet.in.h:6
 msgid "Document"
 msgstr "Документ"
 
-#: sheets/Flowchart.sheet.in.h:9
+#: sheets/Flowchart.sheet.in.h:8
 msgid "Flowchart"
 msgstr "Диаграмма потоков"
 
-#: sheets/Flowchart.sheet.in.h:10
+#: sheets/Flowchart.sheet.in.h:9
 msgid "Input/Output"
 msgstr "Ввод/Вывод"
 
-#: sheets/Flowchart.sheet.in.h:11
+#: sheets/Flowchart.sheet.in.h:10
 msgid "Internal storage"
 msgstr "Внутреннее хранилище"
 
-#: sheets/Flowchart.sheet.in.h:12
+#: sheets/Flowchart.sheet.in.h:11
 msgid "Magnetic disk"
 msgstr "Магнитный диск"
 
-#: sheets/Flowchart.sheet.in.h:13
+#: sheets/Flowchart.sheet.in.h:12
 msgid "Magnetic drum"
 msgstr "Магнитный барабан"
 
-#: sheets/Flowchart.sheet.in.h:14
+#: sheets/Flowchart.sheet.in.h:13
 msgid "Magnetic tape"
 msgstr "Магнитная лента"
 
-#: sheets/Flowchart.sheet.in.h:15
+#: sheets/Flowchart.sheet.in.h:14
 msgid "Manual input"
 msgstr "Ручной ввод"
 
-#: sheets/Flowchart.sheet.in.h:16
+#: sheets/Flowchart.sheet.in.h:15
 msgid "Manual operation"
 msgstr "Ручная операция"
 
-#: sheets/Flowchart.sheet.in.h:17
+#: sheets/Flowchart.sheet.in.h:16
 msgid "Merge"
 msgstr "Объединять"
 
-#: sheets/Flowchart.sheet.in.h:18
+#: sheets/Flowchart.sheet.in.h:17
 msgid "Objects to draw flowcharts"
 msgstr "Объекты рисования диаграмм"
 
-#. XXX
-#: sheets/Flowchart.sheet.in.h:20
-#, fuzzy
+#: sheets/Flowchart.sheet.in.h:18
 msgid "Off page connector"
-msgstr "Выкл"
+msgstr "Внестраничный соединитель"
 
-#: sheets/Flowchart.sheet.in.h:21
+#: sheets/Flowchart.sheet.in.h:19
 msgid "Offline storage"
-msgstr ""
+msgstr "Внешний накопитель"
 
-#: sheets/Flowchart.sheet.in.h:22
+#: sheets/Flowchart.sheet.in.h:20
 msgid "Or"
 msgstr "Или"
 
-#: sheets/Flowchart.sheet.in.h:23
+#: sheets/Flowchart.sheet.in.h:21
 msgid "Predefined process"
 msgstr "Предопределённые процессы"
 
-#: sheets/Flowchart.sheet.in.h:24
+#: sheets/Flowchart.sheet.in.h:22
 msgid "Preparation"
 msgstr "Подготовка"
 
-#: sheets/Flowchart.sheet.in.h:25
-#, fuzzy
+#: sheets/Flowchart.sheet.in.h:23
 msgid "Process/Auxiliary Operation"
-msgstr "Обрабатывать"
+msgstr "Блок выполнения арифметических операций"
 
-#: sheets/Flowchart.sheet.in.h:26
+#: sheets/Flowchart.sheet.in.h:24
 msgid "Punched card"
 msgstr "Перфокарта"
 
-#: sheets/Flowchart.sheet.in.h:27
+#: sheets/Flowchart.sheet.in.h:25
 msgid "Punched tape"
 msgstr "Перфолента"
 
-#: sheets/Flowchart.sheet.in.h:28
+#: sheets/Flowchart.sheet.in.h:26
 msgid "Sort"
 msgstr "Упорядочить"
 
-#. XXX
-#: sheets/Flowchart.sheet.in.h:30
+#: sheets/Flowchart.sheet.in.h:27
 msgid "Summing junction"
 msgstr "Суммирующий узел"
 
-#: sheets/Flowchart.sheet.in.h:31
+#: sheets/Flowchart.sheet.in.h:28
 msgid "Terminal Interrupt"
 msgstr "Прерывание терминала"
 
-#: sheets/Flowchart.sheet.in.h:32
+#: sheets/Flowchart.sheet.in.h:29
 msgid "Transaction file"
 msgstr "Файл транзакций"
 
-#: sheets/Flowchart.sheet.in.h:33
+#: sheets/Flowchart.sheet.in.h:30
 msgid "Transmittal tape"
 msgstr "Передаточная лента"
 
 #: sheets/GRAFCET.sheet.in.h:1
-#, fuzzy
 msgid "AND vergent"
-msgstr "И"
+msgstr "И предельное"
 
 #: sheets/GRAFCET.sheet.in.h:2
-#, fuzzy
 msgid "Action to associate to a step"
-msgstr "Действие до  до "
+msgstr "Действие ассоциированное с шагом"
 
 #: sheets/GRAFCET.sheet.in.h:3
-#, fuzzy
 msgid "Arc (upward)"
-msgstr "Дуга"
+msgstr "Дуга (кверху)"
 
 #: sheets/GRAFCET.sheet.in.h:4
 msgid "Condition (of an action)"
@@ -6409,14 +6330,12 @@ msgid "GRAFCET"
 msgstr "GRAFCET"
 
 #: sheets/GRAFCET.sheet.in.h:10
-#, fuzzy
 msgid "Macro sub-program call step"
 msgstr "Шаг вызова подпрограммы"
 
 #: sheets/GRAFCET.sheet.in.h:11
-#, fuzzy
 msgid "OR vergent"
-msgstr "ИЛИ"
+msgstr "ИЛИ предельное"
 
 #: sheets/GRAFCET.sheet.in.h:12
 msgid "Objects to design GRAFCET charts"
@@ -6451,294 +6370,276 @@ msgid "Block 6, 4:6"
 msgstr "Блок 6, 4:6"
 
 #: sheets/IsometricMap.sheet.in.h:7
-#, fuzzy
 msgid "Block 7"
 msgstr "Блок 7"
 
 #: sheets/IsometricMap.sheet.in.h:8
-#, fuzzy
 msgid "Car 1, Front View"
-msgstr "Вид"
+msgstr "Машина 1, вид спереди"
 
 #: sheets/IsometricMap.sheet.in.h:9
-#, fuzzy
 msgid "Car 2, Rear View"
-msgstr "Вид"
+msgstr "Машина 2, вид сзади"
 
 #: sheets/IsometricMap.sheet.in.h:10
-#, fuzzy
 msgid "Corner 1"
-msgstr "1"
+msgstr "Угол 1"
 
 #: sheets/IsometricMap.sheet.in.h:11
-#, fuzzy
 msgid "Corner 2"
-msgstr "2"
+msgstr "Угол 2"
 
 #: sheets/IsometricMap.sheet.in.h:12
 msgid "Crossroads"
-msgstr ""
+msgstr "Перекресток"
 
 #: sheets/IsometricMap.sheet.in.h:13
 msgid "Elevated Road"
-msgstr ""
+msgstr "Надземная дорога"
 
 #: sheets/IsometricMap.sheet.in.h:14
 msgid "Factory"
-msgstr ""
+msgstr "Фабрика (завод)"
 
 #: sheets/IsometricMap.sheet.in.h:15
 msgid "Footbridge, Pedestrian Bridge"
-msgstr ""
+msgstr "Пешеходный мостик"
 
-#. use dc:description instead?
-#: sheets/IsometricMap.sheet.in.h:17
+#: sheets/IsometricMap.sheet.in.h:16
 msgid "Isometric Directional Map Shapes"
-msgstr ""
+msgstr "Изометрические шаблоны для карт"
+
+#: sheets/IsometricMap.sheet.in.h:17
+msgid "Long Straight Road Section"
+msgstr "Длинный прямой участок дороги"
 
 #: sheets/IsometricMap.sheet.in.h:18
-#, fuzzy
-msgid "Long Straight Road Section"
-msgstr "Раздел"
-
-#. use dc:title instead?
-#: sheets/IsometricMap.sheet.in.h:20
 msgid "Map, Isometric"
-msgstr ""
+msgstr "Карта"
+
+#: sheets/IsometricMap.sheet.in.h:19
+msgid "One Way Road Sign"
+msgstr "Дорожный знак указывающий направление движения"
+
+#: sheets/IsometricMap.sheet.in.h:20
+msgid "River"
+msgstr "Река"
 
 #: sheets/IsometricMap.sheet.in.h:21
-msgid "One Way Road Sign"
-msgstr ""
+msgid "Road Section"
+msgstr "Участок дороги"
 
 #: sheets/IsometricMap.sheet.in.h:22
-msgid "River"
-msgstr ""
+msgid "Roof1"
+msgstr "Крыша 1"
 
 #: sheets/IsometricMap.sheet.in.h:23
-#, fuzzy
-msgid "Road Section"
-msgstr "Раздел"
+msgid "T-Junction"
+msgstr "Т-образное соединение"
 
 #: sheets/IsometricMap.sheet.in.h:24
-#, fuzzy
-msgid "Roof1"
-msgstr "Ротор"
+msgid "Train 1, angled downward"
+msgstr "Поезд 1, под углом вниз"
 
 #: sheets/IsometricMap.sheet.in.h:25
-#, fuzzy
-msgid "T-Junction"
-msgstr "По"
+msgid "Train 2, angled upward"
+msgstr "Поезд 2, под углом вверх"
 
 #: sheets/IsometricMap.sheet.in.h:26
-msgid "Train 1, angled downward"
-msgstr ""
-
-#: sheets/IsometricMap.sheet.in.h:27
-msgid "Train 2, angled upward"
-msgstr ""
-
-#: sheets/IsometricMap.sheet.in.h:28
-#, fuzzy
 msgid "Tree 1"
-msgstr "1"
+msgstr "Дерево 1"
 
 #: sheets/Istar.sheet.in.h:1
 msgid "An i* agent"
-msgstr ""
+msgstr "i* агент"
 
 #: sheets/Istar.sheet.in.h:2
 msgid "An i* decomposition link"
-msgstr ""
+msgstr "i* связь декомпозиции"
 
 #: sheets/Istar.sheet.in.h:3
 msgid "An i* dependency link"
-msgstr ""
+msgstr "i* зависимость"
 
 #: sheets/Istar.sheet.in.h:4
 msgid "An i* goal"
-msgstr ""
+msgstr "i* цель"
 
 #: sheets/Istar.sheet.in.h:5
 msgid "An i* means-ends link"
-msgstr ""
+msgstr "i* ссылка на окончательное значение"
 
 #: sheets/Istar.sheet.in.h:6
 msgid "An i* negative contribution"
-msgstr ""
+msgstr "i* отрицательный вклад"
 
 #: sheets/Istar.sheet.in.h:7
-#, fuzzy
 msgid "An i* position"
-msgstr "Композиция"
+msgstr "i* позиция"
 
 #: sheets/Istar.sheet.in.h:8
 msgid "An i* positive contribution"
-msgstr ""
+msgstr "i* положительный вклад"
 
 #: sheets/Istar.sheet.in.h:9
 msgid "An i* resource"
-msgstr ""
+msgstr "i* ресурс"
 
 #: sheets/Istar.sheet.in.h:10
 msgid "An i* role"
-msgstr ""
+msgstr "i* роль"
 
 #: sheets/Istar.sheet.in.h:11
 msgid "An i* softgoal"
-msgstr ""
+msgstr "i* приблизительная цель"
 
 #: sheets/Istar.sheet.in.h:12
 msgid "An i* task"
-msgstr ""
+msgstr "i* задание"
 
 #: sheets/Istar.sheet.in.h:13
 msgid "An i* unspecified actor"
-msgstr ""
+msgstr "i* незаданный участник"
 
 #: sheets/Istar.sheet.in.h:14
 msgid "An i* unspecified link"
-msgstr ""
+msgstr "i* незаданное соединение"
 
 #: sheets/Istar.sheet.in.h:15
-#, fuzzy
 msgid "Objects to design i* diagrams"
-msgstr "Объекты для разработки SADT-диаграмм"
+msgstr "Объекты для разработки i*-диаграмм"
 
 #: sheets/Istar.sheet.in.h:16
 msgid "RE-i*"
-msgstr ""
+msgstr "RE-i*"
 
 #: sheets/Jackson.sheet.in.h:1
 msgid "A Jackson designed domain"
-msgstr ""
+msgstr "Разработанный домен Джексона"
 
 #: sheets/Jackson.sheet.in.h:2
 msgid "A Jackson given domain"
-msgstr ""
+msgstr "Заданный домен Джексона"
 
 #: sheets/Jackson.sheet.in.h:3
 msgid "A Jackson machine domain"
-msgstr ""
+msgstr "Машинный домен Джексона"
 
 #: sheets/Jackson.sheet.in.h:4
 msgid "A Jackson requirement"
-msgstr ""
+msgstr "Требование Джексона"
 
 #: sheets/Jackson.sheet.in.h:5
 msgid "A Jackson requirement phenomenon"
-msgstr ""
+msgstr "Требуемое явление Джексона"
 
 #: sheets/Jackson.sheet.in.h:6
 msgid "A Jackson shared phenomenon"
-msgstr ""
+msgstr "Общее явление Джексона"
 
 #: sheets/Jackson.sheet.in.h:7
-#, fuzzy
 msgid "Objects to design Jackson diagrams"
-msgstr "Объекты для разработки SADT-диаграмм"
+msgstr "Объекты для разработки диаграмм Джексона"
 
 #: sheets/Jackson.sheet.in.h:8
 msgid "RE-Jackson"
-msgstr ""
+msgstr "RE-Джексона"
 
 #: sheets/KAOS.sheet.in.h:1
 msgid "A KAOS AND refinement"
-msgstr ""
+msgstr "Уточнение KAOS И"
 
 #: sheets/KAOS.sheet.in.h:2
 msgid "A KAOS OR refinement"
-msgstr ""
+msgstr "Уточнение KAOS ИЛИ"
 
 #: sheets/KAOS.sheet.in.h:3
-#, fuzzy
 msgid "A KAOS agent"
-msgstr "Добавить сегмент"
+msgstr "Агент KAOS"
 
 #: sheets/KAOS.sheet.in.h:4
 msgid "A KAOS assumption"
-msgstr ""
+msgstr "Предположение KAOS"
 
 #: sheets/KAOS.sheet.in.h:5
 msgid "A KAOS binary conflict"
-msgstr ""
+msgstr "Бинарный конфликт KAOS"
 
 #: sheets/KAOS.sheet.in.h:6
 msgid "A KAOS capable-of"
-msgstr ""
+msgstr "Возможность KAOS"
 
 #: sheets/KAOS.sheet.in.h:7
 msgid "A KAOS complete AND refinement"
-msgstr ""
+msgstr "Окончательное уточнение И в KAOS"
 
 #: sheets/KAOS.sheet.in.h:8
 msgid "A KAOS complete OR refinement"
-msgstr ""
+msgstr "Окончательное уточнение ИЛИ в KAOS"
 
 #: sheets/KAOS.sheet.in.h:9
 msgid "A KAOS contribution"
-msgstr ""
+msgstr "Вклад KAOS"
 
 #: sheets/KAOS.sheet.in.h:10
 msgid "A KAOS control link"
-msgstr ""
+msgstr "Управляющая связь KAOS"
 
 #: sheets/KAOS.sheet.in.h:11
 msgid "A KAOS goal"
-msgstr ""
+msgstr "Цель KAOS"
 
 #: sheets/KAOS.sheet.in.h:12
 msgid "A KAOS input"
-msgstr ""
+msgstr "Ввод KAOS"
 
 #: sheets/KAOS.sheet.in.h:13
 msgid "A KAOS monitor link"
-msgstr ""
+msgstr "Наблюдающая связь KAOS"
 
 #: sheets/KAOS.sheet.in.h:14
 msgid "A KAOS obstacle"
-msgstr ""
+msgstr "Препятствие KAOS"
 
 #: sheets/KAOS.sheet.in.h:15
 msgid "A KAOS obstruction"
-msgstr ""
+msgstr "Заслон KAOS"
 
 #: sheets/KAOS.sheet.in.h:16
-#, fuzzy
 msgid "A KAOS operation"
-msgstr "Операции"
+msgstr "Операция KAOS"
 
 #: sheets/KAOS.sheet.in.h:17
 msgid "A KAOS operationalization"
-msgstr ""
+msgstr "Сведение к операции KAOS"
 
 #: sheets/KAOS.sheet.in.h:18
 msgid "A KAOS output"
-msgstr ""
+msgstr "Вывод KAOS"
 
 #: sheets/KAOS.sheet.in.h:19
 msgid "A KAOS performs"
-msgstr ""
+msgstr "Производство KAOS"
 
 #: sheets/KAOS.sheet.in.h:20
 msgid "A KAOS requirement"
-msgstr ""
+msgstr "Требование KAOS"
 
 #: sheets/KAOS.sheet.in.h:21
 msgid "A KAOS responsibility"
-msgstr ""
+msgstr "Ответственность KAOS"
 
 #: sheets/KAOS.sheet.in.h:22
 msgid "A KAOS softgoal"
-msgstr ""
+msgstr "Приблизительная цель в KAOS"
 
 #: sheets/KAOS.sheet.in.h:23
-#, fuzzy
 msgid "Objects to design KAOS diagrams"
-msgstr "Объекты для разработки SADT-диаграмм"
+msgstr "Объекты для разработки KAOS-диаграмм"
 
 #: sheets/KAOS.sheet.in.h:24
 msgid "RE-KAOS"
-msgstr ""
+msgstr "RE-KAOS"
 
 #: sheets/Logic.sheet.in.h:1
 msgid "AND gate"
@@ -6750,7 +6651,7 @@ msgstr "Двоичная логика"
 
 #: sheets/Logic.sheet.in.h:3
 msgid "Crossconnector"
-msgstr ""
+msgstr "Перекрёстный соединитель"
 
 #: sheets/Logic.sheet.in.h:4
 msgid "Inverter"
@@ -6794,7 +6695,7 @@ msgstr "Узел большого расширения"
 
 #: sheets/MSE.sheet.in.h:3
 msgid "MSE"
-msgstr ""
+msgstr "MSE"
 
 #: sheets/MSE.sheet.in.h:4
 msgid "Multiplexer"
@@ -6809,14 +6710,12 @@ msgid "Small extension node"
 msgstr "Узел малого расширения"
 
 #: sheets/MSE.sheet.in.h:7
-#, fuzzy
 msgid "Tactical satellite communications terminal"
-msgstr "Боевой спутник коммуникационных терминалов"
+msgstr "Коммуникационный терминал боевого спутника"
 
 #: sheets/MSE.sheet.in.h:8
-#, fuzzy
 msgid "U.S. Army Mobile Subscriber Equipment Components"
-msgstr "С"
+msgstr "Компонент мобильной доставки обеспечения американской армии"
 
 #: sheets/Misc.sheet.in.h:2
 msgid "Folder"
@@ -6856,16 +6755,15 @@ msgstr "Распределитель 5/3"
 
 #: sheets/Pneumatic.sheet.in.h:7
 msgid "Air exhaust orifice"
-msgstr ""
+msgstr "Исходящий поток воздуха"
 
 #: sheets/Pneumatic.sheet.in.h:8
 msgid "Components for pneumatic and hydraulic circuits"
 msgstr "Компоненты для пневматических и гидравлических контуров"
 
 #: sheets/Pneumatic.sheet.in.h:10
-#, fuzzy
 msgid "Double-effect jack"
-msgstr "Двойной"
+msgstr "Поршень двойного действия"
 
 #: sheets/Pneumatic.sheet.in.h:11
 msgid "Electric command (double coil)"
@@ -6904,13 +6802,12 @@ msgid "Muscular command"
 msgstr "Ручное управление"
 
 #: sheets/Pneumatic.sheet.in.h:20
-#, fuzzy
 msgid "Normally-in simple-effect jack"
-msgstr "дюйм"
+msgstr "Нормально впускающий поршень одиночного действия"
 
 #: sheets/Pneumatic.sheet.in.h:21
 msgid "Normally-out simple-effect jack"
-msgstr ""
+msgstr "Нормально выпускающий поршень одиночного действия"
 
 #: sheets/Pneumatic.sheet.in.h:22
 msgid "Pneumatic pressure source"
@@ -6925,9 +6822,8 @@ msgid "Push-button command"
 msgstr "Управление нажатием кнопки"
 
 #: sheets/SADT.sheet.in.h:1
-#, fuzzy
 msgid "Activity/data box"
-msgstr "Активность"
+msgstr "Активность/данные"
 
 #: sheets/SADT.sheet.in.h:2
 msgid "Activity/data flow arrow"
@@ -6994,9 +6890,8 @@ msgid "Send message"
 msgstr "Послать сообщение"
 
 #: sheets/SDL.sheet.in.h:16
-#, fuzzy
 msgid "Service type reference"
-msgstr "тип"
+msgstr "Ссылка на тип сервиса"
 
 #: sheets/SDL.sheet.in.h:17
 msgid "Specification and Description Language."
@@ -7019,9 +6914,8 @@ msgid "Association, two classes are associated"
 msgstr "Ассоциация - семантические отношения между двумя классами"
 
 #: sheets/UML.sheet.in.h:7
-#, fuzzy
 msgid "Class stereotype icon"
-msgstr "Класс"
+msgstr "Изображение стереотипа класса"
 
 #: sheets/UML.sheet.in.h:8
 msgid "Component"
@@ -7037,7 +6931,7 @@ msgstr "Редактор для статических структурных д
 
 #: sheets/UML.sheet.in.h:15
 msgid "Fork/union"
-msgstr ""
+msgstr "Ответвление/объединение"
 
 #: sheets/UML.sheet.in.h:16
 msgid "Generalization, class inheritance"
@@ -7088,9 +6982,8 @@ msgid "UML"
 msgstr "UML"
 
 #: sheets/UML.sheet.in.h:32
-#, fuzzy
 msgid "Use case"
-msgstr "Уменьшать"
+msgstr "Вариант использования"
 
 #: sheets/chronogram.sheet.in.h:1
 msgid "Chronogram"
@@ -7110,7 +7003,7 @@ msgstr "Шкала времени"
 
 #: sheets/ciscocomputer.sheet.in.h:1
 msgid "BBS"
-msgstr ""
+msgstr "BBS"
 
 #: sheets/ciscocomputer.sheet.in.h:2
 msgid "Cisco - Computer"
@@ -7118,16 +7011,15 @@ msgstr "Cisco - Компьютеры"
 
 #: sheets/ciscocomputer.sheet.in.h:3
 msgid "Cisco CA"
-msgstr ""
+msgstr "Cisco CA"
 
 #: sheets/ciscocomputer.sheet.in.h:4
-#, fuzzy
 msgid "CiscoSecurity"
-msgstr "Отключать"
+msgstr "Безопасность Cisco"
 
 #: sheets/ciscocomputer.sheet.in.h:5
 msgid "CiscoWorks workstation"
-msgstr ""
+msgstr "Рабочая станция Cisco"
 
 #: sheets/ciscocomputer.sheet.in.h:6
 msgid "Computer shapes by Cisco"
@@ -7135,39 +7027,35 @@ msgstr "Фигуры компьютеров от Cisco "
 
 #: sheets/ciscocomputer.sheet.in.h:7
 msgid "Disk subsystem"
-msgstr ""
+msgstr "Дисковая подсистема"
 
 #: sheets/ciscocomputer.sheet.in.h:8
 msgid "Diskette"
 msgstr "Дискета"
 
 #: sheets/ciscocomputer.sheet.in.h:9
-#, fuzzy
 msgid "EtherClient"
-msgstr "Шина Ethernet"
+msgstr "Клиент локальной сети"
 
 #: sheets/ciscocomputer.sheet.in.h:10
-#, fuzzy
 msgid "FC Storage"
-msgstr "Хранилище"
+msgstr "Хранилище FC"
 
 #: sheets/ciscocomputer.sheet.in.h:11
 msgid "File Server"
 msgstr "Файловый сервер"
 
 #: sheets/ciscocomputer.sheet.in.h:12
-#, fuzzy
 msgid "Front End Processor"
-msgstr "Создать процесс"
+msgstr "Процессор передней панели"
 
 #: sheets/ciscocomputer.sheet.in.h:13
 msgid "HP Mini"
-msgstr ""
+msgstr "HP Мини"
 
 #: sheets/ciscocomputer.sheet.in.h:14
-#, fuzzy
 msgid "Handheld"
-msgstr "Рука"
+msgstr "Наладонник"
 
 #: sheets/ciscocomputer.sheet.in.h:15
 msgid "Host"
@@ -7186,13 +7074,12 @@ msgid "IBM mainframe"
 msgstr "Мэйнфрейм IBM"
 
 #: sheets/ciscocomputer.sheet.in.h:19
-#, fuzzy
 msgid "IBM mainframe with FEP"
-msgstr "Мэйнфрейм IBM"
+msgstr "Мэйнфрейм IBM с FEP"
 
 #: sheets/ciscocomputer.sheet.in.h:20
 msgid "JBOD"
-msgstr ""
+msgstr "JBOD"
 
 #: sheets/ciscocomputer.sheet.in.h:21
 msgid "Laptop"
@@ -7219,42 +7106,36 @@ msgid "Monitor"
 msgstr "Монитор"
 
 #: sheets/ciscocomputer.sheet.in.h:27
-#, fuzzy
 msgid "Newton"
-msgstr "Новый"
+msgstr "Newton"
 
 #: sheets/ciscocomputer.sheet.in.h:28
 msgid "PC"
 msgstr "ПК"
 
 #: sheets/ciscocomputer.sheet.in.h:29
-#, fuzzy
 msgid "PC Adapter Card"
 msgstr "Плата адаптера для ПК"
 
 #: sheets/ciscocomputer.sheet.in.h:30
-#, fuzzy
 msgid "PC Card"
-msgstr "Мужчина за персональным компьютером"
+msgstr "Плата для ПК"
 
 #: sheets/ciscocomputer.sheet.in.h:31
-#, fuzzy
 msgid "PC Router Card"
 msgstr "Плата маршрутизатора для ПК"
 
 #: sheets/ciscocomputer.sheet.in.h:32
-#, fuzzy
 msgid "PC Software"
-msgstr "Программная телефония на IP"
+msgstr "Программное обеспечение для ПК"
 
 #: sheets/ciscocomputer.sheet.in.h:33
-#, fuzzy
 msgid "PC Video"
 msgstr "ПК Видео"
 
 #: sheets/ciscocomputer.sheet.in.h:34
 msgid "PC with Router-Based Software"
-msgstr ""
+msgstr "ПК с софтовым роутером"
 
 #: sheets/ciscocomputer.sheet.in.h:35
 msgid "PDA"
@@ -7278,7 +7159,7 @@ msgstr "Сервер с маршрутизатором на ПК"
 
 #: sheets/ciscocomputer.sheet.in.h:41
 msgid "Software-Based Router on File Server"
-msgstr ""
+msgstr "Софтовый роутер или Файловый сервер"
 
 #: sheets/ciscocomputer.sheet.in.h:42
 msgid "Storage array"
@@ -7290,12 +7171,11 @@ msgstr "Суперкомпьютер"
 
 #: sheets/ciscocomputer.sheet.in.h:44
 msgid "Tablet"
-msgstr ""
+msgstr "Портативный компьютер"
 
 #: sheets/ciscocomputer.sheet.in.h:45
-#, fuzzy
 msgid "Tape array"
-msgstr "Массив данных"
+msgstr "Массив данных на ленте"
 
 #: sheets/ciscocomputer.sheet.in.h:46
 msgid "Terminal"
@@ -7303,7 +7183,7 @@ msgstr "Терминал"
 
 #: sheets/ciscocomputer.sheet.in.h:47
 msgid "WWW server"
-msgstr "веб-сервер"
+msgstr "Веб-сервер"
 
 #: sheets/ciscocomputer.sheet.in.h:48
 msgid "Web browser"
@@ -7322,362 +7202,316 @@ msgid "Workgroup director"
 msgstr "Руководитель рабочей группы"
 
 #: sheets/ciscohub.sheet.in.h:1
-#, fuzzy
 msgid "100BaseT Hub"
-msgstr "Концентратор сети на витой паре 100Мбит"
+msgstr "Повторитель 100BaseT"
 
 #: sheets/ciscohub.sheet.in.h:2
 msgid "7500ARS (7513) Router"
-msgstr ""
+msgstr "7500ARS (7513) Маршрутизатор"
 
 #: sheets/ciscohub.sheet.in.h:3
-#, fuzzy
 msgid "7505 Router"
-msgstr "Маршрутизатор"
+msgstr "7505 Маршрутизатор"
 
 #: sheets/ciscohub.sheet.in.h:4
-#, fuzzy
 msgid "7507 Router"
-msgstr "Маршрутизатор"
+msgstr "7507 Маршрутизатор"
 
 #: sheets/ciscohub.sheet.in.h:5
-#, fuzzy
 msgid "ASIC Processor"
-msgstr "Обрабатывать"
+msgstr "ASIC обработчик"
 
 #: sheets/ciscohub.sheet.in.h:6
-#, fuzzy
 msgid "ATM 3800"
-msgstr "ATM"
+msgstr "ATM 3800"
 
 #: sheets/ciscohub.sheet.in.h:7
-#, fuzzy
 msgid "ATM Fast Gigabit Etherswitch"
-msgstr "ATM"
+msgstr "ATM Быстрый Гигабитный эзернетовский коммутатор(свич)"
 
 #: sheets/ciscohub.sheet.in.h:8
-#, fuzzy
 msgid "ATM Switch"
 msgstr "Коммутатор ATM"
 
 #: sheets/ciscohub.sheet.in.h:9
-#, fuzzy
 msgid "ATM Tag Switch Router"
-msgstr "ATM"
+msgstr "ATM маршрутизатор отметчик коммутатор"
 
 #: sheets/ciscohub.sheet.in.h:10
 msgid "Access Gateway"
-msgstr ""
+msgstr "Шлюз доступа"
 
 #: sheets/ciscohub.sheet.in.h:11
 msgid "BBSM"
-msgstr ""
+msgstr "BBSM"
 
 #: sheets/ciscohub.sheet.in.h:12
 msgid "Broadband router"
-msgstr ""
+msgstr "Широковещательный маршрутизатор"
 
 #: sheets/ciscohub.sheet.in.h:13
 msgid "CSM-S"
-msgstr ""
+msgstr "CSM-S"
 
 #: sheets/ciscohub.sheet.in.h:14
 msgid "Carrier Routing System"
-msgstr ""
+msgstr "Система маршрутизации носителя"
 
 #: sheets/ciscohub.sheet.in.h:15
-#, fuzzy
 msgid "Cisco - Switch"
-msgstr "Cisco - Другие"
+msgstr "Cisco - Коммутатор"
 
 #: sheets/ciscohub.sheet.in.h:16
 msgid "Cisco 1000"
-msgstr ""
+msgstr "Cisco 1000"
 
 #: sheets/ciscohub.sheet.in.h:17
-#, fuzzy
 msgid "Cisco Hub"
-msgstr "Cisco - Коммутаторы"
+msgstr "Cisco Повторитель"
 
 #: sheets/ciscohub.sheet.in.h:18
-#, fuzzy
 msgid "Content Router"
-msgstr "Cisco - Маршрутизаторы"
+msgstr "Маршрутизатор содержимого"
 
 #: sheets/ciscohub.sheet.in.h:19
 msgid "Content Service Module"
-msgstr ""
+msgstr "Модуль поддержки содержимого"
 
 #: sheets/ciscohub.sheet.in.h:20
 msgid "Content Service Switch 1100"
-msgstr ""
+msgstr "Коммутатор поддержки содержимого 1100"
 
 #: sheets/ciscohub.sheet.in.h:21
-#, fuzzy
 msgid "Content Switch"
-msgstr "Голосовой коммутатор"
+msgstr "Коммутатор содержимого"
 
 #: sheets/ciscohub.sheet.in.h:22
-#, fuzzy
 msgid "Data Center Switch"
-msgstr "Ширина линии данных"
+msgstr "Центральный коммутатор данных"
 
 #: sheets/ciscohub.sheet.in.h:23
 msgid "Data Center Switch Reversed"
-msgstr ""
+msgstr "Коммутатор Data Center обращенный"
 
 #: sheets/ciscohub.sheet.in.h:24
-#, fuzzy
 msgid "Data Switch Processor"
-msgstr "ATM"
+msgstr "Обработчик коммутации данных"
 
 #: sheets/ciscohub.sheet.in.h:25
 msgid "Director-class Fibre Channel intelligent switch"
-msgstr ""
+msgstr "Интелектуальный коммутатор носителя каналов управляющего класса"
 
 #: sheets/ciscohub.sheet.in.h:26
-#, fuzzy
 msgid "Edge Label Switch Router"
-msgstr "Сервер с маршрутизатором на ПК"
+msgstr "Угловая метка коммутатора-маршрутизатора"
 
 #: sheets/ciscohub.sheet.in.h:27
 msgid "Edge Label Switch Router with NetFlow"
-msgstr ""
+msgstr "Угловая метка коммутатор-маршрутизатора с поддержкой NetFlow"
 
 #: sheets/ciscohub.sheet.in.h:28
-#, fuzzy
 msgid "Generic Processor"
 msgstr "Просто процессор"
 
 #: sheets/ciscohub.sheet.in.h:29
 msgid "Hub"
-msgstr "Концентратор"
+msgstr "Повторитель"
 
 #: sheets/ciscohub.sheet.in.h:30
 msgid "Hub subdued"
-msgstr ""
+msgstr "Повторитель приглушенный"
 
 #: sheets/ciscohub.sheet.in.h:31
-#, fuzzy
 msgid "ISDN switch"
-msgstr "Переключать"
+msgstr "ISDN коммутатор"
 
 #: sheets/ciscohub.sheet.in.h:32
-#, fuzzy
 msgid "LAN2LAN Switch"
-msgstr "Переключать"
+msgstr "Коммутатор локальных сетей"
 
 #: sheets/ciscohub.sheet.in.h:33
-#, fuzzy
 msgid "Label Switch Router"
-msgstr "Сервер с маршрутизатором на ПК"
+msgstr "Метка коммутатор-маршрутизатор"
 
 #: sheets/ciscohub.sheet.in.h:34
-#, fuzzy
 msgid "Layer 2 Remote Switch"
-msgstr "Слои"
+msgstr "Удаленный коммутатор второго уровня"
 
 #: sheets/ciscohub.sheet.in.h:35
 msgid "MGX 8220"
-msgstr ""
+msgstr "MGX 8220"
 
 #: sheets/ciscohub.sheet.in.h:36
 msgid "MGX 8240"
-msgstr ""
+msgstr "MGX 8240"
 
 #: sheets/ciscohub.sheet.in.h:37
 msgid "MGX 8260"
-msgstr ""
+msgstr "MGX 8260"
 
 #: sheets/ciscohub.sheet.in.h:38
-#, fuzzy
 msgid "Multi-Fabric Server Switch"
-msgstr "Множественные вхождения"
+msgstr "Сервер коммутации Multi-Fabric"
 
 #: sheets/ciscohub.sheet.in.h:39
 msgid "MultiSwitch Device"
-msgstr ""
+msgstr "Устройство множественной коммутации"
 
 #: sheets/ciscohub.sheet.in.h:40
-#, fuzzy
 msgid "Multilayer Remote Switch"
-msgstr "Множественные вхождения"
+msgstr "Многоуровневый удаленный коммутатор"
 
 #: sheets/ciscohub.sheet.in.h:41
-#, fuzzy
 msgid "Multilayer Switch"
-msgstr "Множественные вхождения"
+msgstr "Многоуровневый коммутатор"
 
 #: sheets/ciscohub.sheet.in.h:42
-#, fuzzy
 msgid "Multilayer Switch with Silicon"
-msgstr "Множественные вхождения"
+msgstr "Многоуровневы коммутатор с поддержкой Silicon"
 
 #: sheets/ciscohub.sheet.in.h:43
 msgid "Multilayer Switch with Silicon subdued"
-msgstr ""
+msgstr "Многоуровневы коммутатор с поддержкой Silicon приглушенный"
 
 #: sheets/ciscohub.sheet.in.h:44
 msgid "NetFlow router"
-msgstr ""
+msgstr "Маршрутизатор NetFlow"
 
 #: sheets/ciscohub.sheet.in.h:45
 msgid "NetRanger"
-msgstr ""
+msgstr "NetRanger"
 
 #: sheets/ciscohub.sheet.in.h:46
-#, fuzzy
 msgid "NetSonar"
-msgstr "Компьютерная Сеть"
+msgstr "NetSonar"
 
 #: sheets/ciscohub.sheet.in.h:47
-#, fuzzy
 msgid "Optical Services Router"
-msgstr "Оптический транспорт"
+msgstr "Маршрутизатор оптического транспорта"
 
 #: sheets/ciscohub.sheet.in.h:48
 msgid "PXF"
-msgstr ""
+msgstr "PXF"
 
 #: sheets/ciscohub.sheet.in.h:49
-#, fuzzy
 msgid "Programmable Switch"
-msgstr "Запрограммированный объект"
+msgstr "Программируемый коммутатор"
 
 #: sheets/ciscohub.sheet.in.h:50
 msgid "RateMUX"
 msgstr "RateMUX"
 
 #: sheets/ciscohub.sheet.in.h:51
-#, fuzzy
 msgid "Route Switch Processor"
-msgstr "Маршрутизатор с защитным экраном"
+msgstr "Обработчик переключения маршрутизации"
 
 #: sheets/ciscohub.sheet.in.h:52
 msgid "Route Switch Processor with Si"
-msgstr ""
+msgstr "Обработчик переключения маршрутизации с поддержкой Si"
 
 #: sheets/ciscohub.sheet.in.h:53
 msgid "Router"
 msgstr "Маршрутизатор"
 
 #: sheets/ciscohub.sheet.in.h:54
-#, fuzzy
 msgid "Router and switch shapes by Cisco"
-msgstr "Фигуры концентратора и коммутатора от Cisco"
+msgstr "Фигуры маршрутизатора и коммутатора от Cisco"
 
 #: sheets/ciscohub.sheet.in.h:55
-#, fuzzy
 msgid "Router subdued"
-msgstr "Символ маршрутизатора"
+msgstr "Маршрутизатор приглушенный"
 
 #: sheets/ciscohub.sheet.in.h:56
-#, fuzzy
 msgid "Router with Firewall"
-msgstr "Маршрутизатор с защитным экраном"
+msgstr "Маршрутизатор с защитным сетевым экраном"
 
 #: sheets/ciscohub.sheet.in.h:57
-#, fuzzy
 msgid "Router with Silicon Switch"
-msgstr "Маршрутизатор с защитным экраном"
+msgstr "Маршрутизатор с коммутатором Silicon"
 
 #: sheets/ciscohub.sheet.in.h:58
-#, fuzzy
 msgid "Server Switch"
 msgstr "Сервер с маршрутизатором на ПК"
 
 #: sheets/ciscohub.sheet.in.h:59
-#, fuzzy
 msgid "Small Hub"
-msgstr "Маленький концентратор"
+msgstr "Маленький повторитель"
 
 #: sheets/ciscohub.sheet.in.h:60
-#, fuzzy
 msgid "Storage Router"
-msgstr "Хранилище"
+msgstr "Маршрутизатор хранилища"
 
 #: sheets/ciscohub.sheet.in.h:61
-#, fuzzy
 msgid "Switch Processor"
-msgstr "Просто процессор"
+msgstr "Коммутаторный процессор"
 
 #: sheets/ciscohub.sheet.in.h:62
-#, fuzzy
 msgid "Universal Gateway"
-msgstr "Университет"
+msgstr "Университетский шлюз"
 
 #: sheets/ciscohub.sheet.in.h:63
-#, fuzzy
 msgid "Virtual Layer Switch"
-msgstr "Множественные вхождения"
+msgstr "Коммутатор виртульных слоев"
 
 #: sheets/ciscohub.sheet.in.h:64
 msgid "Wavelength router"
-msgstr ""
+msgstr "Маршрутизатор Wavelenght"
 
 #: sheets/ciscohub.sheet.in.h:65
-#, fuzzy
 msgid "Wireless router"
-msgstr "Защитный экран маршрутизатора"
+msgstr "Маршрутизатор беспроводной сети"
 
 #: sheets/ciscohub.sheet.in.h:66
-#, fuzzy
 msgid "Workgroup 5000"
-msgstr "Руководитель рабочей группы"
+msgstr "Рабочая група 5000"
 
 #: sheets/ciscohub.sheet.in.h:67
-#, fuzzy
 msgid "Workgroup 5002"
-msgstr "Руководитель рабочей группы"
+msgstr "Рабочая група 5002"
 
 #: sheets/ciscohub.sheet.in.h:68
-#, fuzzy
 msgid "Workgroup 5500"
-msgstr "Руководитель рабочей группы"
+msgstr "Workgroup 5500"
 
 #: sheets/ciscohub.sheet.in.h:69
 msgid "Workgroup Fibre Channel intelligent switch"
-msgstr ""
+msgstr "Интелектуальный переключатель канала рабочей группы"
 
 #: sheets/ciscohub.sheet.in.h:70
 msgid "Workgroup Switch Voice-Enabled"
-msgstr ""
+msgstr "Коммутатор рабочей группы с поддежкой голоса"
 
 #: sheets/ciscohub.sheet.in.h:71
 msgid "Workgroup switch"
-msgstr ""
+msgstr "Коммутатор рабочей группы"
 
 #: sheets/ciscohub.sheet.in.h:72
 msgid "Workgroup switch Subdued"
-msgstr ""
+msgstr "Коммутатор рабочей группы приглушенный"
 
 #: sheets/ciscohub.sheet.in.h:73
-#, fuzzy
 msgid "iSCSI switch"
-msgstr "Переключать"
+msgstr "Коммутатор iSCSI"
 
 #: sheets/ciscomisc.sheet.in.h:1
 msgid "Androgynous Person"
-msgstr ""
+msgstr "Личность неизвестного пола"
 
 #: sheets/ciscomisc.sheet.in.h:2
 msgid "Antenna"
-msgstr ""
+msgstr "Антена"
 
 #: sheets/ciscomisc.sheet.in.h:3
-#, fuzzy
 msgid "Branch office"
-msgstr "Разветвлять"
+msgstr "Офис отделения"
 
 #: sheets/ciscomisc.sheet.in.h:4
-#, fuzzy
 msgid "Branch office blue"
-msgstr "Разветвлять"
+msgstr "Офис отделения синий"
 
 #: sheets/ciscomisc.sheet.in.h:5
-#, fuzzy
 msgid "Branch office subdued"
-msgstr "Разветвлять"
+msgstr "Офис отделения приглушенный"
 
 #: sheets/ciscomisc.sheet.in.h:6
 msgid "Car"
@@ -7689,50 +7523,43 @@ msgstr "Cisco - Другие"
 
 #: sheets/ciscomisc.sheet.in.h:8
 msgid "CiscoWorks Man"
-msgstr ""
+msgstr "CiscoWorks чувак"
 
 #: sheets/ciscomisc.sheet.in.h:9
 msgid "File cabinet"
 msgstr "Архив с файлами"
 
 #: sheets/ciscomisc.sheet.in.h:10
-#, fuzzy
 msgid "Generic Building"
 msgstr "Просто строение"
 
 #: sheets/ciscomisc.sheet.in.h:11
-#, fuzzy
 msgid "Generic Building blue"
-msgstr "Просто строение"
+msgstr "Просто строение синее"
 
 #: sheets/ciscomisc.sheet.in.h:12
-#, fuzzy
 msgid "Generic Building subdued"
-msgstr "Просто строение"
+msgstr "Просто строение приглушённое"
 
 #: sheets/ciscomisc.sheet.in.h:13
-#, fuzzy
 msgid "Government Building"
 msgstr "Правительственное здание"
 
 #: sheets/ciscomisc.sheet.in.h:14
-#, fuzzy
 msgid "Headphones"
-msgstr "Телефон"
+msgstr "Наушники"
 
 #: sheets/ciscomisc.sheet.in.h:15
-#, fuzzy
 msgid "Home office"
-msgstr "Конец"
+msgstr "Домашний офис"
 
 #: sheets/ciscomisc.sheet.in.h:16
-#, fuzzy
 msgid "House"
-msgstr "Узел"
+msgstr "Дом"
 
 #: sheets/ciscomisc.sheet.in.h:17
 msgid "House blue"
-msgstr ""
+msgstr "Синий дом"
 
 #: sheets/ciscomisc.sheet.in.h:18
 msgid "Key"
@@ -7740,73 +7567,67 @@ msgstr "Ключ"
 
 #: sheets/ciscomisc.sheet.in.h:20
 msgid "Lock and Key"
-msgstr ""
+msgstr "Ключ и замок"
 
 #: sheets/ciscomisc.sheet.in.h:21
 msgid "MDU"
-msgstr ""
+msgstr "MDU"
 
 #: sheets/ciscomisc.sheet.in.h:22
-#, fuzzy
 msgid "Mac Woman"
 msgstr "Женщина, работающая на Макинтоше"
 
 #: sheets/ciscomisc.sheet.in.h:23
-#, fuzzy
 msgid "Man"
-msgstr "Увеличить"
+msgstr "Человек"
 
 #: sheets/ciscomisc.sheet.in.h:24
 msgid "Man blue"
-msgstr ""
+msgstr "Человек синего цвета"
 
 #: sheets/ciscomisc.sheet.in.h:25
 msgid "Man gold"
-msgstr ""
+msgstr "Человек золотого цвета"
 
 #: sheets/ciscomisc.sheet.in.h:26
-#, fuzzy
 msgid "Man red"
-msgstr "Придавать форму"
+msgstr "Человек красного цвета"
 
 #: sheets/ciscomisc.sheet.in.h:27
-#, fuzzy
 msgid "Medium Building"
-msgstr "Просто строение"
+msgstr "Среднее строение"
 
 #: sheets/ciscomisc.sheet.in.h:28
 msgid "Medium Building blue"
-msgstr ""
+msgstr "Среднее строение синее"
 
 #: sheets/ciscomisc.sheet.in.h:29
 msgid "Medium Building subdued"
-msgstr ""
+msgstr "Среднее строение приглушенное"
 
 #: sheets/ciscomisc.sheet.in.h:31
 msgid "Miscellaneous shapes by Cisco"
 msgstr "Различные фигуры от Cisco"
 
 #: sheets/ciscomisc.sheet.in.h:32
-#, fuzzy
 msgid "PC Man"
-msgstr "Мужчина за персональным компьютером"
+msgstr "Человек за персональным компьютером"
 
 #: sheets/ciscomisc.sheet.in.h:33
 msgid "PC Man left"
-msgstr ""
+msgstr "Человек за персональным компьютером (левый)"
 
 #: sheets/ciscomisc.sheet.in.h:34
 msgid "Running man"
-msgstr ""
+msgstr "Бегущий человек"
 
 #: sheets/ciscomisc.sheet.in.h:35
 msgid "Running man subdued"
-msgstr ""
+msgstr "Бегущий человек приглушенный"
 
 #: sheets/ciscomisc.sheet.in.h:36
-#, fuzzy
 msgid "Running woman"
-msgstr "Сидящая женщина"
+msgstr "Бегущая женщина"
 
 #: sheets/ciscomisc.sheet.in.h:37
 msgid "Satellite"
@@ -7814,125 +7635,115 @@ msgstr "Спутник"
 
 #: sheets/ciscomisc.sheet.in.h:38
 msgid "Satellite dish"
-msgstr ""
+msgstr "Спутник тарелка"
 
 #: sheets/ciscomisc.sheet.in.h:39
-#, fuzzy
 msgid "Sitting Woman"
 msgstr "Сидящая женщина"
 
 #: sheets/ciscomisc.sheet.in.h:40
-#, fuzzy
 msgid "Sitting Woman right"
-msgstr "Сидящая женщина"
+msgstr "Сидящая женщина (в право)"
 
 #: sheets/ciscomisc.sheet.in.h:41
-#, fuzzy
 msgid "Small Business"
 msgstr "Малый бизнес"
 
 #: sheets/ciscomisc.sheet.in.h:43
-#, fuzzy
 msgid "Standing Man"
-msgstr "Стоящий мужчина"
+msgstr "Стоящий человек"
 
 #: sheets/ciscomisc.sheet.in.h:44
-#, fuzzy
 msgid "Standing woman"
-msgstr "Стоящий мужчина"
+msgstr "Стоящая женщина"
 
 #: sheets/ciscomisc.sheet.in.h:45
 msgid "Telecommuter"
-msgstr ""
+msgstr "Телекоммутатор"
 
 #: sheets/ciscomisc.sheet.in.h:46
 msgid "Telecommuter house"
-msgstr ""
+msgstr "Телекомуникационное здание"
 
 #: sheets/ciscomisc.sheet.in.h:47
 msgid "Telecommuter house subdued"
-msgstr ""
+msgstr "Телекомуникационное здание приглушенное"
 
 #: sheets/ciscomisc.sheet.in.h:48
 msgid "Truck"
-msgstr ""
+msgstr "Грузовик"
 
 #: sheets/ciscomisc.sheet.in.h:49
 msgid "University"
 msgstr "Университет"
 
 #: sheets/ciscomisc.sheet.in.h:50
-#, fuzzy
 msgid "Video Camera"
 msgstr "Видеокамера"
 
 #: sheets/ciscomisc.sheet.in.h:51
-#, fuzzy
 msgid "Video Camera right"
-msgstr "Видеокамера"
+msgstr "Видеокамера (вправо)"
 
 #: sheets/ciscomisc.sheet.in.h:52
-#, fuzzy
 msgid "Woman"
-msgstr "Мужчина/Женщина"
+msgstr "Женщина"
 
 #: sheets/ciscomisc.sheet.in.h:53
 msgid "Woman blue"
-msgstr ""
+msgstr "Женщина синяя"
 
 #: sheets/ciscomisc.sheet.in.h:54
 msgid "Woman gold"
-msgstr ""
+msgstr "Женщина золотистая"
 
 #: sheets/ciscomisc.sheet.in.h:55
-#, fuzzy
 msgid "Woman red"
-msgstr "Человеческая сила"
+msgstr "Женщина красная"
 
 #: sheets/cisconetwork.sheet.in.h:1
 msgid "10700"
-msgstr ""
+msgstr "10700"
 
 #: sheets/cisconetwork.sheet.in.h:2
 msgid "15200"
-msgstr ""
+msgstr "15200"
 
 #: sheets/cisconetwork.sheet.in.h:3
 msgid "15800"
-msgstr ""
+msgstr "15800"
 
 #: sheets/cisconetwork.sheet.in.h:4
 msgid "3174 (desktop) cluster controller"
-msgstr ""
+msgstr "Управление кластером 3174 (рабочее место)"
 
 #: sheets/cisconetwork.sheet.in.h:5
 msgid "3X74 (floor) cluster controller"
-msgstr ""
+msgstr "Управление кластером 3X74 (напольное)"
 
 #: sheets/cisconetwork.sheet.in.h:6
-#, fuzzy
 msgid "Access Server"
-msgstr "Файловый сервер"
+msgstr "Сервер Доступа"
 
 #: sheets/cisconetwork.sheet.in.h:7
 msgid "AccessPoint"
-msgstr ""
+msgstr "Точка доступа"
 
 #: sheets/cisconetwork.sheet.in.h:8
 msgid "Automatic Protection Switching"
-msgstr ""
+msgstr "Коммутирование с автоматической защитой"
 
 #: sheets/cisconetwork.sheet.in.h:9
 msgid "BBFW"
-msgstr ""
+msgstr "BBFW"
 
 #: sheets/cisconetwork.sheet.in.h:10
 msgid "BBFW media"
-msgstr ""
+msgstr "Носитель BBFW"
 
 #: sheets/cisconetwork.sheet.in.h:11
 msgid "Breakout box"
-msgstr ""
+msgstr "Разбивающий модуль"
 
 #: sheets/cisconetwork.sheet.in.h:12
 msgid "Bridge"
@@ -7940,167 +7751,147 @@ msgstr "Мост"
 
 #: sheets/cisconetwork.sheet.in.h:13
 msgid "CDDI/FDDI Concentrator"
-msgstr ""
+msgstr "CDDI/FDDI концентратор"
 
 #: sheets/cisconetwork.sheet.in.h:14
 msgid "CDM Content Distribution Manager"
-msgstr ""
+msgstr "CDM менеджер раздачи контента"
 
 #: sheets/cisconetwork.sheet.in.h:15
 msgid "CSU/DSU"
-msgstr ""
+msgstr "CSU/DSU"
 
 #: sheets/cisconetwork.sheet.in.h:16
-#, fuzzy
 msgid "Cable Modem"
-msgstr "Модем"
+msgstr "Кабельный Модем"
 
 #: sheets/cisconetwork.sheet.in.h:17
 msgid "Catalyst Access Gateway"
-msgstr ""
+msgstr "Шлюз доступа Catalyst"
 
 #: sheets/cisconetwork.sheet.in.h:18
-#, fuzzy
 msgid "Centri Firewall"
-msgstr "Защитный экран"
+msgstr "Защитный экран Centri"
 
 #: sheets/cisconetwork.sheet.in.h:19
-#, fuzzy
 msgid "Channelized Pipe"
-msgstr "Проводить"
+msgstr "Канальная труба"
 
 #: sheets/cisconetwork.sheet.in.h:20
 msgid "Cisco - Network"
-msgstr "Cisco - сеть"
+msgstr "Cisco - Сеть"
 
 #: sheets/cisconetwork.sheet.in.h:21
 msgid "Cloud"
 msgstr "Облако"
 
 #: sheets/cisconetwork.sheet.in.h:22
-#, fuzzy
 msgid "Cloud Dark"
-msgstr "Облако"
+msgstr "Облако тёмное"
 
 #: sheets/cisconetwork.sheet.in.h:23
-#, fuzzy
 msgid "Cloud Gold"
-msgstr "Облако"
+msgstr "Облако золотое"
 
 #: sheets/cisconetwork.sheet.in.h:24
-#, fuzzy
 msgid "Cloud White"
-msgstr "Облако"
+msgstr "Облако белое"
 
 #: sheets/cisconetwork.sheet.in.h:25
 msgid "Concatenated Payload"
-msgstr ""
+msgstr "Соединенная нагрузка"
 
 #: sheets/cisconetwork.sheet.in.h:26
-#, fuzzy
 msgid "Content Engine (Cache Director)"
-msgstr "Не удалось найти каталог с файлами помощи"
+msgstr "Система управления содержимым (кэширующая)"
 
 #: sheets/cisconetwork.sheet.in.h:27
-#, fuzzy
 msgid "Content Transformation Engine (CTE)"
-msgstr "Фильтр преобразования XSL"
+msgstr "Система преобразования содержимого (CTE)"
 
 #: sheets/cisconetwork.sheet.in.h:28
 msgid "DSLAM"
-msgstr ""
+msgstr "DSLAM"
 
 #: sheets/cisconetwork.sheet.in.h:29
-#, fuzzy
 msgid "DWDM Filter"
-msgstr "фильтр экспорта в WMF"
+msgstr "Фильтр DWDM"
 
 #: sheets/cisconetwork.sheet.in.h:30
-#, fuzzy
 msgid "Detector"
-msgstr "Агент"
+msgstr "Датчик"
 
 #: sheets/cisconetwork.sheet.in.h:31
 msgid "Digital Cross-Connect"
-msgstr ""
+msgstr "Цифровой разветвитель"
 
 #: sheets/cisconetwork.sheet.in.h:32
 msgid "Directory Server"
 msgstr "Сервер каталогов"
 
 #: sheets/cisconetwork.sheet.in.h:33
-#, fuzzy
 msgid "Distributed Director"
-msgstr "Распределять"
+msgstr "Распределённое управление"
 
 #: sheets/cisconetwork.sheet.in.h:34
 msgid "Dual Mode AccessPoint"
-msgstr ""
+msgstr "Двусторонняя точка доступа"
 
 #: sheets/cisconetwork.sheet.in.h:35
 msgid "FDDI Ring"
-msgstr ""
+msgstr "Кольцо FDDI"
 
 #: sheets/cisconetwork.sheet.in.h:36
-#, fuzzy
 msgid "File Engine"
-msgstr "Архив с файлами"
+msgstr "Система управления файлами"
 
 #: sheets/cisconetwork.sheet.in.h:37
 msgid "Firewall"
-msgstr "Защитный экран"
+msgstr "Сетевой защитный экран"
 
 #: sheets/cisconetwork.sheet.in.h:38
-#, fuzzy
 msgid "Firewall Service Module"
-msgstr "Защитный экран маршрутизатора"
+msgstr "Модуль обслуживания защитного экрана"
 
 #: sheets/cisconetwork.sheet.in.h:39
-#, fuzzy
 msgid "Firewall horizontal"
-msgstr "Горизонтальное отражение"
+msgstr "Сетевой экран в горизонтальном ракурсе"
 
 #: sheets/cisconetwork.sheet.in.h:40
-#, fuzzy
 msgid "Firewall subdued"
-msgstr "Защитный экран маршрутизатора"
+msgstr "Защитный экран приглушенный"
 
 #: sheets/cisconetwork.sheet.in.h:41
-#, fuzzy
 msgid "General Appliance"
-msgstr "Общее"
+msgstr "Произвольное устройство"
 
 #: sheets/cisconetwork.sheet.in.h:42
-#, fuzzy
 msgid "Generic Gateway"
 msgstr "Просто шлюз"
 
 #: sheets/cisconetwork.sheet.in.h:44
-#, fuzzy
 msgid "IOS Firewall"
-msgstr "Защитный экран"
+msgstr "Защитный экран IOS"
 
 #: sheets/cisconetwork.sheet.in.h:45
-#, fuzzy
 msgid "IOS SLB"
-msgstr "IP"
+msgstr "IOS SLB"
 
 #: sheets/cisconetwork.sheet.in.h:46
 msgid "IP"
 msgstr "IP"
 
 #: sheets/cisconetwork.sheet.in.h:47
-#, fuzzy
 msgid "IP DSL Switch"
-msgstr "Переключать"
+msgstr "IP DSL коммутатор"
 
 #: sheets/cisconetwork.sheet.in.h:48
 msgid "IP Old-style"
-msgstr ""
+msgstr "IP по старому стилю"
 
 #: sheets/cisconetwork.sheet.in.h:49
 msgid "IP Transport Concentrator"
-msgstr ""
+msgstr "Концентратор транспорта IP"
 
 #: sheets/cisconetwork.sheet.in.h:50
 msgid "IPTV broadcast server"
@@ -8108,7 +7899,7 @@ msgstr "Широковещательный сервер IPTV"
 
 #: sheets/cisconetwork.sheet.in.h:51
 msgid "IPTV content manager"
-msgstr ""
+msgstr "Менеджер содержимого IPTV"
 
 #: sheets/cisconetwork.sheet.in.h:52
 msgid "LAN to LAN"
@@ -8116,48 +7907,45 @@ msgstr "Сеть-Сеть "
 
 #: sheets/cisconetwork.sheet.in.h:53
 msgid "Lightweight AP"
-msgstr ""
+msgstr "Легкая точка доступа"
 
 #: sheets/cisconetwork.sheet.in.h:54
 msgid "LocalDirector"
-msgstr ""
+msgstr "Локальный управляющий"
 
 #: sheets/cisconetwork.sheet.in.h:55
-#, fuzzy
 msgid "Location server"
-msgstr "Сервер коммуникаций"
+msgstr "Сервер расположения"
 
 #: sheets/cisconetwork.sheet.in.h:56
 msgid "LongReach CPE"
-msgstr ""
+msgstr "LongReach CPE"
 
 #: sheets/cisconetwork.sheet.in.h:57
 msgid "MAS Gateway"
-msgstr ""
+msgstr "Шлюз MAS"
 
 #: sheets/cisconetwork.sheet.in.h:58
 msgid "MAU"
-msgstr ""
+msgstr "MAU"
 
 #: sheets/cisconetwork.sheet.in.h:59
 msgid "ME 1100"
-msgstr ""
+msgstr "ME 1100"
 
 #: sheets/cisconetwork.sheet.in.h:60
 msgid "MUX"
-msgstr ""
+msgstr "MUX"
 
 #: sheets/cisconetwork.sheet.in.h:61
 msgid "Metro 1500"
-msgstr ""
+msgstr "Metro 1500"
 
 #: sheets/cisconetwork.sheet.in.h:62
-#, fuzzy
 msgid "NAT"
-msgstr "НЕТ"
+msgstr "NAT -- трансляция сетевых адресов"
 
 #: sheets/cisconetwork.sheet.in.h:63
-#, fuzzy
 msgid "Network Management"
 msgstr "Управление сетью"
 
@@ -8167,29 +7955,25 @@ msgstr "Фигуры сетевых устройств от Cisco"
 
 #: sheets/cisconetwork.sheet.in.h:65
 msgid "ONS15104"
-msgstr ""
+msgstr "ONS15104"
 
 #: sheets/cisconetwork.sheet.in.h:66
 msgid "ONS15540"
-msgstr ""
+msgstr "ONS15540"
 
 #: sheets/cisconetwork.sheet.in.h:67
-#, fuzzy
 msgid "Optical Amplifier"
 msgstr "Оптический усилитель"
 
 #: sheets/cisconetwork.sheet.in.h:68
-#, fuzzy
 msgid "Optical Cross-Connect"
-msgstr "Оптический транспорт"
+msgstr "Оптический разветвитель"
 
 #: sheets/cisconetwork.sheet.in.h:69
-#, fuzzy
 msgid "Optical Fiber"
-msgstr "Оптическая энергия"
+msgstr "Оптическая линия"
 
 #: sheets/cisconetwork.sheet.in.h:70
-#, fuzzy
 msgid "Optical Transport"
 msgstr "Оптический транспорт"
 
@@ -8198,52 +7982,44 @@ msgid "PAD"
 msgstr "PAD"
 
 #: sheets/cisconetwork.sheet.in.h:72
-#, fuzzy
 msgid "PIX Firewall"
 msgstr "Защитный экран PIX"
 
 #: sheets/cisconetwork.sheet.in.h:73
-#, fuzzy
 msgid "PIX Firewall Left"
-msgstr "Защитный экран PIX"
+msgstr "Защитный экран PIX левый"
 
 #: sheets/cisconetwork.sheet.in.h:74
-#, fuzzy
 msgid "Protocol Translator"
-msgstr "Поступательное движение"
+msgstr "Преобразователь протокола"
 
 #: sheets/cisconetwork.sheet.in.h:75
 msgid "RPS"
-msgstr ""
+msgstr "RPS"
 
 #: sheets/cisconetwork.sheet.in.h:76
 msgid "Repeater"
 msgstr "Повторитель"
 
 #: sheets/cisconetwork.sheet.in.h:77
-#, fuzzy
 msgid "SSL Terminator"
-msgstr "Терминал"
+msgstr "Терминал SSL"
 
 #: sheets/cisconetwork.sheet.in.h:78
-#, fuzzy
 msgid "STB (set top box)"
-msgstr "set"
+msgstr "STB (модуль установки)"
 
 #: sheets/cisconetwork.sheet.in.h:79
-#, fuzzy
 msgid "Security appliance"
-msgstr "Общее"
+msgstr "Устройство безопасности"
 
 #: sheets/cisconetwork.sheet.in.h:80
-#, fuzzy
 msgid "Service Control"
-msgstr "Симметричная точка"
+msgstr "Обслуживающая точка"
 
 #: sheets/cisconetwork.sheet.in.h:81
-#, fuzzy
 msgid "Storage Solution Engine"
-msgstr "Хранилище"
+msgstr "Решение по хранению данных"
 
 #: sheets/cisconetwork.sheet.in.h:82
 msgid "System controller"
@@ -8254,18 +8030,16 @@ msgid "TV"
 msgstr "ТВ"
 
 #: sheets/cisconetwork.sheet.in.h:84
-#, fuzzy
 msgid "Terminal Server"
-msgstr "Прерывание терминала"
+msgstr "Терминал-сервер"
 
 #: sheets/cisconetwork.sheet.in.h:85
 msgid "TokenRing"
-msgstr ""
+msgstr "TokenRing (Маокерное кольцо)"
 
 #: sheets/cisconetwork.sheet.in.h:86
-#, fuzzy
 msgid "TransPath"
-msgstr "Transpath"
+msgstr "TransPath"
 
 #: sheets/cisconetwork.sheet.in.h:87
 msgid "UPS"
@@ -8273,114 +8047,107 @@ msgstr "ИБП"
 
 #: sheets/cisconetwork.sheet.in.h:88
 msgid "VIP"
-msgstr ""
+msgstr "VIP"
 
 #: sheets/cisconetwork.sheet.in.h:89
 msgid "VN2900"
-msgstr ""
+msgstr "VN2900"
 
 #: sheets/cisconetwork.sheet.in.h:90
 msgid "VN5900"
-msgstr ""
+msgstr "VN5900"
 
 #: sheets/cisconetwork.sheet.in.h:91
 msgid "VN5902"
-msgstr ""
+msgstr "VN5902"
 
 #: sheets/cisconetwork.sheet.in.h:92
 msgid "VPN Concentrator"
-msgstr ""
+msgstr "VPN (Виртуальные Часные Сети) Концентратор"
 
 #: sheets/cisconetwork.sheet.in.h:93
 msgid "VPN Gateway"
-msgstr ""
+msgstr "VPN (Виртуальные Часные Сети) Гейт"
 
 #: sheets/cisconetwork.sheet.in.h:94
-#, fuzzy
 msgid "WAN"
-msgstr "И"
+msgstr "WAN"
 
 #: sheets/cisconetwork.sheet.in.h:95
 msgid "WDM"
-msgstr ""
+msgstr "WDM"
 
 #: sheets/cisconetwork.sheet.in.h:96
-#, fuzzy
 msgid "WLAN controller"
-msgstr "Контроллер системы"
+msgstr "Контроллер беспроводной сети"
 
 #: sheets/cisconetwork.sheet.in.h:97
 msgid "Wi-Fi Tag"
-msgstr ""
+msgstr "Метка Wi-Fi"
 
 #: sheets/cisconetwork.sheet.in.h:98
-#, fuzzy
 msgid "Wireless Bridge"
 msgstr "Беспроводной мост"
 
 #: sheets/cisconetwork.sheet.in.h:99
 msgid "Wireless Connectivity"
-msgstr ""
+msgstr "Беспроводное приспособление"
 
 #: sheets/cisconetwork.sheet.in.h:100
 msgid "Wireless Location Appliance"
-msgstr ""
+msgstr "Устройство беспроводного расположения"
 
 #: sheets/cisconetwork.sheet.in.h:101
-#, fuzzy
 msgid "Wireless Transport"
 msgstr "Беспроводной транспорт"
 
 #: sheets/cisconetwork.sheet.in.h:102
 msgid "uBR910 Cable DSU"
-msgstr ""
+msgstr "uBR910 кабельный модуль"
 
 #: sheets/ciscotelephony.sheet.in.h:1
 msgid "6701"
-msgstr ""
+msgstr "6701"
 
 #: sheets/ciscotelephony.sheet.in.h:2
 msgid "6705"
-msgstr ""
+msgstr "6705"
 
 #: sheets/ciscotelephony.sheet.in.h:3
 msgid "6732"
-msgstr ""
+msgstr "6732"
 
 #: sheets/ciscotelephony.sheet.in.h:4
 msgid "ADM"
-msgstr ""
+msgstr "ADM"
 
 #: sheets/ciscotelephony.sheet.in.h:5
 msgid "ATA"
-msgstr ""
+msgstr "ATA"
 
 #: sheets/ciscotelephony.sheet.in.h:6
 msgid "BTS 10200"
-msgstr ""
+msgstr "BTS 10200"
 
 #: sheets/ciscotelephony.sheet.in.h:7
 msgid "CallManager"
-msgstr "МенеджерВызовов"
+msgstr "Менеджер вызовов"
 
 #: sheets/ciscotelephony.sheet.in.h:8
-#, fuzzy
 msgid "Cellular Phone"
 msgstr "Сотовый телефон"
 
 #: sheets/ciscotelephony.sheet.in.h:9
-#, fuzzy
 msgid "Cisco - Telephony"
-msgstr "Cisco - сеть"
+msgstr "Cisco - Телефония"
 
 #: sheets/ciscotelephony.sheet.in.h:10
 msgid "Class 4/5 switch"
 msgstr "Коммутатор класса 4/5"
 
 #: sheets/ciscotelephony.sheet.in.h:11
-#, fuzzy
 msgid "End Office"
-msgstr "Конец"
+msgstr "Конечный офис"
 
 #: sheets/ciscotelephony.sheet.in.h:12
 msgid "Fax"
@@ -8388,11 +8155,11 @@ msgstr "Факс"
 
 #: sheets/ciscotelephony.sheet.in.h:13
 msgid "Gatekeeper"
-msgstr ""
+msgstr "Привратник"
 
 #: sheets/ciscotelephony.sheet.in.h:14
 msgid "Generic softswitch"
-msgstr ""
+msgstr "Общий программный коммутатор"
 
 #: sheets/ciscotelephony.sheet.in.h:15
 msgid "H.323"
@@ -8400,7 +8167,7 @@ msgstr "H.323"
 
 #: sheets/ciscotelephony.sheet.in.h:16
 msgid "HootPhone"
-msgstr ""
+msgstr "Аппарат гудков"
 
 #: sheets/ciscotelephony.sheet.in.h:17
 msgid "IAD router"
@@ -8408,14 +8175,13 @@ msgstr "Маршрутизатор IAD"
 
 #: sheets/ciscotelephony.sheet.in.h:18
 msgid "ICM"
-msgstr ""
+msgstr "ICM"
 
 #: sheets/ciscotelephony.sheet.in.h:19
 msgid "ICS"
-msgstr ""
+msgstr "ICS"
 
 #: sheets/ciscotelephony.sheet.in.h:20
-#, fuzzy
 msgid "IP Phone"
 msgstr "IP-телефон"
 
@@ -8424,135 +8190,120 @@ msgid "IP Softphone"
 msgstr "Программная телефония на IP"
 
 #: sheets/ciscotelephony.sheet.in.h:22
-#, fuzzy
 msgid "IP Telephony Router"
 msgstr "Маршрутизатор IP-телефонии"
 
 #: sheets/ciscotelephony.sheet.in.h:23
 msgid "ITP"
-msgstr ""
+msgstr "ITP"
 
 #: sheets/ciscotelephony.sheet.in.h:24
 msgid "IntelliSwitch Stack"
-msgstr ""
+msgstr "Стэк IntelliSwitch"
 
 #: sheets/ciscotelephony.sheet.in.h:25
 msgid "MCU"
-msgstr ""
+msgstr "MCU"
 
 #: sheets/ciscotelephony.sheet.in.h:26
 msgid "MGX 8000 Series Voice Gateway"
-msgstr ""
+msgstr "Голосовой шлюз серий MGX 8000"
 
 #: sheets/ciscotelephony.sheet.in.h:27
-#, fuzzy
 msgid "MoH server (Music on Hold)"
-msgstr "Сохранять"
+msgstr "MoH сервер (музыка во время задержки)"
 
 #: sheets/ciscotelephony.sheet.in.h:28
-#, fuzzy
 msgid "Mobile Access IP Phone"
-msgstr "Мобильный телефон"
+msgstr "IP телефон мобильного доступа"
 
 #: sheets/ciscotelephony.sheet.in.h:29
-#, fuzzy
 msgid "Mobile Access Router"
-msgstr "Голосовой маршрутизатор"
+msgstr "Маршрутизатор мобильного доступа"
 
 #: sheets/ciscotelephony.sheet.in.h:30
 msgid "Octel"
-msgstr ""
+msgstr "Octel"
 
 #: sheets/ciscotelephony.sheet.in.h:31
 msgid "PBX"
-msgstr ""
+msgstr "PBX"
 
 #: sheets/ciscotelephony.sheet.in.h:32
-#, fuzzy
 msgid "PBX Switch"
-msgstr "Переключать"
+msgstr "Коммутатор PBX"
 
 #: sheets/ciscotelephony.sheet.in.h:33
-#, fuzzy
 msgid "Pager"
-msgstr "Границы страниц"
+msgstr "Пейджер"
 
 #: sheets/ciscotelephony.sheet.in.h:34
 msgid "Phone"
 msgstr "Телефон"
 
 #: sheets/ciscotelephony.sheet.in.h:35
-#, fuzzy
 msgid "Phone 2"
-msgstr "Телефон"
+msgstr "Телефон 2"
 
 #: sheets/ciscotelephony.sheet.in.h:36
-#, fuzzy
 msgid "Phone Appliance"
-msgstr "Общее"
+msgstr "Устройство телефона"
 
 #: sheets/ciscotelephony.sheet.in.h:37
-#, fuzzy
 msgid "Phone Ethernet"
-msgstr "Шина Ethernet"
+msgstr "Сеть телефона"
 
 #: sheets/ciscotelephony.sheet.in.h:38
-#, fuzzy
 msgid "Phone Feature"
-msgstr "Телефон/Факс"
+msgstr "Дополнение телефона"
 
 #: sheets/ciscotelephony.sheet.in.h:39
 msgid "Phone/Fax"
 msgstr "Телефон/Факс"
 
 #: sheets/ciscotelephony.sheet.in.h:40
-#, fuzzy
 msgid "Radio Tower"
 msgstr "Радиовышка"
 
 #: sheets/ciscotelephony.sheet.in.h:41
 msgid "SC2200 (Signalling Controller)"
-msgstr ""
+msgstr "SC2200 (Сигнальный Контроллер)"
 
 #: sheets/ciscotelephony.sheet.in.h:42
 msgid "SC2200/VSC3000 host"
-msgstr ""
+msgstr "Узел SC2200/VSC3000"
 
 #: sheets/ciscotelephony.sheet.in.h:43
-#, fuzzy
 msgid "SIP Proxy Server"
 msgstr "Прокси-сервер SIP"
 
 #: sheets/ciscotelephony.sheet.in.h:44
 msgid "SONET MUX"
-msgstr ""
+msgstr "Переключатель SONET"
 
 #: sheets/ciscotelephony.sheet.in.h:45
 msgid "STP"
-msgstr ""
+msgstr "STP"
 
 #: sheets/ciscotelephony.sheet.in.h:46
-#, fuzzy
 msgid "Softphone"
-msgstr "Южная точка"
+msgstr "Программный телефон"
 
 #: sheets/ciscotelephony.sheet.in.h:47
 msgid "TDM router"
-msgstr ""
+msgstr "Маршрутизатор TDM"
 
 #: sheets/ciscotelephony.sheet.in.h:48
-#, fuzzy
 msgid "Telephony shapes by Cisco"
-msgstr "Фигуры сетевых устройств от Cisco"
+msgstr "Фигуры телефонных устройств от Cisco"
 
 #: sheets/ciscotelephony.sheet.in.h:49
 msgid "Turret"
-msgstr ""
+msgstr "Башенка"
 
 #: sheets/ciscotelephony.sheet.in.h:50
-#, fuzzy
 msgid "Unity Express"
-msgstr "Серверный модуль"
+msgstr "Unity Express"
 
 #: sheets/ciscotelephony.sheet.in.h:51
 msgid "Unity server"
@@ -8560,26 +8311,23 @@ msgstr "Серверный модуль"
 
 #: sheets/ciscotelephony.sheet.in.h:52
 msgid "Virtual switch controller (VSC 3000)"
-msgstr ""
+msgstr "Виртуальный контроллер коммутации (VSC 3000)"
 
 #: sheets/ciscotelephony.sheet.in.h:53
-#, fuzzy
 msgid "Voice-Enabled ATM Switch"
 msgstr "Голосовой коммутатор ATM"
 
 #: sheets/ciscotelephony.sheet.in.h:54
-#, fuzzy
 msgid "Voice-Enabled Access Server"
-msgstr "Сервер голосовой коммуникации"
+msgstr "Сервер доступа голосовой коммуникации"
 
 #: sheets/ciscotelephony.sheet.in.h:55
-#, fuzzy
 msgid "Voice-Enabled Router"
 msgstr "Голосовой маршрутизатор"
 
 #: sheets/ciscotelephony.sheet.in.h:56
 msgid "uMG series"
-msgstr ""
+msgstr "uMG серии"
 
 #: sheets/civil.sheet.in.h:1
 msgid "Aerator with bubbles"
@@ -8595,7 +8343,7 @@ msgstr "Резервуар"
 
 #: sheets/civil.sheet.in.h:4
 msgid "Bivalent vertical rest"
-msgstr ""
+msgstr "Двусторонная вертикальная опора"
 
 #: sheets/civil.sheet.in.h:5
 msgid "Civil"
@@ -8606,14 +8354,12 @@ msgid "Civil Engineering Components"
 msgstr "Гражданские инженерные компоненты"
 
 #: sheets/civil.sheet.in.h:7
-#, fuzzy
 msgid "Container"
 msgstr "Контейнер"
 
 #: sheets/civil.sheet.in.h:8
-#, fuzzy
 msgid "Final-settling basin"
-msgstr "Отстойник"
+msgstr "Резервуар конечной обработки"
 
 #: sheets/civil.sheet.in.h:9
 msgid "Frequency converter"
@@ -8628,9 +8374,8 @@ msgid "Horizontal limiting line"
 msgstr "Горизонтальная ограничивающая линия"
 
 #: sheets/civil.sheet.in.h:12
-#, fuzzy
 msgid "Horizontal rest"
-msgstr "Горизонтальный переключатель"
+msgstr "Горизонтальная опора"
 
 #: sheets/civil.sheet.in.h:13
 msgid "Horizontally aligned arrow"
@@ -8653,7 +8398,6 @@ msgid "Motor"
 msgstr "Двигатель"
 
 #: sheets/civil.sheet.in.h:18
-#, fuzzy
 msgid "Preliminary clarification tank"
 msgstr "Резервуар предварительной очистки"
 
@@ -8674,9 +8418,8 @@ msgid "Vertical limiting line"
 msgstr "Вертикальная ограничивающая линия"
 
 #: sheets/civil.sheet.in.h:23
-#, fuzzy
 msgid "Vertical rest"
-msgstr "Вертикальный параллелограмм"
+msgstr "Вертикальная опора"
 
 #: sheets/civil.sheet.in.h:24
 msgid "Vertically aligned arrow"
@@ -8776,7 +8519,7 @@ msgstr "Кусочки пазлов"
 
 #: sheets/network.sheet.in.h:1
 msgid "24 Port Patch Panel"
-msgstr ""
+msgstr "24-х портовая пач панель"
 
 #: sheets/network.sheet.in.h:2
 msgid "3 1/2 inch diskette"
@@ -8792,7 +8535,7 @@ msgstr "Антенна для беспроводной передачи"
 
 #: sheets/network.sheet.in.h:5
 msgid "Bigtower PC"
-msgstr "ПК Большая Башня"
+msgstr "ПК большая башня"
 
 #: sheets/network.sheet.in.h:6
 msgid "Computer"
@@ -8824,11 +8567,11 @@ msgstr "Переносной компьютер ПК"
 
 #: sheets/network.sheet.in.h:13
 msgid "Miditower PC"
-msgstr "ПК Средняя Башня"
+msgstr "ПК средняя башня"
 
 #: sheets/network.sheet.in.h:14
 msgid "Minitower PC"
-msgstr "ПК Минибашня"
+msgstr "ПК минибашня"
 
 #: sheets/network.sheet.in.h:15
 msgid "Mobile phone"
@@ -8836,7 +8579,7 @@ msgstr "Мобильный телефон"
 
 #: sheets/network.sheet.in.h:16
 msgid "Mobile telephony base station"
-msgstr ""
+msgstr "Базовая станиция мобильной телефонии"
 
 #: sheets/network.sheet.in.h:17
 msgid "Mobile telephony cell"
@@ -8848,11 +8591,11 @@ msgstr "Модульная переключающая система"
 
 #: sheets/network.sheet.in.h:20
 msgid "Network"
-msgstr "Компьютерная Сеть"
+msgstr "Компьютерная сеть"
 
 #: sheets/network.sheet.in.h:21
 msgid "Network cloud"
-msgstr "Компьютерная Сеть"
+msgstr "Облако компьютерной сети"
 
 #: sheets/network.sheet.in.h:22
 msgid "Objects to design network diagrams with"
@@ -8912,11 +8655,11 @@ msgstr "WAN-соединение"
 
 #: sheets/network.sheet.in.h:36
 msgid "WAN link"
-msgstr ""
+msgstr "WAN линк"
 
 #: sheets/network.sheet.in.h:37
 msgid "Wall-plug for the scEAD cabling system"
-msgstr ""
+msgstr "Настенный коннектор для кабельной системы scEAD"
 
 #: sheets/network.sheet.in.h:38
 msgid "Workstation monitor"
@@ -8927,9 +8670,8 @@ msgid "ZIP disk"
 msgstr "ZIP-диск"
 
 #: sheets/sybase.sheet.in.h:1
-#, fuzzy
 msgid "Log transfer manager or rep agent"
-msgstr "Журнал"
+msgstr "Менеджер переноса журнала или агент архивирвоания"
 
 #: sheets/sybase.sheet.in.h:2
 msgid "Objects to design Sybase replication domain diagrams with"
@@ -8958,85 +8700,3 @@ msgstr "Сервер данных Sybase"
 #: sheets/sybase.sheet.in.h:8
 msgid "Sybase replication server"
 msgstr "Сервер репликаций Sybase"
-
-#~ msgid "Workstation"
-#~ msgstr "Рабочая станция"
-
-#~ msgid "Cisco hub"
-#~ msgstr "Концентратор Cisco"
-
-#, fuzzy
-#~ msgid "Voice switch 2"
-#~ msgstr "2"
-
-#~ msgid "Dot-Dot"
-#~ msgstr "Точка-точка"
-
-#, fuzzy
-#~ msgid "SVX (interchangeable with End office)"
-#~ msgstr "Конец"
-
-#, fuzzy
-#~ msgid "NetSonar security scanner"
-#~ msgstr "сканер"
-
-#~ msgid "PAD X.28"
-#~ msgstr "PAD X.28"
-
-#~ msgid "ATM router"
-#~ msgstr "Маршрутизатор ATM"
-
-#, fuzzy
-#~ msgid "ATM tag sw gigabit router"
-#~ msgstr "ATM"
-
-#, fuzzy
-#~ msgid "Gigabit switch router (ATM tag)"
-#~ msgstr "ATM"
-
-#, fuzzy
-#~ msgid "Router in building"
-#~ msgstr "дюйм"
-
-#, fuzzy
-#~ msgid "Router shapes by Cisco"
-#~ msgstr " "
-
-#~ msgid "Export to file format and exit.  Supported formats are: %s"
-#~ msgstr "Экспортировать в формат файла и вйыти. Поддерживаемые форматы: %s"
-
-#~ msgid "FORMAT"
-#~ msgstr "ФОРМАТ"
-
-#~ msgid "Close"
-#~ msgstr "Закрыть"
-
-#~ msgid "/Help/_Manual"
-#~ msgstr "/Справка/_Руководство"
-
-#~ msgid "Diagram editor"
-#~ msgstr "Редактор диаграмм"
-
-#~ msgid "Select font"
-#~ msgstr "Выберите шрифт"
-
-#~ msgid "GdkPixbuf bitmap"
-#~ msgstr "Растровое изображение GdkPixbuf"
-
-#~ msgid "Unexpected SVG path element"
-#~ msgstr "Неожидаемый элемент пути SVG"
-
-#~ msgid "Courier"
-#~ msgstr "Courier"
-
-#~ msgid "Could not find SVG namespace."
-#~ msgstr "Невозможно найти пространство имён SVG."
-
-#~ msgid "Could not open `%s' for writing"
-#~ msgstr "Не удалось открыть: '%s' для записи."
-
-#~ msgid "Can't open history file for writing."
-#~ msgstr "Не удалось открыть файл истории для записи."
-
-#~ msgid "Helvetica"
-#~ msgstr "Helvetica"
