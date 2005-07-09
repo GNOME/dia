@@ -185,12 +185,19 @@ create_object_pixmap(DiaObject *object, GtkWidget *parent,
   style = gtk_widget_get_style(parent);
   
   if (object->type->pixmap != NULL) {
-    *pixmap =
-      gdk_pixmap_colormap_create_from_xpm_d(NULL,
-					    gtk_widget_get_colormap(parent),
-					    mask, 
-					    &style->bg[GTK_STATE_NORMAL],
-					    object->type->pixmap);
+    if (strncmp(object->type->pixmap, "GdkP", 4) == 0) {
+      GdkPixbuf *p;
+      printf("Making GdkP pixmap for %s\n", object->type->name);
+      p = gdk_pixbuf_new_from_inline(-1, object->type->pixmap, TRUE, NULL);
+      gdk_pixbuf_render_pixmap_and_mask(p, pixmap, mask, 128);
+    } else {
+      *pixmap =
+	gdk_pixmap_colormap_create_from_xpm_d(NULL,
+					      gtk_widget_get_colormap(parent),
+					      mask, 
+					      &style->bg[GTK_STATE_NORMAL],
+					      object->type->pixmap);
+    }
   } else if (object->type->pixmap_file != NULL) {
     *pixmap =
       gdk_pixmap_colormap_create_from_xpm(NULL,

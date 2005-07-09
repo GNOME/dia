@@ -1,3 +1,12 @@
+2005-07-09  Lars Clausen  <lars@raeder.dk>
+
+	* objects/standard/pixmaps/*.png:
+	* objects/standard/Makefile.am:
+	* objects/standard/*.c:
+	* app/interface.c (create_tools): 
+	* app/diagram_tree.c (create_object_pixmap): Fix icon loading. use
+	new icons. [Slightly belated entry]
+
 2005-07-03  Hans Breuer  <hans@breuer.org>
 
 	* app/diagram_tree.c : dont leak display name
