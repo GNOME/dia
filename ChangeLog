@@ -10,8 +10,10 @@
 	This OrthConn fork got broken as well. Fixes bug #309381
 
 	* app/makefile.msc objects/makefile.msc : adapt to icon changes
-	* app/interface.c : a char** is still not a char* and
-	the win32 build is configured to error on sloppiness like this
+
+	* app/interface.c app/diagram_tree.c : a char** is still not 
+	a char* and the win32 build is configured to error on 
+	sloppiness like this
 
 	* plug-ins/wmf/wmf.cpp : fix typo in preprocessor condition
 
@@ -31,11 +33,11 @@
 	* app/Makefile.am : use 22x22 variants mostly lent from The GIMP
 	* app/pixmaps/*.png : added arrow-22.png scroll-22.png zoom-22.png
 
-	* object/standard/*.c : get rid of xpm includes to avoid mixing icon sets
-	* object/standard/pixmap/* : added arc.png beziergon.png 
+	* objects/standard/*.c : get rid of xpm includes to avoid mixing icon sets
+	* objects/standard/pixmap/* : added arc.png beziergon.png 
 	bezierline.png box.png ellipse.png image.png line.png polygon.png 
 	polyline.png text.png zigzagline.png
-	* object/standard/Makefile.am : use the new icon set including
+	* objects/standard/Makefile.am : use the new icon set including
 	text and arc ...
 
 	* app/interface.c : remove the "will probably crash" debug spew

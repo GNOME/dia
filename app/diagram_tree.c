@@ -185,10 +185,9 @@ create_object_pixmap(DiaObject *object, GtkWidget *parent,
   style = gtk_widget_get_style(parent);
   
   if (object->type->pixmap != NULL) {
-    if (strncmp(object->type->pixmap, "GdkP", 4) == 0) {
+    if (strncmp((char *)object->type->pixmap, "GdkP", 4) == 0) {
       GdkPixbuf *p;
-      printf("Making GdkP pixmap for %s\n", object->type->name);
-      p = gdk_pixbuf_new_from_inline(-1, object->type->pixmap, TRUE, NULL);
+      p = gdk_pixbuf_new_from_inline(-1, (guint8*)object->type->pixmap, TRUE, NULL);
       gdk_pixbuf_render_pixmap_and_mask(p, pixmap, mask, 128);
     } else {
       *pixmap =
