@@ -258,7 +258,7 @@ end_render(DiaRenderer *self)
     DIAG_NOTE(renderer, "end_render\n");
     hEmf = W32::CloseEnhMetaFile(renderer->hFileDC);
 
-#if !definded SAVE_EMF && defined G_OS_WIN32 /* the later offers both */
+#if !defined SAVE_EMF && defined G_OS_WIN32 /* the later offers both */
     /* Don't do it when printing */
     if (renderer->sFileName && strlen (renderer->sFileName)) {
 

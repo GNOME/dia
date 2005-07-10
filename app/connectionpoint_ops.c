@@ -38,16 +38,17 @@ connectionpoint_draw(ConnectionPoint *conpoint,
   DiaInteractiveRendererInterface *irenderer =
     DIA_GET_INTERACTIVE_RENDERER_INTERFACE (ddisp->renderer);
   
-  /* Don't draw the "whole object" connpoints */
+  /* draw the "whole object"/center connpoints */
   if (conpoint->flags & CP_FLAG_ANYPLACE) {
-    /* Temporarily draw it extra visible! */
-    /*
     static Color midpoint_color = { 1.0, 0.0, 0.0 };
 
     ddisplay_transform_coords(ddisp, point->x, point->y, &x, &y);
     
+    /* Temporarily draw it extra visible! */
+    /*
     renderer_ops->set_linewidth (renderer, 0.1);
     renderer_ops->set_linestyle (renderer, LINESTYLE_SOLID);
+    */
 
     irenderer->draw_pixel_line (renderer,
 				x-CP_SZ,y-CP_SZ,
@@ -58,7 +59,6 @@ connectionpoint_draw(ConnectionPoint *conpoint,
 				x+CP_SZ,y-CP_SZ,
 				x-CP_SZ,y+CP_SZ,
 				&midpoint_color);
-    */
     return;
   }
 

@@ -662,14 +662,19 @@ tool_select_callback(GtkWidget *widget, gpointer data) {
 }
 */
 
+/*
+ * Don't look too deep into this function. It is doing bad things
+ * with casts to conform to the historically interface. We now
+ * the difference between char* and char** - most of the time ;)
+ */
 static GtkWidget *
-create_widget_from_xpm_or_gdkp(gchar *icon_data, GtkWidget *button) 
+create_widget_from_xpm_or_gdkp(gchar **icon_data, GtkWidget *button) 
 {
   GtkWidget *pixmapwidget;
 
-  if (strncmp(icon_data, "GdkP", 4) == 0) {
+  if (strncmp((char*)icon_data, "GdkP", 4) == 0) {
     GdkPixbuf *p;
-    p = gdk_pixbuf_new_from_inline(-1, icon_data, TRUE, NULL);
+    p = gdk_pixbuf_new_from_inline(-1, (char*)icon_data, TRUE, NULL);
     pixmapwidget = gtk_image_new_from_pixbuf(p);
   } else {
     GdkBitmap *mask = NULL;

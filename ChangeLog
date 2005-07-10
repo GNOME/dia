@@ -1,5 +1,22 @@
 2005-07-10  Hans Breuer  <hans@breuer.org>
 
+	* app/connectionpoint_ops.c app/object_ops.c : make the
+	'whole object' connection point only center point again. 
+	That is: it is visible and far less magnetic. Only the
+	line gap handling make it special. For me this probably
+	fixes bug #303301
+
+	* lib/neworth_conn.c : apply the same as for bug #173031.
+	This OrthConn fork got broken as well. Fixes bug #309381
+
+	* app/makefile.msc objects/makefile.msc : adapt to icon changes
+	* app/interface.c : a char** is still not a char* and
+	the win32 build is configured to error on sloppiness like this
+
+	* plug-ins/wmf/wmf.cpp : fix typo in preprocessor condition
+
+2005-07-10  Hans Breuer  <hans@breuer.org>
+
 	[
 	  Take part in the toolbox icon redesign context! If you want to 
 	  make them really prettier, please keep the following in mind :
