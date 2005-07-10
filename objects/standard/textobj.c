@@ -33,7 +33,7 @@
 #include "widgets.h"
 #include "properties.h"
 
-#include "pixmaps/text.xpm"
+#include "tool-icons.h"
 
 #define HANDLE_TEXT HANDLE_CUSTOM1
 
@@ -88,7 +88,7 @@ DiaObjectType textobj_type =
 {
   "Standard - Text",   /* name */
   0,                   /* version */
-  (char **) text_xpm,  /* pixmap */
+  (char **) text_icon,  /* pixmap */
 
   &textobj_type_ops    /* ops */
 };

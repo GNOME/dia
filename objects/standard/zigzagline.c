@@ -34,7 +34,6 @@
 #include "properties.h"
 #include "autoroute.h"
 
-#include "pixmaps/zigzag.xpm"
 #include "tool-icons.h"
 
 #define DEFAULT_WIDTH 0.15

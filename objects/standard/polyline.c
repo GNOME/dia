@@ -36,7 +36,6 @@
 
 #include "create.h"
 
-#include "pixmaps/polyline.xpm"
 #include "tool-icons.h"
 
 #define DEFAULT_WIDTH 0.15

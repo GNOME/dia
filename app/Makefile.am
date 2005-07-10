@@ -44,9 +44,9 @@ ICON_PNG_PAIRS= \
 	dia_visible_empty_icon pixmaps/visible-empty.png \
         dia_diagram_icon ../dia-diagram.png \
 	dia_app_icon ../dia_gnome_icon.png \
-	dia_modify_tool_icon pixmaps/modify-24x24.png \
-	dia_scroll_tool_icon pixmaps/scroll-24x24.png \
-	dia_zoom_tool_icon pixmaps/zoom-24x24.png \
+	dia_modify_tool_icon pixmaps/arrow-22.png \
+	dia_scroll_tool_icon pixmaps/scroll-22.png \
+	dia_zoom_tool_icon pixmaps/zoom-22.png \
 	dia_group_icon pixmaps/group.png \
 	dia_ungroup_icon pixmaps/ungroup.png
 

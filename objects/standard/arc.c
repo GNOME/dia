@@ -33,7 +33,7 @@
 #include "arrows.h"
 #include "properties.h"
 
-#include "pixmaps/arc.xpm"
+#include "tool-icons.h"
 
 #define DEFAULT_WIDTH 0.25
 
@@ -104,7 +104,7 @@ DiaObjectType arc_type =
 {
   "Standard - Arc",  /* name */
   0,                 /* version */
-  (char **) arc_xpm, /* pixmap */
+  (char **) arc_icon, /* pixmap */
   
   &arc_type_ops      /* ops */
 };

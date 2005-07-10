@@ -17,28 +17,30 @@ libstandard_objects_la_SOURCES = 	arc.c \
 libstandard_objects_la_LDFLAGS = -export-dynamic -module -avoid-version
 
 ICON_PNG_PAIRS= \
-	arc_icon pixmaps/arc-24x24.png \
-	beziergon_icon pixmaps/beziergon-24x24.png \
-	bezierline_icon pixmaps/bezierline-24x24.png \
-	box_icon pixmaps/box-24x24.png \
-	ellipse_icon pixmaps/ellipse-24x24.png \
-	image_icon pixmaps/image-24x24.png \
-	line_icon pixmaps/line-24x24.png \
-	polygon_icon pixmaps/polygon-24x24.png \
-	polyline_icon pixmaps/polyline-24x24.png \
-	zigzagline_icon pixmaps/zigzagline-24x24.png
+	arc_icon pixmaps/arc.png \
+	beziergon_icon pixmaps/beziergon.png \
+	bezierline_icon pixmaps/bezierline.png \
+	box_icon pixmaps/box.png \
+	ellipse_icon pixmaps/ellipse.png \
+	image_icon pixmaps/image.png \
+	line_icon pixmaps/line.png \
+	polygon_icon pixmaps/polygon.png \
+	polyline_icon pixmaps/polyline.png \
+	text_icon pixmaps/text.png \
+	zigzagline_icon pixmaps/zigzagline.png
 
 ICON_PNGS= \
-	pixmaps/arc-24x24.png \
-	pixmaps/beziergon-24x24.png \
-	pixmaps/bezierline-24x24.png \
-	pixmaps/box-24x24.png \
-	pixmaps/ellipse-24x24.png \
-	pixmaps/image-24x24.png \
-	pixmaps/line-24x24.png \
-	pixmaps/polygon-24x24.png \
-	pixmaps/polyline-24x24.png \
-	pixmaps/zigzagline-24x24.png 
+	pixmaps/arc.png \
+	pixmaps/beziergon.png \
+	pixmaps/bezierline.png \
+	pixmaps/box.png \
+	pixmaps/ellipse.png \
+	pixmaps/image.png \
+	pixmaps/line.png \
+	pixmaps/polygon.png \
+	pixmaps/polyline.png \
+	pixmaps/text.png \
+	pixmaps/zigzagline.png 
 
 tool-icons.h: $(ICON_PNGS)
 	gdk-pixbuf-csource --raw --build-list $(ICON_PNG_PAIRS) > tool-icons.h

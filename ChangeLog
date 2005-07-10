@@ -1,3 +1,28 @@
+2005-07-10  Hans Breuer  <hans@breuer.org>
+
+	[
+	  Take part in the toolbox icon redesign context! If you want to 
+	  make them really prettier, please keep the following in mind :
+	  - the size *must* be 22x22 otherwise button reflow will get broken.
+	    Or you need to change about 800 icons at once.
+	  - one important part of Dia are control points, so maybe the icons
+	    should reflect that. (IMO gathering random icons form other 
+	    apps wont work)
+	  - the icons should at least look consistent in their group
+	]
+
+	* app/Makefile.am : use 22x22 variants mostly lent from The GIMP
+	* app/pixmaps/*.png : added arrow-22.png scroll-22.png zoom-22.png
+
+	* object/standard/*.c : get rid of xpm includes to avoid mixing icon sets
+	* object/standard/pixmap/* : added arc.png beziergon.png 
+	bezierline.png box.png ellipse.png image.png line.png polygon.png 
+	polyline.png text.png zigzagline.png
+	* object/standard/Makefile.am : use the new icon set including
+	text and arc ...
+
+	* app/interface.c : remove the "will probably crash" debug spew
+
 2005-07-09  Lars Clausen  <lars@raeder.dk>
 
 	* objects/standard/pixmaps/*.png:

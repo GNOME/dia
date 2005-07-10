@@ -669,9 +669,7 @@ create_widget_from_xpm_or_gdkp(gchar *icon_data, GtkWidget *button)
 
   if (strncmp(icon_data, "GdkP", 4) == 0) {
     GdkPixbuf *p;
-    printf("Creating icon - this will probably crash\n");
     p = gdk_pixbuf_new_from_inline(-1, icon_data, TRUE, NULL);
-    printf("Got pixbuf %p\n", p);
     pixmapwidget = gtk_image_new_from_pixbuf(p);
   } else {
     GdkBitmap *mask = NULL;

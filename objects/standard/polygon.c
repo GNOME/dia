@@ -34,7 +34,6 @@
 #include "message.h"
 #include "properties.h"
 
-#include "pixmaps/polygon.xpm"
 #include "tool-icons.h"
 
 #include "create.h"

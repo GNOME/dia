@@ -35,7 +35,6 @@
 #include "connpoint_line.h"
 #include "properties.h"
 
-#include "pixmaps/line.xpm"
 #include "tool-icons.h"
 
 #define DEFAULT_WIDTH 0.25

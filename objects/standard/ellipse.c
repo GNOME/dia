@@ -33,7 +33,6 @@
 #include "message.h"
 #include "properties.h"
 
-#include "pixmaps/ellipse.xpm"
 #include "tool-icons.h"
 
 #define DEFAULT_WIDTH 2.0

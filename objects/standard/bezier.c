@@ -38,7 +38,6 @@
 #include "properties.h"
 #include "create.h"
 
-#include "pixmaps/bezier.xpm"
 #include "tool-icons.h"
 
 #define DEFAULT_WIDTH 0.15
