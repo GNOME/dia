@@ -190,6 +190,38 @@ OBJECTS = \
 	standard.obj \
 	textobj.obj \
 	zigzagline.obj
+
+ICON_PNG_PAIRS= \
+	arc_icon pixmaps\arc.png \
+	beziergon_icon pixmaps\beziergon.png \
+	bezierline_icon pixmaps\bezierline.png \
+	box_icon pixmaps\box.png \
+	ellipse_icon pixmaps\ellipse.png \
+	image_icon pixmaps\image.png \
+	line_icon pixmaps\line.png \
+	polygon_icon pixmaps\polygon.png \
+	polyline_icon pixmaps\polyline.png \
+	text_icon pixmaps\text.png \
+	zigzagline_icon pixmaps\zigzagline.png
+
+ICON_PNGS= \
+	pixmaps\arc.png \
+	pixmaps\beziergon.png \
+	pixmaps\bezierline.png \
+	pixmaps\box.png \
+	pixmaps\ellipse.png \
+	pixmaps\image.png \
+	pixmaps\line.png \
+	pixmaps\polygon.png \
+	pixmaps\polyline.png \
+	pixmaps\text.png \
+	pixmaps\zigzagline.png 
+
+$(OBJECTS) : tool-icons.h
+
+tool-icons.h: $(ICON_PNGS)
+	gdk-pixbuf-csource --raw --build-list $(ICON_PNG_PAIRS) > tool-icons.h
+
 !ENDIF
 
 !IFDEF OBJ_specware
