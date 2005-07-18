@@ -87,7 +87,8 @@ static ObjectTypeOps participation_type_ops =
 DiaObjectType participation_type =
 {
   "ER - Participation",   /* name */
-  0,                      /* version */
+  /* Version 0 had no autorouting and so shouldn't have it set by default. */
+  1,                      /* version */
   (char **) participation_xpm,  /* pixmap */
   
   &participation_type_ops       /* ops */

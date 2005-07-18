@@ -1523,7 +1523,7 @@ fig_read_meta_data(FILE *file, DiagramData *dia) {
 	if (!feof(file)) {
 	    message_error(_("Error reading FIG file: %s\n"), strerror(errno));
 	} else {
-	    message_error(_("Premature end of FIG file\n"), strerror(errno));
+	    message_error(_("Premature end of FIG file\n"));
 	}
 	return FALSE;
     }
@@ -1557,7 +1557,8 @@ import_fig(const gchar *filename, DiagramData *dia, void* user_data) {
 
     figfile = fopen(filename,"r");
     if(figfile == NULL){
-	message_error(_("Couldn't open: '%s' for reading.\n"), filename);
+	message_error(_("Couldn't open: '%s' for reading.\n"), 
+		      dia_message_filename(filename));
 	return FALSE;
     }
   
@@ -1578,7 +1579,7 @@ import_fig(const gchar *filename, DiagramData *dia, void* user_data) {
 	if (!feof(figfile)) {
 	    message_error(_("Error reading FIG file: %s\n"), strerror(errno));
 	} else {
-	    message_error(_("Premature end of FIG file\n"), strerror(errno));
+	    message_error(_("Premature end of FIG file\n"));
 	}
 	fclose(figfile);
 	return FALSE;

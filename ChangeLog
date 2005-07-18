@@ -1,3 +1,37 @@
+2005-07-18  Lars Clausen  <lars@LittlePooter.local.>
+
+	* objects/EML/instantiation.c (instantiation_load): 
+	* objects/EML/interaction-ortho.c (interaction_ortho_type): 
+	* objects/ER/participation.c (participation_type): 
+	* objects/FS/flow-ortho.c (orthflow_type): 
+	* objects/GRAFCET/vector.c (arc_load): 
+	* objects/standard/zigzagline.c (zigzagline_type): 
+	* objects/UML/transition.c (transition_load): 
+	* objects/UML/realizes.c (realizes_load): 
+	* objects/UML/dependency.c (dependency_load): 
+	* objects/UML/generalization.c (generalization_type): 
+	* objects/UML/association.c (association_type): 
+	* objects/UML/component_feature.c (compfeat_load): 
+	Make autorouting deafult on except for old diagrams.
+
+	* plug-ins/cairo/diacairo.c (export_data): 
+	* plug-ins/cgm/cgm.c (export_cgm): 
+	* plug-ins/dxf/dxf-export.c (export_dxf): 
+	* plug-ins/dxf/dxf-import.c: 
+	* plug-ins/hpgl/hpgl.c (export_data): 
+	* plug-ins/metapost/render_metapost.c: 
+	* plug-ins/pixbuf/pixbuf.c: 
+	* plug-ins/pstricks/render_pstricks.c: 
+	* plug-ins/python/pydia-render.c: 
+	* plug-ins/shape/shape-export.c: 
+	* plug-ins/svg/render_svg.c: 
+	* plug-ins/svg/svg-import.c: 
+	* plug-ins/wpg/wpg.c 
+	* plug-ins/xfig/xfig-export.c: 
+	* plug-ins/xfig/xfig-import.c: 
+	* plug-ins/xslt/xslt.c: Use dia_message_filename to ensure legal
+	UTF-8 in message boxes.
+
 2005-07-18  Lars Clausen  <lars@raeder.dk>
 
 	* lib/element.h (ELEMENT_COMMON_PROPERTIES): Allow Element objects
@@ -903,7 +937,7 @@
 	* app/connectionpoint_ops.c (connectionpoint_draw): Don't draw
 	CP_FLAG_ANYPLACE connpoints.
 
-2005-03-16  Lars Clausen  <lars@LittlePooter.local.>
+2005-03-16  Lars Clausen  <lars@raeder.dk>
 
 	* app/interface.c (create_tools): Removed debug printf.
 

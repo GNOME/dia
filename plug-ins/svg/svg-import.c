@@ -614,7 +614,8 @@ import_svg(const gchar *filename, DiagramData *dia, void* user_data)
   GList *items, *item;
 
   if (!doc) {
-    message_warning("parse error for %s", filename);
+    message_warning("parse error for %s", 
+		    dia_message_filename(filename));
     return FALSE;
   }
   /* skip (emacs) comments */

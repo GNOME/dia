@@ -665,10 +665,14 @@ orthconn_load(OrthConn *orth, ObjectNode obj_node) /* NOTE: Does object_init() *
     data = data_next(data);
   }
 
-  orth->autorouting = FALSE;
+  orth->autorouting = TRUE;
   attr = object_find_attribute(obj_node, "autorouting");
   if (attr != NULL)
     orth->autorouting = data_boolean(attribute_first_data(attr));
+  else if (version == 0) {
+    /* Version 0 orthconns have no autorouting. */
+    orth->autorouting = FALSE;
+  }
 
   orth->handles = g_malloc0((orth->numpoints-1)*sizeof(Handle *));
 

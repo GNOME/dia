@@ -207,7 +207,8 @@ static ObjectTypeOps association_type_ops =
 DiaObjectType association_type =
 {
   "UML - Association",   /* name */
-  0,                      /* version */
+  /* Version 0 had no autorouting and so shouldn't have it set by default. */
+  1,                      /* version */
   (char **) association_xpm,  /* pixmap */
   
   &association_type_ops,      /* ops */

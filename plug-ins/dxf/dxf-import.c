@@ -1294,14 +1294,17 @@ void read_section_blocks_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 }
 
 /* imports the given dxf-file, returns TRUE if successful */
-gboolean import_dxf(const gchar *filename, DiagramData *dia, void* user_data){
+gboolean
+import_dxf(const gchar *filename, DiagramData *dia, void* user_data)
+{
     FILE *filedxf;
     DxfData *data;
     int codedxf;
     
     filedxf = fopen(filename,"r");
     if(filedxf == NULL){
-        message_error(_("Couldn't open: '%s' for reading.\n"), filename);
+        message_error(_("Couldn't open: '%s' for reading.\n"), 
+		      dia_message_filename(filename));
         return FALSE;
     }
     

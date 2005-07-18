@@ -88,7 +88,7 @@ export_data(DiagramData *data, const gchar *filename,
   if (error)
     {
       message_warning(_("Could not save file:\n%s\n%s"),
-                      filename,
+		      dia_message_filename(filename),
                       error->message);
       g_error_free (error);
     }

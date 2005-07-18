@@ -101,7 +101,8 @@ static ObjectTypeOps uml_transition_type_ops = {
    GRAFCET transition */
 DiaObjectType uml_transition_type = {
   "UML - Transition",       /* Name */
-  0,                        /* Version */
+  /* Version 0 had no autorouting and so shouldn't have it set by default. */
+  1,                      /* version */
   (char **) transition_xpm, /* Pixmap */
   &uml_transition_type_ops
 };
@@ -226,8 +227,16 @@ transition_create(Point *startpoint,
 static DiaObject *transition_load(ObjectNode obj_node, int version,
                                   const char *filename)
 {
-  return object_load_using_properties(&uml_transition_type,
-                                      obj_node,version,filename);
+  DiaObject *obj = object_load_using_properties(&uml_transition_type,
+                                                obj_node,version,filename);
+  if (version == 0) {
+    AttributeNode attr;
+    /* In old objects with no autorouting, set it to false. */
+    attr = object_find_attribute(obj_node, "autorouting");
+    if (attr == NULL)
+      ((OrthConn*)obj)->autorouting = FALSE;
+  }
+  return obj;
 }
 
 static void

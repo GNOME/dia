@@ -134,7 +134,8 @@ static ObjectTypeOps orthflow_type_ops =
 DiaObjectType orthflow_type =
 {
   "FS - Orthflow",		/* name */
-  0,				/* version */
+  /* Version 0 had no autorouting and so shouldn't have it set by default. */
+  1,                      /* version */
   (char **) orthflow_xpm,	/* pixmap */
   &orthflow_type_ops		/* ops */
 };

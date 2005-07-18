@@ -1148,7 +1148,8 @@ export_cgm(DiagramData *data, const gchar *filename,
     file = fopen(filename, "wb");
 
     if (file == NULL) {
-	message_error(_("Can't open output file %s: %s\n"), filename, strerror(errno));
+	message_error(_("Can't open output file %s: %s\n"), 
+		      dia_message_filename(filename), strerror(errno));
 	return;
     }
 

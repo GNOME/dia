@@ -1067,7 +1067,8 @@ export_data(DiagramData *data, const gchar *filename,
   file = fopen(filename, "wb"); /* "wb" for binary! */
 
   if (file == NULL) {
-    message_error(_("Can't open output file %s: %s\n"), filename, strerror(errno));
+    message_error(_("Can't open output file %s: %s\n"), 
+		  dia_message_filename(filename), strerror(errno));
     return;
   }
 
@@ -1171,7 +1172,8 @@ import_data (const gchar *filename, DiagramData *dia, void* user_data)
   f = fopen(filename, "rb");
 
   if (NULL == f) {
-    message_error(_("Couldn't open: '%s' for reading.\n"), filename);
+    message_error(_("Couldn't open: '%s' for reading.\n"), 
+		  dia_message_filename(filename));
     bRet = FALSE;
   }
   
@@ -1183,7 +1185,8 @@ import_data (const gchar *filename, DiagramData *dia, void* user_data)
             && fhead.fid[2] == 'P' && fhead.fid[3] == 'C'
             && (1 == fhead.MajorVersion) && (0 == fhead.MinorVersion));
     if (!bRet)
-      message_error(_("File: %s type/version unsupported.\n"), filename);
+      message_error(_("File: %s type/version unsupported.\n"), 
+		    dia_message_filename(filename));
   }
 
   if (bRet) {

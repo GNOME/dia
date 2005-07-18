@@ -102,7 +102,8 @@ static ObjectTypeOps instantiation_type_ops =
 DiaObjectType instantiation_type =
 {
   "EML - Instantiation",   /* name */
-  0,                      /* version */
+  /* Version 0 had no autorouting and so shouldn't have it set by default. */
+  1,                      /* version */
   (char **) instantiation_xpm,  /* pixmap */
   
   &instantiation_type_ops       /* ops */
@@ -532,6 +533,14 @@ static DiaObject *
 instantiation_load(ObjectNode obj_node, int version,
 		    const char *filename)
 {
-  return object_load_using_properties(&instantiation_type,
-                                      obj_node,version,filename);
+  DiaObject *obj = object_load_using_properties(&instantiation_type,
+                                                obj_node,version,filename);
+  if (version == 0) {
+    AttributeNode attr;
+    /* In old objects with no autorouting, set it to false. */
+    attr = object_find_attribute(obj_node, "autorouting");
+    if (attr == NULL)
+      ((OrthConn*)obj)->autorouting = FALSE;
+  }
+  return obj;
 }

@@ -91,7 +91,8 @@ static ObjectTypeOps zigzagline_type_ops =
 static DiaObjectType zigzagline_type =
 {
   "Standard - ZigZagLine",   /* name */
-  0,                         /* version */
+  /* Version 0 had no autorouting and so shouldn't have it set by default. */
+  1,                      /* version */
   (char **) zigzagline_icon,      /* pixmap */
   
   &zigzagline_type_ops       /* ops */

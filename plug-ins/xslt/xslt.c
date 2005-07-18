@@ -82,14 +82,16 @@ xslt_ok(void)
 	file = fopen(diafilename, "r");
 
 	if (file == NULL) {
-	    message_error(_("Couldn't open: '%s' for reading.\n"), diafilename);
+	    message_error(_("Couldn't open: '%s' for reading.\n"), 
+			  dia_message_filename(diafilename));
 	    return;
 	}
 
 	out = fopen(filename, "w+");
 	
 	if (out == NULL) {
-	  message_error(_("Can't open output file %s: %s\n"), filename, strerror(errno));
+	  message_error(_("Can't open output file %s: %s\n"), 
+			dia_message_filename(filename), strerror(errno));
 	  return;
 	}
 	
@@ -97,7 +99,8 @@ xslt_ok(void)
 	doc = xmlParseFile(diafilename);
 
 	if(doc == NULL) {
-		message_error(_("Error while parsing %s\n"), diafilename);
+		message_error(_("Error while parsing %s\n"), 
+			      dia_message_filename(diafilename));
 		return;
 	}
 	
@@ -105,13 +108,15 @@ xslt_ok(void)
 
 	style = xsltParseStylesheetFile((const xmlChar *) stylefname);
 	if(style == NULL) {
-		message_error(_("Error while parsing stylesheet %s\n"), stylefname);
+		message_error(_("Error while parsing stylesheet %s\n"), 
+			      dia_message_filename(stylefname));
 		return;
 	}
 	
 	res = xsltApplyStylesheet(style, doc, NULL);
 	if(res == NULL) {
-		message_error(_("Error while applying stylesheet %s\n"), stylefname);
+		message_error(_("Error while applying stylesheet %s\n"), 
+			      dia_message_filename(stylefname));
 		return;
 	}       
 
@@ -119,7 +124,8 @@ xslt_ok(void)
 
 	codestyle = xsltParseStylesheetFile((const xmlChar *) stylefname);
 	if(codestyle == NULL) {
-	    message_error(_("Error while parsing stylesheet: %s\n"), stylefname);
+	    message_error(_("Error while parsing stylesheet: %s\n"), 
+			  dia_message_filename(stylefname));
 	    return;
 	}
 	
@@ -127,7 +133,8 @@ xslt_ok(void)
 	
 	doc = xsltApplyStylesheet(codestyle, res, (const char **) params);
 	if(doc == NULL) {
-		message_error(_("Error while applying stylesheet: %s\n"), stylefname);
+		message_error(_("Error while applying stylesheet: %s\n"), 
+			      dia_message_filename(stylefname));
 		return;
 	}
 
