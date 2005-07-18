@@ -798,14 +798,15 @@ on_sheets_new_dialog_button_ok_clicked (GtkButton       *button,
     if (strcmp(p, ".shape"))
     {
       message_error(_("Filename must end with '%s': '%s'"),
-                    ".shape", file_name);
+                    ".shape", dia_message_filename(file_name));
       g_free(file_name);
       return;
     }
 
     if (stat(file_name, &stat_buf) == -1)
     {
-      message_error(_("Error examining %s: %s"), file_name, strerror(errno));
+      message_error(_("Error examining %s: %s"), 
+		    dia_message_filename(file_name), strerror(errno));
       g_free(file_name);
       return;
     }
@@ -825,7 +826,8 @@ on_sheets_new_dialog_button_ok_clicked (GtkButton       *button,
 
     if (!(*custom_object_load_fn)(file_name, &ot))
     {
-      message_error(_("Could not interpret shape file: '%s'"), file_name);
+      message_error(_("Could not interpret shape file: '%s'"), 
+		    dia_message_filename(file_name));
       g_free(file_name);
       return;
     }
@@ -1591,13 +1593,15 @@ copy_file(gchar *src, gchar *dst)
 
   if ((fp_src = fopen(src, "rb")) == NULL)
   {
-    message_error(_("Couldn't open '%s': %s"), src, strerror(errno));
+    message_error(_("Couldn't open '%s': %s"), 
+		  dia_message_filename(src), strerror(errno));
     return FALSE;
   }
  
   if ((fp_dst = fopen(dst, "wb")) == NULL)
   {
-    message_error(_("Couldn't open '%s': %s"), dst, strerror(errno));
+    message_error(_("Couldn't open '%s': %s"), 
+		  dia_message_filename(dst), strerror(errno));
     return FALSE;
   }
 
@@ -1648,7 +1652,8 @@ write_user_sheet(Sheet *sheet)
    
   if (file==NULL)
   {
-    message_error(_("Couldn't open: '%s' for writing"), filename);
+    message_error(_("Couldn't open: '%s' for writing"), 
+		  dia_message_filename(filename));
     g_free(filename);
     return FALSE;
   }

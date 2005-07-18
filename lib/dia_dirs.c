@@ -21,6 +21,7 @@
 #include <string.h> /* strlen() */
 
 #include "dia_dirs.h"
+#include "intl.h"
 #include "message.h"
 #ifdef G_OS_WIN32
 #include <windows.h>
@@ -188,6 +189,41 @@ dia_get_canonical_path (const gchar *path)
   return ret;
 }
 
+/** Returns an filename in UTF-8 encoding from filename in filesystem
+ * encoding. 
+ * The value returned is a pointer to static array.
+ * Note: The string can be used AFTER the next call to this function
+ *       Written like glib/gstrfuncs.c#g_strerror()
+ * In GTK < 2.6, invalid sequences are not 
+ */
+
+const gchar *
+dia_message_filename (const gchar *filename)
+{
+  gchar *tmp;
+#if GLIB_CHECK_VERSION(2,6,0)
+  tmp = g_filename_display_name(filename);
+#else
+  gsize num_read;
+  tmp = g_filename_to_utf8(filename, -1, &num_read, NULL, NULL);
+  if (tmp == NULL) {
+    gchar *ellipsis;
+    /* Best effort at displaying filename: Display as must as is readable */
+    g_utf8_validate(filename, -1, &ellipsis);
+    tmp = g_filename_to_utf8(filename, ellipsis-filename, NULL, NULL, NULL);
+    ellipsis = g_strdup_printf(_("%s<illegal characters>..."), tmp);
+    g_free(tmp);
+    tmp = ellipsis;
+  }
+#endif
+  /* Stick in the quark table so that we can return a static result
+   */
+  GQuark msg_quark = g_quark_from_string (tmp);
+  g_free (tmp);
+  tmp = (gchar *) g_quark_to_string (msg_quark);
+  return tmp;
+}
+
 /** Return an absolute filename from an absolute or relative filename.
  * The value returned is newly allocated. 
  */
@@ -205,7 +241,8 @@ dia_get_absolute_filename (const gchar *filename)
   if (strchr(fullname, '.') == NULL) return fullname;
   canonical = dia_get_canonical_path(fullname);
   if (canonical == NULL) {
-    message_warning("Too many ..'s in filename %s\n", filename);
+    message_warning(_("Too many ..'s in filename %s\n"),
+                    dia_message_filename(filename));
     return g_strdup(filename);
   }
   g_free(fullname);

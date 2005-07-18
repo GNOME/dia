@@ -74,7 +74,11 @@ typedef struct _DiaPrefData {
   GtkWidget *widget;
   gboolean hidden;
   GList *(*choice_list_function)();
+  /** A function to call after a preference item has been updated. */
+  void (*update_function)(struct _DiaPrefData *pref, char *ptr);
 } DiaPrefData;
+
+static void update_floating_toolbox(DiaPrefData *pref, char *ptr);
 
 static int default_true = 1;
 static int default_false = 0;
@@ -124,7 +128,8 @@ DiaPrefData prefs_data[] =
   { "recent_documents_list_size", PREF_UINT, PREF_OFFSET(recent_documents_list_size), &default_recent_documents, 0, N_("Recent documents list size:") },
   { "use_menu_bar", PREF_BOOLEAN, PREF_OFFSET(new_view.use_menu_bar), &default_true, 0, N_("Use menu bar") },
   { "toolbox_on_top", PREF_BOOLEAN, PREF_OFFSET(toolbox_on_top),
-    &default_false, 0, N_("Keep tool box on top of diagram windows") },
+    &default_false, 0, N_("Keep tool box on top of diagram windows"),
+    NULL, FALSE, NULL, update_floating_toolbox},
   
   { NULL, PREF_NONE, 0, NULL, 1, N_("New diagram:") },
   { "is_portrait", PREF_BOOLEAN, PREF_OFFSET(new_diagram.is_portrait), &default_true, 1, N_("Portrait") },
@@ -376,6 +381,9 @@ prefs_get_value_from_widget(GtkWidget * widget, DiaPrefData *data,
   case PREF_NONE:
   case PREF_END_GROUP:
     break;
+  }
+  if (data->update_function != NULL) {
+    (data->update_function)(data, ptr);
   }
 }
 
@@ -644,5 +652,29 @@ prefs_update_dialog_from_prefs(void)
     ptr = (char *)&prefs + prefs_data[i].offset;
     
     prefs_set_value_in_widget(widget, &prefs_data[i],  ptr);
+  }
+}
+
+static void
+update_floating_toolbox(DiaPrefData *pref, char *ptr)
+{
+  if (prefs.toolbox_on_top) {
+    /* Go through all diagrams and set toolbox transient for all displays */
+    GList *diagrams;
+    for (diagrams = dia_open_diagrams(); diagrams != NULL; 
+	 diagrams = g_list_next(diagrams)) {
+      Diagram *diagram = (Diagram *)diagrams->data;
+      GSList *displays;
+      for (displays = diagram->displays; displays != NULL; 
+	   displays = g_slist_next(displays)) {
+	DDisplay *ddisp = (DDisplay *)displays->data;
+	gtk_window_set_transient_for(GTK_WINDOW(interface_get_toolbox_shell()),
+				     GTK_WINDOW(ddisp->shell));
+      }
+    }
+  } else {
+    /* Can't set non-transient, but don't want a message on every change.
+     * Maybe recreate toolbox? 
+     */
   }
 }

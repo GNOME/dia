@@ -1639,7 +1639,7 @@ umlclass_save(UMLClass *umlclass, ObjectNode obj_node,
                  umlclass->abstract_classname_font);
   data_add_font (new_attribute (obj_node, "comment_font"),
                  umlclass->comment_font);
-  data_add_real (new_attribute (obj_node, "font_height"),
+  data_add_real (new_attribute (obj_node, "normal_font_height"),
                  umlclass->font_height);
   data_add_real (new_attribute (obj_node, "polymorphic_font_height"),
                  umlclass->polymorphic_font_height);

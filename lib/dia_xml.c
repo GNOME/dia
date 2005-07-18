@@ -151,7 +151,8 @@ xml_file_check_encoding(const gchar *filename, const gchar *default_enc)
 
   if (0 != strcmp(default_enc,"UTF-8")) {
     message_warning(_("The file %s has no encoding specification;\n"
-                      "assuming it is encoded in %s"),filename,default_enc);
+                      "assuming it is encoded in %s"),
+		    dia_message_filename(filename), default_enc);
   } else {
     gzclose(zf); /* we apply the standard here. */
     g_free(buf);

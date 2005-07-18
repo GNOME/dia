@@ -125,7 +125,8 @@ dia_object_defaults_load (const gchar *filename, gboolean create_lazy)
       || (name_space == NULL))
     {
       message_error(_("Error loading defaults '%s'.\n"
-                      "Not a Dia diagram file."), filename);
+                      "Not a Dia diagram file."),
+		    dia_message_filename(filename));
       xmlFreeDoc (doc);
       return FALSE;
     }

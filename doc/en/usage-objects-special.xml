@@ -140,7 +140,7 @@
                the condition associated with the transition.  
                GRAFCET is a Sequential Function Chart created in 1975.  
 	       The name comes from graph because the model had a graphic basis,
-	       and from AFCET (Association française de cybernétique économique 
+	       and from AFCET (Association franÃ§aise de cybernÃ©tique Ã©conomique 
 	       et technique) 
 	       the scientific association which supported the work. 
 	       <!-- still needs more work see 
@@ -251,7 +251,8 @@
            </listitem>
          </varlistentry>
        </variablelist>
-       <varlistentry>
+       <variablelist>
+         <varlistentry>
            <term>Sybase</term>
            <listitem>
              <para>

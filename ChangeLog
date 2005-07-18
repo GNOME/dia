@@ -1,3 +1,49 @@
+2005-07-18  Lars Clausen  <lars@raeder.dk>
+
+	* lib/element.h (ELEMENT_COMMON_PROPERTIES): Allow Element objects
+	to have their dimensions specified in properties.  Still needs to
+	have proper update when setting properties cause constraint changes.
+
+	* app/preferences.c (update_floating_toolbox): Allow
+	toolbox_on_top setting to happen at once.
+
+	* app/diagram.c
+	* app/filedlg.c
+	* app/load_save.c
+	* app/render_eps.c
+	* app/sheets_dialog_callbacks.c
+	* lib/dia_dirs.c
+	* lib/dia_dirs.h
+	* lib/dia_xml.c
+	* lib/diarenderer.c
+	* lib/element.h
+	* lib/object_defaults.c:
+	Patch from lav@altlinux.ru (Vitaly Lipatov): Make filenames safe
+	for displaying in messages - better than crashing!  Mostly fixes
+	#310087.
+	
+	* objects/UML/class.c:  Save normal_font_height under the same
+	name it gets loaded as.  Fixes bug #310515.
+
+	* doc/en/authors.xml
+	* doc/en/usage-customization.xml
+	* doc/en/usage-objects-special.xml
+	* doc/en/usage-objects.xml: Some documentation fixes.  Fixes bug
+	#308315.
+
+2005-07-17  Lars Clausen  <lars@raeder.dk>
+
+	* doc/en/usage-customization.xml: 
+	* doc/en/usage-objects.xml: 
+	* doc/en/authors.xml: 
+	* doc/en/usage-objects-special.xml: Applied patch from
+	stigge@antcom.de (Roland Stigge):  Diverse typos and
+	misencodings.  Fixes bug #308315.
+
+	* objects/UML/class.c (umlclass_save): Patch from
+	i.pilcher@comcast.net: Save normal font height under correct name
+	to reload it.  Fixes bug #310515.
+
 2005-07-10  Hans Breuer  <hans@breuer.org>
 
 	* app/connectionpoint_ops.c app/object_ops.c : make the
@@ -47,7 +93,7 @@
 	* objects/standard/pixmaps/*.png:
 	* objects/standard/Makefile.am:
 	* objects/standard/*.c:
-	* app/interface.c (create_tools): 
+	* app/interface.c: 
 	* app/diagram_tree.c (create_object_pixmap): Fix icon loading. use
 	new icons. [Slightly belated entry]
 

@@ -251,6 +251,8 @@ EXPORTS
 
  dia_list_plugins
 
+ dia_message_filename
+
  dia_object_get_parent_layer
  dia_object_is_selected
 

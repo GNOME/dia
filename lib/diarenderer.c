@@ -434,7 +434,7 @@ draw_image (DiaRenderer *renderer,
  * [ 1  0  0  0]
  * (At least that's what Hearn and Baker says for beziers.)
  */
-#define BEZIER_SUBDIVIDE_LIMIT 0.03
+#define BEZIER_SUBDIVIDE_LIMIT 0.01
 #define BEZIER_SUBDIVIDE_LIMIT_SQ (BEZIER_SUBDIVIDE_LIMIT*BEZIER_SUBDIVIDE_LIMIT)
 
 static void

@@ -58,7 +58,7 @@ static gint diagram_parent_sort_cb(gconstpointer a, gconstpointer b);
 
 
 static void diagram_class_init (DiagramClass *klass);
-static void diagram_init(Diagram *obj, const char *filename);
+static gboolean diagram_init(Diagram *obj, const char *filename);
 
 enum {
   SELECTION_CHANGED,
@@ -171,12 +171,16 @@ dia_open_diagrams(void)
 }
 
 /** Initializes a diagram with standard info and sets it to be called
- * 'filename'.
+ * 'filename'.  
+ * Returns TRUE if everything went ok, FALSE otherwise.
+ * Will return FALSE if filename is not a legal string in the current
+ * encoding.
  */
-static void
+static gboolean
 diagram_init(Diagram *dia, const char *filename)
 {
   gchar *newfilename = NULL;
+  GError *error = NULL;
  
   dia->data = &dia->parent_instance; /* compatibility */
 
@@ -209,8 +213,16 @@ diagram_init(Diagram *dia, const char *filename)
     filename = newfilename;
   }
   /* All Diagram functions assumes filename in filesystem encoding */
-  dia->filename = g_filename_to_utf8(filename, -1, NULL, NULL, NULL);
   
+  dia->filename = g_filename_to_utf8(filename, -1, NULL, NULL, &error);
+  if (error != NULL) {
+    message_error(_("Couldn't convert filename '%s' to UTF-8: %s\n"),
+		  dia_message_filename(filename), error->message);
+    g_error_free(error);
+    dia->filename = g_strdup(_("Error"));
+    return FALSE;
+  }
+
   dia->unsaved = TRUE;
   dia->mollified = FALSE;
   dia->autosavefilename = NULL;
@@ -226,6 +238,7 @@ diagram_init(Diagram *dia, const char *filename)
     layer_dialog_update_diagram_list();
 
   g_free(newfilename);
+  return TRUE;
 }
 
 int
@@ -238,7 +251,9 @@ diagram_load_into(Diagram         *diagram,
   if (!ifilter)  /* default to native format */
     ifilter = &dia_import_filter;
 
-  diagram_init(diagram, filename);
+  if (!diagram_init(diagram, filename)) {
+    return FALSE;
+  }
 
   if (ifilter->import_func(filename, diagram->data, ifilter->user_data)) {
     diagram->unsaved = FALSE;
@@ -256,7 +271,9 @@ diagram_load(const char *filename, DiaImportFilter *ifilter)
 {
   Diagram *diagram;
 
+  /* TODO: Make diagram not be initialized twice */
   diagram = new_diagram(filename);
+  if (diagram == NULL) return NULL;
 
   if (!diagram_load_into (diagram, filename, ifilter)) {
     diagram_destroy(diagram);
@@ -266,14 +283,21 @@ diagram_load(const char *filename, DiaImportFilter *ifilter)
   return diagram;
 }
 
+/** Create a new diagram with the given filename.
+ * If the diagram could not be created, e.g. because the filename is not
+ * a legal string in the current encoding, return NULL.
+ */
 Diagram *
 new_diagram(const char *filename)  /* Note: filename is copied */
 {
   Diagram *dia = g_object_new(DIA_TYPE_DIAGRAM, NULL);
 
-  diagram_init(dia, filename);
-
-  return dia;
+  if (diagram_init(dia, filename)) {
+    return dia;
+  } else {
+    g_free(dia);
+    return NULL;
+  }
 }
 
 void

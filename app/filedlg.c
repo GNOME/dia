@@ -538,7 +538,7 @@ file_export_response_callback(GtkWidget *fs,
 
       g_snprintf(buffer, 300,
 		 _("The file '%s' already exists.\n"
-		   "Do you want to overwrite it?"), filename);
+		   "Do you want to overwrite it?"), dia_message_filename(filename));
       dialog = gtk_message_dialog_new (GTK_WINDOW(fs),
 				       GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT, 
 				       GTK_MESSAGE_QUESTION,
@@ -567,7 +567,7 @@ file_export_response_callback(GtkWidget *fs,
       g_object_unref(dia->data);
     } else
       message_error(_("Could not determine which export filter\n"
-		      "to use to save '%s'"), filename);
+		      "to use to save '%s'"), dia_message_filename(filename));
   }
   g_object_unref (dia); /* drop our diagram reference */
   gtk_widget_destroy(exportdlg);

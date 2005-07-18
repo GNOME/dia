@@ -355,7 +355,8 @@ diagram_data_load(const char *filename, DiagramData *data, void* user_data)
   fd = open(filename, O_RDONLY);
 
   if (fd==-1) {
-    message_error(_("Couldn't open: '%s' for reading.\n"), filename);
+    message_error(_("Couldn't open: '%s' for reading.\n"),
+		  dia_message_filename(filename));
     return FALSE;
   }
 
@@ -372,19 +373,22 @@ diagram_data_load(const char *filename, DiagramData *data, void* user_data)
   doc = xmlDiaParseFile(filename);
 
   if (doc == NULL){
-    message_error(_("Error loading diagram %s.\nUnknown file type."),filename);
+    message_error(_("Error loading diagram %s.\nUnknown file type."),
+		  dia_message_filename(filename));
     return FALSE;
   }
   
   if (doc->xmlRootNode == NULL) {
-    message_error(_("Error loading diagram %s.\nUnknown file type."),filename);
+    message_error(_("Error loading diagram %s.\nUnknown file type."),
+		  dia_message_filename(filename));
     xmlFreeDoc (doc);
     return FALSE;
   }
 
   namespace = xmlSearchNs(doc, doc->xmlRootNode, "dia");
   if (strcmp (doc->xmlRootNode->name, "diagram") || (namespace == NULL)){
-    message_error(_("Error loading diagram %s.\nNot a Dia file."), filename);
+    message_error(_("Error loading diagram %s.\nNot a Dia file."), 
+		  dia_message_filename(filename));
     xmlFreeDoc (doc);
     return FALSE;
   }
@@ -591,7 +595,7 @@ diagram_data_load(const char *filename, DiagramData *data, void* user_data)
   if (data->layers->len < 1) {
     message_error (_("Error loading diagram:\n%s.\n"
                      "A valid Dia file defines at least one layer."),
-		     filename);
+		     dia_message_filename(filename));
     return FALSE;
   }
 
@@ -910,7 +914,8 @@ diagram_data_save(DiagramData *data, const char *filename)
   /* Now write the data in the temporary file name. */
 
   if (file==NULL) {
-    message_error(_("Can't open output file %s: %s\n"), tmpname, strerror(errno));
+    message_error(_("Can't open output file %s: %s\n"), 
+		  dia_message_filename(tmpname), strerror(errno));
     return FALSE;
   }
   fclose(file);
@@ -943,7 +948,8 @@ diagram_save(Diagram *dia, const char *filename)
   gboolean res = diagram_data_save(dia->data, filename);
 
   if (!res) {
-    message_error(_("Failed to save file '%s'.\n"), filename);    
+    message_error(_("Failed to save file '%s'.\n"), 
+		  dia_message_filename(filename));
     return res;
   }
 

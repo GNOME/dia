@@ -100,6 +100,7 @@
       <!-- TODO explain the different types of Alignment -->
     </para>
    </sect3>
+   <sect3 id="grouping-objects">
    <title>Grouping Objects</title>
     <para>
        Grouping allows you to treat several objects as a unified group that 
