@@ -477,7 +477,7 @@ orthconn_init(OrthConn *orth, Point *startpoint)
   setup_endpoint_handle(orth->handles[2], HANDLE_MOVE_ENDPOINT);
   obj->handles[2] = orth->handles[2];
 
-  orth->autorouting = FALSE;
+  orth->autorouting = TRUE;
 
   /* Just so we have some position: */
   orth->points[0] = *startpoint;
@@ -633,10 +633,15 @@ orthconn_load(OrthConn *orth, ObjectNode obj_node) /* NOTE: Does object_init() *
   AttributeNode attr;
   DataNode data;
   int n;
+  int version = 0;
   
   DiaObject *obj = &orth->object;
 
   object_load(obj, obj_node);
+
+  attr = object_find_attribute(obj_node, "version");
+  if (attr != NULL)
+    version = attribute_num_data(attr);
 
   attr = object_find_attribute(obj_node, "orth_points");
 
