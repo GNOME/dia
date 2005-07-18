@@ -75,7 +75,8 @@ static ObjectTypeOps interaction_ortho_type_ops =
 DiaObjectType interaction_ortho_type =
 {
   "EML - Interaction orthorthogonal",   /* name */
-  0,                      /* version */
+  /* Version 0 had no autorouting and so shouldn't have it set by default. */
+  1,                      /* version */
   (char **) interaction_ortho_xpm,  /* pixmap */
   
   &interaction_ortho_type_ops       /* ops */

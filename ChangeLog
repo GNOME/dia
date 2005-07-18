@@ -1,7 +1,7 @@
 2005-07-18  Lars Clausen  <lars@LittlePooter.local.>
 
 	* objects/EML/instantiation.c (instantiation_load): 
-	* objects/EML/interaction-ortho.c (interaction_ortho_type): 
+	* objects/EML/interaction-ortho.c (interaction_ortho_type) 
 	* objects/ER/participation.c (participation_type): 
 	* objects/FS/flow-ortho.c (orthflow_type): 
 	* objects/GRAFCET/vector.c (arc_load): 
