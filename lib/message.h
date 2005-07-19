@@ -29,6 +29,9 @@ void message_notice(const char *format, ...);
 void message_warning(const char *format, ...);
 void message_error(const char *format, ...);
 
+/* also declared in dia_dirs.h, where I think it does not belong! --hb */
+const gchar *dia_message_filename (const gchar *filename);
+
 #endif /* MESSAGES_H */
 
 

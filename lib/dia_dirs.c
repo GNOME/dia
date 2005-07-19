@@ -201,6 +201,8 @@ const gchar *
 dia_message_filename (const gchar *filename)
 {
   gchar *tmp;
+  GQuark msg_quark;
+
 #if GLIB_CHECK_VERSION(2,6,0)
   tmp = g_filename_display_name(filename);
 #else
@@ -218,7 +220,7 @@ dia_message_filename (const gchar *filename)
 #endif
   /* Stick in the quark table so that we can return a static result
    */
-  GQuark msg_quark = g_quark_from_string (tmp);
+  msg_quark = g_quark_from_string (tmp);
   g_free (tmp);
   tmp = (gchar *) g_quark_to_string (msg_quark);
   return tmp;

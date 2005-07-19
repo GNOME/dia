@@ -1,3 +1,16 @@
+2005-07-19  Hans Breuer  <hans@breuer.org>
+
+	* app/diagram.c(new_diagram) : what comes from g_object_new()
+	MUST NOT be g_free()'d 
+
+	* lib/message.h : added dia_message_filename() here as well.
+	Mainly to not touch all files using. They *all* where using
+	lib/message.h already! Maybe the implemantation should be moved
+	to message.c as well cause the function has *nothing* to do
+	with dynamic filename resolving. It is a wrapper around
+	g_display_filename() mostly (only?) used for messages ...
+	* lib/dia_dirs.c(dia_message_filename) : fix C99ism
+
 2005-07-18  Lars Clausen  <lars@LittlePooter.local.>
 
 	* objects/EML/instantiation.c (instantiation_load): 

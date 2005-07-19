@@ -295,7 +295,7 @@ new_diagram(const char *filename)  /* Note: filename is copied */
   if (diagram_init(dia, filename)) {
     return dia;
   } else {
-    g_free(dia);
+    g_object_unref(dia);
     return NULL;
   }
 }
