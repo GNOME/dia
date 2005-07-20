@@ -65,9 +65,9 @@ static PropNumData width_range = { -G_MAXFLOAT, G_MAXFLOAT, 0.1};
   { "elem_corner", PROP_TYPE_POINT, 0, \
     "Element corner", "The corner of the element"}, \
   { "elem_width", PROP_TYPE_REAL, PROP_FLAG_VISIBLE, \
-    "Element width", "The width of the element", NULL, &width_range}, \
+    "Element width", "The width of the element", &width_range}, \
   { "elem_height", PROP_TYPE_REAL, PROP_FLAG_VISIBLE, \
-    "Element height", "The height of the element", NULL, &width_range}, \
+    "Element height", "The height of the element", &width_range}, \
   PROP_FRAME_END("size", 0)
 
 #define ELEMENT_COMMON_PROPERTIES_OFFSETS \

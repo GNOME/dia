@@ -1,3 +1,8 @@
+2005-07-20  Hans Breuer  <hans@breuer.org>
+
+	* lib/element.h : remove stray NULL in ELEMENT_COMMON_PROPERTIES
+	which must match PropDescription, that is make it at least compile.
+
 2005-07-19  Hans Breuer  <hans@breuer.org>
 
 	* app/diagram.c(new_diagram) : what comes from g_object_new()
