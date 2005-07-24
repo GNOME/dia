@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: dia\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-06-11 13:40+0200\n"
-"PO-Revision-Date: 2005-07-04 17:16+0200\n"
+"PO-Revision-Date: 2005-07-24 14:12+0200\n"
 "Last-Translator: Hendrik Richter <hendi@gnome-de.org>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -5683,7 +5683,7 @@ msgstr "Gerad- oder U-Rohr Wärmetauscher"
 
 #: sheets/ChemEng.sheet.in.h:20
 msgid "Fluid Contacting Vessel, simple"
-msgstr "Flüssigkeits-Kontakbehälter, einfach"
+msgstr "Flüssigkeits-Kontaktbehälter, einfach"
 
 #: sheets/ChemEng.sheet.in.h:21
 msgid "Forced-Flow Air Cooler"
