@@ -5,15 +5,15 @@
 # Alexandre Folle de Menezes <afmenez@terra.com.br>, 2003.
 # Gustavo Maciel Dias Vieira <gdvieira@zaz.com.br>, 2003.
 # Everson Santos Araujo <nobios@por.com.br>, 2004.
-# Afonso Celso Medina <medina@maua.br>, 2004, 2005.
+# Afonso Celso Medina <afmedina@uol.com.br>, 2004, 2005.
 # 
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: dia.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-07-17 18:56+0000\n"
-"PO-Revision-Date: 2005-07-17 23:30-0300\n"
+"POT-Creation-Date: 2005-07-24 18:55+0000\n"
+"PO-Revision-Date: 2005-07-24 23:37-0300\n"
 "Last-Translator: Afonso Celso Medina <afmedina@uol.com.br>\n"
 "Language-Team: Portuguese/Brazil <gnome-l10n-br@listas.cipsga.org.br>\n"
 "MIME-Version: 1.0\n"
@@ -190,14 +190,14 @@ msgstr "Obrigado por utilizar o Dia.\n"
 
 #: ../app/app_procs.c:1047 ../app/app_procs.c:1054
 msgid "Could not create per-user Dia config directory"
-msgstr "Não foi possível criar o diretório de configuração pessoal do Dia"
+msgstr "Impossível criar o diretório de configuração pessoal do Dia"
 
 #: ../app/app_procs.c:1056
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
 msgstr ""
-"Não foi possível criar o diretório de configuração pessoal do Dia. "
+"Impossível criar o diretório de configuração pessoal do Dia. "
 "Certifique-se de que a variável de ambiente HOME aponta para um diretório "
 "existente."
 
@@ -296,7 +296,7 @@ msgstr "Não existe objeto para colar.\n"
 
 #: ../app/commands.c:533 ../app/commands.c:571
 msgid "Could not find help directory"
-msgstr "Não foi possível encontrar o diretório de ajuda"
+msgstr "Impossível encontrar o diretório de ajuda"
 
 #: ../app/commands.c:540
 #, c-format
@@ -304,7 +304,7 @@ msgid ""
 "Could not open help directory:\n"
 "%s"
 msgstr ""
-"Não foi possível abrir diretório de ajuda:\n"
+"Impossível abrir diretório de ajuda:\n"
 "%s"
 
 #.
@@ -398,7 +398,7 @@ msgid "Visible spacing"
 msgstr "Espaçamento visível"
 
 #. Hexes!
-#: ../app/dia-props.c:177 ../app/preferences.c:162
+#: ../app/dia-props.c:177 ../app/preferences.c:167
 msgid "Hex grid"
 msgstr "Grade Hexagonal"
 
@@ -414,7 +414,7 @@ msgstr "Grade"
 msgid "Background"
 msgstr "Segundo Plano"
 
-#: ../app/dia-props.c:220 ../app/preferences.c:105
+#: ../app/dia-props.c:220 ../app/preferences.c:109
 msgid "Grid Lines"
 msgstr "Linhas de Grade"
 
@@ -656,14 +656,14 @@ msgstr "Fechar o Diagrama"
 msgid "Discard Changes"
 msgstr "Descartar as Alterações"
 
-#: ../app/export_png.c:134 ../app/load_save.c:913 ../app/render_eps.c:103
+#: ../app/export_png.c:134 ../app/load_save.c:917 ../app/render_eps.c:103
 #: ../plug-ins/cairo/diacairo.c:976 ../plug-ins/cgm/cgm.c:1151
 #: ../plug-ins/dxf/dxf-export.c:484 ../plug-ins/hpgl/hpgl.c:704
 #: ../plug-ins/metapost/render_metapost.c:1107
 #: ../plug-ins/pstricks/render_pstricks.c:910
 #: ../plug-ins/shape/shape-export.c:134 ../plug-ins/svg/render_svg.c:149
 #: ../plug-ins/wpg/wpg.c:1070 ../plug-ins/xfig/xfig-export.c:1136
-#: ../plug-ins/xslt/xslt.c:92
+#: ../plug-ins/xslt/xslt.c:93
 #, c-format
 msgid "Can't open output file %s: %s\n"
 msgstr "Impossível abrir o arquivo de saída %s: %s\n"
@@ -812,7 +812,7 @@ msgstr "Mudar Enquadramento"
 #: ../lib/properties.h:520 ../objects/Jackson/requirement.c:142
 #: ../objects/UML/activity.c:126 ../objects/UML/actor.c:122
 #: ../objects/UML/classicon.c:144 ../objects/UML/component.c:128
-#: ../objects/UML/component_feature.c:154 ../objects/UML/node.c:127
+#: ../objects/UML/component_feature.c:155 ../objects/UML/node.c:127
 #: ../objects/UML/note.c:121 ../objects/UML/object.c:147
 #: ../objects/UML/small_package.c:128 ../objects/UML/state.c:141
 #: ../objects/UML/usecase.c:138 ../objects/custom/custom_object.c:200
@@ -1025,14 +1025,14 @@ msgstr "Impossível encontrar o pai %s do objeto %s\n"
 msgid "You must specify a file, not a directory.\n"
 msgstr "Você deve especificar um arquivo, não um diretório.\n"
 
-#: ../app/load_save.c:358 ../plug-ins/dxf/dxf-import.c:1304
-#: ../plug-ins/wpg/wpg.c:1174 ../plug-ins/xfig/xfig-import.c:1560
+#: ../app/load_save.c:358 ../plug-ins/dxf/dxf-import.c:1306
+#: ../plug-ins/wpg/wpg.c:1175 ../plug-ins/xfig/xfig-import.c:1560
 #: ../plug-ins/xslt/xslt.c:85
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "Impossível abrir '%s' para leitura.\n"
 
-#: ../app/load_save.c:375 ../app/load_save.c:380
+#: ../app/load_save.c:376 ../app/load_save.c:382
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -1041,7 +1041,7 @@ msgstr ""
 "Erro ao carregar o diagrama %s.\n"
 "Tipo de arquivo desconhecido."
 
-#: ../app/load_save.c:387
+#: ../app/load_save.c:390
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -1050,7 +1050,7 @@ msgstr ""
 "Erro ao carregar o diagrama %s.\n"
 "Não é um arquivo Dia."
 
-#: ../app/load_save.c:592
+#: ../app/load_save.c:596
 #, c-format
 msgid ""
 "Error loading diagram:\n"
@@ -1061,12 +1061,12 @@ msgstr ""
 "%s.\n"
 "Um arquivo Dia válido possui ao menos uma camada."
 
-#: ../app/load_save.c:946
+#: ../app/load_save.c:951
 #, c-format
 msgid "Failed to save file '%s'.\n"
 msgstr "Impossível salvar o arquivo '%s'.\n"
 
-#: ../app/load_save.c:1018 ../app/load_save.c:1023
+#: ../app/load_save.c:1024 ../app/load_save.c:1029
 msgid "Dia Diagram File"
 msgstr "Arquivo de Diagrama Dia"
 
@@ -1619,147 +1619,147 @@ msgstr "Carregar na Inicialização"
 msgid "File Name"
 msgstr "Nome do Arquivo"
 
-#: ../app/preferences.c:102
+#: ../app/preferences.c:106
 msgid "User Interface"
 msgstr "Interface com Usuário"
 
-#: ../app/preferences.c:103
+#: ../app/preferences.c:107
 msgid "Diagram Defaults"
 msgstr "Padrões do Diagrama"
 
-#: ../app/preferences.c:104
+#: ../app/preferences.c:108
 msgid "View Defaults"
 msgstr "Padrões de Visualização"
 
-#: ../app/preferences.c:106
+#: ../app/preferences.c:110
 msgid "Diagram Tree"
 msgstr "Árvore de Diagramas"
 
-#: ../app/preferences.c:120
+#: ../app/preferences.c:124
 msgid "Reset tools after create"
 msgstr "Redefinir ferramentas depois de criar"
 
-#: ../app/preferences.c:121
+#: ../app/preferences.c:125
 msgid "Compress saved files"
 msgstr "Comprimir os arquivos salvos"
 
-#: ../app/preferences.c:122
+#: ../app/preferences.c:126
 msgid "Number of undo levels:"
 msgstr "Número de ações a desfazer:"
 
-#: ../app/preferences.c:123
+#: ../app/preferences.c:127
 msgid ""
 "Reverse dragging selects\n"
 "intersecting objects"
 msgstr "Arrasto reverso seleciona objetos que se cruzam"
 
-#: ../app/preferences.c:124
+#: ../app/preferences.c:128
 msgid "Recent documents list size:"
 msgstr "Tamanho da lista de documentos recentes:"
 
-#: ../app/preferences.c:125
+#: ../app/preferences.c:129
 msgid "Use menu bar"
 msgstr "Usar a barra de menu"
 
-#: ../app/preferences.c:127
+#: ../app/preferences.c:131
 msgid "Keep tool box on top of diagram windows"
 msgstr "Manter a caixa de ferramentas sempre acima das janelas de diagramas"
 
-#: ../app/preferences.c:129
+#: ../app/preferences.c:134
 msgid "New diagram:"
 msgstr "Novo diagrama:"
 
-#: ../app/preferences.c:130
+#: ../app/preferences.c:135
 msgid "Portrait"
 msgstr "Retrato"
 
-#: ../app/preferences.c:132
+#: ../app/preferences.c:137
 msgid "Paper type:"
 msgstr "Tipo de papel:"
 
-#: ../app/preferences.c:135
+#: ../app/preferences.c:140
 msgid "Background Color:"
 msgstr "Cor do segundo plano:"
 
-#: ../app/preferences.c:138
+#: ../app/preferences.c:143
 msgid "New window:"
 msgstr "Nova janela:"
 
-#: ../app/preferences.c:139
+#: ../app/preferences.c:144
 msgid "Width:"
 msgstr "Largura:"
 
-#: ../app/preferences.c:140
+#: ../app/preferences.c:145
 msgid "Height:"
 msgstr "Altura:"
 
-#: ../app/preferences.c:141
+#: ../app/preferences.c:146
 msgid "Magnify:"
 msgstr "Ampliação:"
 
-#: ../app/preferences.c:144
+#: ../app/preferences.c:149
 msgid "Connection Points:"
 msgstr "Pontos de Conexão:"
 
 #. { NULL, PREF_NONE, 0, NULL, 3, N_("Grid:") },
-#: ../app/preferences.c:145 ../app/preferences.c:149 ../app/preferences.c:155
+#: ../app/preferences.c:150 ../app/preferences.c:154 ../app/preferences.c:160
 msgid "Visible"
 msgstr "Visível"
 
-#: ../app/preferences.c:148
+#: ../app/preferences.c:153
 msgid "Page breaks:"
 msgstr "Quebras de página:"
 
-#: ../app/preferences.c:150 ../app/preferences.c:160
+#: ../app/preferences.c:155 ../app/preferences.c:165
 msgid "Color:"
 msgstr "Cor:"
 
-#: ../app/preferences.c:151
+#: ../app/preferences.c:156
 msgid "Solid lines"
 msgstr "Linhas sólidas"
 
-#: ../app/preferences.c:156
+#: ../app/preferences.c:161
 msgid "Snap to"
 msgstr "Aderir à grade"
 
-#: ../app/preferences.c:157
+#: ../app/preferences.c:162
 msgid "Dynamic grid resizing"
 msgstr "Grade de tamanho dinâmico"
 
-#: ../app/preferences.c:158
+#: ../app/preferences.c:163
 msgid "X Size:"
 msgstr "Tamanho na direção X:"
 
-#: ../app/preferences.c:159
+#: ../app/preferences.c:164
 msgid "Y Size:"
 msgstr "Tamanho na direção Y:"
 
-#: ../app/preferences.c:161
+#: ../app/preferences.c:166
 msgid "Lines per major line"
 msgstr "Linhas por linha mestre"
 
-#: ../app/preferences.c:163
+#: ../app/preferences.c:168
 msgid "Hex Size:"
 msgstr "Tamanho do Hexágono:"
 
-#: ../app/preferences.c:179
+#: ../app/preferences.c:184
 msgid "Diagram tree window:"
 msgstr "Janela da árvore dos diagramas:"
 
-#: ../app/preferences.c:181
+#: ../app/preferences.c:186
 msgid "Save hidden object types"
 msgstr "Salvar tipos de objetos ocultos"
 
-#: ../app/preferences.c:386 ../lib/prop_inttypes.c:158
+#: ../app/preferences.c:394 ../lib/prop_inttypes.c:158
 msgid "Yes"
 msgstr "Sim"
 
-#: ../app/preferences.c:386 ../app/preferences.c:397
+#: ../app/preferences.c:394 ../app/preferences.c:405
 #: ../lib/prop_inttypes.c:160 ../lib/prop_inttypes.c:186
 msgid "No"
 msgstr "Não"
 
-#: ../app/preferences.c:499
+#: ../app/preferences.c:507
 msgid "Preferences"
 msgstr "Preferências"
 
@@ -1789,15 +1789,15 @@ msgstr "<Toolbox>/Arquivo/Plugins..."
 msgid "<Toolbox>/File/Quit"
 msgstr "<Toolbox>/Arquivo/Sair"
 
-#: ../app/render_eps.c:147
+#: ../app/render_eps.c:148
 msgid "Encapsulated Postscript (using Pango fonts)"
 msgstr "Postscript Encapsulado (usando fontes Pango)"
 
-#: ../app/render_eps.c:156
+#: ../app/render_eps.c:157
 msgid "Encapsulated Postscript with preview (using Pango fonts)"
 msgstr "Postscript Encapsulado com pré-visualização (usando fontes Pango)"
 
-#: ../app/render_eps.c:166
+#: ../app/render_eps.c:167
 msgid "Encapsulated Postscript (using PostScript Latin-1 fonts)"
 msgstr "Postscript Encapsulado (usando fontes PostScript Latin-1)"
 
@@ -1902,7 +1902,7 @@ msgid "Sheet name:"
 msgstr "Nome da folha:"
 
 #: ../app/sheets_dialog.c:446 ../app/sheets_dialog_callbacks.c:289
-#: ../app/sheets_dialog_callbacks.c:1090
+#: ../app/sheets_dialog_callbacks.c:1092
 msgid "Line Break"
 msgstr "Quebra de Linha"
 
@@ -1918,7 +1918,7 @@ msgstr "DiaObject"
 msgid "Description:"
 msgstr "Descrição:"
 
-#: ../app/sheets_dialog.c:618 ../objects/FS/flow-ortho.c:168
+#: ../app/sheets_dialog.c:618 ../objects/FS/flow-ortho.c:169
 #: ../objects/FS/flow.c:146 ../objects/Istar/link.c:164
 #: ../objects/Jackson/phenomenon.c:144 ../objects/KAOS/metaandorrel.c:164
 #: ../objects/KAOS/metabinrel.c:171 ../objects/UML/class_dialog.c:912
@@ -1933,11 +1933,11 @@ msgstr "Folha"
 
 #: ../app/sheets_dialog.c:672 ../objects/ER/attribute.c:153
 #: ../objects/ER/entity.c:135 ../objects/ER/relationship.c:140
-#: ../objects/UML/association.c:237 ../objects/UML/association.c:1165
+#: ../objects/UML/association.c:238 ../objects/UML/association.c:1166
 #: ../objects/UML/class_dialog.c:901 ../objects/UML/class_dialog.c:1829
 #: ../objects/UML/class_dialog.c:2058 ../objects/UML/class_dialog.c:2574
-#: ../objects/UML/dependency.c:133 ../objects/UML/generalization.c:129
-#: ../objects/UML/realizes.c:130
+#: ../objects/UML/dependency.c:134 ../objects/UML/generalization.c:130
+#: ../objects/UML/realizes.c:131
 msgid "Name:"
 msgstr "Nome:"
 
@@ -2014,45 +2014,45 @@ msgstr "O nome do arquivo deve terminar com '%s': '%s'"
 msgid "Error examining %s: %s"
 msgstr "Erro examinando %s: %s"
 
-#: ../app/sheets_dialog_callbacks.c:828
+#: ../app/sheets_dialog_callbacks.c:829
 #, c-format
 msgid "Could not interpret shape file: '%s'"
 msgstr "Impossível interpretar o arquivo de forma: '%s'"
 
-#: ../app/sheets_dialog_callbacks.c:897
+#: ../app/sheets_dialog_callbacks.c:899
 msgid "Sheet must have a Name"
 msgstr "A folha dever ter um Nome"
 
-#: ../app/sheets_dialog_callbacks.c:1594 ../app/sheets_dialog_callbacks.c:1600
+#: ../app/sheets_dialog_callbacks.c:1596 ../app/sheets_dialog_callbacks.c:1603
 #, c-format
 msgid "Couldn't open '%s': %s"
 msgstr "Impossível abrir '%s': %s"
 
-#: ../app/sheets_dialog_callbacks.c:1651
+#: ../app/sheets_dialog_callbacks.c:1655
 #, c-format
 msgid "Couldn't open: '%s' for writing"
 msgstr "Impossível abrir: '%s' para escrita"
 
-#: ../app/sheets_dialog_callbacks.c:1660
+#: ../app/sheets_dialog_callbacks.c:1665
 msgid "a user"
 msgstr "um usuário"
 
-#: ../app/sheets_dialog_callbacks.c:1673
+#: ../app/sheets_dialog_callbacks.c:1678
 #, c-format
 msgid "File: %s"
 msgstr "Arquivo: %s"
 
-#: ../app/sheets_dialog_callbacks.c:1676
+#: ../app/sheets_dialog_callbacks.c:1681
 #, c-format
 msgid "Date: %s"
 msgstr "Data: %s"
 
-#: ../app/sheets_dialog_callbacks.c:1680
+#: ../app/sheets_dialog_callbacks.c:1685
 #, c-format
 msgid "For: %s"
 msgstr "Para: %s"
 
-#: ../app/sheets_dialog_callbacks.c:1697
+#: ../app/sheets_dialog_callbacks.c:1702
 msgid "add shapes here"
 msgstr "adicione as formas aqui"
 
@@ -2074,7 +2074,7 @@ msgid "Edit your Diagrams"
 msgstr "Editar o seu Diagrama"
 
 #: ../lib/arrows.c:40 ../objects/Jackson/domain.c:96
-#: ../objects/UML/association.c:1188
+#: ../objects/UML/association.c:1189
 msgid "None"
 msgstr "Nenhum"
 
@@ -2224,26 +2224,26 @@ msgstr ""
 "O arquivo %s não possui informação de codificação;\n"
 "supondo que está codificado em %s"
 
-#: ../lib/dia_xml.c:470
+#: ../lib/dia_xml.c:471
 msgid "Taking point value of non-point node."
 msgstr "Tomando o valor do ponto de um nó que não é um ponto."
 
-#: ../lib/dia_xml.c:481
+#: ../lib/dia_xml.c:482
 #, c-format
 msgid "Incorrect x Point value \"%s\" %f; discarding it."
 msgstr "Valor x do ponto \"%s\" %f incorreto; descartando-o."
 
-#: ../lib/dia_xml.c:488
+#: ../lib/dia_xml.c:489
 msgid "Error parsing point."
 msgstr "Erro analisando o ponto."
 
 #. don't bother with useless warnings (see above)
-#: ../lib/dia_xml.c:496
+#: ../lib/dia_xml.c:497
 #, c-format
 msgid "Incorrect y Point value \"%s\" %f; discarding it."
 msgstr "Valor y do ponto \"%s\" %f incorreto; descartando-o."
 
-#: ../lib/dia_xml.c:871
+#: ../lib/dia_xml.c:872
 msgid ""
 "Your local character set is UTF-8. Because of issues with libxml1 and the "
 "support of files generated by previous versions of dia, you will encounter  "
@@ -2434,7 +2434,7 @@ msgstr "Cor de preenchimento"
 
 #: ../lib/properties.c:76 ../lib/properties.h:506 ../lib/properties.h:509
 msgid "Draw background"
-msgstr "Transparente"
+msgstr "Opaco"
 
 #: ../lib/properties.c:77 ../lib/properties.h:513
 msgid "Start arrow"
@@ -2587,25 +2587,25 @@ msgstr "Entidade"
 msgid "Entity/Relationship diagram objects"
 msgstr "Objetos de diagrama Entidade/Relacionamento"
 
-#: ../objects/ER/participation.c:115
+#: ../objects/ER/participation.c:116
 msgid "Total:"
 msgstr "Total:"
 
-#: ../objects/ER/participation.c:405 ../objects/FS/flow-ortho.c:644
-#: ../objects/GRAFCET/vector.c:311 ../objects/SADT/arrow.c:457
-#: ../objects/UML/association.c:774 ../objects/UML/component_feature.c:183
-#: ../objects/UML/dependency.c:372 ../objects/UML/generalization.c:368
-#: ../objects/UML/realizes.c:359 ../objects/UML/transition.c:156
-#: ../objects/standard/zigzagline.c:347
-msgid "Add segment"
-msgstr "Adicionar segmento"
-
 #: ../objects/ER/participation.c:406 ../objects/FS/flow-ortho.c:645
-#: ../objects/GRAFCET/vector.c:312 ../objects/SADT/arrow.c:458
+#: ../objects/GRAFCET/vector.c:312 ../objects/SADT/arrow.c:457
 #: ../objects/UML/association.c:775 ../objects/UML/component_feature.c:184
 #: ../objects/UML/dependency.c:373 ../objects/UML/generalization.c:369
 #: ../objects/UML/realizes.c:360 ../objects/UML/transition.c:157
 #: ../objects/standard/zigzagline.c:348
+msgid "Add segment"
+msgstr "Adicionar segmento"
+
+#: ../objects/ER/participation.c:407 ../objects/FS/flow-ortho.c:646
+#: ../objects/GRAFCET/vector.c:313 ../objects/SADT/arrow.c:458
+#: ../objects/UML/association.c:776 ../objects/UML/component_feature.c:185
+#: ../objects/UML/dependency.c:374 ../objects/UML/generalization.c:370
+#: ../objects/UML/realizes.c:361 ../objects/UML/transition.c:158
+#: ../objects/standard/zigzagline.c:349
 msgid "Delete segment"
 msgstr "Excluir segmento"
 
@@ -2630,14 +2630,14 @@ msgid "Relationship"
 msgstr "Relação"
 
 #. Translators: Menu item Noun/Energy
-#: ../objects/FS/flow-ortho.c:159 ../objects/FS/flow-ortho.c:641
+#: ../objects/FS/flow-ortho.c:160 ../objects/FS/flow-ortho.c:642
 #: ../objects/FS/flow.c:137 ../objects/FS/flow.c:576
 #: ../objects/FS/function.c:1096
 msgid "Energy"
 msgstr "Energia"
 
 #. Translators: Menu item Noun/Material
-#: ../objects/FS/flow-ortho.c:160 ../objects/FS/flow-ortho.c:642
+#: ../objects/FS/flow-ortho.c:161 ../objects/FS/flow-ortho.c:643
 #: ../objects/FS/flow.c:138 ../objects/FS/flow.c:577
 #: ../objects/FS/function.c:1072
 msgid "Material"
@@ -2647,7 +2647,7 @@ msgstr "Material"
 #. Translators: Menu item Verb/Signal/Signal
 #. Translators: Menu item Noun/Signal
 #. Translators: Menu item Noun/Signal/Signal
-#: ../objects/FS/flow-ortho.c:161 ../objects/FS/flow-ortho.c:643
+#: ../objects/FS/flow-ortho.c:162 ../objects/FS/flow-ortho.c:644
 #: ../objects/FS/flow.c:139 ../objects/FS/flow.c:578
 #: ../objects/FS/function.c:1034 ../objects/FS/function.c:1036
 #: ../objects/FS/function.c:1172 ../objects/FS/function.c:1174
@@ -3802,7 +3802,7 @@ msgstr "Ponto norte"
 msgid "South point"
 msgstr "Ponto sul"
 
-#: ../objects/GRAFCET/vector.c:128
+#: ../objects/GRAFCET/vector.c:129
 msgid "Draw arrow heads on upward arcs:"
 msgstr "Desenhar cabeças das setas em arcos para cima:"
 
@@ -4125,71 +4125,71 @@ msgstr "Objetos de diagrama SADT"
 msgid "Actor"
 msgstr "Ator"
 
-#: ../objects/UML/association.c:1178 ../objects/UML/class_dialog.c:2102
+#: ../objects/UML/association.c:1179 ../objects/UML/class_dialog.c:2102
 msgid "Direction:"
 msgstr "Direção:"
 
-#: ../objects/UML/association.c:1195
+#: ../objects/UML/association.c:1196
 msgid "From A to B"
 msgstr "De A até B"
 
-#: ../objects/UML/association.c:1202
+#: ../objects/UML/association.c:1203
 msgid "From B to A"
 msgstr "De B até A"
 
-#: ../objects/UML/association.c:1226 ../objects/UML/association.c:1234
+#: ../objects/UML/association.c:1227 ../objects/UML/association.c:1235
 msgid "Side A"
 msgstr "Lado A"
 
-#: ../objects/UML/association.c:1228 ../objects/UML/association.c:1236
+#: ../objects/UML/association.c:1229 ../objects/UML/association.c:1237
 msgid "Side B"
 msgstr "Lado B"
 
-#: ../objects/UML/association.c:1242
+#: ../objects/UML/association.c:1243
 msgid "Role:"
 msgstr "Regra:"
 
-#: ../objects/UML/association.c:1254
+#: ../objects/UML/association.c:1255
 msgid "Multiplicity:"
 msgstr "Multiplicidade:"
 
-#: ../objects/UML/association.c:1265 ../objects/UML/class_dialog.c:946
+#: ../objects/UML/association.c:1266 ../objects/UML/class_dialog.c:946
 #: ../objects/UML/class_dialog.c:1864
 msgid "Visibility:"
 msgstr "Visibilidade:"
 
-#: ../objects/UML/association.c:1274 ../objects/UML/class_dialog.c:955
+#: ../objects/UML/association.c:1275 ../objects/UML/class_dialog.c:955
 #: ../objects/UML/class_dialog.c:1873 ../objects/UML/uml.c:101
 msgid "Public"
 msgstr "Público"
 
-#: ../objects/UML/association.c:1284 ../objects/UML/class_dialog.c:963
+#: ../objects/UML/association.c:1285 ../objects/UML/class_dialog.c:963
 #: ../objects/UML/class_dialog.c:1881 ../objects/UML/uml.c:102
 msgid "Private"
 msgstr "Privado"
 
-#: ../objects/UML/association.c:1294 ../objects/UML/class_dialog.c:971
+#: ../objects/UML/association.c:1295 ../objects/UML/class_dialog.c:971
 #: ../objects/UML/class_dialog.c:1889 ../objects/UML/uml.c:103
 msgid "Protected"
 msgstr "Protegido"
 
-#: ../objects/UML/association.c:1304 ../objects/UML/class_dialog.c:979
+#: ../objects/UML/association.c:1305 ../objects/UML/class_dialog.c:979
 #: ../objects/UML/class_dialog.c:1897
 msgid "Implementation"
 msgstr "Implementação"
 
 #. Show arrow:
-#: ../objects/UML/association.c:1323
+#: ../objects/UML/association.c:1324
 msgid "Show arrow"
 msgstr "Mostrar seta"
 
 #. Aggregate
-#: ../objects/UML/association.c:1329
+#: ../objects/UML/association.c:1330
 msgid "Aggregate"
 msgstr "Agregação"
 
 #. Composition
-#: ../objects/UML/association.c:1337
+#: ../objects/UML/association.c:1338
 msgid "Composition"
 msgstr "Composição"
 
@@ -4294,8 +4294,8 @@ msgid "Class name:"
 msgstr "Nome da classe:"
 
 #: ../objects/UML/class_dialog.c:281 ../objects/UML/class_dialog.c:1851
-#: ../objects/UML/dependency.c:135 ../objects/UML/generalization.c:131
-#: ../objects/UML/realizes.c:132
+#: ../objects/UML/dependency.c:136 ../objects/UML/generalization.c:132
+#: ../objects/UML/realizes.c:133
 msgid "Stereotype:"
 msgstr "Estereótipo:"
 
@@ -4467,19 +4467,19 @@ msgstr "Limite"
 msgid "Is object"
 msgstr "É um objeto"
 
-#: ../objects/UML/component_feature.c:144 ../sheets/UML.sheet.in.h:14
+#: ../objects/UML/component_feature.c:145 ../sheets/UML.sheet.in.h:14
 msgid "Facet"
 msgstr "Observação"
 
-#: ../objects/UML/component_feature.c:145 ../sheets/UML.sheet.in.h:26
+#: ../objects/UML/component_feature.c:146 ../sheets/UML.sheet.in.h:26
 msgid "Receptacle"
 msgstr "Receptáculo"
 
-#: ../objects/UML/component_feature.c:146 ../sheets/UML.sheet.in.h:13
+#: ../objects/UML/component_feature.c:147 ../sheets/UML.sheet.in.h:13
 msgid "Event Source"
 msgstr "Fonte de Evento"
 
-#: ../objects/UML/component_feature.c:147 ../sheets/UML.sheet.in.h:12
+#: ../objects/UML/component_feature.c:148 ../sheets/UML.sheet.in.h:12
 msgid "Event Sink"
 msgstr "Dissipador de eventos"
 
@@ -4487,7 +4487,7 @@ msgstr "Dissipador de eventos"
 msgid "Constraint:"
 msgstr "Restrição:"
 
-#: ../objects/UML/dependency.c:137
+#: ../objects/UML/dependency.c:138
 msgid "Show arrow:"
 msgstr "Mostrar seta:"
 
@@ -4579,27 +4579,27 @@ msgstr ""
 msgid "Is final"
 msgstr "É final"
 
-#: ../objects/UML/transition.c:129
+#: ../objects/UML/transition.c:130
 msgid "Trigger"
 msgstr "Trigger"
 
-#: ../objects/UML/transition.c:130
+#: ../objects/UML/transition.c:131
 msgid "The event that causes this transition to be taken"
 msgstr "O evento que causa o funcionamento desta transição"
 
-#: ../objects/UML/transition.c:131
+#: ../objects/UML/transition.c:132
 msgid "Action"
 msgstr "Ação"
 
-#: ../objects/UML/transition.c:132
+#: ../objects/UML/transition.c:133
 msgid "Action to perform when this transition is taken"
 msgstr "Ação a ser realizada quando esta transição se inicia"
 
-#: ../objects/UML/transition.c:133 ../sheets/cisconetwork.sheet.in.h:43
+#: ../objects/UML/transition.c:134 ../sheets/cisconetwork.sheet.in.h:43
 msgid "Guard"
 msgstr "Guarda"
 
-#: ../objects/UML/transition.c:134
+#: ../objects/UML/transition.c:135
 msgid "Condition for taking this transition when the event is fired"
 msgstr "A condição para realizar esta transição quando o evento é excluído"
 
@@ -4767,7 +4767,7 @@ msgid "Cannot open icon file %s for object type '%s'."
 msgstr "Impossível abrir ícone %s para o tipo de objeto '%s'."
 
 #: ../objects/flowchart/box.c:150 ../objects/standard/box.c:150
-#: ../objects/standard/polyline.c:134 ../objects/standard/zigzagline.c:129
+#: ../objects/standard/polyline.c:134 ../objects/standard/zigzagline.c:130
 msgid "Corner radius"
 msgstr "Raio dos cantos"
 
@@ -4943,35 +4943,35 @@ msgstr "Apagar Canto"
 msgid "Standard objects"
 msgstr "Objetos padrão"
 
-#: ../plug-ins/cairo/diacairo.c:1076
+#: ../plug-ins/cairo/diacairo.c:1077
 msgid "Cairo PostScript"
 msgstr "PostScript Cairo"
 
-#: ../plug-ins/cairo/diacairo.c:1085
+#: ../plug-ins/cairo/diacairo.c:1086
 msgid "Cairo Portable Document Format"
 msgstr "Cairo Portable Document Format"
 
-#: ../plug-ins/cairo/diacairo.c:1094
+#: ../plug-ins/cairo/diacairo.c:1095
 msgid "Cairo PNG"
 msgstr "PNG Cairo"
 
-#: ../plug-ins/cairo/diacairo.c:1102
+#: ../plug-ins/cairo/diacairo.c:1103
 msgid "Cairo PNG (with alpha)"
 msgstr "Cairo PNG (com alpha)"
 
-#: ../plug-ins/cairo/diacairo.c:1112
+#: ../plug-ins/cairo/diacairo.c:1113
 msgid "Cairo WMF"
 msgstr "Cairo WMF"
 
-#: ../plug-ins/cairo/diacairo.c:1121
+#: ../plug-ins/cairo/diacairo.c:1122
 msgid "Cairo old WMF"
 msgstr "Cairo WMF antigo"
 
-#: ../plug-ins/cairo/diacairo.c:1130
+#: ../plug-ins/cairo/diacairo.c:1131
 msgid "Cairo Clipboard"
 msgstr "Cairo Bloco de Notas"
 
-#: ../plug-ins/cairo/diacairo.c:1174
+#: ../plug-ins/cairo/diacairo.c:1175
 msgid "Cairo based Rendering"
 msgstr "Renderização baseada no Cairo"
 
@@ -4984,15 +4984,15 @@ msgstr ""
 "do que a matriz de células máxima.\n"
 "A imagem não foi exportada para o formato CGM."
 
-#: ../plug-ins/cgm/cgm.c:1357
+#: ../plug-ins/cgm/cgm.c:1358
 msgid "Computer Graphics Metafile"
 msgstr "Computer Graphics Metafile"
 
-#: ../plug-ins/cgm/cgm.c:1382
+#: ../plug-ins/cgm/cgm.c:1383
 msgid "Computer Graphics Metafile export filter"
 msgstr "Filtro de exportação para CGM"
 
-#: ../plug-ins/dxf/dxf-export.c:526 ../plug-ins/dxf/dxf-import.c:1379
+#: ../plug-ins/dxf/dxf-export.c:527 ../plug-ins/dxf/dxf-import.c:1382
 msgid "Drawing Interchange File"
 msgstr "Drawing Interchange File - DXF"
 
@@ -5005,11 +5005,11 @@ msgstr "Conjunto de vértices mal formado\n"
 msgid "Scale: %f\n"
 msgstr "Escala: %f\n"
 
-#: ../plug-ins/dxf/dxf-import.c:1313
+#: ../plug-ins/dxf/dxf-import.c:1316
 msgid "read_dxf_codes failed\n"
 msgstr "falha em read_dxf_codes\n"
 
-#: ../plug-ins/dxf/dxf-import.c:1345
+#: ../plug-ins/dxf/dxf-import.c:1348
 #, c-format
 msgid "Unknown dxf code %d\n"
 msgstr "Código dxf desconhecido %d\n"
@@ -5045,11 +5045,11 @@ msgstr "Scalable Vector Graphics GNOME"
 msgid "GNOME Print based Rendering"
 msgstr "Print based Rendering GNOME"
 
-#: ../plug-ins/hpgl/hpgl.c:744
+#: ../plug-ins/hpgl/hpgl.c:745
 msgid "HP Graphics Language"
 msgstr "Linguagem Gráfica HP"
 
-#: ../plug-ins/hpgl/hpgl.c:769
+#: ../plug-ins/hpgl/hpgl.c:770
 msgid "HP Graphics Language export filter"
 msgstr "Filtro de exportação para Linguagem Gráfica HP"
 
@@ -5057,7 +5057,7 @@ msgstr "Filtro de exportação para Linguagem Gráfica HP"
 msgid "TeX Metapost export filter"
 msgstr "Filtro de exportação para TeX Metapost"
 
-#: ../plug-ins/metapost/render_metapost.c:1175
+#: ../plug-ins/metapost/render_metapost.c:1176
 msgid "TeX Metapost macros"
 msgstr "Macros TeX Metapost"
 
@@ -5084,24 +5084,24 @@ msgstr "Filtro de exportação para TeX Pstricks"
 msgid "Not valid UTF8"
 msgstr "Codificação UTF8 inválida"
 
-#: ../plug-ins/pstricks/render_pstricks.c:980
+#: ../plug-ins/pstricks/render_pstricks.c:981
 msgid "TeX PSTricks macros"
 msgstr "Macros TeX PSTricks"
 
-#: ../plug-ins/python/pydia-render.c:717 ../plug-ins/wmf/wmf.cpp:1188
+#: ../plug-ins/python/pydia-render.c:717
 #, c-format
-msgid "Couldn't open: '%s' for writing.\n"
+msgid "Couldn't open '%s' for writing.\n"
 msgstr "Impossível abrir '%s' para escrita.\n"
 
 #: ../plug-ins/python/python.c:92
 msgid "Python scripting support"
 msgstr "Suporte aos scripts Python"
 
-#: ../plug-ins/shape/shape-export.c:473
+#: ../plug-ins/shape/shape-export.c:474
 msgid "Can't export png without libart!"
 msgstr "Impossível exportar para PNG sem libart!"
 
-#: ../plug-ins/shape/shape-export.c:498
+#: ../plug-ins/shape/shape-export.c:499
 msgid "Dia Shape File"
 msgstr "Arquivo de Formas do Dia"
 
@@ -5109,7 +5109,7 @@ msgstr "Arquivo de Formas do Dia"
 msgid "dia shape export filter"
 msgstr "filtro de exportação para formas do Dia"
 
-#: ../plug-ins/svg/render_svg.c:289 ../plug-ins/svg/svg-import.c:671
+#: ../plug-ins/svg/render_svg.c:290 ../plug-ins/svg/svg-import.c:672
 msgid "Scalable Vector Graphics"
 msgstr "Scalable Vector Graphics"
 
@@ -5121,11 +5121,11 @@ msgstr "Scalable Vector Graphics"
 msgid "Can't find standard object"
 msgstr "Impossível encontrar os objetos padrão"
 
-#: ../plug-ins/svg/svg-import.c:632
+#: ../plug-ins/svg/svg-import.c:633
 msgid "Expected SVG Namespace not found in file"
 msgstr "O Nome do Espaço SVG esperado não foi encontrado no arquivo"
 
-#: ../plug-ins/svg/svg-import.c:652
+#: ../plug-ins/svg/svg-import.c:653
 #, c-format
 msgid "root element was '%s' -- expecting 'svg'."
 msgstr "elemento raíz era '%s' -- esperava-se 'svg'."
@@ -5134,6 +5134,11 @@ msgstr "elemento raíz era '%s' -- esperava-se 'svg'."
 msgid "Scalable Vector Graphics import and export filters"
 msgstr ""
 "Filtros de importação e exportação para o formato Scalable Vector Graphics"
+
+#: ../plug-ins/wmf/wmf.cpp:1188
+#, c-format
+msgid "Couldn't open: '%s' for writing.\n"
+msgstr "Impossível abrir '%s' para escrita.\n"
 
 #: ../plug-ins/wmf/wmf.cpp:1259
 msgid "Windows Meta File"
@@ -5147,16 +5152,16 @@ msgstr "Enhanced Meta File"
 msgid "WMF export filter"
 msgstr "Filtro de exportação para WMF"
 
-#: ../plug-ins/wpg/wpg.c:1186
+#: ../plug-ins/wpg/wpg.c:1188
 #, c-format
 msgid "File: %s type/version unsupported.\n"
 msgstr "Arquivo: tipo/versão %s não suportado(a)\n"
 
-#: ../plug-ins/wpg/wpg.c:1316 ../plug-ins/wpg/wpg.c:1323
+#: ../plug-ins/wpg/wpg.c:1319 ../plug-ins/wpg/wpg.c:1326
 msgid "WPG"
 msgstr "WPG"
 
-#: ../plug-ins/wpg/wpg.c:1351
+#: ../plug-ins/wpg/wpg.c:1354
 msgid "WordPerfect Graphics export filter"
 msgstr "Filtro de exportação para gráficos do WordPerfect"
 
@@ -5169,7 +5174,7 @@ msgstr "Formato FIG não possui seta com estilo %s, usando seta simples.\n"
 msgid "No more user-definable colors - using black"
 msgstr "Mais nenhuma cor definível pelo usuário - usando preto"
 
-#: ../plug-ins/xfig/xfig-export.c:1185
+#: ../plug-ins/xfig/xfig-export.c:1186
 msgid "XFig format"
 msgstr "Formato XFig"
 
@@ -5321,13 +5326,13 @@ msgstr "Erro ao ler indicador de multipáginas: %s\n"
 msgid "Error reading transparent color: %s\n"
 msgstr "Erro ao ler cor de transparência: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1524 ../plug-ins/xfig/xfig-import.c:1579
-#: ../plug-ins/xfig/xfig-import.c:1597
+#: ../plug-ins/xfig/xfig-import.c:1524 ../plug-ins/xfig/xfig-import.c:1580
+#: ../plug-ins/xfig/xfig-import.c:1598
 #, c-format
 msgid "Error reading FIG file: %s\n"
 msgstr "Erro ao ler arquivo FIG: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1526 ../plug-ins/xfig/xfig-import.c:1581
+#: ../plug-ins/xfig/xfig-import.c:1526 ../plug-ins/xfig/xfig-import.c:1582
 msgid "Premature end of FIG file\n"
 msgstr "Fim prematuro de arquivo FIG\n"
 
@@ -5336,17 +5341,17 @@ msgstr "Fim prematuro de arquivo FIG\n"
 msgid "Error reading resolution: %s\n"
 msgstr "Erro ao ler resolução: %s:\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1566
+#: ../plug-ins/xfig/xfig-import.c:1567
 #, c-format
 msgid "Doesn't look like a Fig file: %s\n"
 msgstr "Não parece ser um arquivo Fig: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1572
+#: ../plug-ins/xfig/xfig-import.c:1573
 #, c-format
 msgid "This is a FIG version %d.%d file, I may not understand it\n"
 msgstr "Este arquivo FIG é da versão %d.%d, eu posso não entendê-lo\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1620
+#: ../plug-ins/xfig/xfig-import.c:1621
 msgid "XFig File Format"
 msgstr "Formato de arquivo do XFig"
 
@@ -5354,36 +5359,36 @@ msgstr "Formato de arquivo do XFig"
 msgid "Fig Format import and export filter"
 msgstr "Filtro de importação e exportação para o formato Fig"
 
-#: ../plug-ins/xslt/xslt.c:100
+#: ../plug-ins/xslt/xslt.c:102
 #, c-format
 msgid "Error while parsing %s\n"
 msgstr "Erro ao analisar %s\n"
 
-#: ../plug-ins/xslt/xslt.c:108
+#: ../plug-ins/xslt/xslt.c:111
 #, c-format
 msgid "Error while parsing stylesheet %s\n"
 msgstr "Erro ao analisar folha de estilos %s\n"
 
-#: ../plug-ins/xslt/xslt.c:114
+#: ../plug-ins/xslt/xslt.c:118
 #, c-format
 msgid "Error while applying stylesheet %s\n"
 msgstr "Erro ao aplicar folha de estilos %s\n"
 
-#: ../plug-ins/xslt/xslt.c:122
+#: ../plug-ins/xslt/xslt.c:127
 #, c-format
 msgid "Error while parsing stylesheet: %s\n"
 msgstr "Erro ao analisar folha de estilos: %s\n"
 
-#: ../plug-ins/xslt/xslt.c:130
+#: ../plug-ins/xslt/xslt.c:136
 #, c-format
 msgid "Error while applying stylesheet: %s\n"
 msgstr "Erro ao aplicar folha de estilos: %s\n"
 
-#: ../plug-ins/xslt/xslt.c:315
+#: ../plug-ins/xslt/xslt.c:322
 msgid "XSL Transformation filter"
 msgstr "Filtro de Transformação XSL"
 
-#: ../plug-ins/xslt/xslt.c:339
+#: ../plug-ins/xslt/xslt.c:346
 msgid "No valid configuration files found for the XSLT plugin, not loading."
 msgstr ""
 "Nenhum arquivo de configuração válido encontrado para o plugin XSLT, não "
@@ -5928,11 +5933,11 @@ msgstr "Diodo zener alinhado verticalmente"
 
 #: ../sheets/Contact.sheet.in.h:1
 msgid "'if not' (normally closed) ladder contact"
-msgstr "Contato de escada 'se não' (normalmente fechado)"
+msgstr "Contato ladder 'se não' (normalmente fechado)"
 
 #: ../sheets/Contact.sheet.in.h:2
 msgid "'if' (normally open) ladder contact"
-msgstr "Contato de escada 'se' (normalmente aberto)"
+msgstr "Contato ladder 'se' (normalmente aberto)"
 
 #: ../sheets/Contact.sheet.in.h:3
 msgid "'jump' output variable"
@@ -5948,11 +5953,11 @@ msgstr "Variável de saída 'set'"
 
 #: ../sheets/Contact.sheet.in.h:6
 msgid "Components for LADDER circuits"
-msgstr "Componentes para circuitos de escada (LADDER)"
+msgstr "Componentes para circuitos LADDER"
 
 #: ../sheets/Contact.sheet.in.h:7
 msgid "Ladder"
-msgstr "Escada"
+msgstr "Ladder - Diagrama de Contatos"
 
 #: ../sheets/Contact.sheet.in.h:8
 msgid "Negative output variable"
@@ -5968,11 +5973,11 @@ msgstr "Variável de saida 'set' com economia de energia"
 
 #: ../sheets/Contact.sheet.in.h:11
 msgid "Power-saved negative output variable"
-msgstr "Variável de saída negativa econômica"
+msgstr "Variável de saída negativa com economia de energia"
 
 #: ../sheets/Contact.sheet.in.h:12
 msgid "Power-saved simple output variable"
-msgstr "Variável de saída simples econômica"
+msgstr "Variável de saída simples com economia de energia"
 
 #: ../sheets/Contact.sheet.in.h:13
 msgid "Receptivity output variable"
