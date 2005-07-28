@@ -1159,7 +1159,7 @@ msgstr "/Tiedosto/_Lopeta"
 
 #: app/menus.c:73 app/menus.c:260
 msgid "/_Help"
-msgstr "/_Ohje"
+msgstr "/O_hje"
 
 #: app/menus.c:75 app/menus.c:262
 #, fuzzy
@@ -9181,7 +9181,7 @@ msgstr "Sybase-varmistuspalvelin"
 #~ msgstr "_Syötetavat"
 
 #~ msgid "_Help"
-#~ msgstr "_Ohje"
+#~ msgstr "O_hje"
 
 #~ msgid "/View/Diagram Properties..."
 #~ msgstr "/Näytä/Kaavion ominaisuudet..."
