@@ -311,7 +311,7 @@ msgstr ""
 "Tommi Vainikainen, 2003\n"
 "Sami Gerdt, 2000\n"
 "\n"
-"http://gnome-fi.org/"
+"http://gnome.fi/"
 
 #: app/commands.c:625
 msgid "Dia"
