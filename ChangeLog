@@ -1,3 +1,9 @@
+2005-07-31  Hans Breuer  <hans@breuer.org>
+
+	* plug-ins/cairo/diacairo.c congigure.in : dont wait any 
+	longer for distributions official packages - depend 
+	on cairo 0.6.0 - fixes bug #307144
+
 2005-07-20  Hans Breuer  <hans@breuer.org>
 
 	* lib/element.h : remove stray NULL in ELEMENT_COMMON_PROPERTIES

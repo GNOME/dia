@@ -36,11 +36,17 @@
  * although there isn't any functionality behind it. Urgh.  --hb 
  */
 #ifdef HAVE_CAIRO
-#include <cairo.h>
+#  include <cairo.h>
 /* some backend headers, win32 missing in official Cairo */
-#include <cairo-png.h>
-#include <cairo-ps.h>
-#include <cairo-pdf.h>
+#  ifdef CAIRO_HAS_PNG_SURFACE_FEATURE
+#  include <cairo-png.h>
+#  endif
+#  ifdef  CAIRO_HAS_PS_SURFACE
+#  include <cairo-ps.h>
+#  endif
+#  ifdef  CAIRO_HAS_PDF_SURFACE
+#  include <cairo-pdf.h>
+#  endif
 #endif
 
 #include "intl.h"
@@ -106,31 +112,28 @@ begin_render(DiaRenderer *self)
 {
   DiaCairoRenderer *renderer = DIA_CAIRO_RENDERER (self);
 
-  renderer->cr = cairo_create ();
+  renderer->cr = cairo_create (renderer->surface);
   cairo_scale (renderer->cr, renderer->scale, renderer->scale);
   cairo_translate (renderer->cr, -renderer->dia->extents.left, -renderer->dia->extents.top);
-
-  cairo_set_target_surface (renderer->cr, renderer->surface);
 
   /* clear background */
   if (renderer->with_alpha)
     {
-      cairo_set_operator (renderer->cr, CAIRO_OPERATOR_SRC);
-#ifndef CAIRO_API_SHAKEUP_FLAG_DAY
-      /* an IMHO lousy way to build with Cairo cvs and .4 release */
-      cairo_set_alpha (renderer->cr, 0.0);
-#else
+      cairo_set_operator (renderer->cr, CAIRO_OPERATOR_SOURCE);
       cairo_set_source_rgba (renderer->cr,
-                       renderer->dia->bg_color.red, 
-                       renderer->dia->bg_color.green, 
-                       renderer->dia->bg_color.blue,
-                       0.0);
-#endif
+                             renderer->dia->bg_color.red, 
+                             renderer->dia->bg_color.green, 
+                             renderer->dia->bg_color.blue,
+                             0.0);
     }
-  cairo_set_rgb_color (renderer->cr,
-                       renderer->dia->bg_color.red, 
-                       renderer->dia->bg_color.green, 
-                       renderer->dia->bg_color.blue);
+  else
+    {
+      cairo_set_source_rgba (renderer->cr,
+                             renderer->dia->bg_color.red, 
+                             renderer->dia->bg_color.green, 
+                             renderer->dia->bg_color.blue,
+                             1.0);
+    }
   cairo_rectangle (renderer->cr, 
                    renderer->dia->extents.left, renderer->dia->extents.top,
                    renderer->dia->extents.right, renderer->dia->extents.bottom);
@@ -139,15 +142,11 @@ begin_render(DiaRenderer *self)
     {
       /* restore to default drawing */
       cairo_set_operator (renderer->cr, CAIRO_OPERATOR_OVER);
-#ifndef CAIRO_API_SHAKEUP_FLAG_DAY
-      cairo_set_alpha (renderer->cr, 1.0);
-#else
-      cairo_set_source_rgba (renderer->cr,
+       (renderer->cr,
                        renderer->dia->bg_color.red, 
                        renderer->dia->bg_color.green, 
                        renderer->dia->bg_color.blue,
                        1.0);
-#endif
     }
   DIAG_STATE(renderer->cr)
 }
@@ -306,11 +305,12 @@ set_font(DiaRenderer *self, DiaFont *font, real height)
 
   family_name = dia_font_get_family(font);
 
-  cairo_select_font (renderer->cr,
-                     family_name,
-                     DIA_FONT_STYLE_GET_SLANT(style) == DIA_FONT_NORMAL ? CAIRO_FONT_SLANT_NORMAL : CAIRO_FONT_SLANT_ITALIC,
-                     DIA_FONT_STYLE_GET_WEIGHT(style) < DIA_FONT_MEDIUM ? CAIRO_FONT_WEIGHT_NORMAL : CAIRO_FONT_WEIGHT_BOLD); 
-  cairo_scale_font (renderer->cr, height * 0.7); /* same magic factor as in lib/font.c */
+  cairo_select_font_face (
+      renderer->cr,
+      family_name,
+      DIA_FONT_STYLE_GET_SLANT(style) == DIA_FONT_NORMAL ? CAIRO_FONT_SLANT_NORMAL : CAIRO_FONT_SLANT_ITALIC,
+      DIA_FONT_STYLE_GET_WEIGHT(style) < DIA_FONT_MEDIUM ? CAIRO_FONT_WEIGHT_NORMAL : CAIRO_FONT_WEIGHT_BOLD); 
+  cairo_set_font_size (renderer->cr, height * 0.7); /* same magic factor as in lib/font.c */
 
   DIAG_STATE(renderer->cr)
 }
@@ -325,7 +325,7 @@ draw_line(DiaRenderer *self,
   DIAG_NOTE(g_message("draw_line %f,%f -> %f, %f", 
             start->x, start->y, end->x, end->y));
 
-  cairo_set_rgb_color (renderer->cr, color->red, color->green, color->blue);
+  cairo_set_source_rgba (renderer->cr, color->red, color->green, color->blue, 1.0);
   cairo_move_to (renderer->cr, start->x, start->y);
   cairo_line_to (renderer->cr, end->x, end->y);
   cairo_stroke (renderer->cr);
@@ -345,7 +345,7 @@ draw_polyline(DiaRenderer *self,
 
   g_return_if_fail(1 < num_points);
 
-  cairo_set_rgb_color (renderer->cr, color->red, color->green, color->blue);
+  cairo_set_source_rgba (renderer->cr, color->red, color->green, color->blue, 1.0);
 
   cairo_new_path (renderer->cr);
   /* point data */
@@ -373,7 +373,7 @@ _polygon(DiaRenderer *self,
 
   g_return_if_fail(1 < num_points);
 
-  cairo_set_rgb_color (renderer->cr, color->red, color->green, color->blue);
+  cairo_set_source_rgba (renderer->cr, color->red, color->green, color->blue, 1.0);
 
   cairo_new_path (renderer->cr);
   /* point data */
@@ -419,7 +419,7 @@ _rect(DiaRenderer *self,
             fill ? "fill" : "draw",
             ul_corner->x, ul_corner->y, lr_corner->x, lr_corner->y));
 
-  cairo_set_rgb_color (renderer->cr, color->red, color->green, color->blue);
+  cairo_set_source_rgba (renderer->cr, color->red, color->green, color->blue, 1.0);
   
   cairo_rectangle (renderer->cr, 
                    ul_corner->x, ul_corner->y, 
@@ -462,7 +462,7 @@ draw_arc(DiaRenderer *self,
   DIAG_NOTE(g_message("draw_arc %fx%f <%f,<%f", 
             width, height, angle1, angle2));
 
-  cairo_set_rgb_color (renderer->cr, color->red, color->green, color->blue);
+  cairo_set_source_rgba (renderer->cr, color->red, color->green, color->blue, 1.0);
 
   /* Dia and Cairo don't agree on arc definitions, so it needs
    * to be converted, i.e. mirrored at the x axis
@@ -495,7 +495,7 @@ fill_arc(DiaRenderer *self,
   DIAG_NOTE(g_message("draw_arc %fx%f <%f,<%f", 
             width, height, angle1, angle2));
 
-  cairo_set_rgb_color (renderer->cr, color->red, color->green, color->blue);
+  cairo_set_source_rgba (renderer->cr, color->red, color->green, color->blue, 1.0);
   
   cairo_new_path (renderer->cr);
   start.x = center->x + (width / 2.0)  * cos((M_PI / 180.0) * angle1);
@@ -527,7 +527,7 @@ _ellipse(DiaRenderer *self,
   DIAG_NOTE(g_message("%s_ellipse %fx%f center @ %f,%f", 
             fill ? "fill" : "draw", width, height, center->x, center->y));
 
-  cairo_set_rgb_color (renderer->cr, color->red, color->green, color->blue);
+  cairo_set_source_rgba (renderer->cr, color->red, color->green, color->blue, 1.0);
   
   /* FIXME: how to make a perfect ellipse from a bezier ? */
   co = sqrt(pow(width,2)/4 + pow(height,2)/4);
@@ -581,7 +581,7 @@ _bezier(DiaRenderer *self,
   DIAG_NOTE(g_message("%s_bezier n:%d %fx%f ...", 
             fill ? "fill" : "draw", numpoints, points->p1.x, points->p1.y));
 
-  cairo_set_rgb_color (renderer->cr, color->red, color->green, color->blue);
+  cairo_set_source_rgba (renderer->cr, color->red, color->green, color->blue, 1.0);
 
   cairo_new_path (renderer->cr);
   for (i = 0; i < numpoints; i++)
@@ -646,7 +646,7 @@ draw_string(DiaRenderer *self,
 
   if (len < 1) return; /* shouldn't this be handled by Dia's core ? */
 
-  cairo_set_rgb_color (renderer->cr, color->red, color->green, color->blue);
+  cairo_set_source_rgba (renderer->cr, color->red, color->green, color->blue, 1.0);
   cairo_text_extents (renderer->cr,
                       text,
                       &extents);
@@ -692,19 +692,11 @@ draw_image(DiaRenderer *self,
       /* we need to make a copy to rearrange channels 
        * (also need to use malloc, cause Cairo insists to free() it)
        */
-      guint8 *p2 = data = malloc (h * rs);
+      guint8 *p2 = data = g_malloc (h * rs);
       int i;
 
       for (i = 0; i < (h * rs) / 4; i++)
         {
-#if 0
-          /* premultiply alpha */
-          guint alpha = p1[3];
-          p2[0] = (guint8)((p1[2] * alpha) / 255);
-          p2[1] = (guint8)((p1[1] * alpha) / 255);
-          p2[2] = (guint8)((p1[0] * alpha) / 255);
-          p2[3] = (guint8)alpha;
-#else
 #  if G_BYTE_ORDER == G_LITTLE_ENDIAN
           p2[0] = p1[2]; /* b */
           p2[1] = p1[1]; /* g */
@@ -716,17 +708,11 @@ draw_image(DiaRenderer *self,
           p2[1] = p1[0]; /* r */
           p2[0] = p1[3]; /* a */
 #  endif
-#endif
           p1+=4;
           p2+=4;
         }
 
-      surface = cairo_surface_create_for_image (data, 
-                                                CAIRO_FORMAT_ARGB32,
-                                                w, h, rs);
-      /* DON'T it's owned by cairo/pixman now
-      free (data);
-       */
+      surface = cairo_image_surface_create_for_data (data, CAIRO_FORMAT_ARGB32, w, h, rs);
     }
   else
     {
@@ -737,7 +723,7 @@ draw_image(DiaRenderer *self,
        */
       int x, y;
 
-      p = p2 = malloc(h*w*4);
+      p = p2 = g_malloc(h*w*4);
       for (y = 0; y < h; y++)
         {
           for (x = 0; x < w; x++)
@@ -758,21 +744,25 @@ draw_image(DiaRenderer *self,
           p2 += (w*4);
           p1 += rs;
         }
-      surface = cairo_surface_create_for_image (p, 
-                                                CAIRO_FORMAT_RGB24,
-                                                w, h, w*4);
+      surface = cairo_image_surface_create_for_data (p, CAIRO_FORMAT_RGB24, w, h, w*4);
       g_free (data);
+      data = p;
     }
   cairo_save (renderer->cr);
   cairo_translate (renderer->cr, point->x, point->y);
   cairo_scale (renderer->cr, width/w, height/h);
   cairo_move_to (renderer->cr, 0.0, 0.0);
   /* maybe just the second set_filter is required */
+#if 0
   cairo_surface_set_filter (renderer->surface, CAIRO_FILTER_BEST);
   cairo_surface_set_filter (surface, CAIRO_FILTER_BEST);
-  cairo_show_surface (renderer->cr, surface, w, h);
+#endif
+  cairo_set_source_surface (renderer->cr, surface, point->x, point->y);
+  cairo_paint (renderer->cr);
   cairo_restore (renderer->cr);
   cairo_surface_destroy (surface);
+
+  g_free (data);
 
   DIAG_STATE(renderer->cr);
 }
@@ -794,7 +784,7 @@ _rounded_rect (DiaRenderer *self,
             fill ? "fill" : "draw",
             topleft->x, topleft->y, bottomright->x, bottomright->y, radius));
 
-  cairo_set_rgb_color (renderer->cr, color->red, color->green, color->blue);
+  cairo_set_source_rgba (renderer->cr, color->red, color->green, color->blue, 1.0);
 
   cairo_new_path (renderer->cr);
   cairo_move_to (renderer->cr,
@@ -977,7 +967,7 @@ export_data(DiagramData *data, const gchar *filename,
 		  dia_message_filename(filename), strerror(errno));
     return;
   }
-
+  fclose (file);
   renderer = g_object_new (DIA_CAIRO_TYPE_RENDERER, NULL);
   renderer->dia = data; /* FIXME: not sure if this a good idea */
   renderer->scale = 1.0;
@@ -989,9 +979,8 @@ export_data(DiagramData *data, const gchar *filename,
     height = data->paper.height / 2.54;
     renderer->scale = data->paper.scaling;
     DIAG_NOTE(g_message ("PS Surface %dx%d\n", (int)width, (int)height)); 
-    renderer->surface = cairo_ps_surface_create (file,
-                                                 width, height, /*  inches */
-                                                 75, 75); /* pixels per inch */
+    renderer->surface = cairo_ps_surface_create (filename,
+                                                 width*72, height*72); /*  in points? */
     break;
 #endif  
 #if defined CAIRO_HAS_PNG_SURFACE || defined CAIRO_HAS_PNG_FUNCTIONS
@@ -1005,30 +994,24 @@ export_data(DiagramData *data, const gchar *filename,
     height = (data->extents.bottom - data->extents.top) * renderer->scale;
 
     DIAG_NOTE(g_message ("PNG Surface %dx%d\n", (int)width, (int)height));
-#if defined CAIRO_HAS_PNG_SURFACE
-    renderer->surface = cairo_png_surface_create (file,
-                                                  CAIRO_FORMAT_ARGB32,
-                                                  (int)width, (int)height);
-#else
     /* use case screwed by API shakeup. We need to special case */
     renderer->surface = cairo_image_surface_create(
 						CAIRO_FORMAT_ARGB32,
 						(int)width, (int)height);
     /* an extra refernce to make it survive end_render():cairo_surface_destroy() */
     cairo_surface_reference(renderer->surface);
-#endif
-    /* although it is slow enough with out this prefer quality over speed */
-    cairo_surface_set_filter (renderer->surface, CAIRO_FILTER_BEST);
     break;
 #endif
 #ifdef CAIRO_HAS_PDF_SURFACE
   case OUTPUT_PDF :
-    /* I just don't get how the scalin is supposed to work, dpi versus page size ? */
-    renderer->scale = 20.0 * data->paper.scaling;
+#define DPI 600.0
+    /* I just don't get how the scaling is supposed to work, dpi versus page size ? */
+    renderer->scale = data->paper.scaling * 2.54;
     DIAG_NOTE(g_message ("PDF Surface %dx%d\n", (int)width, (int)height));
-    renderer->surface = cairo_pdf_surface_create (file,
-                                                  data->paper.width / 2.54, data->paper.height / 2.54,
-                                                  150, 150);
+    renderer->surface = cairo_pdf_surface_create (filename,
+                                                  data->paper.width * 2.54, data->paper.height * 2.54);
+    cairo_pdf_surface_set_dpi (renderer->surface, DPI, DPI);
+#undef DPI
     break;
 #endif
   /* the default Cairo/win32 surface isn't able to do such ... */
@@ -1064,12 +1047,11 @@ export_data(DiagramData *data, const gchar *filename,
 #if defined CAIRO_HAS_PNG_FUNCTIONS
   if (OUTPUT_PNGA == kind || OUTPUT_PNG == kind)
     {
-      cairo_surface_write_png(renderer->surface, file);
+      cairo_surface_write_to_png(renderer->surface, filename);
       cairo_surface_destroy(renderer->surface);
     }
 #endif
   g_object_unref(renderer);
-  fclose (file);
 }
 
 static const gchar *ps_extensions[] = { "ps", NULL };
