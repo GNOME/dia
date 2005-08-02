@@ -88,8 +88,10 @@ static void arc_set_props(Arc *arc, GPtrArray *props);
 static void arc_save(Arc *arc, ObjectNode obj_node, const char *filename);
 static DiaObject *arc_load(ObjectNode obj_node, int version, const char *filename);
 static int arc_compute_midpoint(Arc *arc, const Point * ep0, const Point * ep1 , Point * midpoint);
-static void calculate_arc_object_edge(Arc *arc, real ang_start, real ang_end, DiaObject *obj, Point *target);
+static void calculate_arc_object_edge(Arc *arc, real ang_start, real ang_end, DiaObject *obj, Point *target, gboolean clockwiseness);
 static void arc_get_point_at_angle(Arc *arc, Point* point, real angle);
+real round_angle(real angle);
+real get_middle_arc_angle(real angle1, real angle2, gboolean clock);
 
 static ObjectTypeOps arc_type_ops =
 {
@@ -498,17 +500,42 @@ arc_compute_midpoint(Arc *arc, const Point * ep0, const Point * ep1 , Point * mi
             *midpoint = midpos;
             return 1;
 }
-/** updates point to the point on the arc at angle angle */
+/** updates point to the point on the arc at angle angle degrees */
 void arc_get_point_at_angle(Arc *arc, Point* point, real angle)
 {
         Point vec;
         vec.x = cos(angle/180.0*M_PI);
-        vec.y = sin(angle/180.0*M_PI);
+        vec.y = -sin(angle/180.0*M_PI);
         point_copy(point,&arc->center);
         point_add_scaled(point,&vec,arc->radius);
 }
+/** returns the angle in [0,360[ corresponding to this angle*/
+real round_angle(real angle){
+        real a = angle;
+        while (a<0) a+=360;
+        while (a>=360) a-=360;
+        return a;
+}
+/** returns the angle in the middle from angle1 to angle2*/
+real get_middle_arc_angle(real angle1, real angle2, gboolean clock)
+{
+        angle1 = round_angle(angle1);
+        angle2 = round_angle(angle2);
+        real delta = (angle2-angle1);
+        if (delta<0) delta+=360;
+        if (clock) 
+                return round_angle(angle1-(360-delta)/2);
+        else  
+                return round_angle(angle1+delta/2);
+}
+
+#undef TRACE_DIST
+/* PRE: ang_start should be outside object.
+ *      ang_end should be inside
+ *      if both are inside or if ang_start is very close , then the point at ang_start is returned
+ */
 static void
-calculate_arc_object_edge(Arc *arc, real ang_start, real ang_end, DiaObject *obj, Point *target) 
+calculate_arc_object_edge(Arc *arc, real ang_start, real ang_end, DiaObject *obj, Point *target, gboolean clockwiseness) 
 {
 #define MAXITER 25
 #ifdef TRACE_DIST
@@ -518,42 +545,43 @@ calculate_arc_object_edge(Arc *arc, real ang_start, real ang_end, DiaObject *obj
   real mid1, mid2, mid3;
   real dist;
   int i = 0;
+  int j = 0;
 
   mid1 = ang_start;
-  mid2 = (ang_start + ang_end)/2;
+  mid2 = get_middle_arc_angle(ang_start, ang_end, clockwiseness);
   mid3 = ang_end;
 
+  TRACE(printf("Find middle angle between %f° and  %f°\n",ang_start,ang_end));
   /* If the other end is inside the object */
-  arc_get_point_at_angle(arc,target,mid3);
+  arc_get_point_at_angle(arc,target,mid1);
   dist = obj->ops->distance_from(obj, target );
   if (dist < 0.001){
-          arc_get_point_at_angle(arc,target,mid1);
+          TRACE(printf("Point at %f°: %f,%f is very close to object: %f, returning it\n",mid1, target->x, target->y, dist)); 
           return ;
   }
   do {
     arc_get_point_at_angle(arc, target, mid2);
     dist = obj->ops->distance_from(obj, target);
-    if (dist < 0.0000001) {
-      mid1 = mid2;
-    } else {
-      mid3 = mid2;
-    }
-    mid2 = (mid1 + mid3) / 2;
-    
 #ifdef TRACE_DIST
     trace[i] = mid2;
     disttrace[i] = dist;
 #endif
     i++;
+    
+    if (dist < 0.0000001) {
+      mid3 = mid2;
+    } else {
+      mid1 = mid2;
+    }
+    mid2 = get_middle_arc_angle(mid1,mid3,clockwiseness);
+    
   } while (i < MAXITER && (dist < 0.0000001 || dist > 0.001));
   
 #ifdef TRACE_DIST
-  if (i == MAXITER) {
-    for (i = 0; i < MAXITER; i++) {
-      printf("%d: %f, %f: %f\n", i, trace[i].x, trace[i].y, disttrace[i]);
+    for (j = 0; j < i; j++) {
+      arc_get_point_at_angle(arc,target,trace[j]);
+      printf("%d: %f ° : %f,%f :%f\n", j, trace[j],target->x,target->y, disttrace[j]);
     }
-    printf("i = %d, dist = %f\n", i, dist);
-  }
 #endif
   arc_get_point_at_angle(arc,target,mid2);
   return ;
@@ -576,10 +604,24 @@ arc_draw(Arc *arc, DiaRenderer *renderer)
   start_cp = arc->connection.endpoint_handles[0].connected_to;
   end_cp = arc->connection.endpoint_handles[1].connected_to;
 
-  if (connpoint_is_autogap(start_cp)) 
-     calculate_arc_object_edge(arc, arc->angle1, arc->angle2, start_cp->object, &gaptmp[0]);
-  if (connpoint_is_autogap(end_cp)) 
-     calculate_arc_object_edge(arc, arc->angle2, arc->angle1, end_cp->object, &gaptmp[1]);
+  arc_update_data(arc);
+ TRACE(printf("drawing arc:\n start:%f °:%f,%f \tend:%f °:%f,%f\n",arc->angle1,endpoints[0].x,endpoints[0].y, arc->angle2,endpoints[1].x,endpoints[1].y));
+
+ 
+  if (connpoint_is_autogap(start_cp)) {
+     TRACE(printf("computing start intersection\ncurve_distance: %f\n",arc->curve_distance));
+     if (arc->curve_distance < 0)
+             calculate_arc_object_edge(arc, arc->angle1, arc->angle2, start_cp->object, &gaptmp[0], FALSE);
+     else
+             calculate_arc_object_edge(arc, arc->angle2, arc->angle1, start_cp->object, &gaptmp[0], TRUE);
+  }
+  if (connpoint_is_autogap(end_cp)) {
+     TRACE(printf("computing end intersection\ncurve_distance: %f\n",arc->curve_distance));
+     if (arc->curve_distance < 0)
+             calculate_arc_object_edge(arc, arc->angle2, arc->angle1, end_cp->object, &gaptmp[1], TRUE);
+     else
+             calculate_arc_object_edge(arc, arc->angle1, arc->angle2, end_cp->object, &gaptmp[1], FALSE);
+  }
 
   /* compute new middle_point */
   arc_compute_midpoint(arc, &gaptmp[0], &gaptmp[1], &gaptmp[2]); 

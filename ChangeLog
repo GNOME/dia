@@ -1,3 +1,14 @@
+2005-08-02  Lars Clausen  <lars@raeder.dk>
+
+	* objects/standard/arc.c: Patch from Grégoire Dooms
+	<dooms@info.ucl.ac.be>: An almost perfect arc autogap
+	implementation.  "There is still a small bug when the non
+	connected end of the arc is very close to the border of the
+	connected object. I think this is due to rounding errors in the
+	code for SHIFT-move handle which is reused to trim the arc in
+	autogap. Also it is not yet possible to have a startgap and an
+	endgap from/to the same central CP."
+
 2005-07-31  Hans Breuer  <hans@breuer.org>
 
 	* plug-ins/cairo/diacairo.c congigure.in : dont wait any 
