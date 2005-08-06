@@ -1,3 +1,13 @@
+2005-08-06  Hans Breuer  <hans@breuer.org>
+
+	* plug-ins/cairo/diacairo.c : increased #ifdef MESS:
+	With Gtk+-2.7.x cairo must be available so the HAVE_CAIRO case
+	becomes even more ugly when the user has choosen *not* to build 
+	the diacairo plug-in. If noone can come up with a very convincing 
+	reason why it has to be done this way I'll probably go back to 
+	my original dont-build-at-all approach when this breaks the 
+	next time.
+
 2005-08-02  Lars Clausen  <lars@raeder.dk>
 
 	* objects/standard/arc.c: Patch from Grégoire Dooms

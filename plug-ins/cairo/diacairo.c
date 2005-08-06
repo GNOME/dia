@@ -33,7 +33,13 @@
  * To me the following looks rather suspicious. Why do we need to compile
  * the Cairo plug-in at all if we don't have Cairo? As a result we'll
  * show it in the menus/plugin details and the user expects something
- * although there isn't any functionality behind it. Urgh.  --hb 
+ * although there isn't any functionality behind it. Urgh.
+ *
+ * With Gtk+-2.7.x cairo must be available so this becomes even more ugly
+ * when the user has choosen to to build the diacairo plug-in. If noone
+ * can come up with a convincing reason to do it this way I'll probably
+ * go back to the dont-build-at-all approach when it breaks the next time.
+ *                                                                    --hb 
  */
 #ifdef HAVE_CAIRO
 #  include <cairo.h>
@@ -1129,6 +1135,7 @@ _plugin_can_unload (PluginInfo *info)
 static void
 _plugin_unload (PluginInfo *info)
 {
+#ifdef HAVE_CAIRO
 #ifdef CAIRO_HAS_PS_SURFACE
   filter_unregister_export(&ps_export_filter);
 #endif
@@ -1144,6 +1151,7 @@ _plugin_unload (PluginInfo *info)
   filter_unregister_export(&wmf_export_filter);
   filter_unregister_export(&cb_export_filter);
 #endif
+#endif /* HAVE_CAIRO */
 }
 
 /* --- dia plug-in interface --- */
@@ -1159,6 +1167,7 @@ dia_plugin_init(PluginInfo *info)
                             _plugin_unload))
     return DIA_PLUGIN_INIT_ERROR;
 
+#ifdef HAVE_CAIRO
 #ifdef CAIRO_HAS_PS_SURFACE
   filter_register_export(&ps_export_filter);
 #endif
@@ -1173,6 +1182,7 @@ dia_plugin_init(PluginInfo *info)
   filter_register_export(&emf_export_filter);
   filter_register_export(&wmf_export_filter);
   filter_register_export(&cb_export_filter);
+#endif
 #endif
 
   return DIA_PLUGIN_INIT_OK;
