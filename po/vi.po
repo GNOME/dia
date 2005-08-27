@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: dia HEAD\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-08-10 02:55+0000\n"
-"PO-Revision-Date: 2005-08-12 23:39+0930\n"
+"PO-Revision-Date: 2005-08-27 16:13+0930\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: Vietnamese <gnomevi-list@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -907,7 +907,7 @@ msgid ""
 "Line style for new lines.  Click to pick a line style, or set line style "
 "parameters with Details..."
 msgstr ""
-"Kiểu dạng các đường mới. Nhấn để chọn kiểu dạng đường, hoặc đặt tham số kiểu "
+"Kiểu dạng các đường mới. Nhấn để chọn kiểu dáng đường, hoặc đặt tham số kiểu "
 "dạng đường trong phần Chi tiết..."
 
 #: ../app/interface.c:1108
@@ -1084,7 +1084,7 @@ msgstr "/Tập tin/Tờ và đối tượng..."
 
 #: ../app/menus.c:64
 msgid "/File/_Preferences..."
-msgstr "/Tập tin/_Sở thích..."
+msgstr "/Tập tin/Tù_y thích..."
 
 #: ../app/menus.c:66
 msgid "/File/P_lugins..."
@@ -1745,7 +1745,7 @@ msgstr "Không"
 
 #: ../app/preferences.c:507
 msgid "Preferences"
-msgstr "Sở thích"
+msgstr "Tùy thích"
 
 #: ../app/properties.c:55
 msgid "Object properties"
@@ -2293,7 +2293,7 @@ msgstr "gdk_renderer: xác định chế độ tô không được hỗ trợ.\n
 
 #: ../lib/dialinechooser.c:297
 msgid "Line Style Properties"
-msgstr "Thuộc tính kiểu dạng đường"
+msgstr "Thuộc tính kiểu dáng đường"
 
 #: ../lib/filter.c:126
 #, c-format
@@ -5142,7 +5142,7 @@ msgstr "Bộ lọc xuất WordPerfect Graphics"
 #: ../plug-ins/xfig/xfig-export.c:459
 #, c-format
 msgid "FIG format has no equivalent of arrow style %s, using simple arrow.\n"
-msgstr "Khuôn dạng FIG không có điều tương đương kiểu dạng mũi tên « %s » nên dùng mũi tên đơn giản.\n"
+msgstr "Khuôn dạng FIG không có điều tương đương kiểu dáng mũi tên « %s » nên dùng mũi tên đơn giản.\n"
 
 #: ../plug-ins/xfig/xfig-export.c:481
 msgid "No more user-definable colors - using black"
@@ -5339,22 +5339,22 @@ msgstr "Gặp lỗi khi phân tách %s.\n"
 #: ../plug-ins/xslt/xslt.c:111
 #, c-format
 msgid "Error while parsing stylesheet %s\n"
-msgstr "Gặp lỗi khi phân tách tờ kiểu dạng %s.\n"
+msgstr "Gặp lỗi khi phân tách tờ kiểu dáng %s.\n"
 
 #: ../plug-ins/xslt/xslt.c:118
 #, c-format
 msgid "Error while applying stylesheet %s\n"
-msgstr "Gặp lỗi khi áp dụng tờ kiểu dạng %s.\n"
+msgstr "Gặp lỗi khi áp dụng tờ kiểu dáng %s.\n"
 
 #: ../plug-ins/xslt/xslt.c:127
 #, c-format
 msgid "Error while parsing stylesheet: %s\n"
-msgstr "Gặp lỗi khi phân tách tờ kiểu dạng: %s\n"
+msgstr "Gặp lỗi khi phân tách tờ kiểu dáng: %s\n"
 
 #: ../plug-ins/xslt/xslt.c:136
 #, c-format
 msgid "Error while applying stylesheet: %s\n"
-msgstr "Gặp lỗi khi áp dụng tờ kiểu dạng: %s\n"
+msgstr "Gặp lỗi khi áp dụng tờ kiểu dáng: %s\n"
 
 #: ../plug-ins/xslt/xslt.c:322
 msgid "XSL Transformation filter"
@@ -7198,7 +7198,7 @@ msgstr "Máy phục vụ WWW"
 
 #: ../sheets/ciscocomputer.sheet.in.h:48
 msgid "Web browser"
-msgstr "Trình duyệt Mạng"
+msgstr "Bộ duyệt Mạng"
 
 #: ../sheets/ciscocomputer.sheet.in.h:49
 msgid "Web cluster"
@@ -7898,7 +7898,7 @@ msgstr "Bộ chuyển đổi DSL IP"
 
 #: ../sheets/cisconetwork.sheet.in.h:48
 msgid "IP Old-style"
-msgstr "IP kiểu dạng cũ"
+msgstr "IP kiểu dáng cũ"
 
 #: ../sheets/cisconetwork.sheet.in.h:49
 msgid "IP Transport Concentrator"
