@@ -72,7 +72,7 @@ create_object_button_press(CreateObjectTool *tool, GdkEventButton *event,
       handle1->connect_type != HANDLE_NONCONNECTABLE) {
     ConnectionPoint *connectionpoint;
     connectionpoint =
-      object_find_connectpoint_display(ddisp, &origpoint, obj);
+      object_find_connectpoint_display(ddisp, &origpoint, obj, TRUE);
     if (connectionpoint != NULL) {
       (obj->ops->move)(obj, &origpoint);
       /* Make sure to not parent to the object connected to */
@@ -109,7 +109,7 @@ create_object_button_press(CreateObjectTool *tool, GdkEventButton *event,
   /* Connect first handle if possible: */
   if ((handle1!= NULL) &&
       (handle1->connect_type != HANDLE_NONCONNECTABLE)) {
-    object_connect_display(ddisp, obj, handle1);
+    object_connect_display(ddisp, obj, handle1, TRUE);
   }
 
   object_add_updates(obj, ddisp->diagram);
@@ -160,7 +160,7 @@ create_object_button_release(CreateObjectTool *tool, GdkEventButton *event,
 
   if (tool->moving) {
     if (tool->handle->connect_type != HANDLE_NONCONNECTABLE) {
-      object_connect_display(ddisp, tool->obj, tool->handle);
+      object_connect_display(ddisp, tool->obj, tool->handle, TRUE);
       diagram_update_connections_selection(ddisp->diagram);
       diagram_flush(ddisp->diagram);
     }
@@ -202,7 +202,7 @@ create_object_motion(CreateObjectTool *tool, GdkEventMotion *event,
   if (tool->handle != NULL &&
       tool->handle->connect_type != HANDLE_NONCONNECTABLE) {
     connectionpoint =
-      object_find_connectpoint_display(ddisp, &to, tool->obj);
+      object_find_connectpoint_display(ddisp, &to, tool->obj, TRUE);
     
     if (connectionpoint != NULL) {
       to = connectionpoint->pos;

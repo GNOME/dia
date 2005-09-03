@@ -48,7 +48,9 @@ ICON_PNG_PAIRS= \
 	dia_scroll_tool_icon pixmaps/scroll-22.png \
 	dia_zoom_tool_icon pixmaps/zoom-22.png \
 	dia_group_icon pixmaps/group.png \
-	dia_ungroup_icon pixmaps/ungroup.png
+	dia_ungroup_icon pixmaps/ungroup.png \
+	dia_mainpoints_on_icon pixmaps/on-grid.png \
+	dia_mainpoints_off_icon pixmaps/off-grid.png
 
 ICON_PNGS= \
 	pixmaps/connectable.png \

@@ -38,27 +38,24 @@ connectionpoint_draw(ConnectionPoint *conpoint,
   DiaInteractiveRendererInterface *irenderer =
     DIA_GET_INTERACTIVE_RENDERER_INTERFACE (ddisp->renderer);
   
-  /* draw the "whole object"/center connpoints */
+  /* draw the "whole object"/center connpoints, but only when we don't
+   * have snap-to-grid */
   if (conpoint->flags & CP_FLAG_ANYPLACE) {
-    static Color midpoint_color = { 1.0, 0.0, 0.0 };
-
-    ddisplay_transform_coords(ddisp, point->x, point->y, &x, &y);
-    
-    /* Temporarily draw it extra visible! */
-    /*
-    renderer_ops->set_linewidth (renderer, 0.1);
-    renderer_ops->set_linestyle (renderer, LINESTYLE_SOLID);
-    */
-
-    irenderer->draw_pixel_line (renderer,
-				x-CP_SZ,y-CP_SZ,
-				x+CP_SZ,y+CP_SZ,
-				&midpoint_color);
-    
-    irenderer->draw_pixel_line (renderer,
-				x+CP_SZ,y-CP_SZ,
-				x-CP_SZ,y+CP_SZ,
-				&midpoint_color);
+    if (!ddisp->mainpoint_magnetism) {
+      static Color midpoint_color = { 1.0, 0.0, 0.0 };
+      
+      ddisplay_transform_coords(ddisp, point->x, point->y, &x, &y);
+         
+      irenderer->draw_pixel_line (renderer,
+				  x-CP_SZ,y-CP_SZ,
+				  x+CP_SZ,y+CP_SZ,
+				  &midpoint_color);
+      
+      irenderer->draw_pixel_line (renderer,
+				  x+CP_SZ,y-CP_SZ,
+				  x-CP_SZ,y+CP_SZ,
+				  &midpoint_color);
+    }
     return;
   }
 
@@ -168,7 +165,7 @@ ddisplay_connect_selected(DDisplay *ddisp)
     
     for (i=0; i<selected_obj->num_handles; i++) {
       if (selected_obj->handles[i]->connect_type != HANDLE_NONCONNECTABLE) {
-	object_connect_display(ddisp, selected_obj, selected_obj->handles[i]);
+	object_connect_display(ddisp, selected_obj, selected_obj->handles[i], FALSE);
       }
     }
     

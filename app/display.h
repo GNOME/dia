@@ -57,17 +57,11 @@ struct _DDisplay {
 
   /* menu bar widgets */
   GtkMenuItem *rulers;
-  GtkMenuItem *visible_grid;
-  GtkMenuItem *snap_to_grid;
-  GtkMenuItem *show_cx_pts_mitem;
-#ifdef HAVE_LIBART
-  GtkMenuItem *antialiased;
-#endif
   UpdatableMenuItems updatable_menu_items;
-    
 
   GtkWidget *zoom_status;         
   GtkWidget *grid_status;
+  GtkWidget *mainpoint_status;
   GtkWidget *modified_status;
 
   GtkAccelGroup *accel_group;
@@ -83,6 +77,7 @@ struct _DDisplay {
 
   gboolean show_cx_pts;		  /* Connection points toggle boolean  */
   gboolean autoscroll;
+  gboolean mainpoint_magnetism;   /* Mainpoints snapped from entire obj*/
 
   int aa_renderer;
   DiaRenderer *renderer;
@@ -130,6 +125,7 @@ void ddisplay_set_origo(DDisplay *ddisp,
 void ddisplay_zoom(DDisplay *ddisp, Point *point,
 		   real zoom_factor);
 void ddisplay_set_snap_to_grid(DDisplay *ddisp, gboolean snap);
+void ddisplay_set_snap_to_objects(DDisplay *ddisp, gboolean magnetic);
 void ddisplay_set_renderer(DDisplay *ddisp, int aa_renderer);
 void ddisplay_resize_canvas(DDisplay *ddisp,
 			    int width,

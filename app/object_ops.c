@@ -67,8 +67,18 @@ object_add_updates_list(GList *list, Diagram *dia)
   }
 }
 
+/** Find a connectionpoint sufficiently close to the given point.
+ *
+ * @param ddisp The display to search
+ * @param pos A position in the display, typically mouse position
+ * @param notthis If not null, an object to ignore (typically the object
+ * connecting)
+ * @param snap_to_objects Whether snapping to objects should be in effect
+ * in this call (anded to the display-wide setting).
+ */
 ConnectionPoint *
-object_find_connectpoint_display(DDisplay *ddisp, Point *pos, DiaObject *notthis)
+object_find_connectpoint_display(DDisplay *ddisp, Point *pos, 
+				 DiaObject *notthis, gboolean snap_to_objects)
 {
   real distance;
   ConnectionPoint *connectionpoint;
@@ -83,27 +93,28 @@ object_find_connectpoint_display(DDisplay *ddisp, Point *pos, DiaObject *notthis
   if (distance < OBJECT_CONNECT_DISTANCE) {
     return connectionpoint;
   }
-#if 0
-  /* Try to find an all-object CP. */
-  avoid = g_list_prepend(avoid, notthis);
-  obj_here = diagram_find_clicked_object_except(ddisp->diagram, pos, 0.00001, avoid);
-  if (obj_here != NULL) {
-    int i;
-    for (i = 0; i < obj_here->num_connections; i++) {
-      if (obj_here->connections[i]->flags & CP_FLAG_ANYPLACE) {
-	g_list_free(avoid);
-	return obj_here->connections[i];
+  if (ddisp->mainpoint_magnetism && snap_to_objects) {
+    /* Try to find an all-object CP. */
+    avoid = g_list_prepend(avoid, notthis);
+    obj_here = diagram_find_clicked_object_except(ddisp->diagram, pos, 0.00001, avoid);
+    if (obj_here != NULL) {
+      int i;
+      for (i = 0; i < obj_here->num_connections; i++) {
+	if (obj_here->connections[i]->flags & CP_FLAG_ANYPLACE) {
+	  g_list_free(avoid);
+	  return obj_here->connections[i];
+	}
       }
     }
   }
-#endif
 
   return NULL;
 }
 
 /* pushes undo info */
 void
-object_connect_display(DDisplay *ddisp, DiaObject *obj, Handle *handle)
+object_connect_display(DDisplay *ddisp, DiaObject *obj, Handle *handle,
+		       gboolean snap_to_objects)
 {
   ConnectionPoint *connectionpoint;
 
@@ -112,7 +123,7 @@ object_connect_display(DDisplay *ddisp, DiaObject *obj, Handle *handle)
 
   if (handle->connected_to == NULL) {
     connectionpoint = object_find_connectpoint_display(ddisp, &handle->pos,
-						       obj);
+						       obj, snap_to_objects);
   
     if (connectionpoint != NULL) {
       Change *change = undo_connect(ddisp->diagram, obj, handle,

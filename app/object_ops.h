@@ -36,10 +36,11 @@ void object_add_updates(DiaObject *obj, Diagram *dia);
 void object_add_updates_list(GList *list, Diagram *dia);
 ConnectionPoint *object_find_connectpoint_display(DDisplay *ddisp,
 						  Point *pos,
-						  DiaObject *notthis);
+						  DiaObject *notthis,
+						  gboolean snap_to_objects);
 
 void object_connect_display(DDisplay *ddisp, DiaObject *obj,
-			    Handle *handle);
+			    Handle *handle, gboolean snap_to_objects);
 /* Adds Undo info for connected objects. */
 
 Point object_list_corner(GList *list);

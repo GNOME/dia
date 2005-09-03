@@ -906,6 +906,17 @@ view_snap_to_grid_callback(gpointer data, guint action, GtkWidget *widget)
   ddisplay_set_snap_to_grid(ddisp, GTK_CHECK_MENU_ITEM(widget)->active);
 }
 
+void
+view_snap_to_objects_callback(gpointer data, guint action, GtkWidget *widget)
+{
+  DDisplay *ddisp;
+
+  ddisp = ddisplay_active();
+  if (!ddisp) return;
+  
+  ddisplay_set_snap_to_objects(ddisp, GTK_CHECK_MENU_ITEM(widget)->active);
+}
+
 void view_toggle_rulers_callback(gpointer data, guint action, GtkWidget*widget)
 {
   DDisplay *ddisp;

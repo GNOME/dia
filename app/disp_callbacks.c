@@ -944,7 +944,7 @@ ddisplay_drop_object(DDisplay *ddisp, gint x, gint y, DiaObjectType *otype,
   /* Connect first handle if possible: */
   if ((handle1 != NULL) &&
       (handle1->connect_type != HANDLE_NONCONNECTABLE)) {
-    object_connect_display(ddisp, obj, handle1);
+    object_connect_display(ddisp, obj, handle1, FALSE);
   }
   object_add_updates(obj, ddisp->diagram);
   ddisplay_do_update_menu_sensitivity(ddisp);

@@ -155,12 +155,14 @@ new_display(Diagram *dia)
   ddisp->mbar_item_factory = NULL;
 
   ddisp->rulers = NULL;
+  /*
   ddisp->visible_grid = NULL;
   ddisp->snap_to_grid = NULL;
   ddisp->show_cx_pts_mitem = NULL;
 #ifdef HAVE_LIBART
   ddisp->antialiased = NULL;
 #endif
+  */
   /* initialize the whole struct to 0 so that we are sure to catch errors.*/
   memset (&ddisp->updatable_menu_items, 0, sizeof (UpdatableMenuItems));
   
@@ -174,6 +176,7 @@ new_display(Diagram *dia)
   ddisp->show_cx_pts = prefs.show_cx_pts;
 
   ddisp->autoscroll = TRUE;
+  ddisp->mainpoint_magnetism = TRUE;
 
   ddisp->aa_renderer = 0;
   ddisp->renderer = new_gdk_renderer(ddisp);
@@ -712,7 +715,7 @@ ddisplay_set_snap_to_grid(DDisplay *ddisp, gboolean snap)
   if (ddisp->menu_bar == NULL) {
     snap_to_grid = GTK_CHECK_MENU_ITEM(menus_get_item_from_path("<Display>/View/Snap To Grid", NULL));
   } else {
-    snap_to_grid = GTK_CHECK_MENU_ITEM(ddisp->snap_to_grid);
+    snap_to_grid = GTK_CHECK_MENU_ITEM(menus_get_item_from_path("<DisplayMBar>/View/Snap To Grid", ddisp->mbar_item_factory));
   }
 
   /* Currently, this can cause double emit, but that's a small problem.
@@ -728,6 +731,35 @@ update_snap_grid_status(DDisplay *ddisp)
 {
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ddisp->grid_status),
 			       ddisp->grid.snap);
+}
+
+/** Set the display's mainpoint magnetism setting, updating menu and button
+ * in the process */
+void
+ddisplay_set_snap_to_objects(DDisplay *ddisp, gboolean magnetic)
+{
+  GtkCheckMenuItem *mainpoint_magnetism;
+  ddisp->mainpoint_magnetism = magnetic;
+
+  if (ddisp->menu_bar == NULL) {
+    mainpoint_magnetism = GTK_CHECK_MENU_ITEM(menus_get_item_from_path("<Display>/View/Snap To Objects", NULL));
+  } else {
+    mainpoint_magnetism = GTK_CHECK_MENU_ITEM(menus_get_item_from_path("<DisplayMBar>/View/Snap To Objects", ddisp->mbar_item_factory));
+  }
+
+  /* Currently, this can cause double emit, but that's a small problem.
+   */
+  gtk_check_menu_item_set_active(mainpoint_magnetism,
+				 ddisp->mainpoint_magnetism);
+  ddisplay_update_statusbar(ddisp);
+}
+
+/** Update the button showing whether mainpoint magnetism is on */
+static void
+update_mainpoint_status(DDisplay *ddisp)
+{
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ddisp->mainpoint_status),
+			       ddisp->mainpoint_magnetism);
 }
 
 /** Scroll display to where point x,y (window coords) is visible */
@@ -1054,17 +1086,15 @@ ddisplay_close(DDisplay *ddisp)
 void
 display_update_menu_state(DDisplay *ddisp)
 {
-  static gboolean initialized = 0;
-
-  static GtkCheckMenuItem *rulers;
-  static GtkCheckMenuItem *visible_grid;
-  static GtkCheckMenuItem *snap_to_grid;
-  static GtkCheckMenuItem *show_cx_pts;
+  GtkCheckMenuItem *rulers;
+  GtkCheckMenuItem *visible_grid;
+  GtkCheckMenuItem *snap_to_grid;
+  GtkCheckMenuItem *show_cx_pts;
 #ifdef HAVE_LIBART
-  static GtkCheckMenuItem *antialiased;
+  GtkCheckMenuItem *antialiased;
 #endif
 
-  if ((!initialized) && (ddisp->menu_bar == NULL)) {
+  if (ddisp->menu_bar == NULL) {
     rulers       = GTK_CHECK_MENU_ITEM(menus_get_item_from_path("<Display>/View/Show Rulers", NULL));
     visible_grid = GTK_CHECK_MENU_ITEM(menus_get_item_from_path("<Display>/View/Show Grid", NULL));
     snap_to_grid = GTK_CHECK_MENU_ITEM(menus_get_item_from_path("<Display>/View/Snap To Grid", NULL));
@@ -1073,39 +1103,32 @@ display_update_menu_state(DDisplay *ddisp)
 #ifdef HAVE_LIBART
     antialiased = GTK_CHECK_MENU_ITEM(menus_get_item_from_path("<Display>/View/AntiAliased", NULL));
 #endif
-
-    initialized = TRUE;
-  }
-  ddisplay_do_update_menu_sensitivity (ddisp);
-  
-  if (ddisp->menu_bar) {
-      gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(ddisp->rulers),
-				     GTK_WIDGET_VISIBLE (ddisp->hrule) ? 1 : 0); 
-      gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(ddisp->visible_grid),
-				     ddisp->grid.visible);
-      gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(ddisp->snap_to_grid),
-				     ddisp->grid.snap);
-      gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(ddisp->show_cx_pts_mitem),
-				     ddisp->show_cx_pts); 
+  } else {
+    rulers       = GTK_CHECK_MENU_ITEM(menus_get_item_from_path("<DisplayMBar>/View/Show Rulers", ddisp->mbar_item_factory));
+    visible_grid = GTK_CHECK_MENU_ITEM(menus_get_item_from_path("<DisplayMBar>/View/Show Grid", ddisp->mbar_item_factory));
+    snap_to_grid = GTK_CHECK_MENU_ITEM(menus_get_item_from_path("<DisplayMBar>/View/Snap To Grid", ddisp->mbar_item_factory));
+    show_cx_pts  = 
+      GTK_CHECK_MENU_ITEM(menus_get_item_from_path("<DisplayMBar>/View/Show Connection Points", ddisp->mbar_item_factory));
 #ifdef HAVE_LIBART
-      gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(ddisp->antialiased),
-				     ddisp->aa_renderer);
+    antialiased = GTK_CHECK_MENU_ITEM(menus_get_item_from_path("<DisplayMBar>/View/AntiAliased", ddisp->mbar_item_factory));
 #endif
   }
-  else {
-      gtk_check_menu_item_set_active(rulers,
-				     GTK_WIDGET_VISIBLE (ddisp->hrule) ? 1 : 0); 
-      gtk_check_menu_item_set_active(visible_grid,
-				     ddisp->grid.visible);
-      gtk_check_menu_item_set_active(snap_to_grid,
-				     ddisp->grid.snap);
-      gtk_check_menu_item_set_active(show_cx_pts,
-				     ddisp->show_cx_pts); 
+
+
+  ddisplay_do_update_menu_sensitivity (ddisp);
+  
+  gtk_check_menu_item_set_active(rulers,
+				 GTK_WIDGET_VISIBLE (ddisp->hrule) ? 1 : 0); 
+  gtk_check_menu_item_set_active(visible_grid,
+				 ddisp->grid.visible);
+  gtk_check_menu_item_set_active(snap_to_grid,
+				 ddisp->grid.snap);
+  gtk_check_menu_item_set_active(show_cx_pts,
+				 ddisp->show_cx_pts); 
 #ifdef HAVE_LIBART
-      gtk_check_menu_item_set_active(antialiased,
-				     ddisp->aa_renderer);
+  gtk_check_menu_item_set_active(antialiased,
+				 ddisp->aa_renderer);
 #endif 
-  }  
 }
 
 void 
@@ -1198,6 +1221,7 @@ ddisplay_update_statusbar(DDisplay *ddisp)
 {
   update_zoom_status (ddisp);
   update_snap_grid_status (ddisp);
+  update_mainpoint_status (ddisp);
   update_modified_status (ddisp);
 }
 

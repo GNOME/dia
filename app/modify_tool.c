@@ -474,7 +474,7 @@ modify_motion(ModifyTool *tool, GdkEventMotion *event,
 
     /* Move to ConnectionPoint if near: */
     connectionpoint =
-      object_find_connectpoint_display(ddisp, &to, tool->object);
+      object_find_connectpoint_display(ddisp, &to, tool->object, TRUE);
 
     if (event->state & GDK_CONTROL_MASK)
       vertical = (fabs(full_delta.x) < fabs(full_delta.y));
@@ -676,7 +676,7 @@ modify_button_release(ModifyTool *tool, GdkEventButton *event,
 
     /* Connect if possible: */
     if (tool->handle->connect_type != HANDLE_NONCONNECTABLE) {
-      object_connect_display(ddisp, tool->object, tool->handle); /* pushes UNDO info */
+      object_connect_display(ddisp, tool->object, tool->handle, TRUE); /* pushes UNDO info */
       diagram_update_connections_selection(ddisp->diagram);
     }
     

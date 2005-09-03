@@ -143,6 +143,14 @@ grid_toggle_snap(GtkWidget *widget, gpointer data)
 			    gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget)));
 }
 
+static void
+interface_toggle_mainpoint_magnetism(GtkWidget *widget, gpointer data)
+{
+  DDisplay *ddisp = (DDisplay *)data;
+  ddisplay_set_snap_to_objects(ddisp,
+				   gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget)));
+}
+
 /*  The popup shell is a pointer to the display shell that posted the latest
  *  popup menu.  When this is null, and a command is invoked, then the
  *  assumption is that the command was a result of a keyboard accelerator
@@ -479,23 +487,7 @@ create_display_shell(DDisplay *ddisp,
     menus_get_image_menubar(&ddisp->menu_bar, &ddisp->mbar_item_factory);
     gtk_box_pack_start (GTK_BOX (root_vbox), ddisp->menu_bar, FALSE, TRUE, 0);
 
-    path = g_string_new (display);
-    g_string_append (path,"/View/Show Rulers");
-    ddisp->rulers       = menus_get_item_from_path(path->str, ddisp->mbar_item_factory);
-    g_string_append (g_string_assign(path, display),"/View/Show Grid");
-    ddisp->visible_grid = menus_get_item_from_path(path->str, ddisp->mbar_item_factory);
-    g_string_append (g_string_assign(path, display),"/View/Snap To Grid");
-    ddisp->snap_to_grid = menus_get_item_from_path(path->str, ddisp->mbar_item_factory);
-    g_string_append (g_string_assign(path, display),"/View/Show Connection Points");
-    ddisp->show_cx_pts_mitem  = menus_get_item_from_path(path->str, ddisp->mbar_item_factory);
-
-#ifdef HAVE_LIBART
-    g_string_append (g_string_assign(path, display),"/View/AntiAliased");
-    ddisp->antialiased  = menus_get_item_from_path(path->str, ddisp->mbar_item_factory);
-#endif
-
     menus_initialize_updatable_items (&ddisp->updatable_menu_items, ddisp->mbar_item_factory, display);
-    g_string_free (path,FALSE);
   }
 
   /* the statusbars */
@@ -528,6 +520,18 @@ create_display_shell(DDisplay *ddisp,
   gtk_box_pack_start (GTK_BOX (status_hbox), ddisp->grid_status,
 		      FALSE, FALSE, 0);
 
+
+  ddisp->mainpoint_status = dia_toggle_button_new_with_icons(dia_mainpoints_on_icon,
+							dia_mainpoints_off_icon);
+  
+  g_signal_connect(G_OBJECT(ddisp->mainpoint_status), "toggled",
+		   G_CALLBACK (interface_toggle_mainpoint_magnetism), ddisp);
+  gtk_tooltips_set_tip(tool_tips, ddisp->mainpoint_status,
+		       _("Toggles object snapping for this window."), NULL);
+  gtk_box_pack_start (GTK_BOX (status_hbox), ddisp->mainpoint_status,
+		      FALSE, FALSE, 0);
+
+
   /* Statusbar */
   ddisp->modified_status = gtk_statusbar_new ();
 
@@ -546,6 +550,7 @@ create_display_shell(DDisplay *ddisp,
   gtk_widget_show (zoom_hbox);
   gtk_widget_show (zoom_label);
   gtk_widget_show (ddisp->grid_status);
+  gtk_widget_show (ddisp->mainpoint_status);
   gtk_widget_show (ddisp->modified_status);
   gtk_widget_show (status_hbox);
   gtk_widget_show (table);

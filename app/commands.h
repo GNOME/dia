@@ -59,6 +59,8 @@ void view_visible_grid_callback (gpointer data, guint action,
 				 GtkWidget *widget);
 void view_snap_to_grid_callback (gpointer data, guint action,
 				 GtkWidget *widget);
+void view_snap_to_objects_callback(gpointer data, guint action,
+				   GtkWidget *widget);
 void view_toggle_rulers_callback(gpointer data, guint action,
 				 GtkWidget *widget);
 void view_show_cx_pts_callback  (gpointer data, guint action,

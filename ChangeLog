@@ -1,3 +1,25 @@
+2005-09-03  Lars Clausen  <lars@raeder.dk>
+
+	* app/connectionpoint_ops.c (connectionpoint_draw): Only draw
+	mainpoint when snap-to-objects is not on.
+
+	* app/Makefile.am (ICON_PNG_PAIRS): 
+	Fake icons for snap-to-objects.
+
+	* app/commands.[ch]: 
+	* app/menus.c (menus_get_image_menubar): 
+	* app/display.[ch]: 
+	* app/interface.c (create_display_shell): 
+	* app/create_object.c (create_object_button_release): 
+	* app/disp_callbacks.c (ddisplay_drop_object): 
+	* app/object_ops.[ch]: 
+	* app/connectionpoint_ops.c (ddisplay_connect_selected): 
+	* app/modify_tool.c (modify_button_release): 
+	* app/display.[ch]: 
+	Togglable snap-to-objects, also doesn't snap when moving entire
+	object.  This should be more reasonable in practical use, and can
+	be turned off when you want to place your arrows more precisely.
+
 2005-08-06  Hans Breuer  <hans@breuer.org>
 
 	* plug-ins/cairo/diacairo.c : increased #ifdef MESS:
@@ -43,7 +65,7 @@
 	g_display_filename() mostly (only?) used for messages ...
 	* lib/dia_dirs.c(dia_message_filename) : fix C99ism
 
-2005-07-18  Lars Clausen  <lars@LittlePooter.local.>
+2005-07-18  Lars Clausen  <larsrc@raeder.dk>
 
 	* objects/EML/instantiation.c (instantiation_load): 
 	* objects/EML/interaction-ortho.c (interaction_ortho_type) 

@@ -166,6 +166,7 @@ static GtkItemFactoryEntry display_menu_items[] =
 #endif
   {N_("/View/Show _Grid"),     NULL,         view_visible_grid_callback, 0, "<ToggleItem>"},
   {N_("/View/_Snap To Grid"),     NULL,         view_snap_to_grid_callback, 0, "<ToggleItem>"},
+  {N_("/View/_Snap To Objects"),     NULL,         view_snap_to_objects_callback, 0, "<ToggleItem>"},
   {N_("/View/Show _Rulers"),      NULL,         view_toggle_rulers_callback,0, "<ToggleItem>"},
   {N_("/View/Show _Connection Points"),	  NULL,		view_show_cx_pts_callback,   0,	"<ToggleItem>"},
   {N_("/View/---"),               NULL,         NULL,        0, "<Separator>"},
