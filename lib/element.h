@@ -61,6 +61,20 @@ static PropNumData width_range = { -G_MAXFLOAT, G_MAXFLOAT, 0.1};
 
 #define ELEMENT_COMMON_PROPERTIES \
   OBJECT_COMMON_PROPERTIES, \
+  { "elem_corner", PROP_TYPE_POINT, 0, \
+    "Element corner", "The corner of the element"}, \
+  { "elem_width", PROP_TYPE_REAL, PROP_FLAG_VISIBLE, \
+    "Element width", "The width of the element", &width_range}, \
+  { "elem_height", PROP_TYPE_REAL, PROP_FLAG_VISIBLE, \
+    "Element height", "The height of the element", &width_range}, \
+
+   /* Would like to have the frame, but need to figure out why
+      custom_object ext_attributes lose their updates when they're on
+      (see http://mail.gnome.org/archives/dia-list/2005-August/msg00053.html)
+   */
+      /*
+#define ELEMENT_COMMON_PROPERTIES \
+  OBJECT_COMMON_PROPERTIES, \
   PROP_FRAME_BEGIN("size",0,N_("Object dimensions")), \
   { "elem_corner", PROP_TYPE_POINT, 0, \
     "Element corner", "The corner of the element"}, \
@@ -69,7 +83,7 @@ static PropNumData width_range = { -G_MAXFLOAT, G_MAXFLOAT, 0.1};
   { "elem_height", PROP_TYPE_REAL, PROP_FLAG_VISIBLE, \
     "Element height", "The height of the element", &width_range}, \
   PROP_FRAME_END("size", 0)
-
+      */
 #define ELEMENT_COMMON_PROPERTIES_OFFSETS \
   OBJECT_COMMON_PROPERTIES_OFFSETS, \
   { "elem_corner", PROP_TYPE_POINT, offsetof(Element, corner) }, \
