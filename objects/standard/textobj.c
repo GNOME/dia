@@ -37,6 +37,14 @@
 
 #define HANDLE_TEXT HANDLE_CUSTOM1
 
+
+typedef enum _Valign Valign;
+enum _Valign {
+        VALIGN_TOP,
+        VALIGN_BOTTOM,
+        VALIGN_CENTER,
+        VALIGN_FIRST_LINE
+};
 typedef struct _Textobj Textobj;
 struct _Textobj {
   DiaObject object;
@@ -45,11 +53,13 @@ struct _Textobj {
 
   Text *text;
   TextAttributes attrs;
+  Valign vert_align;
 };
 
 static struct _TextobjProperties {
   Alignment alignment;
-} default_properties = { ALIGN_LEFT } ;
+  Valign vert_align;
+} default_properties = { ALIGN_LEFT, VALIGN_FIRST_LINE } ;
 
 static real textobj_distance_from(Textobj *textobj, Point *point);
 static void textobj_select(Textobj *textobj, Point *clicked_point,
@@ -74,6 +84,7 @@ static void textobj_save(Textobj *textobj, ObjectNode obj_node,
 			 const char *filename);
 static DiaObject *textobj_load(ObjectNode obj_node, int version,
 			    const char *filename);
+static void textobj_valign_point(Textobj *textobj, Point* p, real factor);
 
 static ObjectTypeOps textobj_type_ops =
 {
@@ -84,10 +95,15 @@ static ObjectTypeOps textobj_type_ops =
   (ApplyDefaultsFunc) NULL
 };
 
+/* Version history:
+ * Version 1 added vertical alignment, and needed old objects to use the
+ *     right alignment.
+ */
+
 DiaObjectType textobj_type =
 {
   "Standard - Text",   /* name */
-  0,                   /* version */
+  1,                   /* version */
   (char **) text_icon,  /* pixmap */
 
   &textobj_type_ops    /* ops */
@@ -111,9 +127,18 @@ static ObjectOps textobj_ops = {
   (SetPropsFunc)        textobj_set_props,
 };
 
+PropEnumData prop_text_vert_align_data[] = {
+  { N_("Bottom"), VALIGN_BOTTOM },
+  { N_("Top"), VALIGN_TOP },
+  { N_("Center"), VALIGN_CENTER },
+  { N_("First Line"), VALIGN_FIRST_LINE },
+  { NULL, 0 }
+};
 static PropDescription textobj_props[] = {
   OBJECT_COMMON_PROPERTIES,
   PROP_STD_TEXT_ALIGNMENT,
+  { "text_vert_alignment", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL, \
+    N_("Vertical text alignment"), NULL, prop_text_vert_align_data },
   PROP_STD_TEXT_FONT,
   PROP_STD_TEXT_HEIGHT,
   PROP_STD_TEXT_COLOUR,
@@ -136,6 +161,7 @@ static PropOffset textobj_offsets[] = {
   {"text_height",PROP_TYPE_REAL,offsetof(Textobj,attrs.height)},
   {"text_colour",PROP_TYPE_COLOUR,offsetof(Textobj,attrs.color)},
   {"text_alignment",PROP_TYPE_ENUM,offsetof(Textobj,attrs.alignment)},
+  {"text_vert_alignment",PROP_TYPE_ENUM,offsetof(Textobj,vert_align)},
   { NULL, 0, 0 }
 };
 
@@ -168,6 +194,8 @@ textobj_select(Textobj *textobj, Point *clicked_point,
   text_grab_focus(textobj->text, &textobj->object);
 }
 
+
+
 static ObjectChange*
 textobj_move_handle(Textobj *textobj, Handle *handle,
 		    Point *to, ConnectionPoint *cp,
@@ -178,10 +206,13 @@ textobj_move_handle(Textobj *textobj, Handle *handle,
   assert(to!=NULL);
 
   if (handle->id == HANDLE_TEXT) {
-    text_set_position(textobj->text, to);
+          /*Point to2 = *to;
+          point_add(&to2,&textobj->text->position);
+          point_sub(&to2,&textobj->text_handle.pos);
+          textobj_move(textobj, &to2);*/
+          textobj_move(textobj, to);
+          
   }
-  
-  textobj_update_data(textobj);
 
   return NULL;
 }
@@ -189,8 +220,8 @@ textobj_move_handle(Textobj *textobj, Handle *handle,
 static ObjectChange*
 textobj_move(Textobj *textobj, Point *to)
 {
-  text_set_position(textobj->text, to);
-  
+  textobj->object.position = *to;
+
   textobj_update_data(textobj);
 
   return NULL;
@@ -205,16 +236,42 @@ textobj_draw(Textobj *textobj, DiaRenderer *renderer)
   text_draw(textobj->text, renderer);
 }
 
+static void textobj_valign_point(Textobj *textobj, Point* p, real factor)
+        //factor should be 1 or -1
+{
+    Rectangle *bb  = &(textobj->object.bounding_box); 
+    real offset ;
+    switch (textobj->vert_align){
+        case VALIGN_BOTTOM:
+            offset = bb->bottom - textobj->object.position.y;
+            p->y -= offset * factor; 
+            break;
+        case VALIGN_TOP:
+            offset = bb->top - textobj->object.position.y;
+            p->y -= offset * factor; 
+            break;
+        case VALIGN_CENTER:
+            offset = (bb->bottom + bb->top)/2 - textobj->object.position.y;
+            p->y -= offset * factor; 
+            break;
+        case VALIGN_FIRST_LINE:
+            break;
+        }
+}
 static void
 textobj_update_data(Textobj *textobj)
 {
   DiaObject *obj = &textobj->object;
   
-  obj->position = textobj->text->position;
-  
+  text_set_position(textobj->text, &obj->position);
+  text_calc_boundingbox(textobj->text, &obj->bounding_box);
+
+  Point to2 = obj->position;
+  textobj_valign_point(textobj, &to2, 1);
+  text_set_position(textobj->text, &to2);
   text_calc_boundingbox(textobj->text, &obj->bounding_box);
   
-  textobj->text_handle.pos = textobj->text->position;
+  textobj->text_handle.pos = obj->position;
 }
 
 static DiaObject *
@@ -242,6 +299,7 @@ textobj_create(Point *startpoint,
 			   startpoint, &col, default_properties.alignment );
   text_get_attributes(textobj->text,&textobj->attrs);
   dia_font_unref(font);
+  textobj->vert_align = default_properties.vert_align;
   
   object_init(obj, 1, 0);
 
@@ -272,6 +330,8 @@ textobj_save(Textobj *textobj, ObjectNode obj_node, const char *filename)
 
   data_add_text(new_attribute(obj_node, "text"),
 		textobj->text);
+  data_add_enum(new_attribute(obj_node, "valign"),
+		  textobj->vert_align);
 }
 
 static DiaObject *
@@ -292,12 +352,19 @@ textobj_load(ObjectNode obj_node, int version, const char *filename)
 
   attr = object_find_attribute(obj_node, "text");
   if (attr != NULL) {
-	  textobj->text = data_text( attribute_first_data(attr) );
+    textobj->text = data_text( attribute_first_data(attr) );
   } else {
-      DiaFont* font = dia_font_new_from_style(DIA_FONT_MONOSPACE,1.0);
-      textobj->text = new_text("", font, 1.0,
-                               &startpoint, &color_black, ALIGN_CENTER);
-      dia_font_unref(font);
+    DiaFont* font = dia_font_new_from_style(DIA_FONT_MONOSPACE,1.0);
+    textobj->text = new_text("", font, 1.0,
+			     &startpoint, &color_black, ALIGN_CENTER);
+    dia_font_unref(font);
+  }
+
+  attr = object_find_attribute(obj_node, "valign");
+  if (attr != NULL)
+    textobj->vert_align = data_enum( attribute_first_data(attr) );
+  else if (version == 0) {
+    textobj->vert_align = VALIGN_FIRST_LINE;
   }
 
   object_init(obj, 1, 0);

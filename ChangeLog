@@ -1,3 +1,10 @@
+2005-09-04  Lars Clausen  <lars@raeder.dk>
+
+	* objects/standard/textobj.c: Applied patch from Grégoire Dooms
+	<dooms info ucl ac be>: Add vertical alignment for standard text
+	object.  This should really be moved into lib/text.c and apply to
+	all text objects.
+
 2005-09-03  Lars Clausen  <lars@raeder.dk>
 
 	* app/connectionpoint_ops.c (connectionpoint_draw): Only draw
