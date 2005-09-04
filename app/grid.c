@@ -348,7 +348,7 @@ snap_to_grid(DDisplay *ddisp, coord *x, coord *y)
     } else {
       real width_x = ddisp->diagram->grid.width_x;
       real width_y = ddisp->diagram->grid.width_y;
-      if (prefs.grid.dynamic) {
+      if (ddisp->diagram->grid.dynamic) {
 	calculate_dynamic_grid(ddisp, &width_x, &width_y);
       }
       *x = ROUND((*x) / width_x) * width_x;

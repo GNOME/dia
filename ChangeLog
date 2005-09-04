@@ -1,5 +1,9 @@
 2005-09-04  Lars Clausen  <lars@raeder.dk>
 
+	* app/grid.c (snap_to_grid): Bugfix from Zhang Lin-bo
+	<zlb@lsec.cc.ac.cn>: Use dynamic grid setting from diagram, not
+	global prefs.
+
 	* objects/standard/textobj.c: Applied patch from Grégoire Dooms
 	<dooms info ucl ac be>: Add vertical alignment for standard text
 	object.  This should really be moved into lib/text.c and apply to
