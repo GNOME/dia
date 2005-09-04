@@ -21,6 +21,7 @@
 <object name="Cisco - Carrier Routing System"><_description>Carrier Routing System</_description></object>
 <object name="Cisco - Storage Router"><_description>Storage Router</_description></object>
 <object name="Cisco - NetSonar"><_description>NetSonar</_description></object>
+<object name="Cisco - Mesh"><description>Mesh</description></object>
 <object name="Cisco - Hub"><_description>Hub</_description></object>
 <object name="Cisco - Hub subdued"><_description>Hub subdued</_description></object>
 <object name="Cisco - Cisco Hub"><_description>Cisco Hub</_description></object>

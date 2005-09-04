@@ -66,7 +66,7 @@ static PropNumData width_range = { -G_MAXFLOAT, G_MAXFLOAT, 0.1};
   { "elem_width", PROP_TYPE_REAL, PROP_FLAG_VISIBLE, \
     "Element width", "The width of the element", &width_range}, \
   { "elem_height", PROP_TYPE_REAL, PROP_FLAG_VISIBLE, \
-    "Element height", "The height of the element", &width_range}, \
+    "Element height", "The height of the element", &width_range}
 
    /* Would like to have the frame, but need to figure out why
       custom_object ext_attributes lose their updates when they're on
