@@ -498,6 +498,7 @@ plug-ins/xfig/Makefile
 plug-ins/xslt/Makefile
 doc/Makefile
 doc/en/Makefile
+doc/eu/Makefile
 doc/pl/Makefile
 )
 

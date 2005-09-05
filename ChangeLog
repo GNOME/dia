@@ -1,3 +1,7 @@
+2005-09-05  Iñaki Larrañaga  <dooteo@euskalgnu.org>
+
+	* configure.in: Added "doc/eu/Makefile" for Basque documentation.
+
 2005-09-04  Iñaki Larrañaga  <dooteo@euskalgnu.org>
 
 	* configure.in: Added "eu" to ALL_LINGUAS.
