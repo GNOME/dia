@@ -1,0 +1,29 @@
+<chapter label="11" id="license-chapter">
+<title>Lizentzia</title>
+ <sect1 id="license">
+  <title>Lizentzia</title>
+  <para>
+  Programa hau software librea da; birbana eta/edo alda dezakezu, Free 
+  Software Foundation-ek argitaratutako <citetitle>GNU Lizentzia Publiko 
+  Orokorra</citetitle>ren 2. bertsioan, edo (nahiago baduzu) bertsio 
+  berriago batean, jasotako baldintzak betez gero.</para> <para> Programa 
+  hau erabilgarria izango delakoan banatzen da, baina INOLAKO BERMERIK 
+  GABE; era berean, ez da bermatzen beraren egokitasuna MERKATURATZEKO 
+  edo HELBURU PARTIKULARRETARAKO ERABILTZEKO.  Argibide gehiago nahi izanez 
+  gero, ikus <citetitle>GNU Lizentzia Publiko Orokorra</citetitle>.
+  </para>
+  <para> 
+  <citetitle>GNU Lizentzia Publiko Orokorra</citetitle>ren kopia 
+  <citetitle>GNOMEren erabiltzailearen gida</citetitle>ren eranskinean 
+  daukazu.  <citetitle>GNU Lizentzia Publiko Orokorra</citetitle>ren kopia 
+  Free Software Foundation-en bidez ere lor dezakezu 
+  <ulink type="http" url="http://www.fsf.org">haren web 
+  gunea</ulink> bisitatuz edo hona idatziz:
+<address>
+    Free Software Foundation, Inc. <street>59 Temple Place</street> - 
+    Suite 330 <city>Boston</city>, <state>MA</state> 
+    <postcode>02111-1307</postcode> <country>USA</country>
+   </address>
+  </para>
+ </sect1>
+</chapter>

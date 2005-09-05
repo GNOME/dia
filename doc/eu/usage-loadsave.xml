@@ -1,0 +1,205 @@
+<chapter label="7" id="loadsave-chapter">
+<title>Diagramak kargatu eta gordetzea</title>
+<sect1 id="loadsave-intro">
+ <title>Kargatu eta gordetzeko sarrera</title>
+  
+<para>
+Mahaigaineko aplikazio gehienen eredu berari jarraitzen dio 
+<application>Dia</application>-k diagramak gordetzeko: oihalak 
+espresuki gorde behar dira. Fitxategi bat gordetzeko, aukeratu 
+<interface>Laster-menu nagusiko</interface> 
+<menuchoice><guimenu>Fitxategia</guimenu> 
+          <guimenuitem>Gorde</guimenuitem></menuchoice> aukera. 
+Gordetzeko elkarrizketa-koadro estandarra agertuko da. Oihala 
+<application>Dia</application>-ren XML formatuan gordeko da. 
+Fitxategi-luzapena ez da automatikoki gehitzen, eta, beraz, 
+komeni da '.dia' espresuki gehitzea idazten duzun izenari.
+</para>
+ 
+<para>
+Lehenago <application>Dia</application>-n gordetako oihal bat edo 
+beste aplikazio batekin sortutako bat kargatzeko, hautatu 
+<interface>Menu-barra nagusiko</interface> 
+<menuchoice><guimenu>Fitxategia</guimenu> 
+          <guimenuitem>Ireki...</guimenuitem></menuchoice> aukera. 
+<interface>Irekitzeko elkarrizketa-koadroa</interface> azalduko da;
+ hautatu fitxategia, eta aukeratu <guibutton>Ireki</guibutton>. 
+<interface>Irekitzeko elkarrizketa-koadroa</interface> estandarra da, 
+<guimenu>Zehaztu fitxategi-mota</guimenu> izeneko menua izan ezik. 
+Aukeratu ireki nahi duzun fitxategiaren formatua 
+(<application>Dia</application> XML edo Drawing Interchange) 
+<application>Dia</application>-k berak ez badu formatu egokia asmatu.
+</para>
+ 
+<para>
+FItxategiak kargatzeko beste metodo bat <application>Dia</application> 
+komando-lerrotik abiaraztea da, ireki nahi den fitxategiaren izena 
+argumentu gisa jarrita.
+</para>
+</sect1> <sect1 id="loadsave-filetypes">
+   <title>Fitxategi-motak</title>
+    
+<para>
+Fitxategi-motei buruzko azalpen batzuk ematea komeni da. Ohartuko zinen 
+edozein fitxategi-formatu ezin dela berriro kargatu 
+<application>Dia</application>-n gorde ondoren, eta onartzen diren 
+fitxategi-formatu gehienek  informazioa galtzen dutela neurri batean.
+</para>
+ <sect2 id="loadsave-filetypes-dia">
+    <title>Dia diagrama-fitxategi natiboak</title>
+     
+<para>
+Galerarik ez duela izango bermatzen duen formatu bakarra 
+<application>Dia</application> XML da. Zorionez, zaila da nahi gabe 
+galeradun formatu batean gordetzea, <menuchoice><guimenu>Fitxategia</guimenu> <guimenuitem>Gorde</guimenuitem></menuchoice> aukerak 
+<application>Dia</application> XML formatuko fitxategian gordetzen 
+duelako beti.
+</para>
+ 
+<para>
+<application>Dia</application> XML formatuko fitxategiak automatikoki 
+konprimitzen dira gzip-ekin, diskoan leku gutxiago hartzeko. Hori ia-ia 
+beharrezkoa da, informazio erredundante asko biltegiratzen delako 
+diagrametan, eta konprimitu gabe diagramarik sinpleenak ere oso handiak 
+izaten direlako. <application>Dia</application> XML fitxategiak dagoeneko 
+konprimituta egoten direnez, ez itzazu konprimitu eskuz, alferrik 
+izango da.
+</para>
+</sect2> 
+<sect2 id="loadsave-filetypes-import">
+    <title>Inportatzeko formatuak</title>
+     
+<para>
+<application>Dia</application>-k fitxategi-mota hauek inporta ditzake: 
+
+<itemizedlist>
+
+<listitem>
+<para>
+SVG
+</para>
+</listitem> 
+
+<listitem>
+<para>
+DXF
+</para>
+</listitem> 
+
+<listitem>
+<para>
+XFig
+</para>
+</listitem>
+
+</itemizedlist>
+
+</para>
+</sect2> <!-- Add loadsave-filestypes-dif section in future --> 
+<sect2 id="loadsave-filetypes-export">
+    <title>Esportatzea: Beste formatu batzuen euskarria</title>
+     
+<para>
+<application>Dia</application>-k beste formatu askotara esporta dezake, 
+esate baterako: 
+<itemizedlist>
+
+<listitem>
+<para>
+Computer Graphics Metafile
+</para>
+</listitem> 
+
+<listitem>
+<para>
+Dia forma-fitxategia
+</para>
+</listitem> 
+
+<listitem>
+<para>
+DXF
+</para>
+</listitem> 
+
+<listitem>
+<para>
+HPGL
+</para>
+</listitem> 
+
+<listitem>
+<para>
+EPS
+</para>
+</listitem> 
+
+<listitem>
+<para>
+PNG
+</para>
+</listitem> 
+
+<listitem>
+<para>
+SVG
+</para>
+</listitem> 
+
+<listitem>
+<para>
+TeX Metapost makroak
+</para>
+</listitem> 
+
+<listitem>
+<para>
+TeX PSTricks makroak
+</para>
+</listitem> 
+
+<listitem>
+<para>
+WPG
+</para>
+</listitem> 
+<listitem>
+
+<para>
+XFig
+</para>
+</listitem> 
+
+<listitem>
+<para>
+XSLT
+</para>
+</listitem>
+
+</itemizedlist>
+
+ <application>Dia</application>-k ezin du formatu horietako gehienetako 
+fitxategirik kargatu.  Formatu horiek ongi etortzen dira diagrama bat beste 
+aplikazio batean erabili behar duzunerako edo <application>Dia</application> 
+onartzen ez duen sistema eragile bat duen bati pasatu behar diozunerako. 
+<!--Lets go through later and make this a variablelist, as well as describe
+     the strengths of each of these formats  --> 
+<!--      Computer Graphics Metafile, HPGL, EPS, PNG, SVG,
+      TeX, and WPG formats are supported for crating files
+      only&mdash;<application>Dia</application> cannot load files in these
+      formats. These formats are useful for diagrams that you need to use
+      in another application (e.g., the World-wide Web) or distribute to
+      users of an operating system that <application>Dia</application>
+      does not support.
+-->
+</para>
+ 
+<para>
+Formatu horietako bateko fitxategia sortzeko, hautatu <menuchoice> 
+ <guimenu>Fitxategia</guimenu> <guimenuitem>Esportatu...
+</guimenuitem></menuchoice> <interface>Laster-menu nagusian</interface>. 
+<interface>Gordetzeko</interface> elkarrizketa-koadroaren antzeko bat 
+azalduko da; aukeratu fitxategiaren izena eta formatua. Automatikoki 
+gehituko da fitxategi-luzapen egokia.
+</para>
+</sect2></sect1></chapter> 

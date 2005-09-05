@@ -1,0 +1,281 @@
+<chapter label="6" id="selecting-chapter">
+<title>Objektuak hautatzea</title>
+  <sect1 id="selecting-introduction">
+  <title>Hautatzearen sarrera</title>
+   
+<para>
+Objektuak hautatzea izango da seguru asko 
+<application>Dia</application>-n gehien egiten dena. Objektu berri 
+bat sortzen duzunetik hasi eta diagrama erabat amaituta dagoela 
+pentsatzen duzun arte, etengabe ariko zara objektuak hautatzen, 
+behar bezala ezartzeko. 
+<!-- I must confess that this intro really sucks -->
+</para>
+ 
+<para>
+Objektu bat hautatzen duzunean, objektu horri ematen diozu 
+fokua editatzeko.  Hautatuta ez dagoen objekturik ezin da editatu.
+</para>
+ 
+<para>
+Objektuak hautatzeko modu asko daude, eta eragiketa asko egin 
+daitezke hautatuta dauden objektuekin.
+</para>
+ 
+<para>
+Diagraman zehar arrastatzeko bakarrik hauta dezakezu objektu 
+bat, edo beste batzuekin elkartu eta errazago manipulatzeko, 
+edo beste batzuekin konektatzeko, edo besterik gabe diagramatik 
+kentzeko.
+</para>
+</sect1>
+ 
+  <!-- +How to Select Objects  --> <sect1 id="how-to-select">
+  <title>Nola hautatu objektuak</title>
+    <sect2 id="basic-selection">
+    <title>Oinarrizko hautapena</title>
+     
+<para>
+Objektu bat hautatzeko modu oinarrizkoena bertan klik egitea da.
+</para>
+ 
+<para>
+Objektua hautatuta dagoenean, inguruan puntu berde batzuk dituela azalduko da.
+</para>
+ 
+<para>
+Puntu berdeak agertzen direnean, has zaitezke objektua manipulatzen. 
+Amaitzen duzunean, diagramako leku huts batean klik egin dezakezu 
+objektua desautatzeko. Puntu berdeak desagertu egingo dira, eta beste 
+objektu bat hautatzeko moduan egongo zara.
+</para>
+</sect2>
+ 
+    <sect2 id="multi-selection">
+    <title>Hautapen anizkoitza</title>
+     
+<para>
+Aldi berean objektu bat baino gehiago hautatzeko modurik errazena, 
+diagramako leku huts batean ezkerreko sagu-botoiaz klik egin eta, askatu 
+gabe, sagua arrastatzea da. Horrela laukizuzen bat marraztuko da Oihalean. 
+Area horretan dauden objektu guztiak hautatuta geratuko dira sagu-botoia 
+askatzean.
+</para>
+ 
+<para>
+Beste modu bat, Maius tekla sakatuta edukiz objektuetan banan-banan klik 
+egitea da.
+</para>
+ 
+<para>
+Hautapena egindakoan, hautatako objektu guztiek puntu berdeak izango dituzte 
+inguruan (goian azaldu den bezala).
+</para>
+ 
+<para>
+Hautapen anizkoitza praktikoa da eragiketa bera egin nahi denean hainbat 
+objekturekin, eta banan-banan egiten denborarik galdu nahi ez denean.
+</para>
+ 
+<para>
+Hautatuta daudenean, talde gisa funtzionatzen dute objektuek. Horrek esan 
+nahi du, objektuetako bat arrastatzen baduzu, talde osoa arrastatuko duzula. 
+Gauza bera gertatuko da horietako bat ezabatzen saiatzen bazara: talde osoa 
+ezabatuko duzu diagramatik.
+</para>
+ 
+<para>
+Diagramako leku huts batean klik egiten baduzu, edo beste geruza batera 
+aldatzen bazara, hautapena galduko duzu. Bestalde, hautapenean objektu gehiago 
+sartu nahi badituzu, sakatu Maius tekla eta joan klik eginez gehitu nahi 
+dituzun objektuetan.
+</para>
+ <note>
+<para>
+Diagramako objektu batzuk hautatuta dituzunean, horietako baten tamaina alda 
+dezakezu gainerakoen tamaina edo posizioa aldatu gabe. Nola egiten den ikusteko, 
+irakurri Objektuei tamaina aldatzeari buruzko atala. 
+<!-- need to set up some link right here -->
+</para>
+</note></sect2>
+ 
+    <sect2 id="other-selection">
+    <title>Objektuak hautatzeko beste modu batzuk</title>
+    
+<para>
+Ondoren azaltzen dira objektuak hautatzeko beste modu batzuk. Denak 
+<interface>Laster-menu nagusian</interface> daude, 
+<menuchoice><guimenu>Hautatu</guimenu></menuchoice> menuan:
+</para>
+ <variablelist><varlistentry><term>Objektu guztiak hautatzeko</term> <listitem>
+<para>
+Hautatu <menuchoice><guimenuitem>Denak</guimenuitem></menuchoice> 
+aukera, uneko geruzan dauden objektu guztiak hautatuko dira, eskuz 
+egingo zenukeen moduan.
+</para>
+ 
+<para>
+Aukera hau erosoa da diagramak objektu asko dituenerako, ez baituzu 
+denborarik galdu behar denak banan-banan hautatzen.
+</para>
+
+</listitem>
+</varlistentry> 
+<varlistentry><term>Objektu guztiak desautatzeko </term> 
+<listitem>
+<para>
+Hautatu <menuchoice><guimenuitem>Bat ere ez</guimenuitem></menuchoice> 
+aukera, eta hautatuta zeuden objektu guztiak desautatuta geratuko dira. 
+Gauza bera lortuko duzu diagramako leku huts batean klik eginda ere.
+</para>
+ 
+<para>
+    Objektuak desautatu ondoren, ezingo duzu eragiketarik egin objektu 
+horiekin. Eragiketak egiteko, berriro hautatu beharko dituzu
+</para>
+ <tip>
+<para>
+Zenbaitetan hautapen iraunkorrak egitea komeniko zaizu. Horretarako, 
+talde arbitrario bat sor dezakezu hautatutako objektuekin, edo denak 
+batera ebaki eta geruza berri batean itsatsi.
+</para>
+ <!-- para
+              To learn more about managing groups see the Managing Groups section, and
+              to learn more about layers you can also check the Managing Layers section.              
+            para -->
+</tip>
+</listitem>
+</varlistentry> 
+<varlistentry><term>Hautapena alderantzikatzeko</term> <listitem>
+<para>
+Demagun hamar elementu dituzula diagraman eta zortzi hautatu nahi 
+dituzula. Zortzi horiek hautatzeko,  
+<menuchoice><guimenu>Hautatu</guimenu></menuchoice> menuko 
+<menuchoice><guimenuitem>Alderantzikatu</guimenuitem></menuchoice> 
+aukera erabil dezakezu.
+</para>
+ 
+<para>
+Hauta itzazu eskuz hautapenetik kanpo utzi nahi dituzun bi elementuak, 
+aukeratu <menuchoice><guimenuitem>Alderantzikatu</guimenuitem></menuchoice> 
+aukera, eta beste zortziak hautatuta geratuko dira.
+</para>
+ <tip>
+<para>
+Gauza bera egiteko beste modu bat, elementu 
+<menuchoice><guimenuitem>Denak</guimenuitem></menuchoice> 
+hautatu (goian azaldu da nola egin), Maius tekla sakatu, eta kanpoan utzi 
+nahi diren biak banaka desautatzea da.
+</para>
+</tip> <note>
+<para>
+Uneko geruzan dauden objektuak bakarrik hauta daitezke. Objektu bat ezin 
+baduzu hautatu, beste geruza batean egongo da seguru asko. Geruza batetik 
+bestera nola joan zaitezkeen edo geruzak nola manipulatzen diren ikusteko, 
+irakurri Geruzak kudeatzeari buruzko atala. 
+<!-- need to make a link link to it -->
+</para>
+</note>
+</listitem>
+</varlistentry>
+</variablelist></sect2>
+ 
+    <sect2 id="selection-connected">
+    <title>Konektatutako objektuak hautatzea</title>
+     
+<para>
+<application>Dia</application>-k eskaintzen duen baliabide benetan ahaltsu 
+eta praktiko bat objektuen arteko konexioak maneiatzeko aukera da.
+</para>
+ 
+<para>
+Gauza askotarako erabil daitezke <application>Dia</application>-ko konexioak. 
+Lehenik, bi objekturen arteko zuzeneko erlazioa espresuki zehazteko.
+</para>
+ 
+<para>
+Bigarren, ezarritako arauen araberako portaera duten objektuak errazago 
+kudeatzeko eta klik gutxi batzuekin atzitzeko.
+</para>
+ <!-- <note>
+       para To learn more about advantages in connecting different objects together, you
+        should read the Connecting Objects section.
+      para
+     </note>  --> 
+<para>
+Objektu jakin batekin konektatutako objektuak hautatzea oso erraza da: hautatu 
+objektu jakin hori, egin klik eskuineko botoiaz Oihalean <interface>Laster-menu 
+nagusia</interface> bistaratzeko, eta egin klik 
+<menuchoice><guimenu>Hautatu</guimenu> 
+<guimenuitem>Konektatuak</guimenuitem></menuchoice> botoian.
+</para>
+ 
+<para>
+Objektu horrek konektatutakorik ez badu, ez du ezer egingo. Bestela, konektatutako 
+objektu guztiak magikoki hautatuko dira eta aldi baterako hautatutako objektu-talde 
+bat osatuko dute.
+</para>
+ <note>
+<para>
+Gauza bera berriro egiten baduzu, talde berriari konektatutako objektu guztiak 
+hautapenean gehituko dira.
+</para>
+ 
+<para>
+Eragiketa berriro egin dezakezu, harik eta elkarrekin konektatutako objektu guztiak 
+hautatu arte.
+</para>
+</note></sect2> <sect2 id="selection-transitive">
+    <title>Objektu iragankorrak hautatzea</title>
+     
+<para>
+Goian erakutsitako teknika baliagarria da konektatutako objektu gutxi hautatu 
+nahi direnerako.
+</para>
+ 
+<para>
+Baina batzuetan elkarrekin konektatutako objektu asko batera hautatu nahi izango 
+dituzu. Eta objektuak urratsez urrats hautatze hori ez da praktikoa.
+</para>
+ 
+<para>
+Horregatik eskaintzen du <application>Dia</application>-k urrats horiek denak 
+batera egiteko aukera.
+</para>
+ 
+<para>
+Horretarako, hautatu erroko objektua, egin klik eskuin-botoiaz Oihalean 
+<interface>Laster-menu nagusia</interface> ager dadin, eta sakatu 
+<menuchoice><guimenu>Hautatu</guimenu> 
+<guimenuitem>Iragankorra</guimenuitem></menuchoice> botoia, 
+<guimenuitem>Konektatuak</guimenuitem>  aukeratu beharrean.
+</para>
+ 
+<para>
+Eta hori da dena; hautatu duzun erroko objektuarekin konektatutako objektu 
+guztiak hautatuta egongo dira orain, manipulatzeko prest, nahi dituzun 
+eragiketa guztiak egin ditzazun.
+</para>
+</sect2> 
+<sect2 id="selection-same-type">
+    <title>Mota bereko objektuak hautatzea</title>                                            
+<para>
+<application>Dia</application>-k truku batzuk eskaintzen ditu mota 
+bereko objektuak hautatu ahal izateko.
+</para>
+ 
+<para>
+Edozein arrazoirengatik mota bereko objektuak hautatu behar badituzu 
+(Laukizuzen guztiak, Marrak, Forma pertsonalizatu batekoak) aski duzu mota 
+horretako objektu bat hautatzea,  eta gero <interface>Laster-menu 
+nagusia</interface> ireki eta <menuchoice><guimenu>Hautatu</guimenu> 
+<guimenuitem>Mota berekoak</guimenuitem></menuchoice> botoia sakatzea.
+</para>
+ 
+<para>
+Automatikoki hautatuko dira hasieran hautatu duzun objektuaren mota bereko 
+objektu guztiak. Uneko geruzan dauden objektuak bakarrik hautatuko dira.
+</para>
+</sect2>
+</sect1>
+</chapter> 

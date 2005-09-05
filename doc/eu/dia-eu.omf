@@ -1,0 +1,15 @@
+<?xml version="1.0" standalone="no"?>
+<omf>
+  <resource>
+    <title>
+      Dia-ren eskuliburua
+    </title>
+    <subject>
+      <category>GNOME|Office</category>
+   </subject>
+   <format mime="text/sgml"/>
+   <identifier url="panel.sgml"/>
+   <language code="eu" />
+ </resource>
+</omf>
+

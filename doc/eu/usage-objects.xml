@@ -1,0 +1,265 @@
+<chapter label="3" id="objects-chapter">
+<title>Objektuak</title>
+  <sect1 id="objects-introduction">
+  <title>Objektuen sarrera</title>
+   
+<para>
+Objektuak dira diagrama osatzen dutenak.  Aurrez definitutako edo 
+erabiltzaileak definitutako formak dira objektuak.
+</para>
+</sect1> 
+<sect1 id="using-objects">
+  <title>Objektuak erabiltzea</title>
+   <sect2 id="adding-objects">
+   <title>Objektuak gehitzea</title>
+    
+<para>
+<application>Dia</application>-ren oihalean objektuak gehitzeko, 
+egin klik tresna-barrako objektu batean, zuk nahi duzun objektua 
+hautatzeko.  Oihalean klik egitean objektua bertan kokatuta geratuko da.
+</para>
+ 
+<para>
+<application>Dia</application>-k bi motatako objektuak eskaintzen ditu: 
+<itemizedlist>
+
+<listitem>
+
+<para>
+Erabiltzaileak definitutako objektuak - Erabiltzaileak sortzen dituen 
+objektuak txantiloi prefabrikatu batean oinarrituta.
+</para>
+ 
+<para>
+Adibidez, objektu karratu batean klik egin eta oihalean jarrita, karratu 
+bat sortzen da.  Nahi izanez gero, objektuaren neurriak alda daitezke.  
+Ikus Objektuen tamaina aldatzeari buruzko atala. 
+<!-- Add link to resizing objects -->
+</para>
+
+</listitem>
+ 
+<listitem>
+
+<para>
+Aurrez definitutako objektuak - Editatu ezin diren diseinuak izaten dira. 
+Tamaina alda dakieke, baina objektua bera ezin da editatu.
+</para>
+
+</listitem>
+
+</itemizedlist>
+
+</para>
+</sect2> 
+<sect2 id="moving-objects">
+   <title>Objektuak lekuz aldatzea</title>
+    
+<para>
+Objektu bat oihalean txertatzen denean, ertzak markatzen dituzten koadro 
+berde txiki batzuekin agertzen da. <figure>
+       <title>Doitzeko puntuak</title>
+       <screenshot><screeninfo>Puntu berdeen bidez irudiaren tamaina alda 
+daiteke.</screeninfo> <graphic format="PNG" fileref="graphics/greendots.png" 
+srccredit="Kevin Breit"/></screenshot></figure> Koadroen barneko area 
+objektuaren area da.  Egin klik objektu-arean, eta ez askatu.  Mugitu sagua 
+oihalean zehar, objektua oihalaren beste leku batean jartzeko.
+</para>
+</sect2> <sect2 id="resizing-objects">
+   <title>Objektuei tamaina aldatzea</title>
+    
+<para>
+Aurreko paragrafoan azaldu da koadro berdeen kontzeptua. Objektuaren tamaina 
+manipulatzeko erabiltzen dira koadro horiek.  Tamaina aldatzeko, egin klik 
+botoi berde batean, eta ez askatu.  Arrastatu tamaina egokia emateko, eta 
+askatu.
+</para>
+ 
+<para>
+Izkinetako botoi berdeek altuera eta zabalera batera aldatzen dituzte.  
+Goiko eta beheko ertzetan erdian dauden bi botoiek altuera editatzen dute; 
+ezkerreko eta eskuineko ertzetan erdian daudenek, zabalera.
+</para>
+ <tip>
+<para>
+Izkinako botoi bat arrastatzen denean proportzioa mantentzeko, eduki 
+sakatuta maiuskulen tekla arrastatzen den bitartean.
+  Objektu bereziei bakarrik aplikatzen zaie hori, ez forma erregularrei.
+</para>
+</tip>
+</sect2> 
+<sect2 id="deleting-objects">
+   <title>Objektuak ezabatzea</title>
+    
+<para>
+Objektu bat ezabatzeko, egin klik objektuan, hautatzeko. Koadro 
+berdeak azalduko dira.  Sakatu Ktrl+D eta objektua desagertu egingo da.
+</para>
+</sect2> 
+<!--
+   <sect3 id="aligning-objects">
+   <title>Aligning Objects</title>
+    
+<para>
+     Add this when you feel like explaining.
+    
+</para>
+   </sect3>
+   <title>Grouping Objects</title>
+    
+<para>
+     Add this when you feel like explaining.
+    
+</para>
+   </sect3>
+--> 
+<sect2 id="line-properties">
+   <title>Marraren propietateak</title>
+    
+<para>
+<application>Dia</application>-ko objektuetako bat marra da.  
+Hau da marra objektuaren ikonoa:
+</para>
+ <figure>
+      <title>Marraren ikonoa</title>
+     <screenshot><screeninfo>Marraren ikonoa</screeninfo> 
+<graphic format="PNG" fileref="graphics/line_icon.png" 
+srccredit="Steffen Macke"/></screenshot></figure></sect2> 
+<sect2 id="line-styles">
+   <title>Marra-estiloak</title>
+    
+<para>
+Marrak erraz edita daitezke geziak eta horrelako elementuak 
+sortzeko.  Tresna-koadroaren behealdean 3 botoi daude marrekin. 
+ Klik egin eta sakatuta edukita, menu bat azalduko da aldaketaren 
+emaitza ikusteko.
+</para>
+ <figure>
+    <title>Marraren propietateak</title>
+      <screenshot><screeninfo>Hiru atalak behean azaltzen 
+dira.</screeninfo> 
+<graphic format="PNG" fileref="graphics/line_props.png" 
+srccredit="Kevin Breit"/></screenshot></figure> 
+<para>
+Estilo askotako marrak daude: 
+<itemizedlist>
+
+<listitem>
+
+<para>
+Betea
+</para>
+
+</listitem>
+ 
+<listitem>
+<para>
+Marratxoduna
+</para>
+</listitem>
+ 
+<listitem>
+<para>
+Marratxoa-Puntua
+</para>
+</listitem>
+ 
+<listitem>
+<para>
+Marratxoa-Puntua-Puntua
+</para>
+</listitem>
+ 
+<listitem>
+<para>
+Puntukatua
+</para>
+</listitem>
+
+</itemizedlist>
+
+</para>
+</sect2> <sect2 id="line-thickness">
+   <title>Marraren lodiera</title>
+    
+<para>
+Marren lodiera editatzeko, kolore-hautatzailearen eskuineko bost 
+aukeretako batean klik egin daiteke.
+</para>
+</sect2> 
+<sect2 id="arrows">
+   <title>Geziak</title>
+    
+<para>
+Geziak sortzeko, marren tresna erabil daiteke.  Tresna-koadroaren 
+behealdeko alboko bi botoietan klik eginda, menu bat azalduko da 
+aukeran dauden gezi-hasiera eta -amaierekin.
+</para>
+</sect2> <sect2 id="line-colors">
+   <title>Marra-koloreak</title>
+    
+<para>
+Marraren kolorea editatzeko, egin klik bikoitza marran oihalean ipini 
+ondoren.  Leiho bat azalduko da.  Bigarren lerroa &quot;Marra-kolorea&quot; 
+da eta barra bat dauka hautatutako kolorea erakusteko.  Barran klik eginda, 
+marraren kolorea alda daiteke.
+</para>
+</sect2>
+</sect1> 
+<sect1 id="object-properties">
+  <title>Objektuaren propietateak</title>
+   
+<para>
+Objektu bakoitzak bere propietateak ditu.  Oihalean dagoen objektu batean 
+klik bikoitza eginda ikus daitezke.  Leiho bat azalduko da hainbat eta 
+hainbat propietate editatzeko aukerarekin, besteak beste: 
+<itemizedlist>
+
+<listitem>
+<para>
+Marra-zabalera
+</para>
+</listitem>
+ 
+<listitem>
+<para>
+Marra-kolorea
+</para>
+</listitem>
+
+</itemizedlist>
+
+.</para>
+</sect1> 
+<sect1 id="colors">
+  <title>Koloreak</title> 
+   
+<para>
+Objektu guztiei eman dakieke kolorea hainbat modutan, erabiltzaileak 
+definitutako ezarpenaren arabera.
+</para>
+ 
+<para>
+Kolorearen kontrola tresna-koadroaren behealdetik gertu dago. Bi karratuk 
+egiten dute kontrola.  Goian ezkerrean dagoena aurreko planoaren kolorea da.  
+Azpian eskuinean dagoena atzeko planoarena. Koloreak editatzeko, egin klik 
+koadroetako batean, eta hautatu kolorea azaltzen den kolore-leihoan. 
+<note>
+<para>
+Kontrol honek oraindik oihalean jarri ez diren objektuen kolorea hautatzeko 
+aukera bakarrik ematen du.
+</para>
+</note> <tip>
+<para>
+Koloreak alderantzikatzeko, egin klik bi koadroen goialdean eskuinean 
+dagoen gezi txikian.
+</para>
+</tip> <tip>
+<para>
+Berriz ere kolore lehenetsiak ezartzeko, egin klik kolore-hautatzailearen 
+behealdeko ezkerreko koadro zuri-beltzean.
+</para>
+</tip>
+</para>
+</sect1>
+</chapter>

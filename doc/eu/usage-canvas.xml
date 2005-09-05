@@ -1,0 +1,67 @@
+<chapter label="2" id="canvas-chapter">
+<title>Oihala</title>
+ <sect1 id="canvas">
+  <title>Oihalaren sarrera</title>
+   <para>
+   Oihala da Dia-ren zati nagusia. Erabiltzailearen objektu guztiak 
+   pantailan kokatu eta antolatzeko erabiltzen den leihoa da. Diagrama 
+   inprimatzen edo gordetzen denean, oihalaren edukia gordetzen da.
+   </para>
+ </sect1> 
+  <sect1 id="gridlines">
+  <title>Sareta-marrak</title>
+   <para>Grafiko-papereko marren antzekoak dira sareta-marrak. Objektuak 
+   oihalean lerrokatzen laguntzen diote erabiltzaileari. Sareta-marrak 
+   ezkuta daitezke <menuchoice><guimenu>Fitxategia</guimenu> 
+   <guimenuitem>Hobespenak</guimenuitem></menuchoice> aukeraren bidez. 
+   Sareta-marren fitxan, 'Ikusgai' botoia sakatu behar da, 'Ez' jar dezan.
+   </para>
+  </sect1> 
+ <sect1 id="Rulers">
+  <title>Erregelak</title>
+   <para><application>Dia</application>-ren oihalaren goialdean eta 
+   ezkerrean azaltzen dira erregelak.  Oihalaren neurria erakusten dute 
+   zentimetrotan.
+   </para> 
+   <para>
+   Erregela bakoitzak gezi bat du. Gezia erregelan zehar mugitzen da, 
+   saguak seinalatzen duen puntuaren arabera. Esate baterako, erabiltzaileak 
+   sagua gorantz eramaten badu, erregela bertikaleko gezia gorantz joango 
+   da, aldaketa adierazteko. Geziak oso erosoak dira objektu bat puntu 
+   jakin batean zehazki lerrokatu nahi denerako.
+   </para> 
+   <para>
+   Erregelak ezin dira kendu (sareta-marrak bai, baina erregelak ez).
+   </para>
+ </sect1> 
+ <sect1 id="background-color">
+  <title>Atzeko planoaren kolorea</title>
+   <para>
+   Aukera honen bidez, oihalaren atzeko planoaren itxura alda dezakezu. 
+   Lehenespenez, atzeko planoa zuria izaten da. Kolorea aldatzeko, joan 
+   <menuchoice><guimenu>Ikusi</guimenu> 
+   <guimenu>Diagrama-propietateak</guimenu> <guimenuitem>Atzeko 
+   planoa</guimenuitem></menuchoice> aukerara, eta egin klik barran.  
+   Barran ikusten da atzeko planoaren kolorea. Sareta-marren kolorea 
+   automatikoki aldatuko da atzeko planoan kolore beltza ezartzen bada, 
+   bestela ez bailirateke ikusiko.
+   </para>
+ </sect1> 
+ <sect1 id="zooming">
+  <title>Zooma</title>
+   <para>
+   Zoomari esker diagramak hurbilagotik ikus ditzake erabiltzaileak.  
+   Horrela zehaztasun handiagoz marraz daiteke.</para> <para>Zoomaren 
+   muga % 400ekoa da. Diagrama handiago ikusteko, egin klik tresna-koadroko 
+   lupan, eta egin klik oihalean. Zooma kentzeko, sakatu aldatzeko botoia, 
+   eta egin klik berriro oihalean.
+   </para>
+ </sect1>
+ </chapter>
+
+
+<!--
+Local Variables:
+sgml-parent-document: "dia-manual.sgml"
+End:
+-->

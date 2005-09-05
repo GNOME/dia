@@ -1,0 +1,160 @@
+<chapter label="1" id="quickstart-chapter">
+<title>Bizkor hasteko</title>
+  <sect1 id="what-can-you-do">
+  <title>Zer egin dezakezu?</title>
+    
+<para>
+<application>Dia</application> jende askok erabiltzeko moduko 
+diagrama-aplikazioa da.  Lan handirik gabe ikasten da erabiltzen, 
+eta malgutasun handikoa da, bestalde, erabiltzaile adituak eroso 
+senti daitezen tresna komertzialak erabiltzen dituztenean.  Behean 
+ikus daiteke <application>Dia</application>-k zer eman dezakeen 
+bost minututan. <figure>
+    <title>Demoa</title>
+      <screenshot><screeninfo>Diagrama honek etxeko sarea 
+irudikatzen du, eta 5 minutuan egin da <application>Dia</application>-rekin.
+</screeninfo> <graphic format="PNG" fileref="graphics/home_network.png" 
+srccredit="Kevin Breit"/></screenshot></figure>
+</para>
+</sect1> 
+<sect1 id="starting-dia">
+  <title>Dia abiarazteko</title>
+   
+<para>
+Joan Menu nagusiko Aplikazioak atalera, eta egin klik Dia-ren ikonoan.  
+Edo, idatzi <command>dia</command> komandoa xterm leiho batean.
+</para>
+</sect1> <sect1 id="quickstart-intro">
+  <title>Bizkor hasteko sarrera</title>
+   
+<para>
+Oinarrizko diagramak egiteko eskuliburu osoa irakurtzeko gogorik ez 
+duten erabiltzaileentzat.
+</para>
+</sect1> <sect1 id="creating-canvas">
+  <title>Oihala sortzea</title>
+   
+<para>
+Diagrama bakoitza bere <emphasis>oihalean</emphasis> marrazten da.  
+Oihal berria sortzeko, hautatu <menuchoice><guimenu>Fitxategia</guimenu> 
+<guimenuitem>Diagrama berria</guimenuitem></menuchoice> Oihal-leiho 
+berria azalduko da.
+</para>
+</sect1> 
+<sect1 id="making-diagram">
+  <title>Diagrama egitea</title>
+   
+<para>
+Diagramak objektuz osatzen dira.  Kolore. itxura eta tamaina desberdinetako 
+formak dira objektuak.  2 biteko irudiak, irudi koloretsuak, testua, edo 
+beste edozer izan daitezke.
+</para>
+ 
+<para>
+Oihalean objektuak gehitzeko, egin klik tresna-koadroko objektu batean, eta 
+egin klik oihalean.  Hautatutako objektua oihalean azalduko da.  Izkinetako 
+botoi berdeetan klik egin eta arrastatuz manipulatzen dira nagusiki objektuak.
+</para>
+ 
+<para>
+Objektu baten propietate aurreratuak ikusteko, egin klik tresna-koadroan, 
+ikusi nahi duzun objektuan.  Biltegiatuta dagoen bildumako forma zure gustura 
+pertsonalizatzeko aukera izango duzu.
+</para>
+ 
+<para>
+Geruzek irudi anitz sortzen dituzte, irudi bakarra osatuz. Horrela, 
+erabiltzaileak aldiko geruza bat edita dezake, gainerako geruzetan dagoena 
+ukitu gabe.
+</para>
+ 
+<para>
+Gardentasunak objektu zati batzuk garden egiteko aukera ematen du, zati 
+gardenaren atzean dagoen guztia ikusi ahal izateko.
+</para>
+ 
+<para>
+Plugin-en bidez erabiltzaileak objektu-mota berriak gehi ditzake Dia-n, 
+funtzionalitatea areagotzeko.
+</para>
+</sect1> <sect1 id="save-print-diagram">
+  <title>Diagramak gorde eta inprimatzea</title>
+   
+<para>
+Diagramak gorde eta inprimatzea dokumentua sortu eta aldatzea bezain erraza da.
+</para>
+ 
+<para>
+Dia-rekin inprimagailuan inprimatu eta gorde egin daiteke.  gnome-print 
+instalatuta badaukazu, oso erraz inprimatuko duzu!
+</para>
+ 
+<para>
+Inprimatzeko komandoa Fitxategia menuan dago, oihalean eskuin-klika egitean 
+azalduko zaizu.
+</para>
+ 
+<para>
+Dia-rekin formatu askotara esporta dezakezu web-ean bikain argitaratzeko. 
+Esate baterako: <itemizedlist>
+<listitem>
+
+<para>
+Computer Graphics Metafile (.cgm)
+</para>
+</listitem>
+ 
+<listitem>
+<para>
+Encapsulated Postscript (.eps)
+</para>
+</listitem>
+ 
+<listitem>
+<para>
+Native Dia Format (.dia)
+</para>
+</listitem>
+ 
+<listitem>
+<para>
+Portable Network Graphics (.png)
+</para>
+</listitem>
+ 
+<listitem>
+<para>
+Scalable Vector Graphics  (.svg)
+</para>
+</listitem>
+</itemizedlist>
+</para>
+</sect1> 
+<sect1 id="who-appeal-too"> 
+            <title>Norentzat da erakargarria Dia?</title>
+    
+<para>
+Industria askotako jende askorentzat izan daiteke erakargarria Dia. <itemizedlist>
+<listitem>
+
+<para>
+Ingeniari elektriko batek zirkuituaren funtzionamendua erakusteko sor 
+dezake <application>Dia</application>-ko diagrama.
+</para>
+</listitem>
+ 
+<listitem>
+<para>
+Informatikako programatzaile batek programaren eskema irudikatzeko erabil dezake fluxu-diagrama.
+</para>
+</listitem>
+ 
+<listitem>
+<para>
+Sare-administratzaileak enpresako sarearen diseinua erakusteko sor dezake diagrama bat.
+</para>
+</listitem>
+</itemizedlist>
+</para>
+</sect1>
+</chapter>                                              

@@ -1,0 +1,132 @@
+<chapter label="4" id="basic-objects-chapter">
+<title>Oinarrizko objektuak</title>
+<sect1 id="basic-objects-introduction">
+<title>Oinarrizko objektuen sarrera</title>
+  
+<para>
+Lehenengo objektu-mota eta ohikoena oinarrizko objektua da.  
+Oinarrizko objektuak forma geometriko pertsonalizagarriak izaten 
+dira normalean.  <application>Dia</application>-k oinarrizko 
+objektu asko eskaintzen ditu.
+</para>
+ <sect2 id="text">
+  <title>Testua</title>
+   
+<para>
+<application>Dia</application>-k testua erabiltzeko aukera 
+ematen du objektu-mota propio gisa.  Oihalean testua jartzeko, 
+egin klik tresna-koadroko testuaren botoian.
+</para>
+ <note>
+<para>
+<application>Dia</application>-ko testuak Gnome-n erabilgarri 
+dagoen edozein letra-tipo erabil dezake.
+</para>
+</note>
+</sect2> 
+<sect2 id="box">
+   <title>Laukia</title>
+    
+<para>
+<application>Dia</application>-ko laukiak erabiltzaileak nahi 
+duen neurrira pertsonaliza daitezke.  Hauek dira erabilgarri 
+dauden propietateak: 
+
+<itemizedlist>
+<listitem>
+<para>
+Izkinak biribiltzea - Izkina biribilduak ezartzen ditu ertz 
+zorrotzen ordez.
+</para>
+
+</listitem>
+ <listitem>
+<para>
+Marraztu atzeko planoa - Erdialdea garbi mantentzen du edo 
+atzeko planoko kolorearekin betetzen du.
+</para>
+
+</listitem>
+</itemizedlist>
+</para>
+</sect2> 
+<sect2 id="ellipse">
+   <title>Elipsea</title>
+    
+<para>
+Ertz biribilduak dituen forma da elipsea; zirkulua edo obalatua 
+izan daiteke.
+</para>
+</sect2> 
+<sect2 id="polygon">
+   <title>Poligonoa</title>
+    
+<para>
+Marra zuzenez osatutako forma itxia da poligonoa.  Poligonoen 
+tresnarekin, marra zuzenez osatutako edozein forma marraz daiteke.
+</para>
+</sect2> <sect2 id="beziergon">
+   <title>Beziergonoa</title>
+    
+<para>
+Poligonoaren antzeko da beziergonoa, erabiltzaileak definitzen 
+baitu forma. Baina, poligonoak ez bezala, forman kurbak sartzen 
+onartzen du.
+</para>
+</sect2> <sect2 id="line">
+   <title>Marra</title> 
+    
+<para>
+Horixe da: marra bat.  
+<!--fix this wording...it sucks--> 
+Ikus marra pertsonalizatzeari buruzko atala.
+</para>
+</sect2> 
+<sect2 id="arc">
+   <title>Arkua</title>
+    
+<para>
+Zirkulu erdiaren antzeko forma bat osatzeko okertu den marra 
+bat da arkua.
+</para>
+</sect2> 
+<sect2 id="zigzagline">
+   <title>Sigi-saga marra</title>
+    
+<para>
+Sigi-saga marra 90 graduko koska zorrotzak dituen marra da.  
+Eskailera-mailen itxura du.
+</para>
+</sect2> <sect2 id="polyline">
+   <title>Koska-marra</title>
+    
+<para>
+Sigi-saga marraren antzekoa, baina koskek ez daukate 90 gradukoak 
+izan beharrik.  Angeluak pertsonalizatu egin daitezke.
+</para>
+</sect2> <sect2 id="bezier">
+   <title>Bezier marra</title>
+    
+<para>
+Kurbak dituen marra da Bezier marra.  Bezier marren tresna 
+editatzeko, egin klik puntu berde eta laranjetan, eta arrastatu.  
+Puntu berdeek tamaina pertsonalizatzen dute, eta laranja kolorekoek
+ marra kurbatzeko angeluak.
+</para>
+</sect2> 
+<sect2 id="image">
+   <title>Irudiak</title>
+    
+<para>
+<application>Dia</application>-ren oihalean irudiak sar daitezke, 
+formekin batera.
+</para>
+ 
+<para>
+Irudi bat gehitzeko, egin klik irudien botoian, eta gehitu oihalean. 
+&quot;Irudi hautsia&quot; izeneko objektu bat azalduko da.  Egin 
+klik bikoitza propietateak irekitzeko.  Egin klik 
+&quot;Arakatu&quot;n eta hautatu irudia.  Egin klik &quot;Ados&quot;en 
+eta irudia eguneratu egingo da.
+</para>
+</sect2></sect1></chapter>

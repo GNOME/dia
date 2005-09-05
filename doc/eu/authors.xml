@@ -1,0 +1,45 @@
+<chapter label="10" id="authors-chap">
+<title>Egileak</title>
+  <para>
+   <application>Dia</application> Alexander Larsson-ek idatzia da, eta 
+   James Henstridge-k egiten ditu mantentze-lanak. 
+   <application>Dia</application>-ri buruzko informazio gehiago nahi izanez 
+   gero, bisitatu web gune ofiziala: 
+   <ulink url="http://www.lysator.liu.se/~alla/dia" 
+   type="http">www.lysator.liu.se/~alla/dia</ulink>. 
+    Bidali zure iruzkin, iradokizun eta akatsen berri-emateak 
+   <ulink url="http://bugs.gnome.org" type="http">GNOMEren akatsen 
+   segimendurako datu-basera</ulink>. (Programa-erroreen berri emateko 
+   jarraibideak <ulink url="http://bugs.gnome.org/Reporting.html" 
+   type="http">linean</ulink> aurkituko dituzue.) GNOMEren 1.1 bertsioa 
+   edo berriagoa baduzu, <application>Programa-erroreen berri emateko 
+   tresna</application> (<command>bug-buddy</command>) ere erabil dezakezu 
+   akatsen berri emateko. Tresna hori <guimenu>Menu nagusi</guimenu>ko 
+   <guisubmenu>Utilitateak</guisubmenu> azpimenuan duzu eskuragarri.
+  </para>
+ 
+  <para>
+   Eskuliburu honen egileak Henry House (<email>hajhouse@houseag.com</email>) 
+   , Judith Samson (<email>judith@samsonsource.com</email>), eta Kevin 
+   Breit (<email>battery841@mypad.com</email>) dira. Eskuliburu honi buruzko 
+   ohar edo iradokizunik baduzu, bidal ezazu mesedez <ulink type="http" 
+   url="http://www.gnome.org/gdp">GNOMEren dokumentazio-proiektu</ulink>ra, 
+   <email>docs@gnome.org</email> helbidera mezu bat bidaliz. Linean ere 
+   bidal daitezke oharrak, 
+   <ulink type="http" url="http://www.gnome.org/gdp/doctable/">GNOMEren 
+   dokumentazioaren egoeraren taula</ulink>ren bidez.
+  </para>
+ 
+  <!-- For translations: uncomment this:-->
+ 
+  <para>
+   Hizkuntza Politikarako Sailburuordetza <email>hizkpol@ej-gv.es</email> 
+   (euskarazko itzulpena) Itzulpenari buruzko oharrik baduzu, 
+   &lt;email&gt;hizkpol@ej-gv.es&lt;/email&gt; helbidera bidal ditzakezu.
+  </para>
+ 
+  
+ 
+</chapter>
+
+

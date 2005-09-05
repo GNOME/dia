@@ -1,0 +1,23 @@
+<chapter label="1" id="intro-chapter">
+<title>Sarrera</title>
+ <sect1 id="intro">
+  <title>Sarrera</title>
+  <para>
+  <application>Dia</application> diagrama teknikoak egiteko aplikazio 
+  bat da. Interfazeak eta eginbideek nolabaiteko zerikusia dute Windows-eko 
+  Visio programarekin. Dia-ren eginbideen artean aurkituko dituzu hainbat 
+  orritan inprimatzea, formatu askotara esportatzea (EPS, SVG, CGM eta PNG), 
+  eta erabiltzaileak XML azalpen gisa sortutako forma pertsonalizatuak 
+  erabili hal izatea. <application>Dia</application> oso erabilgarria da UML 
+  diagramak, sare-mapak eta fluxu-diagramak marrazteko.
+</para> 
+<!--
+   I don't think it is in any official package
+   <application>Dia</application> is included in the
+   <filename>GNOME-PACKAGE</filename> package, which is part of the
+   GNOME desktop environment.
+--> 
+<para>
+  Dokumentu honek <application>Dia</application>-ren &VERSION; bertsioa 
+  azaltzen du.
+</para></sect1></chapter>                                                                       

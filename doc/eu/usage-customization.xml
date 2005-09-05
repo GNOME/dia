@@ -1,0 +1,87 @@
+<chapter label="8" id="usage-customization">
+<title>Pertsonalizatzea</title>
+ <sect1 id="prefs">
+ <title>Pertsonalizatzea</title>
+  <para>
+   <application>Dia</application> hainbat modutan alda daiteke, 
+   erabiltzailearen premia eta gustuetara egokitzeko.
+  </para>
+  <para>
+  Portaera aldatzeko, hautatu <menuchoice><guimenu>Fitxategia</guimenu> 
+  <guimenuitem>Hobespenak...</guimenuitem></menuchoice> <interface>Menu-barra 
+  nagusian</interface>.  <interface>Hobespenen</interface> 
+  elkarrizketa-koadroa irekiko da 
+  (<!--[TODO: add
+   screenshot].--> <!-- <xref linkend="preferences-fig">. -->)
+  </para> 
+  <para>
+  Hauek dira<guilabel>Erabiltzaile-interfazea</guilabel> fitxan alda 
+  daitezkeen propietateak: 
+ <itemizedlist>
+  <listitem>
+   <para>
+    Berrezarri tresnak sortu ondoren botoia hautatuta badago, 
+ <!--[TODO:
+     find out what this does] -->
+   </para>
+  </listitem> 
+  <listitem>
+   <para>
+    Desegiteko mailak -- desegiteko tresnak zenbat urrats desegin ahal 
+    izango dituen ezartzen du.  Zenbat eta zenbaki handiagoa ezarri, 
+    orduan eta pauso gehiago eman ahal izango dira atzerantz, baina memoria 
+    gehiago beharko du.
+   </para>
+  </listitem>
+  <listitem>
+   <para>
+    Zabalerak diagrama berriaren zabalera kontrolatzen du, pixeletan.
+   </para>
+  </listitem>
+  <listitem>
+   <para>
+    Altuerak diagrama berriaren altuera kontrolatzen du, pixeletan.
+   </para>
+  </listitem>
+  <listitem>
+   <para>
+    Handitu aukerak diagrama berrien zoom-multiplo lehenetsia ezartzen du.
+   </para>
+  </listitem>
+  <listitem>
+   <para>
+    Atxiki -- objektuak programak sortutako saretak erakar ditzan. 
+    Horrela erabiltzaileak errazago lerrokatuko ditu objektuak, 
+    automatikoki erakarriak izango baitira sareta-marrara.
+    </para>
+  </listitem>
+  <listitem>
+   <para>
+    X tamaina -- sareta-marra horizontalen arteko tartea ezartzeko aukera 
+    ematen du.
+   </para>
+  </listitem>
+  <listitem>
+   <para>
+    Y tamaina -- sareta-marra bertikalen arteko tartea ezartzeko aukera 
+    ematen du.
+   </para>
+  </listitem>
+  <listitem>
+   <para>
+    Kolorea -- sareta-marrak bistaratzeko kolorea ezartzen du.
+   </para>
+  </listitem>
+ <!-- Find out what page breaks are, etc. -->
+</itemizedlist>
+</para> 
+<para>
+ Nahi dituzun aldaketa guztiak egin ondoren, egin klik 
+ <guibutton>Ados</guibutton> botoian aldaketak aplikatu eta 
+ <interface>Hobespenen</interface> elkarrizketa-koadroa ixteko. 
+ Aldaketak bertan behera utzi eta aurreko balioetara itzultzeko, 
+ egin klik <guibutton>Itxi</guibutton> botoian. Aldaketek izango duten 
+ eragina ikusteko, 'Aplikatu' botoia erabil dezakezu.
+</para>
+</sect1>
+</chapter>

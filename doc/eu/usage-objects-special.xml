@@ -1,0 +1,132 @@
+<chapter label="5" id="special-objects-chapter">
+<title>Objektu bereziak</title>
+ <sect1 id="special-objects">
+ <title>Objektu berezien sarrera</title>
+   
+<para>
+Aurreko puntuan oinarrizko objektuen azalpena eman da.  
+Atal honetan urrats bat aurrera egiten da, eta objektu berriak 
+sortzen, formak baino landuagoak diren objektu aurrez 
+prestatuak erabiltzen erakusten da.
+</para>
+</sect1> 
+
+<sect1 id="special-object-categories">
+   <title>Objektu berezien kategoriak</title>
+     
+<para>
+Objektu bereziak kategoriatan banatuta daude.  Horrela, zirkuitu 
+bat irudikatzen duen diagrama bat sortzen ari denak zirkuituetako 
+objektuak bakarrik ikusiko ditu.  <application>Dia</application>-k 
+aurrez definitutako kategoria asko ematen ditu. 
+<variablelist>
+<varlistentry>
+<term>Zirkuitua</term> 
+<listitem>
+<para>
+Zirkuitu elektrikoen diagramak egin nahi dituztenentzako multzoa.
+</para>
+</listitem>
+</varlistentry> 
+
+<varlistentry><term>Eskailera</term> 
+<listitem>
+<para>
+Nik dakidana baino gehiago da hau
+</para>
+</listitem>
+</varlistentry> 
+
+<varlistentry><term>ER</term> 
+<listitem>
+<para>
+Entitate-erlazioen diagramen editorea
+</para>
+</listitem>
+</varlistentry> 
+
+<varlistentry><term>FS</term> 
+<listitem>
+<para>
+Funtzio-egituren diagramen editorea
+</para>
+</listitem>
+</varlistentry> 
+
+<varlistentry><term>Fluxu-diagrama</term> 
+<listitem>
+<para>
+Fluxu-diagrametan normalean erabiltzen diren formak biltzen dituen multzoa.  Asko erabiltzen dira fluxu-diagramak informatikan, marketinean, ekonomian eta plangintza behar duten beste eragiketa erdi-lineal askotan.
+</para>
+</listitem>
+</varlistentry> 
+
+<varlistentry><term>GRAFCET</term> 
+<listitem>
+<para>
+Trantsizioarekin asoziatutako urratsa, ekintza, trantsizioa eta baldintza marrazten dituen diagrama.
+</para>
+</listitem>
+</varlistentry> 
+
+<varlistentry><term>SADT</term> 
+<listitem>
+<para>
+Oso galdera ona!
+</para>
+</listitem>
+</varlistentry> 
+
+<varlistentry><term>UML</term> 
+<listitem>
+<para>
+Ikus goikoa
+</para>
+</listitem>
+</varlistentry> 
+
+<varlistentry><term>Kronograma</term> 
+<listitem>
+<para>
+Diseinu kronografikoan erabiltzen diren objektuak 
+eskaintzen ditu.  Ohikoak dira plangintzetan.
+</para>
+</listitem>
+</varlistentry> 
+
+<varlistentry><term>Sarea</term> 
+<listitem>
+<para>
+Sare-administratzaileek erabiltzen dute sarea diseinatzeko.
+</para>
+</listitem>
+</varlistentry> 
+
+<varlistentry><term>Sybase</term> 
+<listitem>
+<para>
+Sybase ordenagailu-sareko fluxua adierazten duten 
+diagramak diseinatzeko.
+</para>
+</listitem>
+</varlistentry> 
+
+<varlistentry><term>Elektrikoa</term> 
+<listitem>
+<para>
+Elektrizitate-fluxua erakusteko izango da, nik uste.
+</para>
+</listitem>
+</varlistentry> 
+
+<varlistentry><term>Pneumatikoa/Hidraulikoa</term> 
+<listitem>
+<para>
+Hidraulikaz baliatzen diren gailuen diagramak egiteko.
+</para>
+</listitem>
+</varlistentry>
+</variablelist>
+</para>
+</sect1>
+</chapter>                   

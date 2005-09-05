@@ -1,0 +1,230 @@
+<chapter label="9" id="layers-chapter">
+<title>Geruzak kudeatzea</title> 
+  <!-- (introductory info...)  --> <sect1 id="layers-introduction">
+  <title>Geruzen sarrera</title>
+   
+<para>
+ <application>Dia</application>-n, <emphasis>geruzak</emphasis> 
+kudeatzeko <interface>Geruzen elkarrizketa-koadroa</interface> 
+erabiltzen da, eta bertatik egiten dira geruzei buruzko eragiketa 
+guztiak.
+</para>
+ 
+<para>
+Oro har, diagramaren barnean elkarrekin erlazionatuta dauden objektuak 
+elkartzeko erabiltzen dira geruzak. Diagramaren zatiak isolatzeko erabil 
+daitezke geruzak: zati batzuk bistaratu eta beste batzuk ezkutatzeko, 
+baita diagrama esportatzen edo inprimatzen denean ere.
+</para>
+ 
+<para>
+Geruzaren barnean egin nahi duzun edozein eragiketa, <interface>Laster-menu 
+nagusia</interface>ren bidez egin dezakezu, eta hortik landu ditzakezu 
+objektuak normalean egiten duzun moduan.
+</para>
+ <note>
+<para>
+Uneko geruzan dauden objektuak bakarrik hauta daitezke. Objekturen bat 
+hautatu ezin baduzu, begiratu uneko geruzan dagoen ala ez.
+</para>
+</note> 
+<para>
+Lehenespenez, diagrama berri bakoitzean geruza lehenetsi bat egoten da: 
+hori da <emphasis>Atzeko planoko</emphasis> geruza. Nahi baduzu, geruza 
+horren izena eta ezarpenak alda ditzakezu, zure premietara egokitzeko, 
+beste edozein geruzarekin egingo zenukeen bezala.
+</para>
+ 
+<para>
+Nahi adina geruza sor ditzakezu; lehendik dauden geruza guztien gainean 
+kokatuko du geruza berria <application>Dia</application>-k. 
+<emphasis>Geruzak</emphasis> bata bestearen gainean pilan jarritako paper 
+gardenak direla pentsa liteke. Pilan daukaten ordena alda dezakezu; geruza 
+bakoitza erakutsi edo ezkutatu nahi duzun erabaki dezakezu; geruza bakoitzean 
+nahi adina objektu marraz ditzakezu; eta abar.
+</para>
+ 
+<para>
+Hori dena <interface>Geruzen elkarrizketa-koadroan</interface> kudeatzen da.
+</para>
+</sect1>
+  
+  <sect1 id="layers-basics">
+  <title>Geruzen oinarrizko kudeaketa</title>
+  <!-- we should probably drop the related icons in front of each 
+        subsection, that way we won't have to describe them and 
+        the user to find them into the dialog box faster, what 
+        do you think ?   --> <sect2 id="create-layers">
+    <title>Geruza berria sortzea</title>
+     
+<para>
+Geruza berria sortzeko, egin klik elkarrizketa-koadroaren behealdeko 
+<guibutton>Geruza berria</guibutton> botoian. <interface>Geruzen 
+elkarrizketa-koadroa</interface> aplikazioa osoarena denez, eta ez 
+diagrama bakoitzarena, geruza berria zein diagramatakoa den zehaztu 
+beharko duzu. Horretarako, hautatu diagrama <interface>Geruzen 
+elkarrizketa-koadroaren</interface> goialdean, eta gehitu geruza berria 
+hautatutako diagraman.
+</para>
+ 
+<para>
+Geruza sortu berria pilaren goialdean kokatuko da eta hautatutako 
+diagramako uneko geruza izango da.
+</para>
+ 
+<para>
+Orduan nahi dituzun objektu berriak editatu ahal izango dituzu, beste 
+geruza edo diagrama batetik kopiatu eta itsatsi, geruza bakarreko 
+diagrama batean egingo zenukeen moduan.
+</para>
+</sect2>
+
+    <sect2 id="selecting-layers">
+    <title>Geruzak hautatzea</title>
+     
+<para>
+<interface>Geruzen elkarrizketa-koadroan</interface> hautatzen denean 
+aktibatzen da geruza. Geruza bat hautatzeko, egin klik geruzaren izenean 
+elkarrizketa-koadroan; nabarmenduta geratuko da. Hortik aurrera, egiten 
+dituzun aldaketa guztiek geruza horretan eta horretan bakarrik izango 
+dute eragina.
+</para>
+ <note>
+<para>
+Aldiko geruza bakarra hauta daiteke. Horrela, nahi duzuna egin ahal izango 
+duzu geruza horretan, diagramako gainerako geruzak ukitu gabe.
+</para>
+</note></sect2>
+
+    <sect2 id="ordering-layers">
+    <title>Geruzak ordenatzea</title>
+     
+<para>
+<interface>Geruzen elkarrizketa-koadroaren</interface> behealdean, 
+<guibutton>Geruza berria</guibutton> botoiaren ondoan, beste bi botoi 
+daude, sortzen dituzun geruzek pilan duten ordena egokitzeko.
+</para>
+ 
+<para>
+Geruzen hierarkian geruzak gorago edo beherago eramateko erabiltzen dira 
+botoi horiek. Gora gezia duen botoiak geruza goratu egiten du, eta 
+besteak, berriz, hierarkian beheratu egiten du.
+</para>
+ 
+<para>
+Geruzak ordenatzea ongi etortzen da objektu baten zati batzuk beste 
+batekin batera ezkutatu nahi direnean.
+</para>
+</sect2>
+    
+    <sect2 id="deleting-layers">
+    <title>Geruzak ezabatzea</title>
+     
+<para>
+Geruza bat gehiago behar ez baduzu, bertako objektu guztiak ezaba 
+ditzakezu <guibutton>Ezabatu geruza</guibutton> botoian klik eginda. 
+Normala denez, unean hautatuta dagoen geruzan bakarrik izango du 
+eragina horrek.
+</para>
+ 
+<para>
+Tarteka egitea komeni da diagrama garbi eta txukun edukitzeko, 
+<application>Dia</application> formatu natibotik kanpora esportatu 
+nahi duzunerako batez ere.
+</para>
+ 
+<para>
+Kontuan izan diagramek geruza bat behintzat eduki behar dutela, 
+diagramak geruzen bidez eraikitzen direlako, eta, beraz, geruzarik 
+gabeko diagramak hondatutzat joko direla eta ezingo direla gorde edo 
+esportatu <application>Dia</application> formatu natibotik.
+</para>
+</sect2>
+</sect1>
+ <sect1 id="viewing-layers">
+    <title>Geruzak ikustea</title>
+     
+<para>
+Geruzak manipulatzeko oinarriak ikasi dituzunez, errazago ulertuko 
+duzu <emphasis>geruzak</emphasis> nolako tresna indartsuak diren 
+<application>Dia</application>-n diagramak eraikitzeko.
+</para>
+ 
+<para>
+Geruzek zertarako balio duten ulertzeak ikaragarri lagunduko dizu 
+zure diagramen kalitatea eta efektu bisuala hobetzen.
+</para>
+ 
+<para>
+Esate baterako, pentsa ezazu objektu asko dituen diagrama bat 
+eraikitzen ari zarela (diagrama elektrikoa, edo UMLa edo horrelakoren 
+bat). Objektu guztiak geruza berean (hau da, atzeko planokoan) ipintzen 
+badituzu, lan pixka bat egindakoan zirriborro ulertezin bat izango duzu 
+eskuartean. Aldaketak egiteak buruko mina emango dizu, denbora asko 
+beharko duzu hor erdian azaltzen den objektu hori nahaste-borraste 
+horretako zein objekturekin dagoen konektatuta asmatzeko, eta abar.
+</para>
+ 
+<para>
+Baina <application>Dia</application>-k <emphasis>Diagrama egituratuak 
+eraikitzen</emphasis> dituenez, diagrama guztiak naturalki egituratuko 
+dira, zati txikitan banatuta egongo dira, erraz kudea ditzazun, 
+objektu-bloke monolitiko bakar batekin borrokan jardun beharrean.
+</para>
+ <note>
+<para>
+Definizioz, diagramek egituratuak izan behar dute, zati logikotan 
+banatzea uste baino errazagoa izan dadin. Horregatik dira hain 
+garrantzizkoak <emphasis>geruzak</emphasis>. Geruzen bidez zati bakoitza 
+isola dezakezu diapositiba bat balitz bezala, lasai eta gustura 
+manipulatzeko moduan.
+</para>
+</note> 
+<para>
+Hasteko, <emphasis>geruzei</emphasis> izena alda dakieke diagramako zein 
+zati adierazten duten argitzeko, eta besteen artean errazago aurkitzeko. 
+Eta gainera, <emphasis>geruzak</emphasis> erakutsi edo ezkutatu egin 
+daitezke, unean ikustea komeni denaren arabera.
+</para>
+ 
+<para>
+Diagrama egiten ari zarenean edozein unetan geruza bati izena 
+aldatzeko, egin klik bikoitza geruzaren izenean <interface>Geruzen 
+elkarrizketa-koadroan</interface>. <interface>Geruza-atributuen</interface> 
+elkarrizketa-koadroa agertuko da, eta hor aldatu ahal izango diozu izena.
+</para>
+ <tip>
+<para>
+Saiatu izen ulergarri eta argi bat ezartzen, zertarako sortu zenuen 
+errazago gogoratzeko. Ez izan beldurrik diagraman geruza asko sortzeko, 
+<application>Dia</application>-k ez du mugarik ezartzen geruzen kopuruan, 
+eta gainera lasai egokitu dezakezu hierarkia zure premien arabera.
+</para>
+</tip> 
+<para>
+Geruzaren izenaren ondoan dagoen <guibutton>Begiaren ikonoa</guibutton> 
+oso erosoa da geruza ezkutatu edo bistaratzeko.. Geruza bat ez bistaratzea 
+erabakitzen baduzu, egin klik <guibutton>Begiaren ikonoan</guibutton>, 
+eta geruza eta barnean duen guztia desagertu egingo dira Oihaletik.
+</para>
+ 
+<para>
+Geruza batzuk bakarrik ikustea praktikoa da diagramaren zati bat bakarrik 
+manipulatu nahi duzunean, gainerakoa ukitu gabe. Diagrama hainbat 
+orrialdetan inprimatu nahi baduzu, edo zati baten diseinua aldatzen 
+duten ezarpenak probatu nahi badituzu ere, era horretan lan egin 
+dezakezu. Lasai esperimentatu geruzekin. Ongi konfiguratzen badituzu, 
+zure diagramak askoz ere itxura hobea izango du.
+</para>
+ <note>
+<para>
+<application>Dia</application>-n, <emphasis>Geruzak</emphasis> sortzea 
+eta manipulatzea diagramako objektuak marraztea edo hautatzea bezain 
+normala da. Geruzak erabiltzen ohitu egin beharko duzu, diagrama bat 
+sortzen duzun bakoitzean erabili beharko baitituzu seguruenik.
+</para>
+</note>
+</sect1>  
+<!-- end of id="layers"  -->
+
+</chapter>
