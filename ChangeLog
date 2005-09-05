@@ -1,3 +1,7 @@
+2005-09-04  Iñaki Larrañaga  <dooteo@euskalgnu.org>
+
+	* configure.in: Added "eu" to ALL_LINGUAS.
+
 2005-09-04  Lars Clausen  <lars@raeder.dk>
 
 	* lib/element.h (ELEMENT_COMMON_PROPERTIES): Remove object
