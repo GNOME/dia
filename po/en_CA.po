@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-07-18 21:13-0400\n"
-"PO-Revision-Date: 2005-07-18 16:52-0400\n"
+"POT-Creation-Date: 2005-09-06 18:02-0400\n"
+"PO-Revision-Date: 2005-09-06 16:52-0400\n"
 "Last-Translator: Adam Weinberger <adamw@gnome.org>\n"
 "Language-Team: Canadian English <adamw@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -623,11 +623,11 @@ msgstr "Selection of %d objects"
 msgid "Selected '%s'"
 msgstr "Selected '%s'"
 
-#: app/display.c:1020
+#: app/display.c:1052
 msgid "<unnamed>"
 msgstr "<unnamed>"
 
-#: app/display.c:1022
+#: app/display.c:1054
 #, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -636,16 +636,16 @@ msgstr ""
 "The diagram '%s'\n"
 "has not been saved. Save changes now?"
 
-#: app/display.c:1033
+#: app/display.c:1065
 msgid "Close Diagram"
 msgstr "Close Diagram"
 
-#: app/display.c:1038
+#: app/display.c:1070
 msgid "Discard Changes"
 msgstr "Discard Changes"
 
 #: app/export_png.c:134 app/load_save.c:917 app/render_eps.c:103
-#: plug-ins/cairo/diacairo.c:976 plug-ins/cgm/cgm.c:1151
+#: plug-ins/cairo/diacairo.c:972 plug-ins/cgm/cgm.c:1151
 #: plug-ins/dxf/dxf-export.c:484 plug-ins/hpgl/hpgl.c:704
 #: plug-ins/metapost/render_metapost.c:1107
 #: plug-ins/pstricks/render_pstricks.c:910 plug-ins/shape/shape-export.c:134
@@ -845,40 +845,44 @@ msgstr "Bezierline"
 msgid "Image"
 msgstr "Image"
 
-#: app/interface.c:392
+#: app/interface.c:400
 msgid "Diagram menu."
 msgstr "Diagram menu."
 
-#: app/interface.c:430
+#: app/interface.c:438
 msgid "Pops up the Navigation window."
 msgstr "Pops up the Navigation window."
 
-#: app/interface.c:512
+#: app/interface.c:504
 msgid "Zoom"
 msgstr "Zoom"
 
-#: app/interface.c:527
+#: app/interface.c:519
 msgid "Toggles snap-to-grid for this window."
 msgstr "Toggles snap-to-grid for this window."
 
-#: app/interface.c:590
+#: app/interface.c:530
+msgid "Toggles object snapping for this window."
+msgstr "Toggles object snapping for this window."
+
+#: app/interface.c:595
 msgid "NULL tooldata in tool_select_update"
 msgstr "NULL tooldata in tool_select_update"
 
-#: app/interface.c:883
+#: app/interface.c:888
 #, c-format
 msgid "No sheet named %s"
 msgstr "No sheet named %s"
 
-#: app/interface.c:915
+#: app/interface.c:920
 msgid "Other sheets"
 msgstr "Other sheets"
 
-#: app/interface.c:973 sheets/Misc.sheet.in.h:3
+#: app/interface.c:978 sheets/Misc.sheet.in.h:3
 msgid "Misc"
 msgstr "Misc"
 
-#: app/interface.c:1034
+#: app/interface.c:1039
 msgid ""
 "Foreground & background colors for new objects.  The small black and white "
 "squares reset colors.  The small arrows swap colors.  Double click to change "
@@ -888,31 +892,31 @@ msgstr ""
 "squares reset colours.  The small arrows swap colours.  Double click to "
 "change colours."
 
-#: app/interface.c:1049
+#: app/interface.c:1054
 msgid ""
 "Line widths.  Click on a line to set the default line width for new "
 "objects.  Double-click to set the line width more precisely."
 msgstr ""
 "Line widths.  Click on a line to set the default line width for new "
 "objects.  Double-click to set the line width more precisely."
-
-#: app/interface.c:1089
-msgid ""
-"Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
-"arrow parameters with Details..."
-msgstr ""
-"Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
-"arrow parameters with Details..."
 
 #: app/interface.c:1094
 msgid ""
+"Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
+"arrow parameters with Details..."
+msgstr ""
+"Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
+"arrow parameters with Details..."
+
+#: app/interface.c:1099
+msgid ""
 "Line style for new lines.  Click to pick a line style, or set line style "
 "parameters with Details..."
 msgstr ""
 "Line style for new lines.  Click to pick a line style, or set line style "
 "parameters with Details..."
 
-#: app/interface.c:1108
+#: app/interface.c:1113
 msgid ""
 "Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
 "parameters with Details..."
@@ -920,7 +924,7 @@ msgstr ""
 "Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
 "parameters with Details..."
 
-#: app/interface.c:1216
+#: app/interface.c:1221
 msgid "Diagram Editor"
 msgstr "Diagram Editor"
 
@@ -1094,19 +1098,19 @@ msgstr "/File/P_lugins..."
 msgid "/File/_Quit"
 msgstr "/File/_Quit"
 
-#: app/menus.c:73 app/menus.c:260
+#: app/menus.c:73 app/menus.c:261
 msgid "/_Help"
 msgstr "/_Help"
 
-#: app/menus.c:75 app/menus.c:262
+#: app/menus.c:75 app/menus.c:263
 msgid "/Help/_Contents"
 msgstr "/Help/_Contents"
 
-#: app/menus.c:77 app/menus.c:264
+#: app/menus.c:77 app/menus.c:265
 msgid "/Help/---"
 msgstr "/Help/---"
 
-#: app/menus.c:78 app/menus.c:265
+#: app/menus.c:78 app/menus.c:266
 msgid "/Help/_About..."
 msgstr "/Help/_About..."
 
@@ -1258,7 +1262,7 @@ msgstr "/View/Zoom/35.4%"
 msgid "/View/Zoom/25%"
 msgstr "/View/Zoom/25%"
 
-#: app/menus.c:162 app/menus.c:171
+#: app/menus.c:162 app/menus.c:172
 msgid "/View/---"
 msgstr "/View/---"
 
@@ -1279,253 +1283,257 @@ msgid "/View/_Snap To Grid"
 msgstr "/View/_Snap To Grid"
 
 #: app/menus.c:169
+msgid "/View/_Snap To Objects"
+msgstr "/View/_Snap To Objects"
+
+#: app/menus.c:170
 msgid "/View/Show _Rulers"
 msgstr "/View/Show _Rulers"
 
-#: app/menus.c:170
+#: app/menus.c:171
 msgid "/View/Show _Connection Points"
 msgstr "/View/Show _Connection Points"
 
-#: app/menus.c:172
+#: app/menus.c:173
 msgid "/View/New _View"
 msgstr "/View/New _View"
 
 #. Show All, Best Fit.  Same as the Gimp, Ctrl+E
-#: app/menus.c:174
+#: app/menus.c:175
 msgid "/View/Show _All"
 msgstr "/View/Show _All"
 
-#: app/menus.c:176
+#: app/menus.c:177
 msgid "/View/Re_draw"
 msgstr "/View/Re_draw"
 
-#: app/menus.c:178
+#: app/menus.c:179
 msgid "/_Objects"
 msgstr "/_Objects"
 
-#: app/menus.c:180
+#: app/menus.c:181
 msgid "/Objects/Send to _Back"
 msgstr "/Objects/Send to _Back"
 
-#: app/menus.c:182
+#: app/menus.c:183
 msgid "/Objects/Bring to _Front"
 msgstr "/Objects/Bring to _Front"
 
-#: app/menus.c:184
+#: app/menus.c:185
 msgid "/Objects/Send Backwards"
 msgstr "/Objects/Send Backwards"
 
-#: app/menus.c:186
+#: app/menus.c:187
 msgid "/Objects/Bring Forwards"
 msgstr "/Objects/Bring Forwards"
 
-#: app/menus.c:188 app/menus.c:194 app/menus.c:198 app/menus.c:216
+#: app/menus.c:189 app/menus.c:195 app/menus.c:199 app/menus.c:217
 msgid "/Objects/---"
 msgstr "/Objects/---"
 
-#: app/menus.c:189
+#: app/menus.c:190
 msgid "/Objects/_Group"
 msgstr "/Objects/_Group"
 
 #. deliberately not using Ctrl+U for Ungroup
-#: app/menus.c:192
+#: app/menus.c:193
 msgid "/Objects/_Ungroup"
 msgstr "/Objects/_Ungroup"
 
-#: app/menus.c:195
+#: app/menus.c:196
 msgid "/Objects/_Parent"
 msgstr "/Objects/_Parent"
 
-#: app/menus.c:196
+#: app/menus.c:197
 msgid "/Objects/_Unparent"
 msgstr "/Objects/_Unparent"
 
-#: app/menus.c:197
+#: app/menus.c:198
 msgid "/Objects/_Unparent Children"
 msgstr "/Objects/_Unparent Children"
 
-#: app/menus.c:199
+#: app/menus.c:200
 msgid "/Objects/Align"
 msgstr "/Objects/Align"
 
-#: app/menus.c:201
+#: app/menus.c:202
 msgid "/Objects/Align/Left"
 msgstr "/Objects/Align/Left"
 
-#: app/menus.c:203
+#: app/menus.c:204
 msgid "/Objects/Align/Center"
 msgstr "/Objects/Align/Centre"
 
-#: app/menus.c:205
+#: app/menus.c:206
 msgid "/Objects/Align/Right"
 msgstr "/Objects/Align/Right"
 
-#: app/menus.c:207 app/menus.c:211
+#: app/menus.c:208 app/menus.c:212
 msgid "/Objects/Align/---"
 msgstr "/Objects/Align/---"
 
-#: app/menus.c:208
+#: app/menus.c:209
 msgid "/Objects/Align/Top"
 msgstr "/Objects/Align/Top"
 
-#: app/menus.c:209
+#: app/menus.c:210
 msgid "/Objects/Align/Middle"
 msgstr "/Objects/Align/Middle"
 
-#: app/menus.c:210
+#: app/menus.c:211
 msgid "/Objects/Align/Bottom"
 msgstr "/Objects/Align/Bottom"
 
-#: app/menus.c:212
+#: app/menus.c:213
 msgid "/Objects/Align/Spread Out Horizontally"
 msgstr "/Objects/Align/Spread Out Horizontally"
 
-#: app/menus.c:213
+#: app/menus.c:214
 msgid "/Objects/Align/Spread Out Vertically"
 msgstr "/Objects/Align/Spread Out Vertically"
 
-#: app/menus.c:214
+#: app/menus.c:215
 msgid "/Objects/Align/Adjacent"
 msgstr "/Objects/Align/Adjacent"
 
-#: app/menus.c:215
+#: app/menus.c:216
 msgid "/Objects/Align/Stacked"
 msgstr "/Objects/Align/Stacked"
 
-#: app/menus.c:217
+#: app/menus.c:218
 msgid "/Objects/_Properties..."
 msgstr "/Objects/_Properties..."
 
-#: app/menus.c:219
+#: app/menus.c:220
 msgid "/_Select"
 msgstr "/_Select"
 
-#: app/menus.c:221
+#: app/menus.c:222
 msgid "/Select/All"
 msgstr "/Select/All"
 
-#: app/menus.c:222
+#: app/menus.c:223
 msgid "/Select/None"
 msgstr "/Select/None"
 
-#: app/menus.c:223
+#: app/menus.c:224
 msgid "/Select/Invert"
 msgstr "/Select/Invert"
 
-#: app/menus.c:224 app/menus.c:228
+#: app/menus.c:225 app/menus.c:229
 msgid "/Select/---"
 msgstr "/Select/---"
 
-#: app/menus.c:225
+#: app/menus.c:226
 msgid "/Select/Transitive"
 msgstr "/Select/Transitive"
 
-#: app/menus.c:226
+#: app/menus.c:227
 msgid "/Select/Connected"
 msgstr "/Select/Connected"
 
-#: app/menus.c:227
+#: app/menus.c:228
 msgid "/Select/Same Type"
 msgstr "/Select/Same Type"
 
-#: app/menus.c:229
+#: app/menus.c:230
 msgid "/Select/Replace"
 msgstr "/Select/Replace"
 
-#: app/menus.c:231
+#: app/menus.c:232
 msgid "/Select/Union"
 msgstr "/Select/Union"
 
-#: app/menus.c:233
+#: app/menus.c:234
 msgid "/Select/Intersection"
 msgstr "/Select/Intersection"
 
-#: app/menus.c:235
+#: app/menus.c:236
 msgid "/Select/Remove"
 msgstr "/Select/Remove"
 
 #. Cannot also be called Invert, duplicate names caused keybinding problems
-#: app/menus.c:238
+#: app/menus.c:239
 msgid "/Select/Inverse"
 msgstr "/Select/Inverse"
 
-#: app/menus.c:240
+#: app/menus.c:241
 msgid "/_Tools"
 msgstr "/_Tools"
 
-#: app/menus.c:242
+#: app/menus.c:243
 msgid "/Tools/Modify"
 msgstr "/Tools/Modify"
 
-#: app/menus.c:243
+#: app/menus.c:244
 msgid "/Tools/Magnify"
 msgstr "/Tools/Magnify"
 
-#: app/menus.c:244
+#: app/menus.c:245
 msgid "/Tools/Scroll"
 msgstr "/Tools/Scroll"
 
-#: app/menus.c:245
+#: app/menus.c:246
 msgid "/Tools/Text"
 msgstr "/Tools/Text"
 
-#: app/menus.c:246
+#: app/menus.c:247
 msgid "/Tools/Box"
 msgstr "/Tools/Box"
 
-#: app/menus.c:247
+#: app/menus.c:248
 msgid "/Tools/Ellipse"
 msgstr "/Tools/Ellipse"
 
-#: app/menus.c:248
+#: app/menus.c:249
 msgid "/Tools/Polygon"
 msgstr "/Tools/Polygon"
 
-#: app/menus.c:249
+#: app/menus.c:250
 msgid "/Tools/Beziergon"
 msgstr "/Tools/Beziergon"
 
-#: app/menus.c:250 app/menus.c:256
+#: app/menus.c:251 app/menus.c:257
 msgid "/Tools/---"
 msgstr "/Tools/---"
 
-#: app/menus.c:251
+#: app/menus.c:252
 msgid "/Tools/Line"
 msgstr "/Tools/Line"
 
-#: app/menus.c:252
+#: app/menus.c:253
 msgid "/Tools/Arc"
 msgstr "/Tools/Arc"
 
-#: app/menus.c:253
+#: app/menus.c:254
 msgid "/Tools/Zigzagline"
 msgstr "/Tools/Zigzagline"
 
-#: app/menus.c:254
+#: app/menus.c:255
 msgid "/Tools/Polyline"
 msgstr "/Tools/Polyline"
 
-#: app/menus.c:255
+#: app/menus.c:256
 msgid "/Tools/Bezierline"
 msgstr "/Tools/Bezierline"
 
-#: app/menus.c:257
+#: app/menus.c:258
 msgid "/Tools/Image"
 msgstr "/Tools/Image"
 
-#: app/menus.c:258
+#: app/menus.c:259
 msgid "/_Input Methods"
 msgstr "/_Input Methods"
 
-#: app/menus.c:430
+#: app/menus.c:431
 msgid "NULL tooldata in tool_menu_select"
 msgstr "NULL tooldata in tool_menu_select"
 
-#: app/menus.c:527
+#: app/menus.c:528
 msgid "Diagram Menu"
 msgstr "Diagram Menu"
 
-#: app/menus.c:662
+#: app/menus.c:663
 #, c-format
 msgid ""
 "Can't find menu entry '%s'!\n"
@@ -2390,6 +2398,7 @@ msgid "Left"
 msgstr "Left"
 
 #: lib/properties.c:65 lib/properties.h:470 lib/widgets.c:644
+#: objects/standard/textobj.c:133
 msgid "Center"
 msgstr "Centre"
 
@@ -4785,7 +4794,7 @@ msgstr "Cell Type:"
 msgid "Subscribers"
 msgstr "Subscribers"
 
-#: objects/standard/arc.c:138
+#: objects/standard/arc.c:140
 msgid "Curve distance"
 msgstr "Curve distance"
 
@@ -4905,35 +4914,51 @@ msgstr "Delete Corner"
 msgid "Standard objects"
 msgstr "Standard objects"
 
-#: plug-ins/cairo/diacairo.c:1077
+#: objects/standard/textobj.c:131
+msgid "Bottom"
+msgstr "Bottom"
+
+#: objects/standard/textobj.c:132
+msgid "Top"
+msgstr "Top"
+
+#: objects/standard/textobj.c:134
+msgid "First Line"
+msgstr "First Line"
+
+#: objects/standard/textobj.c:141
+msgid "Vertical text alignment"
+msgstr "Vertical text alignment"
+
+#: plug-ins/cairo/diacairo.c:1065
 msgid "Cairo PostScript"
 msgstr "Cairo PostScript"
 
-#: plug-ins/cairo/diacairo.c:1086
+#: plug-ins/cairo/diacairo.c:1074
 msgid "Cairo Portable Document Format"
 msgstr "Cairo Portable Document Format"
 
-#: plug-ins/cairo/diacairo.c:1095
+#: plug-ins/cairo/diacairo.c:1083
 msgid "Cairo PNG"
 msgstr "Cairo PNG"
 
-#: plug-ins/cairo/diacairo.c:1103
+#: plug-ins/cairo/diacairo.c:1091
 msgid "Cairo PNG (with alpha)"
 msgstr "Cairo PNG (with alpha)"
 
-#: plug-ins/cairo/diacairo.c:1113
+#: plug-ins/cairo/diacairo.c:1101
 msgid "Cairo WMF"
 msgstr "Cairo WMF"
 
-#: plug-ins/cairo/diacairo.c:1122
+#: plug-ins/cairo/diacairo.c:1110
 msgid "Cairo old WMF"
 msgstr "Cairo old WMF"
 
-#: plug-ins/cairo/diacairo.c:1131
+#: plug-ins/cairo/diacairo.c:1119
 msgid "Cairo Clipboard"
 msgstr "Cairo Clipboard"
 
-#: plug-ins/cairo/diacairo.c:1175
+#: plug-ins/cairo/diacairo.c:1165
 msgid "Cairo based Rendering"
 msgstr "Cairo-based Rendering"
 
