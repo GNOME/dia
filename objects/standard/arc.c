@@ -519,9 +519,10 @@ real round_angle(real angle){
 /** returns the angle in the middle from angle1 to angle2*/
 real get_middle_arc_angle(real angle1, real angle2, gboolean clock)
 {
+        real delta;
         angle1 = round_angle(angle1);
         angle2 = round_angle(angle2);
-        real delta = (angle2-angle1);
+        delta = (angle2-angle1);
         if (delta<0) delta+=360;
         if (clock) 
                 return round_angle(angle1-(360-delta)/2);

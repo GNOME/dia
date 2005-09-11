@@ -120,6 +120,7 @@ end_render(DiaRenderer *renderer)
 
   Py_DECREF (DIA_PY_RENDERER(renderer)->diagram_data);
   g_free (DIA_PY_RENDERER(renderer)->filename);
+  DIA_PY_RENDERER(renderer)->filename = NULL;
 
   setlocale(LC_NUMERIC, DIA_PY_RENDERER(renderer)->old_locale);
 }

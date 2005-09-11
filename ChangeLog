@@ -1,3 +1,18 @@
+2005-09-11  Hans Breuer  <hans@breuer.org>
+
+	* objects/standard/arc.c objects/standard/textobj.c : fix
+	C99isms, Dia is supposed to compile with C89 like msvc
+
+	* app/makefile.msc : use the wrong center-point-magnetism
+	icons for the win32 build, too.
+
+	* plug-ins/python/pydia-error.c : dont crash on C escape
+	sequences in the error string
+	* plug-ins/python/pydia-render.c : dont free filename twice
+
+	* plug-ins/python/dot.py : start of an exporter to DOT language
+	which can be processed by www.graphviz.org tools
+
 2005-09-05  Iñaki Larrañaga  <dooteo@euskalgnu.org>
 
 	* configure.in: Added "doc/eu/Makefile" for Basque documentation.

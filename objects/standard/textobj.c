@@ -261,12 +261,13 @@ static void textobj_valign_point(Textobj *textobj, Point* p, real factor)
 static void
 textobj_update_data(Textobj *textobj)
 {
+  Point to2;
   DiaObject *obj = &textobj->object;
   
   text_set_position(textobj->text, &obj->position);
   text_calc_boundingbox(textobj->text, &obj->bounding_box);
 
-  Point to2 = obj->position;
+  to2 = obj->position;
   textobj_valign_point(textobj, &to2, 1);
   text_set_position(textobj->text, &to2);
   text_calc_boundingbox(textobj->text, &obj->bounding_box);

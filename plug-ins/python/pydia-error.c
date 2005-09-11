@@ -127,7 +127,7 @@ PyDiaError_Write(PyDiaError *self, PyObject *args)
   if (self->str)
     g_string_append (self->str, s);
 
-  g_print (s);
+  g_print ("%s", s);
 
   Py_INCREF(Py_None);
   return Py_None;
