@@ -1844,6 +1844,8 @@ static DiaObject *umlclass_load(ObjectNode obj_node, int version,
   /* Place the main point at the end of the list, where it doesn't
    * disturb the rest */
   obj->connections[i++] = &umlclass->connections[UMLCLASS_CONNECTIONPOINTS];
+  umlclass->connections[UMLCLASS_CONNECTIONPOINTS].object = obj;
+  umlclass->connections[UMLCLASS_CONNECTIONPOINTS].connected = NULL;
 #endif
   elem->extra_spacing.border_trans = UMLCLASS_BORDER/2.0;
   umlclass_update_data(umlclass);
