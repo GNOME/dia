@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: dia HEAD\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-09-09 02:17+0200\n"
-"PO-Revision-Date: 2005-09-09 16:09+0930\n"
+"PO-Revision-Date: 2005-09-16 18:07+0930\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: Vietnamese <gnomevi-list@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -739,12 +739,12 @@ msgid ""
 "The file '%s' already exists.\n"
 "Do you want to overwrite it?"
 msgstr ""
-"Có tập tin « %s » rồi.\n"
+"Tập tin « %s » đã có.\n"
 "Bạn có muốn ghi đè lên không?"
 
 #: ../app/filedlg.c:310 ../app/filedlg.c:547
 msgid "File already exists"
-msgstr "Có tập tin rồi."
+msgstr "Tập tin đã có."
 
 #: ../app/filedlg.c:353
 msgid "Save Diagram"
@@ -1832,7 +1832,7 @@ msgid ""
 "Editing shapes is disabled."
 msgstr ""
 "Không thể lấy ký hiệu « custom_type » (kiểu tự chọn) từ môđun nào.\n"
-"Vì vậy tính năng sửa đổi hình bị tắt."
+"Vì vậy tính năng sửa đổi hình đã tắt."
 
 #: ../app/sheets.c:380
 #, c-format
@@ -6771,7 +6771,7 @@ msgstr "Thành phần thiết bị người đang ký di động Quân đội M�
 
 #: ../sheets/Misc.sheet.in.h:2
 msgid "Folder"
-msgstr "Danh mục"
+msgstr "Thư mục"
 
 #: ../sheets/Misc.sheet.in.h:4
 msgid "Miscellaneous Shapes"
@@ -7783,7 +7783,7 @@ msgstr "BBFW"
 
 #: ../sheets/cisconetwork.sheet.in.h:10
 msgid "BBFW media"
-msgstr "Môi giới BBFW"
+msgstr "Vật chứa BBFW"
 
 #: ../sheets/cisconetwork.sheet.in.h:11
 msgid "Breakout box"
