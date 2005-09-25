@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-08-05 02:55+0000\n"
-"PO-Revision-Date: 2005-08-05 11:51+0200\n"
+"POT-Creation-Date: 2005-09-25 18:07+0200\n"
+"PO-Revision-Date: 2005-09-25 22:36+0200\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -626,11 +626,11 @@ msgstr "Výběr %d objektů"
 msgid "Selected '%s'"
 msgstr "Vybráno '%s'"
 
-#: ../app/display.c:1020
+#: ../app/display.c:1052
 msgid "<unnamed>"
 msgstr "<nepojmenovaný>"
 
-#: ../app/display.c:1022
+#: ../app/display.c:1054
 #, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -639,16 +639,16 @@ msgstr ""
 "Diagram '%s'\n"
 "nebyl uložen. Chcete jej uložit nyní?"
 
-#: ../app/display.c:1033
+#: ../app/display.c:1065
 msgid "Close Diagram"
 msgstr "Zavřít diagram"
 
-#: ../app/display.c:1038
+#: ../app/display.c:1070
 msgid "Discard Changes"
 msgstr "Zahodit změny"
 
 #: ../app/export_png.c:134 ../app/load_save.c:917 ../app/render_eps.c:103
-#: ../plug-ins/cairo/diacairo.c:966 ../plug-ins/cgm/cgm.c:1151
+#: ../plug-ins/cairo/diacairo.c:972 ../plug-ins/cgm/cgm.c:1151
 #: ../plug-ins/dxf/dxf-export.c:484 ../plug-ins/hpgl/hpgl.c:704
 #: ../plug-ins/metapost/render_metapost.c:1107
 #: ../plug-ins/pstricks/render_pstricks.c:910
@@ -851,40 +851,44 @@ msgstr "Beziérova čára"
 msgid "Image"
 msgstr "Obrázek"
 
-#: ../app/interface.c:392
+#: ../app/interface.c:400
 msgid "Diagram menu."
 msgstr "Menu diagramu."
 
-#: ../app/interface.c:430
+#: ../app/interface.c:438
 msgid "Pops up the Navigation window."
 msgstr "Zobrazí okno Navigace."
 
-#: ../app/interface.c:512
+#: ../app/interface.c:504
 msgid "Zoom"
 msgstr "Zvětšit"
 
-#: ../app/interface.c:527
+#: ../app/interface.c:519
 msgid "Toggles snap-to-grid for this window."
 msgstr "Přepne lnutí k mřížce pro toto okno."
 
-#: ../app/interface.c:590
+#: ../app/interface.c:530
+msgid "Toggles object snapping for this window."
+msgstr "Přepne lnutí k objektům pro toto okno."
+
+#: ../app/interface.c:595
 msgid "NULL tooldata in tool_select_update"
 msgstr "Data s hodnotou NULL v tool_select_update"
 
-#: ../app/interface.c:883
+#: ../app/interface.c:888
 #, c-format
 msgid "No sheet named %s"
 msgstr "Neexistuje list nazvaný %s"
 
-#: ../app/interface.c:915
+#: ../app/interface.c:920
 msgid "Other sheets"
 msgstr "Ostatní listy"
 
-#: ../app/interface.c:973 ../sheets/Misc.sheet.in.h:3
+#: ../app/interface.c:978 ../sheets/Misc.sheet.in.h:3
 msgid "Misc"
 msgstr "Ostatní"
 
-#: ../app/interface.c:1034
+#: ../app/interface.c:1039
 msgid ""
 "Foreground & background colors for new objects.  The small black and white "
 "squares reset colors.  The small arrows swap colors.  Double click to change "
@@ -893,7 +897,7 @@ msgstr ""
 "Barvy popředí a pozadí pro nové objekty. Malý černý a bílý čtvereček "
 "vynuluje barvy. Šipečky prohazují barvy. Dvojité kliknutí změní barvu."
 
-#: ../app/interface.c:1049
+#: ../app/interface.c:1054
 msgid ""
 "Line widths.  Click on a line to set the default line width for new "
 "objects.  Double-click to set the line width more precisely."
@@ -901,7 +905,7 @@ msgstr ""
 "Šířky čar. Kliknutím na čáru nastavíte implicitní šířku čáry pro nové "
 "objekty. Dvojitým kliknutím nastavíte šířku čáry přesněji."
 
-#: ../app/interface.c:1089
+#: ../app/interface.c:1094
 msgid ""
 "Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
 "arrow parameters with Details..."
@@ -909,7 +913,7 @@ msgstr ""
 "Styl šipky na začátku nových čar. Kliknutím zvolte šipku nebo nastavte "
 "parametry šipky tlačítkem Podrobnosti..."
 
-#: ../app/interface.c:1094
+#: ../app/interface.c:1099
 msgid ""
 "Line style for new lines.  Click to pick a line style, or set line style "
 "parameters with Details..."
@@ -917,7 +921,7 @@ msgstr ""
 "Styl čáry pro nové čáry. Kliknutím zvolte styl čáry nebo nastavte styl čáry "
 "tlačítkem Podrobnosti..."
 
-#: ../app/interface.c:1108
+#: ../app/interface.c:1113
 msgid ""
 "Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
 "parameters with Details..."
@@ -925,7 +929,7 @@ msgstr ""
 "Styl šipky na konci nových čar. Kliknutím zvolte šipku nebo nastavte "
 "parametry šipky tlačítkem Podrobnosti..."
 
-#: ../app/interface.c:1216
+#: ../app/interface.c:1221
 msgid "Diagram Editor"
 msgstr "Editor diagramu"
 
@@ -1101,19 +1105,19 @@ msgstr "/Soubor/Zásuvné modu_ly..."
 msgid "/File/_Quit"
 msgstr "/Soubor/_Konec"
 
-#: ../app/menus.c:73 ../app/menus.c:260
+#: ../app/menus.c:73 ../app/menus.c:261
 msgid "/_Help"
 msgstr "/Nápo_věda"
 
-#: ../app/menus.c:75 ../app/menus.c:262
+#: ../app/menus.c:75 ../app/menus.c:263
 msgid "/Help/_Contents"
 msgstr "/Nápověda/_Obsah..."
 
-#: ../app/menus.c:77 ../app/menus.c:264
+#: ../app/menus.c:77 ../app/menus.c:265
 msgid "/Help/---"
 msgstr "/Nápověda/---"
 
-#: ../app/menus.c:78 ../app/menus.c:265
+#: ../app/menus.c:78 ../app/menus.c:266
 msgid "/Help/_About..."
 msgstr "/Nápověda/O _aplikaci..."
 
@@ -1265,7 +1269,7 @@ msgstr "/Zobrazit/Zvětšení/35,4%"
 msgid "/View/Zoom/25%"
 msgstr "/Zobrazit/Zvětšení/25%"
 
-#: ../app/menus.c:162 ../app/menus.c:171
+#: ../app/menus.c:162 ../app/menus.c:172
 msgid "/View/---"
 msgstr "/Zobrazit/---"
 
@@ -1286,253 +1290,257 @@ msgid "/View/_Snap To Grid"
 msgstr "/Zobrazit/_Lnout k mřížce"
 
 #: ../app/menus.c:169
+msgid "/View/_Snap To Objects"
+msgstr "/Zobrazit/_Lnout k objektům"
+
+#: ../app/menus.c:170
 msgid "/View/Show _Rulers"
 msgstr "/Zobrazit/Zobrazovat _pravítka"
 
-#: ../app/menus.c:170
+#: ../app/menus.c:171
 msgid "/View/Show _Connection Points"
 msgstr "/Zobrazit/Zobrazovat přípojné _body"
 
-#: ../app/menus.c:172
+#: ../app/menus.c:173
 msgid "/View/New _View"
 msgstr "/Zobrazit/Nový po_hled"
 
 #. Show All, Best Fit.  Same as the Gimp, Ctrl+E
-#: ../app/menus.c:174
+#: ../app/menus.c:175
 msgid "/View/Show _All"
 msgstr "/Zobrazit/Zobr_azit vše"
 
-#: ../app/menus.c:176
+#: ../app/menus.c:177
 msgid "/View/Re_draw"
 msgstr "/Zobrazit/Znov_u vykreslit"
 
-#: ../app/menus.c:178
+#: ../app/menus.c:179
 msgid "/_Objects"
 msgstr "/_Objekty"
 
-#: ../app/menus.c:180
+#: ../app/menus.c:181
 msgid "/Objects/Send to _Back"
 msgstr "/Objekty/Poslat do_zadu"
 
-#: ../app/menus.c:182
+#: ../app/menus.c:183
 msgid "/Objects/Bring to _Front"
 msgstr "/Objekty/Vynést do_předu"
 
-#: ../app/menus.c:184
+#: ../app/menus.c:185
 msgid "/Objects/Send Backwards"
 msgstr "/Objekty/Poslat dozadu"
 
-#: ../app/menus.c:186
+#: ../app/menus.c:187
 msgid "/Objects/Bring Forwards"
 msgstr "/Objekty/Vynést dopředu"
 
-#: ../app/menus.c:188 ../app/menus.c:194 ../app/menus.c:198 ../app/menus.c:216
+#: ../app/menus.c:189 ../app/menus.c:195 ../app/menus.c:199 ../app/menus.c:217
 msgid "/Objects/---"
 msgstr "/Objekty/---"
 
-#: ../app/menus.c:189
+#: ../app/menus.c:190
 msgid "/Objects/_Group"
 msgstr "/Objekty/_Seskupit"
 
 #. deliberately not using Ctrl+U for Ungroup
-#: ../app/menus.c:192
+#: ../app/menus.c:193
 msgid "/Objects/_Ungroup"
 msgstr "/Objekty/_Rozdělit"
 
-#: ../app/menus.c:195
+#: ../app/menus.c:196
 msgid "/Objects/_Parent"
 msgstr "/Objekty/V_nořit"
 
-#: ../app/menus.c:196
+#: ../app/menus.c:197
 msgid "/Objects/_Unparent"
 msgstr "/Objekty/V_ynořit"
 
-#: ../app/menus.c:197
+#: ../app/menus.c:198
 msgid "/Objects/_Unparent Children"
 msgstr "/Objekty/V_ynořit vnořené"
 
-#: ../app/menus.c:199
+#: ../app/menus.c:200
 msgid "/Objects/Align"
 msgstr "/Objekty/Zarovnat"
 
-#: ../app/menus.c:201
+#: ../app/menus.c:202
 msgid "/Objects/Align/Left"
 msgstr "/Objekty/Zarovnat/Vlevo"
 
-#: ../app/menus.c:203
+#: ../app/menus.c:204
 msgid "/Objects/Align/Center"
 msgstr "/Objekty/Zarovnat/Centrum"
 
-#: ../app/menus.c:205
+#: ../app/menus.c:206
 msgid "/Objects/Align/Right"
 msgstr "/Objekty/Zarovnat/Vpravo"
 
-#: ../app/menus.c:207 ../app/menus.c:211
+#: ../app/menus.c:208 ../app/menus.c:212
 msgid "/Objects/Align/---"
 msgstr "/Objekty/Zarovnat/---"
 
-#: ../app/menus.c:208
+#: ../app/menus.c:209
 msgid "/Objects/Align/Top"
 msgstr "/Objekty/Zarovnat/Nahoru"
 
-#: ../app/menus.c:209
+#: ../app/menus.c:210
 msgid "/Objects/Align/Middle"
 msgstr "/Objekty/Zarovnat/Doprostřed"
 
-#: ../app/menus.c:210
+#: ../app/menus.c:211
 msgid "/Objects/Align/Bottom"
 msgstr "/Objekty/Zarovnat/Dolů"
 
-#: ../app/menus.c:212
+#: ../app/menus.c:213
 msgid "/Objects/Align/Spread Out Horizontally"
 msgstr "/Objekty/Zarovnat/Rozprostřít vodorovně"
 
-#: ../app/menus.c:213
+#: ../app/menus.c:214
 msgid "/Objects/Align/Spread Out Vertically"
 msgstr "/Objekty/Zarovnat/Rozprostřít svisle"
 
-#: ../app/menus.c:214
+#: ../app/menus.c:215
 msgid "/Objects/Align/Adjacent"
 msgstr "/Objekty/Zarovnat/Přilehlé"
 
-#: ../app/menus.c:215
+#: ../app/menus.c:216
 msgid "/Objects/Align/Stacked"
 msgstr "/Objekty/Zarovnat/Na sobě"
 
-#: ../app/menus.c:217
+#: ../app/menus.c:218
 msgid "/Objects/_Properties..."
 msgstr "/Objekty/_Vlastnosti..."
 
-#: ../app/menus.c:219
+#: ../app/menus.c:220
 msgid "/_Select"
 msgstr "/_Vybrat"
 
-#: ../app/menus.c:221
+#: ../app/menus.c:222
 msgid "/Select/All"
 msgstr "/Vybrat/Vše"
 
-#: ../app/menus.c:222
+#: ../app/menus.c:223
 msgid "/Select/None"
 msgstr "/Vybrat/Nic"
 
-#: ../app/menus.c:223
+#: ../app/menus.c:224
 msgid "/Select/Invert"
 msgstr "/Vybrat/Invertovat"
 
-#: ../app/menus.c:224 ../app/menus.c:228
+#: ../app/menus.c:225 ../app/menus.c:229
 msgid "/Select/---"
 msgstr "/Vybrat/---"
 
-#: ../app/menus.c:225
+#: ../app/menus.c:226
 msgid "/Select/Transitive"
 msgstr "/Vybrat/Tranzitivní"
 
-#: ../app/menus.c:226
+#: ../app/menus.c:227
 msgid "/Select/Connected"
 msgstr "/Vybrat/Připojené"
 
-#: ../app/menus.c:227
+#: ../app/menus.c:228
 msgid "/Select/Same Type"
 msgstr "/Vybrat/Stejný typ"
 
-#: ../app/menus.c:229
+#: ../app/menus.c:230
 msgid "/Select/Replace"
 msgstr "/Vybrat/Nahradit"
 
-#: ../app/menus.c:231
+#: ../app/menus.c:232
 msgid "/Select/Union"
 msgstr "/Vybrat/Sjednocení"
 
-#: ../app/menus.c:233
+#: ../app/menus.c:234
 msgid "/Select/Intersection"
 msgstr "/Vybrat/Průnik"
 
-#: ../app/menus.c:235
+#: ../app/menus.c:236
 msgid "/Select/Remove"
 msgstr "/Vybrat/Odstranit"
 
 #. Cannot also be called Invert, duplicate names caused keybinding problems
-#: ../app/menus.c:238
+#: ../app/menus.c:239
 msgid "/Select/Inverse"
 msgstr "/Vybrat/Opak"
 
-#: ../app/menus.c:240
+#: ../app/menus.c:241
 msgid "/_Tools"
 msgstr "/Nás_troje"
 
-#: ../app/menus.c:242
+#: ../app/menus.c:243
 msgid "/Tools/Modify"
 msgstr "/Nástroje/Upravit"
 
-#: ../app/menus.c:243
+#: ../app/menus.c:244
 msgid "/Tools/Magnify"
 msgstr "/Nástroje/Zvětšit"
 
-#: ../app/menus.c:244
+#: ../app/menus.c:245
 msgid "/Tools/Scroll"
 msgstr "/Nástroje/Posunovat"
 
-#: ../app/menus.c:245
+#: ../app/menus.c:246
 msgid "/Tools/Text"
 msgstr "/Nástroje/Text"
 
-#: ../app/menus.c:246
+#: ../app/menus.c:247
 msgid "/Tools/Box"
 msgstr "/Nástroje/Čtyřúhelník"
 
-#: ../app/menus.c:247
+#: ../app/menus.c:248
 msgid "/Tools/Ellipse"
 msgstr "/Nástroje/Elipsa"
 
-#: ../app/menus.c:248
+#: ../app/menus.c:249
 msgid "/Tools/Polygon"
 msgstr "/Nástroje/Mnohoúhelník"
 
-#: ../app/menus.c:249
+#: ../app/menus.c:250
 msgid "/Tools/Beziergon"
 msgstr "/Nástroje/Beziérův útvar"
 
-#: ../app/menus.c:250 ../app/menus.c:256
+#: ../app/menus.c:251 ../app/menus.c:257
 msgid "/Tools/---"
 msgstr "/Nástroje/---"
 
-#: ../app/menus.c:251
+#: ../app/menus.c:252
 msgid "/Tools/Line"
 msgstr "/Nástroje/Čára"
 
-#: ../app/menus.c:252
+#: ../app/menus.c:253
 msgid "/Tools/Arc"
 msgstr "/Nástroje/Oblouk"
 
-#: ../app/menus.c:253
+#: ../app/menus.c:254
 msgid "/Tools/Zigzagline"
 msgstr "/Nástroje/Klikatice"
 
-#: ../app/menus.c:254
+#: ../app/menus.c:255
 msgid "/Tools/Polyline"
 msgstr "/Nástroje/Lomená čára"
 
-#: ../app/menus.c:255
+#: ../app/menus.c:256
 msgid "/Tools/Bezierline"
 msgstr "/Nástroje/Beziérova čára"
 
-#: ../app/menus.c:257
+#: ../app/menus.c:258
 msgid "/Tools/Image"
 msgstr "/Nástroje/Obrázek"
 
-#: ../app/menus.c:258
+#: ../app/menus.c:259
 msgid "/_Input Methods"
 msgstr "/Vst_upní metody"
 
-#: ../app/menus.c:430
+#: ../app/menus.c:431
 msgid "NULL tooldata in tool_menu_select"
 msgstr "tooldata mají hodnotu NULL v tool_menu_select"
 
-#: ../app/menus.c:527
+#: ../app/menus.c:528
 msgid "Diagram Menu"
 msgstr "Menu diagramu"
 
-#: ../app/menus.c:662
+#: ../app/menus.c:663
 #, c-format
 msgid ""
 "Can't find menu entry '%s'!\n"
@@ -2404,6 +2412,7 @@ msgid "Left"
 msgstr "Vlevo"
 
 #: ../lib/properties.c:65 ../lib/properties.h:470 ../lib/widgets.c:644
+#: ../objects/standard/textobj.c:133
 msgid "Center"
 msgstr "Uprostřed"
 
@@ -3374,7 +3383,7 @@ msgid "Differentiate"
 msgstr "Diferenciovat"
 
 #. Translators: Menu item Verb/Convert/Process
-#: ../objects/FS/function.c:1032 ../sheets/EML.sheet.in.h:5
+#: ../objects/FS/function.c:1032
 msgid "Process"
 msgstr "Zpracovat"
 
@@ -4936,35 +4945,51 @@ msgstr "Odstranit roh"
 msgid "Standard objects"
 msgstr "Standardní objekty"
 
-#: ../plug-ins/cairo/diacairo.c:1059
+#: ../objects/standard/textobj.c:131
+msgid "Bottom"
+msgstr "Spodní"
+
+#: ../objects/standard/textobj.c:132
+msgid "Top"
+msgstr "Nahoru"
+
+#: ../objects/standard/textobj.c:134
+msgid "First Line"
+msgstr "První řádek"
+
+#: ../objects/standard/textobj.c:141
+msgid "Vertical text alignment"
+msgstr "Svislé zarovnání textu"
+
+#: ../plug-ins/cairo/diacairo.c:1065
 msgid "Cairo PostScript"
 msgstr "Cairo PostScript"
 
-#: ../plug-ins/cairo/diacairo.c:1068
+#: ../plug-ins/cairo/diacairo.c:1074
 msgid "Cairo Portable Document Format"
 msgstr "Cairo Portable Document Format"
 
-#: ../plug-ins/cairo/diacairo.c:1077
+#: ../plug-ins/cairo/diacairo.c:1083
 msgid "Cairo PNG"
 msgstr "Cairo PNG"
 
-#: ../plug-ins/cairo/diacairo.c:1085
+#: ../plug-ins/cairo/diacairo.c:1091
 msgid "Cairo PNG (with alpha)"
 msgstr "Cairo PNG (s alfou)"
 
-#: ../plug-ins/cairo/diacairo.c:1095
+#: ../plug-ins/cairo/diacairo.c:1101
 msgid "Cairo WMF"
 msgstr "Cairo WMF"
 
-#: ../plug-ins/cairo/diacairo.c:1104
+#: ../plug-ins/cairo/diacairo.c:1110
 msgid "Cairo old WMF"
 msgstr "Cairo starý WMF"
 
-#: ../plug-ins/cairo/diacairo.c:1113
+#: ../plug-ins/cairo/diacairo.c:1119
 msgid "Cairo Clipboard"
 msgstr "Cairo Schránka"
 
-#: ../plug-ins/cairo/diacairo.c:1157
+#: ../plug-ins/cairo/diacairo.c:1165
 msgid "Cairo based Rendering"
 msgstr "Vykreslování založené na Cairo"
 
@@ -5080,7 +5105,7 @@ msgstr "Není platné UTF8"
 msgid "TeX PSTricks macros"
 msgstr "Makra formátu TeX PSTricks"
 
-#: ../plug-ins/python/pydia-render.c:717
+#: ../plug-ins/python/pydia-render.c:718
 #, c-format
 msgid "Couldn't open '%s' for writing.\n"
 msgstr "Nemohu otevřít '%s' pro zápis.\n"
@@ -6122,14 +6147,6 @@ msgstr "EML"
 msgid "Editor for EML Static Structure Diagrams."
 msgstr "Editor diagramů statických struktur EML"
 
-#: ../sheets/EML.sheet.in.h:3
-msgid "Instantiation. One process create others"
-msgstr "Konkretizace: Jeden proces vytváří ostatní"
-
-#: ../sheets/EML.sheet.in.h:4
-msgid "Interaction between processes."
-msgstr "Interakce mezi procesy."
-
 #: ../sheets/ER.sheet.in.h:2
 msgid "ER"
 msgstr "ER"
@@ -6150,7 +6167,7 @@ msgstr "Slabá entita"
 msgid "Components for electric circuits"
 msgstr "Komponenty pro elektrické obvody"
 
-#: ../sheets/Electric.sheet.in.h:2 ../sheets/Pneumatic.sheet.in.h:9
+#: ../sheets/Electric.sheet.in.h:2 ../sheets/Pneumatic.sheet.in.h:7
 msgid "Connection point"
 msgstr "Přípojný bod"
 
@@ -6781,86 +6798,78 @@ msgid "3/2 distributor"
 msgstr "Rozdělovač 3/2"
 
 #: ../sheets/Pneumatic.sheet.in.h:3
-msgid "3/3 distributor"
-msgstr "Rozdělovač 3/3"
-
-#: ../sheets/Pneumatic.sheet.in.h:4
 msgid "4/2 distributor"
 msgstr "Rozdělovač 4/2"
 
-#: ../sheets/Pneumatic.sheet.in.h:5
+#: ../sheets/Pneumatic.sheet.in.h:4
 msgid "5/2 distributor"
 msgstr "Rozdělovač 5/2"
 
-#: ../sheets/Pneumatic.sheet.in.h:6
-msgid "5/3 distributor"
-msgstr "Rozdělovač 5/3"
-
-#: ../sheets/Pneumatic.sheet.in.h:7
+#: ../sheets/Pneumatic.sheet.in.h:5
 msgid "Air exhaust orifice"
 msgstr "Ústí vývěvy"
 
-#: ../sheets/Pneumatic.sheet.in.h:8
+#: ../sheets/Pneumatic.sheet.in.h:6
 msgid "Components for pneumatic and hydraulic circuits"
 msgstr "Komponenty pro pneumatické a hydraulické obvody"
 
-#: ../sheets/Pneumatic.sheet.in.h:10
+#: ../sheets/Pneumatic.sheet.in.h:8
 msgid "Double-effect jack"
 msgstr "Zdířka s dvojitým efektem"
 
-#: ../sheets/Pneumatic.sheet.in.h:11
+#: ../sheets/Pneumatic.sheet.in.h:9
 msgid "Electric command (double coil)"
 msgstr "Elektrické ovládání (dvojitá cívka)"
 
-#: ../sheets/Pneumatic.sheet.in.h:12
+#: ../sheets/Pneumatic.sheet.in.h:10
 msgid "Electric command (single coil)"
 msgstr "Elektrické ovládání (jednoduchá cívka)"
 
-#: ../sheets/Pneumatic.sheet.in.h:13
+#: ../sheets/Pneumatic.sheet.in.h:11
 msgid "Generic pressure source"
 msgstr "Obecný zdroj tlaku"
 
-#: ../sheets/Pneumatic.sheet.in.h:14
+#: ../sheets/Pneumatic.sheet.in.h:12
 msgid "Hydraulic pressure source"
 msgstr "Hydraulický zdroj tlaku"
 
-#: ../sheets/Pneumatic.sheet.in.h:15
+#: ../sheets/Pneumatic.sheet.in.h:13
 msgid "Indirect command by hydraulic driver"
 msgstr "Nepřímé ovládání hydraulickým ovladačem"
 
-#: ../sheets/Pneumatic.sheet.in.h:16
+#: ../sheets/Pneumatic.sheet.in.h:14
 msgid "Indirect command by pneumatic driver"
 msgstr "Nepřímé ovládání pneumatickým ovladačem"
 
-#: ../sheets/Pneumatic.sheet.in.h:17
+#: ../sheets/Pneumatic.sheet.in.h:15
 msgid "Mechanical command by spring"
 msgstr "Mechanické ovládání pružinou"
 
-#: ../sheets/Pneumatic.sheet.in.h:18
+#: ../sheets/Pneumatic.sheet.in.h:16
 msgid "Mechanical command by tappet"
 msgstr "Mechanické ovládání zdvihátkem"
 
-#: ../sheets/Pneumatic.sheet.in.h:19
+#: ../sheets/Pneumatic.sheet.in.h:17
 msgid "Muscular command"
 msgstr "Svalové ovládání"
 
-#: ../sheets/Pneumatic.sheet.in.h:20
+#: ../sheets/Pneumatic.sheet.in.h:18
 msgid "Normally-in simple-effect jack"
 msgstr "Zdířka normálně dovnitř jednoduchý efekt"
 
-#: ../sheets/Pneumatic.sheet.in.h:21
+#: ../sheets/Pneumatic.sheet.in.h:19
 msgid "Normally-out simple-effect jack"
 msgstr "Zdířka normálně ven jednoduchý efekt"
 
-#: ../sheets/Pneumatic.sheet.in.h:22
+#: ../sheets/Pneumatic.sheet.in.h:20
 msgid "Pneumatic pressure source"
 msgstr "Zdroj pneumatického tlaku"
 
-#: ../sheets/Pneumatic.sheet.in.h:23
+#: ../sheets/Pneumatic.sheet.in.h:21
 msgid "Pneumatic/Hydraulic"
 msgstr "Pneumatické/Hydraulické"
 
-#: ../sheets/Pneumatic.sheet.in.h:24
+#: ../sheets/Pneumatic.sheet.in.h:22
 msgid "Push-button command"
 msgstr "Ovládání stiskem tlačítka"
 
@@ -8782,6 +8791,18 @@ msgstr "Datový server Sybase"
 msgid "Sybase replication server"
 msgstr "Replikační server Sybase"
 
+#~ msgid "Instantiation. One process create others"
+#~ msgstr "Konkretizace: Jeden proces vytváří ostatní"
+
+#~ msgid "Interaction between processes."
+#~ msgstr "Interakce mezi procesy."
+
+#~ msgid "3/3 distributor"
+#~ msgstr "Rozdělovač 3/3"
+
+#~ msgid "5/3 distributor"
+#~ msgstr "Rozdělovač 5/3"
+
 #~ msgid "Export format to use"
 #~ msgstr "Formát exportu, který použít"
 
@@ -8992,9 +9013,6 @@ msgstr "Replikační server Sybase"
 
 #~ msgid "Adjacent"
 #~ msgstr "Přiléhající"
-
-#~ msgid "Top"
-#~ msgstr "Nahoru"
 
 #~ msgid "Send to _Back"
 #~ msgstr "Poslat do_zadu"
