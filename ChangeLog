@@ -1,3 +1,7 @@
+2005-09-26  Ahmad Riza H Nst  <rizahnst@id.gnome.org>
+
+	* configure.in: Added "id" in ALL_LINGUAS line.
+
 2005-09-14  Lars Clausen  <lars@raeder.dk>
 
 	* objects/UML/class.c (umlclass_load): Set mainpoint obj upon
