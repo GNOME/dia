@@ -35,6 +35,8 @@
  * operation changes) is taken into account. It probably has other issues we are 
  * not aware of yet. Some more information maybe available at 
  * http://bugzilla.gnome.org/show_bug.cgi?id=303301
+ *
+ * Enabling 29/7 2005: Not known to cause any problems.
  */
 #define UML_MAINPOINT 1
 

@@ -131,9 +131,7 @@ uml_attribute_destroy(UMLAttribute *attr)
     g_free(attr->value);
   if (attr->comment != NULL)
     g_free(attr->comment);
-  object_remove_connections_to(attr->left_connection);
   g_free(attr->left_connection);
-  object_remove_connections_to(attr->right_connection);
   g_free(attr->right_connection);
   g_free(attr);
 }

@@ -316,19 +316,20 @@ umlclass_set_props(UMLClass *umlclass, GPtrArray *props)
                                 props);
 
   num = UMLCLASS_CONNECTIONPOINTS + umlclass_num_dynamic_connectionpoints(umlclass);
+#ifdef UML_MAINPOINT
+  obj->num_connections = num + 1;
+#else
+  obj->num_connections = num;
+#endif
+  obj->connections =  g_realloc(obj->connections, obj->num_connections*sizeof(ConnectionPoint *));
+
   /* Update data: */
   if (num > UMLCLASS_CONNECTIONPOINTS) {
     int i;
     /* this is just updating pointers to ConnectionPoint, the real connection handling is elsewhere.
      * Note: Can't optimize here on number change cause the ops/attribs may have changed regardless of that.
      */
-#ifdef UML_MAINPOINT
-    obj->num_connections = num + 1;
-#else
-    obj->num_connections = num;
-#endif
     i = UMLCLASS_CONNECTIONPOINTS;
-    obj->connections =  g_realloc(obj->connections, obj->num_connections*sizeof(ConnectionPoint *));
     list = (!umlclass->visible_attributes || umlclass->suppress_attributes) ? NULL : umlclass->attributes;
     while (list != NULL) {
       UMLAttribute *attr = (UMLAttribute *)list->data;
@@ -352,12 +353,12 @@ umlclass_set_props(UMLClass *umlclass, GPtrArray *props)
       i++;
       list = g_list_next(list);
     }
-#ifdef UML_MAINPOINT
-    obj->connections[i] = &umlclass->connections[UMLCLASS_CONNECTIONPOINTS];
-    obj->connections[i]->object = obj;
-    i++;
-#endif
   }
+#ifdef UML_MAINPOINT
+  obj->connections[num] = &umlclass->connections[UMLCLASS_CONNECTIONPOINTS];
+  obj->connections[num]->object = obj;
+#endif
+
   umlclass_calculate_data(umlclass);
   umlclass_update_data(umlclass);
 }

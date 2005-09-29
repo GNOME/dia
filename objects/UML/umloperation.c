@@ -202,9 +202,8 @@ uml_operation_destroy(UMLOperation *op)
     uml_parameter_destroy(param);
     list = g_list_next(list);
   }
-  object_remove_connections_to(op->left_connection);
+  /* These are merely temporary reminders, don't need to unconnect */
   g_free(op->left_connection);
-  object_remove_connections_to(op->right_connection);
   g_free(op->right_connection);
   g_free(op);
 }

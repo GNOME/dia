@@ -1,3 +1,10 @@
+2005-09-29  Lars Clausen  <lars@raeder.dk>
+
+	* objects/UML/class.h: Enabling mainpoints for UML.
+
+	* objects/UML/class.c (umlclass_set_props): Make sure to always
+	realloc connection point list.
+
 2005-09-26  Ahmad Riza H Nst  <rizahnst@id.gnome.org>
 
 	* configure.in: Added "id" in ALL_LINGUAS line.

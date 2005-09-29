@@ -1,3 +1,5 @@
+*.lo
+.libs
 .deps
 stamp-h*
 Makefile
