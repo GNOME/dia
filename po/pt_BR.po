@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-07-24 18:55+0000\n"
-"PO-Revision-Date: 2005-07-24 23:37-0300\n"
+"POT-Creation-Date: 2005-09-27 02:09+0200\n"
+"PO-Revision-Date: 2005-09-27 00:02-0300\n"
 "Last-Translator: Afonso Celso Medina <afmedina@uol.com.br>\n"
 "Language-Team: Portuguese/Brazil <gnome-l10n-br@listas.cipsga.org.br>\n"
 "MIME-Version: 1.0\n"
@@ -197,9 +197,8 @@ msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
 msgstr ""
-"Impossível criar o diretório de configuração pessoal do Dia. "
-"Certifique-se de que a variável de ambiente HOME aponta para um diretório "
-"existente."
+"Impossível criar o diretório de configuração pessoal do Dia. Certifique-se "
+"de que a variável de ambiente HOME aponta para um diretório existente."
 
 #: ../app/app_procs.c:1078
 msgid "Objects and filters internal to dia"
@@ -635,11 +634,11 @@ msgstr "Seleção de %d objetos"
 msgid "Selected '%s'"
 msgstr "Selecionado '%s'"
 
-#: ../app/display.c:1020
+#: ../app/display.c:1052
 msgid "<unnamed>"
 msgstr "<semnome>"
 
-#: ../app/display.c:1022
+#: ../app/display.c:1054
 #, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -648,16 +647,16 @@ msgstr ""
 "O diagrama '%s' não foi salvo.\n"
 "Salvar as alterações agora?"
 
-#: ../app/display.c:1033
+#: ../app/display.c:1065
 msgid "Close Diagram"
 msgstr "Fechar o Diagrama"
 
-#: ../app/display.c:1038
+#: ../app/display.c:1070
 msgid "Discard Changes"
 msgstr "Descartar as Alterações"
 
 #: ../app/export_png.c:134 ../app/load_save.c:917 ../app/render_eps.c:103
-#: ../plug-ins/cairo/diacairo.c:976 ../plug-ins/cgm/cgm.c:1151
+#: ../plug-ins/cairo/diacairo.c:972 ../plug-ins/cgm/cgm.c:1151
 #: ../plug-ins/dxf/dxf-export.c:484 ../plug-ins/hpgl/hpgl.c:704
 #: ../plug-ins/metapost/render_metapost.c:1107
 #: ../plug-ins/pstricks/render_pstricks.c:910
@@ -860,40 +859,44 @@ msgstr "Curva de Bézier"
 msgid "Image"
 msgstr "Imagem"
 
-#: ../app/interface.c:392
+#: ../app/interface.c:400
 msgid "Diagram menu."
 msgstr "Menu do diagrama."
 
-#: ../app/interface.c:430
+#: ../app/interface.c:438
 msgid "Pops up the Navigation window."
 msgstr "Abre uma janela de Navegação."
 
-#: ../app/interface.c:512
+#: ../app/interface.c:504
 msgid "Zoom"
 msgstr "Zoom"
 
-#: ../app/interface.c:527
+#: ../app/interface.c:519
 msgid "Toggles snap-to-grid for this window."
 msgstr "Alterna entre alinhar na grade ou não para esta janela."
 
-#: ../app/interface.c:590
+#: ../app/interface.c:530
+msgid "Toggles object snapping for this window."
+msgstr "Alterna entre alinhar aos objetos ou não para esta janela."
+
+#: ../app/interface.c:595
 msgid "NULL tooldata in tool_select_update"
 msgstr "Dados de ferramenta NULOS em tool_select_update"
 
-#: ../app/interface.c:883
+#: ../app/interface.c:888
 #, c-format
 msgid "No sheet named %s"
 msgstr "Nenhuma folha nomeada %s"
 
-#: ../app/interface.c:915
+#: ../app/interface.c:920
 msgid "Other sheets"
 msgstr "Outras folhas"
 
-#: ../app/interface.c:973 ../sheets/Misc.sheet.in.h:3
+#: ../app/interface.c:978 ../sheets/Misc.sheet.in.h:3
 msgid "Misc"
 msgstr "Misc"
 
-#: ../app/interface.c:1034
+#: ../app/interface.c:1039
 msgid ""
 "Foreground & background colors for new objects.  The small black and white "
 "squares reset colors.  The small arrows swap colors.  Double click to change "
@@ -903,7 +906,7 @@ msgstr ""
 "preto e branco restauram as cores. As setas pequenas trocam as cores. Clique "
 "duplo para mudar as cores."
 
-#: ../app/interface.c:1049
+#: ../app/interface.c:1054
 msgid ""
 "Line widths.  Click on a line to set the default line width for new "
 "objects.  Double-click to set the line width more precisely."
@@ -912,7 +915,7 @@ msgstr ""
 "padrão para novos objetos.  Clique duplo para definir a largura de linha "
 "mais precisamente."
 
-#: ../app/interface.c:1089
+#: ../app/interface.c:1094
 msgid ""
 "Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
 "arrow parameters with Details..."
@@ -920,7 +923,7 @@ msgstr ""
 "Estilo de seta no início de novas linhas.  Clique para escolher um seta, ou "
 "defina os parâmetros de estilo de seta através da opção Detalhes..."
 
-#: ../app/interface.c:1094
+#: ../app/interface.c:1099
 msgid ""
 "Line style for new lines.  Click to pick a line style, or set line style "
 "parameters with Details..."
@@ -928,7 +931,7 @@ msgstr ""
 "Estilo de linha para novas linhas.  Clique para escolher um estilo de linha, "
 "ou defina os parâmetros de estilo de linha através da opção Detalhes..."
 
-#: ../app/interface.c:1108
+#: ../app/interface.c:1113
 msgid ""
 "Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
 "parameters with Details..."
@@ -936,7 +939,7 @@ msgstr ""
 "Estilo de seta no final de novas linhas.  Clique para escolher um seta ou "
 "defina os parâmetros de estilo de seta através da opção Detalhes..."
 
-#: ../app/interface.c:1216
+#: ../app/interface.c:1221
 msgid "Diagram Editor"
 msgstr "Editor de Diagramas"
 
@@ -1112,19 +1115,19 @@ msgstr "/Arquivo/P_lugins..."
 msgid "/File/_Quit"
 msgstr "/Arquivo/_Sair"
 
-#: ../app/menus.c:73 ../app/menus.c:260
+#: ../app/menus.c:73 ../app/menus.c:261
 msgid "/_Help"
 msgstr "/Aj_uda"
 
-#: ../app/menus.c:75 ../app/menus.c:262
+#: ../app/menus.c:75 ../app/menus.c:263
 msgid "/Help/_Contents"
 msgstr "/Ajuda/_Tópicos"
 
-#: ../app/menus.c:77 ../app/menus.c:264
+#: ../app/menus.c:77 ../app/menus.c:265
 msgid "/Help/---"
 msgstr "/Ajuda/---"
 
-#: ../app/menus.c:78 ../app/menus.c:265
+#: ../app/menus.c:78 ../app/menus.c:266
 msgid "/Help/_About..."
 msgstr "/Ajuda/_Sobre..."
 
@@ -1276,7 +1279,7 @@ msgstr "/Ver/Zoom/35.4%"
 msgid "/View/Zoom/25%"
 msgstr "/Ver/Zoom/25%"
 
-#: ../app/menus.c:162 ../app/menus.c:171
+#: ../app/menus.c:162 ../app/menus.c:172
 msgid "/View/---"
 msgstr "/Ver/---"
 
@@ -1297,253 +1300,257 @@ msgid "/View/_Snap To Grid"
 msgstr "/Ver/Alin_har à Grade"
 
 #: ../app/menus.c:169
+msgid "/View/_Snap To Objects"
+msgstr "/Ver/Alinhar aos Ob_jetos"
+
+#: ../app/menus.c:170
 msgid "/View/Show _Rulers"
 msgstr "/Ver/Mostrar _Réguas"
 
-#: ../app/menus.c:170
+#: ../app/menus.c:171
 msgid "/View/Show _Connection Points"
 msgstr "/Ver/Mostrar _Pontos de Conexão"
 
-#: ../app/menus.c:172
+#: ../app/menus.c:173
 msgid "/View/New _View"
 msgstr "/Ver/Nova _Vista"
 
 #. Show All, Best Fit.  Same as the Gimp, Ctrl+E
-#: ../app/menus.c:174
+#: ../app/menus.c:175
 msgid "/View/Show _All"
 msgstr "/Ver/_Mostrar Tudo"
 
-#: ../app/menus.c:176
+#: ../app/menus.c:177
 msgid "/View/Re_draw"
 msgstr "/Ver/Re_desenhar"
 
-#: ../app/menus.c:178
+#: ../app/menus.c:179
 msgid "/_Objects"
 msgstr "/_Objetos"
 
-#: ../app/menus.c:180
+#: ../app/menus.c:181
 msgid "/Objects/Send to _Back"
 msgstr "/Objetos/Enviar para _Trás"
 
-#: ../app/menus.c:182
+#: ../app/menus.c:183
 msgid "/Objects/Bring to _Front"
 msgstr "/Objetos/Enviar para _Frente"
 
-#: ../app/menus.c:184
+#: ../app/menus.c:185
 msgid "/Objects/Send Backwards"
 msgstr "/Objetos/Recuar o Objeto"
 
-#: ../app/menus.c:186
+#: ../app/menus.c:187
 msgid "/Objects/Bring Forwards"
 msgstr "/Objetos/Avançar o Objeto"
 
-#: ../app/menus.c:188 ../app/menus.c:194 ../app/menus.c:198 ../app/menus.c:216
+#: ../app/menus.c:189 ../app/menus.c:195 ../app/menus.c:199 ../app/menus.c:217
 msgid "/Objects/---"
 msgstr "/Objetos/---"
 
-#: ../app/menus.c:189
+#: ../app/menus.c:190
 msgid "/Objects/_Group"
 msgstr "/Objetos/_Agrupar"
 
 #. deliberately not using Ctrl+U for Ungroup
-#: ../app/menus.c:192
+#: ../app/menus.c:193
 msgid "/Objects/_Ungroup"
 msgstr "/Objetos/_Desagrupar"
 
-#: ../app/menus.c:195
+#: ../app/menus.c:196
 msgid "/Objects/_Parent"
 msgstr "/Objetos/_Pai"
 
-#: ../app/menus.c:196
+#: ../app/menus.c:197
 msgid "/Objects/_Unparent"
 msgstr "/Objetos/_Remover do Pai"
 
-#: ../app/menus.c:197
+#: ../app/menus.c:198
 msgid "/Objects/_Unparent Children"
 msgstr "/Objetos/Remo_ver Filho do Pai"
 
-#: ../app/menus.c:199
+#: ../app/menus.c:200
 msgid "/Objects/Align"
 msgstr "/Objetos/Alinhar"
 
-#: ../app/menus.c:201
+#: ../app/menus.c:202
 msgid "/Objects/Align/Left"
 msgstr "/Objetos/Alinhar/Esquerda"
 
-#: ../app/menus.c:203
+#: ../app/menus.c:204
 msgid "/Objects/Align/Center"
 msgstr "/Objetos/Alinhar/Centralizado"
 
-#: ../app/menus.c:205
+#: ../app/menus.c:206
 msgid "/Objects/Align/Right"
 msgstr "/Objetos/Alinhar/Direita"
 
-#: ../app/menus.c:207 ../app/menus.c:211
+#: ../app/menus.c:208 ../app/menus.c:212
 msgid "/Objects/Align/---"
 msgstr "/Objetos/Alinhar/---"
 
-#: ../app/menus.c:208
+#: ../app/menus.c:209
 msgid "/Objects/Align/Top"
 msgstr "/Objetos/Alinhar/Superior"
 
-#: ../app/menus.c:209
+#: ../app/menus.c:210
 msgid "/Objects/Align/Middle"
 msgstr "/Objetos/Alinhar/Meio"
 
-#: ../app/menus.c:210
+#: ../app/menus.c:211
 msgid "/Objects/Align/Bottom"
 msgstr "/Objetos/Alinhar/Inferior"
 
-#: ../app/menus.c:212
+#: ../app/menus.c:213
 msgid "/Objects/Align/Spread Out Horizontally"
 msgstr "/Objetos/Alinhar/Distribuir Horizontalmente"
 
-#: ../app/menus.c:213
+#: ../app/menus.c:214
 msgid "/Objects/Align/Spread Out Vertically"
 msgstr "/Objetos/Alinhar/Distribuir Verticalmente"
 
-#: ../app/menus.c:214
+#: ../app/menus.c:215
 msgid "/Objects/Align/Adjacent"
 msgstr "/Objetos/Alinhar/Adjacente"
 
-#: ../app/menus.c:215
+#: ../app/menus.c:216
 msgid "/Objects/Align/Stacked"
 msgstr "/Objetos/Alinhar/Empilhar"
 
-#: ../app/menus.c:217
+#: ../app/menus.c:218
 msgid "/Objects/_Properties..."
 msgstr "/Objetos/Propri_edades..."
 
-#: ../app/menus.c:219
+#: ../app/menus.c:220
 msgid "/_Select"
 msgstr "/_Selecionar"
 
-#: ../app/menus.c:221
+#: ../app/menus.c:222
 msgid "/Select/All"
 msgstr "/Selecionar/Tudo"
 
-#: ../app/menus.c:222
+#: ../app/menus.c:223
 msgid "/Select/None"
 msgstr "/Selecionar/Nada"
 
-#: ../app/menus.c:223
+#: ../app/menus.c:224
 msgid "/Select/Invert"
 msgstr "/Selecionar/Inverter"
 
-#: ../app/menus.c:224 ../app/menus.c:228
+#: ../app/menus.c:225 ../app/menus.c:229
 msgid "/Select/---"
 msgstr "/Selecionar/---"
 
-#: ../app/menus.c:225
+#: ../app/menus.c:226
 msgid "/Select/Transitive"
 msgstr "/Selecionar/Transitivo"
 
-#: ../app/menus.c:226
+#: ../app/menus.c:227
 msgid "/Select/Connected"
 msgstr "/Selecionar/Conectados"
 
-#: ../app/menus.c:227
+#: ../app/menus.c:228
 msgid "/Select/Same Type"
 msgstr "/Selecionar/Mesmo Tipo"
 
-#: ../app/menus.c:229
+#: ../app/menus.c:230
 msgid "/Select/Replace"
 msgstr "/Selecionar/Substituir"
 
-#: ../app/menus.c:231
+#: ../app/menus.c:232
 msgid "/Select/Union"
 msgstr "/Selecionar/União"
 
-#: ../app/menus.c:233
+#: ../app/menus.c:234
 msgid "/Select/Intersection"
 msgstr "/Selecionar/Intersecção"
 
-#: ../app/menus.c:235
+#: ../app/menus.c:236
 msgid "/Select/Remove"
 msgstr "/Selecionar/Remover"
 
 #. Cannot also be called Invert, duplicate names caused keybinding problems
-#: ../app/menus.c:238
+#: ../app/menus.c:239
 msgid "/Select/Inverse"
 msgstr "/Selecionar/Inverso"
 
-#: ../app/menus.c:240
+#: ../app/menus.c:241
 msgid "/_Tools"
 msgstr "/_Ferramentas"
 
-#: ../app/menus.c:242
+#: ../app/menus.c:243
 msgid "/Tools/Modify"
 msgstr "/Ferramentas/Modificar"
 
-#: ../app/menus.c:243
+#: ../app/menus.c:244
 msgid "/Tools/Magnify"
 msgstr "/Ferramentas/Aproximar"
 
-#: ../app/menus.c:244
+#: ../app/menus.c:245
 msgid "/Tools/Scroll"
 msgstr "/Ferramentas/Rolar"
 
-#: ../app/menus.c:245
+#: ../app/menus.c:246
 msgid "/Tools/Text"
 msgstr "/Ferramentas/Texto"
 
-#: ../app/menus.c:246
+#: ../app/menus.c:247
 msgid "/Tools/Box"
 msgstr "/Ferramentas/Caixa"
 
-#: ../app/menus.c:247
+#: ../app/menus.c:248
 msgid "/Tools/Ellipse"
 msgstr "/Ferramentas/Elipse"
 
-#: ../app/menus.c:248
+#: ../app/menus.c:249
 msgid "/Tools/Polygon"
 msgstr "/Ferramentas/Polígono"
 
-#: ../app/menus.c:249
+#: ../app/menus.c:250
 msgid "/Tools/Beziergon"
 msgstr "/Ferramentas/Curva de Bézier Fechada"
 
-#: ../app/menus.c:250 ../app/menus.c:256
+#: ../app/menus.c:251 ../app/menus.c:257
 msgid "/Tools/---"
 msgstr "/Ferramentas/---"
 
-#: ../app/menus.c:251
+#: ../app/menus.c:252
 msgid "/Tools/Line"
 msgstr "/Ferramentas/Linha"
 
-#: ../app/menus.c:252
+#: ../app/menus.c:253
 msgid "/Tools/Arc"
 msgstr "/Ferramentas/Arco"
 
-#: ../app/menus.c:253
+#: ../app/menus.c:254
 msgid "/Tools/Zigzagline"
 msgstr "/Ferramentas/Linha em Zigue-Zague"
 
-#: ../app/menus.c:254
+#: ../app/menus.c:255
 msgid "/Tools/Polyline"
 msgstr "/Ferramentas/Polilinha"
 
-#: ../app/menus.c:255
+#: ../app/menus.c:256
 msgid "/Tools/Bezierline"
 msgstr "/Ferramentas/Curva de Bézier"
 
-#: ../app/menus.c:257
+#: ../app/menus.c:258
 msgid "/Tools/Image"
 msgstr "/Ferramentas/Imagem"
 
-#: ../app/menus.c:258
+#: ../app/menus.c:259
 msgid "/_Input Methods"
 msgstr "/_Métodos de Entrada"
 
-#: ../app/menus.c:430
+#: ../app/menus.c:431
 msgid "NULL tooldata in tool_menu_select"
 msgstr "Não há dados de ferramenta em tool_menu_select"
 
-#: ../app/menus.c:527
+#: ../app/menus.c:528
 msgid "Diagram Menu"
 msgstr "Menu do Diagrama"
 
-#: ../app/menus.c:662
+#: ../app/menus.c:663
 #, c-format
 msgid ""
 "Can't find menu entry '%s'!\n"
@@ -2412,6 +2419,7 @@ msgid "Left"
 msgstr "Esquerda"
 
 #: ../lib/properties.c:65 ../lib/properties.h:470 ../lib/widgets.c:644
+#: ../objects/standard/textobj.c:133
 msgid "Center"
 msgstr "Centralizar"
 
@@ -3381,7 +3389,7 @@ msgid "Differentiate"
 msgstr "Diferenciar"
 
 #. Translators: Menu item Verb/Convert/Process
-#: ../objects/FS/function.c:1032 ../sheets/EML.sheet.in.h:5
+#: ../objects/FS/function.c:1032
 msgid "Process"
 msgstr "Processar"
 
@@ -4823,7 +4831,7 @@ msgstr "Tipo de Célula:"
 msgid "Subscribers"
 msgstr "Assinantes"
 
-#: ../objects/standard/arc.c:138
+#: ../objects/standard/arc.c:140
 msgid "Curve distance"
 msgstr "Distância da curva"
 
@@ -4943,35 +4951,51 @@ msgstr "Apagar Canto"
 msgid "Standard objects"
 msgstr "Objetos padrão"
 
-#: ../plug-ins/cairo/diacairo.c:1077
+#: ../objects/standard/textobj.c:131
+msgid "Bottom"
+msgstr "Fundo"
+
+#: ../objects/standard/textobj.c:132
+msgid "Top"
+msgstr "Topo"
+
+#: ../objects/standard/textobj.c:134
+msgid "First Line"
+msgstr "Primeira Linha"
+
+#: ../objects/standard/textobj.c:141
+msgid "Vertical text alignment"
+msgstr "Alinhamento vertical de texto"
+
+#: ../plug-ins/cairo/diacairo.c:1065
 msgid "Cairo PostScript"
 msgstr "PostScript Cairo"
 
-#: ../plug-ins/cairo/diacairo.c:1086
+#: ../plug-ins/cairo/diacairo.c:1074
 msgid "Cairo Portable Document Format"
 msgstr "Cairo Portable Document Format"
 
-#: ../plug-ins/cairo/diacairo.c:1095
+#: ../plug-ins/cairo/diacairo.c:1083
 msgid "Cairo PNG"
 msgstr "PNG Cairo"
 
-#: ../plug-ins/cairo/diacairo.c:1103
+#: ../plug-ins/cairo/diacairo.c:1091
 msgid "Cairo PNG (with alpha)"
 msgstr "Cairo PNG (com alpha)"
 
-#: ../plug-ins/cairo/diacairo.c:1113
+#: ../plug-ins/cairo/diacairo.c:1101
 msgid "Cairo WMF"
 msgstr "Cairo WMF"
 
-#: ../plug-ins/cairo/diacairo.c:1122
+#: ../plug-ins/cairo/diacairo.c:1110
 msgid "Cairo old WMF"
 msgstr "Cairo WMF antigo"
 
-#: ../plug-ins/cairo/diacairo.c:1131
+#: ../plug-ins/cairo/diacairo.c:1119
 msgid "Cairo Clipboard"
 msgstr "Cairo Bloco de Notas"
 
-#: ../plug-ins/cairo/diacairo.c:1175
+#: ../plug-ins/cairo/diacairo.c:1165
 msgid "Cairo based Rendering"
 msgstr "Renderização baseada no Cairo"
 
@@ -5088,7 +5112,7 @@ msgstr "Codificação UTF8 inválida"
 msgid "TeX PSTricks macros"
 msgstr "Macros TeX PSTricks"
 
-#: ../plug-ins/python/pydia-render.c:717
+#: ../plug-ins/python/pydia-render.c:718
 #, c-format
 msgid "Couldn't open '%s' for writing.\n"
 msgstr "Impossível abrir '%s' para escrita.\n"
@@ -6123,14 +6147,6 @@ msgstr "EML"
 msgid "Editor for EML Static Structure Diagrams."
 msgstr "Editor para Diagramas de Estruturas Estáticas EML."
 
-#: ../sheets/EML.sheet.in.h:3
-msgid "Instantiation. One process create others"
-msgstr "Instanciação. Um processo cria outros"
-
-#: ../sheets/EML.sheet.in.h:4
-msgid "Interaction between processes."
-msgstr "Interação entre processos."
-
 #: ../sheets/ER.sheet.in.h:2
 msgid "ER"
 msgstr "ER"
@@ -6151,7 +6167,7 @@ msgstr "Entidade fraca"
 msgid "Components for electric circuits"
 msgstr "Componentes para circuitos elétricos"
 
-#: ../sheets/Electric.sheet.in.h:2 ../sheets/Pneumatic.sheet.in.h:9
+#: ../sheets/Electric.sheet.in.h:2 ../sheets/Pneumatic.sheet.in.h:7
 msgid "Connection point"
 msgstr "Ponto de conexão"
 
@@ -6782,86 +6798,78 @@ msgid "3/2 distributor"
 msgstr "Distribuidor 3/2"
 
 #: ../sheets/Pneumatic.sheet.in.h:3
-msgid "3/3 distributor"
-msgstr "Distribuidor 3/3"
-
-#: ../sheets/Pneumatic.sheet.in.h:4
 msgid "4/2 distributor"
 msgstr "Distribuidor 4/2"
 
-#: ../sheets/Pneumatic.sheet.in.h:5
+#: ../sheets/Pneumatic.sheet.in.h:4
 msgid "5/2 distributor"
 msgstr "Distribuidor 5/2"
 
-#: ../sheets/Pneumatic.sheet.in.h:6
-msgid "5/3 distributor"
-msgstr "Distribuidor 5/3"
-
-#: ../sheets/Pneumatic.sheet.in.h:7
+#: ../sheets/Pneumatic.sheet.in.h:5
 msgid "Air exhaust orifice"
 msgstr "Orifício para saída de ar"
 
-#: ../sheets/Pneumatic.sheet.in.h:8
+#: ../sheets/Pneumatic.sheet.in.h:6
 msgid "Components for pneumatic and hydraulic circuits"
 msgstr "Componentes para circuitos pneumáticos e hidráulicos"
 
-#: ../sheets/Pneumatic.sheet.in.h:10
+#: ../sheets/Pneumatic.sheet.in.h:8
 msgid "Double-effect jack"
 msgstr "Tomada de duplo efeito"
 
-#: ../sheets/Pneumatic.sheet.in.h:11
+#: ../sheets/Pneumatic.sheet.in.h:9
 msgid "Electric command (double coil)"
 msgstr "Comando elétrico (mola dupla)"
 
-#: ../sheets/Pneumatic.sheet.in.h:12
+#: ../sheets/Pneumatic.sheet.in.h:10
 msgid "Electric command (single coil)"
 msgstr "Comando elétrico (mola única)"
 
-#: ../sheets/Pneumatic.sheet.in.h:13
+#: ../sheets/Pneumatic.sheet.in.h:11
 msgid "Generic pressure source"
 msgstr "Fonte de pressão genérica"
 
-#: ../sheets/Pneumatic.sheet.in.h:14
+#: ../sheets/Pneumatic.sheet.in.h:12
 msgid "Hydraulic pressure source"
 msgstr "Fonte de pressão hidráulica"
 
-#: ../sheets/Pneumatic.sheet.in.h:15
+#: ../sheets/Pneumatic.sheet.in.h:13
 msgid "Indirect command by hydraulic driver"
 msgstr "Comando indireto por condução hidráulica"
 
-#: ../sheets/Pneumatic.sheet.in.h:16
+#: ../sheets/Pneumatic.sheet.in.h:14
 msgid "Indirect command by pneumatic driver"
 msgstr "Comando indireto por condução pneumática"
 
-#: ../sheets/Pneumatic.sheet.in.h:17
+#: ../sheets/Pneumatic.sheet.in.h:15
 msgid "Mechanical command by spring"
 msgstr "Comando mecânico por mola"
 
-#: ../sheets/Pneumatic.sheet.in.h:18
+#: ../sheets/Pneumatic.sheet.in.h:16
 msgid "Mechanical command by tappet"
 msgstr "Comando mecânico por alavanca"
 
-#: ../sheets/Pneumatic.sheet.in.h:19
+#: ../sheets/Pneumatic.sheet.in.h:17
 msgid "Muscular command"
 msgstr "Comando muscular"
 
-#: ../sheets/Pneumatic.sheet.in.h:20
+#: ../sheets/Pneumatic.sheet.in.h:18
 msgid "Normally-in simple-effect jack"
 msgstr "Tomada de efeito simples de entrada"
 
-#: ../sheets/Pneumatic.sheet.in.h:21
+#: ../sheets/Pneumatic.sheet.in.h:19
 msgid "Normally-out simple-effect jack"
 msgstr "Tomada de efeito simples de saída"
 
-#: ../sheets/Pneumatic.sheet.in.h:22
+#: ../sheets/Pneumatic.sheet.in.h:20
 msgid "Pneumatic pressure source"
 msgstr "Fonte de pressão pneumática"
 
-#: ../sheets/Pneumatic.sheet.in.h:23
+#: ../sheets/Pneumatic.sheet.in.h:21
 msgid "Pneumatic/Hydraulic"
 msgstr "Pneumático/Hidráulico"
 
-#: ../sheets/Pneumatic.sheet.in.h:24
+#: ../sheets/Pneumatic.sheet.in.h:22
 msgid "Push-button command"
 msgstr "Comando de botão"
 
@@ -8744,6 +8752,18 @@ msgstr "Servidor de dados Sybase"
 #: ../sheets/sybase.sheet.in.h:8
 msgid "Sybase replication server"
 msgstr "Servidor de replicação Sybase"
+
+#~ msgid "Instantiation. One process create others"
+#~ msgstr "Instanciação. Um processo cria outros"
+
+#~ msgid "Interaction between processes."
+#~ msgstr "Interação entre processos."
+
+#~ msgid "3/3 distributor"
+#~ msgstr "Distribuidor 3/3"
+
+#~ msgid "5/3 distributor"
+#~ msgstr "Distribuidor 5/3"
 
 #~ msgid "Export format to use"
 #~ msgstr "Formato de exportação a ser utilizado"
