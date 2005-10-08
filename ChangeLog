@@ -1,5 +1,13 @@
 2005-10-08  Hans Breuer  <hans@breuer.org>
 
+	* app/Makefile.am objects/standard/Makefile.am : match the
+	referenced icons to the needed. Make 'make distcheck' pass
+	and thus fixes bug #312152
+
+	* objects/standard/textobj.c : no C++ comments please!
+
+2005-10-08  Hans Breuer  <hans@breuer.org>
+
 	* objects/standard/textobj.c : preserve the position set on create
 	[makes e.g. text positioning of diasvg_import.py work]
 
