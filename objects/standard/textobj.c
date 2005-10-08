@@ -298,6 +298,9 @@ textobj_create(Point *startpoint,
   attributes_get_default_font(&font, &font_height);
   textobj->text = new_text("", font, font_height,
 			   startpoint, &col, default_properties.alignment );
+  /* need to initialize to object.position as well, it is used update data */
+  obj->position = *startpoint;
+
   text_get_attributes(textobj->text,&textobj->attrs);
   dia_font_unref(font);
   textobj->vert_align = default_properties.vert_align;

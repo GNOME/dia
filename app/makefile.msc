@@ -104,11 +104,11 @@ ICON_PNG_PAIRS = \
 	dia_zoom_tool_icon pixmaps\zoom-22.png \
 	dia_group_icon pixmaps\group.png \
 	dia_ungroup_icon pixmaps\ungroup.png \
-	dia_mainpoints_on_icon pixmaps\on-grid.png \
-	dia_mainpoints_off_icon pixmaps\off-grid.png
+	dia_mainpoints_on_icon pixmaps\mainpoints-on.png \
+	dia_mainpoints_off_icon pixmaps\mainpoints-off.png
 
 
-dia-app-icons.h : makefile.msc
+dia-app-icons.h : makefile.msc pixmaps\*.png
 	gdk-pixbuf-csource --build-list \
 	$(ICON_PNG_PAIRS) > dia-app-icons.h
 

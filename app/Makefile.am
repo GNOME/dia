@@ -49,8 +49,8 @@ ICON_PNG_PAIRS= \
 	dia_zoom_tool_icon pixmaps/zoom-22.png \
 	dia_group_icon pixmaps/group.png \
 	dia_ungroup_icon pixmaps/ungroup.png \
-	dia_mainpoints_on_icon pixmaps/on-grid.png \
-	dia_mainpoints_off_icon pixmaps/off-grid.png
+	dia_mainpoints_on_icon pixmaps/mainpoints-on.png \
+	dia_mainpoints_off_icon pixmaps/mainpoints-off.png
 
 ICON_PNGS= \
 	pixmaps/connectable.png \
@@ -67,7 +67,10 @@ ICON_PNGS= \
 	pixmaps/scroll-24x24.png \
 	pixmaps/zoom-24x24.png \
 	pixmaps/group.png \
-	pixmaps/ungroup.png
+	pixmaps/ungroup.png \
+	pixmaps/mainpoints-off.png \
+	pixmaps/mainpoints-on.png 
+	
 
 dia-app-icons.h: $(ICON_PNGS)
 	gdk-pixbuf-csource --raw --build-list $(ICON_PNG_PAIRS) > dia-app-icons.h

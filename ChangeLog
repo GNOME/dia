@@ -1,3 +1,19 @@
+2005-10-08  Hans Breuer  <hans@breuer.org>
+
+	* objects/standard/textobj.c : preserve the position set on create
+	[makes e.g. text positioning of diasvg_import.py work]
+
+	* plug-ins/python/diasvg_import.py : restrict what eval() can do
+	with strings from svg files. Fixes the arbitrary code execution from 
+	bug #317637
+	
+	* app/pixmaps/mainpoints-(on|off).png : new icons to toggle center point
+	magnetism. At least they are distinguishable from grid snapping.
+	* app/makefile.msc app/Makefile.am : use them
+	
+	* lib/focus.c(reset_foci) : also remove_focus(). This fixes bug #172851
+	I also can't reproduce bug #309044 anymore (on win32).
+	
 2005-09-29  Lars Clausen  <lars@raeder.dk>
 
 	* objects/UML/class.h: Enabling mainpoints for UML.

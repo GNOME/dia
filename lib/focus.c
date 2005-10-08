@@ -136,6 +136,7 @@ remove_focus(void)
 void
 reset_foci(void)
 {
+  remove_focus();
   g_list_free(text_foci);
   text_foci = NULL;
 }

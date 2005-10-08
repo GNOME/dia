@@ -71,6 +71,18 @@ def Color(s) :
 		return (int(m.group(1)) / 255.0, int(m.group(2)) / 255.0, int(m.group(2)) / 255.0)
 	# any more ugly color definitions not compatible with pango_color_parse() ?
 	return string.strip(s)
+def _eval (s, _locals) :
+	# eval() can be used to execute aribitray code, see e.g. http://bugzilla.gnome.org/show_bug.cgi?id=317637
+	# here using *any* builtins is an abuse
+	try :
+		return eval (s, {'__builtins__' : None }, _locals)
+	except NameError :
+		try :
+			import dia
+			dia.message(2, "***Possible exploit attempt***:\n" + s)
+		except ImportError :
+			print "***Possible exploit***:", s
+	return None
 class Object :
 	def __init__(self) :
 		self.props = {"x" : 0, "y" : 0, "stroke" : "none"}
@@ -82,7 +94,7 @@ class Object :
 			sp2 = string.split(string.strip(s1), ":")
 			if len(sp2) == 2 :
 				try :
-					eval("self." + string.replace(sp2[0], "-", "_") + "(\"" + string.strip(sp2[1]) + "\")")
+					_eval("self." + string.replace(sp2[0], "-", "_") + "(\"" + string.strip(sp2[1]) + "\")", locals())
 				except AttributeError :
 					self.props[sp2[0]] = string.strip(sp2[1])
 	def x(self, s) :
@@ -589,6 +601,8 @@ class Importer :
 			else :
 				s = string.capitalize(name) + "()"
 				try :
+					# should be safe to use eval() here, by XML rules it can just be a name or would give
+					# xml.parsers.expat.ExpatError: not well-formed (invalid token)
 					o = eval(s)
 				except :
 					o = Unknown(name)
@@ -605,7 +619,7 @@ class Importer :
 				ma = string.replace(ma, ":", "__")
 				s = "o." +  ma + "(\"" + attrs[a] + "\")"
 				try :
-					eval(s)
+					_eval(s, locals())
 				except AttributeError, msg :
 					if not self.errors.has_key(s) :
 						self.errors[s] = msg
