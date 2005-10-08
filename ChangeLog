@@ -1,5 +1,10 @@
 2005-10-08  Hans Breuer  <hans@breuer.org>
 
+	* plug-ins/python/group_props.py : show a descriptive text instead of an 
+	empty table if there are no common properties to change. Fixes bug #314432
+
+2005-10-08  Hans Breuer  <hans@breuer.org>
+
 	* objects/UML/transition.c : inverted default direction of
 	the direction. Patch from Peter Allin, fixes bug #318049
 	[You possibly need to 'rm ~/.dia/defaults.dia' to have an effect]

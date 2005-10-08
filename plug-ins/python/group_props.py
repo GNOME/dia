@@ -1,5 +1,5 @@
 #    Group Properties Prototype
-#    Copyright (c) 2003, 2004 Hans Breuer <hans@breuer.org>
+#    Copyright (c) 2003, Hans Breuer <hans@breuer.org>
 #
 #        with multiple selected (but not grouped) objects builds a dialog
 #    which contains widgets to change all different properties of the
@@ -9,8 +9,6 @@
 #	- Currently the options to be changed are represented by strings
 #	  This is a limitation of PyDia, which does not wrap Dia's UI
 #	  elements yet
-#	- If there is only one object selected or the selected objects
-#	  have no common different properties the dialog is empty
 #	- ...
 
 #    This program is free software; you can redistribute it and/or modify
@@ -79,6 +77,10 @@ class CPropsDialog :
 			table.attach(w, 1, 2, y, y+1)
 			w.show()
 			y = y + 1
+		else :
+			w = gtk.Label("The selected objects don't share any\n properties to change at once.") 
+			table.attach(w, 0, 1, y, y+1)
+			w.show()
 		box2.pack_start(table)
 		table.show()
 
@@ -159,9 +161,9 @@ def dia_objects_props_cb (data, flags) :
 			# if there is something left ensure unique values
 			uniques = {}
 			for o in allProps[s].opts :
-				if uniques.has_key(str(o.value)) :
+				if uniques.has_key(o.value) :
 					continue
-				uniques[str(o.value)] = o
+				uniques[o.value] = o
 			allProps[s].opts = []
 			for v in uniques.keys() :
 				allProps[s].opts.append(uniques[v])
