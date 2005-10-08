@@ -43,6 +43,7 @@ struct _Transition {
   Handle guard_text_handle;
   Point guard_text_pos;
   gchar *guard_text;
+  gboolean direction_inverted;
 };
 
 
@@ -102,7 +103,8 @@ static ObjectTypeOps uml_transition_type_ops = {
 DiaObjectType uml_transition_type = {
   "UML - Transition",       /* Name */
   /* Version 0 had no autorouting and so shouldn't have it set by default. */
-  1,                      /* version */
+  /* version 0 and 1 expects the arrow to be drawn on the wrong end */ 
+  2,                      /* version */
   (char **) transition_xpm, /* Pixmap */
   &uml_transition_type_ops
 };
@@ -135,6 +137,7 @@ static PropDescription transition_props[] = {
     N_("Condition for taking this transition when the event is fired"), NULL },
   { "trigger_text_pos", PROP_TYPE_POINT, 0, "trigger_text_pos:", NULL, NULL },
   { "guard_text_pos", PROP_TYPE_POINT, 0, "guard_text_pos:", NULL, NULL },
+  { "direction_inverted", PROP_TYPE_BOOL, PROP_FLAG_OPTIONAL, "direction_inverted:", NULL, NULL },
   PROP_DESC_END
 };
 
@@ -146,6 +149,7 @@ static PropOffset transition_offsets[] = {
   { "guard", PROP_TYPE_STRING, offsetof(Transition, guard_text) },
   { "trigger_text_pos", PROP_TYPE_POINT, offsetof(Transition,trigger_text_pos)},
   { "guard_text_pos", PROP_TYPE_POINT,   offsetof(Transition,guard_text_pos)},
+  { "direction_inverted", PROP_TYPE_BOOL, offsetof(Transition,direction_inverted)},
   { NULL, 0, 0 }
 };
 
@@ -236,6 +240,10 @@ static DiaObject *transition_load(ObjectNode obj_node, int version,
     if (attr == NULL)
       ((OrthConn*)obj)->autorouting = FALSE;
   }
+  if (version < 2) {
+      /* Versions prior to 2 have the arrowheads inverted */
+      ((Transition*)obj)->direction_inverted = TRUE;
+  }
   return obj;
 }
 
@@ -312,6 +320,8 @@ static void transition_draw(Transition* transition, DiaRenderer* renderer)
 {
   DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS(renderer);
   Arrow arrow;
+  Arrow *start_arrow;
+  Arrow *end_arrow;
   Point* points;
   OrthConn *orth = &transition->orth;
   int num_points;
@@ -335,10 +345,18 @@ static void transition_draw(Transition* transition, DiaRenderer* renderer)
   /* TODO, find out about the meaning of this... */
   renderer_ops->set_linecaps(renderer, LINECAPS_BUTT); 
 
+  if (transition->direction_inverted) {
+      start_arrow = &arrow;
+      end_arrow = NULL;
+  }
+  else {
+      start_arrow = NULL;
+      end_arrow = & arrow;
+  }
   renderer_ops->draw_polyline_with_arrows(renderer, points, num_points,
                                           TRANSITION_WIDTH,
                                           &color_black, /* TODO, allow colors */
-                                          &arrow, NULL);
+                                          start_arrow, end_arrow);
 
 
   renderer_ops->set_font(renderer, transition_font,
