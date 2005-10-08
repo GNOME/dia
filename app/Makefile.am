@@ -61,15 +61,15 @@ ICON_PNGS= \
 	pixmaps/off-grid.png \
 	pixmaps/visible.png \
 	pixmaps/visible-empty.png \
-	../dia-diagram.png \
-	../dia_gnome_icon.png \
-	pixmaps/modify-24x24.png \
-	pixmaps/scroll-24x24.png \
-	pixmaps/zoom-24x24.png \
+        \
+	\
+	pixmaps/arrow-22.png \
+	pixmaps/scroll-22.png \
+	pixmaps/zoom-22.png \
 	pixmaps/group.png \
 	pixmaps/ungroup.png \
-	pixmaps/mainpoints-off.png \
-	pixmaps/mainpoints-on.png 
+	pixmaps/mainpoints-on.png \
+	pixmaps/mainpoints-off.png
 	
 
 dia-app-icons.h: $(ICON_PNGS)
@@ -269,7 +269,9 @@ EXTRA_DIST = \
 	\
 	pixmaps/missing.xpm \
 	pixmaps/n_a.xpm \
-	pixmaps/line_break.xpm
+	pixmaps/line_break.xpm \
+	\
+	$(ICON_PNGS)
 
 run_dia.sh$(EXEEXT): Makefile.am
 	echo "#!$(SHELL) " > run_dia.sh

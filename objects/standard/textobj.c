@@ -237,7 +237,7 @@ textobj_draw(Textobj *textobj, DiaRenderer *renderer)
 }
 
 static void textobj_valign_point(Textobj *textobj, Point* p, real factor)
-        //factor should be 1 or -1
+        /* factor should be 1 or -1 */
 {
     Rectangle *bb  = &(textobj->object.bounding_box); 
     real offset ;
