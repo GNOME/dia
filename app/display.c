@@ -1241,6 +1241,9 @@ display_set_active(DDisplay *ddisp)
       if (prefs.toolbox_on_top) {
         gtk_window_set_transient_for(GTK_WINDOW(interface_get_toolbox_shell()),
                                      GTK_WINDOW(ddisp->shell));
+      } else {
+        gtk_window_set_transient_for(GTK_WINDOW(interface_get_toolbox_shell()),
+                                     NULL);
       }
     }
   }

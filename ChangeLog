@@ -1,5 +1,10 @@
 2005-10-09  Hans Breuer  <hans@breuer.org>
 
+	* app/display.c : allow !"toolbox on top" without restart.
+	(Chris Hellberg, bug #310702)
+
+2005-10-09  Hans Breuer  <hans@breuer.org>
+
 	* lib/arrows.c : patch from Radek Krahl fixing the blanking
 	of two arrowheads, bug #310157
 
