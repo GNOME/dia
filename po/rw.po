@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-06-11 13:40+0200\n"
+"POT-Creation-Date: 2005-10-09 14:25+0200\n"
 "PO-Revision-Date: 2005-03-31 20:55-0700\n"
 "Last-Translator: Steve Murphy <murf@e-tools.com>\n"
 "Language-Team: Kinyarwanda <translation-team-rw@lists.sourceforge.net>\n"
@@ -72,19 +72,19 @@ msgid "Can't find output format/filter %s\n"
 msgstr "Gushaka Ibisohoka Imiterere Muyunguruzi..."
 
 #. Translators:  The argument is a list of options, not to be translated
-#: app/app_procs.c:664
+#: app/app_procs.c:667
 #, fuzzy, c-format
 msgid "Select the filter/format out of: %s"
 msgstr "i Muyunguruzi... Imiterere Inyuma Bya"
 
 #. &export_file_name
-#: app/app_procs.c:683 app/app_procs.c:708
+#: app/app_procs.c:686 app/app_procs.c:711
 #, fuzzy
 msgid "Export loaded file and exit"
 msgstr "IDOSIYE Na Gusohoka"
 
 # sw/source\ui\envelp\mailmrge.src:DLG_MAILMERGE.FL_DEST.text
-#: app/app_procs.c:683 app/app_procs.c:708 app/diaconv.c:94
+#: app/app_procs.c:686 app/app_procs.c:711
 #, fuzzy
 msgid "OUTPUT"
 msgstr "Ibisohoka"
@@ -92,88 +92,88 @@ msgstr "Ibisohoka"
 # sc/source\core\src\compiler.src:RID_SC_FUNCTION_NAMES.SC_OPCODE_TYPE.text
 #. &export_file_format
 #. &export_format_string
-#: app/app_procs.c:685 app/app_procs.c:710
+#: app/app_procs.c:688 app/app_procs.c:713
 msgid "TYPE"
 msgstr "UBWOKO"
 
-#: app/app_procs.c:687 app/app_procs.c:713
+#: app/app_procs.c:690 app/app_procs.c:716
 #, fuzzy
 msgid "Export graphics size"
 msgstr "Ibishushanyo Ingano"
 
-#: app/app_procs.c:687 app/app_procs.c:713
+#: app/app_procs.c:690 app/app_procs.c:716
 msgid "WxH"
 msgstr ""
 
 #. 13.3.2004 sampo@iki.fi
-#: app/app_procs.c:689 app/app_procs.c:715
+#: app/app_procs.c:692 app/app_procs.c:718
 #, fuzzy
 msgid ""
 "Show only specified layers (e.g. when exporting). Can be either the layer "
 "name or a range of layer numbers (X-Y)"
 msgstr "g."
 
-#: app/app_procs.c:690 app/app_procs.c:716
+#: app/app_procs.c:693 app/app_procs.c:719
 msgid "LAYER,LAYER,..."
 msgstr ""
 
-#: app/app_procs.c:692 app/app_procs.c:718
+#: app/app_procs.c:695 app/app_procs.c:721
 #, fuzzy
 msgid "Don't show the splash screen"
 msgstr "Garagaza i Mugaragaza"
 
-#: app/app_procs.c:694 app/app_procs.c:720
+#: app/app_procs.c:697 app/app_procs.c:723
 #, fuzzy
 msgid "Send error messages to stderr instead of showing dialogs."
 msgstr "Ikosa Ubutumwa Kuri Bya Ibiganiro"
 
-#: app/app_procs.c:696 app/app_procs.c:722
+#: app/app_procs.c:699 app/app_procs.c:725
 #, fuzzy
 msgid "Display credits list and exit"
 msgstr "Urutonde Na Gusohoka"
 
-#: app/app_procs.c:698 app/app_procs.c:724
+#: app/app_procs.c:701 app/app_procs.c:727
 #, fuzzy
 msgid "Generate verbose output"
 msgstr "Ibisohoka"
 
-#: app/app_procs.c:700 app/app_procs.c:726
+#: app/app_procs.c:703 app/app_procs.c:729
 #, fuzzy
 msgid "Display version and exit"
 msgstr "Verisiyo Na Gusohoka"
 
-#: app/app_procs.c:727 app/diaconv.c:95
+#: app/app_procs.c:730
 #, fuzzy
 msgid "Show this help message"
 msgstr "iyi Ifashayobora Ubutumwa"
 
-#: app/app_procs.c:777
+#: app/app_procs.c:780
 #, fuzzy
 msgid "Can't connect to session manager!\n"
 msgstr "Kwihuza Kuri Umukoro Muyobozi"
 
 #. TRANSLATOR: 2nd and 3rd %s are time and date respectively.
-#: app/app_procs.c:809
+#: app/app_procs.c:812
 #, fuzzy, c-format
 msgid "Dia version %s, compiled %s %s\n"
 msgstr "Verisiyo"
 
-#: app/app_procs.c:811
+#: app/app_procs.c:814
 #, fuzzy, c-format
 msgid "Dia version %s\n"
 msgstr "Verisiyo"
 
-#: app/app_procs.c:873 app/app_procs.c:875 app/diaconv.c:201 app/diaconv.c:203
+#: app/app_procs.c:876 app/app_procs.c:878
 #, fuzzy
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr "Gushaka Bisanzwe Ibintu Ryari: kugirango Igikoresho"
 
-#: app/app_procs.c:916
+#: app/app_procs.c:919
 msgid "Diagram1.dia"
 msgstr ""
 
-#: app/app_procs.c:958
+#: app/app_procs.c:961
 #, fuzzy
 msgid ""
 "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
@@ -181,7 +181,7 @@ msgid ""
 msgstr "IDOSIYE a Icyegeranyo ku iyi Ubutumwa Kuri Kugaragara"
 
 #. no standard buttons
-#: app/app_procs.c:971
+#: app/app_procs.c:974
 #, fuzzy
 msgid ""
 "Modified diagrams exist.\n"
@@ -189,23 +189,23 @@ msgid ""
 "without saving them?"
 msgstr "Kuri Kuvamo Mu kubika"
 
-#: app/app_procs.c:974
+#: app/app_procs.c:977
 msgid "Quit Dia"
 msgstr ""
 
 #. This printf seems to prevent a race condition with unrefs.
 #. Yuck.  -Lars
-#: app/app_procs.c:1027
+#: app/app_procs.c:1030
 #, fuzzy
 msgid "Thank you for using Dia.\n"
 msgstr "kugirango ikoresha"
 
-#: app/app_procs.c:1044 app/app_procs.c:1051
+#: app/app_procs.c:1047 app/app_procs.c:1054
 #, fuzzy
 msgid "Could not create per-user Dia config directory"
 msgstr "OYA Kurema Ukoresha: bushyinguro"
 
-#: app/app_procs.c:1053
+#: app/app_procs.c:1056
 #, fuzzy
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
@@ -214,23 +214,23 @@ msgstr ""
 "OYA Kurema Ukoresha: bushyinguro Ubwoko i IMPINDURAGACIRO Utudomo Kuri "
 "bushyinguro"
 
-#: app/app_procs.c:1075 app/diaconv.c:251
+#: app/app_procs.c:1078
 #, fuzzy
 msgid "Objects and filters internal to dia"
 msgstr "Na Muyunguruzi By'imbere Kuri"
 
-#: app/app_procs.c:1117 app/diaconv.c:121
+#: app/app_procs.c:1120
 msgid "[OPTION...] [FILE...]"
 msgstr ""
 
-#: app/app_procs.c:1120 app/diaconv.c:128
+#: app/app_procs.c:1123
 #, fuzzy, c-format
 msgid ""
 "Error on option %s: %s.\n"
 "Run '%s --help' to see a full list of available command line options.\n"
 msgstr "ku Ihitamo Kuri a Urutonde Bya Bihari Komandi: Umurongo Amahitamo"
 
-#: app/app_procs.c:1144
+#: app/app_procs.c:1147
 #, fuzzy
 msgid "[FILE...]"
 msgstr "[Idosiye"
@@ -239,19 +239,19 @@ msgstr "[Idosiye"
 # sw/source\ui\dochdl\dochdl.src:STR_NOGLOS2.text
 # #-#-#-#-#  sw.pot (PACKAGE VERSION)  #-#-#-#-#
 # sw/source\ui\uiview\view.src:STR_NOGLOS2.text
-#: app/app_procs.c:1159
+#: app/app_procs.c:1165
 #, fuzzy, c-format
 msgid "'%s' not found!\n"
 msgstr "'%s'ntibyabonetse"
 
-#: app/app_procs.c:1238
+#: app/app_procs.c:1246
 #, fuzzy
 msgid ""
 "The original author of Dia was:\n"
 "\n"
 msgstr "Umwimerere Umwanditsi Bya"
 
-#: app/app_procs.c:1243
+#: app/app_procs.c:1251
 #, fuzzy
 msgid ""
 "\n"
@@ -259,7 +259,7 @@ msgid ""
 "\n"
 msgstr "KIGEZWEHO Bya"
 
-#: app/app_procs.c:1248
+#: app/app_procs.c:1256
 #, fuzzy
 msgid ""
 "\n"
@@ -267,7 +267,7 @@ msgid ""
 "\n"
 msgstr "Abahanzi"
 
-#: app/app_procs.c:1253
+#: app/app_procs.c:1261
 #, fuzzy
 msgid ""
 "\n"
@@ -275,11 +275,11 @@ msgid ""
 "\n"
 msgstr "ni ku"
 
-#: app/autosave.c:93
+#: app/autosave.c:91
 msgid "Recovering autosaved diagrams"
 msgstr ""
 
-#: app/autosave.c:101
+#: app/autosave.c:99
 #, fuzzy
 msgid ""
 "Autosaved files exist.\n"
@@ -418,7 +418,7 @@ msgid "Visible spacing"
 msgstr "Isigamwanya"
 
 #. Hexes!
-#: app/dia-props.c:177 app/preferences.c:162
+#: app/dia-props.c:177 app/preferences.c:167
 #, fuzzy
 msgid "Hex grid"
 msgstr "Urusobetudirishya"
@@ -456,7 +456,7 @@ msgstr "Mbuganyuma"
 # officecfg/registry\schema\org\openoffice\Office\Impress.xcs:....Snap.Object.Grid.text
 # #-#-#-#-#  officecfg.pot (PACKAGE VERSION)  #-#-#-#-#
 # officecfg/registry\schema\org\openoffice\Office\Draw.xcs:....Snap.Object.Grid.text
-#: app/dia-props.c:220 app/preferences.c:105
+#: app/dia-props.c:220 app/preferences.c:109
 #, fuzzy
 msgid "Grid Lines"
 msgstr "Imirongo y'urusobe- tudirishya"
@@ -504,64 +504,6 @@ msgstr "Ibirindiro Y"
 #, fuzzy
 msgid "Y position of child widget"
 msgstr "Ibirindiro Bya"
-
-#. &export_file_format
-#: app/diaconv.c:92
-#, fuzzy
-msgid "Export format to use"
-msgstr "Imiterere Kuri Gukoresha"
-
-#: app/diaconv.c:92
-#, fuzzy
-msgid "eps,png,wmf,cgm,dxf,fig"
-msgstr "png"
-
-#. &export_file_name
-#: app/diaconv.c:94
-#, fuzzy
-msgid "Export file name to use"
-msgstr "IDOSIYE Izina: Kuri Gukoresha"
-
-#: app/diaconv.c:96
-msgid "Quiet operation"
-msgstr ""
-
-#: app/diaconv.c:149
-#, fuzzy, c-format
-msgid ""
-"Error: No arguments found.\n"
-"Run '%s --help' to see a full list of available command line options.\n"
-msgstr ""
-"ingingo Byabonetse Kuri a Urutonde Bya Bihari Komandi: Umurongo Amahitamo"
-
-#: app/diaconv.c:159
-#, fuzzy, c-format
-msgid "%s error: can specify only one of -t or -o."
-msgstr "%sIkosa Bya T Cyangwa o"
-
-#: app/diaconv.c:165
-#, fuzzy, c-format
-msgid ""
-"%s error: must specify only one of -t or -o.\n"
-"Run '%s --help' to see a full list of available command line options.\n"
-msgstr ""
-"%sIkosa Bya T Cyangwa o Kuri a Urutonde Bya Bihari Komandi: Umurongo "
-"Amahitamo"
-
-#: app/diaconv.c:174
-#, fuzzy, c-format
-msgid "%s error: no input file."
-msgstr "%sIkosa Oya Iyinjiza IDOSIYE"
-
-#: app/diaconv.c:227
-#, fuzzy, c-format
-msgid "%s error: only one input file expected."
-msgstr "%sIkosa Iyinjiza IDOSIYE Ikitezwe:"
-
-#: app/diaconv.c:240
-#, fuzzy, c-format
-msgid "%s error: popt library not available on this system"
-msgstr "%sIkosa Isomero OYA Bihari ku iyi Sisitemu"
 
 #: app/diagram_tree_menu.c:45
 #, fuzzy
@@ -670,7 +612,7 @@ msgid "Ok"
 msgstr "Oke"
 
 # crashrep/source\all\crashrep.lng:%CANCEL_BUTTON%.text
-#: app/dialogs.c:52 app/paginate_psprint.c:306
+#: app/dialogs.c:52 app/paginate_psprint.c:307
 msgid "Cancel"
 msgstr "Kureka"
 
@@ -760,7 +702,7 @@ msgstr "Igikoresho Gushigikira Ibisobanuro"
 msgid "Properties..."
 msgstr "Indangakintu..."
 
-#: app/disp_callbacks.c:935
+#: app/disp_callbacks.c:925
 #, fuzzy
 msgid ""
 "The object you dropped cannot fit into its parent. \n"
@@ -782,35 +724,35 @@ msgstr "Bya Ibintu"
 msgid "Selected '%s'"
 msgstr "Byahiswemo"
 
-#: app/display.c:1025
+#: app/display.c:1052
 #, fuzzy
 msgid "<unnamed>"
 msgstr "<kitiswe-"
 
-#: app/display.c:1027
+#: app/display.c:1054
 #, fuzzy, c-format
 msgid ""
 "The diagram '%s'\n"
 "has not been saved. Save changes now?"
 msgstr "OYA Kubika Amahinduka NONEAHA"
 
-#: app/display.c:1038
+#: app/display.c:1065
 #, fuzzy
 msgid "Close Diagram"
 msgstr "Funga"
 
 # framework/source\services\documentlist.src:RID_DOCUMENTS_POPUP.ID_DISCARD.text
-#: app/display.c:1043
+#: app/display.c:1070
 msgid "Discard Changes"
 msgstr "Kureka impinduka"
 
-#: app/export_png.c:134 app/load_save.c:913 app/render_eps.c:103
-#: plug-ins/cairo/diacairo.c:978 plug-ins/cgm/cgm.c:1157
-#: plug-ins/dxf/dxf-export.c:509 plug-ins/hpgl/hpgl.c:718
+#: app/export_png.c:134 app/load_save.c:917 app/render_eps.c:103
+#: plug-ins/cairo/diacairo.c:972 plug-ins/cgm/cgm.c:1151
+#: plug-ins/dxf/dxf-export.c:484 plug-ins/hpgl/hpgl.c:704
 #: plug-ins/metapost/render_metapost.c:1107
 #: plug-ins/pstricks/render_pstricks.c:910 plug-ins/shape/shape-export.c:134
-#: plug-ins/svg/render_svg.c:151 plug-ins/wpg/wpg.c:1067
-#: plug-ins/xfig/xfig-export.c:1138 plug-ins/xslt/xslt.c:94
+#: plug-ins/svg/render_svg.c:149 plug-ins/wpg/wpg.c:1070
+#: plug-ins/xfig/xfig-export.c:1136 plug-ins/xslt/xslt.c:93
 #, fuzzy, c-format
 msgid "Can't open output file %s: %s\n"
 msgstr "Gufungura Ibisohoka IDOSIYE"
@@ -855,33 +797,33 @@ msgstr "Ubuhagarike"
 msgid "Portable Network Graphics"
 msgstr ""
 
-#: app/filedlg.c:127 app/filedlg.c:493
+#: app/filedlg.c:129 app/filedlg.c:495
 #, fuzzy
 msgid "By extension"
 msgstr "Umugereka"
 
-#: app/filedlg.c:200
+#: app/filedlg.c:202
 msgid "Open Diagram"
 msgstr ""
 
-#: app/filedlg.c:228
+#: app/filedlg.c:230
 msgid "Open Options"
 msgstr ""
 
-#: app/filedlg.c:236 app/filedlg.c:628
+#: app/filedlg.c:238 app/filedlg.c:616
 #, fuzzy
 msgid "Determine file type:"
 msgstr "IDOSIYE Ubwoko"
 
-#: app/filedlg.c:252 app/filedlg.c:641
+#: app/filedlg.c:254 app/filedlg.c:629
 msgid "All Files"
 msgstr "Amadosiye yose"
 
-#: app/filedlg.c:257 app/filedlg.c:646
+#: app/filedlg.c:259 app/filedlg.c:634
 msgid "Supported Formats"
 msgstr ""
 
-#: app/filedlg.c:293
+#: app/filedlg.c:295
 #, fuzzy
 msgid ""
 "Some characters in the filename are neither UTF-8\n"
@@ -893,30 +835,30 @@ msgstr "Inyuguti in i Izina ry'idosiye: Imisobekere: itandukanya"
 # wizards/source\euro\euro.src:MESSAGES_+_22.text
 # #-#-#-#-#  wizards.pot (PACKAGE VERSION)  #-#-#-#-#
 # wizards/source\importwizard\importwi.src:sFileExists.text
-#: app/filedlg.c:300 app/filedlg.c:538
+#: app/filedlg.c:302 app/filedlg.c:540
 #, fuzzy, c-format
 msgid ""
 "The file '%s' already exists.\n"
 "Do you want to overwrite it?"
 msgstr "Idosiye isanzwemo. Wifuza kuyisimbura"
 
-#: app/filedlg.c:308 app/filedlg.c:545
+#: app/filedlg.c:310 app/filedlg.c:547
 msgid "File already exists"
 msgstr "Iyo dosiye isanzwe ihari"
 
-#: app/filedlg.c:351
+#: app/filedlg.c:353
 #, fuzzy
 msgid "Save Diagram"
 msgstr "Kubika"
 
 #. Need better way to make it a reasonable size.  Isn't there some
 #. standard look for them (or is that just Gnome?)
-#: app/filedlg.c:362
+#: app/filedlg.c:364
 #, fuzzy
 msgid "Compress diagram files"
 msgstr "Idosiye"
 
-#: app/filedlg.c:371
+#: app/filedlg.c:373
 #, fuzzy
 msgid ""
 "Compression reduces file size to less than 1/10th size and speeds up loading "
@@ -925,18 +867,18 @@ msgstr ""
 "IDOSIYE Ingano Kuri Birutwa 1. Ingano Na Hejuru Itangira... Na Mu kubika "
 "Umwandiko Porogaramu Byegeranijwe Idosiye"
 
-#: app/filedlg.c:567
+#: app/filedlg.c:569
 #, fuzzy, c-format
 msgid ""
 "Could not determine which export filter\n"
 "to use to save '%s'"
 msgstr "OYA Kohereza Gukoresha Kuri Kubika"
 
-#: app/filedlg.c:590
+#: app/filedlg.c:592
 msgid "Export Diagram"
 msgstr ""
 
-#: app/filedlg.c:620
+#: app/filedlg.c:608
 msgid "Export Options"
 msgstr ""
 
@@ -963,11 +905,11 @@ msgstr "i"
 msgid "Scroll"
 msgstr ""
 
-#: app/interface.c:69 app/interface.c:70 lib/properties.c:77
+#: app/interface.c:69 app/interface.c:70 lib/properties.c:79
 #: lib/properties.h:520 objects/Jackson/requirement.c:142
 #: objects/UML/activity.c:126 objects/UML/actor.c:122
 #: objects/UML/classicon.c:144 objects/UML/component.c:128
-#: objects/UML/component_feature.c:154 objects/UML/node.c:127
+#: objects/UML/component_feature.c:155 objects/UML/node.c:127
 #: objects/UML/note.c:121 objects/UML/object.c:147
 #: objects/UML/small_package.c:128 objects/UML/state.c:141
 #: objects/UML/usecase.c:138 objects/custom/custom_object.c:200
@@ -1054,45 +996,50 @@ msgstr ""
 msgid "Image"
 msgstr "Ishusho"
 
-#: app/interface.c:392
+#: app/interface.c:400
 #, fuzzy
 msgid "Diagram menu."
 msgstr "Ibikubiyemo"
 
-#: app/interface.c:430
+#: app/interface.c:438
 #, fuzzy
 msgid "Pops up the Navigation window."
 msgstr "Hejuru i Idirishya"
 
-#: app/interface.c:512
+#: app/interface.c:504
 msgid "Zoom"
 msgstr "Ihindurangano"
 
-#: app/interface.c:527
+#: app/interface.c:519
 #, fuzzy
 msgid "Toggles snap-to-grid for this window."
 msgstr "Gukata Kuri Urusobetudirishya kugirango iyi Idirishya"
 
-#: app/interface.c:590
+#: app/interface.c:530
+#, fuzzy
+msgid "Toggles object snapping for this window."
+msgstr "Gukata Kuri Urusobetudirishya kugirango iyi Idirishya"
+
+#: app/interface.c:595
 #, fuzzy
 msgid "NULL tooldata in tool_select_update"
 msgstr "in"
 
-#: app/interface.c:870
+#: app/interface.c:888
 #, fuzzy, c-format
 msgid "No sheet named %s"
 msgstr "URUPAPURO"
 
-#: app/interface.c:902
+#: app/interface.c:920
 #, fuzzy
 msgid "Other sheets"
 msgstr "IMPAPURO"
 
-#: app/interface.c:960 sheets/Misc.sheet.in.h:3
+#: app/interface.c:978 sheets/Misc.sheet.in.h:3
 msgid "Misc"
 msgstr ""
 
-#: app/interface.c:1021
+#: app/interface.c:1039
 #, fuzzy
 msgid ""
 "Foreground & background colors for new objects.  The small black and white "
@@ -1102,7 +1049,7 @@ msgstr ""
 "Mbuganyuma Amabara kugirango Gishya Ibintu Gitoya umukara Na Umweru kare "
 "Kugarura Amabara Gitoya Utwambi Amabara Kanda Kuri Guhindura>> Amabara"
 
-#: app/interface.c:1036
+#: app/interface.c:1054
 #, fuzzy
 msgid ""
 "Line widths.  Click on a line to set the default line width for new "
@@ -1111,7 +1058,7 @@ msgstr ""
 "ku a Umurongo Kuri Gushyiraho i Mburabuzi Umurongo Ubugari kugirango Gishya "
 "Ibintu Kanda Kuri Gushyiraho i Umurongo Ubugari Birenzeho"
 
-#: app/interface.c:1076
+#: app/interface.c:1094
 #, fuzzy
 msgid ""
 "Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
@@ -1120,7 +1067,7 @@ msgstr ""
 "IMISUSIRE ku i Itangiriro Bya Gishya Imirongo Kuri Akambi Cyangwa Gushyiraho "
 "Akambi Ibigenga Na:"
 
-#: app/interface.c:1081
+#: app/interface.c:1099
 #, fuzzy
 msgid ""
 "Line style for new lines.  Click to pick a line style, or set line style "
@@ -1129,7 +1076,7 @@ msgstr ""
 "IMISUSIRE kugirango Gishya Imirongo Kuri a Umurongo IMISUSIRE Cyangwa "
 "Gushyiraho Umurongo IMISUSIRE Ibigenga Na:"
 
-#: app/interface.c:1095
+#: app/interface.c:1113
 #, fuzzy
 msgid ""
 "Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
@@ -1138,7 +1085,7 @@ msgstr ""
 "IMISUSIRE ku i Impera Bya Gishya Imirongo Kuri Akambi Cyangwa Gushyiraho "
 "Akambi Ibigenga Na:"
 
-#: app/interface.c:1203
+#: app/interface.c:1221
 msgid "Diagram Editor"
 msgstr ""
 
@@ -1228,27 +1175,27 @@ msgstr "Gushaka Bya"
 msgid "You must specify a file, not a directory.\n"
 msgstr "a IDOSIYE OYA a bushyinguro"
 
-#: app/load_save.c:358 plug-ins/dxf/dxf-import.c:1304 plug-ins/wpg/wpg.c:1171
-#: plug-ins/xfig/xfig-import.c:1560 plug-ins/xslt/xslt.c:87
+#: app/load_save.c:358 plug-ins/dxf/dxf-import.c:1306 plug-ins/wpg/wpg.c:1175
+#: plug-ins/xfig/xfig-import.c:1560 plug-ins/xslt/xslt.c:85
 #, fuzzy, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "Gufungura kugirango"
 
-#: app/load_save.c:375 app/load_save.c:380
+#: app/load_save.c:376 app/load_save.c:382
 #, fuzzy, c-format
 msgid ""
 "Error loading diagram %s.\n"
 "Unknown file type."
 msgstr "Itangira... IDOSIYE Ubwoko"
 
-#: app/load_save.c:387
+#: app/load_save.c:390
 #, fuzzy, c-format
 msgid ""
 "Error loading diagram %s.\n"
 "Not a Dia file."
 msgstr "Itangira... a IDOSIYE"
 
-#: app/load_save.c:592
+#: app/load_save.c:596
 #, fuzzy, c-format
 msgid ""
 "Error loading diagram:\n"
@@ -1256,12 +1203,12 @@ msgid ""
 "A valid Dia file defines at least one layer."
 msgstr "Itangira... A Byemewe IDOSIYE ku Akugara"
 
-#: app/load_save.c:946
+#: app/load_save.c:951
 #, fuzzy, c-format
 msgid "Failed to save file '%s'.\n"
 msgstr "Kuri Kubika IDOSIYE"
 
-#: app/load_save.c:1018 app/load_save.c:1023
+#: app/load_save.c:1024 app/load_save.c:1029
 #, fuzzy
 msgid "Dia Diagram File"
 msgstr "Idosiye"
@@ -1315,22 +1262,22 @@ msgid "/File/_Quit"
 msgstr "/Idosiye"
 
 # sfx2/source\appl\newhelp.src:STR_HELP_WINDOW_TITLE.text
-#: app/menus.c:73 app/menus.c:260
+#: app/menus.c:73 app/menus.c:261
 #, fuzzy
 msgid "/_Help"
 msgstr "/Kugoboka"
 
-#: app/menus.c:75 app/menus.c:262
+#: app/menus.c:75 app/menus.c:263
 msgid "/Help/_Contents"
 msgstr ""
 
 # sfx2/source\appl\newhelp.src:STR_HELP_WINDOW_TITLE.text
-#: app/menus.c:77 app/menus.c:264
+#: app/menus.c:77 app/menus.c:265
 #, fuzzy
 msgid "/Help/---"
 msgstr "/Kugoboka"
 
-#: app/menus.c:78 app/menus.c:265
+#: app/menus.c:78 app/menus.c:266
 msgid "/Help/_About..."
 msgstr ""
 
@@ -1497,7 +1444,7 @@ msgstr "/4."
 msgid "/View/Zoom/25%"
 msgstr "/25 %%"
 
-#: app/menus.c:162 app/menus.c:171
+#: app/menus.c:162 app/menus.c:172
 msgid "/View/---"
 msgstr ""
 
@@ -1518,249 +1465,254 @@ msgid "/View/_Snap To Grid"
 msgstr ""
 
 #: app/menus.c:169
+#, fuzzy
+msgid "/View/_Snap To Objects"
+msgstr "/Ibintu"
+
+#: app/menus.c:170
 msgid "/View/Show _Rulers"
 msgstr ""
 
-#: app/menus.c:170
+#: app/menus.c:171
 msgid "/View/Show _Connection Points"
 msgstr ""
 
-#: app/menus.c:172
+#: app/menus.c:173
 msgid "/View/New _View"
 msgstr ""
 
 #. Show All, Best Fit.  Same as the Gimp, Ctrl+E
-#: app/menus.c:174
+#: app/menus.c:175
 msgid "/View/Show _All"
 msgstr ""
 
-#: app/menus.c:176
+#: app/menus.c:177
 msgid "/View/Re_draw"
 msgstr ""
 
-#: app/menus.c:178
+#: app/menus.c:179
 msgid "/_Objects"
 msgstr ""
 
-#: app/menus.c:180
+#: app/menus.c:181
 #, fuzzy
 msgid "/Objects/Send to _Back"
 msgstr "/Kuri"
 
-#: app/menus.c:182
+#: app/menus.c:183
 #, fuzzy
 msgid "/Objects/Bring to _Front"
 msgstr "/Kuri"
 
-#: app/menus.c:184
+#: app/menus.c:185
 msgid "/Objects/Send Backwards"
 msgstr ""
 
-#: app/menus.c:186
+#: app/menus.c:187
 msgid "/Objects/Bring Forwards"
 msgstr ""
 
-#: app/menus.c:188 app/menus.c:194 app/menus.c:198 app/menus.c:216
+#: app/menus.c:189 app/menus.c:195 app/menus.c:199 app/menus.c:217
 msgid "/Objects/---"
 msgstr ""
 
-#: app/menus.c:189
+#: app/menus.c:190
 msgid "/Objects/_Group"
 msgstr ""
 
 #. deliberately not using Ctrl+U for Ungroup
-#: app/menus.c:192
+#: app/menus.c:193
 msgid "/Objects/_Ungroup"
 msgstr ""
 
-#: app/menus.c:195
+#: app/menus.c:196
 msgid "/Objects/_Parent"
 msgstr ""
 
-#: app/menus.c:196
+#: app/menus.c:197
 msgid "/Objects/_Unparent"
 msgstr ""
 
-#: app/menus.c:197
+#: app/menus.c:198
 msgid "/Objects/_Unparent Children"
 msgstr ""
 
-#: app/menus.c:199
+#: app/menus.c:200
 msgid "/Objects/Align"
 msgstr ""
 
-#: app/menus.c:201
+#: app/menus.c:202
 msgid "/Objects/Align/Left"
 msgstr ""
 
-#: app/menus.c:203
+#: app/menus.c:204
 msgid "/Objects/Align/Center"
 msgstr ""
 
-#: app/menus.c:205
+#: app/menus.c:206
 msgid "/Objects/Align/Right"
 msgstr ""
 
-#: app/menus.c:207 app/menus.c:211
+#: app/menus.c:208 app/menus.c:212
 msgid "/Objects/Align/---"
 msgstr ""
 
-#: app/menus.c:208
+#: app/menus.c:209
 msgid "/Objects/Align/Top"
 msgstr ""
 
-#: app/menus.c:209
+#: app/menus.c:210
 msgid "/Objects/Align/Middle"
 msgstr ""
 
-#: app/menus.c:210
+#: app/menus.c:211
 msgid "/Objects/Align/Bottom"
 msgstr ""
 
-#: app/menus.c:212
+#: app/menus.c:213
 msgid "/Objects/Align/Spread Out Horizontally"
 msgstr ""
 
-#: app/menus.c:213
+#: app/menus.c:214
 msgid "/Objects/Align/Spread Out Vertically"
 msgstr ""
 
-#: app/menus.c:214
+#: app/menus.c:215
 msgid "/Objects/Align/Adjacent"
 msgstr ""
 
-#: app/menus.c:215
+#: app/menus.c:216
 msgid "/Objects/Align/Stacked"
 msgstr ""
 
-#: app/menus.c:217
+#: app/menus.c:218
 msgid "/Objects/_Properties..."
 msgstr ""
 
-#: app/menus.c:219
+#: app/menus.c:220
 #, fuzzy
 msgid "/_Select"
 msgstr "/Hitamo..."
 
-#: app/menus.c:221
+#: app/menus.c:222
 msgid "/Select/All"
 msgstr ""
 
-#: app/menus.c:222
+#: app/menus.c:223
 msgid "/Select/None"
 msgstr ""
 
-#: app/menus.c:223
+#: app/menus.c:224
 msgid "/Select/Invert"
 msgstr ""
 
-#: app/menus.c:224 app/menus.c:228
+#: app/menus.c:225 app/menus.c:229
 #, fuzzy
 msgid "/Select/---"
 msgstr "/Hitamo..."
 
-#: app/menus.c:225
+#: app/menus.c:226
 msgid "/Select/Transitive"
 msgstr ""
 
-#: app/menus.c:226
+#: app/menus.c:227
 msgid "/Select/Connected"
 msgstr ""
 
-#: app/menus.c:227
+#: app/menus.c:228
 msgid "/Select/Same Type"
 msgstr ""
 
-#: app/menus.c:229
+#: app/menus.c:230
 msgid "/Select/Replace"
 msgstr ""
 
-#: app/menus.c:231
+#: app/menus.c:232
 msgid "/Select/Union"
 msgstr ""
 
-#: app/menus.c:233
+#: app/menus.c:234
 msgid "/Select/Intersection"
 msgstr ""
 
-#: app/menus.c:235
+#: app/menus.c:236
 msgid "/Select/Remove"
 msgstr ""
 
 #. Cannot also be called Invert, duplicate names caused keybinding problems
-#: app/menus.c:238
+#: app/menus.c:239
 msgid "/Select/Inverse"
 msgstr ""
 
-#: app/menus.c:240
+#: app/menus.c:241
 msgid "/_Tools"
 msgstr ""
 
-#: app/menus.c:242
+#: app/menus.c:243
 msgid "/Tools/Modify"
 msgstr ""
 
-#: app/menus.c:243
+#: app/menus.c:244
 msgid "/Tools/Magnify"
 msgstr ""
 
-#: app/menus.c:244
+#: app/menus.c:245
 msgid "/Tools/Scroll"
 msgstr ""
 
-#: app/menus.c:245
+#: app/menus.c:246
 msgid "/Tools/Text"
 msgstr ""
 
-#: app/menus.c:246
+#: app/menus.c:247
 msgid "/Tools/Box"
 msgstr ""
 
-#: app/menus.c:247
+#: app/menus.c:248
 msgid "/Tools/Ellipse"
 msgstr ""
 
-#: app/menus.c:248
+#: app/menus.c:249
 msgid "/Tools/Polygon"
 msgstr ""
 
-#: app/menus.c:249
+#: app/menus.c:250
 msgid "/Tools/Beziergon"
 msgstr ""
 
-#: app/menus.c:250 app/menus.c:256
+#: app/menus.c:251 app/menus.c:257
 msgid "/Tools/---"
 msgstr ""
 
-#: app/menus.c:251
+#: app/menus.c:252
 msgid "/Tools/Line"
 msgstr ""
 
-#: app/menus.c:252
+#: app/menus.c:253
 msgid "/Tools/Arc"
 msgstr ""
 
-#: app/menus.c:253
+#: app/menus.c:254
 msgid "/Tools/Zigzagline"
 msgstr ""
 
-#: app/menus.c:254
+#: app/menus.c:255
 msgid "/Tools/Polyline"
 msgstr ""
 
-#: app/menus.c:255
+#: app/menus.c:256
 msgid "/Tools/Bezierline"
 msgstr ""
 
-#: app/menus.c:257
+#: app/menus.c:258
 msgid "/Tools/Image"
 msgstr ""
 
-#: app/menus.c:258
+#: app/menus.c:259
 msgid "/_Input Methods"
 msgstr ""
 
-#: app/menus.c:430
+#: app/menus.c:431
 #, fuzzy
 msgid "NULL tooldata in tool_menu_select"
 msgstr "in"
@@ -1776,12 +1728,12 @@ msgid ""
 "This is probably a i18n problem (try LANG=C)."
 msgstr "Gushaka Ibikubiyemo Icyinjijwe ni a C"
 
-#: app/modify_tool.c:340
+#: app/modify_tool.c:342
 #, fuzzy
 msgid "Couldn't get GTK settings"
 msgstr "Kubona Amagenamiterere"
 
-#: app/paginate_psprint.c:257
+#: app/paginate_psprint.c:258
 msgid "Select Printer"
 msgstr ""
 
@@ -1789,36 +1741,36 @@ msgstr ""
 # padmin/source\rtsetup.src:RID_RTS_COMMANDPAGE.RID_RTS_CMD_STR_CONFIGURE_PRINTER.text
 # #-#-#-#-#  padmin.pot (PACKAGE VERSION)  #-#-#-#-#
 # padmin/source\rtsetup.src:RID_RTS_COMMANDPAGE.RID_RTS_CMD_FL_DEFAULT.text
-#: app/paginate_psprint.c:269 sheets/ciscocomputer.sheet.in.h:36
+#: app/paginate_psprint.c:270 sheets/ciscocomputer.sheet.in.h:36
 msgid "Printer"
 msgstr "Mucapyi"
 
 # sc/source\ui\src\scfuncs.src:RID_SC_FUNCTION_DESCRIPTIONS2.SC_OPCODE_DDE.4.text
-#: app/paginate_psprint.c:283 sheets/Misc.sheet.in.h:1
+#: app/paginate_psprint.c:284 sheets/Misc.sheet.in.h:1
 msgid "File"
 msgstr "Idosiye"
 
 # crashrep/source\all\crashrep.lng:%OK_BUTTON%.text
-#: app/paginate_psprint.c:298
+#: app/paginate_psprint.c:299
 msgid "OK"
 msgstr "YEGO"
 
-#: app/paginate_psprint.c:393
+#: app/paginate_psprint.c:394
 #, fuzzy, c-format
 msgid "Could not run command '%s': %s"
 msgstr "OYA Gukoresha Komandi:"
 
-#: app/paginate_psprint.c:396
+#: app/paginate_psprint.c:397
 #, fuzzy, c-format
 msgid "Could not open '%s' for writing: %s"
 msgstr "OYA Gufungura kugirango"
 
-#: app/paginate_psprint.c:413
+#: app/paginate_psprint.c:414
 #, fuzzy, c-format
 msgid "Printing error: command '%s' returned %d\n"
 msgstr "Ikosa Komandi:"
 
-#: app/paginate_psprint.c:424
+#: app/paginate_psprint.c:425
 #, fuzzy, c-format
 msgid "Printing error: command '%s' caused sigpipe."
 msgstr "Ikosa Komandi:"
@@ -1860,172 +1812,172 @@ msgstr "ku"
 msgid "File Name"
 msgstr "Izina ry'idosiye"
 
-#: app/preferences.c:102
+#: app/preferences.c:106
 msgid "User Interface"
 msgstr "Ahagenewe Ukoresha"
 
-#: app/preferences.c:103
+#: app/preferences.c:107
 msgid "Diagram Defaults"
 msgstr ""
 
-#: app/preferences.c:104
+#: app/preferences.c:108
 msgid "View Defaults"
 msgstr ""
 
-#: app/preferences.c:106
+#: app/preferences.c:110
 msgid "Diagram Tree"
 msgstr ""
 
-#: app/preferences.c:120
+#: app/preferences.c:124
 #, fuzzy
 msgid "Reset tools after create"
 msgstr "Ibikoresho Nyuma Kurema"
 
-#: app/preferences.c:121
+#: app/preferences.c:125
 #, fuzzy
 msgid "Compress saved files"
 msgstr "Idosiye"
 
-#: app/preferences.c:122
+#: app/preferences.c:126
 #, fuzzy
 msgid "Number of undo levels:"
 msgstr "Bya Isubiranyuma Intera"
 
-#: app/preferences.c:123
+#: app/preferences.c:127
 #, fuzzy
 msgid ""
 "Reverse dragging selects\n"
 "intersecting objects"
 msgstr "Ibintu"
 
-#: app/preferences.c:124
+#: app/preferences.c:128
 #, fuzzy
 msgid "Recent documents list size:"
 msgstr "Inyandiko Urutonde Ingano"
 
-#: app/preferences.c:125
+#: app/preferences.c:129
 #, fuzzy
 msgid "Use menu bar"
 msgstr "Ibikubiyemo"
 
-#: app/preferences.c:127
+#: app/preferences.c:131
 #, fuzzy
 msgid "Keep tool box on top of diagram windows"
 msgstr "Agasanduku ku Hejuru: Bya"
 
-#: app/preferences.c:129
+#: app/preferences.c:134
 msgid "New diagram:"
 msgstr ""
 
 # svx/source\items\svxitems.src:RID_SVXITEMS_PAGE_LAND_FALSE.text
-#: app/preferences.c:130
+#: app/preferences.c:135
 msgid "Portrait"
 msgstr "Urupapuro-mpagarike"
 
-#: app/preferences.c:132
+#: app/preferences.c:137
 #, fuzzy
 msgid "Paper type:"
 msgstr "Ubwoko"
 
-#: app/preferences.c:135
+#: app/preferences.c:140
 msgid "Background Color:"
 msgstr "Ishusho mbuganyuma:"
 
 # sfx2/sdi\sfxslots.src:SID_NEWWINDOW.text
-#: app/preferences.c:138
+#: app/preferences.c:143
 #, fuzzy
 msgid "New window:"
 msgstr "Irindi Dirishya"
 
 # sc/source\ui\src\globstr.src:RID_GLOBSTR.STR_TIP_WIDTH.text
-#: app/preferences.c:139
+#: app/preferences.c:144
 msgid "Width:"
 msgstr "Ubugari:"
 
 # sc/source\ui\src\globstr.src:RID_GLOBSTR.STR_TIP_HEIGHT.text
-#: app/preferences.c:140
+#: app/preferences.c:145
 msgid "Height:"
 msgstr "Ubuhagarike:"
 
-#: app/preferences.c:141
+#: app/preferences.c:146
 #, fuzzy
 msgid "Magnify:"
 msgstr "Gutubura"
 
-#: app/preferences.c:144
+#: app/preferences.c:149
 msgid "Connection Points:"
 msgstr ""
 
 # 6488
 #. { NULL, PREF_NONE, 0, NULL, 3, N_("Grid:") },
-#: app/preferences.c:145 app/preferences.c:149 app/preferences.c:155
+#: app/preferences.c:150 app/preferences.c:154 app/preferences.c:160
 msgid "Visible"
 msgstr "kigaragara"
 
 # officecfg/registry\schema\org\openoffice\Office\Calc.xcs:....Layout.Line.PageBreak.text
-#: app/preferences.c:148
+#: app/preferences.c:153
 #, fuzzy
 msgid "Page breaks:"
 msgstr "Amatandukanya paji"
 
-#: app/preferences.c:150 app/preferences.c:160
+#: app/preferences.c:155 app/preferences.c:165
 msgid "Color:"
 msgstr "Ibara:"
 
-#: app/preferences.c:151
+#: app/preferences.c:156
 #, fuzzy
 msgid "Solid lines"
 msgstr "Imirongo"
 
 # 5745
-#: app/preferences.c:156
+#: app/preferences.c:161
 msgid "Snap to"
 msgstr "ca uhereye ku"
 
-#: app/preferences.c:157
+#: app/preferences.c:162
 #, fuzzy
 msgid "Dynamic grid resizing"
 msgstr "Urusobetudirishya"
 
-#: app/preferences.c:158
+#: app/preferences.c:163
 msgid "X Size:"
 msgstr ""
 
-#: app/preferences.c:159
+#: app/preferences.c:164
 msgid "Y Size:"
 msgstr ""
 
-#: app/preferences.c:161
+#: app/preferences.c:166
 #, fuzzy
 msgid "Lines per major line"
 msgstr "Umurongo"
 
-#: app/preferences.c:163
+#: app/preferences.c:168
 msgid "Hex Size:"
 msgstr ""
 
-#: app/preferences.c:179
+#: app/preferences.c:184
 #, fuzzy
 msgid "Diagram tree window:"
 msgstr "Idirishya"
 
-#: app/preferences.c:181
+#: app/preferences.c:186
 #, fuzzy
 msgid "Save hidden object types"
 msgstr "Kubika gihishwe Igikoresho"
 
-#: app/preferences.c:386 lib/prop_inttypes.c:158
+#: app/preferences.c:394 lib/prop_inttypes.c:158
 msgid "Yes"
 msgstr "Yego"
 
-#: app/preferences.c:386 app/preferences.c:397 lib/prop_inttypes.c:160
+#: app/preferences.c:394 app/preferences.c:405 lib/prop_inttypes.c:160
 #: lib/prop_inttypes.c:186
 msgid "No"
 msgstr "Oya"
 
 # extracted from content/PrefsWindow.xul
 # LOCALIZATION NOTE : FILE UI for the outer parts of the Prefs dialog
-#: app/preferences.c:499
+#: app/preferences.c:507
 msgid "Preferences"
 msgstr "Ibyahisemo"
 
@@ -2061,30 +2013,25 @@ msgstr "Ibiranga Ibikoresho..."
 msgid "<Toolbox>/File/Plugins..."
 msgstr "<Idosiye"
 
-#: app/recent_files.c:70 app/recent_files.c:143
+#: app/recent_files.c:139
 #, fuzzy
 msgid "<Toolbox>/File/Quit"
 msgstr "<Idosiye"
 
-#: app/render_eps.c:145
+#: app/render_eps.c:148
 #, fuzzy
 msgid "Encapsulated Postscript (using Pango fonts)"
 msgstr "ikoresha Imyandikire"
 
-#: app/render_eps.c:154
+#: app/render_eps.c:157
 #, fuzzy
 msgid "Encapsulated Postscript with preview (using Pango fonts)"
 msgstr "Na: Igaragazambere ikoresha Imyandikire"
 
-#: app/render_eps.c:164
+#: app/render_eps.c:167
 #, fuzzy
 msgid "Encapsulated Postscript (using PostScript Latin-1 fonts)"
 msgstr "ikoresha 1. Imyandikire"
-
-#: app/render_libart.c:318 lib/dialibartrenderer.c:288
-#, fuzzy
-msgid "gdk_renderer: Unsupported fill mode specified!\n"
-msgstr "Kuzuza Ubwoko"
 
 #: app/sheets.c:155
 #, fuzzy, c-format
@@ -2210,7 +2157,7 @@ msgid "Sheet name:"
 msgstr "Izina ry'urupapuro"
 
 #: app/sheets_dialog.c:446 app/sheets_dialog_callbacks.c:289
-#: app/sheets_dialog_callbacks.c:1090
+#: app/sheets_dialog_callbacks.c:1092
 msgid "Line Break"
 msgstr "Isimbuka y'Umurongo"
 
@@ -2227,8 +2174,8 @@ msgid "Description:"
 msgstr "Umwirondoro"
 
 # sfx2/source\dialog\dinfdlg.src:TP_DOCINFODOC.FT_FILE_TYP.text
-#: app/sheets_dialog.c:618 objects/FS/flow-ortho.c:168 objects/FS/flow.c:146
-#: objects/Istar/link.c:165 objects/Jackson/phenomenon.c:144
+#: app/sheets_dialog.c:618 objects/FS/flow-ortho.c:169 objects/FS/flow.c:146
+#: objects/Istar/link.c:164 objects/Jackson/phenomenon.c:144
 #: objects/KAOS/metaandorrel.c:164 objects/KAOS/metabinrel.c:171
 #: objects/UML/class_dialog.c:912 objects/UML/class_dialog.c:1840
 #: objects/UML/class_dialog.c:2069 objects/UML/class_dialog.c:2585
@@ -2255,11 +2202,11 @@ msgstr "Urupapuro"
 
 # sc/source\ui\dbgui\pvfundlg.src:RID_SCDLG_PIVOTSUBT.FT_NAMELABEL.text
 #: app/sheets_dialog.c:672 objects/ER/attribute.c:153 objects/ER/entity.c:135
-#: objects/ER/relationship.c:140 objects/UML/association.c:237
-#: objects/UML/association.c:1165 objects/UML/class_dialog.c:901
+#: objects/ER/relationship.c:140 objects/UML/association.c:238
+#: objects/UML/association.c:1166 objects/UML/class_dialog.c:901
 #: objects/UML/class_dialog.c:1829 objects/UML/class_dialog.c:2058
-#: objects/UML/class_dialog.c:2574 objects/UML/dependency.c:133
-#: objects/UML/generalization.c:129 objects/UML/realizes.c:130
+#: objects/UML/class_dialog.c:2574 objects/UML/dependency.c:134
+#: objects/UML/generalization.c:130 objects/UML/realizes.c:131
 msgid "Name:"
 msgstr "Izina:"
 
@@ -2333,49 +2280,49 @@ msgstr "Impera Na:"
 msgid "Error examining %s: %s"
 msgstr ""
 
-#: app/sheets_dialog_callbacks.c:828
+#: app/sheets_dialog_callbacks.c:829
 #, fuzzy, c-format
 msgid "Could not interpret shape file: '%s'"
 msgstr "OYA Imisusire IDOSIYE"
 
-#: app/sheets_dialog_callbacks.c:897
+#: app/sheets_dialog_callbacks.c:899
 #, fuzzy
 msgid "Sheet must have a Name"
 msgstr "a"
 
-#: app/sheets_dialog_callbacks.c:1594 app/sheets_dialog_callbacks.c:1600
+#: app/sheets_dialog_callbacks.c:1596 app/sheets_dialog_callbacks.c:1603
 #, fuzzy, c-format
 msgid "Couldn't open '%s': %s"
 msgstr "Gufungura"
 
-#: app/sheets_dialog_callbacks.c:1651
+#: app/sheets_dialog_callbacks.c:1655
 #, fuzzy, c-format
 msgid "Couldn't open: '%s' for writing"
 msgstr "Gufungura kugirango"
 
-#: app/sheets_dialog_callbacks.c:1660
+#: app/sheets_dialog_callbacks.c:1665
 #, fuzzy
 msgid "a user"
 msgstr "a Ukoresha:"
 
 # sc/source\ui\src\globstr.src:RID_GLOBSTR.STR_HFCMD_FILE.text
-#: app/sheets_dialog_callbacks.c:1673
+#: app/sheets_dialog_callbacks.c:1678
 #, fuzzy, c-format
 msgid "File: %s"
 msgstr "IDOSIYE"
 
-#: app/sheets_dialog_callbacks.c:1676
+#: app/sheets_dialog_callbacks.c:1681
 #, fuzzy, c-format
 msgid "Date: %s"
 msgstr "Itariki"
 
 # svx/source\dialog\backgrnd.src:RID_SVXPAGE_BACKGROUND.FT_TBL_DESC.text
-#: app/sheets_dialog_callbacks.c:1680
+#: app/sheets_dialog_callbacks.c:1685
 #, fuzzy, c-format
 msgid "For: %s"
 msgstr "kugirango"
 
-#: app/sheets_dialog_callbacks.c:1697
+#: app/sheets_dialog_callbacks.c:1702
 #, fuzzy
 msgid "add shapes here"
 msgstr "Kongeramo Imisusire- shusho"
@@ -2399,7 +2346,7 @@ msgid "Edit your Diagrams"
 msgstr ""
 
 # goodies/source\filter.vcl\eps\dlgeps.src:DLG_EXPORT_EPS.RB_COMPRESSION_NONE.text
-#: lib/arrows.c:40 objects/Jackson/domain.c:96 objects/UML/association.c:1188
+#: lib/arrows.c:40 objects/Jackson/domain.c:96 objects/UML/association.c:1189
 msgid "None"
 msgstr "Nta na kimwe"
 
@@ -2567,28 +2514,28 @@ msgid ""
 "assuming it is encoded in %s"
 msgstr "IDOSIYE Oya Imisobekere: ni in"
 
-#: lib/dia_xml.c:470
+#: lib/dia_xml.c:471
 #, fuzzy
 msgid "Taking point value of non-point node."
 msgstr "Akadomo Agaciro Bya Akadomo"
 
-#: lib/dia_xml.c:481
+#: lib/dia_xml.c:482
 #, fuzzy, c-format
 msgid "Incorrect x Point value \"%s\" %f; discarding it."
 msgstr "X Agaciro"
 
-#: lib/dia_xml.c:488
+#: lib/dia_xml.c:489
 #, fuzzy
 msgid "Error parsing point."
 msgstr "Akadomo"
 
 #. don't bother with useless warnings (see above)
-#: lib/dia_xml.c:496
+#: lib/dia_xml.c:497
 #, fuzzy, c-format
 msgid "Incorrect y Point value \"%s\" %f; discarding it."
 msgstr "Y Agaciro"
 
-#: lib/dia_xml.c:871
+#: lib/dia_xml.c:872
 #, fuzzy
 msgid ""
 "Your local character set is UTF-8. Because of issues with libxml1 and the "
@@ -2661,6 +2608,11 @@ msgstr "Igaragazambere:"
 msgid "Font Selection"
 msgstr ""
 
+#: lib/dialibartrenderer.c:288
+#, fuzzy
+msgid "gdk_renderer: Unsupported fill mode specified!\n"
+msgstr "Kuzuza Ubwoko"
+
 #: lib/dialinechooser.c:297
 msgid "Line Style Properties"
 msgstr ""
@@ -2670,7 +2622,7 @@ msgstr ""
 msgid "Multiple export filters with unique name %s"
 msgstr "Kohereza Muyunguruzi Na: Cyo nyine Izina:"
 
-#: lib/font.c:89
+#: lib/font.c:95
 #, fuzzy, c-format
 msgid "Can't load font %s.\n"
 msgstr "Ibirimo Intego- nyuguti"
@@ -2758,55 +2710,56 @@ msgid "Group with %d objects"
 msgstr "Na: Ibintu"
 
 # sc/source\ui\src\optdlg.src:RID_SCPAGE_LAYOUT.LB_ALIGN.4.text
-#: lib/properties.c:62 lib/properties.h:469 lib/widgets.c:638
+#: lib/properties.c:64 lib/properties.h:469 lib/widgets.c:638
 msgid "Left"
 msgstr "Ibumoso"
 
 # officecfg/registry\schema\org\openoffice\Office\Writer.xcs:....AlignmentType.Position..6.text
-#: lib/properties.c:63 lib/properties.h:470 lib/widgets.c:644
+#: lib/properties.c:65 lib/properties.h:470 lib/widgets.c:644
+#: objects/standard/textobj.c:133
 msgid "Center"
 msgstr "Hagati"
 
 # sc/source\ui\src\optdlg.src:RID_SCPAGE_LAYOUT.LB_ALIGN.2.text
-#: lib/properties.c:64 lib/properties.h:471 lib/widgets.c:650
+#: lib/properties.c:66 lib/properties.h:471 lib/widgets.c:650
 msgid "Right"
 msgstr "Iburyo"
 
-#: lib/properties.c:71 objects/chronogram/chronoline.c:179
-#: objects/chronogram/chronoref.c:158
+#: lib/properties.c:73 lib/properties.h:487 lib/properties.h:490
+#: objects/chronogram/chronoline.c:179 objects/chronogram/chronoref.c:158
 msgid "Line color"
 msgstr "Ibara ry'umurongo"
 
-#: lib/properties.c:72 lib/properties.h:493 lib/properties.h:496
+#: lib/properties.c:74 lib/properties.h:493 lib/properties.h:496
 msgid "Line style"
 msgstr "Imisusire y'Umurongo"
 
-#: lib/properties.c:73
+#: lib/properties.c:75 lib/properties.h:500 lib/properties.h:503
 msgid "Fill color"
 msgstr "Ibara ryo kuzuza"
 
-#: lib/properties.c:74 lib/properties.h:506 lib/properties.h:509
+#: lib/properties.c:76 lib/properties.h:506 lib/properties.h:509
 #, fuzzy
 msgid "Draw background"
 msgstr "Mbuganyuma"
 
-#: lib/properties.c:75 lib/properties.h:513
+#: lib/properties.c:77 lib/properties.h:513
 #, fuzzy
 msgid "Start arrow"
 msgstr "Gutangira Akambi"
 
-#: lib/properties.c:76 lib/properties.h:516
+#: lib/properties.c:78 lib/properties.h:516
 #, fuzzy
 msgid "End arrow"
 msgstr "Impera Akambi"
 
 # svx/source\dialog\align.src:RID_SVXPAGE_ALIGNMENT.FL_ALIGNMENT.text
-#: lib/properties.c:78 lib/properties.h:526
+#: lib/properties.c:80 lib/properties.h:526
 msgid "Text alignment"
 msgstr "Itondeka ry'umwandiko"
 
 #. all this just to make the defaults selectable ...
-#: lib/properties.c:79 lib/properties.h:531 objects/GRAFCET/condition.c:132
+#: lib/properties.c:81 lib/properties.h:531 objects/GRAFCET/condition.c:132
 #: objects/GRAFCET/step.c:165 objects/GRAFCET/transition.c:142
 #: objects/UML/class.c:143 objects/UML/class_dialog.c:351
 #: objects/chronogram/chronoline.c:183 objects/chronogram/chronoref.c:164
@@ -2817,29 +2770,17 @@ msgstr "Intego-nyuguti"
 # svx/source\items\svxitems.src:RID_ATTR_CHAR_FONTHEIGHT.text
 # #-#-#-#-#  svx.pot (PACKAGE VERSION)  #-#-#-#-#
 # svx/source\svdraw\svdstr.src:SIP_EE_CHAR_FONTHEIGHT.text
-#: lib/properties.c:80 lib/properties.h:537 objects/GRAFCET/condition.c:134
+#: lib/properties.c:82 lib/properties.h:537 objects/GRAFCET/condition.c:134
 #: objects/GRAFCET/step.c:167 objects/GRAFCET/transition.c:144
 #: objects/chronogram/chronoline.c:185 objects/chronogram/chronoref.c:166
 msgid "Font size"
 msgstr "Ingano y'imyandikire"
 
 # 6204
-#: lib/properties.c:81 objects/GRAFCET/step.c:169
+#: lib/properties.c:83 lib/properties.h:543 objects/GRAFCET/step.c:169
 #: objects/chronogram/chronoline.c:187 objects/chronogram/chronoref.c:168
 msgid "Text color"
 msgstr "ibara ry'amagambo"
-
-#: lib/properties.h:487 lib/properties.h:490
-msgid "Line colour"
-msgstr ""
-
-#: lib/properties.h:500 lib/properties.h:503
-msgid "Fill colour"
-msgstr ""
-
-#: lib/properties.h:543
-msgid "Text colour"
-msgstr ""
 
 #: lib/proplist.c:163
 #, fuzzy, c-format
@@ -2890,33 +2831,33 @@ msgstr "Uburebure"
 msgid "Select color"
 msgstr "Ibara"
 
-#: lib/widgets.c:1026
+#: lib/widgets.c:1025
 #, fuzzy
 msgid "More colors..."
 msgstr "Amabara"
 
-#: lib/widgets.c:1150
+#: lib/widgets.c:1149
 #, fuzzy
 msgid "More arrows"
 msgstr "Utwambi"
 
 # sfx2/source\dialog\dinfdlg.src:TP_DOCINFODOC.FT_FILE_SIZE.text
-#: lib/widgets.c:1163
+#: lib/widgets.c:1162
 #, fuzzy
 msgid "Size: "
 msgstr "Ingano"
 
-#: lib/widgets.c:1308
+#: lib/widgets.c:1307
 #, fuzzy
 msgid "Select image file"
 msgstr "Hitamo Idosiye y'Ishusho"
 
 # toolkit/source\awt\accessiblestrings.src:RID_STR_ACC_NAME_BROWSEBUTTON.text
-#: lib/widgets.c:1344
+#: lib/widgets.c:1343
 msgid "Browse"
 msgstr "Gushakisha"
 
-#: lib/widgets.c:1958
+#: lib/widgets.c:1957
 #, fuzzy
 msgid "Reset menu"
 msgstr "Ibikubiyemo"
@@ -2965,26 +2906,26 @@ msgstr "Ibintu"
 # sc/source\ui\src\autofmt.src:RID_SCDLG_AUTOFORMAT.STR_SUM.text
 # #-#-#-#-#  sc.pot (PACKAGE VERSION)  #-#-#-#-#
 # sc/source\ui\src\globstr.src:RID_GLOBSTR.STR_PIVOT_TOTAL.text
-#: objects/ER/participation.c:115
+#: objects/ER/participation.c:116
 #, fuzzy
 msgid "Total:"
 msgstr "Igiteranyo"
 
-#: objects/ER/participation.c:405 objects/FS/flow-ortho.c:644
-#: objects/GRAFCET/vector.c:311 objects/SADT/arrow.c:457
-#: objects/UML/association.c:774 objects/UML/component_feature.c:183
-#: objects/UML/dependency.c:372 objects/UML/generalization.c:368
-#: objects/UML/realizes.c:359 objects/UML/transition.c:156
-#: objects/standard/zigzagline.c:347
+#: objects/ER/participation.c:406 objects/FS/flow-ortho.c:645
+#: objects/GRAFCET/vector.c:312 objects/SADT/arrow.c:457
+#: objects/UML/association.c:775 objects/UML/component_feature.c:184
+#: objects/UML/dependency.c:373 objects/UML/generalization.c:369
+#: objects/UML/realizes.c:360 objects/UML/transition.c:161
+#: objects/standard/zigzagline.c:348
 msgid "Add segment"
 msgstr ""
 
-#: objects/ER/participation.c:406 objects/FS/flow-ortho.c:645
-#: objects/GRAFCET/vector.c:312 objects/SADT/arrow.c:458
-#: objects/UML/association.c:775 objects/UML/component_feature.c:184
-#: objects/UML/dependency.c:373 objects/UML/generalization.c:369
-#: objects/UML/realizes.c:360 objects/UML/transition.c:157
-#: objects/standard/zigzagline.c:348
+#: objects/ER/participation.c:407 objects/FS/flow-ortho.c:646
+#: objects/GRAFCET/vector.c:313 objects/SADT/arrow.c:458
+#: objects/UML/association.c:776 objects/UML/component_feature.c:185
+#: objects/UML/dependency.c:374 objects/UML/generalization.c:370
+#: objects/UML/realizes.c:361 objects/UML/transition.c:162
+#: objects/standard/zigzagline.c:349
 msgid "Delete segment"
 msgstr ""
 
@@ -3011,19 +2952,19 @@ msgid "Relationship"
 msgstr ""
 
 #. Translators: Menu item Noun/Energy
-#: objects/FS/flow-ortho.c:159 objects/FS/flow-ortho.c:641
+#: objects/FS/flow-ortho.c:160 objects/FS/flow-ortho.c:642
 #: objects/FS/flow.c:137 objects/FS/flow.c:576 objects/FS/function.c:1096
 msgid "Energy"
 msgstr ""
 
 #. Translators: Menu item Noun/Material
-#: objects/FS/flow-ortho.c:160 objects/FS/flow-ortho.c:642
+#: objects/FS/flow-ortho.c:161 objects/FS/flow-ortho.c:643
 #: objects/FS/flow.c:138 objects/FS/flow.c:577 objects/FS/function.c:1072
 msgid "Material"
 msgstr "Ibikoresho"
 
 #. Translators: Menu item Verb/Signal
-#: objects/FS/flow-ortho.c:161 objects/FS/flow-ortho.c:643
+#: objects/FS/flow-ortho.c:162 objects/FS/flow-ortho.c:644
 #: objects/FS/flow.c:139 objects/FS/flow.c:578 objects/FS/function.c:1034
 #: objects/FS/function.c:1036 objects/FS/function.c:1172
 #: objects/FS/function.c:1174
@@ -4259,7 +4200,7 @@ msgstr "Akadomo"
 msgid "South point"
 msgstr "Akadomo"
 
-#: objects/GRAFCET/vector.c:128
+#: objects/GRAFCET/vector.c:129
 #, fuzzy
 msgid "Draw arrow heads on upward arcs:"
 msgstr "Akambi ku Uduheto"
@@ -4293,7 +4234,7 @@ msgstr "Ukwihuza Akadomo"
 msgid "GRAFCET OR/AND vergent"
 msgstr ""
 
-#: objects/Istar/actor.c:68 objects/Istar/link.c:153
+#: objects/Istar/actor.c:68 objects/Istar/link.c:152
 msgid "Unspecified"
 msgstr ""
 
@@ -4316,7 +4257,7 @@ msgstr ""
 msgid "Goal"
 msgstr ""
 
-#: objects/Istar/goal.c:155 objects/Istar/goal.c:156 objects/KAOS/goal.c:157
+#: objects/Istar/goal.c:154 objects/Istar/goal.c:155 objects/KAOS/goal.c:157
 #: objects/KAOS/goal.c:158
 msgid "Goal Type"
 msgstr ""
@@ -4325,23 +4266,23 @@ msgstr ""
 msgid "Istar diagram"
 msgstr ""
 
-#: objects/Istar/link.c:154
+#: objects/Istar/link.c:153
 msgid "Positive Contrib"
 msgstr ""
 
-#: objects/Istar/link.c:155
+#: objects/Istar/link.c:154
 msgid "Negative contrib"
 msgstr ""
 
-#: objects/Istar/link.c:156 sheets/UML.sheet.in.h:10
+#: objects/Istar/link.c:155 sheets/UML.sheet.in.h:10
 msgid "Dependency"
 msgstr ""
 
-#: objects/Istar/link.c:157
+#: objects/Istar/link.c:156
 msgid "Decomposition"
 msgstr ""
 
-#: objects/Istar/link.c:158
+#: objects/Istar/link.c:157
 msgid "Means-Ends"
 msgstr ""
 
@@ -4622,80 +4563,80 @@ msgstr "Umukinnyi"
 # sc/source\ui\src\miscdlgs.src:RID_SCDLG_FILLSERIES.FL_DIRECTION.text
 # #-#-#-#-#  sc.pot (PACKAGE VERSION)  #-#-#-#-#
 # sc/source\ui\src\sortdlg.src:RID_SCPAGE_SORT_OPTIONS.FL_DIRECTION.text
-#: objects/UML/association.c:1178 objects/UML/class_dialog.c:2102
+#: objects/UML/association.c:1179 objects/UML/class_dialog.c:2102
 #, fuzzy
 msgid "Direction:"
 msgstr "Icyerekezo"
 
-#: objects/UML/association.c:1195
+#: objects/UML/association.c:1196
 #, fuzzy
 msgid "From A to B"
 msgstr "A Kuri"
 
-#: objects/UML/association.c:1202
+#: objects/UML/association.c:1203
 #, fuzzy
 msgid "From B to A"
 msgstr "Kuri A"
 
-#: objects/UML/association.c:1226 objects/UML/association.c:1234
+#: objects/UML/association.c:1227 objects/UML/association.c:1235
 #, fuzzy
 msgid "Side A"
 msgstr "A"
 
-#: objects/UML/association.c:1228 objects/UML/association.c:1236
+#: objects/UML/association.c:1229 objects/UML/association.c:1237
 msgid "Side B"
 msgstr ""
 
 # VCARD_LDAP_ROLE
 # # @name VCARD_LDAP_ROLE
 # # @loc None
-#: objects/UML/association.c:1242
+#: objects/UML/association.c:1243
 #, fuzzy
 msgid "Role:"
 msgstr "Inshingano"
 
-#: objects/UML/association.c:1254
+#: objects/UML/association.c:1255
 msgid "Multiplicity:"
 msgstr ""
 
 # sfx2/source\toolbox\tbxopdlg.src:TP_CONFIG_OBJECTBAR.FT_CONTEXT.text
-#: objects/UML/association.c:1265 objects/UML/class_dialog.c:946
+#: objects/UML/association.c:1266 objects/UML/class_dialog.c:946
 #: objects/UML/class_dialog.c:1864
 #, fuzzy
 msgid "Visibility:"
 msgstr "Ukugaragara"
 
 # 4900
-#: objects/UML/association.c:1274 objects/UML/class_dialog.c:955
+#: objects/UML/association.c:1275 objects/UML/class_dialog.c:955
 #: objects/UML/class_dialog.c:1873 objects/UML/uml.c:101
 msgid "Public"
 msgstr "Rusange"
 
 # sw/source\ui\envelp\label.src:DLG_LAB.1.TP_PRIVATE_DATA.text
-#: objects/UML/association.c:1284 objects/UML/class_dialog.c:963
+#: objects/UML/association.c:1285 objects/UML/class_dialog.c:963
 #: objects/UML/class_dialog.c:1881 objects/UML/uml.c:102
 msgid "Private"
 msgstr "By'umwihariko"
 
 # 4890
-#: objects/UML/association.c:1294 objects/UML/class_dialog.c:971
+#: objects/UML/association.c:1295 objects/UML/class_dialog.c:971
 #: objects/UML/class_dialog.c:1889 objects/UML/uml.c:103
 msgid "Protected"
 msgstr "Rwugawe"
 
-#: objects/UML/association.c:1304 objects/UML/class_dialog.c:979
-#: objects/UML/class_dialog.c:1897
+#: objects/UML/association.c:1305 objects/UML/class_dialog.c:979
+#: objects/UML/class_dialog.c:1897 objects/UML/uml.c:104
 msgid "Implementation"
 msgstr ""
 
 #. Show arrow:
-#: objects/UML/association.c:1323
+#: objects/UML/association.c:1324
 #, fuzzy
 msgid "Show arrow"
 msgstr "Akambi"
 
 #. Aggregate
-#: objects/UML/association.c:1329
+#: objects/UML/association.c:1330
 msgid "Aggregate"
 msgstr ""
 
@@ -4736,11 +4677,11 @@ msgstr ""
 #
 # ***** END LICENSE BLOCK *****
 #. Composition
-#: objects/UML/association.c:1337
+#: objects/UML/association.c:1338
 msgid "Composition"
 msgstr "ibirindiro"
 
-#: objects/UML/class.c:115 objects/UML/class.c:281 objects/UML/class.c:1271
+#: objects/UML/class.c:115 objects/UML/class.c:280 objects/UML/class.c:1271
 #: sheets/UML.sheet.in.h:6
 msgid "Class"
 msgstr "ishuri,urwego"
@@ -4861,8 +4802,8 @@ msgid "Class name:"
 msgstr "Izina:"
 
 #: objects/UML/class_dialog.c:281 objects/UML/class_dialog.c:1851
-#: objects/UML/dependency.c:135 objects/UML/generalization.c:131
-#: objects/UML/realizes.c:132
+#: objects/UML/dependency.c:136 objects/UML/generalization.c:132
+#: objects/UML/realizes.c:133
 msgid "Stereotype:"
 msgstr ""
 
@@ -5087,19 +5028,19 @@ msgstr ""
 msgid "Is object"
 msgstr "Igikoresho"
 
-#: objects/UML/component_feature.c:144 sheets/UML.sheet.in.h:14
+#: objects/UML/component_feature.c:145 sheets/UML.sheet.in.h:14
 msgid "Facet"
 msgstr ""
 
-#: objects/UML/component_feature.c:145 sheets/UML.sheet.in.h:26
+#: objects/UML/component_feature.c:146 sheets/UML.sheet.in.h:26
 msgid "Receptacle"
 msgstr ""
 
-#: objects/UML/component_feature.c:146 sheets/UML.sheet.in.h:13
+#: objects/UML/component_feature.c:147 sheets/UML.sheet.in.h:13
 msgid "Event Source"
 msgstr ""
 
-#: objects/UML/component_feature.c:147 sheets/UML.sheet.in.h:12
+#: objects/UML/component_feature.c:148 sheets/UML.sheet.in.h:12
 msgid "Event Sink"
 msgstr ""
 
@@ -5108,7 +5049,7 @@ msgstr ""
 msgid "Constraint:"
 msgstr "Imbogamizi"
 
-#: objects/UML/dependency.c:137
+#: objects/UML/dependency.c:138
 #, fuzzy
 msgid "Show arrow:"
 msgstr "Akambi"
@@ -5211,30 +5152,30 @@ msgstr "i Igikoresho kugirango Ihitamo Gyayo in Uburyo Gukoresha i Igikoresho"
 msgid "Is final"
 msgstr ""
 
-#: objects/UML/transition.c:129
+#: objects/UML/transition.c:132
 msgid "Trigger"
 msgstr "Imbarutso"
 
-#: objects/UML/transition.c:130
+#: objects/UML/transition.c:133
 #, fuzzy
 msgid "The event that causes this transition to be taken"
 msgstr "Icyabaye iyi Inyuranamo Kuri"
 
 # sc/source\ui\miscdlgs\acredlin.src:RID_POPUP_CHANGES.SC_SUB_SORT.SC_SORT_ACTION.text
-#: objects/UML/transition.c:131
+#: objects/UML/transition.c:134
 msgid "Action"
 msgstr "Igikorwa"
 
-#: objects/UML/transition.c:132
+#: objects/UML/transition.c:135
 #, fuzzy
 msgid "Action to perform when this transition is taken"
 msgstr "Kuri Ryari: iyi Inyuranamo ni"
 
-#: objects/UML/transition.c:133 sheets/cisconetwork.sheet.in.h:43
+#: objects/UML/transition.c:136 sheets/cisconetwork.sheet.in.h:43
 msgid "Guard"
 msgstr ""
 
-#: objects/UML/transition.c:134
+#: objects/UML/transition.c:137
 #, fuzzy
 msgid "Condition for taking this transition when the event is fired"
 msgstr "kugirango iyi Inyuranamo Ryari: i Icyabaye ni"
@@ -5243,11 +5184,6 @@ msgstr "kugirango iyi Inyuranamo Ryari: i Icyabaye ni"
 #, fuzzy
 msgid "Unified Modelling Language diagram objects"
 msgstr "Ibintu"
-
-#: objects/UML/uml.c:104
-#, fuzzy
-msgid "Implmentation"
-msgstr "Icyerekezo"
 
 #: objects/UML/umlattribute.c:41 objects/UML/umlparameter.c:47
 #, fuzzy
@@ -5424,7 +5360,7 @@ msgid "Flip vertical"
 msgstr "Guhindukiza ubuhagarike"
 
 # sw/source\ui\utlui\attrdesc.src:STR_HORI_MIRROR.text
-#: objects/custom/custom_object.c:1454
+#: objects/custom/custom_object.c:1432
 #, fuzzy
 msgid "Flip Horizontal"
 msgstr "Guhindukiza intambike"
@@ -5433,12 +5369,12 @@ msgstr "Guhindukiza intambike"
 # svx/source\svdraw\svdstr.src:STR_EditMirrorVert.text
 # #-#-#-#-#  svx.pot (PACKAGE VERSION)  #-#-#-#-#
 # svx/source\svdraw\svdstr.src:STR_DragMethMirrorVert.text
-#: objects/custom/custom_object.c:1455
+#: objects/custom/custom_object.c:1433
 #, fuzzy
 msgid "Flip Vertical"
 msgstr "Guhindukiza ubuhagarike"
 
-#: objects/custom/custom_object.c:1492
+#: objects/custom/custom_object.c:1470
 #, fuzzy, c-format
 msgid "Cannot open icon file %s for object type '%s'."
 msgstr "Gufungura Agashushondanga IDOSIYE kugirango Igikoresho Ubwoko"
@@ -5452,7 +5388,7 @@ msgstr "Gufungura Agashushondanga IDOSIYE kugirango Igikoresho Ubwoko"
 # #-#-#-#-#  svx.pot (PACKAGE VERSION)  #-#-#-#-#
 # svx/source\svdraw\svdstr.src:SIP_SA_ECKENRADIUS.text
 #: objects/flowchart/box.c:150 objects/standard/box.c:150
-#: objects/standard/polyline.c:134 objects/standard/zigzagline.c:129
+#: objects/standard/polyline.c:134 objects/standard/zigzagline.c:130
 msgid "Corner radius"
 msgstr "Akarambararo k'inguni"
 
@@ -5513,7 +5449,7 @@ msgstr ""
 msgid "Subscribers"
 msgstr ""
 
-#: objects/standard/arc.c:135
+#: objects/standard/arc.c:140
 #, fuzzy
 msgid "Curve distance"
 msgstr "Intera"
@@ -5535,25 +5471,25 @@ msgstr "Gutangira Umwanya"
 msgid "Absolute end gap"
 msgstr "Impera Umwanya"
 
-#: objects/standard/bezier.c:732 objects/standard/beziergon.c:488
+#: objects/standard/bezier.c:728 objects/standard/beziergon.c:482
 msgid "Add Segment"
 msgstr ""
 
-#: objects/standard/bezier.c:733 objects/standard/beziergon.c:489
+#: objects/standard/bezier.c:729 objects/standard/beziergon.c:483
 msgid "Delete Segment"
 msgstr ""
 
-#: objects/standard/bezier.c:735 objects/standard/beziergon.c:491
+#: objects/standard/bezier.c:731 objects/standard/beziergon.c:485
 #, fuzzy
 msgid "Symmetric control"
 msgstr "Igenzura"
 
-#: objects/standard/bezier.c:737 objects/standard/beziergon.c:493
+#: objects/standard/bezier.c:733 objects/standard/beziergon.c:487
 #, fuzzy
 msgid "Smooth control"
 msgstr "Igenzura"
 
-#: objects/standard/bezier.c:739 objects/standard/beziergon.c:495
+#: objects/standard/bezier.c:735 objects/standard/beziergon.c:489
 #, fuzzy
 msgid "Cusp control"
 msgstr "Igenzura"
@@ -5663,57 +5599,84 @@ msgstr ""
 msgid "Standard objects"
 msgstr "Ibintu"
 
-#: plug-ins/cairo/diacairo.c:1078
+#: objects/standard/textobj.c:131
+#, fuzzy
+msgid "Bottom"
+msgstr "Hasi:"
+
+#: objects/standard/textobj.c:132
+#, fuzzy
+msgid "Top"
+msgstr "Hejuru:"
+
+# #-#-#-#-#  officecfg.pot (PACKAGE VERSION)  #-#-#-#-#
+# officecfg/registry\schema\org\openoffice\Office\Calc.xcs:....Layout.Line.GridLine.text
+# #-#-#-#-#  officecfg.pot (PACKAGE VERSION)  #-#-#-#-#
+# officecfg/registry\schema\org\openoffice\Office\Impress.xcs:....Snap.Object.Grid.text
+# #-#-#-#-#  officecfg.pot (PACKAGE VERSION)  #-#-#-#-#
+# officecfg/registry\schema\org\openoffice\Office\Draw.xcs:....Snap.Object.Grid.text
+#: objects/standard/textobj.c:134
+#, fuzzy
+msgid "First Line"
+msgstr "Imirongo y'urusobe- tudirishya"
+
+# svx/source\dialog\align.src:RID_SVXPAGE_ALIGNMENT.FL_ALIGNMENT.text
+#: objects/standard/textobj.c:141
+#, fuzzy
+msgid "Vertical text alignment"
+msgstr "Itondeka ry'umwandiko"
+
+#: plug-ins/cairo/diacairo.c:1065
 msgid "Cairo PostScript"
 msgstr ""
 
-#: plug-ins/cairo/diacairo.c:1087
+#: plug-ins/cairo/diacairo.c:1074
 msgid "Cairo Portable Document Format"
 msgstr ""
 
-#: plug-ins/cairo/diacairo.c:1096
+#: plug-ins/cairo/diacairo.c:1083
 msgid "Cairo PNG"
 msgstr ""
 
-#: plug-ins/cairo/diacairo.c:1104
+#: plug-ins/cairo/diacairo.c:1091
 #, fuzzy
 msgid "Cairo PNG (with alpha)"
 msgstr "Na: Alufa"
 
-#: plug-ins/cairo/diacairo.c:1113
+#: plug-ins/cairo/diacairo.c:1101
 msgid "Cairo WMF"
 msgstr ""
 
-#: plug-ins/cairo/diacairo.c:1122
+#: plug-ins/cairo/diacairo.c:1110
 #, fuzzy
 msgid "Cairo old WMF"
 msgstr "ki/ bishaje"
 
-#: plug-ins/cairo/diacairo.c:1131
+#: plug-ins/cairo/diacairo.c:1119
 msgid "Cairo Clipboard"
 msgstr ""
 
-#: plug-ins/cairo/diacairo.c:1174
+#: plug-ins/cairo/diacairo.c:1165
 msgid "Cairo based Rendering"
 msgstr ""
 
-#: plug-ins/cgm/cgm.c:1109
+#: plug-ins/cgm/cgm.c:1103
 #, fuzzy
 msgid ""
 "Image row length larger than maximum cell array.\n"
 "Image not exported to CGM."
 msgstr "Urubariro Uburebure Kinini Kinini Akazu Imbonerahamwe OYA Kuri"
 
-#: plug-ins/cgm/cgm.c:1365
+#: plug-ins/cgm/cgm.c:1358
 msgid "Computer Graphics Metafile"
 msgstr ""
 
-#: plug-ins/cgm/cgm.c:1390
+#: plug-ins/cgm/cgm.c:1383
 #, fuzzy
 msgid "Computer Graphics Metafile export filter"
 msgstr "Kohereza Muyunguruzi..."
 
-#: plug-ins/dxf/dxf-export.c:551 plug-ins/dxf/dxf-import.c:1379
+#: plug-ins/dxf/dxf-export.c:527 plug-ins/dxf/dxf-import.c:1382
 #, fuzzy
 msgid "Drawing Interchange File"
 msgstr "Idosiye"
@@ -5727,11 +5690,11 @@ msgstr ""
 msgid "Scale: %f\n"
 msgstr "Gupima"
 
-#: plug-ins/dxf/dxf-import.c:1313
+#: plug-ins/dxf/dxf-import.c:1316
 msgid "read_dxf_codes failed\n"
 msgstr ""
 
-#: plug-ins/dxf/dxf-import.c:1345
+#: plug-ins/dxf/dxf-import.c:1348
 #, fuzzy, c-format
 msgid "Unknown dxf code %d\n"
 msgstr "ITEGEKONGENGA"
@@ -5741,7 +5704,7 @@ msgstr "ITEGEKONGENGA"
 msgid "Drawing Interchange File import and export filters"
 msgstr "Idosiye Kuzana Na Kohereza Muyunguruzi"
 
-#: plug-ins/gprint/diagnomeprint.c:81
+#: plug-ins/gprint/diagnomeprint.c:80
 #, fuzzy, c-format
 msgid ""
 "GNOME Print Backend\n"
@@ -5749,27 +5712,27 @@ msgid ""
 " not available"
 msgstr "OYA Bihari"
 
-#: plug-ins/gprint/diagnomeprint.c:112
+#: plug-ins/gprint/diagnomeprint.c:111
 msgid "GNOME PostScript"
 msgstr ""
 
-#: plug-ins/gprint/diagnomeprint.c:121
+#: plug-ins/gprint/diagnomeprint.c:120
 msgid "GNOME Portable Document Format"
 msgstr ""
 
-#: plug-ins/gprint/diagnomeprint.c:131
+#: plug-ins/gprint/diagnomeprint.c:130
 msgid "GNOME Scalable Vector Graphic"
 msgstr ""
 
-#: plug-ins/gprint/diagnomeprint.c:164
+#: plug-ins/gprint/diagnomeprint.c:163
 msgid "GNOME Print based Rendering"
 msgstr ""
 
-#: plug-ins/hpgl/hpgl.c:758
+#: plug-ins/hpgl/hpgl.c:745
 msgid "HP Graphics Language"
 msgstr ""
 
-#: plug-ins/hpgl/hpgl.c:783
+#: plug-ins/hpgl/hpgl.c:770
 #, fuzzy
 msgid "HP Graphics Language export filter"
 msgstr "Kohereza Muyunguruzi..."
@@ -5779,7 +5742,7 @@ msgstr "Kohereza Muyunguruzi..."
 msgid "TeX Metapost export filter"
 msgstr "Kohereza Muyunguruzi..."
 
-#: plug-ins/metapost/render_metapost.c:1175
+#: plug-ins/metapost/render_metapost.c:1176
 #, fuzzy
 msgid "TeX Metapost macros"
 msgstr "Makoro"
@@ -5807,14 +5770,14 @@ msgstr "Kohereza Muyunguruzi..."
 msgid "Not valid UTF8"
 msgstr "Byemewe"
 
-#: plug-ins/pstricks/render_pstricks.c:980
+#: plug-ins/pstricks/render_pstricks.c:981
 #, fuzzy
 msgid "TeX PSTricks macros"
 msgstr "Makoro"
 
-#: plug-ins/python/pydia-render.c:717 plug-ins/wmf/wmf.cpp:1182
+#: plug-ins/python/pydia-render.c:718
 #, fuzzy, c-format
-msgid "Couldn't open: '%s' for writing.\n"
+msgid "Couldn't open '%s' for writing.\n"
 msgstr "Gufungura kugirango"
 
 #: plug-ins/python/python.c:92
@@ -5822,12 +5785,12 @@ msgstr "Gufungura kugirango"
 msgid "Python scripting support"
 msgstr "Iyandika Gushigikira"
 
-#: plug-ins/shape/shape-export.c:476
+#: plug-ins/shape/shape-export.c:474
 #, fuzzy
 msgid "Can't export png without libart!"
 msgstr "Kohereza png"
 
-#: plug-ins/shape/shape-export.c:501
+#: plug-ins/shape/shape-export.c:499
 #, fuzzy
 msgid "Dia Shape File"
 msgstr "Idosiye"
@@ -5837,11 +5800,11 @@ msgstr "Idosiye"
 msgid "dia shape export filter"
 msgstr "Imisusire Kohereza Muyunguruzi..."
 
-#: plug-ins/svg/render_svg.c:291 plug-ins/svg/svg-import.c:669
+#: plug-ins/svg/render_svg.c:290 plug-ins/svg/svg-import.c:672
 msgid "Scalable Vector Graphics"
 msgstr ""
 
-#: plug-ins/svg/svg-import.c:201 plug-ins/xfig/xfig-import.c:108
+#: plug-ins/svg/svg-import.c:200 plug-ins/xfig/xfig-import.c:108
 #: plug-ins/xfig/xfig-import.c:159 plug-ins/xfig/xfig-import.c:188
 #: plug-ins/xfig/xfig-import.c:224 plug-ins/xfig/xfig-import.c:261
 #: plug-ins/xfig/xfig-import.c:289 plug-ins/xfig/xfig-import.c:326
@@ -5850,7 +5813,11 @@ msgstr ""
 msgid "Can't find standard object"
 msgstr "Gushaka Bisanzwe Igikoresho"
 
-#: plug-ins/svg/svg-import.c:650
+#: plug-ins/svg/svg-import.c:633
+msgid "Expected SVG Namespace not found in file"
+msgstr ""
+
+#: plug-ins/svg/svg-import.c:653
 #, fuzzy, c-format
 msgid "root element was '%s' -- expecting 'svg'."
 msgstr "Imizi Ikigize:"
@@ -5860,41 +5827,51 @@ msgstr "Imizi Ikigize:"
 msgid "Scalable Vector Graphics import and export filters"
 msgstr "Kuzana Na Kohereza Muyunguruzi"
 
-#: plug-ins/wmf/wmf.cpp:1249
+#: plug-ins/wmf/wmf.cpp:1188
+#, fuzzy, c-format
+msgid "Couldn't open: '%s' for writing.\n"
+msgstr "Gufungura kugirango"
+
+#: plug-ins/wmf/wmf.cpp:1259
 #, fuzzy
 msgid "Windows Meta File"
 msgstr "Idosiye"
 
-#: plug-ins/wmf/wmf.cpp:1265
+#: plug-ins/wmf/wmf.cpp:1268
+#, fuzzy
+msgid "Enhanced Meta File"
+msgstr "Idosiye"
+
+#: plug-ins/wmf/wmf.cpp:1284
 #, fuzzy
 msgid "WMF export filter"
 msgstr "Kohereza Muyunguruzi..."
 
-#: plug-ins/wpg/wpg.c:1183
+#: plug-ins/wpg/wpg.c:1188
 #, fuzzy, c-format
 msgid "File: %s type/version unsupported.\n"
 msgstr "Idosiye Ubwoko Verisiyo"
 
-#: plug-ins/wpg/wpg.c:1313 plug-ins/wpg/wpg.c:1320
+#: plug-ins/wpg/wpg.c:1319 plug-ins/wpg/wpg.c:1326
 msgid "WPG"
 msgstr ""
 
-#: plug-ins/wpg/wpg.c:1348
+#: plug-ins/wpg/wpg.c:1354
 #, fuzzy
 msgid "WordPerfect Graphics export filter"
 msgstr "Kohereza Muyunguruzi..."
 
-#: plug-ins/xfig/xfig-export.c:461
+#: plug-ins/xfig/xfig-export.c:459
 #, fuzzy, c-format
 msgid "FIG format has no equivalent of arrow style %s, using simple arrow.\n"
 msgstr "Imiterere Oya Bya Akambi IMISUSIRE ikoresha Byoroheje Akambi"
 
-#: plug-ins/xfig/xfig-export.c:483
+#: plug-ins/xfig/xfig-export.c:481
 #, fuzzy
 msgid "No more user-definable colors - using black"
 msgstr "Birenzeho Ukoresha: Amabara ikoresha umukara"
 
-#: plug-ins/xfig/xfig-export.c:1187
+#: plug-ins/xfig/xfig-export.c:1186
 #, fuzzy
 msgid "XFig format"
 msgstr "Imiterere"
@@ -6050,13 +6027,13 @@ msgstr ""
 msgid "Error reading transparent color: %s\n"
 msgstr "Bibonerana Ibara"
 
-#: plug-ins/xfig/xfig-import.c:1524 plug-ins/xfig/xfig-import.c:1579
-#: plug-ins/xfig/xfig-import.c:1597
+#: plug-ins/xfig/xfig-import.c:1524 plug-ins/xfig/xfig-import.c:1580
+#: plug-ins/xfig/xfig-import.c:1598
 #, fuzzy, c-format
 msgid "Error reading FIG file: %s\n"
 msgstr "IDOSIYE"
 
-#: plug-ins/xfig/xfig-import.c:1526 plug-ins/xfig/xfig-import.c:1581
+#: plug-ins/xfig/xfig-import.c:1526 plug-ins/xfig/xfig-import.c:1582
 #, fuzzy
 msgid "Premature end of FIG file\n"
 msgstr "Impera Bya"
@@ -6066,17 +6043,17 @@ msgstr "Impera Bya"
 msgid "Error reading resolution: %s\n"
 msgstr "Imikemurire"
 
-#: plug-ins/xfig/xfig-import.c:1566
+#: plug-ins/xfig/xfig-import.c:1567
 #, fuzzy, c-format
 msgid "Doesn't look like a Fig file: %s\n"
 msgstr "nka a IDOSIYE"
 
-#: plug-ins/xfig/xfig-import.c:1572
+#: plug-ins/xfig/xfig-import.c:1573
 #, fuzzy, c-format
 msgid "This is a FIG version %d.%d file, I may not understand it\n"
 msgstr "ni a Verisiyo IDOSIYE Gicurasi OYA"
 
-#: plug-ins/xfig/xfig-import.c:1620
+#: plug-ins/xfig/xfig-import.c:1621
 #, fuzzy
 msgid "XFig File Format"
 msgstr "Idosiye"
@@ -6091,49 +6068,49 @@ msgstr "Kuzana Na Kohereza Muyunguruzi..."
 msgid "Error while parsing %s\n"
 msgstr ""
 
-#: plug-ins/xslt/xslt.c:110
+#: plug-ins/xslt/xslt.c:111
 #, fuzzy, c-format
 msgid "Error while parsing stylesheet %s\n"
 msgstr "Ipaji y'imisusire"
 
-#: plug-ins/xslt/xslt.c:116
+#: plug-ins/xslt/xslt.c:118
 #, fuzzy, c-format
 msgid "Error while applying stylesheet %s\n"
 msgstr "Ipaji y'imisusire"
 
-#: plug-ins/xslt/xslt.c:124
+#: plug-ins/xslt/xslt.c:127
 #, fuzzy, c-format
 msgid "Error while parsing stylesheet: %s\n"
 msgstr "Ipaji y'imisusire"
 
-#: plug-ins/xslt/xslt.c:132
+#: plug-ins/xslt/xslt.c:136
 #, fuzzy, c-format
 msgid "Error while applying stylesheet: %s\n"
 msgstr "Ipaji y'imisusire"
 
-#: plug-ins/xslt/xslt.c:317
+#: plug-ins/xslt/xslt.c:322
 #, fuzzy
 msgid "XSL Transformation filter"
 msgstr "Muyunguruzi..."
 
-#: plug-ins/xslt/xslt.c:341
+#: plug-ins/xslt/xslt.c:346
 #, fuzzy
 msgid "No valid configuration files found for the XSLT plugin, not loading."
 msgstr "Byemewe Iboneza Idosiye Byabonetse kugirango i OYA Itangira..."
 
-#: plug-ins/xslt/xsltdialog.c:99
+#: plug-ins/xslt/xsltdialog.c:96
 #, fuzzy
 msgid "Export through XSLT"
 msgstr "Gihinguranya"
 
 # sfx2/source\dialog\mailwindow.src:RID_MAIL_WINDOW.FT_MAILWIN_FROM.text
-#: plug-ins/xslt/xsltdialog.c:114
+#: plug-ins/xslt/xsltdialog.c:111
 msgid "From:"
 msgstr "Birava"
 
 # address labels
 # LOCALIZATION NOTE addressingWidgetOverlay.dtd The basic mail/news composition headers as they are seen in UI
-#: plug-ins/xslt/xsltdialog.c:149
+#: plug-ins/xslt/xsltdialog.c:146
 msgid "To:"
 msgstr "Kuri:"
 
@@ -9970,6 +9947,53 @@ msgstr ""
 #, fuzzy
 msgid "Sybase replication server"
 msgstr "Seriveri"
+
+#, fuzzy
+#~ msgid "Export format to use"
+#~ msgstr "Imiterere Kuri Gukoresha"
+
+#, fuzzy
+#~ msgid "eps,png,wmf,cgm,dxf,fig"
+#~ msgstr "png"
+
+#, fuzzy
+#~ msgid "Export file name to use"
+#~ msgstr "IDOSIYE Izina: Kuri Gukoresha"
+
+#, fuzzy
+#~ msgid ""
+#~ "Error: No arguments found.\n"
+#~ "Run '%s --help' to see a full list of available command line options.\n"
+#~ msgstr ""
+#~ "ingingo Byabonetse Kuri a Urutonde Bya Bihari Komandi: Umurongo Amahitamo"
+
+#, fuzzy
+#~ msgid "%s error: can specify only one of -t or -o."
+#~ msgstr "%sIkosa Bya T Cyangwa o"
+
+#, fuzzy
+#~ msgid ""
+#~ "%s error: must specify only one of -t or -o.\n"
+#~ "Run '%s --help' to see a full list of available command line options.\n"
+#~ msgstr ""
+#~ "%sIkosa Bya T Cyangwa o Kuri a Urutonde Bya Bihari Komandi: Umurongo "
+#~ "Amahitamo"
+
+#, fuzzy
+#~ msgid "%s error: no input file."
+#~ msgstr "%sIkosa Oya Iyinjiza IDOSIYE"
+
+#, fuzzy
+#~ msgid "%s error: only one input file expected."
+#~ msgstr "%sIkosa Iyinjiza IDOSIYE Ikitezwe:"
+
+#, fuzzy
+#~ msgid "%s error: popt library not available on this system"
+#~ msgstr "%sIkosa Isomero OYA Bihari ku iyi Sisitemu"
+
+#, fuzzy
+#~ msgid "Implmentation"
+#~ msgstr "Icyerekezo"
 
 #, fuzzy
 #~ msgid "Content switch module"

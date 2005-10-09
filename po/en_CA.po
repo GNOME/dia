@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-09-06 18:02-0400\n"
+"POT-Creation-Date: 2005-10-09 14:25+0200\n"
 "PO-Revision-Date: 2005-09-06 16:52-0400\n"
 "Last-Translator: Adam Weinberger <adamw@gnome.org>\n"
 "Language-Team: Canadian English <adamw@gnome.org>\n"
@@ -80,7 +80,6 @@ msgstr "OUTPUT"
 
 #. &export_file_format
 #. &export_format_string
-#. &export_file_format
 #: app/app_procs.c:688 app/app_procs.c:713
 msgid "TYPE"
 msgstr "TYPE"
@@ -673,7 +672,6 @@ msgid "PNG Export Options"
 msgstr "PNG Export Options"
 
 #. Translators: Menu item Verb/Channel/Export
-#. Translators: Menu item Verb/Channel/Export/Export
 #: app/export_png.c:300 objects/FS/function.c:696 objects/FS/function.c:698
 msgid "Export"
 msgstr "Export"
@@ -1068,9 +1066,6 @@ msgstr "/File/_New"
 msgid "/File/_Open..."
 msgstr "/File/_Open..."
 
-#. {N_("/Open _Recent"),           NULL,         NULL,           0, "<Branch>"},
-#. {   "/Open Recent/tearoff",     NULL,         NULL,         0, "<Tearoff>" },
-#. recent file list is dynamically inserted here
 #. {N_("/Open _Recent"),           NULL,         NULL,           0, "<Branch>"},
 #. {   "/Open Recent/tearoff",     NULL,         NULL,         0, "<Tearoff>" },
 #: app/menus.c:58 app/menus.c:63 app/menus.c:68 app/menus.c:70 app/menus.c:96
@@ -1931,8 +1926,6 @@ msgid "Name:"
 msgstr "Name:"
 
 #. Translators: Menu item Verb/Channel/Export/Remove
-#. Translators: Menu item Verb/Branch/Separate/Remove
-#. Translators: Menu item Verb/Branch/Separate/Remove/Remove
 #: app/sheets_dialog.c:784 objects/FS/function.c:706 objects/FS/function.c:858
 #: objects/FS/function.c:860
 msgid "Remove"
@@ -2406,8 +2399,8 @@ msgstr "Centre"
 msgid "Right"
 msgstr "Right"
 
-#: lib/properties.c:73 objects/chronogram/chronoline.c:179
-#: objects/chronogram/chronoref.c:158
+#: lib/properties.c:73 lib/properties.h:487 lib/properties.h:490
+#: objects/chronogram/chronoline.c:179 objects/chronogram/chronoref.c:158
 msgid "Line color"
 msgstr "Line colour"
 
@@ -2415,7 +2408,7 @@ msgstr "Line colour"
 msgid "Line style"
 msgstr "Line style"
 
-#: lib/properties.c:75
+#: lib/properties.c:75 lib/properties.h:500 lib/properties.h:503
 msgid "Fill color"
 msgstr "Fill colour"
 
@@ -2449,21 +2442,9 @@ msgstr "Font"
 msgid "Font size"
 msgstr "Font size"
 
-#: lib/properties.c:83 objects/GRAFCET/step.c:169
+#: lib/properties.c:83 lib/properties.h:543 objects/GRAFCET/step.c:169
 #: objects/chronogram/chronoline.c:187 objects/chronogram/chronoref.c:168
 msgid "Text color"
-msgstr "Text colour"
-
-#: lib/properties.h:487 lib/properties.h:490
-msgid "Line colour"
-msgstr "Line colour"
-
-#: lib/properties.h:500 lib/properties.h:503
-msgid "Fill colour"
-msgstr "Fill colour"
-
-#: lib/properties.h:543
-msgid "Text colour"
 msgstr "Text colour"
 
 #: lib/proplist.c:163
@@ -2578,7 +2559,7 @@ msgstr "Total:"
 #: objects/GRAFCET/vector.c:312 objects/SADT/arrow.c:457
 #: objects/UML/association.c:775 objects/UML/component_feature.c:184
 #: objects/UML/dependency.c:373 objects/UML/generalization.c:369
-#: objects/UML/realizes.c:360 objects/UML/transition.c:157
+#: objects/UML/realizes.c:360 objects/UML/transition.c:161
 #: objects/standard/zigzagline.c:348
 msgid "Add segment"
 msgstr "Add segment"
@@ -2587,7 +2568,7 @@ msgstr "Add segment"
 #: objects/GRAFCET/vector.c:313 objects/SADT/arrow.c:458
 #: objects/UML/association.c:776 objects/UML/component_feature.c:185
 #: objects/UML/dependency.c:374 objects/UML/generalization.c:370
-#: objects/UML/realizes.c:361 objects/UML/transition.c:158
+#: objects/UML/realizes.c:361 objects/UML/transition.c:162
 #: objects/standard/zigzagline.c:349
 msgid "Delete segment"
 msgstr "Delete segment"
@@ -2625,9 +2606,6 @@ msgid "Material"
 msgstr "Material"
 
 #. Translators: Menu item Verb/Signal
-#. Translators: Menu item Verb/Signal/Signal
-#. Translators: Menu item Noun/Signal
-#. Translators: Menu item Noun/Signal/Signal
 #: objects/FS/flow-ortho.c:162 objects/FS/flow-ortho.c:644
 #: objects/FS/flow.c:139 objects/FS/flow.c:578 objects/FS/function.c:1034
 #: objects/FS/function.c:1036 objects/FS/function.c:1172
@@ -2653,15 +2631,12 @@ msgid "Verb"
 msgstr "Verb"
 
 #. Translators: Menu item Verb/Channel
-#. Translators: Menu item Verb/Channel/Channel
-#. Translators: Menu item Verb/Channel/Transfer/Transport/Channel
 #: objects/FS/function.c:678 objects/FS/function.c:680
 #: objects/FS/function.c:720
 msgid "Channel"
 msgstr "Channel"
 
 #. Translators: Menu item Verb/Channel/Import
-#. Translators: Menu item Verb/Channel/Import/Import
 #: objects/FS/function.c:682 objects/FS/function.c:684
 msgid "Import"
 msgstr "Import"
@@ -2677,7 +2652,6 @@ msgid "Receive"
 msgstr "Receive"
 
 #. Translators: Menu item Verb/Channel/Import/Allow
-#. Translators: Menu item Verb/Control Magnitude/Regulate/Allow
 #: objects/FS/function.c:690 objects/FS/function.c:962
 msgid "Allow"
 msgstr "Allow"
@@ -2688,7 +2662,6 @@ msgid "Form Entrance"
 msgstr "Form Entrance"
 
 #. Translators: Menu item Verb/Channel/Import/Capture
-#. Translators: Menu item Verb/Provision/Store/Capture
 #: objects/FS/function.c:694 objects/FS/function.c:928
 msgid "Capture"
 msgstr "Capture"
@@ -2709,15 +2682,12 @@ msgid "Dispose"
 msgstr "Dispose"
 
 #. Translators: Menu item Verb/Channel/Transfer
-#. Translators: Menu item Verb/Channel/Transfer/Transfer
-#. Translators: Menu item Verb/Channel/Transfer/Transmit/Transfer
 #: objects/FS/function.c:708 objects/FS/function.c:710
 #: objects/FS/function.c:728
 msgid "Transfer"
 msgstr "Transfer"
 
 #. Translators: Menu item Verb/Channel/Transfer/Transport
-#. Translators: Menu item Verb/Channel/Transfer/Transport/Transport
 #: objects/FS/function.c:712 objects/FS/function.c:714
 msgid "Transport"
 msgstr "Transport"
@@ -2733,7 +2703,6 @@ msgid "Move"
 msgstr "Move"
 
 #. Translators: Menu item Verb/Channel/Transfer/Transmit
-#. Translators: Menu item Verb/Channel/Transfer/Transmit/Transmit
 #: objects/FS/function.c:722 objects/FS/function.c:724
 msgid "Transmit"
 msgstr "Transmit"
@@ -2749,8 +2718,6 @@ msgid "Convey"
 msgstr "Convey"
 
 #. Translators: Menu item Verb/Channel/Guide
-#. Translators: Menu item Verb/Channel/Guide/Guide
-#. Translators: Menu item Verb/Channel/Guide/Guide/Guide
 #: objects/FS/function.c:732 objects/FS/function.c:734
 #: objects/FS/function.c:736
 msgid "Guide"
@@ -2777,7 +2744,6 @@ msgid "Translate"
 msgstr "Translate"
 
 #. Translators: Menu item Verb/Channel/Guide/Rotate
-#. Translators: Menu item Verb/Channel/Guide/Rotate/Rotate
 #: objects/FS/function.c:746 objects/FS/function.c:748
 msgid "Rotate"
 msgstr "Rotate"
@@ -2793,7 +2759,6 @@ msgid "Spin"
 msgstr "Spin"
 
 #. Translators: Menu item Verb/Channel/Guide/Allow DOF
-#. Translators: Menu item Verb/Channel/Guide/Allow DOF/Allow DOF
 #: objects/FS/function.c:754 objects/FS/function.c:756
 msgid "Allow DOF"
 msgstr "Allow DOF"
@@ -2809,13 +2774,11 @@ msgid "Unlock"
 msgstr "Unlock"
 
 #. Translators: Menu item Verb/Support
-#. Translators: Menu item Verb/Support/Support
 #: objects/FS/function.c:762 objects/FS/function.c:764
 msgid "Support"
 msgstr "Support"
 
 #. Translators: Menu item Verb/Support/Stop
-#. Translators: Menu item Verb/Support/Stop/Stop
 #: objects/FS/function.c:766 objects/FS/function.c:768
 #: sheets/SDL.sheet.in.h:19
 msgid "Stop"
@@ -2832,7 +2795,6 @@ msgid "Protect"
 msgstr "Protect"
 
 #. Translators: Menu item Verb/Support/Stop/Prevent
-#. Translators: Menu item Verb/Control Magnitude/Regulate/Prevent
 #: objects/FS/function.c:774 objects/FS/function.c:964
 msgid "Prevent"
 msgstr "Prevent"
@@ -2848,7 +2810,6 @@ msgid "Inhibit"
 msgstr "Inhibit"
 
 #. Translators: Menu item Verb/Support/Stabilize
-#. Translators: Menu item Verb/Support/Stabilize/Stabilize
 #: objects/FS/function.c:780 objects/FS/function.c:782
 msgid "Stabilize"
 msgstr "Stabilize"
@@ -2859,13 +2820,11 @@ msgid "Steady"
 msgstr "Steady"
 
 #. Translators: Menu item Verb/Support/Secure
-#. Translators: Menu item Verb/Support/Secure/Secure
 #: objects/FS/function.c:786 objects/FS/function.c:788
 msgid "Secure"
 msgstr "Secure"
 
 #. Translators: Menu item Verb/Support/Secure/Attach
-#. Translators: Menu item Verb/Connect/Couple/Attach
 #: objects/FS/function.c:790 objects/FS/function.c:822
 msgid "Attach"
 msgstr "Attach"
@@ -2891,7 +2850,6 @@ msgid "Hold"
 msgstr "Hold"
 
 #. Translators: Menu item Verb/Support/Position
-#. Translators: Menu item Verb/Support/Position/Position
 #: objects/FS/function.c:800 objects/FS/function.c:802
 #: objects/Istar/actor.c:70
 msgid "Position"
@@ -2908,19 +2866,16 @@ msgid "Align"
 msgstr "Align"
 
 #. Translators: Menu item Verb/Support/Position/Locate
-#. Translators: Menu item Verb/Signal/Sense/Locate
 #: objects/FS/function.c:808 objects/FS/function.c:1050
 msgid "Locate"
 msgstr "Locate"
 
 #. Translators: Menu item Verb/Connect
-#. Translators: Menu item Verb/Connect/Connect
 #: objects/FS/function.c:810 objects/FS/function.c:812
 msgid "Connect"
 msgstr "Connect"
 
 #. Translators: Menu item Verb/Connect/Couple
-#. Translators: Menu item Verb/Connect/Couple/Couple
 #: objects/FS/function.c:814 objects/FS/function.c:816
 msgid "Couple"
 msgstr "Couple"
@@ -2936,7 +2891,6 @@ msgid "Assemble"
 msgstr "Assemble"
 
 #. Translators: Menu item Verb/Connect/Mix
-#. Translators: Menu item Verb/Connect/Mix/Mix
 #: objects/FS/function.c:824 objects/FS/function.c:826
 msgid "Mix"
 msgstr "Mix"
@@ -2967,14 +2921,11 @@ msgid "Coalesce"
 msgstr "Coalesce"
 
 #. Translators: Menu item Verb/Branch
-#. Translators: Menu item Verb/Branch/Branch
 #: objects/FS/function.c:838 objects/FS/function.c:840 sheets/UML.sheet.in.h:5
 msgid "Branch"
 msgstr "Branch"
 
 #. Translators: Menu item Verb/Branch/Separate
-#. Translators: Menu item Verb/Branch/Separate/Separate
-#. Translators: Menu item Verb/Branch/Separate/Separate/Separate
 #: objects/FS/function.c:842 objects/FS/function.c:844
 #: objects/FS/function.c:846
 msgid "Separate"
@@ -3031,7 +2982,6 @@ msgid "Lathe"
 msgstr "Lathe"
 
 #. Translators: Menu item Verb/Branch/Refine
-#. Translators: Menu item Verb/Branch/Refine/Refine
 #: objects/FS/function.c:872 objects/FS/function.c:874
 msgid "Refine"
 msgstr "Refine"
@@ -3062,7 +3012,6 @@ msgid "Clear"
 msgstr "Clear"
 
 #. Translators: Menu item Verb/Branch/Distribute
-#. Translators: Menu item Verb/Branch/Distribute/Distribute
 #: objects/FS/function.c:886 objects/FS/function.c:888
 msgid "Distribute"
 msgstr "Distribute"
@@ -3083,7 +3032,6 @@ msgid "Disperse"
 msgstr "Disperse"
 
 #. Translators: Menu item Verb/Branch/Distribute/Diffuse
-#. Translators: Menu item Verb/Branch/Dissipate/Diffuse
 #: objects/FS/function.c:896 objects/FS/function.c:910
 msgid "Diffuse"
 msgstr "Diffuse"
@@ -3094,7 +3042,6 @@ msgid "Empty"
 msgstr "Empty"
 
 #. Translators: Menu item Verb/Branch/Dissipate
-#. Translators: Menu item Verb/Branch/Dissipate/Dissipate
 #: objects/FS/function.c:900 objects/FS/function.c:902
 msgid "Dissipate"
 msgstr "Dissipate"
@@ -3120,13 +3067,11 @@ msgid "Resist"
 msgstr "Resist"
 
 #. Translators: Menu item Verb/Provision
-#. Translators: Menu item Verb/Provision/Provision
 #: objects/FS/function.c:914 objects/FS/function.c:916
 msgid "Provision"
 msgstr "Provision"
 
 #. Translators: Menu item Verb/Provision/Store
-#. Translators: Menu item Verb/Provision/Store/Store
 #: objects/FS/function.c:918 objects/FS/function.c:920
 msgid "Store"
 msgstr "Store"
@@ -3147,7 +3092,6 @@ msgid "Reserve"
 msgstr "Reserve"
 
 #. Translators: Menu item Verb/Provision/Supply
-#. Translators: Menu item Verb/Provision/Supply/Supply
 #: objects/FS/function.c:930 objects/FS/function.c:932
 msgid "Supply"
 msgstr "Supply"
@@ -3178,13 +3122,11 @@ msgid "Extract"
 msgstr "Extract"
 
 #. Translators: Menu item Verb/Control Magnitude
-#. Translators: Menu item Verb/Control Magnitude/Control Magnitude
 #: objects/FS/function.c:944 objects/FS/function.c:946
 msgid "Control Magnitude"
 msgstr "Control Magnitude"
 
 #. Translators: Menu item Verb/Control Magnitude/Actuate
-#. Translators: Menu item Verb/Control Magnitude/Actuate/Actuate
 #: objects/FS/function.c:948 objects/FS/function.c:950
 msgid "Actuate"
 msgstr "Actuate"
@@ -3200,13 +3142,11 @@ msgid "Initiate"
 msgstr "Initiate"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate
-#. Translators: Menu item Verb/Control Magnitude/Regulate/Regulate
 #: objects/FS/function.c:956 objects/FS/function.c:958
 msgid "Regulate"
 msgstr "Regulate"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Control
-#. Translators: Menu item Noun/Signal/Control
 #: objects/FS/function.c:960 objects/FS/function.c:1178
 #: objects/UML/classicon.c:127
 msgid "Control"
@@ -3233,7 +3173,6 @@ msgid "Interrupt"
 msgstr "Interrupt"
 
 #. Translators: Menu item Verb/Control Magnitude/Change
-#. Translators: Menu item Verb/Control Magnitude/Change/Change
 #: objects/FS/function.c:974 objects/FS/function.c:976
 msgid "Change"
 msgstr "Change"
@@ -3284,7 +3223,6 @@ msgid "Adjust"
 msgstr "Adjust"
 
 #. Translators: Menu item Verb/Control Magnitude/Form
-#. Translators: Menu item Verb/Control Magnitude/Form/Form
 #: objects/FS/function.c:998 objects/FS/function.c:1000
 msgid "Form"
 msgstr "Form"
@@ -3315,7 +3253,6 @@ msgid "Pierce"
 msgstr "Pierce"
 
 #. Translators: Menu item Verb/Convert
-#. Translators: Menu item Verb/Convert/Convert
 #: objects/FS/function.c:1012 objects/FS/function.c:1014
 msgid "Convert"
 msgstr "Convert"
@@ -3366,7 +3303,6 @@ msgid "Process"
 msgstr "Process"
 
 #. Translators: Menu item Verb/Signal/Sense
-#. Translators: Menu item Verb/Signal/Sense/Sense
 #: objects/FS/function.c:1038 objects/FS/function.c:1040
 msgid "Sense"
 msgstr "Sense"
@@ -3397,7 +3333,6 @@ msgid "Verify"
 msgstr "Verify"
 
 #. Translators: Menu item Verb/Signal/Indicate
-#. Translators: Menu item Verb/Signal/Indicate/Indicate
 #: objects/FS/function.c:1054 objects/FS/function.c:1056
 msgid "Indicate"
 msgstr "Indicate"
@@ -3413,7 +3348,6 @@ msgid "Display"
 msgstr "Display"
 
 #. Translators: Menu item Verb/Signal/Measure
-#. Translators: Menu item Verb/Signal/Measure/Measure
 #: objects/FS/function.c:1062 objects/FS/function.c:1064
 msgid "Measure"
 msgstr "Measure"
@@ -3444,8 +3378,6 @@ msgid "Gas"
 msgstr "Gas"
 
 #. Translators: Menu item Noun/Material/Human
-#. Translators: Menu item Noun/Material/Human/Human
-#. Translators: Menu item Noun/Energy/Human
 #: objects/FS/function.c:1080 objects/FS/function.c:1082
 #: objects/FS/function.c:1166
 msgid "Human"
@@ -3587,7 +3519,6 @@ msgid "Convection"
 msgstr "Convection"
 
 #. Translators: Menu item Noun/Energy/Thermal/Radiation
-#. Translators: Menu item Noun/Energy/Radioactive/Radiation
 #: objects/FS/function.c:1140 objects/FS/function.c:1148
 msgid "Radiation"
 msgstr "Radiation"
@@ -4152,7 +4083,7 @@ msgid "Protected"
 msgstr "Protected"
 
 #: objects/UML/association.c:1305 objects/UML/class_dialog.c:979
-#: objects/UML/class_dialog.c:1897
+#: objects/UML/class_dialog.c:1897 objects/UML/uml.c:104
 msgid "Implementation"
 msgstr "Implementation"
 
@@ -4171,7 +4102,7 @@ msgstr "Aggregate"
 msgid "Composition"
 msgstr "Composition"
 
-#: objects/UML/class.c:115 objects/UML/class.c:280 objects/UML/class.c:1270
+#: objects/UML/class.c:115 objects/UML/class.c:280 objects/UML/class.c:1271
 #: sheets/UML.sheet.in.h:6
 msgid "Class"
 msgstr "Class"
@@ -4554,37 +4485,33 @@ msgstr ""
 msgid "Is final"
 msgstr "Is final"
 
-#: objects/UML/transition.c:130
+#: objects/UML/transition.c:132
 msgid "Trigger"
 msgstr "Trigger"
 
-#: objects/UML/transition.c:131
+#: objects/UML/transition.c:133
 msgid "The event that causes this transition to be taken"
 msgstr "The event that causes this transition to be taken"
 
-#: objects/UML/transition.c:132
+#: objects/UML/transition.c:134
 msgid "Action"
 msgstr "Action"
 
-#: objects/UML/transition.c:133
+#: objects/UML/transition.c:135
 msgid "Action to perform when this transition is taken"
 msgstr "Action to perform when this transition is taken"
 
-#: objects/UML/transition.c:134 sheets/cisconetwork.sheet.in.h:43
+#: objects/UML/transition.c:136 sheets/cisconetwork.sheet.in.h:43
 msgid "Guard"
 msgstr "Guard"
 
-#: objects/UML/transition.c:135
+#: objects/UML/transition.c:137
 msgid "Condition for taking this transition when the event is fired"
 msgstr "Condition for taking this transition when the event is fired"
 
 #: objects/UML/uml.c:65
 msgid "Unified Modelling Language diagram objects"
 msgstr "Unified Modelling Language diagram objects"
-
-#: objects/UML/uml.c:104
-msgid "Implmentation"
-msgstr "Implmentation"
 
 #: objects/UML/umlattribute.c:41 objects/UML/umlparameter.c:47
 msgid "Value"
@@ -4874,7 +4801,6 @@ msgid "Keep aspect ratio"
 msgstr "Keep aspect ratio"
 
 #. Found file in same dir as diagram.
-#. Found file in current dir.
 #: objects/standard/image.c:672 objects/standard/image.c:683
 #, c-format
 msgid ""
@@ -5074,7 +5000,7 @@ msgstr "Not valid UTF8"
 msgid "TeX PSTricks macros"
 msgstr "TeX PSTricks macros"
 
-#: plug-ins/python/pydia-render.c:717
+#: plug-ins/python/pydia-render.c:718
 #, c-format
 msgid "Couldn't open '%s' for writing.\n"
 msgstr "Could not open '%s' for writing.\n"
@@ -8724,3 +8650,15 @@ msgstr "Sybase dataserver"
 #: sheets/sybase.sheet.in.h:8
 msgid "Sybase replication server"
 msgstr "Sybase replication server"
+
+#~ msgid "Fill colour"
+#~ msgstr "Fill colour"
+
+#~ msgid "Line colour"
+#~ msgstr "Line colour"
+
+#~ msgid "Text colour"
+#~ msgstr "Text colour"
+
+#~ msgid "Implmentation"
+#~ msgstr "Implmentation"

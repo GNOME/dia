@@ -484,10 +484,10 @@ extern PropEnumData prop_std_text_align_data[];
     N_("Line width"), NULL, &prop_std_line_width_data }
 #define PROP_STD_LINE_COLOUR \
   { "line_colour", PROP_TYPE_COLOUR, PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD, \
-    N_("Line colour"), NULL, NULL }
+    N_("Line color"), NULL, NULL }
 #define PROP_STD_LINE_COLOUR_OPTIONAL \
   { "line_colour", PROP_TYPE_COLOUR, PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD|PROP_FLAG_OPTIONAL, \
-    N_("Line colour"), NULL, NULL }
+    N_("Line color"), NULL, NULL }
 #define PROP_STD_LINE_STYLE \
   { "line_style", PROP_TYPE_LINESTYLE, PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD, \
     N_("Line style"), NULL, NULL }
@@ -497,10 +497,10 @@ extern PropEnumData prop_std_text_align_data[];
 
 #define PROP_STD_FILL_COLOUR \
   { "fill_colour", PROP_TYPE_COLOUR, PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD, \
-    N_("Fill colour"), NULL, NULL }
+    N_("Fill color"), NULL, NULL }
 #define PROP_STD_FILL_COLOUR_OPTIONAL \
   { "fill_colour", PROP_TYPE_COLOUR, PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD|PROP_FLAG_OPTIONAL, \
-    N_("Fill colour"), NULL, NULL }
+    N_("Fill color"), NULL, NULL }
 #define PROP_STD_SHOW_BACKGROUND \
   { "show_background", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE, \
     N_("Draw background"), NULL, NULL }
@@ -540,7 +540,7 @@ extern PropEnumData prop_std_text_align_data[];
 
 #define PROP_STD_TEXT_COLOUR_OPTIONS(options) \
   { "text_colour", PROP_TYPE_COLOUR, (options), \
-    N_("Text colour"), NULL, NULL }
+    N_("Text color"), NULL, NULL }
 #define PROP_STD_TEXT_COLOUR \
         PROP_STD_TEXT_COLOUR_OPTIONS(PROP_FLAG_VISIBLE|PROP_FLAG_DONT_SAVE|PROP_FLAG_STANDARD)
 #define PROP_STD_TEXT_COLOUR_OPTIONAL \

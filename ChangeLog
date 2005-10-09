@@ -1,5 +1,13 @@
 2005-10-09  Hans Breuer  <hans@breuer.org>
 
+	* lib/properties.h : prefer american spelling of colo(u)r for
+	user visible strings - i.e. to be translated ones.
+	* objects/UML/uml.c : it is Implementation. Together fixes bug #313929
+                                        ^
+	* po/*.po : updated (by 'make distcheck')
+
+2005-10-09  Hans Breuer  <hans@breuer.org>
+
 	* app/display.c : allow !"toolbox on top" without restart.
 	(Chris Hellberg, bug #310702)
 

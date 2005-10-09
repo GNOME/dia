@@ -101,7 +101,7 @@ PropEnumData _uml_visibilities[] = {
   { N_("Public"), UML_PUBLIC },
   { N_("Private"), UML_PRIVATE }, 
   { N_("Protected"), UML_PROTECTED },
-  { N_("Implmentation"), UML_IMPLEMENTATION },
+  { N_("Implementation"), UML_IMPLEMENTATION },
   { NULL, 0 }
 };
 
