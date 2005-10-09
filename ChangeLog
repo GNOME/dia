@@ -1,3 +1,8 @@
+2005-10-09  Hans Breuer  <hans@breuer.org>
+
+	* lib/arrows.c : patch from Radek Krahl fixing the blanking
+	of two arrowheads, bug #310157
+
 2005-10-08  Hans Breuer  <hans@breuer.org>
 
 	* plug-ins/python/group_props.py : show a descriptive text instead of an 

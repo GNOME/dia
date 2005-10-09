@@ -124,7 +124,7 @@ calculate_arrow(Point *poly/*[3]*/, Point *to, Point *from,
   point_add(&poly[2], &orth_delta);
 }
 
-/* The function calculate_arrow_poin adjusts the placement of the line and the
+/* The function calculate_arrow_point adjusts the placement of the line and the
 arrow, so that the arrow doesn't overshoot the connectionpoint and the line
 doesn't stick out the other end of the arrow.  move_arrow must be set to the new
 end point of the arrowhead, and move_line to the new endpoint of the line. */
@@ -290,6 +290,14 @@ calculate_arrow_point(const Arrow *arrow, const Point *to, const Point *from,
       point_scale(move_line, 2*arrow->length);
     else
       point_scale(move_line, arrow->length);
+    return;
+  case ARROW_SLASH_ARROW:
+  case ARROW_INTEGRAL_SYMBOL:
+    *move_line = *to;
+    point_sub(move_line, from);
+    add_len = point_len(move_line);
+    point_normalize(move_line);
+    point_scale(move_line, arrow->length / 2);
     return;
   case ARROW_ONE_EXACTLY:
   case ARROW_ONE_OR_NONE:
@@ -736,7 +744,7 @@ draw_fill_dot(DiaRenderer *renderer, Point *to, Point *from,
 static void
 draw_integral(DiaRenderer *renderer, Point *to, Point *from,
 	      real length, real width, real linewidth,
-	      Color *fg_color, Color *bg_color)
+	      Color *fg_color)
 {
   BezPoint bp[2];
   Point vl,vt;
@@ -773,7 +781,6 @@ draw_integral(DiaRenderer *renderer, Point *to, Point *from,
   point_copy_add_scaled(&bp[1].p1,&bp[0].p1,&vl,.35*length);
   point_copy_add_scaled(&bp[1].p2,&bp[1].p3,&vl,-.35*length);
 
-  DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer, to, &bs2, bg_color); /* kludge */
   DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer, &bs2, &be2, fg_color);
   DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer, &bs, &be, fg_color);
   DIA_RENDERER_GET_CLASS(renderer)->draw_bezier(renderer,bp,sizeof(bp)/sizeof(bp[0]),fg_color);
@@ -784,7 +791,7 @@ draw_integral(DiaRenderer *renderer, Point *to, Point *from,
 static void
 draw_slashed(DiaRenderer *renderer, Point *to, Point *from,
 	     real length, real width, real linewidth,
-	     Color *fg_color, Color *bg_color)
+	     Color *fg_color)
 {
   Point vl,vt;
   Point bs,be, bs2,be2, bs3,be3;
@@ -817,7 +824,6 @@ draw_slashed(DiaRenderer *renderer, Point *to, Point *from,
   point_copy_add_scaled(&be3,to,&vl,.9*length);
   point_add_scaled(&be3,&vt,-.4*width);
 
-  DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer, to, &bs2, bg_color);
   DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer, &bs2, &be2, fg_color);
   DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer, &bs, &be, fg_color);
   DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer, &bs3, &be3, fg_color);
@@ -1453,10 +1459,10 @@ arrow_draw(DiaRenderer *renderer, ArrowType type,
     draw_fill_dot(renderer,to,from,length,width,linewidth,fg_color,NULL);
     break;
   case ARROW_INTEGRAL_SYMBOL:
-    draw_integral(renderer,to,from,length,width,linewidth,fg_color,bg_color);
+    draw_integral(renderer,to,from,length,width,linewidth,fg_color);
     break;
   case ARROW_SLASH_ARROW:
-    draw_slashed(renderer,to,from,length,width,linewidth,fg_color,bg_color);
+    draw_slashed(renderer,to,from,length,width,linewidth,fg_color);
     break;
   case ARROW_ONE_OR_MANY:
     draw_one_or_many(renderer,to,from,length,width,linewidth,fg_color,bg_color);
