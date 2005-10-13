@@ -11,3 +11,4 @@ cat-id-tbl.c
 stamp-cat-id
 messages
 missing
+.intltool-merge-cache
