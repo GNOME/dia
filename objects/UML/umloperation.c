@@ -103,8 +103,10 @@ UMLOperation *
 uml_operation_new(void)
 {
   UMLOperation *op;
+  static gint next_id = 1;
 
   op = g_new0(UMLOperation, 1);
+  op->internal_id = next_id++;
   op->name = g_strdup("");
   op->type = NULL;
   op->stereotype = NULL;
@@ -121,45 +123,60 @@ uml_operation_new(void)
   return op;
 }
 
-UMLOperation *
-uml_operation_copy(UMLOperation *op)
+void
+uml_operation_copy_into(UMLOperation *srcop, UMLOperation *destop)
 {
-  UMLOperation *newop;
   UMLParameter *param;
   UMLParameter *newparam;
   GList *list;
-  
-  newop = g_new0(UMLOperation, 1);
-  newop->name = g_strdup(op->name);
-  if (op->type != NULL) {
-    newop->type = g_strdup(op->type);
-  } else {
-    newop->type = NULL;
+
+  destop->internal_id = srcop->internal_id;
+
+  if (destop->name != NULL) {
+    g_free(destop->name);
   }
-  if(op->stereotype != NULL) {
-    newop->stereotype = g_strdup(op->stereotype);
+  destop->name = g_strdup(srcop->name);
+  
+  if (destop->type != NULL) {
+    g_free(destop->type);
+  }
+  if (srcop->type != NULL) {
+    destop->type = g_strdup(srcop->type);
   } else {
-    newop->stereotype = NULL;
+    destop->type = NULL;
+  }
+
+  if (destop->stereotype != NULL) {
+    g_free(destop->stereotype);
+  }
+  if(srcop->stereotype != NULL) {
+    destop->stereotype = g_strdup(srcop->stereotype);
+  } else {
+    destop->stereotype = NULL;
   }
   
-  newop->comment = g_strdup(op->comment);
+  if (destop->comment != NULL) {
+    g_free(destop->comment);
+  }
+  if (srcop->comment != NULL) {
+    destop->comment = g_strdup(srcop->comment);
+  } else {
+    destop->comment = NULL;
+  }
 
-  newop->visibility = op->visibility;
-  newop->class_scope = op->class_scope;
-  newop->inheritance_type = op->inheritance_type;
-  newop->query = op->query;
+  destop->visibility = srcop->visibility;
+  destop->class_scope = srcop->class_scope;
+  destop->inheritance_type = srcop->inheritance_type;
+  destop->query = srcop->query;
 
-
-  newop->left_connection = g_new0(ConnectionPoint,1);
-  *newop->left_connection = *op->left_connection;
-  newop->left_connection->object = NULL; /* must be setup later */
-
-  newop->right_connection = g_new0(ConnectionPoint,1);
-  *newop->right_connection = *op->right_connection;
-  newop->right_connection->object = NULL; /* must be setup later */
-  
-  newop->parameters = NULL;
-  list = op->parameters;
+  list = destop->parameters;
+  while (list != NULL) {
+    param = (UMLParameter *)list->data;
+    uml_parameter_destroy(param);
+    list = g_list_next(list);
+  }
+  destop->parameters = NULL;
+  list = srcop->parameters;
   while (list != NULL) {
     param = (UMLParameter *)list->data;
 
@@ -174,11 +191,29 @@ uml_operation_copy(UMLOperation *op)
       newparam->value = NULL;
     newparam->kind = param->kind;
     
-    newop->parameters = g_list_append(newop->parameters, newparam);
+    destop->parameters = g_list_append(destop->parameters, newparam);
     
     list = g_list_next(list);
   }
+}
 
+UMLOperation *
+uml_operation_copy(UMLOperation *op)
+{
+  UMLOperation *newop;
+  
+  newop = g_new0(UMLOperation, 1);
+
+  uml_operation_copy_into(op, newop);
+
+  newop->left_connection = g_new0(ConnectionPoint,1);
+  *newop->left_connection = *op->left_connection;
+  newop->left_connection->object = NULL; /* must be setup later */
+
+  newop->right_connection = g_new0(ConnectionPoint,1);
+  *newop->right_connection = *op->right_connection;
+  newop->right_connection->object = NULL; /* must be setup later */
+  
   return newop;
 }
 

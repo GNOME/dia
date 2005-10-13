@@ -36,12 +36,12 @@
 #define DIR_WEST  8
 
 /* Convenience directions */
-#define DIR_NORTHEAST DIR_NORTH|DIR_EAST
-#define DIR_SOUTHEAST DIR_SOUTH|DIR_EAST
-#define DIR_NORTHWEST DIR_NORTH|DIR_WEST
-#define DIR_SOUTHWEST DIR_SOUTH|DIR_WEST
+#define DIR_NORTHEAST (DIR_NORTH|DIR_EAST)
+#define DIR_SOUTHEAST (DIR_SOUTH|DIR_EAST)
+#define DIR_NORTHWEST (DIR_NORTH|DIR_WEST)
+#define DIR_SOUTHWEST (DIR_SOUTH|DIR_WEST)
 #define DIR_NONE      0
-#define DIR_ALL       DIR_NORTH|DIR_SOUTH|DIR_EAST|DIR_WEST
+#define DIR_ALL       (DIR_NORTH|DIR_SOUTH|DIR_EAST|DIR_WEST)
 
 #define CP_FLAG_ANYPLACE	1 /* Set if this connpoint is the one that
 				     is connected to when a connection is
@@ -49,7 +49,7 @@
 #define CP_FLAG_AUTOGAP		2 /* Set if this connpoint is internal
 				     and so should force a gap on the lines. */
 
-/* Most non-connection objects want exactly on CP with this, in the middle. */
+/* Most non-connection objects want exactly one CP with this, in the middle. */
 #define CP_FLAGS_MAIN		3 /* Use this for the central CP that
 				     takes connections from all over the
 				     object and has autogap. */

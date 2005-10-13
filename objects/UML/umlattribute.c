@@ -74,8 +74,10 @@ UMLAttribute *
 uml_attribute_new(void)
 {
   UMLAttribute *attr;
+  static gint next_id = 1;
   
   attr = g_new0(UMLAttribute, 1);
+  attr->internal_id = next_id++;
   attr->name = g_strdup("");
   attr->type = g_strdup("");
   attr->value = NULL;
@@ -89,18 +91,32 @@ uml_attribute_new(void)
   return attr;
 }
 
-UMLAttribute *
-uml_attribute_copy(UMLAttribute *attr)
+/** Copy the data of an attribute into another, but not the connections. 
+ * Frees up any strings in the attribute being copied into. */
+void
+uml_attribute_copy_into(UMLAttribute *attr, UMLAttribute *newattr)
 {
-  UMLAttribute *newattr;
-
-  newattr = g_new0(UMLAttribute, 1);
+  newattr->internal_id = attr->internal_id;
+  if (newattr->name != NULL) {
+    g_free(newattr->name);
+  }
   newattr->name = g_strdup(attr->name);
+  if (newattr->type != NULL) {
+    g_free(newattr->type);
+  }
   newattr->type = g_strdup(attr->type);
+
+  if (newattr->value != NULL) {
+    g_free(newattr->value);
+  }
   if (attr->value != NULL) {
     newattr->value = g_strdup(attr->value);
   } else {
     newattr->value = NULL;
+  }
+
+  if (newattr->comment != NULL) {
+    g_free(newattr->comment);
   }
   if (attr->comment != NULL)
     newattr->comment = g_strdup (attr->comment);
@@ -110,15 +126,27 @@ uml_attribute_copy(UMLAttribute *attr)
   newattr->visibility = attr->visibility;
   newattr->abstract = attr->abstract;
   newattr->class_scope = attr->class_scope;
+}
+
+/** Copy an attribute's content.
+ */
+UMLAttribute *
+uml_attribute_copy(UMLAttribute *attr, DiaObject *obj)
+{
+  UMLAttribute *newattr;
+
+  newattr = g_new0(UMLAttribute, 1);
+
+  uml_attribute_copy_into(attr, newattr);
 
   newattr->left_connection = g_new0(ConnectionPoint,1);
   *newattr->left_connection = *attr->left_connection;
-  newattr->left_connection->object = NULL; /* must be setup later */
+  newattr->left_connection->object = obj;
 
   newattr->right_connection = g_new0(ConnectionPoint,1);
   *newattr->right_connection = *attr->right_connection;
-  newattr->right_connection->object = NULL; /* must be setup later */
-  
+  newattr->right_connection->object = obj;
+ 
   return newattr;
 }
 

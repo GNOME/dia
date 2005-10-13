@@ -588,6 +588,8 @@ line_update_data(Line *line)
 static void
 line_save(Line *line, ObjectNode obj_node, const char *filename)
 {
+  dia_object_sanity_check((DiaObject*)line, "Saving line");
+
   connection_save(&line->connection, obj_node);
 
   connpointline_save(line->cpl,obj_node,"numcp");

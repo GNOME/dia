@@ -155,6 +155,8 @@ libdia_la_SOURCES =  \
 		diaerror.h \
 		diamarshal.c \
 		diamarshal.h \
+		debug.c \
+		debug.h \
 		dia-lib-icons.h
 
 #		charconv.c \
@@ -162,7 +164,7 @@ libdia_la_SOURCES =  \
 #		render.h \
 #		render.c 
 
-libdia_la_LDFLAGS = -export-dynamic -avoid-version
+libdia_la_LDFLAGS = -avoid-version
 
 AM_CPPFLAGS = \
 	$(LIBART_CFLAGS) \

@@ -25,6 +25,8 @@
 
 #include "uml.h"
 
+#define DIA_OBJECT(x) (DiaObject*)(x)
+
 /* The number of regular connectionpoints on the class (not cps for
  * attributes and operands and not the mainpoint). */
 #define UMLCLASS_CONNECTIONPOINTS 8
@@ -38,7 +40,7 @@
  *
  * Enabling 29/7 2005: Not known to cause any problems.
  */
-#define UML_MAINPOINT 1
+#undef UML_MAINPOINT 
 
 
 typedef struct _UMLClass UMLClass;
@@ -208,5 +210,7 @@ extern GtkWidget *umlclass_get_properties(UMLClass *umlclass, gboolean is_defaul
 extern ObjectChange *umlclass_apply_props_from_dialog(UMLClass *umlclass, GtkWidget *widget);
 extern void umlclass_calculate_data(UMLClass *umlclass);
 extern void umlclass_update_data(UMLClass *umlclass);
+
+extern void umlclass_sanity_check(UMLClass *c, gchar *msg);
 
 #endif /* CLASS_H */

@@ -1,3 +1,24 @@
+2005-10-13  Lars Clausen  <lars@raeder.dk>
+
+	* lib/connectionpoint.h (DIR_ALL): Parentheses around operations
+	in macros.
+
+	* plug-ins/hpgl/hpgl.c (export_data): Correct error message.
+
+	* lib/Makefile.am:
+	* lib/debug.[ch]:
+	* lib/object.[ch]: 
+	* objects/UML/class.[ch]: 
+	* objects/UML/uml.h: 
+	* objects/UML/umlattribute.c: 
+	* objects/UML/umloperation.c: 
+	* objects/UML/class_dialog.c: 
+	Rework of the UML class attribute/operation handling.  Now doesn't
+	copy connection points into the dialog data, but only the "flat"
+	data.  As part of debugging made sanity check functionality.
+	Currently still dies when deleting an attribute/operation that has
+	a connection to it.
+
 2005-10-09  Hans Breuer  <hans@breuer.org>
 
 	* lib/properties.h : prefer american spelling of colo(u)r for
@@ -51,6 +72,15 @@
 	* lib/focus.c(reset_foci) : also remove_focus(). This fixes bug #172851
 	I also can't reproduce bug #309044 anymore (on win32).
 	
+2005-10-01  Lars Clausen  <lars@raeder.dk>
+
+	* lib/connectionpoint.h (DIR_ALL): Parentheses around | expressions.
+
+	* plug-ins/hpgl/hpgl.c (export_data): Listen to warnings and don't
+	pass FILE * as gchar *.
+
+	* lib/debug.[ch] (dia_assert_true): Debugging aids.
+
 2005-09-29  Lars Clausen  <lars@raeder.dk>
 
 	* objects/UML/class.h: Enabling mainpoints for UML.

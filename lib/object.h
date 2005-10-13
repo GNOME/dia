@@ -483,6 +483,9 @@ gboolean       dia_object_defaults_save (const gchar *filename);
 Layer         *dia_object_get_parent_layer(DiaObject *obj);
 gboolean       dia_object_is_selected (const DiaObject *obj);
 
+/* The below are for debugging purposes only. */
+gboolean   dia_object_sanity_check(const DiaObject *obj, const gchar *msg);
+
 G_END_DECLS
 
 #endif /* OBJECT_H */

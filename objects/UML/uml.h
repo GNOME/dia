@@ -51,6 +51,8 @@ typedef enum _UMLParameterKind {
 typedef gchar * UMLStereotype;
 
 struct _UMLAttribute {
+  gint internal_id; /* Arbitrary integer to recognize attributes after 
+		     * the user has shuffled them in the dialog. */
   gchar *name;
   gchar *type;
   gchar *value; /* Can be NULL => No default value */
@@ -64,6 +66,8 @@ struct _UMLAttribute {
 };
 
 struct _UMLOperation {
+  gint internal_id; /* Arbitrary integer to recognize operations after
+		     * the user has shuffled them in the dialog. */
   gchar *name;
   gchar *type; /* Return type, NULL => No return type */
   gchar *comment;   
@@ -101,7 +105,9 @@ extern gchar *uml_get_attribute_string (UMLAttribute *attribute);
 extern gchar *uml_get_operation_string(UMLOperation *operation);
 extern gchar *uml_get_parameter_string(UMLParameter *param);
 extern gchar *uml_get_formalparameter_string(UMLFormalParameter *parameter);
-extern UMLAttribute *uml_attribute_copy(UMLAttribute *attr);
+extern void uml_attribute_copy_into(UMLAttribute *srcattr, UMLAttribute *destattr);
+extern UMLAttribute *uml_attribute_copy(UMLAttribute *attr, DiaObject *obj);
+extern void uml_operation_copy_into(UMLOperation *srcop, UMLOperation *destop);
 extern UMLOperation *uml_operation_copy(UMLOperation *op);
 extern UMLFormalParameter *uml_formalparameter_copy(UMLFormalParameter *param);
 extern void uml_attribute_destroy(UMLAttribute *attribute);

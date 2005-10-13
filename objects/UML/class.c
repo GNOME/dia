@@ -35,6 +35,8 @@
 
 #include "pixmaps/umlclass.xpm"
 
+#include "debug.h"
+
 #define UMLCLASS_BORDER 0.1
 #define UMLCLASS_UNDERLINEWIDTH 0.05
 
@@ -307,6 +309,8 @@ umlclass_set_props(UMLClass *umlclass, GPtrArray *props)
 {
   /* now that operations/attributes can be set here as well we need to 
    * take for the number of connections update as well
+   * Note that due to a hack in umlclass_load, this is called before
+   * the normal connection points are set up.
    */
   DiaObject *obj = &umlclass->element.object;
   GList *list;
@@ -316,13 +320,15 @@ umlclass_set_props(UMLClass *umlclass, GPtrArray *props)
                                 props);
 
   num = UMLCLASS_CONNECTIONPOINTS + umlclass_num_dynamic_connectionpoints(umlclass);
+  
 #ifdef UML_MAINPOINT
   obj->num_connections = num + 1;
 #else
   obj->num_connections = num;
 #endif
-  obj->connections =  g_realloc(obj->connections, obj->num_connections*sizeof(ConnectionPoint *));
 
+  obj->connections =  g_realloc(obj->connections, obj->num_connections*sizeof(ConnectionPoint *));
+  
   /* Update data: */
   if (num > UMLCLASS_CONNECTIONPOINTS) {
     int i;
@@ -334,9 +340,11 @@ umlclass_set_props(UMLClass *umlclass, GPtrArray *props)
     while (list != NULL) {
       UMLAttribute *attr = (UMLAttribute *)list->data;
 
+      printf("Setting obj conn %d to %p->left: %p\n", i, attr, attr->left_connection);
       obj->connections[i] = attr->left_connection;
       obj->connections[i]->object = obj;
       i++;
+      printf("Setting obj conn %d to %p->right: %p\n", i, attr, attr->right_connection);
       obj->connections[i] = attr->right_connection;
       obj->connections[i]->object = obj;
       i++;
@@ -361,6 +369,9 @@ umlclass_set_props(UMLClass *umlclass, GPtrArray *props)
 
   umlclass_calculate_data(umlclass);
   umlclass_update_data(umlclass);
+  /* Would like to sanity check here, but the call to object_load_props
+   * in umlclass_load means we will be called with inconsistent data. */
+  umlclass_sanity_check(umlclass, "After updating data");
 }
 
 static real
@@ -889,6 +900,8 @@ umlclass_update_data(UMLClass *umlclass)
   obj->position = elem->corner;
 
   element_update_handles(elem);
+
+  umlclass_sanity_check(umlclass, "After updating data");
 }
 
 void
@@ -1338,6 +1351,8 @@ umlclass_destroy(UMLClass *umlclass)
   UMLOperation *op;
   UMLFormalParameter *param;
 
+  umlclass_sanity_check(umlclass, "Destroying");
+
   umlclass->destroyed = TRUE;
 
   dia_font_unref(umlclass->normal_font);
@@ -1356,9 +1371,11 @@ umlclass_destroy(UMLClass *umlclass)
   list = umlclass->attributes;
   while (list != NULL) {
     attr = (UMLAttribute *)list->data;
+    printf("Destroying attr %p\n", attr);
     uml_attribute_destroy(attr);
     list = g_list_next(list);
   }
+  printf("Freeing umlclass->attributes %p\n", umlclass->attributes);
   g_list_free(umlclass->attributes);
   
   list = umlclass->operations;
@@ -1484,13 +1501,7 @@ umlclass_copy(UMLClass *umlclass)
   list = umlclass->attributes;
   while (list != NULL) {
     attr = (UMLAttribute *)list->data;
-    newattr = uml_attribute_copy(attr);
-    
-    newattr->left_connection->object = newobj;
-    newattr->left_connection->connected = NULL;
-    
-    newattr->right_connection->object = newobj;
-    newattr->right_connection->connected = NULL;
+    newattr = uml_attribute_copy(attr, newobj);
     
     newumlclass->attributes = g_list_prepend(newumlclass->attributes,
 					     newattr);
@@ -1549,7 +1560,9 @@ umlclass_copy(UMLClass *umlclass)
     list = newumlclass->attributes;
     while (list != NULL) {
       attr = (UMLAttribute *)list->data;
+      printf("Setting copy conn %d of %p to left %p\n", i, newobj, attr->left_connection);
       newobj->connections[i++] = attr->left_connection;
+      printf("Setting copy conn %d of %p to right %p\n", i, newobj, attr->right_connection);
       newobj->connections[i++] = attr->right_connection;
       
       list = g_list_next(list);
@@ -1582,6 +1595,8 @@ umlclass_copy(UMLClass *umlclass)
 #endif
 
   umlclass_update_data(newumlclass);
+
+  umlclass_sanity_check(newumlclass, "Copied");
   
   return &newumlclass->element.object;
 }
@@ -1597,6 +1612,8 @@ umlclass_save(UMLClass *umlclass, ObjectNode obj_node,
   GList *list;
   AttributeNode attr_node;
   
+  umlclass_sanity_check(umlclass, "Saving");
+
   element_save(&umlclass->element, obj_node);
 
   /* Class info: */
@@ -1658,6 +1675,7 @@ umlclass_save(UMLClass *umlclass, ObjectNode obj_node,
   list = umlclass->attributes;
   while (list != NULL) {
     attr = (UMLAttribute *) list->data;
+    printf("Writing attr %p\n", attr);
     uml_attribute_write(attr_node, attr);
     list = g_list_next(list);
   }
@@ -1691,7 +1709,7 @@ static DiaObject *umlclass_load(ObjectNode obj_node, int version,
   Element *elem;
   DiaObject *obj;
   AttributeNode attr_node;
-  int i, num_attr, num_ops;
+  int i;
   GList *list;
   
 
@@ -1704,9 +1722,23 @@ static DiaObject *umlclass_load(ObjectNode obj_node, int version,
 
   element_load(elem, obj_node);
 
-  /* kind of dirty, object_load_props() may leave us in an inconsistent state --hb */
+#ifdef UML_MAINPOINT
+  element_init(elem, 8, UMLCLASS_CONNECTIONPOINTS + 1);
+#else
+  element_init(elem, 8, UMLCLASS_CONNECTIONPOINTS);
+#endif
+
+  umlclass->properties_dialog = NULL;
+
+  for (i=0;i<UMLCLASS_CONNECTIONPOINTS;i++) {
+    obj->connections[i] = &umlclass->connections[i];
+    umlclass->connections[i].object = obj;
+    umlclass->connections[i].connected = NULL;
+  }
+
   fill_in_fontdata(umlclass);
   
+  /* kind of dirty, object_load_props() may leave us in an inconsistent state --hb */
   object_load_props(obj,obj_node);
   /* a bunch of properties still need their own special handling */
 
@@ -1752,7 +1784,6 @@ static DiaObject *umlclass_load(ObjectNode obj_node, int version,
 
   /* Attribute info: */
   list = umlclass->attributes;
-  num_attr = g_list_length (umlclass->attributes);
   while (list) {
     UMLAttribute *attr = list->data;
     g_assert(attr);
@@ -1766,7 +1797,6 @@ static DiaObject *umlclass_load(ObjectNode obj_node, int version,
 
   /* Operations info: */
   list = umlclass->operations;
-  num_ops = g_list_length (umlclass->operations);
   while (list) {
     UMLOperation *op = (UMLOperation *)list->data;
     g_assert(op);
@@ -1784,22 +1814,7 @@ static DiaObject *umlclass_load(ObjectNode obj_node, int version,
   attr_node = object_find_attribute(obj_node, "template");
   if (attr_node != NULL)
     umlclass->template = data_boolean(attribute_first_data(attr_node));
-
-  if ( (!umlclass->visible_attributes) ||
-       (umlclass->suppress_attributes))
-    num_attr = 0;
   
-  if ( (!umlclass->visible_operations) ||
-       (umlclass->suppress_operations))
-    num_ops = 0;
-  
-#ifdef UML_MAINPOINT
-  element_init(elem, 8, UMLCLASS_CONNECTIONPOINTS + num_attr*2 + num_ops*2 + 1);
-#else
-  element_init(elem, 8, UMLCLASS_CONNECTIONPOINTS + num_attr*2 + num_ops*2);
-#endif
-
-  umlclass->properties_dialog = NULL;
   fill_in_fontdata(umlclass);
   
   umlclass->stereotype_string = NULL;
@@ -1809,52 +1824,15 @@ static DiaObject *umlclass_load(ObjectNode obj_node, int version,
   umlclass->templates_strings = NULL;
 
   umlclass_calculate_data(umlclass);
-  
-  for (i=0;i<UMLCLASS_CONNECTIONPOINTS;i++) {
-    obj->connections[i] = &umlclass->connections[i];
-    umlclass->connections[i].object = obj;
-    umlclass->connections[i].connected = NULL;
-  }
 
-  i = UMLCLASS_CONNECTIONPOINTS;
-
-  if ( (umlclass->visible_attributes) &&
-       (!umlclass->suppress_attributes)) {
-    list = umlclass->attributes;
-    while (list != NULL) {
-      UMLAttribute *attr = (UMLAttribute *)list->data;
-      obj->connections[i++] = attr->left_connection;
-      obj->connections[i++] = attr->right_connection;
-      
-      list = g_list_next(list);
-    }
-  }
-  
-  if ( (umlclass->visible_operations) &&
-       (!umlclass->suppress_operations)) {
-    list = umlclass->operations;
-    while (list != NULL) {
-      UMLOperation *op = (UMLOperation *)list->data;
-      obj->connections[i++] = op->left_connection;
-      obj->connections[i++] = op->right_connection;
-      
-      list = g_list_next(list);
-    }
-  }
-#ifdef UML_MAINPOINT
-  /* Place the main point at the end of the list, where it doesn't
-   * disturb the rest */
-  obj->connections[i++] = &umlclass->connections[UMLCLASS_CONNECTIONPOINTS];
-  umlclass->connections[UMLCLASS_CONNECTIONPOINTS].object = obj;
-  umlclass->connections[UMLCLASS_CONNECTIONPOINTS].connected = NULL;
-#endif
   elem->extra_spacing.border_trans = UMLCLASS_BORDER/2.0;
   umlclass_update_data(umlclass);
-
   
   for (i=0;i<8;i++) {
     obj->handles[i]->type = HANDLE_NON_MOVABLE;
   }
+
+  umlclass_sanity_check(umlclass, "Loaded class");
 
   return &umlclass->element.object;
 }
@@ -1877,4 +1855,79 @@ umlclass_num_dynamic_connectionpoints(UMLClass *umlclass) {
     num += 2 * g_list_length(list);
   }
   return num;
+}
+
+void
+umlclass_sanity_check(UMLClass *c, gchar *msg)
+{
+#ifdef UML_MAINPOINT
+  int num_fixed_connections = UMLCLASS_CONNECTIONPOINTS + 1;
+#else
+  int num_fixed_connections = UMLCLASS_CONNECTIONPOINTS;
+#endif
+  DiaObject *obj = (DiaObject*)c;
+  GList *attrs, *ops;
+  int i;
+
+  dia_object_sanity_check((DiaObject *)c, msg);
+
+  /* Check that num_connections is correct */
+  dia_assert_true(num_fixed_connections + umlclass_num_dynamic_connectionpoints(c)
+		  == obj->num_connections,
+		  "%s: Class %p has %d connections, but %d fixed and %d dynamic\n",
+		  msg, c, obj->num_connections, num_fixed_connections,
+		  umlclass_num_dynamic_connectionpoints(c));
+  
+  for (i = 0; i < UMLCLASS_CONNECTIONPOINTS; i++) {
+    dia_assert_true(&c->connections[i] == obj->connections[i],
+		    "%s: Class %p connection mismatch at %d: %p != %p\n",
+		    msg, c, i, &c->connections[i], obj->connections[i]);
+  }
+
+#ifdef UML_MAINPOINT
+  dia_assert_true(&c->connections[i] ==
+		  obj->connections[i + umlclass_num_dynamic_connectionpoints(c)],
+		  "%s: Class %p mainpoint mismatch: %p != %p (at %d)\n",
+		  msg, c, i, &c->connections[i],
+		  obj->connections[i + umlclass_num_dynamic_connectionpoints(c)],
+		  i + umlclass_num_dynamic_connectionpoints(c));
+#endif
+
+  /* Check that attributes are set up right. */
+  i = 0;
+  for (attrs = c->attributes; attrs != NULL; attrs = g_list_next(attrs)) {
+    UMLAttribute *attr = (UMLAttribute *)attrs->data;
+    int conn_offset = UMLCLASS_CONNECTIONPOINTS + 2 * i;
+    dia_assert_true(attr->name != NULL,
+		    "%s: %p attr %d has null name\n",
+		    msg, c, i);
+    dia_assert_true(attr->type != NULL,
+		    "%s: %p attr %d has null type\n",
+		    msg, c, i);
+    dia_assert_true(attr->comment != NULL,
+		    "%s: %p attr %d has null comment\n",
+		    msg, c, i);
+    
+    dia_assert_true(attr->left_connection != NULL,
+		    "%s: %p attr %d has null left connection\n",
+		    msg, c, i);
+    dia_assert_true(attr->left_connection == obj->connections[conn_offset],
+		    "%s: %p attr %d left conn %p doesn't match obj conn %d: %p\n",
+		    msg, c, i, attr->left_connection,
+		    conn_offset, obj->connections[conn_offset]);
+    dia_assert_true(attr->right_connection == obj->connections[conn_offset + 1],
+		    "%s: %p attr %d right conn %p doesn't match obj conn %d: %p\n",
+		    msg, c, i, attr->right_connection,
+		    conn_offset + 1, obj->connections[conn_offset + 1]);
+    dia_assert_true(attr->right_connection != NULL,
+		    "%s: %p attr %d has null right connection\n",
+		    msg, c, i);
+
+    
+    
+    i++;
+  }
+  
+  
+  /* Check that operations are set up right. */
 }

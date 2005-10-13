@@ -27,6 +27,8 @@
 
 #include "dummy_dep.h"
 
+#include "debug.h"
+
 void object_init(DiaObject *obj, int num_handles, int num_connections);
 
 void
@@ -36,13 +38,13 @@ object_init(DiaObject *obj,
 {
   obj->num_handles = num_handles;
   if (num_handles>0)
-    obj->handles = g_new0(Handle *,num_handles);
+    obj->handles = g_malloc0(sizeof(Handle *) * num_handles);
   else
     obj->handles = NULL;
 
   obj->num_connections = num_connections;
   if (num_connections>0)
-    obj->connections = g_new0(ConnectionPoint *,num_connections);
+    obj->connections = g_malloc0(sizeof(ConnectionPoint *) * num_connections);
   else
     obj->connections = NULL;
 }
@@ -603,4 +605,148 @@ DiaObject *object_copy_using_properties(DiaObject *obj)
                                           &handle1,&handle2);
   object_copy_props(newobj,obj,FALSE);
   return newobj;
+}
+
+
+/* The below are for debugging purposes only. */
+
+/** Check that a DiaObject maintains its invariants and constrains.
+ * @param obj An object to check
+ * @return TRUE if the object is OK. */
+gboolean  
+dia_object_sanity_check(const DiaObject *obj, const gchar *msg) {
+  int i;
+  /* Check the type */
+  dia_assert_true(obj->type != NULL,
+		  "%s: Object %p has null type\n",
+		  msg, obj);
+  if (obj != NULL) {
+    dia_assert_true(obj->type->name != NULL &&
+		    g_utf8_validate(obj->type->name, -1, NULL),
+		    "%s: Object %p has illegal type name %p (%s)\n",
+		    msg, obj, obj->type->name);
+    /* Check the position vs. the bounding box */
+    /* Check the handles */
+    dia_assert_true(obj->num_handles >= 0, 
+		    "%s: Object %p has < 0 (%d) handles\n", 
+		    msg, obj,  obj->num_handles);
+    if (obj->num_handles != 0) {
+      dia_assert_true(obj->handles != NULL,
+		      "%s: Object %p has null handles\n", obj);
+    }
+    for (i = 0; i < obj->num_handles; i++) {
+      Handle *h = obj->handles[i];
+      dia_assert_true(h != NULL, "%s: Object %p handle %d is null\n", 
+		      msg, obj, i);
+      if (h != NULL) {
+	/* Check handle id */
+	dia_assert_true((h->id >= 0 && h->id <= HANDLE_MOVE_ENDPOINT)
+			|| (h->id >= HANDLE_CUSTOM1 && h->id <= HANDLE_CUSTOM9),
+			"%s: Object %p handle %d (%p) has wrong id %d\n", 
+			msg, obj, i, h, h->id);
+	/* Check handle type */
+	dia_assert_true(h->type >= 0 && h->type <= NUM_HANDLE_TYPES,
+			"%s: Object %p handle %d (%p) has wrong type %d\n", 
+			msg, obj, i, h, h->type);
+	/* Check handle pos is legal pos */
+	/* Check connect type is legal */
+	dia_assert_true(h->connect_type >= 0
+			&& h->connect_type <= HANDLE_CONNECTABLE_NOBREAK,
+			"%s: Object %p handle %d (%p) has wrong connect type %d\n", 
+			msg, obj, i, h, h->connect_type);
+	/* Check that if connected, connection makes sense */
+	do { /* do...while(FALSE) to make aborting easy */
+	  ConnectionPoint *cp = h->connected_to;
+	  if (cp != NULL) {
+	    gboolean found = FALSE;
+	    GList *conns;
+	    if (!dia_assert_true(cp->object != NULL,
+				 "%s: Handle %d (%p) on object %p connects to CP %p with NULL object\n",
+				 msg, i, h, obj, cp)) break;
+	    if (!dia_assert_true(cp->object->type != NULL,
+				 "%s:  Handle %d (%p) on object %p connects to CP %p with untyped object %p\n",
+				 msg, i, h, obj, cp, cp->object)) break;	    
+	    if (!dia_assert_true(cp->object->type->name != NULL &&
+				 g_utf8_validate(cp->object->type->name, -1, NULL),
+				 "%s:  Handle %d (%p) on object %p connects to CP %p with untyped object %p\n",
+				 msg, i, h, obj, cp, cp->object)) break;
+	    dia_assert_true(cp->pos.x == h->pos.x && cp->pos.y == h->pos.y,
+			    "%s: Handle %d (%p) on object %p has pos %f, %f,\nbut its CP %p of object %p has pos %f, %f\n",
+			    msg, i, h, obj, h->pos.x, h->pos.y, 
+			    cp, cp->object, cp->pos.x, cp->pos.y);
+	    for (conns = cp->connected; conns != NULL; conns = g_list_next(conns)) {
+	      DiaObject *obj2 = (DiaObject *)conns->data;
+	      int j;
+	      
+	      for (j = 0; j < obj2->num_handles; j++) {
+		if (obj2->handles[j]->connected_to == cp) found = TRUE;
+	      }
+	    }
+	    dia_assert_true(found == TRUE,
+			    "%s: Handle %d (%p) on object %p is connected to %p on object %p, but is not in its connect list\n",
+			    msg, i, h, obj, cp, cp->object);	
+	  }
+	} while (FALSE);
+      }
+    }
+    /* Check the connections */
+    dia_assert_true(obj->num_connections >= 0, 
+		    "%s: Object %p has < 0 (%d) connection points\n",
+		    msg, obj, obj->num_connections);
+    if (obj->num_connections != 0) {
+      dia_assert_true(obj->connections != NULL,
+		      "%s: Object %p has NULL connections array\n",
+		      msg, obj);
+    }
+    for (i = 0; i < obj->num_connections; i++) {
+      GList *connected;
+      ConnectionPoint *cp = obj->connections[i];
+      int j;
+      dia_assert_true(cp != NULL, "%s: Object %p has null CP at %d\n", msg, obj, i);
+      if (cp != NULL) {
+	dia_assert_true(cp->object == obj,
+			"%s: Object %p CP %d (%p) points to other obj %p\n",
+			msg, obj, i, cp, cp->object);
+	dia_assert_true((cp->directions & (~DIR_ALL)) == 0,
+			"%s: Object %p CP %d (%p) has illegal directions %d\n",
+			msg, obj, i, cp, cp->directions);
+	dia_assert_true((cp->flags & CP_FLAGS_MAIN) == cp->flags,
+			"%s: Object %p CP %d (%p) has illegal flags %d\n",
+			msg, obj, i, cp, cp->flags);
+	dia_assert_true(cp->name == NULL 
+			|| g_utf8_validate(cp->name, -1, NULL),
+			"%s: Object %p CP %d (%p) has non-UTF8 name %s\n",
+			msg, obj, i, cp, cp->name);
+	j = 0;
+	for (connected = cp->connected; connected != NULL;
+	     connected = g_list_next(connected)) {
+	  DiaObject *obj2;
+	  obj2 = connected->data;
+	  dia_assert_true(obj2 != NULL, "%s: Object %p CP %d (%p) has NULL object at index %d\n",
+			  msg, obj, i, cp, j);
+	  if (obj2 != NULL) {
+	    int k;
+	    gboolean found_handle = FALSE;
+	    dia_assert_true(obj2->type->name != NULL &&
+			    g_utf8_validate(obj2->type->name, -1, NULL),
+			    "%s: Object %p CP %d (%p) connected to untyped object %p (%s) at index %d\n",
+			    msg, obj, i, cp, obj2, obj2->type->name, j);
+	    /* Check that connected object points back to this CP */
+	    for (k = 0; k < obj2->num_handles; k++) {
+	      if (obj2->handles[k] != NULL &&
+		  obj2->handles[k]->connected_to == cp) {
+		found_handle = TRUE;
+	      }
+	    }
+	    dia_assert_true(found_handle, 
+			    "%s: Object %p CP %d (%p) connected to %p (%s) at index %d, but no handle points back\n",
+			    msg, obj, i, cp, obj2, obj2->type->name, j);
+	  }
+	  j++;
+	}
+      }
+    }
+    /* Check the children */
+  }
+  return TRUE;
 }
