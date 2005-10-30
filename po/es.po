@@ -1,3 +1,4 @@
+# translation of es.po to 
 # Spanish translation of es
 # Spanish translation for Dia.
 # Copyright © 2000,2002,2003 Free Software Foundation, Inc.
@@ -11,15 +12,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-10-20 23:18+0200\n"
-"PO-Revision-Date: 2005-10-20 23:46+0200\n"
-"Last-Translator: Francisco Javier F. Serrador <serrador@cvs.gnome.org>\n"
-"Language-Team: Spanish <traductores@es.gnome.org>\n"
+"POT-Creation-Date: 2005-10-30 12:06+0100\n"
+"PO-Revision-Date: 2005-10-30 12:10+0100\n"
+"Last-Translator: \n"
+"Language-Team:  <en@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "serrador@hispalinux.es>\n"
-"X-Generator: KBabel 1.10.2\n"
+"X-Generator: KBabel 1.9.1\n"
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 
 #. This is not an errror
@@ -3483,7 +3484,7 @@ msgid "Differentiate"
 msgstr "Diferenciar"
 
 #. Translators: Menu item Verb/Convert/Process
-#: ../objects/FS/function.c:1032
+#: ../objects/FS/function.c:1032 ../sheets/EML.sheet.in.h:5
 msgid "Process"
 msgstr "Procesar"
 
@@ -6253,6 +6254,14 @@ msgstr "EML"
 msgid "Editor for EML Static Structure Diagrams."
 msgstr "Editor para diagramas de estructura estática EML."
 
+#: ../sheets/EML.sheet.in.h:3
+msgid "Instantiation. One process create others"
+msgstr "Instanciación. Un proceso crea otros"
+
+#: ../sheets/EML.sheet.in.h:4
+msgid "Interaction between processes."
+msgstr "Interacción entre procesos"
+
 #: ../sheets/ER.sheet.in.h:2
 msgid "ER"
 msgstr "ER"
@@ -6273,7 +6282,7 @@ msgstr "Entidad débil"
 msgid "Components for electric circuits"
 msgstr "Componentes para circuitos eléctricos"
 
-#: ../sheets/Electric.sheet.in.h:2 ../sheets/Pneumatic.sheet.in.h:7
+#: ../sheets/Electric.sheet.in.h:2 ../sheets/Pneumatic.sheet.in.h:9
 msgid "Connection point"
 msgstr "Punto de conexión"
 
@@ -6907,78 +6916,86 @@ msgid "3/2 distributor"
 msgstr "Distribuidor 3/2"
 
 #: ../sheets/Pneumatic.sheet.in.h:3
+msgid "3/3 distributor"
+msgstr "Distribuidor 3/3"
+
+#: ../sheets/Pneumatic.sheet.in.h:4
 msgid "4/2 distributor"
 msgstr "Distribuidor 4/2"
 
-#: ../sheets/Pneumatic.sheet.in.h:4
+#: ../sheets/Pneumatic.sheet.in.h:5
 msgid "5/2 distributor"
 msgstr "Distribuidor 5/2"
 
-#: ../sheets/Pneumatic.sheet.in.h:5
+#: ../sheets/Pneumatic.sheet.in.h:6
+msgid "5/3 distributor"
+msgstr "Distribuidor 5/3"
+
+#: ../sheets/Pneumatic.sheet.in.h:7
 msgid "Air exhaust orifice"
 msgstr "Orificio para la salida de aire"
 
-#: ../sheets/Pneumatic.sheet.in.h:6
+#: ../sheets/Pneumatic.sheet.in.h:8
 msgid "Components for pneumatic and hydraulic circuits"
 msgstr "Componentes para circuitos hidráulicos y neumáticos"
 
-#: ../sheets/Pneumatic.sheet.in.h:8
+#: ../sheets/Pneumatic.sheet.in.h:10
 msgid "Double-effect jack"
 msgstr "Clavija de efecto doble"
 
-#: ../sheets/Pneumatic.sheet.in.h:9
+#: ../sheets/Pneumatic.sheet.in.h:11
 msgid "Electric command (double coil)"
 msgstr "Actuador eléctrico (bobina doble)"
 
-#: ../sheets/Pneumatic.sheet.in.h:10
+#: ../sheets/Pneumatic.sheet.in.h:12
 msgid "Electric command (single coil)"
 msgstr "Actuador eléctrico (bobina sencilla)"
 
-#: ../sheets/Pneumatic.sheet.in.h:11
+#: ../sheets/Pneumatic.sheet.in.h:13
 msgid "Generic pressure source"
 msgstr "Fuente de presión genérica"
 
-#: ../sheets/Pneumatic.sheet.in.h:12
+#: ../sheets/Pneumatic.sheet.in.h:14
 msgid "Hydraulic pressure source"
 msgstr "Fuente de presión hidráulica"
 
-#: ../sheets/Pneumatic.sheet.in.h:13
+#: ../sheets/Pneumatic.sheet.in.h:15
 msgid "Indirect command by hydraulic driver"
 msgstr "Actuador indirecto por manejador hidráulico"
 
-#: ../sheets/Pneumatic.sheet.in.h:14
+#: ../sheets/Pneumatic.sheet.in.h:16
 msgid "Indirect command by pneumatic driver"
 msgstr "Actuador indirecto por manejador neumático"
 
-#: ../sheets/Pneumatic.sheet.in.h:15
+#: ../sheets/Pneumatic.sheet.in.h:17
 msgid "Mechanical command by spring"
 msgstr "Actuador mecánico por muelle"
 
-#: ../sheets/Pneumatic.sheet.in.h:16
+#: ../sheets/Pneumatic.sheet.in.h:18
 msgid "Mechanical command by tappet"
 msgstr "Actuador mecánico por taqué"
 
-#: ../sheets/Pneumatic.sheet.in.h:17
+#: ../sheets/Pneumatic.sheet.in.h:19
 msgid "Muscular command"
 msgstr "Actuador muscular"
 
-#: ../sheets/Pneumatic.sheet.in.h:18
+#: ../sheets/Pneumatic.sheet.in.h:20
 msgid "Normally-in simple-effect jack"
 msgstr "Clavija de efecto simple normalmente enchufada"
 
-#: ../sheets/Pneumatic.sheet.in.h:19
+#: ../sheets/Pneumatic.sheet.in.h:21
 msgid "Normally-out simple-effect jack"
 msgstr "Clavija de efecto simple normalmente desenchufada"
 
-#: ../sheets/Pneumatic.sheet.in.h:20
+#: ../sheets/Pneumatic.sheet.in.h:22
 msgid "Pneumatic pressure source"
 msgstr "Fuente de presión neumática"
 
-#: ../sheets/Pneumatic.sheet.in.h:21
+#: ../sheets/Pneumatic.sheet.in.h:23
 msgid "Pneumatic/Hydraulic"
 msgstr "Neumático/Hidráulico"
 
-#: ../sheets/Pneumatic.sheet.in.h:22
+#: ../sheets/Pneumatic.sheet.in.h:24
 msgid "Push-button command"
 msgstr "Actuador de pulsador"
 
@@ -7189,7 +7206,7 @@ msgstr "Formas de computadoras de Cisco"
 
 #: ../sheets/ciscocomputer.sheet.in.h:7
 msgid "Disk subsystem"
-msgstr ""
+msgstr "Subsistema de disco"
 
 #: ../sheets/ciscocomputer.sheet.in.h:8
 msgid "Diskette"
@@ -7297,7 +7314,7 @@ msgstr "PC Video"
 
 #: ../sheets/ciscocomputer.sheet.in.h:34
 msgid "PC with Router-Based Software"
-msgstr ""
+msgstr "PC con software de encaminador"
 
 #: ../sheets/ciscocomputer.sheet.in.h:35
 msgid "PDA"
@@ -7453,7 +7470,7 @@ msgstr "Conmutador de centro de datos"
 
 #: ../sheets/ciscohub.sheet.in.h:23
 msgid "Data Center Switch Reversed"
-msgstr ""
+msgstr "Conmutador invertido de centro de datos"
 
 #: ../sheets/ciscohub.sheet.in.h:24
 msgid "Data Switch Processor"
@@ -7461,15 +7478,15 @@ msgstr "Procesador de conmutación de datos"
 
 #: ../sheets/ciscohub.sheet.in.h:25
 msgid "Director-class Fibre Channel intelligent switch"
-msgstr ""
+msgstr "Conmutador inteligente de clase Director de canal de fibra"
 
 #: ../sheets/ciscohub.sheet.in.h:26
 msgid "Edge Label Switch Router"
-msgstr ""
+msgstr "Etiqueta de borde de conmutador router"
 
 #: ../sheets/ciscohub.sheet.in.h:27
 msgid "Edge Label Switch Router with NetFlow"
-msgstr ""
+msgstr "Etiqueta de borde de conmutador router con NetFlow"
 
 #: ../sheets/ciscohub.sheet.in.h:28
 msgid "Generic Processor"
@@ -7481,7 +7498,7 @@ msgstr "Concentrador"
 
 #: ../sheets/ciscohub.sheet.in.h:30
 msgid "Hub subdued"
-msgstr ""
+msgstr "Hub subdued"
 
 #: ../sheets/ciscohub.sheet.in.h:31
 msgid "ISDN switch"
@@ -7676,7 +7693,7 @@ msgstr "Rama de oficina azul"
 # Si ha de ser un verbo debería ser Ramificar. FVD
 #: ../sheets/ciscomisc.sheet.in.h:5
 msgid "Branch office subdued"
-msgstr ""
+msgstr "Branch office subdued"
 
 #: ../sheets/ciscomisc.sheet.in.h:6
 msgid "Car"
@@ -7704,7 +7721,7 @@ msgstr "Edificio genérico azul"
 
 #: ../sheets/ciscomisc.sheet.in.h:12
 msgid "Generic Building subdued"
-msgstr ""
+msgstr "Generic Building subdued"
 
 #: ../sheets/ciscomisc.sheet.in.h:13
 msgid "Government Building"
@@ -7771,7 +7788,7 @@ msgstr "Edificio medio azul"
 
 #: ../sheets/ciscomisc.sheet.in.h:29
 msgid "Medium Building subdued"
-msgstr ""
+msgstr "Medium Building subdued"
 
 #: ../sheets/ciscomisc.sheet.in.h:31
 msgid "Miscellaneous shapes by Cisco"
@@ -7835,7 +7852,7 @@ msgstr "Sitio de teleconmutación"
 
 #: ../sheets/ciscomisc.sheet.in.h:47
 msgid "Telecommuter house subdued"
-msgstr ""
+msgstr "Telecommuter house subdued"
 
 #: ../sheets/ciscomisc.sheet.in.h:48
 msgid "Truck"
@@ -7899,7 +7916,7 @@ msgstr "Punto de acceso"
 
 #: ../sheets/cisconetwork.sheet.in.h:8
 msgid "Automatic Protection Switching"
-msgstr ""
+msgstr "Conmutador con protección automática"
 
 #: ../sheets/cisconetwork.sheet.in.h:9
 msgid "BBFW"
@@ -8027,7 +8044,7 @@ msgstr "Cortafuegos horizontal"
 
 #: ../sheets/cisconetwork.sheet.in.h:40
 msgid "Firewall subdued"
-msgstr ""
+msgstr "Firewall subdued"
 
 #: ../sheets/cisconetwork.sheet.in.h:41
 msgid "General Appliance"
@@ -8187,7 +8204,7 @@ msgstr "Control de servicio"
 
 #: ../sheets/cisconetwork.sheet.in.h:81
 msgid "Storage Solution Engine"
-msgstr ""
+msgstr "Storage Solution Engine"
 
 #: ../sheets/cisconetwork.sheet.in.h:82
 msgid "System controller"
@@ -8263,7 +8280,7 @@ msgstr "Conectividad inalámbrica"
 
 #: ../sheets/cisconetwork.sheet.in.h:100
 msgid "Wireless Location Appliance"
-msgstr ""
+msgstr "Wireless Location Appliance"
 
 #: ../sheets/cisconetwork.sheet.in.h:101
 msgid "Wireless Transport"
@@ -8869,156 +8886,4 @@ msgstr "Un servidor de datos sybase"
 #: ../sheets/sybase.sheet.in.h:8
 msgid "Sybase replication server"
 msgstr "Un servidor de replicación de sybase"
-
-#~ msgid "Instantiation. One process create others"
-#~ msgstr "Instanciación. Un proceso crea otros"
-
-#~ msgid "Interaction between processes."
-#~ msgstr "Interacción entre procesos"
-
-#~ msgid "3/3 distributor"
-#~ msgstr "Distribuidor 3/3"
-
-#~ msgid "5/3 distributor"
-#~ msgstr "Distribuidor 5/3"
-
-#~ msgid "Fill colour"
-#~ msgstr "Color de relleno"
-
-#~ msgid "Line colour"
-#~ msgstr "Color de la línea"
-
-#~ msgid "Text colour"
-#~ msgstr "Color de texto"
-
-#, fuzzy
-#~ msgid "Implmentation"
-#~ msgstr "Implementación"
-
-#~ msgid "Export format to use"
-#~ msgstr "Formato de exportación que usar"
-
-#~ msgid "eps,png,wmf,cgm,dxf,fig"
-#~ msgstr "eps,png,wmf,cgm,dxf,fig"
-
-#~ msgid "Export file name to use"
-#~ msgstr "Nombre de archivo que se usará al exportar"
-
-#~ msgid "Quiet operation"
-#~ msgstr "Operación silenciosa"
-
-#~ msgid ""
-#~ "Error: No arguments found.\n"
-#~ "Run '%s --help' to see a full list of available command line options.\n"
-#~ msgstr ""
-#~ "Erro: No se encontraron argumentos.\n"
-#~ "Ejecute «%s» --help para ver una lista completa de las opciones de línea "
-#~ "de órdenes.\n"
-
-#~ msgid "%s error: can specify only one of -t or -o."
-#~ msgstr "error %s: debe especificar sólo uno de -t o -o."
-
-#~ msgid ""
-#~ "%s error: must specify only one of -t or -o.\n"
-#~ "Run '%s --help' to see a full list of available command line options.\n"
-#~ msgstr ""
-#~ "error %s: debe especificar sólo un -t o -o.\n"
-#~ "Ejecute '%s --help' para ver la lista completa de opciones de la línea de "
-#~ "órdenes.\n"
-
-#~ msgid "%s error: no input file."
-#~ msgstr "error %s: no hay un archivo de entrada."
-
-#~ msgid "%s error: only one input file expected."
-#~ msgstr "error %s: se esperaba sólo un archivo de entrada."
-
-#~ msgid "%s error: popt library not available on this system"
-#~ msgstr "error %s: la biblioteca popt no está disponible en este sistema"
-
-#~ msgid "Workstation"
-#~ msgstr "Estación de trabajo"
-
-#~ msgid "Cisco hub"
-#~ msgstr "Concentrador Cisco"
-
-#~ msgid "Content switch module"
-#~ msgstr "Módulo de conmutación de contenidos"
-
-#~ msgid "Voice switch"
-#~ msgstr "Conmutador de voz"
-
-#~ msgid "Voice switch 2"
-#~ msgstr "Conmutador de voz 2"
-
-#~ msgid "Dot-Dot"
-#~ msgstr "Punto a Punto"
-
-#~ msgid "SVX (interchangeable with End office)"
-#~ msgstr "SVX (intercambiable con oficina final)"
-
-#~ msgid "Telecommuter house/router"
-#~ msgstr "House/router de teleconmutación"
-
-#~ msgid "6705 Integrated access device"
-#~ msgstr "Dispositivo de acceso integrado 6705"
-
-#~ msgid "6732 Multiservice access platform"
-#~ msgstr "Plataforma de acceso multiservicio 6732"
-
-#~ msgid "CDDI-FDDI"
-#~ msgstr "CDDI-FDDI"
-
-#~ msgid "DPT"
-#~ msgstr "DPT"
-
-#~ msgid "IPTC"
-#~ msgstr "IPTC"
-
-#~ msgid "NetRanger intrusion detection system"
-#~ msgstr "Sistema de detección de intrusos NetRanger"
-
-#~ msgid "NetSonar security scanner"
-#~ msgstr "Scaner de seguridad NetSonar"
-
-#~ msgid "ONS15500 DWDM platform"
-#~ msgstr "Plataforma ONS15500 DWDM"
-
-#~ msgid "PAD X.28"
-#~ msgstr "PAD X.28"
-
-#~ msgid "7505"
-#~ msgstr "7505"
-
-#~ msgid "7507"
-#~ msgstr "7507"
-
-#~ msgid "ATM router"
-#~ msgstr "Encaminador ATM"
-
-#~ msgid "ATM tag sw gigabit router"
-#~ msgstr "Símbolo del encaminador conmutador gigabit ATM"
-
-#~ msgid "Cisco - Router"
-#~ msgstr "Encaminador Cisco"
-
-#~ msgid "Gigabit switch router (ATM tag)"
-#~ msgstr "Encaminador conmutador Gigabit (etiqueta ATM)"
-
-#~ msgid "Router in building"
-#~ msgstr "Encaminador en edificio"
-
-#~ msgid "Router shapes by Cisco"
-#~ msgstr "Formas de encaminadores por Cisco"
-
-#~ msgid "Workgroup 5000 multilayer switch"
-#~ msgstr "Conmutador multicapa Workgroup 5000"
-
-#~ msgid "Workgroup 5002 multilayer switch"
-#~ msgstr "Comnutador multicapa Workgroup 5002"
-
-#~ msgid "Workgroup 5500 multilayer switch"
-#~ msgstr "Comnutador multicapa Workgroup 5500"
-
-#~ msgid "uBR910"
-#~ msgstr "uBR910"
 
