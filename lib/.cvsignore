@@ -6,3 +6,4 @@ diamarshal.h
 dia-lib-icons.h
 *.lo
 .libs
+*.la
