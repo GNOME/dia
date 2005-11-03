@@ -39,6 +39,9 @@ struct _DiaImage {
 
 gboolean _dia_image_initialized = FALSE;
 
+/** Perform required initialization to handle images with GDK.
+ *  Should not be called in non-interactive use.
+ */
 void 
 dia_image_init(void)
 {
@@ -48,6 +51,9 @@ dia_image_init(void)
   }
 }
 
+/** Get the image to put in place of a image that cannot be read.
+ * @returns A statically allocated image.
+ */
 DiaImage
 dia_image_get_broken(void)
 {
@@ -67,8 +73,13 @@ dia_image_get_broken(void)
   return broken;
 }
 
-DiaImage 
-dia_image_load(gchar *filename) 
+/** Load an image from file.
+ * @param filename Name of the file to load.
+ * @returns An image loaded from file, or NULL if an error occurred.
+ *          Error messages will be displayed to the user.
+ */
+DiaImage
+dia_image_load(gchar *filename)
 {
   DiaImage dia_img;
   GdkPixbuf *image;
@@ -96,18 +107,32 @@ dia_image_load(gchar *filename)
   return dia_img;
 }
 
+/** Reference an image.
+ * @param image Image that we want a reference to.
+ */
 void
 dia_image_add_ref(DiaImage image)
 {
   gdk_pixbuf_ref(image->image);
 }
 
+/** Release a reference to an image.
+ * @param image Image to unreference.
+ */
 void
 dia_image_release(DiaImage image)
 {
   gdk_pixbuf_unref(image->image);
 }
 
+/** Render an image unto a window.
+ * @param image Image object to render.
+ * @param window The window to render the image into.
+ * @param x X position in window of place to render image.
+ * @param y Y position in window of place to render image.
+ * @param width Width in pixels of rendering in window.
+ * @param height Height in pixels of rendering in window.
+ */
 void 
 dia_image_draw(DiaImage image, GdkWindow *window,
 	       int x, int y, int width, int height)
@@ -146,24 +171,41 @@ dia_image_draw(DiaImage image, GdkWindow *window,
 #endif
 }
 
+/** Get the width of an image.
+ * @param image An image object
+ * @returns The natural width of the object in pixels.
+ */
 int 
 dia_image_width(DiaImage image)
 {
   return gdk_pixbuf_get_width(image->image);
 }
 
+/** Get the height of an image.
+ * @param image An image object
+ * @returns The natural height of the object in pixels.
+ */
 int 
 dia_image_height(DiaImage image)
 {
   return gdk_pixbuf_get_height(image->image);
 }
 
+/** Get the rowstride number of bytes per row, see gdk_pixbuf_get_rowstride.
+ * @param image An image object
+ * @returns The rowstride number of the image.
+ */
 int
 dia_image_rowstride(DiaImage image)
 {
   return gdk_pixbuf_get_rowstride(image->image);
 }
 
+/** Get the raw RGB data from an image.
+ * @param image An image object.
+ * @returns An array of bytes (height*rowstride) containing the RGB data
+ *          This array should be freed after use.
+ */
 guint8 *
 dia_image_rgb_data(DiaImage image)
 {
@@ -192,6 +234,11 @@ dia_image_rgb_data(DiaImage image)
   }
 }
 
+/** Get the mask data for an image.
+ * @param image An image object.
+ * @returns An array of bytes (width*height) with the alpha channel information
+ *          from the image.  This array should be freed after use.
+ */
 guint8 *
 dia_image_mask_data(DiaImage image)
 {
@@ -217,6 +264,11 @@ dia_image_mask_data(DiaImage image)
   return mask;
 }
 
+/** Get full RGBA data from an image.
+ * @param image An image object.
+ * @returns An array of pixels as delivered by gdk_pixbuf_get_pixels, or
+ *          NULL if the image has no alpha channel.
+ */
 const guint8 *
 dia_image_rgba_data(DiaImage image)
 {
@@ -229,6 +281,11 @@ dia_image_rgba_data(DiaImage image)
   }
 }
 
+/** Return the filename associated with an image.
+ * @param image An image object
+ * @returns The filename associated with an image, or "(null)" if the image
+ *          has no filename.  This string should *not* be freed by the caller.
+ */
 const char *
 dia_image_filename(DiaImage image)
 {

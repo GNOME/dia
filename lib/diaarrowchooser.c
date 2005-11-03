@@ -19,6 +19,9 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
+/** A widget to choose arrowhead.  This only select arrowhead, not width
+ *  and height. */
+
 #include <gtk/gtk.h>
 
 #include "intl.h"
@@ -38,8 +41,11 @@ static void dia_arrow_preview_init       (DiaArrowPreview       *arrow);
 static gint dia_arrow_preview_expose     (GtkWidget      *widget,
 					  GdkEventExpose *event);
 
+/** Get the class information for the arrow preview widget.
+ * @return A type object (statically allocated) for the arrow preview object.
+ */
 GType
-dia_arrow_preview_get_type (void)
+dia_arrow_preview_get_type(void)
 {
   static GType type = 0;
 
@@ -62,8 +68,11 @@ dia_arrow_preview_get_type (void)
   return type;
 }
 
+/** Initialize class information for the arrow preview class.
+ * @param class The class object to initialize/
+ */
 static void
-dia_arrow_preview_class_init (DiaArrowPreviewClass *class)
+dia_arrow_preview_class_init(DiaArrowPreviewClass *class)
 {
   GtkWidgetClass *widget_class;
 
@@ -71,8 +80,11 @@ dia_arrow_preview_class_init (DiaArrowPreviewClass *class)
   widget_class->expose_event = dia_arrow_preview_expose;
 }
 
+/** Initialize an arrow preview widget.
+ * @param arrow The widget to initialize.
+ */
 static void
-dia_arrow_preview_init (DiaArrowPreview *arrow)
+dia_arrow_preview_init(DiaArrowPreview *arrow)
 {
   GTK_WIDGET_SET_FLAGS (arrow, GTK_NO_WINDOW);
 
@@ -83,8 +95,13 @@ dia_arrow_preview_init (DiaArrowPreview *arrow)
   arrow->left = TRUE;
 }
 
+/** Create a new arrow preview widget.
+ * @param atype The type of arrow to start out selected with.
+ * @param left If TRUE, this preview will point to the left.
+ * @return A new widget.
+ */
 GtkWidget *
-dia_arrow_preview_new (ArrowType atype, gboolean left)
+dia_arrow_preview_new(ArrowType atype, gboolean left)
 {
   DiaArrowPreview *arrow = g_object_new(DIA_TYPE_ARROW_PREVIEW, NULL);
 
@@ -93,6 +110,11 @@ dia_arrow_preview_new (ArrowType atype, gboolean left)
   return GTK_WIDGET(arrow);
 }
 
+/** Set the values shown by an arrow preview widget.
+ * @param arrow Preview widget to change.
+ * @param atype New arrow type to use.
+ * @param left If TRUE, the preview should point to the left.
+ */
 static void
 dia_arrow_preview_set(DiaArrowPreview *arrow, ArrowType atype, gboolean left)
 {
@@ -104,6 +126,12 @@ dia_arrow_preview_set(DiaArrowPreview *arrow, ArrowType atype, gboolean left)
   }
 }
 
+/** Expose handle for the arrow preview widget.
+ * @param widget The widget to display.
+ * @param event The event that caused the call.
+ * @return TRUE always.
+ * @bugs Reference the situations where this gets called.
+ */
 static gint
 dia_arrow_preview_expose(GtkWidget *widget, GdkEventExpose *event)
 {
@@ -175,8 +203,11 @@ dia_arrow_preview_expose(GtkWidget *widget, GdkEventExpose *event)
 static void dia_arrow_chooser_class_init (DiaArrowChooserClass  *klass);
 static void dia_arrow_chooser_init       (DiaArrowChooser       *arrow);
 
+/** Get the class info for the arrow chooser.
+ * @return GType structure filled in for arrow chooser (statically allocated).
+ */
 GType
-dia_arrow_chooser_get_type (void)
+dia_arrow_chooser_get_type(void)
 {
   static GType type = 0;
 
@@ -199,6 +230,12 @@ dia_arrow_chooser_get_type (void)
   return type;
 }
 
+/** Generic event handle for the arrow choose.
+ * This just handles popping up the arrowhead menu when the button is clicked.
+ * @param widget The arrow chooser widget.
+ * @param event An event affecting the arrow chooser.
+ * @return TRUE if we handled the event, FALSE otherwise.
+ */
 static gint
 dia_arrow_chooser_event(GtkWidget *widget, GdkEvent *event)
 {
@@ -212,6 +249,9 @@ dia_arrow_chooser_event(GtkWidget *widget, GdkEvent *event)
   return FALSE;
 }
 
+/** Initialize class information for the arrow choose.
+ * @param class Class structure to initialize private fields of.
+ */
 static void
 dia_arrow_chooser_class_init(DiaArrowChooserClass *class)
 {
@@ -221,6 +261,9 @@ dia_arrow_chooser_class_init(DiaArrowChooserClass *class)
   widget_class->event = dia_arrow_chooser_event;
 }
 
+/** Initialize an arrow choose object.
+ * @param arrow Newly allocated arrow choose object.
+ */
 static void
 dia_arrow_chooser_init(DiaArrowChooser *arrow)
 {
@@ -239,10 +282,15 @@ dia_arrow_chooser_init(DiaArrowChooser *arrow)
   arrow->dialog = NULL;
 }
 
+/** Handle the "ressponse" event for the arrow chooser dialog.
+ * @param dialog The dialog that got a response.
+ * @param response_id The ID of the response (e.g. GTK_RESPONSE_OK)
+ * @param chooser The arrowchooser widget (userdata)
+ */
 static void
-dia_arrow_chooser_dialog_response (GtkWidget *dialog,
-                                   gint response_id,
-                                   DiaArrowChooser *chooser)
+dia_arrow_chooser_dialog_response(GtkWidget *dialog,
+				  gint response_id,
+				  DiaArrowChooser *chooser)
 {
   if (response_id == GTK_RESPONSE_OK) {
     Arrow new_arrow = dia_arrow_selector_get_arrow(chooser->selector);
@@ -261,6 +309,10 @@ dia_arrow_chooser_dialog_response (GtkWidget *dialog,
   gtk_widget_hide(chooser->dialog);
 }
 
+/** Create a new arrow chooser dialog.
+ * @param chooser The widget to attach a dialog to.  The dialog will be placed
+ * in chooser->dialog.
+ */
 static void
 dia_arrow_chooser_dialog_new(DiaArrowChooser *chooser)
 {
@@ -289,6 +341,11 @@ dia_arrow_chooser_dialog_new(DiaArrowChooser *chooser)
   chooser->selector = DIA_ARROW_SELECTOR(wid);
 }
 
+/** Display an arrow chooser dialog, creating one if necessary.
+ * @param widget Ignored
+ * @param chooser An arrowchooser widget to display in a dialog.  This may
+ * get the dialog field set as a sideeffect.
+ */
 static void
 dia_arrow_chooser_dialog_show(GtkWidget *widget, DiaArrowChooser *chooser)
 {
@@ -302,6 +359,10 @@ dia_arrow_chooser_dialog_show(GtkWidget *widget, DiaArrowChooser *chooser)
   gtk_widget_show(chooser->dialog);
 }
 
+/** Set a new arrow type for an arrow chooser, as selected from a menu.
+ * @param mi The menu item currently selected in the arrow chooser menu.
+ * @param chooser The arrow chooser to update.
+ */
 static void
 dia_arrow_chooser_change_arrow_type(GtkMenuItem *mi, DiaArrowChooser *chooser)
 {
@@ -314,6 +375,14 @@ dia_arrow_chooser_change_arrow_type(GtkMenuItem *mi, DiaArrowChooser *chooser)
   dia_arrow_chooser_set_arrow(chooser, &arrow);
 }
 
+/** Create a new arrow chooser object.
+ * @param left If TRUE, this chooser will point its arrowheads to the left.
+ * @param callback void (*callback)(Arrow *arrow, gpointer user_data) which
+ *                 will be called when the arrow type or dimensions change.
+ * @param user_data Any user data.  This will be stored in chooser->user_data.
+ * @param tool_tips An object to set arrow names with.
+ * @return A new DiaArrowChooser widget.
+ */
 GtkWidget *
 dia_arrow_chooser_new(gboolean left, DiaChangeArrowCallback callback,
 		      gpointer user_data, GtkTooltips *tool_tips)
@@ -357,7 +426,11 @@ dia_arrow_chooser_new(gboolean left, DiaChangeArrowCallback callback,
   return GTK_WIDGET(chooser);
 }
 
-/** Set the type of arrow shown by the arrow chooser.
+/** Set the type of arrow shown by the arrow chooser.  If the arrow type
+ * changes, the callback function will be called.
+ * @param chooser The chooser to update.
+ * @param arrow The arrow type and dimensions the chooser will dispaly.
+ * @bugs Should it be called as well when the dimensions change?
  */
 void
 dia_arrow_chooser_set_arrow(DiaArrowChooser *chooser, Arrow *arrow)
@@ -374,6 +447,10 @@ dia_arrow_chooser_set_arrow(DiaArrowChooser *chooser, Arrow *arrow)
   chooser->arrow.length = arrow->length;
 }
 
+/** Get the currently selected arrow type from an arrow chooser.
+ * @param arrow An arrow chooser to query.
+ * @return The arrow type that is currently selected in the chooser.
+ */
 ArrowType
 dia_arrow_chooser_get_arrow_type(DiaArrowChooser *arrow)
 {

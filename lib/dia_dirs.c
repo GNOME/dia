@@ -32,8 +32,14 @@
 #include <sys/types.h>
 #endif
 
-gchar*
-dia_get_data_directory (const gchar* subdir)
+/** Get the name of a subdirectory of our data directory.
+ *  This function does not create the subdirectory, just make the correct name.
+ * @param subdir The name of the directory desired.
+ * @returns The full path to the directory.  This string should be freed
+ *          after use.
+ */
+gchar *
+dia_get_data_directory(const gchar* subdir)
 {
 #ifdef G_OS_WIN32
   /*
@@ -61,9 +67,14 @@ dia_get_data_directory (const gchar* subdir)
 #endif
 }
 
-
+/** Get a subdirectory of our lib directory.  This does not create the
+ *  directory, merely the name of the full path.
+ * @param subdir The name of the subdirectory wanted.
+ * @returns The full path of the named directory.  The string should be
+ *          freed after use.
+ */
 gchar*
-dia_get_lib_directory (const gchar* subdir)
+dia_get_lib_directory(const gchar* subdir)
 {
 #ifdef G_OS_WIN32
   /*
@@ -88,6 +99,12 @@ dia_get_lib_directory (const gchar* subdir)
 #endif
 }
 
+/** Get the name of a file under the Dia config directory.  If no home
+ *  directory can be found, uses a temporary directory.
+ * @param subfile Name of the subfile.
+ * @returns A string with the full path of the desired file.  This string
+ *          should be freed after use.
+ */
 gchar *
 dia_config_filename(const gchar *subfile)
 {
@@ -103,7 +120,9 @@ dia_config_filename(const gchar *subfile)
 }
 
 /** Ensure that the directory part of `filename' exists.
- * Returns TRUE if the directory existed or has been created.
+ * @param filename A file that we want the parent directory of to exist.
+ * @returns TRUE if the directory existed or has been created, FALSE if
+ *          it cannot be created.
  */
 gboolean
 dia_config_ensure_dir(const gchar *filename)
@@ -130,9 +149,11 @@ dia_config_ensure_dir(const gchar *filename)
 
 /** Remove all instances of . and .. from an absolute path.
  * This is not a cheap function.
- * Returns a newly allocated string, or NULL if too many ..'s were found */
+ * @param path String to canonicalize.
+ * @returns A newly allocated string, or NULL if too many ..'s were found
+ */
 static gchar *
-dia_get_canonical_path (const gchar *path) 
+dia_get_canonical_path(const gchar *path)
 {
   gchar  *ret = NULL;
   gchar **list = g_strsplit (path, G_DIR_SEPARATOR_S, -1);
@@ -190,15 +211,15 @@ dia_get_canonical_path (const gchar *path)
 }
 
 /** Returns an filename in UTF-8 encoding from filename in filesystem
- * encoding. 
+ *  encoding.  In GTK < 2.6, invalid sequences are not [???]
+ * @param filename A filename string as gotten from the filesystem.
+ * @returns UTF-8 encoded copy of the filename.
  * The value returned is a pointer to static array.
  * Note: The string can be used AFTER the next call to this function
  *       Written like glib/gstrfuncs.c#g_strerror()
- * In GTK < 2.6, invalid sequences are not 
  */
-
 const gchar *
-dia_message_filename (const gchar *filename)
+dia_message_filename(const gchar *filename)
 {
   gchar *tmp;
   GQuark msg_quark;
@@ -227,7 +248,8 @@ dia_message_filename (const gchar *filename)
 }
 
 /** Return an absolute filename from an absolute or relative filename.
- * The value returned is newly allocated. 
+ * @param filename A relative or absolute filename.
+ * @return Absolute and canonicalized filename as a newly allocated string.
  */
 gchar *
 dia_get_absolute_filename (const gchar *filename)

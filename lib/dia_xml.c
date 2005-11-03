@@ -52,21 +52,27 @@
 
 #define BUFLEN 1024
 
-
+/** If all files produced by dia were good XML files, we wouldn't have to do 
+ *  this little gymnastic. Alas, during the libxml1 days, we were outputting 
+ *  files with no encoding specification (which means UTF-8 if we're in an
+ *  asciish encoding) and strings encoded in local charset (so, we wrote
+ *  broken files). 
+ *
+ *  The following logic finds if we have a broken file, and attempts to fix 
+ *  it if it's possible. If the file is correct or is unrecognisable, we pass
+ *  it untouched to libxml2.
+ * @param filename The name of the file to check.
+ * @param default_enc The default encoding to use if none is given.
+ * @returns The filename given if it seems ok, or the name of a new file
+ *          with fixed contents, or NULL if we couldn't read the file.  The
+ *          caller should free this string and unlink the file if it is not
+ *          the same as `filename'.
+ * @bugs The many gzclose-g_free-return sequences should be refactored into
+ *       an "exception handle" (goto+label).
+ */
 static const gchar *
 xml_file_check_encoding(const gchar *filename, const gchar *default_enc)
 {
-  /* If all files produced by dia were good XML files, we wouldn't have to do 
-     this little gymnastic. Alas, during the libxml1 days, we were outputting 
-     files with no encoding specification (which means UTF-8 if we're in an
-     asciish encoding) and strings encoded in local charset (so, we wrote
-     broken files). 
-
-     The following logic finds if we have a broken file, and attempts to fix 
-     it if it's possible. If the file is correct or is unrecognisable, we pass
-     it untouched to libxml2.
-  */
-
   gzFile zf = gzopen(filename,"rb");  
   gchar *buf;
   gchar *p,*pmax;
@@ -182,10 +188,14 @@ xml_file_check_encoding(const gchar *filename, const gchar *default_enc)
   return res; /* caller frees the name and unlinks the file. */
 }
 
-
-
+/** Parse a given file into XML, handling old broken files correctly.
+ * @param filename The name of the file to read.
+ * @returns An XML document parsed from the file.
+ * @see xmlParseFile() in the XML2 library for details on the return value.
+ */
 xmlDocPtr
-xmlDiaParseFile(const char *filename) {
+xmlDiaParseFile(const char *filename)
+{
   G_CONST_RETURN char *local_charset = NULL;
   
   if (   !g_get_charset(&local_charset)
@@ -209,11 +219,24 @@ xmlDiaParseFile(const char *filename) {
   }
 }
 
+/** Relic of earlier, unhappier days.
+ * @param filename A file to parse.
+ * @returns An XML document.
+ * @bugs Could probably be inlined.
+ */
 xmlDocPtr
-xmlDoParseFile(const char *filename) {
+xmlDoParseFile(const char *filename)
+{
   return xmlParseFile(filename);
 }
 
+/** Find a named attribute node in an XML object node.
+ *  Note that Dia has a concept of attribute node that is not the same
+ *  as an XML attribute.
+ * @param obj_node The node to look in.
+ * @param attrname The name of the attribute node to find.
+ * @returns The node matching the given name, or NULL if none found.
+ */
 AttributeNode
 object_find_attribute(ObjectNode obj_node,
 		      const char *attrname)
@@ -244,6 +267,13 @@ object_find_attribute(ObjectNode obj_node,
   return NULL;
 }
 
+/** Find an attribute in a composite XML node.
+ * @param composite_node The composite node to search.
+ * @param attrname The name of the attribute node to find.
+ * @returns The desired node, or NULL if none exists in `composite_node'.
+ * @bugs Describe in more detail how a composite node differs from an
+ *   object node.
+ */
 AttributeNode
 composite_find_attribute(DataNode composite_node,
 			 const char *attrname)
@@ -274,6 +304,10 @@ composite_find_attribute(DataNode composite_node,
   return NULL;
 }
 
+/** The number of non-blank data nodes in an attribute node.
+ * @param attribute The attribute node to read from.
+ * @returns The number of non-blank data nodes in the node.
+ */
 int
 attribute_num_data(AttributeNode attribute)
 {
@@ -292,6 +326,10 @@ attribute_num_data(AttributeNode attribute)
   return nr;
 }
 
+/** Get the first data node in an attribute node.
+ * @param attribute The attribute node to look through.
+ * @return The first non-black data node in the attribute node.
+ */
 DataNode
 attribute_first_data(AttributeNode attribute)
 {
@@ -300,6 +338,10 @@ attribute_first_data(AttributeNode attribute)
   return (DataNode) data;
 }
 
+/** Get the next data node (sibling).
+ * @param data A data node to start from (e.g. just processed)
+ * @returns The next sibling data node.
+ */
 DataNode
 data_next(DataNode data)
 {
@@ -311,6 +353,15 @@ data_next(DataNode data)
   return (DataNode) data;
 }
 
+/** Get the type of a data node.
+ * @param data The data node.
+ * @returns The type that the data node defines, or 0 on error.  In case of 
+ *  error, an error message is displayed.
+ * @note This function does a number of strcmp calls, which may not be the
+ *  fastest way to check if a node is of the expected type.
+ * @bugs Make functions that check quickly if a node is of a specific type
+ *  (but profile first).
+ */
 DataType
 data_type(DataNode data)
 {
@@ -343,7 +394,11 @@ data_type(DataNode data)
   return 0;
 }
 
-
+/** Return the value of an integer-type data node.
+ * @param data The data node to read from.
+ * @returns The integer value found in the node.  If the node is not an
+ *  integer node, an error message is displayed and 0 is returned.
+ */
 int
 data_int(DataNode data)
 {
@@ -362,6 +417,11 @@ data_int(DataNode data)
   return res;
 }
 
+/** Return the value of an enum-type data node.
+ * @param data The data node to read from.
+ * @returns The enum value found in the node.  If the node is not an
+ *  enum node, an error message is displayed and 0 is returned.
+ */
 int data_enum(DataNode data)
 {
   xmlChar *val;
@@ -379,6 +439,11 @@ int data_enum(DataNode data)
   return res;
 }
 
+/** Return the value of a real-type data node.
+ * @param data The data node to read from.
+ * @returns The real value found in the node.  If the node is not a
+ *  real-type node, an error message is displayed and 0.0 is returned.
+ */
 real
 data_real(DataNode data)
 {
@@ -397,6 +462,11 @@ data_real(DataNode data)
   return res;
 }
 
+/** Return the value of a boolean-type data node.
+ * @param data The data node to read from.
+ * @returns The boolean value found in the node.  If the node is not a
+ *  boolean node, an error message is displayed and FALSE is returned.
+ */
 int
 data_boolean(DataNode data)
 {
@@ -420,7 +490,13 @@ data_boolean(DataNode data)
   return res;
 }
 
-static int hex_digit(char c)
+/** Return the integer value of a hex digit.
+ * @param c A hex digit, one of 0-9, a-f or A-F.
+ * @returns The value of the digit, i.e. 0-15.  If a non-gex digit is given
+ *  an error message is displayed to the user, and 0 is returned.
+ */
+static int 
+hex_digit(char c)
 {
   if ((c>='0') && (c<='9'))
     return c-'0';
@@ -428,9 +504,17 @@ static int hex_digit(char c)
     return (c-'a') + 10;
   if ((c>='A') && (c<='F'))
     return (c-'A') + 10;
-  message_error("wrong hex digit!");
+  message_error("wrong hex digit %c", c);
   return 0;
 }
+
+/** Return the value of a color-type data node.
+ * @param data The XML node to read from
+ * @param col A place to store the resulting RGB values.  If the node does
+ *  not contain a valid color value, an error message is displayed to the
+ *  user, and `col' is unchanged.
+ * @note Could be cool to use RGBA data here, even if we can't display it yet.
+ */
 void
 data_color(DataNode data, Color *col)
 {
@@ -460,6 +544,12 @@ data_color(DataNode data, Color *col)
   col->blue = ((float)b)/255.0;
 }
 
+/** Return the value of a point-type data node.
+ * @param data The XML node to read from
+ * @param point A place to store the resulting x, y values.  If the node does
+ *  not contain a valid point value, an error message is displayed to the
+ *  user, and `point' is unchanged.
+ */
 void
 data_point(DataNode data, Point *point)
 {
@@ -500,6 +590,12 @@ data_point(DataNode data, Point *point)
   xmlFree(val);
 }
 
+/** Return the value of a rectangle-type data node.
+ * @param data The data node to read from.
+ * @param rect A place to store the resulting values.  If the node does
+ *  not contain a valid rectangle value, an error message is displayed to the
+ *  user, and `rect' is unchanged.
+ */
 void
 data_rectangle(DataNode data, Rectangle *rect)
 {
@@ -551,6 +647,13 @@ data_rectangle(DataNode data, Rectangle *rect)
   xmlFree(val);
 }
 
+/** Return the value of a string-type data node.
+ * @param data The data node to read from.
+ * @returns The string value found in the node.  If the node is not a
+ *  string node, an error message is displayed and NULL is returned.  The
+ *  returned valuee should be freed after use.
+ * @note For historical reasons, strings in Dia XML are surrounded by ##.
+ */
 gchar *
 data_string(DataNode data)
 {
@@ -620,6 +723,14 @@ data_string(DataNode data)
   return NULL;
 }
 
+/** Return the value of a filename-type data node.
+ * @param data The data node to read from.
+ * @returns The filename value found in the node.  If the node is not a
+ *  filename node, an error message is displayed and NULL is returned.
+ *  The resulting string is in the local filesystem's encoding rather than
+ *  UTF-8, and should be freed after use.
+ * @bugs data_string() can return NULL, what does g_filename_from_utf8 do then?
+ */
 char *
 data_filename(DataNode data)
 {
@@ -629,6 +740,13 @@ data_filename(DataNode data)
   return filename;
 }
 
+/** Return the value of a font-type data node.  This handles both the current
+ * format (family and style) and the old format (name).
+ * @param data The data node to read from.
+ * @returns The font value found in the node.  If the node is not a
+ *  font node, an error message is displayed and NULL is returned.  The
+ *  resulting value should be freed after use.
+ */
 DiaFont *
 data_font(DataNode data)
 {
@@ -661,6 +779,13 @@ data_font(DataNode data)
 
 /* ***** Saving XML **** */
 
+/** Create a new attribute node.
+ * @param obj_node The object node to create the attribute node under.
+ * @param attrname The name of the attribute node.
+ * @returns A new attribute node.
+ * @bugs Should have utility functions that creates the node and sets
+ *  the value based on type.
+ */
 AttributeNode
 new_attribute(ObjectNode obj_node,
 	      const char *attrname)
@@ -672,6 +797,12 @@ new_attribute(ObjectNode obj_node,
   return attr;
 }
 
+/** Add an attribute node to a composite node.
+ * @param composite_node The composite node.
+ * @param attrname The name of the new attribute node.
+ * @returns The attribute node added.
+ * @bugs This does exactly the same as new_attribute.
+ */
 AttributeNode
 composite_add_attribute(DataNode composite_node,
 			const char *attrname)
@@ -683,6 +814,10 @@ composite_add_attribute(DataNode composite_node,
   return attr;
 }
 
+/** Add integer data to an attribute node.
+ * @param attr The attribute node.
+ * @param data The value to set.
+ */
 void
 data_add_int(AttributeNode attr, int data)
 {
@@ -695,6 +830,10 @@ data_add_int(AttributeNode attr, int data)
   xmlSetProp(data_node, "val", buffer);
 }
 
+/** Add enum data to an attribute node.
+ * @param attr The attribute node.
+ * @param data The value to set.
+ */
 void
 data_add_enum(AttributeNode attr, int data)
 {
@@ -707,6 +846,10 @@ data_add_enum(AttributeNode attr, int data)
   xmlSetProp(data_node, "val", buffer);
 }
 
+/** Add real-typed data to an attribute node.
+ * @param attr The attribute node.
+ * @param data The value to set.
+ */
 void
 data_add_real(AttributeNode attr, real data)
 {
@@ -719,6 +862,10 @@ data_add_real(AttributeNode attr, real data)
   xmlSetProp(data_node, "val", buffer);
 }
 
+/** Add boolean data to an attribute node.
+ * @param attr The attribute node.
+ * @param data The value to set.
+ */
 void
 data_add_boolean(AttributeNode attr, int data)
 {
@@ -731,8 +878,16 @@ data_add_boolean(AttributeNode attr, int data)
     xmlSetProp(data_node, "val", "false");
 }
 
-
-static void convert_to_hex(float x, char *str)
+/** Convert a floating-point value to hexadecimal.
+ * @param x The floating point value.
+ * @param str A string to place the result in.
+ * @note Currently only works for 0 <= x <= 255 and will silently cap the value
+ *  to those limits.  Also expects str to have at least two bytes allocated,
+ *  and doesn't null-terminate it.  This works well for converting a color
+ *  value, but is pretty much useless for other values.
+ */
+static void
+convert_to_hex(float x, char *str)
 {
   static const char hex_digit[] = "0123456789abcdef";
   int val;
@@ -747,6 +902,10 @@ static void convert_to_hex(float x, char *str)
   str[1] = hex_digit[val%16];
 }
 
+/** Add color data to an attribute node.
+ * @param attr The attribute node.
+ * @param col The value to set.
+ */
 void
 data_add_color(AttributeNode attr, const Color *col)
 {
@@ -763,6 +922,10 @@ data_add_color(AttributeNode attr, const Color *col)
   xmlSetProp(data_node, "val", buffer);
 }
 
+/** Add point data to an attribute node.
+ * @param attr The attribute node.
+ * @param point The value to set.
+ */
 void
 data_add_point(AttributeNode attr, const Point *point)
 {
@@ -780,6 +943,10 @@ data_add_point(AttributeNode attr, const Point *point)
   g_free(buffer);
 }
 
+/** Add rectangle data to an attribute node.
+ * @param attr The attribute node.
+ * @param rect The value to set.
+ */
 void
 data_add_rectangle(AttributeNode attr, const Rectangle *rect)
 {
@@ -803,6 +970,10 @@ data_add_rectangle(AttributeNode attr, const Rectangle *rect)
   g_free(buffer);
 }
 
+/** Add string data to an attribute node.
+ * @param attr The attribute node.
+ * @param str The value to set.
+ */
 void
 data_add_string(AttributeNode attr, const char *str)
 {
@@ -826,6 +997,11 @@ data_add_string(AttributeNode attr, const char *str)
     g_free(sharped_str);
 }
 
+/** Add filename data to an attribute node.
+ * @param attr The attribute node.
+ * @param filename The value to set.  This should be n the local filesystem
+ *  encoding, not utf-8.
+ */
 void
 data_add_filename(DataNode data, const char *str)
 {
@@ -836,6 +1012,10 @@ data_add_filename(DataNode data, const char *str)
   g_free(utf8);
 }
 
+/** Add font data to an attribute node.
+ * @param attr The attribute node.
+ * @param font The value to set.
+ */
 void
 data_add_font(AttributeNode attr, const DiaFont *font)
 {
@@ -853,6 +1033,11 @@ data_add_font(AttributeNode attr, const DiaFont *font)
   xmlSetProp(data_node, "name", dia_font_get_legacy_name(font));
 }
 
+/** Add a new composite node to an attribute node.
+ * @param attr The attribute node to add to.
+ * @param type The type of the new node.
+ * @returns The new child of `attr'.
+ */
 DataNode
 data_add_composite(AttributeNode attr, const char *type) 
 {
@@ -866,6 +1051,8 @@ data_add_composite(AttributeNode attr, const char *type)
   return data_node;
 }
 
+/** Emit a warning to the user that having UTF-8 as local charset doesn't.
+ */
 void 
 warn_about_broken_libxml1(void) 
 {
@@ -882,7 +1069,14 @@ warn_about_broken_libxml1(void)
 /* diarc option */
 int pretty_formated_xml = TRUE;
 
-int xmlDiaSaveFile(const char *filename,
+/** Save an XML document to a file.
+ * @param filename The file to save to.
+ * @param cur The XML document structure.
+ * @return The return value of xmlSaveFormatFileEnc.
+ * @bugs Get the proper defn of the return value from libxml2.
+ */
+int
+xmlDiaSaveFile(const char *filename,
                    xmlDocPtr cur)
 {
     int old = 0, ret;

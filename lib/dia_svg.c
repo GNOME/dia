@@ -30,8 +30,13 @@
 
 #include "dia_svg.h"
 
-void 
-dia_svg_style_init (DiaSvgStyle *gs, DiaSvgStyle *parent_style)
+/** Initialize a style object from another style object or defaults.
+ * @param gs An SVG style object to initialize.
+ * @param parent_style An SVG style object to copy values from, or NULL,
+ *                     in which case defaults will be used.
+ */
+void
+dia_svg_style_init(DiaSvgStyle *gs, DiaSvgStyle *parent_style)
 {
   g_return_if_fail (gs);
   gs->stroke = parent_style ? parent_style->stroke : (-1);
@@ -44,8 +49,12 @@ dia_svg_style_init (DiaSvgStyle *gs, DiaSvgStyle *parent_style)
   gs->alignment = parent_style ? parent_style->alignment : ALIGN_LEFT;
 }
 
-void 
-dia_svg_style_copy (DiaSvgStyle *dest, DiaSvgStyle *src)
+/** Copy style values from one SVG style object to another.
+ * @param dest SVG style object to copy to.
+ * @param src SVG style object to copy from.
+ */
+void
+dia_svg_style_copy(DiaSvgStyle *dest, DiaSvgStyle *src)
 {
   g_return_if_fail (dest && src);
 
@@ -61,15 +70,24 @@ dia_svg_style_copy (DiaSvgStyle *dest, DiaSvgStyle *src)
   dest->alignment = src->alignment;
 }
 
+/** Parse an SVG color description.
+ * @param color A place to store the color information (0RGB)
+ * @param str An SVG color description string to parse.
+ * @returns TRUE if parsing was successful.
+ * @bugs Shouldn't we use an actual Dia Color object as return value?
+ * Would require that the DiaSvgStyle object uses that, too.  If we did that,
+ * we could even return the color object directly, and we would be able to use
+ * >8 bits per channel.
+ */
 static gboolean
-_parse_color (gint32 *color, const char *str)
+_parse_color(gint32 *color, const char *str)
 {
   if (str[0] == '#')
     *color = strtol(str+1, NULL, 16) & 0xffffff;
   else if (0 == strncmp(str, "none", 4))
     *color = DIA_SVG_COLOUR_NONE;
   else if (0 == strncmp(str, "foreground", 10) || 0 == strncmp(str, "fg", 2) ||
-           0 == strncmp(str, "inverse", 7))
+	   0 == strncmp(str, "inverse", 7))
     *color = DIA_SVG_COLOUR_FOREGROUND;
   else if (0 == strncmp(str, "background", 10) || 0 == strncmp(str, "bg", 2) ||
 	   0 == strncmp(str, "default", 7))
@@ -89,15 +107,15 @@ _parse_color (gint32 *color, const char *str)
 
     if (!se) {
       if (pango_color_parse (&pc, str))
-        *color = ((pc.red >> 8) << 16) | ((pc.green >> 8) << 8) | (pc.blue >> 8);
+	*color = ((pc.red >> 8) << 16) | ((pc.green >> 8) << 8) | (pc.blue >> 8);
       else
-        return FALSE;
+	return FALSE;
     } else {
       gchar* sz = g_strndup (str, se - str);
       gboolean ret = pango_color_parse (&pc, str);
 
       if (ret)
-        *color = ((pc.red >> 8) << 16) | ((pc.green >> 8) << 8) | (pc.blue >> 8);
+	*color = ((pc.red >> 8) << 16) | ((pc.green >> 8) << 8) | (pc.blue >> 8);
       g_free (sz);
       return ret;
     }
@@ -110,9 +128,12 @@ enum
   FONT_NAME_LENGTH_MAX = 40
 };
 
-/*
- * This function not only parses the style attribute of the given node
- * it also extracts some of the style properties directly.
+/** This function not only parses the style attribute of the given node
+ *  it also extracts some of the style properties directly.
+ * @param node An XML node to parse a style from.
+ * @param s The SVG style object to fill out.  This should previously be
+ *          initialized to some default values.
+ * @bugs This function is way too long (213 lines).
  */
 void
 dia_svg_parse_style(xmlNodePtr node, DiaSvgStyle *s)
@@ -120,9 +141,9 @@ dia_svg_parse_style(xmlNodePtr node, DiaSvgStyle *s)
   xmlChar *str;
   gchar temp[FONT_NAME_LENGTH_MAX+1]; /* font-family names will be limited to 40 characters */
   int i = 0;
-  gboolean over = FALSE;  
+  gboolean over = FALSE;
   char *family = NULL, *style = NULL, *weight = NULL;
-      
+
   str = xmlGetProp(node, "style");
 
   if (str) {
@@ -133,157 +154,157 @@ dia_svg_parse_style(xmlNodePtr node, DiaSvgStyle *s)
       if (ptr[0] == '\0') break;
 
       if (!strncmp("font-family:", ptr, 12)) {
-        ptr += 12;
-        while ((ptr[0] != '\0') && g_ascii_isspace(ptr[0])) ptr++;
-        i = 0; over = FALSE;
-        while (ptr[0] != '\0' && ptr[0] != ';' && !over) {
-          if (i < FONT_NAME_LENGTH_MAX) {
-            temp[i] = ptr[0];
-          } else over = TRUE;
-          i++;
-          ptr++;
-        }
-        temp[i] = '\0';
+	ptr += 12;
+	while ((ptr[0] != '\0') && g_ascii_isspace(ptr[0])) ptr++;
+	i = 0; over = FALSE;
+	while (ptr[0] != '\0' && ptr[0] != ';' && !over) {
+	  if (i < FONT_NAME_LENGTH_MAX) {
+	    temp[i] = ptr[0];
+	  } else over = TRUE;
+	  i++;
+	  ptr++;
+	}
+	temp[i] = '\0';
 
-        if (!over) family = g_strdup(temp);
+	if (!over) family = g_strdup(temp);
       } else if (!strncmp("font-weight:", ptr, 12)) {
-        ptr += 12;
-        while ((ptr[0] != '\0') && g_ascii_isspace(ptr[0])) ptr++;
-        i = 0; over = FALSE;
-        while (ptr[0] != '\0' && ptr[0] != ';' && !over) {
-          if (i < FONT_NAME_LENGTH_MAX) {
-            temp[i] = ptr[0];
-          } else over = TRUE;
-          i++;
-          ptr++;
-        }
-        temp[i] = '\0';
+	ptr += 12;
+	while ((ptr[0] != '\0') && g_ascii_isspace(ptr[0])) ptr++;
+	i = 0; over = FALSE;
+	while (ptr[0] != '\0' && ptr[0] != ';' && !over) {
+	  if (i < FONT_NAME_LENGTH_MAX) {
+	    temp[i] = ptr[0];
+	  } else over = TRUE;
+	  i++;
+	  ptr++;
+	}
+	temp[i] = '\0';
 
-        if (!over) weight = g_strdup(temp);
+	if (!over) weight = g_strdup(temp);
       } else if (!strncmp("font-style:", ptr, 11)) {
-        ptr += 11;
-        while ((ptr[0] != '\0') && g_ascii_isspace(ptr[0])) ptr++;
-        i = 0; over = FALSE;
-        while (ptr[0] != '\0' && ptr[0] != ';' && !over) {
-          if (i < FONT_NAME_LENGTH_MAX) {
-            temp[i] = ptr[0];
-          } else over = TRUE;
-          i++;
-          ptr++;
-        }
-        temp[i] = '\0';
+	ptr += 11;
+	while ((ptr[0] != '\0') && g_ascii_isspace(ptr[0])) ptr++;
+	i = 0; over = FALSE;
+	while (ptr[0] != '\0' && ptr[0] != ';' && !over) {
+	  if (i < FONT_NAME_LENGTH_MAX) {
+	    temp[i] = ptr[0];
+	  } else over = TRUE;
+	  i++;
+	  ptr++;
+	}
+	temp[i] = '\0';
 
-        if (!over) style = g_strdup(temp);
+	if (!over) style = g_strdup(temp);
       } else if (!strncmp("font-size:", ptr, 10)) {
-        ptr += 10;
-        while ((ptr[0] != '\0') && g_ascii_isspace(ptr[0])) ptr++;
-        i = 0; over = FALSE;
-        while (ptr[0] != '\0' && ptr[0] != ';' && !over) {
-          if (i < FONT_NAME_LENGTH_MAX) {
-            temp[i] = ptr[0];
-          } else over = TRUE;
-          i++;
-          ptr++;
-        }
-        temp[i] = '\0';
+	ptr += 10;
+	while ((ptr[0] != '\0') && g_ascii_isspace(ptr[0])) ptr++;
+	i = 0; over = FALSE;
+	while (ptr[0] != '\0' && ptr[0] != ';' && !over) {
+	  if (i < FONT_NAME_LENGTH_MAX) {
+	    temp[i] = ptr[0];
+	  } else over = TRUE;
+	  i++;
+	  ptr++;
+	}
+	temp[i] = '\0';
 
-        if (!over) {
-          s->font_height = g_ascii_strtod(temp, NULL);
-        }
+	if (!over) {
+	  s->font_height = g_ascii_strtod(temp, NULL);
+	}
       } else if (!strncmp("text-anchor:", ptr, 12)) {
-        ptr += 12;
-        while ((ptr[0] != '\0') && g_ascii_isspace(ptr[0])) ptr++;
-        if (!strncmp(ptr, "start", 5))
-          s->alignment = ALIGN_LEFT;
-        else if (!strncmp(ptr, "end", 3))
-          s->alignment = ALIGN_RIGHT;
-        else if (!strncmp(ptr, "middle", 6))
-          s->alignment = ALIGN_CENTER;
+	ptr += 12;
+	while ((ptr[0] != '\0') && g_ascii_isspace(ptr[0])) ptr++;
+	if (!strncmp(ptr, "start", 5))
+	  s->alignment = ALIGN_LEFT;
+	else if (!strncmp(ptr, "end", 3))
+	  s->alignment = ALIGN_RIGHT;
+	else if (!strncmp(ptr, "middle", 6))
+	  s->alignment = ALIGN_CENTER;
 
       } else if (!strncmp("stroke-width:", ptr, 13)) {
-        ptr += 13;
-        s->line_width = g_ascii_strtod(ptr, &ptr);
+	ptr += 13;
+	s->line_width = g_ascii_strtod(ptr, &ptr);
       } else if (!strncmp("stroke:", ptr, 7)) {
-        ptr += 7;
-        while ((ptr[0] != '\0') && g_ascii_isspace(ptr[0])) ptr++;
-        if (ptr[0] == '\0') break;
+	ptr += 7;
+	while ((ptr[0] != '\0') && g_ascii_isspace(ptr[0])) ptr++;
+	if (ptr[0] == '\0') break;
 
-        _parse_color (&s->stroke, ptr);
+	_parse_color (&s->stroke, ptr);
       } else if (!strncmp("fill:", ptr, 5)) {
-        ptr += 5;
-        while (ptr[0] != '\0' && g_ascii_isspace(ptr[0])) ptr++;
-        if (ptr[0] == '\0') break;
+	ptr += 5;
+	while (ptr[0] != '\0' && g_ascii_isspace(ptr[0])) ptr++;
+	if (ptr[0] == '\0') break;
 
-        _parse_color (&s->fill, ptr);
+	_parse_color (&s->fill, ptr);
       } else if (!strncmp("stroke-linecap:", ptr, 15)) {
-        ptr += 15;
-        while (ptr[0] != '\0' && g_ascii_isspace(ptr[0])) ptr++;
-        if (ptr[0] == '\0') break;
+	ptr += 15;
+	while (ptr[0] != '\0' && g_ascii_isspace(ptr[0])) ptr++;
+	if (ptr[0] == '\0') break;
 
-        if (!strncmp(ptr, "butt", 4))
+	if (!strncmp(ptr, "butt", 4))
 	  s->linecap = LINECAPS_BUTT;
-        else if (!strncmp(ptr, "round", 5))
+	else if (!strncmp(ptr, "round", 5))
 	  s->linecap = LINECAPS_ROUND;
-        else if (!strncmp(ptr, "square", 6) || !strncmp(ptr, "projecting", 10))
+	else if (!strncmp(ptr, "square", 6) || !strncmp(ptr, "projecting", 10))
 	  s->linecap = LINECAPS_PROJECTING;
-        else if (!strncmp(ptr, "default", 7))
+	else if (!strncmp(ptr, "default", 7))
 	  s->linecap = DIA_SVG_LINECAPS_DEFAULT;
       } else if (!strncmp("stroke-linejoin:", ptr, 16)) {
-        ptr += 16;
-        while (ptr[0] != '\0' && g_ascii_isspace(ptr[0])) ptr++;
-        if (ptr[0] == '\0') break;
+	ptr += 16;
+	while (ptr[0] != '\0' && g_ascii_isspace(ptr[0])) ptr++;
+	if (ptr[0] == '\0') break;
 
-        if (!strncmp(ptr, "miter", 5))
+	if (!strncmp(ptr, "miter", 5))
 	  s->linejoin = LINEJOIN_MITER;
-        else if (!strncmp(ptr, "round", 5))
+	else if (!strncmp(ptr, "round", 5))
 	  s->linejoin = LINEJOIN_ROUND;
-        else if (!strncmp(ptr, "bevel", 5))
+	else if (!strncmp(ptr, "bevel", 5))
 	  s->linejoin = LINEJOIN_BEVEL;
-        else if (!strncmp(ptr, "default", 7))
+	else if (!strncmp(ptr, "default", 7))
 	  s->linejoin = DIA_SVG_LINEJOIN_DEFAULT;
       } else if (!strncmp("stroke-pattern:", ptr, 15)) {
-        ptr += 15;
-        while (ptr[0] != '\0' && g_ascii_isspace(ptr[0])) ptr++;
-        if (ptr[0] == '\0') break;
+	ptr += 15;
+	while (ptr[0] != '\0' && g_ascii_isspace(ptr[0])) ptr++;
+	if (ptr[0] == '\0') break;
 
-        if (!strncmp(ptr, "solid", 5))
+	if (!strncmp(ptr, "solid", 5))
 	  s->linestyle = LINESTYLE_SOLID;
-        else if (!strncmp(ptr, "dashed", 6))
+	else if (!strncmp(ptr, "dashed", 6))
 	  s->linestyle = LINESTYLE_DASHED;
-        else if (!strncmp(ptr, "dash-dot", 8))
+	else if (!strncmp(ptr, "dash-dot", 8))
 	  s->linestyle = LINESTYLE_DASH_DOT;
-        else if (!strncmp(ptr, "dash-dot-dot", 12))
+	else if (!strncmp(ptr, "dash-dot-dot", 12))
 	  s->linestyle = LINESTYLE_DASH_DOT_DOT;
-        else if (!strncmp(ptr, "dotted", 6))
+	else if (!strncmp(ptr, "dotted", 6))
 	  s->linestyle = LINESTYLE_DOTTED;
-        else if (!strncmp(ptr, "default", 7))
+	else if (!strncmp(ptr, "default", 7))
 	  s->linestyle = DIA_SVG_LINESTYLE_DEFAULT;
 	/* XXX: deal with a real pattern */
       } else if (!strncmp("stroke-dashlength:", ptr, 18)) {
-        ptr += 18;
-        while (ptr[0] != '\0' && g_ascii_isspace(ptr[0])) ptr++;
-        if (ptr[0] == '\0') break;
+	ptr += 18;
+	while (ptr[0] != '\0' && g_ascii_isspace(ptr[0])) ptr++;
+	if (ptr[0] == '\0') break;
 
-        if (!strncmp(ptr, "default", 7))
+	if (!strncmp(ptr, "default", 7))
 	  s->dashlength = 1.0;
-        else {
+	else {
 	  s->dashlength = g_ascii_strtod(ptr, &ptr);
-        }
+	}
       } else if (!strncmp("stroke-dasharray:", ptr, 17)) {
-        /* FIXME? do we need to read an array here (not clear from
-         * Dia's usage); do we need to set the linestyle depending 
-         * on the array's size ? --hb
-         */
-        s->linestyle = LINESTYLE_DASHED;
-        ptr += 17;
-        while (ptr[0] != '\0' && g_ascii_isspace(ptr[0])) ptr++;
-        if (ptr[0] == '\0') break;
+	/* FIXME? do we need to read an array here (not clear from
+	 * Dia's usage); do we need to set the linestyle depending
+	 * on the array's size ? --hb
+	 */
+	s->linestyle = LINESTYLE_DASHED;
+	ptr += 17;
+	while (ptr[0] != '\0' && g_ascii_isspace(ptr[0])) ptr++;
+	if (ptr[0] == '\0') break;
 
-        if (!strncmp(ptr, "default", 7))
+	if (!strncmp(ptr, "default", 7))
 	  s->dashlength = 1.0;
-        else {
+	else {
 	  s->dashlength = g_ascii_strtod(ptr, &ptr);
-        }
+	}
       }
 
       /* skip up to the next attribute */
@@ -293,8 +314,8 @@ dia_svg_parse_style(xmlNodePtr node, DiaSvgStyle *s)
     xmlFree(str);
   }
 
-  /* ugly svg variations, it is allowed to give style properties without 
-   * the style attribute, i.e. direct attributes 
+  /* ugly svg variations, it is allowed to give style properties without
+   * the style attribute, i.e. direct attributes
    */
   str = xmlGetProp(node, "fill");
   if (str) {
@@ -331,18 +352,29 @@ dia_svg_parse_style(xmlNodePtr node, DiaSvgStyle *s)
   }
 }
 
-/*
+/** Parse a SVG description of an arc segment.
  * Code stolen from (and adapted)
  * http://www.inkscape.org/doc/doxygen/html/svg-path_8cpp.php#a7
- * which may have got it from rsvg, hop it is correct ;)
+ * which may have got it from rsvg, hope it is correct ;)
+ * @param points
+ * @param xc
+ * @param yc
+ * @param th0
+ * @param th1
+ * @param rx
+ * @param ry
+ * @param x_axis_rotation
+ * @param last_p2
+ * @bugs Have no idea what the parameters are.  Not a good idea to steal
+ * undocumented code:)
  */
 static void
-_path_arc_segment (GArray* points,
-		   real xc, real yc,
-		   real th0, real th1,
-		   real rx, real ry,
-		   real x_axis_rotation,
-		   Point *last_p2)
+_path_arc_segment(GArray* points,
+		  real xc, real yc,
+		  real th0, real th1,
+		  real rx, real ry,
+		  real x_axis_rotation,
+		  Point *last_p2)
 {
   BezPoint bez;
   real sin_th, cos_th;
@@ -352,7 +384,7 @@ _path_arc_segment (GArray* points,
   real th_half;
 
   sin_th = sin (x_axis_rotation * (M_PI / 180.0));
-  cos_th = cos (x_axis_rotation * (M_PI / 180.0)); 
+  cos_th = cos (x_axis_rotation * (M_PI / 180.0));
   /* inverse transform compared with rsvg_path_arc */
   a00 = cos_th * rx;
   a01 = -sin_th * ry;
@@ -381,11 +413,25 @@ _path_arc_segment (GArray* points,
   g_array_append_val(points, bez);
 }
 
-static void 
-_path_arc (GArray *points, double cpx, double cpy,
-           double rx, double ry, double x_axis_rotation,
-           int large_arc_flag, int sweep_flag,
-           double x, double y,
+/** Parse an SVG description of a full arc.
+ * @param points
+ * @param cpx
+ * @param cpy
+ * @param rx
+ * @param ry
+ * @param x_axis_rotation
+ * @param large_arc_flag
+ * @param sweep_flag
+ * @param x
+ * @param y
+ * @param last_p2
+ * @bugs Also here don't know what the parameters mean.
+ */
+static void
+_path_arc(GArray *points, double cpx, double cpy,
+	   double rx, double ry, double x_axis_rotation,
+	   int large_arc_flag, int sweep_flag,
+	   double x, double y,
 	   Point *last_p2)
 {
     double sin_th, cos_th;
@@ -405,23 +451,22 @@ _path_arc (GArray *points, double cpx, double cpy,
      *  1. Ensure radii are non-zero (Done?).
      *  2. Ensure that radii are positive.
      *  3. Ensure that radii are large enough.
-     */                                                                            
+     */
+    if(rx < 0.0) rx = -rx;
+    if(ry < 0.0) ry = -ry;
 
-    if(rx < 0.0) rx = -rx;                                                        
-    if(ry < 0.0) ry = -ry;                                                        
+    px = cos_th * (cpx - x) * 0.5 + sin_th * (cpy - y) * 0.5;
+    py = cos_th * (cpy - y) * 0.5 - sin_th * (cpx - x) * 0.5;
+    pl = (px * px) / (rx * rx) + (py * py) / (ry * ry);
 
-    px = cos_th * (cpx - x) * 0.5 + sin_th * (cpy - y) * 0.5;           
-    py = cos_th * (cpy - y) * 0.5 - sin_th * (cpx - x) * 0.5;           
-    pl = (px * px) / (rx * rx) + (py * py) / (ry * ry);                           
+    if(pl > 1.0)
+    {
+	pl  = sqrt(pl);
+	rx *= pl;
+	ry *= pl;
+    }
 
-    if(pl > 1.0)                                                                  
-    {                                                                             
-        pl  = sqrt(pl);                                                           
-        rx *= pl;                                                                 
-        ry *= pl;                                                                 
-    }                                                                             
-
-    /* Proceed with computations as described in Appendix F.6.5 */                
+    /* Proceed with computations as described in Appendix F.6.5 */
 
     a00 = cos_th / rx;
     a01 = sin_th / rx;
@@ -450,32 +495,42 @@ _path_arc (GArray *points, double cpx, double cpy,
 
     th_arc = th1 - th0;
     if (th_arc < 0 && sweep_flag)
-        th_arc += 2 * M_PI;
+      th_arc += 2 * M_PI;
     else if (th_arc > 0 && !sweep_flag)
-        th_arc -= 2 * M_PI;
+      th_arc -= 2 * M_PI;
 
     n_segs = (int) ceil (fabs (th_arc / (M_PI * 0.5 + 0.001)));
 
     for (i = 0; i < n_segs; i++) {
-        _path_arc_segment(points, xc, yc,
-                          th0 + i * th_arc / n_segs,
-                          th0 + (i + 1) * th_arc / n_segs,
-                          rx, ry, x_axis_rotation,
-			  last_p2);
+      _path_arc_segment(points, xc, yc,
+			th0 + i * th_arc / n_segs,
+			th0 + (i + 1) * th_arc / n_segs,
+			rx, ry, x_axis_rotation,
+			last_p2);
     }
 }
 
 /* routine to chomp off the start of the string */
 #define path_chomp(path) while (path[0]!='\0'&&strchr(" \t\n\r,", path[0])) path++
 
-/*!
- * Takes SVG path content and converts it in an array of BezPoint.
- * The caller is responsible to free/consume the returned array.
- * Returns NULL on error.
+/** Takes SVG path content and converts it in an array of BezPoint.
  *
- * SVG pathes can contain multiple MOVE_TO commands while Dia's bezier
- * object can only contain one so you may need to call this function
- * multiple times.
+ *  SVG pathes can contain multiple MOVE_TO commands while Dia's bezier
+ *  object can only contain one so you may need to call this function
+ *  multiple times.
+ *
+ * @param path_str A string describing an SVG path.
+ * @param unparsed The position in `path_str' where parsing ended, or NULL if
+ *                 the string was completely parsed.  This should be used for
+ *                 calling the function until it is fully parsed.
+ * @param closed Whether the path was closed.
+ * @returns Array of BezPoint objects, or NULL if an error occurred.
+ *          The caller is responsible for freeing the array.
+ * @bugs This function is way too long (324 lines)
+ * @bugs Shouldn't we try to turn straight lines, simple arc, polylines and
+ *       zigzaglines into their appropriate objects?  Could either be done by
+ *       returning an object or by having functions that try parsing as
+ *       specific simple paths.
  */
 GArray*
 dia_svg_parse_path(const gchar *path_str, gchar **unparsed, gboolean *closed)
@@ -507,7 +562,7 @@ dia_svg_parse_path(const gchar *path_str, gchar **unparsed, gboolean *closed)
     switch (path[0]) {
     case 'M':
       if (points->len > 0) {
-        need_next_element = TRUE;
+	need_next_element = TRUE;
 	goto MORETOPARSE;
       }
       path++;
@@ -620,9 +675,9 @@ dia_svg_parse_path(const gchar *path_str, gchar **unparsed, gboolean *closed)
 	/* consume one number so we don't fall into an infinite loop */
 	while (path != '\0' && strchr("0123456789.+-", path[0])) path++;
 	path_chomp(path);
-        *closed = TRUE;
-        need_next_element = TRUE;
-        goto MORETOPARSE;
+	*closed = TRUE;
+	need_next_element = TRUE;
+	goto MORETOPARSE;
       }
       break;
     default:
@@ -740,21 +795,21 @@ dia_svg_parse_path(const gchar *path_str, gchar **unparsed, gboolean *closed)
       break;
     case PATH_ARC :
       {
-        real  rx, ry;
-        real  xrot;
-        int   largearc, sweep;
+	real  rx, ry;
+	real  xrot;
+	int   largearc, sweep;
 	Point dest, dest_c;
 
-        rx = g_ascii_strtod(path, &path);
+	rx = g_ascii_strtod(path, &path);
 	path_chomp(path);
-        ry = g_ascii_strtod(path, &path);
+	ry = g_ascii_strtod(path, &path);
 	path_chomp(path);
-        xrot = g_ascii_strtod(path, &path);
+	xrot = g_ascii_strtod(path, &path);
 	path_chomp(path);
 
-        largearc = (int)g_ascii_strtod(path, &path);
+	largearc = (int)g_ascii_strtod(path, &path);
 	path_chomp(path);
-        sweep = (int)g_ascii_strtod(path, &path);
+	sweep = (int)g_ascii_strtod(path, &path);
 	path_chomp(path);
 
 	dest.x = g_ascii_strtod(path, &path);
@@ -767,8 +822,8 @@ dia_svg_parse_path(const gchar *path_str, gchar **unparsed, gboolean *closed)
 	  dest.y += last_point.y;
 	}
 
-	_path_arc (points, last_point.x, last_point.y, 
-	           rx, ry, xrot, largearc, sweep, dest.x, dest.y, 
+	_path_arc (points, last_point.x, last_point.y,
+		   rx, ry, xrot, largearc, sweep, dest.x, dest.y,
 		   &dest_c);
 	last_point = dest;
 	last_control = dest_c;
@@ -790,7 +845,7 @@ MORETOPARSE:
     if (need_next_element) {
       /* check if there really is mor to be parsed */
       if (path[0] != 0)
-        *unparsed = path;
+	*unparsed = path;
       break; /* while */
     }
   }

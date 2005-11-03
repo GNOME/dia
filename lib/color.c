@@ -34,6 +34,8 @@ GdkColor color_gdk_black, color_gdk_white;
 
 gboolean _color_initialized = FALSE;
 
+/** Initialize color access (gdk) and set up default colors.
+ */
 void 
 color_init(void)
 {
@@ -48,7 +50,12 @@ color_init(void)
   }
 }
 
-/** Allocate a new color object wtih the given values */
+/** Allocate a new color object wtih the given values.
+ * @param r Red component (0 <= r <= 1)
+ * @param g Green component (0 <= g <= 1)
+ * @param b Blue component (0 <= b <= 1)
+ * @returns A newly allocated color object.  This should be freed after use.
+ */
 Color *
 color_new_rgb(float r, float g, float b) 
 {
@@ -59,6 +66,10 @@ color_new_rgb(float r, float g, float b)
   return col;
 }
 
+/** Convert a Dia color object to GDK style, including handling allocation.
+ * @param color A color object.  This will not be kept by this function.
+ * @param gdkcolor Return value: GDK color object to fill in.
+ */
 void
 color_convert(Color *color, GdkColor *gdkcolor)
 {
@@ -74,6 +85,11 @@ color_convert(Color *color, GdkColor *gdkcolor)
   }
 }
 
+/** Compare two color objects.
+ * @param color1 One color object
+ * @param color2 Another color object.
+ * @returns TRUE if the color objects are the same color.
+ */
 gboolean
 color_equals(Color *color1, Color *color2)
 {

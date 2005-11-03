@@ -57,6 +57,12 @@ static Point *autolayout_unnormalize_points(guint dir,
  *   and returns TRUE.
  * Otherwise, the OrthConn is untouched, and the function returns FALSE.
  * Handles are not updated by this operation.
+ * @param conn The orthconn object to autoroute for.
+ * @param startconn The connectionpoint at the start of the orthconn,
+ *                  or null if it is not connected there at the moment.
+ * @param endconn The connectionpoint at the end (target) of the orthconn,
+ *                or null if it is not connected there at the moment.
+ * @returns TRUE if the orthconn could be laid out reasonably, FALSE otherwise.
  */
 gboolean
 autoroute_layout_orthconn(OrthConn *conn, 
@@ -149,7 +155,11 @@ autoroute_layout_orthconn(OrthConn *conn,
   }
 }
 
-/** Returns the basic badness of a length */
+/** Returns the basic badness of a length.  The best length is MIN_DIST,
+ * anything shorter quickly becomes messy, longer segments are linearly worse.
+ * @param len The length of an orthconn segment.
+ * @returns How bad this segment would be to have in the autorouting.
+ */
 static real
 length_badness(real len)
 {
@@ -161,7 +171,13 @@ length_badness(real len)
   }
 }
 
-/** Returns the accumulated badness of a layout */
+/** Returns the accumulated badness of a layout.  At the moment, this is
+ * calculated as the sum of the badnesses of the segments plus a badness for
+ * each bend in the line.
+ * @param ps An array of points.
+ * @param num_points How many points in the array.
+ * @returns How bad the points would look as an orthconn layout.
+ */
 static real
 calculate_badness(Point *ps, guint num_points)
 {
@@ -177,7 +193,13 @@ calculate_badness(Point *ps, guint num_points)
   return badness;
 }
 
-/** Adjust one end of an orthconn for gaps */
+/** Adjust one end of an orthconn for gaps, if autogap is on for the connpoint.
+ * @param pos Point of the end of the line.
+ * @param dir Which of the four cardinal directions the line goes from pos.
+ * @param cp The connectionpoint the line is connected to.
+ * @returns Where the line should end to be on the correct edge of the 
+ *          object, if cp has autogap on.
+ */
 static Point
 autolayout_adjust_for_gap(Point *pos, int dir, ConnectionPoint *cp)
 {
@@ -212,6 +234,15 @@ autolayout_adjust_for_gap(Point *pos, int dir, ConnectionPoint *cp)
   return calculate_object_edge(pos, &dir_other, object);
 }
 
+/** Lay out autorouting where start and end lines are parallel pointing the
+ * same direction.  This can either a simple up-right-down layout, or if the
+ * to point is too close to origo, it will go up-right-down-left-down.
+ * @param to Where to lay out to, coming from origo.
+ * @param num_points Return value of how many points in the points array.
+ * @param points The points in the layout.  Free the array after use.  The
+ *               passed in is ignored and overwritten, so should be NULL.
+ * @returns The badness of this layout.
+ */
 static real
 autoroute_layout_parallel(Point *to, guint *num_points, Point **points)
 {
@@ -269,6 +300,16 @@ autoroute_layout_parallel(Point *to, guint *num_points, Point **points)
   return calculate_badness(ps, *num_points);
 }
 
+/** Do layout for the case where the directions are orthogonal to each other.
+ * If both x and y of to are far enough from origo, this will be a simple
+ * bend, otherwise it will be a question-mark style line.
+ * @param to Where to lay out to, coming from origo.
+ * @param enddir What direction the endpoint goes, either east or west.
+ * @param num_points Return value of how many points in the points array.
+ * @param points The points in the layout.  Free the array after use.  The
+ *               passed in is ignored and overwritten, so should be NULL.
+ * @returns The badness of this layout.
+ */
 static real
 autoroute_layout_orthogonal(Point *to, int enddir, 
 			    guint *num_points, Point **points)
@@ -331,6 +372,15 @@ autoroute_layout_orthogonal(Point *to, int enddir,
   return calculate_badness(ps, *num_points);
 }
 
+/** Do layout for the case where the end directions are opposite.
+ * This can be either a straight line, a zig-zag, a rotated s-shape or
+ * a spiral.
+ * @param to Where to lay out to, coming from origo.
+ * @param num_points Return value of how many points in the points array.
+ * @param points The points in the layout.  Free the array after use.  The
+ *               passed in is ignored and overwritten, so should be NULL.
+ * @returns The badness of this layout.
+ */
 static real
 autoroute_layout_opposite(Point *to, guint *num_points, Point **points)
 {
@@ -391,30 +441,46 @@ autoroute_layout_opposite(Point *to, guint *num_points, Point **points)
   return calculate_badness(ps, *num_points);
 }
 
+/** Rotate a point clockwise.
+ * @param p The point to rotate.
+ */
 static void
-point_rotate_cw(Point *p) {
+point_rotate_cw(Point *p)
+{
   real tmp = p->x;
   p->x = -p->y;
   p->y = tmp;
 }
 
+/** Rotate a point counterclockwise.
+ * @param p The point to rotate.
+ */
 static void
-point_rotate_ccw(Point *p) {
+point_rotate_ccw(Point *p)
+{
   real tmp = p->x;
   p->x = p->y;
   p->y = -tmp;
 }
 
+/** Rotate a point 180 degrees.
+ * @param p The point to rotate.
+ */
 static void
-point_rotate_180(Point *p) {
+point_rotate_180(Point *p)
+{
   p->x = -p->x;
   p->y = -p->y;
 }
 
 /** Normalizes the directions and points to make startdir be north and
  * the starting point be 0,0.
- * Normalized points are put in newstart and newend.
- * Returns the new enddir.
+ * @param startdir The original startdir.
+ * @param enddir The original enddir.
+ * @param start The original start point.
+ * @param end The original end point.
+ * @param newend Return address for the normalized end point.
+ * @returns The normalized end direction.
  */
 static guint
 autolayout_normalize_points(guint startdir, guint enddir,
@@ -441,8 +507,16 @@ autolayout_normalize_points(guint startdir, guint enddir,
   return enddir;
 }
 
-/** Reverses the normalizing process of autolayout_normalize_points.
+/** Reverses the normalizing process of autolayout_normalize_points by 
+ * moving and rotating the points to start at `start' with the start direction
+ * `startdir', instead of from origo going north.
  * Returns the new array of points, freeing the old one if necessary.
+ * @param startdir The direction to use as a starting direction.
+ * @param start The point to start at.
+ * @param points A set of points laid out from origo northbound.  This array
+ *               will be freed by calling this function.
+ * @param num_points The number of points in the `points' array.
+ * @returns A newly allocated array of points starting at `start'.
  */
 static Point *
 autolayout_unnormalize_points(guint startdir,

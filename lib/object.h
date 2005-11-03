@@ -63,126 +63,160 @@ typedef enum {
  **
  ************************************/
 
-/*
-  Function called to create an object.
-  This function is responsible for allocation memory for the object.
-  - startpoint : initial position for the object
-  - user_data  : Can be used to pass extra params to the creation
-                 of the object. Can be used to have two icons of
-		 the same object that are instansiated a bit different.
-  - handle1    : (return) Handle connected to startpoint
-  - handle2    : (return) Handle dragged on creation
-  both handle1 and handle2 can be NULL
+/*** Object type (class) operations ***/
+
+/** Function called to create an object.
+ *  This function is responsible for allocation memory for the object.
+ *  This is one of the object class functions.
+ * @param startpoint : initial position for the object
+ * @param user_data  : Can be used to pass extra params to the creation
+ *                of the object. Can be used to have two icons of
+ *                the same object that are instansiated a bit different.
+ * @param handle1    : (return) Handle connected to startpoint
+ * @param handle2    : (return) Handle dragged on creation
+ *  both handle1 and handle2 can be NULL
+ * @return A newly created object.
 */
 typedef DiaObject* (*CreateFunc) (Point *startpoint,
 			       void *user_data,
 			       Handle **handle1,
 			       Handle **handle2);
 
-/*
-  This function load the object's data from file fd. No header has to be
-  skipped. The data should be read using the functions in lib/files.h
-
-  The memory for the object has to be allocated (see CreateFunc)
-  
-  The version number is the version number of the DiaObjectType that was saved.
-  This must be used to maintain backwards compatible if you change some
-  in the save format. All objects must be capable of reading all earlier
-  version.
-*/
+/** This function load the object's data from file fd. No header has to be
+ *  skipped. The data should be read using the functions in lib/files.h
+ *  The memory for the object has to be allocated (see CreateFunc)
+ *  The version number is the version number of the DiaObjectType that was saved.
+ *  This must be used to maintain backwards compatible if you change some
+ *  in the save format. All objects must be capable of reading all earlier
+ *  version.
+ *  This is one of the object class functions.
+ * @param obj_node A node in an XML object to load from.
+ * @param version The version of the object found in the XML file.
+ * @param filename The name of the file we're loading from, for use in 
+ *                 error messages.
+ */
 typedef DiaObject* (*LoadFunc) (ObjectNode obj_node, int version,
-			     const char *filename);
+				const char *filename);
 
-/*
-  This function save the object's data to file fd. No header is required.
-  The data should be written using the functions in lib/files.h
-*/
+/** This function save the object's data to file fd. No header is required.
+ *  The data should be written using the functions in lib/files.h
+ *  This is one of the object class functions.
+ * @param obj An object to save.
+ * @param obj_node An XML node to save it in.
+ * @param filename The name of the file we're saving to, for use in error
+ *                 messages.
+ */
 typedef void (*SaveFunc) (DiaObject* obj, ObjectNode obj_node,
 			  const char *filename);
 
-
-/*
-  Function called before an object is deleted.
-  This function must call the parent class's DestroyFunc, and then free
-  the memory associated with the object, but not the object itself
-
-  Must also unconnect itself from all other objects.
-  (This is by calling object_destroy, or letting the super-class call it)
+/** Function called when the user has double clicked on an Tool. 
+ *  When this function is called and the dialog already is created,
+ *  make sure to update the values in the widgets so that it
+ *  accurately describes the current state of the tool.
+ *  This is one of the object class functions.
+ * @return a dialog that the user can use to edit the defaults for new
+ * objects of this type.
 */
+typedef GtkWidget *(*GetDefaultsFunc) ();
+
+/** Function called when the user clicks Apply on an edit defaults dialog.
+ * This is currently not used by any object.
+ * This is one of the object class functions.
+ */
+typedef void *(*ApplyDefaultsFunc) ();
+
+/*** Object operations ***/
+
+/** Function called before an object is deleted.
+ *  This function must call the parent class's DestroyFunc, and then free
+ *  the memory associated with the object, but not the object itself
+ *  Must also unconnect itself from all other objects.
+ *  (This is by calling object_destroy, or letting the super-class call it)
+ *  This is one of the object_ops functions.
+ * @param obj An object to destroy.
+ */
 typedef void (*DestroyFunc) (DiaObject* obj);
 
 
-/*
-  Function responsible for drawing the object.
-  Every drawing must be done through the use of the Renderer, so that we
-  can render the picture on screen, in an eps file, ...
-*/
+/** Function responsible for drawing the object.
+ *  Every drawing must be done through the use of the Renderer, so that we
+ *  can render the picture on screen, in an eps file, ...
+ *  This is one of the object_ops functions.
+ * @param The object to draw.
+ * @param The renderer object to draw with.
+ */
 typedef void (*DrawFunc) (DiaObject* obj, DiaRenderer* ddisp);
 
 
-/*
-  This function must return the distance between the DiaObject and the Point.
-  Several functions are provided in geometry.h to facilitate this calculus
-*/
+/** This function must return the distance between the DiaObject and the Point.
+ *  Several functions are provided in geometry.h to facilitate this calculus.
+ *  This is one of the object_ops functions.
+ * @param obj The object.
+ * @param point A point to give the distance to.
+ * @return The distance from the point to the nearest part of the object.
+ *         If the point is inside a closed object, return 0.0.
+ */
 typedef real (*DistanceFunc) (DiaObject* obj, Point* point);
 
 
-/*
-  Function called once the object has been selected.
-  Basically, this function should update the object (position of the
-  handles,...)
-  - clicked_point is the point on the screen where the user has clicked
-  - interactive_renderer is a renderer that has some extra functions
-                         most notably the possibility to get EXACT
-			 measures of strings. Used to place cursors
-			 and other interactive stuff.
-			 (Don't draw to the renderer)
-  This function need not redraw the object.
-*/
+/** Function called once the object has been selected.
+ *  Basically, this function should update the object (position of the
+ *  handles,...)  This is one of the object_ops functions.
+ *  This function should not redraw the object.
+ * @param obj An object that is being selected.
+ * @param clicked_point is the point on the screen where the user has clicked
+ * @param interactive_renderer is a renderer that has some extra functions
+ *                        most notably the possibility to get EXACT
+ *			 measures of strings. Used to place cursors
+ *			 and other interactive stuff.
+ *			 (Don't draw to the renderer)
+ */
 typedef void (*SelectFunc) (DiaObject*   obj,
 			    Point*    clicked_point,
 			    DiaRenderer* interactive_renderer);
 
-/*
-  Returns a copy of DiaObject.
-  This must be an depth-copy (pointers must be duplicated and so on)
-  as the initial object can be deleted any time
-*/
+/** Returns a copy of DiaObject.
+ *  This must be an depth-copy (pointers must be duplicated and so on)
+ *  as the initial object can be deleted any time. 
+ *  This is one of the object_ops functions.
+ * @param obj An object to make a copy of.
+ * @return A newly allocated object copied from `obj', but without any
+ *         connections to other objects.
+ */
 typedef DiaObject* (*CopyFunc) (DiaObject* obj);
 
-/*
-  Function called to move the entire object.
-  The new position is given by pos.
-  It's exact definition depends on the object. It's the point on the
-  object that 'snaps' to the grid if that is enabled. (generally it
-  is the upper left corner)
-  Returns an ObjectChange* with additional undo information, or
-  (in most cases) NULL.  Undo for moving the object itself is handled
-  elsewhere.
-*/
+/** Function called to move the entire object. 
+ *  This is one of the object_ops functions.
+ * @param obj The object being moved.
+ * @param pos Where the object is being moved to.
+ *  Its exact definition depends on the object. It is the point on the
+ *  object that 'snaps' to the grid if that is enabled. (generally it
+ *  is the upper left corner)
+ * @return An ObjectChange* with additional undo information, or
+ * (in most cases) NULL.  Undo for moving the object itself is handled
+ * elsewhere.
+ */
 typedef ObjectChange* (*MoveFunc) (DiaObject* obj, Point * pos);
 
-
-/**
- *  Function called to move one of the handles associated with the
- *  object. 
- *  @param obj The object whose handle is being moved.
- *  @param handle The handle being moved.
- *  @param pos The position it has been moved to (corrected for
+/** Function called to move one of the handles associated with the
+ *  object.  This is one of the object_ops functions.
+ * @param obj The object whose handle is being moved.
+ * @param handle The handle being moved.
+ * @param pos The position it has been moved to (corrected for
  *   vertical/horizontal only movement).
- *  @param cp If non-NULL, the connectionpoint found at this position.
+ * @param cp If non-NULL, the connectionpoint found at this position.
  *   If @a cp is NULL, there may or may not be a connectionpoint.
- *  @param The reason the handle was moved.
+ * @param The reason the handle was moved.
  *     - HANDLE_MOVE_USER means the user is dragging the point.
  *     - HANDLE_MOVE_USER_FINAL means the user let go of the point.
  *     - HANDLE_MOVE_CONNECTED means it was moved because something
  *	    it was connected to moved.
- *  @param modifiers gives a bitset of modifier keys currently held down
+ * @param modifiers gives a bitset of modifier keys currently held down
  *     - MODIFIER_SHIFT is either shift key
  *     - MODIFIER_ALT is either alt key
  *     - MODIFIER_CONTROL is either control key
  *	    Each has MODIFIER_LEFT_* and MODIFIER_RIGHT_* variants
- *  @return An @a ObjectChange* with additional undo information, or
+ * @return An @a ObjectChange* with additional undo information, or
  *  (in most cases) NULL.  Undo for moving the handle itself is handled
  *  elsewhere.
  */
@@ -193,89 +227,91 @@ typedef ObjectChange* (*MoveHandleFunc) (DiaObject*          obj,
 					 HandleMoveReason reason,
 					 ModifierKeys     modifiers);
 
-/*
-  Function called when the user has double clicked on an DiaObject.
-  This function should return a dialog to edit the properties
-  of the object.
-  When this function is called and the dialog already is created,
-  make sure to update the values in the widgets so that it
-  accurately describes the current state of the object.
-  Remember to destroy this dialog when the object is destroyed!
+/** Function called when the user has double clicked on an DiaObject.
+ *  This is one of the object_ops functions.
+ * @param obj An obj that this dialog is being made for.
+ * @param is_default If true, this dialog is for object defaults, and
+ * the toolbox options should not be shown.
+ * @return A dialog to edit the properties of the object.
+ * When this function is called and the dialog already is created,
+ * make sure to update the values in the widgets so that it
+ * accurately describes the current state of the object.
+ * Remember to destroy this dialog when the object is destroyed!
 
-  Note that if you want to use the same dialog multiple times,
-  you should ref it first.  Just run the following on the widget
-  when you create it:
-    gtk_object_ref(GTK_OBJECT(widget));
-    gtk_object_sink(GTK_OBJECT(widget)); / * optional, but recommended * /
-  If you don't do this, the widget will be destroyed when the
-  properties dialog is closed.
-
-  If is_default is true, this dialog is for object defaults, and
-  the toolbox options should not be shown.
-*/
+ * Note that if you want to use the same dialog multiple times,
+ * you should ref it first.  Just run the following on the widget
+ * when you create it:
+ *   gtk_object_ref(GTK_OBJECT(widget));
+ *   gtk_object_sink(GTK_OBJECT(widget)); / * optional, but recommended * /
+ * If you don't do this, the widget will be destroyed when the
+ * properties dialog is closed.
+ */
 typedef GtkWidget *(*GetPropertiesFunc) (DiaObject* obj, gboolean is_default);
 
-/*
-  Thiss function is called when the user clicks on
-  the "Apply" button.  The widget parameter is the one created by
-  the get_properties function.
-
-  Must returns a Change that can be used for undo/redo.
-  The returned change is already applied.
-*/
+/** This function is called when the user clicks on
+ *  the "Apply" button.  The widget parameter is the one created by
+ *  the get_properties function.
+ *  This is one of the object_ops functions.
+ * @param obj The object whose dialog has had its Apply button clicked.
+ * @param widget The properties dialog being applied.
+ * @return a Change that can be used for undo/redo.
+ * The returned change is already applied.
+ */
 typedef ObjectChange *(*ApplyPropertiesFunc) (DiaObject* obj, GtkWidget *widget);
 
-/*
-  This function is called to return a list of property
-  descriptions the object supports.  The list should be
-  NULL terminated.
-*/
+/** Desribe the properties that this object supports.
+ *  This is one of the object_ops functions.
+ * @param obj The object whose properties we want described.
+ * @return a NULL-terminated array of property descriptions.
+ * @bugs specify who owns the array.
+ */
 typedef const PropDescription *(* DescribePropsFunc) (DiaObject *obj);
 
-/*
-  This function is called to return the current values
-  (and type information) for a number of properties of
-  the object.
-*/
+/** Get the actual values of the properties given.
+ * Note that the props array need not contain all the properties
+ * defined for the object, nor do all the properties in the array need be
+ * defined for the object.  All properties in the props array that are
+ * actually set will be set.
+ * This is one of the object_ops functions.
+ * @param obj An object that delivers the values.
+ * @param props A list of Property objects whose values are to be set based
+ *              on the objects internal data.  The types for the objects are
+ *              also being set as a side-effect.
+ */
 typedef void (* GetPropsFunc) (DiaObject *obj, GPtrArray *props);
 
-/*
-  This function is called to set the value of a number
-  of properties of the object.
-*/
+/** Set the object to have the values defined in the properties list.
+ * Note that the props array may contain more or fewer properties than the
+ * object defines, but only and all the ones defined for the object will
+ * be applied to the object.
+ * This is one of the object_ops functions.
+ * @param obj An object to update values on.
+ * @param props An array of Property objects whose values are to be set on
+ *              the object.
+ */
 typedef void (* SetPropsFunc) (DiaObject *obj, GPtrArray *props);
 
-
-/*
-  Function called when the user has double clicked on an Tool.
-  This function should return a dialog to edit the defaults
-  of the tool.
-  When this function is called and the dialog already is created,
-  make sure to update the values in the widgets so that it
-  accurately describes the current state of the tool.
-*/
-typedef GtkWidget *(*GetDefaultsFunc) ();
-
-/*
-*/
-typedef void *(*ApplyDefaultsFunc) ();
-
-/*
-  Return an object-specific menu with toggles etc. properly set.
-*/
+/** Return an object-specific menu with toggles etc. properly set.
+ * This is one of the object_ops functions.
+ * @param obj The object that is selected when the object menu is asked for.
+ * @param position Where the user clicked.  This can be used to place whatever
+ * the menu point may create, such as new segment corners.
+ * @return A menu description with values set appropriately for this object.
+ * The description object must not be freed by the caller.
+ */
 typedef DiaMenu *(*ObjectMenuFunc) (DiaObject* obj, Point *position);
 
-/**
- * Function for updates on a text part of an object.  This function, if
+/** Function for updates on a text part of an object.  This function, if
  * not null, will be called every time the text is changed or editing
  * starts or stops.
+ * This is one of the object_ops functions.
  * @param obj The self object
  * @param text The text entry being edited
  * @param state The state of the editing, either TEXT_EDIT_START,
  * TEXT_EDIT_INSERT, TEXT_EDIT_DELETE, or TEXT_EDIT_END.
  * @param textchange For TEXT_EDIT_INSERT, the text about to be inserted.
  * For TEXT_EDIT_DELETE, the text about to be deleted.
- * @returns For TEXT_EDIT_INSERT and TEXT_EDIT_DELETE, TRUE this change
+ * @return For TEXT_EDIT_INSERT and TEXT_EDIT_DELETE, TRUE this change
  * will be allowed, FALSE otherwise.  For TEXT_EDIT_START and TEXT_EDIT_END,
  * the return value is ignored.
  */
@@ -386,7 +422,7 @@ struct _ObjectOps {
 };
 
 /*
-  The base class in the DiaObject hierarcy.
+  The base class in the DiaObject hierarchy.
   All information in this structure read-only
   from the application point of view except
   when connection objects. (Then handles and

@@ -19,9 +19,14 @@
 #include "config.h"
 #include "connectionpoint.h"
 
-/* Returns the available directions on a slope.
+/** Returns the available directions on a slope.
  * The right-hand side of the line is assumed to be within the object,
- * and thus not available. */
+ * and thus not available.
+ * @param from Beginning of the slope line.
+ * @param to End of the slope line.
+ * @returns The directions open (@see connectionpoint.h) open on the left-hand
+ *  side of the slope.
+ */
 gint
 find_slope_directions(Point from, Point to)
 {
@@ -56,10 +61,10 @@ find_slope_directions(Point from, Point to)
 
 
 /** Update the object-settable parts of a connectionpoints.
- * p: A ConnectionPoint pointer (non-NULL).
- * x: The x coordinate of the connectionpoint.
- * y: The y coordinate of the connectionpoint.
- * dirs: The directions that are open for connections on this point.
+ * @param p A ConnectionPoint pointer (non-NULL).
+ * @param x The x coordinate of the connectionpoint.
+ * @param y The y coordinate of the connectionpoint.
+ * @param dirs The directions that are open for connections on this point.
  */
 void 
 connpoint_update(ConnectionPoint *p, real x, real y, gint dirs)
@@ -70,8 +75,13 @@ connpoint_update(ConnectionPoint *p, real x, real y, gint dirs)
 }
 
 /** Returns TRUE if the given connection point is non-null and autogapped.
+ * @param cp A connectionpoint.
+ * @returns TRUE if the given connection point is non-null and has the
+ *  CP_FLAG_AUTOGAP flag set (i.e. lines connecting to it should try to end
+ *  at the border of the object instead of at the connection point.
  */
 gboolean
-connpoint_is_autogap(ConnectionPoint *cp) {
+connpoint_is_autogap(ConnectionPoint *cp)
+{
   return cp != NULL && (cp->flags & CP_FLAG_AUTOGAP);
 }

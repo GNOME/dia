@@ -15,6 +15,8 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
+
+/* This file handles simple (straight-line) connection basics */
 #include <config.h>
 
 #include <stdio.h>
@@ -24,6 +26,29 @@
 #include "connection.h"
 #include "message.h"
 
+/** Function called to move one of the handles associated with the
+ *  object. 
+ *  This is an object_ops function.
+ * @param obj The object whose handle is being moved.
+ * @param handle The handle being moved.
+ * @param pos The position it has been moved to (corrected for
+ *   vertical/horizontal only movement).
+ * @param cp If non-NULL, the connectionpoint found at this position.
+ *   If @a cp is NULL, there may or may not be a connectionpoint.
+ * @param The reason the handle was moved.
+ *     - HANDLE_MOVE_USER means the user is dragging the point.
+ *     - HANDLE_MOVE_USER_FINAL means the user let go of the point.
+ *     - HANDLE_MOVE_CONNECTED means it was moved because something
+ *	    it was connected to moved.
+ * @param modifiers gives a bitset of modifier keys currently held down
+ *     - MODIFIER_SHIFT is either shift key
+ *     - MODIFIER_ALT is either alt key
+ *     - MODIFIER_CONTROL is either control key
+ *	    Each has MODIFIER_LEFT_* and MODIFIER_RIGHT_* variants
+ * @return An @a ObjectChange* with additional undo information, or
+ *  (in most cases) NULL.  Undo for moving the handle itself is handled
+ *  elsewhere.
+ */
 ObjectChange*
 connection_move_handle(Connection *conn, HandleId id,
 		       Point *to, ConnectionPoint *cp,
@@ -43,6 +68,10 @@ connection_move_handle(Connection *conn, HandleId id,
   return NULL;
 }
 
+/** Update the type and placement of the two handles.
+ * This only updates handles 0 and 1, not any handles added by subclasses.
+ * @param conn The connection object to do the update on.
+ */
 void
 connection_update_handles(Connection *conn)
 {
@@ -53,6 +82,9 @@ connection_update_handles(Connection *conn)
   conn->endpoint_handles[1].pos = conn->endpoints[1];
 }
 
+/** Update the bounding box for a connection.
+ * @param conn The connection to update bounding box on.
+ */
 void
 connection_update_boundingbox(Connection *conn)
 {
@@ -62,8 +94,12 @@ connection_update_boundingbox(Connection *conn)
             &conn->extra_spacing,&conn->object.bounding_box);
 }
 
-/* Needs to have at least 2 handles 
-   The two first of each are used. */
+/** Initialize a connection objects.
+ *  This will in turn call object_init.
+ * @param conn A newly allocated connection object.
+ * @param num_handles How many handles to allocate room for.
+ * @param num_connections How many connectionpoints to allocate room for.
+ */
 void
 connection_init(Connection *conn, int num_handles, int num_connections)
 {
@@ -86,7 +122,10 @@ connection_init(Connection *conn, int num_handles, int num_connections)
   }
 }
 
-
+/** Copies an object connection-level and down.
+ * @param from The object to copy from.
+ * @param to The newly allocated object to copy into.
+ */
 void
 connection_copy(Connection *from, Connection *to)
 {
@@ -112,13 +151,24 @@ connection_copy(Connection *from, Connection *to)
   memcpy(&to->extra_spacing,&from->extra_spacing,sizeof(to->extra_spacing));
 }
 
+/** Function called before an object is deleted.
+ *  This function must call the parent class's DestroyFunc, and then free
+ *  the memory associated with the object, but not the object itself
+ *  Must also unconnect itself from all other objects, which can be done
+ *  by calling object_destroy, or letting the super-class call it)
+ *  This is one of the object_ops functions.
+ * @param conn An object to destroy.
+ */
 void
 connection_destroy(Connection *conn)
 {
   object_destroy(&conn->object);
 }
 
-
+/** Save a connections data to XML.
+ * @param conn The connection to save.
+ * @param obj_node The XML node to save it to.
+ */
 void
 connection_save(Connection *conn, ObjectNode obj_node)
 {
@@ -131,6 +181,10 @@ connection_save(Connection *conn, ObjectNode obj_node)
   data_add_point(attr, &conn->endpoints[1]);
 }
 
+/** Load a connections data from XML.
+ * @param conn A fresh connection object to load into.
+ * @param obj_node The XML node to load from.
+ */
 void
 connection_load(Connection *conn, ObjectNode obj_node)
 {

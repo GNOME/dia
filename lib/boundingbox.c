@@ -25,8 +25,16 @@
 #include "geometry.h"
 #include "boundingbox.h"
 
+/** 
+ * @param p 
+ * @param A 
+ * @param B 
+ * @param C 
+ * @param D 
+ * @bugs I don't know what this does.
+ */
 static void
-bernstein_develop(const real p[4],real *A,real *B,real *C,real *D)
+bernstein_develop(const real p[4], real *A, real *B, real *C, real *D)
 {
   *A = -p[0]+3*p[1]-3*p[2]+p[3];
   *B = 3*p[0]-6*p[1]+3*p[2];
@@ -36,20 +44,40 @@ bernstein_develop(const real p[4],real *A,real *B,real *C,real *D)
      then Q(u)=Au^3+Bu^2+Cu+p[0]. */
 }
 
-static real 
-bezier_eval(const real p[4],real u) {
+/** ?
+ * @param p 
+ * @param u 
+ * @returns 
+ * @bugs I don't know what this does.
+ */
+static real
+bezier_eval(const real p[4], real u)
+{
   real A,B,C,D;
   bernstein_develop(p,&A,&B,&C,&D);
   return A*u*u*u+B*u*u+C*u+D;
 }
 
-static real 
-bezier_eval_tangent(const real p[4],real u) {
+/** ?
+ * @param p 
+ * @param u 
+ * @returns 
+ * @bugs I don't know what this does.
+ */
+static real
+bezier_eval_tangent(const real p[4], real u)
+{
   real A,B,C,D;
   bernstein_develop(p,&A,&B,&C,&D);
   return 3*A*u*u+2*B*u+C;
 }  
 
+/** ?
+ * @param p
+ * @param u
+ * @returns
+ * @bugs I don't know what this does.
+ */
 static int
 bicubicbezier_extrema(const real p[4],real u[2])
 {
@@ -67,7 +95,16 @@ bicubicbezier_extrema(const real p[4],real u[2])
   return 2;
 }
 
-static void 
+/** Add to a bounding box the area covered by a standard arrow.
+ * @param rect The bounding box to adjust
+ * @param vertex The end point of the arrow.
+ * @param normed_dir The normalized direction of the arrow (i.e. 1 cm in the
+ * direction the arrow points from.
+ * @param extra_long ???
+ * @param extra_trans ???
+ * @bugs I don't know what the last two arguments do.
+ */
+static void
 add_arrow_rectangle(Rectangle *rect,
                     const Point *vertex,
                     const Point *normed_dir,
@@ -87,8 +124,17 @@ add_arrow_rectangle(Rectangle *rect,
   point_add_scaled(&pt,&vt,2.0 * extra_trans);
   rectangle_add_point(rect,&pt);  
 }
-                         
-void 
+
+/** Calculate the boundingbox for a 2D bezier curve segment.
+ * @param p0 
+ * @param p1 
+ * @param p2 
+ * @param p3 
+ * @param extra 
+ * @param rect The rectangle that the segment fits inside.
+ * @bugs I don't know exactly what the other parameters are.
+ */
+void
 bicubicbezier2D_bbox(const Point *p0,const Point *p1,
                      const Point *p2,const Point *p3,
                      const PolyBBExtras *extra,
@@ -139,8 +185,13 @@ bicubicbezier2D_bbox(const Point *p0,const Point *p1,
   }
 }
 
-
-void 
+/** Calculate the bounding box for a simple line.
+ * @param p1 One end of the line.
+ * @param p2 The other end of the line.
+ * @param extra Extra information 
+ * @param rect The box that the line and extra stuff fits inside.
+ */
+void
 line_bbox(const Point *p1, const Point *p2,
           const LineBBExtras *extra,
           Rectangle *rect)
@@ -159,7 +210,15 @@ line_bbox(const Point *p1, const Point *p2,
   add_arrow_rectangle(rect,p2,&vl,extra->end_long,extra->end_trans);
 }
 
-void 
+/** Calculate the bounding box of an ellipse.
+ * @param centre The center point of the ellipse.
+ * @param width The width of the ellipse.
+ * @param height The height of the ellipse.
+ * @param extra Extra information required.
+ * @param rect The bounding box that the ellipse fits inside.
+ * @bugs describe what the extra information is.
+ */
+void
 ellipse_bbox(const Point *centre, real width, real height,
              const ElementBBExtras *extra,
              Rectangle *rect)
@@ -173,11 +232,15 @@ ellipse_bbox(const Point *centre, real width, real height,
   rectangle_bbox(&rin,extra,rect);
 }
 
+/**  Allocate some scratch space to hold a big enough Bezier. 
+ * That space is not guaranteed to be preserved upon the next allocation
+ * (in fact it's guaranteed it's not).
+ * @param numpoints How many points of bezier to allocate space for.
+ * @returns Newly allocated array of points.
+ */
 static BezPoint *
-alloc_polybezier_space(int numpoints) {
-  /* Allocate some SCRATCH space to hold a big enough Bezier. 
-   That space is not guaranteed to be preserved upon the next allocation
-   (in fact it's guaranteed it's not). */
+alloc_polybezier_space(int numpoints)
+{
   static int alloc_np = 0; 
   static BezPoint *alloced = NULL;
   
@@ -189,9 +252,25 @@ alloc_polybezier_space(int numpoints) {
   return alloced;
 }
 
-static void free_polybezier_space(BezPoint *points) { /* dummy */ }
+/** Free the scratch space allocated above.
+ * @param points Previously allocated list of points.
+ * @note Doesn't actually free it, as alloc_polybezier_space does that.
+ * @bugs Should explain the strange freeing model, or fix it.
+ */
+static void
+free_polybezier_space(BezPoint *points)
+{ /* dummy */ }
 
-void 
+/** Calculate the boundingbox for a polyline.
+ * @param pts Array of points.
+ * @param numpoints Number of elements in `pts'.
+ * @param extra Extra space information
+ * @param closed Whether the polyline is closed or not.
+ * @param rect Return value: The bounding box that includes the points and
+ * extra spacing.
+ * @bugs Surely doesn't need to use bezier code, but remember extra stuff.
+ */
+void
 polyline_bbox(const Point *pts, int numpoints, 
               const PolyBBExtras *extra, gboolean closed,
               Rectangle *rect)
@@ -215,6 +294,14 @@ polyline_bbox(const Point *pts, int numpoints,
   free_polybezier_space(bpts);
 }
 
+/** Calculate a bounding box for a set of bezier points.
+ * @param pts The bezier points
+ * @param numpoints The number of elements in `pts'
+ * @param extra Extra spacing information.
+ * @param closed True if the bezier points form a closed line.
+ * @param rect Return value: The enclosing rectangle will be stored here.
+ * @bugs This function is way too long (214 lines) and should be split.
+ */
 void 
 polybezier_bbox(const BezPoint *pts, int numpoints,
                 const PolyBBExtras *extra, gboolean closed,            
@@ -436,9 +523,16 @@ polybezier_bbox(const BezPoint *pts, int numpoints,
   }
 }
 
-void rectangle_bbox(const Rectangle *rin,
-                    const ElementBBExtras *extra,
-                    Rectangle *rout)
+/** Figure out a bounding box for a rectangle (fairly simple:)
+ * @param rin A rectangle to find bbox for.
+ * @param extra Extra information required to find bbox.
+ * @param rout Return value: The enclosing bounding box.
+ * @bugs Describe extra info better.
+ */
+void 
+rectangle_bbox(const Rectangle *rin,
+	       const ElementBBExtras *extra,
+	       Rectangle *rout)
 {
   rout->left = rin->left - extra->border_trans;
   rout->top = rin->top - extra->border_trans;

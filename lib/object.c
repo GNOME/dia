@@ -31,6 +31,14 @@
 
 void object_init(DiaObject *obj, int num_handles, int num_connections);
 
+/** Initialize an already allocated object with the given number of handles
+ *  and connections.  This does not create the actual Handle and Connection
+ *  objects, which are expected to be added later.
+ * @param obj A newly allocated object with no handles or connections 
+ *            previously allocated.
+ * @param num_handles the number of handles to allocate room for.
+ * @param num_connections the number of connections to allocate room for.
+ */
 void
 object_init(DiaObject *obj,
 	    int num_handles,
@@ -49,6 +57,11 @@ object_init(DiaObject *obj,
     obj->connections = NULL;
 }
 
+/** Destroy an objects allocations and disconnect it from everything else.
+ *  After calling this function, the object is no longer valid for use
+ *  in a diagram.  Note that this does not deallocate the object itself.
+ * @param obj The object being destroyed.
+ */
 void
 object_destroy(DiaObject *obj)
 {
@@ -63,11 +76,21 @@ object_destroy(DiaObject *obj)
 }
 
 
-/* After this copying you have to fix up:
-   handles
-   connections
-   children/parents
-*/
+/** Copy the object-level information of this object.
+ *  This includes type, position, bounding box, number of handles and
+ *  connections, operations, parentability, parent and children.
+ *  After this copying you have to fix up:
+    handles
+    connections
+    children/parents
+ * In particular the children lists will contain the same objects, which
+ * is not a valid situation.
+ * @param from The object being copied from
+ * @param to The object being copied to.  This object does not need to
+ *           have been object_init'ed, but if it is, its handles and
+ *           connections arrays will be freed.
+ * @bugs Any existing children list will not be freed and will leak.
+ */
 void
 object_copy(DiaObject *from, DiaObject *to)
 {
@@ -92,16 +115,30 @@ object_copy(DiaObject *from, DiaObject *to)
   to->ops = from->ops;
 
   to->can_parent = from->can_parent;
-  to->parent = from->parent;;
+  to->parent = from->parent;
   to->children = g_list_copy(from->children);
 }
 
+/** A hash function of a pointer value.  Not the most well-spreadout
+ * function, as it has the same low bits as the pointer.
+ */
 static guint
 pointer_hash(gpointer some_pointer)
 {
   return (guint) some_pointer;
 }
 
+
+/** Copy a list of objects, keeping connections and parent-children
+ *  relation ships between the objects.  It is assumed that the 
+ *  ops->copy function correctly creates the connections and handles
+ *  objects.
+ * @param list_orig The original list.  This list will not be changed,
+ *                  nor will its objects.
+ * @return A list with the list_orig copies copied.
+ * @bugs Any children of an object in the list that are not themselves
+ *       in the list will cause a NULL entry in the children list.
+ */
 GList *
 object_copy_list(GList *list_orig)
 {
@@ -114,6 +151,7 @@ object_copy_list(GList *list_orig)
 
   hash_table = g_hash_table_new((GHashFunc) pointer_hash, NULL);
 
+  /* First ops->copy the entire list */
   list = list_orig;
   list_copy = NULL;
   while (list != NULL) {
@@ -182,6 +220,19 @@ object_copy_list(GList *list_orig)
   return list_copy;
 }
 
+/** Move a number of objects the same distance.  Any children of objects in
+ * the list are moved as well.  This is intended to be called from within
+ * object_list_move_delta.
+ * @param objects The list of objects to move.  This list must not contain
+ *                any object that is a child (at any depth) of another object.
+ *                @see parent_list_affected_hierarchy
+ * @param delta How far to move the objects.
+ * @param affected Whether to check parent boundaries???
+ * @return Undo information for the move, or NULL if no objects moved.
+ * @bugs If a parent and is child are both in the list, is the child moved
+ *       twice?
+ * @bugs The return Change object only contains info for a single object.
+ */
 ObjectChange*
 object_list_move_delta_r(GList *objects, Point *delta, gboolean affected)
 {
@@ -222,6 +273,11 @@ object_list_move_delta_r(GList *objects, Point *delta, gboolean affected)
   return objchange;
 }
 
+/** Move a set of objects a given amount.
+ * @param objects The list ob objects to move.
+ * @param delta The amount to move them.
+ * @bugs Why does this work?  Seems like some objects are moved more than once.
+ */
 extern ObjectChange*
 object_list_move_delta(GList *objects, Point *delta)
 {
@@ -248,6 +304,10 @@ object_list_move_delta(GList *objects, Point *delta)
   return objchange;
 }
 
+/** Destroy a list of objects by calling ops->destroy on each in turn.
+ * @param list_to_be_destroyed A of objects list to destroy.  The list itself
+ *                             will also be freed.
+ */
 void
 destroy_object_list(GList *list_to_be_destroyed)
 {
@@ -267,22 +327,34 @@ destroy_object_list(GList *list_to_be_destroyed)
   g_list_free(list_to_be_destroyed);
 }
 
+/** Add a new handle to an object.  This is merely a utility wrapper around
+ * object_add_handle_at().
+ * @param obj The object to add a handle to.  This object must have been
+ *            object_init()ed.
+ * @param handle The new handle to add.  The handle will be inserted as the
+ *               last handle in the list.
+ */
 void
 object_add_handle(DiaObject *obj, Handle *handle)
 {
-  obj->num_handles++;
-
-  obj->handles =
-    g_realloc(obj->handles, obj->num_handles*sizeof(Handle *));
-  
-  obj->handles[obj->num_handles-1] = handle;
+  object_add_handle_at(obj, handle, obj->num_handles);
 }
 
+/** Add a new handle to an object at a given position.  This is merely
+   a utility wrapper around object_add_handle_at().
+ * @param obj The object to add a handle to.  This object must have been
+ *            object_init()ed.
+ * @param handle The new handle to add.
+ * @param pos Where in the list of handles (0 <= pos <= obj->num_handles) to
+ *            add the handle.
+ */
 void
 object_add_handle_at(DiaObject *obj, Handle *handle, int pos)
 {
   int i;
   
+  g_assert(0 <= pos && pos <= obj->num_handles);
+
   obj->num_handles++;
 
   obj->handles =
@@ -294,6 +366,12 @@ object_add_handle_at(DiaObject *obj, Handle *handle, int pos)
   obj->handles[pos] = handle;
 }
 
+/** Remove a handle from an object.
+ * @param obj The object to remove a handle from.
+ * @param handle The handle to remove.  If the handle does not exist on this
+ *               object, an error message is displayed.  The handle is not
+ *               freed by this call.
+ */
 void
 object_remove_handle(DiaObject *obj, Handle *handle)
 {
@@ -321,18 +399,23 @@ object_remove_handle(DiaObject *obj, Handle *handle)
     g_realloc(obj->handles, obj->num_handles*sizeof(Handle *));
 }
 
+/** Add a new connectionpoint to an object.
+ * This is merely a convenience handler to add a connectionpoint at the
+ * end of an objects connectionpoint list.
+ * @see object_add_connectionpoint_at.
+ */
 void
 object_add_connectionpoint(DiaObject *obj, ConnectionPoint *conpoint)
 {
-  obj->num_connections++;
-
-  obj->connections =
-    g_realloc(obj->connections, 
-	      obj->num_connections*sizeof(ConnectionPoint *));
-  
-  obj->connections[obj->num_connections-1] = conpoint;
+  object_add_connectionpoint_at(obj, conpoint, obj->num_connections);
 }
 
+/** Add a new connectionpoint to an object.
+ * @param obj The object to add the connectionpoint to.
+ * @param conpoint The connectionpoiint to add.
+ * @param pos Where in the list to add the connectionpoint 
+ * (0 <= pos <= obj->num_connections).
+ */
 void 
 object_add_connectionpoint_at(DiaObject *obj, 
 			      ConnectionPoint *conpoint, int pos)
@@ -351,12 +434,19 @@ object_add_connectionpoint_at(DiaObject *obj,
   obj->connections[pos] = conpoint;
 }
 
+/** Remove an existing connectionpoint from and object.
+ * @param obj The object to remove the connectionpoint from.
+ * @param conpoint The connectionpoint to remove.  The connectionpoint
+ *                 will not be freed by this function, but any handles
+ *                 connected to the connectionpoint will be
+ *                 disconnected.
+ *                 If the connectionpoint does not exist on the object, 
+ *                 an error message is displayed. 
+ */
 void
 object_remove_connectionpoint(DiaObject *obj, ConnectionPoint *conpoint)
 {
   int i, nr;
-
-  object_remove_connections_to(conpoint);
 
   nr = -1;
   for (i=0;i<obj->num_connections;i++) {
@@ -370,6 +460,8 @@ object_remove_connectionpoint(DiaObject *obj, ConnectionPoint *conpoint)
     return;
   }
 
+  object_remove_connections_to(conpoint);
+
   for (i=nr;i<(obj->num_connections-1);i++) {
     obj->connections[i] = obj->connections[i+1];
   }
@@ -382,6 +474,13 @@ object_remove_connectionpoint(DiaObject *obj, ConnectionPoint *conpoint)
 }
 
 
+/** Make a connection between the handle and the connectionpoint.
+ * @param obj The object having the handle.
+ * @param handle The handle being connected.  This handle must not have
+ *               connect_type HANDLE_NONCONNECTABLE, or an incomprehensible
+ *               error message is displayed to the user.
+ * @param connectionpoint The connection point to connect to.
+ */
 void
 object_connect(DiaObject *obj, Handle *handle,
 	       ConnectionPoint *connectionpoint)
@@ -396,6 +495,10 @@ object_connect(DiaObject *obj, Handle *handle,
     g_list_prepend(connectionpoint->connected, obj);
 }
 
+/** Disconnect handle from whatever it may be connected to.
+ * @param connected_obj The object having the handle.
+ * @param handle The handle to disconnect
+ */
 void
 object_unconnect(DiaObject *connected_obj, Handle *handle)
 {
@@ -410,6 +513,12 @@ object_unconnect(DiaObject *connected_obj, Handle *handle)
   }
 }
 
+/** Remove all connections to the given connectionpoint.
+ * After this call, the connectionpoints connected field will be NULL,
+ * the list will have been freed, and no handles will be connected to the
+ * connectionpoint.
+ * @param conpoint A connectionpoint.
+ */
 void
 object_remove_connections_to(ConnectionPoint *conpoint)
 {
@@ -432,6 +541,9 @@ object_remove_connections_to(ConnectionPoint *conpoint)
   conpoint->connected = NULL;
 }
 
+/** Remove all connections to and from an object.
+ * @param obj An object to disconnect from all connectionpoints and handles.
+ */
 void
 object_unconnect_all(DiaObject *obj)
 {
@@ -445,7 +557,14 @@ object_unconnect_all(DiaObject *obj)
   }
 }
 
-void object_save(DiaObject *obj, ObjectNode obj_node)
+/** Save the object-specific parts of an object.
+ *  Note that this does not save the attributes of an object, merely the
+ *  basic data (currently position and bounding box).
+ * @param obj An object to save.
+ * @param obj_node An XML node to save the data to.
+ */
+void 
+object_save(DiaObject *obj, ObjectNode obj_node)
 {
   data_add_point(new_attribute(obj_node, "obj_pos"),
 		 &obj->position);
@@ -453,7 +572,14 @@ void object_save(DiaObject *obj, ObjectNode obj_node)
 		     &obj->bounding_box);
 }
 
-void object_load(DiaObject *obj, ObjectNode obj_node)
+/** Load the object-specific parts of an object.
+ *  Note that this does not load the attributes of an object, merely the
+ *  basic data (currently position and bounding box).
+ * @param obj An object to load into.
+ * @param obj_node An XML node to load the data from.
+ */
+void 
+object_load(DiaObject *obj, ObjectNode obj_node)
 {
   AttributeNode attr;
 
@@ -470,7 +596,13 @@ void object_load(DiaObject *obj, ObjectNode obj_node)
     data_rectangle( attribute_first_data(attr), &obj->bounding_box );
 }
 
-Layer *dia_object_get_parent_layer(DiaObject *obj) {
+/** Returns the layer that the given object belongs to.
+ * @param obj An object.
+ * @return The layer that contains the object, or NULL if the object is
+ * not in any layer.
+ */
+Layer *
+dia_object_get_parent_layer(DiaObject *obj) {
   return obj->parent_layer;
 }
 
@@ -479,6 +611,8 @@ Layer *dia_object_get_parent_layer(DiaObject *obj) {
  * objects, so don't use it frivolously.
  * Note that if the objects is not in a layer (e.g. grouped), it is never
  * considered selected.
+ * @param obj An object to test for selectedness.
+ * @return TRUE if the object is selected.
  */
 gboolean
 dia_object_is_selected (const DiaObject *obj)
@@ -526,12 +660,20 @@ static gint compare(gpointer a, gpointer b)
 
 static GHashTable *object_type_table = NULL;
 
+/** Initialize the object registry. */
 void
 object_registry_init(void)
 {
   object_type_table = g_hash_table_new( (GHashFunc) hash, (GCompareFunc) compare );
 }
 
+/** Register the type of an object.
+ *  This should be called as part of dia_plugin_init calls in modules that
+ *  define objects for sheets.  If an object type with the given name is
+ *  already registered (typically due to a user saving a local copy), a
+ *  warning is display to the user.
+ * @param type The type information.
+ */
 void
 object_register_type(DiaObjectType *type)
 {
@@ -545,37 +687,68 @@ object_register_type(DiaObjectType *type)
   g_hash_table_insert(object_type_table, type->name, type);
 }
 
+
+/** Performs a function on each registered object type.
+ * @param func A function foo(DiaObjectType, gpointer) to call.
+ * @param user_data Data passed through to the functions.
+ */
 void
 object_registry_foreach (GHFunc func, gpointer user_data)
 {
   g_hash_table_foreach (object_type_table, func, user_data);
 }
 
+/** Get the object type information associated with a name.
+ * @param name A type name.
+ * @return A DiaObjectType for an object type with the given name, or 
+ *         NULL if no such type is registered.
+ */
 DiaObjectType *
 object_get_type(char *name)
 {
   return (DiaObjectType *) g_hash_table_lookup(object_type_table, name);
 }
 
-
+/** Utility function that always returns FALSE given any object.
+ * @param obj Not used.
+ * @return FALSE
+ */
 int
 object_return_false(DiaObject *obj)
 {
   return FALSE;
 }
 
+/** Utility function that always returns NULL given any object.
+ * @param obj Not used.
+ * @return NULL
+ */
 void *
 object_return_null(DiaObject *obj)
 {
   return NULL;
 }
 
+/** Utility function that always returns nothing given any object.
+ * @param obj Not used.
+ */
 void
 object_return_void(DiaObject *obj)
 {
   return;
 }
 
+/** Load an object from XML based on its properties.
+ *  This function is suitable for implementing the object load function
+ *  for an object with normal attributes.  Any version-dependent handling
+ *  should be done after calling this function.
+ * @param type The type of the object, used for creation.
+ * @param obj_node The XML node defining the object.
+ * @param version The version of the object found in the XML structure.
+ * @param filename The name of the file that the XML came from, for error
+ *                 messages.
+ * @return A newly created object with properties loaded.
+ */
 DiaObject *
 object_load_using_properties(const DiaObjectType *type,
                              ObjectNode obj_node, int version,
@@ -590,6 +763,15 @@ object_load_using_properties(const DiaObjectType *type,
   return obj;
 }
 
+/** Save an object into an XML structure based on its properties.
+ *  This function is suitable for implementing the object save function
+ *  for an object with normal attributes.
+ * @param obj The object to save.
+ * @param obj_node The XML structure to save into.
+ * @param version The version of the objects structure this will be saved as
+ *                (for allowing backwards compatibility).
+ * @param filename The name of the file being saved to, for error messages.
+ */
 void 
 object_save_using_properties(DiaObject *obj, ObjectNode obj_node, 
                              int version, const char *filename)
@@ -597,6 +779,11 @@ object_save_using_properties(DiaObject *obj, ObjectNode obj_node,
   object_save_props(obj,obj_node);
 }
 
+/** Copy an object based solely on its properties.
+ *  This function is suitable for implementing the object save function
+ *  for an object with normal attributes.
+ * @param obj An object to copy.
+ */
 DiaObject *object_copy_using_properties(DiaObject *obj)
 {
   Point startpoint = {0.0,0.0};

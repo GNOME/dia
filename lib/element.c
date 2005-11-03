@@ -15,6 +15,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
+
+/** The Element object type is a rectangular box that has
+ *  non-connectable handles on its corners and on the midsts of the
+ *  edges.  It also has connectionpoints in the same places as the
+ *  handles as well as a mainpoint in the middle.
+ */
+
 #include <config.h>
 
 #include <stdio.h>
@@ -25,6 +32,9 @@
 #include "element.h"
 #include "message.h"
 
+/** Update the boundingbox information for this element.
+ * @param An object to update bounding box on.
+ */
 void
 element_update_boundingbox(Element *elem) {
   Rectangle bb;
@@ -48,6 +58,9 @@ element_update_boundingbox(Element *elem) {
  * bottom row, then center.  Do not blindly use this in old objects where
  * the order is different, as it will mess with the saved files.  If an
  * object uses element_update_handles, it can use this.
+ * @param elem The element to update
+ * @param cps The list of connectionpoints to update, in the order described.
+ *            Usually, this will be the same list as elem->connectionpoints.
  */
 void
 element_update_connections_rectangle(Element *elem,
@@ -82,6 +95,10 @@ element_update_connections_rectangle(Element *elem,
   cps[8].directions = DIR_ALL;
 }
 
+/** Update the corner and edge handles of an element to reflect its position
+ *  and size.
+ * @param elem An element to update.
+ */
 void
 element_update_handles(Element *elem)
 {
@@ -120,6 +137,17 @@ element_update_handles(Element *elem)
   elem->resize_handles[7].pos.y = corner->y + elem->height;
 }
 
+/** Handle the moving of one of the elements handles.
+ *  This function is suitable for use as the move_handle object operation.
+ * @param elem The element whose handle is being moved.
+ * @param id The id of the handle.
+ * @param to Where it's being moved to.
+ * @param cp Ignored
+ * @param reason What is causing this handle to be moved (creation, movement..)
+ * @param modifiers Any modifier keys (shift, control...) that the user is
+ *                  pressing.
+ * @return Undo information for this change.
+ */
 ObjectChange*
 element_move_handle(Element *elem, HandleId id,
 		    Point *to, ConnectionPoint *cp,
@@ -195,6 +223,13 @@ element_move_handle(Element *elem, HandleId id,
   return NULL;
 }
 
+/** Move the handle of an element restricted to a certain aspect ration.
+ * @param elem The element to update on
+ * @param id The id of the handle being moved
+ * @param to Where the handle is being moved to
+ * @param aspect_ratio The aspect ratio (width:height) to obey.
+ *                     The aspect ratio must not be 0.
+ */
 void
 element_move_handle_aspect(Element *elem, HandleId id,
 			   Point *to, real aspect_ratio)
@@ -288,7 +323,16 @@ element_move_handle_aspect(Element *elem, HandleId id,
   elem->height = new_height;
 }
 
-/* Needs to have the first 8 handles */
+/** Initialization function for element objects.
+ *  An element must have at least 8 handles and 9 connectionpoints.
+ * @param elem The element to initialize.  This function will call
+ *             object_init() on the element.
+ * @param num_handles The number of handles to set up (>= 8).  The handles
+ *                    will be initialized by this function.
+ * @param num_connections The number of connectionpoints to set up (>= 9).
+ *                        The connectionpoints will <em>not</em> be
+ *                        initialized by this function.
+ */
 void
 element_init(Element *elem, int num_handles, int num_connections)
 {
@@ -309,6 +353,11 @@ element_init(Element *elem, int num_handles, int num_connections)
   }
 }
 
+/** Copy an element, initializing the handles.
+ *  This function will in turn copy the underlying object.
+ * @paramm from An element to copy from.
+ * @param to An element (already allocated) to copy to.
+ */
 void
 element_copy(Element *from, Element *to)
 {
@@ -332,14 +381,23 @@ element_copy(Element *from, Element *to)
   memcpy(&to->extra_spacing,&from->extra_spacing,sizeof(to->extra_spacing));
 }
 
+/** Destroy an elements private information.
+ *  This function will in turn call object_destroy.
+ * @param elem The element to destroy.  It will <em>not</em> be deallocated
+ *             by this call, but will not be valid afterwards.
+ */
 void
 element_destroy(Element *elem)
 {
   object_destroy(&elem->object);
 }
 
-
-void element_save(Element *elem, ObjectNode obj_node)
+/** Save the element-specific parts of this element to XML.
+ * @param elem
+ * @param obj_node
+ */
+void 
+element_save(Element *elem, ObjectNode obj_node)
 {
   object_save(&elem->object, obj_node);
 

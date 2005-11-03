@@ -90,44 +90,20 @@ static void
 calculate_diamond(Point *poly/*[4]*/, Point *to, Point *from,
 		  real length, real width);
 
-static void
-calculate_arrow(Point *poly/*[3]*/, Point *to, Point *from,
-		real length, real width)
-{
-  Point delta;
-  Point orth_delta;
-  real len;
-  
-  delta = *to;
-  point_sub(&delta, from);
-  len = point_len(&delta);
-  if (len <= 0.0001) {
-    delta.x=1.0;
-    delta.y=0.0;
-  } else {
-    delta.x/=len;
-    delta.y/=len;
-  }
-
-  orth_delta.x = delta.y;
-  orth_delta.y = -delta.x;
-
-  point_scale(&delta, length);
-  point_scale(&orth_delta, width/2.0);
-
-  poly[0] = *to;
-  point_sub(&poly[0], &delta);
-  point_sub(&poly[0], &orth_delta);
-  poly[1] = *to;
-  poly[2] = *to;
-  point_sub(&poly[2], &delta);
-  point_add(&poly[2], &orth_delta);
-}
-
-/* The function calculate_arrow_point adjusts the placement of the line and the
-arrow, so that the arrow doesn't overshoot the connectionpoint and the line
-doesn't stick out the other end of the arrow.  move_arrow must be set to the new
-end point of the arrowhead, and move_line to the new endpoint of the line. */
+/** The function calculate_arrow_point adjusts the placement of the line and
+ * the arrow, so that the arrow doesn't overshoot the connectionpoint and the
+ * line doesn't stick out the other end of the arrow. 
+ * @param arrow An arrow to calculate adjustments for.  The arrow type
+ *              determins what adjustments are done..
+ * @param to Where the arrow points to (e.g. connection point)
+ * @param from Where the arrow points from (e.g. bezier control line end)
+ * @param move_arrow A place to return the new end point of the arrow head
+ *                   (i.e. where 'to' should be to render the arrow head well)
+ * @param move_line A place to return the new end point of the line (i.e.
+ *                  where 'to' should be to render the connecting line without
+ *                  leaving bits of its linewidth outside the arrow).
+ * @param linewidth The linewidth used for drawing both arrow and line.
+ */
 void
 calculate_arrow_point(const Arrow *arrow, const Point *to, const Point *from,
 		      Point *move_arrow, Point *move_line,
@@ -312,8 +288,61 @@ calculate_arrow_point(const Arrow *arrow, const Point *to, const Point *from,
   }
 }
 
+/** Calculate the corners of a normal arrow.
+ * @param poly A three-element array in which to return the three points
+ *             involved in making a simple arrow: poly[0] is the right-
+ *             hand point, poly[1] is the tip, and poly[2] is the left-hand
+ *             point.
+ * @param to Where the arrow is pointing to
+ * @param from Where the arrow is pointing from (e.g. the end of the stem)
+ * @param length How long the arrowhead should be.
+ * @param width How wide the arrowhead should be.
+ */
 static void
-calculate_crow(Point *poly/*[3]*/, Point *to, Point *from,
+calculate_arrow(Point *poly, Point *to, Point *from,
+		real length, real width)
+{
+  Point delta;
+  Point orth_delta;
+  real len;
+  
+  delta = *to;
+  point_sub(&delta, from);
+  len = point_len(&delta);
+  if (len <= 0.0001) {
+    delta.x=1.0;
+    delta.y=0.0;
+  } else {
+    delta.x/=len;
+    delta.y/=len;
+  }
+
+  orth_delta.x = delta.y;
+  orth_delta.y = -delta.x;
+
+  point_scale(&delta, length);
+  point_scale(&orth_delta, width/2.0);
+
+  poly[0] = *to;
+  point_sub(&poly[0], &delta);
+  point_sub(&poly[0], &orth_delta);
+  poly[1] = *to;
+  poly[2] = *to;
+  point_sub(&poly[2], &delta);
+  point_add(&poly[2], &orth_delta);
+}
+
+/** Calculate the actual point of a crows-foot arrow.
+ * @param poly A three-element array in which to return the three points
+ *             involved in making a simple arrow: poly[0] is the tip, poly[1]
+ *             is the right-hand point, and poly[2] is the left-hand point.
+ * @param to Where the arrow is pointing to
+ * @param from Where the arrow is pointing from (e.g. the end of the stem)
+ * @param length How long the arrowhead should be.
+ * @param width How wide the arrowhead should be.
+ */
+static void
+calculate_crow(Point *poly, Point *to, Point *from,
 	       real length, real width)
 {
   Point delta;
@@ -345,10 +374,19 @@ calculate_crow(Point *poly/*[3]*/, Point *to, Point *from,
   point_add(&poly[2], &orth_delta);
 }
 
-/* ER arrow for 0..N according to Modern database management,
- * McFadden/Hoffer/Prescott, Addison-Wessley, 1999
+/** Draw ER arrow for 0..N according to Modern database management,
+ *  McFadden/Hoffer/Prescott, Addison-Wessley, 1999
+ * @param renderer A renderer instance to draw into
+ * @param to The point that the arrow points to.
+ * @param from Where the arrow points from (e.g. end of stem)
+ * @param length The length of the arrow
+ * @param width The width of the arrow
+ * @param linewidth The thickness of the lines used to draw the arrow.
+ * @param fg_color The color used for drawing the arrow lines.
+ * @param bg_color Ignored.
+ * @bugs The ER-drawing methods are ripe for some refactoring.
  */
-static void 
+static void
 draw_none_or_many(DiaRenderer *renderer, Point *to, Point *from,
 		  real length, real width, real linewidth,
 		  Color *fg_color,Color *bg_color)
@@ -370,8 +408,16 @@ draw_none_or_many(DiaRenderer *renderer, Point *to, Point *from,
 		     width, linewidth, fg_color);
 }
 
-/* ER arrow for exactly-one relations according to Modern database management,
- * McFadden/Hoffer/Prescott, Addison-Wessley, 1999
+/** ER arrow for exactly-one relations according to Modern database management,
+ *  McFadden/Hoffer/Prescott, Addison-Wessley, 1999
+ * @param renderer A renderer instance to draw into
+ * @param to The point that the arrow points to.
+ * @param from Where the arrow points from (e.g. end of stem)
+ * @param length The length of the arrow
+ * @param width The width of the arrow
+ * @param linewidth The thickness of the lines used to draw the arrow.
+ * @param fg_color The color used for drawing the arrow lines.
+ * @param bg_color Ignored.
  */
 static void 
 draw_one_exactly(DiaRenderer *renderer, Point *to, Point *from,
@@ -408,6 +454,14 @@ draw_one_exactly(DiaRenderer *renderer, Point *to, Point *from,
 
 /* ER arrow for 1..N according to Modern database management,
  * McFadden/Hoffer/Prescott, Addison-Wessley, 1999
+ * @param renderer A renderer instance to draw into
+ * @param to The point that the arrow points to.
+ * @param from Where the arrow points from (e.g. end of stem)
+ * @param length The length of the arrow
+ * @param width The width of the arrow
+ * @param linewidth The thickness of the lines used to draw the arrow.
+ * @param fg_color The color used for drawing the arrow lines.
+ * @param bg_color Ignored.
  */
 static void 
 draw_one_or_many(DiaRenderer *renderer, Point *to, Point *from,
@@ -432,6 +486,14 @@ draw_one_or_many(DiaRenderer *renderer, Point *to, Point *from,
 
 /* ER arrow for 0,1 according to Modern database management,
  * McFadden/Hoffer/Prescott, Addison-Wessley, 1999
+ * @param renderer A renderer instance to draw into
+ * @param to The point that the arrow points to.
+ * @param from Where the arrow points from (e.g. end of stem)
+ * @param length The length of the arrow
+ * @param width The width of the arrow
+ * @param linewidth The thickness of the lines used to draw the arrow.
+ * @param fg_color The color used for drawing the arrow lines.
+ * @param bg_color Ignored.
  */
 static void 
 draw_one_or_none(DiaRenderer *renderer, Point *to, Point *from,
@@ -463,6 +525,16 @@ draw_one_or_none(DiaRenderer *renderer, Point *to, Point *from,
   draw_empty_ellipse(renderer, &second_to, &second_from, length/2, width, linewidth, fg_color); 
 }
 
+/** Draw a crow's foot arrowhead.
+ * @param renderer A renderer instance to draw into
+ * @param to The point that the arrow points to.
+ * @param from Where the arrow points from (e.g. end of stem)
+ * @param length The length of the arrow
+ * @param width The width of the arrow
+ * @param linewidth The thickness of the lines used to draw the arrow.
+ * @param fg_color The color used for drawing the arrow lines.
+ * @param bg_color Ignored.
+ */
 static void 
 draw_crow_foot(DiaRenderer *renderer, Point *to, Point *from,
 	       real length, real width, real linewidth,
@@ -481,6 +553,15 @@ draw_crow_foot(DiaRenderer *renderer, Point *to, Point *from,
   DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer,&poly[0],&poly[2],fg_color);
 }
 
+/** Draw a simple open line arrow.
+ * @param renderer A renderer instance to draw into
+ * @param to The point that the arrow points to.
+ * @param from Where the arrow points from (e.g. end of stem)
+ * @param length The length of the arrow
+ * @param width The width of the arrow
+ * @param linewidth The thickness of the lines used to draw the arrow.
+ * @param fg_color The color used for drawing the arrow lines.
+ */
 static void
 draw_lines(DiaRenderer *renderer, Point *to, Point *from,
 	   real length, real width, real linewidth,
@@ -498,6 +579,18 @@ draw_lines(DiaRenderer *renderer, Point *to, Point *from,
   DIA_RENDERER_GET_CLASS(renderer)->draw_polyline(renderer, poly, 3, color);
 }
 
+/** Draw an arrowhead that is a filled ellipse.
+ * @param renderer A renderer instance to draw into
+ * @param to The point that the arrow points to.
+ * @param from Where the arrow points from (e.g. end of stem)
+ * @param length The length of the arrow
+ * @param width The width of the arrow
+ * @param linewidth The thickness of the lines used to draw the arrow.
+ * @param fg_color The color used for drawing the arrow lines.
+ * @param bg_color Used to fill the ellipse, usually white and non-settable.
+ *                 If null, the ellipse is filled with fg_color and slightly
+ *                 smaller (by linewidth/2).
+ */
 static void 
 draw_fill_ellipse(DiaRenderer *renderer, Point *to, Point *from,
 		  real length, real width, real linewidth,
@@ -555,7 +648,16 @@ draw_fill_ellipse(DiaRenderer *renderer, Point *to, Point *from,
   }
 }
 
-static void 
+/** Draw an arrowhead that is an ellipse with empty interior.
+ * @param renderer A renderer instance to draw into
+ * @param to The point that the arrow points to.
+ * @param from Where the arrow points from (e.g. end of stem)
+ * @param length The length of the arrow
+ * @param width The width of the arrow
+ * @param linewidth The thickness of the lines used to draw the arrow.
+ * @param fg_color The color used for drawing the arrow lines.
+ */
+static void
 draw_empty_ellipse(DiaRenderer *renderer, Point *to, Point *from,
 		  real length, real width, real linewidth,
 		  Color *fg_color)
@@ -609,7 +711,18 @@ draw_empty_ellipse(DiaRenderer *renderer, Point *to, Point *from,
   DIA_RENDERER_GET_CLASS(renderer)->draw_bezier(renderer,bp,sizeof(bp)/sizeof(bp[0]),fg_color);
 }
 
-static void 
+/** Draw an arrow head that is an (optionall) filled box.
+ * @param renderer A renderer instance to draw into
+ * @param to The point that the arrow points to.
+ * @param from Where the arrow points from (e.g. end of stem)
+ * @param length The length of the arrow
+ * @param width The width of the arrow
+ * @param linewidth The thickness of the lines used to draw the arrow.
+ * @param fg_color The color used for drawing the arrow lines.
+ * @param bg_color The color used for the interior of the box.  If
+ *                 fg_color == bg_color, the box is rendered slightly smaller.
+ */
+static void
 draw_fill_box(DiaRenderer *renderer, Point *to, Point *from,
 	      real length, real width, real linewidth,
 	      Color *fg_color,Color *bg_color)
@@ -665,7 +778,18 @@ draw_fill_box(DiaRenderer *renderer, Point *to, Point *from,
   DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer,&bs,&be,fg_color);
 }
 
-static void 
+/** Draw a "filled dot" arrow.
+ * @param renderer A renderer instance to draw into
+ * @param to The point that the arrow points to.
+ * @param from Where the arrow points from (e.g. end of stem)
+ * @param length The length of the arrow
+ * @param width The width of the arrow
+ * @param linewidth The thickness of the lines used to draw the arrow.
+ * @param fg_color The color used for drawing the arrow lines.
+ * @param bg_color The collor used for the interior of the dot.
+ * @bugs Need to describe the diff between this and ellipse arrow.
+ */
+static void
 draw_fill_dot(DiaRenderer *renderer, Point *to, Point *from,
 	      real length, real width, real linewidth,
 	      Color *fg_color,Color *bg_color)
@@ -741,6 +865,18 @@ draw_fill_dot(DiaRenderer *renderer, Point *to, Point *from,
   DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer,&bs,&be,fg_color);
 }
 
+/** Draw the integral-sign arrow head.
+ * @param renderer A renderer instance to draw into
+ * @param to The point that the arrow points to.
+ * @param from Where the arrow points from (e.g. end of stem)
+ * @param length The length of the arrow
+ * @param width The width of the arrow
+ * @param linewidth The thickness of the lines used to draw the arrow.
+ * @param fg_color The color used for drawing the arrow lines.
+ * @param bg_color The color used to kludge around the longer stem of this
+ *                 arrow.
+ * @bugs The bg_color kludge should not be necessary, arrow pos is adjustable.
+ */
 static void
 draw_integral(DiaRenderer *renderer, Point *to, Point *from,
 	      real length, real width, real linewidth,
@@ -786,8 +922,18 @@ draw_integral(DiaRenderer *renderer, Point *to, Point *from,
   DIA_RENDERER_GET_CLASS(renderer)->draw_bezier(renderer,bp,sizeof(bp)/sizeof(bp[0]),fg_color);
 }
 
-
-
+/** Draw the arrowhead that is a line with a slash through it.
+ * @param renderer A renderer instance to draw into
+ * @param to The point that the arrow points to.
+ * @param from Where the arrow points from (e.g. end of stem)
+ * @param length The length of the arrow
+ * @param width The width of the arrow
+ * @param linewidth The thickness of the lines used to draw the arrow.
+ * @param fg_color The color used for drawing the arrow lines.
+ * @param bg_color Used for a kludge of "erasing" the line tip instead of
+ *                 figuring out the correct way to do this.
+ * @bugs Figure out the right way to do this, avoid kludge.
+ */
 static void
 draw_slashed(DiaRenderer *renderer, Point *to, Point *from,
 	     real length, real width, real linewidth,
@@ -829,9 +975,17 @@ draw_slashed(DiaRenderer *renderer, Point *to, Point *from,
   DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer, &bs3, &be3, fg_color);
 }
 
-/* Only draw the upper part of the arrow */
+/** Calculate positions for the half-head arrow (only left-hand(?) line drawn)
+ * @param poly The three-element array to store the result in.  
+ * @param to Where the arrow points to
+ * @param from Where the arrow points from (e.g. end of stem)
+ * @param length The length of the arrowhead
+ * @param width The width of the arrowhead
+ * @param linewidth The width of the lines used to draw the arrow
+ * @bugs Describe better what is put into poly.
+ */
 static void
-calculate_halfhead(Point *poly/*[3]*/, Point *to, Point *from,
+calculate_halfhead(Point *poly, Point *to, Point *from,
 		   real length, real width, real linewidth)
 {
   Point delta;
@@ -874,6 +1028,15 @@ calculate_halfhead(Point *poly/*[3]*/, Point *to, Point *from,
   /*  point_add(&poly[2], &orth_delta);*/
 }
 
+/** Draw a halfhead arrow.
+ * @param renderer A renderer instance to draw into
+ * @param to The point that the arrow points to.
+ * @param from Where the arrow points from (e.g. end of stem)
+ * @param length The length of the arrow
+ * @param width The width of the arrow
+ * @param linewidth The thickness of the lines used to draw the arrow.
+ * @param color The color used for drawing the arrow lines.
+ */
 static void
 draw_halfhead(DiaRenderer *renderer, Point *to, Point *from,
 	      real length, real width, real linewidth,
@@ -891,6 +1054,15 @@ draw_halfhead(DiaRenderer *renderer, Point *to, Point *from,
   DIA_RENDERER_GET_CLASS(renderer)->draw_polyline(renderer, poly, 3, color);
 }
 
+/** Draw a basic triangular arrow.
+ * @param renderer A renderer instance to draw into
+ * @param to The point that the arrow points to.
+ * @param from Where the arrow points from (e.g. end of stem)
+ * @param length The length of the arrow
+ * @param width The width of the arrow
+ * @param linewidth The thickness of the lines used to draw the arrow.
+ * @param color The color used for drawing the arrow lines.
+ */
 static void
 draw_triangle(DiaRenderer *renderer, Point *to, Point *from,
 	      real length, real width, real linewidth,
@@ -907,6 +1079,15 @@ draw_triangle(DiaRenderer *renderer, Point *to, Point *from,
   DIA_RENDERER_GET_CLASS(renderer)->draw_polygon(renderer, poly, 3, color);
 }
 
+/** Draw a simple triangular arrow, with filled head.
+ * @param renderer A renderer instance to draw into
+ * @param to The point that the arrow points to.
+ * @param from Where the arrow points from (e.g. end of stem)
+ * @param length The length of the arrow
+ * @param width The width of the arrow
+ * @param linewidth The thickness of the lines used to draw the arrow.
+ * @param color The color used for drawing the arrowhead.
+ */
 static void
 fill_triangle(DiaRenderer *renderer, Point *to, Point *from,
 	      real length, real width, Color *color)
@@ -921,8 +1102,20 @@ fill_triangle(DiaRenderer *renderer, Point *to, Point *from,
   DIA_RENDERER_GET_CLASS(renderer)->fill_polygon(renderer, poly, 3, color);
 }
 
+/** Calculate the points needed to draw a diamon arrowhead.
+ * @param poly A 4-element arrow to hold the return values:
+ *             poly[0] holds the tip of the diamond.
+ *             poly[1] holds the right-side tip of the diamond.
+ *             poly[2] holds the back end of the diamond.
+ *             poly[3] holds the left-side tip of the diamond.
+ * @param to The point the arrow points to.
+ * @param from The point the arrow points away from (e.g. bezier control line)
+ * @param length The length of the arrowhead
+ * @param width The width of the arrowhead
+ * @bugs Take linewidth into account.
+ */
 static void
-calculate_diamond(Point *poly/*[4]*/, Point *to, Point *from,
+calculate_diamond(Point *poly, Point *to, Point *from,
 		  real length, real width)
 {
   Point delta;
@@ -958,7 +1151,15 @@ calculate_diamond(Point *poly/*[4]*/, Point *to, Point *from,
   point_add(&poly[3], &orth_delta);
 }
 
-
+/** Draw a diamond-shaped arrow head.
+ * @param renderer A renderer instance to draw into
+ * @param to The point that the arrow points to.
+ * @param from Where the arrow points from (e.g. end of stem)
+ * @param length The length of the arrow
+ * @param width The width of the arrow
+ * @param linewidth The thickness of the lines used to draw the arrow.
+ * @param color The color used for drawing the arrowhead.
+ */
 static void
 draw_diamond(DiaRenderer *renderer, Point *to, Point *from,
 	     real length, real width, real linewidth,
@@ -976,6 +1177,15 @@ draw_diamond(DiaRenderer *renderer, Point *to, Point *from,
   DIA_RENDERER_GET_CLASS(renderer)->draw_polygon(renderer, poly, 4, color);
 }
 
+/** Draw a right-hand part of a diamond arrowhead.
+ * @param renderer A renderer instance to draw into
+ * @param to The point that the arrow points to.
+ * @param from Where the arrow points from (e.g. end of stem)
+ * @param length The length of the arrow
+ * @param width The width of the arrow
+ * @param linewidth The thickness of the lines used to draw the arrow.
+ * @param color The color used for drawing the arrowhead.
+*/
 static void
 draw_half_diamond(DiaRenderer *renderer, Point *to, Point *from,
 		  real length, real width, real linewidth,
@@ -993,6 +1203,14 @@ draw_half_diamond(DiaRenderer *renderer, Point *to, Point *from,
   DIA_RENDERER_GET_CLASS(renderer)->draw_polyline(renderer, poly+1, 3, color);
 }
 
+/** Draw a filled diamond arrow head.
+ * @param renderer A renderer instance to draw into
+ * @param to The point that the arrow points to.
+ * @param from Where the arrow points from (e.g. end of stem)
+ * @param length The length of the arrow
+ * @param width The width of the arrow
+ * @param color The color used for drawing the arrowhead.
+ */
 static void
 fill_diamond(DiaRenderer *renderer, Point *to, Point *from,
 	     real length, real width,
@@ -1009,8 +1227,16 @@ fill_diamond(DiaRenderer *renderer, Point *to, Point *from,
   DIA_RENDERER_GET_CLASS(renderer)->fill_polygon(renderer, poly, 4, color);
 }
 
+/** Calculate the points needed to draw a slashed-cross arrowhead.
+ * @param poly A 6-element array to hold the points calculated:
+ * @param to Where the arrow points to.
+ * @param from Where the arrow points from (e.g. other end of stem).
+ * @param length The length of the arrowhead.
+ * @param width The width of the arrowhead.
+ * @bugs Describe what is where in the poly array.
+ */
 static void
-calculate_slashed_cross(Point *poly/*[6]*/, Point *to, Point *from,
+calculate_slashed_cross(Point *poly, Point *to, Point *from,
 			real length, real width)
 {
   Point delta;
@@ -1049,6 +1275,15 @@ calculate_slashed_cross(Point *poly/*[6]*/, Point *to, Point *from,
   point_sub(&poly[5], &orth_delta);
 }
 
+/** Draw a slashed cross arrowhead.
+ * @param renderer A renderer instance to draw into
+ * @param to The point that the arrow points to.
+ * @param from Where the arrow points from (e.g. end of stem)
+ * @param length The length of the arrow
+ * @param width The width of the arrow
+ * @param linewidth The thickness of the lines used to draw the arrow.
+ * @param color The color used for drawing the arrowhead.
+ */
 static void
 draw_slashed_cross(DiaRenderer *renderer, Point *to, Point *from,
 		   real length, real width, real linewidth, Color *color)
@@ -1067,6 +1302,16 @@ draw_slashed_cross(DiaRenderer *renderer, Point *to, Point *from,
   DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer, &poly[4],&poly[5], color);
 }
 
+/** Draw a backslash arrowhead.
+ * @param renderer A renderer instance to draw into
+ * @param to The point that the arrow points to.
+ * @param from Where the arrow points from (e.g. end of stem)
+ * @param length The length of the arrow
+ * @param width The width of the arrow
+ * @param linewidth The thickness of the lines used to draw the arrow.
+ * @param color The color used for drawing the arrowhead.
+ * @bugs refactor into calculate and draw.
+ */
 static void
 draw_backslash(DiaRenderer *renderer, Point *to, Point *from,
                real length, real width, real linewidth, Color *color)
@@ -1112,6 +1357,15 @@ draw_backslash(DiaRenderer *renderer, Point *to, Point *from,
   DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer, &point1,&point2, color);
 }
 
+/** Draw a cross-like arrowhead.
+ * @param renderer A renderer instance to draw into
+ * @param to The point that the arrow points to.
+ * @param from Where the arrow points from (e.g. end of stem)
+ * @param length The length of the arrow
+ * @param width The width of the arrow
+ * @param linewidth The thickness of the lines used to draw the arrow.
+ * @param color The color used for drawing the arrowhead.
+ */
 static void
 draw_cross(DiaRenderer *renderer, Point *to, Point *from,
 	   real length, real width, real linewidth, Color *color)
@@ -1129,7 +1383,16 @@ draw_cross(DiaRenderer *renderer, Point *to, Point *from,
   /*DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer, &poly[4],&poly[5], color); */
 }
 
-static void 
+/** Calculate where to put the second arrowhead of a double arrow
+ * @param second_to Return value for the point where the second arrowhead
+ *                  should point to.
+ * @param second_from Return value for the point where the second arrowhead
+ *                  should point from.
+ * @param to Where the first arrowhead should point to.
+ * @param from Where the whole arrow points from (e.g. end of stem)
+ * @param length The length of each arrowhead.
+ */
+static void
 calculate_double_arrow(Point *second_to, Point *second_from, 
                        Point *to, Point *from, real length)
 {
@@ -1157,6 +1420,15 @@ calculate_double_arrow(Point *second_to, Point *second_from,
   point_add(second_from, &delta);
 }
 
+/** Draw a double-triangle arrowhead.
+ * @param renderer A renderer instance to draw into
+ * @param to The point that the arrow points to.
+ * @param from Where the arrow points from (e.g. end of stem)
+ * @param length The length of the arrow
+ * @param width The width of the arrow
+ * @param linewidth The thickness of the lines used to draw the arrow.
+ * @param color The color used for drawing the arrowhead.
+ */
 static void 
 draw_double_triangle(DiaRenderer *renderer, Point *to, Point *from,
 		     real length, real width, real linewidth, Color *color)
@@ -1168,6 +1440,15 @@ draw_double_triangle(DiaRenderer *renderer, Point *to, Point *from,
   draw_triangle(renderer, &second_to, &second_from, length, width, linewidth, color);
 }
 
+/** Draw a filled double-triangle arrowhead.
+ * @param renderer A renderer instance to draw into
+ * @param to The point that the arrow points to.
+ * @param from Where the arrow points from (e.g. end of stem)
+ * @param length The length of the arrow
+ * @param width The width of the arrow
+ * @param linewidth The thickness of the lines used to draw the arrow.
+ * @param color The color used for drawing the arrowhead.
+ */
 static void 
 fill_double_triangle(DiaRenderer *renderer, Point *to, Point *from,
 		     real length, real width, Color *color)
@@ -1179,8 +1460,19 @@ fill_double_triangle(DiaRenderer *renderer, Point *to, Point *from,
   fill_triangle(renderer, &second_to, &second_from, length, width, color);
 }
 
+/** Calculate the points needed to draw a concave arrowhead.
+ * @param poly A 4-element array of return points:
+ *             poly[0] is the tip of the arrow.
+ *             poly[1] is the right-hand point of the arrow.
+ *             poly[2] is the rear indent point of the arrow.
+ *             poly[3] is the left-hand point of the arrow.
+ * @param to Where the arrow points to.
+ * @param from Where the arrow points from (e.g. bezier control point)
+ * @param length The length of the arrow.
+ * @param width The width of the arrow.
+ */
 static void
-calculate_concave(Point *poly/*[4]*/, Point *to, Point *from,
+calculate_concave(Point *poly, Point *to, Point *from,
 		  real length, real width)
 {
   Point delta;
@@ -1223,7 +1515,16 @@ calculate_concave(Point *poly/*[4]*/, Point *to, Point *from,
   point_sub(&poly[3], &delta);
 }
 
-
+/** Draw a concave triangle arrowhead.
+ * @param renderer A renderer instance to draw into
+ * @param to The point that the arrow points to.
+ * @param from Where the arrow points from (e.g. end of stem)
+ * @param length The length of the arrow
+ * @param width The width of the arrow
+ * @param linewidth The thickness of the lines used to draw the arrow.
+ * @param fg_color The color used for drawing the arrowhead lines
+ * @param bg_color The color used for drawing the arrowhead interior.
+ */
 static void
 draw_concave_triangle(DiaRenderer *renderer, Point *to, Point *from,
 		      real length, real width, real linewidth,
@@ -1242,6 +1543,16 @@ draw_concave_triangle(DiaRenderer *renderer, Point *to, Point *from,
   DIA_RENDERER_GET_CLASS(renderer)->draw_polygon(renderer, poly, 4, fg_color);
 }
 
+/** Draw a rounded (half-circle) arrowhead.
+ * @param renderer A renderer instance to draw into
+ * @param to The point that the arrow points to.
+ * @param from Where the arrow points from (e.g. end of stem)
+ * @param length The length of the arrow
+ * @param width The width of the arrow
+ * @param linewidth The thickness of the lines used to draw the arrow.
+ * @param fg_color The color used for drawing the arrowhead lines
+ * @param bg_color Ignored.
+ */
 static void
 draw_rounded(DiaRenderer *renderer, Point *to, Point *from,
 	     real length, real width, real linewidth,
@@ -1279,6 +1590,17 @@ draw_rounded(DiaRenderer *renderer, Point *to, Point *from,
   DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer, &p, to, fg_color);
 }
 
+/** Draw an open rounded arrowhead.
+ * @param renderer A renderer instance to draw into
+ * @param to The point that the arrow points to.
+ * @param from Where the arrow points from (e.g. end of stem)
+ * @param length The length of the arrow
+ * @param width The width of the arrow
+ * @param linewidth The thickness of the lines used to draw the arrow.
+ * @param fg_color The color used for drawing the arrowhead lines
+ * @param bg_color Ignored.
+ * @bugs Describe the arrowhead better.
+ */
 static void
 draw_open_rounded(DiaRenderer *renderer, Point *to, Point *from,
 		  real length, real width, real linewidth,
@@ -1320,6 +1642,16 @@ draw_open_rounded(DiaRenderer *renderer, Point *to, Point *from,
   DIA_RENDERER_GET_CLASS(renderer)->draw_arc(renderer, &p, width, length, angle_start - 180.0, angle_start, fg_color);  
 }
 
+/** Draw an arrowhead with a circle in front of a triangle, filled.
+ * @param renderer A renderer instance to draw into
+ * @param to The point that the arrow points to.
+ * @param from Where the arrow points from (e.g. end of stem)
+ * @param length The length of the arrow
+ * @param width The width of the arrow
+ * @param linewidth The thickness of the lines used to draw the arrow.
+ * @param fg_color The color used for drawing the arrowhead lines
+ * @param bg_color Ignored.
+ */
 static void
 draw_filled_dot_n_triangle(DiaRenderer *renderer, Point *to, Point *from,
 			   real length, real width, real linewidth,
@@ -1356,6 +1688,15 @@ draw_filled_dot_n_triangle(DiaRenderer *renderer, Point *to, Point *from,
   DIA_RENDERER_GET_CLASS(renderer)->fill_polygon(renderer, poly, 3, fg_color);
 }
 
+/** Draw an arrowhead that is simply three dots (ellipsis)
+ * @param renderer A renderer instance to draw into
+ * @param to The point that the arrow points to.
+ * @param from Where the arrow points from (e.g. end of stem)
+ * @param length The length of the arrow
+ * @param width The width of the arrow
+ * @param linewidth The thickness of the lines used to draw the arrow.
+ * @param fg_color The color used for drawing the arrowhead lines
+ */
 static void
 draw_three_dots(DiaRenderer *renderer, Point *to, Point *from,
                real length, real width, real linewidth, Color *fg_color)
@@ -1389,6 +1730,17 @@ draw_three_dots(DiaRenderer *renderer, Point *to, Point *from,
   }
 }
 
+/** Draw any arrowhead.
+ * @param renderer A renderer instance to draw into
+ * @param type Which kind of arrowhead to draw.
+ * @param to The point that the arrow points to.
+ * @param from Where the arrow points from (e.g. end of stem)
+ * @param length The length of the arrow
+ * @param width The width of the arrow
+ * @param linewidth The thickness of the lines used to draw the arrow.
+ * @param fg_color The color used for drawing the arrowhead lines
+ * @param bg_color The color used for drawing the arrowhead interior.
+ */
 void
 arrow_draw(DiaRenderer *renderer, ArrowType type,
 	   Point *to, Point *from,
@@ -1507,7 +1859,11 @@ arrow_draw(DiaRenderer *renderer, ArrowType type,
     break;
   } 
 }
-
+/** Returns the arrow type that corresponds to a given name.
+ * @param name The name of an arrow type (case sensitive)
+ * @returns The arrow type (@see ArrowType enum in arrows.h).  Returns
+ *          ARROW_NONE if the name doesn't match any known arrow head type.
+ */
 ArrowType
 arrow_type_from_name(gchar *name)
 {
@@ -1521,6 +1877,11 @@ arrow_type_from_name(gchar *name)
   return 0;
 }
 
+/** Return the index into the arrow_types array (which is sorted by an
+ * arbitrary order that we like) for a given arrow type.
+ * @param atype An arrow type as defined in arrows.h
+ * @returns An index into the arrow_types array.
+ */
 gint
 arrow_index_from_type(ArrowType atype)
 {
@@ -1535,6 +1896,10 @@ arrow_index_from_type(ArrowType atype)
   return 0;
 }
 
+/** Get a list of all known arrow head names, in arrow_types order.
+ * @returns A newly allocated list of the names.  The list should be 
+ *          freed after use, but the strings are owned by arrow_types.
+ */
 GList *
 get_arrow_names(void)
 {

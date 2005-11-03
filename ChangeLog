@@ -1,3 +1,27 @@
+2005-11-03  Lars Clausen  <lars@raeder.dk>
+
+	* lib/arrows.c:
+	* lib/attributes.c:
+	* lib/autoroute.c:
+	* lib/bezier_conn.c:
+	* lib/boundingbox.c:
+	* lib/color.c:
+	* lib/connection.c:
+	* lib/connectionpoint.c:
+	* lib/dia_dirs.c:
+	* lib/dia_image.c:
+	* lib/dia_svg.c:
+	* lib/dia_xml.c:
+	* lib/diaarrowchooser.c:
+	* lib/diaerror.c:
+	* lib/diagdkrenderer.c:
+	* lib/diagramdata.c:
+	* lib/element.c:
+	* lib/object.c:
+	* lib/object.h:
+	* lib/parent.c:
+	Added documentation java-doc style.  Also a few trivial cleanups.
+	
 2005-10-13  Lars Clausen  <lars@raeder.dk>
 
 	* lib/connectionpoint.h (DIR_ALL): Parentheses around operations

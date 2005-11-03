@@ -118,8 +118,11 @@ static void renderer_init (DiaGdkRenderer *renderer, void*);
 
 static gpointer parent_class = NULL;
 
+/** Get the type object for the GdkRenderer.
+ * @return A static GType object describing GdkRenderers.
+ */
 GType
-dia_gdk_renderer_get_type (void)
+dia_gdk_renderer_get_type(void)
 {
   static GType object_type = 0;
 
@@ -146,8 +149,12 @@ dia_gdk_renderer_get_type (void)
   return object_type;
 }
 
+/** Initialize a renderer object.
+ * @param renderer A renderer object to initialize.
+ * @param p Ignored, purpose unknown.
+ */
 static void
-renderer_init (DiaGdkRenderer *renderer, void* p)
+renderer_init(DiaGdkRenderer *renderer, void* p)
 {
   renderer->line_width = 1;
   renderer->line_style = GDK_LINE_SOLID;
@@ -161,8 +168,11 @@ renderer_init (DiaGdkRenderer *renderer, void* p)
   renderer->highlight_color = NULL;
 }
 
+/** Clean up a renderer object after use.
+ * @param object Renderer object to free subobjects from.
+ */
 static void
-renderer_finalize (GObject *object)
+renderer_finalize(GObject *object)
 {
   DiaGdkRenderer *renderer = DIA_GDK_RENDERER (object);
 
@@ -181,8 +191,12 @@ renderer_finalize (GObject *object)
   G_OBJECT_CLASS (parent_class)->finalize (object);
 }
 
+/** Initialize members of the renderer class object.  This sets up a bunch
+ * of functions to call for various render functions.
+ * @param klass The class object to initialize. 
+ */
 static void
-dia_gdk_renderer_class_init (DiaGdkRendererClass *klass)
+dia_gdk_renderer_class_init(DiaGdkRendererClass *klass)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
   DiaRendererClass *renderer_class = DIA_RENDERER_CLASS (klass);
@@ -229,6 +243,13 @@ dia_gdk_renderer_class_init (DiaGdkRendererClass *klass)
   renderer_class->get_text_width = get_text_width;
 }
 
+/** Convert Dia color objects into GDK color objects.
+ * If the highlight color is set, that will be used instead.  This allows
+ * rendering of an object to do highlight rendering.
+ * @param renderer The renderer to check for highlight color.
+ * @param col A color object to convert.
+ * @param gdk_col Resulting GDK convert.
+ */
 static void
 renderer_color_convert(DiaGdkRenderer *renderer,
 		       Color *col, GdkColor *gdk_col)
