@@ -44,8 +44,9 @@
  * http://bugzilla.gnome.org/show_bug.cgi?id=303301
  *
  * Enabling 29/7 2005: Not known to cause any problems.
+ * 7/11 2005: Still seeing problems after dialog update, needs work.  --LC
  */
-#define UML_MAINPOINT 1
+#undef UML_MAINPOINT
 
 
 typedef struct _UMLClass UMLClass;

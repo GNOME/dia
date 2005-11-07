@@ -1,5 +1,8 @@
 2005-11-07  Lars Clausen  <lars@raeder.dk>
 
+	* lib/objchange.c: Bugfix from dklotzbach@foxvalley.net
+	(dave Klotzbach):  Fixes null pointer problems in free function.
+
 	* objects/UML/class.c
 	* objects/UML/class.h
 	* objects/UML/class_dialog.c: Patch from dklotzbach@foxvalley.net
