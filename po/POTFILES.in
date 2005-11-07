@@ -8,9 +8,11 @@ app/defaults.c
 app/dia-props.c
 app/dia_embedd.c
 app/diacanvas.c
+app/diaconv.c
 app/diagram_tree.c
 app/diagram_tree_menu.c
 app/diagram_tree_window.c
+app/diagram.c
 app/dialogs.c
 app/diapagelayout.c
 app/disp_callbacks.c
@@ -40,6 +42,7 @@ dia.desktop.in
 lib/arrows.c
 lib/attributes.c
 lib/bezier_conn.c
+lib/dia_dirs.c
 lib/dia_xml.c
 lib/diaarrowchooser.c
 lib/diagramdata.c
