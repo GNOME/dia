@@ -1,3 +1,8 @@
+2005-11-07  Lars Clausen  <lars@raeder.dk>
+
+	* objects/UML/state.c: Patch from Peter Allin <peter@peca.dk>: Add
+	entry, exit and do descriptions to a state object.  Fixes bug #65434.
+
 2005-11-03  Lars Clausen  <lars@raeder.dk>
 
 	* lib/arrows.c:

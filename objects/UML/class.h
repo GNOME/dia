@@ -40,7 +40,7 @@
  *
  * Enabling 29/7 2005: Not known to cause any problems.
  */
-#undef UML_MAINPOINT 
+#define UML_MAINPOINT 1
 
 
 typedef struct _UMLClass UMLClass;

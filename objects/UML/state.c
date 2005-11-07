@@ -45,6 +45,12 @@ enum {
   STATE_END
 };
 
+typedef enum {
+  ENTRY_ACTION,
+  DO_ACTION,
+  EXIT_ACTION
+} StateAction;
+
 #define NUM_CONNECTIONS 9
 
 struct _State {
@@ -59,6 +65,10 @@ struct _State {
 
   Color line_color;
   Color fill_color;
+  
+  gchar* entry_action;
+  gchar* do_action;
+  gchar* exit_action;
 };
 
 
@@ -89,7 +99,8 @@ static PropDescription *state_describe_props(State *state);
 static void state_get_props(State *state, GPtrArray *props);
 static void state_set_props(State *state, GPtrArray *props);
 static void state_update_data(State *state);
-
+static gchar* state_get_action_text(State* state, StateAction action);
+static void state_calc_action_text_pos(State* state, StateAction action, Point* pos);
 
 static ObjectTypeOps state_type_ops =
 {
@@ -139,7 +150,9 @@ static PropDescription state_props[] = {
   PROP_STD_TEXT_HEIGHT,
   PROP_STD_TEXT_COLOUR_OPTIONAL,
   { "text", PROP_TYPE_TEXT, 0, N_("Text"), NULL, NULL }, 
-  
+  { "entry_action", PROP_TYPE_STRING, PROP_FLAG_OPTIONAL | PROP_FLAG_VISIBLE, N_("Entry action"), NULL, NULL },
+  { "do_action", PROP_TYPE_STRING, PROP_FLAG_OPTIONAL | PROP_FLAG_VISIBLE, N_("Do action"), NULL, NULL },
+  { "exit_action", PROP_TYPE_STRING, PROP_FLAG_OPTIONAL | PROP_FLAG_VISIBLE, N_("Exit action"),  NULL, NULL },
   PROP_DESC_END
 };
 
@@ -160,7 +173,9 @@ static PropOffset state_offsets[] = {
   {"text_font",PROP_TYPE_FONT,offsetof(State,attrs.font)},
   {"text_height",PROP_TYPE_REAL,offsetof(State,attrs.height)},
   {"text_colour",PROP_TYPE_COLOUR,offsetof(State,attrs.color)},
-  
+  {"entry_action",PROP_TYPE_STRING,offsetof(State,entry_action)},
+  {"do_action",PROP_TYPE_STRING,offsetof(State,do_action)},
+  {"exit_action",PROP_TYPE_STRING,offsetof(State,exit_action)},
       /* HACK: this is to recover files from 0.88.1 and older.
       if sizeof(enum) != sizeof(int), we're toast.             -- CC
       */
@@ -226,13 +241,29 @@ state_move(State *state, Point *to)
 }
 
 static void
+state_draw_action_string(State *state, DiaRenderer *renderer, StateAction action)
+{
+  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
+  Point pos;
+  gchar* action_text = state_get_action_text(state, action);
+  state_calc_action_text_pos(state, action, &pos);
+  renderer_ops->draw_string(renderer,
+                            action_text,
+                            &pos, 
+                            ALIGN_LEFT, 
+                            &state->attrs.color);
+  g_free(action_text);
+}
+
+static void
 state_draw(State *state, DiaRenderer *renderer)
 {
   DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Element *elem;
   real x, y, w, h, r;
-  Point p1, p2;
-
+  Point p1, p2, split_line_left, split_line_right;
+  gboolean has_actions;
+  
   assert(state != NULL);
   assert(renderer != NULL);
 
@@ -274,10 +305,47 @@ state_draw(State *state, DiaRenderer *renderer)
       p2.y = y + h;
       renderer_ops->fill_rounded_rect(renderer, &p1, &p2, &state->fill_color, 0.5);
       renderer_ops->draw_rounded_rect(renderer, &p1, &p2, &state->line_color, 0.5);
+      
       text_draw(state->text, renderer);
+      has_actions = FALSE;
+      if (state->entry_action && strlen(state->entry_action) != 0) {
+          state_draw_action_string(state, renderer, ENTRY_ACTION);
+          has_actions = TRUE;
+      }
+      if (state->do_action && strlen(state->do_action) != 0) {
+          state_draw_action_string(state, renderer, DO_ACTION);
+          has_actions = TRUE;
+      }
+      if (state->exit_action && strlen(state->exit_action) != 0) {
+          state_draw_action_string(state, renderer, EXIT_ACTION);
+          has_actions = TRUE;
+      }
+
+      if (has_actions) {
+        split_line_left.x = x;
+        split_line_right.x = x+w;
+        split_line_left.y = split_line_right.y 
+                          = state->element.corner.y + STATE_MARGIN_Y +
+                            state->text->numlines*state->text->height;
+        renderer_ops->draw_line(renderer, &split_line_left, &split_line_right,
+                                &state->line_color);
+      }
   }
 }
 
+
+static void
+state_update_width_and_height_with_action_text(State* state, 
+                                               StateAction action,
+                                               real* width,
+                                               real* height)
+{
+  gchar* action_text = state_get_action_text(state, action);
+  *width = MAX(*width, dia_font_string_width(action_text, state->text->font, 
+                                             state->text->height) + 2*STATE_MARGIN_X);
+  g_free(action_text);
+  *height += state->text->height;
+}
 
 static void
 state_update_data(State *state)
@@ -289,11 +357,23 @@ state_update_data(State *state)
   Point p;
   
   text_calc_boundingbox(state->text, NULL);
-  if (state->state_type==STATE_NORMAL) { 
+  if (state->state_type==STATE_NORMAL) {
+      /* First consider the state description text */
       w = state->text->max_width + 2*STATE_MARGIN_X;
       h = state->text->height*state->text->numlines +2*STATE_MARGIN_Y;
       if (w < STATE_WIDTH)
 	  w = STATE_WIDTH;
+      /* Then consider the actions texts */
+      if (state->entry_action && strlen(state->entry_action) != 0) {
+        state_update_width_and_height_with_action_text(state, ENTRY_ACTION, &w, &h);
+      }
+      if (state->do_action && strlen(state->do_action) != 0) {
+        state_update_width_and_height_with_action_text(state, DO_ACTION, &w, &h);
+      }
+      if (state->exit_action && strlen(state->exit_action) != 0) {
+        state_update_width_and_height_with_action_text(state, EXIT_ACTION, &w, &h);
+      }
+      
       p.x = elem->corner.x + w/2.0;
       p.y = elem->corner.y + STATE_MARGIN_Y + state->text->ascent;
       text_set_position(state->text, &p);
@@ -304,7 +384,7 @@ state_update_data(State *state)
   elem->width = w;
   elem->height = h;
 
- /* Update connections: */
+  /* Update connections: */
   element_update_connections_rectangle(elem, state->connections);
 
   element_update_boundingbox(elem);
@@ -391,3 +471,55 @@ state_load(ObjectNode obj_node, int version, const char *filename)
   }
   return (DiaObject *)obj;
 }
+
+static void
+state_calc_action_text_pos(State* state, StateAction action, Point* pos)
+{
+  int entry_action_valid = state->entry_action && strlen(state->entry_action) != 0;
+  int do_action_valid = state->do_action && strlen(state->do_action) != 0;
+  
+  real first_action_y = state->text->numlines*state->text->height + 
+                        state->text->position.y; 
+                        
+  pos->x = state->element.corner.x + STATE_MARGIN_X;
+  
+  switch (action)
+  {
+    case ENTRY_ACTION:
+      pos->y = first_action_y;
+      break;
+      
+    case DO_ACTION:
+      pos->y = first_action_y;
+      if (entry_action_valid) pos->y += state->text->height;
+      break;
+      
+    case EXIT_ACTION:
+      pos->y = first_action_y;
+      if (entry_action_valid) pos->y += state->text->height;
+      if (do_action_valid) pos->y += state->text->height;      
+      break;
+  }
+}
+
+
+static gchar*
+state_get_action_text(State* state, StateAction action)
+{
+  switch (action)
+  {
+    case ENTRY_ACTION:
+      return g_strdup_printf("entry/ %s", state->entry_action);
+      break;
+  
+    case DO_ACTION:
+      return g_strdup_printf("do/ %s", state->do_action);
+      break;
+    
+    case EXIT_ACTION:
+      return g_strdup_printf("exit/ %s", state->exit_action);
+      break;
+  }
+  return NULL;
+}
+
