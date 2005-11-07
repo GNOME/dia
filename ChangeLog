@@ -1,5 +1,12 @@
 2005-11-07  Lars Clausen  <lars@raeder.dk>
 
+	* objects/UML/class.c
+	* objects/UML/class.h
+	* objects/UML/class_dialog.c: Patch from dklotzbach@foxvalley.net
+	(dave Klotzbach): Make UML comments conform to UML 1.0 standard
+	and allow multi-line comments. Ugly as hell, but standard.  Time
+	for a 'Strict UML' option?  Fixes bug #303744.
+	
 	* objects/UML/state.c: Patch from Peter Allin <peter@peca.dk>: Add
 	entry, exit and do descriptions to a state object.  Fixes bug #65434.
 

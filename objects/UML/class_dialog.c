@@ -14,7 +14,20 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ *
+ * File:    class_dialog.c
+ *
+ * Purpose: This file contains the code the draws and handles the class
+ *          dialog. This is the dialog box that is displayed when the
+ *          class Icon is double clicked.
  */
+/*--------------------------------------------------------------------------**
+ * Copyright(c) 2005 David Klotzbach
+**                                                                          **
+** Multi-Line Comments May 10, 2005 - Dave Klotzbach                        **
+** dklotzbach@foxvalley.net                                                 **
+**                                                                          **
+**--------------------------------------------------------------------------*/
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -80,6 +93,8 @@ static UMLClassState *umlclass_get_state(UMLClass *umlclass);
 static ObjectChange *new_umlclass_change(UMLClass *obj, UMLClassState *saved_state,
 					 GList *added, GList *deleted,
 					 GList *disconnected);
+static  const gchar *get_comment(GtkTextView *);
+static void set_comment(GtkTextView *, gchar *);
 
 /**** Utility functions ******/
 static void
@@ -140,7 +155,7 @@ class_read_from_dialog(UMLClass *umlclass, UMLClassDialog *prop_dialog)
   if (umlclass->comment != NULL)
     g_free (umlclass->comment);
 
-  s = gtk_entry_get_text(prop_dialog->comment);
+  s = get_comment(prop_dialog->comment);
   if (s && s[0])
     umlclass->comment = g_strdup (s);
   else
@@ -151,6 +166,7 @@ class_read_from_dialog(UMLClass *umlclass, UMLClassDialog *prop_dialog)
   umlclass->visible_operations = prop_dialog->op_vis->active;
   umlclass->wrap_operations = prop_dialog->op_wrap->active;
   umlclass->wrap_after_char = gtk_spin_button_get_value_as_int(prop_dialog->wrap_after_char);
+  umlclass->Comment_line_length = gtk_spin_button_get_value_as_int(prop_dialog->Comment_line_length);
   umlclass->visible_comments = prop_dialog->comments_vis->active;
   umlclass->suppress_attributes = prop_dialog->attr_supp->active;
   umlclass->suppress_operations = prop_dialog->op_supp->active;
@@ -188,15 +204,16 @@ class_fill_in_dialog(UMLClass *umlclass)
     gtk_entry_set_text(prop_dialog->stereotype, "");
 
   if (umlclass->comment != NULL)
-    gtk_entry_set_text(prop_dialog->comment, umlclass->comment);
+    set_comment(prop_dialog->comment, umlclass->comment);
   else
-    gtk_entry_set_text(prop_dialog->comment, "");
+    set_comment(prop_dialog->comment, "");
 
   gtk_toggle_button_set_active(prop_dialog->abstract_class, umlclass->abstract);
   gtk_toggle_button_set_active(prop_dialog->attr_vis, umlclass->visible_attributes);
   gtk_toggle_button_set_active(prop_dialog->op_vis, umlclass->visible_operations);
   gtk_toggle_button_set_active(prop_dialog->op_wrap, umlclass->wrap_operations);
   gtk_spin_button_set_value (prop_dialog->wrap_after_char, umlclass->wrap_after_char);
+  gtk_spin_button_set_value (prop_dialog->Comment_line_length, umlclass->Comment_line_length);
   gtk_toggle_button_set_active(prop_dialog->comments_vis, umlclass->visible_comments);
   gtk_toggle_button_set_active(prop_dialog->attr_supp, umlclass->suppress_attributes);
   gtk_toggle_button_set_active(prop_dialog->op_supp, umlclass->suppress_operations);
@@ -252,6 +269,7 @@ class_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   GtkWidget *hbox2;
   GtkWidget *vbox;
   GtkWidget *entry;
+  GtkWidget *scrolledwindow;
   GtkWidget *checkbox;
   GtkWidget *text_color;
   GtkWidget *fill_color;
@@ -286,11 +304,19 @@ class_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   gtk_table_attach (GTK_TABLE (table), entry, 1,2,1,2, GTK_FILL | GTK_EXPAND,0, 0,2);
 
   label = gtk_label_new(_("Comment:"));
-  entry = gtk_entry_new();
-  prop_dialog->comment = GTK_ENTRY(entry);
+  scrolledwindow = gtk_scrolled_window_new (NULL, NULL);
+  gtk_table_attach (GTK_TABLE (table), scrolledwindow, 1, 2, 2, 3,
+		    (GtkAttachOptions) (GTK_FILL),
+		    (GtkAttachOptions) (GTK_FILL), 0, 0);
+  gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolledwindow),
+				       GTK_SHADOW_IN);
+  entry = gtk_text_view_new ();
+  prop_dialog->comment = GTK_TEXT_VIEW(entry);
+  gtk_text_view_set_wrap_mode (GTK_TEXT_VIEW (entry), GTK_WRAP_WORD);
+ 
   gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
   gtk_table_attach (GTK_TABLE (table), label, 0,1,2,3, GTK_FILL,0, 0,0);
-  gtk_table_attach (GTK_TABLE (table), entry, 1,2,2,3, GTK_FILL | GTK_EXPAND,0, 0,2);
+  gtk_container_add (GTK_CONTAINER (scrolledwindow), entry);
 
   hbox = gtk_hbox_new(FALSE, 5);
   checkbox = gtk_check_button_new_with_label(_("Abstract"));
@@ -331,11 +357,20 @@ class_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   gtk_box_pack_start (GTK_BOX (hbox), GTK_WIDGET( hbox2), TRUE, TRUE, 0);
   gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, TRUE, 0);
 
-  hbox = gtk_hbox_new(FALSE, 5);
+  hbox = gtk_hbox_new(TRUE, 5);
+  hbox2 = gtk_hbox_new(FALSE, 5);
   checkbox = gtk_check_button_new_with_label(_("Comments visible"));
   prop_dialog->comments_vis = GTK_TOGGLE_BUTTON( checkbox );
   gtk_box_pack_start (GTK_BOX (hbox), checkbox, TRUE, TRUE, 0);
-  gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, TRUE, 0);
+  adj = gtk_adjustment_new( umlclass->Comment_line_length, 17.0, 200.0, 1.0, 5.0, 1.0);
+  prop_dialog->Comment_line_length = GTK_SPIN_BUTTON(gtk_spin_button_new( GTK_ADJUSTMENT( adj), 0.1, 0));
+  gtk_spin_button_set_numeric( GTK_SPIN_BUTTON( prop_dialog->Comment_line_length), TRUE);
+  gtk_spin_button_set_snap_to_ticks( GTK_SPIN_BUTTON( prop_dialog->Comment_line_length), TRUE);
+  prop_dialog->Comment_length_label = GTK_LABEL( gtk_label_new( _("Wrap comment after this length: ")));
+  gtk_box_pack_start (GTK_BOX (hbox2), GTK_WIDGET( prop_dialog->Comment_length_label), FALSE, TRUE, 0);
+  gtk_box_pack_start (GTK_BOX (hbox2), GTK_WIDGET( prop_dialog->Comment_line_length), TRUE, TRUE, 0);
+  gtk_box_pack_start (GTK_BOX (hbox),  GTK_WIDGET( hbox2), TRUE, TRUE, 0);
+  gtk_box_pack_start (GTK_BOX (vbox),  hbox, FALSE, TRUE, 0);
 
   /** Fonts and Colors selection **/
   gtk_box_pack_start (GTK_BOX (vbox), gtk_hseparator_new(), FALSE, FALSE, 3);
@@ -449,9 +484,9 @@ attributes_set_values(UMLClassDialog *prop_dialog, UMLAttribute *attr)
     gtk_entry_set_text(prop_dialog->attr_value, "");
 
   if (attr->comment != NULL)
-    gtk_entry_set_text(prop_dialog->attr_comment, attr->comment);
+    set_comment(prop_dialog->attr_comment, attr->comment);
   else
-    gtk_entry_set_text(prop_dialog->attr_comment, "");
+    set_comment(prop_dialog->attr_comment, "");
 
 
   gtk_option_menu_set_history(prop_dialog->attr_visible_button,
@@ -465,7 +500,7 @@ attributes_clear_values(UMLClassDialog *prop_dialog)
   gtk_entry_set_text(prop_dialog->attr_name, "");
   gtk_entry_set_text(prop_dialog->attr_type, "");
   gtk_entry_set_text(prop_dialog->attr_value, "");
-  gtk_entry_set_text(prop_dialog->attr_comment, "");
+  set_comment(prop_dialog->attr_comment, "");
   gtk_toggle_button_set_active(prop_dialog->attr_class_scope, FALSE);
 }
 
@@ -481,7 +516,7 @@ attributes_get_values (UMLClassDialog *prop_dialog, UMLAttribute *attr)
   attr->type = g_strdup (gtk_entry_get_text (prop_dialog->attr_type));
   
   attr->value = g_strdup (gtk_entry_get_text(prop_dialog->attr_value));
-  attr->comment = g_strdup (gtk_entry_get_text(prop_dialog->attr_comment));
+  attr->comment = g_strdup (get_comment(prop_dialog->attr_comment));
 
   attr->visibility = (UMLVisibility)
 		GPOINTER_TO_INT (gtk_object_get_user_data (
@@ -863,6 +898,7 @@ attributes_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   GtkWidget *menu;
   GtkWidget *submenu;
   GtkWidget *menuitem;
+  GtkWidget *scrolledwindow;
   GSList *group;
 
   prop_dialog = umlclass->properties_dialog;
@@ -969,15 +1005,21 @@ attributes_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   gtk_table_attach (GTK_TABLE (table), entry, 1,2,2,3, GTK_FILL | GTK_EXPAND,0, 0,2);
 
   label = gtk_label_new(_("Comment:"));
-  entry = gtk_entry_new();
-  prop_dialog->attr_comment = GTK_ENTRY(entry);
+  scrolledwindow = gtk_scrolled_window_new (NULL, NULL);
+  gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolledwindow),
+				       GTK_SHADOW_IN);
+  entry = gtk_text_view_new ();
+  prop_dialog->attr_comment = GTK_TEXT_VIEW(entry);
+  gtk_container_add (GTK_CONTAINER (scrolledwindow), entry);
+  gtk_text_view_set_wrap_mode (GTK_TEXT_VIEW (entry), GTK_WRAP_WORD);
+  gtk_text_view_set_cursor_visible(GTK_TEXT_VIEW (entry),TRUE);
   gtk_signal_connect (GTK_OBJECT (entry), "focus_out_event",
 		      GTK_SIGNAL_FUNC (attributes_update_event), umlclass);
   gtk_signal_connect (GTK_OBJECT (entry), "activate",
 		      GTK_SIGNAL_FUNC (attributes_update), umlclass);
   gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
   gtk_table_attach (GTK_TABLE (table), label, 0,1,3,4, GTK_FILL,0, 0,0);
-  gtk_table_attach (GTK_TABLE (table), entry, 1,2,3,4, GTK_FILL | GTK_EXPAND,0, 0,2);
+  gtk_table_attach (GTK_TABLE (table), scrolledwindow, 1,2,3,4, GTK_FILL | GTK_EXPAND,0, 0,2);
 
 
   label = gtk_label_new(_("Visibility:"));
@@ -1075,9 +1117,9 @@ parameters_set_values(UMLClassDialog *prop_dialog, UMLParameter *param)
   else
     gtk_entry_set_text(prop_dialog->param_value, "");
   if (param->comment != NULL)
-    gtk_entry_set_text(prop_dialog->param_comment, param->comment);
+    set_comment(prop_dialog->param_comment, param->comment);
   else
-    gtk_entry_set_text(prop_dialog->param_comment, "");
+    set_comment(prop_dialog->param_comment, "");
 
   gtk_option_menu_set_history(prop_dialog->param_kind_button,
 			      (gint)param->kind);
@@ -1089,7 +1131,7 @@ parameters_clear_values(UMLClassDialog *prop_dialog)
   gtk_entry_set_text(prop_dialog->param_name, "");
   gtk_entry_set_text(prop_dialog->param_type, "");
   gtk_entry_set_text(prop_dialog->param_value, "");
-  gtk_entry_set_text(prop_dialog->param_comment, "");
+  set_comment(prop_dialog->param_comment, "");
   gtk_option_menu_set_history(prop_dialog->param_kind_button,
 			      (gint) UML_UNDEF_KIND);
 
@@ -1108,7 +1150,7 @@ parameters_get_values (UMLClassDialog *prop_dialog, UMLParameter *param)
   param->type = g_strdup (gtk_entry_get_text (prop_dialog->param_type));
   
   param->value = g_strdup (gtk_entry_get_text(prop_dialog->param_value));
-  param->comment = g_strdup (gtk_entry_get_text(prop_dialog->param_comment));
+  param->comment = g_strdup (get_comment(prop_dialog->param_comment));
 
   param->kind = (UMLParameterKind) GPOINTER_TO_INT(gtk_object_get_user_data(GTK_OBJECT(gtk_menu_get_active(prop_dialog->param_kind))));
 }
@@ -1374,9 +1416,9 @@ operations_set_values(UMLClassDialog *prop_dialog, UMLOperation *op)
     gtk_entry_set_text(prop_dialog->op_stereotype, "");
 
   if (op->comment != NULL)
-    gtk_entry_set_text(prop_dialog->op_comment, op->comment);
+    set_comment(prop_dialog->op_comment, op->comment);
   else
-    gtk_entry_set_text(prop_dialog->op_comment, "");
+    set_comment(prop_dialog->op_comment, "");
 
   gtk_option_menu_set_history(prop_dialog->op_visible_button,
 			      (gint)op->visibility);
@@ -1411,7 +1453,7 @@ operations_clear_values(UMLClassDialog *prop_dialog)
   gtk_entry_set_text(prop_dialog->op_name, "");
   gtk_entry_set_text(prop_dialog->op_type, "");
   gtk_entry_set_text(prop_dialog->op_stereotype, "");
-  gtk_entry_set_text(prop_dialog->op_comment, "");
+  set_comment(prop_dialog->op_comment, "");
   gtk_toggle_button_set_active(prop_dialog->op_class_scope, FALSE);
   gtk_toggle_button_set_active(prop_dialog->op_query, FALSE);
 
@@ -1432,7 +1474,7 @@ operations_get_values(UMLClassDialog *prop_dialog, UMLOperation *op)
 
   op->name = g_strdup(gtk_entry_get_text(prop_dialog->op_name));
   op->type = g_strdup (gtk_entry_get_text(prop_dialog->op_type));
-  op->comment = g_strdup(gtk_entry_get_text(prop_dialog->op_comment));
+  op->comment = g_strdup(get_comment(prop_dialog->op_comment));
 
   s = gtk_entry_get_text(prop_dialog->op_stereotype);
   if (s && s[0])
@@ -1809,6 +1851,7 @@ operations_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   GtkWidget *menu;
   GtkWidget *submenu;
   GtkWidget *menuitem;
+  GtkWidget *scrolledwindow;
   GSList *group;
 
   prop_dialog = umlclass->properties_dialog;
@@ -2025,14 +2068,21 @@ operations_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
  
   hbox2 = gtk_hbox_new(FALSE, 5);
   label = gtk_label_new(_("Comment:"));
-  entry = gtk_entry_new();
-  prop_dialog->op_comment = GTK_ENTRY(entry);
+  scrolledwindow = gtk_scrolled_window_new (NULL, NULL);
+  gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolledwindow),
+				       GTK_SHADOW_IN);
+  entry = gtk_text_view_new ();
+  prop_dialog->op_comment = GTK_TEXT_VIEW(entry);
+  gtk_container_add (GTK_CONTAINER (scrolledwindow), entry);
+  gtk_text_view_set_wrap_mode (GTK_TEXT_VIEW (entry), GTK_WRAP_WORD);
+  gtk_text_view_set_cursor_visible(GTK_TEXT_VIEW (entry),TRUE);
+
   gtk_signal_connect (GTK_OBJECT (entry), "focus_out_event",
 		      GTK_SIGNAL_FUNC (operations_update_event), umlclass);
   gtk_signal_connect (GTK_OBJECT (entry), "activate",
 		      GTK_SIGNAL_FUNC (operations_update), umlclass);
   gtk_box_pack_start (GTK_BOX (hbox2), label, FALSE, TRUE, 0);
-  gtk_box_pack_start (GTK_BOX (hbox2), entry, TRUE, TRUE, 0);
+  gtk_box_pack_start (GTK_BOX (hbox2), scrolledwindow, TRUE, TRUE, 0);
   gtk_box_pack_start (GTK_BOX (vbox2), hbox2, FALSE, TRUE, 0);
 
   gtk_box_pack_start (GTK_BOX (hbox), vbox2, FALSE, TRUE, 0);
@@ -2147,15 +2197,22 @@ operations_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   gtk_table_attach (GTK_TABLE (table), entry, 1,2,2,3, GTK_FILL | GTK_EXPAND,0, 0,2);
 
   label = gtk_label_new(_("Comment:"));
-  entry = gtk_entry_new();
-  prop_dialog->param_comment = GTK_ENTRY(entry);
+  scrolledwindow = gtk_scrolled_window_new (NULL, NULL);
+  gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolledwindow),
+				       GTK_SHADOW_IN);
+  entry = gtk_text_view_new ();
+  prop_dialog->param_comment = GTK_TEXT_VIEW(entry);
+  gtk_container_add (GTK_CONTAINER (scrolledwindow), entry);
+  gtk_text_view_set_wrap_mode (GTK_TEXT_VIEW (entry), GTK_WRAP_WORD);
+  gtk_text_view_set_cursor_visible(GTK_TEXT_VIEW (entry),TRUE);
+
   gtk_signal_connect (GTK_OBJECT (entry), "focus_out_event",
 		      GTK_SIGNAL_FUNC (operations_update_event), umlclass);
   gtk_signal_connect (GTK_OBJECT (entry), "activate",
 		      GTK_SIGNAL_FUNC (operations_update), umlclass);
   gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
   gtk_table_attach (GTK_TABLE (table), label, 0,1,3,4, GTK_FILL,0, 0,0);
-  gtk_table_attach (GTK_TABLE (table), entry, 1,2,3,4, GTK_FILL | GTK_EXPAND,0, 0,2);
+  gtk_table_attach (GTK_TABLE (table), scrolledwindow, 1,2,3,4, GTK_FILL | GTK_EXPAND,0, 0,2);
 
   label = gtk_label_new(_("Direction:"));
 
@@ -2715,6 +2772,8 @@ umlclass_apply_props_from_dialog(UMLClass *umlclass, GtkWidget *widget)
   int num_attrib, num_ops;
   GList *added, *deleted, *disconnected;
   UMLClassState *old_state = NULL;
+  int	PreviousConnection;		/* The number of connection before this update */
+  int   i;
   
   umlclass_sanity_check(umlclass, "Apply from dialog start");
 
@@ -2746,11 +2805,11 @@ umlclass_apply_props_from_dialog(UMLClass *umlclass, GtkWidget *widget)
   
   /* Read from dialog and put in object: */
   class_read_from_dialog(umlclass, prop_dialog);
-  attributes_read_from_dialog(umlclass, prop_dialog, UMLCLASS_CONNECTIONPOINTS);
   /* ^^^ attribs must be called before ops, to get the right order of the
      connectionpoints. */
   operations_read_from_dialog(umlclass, prop_dialog, UMLCLASS_CONNECTIONPOINTS+num_attrib*2);
   templates_read_from_dialog(umlclass, prop_dialog);
+  attributes_read_from_dialog(umlclass, prop_dialog, UMLCLASS_CONNECTIONPOINTS);
 
   /* Reestablish mainpoint */
 #ifdef UML_MAINPOINT
@@ -3137,4 +3196,32 @@ new_umlclass_change(UMLClass *obj, UMLClassState *saved_state,
   change->disconnected = disconnected;
 
   return (ObjectChange *)change;
+}
+/*
+        get the contents of a comment text view.
+*/
+const gchar * get_comment(GtkTextView *view)
+{
+  GtkTextBuffer * buffer = gtk_text_view_get_buffer(view);
+  GtkTextIter start;
+  GtkTextIter end;
+
+  gtk_text_buffer_get_start_iter(buffer, &start);
+  gtk_text_buffer_get_end_iter(buffer, &end);
+
+  return gtk_text_buffer_get_text(buffer, &start, &end, FALSE);
+}
+
+void
+set_comment(GtkTextView *view, gchar *text)
+{
+  GtkTextBuffer * buffer = gtk_text_view_get_buffer(view);
+  GtkTextIter start;
+  GtkTextIter end;
+
+  gtk_text_buffer_get_start_iter(buffer, &start);
+  gtk_text_buffer_get_end_iter(buffer, &end);
+  gtk_text_buffer_delete(buffer,&start,&end);
+  gtk_text_buffer_get_start_iter(buffer, &start);
+  gtk_text_buffer_insert( buffer, &start, text, strlen(text));
 }

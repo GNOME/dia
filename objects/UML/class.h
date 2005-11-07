@@ -14,6 +14,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ *
+ * File:    class.h
+ *
+ * Purpose: This is the interface file for the class icon and dialog. 
  */
 #ifndef CLASS_H
 #define CLASS_H
@@ -31,6 +35,7 @@
  * attributes and operands and not the mainpoint). */
 #define UMLCLASS_CONNECTIONPOINTS 8
 #define UMLCLASS_WRAP_AFTER_CHAR 40
+#define UMLCLASS_COMMENT_LINE_LENGTH 40
 
 /* The code behind the following preprocessor symbol should stay disabled until 
  * the dynamic relocation of connection points (caused by attribute and 
@@ -83,6 +88,7 @@ struct _UMLClass {
 
   int wrap_operations; /* wrap operations with many parameters */
   int wrap_after_char;
+  int Comment_line_length; /* Maximum line length for comments */
 
   Color line_color;
   Color fill_color;
@@ -131,7 +137,7 @@ struct _UMLClassDialog {
 
   GtkEntry *classname;
   GtkEntry *stereotype;
-  GtkEntry *comment;
+  GtkTextView *comment;
 
   GtkToggleButton *abstract_class;
   GtkToggleButton *attr_vis;
@@ -153,10 +159,12 @@ struct _UMLClassDialog {
   GtkSpinButton *abstract_classname_font_height;
   GtkSpinButton *comment_font_height;
   GtkSpinButton *wrap_after_char;  
+  GtkSpinButton *Comment_line_length;
   DiaColorSelector *text_color;
   DiaColorSelector *line_color;
   DiaColorSelector *fill_color;
   GtkLabel *max_length_label;
+  GtkLabel *Comment_length_label;
 
   GList *disconnected_connections;
   GList *added_connections; 
@@ -167,7 +175,7 @@ struct _UMLClassDialog {
   GtkEntry *attr_name;
   GtkEntry *attr_type;
   GtkEntry *attr_value;
-  GtkEntry *attr_comment;
+  GtkTextView *attr_comment;
   GtkMenu *attr_visible;
   GtkOptionMenu *attr_visible_button;
   GtkToggleButton *attr_class_scope;
@@ -177,7 +185,7 @@ struct _UMLClassDialog {
   GtkEntry *op_name;
   GtkEntry *op_type;
   GtkEntry *op_stereotype;
-  GtkEntry *op_comment;
+  GtkTextView *op_comment;
 
   GtkMenu *op_visible;
   GtkOptionMenu *op_visible_button;
@@ -191,7 +199,7 @@ struct _UMLClassDialog {
   GtkEntry *param_name;
   GtkEntry *param_type;
   GtkEntry *param_value;
-  GtkEntry *param_comment;
+  GtkTextView *param_comment;
   GtkMenu *param_kind;
   GtkOptionMenu *param_kind_button;
   GtkWidget *param_new_button;
