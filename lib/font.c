@@ -38,6 +38,10 @@
 #include "message.h"
 #include "intl.h"
 
+/** Define this if you want to use the layout cache to speed up output.
+ *  Appears to be buggy, see bug #307320. */
+#undef LAYOUT_CACHE
+
 static PangoContext* pango_context = NULL;
 
 struct _DiaFont 
@@ -619,6 +623,7 @@ dia_font_build_layout(const char* string, DiaFont* font, real height)
     guint length;
     gchar *desc = NULL;
 
+#ifdef LAYOUT_CACHE
     LayoutCacheItem *cached, *item;
 
     layout_cache_last_use = time(0);
@@ -636,10 +641,12 @@ dia_font_build_layout(const char* string, DiaFont* font, real height)
        */
       g_timeout_add(10*1000, layout_cache_cleanup, (gpointer)layoutcache);
     }
+#endif
 
     height *= 0.7;
     dia_font_set_height(font, height);
 
+#ifdef LAYOUT_CACHE
     item = g_new0(LayoutCacheItem,1);
     item->string = g_strdup(string);
     item->font = font;
@@ -656,6 +663,7 @@ dia_font_build_layout(const char* string, DiaFont* font, real height)
 
     item->font = dia_font_copy(font);
     dia_font_ref(item->font);
+#endif
 
     /* This could should account for DPI, but it doesn't do right.  Grrr...
     {
@@ -689,10 +697,12 @@ dia_font_build_layout(const char* string, DiaFont* font, real height)
     pango_layout_set_justify(layout,FALSE);
     pango_layout_set_alignment(layout,PANGO_ALIGN_LEFT);
   
+#ifdef LAYOUT_CACHE
     item->layout = layout;
     g_object_ref(layout);
     item->usecount = 1;
     g_hash_table_replace(layoutcache, item, item);
+#endif
 
     return layout;
 }

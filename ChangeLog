@@ -1,5 +1,8 @@
 2005-11-07  Lars Clausen  <lars@raeder.dk>
 
+	* lib/font.c: #ifdef'd out layout cache for bug #307320.  Define
+	it if you need faster rendering and aren't afraid of crashbugs:)
+
 	* lib/objchange.c: Bugfix from dklotzbach@foxvalley.net
 	(dave Klotzbach):  Fixes null pointer problems in free function.
 
