@@ -44,6 +44,8 @@
 
 #define UMLCLASS_BORDER 0.1
 #define UMLCLASS_UNDERLINEWIDTH 0.05
+#define UMLCLASS_TEMPLATE_OVERLAY_X 2.3
+#define UMLCLASS_TEMPLATE_OVERLAY_Y 0.3
 
 static real umlclass_distance_from(UMLClass *umlclass, Point *point);
 static void umlclass_select(UMLClass *umlclass, Point *clicked_point,
@@ -81,13 +83,24 @@ static ObjectTypeOps umlclass_type_ops =
   (SaveFunc)   umlclass_save
 };
 
+/*
+ * This is the type descriptor for a UML - Class. It contains the
+ * information used by Dia to create an object of this type. The structure
+ * of this data type is defined in the header file object.h. When a
+ * derivation of class is required, then this type can be copied and then
+ * change the name and any other fields that are variances from the base
+ * type.
+*/
+
 DiaObjectType umlclass_type =
 {
   "UML - Class",   /* name */
   0,                      /* version */
   (char **) umlclass_xpm,  /* pixmap */
   
-  &umlclass_type_ops       /* ops */
+  &umlclass_type_ops,       /* ops */
+  NULL,
+  (void*)0
 };
 
 static ObjectOps umlclass_ops = {
@@ -417,15 +430,31 @@ umlclass_move(UMLClass *umlclass, Point *to)
 
   return NULL;
 }
-
-
+/**
+ * underlines the text at the start point using the text to determine
+ * the length of the underline. Draw a line under the text represented by
+ * string using the selected renderer, color, and line width.  Since
+ * drawing this line will change the line width used by DIA, the current
+ * line width that DIA is using is also passed so it can be restored once
+ * the line has been drawn.
+ *
+ * @param  renderer     the renderer that will draw the line
+ * @param  StartPoint   the start of the line to be drawn
+ * @param  font         the font used to draw the text being underlined
+ * @param  font_height  the size in the y direction of the font used to draw the text
+ * @param  string       the text string that is to be underlined
+ * @param  color        the color of the line to draw
+ * @param  line_width   default line thickness
+ * @param  underline_width   the thickness of the line to draw
+ *
+ */
 
 static void
 uml_underline_text(DiaRenderer  *renderer, 
                Point         StartPoint,
                DiaFont      *font,
                real          font_height,
-               gchar        *attstr,
+               gchar        *string,
                Color        *color, 
                real          line_width,
                real          underline_width)
@@ -437,48 +466,37 @@ uml_underline_text(DiaRenderer  *renderer,
   UnderlineStartPoint = StartPoint;
   UnderlineStartPoint.y += font_height * 0.1;
   UnderlineEndPoint = UnderlineStartPoint;
-  UnderlineEndPoint.x += dia_font_string_width(attstr, font, font_height);
+  UnderlineEndPoint.x += dia_font_string_width(string, font, font_height);
   renderer_ops->set_linewidth(renderer, underline_width);
   renderer_ops->draw_line(renderer, &UnderlineStartPoint, &UnderlineEndPoint, color);
   renderer_ops->set_linewidth(renderer, line_width);
 }
 
-/*
- ** uml_create_documentation_tag
+/**
+ * Create a documentation tag from a comment.
  *
- *  FILENAME: \dia\objects\UML\class.c
+ * First a string is created containing only the text
+ * "{documentation = ". Then the contents of the comment string
+ * are added but wrapped. This is done by first looking for any
+ * New Line characters. If the line segment is longer than the
+ * WrapPoint would allow, the line is broken at either the
+ * first whitespace before the WrapPoint or if there are no
+ * whitespaces in the segment, at the WrapPoint.  This
+ * continues until the entire string has been processed and
+ * then the resulting new string is returned. No attempt is
+ * made to rejoin any of the segments, that is all New Lines
+ * are treated as hard newlines. No syllable matching is done
+ * either so breaks in words will sometimes not make real
+ * sense. 
+ * <p>
+ * Finally, since this function returns newly created dynamic
+ * memory the caller must free the memory to prevent memory
+ * leaks.
  *
- *  PARAMETERS: 
- *    comment -  The comment to be wrapped to the line length limit
- *    WrapPoint - The maximum line length allowed for the line.
- *    NumberOfLines - The number of comment lines after the wrapping.
- *
- *  DESCRIPTION:
- *          This function takes a string of characters and creates a
- *          documentation tagged string which is also a wrapped string
- *          where no line is longer than the value of WrapPoint. 
- *  
- *          First a string is created containing only the text
- *          "{documentation = ". Then the contents of the comment string
- *          are added but wrapped. This is done by first looking for any
- *          New Line characters. If the line segment is longer than the
- *          WrapPoint would allow, the line is broken at either the
- *          first whitespace before the WrapPoint or if there are no
- *          whitespaces in the segment, at the WrapPoint.  This
- *          continues until the entire string has been processed and
- *          then the resulting new string is returned. No attempt is
- *          made to rejoin any of the segments, that is all New Lines
- *          are treated as hard newlines. No syllable matching is done
- *          either so breaks in words will sometimes not make real
- *          sense. 
- *  
- *          Finally, since this function returns newly created dynamic
- *          memory the caller must free the memory to prevent memory
- *          leaks.
- *
- *  RETURNS:
- *      A pointer to the string containing the line breakpoints for 
- *      wrapping.
+ * @param  comment       The comment to be wrapped to the line length limit
+ * @param  WrapPoint     The maximum line length allowed for the line.
+ * @param  NumberOfLines The number of comment lines after the wrapping.
+ * @return               a pointer to the wrapped documentation
  *
  *  NOTE:
  *      This function should most likely be move to a source file for
@@ -568,31 +586,23 @@ uml_create_documentation_tag(gchar * comment,gint WrapPoint, gint *NumberOfLines
   return WrappedComment;
 }
 
-/*
- ** uml_draw_comments
+/**
+ * Draw the comment at the point, p, using the comment font from the
+ * class defined by umlclass. When complete update the point to reflect
+ * the size of data drawn.
+ * The comment will have been word wrapped using the function
+ * uml_create_documentation_tag, so it may have more than one line on the
+ * display.
  *
- *  FILENAME: \dia\objects\UML\class.c
- *
- *  PARAMETERS:
- *    renderer    - The Renderer on which the comment is being drawn.
- *    *font       - The font to render the comment in. 
- *    font_height - The Y size of the font used to render the comment 
- *    *text_color - A pointer to the color to use to render the comment 
- *    *comment    - The comment string to render
- *    Comment_line_length-The maximum length of any one line in the comment
- *    *p          - The point at which the comment is to start.  
- *    alignment   - The method to use for alignment of the font.
- *
- *  DESCRIPTION:
- *    Draw the comment at the point, p, using the comment font from the
- *    class defined by umlclass. When complete update the point to reflect
- *    the size of data drawn.
- *    The comment will have been word wrapped using the function
- *    uml_create_documentation_tag, so it may have more than one line on the
- *    display.
- *
- *  RETURNS:  void, No useful information is returned.
- *
+ * @param   renderer            The Renderer on which the comment is being drawn
+ * @param   font                The font to render the comment in.
+ * @param   font_height         The Y size of the font used to render the comment
+ * @param   text_color          A pointer to the color to use to render the comment 
+ * @param   comment             The comment string to render
+ * @param   Comment_line_length The maximum length of any one line in the comment
+ * @param   p                   The point at which the comment is to start
+ * @param   alignment           The method to use for alignment of the font
+ * @see   uml_create_documentation
  */
 
 static void
@@ -635,20 +645,23 @@ uml_draw_comments(DiaRenderer *renderer,
 }
 
 
-/*
- ** umlclass_draw_namebox
- *
- *  FILENAME: \dia\objects\UML\class.c
- *
- *  PARAMETERS:
- *          umlclass  - The pointer to the class being drawn
- *          renderer  - The pointer to the rendering object used to draw
- *          elem      - The pointer to the element within the class to be drawn
- *
- *  DESCRIPTION:
- *
- *  RETURNS:
- *          The offset from the start of the class to the bottom of the namebox
+/**
+ * Draw the name box of the class icon. According to the UML specification,
+ * the Name box or compartment is the top most compartment of the class
+ * icon. It may contain one or more stereotype declarations, followed by
+ * the name of the class. The name may be rendered to indicate abstraction
+ * for abstract classes. Following the name is any tagged values such as
+ * the {documentation = } tag.
+ * <p>
+ * Because the start point is the upper left of the class box, templates
+ * tend to get lost when created. By applying an offset, they will not be 
+ * lost. The offset should only be added if the elem->corner.y = 0.
+ * 
+ * @param umlclass  The pointer to the class being drawn
+ * @param renderer  The pointer to the rendering object used to draw
+ * @param elem      The pointer to the element within the class to be drawn
+ * @param offset    offset from start point
+ * @return  The offset from the start of the class to the bottom of the namebox
  *
  */
 static real
@@ -662,8 +675,11 @@ umlclass_draw_namebox(UMLClass *umlclass, DiaRenderer *renderer, Element *elem )
   real    Yoffset;
   Color   *text_color = &umlclass->text_color;
   
+
+  
   StartPoint.x = elem->corner.x;
   StartPoint.y = elem->corner.y;
+
   Yoffset = elem->corner.y + umlclass->namebox_height;
   
   LowerRightPoint = StartPoint;
@@ -713,22 +729,24 @@ umlclass_draw_namebox(UMLClass *umlclass, DiaRenderer *renderer, Element *elem )
   return Yoffset;
 }
 
-/*
- ** umlclass_draw_attributebox
+/** 
+ * Draw the attribute box.
+ * This attribute box follows the name box in the class icon. If the
+ * attributes are not suppress, draw each of the attributes following the
+ * UML specification for displaying attributes. Each attribute is preceded
+ * by the visibility character, +, - or # depending on whether it is public
+ * private or protected. If the attribute is "abstract" it will be rendered
+ * using the abstract font otherwise it will be rendered using the normal
+ * font. If the attribute is of class scope, static in C++, then it will be
+ * underlined. If there is a comment associated with the attribute, that is
+ * within the class description, it will be rendered as a uml comment. 
  *
- *  FILENAME: \dia\objects\UML\class.c
- *
- *  PARAMETERS:
- *          umlclass  - The pointer to the class being drawn
- *          renderer  - The pointer to the rendering object used to draw
- *          elem      - The pointer to the element within the class to be drawn
- *          Yoffset   - The Y offset from the start of the class at which to draw 
- *                      the attributebox 
- *
- *  DESCRIPTION:
- *
- *  RETURNS:
- *          The offset from the start of the class to the bottom of the attributebox
+ * @param umlclass   The pointer to the class being drawn
+ * @param renderer   The pointer to the rendering object used to draw
+ * @param elem       The pointer to the element within the class to be drawn
+ * @param Yoffset    The Y offset from the start of the class at which to draw the attributebox 
+ * @return           The offset from the start of the class to the bottom of the attributebox
+ * @see uml_draw_comments
  */
 static real
 umlclass_draw_attributebox(UMLClass *umlclass, DiaRenderer *renderer, Element *elem, real Yoffset)
@@ -796,22 +814,22 @@ umlclass_draw_attributebox(UMLClass *umlclass, DiaRenderer *renderer, Element *e
 }
 
 
-/*
- ** umlclass_draw_operationbox
+/**
+ * Draw the operations box. The operations block follows the attribute box
+ * if it is visible. If the operations are not suppressed, they are
+ * displayed in the operations box. Like the attributes, operations have
+ * visibility characters, +,-, and # indicating whether the are public,
+ * private or protected. The operations are rendered in different fonts
+ * depending on whether they are abstract (pure virtual), polymorphic
+ * (virtual) or leaf (final virtual or non-virtual). The parameters to the
+ * operation may be displayed and if they are they may be conditionally
+ * wrapped to reduce horizontial size of the icon.
  *
- *  FILENAME: \dia\objects\UML\class.c
- *
- *  PARAMETERS:
- *          umlclass  - The pointer to the class being drawn
- *          renderer  - The pointer to the rendering object used to draw
- *          elem      - The pointer to the element within the class to be drawn
- *          Yoffset   - The Y offset from the start of the class at which to draw 
- *                      the operationbox 
- *
- *  DESCRIPTION:
- *
- *  RETURNS:
- *          The offset from the start of the class to the bottom of the operationbox
+ * @param umlclass  The pointer to the class being drawn
+ * @param renderer  The pointer to the rendering object used to draw
+ * @param elem      The pointer to the element within the class to be drawn
+ * @param Yoffset   The Y offset from the start of the class at which to draw the operationbox 
+ * @return          The offset from the start of the class to the bottom of the operationbox
  *
  */
 static real
@@ -945,28 +963,17 @@ umlclass_draw_operationbox(UMLClass *umlclass, DiaRenderer *renderer, Element *e
   return Yoffset;
 }
 
-/*
- ** umlclass_draw_template_parameters_box
- *
- *  FILENAME: \dia\objects\UML\class.c
- *
- *  PARAMETERS:
- *          umlclass  - The pointer to the class being drawn
- *          renderer  - The pointer to the rendering object used to draw
- *          elem      - The pointer to the element within the class to be drawn
- *
- *  DESCRIPTION:
- *           
- *          This function draws the template parameters box in the upper
- *          right hand corner of the class box for paramertize classes
- *          (aka template classes). It then fills in this box with the
- *          parameters for the class. 
- *  
- *          At this time there is no provision for adding comments or
- *          documentation to the display.
- *
- *  RETURNS:
- *          void.
+/**
+ * Draw the template parameters box in the upper right hand corner of the
+ * class box for paramertize classes (aka template classes). Fill in this
+ * box with the parameters for the class. 
+ * <p>
+ * At this time there is no provision for adding comments or documentation
+ * to the display.
+ * 
+ * @param umlclass  The pointer to the class being drawn
+ * @param renderer  The pointer to the rendering object used to draw
+ * @param elem      The pointer to the element within the class to be drawn
  *
  */
 static void
@@ -984,8 +991,12 @@ umlclass_draw_template_parameters_box(UMLClass *umlclass, DiaRenderer *renderer,
   Color     *line_color = &umlclass->line_color;
   Color     *text_color = &umlclass->text_color;
 
-  UpperLeft.x = elem->corner.x + elem->width - 2.3;
-  UpperLeft.y =  elem->corner.y - umlclass->templates_height + 0.3;
+
+  /*
+   * Adjust for the overlay of the template on the class icon
+   */
+  UpperLeft.x = elem->corner.x + elem->width - UMLCLASS_TEMPLATE_OVERLAY_X;
+  UpperLeft.y =  elem->corner.y - umlclass->templates_height + UMLCLASS_TEMPLATE_OVERLAY_Y;
   TextInsert = UpperLeft;
   LowerRight = UpperLeft;
   LowerRight.x += umlclass->templates_width;
@@ -1012,22 +1023,18 @@ umlclass_draw_template_parameters_box(UMLClass *umlclass, DiaRenderer *renderer,
   }
 }
 
-/*
- ** umlclass_draw
- *
- *  FILENAME: \dia\objects\UML\class.c
- *
- *  PARAMETERS:
- *
- *  DESCRIPTION:
- *
- *  Important Note from earlier contributer:
- *            Most of this crap could be rendered much more efficiently 
- *            (and probably much cleaner as well) using marked-up 
- *            Pango layout text. 
- *  RETURNS:
+/**
+ * Draw the class icon for the specified UMLClass object.
+ * Set the renderer to the correct fill and line styles and the appropriate
+ * line width.  The object is drawn by the umlclass_draw_namebox,
+ * umlclass_draw_attributebox, umlclass_draw_operationbox and
+ * umlclass_draw_template_parameters_box.
+ * 
+ * @param  umlclass   object based on the uml class that is being rendered
+ * @param   DiaRenderer  renderer used to draw the object
  *
  */
+ 
 static void
 umlclass_draw(UMLClass *umlclass, DiaRenderer *renderer)
 {
@@ -1174,6 +1181,11 @@ umlclass_update_data(UMLClass *umlclass)
   
   element_update_boundingbox(elem);
 
+  if (umlclass->template) {
+    /* fix boundingumlclass for templates: */
+    obj->bounding_box.top -= (umlclass->templates_height - 0.3) ;
+    obj->bounding_box.right += (umlclass->templates_width - 2.3);
+  }
   
   obj->position = elem->corner;
 
@@ -1182,28 +1194,16 @@ umlclass_update_data(UMLClass *umlclass)
   umlclass_sanity_check(umlclass, "After updating data");
 }
 
-
-/*
- *
- * umlclass_calculate_name_data
- *
- *  FILENAME: \dia\objects\UML\class.c
- *
- *  PARAMETERS:
- *     umlclass  - the class being rendered
- *
- *  DESCRIPTION:
- *      This function calculates the height of the class bounding box for
- *      the name and returns the width of that box. The height is stored
- *      in the class structure.
- *      When calculating the comment, if any, the comment is word wrapped
- *      and the resulting number of lines is then used to calculate the
- *      height of the bounding box.
- *
- *  RETURNS:
+/**
+ * Calculate the dimensions of the class icons namebox for a given object of UMLClass.
+ * The height is stored in the class structure. When calculating the
+ * comment, if any, the comment is word wrapped and the resulting number of
+ * lines is then used to calculate the height of the bounding box.
+ * 
+ * @param   umlclass  pointer to the object of UMLClass to calculate
+ * @return            the horizontal size of the name box.
  *
  */
-
 
 static real
 umlclass_calculate_name_data(UMLClass *umlclass)
@@ -1260,21 +1260,10 @@ umlclass_calculate_name_data(UMLClass *umlclass)
   }
   return maxwidth;
 }
-
-/*
- ** umlclass_calculate_attribute_data
- *
- *  FILENAME: \dia\objects\UML\class.c
- *
- *  PARAMETERS:
- *      umlclass  - The class to be drawn.
- *
- *  DESCRIPTION:
- *      Calculate the bounding box for the attributes. Include the
- *      comments if enabled and present.
- *
- *  RETURNS:
- *    The real width of the attribute bounding box.
+/**
+ * Calculate the dimensions of the attribute box on an object of type UMLClass.
+ * @param   umlclass  a pointer to an object of UMLClass
+ * @return            the horizontal size of the attribute box
  *
  */
 
@@ -1359,23 +1348,14 @@ umlclass_calculate_attribute_data(UMLClass *umlclass)
   return maxwidth;
 }
 
-
-/*
- ** umlclass_calculate_operation_data
+/**
+ * Calculate the dimensions of the operations box of an object of  UMLClass.
+ * The vertical size or height is stored in the object.
+ * @param   umlclass  a pointer to an object of UMLClass
+ * @return         the horizontial size of the operations box
  *
- *  FILENAME: \dia\objects\UML\class.c
- *
- *  PARAMETERS:
- *      umlclass  - The class to be drawn.
- *
- *  DESCRIPTION:
- *      Calculate the bounding box for the operation. Include the
- *      comments if enabled and present.
- *
- *  RETURNS:
- *    The real width of the attribute bounding box.
- *
-  */
+ */
+  
 static real
 umlclass_calculate_operation_data(UMLClass *umlclass)
 {
@@ -1567,28 +1547,16 @@ umlclass_calculate_operation_data(UMLClass *umlclass)
   return maxwidth;
 }
 
-
-/*
- ** umlclass_calculate_data
- *
- *  FILENAME: \dia\objects\UML\class.c
- *
- *  PARAMETERS:
- *      umlclass  - The class to be drawn.
- *
- *  DESCRIPTION:
- *      This function calculates the bounding box of the class image to be
- *      displayed. It also calculates the three containing boxes. This is
- *      done by calculating the size of the text to be displayed within
- *      each of the contained bounding boxes, name, attributes and
- *      operations.
- *      Because the comments may require wrapping, each comment is wrapped
- *      and the resulting number of lines is used to calculate the size of
- *      the comment within the box.
- *      The various font settings with in the class properties contribute
- *      to the overall size of the resulting bounding box.
- *
- *  RETURNS:
+/**
+ * calculate the size of the class icon for an object of UMLClass.
+ * This is done by calculating the size of the text to be displayed within
+ * each of the contained bounding boxes, name, attributes and operations.
+ * Because the comments may require wrapping, each comment is wrapped and
+ * the resulting number of lines is used to calculate the size of the
+ * comment within the box. The various font settings with in the class
+ * properties contribute to the overall size of the resulting bounding box.
+ * 
+ *  * @param   umlclass  a pointer to an object of UMLClass
  *
  */
 void
@@ -1613,18 +1581,18 @@ umlclass_calculate_data(UMLClass *umlclass)
   if (!umlclass->destroyed)
   {
     maxwidth = MAX(umlclass_calculate_name_data(umlclass),      maxwidth);
-    maxwidth = MAX(umlclass_calculate_attribute_data(umlclass), maxwidth);
-    maxwidth = MAX(umlclass_calculate_operation_data(umlclass), maxwidth);
 
     umlclass->element.height = umlclass->namebox_height;
-    umlclass->element.width  = maxwidth+0.5;
 
     if (umlclass->visible_attributes){
+      maxwidth = MAX(umlclass_calculate_attribute_data(umlclass), maxwidth);
       umlclass->element.height += umlclass->attributesbox_height;
     }
     if (umlclass->visible_operations){
+      maxwidth = MAX(umlclass_calculate_operation_data(umlclass), maxwidth);
       umlclass->element.height += umlclass->operationsbox_height;
     }
+    umlclass->element.width  = maxwidth+0.5;
     /* templates box: */
     if (umlclass->templates_strings != NULL)
     {
@@ -1638,7 +1606,7 @@ umlclass_calculate_data(UMLClass *umlclass)
 
     umlclass->templates_height =
       umlclass->font_height * umlclass->num_templates + 2*0.1;
-    umlclass->templates_height = MAX(umlclass->templates_height, 1.0);
+   umlclass->templates_height = MAX(umlclass->templates_height, 0.4);
 
 
     umlclass->templates_strings = NULL;
@@ -1701,6 +1669,25 @@ fill_in_fontdata(UMLClass *umlclass)
      umlclass->comment_font = dia_font_new_from_style(DIA_FONT_SANS | DIA_FONT_ITALIC, 0.7);
    }
 }
+/**
+ * Create an object of type class
+ * By default this will create a object of class UMLClass. Howerver there
+ * are at least two types of UMLClass objects, so the user_data is selects
+ * the correct UMLClass object. Other than that this is quite straight
+ * forward. The key to the polymorphic nature of this object is the use of
+ * the DiaObjectType record which in conjunction with the user_data
+ * controls the specific derived object type.
+ *
+ * @param  startpoint   the origin of the object being created
+ * @param  user_data	Information used by this routine to create the appropriate object
+ * @param  handle1		ignored when creating a class object
+ * @param  handle2      ignored when creating a class object
+ * @return               a pointer to the object created
+ *
+ *  NOTE:
+ *      This function should most likely be move to a source file for
+ *      handling global UML functionallity at some point.
+ */
 
 static DiaObject *
 umlclass_create(Point *startpoint,
@@ -1717,9 +1704,6 @@ umlclass_create(Point *startpoint,
   elem = &umlclass->element;
   obj = &elem->object;
   
-  obj->type = &umlclass_type;
-
-  obj->ops = &umlclass_ops;
 
   elem->corner = *startpoint;
 
@@ -1732,7 +1716,22 @@ umlclass_create(Point *startpoint,
   umlclass->properties_dialog = NULL;
   fill_in_fontdata(umlclass);
 
-  umlclass->name = g_strdup (_("Class"));
+
+  /* 
+   * The following block of code may need to be converted to a switch statement if more than 
+   * two types of objects can be made - Dave Klotzbach 
+   */
+  umlclass->template = (GPOINTER_TO_INT(user_data)==1);
+
+  if (umlclass->template){
+    umlclass->name = g_strdup (_("Template"));
+  }
+  else {
+    umlclass->name = g_strdup (_("Class"));
+  }
+  obj->type = &umlclass_type;
+  obj->ops = &umlclass_ops;
+
   umlclass->stereotype = NULL;
   umlclass->comment = NULL;
 
@@ -1752,7 +1751,6 @@ umlclass_create(Point *startpoint,
 
   umlclass->operations = NULL;
   
-  umlclass->template = (GPOINTER_TO_INT(user_data)==1);
   umlclass->formal_params = NULL;
   
   umlclass->stereotype_string = NULL;

@@ -30,6 +30,7 @@
 #include "plug-ins.h"
 
 extern DiaObjectType umlclass_type;
+extern DiaObjectType umlclass_template_type;
 extern DiaObjectType note_type;
 extern DiaObjectType dependency_type;
 extern DiaObjectType realizes_type;
@@ -62,7 +63,7 @@ PluginInitResult
 dia_plugin_init(PluginInfo *info)
 {
   if (!dia_plugin_info_init(info, "UML",
-			    _("Unified Modelling Language diagram objects"),
+			    _("Unified Modelling Language diagram objects UML 1.3"),
 			    NULL, NULL))
     return DIA_PLUGIN_INIT_ERROR;
 
