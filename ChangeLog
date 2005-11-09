@@ -1,5 +1,10 @@
 2005-11-09  Lars Clausen  <lars@raeder.dk>
 
+	* app/app_procs.c: 
+	* plug-ins/dxf/dxf-import.c (import_dxf): Don't use g_error except
+	when reaching the statement is a bug.  Using g_critical and exit() for
+	fatally wrong inputs.
+
 	* objects/UML/uml.c: 
 	* objects/UML/class.c: Patch from dklotzbach@foxvalley.net (dave
 	Klotzbach): Fixes template rendering and converts home-brew inline

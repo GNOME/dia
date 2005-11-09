@@ -386,7 +386,7 @@ do_convert(const char *infname,
   if (ef == NULL) {
     ef = filter_guess_export_filter(outfname);
     if (!ef) {
-      g_error(_("%s error: don't know how to export into %s\n"),
+      g_critical(_("%s error: don't know how to export into %s\n"),
 	      argv0,outfname);
       exit(1);
     }
@@ -395,7 +395,7 @@ do_convert(const char *infname,
   dia_is_interactive = FALSE;
 
   if (0==strcmp(infname,outfname)) {
-    g_error(_("%s error: input and output file name is identical: %s"),
+    g_critical(_("%s error: input and output file name is identical: %s"),
             argv0, infname);
     exit(1);
   }
@@ -403,7 +403,7 @@ do_convert(const char *infname,
   diagdata = g_object_new (DIA_TYPE_DIAGRAM_DATA, NULL);
 
   if (!inf->import_func(infname,diagdata,inf->user_data)) {
-    g_error(_("%s error: need valid input file %s\n"),
+    g_critical(_("%s error: need valid input file %s\n"),
             argv0, infname);
     exit(1);
   }
@@ -574,7 +574,7 @@ handle_initial_diagram(const char *in_file_name,
     if (ef == NULL) {
       ef = filter_get_by_name(export_file_format);
       if (ef == NULL) {
-	g_error(_("Can't find output format/filter %s\n"), export_file_format);
+	g_critical(_("Can't find output format/filter %s\n"), export_file_format);
 	return FALSE;
       }
       g_free (export_file_name);
@@ -875,8 +875,8 @@ app_init (int argc, char **argv)
   if (object_get_type("Standard - Box") == NULL) {
     message_error(_("Couldn't find standard objects when looking for "
 		  "object-libs, exiting...\n"));
-    g_error( _("Couldn't find standard objects when looking for "
-	    "object-libs, exiting...\n"));
+    g_critical( _("Couldn't find standard objects when looking for "
+		  "object-libs, exiting...\n"));
     exit(1);
   }
 
@@ -1049,13 +1049,15 @@ static void create_user_dirs(void)
   }
 #endif
   dir = g_strconcat(g_get_home_dir(), G_DIR_SEPARATOR_S ".dia", NULL);
-  if (mkdir(dir, 0755) && errno != EEXIST)
+  if (mkdir(dir, 0755) && errno != EEXIST) {
 #ifndef G_OS_WIN32
-    g_error(_("Could not create per-user Dia config directory"));
+    g_critical(_("Could not create per-user Dia config directory"));
+    exit(1);
 #else /* HB: it this really a reason to exit the program on *nix ? */
     g_warning(_("Could not create per-user Dia config directory. Please make "
         "sure that the environment variable HOME points to an existing directory."));
 #endif
+  }
 
   /* it is no big deal if these directories can't be created */
   subdir = g_strconcat(dir, G_DIR_SEPARATOR_S "objects", NULL);

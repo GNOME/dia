@@ -1313,7 +1313,8 @@ import_dxf(const gchar *filename, DiagramData *dia, void* user_data)
     do {
         if(read_dxf_codes(filedxf, data) == FALSE) {
             g_free(data);
-                g_error(_("read_dxf_codes failed\n") );
+	    message_error(_("read_dxf_codes failed on '%s'\n"),
+			  dia_message_filename(filename) );
             return FALSE;
         }
         else {
