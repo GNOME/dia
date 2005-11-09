@@ -364,6 +364,10 @@ modify_move_already(ModifyTool *tool, DDisplay *ddisp, Point *to)
   }
 }
 
+/** Used for highlighting mainpoint connections. */
+static Color mainpoint_color = { 1.0, 0.8, 0.0 };
+/** Used for highlighting normal connections. */
+static Color cp_color = { 1.0, 0.0, 0.0 };
 
 static void
 modify_motion(ModifyTool *tool, GdkEventMotion *event,
@@ -479,17 +483,23 @@ modify_motion(ModifyTool *tool, GdkEventMotion *event,
     if (event->state & GDK_CONTROL_MASK)
       vertical = (fabs(full_delta.x) < fabs(full_delta.y));
 
+    highlight_reset_all(ddisp->diagram);
     if ((tool->handle->connect_type != HANDLE_NONCONNECTABLE)) {
       if (connectionpoint != NULL) {
+	Color *hi_color;
 	to = connectionpoint->pos;
-	highlight_object(connectionpoint->object, NULL, ddisp->diagram);
+	if (connectionpoint->flags & CP_FLAGS_MAIN) {
+	  hi_color = &mainpoint_color;
+	} else {
+	  hi_color = &cp_color;
+	}
+	highlight_object(connectionpoint->object, hi_color, ddisp->diagram);
 	ddisplay_set_all_cursor(get_cursor(CURSOR_CONNECT));
       }
     }
     if (connectionpoint == NULL) {
       /* No connectionopoint near, then snap to grid (if enabled) */
       snap_to_grid(ddisp, &to.x, &to.y);
-      highlight_reset_all(ddisp->diagram);
       ddisplay_set_all_cursor(get_cursor(CURSOR_SCROLL));
     }
 

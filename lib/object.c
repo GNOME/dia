@@ -794,6 +794,37 @@ DiaObject *object_copy_using_properties(DiaObject *obj)
   return newobj;
 }
 
+/** Return a box that all 'real' parts of the object is bounded by.
+ *  In most cases, this is the same as the enclosing box, but things like
+ *  bezier controls would lie outside of this.
+ * @param obj The object to get the bounding box for.
+ * @return A pointer to a Rectangle object.  This object should *not*
+ *  be freed after use, as it belongs to the object.
+ */
+Rectangle *
+dia_object_get_bounding_box(const DiaObject *obj) {
+  return &obj->bounding_box;
+}
+
+/** Return a box that encloses all interactively rendered parts of the object.
+ * @param obj The object to get the enclosing box for.
+ * @return A pointer to a Rectangle object.  This object should *not*
+ *  be freed after use, as it belongs to the object.
+ */
+Rectangle *dia_object_get_enclosing_box(const DiaObject *obj) {
+  /* I believe we can do this comparison, as it is only to compare for cases
+   * where it would be set explicitly to 0.
+   */
+  if (obj->enclosing_box.top == 0.0 &&
+      obj->enclosing_box.bottom == 0.0 &&
+      obj->enclosing_box.left == 0.0 &&
+      obj->enclosing_box.right == 0.0) {
+    return &obj->bounding_box;
+  } else {
+  } return &obj->enclosing_box;
+}
+
+
 
 /* The below are for debugging purposes only. */
 

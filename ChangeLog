@@ -1,5 +1,17 @@
 2005-11-07  Lars Clausen  <lars@raeder.dk>
 
+	* lib/object.[ch]: Add 'enclosing box' as opposed to 'bounding
+	box' since several objects have problems of using bounding box in
+	different ways (see bug #300055).  For now, enclosing box ==
+	bounding box, but over time objects will learn to expand the
+	bounding box to include things only rendered interactively.
+
+	* app/modify_tool.c (modify_motion): Make sure highlight is reset
+	when moving between overlapping objects.
+
+	* app/interface.c (interface_toggle_mainpoint_magnetism): Redraw
+	diagram after toggling to make red X's come and go.
+
 	* lib/font.c: #ifdef'd out layout cache for bug #307320.  Define
 	it if you need faster rendering and aren't afraid of crashbugs:)
 

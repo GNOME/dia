@@ -149,6 +149,8 @@ interface_toggle_mainpoint_magnetism(GtkWidget *widget, gpointer data)
   DDisplay *ddisp = (DDisplay *)data;
   ddisplay_set_snap_to_objects(ddisp,
 				   gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget)));
+  ddisplay_add_update_all(ddisp);
+  ddisplay_flush(ddisp);
 }
 
 /*  The popup shell is a pointer to the display shell that posted the latest

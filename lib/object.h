@@ -435,6 +435,13 @@ struct _ObjectOps {
 struct _DiaObject {
   DiaObjectType    *type;
   Point             position;
+  /** The area that contains all parts of the 'real' object, i.e. the parts
+   *  that would be printed, exported to pixmaps etc.  This is also used to
+   *  determine the size of autofit scaling, so it should be as large as
+   *  the objects without interactive bits and preferably no larger.
+   *  The bounding_box will always contain this box.
+   *  Do not access this field directly, but use dia_object_get_enclosing_box().
+   */
   Rectangle         bounding_box;
   Affine            affine;
   
@@ -457,6 +464,17 @@ struct _DiaObject {
   Color *highlight_color; /* The color that this object is currently
 			     highlighted with, or NULL if it is not 
 			     highlighted. */
+  /** The area that contains all parts rendered interactively, so includes
+   *  handles, bezier controllers etc.  Despite historical difference, this
+   *  should not be accessed directly, but through dia_object_get_bounding_box().
+   *  Note that handles and connection points are not included by this, but
+   *  added by that which needs it.
+   *  Internal:  If this is set to a 0x0 box, returns bounding_box.  That is for
+   *  those objects that don't actually calculate it, but can just use the BB.
+   *  Since handles and CPs are not in the BB, that will be the case for most
+   *  objects.
+   */
+  Rectangle         enclosing_box;
 };
 
 struct _ObjectTypeOps {
@@ -518,7 +536,8 @@ DiaObject  *dia_object_default_create (const DiaObjectType *type,
 gboolean       dia_object_defaults_save (const gchar *filename);
 Layer         *dia_object_get_parent_layer(DiaObject *obj);
 gboolean       dia_object_is_selected (const DiaObject *obj);
-
+Rectangle     *dia_object_get_bounding_box(const DiaObject *obj);
+Rectangle     *dia_object_get_enclosing_box(const DiaObject *obj);
 /* The below are for debugging purposes only. */
 gboolean   dia_object_sanity_check(const DiaObject *obj, const gchar *msg);
 
