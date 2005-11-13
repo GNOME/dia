@@ -68,13 +68,14 @@ static void
 update_zoom_status(DDisplay *ddisp)
 {
   GtkWidget *zoomcombo;
-  gchar zoom_text[7];
+  gchar* zoom_text;
 
   zoomcombo = ddisp->zoom_status;
-  sprintf (zoom_text, "%.1f%%",
+  zoom_text = g_strdup_printf("%.1f%%",
 	   ddisp->zoom_factor * 100.0 / DDISPLAY_NORMAL_ZOOM);
   gtk_entry_set_text(GTK_ENTRY(gtk_object_get_user_data(GTK_OBJECT(zoomcombo))),
 		     zoom_text);
+  g_free(zoom_text); /* Copied by gtk_entry_set_text */
 }
 
 static void

@@ -1,3 +1,8 @@
+2005-11-13  Lars Clausen  <lars@raeder.dk>
+
+	* app/display.c (update_zoom_status): Fix of bug #321387: Avoid
+	(small) buffer overflow by using g_strdup_printf instead of sprintf.
+
 2005-11-09  Lars Clausen  <lars@raeder.dk>
 
 	* app/app_procs.c: 
