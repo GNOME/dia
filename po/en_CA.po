@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-11-09 12:36-0500\n"
+"POT-Creation-Date: 2005-11-17 21:04-0500\n"
 "PO-Revision-Date: 2005-09-06 16:52-0400\n"
 "Last-Translator: Adam Weinberger <adamw@gnome.org>\n"
 "Language-Team: Canadian English <adamw@gnome.org>\n"
@@ -189,7 +189,7 @@ msgstr "Thank you for using Dia.\n"
 msgid "Could not create per-user Dia config directory"
 msgstr "Could not create per-user Dia config directory"
 
-#: app/app_procs.c:1056
+#: app/app_procs.c:1057
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -197,15 +197,15 @@ msgstr ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
 
-#: app/app_procs.c:1078 app/diaconv.c:251
+#: app/app_procs.c:1080 app/diaconv.c:251
 msgid "Objects and filters internal to dia"
 msgstr "Objects and filters internal to dia"
 
-#: app/app_procs.c:1120 app/diaconv.c:121
+#: app/app_procs.c:1122 app/diaconv.c:121
 msgid "[OPTION...] [FILE...]"
 msgstr "[OPTION...] [FILE...]"
 
-#: app/app_procs.c:1123 app/diaconv.c:128
+#: app/app_procs.c:1125 app/diaconv.c:128
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
@@ -214,16 +214,16 @@ msgstr ""
 "Error on option %s: %s.\n"
 "Run '%s --help' to see a full list of available command line options.\n"
 
-#: app/app_procs.c:1147
+#: app/app_procs.c:1149
 msgid "[FILE...]"
 msgstr "[FILE...]"
 
-#: app/app_procs.c:1165
+#: app/app_procs.c:1167
 #, c-format
 msgid "'%s' not found!\n"
 msgstr "'%s' not found!\n"
 
-#: app/app_procs.c:1246
+#: app/app_procs.c:1248
 msgid ""
 "The original author of Dia was:\n"
 "\n"
@@ -231,7 +231,7 @@ msgstr ""
 "The original author of Dia was:\n"
 "\n"
 
-#: app/app_procs.c:1251
+#: app/app_procs.c:1253
 msgid ""
 "\n"
 "The current maintainers of Dia are:\n"
@@ -241,7 +241,7 @@ msgstr ""
 "The current maintainers of Dia are:\n"
 "\n"
 
-#: app/app_procs.c:1256
+#: app/app_procs.c:1258
 msgid ""
 "\n"
 "Other authors are:\n"
@@ -251,7 +251,7 @@ msgstr ""
 "Other authors are:\n"
 "\n"
 
-#: app/app_procs.c:1261
+#: app/app_procs.c:1263
 msgid ""
 "\n"
 "Dia is documented by:\n"
@@ -675,25 +675,25 @@ msgstr ""
 "The object you dropped cannot fit into its parent. \n"
 "Either expand the parent object, or drop the object elsewhere."
 
-#: app/display.c:92
+#: app/display.c:93
 msgid "Diagram modified!"
 msgstr "Diagram modified!"
 
-#: app/display.c:116
+#: app/display.c:117
 #, c-format
 msgid "Selection of %d objects"
 msgstr "Selection of %d objects"
 
-#: app/display.c:126
+#: app/display.c:127
 #, c-format
 msgid "Selected '%s'"
 msgstr "Selected '%s'"
 
-#: app/display.c:1052
+#: app/display.c:1053
 msgid "<unnamed>"
 msgstr "<unnamed>"
 
-#: app/display.c:1054
+#: app/display.c:1055
 #, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -702,11 +702,11 @@ msgstr ""
 "The diagram '%s'\n"
 "has not been saved. Save changes now?"
 
-#: app/display.c:1065
+#: app/display.c:1066
 msgid "Close Diagram"
 msgstr "Close Diagram"
 
-#: app/display.c:1070
+#: app/display.c:1071
 msgid "Discard Changes"
 msgstr "Discard Changes"
 
@@ -5054,7 +5054,7 @@ msgstr "Computer Graphics Metafile"
 msgid "Computer Graphics Metafile export filter"
 msgstr "Computer Graphics Metafile export filter"
 
-#: plug-ins/dxf/dxf-export.c:527 plug-ins/dxf/dxf-import.c:1382
+#: plug-ins/dxf/dxf-export.c:527 plug-ins/dxf/dxf-import.c:1383
 msgid "Drawing Interchange File"
 msgstr "Drawing Interchange File"
 
@@ -5068,10 +5068,11 @@ msgid "Scale: %f\n"
 msgstr "Scale: %f\n"
 
 #: plug-ins/dxf/dxf-import.c:1316
-msgid "read_dxf_codes failed\n"
-msgstr "read_dxf_codes failed\n"
+#, c-format
+msgid "read_dxf_codes failed on '%s'\n"
+msgstr "read_dxf_codes failed on '%s'\n"
 
-#: plug-ins/dxf/dxf-import.c:1348
+#: plug-ins/dxf/dxf-import.c:1349
 #, c-format
 msgid "Unknown dxf code %d\n"
 msgstr "Unknown dxf code %d\n"
