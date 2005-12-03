@@ -19,6 +19,7 @@
 
 #include <config.h>
 
+
 #include "pydia-object.h"
 #include "pydia-diagramdata.h"
 
@@ -176,6 +177,114 @@ PyDiaDiagramData_DeleteLayer(PyDiaDiagramData *self, PyObject *args)
     return Py_None;
 }
 
+/* 
+ *  Callback for "object_add" and "object_remove "signal, used by the connect_after method,
+ *  it's a proxy for the python function, creating the values it needs.
+ *  Params are those of the signals on the Diagram object.
+ *  @param dia The DiagramData that emitted the signal
+ *  @param layer The Layer that the object is removed or added to.
+ *  @param obj The DiaObject that the signal is about.
+ *  @param user_data The python function to be called by the callback.
+ */
+static void
+PyDiaDiagramData_CallbackObject(DiagramData *dia,Layer *layer,DiaObject *obj,void *user_data)
+{
+    PyObject *pydata,*pylayer,*pyobj,*res,*arg;
+    PyObject *func = user_data;
+    
+    /* Check that we got a function */   
+    if (!func || !PyCallable_Check (func)) {
+        g_warning ("Callback called without valid callback function.");
+        return;
+    }
+      
+    /* Create a new PyDiaDiagramData object.
+     */
+    if (dia)
+        pydata = PyDiaDiagramData_New (dia);
+    else {
+        pydata = Py_None;
+        Py_INCREF (pydata);
+    }
+      
+    /*
+     * Create PyDiaLayer
+     */
+    if (layer)
+        pylayer = PyDiaLayer_New (layer);
+    else {
+        pylayer = Py_None;
+        Py_INCREF (pylayer);
+    }   
+    
+    /*
+     * Create PyDiaObject
+     */
+    if (layer)
+        pyobj = PyDiaObject_New (obj);
+    else {
+        pyobj = Py_None;
+        Py_INCREF (pyobj);
+    }   
+    
+    
+    Py_INCREF(func);
+
+    /* Call the callback. */
+    arg = Py_BuildValue ("(OOO)", pydata,pylayer,pyobj);
+    if (arg) {
+      res = PyEval_CallObject (func, arg);
+      /*ON_RES(res, TRUE);*/
+    }
+    
+    /* Cleanup */
+    Py_XDECREF (arg);
+    Py_DECREF(func);
+    Py_XDECREF(pydata);
+    Py_XDECREF(pylayer);
+    Py_XDECREF(pyobj);
+}
+
+
+/** Connects a python function to a signal.
+ *  @param self The PyDiaDiagramData this is a method of.
+ *  @param args A tuple containing the arguments, a str for signal name
+ *  and a callable object (like a function)
+ */
+static PyObject *
+PyDiaDiagramData_ConnectAfter(PyDiaDiagramData *self, PyObject *args)
+{
+    PyObject *func;
+    char *signal;
+
+    /* Check arguments */
+    if (!PyArg_ParseTuple(args, "sO:DiagramData.connect_after",&signal,&func))
+        return NULL;
+
+    /* Check that the arg is callable */
+    if (!PyCallable_Check(func)) {
+        PyErr_SetString(PyExc_TypeError, "Second parameter must be callable");
+        return NULL;
+    }
+
+    /* check if the signals name is valid */
+    if ( strcmp("object_remove",signal) == 0 || strcmp("object_add",signal) == 0) {
+
+        Py_INCREF(func); /* stay alive, where to kill ?? */
+
+        /* connect to signal */
+        g_signal_connect_after(DIA_DIAGRAM_DATA(self->data),signal,G_CALLBACK(PyDiaDiagramData_CallbackObject), func);
+        
+        Py_INCREF(Py_None);
+        return Py_None;
+    }
+    else {
+            PyErr_SetString(PyExc_TypeError, "Wrong signal name");
+            return NULL;
+    }
+}
+
+
 static PyMethodDef PyDiaDiagramData_Methods[] = {
     {"update_extents", (PyCFunction)PyDiaDiagramData_UpdateExtents, 1},
     {"get_sorted_selected", (PyCFunction)PyDiaDiagramData_GetSortedSelected, 1},
@@ -184,6 +293,7 @@ static PyMethodDef PyDiaDiagramData_Methods[] = {
     {"lower_layer", (PyCFunction)PyDiaDiagramData_LowerLayer, 1},
     {"set_active_layer", (PyCFunction)PyDiaDiagramData_SetActiveLayer, 1},
     {"delete_layer", (PyCFunction)PyDiaDiagramData_DeleteLayer, 1},
+    {"connect_after", (PyCFunction)PyDiaDiagramData_ConnectAfter, 1},
     {NULL, 0, 0, NULL}
 };
 

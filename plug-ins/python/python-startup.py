@@ -9,6 +9,10 @@ import dia
 curdir = os.path.dirname(__file__)
 plugindir = os.path.join(curdir, 'python')
 
+#If we're running from source there is no plugin dir
+if not os.path.exists(plugindir):
+    plugindir = curdir
+
 if os.path.isdir(plugindir):
     # import all plugins found in system plugin dir
     sys.path.insert(0, plugindir)

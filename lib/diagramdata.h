@@ -19,6 +19,7 @@
 #define DIAGRAMDATA_H
 
 #include <glib.h>
+#include <string.h>
 
 #include "diatypes.h"
 /* #include "object.h" later after declaring types */
@@ -76,6 +77,11 @@ struct _DiagramData {
 
 typedef struct _DiagramDataClass {
   GObjectClass parent_class;
+
+  /* Signals */
+  void (* object_add)        (DiagramData*, Layer*, DiaObject*);
+  void (* object_remove)     (DiagramData*, Layer*, DiaObject*);
+  
 } DiagramDataClass;
 
 struct _Layer {
@@ -124,6 +130,9 @@ float data_get_unit_multiplier(DiagramData *data);
 void data_set_font_unit(DiagramData *data, gchar *unit);
 gchar *data_get_font_unit(DiagramData *data);
 float data_get_font_unit_multiplier(DiagramData *data);
+void data_emit(DiagramData *data,Layer *layer,DiaObject* obj,const char *signal_name);
+
+
 
 typedef void (*ObjectRenderer)(DiaObject *obj, DiaRenderer *renderer,
 			       int active_layer,

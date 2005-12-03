@@ -19,6 +19,7 @@
 
 #include <config.h>
 
+
 #include "pydia-diagram.h"
 #include "pydia-diagramdata.h"
 #include "pydia-display.h"
@@ -328,6 +329,141 @@ PyDiaDiagram_Display(PyDiaDiagram *self, PyObject *args)
     return PyDiaDisplay_New(disp);
 }
 
+/* 
+ *  Callback for "removed" signal, used by the connect_after method,
+ *  it's a proxy for the python function, creating the values it needs.
+ *  Params are those of the "removed" signal on the Diagram object.
+ *  @param Diagram The Diagram that emitted the signal
+ *  @param user_data The python function to be called by the callback.
+ */
+static void
+PyDiaDiagram_CallbackRemoved(Diagram *dia,void *user_data)
+{
+    /* Check that we got a function */
+    PyObject *diaobj,*res,*arg;
+    PyObject *func = user_data;
+    
+    if (!func || !PyCallable_Check (func)) {
+        g_warning ("Callback called without valid callback function.");
+        return;
+    }
+      
+    /* Create a new PyDiaDiagram object. This really should reuse the object that we connected to. 
+     * We'll do that later.
+     */
+    if (dia)
+        diaobj = PyDiaDiagram_New (dia);
+    else {
+        diaobj = Py_None;
+        Py_INCREF (diaobj);
+    }
+      
+    Py_INCREF(func);
+
+    /* Call the callback. */
+    arg = Py_BuildValue ("(O)", diaobj);
+    if (arg) {
+      res = PyEval_CallObject (func, arg);
+      /*ON_RES(res, TRUE);*/
+    }
+    Py_XDECREF (arg);
+
+    Py_DECREF(func);
+    Py_XDECREF(diaobj);
+}
+
+
+/* 
+ *  Callback for "selection_changed" signal, used by the connect_after method,
+ *  it's a proxy for the python function, creating the values it needs.
+ *  Params are those of the "selection_changed" signal on the Diagram object.
+ *  @param Diagram The Diagram that emitted the signal
+ *  @param sel Number of selected objects??
+ *  @param user_data The python function to be called by the callback.
+ */
+static void
+PyDiaDiagram_CallbackSelectionChanged(Diagram *dia,int sel,void *user_data)
+{
+    /* Check that we got a function */
+    PyObject *dgm,*res,*arg;
+    PyObject *func = user_data;
+    
+    if (!func || !PyCallable_Check (func)) {
+        g_warning ("Callback called without valid callback function.");
+        return;
+    }
+      
+    /* Create a new PyDiaDiagram object. This really should reuse the object that we connected to. 
+     * We'll do that later.
+     */
+    if (dia)
+        dgm = PyDiaDiagram_New (dia);
+    else {
+        dgm = Py_None;
+        Py_INCREF (dgm);
+    }
+    
+      
+    Py_INCREF(func);
+
+    /* Call the callback. */
+    arg = Py_BuildValue ("(Oi)", dgm,sel);
+    if (arg) {
+      res = PyEval_CallObject (func, arg);
+      /*ON_RES(res, TRUE);*/
+    }
+    Py_XDECREF (arg);
+
+    Py_DECREF(func);
+    Py_XDECREF(dgm);
+}
+
+/** Connects a python function to a signal.
+ *  @param self The PyDiaDiagram this is a method of.
+ *  @param args A tuple containing the arguments, a str for signal name
+ *  and a callable object (like a function)
+ */
+static PyObject *
+PyDiaDiagram_ConnectAfter(PyDiaDiagram *self, PyObject *args)
+{
+    PyObject *func;
+    char *signal;
+
+    /* Check arguments */
+    if (!PyArg_ParseTuple(args, "sO:connect_after",&signal,&func))
+        return NULL;
+
+    /* Check that the arg is callable */
+    if (!PyCallable_Check(func)) {
+        PyErr_SetString(PyExc_TypeError, "Second parameter must be callable");
+        return NULL;
+    }
+
+    /* check if the signals name is valid */
+    if ( strcmp("removed",signal) == 0 || strcmp("selection_changed",signal) == 0) {
+
+        Py_INCREF(func); /* stay alive, where to kill ?? */
+
+        /* connect to signal after by signal name */
+        if (strcmp("removed",signal) == 0)
+        {
+            g_signal_connect_after(DIA_DIAGRAM(self->dia),"removed",G_CALLBACK(PyDiaDiagram_CallbackRemoved), func);
+        }
+        
+        if (strcmp("selection_changed",signal) == 0)
+        {
+            g_signal_connect_after(DIA_DIAGRAM(self->dia),"selection_changed",G_CALLBACK(PyDiaDiagram_CallbackSelectionChanged), func);
+        }
+ 
+        Py_INCREF(Py_None);
+        return Py_None;
+    }
+    else {
+            PyErr_SetString(PyExc_TypeError, "Wrong signal name");
+            return NULL;
+    }
+}
+
 static PyMethodDef PyDiaDiagram_Methods[] = {
     {"select", (PyCFunction)PyDiaDiagram_Select, 1},
     {"is_selected", (PyCFunction)PyDiaDiagram_IsSelected, 1},
@@ -349,6 +485,7 @@ static PyMethodDef PyDiaDiagram_Methods[] = {
     {"ungroup_selected", (PyCFunction)PyDiaDiagram_UngroupSelected, 1},
     {"save", (PyCFunction)PyDiaDiagram_Save, 1},
     {"display", (PyCFunction)PyDiaDiagram_Display, 1},
+    {"connect_after", (PyCFunction)PyDiaDiagram_ConnectAfter, 1},
     {NULL, 0, 0, NULL}
 };
 

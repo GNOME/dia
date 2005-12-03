@@ -609,6 +609,9 @@ delete_objects_revert(struct DeleteObjectsChange *change, Diagram *dia)
    DiaObject *obj = (DiaObject *) list->data;
    if (obj->parent) /* Restore child references */
    	obj->parent->children = g_list_append(obj->parent->children, obj);
+   	
+   /* Emit a signal per object reverted */
+   data_emit(layer_get_parent_diagram(change->layer),change->layer,obj,"object_add");
 
   list = g_list_next(list);
  }

@@ -187,14 +187,14 @@ libdia_la_extra_sources = diamarshal.list
 gen_sources = xgen-gwmh xgen-gwmc
 CLEANFILES = $(gen_sources)
 
-$(srcdir)/diamarshal.h: $(srcdir)/diamarshal.list
-	$(GLIB_GENMARSHAL) --prefix=dia_marshal $(srcdir)/diamarshal.list --header >> xgen-gwmh \
+diamarshal.h: diamarshal.list
+	$(GLIB_GENMARSHAL) --prefix=dia_marshal diamarshal.list --header >> xgen-gwmh \
 	&& (cmp -s xgen-gwmh $(@F) || cp xgen-gwmh $(@F)) \
 	&& rm -f xgen-gwmh xgen-gwmh~
 
-$(srcdir)/diamarshal.c: $(srcdir)/diamarshal.h
+diamarshal.c: diamarshal.h
 	echo "#include \"diamarshal.h\"" >> xgen-gwmc \
-	&& $(GLIB_GENMARSHAL) --prefix=dia_marshal $(srcdir)/diamarshal.list --body >> xgen-gwmc \
+	&& $(GLIB_GENMARSHAL) --prefix=dia_marshal diamarshal.list --body >> xgen-gwmc \
 	&& cp xgen-gwmc $(@F) \
 	&& rm -f xgen-gwmc xgen-gwmc~
 

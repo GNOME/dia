@@ -31,12 +31,22 @@
 #include "persistence.h"
 
 #include "dynamic_obj.h"
+#include "diamarshal.h"
+
 
 static const Rectangle invalid_extents = { -1.0,-1.0,-1.0,-1.0 };
 static void set_parent_layer(gpointer layer, gpointer object);
 
 static void diagram_data_class_init (DiagramDataClass *klass);
 static void diagram_data_init (DiagramData *object);
+
+enum {
+  OBJECT_ADD,
+  OBJECT_REMOVE,
+  LAST_SIGNAL
+};
+
+static guint diagram_data_signals[LAST_SIGNAL] = { 0, };
 
 static gpointer parent_class = NULL;
 
@@ -68,6 +78,17 @@ diagram_data_get_type(void)
     }
   
   return object_type;
+}
+
+/* signal default handlers */
+static void
+_diagram_data_object_add (DiagramData* dia,Layer* layer,DiaObject* obj)
+{
+}
+
+static void
+_diagram_data_object_remove (DiagramData* dia,Layer* layer,DiaObject* obj)
+{
 }
 
 /** Initialize a new diagram data object.
@@ -135,7 +156,35 @@ diagram_data_class_init(DiagramDataClass *klass)
 
   parent_class = g_type_class_peek_parent (klass);
 
+  diagram_data_signals[OBJECT_ADD] =
+    g_signal_new ("object_add",
+              G_TYPE_FROM_CLASS (klass),
+              G_SIGNAL_RUN_FIRST,
+              G_STRUCT_OFFSET (DiagramDataClass, object_add),
+              NULL, NULL,
+              dia_marshal_VOID__POINTER_POINTER,
+              G_TYPE_NONE, 
+              2,
+              G_TYPE_POINTER,
+              G_TYPE_POINTER);
+              
+  diagram_data_signals[OBJECT_REMOVE] =
+    g_signal_new ("object_remove",
+              G_TYPE_FROM_CLASS (klass),
+              G_SIGNAL_RUN_FIRST,
+              G_STRUCT_OFFSET (DiagramDataClass, object_remove),
+              NULL, NULL,
+              dia_marshal_VOID__POINTER_POINTER,
+              G_TYPE_NONE, 
+              2,
+              G_TYPE_POINTER,
+              G_TYPE_POINTER);
+
+
   object_class->finalize = diagram_data_finalize;
+  klass->object_add = _diagram_data_object_add;
+  klass->object_remove = _diagram_data_object_remove;
+
 }
 
 /** Create a new layer in this diagram.
@@ -531,6 +580,27 @@ data_get_sorted_selected_remove(DiagramData *data)
   return sorted_list;
 }
 
+
+/** Emits a GObject signal on DiagramData
+ *  @param data The DiagramData that emits the signal.
+ *  @param layer The Layer that the fired signal carries.
+ *  @param obj The DiaObject that the fired signal carries.
+ *  @param signal_name The name of the signal.
+ */
+void 
+data_emit(DiagramData *data,Layer *layer,DiaObject* obj,const char *signal_name) 
+{
+
+    /* check what signal it is */
+    if (strcmp("object_add",signal_name) == 0)
+        g_signal_emit (data, diagram_data_signals[OBJECT_ADD], 0,layer,obj);
+    
+    if (strcmp("object_remove",signal_name) == 0)
+        g_signal_emit (data, diagram_data_signals[OBJECT_REMOVE], 0,layer,obj);
+          
+}
+
+
 /** Render a diagram.
  * @param data The diagram to render.
  * @param renderer The renderer to render on.
@@ -671,6 +741,9 @@ layer_add_object(Layer *layer, DiaObject *obj)
 {
   layer->objects = g_list_append(layer->objects, (gpointer) obj);
   set_parent_layer(obj, layer);
+
+  /* send a signal that we have added a object to the diagram */
+  g_signal_emit (layer_get_parent_diagram(layer), diagram_data_signals[OBJECT_ADD], 0,layer,obj);
 }
 
 /** Add an object to a layer at a specific position.
@@ -684,6 +757,9 @@ layer_add_object_at(Layer *layer, DiaObject *obj, int pos)
 {
   layer->objects = g_list_insert(layer->objects, (gpointer) obj, pos);
   set_parent_layer(obj, layer);
+
+  /* send a signal that we have added a object to the diagram */
+  g_signal_emit (layer_get_parent_diagram(layer), diagram_data_signals[OBJECT_ADD], 0,layer,obj);
 }
 
 /** Add a list of objects to the end of a layer.
@@ -695,8 +771,18 @@ layer_add_object_at(Layer *layer, DiaObject *obj, int pos)
 void
 layer_add_objects(Layer *layer, GList *obj_list)
 {
+  GList *list = obj_list;
+
   layer->objects = g_list_concat(layer->objects, obj_list);
   g_list_foreach(obj_list, set_parent_layer, layer);
+
+  while (list != NULL)
+  {
+    /* send a signal that we have added a object to the diagram */
+    g_signal_emit (layer_get_parent_diagram(layer), diagram_data_signals[OBJECT_ADD], 0,layer,list->data);
+    
+    list = g_list_next(list);
+  }
 }
 
 /** Add a list of objects to the top of a layer.
@@ -708,8 +794,20 @@ layer_add_objects(Layer *layer, GList *obj_list)
 void
 layer_add_objects_first(Layer *layer, GList *obj_list)
 {
+  GList *list = obj_list;
+  
   layer->objects = g_list_concat(obj_list, layer->objects);
   g_list_foreach(obj_list, set_parent_layer, layer);
+
+  /* Send one signal per object added */
+  while (list != NULL)
+  {
+    /* send a signal that we have added a object to the diagram */
+    g_signal_emit (layer_get_parent_diagram(layer), diagram_data_signals[OBJECT_ADD], 0,layer,list->data);
+    
+    list = g_list_next(list);
+  }
+
 }
 
 /** Remove an object from a layer.
@@ -723,6 +821,9 @@ layer_remove_object(Layer *layer, DiaObject *obj)
   layer->objects = g_list_remove(layer->objects, obj);
   dynobj_list_remove_object(obj);
   set_parent_layer(obj, NULL);
+
+  /* send a signal that we have removed a object from the diagram */
+  g_signal_emit (layer_get_parent_diagram(layer), diagram_data_signals[OBJECT_REMOVE], 0,layer,obj);
 }
 
 /** Remove a list of objects from a layer.
@@ -742,6 +843,8 @@ layer_remove_objects(Layer *layer, GList *obj_list)
     obj_list = g_list_next(obj_list);
     dynobj_list_remove_object(obj);
     set_parent_layer(obj, NULL);
+    /* send a signal that we have removed a object from the diagram */
+    g_signal_emit (layer_get_parent_diagram(layer), diagram_data_signals[OBJECT_REMOVE], 0,layer,obj);
   }
 }
 
