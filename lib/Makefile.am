@@ -184,7 +184,7 @@ libdia_la_extra_sources = diamarshal.list
 # rules to generate built sources
 #
 # setup autogeneration dependancies
-gen_sources = xgen-gwmh xgen-gwmc
+gen_sources = xgen-gwmh xgen-gwmc diamarshal.c diamarshal.h
 CLEANFILES = $(gen_sources)
 
 diamarshal.h: diamarshal.list

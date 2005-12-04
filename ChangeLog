@@ -1,3 +1,7 @@
+2005-12-04  Lars Clausen  <lars@raeder.dk>
+
+	* lib/Makefile.am (gen_sources): Make marshal files as generated.
+
 2005-12-03  Lars Clausen  <lars@raeder.dk>
 
 	* lib/Makefile.am (diamarshal.c): Fix marshal rules to not talk
