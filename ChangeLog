@@ -1,6 +1,7 @@
 2005-12-04  Lars Clausen  <lars@raeder.dk>
 
-	* lib/Makefile.am (gen_sources): Make marshal files as generated.
+	* lib/Makefile.am (gen_sources): Mark marshal files as generated.
+	(BUILT_SOURCES): Added marshal files.
 
 2005-12-03  Lars Clausen  <lars@raeder.dk>
 

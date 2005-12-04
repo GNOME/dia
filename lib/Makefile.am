@@ -39,7 +39,7 @@ ICON_PNG_PAIRS= \
 dia-lib-icons.h:
 	gdk-pixbuf-csource --build-list $(ICON_PNG_PAIRS) > dia-lib-icons.h
 
-BUILT_SOURCES = dia-lib-icons.h
+BUILT_SOURCES = dia-lib-icons.h diamarshal.h diamarshal.c
 
 libdia_la_SOURCES =  \
 		diatypes.h \
