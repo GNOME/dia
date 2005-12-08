@@ -1,3 +1,8 @@
+2005-12-08  Lars Clausen  <lars@raeder.dk>
+
+	* samples/render-test.dia: Added samples of text in different
+	sizes, standard fonts and styles with size markers.
+
 2005-12-04  Lars Clausen  <lars@raeder.dk>
 
 	* lib/Makefile.am (gen_sources): Mark marshal files as generated.
