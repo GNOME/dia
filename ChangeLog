@@ -1,5 +1,15 @@
 2005-12-08  Lars Clausen  <lars@raeder.dk>
 
+	* app/authors.h: 
+	* plug-ins/pgf/pgf.c: 
+	* plug-ins/pgf/render_pgf.[ch]: 
+	* plug-ins/pgf/Makefile.am: 
+	* plug-ins/Makefile.msc: 
+	* plug-ins/Makefile.am (SUBDIRS): 
+	* configure.in: Patch from Moritz Kirmse <momomaniac@gmail.com>: Add
+	support for PGF output for including in (La)TeX documents that
+	allows PDF generation.
+
 	* samples/render-test.dia: Added samples of text in different
 	sizes, standard fonts and styles with size markers.
 

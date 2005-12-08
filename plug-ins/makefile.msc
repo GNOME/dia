@@ -1,7 +1,7 @@
 !IFNDEF PACKAGE
 
 # dummy
-PLUGINS = gprint cairo cgm dxf hpgl metapost pixbuf pstricks shape svg wmf wpg xfig xslt
+PLUGINS = gprint cairo cgm dxf hpgl metapost pixbuf pstricks shape svg wmf wpg xfig xslt pgf
 
 #broken since StdProp overhaul : diaimport 
 
@@ -77,6 +77,12 @@ OBJECTS = \
 OBJECTS = \
   pstricks.obj \
   render_pstricks.obj
+!ENDIF
+
+!IFDEF OBJ_pgf
+OBJECTS = \
+  pgf.obj \
+  render_pgf.obj
 !ENDIF
 
 !IFDEF OBJ_shape
