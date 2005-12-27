@@ -1,5 +1,11 @@
 2005-12-27  Hans Breuer  <hans@breuer.org>
 
+	* lib/geometry.c : removed the ifdefed GLIB_CHECK_VERSION(2,7,0)
+	define G_IMPLEMENT_INLINES. It breaks again with glib-2-8
+
+
+2005-12-27  Hans Breuer  <hans@breuer.org>
+
 	* app/navigation.c : protect on_da_button_release_event() against being
 	called twice. Also only popdown the navigation window after the first 
 	draw (reusing nav->is_first_expose). Fixes bug #151696
@@ -122,6 +128,7 @@
 	* lib/parent.c:
 	Added documentation java-doc style.  Also a few trivial cleanups.
 	
+>>>>>>> 1.1816
 2005-10-13  Lars Clausen  <lars@raeder.dk>
 
 	* lib/connectionpoint.h (DIR_ALL): Parentheses around operations

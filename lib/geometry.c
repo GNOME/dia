@@ -24,12 +24,8 @@
 
 #include <glib.h>
 /* include normal versions of the inlined functions here ... */
-#if GLIB_CHECK_VERSION(2,7,0)
-#  define G_IMPLEMENT_INLINES
-#else
-#  undef G_INLINE_FUNC
-#  define G_INLINE_FUNC extern
-#endif
+#undef G_INLINE_FUNC
+#define G_INLINE_FUNC extern
 #define G_CAN_INLINE 1
 #include "geometry.h"
 #include "object.h"
