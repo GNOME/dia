@@ -1319,6 +1319,12 @@ import_dxf(const gchar *filename, DiagramData *dia, void* user_data)
         }
         else {
             codedxf = atoi(data->code);
+            if (0 == codedxf && strstr(data->code, "AutoCAD Binary DXF")) {
+                g_free(data);
+	        message_error(_("Binary DXF from '%s' not supported\n"),
+			      dia_message_filename(filename) );
+                return FALSE;
+            }
             if(codedxf == 2) {
                 if(strcmp(data->value, "ENTITIES") == 0) {
 		   /*printf( "reading section entities\n" );*/
