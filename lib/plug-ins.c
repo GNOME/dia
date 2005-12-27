@@ -106,7 +106,7 @@ dia_plugin_check_version(gint version)
 }
 
 
-/* functiosn for use by dia ... */
+/* functions for use by dia ... */
 
 const gchar *
 dia_plugin_get_filename(PluginInfo *info)

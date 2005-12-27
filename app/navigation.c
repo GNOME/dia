@@ -149,6 +149,7 @@ on_button_navigation_popup_pressed (GtkButton * button, gpointer _ddisp)
   real zoom;/*zoom factor for thumbnail rendering*/
 
 
+  memset (nav, 0, sizeof(NavigationWindow));
   /*--Retrieve the diagram's data*/
   nav->ddisp  = (DDisplay *) _ddisp;
   data = nav->ddisp->diagram->data;
@@ -364,7 +365,7 @@ on_da_motion_notify_event (GtkWidget * drawing_area, GdkEventMotion * event, gpo
     adj->value = adj->lower;
     value_changed = TRUE;
   }
-else if (x == (nav->width - w) && adj->value != (adj->upper - adj->page_size)){/*idem*/
+  else if (x == (nav->width - w) && adj->value != (adj->upper - adj->page_size)){/*idem*/
     adj->value = adj->upper - adj->page_size;
     value_changed = TRUE;
   }
@@ -376,11 +377,11 @@ else if (x == (nav->width - w) && adj->value != (adj->upper - adj->page_size)){/
     adj->value = adj->lower + y * nav->vadj_coef;
     value_changed = TRUE;
   }
-else if (y == 0 && adj->value != adj->lower){/*you've been too fast! :)*/
+  else if (y == 0 && adj->value != adj->lower){/*you've been too fast! :)*/
     adj->value = adj->lower;
     value_changed = TRUE;
   }
-else if (y == (nav->height - h) && adj->value != (adj->upper - adj->page_size)){/*idem*/
+  else if (y == (nav->height - h) && adj->value != (adj->upper - adj->page_size)){/*idem*/
     adj->value = adj->upper - adj->page_size;
     value_changed = TRUE;
   }
@@ -404,11 +405,24 @@ else if (y == (nav->height - h) && adj->value != (adj->upper - adj->page_size)){
 static gboolean
 on_da_button_release_event (GtkWidget * widget, GdkEventButton * event, gpointer unused)
 {
-  g_object_unref (nav->buffer);
-  g_object_unref (nav->gc);
-  gdk_cursor_unref (nav->cursor);
+  /* Apparently there are circumstances where this is run twice for one popup 
+   * Protected calls to avoid crashing on second pass.
+   */
+  if (nav->buffer)
+    g_object_unref (nav->buffer);
+  nav->buffer = NULL;
 
-  gtk_widget_destroy (nav->popup_window);
+  if (nav->gc)
+    g_object_unref (nav->gc);
+  nav->gc = NULL;
+
+  if (nav->cursor)
+    gdk_cursor_unref (nav->cursor);
+  nav->cursor = NULL;
+
+  if (nav->popup_window)
+    gtk_widget_destroy (nav->popup_window);
+  nav->popup_window = NULL;
 
 /*returns the focus on the canvas*/
   gtk_widget_grab_focus(nav->ddisp->canvas);
@@ -418,5 +432,7 @@ on_da_button_release_event (GtkWidget * widget, GdkEventButton * event, gpointer
 static void
 on_button_navigation_popup_released (GtkButton * button, gpointer z)
 {
-  on_da_button_release_event (NULL, NULL, NULL);
+  /* don't popdown before having drawn once */
+  if (!nav->is_first_expose) /* needed for gtk+-2.6.x, but work for 2.6 too. */
+    on_da_button_release_event (NULL, NULL, NULL);
 }

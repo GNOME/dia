@@ -1,3 +1,20 @@
+2005-12-27  Hans Breuer  <hans@breuer.org>
+
+	* app/navigation.c : protect on_da_button_release_event() against being
+	called twice. Also only popdown the navigation window after the first 
+	draw (reusing nav->is_first_expose). Fixes bug #151696
+	
+	* app/interface.c(create_display_shell): don't clip width on screen height, 
+	but height
+
+	* lib/plug-ins.c : fixed typo in comment
+	
+	* lib/libdia.def : updated externals
+	* lib/makefile.msc : build debug.obj
+
+	* plug-ins/makefile.msc : building pgf in the right alphabetical order
+	* plug-ins/pgf/render_pgf.c : include <glib/gprintf.h>
+	
 2005-12-08  Lars Clausen  <lars@raeder.dk>
 
 	* app/authors.h: 

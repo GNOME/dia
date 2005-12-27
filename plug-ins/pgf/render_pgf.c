@@ -61,6 +61,8 @@ TODO:
 #endif
 #include <errno.h>
 
+#include <glib/gprintf.h>
+
 #include "intl.h"
 #include "render_pgf.h"
 #include "message.h"

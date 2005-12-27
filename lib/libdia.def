@@ -123,6 +123,7 @@ EXPORTS
  data_boolean
  data_color
  data_delete_layer
+ data_emit
  data_enum
  data_filename
  data_font
@@ -157,6 +158,7 @@ EXPORTS
  dia_arrow_selector_get_type
  dia_arrow_selector_new
  dia_arrow_selector_set_arrow
+ dia_assert_true
  dia_color_selector_get_color
 ; dia_color_selector_get_type
  dia_color_selector_new
@@ -446,6 +448,7 @@ EXPORTS
  object_connect
  object_copy
  object_copy_list
+ object_copy_props
  object_copy_using_properties
  object_create_props_dialog
  object_destroy
@@ -470,6 +473,7 @@ EXPORTS
  object_return_null
  object_return_void
  object_save
+ object_save_props
  object_save_using_properties
  object_set_props_from_offsets
  object_unconnect
