@@ -1,5 +1,9 @@
 2005-12-27  Hans Breuer  <hans@breuer.org>
 
+	* app/diapsft2renderer.c(draw_bezier_outline) : only call
+	FT_Outline_Decompose() when FT_GLYPH_FORMAT_OUTLINE.
+	Prefers no text output over crashing for bug #144212
+
 	* app/interface.c : removed superfluous call to dia_canvas_set_size().
 	Suggested by Roland Stigge, fixes bug #148149.
 

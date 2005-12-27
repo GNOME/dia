@@ -306,9 +306,14 @@ void draw_bezier_outline(DiaPsRenderer *renderer,
     fprintf(stderr, "Can't load glyph: %d\n", error);
     return;
   }
-  FT_Get_Glyph (face->glyph, &glyph);
-  FT_Outline_Decompose (&(((FT_OutlineGlyph)glyph)->outline),
-                        &outlinefunc, &outline_info);
+  if ((error=FT_Get_Glyph (face->glyph, &glyph))) {
+    fprintf(stderr, "Can't get glyph: %d\n", error);
+    FT_Done_Glyph (glyph);
+    return;
+  }
+  if (face->glyph->format == FT_GLYPH_FORMAT_OUTLINE)
+    FT_Outline_Decompose (&(((FT_OutlineGlyph)glyph)->outline),
+                          &outlinefunc, &outline_info);
   fprintf(renderer->file, "end_ol grestore \n");
   
   FT_Done_Glyph (glyph);
