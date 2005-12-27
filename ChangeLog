@@ -1,5 +1,8 @@
 2005-12-27  Hans Breuer  <hans@breuer.org>
 
+	* app/interface.c : removed superfluous call to dia_canvas_set_size().
+	Suggested by Roland Stigge, fixes bug #148149.
+
 	* plug-ins/dxf/dxf-import.c : don't complain too loud on Binary
 	DXF. It is not supported at all. Fixes bug #322101
 
