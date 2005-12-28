@@ -166,6 +166,8 @@ plug-ins/hpgl/hpgl.c
 plug-ins/metapost/metapost.c
 plug-ins/metapost/render_metapost.c
 plug-ins/pixbuf/pixbuf.c
+plug-ins/pgf/pgf.c
+plug-ins/pgf/render_pgf.c
 plug-ins/pstricks/pstricks.c
 plug-ins/pstricks/render_pstricks.c
 plug-ins/python/pydia-render.c
