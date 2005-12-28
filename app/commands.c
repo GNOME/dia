@@ -131,13 +131,15 @@ file_new_callback(gpointer data, guint action, GtkWidget *widget)
   Diagram *dia;
   DDisplay *ddisp;
   static int untitled_nr = 1;
-  char buffer[24];
+  gchar *name, *filename;
 
-  g_snprintf(buffer, 24, _("Diagram%d.dia"), untitled_nr++);
-  
-  dia = new_diagram(buffer);
+  name = g_strdup_printf(_("Diagram%d.dia"), untitled_nr++);
+  filename = g_filename_from_utf8(name, -1, NULL, NULL, NULL);
+  dia = new_diagram(filename);
   ddisp = new_display(dia);
   diagram_tree_add(diagram_tree(), dia);
+  g_free (name);
+  g_free (filename);
 }
 
 void

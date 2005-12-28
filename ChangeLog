@@ -1,5 +1,8 @@
 2005-12-28  Hans Breuer  <hans@breuer.org>
 
+	* app/commands.c(file_new_callback) : convert to filename encoding before
+	passing to new_diagram(), fixes bug #322400
+	
 	* app/interface.c(create_display_shell) : don't clip width on screen 
 	height - now commited. Also lazy creation of tooltips.
 	
