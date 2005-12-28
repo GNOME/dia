@@ -1,3 +1,10 @@
+2005-12-28  Hans Breuer  <hans@breuer.org>
+
+	* app/interface.c(create_display_shell) : don't clip width on screen 
+	height - now commited. Also lazy creation of tooltips.
+	
+	* objects/UML/actor.c : Actor is finally resizable, fixes bug #66915
+	
 2005-12-27  Hans Breuer  <hans@breuer.org>
 
 	* app/diapsft2renderer.c(draw_bezier_outline) : only call

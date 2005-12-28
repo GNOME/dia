@@ -314,12 +314,15 @@ create_display_shell(DDisplay *ddisp,
   GtkWidget *zoom_hbox, *zoom_label;
   int s_width, s_height;
 
+  if (!tool_tips) /* needed here if we dont create_toolbox() */
+    tool_tips = gtk_tooltips_new ();
+    
   s_width = gdk_screen_width ();
   s_height = gdk_screen_height ();
   if (width > s_width)
     width = s_width;
   if (height > s_height)
-    width = s_width;
+    height = s_height;
 
   /*  The adjustment datums  */
   ddisp->hsbdata = GTK_ADJUSTMENT (gtk_adjustment_new (0, 0, width, 1, (width-1)/4, width-1));
