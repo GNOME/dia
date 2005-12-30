@@ -1,3 +1,18 @@
+2005-12-30  Hans Breuer  <hans@breuer.org>
+
+	* app/app_procs.c : add command line parameter --nonew to allow
+	avoiding the empty start-up diagram
+	Also give a hint on where the object-libs were missing.
+	Finally work around a misbehaviour upstreamm :
+	g_option_context_parse() returning FALSE but not setting error.
+
+	* app/commands.c app/app_diagram_tree.c app/interface.c :
+	Use gdk_pixbuf_render_pixmap_and_mask_for_colormap as suggested by
+	http://www.gtk.org/api/2.6/gdk/gdk-Pixbufs.html#gdk-pixbuf-render-pixmap-and-mask
+	
+	* lib/widgets.c : image file selection finally ported to the new
+	gtk file chooser. Fixes bug #309383
+
 2005-12-28  Hans Breuer  <hans@breuer.org>
 
 	* app/commands.c(file_new_callback) : convert to filename encoding before
@@ -148,7 +163,6 @@
 	* lib/parent.c:
 	Added documentation java-doc style.  Also a few trivial cleanups.
 	
->>>>>>> 1.1816
 2005-10-13  Lars Clausen  <lars@raeder.dk>
 
 	* lib/connectionpoint.h (DIR_ALL): Parentheses around operations

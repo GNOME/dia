@@ -188,7 +188,7 @@ create_object_pixmap(DiaObject *object, GtkWidget *parent,
     if (strncmp((char *)object->type->pixmap, "GdkP", 4) == 0) {
       GdkPixbuf *p;
       p = gdk_pixbuf_new_from_inline(-1, (guint8*)object->type->pixmap, TRUE, NULL);
-      gdk_pixbuf_render_pixmap_and_mask(p, pixmap, mask, 128);
+      gdk_pixbuf_render_pixmap_and_mask_for_colormap(p, gtk_widget_get_colormap(parent), pixmap, mask, 128);
     } else {
       *pixmap =
 	gdk_pixmap_colormap_create_from_xpm_d(NULL,

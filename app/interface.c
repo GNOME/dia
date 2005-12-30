@@ -827,7 +827,7 @@ fill_sheet_wbox(Sheet *sheet)
       
       pixbuf = gdk_pixbuf_new_from_file(sheet_obj->pixmap_file, &gerror);
       if (pixbuf != NULL) {
-          gdk_pixbuf_render_pixmap_and_mask(pixbuf, &pixmap, &mask, 1.0);
+          gdk_pixbuf_render_pixmap_and_mask_for_colormap(pixbuf, gtk_widget_get_colormap(sheet_wbox), &pixmap, &mask, 1.0);
           gdk_pixbuf_unref(pixbuf);
       } else {
           

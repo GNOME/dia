@@ -648,6 +648,7 @@ void
 app_init (int argc, char **argv)
 {
   static gboolean nosplash = FALSE;
+  static gboolean nonew = FALSE;
   static gboolean credits = FALSE;
   static gboolean version = FALSE;
   static gboolean verbose = FALSE;
@@ -693,6 +694,8 @@ app_init (int argc, char **argv)
      N_("LAYER,LAYER,...")},
     {"nosplash", 'n', 0, G_OPTION_ARG_NONE, &nosplash,
      N_("Don't show the splash screen"), NULL },
+    {"nonew", 'n', 0, G_OPTION_ARG_NONE, &nonew,
+     N_("Don't create empty diagram"), NULL },
     {"log-to-stderr", 'l', 0, G_OPTION_ARG_NONE, &log_to_stderr,
      N_("Send error messages to stderr instead of showing dialogs."), NULL },
     {"credits", 'c', 0, G_OPTION_ARG_NONE, &credits,
@@ -719,6 +722,8 @@ app_init (int argc, char **argv)
      N_("LAYER,LAYER,...")},
     {"nosplash", 'n', POPT_ARG_NONE, &nosplash, 0,
      N_("Don't show the splash screen"), NULL },
+    {"nonew", 'n', POPT_ARG_NONE, &nonew, 0,
+     N_("Don't create empty diagram"), NULL },
     {"log-to-stderr", 'l', POPT_ARG_NONE, &log_to_stderr, 0,
      N_("Send error messages to stderr instead of showing dialogs."), NULL },
     {"credits", 'c', POPT_ARG_NONE, &credits, 0,
@@ -876,7 +881,7 @@ app_init (int argc, char **argv)
     message_error(_("Couldn't find standard objects when looking for "
 		  "object-libs, exiting...\n"));
     g_critical( _("Couldn't find standard objects when looking for "
-		  "object-libs, exiting...\n"));
+	    "object-libs in '%s', exiting...\n"), dia_get_lib_directory("dia"));
     exit(1);
   }
 
@@ -915,7 +920,7 @@ app_init (int argc, char **argv)
 
   made_conversions = handle_all_diagrams(files, export_file_name,
 					 export_file_format, size, show_layers);
-  if (dia_is_interactive && files == NULL) {
+  if (dia_is_interactive && files == NULL && !nonew) {
     gchar *filename = g_filename_from_utf8(_("Diagram1.dia"), -1, NULL, NULL, NULL);
     Diagram *diagram = new_diagram (filename);
     g_free(filename);
@@ -1153,8 +1158,13 @@ process_opts(int argc, char **argv,
       g_option_context_add_group (context, gtk_get_option_group (FALSE));
 #  endif
       if (!g_option_context_parse (context, &argc, &argv, &error)) {
+        if (error) { /* IMO !error here is a bug upstream, triggered with --gdk-debug=updates */
 	g_print (error->message);
-	g_error_free (error);
+	  g_error_free (error);
+	} else {
+	  g_print ("Invalid option?");
+	}
+	
         g_option_context_free(context);
 	exit(0);
       }

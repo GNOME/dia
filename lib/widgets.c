@@ -1282,50 +1282,55 @@ dia_file_selector_class_init (DiaFileSelectorClass *class)
 }
 
 static void
-dia_file_selector_ok(GtkWidget *widget, gpointer data)
+file_open_response_callback(GtkWidget *dialog, 
+                            gint       response, 
+                            gpointer   user_data)
 {
-  gchar *utf8;
-  GtkFileSelection *dialog = GTK_FILE_SELECTION(data);
   DiaFileSelector *fs =
     DIAFILESELECTOR(gtk_object_get_user_data(GTK_OBJECT(dialog)));
-  utf8 = g_filename_to_utf8(gtk_file_selection_get_filename(dialog), 
+
+  if (response == GTK_RESPONSE_ACCEPT || response == GTK_RESPONSE_OK) { 
+    gchar *utf8 = g_filename_to_utf8(gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog)), 
                             -1, NULL, NULL, NULL);
-  gtk_entry_set_text(GTK_ENTRY(fs->entry), utf8);
-  g_free(utf8);
-  gtk_widget_hide(GTK_WIDGET(dialog));
+    gtk_entry_set_text(GTK_ENTRY(fs->entry), utf8);
+    g_free(utf8);
+  }
+  gtk_widget_destroy(GTK_WIDGET(dialog));
 }
 
 static void
 dia_file_selector_browse_pressed(GtkWidget *widget, gpointer data)
 {
-  GtkFileSelection *dialog;
+  GtkWidget *dialog;
   DiaFileSelector *fs = DIAFILESELECTOR(data);
   gchar *filename;
-  
+  GtkWidget *toplevel = gtk_widget_get_toplevel (widget);
+
+  if (!GTK_WIDGET_TOPLEVEL(toplevel) || !GTK_WINDOW(toplevel))
+    toplevel = NULL;
+
   if (fs->dialog == NULL) {
     dialog = fs->dialog =
-      GTK_FILE_SELECTION(gtk_file_selection_new(_("Select image file")));
-
-    if (dialog->help_button != NULL)
-      gtk_widget_hide(dialog->help_button);
+      gtk_file_chooser_dialog_new (_("Select image file"), toplevel ? GTK_WINDOW(toplevel) : NULL,
+                                   GTK_FILE_CHOOSER_ACTION_OPEN,
+                                   GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+				   GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
+				   NULL);
     
-    gtk_signal_connect (GTK_OBJECT (dialog->ok_button), "clicked",
-			(GtkSignalFunc) dia_file_selector_ok,
-			dialog);
-    
+    g_signal_connect(GTK_OBJECT(dialog), "response",
+		     G_CALLBACK(file_open_response_callback), NULL);     
     gtk_signal_connect (GTK_OBJECT (fs->dialog), "destroy",
 			GTK_SIGNAL_FUNC (gtk_widget_destroyed),
 			&fs->dialog);
-    
-    gtk_signal_connect_object(GTK_OBJECT (dialog->cancel_button), "clicked",
-			      (GtkSignalFunc) gtk_widget_hide,
-			      GTK_OBJECT(dialog));
     
     gtk_object_set_user_data(GTK_OBJECT(dialog), fs);
   }
 
   filename = g_filename_from_utf8(gtk_entry_get_text(fs->entry), -1, NULL, NULL, NULL);
-  gtk_file_selection_set_filename(fs->dialog, filename);
+  /* selecting something in the filechooser officially sucks. See e.g. http://bugzilla.gnome.org/show_bug.cgi?id=307378 */
+  if (g_path_is_absolute(filename))
+    gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(fs->dialog), filename);
+
   g_free(filename);
   
   gtk_widget_show(GTK_WIDGET(fs->dialog));

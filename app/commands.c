@@ -693,7 +693,7 @@ help_about_callback(gpointer data, guint action, GtkWidget *widget)
       gtk_container_set_border_width (GTK_CONTAINER (frame), 1);
       gtk_box_pack_start(GTK_BOX(vbox), frame, FALSE, TRUE, 1);
 
-      gdk_pixbuf_render_pixmap_and_mask(logo, &pixmap, &bitmap, 128);
+      gdk_pixbuf_render_pixmap_and_mask_for_colormap(logo, gtk_widget_get_colormap(frame), &pixmap, &bitmap, 128);
       gpixmap = gtk_pixmap_new(pixmap, bitmap);
       gdk_pixmap_unref(pixmap);
       if (bitmap) gdk_bitmap_unref(bitmap);
