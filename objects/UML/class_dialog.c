@@ -827,7 +827,6 @@ static void
 attributes_fill_in_dialog(UMLClass *umlclass)
 {
   UMLClassDialog *prop_dialog;
-  UMLAttribute *attr;
   UMLAttribute *attr_copy;
   GtkWidget *list_item;
   GList *list;
@@ -842,10 +841,10 @@ attributes_fill_in_dialog(UMLClass *umlclass)
     i = 0;
     list = umlclass->attributes;
     while (list != NULL) {
-      attr = (UMLAttribute *)list->data;
+      UMLAttribute *attr = (UMLAttribute *)list->data;
+      gchar *attrstr = uml_get_attribute_string(attr);
 
-      list_item =
-	gtk_list_item_new_with_label (g_list_nth(umlclass->attributes_strings, i)->data);
+      list_item = gtk_list_item_new_with_label (attrstr);
       attr_copy = uml_attribute_new();
       uml_attribute_copy_into(attr, attr_copy);
       gtk_object_set_user_data(GTK_OBJECT(list_item), (gpointer) attr_copy);
@@ -856,6 +855,7 @@ attributes_fill_in_dialog(UMLClass *umlclass)
       gtk_widget_show (list_item);
       
       list = g_list_next(list); i++;
+      g_free (attrstr);
     }
     /* set attributes non-sensitive */
     prop_dialog->current_attr = NULL;
@@ -1781,7 +1781,6 @@ static void
 operations_fill_in_dialog(UMLClass *umlclass)
 {
   UMLClassDialog *prop_dialog;
-  UMLOperation *op;
   UMLOperation *op_copy;
   GtkWidget *list_item;
   GList *list;
@@ -1793,10 +1792,10 @@ operations_fill_in_dialog(UMLClass *umlclass)
     i = 0;
     list = umlclass->operations;
     while (list != NULL) {
-      op = (UMLOperation *)list->data;
+      UMLOperation *op = (UMLOperation *)list->data;
+      gchar *opstr = uml_get_operation_string (op);
 
-      list_item =
-	gtk_list_item_new_with_label (g_list_nth(umlclass->operations_strings, i)->data);
+      list_item = gtk_list_item_new_with_label (opstr);
       op_copy = uml_operation_new();
       uml_operation_copy_into(op, op_copy);
       gtk_object_set_user_data(GTK_OBJECT(list_item), (gpointer) op_copy);
@@ -1807,6 +1806,7 @@ operations_fill_in_dialog(UMLClass *umlclass)
       gtk_widget_show (list_item);
       
       list = g_list_next(list); i++;
+      g_free (opstr);
     }
 
     /* set operations non-sensitive */
@@ -2541,7 +2541,7 @@ static void
 templates_fill_in_dialog(UMLClass *umlclass)
 {
   UMLClassDialog *prop_dialog;
-  UMLFormalParameter *param, *param_copy;
+  UMLFormalParameter *param_copy;
   GList *list;
   GtkWidget *list_item;
   int i;
@@ -2554,10 +2554,10 @@ templates_fill_in_dialog(UMLClass *umlclass)
     i = 0;
     list = umlclass->formal_params;
     while (list != NULL) {
-      param = (UMLFormalParameter *)list->data;
+      UMLFormalParameter *param = (UMLFormalParameter *)list->data;
+      gchar *paramstr = uml_get_formalparameter_string(param);
 
-      list_item =
-	gtk_list_item_new_with_label (umlclass->templates_strings[i]);
+      list_item = gtk_list_item_new_with_label (paramstr);
       param_copy = uml_formalparameter_copy(param);
       gtk_object_set_user_data(GTK_OBJECT(list_item),
 			       (gpointer) param_copy);
@@ -2569,6 +2569,7 @@ templates_fill_in_dialog(UMLClass *umlclass)
       gtk_widget_show (list_item);
       
       list = g_list_next(list); i++;
+      g_free (paramstr);
     }
     /* set templates non-sensitive */
     prop_dialog->current_templ = NULL;

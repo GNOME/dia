@@ -111,17 +111,13 @@ struct _UMLClass {
   char *stereotype_string;
   
   real attributesbox_height;
-  GList *attributes_strings;
-  
+
   real operationsbox_height;
-  GList *operations_strings;
   GList *operations_wrappos;
   int max_wrapped_line_width;
 
   real templates_height;
   real templates_width;
-  int num_templates;
-  char **templates_strings;
 
   /* Dialog: */
   UMLClassDialog *properties_dialog;

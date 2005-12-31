@@ -787,7 +787,7 @@ umlclass_draw_attributebox(UMLClass *umlclass, DiaRenderer *renderer, Element *e
     while (list != NULL)
     {
       UMLAttribute *attr   = (UMLAttribute *)list->data;
-      gchar        *attstr = g_list_nth(umlclass->attributes_strings, i)->data;
+      gchar        *attstr = uml_get_attribute_string(attr);
 
       if (attr->abstract)  {
         font = umlclass->abstract_font;
@@ -814,6 +814,7 @@ umlclass_draw_attributebox(UMLClass *umlclass, DiaRenderer *renderer, Element *e
       }
       list = g_list_next(list);
       i++;
+      g_free (attstr);
     }
   }
   return Yoffset;
@@ -876,7 +877,7 @@ umlclass_draw_operationbox(UMLClass *umlclass, DiaRenderer *renderer, Element *e
     list = umlclass->operations;
     while (list != NULL) {
       UMLOperation *op = (UMLOperation *)list->data;
-      gchar* opstr;
+      gchar* opstr = uml_get_operation_string(op);
       real ascent;
 
       switch (op->inheritance_type) {
@@ -895,7 +896,6 @@ umlclass_draw_operationbox(UMLClass *umlclass, DiaRenderer *renderer, Element *e
       }
 
       wrapping_needed = 0;
-      opstr = (gchar*) g_list_nth(umlclass->operations_strings, i)->data;
       if( umlclass->wrap_operations ) {
         wrapsublist = (GList*)g_list_nth( umlclass->operations_wrappos, i)->data;
         wrapping_needed = GPOINTER_TO_INT( wrapsublist->data );
@@ -961,6 +961,7 @@ umlclass_draw_operationbox(UMLClass *umlclass, DiaRenderer *renderer, Element *e
 
       list = g_list_next(list);
       i++;
+      g_free (opstr);
     }
     if (part_opstr){
       g_free(part_opstr);
@@ -1019,13 +1020,14 @@ umlclass_draw_template_parameters_box(UMLClass *umlclass, DiaRenderer *renderer,
   list = umlclass->formal_params;
   while (list != NULL)
   {
-    gchar *ParameterString = umlclass->templates_strings[i];
+    gchar *paramstr = uml_get_formalparameter_string((UMLFormalParameter *)list->data);
     
-    TextInsert.y +=(0.1 + dia_font_ascent(ParameterString, font, font_height));
-    renderer_ops->draw_string(renderer, ParameterString, &TextInsert, ALIGN_LEFT, text_color);
+    TextInsert.y +=(0.1 + dia_font_ascent(paramstr, font, font_height));
+    renderer_ops->draw_string(renderer, paramstr, &TextInsert, ALIGN_LEFT, text_color);
 
     list = g_list_next(list);
     i++;
+    g_free (paramstr);
   }
 }
 
@@ -1287,15 +1289,8 @@ umlclass_calculate_attribute_data(UMLClass *umlclass)
   real   width    = 0.0;
   GList *list;
 
-  /* attributes box: */
-  if (umlclass->attributes_strings != NULL)
-  {
-    g_list_foreach(umlclass->attributes_strings, (GFunc)g_free, NULL);
-    g_list_free(umlclass->attributes_strings);
-  }
   umlclass->attributesbox_height = 2*0.1;
 
-  umlclass->attributes_strings = NULL;
   if (g_list_length(umlclass->attributes) != 0)
   {
     i = 0;
@@ -1304,9 +1299,6 @@ umlclass_calculate_attribute_data(UMLClass *umlclass)
     {
       UMLAttribute *attr   = (UMLAttribute *) list->data;
       gchar        *attstr = uml_get_attribute_string(attr);
-
-      umlclass->attributes_strings =
-        g_list_append(umlclass->attributes_strings, attstr);
 
       if (attr->abstract)
       {
@@ -1344,6 +1336,7 @@ umlclass_calculate_attribute_data(UMLClass *umlclass)
 
       i++;
       list = g_list_next(list);
+      g_free (attstr);
     }
   }
 
@@ -1382,14 +1375,7 @@ umlclass_calculate_operation_data(UMLClass *umlclass)
 
   /* operations box: */
   umlclass->operationsbox_height = 2*0.1;
-  /* neither leak previously calculated strings ... */
-  if (umlclass->operations_strings != NULL)
-  {
-    g_list_foreach(umlclass->operations_strings, (GFunc)g_free, NULL);
-    g_list_free(umlclass->operations_strings);
-    umlclass->operations_strings = NULL;
-  }
-  /* ... nor their wrappings */
+  /* dont leak string wrappings */
   if (umlclass->operations_wrappos != NULL)
   {
     g_list_foreach(umlclass->operations_wrappos, (GFunc)g_list_free, NULL);
@@ -1405,9 +1391,6 @@ umlclass_calculate_operation_data(UMLClass *umlclass)
     {
       UMLOperation *op = (UMLOperation *) list->data;
       gchar *opstr = uml_get_operation_string(op);
-
-      umlclass->operations_strings =
-        g_list_append(umlclass->operations_strings, opstr);
 
       length = 0;
       if( umlclass->wrap_operations )
@@ -1541,6 +1524,7 @@ umlclass_calculate_operation_data(UMLClass *umlclass)
 
       i++;
       list = g_list_next(list);
+      g_free (opstr);
     }
   }
 
@@ -1577,6 +1561,7 @@ umlclass_calculate_data(UMLClass *umlclass)
   int    offset;
   int    maxlinewidth;
   int    length;
+  int    num_templates;
   real   maxwidth = 0.0;
   real   width;
   GList *list;
@@ -1600,43 +1585,31 @@ umlclass_calculate_data(UMLClass *umlclass)
     }
     umlclass->element.width  = maxwidth+0.5;
     /* templates box: */
-    if (umlclass->templates_strings != NULL)
-    {
-      for (i=0;i<umlclass->num_templates;i++)
-      {
-        g_free(umlclass->templates_strings[i]);
-      }
-      g_free(umlclass->templates_strings);
-    }
-    umlclass->num_templates = g_list_length(umlclass->formal_params);
+    num_templates = g_list_length(umlclass->formal_params);
 
     umlclass->templates_height =
-      umlclass->font_height * umlclass->num_templates + 2*0.1;
-   umlclass->templates_height = MAX(umlclass->templates_height, 0.4);
+      umlclass->font_height * num_templates + 2*0.1;
+    umlclass->templates_height = MAX(umlclass->templates_height, 0.4);
 
 
-    umlclass->templates_strings = NULL;
     maxwidth = 2.3;
-    if (umlclass->num_templates != 0)
+    if (num_templates != 0)
     {
-      umlclass->templates_strings =
-        g_malloc (sizeof (gchar *) * umlclass->num_templates);
       i = 0;
       list = umlclass->formal_params;
       while (list != NULL)
       {
-        UMLFormalParameter *param;
-
-        param = (UMLFormalParameter *) list->data;
-        umlclass->templates_strings[i] = uml_get_formalparameter_string(param);
-
-        width = dia_font_string_width(umlclass->templates_strings[i],
+        UMLFormalParameter *param = (UMLFormalParameter *) list->data;
+	gchar *paramstr = uml_get_formalparameter_string(param);
+	
+        width = dia_font_string_width(paramstr,
                                       umlclass->normal_font,
                                       umlclass->font_height);
         maxwidth = MAX(width, maxwidth);
 
         i++;
         list = g_list_next(list);
+	g_free (paramstr);
       }
     }
     umlclass->templates_width = maxwidth + 2*0.2;
@@ -1760,10 +1733,7 @@ umlclass_create(Point *startpoint,
   umlclass->formal_params = NULL;
   
   umlclass->stereotype_string = NULL;
-  umlclass->attributes_strings = NULL;
-  umlclass->operations_strings = NULL;
   umlclass->operations_wrappos = NULL;
-  umlclass->templates_strings = NULL;
   
   umlclass->text_color = color_black;
   umlclass->line_color = attributes_get_foreground();
@@ -1853,29 +1823,10 @@ umlclass_destroy(UMLClass *umlclass)
     g_free(umlclass->stereotype_string);
   }
 
-  if (umlclass->attributes_strings != NULL) {
-    g_list_foreach(umlclass->attributes_strings, (GFunc)g_free, NULL);
-    g_list_free(umlclass->attributes_strings);
-    umlclass->attributes_strings = NULL;
-  }
-
-  if (umlclass->operations_strings != NULL) {
-    g_list_foreach(umlclass->operations_strings, (GFunc)g_free, NULL);
-    g_list_free(umlclass->operations_strings);
-    umlclass->operations_strings = NULL;
-  }
-
   if (umlclass->operations_wrappos != NULL) {
     g_list_foreach(umlclass->operations_wrappos, (GFunc)g_list_free, NULL);
     g_list_free(umlclass->operations_wrappos);
     umlclass->operations_wrappos = NULL;
-  }
-
-  if (umlclass->templates_strings != NULL) {
-    for (i=0;i<umlclass->num_templates;i++) {
-      g_free(umlclass->templates_strings[i]);
-    }
-    g_free(umlclass->templates_strings);
   }
 
   if (umlclass->properties_dialog != NULL) {
@@ -1995,10 +1946,7 @@ umlclass_copy(UMLClass *umlclass)
   newumlclass->properties_dialog = NULL;
      
   newumlclass->stereotype_string = NULL;
-  newumlclass->attributes_strings = NULL;
-  newumlclass->operations_strings = NULL;
   newumlclass->operations_wrappos = NULL;
-  newumlclass->templates_strings = NULL;
 
   for (i=0;i<UMLCLASS_CONNECTIONPOINTS;i++) {
     newobj->connections[i] = &newumlclass->connections[i];
@@ -2287,10 +2235,7 @@ static DiaObject *umlclass_load(ObjectNode obj_node, int version,
   fill_in_fontdata(umlclass);
   
   umlclass->stereotype_string = NULL;
-  umlclass->attributes_strings = NULL;
-  umlclass->operations_strings = NULL;
   umlclass->operations_wrappos = NULL;
-  umlclass->templates_strings = NULL;
 
   umlclass_calculate_data(umlclass);
 

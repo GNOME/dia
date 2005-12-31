@@ -1,3 +1,13 @@
+2005-12-31  Hans Breuer  <hans@breuer.org>
+
+	* objects/UML/class.[hc] objects/UML/class_dialog.c : removed the 
+	caching of UMLClass::attributes_strings, operations_strings, 
+	templates_strings.
+	It was broken by the recent code restructuring in bug #303744 and
+	- if necessary at all - nowadays it should be done on the 
+	UMLAttribute, UMLOperation, UMLFormalParameter level anyway. 
+	A small, much needed simplification of the code.
+
 2005-12-30  Hans Breuer  <hans@breuer.org>
 
 	* objects/UML/class.c : Patch from Dave Klotzbach
