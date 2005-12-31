@@ -50,8 +50,8 @@ struct _Actor {
 
 #define ACTOR_WIDTH 2.2
 #define ACTOR_HEIGHT 4.6
-#define ACTOR_HEAD 0.6
-#define ACTOR_BODY 4.0
+#define ACTOR_HEAD(h) (h*0.6/4.6)
+#define ACTOR_BODY(h) (h*4.0/4.6)
 #define ACTOR_LINEWIDTH 0.1
 #define ACTOR_MARGIN_X 0.3
 #define ACTOR_MARGIN_Y 0.3
@@ -181,13 +181,17 @@ actor_move_handle(Actor *actor, Handle *handle,
 		  Point *to, ConnectionPoint *cp,
 		  HandleMoveReason reason, ModifierKeys modifiers)
 {
+  ObjectChange* oc;
+  
   assert(actor!=NULL);
   assert(handle!=NULL);
   assert(to!=NULL);
 
   assert(handle->id < 8);
 
-  return NULL;
+  oc = element_move_handle (&(actor->element), handle->id, to, cp, reason, modifiers);
+  actor_update_data (actor);
+  return oc;
 }
 
 static ObjectChange*
@@ -212,6 +216,7 @@ actor_draw(Actor *actor, DiaRenderer *renderer)
   real x, y, w, h;
   real r, r1;  
   Point ch, cb, p1, p2;
+  real actor_height;
 
   assert(actor != NULL);
   assert(renderer != NULL);
@@ -222,12 +227,13 @@ actor_draw(Actor *actor, DiaRenderer *renderer)
   y = elem->corner.y;
   w = elem->width;
   h = elem->height;
+  actor_height = elem->height - actor->text->height;
   
   renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
   renderer_ops->set_linewidth(renderer, ACTOR_LINEWIDTH);
   renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
 
-  r = ACTOR_HEAD;
+  r = ACTOR_HEAD(actor_height);
   r1 = 2*r;
   ch.x = x + w*0.5;
   ch.y = y + r + ACTOR_MARGIN_Y;
@@ -260,7 +266,7 @@ actor_draw(Actor *actor, DiaRenderer *renderer)
 			   &actor->line_color);
 
   p2.x = ch.x - r1;
-  p2.y = y + ACTOR_BODY;
+  p2.y = y + ACTOR_BODY(actor_height);
   renderer_ops->draw_line(renderer, 
 			   &cb, &p2,
 			   &actor->line_color);
@@ -280,11 +286,16 @@ actor_update_data(Actor *actor)
   DiaObject *obj = &elem->object;
   Rectangle text_box;
   Point p;
+  real actor_height;
   
   text_calc_boundingbox(actor->text, &text_box);
 
-  elem->width = ACTOR_WIDTH + ACTOR_MARGIN_X;
-  elem->height = ACTOR_HEIGHT+actor->text->height;
+  /* minimum size */
+  if (elem->width < ACTOR_WIDTH + ACTOR_MARGIN_X)
+    elem->width = ACTOR_WIDTH + ACTOR_MARGIN_X;
+  if (elem->height < ACTOR_HEIGHT + actor->text->height)
+    elem->height = ACTOR_HEIGHT + actor->text->height;
+  actor_height = elem->height - actor->text->height;
 
   /* Update connections: */
   actor->connections[0].pos.x = elem->corner.x;
@@ -319,7 +330,7 @@ actor_update_data(Actor *actor)
 
   p = elem->corner;
   p.x += elem->width/2;
-  p.y +=  ACTOR_HEIGHT + actor->text->ascent;
+  p.y +=  actor_height + actor->text->ascent;
   text_set_position(actor->text, &p);
 
   /* Add bounding box for text: */
