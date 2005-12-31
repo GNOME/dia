@@ -511,7 +511,13 @@ uml_create_documentation_tag(gchar * comment,gint WrapPoint, gint *NumberOfLines
   gint   LengthOfComment       = strlen(comment);
   gint   CommentIndex          = 0;
   gint   LengthOfWrappedComment= 0;
-  gint   LineLen    = WrapPoint - TagLength;
+  /* Make sure that there is at least some value greater then zero for the WrapPoint to 
+   * support diagrams from earlier versions of Dia. So if the WrapPoint is zero then use
+   * the taglength as the WrapPoint. If the Tag has been changed such that it has a length
+   * of 0 then use 1.
+   */
+  gint   WorkingWrapPoint      = (WrapPoint <= TagLength )?((TagLength<=0)?1:TagLength):WrapPoint;
+  gint   LineLen    = WorkingWrapPoint - TagLength;
 
   WrappedComment[0] = '\0';
   strcat(WrappedComment, CommentTag);
@@ -557,7 +563,7 @@ uml_create_documentation_tag(gchar * comment,gint WrapPoint, gint *NumberOfLines
         }
       }
       if ((*NumberOfLines > 1) &&( LineLen == 0)){
-          LineLen = WrapPoint;
+          LineLen = WorkingWrapPoint;
       }
     }
   if (LineLen < 0){
@@ -579,7 +585,7 @@ uml_create_documentation_tag(gchar * comment,gint WrapPoint, gint *NumberOfLines
       *NumberOfLines+=1;
     }
     LengthOfWrappedComment = strlen(WrappedComment);
-    LineLen    = WrapPoint;
+    LineLen    = WorkingWrapPoint;
   }
   WrappedComment = g_realloc(WrappedComment,LengthOfWrappedComment+2);
   strcat(WrappedComment, "}");

@@ -1,5 +1,8 @@
 2005-12-30  Hans Breuer  <hans@breuer.org>
 
+	* objects/UML/class.c : Patch from Dave Klotzbach
+	fixes crash bug #325151
+
 	* app/app_procs.c : add command line parameter --nonew to allow
 	avoiding the empty start-up diagram
 	Also give a hint on where the object-libs were missing.
