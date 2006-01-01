@@ -846,6 +846,8 @@ attributes_fill_in_dialog(UMLClass *umlclass)
 
       list_item = gtk_list_item_new_with_label (attrstr);
       attr_copy = uml_attribute_new();
+      attr_copy->left_connection->object = &umlclass->element.object;
+      attr_copy->right_connection->object = &umlclass->element.object;
       uml_attribute_copy_into(attr, attr_copy);
       gtk_object_set_user_data(GTK_OBJECT(list_item), (gpointer) attr_copy);
       gtk_signal_connect (GTK_OBJECT (list_item), "destroy",
@@ -1797,6 +1799,8 @@ operations_fill_in_dialog(UMLClass *umlclass)
 
       list_item = gtk_list_item_new_with_label (opstr);
       op_copy = uml_operation_new();
+      op_copy->left_connection->object = &umlclass->element.object;
+      op_copy->right_connection->object = &umlclass->element.object;
       uml_operation_copy_into(op, op_copy);
       gtk_object_set_user_data(GTK_OBJECT(list_item), (gpointer) op_copy);
       gtk_signal_connect (GTK_OBJECT (list_item), "destroy",
@@ -2806,11 +2810,11 @@ umlclass_apply_props_from_dialog(UMLClass *umlclass, GtkWidget *widget)
   
   /* Read from dialog and put in object: */
   class_read_from_dialog(umlclass, prop_dialog);
+  attributes_read_from_dialog(umlclass, prop_dialog, UMLCLASS_CONNECTIONPOINTS);
   /* ^^^ attribs must be called before ops, to get the right order of the
      connectionpoints. */
   operations_read_from_dialog(umlclass, prop_dialog, UMLCLASS_CONNECTIONPOINTS+num_attrib*2);
   templates_read_from_dialog(umlclass, prop_dialog);
-  attributes_read_from_dialog(umlclass, prop_dialog, UMLCLASS_CONNECTIONPOINTS);
 
   /* Reestablish mainpoint */
 #ifdef UML_MAINPOINT
@@ -2966,6 +2970,8 @@ umlclass_get_state(UMLClass *umlclass)
     UMLAttribute *attr_copy;
       
     attr_copy = uml_attribute_new();
+    attr_copy->left_connection->object = &umlclass->element.object;
+    attr_copy->right_connection->object = &umlclass->element.object;
     uml_attribute_copy_into(attr, attr_copy);
     state->attributes = g_list_append(state->attributes, attr_copy);
     list = g_list_next(list);
@@ -2979,6 +2985,8 @@ umlclass_get_state(UMLClass *umlclass)
     UMLOperation *op_copy;
       
     op_copy = uml_operation_new();
+    op_copy->left_connection->object = &umlclass->element.object;
+    op_copy->right_connection->object = &umlclass->element.object;
     uml_operation_copy_into(op, op_copy);
     state->operations = g_list_append(state->operations, op_copy);
     list = g_list_next(list);

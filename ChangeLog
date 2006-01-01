@@ -1,3 +1,26 @@
+2006-01-01  Hans Breuer  <hans@breuer.org>
+
+	* objects/custom/custom_object.c(cutom_update_data) : depending 
+	on the handle moving let one scale (x or y) take precedence. 
+	(bug #308515, Eric Deplagne)
+	
+	* objects/UML/class.c : only perform the attributes check with
+	attributes visible to ged rid of false warnings
+	* objects/UML/class_dialog.c : need to setup Connection::object
+	after uml_attribute_new() and uml_operation_new(), again less
+	warnings but bug #314153 still not fixed.
+
+	* NEWS : updated
+
+	* plug-ins/python/diasvg.py : more correct svg by also writing 
+	xmlns="http://www.w3.org/200/svg"
+
+	* plug-ins/python/dot.py : skip unconnected connection lines
+	* plug-ins/python/Makefile.am : added dot.py
+
+	* plug-ins/python/pydiadoc.py plug-ins/python/codegen.py : fixed
+	typos in comments
+
 2005-12-31  Hans Breuer  <hans@breuer.org>
 
 	* objects/UML/class.[hc] objects/UML/class_dialog.c : removed the 

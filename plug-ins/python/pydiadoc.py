@@ -46,7 +46,7 @@ def distribute_objects (objs) :
 
 def autodoc_cb (data, flags) :
 	diagram = dia.new("PyDiaObjects.dia")
-	# data is not necessary valid - we are called from the Toolbox menu
+	# passed in data is not necessary valid - we are called from the Toolbox menu
 	data = diagram.data
 	layer = data.active_layer
 	display = diagram.display()
@@ -54,7 +54,7 @@ def autodoc_cb (data, flags) :
 	oType = dia.get_object_type ("UML - Class")		
 	
 	theDir = dir(dia)
-	# for refexion we need some objects ...
+	# for reflection we need some objects ...
 	theObjects = [diagram, data, layer, display, oType]
 	# add some objects with interesting properties
 	#theObjects.append(dia.DiaImage())

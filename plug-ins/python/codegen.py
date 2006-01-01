@@ -31,7 +31,7 @@ class Klass :
 		self.comment = s
 
 class ObjRenderer :
-	"Implements the Object Renderer Interface and transforms diagram info its internal representation"
+	"Implements the Object Renderer Interface and transforms diagram into its internal representation"
 	def __init__ (self) :
 		# an empty dictionary of classes
 		self.klasses = {}

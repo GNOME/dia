@@ -891,7 +891,14 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
     break;
   case SHAPE_ASPECT_FIXED:
     if (custom->xscale != custom->yscale) {
-      custom->xscale = custom->yscale = (custom->xscale + custom->yscale) / 2;
+      /* depending on the moving handle let one scale take precedence */
+      if (ANCHOR_MIDDLE != horiz && ANCHOR_MIDDLE != vert)
+        custom->xscale = custom->yscale = (custom->xscale + custom->yscale) / 2;
+      else if (ANCHOR_MIDDLE == horiz)
+        custom->xscale = custom->yscale;
+      else
+        custom->yscale = custom->xscale;
+
       elem->width = custom->xscale * (info->shape_bounds.right -
 				      info->shape_bounds.left);
       elem->height = custom->yscale * (info->shape_bounds.bottom -

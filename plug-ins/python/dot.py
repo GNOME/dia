@@ -69,6 +69,8 @@ class DotRenderer :
 						if self.edges.has_key(str(n)) :
 							continue
 						self.edges[str(n)] = 1
+						if not (n.handles[0].connected_to and n.handles[1].connected_to) :
+							continue
 						# the right handles give us the direction 
 						a = n.handles[0].connected_to.object
 						b = n.handles[1].connected_to.object

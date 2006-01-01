@@ -1,7 +1,15 @@
+* Quite some bugs fixed, at least :
+  http://bugzilla.gnome.org/buglist.cgi?product=dia&target_milestone=0.95&resolution=FIXED
+
 * Read/Write support for nested properties like operations
   with paramaters (DARRAY, StdProp). This potentially allows
   to write round-trip engineering plug-ins (UML+Python)
 
+* New or improved plug-ins written in Python, e.g.
+  - dot.py : generate DOT output, http://www.graphviz.org
+  - codegen.py : Code generator mentioned above
+  - pydiadoc.py : Python bindings by 'self reflection'
+  
 * Many plug-ins now correctly create locale independent output
 
 * The SVG import got improved (still far from complete 

@@ -2311,7 +2311,7 @@ umlclass_sanity_check(UMLClass *c, gchar *msg)
   i = 0;
   for (attrs = c->attributes; attrs != NULL; attrs = g_list_next(attrs)) {
     UMLAttribute *attr = (UMLAttribute *)attrs->data;
-    int conn_offset = UMLCLASS_CONNECTIONPOINTS + 2 * i;
+
     dia_assert_true(attr->name != NULL,
 		    "%s: %p attr %d has null name\n",
 		    msg, c, i);
@@ -2325,19 +2325,24 @@ umlclass_sanity_check(UMLClass *c, gchar *msg)
     dia_assert_true(attr->left_connection != NULL,
 		    "%s: %p attr %d has null left connection\n",
 		    msg, c, i);
-    dia_assert_true(attr->left_connection == obj->connections[conn_offset],
-		    "%s: %p attr %d left conn %p doesn't match obj conn %d: %p\n",
-		    msg, c, i, attr->left_connection,
-		    conn_offset, obj->connections[conn_offset]);
-    dia_assert_true(attr->right_connection == obj->connections[conn_offset + 1],
-		    "%s: %p attr %d right conn %p doesn't match obj conn %d: %p\n",
-		    msg, c, i, attr->right_connection,
-		    conn_offset + 1, obj->connections[conn_offset + 1]);
     dia_assert_true(attr->right_connection != NULL,
 		    "%s: %p attr %d has null right connection\n",
 		    msg, c, i);
-    
-    i++;
+
+    /* the following checks are only right with visible attributes */
+    if (c->visible_attributes && !c->suppress_attributes) {
+      int conn_offset = UMLCLASS_CONNECTIONPOINTS + 2 * i;
+
+      dia_assert_true(attr->left_connection == obj->connections[conn_offset],
+		      "%s: %p attr %d left conn %p doesn't match obj conn %d: %p\n",
+		      msg, c, i, attr->left_connection,
+		      conn_offset, obj->connections[conn_offset]);
+      dia_assert_true(attr->right_connection == obj->connections[conn_offset + 1],
+		      "%s: %p attr %d right conn %p doesn't match obj conn %d: %p\n",
+		      msg, c, i, attr->right_connection,
+		      conn_offset + 1, obj->connections[conn_offset + 1]);
+      i++;
+    }
   }
   /* Check that operations are set up right. */
 }

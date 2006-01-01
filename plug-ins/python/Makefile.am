@@ -65,7 +65,8 @@ pyplugin_DATA = \
 	otypes.py \
 	scascale.py \
 	select_by.py \
-	pydiadoc.py
+	pydiadoc.py \
+	dot.py
 
 endif
 
