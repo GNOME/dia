@@ -110,7 +110,7 @@ static void load_register_sheet(const gchar *directory,const gchar *filename,
 static gint
 dia_sheet_sort_callback(gconstpointer a, gconstpointer b)
 {
-  return strcmp(((Sheet *)(a))->name, ((Sheet *)(b))->name);
+  return g_utf8_collate(((Sheet *)(a))->name, ((Sheet *)(b))->name);
 }
 
 void
