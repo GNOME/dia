@@ -1,3 +1,9 @@
+2006-01-02  Hans Breuer  <hans@breuer.org>
+
+	* lib/diarenderer.c(draw_arc_with_arrows) : don't recalculate center
+	point and width from the (arrow-)corrected new points. Otherwise a 
+	whole new wrong arc may emerge. Fixes bug #312641.
+	
 2006-01-01  Hans Breuer  <hans@breuer.org>
 
 	* objects/custom/custom_object.c(cutom_update_data) : depending 

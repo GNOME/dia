@@ -1157,6 +1157,20 @@ find_center_point(Point *center, Point *p1, Point *p2, Point *p3)
   return TRUE;
 }
 
+static gboolean
+is_right_hand (const Point *a, const Point *b, const Point *c)
+{
+  Point dot1, dot2;
+
+  dot1 = *a;
+  point_sub(&dot1, c);
+  point_normalize(&dot1);
+  dot2 = *b;
+  point_sub(&dot2, c);
+  point_normalize(&dot2);
+  return point_cross(&dot1, &dot2) > 0;
+}
+
 static void
 draw_arc_with_arrows (DiaRenderer *renderer, 
                       Point *startpoint, 
@@ -1171,7 +1185,6 @@ draw_arc_with_arrows (DiaRenderer *renderer,
   Point oldend = *endpoint;
   Point center;
   real width, angle1, angle2;
-  Point dot1, dot2;
   gboolean righthand;
   Point start_arrow_head;
   Point start_arrow_end;
@@ -1182,15 +1195,10 @@ draw_arc_with_arrows (DiaRenderer *renderer,
     /* Degenerate circle -- should have been caught by the drawer? */
   }
 
-
-  dot1 = *startpoint;
-  point_sub(&dot1, endpoint);
-  point_normalize(&dot1);
-  dot2 = *midpoint;
-  point_sub(&dot2, endpoint);
-  point_normalize(&dot2);
-  righthand = point_cross(&dot1, &dot2) > 0;
+  righthand = is_right_hand (&center, startpoint, endpoint);
   
+  width = 2*distance_point_point(&center, startpoint);
+
   if (start_arrow != NULL && start_arrow->type != ARROW_NONE) {
     Point move_arrow, move_line;
     real tmp;
@@ -1238,16 +1246,15 @@ draw_arc_with_arrows (DiaRenderer *renderer,
     point_sub(endpoint, &move_line);
   }
 
-  if (!find_center_point(&center, startpoint, endpoint, midpoint)) {
-    /* Not sure what to do here */
-    *startpoint = oldstart;
-    *endpoint = oldend;
-    return;
-  }
-  width = 2*distance_point_point(&center, startpoint);
-  angle1 = -atan2(startpoint->y-center.y, startpoint->x-center.x)*180.0/G_PI;
+  /* Now we possibly have new start- and endpoint. We must not
+   * recalculate the center cause the new points lie on the tangential
+   * approximation of the original arc arrow lines not on the arc itself. 
+   * The one thing we need to deal with is calculating the (new) angles 
+   * and get rid of the arc drawing altogether if got degenerated.
+   */
+  angle1 = -atan2(startpoint->y - center.y, startpoint->x - center.x)*180.0/G_PI;
   while (angle1 < 0.0) angle1 += 360.0;
-  angle2 = -atan2(endpoint->y-center.y, endpoint->x-center.x)*180.0/G_PI;
+  angle2 = -atan2(endpoint->y - center.y, endpoint->x - center.x)*180.0/G_PI;
   while (angle2 < 0.0) angle2 += 360.0;
   if (righthand) {
     real tmp = angle1;
@@ -1255,8 +1262,13 @@ draw_arc_with_arrows (DiaRenderer *renderer,
     angle2 = tmp;
   }
 
-  DIA_RENDERER_GET_CLASS(renderer)->draw_arc(renderer, &center, width, width,
-			  angle1, angle2, color);
+  /* Only draw it if the original direction is preserved */
+  if (is_right_hand (&center, startpoint, endpoint) == righthand) {
+    DIA_RENDERER_GET_CLASS(renderer)->draw_arc(renderer, &center, width, width,
+			   angle1, angle2, color);
+  }
+
+
   if (start_arrow != NULL && start_arrow->type != ARROW_NONE)
     arrow_draw(renderer, start_arrow->type,
 	       &start_arrow_head, &start_arrow_end,
