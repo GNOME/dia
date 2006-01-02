@@ -1,5 +1,8 @@
 2006-01-02  Hans Breuer  <hans@breuer.org>
 
+	* app/display.c(new_display) : also append the Input Methods menu to 
+	the diagram menubar. Fixes bug #308576.
+
 	* lib/widgets.c(dia_dynamic_menu_reset) : don't use an already
 	freed string to dia_dynamic_menu_select_entry(). Fixes bug #323592.
 

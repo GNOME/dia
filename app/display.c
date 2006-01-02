@@ -138,16 +138,29 @@ selection_changed (Diagram* dia, int n, DDisplay* ddisp)
   }
 }
 
+static void
+append_im_menu (DDisplay* ddisp, GtkMenuItem* im_menu_item)
+{
+  GtkWidget* im_menu;
+  GtkWidget* im_menu_tearoff;
+  
+  im_menu = gtk_menu_new ();
+  im_menu_tearoff = gtk_tearoff_menu_item_new ();
+  gtk_menu_shell_append (GTK_MENU_SHELL(im_menu), im_menu_tearoff);
+  gtk_im_multicontext_append_menuitems (
+      GTK_IM_MULTICONTEXT(ddisp->im_context),
+      GTK_MENU_SHELL(im_menu));
+  gtk_menu_item_set_submenu (GTK_MENU_ITEM(im_menu_item), im_menu);
+}
+
 DDisplay *
 new_display(Diagram *dia)
 {
+  GtkMenuItem* im_menu_item;
   DDisplay *ddisp;
   char *filename;
   int embedded = app_is_embedded();
   Rectangle visible;
-  GtkMenuItem* im_menu_item;
-  GtkWidget* im_menu;
-  GtkWidget* im_menu_tearoff;
   static gboolean input_methods_done = FALSE;
   
   ddisp = g_new0(DDisplay,1);
@@ -240,21 +253,16 @@ new_display(Diagram *dia)
   g_hash_table_insert (display_ht, ddisp->shell, ddisp);
   g_hash_table_insert (display_ht, ddisp->canvas, ddisp);
 
-
   if (!input_methods_done) {
       im_menu_item = menus_get_item_from_path("<Display>/Input Methods", NULL);
-      if (im_menu_item) {          
-          im_menu = gtk_menu_new();
-          im_menu_tearoff = gtk_tearoff_menu_item_new();
-          gtk_menu_shell_append(GTK_MENU_SHELL(im_menu),im_menu_tearoff);
-          gtk_im_multicontext_append_menuitems(
-              GTK_IM_MULTICONTEXT(ddisp->im_context),
-              GTK_MENU_SHELL(im_menu));
-          
-          gtk_menu_item_set_submenu( GTK_MENU_ITEM(im_menu_item), im_menu);
-          input_methods_done = TRUE;
-      }
+      if (im_menu_item)
+        append_im_menu (ddisp, im_menu_item);
+      input_methods_done = TRUE;
   }
+  /* the diagram menubar gets recreated for every diagram */
+  im_menu_item = menus_get_item_from_path("<DisplayMBar>/Input Methods", ddisp->mbar_item_factory);
+  if (im_menu_item)
+    append_im_menu (ddisp, im_menu_item);
 
   return ddisp;  /*  set the user data  */
 }
