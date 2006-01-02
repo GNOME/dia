@@ -1985,11 +1985,14 @@ dia_dynamic_menu_reset(GtkWidget *item, gpointer userdata)
 {
   DiaDynamicMenu *ddm = DIA_DYNAMIC_MENU(userdata);
   PersistentList *plist = persistent_list_get(ddm->persistent_name);
+  gchar *active = g_strdup (ddm->active); 
   g_list_foreach(plist->glist, (GFunc)g_free, NULL);
   g_list_free(plist->glist);
   plist->glist = NULL;
   dia_dynamic_menu_create_menu(ddm);
-  dia_dynamic_menu_select_entry(ddm, ddm->active);
+  if (active)
+    dia_dynamic_menu_select_entry(ddm, active);
+  g_free (active);
 }
 
 /** Set the maximum number of non-default entries.

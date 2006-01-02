@@ -1,5 +1,8 @@
 2006-01-02  Hans Breuer  <hans@breuer.org>
 
+	* lib/widgets.c(dia_dynamic_menu_reset) : don't use an already
+	freed string to dia_dynamic_menu_select_entry(). Fixes bug #323592.
+
 	* lib/sheet.c(dia_sheet_sort_callback) : sort sheets according to 
 	their localized name (with g_utf8_collate). Thus not relying on the 
 	capabilities of the C libraries strcmp(). Fixes bug #160101.
