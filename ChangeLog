@@ -1,5 +1,15 @@
 2006-01-06  Hans Breuer  <hans@breuer.org>
 
+	* objects/AADL/** objects/Makefile.am sheets/Makefile.am 
+	configure.in : AADL plug-in from Pierre Duquesne. See
+	http://mail.gnome.org/archives/dia-list/2006-January/msg00005.html
+	for more information
+	* sheets/AADL.sheet.in : from the above patch but modified 
+	to become translatable like the other sheet files. That is: the
+	french translation got temporary removed cause it does not belong here.
+
+	* plug-ins/pgf/render_pgf.c : no C99/C++ comments please
+
 	* app/app_procs.c app/diaconv.c : get rid of run-on sentences
 	(Adam Weinberger, bug #325567)
 	

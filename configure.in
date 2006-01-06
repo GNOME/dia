@@ -434,6 +434,7 @@ lib/pixmaps/Makefile
 po/Makefile.in
 objects/Makefile
 dnl objects/sybase/Makefile
+objects/AADL/Makefile
 objects/bondgraph/Makefile
 objects/chronogram/Makefile
 objects/custom/Makefile

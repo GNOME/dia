@@ -745,7 +745,7 @@ pgf_ellipse(PgfRenderer *renderer,
     if (!filled) {set_line_color(renderer,color);}
     else {set_fill_color(renderer,color);}
 
-//"\\%sdraw (%s\\du,%s\\du) ellipse (%s\\du and %s\\du)\n",
+/* "\\%sdraw (%s\\du,%s\\du) ellipse (%s\\du and %s\\du)\n", */
     fprintf(renderer->file, 
 	    "\\pgfpathellipse{\\pgfpoint{%s\\du}{%s\\du}}"
 	                    "{\\pgfpoint{%s\\du}{0\\du}}"
@@ -830,7 +830,7 @@ pgf_bezier(PgfRenderer *renderer,
     if (filled)
 	fprintf(renderer->file, "\\pgfusepath{fill}\n");
 	
-//	fill[fillstyle=solid,fillcolor=diafillcolor,linecolor=diafillcolor]}\n");
+/*	fill[fillstyle=solid,fillcolor=diafillcolor,linecolor=diafillcolor]}\n"); */
     else
 	fprintf(renderer->file, "\\pgfusepath{stroke}\n");
 }
