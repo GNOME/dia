@@ -1,5 +1,11 @@
 2006-01-06  Hans Breuer  <hans@breuer.org>
 
+	* objects/AADL/aadl.h : avoid redefinition warnings by #undef
+	min, #undef max before local definitions
+	* objects/AADL/aadl.h : more prototypes
+	* objects/AADL/aadltext.c : for C89 declarations must be at the
+	beginning of a block. And Dia *must* be compileable with C89.
+
 	* objects/AADL/** objects/Makefile.am sheets/Makefile.am 
 	configure.in : AADL plug-in from Pierre Duquesne. See
 	http://mail.gnome.org/archives/dia-list/2006-January/msg00005.html

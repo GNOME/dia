@@ -36,7 +36,9 @@
 #include "properties.h"
 #include "app/display.h"
 
+#undef min
 #define min(a,b) (a<b?a:b)
+#undef max
 #define max(a,b) (a>b?a:b)
 
 #define L1 printf("%d\n", __LINE__);
@@ -213,7 +215,15 @@ void aadlprocess_text_position(Aadlbox *aadlbox, Point *p);
 real aadlprocess_blank_space_height(Aadlbox *aadlbox);
 real aadlprocess_blank_space_width(Aadlbox *aadlbox);
 
+/* aadlthread.c */
+void aadlbox_draw_inclined_box(Aadlbox *aadlbox, DiaRenderer *renderer,
+				      LineStyle linestyle);
 /* aadlsubprogram.c */
 void
 aadlsubprogram_project_point_on_nearest_border(Aadlbox *aadlbox,Point *p,
 					       real *angle);
+/* aadlsystem.c */
+void aadlbox_draw_rounded_box (Aadlbox *aadlbox, DiaRenderer *renderer,
+			       LineStyle linestyle);
+
+

@@ -68,9 +68,11 @@ void aadlprocess_minsize(Aadlbox *aadlbox, Point *size)
      L == 2d + w   and   d == L*Factor   <===>  L == w / (1 - 2*Factor)
   
   */
+  real w, L;
+  
   text_calc_boundingbox(aadlbox->name, NULL);
-  real w = aadlbox->name->max_width + 2*AADLBOX_TEXT_MARGIN;
-  real L = w / (1 - 2 * AADLBOX_INCLINE_FACTOR);
+  w = aadlbox->name->max_width + 2*AADLBOX_TEXT_MARGIN;
+  L = w / (1 - 2 * AADLBOX_INCLINE_FACTOR);
   
   size->x = L;
   size->y = aadlbox->name->height * aadlbox->name->numlines 
@@ -91,13 +93,15 @@ void aadlbus_text_position(Aadlbox *aadlbox, Point *p)
 
 void aadlbus_minsize(Aadlbox *aadlbox, Point *size)
 {
-  text_calc_boundingbox(aadlbox->name, NULL);
-  real w = aadlbox->name->max_width + 2*AADLBOX_TEXT_MARGIN;
-  real L = w / (1 - 2 * AADL_BUS_ARROW_SIZE_FACTOR);
+  real w, L, h, H;
   
-  real h = aadlbox->name->height * aadlbox->name->numlines 
+  text_calc_boundingbox(aadlbox->name, NULL);
+  w = aadlbox->name->max_width + 2*AADLBOX_TEXT_MARGIN;
+  L = w / (1 - 2 * AADL_BUS_ARROW_SIZE_FACTOR);
+  
+  h = aadlbox->name->height * aadlbox->name->numlines 
                     + 2*AADLBOX_TEXT_MARGIN;
-  real H = h / (1 - 2 * AADL_BUS_HEIGHT_FACTOR);
+  H = h / (1 - 2 * AADL_BUS_HEIGHT_FACTOR);
   
   size->x = L;
   size->y = H;
@@ -120,13 +124,15 @@ void aadlsystem_text_position(Aadlbox *aadlbox, Point *p)
 
 void aadlsystem_minsize(Aadlbox *aadlbox, Point *size)
 {
-  text_calc_boundingbox(aadlbox->name, NULL);
-  real w = aadlbox->name->max_width + 2*AADLBOX_TEXT_MARGIN;
-  real L = w / (1 - 2 * SYSTEM_FACTOR);
+  real w, L, h, H;
   
-  real h = aadlbox->name->height * aadlbox->name->numlines 
+  text_calc_boundingbox(aadlbox->name, NULL);
+  w = aadlbox->name->max_width + 2*AADLBOX_TEXT_MARGIN;
+  L = w / (1 - 2 * SYSTEM_FACTOR);
+  
+  h = aadlbox->name->height * aadlbox->name->numlines 
                     + 2*AADLBOX_TEXT_MARGIN;
-  real H = h / (1 - 2 * SYSTEM_FACTOR);
+  H = h / (1 - 2 * SYSTEM_FACTOR);
   
   size->x = L;
   size->y = H;
@@ -147,12 +153,14 @@ void aadlmemory_text_position(Aadlbox *aadlbox, Point *p)
 
 void aadlmemory_minsize(Aadlbox *aadlbox, Point *size)
 {
-  text_calc_boundingbox(aadlbox->name, NULL);
-  real w = aadlbox->name->max_width + 2*AADLBOX_TEXT_MARGIN;
+  real w, h, H;
   
-  real h = aadlbox->name->height * aadlbox->name->numlines 
+  text_calc_boundingbox(aadlbox->name, NULL);
+  w = aadlbox->name->max_width + 2*AADLBOX_TEXT_MARGIN;
+  
+  h = aadlbox->name->height * aadlbox->name->numlines 
                     + 2*AADLBOX_TEXT_MARGIN;
-  real H = h / (1 - 3 * MEMORY_FACTOR);
+  H = h / (1 - 3 * MEMORY_FACTOR);
   
   size->x = w;
   size->y = H;
@@ -171,10 +179,12 @@ void aadlsubprogram_text_position(Aadlbox *aadlbox, Point *p)
 
 void aadlsubprogram_minsize(Aadlbox *aadlbox, Point *size)
 {
+  real w, h;
+  
   text_calc_boundingbox(aadlbox->name, NULL);
 
-  real w = aadlbox->name->max_width + 2*AADLBOX_TEXT_MARGIN;
-  real h = aadlbox->name->height * aadlbox->name->numlines 
+  w = aadlbox->name->max_width + 2*AADLBOX_TEXT_MARGIN;
+  h = aadlbox->name->height * aadlbox->name->numlines 
                   + 2*AADLBOX_TEXT_MARGIN;
 
   size->x = w * sqrt(2);
