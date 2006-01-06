@@ -879,9 +879,9 @@ app_init (int argc, char **argv)
 
   if (object_get_type("Standard - Box") == NULL) {
     message_error(_("Couldn't find standard objects when looking for "
-		  "object-libs, exiting...\n"));
+		  "object-libs; exiting...\n"));
     g_critical( _("Couldn't find standard objects when looking for "
-	    "object-libs in '%s', exiting...\n"), dia_get_lib_directory("dia"));
+	    "object-libs in '%s'; exiting...\n"), dia_get_lib_directory("dia"));
     exit(1);
   }
 

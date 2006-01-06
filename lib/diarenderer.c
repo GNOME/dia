@@ -1184,7 +1184,7 @@ draw_arc_with_arrows (DiaRenderer *renderer,
   Point oldstart = *startpoint;
   Point oldend = *endpoint;
   Point center;
-  real width, angle1, angle2;
+  real width, angle1, angle2, arrow_ofs = 0.0;
   gboolean righthand;
   Point start_arrow_head;
   Point start_arrow_end;
@@ -1195,7 +1195,7 @@ draw_arc_with_arrows (DiaRenderer *renderer,
     /* Degenerate circle -- should have been caught by the drawer? */
   }
 
-  righthand = is_right_hand (&center, startpoint, endpoint);
+  righthand = is_right_hand (startpoint, midpoint, endpoint);
   
   width = 2*distance_point_point(&center, startpoint);
 
@@ -1221,6 +1221,7 @@ draw_arc_with_arrows (DiaRenderer *renderer,
     start_arrow_head = *startpoint;
     point_sub(&start_arrow_head, &move_arrow);
     point_sub(startpoint, &move_line);
+    arrow_ofs += sqrt (move_line.x * move_line.x + move_line.y * move_line.y);
   }
   if (end_arrow != NULL && end_arrow->type != ARROW_NONE) {
     Point move_arrow, move_line;
@@ -1244,6 +1245,7 @@ draw_arc_with_arrows (DiaRenderer *renderer,
     end_arrow_head = *endpoint;
     point_sub(&end_arrow_head, &move_arrow);
     point_sub(endpoint, &move_line);
+    arrow_ofs += sqrt (move_line.x * move_line.x + move_line.y * move_line.y);
   }
 
   /* Now we possibly have new start- and endpoint. We must not
@@ -1261,9 +1263,19 @@ draw_arc_with_arrows (DiaRenderer *renderer,
     angle1 = angle2;
     angle2 = tmp;
   }
+  /* now with the angles we can bring the startpoint back to the arc, but there must be a less expensive way to do this? */
+  if (start_arrow != NULL && start_arrow->type != ARROW_NONE) {
+    startpoint->x = cos (G_PI * angle1 / 180.0) * width / 2.0 + center.x;
+    startpoint->y = sin (G_PI * angle1 / 180.0) * width / 2.0 + center.y;
+  }
+  if (end_arrow != NULL && end_arrow->type != ARROW_NONE) {
+    endpoint->x = cos (G_PI * angle1 / 180.0) * width / 2.0 + center.x;
+    endpoint->y = sin (G_PI * angle1 / 180.0) * width / 2.0 + center.y;
+  }
 
   /* Only draw it if the original direction is preserved */
-  if (is_right_hand (&center, startpoint, endpoint) == righthand) {
+  if (   is_right_hand (startpoint, midpoint, endpoint) == righthand
+      && arrow_ofs < (distance_point_point(startpoint, midpoint) + distance_point_point(midpoint, endpoint))) {
     DIA_RENDERER_GET_CLASS(renderer)->draw_arc(renderer, &center, width, width,
 			   angle1, angle2, color);
   }
