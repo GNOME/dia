@@ -1,6 +1,6 @@
 !IFNDEF PACKAGE
 
-PLUGINS = bondgraph chronogram custom er flowchart fs grafcet \
+PLUGINS = aadl bondgraph chronogram custom er flowchart fs grafcet \
 	Istar Jackson Kaos misc network sadt standard uml
 
 #outdated:	labels
@@ -45,6 +45,27 @@ PKG_LINK = $(GLIB_LIBS) $(INTL_LIBS) \
 #
 # Object definitions for the various plugins
 #
+!IFDEF OBJ_aadl
+OBJECTS = \
+	aadl.obj \
+	aadlbox.obj \
+	aadlbus.obj \
+	aadldata.obj \
+	aadldevice.obj \
+	aadlmemory.obj \
+	aadlpackage.obj \
+	aadlport.obj \
+	aadlprocess.obj \
+	aadlprocessor.obj \
+	aadlsubprogram.obj \
+	aadlsystem.obj \
+	aadltext.obj \
+	aadlthread.obj \
+	aadlthreadgroup.obj \
+	edit_port_declaration.obj
+
+PKG_LINK = $(PKG_LINK) $(GTK2_LIBS)
+!ENDIF
 
 !IFDEF OBJ_bondgraph
 OBJECTS = \

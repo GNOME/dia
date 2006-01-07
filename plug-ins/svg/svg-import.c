@@ -183,7 +183,7 @@ read_path_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list)
     Handle *h1, *h2;
     BezierCreateData *bcd;
     gchar *str, *pathdata, *unparsed = NULL;
-    GArray *bezpoints;
+    GArray *bezpoints = NULL;
     gboolean closed = FALSE;
     
     pathdata = str = xmlGetProp(node, "d");
@@ -191,7 +191,11 @@ read_path_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list)
       bezpoints = dia_svg_parse_path (pathdata, &unparsed, &closed);
 
       if (bezpoints && bezpoints->len > 0) {
-        if (!closed)
+        if (g_array_index(bezpoints, BezPoint, 0).type != BEZ_MOVE_TO) {
+          message_warning (_("Invalid path data.\n"
+	                     "svg:path data must start with moveto."));
+	  break;
+        } else if (!closed)
 	  otype = object_get_type("Standard - BezierLine");
         else
 	  otype = object_get_type("Standard - Beziergon");
@@ -214,12 +218,12 @@ read_path_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list)
       unparsed = NULL;
     } while (pathdata);
 
-    g_array_free(bezpoints, TRUE);
+    if (bezpoints)
+      g_array_free (bezpoints, TRUE);
     xmlFree (str);
 
     return list;
 }
-
 
 /* read a text */
 static GList *

@@ -115,7 +115,7 @@ void shape_info_realise(ShapeInfo* info)
 
 
 static void
-parse_path(ShapeInfo *info, const char *path_str, DiaSvgStyle *s)
+parse_path(ShapeInfo *info, const char *path_str, DiaSvgStyle *s, const char* filename)
 {
   GArray *points;
   gchar *pathdata = (gchar *)path_str, *unparsed;
@@ -125,8 +125,12 @@ parse_path(ShapeInfo *info, const char *path_str, DiaSvgStyle *s)
     points = dia_svg_parse_path (pathdata, &unparsed, &closed);
 
     if (points->len > 0) {
-      /* if there is some unclosed commands, add them as a GE_SHAPE */
-      if (closed) {
+      if (g_array_index(points, BezPoint, 0).type != BEZ_MOVE_TO) {
+        message_warning (_("The file '%s' has invalid path data.\n"
+	                   "svg:path data must start with moveto."),
+			   dia_message_filename(filename));
+      } else if (closed) {
+        /* if there is some unclosed commands, add them as a GE_SHAPE */
 	GraphicElementPath *el = g_malloc(sizeof(GraphicElementPath) +
 					    points->len * sizeof(BezPoint));
 	el->type = GE_SHAPE;
@@ -349,7 +353,7 @@ parse_svg_node(ShapeInfo *info, xmlNodePtr node, xmlNsPtr svg_ns,
     } else if (!strcmp(node->name, "path")) {
       str = xmlGetProp(node, "d");
       if (str) {
-        parse_path(info, str, &s);
+        parse_path(info, str, &s, filename);
         xmlFree(str);
       }
     } else if (!strcmp(node->name, "image")) {

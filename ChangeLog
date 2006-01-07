@@ -1,3 +1,16 @@
+2006-01-07  Hans Breuer  <hans@breuer.org>
+
+	* objects/custom/shape_info.c(parse_path) : handle the case of 
+	invalid path data more gracefully, i.e. show a warning instead 
+	of crashing later on.
+	* plug-ins/svg/svg-import.c(read_path_svg) : ditto.
+	
+	* configure.in sheets/Makefile.am shapes/Gane_and_Sarson 
+	  shapes/Makefile.am : added Gane & Sarson shapes 
+	(Nick Moore, #319544)
+
+	* objects/makefile.msc : building AADL on win32
+
 2006-01-06  Hans Breuer  <hans@breuer.org>
 
 	* objects/AADL/aadl.h : avoid redefinition warnings by #undef

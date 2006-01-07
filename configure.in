@@ -460,6 +460,7 @@ shapes/Contact/Makefile
 shapes/Cybernetics/Makefile
 shapes/Electric/Makefile
 shapes/flowchart/Makefile
+shapes/Gane_and_Sarson/Makefile
 shapes/jigsaw/Makefile
 shapes/Logic/Makefile
 shapes/Map/Makefile
