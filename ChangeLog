@@ -14,10 +14,7 @@
 	* lib/geometry.h : removed unused functions just producing warnings
 	[sometimes it's good to read compiler warnings]
 	* plug-ins/cairo/diacairo.c : somehow a function call got lost
-	(left-hand operand of comma expression has no effect)
-	* plug-ins/metapost/render_metapost.c : dia_message_filename()
-	wants a char* not a FILE* (passing arg 1 of `dia_message_filename'
-	from incompatible pointer type)
+	(left-hand operand of comma expression has no effect)	* plug-ins/metapost/render_metapost.c : dia_message_filename()	wants a char* not a FILE* (passing arg 1 of `dia_message_filename'	from incompatible pointer type)
 
 2006-01-07  Hans Breuer  <hans@breuer.org>
 
