@@ -249,6 +249,8 @@ EXTRA_DIST = \
 	dia.ico \
 	dia.rc \
 	\
+	diaconv.c \
+	\
 	pixmaps/arrow.xpm \
 	pixmaps/swap.xpm \
 	pixmaps/default.xpm \

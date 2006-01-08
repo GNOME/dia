@@ -1,3 +1,24 @@
+2006-01-08  Hans Breuer  <hans@breuer.org>
+
+	* shapes/Gane_and_Sarson/Makefile.am : correct spelling of filenames.
+	(Narcelio Filho, #326075)
+
+	* objects/AADL/aadl.h : remove #include "app/display.h". It is not needed,
+	plug-ins should not depend on app/* and it even breaks 'make distcheck'.
+	* objects/AADL/Makefile.am : added edit_port_declaration.h
+	* app/Makefile.am : added diaconv.c to EXTRA_DIST
+	=> 'make distcheck' passes again.
+
+	* configure.in : use some more of gcc's useful warnings
+
+	* lib/geometry.h : removed unused functions just producing warnings
+	[sometimes it's good to read compiler warnings]
+	* plug-ins/cairo/diacairo.c : somehow a function call got lost
+	(left-hand operand of comma expression has no effect)
+	* plug-ins/metapost/render_metapost.c : dia_message_filename()
+	wants a char* not a FILE* (passing arg 1 of `dia_message_filename'
+	from incompatible pointer type)
+
 2006-01-07  Hans Breuer  <hans@breuer.org>
 
 	* objects/custom/shape_info.c(parse_path) : handle the case of 

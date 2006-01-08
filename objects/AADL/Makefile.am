@@ -18,6 +18,7 @@ libaadl_objects_la_SOURCES = \
                              aadlthread.c 	  \
                              aadlthreadgroup.c    \
                              aadlpackage.c        \
+                             edit_port_declaration.h \
                              edit_port_declaration.c 
 
 libaadl_objects_la_LDFLAGS = -export-dynamic -module -avoid-version

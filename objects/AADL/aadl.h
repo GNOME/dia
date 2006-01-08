@@ -34,7 +34,6 @@
 #include "attributes.h"
 #include "text.h"
 #include "properties.h"
-#include "app/display.h"
 
 #undef min
 #define min(a,b) (a<b?a:b)

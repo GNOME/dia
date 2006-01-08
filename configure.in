@@ -384,6 +384,10 @@ if test "$GCC" = yes; then
 
   DIA_CHECK_CFLAG(-Wall)
   DIA_CHECK_CFLAG(-Wunused)
+  DIA_CHECK_CFLAG(--std=c89)
+  DIA_CHECK_CFLAG(-Wdeclaration-after-statement)
+  dnl I'd rather like to enable this but it fails on isnan() with -std=c89
+  dnl DIA_CHECK_CFLAG(-Werror-implicit-function-declaration)
   dnl Premature optimization is the root of all evil.  Uncomment this if
   dnl you want ti figure out functions that should have been inlined but aint.
   dnl DIA_CHECK_CFLAG(-Winline)

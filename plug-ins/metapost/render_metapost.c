@@ -1105,7 +1105,7 @@ export_metapost(DiagramData *data, const gchar *filename,
 
     if (file==NULL) {
 	message_error(_("Can't open output file %s: %s\n"), 
-		      dia_message_filename(file), strerror(errno));
+		      dia_message_filename(filename), strerror(errno));
         return;
     }
 

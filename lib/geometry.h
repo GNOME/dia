@@ -279,42 +279,6 @@ rectangle_equals(const Rectangle *r1, const Rectangle *r2)
 }
 #endif
 
-G_INLINE_FUNC void check_bb_x( Rectangle *bb, real val, real check );
-#ifdef G_CAN_INLINE
-G_INLINE_FUNC void 
-check_bb_x( Rectangle *bb, real val, real check )
-{
-  /* if x is outside the bounding box, and check is real, adjust the bb */
-  if (finite(check)) { 
-    if (bb->left > val) bb->left = val; 
-    if (bb->right < val) bb->right = val; 
-  }
-}
-#endif
-
-G_INLINE_FUNC void check_bb_y( Rectangle *bb, real val, real check );
-#ifdef G_CAN_INLINE
-G_INLINE_FUNC void 
-check_bb_y( Rectangle *bb, real val, real check )
-{
-  /* if y is outside the bounding box, and check is real, adjust the bb */
-  if (finite(check)) { 
-    if (bb->top > val) bb->top = val; 
-    if (bb->bottom < val) bb->bottom = (val); 
-  } 
-}
-#endif
-
-G_INLINE_FUNC void check_bb_pt( Rectangle *bb, const Point *pt, real check );
-#ifdef G_CAN_INLINE
-G_INLINE_FUNC void 
-check_bb_pt( Rectangle *bb, const Point *pt, real check )
-{
-  /* if pt is outside the bounding box, and check is real, adjust the bb */
-  if (finite(check)) rectangle_add_point(bb,pt);
-}
-#endif
-
 G_INLINE_FUNC real distance_point_point(const Point *p1, const Point *p2);
 #ifdef G_CAN_INLINE
 G_INLINE_FUNC real

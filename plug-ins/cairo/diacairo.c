@@ -148,11 +148,11 @@ begin_render(DiaRenderer *self)
     {
       /* restore to default drawing */
       cairo_set_operator (renderer->cr, CAIRO_OPERATOR_OVER);
-       (renderer->cr,
-                       renderer->dia->bg_color.red, 
-                       renderer->dia->bg_color.green, 
-                       renderer->dia->bg_color.blue,
-                       1.0);
+      cairo_set_source_rgba (renderer->cr,
+                             renderer->dia->bg_color.red, 
+                             renderer->dia->bg_color.green, 
+                             renderer->dia->bg_color.blue,
+                             1.0);
     }
   DIAG_STATE(renderer->cr)
 }
@@ -1060,6 +1060,7 @@ export_data(DiagramData *data, const gchar *filename,
   g_object_unref(renderer);
 }
 
+#ifdef CAIRO_HAS_PS_SURFACE
 static const gchar *ps_extensions[] = { "ps", NULL };
 static DiaExportFilter ps_export_filter = {
     N_("Cairo PostScript"),
@@ -1068,7 +1069,9 @@ static DiaExportFilter ps_export_filter = {
     (void*)OUTPUT_PS,
     "cairo-ps" /* unique name */
 };
+#endif
 
+#ifdef CAIRO_HAS_PDF_SURFACE
 static const gchar *pdf_extensions[] = { "pdf", NULL };
 static DiaExportFilter pdf_export_filter = {
     N_("Cairo Portable Document Format"),
@@ -1077,6 +1080,7 @@ static DiaExportFilter pdf_export_filter = {
     (void*)OUTPUT_PDF,
     "cairo-pdf"
 };
+#endif
 
 static const gchar *png_extensions[] = { "png", NULL };
 static DiaExportFilter png_export_filter = {
