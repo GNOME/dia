@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-01-02 21:44-0500\n"
+"POT-Creation-Date: 2006-01-09 22:21-0500\n"
 "PO-Revision-Date: 2005-09-06 16:52-0400\n"
 "Last-Translator: Adam Weinberger <adamw@gnome.org>\n"
 "Language-Team: Canadian English <adamw@gnome.org>\n"
@@ -152,14 +152,14 @@ msgstr "Dia version %s\n"
 #: ../app/app_procs.c:881 ../app/diaconv.c:201 ../app/diaconv.c:203
 #, c-format
 msgid ""
-"Couldn't find standard objects when looking for object-libs, exiting...\n"
+"Couldn't find standard objects when looking for object-libs; exiting...\n"
 msgstr ""
 "Could not find standard objects when looking for object-libs; exiting...\n"
 
 #: ../app/app_procs.c:883
 #, c-format
 msgid ""
-"Couldn't find standard objects when looking for object-libs in '%s', "
+"Couldn't find standard objects when looking for object-libs in '%s'; "
 "exiting...\n"
 msgstr ""
 "Could not find standard objects when looking for object-libs in '%s'; "
@@ -702,11 +702,11 @@ msgstr "Selection of %d objects"
 msgid "Selected '%s'"
 msgstr "Selected '%s'"
 
-#: ../app/display.c:1061
+#: ../app/display.c:1063
 msgid "<unnamed>"
 msgstr "<unnamed>"
 
-#: ../app/display.c:1063
+#: ../app/display.c:1065
 #, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -715,11 +715,11 @@ msgstr ""
 "The diagram '%s'\n"
 "has not been saved. Save changes now?"
 
-#: ../app/display.c:1074
+#: ../app/display.c:1076
 msgid "Close Diagram"
 msgstr "Close Diagram"
 
-#: ../app/display.c:1079
+#: ../app/display.c:1081
 msgid "Discard Changes"
 msgstr "Discard Changes"
 
@@ -876,14 +876,15 @@ msgid "Scroll"
 msgstr "Scroll"
 
 #: ../app/interface.c:69 ../app/interface.c:70 ../lib/properties.c:79
-#: ../lib/properties.h:520 ../objects/Jackson/requirement.c:142
-#: ../objects/UML/activity.c:126 ../objects/UML/actor.c:122
-#: ../objects/UML/classicon.c:144 ../objects/UML/component.c:128
-#: ../objects/UML/component_feature.c:155 ../objects/UML/node.c:127
-#: ../objects/UML/note.c:121 ../objects/UML/object.c:147
-#: ../objects/UML/small_package.c:128 ../objects/UML/state.c:152
-#: ../objects/UML/usecase.c:138 ../objects/custom/custom_object.c:200
-#: ../objects/network/basestation.c:133 ../objects/network/radiocell.c:146
+#: ../lib/properties.h:520 ../objects/AADL/aadlbox.c:144
+#: ../objects/Jackson/requirement.c:142 ../objects/UML/activity.c:126
+#: ../objects/UML/actor.c:122 ../objects/UML/classicon.c:144
+#: ../objects/UML/component.c:128 ../objects/UML/component_feature.c:155
+#: ../objects/UML/node.c:127 ../objects/UML/note.c:121
+#: ../objects/UML/object.c:147 ../objects/UML/small_package.c:128
+#: ../objects/UML/state.c:152 ../objects/UML/usecase.c:138
+#: ../objects/custom/custom_object.c:200 ../objects/network/basestation.c:133
+#: ../objects/network/radiocell.c:146
 msgid "Text"
 msgstr "Text"
 
@@ -1182,19 +1183,19 @@ msgstr "/File/P_lugins..."
 msgid "/File/_Quit"
 msgstr "/File/_Quit"
 
-#: ../app/menus.c:73 ../app/menus.c:261
+#: ../app/menus.c:73 ../app/menus.c:262
 msgid "/_Help"
 msgstr "/_Help"
 
-#: ../app/menus.c:75 ../app/menus.c:263
+#: ../app/menus.c:75 ../app/menus.c:264
 msgid "/Help/_Contents"
 msgstr "/Help/_Contents"
 
-#: ../app/menus.c:77 ../app/menus.c:265
+#: ../app/menus.c:77 ../app/menus.c:266
 msgid "/Help/---"
 msgstr "/Help/---"
 
-#: ../app/menus.c:78 ../app/menus.c:266
+#: ../app/menus.c:78 ../app/menus.c:267
 msgid "/Help/_About..."
 msgstr "/Help/_About..."
 
@@ -1258,366 +1259,367 @@ msgstr "/Edit/_Duplicate"
 msgid "/Edit/_Delete"
 msgstr "/Edit/_Delete"
 
-#: ../app/menus.c:130
+#. the following used to bind to <control><shift>C which collides with Unicode input. <control>>alt> doesn't work either
+#: ../app/menus.c:131
 msgid "/Edit/Copy Text"
 msgstr "/Edit/Copy Text"
 
-#: ../app/menus.c:132
+#: ../app/menus.c:133
 msgid "/Edit/Cut Text"
 msgstr "/Edit/Cut Text"
 
-#: ../app/menus.c:134
+#: ../app/menus.c:135
 msgid "/Edit/Paste _Text"
 msgstr "/Edit/Paste _Text"
 
-#: ../app/menus.c:136
+#: ../app/menus.c:137
 msgid "/_Diagram"
 msgstr "/_Diagram"
 
-#: ../app/menus.c:138
+#: ../app/menus.c:139
 msgid "/Diagram/_Properties..."
 msgstr "/Diagram/_Properties..."
 
-#: ../app/menus.c:140
+#: ../app/menus.c:141
 msgid "/Diagram/_Layers..."
 msgstr "/Diagram/_Layers..."
 
-#: ../app/menus.c:141
+#: ../app/menus.c:142
 msgid "/_View"
 msgstr "/_View"
 
-#: ../app/menus.c:143
+#: ../app/menus.c:144
 msgid "/View/Zoom _In"
 msgstr "/View/Zoom _In"
 
-#: ../app/menus.c:145
+#: ../app/menus.c:146
 msgid "/View/Zoom _Out"
 msgstr "/View/Zoom _Out"
 
-#: ../app/menus.c:147
+#: ../app/menus.c:148
 msgid "/View/_Zoom"
 msgstr "/View/_Zoom"
 
-#: ../app/menus.c:149
+#: ../app/menus.c:150
 msgid "/View/Zoom/1600%"
 msgstr "/View/Zoom/1600%"
 
-#: ../app/menus.c:150
+#: ../app/menus.c:151
 msgid "/View/Zoom/800%"
 msgstr "/View/Zoom/800%"
 
-#: ../app/menus.c:151
+#: ../app/menus.c:152
 msgid "/View/Zoom/400%"
 msgstr "/View/Zoom/400%"
 
-#: ../app/menus.c:152
+#: ../app/menus.c:153
 msgid "/View/Zoom/283%"
 msgstr "/View/Zoom/283%"
 
-#: ../app/menus.c:153
+#: ../app/menus.c:154
 msgid "/View/Zoom/200%"
 msgstr "/View/Zoom/200%"
 
-#: ../app/menus.c:154
+#: ../app/menus.c:155
 msgid "/View/Zoom/141%"
 msgstr "/View/Zoom/141%"
 
-#: ../app/menus.c:155
+#: ../app/menus.c:156
 msgid "/View/Zoom/100%"
 msgstr "/View/Zoom/100%"
 
-#: ../app/menus.c:157
+#: ../app/menus.c:158
 msgid "/View/Zoom/85%"
 msgstr "/View/Zoom/85%"
 
-#: ../app/menus.c:158
+#: ../app/menus.c:159
 msgid "/View/Zoom/70.7%"
 msgstr "/View/Zoom/70.7%"
 
-#: ../app/menus.c:159
+#: ../app/menus.c:160
 msgid "/View/Zoom/50%"
 msgstr "/View/Zoom/50%"
 
-#: ../app/menus.c:160
+#: ../app/menus.c:161
 msgid "/View/Zoom/35.4%"
 msgstr "/View/Zoom/35.4%"
 
-#: ../app/menus.c:161
+#: ../app/menus.c:162
 msgid "/View/Zoom/25%"
 msgstr "/View/Zoom/25%"
 
-#: ../app/menus.c:162 ../app/menus.c:172
+#: ../app/menus.c:163 ../app/menus.c:173
 msgid "/View/---"
 msgstr "/View/---"
 
-#: ../app/menus.c:163
+#: ../app/menus.c:164
 msgid "/View/Fullscr_een"
 msgstr "/View/Fullscr_een"
 
-#: ../app/menus.c:165
+#: ../app/menus.c:166
 msgid "/View/_AntiAliased"
 msgstr "/View/_AntiAliased"
 
-#: ../app/menus.c:167
+#: ../app/menus.c:168
 msgid "/View/Show _Grid"
 msgstr "/View/Show _Grid"
 
-#: ../app/menus.c:168
+#: ../app/menus.c:169
 msgid "/View/_Snap To Grid"
 msgstr "/View/_Snap To Grid"
 
-#: ../app/menus.c:169
+#: ../app/menus.c:170
 msgid "/View/_Snap To Objects"
 msgstr "/View/_Snap To Objects"
 
-#: ../app/menus.c:170
+#: ../app/menus.c:171
 msgid "/View/Show _Rulers"
 msgstr "/View/Show _Rulers"
 
-#: ../app/menus.c:171
+#: ../app/menus.c:172
 msgid "/View/Show _Connection Points"
 msgstr "/View/Show _Connection Points"
 
-#: ../app/menus.c:173
+#: ../app/menus.c:174
 msgid "/View/New _View"
 msgstr "/View/New _View"
 
 #. Show All, Best Fit.  Same as the Gimp, Ctrl+E
-#: ../app/menus.c:175
+#: ../app/menus.c:176
 msgid "/View/Show _All"
 msgstr "/View/Show _All"
 
-#: ../app/menus.c:177
+#: ../app/menus.c:178
 msgid "/View/Re_draw"
 msgstr "/View/Re_draw"
 
-#: ../app/menus.c:179
+#: ../app/menus.c:180
 msgid "/_Objects"
 msgstr "/_Objects"
 
-#: ../app/menus.c:181
+#: ../app/menus.c:182
 msgid "/Objects/Send to _Back"
 msgstr "/Objects/Send to _Back"
 
-#: ../app/menus.c:183
+#: ../app/menus.c:184
 msgid "/Objects/Bring to _Front"
 msgstr "/Objects/Bring to _Front"
 
-#: ../app/menus.c:185
+#: ../app/menus.c:186
 msgid "/Objects/Send Backwards"
 msgstr "/Objects/Send Backwards"
 
-#: ../app/menus.c:187
+#: ../app/menus.c:188
 msgid "/Objects/Bring Forwards"
 msgstr "/Objects/Bring Forwards"
 
-#: ../app/menus.c:189 ../app/menus.c:195 ../app/menus.c:199 ../app/menus.c:217
+#: ../app/menus.c:190 ../app/menus.c:196 ../app/menus.c:200 ../app/menus.c:218
 msgid "/Objects/---"
 msgstr "/Objects/---"
 
-#: ../app/menus.c:190
+#: ../app/menus.c:191
 msgid "/Objects/_Group"
 msgstr "/Objects/_Group"
 
 #. deliberately not using Ctrl+U for Ungroup
-#: ../app/menus.c:193
+#: ../app/menus.c:194
 msgid "/Objects/_Ungroup"
 msgstr "/Objects/_Ungroup"
 
-#: ../app/menus.c:196
+#: ../app/menus.c:197
 msgid "/Objects/_Parent"
 msgstr "/Objects/_Parent"
 
-#: ../app/menus.c:197
+#: ../app/menus.c:198
 msgid "/Objects/_Unparent"
 msgstr "/Objects/_Unparent"
 
-#: ../app/menus.c:198
+#: ../app/menus.c:199
 msgid "/Objects/_Unparent Children"
 msgstr "/Objects/_Unparent Children"
 
-#: ../app/menus.c:200
+#: ../app/menus.c:201
 msgid "/Objects/Align"
 msgstr "/Objects/Align"
 
-#: ../app/menus.c:202
+#: ../app/menus.c:203
 msgid "/Objects/Align/Left"
 msgstr "/Objects/Align/Left"
 
-#: ../app/menus.c:204
+#: ../app/menus.c:205
 msgid "/Objects/Align/Center"
 msgstr "/Objects/Align/Centre"
 
-#: ../app/menus.c:206
+#: ../app/menus.c:207
 msgid "/Objects/Align/Right"
 msgstr "/Objects/Align/Right"
 
-#: ../app/menus.c:208 ../app/menus.c:212
+#: ../app/menus.c:209 ../app/menus.c:213
 msgid "/Objects/Align/---"
 msgstr "/Objects/Align/---"
 
-#: ../app/menus.c:209
+#: ../app/menus.c:210
 msgid "/Objects/Align/Top"
 msgstr "/Objects/Align/Top"
 
-#: ../app/menus.c:210
+#: ../app/menus.c:211
 msgid "/Objects/Align/Middle"
 msgstr "/Objects/Align/Middle"
 
-#: ../app/menus.c:211
+#: ../app/menus.c:212
 msgid "/Objects/Align/Bottom"
 msgstr "/Objects/Align/Bottom"
 
-#: ../app/menus.c:213
+#: ../app/menus.c:214
 msgid "/Objects/Align/Spread Out Horizontally"
 msgstr "/Objects/Align/Spread Out Horizontally"
 
-#: ../app/menus.c:214
+#: ../app/menus.c:215
 msgid "/Objects/Align/Spread Out Vertically"
 msgstr "/Objects/Align/Spread Out Vertically"
 
-#: ../app/menus.c:215
+#: ../app/menus.c:216
 msgid "/Objects/Align/Adjacent"
 msgstr "/Objects/Align/Adjacent"
 
-#: ../app/menus.c:216
+#: ../app/menus.c:217
 msgid "/Objects/Align/Stacked"
 msgstr "/Objects/Align/Stacked"
 
-#: ../app/menus.c:218
+#: ../app/menus.c:219
 msgid "/Objects/_Properties..."
 msgstr "/Objects/_Properties..."
 
-#: ../app/menus.c:220
+#: ../app/menus.c:221
 msgid "/_Select"
 msgstr "/_Select"
 
-#: ../app/menus.c:222
+#: ../app/menus.c:223
 msgid "/Select/All"
 msgstr "/Select/All"
 
-#: ../app/menus.c:223
+#: ../app/menus.c:224
 msgid "/Select/None"
 msgstr "/Select/None"
 
-#: ../app/menus.c:224
+#: ../app/menus.c:225
 msgid "/Select/Invert"
 msgstr "/Select/Invert"
 
-#: ../app/menus.c:225 ../app/menus.c:229
+#: ../app/menus.c:226 ../app/menus.c:230
 msgid "/Select/---"
 msgstr "/Select/---"
 
-#: ../app/menus.c:226
+#: ../app/menus.c:227
 msgid "/Select/Transitive"
 msgstr "/Select/Transitive"
 
-#: ../app/menus.c:227
+#: ../app/menus.c:228
 msgid "/Select/Connected"
 msgstr "/Select/Connected"
 
-#: ../app/menus.c:228
+#: ../app/menus.c:229
 msgid "/Select/Same Type"
 msgstr "/Select/Same Type"
 
-#: ../app/menus.c:230
+#: ../app/menus.c:231
 msgid "/Select/Replace"
 msgstr "/Select/Replace"
 
-#: ../app/menus.c:232
+#: ../app/menus.c:233
 msgid "/Select/Union"
 msgstr "/Select/Union"
 
-#: ../app/menus.c:234
+#: ../app/menus.c:235
 msgid "/Select/Intersection"
 msgstr "/Select/Intersection"
 
-#: ../app/menus.c:236
+#: ../app/menus.c:237
 msgid "/Select/Remove"
 msgstr "/Select/Remove"
 
 #. Cannot also be called Invert, duplicate names caused keybinding problems
-#: ../app/menus.c:239
+#: ../app/menus.c:240
 msgid "/Select/Inverse"
 msgstr "/Select/Inverse"
 
-#: ../app/menus.c:241
+#: ../app/menus.c:242
 msgid "/_Tools"
 msgstr "/_Tools"
 
-#: ../app/menus.c:243
+#: ../app/menus.c:244
 msgid "/Tools/Modify"
 msgstr "/Tools/Modify"
 
-#: ../app/menus.c:244
+#: ../app/menus.c:245
 msgid "/Tools/Magnify"
 msgstr "/Tools/Magnify"
 
-#: ../app/menus.c:245
+#: ../app/menus.c:246
 msgid "/Tools/Scroll"
 msgstr "/Tools/Scroll"
 
-#: ../app/menus.c:246
+#: ../app/menus.c:247
 msgid "/Tools/Text"
 msgstr "/Tools/Text"
 
-#: ../app/menus.c:247
+#: ../app/menus.c:248
 msgid "/Tools/Box"
 msgstr "/Tools/Box"
 
-#: ../app/menus.c:248
+#: ../app/menus.c:249
 msgid "/Tools/Ellipse"
 msgstr "/Tools/Ellipse"
 
-#: ../app/menus.c:249
+#: ../app/menus.c:250
 msgid "/Tools/Polygon"
 msgstr "/Tools/Polygon"
 
-#: ../app/menus.c:250
+#: ../app/menus.c:251
 msgid "/Tools/Beziergon"
 msgstr "/Tools/Beziergon"
 
-#: ../app/menus.c:251 ../app/menus.c:257
+#: ../app/menus.c:252 ../app/menus.c:258
 msgid "/Tools/---"
 msgstr "/Tools/---"
 
-#: ../app/menus.c:252
+#: ../app/menus.c:253
 msgid "/Tools/Line"
 msgstr "/Tools/Line"
 
-#: ../app/menus.c:253
+#: ../app/menus.c:254
 msgid "/Tools/Arc"
 msgstr "/Tools/Arc"
 
-#: ../app/menus.c:254
+#: ../app/menus.c:255
 msgid "/Tools/Zigzagline"
 msgstr "/Tools/Zigzagline"
 
-#: ../app/menus.c:255
+#: ../app/menus.c:256
 msgid "/Tools/Polyline"
 msgstr "/Tools/Polyline"
 
-#: ../app/menus.c:256
+#: ../app/menus.c:257
 msgid "/Tools/Bezierline"
 msgstr "/Tools/Bezierline"
 
-#: ../app/menus.c:258
+#: ../app/menus.c:259
 msgid "/Tools/Image"
 msgstr "/Tools/Image"
 
-#: ../app/menus.c:259
+#: ../app/menus.c:260
 msgid "/_Input Methods"
 msgstr "/_Input Methods"
 
-#: ../app/menus.c:431
+#: ../app/menus.c:432
 msgid "NULL tooldata in tool_menu_select"
 msgstr "NULL tooldata in tool_menu_select"
 
-#: ../app/menus.c:528
+#: ../app/menus.c:529
 msgid "Diagram Menu"
 msgstr "Diagram Menu"
 
-#: ../app/menus.c:663
+#: ../app/menus.c:664
 #, c-format
 msgid ""
 "Can't find menu entry '%s'!\n"
@@ -2620,6 +2622,78 @@ msgstr "Browse"
 msgid "Reset menu"
 msgstr "Reset menu"
 
+#: ../objects/AADL/aadl.c:52
+msgid "Architecture Analysis & Design Language diagram objects"
+msgstr "Architecture Analysis & Design Language diagram objects"
+
+#: ../objects/AADL/aadlbox.c:138
+msgid "Declaration"
+msgstr "Declaration"
+
+#: ../objects/AADL/aadlbox.c:349
+msgid "Add Access Provider"
+msgstr "Add Access Provider"
+
+#: ../objects/AADL/aadlbox.c:351
+msgid "Add Access Requirer"
+msgstr "Add Access Requirer"
+
+#: ../objects/AADL/aadlbox.c:353
+msgid "Add In Data Port"
+msgstr "Add In Data Port"
+
+#: ../objects/AADL/aadlbox.c:355
+msgid "Add In Event Port"
+msgstr "Add In Event Port"
+
+#: ../objects/AADL/aadlbox.c:357
+msgid "Add In Event Data Port"
+msgstr "Add In Event Data Port"
+
+#: ../objects/AADL/aadlbox.c:359
+msgid "Add Out Data Port"
+msgstr "Add Out Data Port"
+
+#: ../objects/AADL/aadlbox.c:361
+msgid "Add Out Event Port"
+msgstr "Add Out Event Port"
+
+#: ../objects/AADL/aadlbox.c:363
+msgid "Add Out Event Data Port"
+msgstr "Add Out Event Data Port"
+
+#: ../objects/AADL/aadlbox.c:365
+msgid "Add In Out Data Port"
+msgstr "Add In Out Data Port"
+
+#: ../objects/AADL/aadlbox.c:367
+msgid "Add In Out Event Port"
+msgstr "Add In Out Event Port"
+
+#: ../objects/AADL/aadlbox.c:369
+msgid "Add In Out Event Data Port"
+msgstr "Add In Out Event Data Port"
+
+#: ../objects/AADL/aadlbox.c:371
+msgid "Add Port Group"
+msgstr "Add Port Group"
+
+#: ../objects/AADL/aadlbox.c:373
+msgid "Add Connection Point"
+msgstr "Add Connection Point"
+
+#: ../objects/AADL/aadlbox.c:377
+msgid "Delete Port"
+msgstr "Delete Port"
+
+#: ../objects/AADL/aadlbox.c:378
+msgid "Edit Port Declaration"
+msgstr "Edit Port Declaration"
+
+#: ../objects/AADL/aadlbox.c:382
+msgid "Delete Connection Point"
+msgstr "Delete Connection Point"
+
 #: ../objects/ER/attribute.c:155
 msgid "Key:"
 msgstr "Key:"
@@ -3451,7 +3525,8 @@ msgid "Differentiate"
 msgstr "Differentiate"
 
 #. Translators: Menu item Verb/Convert/Process
-#: ../objects/FS/function.c:1032
+#: ../objects/FS/function.c:1032 ../sheets/AADL.sheet.in.h:9
+#: ../sheets/Gane_and_Sarson.sheet.in.h:7
 msgid "Process"
 msgstr "Process"
 
@@ -4739,7 +4814,7 @@ msgstr "Bond graph objects"
 msgid "Chronogram diagram objects"
 msgstr "Chronogram diagram objects"
 
-#: ../objects/chronogram/chronoline.c:148
+#: ../objects/chronogram/chronoline.c:148 ../sheets/AADL.sheet.in.h:4
 msgid "Data"
 msgstr "Data"
 
@@ -4848,6 +4923,15 @@ msgstr "Flip Vertical"
 #, c-format
 msgid "Cannot open icon file %s for object type '%s'."
 msgstr "Cannot open icon file %s for object type '%s'."
+
+#: ../objects/custom/shape_info.c:129
+#, c-format
+msgid ""
+"The file '%s' has invalid path data.\n"
+"svg:path data must start with moveto."
+msgstr ""
+"The file '%s' has invalid path data.\n"
+"svg:path data must start with moveto."
 
 #: ../objects/flowchart/box.c:150 ../objects/standard/box.c:150
 #: ../objects/standard/polyline.c:134 ../objects/standard/zigzagline.c:130
@@ -5042,35 +5126,35 @@ msgstr "First Line"
 msgid "Vertical text alignment"
 msgstr "Vertical text alignment"
 
-#: ../plug-ins/cairo/diacairo.c:1065
+#: ../plug-ins/cairo/diacairo.c:1066
 msgid "Cairo PostScript"
 msgstr "Cairo PostScript"
 
-#: ../plug-ins/cairo/diacairo.c:1074
+#: ../plug-ins/cairo/diacairo.c:1077
 msgid "Cairo Portable Document Format"
 msgstr "Cairo Portable Document Format"
 
-#: ../plug-ins/cairo/diacairo.c:1083
+#: ../plug-ins/cairo/diacairo.c:1087
 msgid "Cairo PNG"
 msgstr "Cairo PNG"
 
-#: ../plug-ins/cairo/diacairo.c:1091
+#: ../plug-ins/cairo/diacairo.c:1095
 msgid "Cairo PNG (with alpha)"
 msgstr "Cairo PNG (with alpha)"
 
-#: ../plug-ins/cairo/diacairo.c:1101
+#: ../plug-ins/cairo/diacairo.c:1105
 msgid "Cairo WMF"
 msgstr "Cairo WMF"
 
-#: ../plug-ins/cairo/diacairo.c:1110
+#: ../plug-ins/cairo/diacairo.c:1114
 msgid "Cairo old WMF"
 msgstr "Cairo old WMF"
 
-#: ../plug-ins/cairo/diacairo.c:1119
+#: ../plug-ins/cairo/diacairo.c:1123
 msgid "Cairo Clipboard"
 msgstr "Cairo Clipboard"
 
-#: ../plug-ins/cairo/diacairo.c:1165
+#: ../plug-ins/cairo/diacairo.c:1169
 msgid "Cairo based Rendering"
 msgstr "Cairo-based Rendering"
 
@@ -5222,11 +5306,19 @@ msgstr "Dia Shape File"
 msgid "dia shape export filter"
 msgstr "dia shape export filter"
 
-#: ../plug-ins/svg/render_svg.c:290 ../plug-ins/svg/svg-import.c:672
+#: ../plug-ins/svg/render_svg.c:290 ../plug-ins/svg/svg-import.c:676
 msgid "Scalable Vector Graphics"
 msgstr "Scalable Vector Graphics"
 
-#: ../plug-ins/svg/svg-import.c:200 ../plug-ins/xfig/xfig-import.c:108
+#: ../plug-ins/svg/svg-import.c:195
+msgid ""
+"Invalid path data.\n"
+"svg:path data must start with moveto."
+msgstr ""
+"Invalid path data.\n"
+"svg:path data must start with moveto."
+
+#: ../plug-ins/svg/svg-import.c:204 ../plug-ins/xfig/xfig-import.c:108
 #: ../plug-ins/xfig/xfig-import.c:159 ../plug-ins/xfig/xfig-import.c:188
 #: ../plug-ins/xfig/xfig-import.c:224 ../plug-ins/xfig/xfig-import.c:261
 #: ../plug-ins/xfig/xfig-import.c:289 ../plug-ins/xfig/xfig-import.c:326
@@ -5234,11 +5326,11 @@ msgstr "Scalable Vector Graphics"
 msgid "Can't find standard object"
 msgstr "Cannot find standard object"
 
-#: ../plug-ins/svg/svg-import.c:633
+#: ../plug-ins/svg/svg-import.c:637
 msgid "Expected SVG Namespace not found in file"
 msgstr "Expected SVG Namespace not found in file"
 
-#: ../plug-ins/svg/svg-import.c:653
+#: ../plug-ins/svg/svg-import.c:657
 #, c-format
 msgid "root element was '%s' -- expecting 'svg'."
 msgstr "root element was '%s' -- expecting 'svg'."
@@ -5513,6 +5605,54 @@ msgstr "From:"
 #: ../plug-ins/xslt/xsltdialog.c:146
 msgid "To:"
 msgstr "To:"
+
+#: ../sheets/AADL.sheet.in.h:1
+msgid "AADL"
+msgstr "AADL"
+
+#: ../sheets/AADL.sheet.in.h:2
+msgid "AADL Shapes"
+msgstr "AADL Shapes"
+
+#: ../sheets/AADL.sheet.in.h:3
+msgid "Bus"
+msgstr "Bus"
+
+#: ../sheets/AADL.sheet.in.h:5
+msgid "Device"
+msgstr "Device"
+
+#: ../sheets/AADL.sheet.in.h:6
+msgid "Formes AADL"
+msgstr "Formes AADL"
+
+#: ../sheets/AADL.sheet.in.h:7
+msgid "Memory"
+msgstr "Memory"
+
+#: ../sheets/AADL.sheet.in.h:8
+msgid "Package"
+msgstr "Package"
+
+#: ../sheets/AADL.sheet.in.h:10
+msgid "Processor"
+msgstr "Processor"
+
+#: ../sheets/AADL.sheet.in.h:11
+msgid "Subprogram"
+msgstr "Subprogram"
+
+#: ../sheets/AADL.sheet.in.h:12
+msgid "System"
+msgstr "System"
+
+#: ../sheets/AADL.sheet.in.h:13
+msgid "Thread"
+msgstr "Thread"
+
+#: ../sheets/AADL.sheet.in.h:14
+msgid "Thread Group"
+msgstr "Thread Group"
 
 #. Sheet Name: Assorted, was Geometric, maybe Basic Shapes instead?
 #. Leave as is for now, renaming too much hassle.
@@ -6449,6 +6589,27 @@ msgstr "Transaction file"
 #: ../sheets/Flowchart.sheet.in.h:33
 msgid "Transmittal tape"
 msgstr "Transmittal tape"
+
+#: ../sheets/Gane_and_Sarson.sheet.in.h:1
+msgid "Alternate external entity"
+msgstr "Alternate external entity"
+
+#: ../sheets/Gane_and_Sarson.sheet.in.h:2
+msgid "Data store"
+msgstr "Data store"
+
+#: ../sheets/Gane_and_Sarson.sheet.in.h:3
+msgid "External entity"
+msgstr "External entity"
+
+#. Author: Nicholas Moore, 2005. mailto: shiny.nickel@gmail.com
+#: ../sheets/Gane_and_Sarson.sheet.in.h:5
+msgid "Gane and Sarson"
+msgstr "Gane and Sarson"
+
+#: ../sheets/Gane_and_Sarson.sheet.in.h:6
+msgid "Gane and Sarson DFD"
+msgstr "Gane and Sarson DFD"
 
 #: ../sheets/GRAFCET.sheet.in.h:1
 msgid "AND vergent"

@@ -63,6 +63,8 @@ lib/properties.h
 lib/proplist.c
 lib/text.c
 lib/widgets.c
+objects/AADL/aadl.c
+objects/AADL/aadlbox.c
 objects/ER/attribute.c
 objects/ER/entity.c
 objects/ER/er.c
@@ -134,6 +136,7 @@ objects/chronogram/chronoline.c
 objects/chronogram/chronoref.c
 objects/custom/custom.c
 objects/custom/custom_object.c
+objects/custom/shape_info.c
 objects/flowchart/box.c
 objects/flowchart/diamond.c
 objects/flowchart/ellipse.c
@@ -184,6 +187,7 @@ plug-ins/xfig/xfig-import.c
 plug-ins/xfig/xfig.c
 plug-ins/xslt/xslt.c
 plug-ins/xslt/xsltdialog.c
+sheets/AADL.sheet.in
 sheets/Assorted.sheet.in
 sheets/ChemEng.sheet.in
 sheets/Circuit.sheet.in
@@ -194,6 +198,7 @@ sheets/ER.sheet.in
 sheets/Electric.sheet.in
 sheets/FS.sheet.in
 sheets/Flowchart.sheet.in
+sheets/Gane_and_Sarson.sheet.in
 sheets/GRAFCET.sheet.in
 sheets/IsometricMap.sheet.in
 sheets/Istar.sheet.in
