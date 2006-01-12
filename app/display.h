@@ -96,6 +96,7 @@ struct _DDisplay {
 extern GdkCursor *default_cursor;
 
 DDisplay *new_display(Diagram *dia);
+DDisplay *copy_display(DDisplay *orig_ddisp);
 /* Normal destroy is done through shell widget destroy event. */
 void ddisplay_really_destroy(DDisplay *ddisp); 
 void ddisplay_transform_coords_double(DDisplay *ddisp,

@@ -1,9 +1,19 @@
+NOTE FOR WINDOWS USERS:
+=======================
+
+If you're reading this and just want to use Dia rather than
+compiling/extending it, you're in the wrong place.  Please go to
+http://dia-installer.sourceforge.net and download the precompiled, easily
+installable binary.
+
+Users of OSes where compilation is easy, please read on:)
+
 REQUIREMENTS:
 =============
 
 See machine-specific requirements further down.
 
-Dia needs Gtk+ at least version 2.0.0 installed.
+Dia needs Gtk+ at least version 2.4.0 installed.
 It can be found at:
 
 ftp://ftp.gtk.org/pub/gtk/v2.0/

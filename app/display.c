@@ -153,13 +153,121 @@ append_im_menu (DDisplay* ddisp, GtkMenuItem* im_menu_item)
   gtk_menu_item_set_submenu (GTK_MENU_ITEM(im_menu_item), im_menu);
 }
 
+/** Initialize the various GTK-level thinks in a display after the internal
+ *  data has been set.
+ * @param ddisp A display with all non-GTK/GDK items set.
+ */
+static void
+initialize_display_widgets(DDisplay *ddisp)
+{
+  GtkMenuItem* im_menu_item;
+  GtkWidget* im_menu;
+  GtkWidget* im_menu_tearoff;
+  static gboolean input_methods_done = FALSE;
+  Diagram *dia = ddisp->diagram;
+  gchar *filename;
+
+  /*  ddisp->renderer = new_gdk_renderer(ddisp);*/
+
+  ddisp->im_context = gtk_im_multicontext_new();
+  g_signal_connect (G_OBJECT (ddisp->im_context), "commit",
+                    G_CALLBACK (ddisplay_im_context_commit), ddisp);
+  ddisp->preedit_string = NULL;
+  g_signal_connect (G_OBJECT (ddisp->im_context), "preedit_changed",
+                    G_CALLBACK (ddisplay_im_context_preedit_changed),
+                    ddisp);
+  ddisp->preedit_attrs = NULL;
+  
+  filename = strrchr(dia->filename, G_DIR_SEPARATOR);
+  if (filename==NULL) {
+    filename = dia->filename;
+  } else {
+    filename++;
+  }
+  create_display_shell(ddisp, prefs.new_view.width, prefs.new_view.height,
+		       filename, prefs.new_view.use_menu_bar, !app_is_embedded());
+  
+  ddisplay_update_statusbar (ddisp);
+
+  ddisplay_set_origo(ddisp, ddisp->visible.left, ddisp->visible.top);
+  ddisplay_update_scrollbars(ddisp);
+  ddisplay_add_update_all(ddisp);
+
+  if (!display_ht)
+    display_ht = g_hash_table_new ((GHashFunc) display_hash, NULL);
+
+  if (!app_is_embedded())
+    ddisplay_set_cursor(ddisp, current_cursor);
+  
+  g_hash_table_insert (display_ht, ddisp->shell, ddisp);
+  g_hash_table_insert (display_ht, ddisp->canvas, ddisp);
+
+  if (!input_methods_done) {
+      im_menu_item = menus_get_item_from_path("<Display>/Input Methods", NULL);
+      if (im_menu_item) {
+        append_im_menu (ddisp, im_menu_item);
+	input_methods_done = TRUE;
+      }
+  }
+}
+
+/** Make a copy of an existing display.  The original does not need to have
+ *  the various GTK-related fields initialized, and so can just have been read
+ *  from a savefile.
+ *  Note that size and position are not handled here yet, but taken from prefs.
+ * @param A display object with non-GTK/GDK fields initialized (same fields as
+ *  new_display initializes before calling initialize_display_widgets()).
+ * @returns A newly allocated display, inserted into the diagram list, with
+ *  same basic layout as the original.
+ */
+DDisplay *
+copy_display(DDisplay *orig_ddisp)
+{
+  DDisplay *ddisp;
+  Diagram *dia = orig_ddisp->diagram;
+  
+  ddisp = g_new0(DDisplay,1);
+
+  /* initialize the whole struct to 0 so that we are sure to catch errors.*/
+  memset (&ddisp->updatable_menu_items, 0, sizeof (UpdatableMenuItems));
+  
+  ddisp->diagram = orig_ddisp->diagram;
+  /* Every display has its own reference */
+  g_object_ref(dia);
+
+  ddisp->grid = orig_ddisp->grid;
+
+  ddisp->show_cx_pts = orig_ddisp->show_cx_pts;
+
+  ddisp->autoscroll = orig_ddisp->autoscroll;
+  ddisp->mainpoint_magnetism = orig_ddisp->mainpoint_magnetism;
+
+  ddisp->aa_renderer = orig_ddisp->aa_renderer;
+  
+  ddisp->update_areas = orig_ddisp->update_areas;
+  ddisp->display_areas = orig_ddisp->display_areas;
+  ddisp->update_id = 0;
+
+  diagram_add_ddisplay(dia, ddisp);
+  g_signal_connect (dia, "selection_changed", G_CALLBACK(selection_changed), ddisp);
+  ddisp->origo = orig_ddisp->origo;
+  ddisp->zoom_factor = orig_ddisp->zoom_factor;
+  ddisp->visible = orig_ddisp->visible;
+
+  initialize_display_widgets(ddisp);
+  return ddisp;  /*  set the user data  */
+}
+
+
+/** Create a new display for a diagram, using prefs settings.
+ * @param dia Otherwise initialize diagram to create a display for.
+ * @returns A newly created display.
+ */
 DDisplay *
 new_display(Diagram *dia)
 {
   GtkMenuItem* im_menu_item;
   DDisplay *ddisp;
-  char *filename;
-  int embedded = app_is_embedded();
   Rectangle visible;
   static gboolean input_methods_done = FALSE;
   
@@ -193,18 +301,10 @@ new_display(Diagram *dia)
   ddisp->mainpoint_magnetism = TRUE;
 
   ddisp->aa_renderer = 0;
-  ddisp->renderer = new_gdk_renderer(ddisp);
   
   ddisp->update_areas = NULL;
   ddisp->display_areas = NULL;
   ddisp->update_id = 0;
-
-  filename = strrchr(dia->filename, G_DIR_SEPARATOR);
-  if (filename==NULL) {
-    filename = dia->filename;
-  } else {
-    filename++;
-  }
 
   diagram_add_ddisplay(dia, ddisp);
   g_signal_connect (dia, "selection_changed", G_CALLBACK(selection_changed), ddisp);
@@ -225,47 +325,7 @@ new_display(Diagram *dia)
 
   ddisp->visible = visible;
 
-  ddisp->im_context = gtk_im_multicontext_new();
-  g_signal_connect (G_OBJECT (ddisp->im_context), "commit",
-                    G_CALLBACK (ddisplay_im_context_commit), ddisp);
-  ddisp->preedit_string = NULL;
-  g_signal_connect (G_OBJECT (ddisp->im_context), "preedit_changed",
-                    G_CALLBACK (ddisplay_im_context_preedit_changed),
-                    ddisp);
-  ddisp->preedit_attrs = NULL;
-  
-  create_display_shell(ddisp, prefs.new_view.width, prefs.new_view.height,
-		       filename, prefs.new_view.use_menu_bar, !embedded);
-  
-  ddisplay_update_statusbar (ddisp);
-
-  ddisplay_set_origo(ddisp, visible.left, visible.top);
-  ddisp->visible = visible; /* force the visible area extents */
-  ddisplay_update_scrollbars(ddisp);
-  ddisplay_add_update_all(ddisp);
-
-  if (!display_ht)
-    display_ht = g_hash_table_new ((GHashFunc) display_hash, NULL);
-
-  if (!embedded)
-    ddisplay_set_cursor(ddisp, current_cursor);
-  
-  g_hash_table_insert (display_ht, ddisp->shell, ddisp);
-  g_hash_table_insert (display_ht, ddisp->canvas, ddisp);
-
-  if (!input_methods_done) {
-      im_menu_item = menus_get_item_from_path("<Display>/Input Methods", NULL);
-      if (im_menu_item)
-        append_im_menu (ddisp, im_menu_item);
-      input_methods_done = TRUE;
-  }
-  /* the diagram menubar gets recreated for every diagram */
-  if (ddisp->menu_bar) {
-    im_menu_item = menus_get_item_from_path("<DisplayMBar>/Input Methods", ddisp->mbar_item_factory);
-    if (im_menu_item)
-      append_im_menu (ddisp, im_menu_item);
-  }
-
+  initialize_display_widgets(ddisp);
   return ddisp;  /*  set the user data  */
 }
 

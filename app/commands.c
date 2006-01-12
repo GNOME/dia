@@ -971,6 +971,17 @@ view_new_view_callback(gpointer data, guint action, GtkWidget *widget)
   new_display(dia);
 }
 
+extern void
+view_clone_view_callback(gpointer data, guint action, GtkWidget *widget)
+{
+  DDisplay *ddisp;
+
+  ddisp = ddisplay_active();
+  if (!ddisp) return;
+  
+  copy_display(ddisp);
+}
+
 void
 view_show_all_callback(gpointer data, guint action, GtkWidget *widget)
 {

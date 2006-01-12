@@ -151,7 +151,6 @@ file_open_response_callback(GtkWidget *fs,
 {
   const char *filename;
   Diagram *diagram = NULL;
-  DDisplay *ddisp;
 
   if (response == GTK_RESPONSE_ACCEPT) {
     gint index = gtk_combo_box_get_active (GTK_COMBO_BOX(user_data));
@@ -166,7 +165,19 @@ file_open_response_callback(GtkWidget *fs,
       diagram_update_extents(diagram);
       layer_dialog_set_diagram(diagram);
       
-      ddisp = new_display(diagram);
+      if (diagram->displays != NULL) {
+	GSList *displays = diagram->displays;
+	GSList *displays_head = displays;
+	diagram->displays = NULL;
+	for (; displays != NULL; displays = g_slist_next(displays)) {
+	  DDisplay *loaded_display = (DDisplay *)displays->data;
+	  copy_display(loaded_display);
+	  g_free(loaded_display);
+	}
+	g_slist_free(displays_head);
+      } else {
+	new_display(diagram);
+      }
     }
   }
   gtk_widget_destroy(opendlg);

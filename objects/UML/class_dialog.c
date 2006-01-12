@@ -612,6 +612,9 @@ attributes_list_new_callback(GtkWidget *button,
   attributes_get_current_values(prop_dialog);
 
   attr = uml_attribute_new();
+  attr->left_connection = g_new0(ConnectionPoint,1);
+  attr->right_connection = g_new0(ConnectionPoint,1);
+
 
   /* need to make the new ConnectionPoint valid and remember them */
   attr->left_connection->object = &umlclass->element.object;
@@ -784,8 +787,8 @@ attributes_read_from_dialog(UMLClass *umlclass,
     }
     if (actual_attr == NULL) { /* No old attribute to copy into */
       UMLAttribute *new_attr = uml_attribute_new();
-      new_attr->left_connection->object = obj;
-      new_attr->right_connection->object = obj;
+      new_attr->left_connection = attr->left_connection;
+      new_attr->right_connection = attr->right_connection;
       actual_attr = new_attr;
     }
 
@@ -3161,6 +3164,7 @@ umlclass_change_free(UMLClassChange *change)
   umlclass_free_state(change->saved_state);
   g_free(change->saved_state);
 
+  /* Doesn't this mean only one of add, delete can be done in each apply? */
   if (change->applied) 
     free_list = change->deleted_cp;
   else
@@ -3200,8 +3204,10 @@ new_umlclass_change(UMLClass *obj, UMLClassState *saved_state,
   change->saved_state = saved_state;
   change->applied = 1;
 
+  /* These are not used, it seems!
   change->added_cp = added;
   change->deleted_cp = deleted;
+  */
   change->disconnected = disconnected;
 
   return (ObjectChange *)change;

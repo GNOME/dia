@@ -86,8 +86,8 @@ uml_attribute_new(void)
   attr->abstract = FALSE;
   attr->class_scope = FALSE;
   
-  attr->left_connection = g_new0(ConnectionPoint,1);
-  attr->right_connection = g_new0(ConnectionPoint,1);
+  attr->left_connection = NULL;/*g_new0(ConnectionPoint,1);*/
+  attr->right_connection = NULL; /*g_new0(ConnectionPoint,1);*/
   return attr;
 }
 
@@ -139,13 +139,13 @@ uml_attribute_copy(UMLAttribute *attr, DiaObject *obj)
 
   uml_attribute_copy_into(attr, newattr);
 
-  newattr->left_connection = g_new0(ConnectionPoint,1);
-  *newattr->left_connection = *attr->left_connection;
-  newattr->left_connection->object = obj;
+  /*  newattr->left_connection = g_new0(ConnectionPoint,1);*/
+  newattr->left_connection = attr->left_connection;
+  /*  newattr->left_connection->object = obj;*/
 
-  newattr->right_connection = g_new0(ConnectionPoint,1);
-  *newattr->right_connection = *attr->right_connection;
-  newattr->right_connection->object = obj;
+  /*  newattr->right_connection = g_new0(ConnectionPoint,1);*/
+  newattr->right_connection = attr->right_connection;
+  /*newattr->right_connection->object = obj;*/
  
   return newattr;
 }
@@ -159,8 +159,8 @@ uml_attribute_destroy(UMLAttribute *attr)
     g_free(attr->value);
   if (attr->comment != NULL)
     g_free(attr->comment);
-  g_free(attr->left_connection);
-  g_free(attr->right_connection);
+  /*  g_free(attr->left_connection);
+      g_free(attr->right_connection);*/
   g_free(attr);
 }
 

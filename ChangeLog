@@ -1,3 +1,20 @@
+2005-01-12  Lars Clausen  <lars@raeder.dk>
+
+	* objects/UML/umlattribute.c: 
+	* objects/UML/class_dialog.c: Better way of handling
+	connectionpoints: Don't copy them, just reference them.  Finally
+	fixes bug #314153 (not quite the pi bug:)
+
+	* app/menus.c (display_menu_items): 
+	* app/filedlg.c (file_open_response_callback): 
+	* app/display.[ch] (copy_display): 
+	* app/commands.[ch] (view_clone_view_callback): 
+	Added functionality to clone display.  Preparation for storing
+	display info in diagram files (not happening this version, though).
+
+	* INSTALL (NOTE FOR WINDOWS USERS): Added note for non-compiling
+	users pointing at dia-installer.
+
 2006-01-08  Hans Breuer  <hans@breuer.org>
 
 	* shapes/Gane_and_Sarson/Makefile.am : correct spelling of filenames.
