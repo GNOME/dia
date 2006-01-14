@@ -21,7 +21,7 @@
 #include <config.h>
 
 #include <stdio.h>
-#include <gprintf.h>
+#include <glib/gprintf.h>
 #include <stdarg.h>
 
 /** Output a message if the given value is not true. 
