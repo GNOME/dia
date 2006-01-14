@@ -1,5 +1,8 @@
 2006-01-14  Hans Breuer  <hans@breuer.org>
 
+	* samples/Self/umlclass.dia : (new file) documenting part of the
+	object relations of UMLClass. Also good for testing connections.
+	
 	* lib/debug.c : replace wrong call to vprintf() - missing file
 	descriptor - with the more appropriate g_vprintf(). Thus 
 	dia_assert_true() does not smash the stack anymore on win32.
