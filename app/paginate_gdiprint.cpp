@@ -107,9 +107,15 @@ paginate_gdiprint(Diagram *dia, DiaExportFilter* pExp, W32::HANDLE hDC)
   }
 
   /* iterate through all the pages in the diagram */
-  for (y = inity, ypos = 0; y < extents->bottom; y += height, ypos++)
+  for (y = inity, ypos = 0; y < extents->bottom; y += height, ypos++) {
+    /* ensure we are not producing pages for epsilon */
+    if ((extents->bottom - y) < 1e-6)
+      break;
     for (x = initx, xpos = 0; x < extents->right; x += width, xpos++) {
       Rectangle page_bounds;
+
+      if ((extents->right - x) < 1e-6)
+	break;
 
       page_bounds.left = x;
       page_bounds.right = x + width;
@@ -118,7 +124,7 @@ paginate_gdiprint(Diagram *dia, DiaExportFilter* pExp, W32::HANDLE hDC)
 
       nobjs += print_page(dia->data, pExp, hDC, &page_bounds, xpos, ypos);
     }
-
+  }
 }
 
 /* to remember changes made in the print dialog, finally leaked. */

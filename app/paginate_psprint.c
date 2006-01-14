@@ -172,9 +172,15 @@ paginate_psprint(Diagram *dia, FILE *file)
   }
 
   /* iterate through all the pages in the diagram */
-  for (y = inity; y < extents->bottom; y += height)
+  for (y = inity; y < extents->bottom; y += height) {
+    /* ensure we are not producing pages for epsilon */
+    if ((extents->bottom - y) < 1e-6)
+      break;
     for (x = initx; x < extents->right; x += width) {
       Rectangle page_bounds;
+
+      if ((extents->right - x) < 1e-6)
+	break;
 
       page_bounds.left = x;
       page_bounds.right = x + width;
@@ -183,6 +189,7 @@ paginate_psprint(Diagram *dia, FILE *file)
 
       nobjs += print_page(dia->data,rend, &page_bounds);
     }
+  }
 
   g_object_unref(rend);
 

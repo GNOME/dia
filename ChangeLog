@@ -1,5 +1,9 @@
 2006-01-14  Hans Breuer  <hans@breuer.org>
 
+	* app/paginate_psprint.c : ensure we are not producing pages for
+	epsilon. Floating imprecision is fun. Fixes bug #133856.
+	* app/paginate_gdiprint.cpp : same here.
+
 	* plug-ins/pstricks/render_pstricks.c(draw_string) : now that I've
 	found the nice samples from bug #156171 it was quite simple to
 	confirm that the y value need indeed to be inverted. Fixes bug #304974.
