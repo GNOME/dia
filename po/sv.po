@@ -4379,7 +4379,7 @@ msgstr "Klassräckvidd"
 #. Operations page:
 #: objects/UML/class_dialog.c:1759
 msgid "_Operations"
-msgstr "_Operationer"
+msgstr "Operationer"
 
 #: objects/UML/class_dialog.c:1817
 msgid "Operation data"

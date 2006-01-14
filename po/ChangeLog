@@ -1,3 +1,7 @@
+2006-01-14  Hans Breuer  <hans@breuer.org>
+
+	* sv.po : removed conflicting (to _O_k) accelerator, fixes bug #326519
+
 2006-01-14  Clytie Siddall <clytie@riverland.net.au>
 
 	* vi.po: Updated Vietnamese translation.
