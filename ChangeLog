@@ -1,5 +1,11 @@
 2006-01-14  Hans Breuer  <hans@breuer.org>
 
+	* plug-ins/pstricks/render_pstricks.c(draw_string) : now that I've
+	found the nice samples from bug #156171 it was quite simple to
+	confirm that the y value need indeed to be inverted. Fixes bug #304974.
+	Also special case strings starting with \tex - i.e. dont escape them -
+	to keep the use-case of direct tex input.
+	
 	* lib/debug.c : #include <glib/gprintf.h> not just <gprintf.h>
 
 2006-01-14  Hans Breuer  <hans@breuer.org>

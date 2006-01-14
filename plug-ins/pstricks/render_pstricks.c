@@ -766,9 +766,13 @@ draw_string(DiaRenderer *self,
 	    Color *color)
 {
     PstricksRenderer *renderer = PSTRICKS_RENDERER(self);
-    gchar *escaped = tex_escape_string(text);
+    gchar *escaped = NULL;
     gchar px_buf[DTOSTR_BUF_SIZE];
     gchar py_buf[DTOSTR_BUF_SIZE];
+
+    /* only escape the string if it is not starting with \tex */
+    if (strncmp (text, "\\tex", 4) != 0)
+      escaped = tex_escape_string(text);
 
     set_line_color(renderer,color);
 
@@ -785,8 +789,8 @@ draw_string(DiaRenderer *self,
     }
     fprintf(renderer->file,"(%s,%s){\\scalebox{1 -1}{%s}}\n",
 	    pstricks_dtostr(px_buf,pos->x),
-	    pstricks_dtostr(py_buf,pos->y),
-	    escaped );
+	    pstricks_dtostr(py_buf,-pos->y),
+	    escaped ? escaped : text);
     g_free(escaped);
 }
 
