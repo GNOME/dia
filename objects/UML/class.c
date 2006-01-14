@@ -360,11 +360,10 @@ umlclass_set_props(UMLClass *umlclass, GPtrArray *props)
     while (list != NULL) {
       UMLAttribute *attr = (UMLAttribute *)list->data;
 
-      printf("Setting obj conn %d to %p->left: %p\n", i, attr, attr->left_connection);
+      uml_attribute_ensure_connection_points (attr, obj);
       obj->connections[i] = attr->left_connection;
       obj->connections[i]->object = obj;
       i++;
-      printf("Setting obj conn %d to %p->right: %p\n", i, attr, attr->right_connection);
       obj->connections[i] = attr->right_connection;
       obj->connections[i]->object = obj;
       i++;
@@ -373,6 +372,8 @@ umlclass_set_props(UMLClass *umlclass, GPtrArray *props)
     list = (!umlclass->visible_operations || umlclass->suppress_operations) ? NULL : umlclass->operations;
     while (list != NULL) {
       UMLOperation *op = (UMLOperation *)list->data;
+
+      uml_operation_ensure_connection_points (op, obj);
       obj->connections[i] = op->left_connection;
       obj->connections[i]->object = obj;
       i++;
@@ -1796,16 +1797,18 @@ umlclass_destroy(UMLClass *umlclass)
   list = umlclass->attributes;
   while (list != NULL) {
     attr = (UMLAttribute *)list->data;
-    printf("Destroying attr %p\n", attr);
+    g_free(attr->left_connection);
+    g_free(attr->right_connection);
     uml_attribute_destroy(attr);
     list = g_list_next(list);
   }
-  printf("Freeing umlclass->attributes %p\n", umlclass->attributes);
   g_list_free(umlclass->attributes);
   
   list = umlclass->operations;
   while (list != NULL) {
     op = (UMLOperation *)list->data;
+    g_free(op->left_connection);
+    g_free(op->right_connection);
     uml_operation_destroy(op);
     list = g_list_next(list);
   }
@@ -1908,7 +1911,9 @@ umlclass_copy(UMLClass *umlclass)
   list = umlclass->attributes;
   while (list != NULL) {
     attr = (UMLAttribute *)list->data;
-    newattr = uml_attribute_copy(attr, newobj);
+    /* not copying the connection, if there was one */
+    newattr = uml_attribute_copy(attr);
+    uml_attribute_ensure_connection_points (newattr, newobj);
     
     newumlclass->attributes = g_list_prepend(newumlclass->attributes,
 					     newattr);
@@ -1920,12 +1925,8 @@ umlclass_copy(UMLClass *umlclass)
   while (list != NULL) {
     op = (UMLOperation *)list->data;
     newop = uml_operation_copy(op);
-    newop->left_connection->object = newobj;
-    newop->left_connection->connected = NULL;
+    uml_operation_ensure_connection_points (newattr, newobj);
 
-    newop->right_connection->object = newobj;
-    newop->right_connection->connected = NULL;
-    
     newumlclass->operations = g_list_prepend(newumlclass->operations,
 					     newop);
     list = g_list_next(list);
@@ -1964,9 +1965,7 @@ umlclass_copy(UMLClass *umlclass)
     list = newumlclass->attributes;
     while (list != NULL) {
       attr = (UMLAttribute *)list->data;
-      printf("Setting copy conn %d of %p to left %p\n", i, newobj, attr->left_connection);
       newobj->connections[i++] = attr->left_connection;
-      printf("Setting copy conn %d of %p to right %p\n", i, newobj, attr->right_connection);
       newobj->connections[i++] = attr->right_connection;
       
       list = g_list_next(list);
@@ -2081,7 +2080,6 @@ umlclass_save(UMLClass *umlclass, ObjectNode obj_node,
   list = umlclass->attributes;
   while (list != NULL) {
     attr = (UMLAttribute *) list->data;
-    printf("Writing attr %p\n", attr);
     uml_attribute_write(attr_node, attr);
     list = g_list_next(list);
   }
@@ -2205,10 +2203,7 @@ static DiaObject *umlclass_load(ObjectNode obj_node, int version,
     UMLAttribute *attr = list->data;
     g_assert(attr);
 
-    attr->left_connection->object = obj;
-    attr->left_connection->connected = NULL;
-    attr->right_connection->object = obj;
-    attr->right_connection->connected = NULL;
+    uml_attribute_ensure_connection_points (attr, obj);
     list = g_list_next(list);
   }
 
@@ -2218,11 +2213,7 @@ static DiaObject *umlclass_load(ObjectNode obj_node, int version,
     UMLOperation *op = (UMLOperation *)list->data;
     g_assert(op);
 
-    op->left_connection->object = obj;
-    op->left_connection->connected = NULL;
-
-    op->right_connection->object = obj;
-    op->right_connection->connected = NULL;
+    uml_operation_ensure_connection_points (op, obj);
     list = g_list_next(list);
   }
 
@@ -2346,3 +2337,4 @@ umlclass_sanity_check(UMLClass *c, gchar *msg)
   }
   /* Check that operations are set up right. */
 }
+

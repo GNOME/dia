@@ -106,7 +106,7 @@ extern gchar *uml_get_operation_string(UMLOperation *operation);
 extern gchar *uml_get_parameter_string(UMLParameter *param);
 extern gchar *uml_get_formalparameter_string(UMLFormalParameter *parameter);
 extern void uml_attribute_copy_into(UMLAttribute *srcattr, UMLAttribute *destattr);
-extern UMLAttribute *uml_attribute_copy(UMLAttribute *attr, DiaObject *obj);
+extern UMLAttribute *uml_attribute_copy(UMLAttribute *attr);
 extern void uml_operation_copy_into(UMLOperation *srcop, UMLOperation *destop);
 extern UMLOperation *uml_operation_copy(UMLOperation *op);
 extern UMLFormalParameter *uml_formalparameter_copy(UMLFormalParameter *param);
@@ -118,6 +118,9 @@ extern UMLAttribute *uml_attribute_new(void);
 extern UMLOperation *uml_operation_new(void);
 extern UMLParameter *uml_parameter_new(void);
 extern UMLFormalParameter *uml_formalparameter_new(void);
+
+extern void uml_attribute_ensure_connection_points (UMLAttribute *attr, DiaObject* obj);
+extern void uml_operation_ensure_connection_points (UMLOperation *oper, DiaObject* obj);
 
 extern void uml_attribute_write(AttributeNode attr_node, UMLAttribute *attr);
 extern void uml_operation_write(AttributeNode attr_node, UMLOperation *op);

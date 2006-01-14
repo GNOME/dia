@@ -117,9 +117,10 @@ uml_operation_new(void)
   op->query = FALSE;
 
   op->parameters = NULL;
-
-  op->left_connection = g_new0(ConnectionPoint,1);
-  op->right_connection = g_new0(ConnectionPoint,1);
+#if 0 /* setup elsewhere */
+  op->left_connection = g_new0(ConnectionPoint, 1);
+  op->right_connection = g_new0(ConnectionPoint, 1);
+#endif
   return op;
 }
 
@@ -205,7 +206,7 @@ uml_operation_copy(UMLOperation *op)
   newop = g_new0(UMLOperation, 1);
 
   uml_operation_copy_into(op, newop);
-
+#if 0 /* setup elsewhere */
   newop->left_connection = g_new0(ConnectionPoint,1);
   *newop->left_connection = *op->left_connection;
   newop->left_connection->object = NULL; /* must be setup later */
@@ -213,7 +214,7 @@ uml_operation_copy(UMLOperation *op)
   newop->right_connection = g_new0(ConnectionPoint,1);
   *newop->right_connection = *op->right_connection;
   newop->right_connection->object = NULL; /* must be setup later */
-  
+#endif
   return newop;
 }
 
@@ -237,9 +238,11 @@ uml_operation_destroy(UMLOperation *op)
     uml_parameter_destroy(param);
     list = g_list_next(list);
   }
+#if 0 /* freed elsewhere */
   /* These are merely temporary reminders, don't need to unconnect */
   g_free(op->left_connection);
   g_free(op->right_connection);
+#endif
   g_free(op);
 }
 
@@ -425,3 +428,24 @@ uml_get_operation_string (UMLOperation *operation)
   return str;
 }
 
+/*!
+ * The ownership of these connection points is quite complicated. Instead of being part of the UMLOperation as one may expect
+  * at first, they are somewhat in between the DiaObject (see: DiaObject::connections and the concrete user, here UMLClass)
+  * and the UMLOperation.
+  * But with taking undo state mangement into account it gets even worse. Deleted (to be restored connection points) live inside
+  * the UMLClassChange until they get reverted back to the object *or* get free'd by umlclass_change_free()
+  * Since the implementation of attributes/operations being settable via StdProps there are more places to keep this stuff
+  * consitent. So here comes a tolerant helper.
+  *
+  * NOTE: Same function as uml_attribute_ensure_connection_points(), with C++ it would be a template function ;)
+ */
+void
+uml_operation_ensure_connection_points (UMLOperation* op, DiaObject* obj)
+{
+  if (!op->left_connection)
+    op->left_connection = g_new0(ConnectionPoint,1);
+  op->left_connection->object = obj;
+  if (!op->right_connection)
+    op->right_connection = g_new0(ConnectionPoint,1);
+  op->right_connection->object = obj;
+}

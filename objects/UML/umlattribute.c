@@ -85,9 +85,10 @@ uml_attribute_new(void)
   attr->visibility = UML_PUBLIC;
   attr->abstract = FALSE;
   attr->class_scope = FALSE;
-  
-  attr->left_connection = NULL;/*g_new0(ConnectionPoint,1);*/
-  attr->right_connection = NULL; /*g_new0(ConnectionPoint,1);*/
+#if 0 /* setup elsewhere */
+  attr->left_connection = g_new0(ConnectionPoint, 1);
+  attr->right_connection = g_new0(ConnectionPoint, 1);
+#endif
   return attr;
 }
 
@@ -131,7 +132,7 @@ uml_attribute_copy_into(UMLAttribute *attr, UMLAttribute *newattr)
 /** Copy an attribute's content.
  */
 UMLAttribute *
-uml_attribute_copy(UMLAttribute *attr, DiaObject *obj)
+uml_attribute_copy(UMLAttribute *attr)
 {
   UMLAttribute *newattr;
 
@@ -139,14 +140,6 @@ uml_attribute_copy(UMLAttribute *attr, DiaObject *obj)
 
   uml_attribute_copy_into(attr, newattr);
 
-  /*  newattr->left_connection = g_new0(ConnectionPoint,1);*/
-  newattr->left_connection = attr->left_connection;
-  /*  newattr->left_connection->object = obj;*/
-
-  /*  newattr->right_connection = g_new0(ConnectionPoint,1);*/
-  newattr->right_connection = attr->right_connection;
-  /*newattr->right_connection->object = obj;*/
- 
   return newattr;
 }
 
@@ -159,8 +152,10 @@ uml_attribute_destroy(UMLAttribute *attr)
     g_free(attr->value);
   if (attr->comment != NULL)
     g_free(attr->comment);
-  /*  g_free(attr->left_connection);
-      g_free(attr->right_connection);*/
+#if 0 /* free'd elsewhere */
+  g_free(attr->left_connection);
+  g_free(attr->right_connection);
+#endif
   g_free(attr);
 }
 
@@ -226,3 +221,24 @@ uml_get_attribute_string (UMLAttribute *attribute)
   return str;
 }
 
+/*!
+ * The ownership of these connection points is quite complicated. Instead of being part of the UMLAttribute as one may expect
+  * at first, they are somewhat in between the DiaObject (see: DiaObject::connections and the concrete user, here UMLClass)
+  * and the UMLAttribute.
+  * But with taking undo state mangement into account it gets even worse. Deleted (to be restored connection points) live inside
+  * the UMLClassChange until they get reverted back to the object *or* get free'd by umlclass_change_free()
+  * Since the implementation of attributes/operations being settable via StdProps there are more places to keep this stuff
+  * consitent. So here comes a tolerant helper.
+  *
+  * NOTE: Same function as uml_operation_ensure_connection_points(), with C++ it would be a template function ;)
+ */
+void
+uml_attribute_ensure_connection_points (UMLAttribute* attr, DiaObject* obj)
+{
+  if (!attr->left_connection)
+    attr->left_connection = g_new0(ConnectionPoint,1);
+  attr->left_connection->object = obj;
+  if (!attr->right_connection)
+    attr->right_connection = g_new0(ConnectionPoint,1);
+  attr->right_connection->object = obj;
+}

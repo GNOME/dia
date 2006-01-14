@@ -1,3 +1,16 @@
+2006-01-14  Hans Breuer  <hans@breuer.org>
+
+	* lib/debug.c : replace wrong call to vprintf() - missing file
+	descriptor - with the more appropriate g_vprintf(). Thus 
+	dia_assert_true() does not smash the stack anymore on win32.
+	
+	* objects/UML/class.c objects/UML/class_dialog.c objects/UML/uml.h
+	  objects/UML/umlattribute.c objects/UML/umloperation.c :
+	reverted the memory managment of UMLAttribute/UMLOperation's 
+	ConnectionPoint(s) back to how it was up until 0.94. This finally
+	makes the UMLClass work again including undo/redo support. Fixes
+	bug #314153 and en passant bug #326453.
+	
 2005-01-12  Lars Clausen  <lars@raeder.dk>
 
 	* objects/UML/umlattribute.c: 

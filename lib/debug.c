@@ -21,7 +21,7 @@
 #include <config.h>
 
 #include <stdio.h>
-#include <gtk/gtk.h>
+#include <gprintf.h>
 #include <stdarg.h>
 
 /** Output a message if the given value is not true. 
@@ -34,7 +34,7 @@ dia_assert_true(gboolean val, gchar *format, ...) {
   va_list args;
   if (!val) {
     va_start(args, format);
-    vprintf(format, args);
+    g_vprintf(format, args);
     va_end(args);
   }
   return val;
