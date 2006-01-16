@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-01-09 22:21-0500\n"
+"POT-Creation-Date: 2006-01-15 23:50-0500\n"
 "PO-Revision-Date: 2005-09-06 16:52-0400\n"
 "Last-Translator: Adam Weinberger <adamw@gnome.org>\n"
 "Language-Team: Canadian English <adamw@gnome.org>\n"
@@ -607,7 +607,7 @@ msgstr "Error"
 msgid "Ok"
 msgstr "Ok"
 
-#: ../app/dialogs.c:52 ../app/paginate_psprint.c:307
+#: ../app/dialogs.c:52 ../app/paginate_psprint.c:314
 msgid "Cancel"
 msgstr "Cancel"
 
@@ -702,11 +702,11 @@ msgstr "Selection of %d objects"
 msgid "Selected '%s'"
 msgstr "Selected '%s'"
 
-#: ../app/display.c:1063
+#: ../app/display.c:1123
 msgid "<unnamed>"
 msgstr "<unnamed>"
 
-#: ../app/display.c:1065
+#: ../app/display.c:1125
 #, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -715,11 +715,11 @@ msgstr ""
 "The diagram '%s'\n"
 "has not been saved. Save changes now?"
 
-#: ../app/display.c:1076
+#: ../app/display.c:1136
 msgid "Close Diagram"
 msgstr "Close Diagram"
 
-#: ../app/display.c:1081
+#: ../app/display.c:1141
 msgid "Discard Changes"
 msgstr "Discard Changes"
 
@@ -728,7 +728,7 @@ msgstr "Discard Changes"
 #: ../plug-ins/dxf/dxf-export.c:484 ../plug-ins/hpgl/hpgl.c:704
 #: ../plug-ins/metapost/render_metapost.c:1107
 #: ../plug-ins/pgf/render_pgf.c:1142
-#: ../plug-ins/pstricks/render_pstricks.c:910
+#: ../plug-ins/pstricks/render_pstricks.c:914
 #: ../plug-ins/shape/shape-export.c:134 ../plug-ins/svg/render_svg.c:149
 #: ../plug-ins/wpg/wpg.c:1070 ../plug-ins/xfig/xfig-export.c:1136
 #: ../plug-ins/xslt/xslt.c:93
@@ -772,31 +772,31 @@ msgstr "Image height:"
 msgid "Portable Network Graphics"
 msgstr "Portable Network Graphics"
 
-#: ../app/filedlg.c:129 ../app/filedlg.c:495
+#: ../app/filedlg.c:129 ../app/filedlg.c:506
 msgid "By extension"
 msgstr "By extension"
 
-#: ../app/filedlg.c:202
+#: ../app/filedlg.c:213
 msgid "Open Diagram"
 msgstr "Open Diagram"
 
-#: ../app/filedlg.c:230
+#: ../app/filedlg.c:241
 msgid "Open Options"
 msgstr "Open Options"
 
-#: ../app/filedlg.c:238 ../app/filedlg.c:616
+#: ../app/filedlg.c:249 ../app/filedlg.c:627
 msgid "Determine file type:"
 msgstr "Determine file type:"
 
-#: ../app/filedlg.c:254 ../app/filedlg.c:629
+#: ../app/filedlg.c:265 ../app/filedlg.c:640
 msgid "All Files"
 msgstr "All Files"
 
-#: ../app/filedlg.c:259 ../app/filedlg.c:634
+#: ../app/filedlg.c:270 ../app/filedlg.c:645
 msgid "Supported Formats"
 msgstr "Supported Formats"
 
-#: ../app/filedlg.c:295
+#: ../app/filedlg.c:306
 msgid ""
 "Some characters in the filename are neither UTF-8\n"
 "nor your local encoding.\n"
@@ -806,7 +806,7 @@ msgstr ""
 "nor your local encoding.\n"
 "Some things will break."
 
-#: ../app/filedlg.c:302 ../app/filedlg.c:540
+#: ../app/filedlg.c:313 ../app/filedlg.c:551
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
@@ -815,21 +815,21 @@ msgstr ""
 "The file '%s' already exists.\n"
 "Do you want to overwrite it?"
 
-#: ../app/filedlg.c:310 ../app/filedlg.c:547
+#: ../app/filedlg.c:321 ../app/filedlg.c:558
 msgid "File already exists"
 msgstr "File already exists"
 
-#: ../app/filedlg.c:353
+#: ../app/filedlg.c:364
 msgid "Save Diagram"
 msgstr "Save Diagram"
 
 #. Need better way to make it a reasonable size.  Isn't there some
 #. standard look for them (or is that just Gnome?)
-#: ../app/filedlg.c:364
+#: ../app/filedlg.c:375
 msgid "Compress diagram files"
 msgstr "Compress diagram files"
 
-#: ../app/filedlg.c:373
+#: ../app/filedlg.c:384
 msgid ""
 "Compression reduces file size to less than 1/10th size and speeds up loading "
 "and saving.  Some text programs cannot manipulate compressed files."
@@ -837,7 +837,7 @@ msgstr ""
 "Compression reduces file size to less than 1/10th size and speeds up loading "
 "and saving.  Some text programs cannot manipulate compressed files."
 
-#: ../app/filedlg.c:569
+#: ../app/filedlg.c:580
 #, c-format
 msgid ""
 "Could not determine which export filter\n"
@@ -846,11 +846,11 @@ msgstr ""
 "Could not determine which export filter\n"
 "to use to save '%s'"
 
-#: ../app/filedlg.c:592
+#: ../app/filedlg.c:603
 msgid "Export Diagram"
 msgstr "Export Diagram"
 
-#: ../app/filedlg.c:608
+#: ../app/filedlg.c:619
 msgid "Export Options"
 msgstr "Export Options"
 
@@ -1183,19 +1183,19 @@ msgstr "/File/P_lugins..."
 msgid "/File/_Quit"
 msgstr "/File/_Quit"
 
-#: ../app/menus.c:73 ../app/menus.c:262
+#: ../app/menus.c:73 ../app/menus.c:263
 msgid "/_Help"
 msgstr "/_Help"
 
-#: ../app/menus.c:75 ../app/menus.c:264
+#: ../app/menus.c:75 ../app/menus.c:265
 msgid "/Help/_Contents"
 msgstr "/Help/_Contents"
 
-#: ../app/menus.c:77 ../app/menus.c:266
+#: ../app/menus.c:77 ../app/menus.c:267
 msgid "/Help/---"
 msgstr "/Help/---"
 
-#: ../app/menus.c:78 ../app/menus.c:267
+#: ../app/menus.c:78 ../app/menus.c:268
 msgid "/Help/_About..."
 msgstr "/Help/_About..."
 
@@ -1369,8 +1369,8 @@ msgid "/View/_Snap To Grid"
 msgstr "/View/_Snap To Grid"
 
 #: ../app/menus.c:170
-msgid "/View/_Snap To Objects"
-msgstr "/View/_Snap To Objects"
+msgid "/View/Snap To _Objects"
+msgstr "/View/Snap To _Objects"
 
 #: ../app/menus.c:171
 msgid "/View/Show _Rulers"
@@ -1384,242 +1384,246 @@ msgstr "/View/Show _Connection Points"
 msgid "/View/New _View"
 msgstr "/View/New _View"
 
+#: ../app/menus.c:175
+msgid "/View/C_lone View"
+msgstr "/View/C_lone View"
+
 #. Show All, Best Fit.  Same as the Gimp, Ctrl+E
-#: ../app/menus.c:176
+#: ../app/menus.c:177
 msgid "/View/Show _All"
 msgstr "/View/Show _All"
 
-#: ../app/menus.c:178
+#: ../app/menus.c:179
 msgid "/View/Re_draw"
 msgstr "/View/Re_draw"
 
-#: ../app/menus.c:180
+#: ../app/menus.c:181
 msgid "/_Objects"
 msgstr "/_Objects"
 
-#: ../app/menus.c:182
+#: ../app/menus.c:183
 msgid "/Objects/Send to _Back"
 msgstr "/Objects/Send to _Back"
 
-#: ../app/menus.c:184
+#: ../app/menus.c:185
 msgid "/Objects/Bring to _Front"
 msgstr "/Objects/Bring to _Front"
 
-#: ../app/menus.c:186
+#: ../app/menus.c:187
 msgid "/Objects/Send Backwards"
 msgstr "/Objects/Send Backwards"
 
-#: ../app/menus.c:188
+#: ../app/menus.c:189
 msgid "/Objects/Bring Forwards"
 msgstr "/Objects/Bring Forwards"
 
-#: ../app/menus.c:190 ../app/menus.c:196 ../app/menus.c:200 ../app/menus.c:218
+#: ../app/menus.c:191 ../app/menus.c:197 ../app/menus.c:201 ../app/menus.c:219
 msgid "/Objects/---"
 msgstr "/Objects/---"
 
-#: ../app/menus.c:191
+#: ../app/menus.c:192
 msgid "/Objects/_Group"
 msgstr "/Objects/_Group"
 
 #. deliberately not using Ctrl+U for Ungroup
-#: ../app/menus.c:194
+#: ../app/menus.c:195
 msgid "/Objects/_Ungroup"
 msgstr "/Objects/_Ungroup"
 
-#: ../app/menus.c:197
+#: ../app/menus.c:198
 msgid "/Objects/_Parent"
 msgstr "/Objects/_Parent"
 
-#: ../app/menus.c:198
+#: ../app/menus.c:199
 msgid "/Objects/_Unparent"
 msgstr "/Objects/_Unparent"
 
-#: ../app/menus.c:199
+#: ../app/menus.c:200
 msgid "/Objects/_Unparent Children"
 msgstr "/Objects/_Unparent Children"
 
-#: ../app/menus.c:201
+#: ../app/menus.c:202
 msgid "/Objects/Align"
 msgstr "/Objects/Align"
 
-#: ../app/menus.c:203
+#: ../app/menus.c:204
 msgid "/Objects/Align/Left"
 msgstr "/Objects/Align/Left"
 
-#: ../app/menus.c:205
+#: ../app/menus.c:206
 msgid "/Objects/Align/Center"
 msgstr "/Objects/Align/Centre"
 
-#: ../app/menus.c:207
+#: ../app/menus.c:208
 msgid "/Objects/Align/Right"
 msgstr "/Objects/Align/Right"
 
-#: ../app/menus.c:209 ../app/menus.c:213
+#: ../app/menus.c:210 ../app/menus.c:214
 msgid "/Objects/Align/---"
 msgstr "/Objects/Align/---"
 
-#: ../app/menus.c:210
+#: ../app/menus.c:211
 msgid "/Objects/Align/Top"
 msgstr "/Objects/Align/Top"
 
-#: ../app/menus.c:211
+#: ../app/menus.c:212
 msgid "/Objects/Align/Middle"
 msgstr "/Objects/Align/Middle"
 
-#: ../app/menus.c:212
+#: ../app/menus.c:213
 msgid "/Objects/Align/Bottom"
 msgstr "/Objects/Align/Bottom"
 
-#: ../app/menus.c:214
+#: ../app/menus.c:215
 msgid "/Objects/Align/Spread Out Horizontally"
 msgstr "/Objects/Align/Spread Out Horizontally"
 
-#: ../app/menus.c:215
+#: ../app/menus.c:216
 msgid "/Objects/Align/Spread Out Vertically"
 msgstr "/Objects/Align/Spread Out Vertically"
 
-#: ../app/menus.c:216
+#: ../app/menus.c:217
 msgid "/Objects/Align/Adjacent"
 msgstr "/Objects/Align/Adjacent"
 
-#: ../app/menus.c:217
+#: ../app/menus.c:218
 msgid "/Objects/Align/Stacked"
 msgstr "/Objects/Align/Stacked"
 
-#: ../app/menus.c:219
+#: ../app/menus.c:220
 msgid "/Objects/_Properties..."
 msgstr "/Objects/_Properties..."
 
-#: ../app/menus.c:221
+#: ../app/menus.c:222
 msgid "/_Select"
 msgstr "/_Select"
 
-#: ../app/menus.c:223
+#: ../app/menus.c:224
 msgid "/Select/All"
 msgstr "/Select/All"
 
-#: ../app/menus.c:224
+#: ../app/menus.c:225
 msgid "/Select/None"
 msgstr "/Select/None"
 
-#: ../app/menus.c:225
+#: ../app/menus.c:226
 msgid "/Select/Invert"
 msgstr "/Select/Invert"
 
-#: ../app/menus.c:226 ../app/menus.c:230
+#: ../app/menus.c:227 ../app/menus.c:231
 msgid "/Select/---"
 msgstr "/Select/---"
 
-#: ../app/menus.c:227
+#: ../app/menus.c:228
 msgid "/Select/Transitive"
 msgstr "/Select/Transitive"
 
-#: ../app/menus.c:228
+#: ../app/menus.c:229
 msgid "/Select/Connected"
 msgstr "/Select/Connected"
 
-#: ../app/menus.c:229
+#: ../app/menus.c:230
 msgid "/Select/Same Type"
 msgstr "/Select/Same Type"
 
-#: ../app/menus.c:231
+#: ../app/menus.c:232
 msgid "/Select/Replace"
 msgstr "/Select/Replace"
 
-#: ../app/menus.c:233
+#: ../app/menus.c:234
 msgid "/Select/Union"
 msgstr "/Select/Union"
 
-#: ../app/menus.c:235
+#: ../app/menus.c:236
 msgid "/Select/Intersection"
 msgstr "/Select/Intersection"
 
-#: ../app/menus.c:237
+#: ../app/menus.c:238
 msgid "/Select/Remove"
 msgstr "/Select/Remove"
 
 #. Cannot also be called Invert, duplicate names caused keybinding problems
-#: ../app/menus.c:240
+#: ../app/menus.c:241
 msgid "/Select/Inverse"
 msgstr "/Select/Inverse"
 
-#: ../app/menus.c:242
+#: ../app/menus.c:243
 msgid "/_Tools"
 msgstr "/_Tools"
 
-#: ../app/menus.c:244
+#: ../app/menus.c:245
 msgid "/Tools/Modify"
 msgstr "/Tools/Modify"
 
-#: ../app/menus.c:245
+#: ../app/menus.c:246
 msgid "/Tools/Magnify"
 msgstr "/Tools/Magnify"
 
-#: ../app/menus.c:246
+#: ../app/menus.c:247
 msgid "/Tools/Scroll"
 msgstr "/Tools/Scroll"
 
-#: ../app/menus.c:247
+#: ../app/menus.c:248
 msgid "/Tools/Text"
 msgstr "/Tools/Text"
 
-#: ../app/menus.c:248
+#: ../app/menus.c:249
 msgid "/Tools/Box"
 msgstr "/Tools/Box"
 
-#: ../app/menus.c:249
+#: ../app/menus.c:250
 msgid "/Tools/Ellipse"
 msgstr "/Tools/Ellipse"
 
-#: ../app/menus.c:250
+#: ../app/menus.c:251
 msgid "/Tools/Polygon"
 msgstr "/Tools/Polygon"
 
-#: ../app/menus.c:251
+#: ../app/menus.c:252
 msgid "/Tools/Beziergon"
 msgstr "/Tools/Beziergon"
 
-#: ../app/menus.c:252 ../app/menus.c:258
+#: ../app/menus.c:253 ../app/menus.c:259
 msgid "/Tools/---"
 msgstr "/Tools/---"
 
-#: ../app/menus.c:253
+#: ../app/menus.c:254
 msgid "/Tools/Line"
 msgstr "/Tools/Line"
 
-#: ../app/menus.c:254
+#: ../app/menus.c:255
 msgid "/Tools/Arc"
 msgstr "/Tools/Arc"
 
-#: ../app/menus.c:255
+#: ../app/menus.c:256
 msgid "/Tools/Zigzagline"
 msgstr "/Tools/Zigzagline"
 
-#: ../app/menus.c:256
+#: ../app/menus.c:257
 msgid "/Tools/Polyline"
 msgstr "/Tools/Polyline"
 
-#: ../app/menus.c:257
+#: ../app/menus.c:258
 msgid "/Tools/Bezierline"
 msgstr "/Tools/Bezierline"
 
-#: ../app/menus.c:259
+#: ../app/menus.c:260
 msgid "/Tools/Image"
 msgstr "/Tools/Image"
 
-#: ../app/menus.c:260
+#: ../app/menus.c:261
 msgid "/_Input Methods"
 msgstr "/_Input Methods"
 
-#: ../app/menus.c:432
+#: ../app/menus.c:433
 msgid "NULL tooldata in tool_menu_select"
 msgstr "NULL tooldata in tool_menu_select"
 
-#: ../app/menus.c:529
+#: ../app/menus.c:530
 msgid "Diagram Menu"
 msgstr "Diagram Menu"
 
-#: ../app/menus.c:664
+#: ../app/menus.c:665
 #, c-format
 msgid ""
 "Can't find menu entry '%s'!\n"
@@ -1632,38 +1636,38 @@ msgstr ""
 msgid "Couldn't get GTK settings"
 msgstr "Could not get GTK settings"
 
-#: ../app/paginate_psprint.c:258
+#: ../app/paginate_psprint.c:265
 msgid "Select Printer"
 msgstr "Select Printer"
 
-#: ../app/paginate_psprint.c:270 ../sheets/ciscocomputer.sheet.in.h:36
+#: ../app/paginate_psprint.c:277 ../sheets/ciscocomputer.sheet.in.h:36
 msgid "Printer"
 msgstr "Printer"
 
-#: ../app/paginate_psprint.c:284 ../sheets/Misc.sheet.in.h:1
+#: ../app/paginate_psprint.c:291 ../sheets/Misc.sheet.in.h:1
 msgid "File"
 msgstr "File"
 
-#: ../app/paginate_psprint.c:299
+#: ../app/paginate_psprint.c:306
 msgid "OK"
 msgstr "OK"
 
-#: ../app/paginate_psprint.c:394
+#: ../app/paginate_psprint.c:401
 #, c-format
 msgid "Could not run command '%s': %s"
 msgstr "Could not run command '%s': %s"
 
-#: ../app/paginate_psprint.c:397
+#: ../app/paginate_psprint.c:404
 #, c-format
 msgid "Could not open '%s' for writing: %s"
 msgstr "Could not open '%s' for writing: %s"
 
-#: ../app/paginate_psprint.c:414
+#: ../app/paginate_psprint.c:421
 #, c-format
 msgid "Printing error: command '%s' returned %d\n"
 msgstr "Printing error: command '%s' returned %d\n"
 
-#: ../app/paginate_psprint.c:425
+#: ../app/paginate_psprint.c:432
 #, c-format
 msgid "Printing error: command '%s' caused sigpipe."
 msgstr "Printing error: command '%s' caused sigpipe."
@@ -1999,9 +2003,9 @@ msgstr "Description:"
 #: ../app/sheets_dialog.c:618 ../objects/FS/flow-ortho.c:169
 #: ../objects/FS/flow.c:146 ../objects/Istar/link.c:164
 #: ../objects/Jackson/phenomenon.c:144 ../objects/KAOS/metaandorrel.c:164
-#: ../objects/KAOS/metabinrel.c:171 ../objects/UML/class_dialog.c:987
-#: ../objects/UML/class_dialog.c:1945 ../objects/UML/class_dialog.c:2181
-#: ../objects/UML/class_dialog.c:2705
+#: ../objects/KAOS/metabinrel.c:171 ../objects/UML/class_dialog.c:967
+#: ../objects/UML/class_dialog.c:1916 ../objects/UML/class_dialog.c:2152
+#: ../objects/UML/class_dialog.c:2676
 msgid "Type:"
 msgstr "Type:"
 
@@ -2012,8 +2016,8 @@ msgstr "Sheet"
 #: ../app/sheets_dialog.c:672 ../objects/ER/attribute.c:153
 #: ../objects/ER/entity.c:135 ../objects/ER/relationship.c:140
 #: ../objects/UML/association.c:238 ../objects/UML/association.c:1166
-#: ../objects/UML/class_dialog.c:976 ../objects/UML/class_dialog.c:1934
-#: ../objects/UML/class_dialog.c:2170 ../objects/UML/class_dialog.c:2694
+#: ../objects/UML/class_dialog.c:956 ../objects/UML/class_dialog.c:1905
+#: ../objects/UML/class_dialog.c:2141 ../objects/UML/class_dialog.c:2665
 #: ../objects/UML/dependency.c:134 ../objects/UML/generalization.c:130
 #: ../objects/UML/realizes.c:131
 msgid "Name:"
@@ -4270,7 +4274,7 @@ msgstr "SADT diagram objects"
 msgid "Actor"
 msgstr "Actor"
 
-#: ../objects/UML/association.c:1179 ../objects/UML/class_dialog.c:2221
+#: ../objects/UML/association.c:1179 ../objects/UML/class_dialog.c:2192
 msgid "Direction:"
 msgstr "Direction:"
 
@@ -4298,28 +4302,28 @@ msgstr "Role:"
 msgid "Multiplicity:"
 msgstr "Multiplicity:"
 
-#: ../objects/UML/association.c:1266 ../objects/UML/class_dialog.c:1027
-#: ../objects/UML/class_dialog.c:1969
+#: ../objects/UML/association.c:1266 ../objects/UML/class_dialog.c:1007
+#: ../objects/UML/class_dialog.c:1940
 msgid "Visibility:"
 msgstr "Visibility:"
 
-#: ../objects/UML/association.c:1275 ../objects/UML/class_dialog.c:1036
-#: ../objects/UML/class_dialog.c:1978 ../objects/UML/uml.c:102
+#: ../objects/UML/association.c:1275 ../objects/UML/class_dialog.c:1016
+#: ../objects/UML/class_dialog.c:1949 ../objects/UML/uml.c:102
 msgid "Public"
 msgstr "Public"
 
-#: ../objects/UML/association.c:1285 ../objects/UML/class_dialog.c:1044
-#: ../objects/UML/class_dialog.c:1986 ../objects/UML/uml.c:103
+#: ../objects/UML/association.c:1285 ../objects/UML/class_dialog.c:1024
+#: ../objects/UML/class_dialog.c:1957 ../objects/UML/uml.c:103
 msgid "Private"
 msgstr "Private"
 
-#: ../objects/UML/association.c:1295 ../objects/UML/class_dialog.c:1052
-#: ../objects/UML/class_dialog.c:1994 ../objects/UML/uml.c:104
+#: ../objects/UML/association.c:1295 ../objects/UML/class_dialog.c:1032
+#: ../objects/UML/class_dialog.c:1965 ../objects/UML/uml.c:104
 msgid "Protected"
 msgstr "Protected"
 
-#: ../objects/UML/association.c:1305 ../objects/UML/class_dialog.c:1060
-#: ../objects/UML/class_dialog.c:2002 ../objects/UML/uml.c:105
+#: ../objects/UML/association.c:1305 ../objects/UML/class_dialog.c:1040
+#: ../objects/UML/class_dialog.c:1973 ../objects/UML/uml.c:105
 msgid "Implementation"
 msgstr "Implementation"
 
@@ -4339,7 +4343,7 @@ msgid "Composition"
 msgstr "Composition"
 
 #: ../objects/UML/class.c:134 ../objects/UML/class.c:302
-#: ../objects/UML/class.c:1709 ../sheets/UML.sheet.in.h:6
+#: ../objects/UML/class.c:1710 ../sheets/UML.sheet.in.h:6
 msgid "Class"
 msgstr "Class"
 
@@ -4359,11 +4363,11 @@ msgstr "Comment"
 
 #: ../objects/UML/class.c:142 ../objects/UML/class.c:173
 #: ../objects/UML/class_dialog.c:322 ../objects/UML/class_dialog.c:402
-#: ../objects/UML/class_dialog.c:2033 ../objects/UML/uml.c:110
+#: ../objects/UML/class_dialog.c:2004 ../objects/UML/uml.c:110
 msgid "Abstract"
 msgstr "Abstract"
 
-#: ../objects/UML/class.c:144 ../objects/UML/class.c:1706
+#: ../objects/UML/class.c:144 ../objects/UML/class.c:1707
 msgid "Template"
 msgstr "Template"
 
@@ -4442,14 +4446,14 @@ msgstr "_Class"
 msgid "Class name:"
 msgstr "Class name:"
 
-#: ../objects/UML/class_dialog.c:299 ../objects/UML/class_dialog.c:1956
+#: ../objects/UML/class_dialog.c:299 ../objects/UML/class_dialog.c:1927
 #: ../objects/UML/dependency.c:136 ../objects/UML/generalization.c:132
 #: ../objects/UML/realizes.c:133
 msgid "Stereotype:"
 msgstr "Stereotype:"
 
-#: ../objects/UML/class_dialog.c:306 ../objects/UML/class_dialog.c:1009
-#: ../objects/UML/class_dialog.c:2074 ../objects/UML/class_dialog.c:2203
+#: ../objects/UML/class_dialog.c:306 ../objects/UML/class_dialog.c:989
+#: ../objects/UML/class_dialog.c:2045 ../objects/UML/class_dialog.c:2174
 msgid "Comment:"
 msgstr "Comment:"
 
@@ -4508,105 +4512,105 @@ msgid "Background Color"
 msgstr "Background Colour"
 
 #. Attributes page:
-#: ../objects/UML/class_dialog.c:909
+#: ../objects/UML/class_dialog.c:889
 msgid "_Attributes"
 msgstr "_Attributes"
 
-#: ../objects/UML/class_dialog.c:937 ../objects/UML/class_dialog.c:1892
-#: ../objects/UML/class_dialog.c:2127 ../objects/UML/class_dialog.c:2655
+#: ../objects/UML/class_dialog.c:917 ../objects/UML/class_dialog.c:1863
+#: ../objects/UML/class_dialog.c:2098 ../objects/UML/class_dialog.c:2626
 msgid "_New"
 msgstr "_New"
 
-#: ../objects/UML/class_dialog.c:943 ../objects/UML/class_dialog.c:1898
-#: ../objects/UML/class_dialog.c:2134 ../objects/UML/class_dialog.c:2661
+#: ../objects/UML/class_dialog.c:923 ../objects/UML/class_dialog.c:1869
+#: ../objects/UML/class_dialog.c:2105 ../objects/UML/class_dialog.c:2632
 msgid "_Delete"
 msgstr "_Delete"
 
-#: ../objects/UML/class_dialog.c:949 ../objects/UML/class_dialog.c:1904
-#: ../objects/UML/class_dialog.c:2141 ../objects/UML/class_dialog.c:2667
+#: ../objects/UML/class_dialog.c:929 ../objects/UML/class_dialog.c:1875
+#: ../objects/UML/class_dialog.c:2112 ../objects/UML/class_dialog.c:2638
 msgid "Move up"
 msgstr "Move up"
 
-#: ../objects/UML/class_dialog.c:955 ../objects/UML/class_dialog.c:1910
-#: ../objects/UML/class_dialog.c:2148 ../objects/UML/class_dialog.c:2673
+#: ../objects/UML/class_dialog.c:935 ../objects/UML/class_dialog.c:1881
+#: ../objects/UML/class_dialog.c:2119 ../objects/UML/class_dialog.c:2644
 msgid "Move down"
 msgstr "Move down"
 
-#: ../objects/UML/class_dialog.c:966
+#: ../objects/UML/class_dialog.c:946
 msgid "Attribute data"
 msgstr "Attribute data"
 
-#: ../objects/UML/class_dialog.c:998
+#: ../objects/UML/class_dialog.c:978
 msgid "Value:"
 msgstr "Value:"
 
-#: ../objects/UML/class_dialog.c:1081 ../objects/UML/class_dialog.c:2018
+#: ../objects/UML/class_dialog.c:1061 ../objects/UML/class_dialog.c:1989
 msgid "Class scope"
 msgstr "Class scope"
 
 #. Operations page:
-#: ../objects/UML/class_dialog.c:1864
+#: ../objects/UML/class_dialog.c:1835
 msgid "_Operations"
 msgstr "_Operations"
 
-#: ../objects/UML/class_dialog.c:1922
+#: ../objects/UML/class_dialog.c:1893
 msgid "Operation data"
 msgstr "Operation data"
 
-#: ../objects/UML/class_dialog.c:2024
+#: ../objects/UML/class_dialog.c:1995
 msgid "Inheritance type:"
 msgstr "Inheritance type:"
 
-#: ../objects/UML/class_dialog.c:2041 ../objects/UML/uml.c:111
+#: ../objects/UML/class_dialog.c:2012 ../objects/UML/uml.c:111
 msgid "Polymorphic (virtual)"
 msgstr "Polymorphic (virtual)"
 
-#: ../objects/UML/class_dialog.c:2049 ../objects/UML/uml.c:112
+#: ../objects/UML/class_dialog.c:2020 ../objects/UML/uml.c:112
 msgid "Leaf (final)"
 msgstr "Leaf (final)"
 
-#: ../objects/UML/class_dialog.c:2067
+#: ../objects/UML/class_dialog.c:2038
 msgid "Query"
 msgstr "Query"
 
-#: ../objects/UML/class_dialog.c:2098
+#: ../objects/UML/class_dialog.c:2069
 msgid "Parameters:"
 msgstr "Parameters:"
 
-#: ../objects/UML/class_dialog.c:2160
+#: ../objects/UML/class_dialog.c:2131
 msgid "Parameter data"
 msgstr "Parameter data"
 
-#: ../objects/UML/class_dialog.c:2192
+#: ../objects/UML/class_dialog.c:2163
 msgid "Def. value:"
 msgstr "Def. value:"
 
-#: ../objects/UML/class_dialog.c:2230 ../objects/UML/umlparameter.c:34
+#: ../objects/UML/class_dialog.c:2201 ../objects/UML/umlparameter.c:34
 msgid "Undefined"
 msgstr "Undefined"
 
-#: ../objects/UML/class_dialog.c:2238 ../objects/UML/umlparameter.c:35
+#: ../objects/UML/class_dialog.c:2209 ../objects/UML/umlparameter.c:35
 msgid "In"
 msgstr "In"
 
-#: ../objects/UML/class_dialog.c:2247 ../objects/UML/umlparameter.c:36
+#: ../objects/UML/class_dialog.c:2218 ../objects/UML/umlparameter.c:36
 msgid "Out"
 msgstr "Out"
 
-#: ../objects/UML/class_dialog.c:2256 ../objects/UML/umlparameter.c:37
+#: ../objects/UML/class_dialog.c:2227 ../objects/UML/umlparameter.c:37
 msgid "In & Out"
 msgstr "In & Out"
 
 #. Templates page:
-#: ../objects/UML/class_dialog.c:2621
+#: ../objects/UML/class_dialog.c:2592
 msgid "_Templates"
 msgstr "_Templates"
 
-#: ../objects/UML/class_dialog.c:2627 ../sheets/UML.sheet.in.h:29
+#: ../objects/UML/class_dialog.c:2598 ../sheets/UML.sheet.in.h:29
 msgid "Template class"
 msgstr "Template class"
 
-#: ../objects/UML/class_dialog.c:2684
+#: ../objects/UML/class_dialog.c:2655
 msgid "Formal parameter data"
 msgstr "Formal parameter data"
 
@@ -5281,7 +5285,7 @@ msgstr "LaTeX PGF macros"
 msgid "TeX Pstricks export filter"
 msgstr "TeX Pstricks export filter"
 
-#: ../plug-ins/pstricks/render_pstricks.c:981
+#: ../plug-ins/pstricks/render_pstricks.c:985
 msgid "TeX PSTricks macros"
 msgstr "TeX PSTricks macros"
 
