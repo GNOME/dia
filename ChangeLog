@@ -1,3 +1,8 @@
+2006-01-18  Lars Clausen  <lars@raeder.dk>
+
+	* app/grid.c: Fix bug with grid being incorrectly drawn when gap <
+	1.
+
 2006-01-14  Hans Breuer  <hans@breuer.org>
 
 	* app/paginate_psprint.c : ensure we are not producing pages for
