@@ -45,8 +45,9 @@
  *
  * Enabling 29/7 2005: Not known to cause any problems.
  * 7/11 2005: Still seeing problems after dialog update, needs work.  --LC
+ * 18/1 2006: Can't make it break, enabling.
  */
-#undef UML_MAINPOINT
+#define UML_MAINPOINT 1
 
 
 typedef struct _UMLClass UMLClass;

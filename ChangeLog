@@ -1,5 +1,8 @@
 2006-01-18  Lars Clausen  <lars@raeder.dk>
 
+	* objects/UML/class.h: Enabling UML class mainpoint after failure
+	to break it.
+
 	* app/grid.c: Fix bug with grid being incorrectly drawn when gap <
 	1.
 
