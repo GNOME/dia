@@ -1,0 +1,11 @@
+These are the current known maintainers of Dia in various distributions.
+They should be contacted when new releases (and candidates) come out.
+
+Debian: Debian Dia Maintainer <dia@packages.debian.org>
+NetBSD: Martin J. Laubach <mjl@netbsd.org>
+OpenBSD: Margarida Sequeria <margarida@openbsd.org>
+FreeBSD: gnome@freebsd.org
+Mandrake: fcrozat@mandrakesoft.com
+PLD: kloczek@pld.org.pl
+SUSE: Mads Martin Jorgensen <mmj@suse.de>
+RedHat: alexl@redhat.com
