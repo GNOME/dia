@@ -2,7 +2,7 @@
 <sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
   <_name>AADL</_name>
   <_description>AADL Shapes</_description>
-  <_description xml:lang="fr">Formes AADL</_description>
+  <_description>Formes AADL</_description>
   <contents>
     <object name="AADL - Box">  
       <_description>Process</_description>

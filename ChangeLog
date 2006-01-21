@@ -1,3 +1,11 @@
+2006-01-21  Hans Breuer  <hans@breuer.org>
+
+	* sheets/AADL.sheet.in : remove left over xml:lang tag. 
+	( Nguyen Thai Ngoc Duy, bug #327519)
+
+	* lib/dialibartrenderer.c : make text rendering work without
+	PangoFT2 and PangoWin32
+
 2006-01-18  Lars Clausen  <lars@raeder.dk>
 
 	* objects/UML/class.h: Enabling UML class mainpoint after failure

@@ -41,6 +41,9 @@
 #include <pango/pango.h>
 #include <pango/pangowin32.h>
 #undef Rectangle
+#else
+#include <pango/pango.h>
+#include <gdk/gdk.h>
 #endif
 
 #include <libart_lgpl/art_point.h>
@@ -123,6 +126,9 @@ begin_render(DiaRenderer *self)
    * fine with Pango/win32, too.  --hb
    */
 # define FONT_SCALE (1.0)
+#else
+  dia_font_push_context (gdk_pango_context_get ());
+# define FONT_SCALE (0.8)
 #endif
 }
 
@@ -1194,7 +1200,7 @@ draw_string (DiaRenderer *self,
    GdkImage  *image;
 
    rowstride = 32*((width+31)/31);
-#if 0 /* with 8 bit pixmap we would probably need to set the whole gray palette */
+#if 1 /* with 8 bit pixmap we would probably need to set the whole gray palette */
    gdk_gc_set_foreground (gc, &color_gdk_black);
    gdk_gc_set_background (gc, &color_gdk_white);
    gdk_draw_rectangle (GDK_DRAWABLE (pixmap), gc, TRUE, 0, 0, width, height); 
@@ -1211,7 +1217,7 @@ draw_string (DiaRenderer *self,
        bitmap[DEPTH*(i*rowstride+j)] = color->red*255;
        bitmap[DEPTH*(i*rowstride+j)+1] = color->green*255;
        bitmap[DEPTH*(i*rowstride+j)+2] = color->blue*255;
-       bitmap[DEPTH*(i*rowstride+j)+3] = gdk_image_get_pixel (image, j, i) ? 255 : 0;
+       bitmap[DEPTH*(i*rowstride+j)+3] = gdk_image_get_pixel (image, j, i) & 0xFF;
      }
    }
    g_object_unref (G_OBJECT (image));
