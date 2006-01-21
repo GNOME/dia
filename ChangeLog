@@ -1,5 +1,10 @@
 2006-01-21  Hans Breuer  <hans@breuer.org>
 
+        * lib/connection.c lib/connection.h lib/connectionpoint.h
+          lib/diagramdata.h lib/diarenderer.h lib/diatypes.h
+          lib/element.h lib/geometry.h lib/handle.h lib/objchange.h
+          lib/object.c lib/object.h : documentation tweaking
+
 	* objects/UML/class_dialog.c(attributes_create_page,
 	operations_create_page) : dont connect
 	to a not exisiting signal. Avoids "GLib-GObject-CRITICAL **:
