@@ -1,5 +1,12 @@
 2006-01-21  Hans Breuer  <hans@breuer.org>
 
+	* app/display.c(initialize_display_widgets) : also append the Input 
+	Methods menu to the diagram menubar. Now fixes bug #327862.
+
+	* config.h.win32 : #undef LOCALEDIR
+	* app/app_procs.c : runtime calculation of localedir. It now is
+	$(executable_dir)/../locale. Should help fix bug #309763
+	
 	* sheets/AADL.sheet.in : remove left over xml:lang tag. 
 	( Nguyen Thai Ngoc Duy, bug #327519)
 

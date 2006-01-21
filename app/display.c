@@ -209,6 +209,12 @@ initialize_display_widgets(DDisplay *ddisp)
 	input_methods_done = TRUE;
       }
   }
+  /* the diagram menubar gets recreated for every diagram */ 	 
+  if (ddisp->menu_bar) {
+    im_menu_item = menus_get_item_from_path("<DisplayMBar>/Input Methods", ddisp->mbar_item_factory);
+    if (im_menu_item)
+      append_im_menu (ddisp, im_menu_item);
+  }	 
 }
 
 /** Make a copy of an existing display.  The original does not need to have

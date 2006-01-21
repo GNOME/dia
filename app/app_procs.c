@@ -755,7 +755,17 @@ app_init (int argc, char **argv)
   gtk_set_locale();
   setlocale(LC_NUMERIC, "C");
   
+#ifdef G_OS_WIN32
+  /* calculate runtime directory */
+  {
+    gchar* localedir = dia_get_lib_directory ("locale");
+    
+    bindtextdomain(GETTEXT_PACKAGE, localedir);
+    g_free (localedir);
+  }
+#else
   bindtextdomain(GETTEXT_PACKAGE, LOCALEDIR);
+#endif
   textdomain(GETTEXT_PACKAGE);
 
   process_opts(argc, argv, 

@@ -15,7 +15,8 @@
 #define ENABLE_NLS
 #define HAVE_BIND_TEXTDOMAIN_CODESET
 #define GETTEXT_PACKAGE "dia"
-#define LOCALEDIR "../lib/locale"
+#undef LOCALEDIR /* needs to be calculated at runtime */
+/* NOT: #define LOCALEDIR "../lib/locale" */
 
 #define VERSION "0.94+cvs"
 
