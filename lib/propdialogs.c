@@ -290,6 +290,12 @@ prop_get_data_from_widgets(PropDialog *dialog)
   }
 }
 
+static gboolean
+pdtpp_is_visible_default (const PropDescription *pdesc)
+{
+  return pdtpp_defaults (pdesc) && pdtpp_is_visible_no_standard(pdesc);
+}
+
 static void 
 prop_dialog_fill(PropDialog *dialog, DiaObject *obj, gboolean is_default) {
   const PropDescription *pdesc;
@@ -303,7 +309,7 @@ prop_dialog_fill(PropDialog *dialog, DiaObject *obj, gboolean is_default) {
   if (!pdesc) return;
 
   if (is_default)
-      props = prop_list_from_descs(pdesc,pdtpp_is_visible_no_standard);
+      props = prop_list_from_descs(pdesc,pdtpp_is_visible_default);
   else
       props = prop_list_from_descs(pdesc,pdtpp_is_visible);
 

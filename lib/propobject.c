@@ -182,6 +182,12 @@ object_complies_with_stdprop(const DiaObject *obj)
   return TRUE;
 }
 
+static gboolean
+pdtpp_do_save_no_standard_default (const PropDescription *pdesc)
+{
+  return pdtpp_do_save_no_standard(pdesc) && pdtpp_defaults (pdesc);
+}
+
 void 
 object_copy_props(DiaObject *dest, const DiaObject *src, gboolean is_default)
 {
@@ -195,7 +201,7 @@ object_copy_props(DiaObject *dest, const DiaObject *src, gboolean is_default)
   g_return_if_fail(object_complies_with_stdprop(dest));
 
   props = prop_list_from_descs(object_get_prop_descriptions(src),
-                               (is_default?pdtpp_do_save_no_standard:
+                               (is_default?pdtpp_do_save_no_standard_default:
 				pdtpp_do_save));
 
   src->ops->get_props((DiaObject *)src, props); /* FIXME: really should make

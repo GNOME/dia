@@ -178,7 +178,7 @@ dia_object_defaults_load (const gchar *filename, gboolean create_lazy)
 					filename);
 			  if (def_obj->ops->set_props)
 			    { 
-			      object_copy_props (obj, def_obj, FALSE);
+			      object_copy_props (obj, def_obj, TRUE);
 			      def_obj->ops->destroy (def_obj);
 			    }
 			  else

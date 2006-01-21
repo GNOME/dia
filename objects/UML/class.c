@@ -195,12 +195,12 @@ static PropDescription umlclass_props[] = {
   PROP_STD_NOTEBOOK_END,
 
   /* these are used during load, but currently not during save */
-  { "attributes", PROP_TYPE_DARRAY, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
+  { "attributes", PROP_TYPE_DARRAY, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL | PROP_FLAG_DONT_MERGE | PROP_FLAG_NO_DEFAULTS,
   N_("Attributes"), NULL, NULL /* umlattribute_extra */ }, 
-  { "operations", PROP_TYPE_DARRAY, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
+  { "operations", PROP_TYPE_DARRAY, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL | PROP_FLAG_DONT_MERGE | PROP_FLAG_NO_DEFAULTS,
   N_("Operations"), NULL, NULL /* umloperations_extra */ }, 
   /* the naming is questionable, but kept for compatibility */
-  { "templates", PROP_TYPE_DARRAY, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
+  { "templates", PROP_TYPE_DARRAY, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL | PROP_FLAG_DONT_MERGE | PROP_FLAG_NO_DEFAULTS,
   N_("Template Parameters"), NULL, NULL /* umlformalparameters_extra */ }, 
 
   PROP_DESC_END

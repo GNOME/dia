@@ -1,5 +1,14 @@
 2006-01-21  Hans Breuer  <hans@breuer.org>
 
+	* lib/object_defaults.c : pass is_default=TRUE to object_copy_props
+	  lib/proplist.c : fixed pdtpp_default()
+	  lib/propobject.c : correctly reflect is_default 
+	* object/UML/class.c : correct setting of PROP_FLAG_NO_DEFAULTS and
+	PROP_FLAG_DONT_MERGE. With the above this fixes bug #320934
+	
+	* lib/propdialogs.c : if PROP_NO_DEFAULTS is set dont try to show a
+	widget in defaults dialog
+
 	* app/display.c(initialize_display_widgets) : also append the Input 
 	Methods menu to the diagram menubar. Now fixes bug #327862.
 

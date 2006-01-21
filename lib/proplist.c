@@ -57,7 +57,7 @@ gboolean pdtpp_do_load(const PropDescription *pdesc)
 { return (((pdesc->flags & PROP_FLAG_DONT_SAVE) == 0) ||
             ((pdesc->flags & PROP_FLAG_LOAD_ONLY) != 0)); } 
 gboolean pdtpp_defaults(const PropDescription *pdesc)
-{ return (pdesc->flags & (PROP_FLAG_DONT_MERGE|PROP_FLAG_NO_DEFAULTS)) == 0; } 
+{ return (pdesc->flags & PROP_FLAG_NO_DEFAULTS) == 0; } 
 gboolean pdtpp_do_not_save(const PropDescription *pdesc)
 { return (pdesc->flags & PROP_FLAG_DONT_SAVE) != 0; } 
 
