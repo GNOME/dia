@@ -15,6 +15,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
+/*! \file connectionpoint.h -- Connection Points together with Handles allow to connect objects */
 #ifndef CONNECTIONPOINT_H
 #define CONNECTIONPOINT_H
 
@@ -43,30 +44,35 @@
 #define DIR_NONE      0
 #define DIR_ALL       (DIR_NORTH|DIR_SOUTH|DIR_EAST|DIR_WEST)
 
-#define CP_FLAG_ANYPLACE	1 /* Set if this connpoint is the one that
+#define CP_FLAG_ANYPLACE	1 /*!< Set if this connpoint is the one that
 				     is connected to when a connection is
 				     dropped on an object. */
-#define CP_FLAG_AUTOGAP		2 /* Set if this connpoint is internal
+#define CP_FLAG_AUTOGAP		2 /*!< Set if this connpoint is internal
 				     and so should force a gap on the lines. */
 
-/* Most non-connection objects want exactly one CP with this, in the middle. */
-#define CP_FLAGS_MAIN		3 /* Use this for the central CP that
+/*! Most non-connection objects want exactly one CP with this, in the middle. */
+#define CP_FLAGS_MAIN		3 /*!< Use this for the central CP that
 				     takes connections from all over the
 				     object and has autogap. */
 
+/*!
+ * \brief To connect object with other objects handles
+ */
 struct _ConnectionPoint {
-  Point pos;         /* position of this connection point */
-  Point last_pos;    /* Used by update_connections_xxx only. */
-  DiaObject *object;    /* pointer to the object having this point */
-  GList *connected;  /* list of 'DiaObject *' connected to this point*/
-  gchar directions;  /* Directions that this connection point is open to */
-  gchar *name;       /* Name of this connpoint, NULL means uses number only.*/
-  guint8 flags;      /* Flags set for this connpoint.  See CP_FLAGS_* above. */
+  Point pos;         /*!< position of this connection point */
+  Point last_pos;    /*!< Used by update_connections_xxx only. */
+  DiaObject *object; /*!< pointer to the object having this point */
+  GList *connected;  /*!< list of 'DiaObject *' connected to this point*/
+  gchar directions;  /*!< Directions that this connection point is open to */
+  gchar *name;       /*!< Name of this connpoint, NULL means uses number only.*/
+  guint8 flags;      /*!< Flags set for this connpoint.  See CP_FLAGS_* above. */
 };
 
-/* Returns the available directions on a slope.
+/** 
+ * Returns the available directions on a slope.
  * The right-hand side of the line is assumed to be within the object,
- * and thus not available. */
+ * and thus not available. 
+ */
 gint find_slope_directions(Point from, Point to);
 /** Update the object-settable parts of a connectionpoints.
  * p: A ConnectionPoint pointer (non-NULL).

@@ -15,6 +15,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
+/*! \file diagramdata.h -- Describing the base class of diagrams */
 #ifndef DIAGRAMDATA_H
 #define DIAGRAMDATA_H
 
@@ -28,6 +29,9 @@
 #include "diavar.h"
 #include "paper.h"
 
+/*!
+ * \brief Helper to create new diagram
+ */
 struct _NewDiagramData {
   gchar *papertype;
   gfloat tmargin, bmargin, lmargin, rmargin;
@@ -48,24 +52,25 @@ GType diagram_data_get_type (void) G_GNUC_CONST;
 #define DIA_IS_DIAGRAM_DATA(obj)        (G_TYPE_CHECK_INSTANCE_TYPE ((obj), DIA_TYPE_DIAGRAM_DATA))
 #define DIA_DIAGRAM_DATA_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS ((obj), DIA_TYPE_DIAGRAM_DATA, DiagramDataClass))
 
-
-
+/*
+ * \brief Base class for diagrams. This is the only stuff plug-ins should see about diagrams.
+ */
 struct _DiagramData {
-  GObject parent_instance;
+  GObject parent_instance; /*!< inheritance in C */
 
-  Rectangle extents;      /* The extents of the diagram        */
+  Rectangle extents;      /*!< The extents of the diagram        */
 
-  Color bg_color;
+  Color bg_color;         /*!< The diagrams background color */
 
-  PaperInfo paper;       /* info about the page info for the diagram */
-  gboolean is_compressed; /* TRUE if by default it should be save compressed.
+  PaperInfo paper;        /*!< info about the page info for the diagram */
+  gboolean is_compressed; /*!< TRUE if by default it should be save compressed.
 			     The user can override this in Save As... */
 
-  GPtrArray *layers;     /* Layers ordered by decreasing z-order */
-  Layer *active_layer;
+  GPtrArray *layers;     /*!< Layers ordered by decreasing z-order */
+  Layer *active_layer;   /*!< The active layer, Defensive programmers check for NULL */
 
-  guint selected_count_private; /* kept for binary compatibility and sanity, don't use ! */
-  GList *selected;        /* List of objects that are selected,
+  guint selected_count_private; /*!< kept for binary compatibility and sanity, don't use ! */
+  GList *selected;        /*!< List of objects that are selected,
 			     all from the active layer! */
 
   /** List of text fields that can be edited in the diagram.
@@ -84,20 +89,25 @@ typedef struct _DiagramDataClass {
   
 } DiagramDataClass;
 
+/*! 
+ * \brief A diagram consists of layers holding objects 
+ *
+ * \todo : make this a GObject as well
+ */
 struct _Layer {
-  char *name;
-  Rectangle extents;      /* The extents of the layer        */
+  char *name;             /*!< */
+  Rectangle extents;      /*!< The extents of the layer        */
 
-  GList *objects;         /* List of objects in the layer,
+  GList *objects;         /*!< List of objects in the layer,
 			     sorted by decreasing z-valued,
 			     objects can ONLY be connected to objects
 			     in the same layer! */
 
   gboolean visible;
-  gboolean connectable;   /* Whether the layer can currently be connected to.
+  gboolean connectable;   /*!< Whether the layer can currently be connected to.
 			     The selected layer is by default connectable */
 
-  DiagramData *parent_diagram; /* Back-pointer to the diagram.  This
+  DiagramData *parent_diagram; /*!< Back-pointer to the diagram.  This
 				  must only be set by functions internal
 				  to the diagram, and accessed via
 				  layer_get_parent_diagram() */
@@ -106,6 +116,7 @@ struct _Layer {
 #include "object.h"
 #include "dynamic_obj.h"
 
+/*! bounding box debug helper : set to !0 to see the caclulated bounding boxes */
 DIAVAR int render_bounding_boxes;
 
 Layer *new_layer (char *name, DiagramData *parent);

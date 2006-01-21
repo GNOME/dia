@@ -377,11 +377,13 @@ DiaObject *object_copy_using_properties(DiaObject *obj);
  **  The structures used to define an object
  *****************************************/
 
-/** This structure defines an affine transformation that has been applied
+/**
+ * \private This is currently unused
+ *
+ * This structure defines an affine transformation that has been applied
  * to this object.  Affine transformations done on a group are performed
  * on all objects in the group.
  */
-
 typedef struct _Affine {
   real rotation;
   real scale;
@@ -389,11 +391,12 @@ typedef struct _Affine {
 } Affine;
 
 
-/*
+/*!
+  \brief _DiaObject vtable
+
   This structure gives access to the functions used to manipulate an object
   See information above on the use of the functions
 */
-
 struct _ObjectOps {
   DestroyFunc         destroy;
   DrawFunc            draw;
@@ -412,7 +415,7 @@ struct _ObjectOps {
 
   TextEditFunc        edit_text;
 
-  /*
+  /*!
     Unused places (for extension).
     These should be NULL for now. In the future they might be used.
     Then an older object will be binary compatible, because all new code
@@ -421,7 +424,11 @@ struct _ObjectOps {
   void      (*(unused[5]))(DiaObject *obj,...); 
 };
 
-/*
+/*!
+  \class _DiaObject
+ 
+  \brief Base class for all of Dia's objects, i.e. diagram building blocks
+
   The base class in the DiaObject hierarchy.
   All information in this structure read-only
   from the application point of view except
@@ -431,10 +438,9 @@ struct _ObjectOps {
   position is not necessarly the corner of the object, but rather
   some 'good' spot on it which will be natural to snap to.
 */
-
 struct _DiaObject {
-  DiaObjectType    *type;
-  Point             position;
+  DiaObjectType    *type; /*!< pointer to the registered type */
+  Point             position; /*!<  often but not necessarily the upper left corner of the object */
   /** The area that contains all parts of the 'real' object, i.e. the parts
    *  that would be printed, exported to pixmaps etc.  This is also used to
    *  determine the size of autofit scaling, so it should be as large as
@@ -443,7 +449,7 @@ struct _DiaObject {
    *  Do not access this field directly, but use dia_object_get_enclosing_box().
    */
   Rectangle         bounding_box;
-  Affine            affine;
+  Affine            affine; /*!< unused */
   
   int               num_handles;
   Handle          **handles;
@@ -451,19 +457,19 @@ struct _DiaObject {
   int               num_connections;
   ConnectionPoint **connections;
   
-  ObjectOps *ops;
+  ObjectOps *ops; /*!< pointer to the vtable */
 
-  Layer *parent_layer; /* Back-pointer to the owning layer.
-			  This may only be set by functions internal to
-			  the layer, and accessed via 
-			  dia_object_get_parent_layer() */
-  DiaObject *parent;
-  GList *children;
-  gboolean can_parent;
+  Layer *parent_layer; /*< Back-pointer to the owning layer.
+			   This may only be set by functions internal to
+			   the layer, and accessed via 
+			   dia_object_get_parent_layer() */
+  DiaObject *parent; /*!< Back-pointer to DiaObject which is parenting this object. Can be NULL */
+  GList *children; /*!< In case this object is a parent of other object the children are listed here */
+  gboolean can_parent; /*!< Only some object support parenting, i.e. hosting other objects */
 
-  Color *highlight_color; /* The color that this object is currently
-			     highlighted with, or NULL if it is not 
-			     highlighted. */
+  Color *highlight_color; /*!< The color that this object is currently
+			       highlighted with, or NULL if it is not 
+			       highlighted. */
   /** The area that contains all parts rendered interactively, so includes
    *  handles, bezier controllers etc.  Despite historical difference, this
    *  should not be accessed directly, but through dia_object_get_bounding_box().
@@ -477,6 +483,9 @@ struct _DiaObject {
   Rectangle         enclosing_box;
 };
 
+/*!
+ * \brief Vtable for _DiaObjectType
+ */
 struct _ObjectTypeOps {
   CreateFunc        create;
   LoadFunc          load;
@@ -492,20 +501,22 @@ struct _ObjectTypeOps {
   void      (*(unused[10]))(DiaObject *obj,...); 
 };
 
-/*
+/*!
+   \brief _DiaObject factory
+
    Structure so that the ObjectFactory can create objects
    of unknown type. (Read in from a shared lib.)
  */
 struct _DiaObjectType {
 
-  char *name;
-  int version;
+  char *name; /*!< The type name should follow a pattern of '<module> - <class>' like "UML - Class" */
+  int version; /*!< DiaObjects must be backward compatible, i.e. support possibly older versions formats */ 
 
   char **pixmap; /* Also put a pixmap in the sheet_object.
 		    This one is used if not in sheet but in toolbar.
 		    Stored in xpm format */
   
-  ObjectTypeOps *ops;
+  ObjectTypeOps *ops; /*!< pointer to the vtable */
 
   char *pixmap_file; /* fallback if pixmap is NULL */
   void *default_user_data; /* use this if no user data is specified in

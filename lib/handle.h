@@ -15,25 +15,27 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
+
+/*! \file handle.h - describing the different behavious of handles, used e.g. to resize objects */
 #ifndef HANDLE_H
 #define HANDLE_H
 
 #include "diatypes.h"
 
-/* Is this needed? */
+/*! Some object resizing depends on the placement of the handle */
 typedef enum {
-  HANDLE_RESIZE_NW,
-  HANDLE_RESIZE_N,
-  HANDLE_RESIZE_NE,
-  HANDLE_RESIZE_W,
-  HANDLE_RESIZE_E,
-  HANDLE_RESIZE_SW,
-  HANDLE_RESIZE_S,
-  HANDLE_RESIZE_SE,
-  HANDLE_MOVE_STARTPOINT,
-  HANDLE_MOVE_ENDPOINT,
+  HANDLE_RESIZE_NW, /*!< north/west or top/left */
+  HANDLE_RESIZE_N,  /*!< north or top */
+  HANDLE_RESIZE_NE, /*!< north/east or top/right */
+  HANDLE_RESIZE_W,  /*!< west or left */
+  HANDLE_RESIZE_E,  /*!< east or right */
+  HANDLE_RESIZE_SW, /*!< south/west or bottom/left */
+  HANDLE_RESIZE_S,  /*!< south or bottom */
+  HANDLE_RESIZE_SE, /*!< south/east or bottom/right */
+  HANDLE_MOVE_STARTPOINT, /*!< for lines: the beginning */
+  HANDLE_MOVE_ENDPOINT,   /*!< for lines: the ending */
 
-  /* These handles can be used privately by objects: */
+  /*! These handles can be used privately by objects: */
   HANDLE_CUSTOM1=200,
   HANDLE_CUSTOM2,
   HANDLE_CUSTOM3,
@@ -45,6 +47,7 @@ typedef enum {
   HANDLE_CUSTOM9
 } HandleId;
 
+/*! HandleType is used for color coding the different handles */
 typedef enum {
   HANDLE_NON_MOVABLE,
   HANDLE_MAJOR_CONTROL,
@@ -53,30 +56,35 @@ typedef enum {
   NUM_HANDLE_TYPES /* Must be last */
 }  HandleType;
 
+/*! When an objects move_handle() function is called this is passed in */
 typedef enum {
   HANDLE_MOVE_USER,
   HANDLE_MOVE_USER_FINAL,
   HANDLE_MOVE_CONNECTED,
-  HANDLE_MOVE_CREATE,       /* the initial drag during object placement */
-  HANDLE_MOVE_CREATE_FINAL  /* finish of initial drag */
+  HANDLE_MOVE_CREATE,       /*!< the initial drag during object placement */
+  HANDLE_MOVE_CREATE_FINAL  /*!< finish of initial drag */
 } HandleMoveReason;
 
+/*! If the handle is connectable or not */
 typedef enum {
-  HANDLE_NONCONNECTABLE,
-  HANDLE_CONNECTABLE,
-  HANDLE_CONNECTABLE_NOBREAK /* Don't break connection on object move */
+  HANDLE_NONCONNECTABLE,     /*!< not connectable */
+  HANDLE_CONNECTABLE,        /*!< connectable */
+  HANDLE_CONNECTABLE_NOBREAK /*!< (unused) Don't break connection on object move */
 } HandleConnectType;
 
 #include "geometry.h"
 #include "object.h"
 
+/*!
+ * \brief A handle is used to resize objects or to connet to them.
+ */
 struct _Handle {
-  HandleId id;
-  HandleType type;
-  Point pos;
+  HandleId id; /*!< gives (mostly) the placement relative to the object */
+  HandleType type; /*!< color coding */
+  Point pos;   /*! where the handle currently is in diagram coordinates */
   
-  HandleConnectType connect_type;
-  ConnectionPoint *connected_to; /* NULL if not connected */
+  HandleConnectType connect_type; /*!< how to connect if at all */
+  ConnectionPoint *connected_to; /*!< NULL if not connected */
 };
 
   

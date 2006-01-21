@@ -15,8 +15,10 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
-#ifndef CHANGE_H
-#define CHANGE_H
+
+/*! \file objchange.h -- Forming the basic of undo support to be implemented in objects */
+#ifndef OBJCHANGE_H
+#define OBJCHANGE_H
 
 #include "diatypes.h"
 
@@ -25,21 +27,21 @@ typedef void (*ObjectChangeRevertFunc)(ObjectChange *change, DiaObject *obj);
 typedef void (*ObjectChangeFreeFunc)(ObjectChange *change);
 
 struct _ObjectChange {
-  /* If apply == transaction_point_pointer then this is a transaction
-     point */
+  /*! If apply == transaction_point_pointer then this is a transaction
+     point. Otherwise this is applying the change */
   ObjectChangeApplyFunc  apply;
-  ObjectChangeRevertFunc revert;
-  ObjectChangeFreeFunc   free; /* Remove extra data. Then this object is freed */
+  ObjectChangeRevertFunc revert; /*!< revert back to the state before the changed was applied */
+  ObjectChangeFreeFunc   free; /*!< Remove extra data. Then this object is freed */
 };
 
 /******** Helper functions of objects: *************/
 
 struct _ObjectState {
-  void (*free)(ObjectState *state); /* Frees pointers in the state,
+  void (*free)(ObjectState *state); /*!< Frees pointers in the state,
 				       not called if NULL */
 };
 
-/*
+/*!
   Gets the internal state from the object.
   This is used to snapshot the object state
   so that it can be stored for undo/redo.
@@ -51,7 +53,7 @@ struct _ObjectState {
 */
 typedef ObjectState * (*GetStateFunc) (DiaObject* obj);
 
-/*
+/*!
   Sets the internal state from the object.
   This is used to snapshot the object state
   so that it can be stored for undo/redo.
@@ -67,6 +69,4 @@ ObjectChange *new_object_state_change(DiaObject *obj,
 				      GetStateFunc get_state,
 				      SetStateFunc set_state );
 
-#endif /* CHANGE_H */
-
-
+#endif /* OBJCHANGE_H */

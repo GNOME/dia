@@ -15,6 +15,8 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
+
+/* ** \file element.h -- Definition of a diagram - usual rectangular - object with eight handles  */
 #ifndef ELEMENT_H
 #define ELEMENT_H
 
@@ -24,13 +26,17 @@
 #include "connectionpoint.h"
 #include "boundingbox.h"
 
-/* This is a subclass of DiaObject used to help implementing objects
- * of a type with 8 handles around ..... more info here. */
+/*!
+ * \class _Element
+ * \brief Beside OrthCon one of the most use object classes
+ *
+ * This is a subclass of DiaObject used to help implementing objects
+ * of a type with 8 handles. 
+ */
 struct _Element {
-  /* DiaObject must be first because this is a 'subclass' of it. */
-  DiaObject object;
+  DiaObject object; /*!< inheritance */
   
-  Handle resize_handles[8];
+  Handle resize_handles[8]; /*!< not only for resizing but may also be used for connections */
 
   Point corner;
   real width;

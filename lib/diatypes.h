@@ -16,10 +16,10 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
+/** @file diatypes.h -- All externally visible structures should be defined here */
+
 #ifndef TYPES_H
 #define TYPES_H
-
-/* All externally visible structures should be defined here */
 
 /* In diagramdata.h: */
 typedef struct _DiagramData DiagramData;

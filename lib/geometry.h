@@ -15,6 +15,8 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
+
+/** \file geometry.h -- basic geometry classes and functions operationg on them */
 #ifndef GEOMETRY_H
 #define GEOMETRY_H
 
@@ -73,33 +75,40 @@
 typedef double real;
 typedef real coord;
 
+/*! \brief A two dimensional position */
 struct _Point {
-  coord x;
-  coord y;
+  coord x; /*!< horizontal */
+  coord y; /*!< vertical */
 };
 
+/*! \brief A rectangle given by upper left and lower right corner */
 struct _Rectangle {
-  coord top;
-  coord left;
-  coord bottom;
-  coord right;
+  coord top; /*!< y1 */
+  coord left; /*!< x1 */
+  coord bottom; /*!< y2 */
+  coord right; /*!< x2 */
 };
 
+/*! \brief A rectangle for fixed point e.g. pixel coordinates */
 struct _IntRectangle {
-  int top;
-  int left;
-  int bottom;
-  int right;
+  int top; /*!< y1 */
+  int left; /*!< x1 */
+  int bottom; /*!< y2 */
+  int right; /*!< x2 */
 };
 
-/* BezPoint types:
- *   BEZ_MOVE_TO: move to point p1
- *   BEZ_LINE_TO: line to point p1
- *   BEZ_CURVE_TO: curve to point p3 using p1 and p2 as control points.
+/*! 
+ * \brief BezPoint is a bezier point forming _Bezierline or _Beziergon
  */
 struct _BezPoint {
-  enum {BEZ_MOVE_TO, BEZ_LINE_TO, BEZ_CURVE_TO} type;
-  Point p1, p2, p3;
+  enum {
+    BEZ_MOVE_TO, /*!< move to point p1 */
+    BEZ_LINE_TO, /*!< line to point p1 */
+    BEZ_CURVE_TO /*!< curve to point p3 using p1 and p2 as control points */
+  } type;
+  Point p1; /*!< main point in case of move or line-to, otherwise first control point */
+  Point p2; /*!< second control point  */
+  Point p3; /*!< main point for 'true' bezier point */
 };
 
 

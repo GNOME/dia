@@ -15,6 +15,8 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
+
+/** \file connection.h -- The basis of connections in Dia */
 #ifndef CONNECTION_H
 #define CONNECTION_H
 
@@ -22,15 +24,18 @@
 #include "object.h"
 #include "boundingbox.h"
 
-/* This is a subclass of DiaObject used to help implementing objects
- * of a line-like type. */
+/*!
+ * \brief Base class for simple (straight) lines connecting object
+ *
+ * This is a subclass of DiaObject used to help implementing objects
+ * of a line-like type. 
+ */
 struct _Connection {
-  /* DiaObject must be first because this is a 'subclass' of it. */
-  DiaObject object;
+  DiaObject object; /*!< inheritance */
   
-  Point endpoints[2];
-  Handle endpoint_handles[2];
-  LineBBExtras extra_spacing;
+  Point endpoints[2]; /*!< start and end position */
+  Handle endpoint_handles[2]; /*!< start and end handles */
+  LineBBExtras extra_spacing; /*!< calcualted bounding box */
 };
 
 void connection_update_handles(Connection *conn);

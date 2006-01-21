@@ -11,17 +11,23 @@
 
 G_BEGIN_DECLS
 
+/*! GObject boiler plate, create runtime information */
 #define DIA_TYPE_RENDERER           (dia_renderer_get_type ())
+/*! GObject boiler plate, a safe type cast */
 #define DIA_RENDERER(obj)           (G_TYPE_CHECK_INSTANCE_CAST ((obj), DIA_TYPE_RENDERER, DiaRenderer))
+/*! GObject boiler plate, in C++ this would be the vtable */
 #define DIA_RENDERER_CLASS(klass)   (G_TYPE_CHECK_CLASS_CAST ((klass), DIA_TYPE_RENDERER, DiaRendererClass))
+/*! GObject boiler plate, type check */
 #define DIA_IS_RENDERER(obj)        (G_TYPE_CHECK_INSTANCE_TYPE ((obj), DIA_TYPE_RENDERER))
+/*! GObject boiler plate, get from object to class (vtable) */
 #define DIA_RENDERER_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS ((obj), DIA_TYPE_RENDERER, DiaRendererClass))
 
 GType dia_renderer_get_type (void) G_GNUC_CONST;
 
+/*! \brief The member variables part of _DiaRenderer */
 struct _DiaRenderer
 {
-  GObject parent_instance; 
+  GObject parent_instance; /*!< inheritance in object oriented C */
   gboolean is_interactive; /*!< if the user can interact */
   /*< private >*/
   DiaFont *font;
