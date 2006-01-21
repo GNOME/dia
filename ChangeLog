@@ -1,5 +1,17 @@
 2006-01-21  Hans Breuer  <hans@breuer.org>
 
+	* objects/UML/class_dialog.c(attributes_create_page,
+	operations_create_page) : dont connect
+	to a not exisiting signal. Avoids "GLib-GObject-CRITICAL **:
+	g_signal_connect_closure_by_id: assertion 'signal_id > 0' failed"
+	(This was a leftover of introducing the GtkTextView instead of GtkEntry)
+
+	* objects/UML/class_dialog.c objects/UML/class.c objects/UML/class.h :
+	Introduce 'comment_tagging' switch which allows to hide the rendering
+	{documentation = } Maybe a choice between ugliness and non-standard.
+	Fixes bug #326214. (Unrelated: started to adapt casing of variables
+	to Dia's common coding style)
+		
 	* lib/object_defaults.c : pass is_default=TRUE to object_copy_props
 	  lib/proplist.c : fixed pdtpp_default()
 	  lib/propobject.c : correctly reflect is_default 

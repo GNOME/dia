@@ -90,8 +90,9 @@ struct _UMLClass {
 
   int wrap_operations; /* wrap operations with many parameters */
   int wrap_after_char;
-  int Comment_line_length; /* Maximum line length for comments */
-
+  int comment_line_length; /* Maximum line length for comments */
+  int comment_tagging; /* bool: if the {documentation = }  tag should be used */
+  
   Color line_color;
   Color fill_color;
   Color text_color;
@@ -157,7 +158,8 @@ struct _UMLClassDialog {
   GtkSpinButton *abstract_classname_font_height;
   GtkSpinButton *comment_font_height;
   GtkSpinButton *wrap_after_char;  
-  GtkSpinButton *Comment_line_length;
+  GtkSpinButton *comment_line_length;
+  GtkToggleButton *comment_tagging;
   DiaColorSelector *text_color;
   DiaColorSelector *line_color;
   DiaColorSelector *fill_color;

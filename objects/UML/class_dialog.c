@@ -166,7 +166,8 @@ class_read_from_dialog(UMLClass *umlclass, UMLClassDialog *prop_dialog)
   umlclass->visible_operations = prop_dialog->op_vis->active;
   umlclass->wrap_operations = prop_dialog->op_wrap->active;
   umlclass->wrap_after_char = gtk_spin_button_get_value_as_int(prop_dialog->wrap_after_char);
-  umlclass->Comment_line_length = gtk_spin_button_get_value_as_int(prop_dialog->Comment_line_length);
+  umlclass->comment_line_length = gtk_spin_button_get_value_as_int(prop_dialog->comment_line_length);
+  umlclass->comment_tagging = prop_dialog->comment_tagging->active;
   umlclass->visible_comments = prop_dialog->comments_vis->active;
   umlclass->suppress_attributes = prop_dialog->attr_supp->active;
   umlclass->suppress_operations = prop_dialog->op_supp->active;
@@ -213,7 +214,8 @@ class_fill_in_dialog(UMLClass *umlclass)
   gtk_toggle_button_set_active(prop_dialog->op_vis, umlclass->visible_operations);
   gtk_toggle_button_set_active(prop_dialog->op_wrap, umlclass->wrap_operations);
   gtk_spin_button_set_value (prop_dialog->wrap_after_char, umlclass->wrap_after_char);
-  gtk_spin_button_set_value (prop_dialog->Comment_line_length, umlclass->Comment_line_length);
+  gtk_spin_button_set_value (prop_dialog->comment_line_length, umlclass->comment_line_length);
+  gtk_toggle_button_set_active(prop_dialog->comment_tagging, umlclass->comment_tagging);
   gtk_toggle_button_set_active(prop_dialog->comments_vis, umlclass->visible_comments);
   gtk_toggle_button_set_active(prop_dialog->attr_supp, umlclass->suppress_attributes);
   gtk_toggle_button_set_active(prop_dialog->op_supp, umlclass->suppress_operations);
@@ -362,15 +364,21 @@ class_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   checkbox = gtk_check_button_new_with_label(_("Comments visible"));
   prop_dialog->comments_vis = GTK_TOGGLE_BUTTON( checkbox );
   gtk_box_pack_start (GTK_BOX (hbox), checkbox, TRUE, TRUE, 0);
-  adj = gtk_adjustment_new( umlclass->Comment_line_length, 17.0, 200.0, 1.0, 5.0, 1.0);
-  prop_dialog->Comment_line_length = GTK_SPIN_BUTTON(gtk_spin_button_new( GTK_ADJUSTMENT( adj), 0.1, 0));
-  gtk_spin_button_set_numeric( GTK_SPIN_BUTTON( prop_dialog->Comment_line_length), TRUE);
-  gtk_spin_button_set_snap_to_ticks( GTK_SPIN_BUTTON( prop_dialog->Comment_line_length), TRUE);
+  adj = gtk_adjustment_new( umlclass->comment_line_length, 17.0, 200.0, 1.0, 5.0, 1.0);
+  prop_dialog->comment_line_length = GTK_SPIN_BUTTON(gtk_spin_button_new( GTK_ADJUSTMENT( adj), 0.1, 0));
+  gtk_spin_button_set_numeric( GTK_SPIN_BUTTON( prop_dialog->comment_line_length), TRUE);
+  gtk_spin_button_set_snap_to_ticks( GTK_SPIN_BUTTON( prop_dialog->comment_line_length), TRUE);
   prop_dialog->Comment_length_label = GTK_LABEL( gtk_label_new( _("Wrap comment after this length: ")));
   gtk_box_pack_start (GTK_BOX (hbox2), GTK_WIDGET( prop_dialog->Comment_length_label), FALSE, TRUE, 0);
-  gtk_box_pack_start (GTK_BOX (hbox2), GTK_WIDGET( prop_dialog->Comment_line_length), TRUE, TRUE, 0);
+  gtk_box_pack_start (GTK_BOX (hbox2), GTK_WIDGET( prop_dialog->comment_line_length), TRUE, TRUE, 0);
   gtk_box_pack_start (GTK_BOX (hbox),  GTK_WIDGET( hbox2), TRUE, TRUE, 0);
   gtk_box_pack_start (GTK_BOX (vbox),  hbox, FALSE, TRUE, 0);
+
+  hbox = gtk_hbox_new(FALSE, 5);
+  checkbox = gtk_check_button_new_with_label(_("Show documenation tag"));
+  prop_dialog->comment_tagging = GTK_TOGGLE_BUTTON( checkbox );
+  gtk_box_pack_start (GTK_BOX (hbox), checkbox, TRUE, TRUE, 0);
+  gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, TRUE, 0);
 
   /** Fonts and Colors selection **/
   gtk_box_pack_start (GTK_BOX (vbox), gtk_hseparator_new(), FALSE, FALSE, 3);
@@ -997,8 +1005,12 @@ attributes_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   gtk_text_view_set_cursor_visible(GTK_TEXT_VIEW (entry),TRUE);
   gtk_signal_connect (GTK_OBJECT (entry), "focus_out_event",
 		      GTK_SIGNAL_FUNC (attributes_update_event), umlclass);
+#if 0 /* while the GtkEntry has a "activate" signal, GtkTextView does not.
+       * Maybe we should connect to "set-focus-child" instead? 
+       */
   gtk_signal_connect (GTK_OBJECT (entry), "activate",
 		      GTK_SIGNAL_FUNC (attributes_update), umlclass);
+#endif
   gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
   gtk_table_attach (GTK_TABLE (table), label, 0,1,3,4, GTK_FILL,0, 0,0);
   gtk_table_attach (GTK_TABLE (table), scrolledwindow, 1,2,3,4, GTK_FILL | GTK_EXPAND,0, 0,2);
@@ -2054,8 +2066,10 @@ operations_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
 
   gtk_signal_connect (GTK_OBJECT (entry), "focus_out_event",
 		      GTK_SIGNAL_FUNC (operations_update_event), umlclass);
+#if 0 /* no "activate" signal on GtkTextView */
   gtk_signal_connect (GTK_OBJECT (entry), "activate",
 		      GTK_SIGNAL_FUNC (operations_update), umlclass);
+#endif
   gtk_box_pack_start (GTK_BOX (hbox2), label, FALSE, TRUE, 0);
   gtk_box_pack_start (GTK_BOX (hbox2), scrolledwindow, TRUE, TRUE, 0);
   gtk_box_pack_start (GTK_BOX (vbox2), hbox2, FALSE, TRUE, 0);
@@ -2183,8 +2197,10 @@ operations_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
 
   gtk_signal_connect (GTK_OBJECT (entry), "focus_out_event",
 		      GTK_SIGNAL_FUNC (operations_update_event), umlclass);
+#if 0 /* no "activate" signal on GtkTextView */
   gtk_signal_connect (GTK_OBJECT (entry), "activate",
 		      GTK_SIGNAL_FUNC (operations_update), umlclass);
+#endif
   gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
   gtk_table_attach (GTK_TABLE (table), label, 0,1,3,4, GTK_FILL,0, 0,0);
   gtk_table_attach (GTK_TABLE (table), scrolledwindow, 1,2,3,4, GTK_FILL | GTK_EXPAND,0, 0,2);
