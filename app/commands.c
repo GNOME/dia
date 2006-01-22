@@ -31,12 +31,6 @@
 #include <gdk-pixbuf/gdk-pixbuf.h>
 #include <gtk/gtk.h>
 
-/* Added by Andrew Ferrier: for use of gnome_about_new() */
-
-#ifdef GNOME
-#  include <gnome.h>
-#endif
-
 #ifdef G_OS_WIN32
 /*
  * Instead of polluting the Dia namespace with windoze headers, declare the
@@ -588,175 +582,61 @@ help_manual_callback(gpointer data, guint action, GtkWidget *widget)
 #endif
 }
 
+static void 
+activate_url (GtkAboutDialog *about,
+              const gchar    *link,
+	      gpointer        data)
+{
+#ifdef G_OS_WIN32
+  ShellExecuteA (0, "open", link, NULL, NULL, SW_SHOWNORMAL);
+#else
+  gchar *command = getenv("BROWSER");
+  command = g_strdup_printf("%s '%s' &", command ? command : "gnome-open", link);
+  system(command);
+  g_free(command);
+#endif
+}
+
 void
 help_about_callback(gpointer data, guint action, GtkWidget *widget)
 {
-#ifdef GNOME
+  const gchar *translators = _("translator_credits-PLEASE_ADD_YOURSELF_HERE");
+  const gchar *license = _(
+	"This program is free software; you can redistribute it and/or modify\n"
+	"it under the terms of the GNU General Public License as published by\n"
+	"the Free Software Foundation; either version 2 of the License, or\n"
+	"(at your option) any later version.\n"
+	"\n"
+	"This program is distributed in the hope that it will be useful,\n"
+	"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+	"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+	"GNU General Public License for more details.\n"
+	"\n"
+	"You should have received a copy of the GNU General Public License\n"
+	"along with this program; if not, write to the Free Software\n"
+	"Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.\n");
 
-  /*  Take advantage of gnome_about_new(),
-   *  which is much cleaner and GNOME2 HIG compliant,
-   *  Originally implemented by Xing Wang, modified
-   *  by Andrew Ferrier.
-   *
-   *  Note: in this function there is no need to discriminate
-   *  between the different kinds of 'authors'.
-   */
-  
-  static GtkWidget *about;
-  
-  /*
-   * Translators should localize the following string
-   * which will give them credit in the About box.
-   * E.g. "Fulano de Tal <fulano@detal.com>"
-   */
-  
-  gchar *translators = _("translator_credits-PLEASE_ADD_YOURSELF_HERE");
-  gchar logo_file[100];
-  
-  if (!about) {
-    GdkPixbuf *logo;
-  
-    gchar* datadir = dia_get_data_directory(""); 
-    g_snprintf(logo_file, sizeof(logo_file),
-                             "%s%sdia_logo.png", datadir, G_DIR_SEPARATOR_S);
+  gchar *dirname = dia_get_data_directory("");
+  gchar *filename = g_build_filename (dirname, "dia_logo.png", NULL);
+  GdkPixbuf *logo = gdk_pixbuf_new_from_file(filename, NULL);
 
-    logo = gdk_pixbuf_new_from_file(logo_file, NULL);
-    g_free(datadir);
-  
-    about = gnome_about_new(
-      _("Dia"),
-      VERSION,
-      _("Copyright (C) 1998-2005 The Free Software Foundation and the authors"),
-      _("Dia is a program for drawing structured diagrams.\n"
-      "Please visit http://www.gnome.org/projects/dia for more information."),
-      authors,
-      documentors,
-      (strcmp (translators, "translator_credits-PLEASE_ADD_YOURSELF_HERE")
-      ? translators : NULL),
-      logo);
-  
-    if (logo)
-      g_object_unref (logo);
-      
-    g_signal_connect (about, "destroy",
-      G_CALLBACK (gtk_widget_destroyed),
-      &about);
-  }
-
-  gtk_widget_show_now (about);
-  
-#else
-
-  /* No GNOME, fall back to the old GTK method */
-
-  const gint nauthors = (sizeof(authors) / sizeof(authors[0])) - 1;
-  const gint ndocumentors = (sizeof(documentors) / sizeof(documentors[0])) - 1;
-
-  GtkWidget *dialog;
-  GtkWidget *vbox;
-  GtkWidget *table;
-  GtkWidget *bbox;
-  GtkWidget *frame;
-  GtkWidget *label;
-  GtkWidget *button;
-  char str[100];
-  gint i;
-  
-  GtkWidget *gpixmap;
-  
-  dialog = gtk_dialog_new ();
-  gtk_window_set_role (GTK_WINDOW (dialog), "about_dialog");
-  gtk_window_set_title (GTK_WINDOW (dialog), _("About Dia"));
-  gtk_window_set_resizable (GTK_WINDOW (dialog), FALSE);
-  gtk_window_set_position (GTK_WINDOW (dialog), GTK_WIN_POS_CENTER);
-  g_signal_connect (GTK_OBJECT (dialog), "destroy",
-		    G_CALLBACK (gtk_widget_destroy), 
-          GTK_OBJECT (dialog));
-
-  vbox = gtk_vbox_new (FALSE, 1);
-  gtk_container_set_border_width (GTK_CONTAINER (vbox), 5);
-  gtk_container_add (GTK_CONTAINER(GTK_DIALOG(dialog)->vbox), vbox);
-
-  if (!logo) {
-      gchar* datadir = dia_get_data_directory(""); 
-      g_snprintf(str, sizeof(str), "%s%sdia_logo.png", datadir, G_DIR_SEPARATOR_S);
-      logo = gdk_pixbuf_new_from_file(str, NULL);
-      g_free(datadir);
-  }
-
-  if (logo) {
-      GdkPixmap *pixmap;
-      GdkBitmap *bitmap;
-
-      frame = gtk_frame_new (NULL);
-      gtk_frame_set_shadow_type (GTK_FRAME (frame), GTK_SHADOW_IN);
-      gtk_container_set_border_width (GTK_CONTAINER (frame), 1);
-      gtk_box_pack_start(GTK_BOX(vbox), frame, FALSE, TRUE, 1);
-
-      gdk_pixbuf_render_pixmap_and_mask_for_colormap(logo, gtk_widget_get_colormap(frame), &pixmap, &bitmap, 128);
-      gpixmap = gtk_pixmap_new(pixmap, bitmap);
-      gdk_pixmap_unref(pixmap);
-      if (bitmap) gdk_bitmap_unref(bitmap);
-      gtk_container_add (GTK_CONTAINER(frame), gpixmap);
-  }
-
-  frame = gtk_frame_new (NULL);
-  gtk_frame_set_shadow_type (GTK_FRAME (frame), GTK_SHADOW_IN);
-  gtk_container_set_border_width (GTK_CONTAINER (frame), 1);
-  gtk_box_pack_start(GTK_BOX(vbox), frame, FALSE, TRUE, 1);
-
-  table = gtk_table_new(3, 2, FALSE);
-  gtk_container_set_border_width (GTK_CONTAINER (table), 1);
-  gtk_container_add (GTK_CONTAINER (frame), table);
-
-  g_snprintf(str, sizeof(str), _("Dia v %s by Alexander Larsson"), VERSION);
-  label = gtk_label_new (str);
-  gtk_table_attach(GTK_TABLE(table), label, 0,2, 0,1,
-       GTK_FILL|GTK_EXPAND, GTK_FILL, 0,2);
-
-      /* Exact spelling is Ch&eacute;p&eacute;lov (using *ML entities) */
-  label = gtk_label_new(_("Maintainers: Lars Clausen and Cyrille Chepelov"));
-  gtk_table_attach(GTK_TABLE(table), label, 0,2, 1,2,
-       GTK_FILL|GTK_EXPAND, GTK_FILL, 0,2);
-
-  label = gtk_label_new (_("Please visit http://www.gnome.org/projects/dia "
-         "for more information"));
-  gtk_table_attach(GTK_TABLE(table), label, 0,2, 2,3,
-       GTK_FILL|GTK_EXPAND, GTK_FILL, 0,2);
-
-  label = gtk_label_new (_("Contributors:"));
-  gtk_table_attach(GTK_TABLE(table), label, 0,2, 3,4,
-       GTK_FILL|GTK_EXPAND, GTK_FILL, 0,2);
-
-  for (i = 0; i < nauthors; i++) {
-    label = gtk_label_new(authors[i]);
-    gtk_table_attach(GTK_TABLE(table), label, i%2,i%2+1, i/2+4,i/2+5,
-       GTK_FILL|GTK_EXPAND, GTK_FILL, 0,0);
-  }
-
-  for (i = nauthors; i < nauthors + ndocumentors; i++) {
-    label = gtk_label_new(documentors[i - nauthors]);
-    gtk_table_attach(GTK_TABLE(table), label, i%2,i%2+1, i/2+4,i/2+5,
-       GTK_FILL|GTK_EXPAND, GTK_FILL, 0,0);
-  }
-
-  gtk_table_set_col_spacings(GTK_TABLE(table), 1);
-  gtk_table_set_row_spacings(GTK_TABLE(table), 1);
-
-  bbox = gtk_hbutton_box_new();
-  gtk_box_pack_start(GTK_BOX(GTK_DIALOG(dialog)->action_area), bbox, TRUE, TRUE, 5);
-  gtk_button_box_set_child_size(GTK_BUTTON_BOX(bbox), 80, 0);
-  gtk_button_box_set_spacing(GTK_BUTTON_BOX(bbox), 10);
-
-  button = gtk_button_new_from_stock(GTK_STOCK_OK);
-  gtk_container_add(GTK_CONTAINER(bbox), button);
-  g_signal_connect_swapped(GTK_OBJECT (button), "clicked",
-			   G_CALLBACK(gtk_widget_destroy),
-          GTK_OBJECT(dialog));
-
-  gtk_widget_show_all (dialog);
-
-#endif /*  GNOME  */
+  gtk_about_dialog_set_url_hook (activate_url, NULL, NULL);
+  gtk_show_about_dialog (NULL,
+	"logo", logo,
+        "name", "Dia",
+	"version", VERSION,
+	"comments", _("A program for drawing structured diagrams."),
+	"copyright", "(C) 1998-2006 The Free Software Foundation and the authors",
+	"website", "http://www.gnome.org/projects/dia/",
+	"authors", authors,
+	"documenters", strcmp (translators, "translator_credits-PLEASE_ADD_YOURSELF_HERE")
+			? translators : NULL,
+	"license", license,
+	NULL);
+  g_free (dirname);
+  g_free (filename);
+  if (logo)
+    g_object_unref (logo);
 }
 
 void
