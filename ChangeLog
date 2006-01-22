@@ -1,5 +1,13 @@
 2006-01-22  Hans Breuer  <hans@breuer.org>
 
+	* app/splash.c app/commands.c : dont share the logo and finally leak
+	it. Instead both place load and unref the logo themself. 
+	Also unbreak GNOME case.
+
+	* app/commands.c : use GtkAboutDialog instead of homegrown GTK+
+	or GNOME specific one. 120 lines less code and more standard.
+	* configure.in : require GTK+ >= 2.6
+
 	* app/diapagelayout.c app/diaunitspinner.c app/layer_dialog.c :
 	make GtkTypeInfo static const as usual elsewhere
 	

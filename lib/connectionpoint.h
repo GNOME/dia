@@ -23,6 +23,8 @@
 #include <glib.h>
 #include "geometry.h"
 
+#include "geometry.h"
+
 #define CONNECTIONPOINT_SIZE 5
 #define CHANGED_TRESHOLD 0.001
 

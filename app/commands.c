@@ -31,6 +31,10 @@
 #include <gdk-pixbuf/gdk-pixbuf.h>
 #include <gtk/gtk.h>
 
+ #ifdef GNOME 	 
+ #  include <gnome.h> 	 
+ #endif 	 
+
 #ifdef G_OS_WIN32
 /*
  * Instead of polluting the Dia namespace with windoze headers, declare the
@@ -77,8 +81,6 @@ ShellExecuteA (long        hwnd,
 #include "dia-props.h"
 #include "diagram_tree_window.h"
 #include "authors.h"                /* master contributors data */
-
-GdkPixbuf *logo;
 
 void file_quit_callback(gpointer data, guint action, GtkWidget *widget)
 {

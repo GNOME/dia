@@ -7,20 +7,17 @@
 #include "dia_dirs.h"
 #include "app_procs.h"
 
-extern GdkPixbuf *logo;
-
 static GtkWidget*
 get_logo_pixmap (void)
 {
+  GdkPixbuf *logo = NULL;
   GtkWidget* gpixmap = NULL;
   gchar str[512];
 
-  if (!logo) {
-    gchar* datadir = dia_get_data_directory(""); 
-    g_snprintf(str, sizeof(str), "%s/dia_logo.png", datadir);
-    logo = gdk_pixbuf_new_from_file(str, NULL);
-    g_free(datadir);
-  }
+  gchar* datadir = dia_get_data_directory(""); 
+  g_snprintf(str, sizeof(str), "%s/dia_logo.png", datadir);
+  logo = gdk_pixbuf_new_from_file(str, NULL);
+  g_free(datadir);
 
   if (logo) {
     GdkPixmap *pixmap;
@@ -30,6 +27,7 @@ get_logo_pixmap (void)
     gpixmap = gtk_pixmap_new(pixmap, bitmap);
     gdk_pixmap_unref(pixmap);
     if (bitmap) gdk_bitmap_unref(bitmap);
+    g_object_unref (logo);
   }
   return gpixmap;
 }
