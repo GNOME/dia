@@ -36,6 +36,7 @@
 #include "interface.h"
 #include "focus.h"
 #include "color.h"
+#include "object.h"
 #include "handle_ops.h"
 #include "connectionpoint_ops.h"
 #include "menus.h"

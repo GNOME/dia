@@ -19,7 +19,6 @@
 #define DIAMENU_H
 
 #include "diatypes.h"
-#include "object.h"
 
 /* Flags for DiaMenuItem->active */
 #define DIAMENU_ACTIVE (1<<0)

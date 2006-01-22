@@ -58,9 +58,10 @@
 
 #include "gtkwrapbox.h"
 
-#include "../lib/dia_dirs.h"
-#include "../lib/dia_xml_libxml.h"
-#include "../lib/plug-ins.h"
+#include "dia_dirs.h"
+#include "dia_xml_libxml.h"
+#include "plug-ins.h"
+#include "object.h"
 
 #include "interface.h"
 #include "message.h"

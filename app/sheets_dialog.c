@@ -44,6 +44,7 @@
 #include "sheets_dialog_callbacks.h"
 #include "sheets_dialog.h"
 
+#include "intl.h"
 #include "persistence.h"
 
 GtkWidget*

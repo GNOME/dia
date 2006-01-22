@@ -20,8 +20,6 @@
 
 #include "diatypes.h"
 
-#include "object.h"
-
 struct _Focus {
   DiaObject *obj;
   Text *text;

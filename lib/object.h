@@ -28,11 +28,9 @@
 #include "geometry.h"
 #include "connectionpoint.h"
 #include "handle.h"
-#include "objchange.h"
 #include "diamenu.h"
+#include "objchange.h"
 #include "dia_xml.h"
-#include "properties.h"
-#include "diagramdata.h"
 #include "parent.h"
 #include "text.h"
 
@@ -263,7 +261,7 @@ typedef ObjectChange *(*ApplyPropertiesFunc) (DiaObject* obj, GtkWidget *widget)
  *  This is one of the object_ops functions.
  * @param obj The object whose properties we want described.
  * @return a NULL-terminated array of property descriptions.
- * @bugs specify who owns the array.
+ * As the const return implies the returned data is not owned by  the caller.
  */
 typedef const PropDescription *(* DescribePropsFunc) (DiaObject *obj);
 

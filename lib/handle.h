@@ -21,6 +21,7 @@
 #define HANDLE_H
 
 #include "diatypes.h"
+#include "geometry.h"
 
 /*! Some object resizing depends on the placement of the handle */
 typedef enum {
@@ -71,9 +72,6 @@ typedef enum {
   HANDLE_CONNECTABLE,        /*!< connectable */
   HANDLE_CONNECTABLE_NOBREAK /*!< (unused) Don't break connection on object move */
 } HandleConnectType;
-
-#include "geometry.h"
-#include "object.h"
 
 /*!
  * \brief A handle is used to resize objects or to connet to them.

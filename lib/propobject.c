@@ -36,6 +36,7 @@
 #include <glib.h>
 #include "properties.h"
 #include "propinternals.h"
+#include "object.h"
 
 const PropDescription *
 object_get_prop_descriptions(const DiaObject *obj) {

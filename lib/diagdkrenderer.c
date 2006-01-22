@@ -36,6 +36,7 @@
 #include "color.h"
 #include "font.h"
 #include "text.h"
+#include "object.h"
 
 #include "time.h"
 

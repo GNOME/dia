@@ -24,6 +24,7 @@
 #include <string.h>
 
 #include "diagram.h"
+#include "object.h"
 #include "layer_dialog.h"
 #include "interface.h"
 #include "display.h"

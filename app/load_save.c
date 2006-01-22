@@ -40,6 +40,7 @@
 #include "load_save.h"
 #include "group.h"
 #include "diagramdata.h"
+#include "object.h"
 #include "message.h"
 #include "preferences.h"
 #include "diapagelayout.h"

@@ -21,12 +21,10 @@
 
 #include "diatypes.h"
 #include <glib.h>
+#include "geometry.h"
 
 #define CONNECTIONPOINT_SIZE 5
 #define CHANGED_TRESHOLD 0.001
-
-#include "geometry.h"
-#include "object.h"
 
 /* Connections directions, used as hints to zigzaglines */
 /* Ordered this way to let *2 be rotate clockwise, /2 rotate counterclockwise.

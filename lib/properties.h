@@ -44,7 +44,6 @@
 #include "arrows.h"
 #include "color.h"
 #include "font.h"
-#include "object.h"
 #include "dia_xml.h"
 #include "intl.h"
 #include "textattr.h"

@@ -30,6 +30,7 @@
 #include "message.h"
 #include "diarenderer.h"
 #include "diagramdata.h"
+#include "objchange.h"
 
 static int text_key_event(Focus *focus, guint keysym,
 			  const gchar *str, int strlen,

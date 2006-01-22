@@ -69,6 +69,7 @@ TODO:
 #include "diagramdata.h"
 #include "dia_image.h"
 #include "filter.h"
+#include "arrows.h"
 
 #define POINTS_in_INCH 28.346
 #define DTOSTR_BUF_SIZE G_ASCII_DTOSTR_BUF_SIZE

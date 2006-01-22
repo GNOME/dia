@@ -23,7 +23,6 @@
 #include <string.h>
 
 #include "diatypes.h"
-/* #include "object.h" later after declaring types */
 #include "color.h"
 #include "geometry.h"
 #include "diavar.h"
@@ -112,9 +111,6 @@ struct _Layer {
 				  to the diagram, and accessed via
 				  layer_get_parent_diagram() */
 };
-
-#include "object.h"
-#include "dynamic_obj.h"
 
 /*! bounding box debug helper : set to !0 to see the caclulated bounding boxes */
 DIAVAR int render_bounding_boxes;

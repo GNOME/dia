@@ -21,7 +21,6 @@
 #include <glib.h>
 
 #include "diatypes.h"
-#include "object.h"
 
 struct _SheetObject {
   char *object_type;

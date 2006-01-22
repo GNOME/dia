@@ -1,3 +1,23 @@
+2006-01-22  Hans Breuer  <hans@breuer.org>
+
+	* lib/object.h lib/diagramdata.h : avoid circular inclusion
+	* lib/connectionpoint.h lib/focus.h lib/group.h lib/handle.h
+	  lib/properties.h lib/sheet.h lib/diamenu.h
+	: dont include "object.h", "diatypes.h" is enough. 
+	Rule of thumb: only headers declaring an inheritant of DiaObject
+	should include "object.h"
+	* lib/diarenderer.h : include "font.h" not strictly needed by 
+	this header, but needed in almost any plug-in/
+	* app/diagram_tree_menu.c app/dialogs.[hc] app/display.c
+	  app/export_png.c app/interface.c app/load_save.c app/sheets.c
+	  app/sheets_dialog.c app/sheets_dialog_callbacks.c 
+	  lib/diagdkrenderer.c lib/object.c lib/propobject.c
+	  lib/text.c plug-ins/gprint/gnomeprint.c plug-ins/pixbuf/pixbuf.c
+	  plug-ins/svg/render_svg.c
+	  : some .c files now need to include "object.h" or <gtk/gtk.h>
+	or e.g. "intl.h" direct, formerly dargged in indirectly
+	* plug-ins/pgf/render_pgf.c : explicit inclusion of "arrows.h"
+	
 2006-01-21  Hans Breuer  <hans@breuer.org>
 
         * lib/connection.c lib/connection.h lib/connectionpoint.h

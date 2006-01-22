@@ -28,6 +28,7 @@
 #include "diagram_tree_menu.h"
 #include "diagram_tree_window.h"
 #include "preferences.h"
+#include "intl.h"
 
 struct _DiagramTreeMenus {
   GtkItemFactory *factories[2];	/* menu factories */

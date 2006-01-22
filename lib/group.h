@@ -19,6 +19,7 @@
 #define GROUP_H
 
 #include "diavar.h"
+#include "object.h"
 
 DIAVAR DiaObjectType group_type;
 

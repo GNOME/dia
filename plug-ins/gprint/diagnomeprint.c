@@ -26,6 +26,7 @@
 #include "filter.h"
 #include "plug-ins.h"
 #include "message.h"
+#include "intl.h"
 
 #include "diagnomeprintrenderer.h"
 

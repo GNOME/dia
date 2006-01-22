@@ -34,6 +34,7 @@
 #include "../lib/plug-ins.h"
 #include "../lib/sheet.h"
 #include "../lib/message.h"
+#include "../lib/object.h"
 #include "../app/pixmaps/missing.xpm"
 
 #include "interface.h"

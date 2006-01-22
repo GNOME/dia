@@ -28,6 +28,8 @@
 #include <string.h>
 #include <errno.h>
 
+#include <gtk/gtk.h>
+
 #include "intl.h"
 #include "filter.h"
 #include "render_libart.h"

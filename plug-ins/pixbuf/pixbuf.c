@@ -33,6 +33,7 @@
 #include "plug-ins.h"
 #include "prop_text.h"
 #include "prop_geomtypes.h"
+#include "object.h"
 
 static Rectangle rect;
 static real zoom = 1.0;

@@ -41,6 +41,7 @@
 #include "message.h"
 #include "diagramdata.h"
 #include "dia_xml_libxml.h"
+#include "object.h"
 
 G_BEGIN_DECLS
 

@@ -16,7 +16,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-/*! \file object.c -- implementation of DiaObject related functions */
+/** \file lib/object.c implementation of DiaObject related functions */
 #include <config.h>
 
 #include <stdio.h>
@@ -25,6 +25,7 @@
 #include <gtk/gtk.h>
 
 #include "object.h"
+#include "diagramdata.h" /* for Layer */
 #include "message.h"
 
 #include "dummy_dep.h"
