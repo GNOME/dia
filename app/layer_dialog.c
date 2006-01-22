@@ -834,7 +834,7 @@ dia_layer_widget_get_type(void)
   static GtkType dlw_type = 0;
 
   if (!dlw_type) {
-    GtkTypeInfo dlw_info = {
+    static const GtkTypeInfo dlw_info = {
       "DiaLayerWidget",
       sizeof (DiaLayerWidget),
       sizeof (DiaLayerWidgetClass),

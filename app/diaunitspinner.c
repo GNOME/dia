@@ -63,7 +63,7 @@ dia_unit_spinner_get_type(void)
   static GtkType us_type = 0;
 
   if (!us_type) {
-    GtkTypeInfo us_info = {
+    static const GtkTypeInfo us_info = {
       "DiaUnitSpinner",
       sizeof(DiaUnitSpinner),
       sizeof(DiaUnitSpinnerClass),

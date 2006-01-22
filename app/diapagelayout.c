@@ -54,7 +54,7 @@ dia_page_layout_get_type(void)
   static GtkType pl_type = 0;
 
   if (!pl_type) {
-    GtkTypeInfo pl_info = {
+    static const GtkTypeInfo pl_info = {
       "DiaPageLayout",
       sizeof(DiaPageLayout),
       sizeof(DiaPageLayoutClass),

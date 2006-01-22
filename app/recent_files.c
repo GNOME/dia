@@ -76,8 +76,9 @@ recent_file_history_clear_menu()
 	if (g_signal_handler_find(G_OBJECT(item), G_SIGNAL_MATCH_FUNC,
 				  0, 0, NULL, open_recent_file_callback, NULL)) {
 	    /* Unlink first, then destroy */
-	    g_list_remove_link(GTK_MENU_SHELL(file_menu)->children,
-			       menu_items);
+	    GTK_MENU_SHELL(file_menu)->children =
+	      g_list_remove_link(GTK_MENU_SHELL(file_menu)->children,
+			         menu_items);
 	    gtk_widget_destroy(GTK_WIDGET(item));
 	    g_list_free_1(menu_items);
 	}

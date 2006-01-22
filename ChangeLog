@@ -1,5 +1,11 @@
 2006-01-22  Hans Breuer  <hans@breuer.org>
 
+	* app/diapagelayout.c app/diaunitspinner.c app/layer_dialog.c :
+	make GtkTypeInfo static const as usual elsewhere
+	
+	* app/recent_files.c : it almost certainly is an error to ignore
+	the return value of g_list_remove_link()
+	
 	* lib/arrows.c lib/bezier_conn.[ch] lib/beziershape.h
 	  lib/boundingbox.[ch] lib/color.[ch] lib/connectionpoint.c
 	  lib/create.h lib/dia_svg.c lib/dia_xml.c lib/diaarrowchooser.c
