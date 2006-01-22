@@ -19,6 +19,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
+/** \file objects/UML/activity.c  Implementation of the 'UML - Activity' type */
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif

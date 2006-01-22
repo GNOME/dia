@@ -17,7 +17,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-/* This code is nothing but a fancy pile of FPU crap. */
+/** \file boundingbox.c This code is nothing but a fancy pile of FPU crap. */
 
 #include <config.h>
 #include <glib.h>
@@ -31,7 +31,7 @@
  * @param B 
  * @param C 
  * @param D 
- * @bugs I don't know what this does.
+ * @bug I don't know what this does.
  */
 static void
 bernstein_develop(const real p[4], real *A, real *B, real *C, real *D)
@@ -48,7 +48,7 @@ bernstein_develop(const real p[4], real *A, real *B, real *C, real *D)
  * @param p 
  * @param u 
  * @returns 
- * @bugs I don't know what this does.
+ * @bug I don't know what this does.
  */
 static real
 bezier_eval(const real p[4], real u)
@@ -61,8 +61,8 @@ bezier_eval(const real p[4], real u)
 /** ?
  * @param p 
  * @param u 
- * @returns 
- * @bugs I don't know what this does.
+ * @return 
+ * @bug I don't know what this does.
  */
 static real
 bezier_eval_tangent(const real p[4], real u)
@@ -75,8 +75,8 @@ bezier_eval_tangent(const real p[4], real u)
 /** ?
  * @param p
  * @param u
- * @returns
- * @bugs I don't know what this does.
+ * @return
+ * @bug I don't know what this does.
  */
 static int
 bicubicbezier_extrema(const real p[4],real u[2])
@@ -102,7 +102,7 @@ bicubicbezier_extrema(const real p[4],real u[2])
  * direction the arrow points from.
  * @param extra_long ???
  * @param extra_trans ???
- * @bugs I don't know what the last two arguments do.
+ * @bug I don't know what the last two arguments do.
  */
 static void
 add_arrow_rectangle(Rectangle *rect,
@@ -132,7 +132,7 @@ add_arrow_rectangle(Rectangle *rect,
  * @param p3 
  * @param extra 
  * @param rect The rectangle that the segment fits inside.
- * @bugs I don't know exactly what the other parameters are.
+ * @bug I don't know exactly what the other parameters are.
  */
 void
 bicubicbezier2D_bbox(const Point *p0,const Point *p1,
@@ -216,7 +216,7 @@ line_bbox(const Point *p1, const Point *p2,
  * @param height The height of the ellipse.
  * @param extra Extra information required.
  * @param rect The bounding box that the ellipse fits inside.
- * @bugs describe what the extra information is.
+ * @bug describe what the extra information is.
  */
 void
 ellipse_bbox(const Point *centre, real width, real height,
@@ -255,7 +255,7 @@ alloc_polybezier_space(int numpoints)
 /** Free the scratch space allocated above.
  * @param points Previously allocated list of points.
  * @note Doesn't actually free it, as alloc_polybezier_space does that.
- * @bugs Should explain the strange freeing model, or fix it.
+ * @bug Should explain the strange freeing model, or fix it.
  */
 static void
 free_polybezier_space(BezPoint *points)
@@ -268,7 +268,7 @@ free_polybezier_space(BezPoint *points)
  * @param closed Whether the polyline is closed or not.
  * @param rect Return value: The bounding box that includes the points and
  * extra spacing.
- * @bugs Surely doesn't need to use bezier code, but remember extra stuff.
+ * @bug Surely doesn't need to use bezier code, but remember extra stuff.
  */
 void
 polyline_bbox(const Point *pts, int numpoints, 
@@ -300,7 +300,7 @@ polyline_bbox(const Point *pts, int numpoints,
  * @param extra Extra spacing information.
  * @param closed True if the bezier points form a closed line.
  * @param rect Return value: The enclosing rectangle will be stored here.
- * @bugs This function is way too long (214 lines) and should be split.
+ * @bug This function is way too long (214 lines) and should be split.
  */
 void 
 polybezier_bbox(const BezPoint *pts, int numpoints,
@@ -527,7 +527,7 @@ polybezier_bbox(const BezPoint *pts, int numpoints,
  * @param rin A rectangle to find bbox for.
  * @param extra Extra information required to find bbox.
  * @param rout Return value: The enclosing bounding box.
- * @bugs Describe extra info better.
+ * @bug Describe extra info better.
  */
 void 
 rectangle_bbox(const Rectangle *rin,

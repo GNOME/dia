@@ -20,6 +20,8 @@
  * Purpose: This file contains implementation of the "class" code. 
  */
 
+/** \file objects/UML/class.c  Implementation of the 'UML - Class' type */
+
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
@@ -83,7 +85,7 @@ static ObjectTypeOps umlclass_type_ops =
   (SaveFunc)   umlclass_save
 };
 
-/*
+/**
  * This is the type descriptor for a UML - Class. It contains the
  * information used by Dia to create an object of this type. The structure
  * of this data type is defined in the header file object.h. When a
@@ -91,7 +93,6 @@ static ObjectTypeOps umlclass_type_ops =
  * change the name and any other fields that are variances from the base
  * type.
 */
-
 DiaObjectType umlclass_type =
 {
   "UML - Class",   /* name */
@@ -103,6 +104,7 @@ DiaObjectType umlclass_type =
   (void*)0
 };
 
+/** \brief vtable for UMLClass */
 static ObjectOps umlclass_ops = {
   (DestroyFunc)         umlclass_destroy,
   (DrawFunc)            umlclass_draw,
@@ -124,6 +126,7 @@ extern PropDescDArrayExtra umloperation_extra;
 extern PropDescDArrayExtra umlparameter_extra;
 extern PropDescDArrayExtra umlformalparameter_extra;
 
+/** Properties of UMLClass */
 static PropDescription umlclass_props[] = {
   ELEMENT_COMMON_PROPERTIES,
   PROP_STD_TEXT_COLOUR_OPTIONAL,
@@ -452,7 +455,6 @@ umlclass_move(UMLClass *umlclass, Point *to)
  * @param  underline_width   the thickness of the line to draw
  *
  */
-
 static void
 uml_underline_text(DiaRenderer  *renderer, 
                Point         StartPoint,

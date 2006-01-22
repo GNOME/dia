@@ -25,14 +25,16 @@
 
 #include "diatypes.h"
 
+/** \brief Can be used as extra parameter at create. Usually discouraged, you can set via StdProp API */
 struct _MultipointCreateData {
-  int num_points;
-  Point *points;
+  int num_points; /**< count */
+  Point *points; /**< data */
 };
 
+/** \brief Can be used as extra parameter at create. Usually discouraged, you can set via StdProp API */
 struct _BezierCreateData {
-  int num_points;
-  BezPoint *points;
+  int num_points; /**< count */
+  BezPoint *points; /**< data */
 };
 
 #endif

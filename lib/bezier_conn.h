@@ -17,6 +17,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
+ 
+/** \file bezier_conn.h Allows to construct object consisting of bezier lines */
+
 #ifndef BEZIER_CONN_H
 #define BEZIER_CONN_H
 
@@ -30,15 +33,14 @@ typedef enum {
   BEZ_CORNER_CUSP
 } BezCornerType;
 
-/* This is a subclass of DiaObject used to help implementing objects
+/** This is a subclass of DiaObject used to help implementing objects
  * that connect points with polygonal line-segments.
  */
 struct _BezierConn {
-  /* DiaObject must be first because this is a 'subclass' of it. */
-  DiaObject object;
+  DiaObject object; /**< inheritance */
 
-  int numpoints; /* >= 2 */
-  BezPoint *points;
+  int numpoints; /**< >= 2 */
+  BezPoint *points; /**< point data */
   BezCornerType *corner_types;
   PolyBBExtras extra_spacing;
 };

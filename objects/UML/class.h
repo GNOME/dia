@@ -19,6 +19,8 @@
  *
  * Purpose: This is the interface file for the class icon and dialog. 
  */
+ 
+/** \file objects/UML/class.h  Declaration of the 'UML - Class' type */
 #ifndef CLASS_H
 #define CLASS_H
 
@@ -31,10 +33,12 @@
 
 #define DIA_OBJECT(x) (DiaObject*)(x)
 
-/* The number of regular connectionpoints on the class (not cps for
+/** The number of regular connectionpoints on the class (not cps for
  * attributes and operands and not the mainpoint). */
 #define UMLCLASS_CONNECTIONPOINTS 8
+/** default wrap length for member functions */
 #define UMLCLASS_WRAP_AFTER_CHAR 40
+/** default wrap length for comments */
 #define UMLCLASS_COMMENT_LINE_LENGTH 40
 
 /* The code behind the following preprocessor symbol should stay disabled until 
@@ -53,9 +57,15 @@
 typedef struct _UMLClass UMLClass;
 typedef struct _UMLClassDialog UMLClassDialog;
 
+/** 
+ * \brief The most complex object Dia has
+ *
+ * What should I say? Don't try this at home :)
+ */
 struct _UMLClass {
-  Element element;
+  Element element; /**< inheritance */
 
+  /** static connection point storage,  the mainpoint must be behind the dynamics in Element::connections */
 #ifdef UML_MAINPOINT
   ConnectionPoint connections[UMLCLASS_CONNECTIONPOINTS + 1];
 #else
@@ -79,32 +89,33 @@ struct _UMLClass {
   DiaFont *comment_font;
   
   char *name;
-  char *stereotype; /* NULL if no stereotype */
-  char *comment; /* Comments on the class */
+  char *stereotype; /**< NULL if no stereotype */
+  char *comment; /**< Comments on the class */
   int abstract;
   int suppress_attributes; 
   int suppress_operations; 
-  int visible_attributes; /* ie. don't draw strings. */
+  int visible_attributes; /**< ie. don't draw strings. */
   int visible_operations;
   int visible_comments;
 
-  int wrap_operations; /* wrap operations with many parameters */
+  int wrap_operations; /**< wrap operations with many parameters */
   int wrap_after_char;
-  int comment_line_length; /* Maximum line length for comments */
-  int comment_tagging; /* bool: if the {documentation = }  tag should be used */
+  int comment_line_length; /**< Maximum line length for comments */
+  int comment_tagging; /**< bool: if the {documentation = }  tag should be used */
   
   Color line_color;
   Color fill_color;
   Color text_color;
 
-  /* Attributes: */
+  /** Attributes: aka member variables */
   GList *attributes;
 
-  /* Operators: */
+  /** Operators: aka member functions */
   GList *operations;
 
-  /* Template: */
+  /** Template: if it's a template class */
   int template;
+  /** Template parameters */
   GList *formal_params;
 
   /* Calculated variables: */
@@ -131,6 +142,12 @@ struct _UMLClass {
   gboolean destroyed; 
 };
 
+/**
+ * \brief Very special user interface for UMLClass parametrization
+ *
+ * There is a (too)  tight coupling between the UMLClass and it's user interface. 
+ * And the dialog is too huge in code as well as on screen.
+ */
 struct _UMLClassDialog {
   GtkWidget *dialog;
 

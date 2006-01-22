@@ -16,7 +16,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-/* This file defines the DiagramData object, which holds (mostly) saveable
+/** \file diagramdata.c  This file defines the DiagramData object, which holds (mostly) saveable
  * data global to a diagram.
  */
 
@@ -191,9 +191,9 @@ diagram_data_class_init(DiagramDataClass *klass)
  * @param name Name of the new layer.
  * @param parent The DiagramData that the layer will belong to,.
  * @return A new Layer object.
- * @bugs Must determine if a NULL name is ok.
- * @bugs This belongs in a layers.c file.
- * @bugs Even though this sets parent diagram, it doesn't call the
+ * @bug Must determine if a NULL name is ok.
+ * @bug This belongs in a layers.c file.
+ * @bug Even though this sets parent diagram, it doesn't call the
  * update_extents functions that add_layer does.
  */
 Layer *
@@ -221,7 +221,7 @@ new_layer(gchar *name, DiagramData *parent)
 
 /** Destroy a layer object.
  * @param layer The layer object to deallocate entirely.
- * @bugs This belongs in a layers.c file.
+ * @bug This belongs in a layers.c file.
  */
 void
 layer_destroy(Layer *layer)
@@ -234,7 +234,7 @@ layer_destroy(Layer *layer)
 /** Raise a layer up one in a diagram.
  * @param data The diagram that the layer belongs to.
  * @param layer The layer to raise.
- * @bugs The diagram doesn't really need to be passed, as the layer knows it.
+ * @bug The diagram doesn't really need to be passed, as the layer knows it.
  */
 void
 data_raise_layer(DiagramData *data, Layer *layer)
@@ -261,7 +261,7 @@ data_raise_layer(DiagramData *data, Layer *layer)
 /** Lower a layer by one in a diagram.
  * @param data The diagram that the layer belongs to.
  * @param layer The layer to lower.
- * @bugs The diagram doesn't really need to be passed, as the layer knows it.
+ * @bug The diagram doesn't really need to be passed, as the layer knows it.
  */
 void
 data_lower_layer(DiagramData *data, Layer *layer)
@@ -288,7 +288,7 @@ data_lower_layer(DiagramData *data, Layer *layer)
 /** Add a layer object to a diagram.
  * @param data The diagram to add the layer to.
  * @param layer The layer to add.
- * @bugs Should just call data_add_layer_at().
+ * @bug Should just call data_add_layer_at().
  */
 void
 data_add_layer(DiagramData *data, Layer *layer)
@@ -323,7 +323,7 @@ data_add_layer_at(DiagramData *data, Layer *layer, int pos)
 /** Set which layer is the active layer in a diagram.
  * @param data The diagram in which to set the active layer.
  * @param layer The layer that should be active.
- * @bugs The diagram doesn't really need to be passed, as the layer knows it.
+ * @bug The diagram doesn't really need to be passed, as the layer knows it.
  */
 void
 data_set_active_layer(DiagramData *data, Layer *layer)
@@ -334,7 +334,7 @@ data_set_active_layer(DiagramData *data, Layer *layer)
 /** Delete a layer from a diagram.
  * @param data The diagram to delete the layer from.
  * @param layer The layer to delete.
- * @bugs The diagram doesn't really need to be passed, as the layer knows it.
+ * @bug The diagram doesn't really need to be passed, as the layer knows it.
  */
 void
 data_delete_layer(DiagramData *data, Layer *layer)
@@ -357,7 +357,7 @@ data_delete_layer(DiagramData *data, Layer *layer)
  *  objects currently selected in the diagram.
  * @param data The diagram to select in.
  * @param obj The object to select.
- * @bugs Does not need to be passed the diagram, as it can be found from the 
+ * @bug Does not need to be passed the diagram, as it can be found from the 
  *  object.
  */
 void
@@ -373,7 +373,7 @@ data_select(DiagramData *data, DiaObject *obj)
  *  selected after this function is done.
  * @param data The diagram to deselect in.
  * @param obj The object to deselect.
- * @bugs Does not need to be passed the diagram, as it can be found from the 
+ * @bug Does not need to be passed the diagram, as it can be found from the 
  *  object.
  */
 void
@@ -443,7 +443,7 @@ data_get_layers_extents_union(DiagramData *data)
 
 /** Change diagram scaling so that the extents are exactly visible.
  * @param data The diagram to adjust.
- * @bugs Consider making it a teeny bit larger, or check that *all* objects
+ * @bug Consider making it a teeny bit larger, or check that *all* objects
  *  calculate their extents correctly.
  */
 static void
@@ -513,7 +513,7 @@ data_update_extents(DiagramData *data)
  * @param data The diagram to get objects from.
  * @return A list of all currently selected objects.  These all reside in
  *  the currently active layer.  This list should be freed after use.
- * @bugs Does selection update correctly when the layer changes?
+ * @bug Does selection update correctly when the layer changes?
  */
 GList *
 data_get_sorted_selected(DiagramData *data)
@@ -607,7 +607,7 @@ data_emit(DiagramData *data,Layer *layer,DiaObject* obj,const char *signal_name)
  * @param update The area that needs updating.
  * @param obj_renderer If non-NULL, an alternative renderer of objects.
  * @param gdata User data passed on to inner calls.
- * @bugs Describe obj_renderer better.
+ * @bug Describe obj_renderer better.
  */
 void
 data_render(DiagramData *data, DiaRenderer *renderer, Rectangle *update,
@@ -635,7 +635,7 @@ data_render(DiagramData *data, DiaRenderer *renderer, Rectangle *update,
  * @param renderer The renderer to render on.
  * @param active_layer The layer containing the object.
  * @param data The diagram containing the layer.
- * @bugs The active_layer and data variables can be inferred from the object.
+ * @bug The active_layer and data variables can be inferred from the object.
  */
 static void
 normal_render(DiaObject *obj, DiaRenderer *renderer,
@@ -657,7 +657,7 @@ int render_bounding_boxes = FALSE;
  * @param obj_renderer A function that will render an object.
  * @param data The diagram that the layer belongs to.
  * @param active_layer Which number layer in the diagram is currently active.
- * @bugs data and active_layer can be inferred from layer, though possibly 
+ * @bug data and active_layer can be inferred from layer, though possibly 
  *  slowly.
  */
 void
@@ -718,8 +718,8 @@ set_parent_layer(gpointer element, gpointer user_data)
  * @param obj The object to look for.
  * @return The index of the object in the layers list of objects.  This is also
  *  the vertical position of the object.
- * @bugs This should be in a separate layer.c file.
- * @bugs The layer could be inferred from the object, in which case the
+ * @bug This should be in a separate layer.c file.
+ * @bug The layer could be inferred from the object, in which case the
  *  layer arg is not needed, and we would be sure we always looked in the
  *  right layer.
  */
@@ -733,8 +733,8 @@ layer_object_index(Layer *layer, DiaObject *obj)
  * @param layer The layer to add the object to.
  * @param obj The object to add.  This must not already be part of another
  *  layer.
- * @bugs This should be in a separate layer.c file.
- * @bugs This should just call layer_add_object_at().
+ * @bug This should be in a separate layer.c file.
+ * @bug This should just call layer_add_object_at().
  */
 void
 layer_add_object(Layer *layer, DiaObject *obj)
@@ -750,7 +750,7 @@ layer_add_object(Layer *layer, DiaObject *obj)
  * @param layer The layer to add the object to.
  * @param obj The object to add.  This must not be part of another layer.
  * @param pos The top-to-bottom position this object should be inserted at.
- * @bugs This should be in a separate layer.c file.
+ * @bug This should be in a separate layer.c file.
  */
 void
 layer_add_object_at(Layer *layer, DiaObject *obj, int pos)
@@ -766,7 +766,7 @@ layer_add_object_at(Layer *layer, DiaObject *obj, int pos)
  * @param layer The layer to add objects to.
  * @param obj_list The list of objects to add.  These must not already
  *  be part of another layer.
- * @bugs Determine if the list is kept by g_list_concat.
+ * @bug Determine if the list is kept by g_list_concat.
  */
 void
 layer_add_objects(Layer *layer, GList *obj_list)
@@ -789,7 +789,7 @@ layer_add_objects(Layer *layer, GList *obj_list)
  * @param layer The layer to add objects to.
  * @param obj_list The list of objects to add.  These must not already
  *  be part of another layer.
- * @bugs Determine if the list is kept by g_list_concat.
+ * @bug Determine if the list is kept by g_list_concat.
  */
 void
 layer_add_objects_first(Layer *layer, GList *obj_list)
@@ -813,7 +813,7 @@ layer_add_objects_first(Layer *layer, GList *obj_list)
 /** Remove an object from a layer.
  * @param layer The layer to remove the object from.
  * @param obj The object to remove.
- * @bugs Why don't the layer_add functions deal with dynobj?
+ * @bug Why don't the layer_add functions deal with dynobj?
  */
 void
 layer_remove_object(Layer *layer, DiaObject *obj)
@@ -829,7 +829,7 @@ layer_remove_object(Layer *layer, DiaObject *obj)
 /** Remove a list of objects from a layer.
  * @param layer The layer to remove the objects from.
  * @param obj The objects to remove.
- * @bugs This should call layer_remove_object repeatedly.
+ * @bug This should call layer_remove_object repeatedly.
  */
 void
 layer_remove_objects(Layer *layer, GList *obj_list)

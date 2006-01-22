@@ -19,8 +19,9 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-/** A widget to choose arrowhead.  This only select arrowhead, not width
- *  and height. */
+/** \file diaarrowchooser.c  A widget to choose arrowhead.  This only select arrowhead, not width  and height. 
+ * \ingroup diawidgets
+ */
 
 #include <gtk/gtk.h>
 
@@ -130,7 +131,7 @@ dia_arrow_preview_set(DiaArrowPreview *arrow, ArrowType atype, gboolean left)
  * @param widget The widget to display.
  * @param event The event that caused the call.
  * @return TRUE always.
- * @bugs Reference the situations where this gets called.
+ * The expose handler gets called when the Arrow needs to be drawn.
  */
 static gint
 dia_arrow_preview_expose(GtkWidget *widget, GdkEventExpose *event)
@@ -430,7 +431,7 @@ dia_arrow_chooser_new(gboolean left, DiaChangeArrowCallback callback,
  * changes, the callback function will be called.
  * @param chooser The chooser to update.
  * @param arrow The arrow type and dimensions the chooser will dispaly.
- * @bugs Should it be called as well when the dimensions change?
+ * Should it be called as well when the dimensions change?
  */
 void
 dia_arrow_chooser_set_arrow(DiaArrowChooser *chooser, Arrow *arrow)

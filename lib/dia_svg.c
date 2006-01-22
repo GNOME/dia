@@ -73,11 +73,12 @@ dia_svg_style_copy(DiaSvgStyle *dest, DiaSvgStyle *src)
 /** Parse an SVG color description.
  * @param color A place to store the color information (0RGB)
  * @param str An SVG color description string to parse.
- * @returns TRUE if parsing was successful.
- * @bugs Shouldn't we use an actual Dia Color object as return value?
+ * @return TRUE if parsing was successful.
+ * Shouldn't we use an actual Dia Color object as return value?
  * Would require that the DiaSvgStyle object uses that, too.  If we did that,
  * we could even return the color object directly, and we would be able to use
  * >8 bits per channel.
+ * But we would not be able to handle named colors anymore ...
  */
 static gboolean
 _parse_color(gint32 *color, const char *str)
@@ -133,7 +134,7 @@ enum
  * @param node An XML node to parse a style from.
  * @param s The SVG style object to fill out.  This should previously be
  *          initialized to some default values.
- * @bugs This function is way too long (213 lines).
+ * @bug This function is way too long (213 lines). So dont touch it :)
  */
 void
 dia_svg_parse_style(xmlNodePtr node, DiaSvgStyle *s)
@@ -365,8 +366,7 @@ dia_svg_parse_style(xmlNodePtr node, DiaSvgStyle *s)
  * @param ry
  * @param x_axis_rotation
  * @param last_p2
- * @bugs Have no idea what the parameters are.  Not a good idea to steal
- * undocumented code:)
+ * If you want the description of the algorithm read the SVG specs.
  */
 static void
 _path_arc_segment(GArray* points,
@@ -425,7 +425,7 @@ _path_arc_segment(GArray* points,
  * @param x
  * @param y
  * @param last_p2
- * @bugs Also here don't know what the parameters mean.
+ * @bug Also here don't know what the parameters mean.
  */
 static void
 _path_arc(GArray *points, double cpx, double cpy,
@@ -526,11 +526,12 @@ _path_arc(GArray *points, double cpx, double cpy,
  * @param closed Whether the path was closed.
  * @returns Array of BezPoint objects, or NULL if an error occurred.
  *          The caller is responsible for freeing the array.
- * @bugs This function is way too long (324 lines)
- * @bugs Shouldn't we try to turn straight lines, simple arc, polylines and
- *       zigzaglines into their appropriate objects?  Could either be done by
- *       returning an object or by having functions that try parsing as
- *       specific simple paths.
+ * @bug This function is way too long (324 lines). So dont touch it. please!
+ * Shouldn't we try to turn straight lines, simple arc, polylines and
+ * zigzaglines into their appropriate objects?  Could either be done by
+ * returning an object or by having functions that try parsing as
+ * specific simple paths.
+ * NOPE: Dia is capable to handle beziers and the file has given us some so WHY should be break it in to pieces ???
  */
 GArray*
 dia_svg_parse_path(const gchar *path_str, gchar **unparsed, gboolean *closed)

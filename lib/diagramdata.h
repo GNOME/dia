@@ -79,6 +79,9 @@ struct _DiagramData {
   gchar *unit, *font_unit;
 };
 
+/**
+ * \brief DiagramData vtable
+ */
 typedef struct _DiagramDataClass {
   GObjectClass parent_class;
 

@@ -15,6 +15,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
+/** \file dia_xml.c  Helper function to convert Dia's basic to and from XML */
 #include <config.h>
 
 #include <glib.h>
@@ -63,12 +64,13 @@
  *  it untouched to libxml2.
  * @param filename The name of the file to check.
  * @param default_enc The default encoding to use if none is given.
- * @returns The filename given if it seems ok, or the name of a new file
+ * @return The filename given if it seems ok, or the name of a new file
  *          with fixed contents, or NULL if we couldn't read the file.  The
  *          caller should free this string and unlink the file if it is not
  *          the same as `filename'.
- * @bugs The many gzclose-g_free-return sequences should be refactored into
- *       an "exception handle" (goto+label).
+ * @bug The many gzclose-g_free-return sequences should be refactored into
+ *       an "exception handle" (goto+label). At least for people who think goto is
+ *       better than this. I dont. --hb
  */
 static const gchar *
 xml_file_check_encoding(const gchar *filename, const gchar *default_enc)
@@ -221,8 +223,8 @@ xmlDiaParseFile(const char *filename)
 
 /** Relic of earlier, unhappier days.
  * @param filename A file to parse.
- * @returns An XML document.
- * @bugs Could probably be inlined.
+ * @return An XML document.
+ * @bug Could probably be inlined. So what?
  */
 xmlDocPtr
 xmlDoParseFile(const char *filename)
@@ -235,7 +237,7 @@ xmlDoParseFile(const char *filename)
  *  as an XML attribute.
  * @param obj_node The node to look in.
  * @param attrname The name of the attribute node to find.
- * @returns The node matching the given name, or NULL if none found.
+ * @return The node matching the given name, or NULL if none found.
  */
 AttributeNode
 object_find_attribute(ObjectNode obj_node,
@@ -270,8 +272,8 @@ object_find_attribute(ObjectNode obj_node,
 /** Find an attribute in a composite XML node.
  * @param composite_node The composite node to search.
  * @param attrname The name of the attribute node to find.
- * @returns The desired node, or NULL if none exists in `composite_node'.
- * @bugs Describe in more detail how a composite node differs from an
+ * @return The desired node, or NULL if none exists in `composite_node'.
+ * @bug Describe in more detail how a composite node differs from an
  *   object node.
  */
 AttributeNode
@@ -355,11 +357,11 @@ data_next(DataNode data)
 
 /** Get the type of a data node.
  * @param data The data node.
- * @returns The type that the data node defines, or 0 on error.  In case of 
+ * @return The type that the data node defines, or 0 on error.  In case of 
  *  error, an error message is displayed.
  * @note This function does a number of strcmp calls, which may not be the
  *  fastest way to check if a node is of the expected type.
- * @bugs Make functions that check quickly if a node is of a specific type
+ * @bug Make functions that check quickly if a node is of a specific type
  *  (but profile first).
  */
 DataType
@@ -725,11 +727,11 @@ data_string(DataNode data)
 
 /** Return the value of a filename-type data node.
  * @param data The data node to read from.
- * @returns The filename value found in the node.  If the node is not a
+ * @return The filename value found in the node.  If the node is not a
  *  filename node, an error message is displayed and NULL is returned.
  *  The resulting string is in the local filesystem's encoding rather than
  *  UTF-8, and should be freed after use.
- * @bugs data_string() can return NULL, what does g_filename_from_utf8 do then?
+ * @bug data_string() can return NULL, what does g_filename_from_utf8 do then?
  */
 char *
 data_filename(DataNode data)
@@ -743,7 +745,7 @@ data_filename(DataNode data)
 /** Return the value of a font-type data node.  This handles both the current
  * format (family and style) and the old format (name).
  * @param data The data node to read from.
- * @returns The font value found in the node.  If the node is not a
+ * @return The font value found in the node.  If the node is not a
  *  font node, an error message is displayed and NULL is returned.  The
  *  resulting value should be freed after use.
  */
@@ -782,8 +784,8 @@ data_font(DataNode data)
 /** Create a new attribute node.
  * @param obj_node The object node to create the attribute node under.
  * @param attrname The name of the attribute node.
- * @returns A new attribute node.
- * @bugs Should have utility functions that creates the node and sets
+ * @return A new attribute node.
+ * @bug Should have utility functions that creates the node and sets
  *  the value based on type.
  */
 AttributeNode
@@ -800,8 +802,8 @@ new_attribute(ObjectNode obj_node,
 /** Add an attribute node to a composite node.
  * @param composite_node The composite node.
  * @param attrname The name of the new attribute node.
- * @returns The attribute node added.
- * @bugs This does exactly the same as new_attribute.
+ * @return The attribute node added.
+ * @bug This does exactly the same as new_attribute.
  */
 AttributeNode
 composite_add_attribute(DataNode composite_node,
@@ -1073,7 +1075,7 @@ int pretty_formated_xml = TRUE;
  * @param filename The file to save to.
  * @param cur The XML document structure.
  * @return The return value of xmlSaveFormatFileEnc.
- * @bugs Get the proper defn of the return value from libxml2.
+ * @bug Get the proper defn of the return value from libxml2.
  */
 int
 xmlDiaSaveFile(const char *filename,

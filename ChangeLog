@@ -1,5 +1,11 @@
 2006-01-22  Hans Breuer  <hans@breuer.org>
 
+	* lib/arrows.c lib/bezier_conn.[ch] lib/beziershape.h
+	  lib/boundingbox.[ch] lib/color.[ch] lib/connectionpoint.c
+	  lib/create.h lib/dia_svg.c lib/dia_xml.c lib/diaarrowchooser.c
+	  lib/diagramdata.[ch] objects/UML/activity.c objects/UML/class.[ch]
+	  objects/UML/uml.h : documentation fixes
+	
 	* lib/object.h lib/diagramdata.h : avoid circular inclusion
 	* lib/connectionpoint.h lib/focus.h lib/group.h lib/handle.h
 	  lib/properties.h lib/sheet.h lib/diamenu.h

@@ -384,7 +384,7 @@ calculate_crow(Point *poly, Point *to, Point *from,
  * @param linewidth The thickness of the lines used to draw the arrow.
  * @param fg_color The color used for drawing the arrow lines.
  * @param bg_color Ignored.
- * @bugs The ER-drawing methods are ripe for some refactoring.
+ * @todo The ER-drawing methods are ripe for some refactoring.
  */
 static void
 draw_none_or_many(DiaRenderer *renderer, Point *to, Point *from,
@@ -787,7 +787,7 @@ draw_fill_box(DiaRenderer *renderer, Point *to, Point *from,
  * @param linewidth The thickness of the lines used to draw the arrow.
  * @param fg_color The color used for drawing the arrow lines.
  * @param bg_color The collor used for the interior of the dot.
- * @bugs Need to describe the diff between this and ellipse arrow.
+ * @bug Need to describe the diff between this and ellipse arrow.
  */
 static void
 draw_fill_dot(DiaRenderer *renderer, Point *to, Point *from,
@@ -875,7 +875,7 @@ draw_fill_dot(DiaRenderer *renderer, Point *to, Point *from,
  * @param fg_color The color used for drawing the arrow lines.
  * @param bg_color The color used to kludge around the longer stem of this
  *                 arrow.
- * @bugs The bg_color kludge should not be necessary, arrow pos is adjustable.
+ * @bug The bg_color kludge should not be necessary, arrow pos is adjustable.
  */
 static void
 draw_integral(DiaRenderer *renderer, Point *to, Point *from,
@@ -932,7 +932,7 @@ draw_integral(DiaRenderer *renderer, Point *to, Point *from,
  * @param fg_color The color used for drawing the arrow lines.
  * @param bg_color Used for a kludge of "erasing" the line tip instead of
  *                 figuring out the correct way to do this.
- * @bugs Figure out the right way to do this, avoid kludge.
+ * @bug Figure out the right way to do this, avoid kludge.
  */
 static void
 draw_slashed(DiaRenderer *renderer, Point *to, Point *from,
@@ -982,7 +982,7 @@ draw_slashed(DiaRenderer *renderer, Point *to, Point *from,
  * @param length The length of the arrowhead
  * @param width The width of the arrowhead
  * @param linewidth The width of the lines used to draw the arrow
- * @bugs Describe better what is put into poly.
+ * @bug Describe better what is put into poly.
  */
 static void
 calculate_halfhead(Point *poly, Point *to, Point *from,
@@ -1112,7 +1112,7 @@ fill_triangle(DiaRenderer *renderer, Point *to, Point *from,
  * @param from The point the arrow points away from (e.g. bezier control line)
  * @param length The length of the arrowhead
  * @param width The width of the arrowhead
- * @bugs Take linewidth into account.
+ * @bug Take linewidth into account.
  */
 static void
 calculate_diamond(Point *poly, Point *to, Point *from,
@@ -1233,7 +1233,7 @@ fill_diamond(DiaRenderer *renderer, Point *to, Point *from,
  * @param from Where the arrow points from (e.g. other end of stem).
  * @param length The length of the arrowhead.
  * @param width The width of the arrowhead.
- * @bugs Describe what is where in the poly array.
+ * @bug Describe what is where in the poly array.
  */
 static void
 calculate_slashed_cross(Point *poly, Point *to, Point *from,
@@ -1310,7 +1310,7 @@ draw_slashed_cross(DiaRenderer *renderer, Point *to, Point *from,
  * @param width The width of the arrow
  * @param linewidth The thickness of the lines used to draw the arrow.
  * @param color The color used for drawing the arrowhead.
- * @bugs refactor into calculate and draw.
+ * @todo refactor into calculate and draw.
  */
 static void
 draw_backslash(DiaRenderer *renderer, Point *to, Point *from,
@@ -1599,7 +1599,7 @@ draw_rounded(DiaRenderer *renderer, Point *to, Point *from,
  * @param linewidth The thickness of the lines used to draw the arrow.
  * @param fg_color The color used for drawing the arrowhead lines
  * @param bg_color Ignored.
- * @bugs Describe the arrowhead better.
+ * @todo Describe the arrowhead better.
  */
 static void
 draw_open_rounded(DiaRenderer *renderer, Point *to, Point *from,
