@@ -1,3 +1,7 @@
+2006-01-24  Clytie Siddall <clytie@riverland.net.au>
+
+	* vi.po: Updated Vietnamese translation.
+
 2006-01-23  Ilkka Tuohela  <hile@iki.fi>
 
 	* fi.po: Updated Finnish translation.
@@ -14,6 +18,7 @@
 2006-01-14  Hans Breuer  <hans@breuer.org>
 
 	* sv.po : removed conflicting (to _O_k) accelerator, fixes bug #326519
+
 
 2006-01-14  Clytie Siddall <clytie@riverland.net.au>
 
