@@ -1,5 +1,7 @@
 2006-01-27  Hans Breuer  <hans@breuer.org>
 
+	* configure.in : error out if GLib/GTK+ version is lower than required
+
 	* app/filedlg.c lib/widgets.c : more default responses. Patch 
 	from Nguyen Thai Ngoc Duy, part of bug #138183
 	
