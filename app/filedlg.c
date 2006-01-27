@@ -318,8 +318,8 @@ file_save_as_response_callback(GtkWidget *fs,
       dialog = gtk_message_dialog_new (GTK_WINDOW(fs),
 				       GTK_DIALOG_MODAL, GTK_MESSAGE_QUESTION,
 				       GTK_BUTTONS_YES_NO,
-				       buffer);
-      gtk_window_set_title (GTK_WINDOW (dialog), _("File already exists"));
+				       _("File already exists"));
+      gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(dialog), buffer);
       gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_YES);
 
       if (gtk_dialog_run (GTK_DIALOG (dialog)) != GTK_RESPONSE_YES) {
@@ -556,8 +556,8 @@ file_export_response_callback(GtkWidget *fs,
 				       GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT, 
 				       GTK_MESSAGE_QUESTION,
 				       GTK_BUTTONS_YES_NO,
-				       buffer);
-      gtk_window_set_title (GTK_WINDOW (dialog), _("File already exists"));
+				       _("File already exists"));
+      gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(dialog), buffer);
       gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_YES);
 
       if (gtk_dialog_run (GTK_DIALOG (dialog)) != GTK_RESPONSE_YES) {

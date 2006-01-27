@@ -1137,15 +1137,16 @@ ddisplay_close(DDisplay *ddisp)
                                   GTK_DIALOG_MODAL,
                                   GTK_MESSAGE_QUESTION,
                                   GTK_BUTTONS_NONE, /* no standard buttons */
-				  msg,
-                                  NULL);
+				  _("Closing diagram without saving"),
+				  NULL);
+  gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(dialog), msg);
   g_free (msg);
   gtk_window_set_title (GTK_WINDOW(dialog), _("Close Diagram"));
 
   button = gtk_button_new_from_stock (GTK_STOCK_CANCEL);
   gtk_dialog_add_action_widget (GTK_DIALOG(dialog), button, GTK_RESPONSE_CANCEL);
 
-  button = gtk_button_new_with_label (_("Discard Changes"));
+  button = gtk_button_new_with_label (_("_Close without saving"));
   gtk_dialog_add_action_widget (GTK_DIALOG(dialog), button, GTK_RESPONSE_NO);
 
   /* button = gtk_button_new_with_label (_("Save and Close")); */

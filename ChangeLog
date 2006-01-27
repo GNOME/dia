@@ -1,5 +1,14 @@
 2006-01-28  Hans Breuer  <hans@breuer.org>
 
+	* app/app_procs.c app/display.c app/filedlg.c 
+	attempt to provide more HIG compliant dialogs. Patch from
+	Nguyen Thai Ngoc Duy, part of bug #138183
+	
+	* app/recent_files.c(recent_file_history_clear_menu) : instead of 
+	messing with GtkMenuShell::children and gtk_widget_destroy() just 
+	use gtk_container_remove. Avoids memory corruption causing the
+	most 'random' crashes recently.
+	
 	* objects/UML/message.c : can't use PROP_STD_TEXT_COLOUR_OPTIONAL 
 	cause it has PROP_FLAG_DONT_SAVE. It is designed to fill the 
 	TextAttributes - not some subset. Fixes bug #327701
