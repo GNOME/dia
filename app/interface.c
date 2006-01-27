@@ -45,6 +45,8 @@
 #include "dia-app-icons.h"
 #include "diacanvas.h"
 
+#include "pixmaps/missing.xpm"
+
 static const GtkTargetEntry create_object_targets[] = {
   { "application/x-dia-object", 0, 0 },
 };
@@ -831,9 +833,12 @@ fill_sheet_wbox(Sheet *sheet)
           gdk_pixbuf_render_pixmap_and_mask_for_colormap(pixbuf, gtk_widget_get_colormap(sheet_wbox), &pixmap, &mask, 1.0);
           gdk_pixbuf_unref(pixbuf);
       } else {
-          
-          g_warning("failed to load pixbuf for file %s; cause=%s",
-                    sheet_obj->pixmap_file,gerror?gerror->message:"[NULL]");
+          pixmap = gdk_pixmap_colormap_create_from_xpm_d(NULL,
+			gtk_widget_get_colormap(sheet_wbox), &mask, 
+			&style->bg[GTK_STATE_NORMAL], missing);
+
+          message_warning("failed to load icon for file\n %s\n cause=%s",
+                          sheet_obj->pixmap_file,gerror?gerror->message:"[NULL]");
       }
     } else {
       DiaObjectType *type;

@@ -631,7 +631,8 @@ help_about_callback(gpointer data, guint action, GtkWidget *widget)
 	"copyright", "(C) 1998-2006 The Free Software Foundation and the authors",
 	"website", "http://www.gnome.org/projects/dia/",
 	"authors", authors,
-	"documenters", strcmp (translators, "translator_credits-PLEASE_ADD_YOURSELF_HERE")
+	"documenters", documentors,
+	"translator-credits", strcmp (translators, "translator_credits-PLEASE_ADD_YOURSELF_HERE")
 			? translators : NULL,
 	"license", license,
 	NULL);

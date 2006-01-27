@@ -39,7 +39,6 @@
 /* ugly namespace clashes */
 #define Rectangle Win32Rectangle
 #include <pango/pango.h>
-#include <pango/pangowin32.h>
 #undef Rectangle
 #else
 #include <pango/pango.h>
@@ -120,7 +119,7 @@ begin_render(DiaRenderer *self)
   dia_font_push_context(pango_ft2_get_context(75, 75));
 # define FONT_SCALE (1.0)
 #elif defined G_OS_WIN32
-  dia_font_push_context(pango_win32_get_context());
+  dia_font_push_context(gdk_pango_context_get());
   /* I shall never claim again to have understood Dias/Pangos font size
    * relations ;). This was (1.0/22.0) but nowadays 1.0 seems to be
    * fine with Pango/win32, too.  --hb
@@ -1165,30 +1164,6 @@ draw_string (DiaRenderer *self,
      }
    }
    g_free(graybitmap);
- }
-#elif defined G_OS_WIN32 && defined PANGO_WIN32_FUTURE
- /* duplicating from above, please let extending Pango be allowed, bug 94791 */
- {
-   PangoBitmap graybitmap;
-   rowstride = 32*((width+31)/31);
-   
-   graybitmap.rows = height;
-   graybitmap.width = width;
-   graybitmap.pitch = rowstride;
-   graybitmap.buffer = (guint8*)g_new0(guint8, height*rowstride);
-   graybitmap.num_grays = 256;
-   g_print("Rendering %s onto bitmap of size %dx%d row %d\n", text, width, height, rowstride);
-   pango_win32_render_layout_to_bitmap(&graybitmap, layout, 0, 0);
-   bitmap = (guint8*)g_new0(guint8, height*rowstride*DEPTH);
-   for (i = 0; i < height; i++) {
-     for (j = 0; j < width; j++) {
-       bitmap[DEPTH*(i*rowstride+j)] = color->red*255;
-       bitmap[DEPTH*(i*rowstride+j)+1] = color->green*255;
-       bitmap[DEPTH*(i*rowstride+j)+2] = color->blue*255;
-       bitmap[DEPTH*(i*rowstride+j)+3] = graybitmap.buffer[i*rowstride+j];
-     }
-   }
-   g_free(graybitmap.buffer);
  }
 #else
  /* gdk does not like 0x0 sized (it does not make much sense with the others as well,

@@ -1,3 +1,20 @@
+2006-01-27  Hans Breuer  <hans@breuer.org>
+
+	* app/commands.c : respect difference between documenters and
+	translators and show both in about dialog. Closes bug #328711.
+	
+	* app/interface.c : instead of g_warning for missing shape icon
+	but use message_warning and show the 'missing' icon
+	
+	* lib/dialibartrenderer.c : with Gtk+ 2.8 gdk_draw_layout() does
+	not match pango_win32_get_context(). Use gdk_pango_get_context ().
+	Also removed my special win32-modified-pango code for draw_string()
+	without the help of gdk.
+
+	* Makefile.am : include MAINTAINERS file in tarball
+
+	* lib/conectionpoint.h : removed double include of "geometry.h"
+	
 2006-01-22  Hans Breuer  <hans@breuer.org>
 
 	* app/splash.c app/commands.c : dont share the logo and finally leak
