@@ -124,7 +124,8 @@ static ObjectOps generalization_ops = {
 
 static PropDescription generalization_props[] = {
   ORTHCONN_COMMON_PROPERTIES,
-  PROP_STD_TEXT_COLOUR_OPTIONAL,
+  /* can't use PROP_STD_TEXT_COLOUR_OPTIONAL cause it has PROP_FLAG_DONT_SAVE. It is designed to fill the Text object - not some subset */
+  PROP_STD_TEXT_COLOUR_OPTIONS(PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD|PROP_FLAG_OPTIONAL),
   PROP_STD_LINE_COLOUR_OPTIONAL, 
   { "name", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
     N_("Name:"), NULL, NULL },

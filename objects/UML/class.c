@@ -129,7 +129,8 @@ extern PropDescDArrayExtra umlformalparameter_extra;
 /** Properties of UMLClass */
 static PropDescription umlclass_props[] = {
   ELEMENT_COMMON_PROPERTIES,
-  PROP_STD_TEXT_COLOUR_OPTIONAL,
+  /* can't use PROP_STD_TEXT_COLOUR_OPTIONAL cause it has PROP_FLAG_DONT_SAVE. It is designed to fill the Text object - not some subset */
+  PROP_STD_TEXT_COLOUR_OPTIONS(PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD|PROP_FLAG_OPTIONAL),
   PROP_STD_LINE_COLOUR_OPTIONAL,
   PROP_STD_FILL_COLOUR_OPTIONAL,
 
@@ -2206,6 +2207,9 @@ static DiaObject *umlclass_load(ObjectNode obj_node, int version,
   attr_node = object_find_attribute(obj_node, "line_color");
   if(attr_node != NULL)
     data_color(attribute_first_data(attr_node), &umlclass->line_color); 
+  attr_node = object_find_attribute(obj_node, "text_color");
+  if(attr_node != NULL)
+    data_color(attribute_first_data(attr_node), &umlclass->text_color); 
   
   umlclass->fill_color = color_white;
   /* support the old name ... */

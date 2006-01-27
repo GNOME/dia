@@ -1,3 +1,16 @@
+2006-01-28  Hans Breuer  <hans@breuer.org>
+
+	* objects/UML/message.c : can't use PROP_STD_TEXT_COLOUR_OPTIONAL 
+	cause it has PROP_FLAG_DONT_SAVE. It is designed to fill the 
+	TextAttributes - not some subset. Fixes bug #327701
+	* objects/UML/implements.c objects/UML/generalization.c
+	  objects/UML/constraint.c objects/UML/object.c
+	  objects/UML/large_package.c objects/UML/realizes.c : same here.
+	* objects/UML/dependency.c : same here. Also draw the "Name" with the
+	given color, not only the Stereotype.
+	* objects/UML/class.c : same here. But we also need to restore 
+	explicit restore "text_color" for the load case.
+	
 2006-01-27  Hans Breuer  <hans@breuer.org>
 
 	* configure.in : error out if GLib/GTK+ version is lower than required
