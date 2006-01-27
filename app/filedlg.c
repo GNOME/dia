@@ -216,6 +216,7 @@ file_open_callback(gpointer data, guint action, GtkWidget *widget)
 					  GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
 					  GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
 					  NULL);
+    gtk_dialog_set_default_response(GTK_DIALOG(opendlg), GTK_RESPONSE_ACCEPT);
     gtk_window_set_role(GTK_WINDOW(opendlg), "open_diagram");
     gtk_window_set_position(GTK_WINDOW(opendlg), GTK_WIN_POS_MOUSE);
     if (dia && dia->filename)
@@ -368,6 +369,7 @@ file_save_as_callback(gpointer data, guint action, GtkWidget *widget)
 					  GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
 					  GTK_STOCK_SAVE, GTK_RESPONSE_ACCEPT,
 					  NULL);
+    gtk_dialog_set_default_response(GTK_DIALOG(savedlg), GTK_RESPONSE_ACCEPT);
     gtk_window_set_role(GTK_WINDOW(savedlg), "save_diagram");
     gtk_window_set_position(GTK_WINDOW(savedlg), GTK_WIN_POS_MOUSE);
     /* Need better way to make it a reasonable size.  Isn't there some*/
@@ -607,6 +609,7 @@ file_export_callback(gpointer data, guint action, GtkWidget *widget)
 					    GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
 					    GTK_STOCK_SAVE, GTK_RESPONSE_ACCEPT,
 					    NULL);
+    gtk_dialog_set_default_response(GTK_DIALOG(exportdlg), GTK_RESPONSE_ACCEPT);
     gtk_window_set_role(GTK_WINDOW(exportdlg), "export_diagram");
     gtk_window_set_position(GTK_WINDOW(exportdlg), GTK_WIN_POS_MOUSE);
     g_signal_connect(GTK_OBJECT(exportdlg), "destroy",

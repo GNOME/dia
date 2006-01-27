@@ -1316,7 +1316,7 @@ dia_file_selector_browse_pressed(GtkWidget *widget, gpointer data)
                                    GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
 				   GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
 				   NULL);
-    
+    gtk_dialog_set_default_response(GTK_DIALOG(dialog), GTK_RESPONSE_ACCEPT);
     g_signal_connect(GTK_OBJECT(dialog), "response",
 		     G_CALLBACK(file_open_response_callback), NULL);     
     gtk_signal_connect (GTK_OBJECT (fs->dialog), "destroy",

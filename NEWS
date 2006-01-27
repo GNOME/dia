@@ -18,8 +18,7 @@
 * Simple auto-routing of 'othogonal' connection lines
 
 * Most Objects now have a center point, which allows to 
-  connect to but the line starts at the bounding box 
-  of the object.
+  connect to but the line starts at the border of the object.
 
 * Shapes with text should finally work
 

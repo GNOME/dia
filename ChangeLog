@@ -1,5 +1,11 @@
 2006-01-27  Hans Breuer  <hans@breuer.org>
 
+	* app/filedlg.c lib/widgets.c : more default responses. Patch 
+	from Nguyen Thai Ngoc Duy, part of bug #138183
+	
+	* NEWS : Main point feature correction. The line is supposed to
+	start at the border of the object not the bounding box.
+	
 	* app/commands.c : respect difference between documenters and
 	translators and show both in about dialog. Closes bug #328711.
 	
