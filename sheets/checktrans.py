@@ -23,7 +23,7 @@
 
 from xml.sax import saxexts
 from xml.sax import saxlib
-import sys,string
+import os,sys,string
 
 class CounterHandler(saxlib.DocumentHandler):
 
@@ -151,7 +151,7 @@ globlangs = {}
 for name in fnames:
     OK=0
     try:
-        p.parse(name)
+        p.parse("file://localhost" + os.getcwd() + "/" + name)
         OK=1
 
         maxlanglen = len(reduce(maxlen,ch.langs.keys(),""))

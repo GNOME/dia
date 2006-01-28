@@ -1,5 +1,9 @@
 2006-01-28  Hans Breuer  <hans@breuer.org>
 
+	* po/checktrans.py : make it work with recent pyxml (unknown url type)
+	* po/AADL.sheet.in : remove duplicated _description
+	=> translation report works again
+
 	* app/display.c : revert back to "_Discard Changes" to avoid
 	accelerator clash. Also gtk_button_new_with_mnemonic() to
 	'expand' the accelerator.
