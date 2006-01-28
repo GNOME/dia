@@ -126,10 +126,8 @@ set_string(Text *text, const char *string)
   numlines = 1;
   if (s != NULL) 
     while ( (s = g_utf8_strchr(s,-1,'\n')) != NULL ) {
+      numlines++;
       s++;
-      if ((*s) != 0) {
-        numlines++;
-      }
     }
   text->numlines = numlines;
   text->line = g_malloc(sizeof(char *)*numlines);

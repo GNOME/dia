@@ -1,5 +1,8 @@
 2006-01-28  Hans Breuer  <hans@breuer.org>
 
+	* lib/text.c(set_string) : don't eat the trailing new-line
+	Fixes bug #165092
+	
 	* app/app_procs.c app/display.c app/filedlg.c 
 	attempt to provide more HIG compliant dialogs. Patch from
 	Nguyen Thai Ngoc Duy, part of bug #138183
