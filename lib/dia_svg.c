@@ -44,6 +44,9 @@ dia_svg_style_init(DiaSvgStyle *gs, DiaSvgStyle *parent_style)
   gs->linestyle = parent_style ? parent_style->linestyle : LINESTYLE_SOLID;
   gs->dashlength = parent_style ? parent_style->dashlength : 1;
   gs->fill = parent_style ? parent_style->fill : (-1);
+  gs->linecap = parent_style ? parent_style->linecap : DIA_SVG_LINECAPS_DEFAULT;
+  gs->linejoin = parent_style ? parent_style->linejoin : DIA_SVG_LINEJOIN_DEFAULT;
+  gs->linestyle = parent_style ? parent_style->linestyle : DIA_SVG_LINESTYLE_DEFAULT;
   gs->font = (parent_style && parent_style->font) ? dia_font_ref(parent_style->font) : NULL;
   gs->font_height = parent_style ? parent_style->font_height : 0.8;
   gs->alignment = parent_style ? parent_style->alignment : ALIGN_LEFT;

@@ -343,6 +343,10 @@ set_linejoin (DiaRenderer *object, LineJoin mode)
     case LINEJOIN_BEVEL:
       renderer->join_style = GDK_JOIN_BEVEL;
       break;
+    default :
+      /* invalid mode, just here to set a breakpoint */
+      renderer->join_style = GDK_JOIN_ROUND;
+      break;
     }
   }
  
@@ -778,7 +782,8 @@ draw_string (DiaRenderer *object,
 
 /** Caching Pango renderer */
 static void
-draw_text(DiaRenderer *renderer, Text *text) {
+draw_text(DiaRenderer *renderer, Text *text) 
+{
   Point pos;
   int i;
 

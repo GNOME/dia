@@ -320,9 +320,11 @@ set_fillstyle (DiaRenderer *renderer, FillStyle mode)
 static void 
 set_font (DiaRenderer *renderer, DiaFont *font, real height)
 {
+  /* if it's the same font we must ref it first */
+  dia_font_ref (font);
   if (renderer->font)
     dia_font_unref (renderer->font);
-  renderer->font = dia_font_ref (font);
+  renderer->font = font;
   renderer->font_height = height;
 }
 

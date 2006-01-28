@@ -1146,7 +1146,7 @@ ddisplay_close(DDisplay *ddisp)
   button = gtk_button_new_from_stock (GTK_STOCK_CANCEL);
   gtk_dialog_add_action_widget (GTK_DIALOG(dialog), button, GTK_RESPONSE_CANCEL);
 
-  button = gtk_button_new_with_label (_("_Close without saving"));
+  button = gtk_button_new_with_mnemonic (_("_Discard Changes"));
   gtk_dialog_add_action_widget (GTK_DIALOG(dialog), button, GTK_RESPONSE_NO);
 
   /* button = gtk_button_new_with_label (_("Save and Close")); */

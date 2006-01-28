@@ -1,5 +1,18 @@
 2006-01-28  Hans Breuer  <hans@breuer.org>
 
+	* app/display.c : revert back to "_Discard Changes" to avoid
+	accelerator clash. Also gtk_button_new_with_mnemonic() to
+	'expand' the accelerator.
+
+	* lib/dia_svg.c(dia_svg_style_init) : need to initialize
+	linecap, linejoin, linestyle to avoid invalid settings.
+	(Nguyen Thai Ngoc Duy, bug #328945)
+	* lib/diagdkrenderer.c : add a place fro breakpoint to 
+	detect invalid mode
+
+	* lib/diarenderer.c(setfont) : if we get passed in the
+	same font it must be ref'd before unref.
+
 	* lib/text.c(set_string) : don't eat the trailing new-line
 	Fixes bug #165092
 	
