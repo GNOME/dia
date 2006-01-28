@@ -57,7 +57,7 @@ msgstr "Lỗi %s: cần tập tin nhập hợp lệ %s.\n"
 #:../app/app_procs.c:431
 #,c-format
 msgid "%s --> %s\n"
-msgstr "%s → %s\n"
+msgstr "%s --> %s\n"
 
 #:../app/app_procs.c:577
 #,c-format
@@ -668,7 +668,7 @@ msgstr "Bạn đã thả một đối tượng không thể vừa với mẹ nó
 
 #:../app/display.c:94
 msgid "Diagram modified!"
-msgstr "Sơ đồ đạ sửa đổi."
+msgstr "Sơ đồ đã thay đổi!"
 
 #:../app/display.c:118
 #,c-format
@@ -1634,7 +1634,7 @@ msgstr "Lỗi in: lệnh « %s » gây ra sigpipe (tín hiệu ống dẫn?)."
 
 #:../app/plugin-manager.c:200
 msgid "Plug-ins"
-msgstr "Bộ cầm phít"
+msgstr "Plug-in"
 
 #:../app/plugin-manager.c:255
 msgid "Loaded"
@@ -1824,7 +1824,7 @@ msgstr "Thuộc tính đối tượng:"
 #.but any item on the File menu will do
 #:../app/recent_files.c:61
 msgid "<Toolbox>/File/Plugins..."
-msgstr "<Hộp công cụ>/Tập tin/Bộ cầm phít..."
+msgstr "<Hộp công cụ>/Tập tin/Plug-in..."
 
 #:../app/recent_files.c:140
 msgid "<Toolbox>/File/Quit"
@@ -2433,13 +2433,13 @@ msgstr "Không thể xuy ra đường dẫn đúng cho « %s »."
 msgid ""
 "Could not load plugin '%s'\n"
 "%s"
-msgstr "Không thể tải bộ cầm phít « %s ».\n"
+msgstr "Không thể tải plugin « %s ».\n"
 "%s"
 
 #:../lib/plug-ins.c:246
 #,c-format
 msgid "Could not find plugin init function in `%s'"
-msgstr "Không thể tìm thấy hàm khởi động bộ cầm phít trong « %s »."
+msgstr "Không thể tìm thấy hàm khởi động plugin trong « %s »."
 
 #:../lib/plug-ins.c:248
 msgid "Missing symbol 'dia_plugin_init'"
@@ -2452,7 +2452,7 @@ msgstr "Lỗi gọi « dia_plugin_init() »."
 #:../lib/plug-ins.c:283
 #,c-format
 msgid "%s Plugin could not be unloaded"
-msgstr "%s Không thể bỏ tải bộ cầm phít."
+msgstr "%s Không thể bỏ tải plugin."
 
 #:../lib/plug-ins.c:371
 #,c-format
