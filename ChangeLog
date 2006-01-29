@@ -1,3 +1,8 @@
+2006-01-29  Hans Breuer  <hans@breuer.org>
+
+	* app/render_libart.c(draw_line) : make setting the pixel side-effect
+	free; account for it in now (less) magic increments. Fixes bug #312147
+
 2006-01-28  Hans Breuer  <hans@breuer.org>
 
 	* po/checktrans.py : make it work with recent pyxml (unknown url type)

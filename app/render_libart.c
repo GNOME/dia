@@ -317,10 +317,10 @@ draw_pixel_line(DiaRenderer *self,
   if (adx>=ady) { /* x-major */
     if (dx>0) {
       incx = 1;
-      incx_ptr = 0;
+      incx_ptr = 3;
     } else {
       incx = -1;
-      incx_ptr = -6;
+      incx_ptr = -3;
     }
     if (dy>0) {
       incy = 1;
@@ -338,11 +338,9 @@ draw_pixel_line(DiaRenderer *self,
 	   (x<=clip_rect->right) &&
 	   (y>=clip_rect->top) &&
 	   (y<=clip_rect->bottom) ) {
-	*ptr++ = r;
-	*ptr++ = g;
-	*ptr++ = b;
-      } else {
-	ptr += 3;
+	ptr[0] = r;
+	ptr[1] = g;
+	ptr[2] = b;
       }
       x += incx;
       ptr += incx_ptr;
@@ -356,10 +354,10 @@ draw_pixel_line(DiaRenderer *self,
   } else { /* y-major */
     if (dx>0) {
       incx = 1;
-      incx_ptr = 0;
+      incx_ptr = 3;
     } else {
       incx = -1;
-      incx_ptr = -6;
+      incx_ptr = -3;
     }
     if (dy>0) {
       incy = 1;
@@ -377,11 +375,9 @@ draw_pixel_line(DiaRenderer *self,
 	   (x<=clip_rect->right) &&
 	   (y>=clip_rect->top) &&
 	   (y<=clip_rect->bottom) ) {
-	*ptr++ = r;
-	*ptr++ = g;
-	*ptr++ = b;
-      } else {
-	ptr += 3;
+	ptr[0] = r;
+	ptr[1] = g;
+	ptr[2] = b;
       }
       y += incy;
       ptr += incy_ptr;
