@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-01-26 12:21-0500\n"
+"POT-Creation-Date: 2006-01-31 21:02-0500\n"
 "PO-Revision-Date: 2005-09-06 16:52-0400\n"
 "Last-Translator: Adam Weinberger <adamw@gnome.org>\n"
 "Language-Team: Canadian English <adamw@gnome.org>\n"
@@ -179,30 +179,32 @@ msgstr ""
 
 #. no standard buttons
 #: ../app/app_procs.c:989
-msgid ""
-"Modified diagrams exist.\n"
-"Are you sure you want to quit Dia\n"
-"without saving them?"
-msgstr ""
-"Modified diagrams exist.\n"
-"Are you sure you want to quit Dia\n"
-"without saving them?"
+msgid "Quitting without saving modified diagrams"
+msgstr "Quitting without saving modified diagrams"
 
-#: ../app/app_procs.c:992
+#: ../app/app_procs.c:991
+msgid ""
+"Modified diagrams exist. Are you sure you want to quit Dia without saving "
+"them?"
+msgstr ""
+"Modified diagrams exist. Are you sure you want to quit Dia without saving "
+"them?"
+
+#: ../app/app_procs.c:995
 msgid "Quit Dia"
 msgstr "Quit Dia"
 
 #. This printf seems to prevent a race condition with unrefs.
 #. Yuck.  -Lars
-#: ../app/app_procs.c:1045
+#: ../app/app_procs.c:1048
 msgid "Thank you for using Dia.\n"
 msgstr "Thank you for using Dia.\n"
 
-#: ../app/app_procs.c:1062 ../app/app_procs.c:1069
+#: ../app/app_procs.c:1065 ../app/app_procs.c:1072
 msgid "Could not create per-user Dia config directory"
 msgstr "Could not create per-user Dia config directory"
 
-#: ../app/app_procs.c:1072
+#: ../app/app_procs.c:1075
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -210,15 +212,15 @@ msgstr ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
 
-#: ../app/app_procs.c:1095 ../app/diaconv.c:251
+#: ../app/app_procs.c:1098 ../app/diaconv.c:251
 msgid "Objects and filters internal to dia"
 msgstr "Objects and filters internal to dia"
 
-#: ../app/app_procs.c:1137 ../app/diaconv.c:121
+#: ../app/app_procs.c:1140 ../app/diaconv.c:121
 msgid "[OPTION...] [FILE...]"
 msgstr "[OPTION...] [FILE...]"
 
-#: ../app/app_procs.c:1140 ../app/diaconv.c:128
+#: ../app/app_procs.c:1143 ../app/diaconv.c:128
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
@@ -227,16 +229,16 @@ msgstr ""
 "Error on option %s: %s.\n"
 "Run '%s --help' to see a full list of available command line options.\n"
 
-#: ../app/app_procs.c:1164
+#: ../app/app_procs.c:1167
 msgid "[FILE...]"
 msgstr "[FILE...]"
 
-#: ../app/app_procs.c:1187
+#: ../app/app_procs.c:1190
 #, c-format
 msgid "'%s' not found!\n"
 msgstr "'%s' not found!\n"
 
-#: ../app/app_procs.c:1268
+#: ../app/app_procs.c:1271
 msgid ""
 "The original author of Dia was:\n"
 "\n"
@@ -244,7 +246,7 @@ msgstr ""
 "The original author of Dia was:\n"
 "\n"
 
-#: ../app/app_procs.c:1273
+#: ../app/app_procs.c:1276
 msgid ""
 "\n"
 "The current maintainers of Dia are:\n"
@@ -254,7 +256,7 @@ msgstr ""
 "The current maintainers of Dia are:\n"
 "\n"
 
-#: ../app/app_procs.c:1278
+#: ../app/app_procs.c:1281
 msgid ""
 "\n"
 "Other authors are:\n"
@@ -264,7 +266,7 @@ msgstr ""
 "Other authors are:\n"
 "\n"
 
-#: ../app/app_procs.c:1283
+#: ../app/app_procs.c:1286
 msgid ""
 "\n"
 "Dia is documented by:\n"
@@ -706,13 +708,18 @@ msgstr ""
 "The diagram '%s'\n"
 "has not been saved. Save changes now?"
 
-#: ../app/display.c:1143
+#. no standard buttons
+#: ../app/display.c:1140
+msgid "Closing diagram without saving"
+msgstr "Closing diagram without saving"
+
+#: ../app/display.c:1144
 msgid "Close Diagram"
 msgstr "Close Diagram"
 
-#: ../app/display.c:1148
-msgid "Discard Changes"
-msgstr "Discard Changes"
+#: ../app/display.c:1149
+msgid "_Discard Changes"
+msgstr "_Discard Changes"
 
 #: ../app/export_png.c:136 ../app/load_save.c:918 ../app/render_eps.c:103
 #: ../plug-ins/cairo/diacairo.c:972 ../plug-ins/cgm/cgm.c:1151
@@ -763,7 +770,7 @@ msgstr "Image height:"
 msgid "Portable Network Graphics"
 msgstr "Portable Network Graphics"
 
-#: ../app/filedlg.c:129 ../app/filedlg.c:506
+#: ../app/filedlg.c:129 ../app/filedlg.c:508
 msgid "By extension"
 msgstr "By extension"
 
@@ -771,23 +778,23 @@ msgstr "By extension"
 msgid "Open Diagram"
 msgstr "Open Diagram"
 
-#: ../app/filedlg.c:241
+#: ../app/filedlg.c:242
 msgid "Open Options"
 msgstr "Open Options"
 
-#: ../app/filedlg.c:249 ../app/filedlg.c:627
+#: ../app/filedlg.c:250 ../app/filedlg.c:630
 msgid "Determine file type:"
 msgstr "Determine file type:"
 
-#: ../app/filedlg.c:265 ../app/filedlg.c:640
+#: ../app/filedlg.c:266 ../app/filedlg.c:643
 msgid "All Files"
 msgstr "All Files"
 
-#: ../app/filedlg.c:270 ../app/filedlg.c:645
+#: ../app/filedlg.c:271 ../app/filedlg.c:648
 msgid "Supported Formats"
 msgstr "Supported Formats"
 
-#: ../app/filedlg.c:306
+#: ../app/filedlg.c:307
 msgid ""
 "Some characters in the filename are neither UTF-8\n"
 "nor your local encoding.\n"
@@ -797,7 +804,7 @@ msgstr ""
 "nor your local encoding.\n"
 "Some things will break."
 
-#: ../app/filedlg.c:313 ../app/filedlg.c:551
+#: ../app/filedlg.c:314 ../app/filedlg.c:553
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
@@ -806,21 +813,21 @@ msgstr ""
 "The file '%s' already exists.\n"
 "Do you want to overwrite it?"
 
-#: ../app/filedlg.c:321 ../app/filedlg.c:558
+#: ../app/filedlg.c:321 ../app/filedlg.c:559
 msgid "File already exists"
 msgstr "File already exists"
 
-#: ../app/filedlg.c:364
+#: ../app/filedlg.c:365
 msgid "Save Diagram"
 msgstr "Save Diagram"
 
 #. Need better way to make it a reasonable size.  Isn't there some
 #. standard look for them (or is that just Gnome?)
-#: ../app/filedlg.c:375
+#: ../app/filedlg.c:377
 msgid "Compress diagram files"
 msgstr "Compress diagram files"
 
-#: ../app/filedlg.c:384
+#: ../app/filedlg.c:386
 msgid ""
 "Compression reduces file size to less than 1/10th size and speeds up loading "
 "and saving.  Some text programs cannot manipulate compressed files."
@@ -828,7 +835,7 @@ msgstr ""
 "Compression reduces file size to less than 1/10th size and speeds up loading "
 "and saving.  Some text programs cannot manipulate compressed files."
 
-#: ../app/filedlg.c:580
+#: ../app/filedlg.c:582
 #, c-format
 msgid ""
 "Could not determine which export filter\n"
@@ -837,126 +844,126 @@ msgstr ""
 "Could not determine which export filter\n"
 "to use to save '%s'"
 
-#: ../app/filedlg.c:603
+#: ../app/filedlg.c:605
 msgid "Export Diagram"
 msgstr "Export Diagram"
 
-#: ../app/filedlg.c:619
+#: ../app/filedlg.c:622
 msgid "Export Options"
 msgstr "Export Options"
 
-#: ../app/interface.c:55
+#: ../app/interface.c:57
 msgid "Modify object(s)"
 msgstr "Modify object(s)"
 
-#: ../app/interface.c:56
+#: ../app/interface.c:58
 msgid "Modify"
 msgstr "Modify"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Magnify
-#: ../app/interface.c:60 ../app/interface.c:61 ../objects/FS/function.c:986
+#: ../app/interface.c:62 ../app/interface.c:63 ../objects/FS/function.c:986
 msgid "Magnify"
 msgstr "Magnify"
 
-#: ../app/interface.c:65
+#: ../app/interface.c:67
 msgid "Scroll around the diagram"
 msgstr "Scroll around the diagram"
 
-#: ../app/interface.c:66
+#: ../app/interface.c:68
 msgid "Scroll"
 msgstr "Scroll"
 
-#: ../app/interface.c:70 ../app/interface.c:71 ../lib/properties.c:79
+#: ../app/interface.c:72 ../app/interface.c:73 ../lib/properties.c:79
 #: ../lib/properties.h:519 ../objects/AADL/aadlbox.c:144
 #: ../objects/Jackson/requirement.c:142 ../objects/UML/activity.c:127
 #: ../objects/UML/actor.c:122 ../objects/UML/classicon.c:144
 #: ../objects/UML/component.c:128 ../objects/UML/component_feature.c:155
 #: ../objects/UML/node.c:127 ../objects/UML/note.c:121
-#: ../objects/UML/object.c:147 ../objects/UML/small_package.c:128
+#: ../objects/UML/object.c:148 ../objects/UML/small_package.c:128
 #: ../objects/UML/state.c:152 ../objects/UML/usecase.c:138
 #: ../objects/custom/custom_object.c:200 ../objects/network/basestation.c:133
 #: ../objects/network/radiocell.c:146
 msgid "Text"
 msgstr "Text"
 
-#: ../app/interface.c:75 ../app/interface.c:76
+#: ../app/interface.c:77 ../app/interface.c:78
 msgid "Box"
 msgstr "Box"
 
-#: ../app/interface.c:80 ../app/interface.c:81
+#: ../app/interface.c:82 ../app/interface.c:83
 msgid "Ellipse"
 msgstr "Ellipse"
 
-#: ../app/interface.c:85 ../app/interface.c:86
+#: ../app/interface.c:87 ../app/interface.c:88
 msgid "Polygon"
 msgstr "Polygon"
 
-#: ../app/interface.c:90 ../app/interface.c:91
+#: ../app/interface.c:92 ../app/interface.c:93
 msgid "Beziergon"
 msgstr "Beziergon"
 
-#: ../app/interface.c:95 ../app/interface.c:96 ../objects/standard/line.c:226
+#: ../app/interface.c:97 ../app/interface.c:98 ../objects/standard/line.c:226
 msgid "Line"
 msgstr "Line"
 
-#: ../app/interface.c:100 ../app/interface.c:101
+#: ../app/interface.c:102 ../app/interface.c:103
 msgid "Arc"
 msgstr "Arc"
 
-#: ../app/interface.c:105 ../app/interface.c:106
+#: ../app/interface.c:107 ../app/interface.c:108
 msgid "Zigzagline"
 msgstr "Zigzagline"
 
-#: ../app/interface.c:110 ../app/interface.c:111
+#: ../app/interface.c:112 ../app/interface.c:113
 msgid "Polyline"
 msgstr "Polyline"
 
-#: ../app/interface.c:115 ../app/interface.c:116
+#: ../app/interface.c:117 ../app/interface.c:118
 msgid "Bezierline"
 msgstr "Bezierline"
 
-#: ../app/interface.c:120 ../app/interface.c:121
+#: ../app/interface.c:122 ../app/interface.c:123
 msgid "Image"
 msgstr "Image"
 
-#: ../app/interface.c:406
+#: ../app/interface.c:408
 msgid "Diagram menu."
 msgstr "Diagram menu."
 
-#: ../app/interface.c:444
+#: ../app/interface.c:446
 msgid "Pops up the Navigation window."
 msgstr "Pops up the Navigation window."
 
-#: ../app/interface.c:512
+#: ../app/interface.c:514
 msgid "Zoom"
 msgstr "Zoom"
 
-#: ../app/interface.c:527
+#: ../app/interface.c:529
 msgid "Toggles snap-to-grid for this window."
 msgstr "Toggles snap-to-grid for this window."
 
-#: ../app/interface.c:538
+#: ../app/interface.c:540
 msgid "Toggles object snapping for this window."
 msgstr "Toggles object snapping for this window."
 
-#: ../app/interface.c:603
+#: ../app/interface.c:605
 msgid "NULL tooldata in tool_select_update"
 msgstr "NULL tooldata in tool_select_update"
 
-#: ../app/interface.c:896
+#: ../app/interface.c:901
 #, c-format
 msgid "No sheet named %s"
 msgstr "No sheet named %s"
 
-#: ../app/interface.c:928
+#: ../app/interface.c:933
 msgid "Other sheets"
 msgstr "Other sheets"
 
-#: ../app/interface.c:986 ../sheets/Misc.sheet.in.h:3
+#: ../app/interface.c:991 ../sheets/Misc.sheet.in.h:3
 msgid "Misc"
 msgstr "Misc"
 
-#: ../app/interface.c:1047
+#: ../app/interface.c:1052
 msgid ""
 "Foreground & background colors for new objects.  The small black and white "
 "squares reset colors.  The small arrows swap colors.  Double click to change "
@@ -966,31 +973,31 @@ msgstr ""
 "squares reset colours.  The small arrows swap colours.  Double click to "
 "change colours."
 
-#: ../app/interface.c:1062
+#: ../app/interface.c:1067
 msgid ""
 "Line widths.  Click on a line to set the default line width for new "
 "objects.  Double-click to set the line width more precisely."
 msgstr ""
 "Line widths.  Click on a line to set the default line width for new "
 "objects.  Double-click to set the line width more precisely."
-
-#: ../app/interface.c:1102
-msgid ""
-"Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
-"arrow parameters with Details..."
-msgstr ""
-"Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
-"arrow parameters with Details..."
 
 #: ../app/interface.c:1107
 msgid ""
+"Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
+"arrow parameters with Details..."
+msgstr ""
+"Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
+"arrow parameters with Details..."
+
+#: ../app/interface.c:1112
+msgid ""
 "Line style for new lines.  Click to pick a line style, or set line style "
 "parameters with Details..."
 msgstr ""
 "Line style for new lines.  Click to pick a line style, or set line style "
 "parameters with Details..."
 
-#: ../app/interface.c:1121
+#: ../app/interface.c:1126
 msgid ""
 "Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
 "parameters with Details..."
@@ -998,7 +1005,7 @@ msgstr ""
 "Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
 "parameters with Details..."
 
-#: ../app/interface.c:1229
+#: ../app/interface.c:1234
 msgid "Diagram Editor"
 msgstr "Diagram Editor"
 
@@ -1671,8 +1678,8 @@ msgstr "Plug-ins"
 msgid "Loaded"
 msgstr "Loaded"
 
-#: ../app/plugin-manager.c:262 ../objects/UML/class.c:139
-#: ../objects/UML/large_package.c:130 ../objects/UML/umlattribute.c:37
+#: ../app/plugin-manager.c:262 ../objects/UML/class.c:140
+#: ../objects/UML/large_package.c:131 ../objects/UML/umlattribute.c:37
 #: ../objects/UML/umlformalparameter.c:35 ../objects/UML/umloperation.c:62
 #: ../objects/UML/umlparameter.c:43
 msgid "Name"
@@ -1858,7 +1865,7 @@ msgstr "Object properties:"
 msgid "<Toolbox>/File/Plugins..."
 msgstr "<Toolbox>/File/Plugins..."
 
-#: ../app/recent_files.c:140
+#: ../app/recent_files.c:135
 msgid "<Toolbox>/File/Quit"
 msgstr "<Toolbox>/File/Quit"
 
@@ -2009,8 +2016,8 @@ msgstr "Sheet"
 #: ../objects/UML/association.c:238 ../objects/UML/association.c:1166
 #: ../objects/UML/class_dialog.c:964 ../objects/UML/class_dialog.c:1917
 #: ../objects/UML/class_dialog.c:2155 ../objects/UML/class_dialog.c:2681
-#: ../objects/UML/dependency.c:134 ../objects/UML/generalization.c:130
-#: ../objects/UML/realizes.c:131
+#: ../objects/UML/dependency.c:135 ../objects/UML/generalization.c:131
+#: ../objects/UML/realizes.c:132
 msgid "Name:"
 msgstr "Name:"
 
@@ -2386,7 +2393,7 @@ msgstr "_Preview:"
 msgid "Font Selection"
 msgstr "Font Selection"
 
-#: ../lib/dialibartrenderer.c:294
+#: ../lib/dialibartrenderer.c:293
 msgid "gdk_renderer: Unsupported fill mode specified!\n"
 msgstr "gdk_renderer: Unsupported fill mode specified!\n"
 
@@ -2530,7 +2537,7 @@ msgstr "Text alignment"
 #. all this just to make the defaults selectable ...
 #: ../lib/properties.c:81 ../lib/properties.h:530
 #: ../objects/GRAFCET/condition.c:132 ../objects/GRAFCET/step.c:165
-#: ../objects/GRAFCET/transition.c:142 ../objects/UML/class.c:169
+#: ../objects/GRAFCET/transition.c:142 ../objects/UML/class.c:170
 #: ../objects/UML/class_dialog.c:394 ../objects/chronogram/chronoline.c:183
 #: ../objects/chronogram/chronoref.c:164
 msgid "Font"
@@ -2733,8 +2740,8 @@ msgstr "Total:"
 #: ../objects/ER/participation.c:406 ../objects/FS/flow-ortho.c:645
 #: ../objects/GRAFCET/vector.c:312 ../objects/SADT/arrow.c:457
 #: ../objects/UML/association.c:775 ../objects/UML/component_feature.c:184
-#: ../objects/UML/dependency.c:373 ../objects/UML/generalization.c:369
-#: ../objects/UML/realizes.c:360 ../objects/UML/transition.c:161
+#: ../objects/UML/dependency.c:374 ../objects/UML/generalization.c:370
+#: ../objects/UML/realizes.c:361 ../objects/UML/transition.c:161
 #: ../objects/standard/zigzagline.c:348
 msgid "Add segment"
 msgstr "Add segment"
@@ -2742,8 +2749,8 @@ msgstr "Add segment"
 #: ../objects/ER/participation.c:407 ../objects/FS/flow-ortho.c:646
 #: ../objects/GRAFCET/vector.c:313 ../objects/SADT/arrow.c:458
 #: ../objects/UML/association.c:776 ../objects/UML/component_feature.c:185
-#: ../objects/UML/dependency.c:374 ../objects/UML/generalization.c:370
-#: ../objects/UML/realizes.c:361 ../objects/UML/transition.c:162
+#: ../objects/UML/dependency.c:375 ../objects/UML/generalization.c:371
+#: ../objects/UML/realizes.c:362 ../objects/UML/transition.c:162
 #: ../objects/standard/zigzagline.c:349
 msgid "Delete segment"
 msgstr "Delete segment"
@@ -3520,7 +3527,7 @@ msgid "Differentiate"
 msgstr "Differentiate"
 
 #. Translators: Menu item Verb/Convert/Process
-#: ../objects/FS/function.c:1032 ../sheets/AADL.sheet.in.h:9
+#: ../objects/FS/function.c:1032 ../sheets/AADL.sheet.in.h:8
 #: ../sheets/Gane_and_Sarson.sheet.in.h:7
 msgid "Process"
 msgstr "Process"
@@ -4092,7 +4099,7 @@ msgstr "Shared"
 msgid "Requirement"
 msgstr "Requirement"
 
-#: ../objects/Jackson/phenomenon.c:142 ../objects/UML/message.c:150
+#: ../objects/Jackson/phenomenon.c:142 ../objects/UML/message.c:151
 msgid "Message:"
 msgstr "Message:"
 
@@ -4197,7 +4204,7 @@ msgid "Miscellaneous objects"
 msgstr "Miscellaneous objects"
 
 #. property rows
-#: ../objects/SADT/arrow.c:134 ../objects/UML/class.c:174
+#: ../objects/SADT/arrow.c:134 ../objects/UML/class.c:175
 #: ../objects/UML/class_dialog.c:400
 msgid "Normal"
 msgstr "Normal"
@@ -4333,102 +4340,102 @@ msgstr "Aggregate"
 msgid "Composition"
 msgstr "Composition"
 
-#: ../objects/UML/class.c:137 ../objects/UML/class.c:308
-#: ../objects/UML/class.c:1723 ../sheets/UML.sheet.in.h:6
+#: ../objects/UML/class.c:138 ../objects/UML/class.c:309
+#: ../objects/UML/class.c:1724 ../sheets/UML.sheet.in.h:6
 msgid "Class"
 msgstr "Class"
 
-#: ../objects/UML/class.c:141 ../objects/UML/classicon.c:138
-#: ../objects/UML/component.c:124 ../objects/UML/large_package.c:128
-#: ../objects/UML/object.c:149 ../objects/UML/small_package.c:124
+#: ../objects/UML/class.c:142 ../objects/UML/classicon.c:138
+#: ../objects/UML/component.c:124 ../objects/UML/large_package.c:129
+#: ../objects/UML/object.c:150 ../objects/UML/small_package.c:124
 #: ../objects/UML/umloperation.c:68
 msgid "Stereotype"
 msgstr "Stereotype"
 
-#: ../objects/UML/class.c:143 ../objects/UML/class.c:184
+#: ../objects/UML/class.c:144 ../objects/UML/class.c:185
 #: ../objects/UML/class_dialog.c:425 ../objects/UML/umlattribute.c:43
 #: ../objects/UML/umloperation.c:66 ../objects/UML/umlparameter.c:49
 #: ../sheets/SDL.sheet.in.h:3
 msgid "Comment"
 msgstr "Comment"
 
-#: ../objects/UML/class.c:145 ../objects/UML/class.c:178
+#: ../objects/UML/class.c:146 ../objects/UML/class.c:179
 #: ../objects/UML/class_dialog.c:324 ../objects/UML/class_dialog.c:410
 #: ../objects/UML/class_dialog.c:2016 ../objects/UML/uml.c:110
 msgid "Abstract"
 msgstr "Abstract"
 
-#: ../objects/UML/class.c:147 ../objects/UML/class.c:1720
+#: ../objects/UML/class.c:148 ../objects/UML/class.c:1721
 msgid "Template"
 msgstr "Template"
 
-#: ../objects/UML/class.c:150 ../objects/UML/class_dialog.c:333
+#: ../objects/UML/class.c:151 ../objects/UML/class_dialog.c:333
 msgid "Suppress Attributes"
 msgstr "Suppress Attributes"
 
-#: ../objects/UML/class.c:152
+#: ../objects/UML/class.c:153
 msgid "Suppress Operations"
 msgstr "Suppress Operations"
 
-#: ../objects/UML/class.c:154
+#: ../objects/UML/class.c:155
 msgid "Visible Attributes"
 msgstr "Visible Attributes"
 
-#: ../objects/UML/class.c:156
+#: ../objects/UML/class.c:157
 msgid "Visible Operations"
 msgstr "Visible Operations"
 
-#: ../objects/UML/class.c:158
+#: ../objects/UML/class.c:159
 msgid "Visible Comments"
 msgstr "Visible Comments"
 
-#: ../objects/UML/class.c:160 ../objects/UML/class_dialog.c:349
+#: ../objects/UML/class.c:161 ../objects/UML/class_dialog.c:349
 msgid "Wrap Operations"
 msgstr "Wrap Operations"
 
-#: ../objects/UML/class.c:162
+#: ../objects/UML/class.c:163
 msgid "Wrap after char"
 msgstr "Wrap after char"
 
-#: ../objects/UML/class.c:164
+#: ../objects/UML/class.c:165
 msgid "Comment line length"
 msgstr "Comment line length"
 
-#: ../objects/UML/class.c:166
+#: ../objects/UML/class.c:167
 msgid "Comment tagging"
 msgstr "Comment tagging"
 
-#: ../objects/UML/class.c:176 ../objects/UML/class_dialog.c:405
+#: ../objects/UML/class.c:177 ../objects/UML/class_dialog.c:405
 msgid "Polymorphic"
 msgstr "Polymorphic"
 
-#: ../objects/UML/class.c:180
+#: ../objects/UML/class.c:181
 msgid "Classname"
 msgstr "Classname"
 
-#: ../objects/UML/class.c:182
+#: ../objects/UML/class.c:183
 msgid "Abstract Classname"
 msgstr "Abstract Classname"
 
-#: ../objects/UML/class.c:188 ../objects/UML/class.c:190
-#: ../objects/UML/class.c:192 ../objects/UML/class.c:194
-#: ../objects/UML/class.c:196 ../objects/UML/class.c:198
+#: ../objects/UML/class.c:189 ../objects/UML/class.c:191
+#: ../objects/UML/class.c:193 ../objects/UML/class.c:195
+#: ../objects/UML/class.c:197 ../objects/UML/class.c:199
 msgid " "
 msgstr " "
 
-#: ../objects/UML/class.c:204 ../objects/UML/object.c:153
+#: ../objects/UML/class.c:205 ../objects/UML/object.c:154
 msgid "Attributes"
 msgstr "Attributes"
 
-#: ../objects/UML/class.c:206
+#: ../objects/UML/class.c:207
 msgid "Operations"
 msgstr "Operations"
 
-#: ../objects/UML/class.c:209
+#: ../objects/UML/class.c:210
 msgid "Template Parameters"
 msgstr "Template Parameters"
 
-#: ../objects/UML/class.c:303
+#: ../objects/UML/class.c:304
 msgid "Show Comments"
 msgstr "Show Comments"
 
@@ -4442,8 +4449,8 @@ msgid "Class name:"
 msgstr "Class name:"
 
 #: ../objects/UML/class_dialog.c:301 ../objects/UML/class_dialog.c:1939
-#: ../objects/UML/dependency.c:136 ../objects/UML/generalization.c:132
-#: ../objects/UML/realizes.c:133
+#: ../objects/UML/dependency.c:137 ../objects/UML/generalization.c:133
+#: ../objects/UML/realizes.c:134
 msgid "Stereotype:"
 msgstr "Stereotype:"
 
@@ -4641,11 +4648,11 @@ msgstr "Event Sink"
 msgid "Constraint:"
 msgstr "Constraint:"
 
-#: ../objects/UML/dependency.c:138
+#: ../objects/UML/dependency.c:139
 msgid "Show arrow:"
 msgstr "Show arrow:"
 
-#: ../objects/UML/implements.c:128
+#: ../objects/UML/implements.c:129
 msgid "Interface:"
 msgstr "Interface:"
 
@@ -4697,23 +4704,23 @@ msgstr "Send"
 msgid "Recursive"
 msgstr "Recursive"
 
-#: ../objects/UML/message.c:152
+#: ../objects/UML/message.c:153
 msgid "Message type:"
 msgstr "Message type:"
 
-#: ../objects/UML/object.c:151
+#: ../objects/UML/object.c:152
 msgid "Explicit state"
 msgstr "Explicit state"
 
-#: ../objects/UML/object.c:156
+#: ../objects/UML/object.c:157
 msgid "Active object"
 msgstr "Active object"
 
-#: ../objects/UML/object.c:158
+#: ../objects/UML/object.c:159
 msgid "Show attributes"
 msgstr "Show attributes"
 
-#: ../objects/UML/object.c:160
+#: ../objects/UML/object.c:161
 msgid "Multiple instance"
 msgstr "Multiple instance"
 
@@ -5626,34 +5633,30 @@ msgid "Device"
 msgstr "Device"
 
 #: ../sheets/AADL.sheet.in.h:6
-msgid "Formes AADL"
-msgstr "Formes AADL"
-
-#: ../sheets/AADL.sheet.in.h:7
 msgid "Memory"
 msgstr "Memory"
 
-#: ../sheets/AADL.sheet.in.h:8
+#: ../sheets/AADL.sheet.in.h:7
 msgid "Package"
 msgstr "Package"
 
-#: ../sheets/AADL.sheet.in.h:10
+#: ../sheets/AADL.sheet.in.h:9
 msgid "Processor"
 msgstr "Processor"
 
-#: ../sheets/AADL.sheet.in.h:11
+#: ../sheets/AADL.sheet.in.h:10
 msgid "Subprogram"
 msgstr "Subprogram"
 
-#: ../sheets/AADL.sheet.in.h:12
+#: ../sheets/AADL.sheet.in.h:11
 msgid "System"
 msgstr "System"
 
-#: ../sheets/AADL.sheet.in.h:13
+#: ../sheets/AADL.sheet.in.h:12
 msgid "Thread"
 msgstr "Thread"
 
-#: ../sheets/AADL.sheet.in.h:14
+#: ../sheets/AADL.sheet.in.h:13
 msgid "Thread Group"
 msgstr "Thread Group"
 
