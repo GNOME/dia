@@ -1,3 +1,9 @@
+2006-02-03  Hans Breuer  <hans@breuer.org>
+
+	* objects/network/bus.c : allow to tint it. Patch from
+	Torben H. Nielsen, closes bug #328580.
+	* objects/network/wanlink.c : allow to tint this as well.
+	
 2006-01-29  Hans Breuer  <hans@breuer.org>
 
 	* app/render_libart.c(draw_line) : make setting the pixel side-effect

@@ -46,7 +46,7 @@ typedef struct _Bus {
   Handle **handles;
   Point *parallel_points;
   Point real_ends[2];
-
+  Color line_color;
 } Bus;
 
 enum change_type {
@@ -139,6 +139,7 @@ static ObjectOps bus_ops = {
 
 static PropDescription bus_props[] = {
   OBJECT_COMMON_PROPERTIES,
+  PROP_STD_LINE_COLOUR,
   PROP_DESC_END
 };
 
@@ -152,6 +153,7 @@ bus_describe_props(Bus *bus)
 
 static PropOffset bus_offsets[] = {
   OBJECT_COMMON_PROPERTIES_OFFSETS,
+  { "line_colour", PROP_TYPE_COLOUR, offsetof(Bus, line_color) },
   { NULL, 0, 0 }
 };
 
@@ -320,13 +322,13 @@ bus_draw(Bus *bus, DiaRenderer *renderer)
 
   renderer_ops->draw_line(renderer,
 			   &endpoints[0], &endpoints[1],
-			   &color_black);
+ 			   &bus->line_color);
 
   for (i=0;i<bus->num_handles;i++) {
     renderer_ops->draw_line(renderer,
 			     &bus->parallel_points[i],
 			     &bus->handles[i]->pos,
-			     &color_black);
+			     &bus->line_color);
   }
 }
 
@@ -359,7 +361,7 @@ bus_create(Point *startpoint,
   bus->num_handles = DEFAULT_NUMHANDLES;
 
   connection_init(conn, 2+bus->num_handles, 0);
-  
+  bus->line_color = attributes_get_foreground();
   bus->handles = g_malloc(sizeof(Handle *)*bus->num_handles);
   bus->parallel_points = g_malloc(sizeof(Point)*bus->num_handles);
   for (i=0;i<bus->num_handles;i++) {
@@ -413,6 +415,7 @@ bus_copy(Bus *bus)
   connection_copy(conn, newconn);
 
   newbus->num_handles = bus->num_handles;
+  newbus->line_color = bus->line_color;
 
   newbus->handles = g_malloc(sizeof(Handle *)*newbus->num_handles);
   newbus->parallel_points = g_malloc(sizeof(Point)*newbus->num_handles);
@@ -624,6 +627,8 @@ bus_save(Bus *bus, ObjectNode obj_node, const char *filename)
 
   connection_save(&bus->connection, obj_node);
   
+  data_add_color( new_attribute(obj_node, "line_color"), &bus->line_color);
+
   attr = new_attribute(obj_node, "bus_handles");
   
   for (i=0;i<bus->num_handles;i++) {
@@ -675,6 +680,11 @@ bus_load(ObjectNode obj_node, int version, const char *filename)
 
     data = data_next(data);
   }
+
+  bus->line_color = color_black;
+  attr = object_find_attribute(obj_node, "line_color");
+  if (attr != NULL)
+    data_color(attribute_first_data(attr), &bus->line_color);
 
   extra->start_trans = 
     extra->end_trans = 

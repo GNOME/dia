@@ -28,6 +28,7 @@
 #include "intl.h"
 #include "connection.h"
 #include "diarenderer.h"
+#include "attributes.h"
 #include "network.h"
 
 #ifndef M_PI_2
@@ -42,6 +43,9 @@
 typedef struct _WanLink {
     Connection connection;
 
+    Color line_color;
+    Color fill_color;
+    
     real width;
     Point poly[WANLINK_POLY_LEN];
 } WanLink;
@@ -109,6 +113,10 @@ DiaObjectType wanlink_type =
 
 static PropDescription wanlink_props[] = {
   OBJECT_COMMON_PROPERTIES,
+  { "width", PROP_TYPE_REAL, PROP_FLAG_VISIBLE,
+    N_("Width"), NULL, NULL },
+  PROP_STD_LINE_COLOUR,
+  PROP_STD_FILL_COLOUR,
   PROP_DESC_END
 };
 
@@ -122,6 +130,9 @@ wanlink_describe_props(WanLink *wanlink)
 
 static PropOffset wanlink_offsets[] = {
   OBJECT_COMMON_PROPERTIES_OFFSETS,
+  { "width", PROP_TYPE_REAL, offsetof(WanLink, width) },
+  { "line_colour", PROP_TYPE_COLOUR, offsetof(WanLink, line_color) },
+  { "fill_colour", PROP_TYPE_COLOUR, offsetof(WanLink, fill_color) },
   { NULL, 0, 0 }
 };
 
@@ -179,6 +190,12 @@ wanlink_create(Point *startpoint,
       wanlink->poly[i] = defaultpoly;
   
   wanlink->width = FLASH_WIDTH;
+  /* both colors where black at the time this was hardcoded ... */
+  wanlink->line_color = color_black;
+  wanlink->fill_color = color_black;
+
+  wanlink->line_color = attributes_get_foreground();
+  wanlink->fill_color = attributes_get_foreground();
   
   wanlink_update_data(wanlink);
 
@@ -209,8 +226,8 @@ wanlink_draw (WanLink *wanlink, DiaRenderer *renderer)
     renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
     
     
-    renderer_ops->fill_polygon(renderer, wanlink->poly,  WANLINK_POLY_LEN, &color_black);
-    renderer_ops->draw_polygon(renderer, wanlink->poly,  WANLINK_POLY_LEN, &color_black);
+    renderer_ops->fill_polygon(renderer, wanlink->poly,  WANLINK_POLY_LEN, &wanlink->fill_color);
+    renderer_ops->draw_polygon(renderer, wanlink->poly,  WANLINK_POLY_LEN, &wanlink->line_color);
 }
 
 static real
@@ -249,6 +266,8 @@ wanlink_copy(WanLink *wanlink)
   connection_copy(conn, newconn);
 
   newwanlink->width = wanlink->width;
+  newwanlink->line_color = wanlink->line_color;
+  newwanlink->fill_color = wanlink->fill_color;
 
   return (DiaObject *)newwanlink;
 }
@@ -296,6 +315,9 @@ wanlink_save(WanLink *wanlink, ObjectNode obj_node,
     
     attr = new_attribute(obj_node, "width");
     data_add_real(attr, wanlink->width);
+    
+    data_add_color( new_attribute(obj_node, "line_color"), &wanlink->line_color);
+    data_add_color( new_attribute(obj_node, "fill_color"), &wanlink->fill_color);
 }
 
 static DiaObject *
@@ -324,15 +346,19 @@ wanlink_load(ObjectNode obj_node, int version, const char *filename)
 	wanlink->width = data_real( data);
     }
 
+    wanlink->line_color = color_black;
+    attr = object_find_attribute(obj_node, "line_color");
+    if (attr != NULL)
+        data_color(attribute_first_data(attr), &wanlink->line_color);
+    /* both colors where black at the time this was hardcoded ... */
+    wanlink->fill_color = color_black;
+    attr = object_find_attribute(obj_node, "fill_color");
+    if (attr != NULL)
+        data_color(attribute_first_data(attr), &wanlink->fill_color);
+    
     wanlink_update_data (wanlink);
     
     return obj;
-    /*
-      if (wanlink_desc.store == NULL) {
-      render_to_store();
-      }
-      return render_object_load(obj_node, &wanlink_desc);
-    */
 }
 
 static void
@@ -425,10 +451,3 @@ wanlink_update_data(WanLink *wanlink)
 
   connection_update_handles(conn);
 }
-
-
-
-
-
-
-
