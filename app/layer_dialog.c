@@ -556,6 +556,19 @@ layer_dialog_show()
   gtk_window_present(GTK_WINDOW(layer_dialog->dialog));
 }
 
+/*
+ * Used to avoid writing to possibly already deleted layer in
+ * dia_layer_widget_connectable_toggled(). Must be called before
+ * e.g. gtk_list_clear_items() cause that will emit the toggled
+ * signal to last focus widget. See bug #329096
+ */
+static void
+_layer_widget_clear_layer (GtkWidget *widget, gpointer user_data)
+{
+  DiaLayerWidget *lw = DIA_LAYER_WIDGET(widget);
+  lw->layer = NULL;
+}
+
 void
 layer_dialog_set_diagram(Diagram *dia)
 {
@@ -572,8 +585,10 @@ layer_dialog_set_diagram(Diagram *dia)
   if (layer_dialog == NULL || layer_dialog->dialog == NULL) 
     create_layer_dialog(); /* May have been destroyed */
 
-  layer_dialog->diagram = dia;
+  gtk_container_foreach (GTK_LIST(layer_dialog->layer_list),
+                         _layer_widget_clear_layer, NULL);
   gtk_list_clear_items(GTK_LIST(layer_dialog->layer_list), 0, -1);
+  layer_dialog->diagram = dia;
   if (dia != NULL) {
     i = g_list_index(dia_open_diagrams(), dia);
     if (i >= 0)
