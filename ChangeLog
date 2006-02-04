@@ -1,5 +1,8 @@
 2006-02-04  Hans Breuer  <hans@breuer.org>
 
+	* lib/persitence.c(persistence_load) : dont leak filename
+	in case of not existing file
+
 	Code review via regex "[^_l>p](malloc|free|realloc)\("
 	* objects/fs/function.c : what's g_strdup() must be g_free()'d
 	* plug-ins/dxf/dxf-import.c : use g_realloc()/g_free()

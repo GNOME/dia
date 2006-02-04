@@ -315,8 +315,10 @@ persistence_load()
 
   persistence_init();
 
-  if (!g_file_test(filename, G_FILE_TEST_IS_REGULAR)) return;
-
+  if (!g_file_test(filename, G_FILE_TEST_IS_REGULAR)) {
+    g_free (filename);
+    return;
+  }
   doc = xmlDiaParseFile(filename);
   if (doc != NULL) {
     if (doc->xmlRootNode != NULL) {
