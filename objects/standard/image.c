@@ -41,12 +41,14 @@
 #define DEFAULT_WIDTH 2.0
 #define DEFAULT_HEIGHT 2.0
 
+#define NUM_CONNECTIONS 9
+
 typedef struct _Image Image;
 
 struct _Image {
   Element element;
 
-  ConnectionPoint connections[8];
+  ConnectionPoint connections[NUM_CONNECTIONS];
 
   real border_width;
   Color border_color;
@@ -380,12 +382,14 @@ image_update_data(Image *image)
   image->connections[6].pos.y = elem->corner.y + elem->height;
   image->connections[7].pos.x = elem->corner.x + elem->width;
   image->connections[7].pos.y = elem->corner.y + elem->height;
+  image->connections[8].pos.x = elem->corner.x + elem->width / 2.0;
+  image->connections[8].pos.y = elem->corner.y + elem->height / 2.0;
   
   extra->border_trans = image->border_width / 2.0;
   element_update_boundingbox(elem);
   
   obj->position = elem->corner;
-  
+  image->connections[8].directions = DIR_ALL;
   element_update_handles(elem);
 }
 
@@ -417,13 +421,14 @@ image_create(Point *startpoint,
   attributes_get_default_line_style(&image->line_style,
 				    &image->dashlength);
   
-  element_init(elem, 8, 8);
+  element_init(elem, 8, NUM_CONNECTIONS);
 
-  for (i=0;i<8;i++) {
+  for (i=0; i<NUM_CONNECTIONS; i++) {
     obj->connections[i] = &image->connections[i];
     image->connections[i].object = obj;
     image->connections[i].connected = NULL;
   }
+  image->connections[8].flags = CP_FLAGS_MAIN;
 
   if (strcmp(default_properties.file, "")) {
     image->file = g_strdup(default_properties.file);
@@ -479,12 +484,13 @@ image_copy(Image *image)
   newimage->border_color = image->border_color;
   newimage->line_style = image->line_style;
   
-  for (i=0;i<8;i++) {
+  for (i=0;i<NUM_CONNECTIONS;i++) {
     newobj->connections[i] = &newimage->connections[i];
     newimage->connections[i].object = newobj;
     newimage->connections[i].connected = NULL;
     newimage->connections[i].pos = image->connections[i].pos;
     newimage->connections[i].last_pos = image->connections[i].last_pos;
+    newimage->connections[i].flags = image->connections[i].flags;
   }
 
   newimage->file = g_strdup(image->file);
@@ -635,13 +641,14 @@ image_load(ObjectNode obj_node, int version, const char *filename)
     image->file = g_strdup("");
   }
 
-  element_init(elem, 8, 8);
+  element_init(elem, 8, NUM_CONNECTIONS);
 
-  for (i=0;i<8;i++) {
+  for (i=0;i<NUM_CONNECTIONS;i++) {
     obj->connections[i] = &image->connections[i];
     image->connections[i].object = obj;
     image->connections[i].connected = NULL;
   }
+  image->connections[8].flags = CP_FLAGS_MAIN;
 
   image->image = NULL;
   

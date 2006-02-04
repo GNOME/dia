@@ -1,5 +1,8 @@
 2006-02-04  Hans Breuer  <hans@breuer.org>
 
+	* objects/standard/image.c : added mainpoint, patch from
+	Torben H. Nielsen fixing bug #329603
+
 	* app/layer_widget.c : avoid writing to Layer::connectable for a
 	diagram possibly already gone. Fixes bug #329096.
 
