@@ -65,7 +65,7 @@ AC_PATH_PROG(GLIB_GENMARSHAL, glib-genmarshal)
 AM_PATH_GTK_2_0(2.6.0, :,
   AC_MSG_ERROR([
 *** GTK+ 2.6.0 ior better is required. The latest version of
-*** GTL+ is always available from ftp://ftp.gtk.org/pub/gtk.]),
+*** GTK+ is always available from ftp://ftp.gtk.org/pub/gtk.]),
   )
 
 GTK_MODULES="gtk+-2.0 libxml-2.0 gdk-pixbuf-2.0 gthread-2.0"

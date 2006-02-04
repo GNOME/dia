@@ -905,6 +905,12 @@ sheet_menu_callback(DiaDynamicMenu *menu, const gchar *string, void *user_data)
   }
 }
 
+static int
+cmp_names (const void *a, const void *b)
+{
+  return g_utf8_collate((gchar *)a, (gchar *)b);
+}
+
 static GList *
 get_sheet_names()
 {
@@ -914,7 +920,8 @@ get_sheet_names()
     Sheet *sheet = tmp->data;
     names = g_list_append(names, gettext(sheet->name));
   }
-  return names;
+  /* Already sorted in lib/ but here we sort by the localized (display-)name */
+  return g_list_sort (names, cmp_names);
 }
 
 static void

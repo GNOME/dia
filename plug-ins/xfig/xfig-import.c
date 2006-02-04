@@ -572,7 +572,7 @@ fig_read_n_points(FILE *file, int n, Point **points) {
 	if (fscanf(file, " %d %d ", &x, &y) != 2) {
 	    message_error(_("Error while reading %dth of %d points: %s\n"),
 			  i, n, strerror(errno));
-	    free(new_points);
+	    g_free(new_points);
 	    return FALSE;
 	}
 	new_points[i].x = x/FIG_UNIT;
@@ -1304,7 +1304,7 @@ fig_read_text(FILE *file, DiagramData *dia) {
 	if (compound_depth > depth) compound_depth = depth;
 
  exit:
-    if (text_buf != NULL) free(text_buf);
+    if (text_buf != NULL) g_free(text_buf);
     if (props != NULL) prop_list_free(props);
     return newobj;
 }

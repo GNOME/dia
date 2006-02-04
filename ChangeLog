@@ -1,3 +1,26 @@
+2006-02-04  Hans Breuer  <hans@breuer.org>
+
+	Code review via regex "[^_l>p](malloc|free|realloc)\("
+	* objects/fs/function.c : what's g_strdup() must be g_free()'d
+	* plug-ins/dxf/dxf-import.c : use g_realloc()/g_free()
+	* plug-ins/xfig/xfig-import.c : use g_free() instead of plain free()
+
+	* app/filedlg.c(file_save_as_response_callback) : before destroying 
+	the save as dialog we need to drop the dialogs diagram reference.
+	Fixes behaviour described in bug #123225#c7
+
+	* app/interface.c(get_sheet_names) : need to sort sheets by their 
+	display name to really fix bug #160101.
+	
+	* objects/UML/association.c : dont leak the role_name calculated
+	with visibility attribute, use g_strdup_printf() instead of strcat().
+	
+	* configure.in : fix typo in error message
+
+	* lib/object.c : remove duplicated prototype
+	* lib/element.c : element_update_connections_rectangle() assumes nine
+	connection points, i.e. requires 'mainpoint'. g_assert() for this.
+	
 2006-02-03  Hans Breuer  <hans@breuer.org>
 
 	* objects/network/bus.c : allow to tint it. Patch from

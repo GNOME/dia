@@ -81,6 +81,7 @@ element_update_connections_rectangle(Element *elem,
   cps[6].pos.y = elem->corner.y + elem->height;
   cps[7].pos.x = elem->corner.x + elem->width;
   cps[7].pos.y = elem->corner.y + elem->height;
+  g_assert(elem->object.num_connections >= 9);
   cps[8].pos.x = elem->corner.x + elem->width / 2.0;
   cps[8].pos.y = elem->corner.y + elem->height / 2.0;
   

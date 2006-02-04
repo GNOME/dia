@@ -404,19 +404,13 @@ association_draw(Association *assoc, DiaRenderer *renderer)
     pos = end->text_pos;
 
     if (end->role != NULL) {
-      gchar *RoleNameAndVisibility = NULL;
-      int RoleNamelen;
-      
-      RoleNamelen = 3 + strlen (end->role);
-      RoleNameAndVisibility = g_malloc (sizeof (char) * (RoleNamelen + 1));
-      RoleNameAndVisibility[0] =visible_char[(int) end->visibility];
-      RoleNameAndVisibility[1] = 0;
-      strcat(RoleNameAndVisibility, end->role);
+      gchar *role_name = g_strdup_printf ("%c%s", visible_char[(int) end->visibility], end->role);
       renderer_ops->draw_string(renderer, 
-                                RoleNameAndVisibility,
+                                role_name,
 				&pos, 
 				end->text_align,
 				&color_black);
+      g_free (role_name);
       pos.y += ASSOCIATION_FONTHEIGHT;
     }
     if (end->multiplicity != NULL) {

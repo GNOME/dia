@@ -431,7 +431,7 @@ DiaObject *read_entity_polyline_dxf(FILE *filedxf, DxfData *data, DiagramData *d
                 {
                     points++;
 		
-                    p = realloc( p, sizeof( Point ) * points );
+                    p = g_realloc( p, sizeof( Point ) * points );
 		
                         /*printf( "Vertex %d\n", points );*/
 		  
@@ -464,7 +464,7 @@ DiaObject *read_entity_polyline_dxf(FILE *filedxf, DxfData *data, DiagramData *d
                 break;
             case 42:
                     /* FIXME - the bulge code doesn't work */
-                p = realloc( p, sizeof( Point ) * ( points + 10 ));
+                p = g_realloc( p, sizeof( Point ) * ( points + 10 ));
 
                 start = p[points-2];
                 end = p[points-1];
@@ -552,7 +552,7 @@ DiaObject *read_entity_polyline_dxf(FILE *filedxf, DxfData *data, DiagramData *d
     if( closed )
     {
         ++points;
-        p = realloc( p, sizeof( Point ) * points );
+        p = g_realloc( p, sizeof( Point ) * points );
         p[points-1].x = p[0].x;
         p[points-1].y = p[0].y;
     }
@@ -562,7 +562,7 @@ DiaObject *read_entity_polyline_dxf(FILE *filedxf, DxfData *data, DiagramData *d
    
     memcpy( pcd->points, p, sizeof( Point ) * pcd->num_points );
    
-    free( p );
+    g_free( p );
 
     polyline_obj = otype->ops->create( NULL, pcd, &h1, &h2 );
 

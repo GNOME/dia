@@ -338,6 +338,11 @@ file_save_as_response_callback(GtkWidget *fs,
     diagram_set_filename(dia, filename);
     diagram_save(dia, filename);
   }
+  /* if we have our own reference, drop it before destroy */
+  if ((dia = gtk_object_get_user_data(GTK_OBJECT(fs))) != NULL) {
+    gtk_object_set_user_data(GTK_OBJECT(fs), NULL);
+    g_object_unref (dia);
+  }
   gtk_widget_destroy(GTK_WIDGET(fs));
 }
 

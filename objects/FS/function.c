@@ -602,8 +602,8 @@ function_insert_word( Function* func, const char* word, gboolean newline )
 		  	+ ( newline ? 2 : 1) ) ;
   sprintf( new_chars, newline ? "%s\n%s" : "%s%s", old_chars, word ) ;
   text_set_string( func->text, new_chars ) ;
-  free( new_chars ) ;
-  free( old_chars ) ;
+  g_free( new_chars ) ;
+  g_free( old_chars ) ;
   function_update_data( func ) ;
   text_set_cursor_at_end( func->text ) ;
 
@@ -1207,19 +1207,19 @@ function_get_object_menu( Function* func, Point* clickedpoint )
     int curitem[ FS_SUBMENU_MAXINDENT ] ;
 
     curitem[0] = 0 ;
-    curMenu[0] = malloc( sizeof( DiaMenu ) ) ;
+    curMenu[0] = g_malloc( sizeof( DiaMenu ) ) ;
     curMenu[0]->title = "Function" ;
     curMenu[0]->num_items = function_count_submenu_items( &(fmenu[0]) ) ;
-    curMenu[0]->items = malloc( curMenu[0]->num_items * sizeof(DiaMenuItem) );
+    curMenu[0]->items = g_malloc( curMenu[0]->num_items * sizeof(DiaMenuItem) );
     curMenu[0]->app_data = NULL ;
     for (i = 0 ; fmenu[i].depth >= 0; i++) {
       if ( fmenu[i].depth > curDepth ) {
 	curDepth++ ;
-	curMenu[curDepth] = malloc( sizeof( DiaMenu ) ) ;
+	curMenu[curDepth] = g_malloc( sizeof( DiaMenu ) ) ;
 	curMenu[curDepth]->title = NULL ;
 	curMenu[curDepth]->app_data = NULL ;
 	curMenu[curDepth]->num_items = function_count_submenu_items(&fmenu[i]);
-	curMenu[curDepth]->items = malloc( curMenu[curDepth]->num_items *
+	curMenu[curDepth]->items = g_malloc( curMenu[curDepth]->num_items *
 				  sizeof(DiaMenuItem) ) ;
 	/* Point this menu's parent to this new structure */
 	curMenu[curDepth-1]->items[curitem[curDepth-1]-1].callback = NULL ;
@@ -1240,5 +1240,3 @@ function_get_object_menu( Function* func, Point* clickedpoint )
   }
   return function_menu ;
 }
-
-

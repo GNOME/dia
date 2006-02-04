@@ -32,8 +32,6 @@
 
 #include "debug.h"
 
-void object_init(DiaObject *obj, int num_handles, int num_connections);
-
 /** Initialize an already allocated object with the given number of handles
  *  and connections.  This does not create the actual Handle and Connection
  *  objects, which are expected to be added later.
