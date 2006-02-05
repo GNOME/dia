@@ -299,9 +299,10 @@ set_font(DiaRenderer *self, DiaFont *font, real height)
 {
   self->font_height = height * FONT_SCALE;
 
+  dia_font_ref(font);
   if (self->font)
     dia_font_unref(self->font);
-  self->font = dia_font_ref(font);
+  self->font = font;
 }
 
 static void
@@ -1368,9 +1369,6 @@ renderer_finalize (GObject *object)
 
   if (renderer->rgb_buffer != NULL)
     g_free(renderer->rgb_buffer);
-
-  if (renderer->parent_instance.font)
-    dia_font_unref(renderer->parent_instance.font);
 
   G_OBJECT_CLASS (parent_class)->finalize (object);
 }

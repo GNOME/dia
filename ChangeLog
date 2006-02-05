@@ -1,3 +1,10 @@
+2006-02-05  Hans Breuer  <hans@breuer.org>
+
+	* lib/dialibartrenderer.c(renderer_finalize) : dont unref 
+	parent_instance.font here. It will be done in DiaRenderer::finalize()
+	Just another reason for crashing at diagram close with libart 
+	renderer involved ...
+	
 2006-02-04  Hans Breuer  <hans@breuer.org>
 
 	* objects/standard/image.c : added mainpoint, patch from
