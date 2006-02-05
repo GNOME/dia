@@ -8,14 +8,14 @@ msgid ""
 msgstr "Project-Id-Version: dia HEAD\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-01-29 02:12+0100\n"
-"PO-Revision-Date: 2006-01-29 15:49+1030\n"
+"PO-Revision-Date: 2006-02-05 17:19+1030\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: Vietnamese <gnomevi-list@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0\n"
-"X-Generator: LocFactoryEditor 1.6b34\n"
+"X-Generator: LocFactoryEditor 1.6b36\n"
 
 #.This is not an errror
 #:../app/app_procs.c:260
@@ -2622,11 +2622,11 @@ msgstr "Lời khai báo"
 
 #:../objects/AADL/aadlbox.c:349
 msgid "Add Access Provider"
-msgstr "Thêm Bộ cung cấp truy cấp"
+msgstr "Thêm Bộ cung cấp truy cập"
 
 #:../objects/AADL/aadlbox.c:351
 msgid "Add Access Requirer"
-msgstr "Thêm Bộ Cần thiết Truy cập"
+msgstr "Thêm Bộ cần thiết truy cập"
 
 #:../objects/AADL/aadlbox.c:353
 msgid "Add In Data Port"
