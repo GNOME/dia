@@ -1,5 +1,13 @@
 2006-02-05  Hans Breuer  <hans@breuer.org>
 
+	* app/menus.[ch] app/diagram.c : the GNOME specific menu code is dead 
+	since 0.94. Fix somne left-overs, also properly disable the duplicate
+	menu entry
+
+	* po/POTFILES.in : added objects/network/wanlink.c
+
+2006-02-05  Hans Breuer  <hans@breuer.org>
+
 	* lib/dialibartrenderer.c(renderer_finalize) : dont unref 
 	parent_instance.font here. It will be done in DiaRenderer::finalize()
 	Just another reason for crashing at diagram close with libart 

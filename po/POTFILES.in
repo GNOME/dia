@@ -146,6 +146,7 @@ objects/network/basestation.c
 objects/network/bus.c
 objects/network/network.c
 objects/network/radiocell.c
+objects/network/wanlink.c
 objects/standard/arc.c
 objects/standard/bezier.c
 objects/standard/beziergon.c

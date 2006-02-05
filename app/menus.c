@@ -685,6 +685,8 @@ menus_initialize_updatable_items (UpdatableMenuItems *items,
     items->paste = menus_get_item_from_path(path->str, factory);
     g_string_append (g_string_assign(path, display),"/Edit/Delete");
     items->edit_delete = menus_get_item_from_path(path->str, factory);
+    g_string_append (g_string_assign(path, display),"/Edit/Duplicate");
+    items->edit_duplicate = menus_get_item_from_path(path->str, factory);
 
     g_string_append (g_string_assign(path, display),"/Edit/Copy Text");
     items->copy_text = menus_get_item_from_path(path->str, factory);
