@@ -7,8 +7,8 @@ msgid ""
 ""
 msgstr "Project-Id-Version: dia HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-01-29 02:12+0100\n"
-"PO-Revision-Date: 2006-02-05 17:19+1030\n"
+"POT-Creation-Date: 2006-02-06 02:15+0100\n"
+"PO-Revision-Date: 2006-02-06 14:38+1030\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: Vietnamese <gnomevi-list@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -185,7 +185,8 @@ msgstr "Đang thoát mà không lưu các sơ đồ đã sửa đổi"
 msgid ""
 "Modified diagrams exist. Are you sure you want to quit Dia without saving "
 "them?"
-msgstr "Có sơ đồ đã bị sửa đổi. Bạn có chắc muốn thoát mà không lưu các thay đổi không?"
+msgstr "Có sơ đồ đã bị sửa đổi. Bạn có chắc muốn thoát mà không lưu các thay đổi "
+"không?"
 
 #:../app/app_procs.c:995
 msgid "Quit Dia"
@@ -758,7 +759,7 @@ msgstr "Bề cao ảnh:"
 msgid "Portable Network Graphics"
 msgstr "PNG: Portable Network Graphics: Đồ họa mạng di động"
 
-#:../app/filedlg.c:129 ../app/filedlg.c:508
+#:../app/filedlg.c:129 ../app/filedlg.c:513
 msgid "By extension"
 msgstr "Theo phần mở rộng"
 
@@ -770,15 +771,15 @@ msgstr "Mở sơ đồ"
 msgid "Open Options"
 msgstr "Tùy chọn Mở"
 
-#:../app/filedlg.c:250 ../app/filedlg.c:630
+#:../app/filedlg.c:250 ../app/filedlg.c:635
 msgid "Determine file type:"
 msgstr "Xác định kiểu tập tin:"
 
-#:../app/filedlg.c:266 ../app/filedlg.c:643
+#:../app/filedlg.c:266 ../app/filedlg.c:648
 msgid "All Files"
 msgstr "Mọi tập tin"
 
-#:../app/filedlg.c:271 ../app/filedlg.c:648
+#:../app/filedlg.c:271 ../app/filedlg.c:653
 msgid "Supported Formats"
 msgstr "Các khuôn dạng được hỗ trợ"
 
@@ -791,7 +792,7 @@ msgstr "Vài ký tự trong tên tập tin không phải UTF-8, cũng không ph�
 "địa phương của bạn.\n"
 "Thì vài thứ sẽ bị sai."
 
-#:../app/filedlg.c:314 ../app/filedlg.c:553
+#:../app/filedlg.c:314 ../app/filedlg.c:558
 #,c-format
 msgid ""
 "The file '%s' already exists.\n"
@@ -799,28 +800,28 @@ msgid ""
 msgstr "Tập tin « %s » đã có.\n"
 "Bạn có muốn ghi đè lên không?"
 
-#:../app/filedlg.c:321 ../app/filedlg.c:559
+#:../app/filedlg.c:321 ../app/filedlg.c:564
 msgid "File already exists"
 msgstr "Tập tin đã có."
 
-#:../app/filedlg.c:365
+#:../app/filedlg.c:370
 msgid "Save Diagram"
 msgstr "Lưu sơ đồ"
 
 #.Need better way to make it a reasonable size.  Isn't there some
 #.standard look for them (or is that just Gnome?)
-#:../app/filedlg.c:377
+#:../app/filedlg.c:382
 msgid "Compress diagram files"
 msgstr "Nén tập tin sơ đồ"
 
-#:../app/filedlg.c:386
+#:../app/filedlg.c:391
 msgid ""
 "Compression reduces file size to less than 1/10th size and speeds up loading "
 "and saving.  Some text programs cannot manipulate compressed files."
 msgstr "Việc nén giúp giảm kích thước tập tin xuống thấp hơn 1/10 kích thước và tăng "
 "tốc nạp/lưu. Vài chương trình không thể xử lý những tập tin nén."
 
-#:../app/filedlg.c:582
+#:../app/filedlg.c:587
 #,c-format
 msgid ""
 "Could not determine which export filter\n"
@@ -828,11 +829,11 @@ msgid ""
 msgstr "Không thể xác định bộ lọc xuất nào\n"
 "cần dùng để lưu « %s »."
 
-#:../app/filedlg.c:605
+#:../app/filedlg.c:610
 msgid "Export Diagram"
 msgstr "Xuất sơ đồ"
 
-#:../app/filedlg.c:622
+#:../app/filedlg.c:627
 msgid "Export Options"
 msgstr "Tùy chọn Xuất"
 
@@ -940,15 +941,15 @@ msgstr "NULL tooldata (dữ liệu công cụ rỗng) trong « tool_select_updat
 msgid "No sheet named %s"
 msgstr "Không có tờ tên « %s »."
 
-#:../app/interface.c:933
+#:../app/interface.c:940
 msgid "Other sheets"
 msgstr "Tờ khác"
 
-#:../app/interface.c:991 ../sheets/Misc.sheet.in.h:3
+#:../app/interface.c:998 ../sheets/Misc.sheet.in.h:3
 msgid "Misc"
 msgstr "Lặt vặt"
 
-#:../app/interface.c:1052
+#:../app/interface.c:1059
 msgid ""
 "Foreground & background colors for new objects.  The small black and white "
 "squares reset colors.  The small arrows swap colors.  Double click to change "
@@ -956,35 +957,35 @@ msgid ""
 msgstr "Màu nền và màu nổi của đối tượng mới. Ô vuông đen trắng nhỏ phục hồi màu. "
 "Mũi tên nhỏ trao đổi màu. Nhấp đúp để thay đổi màu."
 
-#:../app/interface.c:1067
+#:../app/interface.c:1074
 msgid ""
 "Line widths.  Click on a line to set the default line width for new "
 "objects.  Double-click to set the line width more precisely."
 msgstr "Độ dày đường. Nhấn vào đường để đặt bề dày mặc định cho các đối tượng mới. "
 "Nhấp đúp để đặt bề dày chính xác hơn."
 
-#:../app/interface.c:1107
+#:../app/interface.c:1114
 msgid ""
 "Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
 "arrow parameters with Details..."
 msgstr "Kiểu dạng mũi tiêu đầu các đường mới. Nhấn để chọn mũi tên, hoặc đặt tham số "
 "mũi tên trong phần Chi tiết..."
 
-#:../app/interface.c:1112
+#:../app/interface.c:1119
 msgid ""
 "Line style for new lines.  Click to pick a line style, or set line style "
 "parameters with Details..."
 msgstr "Kiểu dạng các đường mới. Nhấn để chọn kiểu dáng đường, hoặc đặt tham số kiểu "
 "dạng đường trong phần Chi tiết..."
 
-#:../app/interface.c:1126
+#:../app/interface.c:1133
 msgid ""
 "Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
 "parameters with Details..."
 msgstr "Kiểu dạng mũi tiêu cuối các đường mới. Nhấn để chọn mũi tên, hoặc đặt tham "
 "số mũi tên trong phần Chi tiết..."
 
-#:../app/interface.c:1234
+#:../app/interface.c:1241
 msgid "Diagram Editor"
 msgstr "Bộ biên soạn sơ đồ"
 
@@ -1021,11 +1022,11 @@ msgstr "Lớp mới %d"
 msgid "none"
 msgstr "không có"
 
-#:../app/layer_dialog.c:958
+#:../app/layer_dialog.c:973
 msgid "Edit Layer Attributes"
 msgstr "Sửa thuộc tính lớp"
 
-#:../app/layer_dialog.c:977
+#:../app/layer_dialog.c:992
 msgid "Layer name:"
 msgstr "Tên lớp:"
 
@@ -2008,7 +2009,7 @@ msgstr "Tờ"
 # Description
 #:../app/sheets_dialog.c:673 ../objects/ER/attribute.c:153
 #:../objects/ER/entity.c:135 ../objects/ER/relationship.c:140
-#:../objects/UML/association.c:238 ../objects/UML/association.c:1166
+#:../objects/UML/association.c:238 ../objects/UML/association.c:1160
 #:../objects/UML/class_dialog.c:964 ../objects/UML/class_dialog.c:1917
 #:../objects/UML/class_dialog.c:2155 ../objects/UML/class_dialog.c:2681
 #:../objects/UML/dependency.c:135 ../objects/UML/generalization.c:131
@@ -2146,7 +2147,7 @@ msgid "Edit your Diagrams"
 msgstr "Hiệu chỉnh sơ đồ"
 
 #:../lib/arrows.c:40 ../objects/Jackson/domain.c:96
-#:../objects/UML/association.c:1189
+#:../objects/UML/association.c:1183
 msgid "None"
 msgstr "Không có"
 
@@ -2727,7 +2728,7 @@ msgstr "Tổng:"
 
 #:../objects/ER/participation.c:406 ../objects/FS/flow-ortho.c:645
 #:../objects/GRAFCET/vector.c:312 ../objects/SADT/arrow.c:457
-#:../objects/UML/association.c:775 ../objects/UML/component_feature.c:184
+#:../objects/UML/association.c:769 ../objects/UML/component_feature.c:184
 #:../objects/UML/dependency.c:374 ../objects/UML/generalization.c:370
 #:../objects/UML/realizes.c:361 ../objects/UML/transition.c:161
 #:../objects/standard/zigzagline.c:348
@@ -2736,7 +2737,7 @@ msgstr "Thêm đoạn"
 
 #:../objects/ER/participation.c:407 ../objects/FS/flow-ortho.c:646
 #:../objects/GRAFCET/vector.c:313 ../objects/SADT/arrow.c:458
-#:../objects/UML/association.c:776 ../objects/UML/component_feature.c:185
+#:../objects/UML/association.c:770 ../objects/UML/component_feature.c:185
 #:../objects/UML/dependency.c:375 ../objects/UML/generalization.c:371
 #:../objects/UML/realizes.c:362 ../objects/UML/transition.c:162
 #:../objects/standard/zigzagline.c:349
@@ -4258,71 +4259,71 @@ msgstr "Đối tượng sơ đồ SADT"
 msgid "Actor"
 msgstr "Diễn viên"
 
-#:../objects/UML/association.c:1179 ../objects/UML/class_dialog.c:2208
+#:../objects/UML/association.c:1173 ../objects/UML/class_dialog.c:2208
 msgid "Direction:"
 msgstr "Hướng:"
 
-#:../objects/UML/association.c:1196
+#:../objects/UML/association.c:1190
 msgid "From A to B"
 msgstr "Từ A sang B"
 
-#:../objects/UML/association.c:1203
+#:../objects/UML/association.c:1197
 msgid "From B to A"
 msgstr "Từ B sang A"
 
-#:../objects/UML/association.c:1227 ../objects/UML/association.c:1235
+#:../objects/UML/association.c:1221 ../objects/UML/association.c:1229
 msgid "Side A"
 msgstr "Mặt A"
 
-#:../objects/UML/association.c:1229 ../objects/UML/association.c:1237
+#:../objects/UML/association.c:1223 ../objects/UML/association.c:1231
 msgid "Side B"
 msgstr "Mặt B"
 
-#:../objects/UML/association.c:1243
+#:../objects/UML/association.c:1237
 msgid "Role:"
 msgstr "Vai trò :"
 
-#:../objects/UML/association.c:1255
+#:../objects/UML/association.c:1249
 msgid "Multiplicity:"
 msgstr "Vô số :"
 
-#:../objects/UML/association.c:1266 ../objects/UML/class_dialog.c:1019
+#:../objects/UML/association.c:1260 ../objects/UML/class_dialog.c:1019
 #:../objects/UML/class_dialog.c:1952
 msgid "Visibility:"
 msgstr "Khả kiến:"
 
-#:../objects/UML/association.c:1275 ../objects/UML/class_dialog.c:1028
+#:../objects/UML/association.c:1269 ../objects/UML/class_dialog.c:1028
 #:../objects/UML/class_dialog.c:1961 ../objects/UML/uml.c:102
 msgid "Public"
 msgstr "Công"
 
-#:../objects/UML/association.c:1285 ../objects/UML/class_dialog.c:1036
+#:../objects/UML/association.c:1279 ../objects/UML/class_dialog.c:1036
 #:../objects/UML/class_dialog.c:1969 ../objects/UML/uml.c:103
 msgid "Private"
 msgstr "Riêng tư"
 
-#:../objects/UML/association.c:1295 ../objects/UML/class_dialog.c:1044
+#:../objects/UML/association.c:1289 ../objects/UML/class_dialog.c:1044
 #:../objects/UML/class_dialog.c:1977 ../objects/UML/uml.c:104
 msgid "Protected"
 msgstr "Đã bảo vệ"
 
-#:../objects/UML/association.c:1305 ../objects/UML/class_dialog.c:1052
+#:../objects/UML/association.c:1299 ../objects/UML/class_dialog.c:1052
 #:../objects/UML/class_dialog.c:1985 ../objects/UML/uml.c:105
 msgid "Implementation"
 msgstr "Thi hành"
 
 #.Show arrow:
-#:../objects/UML/association.c:1324
+#:../objects/UML/association.c:1318
 msgid "Show arrow"
 msgstr "Hiện mũi tên"
 
 #.Aggregate
-#:../objects/UML/association.c:1330
+#:../objects/UML/association.c:1324
 msgid "Aggregate"
 msgstr "Tập hợp"
 
 #.Composition
-#:../objects/UML/association.c:1338
+#:../objects/UML/association.c:1332
 msgid "Composition"
 msgstr "Cấu thành"
 
@@ -4948,11 +4949,11 @@ msgstr "Hình quạt"
 msgid "Base Station"
 msgstr "Nơi cơ bản"
 
-#:../objects/network/bus.c:599
+#:../objects/network/bus.c:602
 msgid "Add Handle"
 msgstr "Thêm tay cầm"
 
-#:../objects/network/bus.c:600
+#:../objects/network/bus.c:603
 msgid "Delete Handle"
 msgstr "Xóa bỏ tay cầm"
 
@@ -4983,6 +4984,10 @@ msgstr "Kiểu ô :"
 #:../objects/network/radiocell.c:152
 msgid "Subscribers"
 msgstr "Người đăng ký"
+
+#:../objects/network/wanlink.c:117
+msgid "Width"
+msgstr "Rộng"
 
 #:../objects/standard/arc.c:140
 msgid "Curve distance"
@@ -5051,21 +5056,21 @@ msgstr "Khía cạnh cố định"
 msgid "Circle"
 msgstr "Hình tròn"
 
-#:../objects/standard/image.c:130
+#:../objects/standard/image.c:132
 msgid "Image file"
 msgstr "Tập tin ảnh"
 
-#:../objects/standard/image.c:132
+#:../objects/standard/image.c:134
 msgid "Draw border"
 msgstr "Vẽ viền"
 
-#:../objects/standard/image.c:134
+#:../objects/standard/image.c:136
 msgid "Keep aspect ratio"
 msgstr "Giữ tỷ lệ hình thể"
 
 #.Found file in same dir as diagram.
 #.Found file in current dir.
-#:../objects/standard/image.c:672 ../objects/standard/image.c:683
+#:../objects/standard/image.c:679 ../objects/standard/image.c:690
 #,c-format
 msgid ""
 "The image file '%s' was not found in that directory.\n"
@@ -5074,7 +5079,7 @@ msgstr "Tập tin ảnh « %s » không có trong thư mục đó,\n"
 "nên dùng tập tin « %s » thay thế.\n"
 
 #.Didn't find file in current dir.
-#:../objects/standard/image.c:689 ../objects/standard/image.c:711
+#:../objects/standard/image.c:696 ../objects/standard/image.c:718
 #,c-format
 msgid "The image file '%s' was not found.\n"
 msgstr "Không tìm thấy tập tin ảnh « %s ».\n"
