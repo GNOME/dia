@@ -1,4 +1,7 @@
-all: 	build \
+all : \
+	compile
+
+full: 	build \
 	build\win32\
 	build\win32\bin \
 	build\win32\bin\dia.exe \
@@ -41,6 +44,32 @@ all: 	build \
 	build\win32\dia\xslt.dll \
 	build\win32\dia_logo.png
 
+compile :
+	cd lib
+	nmake -f makefile.msc
+	cd ..\app
+	nmake -f makefile.msc
+	cd ..\objects
+	nmake -f makefile.msc
+	cd ..\plug-ins
+	nmake -f makefile.msc
+	cd python
+	nmake -f makefile.msc
+	cd ..\..
+	
+clean :
+	cd lib
+	nmake -f makefile.msc clean
+	cd ..\app
+	nmake -f makefile.msc clean
+	cd ..\objects
+	nmake -f makefile.msc clean
+	cd ..\plug-ins
+	nmake -f makefile.msc clean
+	cd python
+	nmake -f makefile.msc clean
+	cd ..\..
+	
 build:
 	md build
 

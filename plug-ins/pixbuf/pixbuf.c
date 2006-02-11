@@ -131,7 +131,6 @@ import_data (const gchar *filename, DiagramData *data, void* user_data)
           strprop->string_data = g_strdup (filename);
           realprop_w->real_data = width / 20.0;
           realprop_h->real_data = height / 20.0;
-          g_print ("Setting object props\n");
           obj->ops->set_props(obj, plist);
           prop_list_free (plist);
 

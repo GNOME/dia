@@ -7,12 +7,13 @@ PACKAGE = libdia
 #	-DGTK_DISABLE_DEPRECATED \
 
 
-PKG_CFLAGS = -FImsvc_recommended_pragmas.h \
+#PKG_CFLAGS = -FImsvc_recommended_pragmas.h \
+PKG_CFLAGS = \
 	-I.. \
 	$(GTK2_CFLAGS) \
 	$(LIBXML2_CFLAGS) \
 	$(ZLIB_CFLAGS) \
-!IFNDEF NOFT2
+!IFDEF USEFT2
 	-DHAVE_FREETYPE $(FREETYPE2_CFLAGS) \
 !ENDIF
 	-DHAVE_LIBART $(LIBART_CFLAGS) \
@@ -21,7 +22,7 @@ PKG_CFLAGS = -FImsvc_recommended_pragmas.h \
 # in GTK_CFLAGS: $(GLIB_CFLAGS) 
 
 PKG_LINK = $(GTK2_LIBS)  $(PANGOWIN32_LIBS) $(GLIB_LIBS) \
-!IFNDEF NOFT2
+!IFDEF USEFT2
 	$(PANGOFT2_LIBS) \
 !ENDIF
 	$(LIBXML2_LIBS) $(ZLIB_LIBS) \
@@ -131,7 +132,8 @@ diamarshal.c: diamarshal.h
 ## compiler and linker switches
 !IFNDEF DEBUG
 # Full optimization:
-OPTIMIZE = -Ox -Zi -MD
+#OPTIMIZE = -Ox -Zi -MD
+OPTIMIZE = -Zi -MD
 LINKDEBUG =
 !ELSE
 # Debugging:
@@ -165,8 +167,11 @@ $(PRJ_TOP)\config.h: $(PRJ_TOP)\config.h.win32
 	copy $(PRJ_TOP)\config.h.win32 $(PRJ_TOP)\config.h
 
 .c.obj :
-	$(CC) $(CFLAGS) -GD -c $(PKG_CFLAGS) $<
+	$(CC) $(CFLAGS) -c $(PKG_CFLAGS) $<
 
+splint :
+	sp -weak $(PKG_CFLAGS) *.c >sp.log
+	
 clean::
 	del config.h
 	del *.exe

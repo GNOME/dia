@@ -89,9 +89,11 @@ dia_redirect_console (void)
   char logname[] = "dia--" VERSION ".log";
   char* redirected;
   gboolean verbose = TRUE;
+  BY_HANDLE_FILE_INFORMATION fi = { 0, };
 
-  if (   ((file = GetStdHandle (STD_OUTPUT_HANDLE)) != INVALID_HANDLE_VALUE)
-      || ((file = GetStdHandle (STD_ERROR_HANDLE)) != INVALID_HANDLE_VALUE))
+  if (   (   ((file = GetStdHandle (STD_OUTPUT_HANDLE)) != INVALID_HANDLE_VALUE)
+          || ((file = GetStdHandle (STD_ERROR_HANDLE)) != INVALID_HANDLE_VALUE))
+      && (GetFileInformationByHandle (file, &fi) && (fi.dwFileAttributes != 0)))
     verbose = FALSE; /* use it but not too much ;-) */
   else do
   {
@@ -128,7 +130,7 @@ dia_redirect_console (void)
                                dia_log_func,
                                file);
           /* don't redirect g_print () yet, it's upcoming API */
-          //g_set_print_handler (dia_print_func);
+          g_set_print_handler (dia_print_func);
         }
       else
         {

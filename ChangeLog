@@ -1,3 +1,17 @@
+2006-02-11  Hans Breuer  <hans@breuer.org>
+
+	* makefile.msc : nmake -f makefile.msc just compiles now
+	* app/makefile.msc lib/makefile.msc : make not using FT2
+	on win32 the default (works around bug #150813 by diabaling it)
+	* objects/makefile.msc plug-ins/makefile.msc : remove -GD from
+	$(CC) command line. It isn't understood by newer versions of cl.
+	
+	* app/authors.h : reflect the recent maintainers change
+	
+	* app/display.c app/load_save.c : removed debug spew
+	
+	* app/winmain.c : improved redirection
+	
 2006-02-05  Hans Breuer  <hans@breuer.org>
 
 	* app/menus.[ch] app/diagram.c : the GNOME specific menu code is dead 

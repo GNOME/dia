@@ -8,7 +8,7 @@ PACKAGE = dia
 PKG_CFLAGS = -FImsvc_recommended_pragmas.h \
 	-DWIN32  -DHAVE_LIBART -DHAVE_LIBPNG \
 	-I.. $(GLIB_CFLAGS) $(GTK2_CFLAGS) \
-!IFNDEF NOFT2
+!IFDEF USEFT2
 	-DHAVE_FREETYPE $(FREETYPE2_CFLAGS) \
 !ENDIF
 	$(LIBXML2_CFLAGS) $(PNG_CFLAGS) \
@@ -18,7 +18,7 @@ PKG_LINK = $(GTK2_LIBS) $(GLIB_LIBS) $(GTHREAD_LIBS) $(PANGOWIN32_LIBS) \
 	$(LIBXML2_LIBS) $(PNG_LIBS) \
 	$(PRJ_TOP)\lib\libdia.lib $(LIBART_LIBS) \
 	$(GDK_PIXBUF_LIBS) $(INTL_LIBS) \
-!IFNDEF NOFT2
+!IFDEF USEFT2
 	$(PANGOFT2_LIBS) $(FREETYPE2_LIBS) \
 !ENDIF
 
@@ -40,7 +40,7 @@ OBJECTS = \
 	diagram_tree_window.obj \
 	dialogs.obj \
 	diapagelayout.obj \
-!IFNDEF NOFT2
+!IFDEF USEFT2
 	diapsft2renderer.obj \
 !ENDIF
 	diapsrenderer.obj \
@@ -118,8 +118,8 @@ CC = cl -G5 -GF $(OPTIMIZE) $(CRUNTIME) -W3 -nologo
 
 # No general LDFLAGS needed
 # Use /subsystem:console to enable console output
-LDFLAGS = /link $(LINKDEBUG) /subsystem:console /machine:ix86
-#LDFLAGS = /link $(LINKDEBUG) /subsystem:windows /machine:ix86
+#LDFLAGS = /link $(LINKDEBUG) /subsystem:console /machine:ix86
+LDFLAGS = /link $(LINKDEBUG) /subsystem:windows /machine:ix86
 INSTALL = copy
 
 CFLAGS = -I. -I$(PRJ_TOP) -DHAVE_CONFIG_H

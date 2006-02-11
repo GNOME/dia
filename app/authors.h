@@ -62,14 +62,14 @@ static const gchar *authors[] =	{
 
     /* current maintainer(s) */
 
-    "Cyrille Chépélov <cyrille@chepelov.org>",
+    "Hans Breuer <hans@breuer.org>",
     "Lars R. Clausen <lrclause@cs.uiuc.edu>",
 
     /* other author(s) */
 
+    "Cyrille Chépélov <cyrille@chepelov.org>",
     "James Henstridge <james@daa.com.au>",
     "Jerome Abela <abela@solsoft.fr>",
-    "Hans Breuer <hans@breuer.org>",
     "Emmanuel Briot <briot@volga.gnat.com>",
     "Fredrik Hallenberg <hallon@debian.org>",   
     "Francis J. Lacoste <francis@contre.com>",
