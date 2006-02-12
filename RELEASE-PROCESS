@@ -77,16 +77,18 @@ When a new version is about to be released:
 
 How to make a tarball
 ---------------------
-  1. make sure you have up to date build tools installed on the system.
+  1. Update the version number in configure.in, config.h.win32,
+     doc/en/dia.xml, doc/pl/dia.xml.
+  2. make sure you have up to date build tools installed on the system.
       Libtool is an important one, as new releases add support for new
      platforms.
-  2. make sure "make distcheck" runs to completion.  With automake >=
+  3. make sure "make distcheck" runs to completion.  With automake >=
      1.5, the checks also make sure "make uninstall" removes all files 
      that got installed.
-  3. check to see if the tarball builds in normal and --enable-gnome
+  4. check to see if the tarball builds in normal and --enable-gnome
      modes (this task should disapear with the move to 2.0; there is no
      reason to have separate dialog and menu code).
-  4. Upload to ftp.gnome.org.  This is basically just scp'ing the
+  5. Upload to ftp.gnome.org.  This is basically just scp'ing the
      tarball to widget.gnome.org, then running a command like
      "install-module dia-0.90.tar.gz", which will create bz2
      tarballs, diffs to the previous version, and signal the ftp mirrors

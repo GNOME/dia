@@ -1,4 +1,6 @@
-* Quite some bugs fixed, at least :
+dia-0.95-pre1: 12-Feb-2006
+
+* Quite some bugs fixed, at least:
   http://bugzilla.gnome.org/buglist.cgi?product=dia&target_milestone=0.95&resolution=FIXED
 
 * Read/Write support for nested properties like operations

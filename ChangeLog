@@ -1,3 +1,12 @@
+2006-02-12  Lars Clausen  <lars@raeder.dk>
+
+	* NEWS: 
+	* dia.spec: 
+	* doc/pl/dia.xml: 
+	* doc/en/dia.xml: 
+	* configure.in: 
+	* config.h.win32: Updates for version 0.95-pre1.
+
 2006-02-12  Hans Breuer  <hans@breuer.org>
 
 	* app/makefile.msc : build three components dia.exe (console
