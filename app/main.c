@@ -26,11 +26,6 @@
 #include "load_save.h"
 #include "interface.h"
 
-int app_is_embedded(void)
-{
-  return 0;
-}
-
 int main(int argc, char *argv[])
 {
   app_init(argc, argv);

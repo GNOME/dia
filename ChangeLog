@@ -1,3 +1,14 @@
+2006-02-12  Hans Breuer  <hans@breuer.org>
+
+	* app/makefile.msc : build three components dia.exe (console
+	application), diaw.exe (windows application) and dia-app.dll
+	containing almost all of Dia's application shared between
+	the two executables
+	* app/main.c app/winmain.c app/app_procs.c app/dia.def : some 
+	refactoring to accomplish the new dependency layout
+	* objects/makefile.msc plug-ins/python/makefile.msc : need to
+	link dia-app.lib now - if at all depending on app/*
+	
 2006-02-11  Hans Breuer  <hans@breuer.org>
 
 	* makefile.msc : nmake -f makefile.msc just compiles now

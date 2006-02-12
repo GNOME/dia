@@ -253,7 +253,7 @@ OBJECTS = \
         arch_state.obj \
         mapping.obj
 # this plug-in imports diagram_load_and_display () from dia.exe 
-PKG_LINK = $(PKG_LINK) ..\..\app\dia.lib
+PKG_LINK = $(PKG_LINK) ..\..\app\dia-app.lib
 !ENDIF
 
 !IFDEF OBJ_sybase

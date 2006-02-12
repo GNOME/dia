@@ -835,11 +835,6 @@ app_init (int argc, char **argv)
 
   if (!dia_is_interactive)
     log_to_stderr = TRUE;
-  else {
-#ifdef G_OS_WIN32
-    dia_redirect_console ();
-#endif
-  }
   
   if (log_to_stderr)
     set_message_func(stderr_message_internal);
@@ -1307,4 +1302,9 @@ parse_size(gchar *size, long *width, long *height)
     *width  = 0;
     *height = 0;
   }
+}
+
+int app_is_embedded(void)
+{
+  return 0;
 }

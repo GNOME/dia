@@ -36,3 +36,11 @@ EXPORTS
  diagram_update_extents
  diagram_update_connections_object
  dia_open_diagrams
+
+ ; just for the applications
+ app_is_embedded
+ app_init
+ app_is_interactive
+ app_splash_done
+ toolbox_show
+

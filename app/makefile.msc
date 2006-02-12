@@ -61,7 +61,6 @@ OBJECTS = \
 	linewidth_area.obj \
 	load_save.obj \
 	magnify.obj \
-	main.obj \
 	menus.obj \
 	modify_tool.obj \
 	navigation.obj \
@@ -85,8 +84,7 @@ OBJECTS = \
 	textedit.obj \
 	tool.obj \
 	undo.obj \
-	win32print.obj \
-	winmain.obj
+	win32print.obj
 
 ICON_PNG_PAIRS = \
 	dia_connectable_icon pixmaps\connectable.png \
@@ -117,9 +115,8 @@ dia-app-icons.h : makefile.msc pixmaps\*.png
 CC = cl -G5 -GF $(OPTIMIZE) $(CRUNTIME) -W3 -nologo
 
 # No general LDFLAGS needed
-# Use /subsystem:console to enable console output
-#LDFLAGS = /link $(LINKDEBUG) /subsystem:console /machine:ix86
-LDFLAGS = /link $(LINKDEBUG) /subsystem:windows /machine:ix86
+# /subsystem:console and /subsystem:windows have their own exe
+LDFLAGS = /link $(LINKDEBUG) /machine:ix86
 INSTALL = copy
 
 CFLAGS = -I. -I$(PRJ_TOP) -DHAVE_CONFIG_H
@@ -128,7 +125,9 @@ CFLAGS = -I. -I$(PRJ_TOP) -DHAVE_CONFIG_H
 all : \
 	$(PRJ_TOP)\config.h \
 	dia-app-icons.h \
-	$(PACKAGE).exe
+	$(PACKAGE)-app.dll \
+	$(PACKAGE).exe \
+	$(PACKAGE)w.exe
 
 $(PACKAGE).res : $(PACKAGE).rc $(PACKAGE).ico
 	rc -r -fo $(PACKAGE).res $(PACKAGE).rc
@@ -138,12 +137,17 @@ RESOURCE = $(PACKAGE).res
 $(PACKAGE).lib : $(OBJECTS)
 	lib /out:$(PACKAGE).lib $(OBJECTS)
 
-$(PACKAGE).dll : $(OBJECTS) $(PACKAGE).def
-	$(CC) $(CFLAGS) -LD -Fe$(PACKAGE).dll $(OBJECTS) $(PKG_LINK) user32.lib advapi32.lib wsock32.lib $(LDFLAGS) /def:$(PACKAGE).def
-
-$(PACKAGE).exe : $(OBJECTS) $(PACKAGE).def $(PACKAGE).res
-	$(CC) $(CFLAGS) -Fe$(PACKAGE).exe $(PACKAGE).res $(OBJECTS) $(PKG_LINK) \
+$(PACKAGE)-app.dll : $(OBJECTS) $(PACKAGE).def
+	$(CC) $(CFLAGS) -LD -Fe$(PACKAGE)-app.dll $(OBJECTS) $(PKG_LINK) \
 	gdi32.lib comdlg32.lib user32.lib advapi32.lib shell32.lib wsock32.lib winspool.lib $(LDFLAGS) /def:$(PACKAGE).def
+
+$(PACKAGE).exe : $(OBJECTS) $(PACKAGE).def $(PACKAGE).res main.obj $(PACKAGE)-app.dll
+	$(CC) $(CFLAGS) -Fe$(PACKAGE).exe $(PACKAGE).res main.obj dia-app.lib $(PKG_LINK) \
+	user32.lib advapi32.lib $(LDFLAGS) /subsystem:console
+
+$(PACKAGE)w.exe : $(OBJECTS) $(PACKAGE).def $(PACKAGE).res winmain.obj $(PACKAGE)-app.dll
+	$(CC) $(CFLAGS) -Fe$(PACKAGE)w.exe $(PACKAGE).res winmain.obj dia-app.lib $(PKG_LINK) \
+	gdi32.lib comdlg32.lib user32.lib advapi32.lib $(LDFLAGS) /subsystem:windows
 
 $(PRJ_TOP)/config.h: $(PRJ_TOP)/config.h.win32
 	copy $(PRJ_TOP)\config.h.win32 $(PRJ_TOP)\config.h

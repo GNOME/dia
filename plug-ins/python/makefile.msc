@@ -32,7 +32,7 @@ CFLAGS = -FImsvc_recommended_pragmas.h \
 	$(LIBXML2_CFLAGS)
 
 EXTRALIBS = $(EXTRALIBS) $(LIBXML2_LIBS) $(INTL_LIBS) $(PANGO_LIBS) \
-	..\..\lib\libdia.lib ..\..\app\dia.lib
+	..\..\lib\libdia.lib ..\..\app\dia-app.lib
 
 OBJECTS = \
 	diamodule.obj \

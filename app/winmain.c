@@ -5,10 +5,13 @@
 #include <gtk/gtk.h> /* just for version */
 
 #ifdef G_OS_WIN32
+#define Rectangle Win32Rectangle 
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h> /* native file api */
+#undef Rectangle
 
-extern int main (int argc, char **argv);
+#include "app_procs.h"
+#include "interface.h"
 
 /* In case we build this as a windowed application */
 
@@ -24,7 +27,20 @@ WinMain (struct HINSTANCE__ *hInstance,
 	 char               *lpszCmdLine,
 	 int                 nCmdShow)
 {
-  return main (__argc, __argv);
+  dia_redirect_console ();
+  
+  app_init (__argc, __argv);
+
+  if (!app_is_interactive())
+    return 0;
+
+  toolbox_show();
+
+  app_splash_done();
+  
+  gtk_main ();
+
+  return 0;
 }
 
 void
