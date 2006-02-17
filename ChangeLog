@@ -1,3 +1,10 @@
+2006-02-17  Hans Breuer  <hans@breuer.org>
+
+	* plug-ins/metapost/render_metapost.c(draw_string) : dont query
+	the font for it's height but use the 'height' parameter passed
+	in. Close enough to the desired size - and independent of zoom -
+	to close bug #331489 (Rob McDonald)
+	
 2006-02-12  Lars Clausen  <lars@raeder.dk>
 
 	* NEWS: 

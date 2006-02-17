@@ -506,7 +506,7 @@ set_font(DiaRenderer *self, DiaFont *font, real height)
      * matching MetaPost font. */
     char *dia_font_name = (char*)dia_font_get_family(font);
     const DiaFontStyle dia_font_style = dia_font_get_style(font);
-    const real dia_font_height = dia_font_get_height(font);
+    const real dia_font_height = height;
 
     /* Catch default Dia fonts. */
     if (DIA_FONT_STYLE_GET_FAMILY(dia_font_style) == DIA_FONT_SANS) {
