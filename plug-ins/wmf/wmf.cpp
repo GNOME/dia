@@ -106,6 +106,7 @@ struct _WmfRenderer
     int nDashLen; /* the scaled dash length */
     gboolean platform_is_nt; /* advanced line styles supported */
     gboolean target_emf; /* write enhanced metafile */
+    W32::RECT margins;
 };
 
 struct _WmfRendererClass
@@ -288,11 +289,7 @@ end_render(DiaRenderer *self)
 
         W32::ReleaseDC(NULL, hdc);
     } else {
-        W32::RECT r = {0, 0, 0, 0};
-        r.right = W32::GetDeviceCaps (renderer->hPrintDC, PHYSICALWIDTH); 
-        r.bottom = W32::GetDeviceCaps (renderer->hPrintDC, PHYSICALHEIGHT); 
-
-        W32::PlayEnhMetaFile (renderer->hPrintDC, hEmf, &r);
+        W32::PlayEnhMetaFile (renderer->hPrintDC, hEmf, &renderer->margins);
     }
 #endif
     g_free(renderer->sFileName);
@@ -1205,10 +1202,23 @@ export_data(DiagramData *data, const gchar *filename,
     extent = &data->extents;
 
     /* calculate offsets */
-    renderer->xoff = - data->extents.left;
-    renderer->yoff = - data->extents.top;
-    renderer->scale = scale;
-    
+    if (!renderer->hPrintDC) {
+	renderer->xoff = - data->extents.left;
+	renderer->yoff = - data->extents.top;
+	renderer->scale = scale;
+    } else {
+        int  ppc = W32::GetDeviceCaps (renderer->hPrintDC, PHYSICALWIDTH) 
+	            / ( data->paper.lmargin + data->paper.width + data->paper.rmargin);
+	/* respect margins */
+	renderer->margins.left   = ppc * data->paper.lmargin - W32::GetDeviceCaps (renderer->hPrintDC, PHYSICALOFFSETX);
+	renderer->margins.top    = ppc * data->paper.tmargin - W32::GetDeviceCaps (renderer->hPrintDC, PHYSICALOFFSETY);
+	renderer->margins.right  = W32::GetDeviceCaps (renderer->hPrintDC, PHYSICALWIDTH) - ppc * data->paper.rmargin;
+	renderer->margins.bottom = W32::GetDeviceCaps (renderer->hPrintDC, PHYSICALHEIGHT) - ppc * data->paper.bmargin;
+
+	renderer->xoff = - data->extents.left;
+	renderer->yoff = - data->extents.top;
+	renderer->scale = scale;
+    }
     /* initialize placeable header */
     /* bounding box in twips 1/1440 of an inch */
     renderer->pmh.Key = 0x9AC6CDD7;

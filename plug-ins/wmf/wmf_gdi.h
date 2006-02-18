@@ -130,7 +130,12 @@ typedef enum
   HORZSIZE = 4,
   VERTSIZE = 6,
   HORZRES  = 8,
-  VERTRES  = 10
+  VERTRES  = 10,
+  // some more constants not useful without a GDI printer (driver)
+  PHYSICALWIDTH = 110,
+  PHYSICALHEIGHT = 111,
+  PHYSICALOFFSETX = 112,
+  PHYSICALOFFSETY = 113
 } eDeviceCaps;
 
 namespace W32

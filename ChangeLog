@@ -1,3 +1,13 @@
+2006-02-18  Hans Breuer  <hans@breuer.org>
+
+	* plug-ins/metapost/render_metapost.c : text position gives the
+	baseline neither top nor bottom. ( Rob McDonald, #331491 )
+
+	* plug-ins/wmf/wmf.cpp : finally respecting the print margins
+	( Rob McDonald, #331371 )
+	* plug-ins/wmf/wmf_gdi.h : some more constants not useful 
+	without a GDI printer (driver)
+	
 2006-02-17  Hans Breuer  <hans@breuer.org>
 
 	* plug-ins/metapost/render_metapost.c(draw_string) : dont query

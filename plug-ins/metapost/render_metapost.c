@@ -971,17 +971,16 @@ draw_string(DiaRenderer *self,
 
     set_line_color(renderer,color);
 
+    /* text position gives the base line neither top nor bottom */
     switch (alignment) {
-    /* We use the "top" modifier to MetaPost's alignment because Dia draws
-      * text _above_ the point at which the text is "located". */
     case ALIGN_LEFT:
-	fprintf(renderer->file,"  label.urt");
+	fprintf(renderer->file,"  label.rt");
 	break;
     case ALIGN_CENTER:
-	fprintf(renderer->file,"  label.top");
+	fprintf(renderer->file,"  label");
 	break;
     case ALIGN_RIGHT:
-	fprintf(renderer->file,"  label.ulft");
+	fprintf(renderer->file,"  label.lft");
 	break;
     }
 
