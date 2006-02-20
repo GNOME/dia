@@ -5,7 +5,8 @@
 	(draw_arc_with_arrows): Draw line in all cases.  Doesn't handle
 	the truly degenerate cases well enough yet, but at least doesn't
 	break on common cases.  Probably need to do something special for
-	arcs with start and end point the same.
+	arcs with start and end point the same.  Improves but does not
+	entirely fix bug #331372.
 
 2006-02-20  Hans Breuer  <hans@breuer.org>
 
@@ -28,7 +29,6 @@
 	in. Close enough to the desired size - and independent of zoom -
 	to close bug #331489 (Rob McDonald)
 	
->>>>>>> 1.1876
 2006-02-12  Lars Clausen  <lars@raeder.dk>
 
 	* NEWS: 
