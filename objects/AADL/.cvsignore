@@ -4,5 +4,4 @@
 Makefile
 Makefile.in
 *.lo
-libuml_objects.la
-
+libaadl_objects.la
