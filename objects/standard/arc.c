@@ -40,7 +40,7 @@
 #define HANDLE_MIDDLE HANDLE_CUSTOM1
 
 /* If you wan debug spew */
-#define TRACE(fun) /*fun*/
+#define TRACE(fun) /* fun */
 
 typedef struct _Arc Arc;
 

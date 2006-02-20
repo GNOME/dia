@@ -1149,12 +1149,24 @@ find_center_point(Point *center, Point *p1, Point *p2, Point *p3)
   /* The intersection between these two is the center */
   if (!intersection_line_line(center, &mid1, &orth1, &mid2, &orth2)) {
     /* Degenerate circle */
-    /* Either the points are really close together, or directly apart */
+    /* Case 1: Points are all on top of each other.  Nothing to do. */
     if (fabs((p1->x + p2->x + p3->x)/3 - p1->x) < 0.0000001 &&
-	fabs((p1->y + p2->y + p3->y)/3 - p1->y) < 0.0000001)
+	fabs((p1->y + p2->y + p3->y)/3 - p1->y) < 0.0000001) {
       return FALSE;
+    }
     
-    return TRUE;
+    /* Case 2: Two points are on top of each other.  Midpoint of
+     * non-degenerate line is center. */
+    if (distance_point_point_manhattan(p1, p2) < 0.0000001) {
+      *center = mid2;
+      return TRUE;
+    } else if (distance_point_point_manhattan(p1, p3) < 0.0000001 ||
+	       distance_point_point_manhattan(p2, p3) < 0.0000001) {
+      *center = mid1;
+      return TRUE;
+    }
+    /* Case 3: All points on a line.  Nothing to do. */
+    return FALSE;
   }
   return TRUE;
 }
@@ -1195,6 +1207,7 @@ draw_arc_with_arrows (DiaRenderer *renderer,
 
   if (!find_center_point(&center, startpoint, endpoint, midpoint)) {
     /* Degenerate circle -- should have been caught by the drawer? */
+    printf("Degenerate\n");
   }
 
   righthand = is_right_hand (startpoint, midpoint, endpoint);
@@ -1255,6 +1268,10 @@ draw_arc_with_arrows (DiaRenderer *renderer,
    * approximation of the original arc arrow lines not on the arc itself. 
    * The one thing we need to deal with is calculating the (new) angles 
    * and get rid of the arc drawing altogether if got degenerated.
+   *
+   * Why shouldn't we recalculate the whole thing from the new start/endpoints?
+   * Done this way the arc does not come out the back of the arrows.
+   *  -LC, 20/2/2006
    */
   angle1 = -atan2(startpoint->y - center.y, startpoint->x - center.x)*180.0/G_PI;
   while (angle1 < 0.0) angle1 += 360.0;
@@ -1275,13 +1292,8 @@ draw_arc_with_arrows (DiaRenderer *renderer,
     endpoint->y = sin (G_PI * angle1 / 180.0) * width / 2.0 + center.y;
   }
 
-  /* Only draw it if the original direction is preserved */
-  if (   is_right_hand (startpoint, midpoint, endpoint) == righthand
-      && arrow_ofs < (distance_point_point(startpoint, midpoint) + distance_point_point(midpoint, endpoint))) {
-    DIA_RENDERER_GET_CLASS(renderer)->draw_arc(renderer, &center, width, width,
-			   angle1, angle2, color);
-  }
-
+  DIA_RENDERER_GET_CLASS(renderer)->draw_arc(renderer, &center, width, width,
+					     angle1, angle2, color);
 
   if (start_arrow != NULL && start_arrow->type != ARROW_NONE)
     arrow_draw(renderer, start_arrow->type,
