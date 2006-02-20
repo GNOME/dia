@@ -83,6 +83,7 @@ EXTRA_DIST = \
 	scascale.py \
 	select_by.py \
 	pydiadoc.py \
+	dot.py \
 	scascale.py \
 	select_by.py \
 	gtkcons.py \

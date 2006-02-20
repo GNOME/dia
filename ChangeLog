@@ -1,3 +1,7 @@
+2006-02-20  Hans Breuer  <hans@breuer.org>
+
+	* plug-ins/python/Makefile.am : dot.py was missing from EXTRA_DIST
+	
 2006-02-18  Hans Breuer  <hans@breuer.org>
 
 	* plug-ins/metapost/render_metapost.c : text position gives the
