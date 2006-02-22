@@ -1,3 +1,9 @@
+dia-0.95-pre1: 21-Feb-2006
+
+* A couple bugs fixed: 331489 (metapost font size), 331371 (win32 margins),
+  331491 (text position in metapost), 331557 (crash with beziergon undo),
+  331372 (arc disappears).
+
 dia-0.95-pre1: 12-Feb-2006
 
 * Quite some bugs fixed, at least:

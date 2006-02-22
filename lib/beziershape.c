@@ -344,8 +344,8 @@ add_handles(BezierShape *bezier, int pos, BezPoint *point,
   object_add_handle_at((DiaObject*)bezier, handle1, 3*pos-3);
   object_add_handle_at((DiaObject*)bezier, handle2, 3*pos-2);
   object_add_handle_at((DiaObject*)bezier, handle3, 3*pos-1);
-  object_add_connectionpoint_at((DiaObject *)bezier, cp1, 2*pos-1);
-  object_add_connectionpoint_at((DiaObject *)bezier, cp2, 2*pos);
+  object_add_connectionpoint_at((DiaObject *)bezier, cp1, 2*pos-2);
+  object_add_connectionpoint_at((DiaObject *)bezier, cp2, 2*pos-1);
 }
 
 static void

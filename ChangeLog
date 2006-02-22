@@ -1,3 +1,14 @@
+2006-02-21  Lars Clausen  <lars@raeder.dk>
+
+	* NEWS: 
+	* doc/pl/dia.xml: 
+	* doc/en/dia.xml: 
+	* configure.in: 
+	* config.h.win32: Update to -pre2.
+
+	* lib/beziershape.c (add_handles): Fixing CP pos calculation for
+	adding new CP's.  Fixes bug #331557.
+
 2006-02-20  Lars Clausen  <lars@raeder.dk>
 
 	* lib/diarenderer.c (find_center_point): Better handling of some
