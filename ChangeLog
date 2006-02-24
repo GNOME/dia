@@ -1,3 +1,10 @@
+2006-02-25  Hans Breuer  <hans@breuer.org>
+
+	* app/app_procs.c(app_init) : if GDK_WINDOWING_WIN32 call gtk_init()
+	in any case. In contrast to X11/*nix displays are not optional on
+	windoze. And we need some help of gtk to render text to bitmaps.
+	( Rob McDonald, bug #332177 )
+	
 2006-02-21  Lars Clausen  <lars@raeder.dk>
 
 	* NEWS: 

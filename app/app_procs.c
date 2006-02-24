@@ -812,10 +812,18 @@ app_init (int argc, char **argv)
 #endif
   }
   else {
-#  ifdef G_THREADS_ENABLED
+#ifdef G_THREADS_ENABLED
     g_thread_init (NULL);
-#  endif
+#endif
     g_type_init();
+#ifdef GDK_WINDOWING_WIN32
+    /*
+     * On windoze there is no command line without display so this call is harmless. 
+     * But it is needed to avoid failing in gdk functions just because there is a 
+     * display check. Still a little hack ...
+     */
+    //gtk_init(&argc, &argv);
+#endif
   }
 
   /* done with option parsing, don't leak */
