@@ -1,5 +1,8 @@
 2006-02-25  Hans Breuer  <hans@breuer.org>
 
+	* app/interface.c(get_sheet_by_name) : be more tolerant about 
+	localization of the sheet name. ( Steffen Macke, #332070 )
+	
 	* app/app_procs.c(app_init) : if GDK_WINDOWING_WIN32 call gtk_init()
 	in any case. In contrast to X11/*nix displays are not optional on
 	windoze. And we need some help of gtk to render text to bitmaps.

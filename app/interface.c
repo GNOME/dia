@@ -786,7 +786,11 @@ get_sheet_by_name(const gchar *name)
   GSList *tmp;
   for (tmp = get_sheets_list(); tmp != NULL; tmp = tmp->next) {
     Sheet *sheet = tmp->data;
-    if (!g_strcasecmp(name, sheet->name)) return sheet;
+    /* There is something fishy with comparing both forms: the english and the localized one.
+     * But we should be on the safe side here, especially when bug #328570 gets tackled.
+     */
+    if (0 == g_strcasecmp(name, sheet->name) || 0 == g_strcasecmp(name, gettext(sheet->name))) 
+      return sheet;
   }
   return NULL;
 }
@@ -928,22 +932,20 @@ static void
 create_sheet_dropdown_menu(GtkWidget *parent)
 {
   GList *sheet_names = get_sheet_names();
-  GtkWidget *item = gtk_menu_item_new_with_label("Other sheets");
 
   if (sheet_option_menu != NULL) {
     gtk_container_remove(GTK_CONTAINER(parent), sheet_option_menu);
     sheet_option_menu = NULL;
   }
 
-  gtk_widget_show(item);
   sheet_option_menu =
     dia_dynamic_menu_new_stringlistbased(_("Other sheets"), sheet_names, 
 					 sheet_menu_callback,
 					 NULL, "sheets");
   dia_dynamic_menu_add_default_entry(DIA_DYNAMIC_MENU(sheet_option_menu),
-				     "Misc");
+				     _("Assorted"));
   dia_dynamic_menu_add_default_entry(DIA_DYNAMIC_MENU(sheet_option_menu),
-				     "UML");
+				     _("UML"));
   /*    gtk_widget_set_size_request(sheet_option_menu, 20, -1);*/
   gtk_wrap_box_pack_wrapped(GTK_WRAP_BOX(parent), sheet_option_menu,
 			    TRUE, TRUE, FALSE, FALSE, TRUE);    
