@@ -13,10 +13,10 @@ Source: ftp://ftp.gnome.org/pub/GNOME/stable/sources/dia/%{name}-%{ver}.tar.gz
 URL: http://www.gnome.org/projects/dia/
 BuildRoot: /var/tmp/%{name}-%{ver}-root
 
-Requires: libxml2 >= 2.3.9 gtk2 pango >= 1.1.5 freetype2 >= 2.0.9
+Requires: libxml2 >= 2.3.9 gtk2 >= 2.6.0 pango >= 1.1.5 freetype2 >= 2.0.9
 Requires: libgnome libgnomeui popt
 Requires: python python-gtk
-BuildRequires: libxml2-devel >= 2.3.9 gtk2-devel pango-devel >= 1.1.5 
+BuildRequires: libxml2-devel >= 2.3.9 gtk2-devel >= 2.6.0 pango-devel >= 1.1.5 
 BuildRequires: freetype2-devel >= 2.0.9 intltool > 0.21
 BuildRequires: libgnome-devel libgnomeui-devel popt-devel
 BuildRequires: python python-gtk

@@ -789,7 +789,7 @@ get_sheet_by_name(const gchar *name)
     /* There is something fishy with comparing both forms: the english and the localized one.
      * But we should be on the safe side here, especially when bug #328570 gets tackled.
      */
-    if (0 == g_strcasecmp(name, sheet->name) || 0 == g_strcasecmp(name, gettext(sheet->name))) 
+    if (0 == g_strcasecmp(name, sheet->name) || 0 == g_strcasecmp(name, gettext(sheet->name)))
       return sheet;
   }
   return NULL;
@@ -912,7 +912,7 @@ sheet_menu_callback(DiaDynamicMenu *menu, const gchar *string, void *user_data)
 static int
 cmp_names (const void *a, const void *b)
 {
-  return g_utf8_collate((gchar *)a, (gchar *)b);
+  return g_utf8_collate(gettext( (gchar *)a ), gettext( (gchar *)b ));
 }
 
 static GList *
@@ -922,7 +922,7 @@ get_sheet_names()
   GList *names = NULL;
   for (tmp = get_sheets_list(); tmp != NULL; tmp = tmp->next) {
     Sheet *sheet = tmp->data;
-    names = g_list_append(names, gettext(sheet->name));
+    names = g_list_append(names, sheet->name);
   }
   /* Already sorted in lib/ but here we sort by the localized (display-)name */
   return g_list_sort (names, cmp_names);
@@ -943,9 +943,9 @@ create_sheet_dropdown_menu(GtkWidget *parent)
 					 sheet_menu_callback,
 					 NULL, "sheets");
   dia_dynamic_menu_add_default_entry(DIA_DYNAMIC_MENU(sheet_option_menu),
-				     _("Assorted"));
+				     "Assorted");
   dia_dynamic_menu_add_default_entry(DIA_DYNAMIC_MENU(sheet_option_menu),
-				     _("UML"));
+				     "UML");
   /*    gtk_widget_set_size_request(sheet_option_menu, 20, -1);*/
   gtk_wrap_box_pack_wrapped(GTK_WRAP_BOX(parent), sheet_option_menu,
 			    TRUE, TRUE, FALSE, FALSE, TRUE);    

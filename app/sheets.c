@@ -148,7 +148,7 @@ sheets_optionmenu_create(GtkWidget *option_menu, GtkWidget *wrapbox,
       continue;
 
     {
-      menu_item = gtk_menu_item_new_with_label(sheet_mod->sheet.name);
+      menu_item = gtk_menu_item_new_with_label(gettext(sheet_mod->sheet.name));
 
       gtk_menu_append(GTK_MENU(optionmenu_menu), menu_item);
       

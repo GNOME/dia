@@ -407,7 +407,7 @@ dia_arrow_chooser_new(gboolean left, DiaChangeArrowCallback callback,
     g_object_set_data(G_OBJECT(mi), menuitem_enum_key,
 		      GINT_TO_POINTER(arrow_types[i].enum_value));
     if (tool_tips) {
-      gtk_tooltips_set_tip(tool_tips, mi, arrow_types[i].name, NULL);
+      gtk_tooltips_set_tip(tool_tips, mi, gettext(arrow_types[i].name), NULL);
     }
     ar = dia_arrow_preview_new(arrow_types[i].enum_value, left);
 

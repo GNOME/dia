@@ -1,3 +1,23 @@
+2006-02-26  Lars Clausen  <lars@raeder.dk>
+
+	* lib/element.h (ELEMENT_COMMON_PROPERTIES): Turning off setting
+	of element_width and element_height until constraints can be 
+	properly checked.
+
+	* dia.spec (Requires): Updated GTK requirements.
+
+2006-02-25  Lars Clausen  <lars@raeder.dk>
+
+	* lib/diaarrowchooser.c (dia_arrow_chooser_new): Also making sure
+	other dynamic menus have proper translation.
+
+	* lib/widgets.c (dia_dynamic_menu_create_string_item): 
+	* app/interface.c (cmp_names): 
+	* app/sheets.c (sheets_optionmenu_create): 
+	* lib/sheet.c (load_register_sheet): Using C locale for sheet
+	names internally, translating on display instead.  Also sorting
+	by gettext order explicitly.
+
 2006-02-25  Hans Breuer  <hans@breuer.org>
 
 	* app/interface.c(get_sheet_by_name) : be more tolerant about 

@@ -107,10 +107,13 @@ static void load_sheets_from_dir(const gchar *directory, SheetScope scope);
 static void load_register_sheet(const gchar *directory,const gchar *filename,
                                 SheetScope scope);
 
+/** Sort the list of sheets by *locale*.
+ */
 static gint
 dia_sheet_sort_callback(gconstpointer a, gconstpointer b)
 {
-  return g_utf8_collate(((Sheet *)(a))->name, ((Sheet *)(b))->name);
+  return g_utf8_collate(gettext( ((Sheet *)(a))->name ),
+			gettext( ((Sheet *)(b))->name ));
 }
 
 void
@@ -234,10 +237,18 @@ load_register_sheet(const gchar *dirname, const gchar *filename,
       /* compare the xml:lang property on this element to see if we get a
        * better language match.  LibXML seems to throw away attribute
        * namespaces, so we use "lang" instead of "xml:lang" */
+      /* Now using the C locale for internal sheet names, instead gettexting
+       * when the name is used in the menus.  Not going to figure out the
+       * XML lang system more than absolutely necessary now.   --LC
+       */
+      /*
       tmp = xmlGetProp(node, "xml:lang");
       if (!tmp) tmp = xmlGetProp(node, "lang");
-      score = intl_score_locale(tmp);
+      */
+      score = intl_score_locale("C");
+      /*
       if (tmp) xmlFree(tmp);
+      */
 
       if (name_score < 0 || score < name_score) {
         name_score = score;

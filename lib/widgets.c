@@ -1762,7 +1762,7 @@ dia_dynamic_menu_activate(GtkWidget *item, gpointer userdata)
 static GtkWidget *
 dia_dynamic_menu_create_string_item(DiaDynamicMenu *ddm, gchar *string)
 {
-  GtkWidget *item = gtk_menu_item_new_with_label(string);
+  GtkWidget *item = gtk_menu_item_new_with_label(gettext(string));
   return item;
 }
 
