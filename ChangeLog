@@ -1,8 +1,14 @@
 2006-02-26  Lars Clausen  <lars@raeder.dk>
 
+	* doc/en/dia.xml: 
+	* doc/pl/dia.xml: 
+	* config.h.win32: 
+	* configure.in: 
+	* NEWS: 
+
 	* lib/element.h (ELEMENT_COMMON_PROPERTIES): Turning off setting
 	of element_width and element_height until constraints can be 
-	properly checked.
+	properly checked.  Bug #328200
 
 	* dia.spec (Requires): Updated GTK requirements.
 
@@ -16,7 +22,7 @@
 	* app/sheets.c (sheets_optionmenu_create): 
 	* lib/sheet.c (load_register_sheet): Using C locale for sheet
 	names internally, translating on display instead.  Also sorting
-	by gettext order explicitly.
+	by gettext order explicitly.  Bug #328570.
 
 2006-02-25  Hans Breuer  <hans@breuer.org>
 

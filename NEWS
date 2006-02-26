@@ -1,4 +1,11 @@
-dia-0.95-pre1: 21-Feb-2006
+dia-0.95-pre3: 26-Feb-2006
+
+* Turned off element width/height setting as it isn't ready for prime time.
+
+* Internationalization of sheet names now done at display/sort time, C
+  names used for internal/persistence purposes.
+
+dia-0.95-pre2: 21-Feb-2006
 
 * A couple bugs fixed: 331489 (metapost font size), 331371 (win32 margins),
   331491 (text position in metapost), 331557 (crash with beziergon undo),
