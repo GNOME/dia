@@ -1,3 +1,12 @@
+2006-02-26  Hans Breuer  <hans@breuer.org>
+
+	* app/Makefile.am : define DIA_PYTHON_PATH in app/run_dia.sh
+	* plug-ins/python/python.c : if set use it to find python-startup.py
+	(bug #332599, Torben H. Nielsen)
+
+	* app/app_procs.c : removed // from gtk_init() [shouldn't have commited
+	my test code]. Really closes #332177, thanks Mateus César Gröess.
+
 2006-02-26  Lars Clausen  <lars@raeder.dk>
 
 	* doc/en/dia.xml: 

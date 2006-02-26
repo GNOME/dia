@@ -109,8 +109,11 @@ dia_plugin_init(PluginInfo *info)
 #ifdef G_OS_WIN32
     PySys_SetObject("stderr", PyDiaError_New (NULL, TRUE));
 #endif
-
-    startup_file = dia_get_data_directory("python-startup.py");
+    if (g_getenv ("DIA_PYTHON_PATH")) {
+      startup_file = g_build_filename (g_getenv ("DIA_PYTHON_PATH"), "python-startup.py", NULL);
+    } else {
+      startup_file = dia_get_data_directory("python-startup.py");
+    }
     if (!startup_file) {
 	g_warning("could not find python-startup.py");
 	return DIA_PLUGIN_INIT_ERROR;

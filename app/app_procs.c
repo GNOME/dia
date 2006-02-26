@@ -822,7 +822,7 @@ app_init (int argc, char **argv)
      * But it is needed to avoid failing in gdk functions just because there is a 
      * display check. Still a little hack ...
      */
-    //gtk_init(&argc, &argv);
+    gtk_init(&argc, &argv);
 #endif
   }
 
