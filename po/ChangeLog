@@ -1,3 +1,9 @@
+2006-03-04  Takeshi AIHANA <takeshi.aihana@gmail.com>
+
+	* ja.po: Updated Japanese translation based on tranlated by
+			 Satoru SATOH <ss@gnome.gr.jp>, and fixed translation bugs
+			 reported by <kano@na.rim.or.jp>.
+
 2006-03-03  Gabor Kelemen  <kelemeng@gnome.hu>
 
 	* hu.po: Hungarian translation updated.
