@@ -1,3 +1,13 @@
+2006-03-05  Lars Clausen  <larsrc@>
+
+	* plug-ins/xfig/xfig-import.c: Fixed locale issues with FIG import.
+
+	* lib/orth_conn.c (orthconn_update_data): 
+	* app/diagram.c: Removing debug info.
+
+	* app/object_ops.c (object_find_connectpoint_display): Don't
+	magnet to parents.
+
 2006-02-26  Hans Breuer  <hans@breuer.org>
 
 	* app/Makefile.am : define DIA_PYTHON_PATH in app/run_dia.sh

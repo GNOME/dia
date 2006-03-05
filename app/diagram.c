@@ -416,6 +416,7 @@ diagram_selected_can_parent(Diagram *dia) {
 	    obj_bb.right < p->bounding_box.right &&
 	    obj_bb.top > p->bounding_box.top &&
 	    obj_bb.bottom < p->bounding_box.bottom) {
+          /*
 	  printf("Obj %f, %f x %f, %f inside %f, %f x %f, %f\n",
 		 obj_bb.left,
 		 obj_bb.top,
@@ -425,6 +426,7 @@ diagram_selected_can_parent(Diagram *dia) {
 		 p->bounding_box.top,
 		 p->bounding_box.right,
 		 p->bounding_box.bottom);
+	  */
 	  g_list_free(parents);
 	  return TRUE;
 	}

@@ -94,18 +94,23 @@ object_find_connectpoint_display(DDisplay *ddisp, Point *pos,
     return connectionpoint;
   }
   if (ddisp->mainpoint_magnetism && snap_to_objects) {
-    /* Try to find an all-object CP. */
-    avoid = g_list_prepend(avoid, notthis);
-    obj_here = diagram_find_clicked_object_except(ddisp->diagram, pos, 0.00001, avoid);
-    if (obj_here != NULL) {
-      int i;
-      for (i = 0; i < obj_here->num_connections; i++) {
-	if (obj_here->connections[i]->flags & CP_FLAG_ANYPLACE) {
-	  g_list_free(avoid);
-	  return obj_here->connections[i];
-	}
+      DiaObject *parent;
+      /* Try to find an all-object CP. */
+      /* Don't pick a parent, though */
+      avoid = g_list_prepend(avoid, notthis);
+      for (parent = notthis->parent; parent != NULL; parent = parent->parent) {
+	  avoid = g_list_prepend(avoid, parent);
       }
-    }
+      obj_here = diagram_find_clicked_object_except(ddisp->diagram, pos, 0.00001, avoid);
+      if (obj_here != NULL) {
+	  int i;
+	  for (i = 0; i < obj_here->num_connections; i++) {
+	      if (obj_here->connections[i]->flags & CP_FLAG_ANYPLACE) {
+		  g_list_free(avoid);
+		  return obj_here->connections[i];
+	      }
+	  }
+      }
   }
 
   return NULL;

@@ -334,15 +334,19 @@ orthconn_update_data(OrthConn *orth)
     if (connpoint_is_autogap(start_cp)) {
       new_points[0] = calculate_object_edge(&start_cp->pos, &new_points[1],
 					    start_cp->object);
+      /*
       printf("Moved start to %f, %f\n",
 	     new_points[0].x, new_points[0].y);
+      */
     }
     if (connpoint_is_autogap(end_cp)) {
       new_points[orth->numpoints-1] =
 	calculate_object_edge(&end_cp->pos, &new_points[orth->numpoints-2],
 			      end_cp->object);
+      /*
       printf("Moved end to %f, %f\n",
 	     new_points[orth->numpoints-1].x, new_points[orth->numpoints-1].y);
+      */
     }
     g_free(points);
     orth->points = new_points;

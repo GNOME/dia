@@ -588,13 +588,18 @@ fig_read_arrow(FILE *file) {
     int arrow_type, style;
     real thickness, width, height;
     Arrow *arrow;
+    char* old_locale;
+
+    old_locale = setlocale(LC_NUMERIC, "C");
 
     if (fscanf(file, "%d %d %lf %lf %lf\n",
 	       &arrow_type, &style, &thickness,
 	       &width, &height) != 5) {
 	message_error(_("Error while reading arrowhead\n"));
+	setlocale(LC_NUMERIC,old_locale);
 	return NULL;
     }
+    setlocale(LC_NUMERIC,old_locale);
 
     arrow = g_new(Arrow, 1);
 
@@ -711,7 +716,9 @@ fig_read_ellipse(FILE *file, DiagramData *dia) {
     int start_x, start_y;
     int end_x, end_y;
     DiaObject *newobj = NULL;
+    char* old_locale;
 
+    old_locale = setlocale(LC_NUMERIC, "C");
     if (fscanf(file, "%d %d %d %d %d %d %d %d %lf %d %lf %d %d %d %d %d %d %d %d\n",
 	       &sub_type,
 	       &line_style,
@@ -729,8 +736,10 @@ fig_read_ellipse(FILE *file, DiagramData *dia) {
 	       &start_x, &start_y,
 	       &end_x, &end_y) < 19) {
 	message_error(_("Couldn't read ellipse info: %s\n"), strerror(errno));
+	setlocale(LC_NUMERIC, old_locale);
 	return NULL;
     }
+    setlocale(LC_NUMERIC, old_locale);
     
     /* Curiously, the sub_type doesn't matter, as all info can be
        extracted this way */
@@ -779,7 +788,9 @@ fig_read_polyline(FILE *file, DiagramData *dia) {
     DiaObject *newobj = NULL;
     int flipped = 0;
     char *image_file = NULL;
+    char* old_locale;
 
+    old_locale = setlocale(LC_NUMERIC, "C");
     if (fscanf(file, "%d %d %d %d %d %d %d %d %lf %d %d %d %d %d %d\n",
 	       &sub_type,
 	       &line_style,
@@ -890,6 +901,7 @@ fig_read_polyline(FILE *file, DiagramData *dia) {
     else
 	if (compound_depth > depth) compound_depth = depth;
  exit:
+    setlocale(LC_NUMERIC, old_locale);
     prop_list_free(props);
     g_free(forward_arrow_info);
     g_free(backward_arrow_info);
@@ -1008,7 +1020,9 @@ fig_read_spline(FILE *file, DiagramData *dia) {
     DiaObject *newobj = NULL;
     BezPoint *bezpoints;
     int i;
+    char* old_locale;
 
+    old_locale = setlocale(LC_NUMERIC, "C");
     if (fscanf(file, "%d %d %d %d %d %d %d %d %lf %d %d %d %d\n",
 	       &sub_type,
 	       &line_style,
@@ -1116,6 +1130,7 @@ fig_read_spline(FILE *file, DiagramData *dia) {
     else
 	if (compound_depth > depth) compound_depth = depth;
  exit:
+    setlocale(LC_NUMERIC, old_locale);
     prop_list_free(props);
     g_free(forward_arrow_info);
     g_free(backward_arrow_info);
@@ -1144,7 +1159,9 @@ fig_read_arc(FILE *file, DiagramData *dia) {
     int x2, y2;
     int x3, y3;
     real radius;
+    char* old_locale;
 
+    old_locale = setlocale(LC_NUMERIC, "C");
     if (fscanf(file, "%d %d %d %d %d %d %d %d %lf %d %d %d %d %lf %lf %d %d %d %d %d %d\n",
 	       &sub_type,
 	       &line_style,
@@ -1208,6 +1225,7 @@ fig_read_arc(FILE *file, DiagramData *dia) {
 	if (compound_depth > depth) compound_depth = depth;
 
  exit:
+    setlocale(LC_NUMERIC, old_locale);
     g_free(forward_arrow_info);
     g_free(backward_arrow_info);
     return newobj;
@@ -1239,7 +1257,9 @@ fig_read_text(FILE *file, DiagramData *dia) {
     real length;
     int x, y;
     char *text_buf = NULL;
+    char* old_locale;
 
+    old_locale = setlocale(LC_NUMERIC, "C");
     if (fscanf(file, " %d %d %d %d %d %lf %lf %d %lf %lf %d %d",
 	       &sub_type,
 	       &color,
@@ -1254,6 +1274,7 @@ fig_read_text(FILE *file, DiagramData *dia) {
 	       &x,
 	       &y) != 12) {
 	message_error(_("Couldn't read text info: %s\n"), strerror(errno));
+	setlocale(LC_NUMERIC, old_locale);
 	return NULL;
     }
     /* Skip one space exactly */
@@ -1304,6 +1325,7 @@ fig_read_text(FILE *file, DiagramData *dia) {
 	if (compound_depth > depth) compound_depth = depth;
 
  exit:
+    setlocale(LC_NUMERIC, old_locale);
     if (text_buf != NULL) g_free(text_buf);
     if (props != NULL) prop_list_free(props);
     return newobj;
@@ -1488,12 +1510,16 @@ fig_read_meta_data(FILE *file, DiagramData *dia) {
 
     {
 	real mag;
+	char* old_locale;
 
+	old_locale = setlocale(LC_NUMERIC, "C");
 	if (fscanf(file, "%lf\n", &mag) != 1) {
 	    message_error(_("Error reading magnification: %s\n"), strerror(errno));
+	    setlocale(LC_NUMERIC, old_locale);
 	    return FALSE;
 	}
-    
+        setlocale(LC_NUMERIC, old_locale);
+
 	dia->paper.scaling = mag/100;
     }
 
