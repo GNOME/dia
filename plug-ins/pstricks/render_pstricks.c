@@ -742,11 +742,11 @@ tex_escape_string(const gchar *src)
 	case '~': g_string_append(dest, "\\~{}"); break;
 	case '_': g_string_append(dest, "\\_"); break;
 	case '^': g_string_append(dest, "\\^{}"); break;
-	case '\\': g_string_append(dest, "\\\\"); break;
+	case '\\': g_string_append(dest, "\\textbackslash{}"); break;
 	case '{': g_string_append(dest, "\\}"); break;
 	case '}': g_string_append(dest, "\\}"); break;
-	case '[': g_string_append(dest, "\\ensuremath{\\left[}"); break;
-	case ']': g_string_append(dest, "\\ensuremath{\\right]}"); break;
+	case '[': g_string_append(dest, "\\ensuremath{\\left[\\right.}"); break;
+	case ']': g_string_append(dest, "\\ensuremath{\\left.\\right]}"); break;
 	default: 
             /* if we really have utf8 append the whole 'glyph' */
             g_string_append_len(dest, p, g_utf8_skip[(unsigned char)*p]);

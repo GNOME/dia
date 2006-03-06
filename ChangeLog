@@ -1,4 +1,11 @@
-2006-03-05  Lars Clausen  <larsrc@>
+2006-03-06  Lars Clausen  <larsrc@raeder.dk>
+
+	* samples/TexChars.dia: Added sample of the escaped chars for TeX.
+	
+	* plug-ins/pstricks/render_pstricks.c (tex_escape_string):
+	Changing escape of \, [, and ] to something that works.  $ is fine.
+
+2006-03-05  Lars Clausen  <larsrc@raeder.dk>
 
 	* plug-ins/xfig/xfig-import.c: Fixed locale issues with FIG import.
 
