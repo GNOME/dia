@@ -1,3 +1,11 @@
+dia-0.95-pre4: 6-Mar-2006
+
+* Fixed Fig import locale issues, TeX export escape issues.
+
+* Made children of objects not be magnetic to their parents.
+
+* Python startup fixes.
+
 dia-0.95-pre3: 26-Feb-2006
 
 * Turned off element width/height setting as it isn't ready for prime time.

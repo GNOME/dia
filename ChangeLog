@@ -13,10 +13,17 @@
 	
 2006-03-06  Lars Clausen  <larsrc@raeder.dk>
 
+	* doc/en/dia.xml: 
+	* doc/pl/dia.xml: 
+	* config.h.win32: 
+	* configure.in: 
+	* NEWS: -pre4
+
 	* samples/TexChars.dia: Added sample of the escaped chars for TeX.
 	
 	* plug-ins/pstricks/render_pstricks.c (tex_escape_string):
-	Changing escape of \, [, and ] to something that works.  $ is fine.
+	Changing escape of \, [, and ] to something that works.  $ is
+	fine.  Fixes parts of 333193.
 
 2006-03-05  Lars Clausen  <larsrc@raeder.dk>
 
@@ -43,7 +50,7 @@
 	* doc/pl/dia.xml: 
 	* config.h.win32: 
 	* configure.in: 
-	* NEWS: 
+	* NEWS: -pre3
 
 	* lib/element.h (ELEMENT_COMMON_PROPERTIES): Turning off setting
 	of element_width and element_height until constraints can be 
