@@ -393,7 +393,6 @@ ${File} "..\..\shapes\Assorted\" "heptagon.png"
 ${File} "..\..\shapes\Assorted\" "heptagon.shape"
 ${File} "..\..\shapes\Assorted\" "hexagon.png"
 ${File} "..\..\shapes\Assorted\" "hexagon.shape"
-${File} "..\..\shapes\Assorted\" "Makefile.am"
 ${File} "..\..\shapes\Assorted\" "moon-quarter.png"
 ${File} "..\..\shapes\Assorted\" "moon-quarter.shape"
 ${File} "..\..\shapes\Assorted\" "octagon.png"
@@ -485,7 +484,6 @@ ${File} "..\..\shapes\ChemEng\" "kettle.png"
 ${File} "..\..\shapes\ChemEng\" "kettle.shape"
 ${File} "..\..\shapes\ChemEng\" "knockout.png"
 ${File} "..\..\shapes\ChemEng\" "knockout.shape"
-${File} "..\..\shapes\ChemEng\" "Makefile.am"
 ${File} "..\..\shapes\ChemEng\" "measure.png"
 ${File} "..\..\shapes\ChemEng\" "measure.shape"
 ${File} "..\..\shapes\ChemEng\" "mixer.png"
@@ -575,7 +573,6 @@ ${File} "..\..\shapes\Circuit\" "hzener.xpm"
 ${File} "..\..\shapes\Circuit\" "lamp_de.png"
 ${File} "..\..\shapes\Circuit\" "lamp_de.shape"
 ${File} "..\..\shapes\Circuit\" "lamp_de.xpm"
-${File} "..\..\shapes\Circuit\" "Makefile.am"
 ${File} "..\..\shapes\Circuit\" "microphone_de.png"
 ${File} "..\..\shapes\Circuit\" "microphone_de.shape"
 ${File} "..\..\shapes\Circuit\" "microphone_de.xpm"
@@ -959,7 +956,6 @@ ${File} "..\..\shapes\Cisco\" "mac_woman.png"
 ${File} "..\..\shapes\Cisco\" "mac_woman.shape"
 ${File} "..\..\shapes\Cisco\" "mac_woman_right.png"
 ${File} "..\..\shapes\Cisco\" "mac_woman_right.shape"
-${File} "..\..\shapes\Cisco\" "Makefile.am"
 ${File} "..\..\shapes\Cisco\" "man.png"
 ${File} "..\..\shapes\Cisco\" "man.shape"
 ${File} "..\..\shapes\Cisco\" "man_blue.png"
@@ -1389,7 +1385,6 @@ ${File} "..\..\shapes\Civil\" "hrest.xpm"
 ${File} "..\..\shapes\Civil\" "line.png"
 ${File} "..\..\shapes\Civil\" "line.shape"
 ${File} "..\..\shapes\Civil\" "line.xpm"
-${File} "..\..\shapes\Civil\" "Makefile.am"
 ${File} "..\..\shapes\Civil\" "vcompressor.png"
 ${File} "..\..\shapes\Civil\" "vcompressor.shape"
 ${File} "..\..\shapes\Civil\" "vcompressor.xpm"
@@ -1451,7 +1446,6 @@ ${File} "..\..\shapes\Contact\" "l_soutr.xpm"
 ${File} "..\..\shapes\Contact\" "l_souts.png"
 ${File} "..\..\shapes\Contact\" "l_souts.shape"
 ${File} "..\..\shapes\Contact\" "l_souts.xpm"
-${File} "..\..\shapes\Contact\" "Makefile.am"
 ${SetOutPath} "$INSTDIR\shapes\Cybernetics"
 ${File} "..\..\shapes\Cybernetics\" "b-integrator.png"
 ${File} "..\..\shapes\Cybernetics\" "b-integrator.shape"
@@ -1485,7 +1479,6 @@ ${File} "..\..\shapes\Cybernetics\" "l-sens.png"
 ${File} "..\..\shapes\Cybernetics\" "l-sens.shape"
 ${File} "..\..\shapes\Cybernetics\" "lpf.png"
 ${File} "..\..\shapes\Cybernetics\" "lpf.shape"
-${File} "..\..\shapes\Cybernetics\" "Makefile.am"
 ${File} "..\..\shapes\Cybernetics\" "negative-shift.png"
 ${File} "..\..\shapes\Cybernetics\" "negative-shift.shape"
 ${File} "..\..\shapes\Cybernetics\" "positive-shift.png"
@@ -1536,7 +1529,6 @@ ${File} "..\..\shapes\Electric\" "intpos_o.xpm"
 ${File} "..\..\shapes\Electric\" "lamp.png"
 ${File} "..\..\shapes\Electric\" "lamp.shape"
 ${File} "..\..\shapes\Electric\" "lamp.xpm"
-${File} "..\..\shapes\Electric\" "Makefile.am"
 ${File} "..\..\shapes\Electric\" "relay.png"
 ${File} "..\..\shapes\Electric\" "relay.shape"
 ${File} "..\..\shapes\Electric\" "relay.xpm"
@@ -1589,7 +1581,6 @@ ${File} "..\..\shapes\flowchart\" "magdrum.xpm"
 ${File} "..\..\shapes\flowchart\" "magtape.png"
 ${File} "..\..\shapes\flowchart\" "magtape.shape"
 ${File} "..\..\shapes\flowchart\" "magtape.xpm"
-${File} "..\..\shapes\flowchart\" "Makefile.am"
 ${File} "..\..\shapes\flowchart\" "manualinput.png"
 ${File} "..\..\shapes\flowchart\" "manualinput.shape"
 ${File} "..\..\shapes\flowchart\" "manualinput.xpm"
@@ -1645,7 +1636,6 @@ ${File} "..\..\shapes\Gane_and_Sarson\" "entity.shape"
 ${File} "..\..\shapes\Gane_and_Sarson\" "process.png"
 ${File} "..\..\shapes\Gane_and_Sarson\" "process.shape"
 ${SetOutPath} "$INSTDIR\shapes\jigsaw"
-${File} "..\..\shapes\jigsaw\" "Makefile.am"
 ${File} "..\..\shapes\jigsaw\" "part_iiii.png"
 ${File} "..\..\shapes\jigsaw\" "part_iiii.shape"
 ${File} "..\..\shapes\jigsaw\" "part_iiii.xpm"
@@ -1703,7 +1693,6 @@ ${File} "..\..\shapes\Logic\" "connector.png"
 ${File} "..\..\shapes\Logic\" "connector.shape"
 ${File} "..\..\shapes\Logic\" "inverter.png"
 ${File} "..\..\shapes\Logic\" "inverter.shape"
-${File} "..\..\shapes\Logic\" "Makefile.am"
 ${File} "..\..\shapes\Logic\" "nand.png"
 ${File} "..\..\shapes\Logic\" "nand.shape"
 ${File} "..\..\shapes\Logic\" "nor.png"
@@ -1745,7 +1734,6 @@ ${File} "..\..\shapes\Map\Isometric\" "Factory.png"
 ${File} "..\..\shapes\Map\Isometric\" "Factory.shape"
 ${File} "..\..\shapes\Map\Isometric\" "FootBridge.png"
 ${File} "..\..\shapes\Map\Isometric\" "FootBridge.shape"
-${File} "..\..\shapes\Map\Isometric\" "Makefile.am"
 ${File} "..\..\shapes\Map\Isometric\" "OneWay.png"
 ${File} "..\..\shapes\Map\Isometric\" "OneWay.shape"
 ${File} "..\..\shapes\Map\Isometric\" "RedCar.png"
@@ -1766,13 +1754,11 @@ ${File} "..\..\shapes\Map\Isometric\" "Train2.png"
 ${File} "..\..\shapes\Map\Isometric\" "Train2.shape"
 ${File} "..\..\shapes\Map\Isometric\" "Tree1.png"
 ${File} "..\..\shapes\Map\Isometric\" "Tree1.shape"
-${File} "..\..\shapes\Map\" "Makefile.am"
 ${SetOutPath} "$INSTDIR\shapes\Misc"
 ${File} "..\..\shapes\Misc\" "file.png"
 ${File} "..\..\shapes\Misc\" "file.shape"
 ${File} "..\..\shapes\Misc\" "folder.png"
 ${File} "..\..\shapes\Misc\" "folder.shape"
-${File} "..\..\shapes\Misc\" "Makefile.am"
 ${SetOutPath} "$INSTDIR\shapes\MSE"
 ${File} "..\..\shapes\MSE\" "demultiplexer.png"
 ${File} "..\..\shapes\MSE\" "demultiplexer.shape"
@@ -1780,7 +1766,6 @@ ${File} "..\..\shapes\MSE\" "demultiplexer.xpm"
 ${File} "..\..\shapes\MSE\" "large_extension_node.png"
 ${File} "..\..\shapes\MSE\" "large_extension_node.shape"
 ${File} "..\..\shapes\MSE\" "large_extension_node.xpm"
-${File} "..\..\shapes\MSE\" "Makefile.am"
 ${File} "..\..\shapes\MSE\" "multiplexer.png"
 ${File} "..\..\shapes\MSE\" "multiplexer.shape"
 ${File} "..\..\shapes\MSE\" "multiplexer.xpm"
@@ -1825,7 +1810,6 @@ ${File} "..\..\shapes\network\" "hub.shape"
 ${File} "..\..\shapes\network\" "hub.xpm"
 ${File} "..\..\shapes\network\" "laptop.png"
 ${File} "..\..\shapes\network\" "laptop.shape"
-${File} "..\..\shapes\network\" "Makefile.am"
 ${File} "..\..\shapes\network\" "mobile_phone.png"
 ${File} "..\..\shapes\network\" "mobile_phone.shape"
 ${File} "..\..\shapes\network\" "mobile_phone.xpm"
@@ -1936,7 +1920,6 @@ ${File} "..\..\shapes\Pneumatic\" "dist52.xpm"
 ${File} "..\..\shapes\Pneumatic\" "drain.png"
 ${File} "..\..\shapes\Pneumatic\" "drain.shape"
 ${File} "..\..\shapes\Pneumatic\" "drain.xpm"
-${File} "..\..\shapes\Pneumatic\" "Makefile.am"
 ${File} "..\..\shapes\Pneumatic\" "press.png"
 ${File} "..\..\shapes\Pneumatic\" "press.shape"
 ${File} "..\..\shapes\Pneumatic\" "press.xpm"
@@ -1955,7 +1938,6 @@ ${File} "..\..\shapes\Pneumatic\" "seojack.xpm"
 ${SetOutPath} "$INSTDIR\shapes\RDP"
 ${File} "..\..\shapes\RDP\" "arc.png"
 ${File} "..\..\shapes\RDP\" "arc_inhibiteur.png"
-${File} "..\..\shapes\RDP\" "Makefile.am"
 ${File} "..\..\shapes\RDP\" "place.png"
 ${File} "..\..\shapes\RDP\" "place.shape"
 ${File} "..\..\shapes\RDP\" "place_marquee.png"
@@ -1986,7 +1968,6 @@ ${File} "..\..\shapes\SDL\" "inout.xpm"
 ${File} "..\..\shapes\SDL\" "macro.png"
 ${File} "..\..\shapes\SDL\" "macro.shape"
 ${File} "..\..\shapes\SDL\" "macro.xpm"
-${File} "..\..\shapes\SDL\" "Makefile.am"
 ${File} "..\..\shapes\SDL\" "note.png"
 ${File} "..\..\shapes\SDL\" "note.shape"
 ${File} "..\..\shapes\SDL\" "note.xpm"
@@ -2027,7 +2008,6 @@ ${File} "..\..\shapes\sybase\" "dataserver.xpm"
 ${File} "..\..\shapes\sybase\" "ltm.png"
 ${File} "..\..\shapes\sybase\" "ltm.shape"
 ${File} "..\..\shapes\sybase\" "ltm.xpm"
-${File} "..\..\shapes\sybase\" "Makefile.am"
 ${File} "..\..\shapes\sybase\" "repserver.png"
 ${File} "..\..\shapes\sybase\" "repserver.shape"
 ${File} "..\..\shapes\sybase\" "repserver.xpm"
@@ -2073,8 +2053,6 @@ ${File} "..\..\sheets\" "SDL.sheet"
 ${File} "..\..\sheets\" "sybase.sheet"
 ${File} "..\..\sheets\" "UML.sheet"
 ${SetOutPath} "$INSTDIR\sheets\ER"
-${File} "..\..\sheets\ER\" "Makefile.am"
-${File} "..\..\sheets\ER\" "Makefile.in"
 ${File} "..\..\sheets\ER\" "weakentity.png"
 ${File} "..\..\sheets\ER\" "weakentity.xpm"
 ${SetOutPath} "$INSTDIR\sheets\GRAFCET"
@@ -2088,8 +2066,6 @@ ${File} "..\..\sheets\GRAFCET\" "etapems.png"
 ${File} "..\..\sheets\GRAFCET\" "etapems.xpm"
 ${File} "..\..\sheets\GRAFCET\" "etapesp.png"
 ${File} "..\..\sheets\GRAFCET\" "etapesp.xpm"
-${File} "..\..\sheets\GRAFCET\" "Makefile.am"
-${File} "..\..\sheets\GRAFCET\" "Makefile.in"
 ${File} "..\..\sheets\GRAFCET\" "vergent_and.png"
 ${File} "..\..\sheets\GRAFCET\" "vergent_and.xpm"
 ${SetOutPath} "$INSTDIR\sheets\Istar"
@@ -2101,8 +2077,6 @@ ${File} "..\..\sheets\Istar\" "dependency.png"
 ${File} "..\..\sheets\Istar\" "dependency.xpm"
 ${File} "..\..\sheets\Istar\" "goal.png"
 ${File} "..\..\sheets\Istar\" "goal.xpm"
-${File} "..\..\sheets\Istar\" "Makefile.am"
-${File} "..\..\sheets\Istar\" "Makefile.in"
 ${File} "..\..\sheets\Istar\" "means_ends.png"
 ${File} "..\..\sheets\Istar\" "means_ends.xpm"
 ${File} "..\..\sheets\Istar\" "neg_contrib.png"
@@ -2120,8 +2094,6 @@ ${File} "..\..\sheets\Jackson\" "designed_domain.png"
 ${File} "..\..\sheets\Jackson\" "designed_domain.xpm"
 ${File} "..\..\sheets\Jackson\" "machine_domain.png"
 ${File} "..\..\sheets\Jackson\" "machine_domain.xpm"
-${File} "..\..\sheets\Jackson\" "Makefile.am"
-${File} "..\..\sheets\Jackson\" "Makefile.in"
 ${File} "..\..\sheets\Jackson\" "req_phen.png"
 ${File} "..\..\sheets\Jackson\" "req_phen.xpm"
 ${SetOutPath} "$INSTDIR\sheets\KAOS"
@@ -2139,8 +2111,6 @@ ${File} "..\..\sheets\KAOS\" "controls.png"
 ${File} "..\..\sheets\KAOS\" "controls.xpm"
 ${File} "..\..\sheets\KAOS\" "input.png"
 ${File} "..\..\sheets\KAOS\" "input.xpm"
-${File} "..\..\sheets\KAOS\" "Makefile.am"
-${File} "..\..\sheets\KAOS\" "Makefile.in"
 ${File} "..\..\sheets\KAOS\" "monitors.png"
 ${File} "..\..\sheets\KAOS\" "monitors.xpm"
 ${File} "..\..\sheets\KAOS\" "obstacle.png"
@@ -2170,8 +2140,6 @@ ${File} "..\..\sheets\UML\" "eventsink.png"
 ${File} "..\..\sheets\UML\" "eventsink.xpm"
 ${File} "..\..\sheets\UML\" "eventsource.png"
 ${File} "..\..\sheets\UML\" "eventsource.xpm"
-${File} "..\..\sheets\UML\" "Makefile.am"
-${File} "..\..\sheets\UML\" "Makefile.in"
 ${File} "..\..\sheets\UML\" "receptacle.png"
 ${File} "..\..\sheets\UML\" "receptacle.xpm"
 ${File} "..\..\sheets\UML\" "umlclass_template.png"
@@ -2220,7 +2188,8 @@ ${File} "..\..\plug-ins\xslt\" "stylesheets.xml"
     SetOverwrite on
     WriteUninstaller "$INSTDIR\${DIA_UNINST_EXE}"
     SetOverwrite off
-
+    CreateShortCut "$SMPROGRAMS\Dia\Uninstall.lnk" "$INSTDIR\${DIA_UNINST_EXE}"
+    
   done:
 SectionEnd ; end of default Dia section
   
@@ -2422,6 +2391,7 @@ Section Uninstall
     no_uninstlog:
     ; Shortcuts..
     Delete "$SMPROGRAMS\Dia\Dia.lnk"
+    Delete "$SMPROGRAMS\Dia\Uninstall.lnk"
     Delete "$SMPROGRAMS\Dia\Dia Manual (CHM).lnk"
     Delete "$SMPROGRAMS\Dia\Dia Manual (PDF).lnk"
     Delete "$SMPROGRAMS\Dia\FAQ.lnk"
@@ -2629,20 +2599,25 @@ FunctionEnd
 
 Function .onInit
   StrCpy $name "Dia ${DIA_VERSION}"
-
+  Goto no_gtk
   ClearErrors
   ReadRegStr $GTKBIN HKLM "Software\GTK\2.0" "DllPath"
-  IfErrors no_gtk
   ReadRegStr $0 HKLM "Software\GTK\2.0" "Version"
   StrCpy $1 $0 4
-  StrCmp $1 "2.0." no_gtk
-  StrCmp $1 "2.1." no_gtk
-  StrCmp $1 "2.2." no_gtk
-  StrCmp $1 "2.3." no_gtk
-  StrCmp $1 "2.4." no_gtk
-  StrCmp $1 "2.5." no_gtk
+  StrCmp $1 "2.0." outdated_gtk
+  StrCmp $1 "2.1." outdated_gtk
+  StrCmp $1 "2.2." outdated_gtk
+  StrCmp $1 "2.3." outdated_gtk
+  StrCmp $1 "2.4." outdated_gtk
+  StrCmp $1 "2.5." outdated_gtk
   Goto has_gtk
   no_gtk:
+  Push "GTKBIN"         ; push the search string onto the stack
+  Push "C:\Program Files\Common Files\GTK\2.0\bin"   ; push a default value onto the stack
+  Call GetParameterValue
+  Pop $GTKBIN
+  IfFileExists "$GTKBIN\libgtk-win32-2.0-0.dll" has_gtk 
+  outdated_gtk:
   MessageBox MB_OK|MB_ICONEXCLAMATION $(DIA_NO_GTK)
   Abort $(DIA_NO_GTK)
   
@@ -2690,3 +2665,218 @@ Function un.TrimNewlines
    Exch $R0
  FunctionEnd
 
+; GetParameterValue
+; Chris Morgan<cmorgan@alum.wpi.edu> 5/10/2004
+; -Updated 4/7/2005 to add support for retrieving a command line switch
+;  and additional documentation
+;
+; Searches the command line input, retrieved using GetParameters, for the
+; value of an option given the option name.  If no option is found the
+; default value is placed on the top of the stack upon function return.
+;
+; This function can also be used to detect the existence of just a
+; command line switch like /OUTPUT  Pass the default and "OUTPUT"
+; on the stack like normal.  An empty return string "" will indicate
+; that the switch was found, the default value indicates that
+; neither a parameter or switch was found.
+;
+; Inputs - Top of stack is default if parameter isn't found,
+;  second in stack is parameter to search for, ex. "OUTPUT"
+; Outputs - Top of the stack contains the value of this parameter
+;  So if the command line contained /OUTPUT=somedirectory, "somedirectory"
+;  will be on the top of the stack when this function returns
+;
+; Register usage
+;$R0 - default return value if the parameter isn't found
+;$R1 - input parameter, for example OUTPUT from the above example
+;$R2 - the length of the search, this is the search parameter+2
+;      as we have '/OUTPUT='
+;$R3 - the command line string
+;$R4 - result from StrStr calls
+;$R5 - search for ' ' or '"'
+ 
+Function GetParameterValue
+  Exch $R0  ; get the top of the stack(default parameter) into R0
+  Exch      ; exchange the top of the stack(default) with
+            ; the second in the stack(parameter to search for)
+  Exch $R1  ; get the top of the stack(search parameter) into $R1
+ 
+  ;Preserve on the stack the registers used in this function
+  Push $R2
+  Push $R3
+  Push $R4
+  Push $R5
+ 
+  Strlen $R2 $R1+2    ; store the length of the search string into R2
+ 
+  Call GetParameters  ; get the command line parameters
+  Pop $R3             ; store the command line string in R3
+ 
+  # search for quoted search string
+  StrCpy $R5 '"'      ; later on we want to search for a open quote
+  Push $R3            ; push the 'search in' string onto the stack
+  Push '"/$R1='       ; push the 'search for'
+  Call StrStr         ; search for the quoted parameter value
+  Pop $R4
+  StrCpy $R4 $R4 "" 1   ; skip over open quote character, "" means no maxlen
+  StrCmp $R4 "" "" next ; if we didn't find an empty string go to next
+ 
+  # search for non-quoted search string
+  StrCpy $R5 ' '      ; later on we want to search for a space since we
+                      ; didn't start with an open quote '"' we shouldn't
+                      ; look for a close quote '"'
+  Push $R3            ; push the command line back on the stack for searching
+  Push '/$R1='        ; search for the non-quoted search string
+  Call StrStr
+  Pop $R4
+ 
+  ; $R4 now contains the parameter string starting at the search string,
+  ; if it was found
+next:
+  StrCmp $R4 "" check_for_switch ; if we didn't find anything then look for
+                                 ; usage as a command line switch
+  # copy the value after /$R1= by using StrCpy with an offset of $R2,
+  # the length of '/OUTPUT='
+  StrCpy $R0 $R4 "" $R2  ; copy commandline text beyond parameter into $R0
+  # search for the next parameter so we can trim this extra text off
+  Push $R0
+  Push $R5            ; search for either the first space ' ', or the first
+                      ; quote '"'
+                      ; if we found '"/output' then we want to find the
+                      ; ending ", as in '"/output=somevalue"'
+                      ; if we found '/output' then we want to find the first
+                      ; space after '/output=somevalue'
+  Call StrStr         ; search for the next parameter
+  Pop $R4
+  StrCmp $R4 "" done  ; if 'somevalue' is missing, we are done
+  StrLen $R4 $R4      ; get the length of 'somevalue' so we can copy this
+                      ; text into our output buffer
+  StrCpy $R0 $R0 -$R4 ; using the length of the string beyond the value,
+                      ; copy only the value into $R0
+  goto done           ; if we are in the parameter retrieval path skip over
+                      ; the check for a command line switch
+ 
+; See if the parameter was specified as a command line switch, like '/output'
+check_for_switch:
+  Push $R3            ; push the command line back on the stack for searching
+  Push '/$R1'         ; search for the non-quoted search string
+  Call StrStr
+  Pop $R4
+  StrCmp $R4 "" done  ; if we didn't find anything then use the default
+  StrCpy $R0 ""       ; otherwise copy in an empty string since we found the
+                      ; parameter, just didn't find a value
+ 
+done:
+  Pop $R5
+  Pop $R4
+  Pop $R3
+  Pop $R2
+  Pop $R1
+  Exch $R0 ; put the value in $R0 at the top of the stack
+FunctionEnd
+
+ ; GetParameters
+ ; input, none
+ ; output, top of stack (replaces, with e.g. whatever)
+ ; modifies no other variables.
+ 
+Function GetParameters
+ 
+  Push $R0
+  Push $R1
+  Push $R2
+  Push $R3
+  
+  StrCpy $R2 1
+  StrLen $R3 $CMDLINE
+  
+  ;Check for quote or space
+  StrCpy $R0 $CMDLINE $R2
+  StrCmp $R0 '"' 0 +3
+    StrCpy $R1 '"'
+    Goto loop
+  StrCpy $R1 " "
+  
+  loop:
+    IntOp $R2 $R2 + 1
+    StrCpy $R0 $CMDLINE 1 $R2
+    StrCmp $R0 $R1 get
+    StrCmp $R2 $R3 get
+    Goto loop
+  
+  get:
+    IntOp $R2 $R2 + 1
+    StrCpy $R0 $CMDLINE 1 $R2
+    StrCmp $R0 " " get
+    StrCpy $R0 $CMDLINE "" $R2
+  
+  Pop $R3
+  Pop $R2
+  Pop $R1
+  Exch $R0
+ 
+FunctionEnd
+
+!define StrStr "!insertmacro StrStr"
+ 
+!macro StrStr ResultVar String SubString
+  Push `${String}`
+  Push `${SubString}`
+  Call StrStr
+  Pop `${ResultVar}`
+!macroend
+ 
+Function StrStr
+/*After this point:
+  ------------------------------------------
+  $R0 = SubString (input)
+  $R1 = String (input)
+  $R2 = SubStringLen (temp)
+  $R3 = StrLen (temp)
+  $R4 = StartCharPos (temp)
+  $R5 = TempStr (temp)*/
+ 
+  ;Get input from user
+  Exch $R0
+  Exch
+  Exch $R1
+  Push $R2
+  Push $R3
+  Push $R4
+  Push $R5
+ 
+  ;Get "String" and "SubString" length
+  StrLen $R2 $R0
+  StrLen $R3 $R1
+  ;Start "StartCharPos" counter
+  StrCpy $R4 0
+ 
+  ;Loop until "SubString" is found or "String" reaches its end
+  loop:
+    ;Remove everything before and after the searched part ("TempStr")
+    StrCpy $R5 $R1 $R2 $R4
+ 
+    ;Compare "TempStr" with "SubString"
+    StrCmp $R5 $R0 done
+    ;If not "SubString", this could be "String"'s end
+    IntCmp $R4 $R3 done 0 done
+    ;If not, continue the loop
+    IntOp $R4 $R4 + 1
+    Goto loop
+  done:
+ 
+/*After this point:
+  ------------------------------------------
+  $R0 = ResultVar (output)*/
+ 
+  ;Remove part before "SubString" on "String" (if there has one)
+  StrCpy $R0 $R1 `` $R4
+ 
+  ;Return output to user
+  Pop $R5
+  Pop $R4
+  Pop $R3
+  Pop $R2
+  Pop $R1
+  Exch $R0
+FunctionEnd

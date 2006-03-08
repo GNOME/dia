@@ -1,5 +1,12 @@
 2006-03-08  Steffen Macke <sdteffen@gmail.com>
 
+	* installer/Makefile.am:
+	* installer/win32/Makefile.am:
+	* installer/win32/locale/Makefile.am: Making sure that the installer
+	sources are included in the dia source distribution
+	* installer/win32/dia.nsi: Don't include makefiles in installer;
+	Add uninstaller link to start menu (bug #332650); added commandline 
+	option GTKBIN to specify GTK installation directory (fixes bug #332595)
 	* installer/win32/dia-diagram.ico:
 	* installer/win32/dia-header.bmp:
 	* installer/win32/dia-install.ico:
