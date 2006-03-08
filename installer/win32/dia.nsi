@@ -1,0 +1,2692 @@
+; Dia -- an diagram creation/manipulation program
+; Copyright (C) 1998-2006 Alexander Larsson, Lars Clausen and others
+;  
+; dia-installer.nsi : Nullsoft Installation System (NSIS) script
+; Copyright (C) 2000-2004 Herman Bloggs, Steffen Macke
+; Copyright (C) 2005,2006 Steffen Macke
+;  
+; This program is free software; you can redistribute it and/or modify
+; it under the terms of the GNU General Public License as published by
+; the Free Software Foundation; either version 2 of the License, or
+; (at your option) any later version.
+; This program is distributed in the hope that it will be useful,
+; but WITHOUT ANY WARRANTY; without even the implied warranty of
+; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+; GNU General Public License for more details.
+
+; You should have received a copy of the GNU General Public License
+; along with this program; if not, write to the Free Software
+; Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+
+; NOTE: this .NSI script is designed for NSIS v2.0
+
+;--------------------------------
+;Global Variables
+Var name
+
+;--------------------------------
+;Configuration
+
+;The name var is set in .onInit
+Name $name
+
+; Uninstall only the installed files and folders
+!define UninstLog "uninstall.log"
+Var UninstLog
+
+; Where the GTK+ binares are installed. Set in .onInit 
+Var GTKBIN
+
+; Add file macro
+!macro File FilePath FileName
+ !define FileID ${__LINE__}
+ IfFileExists "$OUTDIR\${FileName}" NoExtract_${FileID}
+  File "${FilePath}${FileName}"
+ NoExtract_${FileID}:
+ FileWrite $UninstLog "$OUTDIR\${FileName}$\r$\n"
+ !undef FileID
+!macroend
+!define File "!insertmacro File"
+ 
+; Set output path macro
+!macro SetOutPath Path
+ SetOutPath "${Path}"
+ FileWrite $UninstLog "${PATH}$\r$\n"
+!macroend
+!define SetOutPath "!insertmacro SetOutPath"
+ 
+Section -openlogfile
+ SetOutPath "$INSTDIR"
+ IfFileExists "$INSTDIR\${UninstLog}" +3
+  FileOpen $UninstLog "$INSTDIR\${UninstLog}" w
+ Goto +4
+  SetFileAttributes "$INSTDIR\${UninstLog}" NORMAL
+  FileOpen $UninstLog "$INSTDIR\${UninstLog}" a
+  FileSeek $UninstLog 0 END
+SectionEnd
+
+OutFile "dia-setup-${DIA_VERSION}.exe"
+
+SetCompressor LZMA
+;DirShow show
+ShowInstDetails show
+ShowUninstDetails show
+SetDateSave on
+
+; $name and $INSTDIR are set in .onInit function..
+
+!include "MUI.nsh"
+;!include "Sections.nsh"
+
+;--------------------------------
+;Defines
+
+!define DIA_REG_KEY				"SOFTWARE\Dia"
+!define DIA_UNINSTALL_KEY			"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Dia"
+!define HKLM_APP_PATHS_KEY			"SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\diaw.exe"
+!define HKLM_CMD_PATHS_KEY			"SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\dia.exe"
+!define DIA_STARTUP_RUN_KEY			"SOFTWARE\Microsoft\Windows\CurrentVersion\Run"
+!define DIA_UNINST_EXE				"dia-${DIA_VERSION}-uninstall.exe"
+
+XPStyle On
+  
+VIAddVersionKey "ProductName" "Dia for Windows"
+VIAddVersionKey "CompanyName" "The Dia Developers"
+VIAddVersionKey "LegalCopyright" "(c) 2003-2006 Alexander Larsson and others"
+VIAddVersionKey "FileDescription" "Dia for Windows Installer"
+VIAddVersionKey "FileVersion" "0.95.0.2"
+VIProductVersion "0.95.0.2"
+
+;--------------------------------
+;Modern UI Configuration
+
+  !define MUI_ICON				"dia-install.ico"
+  !define MUI_UNICON				"dia-uninstall.ico"
+  !define MUI_WELCOMEFINISHPAGE_BITMAP 		"dia-intro.bmp"
+  !define MUI_HEADERIMAGE
+  !define MUI_HEADERIMAGE_BITMAP		"dia-header.bmp"
+  !define MUI_HEADERIMAGE_UNBITMAP		"dia-header.bmp"
+
+  ; Alter License section
+  !define MUI_LICENSEPAGE_BUTTON		$(DIA_LICENSE_BUTTON)
+  !define MUI_LICENSEPAGE_TEXT_BOTTOM		$(DIA_LICENSE_BOTTOM_TEXT)
+
+  !define MUI_COMPONENTSPAGE_SMALLDESC
+  !define MUI_ABORTWARNING
+
+  ;Finish Page config
+  !define MUI_FINISHPAGE_RUN			"$INSTDIR\bin\diaw.exe"
+  !define MUI_FINISHPAGE_RUN_NOTCHECKED
+  !define MUI_FINISHPAGE_LINK			$(DIA_FINISH_VISIT_WEB_SITE)
+  !define MUI_FINISHPAGE_LINK_LOCATION          "http://dia-installer.sourceforge.net/"
+
+;--------------------------------
+;Pages
+  
+  !insertmacro MUI_PAGE_WELCOME
+  !insertmacro MUI_PAGE_LICENSE			"..\..\COPYING"
+  !insertmacro MUI_PAGE_COMPONENTS
+
+  ; Dia install dir page
+  !insertmacro MUI_PAGE_DIRECTORY
+
+  !insertmacro MUI_PAGE_INSTFILES
+  !insertmacro MUI_PAGE_FINISH
+
+  !insertmacro MUI_UNPAGE_WELCOME
+  !insertmacro MUI_UNPAGE_CONFIRM
+  !insertmacro MUI_UNPAGE_INSTFILES
+  !insertmacro MUI_UNPAGE_FINISH
+
+;--------------------------------
+;Languages
+ 
+  ;; English goes first because its the default. The rest are
+  ;; in alphabetical order (at least the strings actually displayed
+  ;; will be).
+
+  !insertmacro MUI_LANGUAGE "English"
+  !insertmacro MUI_LANGUAGE "German"
+
+;--------------------------------
+;Translations
+
+  !define DIA_DEFAULT_LANGFILE "locale\english.nsh"
+
+  !include "langmacros.nsh"
+  
+  !insertmacro DIA_MACRO_INCLUDE_LANGFILE "ENGLISH" "locale\english.nsh"
+  !insertmacro DIA_MACRO_INCLUDE_LANGFILE "GERMAN" "locale\german.nsh"
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Start Install Sections ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;--------------------------------
+;Uninstall any old version of Dia
+
+Section -SecUninstallOldDia
+  ; Check install rights..
+  Call CheckUserInstallRights
+  Pop $R0
+
+  StrCmp $R0 "HKLM" dia_hklm
+  StrCmp $R0 "HKCU" dia_hkcu done
+
+  dia_hkcu:
+      ReadRegStr $R1 HKCU ${DIA_REG_KEY} ""
+      ReadRegStr $R2 HKCU ${DIA_REG_KEY} "Version"
+      ReadRegStr $R3 HKCU "${DIA_UNINSTALL_KEY}" "UninstallString"
+      Goto try_uninstall
+
+  dia_hklm:
+      ReadRegStr $R1 HKLM ${DIA_REG_KEY} ""
+      ReadRegStr $R2 HKLM ${DIA_REG_KEY} "Version"
+      ReadRegStr $R3 HKLM "${DIA_UNINSTALL_KEY}" "UninstallString"
+
+  ; If previous version exists .. remove
+  try_uninstall:
+    StrCmp $R1 "" done
+      ; Version key started with 0.94. Prior versions can't be 
+      ; automatically uninstalled.
+      StrCmp $R2 "" uninstall_problem
+        ; Check if we have uninstall string..
+        IfFileExists $R3 0 uninstall_problem
+          ; Have uninstall string.. go ahead and uninstall.
+          SetOverwrite on
+          ; Need to copy uninstaller outside of the install dir
+          ClearErrors
+          CopyFiles /SILENT $R3 "$TEMP\${DIA_UNINST_EXE}"
+          SetOverwrite off
+          IfErrors uninstall_problem
+            ; Ready to uninstall..
+            ClearErrors
+	    ExecWait '"$TEMP\${DIA_UNINST_EXE}" /S _?=$R1'
+	    IfErrors exec_error
+              Delete "$TEMP\${DIA_UNINST_EXE}"
+	      Goto done
+
+	    exec_error:
+              Delete "$TEMP\${DIA_UNINST_EXE}"
+              Goto uninstall_problem
+
+        uninstall_problem:
+	  ; In this case just wipe out previous Dia install dir..
+          IfSilent do_wipeout
+          MessageBox MB_YESNO $(DIA_PROMPT_WIPEOUT) IDYES do_wipeout IDNO cancel_install
+          cancel_install:
+            Quit
+
+          do_wipeout:
+            StrCmp $R0 "HKLM" dia_del_lm_reg dia_del_cu_reg
+            dia_del_cu_reg:
+              DeleteRegKey HKCU ${DIA_REG_KEY}
+              Goto uninstall_prob_cont
+            dia_del_lm_reg:
+              DeleteRegKey HKLM ${DIA_REG_KEY}
+
+            uninstall_prob_cont:
+	      RMDir /r "$R1"
+
+  done:
+SectionEnd
+  
+;--------------------------------
+;Dia Install Section
+
+Section $(DIA_SECTION_TITLE) SecDia
+  SectionIn 1 RO
+
+  ; Check install rights..
+  Call CheckUserInstallRights
+  Pop $R0
+
+  StrCmp $R0 "NONE" dia_none
+  StrCmp $R0 "HKLM" dia_hklm dia_hkcu
+   
+  dia_hklm:
+    WriteRegStr HKLM "${HKLM_APP_PATHS_KEY}" "" "$INSTDIR\bin\diaw.exe"
+    WriteRegStr HKLM "${HKLM_APP_PATHS_KEY}" "Path" "$R1\bin;$GTKBIN"
+    WriteRegStr HKLM "${HKLM_CMD_PATHS_KEY}" "" "$INSTDIR\bin\dia.exe"
+    WriteRegStr HKLM "${HKLM_CMD_PATHS_KEY}" "Path" "$R1\bin;$GTKBIN"
+    WriteRegStr HKLM ${DIA_REG_KEY} "" "$INSTDIR"
+    WriteRegStr HKLM ${DIA_REG_KEY} "Version" "${DIA_VERSION}"
+    WriteRegStr HKLM "${DIA_UNINSTALL_KEY}" "DisplayName" $(DIA_UNINSTALL_DESC)
+    WriteRegStr HKLM "${DIA_UNINSTALL_KEY}" "UninstallString" "$INSTDIR\${DIA_UNINST_EXE}"
+    WriteRegStr HKLM "${DIA_UNINSTALL_KEY}" "DisplayIcon" "$INSTDIR\${DIA_UNINST_EXE}"
+    ; Sets scope of the desktop and Start Menu entries for all users.
+    SetShellVarContext "all"
+    Goto dia_install_files
+
+  dia_hkcu:
+    WriteRegStr HKCU ${DIA_REG_KEY} "" "$INSTDIR"
+    WriteRegStr HKCU ${DIA_REG_KEY} "Version" "${DIA_VERSION}"
+    WriteRegStr HKCU "${DIA_UNINSTALL_KEY}" "DisplayName" $(DIA_UNINSTALL_DESC)
+    WriteRegStr HKCU "${DIA_UNINSTALL_KEY}" "UninstallString" "$INSTDIR\${DIA_UNINST_EXE}"
+    WriteRegStr HKCU "${DIA_UNINSTALL_KEY}" "DisplayIcon" "$INSTDIR\${DIA_UNINST_EXE}"
+
+    Goto dia_install_files
+
+  dia_none:
+
+  dia_install_files:
+  
+    WriteRegStr HKEY_CLASSES_ROOT ".dia" "" "diaFile"
+    WriteRegStr HKEY_CLASSES_ROOT ".dia" "Content Type" "application/dia"
+    WriteRegStr HKEY_CLASSES_ROOT "diaFile" "" "diaFile"
+    WriteRegBin HKEY_CLASSES_ROOT "diaFile" "EditFlags" 00000100
+    WriteRegStr HKEY_CLASSES_ROOT "diaFile\Shell\open\command" "" '"$INSTDIR\bin\diaw.exe" "%1"'
+    WriteRegStr HKEY_CLASSES_ROOT "diaFile\DefaultIcon" "" "$INSTDIR\etc\dia-diagram.ico,0"
+    WriteRegStr HKEY_CLASSES_ROOT "diaFile\Shell\createcgm" "" "Create CGM image"
+    WriteRegStr HKEY_CLASSES_ROOT "diaFile\Shell\createcgm\command" "" '"$INSTDIR\bin\dia.exe" -t cgm "%1"'
+    WriteRegStr HKEY_CLASSES_ROOT "diaFile\Shell\createdxf" "" "Create DXF drawing"
+    WriteRegStr HKEY_CLASSES_ROOT "diaFile\Shell\createdxf\command" "" '"$INSTDIR\bin\dia.exe" -t dxf "%1"'
+    WriteRegStr HKEY_CLASSES_ROOT "diaFile\Shell\createeps" "" "Create EPS file"
+    WriteRegStr HKEY_CLASSES_ROOT "diaFile\Shell\createeps\command" "" '"$INSTDIR\bin\dia.exe" -t eps "%1"'
+    WriteRegStr HKEY_CLASSES_ROOT "diaFile\Shell\createhpgl" "" "Create HPGL file"
+    WriteRegStr HKEY_CLASSES_ROOT "diaFile\Shell\createhpgl\command" "" '"$INSTDIR\bin\dia.exe" -t hpgl "%1"'
+    WriteRegStr HKEY_CLASSES_ROOT "diaFile\Shell\createmp" "" "Create TeX Metapost macros"
+    WriteRegStr HKEY_CLASSES_ROOT "diaFile\Shell\createmp\command" "" '"$INSTDIR\bin\dia.exe" -t mp "%1"'
+    WriteRegStr HKEY_CLASSES_ROOT "diaFile\Shell\createpng" "" "Create PNG image"
+    WriteRegStr HKEY_CLASSES_ROOT "diaFile\Shell\createpng\command" "" '"$INSTDIR\bin\dia.exe" -t png "%1"'
+    WriteRegStr HKEY_CLASSES_ROOT "diaFile\Shell\createsvg" "" "Create SVG image"
+    WriteRegStr HKEY_CLASSES_ROOT "diaFile\Shell\createsvg\command" "" '"$INSTDIR\bin\dia.exe" -t svg "%1"'
+    WriteRegStr HKEY_CLASSES_ROOT "diaFile\Shell\createshape" "" "Create dia shape"
+    WriteRegStr HKEY_CLASSES_ROOT "diaFile\Shell\createshape\command" "" '"$INSTDIR\bin\dia.exe" -t shape "%1"'
+    WriteRegStr HKEY_CLASSES_ROOT "diaFile\Shell\createtex" "" "Create TeX PSTricks macros"
+    WriteRegStr HKEY_CLASSES_ROOT "diaFile\Shell\createtex\command" "" '"$INSTDIR\bin\dia.exe" -t tex "%1"'
+    WriteRegStr HKEY_CLASSES_ROOT "diaFile\Shell\createwmf" "" "Create Windows Meta File"
+    WriteRegStr HKEY_CLASSES_ROOT "diaFile\Shell\createwmf\command" "" '"$INSTDIR\bin\dia.exe" -t wmf "%1"'
+    WriteRegStr HKEY_CLASSES_ROOT "diaFile\Shell\createwpg" "" "Create WPG image"
+    WriteRegStr HKEY_CLASSES_ROOT "diaFile\Shell\createwpg\command" "" '"$INSTDIR\bin\dia.exe" -t wpg "%1"'
+    WriteRegStr HKEY_CLASSES_ROOT "diaFile\Shell\createfig" "" "Create XFig drawing"
+    WriteRegStr HKEY_CLASSES_ROOT "diaFile\Shell\createfig\command" "" '"$INSTDIR\bin\dia.exe" -t fig "%1"'
+  
+${SetOutPath} "$INSTDIR\bin"
+; jEdit replacement: (^.*\\)(.*)$ 
+; \${File} "$1" "$2"
+${File} "..\..\..\bin\" "dia.exe"
+${File} "..\..\..\bin\" "diaw.exe"
+${File} "..\..\..\bin\" "dia-app.dll"
+${File} "..\..\..\bin\" "libart_lgpl_2-2.dll"
+${File} "..\..\..\bin\" "libcairo.dll"
+${File} "..\..\..\bin\" "libdia.dll"
+${File} "..\..\..\bin\" "libiconv2.dll"
+${File} "..\..\..\bin\" "libintl3.dll"
+${File} "..\..\..\bin\" "libxml2.dll"
+${File} "..\..\..\bin\" "libxslt.dll"
+${SetOutPath} "$INSTDIR\dia"
+${File} "..\..\" "aadl.dll"
+${File} "..\..\" "bondgraph.dll"
+${File} "..\..\" "cairo.dll"
+${File} "..\..\" "cgm.dll"
+${File} "..\..\" "chronogram.dll"
+${File} "..\..\" "custom.dll"
+${File} "..\..\" "dxf.dll"
+${File} "..\..\" "er.dll"
+${File} "..\..\" "flowchart.dll"
+${File} "..\..\" "fs.dll"
+${File} "..\..\" "grafcet.dll"
+${File} "..\..\" "hpgl.dll"
+${File} "..\..\" "Istar.dll"
+${File} "..\..\" "Jackson.dll"
+${File} "..\..\" "Kaos.dll"
+${File} "..\..\" "metapost.dll"
+${File} "..\..\" "misc.dll"
+${File} "..\..\" "network.dll"
+${File} "..\..\" "pixbuf.dll"
+${File} "..\..\" "pstricks.dll"
+${File} "..\..\" "sadt.dll"
+${File} "..\..\" "shape.dll"
+${File} "..\..\" "standard.dll"
+${File} "..\..\" "svg.dll"
+${File} "..\..\" "uml.dll"
+${File} "..\..\" "wmf.dll"
+${File} "..\..\" "wpg.dll"
+${File} "..\..\" "xfig.dll"
+${File} "..\..\" "xslt.dll"
+
+${SetOutPath} "$INSTDIR\shapes\Assorted"
+${File} "..\..\shapes\Assorted\" "arrow-chevron.png"
+${File} "..\..\shapes\Assorted\" "arrow-chevron.shape"
+${File} "..\..\shapes\Assorted\" "arrow-down.png"
+${File} "..\..\shapes\Assorted\" "arrow-down.shape"
+${File} "..\..\shapes\Assorted\" "arrow-left-notched.png"
+${File} "..\..\shapes\Assorted\" "arrow-left-notched.shape"
+${File} "..\..\shapes\Assorted\" "arrow-left-right-up.png"
+${File} "..\..\shapes\Assorted\" "arrow-left-right-up.shape"
+${File} "..\..\shapes\Assorted\" "arrow-left-right.png"
+${File} "..\..\shapes\Assorted\" "arrow-left-right.shape"
+${File} "..\..\shapes\Assorted\" "arrow-left-up.png"
+${File} "..\..\shapes\Assorted\" "arrow-left-up.shape"
+${File} "..\..\shapes\Assorted\" "arrow-left.png"
+${File} "..\..\shapes\Assorted\" "arrow-left.shape"
+${File} "..\..\shapes\Assorted\" "arrow-pentagon.png"
+${File} "..\..\shapes\Assorted\" "arrow-pentagon.shape"
+${File} "..\..\shapes\Assorted\" "arrow-quad.png"
+${File} "..\..\shapes\Assorted\" "arrow-quad.shape"
+${File} "..\..\shapes\Assorted\" "arrow-right-notched.png"
+${File} "..\..\shapes\Assorted\" "arrow-right-notched.shape"
+${File} "..\..\shapes\Assorted\" "arrow-right.png"
+${File} "..\..\shapes\Assorted\" "arrow-right.shape"
+${File} "..\..\shapes\Assorted\" "arrow-turn-up.png"
+${File} "..\..\shapes\Assorted\" "arrow-turn-up.shape"
+${File} "..\..\shapes\Assorted\" "arrow-up-down-left.png"
+${File} "..\..\shapes\Assorted\" "arrow-up-down-left.shape"
+${File} "..\..\shapes\Assorted\" "arrow-up-down.png"
+${File} "..\..\shapes\Assorted\" "arrow-up-down.shape"
+${File} "..\..\shapes\Assorted\" "arrow-up.png"
+${File} "..\..\shapes\Assorted\" "arrow-up.shape"
+${File} "..\..\shapes\Assorted\" "circle-quarter.png"
+${File} "..\..\shapes\Assorted\" "circle-quarter.shape"
+${File} "..\..\shapes\Assorted\" "circle.png"
+${File} "..\..\shapes\Assorted\" "circle.shape"
+${File} "..\..\shapes\Assorted\" "cross-maltese.png"
+${File} "..\..\shapes\Assorted\" "cross-maltese.shape"
+${File} "..\..\shapes\Assorted\" "cross-swiss.png"
+${File} "..\..\shapes\Assorted\" "cross-swiss.shape"
+${File} "..\..\shapes\Assorted\" "diamond.png"
+${File} "..\..\shapes\Assorted\" "diamond.shape"
+${File} "..\..\shapes\Assorted\" "heart.png"
+${File} "..\..\shapes\Assorted\" "heart.shape"
+${File} "..\..\shapes\Assorted\" "heptagon.png"
+${File} "..\..\shapes\Assorted\" "heptagon.shape"
+${File} "..\..\shapes\Assorted\" "hexagon.png"
+${File} "..\..\shapes\Assorted\" "hexagon.shape"
+${File} "..\..\shapes\Assorted\" "Makefile.am"
+${File} "..\..\shapes\Assorted\" "moon-quarter.png"
+${File} "..\..\shapes\Assorted\" "moon-quarter.shape"
+${File} "..\..\shapes\Assorted\" "octagon.png"
+${File} "..\..\shapes\Assorted\" "octagon.shape"
+${File} "..\..\shapes\Assorted\" "parallelogram-horizontal.png"
+${File} "..\..\shapes\Assorted\" "parallelogram-horizontal.shape"
+${File} "..\..\shapes\Assorted\" "parallelogram-vertical.png"
+${File} "..\..\shapes\Assorted\" "parallelogram-vertical.shape"
+${File} "..\..\shapes\Assorted\" "pentagon.png"
+${File} "..\..\shapes\Assorted\" "pentagon.shape"
+${File} "..\..\shapes\Assorted\" "square.png"
+${File} "..\..\shapes\Assorted\" "square.shape"
+${File} "..\..\shapes\Assorted\" "star4.png"
+${File} "..\..\shapes\Assorted\" "star4.shape"
+${File} "..\..\shapes\Assorted\" "star4curved.png"
+${File} "..\..\shapes\Assorted\" "star4curved.shape"
+${File} "..\..\shapes\Assorted\" "star5.png"
+${File} "..\..\shapes\Assorted\" "star5.shape"
+${File} "..\..\shapes\Assorted\" "star6.png"
+${File} "..\..\shapes\Assorted\" "star6.shape"
+${File} "..\..\shapes\Assorted\" "star7.png"
+${File} "..\..\shapes\Assorted\" "star7.shape"
+${File} "..\..\shapes\Assorted\" "star8.png"
+${File} "..\..\shapes\Assorted\" "star8.shape"
+${File} "..\..\shapes\Assorted\" "star8curved.png"
+${File} "..\..\shapes\Assorted\" "star8curved.shape"
+${File} "..\..\shapes\Assorted\" "star8sharp.png"
+${File} "..\..\shapes\Assorted\" "star8sharp.shape"
+${File} "..\..\shapes\Assorted\" "sun.png"
+${File} "..\..\shapes\Assorted\" "sun.shape"
+${File} "..\..\shapes\Assorted\" "trapezoid.png"
+${File} "..\..\shapes\Assorted\" "trapezoid.shape"
+${File} "..\..\shapes\Assorted\" "triangle-isoceles.png"
+${File} "..\..\shapes\Assorted\" "triangle-isoceles.shape"
+${File} "..\..\shapes\Assorted\" "triangle-rightangle.png"
+${File} "..\..\shapes\Assorted\" "triangle-rightangle.shape"
+${SetOutPath} "$INSTDIR\shapes\ChemEng"
+${File} "..\..\shapes\ChemEng\" "ACgen.png"
+${File} "..\..\shapes\ChemEng\" "ACgen.shape"
+${File} "..\..\shapes\ChemEng\" "aircooler.png"
+${File} "..\..\shapes\ChemEng\" "aircooler.shape"
+${File} "..\..\shapes\ChemEng\" "airforced.png"
+${File} "..\..\shapes\ChemEng\" "airforced.shape"
+${File} "..\..\shapes\ChemEng\" "airinduced.png"
+${File} "..\..\shapes\ChemEng\" "airinduced.shape"
+${File} "..\..\shapes\ChemEng\" "autoclave.png"
+${File} "..\..\shapes\ChemEng\" "autoclave.shape"
+${File} "..\..\shapes\ChemEng\" "bigtraycol.png"
+${File} "..\..\shapes\ChemEng\" "bigtraycol.shape"
+${File} "..\..\shapes\ChemEng\" "centrifuge.png"
+${File} "..\..\shapes\ChemEng\" "centrifuge.shape"
+${File} "..\..\shapes\ChemEng\" "coil.png"
+${File} "..\..\shapes\ChemEng\" "coil.shape"
+${File} "..\..\shapes\ChemEng\" "coilv.png"
+${File} "..\..\shapes\ChemEng\" "coilv.shape"
+${File} "..\..\shapes\ChemEng\" "compr.png"
+${File} "..\..\shapes\ChemEng\" "compr.shape"
+${File} "..\..\shapes\ChemEng\" "coveredtank.png"
+${File} "..\..\shapes\ChemEng\" "coveredtank.shape"
+${File} "..\..\shapes\ChemEng\" "cyclone.png"
+${File} "..\..\shapes\ChemEng\" "cyclone.shape"
+${File} "..\..\shapes\ChemEng\" "displa.png"
+${File} "..\..\shapes\ChemEng\" "displa.shape"
+${File} "..\..\shapes\ChemEng\" "doublepipe.png"
+${File} "..\..\shapes\ChemEng\" "doublepipe.shape"
+${File} "..\..\shapes\ChemEng\" "ejector.png"
+${File} "..\..\shapes\ChemEng\" "ejector.shape"
+${File} "..\..\shapes\ChemEng\" "fan.png"
+${File} "..\..\shapes\ChemEng\" "fan.shape"
+${File} "..\..\shapes\ChemEng\" "filter.png"
+${File} "..\..\shapes\ChemEng\" "filter.shape"
+${File} "..\..\shapes\ChemEng\" "fixedroof.png"
+${File} "..\..\shapes\ChemEng\" "fixedroof.shape"
+${File} "..\..\shapes\ChemEng\" "floatingroof.png"
+${File} "..\..\shapes\ChemEng\" "floatingroof.shape"
+${File} "..\..\shapes\ChemEng\" "flowfan.png"
+${File} "..\..\shapes\ChemEng\" "flowfan.shape"
+${File} "..\..\shapes\ChemEng\" "fluidcont.png"
+${File} "..\..\shapes\ChemEng\" "fluidcont.shape"
+${File} "..\..\shapes\ChemEng\" "furnace.png"
+${File} "..\..\shapes\ChemEng\" "furnace.shape"
+${File} "..\..\shapes\ChemEng\" "gasholder.png"
+${File} "..\..\shapes\ChemEng\" "gasholder.shape"
+${File} "..\..\shapes\ChemEng\" "hx.png"
+${File} "..\..\shapes\ChemEng\" "hx.shape"
+${File} "..\..\shapes\ChemEng\" "hxv.png"
+${File} "..\..\shapes\ChemEng\" "hxv.shape"
+${File} "..\..\shapes\ChemEng\" "kettle.png"
+${File} "..\..\shapes\ChemEng\" "kettle.shape"
+${File} "..\..\shapes\ChemEng\" "knockout.png"
+${File} "..\..\shapes\ChemEng\" "knockout.shape"
+${File} "..\..\shapes\ChemEng\" "Makefile.am"
+${File} "..\..\shapes\ChemEng\" "measure.png"
+${File} "..\..\shapes\ChemEng\" "measure.shape"
+${File} "..\..\shapes\ChemEng\" "mixer.png"
+${File} "..\..\shapes\ChemEng\" "mixer.shape"
+${File} "..\..\shapes\ChemEng\" "plate.png"
+${File} "..\..\shapes\ChemEng\" "plate.shape"
+${File} "..\..\shapes\ChemEng\" "pneum.png"
+${File} "..\..\shapes\ChemEng\" "pneum.shape"
+${File} "..\..\shapes\ChemEng\" "pneumv.png"
+${File} "..\..\shapes\ChemEng\" "pneumv.shape"
+${File} "..\..\shapes\ChemEng\" "pnuemv.png"
+${File} "..\..\shapes\ChemEng\" "pnuemv.shape"
+${File} "..\..\shapes\ChemEng\" "pump.png"
+${File} "..\..\shapes\ChemEng\" "pump.shape"
+${File} "..\..\shapes\ChemEng\" "reactor.png"
+${File} "..\..\shapes\ChemEng\" "reactor.shape"
+${File} "..\..\shapes\ChemEng\" "recipr.png"
+${File} "..\..\shapes\ChemEng\" "recipr.shape"
+${File} "..\..\shapes\ChemEng\" "regval.png"
+${File} "..\..\shapes\ChemEng\" "regval.shape"
+${File} "..\..\shapes\ChemEng\" "regvalv.png"
+${File} "..\..\shapes\ChemEng\" "regvalv.shape"
+${File} "..\..\shapes\ChemEng\" "SaT-fixedtube.png"
+${File} "..\..\shapes\ChemEng\" "SaT-fixedtube.shape"
+${File} "..\..\shapes\ChemEng\" "SaT-floatinghead.png"
+${File} "..\..\shapes\ChemEng\" "SaT-floatinghead.shape"
+${File} "..\..\shapes\ChemEng\" "sealedtank.png"
+${File} "..\..\shapes\ChemEng\" "sealedtank.shape"
+${File} "..\..\shapes\ChemEng\" "settling.png"
+${File} "..\..\shapes\ChemEng\" "settling.shape"
+${File} "..\..\shapes\ChemEng\" "spray.png"
+${File} "..\..\shapes\ChemEng\" "spray.shape"
+${File} "..\..\shapes\ChemEng\" "spraydrier.png"
+${File} "..\..\shapes\ChemEng\" "spraydrier.shape"
+${File} "..\..\shapes\ChemEng\" "storagesphere.png"
+${File} "..\..\shapes\ChemEng\" "storagesphere.shape"
+${File} "..\..\shapes\ChemEng\" "tank.png"
+${File} "..\..\shapes\ChemEng\" "tank.shape"
+${File} "..\..\shapes\ChemEng\" "traycol.png"
+${File} "..\..\shapes\ChemEng\" "traycol.shape"
+${File} "..\..\shapes\ChemEng\" "val.png"
+${File} "..\..\shapes\ChemEng\" "val.shape"
+${File} "..\..\shapes\ChemEng\" "valv.png"
+${File} "..\..\shapes\ChemEng\" "valv.shape"
+${File} "..\..\shapes\ChemEng\" "vessel.png"
+${File} "..\..\shapes\ChemEng\" "vessel.shape"
+${File} "..\..\shapes\ChemEng\" "wcool.png"
+${File} "..\..\shapes\ChemEng\" "wcool.shape"
+${File} "..\..\shapes\ChemEng\" "wcoolv.png"
+${File} "..\..\shapes\ChemEng\" "wcoolv.shape"
+${SetOutPath} "$INSTDIR\shapes\Circuit"
+${File} "..\..\shapes\Circuit\" "ground.png"
+${File} "..\..\shapes\Circuit\" "ground.shape"
+${File} "..\..\shapes\Circuit\" "ground.xpm"
+${File} "..\..\shapes\Circuit\" "hcapacitor.png"
+${File} "..\..\shapes\Circuit\" "hcapacitor.shape"
+${File} "..\..\shapes\Circuit\" "hcapacitor.xpm"
+${File} "..\..\shapes\Circuit\" "hdiode.png"
+${File} "..\..\shapes\Circuit\" "hdiode.shape"
+${File} "..\..\shapes\Circuit\" "hdiode.xpm"
+${File} "..\..\shapes\Circuit\" "hfuse_de.png"
+${File} "..\..\shapes\Circuit\" "hfuse_de.shape"
+${File} "..\..\shapes\Circuit\" "hfuse_de.xpm"
+${File} "..\..\shapes\Circuit\" "hinductor.png"
+${File} "..\..\shapes\Circuit\" "hinductor.shape"
+${File} "..\..\shapes\Circuit\" "hinductor.xpm"
+${File} "..\..\shapes\Circuit\" "hinductor_de.png"
+${File} "..\..\shapes\Circuit\" "hinductor_de.shape"
+${File} "..\..\shapes\Circuit\" "hinductor_de.xpm"
+${File} "..\..\shapes\Circuit\" "hjumper.png"
+${File} "..\..\shapes\Circuit\" "hjumper.shape"
+${File} "..\..\shapes\Circuit\" "hled_de.png"
+${File} "..\..\shapes\Circuit\" "hled_de.shape"
+${File} "..\..\shapes\Circuit\" "hled_de.xpm"
+${File} "..\..\shapes\Circuit\" "hpowersource_de.png"
+${File} "..\..\shapes\Circuit\" "hpowersource_de.shape"
+${File} "..\..\shapes\Circuit\" "hpowersource_de.xpm"
+${File} "..\..\shapes\Circuit\" "hresistor.png"
+${File} "..\..\shapes\Circuit\" "hresistor.shape"
+${File} "..\..\shapes\Circuit\" "hresistor.xpm"
+${File} "..\..\shapes\Circuit\" "hresistor_de.png"
+${File} "..\..\shapes\Circuit\" "hresistor_de.shape"
+${File} "..\..\shapes\Circuit\" "hresistor_de.xpm"
+${File} "..\..\shapes\Circuit\" "hzener.png"
+${File} "..\..\shapes\Circuit\" "hzener.shape"
+${File} "..\..\shapes\Circuit\" "hzener.xpm"
+${File} "..\..\shapes\Circuit\" "lamp_de.png"
+${File} "..\..\shapes\Circuit\" "lamp_de.shape"
+${File} "..\..\shapes\Circuit\" "lamp_de.xpm"
+${File} "..\..\shapes\Circuit\" "Makefile.am"
+${File} "..\..\shapes\Circuit\" "microphone_de.png"
+${File} "..\..\shapes\Circuit\" "microphone_de.shape"
+${File} "..\..\shapes\Circuit\" "microphone_de.xpm"
+${File} "..\..\shapes\Circuit\" "nmos_de.png"
+${File} "..\..\shapes\Circuit\" "nmos_de.shape"
+${File} "..\..\shapes\Circuit\" "nmos_de.xpm"
+${File} "..\..\shapes\Circuit\" "npn.png"
+${File} "..\..\shapes\Circuit\" "npn.shape"
+${File} "..\..\shapes\Circuit\" "npn.xpm"
+${File} "..\..\shapes\Circuit\" "opamp.png"
+${File} "..\..\shapes\Circuit\" "opamp.shape"
+${File} "..\..\shapes\Circuit\" "opamp.xpm"
+${File} "..\..\shapes\Circuit\" "pmos_de.png"
+${File} "..\..\shapes\Circuit\" "pmos_de.shape"
+${File} "..\..\shapes\Circuit\" "pmos_de.xpm"
+${File} "..\..\shapes\Circuit\" "pnp.png"
+${File} "..\..\shapes\Circuit\" "pnp.shape"
+${File} "..\..\shapes\Circuit\" "pnp.xpm"
+${File} "..\..\shapes\Circuit\" "README"
+${File} "..\..\shapes\Circuit\" "speaker_de.png"
+${File} "..\..\shapes\Circuit\" "speaker_de.shape"
+${File} "..\..\shapes\Circuit\" "speaker_de.xpm"
+${File} "..\..\shapes\Circuit\" "vcapacitor.png"
+${File} "..\..\shapes\Circuit\" "vcapacitor.shape"
+${File} "..\..\shapes\Circuit\" "vcapacitor.xpm"
+${File} "..\..\shapes\Circuit\" "vdiode.png"
+${File} "..\..\shapes\Circuit\" "vdiode.shape"
+${File} "..\..\shapes\Circuit\" "vdiode.xpm"
+${File} "..\..\shapes\Circuit\" "vfuse_de.png"
+${File} "..\..\shapes\Circuit\" "vfuse_de.shape"
+${File} "..\..\shapes\Circuit\" "vfuse_de.xpm"
+${File} "..\..\shapes\Circuit\" "vinductor.png"
+${File} "..\..\shapes\Circuit\" "vinductor.shape"
+${File} "..\..\shapes\Circuit\" "vinductor.xpm"
+${File} "..\..\shapes\Circuit\" "vinductor_de.png"
+${File} "..\..\shapes\Circuit\" "vinductor_de.shape"
+${File} "..\..\shapes\Circuit\" "vinductor_de.xpm"
+${File} "..\..\shapes\Circuit\" "vled_de.png"
+${File} "..\..\shapes\Circuit\" "vled_de.shape"
+${File} "..\..\shapes\Circuit\" "vled_de.xpm"
+${File} "..\..\shapes\Circuit\" "vpowersource_de.png"
+${File} "..\..\shapes\Circuit\" "vpowersource_de.shape"
+${File} "..\..\shapes\Circuit\" "vpowersource_de.xpm"
+${File} "..\..\shapes\Circuit\" "vresistor.png"
+${File} "..\..\shapes\Circuit\" "vresistor.shape"
+${File} "..\..\shapes\Circuit\" "vresistor.xpm"
+${File} "..\..\shapes\Circuit\" "vresistor_de.png"
+${File} "..\..\shapes\Circuit\" "vresistor_de.shape"
+${File} "..\..\shapes\Circuit\" "vresistor_de.xpm"
+${File} "..\..\shapes\Circuit\" "vzener.png"
+${File} "..\..\shapes\Circuit\" "vzener.shape"
+${File} "..\..\shapes\Circuit\" "vzener.xpm"
+${SetOutPath} "$INSTDIR\shapes\Cisco"
+${File} "..\..\shapes\Cisco\" "1000.png"
+${File} "..\..\shapes\Cisco\" "1000.shape"
+${File} "..\..\shapes\Cisco\" "100baset_hub.png"
+${File} "..\..\shapes\Cisco\" "100baset_hub.shape"
+${File} "..\..\shapes\Cisco\" "10700.png"
+${File} "..\..\shapes\Cisco\" "10700.shape"
+${File} "..\..\shapes\Cisco\" "15200.png"
+${File} "..\..\shapes\Cisco\" "15200.shape"
+${File} "..\..\shapes\Cisco\" "15800.png"
+${File} "..\..\shapes\Cisco\" "15800.shape"
+${File} "..\..\shapes\Cisco\" "3174.png"
+${File} "..\..\shapes\Cisco\" "3174.shape"
+${File} "..\..\shapes\Cisco\" "3x74.png"
+${File} "..\..\shapes\Cisco\" "3x74.shape"
+${File} "..\..\shapes\Cisco\" "5000.png"
+${File} "..\..\shapes\Cisco\" "5000.shape"
+${File} "..\..\shapes\Cisco\" "5002.png"
+${File} "..\..\shapes\Cisco\" "5002.shape"
+${File} "..\..\shapes\Cisco\" "5500.png"
+${File} "..\..\shapes\Cisco\" "5500.shape"
+${File} "..\..\shapes\Cisco\" "6701.png"
+${File} "..\..\shapes\Cisco\" "6701.shape"
+${File} "..\..\shapes\Cisco\" "6705.png"
+${File} "..\..\shapes\Cisco\" "6705.shape"
+${File} "..\..\shapes\Cisco\" "6732.png"
+${File} "..\..\shapes\Cisco\" "6732.shape"
+${File} "..\..\shapes\Cisco\" "7500ars.png"
+${File} "..\..\shapes\Cisco\" "7500ars.shape"
+${File} "..\..\shapes\Cisco\" "7505.png"
+${File} "..\..\shapes\Cisco\" "7505.shape"
+${File} "..\..\shapes\Cisco\" "7507.png"
+${File} "..\..\shapes\Cisco\" "7507.shape"
+${File} "..\..\shapes\Cisco\" "accesspoint.png"
+${File} "..\..\shapes\Cisco\" "accesspoint.shape"
+${File} "..\..\shapes\Cisco\" "access_gateway.png"
+${File} "..\..\shapes\Cisco\" "access_gateway.shape"
+${File} "..\..\shapes\Cisco\" "access_server.png"
+${File} "..\..\shapes\Cisco\" "access_server.shape"
+${File} "..\..\shapes\Cisco\" "adm.png"
+${File} "..\..\shapes\Cisco\" "adm.shape"
+${File} "..\..\shapes\Cisco\" "androgynous_person.png"
+${File} "..\..\shapes\Cisco\" "androgynous_person.shape"
+${File} "..\..\shapes\Cisco\" "antenna.png"
+${File} "..\..\shapes\Cisco\" "antenna.shape"
+${File} "..\..\shapes\Cisco\" "asic.png"
+${File} "..\..\shapes\Cisco\" "asic.shape"
+${File} "..\..\shapes\Cisco\" "ata.png"
+${File} "..\..\shapes\Cisco\" "ata.shape"
+${File} "..\..\shapes\Cisco\" "atm3800.png"
+${File} "..\..\shapes\Cisco\" "atm3800.shape"
+${File} "..\..\shapes\Cisco\" "atm_fast_gigabit_etherswitch.png"
+${File} "..\..\shapes\Cisco\" "atm_fast_gigabit_etherswitch.shape"
+${File} "..\..\shapes\Cisco\" "atm_router.png"
+${File} "..\..\shapes\Cisco\" "atm_router.shape"
+${File} "..\..\shapes\Cisco\" "atm_switch.png"
+${File} "..\..\shapes\Cisco\" "atm_switch.shape"
+${File} "..\..\shapes\Cisco\" "atm_tag_switch_router.png"
+${File} "..\..\shapes\Cisco\" "atm_tag_switch_router.shape"
+${File} "..\..\shapes\Cisco\" "atm_tag_sw_gigabit_router.png"
+${File} "..\..\shapes\Cisco\" "automatic_protection_switching.png"
+${File} "..\..\shapes\Cisco\" "automatic_protection_switching.shape"
+${File} "..\..\shapes\Cisco\" "bbfw.png"
+${File} "..\..\shapes\Cisco\" "bbfw.shape"
+${File} "..\..\shapes\Cisco\" "bbfw_media.png"
+${File} "..\..\shapes\Cisco\" "bbfw_media.shape"
+${File} "..\..\shapes\Cisco\" "bbs.png"
+${File} "..\..\shapes\Cisco\" "bbs.shape"
+${File} "..\..\shapes\Cisco\" "bbsm.png"
+${File} "..\..\shapes\Cisco\" "bbsm.shape"
+${File} "..\..\shapes\Cisco\" "branch_office.png"
+${File} "..\..\shapes\Cisco\" "branch_office.shape"
+${File} "..\..\shapes\Cisco\" "branch_office_blue.png"
+${File} "..\..\shapes\Cisco\" "branch_office_blue.shape"
+${File} "..\..\shapes\Cisco\" "branch_office_subdued.png"
+${File} "..\..\shapes\Cisco\" "branch_office_subdued.shape"
+${File} "..\..\shapes\Cisco\" "breakout_box.png"
+${File} "..\..\shapes\Cisco\" "breakout_box.shape"
+${File} "..\..\shapes\Cisco\" "bridge.png"
+${File} "..\..\shapes\Cisco\" "bridge.shape"
+${File} "..\..\shapes\Cisco\" "broadband_router.png"
+${File} "..\..\shapes\Cisco\" "broadband_router.shape"
+${File} "..\..\shapes\Cisco\" "bts10200.png"
+${File} "..\..\shapes\Cisco\" "bts10200.shape"
+${File} "..\..\shapes\Cisco\" "ca.png"
+${File} "..\..\shapes\Cisco\" "ca.shape"
+${File} "..\..\shapes\Cisco\" "cable_modem.png"
+${File} "..\..\shapes\Cisco\" "cable_modem.shape"
+${File} "..\..\shapes\Cisco\" "callmanager.png"
+${File} "..\..\shapes\Cisco\" "callmanager.shape"
+${File} "..\..\shapes\Cisco\" "car.png"
+${File} "..\..\shapes\Cisco\" "car.shape"
+${File} "..\..\shapes\Cisco\" "carrier_routing_system.png"
+${File} "..\..\shapes\Cisco\" "carrier_routing_system.shape"
+${File} "..\..\shapes\Cisco\" "catalyst_access_gateway.png"
+${File} "..\..\shapes\Cisco\" "catalyst_access_gateway.shape"
+${File} "..\..\shapes\Cisco\" "cddi_fddi.png"
+${File} "..\..\shapes\Cisco\" "cddi_fddi_concentrator.png"
+${File} "..\..\shapes\Cisco\" "cddi_fddi_concentrator.shape"
+${File} "..\..\shapes\Cisco\" "cdm.png"
+${File} "..\..\shapes\Cisco\" "cdm.shape"
+${File} "..\..\shapes\Cisco\" "cellular_phone.png"
+${File} "..\..\shapes\Cisco\" "cellular_phone.shape"
+${File} "..\..\shapes\Cisco\" "centri.png"
+${File} "..\..\shapes\Cisco\" "centri_firewall.png"
+${File} "..\..\shapes\Cisco\" "centri_firewall.shape"
+${File} "..\..\shapes\Cisco\" "channelized_pipe.png"
+${File} "..\..\shapes\Cisco\" "channelized_pipe.shape"
+${File} "..\..\shapes\Cisco\" "ciscosecurity.png"
+${File} "..\..\shapes\Cisco\" "ciscosecurity.shape"
+${File} "..\..\shapes\Cisco\" "ciscoworks.png"
+${File} "..\..\shapes\Cisco\" "ciscoworks.shape"
+${File} "..\..\shapes\Cisco\" "ciscoworks_man.png"
+${File} "..\..\shapes\Cisco\" "ciscoworks_man.shape"
+${File} "..\..\shapes\Cisco\" "cisco_hub.png"
+${File} "..\..\shapes\Cisco\" "cisco_hub.shape"
+${File} "..\..\shapes\Cisco\" "class45_switch.png"
+${File} "..\..\shapes\Cisco\" "class45_switch.shape"
+${File} "..\..\shapes\Cisco\" "cloud.png"
+${File} "..\..\shapes\Cisco\" "cloud.shape"
+${File} "..\..\shapes\Cisco\" "cloud_dark.png"
+${File} "..\..\shapes\Cisco\" "cloud_dark.shape"
+${File} "..\..\shapes\Cisco\" "cloud_gold.png"
+${File} "..\..\shapes\Cisco\" "cloud_gold.shape"
+${File} "..\..\shapes\Cisco\" "cloud_white.png"
+${File} "..\..\shapes\Cisco\" "cloud_white.shape"
+${File} "..\..\shapes\Cisco\" "communications_server.png"
+${File} "..\..\shapes\Cisco\" "communications_server.shape"
+${File} "..\..\shapes\Cisco\" "concatenated_payload.png"
+${File} "..\..\shapes\Cisco\" "concatenated_payload.shape"
+${File} "..\..\shapes\Cisco\" "content_engine.png"
+${File} "..\..\shapes\Cisco\" "content_engine.shape"
+${File} "..\..\shapes\Cisco\" "content_router.png"
+${File} "..\..\shapes\Cisco\" "content_router.shape"
+${File} "..\..\shapes\Cisco\" "content_service_module.png"
+${File} "..\..\shapes\Cisco\" "content_service_module.shape"
+${File} "..\..\shapes\Cisco\" "content_service_router.png"
+${File} "..\..\shapes\Cisco\" "content_switch.png"
+${File} "..\..\shapes\Cisco\" "content_switch.shape"
+${File} "..\..\shapes\Cisco\" "content_switch_module.png"
+${File} "..\..\shapes\Cisco\" "csm-s.png"
+${File} "..\..\shapes\Cisco\" "csm-s.shape"
+${File} "..\..\shapes\Cisco\" "css1100.png"
+${File} "..\..\shapes\Cisco\" "css1100.shape"
+${File} "..\..\shapes\Cisco\" "csu_dsu.png"
+${File} "..\..\shapes\Cisco\" "csu_dsu.shape"
+${File} "..\..\shapes\Cisco\" "cte.png"
+${File} "..\..\shapes\Cisco\" "cte.shape"
+${File} "..\..\shapes\Cisco\" "data_center_switch.png"
+${File} "..\..\shapes\Cisco\" "data_center_switch.shape"
+${File} "..\..\shapes\Cisco\" "data_center_switch_reversed.png"
+${File} "..\..\shapes\Cisco\" "data_center_switch_reversed.shape"
+${File} "..\..\shapes\Cisco\" "data_switch_processor.png"
+${File} "..\..\shapes\Cisco\" "data_switch_processor.shape"
+${File} "..\..\shapes\Cisco\" "detector.png"
+${File} "..\..\shapes\Cisco\" "detector.shape"
+${File} "..\..\shapes\Cisco\" "digital_cross-connect.png"
+${File} "..\..\shapes\Cisco\" "digital_cross-connect.shape"
+${File} "..\..\shapes\Cisco\" "directory_server.png"
+${File} "..\..\shapes\Cisco\" "directory_server.shape"
+${File} "..\..\shapes\Cisco\" "director_fcis.png"
+${File} "..\..\shapes\Cisco\" "director_fcis.shape"
+${File} "..\..\shapes\Cisco\" "diskette.png"
+${File} "..\..\shapes\Cisco\" "diskette.shape"
+${File} "..\..\shapes\Cisco\" "disk_subsystem.png"
+${File} "..\..\shapes\Cisco\" "disk_subsystem.shape"
+${File} "..\..\shapes\Cisco\" "distributed_director.png"
+${File} "..\..\shapes\Cisco\" "distributed_director.shape"
+${File} "..\..\shapes\Cisco\" "dot_dot.png"
+${File} "..\..\shapes\Cisco\" "dot_dot.shape"
+${File} "..\..\shapes\Cisco\" "dpt.png"
+${File} "..\..\shapes\Cisco\" "dpt.shape"
+${File} "..\..\shapes\Cisco\" "dslam.png"
+${File} "..\..\shapes\Cisco\" "dslam.shape"
+${File} "..\..\shapes\Cisco\" "dual_mode_accesspoint.png"
+${File} "..\..\shapes\Cisco\" "dual_mode_accesspoint.shape"
+${File} "..\..\shapes\Cisco\" "dwdm_filter.png"
+${File} "..\..\shapes\Cisco\" "dwdm_filter.shape"
+${File} "..\..\shapes\Cisco\" "edge_label_switch_router.png"
+${File} "..\..\shapes\Cisco\" "edge_label_switch_router_with_netflow.png"
+${File} "..\..\shapes\Cisco\" "edge_label_switch_router_with_netflow.shape"
+${File} "..\..\shapes\Cisco\" "end_office.png"
+${File} "..\..\shapes\Cisco\" "end_office.shape"
+${File} "..\..\shapes\Cisco\" "etherclient.png"
+${File} "..\..\shapes\Cisco\" "etherclient.shape"
+${File} "..\..\shapes\Cisco\" "fax.png"
+${File} "..\..\shapes\Cisco\" "fax.shape"
+${File} "..\..\shapes\Cisco\" "fc_storage.png"
+${File} "..\..\shapes\Cisco\" "fc_storage.shape"
+${File} "..\..\shapes\Cisco\" "fddi_ring.png"
+${File} "..\..\shapes\Cisco\" "fddi_ring.shape"
+${File} "..\..\shapes\Cisco\" "file_cabinet.png"
+${File} "..\..\shapes\Cisco\" "file_cabinet.shape"
+${File} "..\..\shapes\Cisco\" "file_engine.png"
+${File} "..\..\shapes\Cisco\" "file_engine.shape"
+${File} "..\..\shapes\Cisco\" "file_server.png"
+${File} "..\..\shapes\Cisco\" "file_server.shape"
+${File} "..\..\shapes\Cisco\" "firewall.png"
+${File} "..\..\shapes\Cisco\" "firewall.shape"
+${File} "..\..\shapes\Cisco\" "firewall_horizontal.png"
+${File} "..\..\shapes\Cisco\" "firewall_horizontal.shape"
+${File} "..\..\shapes\Cisco\" "firewall_subdued.png"
+${File} "..\..\shapes\Cisco\" "firewall_subdued.shape"
+${File} "..\..\shapes\Cisco\" "front_end_processor.png"
+${File} "..\..\shapes\Cisco\" "front_end_processor.shape"
+${File} "..\..\shapes\Cisco\" "fwsm.png"
+${File} "..\..\shapes\Cisco\" "fwsm.shape"
+${File} "..\..\shapes\Cisco\" "gatekeeper.png"
+${File} "..\..\shapes\Cisco\" "gatekeeper.shape"
+${File} "..\..\shapes\Cisco\" "general_appliance.png"
+${File} "..\..\shapes\Cisco\" "general_appliance.shape"
+${File} "..\..\shapes\Cisco\" "generic_building.png"
+${File} "..\..\shapes\Cisco\" "generic_building.shape"
+${File} "..\..\shapes\Cisco\" "generic_building_blue.png"
+${File} "..\..\shapes\Cisco\" "generic_building_blue.shape"
+${File} "..\..\shapes\Cisco\" "generic_building_subdued.png"
+${File} "..\..\shapes\Cisco\" "generic_building_subdued.shape"
+${File} "..\..\shapes\Cisco\" "generic_gateway.png"
+${File} "..\..\shapes\Cisco\" "generic_gateway.shape"
+${File} "..\..\shapes\Cisco\" "generic_processor.png"
+${File} "..\..\shapes\Cisco\" "generic_processor.shape"
+${File} "..\..\shapes\Cisco\" "generic_softswitch.png"
+${File} "..\..\shapes\Cisco\" "generic_softswitch.shape"
+${File} "..\..\shapes\Cisco\" "gigabit_switch_router_atm_tag.png"
+${File} "..\..\shapes\Cisco\" "gigabit_switch_router_atm_tag.shape"
+${File} "..\..\shapes\Cisco\" "government_building.png"
+${File} "..\..\shapes\Cisco\" "government_building.shape"
+${File} "..\..\shapes\Cisco\" "guard.png"
+${File} "..\..\shapes\Cisco\" "guard.shape"
+${File} "..\..\shapes\Cisco\" "h323.png"
+${File} "..\..\shapes\Cisco\" "h323.shape"
+${File} "..\..\shapes\Cisco\" "handheld.png"
+${File} "..\..\shapes\Cisco\" "handheld.shape"
+${File} "..\..\shapes\Cisco\" "headphones.png"
+${File} "..\..\shapes\Cisco\" "headphones.shape"
+${File} "..\..\shapes\Cisco\" "home_office.png"
+${File} "..\..\shapes\Cisco\" "home_office.shape"
+${File} "..\..\shapes\Cisco\" "hootphone.png"
+${File} "..\..\shapes\Cisco\" "hootphone.shape"
+${File} "..\..\shapes\Cisco\" "host.png"
+${File} "..\..\shapes\Cisco\" "host.shape"
+${File} "..\..\shapes\Cisco\" "house.png"
+${File} "..\..\shapes\Cisco\" "house.shape"
+${File} "..\..\shapes\Cisco\" "house_blue.png"
+${File} "..\..\shapes\Cisco\" "house_blue.shape"
+${File} "..\..\shapes\Cisco\" "hp_mini.png"
+${File} "..\..\shapes\Cisco\" "hp_mini.shape"
+${File} "..\..\shapes\Cisco\" "hub.png"
+${File} "..\..\shapes\Cisco\" "hub.shape"
+${File} "..\..\shapes\Cisco\" "hub_subdued.png"
+${File} "..\..\shapes\Cisco\" "hub_subdued.shape"
+${File} "..\..\shapes\Cisco\" "iad_router.png"
+${File} "..\..\shapes\Cisco\" "iad_router.shape"
+${File} "..\..\shapes\Cisco\" "ibm_mainframe.png"
+${File} "..\..\shapes\Cisco\" "ibm_mainframe.shape"
+${File} "..\..\shapes\Cisco\" "ibm_mainframe_with_fep.png"
+${File} "..\..\shapes\Cisco\" "ibm_mainframe_with_fep.shape"
+${File} "..\..\shapes\Cisco\" "ibm_mini.png"
+${File} "..\..\shapes\Cisco\" "ibm_mini.shape"
+${File} "..\..\shapes\Cisco\" "ibm_tower.png"
+${File} "..\..\shapes\Cisco\" "ibm_tower.shape"
+${File} "..\..\shapes\Cisco\" "icm.png"
+${File} "..\..\shapes\Cisco\" "icm.shape"
+${File} "..\..\shapes\Cisco\" "ics.png"
+${File} "..\..\shapes\Cisco\" "ics.shape"
+${File} "..\..\shapes\Cisco\" "intelliswitch_stack.png"
+${File} "..\..\shapes\Cisco\" "intelliswitch_stack.shape"
+${File} "..\..\shapes\Cisco\" "ios_firewall.png"
+${File} "..\..\shapes\Cisco\" "ios_firewall.shape"
+${File} "..\..\shapes\Cisco\" "ios_slb.png"
+${File} "..\..\shapes\Cisco\" "ios_slb.shape"
+${File} "..\..\shapes\Cisco\" "ip.png"
+${File} "..\..\shapes\Cisco\" "ip.shape"
+${File} "..\..\shapes\Cisco\" "iptc.png"
+${File} "..\..\shapes\Cisco\" "iptv_broadcast_server.png"
+${File} "..\..\shapes\Cisco\" "iptv_broadcast_server.shape"
+${File} "..\..\shapes\Cisco\" "iptv_content_manager.png"
+${File} "..\..\shapes\Cisco\" "iptv_content_manager.shape"
+${File} "..\..\shapes\Cisco\" "ip_dsl.png"
+${File} "..\..\shapes\Cisco\" "ip_dsl.shape"
+${File} "..\..\shapes\Cisco\" "ip_dsl_switch.png"
+${File} "..\..\shapes\Cisco\" "ip_old-style.png"
+${File} "..\..\shapes\Cisco\" "ip_old-style.shape"
+${File} "..\..\shapes\Cisco\" "ip_phone.png"
+${File} "..\..\shapes\Cisco\" "ip_phone.shape"
+${File} "..\..\shapes\Cisco\" "ip_softphone.png"
+${File} "..\..\shapes\Cisco\" "ip_softphone.shape"
+${File} "..\..\shapes\Cisco\" "ip_telephony_router.png"
+${File} "..\..\shapes\Cisco\" "ip_telephony_router.shape"
+${File} "..\..\shapes\Cisco\" "ip_transport_concentrator.png"
+${File} "..\..\shapes\Cisco\" "ip_transport_concentrator.shape"
+${File} "..\..\shapes\Cisco\" "iscsi_switch.png"
+${File} "..\..\shapes\Cisco\" "iscsi_switch.shape"
+${File} "..\..\shapes\Cisco\" "isdn_switch.png"
+${File} "..\..\shapes\Cisco\" "isdn_switch.shape"
+${File} "..\..\shapes\Cisco\" "itp.png"
+${File} "..\..\shapes\Cisco\" "itp.shape"
+${File} "..\..\shapes\Cisco\" "jbod.png"
+${File} "..\..\shapes\Cisco\" "jbod.shape"
+${File} "..\..\shapes\Cisco\" "key.png"
+${File} "..\..\shapes\Cisco\" "key.shape"
+${File} "..\..\shapes\Cisco\" "label_switch_router.png"
+${File} "..\..\shapes\Cisco\" "label_switch_router.shape"
+${File} "..\..\shapes\Cisco\" "lan2lan_switch.png"
+${File} "..\..\shapes\Cisco\" "lan2lan_switch.shape"
+${File} "..\..\shapes\Cisco\" "lan_to_lan.png"
+${File} "..\..\shapes\Cisco\" "lan_to_lan.shape"
+${File} "..\..\shapes\Cisco\" "laptop.png"
+${File} "..\..\shapes\Cisco\" "laptop.shape"
+${File} "..\..\shapes\Cisco\" "layer3_switch.png"
+${File} "..\..\shapes\Cisco\" "layer3_switch.shape"
+${File} "..\..\shapes\Cisco\" "layer_2_remote_switch.png"
+${File} "..\..\shapes\Cisco\" "layer_2_remote_switch.shape"
+${File} "..\..\shapes\Cisco\" "lightweight_ap.png"
+${File} "..\..\shapes\Cisco\" "lightweight_ap.shape"
+${File} "..\..\shapes\Cisco\" "localdirector.png"
+${File} "..\..\shapes\Cisco\" "localdirector.shape"
+${File} "..\..\shapes\Cisco\" "location_server.png"
+${File} "..\..\shapes\Cisco\" "location_server.shape"
+${File} "..\..\shapes\Cisco\" "lock.png"
+${File} "..\..\shapes\Cisco\" "lock.shape"
+${File} "..\..\shapes\Cisco\" "lock_and_key.png"
+${File} "..\..\shapes\Cisco\" "lock_and_key.shape"
+${File} "..\..\shapes\Cisco\" "longreach_cpe.png"
+${File} "..\..\shapes\Cisco\" "longreach_cpe.shape"
+${File} "..\..\shapes\Cisco\" "macintosh.png"
+${File} "..\..\shapes\Cisco\" "macintosh.shape"
+${File} "..\..\shapes\Cisco\" "mac_woman.png"
+${File} "..\..\shapes\Cisco\" "mac_woman.shape"
+${File} "..\..\shapes\Cisco\" "mac_woman_right.png"
+${File} "..\..\shapes\Cisco\" "mac_woman_right.shape"
+${File} "..\..\shapes\Cisco\" "Makefile.am"
+${File} "..\..\shapes\Cisco\" "man.png"
+${File} "..\..\shapes\Cisco\" "man.shape"
+${File} "..\..\shapes\Cisco\" "man_blue.png"
+${File} "..\..\shapes\Cisco\" "man_blue.shape"
+${File} "..\..\shapes\Cisco\" "man_gold.png"
+${File} "..\..\shapes\Cisco\" "man_gold.shape"
+${File} "..\..\shapes\Cisco\" "man_red.png"
+${File} "..\..\shapes\Cisco\" "man_red.shape"
+${File} "..\..\shapes\Cisco\" "man_woman.png"
+${File} "..\..\shapes\Cisco\" "man_woman.shape"
+${File} "..\..\shapes\Cisco\" "mas_gateway.png"
+${File} "..\..\shapes\Cisco\" "mas_gateway.shape"
+${File} "..\..\shapes\Cisco\" "mau.png"
+${File} "..\..\shapes\Cisco\" "mau.shape"
+${File} "..\..\shapes\Cisco\" "mcu.png"
+${File} "..\..\shapes\Cisco\" "mcu.shape"
+${File} "..\..\shapes\Cisco\" "mdu.png"
+${File} "..\..\shapes\Cisco\" "mdu.shape"
+${File} "..\..\shapes\Cisco\" "me1100.png"
+${File} "..\..\shapes\Cisco\" "me1100.shape"
+${File} "..\..\shapes\Cisco\" "medium_building.png"
+${File} "..\..\shapes\Cisco\" "medium_building.shape"
+${File} "..\..\shapes\Cisco\" "medium_building_blue.png"
+${File} "..\..\shapes\Cisco\" "medium_building_blue.shape"
+${File} "..\..\shapes\Cisco\" "medium_building_subdued.png"
+${File} "..\..\shapes\Cisco\" "medium_building_subdued.shape"
+${File} "..\..\shapes\Cisco\" "metro1500.png"
+${File} "..\..\shapes\Cisco\" "metro1500.shape"
+${File} "..\..\shapes\Cisco\" "mgx8220.png"
+${File} "..\..\shapes\Cisco\" "mgx8220.shape"
+${File} "..\..\shapes\Cisco\" "mgx8240.png"
+${File} "..\..\shapes\Cisco\" "mgx8240.shape"
+${File} "..\..\shapes\Cisco\" "mgx8260.png"
+${File} "..\..\shapes\Cisco\" "mgx8260.shape"
+${File} "..\..\shapes\Cisco\" "mgx_8000_series_voice_gateway.png"
+${File} "..\..\shapes\Cisco\" "mgx_8000_series_voice_gateway.shape"
+${File} "..\..\shapes\Cisco\" "microphone.png"
+${File} "..\..\shapes\Cisco\" "microphone.shape"
+${File} "..\..\shapes\Cisco\" "microwebserver.png"
+${File} "..\..\shapes\Cisco\" "microwebserver.shape"
+${File} "..\..\shapes\Cisco\" "mini_vax.png"
+${File} "..\..\shapes\Cisco\" "mini_vax.shape"
+${File} "..\..\shapes\Cisco\" "mobile_access_ip_phone.png"
+${File} "..\..\shapes\Cisco\" "mobile_access_ip_phone.shape"
+${File} "..\..\shapes\Cisco\" "mobile_access_router.png"
+${File} "..\..\shapes\Cisco\" "mobile_access_router.shape"
+${File} "..\..\shapes\Cisco\" "modem.png"
+${File} "..\..\shapes\Cisco\" "modem.shape"
+${File} "..\..\shapes\Cisco\" "moh_server.png"
+${File} "..\..\shapes\Cisco\" "moh_server.shape"
+${File} "..\..\shapes\Cisco\" "monitor.png"
+${File} "..\..\shapes\Cisco\" "monitor.shape"
+${File} "..\..\shapes\Cisco\" "multi-fabric_server_switch.png"
+${File} "..\..\shapes\Cisco\" "multi-fabric_server_switch.shape"
+${File} "..\..\shapes\Cisco\" "multilayer_remote_switch.png"
+${File} "..\..\shapes\Cisco\" "multilayer_remote_switch.shape"
+${File} "..\..\shapes\Cisco\" "multilayer_switch.png"
+${File} "..\..\shapes\Cisco\" "multilayer_switch.shape"
+${File} "..\..\shapes\Cisco\" "multilayer_switch_with_silicon.png"
+${File} "..\..\shapes\Cisco\" "multilayer_switch_with_silicon.shape"
+${File} "..\..\shapes\Cisco\" "multilayer_switch_with_silicon_subdued.png"
+${File} "..\..\shapes\Cisco\" "multilayer_switch_with_silicon_subdued.shape"
+${File} "..\..\shapes\Cisco\" "multiswitch_device.png"
+${File} "..\..\shapes\Cisco\" "multiswitch_device.shape"
+${File} "..\..\shapes\Cisco\" "mux.png"
+${File} "..\..\shapes\Cisco\" "mux.shape"
+${File} "..\..\shapes\Cisco\" "nat.png"
+${File} "..\..\shapes\Cisco\" "nat.shape"
+${File} "..\..\shapes\Cisco\" "netflow_router.png"
+${File} "..\..\shapes\Cisco\" "netflow_router.shape"
+${File} "..\..\shapes\Cisco\" "netranger.png"
+${File} "..\..\shapes\Cisco\" "netranger.shape"
+${File} "..\..\shapes\Cisco\" "netsonar.png"
+${File} "..\..\shapes\Cisco\" "netsonar.shape"
+${File} "..\..\shapes\Cisco\" "network_management.png"
+${File} "..\..\shapes\Cisco\" "network_management.shape"
+${File} "..\..\shapes\Cisco\" "newton.png"
+${File} "..\..\shapes\Cisco\" "newton.shape"
+${File} "..\..\shapes\Cisco\" "octel.png"
+${File} "..\..\shapes\Cisco\" "octel.shape"
+${File} "..\..\shapes\Cisco\" "ons15104.png"
+${File} "..\..\shapes\Cisco\" "ons15104.shape"
+${File} "..\..\shapes\Cisco\" "ons15500.png"
+${File} "..\..\shapes\Cisco\" "ons15540.png"
+${File} "..\..\shapes\Cisco\" "ons15540.shape"
+${File} "..\..\shapes\Cisco\" "optical_amplifier.png"
+${File} "..\..\shapes\Cisco\" "optical_amplifier.shape"
+${File} "..\..\shapes\Cisco\" "optical_cross-connect.png"
+${File} "..\..\shapes\Cisco\" "optical_cross-connect.shape"
+${File} "..\..\shapes\Cisco\" "optical_fiber.png"
+${File} "..\..\shapes\Cisco\" "optical_fiber.shape"
+${File} "..\..\shapes\Cisco\" "optical_services_router.png"
+${File} "..\..\shapes\Cisco\" "optical_services_router.shape"
+${File} "..\..\shapes\Cisco\" "optical_transport.png"
+${File} "..\..\shapes\Cisco\" "optical_transport.shape"
+${File} "..\..\shapes\Cisco\" "pad.png"
+${File} "..\..\shapes\Cisco\" "pad.shape"
+${File} "..\..\shapes\Cisco\" "pad_x28.png"
+${File} "..\..\shapes\Cisco\" "pager.png"
+${File} "..\..\shapes\Cisco\" "pager.shape"
+${File} "..\..\shapes\Cisco\" "pbx.png"
+${File} "..\..\shapes\Cisco\" "pbx.shape"
+${File} "..\..\shapes\Cisco\" "pbx_switch.png"
+${File} "..\..\shapes\Cisco\" "pbx_switch.shape"
+${File} "..\..\shapes\Cisco\" "pc.png"
+${File} "..\..\shapes\Cisco\" "pc.shape"
+${File} "..\..\shapes\Cisco\" "pc_adapter_card.png"
+${File} "..\..\shapes\Cisco\" "pc_adapter_card.shape"
+${File} "..\..\shapes\Cisco\" "pc_card.png"
+${File} "..\..\shapes\Cisco\" "pc_card.shape"
+${File} "..\..\shapes\Cisco\" "pc_man.png"
+${File} "..\..\shapes\Cisco\" "pc_man.shape"
+${File} "..\..\shapes\Cisco\" "pc_man_left.png"
+${File} "..\..\shapes\Cisco\" "pc_man_left.shape"
+${File} "..\..\shapes\Cisco\" "pc_router_card.png"
+${File} "..\..\shapes\Cisco\" "pc_router_card.shape"
+${File} "..\..\shapes\Cisco\" "pc_software.png"
+${File} "..\..\shapes\Cisco\" "pc_software.shape"
+${File} "..\..\shapes\Cisco\" "pc_video.png"
+${File} "..\..\shapes\Cisco\" "pc_video.shape"
+${File} "..\..\shapes\Cisco\" "pc_with_router-based_software.png"
+${File} "..\..\shapes\Cisco\" "pc_with_router-based_software.shape"
+${File} "..\..\shapes\Cisco\" "pda.png"
+${File} "..\..\shapes\Cisco\" "pda.shape"
+${File} "..\..\shapes\Cisco\" "phone.png"
+${File} "..\..\shapes\Cisco\" "phone.shape"
+${File} "..\..\shapes\Cisco\" "phone_2.png"
+${File} "..\..\shapes\Cisco\" "phone_2.shape"
+${File} "..\..\shapes\Cisco\" "phone_appliance.png"
+${File} "..\..\shapes\Cisco\" "phone_appliance.shape"
+${File} "..\..\shapes\Cisco\" "phone_ethernet.png"
+${File} "..\..\shapes\Cisco\" "phone_ethernet.shape"
+${File} "..\..\shapes\Cisco\" "phone_fax.png"
+${File} "..\..\shapes\Cisco\" "phone_fax.shape"
+${File} "..\..\shapes\Cisco\" "phone_feature.png"
+${File} "..\..\shapes\Cisco\" "phone_feature.shape"
+${File} "..\..\shapes\Cisco\" "pix_firewall.png"
+${File} "..\..\shapes\Cisco\" "pix_firewall.shape"
+${File} "..\..\shapes\Cisco\" "pix_firewall_left.png"
+${File} "..\..\shapes\Cisco\" "pix_firewall_left.shape"
+${File} "..\..\shapes\Cisco\" "printer.png"
+${File} "..\..\shapes\Cisco\" "printer.shape"
+${File} "..\..\shapes\Cisco\" "programmable_switch.png"
+${File} "..\..\shapes\Cisco\" "programmable_switch.shape"
+${File} "..\..\shapes\Cisco\" "protocol_translator.png"
+${File} "..\..\shapes\Cisco\" "protocol_translator.shape"
+${File} "..\..\shapes\Cisco\" "pxf.png"
+${File} "..\..\shapes\Cisco\" "pxf.shape"
+${File} "..\..\shapes\Cisco\" "radio_tower.png"
+${File} "..\..\shapes\Cisco\" "radio_tower.shape"
+${File} "..\..\shapes\Cisco\" "ratemux.png"
+${File} "..\..\shapes\Cisco\" "ratemux.shape"
+${File} "..\..\shapes\Cisco\" "relational_database.png"
+${File} "..\..\shapes\Cisco\" "relational_database.shape"
+${File} "..\..\shapes\Cisco\" "repeater.png"
+${File} "..\..\shapes\Cisco\" "repeater.shape"
+${File} "..\..\shapes\Cisco\" "router.png"
+${File} "..\..\shapes\Cisco\" "router.shape"
+${File} "..\..\shapes\Cisco\" "router_in_building.png"
+${File} "..\..\shapes\Cisco\" "router_in_building.shape"
+${File} "..\..\shapes\Cisco\" "router_subdued.png"
+${File} "..\..\shapes\Cisco\" "router_subdued.shape"
+${File} "..\..\shapes\Cisco\" "router_with_firewall.png"
+${File} "..\..\shapes\Cisco\" "router_with_firewall.shape"
+${File} "..\..\shapes\Cisco\" "router_with_silicon_switch.png"
+${File} "..\..\shapes\Cisco\" "router_with_silicon_switch.shape"
+${File} "..\..\shapes\Cisco\" "route_switch_processor.png"
+${File} "..\..\shapes\Cisco\" "route_switch_processor.shape"
+${File} "..\..\shapes\Cisco\" "route_switch_processor_with_si.png"
+${File} "..\..\shapes\Cisco\" "route_switch_processor_with_si.shape"
+${File} "..\..\shapes\Cisco\" "rps.png"
+${File} "..\..\shapes\Cisco\" "rps.shape"
+${File} "..\..\shapes\Cisco\" "running_man.png"
+${File} "..\..\shapes\Cisco\" "running_man.shape"
+${File} "..\..\shapes\Cisco\" "running_man_subdued.png"
+${File} "..\..\shapes\Cisco\" "running_man_subdued.shape"
+${File} "..\..\shapes\Cisco\" "running_woman.png"
+${File} "..\..\shapes\Cisco\" "running_woman.shape"
+${File} "..\..\shapes\Cisco\" "satellite.png"
+${File} "..\..\shapes\Cisco\" "satellite.shape"
+${File} "..\..\shapes\Cisco\" "satellite_dish.png"
+${File} "..\..\shapes\Cisco\" "satellite_dish.shape"
+${File} "..\..\shapes\Cisco\" "sc2200.png"
+${File} "..\..\shapes\Cisco\" "sc2200.shape"
+${File} "..\..\shapes\Cisco\" "sc2200_vsc3000_host.png"
+${File} "..\..\shapes\Cisco\" "sc2200_vsc3000_host.shape"
+${File} "..\..\shapes\Cisco\" "scanner.png"
+${File} "..\..\shapes\Cisco\" "scanner.shape"
+${File} "..\..\shapes\Cisco\" "security_appliance.png"
+${File} "..\..\shapes\Cisco\" "security_appliance.shape"
+${File} "..\..\shapes\Cisco\" "server_switch.png"
+${File} "..\..\shapes\Cisco\" "server_switch.shape"
+${File} "..\..\shapes\Cisco\" "server_with_pc_router.png"
+${File} "..\..\shapes\Cisco\" "server_with_pc_router.shape"
+${File} "..\..\shapes\Cisco\" "service_control.png"
+${File} "..\..\shapes\Cisco\" "service_control.shape"
+${File} "..\..\shapes\Cisco\" "sip_proxy_server.png"
+${File} "..\..\shapes\Cisco\" "sip_proxy_server.shape"
+${File} "..\..\shapes\Cisco\" "sitting_woman.png"
+${File} "..\..\shapes\Cisco\" "sitting_woman.shape"
+${File} "..\..\shapes\Cisco\" "small_business.png"
+${File} "..\..\shapes\Cisco\" "small_business.shape"
+${File} "..\..\shapes\Cisco\" "small_hub.png"
+${File} "..\..\shapes\Cisco\" "small_hub.shape"
+${File} "..\..\shapes\Cisco\" "softphone.png"
+${File} "..\..\shapes\Cisco\" "softphone.shape"
+${File} "..\..\shapes\Cisco\" "software-based_router_on_file_server.png"
+${File} "..\..\shapes\Cisco\" "software-based_router_on_file_server.shape"
+${File} "..\..\shapes\Cisco\" "software_based_server.png"
+${File} "..\..\shapes\Cisco\" "sonet_mux.png"
+${File} "..\..\shapes\Cisco\" "sonet_mux.shape"
+${File} "..\..\shapes\Cisco\" "speaker.png"
+${File} "..\..\shapes\Cisco\" "speaker.shape"
+${File} "..\..\shapes\Cisco\" "ssl_terminator.png"
+${File} "..\..\shapes\Cisco\" "ssl_terminator.shape"
+${File} "..\..\shapes\Cisco\" "standing_man.png"
+${File} "..\..\shapes\Cisco\" "standing_man.shape"
+${File} "..\..\shapes\Cisco\" "standing_woman.png"
+${File} "..\..\shapes\Cisco\" "standing_woman.shape"
+${File} "..\..\shapes\Cisco\" "stb.png"
+${File} "..\..\shapes\Cisco\" "stb.shape"
+${File} "..\..\shapes\Cisco\" "storage_array.png"
+${File} "..\..\shapes\Cisco\" "storage_array.shape"
+${File} "..\..\shapes\Cisco\" "storage_router.png"
+${File} "..\..\shapes\Cisco\" "storage_router.shape"
+${File} "..\..\shapes\Cisco\" "storage_solution_engine.png"
+${File} "..\..\shapes\Cisco\" "storage_solution_engine.shape"
+${File} "..\..\shapes\Cisco\" "stp.png"
+${File} "..\..\shapes\Cisco\" "stp.shape"
+${File} "..\..\shapes\Cisco\" "sun_workstation.png"
+${File} "..\..\shapes\Cisco\" "sun_workstation.shape"
+${File} "..\..\shapes\Cisco\" "supercomputer.png"
+${File} "..\..\shapes\Cisco\" "supercomputer.shape"
+${File} "..\..\shapes\Cisco\" "svx.png"
+${File} "..\..\shapes\Cisco\" "svx.shape"
+${File} "..\..\shapes\Cisco\" "switch_processor.png"
+${File} "..\..\shapes\Cisco\" "switch_processor.shape"
+${File} "..\..\shapes\Cisco\" "system_controller.png"
+${File} "..\..\shapes\Cisco\" "system_controller.shape"
+${File} "..\..\shapes\Cisco\" "tablet.png"
+${File} "..\..\shapes\Cisco\" "tablet.shape"
+${File} "..\..\shapes\Cisco\" "tape_array.png"
+${File} "..\..\shapes\Cisco\" "tape_array.shape"
+${File} "..\..\shapes\Cisco\" "tdm_router.png"
+${File} "..\..\shapes\Cisco\" "tdm_router.shape"
+${File} "..\..\shapes\Cisco\" "telecommuter.png"
+${File} "..\..\shapes\Cisco\" "telecommuter.shape"
+${File} "..\..\shapes\Cisco\" "telecommuter_house.png"
+${File} "..\..\shapes\Cisco\" "telecommuter_house.shape"
+${File} "..\..\shapes\Cisco\" "telecommuter_house_router.png"
+${File} "..\..\shapes\Cisco\" "telecommuter_house_router.shape"
+${File} "..\..\shapes\Cisco\" "telecommuter_house_subdued.png"
+${File} "..\..\shapes\Cisco\" "telecommuter_house_subdued.shape"
+${File} "..\..\shapes\Cisco\" "terminal.png"
+${File} "..\..\shapes\Cisco\" "terminal.shape"
+${File} "..\..\shapes\Cisco\" "terminal_server.png"
+${File} "..\..\shapes\Cisco\" "terminal_server.shape"
+${File} "..\..\shapes\Cisco\" "tokenring.png"
+${File} "..\..\shapes\Cisco\" "tokenring.shape"
+${File} "..\..\shapes\Cisco\" "transpath.png"
+${File} "..\..\shapes\Cisco\" "transpath.shape"
+${File} "..\..\shapes\Cisco\" "truck.png"
+${File} "..\..\shapes\Cisco\" "truck.shape"
+${File} "..\..\shapes\Cisco\" "turret.png"
+${File} "..\..\shapes\Cisco\" "turret.shape"
+${File} "..\..\shapes\Cisco\" "tv.png"
+${File} "..\..\shapes\Cisco\" "tv.shape"
+${File} "..\..\shapes\Cisco\" "ubr910.png"
+${File} "..\..\shapes\Cisco\" "ubr910_cable_dsu.png"
+${File} "..\..\shapes\Cisco\" "ubr910_cable_dsu.shape"
+${File} "..\..\shapes\Cisco\" "umg_series.png"
+${File} "..\..\shapes\Cisco\" "umg_series.shape"
+${File} "..\..\shapes\Cisco\" "unity_express.png"
+${File} "..\..\shapes\Cisco\" "unity_express.shape"
+${File} "..\..\shapes\Cisco\" "unity_server.png"
+${File} "..\..\shapes\Cisco\" "unity_server.shape"
+${File} "..\..\shapes\Cisco\" "universal_gateway.png"
+${File} "..\..\shapes\Cisco\" "universal_gateway.shape"
+${File} "..\..\shapes\Cisco\" "university.png"
+${File} "..\..\shapes\Cisco\" "university.shape"
+${File} "..\..\shapes\Cisco\" "ups.png"
+${File} "..\..\shapes\Cisco\" "ups.shape"
+${File} "..\..\shapes\Cisco\" "video_camera.png"
+${File} "..\..\shapes\Cisco\" "video_camera.shape"
+${File} "..\..\shapes\Cisco\" "video_camera_right.png"
+${File} "..\..\shapes\Cisco\" "video_camera_right.shape"
+${File} "..\..\shapes\Cisco\" "vip.png"
+${File} "..\..\shapes\Cisco\" "vip.shape"
+${File} "..\..\shapes\Cisco\" "virtual_layer_switch.png"
+${File} "..\..\shapes\Cisco\" "virtual_layer_switch.shape"
+${File} "..\..\shapes\Cisco\" "vn2900.png"
+${File} "..\..\shapes\Cisco\" "vn2900.shape"
+${File} "..\..\shapes\Cisco\" "vn5900.png"
+${File} "..\..\shapes\Cisco\" "vn5900.shape"
+${File} "..\..\shapes\Cisco\" "vn5902.png"
+${File} "..\..\shapes\Cisco\" "vn5902.shape"
+${File} "..\..\shapes\Cisco\" "voice-enabled_access_server.png"
+${File} "..\..\shapes\Cisco\" "voice-enabled_access_server.shape"
+${File} "..\..\shapes\Cisco\" "voice-enabled_atm_switch.png"
+${File} "..\..\shapes\Cisco\" "voice-enabled_atm_switch.shape"
+${File} "..\..\shapes\Cisco\" "voice-enabled_router.png"
+${File} "..\..\shapes\Cisco\" "voice-enabled_router.shape"
+${File} "..\..\shapes\Cisco\" "voice_atm_switch.png"
+${File} "..\..\shapes\Cisco\" "voice_commserver.png"
+${File} "..\..\shapes\Cisco\" "voice_router.png"
+${File} "..\..\shapes\Cisco\" "voice_switch.png"
+${File} "..\..\shapes\Cisco\" "voice_switch2.png"
+${File} "..\..\shapes\Cisco\" "voice_switch2.shape"
+${File} "..\..\shapes\Cisco\" "vpn_concentrator.png"
+${File} "..\..\shapes\Cisco\" "vpn_concentrator.shape"
+${File} "..\..\shapes\Cisco\" "vpn_gateway.png"
+${File} "..\..\shapes\Cisco\" "vpn_gateway.shape"
+${File} "..\..\shapes\Cisco\" "vsc3000.png"
+${File} "..\..\shapes\Cisco\" "vsc3000.shape"
+${File} "..\..\shapes\Cisco\" "wan.png"
+${File} "..\..\shapes\Cisco\" "wan.shape"
+${File} "..\..\shapes\Cisco\" "wavelength_router.png"
+${File} "..\..\shapes\Cisco\" "wavelength_router.shape"
+${File} "..\..\shapes\Cisco\" "wdm.png"
+${File} "..\..\shapes\Cisco\" "wdm.shape"
+${File} "..\..\shapes\Cisco\" "web_browser.png"
+${File} "..\..\shapes\Cisco\" "web_browser.shape"
+${File} "..\..\shapes\Cisco\" "web_cluster.png"
+${File} "..\..\shapes\Cisco\" "web_cluster.shape"
+${File} "..\..\shapes\Cisco\" "wi-fi_tag.png"
+${File} "..\..\shapes\Cisco\" "wi-fi_tag.shape"
+${File} "..\..\shapes\Cisco\" "wireless.png"
+${File} "..\..\shapes\Cisco\" "wireless.shape"
+${File} "..\..\shapes\Cisco\" "wireless_bridge.png"
+${File} "..\..\shapes\Cisco\" "wireless_bridge.shape"
+${File} "..\..\shapes\Cisco\" "wireless_connectivity.png"
+${File} "..\..\shapes\Cisco\" "wireless_connectivity.shape"
+${File} "..\..\shapes\Cisco\" "wireless_location_appliance.png"
+${File} "..\..\shapes\Cisco\" "wireless_location_appliance.shape"
+${File} "..\..\shapes\Cisco\" "wireless_router.png"
+${File} "..\..\shapes\Cisco\" "wireless_router.shape"
+${File} "..\..\shapes\Cisco\" "wireless_transport.png"
+${File} "..\..\shapes\Cisco\" "wireless_transport.shape"
+${File} "..\..\shapes\Cisco\" "wlan_controller.png"
+${File} "..\..\shapes\Cisco\" "wlan_controller.shape"
+${File} "..\..\shapes\Cisco\" "woman.png"
+${File} "..\..\shapes\Cisco\" "woman.shape"
+${File} "..\..\shapes\Cisco\" "woman_blue.png"
+${File} "..\..\shapes\Cisco\" "woman_blue.shape"
+${File} "..\..\shapes\Cisco\" "woman_gold.png"
+${File} "..\..\shapes\Cisco\" "woman_gold.shape"
+${File} "..\..\shapes\Cisco\" "woman_red.png"
+${File} "..\..\shapes\Cisco\" "woman_red.shape"
+${File} "..\..\shapes\Cisco\" "workgroup_director.png"
+${File} "..\..\shapes\Cisco\" "workgroup_director.shape"
+${File} "..\..\shapes\Cisco\" "workgroup_fcis.png"
+${File} "..\..\shapes\Cisco\" "workgroup_fcis.shape"
+${File} "..\..\shapes\Cisco\" "workgroup_switch.png"
+${File} "..\..\shapes\Cisco\" "workgroup_switch.shape"
+${File} "..\..\shapes\Cisco\" "workgroup_switch_subdued.png"
+${File} "..\..\shapes\Cisco\" "workgroup_switch_subdued.shape"
+${File} "..\..\shapes\Cisco\" "workgroup_switch_voice-enabled.png"
+${File} "..\..\shapes\Cisco\" "workgroup_switch_voice-enabled.shape"
+${File} "..\..\shapes\Cisco\" "workstation.png"
+${File} "..\..\shapes\Cisco\" "workstation.shape"
+${File} "..\..\shapes\Cisco\" "www_server.png"
+${File} "..\..\shapes\Cisco\" "www_server.shape"
+${SetOutPath} "$INSTDIR\shapes\Civil"
+${File} "..\..\shapes\Civil\" "bvrest.png"
+${File} "..\..\shapes\Civil\" "bvrest.shape"
+${File} "..\..\shapes\Civil\" "bvrest.xpm"
+${File} "..\..\shapes\Civil\" "civil_aerator.png"
+${File} "..\..\shapes\Civil\" "civil_aerator.shape"
+${File} "..\..\shapes\Civil\" "civil_aerator.xpm"
+${File} "..\..\shapes\Civil\" "civil_arrow_right.png"
+${File} "..\..\shapes\Civil\" "civil_arrow_right.shape"
+${File} "..\..\shapes\Civil\" "civil_arrow_right.xpm"
+${File} "..\..\shapes\Civil\" "civil_arrow_up.png"
+${File} "..\..\shapes\Civil\" "civil_arrow_up.shape"
+${File} "..\..\shapes\Civil\" "civil_arrow_up.xpm"
+${File} "..\..\shapes\Civil\" "civil_backflow_preventer.png"
+${File} "..\..\shapes\Civil\" "civil_backflow_preventer.shape"
+${File} "..\..\shapes\Civil\" "civil_backflow_preventer.xpm"
+${File} "..\..\shapes\Civil\" "civil_basin.png"
+${File} "..\..\shapes\Civil\" "civil_basin.shape"
+${File} "..\..\shapes\Civil\" "civil_basin.xpm"
+${File} "..\..\shapes\Civil\" "civil_container.png"
+${File} "..\..\shapes\Civil\" "civil_container.shape"
+${File} "..\..\shapes\Civil\" "civil_container.xpm"
+${File} "..\..\shapes\Civil\" "civil_final-settling_basin.png"
+${File} "..\..\shapes\Civil\" "civil_final-settling_basin.shape"
+${File} "..\..\shapes\Civil\" "civil_final-settling_basin.xpm"
+${File} "..\..\shapes\Civil\" "civil_frequency_converter.png"
+${File} "..\..\shapes\Civil\" "civil_frequency_converter.shape"
+${File} "..\..\shapes\Civil\" "civil_frequency_converter.xpm"
+${File} "..\..\shapes\Civil\" "civil_gas_bottle.png"
+${File} "..\..\shapes\Civil\" "civil_gas_bottle.shape"
+${File} "..\..\shapes\Civil\" "civil_gas_bottle.xpm"
+${File} "..\..\shapes\Civil\" "civil_horizontal_limiting_line.png"
+${File} "..\..\shapes\Civil\" "civil_horizontal_limiting_line.shape"
+${File} "..\..\shapes\Civil\" "civil_horizontal_limiting_line.xpm"
+${File} "..\..\shapes\Civil\" "civil_horizontal_valve.png"
+${File} "..\..\shapes\Civil\" "civil_horizontal_valve.shape"
+${File} "..\..\shapes\Civil\" "civil_horizontal_valve.xpm"
+${File} "..\..\shapes\Civil\" "civil_motor.png"
+${File} "..\..\shapes\Civil\" "civil_motor.shape"
+${File} "..\..\shapes\Civil\" "civil_motor.xpm"
+${File} "..\..\shapes\Civil\" "civil_preliminary_clarification_tank.png"
+${File} "..\..\shapes\Civil\" "civil_preliminary_clarification_tank.shape"
+${File} "..\..\shapes\Civil\" "civil_preliminary_clarification_tank.xpm"
+${File} "..\..\shapes\Civil\" "civil_rotor.png"
+${File} "..\..\shapes\Civil\" "civil_rotor.shape"
+${File} "..\..\shapes\Civil\" "civil_rotor.xpm"
+${File} "..\..\shapes\Civil\" "civil_soil.png"
+${File} "..\..\shapes\Civil\" "civil_soil.shape"
+${File} "..\..\shapes\Civil\" "civil_soil.xpm"
+${File} "..\..\shapes\Civil\" "civil_vertical_limiting_line.png"
+${File} "..\..\shapes\Civil\" "civil_vertical_limiting_line.shape"
+${File} "..\..\shapes\Civil\" "civil_vertical_limiting_line.xpm"
+${File} "..\..\shapes\Civil\" "civil_vertical_propeller.png"
+${File} "..\..\shapes\Civil\" "civil_vertical_propeller.shape"
+${File} "..\..\shapes\Civil\" "civil_vertical_propeller.xpm"
+${File} "..\..\shapes\Civil\" "hcompressor.png"
+${File} "..\..\shapes\Civil\" "hcompressor.shape"
+${File} "..\..\shapes\Civil\" "hcompressor.xpm"
+${File} "..\..\shapes\Civil\" "hpump.png"
+${File} "..\..\shapes\Civil\" "hpump.shape"
+${File} "..\..\shapes\Civil\" "hpump.xpm"
+${File} "..\..\shapes\Civil\" "hrest.png"
+${File} "..\..\shapes\Civil\" "hrest.shape"
+${File} "..\..\shapes\Civil\" "hrest.xpm"
+${File} "..\..\shapes\Civil\" "line.png"
+${File} "..\..\shapes\Civil\" "line.shape"
+${File} "..\..\shapes\Civil\" "line.xpm"
+${File} "..\..\shapes\Civil\" "Makefile.am"
+${File} "..\..\shapes\Civil\" "vcompressor.png"
+${File} "..\..\shapes\Civil\" "vcompressor.shape"
+${File} "..\..\shapes\Civil\" "vcompressor.xpm"
+${File} "..\..\shapes\Civil\" "vpump.png"
+${File} "..\..\shapes\Civil\" "vpump.shape"
+${File} "..\..\shapes\Civil\" "vpump.xpm"
+${File} "..\..\shapes\Civil\" "vrest.png"
+${File} "..\..\shapes\Civil\" "vrest.shape"
+${File} "..\..\shapes\Civil\" "vrest.xpm"
+${File} "..\..\shapes\Civil\" "water_level.png"
+${File} "..\..\shapes\Civil\" "water_level.shape"
+${File} "..\..\shapes\Civil\" "water_level.xpm"
+${SetOutPath} "$INSTDIR\shapes\Contact"
+${File} "..\..\shapes\Contact\" "c_if.png"
+${File} "..\..\shapes\Contact\" "c_if.shape"
+${File} "..\..\shapes\Contact\" "c_if.xpm"
+${File} "..\..\shapes\Contact\" "c_ifnot.png"
+${File} "..\..\shapes\Contact\" "c_ifnot.shape"
+${File} "..\..\shapes\Contact\" "c_ifnot.xpm"
+${File} "..\..\shapes\Contact\" "c_lamp.png"
+${File} "..\..\shapes\Contact\" "c_lamp.shape"
+${File} "..\..\shapes\Contact\" "c_lamp.xpm"
+${File} "..\..\shapes\Contact\" "c_relay.png"
+${File} "..\..\shapes\Contact\" "c_relay.shape"
+${File} "..\..\shapes\Contact\" "c_relay.xpm"
+${File} "..\..\shapes\Contact\" "l_if.png"
+${File} "..\..\shapes\Contact\" "l_if.shape"
+${File} "..\..\shapes\Contact\" "l_if.xpm"
+${File} "..\..\shapes\Contact\" "l_ifnot.png"
+${File} "..\..\shapes\Contact\" "l_ifnot.shape"
+${File} "..\..\shapes\Contact\" "l_ifnot.xpm"
+${File} "..\..\shapes\Contact\" "l_out.png"
+${File} "..\..\shapes\Contact\" "l_out.shape"
+${File} "..\..\shapes\Contact\" "l_out.xpm"
+${File} "..\..\shapes\Contact\" "l_outj.png"
+${File} "..\..\shapes\Contact\" "l_outj.shape"
+${File} "..\..\shapes\Contact\" "l_outj.xpm"
+${File} "..\..\shapes\Contact\" "l_outnot.png"
+${File} "..\..\shapes\Contact\" "l_outnot.shape"
+${File} "..\..\shapes\Contact\" "l_outnot.xpm"
+${File} "..\..\shapes\Contact\" "l_outr.png"
+${File} "..\..\shapes\Contact\" "l_outr.shape"
+${File} "..\..\shapes\Contact\" "l_outr.xpm"
+${File} "..\..\shapes\Contact\" "l_outrcep.png"
+${File} "..\..\shapes\Contact\" "l_outrcep.shape"
+${File} "..\..\shapes\Contact\" "l_outrcep.xpm"
+${File} "..\..\shapes\Contact\" "l_outs.png"
+${File} "..\..\shapes\Contact\" "l_outs.shape"
+${File} "..\..\shapes\Contact\" "l_outs.xpm"
+${File} "..\..\shapes\Contact\" "l_sout.png"
+${File} "..\..\shapes\Contact\" "l_sout.shape"
+${File} "..\..\shapes\Contact\" "l_sout.xpm"
+${File} "..\..\shapes\Contact\" "l_soutnot.png"
+${File} "..\..\shapes\Contact\" "l_soutnot.shape"
+${File} "..\..\shapes\Contact\" "l_soutnot.xpm"
+${File} "..\..\shapes\Contact\" "l_soutr.png"
+${File} "..\..\shapes\Contact\" "l_soutr.shape"
+${File} "..\..\shapes\Contact\" "l_soutr.xpm"
+${File} "..\..\shapes\Contact\" "l_souts.png"
+${File} "..\..\shapes\Contact\" "l_souts.shape"
+${File} "..\..\shapes\Contact\" "l_souts.xpm"
+${File} "..\..\shapes\Contact\" "Makefile.am"
+${SetOutPath} "$INSTDIR\shapes\Cybernetics"
+${File} "..\..\shapes\Cybernetics\" "b-integrator.png"
+${File} "..\..\shapes\Cybernetics\" "b-integrator.shape"
+${File} "..\..\shapes\Cybernetics\" "b-minus.png"
+${File} "..\..\shapes\Cybernetics\" "b-minus.shape"
+${File} "..\..\shapes\Cybernetics\" "b-sens.png"
+${File} "..\..\shapes\Cybernetics\" "b-sens.shape"
+${File} "..\..\shapes\Cybernetics\" "delta-t.png"
+${File} "..\..\shapes\Cybernetics\" "delta-t.shape"
+${File} "..\..\shapes\Cybernetics\" "empty-func.png"
+${File} "..\..\shapes\Cybernetics\" "empty-func.shape"
+${File} "..\..\shapes\Cybernetics\" "factor-0to-1.png"
+${File} "..\..\shapes\Cybernetics\" "factor-0to-1.shape"
+${File} "..\..\shapes\Cybernetics\" "factor-0to1.png"
+${File} "..\..\shapes\Cybernetics\" "factor-0to1.shape"
+${File} "..\..\shapes\Cybernetics\" "factor-greater1.png"
+${File} "..\..\shapes\Cybernetics\" "factor-greater1.shape"
+${File} "..\..\shapes\Cybernetics\" "factor-smaller-1.png"
+${File} "..\..\shapes\Cybernetics\" "factor-smaller-1.shape"
+${File} "..\..\shapes\Cybernetics\" "full-wave-rectifier.png"
+${File} "..\..\shapes\Cybernetics\" "full-wave-rectifier.shape"
+${File} "..\..\shapes\Cybernetics\" "half-wave-rectifier.png"
+${File} "..\..\shapes\Cybernetics\" "half-wave-rectifier.shape"
+${File} "..\..\shapes\Cybernetics\" "hpf.png"
+${File} "..\..\shapes\Cybernetics\" "hpf.shape"
+${File} "..\..\shapes\Cybernetics\" "l-integrator.png"
+${File} "..\..\shapes\Cybernetics\" "l-integrator.shape"
+${File} "..\..\shapes\Cybernetics\" "l-minus.png"
+${File} "..\..\shapes\Cybernetics\" "l-minus.shape"
+${File} "..\..\shapes\Cybernetics\" "l-sens.png"
+${File} "..\..\shapes\Cybernetics\" "l-sens.shape"
+${File} "..\..\shapes\Cybernetics\" "lpf.png"
+${File} "..\..\shapes\Cybernetics\" "lpf.shape"
+${File} "..\..\shapes\Cybernetics\" "Makefile.am"
+${File} "..\..\shapes\Cybernetics\" "negative-shift.png"
+${File} "..\..\shapes\Cybernetics\" "negative-shift.shape"
+${File} "..\..\shapes\Cybernetics\" "positive-shift.png"
+${File} "..\..\shapes\Cybernetics\" "positive-shift.shape"
+${File} "..\..\shapes\Cybernetics\" "product.png"
+${File} "..\..\shapes\Cybernetics\" "product.shape"
+${File} "..\..\shapes\Cybernetics\" "r-integrator.png"
+${File} "..\..\shapes\Cybernetics\" "r-integrator.shape"
+${File} "..\..\shapes\Cybernetics\" "r-minus.png"
+${File} "..\..\shapes\Cybernetics\" "r-minus.shape"
+${File} "..\..\shapes\Cybernetics\" "r-sens.png"
+${File} "..\..\shapes\Cybernetics\" "r-sens.shape"
+${File} "..\..\shapes\Cybernetics\" "relay.png"
+${File} "..\..\shapes\Cybernetics\" "relay.shape"
+${File} "..\..\shapes\Cybernetics\" "saturation.png"
+${File} "..\..\shapes\Cybernetics\" "saturation.shape"
+${File} "..\..\shapes\Cybernetics\" "sigmoid.png"
+${File} "..\..\shapes\Cybernetics\" "sigmoid.shape"
+${File} "..\..\shapes\Cybernetics\" "sine.png"
+${File} "..\..\shapes\Cybernetics\" "sine.shape"
+${File} "..\..\shapes\Cybernetics\" "sum.png"
+${File} "..\..\shapes\Cybernetics\" "sum.shape"
+${File} "..\..\shapes\Cybernetics\" "t-integrator.png"
+${File} "..\..\shapes\Cybernetics\" "t-integrator.shape"
+${File} "..\..\shapes\Cybernetics\" "t-minus.png"
+${File} "..\..\shapes\Cybernetics\" "t-minus.shape"
+${File} "..\..\shapes\Cybernetics\" "t-sens.png"
+${File} "..\..\shapes\Cybernetics\" "t-sens.shape"
+${SetOutPath} "$INSTDIR\shapes\Electric"
+${File} "..\..\shapes\Electric\" "cnx.png"
+${File} "..\..\shapes\Electric\" "cnx.shape"
+${File} "..\..\shapes\Electric\" "cnx.xpm"
+${File} "..\..\shapes\Electric\" "command.png"
+${File} "..\..\shapes\Electric\" "command.shape"
+${File} "..\..\shapes\Electric\" "command.xpm"
+${File} "..\..\shapes\Electric\" "contact_f.png"
+${File} "..\..\shapes\Electric\" "contact_f.shape"
+${File} "..\..\shapes\Electric\" "contact_f.xpm"
+${File} "..\..\shapes\Electric\" "contact_o.png"
+${File} "..\..\shapes\Electric\" "contact_o.shape"
+${File} "..\..\shapes\Electric\" "contact_o.xpm"
+${File} "..\..\shapes\Electric\" "intpos_f.png"
+${File} "..\..\shapes\Electric\" "intpos_f.shape"
+${File} "..\..\shapes\Electric\" "intpos_f.xpm"
+${File} "..\..\shapes\Electric\" "intpos_o.png"
+${File} "..\..\shapes\Electric\" "intpos_o.shape"
+${File} "..\..\shapes\Electric\" "intpos_o.xpm"
+${File} "..\..\shapes\Electric\" "lamp.png"
+${File} "..\..\shapes\Electric\" "lamp.shape"
+${File} "..\..\shapes\Electric\" "lamp.xpm"
+${File} "..\..\shapes\Electric\" "Makefile.am"
+${File} "..\..\shapes\Electric\" "relay.png"
+${File} "..\..\shapes\Electric\" "relay.shape"
+${File} "..\..\shapes\Electric\" "relay.xpm"
+${File} "..\..\shapes\Electric\" "vcommand.png"
+${File} "..\..\shapes\Electric\" "vcommand.shape"
+${File} "..\..\shapes\Electric\" "vcommand.xpm"
+${File} "..\..\shapes\Electric\" "vcontact_f.png"
+${File} "..\..\shapes\Electric\" "vcontact_f.shape"
+${File} "..\..\shapes\Electric\" "vcontact_f.xpm"
+${File} "..\..\shapes\Electric\" "vcontact_o.png"
+${File} "..\..\shapes\Electric\" "vcontact_o.shape"
+${File} "..\..\shapes\Electric\" "vcontact_o.xpm"
+${File} "..\..\shapes\Electric\" "vintpos_f.png"
+${File} "..\..\shapes\Electric\" "vintpos_f.shape"
+${File} "..\..\shapes\Electric\" "vintpos_f.xpm"
+${File} "..\..\shapes\Electric\" "vintpos_o.png"
+${File} "..\..\shapes\Electric\" "vintpos_o.shape"
+${File} "..\..\shapes\Electric\" "vintpos_o.xpm"
+${File} "..\..\shapes\Electric\" "vlamp.png"
+${File} "..\..\shapes\Electric\" "vlamp.shape"
+${File} "..\..\shapes\Electric\" "vlamp.xpm"
+${File} "..\..\shapes\Electric\" "vrelay.png"
+${File} "..\..\shapes\Electric\" "vrelay.shape"
+${File} "..\..\shapes\Electric\" "vrelay.xpm"
+${SetOutPath} "$INSTDIR\shapes\flowchart"
+${File} "..\..\shapes\flowchart\" "collate.png"
+${File} "..\..\shapes\flowchart\" "collate.shape"
+${File} "..\..\shapes\flowchart\" "collate.xpm"
+${File} "..\..\shapes\flowchart\" "delay.png"
+${File} "..\..\shapes\flowchart\" "delay.shape"
+${File} "..\..\shapes\flowchart\" "delay.xpm"
+${File} "..\..\shapes\flowchart\" "display.png"
+${File} "..\..\shapes\flowchart\" "display.shape"
+${File} "..\..\shapes\flowchart\" "display.xpm"
+${File} "..\..\shapes\flowchart\" "document.png"
+${File} "..\..\shapes\flowchart\" "document.shape"
+${File} "..\..\shapes\flowchart\" "document.xpm"
+${File} "..\..\shapes\flowchart\" "extract.png"
+${File} "..\..\shapes\flowchart\" "extract.shape"
+${File} "..\..\shapes\flowchart\" "extract.xpm"
+${File} "..\..\shapes\flowchart\" "intstorage.png"
+${File} "..\..\shapes\flowchart\" "intstorage.shape"
+${File} "..\..\shapes\flowchart\" "intstorage.xpm"
+${File} "..\..\shapes\flowchart\" "magdisk.png"
+${File} "..\..\shapes\flowchart\" "magdisk.shape"
+${File} "..\..\shapes\flowchart\" "magdisk.xpm"
+${File} "..\..\shapes\flowchart\" "magdrum.png"
+${File} "..\..\shapes\flowchart\" "magdrum.shape"
+${File} "..\..\shapes\flowchart\" "magdrum.xpm"
+${File} "..\..\shapes\flowchart\" "magtape.png"
+${File} "..\..\shapes\flowchart\" "magtape.shape"
+${File} "..\..\shapes\flowchart\" "magtape.xpm"
+${File} "..\..\shapes\flowchart\" "Makefile.am"
+${File} "..\..\shapes\flowchart\" "manualinput.png"
+${File} "..\..\shapes\flowchart\" "manualinput.shape"
+${File} "..\..\shapes\flowchart\" "manualinput.xpm"
+${File} "..\..\shapes\flowchart\" "manualop.png"
+${File} "..\..\shapes\flowchart\" "manualop.shape"
+${File} "..\..\shapes\flowchart\" "manualop.xpm"
+${File} "..\..\shapes\flowchart\" "merge.png"
+${File} "..\..\shapes\flowchart\" "merge.shape"
+${File} "..\..\shapes\flowchart\" "merge.xpm"
+${File} "..\..\shapes\flowchart\" "offlinestore.png"
+${File} "..\..\shapes\flowchart\" "offlinestore.shape"
+${File} "..\..\shapes\flowchart\" "offlinestore.xpm"
+${File} "..\..\shapes\flowchart\" "offpageconn.png"
+${File} "..\..\shapes\flowchart\" "offpageconn.shape"
+${File} "..\..\shapes\flowchart\" "offpageconn.xpm"
+${File} "..\..\shapes\flowchart\" "or.png"
+${File} "..\..\shapes\flowchart\" "or.shape"
+${File} "..\..\shapes\flowchart\" "or.xpm"
+${File} "..\..\shapes\flowchart\" "predefdproc.png"
+${File} "..\..\shapes\flowchart\" "predefdproc.shape"
+${File} "..\..\shapes\flowchart\" "predefdproc.xpm"
+${File} "..\..\shapes\flowchart\" "preparation.png"
+${File} "..\..\shapes\flowchart\" "preparation.shape"
+${File} "..\..\shapes\flowchart\" "preparation.xpm"
+${File} "..\..\shapes\flowchart\" "punchedcard.png"
+${File} "..\..\shapes\flowchart\" "punchedcard.shape"
+${File} "..\..\shapes\flowchart\" "punchedcard.xpm"
+${File} "..\..\shapes\flowchart\" "punchedtape.png"
+${File} "..\..\shapes\flowchart\" "punchedtape.shape"
+${File} "..\..\shapes\flowchart\" "punchedtape.xpm"
+${File} "..\..\shapes\flowchart\" "sort.png"
+${File} "..\..\shapes\flowchart\" "sort.shape"
+${File} "..\..\shapes\flowchart\" "sort.xpm"
+${File} "..\..\shapes\flowchart\" "sumjunction.png"
+${File} "..\..\shapes\flowchart\" "sumjunction.shape"
+${File} "..\..\shapes\flowchart\" "sumjunction.xpm"
+${File} "..\..\shapes\flowchart\" "terminal.png"
+${File} "..\..\shapes\flowchart\" "terminal.shape"
+${File} "..\..\shapes\flowchart\" "terminal.xpm"
+${File} "..\..\shapes\flowchart\" "transaction.png"
+${File} "..\..\shapes\flowchart\" "transaction.shape"
+${File} "..\..\shapes\flowchart\" "transaction.xpm"
+${File} "..\..\shapes\flowchart\" "transmittape.png"
+${File} "..\..\shapes\flowchart\" "transmittape.shape"
+${File} "..\..\shapes\flowchart\" "transmittape.xpm"
+${SetOutPath} "$INSTDIR\shapes\Gane_and_Sarson"
+${File} "..\..\shapes\Gane_and_Sarson\" "alt-entity.png"
+${File} "..\..\shapes\Gane_and_Sarson\" "alt-entity.shape"
+${File} "..\..\shapes\Gane_and_Sarson\" "data_store.png"
+${File} "..\..\shapes\Gane_and_Sarson\" "data_store.shape"
+${File} "..\..\shapes\Gane_and_Sarson\" "entity.png"
+${File} "..\..\shapes\Gane_and_Sarson\" "entity.shape"
+${File} "..\..\shapes\Gane_and_Sarson\" "process.png"
+${File} "..\..\shapes\Gane_and_Sarson\" "process.shape"
+${SetOutPath} "$INSTDIR\shapes\jigsaw"
+${File} "..\..\shapes\jigsaw\" "Makefile.am"
+${File} "..\..\shapes\jigsaw\" "part_iiii.png"
+${File} "..\..\shapes\jigsaw\" "part_iiii.shape"
+${File} "..\..\shapes\jigsaw\" "part_iiii.xpm"
+${File} "..\..\shapes\jigsaw\" "part_iiio.png"
+${File} "..\..\shapes\jigsaw\" "part_iiio.shape"
+${File} "..\..\shapes\jigsaw\" "part_iiio.xpm"
+${File} "..\..\shapes\jigsaw\" "part_iioi.png"
+${File} "..\..\shapes\jigsaw\" "part_iioi.shape"
+${File} "..\..\shapes\jigsaw\" "part_iioi.xpm"
+${File} "..\..\shapes\jigsaw\" "part_iioo.png"
+${File} "..\..\shapes\jigsaw\" "part_iioo.shape"
+${File} "..\..\shapes\jigsaw\" "part_iioo.xpm"
+${File} "..\..\shapes\jigsaw\" "part_ioii.png"
+${File} "..\..\shapes\jigsaw\" "part_ioii.shape"
+${File} "..\..\shapes\jigsaw\" "part_ioii.xpm"
+${File} "..\..\shapes\jigsaw\" "part_ioio.png"
+${File} "..\..\shapes\jigsaw\" "part_ioio.shape"
+${File} "..\..\shapes\jigsaw\" "part_ioio.xpm"
+${File} "..\..\shapes\jigsaw\" "part_iooi.png"
+${File} "..\..\shapes\jigsaw\" "part_iooi.shape"
+${File} "..\..\shapes\jigsaw\" "part_iooi.xpm"
+${File} "..\..\shapes\jigsaw\" "part_iooo.png"
+${File} "..\..\shapes\jigsaw\" "part_iooo.shape"
+${File} "..\..\shapes\jigsaw\" "part_iooo.xpm"
+${File} "..\..\shapes\jigsaw\" "part_oiii.png"
+${File} "..\..\shapes\jigsaw\" "part_oiii.shape"
+${File} "..\..\shapes\jigsaw\" "part_oiii.xpm"
+${File} "..\..\shapes\jigsaw\" "part_oiio.png"
+${File} "..\..\shapes\jigsaw\" "part_oiio.shape"
+${File} "..\..\shapes\jigsaw\" "part_oiio.xpm"
+${File} "..\..\shapes\jigsaw\" "part_oioi.png"
+${File} "..\..\shapes\jigsaw\" "part_oioi.shape"
+${File} "..\..\shapes\jigsaw\" "part_oioi.xpm"
+${File} "..\..\shapes\jigsaw\" "part_oioo.png"
+${File} "..\..\shapes\jigsaw\" "part_oioo.shape"
+${File} "..\..\shapes\jigsaw\" "part_oioo.xpm"
+${File} "..\..\shapes\jigsaw\" "part_ooii.png"
+${File} "..\..\shapes\jigsaw\" "part_ooii.shape"
+${File} "..\..\shapes\jigsaw\" "part_ooii.xpm"
+${File} "..\..\shapes\jigsaw\" "part_ooio.png"
+${File} "..\..\shapes\jigsaw\" "part_ooio.shape"
+${File} "..\..\shapes\jigsaw\" "part_ooio.xpm"
+${File} "..\..\shapes\jigsaw\" "part_oooi.png"
+${File} "..\..\shapes\jigsaw\" "part_oooi.shape"
+${File} "..\..\shapes\jigsaw\" "part_oooi.xpm"
+${File} "..\..\shapes\jigsaw\" "part_oooo.png"
+${File} "..\..\shapes\jigsaw\" "part_oooo.shape"
+${File} "..\..\shapes\jigsaw\" "part_oooo.xpm"
+${SetOutPath} "$INSTDIR\shapes\Logic"
+${File} "..\..\shapes\Logic\" "and.png"
+${File} "..\..\shapes\Logic\" "and.shape"
+${File} "..\..\shapes\Logic\" "buffer.png"
+${File} "..\..\shapes\Logic\" "buffer.shape"
+${File} "..\..\shapes\Logic\" "connector.png"
+${File} "..\..\shapes\Logic\" "connector.shape"
+${File} "..\..\shapes\Logic\" "inverter.png"
+${File} "..\..\shapes\Logic\" "inverter.shape"
+${File} "..\..\shapes\Logic\" "Makefile.am"
+${File} "..\..\shapes\Logic\" "nand.png"
+${File} "..\..\shapes\Logic\" "nand.shape"
+${File} "..\..\shapes\Logic\" "nor.png"
+${File} "..\..\shapes\Logic\" "nor.shape"
+${File} "..\..\shapes\Logic\" "not.png"
+${File} "..\..\shapes\Logic\" "not.shape"
+${File} "..\..\shapes\Logic\" "or.png"
+${File} "..\..\shapes\Logic\" "or.shape"
+${File} "..\..\shapes\Logic\" "xor.png"
+${File} "..\..\shapes\Logic\" "xor.shape"
+${SetOutPath} "$INSTDIR\shapes\Map\Isometric"
+${File} "..\..\shapes\Map\Isometric\" "Block1.png"
+${File} "..\..\shapes\Map\Isometric\" "Block1.shape"
+${File} "..\..\shapes\Map\Isometric\" "Block2.png"
+${File} "..\..\shapes\Map\Isometric\" "Block2.shape"
+${File} "..\..\shapes\Map\Isometric\" "Block3.png"
+${File} "..\..\shapes\Map\Isometric\" "Block3.shape"
+${File} "..\..\shapes\Map\Isometric\" "Block4.png"
+${File} "..\..\shapes\Map\Isometric\" "Block4.shape"
+${File} "..\..\shapes\Map\Isometric\" "Block5.png"
+${File} "..\..\shapes\Map\Isometric\" "Block5.shape"
+${File} "..\..\shapes\Map\Isometric\" "Block6.png"
+${File} "..\..\shapes\Map\Isometric\" "Block6.shape"
+${File} "..\..\shapes\Map\Isometric\" "Block7.png"
+${File} "..\..\shapes\Map\Isometric\" "Block7.shape"
+${File} "..\..\shapes\Map\Isometric\" "Car1.png"
+${File} "..\..\shapes\Map\Isometric\" "Car1.shape"
+${File} "..\..\shapes\Map\Isometric\" "Car2.png"
+${File} "..\..\shapes\Map\Isometric\" "Car2.shape"
+${File} "..\..\shapes\Map\Isometric\" "Corner1.png"
+${File} "..\..\shapes\Map\Isometric\" "Corner1.shape"
+${File} "..\..\shapes\Map\Isometric\" "Corner2.png"
+${File} "..\..\shapes\Map\Isometric\" "Corner2.shape"
+${File} "..\..\shapes\Map\Isometric\" "Crossroads.png"
+${File} "..\..\shapes\Map\Isometric\" "Crossroads.shape"
+${File} "..\..\shapes\Map\Isometric\" "Elevated.png"
+${File} "..\..\shapes\Map\Isometric\" "Elevated.shape"
+${File} "..\..\shapes\Map\Isometric\" "Factory.png"
+${File} "..\..\shapes\Map\Isometric\" "Factory.shape"
+${File} "..\..\shapes\Map\Isometric\" "FootBridge.png"
+${File} "..\..\shapes\Map\Isometric\" "FootBridge.shape"
+${File} "..\..\shapes\Map\Isometric\" "Makefile.am"
+${File} "..\..\shapes\Map\Isometric\" "OneWay.png"
+${File} "..\..\shapes\Map\Isometric\" "OneWay.shape"
+${File} "..\..\shapes\Map\Isometric\" "RedCar.png"
+${File} "..\..\shapes\Map\Isometric\" "RedCar.shape"
+${File} "..\..\shapes\Map\Isometric\" "River.png"
+${File} "..\..\shapes\Map\Isometric\" "River.shape"
+${File} "..\..\shapes\Map\Isometric\" "Road1.png"
+${File} "..\..\shapes\Map\Isometric\" "Road1.shape"
+${File} "..\..\shapes\Map\Isometric\" "Roof1.png"
+${File} "..\..\shapes\Map\Isometric\" "Roof1.shape"
+${File} "..\..\shapes\Map\Isometric\" "StraightRoad1.png"
+${File} "..\..\shapes\Map\Isometric\" "StraightRoad1.shape"
+${File} "..\..\shapes\Map\Isometric\" "T-Junction.png"
+${File} "..\..\shapes\Map\Isometric\" "T-Junction.shape"
+${File} "..\..\shapes\Map\Isometric\" "Train1.png"
+${File} "..\..\shapes\Map\Isometric\" "Train1.shape"
+${File} "..\..\shapes\Map\Isometric\" "Train2.png"
+${File} "..\..\shapes\Map\Isometric\" "Train2.shape"
+${File} "..\..\shapes\Map\Isometric\" "Tree1.png"
+${File} "..\..\shapes\Map\Isometric\" "Tree1.shape"
+${File} "..\..\shapes\Map\" "Makefile.am"
+${SetOutPath} "$INSTDIR\shapes\Misc"
+${File} "..\..\shapes\Misc\" "file.png"
+${File} "..\..\shapes\Misc\" "file.shape"
+${File} "..\..\shapes\Misc\" "folder.png"
+${File} "..\..\shapes\Misc\" "folder.shape"
+${File} "..\..\shapes\Misc\" "Makefile.am"
+${SetOutPath} "$INSTDIR\shapes\MSE"
+${File} "..\..\shapes\MSE\" "demultiplexer.png"
+${File} "..\..\shapes\MSE\" "demultiplexer.shape"
+${File} "..\..\shapes\MSE\" "demultiplexer.xpm"
+${File} "..\..\shapes\MSE\" "large_extension_node.png"
+${File} "..\..\shapes\MSE\" "large_extension_node.shape"
+${File} "..\..\shapes\MSE\" "large_extension_node.xpm"
+${File} "..\..\shapes\MSE\" "Makefile.am"
+${File} "..\..\shapes\MSE\" "multiplexer.png"
+${File} "..\..\shapes\MSE\" "multiplexer.shape"
+${File} "..\..\shapes\MSE\" "multiplexer.xpm"
+${File} "..\..\shapes\MSE\" "node_center.png"
+${File} "..\..\shapes\MSE\" "node_center.shape"
+${File} "..\..\shapes\MSE\" "node_center.xpm"
+${File} "..\..\shapes\MSE\" "small_extension_node.png"
+${File} "..\..\shapes\MSE\" "small_extension_node.shape"
+${File} "..\..\shapes\MSE\" "small_extension_node.xpm"
+${File} "..\..\shapes\MSE\" "tacsat.png"
+${File} "..\..\shapes\MSE\" "tacsat.shape"
+${File} "..\..\shapes\MSE\" "tacsat.xpm"
+${SetOutPath} "$INSTDIR\shapes\network"
+${File} "..\..\shapes\network\" "antenna.png"
+${File} "..\..\shapes\network\" "antenna.shape"
+${File} "..\..\shapes\network\" "antenna.xpm"
+${File} "..\..\shapes\network\" "computer.png"
+${File} "..\..\shapes\network\" "computer.shape"
+${File} "..\..\shapes\network\" "computer.xpm"
+${File} "..\..\shapes\network\" "dat_external.png"
+${File} "..\..\shapes\network\" "dat_external.shape"
+${File} "..\..\shapes\network\" "dat_external.xpm"
+${File} "..\..\shapes\network\" "digitizing_board.png"
+${File} "..\..\shapes\network\" "digitizing_board.shape"
+${File} "..\..\shapes\network\" "disc.png"
+${File} "..\..\shapes\network\" "disc.shape"
+${File} "..\..\shapes\network\" "disc.xpm"
+${File} "..\..\shapes\network\" "diskette.png"
+${File} "..\..\shapes\network\" "diskette.shape"
+${File} "..\..\shapes\network\" "diskette.xpm"
+${File} "..\..\shapes\network\" "firewall.png"
+${File} "..\..\shapes\network\" "firewall.shape"
+${File} "..\..\shapes\network\" "firewall.xpm"
+${File} "..\..\shapes\network\" "flash.png"
+${File} "..\..\shapes\network\" "flash.shape"
+${File} "..\..\shapes\network\" "flash.xpm"
+${File} "..\..\shapes\network\" "genmonitor.png"
+${File} "..\..\shapes\network\" "genmonitor.shape"
+${File} "..\..\shapes\network\" "genmonitor.xpm"
+${File} "..\..\shapes\network\" "hub.png"
+${File} "..\..\shapes\network\" "hub.shape"
+${File} "..\..\shapes\network\" "hub.xpm"
+${File} "..\..\shapes\network\" "laptop.png"
+${File} "..\..\shapes\network\" "laptop.shape"
+${File} "..\..\shapes\network\" "Makefile.am"
+${File} "..\..\shapes\network\" "mobile_phone.png"
+${File} "..\..\shapes\network\" "mobile_phone.shape"
+${File} "..\..\shapes\network\" "mobile_phone.xpm"
+${File} "..\..\shapes\network\" "modem.png"
+${File} "..\..\shapes\network\" "modem.shape"
+${File} "..\..\shapes\network\" "modem.xpm"
+${File} "..\..\shapes\network\" "modularswitch.png"
+${File} "..\..\shapes\network\" "modularswitch.shape"
+${File} "..\..\shapes\network\" "modularswitch.xpm"
+${File} "..\..\shapes\network\" "monitor.png"
+${File} "..\..\shapes\network\" "monitor.shape"
+${File} "..\..\shapes\network\" "monitor.xpm"
+${File} "..\..\shapes\network\" "nwcloud.png"
+${File} "..\..\shapes\network\" "nwcloud.shape"
+${File} "..\..\shapes\network\" "nwcloud.xpm"
+${File} "..\..\shapes\network\" "patch-panel.png"
+${File} "..\..\shapes\network\" "patch-panel.shape"
+${File} "..\..\shapes\network\" "patch-panel.xpm"
+${File} "..\..\shapes\network\" "pc_bigtower.png"
+${File} "..\..\shapes\network\" "pc_bigtower.shape"
+${File} "..\..\shapes\network\" "pc_bigtower.xpm"
+${File} "..\..\shapes\network\" "pc_desktop.png"
+${File} "..\..\shapes\network\" "pc_desktop.shape"
+${File} "..\..\shapes\network\" "pc_desktop.xpm"
+${File} "..\..\shapes\network\" "pc_miditower.png"
+${File} "..\..\shapes\network\" "pc_miditower.shape"
+${File} "..\..\shapes\network\" "pc_miditower.xpm"
+${File} "..\..\shapes\network\" "pc_minitower.png"
+${File} "..\..\shapes\network\" "pc_minitower.shape"
+${File} "..\..\shapes\network\" "pc_minitower.xpm"
+${File} "..\..\shapes\network\" "plotter.png"
+${File} "..\..\shapes\network\" "plotter.shape"
+${File} "..\..\shapes\network\" "printer.png"
+${File} "..\..\shapes\network\" "printer.shape"
+${File} "..\..\shapes\network\" "printer.xpm"
+${File} "..\..\shapes\network\" "rj45plug.png"
+${File} "..\..\shapes\network\" "rj45plug.shape"
+${File} "..\..\shapes\network\" "rj45plug.xpm"
+${File} "..\..\shapes\network\" "router-symbol.png"
+${File} "..\..\shapes\network\" "router-symbol.shape"
+${File} "..\..\shapes\network\" "router-symbol.xpm"
+${File} "..\..\shapes\network\" "sceadplug.png"
+${File} "..\..\shapes\network\" "sceadplug.shape"
+${File} "..\..\shapes\network\" "sceadplug.xpm"
+${File} "..\..\shapes\network\" "speaker.png"
+${File} "..\..\shapes\network\" "speaker.shape"
+${File} "..\..\shapes\network\" "speaker.xpm"
+${File} "..\..\shapes\network\" "speaker_amp.png"
+${File} "..\..\shapes\network\" "speaker_amp.shape"
+${File} "..\..\shapes\network\" "speaker_amp.xpm"
+${File} "..\..\shapes\network\" "switch-atm-symbol.png"
+${File} "..\..\shapes\network\" "switch-atm-symbol.shape"
+${File} "..\..\shapes\network\" "switch-atm-symbol.xpm"
+${File} "..\..\shapes\network\" "switch-symbol.png"
+${File} "..\..\shapes\network\" "switch-symbol.shape"
+${File} "..\..\shapes\network\" "switch-symbol.xpm"
+${File} "..\..\shapes\network\" "telephone.png"
+${File} "..\..\shapes\network\" "telephone.shape"
+${File} "..\..\shapes\network\" "workstation.png"
+${File} "..\..\shapes\network\" "workstation.shape"
+${File} "..\..\shapes\network\" "workstation.xpm"
+${File} "..\..\shapes\network\" "zip-disk.png"
+${File} "..\..\shapes\network\" "zip-disk.shape"
+${File} "..\..\shapes\network\" "zip-disk.xpm"
+${SetOutPath} "$INSTDIR\shapes\Pneumatic"
+${File} "..\..\shapes\Pneumatic\" "cnx.png"
+${File} "..\..\shapes\Pneumatic\" "cnx.shape"
+${File} "..\..\shapes\Pneumatic\" "cnx.xpm"
+${File} "..\..\shapes\Pneumatic\" "comelec1.png"
+${File} "..\..\shapes\Pneumatic\" "comelec1.shape"
+${File} "..\..\shapes\Pneumatic\" "comelec1.xpm"
+${File} "..\..\shapes\Pneumatic\" "comelec2.png"
+${File} "..\..\shapes\Pneumatic\" "comelec2.shape"
+${File} "..\..\shapes\Pneumatic\" "comelec2.xpm"
+${File} "..\..\shapes\Pneumatic\" "commusc.png"
+${File} "..\..\shapes\Pneumatic\" "commusc.shape"
+${File} "..\..\shapes\Pneumatic\" "commusc.xpm"
+${File} "..\..\shapes\Pneumatic\" "compb.png"
+${File} "..\..\shapes\Pneumatic\" "compb.shape"
+${File} "..\..\shapes\Pneumatic\" "compb.xpm"
+${File} "..\..\shapes\Pneumatic\" "compilh.png"
+${File} "..\..\shapes\Pneumatic\" "compilh.shape"
+${File} "..\..\shapes\Pneumatic\" "compilh.xpm"
+${File} "..\..\shapes\Pneumatic\" "compilp.png"
+${File} "..\..\shapes\Pneumatic\" "compilp.shape"
+${File} "..\..\shapes\Pneumatic\" "compilp.xpm"
+${File} "..\..\shapes\Pneumatic\" "compush.png"
+${File} "..\..\shapes\Pneumatic\" "compush.shape"
+${File} "..\..\shapes\Pneumatic\" "compush.xpm"
+${File} "..\..\shapes\Pneumatic\" "comspr.png"
+${File} "..\..\shapes\Pneumatic\" "comspr.shape"
+${File} "..\..\shapes\Pneumatic\" "comspr.xpm"
+${File} "..\..\shapes\Pneumatic\" "dejack.png"
+${File} "..\..\shapes\Pneumatic\" "dejack.shape"
+${File} "..\..\shapes\Pneumatic\" "dejack.xpm"
+${File} "..\..\shapes\Pneumatic\" "dist22.png"
+${File} "..\..\shapes\Pneumatic\" "dist22.shape"
+${File} "..\..\shapes\Pneumatic\" "dist22.xpm"
+${File} "..\..\shapes\Pneumatic\" "dist32.png"
+${File} "..\..\shapes\Pneumatic\" "dist32.shape"
+${File} "..\..\shapes\Pneumatic\" "dist32.xpm"
+${File} "..\..\shapes\Pneumatic\" "dist42.png"
+${File} "..\..\shapes\Pneumatic\" "dist42.shape"
+${File} "..\..\shapes\Pneumatic\" "dist42.xpm"
+${File} "..\..\shapes\Pneumatic\" "dist52.png"
+${File} "..\..\shapes\Pneumatic\" "dist52.shape"
+${File} "..\..\shapes\Pneumatic\" "dist52.xpm"
+${File} "..\..\shapes\Pneumatic\" "drain.png"
+${File} "..\..\shapes\Pneumatic\" "drain.shape"
+${File} "..\..\shapes\Pneumatic\" "drain.xpm"
+${File} "..\..\shapes\Pneumatic\" "Makefile.am"
+${File} "..\..\shapes\Pneumatic\" "press.png"
+${File} "..\..\shapes\Pneumatic\" "press.shape"
+${File} "..\..\shapes\Pneumatic\" "press.xpm"
+${File} "..\..\shapes\Pneumatic\" "presshy.png"
+${File} "..\..\shapes\Pneumatic\" "presshy.shape"
+${File} "..\..\shapes\Pneumatic\" "presshy.xpm"
+${File} "..\..\shapes\Pneumatic\" "presspn.png"
+${File} "..\..\shapes\Pneumatic\" "presspn.shape"
+${File} "..\..\shapes\Pneumatic\" "presspn.xpm"
+${File} "..\..\shapes\Pneumatic\" "seijack.png"
+${File} "..\..\shapes\Pneumatic\" "seijack.shape"
+${File} "..\..\shapes\Pneumatic\" "seijack.xpm"
+${File} "..\..\shapes\Pneumatic\" "seojack.png"
+${File} "..\..\shapes\Pneumatic\" "seojack.shape"
+${File} "..\..\shapes\Pneumatic\" "seojack.xpm"
+${SetOutPath} "$INSTDIR\shapes\RDP"
+${File} "..\..\shapes\RDP\" "arc.png"
+${File} "..\..\shapes\RDP\" "arc_inhibiteur.png"
+${File} "..\..\shapes\RDP\" "Makefile.am"
+${File} "..\..\shapes\RDP\" "place.png"
+${File} "..\..\shapes\RDP\" "place.shape"
+${File} "..\..\shapes\RDP\" "place_marquee.png"
+${File} "..\..\shapes\RDP\" "place_marquee.shape"
+${File} "..\..\shapes\RDP\" "transition.png"
+${File} "..\..\shapes\RDP\" "transition.shape"
+${File} "..\..\shapes\RDP\" "t_transition.png"
+${File} "..\..\shapes\RDP\" "t_transition.shape"
+${SetOutPath} "$INSTDIR\shapes\SDL"
+${File} "..\..\shapes\SDL\" "block.png"
+${File} "..\..\shapes\SDL\" "block.shape"
+${File} "..\..\shapes\SDL\" "block.xpm"
+${File} "..\..\shapes\SDL\" "comment.png"
+${File} "..\..\shapes\SDL\" "comment.shape"
+${File} "..\..\shapes\SDL\" "comment.xpm"
+${File} "..\..\shapes\SDL\" "decision.png"
+${File} "..\..\shapes\SDL\" "decision.shape"
+${File} "..\..\shapes\SDL\" "decision.xpm"
+${File} "..\..\shapes\SDL\" "function.png"
+${File} "..\..\shapes\SDL\" "function.shape"
+${File} "..\..\shapes\SDL\" "function.xpm"
+${File} "..\..\shapes\SDL\" "header.png"
+${File} "..\..\shapes\SDL\" "header.shape"
+${File} "..\..\shapes\SDL\" "header.xpm"
+${File} "..\..\shapes\SDL\" "inout.png"
+${File} "..\..\shapes\SDL\" "inout.shape"
+${File} "..\..\shapes\SDL\" "inout.xpm"
+${File} "..\..\shapes\SDL\" "macro.png"
+${File} "..\..\shapes\SDL\" "macro.shape"
+${File} "..\..\shapes\SDL\" "macro.xpm"
+${File} "..\..\shapes\SDL\" "Makefile.am"
+${File} "..\..\shapes\SDL\" "note.png"
+${File} "..\..\shapes\SDL\" "note.shape"
+${File} "..\..\shapes\SDL\" "note.xpm"
+${File} "..\..\shapes\SDL\" "process.png"
+${File} "..\..\shapes\SDL\" "process.shape"
+${File} "..\..\shapes\SDL\" "process.xpm"
+${File} "..\..\shapes\SDL\" "receive.png"
+${File} "..\..\shapes\SDL\" "receive.shape"
+${File} "..\..\shapes\SDL\" "receive.xpm"
+${File} "..\..\shapes\SDL\" "return.png"
+${File} "..\..\shapes\SDL\" "return.shape"
+${File} "..\..\shapes\SDL\" "return.xpm"
+${File} "..\..\shapes\SDL\" "save.png"
+${File} "..\..\shapes\SDL\" "save.shape"
+${File} "..\..\shapes\SDL\" "save.xpm"
+${File} "..\..\shapes\SDL\" "send.png"
+${File} "..\..\shapes\SDL\" "send.shape"
+${File} "..\..\shapes\SDL\" "send.xpm"
+${File} "..\..\shapes\SDL\" "service.png"
+${File} "..\..\shapes\SDL\" "service.shape"
+${File} "..\..\shapes\SDL\" "service.xpm"
+${File} "..\..\shapes\SDL\" "state.png"
+${File} "..\..\shapes\SDL\" "state.shape"
+${File} "..\..\shapes\SDL\" "state.xpm"
+${File} "..\..\shapes\SDL\" "stop.png"
+${File} "..\..\shapes\SDL\" "stop.shape"
+${File} "..\..\shapes\SDL\" "stop.xpm"
+${File} "..\..\shapes\SDL\" "task.png"
+${File} "..\..\shapes\SDL\" "task.shape"
+${File} "..\..\shapes\SDL\" "task.xpm"
+${SetOutPath} "$INSTDIR\shapes\sybase"
+${File} "..\..\shapes\sybase\" "client.png"
+${File} "..\..\shapes\sybase\" "client.shape"
+${File} "..\..\shapes\sybase\" "client.xpm"
+${File} "..\..\shapes\sybase\" "dataserver.png"
+${File} "..\..\shapes\sybase\" "dataserver.shape"
+${File} "..\..\shapes\sybase\" "dataserver.xpm"
+${File} "..\..\shapes\sybase\" "ltm.png"
+${File} "..\..\shapes\sybase\" "ltm.shape"
+${File} "..\..\shapes\sybase\" "ltm.xpm"
+${File} "..\..\shapes\sybase\" "Makefile.am"
+${File} "..\..\shapes\sybase\" "repserver.png"
+${File} "..\..\shapes\sybase\" "repserver.shape"
+${File} "..\..\shapes\sybase\" "repserver.xpm"
+${File} "..\..\shapes\sybase\" "rsm.png"
+${File} "..\..\shapes\sybase\" "rsm.shape"
+${File} "..\..\shapes\sybase\" "rsm.xpm"
+${File} "..\..\shapes\sybase\" "stableq.png"
+${File} "..\..\shapes\sybase\" "stableq.shape"
+${File} "..\..\shapes\sybase\" "stableq.xpm"
+${SetOutPath} "$INSTDIR\sheets"
+${File} "..\..\sheets\" "AADL.sheet"
+${File} "..\..\sheets\" "Assorted.sheet"
+${File} "..\..\sheets\" "ChemEng.sheet"
+${File} "..\..\sheets\" "chronogram.sheet"
+${File} "..\..\sheets\" "Circuit.sheet"
+${File} "..\..\sheets\" "ciscocomputer.sheet"
+${File} "..\..\sheets\" "ciscohub.sheet"
+${File} "..\..\sheets\" "ciscomisc.sheet"
+${File} "..\..\sheets\" "cisconetwork.sheet"
+${File} "..\..\sheets\" "ciscotelephony.sheet"
+${File} "..\..\sheets\" "civil.sheet"
+${File} "..\..\sheets\" "Contact.sheet"
+${File} "..\..\sheets\" "Cybernetics.sheet"
+${File} "..\..\sheets\" "Electric.sheet"
+${File} "..\..\sheets\" "EML.sheet"
+${File} "..\..\sheets\" "ER.sheet"
+${File} "..\..\sheets\" "Flowchart.sheet"
+${File} "..\..\sheets\" "FS.sheet"
+${File} "..\..\sheets\" "Gane_and_Sarson.sheet"
+${File} "..\..\sheets\" "GRAFCET.sheet"
+${File} "..\..\sheets\" "IsometricMap.sheet"
+${File} "..\..\sheets\" "Istar.sheet"
+${File} "..\..\sheets\" "Jackson.sheet"
+${File} "..\..\sheets\" "jigsaw.sheet"
+${File} "..\..\sheets\" "KAOS.sheet"
+${File} "..\..\sheets\" "Logic.sheet"
+${File} "..\..\sheets\" "Misc.sheet"
+${File} "..\..\sheets\" "MSE.sheet"
+${File} "..\..\sheets\" "network.sheet"
+${File} "..\..\sheets\" "Pneumatic.sheet"
+${File} "..\..\sheets\" "SADT.sheet"
+${File} "..\..\sheets\" "SDL.sheet"
+${File} "..\..\sheets\" "sybase.sheet"
+${File} "..\..\sheets\" "UML.sheet"
+${SetOutPath} "$INSTDIR\sheets\ER"
+${File} "..\..\sheets\ER\" "Makefile.am"
+${File} "..\..\sheets\ER\" "Makefile.in"
+${File} "..\..\sheets\ER\" "weakentity.png"
+${File} "..\..\sheets\ER\" "weakentity.xpm"
+${SetOutPath} "$INSTDIR\sheets\GRAFCET"
+${File} "..\..\sheets\GRAFCET\" "etapei.png"
+${File} "..\..\sheets\GRAFCET\" "etapei.xpm"
+${File} "..\..\sheets\GRAFCET\" "etapemc.png"
+${File} "..\..\sheets\GRAFCET\" "etapemc.xpm"
+${File} "..\..\sheets\GRAFCET\" "etapeme.png"
+${File} "..\..\sheets\GRAFCET\" "etapeme.xpm"
+${File} "..\..\sheets\GRAFCET\" "etapems.png"
+${File} "..\..\sheets\GRAFCET\" "etapems.xpm"
+${File} "..\..\sheets\GRAFCET\" "etapesp.png"
+${File} "..\..\sheets\GRAFCET\" "etapesp.xpm"
+${File} "..\..\sheets\GRAFCET\" "Makefile.am"
+${File} "..\..\sheets\GRAFCET\" "Makefile.in"
+${File} "..\..\sheets\GRAFCET\" "vergent_and.png"
+${File} "..\..\sheets\GRAFCET\" "vergent_and.xpm"
+${SetOutPath} "$INSTDIR\sheets\Istar"
+${File} "..\..\sheets\Istar\" "agent.png"
+${File} "..\..\sheets\Istar\" "agent.xpm"
+${File} "..\..\sheets\Istar\" "decomposition.png"
+${File} "..\..\sheets\Istar\" "decomposition.xpm"
+${File} "..\..\sheets\Istar\" "dependency.png"
+${File} "..\..\sheets\Istar\" "dependency.xpm"
+${File} "..\..\sheets\Istar\" "goal.png"
+${File} "..\..\sheets\Istar\" "goal.xpm"
+${File} "..\..\sheets\Istar\" "Makefile.am"
+${File} "..\..\sheets\Istar\" "Makefile.in"
+${File} "..\..\sheets\Istar\" "means_ends.png"
+${File} "..\..\sheets\Istar\" "means_ends.xpm"
+${File} "..\..\sheets\Istar\" "neg_contrib.png"
+${File} "..\..\sheets\Istar\" "neg_contrib.xpm"
+${File} "..\..\sheets\Istar\" "position.png"
+${File} "..\..\sheets\Istar\" "position.xpm"
+${File} "..\..\sheets\Istar\" "pos_contrib.png"
+${File} "..\..\sheets\Istar\" "pos_contrib.xpm"
+${File} "..\..\sheets\Istar\" "role.png"
+${File} "..\..\sheets\Istar\" "role.xpm"
+${File} "..\..\sheets\Istar\" "task.png"
+${File} "..\..\sheets\Istar\" "task.xpm"
+${SetOutPath} "$INSTDIR\sheets\Jackson"
+${File} "..\..\sheets\Jackson\" "designed_domain.png"
+${File} "..\..\sheets\Jackson\" "designed_domain.xpm"
+${File} "..\..\sheets\Jackson\" "machine_domain.png"
+${File} "..\..\sheets\Jackson\" "machine_domain.xpm"
+${File} "..\..\sheets\Jackson\" "Makefile.am"
+${File} "..\..\sheets\Jackson\" "Makefile.in"
+${File} "..\..\sheets\Jackson\" "req_phen.png"
+${File} "..\..\sheets\Jackson\" "req_phen.xpm"
+${SetOutPath} "$INSTDIR\sheets\KAOS"
+${File} "..\..\sheets\KAOS\" "and-complete-ref.png"
+${File} "..\..\sheets\KAOS\" "and-complete-ref.xpm"
+${File} "..\..\sheets\KAOS\" "and-ref.png"
+${File} "..\..\sheets\KAOS\" "and-ref.xpm"
+${File} "..\..\sheets\KAOS\" "assumption.png"
+${File} "..\..\sheets\KAOS\" "assumption.xpm"
+${File} "..\..\sheets\KAOS\" "capable-of.png"
+${File} "..\..\sheets\KAOS\" "capable-of.xpm"
+${File} "..\..\sheets\KAOS\" "conflicts.png"
+${File} "..\..\sheets\KAOS\" "conflicts.xpm"
+${File} "..\..\sheets\KAOS\" "controls.png"
+${File} "..\..\sheets\KAOS\" "controls.xpm"
+${File} "..\..\sheets\KAOS\" "input.png"
+${File} "..\..\sheets\KAOS\" "input.xpm"
+${File} "..\..\sheets\KAOS\" "Makefile.am"
+${File} "..\..\sheets\KAOS\" "Makefile.in"
+${File} "..\..\sheets\KAOS\" "monitors.png"
+${File} "..\..\sheets\KAOS\" "monitors.xpm"
+${File} "..\..\sheets\KAOS\" "obstacle.png"
+${File} "..\..\sheets\KAOS\" "obstacle.xpm"
+${File} "..\..\sheets\KAOS\" "obstructs.png"
+${File} "..\..\sheets\KAOS\" "obstructs.xpm"
+${File} "..\..\sheets\KAOS\" "op-ref.png"
+${File} "..\..\sheets\KAOS\" "op-ref.xpm"
+${File} "..\..\sheets\KAOS\" "or-complete-ref.png"
+${File} "..\..\sheets\KAOS\" "or-complete-ref.xpm"
+${File} "..\..\sheets\KAOS\" "or-ref.png"
+${File} "..\..\sheets\KAOS\" "or-ref.xpm"
+${File} "..\..\sheets\KAOS\" "output.png"
+${File} "..\..\sheets\KAOS\" "output.xpm"
+${File} "..\..\sheets\KAOS\" "performs.png"
+${File} "..\..\sheets\KAOS\" "performs.xpm"
+${File} "..\..\sheets\KAOS\" "requirement.png"
+${File} "..\..\sheets\KAOS\" "requirement.xpm"
+${File} "..\..\sheets\KAOS\" "responsibility.png"
+${File} "..\..\sheets\KAOS\" "responsibility.xpm"
+${File} "..\..\sheets\KAOS\" "softgoal.png"
+${File} "..\..\sheets\KAOS\" "softgoal.xpm"
+${SetOutPath} "$INSTDIR\sheets\UML"
+${File} "..\..\sheets\UML\" "aggregation.png"
+${File} "..\..\sheets\UML\" "aggregation.xpm"
+${File} "..\..\sheets\UML\" "eventsink.png"
+${File} "..\..\sheets\UML\" "eventsink.xpm"
+${File} "..\..\sheets\UML\" "eventsource.png"
+${File} "..\..\sheets\UML\" "eventsource.xpm"
+${File} "..\..\sheets\UML\" "Makefile.am"
+${File} "..\..\sheets\UML\" "Makefile.in"
+${File} "..\..\sheets\UML\" "receptacle.png"
+${File} "..\..\sheets\UML\" "receptacle.xpm"
+${File} "..\..\sheets\UML\" "umlclass_template.png"
+${File} "..\..\sheets\UML\" "umlclass_template.xpm"
+${SetOutPath} "$INSTDIR\help\C"
+${File} "..\..\..\help\C\" "dia-manual.chm"
+${File} "..\..\..\help\C\" "dia-manual.pdf"
+${File} "..\..\..\dia-web\" "faq.html"
+${File} "..\..\..\dia-web\" "dia.css"
+${SetOutPath} "$INSTDIR\help\C\images"
+${File} "..\..\..\dia-web\images\" "faq2.jpg"
+${File} "..\..\..\dia-web\images\" "addbend1.png"
+${File} "..\..\..\dia-web\images\" "addbend2.png"
+${File} "..\..\..\dia-web\images\" "addbend3.png"
+${File} "..\..\..\dia-web\images\" "zig1.png"
+${File} "..\..\..\dia-web\images\" "zig2.png"
+${File} "..\..\..\dia-web\images\" "zig3.png"
+${File} "..\..\..\dia-web\images\" "zig4.png"
+${File} "..\..\..\dia-web\images\" "zig5.png"
+
+${SetOutPath} "$INSTDIR"
+${File} "..\..\" "dia_logo.png"
+    
+${SetOutPath} "$INSTDIR\xslt"
+${File} "..\..\plug-ins\xslt\" "dia-uml.xsl"
+${File} "..\..\plug-ins\xslt\" "dia-uml2c++.xsl"
+${File} "..\..\plug-ins\xslt\" "dia-uml2componentlist.xsl"
+${File} "..\..\plug-ins\xslt\" "dia-uml2cpp.xsl"
+${File} "..\..\plug-ins\xslt\" "dia-uml2idl.xsl"
+${File} "..\..\plug-ins\xslt\" "dia-uml2java.xsl"
+${File} "..\..\plug-ins\xslt\" "dia-uml2owl.xsl"
+${File} "..\..\plug-ins\xslt\" "dia-uml2python.xsl"
+${File} "..\..\plug-ins\xslt\" "stylesheets.xml"
+    
+    SetShellVarContext all
+    
+    CreateDirectory "$SMPROGRAMS\Dia"
+    CreateShortCut "$SMPROGRAMS\Dia\Dia.lnk" "$INSTDIR\bin\diaw.exe"
+    CreateShortCut "$SMPROGRAMS\Dia\Dia Manual (CHM).lnk" "$INSTDIR\help\C\dia-manual.chm"
+    CreateShortCut "$SMPROGRAMS\Dia\Dia Manual (PDF).lnk" "$INSTDIR\help\C\dia-manual.pdf"
+    CreateShortCut "$SMPROGRAMS\Dia\FAQ.lnk" "$INSTDIR\help\C\faq.html"
+    CreateShortCut "$DESKTOP\Dia.lnk" "$INSTDIR\bin\diaw.exe"
+    SetOutPath "$INSTDIR"
+
+    ; write out uninstaller
+    SetOverwrite on
+    WriteUninstaller "$INSTDIR\${DIA_UNINST_EXE}"
+    SetOverwrite off
+
+  done:
+SectionEnd ; end of default Dia section
+  
+Section $(TRANSLATIONS_SECTION_TITLE) SecTranslations
+  ; TODO
+  ${SetOutPath} "$INSTDIR\locale\am\LC_MESSAGES"
+  ${File} "..\..\..\locale\am\LC_MESSAGES\" "dia.mo"
+  ${SetOutPath} "$INSTDIR\locale\az\LC_MESSAGES"
+  ${File} "..\..\..\locale\az\LC_MESSAGES\" "dia.mo"
+  ${SetOutPath} "$INSTDIR\locale\be\LC_MESSAGES"
+  ${File} "..\..\..\locale\be\LC_MESSAGES\" "dia.mo"
+  ${SetOutPath} "$INSTDIR\locale\bg\LC_MESSAGES"
+  ${File} "..\..\..\locale\bg\LC_MESSAGES\" "dia.mo"
+  ${SetOutPath} "$INSTDIR\locale\bs\LC_MESSAGES"
+  ${File} "..\..\..\locale\bs\LC_MESSAGES\" "dia.mo"
+  ${SetOutPath} "$INSTDIR\locale\ca\LC_MESSAGES"
+  ${File} "..\..\..\locale\ca\LC_MESSAGES\" "dia.mo"
+  ${SetOutPath} "$INSTDIR\locale\cs\LC_MESSAGES"
+  ${File} "..\..\..\locale\cs\LC_MESSAGES\" "dia.mo"
+  ${SetOutPath} "$INSTDIR\locale\da\LC_MESSAGES"
+  ${File} "..\..\..\locale\da\LC_MESSAGES\" "dia.mo"
+  ${SetOutPath} "$INSTDIR\locale\de\LC_MESSAGES"
+  ${File} "..\..\..\locale\de\LC_MESSAGES\" "dia.mo"
+  ${SetOutPath} "$INSTDIR\locale\el\LC_MESSAGES"
+  ${File} "..\..\..\locale\el\LC_MESSAGES\" "dia.mo"
+  ${SetOutPath} "$INSTDIR\locale\en_CA\LC_MESSAGES"
+  ${File} "..\..\..\locale\en_CA\LC_MESSAGES\" "dia.mo"
+  ${SetOutPath} "$INSTDIR\locale\en_GB\LC_MESSAGES"
+  ${File} "..\..\..\locale\en_GB\LC_MESSAGES\" "dia.mo"
+  ${SetOutPath} "$INSTDIR\locale\es\LC_MESSAGES"
+  ${File} "..\..\..\locale\es\LC_MESSAGES\" "dia.mo"
+  ${SetOutPath} "$INSTDIR\locale\eu\LC_MESSAGES"
+  ${File} "..\..\..\locale\eu\LC_MESSAGES\" "dia.mo"
+  ${SetOutPath} "$INSTDIR\locale\fi\LC_MESSAGES"
+  ${File} "..\..\..\locale\fi\LC_MESSAGES\" "dia.mo"
+  ${SetOutPath} "$INSTDIR\locale\fr\LC_MESSAGES"
+  ${File} "..\..\..\locale\fr\LC_MESSAGES\" "dia.mo"
+  ${SetOutPath} "$INSTDIR\locale\ga\LC_MESSAGES"
+  ${File} "..\..\..\locale\ga\LC_MESSAGES\" "dia.mo"
+  ${SetOutPath} "$INSTDIR\locale\gu\LC_MESSAGES"
+  ${File} "..\..\..\locale\gu\LC_MESSAGES\" "dia.mo"
+  ${SetOutPath} "$INSTDIR\locale\hr\LC_MESSAGES"
+  ${File} "..\..\..\locale\hr\LC_MESSAGES\" "dia.mo"
+  ${SetOutPath} "$INSTDIR\locale\hu\LC_MESSAGES"
+  ${File} "..\..\..\locale\hu\LC_MESSAGES\" "dia.mo"
+  ${SetOutPath} "$INSTDIR\locale\id\LC_MESSAGES"
+  ${File} "..\..\..\locale\id\LC_MESSAGES\" "dia.mo"
+  ${SetOutPath} "$INSTDIR\locale\is\LC_MESSAGES"
+  ${File} "..\..\..\locale\is\LC_MESSAGES\" "dia.mo"
+  ${SetOutPath} "$INSTDIR\locale\it\LC_MESSAGES"
+  ${File} "..\..\..\locale\it\LC_MESSAGES\" "dia.mo"
+  ${SetOutPath} "$INSTDIR\locale\ja\LC_MESSAGES"
+  ${File} "..\..\..\locale\ja\LC_MESSAGES\" "dia.mo"
+  ${SetOutPath} "$INSTDIR\locale\ko\LC_MESSAGES"
+  ${File} "..\..\..\locale\ko\LC_MESSAGES\" "dia.mo"
+  ${SetOutPath} "$INSTDIR\locale\mk\LC_MESSAGES"
+  ${File} "..\..\..\locale\mk\LC_MESSAGES\" "dia.mo"
+  ${SetOutPath} "$INSTDIR\locale\ml\LC_MESSAGES"
+  ${File} "..\..\..\locale\ml\LC_MESSAGES\" "dia.mo"
+  ${SetOutPath} "$INSTDIR\locale\mn\LC_MESSAGES"
+  ${File} "..\..\..\locale\mn\LC_MESSAGES\" "dia.mo"
+  ${SetOutPath} "$INSTDIR\locale\ms\LC_MESSAGES"
+  ${File} "..\..\..\locale\ms\LC_MESSAGES\" "dia.mo"
+  ${SetOutPath} "$INSTDIR\locale\nb\LC_MESSAGES"
+  ${File} "..\..\..\locale\nb\LC_MESSAGES\" "dia.mo"
+  ${SetOutPath} "$INSTDIR\locale\ne\LC_MESSAGES"
+  ${File} "..\..\..\locale\ne\LC_MESSAGES\" "dia.mo"
+  ${SetOutPath} "$INSTDIR\locale\nl\LC_MESSAGES"
+  ${File} "..\..\..\locale\nl\LC_MESSAGES\" "dia.mo"
+  ${SetOutPath} "$INSTDIR\locale\nn\LC_MESSAGES"
+  ${File} "..\..\..\locale\nn\LC_MESSAGES\" "dia.mo"
+  ${SetOutPath} "$INSTDIR\locale\no\LC_MESSAGES"
+  ${File} "..\..\..\locale\no\LC_MESSAGES\" "dia.mo"
+  ${SetOutPath} "$INSTDIR\locale\pa\LC_MESSAGES"
+  ${File} "..\..\..\locale\pa\LC_MESSAGES\" "dia.mo"
+  ${SetOutPath} "$INSTDIR\locale\pl\LC_MESSAGES"
+  ${File} "..\..\..\locale\pl\LC_MESSAGES\" "dia.mo"
+  ${SetOutPath} "$INSTDIR\locale\pt\LC_MESSAGES"
+  ${File} "..\..\..\locale\pt\LC_MESSAGES\" "dia.mo"
+  ${SetOutPath} "$INSTDIR\locale\pt_BR\LC_MESSAGES"
+  ${File} "..\..\..\locale\pt_BR\LC_MESSAGES\" "dia.mo"
+  ${SetOutPath} "$INSTDIR\locale\ro\LC_MESSAGES"
+  ${File} "..\..\..\locale\ro\LC_MESSAGES\" "dia.mo"
+  ${SetOutPath} "$INSTDIR\locale\ru\LC_MESSAGES"
+  ${File} "..\..\..\locale\ru\LC_MESSAGES\" "dia.mo"
+  ${SetOutPath} "$INSTDIR\locale\rw\LC_MESSAGES"
+  ${File} "..\..\..\locale\rw\LC_MESSAGES\" "dia.mo"
+  ${SetOutPath} "$INSTDIR\locale\sk\LC_MESSAGES"
+  ${File} "..\..\..\locale\sk\LC_MESSAGES\" "dia.mo"
+  ${SetOutPath} "$INSTDIR\locale\sl\LC_MESSAGES"
+  ${File} "..\..\..\locale\sl\LC_MESSAGES\" "dia.mo"
+  ${SetOutPath} "$INSTDIR\locale\sq\LC_MESSAGES"
+  ${File} "..\..\..\locale\sq\LC_MESSAGES\" "dia.mo"
+  ${SetOutPath} "$INSTDIR\locale\sr\LC_MESSAGES"
+  ${File} "..\..\..\locale\sr\LC_MESSAGES\" "dia.mo"
+  ${SetOutPath} "$INSTDIR\locale\sr@Latn\LC_MESSAGES"
+  ${File} "..\..\..\locale\sr@Latn\LC_MESSAGES\" "dia.mo"
+  ${SetOutPath} "$INSTDIR\locale\sv\LC_MESSAGES"
+  ${File} "..\..\..\locale\sv\LC_MESSAGES\" "dia.mo"
+  ${SetOutPath} "$INSTDIR\locale\tr\LC_MESSAGES"
+  ${File} "..\..\..\locale\tr\LC_MESSAGES\" "dia.mo"
+  ${SetOutPath} "$INSTDIR\locale\uk\LC_MESSAGES"
+  ${File} "..\..\..\locale\uk\LC_MESSAGES\" "dia.mo"
+  ${SetOutPath} "$INSTDIR\locale\vi\LC_MESSAGES"
+  ${File} "..\..\..\locale\vi\LC_MESSAGES\" "dia.mo"
+  ${SetOutPath} "$INSTDIR\locale\zh_CN\LC_MESSAGES"
+  ${File} "..\..\..\locale\zh_CN\LC_MESSAGES\" "dia.mo"
+  ${SetOutPath} "$INSTDIR\locale\zh_TW\LC_MESSAGES"
+  ${File} "..\..\..\locale\zh_TW\LC_MESSAGES\" "dia.mo"
+  
+  ${SetOutPath} "$INSTDIR\help\pl"
+  ${File} "..\..\..\help\pl\" "dia-manual.chm"
+  ${File} "..\..\..\help\pl\" "dia-manual.pdf"
+  CreateDirectory "$SMPROGRAMS\Dia\Polish"
+  CreateShortCut "$SMPROGRAMS\Dia\Polish\Dia Manual (CHM).lnk" "$INSTDIR\help\pl\dia-manual.chm"
+  CreateShortCut "$SMPROGRAMS\Dia\Polish\Dia Manual (PDF).lnk" "$INSTDIR\help\pl\dia-manual.pdf"
+  ${SetOutPath} "$INSTDIR\help\eu"
+  ${File} "..\..\..\help\eu\" "dia-manual.chm"
+  ${File} "..\..\..\help\eu\" "dia-manual.pdf"
+  CreateDirectory "$SMPROGRAMS\Dia\Basque"
+  CreateShortCut "$SMPROGRAMS\Dia\Basque\Dia Manual (CHM).lnk" "$INSTDIR\help\eu\dia-manual.chm"
+  CreateShortCut "$SMPROGRAMS\Dia\Basque\Dia Manual (PDF).lnk" "$INSTDIR\help\eu\dia-manual.pdf"
+  
+SectionEnd
+
+Section -closelogfile
+ FileClose $UninstLog
+ SetFileAttributes "$INSTDIR\${UninstLog}" READONLY|SYSTEM|HIDDEN
+SectionEnd
+
+;--------------------------------
+;Uninstaller Section
+
+Section Uninstall
+  
+  Call un.CheckUserInstallRights
+  Pop $R0
+  StrCmp $R0 "NONE" no_rights
+  StrCmp $R0 "HKCU" try_hkcu try_hklm
+
+  try_hkcu:
+    ReadRegStr $R0 HKCU ${DIA_REG_KEY} ""
+    StrCmp $R0 $INSTDIR 0 cant_uninstall
+      ; HKCU install path matches our INSTDIR.. so uninstall
+      DeleteRegKey HKCU ${DIA_REG_KEY}
+      DeleteRegKey HKCU "${DIA_UNINSTALL_KEY}"
+      Goto cont_uninstall
+
+  try_hklm:
+    ReadRegStr $R0 HKLM ${DIA_REG_KEY} ""
+    StrCmp $R0 $INSTDIR 0 try_hkcu
+      ; HKLM install path matches our INSTDIR.. so uninstall
+      DeleteRegKey HKLM ${DIA_REG_KEY}
+      DeleteRegKey HKLM "${DIA_UNINSTALL_KEY}"
+      DeleteRegKey HKLM "${HKLM_APP_PATHS_KEY}"
+      DeleteRegKey HKLM "${HKLM_CMD_PATHS_KEY}"
+      ; Sets start menu and desktop scope to all users..
+      SetShellVarContext "all"
+
+  cont_uninstall:
+    DeleteRegKey HKEY_CLASSES_ROOT "diaFile"
+    DeleteRegKey HKEY_CLASSES_ROOT ".dia"
+    
+    ; The WinPrefs plugin may have left this behind..
+    DeleteRegValue HKCU "${DIA_STARTUP_RUN_KEY}" "Dia"
+    DeleteRegValue HKLM "${DIA_STARTUP_RUN_KEY}" "Dia"
+    ; Remove Language preference info
+    DeleteRegKey HKCU ${DIA_REG_KEY} ;${MUI_LANGDLL_REGISTRY_ROOT} ${MUI_LANGDLL_REGISTRY_KEY}
+    
+    ; Can't uninstall if uninstall.log is missing!
+ IfFileExists "$INSTDIR\${UninstLog}" +3
+  MessageBox MB_OK|MB_ICONSTOP "${UninstLog} not found!"
+  Goto no_uninstlog
+ 
+ Push $R0
+ SetFileAttributes "$INSTDIR\${UninstLog}" NORMAL
+ FileOpen $UninstLog "$INSTDIR\${UninstLog}" r
+ 
+ LoopRead:
+  ClearErrors
+   FileRead $UninstLog $R0
+   IfErrors LoopDone
+ 
+   Push $R0
+    Call un.TrimNewLines
+   Pop $R0
+   IfFileExists "$R0\*.*" 0 +3
+    RMDir $R0  #is dir
+   Goto LoopRead
+    Delete $R0 #is file
+ 
+    Goto LoopRead
+   LoopDone:
+   FileClose $UninstLog
+   Delete "$INSTDIR\${UninstLog}"
+   Pop $R0
+    Delete "$INSTDIR\${DIA_UNINST_EXE}"
+    
+    no_uninstlog:
+    ; Shortcuts..
+    Delete "$SMPROGRAMS\Dia\Dia.lnk"
+    Delete "$SMPROGRAMS\Dia\Dia Manual (CHM).lnk"
+    Delete "$SMPROGRAMS\Dia\Dia Manual (PDF).lnk"
+    Delete "$SMPROGRAMS\Dia\FAQ.lnk"
+    Delete "$SMPROGRAMS\Dia\Basque\Dia Manual (CHM).lnk"
+    Delete "$SMPROGRAMS\Dia\Basque\Dia Manual (PDF).lnk"
+    RMDir "$SMPROGRAMS\Dia\Basque"
+    Delete "$SMPROGRAMS\Dia\Polish\Dia Manual (CHM).lnk"
+    Delete "$SMPROGRAMS\Dia\Polish\Dia Manual (PDF).lnk"
+    RMDir "$SMPROGRAMS\Dia\Polish"
+    RMDir "$SMPROGRAMS\Dia"
+    Delete "$DESKTOP\Dia.lnk"
+    
+    IfSilent done
+    MessageBox MB_YESNO|MB_ICONEXCLAMATION $(un.DIA_UNINSTALLATION_WARNING) IDNO done
+    skip_warning:
+    RMDir /r "$INSTDIR"
+    
+    MessageBox MB_YESNO|MB_ICONEXCLAMATION $(un.DIA_DOTDIA_WARNING) IDNO done
+    SetShellVarContext current
+    RMDir /r "$PROFILE\.dia"
+    
+    Goto done
+
+  cant_uninstall:
+    IfSilent skip_mb
+    MessageBox MB_OK $(un.DIA_UNINSTALL_ERROR_1) IDOK
+    skip_mb:
+    Quit
+
+  no_rights:
+    IfSilent skip_mb1
+    MessageBox MB_OK $(un.DIA_UNINSTALL_ERROR_2) IDOK
+    skip_mb1:
+    Quit
+
+  done:
+SectionEnd ; end of uninstall section
+
+;--------------------------------
+;Descriptions
+!insertmacro MUI_FUNCTION_DESCRIPTION_BEGIN
+  !insertmacro MUI_DESCRIPTION_TEXT ${SecDia} \
+	$(DIA_SECTION_DESCRIPTION)
+  !insertmacro MUI_DESCRIPTION_TEXT ${SecTranslations} \
+  	$(TRANSLATIONS_SECTION_DESCRIPTION)	
+!insertmacro MUI_FUNCTION_DESCRIPTION_END
+
+;--------------------------------
+;Functions
+
+Function CheckUserInstallRights
+	ClearErrors
+	UserInfo::GetName
+	IfErrors Win9x
+	Pop $0
+	UserInfo::GetAccountType
+	Pop $1
+
+	StrCmp $1 "Admin" 0 +3
+                StrCpy $1 "HKLM"
+		Goto done
+	StrCmp $1 "Power" 0 +3
+                StrCpy $1 "HKLM"
+		Goto done
+	StrCmp $1 "User" 0 +3
+		StrCpy $1 "HKCU"
+		Goto done
+	StrCmp $1 "Guest" 0 +3
+		StrCpy $1 "NONE"
+		Goto done
+	; Unknown error
+	StrCpy $1 "NONE"
+        Goto done
+
+	Win9x:
+		StrCpy $1 "HKLM"
+
+	done:
+        Push $1
+FunctionEnd
+
+Function un.CheckUserInstallRights
+	ClearErrors
+	UserInfo::GetName
+	IfErrors Win9x
+	Pop $0
+	UserInfo::GetAccountType
+	Pop $1
+
+	StrCmp $1 "Admin" 0 +3
+                StrCpy $1 "HKLM"
+		Goto done
+	StrCmp $1 "Power" 0 +3
+                StrCpy $1 "HKLM"
+		Goto done
+	StrCmp $1 "User" 0 +3
+		StrCpy $1 "HKCU"
+		Goto done
+	StrCmp $1 "Guest" 0 +3
+		StrCpy $1 "NONE"
+		Goto done
+	; Unknown error
+	StrCpy $1 "NONE"
+        Goto done
+
+	Win9x:
+		StrCpy $1 "HKLM"
+
+	done:
+        Push $1
+FunctionEnd
+
+;
+; Usage:
+;   Push $0 ; Path string
+;   Call VerifyDir
+;   Pop $0 ; 0 - Bad path  1 - Good path
+;
+Function VerifyDir
+  Pop $0
+  Loop:
+    IfFileExists $0 dir_exists
+    StrCpy $1 $0 ; save last
+    Push $0
+    Call GetParent
+    Pop $0
+    StrLen $2 $0
+    ; IfFileExists "C:" on xp returns true and on win2k returns false
+    ; So we're done in such a case..
+    StrCmp $2 "2" loop_done
+    Goto Loop
+
+  loop_done:
+    StrCpy $1 "$0\diaFooB"
+    ; Check if we can create dir on this drive..
+    ClearErrors
+    CreateDirectory $1
+    IfErrors DirBad DirGood
+
+  dir_exists:
+    ClearErrors
+    FileOpen $1 "$0\diafoo.bar" w
+    IfErrors PathBad PathGood
+
+    DirGood:
+      RMDir $1
+      Goto PathGood1
+
+    DirBad:
+      RMDir $1
+      Goto PathBad1
+
+    PathBad:
+      FileClose $1
+      Delete "$0\diafoo.bar"
+      PathBad1:
+      StrCpy $0 "0"
+      Push $0
+      Return
+
+    PathGood:
+      FileClose $1
+      Delete "$0\diafoo.bar"
+      PathGood1:
+      StrCpy $0 "1"
+      Push $0
+FunctionEnd
+
+Function .onVerifyInstDir
+  Push $INSTDIR
+  Call VerifyDir
+  Pop $0
+  StrCmp $0 "0" 0 dir_good
+    Abort
+  dir_good:
+FunctionEnd
+
+; GetParent
+; input, top of stack  (e.g. C:\Program Files\Poop)
+; output, top of stack (replaces, with e.g. C:\Program Files)
+; modifies no other variables.
+;
+; Usage:
+;   Push "C:\Program Files\Directory\Whatever"
+;   Call GetParent
+;   Pop $R0
+;   ; at this point $R0 will equal "C:\Program Files\Directory"
+Function GetParent
+   Exch $0 ; old $0 is on top of stack
+   Push $1
+   Push $2
+   StrCpy $1 -1
+   loop:
+     StrCpy $2 $0 1 $1
+     StrCmp $2 "" exit
+     StrCmp $2 "\" exit
+     IntOp $1 $1 - 1
+   Goto loop
+   exit:
+     StrCpy $0 $0 $1
+     Pop $2
+     Pop $1
+     Exch $0 ; put $0 on top of stack, restore $0 to original value
+FunctionEnd
+
+Function .onInit
+  StrCpy $name "Dia ${DIA_VERSION}"
+
+  ClearErrors
+  ReadRegStr $GTKBIN HKLM "Software\GTK\2.0" "DllPath"
+  IfErrors no_gtk
+  ReadRegStr $0 HKLM "Software\GTK\2.0" "Version"
+  StrCpy $1 $0 4
+  StrCmp $1 "2.0." no_gtk
+  StrCmp $1 "2.1." no_gtk
+  StrCmp $1 "2.2." no_gtk
+  StrCmp $1 "2.3." no_gtk
+  StrCmp $1 "2.4." no_gtk
+  StrCmp $1 "2.5." no_gtk
+  Goto has_gtk
+  no_gtk:
+  MessageBox MB_OK|MB_ICONEXCLAMATION $(DIA_NO_GTK)
+  Abort $(DIA_NO_GTK)
+  
+  has_gtk:
+    
+  ; If install path was set on the command, use it.
+  StrCmp $INSTDIR "" 0 instdir_done
+
+  Call CheckUserInstallRights
+  Pop $0
+
+  StrCmp $0 "HKLM" 0 user_dir
+    StrCpy $INSTDIR "$PROGRAMFILES\Dia"
+    Goto instdir_done
+  user_dir:
+    StrCpy $2 "$SMPROGRAMS"
+    Push $2
+    Call GetParent
+    Call GetParent
+    Pop $2
+    StrCpy $INSTDIR "$2\Dia"
+
+  instdir_done:
+
+FunctionEnd
+
+Function un.TrimNewlines
+   Exch $R0
+   Push $R1
+   Push $R2
+   StrCpy $R1 0
+ 
+ loop:
+   IntOp $R1 $R1 - 1
+   StrCpy $R2 $R0 1 $R1
+   StrCmp $R2 "$\r" loop
+   StrCmp $R2 "$\n" loop
+   IntOp $R1 $R1 + 1
+   IntCmp $R1 0 no_trim_needed
+   StrCpy $R0 $R0 $R1
+ 
+ no_trim_needed:
+   Pop $R2
+   Pop $R1
+   Exch $R0
+ FunctionEnd
+

@@ -1,3 +1,16 @@
+2006-03-08  Steffen Macke <sdteffen@gmail.com>
+
+	* installer/win32/dia-diagram.ico:
+	* installer/win32/dia-header.bmp:
+	* installer/win32/dia-install.ico:
+	* installer/win32/dia-intro.bmp:
+	* installer/win32/dia-uninstall.ico:
+	* installer/win32/dia.nsi:
+	* installer/win32/langmacros.nsh:
+	* installer/win32/locale/english.nsh:
+	* installer/win32/locale/german.nsh: Added files to build the win32
+	installer using NSIS (http://nsis.sourceforge.net)
+	
 2006-03-06  Lars Clausen  <larsrc@raeder.dk>
 
 	* samples/TexChars.dia: Added sample of the escaped chars for TeX.
@@ -342,6 +355,7 @@
 	* lib/dialibartrenderer.c : make text rendering work without
 	PangoFT2 and PangoWin32
 
+
 2006-01-18  Lars Clausen  <lars@raeder.dk>
 
 	* objects/UML/class.h: Enabling UML class mainpoint after failure
@@ -363,6 +377,7 @@
 	to keep the use-case of direct tex input.
 	
 	* lib/debug.c : #include <glib/gprintf.h> not just <gprintf.h>
+
 
 2006-01-14  Hans Breuer  <hans@breuer.org>
 
@@ -413,7 +428,11 @@
 	* lib/geometry.h : removed unused functions just producing warnings
 	[sometimes it's good to read compiler warnings]
 	* plug-ins/cairo/diacairo.c : somehow a function call got lost
-	(left-hand operand of comma expression has no effect)	* plug-ins/metapost/render_metapost.c : dia_message_filename()	wants a char* not a FILE* (passing arg 1 of `dia_message_filename'	from incompatible pointer type)
+	(left-hand operand of comma expression has no effect)
+	* plug-ins/metapost/render_metapost.c : dia_message_filename()
+	wants a char* not a FILE* (passing arg 1 of `dia_message_filename'
+	from incompatible pointer type)
+
 
 2006-01-07  Hans Breuer  <hans@breuer.org>
 
