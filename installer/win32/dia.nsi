@@ -40,8 +40,8 @@ Var GTKBIN
 ; Add file macro
 !macro File FilePath FileName
  !define FileID ${__LINE__}
- IfFileExists "$OUTDIR\${FileName}" NoExtract_${FileID}
-  File "${FilePath}${FileName}"
+ ;IfFileExists "$OUTDIR\${FileName}" NoExtract_${FileID}
+ File "${FilePath}${FileName}"
  NoExtract_${FileID}:
  FileWrite $UninstLog "$OUTDIR\${FileName}$\r$\n"
  !undef FileID
@@ -94,8 +94,8 @@ VIAddVersionKey "ProductName" "Dia for Windows"
 VIAddVersionKey "CompanyName" "The Dia Developers"
 VIAddVersionKey "LegalCopyright" "(c) 2003-2006 Alexander Larsson and others"
 VIAddVersionKey "FileDescription" "Dia for Windows Installer"
-VIAddVersionKey "FileVersion" "0.95.0.2"
-VIProductVersion "0.95.0.2"
+VIAddVersionKey "FileVersion" "0.95.0.4"
+VIProductVersion "0.95.0.4"
 
 ;--------------------------------
 ;Modern UI Configuration
@@ -161,80 +161,12 @@ VIProductVersion "0.95.0.2"
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Start Install Sections ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;--------------------------------
-;Uninstall any old version of Dia
-
-Section -SecUninstallOldDia
-  ; Check install rights..
-  Call CheckUserInstallRights
-  Pop $R0
-
-  StrCmp $R0 "HKLM" dia_hklm
-  StrCmp $R0 "HKCU" dia_hkcu done
-
-  dia_hkcu:
-      ReadRegStr $R1 HKCU ${DIA_REG_KEY} ""
-      ReadRegStr $R2 HKCU ${DIA_REG_KEY} "Version"
-      ReadRegStr $R3 HKCU "${DIA_UNINSTALL_KEY}" "UninstallString"
-      Goto try_uninstall
-
-  dia_hklm:
-      ReadRegStr $R1 HKLM ${DIA_REG_KEY} ""
-      ReadRegStr $R2 HKLM ${DIA_REG_KEY} "Version"
-      ReadRegStr $R3 HKLM "${DIA_UNINSTALL_KEY}" "UninstallString"
-
-  ; If previous version exists .. remove
-  try_uninstall:
-    StrCmp $R1 "" done
-      ; Version key started with 0.94. Prior versions can't be 
-      ; automatically uninstalled.
-      StrCmp $R2 "" uninstall_problem
-        ; Check if we have uninstall string..
-        IfFileExists $R3 0 uninstall_problem
-          ; Have uninstall string.. go ahead and uninstall.
-          SetOverwrite on
-          ; Need to copy uninstaller outside of the install dir
-          ClearErrors
-          CopyFiles /SILENT $R3 "$TEMP\${DIA_UNINST_EXE}"
-          SetOverwrite off
-          IfErrors uninstall_problem
-            ; Ready to uninstall..
-            ClearErrors
-	    ExecWait '"$TEMP\${DIA_UNINST_EXE}" /S _?=$R1'
-	    IfErrors exec_error
-              Delete "$TEMP\${DIA_UNINST_EXE}"
-	      Goto done
-
-	    exec_error:
-              Delete "$TEMP\${DIA_UNINST_EXE}"
-              Goto uninstall_problem
-
-        uninstall_problem:
-	  ; In this case just wipe out previous Dia install dir..
-          IfSilent do_wipeout
-          MessageBox MB_YESNO $(DIA_PROMPT_WIPEOUT) IDYES do_wipeout IDNO cancel_install
-          cancel_install:
-            Quit
-
-          do_wipeout:
-            StrCmp $R0 "HKLM" dia_del_lm_reg dia_del_cu_reg
-            dia_del_cu_reg:
-              DeleteRegKey HKCU ${DIA_REG_KEY}
-              Goto uninstall_prob_cont
-            dia_del_lm_reg:
-              DeleteRegKey HKLM ${DIA_REG_KEY}
-
-            uninstall_prob_cont:
-	      RMDir /r "$R1"
-
-  done:
-SectionEnd
   
 ;--------------------------------
 ;Dia Install Section
 
 Section $(DIA_SECTION_TITLE) SecDia
+  SetOverwrite On
   SectionIn 1 RO
 
   ; Check install rights..
@@ -2194,7 +2126,7 @@ ${File} "..\..\plug-ins\xslt\" "stylesheets.xml"
 SectionEnd ; end of default Dia section
   
 Section $(TRANSLATIONS_SECTION_TITLE) SecTranslations
-  ; TODO
+  SetOverwrite On
   ${SetOutPath} "$INSTDIR\locale\am\LC_MESSAGES"
   ${File} "..\..\..\locale\am\LC_MESSAGES\" "dia.mo"
   ${SetOutPath} "$INSTDIR\locale\az\LC_MESSAGES"
@@ -2599,7 +2531,7 @@ FunctionEnd
 
 Function .onInit
   StrCpy $name "Dia ${DIA_VERSION}"
-  Goto no_gtk
+
   ClearErrors
   ReadRegStr $GTKBIN HKLM "Software\GTK\2.0" "DllPath"
   ReadRegStr $0 HKLM "Software\GTK\2.0" "Version"
