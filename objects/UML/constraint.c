@@ -350,6 +350,10 @@ constraint_update_data(Constraint *constraint)
     constraint->brtext = string_to_bracketted(constraint->text, "{", "}");
   }
   
+  if (connpoint_is_autogap(conn->endpoint_handles[0].connected_to) ||
+      connpoint_is_autogap(conn->endpoint_handles[1].connected_to)) {
+    connection_adjust_for_autogap(conn);
+  }
   obj->position = conn->endpoints[0];
 
   constraint->text_width = dia_font_string_width(constraint->brtext, 

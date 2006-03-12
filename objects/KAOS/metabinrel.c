@@ -536,6 +536,13 @@ mbr_update_data(Mbr *mbr)
   Point p3,p4;
   gchar *text;
 
+/* Too complex to easily decide */
+/*
+  if (connpoint_is_autogap(conn->endpoint_handles[0].connected_to) ||
+      connpoint_is_autogap(conn->endpoint_handles[1].connected_to)) {
+    connection_adjust_for_autogap(conn);
+  }
+*/
   obj->position = conn->endpoints[0];
 
   mbr->pm_handle.pos = mbr->pm;

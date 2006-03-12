@@ -51,6 +51,8 @@ ObjectChange* connection_move_handle(Connection *conn, HandleId id,
 				     HandleMoveReason reason, 
 				     ModifierKeys modifiers);
 
+void connection_adjust_for_autogap(Connection *conn);
+
 /* base property stuff... */
 #define CONNECTION_COMMON_PROPERTIES \
   OBJECT_COMMON_PROPERTIES, \

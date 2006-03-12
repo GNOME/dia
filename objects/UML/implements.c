@@ -366,6 +366,10 @@ implements_update_data(Implements *implements)
                                                    implements_font,
                                                    IMPLEMENTS_FONTHEIGHT);
 
+  if (connpoint_is_autogap(conn->endpoint_handles[0].connected_to) ||
+      connpoint_is_autogap(conn->endpoint_handles[1].connected_to)) {
+    connection_adjust_for_autogap(conn);
+  }
   obj->position = conn->endpoints[0];
 
   implements->text_handle.pos = implements->text_pos;

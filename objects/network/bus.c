@@ -445,7 +445,16 @@ bus_update_data(Bus *bus)
   Point *endpoints;
   real ulen;
   real min_par, max_par;
-  
+
+/*
+ * This seems to break stuff wildly.
+ */
+/*  
+  if (connpoint_is_autogap(conn->endpoint_handles[0].connected_to) ||
+      connpoint_is_autogap(conn->endpoint_handles[1].connected_to)) {
+    connection_adjust_for_autogap(conn);
+  }
+*/
   endpoints = &conn->endpoints[0]; 
   obj->position = endpoints[0];
 

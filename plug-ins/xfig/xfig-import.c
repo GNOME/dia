@@ -441,11 +441,17 @@ create_standard_group(GList *items, DiagramData *dia) {
 static Color
 fig_color(int color_index) 
 {
-    if (color_index == -1) 
+    if (color_index <= -1) 
         return color_black; /* Default color */
-    if (color_index < FIG_MAX_DEFAULT_COLORS) 
+    else if (color_index < FIG_MAX_DEFAULT_COLORS) 
         return fig_default_colors[color_index];
-    else return fig_colors[color_index-FIG_MAX_DEFAULT_COLORS];
+    else if (color_index < FIG_MAX_USER_COLORS) 
+	return fig_colors[color_index-FIG_MAX_DEFAULT_COLORS];
+    else {
+	message_error(_("Color index %d too high, only 512 colors allowed. Using black instead."),
+		      color_index);
+	return color_black;
+    }
 }
 
 static Color
@@ -563,23 +569,25 @@ fig_simple_properties(DiaObject *obj,
 static int
 fig_read_n_points(FILE *file, int n, Point **points) {
     int i;
-    Point *new_points;
-
-    new_points = (Point*)g_malloc(sizeof(Point)*n);
+    GArray *points_list = g_array_sized_new(FALSE, FALSE, sizeof(Point), n);
 
     for (i = 0; i < n; i++) {
 	int x,y;
+	Point p;
 	if (fscanf(file, " %d %d ", &x, &y) != 2) {
 	    message_error(_("Error while reading %dth of %d points: %s\n"),
 			  i, n, strerror(errno));
-	    g_free(new_points);
+	    g_array_free(points, TRUE);
 	    return FALSE;
 	}
-	new_points[i].x = x/FIG_UNIT;
-	new_points[i].y = y/FIG_UNIT;
+	p.x = x/FIG_UNIT;
+	p.y = y/FIG_UNIT;
+	g_array_append_val(points_list, p);
     }
     fscanf(file, "\n");
-    *points = new_points;
+    
+    *points = (Point *)points_list->data;
+    g_array_free(points, FALSE);
     return TRUE;
 }
 
@@ -698,6 +706,26 @@ static GSList *compound_stack = NULL;
    level.  Best we can do now. */
 static int compound_depth;
 
+/** Add an object at a given depth.  This function checks for depth limits
+ * and updates the compound depth if needed.
+ *
+ * @param newobj An object to add.  If we're inside a compound, this
+ * doesn't really add the object.
+ * @param depth A depth as in the Fig format, max 999
+ */
+static void
+add_at_depth(DiaObject *newobj, int depth) {
+    if (depth < 0 || depth >= FIG_MAX_DEPTHS) {
+	message_error(_("Depth %d of of range, only 0-%d allowed.\n"),
+		      depth, FIG_MAX_DEPTHS-1);
+	depth = FIG_MAX_DEPTHS - 1;
+    }
+    if (compound_stack == NULL) 
+	depths[depth] = g_list_append(depths[depth], newobj);
+    else 
+	if (compound_depth > depth) compound_depth = depth;
+}
+
 static DiaObject *
 fig_read_ellipse(FILE *file, DiagramData *dia) {
     int sub_type;
@@ -758,10 +786,7 @@ fig_read_ellipse(FILE *file, DiagramData *dia) {
     /* Angle -- can't rotate yet */
 
     /* Depth field */
-    if (compound_stack == NULL)
-	depths[depth] = g_list_append(depths[depth], newobj);
-    else
-	if (compound_depth > depth) compound_depth = depth;
+    add_at_depth(newobj, depth);
 
     return newobj;
 }
@@ -896,10 +921,7 @@ fig_read_polyline(FILE *file, DiagramData *dia) {
     /* Cap style */
      
     /* Depth field */
-    if (compound_stack == NULL)
-	depths[depth] = g_list_append(depths[depth], newobj);
-    else
-	if (compound_depth > depth) compound_depth = depth;
+    add_at_depth(newobj, depth);
  exit:
     setlocale(LC_NUMERIC, old_locale);
     prop_list_free(props);
@@ -1125,10 +1147,7 @@ fig_read_spline(FILE *file, DiagramData *dia) {
     /* Cap style */
      
     /* Depth field */
-    if (compound_stack == NULL)
-	depths[depth] = g_list_append(depths[depth], newobj);
-    else
-	if (compound_depth > depth) compound_depth = depth;
+    add_at_depth(newobj, depth);
  exit:
     setlocale(LC_NUMERIC, old_locale);
     prop_list_free(props);
@@ -1219,10 +1238,7 @@ fig_read_arc(FILE *file, DiagramData *dia) {
     /* Cap style */
      
     /* Depth field */
-    if (compound_stack == NULL)
-	depths[depth] = g_list_append(depths[depth], newobj);
-    else
-	if (compound_depth > depth) compound_depth = depth;
+    add_at_depth(newobj, depth);
 
  exit:
     setlocale(LC_NUMERIC, old_locale);
@@ -1319,10 +1335,7 @@ fig_read_text(FILE *file, DiagramData *dia) {
     newobj->ops->set_props(newobj, props);
     
     /* Depth field */
-    if (compound_stack == NULL)
-	depths[depth] = g_list_append(depths[depth], newobj);
-    else
-	if (compound_depth > depth) compound_depth = depth;
+    add_at_depth(newobj, depth);
 
  exit:
     setlocale(LC_NUMERIC, old_locale);
@@ -1366,6 +1379,12 @@ fig_read_object(FILE *file, DiagramData *dia) {
 
 	if (fscanf(file, " %d #%xd", &colornumber, &colorvalues) != 2) {
 	    message_error(_("Couldn't read color: %s\n"), strerror(errno));
+	    return FALSE;
+	}
+
+	if (colornumber < 0 || colornumber > FIG_MAX_USER_COLORS) {
+	    message_error(_("Color number %d out of range 0..%d.  Discarding color.\n"),
+			  colornumber, FIG_MAX_USER_COLORS);
 	    return FALSE;
 	}
 
@@ -1415,7 +1434,7 @@ fig_read_object(FILE *file, DiagramData *dia) {
 	}
 	/* Group extends don't really matter */
 	if (compound_stack == NULL)
-	    compound_depth = 999;
+	    compound_depth = FIG_MAX_DEPTHS - 1;
 	compound_stack = g_slist_append(compound_stack, NULL);
 	return TRUE;
 	break;
@@ -1577,7 +1596,7 @@ import_fig(const gchar *filename, DiagramData *dia, void* user_data) {
     for (i = 0; i < FIG_MAX_USER_COLORS; i++) {
 	fig_colors[i] = color_black;
     }
-    for (i = 0; i < 1000; i++) {
+    for (i = 0; i < FIG_MAX_DEPTHS; i++) {
 	depths[i] = NULL;
     }
 
@@ -1633,7 +1652,7 @@ import_fig(const gchar *filename, DiagramData *dia, void* user_data) {
     } while (TRUE);
 
     /* Now we can reorder for the depth fields */
-    for (i = 0; i < 1000; i++) {
+    for (i = 0; i < FIG_MAX_DEPTHS; i++) {
 	if (depths[i] != NULL)
 	    layer_add_objects_first(dia->active_layer, depths[i]);
     }

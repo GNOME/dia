@@ -85,8 +85,7 @@ static void line_save(Line *line, ObjectNode obj_node, const char *filename);
 static DiaObject *line_load(ObjectNode obj_node, int version, const char *filename);
 static DiaMenu *line_get_object_menu(Line *line, Point *clickedpoint);
 
-void line_adjust_for_autogap(Line *line);
-void line_adjust_for_absolute_gap(Line *line, Point *gap_endpoints);
+void Line_adjust_for_absolute_gap(Line *line, Point *gap_endpoints);
 
 static ObjectTypeOps line_type_ops =
 {
@@ -304,41 +303,6 @@ calculate_object_edge(Point *objmid, Point *end, DiaObject *obj)
   return mid2;
 }
 
-
-/** Adjust line endings for autogap.  This function actually moves the
- * ends of the line, but only when the end is connected to 
- * a mainpoint.
- */
-void
-line_adjust_for_autogap(Line *line)
-{
-  Point endpoints[2];
-  ConnectionPoint *start_cp, *end_cp;
-
-  start_cp = line->connection.endpoint_handles[0].connected_to;
-  end_cp = line->connection.endpoint_handles[1].connected_to;
-
-  endpoints[0] = line->connection.endpoints[0];
-  endpoints[1] = line->connection.endpoints[1];
-
-  if (connpoint_is_autogap(start_cp)) {
-    endpoints[0] = start_cp->pos;
-  }
-  if (connpoint_is_autogap(end_cp)) {    
-    endpoints[1] = end_cp->pos;
-  }
-
-  if (connpoint_is_autogap(start_cp)) {
-    line->connection.endpoints[0] = calculate_object_edge(&endpoints[0],
-							  &endpoints[1],
-							  start_cp->object);
-  }
-  if (connpoint_is_autogap(end_cp)) {    
-    line->connection.endpoints[1] = calculate_object_edge(&endpoints[1],
-							  &endpoints[0],
-							  end_cp->object);
-  }
-}
 
 /** Calculate the absolute gap -- this gap is 'transient', in that
  * the actual end of the line is not moved, but it is made to look like
@@ -560,7 +524,7 @@ line_update_data(Line *line)
 
   if (connpoint_is_autogap(line->connection.endpoint_handles[0].connected_to) ||
       connpoint_is_autogap(line->connection.endpoint_handles[1].connected_to)) {
-    line_adjust_for_autogap(line);
+    connection_adjust_for_autogap(line);
   }
   if (line->absolute_start_gap || line->absolute_end_gap ) {
     Point gap_endpoints[2];

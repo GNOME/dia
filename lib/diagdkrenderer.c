@@ -965,7 +965,8 @@ draw_polygon (DiaRenderer *self,
 static void
 draw_object (DiaRenderer *renderer, DiaObject *object)
 {
-  if (object->highlight_color != NULL) {
+  if (renderer->is_interactive &&
+      object->highlight_color != NULL) {
     DiaGdkRenderer *gdk_rend = DIA_GDK_RENDERER(renderer);
     gdk_rend->highlight_color = object->highlight_color;
     object->ops->draw(object, renderer);

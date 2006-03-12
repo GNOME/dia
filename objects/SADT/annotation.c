@@ -399,6 +399,10 @@ annotation_update_data(Annotation *annotation)
   DiaObject *obj = &conn->object;
   Rectangle textrect;
   
+  if (connpoint_is_autogap(conn->endpoint_handles[0].connected_to) ||
+      connpoint_is_autogap(conn->endpoint_handles[1].connected_to)) {
+    connection_adjust_for_autogap(conn);
+  }
   obj->position = conn->endpoints[0];
 
   annotation->text_handle.pos = annotation->text->position;

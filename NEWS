@@ -1,3 +1,11 @@
+dia-0.95-pre5: 12-Mar-2006
+
+* Fixed positioning and height of UML operations when wrapped.
+
+* Three security holes in the XFig importer fixed after review.
+
+* COPYING file readded.
+
 dia-0.95-pre4: 6-Mar-2006
 
 * Fixed Fig import locale issues, TeX export escape issues.

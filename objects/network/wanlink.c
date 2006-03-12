@@ -380,6 +380,10 @@ wanlink_update_data(WanLink *wanlink)
   width = wanlink->width;
   width_2 = width / 2.0;
   
+  if (connpoint_is_autogap(conn->endpoint_handles[0].connected_to) ||
+      connpoint_is_autogap(conn->endpoint_handles[1].connected_to)) {
+    connection_adjust_for_autogap(conn);
+  }
   endpoints = &conn->endpoints[0]; 
   obj->position = endpoints[0];
 

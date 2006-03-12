@@ -92,7 +92,13 @@ struct _UMLOperation {
 
   ConnectionPoint* left_connection; /**< left */
   ConnectionPoint* right_connection; /**< right */
+
+  gboolean needs_wrapping; /** Whether this operation needs wrapping */
+  gint wrap_indent; /** The amount of indentation in chars */
+  GList *wrappos; /** Absolute wrapping positions */
+  real ascent; /** The ascent amount used for line distance in wrapping */
 };
+
 
 /** \brief A list of UMLParameter is contained in UMLOperation
  * Some would call them functions parameters ;)

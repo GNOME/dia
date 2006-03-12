@@ -470,6 +470,10 @@ flow_update_data(Flow *flow)
   Rectangle rect;
   Color* color = NULL;
   
+  if (connpoint_is_autogap(flow->connection.endpoint_handles[0].connected_to) ||
+      connpoint_is_autogap(flow->connection.endpoint_handles[1].connected_to)) {
+    connection_adjust_for_autogap(flow);
+  }
   obj->position = conn->endpoints[0];
 
   switch (flow->type) {

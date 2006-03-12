@@ -94,8 +94,8 @@ VIAddVersionKey "ProductName" "Dia for Windows"
 VIAddVersionKey "CompanyName" "The Dia Developers"
 VIAddVersionKey "LegalCopyright" "(c) 2003-2006 Alexander Larsson and others"
 VIAddVersionKey "FileDescription" "Dia for Windows Installer"
-VIAddVersionKey "FileVersion" "0.95.0.4"
-VIProductVersion "0.95.0.4"
+VIAddVersionKey "FileVersion" "0.95.0.5"
+VIProductVersion "0.95.0.5"
 
 ;--------------------------------
 ;Modern UI Configuration

@@ -377,6 +377,10 @@ message_update_data(Message *message)
   DiaObject *obj = &conn->object;
   Rectangle rect;
 
+  if (connpoint_is_autogap(conn->endpoint_handles[0].connected_to) ||
+      connpoint_is_autogap(conn->endpoint_handles[1].connected_to)) {
+    connection_adjust_for_autogap(conn);
+  }
   obj->position = conn->endpoints[0];
 
   message->text_handle.pos = message->text_pos;

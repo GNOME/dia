@@ -909,18 +909,16 @@ umlclass_draw_operationbox(UMLClass *umlclass, DiaRenderer *renderer, Element *e
 
       wrapping_needed = 0;
       if( umlclass->wrap_operations ) {
-        wrapsublist = (GList*)g_list_nth( umlclass->operations_wrappos, i)->data;
-        wrapping_needed = GPOINTER_TO_INT( wrapsublist->data );
+	wrapsublist = op->wrappos;
       }
 
       ascent = dia_font_ascent(opstr, font, font_height);
+      op->ascent = ascent;
       renderer_ops->set_font(renderer, font, font_height);
 
-      if( umlclass->wrap_operations && wrapping_needed) {
-
-        wrapsublist = g_list_next( wrapsublist);
-        ident = GPOINTER_TO_INT( wrapsublist->data);
-        wrapsublist = g_list_next( wrapsublist);
+      if( umlclass->wrap_operations && op->needs_wrapping) {
+	ident = op->wrap_indent;
+	wrapsublist = op->wrappos;
         wrap_pos = last_wrap_pos = 0;
 
         while( wrapsublist != NULL)   {
@@ -1192,10 +1190,15 @@ umlclass_update_data(UMLClass *umlclass)
     op->right_connection->pos.y = y;
     op->right_connection->directions = DIR_EAST;
 
-    y += umlclass->font_height;
+    if (op->needs_wrapping) { /* Wrapped */
+      int lines = g_list_length(op->wrappos);
+      y += umlclass->font_height - op->ascent;
+      y += op->ascent * lines;
+    } else {
+      y += umlclass->font_height;
+    }
     if (umlclass->visible_comments && op->comment != NULL && op->comment[0] != '\0')
-      y += umlclass->comment_font_height;
-
+      y += umlclass->comment_font_height; /* Not adjusted for wrap */
     list = g_list_next(list);
   }
   
@@ -1292,12 +1295,6 @@ static real
 umlclass_calculate_attribute_data(UMLClass *umlclass) 
 {
   int    i;
-  int    pos_next_comma;
-  int    pos_brace;
-  int    wrap_pos;
-  int    last_wrap_pos;
-  int    maxlinewidth;
-  int    length;
   real   maxwidth = 0.0;
   real   width    = 0.0;
   GList *list;
@@ -1377,25 +1374,17 @@ umlclass_calculate_operation_data(UMLClass *umlclass)
   int    pos_brace;
   int    wrap_pos;
   int    last_wrap_pos;
-  int    ident;
+  int    indent;
   int    offset;
   int    maxlinewidth;
   int    length;
   real   maxwidth = 0.0;
   real   width    = 0.0;
   GList *list;
-  GList *sublist;
   GList *wrapsublist;
 
   /* operations box: */
   umlclass->operationsbox_height = 2*0.1;
-  /* dont leak string wrappings */
-  if (umlclass->operations_wrappos != NULL)
-  {
-    g_list_foreach(umlclass->operations_wrappos, (GFunc)g_list_free, NULL);
-    g_list_free(umlclass->operations_wrappos);
-    umlclass->operations_wrappos = NULL;
-  }
 
   if (0 != g_list_length(umlclass->operations))
   {
@@ -1405,35 +1394,60 @@ umlclass_calculate_operation_data(UMLClass *umlclass)
     {
       UMLOperation *op = (UMLOperation *) list->data;
       gchar *opstr = uml_get_operation_string(op);
+      DiaFont   *Font;
+      real       FontHeight;
 
-      length = 0;
+      length = strlen( (const gchar*)opstr);
+
+      if (op->wrappos != NULL) {
+	g_list_free(op->wrappos);
+      }
+      op->wrappos = NULL;
+      
+      switch(op->inheritance_type)
+      {
+	  case UML_ABSTRACT:
+	    Font       =  umlclass->abstract_font;
+	    FontHeight =  umlclass->abstract_font_height;
+	    break;
+	  case UML_POLYMORPHIC:
+	    Font       =  umlclass->polymorphic_font;
+	    FontHeight =  umlclass->polymorphic_font_height;
+	    break;
+	  case UML_LEAF:
+	  default:
+	    Font       = umlclass->normal_font;
+	    FontHeight = umlclass->font_height;
+      }
+      op->ascent = dia_font_ascent(opstr, Font, FontHeight);
+
       if( umlclass->wrap_operations )
       {
-        length = strlen( (const gchar*)opstr);
-        sublist = NULL;
         if( length > umlclass->wrap_after_char)
         {
           gchar *part_opstr;
-          sublist = g_list_append( sublist, GINT_TO_POINTER( 1));
+	  op->needs_wrapping = TRUE;
 
           /* count maximal line width to create a secure buffer (part_opstr)
           and build the sublist with the wrapping data for the current operation, which will be used by umlclass_draw(), too. 
-          The content of the sublist is:
-          1st element: (bool) wrapping needed or not, 2nd: indentation in chars, 3rd-last: absolute wrapping positions */
-          pos_next_comma = pos_brace = wrap_pos = offset = maxlinewidth = umlclass->max_wrapped_line_width = 0;
+	  */
+          pos_next_comma = pos_brace = wrap_pos = offset 
+	    = maxlinewidth = umlclass->max_wrapped_line_width = 0;
           while( wrap_pos + offset < length)
           {
             do
             {
               pos_next_comma = strcspn( (const gchar*)opstr + wrap_pos + offset, ",");
               wrap_pos += pos_next_comma + 1;
-            } while( wrap_pos < umlclass->wrap_after_char - pos_brace && wrap_pos + offset < length);
+            } while( wrap_pos < umlclass->wrap_after_char - pos_brace 
+		     && wrap_pos + offset < length);
 
             if( offset == 0){
               pos_brace = strcspn( opstr, "(");
-              sublist = g_list_append( sublist, GINT_TO_POINTER( pos_brace+1));
+	      op->wrap_indent = pos_brace + 1;
             }
-            sublist = g_list_append( sublist, GINT_TO_POINTER( wrap_pos + offset));
+	    op->wrappos = g_list_append(op->wrappos, 
+					GINT_TO_POINTER(wrap_pos + offset));
 
             maxlinewidth = MAX(maxlinewidth, wrap_pos);
 
@@ -1442,17 +1456,13 @@ umlclass_calculate_operation_data(UMLClass *umlclass)
           }
           umlclass->max_wrapped_line_width = MAX( umlclass->max_wrapped_line_width, maxlinewidth+1);
 
-          wrapsublist = g_list_next( sublist);
-          ident = GPOINTER_TO_INT( wrapsublist->data);
-          part_opstr = g_alloca(umlclass->max_wrapped_line_width+ident+1);
-          pos_next_comma = pos_brace = wrap_pos = offset = 0;
+	  indent = op->wrap_indent;
+          part_opstr = g_alloca(umlclass->max_wrapped_line_width+indent+1);
 
-          wrapsublist = g_list_next( wrapsublist);
+	  wrapsublist = op->wrappos;
           wrap_pos = last_wrap_pos = 0;
 
           while( wrapsublist != NULL){
-            DiaFont   *Font;
-            real       FontHeight;
             wrap_pos = GPOINTER_TO_INT( wrapsublist->data);
             if( last_wrap_pos == 0){
               strncpy( part_opstr, opstr, wrap_pos);
@@ -1460,28 +1470,16 @@ umlclass_calculate_operation_data(UMLClass *umlclass)
             }
             else
             {
-              memset( part_opstr, ' ', ident);
-              memset( part_opstr+ident, '\0', 1);
+              memset( part_opstr, ' ', indent);
+              memset( part_opstr+indent, '\0', 1);
               strncat( part_opstr, opstr+last_wrap_pos, wrap_pos-last_wrap_pos);
             }
 
-            switch(op->inheritance_type)
-            {
-            case UML_ABSTRACT:
-              Font       =  umlclass->abstract_font;
-              FontHeight =  umlclass->abstract_font_height;
-              break;
-            case UML_POLYMORPHIC:
-              Font       =  umlclass->polymorphic_font;
-              FontHeight =  umlclass->polymorphic_font_height;
-              break;
-            case UML_LEAF:
-            default:
-              Font       = umlclass->normal_font;
-              FontHeight = umlclass->font_height;
-            }
             width = dia_font_string_width(part_opstr,Font,FontHeight);
-            umlclass->operationsbox_height += FontHeight;
+            umlclass->operationsbox_height += op->ascent;
+	    if (last_wrap_pos == 0) {
+	      umlclass->operationsbox_height += (FontHeight - op->ascent);
+	    }
 
             maxwidth = MAX(width, maxwidth);
             last_wrap_pos = wrap_pos;
@@ -1490,15 +1488,11 @@ umlclass_calculate_operation_data(UMLClass *umlclass)
         }
         else
         {
-          sublist = g_list_append( sublist, GINT_TO_POINTER( 0));
+	  op->needs_wrapping = FALSE;
         }
-        umlclass->operations_wrappos = g_list_append( umlclass->operations_wrappos, sublist);
       }
 
-      if( !umlclass->wrap_operations || !(length > umlclass->wrap_after_char)) {
-        DiaFont   *Font;
-        real       FontHeight;
-
+      if (!(umlclass->wrap_operations && length > umlclass->wrap_after_char)) {
         switch(op->inheritance_type)
         {
         case UML_ABSTRACT:
@@ -1532,7 +1526,8 @@ umlclass_calculate_operation_data(UMLClass *umlclass)
                                       umlclass->comment_font_height);
 
         g_free(Wrapped);
-        umlclass->operationsbox_height += (umlclass->comment_font_height * (NumberOfLines+1));
+        umlclass->operationsbox_height += 
+	  (umlclass->comment_font_height * (NumberOfLines+1));
 
         maxwidth = MAX(width, maxwidth);
       }
@@ -1568,21 +1563,10 @@ void
 umlclass_calculate_data(UMLClass *umlclass)
 {
   int    i;
-  int    pos_next_comma;
-  int    pos_brace;
-  int    wrap_pos;
-  int    last_wrap_pos;
-  int    ident;
-  int    offset;
-  int    maxlinewidth;
-  int    length;
   int    num_templates;
   real   maxwidth = 0.0;
   real   width;
   GList *list;
-  GList *sublist;
-  GList *wrapsublist;
-
 
   if (!umlclass->destroyed)
   {
@@ -1748,7 +1732,6 @@ umlclass_create(Point *startpoint,
   umlclass->formal_params = NULL;
   
   umlclass->stereotype_string = NULL;
-  umlclass->operations_wrappos = NULL;
   
   umlclass->text_color = color_black;
   umlclass->line_color = attributes_get_foreground();
@@ -1785,7 +1768,6 @@ umlclass_create(Point *startpoint,
 static void
 umlclass_destroy(UMLClass *umlclass)
 {
-  int i;
   GList *list;
   UMLAttribute *attr;
   UMLOperation *op;
@@ -1838,12 +1820,6 @@ umlclass_destroy(UMLClass *umlclass)
 
   if (umlclass->stereotype_string != NULL) {
     g_free(umlclass->stereotype_string);
-  }
-
-  if (umlclass->operations_wrappos != NULL) {
-    g_list_foreach(umlclass->operations_wrappos, (GFunc)g_list_free, NULL);
-    g_list_free(umlclass->operations_wrappos);
-    umlclass->operations_wrappos = NULL;
   }
 
   if (umlclass->properties_dialog != NULL) {
@@ -1958,7 +1934,6 @@ umlclass_copy(UMLClass *umlclass)
   newumlclass->properties_dialog = NULL;
      
   newumlclass->stereotype_string = NULL;
-  newumlclass->operations_wrappos = NULL;
 
   for (i=0;i<UMLCLASS_CONNECTIONPOINTS;i++) {
     newobj->connections[i] = &newumlclass->connections[i];
@@ -2250,7 +2225,6 @@ static DiaObject *umlclass_load(ObjectNode obj_node, int version,
   fill_in_fontdata(umlclass);
   
   umlclass->stereotype_string = NULL;
-  umlclass->operations_wrappos = NULL;
 
   umlclass_calculate_data(umlclass);
 

@@ -49,7 +49,7 @@ distuninstallcheck_listfiles = find . -type f -print | grep -v '^\./var/scrollke
 #	@:
 
 EXTRA_DIST = dia.xpm dia_gnome_icon.png dia_gnome_menu_icon.png \
-	dia.desktop.in dia.spec KNOWN_BUGS $(pkgdata_DATA) \
+	dia.desktop.in KNOWN_BUGS $(pkgdata_DATA) \
 	dia-diagram.png dia.mime dia.keys.in \
 	po-checktrans.py po-checktrans \
 	intltool-extract.in intltool-merge.in intltool-update.in \

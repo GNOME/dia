@@ -26,6 +26,41 @@
 #include "connection.h"
 #include "message.h"
 
+/** Adjust connection endings for autogap.  This function actually moves the
+ * ends of the connection, but only when the end is connected to 
+ * a mainpoint.
+ */
+void
+connection_adjust_for_autogap(Connection *connection)
+{
+  Point endpoints[2];
+  ConnectionPoint *start_cp, *end_cp;
+
+  start_cp = connection->endpoint_handles[0].connected_to;
+  end_cp = connection->endpoint_handles[1].connected_to;
+
+  endpoints[0] = connection->endpoints[0];
+  endpoints[1] = connection->endpoints[1];
+
+  if (connpoint_is_autogap(start_cp)) {
+    endpoints[0] = start_cp->pos;
+  }
+  if (connpoint_is_autogap(end_cp)) {    
+    endpoints[1] = end_cp->pos;
+  }
+
+  if (connpoint_is_autogap(start_cp)) {
+    connection->endpoints[0] = calculate_object_edge(&endpoints[0],
+						     &endpoints[1],
+						     start_cp->object);
+  }
+  if (connpoint_is_autogap(end_cp)) {    
+    connection->endpoints[1] = calculate_object_edge(&endpoints[1],
+						     &endpoints[0],
+						     end_cp->object);
+  }
+}
+
 /** Function called to move one of the handles associated with the
  *  object. 
  *  This is an object_ops function.

@@ -1,3 +1,55 @@
+2006-03-12  Lars Clausen  <lars@raeder.dk>
+
+	* installer/win32/dia.nsi: 
+	* doc/en/dia.xml: 
+	* doc/eu/dia.xml: 
+	* doc/pl/dia.xml: 
+	* config.h.win32: 
+	* configure.in: 
+	* NEWS: -pre5
+
+	* objects/UML/constraint.c (constraint_update_data): 
+	* objects/UML/message.c (message_update_data): 
+	* objects/UML/implements.c (implements_update_data): 
+	* objects/SADT/annotation.c (annotation_update_data): 
+	* objects/Jackson/phenomenon.c (message_update_data): 
+	* objects/network/wanlink.c (wanlink_update_data): 
+	* objects/FS/flow.c (flow_update_data): Added autogap adjustment.
+
+	* objects/standard/line.c: 
+	* lib/connection.[ch] (connection_adjust_for_autogap): Moved autogap
+	functionality for connections.
+
+2006-03-11  Lars Clausen  <lars@raeder.dk>
+
+	* lib/diagdkrenderer.c (draw_object): 
+	* lib/dialibartrenderer.c (draw_object): Don't draw highlighting
+	in the non-interactive rendering.
+
+	* dia.spec:
+	* installer/rpm/dia.spec:
+	* installer/rpm/README:
+	Moving dia.spec to installer directory, where distribution
+	maintainers can keep their own copies.
+
+	* objects/UML/uml.h: 
+	* objects/UML/class.h: 
+	* objects/UML/umloperation.c: 
+	* objects/UML/class.c: 
+	Preparations to fix bug #334037: Clean away the Lisp-like
+	constructs confusing the issue.
+
+2006-03-10  Lars Clausen  <lars@raeder.dk>
+
+	* lib/object.c: Don't compare floats with ==, even in sanity checks.
+
+2006-03-09  Lars Clausen  <lars@raeder.dk>
+
+	* plug-ins/xfig/xfig-import.c: Fix three buffer overflows in color
+	reading, depth reading, and points reading.  Thanks to 
+	
+	* COPYING: Added copyright info again.
+
 2006-03-09  Steffen Macke <sdteffen@gmail.com>
 
 	* installer/win32/dia.nsi: don't uninstall old version; overwrite

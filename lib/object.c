@@ -889,7 +889,8 @@ dia_object_sanity_check(const DiaObject *obj, const gchar *msg) {
 				 g_utf8_validate(cp->object->type->name, -1, NULL),
 				 "%s:  Handle %d (%p) on object %p connects to CP %p with untyped object %p\n",
 				 msg, i, h, obj, cp, cp->object)) break;
-	    dia_assert_true(cp->pos.x == h->pos.x && cp->pos.y == h->pos.y,
+	    dia_assert_true(fabs(cp->pos.x - h->pos.x) < 0.0000001 &&
+			    fabs(cp->pos.y - h->pos.y) < 0.0000001,
 			    "%s: Handle %d (%p) on object %p has pos %f, %f,\nbut its CP %p of object %p has pos %f, %f\n",
 			    msg, i, h, obj, h->pos.x, h->pos.y, 
 			    cp, cp->object, cp->pos.x, cp->pos.y);

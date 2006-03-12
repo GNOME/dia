@@ -108,15 +108,10 @@ uml_operation_new(void)
   op = g_new0(UMLOperation, 1);
   op->internal_id = next_id++;
   op->name = g_strdup("");
-  op->type = NULL;
-  op->stereotype = NULL;
   op->comment = g_strdup("");
   op->visibility = UML_PUBLIC;
-  op->class_scope = FALSE;
   op->inheritance_type = UML_LEAF;
-  op->query = FALSE;
 
-  op->parameters = NULL;
 #if 0 /* setup elsewhere */
   op->left_connection = g_new0(ConnectionPoint, 1);
   op->right_connection = g_new0(ConnectionPoint, 1);
@@ -238,6 +233,10 @@ uml_operation_destroy(UMLOperation *op)
     uml_parameter_destroy(param);
     list = g_list_next(list);
   }
+  if (op->wrappos) {
+    g_list_free(op->wrappos);
+  }
+
 #if 0 /* freed elsewhere */
   /* These are merely temporary reminders, don't need to unconnect */
   g_free(op->left_connection);
