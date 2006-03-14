@@ -7,8 +7,8 @@ msgid ""
 ""
 msgstr "Project-Id-Version: dia HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-02-06 02:15+0100\n"
-"PO-Revision-Date: 2006-02-06 14:38+1030\n"
+"POT-Creation-Date: 2006-03-14 10:18+0100\n"
+"PO-Revision-Date: 2006-03-14 22:53+1030\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: Vietnamese <gnomevi-list@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -139,24 +139,24 @@ msgid "Can't connect to session manager!\n"
 msgstr "Không thể kết nối với bộ quản lý phiên chạy.\n"
 
 #.TRANSLATOR: 2nd and 3rd %s are time and date respectively.
-#:../app/app_procs.c:827
+#:../app/app_procs.c:835
 #,c-format
 msgid "Dia version %s, compiled %s %s\n"
 msgstr "Dia phiên bản %s, biên dịch %s %s\n"
 
-#:../app/app_procs.c:829
+#:../app/app_procs.c:837
 #,c-format
 msgid "Dia version %s\n"
 msgstr "Dia phiên bản %s\n"
 
-#:../app/app_procs.c:891 ../app/diaconv.c:201 ../app/diaconv.c:203
+#:../app/app_procs.c:894 ../app/diaconv.c:201 ../app/diaconv.c:203
 #,c-format
 msgid ""
 "Couldn't find standard objects when looking for object-libs; exiting...\n"
 msgstr "Không thể tìm thấy các đối tượng chuẩn khi tìm « object-libs » (các thư viên "
 "đối tượng) nên thoát...\n"
 
-#:../app/app_procs.c:893
+#:../app/app_procs.c:896
 #,c-format
 msgid ""
 "Couldn't find standard objects when looking for object-libs in '%s'; "
@@ -164,11 +164,11 @@ msgid ""
 msgstr "Không thể tìm thấy các đối tượng chuẩn khi tìm « object-libs » (các thư viên "
 "đối tượng) trong « %s » nên thoát...\n"
 
-#:../app/app_procs.c:934
+#:../app/app_procs.c:937
 msgid "Diagram1.dia"
 msgstr "Sơđồ1.dia"
 
-#:../app/app_procs.c:976
+#:../app/app_procs.c:979
 msgid ""
 "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you can cause this message to appear.\n"
@@ -177,47 +177,47 @@ msgstr "Không nên xảy ra như thế. Vui lòng thông báo lỗi tại <http
 "diễn tả cách gây ra thông điệp này xuất hiện.\n"
 
 #.no standard buttons
-#:../app/app_procs.c:989
+#:../app/app_procs.c:992
 msgid "Quitting without saving modified diagrams"
 msgstr "Đang thoát mà không lưu các sơ đồ đã sửa đổi"
 
-#:../app/app_procs.c:991
+#:../app/app_procs.c:994
 msgid ""
 "Modified diagrams exist. Are you sure you want to quit Dia without saving "
 "them?"
 msgstr "Có sơ đồ đã bị sửa đổi. Bạn có chắc muốn thoát mà không lưu các thay đổi "
 "không?"
 
-#:../app/app_procs.c:995
+#:../app/app_procs.c:998
 msgid "Quit Dia"
 msgstr "Thoát Dia"
 
 #.This printf seems to prevent a race condition with unrefs.
 #.Yuck.  -Lars
-#:../app/app_procs.c:1048
+#:../app/app_procs.c:1051
 msgid "Thank you for using Dia.\n"
 msgstr "Cám ơn bạn dùng Dia.\n"
 
-#:../app/app_procs.c:1065 ../app/app_procs.c:1072
+#:../app/app_procs.c:1068 ../app/app_procs.c:1075
 msgid "Could not create per-user Dia config directory"
 msgstr "Không thể tạo thư mục cấu hình Dia cho từng người dùng."
 
-#:../app/app_procs.c:1075
+#:../app/app_procs.c:1078
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
 msgstr "Không thể tạo thư mục cấu hình Dia cho từng người dùng. Vui lòng kiểm tra "
 "biến môi trường « HOME » (chính) có chỉ đến một thư mục hợp lệ hay không."
 
-#:../app/app_procs.c:1098 ../app/diaconv.c:251
+#:../app/app_procs.c:1101 ../app/diaconv.c:251
 msgid "Objects and filters internal to dia"
 msgstr "Đối tượng và bộ lọc nội tại của Dia"
 
-#:../app/app_procs.c:1140 ../app/diaconv.c:121
+#:../app/app_procs.c:1143 ../app/diaconv.c:121
 msgid "[OPTION...] [FILE...]"
 msgstr "[TÙY_CHỌN...] [TẬP_TIN...]"
 
-#:../app/app_procs.c:1143 ../app/diaconv.c:128
+#:../app/app_procs.c:1146 ../app/diaconv.c:128
 #,c-format
 msgid ""
 "Error on option %s: %s.\n"
@@ -225,23 +225,23 @@ msgid ""
 msgstr "Lỗi với tùy chọn %s: %s.\n"
 "Hãy chạy lệnh « %s --help » để xem danh sách các tùy chọn dòng lệ sẵn sàng.\n"
 
-#:../app/app_procs.c:1167
+#:../app/app_procs.c:1170
 msgid "[FILE...]"
 msgstr "[TẬP_TIN...]"
 
-#:../app/app_procs.c:1190
+#:../app/app_procs.c:1193
 #,c-format
 msgid "'%s' not found!\n"
 msgstr "• Không tìm thấy « %s ». •\n"
 
-#:../app/app_procs.c:1271
+#:../app/app_procs.c:1274
 msgid ""
 "The original author of Dia was:\n"
 "\n"
 msgstr "Tác giả gốc của Dia:\n"
 "\n"
 
-#:../app/app_procs.c:1276
+#:../app/app_procs.c:1279
 msgid ""
 "\n"
 "The current maintainers of Dia are:\n"
@@ -250,7 +250,7 @@ msgstr "\n"
 "Người dùng bảo quản Dia hiện thời:\n"
 "\n"
 
-#:../app/app_procs.c:1281
+#:../app/app_procs.c:1284
 msgid ""
 "\n"
 "Other authors are:\n"
@@ -259,7 +259,7 @@ msgstr "\n"
 "Tác giã khác:\n"
 "\n"
 
-#:../app/app_procs.c:1286
+#:../app/app_procs.c:1289
 msgid ""
 "\n"
 "Dia is documented by:\n"
@@ -685,11 +685,11 @@ msgstr "Chọn %d đối tượng"
 msgid "Selected '%s'"
 msgstr "Đã chọn « %s »"
 
-#:../app/display.c:1130
+#:../app/display.c:1136
 msgid "<unnamed>"
 msgstr "<không tên>"
 
-#:../app/display.c:1132
+#:../app/display.c:1138
 #,c-format
 msgid ""
 "The diagram '%s'\n"
@@ -698,22 +698,22 @@ msgstr "Chưa lưu sơ đồ « %s ».\n"
 "Lưu ngay chứ?"
 
 #.no standard buttons
-#:../app/display.c:1140
+#:../app/display.c:1146
 msgid "Closing diagram without saving"
 msgstr "Đang đóng sơ đồ mà không lưu"
 
-#:../app/display.c:1144
+#:../app/display.c:1150
 msgid "Close Diagram"
 msgstr "Đóng sơ đồ"
 
-#:../app/display.c:1149
+#:../app/display.c:1155
 msgid "_Discard Changes"
 msgstr "_Hủy các thay đổi"
 
 #:../app/export_png.c:136 ../app/load_save.c:918 ../app/render_eps.c:103
 #:../plug-ins/cairo/diacairo.c:972 ../plug-ins/cgm/cgm.c:1151
 #:../plug-ins/dxf/dxf-export.c:484 ../plug-ins/hpgl/hpgl.c:704
-#:../plug-ins/metapost/render_metapost.c:1107
+#:../plug-ins/metapost/render_metapost.c:1106
 #:../plug-ins/pgf/render_pgf.c:1143
 #:../plug-ins/pstricks/render_pstricks.c:914
 #:../plug-ins/shape/shape-export.c:134 ../plug-ins/svg/render_svg.c:150
@@ -887,7 +887,7 @@ msgstr "Đa giác"
 msgid "Beziergon"
 msgstr "Hình đa giác Bezier"
 
-#:../app/interface.c:97 ../app/interface.c:98 ../objects/standard/line.c:226
+#:../app/interface.c:97 ../app/interface.c:98 ../objects/standard/line.c:225
 msgid "Line"
 msgstr "Đường"
 
@@ -936,20 +936,20 @@ msgid "NULL tooldata in tool_select_update"
 msgstr "NULL tooldata (dữ liệu công cụ rỗng) trong « tool_select_update » (cập nhật "
 "chọn công cụ)."
 
-#:../app/interface.c:901
+#:../app/interface.c:905
 #,c-format
 msgid "No sheet named %s"
 msgstr "Không có tờ tên « %s »."
 
-#:../app/interface.c:940
+#:../app/interface.c:942
 msgid "Other sheets"
 msgstr "Tờ khác"
 
-#:../app/interface.c:998 ../sheets/Misc.sheet.in.h:3
+#:../app/interface.c:1000 ../sheets/Misc.sheet.in.h:3
 msgid "Misc"
 msgstr "Lặt vặt"
 
-#:../app/interface.c:1059
+#:../app/interface.c:1061
 msgid ""
 "Foreground & background colors for new objects.  The small black and white "
 "squares reset colors.  The small arrows swap colors.  Double click to change "
@@ -957,35 +957,35 @@ msgid ""
 msgstr "Màu nền và màu nổi của đối tượng mới. Ô vuông đen trắng nhỏ phục hồi màu. "
 "Mũi tên nhỏ trao đổi màu. Nhấp đúp để thay đổi màu."
 
-#:../app/interface.c:1074
+#:../app/interface.c:1076
 msgid ""
 "Line widths.  Click on a line to set the default line width for new "
 "objects.  Double-click to set the line width more precisely."
 msgstr "Độ dày đường. Nhấn vào đường để đặt bề dày mặc định cho các đối tượng mới. "
 "Nhấp đúp để đặt bề dày chính xác hơn."
 
-#:../app/interface.c:1114
+#:../app/interface.c:1116
 msgid ""
 "Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
 "arrow parameters with Details..."
 msgstr "Kiểu dạng mũi tiêu đầu các đường mới. Nhấn để chọn mũi tên, hoặc đặt tham số "
 "mũi tên trong phần Chi tiết..."
 
-#:../app/interface.c:1119
+#:../app/interface.c:1121
 msgid ""
 "Line style for new lines.  Click to pick a line style, or set line style "
 "parameters with Details..."
 msgstr "Kiểu dạng các đường mới. Nhấn để chọn kiểu dáng đường, hoặc đặt tham số kiểu "
 "dạng đường trong phần Chi tiết..."
 
-#:../app/interface.c:1133
+#:../app/interface.c:1135
 msgid ""
 "Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
 "parameters with Details..."
 msgstr "Kiểu dạng mũi tiêu cuối các đường mới. Nhấn để chọn mũi tên, hoặc đặt tham "
 "số mũi tên trong phần Chi tiết..."
 
-#:../app/interface.c:1241
+#:../app/interface.c:1243
 msgid "Diagram Editor"
 msgstr "Bộ biên soạn sơ đồ"
 
@@ -1072,7 +1072,7 @@ msgid "You must specify a file, not a directory.\n"
 msgstr "Bạn phải xác định một tập tin, không phải một thư mục.\n"
 
 #:../app/load_save.c:359 ../plug-ins/dxf/dxf-import.c:1306
-#:../plug-ins/wpg/wpg.c:1175 ../plug-ins/xfig/xfig-import.c:1560
+#:../plug-ins/wpg/wpg.c:1175 ../plug-ins/xfig/xfig-import.c:1605
 #:../plug-ins/xslt/xslt.c:85
 #,c-format
 msgid "Couldn't open: '%s' for reading.\n"
@@ -1109,7 +1109,7 @@ msgstr "Gặp lỗi khi tải sơ đồ:\n"
 msgid "Failed to save file '%s'.\n"
 msgstr "Không lưu tập tin « %s » được.\n"
 
-#:../app/load_save.c:1025 ../app/load_save.c:1030
+#:../app/load_save.c:1026 ../app/load_save.c:1031
 msgid "Dia Diagram File"
 msgstr "Tập tin sơ đồ Dia"
 
@@ -2766,14 +2766,14 @@ msgstr "Quan hệ"
 
 #.Translators: Menu item Noun/Energy
 #:../objects/FS/flow-ortho.c:160 ../objects/FS/flow-ortho.c:642
-#:../objects/FS/flow.c:137 ../objects/FS/flow.c:576
+#:../objects/FS/flow.c:137 ../objects/FS/flow.c:580
 #:../objects/FS/function.c:1096
 msgid "Energy"
 msgstr "Năng lượng"
 
 #.Translators: Menu item Noun/Material
 #:../objects/FS/flow-ortho.c:161 ../objects/FS/flow-ortho.c:643
-#:../objects/FS/flow.c:138 ../objects/FS/flow.c:577
+#:../objects/FS/flow.c:138 ../objects/FS/flow.c:581
 #:../objects/FS/function.c:1072
 msgid "Material"
 msgstr "Nguyên liệu"
@@ -2783,7 +2783,7 @@ msgstr "Nguyên liệu"
 #.Translators: Menu item Noun/Signal
 #.Translators: Menu item Noun/Signal/Signal
 #:../objects/FS/flow-ortho.c:162 ../objects/FS/flow-ortho.c:644
-#:../objects/FS/flow.c:139 ../objects/FS/flow.c:578
+#:../objects/FS/flow.c:139 ../objects/FS/flow.c:582
 #:../objects/FS/function.c:1034 ../objects/FS/function.c:1036
 #:../objects/FS/function.c:1172 ../objects/FS/function.c:1174
 msgid "Signal"
@@ -3957,7 +3957,7 @@ msgstr "Kiểu vergent:"
 #:../objects/GRAFCET/vergent.c:405 ../objects/Istar/other.c:469
 #:../objects/Jackson/domain.c:531 ../objects/KAOS/goal.c:572
 #:../objects/KAOS/other.c:525 ../objects/SADT/box.c:445
-#:../objects/standard/line.c:220
+#:../objects/standard/line.c:219
 msgid "Add connection point"
 msgstr "Thêm điểm nối"
 
@@ -4028,7 +4028,7 @@ msgstr "Tác vụ"
 
 #:../objects/Istar/other.c:470 ../objects/Jackson/domain.c:532
 #:../objects/KAOS/goal.c:573 ../objects/KAOS/other.c:526
-#:../objects/SADT/box.c:446 ../objects/standard/line.c:221
+#:../objects/SADT/box.c:446 ../objects/standard/line.c:220
 msgid "Delete connection point"
 msgstr "Xoá bỏ điểm nối"
 
@@ -4328,7 +4328,7 @@ msgid "Composition"
 msgstr "Cấu thành"
 
 #:../objects/UML/class.c:138 ../objects/UML/class.c:309
-#:../objects/UML/class.c:1724 ../sheets/UML.sheet.in.h:6
+#:../objects/UML/class.c:1708 ../sheets/UML.sheet.in.h:6
 msgid "Class"
 msgstr "Hạng"
 
@@ -4352,7 +4352,7 @@ msgstr "Ghi chú"
 msgid "Abstract"
 msgstr "Trừu tượng, đồ hư"
 
-#:../objects/UML/class.c:148 ../objects/UML/class.c:1721
+#:../objects/UML/class.c:148 ../objects/UML/class.c:1705
 msgid "Template"
 msgstr "Mẫu"
 
@@ -4949,11 +4949,11 @@ msgstr "Hình quạt"
 msgid "Base Station"
 msgstr "Nơi cơ bản"
 
-#:../objects/network/bus.c:602
+#:../objects/network/bus.c:611
 msgid "Add Handle"
 msgstr "Thêm tay cầm"
 
-#:../objects/network/bus.c:603
+#:../objects/network/bus.c:612
 msgid "Delete Handle"
 msgstr "Xóa bỏ tay cầm"
 
@@ -4993,17 +4993,17 @@ msgstr "Rộng"
 msgid "Curve distance"
 msgstr "Khoảng cách cong"
 
-#:../objects/standard/bezier.c:137 ../objects/standard/line.c:142
+#:../objects/standard/bezier.c:137 ../objects/standard/line.c:141
 #:../objects/standard/polyline.c:135
 msgid "Line gaps"
 msgstr "Khe đường"
 
-#:../objects/standard/bezier.c:139 ../objects/standard/line.c:144
+#:../objects/standard/bezier.c:139 ../objects/standard/line.c:143
 #:../objects/standard/polyline.c:137
 msgid "Absolute start gap"
 msgstr "Khe bắt đầu tuyệt đối"
 
-#:../objects/standard/bezier.c:141 ../objects/standard/line.c:146
+#:../objects/standard/bezier.c:141 ../objects/standard/line.c:145
 #:../objects/standard/polyline.c:139
 msgid "Absolute end gap"
 msgstr "Khe cuối tuyệt đối"
@@ -5084,15 +5084,15 @@ msgstr "Tập tin ảnh « %s » không có trong thư mục đó,\n"
 msgid "The image file '%s' was not found.\n"
 msgstr "Không tìm thấy tập tin ảnh « %s ».\n"
 
-#:../objects/standard/line.c:133
+#:../objects/standard/line.c:132
 msgid "Arrows"
 msgstr "Mũi tên"
 
-#:../objects/standard/line.c:138
+#:../objects/standard/line.c:137
 msgid "Start point"
 msgstr "Điểm đầu"
 
-#:../objects/standard/line.c:140
+#:../objects/standard/line.c:139
 msgid "End point"
 msgstr "Điểm cuối"
 
@@ -5241,7 +5241,7 @@ msgstr "Bộ lọc xuất HP Graphics Language (HPGL)"
 msgid "TeX Metapost export filter"
 msgstr "Bộ lọc TeX Metapost"
 
-#:../plug-ins/metapost/render_metapost.c:1176
+#:../plug-ins/metapost/render_metapost.c:1175
 msgid "TeX Metapost macros"
 msgstr "Macrô TeX Metapost"
 
@@ -5255,7 +5255,7 @@ msgstr "Không thể lưu tập tin:\n"
 "%s\n"
 "%s"
 
-#:../plug-ins/pixbuf/pixbuf.c:198
+#:../plug-ins/pixbuf/pixbuf.c:197
 msgid "gdk-pixbuf based bitmap export/import"
 msgstr "Xuất nhập ảnh bitmap dựa trên « gdk-pixbuf »"
 
@@ -5333,20 +5333,20 @@ msgstr "Phần tử gốc là « %s » — trong khi lẽ ra phải là « svg �
 msgid "Scalable Vector Graphics import and export filters"
 msgstr "Bộ lọc nhập xuất ảnh Scalable Vector Graphics (SVG)"
 
-#:../plug-ins/wmf/wmf.cpp:1188
+#:../plug-ins/wmf/wmf.cpp:1185
 #,c-format
 msgid "Couldn't open: '%s' for writing.\n"
 msgstr "Không thể mở : « %s » để ghi.\n"
 
-#:../plug-ins/wmf/wmf.cpp:1259
+#:../plug-ins/wmf/wmf.cpp:1269
 msgid "Windows Meta File"
 msgstr "WMF: Windows Meta File: Siêu tập tin Windows"
 
-#:../plug-ins/wmf/wmf.cpp:1268
+#:../plug-ins/wmf/wmf.cpp:1278
 msgid "Enhanced Meta File"
 msgstr "EMF: Enhanced Meta File: Siêu tập tin tăng cường"
 
-#:../plug-ins/wmf/wmf.cpp:1284
+#:../plug-ins/wmf/wmf.cpp:1294
 msgid "WMF export filter"
 msgstr "Bộ lọc xuất WMF"
 
@@ -5377,178 +5377,193 @@ msgstr "Không còn màu tự định nghĩa nên dùng màu đen."
 msgid "XFig format"
 msgstr "Khuôn dạng XFig"
 
-#:../plug-ins/xfig/xfig-import.c:472
+#:../plug-ins/xfig/xfig-import.c:451
+#,c-format
+msgid "Color index %d too high, only 512 colors allowed. Using black instead."
+msgstr "Chỉ mục màu %d quá cao, cho phép chỉ 512 màu nên dùng màu đen thay thế."
+
+#:../plug-ins/xfig/xfig-import.c:478
 msgid "Patterns are not supported by Dia"
 msgstr "Dia không hỗ trợ mẫu."
 
-#:../plug-ins/xfig/xfig-import.c:500
+#:../plug-ins/xfig/xfig-import.c:506
 msgid "Triple-dotted lines are not supported by Dia, using double-dotted"
 msgstr "Dia không hỗ trợ đường ba chấm nên dùng đường hai chấm."
 
-#:../plug-ins/xfig/xfig-import.c:504
+#:../plug-ins/xfig/xfig-import.c:510
 #,c-format
 msgid "Line style %d should not appear\n"
 msgstr "Kiểu dáng đường %d không nên xuất hiện.\n"
 
-#:../plug-ins/xfig/xfig-import.c:573
+#:../plug-ins/xfig/xfig-import.c:578
 #,c-format
 msgid "Error while reading %dth of %d points: %s\n"
 msgstr "Gặp lỗi khi đọc điểm thứ %d trên %d: %s\n"
 
-#:../plug-ins/xfig/xfig-import.c:595
+#:../plug-ins/xfig/xfig-import.c:606
 msgid "Error while reading arrowhead\n"
 msgstr "Gặp lỗi khi đọc đầu mũi tên.\n"
 
-#:../plug-ins/xfig/xfig-import.c:615
+#:../plug-ins/xfig/xfig-import.c:628
 #,c-format
 msgid "Unknown arrow type %d\n"
 msgstr "Kiểu mũi tên lạ %d.\n"
 
-#:../plug-ins/xfig/xfig-import.c:731
+#:../plug-ins/xfig/xfig-import.c:719
+#,c-format
+msgid "Depth %d of of range, only 0-%d allowed.\n"
+msgstr "Độ sâu %d ở ngoại phạm vị, cho phép chỉ 0-%d thôi.\n"
+
+#:../plug-ins/xfig/xfig-import.c:766
 #,c-format
 msgid "Couldn't read ellipse info: %s\n"
 msgstr "Không thể đọc thông tin bầu dục: %s\n"
 
-#:../plug-ins/xfig/xfig-import.c:799
+#:../plug-ins/xfig/xfig-import.c:835
 #,c-format
 msgid "Couldn't read polyline info: %s\n"
 msgstr "Không thể đọc thông tin đa đường: %s\n"
 
-#:../plug-ins/xfig/xfig-import.c:814
+#:../plug-ins/xfig/xfig-import.c:850
 #,c-format
 msgid "Couldn't read flipped bit: %s\n"
 msgstr "Không thể đọc bit đã lật: %s\n"
 
-#:../plug-ins/xfig/xfig-import.c:832
+#:../plug-ins/xfig/xfig-import.c:868
 msgid "Negative corner radius, negating"
 msgstr "Tia góc âm nên đảo dấu lại."
 
-#:../plug-ins/xfig/xfig-import.c:876 ../plug-ins/xfig/xfig-import.c:1192
+#:../plug-ins/xfig/xfig-import.c:912 ../plug-ins/xfig/xfig-import.c:1228
 #,c-format
 msgid "Unknown polyline subtype: %d\n"
 msgstr "Kiểu đa đường con lạ: %d\n"
 
-#:../plug-ins/xfig/xfig-import.c:1026 ../plug-ins/xfig/xfig-import.c:1058
+#:../plug-ins/xfig/xfig-import.c:1062 ../plug-ins/xfig/xfig-import.c:1094
 #,c-format
 msgid "Couldn't read spline info: %s\n"
 msgstr "Không thể đọc thông tin chốt trục: %s\n"
 
 #.Open approximated spline
 #.Closed approximated spline
-#:../plug-ins/xfig/xfig-import.c:1045 ../plug-ins/xfig/xfig-import.c:1063
+#:../plug-ins/xfig/xfig-import.c:1081 ../plug-ins/xfig/xfig-import.c:1099
 msgid "Cannot convert approximated spline yet."
 msgstr "Chưa thể chuyển đổi chốt trục xấp xỉ."
 
-#:../plug-ins/xfig/xfig-import.c:1103
+#:../plug-ins/xfig/xfig-import.c:1139
 #,c-format
 msgid "Unknown spline subtype: %d\n"
 msgstr "Kiểu phụ chốt trục lạ: %d\n"
 
-#:../plug-ins/xfig/xfig-import.c:1166
+#:../plug-ins/xfig/xfig-import.c:1202
 #,c-format
 msgid "Couldn't read arc info: %s\n"
 msgstr "Không thể đọc thông tin hình cung: %s\n"
 
-#:../plug-ins/xfig/xfig-import.c:1256
+#:../plug-ins/xfig/xfig-import.c:1292
 #,c-format
 msgid "Couldn't read text info: %s\n"
 msgstr "Không thể đọc thông tin chữ : %s\n"
 
-#:../plug-ins/xfig/xfig-import.c:1319
+#:../plug-ins/xfig/xfig-import.c:1354
 #,c-format
 msgid "Couldn't identify FIG object: %s\n"
 msgstr "Không thể định vị đối tượng FIG: %s\n"
 
-#:../plug-ins/xfig/xfig-import.c:1327
+#:../plug-ins/xfig/xfig-import.c:1362
 msgid "Compound end outside compound\n"
 msgstr "Kết thúc hợp điều bên ngoài hợp điều.\n"
 
-#:../plug-ins/xfig/xfig-import.c:1346
+#:../plug-ins/xfig/xfig-import.c:1381
 #,c-format
 msgid "Couldn't read color: %s\n"
 msgstr "Không thể đọc màu: %s\n"
 
-#:../plug-ins/xfig/xfig-import.c:1391
+#:../plug-ins/xfig/xfig-import.c:1386
+#,c-format
+msgid "Color number %d out of range 0..%d.  Discarding color.\n"
+msgstr "Số hiệu màu %d ở ngoại phạm vị 0..%d nên hủy màu đó.\n"
+
+#:../plug-ins/xfig/xfig-import.c:1432
 #,c-format
 msgid "Couldn't read group extend: %s\n"
 msgstr "Không thể đọc điều mở rộng nhóm: %s\n"
 
-#:../plug-ins/xfig/xfig-import.c:1402
+#:../plug-ins/xfig/xfig-import.c:1443
 #,c-format
 msgid "Unknown object type %d\n"
 msgstr "Kiểu đối tượng lạ %d.\n"
 
-#:../plug-ins/xfig/xfig-import.c:1426
+#:../plug-ins/xfig/xfig-import.c:1467
 #,c-format
 msgid "`%s' is not one of `%s' or `%s'\n"
 msgstr "« %s » không phải là « %s » cũng không là « %s ».\n"
 
-#:../plug-ins/xfig/xfig-import.c:1436
+#:../plug-ins/xfig/xfig-import.c:1477
 #,c-format
 msgid "Error reading paper size: %s\n"
 msgstr "Gặp lỗi khi đọc kích thước giấy: %s\n"
 
-#:../plug-ins/xfig/xfig-import.c:1447
+#:../plug-ins/xfig/xfig-import.c:1488
 #,c-format
 msgid "Unknown paper size `%s', using default\n"
 msgstr "Cỡ giấy lạ « %s » nên dùng giá trị mặc định.\n"
 
-#:../plug-ins/xfig/xfig-import.c:1459
+#:../plug-ins/xfig/xfig-import.c:1500
 #,c-format
 msgid "Error reading paper orientation: %s\n"
 msgstr "Gặp lỗi khi đọc hướng giấy: %s\n"
 
-#:../plug-ins/xfig/xfig-import.c:1469
+#:../plug-ins/xfig/xfig-import.c:1510
 #,c-format
 msgid "Error reading justification: %s\n"
 msgstr "Gặp lỗi khi đọc giá trị canh đều: %s\n"
 
-#:../plug-ins/xfig/xfig-import.c:1479
+#:../plug-ins/xfig/xfig-import.c:1520
 #,c-format
 msgid "Error reading units: %s\n"
 msgstr "Gặp lỗi khi đọc đơn vị: %s\n"
 
-#:../plug-ins/xfig/xfig-import.c:1493
+#:../plug-ins/xfig/xfig-import.c:1536
 #,c-format
 msgid "Error reading magnification: %s\n"
 msgstr "Gặp lỗi khi đọc giá trị phóng to: %s\n"
 
-#:../plug-ins/xfig/xfig-import.c:1504
+#:../plug-ins/xfig/xfig-import.c:1549
 #,c-format
 msgid "Error reading multipage indicator: %s\n"
 msgstr "Gặp lỗi khi đọc chỉ thị đa trang: %s\n"
 
-#:../plug-ins/xfig/xfig-import.c:1515
+#:../plug-ins/xfig/xfig-import.c:1560
 #,c-format
 msgid "Error reading transparent color: %s\n"
 msgstr "Gặp lỗi khi đọc màu trong suốt %s\n"
 
-#:../plug-ins/xfig/xfig-import.c:1524 ../plug-ins/xfig/xfig-import.c:1580
-#:../plug-ins/xfig/xfig-import.c:1598
+#:../plug-ins/xfig/xfig-import.c:1569 ../plug-ins/xfig/xfig-import.c:1625
+#:../plug-ins/xfig/xfig-import.c:1643
 #,c-format
 msgid "Error reading FIG file: %s\n"
 msgstr "Gặp lỗi khi đọc tập tin FIG: %s\n"
 
-#:../plug-ins/xfig/xfig-import.c:1526 ../plug-ins/xfig/xfig-import.c:1582
+#:../plug-ins/xfig/xfig-import.c:1571 ../plug-ins/xfig/xfig-import.c:1627
 msgid "Premature end of FIG file\n"
 msgstr "Tập tin FIG kết thúc quá sớm.\n"
 
-#:../plug-ins/xfig/xfig-import.c:1535
+#:../plug-ins/xfig/xfig-import.c:1580
 #,c-format
 msgid "Error reading resolution: %s\n"
 msgstr "Gặp lỗi khi đọc độ phân giải: %s\n"
 
-#:../plug-ins/xfig/xfig-import.c:1567
+#:../plug-ins/xfig/xfig-import.c:1612
 #,c-format
 msgid "Doesn't look like a Fig file: %s\n"
 msgstr "Không hỉnh như tập tin FIG: %s\n"
 
-#:../plug-ins/xfig/xfig-import.c:1573
+#:../plug-ins/xfig/xfig-import.c:1618
 #,c-format
 msgid "This is a FIG version %d.%d file, I may not understand it\n"
 msgstr "Đây là tập tin FIG phiên bản %d.%d, nhưng trình này có lẽ không hiểu nó.\n"
 
-#:../plug-ins/xfig/xfig-import.c:1621
+#:../plug-ins/xfig/xfig-import.c:1666
 msgid "XFig File Format"
 msgstr "Khuôn dạng tập tin XFig"
 
