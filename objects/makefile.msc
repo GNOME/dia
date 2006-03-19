@@ -320,20 +320,5 @@ $(PRJ_TOP)\config.h: $(PRJ_TOP)\config.h.win32
 .c.obj :
 	$(CC) $(CFLAGS) -c $(PKG_CFLAGS) $<
 
-clean::
-	del config.h
-	del *.exe
-	del *.obj
-	del *.dll
-	del *.lib
-	del *.err
-	del *.map
-	del *.sym
-	del *.exp
-	del *.lk1
-	del *.mk1
-	del *.pdb
-	del *.ilk
-
 !ENDIF
 

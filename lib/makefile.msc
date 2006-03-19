@@ -128,22 +128,6 @@ diamarshal.c: diamarshal.h
 	&& del xgen-gwmc xgen-gwmc~
 
 
-## common stuff
-## compiler and linker switches
-!IFNDEF DEBUG
-# Full optimization:
-#OPTIMIZE = -Ox -Zi -MD
-OPTIMIZE = -Zi -MD
-LINKDEBUG =
-!ELSE
-# Debugging:
-OPTIMIZE = -Zi -MDd
-LINKDEBUG = /debug
-!ENDIF
-
-# cl -? describes the options
-CC = cl -G5 -GF $(OPTIMIZE) -W3 -nologo
-
 # No general LDFLAGS needed
 LDFLAGS = /link $(LINKDEBUG)
 INSTALL = copy
@@ -172,18 +156,3 @@ $(PRJ_TOP)\config.h: $(PRJ_TOP)\config.h.win32
 splint :
 	sp -weak $(PKG_CFLAGS) *.c >sp.log
 	
-clean::
-	del config.h
-	del *.exe
-	del *.obj
-	del *.dll
-	del *.lib
-	del *.err
-	del *.map
-	del *.sym
-	del *.exp
-	del *.lk1
-	del *.mk1
-	del *.pdb
-	del *.ilk
-	del $(gen_sources)

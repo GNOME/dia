@@ -82,6 +82,7 @@ EXPORTS
  composite_add_attribute
  composite_find_attribute
 
+ connection_adjust_for_autogap
  connection_copy
  connection_destroy
  connection_init

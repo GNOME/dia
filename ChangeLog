@@ -1,3 +1,25 @@
+2006-03-19  Hans Breuer  <hans@breuer.org>
+
+	* app/display.c app/preferences.c : unset transient, still issues
+	with transient handling, see bug #332828
+	
+	* app/makefile.msc lib/makefile.msc objects/makefile.msc
+	  plug-ins/makefile.msc : removed stuff supposed to be used from
+	$(TOP)/glib/build/win32/make.msc
+	
+	* plug-ins/xfig/xfig-import.c : make it compile with strict type 
+	checking [these were real errors, freeing stack passed values instead
+	of the intended local variable] :
+	xfig-import.c(580) : error C4047: 'function' : 'struct _GArray *' 
+	 differs in levels of indirection from 'struct _Point ** '
+	xfig-import.c(580) : warning C4024: 'g_array_free' : different types 
+	 for formal and actual parameter 1
+
+	* lib/libdia.def : export connection_adjust_for_autogap 
+	
+	* plug-ins/hpgl/hpgl.c : there is one floating point value in the 
+	whole HPGL output - and it was locale dependent.
+
 2006-03-12  Lars Clausen  <lars@raeder.dk>
 
 	* installer/win32/dia.nsi: 

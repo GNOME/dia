@@ -673,8 +673,7 @@ update_floating_toolbox(DiaPrefData *pref, char *ptr)
       }
     }
   } else {
-    /* Can't set non-transient, but don't want a message on every change.
-     * Maybe recreate toolbox? 
-     */
+    gtk_window_set_transient_for(GTK_WINDOW(interface_get_toolbox_shell()),
+				 NULL);
   }
 }

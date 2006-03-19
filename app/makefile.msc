@@ -110,10 +110,6 @@ dia-app-icons.h : makefile.msc pixmaps\*.png
 	gdk-pixbuf-csource --build-list \
 	$(ICON_PNG_PAIRS) > dia-app-icons.h
 
-## common stuff
-# cl -? describes the options
-CC = cl -G5 -GF $(OPTIMIZE) $(CRUNTIME) -W3 -nologo
-
 # No general LDFLAGS needed
 # /subsystem:console and /subsystem:windows have their own exe
 LDFLAGS = /link $(LINKDEBUG) /machine:ix86
@@ -158,17 +154,3 @@ $(PRJ_TOP)/config.h: $(PRJ_TOP)/config.h.win32
 .cpp.obj :
 	$(CC) $(CFLAGS) -c $(PKG_CFLAGS) $<
 
-clean::
-	del config.h
-	del *.exe
-	del *.obj
-	del *.dll
-	del *.lib
-	del *.err
-	del *.map
-	del *.sym
-	del *.exp
-	del *.lk1
-	del *.mk1
-	del *.pdb
-	del *.ilk

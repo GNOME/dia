@@ -553,6 +553,7 @@ draw_string(DiaRenderer *object,
 	    Color *colour)
 {
     HpglRenderer *renderer = HPGL_RENDERER (object);
+    real width, height;
 
     DIAG_NOTE(g_message("draw_string %f,%f %s", 
               pos->x, pos->y, text));
@@ -582,16 +583,19 @@ draw_string(DiaRenderer *object,
      */
     height = (127.999 * renderer->font_height * renderer->scale) / renderer->size.y; 
     width  = 0.75 * height; /* FIXME: */
-    fprintf(renderer->file, "SR%.3f,%.3f;", width, height);
+    fprintf(renderer->file, "SR%d.%03d,%d.%03d;", 
+            (int)width, (int)((width * 1000) % 1000),
+            (int)height, (int)((height * 1000) % 1000));
 #else
     /*
      * SI - character size absolute
      *    size needed in centimeters
      */
-    fprintf(renderer->file, "SI%.3f,%.3f;", 
-            renderer->font_height * renderer->scale * 0.75 * 0.0025,
-            renderer->font_height * renderer->scale * 0.0025);
-
+    width = renderer->font_height * renderer->scale * 0.75 * 0.0025;
+    height = renderer->font_height * renderer->scale * 0.0025;
+    fprintf(renderer->file, "SI%d.%03d,%d.%03d;", 
+            (int)width, ((int)(width * 1000) % 1000),
+            (int)height, ((int)(height * 1000) % 1000));
 #endif
     fprintf(renderer->file, "DT\003;" /* Terminator */
             "LB%s\003;\n", text);

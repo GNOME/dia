@@ -1330,6 +1330,9 @@ display_set_active(DDisplay *ddisp)
         gtk_window_set_transient_for(GTK_WINDOW(interface_get_toolbox_shell()),
                                      NULL);
       }
+    } else {
+      gtk_window_set_transient_for(GTK_WINDOW(interface_get_toolbox_shell()),
+                                   NULL);
     }
   }
 }

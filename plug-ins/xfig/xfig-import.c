@@ -577,7 +577,7 @@ fig_read_n_points(FILE *file, int n, Point **points) {
 	if (fscanf(file, " %d %d ", &x, &y) != 2) {
 	    message_error(_("Error while reading %dth of %d points: %s\n"),
 			  i, n, strerror(errno));
-	    g_array_free(points, TRUE);
+	    g_array_free(points_list, TRUE);
 	    return FALSE;
 	}
 	p.x = x/FIG_UNIT;
@@ -587,7 +587,7 @@ fig_read_n_points(FILE *file, int n, Point **points) {
     fscanf(file, "\n");
     
     *points = (Point *)points_list->data;
-    g_array_free(points, FALSE);
+    g_array_free(points_list, FALSE);
     return TRUE;
 }
 
