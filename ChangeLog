@@ -1,3 +1,15 @@
+2006-03-21  Lars Clausen  <lars@raeder.dk>
+
+	* installer/win32/dia.nsi: 
+	* doc/en/dia.xml: 
+	* doc/eu/dia.xml: 
+	* doc/pl/dia.xml: 
+	* config.h.win32: 
+	* configure.in: 
+	* NEWS: -pre6
+
+	* plug-ins/xfig/xfig-import.c: Last missing stack underflow check.
+
 2006-03-19  Hans Breuer  <hans@breuer.org>
 
 	* app/display.c app/preferences.c : unset transient, still issues

@@ -472,9 +472,9 @@ ellipse_copy(Ellipse *ellipse)
   newellipse->aspect = ellipse->aspect;
   newellipse->line_style = ellipse->line_style;
 
-  newobj->handles[8] = &newellipse->center_handle;
   newellipse->center_handle = ellipse->center_handle;
   newellipse->center_handle.connected_to = NULL;
+  newobj->handles[8] = &newellipse->center_handle;
 
   for (i=0;i<9;i++) {
     newobj->connections[i] = &newellipse->connections[i];

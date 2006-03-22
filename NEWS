@@ -1,3 +1,11 @@
+dia-0.95-pre6: 21-Mar-2006
+
+* Transient (window-on-top) off till issues resolved.
+
+* Stack corruption errors in XFig import fixed.
+
+* Locale dependency in HPGL file loading removed.
+
 dia-0.95-pre5: 12-Mar-2006
 
 * Fixed positioning and height of UML operations when wrapped.

@@ -24,6 +24,10 @@ When a new version is about to be released:
 
    Make sure to check for open Bugzilla bugs with the PATCH keyword.
 
+   If there are enough changes that a security audit is appropriate
+   (e.g. new or changed importers), there is a standing offer from infamous
+   <infamous41md@sol-biotech.com> to get audits.
+
 1) The core developers agree on the next version number. It's called
    $VERSION thereafter. They also look if DIA_PLUGIN_API_VERSION needs
    to be updated.
@@ -78,7 +82,7 @@ When a new version is about to be released:
 How to make a tarball
 ---------------------
   1. Update the version number in configure.in, config.h.win32,
-     doc/{en,eu,pl}/dia.xml, doc/en/dia.1.  Also update dia.spec when changing
+     doc/{en,eu,pl}/dia.xml.  Also update dia.spec when changing
      the version number, but not for a change of prerelease number.
   2. Add information about things that have changed to the NEWS file.
   3. make sure you have up to date build tools installed on the system.

@@ -696,7 +696,7 @@ fig_read_text_line(FILE *file) {
     return text_buf;
 }
 
-static GList *depths[1000];
+static GList *depths[FIG_MAX_DEPTHS];
 
 /* If there's something in the compound stack, we ignore the depth field,
    as it will be determined by the group anyway */
@@ -1382,7 +1382,7 @@ fig_read_object(FILE *file, DiagramData *dia) {
 	    return FALSE;
 	}
 
-	if (colornumber < 0 || colornumber > FIG_MAX_USER_COLORS) {
+	if (colornumber < 32 || colornumber > FIG_MAX_USER_COLORS) {
 	    message_error(_("Color number %d out of range 0..%d.  Discarding color.\n"),
 			  colornumber, FIG_MAX_USER_COLORS);
 	    return FALSE;
