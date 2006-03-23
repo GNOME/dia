@@ -1,3 +1,10 @@
+2006-03-23  Hans Breuer  <hans@breuer.org>
+
+	* lib/widgets.c : use original fontname and fallback 'sans' to
+	render the font menu. Thus crashing (in Pango) is delayed until
+	the point where one chooses a font, which can't be rendered by
+	Pango. Fixes bug #335096 as far as Dia can.
+	
 2006-03-21  Lars Clausen  <lars@raeder.dk>
 
 	* installer/win32/dia.nsi: 
