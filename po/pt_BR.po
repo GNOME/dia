@@ -10,13 +10,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-03-03 02:13+0100\n"
-"PO-Revision-Date: 2006-03-03 00:15-0300\n"
+"POT-Creation-Date: 2006-03-25 10:12+0100\n"
+"PO-Revision-Date: 2006-03-25 09:00-0300\n"
 "Last-Translator: Alexandre Folle de Menezes <afmenez@terra.com.br>\n"
 "Language-Team: Brazilian Portuguese <gnome-l10n-br@listas.cipsga.org.br>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: 8bit"
 
 #. This is not an errror
 #: ../app/app_procs.c:260
@@ -730,7 +730,7 @@ msgstr "_Descartar Alterações"
 
 #: ../app/export_png.c:136 ../app/load_save.c:918 ../app/render_eps.c:103
 #: ../plug-ins/cairo/diacairo.c:972 ../plug-ins/cgm/cgm.c:1151
-#: ../plug-ins/dxf/dxf-export.c:484 ../plug-ins/hpgl/hpgl.c:704
+#: ../plug-ins/dxf/dxf-export.c:484 ../plug-ins/hpgl/hpgl.c:708
 #: ../plug-ins/metapost/render_metapost.c:1106
 #: ../plug-ins/pgf/render_pgf.c:1143
 #: ../plug-ins/pstricks/render_pstricks.c:914
@@ -910,7 +910,7 @@ msgstr "Polígono"
 msgid "Beziergon"
 msgstr "Curva de Bézier fechada"
 
-#: ../app/interface.c:97 ../app/interface.c:98 ../objects/standard/line.c:226
+#: ../app/interface.c:97 ../app/interface.c:98 ../objects/standard/line.c:225
 msgid "Line"
 msgstr "Linha"
 
@@ -1104,7 +1104,7 @@ msgid "You must specify a file, not a directory.\n"
 msgstr "Você deve especificar um arquivo, não um diretório.\n"
 
 #: ../app/load_save.c:359 ../plug-ins/dxf/dxf-import.c:1306
-#: ../plug-ins/wpg/wpg.c:1175 ../plug-ins/xfig/xfig-import.c:1560
+#: ../plug-ins/wpg/wpg.c:1175 ../plug-ins/xfig/xfig-import.c:1605
 #: ../plug-ins/xslt/xslt.c:85
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
@@ -2786,14 +2786,14 @@ msgstr "Relação"
 
 #. Translators: Menu item Noun/Energy
 #: ../objects/FS/flow-ortho.c:160 ../objects/FS/flow-ortho.c:642
-#: ../objects/FS/flow.c:137 ../objects/FS/flow.c:576
+#: ../objects/FS/flow.c:137 ../objects/FS/flow.c:580
 #: ../objects/FS/function.c:1096
 msgid "Energy"
 msgstr "Energia"
 
 #. Translators: Menu item Noun/Material
 #: ../objects/FS/flow-ortho.c:161 ../objects/FS/flow-ortho.c:643
-#: ../objects/FS/flow.c:138 ../objects/FS/flow.c:577
+#: ../objects/FS/flow.c:138 ../objects/FS/flow.c:581
 #: ../objects/FS/function.c:1072
 msgid "Material"
 msgstr "Material"
@@ -2803,7 +2803,7 @@ msgstr "Material"
 #. Translators: Menu item Noun/Signal
 #. Translators: Menu item Noun/Signal/Signal
 #: ../objects/FS/flow-ortho.c:162 ../objects/FS/flow-ortho.c:644
-#: ../objects/FS/flow.c:139 ../objects/FS/flow.c:578
+#: ../objects/FS/flow.c:139 ../objects/FS/flow.c:582
 #: ../objects/FS/function.c:1034 ../objects/FS/function.c:1036
 #: ../objects/FS/function.c:1172 ../objects/FS/function.c:1174
 msgid "Signal"
@@ -3977,7 +3977,7 @@ msgstr "Tipo de vergente:"
 #: ../objects/GRAFCET/vergent.c:405 ../objects/Istar/other.c:469
 #: ../objects/Jackson/domain.c:531 ../objects/KAOS/goal.c:572
 #: ../objects/KAOS/other.c:525 ../objects/SADT/box.c:445
-#: ../objects/standard/line.c:220
+#: ../objects/standard/line.c:219
 msgid "Add connection point"
 msgstr "Adicionar ponto de conexão"
 
@@ -4048,7 +4048,7 @@ msgstr "Tarefa"
 
 #: ../objects/Istar/other.c:470 ../objects/Jackson/domain.c:532
 #: ../objects/KAOS/goal.c:573 ../objects/KAOS/other.c:526
-#: ../objects/SADT/box.c:446 ../objects/standard/line.c:221
+#: ../objects/SADT/box.c:446 ../objects/standard/line.c:220
 msgid "Delete connection point"
 msgstr "Apagar ponto de conexão"
 
@@ -4350,7 +4350,7 @@ msgid "Composition"
 msgstr "Composição"
 
 #: ../objects/UML/class.c:138 ../objects/UML/class.c:309
-#: ../objects/UML/class.c:1724 ../sheets/UML.sheet.in.h:6
+#: ../objects/UML/class.c:1708 ../sheets/UML.sheet.in.h:6
 msgid "Class"
 msgstr "Classe"
 
@@ -4374,7 +4374,7 @@ msgstr "Comentário"
 msgid "Abstract"
 msgstr "Abstrata"
 
-#: ../objects/UML/class.c:148 ../objects/UML/class.c:1721
+#: ../objects/UML/class.c:148 ../objects/UML/class.c:1705
 msgid "Template"
 msgstr "Modelo"
 
@@ -4977,11 +4977,11 @@ msgstr "Setores"
 msgid "Base Station"
 msgstr "Estação Base"
 
-#: ../objects/network/bus.c:602
+#: ../objects/network/bus.c:611
 msgid "Add Handle"
 msgstr "Adicionar alça"
 
-#: ../objects/network/bus.c:603
+#: ../objects/network/bus.c:612
 msgid "Delete Handle"
 msgstr "Apagar Alça"
 
@@ -5021,17 +5021,17 @@ msgstr "Largura"
 msgid "Curve distance"
 msgstr "Distância da curva"
 
-#: ../objects/standard/bezier.c:137 ../objects/standard/line.c:142
+#: ../objects/standard/bezier.c:137 ../objects/standard/line.c:141
 #: ../objects/standard/polyline.c:135
 msgid "Line gaps"
 msgstr "Intervalos da linha"
 
-#: ../objects/standard/bezier.c:139 ../objects/standard/line.c:144
+#: ../objects/standard/bezier.c:139 ../objects/standard/line.c:143
 #: ../objects/standard/polyline.c:137
 msgid "Absolute start gap"
 msgstr "Intervalo inicial absoluto"
 
-#: ../objects/standard/bezier.c:141 ../objects/standard/line.c:146
+#: ../objects/standard/bezier.c:141 ../objects/standard/line.c:145
 #: ../objects/standard/polyline.c:139
 msgid "Absolute end gap"
 msgstr "Intervalo final absoluto"
@@ -5113,15 +5113,15 @@ msgstr ""
 msgid "The image file '%s' was not found.\n"
 msgstr "O arquivo de imagem '%s' não foi encontrado.\n"
 
-#: ../objects/standard/line.c:133
+#: ../objects/standard/line.c:132
 msgid "Arrows"
 msgstr "Setas"
 
-#: ../objects/standard/line.c:138
+#: ../objects/standard/line.c:137
 msgid "Start point"
 msgstr "Ponto inicial"
 
-#: ../objects/standard/line.c:140
+#: ../objects/standard/line.c:139
 msgid "End point"
 msgstr "Ponto final"
 
@@ -5261,11 +5261,11 @@ msgstr "Scalable Vector Graphics GNOME"
 msgid "GNOME Print based Rendering"
 msgstr "Print based Rendering GNOME"
 
-#: ../plug-ins/hpgl/hpgl.c:745
+#: ../plug-ins/hpgl/hpgl.c:749
 msgid "HP Graphics Language"
 msgstr "Linguagem Gráfica HP"
 
-#: ../plug-ins/hpgl/hpgl.c:770
+#: ../plug-ins/hpgl/hpgl.c:774
 msgid "HP Graphics Language export filter"
 msgstr "Filtro de exportação para Linguagem Gráfica HP"
 
@@ -5411,180 +5411,195 @@ msgstr "Mais nenhuma cor definível pelo usuário - usando preto"
 msgid "XFig format"
 msgstr "Formato XFig"
 
-#: ../plug-ins/xfig/xfig-import.c:472
+#: ../plug-ins/xfig/xfig-import.c:451
+#, c-format
+msgid "Color index %d too high, only 512 colors allowed. Using black instead."
+msgstr "O índice de cores %d  muito alto, somente 512 cores são permitidas. Utilizando preto então."
+
+#: ../plug-ins/xfig/xfig-import.c:478
 msgid "Patterns are not supported by Dia"
 msgstr "Padrões não são suportados pelo Dia"
 
-#: ../plug-ins/xfig/xfig-import.c:500
+#: ../plug-ins/xfig/xfig-import.c:506
 msgid "Triple-dotted lines are not supported by Dia, using double-dotted"
 msgstr ""
 "Linhas com pontilhamento triplo não são suportadas pelo Dia, utilizando "
 "pontilhamento duplo"
 
-#: ../plug-ins/xfig/xfig-import.c:504
+#: ../plug-ins/xfig/xfig-import.c:510
 #, c-format
 msgid "Line style %d should not appear\n"
 msgstr "O estilo de linha %d não deveria aparecer\n"
 
-#: ../plug-ins/xfig/xfig-import.c:573
+#: ../plug-ins/xfig/xfig-import.c:578
 #, c-format
 msgid "Error while reading %dth of %d points: %s\n"
 msgstr "Erro ao ler o %d-ésimo de %d pontos: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:595
+#: ../plug-ins/xfig/xfig-import.c:606
 msgid "Error while reading arrowhead\n"
 msgstr "Erro ao ler arrowhead\n"
 
-#: ../plug-ins/xfig/xfig-import.c:615
+#: ../plug-ins/xfig/xfig-import.c:628
 #, c-format
 msgid "Unknown arrow type %d\n"
 msgstr "Tipo de seta desconhecido %d\n"
 
-#: ../plug-ins/xfig/xfig-import.c:731
+#: ../plug-ins/xfig/xfig-import.c:719
+#, c-format
+msgid "Depth %d of of range, only 0-%d allowed.\n"
+msgstr "Profundidade %d fora da faixa, somente valores entre 0-%d são permitidos.\n"
+
+#: ../plug-ins/xfig/xfig-import.c:766
 #, c-format
 msgid "Couldn't read ellipse info: %s\n"
 msgstr "Impossível ler informação sobre elipse: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:799
+#: ../plug-ins/xfig/xfig-import.c:835
 #, c-format
 msgid "Couldn't read polyline info: %s\n"
 msgstr "Impossível ler informação sobre polilinha: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:814
+#: ../plug-ins/xfig/xfig-import.c:850
 #, c-format
 msgid "Couldn't read flipped bit: %s\n"
 msgstr "Impossível ler bit interrompido: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:832
+#: ../plug-ins/xfig/xfig-import.c:868
 msgid "Negative corner radius, negating"
 msgstr "Raio do canto negativo; rejeitando"
 
-#: ../plug-ins/xfig/xfig-import.c:876 ../plug-ins/xfig/xfig-import.c:1192
+#: ../plug-ins/xfig/xfig-import.c:912 ../plug-ins/xfig/xfig-import.c:1228
 #, c-format
 msgid "Unknown polyline subtype: %d\n"
 msgstr "Subtipo de polilinha desconhecido: %d\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1026 ../plug-ins/xfig/xfig-import.c:1058
+#: ../plug-ins/xfig/xfig-import.c:1062 ../plug-ins/xfig/xfig-import.c:1094
 #, c-format
 msgid "Couldn't read spline info: %s\n"
 msgstr "Impossível ler informação sobre spline: %s\n"
 
 #. Open approximated spline
 #. Closed approximated spline
-#: ../plug-ins/xfig/xfig-import.c:1045 ../plug-ins/xfig/xfig-import.c:1063
+#: ../plug-ins/xfig/xfig-import.c:1081 ../plug-ins/xfig/xfig-import.c:1099
 msgid "Cannot convert approximated spline yet."
 msgstr "Ainda não é possível converter um spline aproximada."
 
-#: ../plug-ins/xfig/xfig-import.c:1103
+#: ../plug-ins/xfig/xfig-import.c:1139
 #, c-format
 msgid "Unknown spline subtype: %d\n"
 msgstr "Subtipo de spline desconhecido: %d\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1166
+#: ../plug-ins/xfig/xfig-import.c:1202
 #, c-format
 msgid "Couldn't read arc info: %s\n"
 msgstr "Impossível ler informação sobre arco: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1256
+#: ../plug-ins/xfig/xfig-import.c:1292
 #, c-format
 msgid "Couldn't read text info: %s\n"
 msgstr "Impossível ler informação sobre texto: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1319
+#: ../plug-ins/xfig/xfig-import.c:1354
 #, c-format
 msgid "Couldn't identify FIG object: %s\n"
 msgstr "Impossível identificar objeto FIG: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1327
+#: ../plug-ins/xfig/xfig-import.c:1362
 msgid "Compound end outside compound\n"
 msgstr "Objeto composto finalizou fora da área normal\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1346
+#: ../plug-ins/xfig/xfig-import.c:1381
 #, c-format
 msgid "Couldn't read color: %s\n"
 msgstr "Impossível ler cor: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1391
+#: ../plug-ins/xfig/xfig-import.c:1386
+#, c-format
+msgid "Color number %d out of range 0..%d.  Discarding color.\n"
+msgstr "A cor número %d está fora da faixa 0..%d.  Descartando a cor.\n"
+
+#: ../plug-ins/xfig/xfig-import.c:1432
 #, c-format
 msgid "Couldn't read group extend: %s\n"
 msgstr "Impossível ler grupo de extensão: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1402
+#: ../plug-ins/xfig/xfig-import.c:1443
 #, c-format
 msgid "Unknown object type %d\n"
 msgstr "Tipo de objeto desconhecido: %d\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1426
+#: ../plug-ins/xfig/xfig-import.c:1467
 #, c-format
 msgid "`%s' is not one of `%s' or `%s'\n"
 msgstr "`%s' não é do tipo `%s' ou `%s'\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1436
+#: ../plug-ins/xfig/xfig-import.c:1477
 #, c-format
 msgid "Error reading paper size: %s\n"
 msgstr "Erro ao ler tamanho do papel: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1447
+#: ../plug-ins/xfig/xfig-import.c:1488
 #, c-format
 msgid "Unknown paper size `%s', using default\n"
 msgstr "Tamanho de papel `%s' desconhecido, usando o padrão\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1459
+#: ../plug-ins/xfig/xfig-import.c:1500
 #, c-format
 msgid "Error reading paper orientation: %s\n"
 msgstr "Erro ao ler orientação do papel: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1469
+#: ../plug-ins/xfig/xfig-import.c:1510
 #, c-format
 msgid "Error reading justification: %s\n"
 msgstr "Erro ao ler justificação: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1479
+#: ../plug-ins/xfig/xfig-import.c:1520
 #, c-format
 msgid "Error reading units: %s\n"
 msgstr "Erro ao ler unidades: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1493
+#: ../plug-ins/xfig/xfig-import.c:1536
 #, c-format
 msgid "Error reading magnification: %s\n"
 msgstr "Erro ao ler ampliação: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1504
+#: ../plug-ins/xfig/xfig-import.c:1549
 #, c-format
 msgid "Error reading multipage indicator: %s\n"
 msgstr "Erro ao ler indicador de multipáginas: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1515
+#: ../plug-ins/xfig/xfig-import.c:1560
 #, c-format
 msgid "Error reading transparent color: %s\n"
 msgstr "Erro ao ler cor de transparência: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1524 ../plug-ins/xfig/xfig-import.c:1580
-#: ../plug-ins/xfig/xfig-import.c:1598
+#: ../plug-ins/xfig/xfig-import.c:1569 ../plug-ins/xfig/xfig-import.c:1625
+#: ../plug-ins/xfig/xfig-import.c:1643
 #, c-format
 msgid "Error reading FIG file: %s\n"
 msgstr "Erro ao ler arquivo FIG: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1526 ../plug-ins/xfig/xfig-import.c:1582
+#: ../plug-ins/xfig/xfig-import.c:1571 ../plug-ins/xfig/xfig-import.c:1627
 msgid "Premature end of FIG file\n"
 msgstr "Fim prematuro de arquivo FIG\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1535
+#: ../plug-ins/xfig/xfig-import.c:1580
 #, c-format
 msgid "Error reading resolution: %s\n"
 msgstr "Erro ao ler resolução: %s:\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1567
+#: ../plug-ins/xfig/xfig-import.c:1612
 #, c-format
 msgid "Doesn't look like a Fig file: %s\n"
 msgstr "Não parece ser um arquivo Fig: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1573
+#: ../plug-ins/xfig/xfig-import.c:1618
 #, c-format
 msgid "This is a FIG version %d.%d file, I may not understand it\n"
 msgstr "Este arquivo FIG é da versão %d.%d, eu posso não entendê-lo\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1621
+#: ../plug-ins/xfig/xfig-import.c:1666
 msgid "XFig File Format"
 msgstr "Formato de arquivo do XFig"
 
