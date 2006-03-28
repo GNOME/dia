@@ -198,13 +198,16 @@ basestation_move_handle(Basestation *basestation, Handle *handle,
                         Point *to, ConnectionPoint *cp,
                         HandleMoveReason reason, ModifierKeys modifiers)
 {
+  ObjectChange* oc;
+
   assert(basestation!=NULL);
   assert(handle!=NULL);
   assert(to!=NULL);
-
   assert(handle->id < 8);
 
-  return NULL;
+  oc = element_move_handle (&(basestation->element), handle->id, to, cp, reason, modifiers);
+
+  return oc;
 }
 
 static ObjectChange*
@@ -313,10 +316,15 @@ basestation_update_data(Basestation *basestation)
   Rectangle text_box;
   Point p;
 
-  text_calc_boundingbox(basestation->text, &text_box);
-
   elem->width = BASESTATION_WIDTH;
   elem->height = BASESTATION_HEIGHT+basestation->text->height;
+
+  p = elem->corner;
+  p.x += elem->width/2;
+  p.y += elem->height + basestation->text->ascent;
+  text_set_position(basestation->text, &p);
+
+  text_calc_boundingbox(basestation->text, &text_box);
 
   /* Update connections: */
   basestation->connections[0].pos.x = elem->corner.x;
@@ -348,11 +356,6 @@ basestation_update_data(Basestation *basestation)
   basestation->connections[8].directions = DIR_ALL;
 
   element_update_boundingbox(elem);
-
-  p = elem->corner;
-  p.x += elem->width/2;
-  p.y += elem->height + basestation->text->ascent;
-  text_set_position(basestation->text, &p);
 
   /* Add bounding box for text: */
   rectangle_union(&obj->bounding_box, &text_box);

@@ -39,22 +39,12 @@
 
 #include "pixmaps/radiocell.xpm"
 
-/* TODO? no visual effect ATM, but useful anyway */
-typedef enum {
-  MACRO_CELL,
-  MICRO_CELL,
-  PICO_CELL,
-} CellType;
-
-/* TODO: add different cell technologies, like GSM, UMTS, ... */
-
 typedef struct _RadioCell RadioCell;
 
 struct _RadioCell {
   PolyShape poly;		/* always 1st! */
-  CellType celltype;
   real radius;			/* pseudo-radius */
-  ConnectionPoint cp;		/* connection point in the center */
+  Point center;			/* point in the center */
   Color line_colour;
   LineStyle line_style;
   real dashlength;
@@ -63,8 +53,6 @@ struct _RadioCell {
   Color fill_colour;
   Text *text;
   TextAttributes attrs;
-  int subscribers;		/* number of subscribers in this cell,
-				   always >= 0, but check is missing */
 };
 
 #define RADIOCELL_LINEWIDTH  0.1
@@ -126,18 +114,9 @@ static ObjectOps radiocell_ops = {
   (SetPropsFunc)        radiocell_set_props
 };
 
-static PropEnumData prop_cell_type_data[] = {
-  { N_("Macro Cell"), MACRO_CELL },
-  { N_("Micro Cell"), MICRO_CELL },
-  { N_("Pico Cell"),  PICO_CELL },
-  { NULL, 0}
-};
-
 static PropDescription radiocell_props[] = {
   POLYSHAPE_COMMON_PROPERTIES,
   { "radius", PROP_TYPE_REAL, 0, N_("Radius"), NULL, NULL },
-  { "celltype", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE,
-    N_("Cell Type:"), NULL, prop_cell_type_data },
   PROP_STD_LINE_WIDTH,
   PROP_STD_LINE_COLOUR,
   PROP_STD_LINE_STYLE,
@@ -148,8 +127,6 @@ static PropDescription radiocell_props[] = {
   PROP_STD_TEXT_HEIGHT,
   PROP_STD_TEXT_COLOUR,
   PROP_STD_TEXT_ALIGNMENT,
-  { "subscribers", PROP_TYPE_INT, PROP_FLAG_VISIBLE,
-    N_("Subscribers"), NULL, NULL },
   PROP_DESC_END
 };
 
@@ -165,7 +142,6 @@ radiocell_describe_props(RadioCell *radiocell)
 static PropOffset radiocell_offsets[] = {
   POLYSHAPE_COMMON_PROPERTIES_OFFSETS,
   { "radius", PROP_TYPE_REAL, offsetof(RadioCell, radius) },
-  { "celltype", PROP_TYPE_ENUM, offsetof(RadioCell, celltype) },
   { "line_width", PROP_TYPE_REAL, offsetof(RadioCell, line_width) },
   { "line_colour", PROP_TYPE_COLOUR, offsetof(RadioCell, line_colour) },
   { "line_style", PROP_TYPE_LINESTYLE,
@@ -179,7 +155,6 @@ static PropOffset radiocell_offsets[] = {
   { "text_colour", PROP_TYPE_COLOUR, offsetof(RadioCell, attrs.color) },
   { "text_alignment", PROP_TYPE_ENUM,
     offsetof(RadioCell, attrs.alignment) },
-  { "subscribers", PROP_TYPE_INT, offsetof(RadioCell, subscribers) },
   { NULL, 0, 0 },
 };
 
@@ -222,11 +197,30 @@ radiocell_move_handle(RadioCell *radiocell, Handle *handle,
 		      Point *to, ConnectionPoint *cp,
 		      HandleMoveReason reason, ModifierKeys modifiers)
 {
-  real distance = distance_point_point(&handle->pos, to);
-  gboolean larger = distance_point_point(&handle->pos, &radiocell->cp.pos) <
-    distance_point_point(to, &radiocell->cp.pos);
+  real distance;
+  gboolean larger;
 
-  /* TODO: this flickers terribly */
+  /* prevent flicker for "negative" resizing */
+  if ((handle->id == HANDLE_CUSTOM1 && to->x < radiocell->center.x) ||
+      (handle->id == HANDLE_CUSTOM4 && to->x > radiocell->center.x) ||
+      ((handle->id == HANDLE_CUSTOM2 || handle->id == HANDLE_CUSTOM3) &&
+       to->y < radiocell->center.y) ||
+      ((handle->id == HANDLE_CUSTOM5 || handle->id == HANDLE_CUSTOM6) &&
+       to->y > radiocell->center.y)) {
+    return NULL;
+  }
+
+  /* prevent flicker for "diagonal" resizing */
+  if (handle->id == HANDLE_CUSTOM1 || handle->id == HANDLE_CUSTOM4) {
+    to->y = handle->pos.y;
+  }
+  else {
+    to->x = handle->pos.x;
+  }
+
+  distance = distance_point_point(&handle->pos, to);
+  larger = distance_point_point(&handle->pos, &radiocell->center) <
+    distance_point_point(to, &radiocell->center);
   radiocell->radius += distance * (larger? 1: -1);
   if (radiocell->radius < 1.)
     radiocell->radius = 1.;
@@ -239,8 +233,8 @@ static ObjectChange*
 radiocell_move(RadioCell *radiocell, Point *to)
 {
   polyshape_move(&radiocell->poly, to);
-  radiocell->cp.pos = *to;
-  radiocell->cp.pos.x -= radiocell->radius;
+  radiocell->center = *to;
+  radiocell->center.x -= radiocell->radius;
   radiocell_update_data(radiocell);
 
   return NULL;
@@ -288,12 +282,11 @@ radiocell_update_data(RadioCell *radiocell)
   Point points[] = { {  1., 0. }, {  .5,  .75 }, { -.5,  .75 },
 		     { -1., 0. }, { -.5, -.75 }, {  .5, -.75 } };
 
-  /* TODO: the CP is invisible and does not yet work */
-  radiocell->cp.pos.x = (poly->points[0].x + poly->points[3].x) / 2.;
-  radiocell->cp.pos.y = poly->points[0].y;
+  radiocell->center.x = (poly->points[0].x + poly->points[3].x) / 2.;
+  radiocell->center.y = poly->points[0].y;
 
   for (i = 0; i < 6; i++) {
-    poly->points[i] = radiocell->cp.pos;
+    poly->points[i] = radiocell->center;
     poly->points[i].x += radiocell->radius * points[i].x;
     poly->points[i].y += radiocell->radius * points[i].y;
   }
@@ -323,6 +316,7 @@ radiocell_create(Point *startpoint,
   PolyShape *poly;
   DiaObject *obj;
   DiaFont *font;
+  int i = 0;
 
   radiocell = g_new0(RadioCell, 1);
   poly = &radiocell->poly;
@@ -331,9 +325,7 @@ radiocell_create(Point *startpoint,
   obj->ops = &radiocell_ops;
   obj->can_parent = TRUE;
 
-  radiocell->celltype = MACRO_CELL;
   radiocell->radius = 4.;
-  radiocell->subscribers = 1000;
 
   /* do not use default_properties.show_background here */
   radiocell->show_background = FALSE;
@@ -351,17 +343,17 @@ radiocell_create(Point *startpoint,
 
   polyshape_init(poly, 6);
 
-  object_add_connectionpoint(&poly->object, &radiocell->cp);
-  obj->connections[0] = &radiocell->cp;
-  radiocell->cp.object = obj;
-  radiocell->cp.connected = NULL;
-  radiocell->cp.directions = DIR_ALL;
-  radiocell->cp.pos = *startpoint;
-  radiocell->cp.pos.x -= radiocell->radius;
+  radiocell->center = *startpoint;
+  radiocell->center.x -= radiocell->radius;
 
   radiocell_update_data(radiocell);
   *handle1 = poly->object.handles[0];
   *handle2 = poly->object.handles[2];
+
+  for (i=0;i<6;i++) {
+    poly->object.handles[i]->id = HANDLE_CUSTOM1 + i;
+  }
+
   return &radiocell->poly.object;
 }
 

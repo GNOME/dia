@@ -8,7 +8,7 @@
      <point x="0.85" y="2.0"/>
      <point x="1" y="1" main="yes"/>
   </connections>
-  <textbox x1="-1" y1="2" x2="3" y2="5" align="center" resize="no"/>
+  <textbox x1="0" y1="2" x2="1.7" y2="5" align="center" resize="no"/>
   <svg:svg width="2cm" height="2cm">
     <svg:rect style="stroke:none; fill:background" x="0" y="0.25" width="1.7" height="1.5"/>
     <svg:ellipse style="stroke: none; fill:background" cx="0.85" cy="1.75" rx="0.85" ry="0.25"/>

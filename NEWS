@@ -1,3 +1,9 @@
+dia-0.95-pre7: 28-Mar-2006
+
+* Fix (somewhat) a crash bug in font handling for Win32.
+
+* Minor fixes from W. Borgert.
+
 dia-0.95-pre6: 21-Mar-2006
 
 * Transient (window-on-top) off till issues resolved.

@@ -1,3 +1,20 @@
+2006-03-28  Lars Clausen  <lars@raeder.dk>
+
+	* shapes/network/mobile_phone.{png,xpm,shape}:
+	* shapes/network/telephone.shape:
+	* shapes/network/disc.shape:
+	Updates from W. Borgert <debacle@debian.org> improving looks and
+	positioning.
+	
+2006-03-26  Lars Clausen  <lars@raeder.dk>
+
+	* objects/network/radiocell.c: Patch from W. Borgert
+	<debacle@debian.org> for extra midpoint, flicker, extraneous
+	properties.
+	
+	* objects/network/basestation.c: Patch for BB from W. Borgert
+	<debacle@debian.org>. 
+
 2006-03-23  Hans Breuer  <hans@breuer.org>
 
 	* lib/widgets.c : use original fontname and fallback 'sans' to
