@@ -1,3 +1,9 @@
+2006-03-29  Daniel Drake  <dsd@gentoo.org>
+
+	* configure.in: Use standard pkg-config expressions to check for
+	GTK+/Glib, the GTK-supplied macro's conflict with our usage of
+	$GTK_MODULES (#335422)
+
 2006-03-28  Lars Clausen  <lars@raeder.dk>
 
 	* shapes/network/mobile_phone.{png,xpm,shape}:
