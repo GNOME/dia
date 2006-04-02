@@ -1,3 +1,7 @@
+2006-04-02  Hans Breuer  <hans@breuer.org>
+
+	* doc/pl/dia.xml : "DOCTYPE book" closes bug #142098, Roland Stigge
+
 2006-03-29  Daniel Drake  <dsd@gentoo.org>
 
 	* configure.in: Use standard pkg-config expressions to check for
