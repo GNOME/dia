@@ -94,8 +94,8 @@ VIAddVersionKey "ProductName" "Dia for Windows"
 VIAddVersionKey "CompanyName" "The Dia Developers"
 VIAddVersionKey "LegalCopyright" "(c) 2003-2006 Alexander Larsson and others"
 VIAddVersionKey "FileDescription" "Dia for Windows Installer"
-VIAddVersionKey "FileVersion" "0.95.0.5"
-VIProductVersion "0.95.0.5"
+VIAddVersionKey "FileVersion" "0.95.0.7"
+VIProductVersion "0.95.0.7"
 
 ;--------------------------------
 ;Modern UI Configuration
@@ -147,6 +147,7 @@ VIProductVersion "0.95.0.5"
 
   !insertmacro MUI_LANGUAGE "English"
   !insertmacro MUI_LANGUAGE "German"
+  !insertmacro MUI_LANGUAGE "French"
 
 ;--------------------------------
 ;Translations
@@ -157,6 +158,7 @@ VIProductVersion "0.95.0.5"
   
   !insertmacro DIA_MACRO_INCLUDE_LANGFILE "ENGLISH" "locale\english.nsh"
   !insertmacro DIA_MACRO_INCLUDE_LANGFILE "GERMAN" "locale\german.nsh"
+  !insertmacro DIA_MACRO_INCLUDE_LANGFILE "FRENCH" "locale\french.nsh"
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Start Install Sections ;;
@@ -2531,7 +2533,7 @@ FunctionEnd
 
 Function .onInit
   StrCpy $name "Dia ${DIA_VERSION}"
-
+  !insertmacro MUI_LANGDLL_DISPLAY
   ClearErrors
   ReadRegStr $GTKBIN HKLM "Software\GTK\2.0" "DllPath"
   ReadRegStr $0 HKLM "Software\GTK\2.0" "Version"
