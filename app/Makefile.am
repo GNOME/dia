@@ -8,11 +8,13 @@ INCLUDES = \
 	-I$(top_srcdir)/lib \
 	$(DEBUG_FLAGS) \
 	$(GTK_CFLAGS) \
+	$(LIBART_CFLAGS) \
         -DPREFIX=\""$(prefix)"\" \
         -DSYSCONFDIR=\""$(sysconfdir)"\" \
         -DDATADIR=\""$(datadir)"\" \
         -DLIBDIR=\""$(libdir)"\" \
 	-DLOCALEDIR=\"$(localedir)\"
+
 
 print_files = \
 	paginate_psprint.c \
@@ -70,7 +72,7 @@ ICON_PNGS= \
 	pixmaps/ungroup.png \
 	pixmaps/mainpoints-on.png \
 	pixmaps/mainpoints-off.png
-	
+
 
 dia-app-icons.h: $(ICON_PNGS)
 	gdk-pixbuf-csource --raw --build-list $(ICON_PNG_PAIRS) > dia-app-icons.h
@@ -212,7 +214,7 @@ EFENCE =
 
 dia_LDADD = ../lib/libdia.la \
 	$(EFENCE) \
-	$(APP_LIBS) $(Z_LIBS) $(FREETYPE_LIBS) $(GTK_LIBS) $(PNG_LIBS) $(INTLLIBS) $(INTLOBJS)
+	$(APP_LIBS) $(Z_LIBS) $(FREETYPE_LIBS) $(GTK_LIBS) $(PNG_LIBS) $(INTLLIBS) $(INTLOBJS) $(XML_LIBS) $(LIBART_LIBS) $(GLIB_LIBS)
 
 #diaconv_LDADD = ../lib/libdia.la \
 #	$(EFENCE) \

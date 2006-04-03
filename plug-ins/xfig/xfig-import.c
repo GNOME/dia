@@ -1296,7 +1296,7 @@ fig_read_text(FILE *file, DiagramData *dia) {
     /* Skip one space exactly */
     text_buf = fig_read_text_line(file);
 
-    newobj = create_standard_text(x, y, dia);
+    newobj = create_standard_text(x/FIG_UNIT, y/FIG_UNIT, dia);
     if (newobj == NULL) goto exit;
 
     props = prop_list_from_descs(xfig_text_descs,pdtpp_true);

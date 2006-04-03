@@ -1,3 +1,8 @@
+2006-04-03  Lars Clausen  <lars@raeder.dk>
+
+	* plug-ins/xfig/xfig-import.c: Initially place text in the right
+	place. 
+
 2006-04-03  Steffen Macke <sdteffen@gmail.com>
 
 	* installer/win32/dia.nsi:
@@ -15,6 +20,17 @@
 	$GTK_MODULES (#335422)
 
 2006-03-28  Lars Clausen  <lars@raeder.dk>
+
+	* app/Makefile.am (dia_LDADD): Patch from Peter for bug #336377:
+	Include libs and cflags in proper places.
+
+	* installer/win32/dia.nsi: 
+	* doc/en/dia.xml: 
+	* doc/eu/dia.xml: 
+	* doc/pl/dia.xml: 
+	* config.h.win32: 
+	* configure.in: 
+	* NEWS: -pre7
 
 	* shapes/network/mobile_phone.{png,xpm,shape}:
 	* shapes/network/telephone.shape:
