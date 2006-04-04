@@ -11,6 +11,9 @@
 ; No GTK+ was found
 !define DIA_NO_GTK				"Bitte installieren sie GTK+ Version 2.6.0 oder besser. Es kann unter http://dia-installer.sourceforge.net heruntergeladen werden."
 
+; Don't install over pre 0.95 versions
+!define DIA_NO_INSTALL_OVER			"Bitte deinstallieren Sie Dia Versionen vor 0.95 komplett oder installieren Sie Dia unter einem anderen Pfad."
+
 ; License Page
 !define DIA_LICENSE_BUTTON			"Weiter >"
 !define DIA_LICENSE_BOTTOM_TEXT		"$(^Name) wird unter der GPL Lizenz veröffentlicht. Die Lizenz hier dient nur der Information. $_CLICK"

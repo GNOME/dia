@@ -14,6 +14,9 @@
 ; GTK+ was not found
 !insertmacro DIA_MACRO_DEFAULT_STRING DIA_NO_GTK			"Please install GTK+ version 2.6.0 or higher. It is available from dia-installer.sourceforge.net"
 
+; Don't install over pre 0.95 versions
+!insertmacro DIA_MACRO_DEFAULT_STRING DIA_NO_INSTALL_OVER		"Please remove Dia installations before 0.95 completely or install Dia to a different location."
+
 ; License Page
 !insertmacro DIA_MACRO_DEFAULT_STRING DIA_LICENSE_BUTTON		"Next >"
 !insertmacro DIA_MACRO_DEFAULT_STRING DIA_LICENSE_BOTTOM_TEXT		"$(^Name) is released under the GPL license. The license is provided here for information purposes only. $_CLICK"

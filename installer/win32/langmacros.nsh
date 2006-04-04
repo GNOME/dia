@@ -30,6 +30,7 @@
   
   ; .onInit checks
   !insertmacro DIA_MACRO_LANGSTRING_INSERT DIA_NO_GTK				${CUR_LANG}
+  !insertmacro DIA_MACRO_LANGSTRING_INSERT DIA_NO_INSTALL_OVER			${CUR_LANG}
 
   ; License Page
   !insertmacro DIA_MACRO_LANGSTRING_INSERT DIA_LICENSE_BUTTON			${CUR_LANG}

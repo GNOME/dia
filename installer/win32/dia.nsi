@@ -57,8 +57,14 @@ Var GTKBIN
  
 Section -openlogfile
  SetOutPath "$INSTDIR"
+ ; Check if install directory is pre 0.95
+ IfFileExists "$INSTDIR\bin\libgtk-win32-2.0-0.dll" abort_no_overinstall continue_install
+ abort_no_overinstall:
+   MessageBox MB_OK|MB_ICONEXCLAMATION $(DIA_NO_INSTALL_OVER)
+   Abort $(DIA_NO_INSTALL_OVER)
+ continue_install:
  IfFileExists "$INSTDIR\${UninstLog}" +3
-  FileOpen $UninstLog "$INSTDIR\${UninstLog}" w
+ FileOpen $UninstLog "$INSTDIR\${UninstLog}" w
  Goto +4
   SetFileAttributes "$INSTDIR\${UninstLog}" NORMAL
   FileOpen $UninstLog "$INSTDIR\${UninstLog}" a
