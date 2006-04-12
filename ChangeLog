@@ -1,3 +1,16 @@
+2006-04-12  Lars Clausen  <lars@raeder.dk>
+
+	* installer/win32/dia.nsi: 
+	* doc/en/dia.xml: 
+	* doc/eu/dia.xml: 
+	* doc/pl/dia.xml: 
+	* config.h.win32: 
+	* configure.in: 
+	* NEWS: -pre9
+
+	* configure.in: Check for xgettext.  Apparently
+	AM_GLIB_GNU_GETTEXT notices it's missing but doesn't abort.
+
 2006-04-04  Steffen Macke <sdteffen@gmail.com>
 
 	* installer/win32/dia.nsi:

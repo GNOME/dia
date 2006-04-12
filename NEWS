@@ -1,3 +1,13 @@
+dia-0.95-pre9: 12-Apr-2006
+
+* Fix of configure check for xgettext.
+
+dia-0.95-pre8: 3-Apr-2006
+
+* Fix of font placement in xfig import.
+
+* Fixes in installers.
+
 dia-0.95-pre7: 28-Mar-2006
 
 * Fix (somewhat) a crash bug in font handling for Win32.
