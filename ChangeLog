@@ -1,3 +1,8 @@
+2006-04-17  Kjartan Maraas  <kmaraas@gnome.org>
+
+	* configure.in: Remove obsolete entry for no_NO
+	* po/no.po: And the translation.
+
 2006-04-12  Lars Clausen  <lars@raeder.dk>
 
 	* installer/win32/dia.nsi: 
