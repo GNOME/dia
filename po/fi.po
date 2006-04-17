@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-02-20 12:07+0200\n"
-"PO-Revision-Date: 2006-02-20 12:41+0200\n"
+"POT-Creation-Date: 2006-04-17 12:49+0300\n"
+"PO-Revision-Date: 2006-04-17 12:50+0300\n"
 "Last-Translator: Ilkka Tuohela <hile@iki.fi>\n"
 "Language-Team: Finnish <gnome-fi-laatu@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -140,24 +140,24 @@ msgid "Can't connect to session manager!\n"
 msgstr "Ei voitu yhdistää istunnonhallintaan.\n"
 
 #. TRANSLATOR: 2nd and 3rd %s are time and date respectively.
-#: ../app/app_procs.c:827
+#: ../app/app_procs.c:835
 #, c-format
 msgid "Dia version %s, compiled %s %s\n"
 msgstr "Dia, versio %s, käännetty %s %s\n"
 
-#: ../app/app_procs.c:829
+#: ../app/app_procs.c:837
 #, c-format
 msgid "Dia version %s\n"
 msgstr "Dia, versio %s\n"
 
-#: ../app/app_procs.c:886 ../app/diaconv.c:201 ../app/diaconv.c:203
+#: ../app/app_procs.c:894 ../app/diaconv.c:201 ../app/diaconv.c:203
 #, c-format
 msgid ""
 "Couldn't find standard objects when looking for object-libs; exiting...\n"
 msgstr ""
 "Standardiobjekteja ei löytynyt etsittäessä objektikirjastoja, lopetetaan...\n"
 
-#: ../app/app_procs.c:888
+#: ../app/app_procs.c:896
 #, c-format
 msgid ""
 "Couldn't find standard objects when looking for object-libs in '%s'; "
@@ -166,11 +166,11 @@ msgstr ""
 "Standardiobjekteja ei löytynyt etsittäessä objektikirjastoja kansiosta \"%s"
 "\", lopetetaan...\n"
 
-#: ../app/app_procs.c:929
+#: ../app/app_procs.c:937
 msgid "Diagram1.dia"
 msgstr "Kaavio1.dia"
 
-#: ../app/app_procs.c:971
+#: ../app/app_procs.c:979
 msgid ""
 "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you can cause this message to appear.\n"
@@ -179,11 +179,11 @@ msgstr ""
 "bugzilla.gnome.org kertoen kuinka sait tämän viestin aikaiseksi.\n"
 
 #. no standard buttons
-#: ../app/app_procs.c:984
+#: ../app/app_procs.c:992
 msgid "Quitting without saving modified diagrams"
 msgstr "Suljetaan tallentamatta muokuttuja kaavioita"
 
-#: ../app/app_procs.c:986
+#: ../app/app_procs.c:994
 msgid ""
 "Modified diagrams exist. Are you sure you want to quit Dia without saving "
 "them?"
@@ -191,21 +191,21 @@ msgstr ""
 "Kaavioita on muokattu. Haluatko varmasti lopettaa Dian tallentamatta "
 "muutoksia?"
 
-#: ../app/app_procs.c:990
+#: ../app/app_procs.c:998
 msgid "Quit Dia"
 msgstr "Lopeta Dia"
 
 #. This printf seems to prevent a race condition with unrefs.
 #. Yuck.  -Lars
-#: ../app/app_procs.c:1043
+#: ../app/app_procs.c:1051
 msgid "Thank you for using Dia.\n"
 msgstr "Kiitos, kun käytit Diaa.\n"
 
-#: ../app/app_procs.c:1060 ../app/app_procs.c:1067
+#: ../app/app_procs.c:1068 ../app/app_procs.c:1075
 msgid "Could not create per-user Dia config directory"
 msgstr "Ei voitu luoda käyttäjäkohtaista Dia-asetushakemistoa"
 
-#: ../app/app_procs.c:1070
+#: ../app/app_procs.c:1078
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -213,15 +213,15 @@ msgstr ""
 "Käyttäjäkohtaista Dia-asetushakemistoa ei voi luoda. Tarkista, että "
 "ympäristömuuttuja HOME osoittaa olemassaolevaan hakemistoon."
 
-#: ../app/app_procs.c:1093 ../app/diaconv.c:251
+#: ../app/app_procs.c:1101 ../app/diaconv.c:251
 msgid "Objects and filters internal to dia"
 msgstr "Dian sisäiset objektit ja suodattimet"
 
-#: ../app/app_procs.c:1135 ../app/diaconv.c:121
+#: ../app/app_procs.c:1143 ../app/diaconv.c:121
 msgid "[OPTION...] [FILE...]"
 msgstr "[VALITSIN...] [TIEDOSTO...]"
 
-#: ../app/app_procs.c:1138 ../app/diaconv.c:128
+#: ../app/app_procs.c:1146 ../app/diaconv.c:128
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
@@ -232,16 +232,16 @@ msgstr ""
 "olevista\n"
 "valitsimista.\n"
 
-#: ../app/app_procs.c:1162
+#: ../app/app_procs.c:1170
 msgid "[FILE...]"
 msgstr "[TIEDOSTO...]"
 
-#: ../app/app_procs.c:1185
+#: ../app/app_procs.c:1193
 #, c-format
 msgid "'%s' not found!\n"
 msgstr "\"%s\" ei löytynyt!\n"
 
-#: ../app/app_procs.c:1266
+#: ../app/app_procs.c:1274
 msgid ""
 "The original author of Dia was:\n"
 "\n"
@@ -249,7 +249,7 @@ msgstr ""
 "Dian alkuperäinen tekijä on:\n"
 "\n"
 
-#: ../app/app_procs.c:1271
+#: ../app/app_procs.c:1279
 msgid ""
 "\n"
 "The current maintainers of Dia are:\n"
@@ -259,7 +259,7 @@ msgstr ""
 "Nykyiset Dian ylläpitäjät ovat:\n"
 "\n"
 
-#: ../app/app_procs.c:1276
+#: ../app/app_procs.c:1284
 msgid ""
 "\n"
 "Other authors are:\n"
@@ -269,7 +269,7 @@ msgstr ""
 "Muut tekijät ovat:\n"
 "\n"
 
-#: ../app/app_procs.c:1281
+#: ../app/app_procs.c:1289
 msgid ""
 "\n"
 "Dia is documented by:\n"
@@ -733,7 +733,7 @@ msgstr "_Hylkää muutokset"
 
 #: ../app/export_png.c:136 ../app/load_save.c:918 ../app/render_eps.c:103
 #: ../plug-ins/cairo/diacairo.c:972 ../plug-ins/cgm/cgm.c:1151
-#: ../plug-ins/dxf/dxf-export.c:484 ../plug-ins/hpgl/hpgl.c:704
+#: ../plug-ins/dxf/dxf-export.c:484 ../plug-ins/hpgl/hpgl.c:708
 #: ../plug-ins/metapost/render_metapost.c:1106
 #: ../plug-ins/pgf/render_pgf.c:1143
 #: ../plug-ins/pstricks/render_pstricks.c:914
@@ -894,7 +894,7 @@ msgstr "Vieritä"
 #: ../objects/UML/object.c:148 ../objects/UML/small_package.c:128
 #: ../objects/UML/state.c:152 ../objects/UML/usecase.c:138
 #: ../objects/custom/custom_object.c:200 ../objects/network/basestation.c:133
-#: ../objects/network/radiocell.c:146
+#: ../objects/network/radiocell.c:125
 msgid "Text"
 msgstr "Teksti"
 
@@ -914,7 +914,7 @@ msgstr "Monikulmio"
 msgid "Beziergon"
 msgstr "Bezier-kulmio"
 
-#: ../app/interface.c:97 ../app/interface.c:98 ../objects/standard/line.c:226
+#: ../app/interface.c:97 ../app/interface.c:98 ../objects/standard/line.c:225
 msgid "Line"
 msgstr "Viiva"
 
@@ -962,20 +962,20 @@ msgstr "Kiinnitetäänkö kohteet tässä ikkunassa."
 msgid "NULL tooldata in tool_select_update"
 msgstr "TYHJÄ työvälinetieto tool_select_update-funktiossa"
 
-#: ../app/interface.c:901
+#: ../app/interface.c:905
 #, c-format
 msgid "No sheet named %s"
 msgstr "Ei luokkaa nimeltä %s"
 
-#: ../app/interface.c:940
+#: ../app/interface.c:942
 msgid "Other sheets"
 msgstr "Muut luokat"
 
-#: ../app/interface.c:998 ../sheets/Misc.sheet.in.h:3
+#: ../app/interface.c:1000 ../sheets/Misc.sheet.in.h:3
 msgid "Misc"
 msgstr "Seka"
 
-#: ../app/interface.c:1059
+#: ../app/interface.c:1061
 msgid ""
 "Foreground & background colors for new objects.  The small black and white "
 "squares reset colors.  The small arrows swap colors.  Double click to change "
@@ -985,7 +985,7 @@ msgstr ""
 "palauttavat värit alkutilaan. Pienet nuolet vaihtavat värejä. "
 "Kaksoisnapsauta vaihtaaksesi värejä."
 
-#: ../app/interface.c:1074
+#: ../app/interface.c:1076
 msgid ""
 "Line widths.  Click on a line to set the default line width for new "
 "objects.  Double-click to set the line width more precisely."
@@ -993,7 +993,7 @@ msgstr ""
 "Viivan paksuudet.  Napsauta viivaa asettaaksesi viivan oletuspaksuuden "
 "uusille objekteille.  Kaksoisnapsauta jos haluat asettaa tarkemmin."
 
-#: ../app/interface.c:1114
+#: ../app/interface.c:1116
 msgid ""
 "Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
 "arrow parameters with Details..."
@@ -1001,7 +1001,7 @@ msgstr ""
 "Nuolen tyyli uusien viivojen alussa. Napsauta valitaksesi nuolen tai muokkaa "
 "nuoliparametreja Tiedot-painikkeesta"
 
-#: ../app/interface.c:1119
+#: ../app/interface.c:1121
 msgid ""
 "Line style for new lines.  Click to pick a line style, or set line style "
 "parameters with Details..."
@@ -1009,7 +1009,7 @@ msgstr ""
 "Viivan tyyli uusille viivoille. Napsauta asettaaksesi viivan tyyli tai "
 "muokkaa viivan tyyliparametrit Tiedot-painikkeesta"
 
-#: ../app/interface.c:1133
+#: ../app/interface.c:1135
 msgid ""
 "Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
 "parameters with Details..."
@@ -1018,7 +1018,7 @@ msgstr ""
 "nuoliparametreja Tiedot-painikkeesta"
 
 # Vai kaaviomuokkain?
-#: ../app/interface.c:1241
+#: ../app/interface.c:1243
 msgid "Diagram Editor"
 msgstr "Kaavioeditori"
 
@@ -1108,7 +1108,7 @@ msgid "You must specify a file, not a directory.\n"
 msgstr "Sinun täytyy määritellä tiedosto, ei hakemistoa.\n"
 
 #: ../app/load_save.c:359 ../plug-ins/dxf/dxf-import.c:1306
-#: ../plug-ins/wpg/wpg.c:1175 ../plug-ins/xfig/xfig-import.c:1560
+#: ../plug-ins/wpg/wpg.c:1175 ../plug-ins/xfig/xfig-import.c:1605
 #: ../plug-ins/xslt/xslt.c:85
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
@@ -2640,7 +2640,7 @@ msgstr "Nollausvalikko"
 
 #: ../objects/AADL/aadl.c:52
 msgid "Architecture Analysis & Design Language diagram objects"
-msgstr ""
+msgstr "Arkkitehtuurin analyysi ja suunnittelukielen kaavio-oliot"
 
 #: ../objects/AADL/aadlbox.c:138
 msgid "Declaration"
@@ -2648,51 +2648,51 @@ msgstr "Määrittely"
 
 #: ../objects/AADL/aadlbox.c:349
 msgid "Add Access Provider"
-msgstr ""
+msgstr "Lisää pääsyn tarjoaja"
 
 #: ../objects/AADL/aadlbox.c:351
 msgid "Add Access Requirer"
-msgstr ""
+msgstr "Lisää pääsyn vaatija"
 
 #: ../objects/AADL/aadlbox.c:353
 msgid "Add In Data Port"
-msgstr ""
+msgstr "Lisää saapuva dataportti"
 
 #: ../objects/AADL/aadlbox.c:355
 msgid "Add In Event Port"
-msgstr ""
+msgstr "Lisää saapuva tapahtumaportti"
 
 #: ../objects/AADL/aadlbox.c:357
 msgid "Add In Event Data Port"
-msgstr ""
+msgstr "Lisää saapuva tapahtumadataportti"
 
 #: ../objects/AADL/aadlbox.c:359
 msgid "Add Out Data Port"
-msgstr ""
+msgstr "Lisää lähtevä dataportti"
 
 #: ../objects/AADL/aadlbox.c:361
 msgid "Add Out Event Port"
-msgstr ""
+msgstr "Lisää lähtevä tapahtumaportti"
 
 #: ../objects/AADL/aadlbox.c:363
 msgid "Add Out Event Data Port"
-msgstr ""
+msgstr "Lisää lähtevä tapahtumadataportti"
 
 #: ../objects/AADL/aadlbox.c:365
 msgid "Add In Out Data Port"
-msgstr ""
+msgstr "Lisää lähtevä dataportti"
 
 #: ../objects/AADL/aadlbox.c:367
 msgid "Add In Out Event Port"
-msgstr ""
+msgstr "Lisää saapuva/lähtevä tapahtumaportti"
 
 #: ../objects/AADL/aadlbox.c:369
 msgid "Add In Out Event Data Port"
-msgstr ""
+msgstr "Lisää saapuva/lähtevä tapahtumalevyportti"
 
 #: ../objects/AADL/aadlbox.c:371
 msgid "Add Port Group"
-msgstr ""
+msgstr "Lisää porttiryhmä"
 
 #: ../objects/AADL/aadlbox.c:373
 msgid "Add Connection Point"
@@ -2791,14 +2791,14 @@ msgstr "Suhde"
 
 #. Translators: Menu item Noun/Energy
 #: ../objects/FS/flow-ortho.c:160 ../objects/FS/flow-ortho.c:642
-#: ../objects/FS/flow.c:137 ../objects/FS/flow.c:576
+#: ../objects/FS/flow.c:137 ../objects/FS/flow.c:580
 #: ../objects/FS/function.c:1096
 msgid "Energy"
 msgstr "Energia"
 
 #. Translators: Menu item Noun/Material
 #: ../objects/FS/flow-ortho.c:161 ../objects/FS/flow-ortho.c:643
-#: ../objects/FS/flow.c:138 ../objects/FS/flow.c:577
+#: ../objects/FS/flow.c:138 ../objects/FS/flow.c:581
 #: ../objects/FS/function.c:1072
 msgid "Material"
 msgstr "Materiaali"
@@ -2808,7 +2808,7 @@ msgstr "Materiaali"
 #. Translators: Menu item Noun/Signal
 #. Translators: Menu item Noun/Signal/Signal
 #: ../objects/FS/flow-ortho.c:162 ../objects/FS/flow-ortho.c:644
-#: ../objects/FS/flow.c:139 ../objects/FS/flow.c:578
+#: ../objects/FS/flow.c:139 ../objects/FS/flow.c:582
 #: ../objects/FS/function.c:1034 ../objects/FS/function.c:1036
 #: ../objects/FS/function.c:1172 ../objects/FS/function.c:1174
 msgid "Signal"
@@ -3982,7 +3982,7 @@ msgstr "Vergentin tyyppi:"
 #: ../objects/GRAFCET/vergent.c:405 ../objects/Istar/other.c:469
 #: ../objects/Jackson/domain.c:531 ../objects/KAOS/goal.c:572
 #: ../objects/KAOS/other.c:525 ../objects/SADT/box.c:445
-#: ../objects/standard/line.c:220
+#: ../objects/standard/line.c:219
 msgid "Add connection point"
 msgstr "Lisää liitoskohta"
 
@@ -4053,7 +4053,7 @@ msgstr "Tehtävä"
 
 #: ../objects/Istar/other.c:470 ../objects/Jackson/domain.c:532
 #: ../objects/KAOS/goal.c:573 ../objects/KAOS/other.c:526
-#: ../objects/SADT/box.c:446 ../objects/standard/line.c:221
+#: ../objects/SADT/box.c:446 ../objects/standard/line.c:220
 msgid "Delete connection point"
 msgstr "Poista liitoskohta"
 
@@ -4355,7 +4355,7 @@ msgid "Composition"
 msgstr "Koostumus"
 
 #: ../objects/UML/class.c:138 ../objects/UML/class.c:309
-#: ../objects/UML/class.c:1724 ../sheets/UML.sheet.in.h:6
+#: ../objects/UML/class.c:1708 ../sheets/UML.sheet.in.h:6
 msgid "Class"
 msgstr "Luokka"
 
@@ -4379,7 +4379,7 @@ msgstr "Kommentti"
 msgid "Abstract"
 msgstr "Abstrakti"
 
-#: ../objects/UML/class.c:148 ../objects/UML/class.c:1721
+#: ../objects/UML/class.c:148 ../objects/UML/class.c:1705
 msgid "Template"
 msgstr "Malli"
 
@@ -4975,15 +4975,15 @@ msgstr "Vääntökulma:"
 msgid "Sectors"
 msgstr "Sektorit"
 
-#: ../objects/network/basestation.c:393 ../objects/network/basestation.c:395
+#: ../objects/network/basestation.c:396 ../objects/network/basestation.c:398
 msgid "Base Station"
 msgstr "Tukiasema"
 
-#: ../objects/network/bus.c:602
+#: ../objects/network/bus.c:611
 msgid "Add Handle"
 msgstr "Lisää kahva"
 
-#: ../objects/network/bus.c:603
+#: ../objects/network/bus.c:612
 msgid "Delete Handle"
 msgstr "Poista kahva"
 
@@ -4991,29 +4991,9 @@ msgstr "Poista kahva"
 msgid "Network diagram objects"
 msgstr "Verkkokaavio-objektit"
 
-#: ../objects/network/radiocell.c:130
-msgid "Macro Cell"
-msgstr "Makrosolu"
-
-#: ../objects/network/radiocell.c:131
-msgid "Micro Cell"
-msgstr "Mikrosolu"
-
-#: ../objects/network/radiocell.c:132
-msgid "Pico Cell"
-msgstr "Pikosolu"
-
-#: ../objects/network/radiocell.c:138
+#: ../objects/network/radiocell.c:119
 msgid "Radius"
 msgstr "Säde"
-
-#: ../objects/network/radiocell.c:140
-msgid "Cell Type:"
-msgstr "Solutyyppi:"
-
-#: ../objects/network/radiocell.c:152
-msgid "Subscribers"
-msgstr "Liittyneet"
 
 #: ../objects/network/wanlink.c:117
 msgid "Width"
@@ -5023,17 +5003,17 @@ msgstr "Leveys"
 msgid "Curve distance"
 msgstr "Polun etäisyys"
 
-#: ../objects/standard/bezier.c:137 ../objects/standard/line.c:142
+#: ../objects/standard/bezier.c:137 ../objects/standard/line.c:141
 #: ../objects/standard/polyline.c:135
 msgid "Line gaps"
 msgstr "Rivivälit"
 
-#: ../objects/standard/bezier.c:139 ../objects/standard/line.c:144
+#: ../objects/standard/bezier.c:139 ../objects/standard/line.c:143
 #: ../objects/standard/polyline.c:137
 msgid "Absolute start gap"
 msgstr "Absoluuttinen alkuväli"
 
-#: ../objects/standard/bezier.c:141 ../objects/standard/line.c:146
+#: ../objects/standard/bezier.c:141 ../objects/standard/line.c:145
 #: ../objects/standard/polyline.c:139
 msgid "Absolute end gap"
 msgstr "Absoluuttinen lopetusväli"
@@ -5115,15 +5095,15 @@ msgstr ""
 msgid "The image file '%s' was not found.\n"
 msgstr "Kuvatiedostoa \"%s\" ei löytynyt.\n"
 
-#: ../objects/standard/line.c:133
+#: ../objects/standard/line.c:132
 msgid "Arrows"
 msgstr "Nuolet"
 
-#: ../objects/standard/line.c:138
+#: ../objects/standard/line.c:137
 msgid "Start point"
 msgstr "Aloituspiste"
 
-#: ../objects/standard/line.c:140
+#: ../objects/standard/line.c:139
 msgid "End point"
 msgstr "Lopetuspiste"
 
@@ -5262,11 +5242,11 @@ msgstr "Gnome Scalable Vector Graphics"
 msgid "GNOME Print based Rendering"
 msgstr "Gnomen tulostuskirjastoon perustuva renderöinti"
 
-#: ../plug-ins/hpgl/hpgl.c:745
+#: ../plug-ins/hpgl/hpgl.c:749
 msgid "HP Graphics Language"
 msgstr "HP Graphics Language"
 
-#: ../plug-ins/hpgl/hpgl.c:770
+#: ../plug-ins/hpgl/hpgl.c:774
 msgid "HP Graphics Language export filter"
 msgstr "HP Graphics Language -vientisuodatin"
 
@@ -5413,178 +5393,193 @@ msgstr "Käyttäjän määriteltäviä värejä ei riitä - käytetään mustaa"
 msgid "XFig format"
 msgstr "XFig-muoto"
 
-#: ../plug-ins/xfig/xfig-import.c:472
+#: ../plug-ins/xfig/xfig-import.c:451
+#, c-format
+msgid "Color index %d too high, only 512 colors allowed. Using black instead."
+msgstr ""
+
+#: ../plug-ins/xfig/xfig-import.c:478
 msgid "Patterns are not supported by Dia"
 msgstr "Dia ei tue täyttökuvioita"
 
-#: ../plug-ins/xfig/xfig-import.c:500
+#: ../plug-ins/xfig/xfig-import.c:506
 msgid "Triple-dotted lines are not supported by Dia, using double-dotted"
 msgstr "Dia ei tue kolmipisteisiä viivoja, käytetään kaksipisteisiä"
 
-#: ../plug-ins/xfig/xfig-import.c:504
+#: ../plug-ins/xfig/xfig-import.c:510
 #, c-format
 msgid "Line style %d should not appear\n"
 msgstr "Viivan tyyli %d ei pitäisi esiintyä\n"
 
-#: ../plug-ins/xfig/xfig-import.c:573
+#: ../plug-ins/xfig/xfig-import.c:578
 #, c-format
 msgid "Error while reading %dth of %d points: %s\n"
 msgstr "Virhe luettaessa %d./%d pisteestä: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:595
+#: ../plug-ins/xfig/xfig-import.c:606
 msgid "Error while reading arrowhead\n"
 msgstr "Virhe luettaessa nuolenpäätä\n"
 
-#: ../plug-ins/xfig/xfig-import.c:615
+#: ../plug-ins/xfig/xfig-import.c:628
 #, c-format
 msgid "Unknown arrow type %d\n"
 msgstr "Tuntematon nuolityyppi %d\n"
 
-#: ../plug-ins/xfig/xfig-import.c:731
+#: ../plug-ins/xfig/xfig-import.c:719
+#, c-format
+msgid "Depth %d of of range, only 0-%d allowed.\n"
+msgstr ""
+
+#: ../plug-ins/xfig/xfig-import.c:766
 #, c-format
 msgid "Couldn't read ellipse info: %s\n"
 msgstr "Ei voi lukea ellipsitietoa: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:799
+#: ../plug-ins/xfig/xfig-import.c:835
 #, c-format
 msgid "Couldn't read polyline info: %s\n"
 msgstr "Ei voi lukea moniviivatietoa: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:814
+#: ../plug-ins/xfig/xfig-import.c:850
 #, c-format
 msgid "Couldn't read flipped bit: %s\n"
 msgstr "Ei voi lukea käännettyä bittiä: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:832
+#: ../plug-ins/xfig/xfig-import.c:868
 msgid "Negative corner radius, negating"
 msgstr "Negatiivinen kulmasäde, mitätöidään"
 
-#: ../plug-ins/xfig/xfig-import.c:876 ../plug-ins/xfig/xfig-import.c:1192
+#: ../plug-ins/xfig/xfig-import.c:912 ../plug-ins/xfig/xfig-import.c:1228
 #, c-format
 msgid "Unknown polyline subtype: %d\n"
 msgstr "Tuntematon monijanan alityyppi: %d\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1026 ../plug-ins/xfig/xfig-import.c:1058
+#: ../plug-ins/xfig/xfig-import.c:1062 ../plug-ins/xfig/xfig-import.c:1094
 #, c-format
 msgid "Couldn't read spline info: %s\n"
 msgstr "Ei voi lukea spline-tietoja: %s\n"
 
 #. Open approximated spline
 #. Closed approximated spline
-#: ../plug-ins/xfig/xfig-import.c:1045 ../plug-ins/xfig/xfig-import.c:1063
+#: ../plug-ins/xfig/xfig-import.c:1081 ../plug-ins/xfig/xfig-import.c:1099
 msgid "Cannot convert approximated spline yet."
 msgstr "Ei voida vielä muuntaa likimääräikseksi spline-viivaksi."
 
-#: ../plug-ins/xfig/xfig-import.c:1103
+#: ../plug-ins/xfig/xfig-import.c:1139
 #, c-format
 msgid "Unknown spline subtype: %d\n"
 msgstr "Tuntematon splinen alityyppi: %d\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1166
+#: ../plug-ins/xfig/xfig-import.c:1202
 #, c-format
 msgid "Couldn't read arc info: %s\n"
 msgstr "Ei voitu lukea kaaritietoa: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1256
+#: ../plug-ins/xfig/xfig-import.c:1292
 #, c-format
 msgid "Couldn't read text info: %s\n"
 msgstr "Ei voitu lukea tekstitietoa: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1319
+#: ../plug-ins/xfig/xfig-import.c:1354
 #, c-format
 msgid "Couldn't identify FIG object: %s\n"
 msgstr "Ei tunnistettu FIG-objektia: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1327
+#: ../plug-ins/xfig/xfig-import.c:1362
 msgid "Compound end outside compound\n"
 msgstr "Yhdistelmän loppu yhdistelmän ulkopuolella\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1346
+#: ../plug-ins/xfig/xfig-import.c:1381
 #, c-format
 msgid "Couldn't read color: %s\n"
 msgstr "Ei voi lukea väriä: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1391
+#: ../plug-ins/xfig/xfig-import.c:1386
+#, c-format
+msgid "Color number %d out of range 0..%d.  Discarding color.\n"
+msgstr ""
+
+#: ../plug-ins/xfig/xfig-import.c:1432
 #, c-format
 msgid "Couldn't read group extend: %s\n"
 msgstr "Ei voi lukea ryhmälaajennosta: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1402
+#: ../plug-ins/xfig/xfig-import.c:1443
 #, c-format
 msgid "Unknown object type %d\n"
 msgstr "Tuntematon objektityyppi %d\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1426
+#: ../plug-ins/xfig/xfig-import.c:1467
 #, c-format
 msgid "`%s' is not one of `%s' or `%s'\n"
 msgstr "\"%s\" ei ole \"%s\" eikä \"%s\"\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1436
+#: ../plug-ins/xfig/xfig-import.c:1477
 #, c-format
 msgid "Error reading paper size: %s\n"
 msgstr "Virhe luettaessa paperin kokoa: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1447
+#: ../plug-ins/xfig/xfig-import.c:1488
 #, c-format
 msgid "Unknown paper size `%s', using default\n"
 msgstr "Tuntematon paperikoko \"%s\", käytetään oletuskokoa\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1459
+#: ../plug-ins/xfig/xfig-import.c:1500
 #, c-format
 msgid "Error reading paper orientation: %s\n"
 msgstr "Virhe luettaessa paperin suuntausta: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1469
+#: ../plug-ins/xfig/xfig-import.c:1510
 #, c-format
 msgid "Error reading justification: %s\n"
 msgstr "Virhe luettaessa paperin keskitystä: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1479
+#: ../plug-ins/xfig/xfig-import.c:1520
 #, c-format
 msgid "Error reading units: %s\n"
 msgstr "Virhe luettaessa yksiköitä: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1493
+#: ../plug-ins/xfig/xfig-import.c:1536
 #, c-format
 msgid "Error reading magnification: %s\n"
 msgstr "Virhe luettaessa suurennusta: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1504
+#: ../plug-ins/xfig/xfig-import.c:1549
 #, c-format
 msgid "Error reading multipage indicator: %s\n"
 msgstr "Virhe luettaessa monisivuisuusmerkintää: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1515
+#: ../plug-ins/xfig/xfig-import.c:1560
 #, c-format
 msgid "Error reading transparent color: %s\n"
 msgstr "Virhe luettaessa läpinäkyvyysväriä: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1524 ../plug-ins/xfig/xfig-import.c:1580
-#: ../plug-ins/xfig/xfig-import.c:1598
+#: ../plug-ins/xfig/xfig-import.c:1569 ../plug-ins/xfig/xfig-import.c:1625
+#: ../plug-ins/xfig/xfig-import.c:1643
 #, c-format
 msgid "Error reading FIG file: %s\n"
 msgstr "Virhe luettaessa FIG-tiedostoa: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1526 ../plug-ins/xfig/xfig-import.c:1582
+#: ../plug-ins/xfig/xfig-import.c:1571 ../plug-ins/xfig/xfig-import.c:1627
 msgid "Premature end of FIG file\n"
 msgstr "FIG-tiedosto loppui kesken\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1535
+#: ../plug-ins/xfig/xfig-import.c:1580
 #, c-format
 msgid "Error reading resolution: %s\n"
 msgstr "Virhe luettaessa tarkkuutta: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1567
+#: ../plug-ins/xfig/xfig-import.c:1612
 #, c-format
 msgid "Doesn't look like a Fig file: %s\n"
 msgstr "Ei näytä Fig-tiedostolta: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1573
+#: ../plug-ins/xfig/xfig-import.c:1618
 #, c-format
 msgid "This is a FIG version %d.%d file, I may not understand it\n"
 msgstr "Tämä on FIG-version %d.%d tiedosto, en ehkä ymmärrä sitä\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1621
+#: ../plug-ins/xfig/xfig-import.c:1666
 msgid "XFig File Format"
 msgstr "XFig-tiedostomuoto"
 
@@ -5873,7 +5868,7 @@ msgstr "Ilmanjäähdytin"
 
 #: ../sheets/ChemEng.sheet.in.h:3
 msgid "Autoclave"
-msgstr ""
+msgstr "Autoklaavi"
 
 #: ../sheets/ChemEng.sheet.in.h:4
 msgid "Axial Flow Fan"
@@ -5885,7 +5880,7 @@ msgstr "Perussuodatin"
 
 #: ../sheets/ChemEng.sheet.in.h:6
 msgid "Centrifugal Pump or Fan"
-msgstr ""
+msgstr "Sentrifugipumppu- tai tuuletin"
 
 #: ../sheets/ChemEng.sheet.in.h:7
 msgid "Centrifuge"
@@ -5894,7 +5889,7 @@ msgstr "Sentrifugi"
 #. For: zenith
 #: ../sheets/ChemEng.sheet.in.h:9
 msgid "ChemEng"
-msgstr ""
+msgstr "KemianSuun."
 
 #: ../sheets/ChemEng.sheet.in.h:10
 msgid "Clarifier or Settling Tank"
@@ -5902,7 +5897,7 @@ msgstr ""
 
 #: ../sheets/ChemEng.sheet.in.h:11
 msgid "Collection for chemical engineering"
-msgstr ""
+msgstr "Kokoelma kemialliseen suunnitteluun"
 
 #: ../sheets/ChemEng.sheet.in.h:12
 msgid "Compressor or Turbine"
@@ -5990,7 +5985,7 @@ msgstr "Paineilmalinja"
 
 #: ../sheets/ChemEng.sheet.in.h:33
 msgid "Pneumatic Line, vertical"
-msgstr ""
+msgstr "Paineilmalinja, pystysuuntainen"
 
 #: ../sheets/ChemEng.sheet.in.h:34
 msgid "Positive Displacement Rotary Pump or Compressor"
@@ -6022,11 +6017,11 @@ msgstr ""
 
 #: ../sheets/ChemEng.sheet.in.h:41
 msgid "Simple Heat Exchanger"
-msgstr ""
+msgstr "Yksinkertainen lämmönvaihdin"
 
 #: ../sheets/ChemEng.sheet.in.h:42
 msgid "Simple Heat Exchanger, vertical"
-msgstr ""
+msgstr "Yksinkertainen lämmönvaihdin, vaakasuunnassa"
 
 #: ../sheets/ChemEng.sheet.in.h:43
 msgid "Simple Vessel"
@@ -9028,6 +9023,21 @@ msgstr "Sybase-tietopalvelin"
 #: ../sheets/sybase.sheet.in.h:8
 msgid "Sybase replication server"
 msgstr "Sybase-varmistuspalvelin"
+
+#~ msgid "Macro Cell"
+#~ msgstr "Makrosolu"
+
+#~ msgid "Micro Cell"
+#~ msgstr "Mikrosolu"
+
+#~ msgid "Pico Cell"
+#~ msgstr "Pikosolu"
+
+#~ msgid "Cell Type:"
+#~ msgstr "Solutyyppi:"
+
+#~ msgid "Subscribers"
+#~ msgstr "Liittyneet"
 
 #~ msgid "Dia"
 #~ msgstr "Dia"
