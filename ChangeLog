@@ -1,3 +1,16 @@
+2006-04-19  Lars Clausen  <lars@raeder.dk>
+
+	* installer/win32/dia.nsi: 
+	* doc/en/dia.xml: 
+	* doc/eu/dia.xml: 
+	* doc/pl/dia.xml: 
+	* config.h.win32: 
+	* configure.in: 
+	* NEWS: Release 0.95
+
+	* shapes/Gane_and_Sarson/process.shape: Connectionpoint update
+	from Nick Moore <shiny.nickel@gmail.com>.
+
 2006-04-17  Kjartan Maraas  <kmaraas@gnome.org>
 
 	* configure.in: Remove obsolete entry for no_NO
