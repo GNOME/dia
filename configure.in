@@ -255,7 +255,6 @@ if test "$XGETTEXT" == none ; then
    AC_MSG_ERROR([xgettext program not found: $XGETTEXT.])
 fi
 
->>>>>>> 1.274
 AM_GLIB_GNU_GETTEXT
 
 
