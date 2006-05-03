@@ -1,3 +1,4 @@
+# translation of es.po to Spanish
 # translation of Dia to Spanish.
 # Copyright © 2000-2006 Free Software Foundation, Inc.
 # This file is distributed under the same license as the Dia package.
@@ -8,17 +9,17 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: dia\n"
+"Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-04-13 10:51+0200\n"
-"PO-Revision-Date: 2006-04-13 10:58+0200\n"
+"PO-Revision-Date: 2006-05-04 00:24+0200\n"
 "Last-Translator: Francisco Javier F. Serrador <serrador@cvs.gnome.org>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "serrador@hispalinux.es>\n"
-"X-Generator: KBabel 1.9.1\n"
+"X-Generator: KBabel 1.10.2\n"
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 
 #. This is not an errror
@@ -4187,11 +4188,11 @@ msgstr "Tipo de dominio"
 
 #: ../objects/Jackson/domain.c:181
 msgid "Domain Kind"
-msgstr "Clase de dominio"
+msgstr "Tipo de dominio"
 
 #: ../objects/Jackson/domain.c:182
 msgid "Optional kind which appears in the lower right corner of the Domain"
-msgstr "Clase opcional que aparece en la esquina inferior derecha del dominio"
+msgstr "Tipo opcional que aparece en la esquina inferior derecha del dominio"
 
 #: ../objects/Jackson/domain.c:537
 msgid "Jackson domain"
@@ -4726,7 +4727,7 @@ msgstr "Plan_tillas"
 
 #: ../objects/UML/class_dialog.c:2614 ../sheets/UML.sheet.in.h:29
 msgid "Template class"
-msgstr "Clase de plantilla"
+msgstr "Plantilla de clase"
 
 #: ../objects/UML/class_dialog.c:2671
 msgid "Formal parameter data"
@@ -6044,7 +6045,7 @@ msgstr "Cablezal flotante o Intercambiador de tubo en U"
 
 #: ../sheets/ChemEng.sheet.in.h:20
 msgid "Fluid Contacting Vessel, simple"
-msgstr ""
+msgstr "Recipiente para contacto de fluidos, simple"
 
 #: ../sheets/ChemEng.sheet.in.h:21
 msgid "Forced-Flow Air Cooler"
@@ -6104,7 +6105,7 @@ msgstr "Bomba o compresor de desplazamiento positivo rotatorio"
 
 #: ../sheets/ChemEng.sheet.in.h:35
 msgid "Reactor or Absorption Vessel, simple"
-msgstr ""
+msgstr "Recipiente reactor o de absorción, simple"
 
 #: ../sheets/ChemEng.sheet.in.h:36
 msgid "Reciprocating Compressor or Pump"
@@ -6416,7 +6417,7 @@ msgstr "Filtro paso alto"
 
 #: ../sheets/Cybernetics.sheet.in.h:12
 msgid "Integrator - input bottom"
-msgstr "Integrador --entrada inferior"
+msgstr "Integrador - entrada inferior"
 
 #: ../sheets/Cybernetics.sheet.in.h:13
 msgid "Integrator - input left"
@@ -6492,7 +6493,7 @@ msgstr "Suma, sustrayendo la entrada superior"
 
 #: ../sheets/Cybernetics.sheet.in.h:31
 msgid "Template for custom characteristics"
-msgstr "Plantilla para caracteisicas personalizadas"
+msgstr "Plantilla para características personalizadas"
 
 #: ../sheets/Cybernetics.sheet.in.h:32
 msgid "Time delay"
@@ -6961,7 +6962,7 @@ msgstr "Objetos para diseñar diagramas i*"
 
 #: ../sheets/Istar.sheet.in.h:16
 msgid "RE-i*"
-msgstr "RE-i*"
+msgstr "ER-i*"
 
 #: ../sheets/Jackson.sheet.in.h:1
 msgid "A Jackson designed domain"
@@ -6993,7 +6994,7 @@ msgstr "Objetos para diseñar diagramas de Jackson"
 
 #: ../sheets/Jackson.sheet.in.h:8
 msgid "RE-Jackson"
-msgstr "RE-Jackson"
+msgstr "ER-Jackson"
 
 #: ../sheets/KAOS.sheet.in.h:1
 msgid "A KAOS AND refinement"
@@ -7089,7 +7090,7 @@ msgstr "Objetos para diseñar diagramas KAOS"
 
 #: ../sheets/KAOS.sheet.in.h:24
 msgid "RE-KAOS"
-msgstr "RE-KAOS"
+msgstr "ER-KAOS"
 
 #: ../sheets/Logic.sheet.in.h:1
 msgid "AND gate"
@@ -7161,12 +7162,12 @@ msgstr "Nodo de pequeña extensión"
 
 #: ../sheets/MSE.sheet.in.h:7
 msgid "Tactical satellite communications terminal"
-msgstr "Terminal de comunicaciones por satélite táctico"
+msgstr "Terminal táctico de comunicaciones por satélite"
 
 # En españa la armada es MARINA, pero ARMY--> ejército. FVD
 #: ../sheets/MSE.sheet.in.h:8
 msgid "U.S. Army Mobile Subscriber Equipment Components"
-msgstr "Componentes de equipo de abonado móvil del ejército de E.E.U.U."
+msgstr "Componentes de equipo de abonado móvil del ejército de E.E.U.U. (MSE)"
 
 #: ../sheets/Misc.sheet.in.h:2
 msgid "Folder"
@@ -7374,7 +7375,7 @@ msgstr "Componente"
 
 #: ../sheets/UML.sheet.in.h:9
 msgid "Constraint, place a constraint on something"
-msgstr "Restricción, poner una restricción a algo"
+msgstr "Restricción, pone una restricción en algo"
 
 #: ../sheets/UML.sheet.in.h:11
 msgid "Editor for UML Static Structure Diagrams"
@@ -7435,7 +7436,7 @@ msgstr "UML"
 
 #: ../sheets/UML.sheet.in.h:32
 msgid "Use case"
-msgstr "Usar capitalización"
+msgstr "Caso de uso"
 
 #: ../sheets/chronogram.sheet.in.h:1
 msgid "Chronogram"
@@ -8798,7 +8799,7 @@ msgstr "Una válvula anti-retorno"
 
 #: ../sheets/civil.sheet.in.h:3
 msgid "Basin"
-msgstr "Un lavabo"
+msgstr "Lavabo"
 
 #: ../sheets/civil.sheet.in.h:4
 msgid "Bivalent vertical rest"
