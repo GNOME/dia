@@ -88,6 +88,7 @@ static PropOffset umloperation_offsets[] = {
   { "stereotype", PROP_TYPE_STRING, offsetof(UMLOperation, stereotype) },
   { "visibility", PROP_TYPE_ENUM, offsetof(UMLOperation, visibility) },
   { "inheritance_type", PROP_TYPE_ENUM, offsetof(UMLOperation, inheritance_type) },
+  { "query", PROP_TYPE_BOOL, offsetof(UMLOperation, query) },
   { "class_scope", PROP_TYPE_BOOL, offsetof(UMLOperation, class_scope) },
   { "parameters", PROP_TYPE_DARRAY, offsetof(UMLOperation, parameters) },
   { NULL, 0, 0 },

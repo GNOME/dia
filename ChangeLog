@@ -1,6 +1,10 @@
 2006-04-02  Hans Breuer  <hans@breuer.org>
 
 	[ also applied to branch dia-0-95 ]
+	* objects/UML/umloperationc: add "query" to umloperation_offsets.
+	Patch from Peter Allin, fixes bug #338336
+
+	[ also applied to branch dia-0-95 ]
 	* app/diagram.c(diagram_ungroup_selected) : operate on a copy
 	of data-Selected cause the original is modified during use.
 	Patch from Victor Stinner, fixes bug #334771
