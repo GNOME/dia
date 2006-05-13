@@ -1,3 +1,11 @@
+2006-04-02  Hans Breuer  <hans@breuer.org>
+
+	* app/diagram.c(diagram_ungroup_selected) : operate on a copy
+	of data-Selected cause the original is modified during use.
+	Patch from Victor Stinner, fixes bug #334771
+
+===  branch dia-0-95 ===
+
 2006-04-19  Lars Clausen  <lars@raeder.dk>
 
 	* installer/win32/dia.nsi: 

@@ -1139,7 +1139,7 @@ void diagram_ungroup_selected(Diagram *dia)
   DiaObject *group;
   GList *group_list;
 /*   GList *list; */
-  GList *selected;
+  GList *selected, *selection_copy;
   int group_index;
   int any_groups = 0;
   
@@ -1148,7 +1148,8 @@ void diagram_ungroup_selected(Diagram *dia)
     return;
   }
   
-  selected = dia->data->selected;
+  selection_copy = g_list_copy(dia->data->selected);
+  selected = selection_copy;
   while (selected != NULL) {
     group = (DiaObject *)selected->data;
 
@@ -1188,6 +1189,7 @@ void diagram_ungroup_selected(Diagram *dia)
     }
     selected = g_list_next(selected);
   }
+  g_list_free(selection_copy);
   
   if (any_groups) {
     diagram_modified(dia);
