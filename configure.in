@@ -503,6 +503,7 @@ plug-ins/pgf/Makefile
 plug-ins/python/Makefile
 plug-ins/shape/Makefile
 plug-ins/svg/Makefile
+plug-ins/vdx/Makefile
 plug-ins/wmf/Makefile
 plug-ins/wpg/Makefile
 plug-ins/xfig/Makefile

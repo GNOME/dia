@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!DOCTYPE svg
+  PUBLIC "-//W3C//DTD SVG 20010904//EN" "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:jDouble="java.lang.Double" xmlns:saxon="http://icl.com/saxon" id="Page-1" xml:space="preserve" viewBox="75 -800 575 575">
+   <script xlink:href="wordwrap.js" type="text/ecmascript"/>
+   <defs>
+      <symbol id="pdpatfg1" width="100" height="100">
+         <rect width="100" height="100" stroke="none"/>
+         <polyline points="0 0, 100 100" stroke-width="10"/>
+      </symbol>
+      <symbol id="pdpatfg2" width="4" height="4">
+         <rect width="4" height="4" stroke="none"/>
+         <polyline points="-0.5,1 1,-0.5" stroke-width="0.3535534"/>
+         <polyline points="-0.5,3 3,-0.5" stroke-width="0.3535534"/>
+         <polyline points="0,4.5 4.5,0" stroke-width="0.3535534"/>
+         <polyline points="2,4.5 4.5,2" stroke-width="0.3535534"/>
+      </symbol>
+      <symbol id="pdpatfg3" width="4" height="4">
+         <rect width="4" height="4" stroke="none"/>
+         <polyline points="-1,0.5 5,0.5" stroke-width="0.25"/>
+         <polyline points="-1,2.5 5,2.5" stroke-width="0.25"/>
+         <polyline points="0.5,-1 0.5,5" stroke-width="0.25"/>
+         <polyline points="2.5,-1 2.5,5" stroke-width="0.25"/>
+      </symbol>
+      <symbol id="pdpatfg4" width="4" height="4">
+         <rect width="4" height="4" stroke="none"/>
+         <polyline points="-0.5,1 1,-0.5" stroke-width="0.3535534"/>
+         <polyline points="-0.5,3 3,-0.5" stroke-width="0.3535534"/>
+         <polyline points="0,4.5 4.5,0" stroke-width="0.3535534"/>
+         <polyline points="2,4.5 4.5,2" stroke-width="0.3535534"/>
+         <polyline points="-0.5,2 2,4.5" stroke-width="0.3535534"/>
+         <polyline points="-0.5,0 4,4.5" stroke-width="0.3535534"/>
+         <polyline points="1,-0.5 4.5,3" stroke-width="0.3535534"/>
+         <polyline points="3,-0.5 4.5,1" stroke-width="0.3535534"/>
+      </symbol>
+      <symbol id="pdpatfg5" width="4" height="4">
+         <rect width="4" height="4" stroke="none"/>
+         <polyline points="-0.5,2 2,4.5" stroke-width="0.3535534"/>
+         <polyline points="-0.5,0 4,4.5" stroke-width="0.3535534"/>
+         <polyline points="1,-0.5 4.5,3" stroke-width="0.3535534"/>
+         <polyline points="3,-0.5 4.5,1" stroke-width="0.3535534"/>
+      </symbol>
+      <symbol id="pdpatfg6" width="4" height="4">
+         <rect width="4" height="4" stroke="none"/>
+         <polyline points="-1,0.5 5,0.5" stroke-width="0.25"/>
+         <polyline points="-1,2.5 5,2.5" stroke-width="0.25"/>
+      </symbol>
+      <symbol id="pdpatfg7" width="4" height="4">
+         <rect width="4" height="4" stroke="none"/>
+         <polyline points="0.5,-1 0.5,5" stroke-width="0.25"/>
+         <polyline points="2.5,-1 2.5,5" stroke-width="0.25"/>
+      </symbol>
+      <symbol id="pdpatfg13" width="4" height="4">
+         <rect width="4" height="4" stroke="none"/>
+         <polyline points="-1,0.5 5,0.5" stroke-width="0.5"/>
+         <polyline points="-1,1.5 5,1.5" stroke-width="0.5"/>
+         <polyline points="-1,2.5 5,2.5" stroke-width="0.5"/>
+         <polyline points="-1,3.5 5,3.5" stroke-width="0.5"/>
+      </symbol>
+      <symbol id="pdpatfg14" width="4" height="4">
+         <rect width="4" height="4" stroke="none"/>
+         <polyline points="0.5,-1 0.5,5" stroke-width="0.5"/>
+         <polyline points="1.5,-1 1.5,5" stroke-width="0.5"/>
+         <polyline points="2.5,-1 2.5,5" stroke-width="0.5"/>
+         <polyline points="3.5,-1 3.5,5" stroke-width="0.5"/>
+      </symbol>
+      <symbol id="pdpatfg15" width="4" height="4">
+         <rect width="4" height="4" stroke="none"/>
+         <polyline points="-0.5,3 1,4.5" stroke-width="0.3535534"/>
+         <polyline points="-0.5,2 2,4.5" stroke-width="0.3535534"/>
+         <polyline points="-0.5,1 3,4.5" stroke-width="0.3535534"/>
+         <polyline points="-0.5,0 4,4.5" stroke-width="0.3535534"/>
+         <polyline points="0,-0.5 4.5,4" stroke-width="0.3535534"/>
+         <polyline points="1,-0.5 4.5,3" stroke-width="0.3535534"/>
+         <polyline points="2,-0.5 4.5,2" stroke-width="0.3535534"/>
+         <polyline points="3,-0.5 4.5,1" stroke-width="0.3535534"/>
+      </symbol>
+      <symbol id="pdpatfg16" width="4" height="4">
+         <rect width="4" height="4" stroke="none"/>
+         <polyline points="-0.5,1 1,-0.5" stroke-width="0.3535534"/>
+         <polyline points="-0.5,2 2,-0.5" stroke-width="0.3535534"/>
+         <polyline points="-0.5,3 3,-0.5" stroke-width="0.3535534"/>
+         <polyline points="-0.5,4 4,-0.5" stroke-width="0.3535534"/>
+         <polyline points="0,4.5 4.5,0" stroke-width="0.3535534"/>
+         <polyline points="1,4.5 4.5,1" stroke-width="0.3535534"/>
+         <polyline points="2,4.5 4.5,2" stroke-width="0.3535534"/>
+         <polyline points="3,4.5 4.5,3" stroke-width="0.3535534"/>
+      </symbol>
+      <symbol id="pdpatfg17" width="4" height="4">
+         <rect width="4" height="4" stroke="none"/>
+         <polyline points="-0.5,3 1,4.5" stroke-width="0.3535534"/>
+         <polyline points="-0.5,2 2,4.5" stroke-width="0.3535534"/>
+         <polyline points="-0.5,1 3,4.5" stroke-width="0.3535534"/>
+         <polyline points="-0.5,0 4,4.5" stroke-width="0.3535534"/>
+         <polyline points="0,-0.5 4.5,4" stroke-width="0.3535534"/>
+         <polyline points="1,-0.5 4.5,3" stroke-width="0.3535534"/>
+         <polyline points="2,-0.5 4.5,2" stroke-width="0.3535534"/>
+         <polyline points="3,-0.5 4.5,1" stroke-width="0.3535534"/>
+         <polyline points="-0.5,1 1,-0.5" stroke-width="0.3535534"/>
+         <polyline points="-0.5,2 2,-0.5" stroke-width="0.3535534"/>
+         <polyline points="-0.5,3 3,-0.5" stroke-width="0.3535534"/>
+         <polyline points="-0.5,4 4,-0.5" stroke-width="0.3535534"/>
+         <polyline points="0,4.5 4.5,0" stroke-width="0.3535534"/>
+         <polyline points="1,4.5 4.5,1" stroke-width="0.3535534"/>
+         <polyline points="2,4.5 4.5,2" stroke-width="0.3535534"/>
+         <polyline points="3,4.5 4.5,3" stroke-width="0.3535534"/>
+      </symbol>
+      <symbol id="pdpatfg19" width="4" height="4">
+         <rect width="4" height="4" stroke="none"/>
+         <polyline points="-1,0.5 5,0.5" stroke-width="0.25"/>
+         <polyline points="-1,1.5 5,1.5" stroke-width="0.25"/>
+         <polyline points="-1,2.5 5,2.5" stroke-width="0.25"/>
+         <polyline points="-1,3.5 5,3.5" stroke-width="0.25"/>
+      </symbol>
+      <symbol id="pdpatfg20" width="4" height="4">
+         <rect width="4" height="4" stroke="none"/>
+         <polyline points="0.5,-1 0.5,5" stroke-width="0.25"/>
+         <polyline points="1.5,-1 1.5,5" stroke-width="0.25"/>
+         <polyline points="2.5,-1 2.5,5" stroke-width="0.25"/>
+         <polyline points="3.5,-1 3.5,5" stroke-width="0.25"/>
+      </symbol>
+      <symbol id="pdpatfg21" width="4" height="4">
+         <rect width="4" height="4" stroke="none"/>
+         <polyline points="-0.5,3 1,4.5" stroke-width="0.176776695"/>
+         <polyline points="-0.5,2 2,4.5" stroke-width="0.176776695"/>
+         <polyline points="-0.5,1 3,4.5" stroke-width="0.176776695"/>
+         <polyline points="-0.5,0 4,4.5" stroke-width="0.176776695"/>
+         <polyline points="0,-0.5 4.5,4" stroke-width="0.176776695"/>
+         <polyline points="1,-0.5 4.5,3" stroke-width="0.176776695"/>
+         <polyline points="2,-0.5 4.5,2" stroke-width="0.176776695"/>
+         <polyline points="3,-0.5 4.5,1" stroke-width="0.176776695"/>
+      </symbol>
+      <symbol id="pdpatfg22" width="4" height="4">
+         <rect width="4" height="4" stroke="none"/>
+         <polyline points="-0.5,1 1,-0.5" stroke-width="0.176776695"/>
+         <polyline points="-0.5,2 2,-0.5" stroke-width="0.176776695"/>
+         <polyline points="-0.5,3 3,-0.5" stroke-width="0.176776695"/>
+         <polyline points="-0.5,4 4,-0.5" stroke-width="0.176776695"/>
+         <polyline points="0,4.5 4.5,0" stroke-width="0.176776695"/>
+         <polyline points="1,4.5 4.5,1" stroke-width="0.176776695"/>
+         <polyline points="2,4.5 4.5,2" stroke-width="0.176776695"/>
+         <polyline points="3,4.5 4.5,3" stroke-width="0.176776695"/>
+      </symbol>
+      <symbol id="pdpatfg23" width="4" height="4">
+         <rect width="4" height="4" stroke="none"/>
+         <polyline points="-1,0.5 5,0.5" stroke-width="0.25"/>
+         <polyline points="-1,1.5 5,1.5" stroke-width="0.25"/>
+         <polyline points="-1,2.5 5,2.5" stroke-width="0.25"/>
+         <polyline points="-1,3.5 5,3.5" stroke-width="0.25"/>
+         <polyline points="0.5,-1 0.5,5" stroke-width="0.25"/>
+         <polyline points="1.5,-1 1.5,5" stroke-width="0.25"/>
+         <polyline points="2.5,-1 2.5,5" stroke-width="0.25"/>
+         <polyline points="3.5,-1 3.5,5" stroke-width="0.25"/>
+      </symbol>
+      <symbol id="pdpatfg24" width="4" height="4">
+         <rect width="4" height="4" stroke="none"/>
+         <polyline points="-0.5,3 1,4.5" stroke-width="0.176776695"/>
+         <polyline points="-0.5,2 2,4.5" stroke-width="0.176776695"/>
+         <polyline points="-0.5,1 3,4.5" stroke-width="0.176776695"/>
+         <polyline points="-0.5,0 4,4.5" stroke-width="0.176776695"/>
+         <polyline points="0,-0.5 4.5,4" stroke-width="0.176776695"/>
+         <polyline points="1,-0.5 4.5,3" stroke-width="0.176776695"/>
+         <polyline points="2,-0.5 4.5,2" stroke-width="0.176776695"/>
+         <polyline points="3,-0.5 4.5,1" stroke-width="0.176776695"/>
+         <polyline points="-0.5,1 1,-0.5" stroke-width="0.176776695"/>
+         <polyline points="-0.5,2 2,-0.5" stroke-width="0.176776695"/>
+         <polyline points="-0.5,3 3,-0.5" stroke-width="0.176776695"/>
+         <polyline points="-0.5,4 4,-0.5" stroke-width="0.176776695"/>
+         <polyline points="0,4.5 4.5,0" stroke-width="0.176776695"/>
+         <polyline points="1,4.5 4.5,1" stroke-width="0.176776695"/>
+         <polyline points="2,4.5 4.5,2" stroke-width="0.176776695"/>
+         <polyline points="3,4.5 4.5,3" stroke-width="0.176776695"/>
+      </symbol>
+   </defs>
+   <defs>
+      <marker id="EndArrow-13-2" viewBox="0 0 .135 .090" refX=".135" refY=".045" markerUnits="strokeWidth" markerWidth="13.5" markerHeight="9.0" orient="auto">
+         <path d="M 0 0 L .135 .045 L 0 .090 z"/>
+      </marker>
+   </defs>
+   <defs>
+      <style id="ss-line-0" type="text/css"><![CDATA[*.ss-line-0 { stroke-width:1;stroke:#000000;marker-end:none; }]]></style>
+      <style id="ss-fill-0" type="text/css"><![CDATA[*.ss-fill-0 { fill:#FFFFFF; }]]></style>
+      <style id="ss-text-0" type="text/css"><![CDATA[*.ss-text-0 { stroke:none;fill:#000000;font-size:16.666666666667;text-anchor:middle; } ]]></style>
+      <style id="ss-line-1" type="text/css"><![CDATA[*.ss-line-1 { stroke-width:1;stroke:#000000;marker-end:none;stroke-width:1;stroke:none;marker-end:none; }]]></style>
+      <style id="ss-fill-1" type="text/css"><![CDATA[*.ss-fill-1 { fill:#FFFFFF;fill:none; }]]></style>
+      <style id="ss-text-1" type="text/css"><![CDATA[*.ss-text-1 { stroke:none;fill:#000000;font-size:16.666666666667;text-anchor:middle;text-anchor:start; } ]]></style>
+      <style id="ss-line-2" type="text/css"><![CDATA[*.ss-line-2 { stroke-width:1;stroke:#000000;marker-end:none;stroke-width:1;stroke:none;marker-end:none; }]]></style>
+      <style id="ss-fill-2" type="text/css"><![CDATA[*.ss-fill-2 { fill:#FFFFFF;fill:none; }]]></style>
+      <style id="ss-text-2" type="text/css"><![CDATA[*.ss-text-2 { stroke:none;fill:#000000;font-size:16.666666666667;text-anchor:middle; } ]]></style>
+      <style id="ss-line-3" type="text/css"><![CDATA[*.ss-line-3 { stroke-width:1;stroke:#000000;marker-end:none; }]]></style>
+      <style id="ss-fill-3" type="text/css"><![CDATA[*.ss-fill-3 { fill:#FFFFFF; }]]></style>
+      <style id="ss-text-3" type="text/css"><![CDATA[*.ss-text-3 { stroke:none;fill:#000000;font-size:16.666666666667;text-anchor:middle; } ]]></style>
+      <style id="ss-line-4" type="text/css"><![CDATA[*.ss-line-4 { stroke-width:1;stroke:#000000;marker-end:none;stroke-width:0;stroke:#0000FF;marker-end:none;stroke-dasharray:2,1; }]]></style>
+      <style id="ss-fill-4" type="text/css"><![CDATA[*.ss-fill-4 { fill:#FFFFFF;fill:none; }]]></style>
+      <style id="ss-text-4" type="text/css"><![CDATA[*.ss-text-4 { stroke:none;fill:#000000;font-size:16.666666666667;text-anchor:middle;stroke:none;fill:#0000FF;font-size:12.5; } ]]></style>
+      <style id="ss-line-6" type="text/css"><![CDATA[*.ss-line-6 { stroke-width:1;stroke:#000000;marker-end:none;stroke-width:1;stroke:#000000;marker-end:none; }]]></style>
+      <style id="ss-fill-6" type="text/css"><![CDATA[*.ss-fill-6 { fill:#FFFFFF;fill:#000000; }]]></style>
+      <style id="ss-text-6" type="text/css"><![CDATA[*.ss-text-6 { stroke:none;fill:#000000;font-size:16.666666666667;text-anchor:middle;stroke:none;fill:#000000;font-size:16.666666666667; } ]]></style>
+      <style id="ss-line-7" type="text/css"><![CDATA[*.ss-line-7 { stroke-width:1;stroke:#000000;marker-end:none;stroke-width:1;stroke:#000000;marker-end:none;stroke-width:0.33333333333333004;stroke:#000000;marker-end:none; }]]></style>
+      <style id="ss-fill-7" type="text/css"><![CDATA[*.ss-fill-7 { fill:#FFFFFF;fill:#000000;fill:#000000; }]]></style>
+      <style id="ss-text-7" type="text/css"><![CDATA[*.ss-text-7 { stroke:none;fill:#000000;font-size:16.666666666667;text-anchor:middle;stroke:none;fill:#000000;font-size:16.666666666667;stroke:none;fill:#000000;font-size:11.111111111110999; } ]]></style>
+      <style id="ss-line-8" type="text/css"><![CDATA[*.ss-line-8 { stroke-width:1;stroke:#000000;marker-end:none;stroke-width:1;stroke:#000000;marker-end:none; }]]></style>
+      <style id="ss-fill-8" type="text/css"><![CDATA[*.ss-fill-8 { fill:#FFFFFF;fill:#FFFFFF; }]]></style>
+      <style id="ss-text-8" type="text/css"><![CDATA[*.ss-text-8 { stroke:none;fill:#000000;font-size:16.666666666667;text-anchor:middle;stroke:none;fill:#000000;font-size:16.666666666667; } ]]></style>
+      <style id="ss-line-9" type="text/css"><![CDATA[*.ss-line-9 { stroke-width:1;stroke:#000000;marker-end:none;stroke-width:1;stroke:#000000;marker-end:none; }]]></style>
+      <style id="ss-fill-9" type="text/css"><![CDATA[*.ss-fill-9 { fill:#FFFFFF;fill:#FFFFFF; }]]></style>
+      <style id="ss-text-9" type="text/css"><![CDATA[*.ss-text-9 { stroke:none;fill:#000000;font-size:16.666666666667;text-anchor:middle;stroke:none;fill:#000000;font-size:16.666666666667; } ]]></style>
+      <style id="ss-line-10" type="text/css"><![CDATA[*.ss-line-10 { stroke-width:1;stroke:#000000;marker-end:none;stroke-width:1;stroke:#000000;marker-end:none; }]]></style>
+      <style id="ss-fill-10" type="text/css"><![CDATA[*.ss-fill-10 { fill:#FFFFFF;fill:#C0C0C0; }]]></style>
+      <style id="ss-text-10" type="text/css"><![CDATA[*.ss-text-10 { stroke:none;fill:#000000;font-size:16.666666666667;text-anchor:middle;stroke:none;fill:#000000;font-size:16.666666666667; } ]]></style>
+      <style id="ss-line-11" type="text/css"><![CDATA[*.ss-line-11 { stroke-width:1;stroke:#000000;marker-end:none;stroke-width:1;stroke:#000000;marker-end:none; }]]></style>
+      <style id="ss-fill-11" type="text/css"><![CDATA[*.ss-fill-11 { fill:#FFFFFF;fill:#FFFFFF; }]]></style>
+      <style id="ss-text-11" type="text/css"><![CDATA[*.ss-text-11 { stroke:none;fill:#000000;font-size:16.666666666667;text-anchor:middle;stroke:none;fill:#000000;font-size:16.666666666667; } ]]></style>
+      <style id="ss-line-12" type="text/css"><![CDATA[*.ss-line-12 { stroke-width:1;stroke:#000000;marker-end:none;stroke-width:1;stroke:#000000;marker-end:none; }]]></style>
+      <style id="ss-fill-12" type="text/css"><![CDATA[*.ss-fill-12 { fill:#FFFFFF;fill:#FFFFFF; }]]></style>
+      <style id="ss-text-12" type="text/css"><![CDATA[*.ss-text-12 { stroke:none;fill:#000000;font-size:16.666666666667;text-anchor:middle;stroke:none;fill:#000000;font-size:16.666666666667; } ]]></style>
+      <style id="ss-line-13" type="text/css"><![CDATA[*.ss-line-13 { stroke-width:1;stroke:#000000;marker-end:none;stroke-width:1;stroke:#000000;marker-end:none; }]]></style>
+      <style id="ss-fill-13" type="text/css"><![CDATA[*.ss-fill-13 { fill:#FFFFFF;fill:#E6E6E6; }]]></style>
+      <style id="ss-text-13" type="text/css"><![CDATA[*.ss-text-13 { stroke:none;fill:#000000;font-size:16.666666666667;text-anchor:middle;stroke:none;fill:#000000;font-size:16.666666666667; } ]]></style>
+      <style id="ss-line-14" type="text/css"><![CDATA[*.ss-line-14 { stroke-width:1;stroke:#000000;marker-end:none;stroke-width:1;stroke:#000000;marker-end:none; }]]></style>
+      <style id="ss-fill-14" type="text/css"><![CDATA[*.ss-fill-14 { fill:#FFFFFF;fill:#9A9A9A; }]]></style>
+      <style id="ss-text-14" type="text/css"><![CDATA[*.ss-text-14 { stroke:none;fill:#000000;font-size:16.666666666667;text-anchor:middle;stroke:none;fill:#000000;font-size:16.666666666667; } ]]></style>
+      <style id="ss-line-15" type="text/css"><![CDATA[*.ss-line-15 { stroke-width:1;stroke:#000000;marker-end:none;stroke-width:1;stroke:#000000;marker-end:none; }]]></style>
+      <style id="ss-fill-15" type="text/css"><![CDATA[*.ss-fill-15 { fill:#FFFFFF;fill:#E6E6E6; }]]></style>
+      <style id="ss-text-15" type="text/css"><![CDATA[*.ss-text-15 { stroke:none;fill:#000000;font-size:16.666666666667;text-anchor:middle;stroke:none;fill:#000000;font-size:16.666666666667; } ]]></style>
+      <style id="ss-line-16" type="text/css"><![CDATA[*.ss-line-16 { stroke-width:1;stroke:#000000;marker-end:none;stroke-width:1;stroke:#000000;marker-end:none; }]]></style>
+      <style id="ss-fill-16" type="text/css"><![CDATA[*.ss-fill-16 { fill:#FFFFFF;fill:#C0C0C0; }]]></style>
+      <style id="ss-text-16" type="text/css"><![CDATA[*.ss-text-16 { stroke:none;fill:#000000;font-size:16.666666666667;text-anchor:middle;stroke:none;fill:#000000;font-size:16.666666666667; } ]]></style>
+      <style id="ss-line-17" type="text/css"><![CDATA[*.ss-line-17 { stroke-width:1;stroke:#000000;marker-end:none;stroke-width:1;stroke:#000000;marker-end:none; }]]></style>
+      <style id="ss-fill-17" type="text/css"><![CDATA[*.ss-fill-17 { fill:#FFFFFF;fill:#E6E6E6; }]]></style>
+      <style id="ss-text-17" type="text/css"><![CDATA[*.ss-text-17 { stroke:none;fill:#000000;font-size:16.666666666667;text-anchor:middle;stroke:none;fill:#000000;font-size:16.666666666667; } ]]></style>
+      <style id="ss-line-18" type="text/css"><![CDATA[*.ss-line-18 { stroke-width:1;stroke:#000000;marker-end:none;stroke-width:1;stroke:#000000;marker-end:none; }]]></style>
+      <style id="ss-fill-18" type="text/css"><![CDATA[*.ss-fill-18 { fill:#FFFFFF;fill:#9A9A9A; }]]></style>
+      <style id="ss-text-18" type="text/css"><![CDATA[*.ss-text-18 { stroke:none;fill:#000000;font-size:16.666666666667;text-anchor:middle;stroke:none;fill:#000000;font-size:16.666666666667; } ]]></style>
+      <style id="ss-line-19" type="text/css"><![CDATA[*.ss-line-19 { stroke-width:1;stroke:#000000;marker-end:none;stroke-width:1;stroke:#000000;marker-end:none; }]]></style>
+      <style id="ss-fill-19" type="text/css"><![CDATA[*.ss-fill-19 { fill:#FFFFFF;fill:#E6E6E6; }]]></style>
+      <style id="ss-text-19" type="text/css"><![CDATA[*.ss-text-19 { stroke:none;fill:#000000;font-size:16.666666666667;text-anchor:middle;stroke:none;fill:#000000;font-size:16.666666666667; } ]]></style>
+      <style id="ss-line-20" type="text/css"><![CDATA[*.ss-line-20 { stroke-width:1;stroke:#000000;marker-end:none;stroke-width:1;stroke:#E6E6E6;marker-end:none; }]]></style>
+      <style id="ss-fill-20" type="text/css"><![CDATA[*.ss-fill-20 { fill:#FFFFFF;fill:#efefef; }]]></style>
+      <style id="ss-text-20" type="text/css"><![CDATA[*.ss-text-20 { stroke:none;fill:#000000;font-size:16.666666666667;text-anchor:middle;stroke:none;fill:#E6E6E6;font-size:16.666666666667; } ]]></style>
+      <style id="ss-line-21" type="text/css"><![CDATA[*.ss-line-21 { stroke-width:1;stroke:#000000;marker-end:none;stroke-width:1;stroke:#FFFFFF;marker-end:none; }]]></style>
+      <style id="ss-fill-21" type="text/css"><![CDATA[*.ss-fill-21 { fill:#FFFFFF;fill:#FFFFFF; }]]></style>
+      <style id="ss-text-21" type="text/css"><![CDATA[*.ss-text-21 { stroke:none;fill:#000000;font-size:16.666666666667;text-anchor:middle;stroke:none;fill:#E6E6E6;font-size:16.666666666667; } ]]></style>
+      <style id="ss-line-22" type="text/css"><![CDATA[*.ss-line-22 { stroke-width:1;stroke:#000000;marker-end:none;stroke-width:1;stroke:#C0C0C0;marker-end:none; }]]></style>
+      <style id="ss-fill-22" type="text/css"><![CDATA[*.ss-fill-22 { fill:#FFFFFF;fill:#E6E6E6; }]]></style>
+      <style id="ss-text-22" type="text/css"><![CDATA[*.ss-text-22 { stroke:none;fill:#000000;font-size:16.666666666667;text-anchor:middle;stroke:none;fill:#C0C0C0;font-size:16.666666666667; } ]]></style>
+      <style id="ss-line-23" type="text/css"><![CDATA[*.ss-line-23 { stroke-width:1;stroke:#000000;marker-end:none;stroke-width:1;stroke:#E6E6E6;marker-end:none; }]]></style>
+      <style id="ss-fill-23" type="text/css"><![CDATA[*.ss-fill-23 { fill:#FFFFFF;fill:#FFFFFF; }]]></style>
+      <style id="ss-text-23" type="text/css"><![CDATA[*.ss-text-23 { stroke:none;fill:#000000;font-size:16.666666666667;text-anchor:middle;stroke:none;fill:#C0C0C0;font-size:16.666666666667; } ]]></style>
+      <style id="ss-line-24" type="text/css"><![CDATA[*.ss-line-24 { stroke-width:1;stroke:#000000;marker-end:none;stroke-width:1;stroke:#000000;marker-end:none; }]]></style>
+      <style id="ss-fill-24" type="text/css"><![CDATA[*.ss-fill-24 { fill:#FFFFFF;fill:#000000; }]]></style>
+      <style id="ss-text-24" type="text/css"><![CDATA[*.ss-text-24 { stroke:none;fill:#000000;font-size:16.666666666667;text-anchor:middle;stroke:none;fill:#000000;font-size:16.666666666667; } ]]></style>
+      <style id="ss-line-25" type="text/css"><![CDATA[*.ss-line-25 { stroke-width:1;stroke:#000000;marker-end:none;stroke-width:1;stroke:#000000;marker-end:none; }]]></style>
+      <style id="ss-fill-25" type="text/css"><![CDATA[*.ss-fill-25 { fill:#FFFFFF;fill:#000000; }]]></style>
+      <style id="ss-text-25" type="text/css"><![CDATA[*.ss-text-25 { stroke:none;fill:#000000;font-size:16.666666666667;text-anchor:middle;stroke:none;fill:#FFFFFF;font-size:16.666666666667; } ]]></style>
+      <style id="ss-line-26" type="text/css"><![CDATA[*.ss-line-26 { stroke-width:1;stroke:#000000;marker-end:none;stroke-width:1;stroke:#000000;marker-end:none;stroke-width:0.33333333333333004;stroke:#000000;marker-end:none; }]]></style>
+      <style id="ss-fill-26" type="text/css"><![CDATA[*.ss-fill-26 { fill:#FFFFFF;fill:#FFFFFF; }]]></style>
+      <style id="ss-text-26" type="text/css"><![CDATA[*.ss-text-26 { stroke:none;fill:#000000;font-size:16.666666666667;text-anchor:middle;stroke:none;fill:#000000;font-size:16.666666666667;stroke:none;fill:#000000;font-size:11.111111111110999;text-anchor:middle; } ]]></style>
+      <style id="ss-line-27" type="text/css"><![CDATA[*.ss-line-27 { stroke-width:1;stroke:#000000;marker-end:none;stroke-width:1;stroke:#000000;marker-end:none;stroke-width:0.33333333333333004;stroke:#000000;marker-end:none; }]]></style>
+      <style id="ss-fill-27" type="text/css"><![CDATA[*.ss-fill-27 { fill:#FFFFFF;fill:#C0C0C0; }]]></style>
+      <style id="ss-text-27" type="text/css"><![CDATA[*.ss-text-27 { stroke:none;fill:#000000;font-size:16.666666666667;text-anchor:middle;stroke:none;fill:#000000;font-size:16.666666666667;stroke:none;fill:#000000;font-size:11.111111111110999;text-anchor:middle; } ]]></style>
+   </defs>
+   <g id="yellowRect" class=" ss-line-26 ss-fill-26" style="fill:#FFFF00;" transform="translate(100,-675)">
+      <path id="path-yellowRect" d="M0,0 L150,0 L150,-100 L0,-100 L0,0 "/>
+      <text class=" ss-text-26" x="75" y="-50" onload="wrap_text(evt,138.8888888888888,1,1,-1.2)" style="">Rectangle with text</text>
+   </g>
+   <g id="redTriangle" class=" ss-line-26 ss-fill-26" style="fill:#FF0000;" transform="translate(275,-675)">
+      <path id="path-redTriangle" d="M75,-100 L0,0 L150,0 L75,-100 "/>
+      <text class=" ss-text-26" x="75" y="-50" onload="wrap_text(evt,138.8888888888888,1,1,-1.2)" style="">Filled triangle with text</text><animate attributeType="CSS" attributeName="opacity"  from="1" to="0" dur="5s" repeatCount="indefinite" /></g>
+   <g id="openTriangle" class=" ss-line-26 ss-fill-26" style="fill:none;" transform="translate(475,-675)">
+      <path id="path-openTriangle" d="M75,-100 L0,0 L150,0 L75,-100 "/>
+      <text class=" ss-text-26" x="75" y="-50" onload="wrap_text(evt,138.8888888888888,1,1,-1.2)" style="">Unfilled triangle with text</text>
+   </g>
+   <g id="openLtBluePath" class=" ss-line-26 ss-fill-26" style="stroke-width:0.33333333333333004;stroke:#33cccc;marker-end:none;" transform="translate(150,-475)">
+      <path id="path-openLtBluePath" d="M0,-125 L0,0 L100,0 L100,-125 L25,-125 " fill="none"/>
+      <text class=" ss-text-26" x="50" y="-62.5" onload="wrap_text(evt,88.8888888888888,1,1,-1.2)" style="">Open path</text>
+   </g>
+   <g id="d0e6169" class=" ss-line-1 ss-fill-1" style="" transform="translate(324.65277777778,-526.041666666669)">
+      <path id="path-d0e6169" d="M0,0 L144.44444444444,0 L144.44444444444,-22.222222222221998 L0,-22.222222222221998 L0,0 "/>
+      <text class=" ss-text-26" x="72.22222222222" y="-11.111111111110999" onload="wrap_text(evt,133.3333333333288,1,1,-1.2)" style="">Independent text
+            with newline</text>
+   </g>
+   <g id="rectWithAttributes" class=" ss-line-26 ss-fill-26" style="" transform="translate(525,-475)">
+      <path id="path-rectWithAttributes" d="M0,0 L75,0 L75,-125 L0,-125 L0,0 "/>
+   </g>
+   <g id="d0e6436" class=" ss-line-26 ss-fill-26" style="fill:url(#d0e6436-pat);" transform="translate(150,-300)">
+      <pattern id="d0e6436-pat" x="0" y="0" width="4" height="4" patternUnits="userSpaceOnUse" patternTransform="scale(3.125)">
+         <use fill="#00FFFF" stroke="#FF00FF" xlink:href="#pdpatfg2"/>
+      </pattern>
+      <path id="path-d0e6436" d="M75,-125 L0,-75 L25.000000000001,0 L125,0 L150,-75 L75,-125 "/>
+   </g>
+   <g id="groupOfRects" class=" ss-line-26 ss-fill-26" style="" transform="translate(462.5,-250)">
+      <g id="d0e6632" class=" ss-line-26 ss-fill-26" style="fill:#00FFFF;" transform="translate(0,-50)">
+         <path id="path-d0e6632" d="M0,0 L87.5,0 L87.5,-50 L0,-50 L0,0 "/>
+      </g>
+      <g id="d0e6761" class=" ss-line-26 ss-fill-26" style="fill:#ff6600;" transform="translate(112.5,0)">
+         <path id="path-d0e6761" d="M0,0 L50,0 L50,-100 L0,-100 L0,0 "/>
+      </g>
+      <g id="d0e6890" class=" ss-line-26 ss-fill-26" style="fill:#00FF00;" transform="translate(0.0000000000009992007221626409,0)">
+         <path id="path-d0e6890" d="M0,0 L37.5,0 L37.5,-37.5 L0,-37.5 L0,0 "/>
+      </g>
+   </g>
+   <a xlink:title="VDXtoSVG Home Page" xlink:href="http://vdxtosvg.sourceforge.net/" show="">
+      <g id="d0e7147" class=" ss-line-26 ss-fill-26" style="fill:url(#d0e7147-pat);" transform="translate(650,-175)">
+         <pattern id="d0e7147-pat" x="0" y="0" width="4" height="4" patternUnits="userSpaceOnUse" patternTransform="scale(3.125)">
+            <use fill="#008080" stroke="#000000" xlink:href="#pdpatfg2"/>
+         </pattern>
+         <ellipse id="ellipse-d0e7147" cx="50" cy="-50" rx="50" ry="50"/>
+         <text class=" ss-text-26" x="50" y="-50" onload="wrap_text(evt,88.8888888888888,1,1,-1.2)" style=""/>
+      </g>
+   </a>
+   <g id="d0e7277" class=" ss-line-26 ss-fill-26" style="stroke-width:1;stroke:#000000;marker-end:none;stroke-dasharray:8,4;" transform="translate(675,-775)">
+      <path id="path-d0e7277" d="M0,0 L150,0 " fill="none"/>
+   </g>
+   <g id="d0e7394" class=" ss-line-26 ss-fill-26" style="stroke-width:1.6666666666667;stroke:#993366;marker-end:none;stroke-dasharray:1,4;" transform="translate(675,-750)">
+      <path id="path-d0e7394" d="M0,0 L150,0 " fill="none"/>
+   </g>
+   <g id="d0e7511" class=" ss-line-26 ss-fill-26" style="stroke-width:3;stroke:#00FF00;marker-end:none;stroke-dasharray:8,4,1,4;" transform="translate(675,-725)">
+      <path id="path-d0e7511" d="M0,0 L150,0 " fill="none"/>
+   </g>
+   <g id="d0e7628" class=" ss-line-26 ss-fill-26" style="" transform="translate(675,-700)">
+      <path id="path-d0e7628" d="M0,0 L150,0 " fill="none"/>
+   </g>
+   <defs id="d0e7712" class=" ss-line-26 ss-fill-26" style="stroke-width:0.33333333333333004;stroke:#000000;marker-end:url(#EndArrow-5-2);" transform="translate(169.511224011522,-784.12989723572) rotate(117.97252023866209,10.337613124008,0)">
+      <path id="path-d0e7712" d="M0,0 L20.675226248015,0 " fill="none"/>
+      <text class=" ss-text-26" transform="translate(8.04106618081,-1.8700495274289) translate(0,0)" onload="wrap_text(evt,11.2256587966198,1,1,-1.2)" style="stroke:none;fill:#000000;font-size:5.5555555555556;"/>
+   </defs>
+   <animate id="animation" attributeName="opacity" dur="10" repeatCount="3" repeatDur="indefinite" values="1;0;1" xlink:href="#yellowRect"/>
+</svg>

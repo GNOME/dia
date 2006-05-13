@@ -1,0 +1,2278 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<?integrity app='Visio' version='10.0' buildnum='525' metric='0' key='36EF441E882B70BB490A1128712FED5393CADA2F98ED0C48AF82E62E81272B244FC670438F0CACBFECBCF897E89B5A11BC1D21C48B588C85EF9F2190195B5D0F' keystart='261'  ?>
+
+<VisioDocument xmlns='urn:schemas-microsoft-com:office:visio'>
+<DocumentProperties>
+<Title>Curve tests</Title>
+<Template>C:\Program Files\Microsoft Office\Visio10\1033\Solutions\Block Diagram\Basic Diagram (US units).vst</Template>
+<Desc>$Id$</Desc>
+<BuildNumberCreated>671351309</BuildNumberCreated>
+<BuildNumberEdited>671351309</BuildNumberEdited>
+<TimeCreated>2002-04-27T14:51:25</TimeCreated>
+<TimeSaved>2002-07-03T10:23:02</TimeSaved>
+<TimeEdited>2002-07-03T10:22:44</TimeEdited>
+<TimePrinted>2002-04-27T14:51:25</TimePrinted>
+</DocumentProperties>
+<DocumentSettings TopPage='2' DefaultTextStyle='26' DefaultLineStyle='26' DefaultFillStyle='26' DefaultGuideStyle='4'>
+<GlueSettings>9</GlueSettings>
+<SnapSettings>295</SnapSettings>
+<SnapExtensions>34</SnapExtensions>
+<DynamicGridEnabled>0</DynamicGridEnabled>
+<ProtectStyles>0</ProtectStyles>
+<ProtectShapes>0</ProtectShapes>
+<ProtectMasters>0</ProtectMasters>
+<ProtectBkgnds>0</ProtectBkgnds>
+</DocumentSettings>
+<Colors>
+<ColorEntry IX='0' RGB='#000000'/>
+<ColorEntry IX='1' RGB='#FFFFFF'/>
+<ColorEntry IX='2' RGB='#FF0000'/>
+<ColorEntry IX='3' RGB='#00FF00'/>
+<ColorEntry IX='4' RGB='#0000FF'/>
+<ColorEntry IX='5' RGB='#FFFF00'/>
+<ColorEntry IX='6' RGB='#FF00FF'/>
+<ColorEntry IX='7' RGB='#00FFFF'/>
+<ColorEntry IX='8' RGB='#800000'/>
+<ColorEntry IX='9' RGB='#008000'/>
+<ColorEntry IX='10' RGB='#000080'/>
+<ColorEntry IX='11' RGB='#808000'/>
+<ColorEntry IX='12' RGB='#800080'/>
+<ColorEntry IX='13' RGB='#008080'/>
+<ColorEntry IX='14' RGB='#C0C0C0'/>
+<ColorEntry IX='15' RGB='#E6E6E6'/>
+<ColorEntry IX='16' RGB='#CDCDCD'/>
+<ColorEntry IX='17' RGB='#B3B3B3'/>
+<ColorEntry IX='18' RGB='#9A9A9A'/>
+<ColorEntry IX='19' RGB='#808080'/>
+<ColorEntry IX='20' RGB='#666666'/>
+<ColorEntry IX='21' RGB='#4D4D4D'/>
+<ColorEntry IX='22' RGB='#333333'/>
+<ColorEntry IX='23' RGB='#1A1A1A'/>
+</Colors>
+<PrintSetup>
+<PaperSize>1</PaperSize>
+<PrintLandscape>0</PrintLandscape>
+<PrintCenteredH>0</PrintCenteredH>
+<PrintCenteredV>0</PrintCenteredV>
+<PrintFitOnPages>0</PrintFitOnPages>
+<PrintPagesAcross>1</PrintPagesAcross>
+<PrintPagesDown>1</PrintPagesDown>
+<PrintScale>1</PrintScale>
+<PageTopMargin>0.25</PageTopMargin>
+<PageBottomMargin>0.25</PageBottomMargin>
+<PageLeftMargin>0.25</PageLeftMargin>
+<PageRightMargin>0.25</PageRightMargin>
+</PrintSetup>
+<Fonts>
+<FontEntry ID='0' CharSet='0' PitchAndFamily='32' Attributes='23040' Name='Arial' Weight='0' Unicode='0'/>
+<FontEntry ID='1' CharSet='2' PitchAndFamily='2' Attributes='23040' Name='Wingdings' Weight='0' Unicode='0'/>
+<FontEntry ID='2' CharSet='2' PitchAndFamily='2' Attributes='4096' Name='Monotype Sorts' Weight='0' Unicode='0'/>
+<FontEntry ID='3' CharSet='2' PitchAndFamily='18' Attributes='23040' Name='Symbol' Weight='0' Unicode='0'/>
+</Fonts>
+<StyleSheets>
+<StyleSheet ID='0' NameU='No Style'>
+<StyleProp>
+<EnableLineProps F='1'>1</EnableLineProps>
+<EnableFillProps F='1'>1</EnableFillProps>
+<EnableTextProps F='1'>1</EnableTextProps>
+<HideForApply F='FALSE'>0</HideForApply>
+</StyleProp>
+<Line>
+<LineWeight F='0.01DT'>0.01</LineWeight>
+<LineColor F='0'>0</LineColor>
+<LinePattern F='1'>1</LinePattern>
+<Rounding F='0DL'>0</Rounding>
+<EndArrowSize F='2'>2</EndArrowSize>
+<BeginArrow F='0'>0</BeginArrow>
+<EndArrow F='0'>0</EndArrow>
+<LineCap F='0'>0</LineCap>
+<BeginArrowSize F='2'>2</BeginArrowSize>
+<LineColorTrans F='0%'>0</LineColorTrans>
+</Line>
+<Fill>
+<FillForegnd F='1'>1</FillForegnd>
+<FillBkgnd F='0'>0</FillBkgnd>
+<FillPattern F='1'>1</FillPattern>
+<ShdwForegnd F='0'>0</ShdwForegnd>
+<ShdwBkgnd F='1'>1</ShdwBkgnd>
+<ShdwPattern F='0'>0</ShdwPattern>
+<FillForegndTrans F='0%'>0</FillForegndTrans>
+<FillBkgndTrans F='0%'>0</FillBkgndTrans>
+<ShdwForegndTrans F='0%'>0</ShdwForegndTrans>
+<ShdwBkgndTrans F='0%'>0</ShdwBkgndTrans>
+</Fill>
+<TextBlock>
+<LeftMargin F='0DP'>0</LeftMargin>
+<RightMargin F='0DP'>0</RightMargin>
+<TopMargin F='0DP'>0</TopMargin>
+<BottomMargin F='0DP'>0</BottomMargin>
+<VerticalAlign F='1'>1</VerticalAlign>
+<TextBkgnd F='0'>0</TextBkgnd>
+<DefaultTabStop F='0.5DP'>0.5</DefaultTabStop>
+<TextDirection F='0'>0</TextDirection>
+<TextBkgndTrans F='0%'>0</TextBkgndTrans>
+</TextBlock>
+<Protection>
+<LockWidth F='0'>0</LockWidth>
+<LockHeight F='0'>0</LockHeight>
+<LockMoveX F='0'>0</LockMoveX>
+<LockMoveY F='0'>0</LockMoveY>
+<LockAspect F='0'>0</LockAspect>
+<LockDelete F='0'>0</LockDelete>
+<LockBegin F='0'>0</LockBegin>
+<LockEnd F='0'>0</LockEnd>
+<LockRotate F='0'>0</LockRotate>
+<LockCrop F='0'>0</LockCrop>
+<LockVtxEdit F='0'>0</LockVtxEdit>
+<LockTextEdit F='0'>0</LockTextEdit>
+<LockFormat F='0'>0</LockFormat>
+<LockGroup F='0'>0</LockGroup>
+<LockCalcWH F='0'>0</LockCalcWH>
+<LockSelect F='0'>0</LockSelect>
+</Protection>
+<Misc>
+<NoObjHandles F='FALSE'>0</NoObjHandles>
+<NonPrinting F='FALSE'>0</NonPrinting>
+<NoCtlHandles F='FALSE'>0</NoCtlHandles>
+<NoAlignBox F='FALSE'>0</NoAlignBox>
+<UpdateAlignBox F='FALSE'>0</UpdateAlignBox>
+<HideText F='FALSE'>0</HideText>
+<DynFeedback F='0'>0</DynFeedback>
+<GlueType F='0'>0</GlueType>
+<WalkPreference F='0'>0</WalkPreference>
+<BegTrigger F='No Formula'>0</BegTrigger>
+<EndTrigger F='No Formula'>0</EndTrigger>
+<ObjType F='0'>0</ObjType>
+<Comment>&#xe000;</Comment>
+<IsDropSource F='FALSE'>0</IsDropSource>
+<NoLiveDynamics F='FALSE'>0</NoLiveDynamics>
+</Misc>
+<Event>
+<TheData F='No Formula'>0</TheData>
+<TheText F='No Formula'>0</TheText>
+<EventDblClick F='No Formula'>0</EventDblClick>
+<EventXFMod F='No Formula'>0</EventXFMod>
+<EventDrop F='No Formula'>0</EventDrop>
+</Event>
+<Help>
+<HelpTopic>&#xe000;</HelpTopic>
+<Copyright>&#xe000;</Copyright>
+</Help>
+<LayerMem>
+<LayerMember>&#xe000;</LayerMember>
+</LayerMem>
+<RulerGrid>
+<XRulerDensity F='32'>32</XRulerDensity>
+<YRulerDensity F='32'>32</YRulerDensity>
+<XRulerOrigin F='0DL'>0</XRulerOrigin>
+<YRulerOrigin F='0DL'>0</YRulerOrigin>
+<XGridDensity F='8'>8</XGridDensity>
+<YGridDensity F='8'>8</YGridDensity>
+<XGridSpacing F='0DL'>0</XGridSpacing>
+<YGridSpacing F='0DL'>0</YGridSpacing>
+<XGridOrigin F='0DL'>0</XGridOrigin>
+<YGridOrigin F='0DL'>0</YGridOrigin>
+</RulerGrid>
+<Image>
+<Gamma F='1'>1</Gamma>
+<Contrast F='50%'>0.5</Contrast>
+<Brightness F='50%'>0.5</Brightness>
+<Sharpen F='0%'>0</Sharpen>
+<Blur F='0%'>0</Blur>
+<Denoise F='0%'>0</Denoise>
+<Transparency F='0%'>0</Transparency>
+</Image>
+<Group>
+<SelectMode F='1'>1</SelectMode>
+<DisplayMode F='2'>2</DisplayMode>
+<IsDropTarget F='FALSE'>0</IsDropTarget>
+<IsSnapTarget F='TRUE'>1</IsSnapTarget>
+<IsTextEditTarget F='TRUE'>1</IsTextEditTarget>
+<DontMoveChildren F='FALSE'>0</DontMoveChildren>
+</Group>
+<Layout>
+<ShapePermeableX F='FALSE'>0</ShapePermeableX>
+<ShapePermeableY F='FALSE'>0</ShapePermeableY>
+<ShapePermeablePlace F='FALSE'>0</ShapePermeablePlace>
+<ShapeFixedCode F='0'>0</ShapeFixedCode>
+<ShapePlowCode F='0'>0</ShapePlowCode>
+<ShapeRouteStyle F='0'>0</ShapeRouteStyle>
+<ConFixedCode F='0'>0</ConFixedCode>
+<ConLineJumpCode F='0'>0</ConLineJumpCode>
+<ConLineJumpStyle F='0'>0</ConLineJumpStyle>
+<ConLineJumpDirX F='0'>0</ConLineJumpDirX>
+<ConLineJumpDirY F='0'>0</ConLineJumpDirY>
+<ShapePlaceFlip F='0'>0</ShapePlaceFlip>
+<ConLineRouteExt F='0'>0</ConLineRouteExt>
+</Layout>
+<PageLayout>
+<ResizePage F='FALSE'>0</ResizePage>
+<EnableGrid F='FALSE'>0</EnableGrid>
+<DynamicsOff F='FALSE'>0</DynamicsOff>
+<CtrlAsInput F='FALSE'>0</CtrlAsInput>
+<PlaceStyle F='0'>0</PlaceStyle>
+<RouteStyle F='0'>0</RouteStyle>
+<PlaceDepth F='0'>0</PlaceDepth>
+<PlowCode F='0'>0</PlowCode>
+<LineJumpCode F='1'>1</LineJumpCode>
+<LineJumpStyle F='0'>0</LineJumpStyle>
+<PageLineJumpDirX F='0'>0</PageLineJumpDirX>
+<PageLineJumpDirY F='0'>0</PageLineJumpDirY>
+<LineToNodeX F='0.125DL'>0.125</LineToNodeX>
+<LineToNodeY F='0.125DL'>0.125</LineToNodeY>
+<BlockSizeX F='0.25DL'>0.25</BlockSizeX>
+<BlockSizeY F='0.25DL'>0.25</BlockSizeY>
+<AvenueSizeX F='0.375DL'>0.375</AvenueSizeX>
+<AvenueSizeY F='0.375DL'>0.375</AvenueSizeY>
+<LineToLineX F='0.125DL'>0.125</LineToLineX>
+<LineToLineY F='0.125DL'>0.125</LineToLineY>
+<LineJumpFactorX F='0.66666666666667'>0.66666666666667</LineJumpFactorX>
+<LineJumpFactorY F='0.66666666666667'>0.66666666666667</LineJumpFactorY>
+<LineAdjustFrom F='0'>0</LineAdjustFrom>
+<LineAdjustTo F='0'>0</LineAdjustTo>
+<PlaceFlip F='0'>0</PlaceFlip>
+<LineRouteExt F='0'>0</LineRouteExt>
+</PageLayout>
+<PageProps>
+<PageWidth Unit='NUM' F='No Formula'>0</PageWidth>
+<PageHeight Unit='NUM' F='No Formula'>0</PageHeight>
+<ShdwOffsetX Unit='NUM' F='No Formula'>0</ShdwOffsetX>
+<ShdwOffsetY Unit='NUM' F='No Formula'>0</ShdwOffsetY>
+<PageScale F='No Formula'>0</PageScale>
+<DrawingScale F='No Formula'>0</DrawingScale>
+<DrawingSizeType F='No Formula'>0</DrawingSizeType>
+<DrawingScaleType F='No Formula'>0</DrawingScaleType>
+<InhibitSnap F='No Formula'>0</InhibitSnap>
+</PageProps>
+<Char IX='0'>
+<Font F='0'>0</Font>
+<Color F='0'>0</Color>
+<Style F='0'>0</Style>
+<Case F='0'>0</Case>
+<Pos F='0'>0</Pos>
+<FontScale F='100%'>1</FontScale>
+<Locale F='0'>0</Locale>
+<Size F='0.16666666666667DT'>0.16666666666667</Size>
+<DblUnderline F='FALSE'>0</DblUnderline>
+<Overline F='FALSE'>0</Overline>
+<Strikethru F='FALSE'>0</Strikethru>
+<Perpendicular F='FALSE'>0</Perpendicular>
+<Letterspace F='0DT'>0</Letterspace>
+<ColorTrans F='0%'>0</ColorTrans>
+</Char>
+<Para IX='0'>
+<IndFirst F='0DP'>0</IndFirst>
+<IndLeft F='0DP'>0</IndLeft>
+<IndRight F='0DP'>0</IndRight>
+<SpLine F='-120%'>-1.2</SpLine>
+<SpBefore F='0DT'>0</SpBefore>
+<SpAfter F='0DT'>0</SpAfter>
+<HorzAlign F='1'>1</HorzAlign>
+<Bullet F='0'>0</Bullet>
+<BulletStr>&#xe000;</BulletStr>
+</Para>
+<Tabs IX='0'/>
+</StyleSheet>
+<StyleSheet ID='1' NameU='Text Only' LineStyle='3' FillStyle='3' TextStyle='3'>
+<StyleProp>
+<EnableLineProps F='1'>1</EnableLineProps>
+<EnableFillProps F='1'>1</EnableFillProps>
+<EnableTextProps F='1'>1</EnableTextProps>
+<HideForApply F='FALSE'>0</HideForApply>
+</StyleProp>
+<Line>
+<LineWeight F='Inh'>0.01</LineWeight>
+<LineColor F='Inh'>0</LineColor>
+<LinePattern F='0'>0</LinePattern>
+<Rounding F='Inh'>0</Rounding>
+<EndArrowSize F='Inh'>2</EndArrowSize>
+<BeginArrow F='Inh'>0</BeginArrow>
+<EndArrow F='Inh'>0</EndArrow>
+<LineCap F='Inh'>0</LineCap>
+<BeginArrowSize F='Inh'>2</BeginArrowSize>
+<LineColorTrans F='Inh'>0</LineColorTrans>
+</Line>
+<Fill>
+<FillForegnd F='Inh'>1</FillForegnd>
+<FillBkgnd F='Inh'>0</FillBkgnd>
+<FillPattern F='0'>0</FillPattern>
+<ShdwForegnd F='Inh'>0</ShdwForegnd>
+<ShdwBkgnd F='Inh'>1</ShdwBkgnd>
+<ShdwPattern F='Inh'>0</ShdwPattern>
+<FillForegndTrans F='Inh'>0</FillForegndTrans>
+<FillBkgndTrans F='Inh'>0</FillBkgndTrans>
+<ShdwForegndTrans F='Inh'>0</ShdwForegndTrans>
+<ShdwBkgndTrans F='Inh'>0</ShdwBkgndTrans>
+</Fill>
+<TextBlock>
+<LeftMargin F='0DP'>0</LeftMargin>
+<RightMargin F='0DP'>0</RightMargin>
+<TopMargin F='0DP'>0</TopMargin>
+<BottomMargin F='0DP'>0</BottomMargin>
+<VerticalAlign F='0'>0</VerticalAlign>
+<TextBkgnd F='0'>0</TextBkgnd>
+<DefaultTabStop F='Inh'>0.5</DefaultTabStop>
+<TextDirection F='Inh'>0</TextDirection>
+<TextBkgndTrans F='Inh'>0</TextBkgndTrans>
+</TextBlock>
+<Para IX='0'>
+<IndFirst F='Inh'>0</IndFirst>
+<IndLeft F='Inh'>0</IndLeft>
+<IndRight F='Inh'>0</IndRight>
+<SpLine F='Inh'>-1.2</SpLine>
+<SpBefore F='Inh'>0</SpBefore>
+<SpAfter F='Inh'>0</SpAfter>
+<HorzAlign F='0'>0</HorzAlign>
+<Bullet F='Inh'>0</Bullet>
+<BulletStr F='Inh'/>
+</Para>
+</StyleSheet>
+<StyleSheet ID='2' NameU='None' LineStyle='3' FillStyle='3' TextStyle='3'>
+<StyleProp>
+<EnableLineProps F='1'>1</EnableLineProps>
+<EnableFillProps F='1'>1</EnableFillProps>
+<EnableTextProps F='1'>1</EnableTextProps>
+<HideForApply F='FALSE'>0</HideForApply>
+</StyleProp>
+<Line>
+<LineWeight F='Inh'>0.01</LineWeight>
+<LineColor F='Inh'>0</LineColor>
+<LinePattern F='0'>0</LinePattern>
+<Rounding F='Inh'>0</Rounding>
+<EndArrowSize F='Inh'>2</EndArrowSize>
+<BeginArrow F='Inh'>0</BeginArrow>
+<EndArrow F='Inh'>0</EndArrow>
+<LineCap F='Inh'>0</LineCap>
+<BeginArrowSize F='Inh'>2</BeginArrowSize>
+<LineColorTrans F='Inh'>0</LineColorTrans>
+</Line>
+<Fill>
+<FillForegnd F='Inh'>1</FillForegnd>
+<FillBkgnd F='Inh'>0</FillBkgnd>
+<FillPattern F='0'>0</FillPattern>
+<ShdwForegnd F='Inh'>0</ShdwForegnd>
+<ShdwBkgnd F='Inh'>1</ShdwBkgnd>
+<ShdwPattern F='Inh'>0</ShdwPattern>
+<FillForegndTrans F='Inh'>0</FillForegndTrans>
+<FillBkgndTrans F='Inh'>0</FillBkgndTrans>
+<ShdwForegndTrans F='Inh'>0</ShdwForegndTrans>
+<ShdwBkgndTrans F='Inh'>0</ShdwBkgndTrans>
+</Fill>
+</StyleSheet>
+<StyleSheet ID='3' NameU='Normal' LineStyle='0' FillStyle='0' TextStyle='0'>
+<StyleProp>
+<EnableLineProps F='1'>1</EnableLineProps>
+<EnableFillProps F='1'>1</EnableFillProps>
+<EnableTextProps F='1'>1</EnableTextProps>
+<HideForApply F='FALSE'>0</HideForApply>
+</StyleProp>
+<TextBlock>
+<LeftMargin Unit='PT' F='4PT'>0.055555555555556</LeftMargin>
+<RightMargin Unit='PT' F='4PT'>0.055555555555556</RightMargin>
+<TopMargin Unit='PT' F='4PT'>0.055555555555556</TopMargin>
+<BottomMargin Unit='PT' F='4PT'>0.055555555555556</BottomMargin>
+<VerticalAlign F='Inh'>1</VerticalAlign>
+<TextBkgnd F='Inh'>0</TextBkgnd>
+<DefaultTabStop F='Inh'>0.5</DefaultTabStop>
+<TextDirection F='Inh'>0</TextDirection>
+<TextBkgndTrans F='Inh'>0</TextBkgndTrans>
+</TextBlock>
+</StyleSheet>
+<StyleSheet ID='4' NameU='Guide' LineStyle='3' FillStyle='3' TextStyle='3'>
+<StyleProp>
+<EnableLineProps F='1'>1</EnableLineProps>
+<EnableFillProps F='1'>1</EnableFillProps>
+<EnableTextProps F='1'>1</EnableTextProps>
+<HideForApply F='FALSE'>0</HideForApply>
+</StyleProp>
+<Line>
+<LineWeight Unit='PT' F='0PT'>0</LineWeight>
+<LineColor F='4'>4</LineColor>
+<LinePattern F='23'>23</LinePattern>
+<Rounding F='Inh'>0</Rounding>
+<EndArrowSize F='Inh'>2</EndArrowSize>
+<BeginArrow F='Inh'>0</BeginArrow>
+<EndArrow F='Inh'>0</EndArrow>
+<LineCap F='Inh'>0</LineCap>
+<BeginArrowSize F='Inh'>2</BeginArrowSize>
+<LineColorTrans F='Inh'>0</LineColorTrans>
+</Line>
+<Fill>
+<FillForegnd F='Inh'>1</FillForegnd>
+<FillBkgnd F='Inh'>0</FillBkgnd>
+<FillPattern F='0'>0</FillPattern>
+<ShdwForegnd F='Inh'>0</ShdwForegnd>
+<ShdwBkgnd F='Inh'>1</ShdwBkgnd>
+<ShdwPattern F='Inh'>0</ShdwPattern>
+<FillForegndTrans F='Inh'>0</FillForegndTrans>
+<FillBkgndTrans F='Inh'>0</FillBkgndTrans>
+<ShdwForegndTrans F='Inh'>0</ShdwForegndTrans>
+<ShdwBkgndTrans F='Inh'>0</ShdwBkgndTrans>
+</Fill>
+<TextBlock>
+<LeftMargin Unit='PT' F='Inh'>0.055555555555556</LeftMargin>
+<RightMargin Unit='PT' F='Inh'>0.055555555555556</RightMargin>
+<TopMargin F='0DT'>0</TopMargin>
+<BottomMargin F='0DT'>0</BottomMargin>
+<VerticalAlign F='2'>2</VerticalAlign>
+<TextBkgnd F='Inh'>0</TextBkgnd>
+<DefaultTabStop F='Inh'>0.5</DefaultTabStop>
+<TextDirection F='Inh'>0</TextDirection>
+<TextBkgndTrans F='Inh'>0</TextBkgndTrans>
+</TextBlock>
+<Misc>
+<NoObjHandles F='Inh'>0</NoObjHandles>
+<NonPrinting F='TRUE'>1</NonPrinting>
+<NoCtlHandles F='Inh'>0</NoCtlHandles>
+<NoAlignBox F='Inh'>0</NoAlignBox>
+<UpdateAlignBox F='Inh'>0</UpdateAlignBox>
+<HideText F='Inh'>0</HideText>
+<DynFeedback F='Inh'>0</DynFeedback>
+<GlueType F='Inh'>0</GlueType>
+<WalkPreference F='Inh'>0</WalkPreference>
+<BegTrigger F='No Formula'>0</BegTrigger>
+<EndTrigger F='No Formula'>0</EndTrigger>
+<ObjType F='Inh'>0</ObjType>
+<Comment F='Inh'/>
+<IsDropSource F='Inh'>0</IsDropSource>
+<NoLiveDynamics F='Inh'>0</NoLiveDynamics>
+</Misc>
+<Layout>
+<ShapePermeableX F='TRUE'>1</ShapePermeableX>
+<ShapePermeableY F='TRUE'>1</ShapePermeableY>
+<ShapePermeablePlace F='TRUE'>1</ShapePermeablePlace>
+<ShapeFixedCode F='Inh'>0</ShapeFixedCode>
+<ShapePlowCode F='Inh'>0</ShapePlowCode>
+<ShapeRouteStyle F='Inh'>0</ShapeRouteStyle>
+<ConFixedCode F='Inh'>0</ConFixedCode>
+<ConLineJumpCode F='Inh'>0</ConLineJumpCode>
+<ConLineJumpStyle F='Inh'>0</ConLineJumpStyle>
+<ConLineJumpDirX F='Inh'>0</ConLineJumpDirX>
+<ConLineJumpDirY F='Inh'>0</ConLineJumpDirY>
+<ShapePlaceFlip F='Inh'>0</ShapePlaceFlip>
+<ConLineRouteExt F='Inh'>0</ConLineRouteExt>
+</Layout>
+<Char IX='0'>
+<Font F='Inh'>0</Font>
+<Color F='4'>4</Color>
+<Style F='Inh'>0</Style>
+<Case F='Inh'>0</Case>
+<Pos F='Inh'>0</Pos>
+<FontScale F='Inh'>1</FontScale>
+<Locale F='Inh'>0</Locale>
+<Size F='0.125DT'>0.125</Size>
+<DblUnderline F='Inh'>0</DblUnderline>
+<Overline F='Inh'>0</Overline>
+<Strikethru F='Inh'>0</Strikethru>
+<Perpendicular F='Inh'>0</Perpendicular>
+<Letterspace F='Inh'>0</Letterspace>
+<ColorTrans F='Inh'>0</ColorTrans>
+</Char>
+</StyleSheet>
+<StyleSheet ID='6' NameU='Visio 90' LineStyle='3' FillStyle='3' TextStyle='3'>
+<StyleProp>
+<EnableLineProps F='1'>1</EnableLineProps>
+<EnableFillProps F='1'>1</EnableFillProps>
+<EnableTextProps F='1'>1</EnableTextProps>
+<HideForApply F='1'>1</HideForApply>
+</StyleProp>
+<Line>
+<LineWeight F='Inh'>0.01</LineWeight>
+<LineColor F='0'>0</LineColor>
+<LinePattern F='Inh'>1</LinePattern>
+<Rounding F='Inh'>0</Rounding>
+<EndArrowSize F='Inh'>2</EndArrowSize>
+<BeginArrow F='Inh'>0</BeginArrow>
+<EndArrow F='Inh'>0</EndArrow>
+<LineCap F='Inh'>0</LineCap>
+<BeginArrowSize F='Inh'>2</BeginArrowSize>
+<LineColorTrans F='Inh'>0</LineColorTrans>
+</Line>
+<Fill>
+<FillForegnd F='0'>0</FillForegnd>
+<FillBkgnd F='1'>1</FillBkgnd>
+<FillPattern F='Inh'>1</FillPattern>
+<ShdwForegnd F='0'>0</ShdwForegnd>
+<ShdwBkgnd F='Inh'>1</ShdwBkgnd>
+<ShdwPattern F='Inh'>0</ShdwPattern>
+<FillForegndTrans F='Inh'>0</FillForegndTrans>
+<FillBkgndTrans F='Inh'>0</FillBkgndTrans>
+<ShdwForegndTrans F='Inh'>0</ShdwForegndTrans>
+<ShdwBkgndTrans F='Inh'>0</ShdwBkgndTrans>
+</Fill>
+<Char IX='0'>
+<Font F='Inh'>0</Font>
+<Color F='0'>0</Color>
+<Style F='Inh'>0</Style>
+<Case F='Inh'>0</Case>
+<Pos F='Inh'>0</Pos>
+<FontScale F='Inh'>1</FontScale>
+<Locale F='Inh'>0</Locale>
+<Size F='Inh'>0.16666666666667</Size>
+<DblUnderline F='Inh'>0</DblUnderline>
+<Overline F='Inh'>0</Overline>
+<Strikethru F='Inh'>0</Strikethru>
+<Perpendicular F='Inh'>0</Perpendicular>
+<Letterspace F='Inh'>0</Letterspace>
+<ColorTrans F='Inh'>0</ColorTrans>
+</Char>
+</StyleSheet>
+<StyleSheet ID='7' NameU='Connector' LineStyle='6' FillStyle='6' TextStyle='6'>
+<StyleProp>
+<EnableLineProps F='1'>1</EnableLineProps>
+<EnableFillProps F='1'>1</EnableFillProps>
+<EnableTextProps F='1'>1</EnableTextProps>
+<HideForApply F='0'>0</HideForApply>
+</StyleProp>
+<TextBlock>
+<LeftMargin Unit='PT' F='Inh'>0.055555555555556</LeftMargin>
+<RightMargin Unit='PT' F='Inh'>0.055555555555556</RightMargin>
+<TopMargin Unit='PT' F='Inh'>0.055555555555556</TopMargin>
+<BottomMargin Unit='PT' F='Inh'>0.055555555555556</BottomMargin>
+<VerticalAlign F='Inh'>1</VerticalAlign>
+<TextBkgnd F='2'>2</TextBkgnd>
+<DefaultTabStop F='Inh'>0.5</DefaultTabStop>
+<TextDirection F='Inh'>0</TextDirection>
+<TextBkgndTrans F='Inh'>0</TextBkgndTrans>
+</TextBlock>
+<Line>
+<LineWeight F='0.0033333333333333DT'>0.0033333333333333</LineWeight>
+<LineColor F='Inh'>0</LineColor>
+<LinePattern F='Inh'>1</LinePattern>
+<Rounding F='Inh'>0</Rounding>
+<EndArrowSize F='Inh'>2</EndArrowSize>
+<BeginArrow F='Inh'>0</BeginArrow>
+<EndArrow F='Inh'>0</EndArrow>
+<LineCap F='Inh'>0</LineCap>
+<BeginArrowSize F='Inh'>2</BeginArrowSize>
+<LineColorTrans F='Inh'>0</LineColorTrans>
+</Line>
+<Fill>
+<FillForegnd F='Inh'>0</FillForegnd>
+<FillBkgnd F='Inh'>1</FillBkgnd>
+<FillPattern F='Inh'>1</FillPattern>
+<ShdwForegnd F='Inh'>0</ShdwForegnd>
+<ShdwBkgnd F='Inh'>1</ShdwBkgnd>
+<ShdwPattern F='Inh'>0</ShdwPattern>
+<FillForegndTrans F='Inh'>0</FillForegndTrans>
+<FillBkgndTrans F='Inh'>0</FillBkgndTrans>
+<ShdwForegndTrans F='Inh'>0</ShdwForegndTrans>
+<ShdwBkgndTrans F='Inh'>0</ShdwBkgndTrans>
+</Fill>
+<Char IX='0'>
+<Font F='Inh'>0</Font>
+<Color F='Inh'>0</Color>
+<Style F='Inh'>0</Style>
+<Case F='Inh'>0</Case>
+<Pos F='Inh'>0</Pos>
+<FontScale F='Inh'>1</FontScale>
+<Locale F='Inh'>0</Locale>
+<Size Unit='PT' F='8PT'>0.11111111111111</Size>
+<DblUnderline F='Inh'>0</DblUnderline>
+<Overline F='Inh'>0</Overline>
+<Strikethru F='Inh'>0</Strikethru>
+<Perpendicular F='Inh'>0</Perpendicular>
+<Letterspace F='Inh'>0</Letterspace>
+<ColorTrans F='Inh'>0</ColorTrans>
+</Char>
+</StyleSheet>
+<StyleSheet ID='8' NameU='Visio 00' LineStyle='0' FillStyle='0' TextStyle='0'>
+<StyleProp>
+<EnableLineProps F='1'>1</EnableLineProps>
+<EnableFillProps F='1'>1</EnableFillProps>
+<EnableTextProps F='1'>1</EnableTextProps>
+<HideForApply F='1'>1</HideForApply>
+</StyleProp>
+<Line>
+<LineWeight F='Inh'>0.01</LineWeight>
+<LineColor F='0'>0</LineColor>
+<LinePattern F='Inh'>1</LinePattern>
+<Rounding F='Inh'>0</Rounding>
+<EndArrowSize F='Inh'>2</EndArrowSize>
+<BeginArrow F='Inh'>0</BeginArrow>
+<EndArrow F='Inh'>0</EndArrow>
+<LineCap F='Inh'>0</LineCap>
+<BeginArrowSize F='Inh'>2</BeginArrowSize>
+<LineColorTrans F='Inh'>0</LineColorTrans>
+</Line>
+<Fill>
+<FillForegnd F='1'>1</FillForegnd>
+<FillBkgnd F='0'>0</FillBkgnd>
+<FillPattern F='Inh'>1</FillPattern>
+<ShdwForegnd F='0'>0</ShdwForegnd>
+<ShdwBkgnd F='Inh'>1</ShdwBkgnd>
+<ShdwPattern F='Inh'>0</ShdwPattern>
+<FillForegndTrans F='Inh'>0</FillForegndTrans>
+<FillBkgndTrans F='Inh'>0</FillBkgndTrans>
+<ShdwForegndTrans F='Inh'>0</ShdwForegndTrans>
+<ShdwBkgndTrans F='Inh'>0</ShdwBkgndTrans>
+</Fill>
+<Char IX='0'>
+<Font F='Inh'>0</Font>
+<Color F='0'>0</Color>
+<Style F='Inh'>0</Style>
+<Case F='Inh'>0</Case>
+<Pos F='Inh'>0</Pos>
+<FontScale F='Inh'>1</FontScale>
+<Locale F='Inh'>0</Locale>
+<Size F='Inh'>0.16666666666667</Size>
+<DblUnderline F='Inh'>0</DblUnderline>
+<Overline F='Inh'>0</Overline>
+<Strikethru F='Inh'>0</Strikethru>
+<Perpendicular F='Inh'>0</Perpendicular>
+<Letterspace F='Inh'>0</Letterspace>
+<ColorTrans F='Inh'>0</ColorTrans>
+</Char>
+</StyleSheet>
+<StyleSheet ID='9' NameU='Visio 01' LineStyle='0' FillStyle='0' TextStyle='0'>
+<StyleProp>
+<EnableLineProps F='1'>1</EnableLineProps>
+<EnableFillProps F='1'>1</EnableFillProps>
+<EnableTextProps F='1'>1</EnableTextProps>
+<HideForApply F='1'>1</HideForApply>
+</StyleProp>
+<Line>
+<LineWeight F='Inh'>0.01</LineWeight>
+<LineColor F='0'>0</LineColor>
+<LinePattern F='Inh'>1</LinePattern>
+<Rounding F='Inh'>0</Rounding>
+<EndArrowSize F='Inh'>2</EndArrowSize>
+<BeginArrow F='Inh'>0</BeginArrow>
+<EndArrow F='Inh'>0</EndArrow>
+<LineCap F='Inh'>0</LineCap>
+<BeginArrowSize F='Inh'>2</BeginArrowSize>
+<LineColorTrans F='Inh'>0</LineColorTrans>
+</Line>
+<Fill>
+<FillForegnd F='1'>1</FillForegnd>
+<FillBkgnd F='0'>0</FillBkgnd>
+<FillPattern F='Inh'>1</FillPattern>
+<ShdwForegnd F='0'>0</ShdwForegnd>
+<ShdwBkgnd F='Inh'>1</ShdwBkgnd>
+<ShdwPattern F='Inh'>0</ShdwPattern>
+<FillForegndTrans F='Inh'>0</FillForegndTrans>
+<FillBkgndTrans F='Inh'>0</FillBkgndTrans>
+<ShdwForegndTrans F='Inh'>0</ShdwForegndTrans>
+<ShdwBkgndTrans F='Inh'>0</ShdwBkgndTrans>
+</Fill>
+<Char IX='0'>
+<Font F='Inh'>0</Font>
+<Color F='0'>0</Color>
+<Style F='Inh'>0</Style>
+<Case F='Inh'>0</Case>
+<Pos F='Inh'>0</Pos>
+<FontScale F='Inh'>1</FontScale>
+<Locale F='Inh'>0</Locale>
+<Size F='Inh'>0.16666666666667</Size>
+<DblUnderline F='Inh'>0</DblUnderline>
+<Overline F='Inh'>0</Overline>
+<Strikethru F='Inh'>0</Strikethru>
+<Perpendicular F='Inh'>0</Perpendicular>
+<Letterspace F='Inh'>0</Letterspace>
+<ColorTrans F='Inh'>0</ColorTrans>
+</Char>
+</StyleSheet>
+<StyleSheet ID='10' NameU='Visio 02' LineStyle='0' FillStyle='0' TextStyle='0'>
+<StyleProp>
+<EnableLineProps F='1'>1</EnableLineProps>
+<EnableFillProps F='1'>1</EnableFillProps>
+<EnableTextProps F='1'>1</EnableTextProps>
+<HideForApply F='1'>1</HideForApply>
+</StyleProp>
+<Line>
+<LineWeight F='Inh'>0.01</LineWeight>
+<LineColor F='0'>0</LineColor>
+<LinePattern F='Inh'>1</LinePattern>
+<Rounding F='Inh'>0</Rounding>
+<EndArrowSize F='Inh'>2</EndArrowSize>
+<BeginArrow F='Inh'>0</BeginArrow>
+<EndArrow F='Inh'>0</EndArrow>
+<LineCap F='Inh'>0</LineCap>
+<BeginArrowSize F='Inh'>2</BeginArrowSize>
+<LineColorTrans F='Inh'>0</LineColorTrans>
+</Line>
+<Fill>
+<FillForegnd F='14'>14</FillForegnd>
+<FillBkgnd F='1'>1</FillBkgnd>
+<FillPattern F='Inh'>1</FillPattern>
+<ShdwForegnd F='0'>0</ShdwForegnd>
+<ShdwBkgnd F='Inh'>1</ShdwBkgnd>
+<ShdwPattern F='Inh'>0</ShdwPattern>
+<FillForegndTrans F='Inh'>0</FillForegndTrans>
+<FillBkgndTrans F='Inh'>0</FillBkgndTrans>
+<ShdwForegndTrans F='Inh'>0</ShdwForegndTrans>
+<ShdwBkgndTrans F='Inh'>0</ShdwBkgndTrans>
+</Fill>
+<Char IX='0'>
+<Font F='Inh'>0</Font>
+<Color F='0'>0</Color>
+<Style F='Inh'>0</Style>
+<Case F='Inh'>0</Case>
+<Pos F='Inh'>0</Pos>
+<FontScale F='Inh'>1</FontScale>
+<Locale F='Inh'>0</Locale>
+<Size F='Inh'>0.16666666666667</Size>
+<DblUnderline F='Inh'>0</DblUnderline>
+<Overline F='Inh'>0</Overline>
+<Strikethru F='Inh'>0</Strikethru>
+<Perpendicular F='Inh'>0</Perpendicular>
+<Letterspace F='Inh'>0</Letterspace>
+<ColorTrans F='Inh'>0</ColorTrans>
+</Char>
+</StyleSheet>
+<StyleSheet ID='11' NameU='Visio 03' LineStyle='0' FillStyle='0' TextStyle='0'>
+<StyleProp>
+<EnableLineProps F='1'>1</EnableLineProps>
+<EnableFillProps F='1'>1</EnableFillProps>
+<EnableTextProps F='1'>1</EnableTextProps>
+<HideForApply F='1'>1</HideForApply>
+</StyleProp>
+<Line>
+<LineWeight F='Inh'>0.01</LineWeight>
+<LineColor F='0'>0</LineColor>
+<LinePattern F='Inh'>1</LinePattern>
+<Rounding F='Inh'>0</Rounding>
+<EndArrowSize F='Inh'>2</EndArrowSize>
+<BeginArrow F='Inh'>0</BeginArrow>
+<EndArrow F='Inh'>0</EndArrow>
+<LineCap F='Inh'>0</LineCap>
+<BeginArrowSize F='Inh'>2</BeginArrowSize>
+<LineColorTrans F='Inh'>0</LineColorTrans>
+</Line>
+<Fill>
+<FillForegnd F='1'>1</FillForegnd>
+<FillBkgnd F='0'>0</FillBkgnd>
+<FillPattern F='Inh'>1</FillPattern>
+<ShdwForegnd F='0'>0</ShdwForegnd>
+<ShdwBkgnd F='Inh'>1</ShdwBkgnd>
+<ShdwPattern F='Inh'>0</ShdwPattern>
+<FillForegndTrans F='Inh'>0</FillForegndTrans>
+<FillBkgndTrans F='Inh'>0</FillBkgndTrans>
+<ShdwForegndTrans F='Inh'>0</ShdwForegndTrans>
+<ShdwBkgndTrans F='Inh'>0</ShdwBkgndTrans>
+</Fill>
+<Char IX='0'>
+<Font F='Inh'>0</Font>
+<Color F='0'>0</Color>
+<Style F='Inh'>0</Style>
+<Case F='Inh'>0</Case>
+<Pos F='Inh'>0</Pos>
+<FontScale F='Inh'>1</FontScale>
+<Locale F='Inh'>0</Locale>
+<Size F='Inh'>0.16666666666667</Size>
+<DblUnderline F='Inh'>0</DblUnderline>
+<Overline F='Inh'>0</Overline>
+<Strikethru F='Inh'>0</Strikethru>
+<Perpendicular F='Inh'>0</Perpendicular>
+<Letterspace F='Inh'>0</Letterspace>
+<ColorTrans F='Inh'>0</ColorTrans>
+</Char>
+</StyleSheet>
+<StyleSheet ID='12' NameU='Visio 10' LineStyle='0' FillStyle='0' TextStyle='0'>
+<StyleProp>
+<EnableLineProps F='1'>1</EnableLineProps>
+<EnableFillProps F='1'>1</EnableFillProps>
+<EnableTextProps F='1'>1</EnableTextProps>
+<HideForApply F='1'>1</HideForApply>
+</StyleProp>
+<Line>
+<LineWeight F='Inh'>0.01</LineWeight>
+<LineColor F='0'>0</LineColor>
+<LinePattern F='Inh'>1</LinePattern>
+<Rounding F='Inh'>0</Rounding>
+<EndArrowSize F='Inh'>2</EndArrowSize>
+<BeginArrow F='Inh'>0</BeginArrow>
+<EndArrow F='Inh'>0</EndArrow>
+<LineCap F='Inh'>0</LineCap>
+<BeginArrowSize F='Inh'>2</BeginArrowSize>
+<LineColorTrans F='Inh'>0</LineColorTrans>
+</Line>
+<Fill>
+<FillForegnd F='1'>1</FillForegnd>
+<FillBkgnd F='0'>0</FillBkgnd>
+<FillPattern F='Inh'>1</FillPattern>
+<ShdwForegnd F='0'>0</ShdwForegnd>
+<ShdwBkgnd F='Inh'>1</ShdwBkgnd>
+<ShdwPattern F='Inh'>0</ShdwPattern>
+<FillForegndTrans F='Inh'>0</FillForegndTrans>
+<FillBkgndTrans F='Inh'>0</FillBkgndTrans>
+<ShdwForegndTrans F='Inh'>0</ShdwForegndTrans>
+<ShdwBkgndTrans F='Inh'>0</ShdwBkgndTrans>
+</Fill>
+<Char IX='0'>
+<Font F='Inh'>0</Font>
+<Color F='0'>0</Color>
+<Style F='Inh'>0</Style>
+<Case F='Inh'>0</Case>
+<Pos F='Inh'>0</Pos>
+<FontScale F='Inh'>1</FontScale>
+<Locale F='Inh'>0</Locale>
+<Size F='Inh'>0.16666666666667</Size>
+<DblUnderline F='Inh'>0</DblUnderline>
+<Overline F='Inh'>0</Overline>
+<Strikethru F='Inh'>0</Strikethru>
+<Perpendicular F='Inh'>0</Perpendicular>
+<Letterspace F='Inh'>0</Letterspace>
+<ColorTrans F='Inh'>0</ColorTrans>
+</Char>
+</StyleSheet>
+<StyleSheet ID='13' NameU='Visio 11' LineStyle='0' FillStyle='0' TextStyle='0'>
+<StyleProp>
+<EnableLineProps F='1'>1</EnableLineProps>
+<EnableFillProps F='1'>1</EnableFillProps>
+<EnableTextProps F='1'>1</EnableTextProps>
+<HideForApply F='1'>1</HideForApply>
+</StyleProp>
+<Line>
+<LineWeight F='Inh'>0.01</LineWeight>
+<LineColor F='0'>0</LineColor>
+<LinePattern F='Inh'>1</LinePattern>
+<Rounding F='Inh'>0</Rounding>
+<EndArrowSize F='Inh'>2</EndArrowSize>
+<BeginArrow F='Inh'>0</BeginArrow>
+<EndArrow F='Inh'>0</EndArrow>
+<LineCap F='Inh'>0</LineCap>
+<BeginArrowSize F='Inh'>2</BeginArrowSize>
+<LineColorTrans F='Inh'>0</LineColorTrans>
+</Line>
+<Fill>
+<FillForegnd F='15'>15</FillForegnd>
+<FillBkgnd F='15'>15</FillBkgnd>
+<FillPattern F='Inh'>1</FillPattern>
+<ShdwForegnd F='0'>0</ShdwForegnd>
+<ShdwBkgnd F='Inh'>1</ShdwBkgnd>
+<ShdwPattern F='Inh'>0</ShdwPattern>
+<FillForegndTrans F='Inh'>0</FillForegndTrans>
+<FillBkgndTrans F='Inh'>0</FillBkgndTrans>
+<ShdwForegndTrans F='Inh'>0</ShdwForegndTrans>
+<ShdwBkgndTrans F='Inh'>0</ShdwBkgndTrans>
+</Fill>
+<Char IX='0'>
+<Font F='Inh'>0</Font>
+<Color F='0'>0</Color>
+<Style F='Inh'>0</Style>
+<Case F='Inh'>0</Case>
+<Pos F='Inh'>0</Pos>
+<FontScale F='Inh'>1</FontScale>
+<Locale F='Inh'>0</Locale>
+<Size F='Inh'>0.16666666666667</Size>
+<DblUnderline F='Inh'>0</DblUnderline>
+<Overline F='Inh'>0</Overline>
+<Strikethru F='Inh'>0</Strikethru>
+<Perpendicular F='Inh'>0</Perpendicular>
+<Letterspace F='Inh'>0</Letterspace>
+<ColorTrans F='Inh'>0</ColorTrans>
+</Char>
+</StyleSheet>
+<StyleSheet ID='14' NameU='Visio 12' LineStyle='0' FillStyle='0' TextStyle='0'>
+<StyleProp>
+<EnableLineProps F='1'>1</EnableLineProps>
+<EnableFillProps F='1'>1</EnableFillProps>
+<EnableTextProps F='1'>1</EnableTextProps>
+<HideForApply F='1'>1</HideForApply>
+</StyleProp>
+<Line>
+<LineWeight F='Inh'>0.01</LineWeight>
+<LineColor F='0'>0</LineColor>
+<LinePattern F='Inh'>1</LinePattern>
+<Rounding F='Inh'>0</Rounding>
+<EndArrowSize F='Inh'>2</EndArrowSize>
+<BeginArrow F='Inh'>0</BeginArrow>
+<EndArrow F='Inh'>0</EndArrow>
+<LineCap F='Inh'>0</LineCap>
+<BeginArrowSize F='Inh'>2</BeginArrowSize>
+<LineColorTrans F='Inh'>0</LineColorTrans>
+</Line>
+<Fill>
+<FillForegnd F='18'>18</FillForegnd>
+<FillBkgnd F='1'>1</FillBkgnd>
+<FillPattern F='Inh'>1</FillPattern>
+<ShdwForegnd F='0'>0</ShdwForegnd>
+<ShdwBkgnd F='Inh'>1</ShdwBkgnd>
+<ShdwPattern F='Inh'>0</ShdwPattern>
+<FillForegndTrans F='Inh'>0</FillForegndTrans>
+<FillBkgndTrans F='Inh'>0</FillBkgndTrans>
+<ShdwForegndTrans F='Inh'>0</ShdwForegndTrans>
+<ShdwBkgndTrans F='Inh'>0</ShdwBkgndTrans>
+</Fill>
+<Char IX='0'>
+<Font F='Inh'>0</Font>
+<Color F='0'>0</Color>
+<Style F='Inh'>0</Style>
+<Case F='Inh'>0</Case>
+<Pos F='Inh'>0</Pos>
+<FontScale F='Inh'>1</FontScale>
+<Locale F='Inh'>0</Locale>
+<Size F='Inh'>0.16666666666667</Size>
+<DblUnderline F='Inh'>0</DblUnderline>
+<Overline F='Inh'>0</Overline>
+<Strikethru F='Inh'>0</Strikethru>
+<Perpendicular F='Inh'>0</Perpendicular>
+<Letterspace F='Inh'>0</Letterspace>
+<ColorTrans F='Inh'>0</ColorTrans>
+</Char>
+</StyleSheet>
+<StyleSheet ID='15' NameU='Visio 13' LineStyle='0' FillStyle='0' TextStyle='0'>
+<StyleProp>
+<EnableLineProps F='1'>1</EnableLineProps>
+<EnableFillProps F='1'>1</EnableFillProps>
+<EnableTextProps F='1'>1</EnableTextProps>
+<HideForApply F='1'>1</HideForApply>
+</StyleProp>
+<Line>
+<LineWeight F='Inh'>0.01</LineWeight>
+<LineColor F='0'>0</LineColor>
+<LinePattern F='Inh'>1</LinePattern>
+<Rounding F='Inh'>0</Rounding>
+<EndArrowSize F='Inh'>2</EndArrowSize>
+<BeginArrow F='Inh'>0</BeginArrow>
+<EndArrow F='Inh'>0</EndArrow>
+<LineCap F='Inh'>0</LineCap>
+<BeginArrowSize F='Inh'>2</BeginArrowSize>
+<LineColorTrans F='Inh'>0</LineColorTrans>
+</Line>
+<Fill>
+<FillForegnd F='15'>15</FillForegnd>
+<FillBkgnd F='18'>18</FillBkgnd>
+<FillPattern F='Inh'>1</FillPattern>
+<ShdwForegnd F='0'>0</ShdwForegnd>
+<ShdwBkgnd F='Inh'>1</ShdwBkgnd>
+<ShdwPattern F='Inh'>0</ShdwPattern>
+<FillForegndTrans F='Inh'>0</FillForegndTrans>
+<FillBkgndTrans F='Inh'>0</FillBkgndTrans>
+<ShdwForegndTrans F='Inh'>0</ShdwForegndTrans>
+<ShdwBkgndTrans F='Inh'>0</ShdwBkgndTrans>
+</Fill>
+<Char IX='0'>
+<Font F='Inh'>0</Font>
+<Color F='0'>0</Color>
+<Style F='Inh'>0</Style>
+<Case F='Inh'>0</Case>
+<Pos F='Inh'>0</Pos>
+<FontScale F='Inh'>1</FontScale>
+<Locale F='Inh'>0</Locale>
+<Size F='Inh'>0.16666666666667</Size>
+<DblUnderline F='Inh'>0</DblUnderline>
+<Overline F='Inh'>0</Overline>
+<Strikethru F='Inh'>0</Strikethru>
+<Perpendicular F='Inh'>0</Perpendicular>
+<Letterspace F='Inh'>0</Letterspace>
+<ColorTrans F='Inh'>0</ColorTrans>
+</Char>
+</StyleSheet>
+<StyleSheet ID='16' NameU='Visio 20' LineStyle='0' FillStyle='0' TextStyle='0'>
+<StyleProp>
+<EnableLineProps F='1'>1</EnableLineProps>
+<EnableFillProps F='1'>1</EnableFillProps>
+<EnableTextProps F='1'>1</EnableTextProps>
+<HideForApply F='1'>1</HideForApply>
+</StyleProp>
+<Line>
+<LineWeight F='Inh'>0.01</LineWeight>
+<LineColor F='0'>0</LineColor>
+<LinePattern F='Inh'>1</LinePattern>
+<Rounding F='Inh'>0</Rounding>
+<EndArrowSize F='Inh'>2</EndArrowSize>
+<BeginArrow F='Inh'>0</BeginArrow>
+<EndArrow F='Inh'>0</EndArrow>
+<LineCap F='Inh'>0</LineCap>
+<BeginArrowSize F='Inh'>2</BeginArrowSize>
+<LineColorTrans F='Inh'>0</LineColorTrans>
+</Line>
+<Fill>
+<FillForegnd F='14'>14</FillForegnd>
+<FillBkgnd F='1'>1</FillBkgnd>
+<FillPattern F='Inh'>1</FillPattern>
+<ShdwForegnd F='0'>0</ShdwForegnd>
+<ShdwBkgnd F='Inh'>1</ShdwBkgnd>
+<ShdwPattern F='Inh'>0</ShdwPattern>
+<FillForegndTrans F='Inh'>0</FillForegndTrans>
+<FillBkgndTrans F='Inh'>0</FillBkgndTrans>
+<ShdwForegndTrans F='Inh'>0</ShdwForegndTrans>
+<ShdwBkgndTrans F='Inh'>0</ShdwBkgndTrans>
+</Fill>
+<Char IX='0'>
+<Font F='Inh'>0</Font>
+<Color F='0'>0</Color>
+<Style F='Inh'>0</Style>
+<Case F='Inh'>0</Case>
+<Pos F='Inh'>0</Pos>
+<FontScale F='Inh'>1</FontScale>
+<Locale F='Inh'>0</Locale>
+<Size F='Inh'>0.16666666666667</Size>
+<DblUnderline F='Inh'>0</DblUnderline>
+<Overline F='Inh'>0</Overline>
+<Strikethru F='Inh'>0</Strikethru>
+<Perpendicular F='Inh'>0</Perpendicular>
+<Letterspace F='Inh'>0</Letterspace>
+<ColorTrans F='Inh'>0</ColorTrans>
+</Char>
+</StyleSheet>
+<StyleSheet ID='17' NameU='Visio 21' LineStyle='0' FillStyle='0' TextStyle='0'>
+<StyleProp>
+<EnableLineProps F='1'>1</EnableLineProps>
+<EnableFillProps F='1'>1</EnableFillProps>
+<EnableTextProps F='1'>1</EnableTextProps>
+<HideForApply F='1'>1</HideForApply>
+</StyleProp>
+<Line>
+<LineWeight F='Inh'>0.01</LineWeight>
+<LineColor F='0'>0</LineColor>
+<LinePattern F='Inh'>1</LinePattern>
+<Rounding F='Inh'>0</Rounding>
+<EndArrowSize F='Inh'>2</EndArrowSize>
+<BeginArrow F='Inh'>0</BeginArrow>
+<EndArrow F='Inh'>0</EndArrow>
+<LineCap F='Inh'>0</LineCap>
+<BeginArrowSize F='Inh'>2</BeginArrowSize>
+<LineColorTrans F='Inh'>0</LineColorTrans>
+</Line>
+<Fill>
+<FillForegnd F='15'>15</FillForegnd>
+<FillBkgnd F='1'>1</FillBkgnd>
+<FillPattern F='Inh'>1</FillPattern>
+<ShdwForegnd F='0'>0</ShdwForegnd>
+<ShdwBkgnd F='Inh'>1</ShdwBkgnd>
+<ShdwPattern F='Inh'>0</ShdwPattern>
+<FillForegndTrans F='Inh'>0</FillForegndTrans>
+<FillBkgndTrans F='Inh'>0</FillBkgndTrans>
+<ShdwForegndTrans F='Inh'>0</ShdwForegndTrans>
+<ShdwBkgndTrans F='Inh'>0</ShdwBkgndTrans>
+</Fill>
+<Char IX='0'>
+<Font F='Inh'>0</Font>
+<Color F='0'>0</Color>
+<Style F='Inh'>0</Style>
+<Case F='Inh'>0</Case>
+<Pos F='Inh'>0</Pos>
+<FontScale F='Inh'>1</FontScale>
+<Locale F='Inh'>0</Locale>
+<Size F='Inh'>0.16666666666667</Size>
+<DblUnderline F='Inh'>0</DblUnderline>
+<Overline F='Inh'>0</Overline>
+<Strikethru F='Inh'>0</Strikethru>
+<Perpendicular F='Inh'>0</Perpendicular>
+<Letterspace F='Inh'>0</Letterspace>
+<ColorTrans F='Inh'>0</ColorTrans>
+</Char>
+</StyleSheet>
+<StyleSheet ID='18' NameU='Visio 22' LineStyle='0' FillStyle='0' TextStyle='0'>
+<StyleProp>
+<EnableLineProps F='1'>1</EnableLineProps>
+<EnableFillProps F='1'>1</EnableFillProps>
+<EnableTextProps F='1'>1</EnableTextProps>
+<HideForApply F='1'>1</HideForApply>
+</StyleProp>
+<Line>
+<LineWeight F='Inh'>0.01</LineWeight>
+<LineColor F='0'>0</LineColor>
+<LinePattern F='Inh'>1</LinePattern>
+<Rounding F='Inh'>0</Rounding>
+<EndArrowSize F='Inh'>2</EndArrowSize>
+<BeginArrow F='Inh'>0</BeginArrow>
+<EndArrow F='Inh'>0</EndArrow>
+<LineCap F='Inh'>0</LineCap>
+<BeginArrowSize F='Inh'>2</BeginArrowSize>
+<LineColorTrans F='Inh'>0</LineColorTrans>
+</Line>
+<Fill>
+<FillForegnd F='18'>18</FillForegnd>
+<FillBkgnd F='14'>14</FillBkgnd>
+<FillPattern F='Inh'>1</FillPattern>
+<ShdwForegnd F='0'>0</ShdwForegnd>
+<ShdwBkgnd F='Inh'>1</ShdwBkgnd>
+<ShdwPattern F='Inh'>0</ShdwPattern>
+<FillForegndTrans F='Inh'>0</FillForegndTrans>
+<FillBkgndTrans F='Inh'>0</FillBkgndTrans>
+<ShdwForegndTrans F='Inh'>0</ShdwForegndTrans>
+<ShdwBkgndTrans F='Inh'>0</ShdwBkgndTrans>
+</Fill>
+<Char IX='0'>
+<Font F='Inh'>0</Font>
+<Color F='0'>0</Color>
+<Style F='Inh'>0</Style>
+<Case F='Inh'>0</Case>
+<Pos F='Inh'>0</Pos>
+<FontScale F='Inh'>1</FontScale>
+<Locale F='Inh'>0</Locale>
+<Size F='Inh'>0.16666666666667</Size>
+<DblUnderline F='Inh'>0</DblUnderline>
+<Overline F='Inh'>0</Overline>
+<Strikethru F='Inh'>0</Strikethru>
+<Perpendicular F='Inh'>0</Perpendicular>
+<Letterspace F='Inh'>0</Letterspace>
+<ColorTrans F='Inh'>0</ColorTrans>
+</Char>
+</StyleSheet>
+<StyleSheet ID='19' NameU='Visio 23' LineStyle='0' FillStyle='0' TextStyle='0'>
+<StyleProp>
+<EnableLineProps F='1'>1</EnableLineProps>
+<EnableFillProps F='1'>1</EnableFillProps>
+<EnableTextProps F='1'>1</EnableTextProps>
+<HideForApply F='1'>1</HideForApply>
+</StyleProp>
+<Line>
+<LineWeight F='Inh'>0.01</LineWeight>
+<LineColor F='0'>0</LineColor>
+<LinePattern F='Inh'>1</LinePattern>
+<Rounding F='Inh'>0</Rounding>
+<EndArrowSize F='Inh'>2</EndArrowSize>
+<BeginArrow F='Inh'>0</BeginArrow>
+<EndArrow F='Inh'>0</EndArrow>
+<LineCap F='Inh'>0</LineCap>
+<BeginArrowSize F='Inh'>2</BeginArrowSize>
+<LineColorTrans F='Inh'>0</LineColorTrans>
+</Line>
+<Fill>
+<FillForegnd F='15'>15</FillForegnd>
+<FillBkgnd F='18'>18</FillBkgnd>
+<FillPattern F='Inh'>1</FillPattern>
+<ShdwForegnd F='0'>0</ShdwForegnd>
+<ShdwBkgnd F='Inh'>1</ShdwBkgnd>
+<ShdwPattern F='Inh'>0</ShdwPattern>
+<FillForegndTrans F='Inh'>0</FillForegndTrans>
+<FillBkgndTrans F='Inh'>0</FillBkgndTrans>
+<ShdwForegndTrans F='Inh'>0</ShdwForegndTrans>
+<ShdwBkgndTrans F='Inh'>0</ShdwBkgndTrans>
+</Fill>
+<Char IX='0'>
+<Font F='Inh'>0</Font>
+<Color F='0'>0</Color>
+<Style F='Inh'>0</Style>
+<Case F='Inh'>0</Case>
+<Pos F='Inh'>0</Pos>
+<FontScale F='Inh'>1</FontScale>
+<Locale F='Inh'>0</Locale>
+<Size F='Inh'>0.16666666666667</Size>
+<DblUnderline F='Inh'>0</DblUnderline>
+<Overline F='Inh'>0</Overline>
+<Strikethru F='Inh'>0</Strikethru>
+<Perpendicular F='Inh'>0</Perpendicular>
+<Letterspace F='Inh'>0</Letterspace>
+<ColorTrans F='Inh'>0</ColorTrans>
+</Char>
+</StyleSheet>
+<StyleSheet ID='20' NameU='Visio 50' LineStyle='0' FillStyle='0' TextStyle='0'>
+<StyleProp>
+<EnableLineProps F='1'>1</EnableLineProps>
+<EnableFillProps F='1'>1</EnableFillProps>
+<EnableTextProps F='1'>1</EnableTextProps>
+<HideForApply F='1'>1</HideForApply>
+</StyleProp>
+<Line>
+<LineWeight F='Inh'>0.01</LineWeight>
+<LineColor F='15'>15</LineColor>
+<LinePattern F='Inh'>1</LinePattern>
+<Rounding F='Inh'>0</Rounding>
+<EndArrowSize F='Inh'>2</EndArrowSize>
+<BeginArrow F='Inh'>0</BeginArrow>
+<EndArrow F='Inh'>0</EndArrow>
+<LineCap F='Inh'>0</LineCap>
+<BeginArrowSize F='Inh'>2</BeginArrowSize>
+<LineColorTrans F='Inh'>0</LineColorTrans>
+</Line>
+<Fill>
+<FillForegnd F='HSL(160,0,225)'>#efefef</FillForegnd>
+<FillBkgnd F='1'>1</FillBkgnd>
+<FillPattern F='Inh'>1</FillPattern>
+<ShdwForegnd F='15'>15</ShdwForegnd>
+<ShdwBkgnd F='Inh'>1</ShdwBkgnd>
+<ShdwPattern F='Inh'>0</ShdwPattern>
+<FillForegndTrans F='Inh'>0</FillForegndTrans>
+<FillBkgndTrans F='Inh'>0</FillBkgndTrans>
+<ShdwForegndTrans F='Inh'>0</ShdwForegndTrans>
+<ShdwBkgndTrans F='Inh'>0</ShdwBkgndTrans>
+</Fill>
+<Char IX='0'>
+<Font F='Inh'>0</Font>
+<Color F='15'>15</Color>
+<Style F='Inh'>0</Style>
+<Case F='Inh'>0</Case>
+<Pos F='Inh'>0</Pos>
+<FontScale F='Inh'>1</FontScale>
+<Locale F='Inh'>0</Locale>
+<Size F='Inh'>0.16666666666667</Size>
+<DblUnderline F='Inh'>0</DblUnderline>
+<Overline F='Inh'>0</Overline>
+<Strikethru F='Inh'>0</Strikethru>
+<Perpendicular F='Inh'>0</Perpendicular>
+<Letterspace F='Inh'>0</Letterspace>
+<ColorTrans F='Inh'>0</ColorTrans>
+</Char>
+</StyleSheet>
+<StyleSheet ID='21' NameU='Visio 51' LineStyle='0' FillStyle='0' TextStyle='0'>
+<StyleProp>
+<EnableLineProps F='1'>1</EnableLineProps>
+<EnableFillProps F='1'>1</EnableFillProps>
+<EnableTextProps F='1'>1</EnableTextProps>
+<HideForApply F='1'>1</HideForApply>
+</StyleProp>
+<Line>
+<LineWeight F='Inh'>0.01</LineWeight>
+<LineColor F='1'>1</LineColor>
+<LinePattern F='Inh'>1</LinePattern>
+<Rounding F='Inh'>0</Rounding>
+<EndArrowSize F='Inh'>2</EndArrowSize>
+<BeginArrow F='Inh'>0</BeginArrow>
+<EndArrow F='Inh'>0</EndArrow>
+<LineCap F='Inh'>0</LineCap>
+<BeginArrowSize F='Inh'>2</BeginArrowSize>
+<LineColorTrans F='Inh'>0</LineColorTrans>
+</Line>
+<Fill>
+<FillForegnd F='1'>1</FillForegnd>
+<FillBkgnd F='0'>0</FillBkgnd>
+<FillPattern F='Inh'>1</FillPattern>
+<ShdwForegnd F='15'>15</ShdwForegnd>
+<ShdwBkgnd F='Inh'>1</ShdwBkgnd>
+<ShdwPattern F='Inh'>0</ShdwPattern>
+<FillForegndTrans F='Inh'>0</FillForegndTrans>
+<FillBkgndTrans F='Inh'>0</FillBkgndTrans>
+<ShdwForegndTrans F='Inh'>0</ShdwForegndTrans>
+<ShdwBkgndTrans F='Inh'>0</ShdwBkgndTrans>
+</Fill>
+<Char IX='0'>
+<Font F='Inh'>0</Font>
+<Color F='15'>15</Color>
+<Style F='Inh'>0</Style>
+<Case F='Inh'>0</Case>
+<Pos F='Inh'>0</Pos>
+<FontScale F='Inh'>1</FontScale>
+<Locale F='Inh'>0</Locale>
+<Size F='Inh'>0.16666666666667</Size>
+<DblUnderline F='Inh'>0</DblUnderline>
+<Overline F='Inh'>0</Overline>
+<Strikethru F='Inh'>0</Strikethru>
+<Perpendicular F='Inh'>0</Perpendicular>
+<Letterspace F='Inh'>0</Letterspace>
+<ColorTrans F='Inh'>0</ColorTrans>
+</Char>
+</StyleSheet>
+<StyleSheet ID='22' NameU='Visio 52' LineStyle='0' FillStyle='0' TextStyle='0'>
+<StyleProp>
+<EnableLineProps F='1'>1</EnableLineProps>
+<EnableFillProps F='1'>1</EnableFillProps>
+<EnableTextProps F='1'>1</EnableTextProps>
+<HideForApply F='1'>1</HideForApply>
+</StyleProp>
+<Line>
+<LineWeight F='Inh'>0.01</LineWeight>
+<LineColor F='14'>14</LineColor>
+<LinePattern F='Inh'>1</LinePattern>
+<Rounding F='Inh'>0</Rounding>
+<EndArrowSize F='Inh'>2</EndArrowSize>
+<BeginArrow F='Inh'>0</BeginArrow>
+<EndArrow F='Inh'>0</EndArrow>
+<LineCap F='Inh'>0</LineCap>
+<BeginArrowSize F='Inh'>2</BeginArrowSize>
+<LineColorTrans F='Inh'>0</LineColorTrans>
+</Line>
+<Fill>
+<FillForegnd F='15'>15</FillForegnd>
+<FillBkgnd F='HSL(160,0,235)'>#fafafa</FillBkgnd>
+<FillPattern F='Inh'>1</FillPattern>
+<ShdwForegnd F='15'>15</ShdwForegnd>
+<ShdwBkgnd F='Inh'>1</ShdwBkgnd>
+<ShdwPattern F='Inh'>0</ShdwPattern>
+<FillForegndTrans F='Inh'>0</FillForegndTrans>
+<FillBkgndTrans F='Inh'>0</FillBkgndTrans>
+<ShdwForegndTrans F='Inh'>0</ShdwForegndTrans>
+<ShdwBkgndTrans F='Inh'>0</ShdwBkgndTrans>
+</Fill>
+<Char IX='0'>
+<Font F='Inh'>0</Font>
+<Color F='14'>14</Color>
+<Style F='Inh'>0</Style>
+<Case F='Inh'>0</Case>
+<Pos F='Inh'>0</Pos>
+<FontScale F='Inh'>1</FontScale>
+<Locale F='Inh'>0</Locale>
+<Size F='Inh'>0.16666666666667</Size>
+<DblUnderline F='Inh'>0</DblUnderline>
+<Overline F='Inh'>0</Overline>
+<Strikethru F='Inh'>0</Strikethru>
+<Perpendicular F='Inh'>0</Perpendicular>
+<Letterspace F='Inh'>0</Letterspace>
+<ColorTrans F='Inh'>0</ColorTrans>
+</Char>
+</StyleSheet>
+<StyleSheet ID='23' NameU='Visio 53' LineStyle='0' FillStyle='0' TextStyle='0'>
+<StyleProp>
+<EnableLineProps F='1'>1</EnableLineProps>
+<EnableFillProps F='1'>1</EnableFillProps>
+<EnableTextProps F='1'>1</EnableTextProps>
+<HideForApply F='1'>1</HideForApply>
+</StyleProp>
+<Line>
+<LineWeight F='Inh'>0.01</LineWeight>
+<LineColor F='15'>15</LineColor>
+<LinePattern F='Inh'>1</LinePattern>
+<Rounding F='Inh'>0</Rounding>
+<EndArrowSize F='Inh'>2</EndArrowSize>
+<BeginArrow F='Inh'>0</BeginArrow>
+<EndArrow F='Inh'>0</EndArrow>
+<LineCap F='Inh'>0</LineCap>
+<BeginArrowSize F='Inh'>2</BeginArrowSize>
+<LineColorTrans F='Inh'>0</LineColorTrans>
+</Line>
+<Fill>
+<FillForegnd F='1'>1</FillForegnd>
+<FillBkgnd F='15'>15</FillBkgnd>
+<FillPattern F='Inh'>1</FillPattern>
+<ShdwForegnd F='15'>15</ShdwForegnd>
+<ShdwBkgnd F='Inh'>1</ShdwBkgnd>
+<ShdwPattern F='Inh'>0</ShdwPattern>
+<FillForegndTrans F='Inh'>0</FillForegndTrans>
+<FillBkgndTrans F='Inh'>0</FillBkgndTrans>
+<ShdwForegndTrans F='Inh'>0</ShdwForegndTrans>
+<ShdwBkgndTrans F='Inh'>0</ShdwBkgndTrans>
+</Fill>
+<Char IX='0'>
+<Font F='Inh'>0</Font>
+<Color F='14'>14</Color>
+<Style F='Inh'>0</Style>
+<Case F='Inh'>0</Case>
+<Pos F='Inh'>0</Pos>
+<FontScale F='Inh'>1</FontScale>
+<Locale F='Inh'>0</Locale>
+<Size F='Inh'>0.16666666666667</Size>
+<DblUnderline F='Inh'>0</DblUnderline>
+<Overline F='Inh'>0</Overline>
+<Strikethru F='Inh'>0</Strikethru>
+<Perpendicular F='Inh'>0</Perpendicular>
+<Letterspace F='Inh'>0</Letterspace>
+<ColorTrans F='Inh'>0</ColorTrans>
+</Char>
+</StyleSheet>
+<StyleSheet ID='24' NameU='Visio 70' LineStyle='0' FillStyle='0' TextStyle='0'>
+<StyleProp>
+<EnableLineProps F='1'>1</EnableLineProps>
+<EnableFillProps F='1'>1</EnableFillProps>
+<EnableTextProps F='1'>1</EnableTextProps>
+<HideForApply F='1'>1</HideForApply>
+</StyleProp>
+<Line>
+<LineWeight F='Inh'>0.01</LineWeight>
+<LineColor F='0'>0</LineColor>
+<LinePattern F='Inh'>1</LinePattern>
+<Rounding F='Inh'>0</Rounding>
+<EndArrowSize F='Inh'>2</EndArrowSize>
+<BeginArrow F='Inh'>0</BeginArrow>
+<EndArrow F='Inh'>0</EndArrow>
+<LineCap F='Inh'>0</LineCap>
+<BeginArrowSize F='Inh'>2</BeginArrowSize>
+<LineColorTrans F='Inh'>0</LineColorTrans>
+</Line>
+<Fill>
+<FillForegnd F='0'>0</FillForegnd>
+<FillBkgnd F='1'>1</FillBkgnd>
+<FillPattern F='Inh'>1</FillPattern>
+<ShdwForegnd F='0'>0</ShdwForegnd>
+<ShdwBkgnd F='Inh'>1</ShdwBkgnd>
+<ShdwPattern F='Inh'>0</ShdwPattern>
+<FillForegndTrans F='Inh'>0</FillForegndTrans>
+<FillBkgndTrans F='Inh'>0</FillBkgndTrans>
+<ShdwForegndTrans F='Inh'>0</ShdwForegndTrans>
+<ShdwBkgndTrans F='Inh'>0</ShdwBkgndTrans>
+</Fill>
+<Char IX='0'>
+<Font F='Inh'>0</Font>
+<Color F='0'>0</Color>
+<Style F='Inh'>0</Style>
+<Case F='Inh'>0</Case>
+<Pos F='Inh'>0</Pos>
+<FontScale F='Inh'>1</FontScale>
+<Locale F='Inh'>0</Locale>
+<Size F='Inh'>0.16666666666667</Size>
+<DblUnderline F='Inh'>0</DblUnderline>
+<Overline F='Inh'>0</Overline>
+<Strikethru F='Inh'>0</Strikethru>
+<Perpendicular F='Inh'>0</Perpendicular>
+<Letterspace F='Inh'>0</Letterspace>
+<ColorTrans F='Inh'>0</ColorTrans>
+</Char>
+</StyleSheet>
+<StyleSheet ID='25' NameU='Visio 80' LineStyle='0' FillStyle='0' TextStyle='0'>
+<StyleProp>
+<EnableLineProps F='1'>1</EnableLineProps>
+<EnableFillProps F='1'>1</EnableFillProps>
+<EnableTextProps F='1'>1</EnableTextProps>
+<HideForApply F='1'>1</HideForApply>
+</StyleProp>
+<Line>
+<LineWeight F='Inh'>0.01</LineWeight>
+<LineColor F='0'>0</LineColor>
+<LinePattern F='Inh'>1</LinePattern>
+<Rounding F='Inh'>0</Rounding>
+<EndArrowSize F='Inh'>2</EndArrowSize>
+<BeginArrow F='Inh'>0</BeginArrow>
+<EndArrow F='Inh'>0</EndArrow>
+<LineCap F='Inh'>0</LineCap>
+<BeginArrowSize F='Inh'>2</BeginArrowSize>
+<LineColorTrans F='Inh'>0</LineColorTrans>
+</Line>
+<Fill>
+<FillForegnd F='0'>0</FillForegnd>
+<FillBkgnd F='1'>1</FillBkgnd>
+<FillPattern F='Inh'>1</FillPattern>
+<ShdwForegnd F='0'>0</ShdwForegnd>
+<ShdwBkgnd F='Inh'>1</ShdwBkgnd>
+<ShdwPattern F='Inh'>0</ShdwPattern>
+<FillForegndTrans F='Inh'>0</FillForegndTrans>
+<FillBkgndTrans F='Inh'>0</FillBkgndTrans>
+<ShdwForegndTrans F='Inh'>0</ShdwForegndTrans>
+<ShdwBkgndTrans F='Inh'>0</ShdwBkgndTrans>
+</Fill>
+<Char IX='0'>
+<Font F='Inh'>0</Font>
+<Color F='1'>1</Color>
+<Style F='Inh'>0</Style>
+<Case F='Inh'>0</Case>
+<Pos F='Inh'>0</Pos>
+<FontScale F='Inh'>1</FontScale>
+<Locale F='Inh'>0</Locale>
+<Size F='Inh'>0.16666666666667</Size>
+<DblUnderline F='Inh'>0</DblUnderline>
+<Overline F='Inh'>0</Overline>
+<Strikethru F='Inh'>0</Strikethru>
+<Perpendicular F='Inh'>0</Perpendicular>
+<Letterspace F='Inh'>0</Letterspace>
+<ColorTrans F='Inh'>0</ColorTrans>
+</Char>
+</StyleSheet>
+<StyleSheet ID='26' NameU='Basic' LineStyle='8' FillStyle='8' TextStyle='8'>
+<StyleProp>
+<EnableLineProps F='1'>1</EnableLineProps>
+<EnableFillProps F='1'>1</EnableFillProps>
+<EnableTextProps F='1'>1</EnableTextProps>
+<HideForApply F='0'>0</HideForApply>
+</StyleProp>
+<Line>
+<LineWeight F='0.0033333333333333DT'>0.0033333333333333</LineWeight>
+<LineColor F='Inh'>0</LineColor>
+<LinePattern F='Inh'>1</LinePattern>
+<Rounding F='Inh'>0</Rounding>
+<EndArrowSize F='Inh'>2</EndArrowSize>
+<BeginArrow F='Inh'>0</BeginArrow>
+<EndArrow F='Inh'>0</EndArrow>
+<LineCap F='Inh'>0</LineCap>
+<BeginArrowSize F='Inh'>2</BeginArrowSize>
+<LineColorTrans F='Inh'>0</LineColorTrans>
+</Line>
+<TextBlock>
+<LeftMargin Unit='PT' F='4PT'>0.055555555555556</LeftMargin>
+<RightMargin Unit='PT' F='4PT'>0.055555555555556</RightMargin>
+<TopMargin Unit='PT' F='4PT'>0.055555555555556</TopMargin>
+<BottomMargin Unit='PT' F='4PT'>0.055555555555556</BottomMargin>
+<VerticalAlign F='Inh'>1</VerticalAlign>
+<TextBkgnd F='Inh'>0</TextBkgnd>
+<DefaultTabStop F='Inh'>0.5</DefaultTabStop>
+<TextDirection F='Inh'>0</TextDirection>
+<TextBkgndTrans F='Inh'>0</TextBkgndTrans>
+</TextBlock>
+<Char IX='0'>
+<Font F='Inh'>0</Font>
+<Color F='Inh'>0</Color>
+<Style F='Inh'>0</Style>
+<Case F='Inh'>0</Case>
+<Pos F='Inh'>0</Pos>
+<FontScale F='Inh'>1</FontScale>
+<Locale F='Inh'>0</Locale>
+<Size Unit='PT' F='8PT'>0.11111111111111</Size>
+<DblUnderline F='Inh'>0</DblUnderline>
+<Overline F='Inh'>0</Overline>
+<Strikethru F='Inh'>0</Strikethru>
+<Perpendicular F='Inh'>0</Perpendicular>
+<Letterspace F='Inh'>0</Letterspace>
+<ColorTrans F='Inh'>0</ColorTrans>
+</Char>
+<Para IX='0'>
+<IndFirst F='Inh'>0</IndFirst>
+<IndLeft F='Inh'>0</IndLeft>
+<IndRight F='Inh'>0</IndRight>
+<SpLine F='Inh'>-1.2</SpLine>
+<SpBefore F='Inh'>0</SpBefore>
+<SpAfter F='Inh'>0</SpAfter>
+<HorzAlign F='Inh'>1</HorzAlign>
+<Bullet F='Inh'>0</Bullet>
+<BulletStr F='Inh'/>
+</Para>
+<Tabs IX='0'/>
+</StyleSheet>
+<StyleSheet ID='27' NameU='Basic Shadow' LineStyle='10' FillStyle='10' TextStyle='10'>
+<StyleProp>
+<EnableLineProps F='1'>1</EnableLineProps>
+<EnableFillProps F='1'>1</EnableFillProps>
+<EnableTextProps F='1'>1</EnableTextProps>
+<HideForApply F='0'>0</HideForApply>
+</StyleProp>
+<Line>
+<LineWeight F='0.0033333333333333DT'>0.0033333333333333</LineWeight>
+<LineColor F='Inh'>0</LineColor>
+<LinePattern F='Inh'>1</LinePattern>
+<Rounding F='Inh'>0</Rounding>
+<EndArrowSize F='Inh'>2</EndArrowSize>
+<BeginArrow F='Inh'>0</BeginArrow>
+<EndArrow F='Inh'>0</EndArrow>
+<LineCap F='Inh'>0</LineCap>
+<BeginArrowSize F='Inh'>2</BeginArrowSize>
+<LineColorTrans F='Inh'>0</LineColorTrans>
+</Line>
+<TextBlock>
+<LeftMargin Unit='PT' F='4PT'>0.055555555555556</LeftMargin>
+<RightMargin Unit='PT' F='4PT'>0.055555555555556</RightMargin>
+<TopMargin Unit='PT' F='4PT'>0.055555555555556</TopMargin>
+<BottomMargin Unit='PT' F='4PT'>0.055555555555556</BottomMargin>
+<VerticalAlign F='Inh'>1</VerticalAlign>
+<TextBkgnd F='Inh'>0</TextBkgnd>
+<DefaultTabStop F='Inh'>0.5</DefaultTabStop>
+<TextDirection F='Inh'>0</TextDirection>
+<TextBkgndTrans F='Inh'>0</TextBkgndTrans>
+</TextBlock>
+<Char IX='0'>
+<Font F='Inh'>0</Font>
+<Color F='Inh'>0</Color>
+<Style F='Inh'>0</Style>
+<Case F='Inh'>0</Case>
+<Pos F='Inh'>0</Pos>
+<FontScale F='Inh'>1</FontScale>
+<Locale F='Inh'>0</Locale>
+<Size Unit='PT' F='8PT'>0.11111111111111</Size>
+<DblUnderline F='Inh'>0</DblUnderline>
+<Overline F='Inh'>0</Overline>
+<Strikethru F='Inh'>0</Strikethru>
+<Perpendicular F='Inh'>0</Perpendicular>
+<Letterspace F='Inh'>0</Letterspace>
+<ColorTrans F='Inh'>0</ColorTrans>
+</Char>
+<Para IX='0'>
+<IndFirst F='Inh'>0</IndFirst>
+<IndLeft F='Inh'>0</IndLeft>
+<IndRight F='Inh'>0</IndRight>
+<SpLine F='Inh'>-1.2</SpLine>
+<SpBefore F='Inh'>0</SpBefore>
+<SpAfter F='Inh'>0</SpAfter>
+<HorzAlign F='Inh'>1</HorzAlign>
+<Bullet F='Inh'>0</Bullet>
+<BulletStr F='Inh'/>
+</Para>
+<Tabs IX='0'/>
+</StyleSheet>
+</StyleSheets>
+<DocumentSheet NameU='TheDoc' LineStyle='0' FillStyle='0' TextStyle='0'>
+<DocProps>
+<OutputFormat>2</OutputFormat>
+<LockPreview>0</LockPreview>
+<PreviewQuality>0</PreviewQuality>
+<PreviewScope>1</PreviewScope>
+</DocProps>
+</DocumentSheet>
+<Masters>
+<Master ID='0' NameU='viewBox' Prompt='' IconSize='1' AlignName='2' MatchByName='0' IconUpdate='1' UniqueID='{4700008F-0000-0000-8E40-00608CF305B2}' BaseID='{F7E7A8A7-8385-4DA3-B598-2A8A026BD323}' PatternFlags='0' Hidden='0'>
+<PageSheet LineStyle='0' FillStyle='0' TextStyle='0'>
+<PageProps>
+<PageWidth Unit='IN'>1.8</PageWidth>
+<PageHeight Unit='IN'>1.8</PageHeight>
+<ShdwOffsetX Unit='IN'>0.125</ShdwOffsetX>
+<ShdwOffsetY Unit='IN'>-0.125</ShdwOffsetY>
+<PageScale Unit='IN_F'>1</PageScale>
+<DrawingScale Unit='IN_F'>1</DrawingScale>
+<DrawingSizeType>3</DrawingSizeType>
+<DrawingScaleType>0</DrawingScaleType>
+<InhibitSnap>0</InhibitSnap>
+</PageProps>
+<Prop ID='1'>
+<Value Unit='STR'>viewBox</Value>
+<Prompt F='No Formula'/>
+<Label>Element</Label>
+<Format F='No Formula'/>
+<SortKey F='No Formula'/>
+<Type>0</Type>
+<Invisible F='No Formula'>0</Invisible>
+<Verify F='No Formula'>0</Verify>
+</Prop>
+<Layer IX='0'>
+<Name>viewBox</Name>
+<Color>255</Color>
+<Status>0</Status>
+<Visible>1</Visible>
+<Print>1</Print>
+<Active>0</Active>
+<Lock>0</Lock>
+<Snap>1</Snap>
+<Glue>1</Glue>
+<NameUniv>viewBox</NameUniv>
+<ColorTrans>0</ColorTrans>
+</Layer>
+</PageSheet>
+<Shapes>
+<Shape ID='5' Type='Shape' LineStyle='26' FillStyle='26' TextStyle='26'>
+<XForm>
+<PinX>0</PinX>
+<PinY>0</PinY>
+<Width>1.75</Width>
+<Height>1.75</Height>
+<LocPinX>0</LocPinX>
+<LocPinY F='Height'>1.75</LocPinY>
+<Angle>0</Angle>
+<FlipX>0</FlipX>
+<FlipY>0</FlipY>
+<ResizeMode>0</ResizeMode>
+</XForm>
+<Fill>
+<FillForegnd F='Inh'>1</FillForegnd>
+<FillBkgnd F='Inh'>0</FillBkgnd>
+<FillPattern>0</FillPattern>
+<ShdwForegnd F='Inh'>0</ShdwForegnd>
+<ShdwBkgnd F='Inh'>1</ShdwBkgnd>
+<ShdwPattern F='Inh'>0</ShdwPattern>
+<FillForegndTrans F='Inh'>0</FillForegndTrans>
+<FillBkgndTrans F='Inh'>0</FillBkgndTrans>
+<ShdwForegndTrans F='Inh'>0</ShdwForegndTrans>
+<ShdwBkgndTrans F='Inh'>0</ShdwBkgndTrans>
+</Fill>
+<Line>
+<LineWeight F='Inh'>0.0033333333333333</LineWeight>
+<LineColor>4</LineColor>
+<LinePattern>23</LinePattern>
+<Rounding F='Inh'>0</Rounding>
+<EndArrowSize F='Inh'>2</EndArrowSize>
+<BeginArrow F='Inh'>0</BeginArrow>
+<EndArrow F='Inh'>0</EndArrow>
+<LineCap F='Inh'>0</LineCap>
+<BeginArrowSize F='Inh'>2</BeginArrowSize>
+<LineColorTrans F='Inh'>0</LineColorTrans>
+</Line>
+<Geom IX='0'>
+<NoFill>0</NoFill>
+<NoLine>0</NoLine>
+<NoShow>0</NoShow>
+<NoSnap>0</NoSnap>
+<MoveTo IX='1'>
+<X F='Width*0'>0</X>
+<Y F='Height*0'>0</Y>
+</MoveTo>
+<LineTo IX='2'>
+<X F='Width*1'>1.75</X>
+<Y F='Height*0'>0</Y>
+</LineTo>
+<LineTo IX='3'>
+<X F='Width*1'>1.75</X>
+<Y F='Height*1'>1.75</Y>
+</LineTo>
+<LineTo IX='4'>
+<X F='Width*0'>0</X>
+<Y F='Height*1'>1.75</Y>
+</LineTo>
+<LineTo IX='5'>
+<X F='Geometry1.X1'>0</X>
+<Y F='Geometry1.Y1'>0</Y>
+</LineTo>
+</Geom>
+</Shape>
+</Shapes>
+<Icon>
+AAABAAEAICAQAAAAAADoAgAAFgAAACgAAAAgAAAAQAAAAAEABAAAAAAAgAIAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAACAAACAAAAAgIAAgAAAAIAAgACAgAAAgICAAMDAwAAAAP8AAP8AAAD//wD/AAAA/w
+D/AP//AAD///8ADMDMDMDMDMDMDMDMDMDMDAwAAAAAAAAAAAAAAAAAAAwMAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAADAwAAAAAAAAAAAAAAAAAAAwMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAADAwAAAAAAAAAAAAAAAAAAAwMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAwAA
+AAAAAAAAAAAAAAAAAwMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAwAAAAAAAAAAAAAAA
+AAAAwMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAwAAAAAAAAAAAAAAAAAAAwMAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAwAAAAAAAAAAAAAAAAAAAwMAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAADAwAAAAAAAAAAAAAAAAAAAwMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAADAwAAAAAAAAAAAAAAAAAAAwMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAwAAA
+AAAAAAAAAAAAAAAAwMAAAAAAAAAAAAAAAAAAAAAAzAzAzAzAzAzAzAzAzAzAAAAAAAAAAAAAAAAAA
+AAACSSSSSv////r/////////+v////r/////////+v////r/////////+v////r/////////+v///
+/r/////////+v////r/////////+v////r/////////+v////r/////////+v////r/////////+v
+////r/////kkkkk/////w==</Icon>
+</Master>
+</Masters>
+<Pages>
+<Page ID='0' NameU='Page-1' ViewScale='4.4186795491143' ViewCenterX='0.64955357142857' ViewCenterY='0.62723214285714'>
+<PageSheet LineStyle='0' FillStyle='0' TextStyle='0'>
+<PageProps>
+<PageWidth Unit='IN_F'>8.5</PageWidth>
+<PageHeight Unit='IN_F'>11</PageHeight>
+<ShdwOffsetX Unit='IN'>0.125</ShdwOffsetX>
+<ShdwOffsetY Unit='IN'>-0.125</ShdwOffsetY>
+<PageScale Unit='IN_F'>1</PageScale>
+<DrawingScale Unit='IN_F'>1</DrawingScale>
+<DrawingSizeType>0</DrawingSizeType>
+<DrawingScaleType>0</DrawingScaleType>
+<InhibitSnap>0</InhibitSnap>
+</PageProps>
+<XForm>
+<PinX>0</PinX>
+<PinY>0</PinY>
+<Width>1</Width>
+<Height>1</Height>
+<LocPinX F='Width*0'>0</LocPinX>
+<LocPinY F='Height*0'>0</LocPinY>
+<Angle>0</Angle>
+<FlipX>0</FlipX>
+<FlipY>0</FlipY>
+<ResizeMode>0</ResizeMode>
+</XForm>
+<PageLayout>
+<ResizePage F='Inh'>0</ResizePage>
+<EnableGrid F='Inh'>0</EnableGrid>
+<DynamicsOff F='Inh'>0</DynamicsOff>
+<CtrlAsInput F='Inh'>0</CtrlAsInput>
+<PlaceStyle F='Inh'>0</PlaceStyle>
+<RouteStyle>1</RouteStyle>
+<PlaceDepth F='Inh'>0</PlaceDepth>
+<PlowCode F='Inh'>0</PlowCode>
+<LineJumpCode F='Inh'>1</LineJumpCode>
+<LineJumpStyle F='Inh'>0</LineJumpStyle>
+<PageLineJumpDirX F='Inh'>0</PageLineJumpDirX>
+<PageLineJumpDirY F='Inh'>0</PageLineJumpDirY>
+<LineToNodeX F='Inh'>0.125</LineToNodeX>
+<LineToNodeY F='Inh'>0.125</LineToNodeY>
+<BlockSizeX F='Inh'>0.25</BlockSizeX>
+<BlockSizeY F='Inh'>0.25</BlockSizeY>
+<AvenueSizeX F='Inh'>0.375</AvenueSizeX>
+<AvenueSizeY F='Inh'>0.375</AvenueSizeY>
+<LineToLineX F='Inh'>0.125</LineToLineX>
+<LineToLineY F='Inh'>0.125</LineToLineY>
+<LineJumpFactorX F='Inh'>0.66666666666667</LineJumpFactorX>
+<LineJumpFactorY F='Inh'>0.66666666666667</LineJumpFactorY>
+<LineAdjustFrom F='Inh'>0</LineAdjustFrom>
+<LineAdjustTo F='Inh'>0</LineAdjustTo>
+<PlaceFlip F='Inh'>0</PlaceFlip>
+<LineRouteExt F='Inh'>0</LineRouteExt>
+</PageLayout>
+<Act IX='0'>
+<Menu>Co&amp;lor Schemes...</Menu>
+<Action F='_RunAddOn("CS")'>0</Action>
+<Checked>0</Checked>
+<Disabled>0</Disabled>
+</Act>
+<User NameU='SchemeName' ID='1'>
+<Value Unit='STR'>Black &amp; White</Value>
+<Prompt F='No Formula'/>
+</User>
+<Layer IX='0'>
+<Name>Connector</Name>
+<Color>255</Color>
+<Status>0</Status>
+<Visible>1</Visible>
+<Print>1</Print>
+<Active>0</Active>
+<Lock>0</Lock>
+<Snap>1</Snap>
+<Glue>1</Glue>
+<NameUniv>Connector</NameUniv>
+<ColorTrans>0</ColorTrans>
+</Layer>
+</PageSheet>
+<Shapes>
+<Shape ID='1' NameU='h2w4' Type='Shape' LineStyle='26' FillStyle='26' TextStyle='26'>
+<XForm>
+<PinX>2</PinX>
+<PinY>9.75</PinY>
+<Width>1</Width>
+<Height>0.5</Height>
+<LocPinX F='Width*0.5'>0.5</LocPinX>
+<LocPinY F='Height*0.5'>0.25</LocPinY>
+<Angle>0</Angle>
+<FlipX>0</FlipX>
+<FlipY>0</FlipY>
+<ResizeMode>0</ResizeMode>
+</XForm>
+<Geom IX='0'>
+<NoFill>0</NoFill>
+<NoLine>0</NoLine>
+<NoShow>0</NoShow>
+<NoSnap>0</NoSnap>
+<Ellipse IX='1'>
+<X>0.5</X>
+<Y>0.25</Y>
+<A Unit='DL' F='Width*1'>1</A>
+<B Unit='DL' F='Height*0.5'>0.25</B>
+<C Unit='DL' F='Width*0.5'>0.5</C>
+<D Unit='DL' F='Height*1'>0.5</D>
+</Ellipse>
+</Geom>
+</Shape>
+<Shape ID='2' NameU='h4w2' Type='Shape' LineStyle='26' FillStyle='26' TextStyle='26'>
+<XForm>
+<PinX>3.25</PinX>
+<PinY>9.75</PinY>
+<Width>0.5</Width>
+<Height>1</Height>
+<LocPinX F='Width*0.5'>0.25</LocPinX>
+<LocPinY F='Height*0.5'>0.5</LocPinY>
+<Angle>0</Angle>
+<FlipX>0</FlipX>
+<FlipY>0</FlipY>
+<ResizeMode>0</ResizeMode>
+</XForm>
+<Geom IX='0'>
+<NoFill>0</NoFill>
+<NoLine>0</NoLine>
+<NoShow>0</NoShow>
+<NoSnap>0</NoSnap>
+<Ellipse IX='1'>
+<X F='Width*0.5'>0.25</X>
+<Y F='Height*0.5'>0.5</Y>
+<A Unit='DL' F='Width*1'>0.5</A>
+<B Unit='DL' F='Height*0.5'>0.5</B>
+<C Unit='DL' F='Width*0.5'>0.25</C>
+<D Unit='DL' F='Height*1'>1</D>
+</Ellipse>
+</Geom>
+</Shape>
+<Shape ID='4' NameU='h4w2r45' Type='Shape' LineStyle='26' FillStyle='26' TextStyle='26'>
+<XForm>
+<PinX>5</PinX>
+<PinY>9.5</PinY>
+<Width>0.5</Width>
+<Height>1</Height>
+<LocPinX F='Width*0.5'>0.25</LocPinX>
+<LocPinY F='Height*0.5'>0.5</LocPinY>
+<Angle>0.7853981634999</Angle>
+<FlipX>0</FlipX>
+<FlipY>0</FlipY>
+<ResizeMode>0</ResizeMode>
+</XForm>
+<Geom IX='0'>
+<NoFill>0</NoFill>
+<NoLine>0</NoLine>
+<NoShow>0</NoShow>
+<NoSnap>0</NoSnap>
+<Ellipse IX='1'>
+<X F='Width*0.5'>0.25</X>
+<Y F='Height*0.5'>0.5</Y>
+<A Unit='DL' F='Width*1'>0.5</A>
+<B Unit='DL' F='Height*0.5'>0.5</B>
+<C Unit='DL' F='Width*0.5'>0.25</C>
+<D Unit='DL' F='Height*1'>1</D>
+</Ellipse>
+</Geom>
+</Shape>
+<Shape ID='5' NameU='line.arc.arc.line' Type='Shape' LineStyle='26' FillStyle='26' TextStyle='26'>
+<XForm>
+<PinX>3</PinX>
+<PinY>6.5</PinY>
+<Width>2</Width>
+<Height>1</Height>
+<LocPinX F='Width*0.5'>1</LocPinX>
+<LocPinY F='Height*0.5'>0.5</LocPinY>
+<Angle>0</Angle>
+<FlipX>0</FlipX>
+<FlipY>0</FlipY>
+<ResizeMode>0</ResizeMode>
+</XForm>
+<Geom IX='0'>
+<NoFill>0</NoFill>
+<NoLine>0</NoLine>
+<NoShow>0</NoShow>
+<NoSnap>0</NoSnap>
+<MoveTo IX='1'>
+<X F='Width*0'>0</X>
+<Y F='Height*1'>1</Y>
+</MoveTo>
+<LineTo IX='2'>
+<X F='Width*0.5'>1</X>
+<Y F='Height*1'>1</Y>
+</LineTo>
+<EllipticalArcTo IX='3'>
+<X F='Width*1'>2</X>
+<Y F='Height*0.5'>0.5</Y>
+<A Unit='DL' F='Width*0.85355339059327'>1.7071067811865</A>
+<B Unit='DL' F='Height*0.85355339059327'>0.85355339059327</B>
+<C Unit='DA'>0</C>
+<D F='Width/Height*1'>2</D>
+</EllipticalArcTo>
+<EllipticalArcTo IX='4'>
+<X F='Width*0.75'>1.5</X>
+<Y F='Height*0'>0</Y>
+<A Unit='DL' F='Width*0.92677669529664'>1.8535533905933</A>
+<B Unit='DL' F='Height*0.14644660940673'>0.14644660940673</B>
+<C Unit='DA'>0</C>
+<D F='Width/Height*0.5'>1</D>
+</EllipticalArcTo>
+<LineTo IX='5'>
+<X F='Geometry1.X1'>0</X>
+<Y F='Geometry1.Y1'>1</Y>
+</LineTo>
+</Geom>
+</Shape>
+<Shape ID='6' Type='Shape' LineStyle='26' FillStyle='26' TextStyle='26'>
+<XForm>
+<PinX>0.67229190570635</PinX>
+<PinY>0.5716116497734</PinY>
+<Width>1.3445838114127</Width>
+<Height>1.1432232995468</Height>
+<LocPinX F='Width*0.5'>0.67229190570635</LocPinX>
+<LocPinY F='Height*0.5'>0.5716116497734</LocPinY>
+<Angle>0</Angle>
+<FlipX>0</FlipX>
+<FlipY>0</FlipY>
+<ResizeMode>0</ResizeMode>
+</XForm>
+<Geom IX='0'>
+<NoFill>0</NoFill>
+<NoLine>0</NoLine>
+<NoShow>0</NoShow>
+<NoSnap>0</NoSnap>
+<MoveTo IX='1'>
+<X F='Width*0.22122318663661'>0.29745311546072</X>
+<Y F='Height*0.2159464763334'>0.24687504319937</Y>
+</MoveTo>
+<NURBSTo IX='2'>
+<X F='Geometry1.X1'>0.29745311546072</X>
+<Y F='Geometry1.Y1'>0.24687504319937</Y>
+<A>13.370618992314</A>
+<B>1</B>
+<C>0</C>
+<D>1</D>
+<E Unit='NURBS' F='NURBS(15.323246294838,3,0,0,0.59796464748333,0.43297049347213,0,1,0.72273318660381,-0.55548054972616,0,1,1.1063227090043,0.68877899745299,0,1,0.11521650787312,1.316794384739,9.6546937938217,1,-0.14486747941007,0.00079287474786231,11.79443879433,1)'>NURBS(15.323246294838, 3, 0, 0, 0.59796464748333,0.43297049347213,0,1, 0.72273318660381,-0.55548054972616,0,1, 1.1063227090043,0.68877899745299,0,1, 0.11521650787312,1.316794384739,9.6546937938217,1, -0.14486747941007,0.00079287474786231,11.79443879433,1)</E>
+</NURBSTo>
+</Geom>
+</Shape>
+<Shape ID='9' NameU='default' Type='Shape' Master='0'>
+<XForm>
+<PinX>1.25</PinX>
+<PinY>10.5</PinY>
+<Width>4.5</Width>
+<Height>4.6875</Height>
+<LocPinX F='Width*0'>0</LocPinX>
+<LocPinY F='Height*1'>4.6875</LocPinY>
+<Angle F='Inh'>0</Angle>
+<FlipX F='Inh'>0</FlipX>
+<FlipY F='Inh'>0</FlipY>
+<ResizeMode F='Inh'>0</ResizeMode>
+</XForm>
+<Geom IX='0'>
+<NoFill F='Inh'>0</NoFill>
+<NoLine F='Inh'>0</NoLine>
+<NoShow F='Inh'>0</NoShow>
+<NoSnap F='Inh'>0</NoSnap>
+<MoveTo IX='1'>
+<X F='Inh'>0</X>
+<Y F='Inh'>0</Y>
+</MoveTo>
+<LineTo IX='2'>
+<X F='Inh'>4.5</X>
+<Y F='Inh'>0</Y>
+</LineTo>
+<LineTo IX='3'>
+<X F='Inh'>4.5</X>
+<Y F='Inh'>4.6875</Y>
+</LineTo>
+<LineTo IX='4'>
+<X F='Inh'>0</X>
+<Y F='Inh'>4.6875</Y>
+</LineTo>
+<LineTo IX='5'>
+<X F='Inh'>0</X>
+<Y F='Inh'>0</Y>
+</LineTo>
+</Geom>
+</Shape>
+<Shape ID='13' Type='Group' LineStyle='26' FillStyle='26' TextStyle='26'>
+<XForm>
+<PinX>2.5</PinX>
+<PinY>8.5</PinY>
+<Width>1</Width>
+<Height>1</Height>
+<LocPinX F='Width*0.5'>0.5</LocPinX>
+<LocPinY F='Height*0.5'>0.5</LocPinY>
+<Angle>0</Angle>
+<FlipX>0</FlipX>
+<FlipY>0</FlipY>
+<ResizeMode>0</ResizeMode>
+</XForm>
+<Shapes>
+<Shape ID='3' NameU='h2w2' Type='Shape' LineStyle='26' FillStyle='26' TextStyle='26'>
+<XForm>
+<PinX F='Sheet.13!Width*0.5'>0.5</PinX>
+<PinY F='Sheet.13!Height*0.5'>0.5</PinY>
+<Width F='Sheet.13!Width*1'>1</Width>
+<Height F='Sheet.13!Height*1'>1</Height>
+<LocPinX F='Width*0.5'>0.5</LocPinX>
+<LocPinY F='Height*0.5'>0.5</LocPinY>
+<Angle>0</Angle>
+<FlipX>0</FlipX>
+<FlipY>0</FlipY>
+<ResizeMode>0</ResizeMode>
+</XForm>
+<Fill>
+<FillForegnd>4</FillForegnd>
+<FillBkgnd F='Inh'>0</FillBkgnd>
+<FillPattern F='Inh'>1</FillPattern>
+<ShdwForegnd F='Inh'>0</ShdwForegnd>
+<ShdwBkgnd F='Inh'>1</ShdwBkgnd>
+<ShdwPattern F='Inh'>0</ShdwPattern>
+<FillForegndTrans F='Inh'>0</FillForegndTrans>
+<FillBkgndTrans F='Inh'>0</FillBkgndTrans>
+<ShdwForegndTrans F='Inh'>0</ShdwForegndTrans>
+<ShdwBkgndTrans F='Inh'>0</ShdwBkgndTrans>
+</Fill>
+<Geom IX='0'>
+<NoFill>0</NoFill>
+<NoLine>0</NoLine>
+<NoShow>0</NoShow>
+<NoSnap>0</NoSnap>
+<Ellipse IX='1'>
+<X F='Width*0.5'>0.5</X>
+<Y F='Height*0.5'>0.5</Y>
+<A Unit='DL' F='Width*1'>1</A>
+<B Unit='DL' F='Height*0.5'>0.5</B>
+<C Unit='DL' F='Width*0.5'>0.5</C>
+<D Unit='DL' F='Height*1'>1</D>
+</Ellipse>
+</Geom>
+</Shape>
+</Shapes>
+</Shape>
+<Shape ID='14' Type='Shape' LineStyle='26' FillStyle='26' TextStyle='26'>
+<XForm>
+<PinX>2</PinX>
+<PinY>9.75</PinY>
+<Width>1</Width>
+<Height>0.5</Height>
+<LocPinX F='Width*0.5'>0.5</LocPinX>
+<LocPinY F='Height*0.5'>0.25</LocPinY>
+<Angle>0</Angle>
+<FlipX>0</FlipX>
+<FlipY>0</FlipY>
+<ResizeMode>0</ResizeMode>
+</XForm>
+<Fill>
+<FillForegnd F='Inh'>1</FillForegnd>
+<FillBkgnd F='Inh'>0</FillBkgnd>
+<FillPattern>0</FillPattern>
+<ShdwForegnd F='Inh'>0</ShdwForegnd>
+<ShdwBkgnd F='Inh'>1</ShdwBkgnd>
+<ShdwPattern F='Inh'>0</ShdwPattern>
+<FillForegndTrans F='Inh'>0</FillForegndTrans>
+<FillBkgndTrans F='Inh'>0</FillBkgndTrans>
+<ShdwForegndTrans F='Inh'>0</ShdwForegndTrans>
+<ShdwBkgndTrans F='Inh'>0</ShdwBkgndTrans>
+</Fill>
+<Geom IX='0'>
+<NoFill>0</NoFill>
+<NoLine>0</NoLine>
+<NoShow>0</NoShow>
+<NoSnap>0</NoSnap>
+<MoveTo IX='1'>
+<X F='Width*0'>0</X>
+<Y F='Height*0'>0</Y>
+</MoveTo>
+<LineTo IX='2'>
+<X F='Width*1'>1</X>
+<Y F='Height*0'>0</Y>
+</LineTo>
+<LineTo IX='3'>
+<X F='Width*1'>1</X>
+<Y F='Height*1'>0.5</Y>
+</LineTo>
+<LineTo IX='4'>
+<X F='Width*0'>0</X>
+<Y F='Height*1'>0.5</Y>
+</LineTo>
+<LineTo IX='5'>
+<X F='Geometry1.X1'>0</X>
+<Y F='Geometry1.Y1'>0</Y>
+</LineTo>
+</Geom>
+</Shape>
+<Shape ID='15' Type='Shape' LineStyle='26' FillStyle='26' TextStyle='26'>
+<XForm>
+<PinX>0.646484375</PinX>
+<PinY>0.435546875</PinY>
+<Width>1.68359375</Width>
+<Height>2.13671875</Height>
+<LocPinX F='Width*0.5'>0.841796875</LocPinX>
+<LocPinY F='Height*0.5'>1.068359375</LocPinY>
+<Angle>0</Angle>
+<FlipX>0</FlipX>
+<FlipY>0</FlipY>
+<ResizeMode>0</ResizeMode>
+</XForm>
+<Geom IX='0'>
+<NoFill>1</NoFill>
+<NoLine>0</NoLine>
+<NoShow>0</NoShow>
+<NoSnap>0</NoSnap>
+<MoveTo IX='1'>
+<X F='Width*0.292343387471'>0.4921875</X>
+<Y F='Height*0.41133455210238'>0.87890625</Y>
+</MoveTo>
+<LineTo IX='2'>
+<X F='Width*0.59628770301624'>1.00390625</X>
+<Y F='Height*0.52833638025594'>1.12890625</Y>
+</LineTo>
+<LineTo IX='3'>
+<X F='Width*0.69141531322506'>1.1640625</X>
+<Y F='Height*0'>0</Y>
+</LineTo>
+<LineTo IX='4'>
+<X F='Width*1'>1.68359375</X>
+<Y F='Height*0.6654478976234'>1.421875</Y>
+</LineTo>
+<LineTo IX='5'>
+<X F='Width*0.20881670533643'>0.3515625</X>
+<Y F='Height*1'>2.13671875</Y>
+</LineTo>
+<LineTo IX='6'>
+<X F='Width*0'>0</X>
+<Y F='Height*0.29616087751371'>0.6328125</Y>
+</LineTo>
+<LineTo IX='7'>
+<X F='Width*0.29466357308585'>0.49609375</X>
+<Y F='Height*0.41133455210238'>0.87890625</Y>
+</LineTo>
+</Geom>
+</Shape>
+</Shapes>
+</Page>
+<Page ID='2' NameU='Page-2' ViewScale='3.0817610062893' ViewCenterX='1.0133333333333' ViewCenterY='0.093333333333333'>
+<PageSheet LineStyle='0' FillStyle='0' TextStyle='0'>
+<PageProps>
+<PageWidth Unit='IN_F'>8.5</PageWidth>
+<PageHeight Unit='IN_F'>11</PageHeight>
+<ShdwOffsetX Unit='IN'>0.125</ShdwOffsetX>
+<ShdwOffsetY Unit='IN'>-0.125</ShdwOffsetY>
+<PageScale Unit='IN'>1</PageScale>
+<DrawingScale Unit='IN'>1</DrawingScale>
+<DrawingSizeType>0</DrawingSizeType>
+<DrawingScaleType>0</DrawingScaleType>
+<InhibitSnap>0</InhibitSnap>
+</PageProps>
+<PageLayout>
+<ResizePage F='Inh'>0</ResizePage>
+<EnableGrid F='Inh'>0</EnableGrid>
+<DynamicsOff F='Inh'>0</DynamicsOff>
+<CtrlAsInput F='Inh'>0</CtrlAsInput>
+<PlaceStyle F='Inh'>0</PlaceStyle>
+<RouteStyle>1</RouteStyle>
+<PlaceDepth F='Inh'>0</PlaceDepth>
+<PlowCode F='Inh'>0</PlowCode>
+<LineJumpCode F='Inh'>1</LineJumpCode>
+<LineJumpStyle F='Inh'>0</LineJumpStyle>
+<PageLineJumpDirX F='Inh'>0</PageLineJumpDirX>
+<PageLineJumpDirY F='Inh'>0</PageLineJumpDirY>
+<LineToNodeX F='Inh'>0.125</LineToNodeX>
+<LineToNodeY F='Inh'>0.125</LineToNodeY>
+<BlockSizeX F='Inh'>0.25</BlockSizeX>
+<BlockSizeY F='Inh'>0.25</BlockSizeY>
+<AvenueSizeX F='Inh'>0.375</AvenueSizeX>
+<AvenueSizeY F='Inh'>0.375</AvenueSizeY>
+<LineToLineX F='Inh'>0.125</LineToLineX>
+<LineToLineY F='Inh'>0.125</LineToLineY>
+<LineJumpFactorX F='Inh'>0.66666666666667</LineJumpFactorX>
+<LineJumpFactorY F='Inh'>0.66666666666667</LineJumpFactorY>
+<LineAdjustFrom F='Inh'>0</LineAdjustFrom>
+<LineAdjustTo F='Inh'>0</LineAdjustTo>
+<PlaceFlip F='Inh'>0</PlaceFlip>
+<LineRouteExt F='Inh'>0</LineRouteExt>
+</PageLayout>
+<RulerGrid>
+<XRulerDensity>32</XRulerDensity>
+<YRulerDensity>32</YRulerDensity>
+<XRulerOrigin>0</XRulerOrigin>
+<YRulerOrigin>0</YRulerOrigin>
+<XGridDensity>8</XGridDensity>
+<YGridDensity>8</YGridDensity>
+<XGridSpacing>0</XGridSpacing>
+<YGridSpacing>0</YGridSpacing>
+<XGridOrigin>0</XGridOrigin>
+<YGridOrigin>0</YGridOrigin>
+</RulerGrid>
+<XForm>
+<PinX>0</PinX>
+<PinY>0</PinY>
+<Width>1</Width>
+<Height>1</Height>
+<LocPinX F='Width*0'>0</LocPinX>
+<LocPinY F='Height*0'>0</LocPinY>
+<Angle>0</Angle>
+<FlipX>0</FlipX>
+<FlipY>0</FlipY>
+<ResizeMode>0</ResizeMode>
+</XForm>
+</PageSheet>
+<Shapes>
+<Shape ID='1' Type='Shape' LineStyle='26' FillStyle='26' TextStyle='26'>
+<XForm>
+<PinX F='(BeginX+EndX)/2'>1</PinX>
+<PinY F='(BeginY+EndY)/2'>0</PinY>
+<Width F='Sqrt((EndX-BeginX)^2+(EndY-BeginY)^2)'>2</Width>
+<Height>1.0434189630059</Height>
+<LocPinX F='Width*0.5'>1</LocPinX>
+<LocPinY F='Height*0'>0</LocPinY>
+<Angle F='ATan2(EndY-BeginY,EndX-BeginX)'>0</Angle>
+<FlipX>0</FlipX>
+<FlipY>0</FlipY>
+<ResizeMode>0</ResizeMode>
+</XForm>
+<XForm1D>
+<BeginX>0</BeginX>
+<BeginY>0</BeginY>
+<EndX>2</EndX>
+<EndY>0</EndY>
+</XForm1D>
+<Geom IX='0'>
+<NoFill>1</NoFill>
+<NoLine>0</NoLine>
+<NoShow>0</NoShow>
+<NoSnap>0</NoSnap>
+<MoveTo IX='1'>
+<X F='Width*0'>0</X>
+<Y F='Height*0'>0</Y>
+</MoveTo>
+<NURBSTo IX='2'>
+<X F='Width*1'>2</X>
+<Y F='Height*0'>0</Y>
+<A>4.246853645432</A>
+<B>1</B>
+<C>0</C>
+<D>1</D>
+<E Unit='NURBS' F='NURBS(5.3748367344281, 3, 0, 0, 0.25018539551719,-0.00091377929777925,0,1, 0.14900046028787,1.8179233105919,0,1, 0.47692727446522,0.15313817294366,0,1, 0.83211810099703,1.6391013720618,2.9621903733318,1, 0.75056178372151,0.0011555651285438,3.723294332662,1)'>NURBS(5.3748367344281, 3, 0, 0, 0.25018539551719,-0.00091377929777925,0,1, 0.14900046028787,1.8179233105919,0,1, 0.47692727446522,0.15313817294366,0,1, 0.83211810099703,1.6391013720618,2.9621903733318,1, 0.75056178372151,0.0011555651285438,3.723294332662,1)</E>
+</NURBSTo>
+</Geom>
+</Shape>
+</Shapes>
+</Page>
+</Pages>
+<Windows ClientWidth='1022' ClientHeight='875'>
+<Window ID='0' WindowType='Drawing' WindowState='268435456' WindowLeft='0' WindowTop='0' WindowWidth='1022' WindowHeight='875' ContainerType='Page' Page='2' ViewScale='3.0817610062893' ViewCenterX='1.0133333333333' ViewCenterY='0.093333333333333'>
+<ShowRulers>1</ShowRulers>
+<ShowGrid>1</ShowGrid>
+<ShowPageBreaks>0</ShowPageBreaks>
+<ShowGuides>1</ShowGuides>
+<ShowConnectionPoints>1</ShowConnectionPoints>
+<GlueSettings>9</GlueSettings>
+<SnapSettings>295</SnapSettings>
+<SnapExtensions>34</SnapExtensions>
+<DynamicGridEnabled>0</DynamicGridEnabled>
+<TabSplitterPos>0.33</TabSplitterPos>
+</Window>
+<Window ID='1' WindowType='Stencil' WindowState='1025' WindowLeft='-195' WindowTop='-1' WindowWidth='187' WindowHeight='846' Document='C:\Program Files\Microsoft Office\Visio10\1033\Solutions\Visio Extras\Backgrounds (US units).vss' ParentWindow='0'>
+<StencilGroup>10</StencilGroup>
+<StencilGroupPos>0</StencilGroupPos>
+</Window>
+<Window ID='2' WindowType='Stencil' WindowState='1025' WindowLeft='-195' WindowTop='-1' WindowWidth='187' WindowHeight='846' Document='C:\Program Files\Microsoft Office\Visio10\1033\Solutions\Visio Extras\Borders and Titles (US units).vss' ParentWindow='0'>
+<StencilGroup>10</StencilGroup>
+<StencilGroupPos>1</StencilGroupPos>
+</Window>
+<Window ID='3' WindowType='Stencil' WindowState='1025' WindowLeft='-195' WindowTop='-1' WindowWidth='187' WindowHeight='846' Document='C:\Program Files\Microsoft Office\Visio10\1033\Solutions\Block Diagram\Basic Shapes (US units).vss' ParentWindow='0'>
+<StencilGroup>10</StencilGroup>
+<StencilGroupPos>2</StencilGroupPos>
+</Window>
+<Window ID='4' WindowType='Stencil' WindowState='67109889' WindowLeft='-195' WindowTop='-1' WindowWidth='187' WindowHeight='846' ParentWindow='0'>
+<StencilGroup>10</StencilGroup>
+<StencilGroupPos>3</StencilGroupPos>
+</Window>
+</Windows>
+<EventList>
+<EventItem ID='0' EventCode='1' Action='1' Enabled='1' Target='AM' TargetArgs='3'/>
+<EventItem ID='1' EventCode='2' Action='1' Enabled='1' Target='AM' TargetArgs='3'/>
+<EventItem ID='2' EventCode='1' Action='1' Enabled='1' Target='PPT' TargetArgs=''/>
+<EventItem ID='3' EventCode='2' Action='1' Enabled='1' Target='PPT' TargetArgs='1'/>
+</EventList>
+</VisioDocument>

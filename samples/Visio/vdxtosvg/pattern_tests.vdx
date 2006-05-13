@@ -1,0 +1,3058 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<?integrity app='Visio' version='10.0' buildnum='525' metric='0' key='02E2B289AD0B89FF8B7F9BB19ACF59BBD2310AB20FE56CD6447CF9AB68CDAC3318B4EF954230951CFD4047888E506A83A4109D1012A16DF88AB38ADE41F2C874' keystart='261'  ?>
+
+<VisioDocument xmlns='urn:schemas-microsoft-com:office:visio'>
+<DocumentProperties>
+<Title>pattern_tests</Title>
+<Creator>jbreen</Creator>
+<Company>Celox</Company>
+<BuildNumberCreated>671351309</BuildNumberCreated>
+<BuildNumberEdited>671351309</BuildNumberEdited>
+<TimeCreated>2002-07-01T08:00:47</TimeCreated>
+<TimeSaved>2002-07-17T13:46:17</TimeSaved>
+<TimeEdited>2002-07-17T13:45:51</TimeEdited>
+<TimePrinted>2002-07-01T08:00:47</TimePrinted>
+</DocumentProperties>
+<DocumentSettings TopPage='0' DefaultTextStyle='3' DefaultLineStyle='3' DefaultFillStyle='3' DefaultGuideStyle='4'>
+<GlueSettings>9</GlueSettings>
+<SnapSettings>65831</SnapSettings>
+<SnapExtensions>34</SnapExtensions>
+<DynamicGridEnabled>0</DynamicGridEnabled>
+<ProtectStyles>0</ProtectStyles>
+<ProtectShapes>0</ProtectShapes>
+<ProtectMasters>0</ProtectMasters>
+<ProtectBkgnds>0</ProtectBkgnds>
+</DocumentSettings>
+<Colors>
+<ColorEntry IX='0' RGB='#000000'/>
+<ColorEntry IX='1' RGB='#FFFFFF'/>
+<ColorEntry IX='2' RGB='#FF0000'/>
+<ColorEntry IX='3' RGB='#00FF00'/>
+<ColorEntry IX='4' RGB='#0000FF'/>
+<ColorEntry IX='5' RGB='#FFFF00'/>
+<ColorEntry IX='6' RGB='#FF00FF'/>
+<ColorEntry IX='7' RGB='#00FFFF'/>
+<ColorEntry IX='8' RGB='#800000'/>
+<ColorEntry IX='9' RGB='#008000'/>
+<ColorEntry IX='10' RGB='#000080'/>
+<ColorEntry IX='11' RGB='#808000'/>
+<ColorEntry IX='12' RGB='#800080'/>
+<ColorEntry IX='13' RGB='#008080'/>
+<ColorEntry IX='14' RGB='#C0C0C0'/>
+<ColorEntry IX='15' RGB='#E6E6E6'/>
+<ColorEntry IX='16' RGB='#CDCDCD'/>
+<ColorEntry IX='17' RGB='#B3B3B3'/>
+<ColorEntry IX='18' RGB='#9A9A9A'/>
+<ColorEntry IX='19' RGB='#808080'/>
+<ColorEntry IX='20' RGB='#666666'/>
+<ColorEntry IX='21' RGB='#4D4D4D'/>
+<ColorEntry IX='22' RGB='#333333'/>
+<ColorEntry IX='23' RGB='#1A1A1A'/>
+</Colors>
+<PrintSetup>
+<PaperSize>1</PaperSize>
+<PrintLandscape>0</PrintLandscape>
+<PrintCenteredH>0</PrintCenteredH>
+<PrintCenteredV>0</PrintCenteredV>
+<PrintFitOnPages>0</PrintFitOnPages>
+<PrintPagesAcross>1</PrintPagesAcross>
+<PrintPagesDown>1</PrintPagesDown>
+<PrintScale>1</PrintScale>
+<PageTopMargin>0.25</PageTopMargin>
+<PageBottomMargin>0.25</PageBottomMargin>
+<PageLeftMargin>0.25</PageLeftMargin>
+<PageRightMargin>0.25</PageRightMargin>
+</PrintSetup>
+<Fonts>
+<FontEntry ID='0' CharSet='0' PitchAndFamily='32' Attributes='23040' Name='Arial' Weight='0' Unicode='0'/>
+<FontEntry ID='1' CharSet='2' PitchAndFamily='2' Attributes='23040' Name='Wingdings' Weight='0' Unicode='0'/>
+<FontEntry ID='2' CharSet='2' PitchAndFamily='2' Attributes='4096' Name='Monotype Sorts' Weight='0' Unicode='0'/>
+<FontEntry ID='3' CharSet='2' PitchAndFamily='18' Attributes='23040' Name='Symbol' Weight='0' Unicode='0'/>
+</Fonts>
+<StyleSheets>
+<StyleSheet ID='0' NameU='No Style'>
+<StyleProp>
+<EnableLineProps F='1'>1</EnableLineProps>
+<EnableFillProps F='1'>1</EnableFillProps>
+<EnableTextProps F='1'>1</EnableTextProps>
+<HideForApply F='FALSE'>0</HideForApply>
+</StyleProp>
+<Line>
+<LineWeight F='0.01DT'>0.01</LineWeight>
+<LineColor F='0'>0</LineColor>
+<LinePattern F='1'>1</LinePattern>
+<Rounding F='0DL'>0</Rounding>
+<EndArrowSize F='2'>2</EndArrowSize>
+<BeginArrow F='0'>0</BeginArrow>
+<EndArrow F='0'>0</EndArrow>
+<LineCap F='0'>0</LineCap>
+<BeginArrowSize F='2'>2</BeginArrowSize>
+<LineColorTrans F='0%'>0</LineColorTrans>
+</Line>
+<Fill>
+<FillForegnd F='1'>1</FillForegnd>
+<FillBkgnd F='0'>0</FillBkgnd>
+<FillPattern F='1'>1</FillPattern>
+<ShdwForegnd F='0'>0</ShdwForegnd>
+<ShdwBkgnd F='1'>1</ShdwBkgnd>
+<ShdwPattern F='0'>0</ShdwPattern>
+<FillForegndTrans F='0%'>0</FillForegndTrans>
+<FillBkgndTrans F='0%'>0</FillBkgndTrans>
+<ShdwForegndTrans F='0%'>0</ShdwForegndTrans>
+<ShdwBkgndTrans F='0%'>0</ShdwBkgndTrans>
+</Fill>
+<TextBlock>
+<LeftMargin F='0DP'>0</LeftMargin>
+<RightMargin F='0DP'>0</RightMargin>
+<TopMargin F='0DP'>0</TopMargin>
+<BottomMargin F='0DP'>0</BottomMargin>
+<VerticalAlign F='1'>1</VerticalAlign>
+<TextBkgnd F='0'>0</TextBkgnd>
+<DefaultTabStop F='0.5DP'>0.5</DefaultTabStop>
+<TextDirection F='0'>0</TextDirection>
+<TextBkgndTrans F='0%'>0</TextBkgndTrans>
+</TextBlock>
+<Protection>
+<LockWidth F='0'>0</LockWidth>
+<LockHeight F='0'>0</LockHeight>
+<LockMoveX F='0'>0</LockMoveX>
+<LockMoveY F='0'>0</LockMoveY>
+<LockAspect F='0'>0</LockAspect>
+<LockDelete F='0'>0</LockDelete>
+<LockBegin F='0'>0</LockBegin>
+<LockEnd F='0'>0</LockEnd>
+<LockRotate F='0'>0</LockRotate>
+<LockCrop F='0'>0</LockCrop>
+<LockVtxEdit F='0'>0</LockVtxEdit>
+<LockTextEdit F='0'>0</LockTextEdit>
+<LockFormat F='0'>0</LockFormat>
+<LockGroup F='0'>0</LockGroup>
+<LockCalcWH F='0'>0</LockCalcWH>
+<LockSelect F='0'>0</LockSelect>
+</Protection>
+<Misc>
+<NoObjHandles F='FALSE'>0</NoObjHandles>
+<NonPrinting F='FALSE'>0</NonPrinting>
+<NoCtlHandles F='FALSE'>0</NoCtlHandles>
+<NoAlignBox F='FALSE'>0</NoAlignBox>
+<UpdateAlignBox F='FALSE'>0</UpdateAlignBox>
+<HideText F='FALSE'>0</HideText>
+<DynFeedback F='0'>0</DynFeedback>
+<GlueType F='0'>0</GlueType>
+<WalkPreference F='0'>0</WalkPreference>
+<BegTrigger F='No Formula'>0</BegTrigger>
+<EndTrigger F='No Formula'>0</EndTrigger>
+<ObjType F='0'>0</ObjType>
+<Comment>&#xe000;</Comment>
+<IsDropSource F='FALSE'>0</IsDropSource>
+<NoLiveDynamics F='FALSE'>0</NoLiveDynamics>
+</Misc>
+<Event>
+<TheData F='No Formula'>0</TheData>
+<TheText F='No Formula'>0</TheText>
+<EventDblClick F='No Formula'>0</EventDblClick>
+<EventXFMod F='No Formula'>0</EventXFMod>
+<EventDrop F='No Formula'>0</EventDrop>
+</Event>
+<Help>
+<HelpTopic>&#xe000;</HelpTopic>
+<Copyright>&#xe000;</Copyright>
+</Help>
+<LayerMem>
+<LayerMember>&#xe000;</LayerMember>
+</LayerMem>
+<RulerGrid>
+<XRulerDensity F='32'>32</XRulerDensity>
+<YRulerDensity F='32'>32</YRulerDensity>
+<XRulerOrigin F='0DL'>0</XRulerOrigin>
+<YRulerOrigin F='0DL'>0</YRulerOrigin>
+<XGridDensity F='8'>8</XGridDensity>
+<YGridDensity F='8'>8</YGridDensity>
+<XGridSpacing F='0DL'>0</XGridSpacing>
+<YGridSpacing F='0DL'>0</YGridSpacing>
+<XGridOrigin F='0DL'>0</XGridOrigin>
+<YGridOrigin F='0DL'>0</YGridOrigin>
+</RulerGrid>
+<Image>
+<Gamma F='1'>1</Gamma>
+<Contrast F='50%'>0.5</Contrast>
+<Brightness F='50%'>0.5</Brightness>
+<Sharpen F='0%'>0</Sharpen>
+<Blur F='0%'>0</Blur>
+<Denoise F='0%'>0</Denoise>
+<Transparency F='0%'>0</Transparency>
+</Image>
+<Group>
+<SelectMode F='1'>1</SelectMode>
+<DisplayMode F='2'>2</DisplayMode>
+<IsDropTarget F='FALSE'>0</IsDropTarget>
+<IsSnapTarget F='TRUE'>1</IsSnapTarget>
+<IsTextEditTarget F='TRUE'>1</IsTextEditTarget>
+<DontMoveChildren F='FALSE'>0</DontMoveChildren>
+</Group>
+<Layout>
+<ShapePermeableX F='FALSE'>0</ShapePermeableX>
+<ShapePermeableY F='FALSE'>0</ShapePermeableY>
+<ShapePermeablePlace F='FALSE'>0</ShapePermeablePlace>
+<ShapeFixedCode F='0'>0</ShapeFixedCode>
+<ShapePlowCode F='0'>0</ShapePlowCode>
+<ShapeRouteStyle F='0'>0</ShapeRouteStyle>
+<ConFixedCode F='0'>0</ConFixedCode>
+<ConLineJumpCode F='0'>0</ConLineJumpCode>
+<ConLineJumpStyle F='0'>0</ConLineJumpStyle>
+<ConLineJumpDirX F='0'>0</ConLineJumpDirX>
+<ConLineJumpDirY F='0'>0</ConLineJumpDirY>
+<ShapePlaceFlip F='0'>0</ShapePlaceFlip>
+<ConLineRouteExt F='0'>0</ConLineRouteExt>
+</Layout>
+<PageLayout>
+<ResizePage F='FALSE'>0</ResizePage>
+<EnableGrid F='FALSE'>0</EnableGrid>
+<DynamicsOff F='FALSE'>0</DynamicsOff>
+<CtrlAsInput F='FALSE'>0</CtrlAsInput>
+<PlaceStyle F='0'>0</PlaceStyle>
+<RouteStyle F='0'>0</RouteStyle>
+<PlaceDepth F='0'>0</PlaceDepth>
+<PlowCode F='0'>0</PlowCode>
+<LineJumpCode F='1'>1</LineJumpCode>
+<LineJumpStyle F='0'>0</LineJumpStyle>
+<PageLineJumpDirX F='0'>0</PageLineJumpDirX>
+<PageLineJumpDirY F='0'>0</PageLineJumpDirY>
+<LineToNodeX F='0.125DL'>0.125</LineToNodeX>
+<LineToNodeY F='0.125DL'>0.125</LineToNodeY>
+<BlockSizeX F='0.25DL'>0.25</BlockSizeX>
+<BlockSizeY F='0.25DL'>0.25</BlockSizeY>
+<AvenueSizeX F='0.375DL'>0.375</AvenueSizeX>
+<AvenueSizeY F='0.375DL'>0.375</AvenueSizeY>
+<LineToLineX F='0.125DL'>0.125</LineToLineX>
+<LineToLineY F='0.125DL'>0.125</LineToLineY>
+<LineJumpFactorX F='0.66666666666667'>0.66666666666667</LineJumpFactorX>
+<LineJumpFactorY F='0.66666666666667'>0.66666666666667</LineJumpFactorY>
+<LineAdjustFrom F='0'>0</LineAdjustFrom>
+<LineAdjustTo F='0'>0</LineAdjustTo>
+<PlaceFlip F='0'>0</PlaceFlip>
+<LineRouteExt F='0'>0</LineRouteExt>
+</PageLayout>
+<Char IX='0'>
+<Font F='0'>0</Font>
+<Color F='0'>0</Color>
+<Style F='0'>0</Style>
+<Case F='0'>0</Case>
+<Pos F='0'>0</Pos>
+<FontScale F='100%'>1</FontScale>
+<Locale F='0'>0</Locale>
+<Size F='0.16666666666667DT'>0.16666666666667</Size>
+<DblUnderline F='FALSE'>0</DblUnderline>
+<Overline F='FALSE'>0</Overline>
+<Strikethru F='FALSE'>0</Strikethru>
+<Perpendicular F='FALSE'>0</Perpendicular>
+<Letterspace F='0DT'>0</Letterspace>
+<ColorTrans F='0%'>0</ColorTrans>
+</Char>
+<Para IX='0'>
+<IndFirst F='0DP'>0</IndFirst>
+<IndLeft F='0DP'>0</IndLeft>
+<IndRight F='0DP'>0</IndRight>
+<SpLine F='-120%'>-1.2</SpLine>
+<SpBefore F='0DT'>0</SpBefore>
+<SpAfter F='0DT'>0</SpAfter>
+<HorzAlign F='1'>1</HorzAlign>
+<Bullet F='0'>0</Bullet>
+<BulletStr>&#xe000;</BulletStr>
+</Para>
+<Tabs IX='0'/>
+</StyleSheet>
+<StyleSheet ID='1' NameU='Text Only' LineStyle='3' FillStyle='3' TextStyle='3'>
+<StyleProp>
+<EnableLineProps F='1'>1</EnableLineProps>
+<EnableFillProps F='1'>1</EnableFillProps>
+<EnableTextProps F='1'>1</EnableTextProps>
+<HideForApply F='FALSE'>0</HideForApply>
+</StyleProp>
+<Line>
+<LineWeight F='Inh'>0.01</LineWeight>
+<LineColor F='Inh'>0</LineColor>
+<LinePattern F='0'>0</LinePattern>
+<Rounding F='Inh'>0</Rounding>
+<EndArrowSize F='Inh'>2</EndArrowSize>
+<BeginArrow F='Inh'>0</BeginArrow>
+<EndArrow F='Inh'>0</EndArrow>
+<LineCap F='Inh'>0</LineCap>
+<BeginArrowSize F='Inh'>2</BeginArrowSize>
+<LineColorTrans F='Inh'>0</LineColorTrans>
+</Line>
+<Fill>
+<FillForegnd F='Inh'>1</FillForegnd>
+<FillBkgnd F='Inh'>0</FillBkgnd>
+<FillPattern F='0'>0</FillPattern>
+<ShdwForegnd F='Inh'>0</ShdwForegnd>
+<ShdwBkgnd F='Inh'>1</ShdwBkgnd>
+<ShdwPattern F='Inh'>0</ShdwPattern>
+<FillForegndTrans F='Inh'>0</FillForegndTrans>
+<FillBkgndTrans F='Inh'>0</FillBkgndTrans>
+<ShdwForegndTrans F='Inh'>0</ShdwForegndTrans>
+<ShdwBkgndTrans F='Inh'>0</ShdwBkgndTrans>
+</Fill>
+<TextBlock>
+<LeftMargin F='0DP'>0</LeftMargin>
+<RightMargin F='0DP'>0</RightMargin>
+<TopMargin F='0DP'>0</TopMargin>
+<BottomMargin F='0DP'>0</BottomMargin>
+<VerticalAlign F='0'>0</VerticalAlign>
+<TextBkgnd F='0'>0</TextBkgnd>
+<DefaultTabStop F='Inh'>0.5</DefaultTabStop>
+<TextDirection F='Inh'>0</TextDirection>
+<TextBkgndTrans F='Inh'>0</TextBkgndTrans>
+</TextBlock>
+<Para IX='0'>
+<IndFirst F='Inh'>0</IndFirst>
+<IndLeft F='Inh'>0</IndLeft>
+<IndRight F='Inh'>0</IndRight>
+<SpLine F='Inh'>-1.2</SpLine>
+<SpBefore F='Inh'>0</SpBefore>
+<SpAfter F='Inh'>0</SpAfter>
+<HorzAlign F='0'>0</HorzAlign>
+<Bullet F='Inh'>0</Bullet>
+<BulletStr F='Inh'/>
+</Para>
+</StyleSheet>
+<StyleSheet ID='2' NameU='None' LineStyle='3' FillStyle='3' TextStyle='3'>
+<StyleProp>
+<EnableLineProps F='1'>1</EnableLineProps>
+<EnableFillProps F='1'>1</EnableFillProps>
+<EnableTextProps F='1'>1</EnableTextProps>
+<HideForApply F='FALSE'>0</HideForApply>
+</StyleProp>
+<Line>
+<LineWeight F='Inh'>0.01</LineWeight>
+<LineColor F='Inh'>0</LineColor>
+<LinePattern F='0'>0</LinePattern>
+<Rounding F='Inh'>0</Rounding>
+<EndArrowSize F='Inh'>2</EndArrowSize>
+<BeginArrow F='Inh'>0</BeginArrow>
+<EndArrow F='Inh'>0</EndArrow>
+<LineCap F='Inh'>0</LineCap>
+<BeginArrowSize F='Inh'>2</BeginArrowSize>
+<LineColorTrans F='Inh'>0</LineColorTrans>
+</Line>
+<Fill>
+<FillForegnd F='Inh'>1</FillForegnd>
+<FillBkgnd F='Inh'>0</FillBkgnd>
+<FillPattern F='0'>0</FillPattern>
+<ShdwForegnd F='Inh'>0</ShdwForegnd>
+<ShdwBkgnd F='Inh'>1</ShdwBkgnd>
+<ShdwPattern F='Inh'>0</ShdwPattern>
+<FillForegndTrans F='Inh'>0</FillForegndTrans>
+<FillBkgndTrans F='Inh'>0</FillBkgndTrans>
+<ShdwForegndTrans F='Inh'>0</ShdwForegndTrans>
+<ShdwBkgndTrans F='Inh'>0</ShdwBkgndTrans>
+</Fill>
+</StyleSheet>
+<StyleSheet ID='3' NameU='Normal' LineStyle='0' FillStyle='0' TextStyle='0'>
+<StyleProp>
+<EnableLineProps F='1'>1</EnableLineProps>
+<EnableFillProps F='1'>1</EnableFillProps>
+<EnableTextProps F='1'>1</EnableTextProps>
+<HideForApply F='FALSE'>0</HideForApply>
+</StyleProp>
+<TextBlock>
+<LeftMargin Unit='PT' F='4PT'>0.055555555555556</LeftMargin>
+<RightMargin Unit='PT' F='4PT'>0.055555555555556</RightMargin>
+<TopMargin Unit='PT' F='4PT'>0.055555555555556</TopMargin>
+<BottomMargin Unit='PT' F='4PT'>0.055555555555556</BottomMargin>
+<VerticalAlign F='Inh'>1</VerticalAlign>
+<TextBkgnd F='Inh'>0</TextBkgnd>
+<DefaultTabStop F='Inh'>0.5</DefaultTabStop>
+<TextDirection F='Inh'>0</TextDirection>
+<TextBkgndTrans F='Inh'>0</TextBkgndTrans>
+</TextBlock>
+</StyleSheet>
+<StyleSheet ID='4' NameU='Guide' LineStyle='3' FillStyle='3' TextStyle='3'>
+<StyleProp>
+<EnableLineProps F='1'>1</EnableLineProps>
+<EnableFillProps F='1'>1</EnableFillProps>
+<EnableTextProps F='1'>1</EnableTextProps>
+<HideForApply F='FALSE'>0</HideForApply>
+</StyleProp>
+<Line>
+<LineWeight Unit='PT' F='0PT'>0</LineWeight>
+<LineColor F='4'>4</LineColor>
+<LinePattern F='23'>23</LinePattern>
+<Rounding F='Inh'>0</Rounding>
+<EndArrowSize F='Inh'>2</EndArrowSize>
+<BeginArrow F='Inh'>0</BeginArrow>
+<EndArrow F='Inh'>0</EndArrow>
+<LineCap F='Inh'>0</LineCap>
+<BeginArrowSize F='Inh'>2</BeginArrowSize>
+<LineColorTrans F='Inh'>0</LineColorTrans>
+</Line>
+<Fill>
+<FillForegnd F='Inh'>1</FillForegnd>
+<FillBkgnd F='Inh'>0</FillBkgnd>
+<FillPattern F='0'>0</FillPattern>
+<ShdwForegnd F='Inh'>0</ShdwForegnd>
+<ShdwBkgnd F='Inh'>1</ShdwBkgnd>
+<ShdwPattern F='Inh'>0</ShdwPattern>
+<FillForegndTrans F='Inh'>0</FillForegndTrans>
+<FillBkgndTrans F='Inh'>0</FillBkgndTrans>
+<ShdwForegndTrans F='Inh'>0</ShdwForegndTrans>
+<ShdwBkgndTrans F='Inh'>0</ShdwBkgndTrans>
+</Fill>
+<TextBlock>
+<LeftMargin Unit='PT' F='Inh'>0.055555555555556</LeftMargin>
+<RightMargin Unit='PT' F='Inh'>0.055555555555556</RightMargin>
+<TopMargin F='0DT'>0</TopMargin>
+<BottomMargin F='0DT'>0</BottomMargin>
+<VerticalAlign F='2'>2</VerticalAlign>
+<TextBkgnd F='Inh'>0</TextBkgnd>
+<DefaultTabStop F='Inh'>0.5</DefaultTabStop>
+<TextDirection F='Inh'>0</TextDirection>
+<TextBkgndTrans F='Inh'>0</TextBkgndTrans>
+</TextBlock>
+<Misc>
+<NoObjHandles F='Inh'>0</NoObjHandles>
+<NonPrinting F='TRUE'>1</NonPrinting>
+<NoCtlHandles F='Inh'>0</NoCtlHandles>
+<NoAlignBox F='Inh'>0</NoAlignBox>
+<UpdateAlignBox F='Inh'>0</UpdateAlignBox>
+<HideText F='Inh'>0</HideText>
+<DynFeedback F='Inh'>0</DynFeedback>
+<GlueType F='Inh'>0</GlueType>
+<WalkPreference F='Inh'>0</WalkPreference>
+<BegTrigger F='No Formula'>0</BegTrigger>
+<EndTrigger F='No Formula'>0</EndTrigger>
+<ObjType F='Inh'>0</ObjType>
+<Comment F='Inh'/>
+<IsDropSource F='Inh'>0</IsDropSource>
+<NoLiveDynamics F='Inh'>0</NoLiveDynamics>
+</Misc>
+<Layout>
+<ShapePermeableX F='TRUE'>1</ShapePermeableX>
+<ShapePermeableY F='TRUE'>1</ShapePermeableY>
+<ShapePermeablePlace F='TRUE'>1</ShapePermeablePlace>
+<ShapeFixedCode F='Inh'>0</ShapeFixedCode>
+<ShapePlowCode F='Inh'>0</ShapePlowCode>
+<ShapeRouteStyle F='Inh'>0</ShapeRouteStyle>
+<ConFixedCode F='Inh'>0</ConFixedCode>
+<ConLineJumpCode F='Inh'>0</ConLineJumpCode>
+<ConLineJumpStyle F='Inh'>0</ConLineJumpStyle>
+<ConLineJumpDirX F='Inh'>0</ConLineJumpDirX>
+<ConLineJumpDirY F='Inh'>0</ConLineJumpDirY>
+<ShapePlaceFlip F='Inh'>0</ShapePlaceFlip>
+<ConLineRouteExt F='Inh'>0</ConLineRouteExt>
+</Layout>
+<Char IX='0'>
+<Font F='Inh'>0</Font>
+<Color F='4'>4</Color>
+<Style F='Inh'>0</Style>
+<Case F='Inh'>0</Case>
+<Pos F='Inh'>0</Pos>
+<FontScale F='Inh'>1</FontScale>
+<Locale F='Inh'>0</Locale>
+<Size F='0.125DT'>0.125</Size>
+<DblUnderline F='Inh'>0</DblUnderline>
+<Overline F='Inh'>0</Overline>
+<Strikethru F='Inh'>0</Strikethru>
+<Perpendicular F='Inh'>0</Perpendicular>
+<Letterspace F='Inh'>0</Letterspace>
+<ColorTrans F='Inh'>0</ColorTrans>
+</Char>
+</StyleSheet>
+</StyleSheets>
+<DocumentSheet NameU='TheDoc' LineStyle='0' FillStyle='0' TextStyle='0'>
+<DocProps>
+<OutputFormat>2</OutputFormat>
+<LockPreview>0</LockPreview>
+<PreviewQuality>0</PreviewQuality>
+<PreviewScope>1</PreviewScope>
+</DocProps>
+</DocumentSheet>
+<Masters/>
+<Pages>
+<Page ID='0' NameU='Patterns' ViewScale='1' ViewCenterX='4.1041666666667' ViewCenterY='14.854166666667'>
+<PageSheet LineStyle='0' FillStyle='0' TextStyle='0'>
+<PageProps>
+<PageWidth Unit='IN_F'>8.5</PageWidth>
+<PageHeight Unit='IN_F'>11</PageHeight>
+<ShdwOffsetX>0.125</ShdwOffsetX>
+<ShdwOffsetY>-0.125</ShdwOffsetY>
+<PageScale Unit='IN_F'>1</PageScale>
+<DrawingScale Unit='IN_F'>1</DrawingScale>
+<DrawingSizeType>0</DrawingSizeType>
+<DrawingScaleType>0</DrawingScaleType>
+<InhibitSnap>0</InhibitSnap>
+</PageProps>
+<XForm>
+<PinX>0</PinX>
+<PinY>0</PinY>
+<Width>1</Width>
+<Height>1</Height>
+<LocPinX F='Width*0'>0</LocPinX>
+<LocPinY F='Height*0'>0</LocPinY>
+<Angle>0</Angle>
+<FlipX>0</FlipX>
+<FlipY>0</FlipY>
+<ResizeMode>0</ResizeMode>
+</XForm>
+</PageSheet>
+<Shapes>
+<Shape ID='1' Type='Shape' LineStyle='3' FillStyle='3' TextStyle='3'>
+<XForm>
+<PinX>1</PinX>
+<PinY>10</PinY>
+<Width>1</Width>
+<Height>1</Height>
+<LocPinX F='Width*0.5'>0.5</LocPinX>
+<LocPinY F='Height*0.5'>0.5</LocPinY>
+<Angle>0</Angle>
+<FlipX>0</FlipX>
+<FlipY>0</FlipY>
+<ResizeMode>0</ResizeMode>
+</XForm>
+<TextXForm>
+<TxtPinX F='Width*0.5'>0.5</TxtPinX>
+<TxtPinY F='Height*-0.125'>-0.125</TxtPinY>
+<TxtWidth F='Width*1'>1</TxtWidth>
+<TxtHeight F='Height*0.25'>0.25</TxtHeight>
+<TxtLocPinX F='TxtWidth*0.5'>0.5</TxtLocPinX>
+<TxtLocPinY F='TxtHeight*0.5'>0.125</TxtLocPinY>
+<TxtAngle>0</TxtAngle>
+</TextXForm>
+<Fill>
+<FillForegnd>2</FillForegnd>
+<FillBkgnd>#ff99cc</FillBkgnd>
+<FillPattern>0</FillPattern>
+<ShdwForegnd F='Inh'>0</ShdwForegnd>
+<ShdwBkgnd F='Inh'>1</ShdwBkgnd>
+<ShdwPattern F='Inh'>0</ShdwPattern>
+<FillForegndTrans F='Inh'>0</FillForegndTrans>
+<FillBkgndTrans F='Inh'>0</FillBkgndTrans>
+<ShdwForegndTrans F='Inh'>0</ShdwForegndTrans>
+<ShdwBkgndTrans F='Inh'>0</ShdwBkgndTrans>
+</Fill>
+<Geom IX='0'>
+<NoFill>0</NoFill>
+<NoLine>0</NoLine>
+<NoShow>0</NoShow>
+<NoSnap>0</NoSnap>
+<MoveTo IX='1'>
+<X F='Width*0'>0</X>
+<Y F='Height*0'>0</Y>
+</MoveTo>
+<LineTo IX='2'>
+<X F='Width*1'>1</X>
+<Y F='Height*0'>0</Y>
+</LineTo>
+<LineTo IX='3'>
+<X F='Width*1'>1</X>
+<Y F='Height*1'>1</Y>
+</LineTo>
+<LineTo IX='4'>
+<X F='Width*0'>0</X>
+<Y F='Height*1'>1</Y>
+</LineTo>
+<LineTo IX='5'>
+<X F='Geometry1.X1'>0</X>
+<Y F='Geometry1.Y1'>0</Y>
+</LineTo>
+</Geom>
+<Text>Pattern 0</Text>
+</Shape>
+<Shape ID='2' Type='Shape' LineStyle='3' FillStyle='3' TextStyle='3'>
+<XForm>
+<PinX>2.25</PinX>
+<PinY>10</PinY>
+<Width>1</Width>
+<Height>1</Height>
+<LocPinX F='Width*0.5'>0.5</LocPinX>
+<LocPinY F='Height*0.5'>0.5</LocPinY>
+<Angle>0</Angle>
+<FlipX>0</FlipX>
+<FlipY>0</FlipY>
+<ResizeMode>0</ResizeMode>
+</XForm>
+<TextXForm>
+<TxtPinX F='Width*0.5'>0.5</TxtPinX>
+<TxtPinY F='Height*-0.125'>-0.125</TxtPinY>
+<TxtWidth F='Width*1'>1</TxtWidth>
+<TxtHeight F='Height*0.25'>0.25</TxtHeight>
+<TxtLocPinX F='TxtWidth*0.5'>0.5</TxtLocPinX>
+<TxtLocPinY F='TxtHeight*0.5'>0.125</TxtLocPinY>
+<TxtAngle>0</TxtAngle>
+</TextXForm>
+<Fill>
+<FillForegnd>2</FillForegnd>
+<FillBkgnd>#ff99cc</FillBkgnd>
+<FillPattern F='Inh'>1</FillPattern>
+<ShdwForegnd F='Inh'>0</ShdwForegnd>
+<ShdwBkgnd F='Inh'>1</ShdwBkgnd>
+<ShdwPattern F='Inh'>0</ShdwPattern>
+<FillForegndTrans F='Inh'>0</FillForegndTrans>
+<FillBkgndTrans F='Inh'>0</FillBkgndTrans>
+<ShdwForegndTrans F='Inh'>0</ShdwForegndTrans>
+<ShdwBkgndTrans F='Inh'>0</ShdwBkgndTrans>
+</Fill>
+<Geom IX='0'>
+<NoFill>0</NoFill>
+<NoLine>0</NoLine>
+<NoShow>0</NoShow>
+<NoSnap>0</NoSnap>
+<MoveTo IX='1'>
+<X F='Width*0'>0</X>
+<Y F='Height*0'>0</Y>
+</MoveTo>
+<LineTo IX='2'>
+<X F='Width*1'>1</X>
+<Y F='Height*0'>0</Y>
+</LineTo>
+<LineTo IX='3'>
+<X F='Width*1'>1</X>
+<Y F='Height*1'>1</Y>
+</LineTo>
+<LineTo IX='4'>
+<X F='Width*0'>0</X>
+<Y F='Height*1'>1</Y>
+</LineTo>
+<LineTo IX='5'>
+<X F='Geometry1.X1'>0</X>
+<Y F='Geometry1.Y1'>0</Y>
+</LineTo>
+</Geom>
+<Text>Pattern 1</Text>
+</Shape>
+<Shape ID='3' Type='Shape' LineStyle='3' FillStyle='3' TextStyle='3'>
+<XForm>
+<PinX>3.5</PinX>
+<PinY>10</PinY>
+<Width>1</Width>
+<Height>1</Height>
+<LocPinX F='Width*0.5'>0.5</LocPinX>
+<LocPinY F='Height*0.5'>0.5</LocPinY>
+<Angle>0</Angle>
+<FlipX>0</FlipX>
+<FlipY>0</FlipY>
+<ResizeMode>0</ResizeMode>
+</XForm>
+<TextXForm>
+<TxtPinX F='Width*0.5'>0.5</TxtPinX>
+<TxtPinY F='Height*-0.125'>-0.125</TxtPinY>
+<TxtWidth F='Width*1'>1</TxtWidth>
+<TxtHeight F='Height*0.25'>0.25</TxtHeight>
+<TxtLocPinX F='TxtWidth*0.5'>0.5</TxtLocPinX>
+<TxtLocPinY F='TxtHeight*0.5'>0.125</TxtLocPinY>
+<TxtAngle>0</TxtAngle>
+</TextXForm>
+<Fill>
+<FillForegnd>2</FillForegnd>
+<FillBkgnd>#ff99cc</FillBkgnd>
+<FillPattern>2</FillPattern>
+<ShdwForegnd F='Inh'>0</ShdwForegnd>
+<ShdwBkgnd F='Inh'>1</ShdwBkgnd>
+<ShdwPattern F='Inh'>0</ShdwPattern>
+<FillForegndTrans F='Inh'>0</FillForegndTrans>
+<FillBkgndTrans F='Inh'>0</FillBkgndTrans>
+<ShdwForegndTrans F='Inh'>0</ShdwForegndTrans>
+<ShdwBkgndTrans F='Inh'>0</ShdwBkgndTrans>
+</Fill>
+<Geom IX='0'>
+<NoFill>0</NoFill>
+<NoLine>0</NoLine>
+<NoShow>0</NoShow>
+<NoSnap>0</NoSnap>
+<MoveTo IX='1'>
+<X F='Width*0'>0</X>
+<Y F='Height*0'>0</Y>
+</MoveTo>
+<LineTo IX='2'>
+<X F='Width*1'>1</X>
+<Y F='Height*0'>0</Y>
+</LineTo>
+<LineTo IX='3'>
+<X F='Width*1'>1</X>
+<Y F='Height*1'>1</Y>
+</LineTo>
+<LineTo IX='4'>
+<X F='Width*0'>0</X>
+<Y F='Height*1'>1</Y>
+</LineTo>
+<LineTo IX='5'>
+<X F='Geometry1.X1'>0</X>
+<Y F='Geometry1.Y1'>0</Y>
+</LineTo>
+</Geom>
+<Text>Pattern 2</Text>
+</Shape>
+<Shape ID='4' Type='Shape' LineStyle='3' FillStyle='3' TextStyle='3'>
+<XForm>
+<PinX>4.75</PinX>
+<PinY>10</PinY>
+<Width>1</Width>
+<Height>1</Height>
+<LocPinX F='Width*0.5'>0.5</LocPinX>
+<LocPinY F='Height*0.5'>0.5</LocPinY>
+<Angle>0</Angle>
+<FlipX>0</FlipX>
+<FlipY>0</FlipY>
+<ResizeMode>0</ResizeMode>
+</XForm>
+<TextXForm>
+<TxtPinX F='Width*0.5'>0.5</TxtPinX>
+<TxtPinY F='Height*-0.125'>-0.125</TxtPinY>
+<TxtWidth F='Width*1'>1</TxtWidth>
+<TxtHeight F='Height*0.25'>0.25</TxtHeight>
+<TxtLocPinX F='TxtWidth*0.5'>0.5</TxtLocPinX>
+<TxtLocPinY F='TxtHeight*0.5'>0.125</TxtLocPinY>
+<TxtAngle>0</TxtAngle>
+</TextXForm>
+<Fill>
+<FillForegnd>2</FillForegnd>
+<FillBkgnd>#ff99cc</FillBkgnd>
+<FillPattern>3</FillPattern>
+<ShdwForegnd F='Inh'>0</ShdwForegnd>
+<ShdwBkgnd F='Inh'>1</ShdwBkgnd>
+<ShdwPattern F='Inh'>0</ShdwPattern>
+<FillForegndTrans F='Inh'>0</FillForegndTrans>
+<FillBkgndTrans F='Inh'>0</FillBkgndTrans>
+<ShdwForegndTrans F='Inh'>0</ShdwForegndTrans>
+<ShdwBkgndTrans F='Inh'>0</ShdwBkgndTrans>
+</Fill>
+<Geom IX='0'>
+<NoFill>0</NoFill>
+<NoLine>0</NoLine>
+<NoShow>0</NoShow>
+<NoSnap>0</NoSnap>
+<MoveTo IX='1'>
+<X F='Width*0'>0</X>
+<Y F='Height*0'>0</Y>
+</MoveTo>
+<LineTo IX='2'>
+<X F='Width*1'>1</X>
+<Y F='Height*0'>0</Y>
+</LineTo>
+<LineTo IX='3'>
+<X F='Width*1'>1</X>
+<Y F='Height*1'>1</Y>
+</LineTo>
+<LineTo IX='4'>
+<X F='Width*0'>0</X>
+<Y F='Height*1'>1</Y>
+</LineTo>
+<LineTo IX='5'>
+<X F='Geometry1.X1'>0</X>
+<Y F='Geometry1.Y1'>0</Y>
+</LineTo>
+</Geom>
+<Text>Pattern 3</Text>
+</Shape>
+<Shape ID='5' Type='Shape' LineStyle='3' FillStyle='3' TextStyle='3'>
+<XForm>
+<PinX>6</PinX>
+<PinY>10</PinY>
+<Width>1</Width>
+<Height>1</Height>
+<LocPinX F='Width*0.5'>0.5</LocPinX>
+<LocPinY F='Height*0.5'>0.5</LocPinY>
+<Angle>0</Angle>
+<FlipX>0</FlipX>
+<FlipY>0</FlipY>
+<ResizeMode>0</ResizeMode>
+</XForm>
+<TextXForm>
+<TxtPinX F='Width*0.5'>0.5</TxtPinX>
+<TxtPinY F='Height*-0.125'>-0.125</TxtPinY>
+<TxtWidth F='Width*1'>1</TxtWidth>
+<TxtHeight F='Height*0.25'>0.25</TxtHeight>
+<TxtLocPinX F='TxtWidth*0.5'>0.5</TxtLocPinX>
+<TxtLocPinY F='TxtHeight*0.5'>0.125</TxtLocPinY>
+<TxtAngle>0</TxtAngle>
+</TextXForm>
+<Fill>
+<FillForegnd>2</FillForegnd>
+<FillBkgnd>#ff99cc</FillBkgnd>
+<FillPattern>4</FillPattern>
+<ShdwForegnd F='Inh'>0</ShdwForegnd>
+<ShdwBkgnd F='Inh'>1</ShdwBkgnd>
+<ShdwPattern F='Inh'>0</ShdwPattern>
+<FillForegndTrans F='Inh'>0</FillForegndTrans>
+<FillBkgndTrans F='Inh'>0</FillBkgndTrans>
+<ShdwForegndTrans F='Inh'>0</ShdwForegndTrans>
+<ShdwBkgndTrans F='Inh'>0</ShdwBkgndTrans>
+</Fill>
+<Geom IX='0'>
+<NoFill>0</NoFill>
+<NoLine>0</NoLine>
+<NoShow>0</NoShow>
+<NoSnap>0</NoSnap>
+<MoveTo IX='1'>
+<X F='Width*0'>0</X>
+<Y F='Height*0'>0</Y>
+</MoveTo>
+<LineTo IX='2'>
+<X F='Width*1'>1</X>
+<Y F='Height*0'>0</Y>
+</LineTo>
+<LineTo IX='3'>
+<X F='Width*1'>1</X>
+<Y F='Height*1'>1</Y>
+</LineTo>
+<LineTo IX='4'>
+<X F='Width*0'>0</X>
+<Y F='Height*1'>1</Y>
+</LineTo>
+<LineTo IX='5'>
+<X F='Geometry1.X1'>0</X>
+<Y F='Geometry1.Y1'>0</Y>
+</LineTo>
+</Geom>
+<Text>Pattern 4</Text>
+</Shape>
+<Shape ID='6' Type='Shape' LineStyle='3' FillStyle='3' TextStyle='3'>
+<XForm>
+<PinX>1</PinX>
+<PinY>8.5</PinY>
+<Width>1</Width>
+<Height>1</Height>
+<LocPinX F='Width*0.5'>0.5</LocPinX>
+<LocPinY F='Height*0.5'>0.5</LocPinY>
+<Angle>0</Angle>
+<FlipX>0</FlipX>
+<FlipY>0</FlipY>
+<ResizeMode>0</ResizeMode>
+</XForm>
+<TextXForm>
+<TxtPinX F='Width*0.5'>0.5</TxtPinX>
+<TxtPinY F='Height*-0.125'>-0.125</TxtPinY>
+<TxtWidth F='Width*1'>1</TxtWidth>
+<TxtHeight F='Height*0.25'>0.25</TxtHeight>
+<TxtLocPinX F='TxtWidth*0.5'>0.5</TxtLocPinX>
+<TxtLocPinY F='TxtHeight*0.5'>0.125</TxtLocPinY>
+<TxtAngle>0</TxtAngle>
+</TextXForm>
+<Fill>
+<FillForegnd>#ff9900</FillForegnd>
+<FillBkgnd>#ffcc99</FillBkgnd>
+<FillPattern>6</FillPattern>
+<ShdwForegnd F='Inh'>0</ShdwForegnd>
+<ShdwBkgnd F='Inh'>1</ShdwBkgnd>
+<ShdwPattern F='Inh'>0</ShdwPattern>
+<FillForegndTrans F='Inh'>0</FillForegndTrans>
+<FillBkgndTrans F='Inh'>0</FillBkgndTrans>
+<ShdwForegndTrans F='Inh'>0</ShdwForegndTrans>
+<ShdwBkgndTrans F='Inh'>0</ShdwBkgndTrans>
+</Fill>
+<Geom IX='0'>
+<NoFill>0</NoFill>
+<NoLine>0</NoLine>
+<NoShow>0</NoShow>
+<NoSnap>0</NoSnap>
+<MoveTo IX='1'>
+<X F='Width*0'>0</X>
+<Y F='Height*0'>0</Y>
+</MoveTo>
+<LineTo IX='2'>
+<X F='Width*1'>1</X>
+<Y F='Height*0'>0</Y>
+</LineTo>
+<LineTo IX='3'>
+<X F='Width*1'>1</X>
+<Y F='Height*1'>1</Y>
+</LineTo>
+<LineTo IX='4'>
+<X F='Width*0'>0</X>
+<Y F='Height*1'>1</Y>
+</LineTo>
+<LineTo IX='5'>
+<X F='Geometry1.X1'>0</X>
+<Y F='Geometry1.Y1'>0</Y>
+</LineTo>
+</Geom>
+<Text>Pattern 6</Text>
+</Shape>
+<Shape ID='7' Type='Shape' LineStyle='3' FillStyle='3' TextStyle='3'>
+<XForm>
+<PinX>2.25</PinX>
+<PinY>8.5</PinY>
+<Width>1</Width>
+<Height>1</Height>
+<LocPinX F='Width*0.5'>0.5</LocPinX>
+<LocPinY F='Height*0.5'>0.5</LocPinY>
+<Angle>0</Angle>
+<FlipX>0</FlipX>
+<FlipY>0</FlipY>
+<ResizeMode>0</ResizeMode>
+</XForm>
+<TextXForm>
+<TxtPinX F='Width*0.5'>0.5</TxtPinX>
+<TxtPinY F='Height*-0.125'>-0.125</TxtPinY>
+<TxtWidth F='Width*1'>1</TxtWidth>
+<TxtHeight F='Height*0.25'>0.25</TxtHeight>
+<TxtLocPinX F='TxtWidth*0.5'>0.5</TxtLocPinX>
+<TxtLocPinY F='TxtHeight*0.5'>0.125</TxtLocPinY>
+<TxtAngle>0</TxtAngle>
+</TextXForm>
+<Fill>
+<FillForegnd>#ff9900</FillForegnd>
+<FillBkgnd>#ffcc99</FillBkgnd>
+<FillPattern>7</FillPattern>
+<ShdwForegnd F='Inh'>0</ShdwForegnd>
+<ShdwBkgnd F='Inh'>1</ShdwBkgnd>
+<ShdwPattern F='Inh'>0</ShdwPattern>
+<FillForegndTrans F='Inh'>0</FillForegndTrans>
+<FillBkgndTrans F='Inh'>0</FillBkgndTrans>
+<ShdwForegndTrans F='Inh'>0</ShdwForegndTrans>
+<ShdwBkgndTrans F='Inh'>0</ShdwBkgndTrans>
+</Fill>
+<Geom IX='0'>
+<NoFill>0</NoFill>
+<NoLine>0</NoLine>
+<NoShow>0</NoShow>
+<NoSnap>0</NoSnap>
+<MoveTo IX='1'>
+<X F='Width*0'>0</X>
+<Y F='Height*0'>0</Y>
+</MoveTo>
+<LineTo IX='2'>
+<X F='Width*1'>1</X>
+<Y F='Height*0'>0</Y>
+</LineTo>
+<LineTo IX='3'>
+<X F='Width*1'>1</X>
+<Y F='Height*1'>1</Y>
+</LineTo>
+<LineTo IX='4'>
+<X F='Width*0'>0</X>
+<Y F='Height*1'>1</Y>
+</LineTo>
+<LineTo IX='5'>
+<X F='Geometry1.X1'>0</X>
+<Y F='Geometry1.Y1'>0</Y>
+</LineTo>
+</Geom>
+<Text>Pattern 7</Text>
+</Shape>
+<Shape ID='8' Type='Shape' LineStyle='3' FillStyle='3' TextStyle='3'>
+<XForm>
+<PinX>3.5</PinX>
+<PinY>8.5</PinY>
+<Width>1</Width>
+<Height>1</Height>
+<LocPinX F='Width*0.5'>0.5</LocPinX>
+<LocPinY F='Height*0.5'>0.5</LocPinY>
+<Angle>0</Angle>
+<FlipX>0</FlipX>
+<FlipY>0</FlipY>
+<ResizeMode>0</ResizeMode>
+</XForm>
+<TextXForm>
+<TxtPinX F='Width*0.5'>0.5</TxtPinX>
+<TxtPinY F='Height*-0.125'>-0.125</TxtPinY>
+<TxtWidth F='Width*1'>1</TxtWidth>
+<TxtHeight F='Height*0.25'>0.25</TxtHeight>
+<TxtLocPinX F='TxtWidth*0.5'>0.5</TxtLocPinX>
+<TxtLocPinY F='TxtHeight*0.5'>0.125</TxtLocPinY>
+<TxtAngle>0</TxtAngle>
+</TextXForm>
+<Fill>
+<FillForegnd>#ff9900</FillForegnd>
+<FillBkgnd>#ffcc99</FillBkgnd>
+<FillPattern>8</FillPattern>
+<ShdwForegnd F='Inh'>0</ShdwForegnd>
+<ShdwBkgnd F='Inh'>1</ShdwBkgnd>
+<ShdwPattern F='Inh'>0</ShdwPattern>
+<FillForegndTrans F='Inh'>0</FillForegndTrans>
+<FillBkgndTrans F='Inh'>0</FillBkgndTrans>
+<ShdwForegndTrans F='Inh'>0</ShdwForegndTrans>
+<ShdwBkgndTrans F='Inh'>0</ShdwBkgndTrans>
+</Fill>
+<Geom IX='0'>
+<NoFill>0</NoFill>
+<NoLine>0</NoLine>
+<NoShow>0</NoShow>
+<NoSnap>0</NoSnap>
+<MoveTo IX='1'>
+<X F='Width*0'>0</X>
+<Y F='Height*0'>0</Y>
+</MoveTo>
+<LineTo IX='2'>
+<X F='Width*1'>1</X>
+<Y F='Height*0'>0</Y>
+</LineTo>
+<LineTo IX='3'>
+<X F='Width*1'>1</X>
+<Y F='Height*1'>1</Y>
+</LineTo>
+<LineTo IX='4'>
+<X F='Width*0'>0</X>
+<Y F='Height*1'>1</Y>
+</LineTo>
+<LineTo IX='5'>
+<X F='Geometry1.X1'>0</X>
+<Y F='Geometry1.Y1'>0</Y>
+</LineTo>
+</Geom>
+<Text>Pattern 8</Text>
+</Shape>
+<Shape ID='9' Type='Shape' LineStyle='3' FillStyle='3' TextStyle='3'>
+<XForm>
+<PinX>4.75</PinX>
+<PinY>8.5</PinY>
+<Width>1</Width>
+<Height>1</Height>
+<LocPinX F='Width*0.5'>0.5</LocPinX>
+<LocPinY F='Height*0.5'>0.5</LocPinY>
+<Angle>0</Angle>
+<FlipX>0</FlipX>
+<FlipY>0</FlipY>
+<ResizeMode>0</ResizeMode>
+</XForm>
+<TextXForm>
+<TxtPinX F='Width*0.5'>0.5</TxtPinX>
+<TxtPinY F='Height*-0.125'>-0.125</TxtPinY>
+<TxtWidth F='Width*1'>1</TxtWidth>
+<TxtHeight F='Height*0.25'>0.25</TxtHeight>
+<TxtLocPinX F='TxtWidth*0.5'>0.5</TxtLocPinX>
+<TxtLocPinY F='TxtHeight*0.5'>0.125</TxtLocPinY>
+<TxtAngle>0</TxtAngle>
+</TextXForm>
+<Fill>
+<FillForegnd>#ff9900</FillForegnd>
+<FillBkgnd>#ffcc99</FillBkgnd>
+<FillPattern>9</FillPattern>
+<ShdwForegnd F='Inh'>0</ShdwForegnd>
+<ShdwBkgnd F='Inh'>1</ShdwBkgnd>
+<ShdwPattern F='Inh'>0</ShdwPattern>
+<FillForegndTrans F='Inh'>0</FillForegndTrans>
+<FillBkgndTrans F='Inh'>0</FillBkgndTrans>
+<ShdwForegndTrans F='Inh'>0</ShdwForegndTrans>
+<ShdwBkgndTrans F='Inh'>0</ShdwBkgndTrans>
+</Fill>
+<Geom IX='0'>
+<NoFill>0</NoFill>
+<NoLine>0</NoLine>
+<NoShow>0</NoShow>
+<NoSnap>0</NoSnap>
+<MoveTo IX='1'>
+<X F='Width*0'>0</X>
+<Y F='Height*0'>0</Y>
+</MoveTo>
+<LineTo IX='2'>
+<X F='Width*1'>1</X>
+<Y F='Height*0'>0</Y>
+</LineTo>
+<LineTo IX='3'>
+<X F='Width*1'>1</X>
+<Y F='Height*1'>1</Y>
+</LineTo>
+<LineTo IX='4'>
+<X F='Width*0'>0</X>
+<Y F='Height*1'>1</Y>
+</LineTo>
+<LineTo IX='5'>
+<X F='Geometry1.X1'>0</X>
+<Y F='Geometry1.Y1'>0</Y>
+</LineTo>
+</Geom>
+<Text>Pattern 9</Text>
+</Shape>
+<Shape ID='10' Type='Shape' LineStyle='3' FillStyle='3' TextStyle='3'>
+<XForm>
+<PinX>6</PinX>
+<PinY>8.5</PinY>
+<Width>1</Width>
+<Height>1</Height>
+<LocPinX F='Width*0.5'>0.5</LocPinX>
+<LocPinY F='Height*0.5'>0.5</LocPinY>
+<Angle>0</Angle>
+<FlipX>0</FlipX>
+<FlipY>0</FlipY>
+<ResizeMode>0</ResizeMode>
+</XForm>
+<TextXForm>
+<TxtPinX F='Width*0.5'>0.5</TxtPinX>
+<TxtPinY F='Height*-0.125'>-0.125</TxtPinY>
+<TxtWidth F='Width*1'>1</TxtWidth>
+<TxtHeight F='Height*0.25'>0.25</TxtHeight>
+<TxtLocPinX F='TxtWidth*0.5'>0.5</TxtLocPinX>
+<TxtLocPinY F='TxtHeight*0.5'>0.125</TxtLocPinY>
+<TxtAngle>0</TxtAngle>
+</TextXForm>
+<Fill>
+<FillForegnd>#ff9900</FillForegnd>
+<FillBkgnd>#ffcc99</FillBkgnd>
+<FillPattern>10</FillPattern>
+<ShdwForegnd F='Inh'>0</ShdwForegnd>
+<ShdwBkgnd F='Inh'>1</ShdwBkgnd>
+<ShdwPattern F='Inh'>0</ShdwPattern>
+<FillForegndTrans F='Inh'>0</FillForegndTrans>
+<FillBkgndTrans F='Inh'>0</FillBkgndTrans>
+<ShdwForegndTrans F='Inh'>0</ShdwForegndTrans>
+<ShdwBkgndTrans F='Inh'>0</ShdwBkgndTrans>
+</Fill>
+<Geom IX='0'>
+<NoFill>0</NoFill>
+<NoLine>0</NoLine>
+<NoShow>0</NoShow>
+<NoSnap>0</NoSnap>
+<MoveTo IX='1'>
+<X F='Width*0'>0</X>
+<Y F='Height*0'>0</Y>
+</MoveTo>
+<LineTo IX='2'>
+<X F='Width*1'>1</X>
+<Y F='Height*0'>0</Y>
+</LineTo>
+<LineTo IX='3'>
+<X F='Width*1'>1</X>
+<Y F='Height*1'>1</Y>
+</LineTo>
+<LineTo IX='4'>
+<X F='Width*0'>0</X>
+<Y F='Height*1'>1</Y>
+</LineTo>
+<LineTo IX='5'>
+<X F='Geometry1.X1'>0</X>
+<Y F='Geometry1.Y1'>0</Y>
+</LineTo>
+</Geom>
+<Text>Pattern 10</Text>
+</Shape>
+<Shape ID='11' Type='Shape' LineStyle='3' FillStyle='3' TextStyle='3'>
+<XForm>
+<PinX>1</PinX>
+<PinY>7</PinY>
+<Width>1</Width>
+<Height>1</Height>
+<LocPinX F='Width*0.5'>0.5</LocPinX>
+<LocPinY F='Height*0.5'>0.5</LocPinY>
+<Angle>0</Angle>
+<FlipX>0</FlipX>
+<FlipY>0</FlipY>
+<ResizeMode>0</ResizeMode>
+</XForm>
+<TextXForm>
+<TxtPinX F='Width*0.5'>0.5</TxtPinX>
+<TxtPinY F='Height*-0.125'>-0.125</TxtPinY>
+<TxtWidth F='Width*1'>1</TxtWidth>
+<TxtHeight F='Height*0.25'>0.25</TxtHeight>
+<TxtLocPinX F='TxtWidth*0.5'>0.5</TxtLocPinX>
+<TxtLocPinY F='TxtHeight*0.5'>0.125</TxtLocPinY>
+<TxtAngle>0</TxtAngle>
+</TextXForm>
+<Fill>
+<FillForegnd>#99cc00</FillForegnd>
+<FillBkgnd>#ffff99</FillBkgnd>
+<FillPattern>12</FillPattern>
+<ShdwForegnd F='Inh'>0</ShdwForegnd>
+<ShdwBkgnd F='Inh'>1</ShdwBkgnd>
+<ShdwPattern F='Inh'>0</ShdwPattern>
+<FillForegndTrans F='Inh'>0</FillForegndTrans>
+<FillBkgndTrans F='Inh'>0</FillBkgndTrans>
+<ShdwForegndTrans F='Inh'>0</ShdwForegndTrans>
+<ShdwBkgndTrans F='Inh'>0</ShdwBkgndTrans>
+</Fill>
+<Geom IX='0'>
+<NoFill>0</NoFill>
+<NoLine>0</NoLine>
+<NoShow>0</NoShow>
+<NoSnap>0</NoSnap>
+<MoveTo IX='1'>
+<X F='Width*0'>0</X>
+<Y F='Height*0'>0</Y>
+</MoveTo>
+<LineTo IX='2'>
+<X F='Width*1'>1</X>
+<Y F='Height*0'>0</Y>
+</LineTo>
+<LineTo IX='3'>
+<X F='Width*1'>1</X>
+<Y F='Height*1'>1</Y>
+</LineTo>
+<LineTo IX='4'>
+<X F='Width*0'>0</X>
+<Y F='Height*1'>1</Y>
+</LineTo>
+<LineTo IX='5'>
+<X F='Geometry1.X1'>0</X>
+<Y F='Geometry1.Y1'>0</Y>
+</LineTo>
+</Geom>
+<Text>Pattern 12</Text>
+</Shape>
+<Shape ID='12' Type='Shape' LineStyle='3' FillStyle='3' TextStyle='3'>
+<XForm>
+<PinX>2.25</PinX>
+<PinY>7</PinY>
+<Width>1</Width>
+<Height>1</Height>
+<LocPinX F='Width*0.5'>0.5</LocPinX>
+<LocPinY F='Height*0.5'>0.5</LocPinY>
+<Angle>0</Angle>
+<FlipX>0</FlipX>
+<FlipY>0</FlipY>
+<ResizeMode>0</ResizeMode>
+</XForm>
+<TextXForm>
+<TxtPinX F='Width*0.5'>0.5</TxtPinX>
+<TxtPinY F='Height*-0.125'>-0.125</TxtPinY>
+<TxtWidth F='Width*1'>1</TxtWidth>
+<TxtHeight F='Height*0.25'>0.25</TxtHeight>
+<TxtLocPinX F='TxtWidth*0.5'>0.5</TxtLocPinX>
+<TxtLocPinY F='TxtHeight*0.5'>0.125</TxtLocPinY>
+<TxtAngle>0</TxtAngle>
+</TextXForm>
+<Fill>
+<FillForegnd>#99cc00</FillForegnd>
+<FillBkgnd>#ffff99</FillBkgnd>
+<FillPattern>13</FillPattern>
+<ShdwForegnd F='Inh'>0</ShdwForegnd>
+<ShdwBkgnd F='Inh'>1</ShdwBkgnd>
+<ShdwPattern F='Inh'>0</ShdwPattern>
+<FillForegndTrans F='Inh'>0</FillForegndTrans>
+<FillBkgndTrans F='Inh'>0</FillBkgndTrans>
+<ShdwForegndTrans F='Inh'>0</ShdwForegndTrans>
+<ShdwBkgndTrans F='Inh'>0</ShdwBkgndTrans>
+</Fill>
+<Geom IX='0'>
+<NoFill>0</NoFill>
+<NoLine>0</NoLine>
+<NoShow>0</NoShow>
+<NoSnap>0</NoSnap>
+<MoveTo IX='1'>
+<X F='Width*0'>0</X>
+<Y F='Height*0'>0</Y>
+</MoveTo>
+<LineTo IX='2'>
+<X F='Width*1'>1</X>
+<Y F='Height*0'>0</Y>
+</LineTo>
+<LineTo IX='3'>
+<X F='Width*1'>1</X>
+<Y F='Height*1'>1</Y>
+</LineTo>
+<LineTo IX='4'>
+<X F='Width*0'>0</X>
+<Y F='Height*1'>1</Y>
+</LineTo>
+<LineTo IX='5'>
+<X F='Geometry1.X1'>0</X>
+<Y F='Geometry1.Y1'>0</Y>
+</LineTo>
+</Geom>
+<Text>Pattern 13</Text>
+</Shape>
+<Shape ID='13' Type='Shape' LineStyle='3' FillStyle='3' TextStyle='3'>
+<XForm>
+<PinX>3.5</PinX>
+<PinY>7</PinY>
+<Width>1</Width>
+<Height>1</Height>
+<LocPinX F='Width*0.5'>0.5</LocPinX>
+<LocPinY F='Height*0.5'>0.5</LocPinY>
+<Angle>0</Angle>
+<FlipX>0</FlipX>
+<FlipY>0</FlipY>
+<ResizeMode>0</ResizeMode>
+</XForm>
+<TextXForm>
+<TxtPinX F='Width*0.5'>0.5</TxtPinX>
+<TxtPinY F='Height*-0.125'>-0.125</TxtPinY>
+<TxtWidth F='Width*1'>1</TxtWidth>
+<TxtHeight F='Height*0.25'>0.25</TxtHeight>
+<TxtLocPinX F='TxtWidth*0.5'>0.5</TxtLocPinX>
+<TxtLocPinY F='TxtHeight*0.5'>0.125</TxtLocPinY>
+<TxtAngle>0</TxtAngle>
+</TextXForm>
+<Fill>
+<FillForegnd>#99cc00</FillForegnd>
+<FillBkgnd>#ffff99</FillBkgnd>
+<FillPattern>14</FillPattern>
+<ShdwForegnd F='Inh'>0</ShdwForegnd>
+<ShdwBkgnd F='Inh'>1</ShdwBkgnd>
+<ShdwPattern F='Inh'>0</ShdwPattern>
+<FillForegndTrans F='Inh'>0</FillForegndTrans>
+<FillBkgndTrans F='Inh'>0</FillBkgndTrans>
+<ShdwForegndTrans F='Inh'>0</ShdwForegndTrans>
+<ShdwBkgndTrans F='Inh'>0</ShdwBkgndTrans>
+</Fill>
+<Geom IX='0'>
+<NoFill>0</NoFill>
+<NoLine>0</NoLine>
+<NoShow>0</NoShow>
+<NoSnap>0</NoSnap>
+<MoveTo IX='1'>
+<X F='Width*0'>0</X>
+<Y F='Height*0'>0</Y>
+</MoveTo>
+<LineTo IX='2'>
+<X F='Width*1'>1</X>
+<Y F='Height*0'>0</Y>
+</LineTo>
+<LineTo IX='3'>
+<X F='Width*1'>1</X>
+<Y F='Height*1'>1</Y>
+</LineTo>
+<LineTo IX='4'>
+<X F='Width*0'>0</X>
+<Y F='Height*1'>1</Y>
+</LineTo>
+<LineTo IX='5'>
+<X F='Geometry1.X1'>0</X>
+<Y F='Geometry1.Y1'>0</Y>
+</LineTo>
+</Geom>
+<Text>Pattern 14</Text>
+</Shape>
+<Shape ID='14' Type='Shape' LineStyle='3' FillStyle='3' TextStyle='3'>
+<XForm>
+<PinX>4.75</PinX>
+<PinY>7</PinY>
+<Width>1</Width>
+<Height>1</Height>
+<LocPinX F='Width*0.5'>0.5</LocPinX>
+<LocPinY F='Height*0.5'>0.5</LocPinY>
+<Angle>0</Angle>
+<FlipX>0</FlipX>
+<FlipY>0</FlipY>
+<ResizeMode>0</ResizeMode>
+</XForm>
+<TextXForm>
+<TxtPinX F='Width*0.5'>0.5</TxtPinX>
+<TxtPinY F='Height*-0.125'>-0.125</TxtPinY>
+<TxtWidth F='Width*1'>1</TxtWidth>
+<TxtHeight F='Height*0.25'>0.25</TxtHeight>
+<TxtLocPinX F='TxtWidth*0.5'>0.5</TxtLocPinX>
+<TxtLocPinY F='TxtHeight*0.5'>0.125</TxtLocPinY>
+<TxtAngle>0</TxtAngle>
+</TextXForm>
+<Fill>
+<FillForegnd>#99cc00</FillForegnd>
+<FillBkgnd>#ffff99</FillBkgnd>
+<FillPattern>15</FillPattern>
+<ShdwForegnd F='Inh'>0</ShdwForegnd>
+<ShdwBkgnd F='Inh'>1</ShdwBkgnd>
+<ShdwPattern F='Inh'>0</ShdwPattern>
+<FillForegndTrans F='Inh'>0</FillForegndTrans>
+<FillBkgndTrans F='Inh'>0</FillBkgndTrans>
+<ShdwForegndTrans F='Inh'>0</ShdwForegndTrans>
+<ShdwBkgndTrans F='Inh'>0</ShdwBkgndTrans>
+</Fill>
+<Geom IX='0'>
+<NoFill>0</NoFill>
+<NoLine>0</NoLine>
+<NoShow>0</NoShow>
+<NoSnap>0</NoSnap>
+<MoveTo IX='1'>
+<X F='Width*0'>0</X>
+<Y F='Height*0'>0</Y>
+</MoveTo>
+<LineTo IX='2'>
+<X F='Width*1'>1</X>
+<Y F='Height*0'>0</Y>
+</LineTo>
+<LineTo IX='3'>
+<X F='Width*1'>1</X>
+<Y F='Height*1'>1</Y>
+</LineTo>
+<LineTo IX='4'>
+<X F='Width*0'>0</X>
+<Y F='Height*1'>1</Y>
+</LineTo>
+<LineTo IX='5'>
+<X F='Geometry1.X1'>0</X>
+<Y F='Geometry1.Y1'>0</Y>
+</LineTo>
+</Geom>
+<Text>Pattern 15</Text>
+</Shape>
+<Shape ID='15' Type='Shape' LineStyle='3' FillStyle='3' TextStyle='3'>
+<XForm>
+<PinX>6</PinX>
+<PinY>7</PinY>
+<Width>1</Width>
+<Height>1</Height>
+<LocPinX F='Width*0.5'>0.5</LocPinX>
+<LocPinY F='Height*0.5'>0.5</LocPinY>
+<Angle>0</Angle>
+<FlipX>0</FlipX>
+<FlipY>0</FlipY>
+<ResizeMode>0</ResizeMode>
+</XForm>
+<TextXForm>
+<TxtPinX F='Width*0.5'>0.5</TxtPinX>
+<TxtPinY F='Height*-0.125'>-0.125</TxtPinY>
+<TxtWidth F='Width*1'>1</TxtWidth>
+<TxtHeight F='Height*0.25'>0.25</TxtHeight>
+<TxtLocPinX F='TxtWidth*0.5'>0.5</TxtLocPinX>
+<TxtLocPinY F='TxtHeight*0.5'>0.125</TxtLocPinY>
+<TxtAngle>0</TxtAngle>
+</TextXForm>
+<Fill>
+<FillForegnd>#99cc00</FillForegnd>
+<FillBkgnd>#ffff99</FillBkgnd>
+<FillPattern>16</FillPattern>
+<ShdwForegnd F='Inh'>0</ShdwForegnd>
+<ShdwBkgnd F='Inh'>1</ShdwBkgnd>
+<ShdwPattern F='Inh'>0</ShdwPattern>
+<FillForegndTrans F='Inh'>0</FillForegndTrans>
+<FillBkgndTrans F='Inh'>0</FillBkgndTrans>
+<ShdwForegndTrans F='Inh'>0</ShdwForegndTrans>
+<ShdwBkgndTrans F='Inh'>0</ShdwBkgndTrans>
+</Fill>
+<Geom IX='0'>
+<NoFill>0</NoFill>
+<NoLine>0</NoLine>
+<NoShow>0</NoShow>
+<NoSnap>0</NoSnap>
+<MoveTo IX='1'>
+<X F='Width*0'>0</X>
+<Y F='Height*0'>0</Y>
+</MoveTo>
+<LineTo IX='2'>
+<X F='Width*1'>1</X>
+<Y F='Height*0'>0</Y>
+</LineTo>
+<LineTo IX='3'>
+<X F='Width*1'>1</X>
+<Y F='Height*1'>1</Y>
+</LineTo>
+<LineTo IX='4'>
+<X F='Width*0'>0</X>
+<Y F='Height*1'>1</Y>
+</LineTo>
+<LineTo IX='5'>
+<X F='Geometry1.X1'>0</X>
+<Y F='Geometry1.Y1'>0</Y>
+</LineTo>
+</Geom>
+<Text>Pattern 16</Text>
+</Shape>
+<Shape ID='16' Type='Shape' LineStyle='3' FillStyle='3' TextStyle='3'>
+<XForm>
+<PinX>1</PinX>
+<PinY>5.5</PinY>
+<Width>1</Width>
+<Height>1</Height>
+<LocPinX F='Width*0.5'>0.5</LocPinX>
+<LocPinY F='Height*0.5'>0.5</LocPinY>
+<Angle>0</Angle>
+<FlipX>0</FlipX>
+<FlipY>0</FlipY>
+<ResizeMode>0</ResizeMode>
+</XForm>
+<TextXForm>
+<TxtPinX F='Width*0.5'>0.5</TxtPinX>
+<TxtPinY F='Height*-0.125'>-0.125</TxtPinY>
+<TxtWidth F='Width*1'>1</TxtWidth>
+<TxtHeight F='Height*0.25'>0.25</TxtHeight>
+<TxtLocPinX F='TxtWidth*0.5'>0.5</TxtLocPinX>
+<TxtLocPinY F='TxtHeight*0.5'>0.125</TxtLocPinY>
+<TxtAngle>0</TxtAngle>
+</TextXForm>
+<Fill>
+<FillForegnd>#339966</FillForegnd>
+<FillBkgnd>#ccffcc</FillBkgnd>
+<FillPattern>18</FillPattern>
+<ShdwForegnd F='Inh'>0</ShdwForegnd>
+<ShdwBkgnd F='Inh'>1</ShdwBkgnd>
+<ShdwPattern F='Inh'>0</ShdwPattern>
+<FillForegndTrans F='Inh'>0</FillForegndTrans>
+<FillBkgndTrans F='Inh'>0</FillBkgndTrans>
+<ShdwForegndTrans F='Inh'>0</ShdwForegndTrans>
+<ShdwBkgndTrans F='Inh'>0</ShdwBkgndTrans>
+</Fill>
+<Geom IX='0'>
+<NoFill>0</NoFill>
+<NoLine>0</NoLine>
+<NoShow>0</NoShow>
+<NoSnap>0</NoSnap>
+<MoveTo IX='1'>
+<X F='Width*0'>0</X>
+<Y F='Height*0'>0</Y>
+</MoveTo>
+<LineTo IX='2'>
+<X F='Width*1'>1</X>
+<Y F='Height*0'>0</Y>
+</LineTo>
+<LineTo IX='3'>
+<X F='Width*1'>1</X>
+<Y F='Height*1'>1</Y>
+</LineTo>
+<LineTo IX='4'>
+<X F='Width*0'>0</X>
+<Y F='Height*1'>1</Y>
+</LineTo>
+<LineTo IX='5'>
+<X F='Geometry1.X1'>0</X>
+<Y F='Geometry1.Y1'>0</Y>
+</LineTo>
+</Geom>
+<Text>Pattern 18</Text>
+</Shape>
+<Shape ID='17' Type='Shape' LineStyle='3' FillStyle='3' TextStyle='3'>
+<XForm>
+<PinX>2.25</PinX>
+<PinY>5.5</PinY>
+<Width>1</Width>
+<Height>1</Height>
+<LocPinX F='Width*0.5'>0.5</LocPinX>
+<LocPinY F='Height*0.5'>0.5</LocPinY>
+<Angle>0</Angle>
+<FlipX>0</FlipX>
+<FlipY>0</FlipY>
+<ResizeMode>0</ResizeMode>
+</XForm>
+<TextXForm>
+<TxtPinX F='Width*0.5'>0.5</TxtPinX>
+<TxtPinY F='Height*-0.125'>-0.125</TxtPinY>
+<TxtWidth F='Width*1'>1</TxtWidth>
+<TxtHeight F='Height*0.25'>0.25</TxtHeight>
+<TxtLocPinX F='TxtWidth*0.5'>0.5</TxtLocPinX>
+<TxtLocPinY F='TxtHeight*0.5'>0.125</TxtLocPinY>
+<TxtAngle>0</TxtAngle>
+</TextXForm>
+<Fill>
+<FillForegnd>#339966</FillForegnd>
+<FillBkgnd>#ccffcc</FillBkgnd>
+<FillPattern>19</FillPattern>
+<ShdwForegnd F='Inh'>0</ShdwForegnd>
+<ShdwBkgnd F='Inh'>1</ShdwBkgnd>
+<ShdwPattern F='Inh'>0</ShdwPattern>
+<FillForegndTrans F='Inh'>0</FillForegndTrans>
+<FillBkgndTrans F='Inh'>0</FillBkgndTrans>
+<ShdwForegndTrans F='Inh'>0</ShdwForegndTrans>
+<ShdwBkgndTrans F='Inh'>0</ShdwBkgndTrans>
+</Fill>
+<Geom IX='0'>
+<NoFill>0</NoFill>
+<NoLine>0</NoLine>
+<NoShow>0</NoShow>
+<NoSnap>0</NoSnap>
+<MoveTo IX='1'>
+<X F='Width*0'>0</X>
+<Y F='Height*0'>0</Y>
+</MoveTo>
+<LineTo IX='2'>
+<X F='Width*1'>1</X>
+<Y F='Height*0'>0</Y>
+</LineTo>
+<LineTo IX='3'>
+<X F='Width*1'>1</X>
+<Y F='Height*1'>1</Y>
+</LineTo>
+<LineTo IX='4'>
+<X F='Width*0'>0</X>
+<Y F='Height*1'>1</Y>
+</LineTo>
+<LineTo IX='5'>
+<X F='Geometry1.X1'>0</X>
+<Y F='Geometry1.Y1'>0</Y>
+</LineTo>
+</Geom>
+<Text>Pattern 19</Text>
+</Shape>
+<Shape ID='18' Type='Shape' LineStyle='3' FillStyle='3' TextStyle='3'>
+<XForm>
+<PinX>3.5</PinX>
+<PinY>5.5</PinY>
+<Width>1</Width>
+<Height>1</Height>
+<LocPinX F='Width*0.5'>0.5</LocPinX>
+<LocPinY F='Height*0.5'>0.5</LocPinY>
+<Angle>0</Angle>
+<FlipX>0</FlipX>
+<FlipY>0</FlipY>
+<ResizeMode>0</ResizeMode>
+</XForm>
+<TextXForm>
+<TxtPinX F='Width*0.5'>0.5</TxtPinX>
+<TxtPinY F='Height*-0.125'>-0.125</TxtPinY>
+<TxtWidth F='Width*1'>1</TxtWidth>
+<TxtHeight F='Height*0.25'>0.25</TxtHeight>
+<TxtLocPinX F='TxtWidth*0.5'>0.5</TxtLocPinX>
+<TxtLocPinY F='TxtHeight*0.5'>0.125</TxtLocPinY>
+<TxtAngle>0</TxtAngle>
+</TextXForm>
+<Fill>
+<FillForegnd>#339966</FillForegnd>
+<FillBkgnd>#ccffcc</FillBkgnd>
+<FillPattern>20</FillPattern>
+<ShdwForegnd F='Inh'>0</ShdwForegnd>
+<ShdwBkgnd F='Inh'>1</ShdwBkgnd>
+<ShdwPattern F='Inh'>0</ShdwPattern>
+<FillForegndTrans F='Inh'>0</FillForegndTrans>
+<FillBkgndTrans F='Inh'>0</FillBkgndTrans>
+<ShdwForegndTrans F='Inh'>0</ShdwForegndTrans>
+<ShdwBkgndTrans F='Inh'>0</ShdwBkgndTrans>
+</Fill>
+<Geom IX='0'>
+<NoFill>0</NoFill>
+<NoLine>0</NoLine>
+<NoShow>0</NoShow>
+<NoSnap>0</NoSnap>
+<MoveTo IX='1'>
+<X F='Width*0'>0</X>
+<Y F='Height*0'>0</Y>
+</MoveTo>
+<LineTo IX='2'>
+<X F='Width*1'>1</X>
+<Y F='Height*0'>0</Y>
+</LineTo>
+<LineTo IX='3'>
+<X F='Width*1'>1</X>
+<Y F='Height*1'>1</Y>
+</LineTo>
+<LineTo IX='4'>
+<X F='Width*0'>0</X>
+<Y F='Height*1'>1</Y>
+</LineTo>
+<LineTo IX='5'>
+<X F='Geometry1.X1'>0</X>
+<Y F='Geometry1.Y1'>0</Y>
+</LineTo>
+</Geom>
+<Text>Pattern 20</Text>
+</Shape>
+<Shape ID='19' Type='Shape' LineStyle='3' FillStyle='3' TextStyle='3'>
+<XForm>
+<PinX>4.75</PinX>
+<PinY>5.5</PinY>
+<Width>1</Width>
+<Height>1</Height>
+<LocPinX F='Width*0.5'>0.5</LocPinX>
+<LocPinY F='Height*0.5'>0.5</LocPinY>
+<Angle>0</Angle>
+<FlipX>0</FlipX>
+<FlipY>0</FlipY>
+<ResizeMode>0</ResizeMode>
+</XForm>
+<TextXForm>
+<TxtPinX F='Width*0.5'>0.5</TxtPinX>
+<TxtPinY F='Height*-0.125'>-0.125</TxtPinY>
+<TxtWidth F='Width*1'>1</TxtWidth>
+<TxtHeight F='Height*0.25'>0.25</TxtHeight>
+<TxtLocPinX F='TxtWidth*0.5'>0.5</TxtLocPinX>
+<TxtLocPinY F='TxtHeight*0.5'>0.125</TxtLocPinY>
+<TxtAngle>0</TxtAngle>
+</TextXForm>
+<Fill>
+<FillForegnd>#339966</FillForegnd>
+<FillBkgnd>#ccffcc</FillBkgnd>
+<FillPattern>21</FillPattern>
+<ShdwForegnd F='Inh'>0</ShdwForegnd>
+<ShdwBkgnd F='Inh'>1</ShdwBkgnd>
+<ShdwPattern F='Inh'>0</ShdwPattern>
+<FillForegndTrans F='Inh'>0</FillForegndTrans>
+<FillBkgndTrans F='Inh'>0</FillBkgndTrans>
+<ShdwForegndTrans F='Inh'>0</ShdwForegndTrans>
+<ShdwBkgndTrans F='Inh'>0</ShdwBkgndTrans>
+</Fill>
+<Geom IX='0'>
+<NoFill>0</NoFill>
+<NoLine>0</NoLine>
+<NoShow>0</NoShow>
+<NoSnap>0</NoSnap>
+<MoveTo IX='1'>
+<X F='Width*0'>0</X>
+<Y F='Height*0'>0</Y>
+</MoveTo>
+<LineTo IX='2'>
+<X F='Width*1'>1</X>
+<Y F='Height*0'>0</Y>
+</LineTo>
+<LineTo IX='3'>
+<X F='Width*1'>1</X>
+<Y F='Height*1'>1</Y>
+</LineTo>
+<LineTo IX='4'>
+<X F='Width*0'>0</X>
+<Y F='Height*1'>1</Y>
+</LineTo>
+<LineTo IX='5'>
+<X F='Geometry1.X1'>0</X>
+<Y F='Geometry1.Y1'>0</Y>
+</LineTo>
+</Geom>
+<Text>Pattern 21</Text>
+</Shape>
+<Shape ID='20' Type='Shape' LineStyle='3' FillStyle='3' TextStyle='3'>
+<XForm>
+<PinX>6</PinX>
+<PinY>5.5</PinY>
+<Width>1</Width>
+<Height>1</Height>
+<LocPinX F='Width*0.5'>0.5</LocPinX>
+<LocPinY F='Height*0.5'>0.5</LocPinY>
+<Angle>0</Angle>
+<FlipX>0</FlipX>
+<FlipY>0</FlipY>
+<ResizeMode>0</ResizeMode>
+</XForm>
+<TextXForm>
+<TxtPinX F='Width*0.5'>0.5</TxtPinX>
+<TxtPinY F='Height*-0.125'>-0.125</TxtPinY>
+<TxtWidth F='Width*1'>1</TxtWidth>
+<TxtHeight F='Height*0.25'>0.25</TxtHeight>
+<TxtLocPinX F='TxtWidth*0.5'>0.5</TxtLocPinX>
+<TxtLocPinY F='TxtHeight*0.5'>0.125</TxtLocPinY>
+<TxtAngle>0</TxtAngle>
+</TextXForm>
+<Fill>
+<FillForegnd>#339966</FillForegnd>
+<FillBkgnd>#ccffcc</FillBkgnd>
+<FillPattern>22</FillPattern>
+<ShdwForegnd F='Inh'>0</ShdwForegnd>
+<ShdwBkgnd F='Inh'>1</ShdwBkgnd>
+<ShdwPattern F='Inh'>0</ShdwPattern>
+<FillForegndTrans F='Inh'>0</FillForegndTrans>
+<FillBkgndTrans F='Inh'>0</FillBkgndTrans>
+<ShdwForegndTrans F='Inh'>0</ShdwForegndTrans>
+<ShdwBkgndTrans F='Inh'>0</ShdwBkgndTrans>
+</Fill>
+<Geom IX='0'>
+<NoFill>0</NoFill>
+<NoLine>0</NoLine>
+<NoShow>0</NoShow>
+<NoSnap>0</NoSnap>
+<MoveTo IX='1'>
+<X F='Width*0'>0</X>
+<Y F='Height*0'>0</Y>
+</MoveTo>
+<LineTo IX='2'>
+<X F='Width*1'>1</X>
+<Y F='Height*0'>0</Y>
+</LineTo>
+<LineTo IX='3'>
+<X F='Width*1'>1</X>
+<Y F='Height*1'>1</Y>
+</LineTo>
+<LineTo IX='4'>
+<X F='Width*0'>0</X>
+<Y F='Height*1'>1</Y>
+</LineTo>
+<LineTo IX='5'>
+<X F='Geometry1.X1'>0</X>
+<Y F='Geometry1.Y1'>0</Y>
+</LineTo>
+</Geom>
+<Text>Pattern 22</Text>
+</Shape>
+<Shape ID='21' Type='Shape' LineStyle='3' FillStyle='3' TextStyle='3'>
+<XForm>
+<PinX>1</PinX>
+<PinY>4</PinY>
+<Width>1</Width>
+<Height>1</Height>
+<LocPinX F='Width*0.5'>0.5</LocPinX>
+<LocPinY F='Height*0.5'>0.5</LocPinY>
+<Angle>0</Angle>
+<FlipX>0</FlipX>
+<FlipY>0</FlipY>
+<ResizeMode>0</ResizeMode>
+</XForm>
+<TextXForm>
+<TxtPinX F='Width*0.5'>0.5</TxtPinX>
+<TxtPinY F='Height*-0.125'>-0.125</TxtPinY>
+<TxtWidth F='Width*1'>1</TxtWidth>
+<TxtHeight F='Height*0.25'>0.25</TxtHeight>
+<TxtLocPinX F='TxtWidth*0.5'>0.5</TxtLocPinX>
+<TxtLocPinY F='TxtHeight*0.5'>0.125</TxtLocPinY>
+<TxtAngle>0</TxtAngle>
+</TextXForm>
+<Fill>
+<FillForegnd>#33cccc</FillForegnd>
+<FillBkgnd>#ccffff</FillBkgnd>
+<FillPattern>24</FillPattern>
+<ShdwForegnd F='Inh'>0</ShdwForegnd>
+<ShdwBkgnd F='Inh'>1</ShdwBkgnd>
+<ShdwPattern F='Inh'>0</ShdwPattern>
+<FillForegndTrans F='Inh'>0</FillForegndTrans>
+<FillBkgndTrans F='Inh'>0</FillBkgndTrans>
+<ShdwForegndTrans F='Inh'>0</ShdwForegndTrans>
+<ShdwBkgndTrans F='Inh'>0</ShdwBkgndTrans>
+</Fill>
+<Geom IX='0'>
+<NoFill>0</NoFill>
+<NoLine>0</NoLine>
+<NoShow>0</NoShow>
+<NoSnap>0</NoSnap>
+<MoveTo IX='1'>
+<X F='Width*0'>0</X>
+<Y F='Height*0'>0</Y>
+</MoveTo>
+<LineTo IX='2'>
+<X F='Width*1'>1</X>
+<Y F='Height*0'>0</Y>
+</LineTo>
+<LineTo IX='3'>
+<X F='Width*1'>1</X>
+<Y F='Height*1'>1</Y>
+</LineTo>
+<LineTo IX='4'>
+<X F='Width*0'>0</X>
+<Y F='Height*1'>1</Y>
+</LineTo>
+<LineTo IX='5'>
+<X F='Geometry1.X1'>0</X>
+<Y F='Geometry1.Y1'>0</Y>
+</LineTo>
+</Geom>
+<Text>Pattern 24</Text>
+</Shape>
+<Shape ID='22' Type='Shape' LineStyle='3' FillStyle='3' TextStyle='3'>
+<XForm>
+<PinX>2.25</PinX>
+<PinY>4</PinY>
+<Width>1</Width>
+<Height>1</Height>
+<LocPinX F='Width*0.5'>0.5</LocPinX>
+<LocPinY F='Height*0.5'>0.5</LocPinY>
+<Angle>0</Angle>
+<FlipX>0</FlipX>
+<FlipY>0</FlipY>
+<ResizeMode>0</ResizeMode>
+</XForm>
+<TextXForm>
+<TxtPinX F='Width*0.5'>0.5</TxtPinX>
+<TxtPinY F='Height*-0.125'>-0.125</TxtPinY>
+<TxtWidth F='Width*1'>1</TxtWidth>
+<TxtHeight F='Height*0.25'>0.25</TxtHeight>
+<TxtLocPinX F='TxtWidth*0.5'>0.5</TxtLocPinX>
+<TxtLocPinY F='TxtHeight*0.5'>0.125</TxtLocPinY>
+<TxtAngle>0</TxtAngle>
+</TextXForm>
+<Fill>
+<FillForegnd>#33cccc</FillForegnd>
+<FillBkgnd>#ccffff</FillBkgnd>
+<FillPattern>25</FillPattern>
+<ShdwForegnd F='Inh'>0</ShdwForegnd>
+<ShdwBkgnd F='Inh'>1</ShdwBkgnd>
+<ShdwPattern F='Inh'>0</ShdwPattern>
+<FillForegndTrans F='Inh'>0</FillForegndTrans>
+<FillBkgndTrans F='Inh'>0</FillBkgndTrans>
+<ShdwForegndTrans F='Inh'>0</ShdwForegndTrans>
+<ShdwBkgndTrans F='Inh'>0</ShdwBkgndTrans>
+</Fill>
+<Geom IX='0'>
+<NoFill>0</NoFill>
+<NoLine>0</NoLine>
+<NoShow>0</NoShow>
+<NoSnap>0</NoSnap>
+<MoveTo IX='1'>
+<X F='Width*0'>0</X>
+<Y F='Height*0'>0</Y>
+</MoveTo>
+<LineTo IX='2'>
+<X F='Width*1'>1</X>
+<Y F='Height*0'>0</Y>
+</LineTo>
+<LineTo IX='3'>
+<X F='Width*1'>1</X>
+<Y F='Height*1'>1</Y>
+</LineTo>
+<LineTo IX='4'>
+<X F='Width*0'>0</X>
+<Y F='Height*1'>1</Y>
+</LineTo>
+<LineTo IX='5'>
+<X F='Geometry1.X1'>0</X>
+<Y F='Geometry1.Y1'>0</Y>
+</LineTo>
+</Geom>
+<Text>Pattern 25</Text>
+</Shape>
+<Shape ID='23' Type='Shape' LineStyle='3' FillStyle='3' TextStyle='3'>
+<XForm>
+<PinX>3.5</PinX>
+<PinY>4</PinY>
+<Width>1</Width>
+<Height>1</Height>
+<LocPinX F='Width*0.5'>0.5</LocPinX>
+<LocPinY F='Height*0.5'>0.5</LocPinY>
+<Angle>0</Angle>
+<FlipX>0</FlipX>
+<FlipY>0</FlipY>
+<ResizeMode>0</ResizeMode>
+</XForm>
+<TextXForm>
+<TxtPinX F='Width*0.5'>0.5</TxtPinX>
+<TxtPinY F='Height*-0.125'>-0.125</TxtPinY>
+<TxtWidth F='Width*1'>1</TxtWidth>
+<TxtHeight F='Height*0.25'>0.25</TxtHeight>
+<TxtLocPinX F='TxtWidth*0.5'>0.5</TxtLocPinX>
+<TxtLocPinY F='TxtHeight*0.5'>0.125</TxtLocPinY>
+<TxtAngle>0</TxtAngle>
+</TextXForm>
+<Fill>
+<FillForegnd>#33cccc</FillForegnd>
+<FillBkgnd>#ccffff</FillBkgnd>
+<FillPattern>26</FillPattern>
+<ShdwForegnd F='Inh'>0</ShdwForegnd>
+<ShdwBkgnd F='Inh'>1</ShdwBkgnd>
+<ShdwPattern F='Inh'>0</ShdwPattern>
+<FillForegndTrans F='Inh'>0</FillForegndTrans>
+<FillBkgndTrans F='Inh'>0</FillBkgndTrans>
+<ShdwForegndTrans F='Inh'>0</ShdwForegndTrans>
+<ShdwBkgndTrans F='Inh'>0</ShdwBkgndTrans>
+</Fill>
+<Geom IX='0'>
+<NoFill>0</NoFill>
+<NoLine>0</NoLine>
+<NoShow>0</NoShow>
+<NoSnap>0</NoSnap>
+<MoveTo IX='1'>
+<X F='Width*0'>0</X>
+<Y F='Height*0'>0</Y>
+</MoveTo>
+<LineTo IX='2'>
+<X F='Width*1'>1</X>
+<Y F='Height*0'>0</Y>
+</LineTo>
+<LineTo IX='3'>
+<X F='Width*1'>1</X>
+<Y F='Height*1'>1</Y>
+</LineTo>
+<LineTo IX='4'>
+<X F='Width*0'>0</X>
+<Y F='Height*1'>1</Y>
+</LineTo>
+<LineTo IX='5'>
+<X F='Geometry1.X1'>0</X>
+<Y F='Geometry1.Y1'>0</Y>
+</LineTo>
+</Geom>
+<Text>Pattern 26</Text>
+</Shape>
+<Shape ID='24' Type='Shape' LineStyle='3' FillStyle='3' TextStyle='3'>
+<XForm>
+<PinX>4.75</PinX>
+<PinY>4</PinY>
+<Width>1</Width>
+<Height>1</Height>
+<LocPinX F='Width*0.5'>0.5</LocPinX>
+<LocPinY F='Height*0.5'>0.5</LocPinY>
+<Angle>0</Angle>
+<FlipX>0</FlipX>
+<FlipY>0</FlipY>
+<ResizeMode>0</ResizeMode>
+</XForm>
+<TextXForm>
+<TxtPinX F='Width*0.5'>0.5</TxtPinX>
+<TxtPinY F='Height*-0.125'>-0.125</TxtPinY>
+<TxtWidth F='Width*1'>1</TxtWidth>
+<TxtHeight F='Height*0.25'>0.25</TxtHeight>
+<TxtLocPinX F='TxtWidth*0.5'>0.5</TxtLocPinX>
+<TxtLocPinY F='TxtHeight*0.5'>0.125</TxtLocPinY>
+<TxtAngle>0</TxtAngle>
+</TextXForm>
+<Fill>
+<FillForegnd>#33cccc</FillForegnd>
+<FillBkgnd>#ccffff</FillBkgnd>
+<FillPattern>27</FillPattern>
+<ShdwForegnd F='Inh'>0</ShdwForegnd>
+<ShdwBkgnd F='Inh'>1</ShdwBkgnd>
+<ShdwPattern F='Inh'>0</ShdwPattern>
+<FillForegndTrans F='Inh'>0</FillForegndTrans>
+<FillBkgndTrans F='Inh'>0</FillBkgndTrans>
+<ShdwForegndTrans F='Inh'>0</ShdwForegndTrans>
+<ShdwBkgndTrans F='Inh'>0</ShdwBkgndTrans>
+</Fill>
+<Geom IX='0'>
+<NoFill>0</NoFill>
+<NoLine>0</NoLine>
+<NoShow>0</NoShow>
+<NoSnap>0</NoSnap>
+<MoveTo IX='1'>
+<X F='Width*0'>0</X>
+<Y F='Height*0'>0</Y>
+</MoveTo>
+<LineTo IX='2'>
+<X F='Width*1'>1</X>
+<Y F='Height*0'>0</Y>
+</LineTo>
+<LineTo IX='3'>
+<X F='Width*1'>1</X>
+<Y F='Height*1'>1</Y>
+</LineTo>
+<LineTo IX='4'>
+<X F='Width*0'>0</X>
+<Y F='Height*1'>1</Y>
+</LineTo>
+<LineTo IX='5'>
+<X F='Geometry1.X1'>0</X>
+<Y F='Geometry1.Y1'>0</Y>
+</LineTo>
+</Geom>
+<Text>Pattern 27</Text>
+</Shape>
+<Shape ID='25' Type='Shape' LineStyle='3' FillStyle='3' TextStyle='3'>
+<XForm>
+<PinX>6</PinX>
+<PinY>4</PinY>
+<Width>1</Width>
+<Height>1</Height>
+<LocPinX F='Width*0.5'>0.5</LocPinX>
+<LocPinY F='Height*0.5'>0.5</LocPinY>
+<Angle>0</Angle>
+<FlipX>0</FlipX>
+<FlipY>0</FlipY>
+<ResizeMode>0</ResizeMode>
+</XForm>
+<TextXForm>
+<TxtPinX F='Width*0.5'>0.5</TxtPinX>
+<TxtPinY F='Height*-0.125'>-0.125</TxtPinY>
+<TxtWidth F='Width*1'>1</TxtWidth>
+<TxtHeight F='Height*0.25'>0.25</TxtHeight>
+<TxtLocPinX F='TxtWidth*0.5'>0.5</TxtLocPinX>
+<TxtLocPinY F='TxtHeight*0.5'>0.125</TxtLocPinY>
+<TxtAngle>0</TxtAngle>
+</TextXForm>
+<Fill>
+<FillForegnd>#33cccc</FillForegnd>
+<FillBkgnd>#ccffff</FillBkgnd>
+<FillPattern>28</FillPattern>
+<ShdwForegnd F='Inh'>0</ShdwForegnd>
+<ShdwBkgnd F='Inh'>1</ShdwBkgnd>
+<ShdwPattern F='Inh'>0</ShdwPattern>
+<FillForegndTrans F='Inh'>0</FillForegndTrans>
+<FillBkgndTrans F='Inh'>0</FillBkgndTrans>
+<ShdwForegndTrans F='Inh'>0</ShdwForegndTrans>
+<ShdwBkgndTrans F='Inh'>0</ShdwBkgndTrans>
+</Fill>
+<Geom IX='0'>
+<NoFill>0</NoFill>
+<NoLine>0</NoLine>
+<NoShow>0</NoShow>
+<NoSnap>0</NoSnap>
+<MoveTo IX='1'>
+<X F='Width*0'>0</X>
+<Y F='Height*0'>0</Y>
+</MoveTo>
+<LineTo IX='2'>
+<X F='Width*1'>1</X>
+<Y F='Height*0'>0</Y>
+</LineTo>
+<LineTo IX='3'>
+<X F='Width*1'>1</X>
+<Y F='Height*1'>1</Y>
+</LineTo>
+<LineTo IX='4'>
+<X F='Width*0'>0</X>
+<Y F='Height*1'>1</Y>
+</LineTo>
+<LineTo IX='5'>
+<X F='Geometry1.X1'>0</X>
+<Y F='Geometry1.Y1'>0</Y>
+</LineTo>
+</Geom>
+<Text>Pattern 28</Text>
+</Shape>
+<Shape ID='26' Type='Shape' LineStyle='3' FillStyle='3' TextStyle='3'>
+<XForm>
+<PinX>1</PinX>
+<PinY>2.5</PinY>
+<Width>1</Width>
+<Height>1</Height>
+<LocPinX F='Width*0.5'>0.5</LocPinX>
+<LocPinY F='Height*0.5'>0.5</LocPinY>
+<Angle>0</Angle>
+<FlipX>0</FlipX>
+<FlipY>0</FlipY>
+<ResizeMode>0</ResizeMode>
+</XForm>
+<TextXForm>
+<TxtPinX F='Width*0.5'>0.5</TxtPinX>
+<TxtPinY F='Height*-0.125'>-0.125</TxtPinY>
+<TxtWidth F='Width*1'>1</TxtWidth>
+<TxtHeight F='Height*0.25'>0.25</TxtHeight>
+<TxtLocPinX F='TxtWidth*0.5'>0.5</TxtLocPinX>
+<TxtLocPinY F='TxtHeight*0.5'>0.125</TxtLocPinY>
+<TxtAngle>0</TxtAngle>
+</TextXForm>
+<Fill>
+<FillForegnd>4</FillForegnd>
+<FillBkgnd>#99ccff</FillBkgnd>
+<FillPattern>30</FillPattern>
+<ShdwForegnd F='Inh'>0</ShdwForegnd>
+<ShdwBkgnd F='Inh'>1</ShdwBkgnd>
+<ShdwPattern F='Inh'>0</ShdwPattern>
+<FillForegndTrans F='Inh'>0</FillForegndTrans>
+<FillBkgndTrans F='Inh'>0</FillBkgndTrans>
+<ShdwForegndTrans F='Inh'>0</ShdwForegndTrans>
+<ShdwBkgndTrans F='Inh'>0</ShdwBkgndTrans>
+</Fill>
+<Geom IX='0'>
+<NoFill>0</NoFill>
+<NoLine>0</NoLine>
+<NoShow>0</NoShow>
+<NoSnap>0</NoSnap>
+<MoveTo IX='1'>
+<X F='Width*0'>0</X>
+<Y F='Height*0'>0</Y>
+</MoveTo>
+<LineTo IX='2'>
+<X F='Width*1'>1</X>
+<Y F='Height*0'>0</Y>
+</LineTo>
+<LineTo IX='3'>
+<X F='Width*1'>1</X>
+<Y F='Height*1'>1</Y>
+</LineTo>
+<LineTo IX='4'>
+<X F='Width*0'>0</X>
+<Y F='Height*1'>1</Y>
+</LineTo>
+<LineTo IX='5'>
+<X F='Geometry1.X1'>0</X>
+<Y F='Geometry1.Y1'>0</Y>
+</LineTo>
+</Geom>
+<Text>Pattern 30</Text>
+</Shape>
+<Shape ID='27' Type='Shape' LineStyle='3' FillStyle='3' TextStyle='3'>
+<XForm>
+<PinX>2.25</PinX>
+<PinY>2.5</PinY>
+<Width>1</Width>
+<Height>1</Height>
+<LocPinX F='Width*0.5'>0.5</LocPinX>
+<LocPinY F='Height*0.5'>0.5</LocPinY>
+<Angle>0</Angle>
+<FlipX>0</FlipX>
+<FlipY>0</FlipY>
+<ResizeMode>0</ResizeMode>
+</XForm>
+<TextXForm>
+<TxtPinX F='Width*0.5'>0.5</TxtPinX>
+<TxtPinY F='Height*-0.125'>-0.125</TxtPinY>
+<TxtWidth F='Width*1'>1</TxtWidth>
+<TxtHeight F='Height*0.25'>0.25</TxtHeight>
+<TxtLocPinX F='TxtWidth*0.5'>0.5</TxtLocPinX>
+<TxtLocPinY F='TxtHeight*0.5'>0.125</TxtLocPinY>
+<TxtAngle>0</TxtAngle>
+</TextXForm>
+<Fill>
+<FillForegnd>4</FillForegnd>
+<FillBkgnd>#99ccff</FillBkgnd>
+<FillPattern>31</FillPattern>
+<ShdwForegnd F='Inh'>0</ShdwForegnd>
+<ShdwBkgnd F='Inh'>1</ShdwBkgnd>
+<ShdwPattern F='Inh'>0</ShdwPattern>
+<FillForegndTrans F='Inh'>0</FillForegndTrans>
+<FillBkgndTrans F='Inh'>0</FillBkgndTrans>
+<ShdwForegndTrans F='Inh'>0</ShdwForegndTrans>
+<ShdwBkgndTrans F='Inh'>0</ShdwBkgndTrans>
+</Fill>
+<Geom IX='0'>
+<NoFill>0</NoFill>
+<NoLine>0</NoLine>
+<NoShow>0</NoShow>
+<NoSnap>0</NoSnap>
+<MoveTo IX='1'>
+<X F='Width*0'>0</X>
+<Y F='Height*0'>0</Y>
+</MoveTo>
+<LineTo IX='2'>
+<X F='Width*1'>1</X>
+<Y F='Height*0'>0</Y>
+</LineTo>
+<LineTo IX='3'>
+<X F='Width*1'>1</X>
+<Y F='Height*1'>1</Y>
+</LineTo>
+<LineTo IX='4'>
+<X F='Width*0'>0</X>
+<Y F='Height*1'>1</Y>
+</LineTo>
+<LineTo IX='5'>
+<X F='Geometry1.X1'>0</X>
+<Y F='Geometry1.Y1'>0</Y>
+</LineTo>
+</Geom>
+<Text>Pattern 31</Text>
+</Shape>
+<Shape ID='28' Type='Shape' LineStyle='3' FillStyle='3' TextStyle='3'>
+<XForm>
+<PinX>3.5</PinX>
+<PinY>2.5</PinY>
+<Width>1</Width>
+<Height>1</Height>
+<LocPinX F='Width*0.5'>0.5</LocPinX>
+<LocPinY F='Height*0.5'>0.5</LocPinY>
+<Angle>0</Angle>
+<FlipX>0</FlipX>
+<FlipY>0</FlipY>
+<ResizeMode>0</ResizeMode>
+</XForm>
+<TextXForm>
+<TxtPinX F='Width*0.5'>0.5</TxtPinX>
+<TxtPinY F='Height*-0.125'>-0.125</TxtPinY>
+<TxtWidth F='Width*1'>1</TxtWidth>
+<TxtHeight F='Height*0.25'>0.25</TxtHeight>
+<TxtLocPinX F='TxtWidth*0.5'>0.5</TxtLocPinX>
+<TxtLocPinY F='TxtHeight*0.5'>0.125</TxtLocPinY>
+<TxtAngle>0</TxtAngle>
+</TextXForm>
+<Fill>
+<FillForegnd>4</FillForegnd>
+<FillBkgnd>#99ccff</FillBkgnd>
+<FillPattern>32</FillPattern>
+<ShdwForegnd F='Inh'>0</ShdwForegnd>
+<ShdwBkgnd F='Inh'>1</ShdwBkgnd>
+<ShdwPattern F='Inh'>0</ShdwPattern>
+<FillForegndTrans F='Inh'>0</FillForegndTrans>
+<FillBkgndTrans F='Inh'>0</FillBkgndTrans>
+<ShdwForegndTrans F='Inh'>0</ShdwForegndTrans>
+<ShdwBkgndTrans F='Inh'>0</ShdwBkgndTrans>
+</Fill>
+<Geom IX='0'>
+<NoFill>0</NoFill>
+<NoLine>0</NoLine>
+<NoShow>0</NoShow>
+<NoSnap>0</NoSnap>
+<MoveTo IX='1'>
+<X F='Width*0'>0</X>
+<Y F='Height*0'>0</Y>
+</MoveTo>
+<LineTo IX='2'>
+<X F='Width*1'>1</X>
+<Y F='Height*0'>0</Y>
+</LineTo>
+<LineTo IX='3'>
+<X F='Width*1'>1</X>
+<Y F='Height*1'>1</Y>
+</LineTo>
+<LineTo IX='4'>
+<X F='Width*0'>0</X>
+<Y F='Height*1'>1</Y>
+</LineTo>
+<LineTo IX='5'>
+<X F='Geometry1.X1'>0</X>
+<Y F='Geometry1.Y1'>0</Y>
+</LineTo>
+</Geom>
+<Text>Pattern 32</Text>
+</Shape>
+<Shape ID='29' Type='Shape' LineStyle='3' FillStyle='3' TextStyle='3'>
+<XForm>
+<PinX>4.75</PinX>
+<PinY>2.5</PinY>
+<Width>1</Width>
+<Height>1</Height>
+<LocPinX F='Width*0.5'>0.5</LocPinX>
+<LocPinY F='Height*0.5'>0.5</LocPinY>
+<Angle>0</Angle>
+<FlipX>0</FlipX>
+<FlipY>0</FlipY>
+<ResizeMode>0</ResizeMode>
+</XForm>
+<TextXForm>
+<TxtPinX F='Width*0.5'>0.5</TxtPinX>
+<TxtPinY F='Height*-0.125'>-0.125</TxtPinY>
+<TxtWidth F='Width*1'>1</TxtWidth>
+<TxtHeight F='Height*0.25'>0.25</TxtHeight>
+<TxtLocPinX F='TxtWidth*0.5'>0.5</TxtLocPinX>
+<TxtLocPinY F='TxtHeight*0.5'>0.125</TxtLocPinY>
+<TxtAngle>0</TxtAngle>
+</TextXForm>
+<Fill>
+<FillForegnd>4</FillForegnd>
+<FillBkgnd>#99ccff</FillBkgnd>
+<FillPattern>33</FillPattern>
+<ShdwForegnd F='Inh'>0</ShdwForegnd>
+<ShdwBkgnd F='Inh'>1</ShdwBkgnd>
+<ShdwPattern F='Inh'>0</ShdwPattern>
+<FillForegndTrans F='Inh'>0</FillForegndTrans>
+<FillBkgndTrans F='Inh'>0</FillBkgndTrans>
+<ShdwForegndTrans F='Inh'>0</ShdwForegndTrans>
+<ShdwBkgndTrans F='Inh'>0</ShdwBkgndTrans>
+</Fill>
+<Geom IX='0'>
+<NoFill>0</NoFill>
+<NoLine>0</NoLine>
+<NoShow>0</NoShow>
+<NoSnap>0</NoSnap>
+<MoveTo IX='1'>
+<X F='Width*0'>0</X>
+<Y F='Height*0'>0</Y>
+</MoveTo>
+<LineTo IX='2'>
+<X F='Width*1'>1</X>
+<Y F='Height*0'>0</Y>
+</LineTo>
+<LineTo IX='3'>
+<X F='Width*1'>1</X>
+<Y F='Height*1'>1</Y>
+</LineTo>
+<LineTo IX='4'>
+<X F='Width*0'>0</X>
+<Y F='Height*1'>1</Y>
+</LineTo>
+<LineTo IX='5'>
+<X F='Geometry1.X1'>0</X>
+<Y F='Geometry1.Y1'>0</Y>
+</LineTo>
+</Geom>
+<Text>Pattern 33</Text>
+</Shape>
+<Shape ID='30' Type='Shape' LineStyle='3' FillStyle='3' TextStyle='3'>
+<XForm>
+<PinX>6</PinX>
+<PinY>2.5</PinY>
+<Width>1</Width>
+<Height>1</Height>
+<LocPinX F='Width*0.5'>0.5</LocPinX>
+<LocPinY F='Height*0.5'>0.5</LocPinY>
+<Angle>0</Angle>
+<FlipX>0</FlipX>
+<FlipY>0</FlipY>
+<ResizeMode>0</ResizeMode>
+</XForm>
+<TextXForm>
+<TxtPinX F='Width*0.5'>0.5</TxtPinX>
+<TxtPinY F='Height*-0.125'>-0.125</TxtPinY>
+<TxtWidth F='Width*1'>1</TxtWidth>
+<TxtHeight F='Height*0.25'>0.25</TxtHeight>
+<TxtLocPinX F='TxtWidth*0.5'>0.5</TxtLocPinX>
+<TxtLocPinY F='TxtHeight*0.5'>0.125</TxtLocPinY>
+<TxtAngle>0</TxtAngle>
+</TextXForm>
+<Fill>
+<FillForegnd>4</FillForegnd>
+<FillBkgnd>#99ccff</FillBkgnd>
+<FillPattern>34</FillPattern>
+<ShdwForegnd F='Inh'>0</ShdwForegnd>
+<ShdwBkgnd F='Inh'>1</ShdwBkgnd>
+<ShdwPattern F='Inh'>0</ShdwPattern>
+<FillForegndTrans F='Inh'>0</FillForegndTrans>
+<FillBkgndTrans F='Inh'>0</FillBkgndTrans>
+<ShdwForegndTrans F='Inh'>0</ShdwForegndTrans>
+<ShdwBkgndTrans F='Inh'>0</ShdwBkgndTrans>
+</Fill>
+<Geom IX='0'>
+<NoFill>0</NoFill>
+<NoLine>0</NoLine>
+<NoShow>0</NoShow>
+<NoSnap>0</NoSnap>
+<MoveTo IX='1'>
+<X F='Width*0'>0</X>
+<Y F='Height*0'>0</Y>
+</MoveTo>
+<LineTo IX='2'>
+<X F='Width*1'>1</X>
+<Y F='Height*0'>0</Y>
+</LineTo>
+<LineTo IX='3'>
+<X F='Width*1'>1</X>
+<Y F='Height*1'>1</Y>
+</LineTo>
+<LineTo IX='4'>
+<X F='Width*0'>0</X>
+<Y F='Height*1'>1</Y>
+</LineTo>
+<LineTo IX='5'>
+<X F='Geometry1.X1'>0</X>
+<Y F='Geometry1.Y1'>0</Y>
+</LineTo>
+</Geom>
+<Text>Pattern 34</Text>
+</Shape>
+<Shape ID='31' Type='Shape' LineStyle='3' FillStyle='3' TextStyle='3'>
+<XForm>
+<PinX>1</PinX>
+<PinY>1</PinY>
+<Width>1</Width>
+<Height>1</Height>
+<LocPinX F='Width*0.5'>0.5</LocPinX>
+<LocPinY F='Height*0.5'>0.5</LocPinY>
+<Angle>0</Angle>
+<FlipX>0</FlipX>
+<FlipY>0</FlipY>
+<ResizeMode>0</ResizeMode>
+</XForm>
+<TextXForm>
+<TxtPinX F='Width*0.5'>0.5</TxtPinX>
+<TxtPinY F='Height*-0.125'>-0.125</TxtPinY>
+<TxtWidth F='Width*1'>1</TxtWidth>
+<TxtHeight F='Height*0.25'>0.25</TxtHeight>
+<TxtLocPinX F='TxtWidth*0.5'>0.5</TxtLocPinX>
+<TxtLocPinY F='TxtHeight*0.5'>0.125</TxtLocPinY>
+<TxtAngle>0</TxtAngle>
+</TextXForm>
+<Fill>
+<FillForegnd>#660066</FillForegnd>
+<FillBkgnd>#ffccff</FillBkgnd>
+<FillPattern>36</FillPattern>
+<ShdwForegnd F='Inh'>0</ShdwForegnd>
+<ShdwBkgnd F='Inh'>1</ShdwBkgnd>
+<ShdwPattern F='Inh'>0</ShdwPattern>
+<FillForegndTrans F='Inh'>0</FillForegndTrans>
+<FillBkgndTrans F='Inh'>0</FillBkgndTrans>
+<ShdwForegndTrans F='Inh'>0</ShdwForegndTrans>
+<ShdwBkgndTrans F='Inh'>0</ShdwBkgndTrans>
+</Fill>
+<Geom IX='0'>
+<NoFill>0</NoFill>
+<NoLine>0</NoLine>
+<NoShow>0</NoShow>
+<NoSnap>0</NoSnap>
+<MoveTo IX='1'>
+<X F='Width*0'>0</X>
+<Y F='Height*0'>0</Y>
+</MoveTo>
+<LineTo IX='2'>
+<X F='Width*1'>1</X>
+<Y F='Height*0'>0</Y>
+</LineTo>
+<LineTo IX='3'>
+<X F='Width*1'>1</X>
+<Y F='Height*1'>1</Y>
+</LineTo>
+<LineTo IX='4'>
+<X F='Width*0'>0</X>
+<Y F='Height*1'>1</Y>
+</LineTo>
+<LineTo IX='5'>
+<X F='Geometry1.X1'>0</X>
+<Y F='Geometry1.Y1'>0</Y>
+</LineTo>
+</Geom>
+<Text>Pattern 36</Text>
+</Shape>
+<Shape ID='32' Type='Shape' LineStyle='3' FillStyle='3' TextStyle='3'>
+<XForm>
+<PinX>2.25</PinX>
+<PinY>1</PinY>
+<Width>1</Width>
+<Height>1</Height>
+<LocPinX F='Width*0.5'>0.5</LocPinX>
+<LocPinY F='Height*0.5'>0.5</LocPinY>
+<Angle>0</Angle>
+<FlipX>0</FlipX>
+<FlipY>0</FlipY>
+<ResizeMode>0</ResizeMode>
+</XForm>
+<TextXForm>
+<TxtPinX F='Width*0.5'>0.5</TxtPinX>
+<TxtPinY F='Height*-0.125'>-0.125</TxtPinY>
+<TxtWidth F='Width*1'>1</TxtWidth>
+<TxtHeight F='Height*0.25'>0.25</TxtHeight>
+<TxtLocPinX F='TxtWidth*0.5'>0.5</TxtLocPinX>
+<TxtLocPinY F='TxtHeight*0.5'>0.125</TxtLocPinY>
+<TxtAngle>0</TxtAngle>
+</TextXForm>
+<Fill>
+<FillForegnd>#660066</FillForegnd>
+<FillBkgnd>#ffccff</FillBkgnd>
+<FillPattern>37</FillPattern>
+<ShdwForegnd F='Inh'>0</ShdwForegnd>
+<ShdwBkgnd F='Inh'>1</ShdwBkgnd>
+<ShdwPattern F='Inh'>0</ShdwPattern>
+<FillForegndTrans F='Inh'>0</FillForegndTrans>
+<FillBkgndTrans F='Inh'>0</FillBkgndTrans>
+<ShdwForegndTrans F='Inh'>0</ShdwForegndTrans>
+<ShdwBkgndTrans F='Inh'>0</ShdwBkgndTrans>
+</Fill>
+<Geom IX='0'>
+<NoFill>0</NoFill>
+<NoLine>0</NoLine>
+<NoShow>0</NoShow>
+<NoSnap>0</NoSnap>
+<MoveTo IX='1'>
+<X F='Width*0'>0</X>
+<Y F='Height*0'>0</Y>
+</MoveTo>
+<LineTo IX='2'>
+<X F='Width*1'>1</X>
+<Y F='Height*0'>0</Y>
+</LineTo>
+<LineTo IX='3'>
+<X F='Width*1'>1</X>
+<Y F='Height*1'>1</Y>
+</LineTo>
+<LineTo IX='4'>
+<X F='Width*0'>0</X>
+<Y F='Height*1'>1</Y>
+</LineTo>
+<LineTo IX='5'>
+<X F='Geometry1.X1'>0</X>
+<Y F='Geometry1.Y1'>0</Y>
+</LineTo>
+</Geom>
+<Text>Pattern 37</Text>
+</Shape>
+<Shape ID='33' Type='Shape' LineStyle='3' FillStyle='3' TextStyle='3'>
+<XForm>
+<PinX>3.5</PinX>
+<PinY>1</PinY>
+<Width>1</Width>
+<Height>1</Height>
+<LocPinX F='Width*0.5'>0.5</LocPinX>
+<LocPinY F='Height*0.5'>0.5</LocPinY>
+<Angle>0</Angle>
+<FlipX>0</FlipX>
+<FlipY>0</FlipY>
+<ResizeMode>0</ResizeMode>
+</XForm>
+<TextXForm>
+<TxtPinX F='Width*0.5'>0.5</TxtPinX>
+<TxtPinY F='Height*-0.125'>-0.125</TxtPinY>
+<TxtWidth F='Width*1'>1</TxtWidth>
+<TxtHeight F='Height*0.25'>0.25</TxtHeight>
+<TxtLocPinX F='TxtWidth*0.5'>0.5</TxtLocPinX>
+<TxtLocPinY F='TxtHeight*0.5'>0.125</TxtLocPinY>
+<TxtAngle>0</TxtAngle>
+</TextXForm>
+<Fill>
+<FillForegnd>#660066</FillForegnd>
+<FillBkgnd>#ffccff</FillBkgnd>
+<FillPattern>38</FillPattern>
+<ShdwForegnd F='Inh'>0</ShdwForegnd>
+<ShdwBkgnd F='Inh'>1</ShdwBkgnd>
+<ShdwPattern F='Inh'>0</ShdwPattern>
+<FillForegndTrans F='Inh'>0</FillForegndTrans>
+<FillBkgndTrans F='Inh'>0</FillBkgndTrans>
+<ShdwForegndTrans F='Inh'>0</ShdwForegndTrans>
+<ShdwBkgndTrans F='Inh'>0</ShdwBkgndTrans>
+</Fill>
+<Geom IX='0'>
+<NoFill>0</NoFill>
+<NoLine>0</NoLine>
+<NoShow>0</NoShow>
+<NoSnap>0</NoSnap>
+<MoveTo IX='1'>
+<X F='Width*0'>0</X>
+<Y F='Height*0'>0</Y>
+</MoveTo>
+<LineTo IX='2'>
+<X F='Width*1'>1</X>
+<Y F='Height*0'>0</Y>
+</LineTo>
+<LineTo IX='3'>
+<X F='Width*1'>1</X>
+<Y F='Height*1'>1</Y>
+</LineTo>
+<LineTo IX='4'>
+<X F='Width*0'>0</X>
+<Y F='Height*1'>1</Y>
+</LineTo>
+<LineTo IX='5'>
+<X F='Geometry1.X1'>0</X>
+<Y F='Geometry1.Y1'>0</Y>
+</LineTo>
+</Geom>
+<Text>Pattern 38</Text>
+</Shape>
+<Shape ID='34' Type='Shape' LineStyle='3' FillStyle='3' TextStyle='3'>
+<XForm>
+<PinX>4.75</PinX>
+<PinY>1</PinY>
+<Width>1</Width>
+<Height>1</Height>
+<LocPinX F='Width*0.5'>0.5</LocPinX>
+<LocPinY F='Height*0.5'>0.5</LocPinY>
+<Angle>0</Angle>
+<FlipX>0</FlipX>
+<FlipY>0</FlipY>
+<ResizeMode>0</ResizeMode>
+</XForm>
+<TextXForm>
+<TxtPinX F='Width*0.5'>0.5</TxtPinX>
+<TxtPinY F='Height*-0.125'>-0.125</TxtPinY>
+<TxtWidth F='Width*1'>1</TxtWidth>
+<TxtHeight F='Height*0.25'>0.25</TxtHeight>
+<TxtLocPinX F='TxtWidth*0.5'>0.5</TxtLocPinX>
+<TxtLocPinY F='TxtHeight*0.5'>0.125</TxtLocPinY>
+<TxtAngle>0</TxtAngle>
+</TextXForm>
+<Fill>
+<FillForegnd>#660066</FillForegnd>
+<FillBkgnd>#ffccff</FillBkgnd>
+<FillPattern>39</FillPattern>
+<ShdwForegnd F='Inh'>0</ShdwForegnd>
+<ShdwBkgnd F='Inh'>1</ShdwBkgnd>
+<ShdwPattern F='Inh'>0</ShdwPattern>
+<FillForegndTrans F='Inh'>0</FillForegndTrans>
+<FillBkgndTrans F='Inh'>0</FillBkgndTrans>
+<ShdwForegndTrans F='Inh'>0</ShdwForegndTrans>
+<ShdwBkgndTrans F='Inh'>0</ShdwBkgndTrans>
+</Fill>
+<Geom IX='0'>
+<NoFill>0</NoFill>
+<NoLine>0</NoLine>
+<NoShow>0</NoShow>
+<NoSnap>0</NoSnap>
+<MoveTo IX='1'>
+<X F='Width*0'>0</X>
+<Y F='Height*0'>0</Y>
+</MoveTo>
+<LineTo IX='2'>
+<X F='Width*1'>1</X>
+<Y F='Height*0'>0</Y>
+</LineTo>
+<LineTo IX='3'>
+<X F='Width*1'>1</X>
+<Y F='Height*1'>1</Y>
+</LineTo>
+<LineTo IX='4'>
+<X F='Width*0'>0</X>
+<Y F='Height*1'>1</Y>
+</LineTo>
+<LineTo IX='5'>
+<X F='Geometry1.X1'>0</X>
+<Y F='Geometry1.Y1'>0</Y>
+</LineTo>
+</Geom>
+<Text>Pattern 39</Text>
+</Shape>
+<Shape ID='35' Type='Shape' LineStyle='3' FillStyle='3' TextStyle='3'>
+<XForm>
+<PinX>6</PinX>
+<PinY>1</PinY>
+<Width>1</Width>
+<Height>1</Height>
+<LocPinX F='Width*0.5'>0.5</LocPinX>
+<LocPinY F='Height*0.5'>0.5</LocPinY>
+<Angle>0</Angle>
+<FlipX>0</FlipX>
+<FlipY>0</FlipY>
+<ResizeMode>0</ResizeMode>
+</XForm>
+<TextXForm>
+<TxtPinX F='Width*0.5'>0.5</TxtPinX>
+<TxtPinY F='Height*-0.125'>-0.125</TxtPinY>
+<TxtWidth F='Width*1'>1</TxtWidth>
+<TxtHeight F='Height*0.25'>0.25</TxtHeight>
+<TxtLocPinX F='TxtWidth*0.5'>0.5</TxtLocPinX>
+<TxtLocPinY F='TxtHeight*0.5'>0.125</TxtLocPinY>
+<TxtAngle>0</TxtAngle>
+</TextXForm>
+<Fill>
+<FillForegnd>#660066</FillForegnd>
+<FillBkgnd>#ffccff</FillBkgnd>
+<FillPattern>40</FillPattern>
+<ShdwForegnd F='Inh'>0</ShdwForegnd>
+<ShdwBkgnd F='Inh'>1</ShdwBkgnd>
+<ShdwPattern F='Inh'>0</ShdwPattern>
+<FillForegndTrans F='Inh'>0</FillForegndTrans>
+<FillBkgndTrans F='Inh'>0</FillBkgndTrans>
+<ShdwForegndTrans F='Inh'>0</ShdwForegndTrans>
+<ShdwBkgndTrans F='Inh'>0</ShdwBkgndTrans>
+</Fill>
+<Geom IX='0'>
+<NoFill>0</NoFill>
+<NoLine>0</NoLine>
+<NoShow>0</NoShow>
+<NoSnap>0</NoSnap>
+<MoveTo IX='1'>
+<X F='Width*0'>0</X>
+<Y F='Height*0'>0</Y>
+</MoveTo>
+<LineTo IX='2'>
+<X F='Width*1'>1</X>
+<Y F='Height*0'>0</Y>
+</LineTo>
+<LineTo IX='3'>
+<X F='Width*1'>1</X>
+<Y F='Height*1'>1</Y>
+</LineTo>
+<LineTo IX='4'>
+<X F='Width*0'>0</X>
+<Y F='Height*1'>1</Y>
+</LineTo>
+<LineTo IX='5'>
+<X F='Geometry1.X1'>0</X>
+<Y F='Geometry1.Y1'>0</Y>
+</LineTo>
+</Geom>
+<Text>Pattern 40</Text>
+</Shape>
+<Shape ID='36' Type='Shape' LineStyle='3' FillStyle='3' TextStyle='3'>
+<XForm>
+<PinX>7.25</PinX>
+<PinY>10</PinY>
+<Width>1</Width>
+<Height>1</Height>
+<LocPinX F='Width*0.5'>0.5</LocPinX>
+<LocPinY F='Height*0.5'>0.5</LocPinY>
+<Angle>0</Angle>
+<FlipX>0</FlipX>
+<FlipY>0</FlipY>
+<ResizeMode>0</ResizeMode>
+</XForm>
+<TextXForm>
+<TxtPinX F='Width*0.5'>0.5</TxtPinX>
+<TxtPinY F='Height*-0.125'>-0.125</TxtPinY>
+<TxtWidth F='Width*1'>1</TxtWidth>
+<TxtHeight F='Height*0.25'>0.25</TxtHeight>
+<TxtLocPinX F='TxtWidth*0.5'>0.5</TxtLocPinX>
+<TxtLocPinY F='TxtHeight*0.5'>0.125</TxtLocPinY>
+<TxtAngle>0</TxtAngle>
+</TextXForm>
+<Fill>
+<FillForegnd>2</FillForegnd>
+<FillBkgnd>#ff99cc</FillBkgnd>
+<FillPattern>5</FillPattern>
+<ShdwForegnd F='Inh'>0</ShdwForegnd>
+<ShdwBkgnd F='Inh'>1</ShdwBkgnd>
+<ShdwPattern F='Inh'>0</ShdwPattern>
+<FillForegndTrans F='Inh'>0</FillForegndTrans>
+<FillBkgndTrans F='Inh'>0</FillBkgndTrans>
+<ShdwForegndTrans F='Inh'>0</ShdwForegndTrans>
+<ShdwBkgndTrans F='Inh'>0</ShdwBkgndTrans>
+</Fill>
+<Geom IX='0'>
+<NoFill>0</NoFill>
+<NoLine>0</NoLine>
+<NoShow>0</NoShow>
+<NoSnap>0</NoSnap>
+<MoveTo IX='1'>
+<X F='Width*0'>0</X>
+<Y F='Height*0'>0</Y>
+</MoveTo>
+<LineTo IX='2'>
+<X F='Width*1'>1</X>
+<Y F='Height*0'>0</Y>
+</LineTo>
+<LineTo IX='3'>
+<X F='Width*1'>1</X>
+<Y F='Height*1'>1</Y>
+</LineTo>
+<LineTo IX='4'>
+<X F='Width*0'>0</X>
+<Y F='Height*1'>1</Y>
+</LineTo>
+<LineTo IX='5'>
+<X F='Geometry1.X1'>0</X>
+<Y F='Geometry1.Y1'>0</Y>
+</LineTo>
+</Geom>
+<Text>Pattern 5</Text>
+</Shape>
+<Shape ID='37' Type='Shape' LineStyle='3' FillStyle='3' TextStyle='3'>
+<XForm>
+<PinX>7.25</PinX>
+<PinY>8.5</PinY>
+<Width>1</Width>
+<Height>1</Height>
+<LocPinX F='Width*0.5'>0.5</LocPinX>
+<LocPinY F='Height*0.5'>0.5</LocPinY>
+<Angle>0</Angle>
+<FlipX>0</FlipX>
+<FlipY>0</FlipY>
+<ResizeMode>0</ResizeMode>
+</XForm>
+<TextXForm>
+<TxtPinX F='Width*0.5'>0.5</TxtPinX>
+<TxtPinY F='Height*-0.125'>-0.125</TxtPinY>
+<TxtWidth F='Width*1'>1</TxtWidth>
+<TxtHeight F='Height*0.25'>0.25</TxtHeight>
+<TxtLocPinX F='TxtWidth*0.5'>0.5</TxtLocPinX>
+<TxtLocPinY F='TxtHeight*0.5'>0.125</TxtLocPinY>
+<TxtAngle>0</TxtAngle>
+</TextXForm>
+<Fill>
+<FillForegnd>#ff9900</FillForegnd>
+<FillBkgnd>#ffcc99</FillBkgnd>
+<FillPattern>11</FillPattern>
+<ShdwForegnd F='Inh'>0</ShdwForegnd>
+<ShdwBkgnd F='Inh'>1</ShdwBkgnd>
+<ShdwPattern F='Inh'>0</ShdwPattern>
+<FillForegndTrans F='Inh'>0</FillForegndTrans>
+<FillBkgndTrans F='Inh'>0</FillBkgndTrans>
+<ShdwForegndTrans F='Inh'>0</ShdwForegndTrans>
+<ShdwBkgndTrans F='Inh'>0</ShdwBkgndTrans>
+</Fill>
+<Geom IX='0'>
+<NoFill>0</NoFill>
+<NoLine>0</NoLine>
+<NoShow>0</NoShow>
+<NoSnap>0</NoSnap>
+<MoveTo IX='1'>
+<X F='Width*0'>0</X>
+<Y F='Height*0'>0</Y>
+</MoveTo>
+<LineTo IX='2'>
+<X F='Width*1'>1</X>
+<Y F='Height*0'>0</Y>
+</LineTo>
+<LineTo IX='3'>
+<X F='Width*1'>1</X>
+<Y F='Height*1'>1</Y>
+</LineTo>
+<LineTo IX='4'>
+<X F='Width*0'>0</X>
+<Y F='Height*1'>1</Y>
+</LineTo>
+<LineTo IX='5'>
+<X F='Geometry1.X1'>0</X>
+<Y F='Geometry1.Y1'>0</Y>
+</LineTo>
+</Geom>
+<Text>Pattern 11</Text>
+</Shape>
+<Shape ID='38' Type='Shape' LineStyle='3' FillStyle='3' TextStyle='3'>
+<XForm>
+<PinX>7.25</PinX>
+<PinY>7</PinY>
+<Width>1</Width>
+<Height>1</Height>
+<LocPinX F='Width*0.5'>0.5</LocPinX>
+<LocPinY F='Height*0.5'>0.5</LocPinY>
+<Angle>0</Angle>
+<FlipX>0</FlipX>
+<FlipY>0</FlipY>
+<ResizeMode>0</ResizeMode>
+</XForm>
+<TextXForm>
+<TxtPinX F='Width*0.5'>0.5</TxtPinX>
+<TxtPinY F='Height*-0.125'>-0.125</TxtPinY>
+<TxtWidth F='Width*1'>1</TxtWidth>
+<TxtHeight F='Height*0.25'>0.25</TxtHeight>
+<TxtLocPinX F='TxtWidth*0.5'>0.5</TxtLocPinX>
+<TxtLocPinY F='TxtHeight*0.5'>0.125</TxtLocPinY>
+<TxtAngle>0</TxtAngle>
+</TextXForm>
+<Fill>
+<FillForegnd>#99cc00</FillForegnd>
+<FillBkgnd>#ffff99</FillBkgnd>
+<FillPattern>17</FillPattern>
+<ShdwForegnd F='Inh'>0</ShdwForegnd>
+<ShdwBkgnd F='Inh'>1</ShdwBkgnd>
+<ShdwPattern F='Inh'>0</ShdwPattern>
+<FillForegndTrans F='Inh'>0</FillForegndTrans>
+<FillBkgndTrans F='Inh'>0</FillBkgndTrans>
+<ShdwForegndTrans F='Inh'>0</ShdwForegndTrans>
+<ShdwBkgndTrans F='Inh'>0</ShdwBkgndTrans>
+</Fill>
+<Geom IX='0'>
+<NoFill>0</NoFill>
+<NoLine>0</NoLine>
+<NoShow>0</NoShow>
+<NoSnap>0</NoSnap>
+<MoveTo IX='1'>
+<X F='Width*0'>0</X>
+<Y F='Height*0'>0</Y>
+</MoveTo>
+<LineTo IX='2'>
+<X F='Width*1'>1</X>
+<Y F='Height*0'>0</Y>
+</LineTo>
+<LineTo IX='3'>
+<X F='Width*1'>1</X>
+<Y F='Height*1'>1</Y>
+</LineTo>
+<LineTo IX='4'>
+<X F='Width*0'>0</X>
+<Y F='Height*1'>1</Y>
+</LineTo>
+<LineTo IX='5'>
+<X F='Geometry1.X1'>0</X>
+<Y F='Geometry1.Y1'>0</Y>
+</LineTo>
+</Geom>
+<Text>Pattern 17</Text>
+</Shape>
+<Shape ID='39' Type='Shape' LineStyle='3' FillStyle='3' TextStyle='3'>
+<XForm>
+<PinX>7.25</PinX>
+<PinY>5.5</PinY>
+<Width>1</Width>
+<Height>1</Height>
+<LocPinX F='Width*0.5'>0.5</LocPinX>
+<LocPinY F='Height*0.5'>0.5</LocPinY>
+<Angle>0</Angle>
+<FlipX>0</FlipX>
+<FlipY>0</FlipY>
+<ResizeMode>0</ResizeMode>
+</XForm>
+<TextXForm>
+<TxtPinX F='Width*0.5'>0.5</TxtPinX>
+<TxtPinY F='Height*-0.125'>-0.125</TxtPinY>
+<TxtWidth F='Width*1'>1</TxtWidth>
+<TxtHeight F='Height*0.25'>0.25</TxtHeight>
+<TxtLocPinX F='TxtWidth*0.5'>0.5</TxtLocPinX>
+<TxtLocPinY F='TxtHeight*0.5'>0.125</TxtLocPinY>
+<TxtAngle>0</TxtAngle>
+</TextXForm>
+<Fill>
+<FillForegnd>#339966</FillForegnd>
+<FillBkgnd>#ccffcc</FillBkgnd>
+<FillPattern>23</FillPattern>
+<ShdwForegnd F='Inh'>0</ShdwForegnd>
+<ShdwBkgnd F='Inh'>1</ShdwBkgnd>
+<ShdwPattern F='Inh'>0</ShdwPattern>
+<FillForegndTrans F='Inh'>0</FillForegndTrans>
+<FillBkgndTrans F='Inh'>0</FillBkgndTrans>
+<ShdwForegndTrans F='Inh'>0</ShdwForegndTrans>
+<ShdwBkgndTrans F='Inh'>0</ShdwBkgndTrans>
+</Fill>
+<Geom IX='0'>
+<NoFill>0</NoFill>
+<NoLine>0</NoLine>
+<NoShow>0</NoShow>
+<NoSnap>0</NoSnap>
+<MoveTo IX='1'>
+<X F='Width*0'>0</X>
+<Y F='Height*0'>0</Y>
+</MoveTo>
+<LineTo IX='2'>
+<X F='Width*1'>1</X>
+<Y F='Height*0'>0</Y>
+</LineTo>
+<LineTo IX='3'>
+<X F='Width*1'>1</X>
+<Y F='Height*1'>1</Y>
+</LineTo>
+<LineTo IX='4'>
+<X F='Width*0'>0</X>
+<Y F='Height*1'>1</Y>
+</LineTo>
+<LineTo IX='5'>
+<X F='Geometry1.X1'>0</X>
+<Y F='Geometry1.Y1'>0</Y>
+</LineTo>
+</Geom>
+<Text>Pattern 23</Text>
+</Shape>
+<Shape ID='40' Type='Shape' LineStyle='3' FillStyle='3' TextStyle='3'>
+<XForm>
+<PinX>7.25</PinX>
+<PinY>4</PinY>
+<Width>1</Width>
+<Height>1</Height>
+<LocPinX F='Width*0.5'>0.5</LocPinX>
+<LocPinY F='Height*0.5'>0.5</LocPinY>
+<Angle>0</Angle>
+<FlipX>0</FlipX>
+<FlipY>0</FlipY>
+<ResizeMode>0</ResizeMode>
+</XForm>
+<TextXForm>
+<TxtPinX F='Width*0.5'>0.5</TxtPinX>
+<TxtPinY F='Height*-0.125'>-0.125</TxtPinY>
+<TxtWidth F='Width*1'>1</TxtWidth>
+<TxtHeight F='Height*0.25'>0.25</TxtHeight>
+<TxtLocPinX F='TxtWidth*0.5'>0.5</TxtLocPinX>
+<TxtLocPinY F='TxtHeight*0.5'>0.125</TxtLocPinY>
+<TxtAngle>0</TxtAngle>
+</TextXForm>
+<Fill>
+<FillForegnd>#33cccc</FillForegnd>
+<FillBkgnd>#ccffff</FillBkgnd>
+<FillPattern>29</FillPattern>
+<ShdwForegnd F='Inh'>0</ShdwForegnd>
+<ShdwBkgnd F='Inh'>1</ShdwBkgnd>
+<ShdwPattern F='Inh'>0</ShdwPattern>
+<FillForegndTrans F='Inh'>0</FillForegndTrans>
+<FillBkgndTrans F='Inh'>0</FillBkgndTrans>
+<ShdwForegndTrans F='Inh'>0</ShdwForegndTrans>
+<ShdwBkgndTrans F='Inh'>0</ShdwBkgndTrans>
+</Fill>
+<Geom IX='0'>
+<NoFill>0</NoFill>
+<NoLine>0</NoLine>
+<NoShow>0</NoShow>
+<NoSnap>0</NoSnap>
+<MoveTo IX='1'>
+<X F='Width*0'>0</X>
+<Y F='Height*0'>0</Y>
+</MoveTo>
+<LineTo IX='2'>
+<X F='Width*1'>1</X>
+<Y F='Height*0'>0</Y>
+</LineTo>
+<LineTo IX='3'>
+<X F='Width*1'>1</X>
+<Y F='Height*1'>1</Y>
+</LineTo>
+<LineTo IX='4'>
+<X F='Width*0'>0</X>
+<Y F='Height*1'>1</Y>
+</LineTo>
+<LineTo IX='5'>
+<X F='Geometry1.X1'>0</X>
+<Y F='Geometry1.Y1'>0</Y>
+</LineTo>
+</Geom>
+<Text>Pattern 29</Text>
+</Shape>
+<Shape ID='41' Type='Shape' LineStyle='3' FillStyle='3' TextStyle='3'>
+<XForm>
+<PinX>7.25</PinX>
+<PinY>2.5</PinY>
+<Width>1</Width>
+<Height>1</Height>
+<LocPinX F='Width*0.5'>0.5</LocPinX>
+<LocPinY F='Height*0.5'>0.5</LocPinY>
+<Angle>0</Angle>
+<FlipX>0</FlipX>
+<FlipY>0</FlipY>
+<ResizeMode>0</ResizeMode>
+</XForm>
+<TextXForm>
+<TxtPinX F='Width*0.5'>0.5</TxtPinX>
+<TxtPinY F='Height*-0.125'>-0.125</TxtPinY>
+<TxtWidth F='Width*1'>1</TxtWidth>
+<TxtHeight F='Height*0.25'>0.25</TxtHeight>
+<TxtLocPinX F='TxtWidth*0.5'>0.5</TxtLocPinX>
+<TxtLocPinY F='TxtHeight*0.5'>0.125</TxtLocPinY>
+<TxtAngle>0</TxtAngle>
+</TextXForm>
+<Fill>
+<FillForegnd>4</FillForegnd>
+<FillBkgnd>#99ccff</FillBkgnd>
+<FillPattern>35</FillPattern>
+<ShdwForegnd F='Inh'>0</ShdwForegnd>
+<ShdwBkgnd F='Inh'>1</ShdwBkgnd>
+<ShdwPattern F='Inh'>0</ShdwPattern>
+<FillForegndTrans F='Inh'>0</FillForegndTrans>
+<FillBkgndTrans F='Inh'>0</FillBkgndTrans>
+<ShdwForegndTrans F='Inh'>0</ShdwForegndTrans>
+<ShdwBkgndTrans F='Inh'>0</ShdwBkgndTrans>
+</Fill>
+<Geom IX='0'>
+<NoFill>0</NoFill>
+<NoLine>0</NoLine>
+<NoShow>0</NoShow>
+<NoSnap>0</NoSnap>
+<MoveTo IX='1'>
+<X F='Width*0'>0</X>
+<Y F='Height*0'>0</Y>
+</MoveTo>
+<LineTo IX='2'>
+<X F='Width*1'>1</X>
+<Y F='Height*0'>0</Y>
+</LineTo>
+<LineTo IX='3'>
+<X F='Width*1'>1</X>
+<Y F='Height*1'>1</Y>
+</LineTo>
+<LineTo IX='4'>
+<X F='Width*0'>0</X>
+<Y F='Height*1'>1</Y>
+</LineTo>
+<LineTo IX='5'>
+<X F='Geometry1.X1'>0</X>
+<Y F='Geometry1.Y1'>0</Y>
+</LineTo>
+</Geom>
+<Text>Pattern 35</Text>
+</Shape>
+</Shapes>
+</Page>
+</Pages>
+<Windows ClientWidth='1022' ClientHeight='875'>
+<Window ID='0' WindowType='Drawing' WindowState='268435456' WindowLeft='0' WindowTop='0' WindowWidth='1022' WindowHeight='875' ContainerType='Page' Page='0' ViewScale='1' ViewCenterX='4.1041666666667' ViewCenterY='14.854166666667'>
+<ShowRulers>1</ShowRulers>
+<ShowGrid>1</ShowGrid>
+<ShowPageBreaks>0</ShowPageBreaks>
+<ShowGuides>1</ShowGuides>
+<ShowConnectionPoints>1</ShowConnectionPoints>
+<GlueSettings>9</GlueSettings>
+<SnapSettings>65831</SnapSettings>
+<SnapExtensions>34</SnapExtensions>
+<DynamicGridEnabled>0</DynamicGridEnabled>
+<TabSplitterPos>0.326</TabSplitterPos>
+</Window>
+</Windows>
+</VisioDocument>

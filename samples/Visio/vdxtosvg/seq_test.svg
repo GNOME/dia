@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!DOCTYPE svg
+  PUBLIC "-//W3C//DTD SVG 20010904//EN" "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:saxon="http://icl.com/saxon" id="ATM Sequence" viewBox="0 -1366.8980034722001 1616.5825494442 1366.8980034722001">
+   <script xlink:href="wordwrap.js" type="text/ecmascript"/>
+   <defs>
+      <symbol id="pdpatfg1" width="100" height="100">
+         <rect width="100" height="100" stroke="none"/>
+         <polyline points="0 0, 100 100" stroke-width="10"/>
+      </symbol>
+      <symbol id="pdpatfg2" width="100" height="100">
+         <rect width="100" height="100" stroke="none"/>
+         <polyline points="-50 100, 100 -50" stroke-width="10"/>
+         <polyline points="0 150, 150 0" stroke-width="10"/>
+      </symbol>
+   </defs>
+   <defs>
+      <marker id="EndArrow-13-2" viewBox="0 0 .135 .090" refX=".135" refY=".045" markerUnits="strokeWidth" markerWidth="13.5" markerHeight="9.0" orient="auto">
+         <path d="M 0 0 L .135 .045 L 0 .090 z"/>
+      </marker>
+   </defs>
+   <defs>
+      <style id="ss-line-0" type="text/css"><![CDATA[*.ss-line-0 { stroke-width:1;stroke:#000000;marker-end:none; }]]></style>
+      <style id="ss-fill-0" type="text/css"><![CDATA[*.ss-fill-0 { fill:#FFFFFF; }]]></style>
+      <style id="ss-text-0" type="text/css"><![CDATA[*.ss-text-0 { stroke:none;fill:#000000;font-size:16.666666666667;text-anchor:middle; } ]]></style>
+      <style id="ss-line-1" type="text/css"><![CDATA[*.ss-line-1 { stroke-width:1;stroke:#000000;marker-end:none;stroke-width:1;stroke:none;marker-end:none; }]]></style>
+      <style id="ss-fill-1" type="text/css"><![CDATA[*.ss-fill-1 { fill:#FFFFFF;fill:none; }]]></style>
+      <style id="ss-text-1" type="text/css"><![CDATA[*.ss-text-1 { stroke:none;fill:#000000;font-size:16.666666666667;text-anchor:middle;text-anchor:start; } ]]></style>
+      <style id="ss-line-2" type="text/css"><![CDATA[*.ss-line-2 { stroke-width:1;stroke:#000000;marker-end:none;stroke-width:1;stroke:none;marker-end:none; }]]></style>
+      <style id="ss-fill-2" type="text/css"><![CDATA[*.ss-fill-2 { fill:#FFFFFF;fill:none; }]]></style>
+      <style id="ss-text-2" type="text/css"><![CDATA[*.ss-text-2 { stroke:none;fill:#000000;font-size:16.666666666667;text-anchor:middle; } ]]></style>
+      <style id="ss-line-3" type="text/css"><![CDATA[*.ss-line-3 { stroke-width:1;stroke:#000000;marker-end:none; }]]></style>
+      <style id="ss-fill-3" type="text/css"><![CDATA[*.ss-fill-3 { fill:#FFFFFF; }]]></style>
+      <style id="ss-text-3" type="text/css"><![CDATA[*.ss-text-3 { stroke:none;fill:#000000;font-size:16.666666666667;text-anchor:middle; } ]]></style>
+      <style id="ss-line-4" type="text/css"><![CDATA[*.ss-line-4 { stroke-width:1;stroke:#000000;marker-end:none;stroke-width:0;stroke:#0000FF;marker-end:none;stroke-dasharray:2,1; }]]></style>
+      <style id="ss-fill-4" type="text/css"><![CDATA[*.ss-fill-4 { fill:#FFFFFF;fill:none; }]]></style>
+      <style id="ss-text-4" type="text/css"><![CDATA[*.ss-text-4 { stroke:none;fill:#000000;font-size:16.666666666667;text-anchor:middle;stroke:none;fill:#0000FF;font-size:12.5; } ]]></style>
+      <style id="ss-line-6" type="text/css"><![CDATA[*.ss-line-6 { stroke-width:1;stroke:#000000;marker-end:none;stroke-width:1;stroke:#000000;marker-end:none;stroke-width:0.33333333333333004;stroke:#000000;marker-end:none; }]]></style>
+      <style id="ss-fill-6" type="text/css"><![CDATA[*.ss-fill-6 { fill:#FFFFFF;fill:#FFFFFF; }]]></style>
+      <style id="ss-text-6" type="text/css"><![CDATA[*.ss-text-6 { stroke:none;fill:#000000;font-size:16.666666666667;text-anchor:middle;stroke:none;fill:#000000;font-size:16.666666666667;stroke:none;fill:#000000;font-size:11.111111111110999;text-anchor:middle; } ]]></style>
+      <style id="ss-line-7" type="text/css"><![CDATA[*.ss-line-7 { stroke-width:1;stroke:#000000;marker-end:none;stroke-width:1;stroke:#000000;marker-end:none; }]]></style>
+      <style id="ss-fill-7" type="text/css"><![CDATA[*.ss-fill-7 { fill:#FFFFFF;fill:#FFFFFF; }]]></style>
+      <style id="ss-text-7" type="text/css"><![CDATA[*.ss-text-7 { stroke:none;fill:#000000;font-size:16.666666666667;text-anchor:middle;stroke:none;fill:#000000;font-size:16.666666666667; } ]]></style>
+      <style id="ss-line-8" type="text/css"><![CDATA[*.ss-line-8 { stroke-width:1;stroke:#000000;marker-end:none;stroke-width:1;stroke:#000000;marker-end:none;stroke-width:0.33333333333333004;stroke:#000000;marker-end:none; }]]></style>
+      <style id="ss-fill-8" type="text/css"><![CDATA[*.ss-fill-8 { fill:#FFFFFF;fill:#000000;fill:#000000; }]]></style>
+      <style id="ss-text-8" type="text/css"><![CDATA[*.ss-text-8 { stroke:none;fill:#000000;font-size:16.666666666667;text-anchor:middle;stroke:none;fill:#000000;font-size:16.666666666667;stroke:none;fill:#000000;font-size:11.111111111110999; } ]]></style>
+      <style id="ss-line-9" type="text/css"><![CDATA[*.ss-line-9 { stroke-width:1;stroke:#000000;marker-end:none;stroke-width:1;stroke:#000000;marker-end:none; }]]></style>
+      <style id="ss-fill-9" type="text/css"><![CDATA[*.ss-fill-9 { fill:#FFFFFF;fill:#000000; }]]></style>
+      <style id="ss-text-9" type="text/css"><![CDATA[*.ss-text-9 { stroke:none;fill:#000000;font-size:16.666666666667;text-anchor:middle;stroke:none;fill:#000000;font-size:16.666666666667; } ]]></style>
+      <style id="ss-line-10" type="text/css"><![CDATA[*.ss-line-10 { stroke-width:1;stroke:#000000;marker-end:none;stroke-width:1;stroke:#000000;marker-end:none;stroke-width:0.33333333333333004;stroke:#000000;marker-end:none; }]]></style>
+      <style id="ss-fill-10" type="text/css"><![CDATA[*.ss-fill-10 { fill:#FFFFFF;fill:#FFFFFF; }]]></style>
+      <style id="ss-text-10" type="text/css"><![CDATA[*.ss-text-10 { stroke:none;fill:#000000;font-size:16.666666666667;text-anchor:middle;stroke:none;fill:#000000;font-size:16.666666666667;stroke:none;fill:#000000;font-size:11.111111111110999; } ]]></style>
+   </defs>
+   <g id="Closed full arrow.34" class=" ss-line-3 ss-fill-3" style="stroke-width:1;stroke:#000000;marker-end:url(#EndArrow-13-2);fill:#bfffff;stroke-width:1;stroke:#000000;marker-end:none;stroke-dasharray:4,2;fill:#bfffff;" transform="translate(599.47916666665,-1130.8107740588) rotate(90.0000000000002,25.52083333335,0)">
+      <path id="path-d0e7002" d="M0,0 L51.0416666667,0 " fill="none"/>
+      <text class=" ss-text-3" transform="translate(61.264690080546,-19.670010511875997) rotate(-90.0000000000002) translate(0,-2.7777777777778)" onload="wrap_text(evt,94.19413078035879,1,2,-1.2)" style="stroke:none;fill:#008000;font-size:11.111111111110999;text-anchor:middle;"/>
+   </g>
+   <g id="d0e7298" class=" ss-line-3 ss-fill-3" style="stroke-width:1;stroke:#000000;marker-end:none;stroke-dasharray:4,2;" transform="translate(643.75,-1106.25) rotate(90.0000000000002,206.25,0)">
+      <path id="path-d0e7298" d="M0,0 L412.5,0 " fill="none"/>
+   </g>
+   <g id="d0e7433" class=" ss-line-3 ss-fill-3" style="stroke-width:1;stroke:#000000;marker-end:none;stroke-dasharray:4,2;" transform="translate(318.75,-1106.25) rotate(90.0000000000002,206.25,0)">
+      <path id="path-d0e7433" d="M0,0 L412.5,0 " fill="none"/>
+      <text class=" ss-text-3" x="206.25" y="0" onload="wrap_text(evt,401.38888888888874,1,1,-1.2)" style=""/>
+   </g>
+   <g id="d0e7570" class=" ss-line-3 ss-fill-3" style="fill:#ffffbf;" transform="translate(475,-1312.5)">
+      <path id="path-d0e7570" d="M0,0 L100,0 L100,-50 L0,-50 L0,0 "/>
+      <text class=" ss-text-3" x="50" y="-25" onload="wrap_text(evt,88.8888888888888,1,1,-1.2)" style="stroke:none;fill:#000000;font-size:13.888888888889001;">Lifeline A</text>
+   </g>
+   <g id="d0e7795" class=" ss-line-3 ss-fill-3" style="fill:#bfffff;" transform="translate(512.5,-1237.5) rotate(-90.0000000000002,12.5,-6.25)">
+      <path id="path-d0e7795" d="M0,-12.5 L25,-12.5 L25,0 L0,0 L0,-12.5 "/>
+      <text class=" ss-text-3" transform="translate(12.5,-50) rotate(90.0000000000002) translate(31.944444444444397,0)" onload="wrap_text(evt,63.88888888888879,2,1,-1.2)" style="stroke:none;fill:#000000;font-size:11.111111111110999;text-anchor:end;">Operation A</text>
+   </g>
+   <g id="d0e8251" class=" ss-line-3 ss-fill-3" style="fill:#bfffff;" transform="translate(612.5,-1162.5816073920998) rotate(-90.0000000000002,12.5,-6.25)">
+      <path id="path-d0e8251" d="M0,-12.5 L25,-12.5 L25,0 L0,0 L0,-12.5 "/>
+   </g>
+   <g id="d0e8598" class=" ss-line-3 ss-fill-3" style="stroke-width:1;stroke:#000000;marker-end:none;stroke-dasharray:4,2;" transform="translate(428.125,-1046.875) rotate(90.0000000000002,146.875,0)">
+      <path id="path-d0e8598" d="M0,0 L293.75,0 " fill="none"/>
+   </g>
+   <g id="Closed full arrow.3" class=" ss-line-3 ss-fill-3" style="stroke-width:1;stroke:#000000;marker-end:url(#EndArrow-13-2);fill:#bfffff;fill:#bfffff;" transform="translate(581.12501817053,-1038.0208333333) rotate(2.499419596519988,131.37498182947002,0)">
+      <path id="path-d0e8733" d="M0,0 L262.74996365895,0 " fill="none"/>
+      <text class=" ss-text-3" transform="translate(82.097221186978,0) rotate(-2.499419596519988) translate(0,-2.7777777777778)" onload="wrap_text(evt,251.63885254783884,1,2,-1.2)" style="stroke:none;fill:#000000;font-size:11.111111111110999;text-anchor:middle;">Message B</text>
+   </g>
+   <g id="Closed full arrow.16" class=" ss-line-3 ss-fill-3" style="stroke-width:1;stroke:#000000;marker-end:url(#EndArrow-13-2);fill:#bfffff;stroke-width:1;stroke:#000000;marker-end:none;stroke-dasharray:4,2;fill:#bfffff;" transform="translate(574.240455773811,-1187.5408036961) rotate(13.948195433924402,25.759544226189,0)">
+      <path id="path-d0e8997" d="M0,0 L51.519088452378,0 " fill="none"/>
+      <text class=" ss-text-3" transform="translate(62.125959604339,-9.095085938862) rotate(-13.948195433924402) translate(0,-2.7777777777778)" onload="wrap_text(evt,95.17911069790878,1,2,-1.2)" style="stroke:none;fill:#008000;font-size:11.111111111110999;text-anchor:middle;">[Condition B]</text>
+   </g>
+   <g id="d0e9294" class=" ss-line-3 ss-fill-3" style="fill:#bfffff;" transform="translate(612.5,-1086.5399407254) rotate(-90.0000000000002,12.5,-6.25)">
+      <path id="path-d0e9294" d="M0,-12.5 L25,-12.5 L25,0 L0,0 L0,-12.5 "/>
+      <text class=" ss-text-3" x="12.5" y="-6.25" onload="wrap_text(evt,13.8888888888888,1,1,-1.2)" style=""/>
+   </g>
+   <g id="d0e9643" class=" ss-line-3 ss-fill-3" style="stroke-width:1;stroke:#000000;marker-end:url(#EndArrow-13-2);fill:#bfffff;fill:#bfffff;" transform="translate(631.041897635169,-1150.0816073920998) rotate(3.8140748342903654,93.95810236483099,0)">
+      <path id="path-d0e9643" d="M0,0 L187.91620472966,0 " fill="none"/>
+      <text class=" ss-text-3" transform="translate(84.470030235506,0) rotate(-3.8140748342903654) translate(0,-2.7777777777778)" onload="wrap_text(evt,176.8050936185488,1,2,-1.2)" style="stroke:none;fill:#000000;font-size:11.111111111110999;text-anchor:middle;">Message A</text>
+   </g>
+   <g id="d0e9907" class=" ss-line-3 ss-fill-3" style="stroke-width:1;stroke:#000000;marker-end:url(#EndArrow-13-2);fill:#bfffff;fill:#bfffff;" transform="translate(631.005815690395,-1112.0607740588) rotate(175.8691437667128,93.994184309605,0)">
+      <path id="path-d0e9907" d="M0,0 L187.98836861921,0 " fill="none"/>
+      <text class=" ss-text-3" transform="translate(102.86886397622,0) rotate(-175.8691437667128) translate(0,-2.7777777777778)" onload="wrap_text(evt,176.8772575080988,1,2,-1.2)" style="stroke:none;fill:#000000;font-size:11.111111111110999;text-anchor:middle;">Message A Response</text>
+   </g>
+   <g id="d0e10171" class=" ss-line-3 ss-fill-3" style="fill:#bfffff;" transform="translate(812.5,-1125.0816073920998) rotate(-90.0000000000002,12.5,-6.25)">
+      <path id="path-d0e10171" d="M0,-12.5 L25,-12.5 L25,0 L0,0 L0,-12.5 "/>
+      <text class=" ss-text-3" x="12.5" y="-6.25" onload="wrap_text(evt,13.8888888888888,1,1,-1.2)" style=""/>
+   </g>
+   <g id="d0e10520" class=" ss-line-3 ss-fill-3" style="fill:#ffffbf;" transform="translate(800,-1312.5)">
+      <path id="path-d0e10520" d="M0,0 L100,0 L100,-50 L0,-50 L0,0 "/>
+      <text class=" ss-text-3" x="50" y="-25" onload="wrap_text(evt,88.8888888888888,1,1,-1.2)" style="stroke:none;fill:#000000;font-size:13.888888888889001;">Lifeline B</text>
+   </g>
+   <g id="d0e10745" class=" ss-line-3 ss-fill-3" style="fill:#bfffff;" transform="translate(562.5,-1200) rotate(-90.0000000000002,12.5,-6.25)">
+      <path id="path-d0e10745" d="M0,-12.5 L25,-12.5 L25,0 L0,0 L0,-12.5 "/>
+   </g>
+   <g id="Closed full arrow.36" class=" ss-line-3 ss-fill-3" style="stroke-width:1;stroke:#000000;marker-end:url(#EndArrow-13-2);fill:#bfffff;stroke-width:1;stroke:#000000;marker-end:none;stroke-dasharray:4,2;fill:#bfffff;" transform="translate(524.2305898398901,-1225) rotate(14.036243467926242,25.769410160110002,0)">
+      <path id="path-d0e11092" d="M0,0 L51.538820320221,0 " fill="none"/>
+      <text class=" ss-text-3" transform="translate(60.819917208365005,-8.7605764728788) rotate(-14.036243467926242) translate(0,-2.7777777777778)" onload="wrap_text(evt,95.2198199703888,1,2,-1.2)" style="stroke:none;fill:#008000;font-size:11.111111111110999;text-anchor:middle;">[Condition A]</text>
+   </g>
+   <g id="d0e11389" class=" ss-line-3 ss-fill-3" style="fill:#bfffff;" transform="translate(562.5,-1050) rotate(-90.0000000000002,12.5,-6.25)">
+      <path id="path-d0e11389" d="M0,-12.5 L25,-12.5 L25,0 L0,0 L0,-12.5 "/>
+      <text class=" ss-text-3" x="12.5" y="-6.25" onload="wrap_text(evt,13.8888888888888,1,1,-1.2)" style=""/>
+   </g>
+   <g id="d0e11738" class=" ss-line-3 ss-fill-3" style="stroke-width:1;stroke:#000000;marker-end:none;stroke-dasharray:4,2;fill:#bfffff;" transform="translate(574.342787408091,-1074.5199703627) rotate(167.00377389856922,25.657212591909,0)">
+      <path id="path-d0e11738" d="M0,0 L51.314425183819004,0 " fill="none"/>
+   </g>
+   <g id="d0e11906" class=" ss-line-3 ss-fill-3" style="stroke-width:1;stroke:#000000;marker-end:none;stroke-dasharray:2,1;fill:#bfffff;" transform="translate(843.229166666665,-1019.2708333333) rotate(-90.0000000000002,6.770833333334999,-6.25)">
+      <path id="path-d0e11906" d="M0,-12.5 L13.541666666669999,-12.5 L13.541666666669999,0 L0,0 L0,-12.5 "/>
+      <text class=" ss-text-3" x="6.770833333334999" y="-6.25" onload="wrap_text(evt,2.4305555555588,1,1,-1.2)" style=""/>
+   </g>
+   <g id="d0e12288" class=" ss-line-3 ss-fill-3" style="stroke-width:1;stroke:#000000;marker-end:none;stroke-dasharray:4,2;" transform="translate(821.3161797265311,-1154.062463248) rotate(140.39518594979472,16.048685138339,0)">
+      <path id="path-d0e12288" d="M0,0 L32.097370276679,0 " fill="none"/>
+   </g>
+   <g id="d0e12423" class=" ss-line-3 ss-fill-3" style="stroke-width:1;stroke:#000000;marker-end:none;stroke-dasharray:4,2;" transform="translate(819.273283046892,-1105.624963248) rotate(46.88541825489032,18.091581817978,0)">
+      <path id="path-d0e12423" d="M0,0 L36.183163635956,0 " fill="none"/>
+   </g>
+</svg>
