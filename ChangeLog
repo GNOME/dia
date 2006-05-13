@@ -1,3 +1,22 @@
+2006-04-02  Hans Breuer  <hans@breuer.org>
+
+	[ also applied to branch dia-0-95 ]
+	* app/diagram.c(diagram_ungroup_selected) : operate on a copy
+	of data-Selected cause the original is modified during use.
+	Patch from Victor Stinner, fixes bug #334771
+
+	* configure.in config.h.win32 : development started again so 095+cvs.
+	Critical bugfixes may go on the dia-0-95 branch (may lead to 0.95.1 
+	if necessary)
+	
+	* app/diagram.c : removed long-time outcommented code
+	
+	* lib/diagramdata.h lib/filter.h lib/geometry.h lib/plug-ins.h
+	  lib/properties.h : C++ aware by G_BEGIN_DECLS, G_END_DECLS
+	
+	* objects/UML/class.c : don't dia_assert_true(attr->comment != NULL)
+	it is handled everywhere else just fine.
+	
 2006-04-19  Lars Clausen  <lars@raeder.dk>
 
 	* installer/win32/dia.nsi: 

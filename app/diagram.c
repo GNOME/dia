@@ -1099,21 +1099,6 @@ void diagram_group_selected(Diagram *dia)
     /* The connections aren't reattached by ungroup. */
     strip_connections(obj, dia->data->selected, dia);
     
-    /* Have to hide any open properties dialog
-     * if it contains some object in cut_list */
-    /* Now handled by undo_apply
-    properties_hide_if_shown(dia, obj);
-    */
-
-    /* Remove focus if active */
-    /* Now handled by undo apply
-       textedit_remove_focus(obj);
-
-    */
-
-    /* Now handled by the undo apply
-    object_add_updates(obj, dia);
-    */
     list = g_list_next(list);
   }
 
@@ -1138,8 +1123,7 @@ void diagram_ungroup_selected(Diagram *dia)
 {
   DiaObject *group;
   GList *group_list;
-/*   GList *list; */
-  GList *selected;
+  GList *selected, *selection_copy;
   int group_index;
   int any_groups = 0;
   
@@ -1148,7 +1132,8 @@ void diagram_ungroup_selected(Diagram *dia)
     return;
   }
   
-  selected = dia->data->selected;
+  selection_copy = g_list_copy(dia->data->selected);
+  selected = selection_copy;
   while (selected != NULL) {
     group = (DiaObject *)selected->data;
 
@@ -1160,34 +1145,17 @@ void diagram_ungroup_selected(Diagram *dia)
 
       group_list = group_objects(group);
       diagram_select_list(dia, group_list);
-      /* Now handled by undo apply */      
-      /*list = group_list;
-      while (list != NULL) {
-	DiaObject *obj = (DiaObject *)list->data;
-	object_add_updates(obj, dia);
-	list = g_list_next(list);
-      }
-      */
-
-      /* Now handled by undo apply
-      layer_replace_object_with_list(dia->data->active_layer,
-				     group, g_list_copy(group_list));
-      */
 
       group_index = layer_object_index(dia->data->active_layer, group);
     
       change = undo_ungroup_objects(dia, group_list, group, group_index);
       (change->apply)(change, dia);
-      /* Now handled by undo apply 
-      diagram_tree_add_objects(diagram_tree(), dia, group_list);
-      diagram_tree_remove_object(diagram_tree(), group);
-      properties_hide_if_shown(dia, group);
-      */
 
       any_groups = 1;
     }
     selected = g_list_next(selected);
   }
+  g_list_free(selection_copy);
   
   if (any_groups) {
     diagram_modified(dia);

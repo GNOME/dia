@@ -64,6 +64,8 @@
 #define M_SQRT1_2 (1.0/G_SQRT2)
 #endif
 
+G_BEGIN_DECLS
+
 /*
   Coordinate system used:
    +---> x
@@ -361,5 +363,7 @@ void fillet(Point *p1, Point *p2, Point *p3, Point *p4,
 	    real r, Point *c, real *pa, real *aa);
 real point_cross(Point *p1, Point *p2);
 Point calculate_object_edge(Point *objmid, Point *end, DiaObject *obj);
+
+G_END_DECLS
 
 #endif /* GEOMETRY_H */

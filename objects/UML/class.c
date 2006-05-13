@@ -2307,10 +2307,12 @@ umlclass_sanity_check(UMLClass *c, gchar *msg)
     dia_assert_true(attr->type != NULL,
 		    "%s: %p attr %d has null type\n",
 		    msg, c, i);
+#if 0 /* attr->comment == NULL is fine everywhere else */
     dia_assert_true(attr->comment != NULL,
 		    "%s: %p attr %d has null comment\n",
 		    msg, c, i);
-    
+#endif
+
     /* the following checks are only right with visible attributes */
     if (c->visible_attributes && !c->suppress_attributes) {
       int conn_offset = UMLCLASS_CONNECTIONPOINTS + 2 * i;

@@ -25,6 +25,8 @@
 #include <glib.h>
 #include <diagramdata.h>
 
+G_BEGIN_DECLS
+
 typedef void (* DiaExportFunc) (DiagramData *dia, const gchar *filename,
 				const gchar *diafilename, void* user_data);
 
@@ -100,5 +102,7 @@ DiaImportFilter *filter_guess_import_filter(const gchar *filename);
 void filter_register_callback(DiaCallbackFilter *cbfilter);
 /* returns all registered callbacks */
 GList *filter_get_callbacks(void);
+
+G_END_DECLS
 
 #endif

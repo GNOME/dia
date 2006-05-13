@@ -28,6 +28,8 @@
 #include "diavar.h"
 #include "paper.h"
 
+G_BEGIN_DECLS
+
 /*!
  * \brief Helper to create new diagram
  */
@@ -178,6 +180,8 @@ void layer_set_object_list(Layer *layer, GList *list);
 DiagramData *layer_get_parent_diagram(Layer *layer);
 /* Make sure all objects that are in the layer and not in the new
    list eventually gets destroyed. */
+
+G_END_DECLS
 
 #endif /* DIAGRAMDATA_H */
 

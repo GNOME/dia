@@ -18,7 +18,7 @@
 #undef LOCALEDIR /* needs to be calculated at runtime */
 /* NOT: #define LOCALEDIR "../lib/locale" */
 
-#define VERSION "0.95"
+#define VERSION "0.95+cvs"
 
 /*
  * We are linking libxml as DLL with either msvc or mingw, but this

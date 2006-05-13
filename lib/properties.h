@@ -48,6 +48,7 @@
 #include "intl.h"
 #include "textattr.h"
 
+G_BEGIN_DECLS
 
 typedef gboolean (*PropDescToPropPredicate)(const PropDescription *pdesc);
 
@@ -601,5 +602,7 @@ extern PropEnumData prop_std_text_align_data[];
       PROP_FLAG_VISIBLE|PROP_FLAG_DONT_SAVE|PROP_FLAG_WIDGET_ONLY|flags, NULL, NULL}
 #define PROP_OFFSET_FRAME_END(name) \
   { "frame_" name "_end", PROP_TYPE_FRAME_END, 0}
+
+G_END_DECLS
 
 #endif

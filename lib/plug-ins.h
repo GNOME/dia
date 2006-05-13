@@ -26,6 +26,8 @@
 #include <gmodule.h>
 #include "diatypes.h"
 
+G_BEGIN_DECLS
+
 /*
  * The api version to ensure dia core and the plug-ins agree on
  * talking about the same thing. If some incompatible change is 
@@ -102,5 +104,7 @@ g_module_check_init(GModule *gmodule) \
 
 /* prototype for plugin init function (should be implemented by plugin) */
 G_MODULE_EXPORT PluginInitResult dia_plugin_init(PluginInfo *info);
+
+G_END_DECLS
 
 #endif
