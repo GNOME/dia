@@ -33,7 +33,12 @@
 #endif
 #include <gdk/gdk.h>
 #include <gtk/gtk.h> /* just for gtk_get_default_language() */
-
+#ifdef GDK_WINDOWING_WIN32
+/* avoid namespace clashes caused by inclusion of windows.h */
+#define Rectangle Win32Rectangle
+#include <pango/pangowin32.h>
+#undef Rectangle
+#endif
 #include "font.h"
 #include "message.h"
 #include "intl.h"
@@ -139,7 +144,15 @@ dia_font_get_context() {
     */
     dia_font_push_context(pango_ft2_get_context(75,75));
 #else
-    dia_font_push_context(gdk_pango_context_get());
+    if (gdk_display_get_default ())
+      dia_font_push_context(gdk_pango_context_get());
+    else {
+#  ifdef GDK_WINDOWING_WIN32
+      dia_font_push_context(pango_win32_get_context ());
+#  else
+      g_warning ("dia_font_get_context() : not font context w/o display. Crashing soon.");
+#  endif
+    }
 #endif
   }
 

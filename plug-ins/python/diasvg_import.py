@@ -513,7 +513,7 @@ class Text(Object) :
 		# ugh, just maintain another global state
 		if s[-2:-1] != "e" : # FIXME ???
 			dfFontSize = Scaled(s)
-			print "FontSize is", dfFontSize
+			#print "FontSize is", dfFontSize
 		self.props["font-size"] = Scaled(s)
 		# ?? self.props["y"] = self.props["y"] - Scaled(s)
 	def font_weight(self, s) :
@@ -711,3 +711,4 @@ def import_svgz(sFile, diagramData) :
 import dia
 dia.register_import("SVG plain", "svg", import_svg)
 dia.register_import("SVG compressed", "svgz", import_svgz)
+

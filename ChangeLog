@@ -1,4 +1,20 @@
-2006-04-02  Hans Breuer  <hans@breuer.org>
+2006-05-14  Hans Breuer  <hans@breuer.org>
+
+	* plug-ins/python/python.c : protect the plug-in against 
+	initializing if Python already is initialized. This PyDia extensions
+	is designed for embedding Python.
+	
+	* plug-ins/python/pydia-property.c : LineStyle.dash may be either
+	Float or Integer.
+	
+	* plug-ins/python/diasvg_import.py : remove FontSize debug spew
+	
+	* lib/font.c : GDK_WINDOWING_WIN32: if called with a display already
+	setup use the pango context matching the display. Otherwise fallback
+	to a context from PangoWin32 (matches only for gtk+-2-6, not the one
+	used since gtk+-2-8 using cairo.
+	
+2006-05-13  Hans Breuer  <hans@breuer.org>
 
 	[ also applied to branch dia-0-95 ]
 	* objects/UML/umloperationc: add "query" to umloperation_offsets.

@@ -88,6 +88,10 @@ dia_plugin_init(PluginInfo *info)
     FILE *fp;
     PyObject *__main__, *__file__;
 
+    if (Py_IsInitialized ()) {
+        g_warning ("Dia's Python embedding is not designed for concurrency.");
+	return DIA_PLUGIN_INIT_ERROR;
+    }
     if (!dia_plugin_info_init(info, "Python",
 			      _("Python scripting support"),
 			      dia_py_plugin_can_unload, 

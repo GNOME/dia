@@ -284,7 +284,7 @@ PyDia_set_LineStyle(Property *prop, PyObject *val)
   LinestyleProperty *p = (LinestyleProperty*)prop;
   if (PyTuple_Check(val) && PyTuple_Size(val) == 2) {
     p->style = PyInt_AsLong(PyTuple_GetItem(val, 0));
-    p->dash  = PyInt_AsLong(PyTuple_GetItem(val, 1));
+    p->dash  = PyFloat_Check(PyTuple_GetItem(val, 1)) ? PyFloat_AsDouble(PyTuple_GetItem(val, 1)) : PyInt_AsLong(PyTuple_GetItem(val, 1));
     return 0;
   }
   return -1;
