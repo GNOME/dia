@@ -20,78 +20,63 @@
 
 #include <gtk/gtk.h>
 
-void file_quit_callback(gpointer data, guint action, GtkWidget *widget);
-void file_pagesetup_callback(gpointer data, guint action, GtkWidget *widget);
-void file_print_callback(gpointer data, guint action, GtkWidget *widget);
-void file_close_callback(gpointer data, guint action, GtkWidget *widget);
-void file_new_callback(gpointer data, guint action, GtkWidget *widget);
-void file_preferences_callback(gpointer data, guint action, GtkWidget *widget);
+void file_quit_callback        (GtkAction *action);
+void file_pagesetup_callback   (GtkAction *action);
+void file_print_callback       (GtkAction *action);
+void file_close_callback       (GtkAction *action);
+void file_new_callback         (GtkAction *action);
+void file_preferences_callback (GtkAction *action);
 
-void help_manual_callback(gpointer data, guint action, GtkWidget *widget);
-void help_about_callback(gpointer data, guint action, GtkWidget *widget);
+void help_manual_callback (GtkAction *action);
+void help_about_callback  (GtkAction *action);
 
-void edit_copy_callback(gpointer data, guint action, GtkWidget *widget);
-void edit_cut_callback(gpointer data, guint action, GtkWidget *widget);
-void edit_paste_callback(gpointer data, guint action, GtkWidget *widget);
-void edit_duplicate_callback(gpointer data, guint action, GtkWidget *widget);
-void edit_delete_callback(gpointer data, guint action, GtkWidget *widget);
-void edit_undo_callback(gpointer data, guint action, GtkWidget *widget);
-void edit_redo_callback(gpointer data, guint action, GtkWidget *widget);
-void edit_paste_text_callback(gpointer data, guint action, GtkWidget *widget);
-void edit_copy_text_callback(gpointer data, guint action, GtkWidget *widget);
-void edit_cut_text_callback(gpointer data, guint action, GtkWidget *widget);
+void edit_copy_callback       (GtkAction *action);
+void edit_cut_callback        (GtkAction *action);
+void edit_paste_callback      (GtkAction *action);
+void edit_duplicate_callback  (GtkAction *action);
+void edit_delete_callback     (GtkAction *action);
+void edit_undo_callback       (GtkAction *action);
+void edit_redo_callback       (GtkAction *action);
+void edit_paste_text_callback (GtkAction *action);
+void edit_copy_text_callback  (GtkAction *action);
+void edit_cut_text_callback   (GtkAction *action);
 
-void received_selection_handler(GtkWidget *widget, GtkSelectionData *selection,
+void received_selection_handler (GtkWidget *widget, GtkSelectionData *selection,
 				gpointer data);
 void get_selection_handler(GtkWidget *widget, GtkSelectionData *selection,
 			   gpointer data);
 
-void view_zoom_in_callback(gpointer data, guint action, GtkWidget *widget);
-void view_zoom_out_callback(gpointer data, guint action, GtkWidget *widget);
+void view_zoom_in_callback         (GtkAction *action);
+void view_zoom_out_callback        (GtkAction *action);
+void view_zoom_set_callback        (GtkAction *action);
+void view_unfullscreen             (void);
+void view_fullscreen_callback      (GtkToggleAction *action);
+void view_aa_callback              (GtkToggleAction *action);
+void view_visible_grid_callback    (GtkToggleAction *action);
+void view_snap_to_grid_callback    (GtkToggleAction *action);
+void view_snap_to_objects_callback (GtkToggleAction *action);
+void view_toggle_rulers_callback   (GtkToggleAction *action);
+void view_show_cx_pts_callback     (GtkToggleAction *action);
+void view_new_view_callback           (GtkAction *action);
+void view_clone_view_callback         (GtkAction *action);
+void view_show_all_callback           (GtkAction *action);
+void view_redraw_callback             (GtkAction *action);
+void view_diagram_properties_callback (GtkAction *action);
 
-void view_zoom_set_callback(gpointer data, guint action, GtkWidget *widget);
+void objects_place_over_callback        (GtkAction *action);
+void objects_place_under_callback       (GtkAction *action);
+void objects_place_up_callback          (GtkAction *action);
+void objects_place_down_callback        (GtkAction *action);
+void objects_parent_callback            (GtkAction *action);
+void objects_unparent_callback          (GtkAction *action);
+void objects_unparent_children_callback (GtkAction *action);
+void objects_group_callback             (GtkAction *action);
+void objects_ungroup_callback           (GtkAction *action);
+void objects_align_h_callback           (GtkAction *action);
+void objects_align_v_callback           (GtkAction *action);
 
-void view_unfullscreen(void);
-void view_fullscreen_callback(gpointer data, guint action, GtkWidget *widget);
+void dialogs_properties_callback (GtkAction *action);
+void dialogs_layers_callback     (GtkAction *action);
 
-void view_aa_callback(gpointer data, guint action, GtkWidget *widget);
-void view_visible_grid_callback (gpointer data, guint action,
-				 GtkWidget *widget);
-void view_snap_to_grid_callback (gpointer data, guint action,
-				 GtkWidget *widget);
-void view_snap_to_objects_callback(gpointer data, guint action,
-				   GtkWidget *widget);
-void view_toggle_rulers_callback(gpointer data, guint action,
-				 GtkWidget *widget);
-void view_show_cx_pts_callback  (gpointer data, guint action,
-				 GtkWidget *widget);
-
-void view_new_view_callback(gpointer data, guint action, GtkWidget *widget);
-void view_clone_view_callback(gpointer data, guint action, GtkWidget *widget);
-void view_show_all_callback(gpointer data, guint action, GtkWidget *widget);
-void view_redraw_callback(gpointer data, guint action, GtkWidget *widget);
-void view_diagram_properties_callback(gpointer data, guint action,
-				      GtkWidget *widget);
-
-void objects_place_over_callback(gpointer data, guint action,
-				 GtkWidget *widget);
-void objects_place_under_callback(gpointer data, guint action,
-				  GtkWidget *widget);
-void objects_place_up_callback(gpointer data, guint action,
-				 GtkWidget *widget);
-void objects_place_down_callback(gpointer data, guint action,
-				  GtkWidget *widget);
-void objects_parent_callback(gpointer data, guint action, GtkWidget *widget);
-void objects_unparent_callback(gpointer data, guint action, GtkWidget *widget);
-void objects_unparent_children_callback(gpointer data, guint action, GtkWidget *widget);
-void objects_group_callback(gpointer data, guint action, GtkWidget *widget);
-void objects_ungroup_callback(gpointer data, guint action, GtkWidget *widget);
-
-void dialogs_properties_callback(gpointer data, guint action,
-				 GtkWidget *widget);
-void dialogs_layers_callback(gpointer data, guint action, GtkWidget *widget);
-
-void objects_align_h_callback(gpointer data, guint action, GtkWidget *widget);
-void objects_align_v_callback(gpointer data, guint action, GtkWidget *widget);
 
 #endif /* COMMANDS_H */

@@ -1,3 +1,31 @@
+2006-05-20  Hans Breuer  <hans@breuer.org>
+
+	Patch from Robert Staudinger to base dia menus on GtkAction framework
+	instead on deprecated GtkItemFactory. Tracked in bug #340352. 
+	En passant fixes bug #
+	* configure.in : placementof ui files added data/Makefile to AC_OUTPUT
+	* Makefile.am : added data dir
+	* app/Makefile.am : added $(uidatadir)
+	* app/commands.c app/commands.h app/dia_embedd.c app/diagram.c
+	  app/diagram_tree_window.c app/diagram_tree_window.h
+	  app/disp_callbacks.c app/display.c app/display.h
+	  app/interface.c app/menus.c app/menus.h app/recent_files.c :
+	changed a bunch of callback signatures to take GtkAction
+	* app/pixmaps/Makefile.am 
+	* data/Makefile.am data/display-ui.xml data/toolbox-ui.xml
+	  data/popup-ui.xml : new files containing the menu structure
+	* lib/filter.c lib/filter.h lib/plug-ins.h : callback filter
+	  registration change to be more appropriate for actions
+	* lib/libdia.def : updated externals
+	* plug-ins/python/debug_objects.py plug-ins/python/diamodule.c
+	  plug-ins/python/group_props.py plug-ins/python/gtkcons.py 
+	  plug-ins/python/otypes.py plug-ins/python/pydiadoc.py 
+	  plug-ins/python/scascale.py plug-ins/python/select_by.py :
+	adapted to API change dia.register_callback to dia.register.action
+
+	* app/authors.h : added Robert to the authors
+	* app/commands.c : got rid of compiler warnings
+
 2006-05-14  Hans Breuer  <hans@breuer.org>
 
 	* plug-ins/python/python.c : protect the plug-in against 

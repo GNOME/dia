@@ -378,24 +378,25 @@ main (int argc, char **argv)
   app_init(0, NULL);
   app_splash_done();
 
+/* TODO is this needed, what for?
 #ifdef GNOME
-  menuitem = menus_get_item_from_path("<Toolbox>/File/New diagram", NULL);
+  menuitem = menus_get_item("/ToolboxMenu/File/FileNew");
   gtk_widget_hide(menuitem);
-  menuitem = menus_get_item_from_path("<Toolbox>/File/Open...", NULL);
+  menuitem = menus_get_item("/ToolboxMenu/File/FileOpen");
   gtk_widget_hide(menuitem);
-  menuitem = menus_get_item_from_path("<Toolbox>/File/Exit", NULL);
+  menuitem = menus_get_item("/ToolboxMenu/File/FileExit");
   gtk_widget_hide(menuitem);
 #else
-  menuitem = menus_get_item_from_path("<Toolbox>/File/New", NULL);
+  menuitem = menus_get_item("/ToolboxMenu/File/FileNew");
   gtk_widget_hide(menuitem);
-  menuitem = menus_get_item_from_path("<Toolbox>/File/Open...", NULL);
+  menuitem = menus_get_item("/ToolboxMenu/File/FileOpen");
   gtk_widget_hide(menuitem);
-  menuitem = menus_get_item_from_path("<Toolbox>/File/sep1", NULL);
+  menuitem = menus_get_item("/ToolboxMenu/File/FileSep1");
   gtk_widget_hide(menuitem);
-  menuitem = menus_get_item_from_path("<Toolbox>/File/Quit", NULL);
+  menuitem = menus_get_item("/ToolboxMenu/File/FileQuit");
   gtk_widget_hide(menuitem);
 #endif
-
+*/
 
   g_signal_connect (GTK_OBJECT (bonobo_context_running_get ()),
 		      "last_unref",

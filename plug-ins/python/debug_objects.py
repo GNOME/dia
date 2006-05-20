@@ -24,10 +24,10 @@ def dia_debug_props_cb (data, flags) :
 				print "\t" + str(p)
 
 # dia-python keeps a reference to the renderer class and uses it on demand
-dia.register_callback ("Dia BoundingBox Debugger", 
-                       "<Display>/Debug/Bounding Boxes", 
-                       dia_debug_cb)
+dia.register_action ("DebugBoundingbox", "Dia BoundingBox Debugger", 
+                     "/DisplayMenu/Debug/DebugExtensionStart", 
+                     dia_debug_cb)
 
-dia.register_callback ("Dia Property API Debugger", 
-                       "<Display>/Debug/Property API", 
-                       dia_debug_props_cb)
+dia.register_action ("DebugProperty", "Dia Property API Debugger", 
+                     "/DisplayMenu/Debug/DebugExtensionStart", 
+                     dia_debug_props_cb)

@@ -217,6 +217,7 @@ filter_register_callback(DiaCallbackFilter *cbfilter)
   g_return_if_fail (cbfilter->callback != NULL);
   g_return_if_fail (cbfilter->menupath != NULL);
   g_return_if_fail (cbfilter->description != NULL);
+  g_return_if_fail (cbfilter->action != NULL);
 
   /* callback_filters is always pointing to the last element */
   callback_filters = g_list_append (callback_filters, (gpointer)cbfilter);

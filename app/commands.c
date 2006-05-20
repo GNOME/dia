@@ -82,13 +82,14 @@ ShellExecuteA (long        hwnd,
 #include "diagram_tree_window.h"
 #include "authors.h"                /* master contributors data */
 
-void file_quit_callback(gpointer data, guint action, GtkWidget *widget)
+void 
+file_quit_callback (GtkAction *action)
 {
   app_exit();
 }
 
 void
-file_pagesetup_callback(gpointer data, guint action, GtkWidget *widget)
+file_pagesetup_callback (GtkAction *action)
 {
   Diagram *dia;
 
@@ -98,7 +99,7 @@ file_pagesetup_callback(gpointer data, guint action, GtkWidget *widget)
 }
 
 void
-file_print_callback(gpointer data, guint action, GtkWidget *widget)
+file_print_callback (GtkAction *action)
 {
   Diagram *dia;
 
@@ -114,7 +115,7 @@ file_print_callback(gpointer data, guint action, GtkWidget *widget)
 }
 
 void
-file_close_callback(gpointer data, guint action, GtkWidget *widget)
+file_close_callback (GtkAction *action)
 {
   /* some people use tear-off menus and insist to close non existing displays */
   if (ddisplay_active())
@@ -122,7 +123,7 @@ file_close_callback(gpointer data, guint action, GtkWidget *widget)
 }
 
 void
-file_new_callback(gpointer data, guint action, GtkWidget *widget)
+file_new_callback (GtkAction *action)
 {
   Diagram *dia;
   DDisplay *ddisp;
@@ -139,14 +140,14 @@ file_new_callback(gpointer data, guint action, GtkWidget *widget)
 }
 
 void
-file_preferences_callback(gpointer data, guint action, GtkWidget *widget)
+file_preferences_callback (GtkAction *action)
 {
   prefs_show();
 }
 
 
 void
-edit_copy_callback(gpointer data, guint action, GtkWidget *widget)
+edit_copy_callback (GtkAction *action)
 {
   GList *copy_list;
   DDisplay *ddisp;
@@ -162,7 +163,7 @@ edit_copy_callback(gpointer data, guint action, GtkWidget *widget)
 }
 
 void
-edit_cut_callback(gpointer data, guint action, GtkWidget *widget)
+edit_cut_callback (GtkAction *action)
 {
   GList *cut_list;
   DDisplay *ddisp;
@@ -190,7 +191,7 @@ edit_cut_callback(gpointer data, guint action, GtkWidget *widget)
 }
 
 void
-edit_paste_callback(gpointer data, guint action, GtkWidget *widget)
+edit_paste_callback (GtkAction *action)
 {
   GList *paste_list;
   DDisplay *ddisp;
@@ -241,7 +242,7 @@ edit_paste_callback(gpointer data, guint action, GtkWidget *widget)
  * completely untested, basically it is copy+paste munged together
  */
 void
-edit_duplicate_callback(gpointer data, guint action, GtkWidget *widget)
+edit_duplicate_callback (GtkAction *action)
 { 
   GList *duplicate_list;
   DDisplay *ddisp;
@@ -360,7 +361,7 @@ make_text_prop_singleton(GPtrArray **props, TextProperty **prop)
 
 
 void
-edit_copy_text_callback(gpointer data, guint action, GtkWidget *widget)
+edit_copy_text_callback (GtkAction *action)
 {
   Focus *focus = active_focus();
   DDisplay *ddisp;
@@ -396,7 +397,7 @@ edit_copy_text_callback(gpointer data, guint action, GtkWidget *widget)
 }
 
 void
-edit_cut_text_callback(gpointer data, guint action, GtkWidget *widget)
+edit_cut_text_callback (GtkAction *action)
 {
   Focus *focus = active_focus();
   DDisplay *ddisp;
@@ -444,7 +445,7 @@ edit_cut_text_callback(gpointer data, guint action, GtkWidget *widget)
 }
 
 void
-edit_paste_text_callback(gpointer data, guint action, GtkWidget *widget)
+edit_paste_text_callback (GtkAction *action)
 {
   DDisplay *ddisp;
 
@@ -461,7 +462,7 @@ edit_paste_text_callback(gpointer data, guint action, GtkWidget *widget)
 }
 
 void
-edit_delete_callback(gpointer data, guint action, GtkWidget *widget)
+edit_delete_callback (GtkAction *action)
 {
   GList *delete_list;
   DDisplay *ddisp;
@@ -487,7 +488,7 @@ edit_delete_callback(gpointer data, guint action, GtkWidget *widget)
 } 
 
 void
-edit_undo_callback(gpointer data, guint action, GtkWidget *widget)
+edit_undo_callback (GtkAction *action)
 {
   Diagram *dia;
   
@@ -501,7 +502,7 @@ edit_undo_callback(gpointer data, guint action, GtkWidget *widget)
 } 
 
 void
-edit_redo_callback(gpointer data, guint action, GtkWidget *widget)
+edit_redo_callback (GtkAction *action)
 {
   Diagram *dia;
   
@@ -515,7 +516,7 @@ edit_redo_callback(gpointer data, guint action, GtkWidget *widget)
 } 
 
 void
-help_manual_callback(gpointer data, guint action, GtkWidget *widget)
+help_manual_callback (GtkAction *action)
 {
 #ifdef GNOME
   gnome_help_display("dia", NULL, NULL);
@@ -600,7 +601,7 @@ activate_url (GtkAboutDialog *about,
 }
 
 void
-help_about_callback(gpointer data, guint action, GtkWidget *widget)
+help_about_callback (GtkAction *action)
 {
   const gchar *translators = _("translator_credits-PLEASE_ADD_YOURSELF_HERE");
   const gchar *license = _(
@@ -643,7 +644,7 @@ help_about_callback(gpointer data, guint action, GtkWidget *widget)
 }
 
 void
-view_zoom_in_callback(gpointer data, guint action, GtkWidget *widget)
+view_zoom_in_callback (GtkAction *action)
 {
   DDisplay *ddisp;
   Point middle;
@@ -659,7 +660,7 @@ view_zoom_in_callback(gpointer data, guint action, GtkWidget *widget)
 }
 
 void
-view_zoom_out_callback(gpointer data, guint action, GtkWidget *widget)
+view_zoom_out_callback (GtkAction *action)
 {
   DDisplay *ddisp;
   Point middle;
@@ -675,26 +676,31 @@ view_zoom_out_callback(gpointer data, guint action, GtkWidget *widget)
 }
 
 void
-view_zoom_set_callback(gpointer data, guint action, GtkWidget *widget)
+view_zoom_set_callback (GtkAction *action)
 {
   DDisplay *ddisp;
   real scale;
   Point middle;
   Rectangle *visible;
-  
+  int factor;
+
   ddisp = ddisplay_active();
   if (!ddisp) return;
+
+  /* HACK the actual factor is a suffix to the action name */
+  factor = atoi (gtk_action_get_name (action) + strlen ("ViewZoom"));
+
   visible = &ddisp->visible;
   middle.x = visible->left*0.5 + visible->right*0.5;
   middle.y = visible->top*0.5 + visible->bottom*0.5;
 
-  scale = ((real) action)/1000.0 * DDISPLAY_NORMAL_ZOOM;
+  scale = ((real) factor)/1000.0 * DDISPLAY_NORMAL_ZOOM;
 
   ddisplay_zoom(ddisp, &middle, scale / ddisp->zoom_factor);  
 }
 
 void
-view_show_cx_pts_callback(gpointer data, guint action, GtkWidget *widget)
+view_show_cx_pts_callback (GtkToggleAction *action)
 {
   DDisplay *ddisp;
   int old_val;
@@ -703,7 +709,7 @@ view_show_cx_pts_callback(gpointer data, guint action, GtkWidget *widget)
   if (!ddisp) return;
 
   old_val = ddisp->show_cx_pts;
-  ddisp->show_cx_pts = GTK_CHECK_MENU_ITEM(widget)->active;
+  ddisp->show_cx_pts = gtk_toggle_action_get_active (action);
   
   if (old_val != ddisp->show_cx_pts) {
     ddisplay_add_update_all(ddisp);
@@ -712,23 +718,23 @@ view_show_cx_pts_callback(gpointer data, guint action, GtkWidget *widget)
 }
 
 void 
-view_unfullscreen(void)
+view_unfullscreen (void)
 {
   DDisplay *ddisp;
-  GtkMenuItem *item;
+  GtkToggleAction *item;
 
   ddisp = ddisplay_active();
   if (!ddisp) return;
 
   /* find the menuitem */
-  item = menus_get_item_from_path ("<Display>/View/Fullscreen", NULL);
-  if (item && GTK_CHECK_MENU_ITEM(item)->active) {
-    gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(item), FALSE);
+  item = GTK_TOGGLE_ACTION (menus_get_action ("ViewFullscreen"));
+  if (item && gtk_toggle_action_get_active (item)) {
+    gtk_toggle_action_set_active (item, FALSE);
   }
 }
 
 void
-view_fullscreen_callback(gpointer data, guint action, GtkWidget *widget)
+view_fullscreen_callback (GtkToggleAction *action)
 {
   DDisplay *ddisp;
   int fs;
@@ -736,7 +742,7 @@ view_fullscreen_callback(gpointer data, guint action, GtkWidget *widget)
   ddisp = ddisplay_active();
   if (!ddisp) return;
 
-  fs =  GTK_CHECK_MENU_ITEM(widget)->active;
+  fs = gtk_toggle_action_get_active (action);
   
   if (fs) /* it is already toggled */
     gtk_window_fullscreen(GTK_WINDOW(ddisp->shell));
@@ -745,7 +751,7 @@ view_fullscreen_callback(gpointer data, guint action, GtkWidget *widget)
 }
 
 void
-view_aa_callback(gpointer data, guint action, GtkWidget *widget)
+view_aa_callback (GtkToggleAction *action)
 {
   DDisplay *ddisp;
   int aa;
@@ -753,7 +759,7 @@ view_aa_callback(gpointer data, guint action, GtkWidget *widget)
   ddisp = ddisplay_active();
   if (!ddisp) return;
  
-  aa =  GTK_CHECK_MENU_ITEM(widget)->active;
+  aa = gtk_toggle_action_get_active (action);
   
   if (aa != ddisp->aa_renderer) {
     ddisplay_set_renderer(ddisp, aa);
@@ -763,7 +769,7 @@ view_aa_callback(gpointer data, guint action, GtkWidget *widget)
 }
 
 void
-view_visible_grid_callback(gpointer data, guint action, GtkWidget *widget)
+view_visible_grid_callback (GtkToggleAction *action)
 {
   DDisplay *ddisp;
   int old_val;
@@ -772,7 +778,7 @@ view_visible_grid_callback(gpointer data, guint action, GtkWidget *widget)
   if (!ddisp) return;
   
   old_val = ddisp->grid.visible;
-  ddisp->grid.visible = GTK_CHECK_MENU_ITEM(widget)->active; 
+  ddisp->grid.visible = gtk_toggle_action_get_active (action); 
 
   if (old_val != ddisp->grid.visible) {
     ddisplay_add_update_all(ddisp);
@@ -781,42 +787,36 @@ view_visible_grid_callback(gpointer data, guint action, GtkWidget *widget)
 }
 
 void
-view_snap_to_grid_callback(gpointer data, guint action, GtkWidget *widget)
+view_snap_to_grid_callback (GtkToggleAction *action)
 {
   DDisplay *ddisp;
 
   ddisp = ddisplay_active();
   if (!ddisp) return;
   
-  ddisplay_set_snap_to_grid(ddisp, GTK_CHECK_MENU_ITEM(widget)->active);
+  ddisplay_set_snap_to_grid(ddisp, gtk_toggle_action_get_active (action));
 }
 
 void
-view_snap_to_objects_callback(gpointer data, guint action, GtkWidget *widget)
+view_snap_to_objects_callback (GtkToggleAction *action)
 {
   DDisplay *ddisp;
 
   ddisp = ddisplay_active();
   if (!ddisp) return;
   
-  ddisplay_set_snap_to_objects(ddisp, GTK_CHECK_MENU_ITEM(widget)->active);
+  ddisplay_set_snap_to_objects(ddisp, gtk_toggle_action_get_active (action));
 }
 
-void view_toggle_rulers_callback(gpointer data, guint action, GtkWidget*widget)
+void 
+view_toggle_rulers_callback (GtkToggleAction *action)
 {
   DDisplay *ddisp;
   
   ddisp = ddisplay_active();
   if (!ddisp) return;
 
-  /* The following is borrowed straight from the Gimp: */
-  
-  /* This routine use promiscuous knowledge of gtk internals
-   *  in order to hide and show the rulers "smoothly". This
-   *  is kludgy and a hack and may break if gtk is changed
-   *  internally.
-   */
-  if (!GTK_CHECK_MENU_ITEM(widget)->active) {
+  if (!gtk_toggle_action_get_active (action)) {
     if (GTK_WIDGET_VISIBLE (ddisp->origin)) {
       gtk_widget_unmap (ddisp->origin);
       gtk_widget_unmap (ddisp->hrule);
@@ -844,7 +844,7 @@ void view_toggle_rulers_callback(gpointer data, guint action, GtkWidget*widget)
 }
 
 extern void
-view_new_view_callback(gpointer data, guint action, GtkWidget *widget)
+view_new_view_callback (GtkAction *action)
 {
   Diagram *dia;
 
@@ -855,7 +855,7 @@ view_new_view_callback(gpointer data, guint action, GtkWidget *widget)
 }
 
 extern void
-view_clone_view_callback(gpointer data, guint action, GtkWidget *widget)
+view_clone_view_callback (GtkAction *action)
 {
   DDisplay *ddisp;
 
@@ -866,7 +866,7 @@ view_clone_view_callback(gpointer data, guint action, GtkWidget *widget)
 }
 
 void
-view_show_all_callback(gpointer data, guint action, GtkWidget *widget)
+view_show_all_callback (GtkAction *action)
 {
   DDisplay *ddisp;
   Diagram *dia;
@@ -916,7 +916,7 @@ view_show_all_callback(gpointer data, guint action, GtkWidget *widget)
 }
 
 void
-view_redraw_callback(gpointer data, guint action, GtkWidget *widget)
+view_redraw_callback (GtkAction *action)
 {
   DDisplay *ddisp;
   ddisp = ddisplay_active();
@@ -926,7 +926,7 @@ view_redraw_callback(gpointer data, guint action, GtkWidget *widget)
 }
 
 void
-view_diagram_properties_callback(gpointer data, guint action, GtkWidget *widget)
+view_diagram_properties_callback (GtkAction *action)
 {
   DDisplay *ddisp;
 
@@ -937,49 +937,49 @@ view_diagram_properties_callback(gpointer data, guint action, GtkWidget *widget)
 
 
 void
-objects_place_over_callback(gpointer data, guint action, GtkWidget *widget)
+objects_place_over_callback (GtkAction *action)
 {
   diagram_place_over_selected(ddisplay_active_diagram());
 }
 
 void
-objects_place_under_callback(gpointer data, guint action, GtkWidget *widget)
+objects_place_under_callback (GtkAction *action)
 {
   diagram_place_under_selected(ddisplay_active_diagram());
 }
 
 void
-objects_place_up_callback(gpointer data, guint action, GtkWidget *widget)
+objects_place_up_callback (GtkAction *action)
 {
   diagram_place_up_selected(ddisplay_active_diagram());
 }
 
 void
-objects_place_down_callback(gpointer data, guint action, GtkWidget *widget)
+objects_place_down_callback (GtkAction *action)
 {
   diagram_place_down_selected(ddisplay_active_diagram());
 }
 
 void
-objects_parent_callback(gpointer data, guint action, GtkWidget *widget)
+objects_parent_callback (GtkAction *action)
 {
   diagram_parent_selected(ddisplay_active_diagram());
 }
 
 void
-objects_unparent_callback(gpointer data, guint action, GtkWidget *widget)
+objects_unparent_callback (GtkAction *action)
 {
   diagram_unparent_selected(ddisplay_active_diagram());
 }
 
 void
-objects_unparent_children_callback(gpointer data, guint action, GtkWidget *widget)
+objects_unparent_children_callback (GtkAction *action)
 {
   diagram_unparent_children_selected(ddisplay_active_diagram());
 }
 
 void
-objects_group_callback(gpointer data, guint action, GtkWidget *widget)
+objects_group_callback (GtkAction *action)
 {
   DDisplay *ddisp;
 
@@ -990,7 +990,7 @@ objects_group_callback(gpointer data, guint action, GtkWidget *widget)
 } 
 
 void
-objects_ungroup_callback(gpointer data, guint action, GtkWidget *widget)
+objects_ungroup_callback (GtkAction *action)
 {
   DDisplay *ddisp;
 
@@ -1001,7 +1001,7 @@ objects_ungroup_callback(gpointer data, guint action, GtkWidget *widget)
 } 
 
 void
-dialogs_properties_callback(gpointer data, guint action, GtkWidget *widget)
+dialogs_properties_callback (GtkAction *action)
 {
   Diagram *dia;
   DiaObject *selected;
@@ -1018,7 +1018,7 @@ dialogs_properties_callback(gpointer data, guint action, GtkWidget *widget)
 }
 
 void
-dialogs_layers_callback(gpointer data, guint action, GtkWidget *widget)
+dialogs_layers_callback (GtkAction *action)
 {
   layer_dialog_set_diagram(ddisplay_active_diagram());
   layer_dialog_show();
@@ -1026,13 +1026,34 @@ dialogs_layers_callback(gpointer data, guint action, GtkWidget *widget)
 
 
 void
-objects_align_h_callback(gpointer data, guint action, GtkWidget *widget)
+objects_align_h_callback (GtkAction *action)
 {
-  int align;
+  const gchar *a;
+  int align = DIA_ALIGN_LEFT;
   Diagram *dia;
   GList *objects;
 
-  align = action;
+  /* HACK align is suffix to action name */
+  a = gtk_action_get_name (action) + strlen ("ObjectsAlign");
+  if (0 == strcmp ("Left", a)) {
+	align = DIA_ALIGN_LEFT;
+  } 
+  else if (0 == strcmp ("Center", a)) {
+	align = DIA_ALIGN_CENTER;
+  } 
+  else if (0 == strcmp ("Right", a)) {
+	align = DIA_ALIGN_RIGHT;
+  } 
+  else if (0 == strcmp ("Spreadouthorizontally", a)) {
+	align = DIA_ALIGN_EQUAL;
+  } 
+  else if (0 == strcmp ("Adjacent", a)) {
+	align = DIA_ALIGN_ADJACENT;
+  }
+  else {
+	g_warning ("objects_align_v_callback() called without appropriate align");
+	return;
+  }
 
   dia = ddisplay_active_diagram();
   if (!dia) return;
@@ -1049,13 +1070,34 @@ objects_align_h_callback(gpointer data, guint action, GtkWidget *widget)
 }
 
 void
-objects_align_v_callback(gpointer data, guint action, GtkWidget *widget)
+objects_align_v_callback (GtkAction *action)
 {
+  const gchar *a;
   int align;
   Diagram *dia;
   GList *objects;
 
-  align = action;
+  /* HACK align is suffix to action name */
+  a = gtk_action_get_name (action) + strlen ("ObjectsAlign");
+  if (0 == strcmp ("Top", a)) {
+	align = DIA_ALIGN_TOP;
+  } 
+  else if (0 == strcmp ("Middle", a)) {
+	align = DIA_ALIGN_CENTER;
+  } 
+  else if (0 == strcmp ("Bottom", a)) {
+	align = DIA_ALIGN_BOTTOM;
+  } 
+  else if (0 == strcmp ("Spreadoutvertically", a)) {
+	align = DIA_ALIGN_EQUAL;
+  } 
+  else if (0 == strcmp ("Stacked", a)) {
+	align = DIA_ALIGN_ADJACENT;
+  }
+  else {
+	g_warning ("objects_align_v_callback() called without appropriate align");
+	return;
+  }
 
   dia = ddisplay_active_diagram();
   if (!dia) return;

@@ -52,98 +52,57 @@ static GtkTooltips *tooltips = 0;
 static void open_recent_file_callback (GtkWidget *widget, gpointer data);
 void recent_file_history_remove (const char *fname);
 
-static GtkWidget *
-recent_file_filemenu_get(void)
-{
-    /* Use the Plugins menu item to get a pointer to the File menu,
-       but any item on the File menu will do */
-    
-    return GTK_WIDGET(menus_get_item_from_path(N_("<Toolbox>/File/Plugins..."),
-					       NULL))->parent;
-}
-
 static void
 recent_file_history_clear_menu()
 {
-    GtkWidget *file_menu = recent_file_filemenu_get();
-    GList *menu_items = GTK_MENU_SHELL(file_menu)->children;
-    GList *next_item;
-    
-    for (;menu_items != NULL; menu_items = next_item) {
-	GtkMenuItem *item;
-	next_item = g_list_next(menu_items);
-	item = GTK_MENU_ITEM(menu_items->data);
-	if (g_signal_handler_find(G_OBJECT(item), G_SIGNAL_MATCH_FUNC,
-				  0, 0, NULL, open_recent_file_callback, NULL)) {
-	    gtk_container_remove (GTK_CONTAINER (file_menu), GTK_WIDGET(item));
-	}
-    }
+	menus_clear_recent ();
 }
 
-/** Create a single menu item at position pos in the recent files list.
- * Pos starts from 0.
+/** 
+ * Build and insert the recent files menu.
  */
-static void
-recent_file_menuitem_create(GtkWidget *menu, gchar *filename, 
-			    guint pos, guint offset)
-{
-    gchar *basename, *label;
-    GtkWidget *item;
-    GtkAccelGroup *accel_group;
-    /* FIXME: filename encoding, but we need utf-8 here */
-    basename = g_path_get_basename(filename);
-    
-    label = g_strdup_printf("%d. %s", pos+1, basename);
-    item = gtk_menu_item_new_with_label(label);
-    gtk_menu_insert(GTK_MENU(menu), item,
-		    pos + offset);
-    
-    g_signal_connect(GTK_OBJECT(item), "activate",
-		     G_CALLBACK(open_recent_file_callback), filename);
-    
-    gtk_tooltips_set_tip(GTK_TOOLTIPS(tooltips), item,
-    			 filename, NULL);
-    
-    if (pos < 9)
-    {
-	accel_group = gtk_accel_group_new();
-	gtk_window_add_accel_group(GTK_WINDOW(interface_get_toolbox_shell()),
-				   accel_group);
-	gtk_widget_add_accelerator(item, "activate", accel_group,
-				   GDK_1 + pos,
-				   GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
-    }
-    
-    gtk_widget_show(item);
-    
-    g_free(basename);
-    /* gtk_label_set_text() g_strdup's our label, so... */
-    g_free(label);
-}
-
-/** Build and insert the recent files menu */
 static void
 recent_file_history_make_menu()
 {
-    guint i;
+	GList *items;
+	GtkActionGroup *group;
+	GtkAction *action;
+	gchar *name;
+	gchar *file;
+	gchar *label;
+	gchar *accel;
+	gint i = 0;
 
-    GList *items = persistent_list_get_glist("recent-files");
+	items = persistent_list_get_glist ("recent-files");
+	g_return_if_fail (items != NULL);
 
-    GtkWidget *file_menu = recent_file_filemenu_get();
+	group = gtk_action_group_new ("recent-files");
 
-    GtkMenuItem *menu_item = 
-	menus_get_item_from_path(N_("<Toolbox>/File/Quit"), NULL);
+	for (i = 0; 
+		 items != NULL && i < prefs.recent_documents_list_size; 
+		 items = g_list_next(items), i++) {
 
-    GList *list_item = g_list_find(GTK_MENU_SHELL(file_menu)->children,
-				   (gpointer)menu_item);
-    
-    int offset = g_list_position(GTK_MENU_SHELL(file_menu)->children,
-			  list_item) - 1;  /* fudge factor */
+		name = g_strdup_printf ("FileRecent_%d", i);
+		file = g_path_get_basename ((const gchar *) items->data);
+		label = g_strdup_printf ("_%d. %s", i + 1, file);
 
-    for (i = 0; items != NULL && i < prefs.recent_documents_list_size;
-	 items = g_list_next(items), i++) {
-	recent_file_menuitem_create(file_menu, (gchar *)items->data, i, offset);
-    }
+		action = gtk_action_new (name, label, 
+								 (const gchar *) items->data, 
+								 NULL);
+		g_signal_connect (G_OBJECT (action), "activate", 
+						  G_CALLBACK (open_recent_file_callback), 
+						  items->data);
+
+		accel = g_strdup_printf ("<control>%d", i + 1);
+		gtk_action_group_add_action_with_accel (group, action, accel);
+		
+		g_free (name);  name = NULL;
+		g_free (file);  file = NULL;
+		g_free (label); label = NULL;
+		g_free (accel); accel = NULL;
+	}
+
+	menus_set_recent (group);
 }
 
 /** Add a new item to the file history list.

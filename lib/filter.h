@@ -70,6 +70,7 @@ typedef void (* DiaCallbackFunc) (DiagramData *dia,
                                   void* user_data);
 
 struct _DiaCallbackFilter {
+  const gchar *action;
   const gchar *description;
   const gchar *menupath;
   DiaCallbackFunc callback;

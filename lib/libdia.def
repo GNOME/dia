@@ -357,7 +357,7 @@ EXPORTS
  filter_get_import_filters
  filter_guess_export_filter
  filter_guess_import_filter
- filter_register_callback
+ filter_register_action
  filter_register_export
  filter_register_import
  filter_unregister_export

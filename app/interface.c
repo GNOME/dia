@@ -55,72 +55,72 @@ ToolButton tool_data[] =
 {
   { (char **) dia_modify_tool_icon,
     N_("Modify object(s)"),
-    N_("Modify"),
+    N_("ToolsModify"),
     { MODIFY_TOOL, NULL, NULL}
   },
   { (char **) dia_zoom_tool_icon,
     N_("Magnify"),
-    N_("Magnify"),
+    N_("ToolsMagnify"),
     { MAGNIFY_TOOL, NULL, NULL}
   },
   { (char **) dia_scroll_tool_icon,
     N_("Scroll around the diagram"),
-    N_("Scroll"),
+    N_("ToolsScroll"),
     { SCROLL_TOOL, NULL, NULL}
   },
   { NULL,
     N_("Text"),
-    N_("Text"),
+    N_("ToolsText"),
     { CREATE_OBJECT_TOOL, "Standard - Text", NULL }
   },
   { NULL,
     N_("Box"),
-    N_("Box"),
+    N_("ToolsBox"),
     { CREATE_OBJECT_TOOL, "Standard - Box", NULL }
   },
   { NULL,
     N_("Ellipse"),
-    N_("Ellipse"),
+    N_("ToolsEllipse"),
     { CREATE_OBJECT_TOOL, "Standard - Ellipse", NULL }
   },
   { NULL,
     N_("Polygon"),
-    N_("Polygon"),
+    N_("ToolsPolygon"),
     { CREATE_OBJECT_TOOL, "Standard - Polygon", NULL }
   },
   { NULL,
     N_("Beziergon"),
-    N_("Beziergon"),
+    N_("ToolsBeziergon"),
     { CREATE_OBJECT_TOOL, "Standard - Beziergon", NULL }
   },
   { NULL,
     N_("Line"),
-    N_("Line"),
+    N_("ToolsLine"),
     { CREATE_OBJECT_TOOL, "Standard - Line", NULL }
   },
   { NULL,
     N_("Arc"),
-    N_("Arc"),
+    N_("ToolsArc"),
     { CREATE_OBJECT_TOOL, "Standard - Arc", NULL }
   },
   { NULL,
     N_("Zigzagline"),
-    N_("Zigzagline"),
+    N_("ToolsZigzagline"),
     { CREATE_OBJECT_TOOL, "Standard - ZigZagLine", NULL }
   },
   { NULL,
     N_("Polyline"),
-    N_("Polyline"),
+    N_("ToolsPolyline"),
     { CREATE_OBJECT_TOOL, "Standard - PolyLine", NULL }
   },
   { NULL,
     N_("Bezierline"),
-    N_("Bezierline"),
+    N_("ToolsBezierline"),
     { CREATE_OBJECT_TOOL, "Standard - BezierLine", NULL }
   },
   { NULL,
     N_("Image"),
-    N_("Image"),
+    N_("ToolsImage"),
     { CREATE_OBJECT_TOOL, "Standard - Image", NULL }
   }
 };
@@ -486,18 +486,16 @@ create_display_shell(DDisplay *ddisp,
   gtk_table_attach (GTK_TABLE (table), navigation_button, 2, 3, 2, 3,
                     GTK_FILL, GTK_FILL, 0, 0);
 
-  menus_get_image_menu (NULL, &ddisp->accel_group);
+  /* TODO rob use per window accel */
+  ddisp->accel_group = menus_get_display_accels ();
   if (top_level_window)
     gtk_window_add_accel_group(GTK_WINDOW(ddisp->shell), ddisp->accel_group);
   if (use_mbar) 
   {
-    GString *path;
-    char *display = "<DisplayMBar>";
-
-    menus_get_image_menubar(&ddisp->menu_bar, &ddisp->mbar_item_factory);
+    ddisp->menu_bar = menus_create_display_menubar (&ddisp->ui_manager, &ddisp->actions);
+    g_assert (ddisp->menu_bar);
     gtk_box_pack_start (GTK_BOX (root_vbox), ddisp->menu_bar, FALSE, TRUE, 0);
-
-    menus_initialize_updatable_items (&ddisp->updatable_menu_items, ddisp->mbar_item_factory, display);
+    menus_initialize_updatable_items (&ddisp->updatable_menu_items, ddisp->actions);
   }
 
   /* the statusbars */
@@ -1334,9 +1332,8 @@ toolbox_hide(void)
 void
 create_tree_window(void)
 {
-  GtkCheckMenuItem *item = GTK_CHECK_MENU_ITEM
-    (menus_get_item_from_path("<Toolbox>/File/Diagram tree", NULL));
-  create_diagram_tree_window(&prefs.dia_tree, GTK_WIDGET(item));
+  GtkAction *action = menus_get_action ("FileTree");
+  create_diagram_tree_window(&prefs.dia_tree, GTK_TOGGLE_ACTION(action));
 }
 
 GtkWidget *

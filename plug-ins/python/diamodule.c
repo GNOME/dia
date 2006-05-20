@@ -320,7 +320,7 @@ PyDia_RegisterImport(PyObject *self, PyObject *args)
 /*
  * This function gets called by Dia as a reaction to a menu item.
  * It needs to be registered before via Python function 
- * dia.register_callback
+ * dia.register_action
  */
 static void
 PyDia_callback_func (DiagramData *dia, guint flags, void *user_data)
@@ -352,15 +352,16 @@ PyDia_callback_func (DiagramData *dia, guint flags, void *user_data)
 }
 
 static PyObject *
-PyDia_RegisterCallback(PyObject *self, PyObject *args)
+PyDia_RegisterAction (PyObject *self, PyObject *args)
 {
+	gchar *action;
     gchar *desc;
     gchar *menupath;
     PyObject *func;
     DiaCallbackFilter *filter;
 
-    if (!PyArg_ParseTuple(args, "ssO:dia.register_callback",
-			  &desc, &menupath, &func))
+    if (!PyArg_ParseTuple(args, "sssO:dia.register_action",
+			  &action, &desc, &menupath, &func))
 	return NULL;
 
     if (!PyCallable_Check(func)) {
@@ -371,6 +372,7 @@ PyDia_RegisterCallback(PyObject *self, PyObject *args)
     Py_INCREF(func); /* stay alive, where to kill ?? */
 
     filter = g_new0 (DiaCallbackFilter, 1);
+    filter->action = g_strdup (action);
     filter->description = g_strdup (desc);
     filter->menupath = g_strdup (menupath);
     filter->callback = &PyDia_callback_func;
@@ -427,7 +429,7 @@ static PyMethodDef dia_methods[] = {
     { "register_import", PyDia_RegisterImport, METH_VARARGS,
       "allows to register an import filter written in Python, that is mainly a callback function which fills the"
       "given DiaDiagramData from the given filename" },
-    { "register_callback", PyDia_RegisterCallback, METH_VARARGS,
+    { "register_action", PyDia_RegisterAction, METH_VARARGS,
       "register a callback function which appears in the menu. Depending on the menu path used during registration"
       "the callback gets called with the current DiaDiagramData object" },
     { NULL, NULL }

@@ -41,13 +41,11 @@ extern DiagramTree *
 diagram_tree(void);
 
 extern void
-create_diagram_tree_window(DiagramTreeConfig *config, GtkWidget *menuitem);
+create_diagram_tree_window(DiagramTreeConfig *config, GtkToggleAction *action);
 
 
 /* show the diagtree window (menu callback) */
 extern void
-diagtree_show_callback(gpointer data, guint action,
-		       GtkWidget *widget);
-
+diagtree_show_callback (GtkToggleAction *action, gpointer user_data);
 
 #endif /* DIAGRAM_TREE_WINDOW_H */

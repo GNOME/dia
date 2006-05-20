@@ -141,6 +141,6 @@ def autodoc_cb (data, flags) :
 	diagram.update_extents()
 	diagram.flush()
 
-dia.register_callback ("PyDia Auto Documentation", 
-                       "<Toolbox>/Help/Self Doc/PyDia Docs", 
+dia.register_action ("HelpPydia", "PyDia Docs", 
+                       "/ToolboxMenu/Help/HelpExtensionStart", 
                        autodoc_cb)

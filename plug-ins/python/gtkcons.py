@@ -340,9 +340,10 @@ try :
 		gtk_console({'__builtins__': __builtins__, '__name__': '__main__',
 			     '__doc__': None, 'dia': dia}, 'Python Dia Console')
 
-	dia.register_callback("Python Console",
-			      "<Display>/Dialogs/Python Console ...",
-			      open_console)
+	dia.register_action ("DialogsPythonconsole", "Python Console", 
+	                      "/DisplayMenu/Dialogs/DialogsExtensionStart", 
+	                       open_console)
+
 except :
 	print 'Failed to import Dia ...'
 	gtk_console({'__builtins__': __builtins__, '__name__': '__main__',

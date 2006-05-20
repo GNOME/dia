@@ -172,6 +172,6 @@ def otypes_cb(data, flags) :
 	diagram.update_extents()
 	diagram.flush()
 
-dia.register_callback ("Dia Object Types", 
-                       "<Toolbox>/Help/Self Doc/Object Types", 
-                       otypes_cb)
+dia.register_action ("HelpOtypes", "Dia Object Types",
+                     "/ToolboxMenu/Help/HelpExtensionStart", 
+                     otypes_cb)

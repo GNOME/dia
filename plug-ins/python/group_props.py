@@ -170,7 +170,6 @@ def dia_objects_props_cb (data, flags) :
 	# display the dialog
 	dlg = CPropsDialog(d, data, allProps)
 
-dia.register_callback ("Dia Group Properties", 
-                      "<Display>/Dialogs/Group Properties ...", 
+dia.register_action ("DialogsGroupproperties", "Dia Group Properties", 
+                      "/DisplayMenu/Dialogs/DialogsExtensionStart", 
                        dia_objects_props_cb)
-

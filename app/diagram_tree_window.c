@@ -35,7 +35,7 @@
 #include "persistence.h"
 
 static GtkWidget *diagwindow_ = NULL;
-static GtkCheckMenuItem *menu_item_ = NULL;
+static GtkToggleAction *toggle_action_ = NULL;
 static DiagramTree *diagtree_ = NULL;
 static DiagramTreeConfig *config_ = NULL;
 
@@ -43,7 +43,10 @@ static DiagramTreeConfig *config_ = NULL;
 static void
 diagram_tree_window_hide(GtkWidget *window)
 {
-  if (menu_item_) menu_item_->active = FALSE;
+  if (toggle_action_ && 
+	  gtk_toggle_action_get_active(toggle_action_)) {
+	gtk_toggle_action_set_active(toggle_action_, FALSE);
+  }
   gtk_widget_hide(window);
 }
 
@@ -54,7 +57,11 @@ diagram_tree_window_destroyed(GtkWidget *window)
   diagwindow_ = NULL;
   g_free(diagtree_);
   diagtree_ = NULL;
-  if (menu_item_) menu_item_->active = FALSE;
+
+  if (toggle_action_ && 
+	  gtk_toggle_action_get_active(toggle_action_)) {
+	gtk_toggle_action_set_active(toggle_action_, FALSE);
+  }
 }
 
 /* create a diagram_tree_window window */
@@ -116,19 +123,19 @@ diagram_tree(void)
 }
 
 void
-create_diagram_tree_window(DiagramTreeConfig *config, GtkWidget *menuitem)
+create_diagram_tree_window(DiagramTreeConfig *config, GtkToggleAction *action)
 {
   config_ = config;
-  menu_item_ = GTK_CHECK_MENU_ITEM(menuitem);
+  toggle_action_ = action;
   if (!diagwindow_) {
     diagwindow_ = diagram_tree_window_new(config_);
   }
-  gtk_check_menu_item_set_active(menu_item_, GTK_WIDGET_REALIZED(diagwindow_));
+  gtk_toggle_action_set_active(action, GTK_WIDGET_REALIZED(diagwindow_));
 }
 
 /* menu callbacks */
 void
-diagtree_show_callback(gpointer data, guint action, GtkWidget *widget)
+diagtree_show_callback (GtkToggleAction *action, gpointer user_data)
 {
   if (!diagwindow_) {
     diagwindow_ = diagram_tree_window_new(config_);
@@ -139,11 +146,9 @@ diagtree_show_callback(gpointer data, guint action, GtkWidget *widget)
       open = g_list_next(open);
     }
   }
-  if (!menu_item_) menu_item_ = GTK_CHECK_MENU_ITEM(widget);
-  if (menu_item_->active)
+  if (!toggle_action_) toggle_action_ = action;
+  if (gtk_toggle_action_get_active (toggle_action_))
     gtk_widget_show(diagwindow_);
   else
     gtk_widget_hide(diagwindow_);
 }
-
-    

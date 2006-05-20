@@ -356,7 +356,7 @@ ddisplay_popup_menu(DDisplay *ddisp, GdkEventButton *event)
   GtkWidget *menu;
 
   popup_shell = ddisp->shell;
-  menus_get_image_menu(&menu, NULL);
+  menu = menus_get_display_popup();
 
   gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL,
 		 event->button, event->time);

@@ -1,5 +1,6 @@
 /* Dia -- an diagram creation/manipulation program
  * Copyright (C) 1998 Alexander Larsson
+ * Copyright (C) 2006 Robert Staudinger <robert.staudinger@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -40,390 +41,209 @@
 #include "sheets.h"
 #include "dia-app-icons.h"
 
+#define DIA_STOCK_GROUP "dia-stock-group"
+#define DIA_STOCK_UNGROUP "dia-stock-ungroup"
+
+#define DIA_SHOW_TEAROFFS TRUE
+
 static void plugin_callback (GtkWidget *widget, gpointer data);
 
-#define MRU_MENU_ENTRY_SIZE (strlen ("/File/MRU00 ") + 1)
-#define MRU_MENU_ACCEL_SIZE sizeof ("<control>0")
-
-static GtkItemFactoryEntry toolbox_menu_items[] =
+/* Actions common to toolbox and diagram window */
+static const GtkActionEntry common_entries[] =
 {
-  {N_("/_File"),               NULL,         NULL,       0,    "<Branch>" },
-  {   "/File/tearoff",         NULL,         NULL,       0,   "<Tearoff>" },
-  {N_("/File/_New"),           "<control>N", file_new_callback,         0,
-      "<StockItem>", GTK_STOCK_NEW },
-  {N_("/File/_Open..."),       "<control>O", file_open_callback,        0,
-      "<StockItem>", GTK_STOCK_OPEN },
-/*  {N_("/Open _Recent"),           NULL,         NULL,           0, "<Branch>"}, */
-/*  {   "/Open Recent/tearoff",     NULL,         NULL,         0, "<Tearoff>" }, */
-  {N_("/File/---"),            NULL,         NULL,       0, "<Separator>" },
-  {N_("/File/_Diagram tree"),  "F8",         diagtree_show_callback,    0,
-   "<ToggleItem>" },
-  {N_("/File/Sheets and Objects..."),
-                               "F9",         sheets_dialog_show_callback, 0 },
-  {N_("/File/---"),            NULL,         NULL,       0, "<Separator>" },
- {N_("/File/_Preferences..."),NULL,         file_preferences_callback, 0,
-      "<StockItem>", GTK_STOCK_PREFERENCES },
-   {N_("/File/P_lugins..."),   NULL,         file_plugins_callback,     0,
-      "<StockItem>", GTK_STOCK_EXECUTE },
-  {N_("/File/---"),            NULL,         NULL,       0, "<Separator>" },
-    /* recent file list is dynamically inserted here */
-  {N_("/File/---"),            NULL,         NULL,       0, "<Separator>" },
-  {N_("/File/_Quit"),          "<control>Q", file_quit_callback,        0,
-      "<StockItem>", GTK_STOCK_QUIT },
-  {N_("/_Help"),               NULL,         NULL,       0,    "<Branch>" },
-  {   "/Help/tearoff",         NULL,         NULL,       0,   "<Tearoff>" },
-  {N_("/Help/_Contents"),        "F1",         help_manual_callback,      0,
-      "<StockItem>", GTK_STOCK_HELP },
-  {N_("/Help/---"),            NULL,         NULL,       0, "<Separator>" },
-  {N_("/Help/_About..."),      NULL,         help_about_callback,       0 }
+  { "File", NULL, N_("_File"), NULL, NULL, NULL },
+    { "FileNew", GTK_STOCK_NEW, NULL, NULL, NULL, G_CALLBACK (file_new_callback) },
+    { "FileOpen", GTK_STOCK_OPEN, NULL, NULL, NULL, G_CALLBACK (file_open_callback) },
+    { "FileQuit", GTK_STOCK_QUIT, NULL, NULL, NULL, G_CALLBACK (file_quit_callback) }, 
+  { "Help", NULL, N_("_Help"), NULL, NULL, NULL },
+    { "HelpContents", GTK_STOCK_HELP, NULL, NULL, NULL, G_CALLBACK (help_manual_callback) },
+    { "HelpAbout", GTK_STOCK_ABOUT, NULL, NULL, NULL, G_CALLBACK (help_about_callback) }
 };
 
-/* calculate the number of menu_item's */
-static int toolbox_nmenu_items = sizeof(toolbox_menu_items) / sizeof(toolbox_menu_items[0]);
-
-/* this one is needed while we create the menubar in GTK instead of Gnome */
-static GtkItemFactoryEntry display_menu_items[] =
+/* Actions for toolbox menu */
+static const GtkActionEntry toolbox_entries[] = 
 {
-  {   "/tearoff",                 NULL,         NULL,         0, "<Tearoff>" },
-  {N_("/_File"),                  NULL,         NULL,           0, "<Branch>"},
-  {   "/File/tearoff",            NULL,         NULL,         0, "<Tearoff>" },
-  {N_("/File/_New"),              "<control>N", file_new_callback,          0,
-      "<StockItem>", GTK_STOCK_NEW },
-  {N_("/File/_Open..."),          "<control>O", file_open_callback,         0,
-      "<StockItem>", GTK_STOCK_OPEN },
-/*  {N_("/Open _Recent"),           NULL,         NULL,           0, "<Branch>"}, */
-/*  {   "/Open Recent/tearoff",     NULL,         NULL,         0, "<Tearoff>" }, */
-  {N_("/File/---"),               NULL,         NULL,        0, "<Separator>"},
-  {N_("/File/_Save"),             "<control>S", file_save_callback,         0,
-      "<StockItem>", GTK_STOCK_SAVE },
-  {N_("/File/Save _As..."),       "<control><shift>S", file_save_as_callback,      0,
-      "<StockItem>", GTK_STOCK_SAVE_AS },
-  {N_("/File/_Export..."),        NULL,         file_export_callback,         0,
-      "<StockItem>", GTK_STOCK_CONVERT},
-  {N_("/File/---"),               NULL,         NULL,        0, "<Separator>"},
-  {N_("/File/Page Set_up..."),    NULL,         file_pagesetup_callback,    0},
-  {N_("/File/_Print Diagram..."), "<control>P", file_print_callback,        0,
-      "<StockItem>", GTK_STOCK_PRINT },
-  {N_("/File/---"),               NULL,         NULL,        0, "<Separator>"},
-  {N_("/File/_Close"),            "<control>W",         file_close_callback,        0,
-      "<StockItem>", GTK_STOCK_CLOSE },
-  {   "/File/---MRU",             NULL,         NULL,        0, "<Separator>"},
-  {N_("/File/_Quit"),              "<control>Q", file_quit_callback,        0,
-      "<StockItem>", GTK_STOCK_QUIT},
-  {N_("/_Edit"),                  NULL,         NULL,           0, "<Branch>"},
-  {   "/Edit/tearoff",            NULL,         NULL,         0, "<Tearoff>" },
-  {N_("/Edit/_Undo"),             "<control>Z", edit_undo_callback,         0,
-      "<StockItem>", GTK_STOCK_UNDO },
-  {N_("/Edit/_Redo"),             "<control><shift>Z", edit_redo_callback,         0,
-      "<StockItem>", GTK_STOCK_REDO },
-  {N_("/Edit/---"),            NULL,         NULL,       0, "<Separator>" },
-  {N_("/Edit/_Copy"),             "<control>C", edit_copy_callback,         0,
-      "<StockItem>", GTK_STOCK_COPY },
-  {N_("/Edit/C_ut"),              "<control>X", edit_cut_callback,          0,
-      "<StockItem>", GTK_STOCK_CUT },
-  {N_("/Edit/_Paste"),            "<control>V", edit_paste_callback,        0,
-      "<StockItem>", GTK_STOCK_PASTE },
-  {N_("/Edit/_Duplicate"),        "<control>D", edit_duplicate_callback, 0, },
-  {N_("/Edit/_Delete"),           "Delete", edit_delete_callback,       0,
-      "<StockItem>", GTK_STOCK_DELETE },
-  {N_("/Edit/---"),            NULL,         NULL,       0, "<Separator>" },
-  /* the following used to bind to <control><shift>C which collides with Unicode input. <control>>alt> doesn't work either */
-  {N_("/Edit/Copy Text"),      NULL,         edit_copy_text_callback,    0,
-      "<StockItem>", GTK_STOCK_COPY },
-  {N_("/Edit/Cut Text"),       "<control><shift>X",         edit_cut_text_callback,     0,
-      "<StockItem>", GTK_STOCK_CUT },
-  {N_("/Edit/Paste _Text"),    "<control><shift>V",         edit_paste_text_callback,   0,
-      "<StockItem>", GTK_STOCK_PASTE },
-  {N_("/_Diagram"),               NULL,         NULL,           0, "<Branch>"},
-  {   "/Diagram/tearoff",            NULL,         NULL,         0, "<Tearoff>" },
-  {N_("/Diagram/_Properties..."), NULL,         view_diagram_properties_callback,          0,
-      "<StockItem>", GTK_STOCK_PROPERTIES},
-  {N_("/Diagram/_Layers..."),     NULL,     dialogs_layers_callback,        0},
-  {N_("/_View"),                  NULL,         NULL,           0, "<Branch>"},
-  {   "/View/tearoff",            NULL,         NULL,         0, "<Tearoff>" },
-  {N_("/View/Zoom _In"),          "<control>+", view_zoom_in_callback,     0,
-      "<StockItem>", GTK_STOCK_ZOOM_IN },
-  {N_("/View/Zoom _Out"),         "<control>-", view_zoom_out_callback,    0,
-      "<StockItem>", GTK_STOCK_ZOOM_OUT },
-  {N_("/View/_Zoom"),             NULL,         NULL,           0, "<Branch>"},
-  {   "/View/Zoom/tearoff",       NULL,         NULL,         0, "<Tearoff>" },
-  {N_("/View/Zoom/1600%"),        NULL,         view_zoom_set_callback,  16000},
-  {N_("/View/Zoom/800%"),         NULL,         view_zoom_set_callback,  8000},
-  {N_("/View/Zoom/400%"),         "<alt>4",     view_zoom_set_callback,  4000},
-  {N_("/View/Zoom/283%"),         NULL,         view_zoom_set_callback,  2828},
-  {N_("/View/Zoom/200%"),         "<alt>2",     view_zoom_set_callback,  2000},
-  {N_("/View/Zoom/141%"),         NULL,         view_zoom_set_callback,  1414},
-  {N_("/View/Zoom/100%"),         "<alt>1",     view_zoom_set_callback,  1000,
-      "<StockItem>", GTK_STOCK_ZOOM_100 },
-  {N_("/View/Zoom/85%"),          NULL,         view_zoom_set_callback,   850},
-  {N_("/View/Zoom/70.7%"),        NULL,         view_zoom_set_callback,   707},
-  {N_("/View/Zoom/50%"),          "<alt>5",     view_zoom_set_callback,   500},
-  {N_("/View/Zoom/35.4%"),        NULL,         view_zoom_set_callback,   354},
-  {N_("/View/Zoom/25%"),          NULL,         view_zoom_set_callback,   250},
-  {N_("/View/---"),            NULL,         NULL,       0, "<Separator>" },
-  {N_("/View/Fullscr_een"),      "F11",        view_fullscreen_callback,   0, "<ToggleItem>"},
+    { "FileSheets", NULL, N_("Sheets and Objects..."), "F9", NULL, G_CALLBACK (sheets_dialog_show_callback) },
+    { "FilePrefs", GTK_STOCK_PREFERENCES, NULL, NULL, NULL, G_CALLBACK (file_preferences_callback) },
+    { "FilePlugins", NULL, N_("Plugins..."), NULL, NULL, G_CALLBACK (file_plugins_callback) }
+};
+
+/* Toggle-Actions for toolbox menu */
+static const GtkToggleActionEntry toolbox_toggle_entries[] = 
+{
+    { "FileTree", NULL, N_("_Diagram tree..."), "F8", NULL, G_CALLBACK (diagtree_show_callback) }
+};
+
+/* Actions for diagram window */
+static const GtkActionEntry display_entries[] =
+{
+    { "FileSave", GTK_STOCK_SAVE, NULL, NULL, NULL, G_CALLBACK (file_save_callback) },
+    { "FileSaveas", GTK_STOCK_SAVE_AS, NULL, NULL, NULL, G_CALLBACK (file_save_as_callback) },
+    { "FileExport", GTK_STOCK_CONVERT, N_("_Export ..."), NULL, NULL, G_CALLBACK (file_export_callback) },
+    { "FilePagesetup", NULL, N_("Page Set_up..."), NULL, NULL, G_CALLBACK (file_pagesetup_callback) },
+    { "FilePrint", GTK_STOCK_PRINT, NULL, NULL, NULL, G_CALLBACK (file_print_callback) },
+    { "FileClose", GTK_STOCK_CLOSE, NULL, NULL, NULL, G_CALLBACK (file_close_callback) },
+
+  { "Edit", NULL, N_("_Edit"), NULL, NULL, NULL },
+    { "EditUndo", GTK_STOCK_UNDO, NULL, NULL, NULL, G_CALLBACK (edit_undo_callback) },
+    { "EditRedo", GTK_STOCK_REDO, NULL, NULL, NULL, G_CALLBACK (edit_redo_callback) },
+
+    { "EditCopy", GTK_STOCK_COPY, NULL, NULL, NULL, G_CALLBACK (edit_copy_callback) },
+    { "EditCut", GTK_STOCK_CUT, NULL, NULL, NULL, G_CALLBACK (edit_cut_callback) },
+    { "EditPaste", GTK_STOCK_PASTE, NULL, NULL, NULL, G_CALLBACK (edit_paste_callback) },
+    { "EditDuplicate", NULL, N_("_Duplicate"), "<control>D", NULL, G_CALLBACK (edit_duplicate_callback) },
+    { "EditDelete", GTK_STOCK_DELETE, NULL, NULL, NULL, G_CALLBACK (edit_delete_callback) },
+
+    /* the following used to bind to <control><shift>C which collides with Unicode input. 
+     * <control>>alt> doesn't work either */
+    { "EditCopytext", NULL, N_("Copy Text"), NULL, NULL, G_CALLBACK (edit_copy_text_callback) },
+    { "EditCuttext", NULL, N_("Cut Text"), "<control><shift>X", NULL, G_CALLBACK (edit_cut_text_callback) },
+    { "EditPastetext", NULL, N_("Paste _Text"), "<control><shift>V", NULL, G_CALLBACK (edit_paste_text_callback) },
+
+  { "Diagram", NULL, N_("_Diagram"), NULL, NULL, NULL }, 
+    { "DiagramProperties", GTK_STOCK_PROPERTIES, NULL, NULL, NULL, G_CALLBACK (view_diagram_properties_callback) },
+    { "DiagramLayers", NULL, N_("_Layers..."), NULL, NULL, G_CALLBACK (dialogs_layers_callback) },
+
+  { "View", NULL, N_("_View"), NULL, NULL, NULL },
+    { "ViewZoomin", GTK_STOCK_ZOOM_IN, NULL, NULL, NULL, G_CALLBACK (view_zoom_in_callback) },
+    { "ViewZoomout", GTK_STOCK_ZOOM_OUT, NULL, NULL, NULL, G_CALLBACK (view_zoom_out_callback) },
+    { "ViewZoom", NULL, N_("_Zoom"), NULL, NULL, NULL },
+      { "ViewZoom16000", NULL, N_("1600%"), NULL, NULL, G_CALLBACK (view_zoom_set_callback) },
+      { "ViewZoom8000", NULL, N_("800%"), NULL, NULL, G_CALLBACK (view_zoom_set_callback) },
+      { "ViewZoom4000", NULL, N_("400%"), "<alt>4", NULL, G_CALLBACK (view_zoom_set_callback) },
+      { "ViewZoom2830", NULL, N_("283"), NULL, NULL, G_CALLBACK (view_zoom_set_callback) },
+      { "ViewZoom2000", NULL, N_("200"), "<alt>2", NULL, G_CALLBACK (view_zoom_set_callback) },
+      { "ViewZoom1410", NULL, N_("141"), NULL, NULL, G_CALLBACK (view_zoom_set_callback) },
+      { "ViewZoom1000", GTK_STOCK_ZOOM_100, NULL, "<alt>1", NULL, G_CALLBACK (view_zoom_set_callback) },
+      { "ViewZoom850", NULL, N_("85"), NULL, NULL, G_CALLBACK (view_zoom_set_callback) },
+      { "ViewZoom707", NULL, N_("70.7"), NULL, NULL, G_CALLBACK (view_zoom_set_callback) },
+      { "ViewZoom500", NULL, N_("50"), "<alt>5", NULL, G_CALLBACK (view_zoom_set_callback) },
+      { "ViewZoom354", NULL, N_("35.4"), NULL, NULL, G_CALLBACK (view_zoom_set_callback) },
+      { "ViewZoom250", NULL, N_("25"), NULL, NULL, G_CALLBACK (view_zoom_set_callback) },
+
+  /* "display_toggle_entries" items go here */
+
+    { "ViewNewview", NULL, N_("New _View"), NULL, NULL, G_CALLBACK (view_new_view_callback) },
+    { "ViewCloneview", NULL, N_("C_lone View"), NULL, NULL, G_CALLBACK (view_clone_view_callback) },
+    /* Show All, Best Fit.  Same as the Gimp, Ctrl+E */
+    { "ViewShowall", GTK_STOCK_ZOOM_FIT, NULL, "<control>E", NULL, G_CALLBACK (view_show_all_callback) },
+    { "ViewRedraw", GTK_STOCK_REFRESH, NULL, NULL, NULL, G_CALLBACK (view_redraw_callback) },
+
+  { "Objects", NULL, N_("_Objects"), NULL, NULL },
+    { "ObjectsSendtoback", GTK_STOCK_GOTO_BOTTOM, N_("Send to _Back"), "<control>B", NULL, G_CALLBACK (objects_place_under_callback) },
+    { "ObjectsBringtofront", GTK_STOCK_GOTO_TOP, N_("Bring to _Front"), "<control>F", NULL, G_CALLBACK (objects_place_over_callback) },
+    { "ObjectsSendbackwards", GTK_STOCK_GO_DOWN, N_("Send Backwards"), NULL, NULL, G_CALLBACK (objects_place_down_callback) },
+    { "ObjectsBringforwards", GTK_STOCK_GO_UP, N_("Bring Forwards"), NULL, NULL, G_CALLBACK (objects_place_up_callback) },
+
+    { "ObjectsGroup", DIA_STOCK_GROUP, N_("_Group"), "<control>G", NULL, G_CALLBACK (objects_group_callback) },
+    /* deliberately not using Ctrl+U for Ungroup */
+    { "ObjectsUngroup", DIA_STOCK_UNGROUP, N_("_Ungroup"), "<control><shift>G", NULL, G_CALLBACK (objects_ungroup_callback) }, 
+
+    { "ObjectsParent", NULL, N_("_Parent"), "<control>L", NULL, G_CALLBACK (objects_parent_callback) },
+    { "ObjectsUnparent", NULL, N_("_Unparent"), "<control><shift>L", NULL, G_CALLBACK (objects_unparent_callback) },
+    { "ObjectsUnparentchildren", NULL, N_("_Unparent Children"), NULL, NULL, G_CALLBACK (objects_unparent_children_callback) },
+
+    { "ObjectsAlign", NULL, N_("Align"), NULL, NULL, NULL },
+      { "ObjectsAlignLeft", GTK_STOCK_JUSTIFY_LEFT, NULL, NULL, NULL, G_CALLBACK (objects_align_h_callback) },
+      { "ObjectsAlignCenter", GTK_STOCK_JUSTIFY_CENTER, NULL, NULL, NULL, G_CALLBACK (objects_align_h_callback) },
+      { "ObjectsAlignRight", GTK_STOCK_JUSTIFY_RIGHT, NULL, NULL, NULL, G_CALLBACK (objects_align_h_callback) },
+
+      { "ObjectsAlignTop", NULL, N_("Top"), NULL, NULL, G_CALLBACK (objects_align_v_callback) },
+      { "ObjectsAlignMiddle", NULL, N_("Middle"), NULL, NULL, G_CALLBACK (objects_align_v_callback) },
+      { "ObjectsAlignBottom", NULL, N_("Bottom"), NULL, NULL, G_CALLBACK (objects_align_v_callback) },
+
+      { "ObjectsAlignSpreadouthorizontally", NULL, N_("Spread Out Horizontally"), NULL, NULL, G_CALLBACK (objects_align_h_callback) },
+      { "ObjectsAlignSpreadoutvertically", NULL, N_("Spread Out Vertically"), NULL, NULL, G_CALLBACK (objects_align_v_callback) },
+      { "ObjectsAlignAdjacent", NULL, N_("Adjacent"), NULL, NULL, G_CALLBACK (objects_align_h_callback) },
+      { "ObjectsAlignStacked", NULL, N_("Stacked"), NULL, NULL, G_CALLBACK (objects_align_v_callback) },
+
+      { "ObjectsProperties", GTK_STOCK_PROPERTIES, NULL, NULL, NULL, G_CALLBACK (dialogs_properties_callback) },
+
+  { "Select", NULL, N_("_Select"), NULL, NULL, NULL },
+    { "SelectAll", NULL, N_("All"), "<control>A", NULL, G_CALLBACK (select_all_callback) },
+    { "SelectNone", NULL, N_("None"), NULL, NULL, G_CALLBACK (select_none_callback) },
+    { "SelectInvert", NULL, N_("Invert"), "<control>I", NULL, G_CALLBACK (select_invert_callback) },
+
+    { "SelectTransitive", NULL, N_("Transitive"), "<control>T", NULL, G_CALLBACK (select_transitive_callback) },
+    { "SelectConnected", NULL, N_("Connected"), "<control><shift>T", NULL, G_CALLBACK (select_connected_callback) },
+    { "SelectSametype", NULL, N_("Same Type"), NULL, NULL, G_CALLBACK (select_same_type_callback) },
+
+    /* display_select_radio_entries go here */
+
+    { "SelectBy", NULL, N_("Select By"), NULL, NULL, NULL },
+
+  { "InputMethods", NULL, N_("_Input Methods"), NULL, NULL, NULL },
+
+  { "Dialogs", NULL, N_("D_ialogs"), NULL, NULL, NULL },
+
+  { "Debug", NULL, N_("D_ebug"), NULL, NULL, NULL }
+};
+
+/* Standard-Tool entries */
+static const GtkActionEntry tool_entries[] = 
+{
+  { "Tools", NULL, N_("_Tools"), NULL, NULL, NULL },
+    { "ToolsModify", NULL, N_("Modify"), NULL, NULL, NULL },
+    { "ToolsMagnify", NULL, N_("Magnify"), "<alt>M", NULL, NULL },
+    { "ToolsScroll", NULL, N_("Scroll"), "<alt>S", NULL, NULL },
+    { "ToolsText", NULL, N_("Text"), "<alt>T", NULL, NULL },
+    { "ToolsBox", NULL, N_("Box"), "<alt>R", NULL, NULL },
+    { "ToolsEllipse", NULL, N_("Ellipse"), "<alt>E", NULL, NULL },
+    { "ToolsPolygon", NULL, N_("Polygon"), "<alt>P", NULL, NULL },
+    { "ToolsBeziergon", NULL, N_("Beziergon"), "<alt>B", NULL, NULL },
+
+    { "ToolsLine", NULL, N_("Line"), "<alt>L", NULL, NULL },
+    { "ToolsArc", NULL, N_("Arc"), "<alt>A", NULL, NULL },
+    { "ToolsZigzagline", NULL, N_("Zigzagline"), "<alt>Z", NULL, NULL },
+    { "ToolsPolyline", NULL, N_("Polyline"), NULL, NULL },
+    { "ToolsBezierline", NULL, N_("Bezierline"), "<alt>C", NULL, NULL },
+
+    { "ToolsImage", NULL, N_("Image"), "<alt>I", NULL, NULL },
+};
+
+/* Toggle-Actions for diagram window */
+static const GtkToggleActionEntry display_toggle_entries[] = 
+{
+    { "ViewFullscreen", GTK_STOCK_FULLSCREEN, NULL, "F11", NULL, G_CALLBACK (view_fullscreen_callback) },
 #ifdef HAVE_LIBART  
-  {N_("/View/_AntiAliased"),      NULL,         view_aa_callback,           0, "<ToggleItem>"},
+    { "ViewAntialiased", NULL, N_("_AntiAliased"), NULL, NULL, G_CALLBACK (view_aa_callback) },
 #endif
-  {N_("/View/Show _Grid"),     NULL,         view_visible_grid_callback, 0, "<ToggleItem>"},
-  {N_("/View/_Snap To Grid"),     NULL,         view_snap_to_grid_callback, 0, "<ToggleItem>"},
-  {N_("/View/Snap To _Objects"),     NULL,         view_snap_to_objects_callback, 0, "<ToggleItem>"},
-  {N_("/View/Show _Rulers"),      NULL,         view_toggle_rulers_callback,0, "<ToggleItem>"},
-  {N_("/View/Show _Connection Points"),	  NULL,		view_show_cx_pts_callback,   0,	"<ToggleItem>"},
-  {N_("/View/---"),               NULL,         NULL,        0, "<Separator>"},
-  {N_("/View/New _View"),         NULL, view_new_view_callback,     0},
-  {N_("/View/C_lone View"),       NULL, view_clone_view_callback,   0},
-  /* Show All, Best Fit.  Same as the Gimp, Ctrl+E */
-  {N_("/View/Show _All"),         "<control>E", view_show_all_callback,     0,
-      "<StockItem>", GTK_STOCK_ZOOM_FIT },
-  {N_("/View/Re_draw"),           NULL,         view_redraw_callback,       0,
-      "<StockItem>", GTK_STOCK_REFRESH },
-  {N_("/_Objects"),               NULL,         NULL,           0, "<Branch>"},
-  {   "/Objects/tearoff",         NULL,         NULL,         0, "<Tearoff>" },
-  {N_("/Objects/Send to _Back"),  "<control>B",objects_place_under_callback, 0,
-      "<StockItem>", GTK_STOCK_GOTO_BOTTOM },
-  {N_("/Objects/Bring to _Front"),"<control>F", objects_place_over_callback,0,
-      "<StockItem>", GTK_STOCK_GOTO_TOP},
-  {N_("/Objects/Send Backwards"),  NULL, objects_place_down_callback,0,
-      "<StockItem>", GTK_STOCK_GO_DOWN},
-  {N_("/Objects/Bring Forwards"), NULL, objects_place_up_callback,0,
-      "<StockItem>", GTK_STOCK_GO_UP},
-  {N_("/Objects/---"),            NULL,         NULL,        0, "<Separator>"},
-  {N_("/Objects/_Group"),         "<control>G", objects_group_callback,     0, 
-  "<ImageItem>", dia_group_icon},
-  /* deliberately not using Ctrl+U for Ungroup */
-  {N_("/Objects/_Ungroup"),       "<control><shift>G", objects_ungroup_callback, 0,
-  "<ImageItem>", dia_ungroup_icon}, 
-  {N_("/Objects/---"),            NULL,         NULL,        0, "<Separator>"},
-  {N_("/Objects/_Parent"),         "<control>L", objects_parent_callback,     0},
-  {N_("/Objects/_Unparent"),       "<control><shift>L", objects_unparent_callback,   0},
-  {N_("/Objects/_Unparent Children"),       NULL, objects_unparent_children_callback,   0},
-  {N_("/Objects/---"),            NULL,         NULL,        0, "<Separator>"},
-  {N_("/Objects/Align"),       NULL, NULL,          0, "<Branch>"},
-  {   "/Objects/Align/tearoff", NULL, NULL,        0, "<Tearoff>" },
-  {N_("/Objects/Align/Left"),   NULL, objects_align_h_callback,  DIA_ALIGN_LEFT,
-      "<StockItem>", GTK_STOCK_JUSTIFY_LEFT },
-  {N_("/Objects/Align/Center"), NULL, objects_align_h_callback,  DIA_ALIGN_CENTER,
-      "<StockItem>", GTK_STOCK_JUSTIFY_CENTER},
-  {N_("/Objects/Align/Right"),  NULL, objects_align_h_callback,  DIA_ALIGN_RIGHT,
-      "<StockItem>", GTK_STOCK_JUSTIFY_RIGHT},
-  {N_("/Objects/Align/---"),            NULL,         NULL,        0, "<Separator>"},
-  {N_("/Objects/Align/Top"),      NULL, objects_align_v_callback,  DIA_ALIGN_TOP},
-  {N_("/Objects/Align/Middle"),   NULL, objects_align_v_callback,  DIA_ALIGN_CENTER},
-  {N_("/Objects/Align/Bottom"),   NULL, objects_align_v_callback,  DIA_ALIGN_BOTTOM},
-  {N_("/Objects/Align/---"),             NULL,         NULL,        0, "<Separator>"},
-  {N_("/Objects/Align/Spread Out Horizontally"), NULL, objects_align_h_callback,    DIA_ALIGN_EQUAL},
-  {N_("/Objects/Align/Spread Out Vertically"),   NULL, objects_align_v_callback,    DIA_ALIGN_EQUAL},
-  {N_("/Objects/Align/Adjacent"), NULL, objects_align_h_callback,    DIA_ALIGN_ADJACENT},
-  {N_("/Objects/Align/Stacked"), NULL, objects_align_v_callback,  DIA_ALIGN_ADJACENT},
-  {N_("/Objects/---"),            NULL,     NULL,                           0, "<Separator>"},
-  {N_("/Objects/_Properties..."), NULL,     dialogs_properties_callback,         0,
-      "<StockItem>", GTK_STOCK_PROPERTIES},
-  {N_("/_Select"),                NULL,         NULL,           0, "<Branch>"},
-  {   "/Select/tearoff",          NULL,         NULL,         0, "<Tearoff>" },
-  {N_("/Select/All"),             "<control>A", select_all_callback,        0},
-  {N_("/Select/None"),            NULL, select_none_callback,   0},
-  {N_("/Select/Invert"),          "<control>I",         select_invert_callback,     0},
-  {N_("/Select/---"),             NULL,         NULL,        0, "<Separator>"},
-  {N_("/Select/Transitive"),      "<control>T", select_transitive_callback, 0},
-  {N_("/Select/Connected"),       "<control><shift>T",         select_connected_callback,  0},
-  {N_("/Select/Same Type"),       NULL,         select_same_type_callback,  0},
-  {N_("/Select/---"),             NULL,         NULL,        0, "<Separator>"},
-  {N_("/Select/Replace"),       NULL, select_style_callback,
-   SELECT_REPLACE, "<RadioItem>"},
-  {N_("/Select/Union"),     NULL, select_style_callback,
-   SELECT_UNION, "/Select/Replace"},
-  {N_("/Select/Intersection"), NULL, select_style_callback,
-   SELECT_INTERSECTION, "/Select/Replace"},
-  {N_("/Select/Remove"),    NULL, select_style_callback,
-   SELECT_REMOVE, "/Select/Replace"},
-  /* Cannot also be called Invert, duplicate names caused keybinding problems */
-  {N_("/Select/Inverse"),    NULL, select_style_callback,
-   SELECT_INVERT, "/Select/Replace"},
-  {N_("/_Tools"),                 NULL,     NULL,               0, "<Branch>"},
-  {   "/Tools/tearoff",           NULL,     NULL,         0, "<Tearoff>" },
-  {N_("/Tools/Modify"),           "<alt>.", NULL,                         0},
-  {N_("/Tools/Magnify"),          "<alt>M", NULL,                           0},
-  {N_("/Tools/Scroll"),           "<alt>S", NULL,                           0},
-  {N_("/Tools/Text"),             "<alt>T", NULL,                           0},
-  {N_("/Tools/Box"),              "<alt>R", NULL,                           0},
-  {N_("/Tools/Ellipse"),          "<alt>E", NULL,                           0},
-  {N_("/Tools/Polygon"),          "<alt>P", NULL,                           0},
-  {N_("/Tools/Beziergon"),        "<alt>B", NULL,                           0},
-  {N_("/Tools/---"),              NULL,     NULL,       0, "<Separator>" },
-  {N_("/Tools/Line"),             "<alt>L", NULL,                           0},
-  {N_("/Tools/Arc"),              "<alt>A", NULL,                           0},
-  {N_("/Tools/Zigzagline"),       "<alt>Z", NULL,                           0},
-  {N_("/Tools/Polyline"),         NULL,     NULL,                           0},
-  {N_("/Tools/Bezierline"),       "<alt>C", NULL,                           0},
-  {N_("/Tools/---"),              NULL,     NULL,       0, "<Separator>" },
-  {N_("/Tools/Image"),            "<alt>I", NULL,                           0},
-  {N_("/_Input Methods"),         NULL,     NULL,               0, "<Branch>"},
-  {   "/Input Methods/tearoff",   NULL,     NULL,               0, "<Tearoff>" },
-  {N_("/_Help"),               NULL,         NULL,       0,    "<Branch>" },
-  {   "/Help/tearoff",         NULL,         NULL,       0,   "<Tearoff>" },
-  {N_("/Help/_Contents"),        "F1",         help_manual_callback,      0,
-      "<StockItem>", GTK_STOCK_HELP },
-  {N_("/Help/---"),            NULL,         NULL,       0, "<Separator>" },
-  {N_("/Help/_About..."),      NULL,         help_about_callback,       0,
-   /* FOR 2.6 "<StockItem>", GTK_STOCK_ABOUT */},
+    { "ViewShowgrid", NULL, N_("Show _Grid"), NULL, NULL, G_CALLBACK (view_visible_grid_callback) },
+    { "ViewSnaptogrid", NULL, N_("_Snap To Grid"), NULL, NULL, G_CALLBACK (view_snap_to_grid_callback) },
+    { "ViewSnaptoobjects", NULL, N_("Snap To _Objects"), NULL, NULL, G_CALLBACK (view_snap_to_objects_callback) },
+    { "ViewShowrulers", NULL, N_("Show _Rulers"), NULL, NULL, G_CALLBACK (view_toggle_rulers_callback)  },
+    { "ViewShowconnectionpoints", NULL, N_("Show _Connection Points"), NULL, NULL, G_CALLBACK (view_show_cx_pts_callback) }
 };
 
-static int display_nmenu_items = (sizeof(display_menu_items) /
-				  sizeof(display_menu_items[0]));
-
+/* Radio-Actions for the diagram window's "Select"-Menu */
+static const GtkRadioActionEntry display_select_radio_entries[] =
+{
+  { "SelectReplace", NULL, N_("Replace"), NULL, NULL, SELECT_REPLACE },
+  { "SelectUnion", NULL, N_("Union"), NULL, NULL, SELECT_UNION },
+  { "SelectIntersection", NULL, N_("Intersection"), NULL, NULL, SELECT_INTERSECTION },
+  { "SelectRemove", NULL, N_("Remove"), NULL, NULL, SELECT_REMOVE },
+  /* Cannot also be called Invert, duplicate names caused keybinding problems */
+  { "SelectInverse", NULL, N_("Inverse"), NULL, NULL, SELECT_INVERT }
+};
 
 /* need initialisation? */
 static gboolean initialise = TRUE;
 
-/* the actual menus */
-static GtkWidget *toolbox_menubar = NULL;
+/* toolbox */
+static GtkUIManager *toolbox_ui_manager = NULL;
+static GtkActionGroup *toolbox_actions = NULL;
 static GtkAccelGroup *toolbox_accels = NULL;
-static GtkWidget *display_menus = NULL;
+static GtkWidget *toolbox_menubar = NULL;
+
+GtkActionGroup *recent_actions = NULL;
+static GSList *recent_merge_ids = NULL;
+
+/* diagram */
+static GtkUIManager *display_ui_manager = NULL;
+static GtkActionGroup *display_actions = NULL;
+static GtkActionGroup *display_tool_actions = NULL;
 static GtkAccelGroup *display_accels = NULL;
-
-static GtkItemFactory *toolbox_item_factory = NULL;
-static GtkItemFactory *display_item_factory = NULL;
-
-#ifdef ENABLE_NLS
-
-static gchar *
-menu_translate (const gchar *path,
-    		gpointer     data)
-{
-  static gchar *menupath = NULL;
-
-  GtkItemFactory *item_factory = NULL;
-  gchar *retval;
-  gchar *factory;
-  gchar *translation;
-  gchar *domain = NULL;
-  gchar *complete = NULL;
-  gchar *p, *t;
-
-  factory = (gchar *) data;
-
-  if (menupath)
-    g_free (menupath);
-
-  retval = menupath = g_strdup (path);
-
-  if ((strstr (path, "/tearoff1") != NULL) ||
-      (strstr (path, "/---") != NULL) ||
-      (strstr (path, "/MRU") != NULL))
-    return retval;
-
-  if (factory)
-    item_factory = gtk_item_factory_from_path (factory);
-  if (item_factory)
-    {
-      domain = gtk_object_get_data (GTK_OBJECT (item_factory), "textdomain");
-      complete = gtk_object_get_data (GTK_OBJECT (item_factory), "complete");
-    }
-  
-  if (domain)   /*  use the plugin textdomain  */
-    {
-      g_free (menupath);
-      menupath = g_strconcat (factory, path, NULL);
-
-      if (complete)
-	{
-	  /*  
-           *  This is a branch, use the complete path for translation, 
-	   *  then strip off entries from the end until it matches. 
-	   */
-	  complete = g_strconcat (factory, complete, NULL);
-	  translation = g_strdup (dgettext (domain, complete));
-
-	  while (*complete && *translation && strcmp (complete, menupath))
-	    {
-	      p = strrchr (complete, '/');
-	      t = strrchr (translation, '/');
-	      if (p && t)
-		{
-		  *p = '\0';
-		  *t = '\0';
-		}
-	      else
-		break;
-	    }
-
-	  g_free (complete);
-	}
-      else
-	{
-	  translation = dgettext (domain, menupath);
-	}
-
-      /* 
-       * Work around a bug in GTK+ prior to 1.2.7 (similar workaround below)
-       */
-      if (strncmp (factory, translation, strlen (factory)) == 0)
-	{
-	  retval = translation + strlen (factory);
-	  if (complete)
-	    {
-	      g_free (menupath);
-	      menupath = translation;
-	    }
-	}
-      else
-	{
-	  g_warning ("bad translation for menupath: %s", menupath);
-	  retval = menupath + strlen (factory);
-	  if (complete)
-	    g_free (translation);
-	}
-    }
-  else   /*  use the dia textdomain  */
-    {
-      if (complete)
-	{
-	  /*  
-           *  This is a branch, use the complete path for translation, 
-	   *  then strip off entries from the end until it matches. 
-	   */
-	  complete = g_strdup (complete);
-	  translation = g_strdup (gettext (complete));
-	  
-	  while (*complete && *translation && strcmp (complete, menupath))
-	    {
-	      p = strrchr (complete, '/');
-	      t = strrchr (translation, '/');
-	      if (p && t)
-		{
-		  *p = '\0';
-		  *t = '\0';
-		}
-	      else
-		break;
-	    }
-	  g_free (complete);
-	}
-      else
-	translation = gettext (menupath);
-
-      if (*translation == '/')
-	{
-	  retval = translation;
-	  if (complete)
-	    {
-	      g_free (menupath);
-	      menupath = translation;
-	    }
-	}
-      else
-	{
-	  g_warning ("bad translation for menupath: %s", menupath);
-	  if (complete)
-	    g_free (translation);
-	}
-    }
-  
-  return retval;
-}
-
-#endif  /*  ENABLE_NLS  */
+static GtkWidget *display_menubar = NULL;
 
 static void
 tool_menu_select(GtkWidget *w, gpointer   data) {
@@ -450,98 +270,266 @@ save_accels(gpointer data)
   return TRUE;
 }
 
-
-/*
-  Purpose: set the generic callback for all the items in the menu "Tools"
+/* 
+ * Initialise tool actions.
+ * The caller owns the return value.
  */
-static void 
-menus_set_tools_callback (const char * menu_name, GtkItemFactory *item_factory)
+static GtkActionGroup *
+create_tool_actions (void)
 {
-    gint i, len;
-    GString *path;
-    GtkMenuItem *menuitem;
-    
-    path = g_string_new(menu_name);
-    g_string_append(path, "/Tools/");
-    len = path->len;
-    for (i = 0; i < num_tools; i++) {
-	g_string_append(path, tool_data[i].menuitem_name);
-	menuitem = menus_get_item_from_path(path->str, item_factory);
-	if (menuitem != NULL)
-	    g_signal_connect(GTK_OBJECT(menuitem), "activate",
-			     G_CALLBACK(tool_menu_select),
-			       &tool_data[i].callback_data);
-        else
-            g_warning ("couldn't find tool menu item %s", path->str);
-	g_string_truncate(path, len);
+  GtkActionGroup *actions;
+  GtkAction      *action;
+  guint           i;
+  gchar          *name;
+  static guint    cnt = 0;
+
+  name = g_strdup_printf ("tool-actions-%d", cnt);
+  actions = gtk_action_group_new (name);
+  gtk_action_group_set_translation_domain (actions, NULL);
+  g_free (name);
+  name = NULL;
+  cnt++;
+
+  gtk_action_group_add_actions (actions, tool_entries, 
+				G_N_ELEMENTS (tool_entries), NULL);
+
+  for (i = 0; i < num_tools; i++) {
+    action = gtk_action_group_get_action (actions, tool_data[i].menuitem_name);
+    if (action != NULL) {
+      g_signal_connect (G_OBJECT (action), "activate",
+			G_CALLBACK (tool_menu_select),
+			&tool_data[i].callback_data);
     }
-    g_string_free(path, TRUE);
+    else {
+      g_warning ("couldn't find tool menu item %s", tool_data[i].menuitem_name);
+    }
+  }
+  return actions;
 }
 
+/* initialize callbacks from plug-ins */
+static void
+add_plugin_actions (GtkUIManager *ui_manager)
+{
+  GtkActionGroup    *actions;
+  GtkAction         *action;
+  GList             *cblist;
+  DiaCallbackFilter *cbf = NULL;
+  gchar             *name;
+  guint              id;
+  static guint       cnt = 0;
+
+  name = g_strdup_printf ("plugin-actions-%d", cnt);
+  actions = gtk_action_group_new (name);
+  gtk_action_group_set_translation_domain (actions, NULL);
+  g_free (name);
+  name = NULL;
+  cnt++;
+
+  gtk_ui_manager_insert_action_group (ui_manager, actions, 5 /* "back" */);
+  g_object_unref (actions);
+
+  for (cblist = filter_get_callbacks(); cblist; cblist = cblist->next) {
+
+    cbf = cblist->data;
+
+    if (cbf == NULL) {
+      g_warning ("missing DiaCallbackFilter instance");
+      continue;
+    }
+
+    if (cbf->action == NULL) {
+      g_warning ("Plugin '%s': doesn't specify action. Loading failed.", 
+		cbf->description);
+      continue;
+    }
+
+    if (0 == strncmp (cbf->menupath, TOOLBOX_MENU, strlen (TOOLBOX_MENU))) {
+      /* hook for toolbox, skip */
+      continue;
+    }
+
+    action = gtk_action_new (cbf->action, cbf->description, NULL, NULL);
+    g_signal_connect (G_OBJECT (action), "activate", 
+		      G_CALLBACK (plugin_callback), (gpointer) cbf);
+
+    gtk_action_group_add_action (actions, action);
+    g_object_unref (G_OBJECT (action));
+
+    id = gtk_ui_manager_new_merge_id (ui_manager);
+    gtk_ui_manager_add_ui (ui_manager, id, 
+			   cbf->menupath, 
+			   cbf->description, 
+			   cbf->action, 
+			   GTK_UI_MANAGER_AUTO, 
+			   FALSE);
+  }
+}
+
+static void
+register_stock_icons (void)
+{
+  GtkIconFactory *factory;
+  GtkIconSet     *set;
+  GdkPixbuf      *pixbuf;
+  GError         *err = NULL;
+
+  factory = gtk_icon_factory_new ();
+
+  pixbuf = gdk_pixbuf_new_from_inline (sizeof (dia_group_icon), dia_group_icon, FALSE, &err);
+  if (err) {
+    g_warning (err->message);
+    g_error_free (err);
+    err = NULL;
+  }
+  set = gtk_icon_set_new_from_pixbuf (pixbuf);
+  gtk_icon_factory_add (factory, DIA_STOCK_GROUP, set);
+  g_object_unref (pixbuf);
+  pixbuf = NULL;
+
+  pixbuf = gdk_pixbuf_new_from_inline (sizeof (dia_ungroup_icon), dia_ungroup_icon, FALSE, &err);
+  if (err) {
+    g_warning (err->message);
+    g_error_free (err);
+    err = NULL;
+  }
+  set = gtk_icon_set_new_from_pixbuf (pixbuf);
+  gtk_icon_factory_add (factory, DIA_STOCK_UNGROUP, set);
+  g_object_unref (pixbuf); 
+  pixbuf = NULL;
+
+  gtk_icon_factory_add_default (factory);
+  g_object_unref (factory);
+  factory = NULL;
+}
 
 static void
 menus_init(void)
 {
-  gchar *accelfilename;
-  GList *cblist;
+  DiaCallbackFilter 	*cbf;
+  GtkActionGroup 	*plugin_actions;
+  GtkAction 		*action;
+  gchar 		*accelfilename;
+  GList 		*cblist;
+  guint 		 id;
+  GError 		*error = NULL;
 
   if (!initialise)
     return;
   
   initialise = FALSE;
 
+  register_stock_icons ();
+
   /* the toolbox menu */
-  toolbox_accels = gtk_accel_group_new();
-  toolbox_item_factory = gtk_item_factory_new(GTK_TYPE_MENU_BAR, "<Toolbox>",
-					      toolbox_accels);
-  gtk_object_set_data (GTK_OBJECT (toolbox_item_factory), "factory_path",
-		       (gpointer) "toolbox");
-#ifdef ENABLE_NLS
-  gtk_item_factory_set_translate_func (toolbox_item_factory, menu_translate,
-				       "<Toolbox>", NULL);
-#endif
-  gtk_item_factory_create_items (toolbox_item_factory,
-				 toolbox_nmenu_items,
-				 toolbox_menu_items,
-				 NULL);
-  
-  toolbox_menubar = gtk_item_factory_get_widget(toolbox_item_factory,
-						"<Toolbox>");
+  toolbox_actions = gtk_action_group_new ("toolbox-actions");
+  gtk_action_group_set_translation_domain (toolbox_actions, NULL);
+  gtk_action_group_add_actions (toolbox_actions, common_entries, 
+                G_N_ELEMENTS (common_entries), NULL);
+  gtk_action_group_add_actions (toolbox_actions, toolbox_entries, 
+                G_N_ELEMENTS (toolbox_entries), NULL);
+  gtk_action_group_add_toggle_actions (toolbox_actions, toolbox_toggle_entries,
+                G_N_ELEMENTS (toolbox_toggle_entries), 
+                NULL);
+
+  toolbox_ui_manager = gtk_ui_manager_new ();
+  gtk_ui_manager_set_add_tearoffs (toolbox_ui_manager, DIA_SHOW_TEAROFFS);
+  gtk_ui_manager_insert_action_group (toolbox_ui_manager, toolbox_actions, 0);
+  if (!gtk_ui_manager_add_ui_from_file (toolbox_ui_manager,
+                    UIDATADIR"/toolbox-ui.xml",
+                    &error)) {
+    g_warning ("building menus failed: %s", error->message);
+    g_error_free (error);
+  }
+
+  toolbox_accels = gtk_ui_manager_get_accel_group (toolbox_ui_manager);
+  toolbox_menubar = gtk_ui_manager_get_widget (toolbox_ui_manager, "/ToolboxMenu");
+
 
   /* the display menu */
-  display_accels = gtk_accel_group_new();
-  display_item_factory = gtk_item_factory_new(GTK_TYPE_MENU, "<Display>",
-					      display_accels);
-#ifdef ENABLE_NLS
-  gtk_item_factory_set_translate_func (display_item_factory, menu_translate,
-				       "<Display>", NULL);
-#endif
-  gtk_item_factory_create_items (display_item_factory,
-				 display_nmenu_items,
-				 display_menu_items,
-				 NULL);
+  display_actions = gtk_action_group_new ("display-actions");
+  gtk_action_group_set_translation_domain (display_actions, NULL);
+  gtk_action_group_add_actions (display_actions, common_entries, 
+                G_N_ELEMENTS (common_entries), NULL);
+  gtk_action_group_add_actions (display_actions, display_entries, 
+                G_N_ELEMENTS (display_entries), NULL);
+  gtk_action_group_add_toggle_actions (display_actions, display_toggle_entries,
+                G_N_ELEMENTS (display_toggle_entries), 
+                NULL);
+  gtk_action_group_add_radio_actions (display_actions,
+                display_select_radio_entries,
+                G_N_ELEMENTS (display_select_radio_entries),
+                1,
+                G_CALLBACK (select_style_callback),
+                NULL);
 
-  display_menus = gtk_item_factory_get_widget(display_item_factory,
-					      "<Display>");
-  gtk_menu_set_accel_path(GTK_MENU(display_menus), "<Display>/");
-  
-  menus_set_tools_callback ("<Display>", NULL);
+  display_tool_actions = create_tool_actions ();
 
-  gtk_menu_set_title(GTK_MENU(display_menus), _("Diagram Menu"));
-  
-  /* initialize callbacks from plug-ins */
+  display_ui_manager = gtk_ui_manager_new ();
+  gtk_ui_manager_set_add_tearoffs (display_ui_manager, DIA_SHOW_TEAROFFS);
+  gtk_ui_manager_insert_action_group (display_ui_manager, display_actions, 0);
+  gtk_ui_manager_insert_action_group (display_ui_manager, display_tool_actions, 0);
+  /* TODO it would be more elegant if we had only one definition of the 
+   * menu hierarchy and merge it into a popup somehow. */
+  if (!gtk_ui_manager_add_ui_from_file (display_ui_manager,
+                    UIDATADIR"/popup-ui.xml",
+                    &error)) {
+    g_warning ("building menus failed: %s", error->message);
+    g_error_free (error);
+    error = NULL;
+  }
+
+  display_accels = gtk_ui_manager_get_accel_group (display_ui_manager);
+  display_menubar = gtk_ui_manager_get_widget (display_ui_manager, "/DisplayMenu");
+  g_assert (display_menubar);
+
+
+  /* plugin menu hooks */  
+  plugin_actions = gtk_action_group_new ("toolbox-plugin-actions");
+  gtk_action_group_set_translation_domain (plugin_actions, NULL);
+  gtk_ui_manager_insert_action_group (toolbox_ui_manager, 
+                    plugin_actions, 5 /* "back" */);
+  g_object_unref (plugin_actions);
+
   for (cblist = filter_get_callbacks(); cblist; cblist = cblist->next) {
-    DiaCallbackFilter *cbf = cblist->data;
-    GtkWidget *newitem;
 
-    newitem = menus_add_path(cbf->menupath);
-    if (!newitem) {
-      g_warning("Don't know where to add \"%s\" menu entry.", cbf->menupath);
+    cbf = cblist->data;
+
+    if (cbf == NULL) {
+      g_warning ("missing DiaCallbackFilter instance");
       continue;
     }
-    g_signal_connect(GTK_OBJECT(newitem), "activate",
-		     G_CALLBACK(plugin_callback), cbf);
-  } /* for filter_callbacks */
+
+    if (cbf->action == NULL) {
+      g_warning ("Plugin '%s': doesn't specify action. Loading failed.", 
+		cbf->description);
+      continue;
+    }
+
+    if (0 != strncmp (cbf->menupath, TOOLBOX_MENU, strlen (TOOLBOX_MENU))) {
+      /* hook for display, skip */
+      continue;
+    }
+
+    action = gtk_action_new (cbf->action, cbf->description, 
+                             NULL, NULL);
+    g_signal_connect (G_OBJECT (action), "activate", 
+                      G_CALLBACK (plugin_callback), 
+                      (gpointer) cbf);
+
+    gtk_action_group_add_action (plugin_actions, action);
+    g_object_unref (G_OBJECT (action));
+
+    id = gtk_ui_manager_new_merge_id (toolbox_ui_manager);
+    gtk_ui_manager_add_ui (toolbox_ui_manager, id, 
+                           cbf->menupath, 
+                           cbf->description, 
+                           cbf->action, 
+                           GTK_UI_MANAGER_AUTO, 
+                           FALSE);
+  }
+
+  add_plugin_actions (display_ui_manager);
 
   /* load accelerators and prepare to later save them */
   accelfilename = dia_config_filename("menurc");
@@ -551,11 +539,10 @@ menus_init(void)
     g_free(accelfilename);
   }
   gtk_quit_add(1, save_accels, NULL);
-
 }
 
 void
-menus_get_toolbox_menubar (GtkWidget **menubar,
+menus_get_toolbox_menubar (GtkWidget     **menubar,
 			   GtkAccelGroup **accel_group)
 {
   if (initialise)
@@ -567,181 +554,191 @@ menus_get_toolbox_menubar (GtkWidget **menubar,
     *accel_group = toolbox_accels;
 }
 
-void
-menus_get_image_menu (GtkWidget **menu,
-		      GtkAccelGroup **accel_group)
+GtkWidget * 
+menus_get_display_popup (void)
 {
   if (initialise)
     menus_init();
 
-  if (menu)
-    *menu = display_menus;
-  if (accel_group)
-    *accel_group = display_accels;
+  return display_menubar;
 }
 
-void
-menus_get_image_menubar (GtkWidget **menu, GtkItemFactory **display_mbar_item_factory)
+GtkAccelGroup * 
+menus_get_display_accels (void)
 {
-    if (menu) 
-    {
-	GtkAccelGroup *display_mbar_accel_group;
-	display_mbar_accel_group = gtk_accel_group_new ();
-	*display_mbar_item_factory =  gtk_item_factory_new (GTK_TYPE_MENU_BAR,
-							    "<DisplayMBar>",
-							    display_mbar_accel_group);
-#ifdef ENABLE_NLS
-	gtk_item_factory_set_translate_func (*display_mbar_item_factory, 
-					     menu_translate,
-					     "<DisplayMBar>", NULL);
-#endif
-	gtk_item_factory_create_items (*display_mbar_item_factory,
-				       display_nmenu_items - 1,
-				       &(display_menu_items[1]), NULL);
+  if (initialise)
+    menus_init();
 
-	*menu = gtk_item_factory_get_widget (*display_mbar_item_factory, "<DisplayMBar>");
-	menus_set_tools_callback ("<DisplayMBar>", *display_mbar_item_factory);
-    }
+  return display_accels;
 }
-
 
 GtkWidget *
-menus_add_path (const gchar *path)
+menus_create_display_menubar (GtkUIManager   **ui_manager, 
+			      GtkActionGroup **actions)
 {
-  GtkItemFactory *item_factory;
-  GtkItemFactoryEntry new_entry = { 0 };
+  GtkActionGroup *tool_actions;
+  GtkWidget      *menu_bar;
+  GError         *error = NULL;
 
-  new_entry.item_type = "<Item>";
-  new_entry.accelerator = NULL;
-  new_entry.callback = NULL;
-  new_entry.callback_action = 0;
+  *actions = gtk_action_group_new ("display-actions");
+  gtk_action_group_set_translation_domain (*actions, NULL);
 
-  if (strncmp(path, "<Display>/", strlen("<Display>/")) == 0) {
-    item_factory = display_item_factory;
-    new_entry.path = (gchar *) (path + strlen("<Display>"));
-  } else if (strncmp(path, "<Toolbox>/", strlen("<Toolbox>/")) == 0) {
-    item_factory = toolbox_item_factory;
-    new_entry.path = (gchar *) (path + strlen("<Toolbox>"));
-  } else {
-    g_warning("bad menu path `%s'", path);
+  gtk_action_group_add_actions (*actions, common_entries, 
+                G_N_ELEMENTS (common_entries), NULL);
+  gtk_action_group_add_actions (*actions, display_entries, 
+                G_N_ELEMENTS (display_entries), NULL);
+  gtk_action_group_add_toggle_actions (*actions, display_toggle_entries,
+                G_N_ELEMENTS (display_toggle_entries), 
+                NULL);
+  gtk_action_group_add_radio_actions (*actions,
+                    display_select_radio_entries,
+                    G_N_ELEMENTS (display_select_radio_entries),
+                    1,
+                    G_CALLBACK (select_style_callback),
+                    NULL);
+
+  tool_actions = create_tool_actions (); 
+
+  *ui_manager = gtk_ui_manager_new ();
+  gtk_ui_manager_set_add_tearoffs (*ui_manager, DIA_SHOW_TEAROFFS);
+  gtk_ui_manager_insert_action_group (*ui_manager, *actions, 0);
+  gtk_ui_manager_insert_action_group (*ui_manager, tool_actions, 0);
+  g_object_unref (G_OBJECT (tool_actions));
+  if (!gtk_ui_manager_add_ui_from_file (*ui_manager,
+                    UIDATADIR"/display-ui.xml",
+                    &error)) {
+    g_warning ("building menus failed: %s", error->message);
+    g_error_free (error);
     return NULL;
   }
 
-  gtk_item_factory_create_item(item_factory, &new_entry, NULL, 1);
-  return gtk_item_factory_get_widget(item_factory, path);
+  add_plugin_actions (*ui_manager);
+
+  menu_bar = gtk_ui_manager_get_widget (*ui_manager, "/DisplayMenu");
+  return menu_bar;
 }
 
-
-/*
-  Get a menu item widget from a path. 
-  In case of an item in the <DisplayMBar> menu bar, provide the corresponding 
-  item factory: ddisp->mbar_item_factory.
- */
-GtkMenuItem *
-menus_get_item_from_path (char *path, GtkItemFactory *item_factory)
+GtkAccelGroup *
+menus_get_accel_group ()
 {
-  GtkWidget *wid = NULL;
-  GtkMenuItem *widget = NULL;
-
-  if (display_item_factory) {
-    wid =
-      gtk_item_factory_get_item(display_item_factory, path);
-    if (wid != NULL) widget = GTK_MENU_ITEM(wid);
-  }
-  
-  if ((widget == NULL) && (item_factory)) {
-      wid = 
-	gtk_item_factory_get_item(item_factory, path);
-    if (wid != NULL) widget = GTK_MENU_ITEM(wid);
-  }
-  
-  if (widget == NULL) {
-    wid = 
-      gtk_item_factory_get_item(toolbox_item_factory, path);
-    if (wid != NULL) widget = GTK_MENU_ITEM(wid);
-  }
-
-  if (! widget) {
-    g_warning(_("Can't find menu entry '%s'!\nThis is probably a i18n problem "
-                "(try LANG=C)."), path);
-  }
-
-  return widget;
+  return toolbox_accels;
 }
 
+GtkActionGroup *
+menus_get_action_group ()
+{
+  return toolbox_actions;
+}
+
+GtkAction *
+menus_get_action (const gchar *name)
+{
+  GtkAction *action;
+
+  action = gtk_action_group_get_action (toolbox_actions, name);
+  if (action == NULL) {
+    action = gtk_action_group_get_action (display_actions, name);
+  }
+
+  return action;
+}
 
 void
-menus_initialize_updatable_items (UpdatableMenuItems *items, 
-				  GtkItemFactory *factory, const char *display)
+menus_set_recent (GtkActionGroup *actions)
 {
-    static GString *path;
-    
-    path = g_string_new (display);
-    g_string_append (path,"/Edit/Copy");
-    items->copy = menus_get_item_from_path(path->str, factory);
-    g_string_append (g_string_assign(path, display),"/Edit/Cut");
-    items->cut = menus_get_item_from_path(path->str, factory);
-    g_string_append (g_string_assign(path, display),"/Edit/Paste");
-    items->paste = menus_get_item_from_path(path->str, factory);
-    g_string_append (g_string_assign(path, display),"/Edit/Delete");
-    items->edit_delete = menus_get_item_from_path(path->str, factory);
-    g_string_append (g_string_assign(path, display),"/Edit/Duplicate");
-    items->edit_duplicate = menus_get_item_from_path(path->str, factory);
+  GList *list;
+  guint id;
 
-    g_string_append (g_string_assign(path, display),"/Edit/Copy Text");
-    items->copy_text = menus_get_item_from_path(path->str, factory);
-    g_string_append (g_string_assign(path, display),"/Edit/Cut Text");
-    items->cut_text = menus_get_item_from_path(path->str, factory);
-    g_string_append (g_string_assign(path, display),"/Edit/Paste Text");
-    items->paste_text = menus_get_item_from_path(path->str, factory);
+  if (recent_actions) {
+    menus_clear_recent ();
+  }
 
-    g_string_append (g_string_assign(path, display),"/Objects/Send to Back");
-    items->send_to_back = menus_get_item_from_path(path->str, factory);
-    g_string_append (g_string_assign(path, display),"/Objects/Bring to Front");
-    items->bring_to_front = menus_get_item_from_path(path->str, factory);
-    g_string_append (g_string_assign(path, display),"/Objects/Send Backwards");
-    items->send_backwards = menus_get_item_from_path(path->str, factory);
-    g_string_append (g_string_assign(path, display),"/Objects/Bring Forwards");
-    items->bring_forwards = menus_get_item_from_path(path->str, factory);
-  
-    g_string_append (g_string_assign(path, display),"/Objects/Group");
-    items->group = menus_get_item_from_path(path->str, factory);
-    g_string_append (g_string_assign(path, display),"/Objects/Ungroup");
-    items->ungroup = menus_get_item_from_path(path->str, factory);
+  list = gtk_action_group_list_actions (actions);
+  g_return_if_fail (list);
 
-    g_string_append (g_string_assign(path, display),"/Objects/Parent");
-    items->parent = menus_get_item_from_path(path->str, factory);
-    g_string_append (g_string_assign(path, display),"/Objects/Unparent");
-    items->unparent = menus_get_item_from_path(path->str, factory);
-    g_string_append (g_string_assign(path, display),"/Objects/Unparent Children");
-    items->unparent_children = menus_get_item_from_path(path->str, factory);
+  recent_actions = actions;
+  g_object_ref (G_OBJECT (recent_actions));
+  gtk_ui_manager_insert_action_group (toolbox_ui_manager, 
+                    recent_actions, 
+                    10 /* insert at back */ );
 
-    g_string_append (g_string_assign(path, display),"/Objects/Align/Left");
-    items->align_h_l = menus_get_item_from_path(path->str, factory);
-    g_string_append (g_string_assign(path, display),"/Objects/Align/Center");
-    items->align_h_c = menus_get_item_from_path(path->str, factory);
-    g_string_append (g_string_assign(path, display),"/Objects/Align/Right");
-    items->align_h_r = menus_get_item_from_path(path->str, factory);
-    g_string_append (g_string_assign(path, display),"/Objects/Align/Spread Out Horizontally");
-    items->align_h_e = menus_get_item_from_path(path->str, factory);
-    g_string_append (g_string_assign(path, display),"/Objects/Align/Adjacent");
-    items->align_h_a = menus_get_item_from_path(path->str, factory);
-    g_string_append (g_string_assign(path, display),"/Objects/Align/Top");
-    items->align_v_t = menus_get_item_from_path(path->str, factory);
-    g_string_append (g_string_assign(path, display),"/Objects/Align/Middle");
-    items->align_v_c = menus_get_item_from_path(path->str, factory);
-    g_string_append (g_string_assign(path, display),"/Objects/Align/Bottom");
-    items->align_v_b = menus_get_item_from_path(path->str, factory);
-    g_string_append (g_string_assign(path, display),"/Objects/Align/Spread Out Vertically");
-    items->align_v_e = menus_get_item_from_path(path->str, factory);
-    g_string_append (g_string_assign(path, display),"/Objects/Align/Stacked");
-    items->align_v_a = menus_get_item_from_path(path->str, factory);
-    g_string_append (g_string_assign(path, display),"/Objects/Properties...");
-    items->properties = menus_get_item_from_path(path->str, factory);
-    
-    g_string_free (path,TRUE);
+  do {
+    id = gtk_ui_manager_new_merge_id (toolbox_ui_manager);
+    recent_merge_ids = g_slist_prepend (recent_merge_ids, (gpointer) id);
+
+    gtk_ui_manager_add_ui (toolbox_ui_manager, id, 
+                 "/ToolboxMenu/File/FileRecentEnd", 
+                 gtk_action_get_name (GTK_ACTION (list->data)), 
+                 gtk_action_get_name (GTK_ACTION (list->data)), 
+                 GTK_UI_MANAGER_AUTO, 
+                 TRUE);
+
+  } while (NULL != (list = list->next));
 }
 
+void
+menus_clear_recent (void)
+{
+  GSList *id;
+
+  g_return_if_fail (recent_merge_ids);
+
+  id = recent_merge_ids;
+  do {
+    gtk_ui_manager_remove_ui (toolbox_ui_manager, (guint) id->data);
+
+  } while (NULL != (id = id->next));
+
+  g_slist_free (recent_merge_ids);
+  recent_merge_ids = NULL;
+
+  gtk_ui_manager_remove_action_group (toolbox_ui_manager, recent_actions);
+  g_object_unref (G_OBJECT (recent_actions));
+  recent_actions = NULL;
+}
+
+void 
+menus_initialize_updatable_items (UpdatableMenuItems *items, GtkActionGroup *actions)
+{
+  if (actions == NULL) {
+    actions = display_actions;
+  }
+
+    items->copy = gtk_action_group_get_action (actions, "EditCopy");
+    items->cut = gtk_action_group_get_action (actions, "EditCut");
+    items->paste = gtk_action_group_get_action (actions, "EditPaste");
+    items->edit_delete = gtk_action_group_get_action (actions, "EditDelete");
+    items->edit_duplicate = gtk_action_group_get_action (actions, "EditDuplicate");
+
+    items->copy_text = gtk_action_group_get_action (actions, "EditCopytext");
+    items->cut_text = gtk_action_group_get_action (actions, "EditCuttext");
+    items->paste_text = gtk_action_group_get_action (actions, "EditPastetext");
+
+    items->send_to_back = gtk_action_group_get_action (actions, "ObjectsSendtoback");
+    items->bring_to_front = gtk_action_group_get_action (actions, "ObjectsBringtofront");
+    items->send_backwards = gtk_action_group_get_action (actions, "ObjectsSendbackwards");
+    items->bring_forwards = gtk_action_group_get_action (actions, "ObjectsBringforwards");
+  
+    items->group = gtk_action_group_get_action (actions, "ObjectsGroup");
+    items->ungroup = gtk_action_group_get_action (actions, "ObjectsUngroup");
+
+    items->parent = gtk_action_group_get_action (actions, "ObjectsParent");
+    items->unparent = gtk_action_group_get_action (actions, "ObjectsUnparent");
+    items->unparent_children = gtk_action_group_get_action (actions, "ObjectsUnparentchildren");
+
+    items->align_h_l = gtk_action_group_get_action (actions, "ObjectsAlignLeft");
+    items->align_h_c = gtk_action_group_get_action (actions, "ObjectsAlignCenter");
+    items->align_h_r = gtk_action_group_get_action (actions, "ObjectsAlignRight");
+    items->align_h_e = gtk_action_group_get_action (actions, "ObjectsAlignSpreadouthorizontally");
+    items->align_h_a = gtk_action_group_get_action (actions, "ObjectsAlignAdjacent");
+    items->align_v_t = gtk_action_group_get_action (actions, "ObjectsAlignTop");
+    items->align_v_c = gtk_action_group_get_action (actions, "ObjectsAlignMiddle");
+    items->align_v_b = gtk_action_group_get_action (actions, "ObjectsAlignBottom");
+    items->align_v_e = gtk_action_group_get_action (actions, "ObjectsAlignSpreadoutvertically");
+    items->align_v_a = gtk_action_group_get_action (actions, "ObjectsAlignStacked");
+
+    items->properties = gtk_action_group_get_action (actions, "ObjectsProperties");
+}
 
 static void
 plugin_callback (GtkWidget *widget, gpointer data)

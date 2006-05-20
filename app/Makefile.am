@@ -9,11 +9,12 @@ INCLUDES = \
 	$(DEBUG_FLAGS) \
 	$(GTK_CFLAGS) \
 	$(LIBART_CFLAGS) \
-        -DPREFIX=\""$(prefix)"\" \
-        -DSYSCONFDIR=\""$(sysconfdir)"\" \
-        -DDATADIR=\""$(datadir)"\" \
-        -DLIBDIR=\""$(libdir)"\" \
-	-DLOCALEDIR=\"$(localedir)\"
+	-DPREFIX=\""$(prefix)"\" \
+	-DSYSCONFDIR=\""$(sysconfdir)"\" \
+	-DDATADIR=\""$(datadir)"\" \
+	-DLIBDIR=\""$(libdir)"\" \
+	-DLOCALEDIR=\"$(localedir)\" \
+	-DUIDATADIR=\"$(uidatadir)\"
 
 
 print_files = \

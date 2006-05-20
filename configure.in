@@ -342,6 +342,11 @@ AC_SUBST(Z_LIBS)
 CFLAGS="${CFLAGS} ${Z_CFLAGS}"
 LIBS="${LIBS} ${Z_LIBS}"
 
+
+dnl Path to UI resources
+AC_SUBST(uidatadir, '${pkgdatadir}/ui')
+
+
 dnl Platform-specific fixes.
 dnl 
 
@@ -508,6 +513,7 @@ plug-ins/wmf/Makefile
 plug-ins/wpg/Makefile
 plug-ins/xfig/Makefile
 plug-ins/xslt/Makefile
+data/Makefile
 doc/Makefile
 doc/en/Makefile
 doc/eu/Makefile

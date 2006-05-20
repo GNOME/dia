@@ -45,15 +45,16 @@ typedef struct _DDisplay DDisplay;
 #define DDISPLAY_MIN_ZOOM 0.01
 */
 struct _DDisplay {
-  Diagram *diagram;               /* pointer to the associated diagram */
+  Diagram *diagram;                  /* pointer to the associated diagram */
 
-  GtkWidget *shell;               /* shell widget for this ddisplay    */
-  GtkWidget *canvas;              /* canvas widget for this ddisplay   */
-  GtkWidget *hsb, *vsb;           /* widgets for scroll bars           */
-  GtkWidget *hrule, *vrule;       /* widgets for rulers                */
-  GtkWidget *origin;              /* widgets for rulers                */
-  GtkWidget *menu_bar;            /* widget for the menu bar           */
-  GtkItemFactory *mbar_item_factory; /* item factory used to create the menu bar */
+  GtkWidget      *shell;               /* shell widget for this ddisplay    */
+  GtkWidget      *canvas;              /* canvas widget for this ddisplay   */
+  GtkWidget      *hsb, *vsb;           /* widgets for scroll bars           */
+  GtkWidget      *hrule, *vrule;       /* widgets for rulers                */
+  GtkWidget      *origin;              /* widgets for rulers                */
+  GtkWidget      *menu_bar;            /* widget for the menu bar           */
+  GtkUIManager   *ui_manager;     /* ui manager used to create the menu bar */
+  GtkActionGroup *actions;        
 
   /* menu bar widgets */
   GtkMenuItem *rulers;

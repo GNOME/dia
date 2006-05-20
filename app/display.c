@@ -140,18 +140,29 @@ selection_changed (Diagram* dia, int n, DDisplay* ddisp)
 }
 
 static void
-append_im_menu (DDisplay* ddisp, GtkMenuItem* im_menu_item)
+append_im_menu (DDisplay* ddisp, GtkAction* action)
 {
-  GtkWidget* im_menu;
-  GtkWidget* im_menu_tearoff;
+  GSList    *proxies;
+  GtkWidget *im_menu;
+  /* GtkWidget *im_menu_tearoff; */
   
-  im_menu = gtk_menu_new ();
-  im_menu_tearoff = gtk_tearoff_menu_item_new ();
-  gtk_menu_shell_append (GTK_MENU_SHELL(im_menu), im_menu_tearoff);
-  gtk_im_multicontext_append_menuitems (
-      GTK_IM_MULTICONTEXT(ddisp->im_context),
-      GTK_MENU_SHELL(im_menu));
-  gtk_menu_item_set_submenu (GTK_MENU_ITEM(im_menu_item), im_menu);
+  proxies = gtk_action_get_proxies (action);
+  while (proxies) {
+    if (GTK_IS_MENU_ITEM (proxies->data)) {
+      im_menu = gtk_menu_new ();
+      /* tearoff should be added depending on gtk settings
+      im_menu_tearoff = gtk_tearoff_menu_item_new ();
+      gtk_menu_shell_append (GTK_MENU_SHELL(im_menu), im_menu_tearoff);
+      */
+      gtk_im_multicontext_append_menuitems (
+        GTK_IM_MULTICONTEXT(ddisp->im_context),
+        GTK_MENU_SHELL(im_menu));
+      gtk_menu_item_set_submenu (GTK_MENU_ITEM(proxies->data), im_menu);
+      gtk_widget_show (GTK_WIDGET (proxies->data));
+      gtk_widget_show (GTK_WIDGET (im_menu));
+    }
+    proxies = proxies->next;
+  }
 }
 
 /** Initialize the various GTK-level thinks in a display after the internal
@@ -161,9 +172,7 @@ append_im_menu (DDisplay* ddisp, GtkMenuItem* im_menu_item)
 static void
 initialize_display_widgets(DDisplay *ddisp)
 {
-  GtkMenuItem* im_menu_item;
-  GtkWidget* im_menu;
-  GtkWidget* im_menu_tearoff;
+  GtkAction* im_menu_item;
   static gboolean input_methods_done = FALSE;
   Diagram *dia = ddisp->diagram;
   gchar *filename;
@@ -204,17 +213,16 @@ initialize_display_widgets(DDisplay *ddisp)
   g_hash_table_insert (display_ht, ddisp->canvas, ddisp);
 
   if (!input_methods_done) {
-      im_menu_item = menus_get_item_from_path("<Display>/Input Methods", NULL);
-      if (im_menu_item) {
-        append_im_menu (ddisp, im_menu_item);
-	input_methods_done = TRUE;
-      }
+      im_menu_item = menus_get_action ("InputMethods");
+      g_assert (im_menu_item);
+      append_im_menu (ddisp, im_menu_item);
+      input_methods_done = TRUE;
   }
   /* the diagram menubar gets recreated for every diagram */ 	 
   if (ddisp->menu_bar) {
-    im_menu_item = menus_get_item_from_path("<DisplayMBar>/Input Methods", ddisp->mbar_item_factory);
-    if (im_menu_item)
-      append_im_menu (ddisp, im_menu_item);
+    im_menu_item = gtk_action_group_get_action (ddisp->actions, "InputMethods");
+    g_assert (im_menu_item);
+    append_im_menu (ddisp, im_menu_item);
   }	 
 }
 
@@ -273,25 +281,11 @@ copy_display(DDisplay *orig_ddisp)
 DDisplay *
 new_display(Diagram *dia)
 {
-  GtkMenuItem* im_menu_item;
   DDisplay *ddisp;
   Rectangle visible;
-  static gboolean input_methods_done = FALSE;
   
   ddisp = g_new0(DDisplay,1);
 
-  ddisp->menu_bar = NULL;
-  ddisp->mbar_item_factory = NULL;
-
-  ddisp->rulers = NULL;
-  /*
-  ddisp->visible_grid = NULL;
-  ddisp->snap_to_grid = NULL;
-  ddisp->show_cx_pts_mitem = NULL;
-#ifdef HAVE_LIBART
-  ddisp->antialiased = NULL;
-#endif
-  */
   /* initialize the whole struct to 0 so that we are sure to catch errors.*/
   memset (&ddisp->updatable_menu_items, 0, sizeof (UpdatableMenuItems));
   
@@ -793,19 +787,18 @@ ddisplay_zoom(DDisplay *ddisp, Point *point, real magnify)
 void
 ddisplay_set_snap_to_grid(DDisplay *ddisp, gboolean snap)
 {
-  GtkCheckMenuItem *snap_to_grid;
+  GtkToggleAction *snap_to_grid;
   ddisp->grid.snap = snap;
 
   if (ddisp->menu_bar == NULL) {
-    snap_to_grid = GTK_CHECK_MENU_ITEM(menus_get_item_from_path("<Display>/View/Snap To Grid", NULL));
+    snap_to_grid = GTK_TOGGLE_ACTION (menus_get_action ("ViewSnaptogrid"));
   } else {
-    snap_to_grid = GTK_CHECK_MENU_ITEM(menus_get_item_from_path("<DisplayMBar>/View/Snap To Grid", ddisp->mbar_item_factory));
+    snap_to_grid = GTK_TOGGLE_ACTION (gtk_action_group_get_action (ddisp->actions, "ViewSnaptogrid"));
   }
 
   /* Currently, this can cause double emit, but that's a small problem.
    */
-  gtk_check_menu_item_set_active(snap_to_grid,
-				 ddisp->grid.snap);
+  gtk_toggle_action_set_active (snap_to_grid, ddisp->grid.snap);
   ddisplay_update_statusbar(ddisp);
 }
 
@@ -822,19 +815,18 @@ update_snap_grid_status(DDisplay *ddisp)
 void
 ddisplay_set_snap_to_objects(DDisplay *ddisp, gboolean magnetic)
 {
-  GtkCheckMenuItem *mainpoint_magnetism;
+  GtkToggleAction *mainpoint_magnetism;
   ddisp->mainpoint_magnetism = magnetic;
 
   if (ddisp->menu_bar == NULL) {
-    mainpoint_magnetism = GTK_CHECK_MENU_ITEM(menus_get_item_from_path("<Display>/View/Snap To Objects", NULL));
+    mainpoint_magnetism = GTK_TOGGLE_ACTION (menus_get_action ("ViewSnaptoobjects"));
   } else {
-    mainpoint_magnetism = GTK_CHECK_MENU_ITEM(menus_get_item_from_path("<DisplayMBar>/View/Snap To Objects", ddisp->mbar_item_factory));
+    mainpoint_magnetism = GTK_TOGGLE_ACTION (gtk_action_group_get_action (ddisp->actions, "ViewSnaptoobjects"));
   }
 
   /* Currently, this can cause double emit, but that's a small problem.
    */
-  gtk_check_menu_item_set_active(mainpoint_magnetism,
-				 ddisp->mainpoint_magnetism);
+  gtk_toggle_action_set_active (mainpoint_magnetism, ddisp->mainpoint_magnetism);
   ddisplay_update_statusbar(ddisp);
 }
 
@@ -1171,47 +1163,45 @@ ddisplay_close(DDisplay *ddisp)
 void
 display_update_menu_state(DDisplay *ddisp)
 {
-  GtkCheckMenuItem *rulers;
-  GtkCheckMenuItem *visible_grid;
-  GtkCheckMenuItem *snap_to_grid;
-  GtkCheckMenuItem *show_cx_pts;
+  GtkToggleAction *rulers;
+  GtkToggleAction *visible_grid;
+  GtkToggleAction *snap_to_grid;
+  GtkToggleAction *show_cx_pts;
 #ifdef HAVE_LIBART
-  GtkCheckMenuItem *antialiased;
+  GtkToggleAction *antialiased;
 #endif
 
   if (ddisp->menu_bar == NULL) {
-    rulers       = GTK_CHECK_MENU_ITEM(menus_get_item_from_path("<Display>/View/Show Rulers", NULL));
-    visible_grid = GTK_CHECK_MENU_ITEM(menus_get_item_from_path("<Display>/View/Show Grid", NULL));
-    snap_to_grid = GTK_CHECK_MENU_ITEM(menus_get_item_from_path("<Display>/View/Snap To Grid", NULL));
-    show_cx_pts  = 
-      GTK_CHECK_MENU_ITEM(menus_get_item_from_path("<Display>/View/Show Connection Points", NULL));
+    rulers       = GTK_TOGGLE_ACTION (menus_get_action ("ViewShowrulers"));
+    visible_grid = GTK_TOGGLE_ACTION (menus_get_action ("ViewShowgrid"));
+    snap_to_grid = GTK_TOGGLE_ACTION (menus_get_action ("ViewSnaptogrid"));
+    show_cx_pts  = GTK_TOGGLE_ACTION (menus_get_action ("ViewShowconnectionpoints"));
 #ifdef HAVE_LIBART
-    antialiased = GTK_CHECK_MENU_ITEM(menus_get_item_from_path("<Display>/View/AntiAliased", NULL));
+    antialiased  = GTK_TOGGLE_ACTION (menus_get_action ("ViewAntialiased"));
 #endif
   } else {
-    rulers       = GTK_CHECK_MENU_ITEM(menus_get_item_from_path("<DisplayMBar>/View/Show Rulers", ddisp->mbar_item_factory));
-    visible_grid = GTK_CHECK_MENU_ITEM(menus_get_item_from_path("<DisplayMBar>/View/Show Grid", ddisp->mbar_item_factory));
-    snap_to_grid = GTK_CHECK_MENU_ITEM(menus_get_item_from_path("<DisplayMBar>/View/Snap To Grid", ddisp->mbar_item_factory));
-    show_cx_pts  = 
-      GTK_CHECK_MENU_ITEM(menus_get_item_from_path("<DisplayMBar>/View/Show Connection Points", ddisp->mbar_item_factory));
+    rulers       = GTK_TOGGLE_ACTION (gtk_action_group_get_action (ddisp->actions, "ViewShowrulers"));
+    visible_grid = GTK_TOGGLE_ACTION (gtk_action_group_get_action (ddisp->actions, "ViewShowgrid"));
+    snap_to_grid = GTK_TOGGLE_ACTION (gtk_action_group_get_action (ddisp->actions, "ViewSnaptogrid"));
+    show_cx_pts  = GTK_TOGGLE_ACTION (gtk_action_group_get_action (ddisp->actions, "ViewShowconnectionpoints"));
 #ifdef HAVE_LIBART
-    antialiased = GTK_CHECK_MENU_ITEM(menus_get_item_from_path("<DisplayMBar>/View/AntiAliased", ddisp->mbar_item_factory));
+    antialiased  = GTK_TOGGLE_ACTION (gtk_action_group_get_action (ddisp->actions, "ViewAntialiased"));
 #endif
   }
 
 
   ddisplay_do_update_menu_sensitivity (ddisp);
   
-  gtk_check_menu_item_set_active(rulers,
+  gtk_toggle_action_set_active (rulers,
 				 GTK_WIDGET_VISIBLE (ddisp->hrule) ? 1 : 0); 
-  gtk_check_menu_item_set_active(visible_grid,
+  gtk_toggle_action_set_active (visible_grid,
 				 ddisp->grid.visible);
-  gtk_check_menu_item_set_active(snap_to_grid,
+  gtk_toggle_action_set_active (snap_to_grid,
 				 ddisp->grid.snap);
-  gtk_check_menu_item_set_active(show_cx_pts,
+  gtk_toggle_action_set_active (show_cx_pts,
 				 ddisp->show_cx_pts); 
 #ifdef HAVE_LIBART
-  gtk_check_menu_item_set_active(antialiased,
+  gtk_toggle_action_set_active (antialiased,
 				 ddisp->aa_renderer);
 #endif 
 }
@@ -1257,7 +1247,7 @@ ddisplay_really_destroy(DDisplay *ddisp)
   ddisplay_free_update_areas(ddisp);
   /* Free display_areas list */
   ddisplay_free_display_areas(ddisp);
-  
+
   g_free(ddisp);
 }
 

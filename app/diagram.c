@@ -446,48 +446,42 @@ diagram_update_menu_sensitivity (Diagram *dia, UpdatableMenuItems *items)
 {
   gint selected_count = g_list_length (dia->data->selected);
   /* Edit menu */
-  gtk_widget_set_sensitive(GTK_WIDGET(items->copy), selected_count > 0);
-  gtk_widget_set_sensitive(GTK_WIDGET(items->cut), selected_count > 0);
-  gtk_widget_set_sensitive(GTK_WIDGET(items->paste),
-			   cnp_exist_stored_objects());
-  gtk_widget_set_sensitive(GTK_WIDGET(items->edit_delete), selected_count > 0);
-  gtk_widget_set_sensitive(GTK_WIDGET(items->edit_duplicate), selected_count > 0);
+  gtk_action_set_sensitive (items->copy, selected_count > 0);
+  gtk_action_set_sensitive (items->cut, selected_count > 0);
+  gtk_action_set_sensitive (items->paste, cnp_exist_stored_objects());
+  gtk_action_set_sensitive (items->edit_delete, selected_count > 0);
+  gtk_action_set_sensitive (items->edit_duplicate, selected_count > 0);
 
-  gtk_widget_set_sensitive(GTK_WIDGET(items->copy_text),
-			   active_focus() != NULL);
-  gtk_widget_set_sensitive(GTK_WIDGET(items->cut_text),
-			   active_focus() != NULL);
-  gtk_widget_set_sensitive(GTK_WIDGET(items->paste_text),
-			   active_focus() != NULL);
+  gtk_action_set_sensitive (items->copy_text, active_focus() != NULL);
+  gtk_action_set_sensitive (items->cut_text, active_focus() != NULL);
+  gtk_action_set_sensitive (items->paste_text, active_focus() != NULL);
   
   /* Objects menu */
-  gtk_widget_set_sensitive(GTK_WIDGET(items->send_to_back), selected_count > 0);
-  gtk_widget_set_sensitive(GTK_WIDGET(items->bring_to_front), selected_count > 0);
-  gtk_widget_set_sensitive(GTK_WIDGET(items->send_backwards), selected_count > 0);
-  gtk_widget_set_sensitive(GTK_WIDGET(items->bring_forwards), selected_count > 0);
+  gtk_action_set_sensitive (items->send_to_back, selected_count > 0);
+  gtk_action_set_sensitive (items->bring_to_front, selected_count > 0);
+  gtk_action_set_sensitive (items->send_backwards, selected_count > 0);
+  gtk_action_set_sensitive (items->bring_forwards, selected_count > 0);
     
-  gtk_widget_set_sensitive(GTK_WIDGET(items->parent),
-			   diagram_selected_can_parent(dia));
-  gtk_widget_set_sensitive(GTK_WIDGET(items->unparent),
-			   diagram_selected_any_children(dia));
-  gtk_widget_set_sensitive(GTK_WIDGET(items->unparent_children),
-			   diagram_selected_any_parents(dia));
-  gtk_widget_set_sensitive(GTK_WIDGET(items->group), selected_count > 1);
-  gtk_widget_set_sensitive(GTK_WIDGET(items->ungroup),
-			   diagram_selected_any_groups(dia));
-  gtk_widget_set_sensitive(GTK_WIDGET(items->properties), selected_count > 0);
+  gtk_action_set_sensitive (items->parent, diagram_selected_can_parent (dia));
+  gtk_action_set_sensitive (items->unparent, 
+							diagram_selected_any_children (dia));
+  gtk_action_set_sensitive (items->unparent_children, 
+							diagram_selected_any_parents (dia));
+  gtk_action_set_sensitive (items->group, selected_count > 1);
+  gtk_action_set_sensitive (items->ungroup, diagram_selected_any_groups (dia));
+  gtk_action_set_sensitive (items->properties, selected_count > 0);
   
   /* Objects->Align menu */
-  gtk_widget_set_sensitive(GTK_WIDGET(items->align_h_l), selected_count > 1);
-  gtk_widget_set_sensitive(GTK_WIDGET(items->align_h_c), selected_count > 1);
-  gtk_widget_set_sensitive(GTK_WIDGET(items->align_h_r), selected_count > 1);
-  gtk_widget_set_sensitive(GTK_WIDGET(items->align_h_e), selected_count > 1);
-  gtk_widget_set_sensitive(GTK_WIDGET(items->align_h_a), selected_count > 1);
-  gtk_widget_set_sensitive(GTK_WIDGET(items->align_v_t), selected_count > 1);
-  gtk_widget_set_sensitive(GTK_WIDGET(items->align_v_c), selected_count > 1);
-  gtk_widget_set_sensitive(GTK_WIDGET(items->align_v_b), selected_count > 1);
-  gtk_widget_set_sensitive(GTK_WIDGET(items->align_v_e), selected_count > 1);
-  gtk_widget_set_sensitive(GTK_WIDGET(items->align_v_a), selected_count > 1);
+  gtk_action_set_sensitive (items->align_h_l, selected_count > 1);
+  gtk_action_set_sensitive (items->align_h_c, selected_count > 1);
+  gtk_action_set_sensitive (items->align_h_r, selected_count > 1);
+  gtk_action_set_sensitive (items->align_h_e, selected_count > 1);
+  gtk_action_set_sensitive (items->align_h_a, selected_count > 1);
+  gtk_action_set_sensitive (items->align_v_t, selected_count > 1);
+  gtk_action_set_sensitive (items->align_v_c, selected_count > 1);
+  gtk_action_set_sensitive (items->align_v_b, selected_count > 1);
+  gtk_action_set_sensitive (items->align_v_e, selected_count > 1);
+  gtk_action_set_sensitive (items->align_v_a, selected_count > 1);
 }
     
   
@@ -501,16 +495,12 @@ void diagram_update_popupmenu_sensitivity(Diagram *dia)
 {
   static int initialized = 0;
   static UpdatableMenuItems items;
-  
-
-  char *display = "<Display>";
-  
+ 
   if (initialized==0) {
-      menus_initialize_updatable_items (&items, NULL, display);
-      
+      menus_initialize_updatable_items (&items, NULL);      
       initialized = 1;
   }
-  
+
   diagram_update_menu_sensitivity (dia, &items);
 }
 
@@ -1382,12 +1372,4 @@ int diagram_modified_exists(void)
 void diagram_object_modified(Diagram *dia, DiaObject *object)
 {
   diagram_tree_update_object(diagram_tree(), dia, object);
-}
-
-static 
-void close_dialog(gpointer data, gpointer user_data)
-{
-  if (data != NULL) {
-    g_signal_emit_by_name(G_OBJECT(data), "delete_event");
-  }
 }
