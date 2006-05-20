@@ -2,7 +2,7 @@
 
 	Patch from Robert Staudinger to base dia menus on GtkAction framework
 	instead on deprecated GtkItemFactory. Tracked in bug #340352. 
-	En passant fixes bug #
+	En passant fixes bug #171397
 	* configure.in : placementof ui files added data/Makefile to AC_OUTPUT
 	* Makefile.am : added data dir
 	* app/Makefile.am : added $(uidatadir)
