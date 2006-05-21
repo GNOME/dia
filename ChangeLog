@@ -1,3 +1,10 @@
+2006-05-21  Hans Breuer  <hans@breuer.org>
+
+	* app/pagesetup.c app/diapagelayout.c : restrict every page margin
+	to a little less than half of the page. This guarantees margins
+	leaving some useable page area and thus avoids crashing on negative
+	page sizes. Fixes bug #339562 (also applied to HEAD)
+
 2006-05-13  Hans Breuer  <hans@breuer.org>
 
 	* objects/UML/umloperationc: add "query" to umloperation_offsets.
