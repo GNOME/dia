@@ -259,7 +259,6 @@ popup_object_menu(DDisplay *ddisp, GdkEventButton *bevent)
   menu = GTK_MENU(dia_menu->app_data);
   /* add the properties menu item to raise the properties from the contextual menu */
   
-  popup_shell = ddisp->shell;
   gtk_menu_popup(menu, NULL, NULL, NULL, NULL, bevent->button, bevent->time);
 }
 
@@ -355,7 +354,6 @@ ddisplay_popup_menu(DDisplay *ddisp, GdkEventButton *event)
 {
   GtkWidget *menu;
 
-  popup_shell = ddisp->shell;
   menu = menus_get_display_popup();
 
   gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL,
@@ -837,10 +835,6 @@ ddisplay_destroy (GtkWidget *widget, gpointer data)
   DDisplay *ddisp;
   
   ddisp = (DDisplay *) data;
-
-  if (popup_shell == ddisp->shell) {
-    popup_shell = NULL;
-  }
 
   ddisplay_really_destroy(ddisp);
 }

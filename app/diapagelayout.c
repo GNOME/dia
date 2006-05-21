@@ -485,9 +485,13 @@ dia_page_layout_get_effective_area(DiaPageLayout *self, gfloat *width,
     w = get_paper_psheight(self->papernum);
   }
   h -= dia_unit_spinner_get_value(DIA_UNIT_SPINNER(self->tmargin));
+  g_return_if_fail (h > 0.0);
   h -= dia_unit_spinner_get_value(DIA_UNIT_SPINNER(self->bmargin));
+  g_return_if_fail (h > 0.0);
   w -= dia_unit_spinner_get_value(DIA_UNIT_SPINNER(self->lmargin));
+  g_return_if_fail (w > 0.0);
   w -= dia_unit_spinner_get_value(DIA_UNIT_SPINNER(self->rmargin));
+  g_return_if_fail (w > 0.0);
   scaling = GTK_SPIN_BUTTON(self->scaling)->adjustment->value / 100.0;
   h /= scaling;
   w /= scaling;
@@ -639,6 +643,18 @@ darea_expose_event(DiaPageLayout *self, GdkEventExpose *event)
   return FALSE;
 }
 
+/*!
+ * \brief given a (page) size calculate the maximum margin size from it 
+ *
+ * The function calculation assumes that more than half the size is not useful
+ * for the margin. For safety it allows a little less.
+ */
+static float
+max_margin (float size)
+{
+  return size / 2.0 - 0.5;
+}
+
 static void
 paper_size_change(GtkMenuItem *item, DiaPageLayout *self)
 {
@@ -660,22 +676,22 @@ paper_size_change(GtkMenuItem *item, DiaPageLayout *self)
 
   if (GTK_TOGGLE_BUTTON(self->orient_portrait)->active) {
     gtk_spin_button_get_adjustment(GTK_SPIN_BUTTON(self->tmargin))->upper =
-      get_paper_psheight(self->papernum);
+      max_margin(get_paper_psheight(self->papernum));
     gtk_spin_button_get_adjustment(GTK_SPIN_BUTTON(self->bmargin))->upper =
-      get_paper_psheight(self->papernum);
+      max_margin(get_paper_psheight(self->papernum));
     gtk_spin_button_get_adjustment(GTK_SPIN_BUTTON(self->lmargin))->upper =
-      get_paper_pswidth(self->papernum);
+      max_margin(get_paper_pswidth(self->papernum));
     gtk_spin_button_get_adjustment(GTK_SPIN_BUTTON(self->rmargin))->upper =
-      get_paper_pswidth(self->papernum);
+      max_margin(get_paper_pswidth(self->papernum));
   } else {
     gtk_spin_button_get_adjustment(GTK_SPIN_BUTTON(self->tmargin))->upper =
-      get_paper_pswidth(self->papernum);
+      max_margin(get_paper_pswidth(self->papernum));
     gtk_spin_button_get_adjustment(GTK_SPIN_BUTTON(self->bmargin))->upper =
-      get_paper_pswidth(self->papernum);
+      max_margin(get_paper_pswidth(self->papernum));
     gtk_spin_button_get_adjustment(GTK_SPIN_BUTTON(self->lmargin))->upper =
-      get_paper_psheight(self->papernum);
+      max_margin(get_paper_psheight(self->papernum));
     gtk_spin_button_get_adjustment(GTK_SPIN_BUTTON(self->rmargin))->upper =
-      get_paper_psheight(self->papernum);
+      max_margin(get_paper_psheight(self->papernum));
   }
   self->block_changed = FALSE;
 
@@ -695,22 +711,22 @@ orient_changed(DiaPageLayout *self)
 
   if (GTK_TOGGLE_BUTTON(self->orient_portrait)->active) {
     gtk_spin_button_get_adjustment(GTK_SPIN_BUTTON(self->tmargin))->upper =
-      get_paper_psheight(self->papernum);
+      max_margin(get_paper_psheight(self->papernum));
     gtk_spin_button_get_adjustment(GTK_SPIN_BUTTON(self->bmargin))->upper =
-      get_paper_psheight(self->papernum);
+      max_margin(get_paper_psheight(self->papernum));
     gtk_spin_button_get_adjustment(GTK_SPIN_BUTTON(self->lmargin))->upper =
-      get_paper_pswidth(self->papernum);
+      max_margin(get_paper_pswidth(self->papernum));
     gtk_spin_button_get_adjustment(GTK_SPIN_BUTTON(self->rmargin))->upper =
-      get_paper_pswidth(self->papernum);
+      max_margin(get_paper_pswidth(self->papernum));
   } else {
     gtk_spin_button_get_adjustment(GTK_SPIN_BUTTON(self->tmargin))->upper =
-      get_paper_pswidth(self->papernum);
+      max_margin(get_paper_pswidth(self->papernum));
     gtk_spin_button_get_adjustment(GTK_SPIN_BUTTON(self->bmargin))->upper =
-      get_paper_pswidth(self->papernum);
+      max_margin(get_paper_pswidth(self->papernum));
     gtk_spin_button_get_adjustment(GTK_SPIN_BUTTON(self->lmargin))->upper =
-      get_paper_psheight(self->papernum);
+      max_margin(get_paper_psheight(self->papernum));
     gtk_spin_button_get_adjustment(GTK_SPIN_BUTTON(self->rmargin))->upper =
-      get_paper_psheight(self->papernum);
+      max_margin(get_paper_psheight(self->papernum));
   }
 
   if (!self->block_changed)

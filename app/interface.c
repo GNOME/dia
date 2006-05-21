@@ -156,12 +156,6 @@ interface_toggle_mainpoint_magnetism(GtkWidget *widget, gpointer data)
   ddisplay_flush(ddisp);
 }
 
-/*  The popup shell is a pointer to the display shell that posted the latest
- *  popup menu.  When this is null, and a command is invoked, then the
- *  assumption is that the command was a result of a keyboard accelerator
- */
-GtkWidget *popup_shell = NULL;
-
 static gint
 origin_button_press(GtkWidget *widget, GdkEventButton *event, gpointer data)
 {

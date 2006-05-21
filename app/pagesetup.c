@@ -144,6 +144,7 @@ pagesetup_changed(GtkWidget *wid, PageSetup *ps)
   cur_scaling = dia_page_layout_get_scaling(DIA_PAGE_LAYOUT(ps->paper));
   dia_page_layout_get_effective_area(DIA_PAGE_LAYOUT(ps->paper),
 				     &pwidth, &pheight);
+  g_return_if_fail (pwidth > 0.0 && pheight > 0.0);
   pwidth *= cur_scaling;
   pheight *= cur_scaling;
 

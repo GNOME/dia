@@ -1,3 +1,13 @@
+2006-05-21  Hans Breuer  <hans@breuer.org>
+
+	* app/interface.[hc] app/disp_callbacks.c : removed unused
+	global variable popup_shell
+	
+	* app/pagesetup.c app/diapagelayout.c : restrict every page margin
+	to a little less than half of the page. This guarantees margins
+	leaving some useable page area and thus avoids crashing on negative
+	page sizes. Fixes bug #339562 (also applied to dia-0-95 branch)
+	
 2006-05-20  Hans Breuer  <hans@breuer.org>
 
 	Patch from Robert Staudinger to base dia menus on GtkAction framework
