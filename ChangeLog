@@ -1,4 +1,4 @@
-2006-05-21  Lars Clausen  <lars@raeder.dk>
+2006-05-25  Lars Clausen  <lars@raeder.dk>
 
 	* tests/exports/*.dia: A set of test diagrams for export
 	plug-ins.  The intention is to use these for regression tests by
