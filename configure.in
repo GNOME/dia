@@ -513,6 +513,8 @@ plug-ins/wmf/Makefile
 plug-ins/wpg/Makefile
 plug-ins/xfig/Makefile
 plug-ins/xslt/Makefile
+tests/Makefile
+tests/exports/Makefile
 data/Makefile
 doc/Makefile
 doc/en/Makefile

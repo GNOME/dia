@@ -1,0 +1,56 @@
+% Graphic for TeX using PGF
+% Title: Bezierlines.dia
+% Creator: Dia v0.95+cvs
+% CreationDate: Mon May 15 07:52:30 2006
+% For: larsrc
+% \usepackage{tikz}
+% The following commands are not supported in PSTricks at present
+% We define them conditionally, so when they are implemented,
+% this pgf file will use them.
+\ifx\du\undefined
+  \newlength{\du}
+\fi
+\setlength{\du}{15\unitlength}
+\begin{tikzpicture}
+\pgftransformxscale{1.000000}
+\pgftransformyscale{-1.000000}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\definecolor{dialinecolor}{rgb}{1.000000, 1.000000, 1.000000}
+\pgfsetfillcolor{dialinecolor}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{}{0pt}
+\pgfsetdash{}{0pt}
+\pgfsetmiterjoin
+\pgfsetbuttcap
+{
+\definecolor{dialinecolor}{rgb}{1.000000, 0.647059, 0.000000}
+\pgfsetfillcolor{dialinecolor}
+% was here!!!
+\pgfsetarrowsstart{latex}
+\pgfsetarrowsend{stealth}
+\definecolor{dialinecolor}{rgb}{1.000000, 0.647059, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathmoveto{\pgfpoint{9.940704\du}{2.206266\du}}
+\pgfpathcurveto{\pgfpoint{17.140704\du}{1.656266\du}}{\pgfpoint{5.950000\du}{11.450000\du}}{\pgfpoint{10.650000\du}{8.150000\du}}
+\pgfpathcurveto{\pgfpoint{15.350000\du}{4.850000\du}}{\pgfpoint{14.465400\du}{12.250000\du}}{\pgfpoint{18.300000\du}{12.250000\du}}
+\pgfusepath{stroke}
+}
+\pgfsetlinewidth{0.000000\du}
+\pgfsetdash{{1.000000\du}{0.400000\du}{0.200000\du}{0.400000\du}}{0cm}
+\pgfsetdash{{1.000000\du}{0.400000\du}{0.200000\du}{0.400000\du}}{0cm}
+\pgfsetmiterjoin
+\pgfsetbuttcap
+{
+\definecolor{dialinecolor}{rgb}{0.000000, 1.000000, 0.000000}
+\pgfsetfillcolor{dialinecolor}
+% was here!!!
+\definecolor{dialinecolor}{rgb}{0.000000, 1.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathmoveto{\pgfpoint{4.700000\du}{4.350000\du}}
+\pgfpathcurveto{\pgfpoint{9.348000\du}{4.350000\du}}{\pgfpoint{11.200000\du}{10.650000\du}}{\pgfpoint{8.700000\du}{7.000000\du}}
+\pgfpathcurveto{\pgfpoint{6.200000\du}{3.350000\du}}{\pgfpoint{11.350000\du}{10.950000\du}}{\pgfpoint{11.700000\du}{6.900000\du}}
+\pgfpathcurveto{\pgfpoint{12.050000\du}{2.850000\du}}{\pgfpoint{14.052000\du}{9.250000\du}}{\pgfpoint{18.700000\du}{9.250000\du}}
+\pgfusepath{stroke}
+}
+\end{tikzpicture}

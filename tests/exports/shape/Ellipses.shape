@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
+  <name>shape - Ellipses</name>
+  <icon>Ellipses.png</icon>
+  <connections>
+    <point x="8.325" y="4.8"/>
+    <point x="8.325" y="2.3"/>
+    <point x="4.95" y="3.55"/>
+    <point x="11.7" y="3.55"/>
+    <point x="5.15" y="9.5"/>
+    <point x="5.15" y="2.7"/>
+    <point x="3.15" y="6.1"/>
+    <point x="7.15" y="6.1"/>
+    <point x="8.475" y="9.7"/>
+    <point x="8.475" y="3.55"/>
+    <point x="5.4" y="6.625"/>
+    <point x="11.55" y="6.625"/>
+  </connections>
+  <aspectratio type="fixed"/>
+  <svg:svg>
+    <svg:ellipse style="fill: #0000ff" cx="8.325" cy="3.55" rx="3.375" ry="1.25"/>
+    <svg:ellipse style="fill: none; fill-opacity:0; stroke-width: 0.001; stroke: #000000" cx="8.325" cy="3.55" rx="3.375" ry="1.25"/>
+    <svg:ellipse style="fill: none; fill-opacity:0; stroke-width: 0.11; stroke-dasharray: 1 0.2 0.2 0.2 0.2 0.2; stroke: #ff0000" cx="5.15" cy="6.1" rx="2" ry="3.4"/>
+    <svg:ellipse style="fill: #ffffff" cx="8.475" cy="6.625" rx="3.075" ry="3.075"/>
+    <svg:ellipse style="fill: none; fill-opacity:0; stroke-width: 0.001; stroke-dasharray: 3; stroke: #000000" cx="8.475" cy="6.625" rx="3.075" ry="3.075"/>
+  </svg:svg>
+</shape>

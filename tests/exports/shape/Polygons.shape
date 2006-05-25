@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
+  <name>shape - Polygons</name>
+  <icon>Polygons.png</icon>
+  <connections>
+    <point x="6.9" y="5.65"/>
+    <point x="7" y="3.4"/>
+    <point x="8.9" y="5.15"/>
+    <point x="9.7" y="7.8"/>
+    <point x="3.3" y="6.8"/>
+    <point x="6.95" y="4.525"/>
+    <point x="7.95" y="4.275"/>
+    <point x="9.3" y="6.475"/>
+    <point x="6.5" y="7.3"/>
+    <point x="10.9" y="12"/>
+    <point x="7.25" y="5.35"/>
+    <point x="11.65" y="7.6"/>
+    <point x="11.65" y="7.6"/>
+    <point x="6.55" y="6.65"/>
+    <point x="6.3" y="9.9"/>
+    <point x="9.075" y="8.675"/>
+    <point x="9.45" y="6.475"/>
+    <point x="11.65" y="7.6"/>
+    <point x="9.1" y="7.125"/>
+    <point x="6.425" y="8.275"/>
+    <point x="1.85" y="6.6"/>
+    <point x="4.95" y="5.1"/>
+    <point x="7.8" y="11.5"/>
+    <point x="3.4" y="5.85"/>
+    <point x="6.375" y="8.3"/>
+  </connections>
+  <aspectratio type="fixed"/>
+  <svg:svg>
+    <svg:polygon style="fill: #ff0000" points="6.9,5.65 7,3.4 8.9,5.15 9.7,7.8 3.3,6.8 "/>
+    <svg:polygon style="fill: none; fill-opacity:0; stroke-width: 0.001; stroke: #000000" points="6.9,5.65 7,3.4 8.9,5.15 9.7,7.8 3.3,6.8 "/>
+    <svg:polygon style="fill: none; fill-opacity:0; stroke-width: 0.13; stroke-dasharray: 1 0.4 0.2 0.4; stroke: #00ff00" points="10.9,12 7.25,5.35 11.65,7.6 11.65,7.6 6.55,6.65 6.3,9.9 "/>
+    <svg:polygon style="fill: #ffffff" points="1.85,6.6 4.95,5.1 7.8,11.5 "/>
+    <svg:polygon style="fill: none; fill-opacity:0; stroke-width: 0.001; stroke: #000000" points="1.85,6.6 4.95,5.1 7.8,11.5 "/>
+  </svg:svg>
+</shape>

@@ -1,0 +1,94 @@
+0
+SECTION
+2
+TABLES
+0
+LAYER
+2
+Background
+62
+1
+0
+ENDTAB
+0
+ENDSEC
+0
+SECTION
+2
+ENTITIES
+  0
+TEXT
+  8
+Background
+  6
+CONTINUOUS
+ 10
+8.000000
+ 20
+-2.000000
+ 40
+0.800000
+ 50
+0.000000
+ 72
+0
+  7
+0
+  1
+This is a string in sans italic 0.8
+ 39
+0
+ 62
+1
+  0
+TEXT
+  8
+Background
+  6
+CONTINUOUS
+ 10
+8.000000
+ 20
+-4.000000
+ 40
+0.400000
+ 50
+0.000000
+ 72
+2
+  7
+0
+  1
+This is a string in monospace 0.4
+ 39
+0
+ 62
+1
+  0
+TEXT
+  8
+Background
+  6
+CONTINUOUS
+ 10
+8.000000
+ 20
+-6.000000
+ 40
+1.000000
+ 50
+0.000000
+ 72
+1
+  7
+0
+  1
+This is a string in serif bold 1.0
+ 39
+0
+ 62
+1
+0
+ENDSEC
+0
+EOF

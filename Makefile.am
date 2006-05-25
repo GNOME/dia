@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-SUBDIRS = lib objects plug-ins shapes app samples po sheets data doc
+SUBDIRS = lib objects plug-ins shapes app samples po sheets data doc tests
 
 gnomedatadir = $(datadir)
 
@@ -39,6 +39,10 @@ core-translation-report: po/dia.pot po-checktrans.py po-checktrans
 	-(cd $(srcdir) && ./po-checktrans po/dia.pot po/*.po)
 
 all-local: core-translation-report po/Makefile
+
+
+tests:
+	cd tests && $(MAKE) tests
 
 # on uninstall scrollkeeper will leave behind an empty database
 # See http://mail.gnome.org/archives/desktop-devel-list/2003-July/msg00144.html

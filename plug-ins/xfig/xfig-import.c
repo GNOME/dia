@@ -96,348 +96,6 @@ skip_comments(FILE *file) {
     return FALSE;
 }
 
-static DiaObject *
-create_standard_text(real xpos, real ypos,
-		     DiagramData *dia) {
-    DiaObjectType *otype = object_get_type("Standard - Text");
-    DiaObject *new_obj;
-    Handle *h1, *h2;
-    Point point;
-
-    if (otype == NULL){
-	message_error(_("Can't find standard object"));
-	return NULL;
-    }
-
-    point.x = xpos;
-    point.y = ypos;
-
-    new_obj = otype->ops->create(&point, otype->default_user_data,
-				 &h1, &h2);
-    
-    return new_obj;
-}
-
-static PropDescription xfig_element_prop_descs[] = {
-    { "elem_corner", PROP_TYPE_POINT },
-    { "elem_width", PROP_TYPE_REAL },
-    { "elem_height", PROP_TYPE_REAL },
-    PROP_DESC_END};
-
-static GPtrArray *make_element_props(real xpos, real ypos,
-                                     real width, real height) 
-{
-    GPtrArray *props;
-    PointProperty *pprop;
-    RealProperty *rprop;
-
-    props = prop_list_from_descs(xfig_element_prop_descs,pdtpp_true);
-    g_assert(props->len == 3);
-    
-    pprop = g_ptr_array_index(props,0);
-    pprop->point_data.x = xpos;
-    pprop->point_data.y = ypos;
-    rprop = g_ptr_array_index(props,1);
-    rprop->real_data = width;
-    rprop = g_ptr_array_index(props,2);
-    rprop->real_data = height;
-    
-    return props;
-}
-
-static DiaObject *
-create_standard_ellipse(real xpos, real ypos, real width, real height,
-			DiagramData *dia) {
-    DiaObjectType *otype = object_get_type("Standard - Ellipse");
-    DiaObject *new_obj;
-    Handle *h1, *h2;
-    
-    GPtrArray *props;
-    Point point;
-
-    if (otype == NULL){
-	message_error(_("Can't find standard object"));
-	return NULL;
-    }
-
-    point.x = xpos;
-    point.y = ypos;
-
-    new_obj = otype->ops->create(&point, otype->default_user_data,
-				 &h1, &h2);
-    /*   layer_add_object(dia->active_layer, new_obj); */
-  
-    props = make_element_props(xpos,ypos,width,height);
-    new_obj->ops->set_props(new_obj, props);
-    prop_list_free(props);
-
-    return new_obj;
-}
-
-
-static DiaObject *
-create_standard_box(real xpos, real ypos, real width, real height,
-		    DiagramData *dia) {
-    DiaObjectType *otype = object_get_type("Standard - Box");
-    DiaObject *new_obj;
-    Handle *h1, *h2;
-    Point point;
-    GPtrArray *props;
-
-    if (otype == NULL){
-	message_error(_("Can't find standard object"));
-	return NULL;
-    }
-
-    point.x = xpos;
-    point.y = ypos;
-
-    new_obj = otype->ops->create(&point, otype->default_user_data,
-				 &h1, &h2);
-    /*  layer_add_object(dia->active_layer, new_obj); */
-  
-    props = make_element_props(xpos,ypos,width,height);
-    new_obj->ops->set_props(new_obj, props);
-    prop_list_free(props);
-
-    return new_obj;
-}
-
-static PropDescription xfig_line_prop_descs[] = {
-    PROP_STD_START_ARROW,
-    PROP_STD_END_ARROW,
-    PROP_DESC_END};
-
-static DiaObject *
-create_standard_polyline(int num_points, 
-			 Point *points,
-			 Arrow *end_arrow,
-			 Arrow *start_arrow,
-			 DiagramData *dia) {
-    DiaObjectType *otype = object_get_type("Standard - PolyLine");
-    DiaObject *new_obj;
-    Handle *h1, *h2;
-    MultipointCreateData *pcd;
-    GPtrArray *props;
-
-    if (otype == NULL){
-	message_error(_("Can't find standard object"));
-	return NULL;
-    }
-
-    pcd = g_new(MultipointCreateData, 1);
-    pcd->num_points = num_points;
-    pcd->points = points;
-
-    new_obj = otype->ops->create(NULL, pcd,
-				 &h1, &h2);
-
-    g_free(pcd);
-
-    props = prop_list_from_descs(xfig_line_prop_descs,pdtpp_true);
-    g_assert(props->len == 2);
-    
-    if (start_arrow != NULL)
-	((ArrowProperty *)g_ptr_array_index(props, 0))->arrow_data = *start_arrow;
-    if (end_arrow != NULL)
-	((ArrowProperty *)g_ptr_array_index(props, 1))->arrow_data = *end_arrow;
-
-    new_obj->ops->set_props(new_obj, props);
-    prop_list_free(props);
-    
-    return new_obj;
-}
-
-static DiaObject *
-create_standard_polygon(int num_points, 
-			Point *points,
-			DiagramData *dia) {
-    DiaObjectType *otype = object_get_type("Standard - Polygon");
-    DiaObject *new_obj;
-    Handle *h1, *h2;
-    MultipointCreateData *pcd;
-
-    if (otype == NULL){
-	message_error(_("Can't find standard object"));
-	return NULL;
-    }
-
-    pcd = g_new(MultipointCreateData, 1);
-    pcd->num_points = num_points;
-    pcd->points = points;
-
-    new_obj = otype->ops->create(NULL, pcd, &h1, &h2);
-
-    g_free(pcd);
-    
-    return new_obj;
-}
-
-static DiaObject *
-create_standard_bezierline(int num_points, 
-			   BezPoint *points,
-			   Arrow *end_arrow,
-			   Arrow *start_arrow,
-			   DiagramData *dia) {
-    DiaObjectType *otype = object_get_type("Standard - BezierLine");
-    DiaObject *new_obj;
-    Handle *h1, *h2;
-    BezierCreateData *bcd;
-    GPtrArray *props;
-
-    if (otype == NULL){
-	message_error(_("Can't find standard object"));
-	return NULL;
-    }
-
-    bcd = g_new(BezierCreateData, 1);
-    bcd->num_points = num_points;
-    bcd->points = points;
-
-    new_obj = otype->ops->create(NULL, bcd,
-				 &h1, &h2);
-
-    g_free(bcd);
-    
-    props = prop_list_from_descs(xfig_line_prop_descs,pdtpp_true);
-    g_assert(props->len == 2);
-    
-    if (start_arrow != NULL)
-	((ArrowProperty *)g_ptr_array_index(props, 0))->arrow_data = *start_arrow;
-    if (end_arrow != NULL)
-	((ArrowProperty *)g_ptr_array_index(props, 1))->arrow_data = *end_arrow;
-
-    new_obj->ops->set_props(new_obj, props);
-    prop_list_free(props);
-    
-    return new_obj;
-}
-
-static DiaObject *
-create_standard_beziergon(int num_points, 
-			  BezPoint *points,
-			  DiagramData *dia) {
-    DiaObjectType *otype = object_get_type("Standard - Beziergon");
-    DiaObject *new_obj;
-    Handle *h1, *h2;
-    BezierCreateData *bcd;
-
-    if (otype == NULL){
-	message_error(_("Can't find standard object"));
-	return NULL;
-    }
-
-    bcd = g_new(BezierCreateData, 1);
-    bcd->num_points = num_points;
-    bcd->points = points;
-
-    new_obj = otype->ops->create(NULL, bcd,
-				 &h1, &h2);
-
-    g_free(bcd);
-    
-    return new_obj;
-}
-
-
-static PropDescription xfig_arc_prop_descs[] = {
-    { "curve_distance", PROP_TYPE_REAL },
-    PROP_STD_START_ARROW,
-    PROP_STD_END_ARROW,
-    PROP_DESC_END};
-
-static DiaObject *
-create_standard_arc(real x1, real y1, real x2, real y2,
-		    real radius, 
-		    Arrow *end_arrow,
-		    Arrow *start_arrow,
-		    DiagramData *dia) {
-    DiaObjectType *otype = object_get_type("Standard - Arc");
-    DiaObject *new_obj;
-    Handle *h1, *h2;
-    Point point;
-    GPtrArray *props;
-
-    if (otype == NULL){
-	message_error(_("Can't find standard object"));
-	return NULL;
-    }
-
-    point.x = x1;
-    point.y = y1;
-
-    new_obj = otype->ops->create(&point, otype->default_user_data,
-				 &h1, &h2);
-    /*    layer_add_object(dia->active_layer, new_obj); */
-    
-    props = prop_list_from_descs(xfig_arc_prop_descs,pdtpp_true);
-    g_assert(props->len == 3);
-    
-    ((RealProperty *)g_ptr_array_index(props,0))->real_data = radius;
-    if (start_arrow != NULL)
-	((ArrowProperty *)g_ptr_array_index(props, 1))->arrow_data = *start_arrow;
-    if (end_arrow != NULL)
-	((ArrowProperty *)g_ptr_array_index(props, 2))->arrow_data = *end_arrow;
-
-    new_obj->ops->set_props(new_obj, props);
-    prop_list_free(props);
-
-    return new_obj;
-}
-
-static PropDescription xfig_file_prop_descs[] = {
-    { "image_file", PROP_TYPE_FILE },
-    PROP_DESC_END};
-
-static DiaObject *
-create_standard_image(real xpos, real ypos, real width, real height,
-		      char *file, DiagramData *dia) {
-    DiaObjectType *otype = object_get_type("Standard - Image");
-    DiaObject *new_obj;
-    Handle *h1, *h2;
-    Point point;
-    GPtrArray *props;
-    StringProperty *sprop;
-
-    if (otype == NULL){
-	message_error(_("Can't find standard object"));
-	return NULL;
-    }
-
-    point.x = xpos;
-    point.y = ypos;
-
-    new_obj = otype->ops->create(&point, otype->default_user_data,
-				 &h1, &h2);
-    /*    layer_add_object(dia->active_layer, new_obj); */
-    
-    props = make_element_props(xpos,ypos,width,height);
-    new_obj->ops->set_props(new_obj, props);
-    prop_list_free(props);
-
-
-    props = prop_list_from_descs(xfig_file_prop_descs,pdtpp_true);
-    g_assert(props->len == 1);    
-    sprop = g_ptr_array_index(props,0);
-    g_free(sprop->string_data);
-    sprop->string_data = g_strdup(file);
-    new_obj->ops->set_props(new_obj, props);
-    prop_list_free(props);
-
-    return new_obj;
-}
-
-static DiaObject *
-create_standard_group(GList *items, DiagramData *dia) {
-    DiaObject *new_obj;
-
-    new_obj = group_create((GList*)items);
-
-    /*    layer_add_object(dia->active_layer, new_obj); */
-
-    return new_obj;
-}
-
 static Color
 fig_color(int color_index) 
 {
@@ -727,7 +385,7 @@ add_at_depth(DiaObject *newobj, int depth) {
 }
 
 static DiaObject *
-fig_read_ellipse(FILE *file, DiagramData *dia) {
+fig_read_ellipse(FILE *file) {
     int sub_type;
     int line_style;
     int thickness;
@@ -774,8 +432,7 @@ fig_read_ellipse(FILE *file, DiagramData *dia) {
     newobj = create_standard_ellipse((center_x-radius_x)/FIG_UNIT,
 				     (center_y-radius_y)/FIG_UNIT,
 				     (2*radius_x)/FIG_UNIT,
-				     (2*radius_y)/FIG_UNIT,
-				     dia);
+				     (2*radius_y)/FIG_UNIT);
     if (newobj == NULL) return NULL;
     fig_simple_properties(newobj, line_style, style_val, thickness,
 			  pen_color, fill_color, area_fill);
@@ -792,7 +449,7 @@ fig_read_ellipse(FILE *file, DiagramData *dia) {
 }
 
 static DiaObject *
-fig_read_polyline(FILE *file, DiagramData *dia) {
+fig_read_polyline(FILE *file) {
     int sub_type;
     int line_style;
     int thickness;
@@ -886,7 +543,7 @@ fig_read_polyline(FILE *file, DiagramData *dia) {
 	}
 	newobj = create_standard_box(points[0].x, points[0].y,
 				     points[2].x-points[0].x,
-				     points[2].y-points[0].y, dia);
+				     points[2].y-points[0].y);
 	if (newobj == NULL) goto exit;
 	newobj->ops->set_props(newobj, props);
 	break;
@@ -894,18 +551,17 @@ fig_read_polyline(FILE *file, DiagramData *dia) {
 	newobj = create_standard_image(points[0].x, points[0].y,
 				       points[2].x-points[0].x,
 				       points[2].y-points[0].y,
-				       image_file, dia);
+				       image_file);
 	if (newobj == NULL) goto exit;
 	break;
     case 1: /* polyline */
 	newobj = create_standard_polyline(npoints, points, 
 					  forward_arrow_info, 
-					  backward_arrow_info,
-					  dia);
+					  backward_arrow_info);
 	if (newobj == NULL) goto exit;
 	break;
     case 3: /* polygon */
-	newobj = create_standard_polygon(npoints, points, dia);
+	newobj = create_standard_polygon(npoints, points);
 	if (newobj == NULL) goto exit;
 	break;
     default: 
@@ -1023,7 +679,7 @@ static real matrix_catmull_to_bezier[4][4] =
      {0,      0,   5,   5/6.0}};
 
 static DiaObject *
-fig_read_spline(FILE *file, DiagramData *dia) {
+fig_read_spline(FILE *file) {
     int sub_type;
     int line_style;
     int thickness;
@@ -1108,28 +764,26 @@ fig_read_spline(FILE *file, DiagramData *dia) {
 		bezpoints = fig_transform_spline(npoints, points, FALSE, f);
 		newobj = create_standard_bezierline(npoints, bezpoints,
 						    forward_arrow_info,
-						    backward_arrow_info,
-						    dia);
+						    backward_arrow_info);
 	    } else {
 		points = g_renew(Point, points, npoints+1);
 		points[npoints] = points[0];
 		npoints++;
 		bezpoints = fig_transform_spline(npoints, points, TRUE, f);
-		newobj = create_standard_beziergon(npoints, bezpoints, dia);
+		newobj = create_standard_beziergon(npoints, bezpoints);
 	    }
 #else
 	    if (sub_type%2 == 0) {
 		bezpoints = transform_spline(npoints, points, FALSE);
 		newobj = create_standard_bezierline(npoints, bezpoints,
 						    forward_arrow_info,
-						    backward_arrow_info,
-						    dia);
+						    backward_arrow_info);
 	    } else {
 		points = g_renew(Point, points, npoints+1);
 		points[npoints] = points[0];
 		npoints++;
 		bezpoints = transform_spline(npoints, points, TRUE);
-		newobj = create_standard_beziergon(npoints, bezpoints, dia);
+		newobj = create_standard_beziergon(npoints, bezpoints);
 	    }
 #endif
 	}
@@ -1158,7 +812,7 @@ fig_read_spline(FILE *file, DiagramData *dia) {
 }
 
 static DiaObject *
-fig_read_arc(FILE *file, DiagramData *dia) {
+fig_read_arc(FILE *file) {
     int sub_type;
     int line_style;
     int thickness;
@@ -1220,8 +874,7 @@ fig_read_arc(FILE *file, DiagramData *dia) {
 				     x3/FIG_UNIT, y3/FIG_UNIT,
 				     radius, 
 				     forward_arrow_info,
-				     backward_arrow_info,
-				     dia);
+				     backward_arrow_info);
 	if (newobj == NULL) goto exit;
 	break;
     default: 
@@ -1256,7 +909,7 @@ static PropDescription xfig_text_descs[] = {
 };
 
 static DiaObject *
-fig_read_text(FILE *file, DiagramData *dia) {
+fig_read_text(FILE *file) {
     GPtrArray *props = NULL;
     TextProperty *tprop;
 
@@ -1296,7 +949,7 @@ fig_read_text(FILE *file, DiagramData *dia) {
     /* Skip one space exactly */
     text_buf = fig_read_text_line(file);
 
-    newobj = create_standard_text(x/FIG_UNIT, y/FIG_UNIT, dia);
+    newobj = create_standard_text(x/FIG_UNIT, y/FIG_UNIT);
     if (newobj == NULL) goto exit;
 
     props = prop_list_from_descs(xfig_text_descs,pdtpp_true);
@@ -1345,7 +998,7 @@ fig_read_text(FILE *file, DiagramData *dia) {
 }
 
 static gboolean
-fig_read_object(FILE *file, DiagramData *dia) {
+fig_read_object(FILE *file) {
     int objecttype;
     DiaObject *item = NULL;
 
@@ -1364,7 +1017,7 @@ fig_read_object(FILE *file, DiagramData *dia) {
 	}
 
 	/* Make group item with these items */
-	item = create_standard_group((GList*)compound_stack->data, dia);
+	item = create_standard_group((GList*)compound_stack->data);
 	compound_stack = g_slist_remove(compound_stack, compound_stack->data);
 	if (compound_stack == NULL) {
 	    depths[compound_depth] = g_list_append(depths[compound_depth],
@@ -1396,32 +1049,32 @@ fig_read_object(FILE *file, DiagramData *dia) {
 	break;
     }
     case 1: { /* Ellipse which is a generalization of circle. */
-	item = fig_read_ellipse(file, dia);
+	item = fig_read_ellipse(file);
 	if (item == NULL) {
 	    return FALSE;
 	}
 	break;
     }
     case 2: /* Polyline which includes polygon and box. */
-	item = fig_read_polyline(file, dia);
+	item = fig_read_polyline(file);
 	if (item == NULL) {
 	    return FALSE;
 	}
 	break;
     case 3: /* Spline which includes closed/open control/interpolated spline. */
-	item = fig_read_spline(file, dia);
+	item = fig_read_spline(file);
 	if (item == NULL) {
 	    return FALSE;
 	}
 	break;
     case 4: /* Text. */
-	item = fig_read_text(file, dia);
+	item = fig_read_text(file);
 	if (item == NULL) {
 	    return FALSE;
 	}
 	break;
     case 5: /* Arc. */
-	item = fig_read_arc(file, dia);
+	item = fig_read_arc(file);
 	if (item == NULL) {
 	    return FALSE;
 	}
@@ -1645,7 +1298,7 @@ import_fig(const gchar *filename, DiagramData *dia, void* user_data) {
 		break;
 	    }
 	}
-	if (! fig_read_object(figfile, dia)) {
+	if (! fig_read_object(figfile)) {
 	    fclose(figfile);
 	    break;
 	}

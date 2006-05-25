@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
+<svg width="11cm" height="5cm" viewBox="2 1 11 5">
+  <rect style="fill: #00ff00" x="3.25" y="2.4" width="6.55" height="2.15" rx="1.17549e-39" ry="1.17549e-39"/>
+  <rect style="fill: none; fill-opacity:0; stroke-width: 0.001; stroke-dasharray: 1 0.2 0.2 0.2 0.2 0.2; stroke: #000000" x="3.25" y="2.4" width="6.55" height="2.15" rx="1.17549e-39" ry="1.17549e-39"/>
+  <rect style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #ff0000" x="2.45" y="3.75" width="4.65" height="2.75" rx="0.08" ry="0.08"/>
+  <rect style="fill: #ffffff" x="8.3" y="1.8" width="4.45" height="4.45" rx="1.17549e-39" ry="1.17549e-39"/>
+  <rect style="fill: none; fill-opacity:0; stroke-width: 0.001; stroke: #000000" x="8.3" y="1.8" width="4.45" height="4.45" rx="1.17549e-39" ry="1.17549e-39"/>
+</svg>

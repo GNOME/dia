@@ -1,0 +1,150 @@
+0
+SECTION
+2
+TABLES
+0
+LAYER
+2
+Background
+62
+1
+0
+ENDTAB
+0
+ENDSEC
+0
+SECTION
+2
+ENTITIES
+  0
+LINE
+  8
+Background
+  6
+DASH
+ 10
+3.595873
+ 20
+-3.106830
+ 11
+14.150000
+ 21
+-3.400000
+ 39
+1
+  0
+LINE
+  8
+Background
+  6
+CONTINUOUS
+ 10
+3.979685
+ 20
+-2.867395
+ 11
+3.472936
+ 21
+-3.103415
+ 39
+1
+  0
+LINE
+  8
+Background
+  6
+CONTINUOUS
+ 10
+3.472936
+ 20
+-3.103415
+ 11
+3.965802
+ 21
+-3.367202
+ 39
+1
+  0
+LINE
+  8
+Background
+  6
+CONTINUOUS
+ 10
+9.800000
+ 20
+-11.700000
+ 11
+8.811656
+ 21
+-3.746184
+ 39
+0
+  0
+LINE
+  8
+Background
+  6
+CONTINUOUS
+ 10
+8.811656
+ 20
+-3.746184
+ 11
+9.678950
+ 21
+-5.049181
+ 39
+0
+  0
+LINE
+  8
+Background
+  6
+CONTINUOUS
+ 10
+9.678950
+ 20
+-5.049181
+ 11
+8.941134
+ 21
+-4.788170
+ 39
+0
+  0
+LINE
+  8
+Background
+  6
+CONTINUOUS
+ 10
+8.941134
+ 20
+-4.788170
+ 11
+8.289635
+ 21
+-5.221818
+ 39
+0
+  0
+LINE
+  8
+Background
+  6
+CONTINUOUS
+ 10
+8.289635
+ 20
+-5.221818
+ 11
+8.811656
+ 21
+-3.746184
+ 39
+0
+0
+ENDSEC
+0
+EOF

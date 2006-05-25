@@ -122,6 +122,7 @@ libdia_la_SOURCES =  \
 		boundingbox.h \
 		dynamic_obj.c \
 		dynamic_obj.h \
+		create.c \
 		create.h \
 		dia-enums.h \
 		diatransform.h \

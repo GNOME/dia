@@ -1,3 +1,22 @@
+2006-05-21  Lars Clausen  <lars@raeder.dk>
+
+	* tests/exports/*.dia: A set of test diagrams for export
+	plug-ins.  The intention is to use these for regression tests by
+	ensuring that they don't change when code is altered, or if they
+	change that a manual inspection proves them ok.  The fact that an
+	export plug-in passes these tests doesn't mean it's perfect, just
+	that is hasn't degraded.
+	
+	* plug-ins/xfig/xfig-import.c: 
+	* plug-ins/vdx/vdx-import.c: 
+	* lib/create.[ch]: Functions taken from xfig to create some
+	standard objects easily.  Uses of them updated, no longer need to
+	take DiagramData.
+
+	* plug-ins/vdx/*: First draft of VDX (Visio XML) plug-in from Ian
+	Redfern <Ian Redfern <Ian.Redfern@LogicaCMG.com>.  Also a bunch of
+	samples for the purpose from the vdxtosvg project.
+
 2006-05-21  Hans Breuer  <hans@breuer.org>
 
 	* app/interface.[hc] app/disp_callbacks.c : removed unused

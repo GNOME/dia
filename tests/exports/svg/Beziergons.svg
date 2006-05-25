@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
+<svg width="15cm" height="10cm" viewBox="1 2 15 10">
+  <path style="fill: #d8e5e5" d="M 2.15 6.35 C 10.2,6.15 3.15,2 8.6,4.45 C 14.05,6.9 11.75,11.75 10.4,8.6 C 9.8,12.95 1.15031,6.37484 2.15,6.35z"/>
+  <path style="fill: none; fill-opacity:0; stroke-width: 0.21; stroke: #00ff00" d="M 2.15 6.35 C 10.2,6.15 3.15,2 8.6,4.45 C 14.05,6.9 11.75,11.75 10.4,8.6 C 9.8,12.95 1.15031,6.37484 2.15,6.35"/>
+  <path style="fill: #ffffff" d="M 6.6 6.35 C 7.6,6.35 11.6,11.15 8.6,10.75 C 5.6,10.35 13.9,6.65 9.45,7.05 C 5,7.45 10.9,12.35 9.9,12.35 C 8.9,12.35 1.4,5.1 4.1,10.55 C 6.8,16 5.6,6.35 6.6,6.35z"/>
+  <path style="fill: none; fill-opacity:0; stroke-width: 0.001; stroke: #000000" d="M 6.6 6.35 C 7.6,6.35 11.6,11.15 8.6,10.75 C 5.6,10.35 13.9,6.65 9.45,7.05 C 5,7.45 10.9,12.35 9.9,12.35 C 8.9,12.35 1.4,5.1 4.1,10.55 C 6.8,16 5.6,6.35 6.6,6.35"/>
+  <path style="fill: none; fill-opacity:0; stroke-width: 0.001; stroke-dasharray: 0.3 0.12 0.06 0.12; stroke: #000000" d="M 2.9 2.9 C 3.9,2.9 17.65,9.1 16.65,9.1 C 15.65,9.1 1.9,2.9 2.9,2.9"/>
+</svg>

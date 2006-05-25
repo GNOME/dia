@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
+  <name>shape - Bezierlines</name>
+  <icon>Bezierlines.png</icon>
+  <connections>
+    <point x="18.1882" y="12.25"/>
+    <point x="15.7882" y="13.45"/>
+    <point x="16.3882" y="12.25"/>
+    <point x="15.7882" y="11.05"/>
+    <point x="16.9882" y="12.85"/>
+    <point x="16.0882" y="12.85"/>
+    <point x="16.0882" y="11.65"/>
+  </connections>
+  <aspectratio type="fixed"/>
+  <svg:svg>
+    <svg:path style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #ffa500" d="M 10.4891 2.16437 C 17.1407,1.65627 5.95,11.45 10.65,8.15 C 15.35,4.85 14.4654,12.25 16.3882,12.25"/>
+    <svg:polygon style="fill: #ffa500" points="10.4701,1.9151 9.99056,2.20246 10.5081,2.41365 "/>
+    <svg:polygon style="fill: #ffa500" points="18.1882,12.25 15.7882,13.45 16.3882,12.25 15.7882,11.05 "/>
+    <svg:polygon style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #ffa500" points="18.1882,12.25 15.7882,13.45 16.3882,12.25 15.7882,11.05 "/>
+    <svg:path style="fill: none; fill-opacity:0; stroke-width: 0.001; stroke-dasharray: 1 0.4 0.2 0.4; stroke: #00ff00" d="M 4.7 4.35 C 9.348,4.35 11.2,10.65 8.7,7 C 6.2,3.35 11.35,10.95 11.7,6.9 C 12.05,2.85 14.052,9.25 18.7,9.25"/>
+  </svg:svg>
+</shape>

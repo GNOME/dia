@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
+  <name>shape - Lines</name>
+  <icon>Lines.png</icon>
+  <connections>
+    <point x="3.59587" y="3.10683"/>
+    <point x="14.15" y="3.4"/>
+    <point x="8.87294" y="3.25341"/>
+    <point x="3.97969" y="2.86739"/>
+    <point x="3.47294" y="3.10341"/>
+    <point x="3.9658" y="3.3672"/>
+    <point x="3.72631" y="2.9854"/>
+    <point x="3.71937" y="3.23531"/>
+    <point x="9.8" y="11.7"/>
+    <point x="8.81166" y="3.74618"/>
+    <point x="9.30583" y="7.72309"/>
+    <point x="8.81166" y="3.74618"/>
+    <point x="9.67895" y="5.04918"/>
+    <point x="8.94113" y="4.78817"/>
+    <point x="8.28964" y="5.22182"/>
+    <point x="9.2453" y="4.39768"/>
+    <point x="9.31004" y="4.91868"/>
+    <point x="8.61538" y="5.00499"/>
+  </connections>
+  <aspectratio type="fixed"/>
+  <svg:svg>
+    <svg:line style="fill: none; fill-opacity:0; stroke-width: 0.11; stroke-dasharray: 1; stroke: #ff0000" x1="3.59587" y1="3.10683" x2="14.15" y2="3.4"/>
+    <svg:polyline style="fill: none; fill-opacity:0; stroke-width: 0.11; stroke: #ff0000" points="3.97969,2.86739 3.47294,3.10341 3.9658,3.3672 "/>
+    <svg:line style="fill: none; fill-opacity:0; stroke-width: 0.001; stroke: #000000" x1="9.8" y1="11.7" x2="8.81166" y2="3.74618"/>
+    <svg:polygon style="fill: #000000" points="8.81166,3.74618 9.67895,5.04918 8.94113,4.78817 8.28964,5.22182 "/>
+    <svg:polygon style="fill: none; fill-opacity:0; stroke-width: 0.001; stroke: #000000" points="8.81166,3.74618 9.67895,5.04918 8.94113,4.78817 8.28964,5.22182 "/>
+  </svg:svg>
+</shape>

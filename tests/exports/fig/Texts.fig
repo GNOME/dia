@@ -1,0 +1,18 @@
+#FIG 3.2
+Portrait
+Center
+Metric
+Letter
+100.000000
+Single
+-2
+1200 2
+6 0 0 0 0
+4 0 0 0 0 17 22.762205 0.0 6 0.0 0.0 3779 944 This is a string in sans italic 0.8\001
+-6
+6 0 0 0 0
+4 2 0 0 0 12 11.381102 0.0 6 0.0 0.0 3779 1889 This is a string in monospace 0.4\001
+-6
+6 0 0 0 0
+4 1 0 0 0 2 28.452756 0.0 6 0.0 0.0 3779 2834 This is a string in serif bold 1.0\001
+-6

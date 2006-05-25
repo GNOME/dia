@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
+<svg width="15cm" height="9cm" viewBox="3 3 15 9">
+  <path style="fill: none; fill-opacity:0; stroke-width: 0.23; stroke-dasharray: 1; stroke: #ffa500" d="M 3.85,4.81994 A 0.130055,0.130055 0 0 0 3.98006,4.95"/>
+  <line style="fill: none; fill-opacity:0; stroke-width: 0.23; stroke-dasharray: 1; stroke: #ffa500" x1="3.85" y1="4.58215" x2="3.85" y2="4.81994"/>
+  <path style="fill: none; fill-opacity:0; stroke-width: 0.23; stroke-dasharray: 1; stroke: #ffa500" d="M 13.95,5.55 A 0.6,0.6 0 0 0 13.35,4.95"/>
+  <line style="fill: none; fill-opacity:0; stroke-width: 0.23; stroke-dasharray: 1; stroke: #ffa500" x1="3.98006" y1="4.95" x2="13.35" y2="4.95"/>
+  <line style="fill: none; fill-opacity:0; stroke-width: 0.23; stroke-dasharray: 1; stroke: #ffa500" x1="13.95" y1="5.55" x2="13.95" y2="11.75"/>
+  <polygon style="fill: #ffa500" points="3.85,4.20715 4.1,4.70715 3.85,4.58215 3.6,4.70715 "/>
+  <polygon style="fill: none; fill-opacity:0; stroke-width: 0.23; stroke: #ffa500" points="3.85,4.20715 4.1,4.70715 3.85,4.58215 3.6,4.70715 "/>
+  <polyline style="fill: none; fill-opacity:0; stroke-width: 0.001; stroke: #000000" points="7.9,7.15 7.9,9.775 16.9,9.775 16.9,12.4 "/>
+  <polyline style="fill: none; fill-opacity:0; stroke-width: 0.001; stroke: #000000" points="8.15,7.65 7.9,7.15 7.65,7.65 "/>
+  <polygon style="fill: #000000" points="16.4,11.4 16.9,12.4 17.4,11.4 "/>
+</svg>

@@ -37,4 +37,32 @@ struct _BezierCreateData {
   BezPoint *points; /**< data */
 };
 
+/** Create a text object for the diagram.
+ * @param xpos X position (in cm from the origo) of the object.
+ * @param ypos Y position (in cm from the origo) of the object.
+ * @param 
+ */
+DiaObject *
+create_standard_text(real xpos, real ypos);
+DiaObject *
+create_standard_ellipse(real xpos, real ypos, real width, real height);
+DiaObject *
+create_standard_box(real xpos, real ypos, real width, real height);
+DiaObject *
+create_standard_polyline(int num_points,  Point *points,
+			 Arrow *end_arrow, Arrow *start_arrow);
+DiaObject *
+create_standard_polygon(int num_points, Point *points);
+DiaObject *
+create_standard_bezierline(int num_points, BezPoint *points,
+			   Arrow *end_arrow, Arrow *start_arrow);
+DiaObject *
+create_standard_beziergon(int num_points, BezPoint *points);
+DiaObject *
+create_standard_arc(real x1, real y1, real x2, real y2,
+		    real radius, 
+		    Arrow *end_arrow, Arrow *start_arrow);
+DiaObject *
+create_standard_image(real xpos, real ypos, real width, real height,
+		      char *file);
 #endif

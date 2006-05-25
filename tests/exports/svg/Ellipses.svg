@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
+<svg width="9cm" height="8cm" viewBox="3 2 9 8">
+  <ellipse style="fill: #0000ff" cx="8.325" cy="3.55" rx="3.375" ry="1.25"/>
+  <ellipse style="fill: none; fill-opacity:0; stroke-width: 0.001; stroke: #000000" cx="8.325" cy="3.55" rx="3.375" ry="1.25"/>
+  <ellipse style="fill: none; fill-opacity:0; stroke-width: 0.11; stroke-dasharray: 1 0.2 0.2 0.2 0.2 0.2; stroke: #ff0000" cx="5.15" cy="6.1" rx="2" ry="3.4"/>
+  <ellipse style="fill: #ffffff" cx="8.475" cy="6.625" rx="3.075" ry="3.075"/>
+  <ellipse style="fill: none; fill-opacity:0; stroke-width: 0.001; stroke-dasharray: 3; stroke: #000000" cx="8.475" cy="6.625" rx="3.075" ry="3.075"/>
+</svg>

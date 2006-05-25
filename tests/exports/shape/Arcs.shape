@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
+  <name>shape - Arcs</name>
+  <icon>Arcs.png</icon>
+  <connections>
+    <point x="5.32219" y="3.43501"/>
+    <point x="5.40433" y="3.98796"/>
+    <point x="5.20559" y="3.79142"/>
+    <point x="4.92911" y="3.83249"/>
+    <point x="5.36326" y="3.71148"/>
+    <point x="5.30496" y="3.88969"/>
+    <point x="5.06735" y="3.81195"/>
+    <point x="11.6871" y="3.48911"/>
+    <point x="12.2446" y="3.53143"/>
+    <point x="11.9658" y="3.51027"/>
+    <point x="11.6871" y="3.48911"/>
+    <point x="12.0554" y="3.06857"/>
+    <point x="11.8713" y="3.27884"/>
+    <point x="11.7817" y="3.72054"/>
+    <point x="11.5926" y="3.25768"/>
+    <point x="11.6871" y="3.48911"/>
+    <point x="4.95" y="10.4"/>
+    <point x="4.63248" y="9.61312"/>
+    <point x="5.41935" y="9.2956"/>
+    <point x="5.73688" y="10.0825"/>
+    <point x="4.79124" y="10.0066"/>
+    <point x="5.02591" y="9.45436"/>
+    <point x="5.57812" y="9.68904"/>
+  </connections>
+  <aspectratio type="fixed"/>
+  <svg:svg>
+    <svg:path style="fill: none; fill-opacity:0; stroke-width: 0.08; stroke-dasharray: 0.2; stroke: #ff0000" d="M 5.22492,3.79596 A 5.42093,5.42093 0 0 0 12.15,10.2"/>
+    <svg:polygon style="fill: #ff0000" points="5.32219,3.43501 5.40433,3.98796 5.20559,3.79142 4.92911,3.83249 "/>
+    <svg:polygon style="fill: none; fill-opacity:0; stroke-width: 0.08; stroke: #ff0000" points="5.32219,3.43501 5.40433,3.98796 5.20559,3.79142 4.92911,3.83249 "/>
+    <svg:path style="fill: none; fill-opacity:0; stroke-width: 0.001; stroke: #000000" d="M 12.15,3.3 A 13.2812,13.2812 0 0 0 5.46704,9.32115"/>
+    <svg:line style="fill: none; fill-opacity:0; stroke-width: 0.001; stroke: #000000" x1="11.6871" y1="3.48911" x2="12.2446" y2="3.53143"/>
+    <svg:line style="fill: none; fill-opacity:0; stroke-width: 0.001; stroke: #000000" x1="11.6871" y1="3.48911" x2="12.0554" y2="3.06857"/>
+    <svg:line style="fill: none; fill-opacity:0; stroke-width: 0.001; stroke: #000000" x1="11.7817" y1="3.72054" x2="11.5926" y2="3.25768"/>
+    <svg:polygon style="fill: #ffffff" points="4.95,10.4 4.63248,9.61312 5.41935,9.2956 5.73688,10.0825 "/>
+    <svg:polygon style="fill: none; fill-opacity:0; stroke-width: 0.001; stroke: #000000" points="4.95,10.4 4.63248,9.61312 5.41935,9.2956 5.73688,10.0825 "/>
+    <svg:path style="fill: none; fill-opacity:0; stroke-width: 0.001; stroke: #000000" d="M 14.2,9.25 A 2.6366,2.6366 0 0 0 13.35,9.4"/>
+  </svg:svg>
+</shape>

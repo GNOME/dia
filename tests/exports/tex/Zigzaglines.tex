@@ -1,0 +1,50 @@
+% Graphic for TeX using PGF
+% Title: Zigzaglines.dia
+% Creator: Dia v0.95+cvs
+% CreationDate: Mon May 15 07:52:45 2006
+% For: larsrc
+% \usepackage{tikz}
+% The following commands are not supported in PSTricks at present
+% We define them conditionally, so when they are implemented,
+% this pgf file will use them.
+\ifx\du\undefined
+  \newlength{\du}
+\fi
+\setlength{\du}{15\unitlength}
+\begin{tikzpicture}
+\pgftransformxscale{1.000000}
+\pgftransformyscale{-1.000000}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\definecolor{dialinecolor}{rgb}{1.000000, 1.000000, 1.000000}
+\pgfsetfillcolor{dialinecolor}
+\pgfsetlinewidth{0.230000\du}
+\pgfsetdash{{1.000000\du}{1.000000\du}}{0\du}
+\pgfsetdash{{1.000000\du}{1.000000\du}}{0\du}
+\pgfsetmiterjoin
+\pgfsetbuttcap
+{
+\definecolor{dialinecolor}{rgb}{1.000000, 0.647059, 0.000000}
+\pgfsetfillcolor{dialinecolor}
+% was here!!!
+\pgfsetarrowsstart{stealth}
+{\pgfsetcornersarced{\pgfpoint{0.600000\du}{0.600000\du}}\definecolor{dialinecolor}{rgb}{1.000000, 0.647059, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\draw (3.850000\du,3.950000\du)--(3.850000\du,4.950000\du)--(13.950000\du,4.950000\du)--(13.950000\du,11.750000\du);
+}}
+\pgfsetlinewidth{0.000000\du}
+\pgfsetdash{}{0pt}
+\pgfsetdash{}{0pt}
+\pgfsetmiterjoin
+\pgfsetbuttcap
+{
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetfillcolor{dialinecolor}
+% was here!!!
+\pgfsetarrowsstart{to}
+\pgfsetarrowsend{latex}
+{\pgfsetcornersarced{\pgfpoint{0.000000\du}{0.000000\du}}\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\draw (7.900000\du,7.150000\du)--(7.900000\du,9.775000\du)--(16.900000\du,9.775000\du)--(16.900000\du,12.400000\du);
+}}
+\end{tikzpicture}
