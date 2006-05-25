@@ -131,7 +131,7 @@ diagram_data_finalize(GObject *object)
 {
   DiagramData *data = DIA_DIAGRAM_DATA(object);
 
-  int i;
+  guint i;
 
   g_free(data->paper.name);
 
@@ -239,7 +239,7 @@ layer_destroy(Layer *layer)
 void
 data_raise_layer(DiagramData *data, Layer *layer)
 {
-  int i;
+  guint i;
   int layer_nr = -1;
   Layer *tmp;
   
@@ -266,7 +266,7 @@ data_raise_layer(DiagramData *data, Layer *layer)
 void
 data_lower_layer(DiagramData *data, Layer *layer)
 {
-  int i;
+  guint i;
   int layer_nr = -1;
   Layer *tmp;
   
@@ -457,9 +457,9 @@ data_adapt_scaling_to_extents(DiagramData *data)
   gdouble yscale = data->paper.fitheight * pheight /
     (data->extents.bottom - data->extents.top);
   
-  data->paper.scaling = MIN(xscale, yscale);
-  data->paper.width  = pwidth  / data->paper.scaling;
-  data->paper.height = pheight / data->paper.scaling;
+  data->paper.scaling = (float)MIN(xscale, yscale);
+  data->paper.width  = (float)(pwidth  / data->paper.scaling);
+  data->paper.height = (float)(pheight / data->paper.scaling);
 }
 
 /** Adjust the extents field of a diagram.

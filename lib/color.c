@@ -76,9 +76,9 @@ color_new_rgb(float r, float g, float b)
 void
 color_convert(Color *color, GdkColor *gdkcolor)
 {
-  gdkcolor->red = color->red*65535;
-  gdkcolor->green = color->green*65535;
-  gdkcolor->blue = color->blue*65535;
+  gdkcolor->red = (guint16)(color->red*65535);
+  gdkcolor->green = (guint16)(color->green*65535);
+  gdkcolor->blue = (guint16)(color->blue*65535);
 
   if (_color_initialized) {
     if (!gdk_colormap_alloc_color (colormap, gdkcolor, TRUE, TRUE))

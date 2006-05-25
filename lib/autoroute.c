@@ -182,7 +182,7 @@ static real
 calculate_badness(Point *ps, guint num_points)
 {
   real badness;
-  int i;
+  guint i;
   badness = (num_points-1)*EXTRA_SEGMENT_BADNESS;
   for (i = 0; i < num_points-1; i++) {
     real this_badness;
@@ -525,7 +525,7 @@ autolayout_unnormalize_points(guint startdir,
 			      guint num_points)
 {
   Point *newpoints = g_new(Point, num_points);
-  int i;
+  guint i;
   if (startdir == DIR_NORTH) {
     for (i = 0; i < num_points; i++) {
       newpoints[i] = points[i];

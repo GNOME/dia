@@ -1,3 +1,21 @@
+2006-05-25  Hans Breuer  <hans@breuer.org>
+
+	* app/interface.[hc] app/menus.c : rename ToolButton::menu_item
+	to action_name. Don't mark action names for translation. It is not
+	needed and some languages don't support CamelCase. Fixes bug #342895
+	
+	* app/menus.c : re-added a bunch of accelerators lost in translation
+	to the GtkAction framework. Use GTK_STOCK_FULLSCREEN conditionally
+	it was not available with gtk+-2-6-x.
+	Use dia_get_data_directory() instead of hardcoded UIDATADIR.
+	* app/dia_embedd.c : explain instead of out-comment
+	
+	* app/menu.c lib/autoroute.c lib/color.c lib/diagramdata.c 
+	  lib/properties.h dia_xml.c : warningectomy
+	  
+	* lib/create.h : create_standard_group()
+	* lib/libdia.def lib/makefile.msc : reflect moved stuff
+	
 2006-05-25  Lars Clausen  <lars@raeder.dk>
 
 	* tests/exports/*.dia: A set of test diagrams for export

@@ -463,8 +463,8 @@ void stdprops_init(void);
  * on Win32
  */
 #ifdef G_OS_WIN32
-static PropNumData prop_std_line_width_data = { 0.0, 10.0, 0.01 };
-static PropNumData prop_std_text_height_data = { 0.1, 10.0, 0.1 };
+static PropNumData prop_std_line_width_data = { 0.0f, 10.0f, 0.01f };
+static PropNumData prop_std_text_height_data = { 0.1f, 10.0f, 0.1f };
 static PropEnumData prop_std_text_align_data[] = {
   { N_("Left"), ALIGN_LEFT },
   { N_("Center"), ALIGN_CENTER },

@@ -52,9 +52,9 @@ static void plugin_callback (GtkWidget *widget, gpointer data);
 static const GtkActionEntry common_entries[] =
 {
   { "File", NULL, N_("_File"), NULL, NULL, NULL },
-    { "FileNew", GTK_STOCK_NEW, NULL, NULL, NULL, G_CALLBACK (file_new_callback) },
-    { "FileOpen", GTK_STOCK_OPEN, NULL, NULL, NULL, G_CALLBACK (file_open_callback) },
-    { "FileQuit", GTK_STOCK_QUIT, NULL, NULL, NULL, G_CALLBACK (file_quit_callback) }, 
+    { "FileNew", GTK_STOCK_NEW, NULL, "<control>N", NULL, G_CALLBACK (file_new_callback) },
+    { "FileOpen", GTK_STOCK_OPEN, NULL,"<control>O", NULL, G_CALLBACK (file_open_callback) },
+    { "FileQuit", GTK_STOCK_QUIT, NULL, "<control>Q", NULL, G_CALLBACK (file_quit_callback) }, 
   { "Help", NULL, N_("_Help"), NULL, NULL, NULL },
     { "HelpContents", GTK_STOCK_HELP, NULL, NULL, NULL, G_CALLBACK (help_manual_callback) },
     { "HelpAbout", GTK_STOCK_ABOUT, NULL, NULL, NULL, G_CALLBACK (help_about_callback) }
@@ -77,22 +77,22 @@ static const GtkToggleActionEntry toolbox_toggle_entries[] =
 /* Actions for diagram window */
 static const GtkActionEntry display_entries[] =
 {
-    { "FileSave", GTK_STOCK_SAVE, NULL, NULL, NULL, G_CALLBACK (file_save_callback) },
-    { "FileSaveas", GTK_STOCK_SAVE_AS, NULL, NULL, NULL, G_CALLBACK (file_save_as_callback) },
+    { "FileSave", GTK_STOCK_SAVE, NULL, "<control>S", NULL, G_CALLBACK (file_save_callback) },
+    { "FileSaveas", GTK_STOCK_SAVE_AS, NULL, "<control><shift>S", NULL, G_CALLBACK (file_save_as_callback) },
     { "FileExport", GTK_STOCK_CONVERT, N_("_Export ..."), NULL, NULL, G_CALLBACK (file_export_callback) },
     { "FilePagesetup", NULL, N_("Page Set_up..."), NULL, NULL, G_CALLBACK (file_pagesetup_callback) },
-    { "FilePrint", GTK_STOCK_PRINT, NULL, NULL, NULL, G_CALLBACK (file_print_callback) },
-    { "FileClose", GTK_STOCK_CLOSE, NULL, NULL, NULL, G_CALLBACK (file_close_callback) },
+    { "FilePrint", GTK_STOCK_PRINT, NULL, "<control>P", NULL, G_CALLBACK (file_print_callback) },
+    { "FileClose", GTK_STOCK_CLOSE, NULL, "<control>W", NULL, G_CALLBACK (file_close_callback) },
 
   { "Edit", NULL, N_("_Edit"), NULL, NULL, NULL },
-    { "EditUndo", GTK_STOCK_UNDO, NULL, NULL, NULL, G_CALLBACK (edit_undo_callback) },
-    { "EditRedo", GTK_STOCK_REDO, NULL, NULL, NULL, G_CALLBACK (edit_redo_callback) },
+    { "EditUndo", GTK_STOCK_UNDO, NULL, "<control>Z", NULL, G_CALLBACK (edit_undo_callback) },
+    { "EditRedo", GTK_STOCK_REDO, NULL, "<control><shift>Z", NULL, G_CALLBACK (edit_redo_callback) },
 
-    { "EditCopy", GTK_STOCK_COPY, NULL, NULL, NULL, G_CALLBACK (edit_copy_callback) },
-    { "EditCut", GTK_STOCK_CUT, NULL, NULL, NULL, G_CALLBACK (edit_cut_callback) },
-    { "EditPaste", GTK_STOCK_PASTE, NULL, NULL, NULL, G_CALLBACK (edit_paste_callback) },
+    { "EditCopy", GTK_STOCK_COPY, NULL, "<control>C", NULL, G_CALLBACK (edit_copy_callback) },
+    { "EditCut", GTK_STOCK_CUT, NULL, "<control>X", NULL, G_CALLBACK (edit_cut_callback) },
+    { "EditPaste", GTK_STOCK_PASTE, NULL, "<control>V", NULL, G_CALLBACK (edit_paste_callback) },
     { "EditDuplicate", NULL, N_("_Duplicate"), "<control>D", NULL, G_CALLBACK (edit_duplicate_callback) },
-    { "EditDelete", GTK_STOCK_DELETE, NULL, NULL, NULL, G_CALLBACK (edit_delete_callback) },
+    { "EditDelete", GTK_STOCK_DELETE, NULL, "Delete", NULL, G_CALLBACK (edit_delete_callback) },
 
     /* the following used to bind to <control><shift>C which collides with Unicode input. 
      * <control>>alt> doesn't work either */
@@ -105,8 +105,8 @@ static const GtkActionEntry display_entries[] =
     { "DiagramLayers", NULL, N_("_Layers..."), NULL, NULL, G_CALLBACK (dialogs_layers_callback) },
 
   { "View", NULL, N_("_View"), NULL, NULL, NULL },
-    { "ViewZoomin", GTK_STOCK_ZOOM_IN, NULL, NULL, NULL, G_CALLBACK (view_zoom_in_callback) },
-    { "ViewZoomout", GTK_STOCK_ZOOM_OUT, NULL, NULL, NULL, G_CALLBACK (view_zoom_out_callback) },
+    { "ViewZoomin", GTK_STOCK_ZOOM_IN, NULL, "<control>+", NULL, G_CALLBACK (view_zoom_in_callback) },
+    { "ViewZoomout", GTK_STOCK_ZOOM_OUT, NULL, "<control>-", NULL, G_CALLBACK (view_zoom_out_callback) },
     { "ViewZoom", NULL, N_("_Zoom"), NULL, NULL, NULL },
       { "ViewZoom16000", NULL, N_("1600%"), NULL, NULL, G_CALLBACK (view_zoom_set_callback) },
       { "ViewZoom8000", NULL, N_("800%"), NULL, NULL, G_CALLBACK (view_zoom_set_callback) },
@@ -204,7 +204,11 @@ static const GtkActionEntry tool_entries[] =
 /* Toggle-Actions for diagram window */
 static const GtkToggleActionEntry display_toggle_entries[] = 
 {
+#ifdef GTK_STOCK_FULLSCREEN /* added with gtk+-2.8, but no reason to depend on it */
     { "ViewFullscreen", GTK_STOCK_FULLSCREEN, NULL, "F11", NULL, G_CALLBACK (view_fullscreen_callback) },
+#else
+    { "ViewFullscreen", NULL, N_("Fullscr_een"), "F11", NULL, G_CALLBACK (view_fullscreen_callback) },
+#endif
 #ifdef HAVE_LIBART  
     { "ViewAntialiased", NULL, N_("_AntiAliased"), NULL, NULL, G_CALLBACK (view_aa_callback) },
 #endif
@@ -279,7 +283,7 @@ create_tool_actions (void)
 {
   GtkActionGroup *actions;
   GtkAction      *action;
-  guint           i;
+  int           i;
   gchar          *name;
   static guint    cnt = 0;
 
@@ -294,14 +298,14 @@ create_tool_actions (void)
 				G_N_ELEMENTS (tool_entries), NULL);
 
   for (i = 0; i < num_tools; i++) {
-    action = gtk_action_group_get_action (actions, tool_data[i].menuitem_name);
+    action = gtk_action_group_get_action (actions, tool_data[i].action_name);
     if (action != NULL) {
       g_signal_connect (G_OBJECT (action), "activate",
 			G_CALLBACK (tool_menu_select),
 			&tool_data[i].callback_data);
     }
     else {
-      g_warning ("couldn't find tool menu item %s", tool_data[i].menuitem_name);
+      g_warning ("couldn't find tool menu item %s", tool_data[i].action_name);
     }
   }
   return actions;
@@ -413,6 +417,7 @@ menus_init(void)
   GList 		*cblist;
   guint 		 id;
   GError 		*error = NULL;
+  gchar			*uifile;
 
   if (!initialise)
     return;
@@ -435,12 +440,13 @@ menus_init(void)
   toolbox_ui_manager = gtk_ui_manager_new ();
   gtk_ui_manager_set_add_tearoffs (toolbox_ui_manager, DIA_SHOW_TEAROFFS);
   gtk_ui_manager_insert_action_group (toolbox_ui_manager, toolbox_actions, 0);
-  if (!gtk_ui_manager_add_ui_from_file (toolbox_ui_manager,
-                    UIDATADIR"/toolbox-ui.xml",
-                    &error)) {
+  uifile = dia_get_data_directory ("ui/toolbox-ui.xml");
+  if (!gtk_ui_manager_add_ui_from_file (toolbox_ui_manager, uifile, &error)) {
     g_warning ("building menus failed: %s", error->message);
     g_error_free (error);
+    error = NULL;
   }
+  g_free (uifile);
 
   toolbox_accels = gtk_ui_manager_get_accel_group (toolbox_ui_manager);
   toolbox_menubar = gtk_ui_manager_get_widget (toolbox_ui_manager, "/ToolboxMenu");
@@ -469,15 +475,15 @@ menus_init(void)
   gtk_ui_manager_set_add_tearoffs (display_ui_manager, DIA_SHOW_TEAROFFS);
   gtk_ui_manager_insert_action_group (display_ui_manager, display_actions, 0);
   gtk_ui_manager_insert_action_group (display_ui_manager, display_tool_actions, 0);
+  uifile = dia_get_data_directory ("ui/popup-ui.xml");
   /* TODO it would be more elegant if we had only one definition of the 
    * menu hierarchy and merge it into a popup somehow. */
-  if (!gtk_ui_manager_add_ui_from_file (display_ui_manager,
-                    UIDATADIR"/popup-ui.xml",
-                    &error)) {
+  if (!gtk_ui_manager_add_ui_from_file (display_ui_manager, uifile, &error)) {
     g_warning ("building menus failed: %s", error->message);
     g_error_free (error);
     error = NULL;
   }
+  g_free (uifile);
 
   display_accels = gtk_ui_manager_get_accel_group (display_ui_manager);
   display_menubar = gtk_ui_manager_get_widget (display_ui_manager, "/DisplayMenu");
@@ -579,6 +585,7 @@ menus_create_display_menubar (GtkUIManager   **ui_manager,
   GtkActionGroup *tool_actions;
   GtkWidget      *menu_bar;
   GError         *error = NULL;
+  gchar          *uifile;
 
   *actions = gtk_action_group_new ("display-actions");
   gtk_action_group_set_translation_domain (*actions, NULL);
@@ -604,13 +611,15 @@ menus_create_display_menubar (GtkUIManager   **ui_manager,
   gtk_ui_manager_insert_action_group (*ui_manager, *actions, 0);
   gtk_ui_manager_insert_action_group (*ui_manager, tool_actions, 0);
   g_object_unref (G_OBJECT (tool_actions));
-  if (!gtk_ui_manager_add_ui_from_file (*ui_manager,
-                    UIDATADIR"/display-ui.xml",
-                    &error)) {
+  
+  uifile = dia_get_data_directory ("ui/display-ui.xml");
+  if (!gtk_ui_manager_add_ui_from_file (*ui_manager, uifile, &error)) {
     g_warning ("building menus failed: %s", error->message);
     g_error_free (error);
+    g_free (uifile);
     return NULL;
   }
+  g_free (uifile);
 
   add_plugin_actions (*ui_manager);
 

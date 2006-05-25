@@ -378,7 +378,11 @@ main (int argc, char **argv)
   app_init(0, NULL);
   app_splash_done();
 
-/* TODO is this needed, what for?
+/*
+   The hiding of some of our menu entries is necessary to
+   adapt to the 'run-embeded' case, e.g. no File/(New|Open|Exit)
+   because these would conflict with the embedder's menu entries.
+ */
 #ifdef GNOME
   menuitem = menus_get_item("/ToolboxMenu/File/FileNew");
   gtk_widget_hide(menuitem);
@@ -396,7 +400,6 @@ main (int argc, char **argv)
   menuitem = menus_get_item("/ToolboxMenu/File/FileQuit");
   gtk_widget_hide(menuitem);
 #endif
-*/
 
   g_signal_connect (GTK_OBJECT (bonobo_context_running_get ()),
 		      "last_unref",

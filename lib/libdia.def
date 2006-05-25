@@ -108,6 +108,17 @@ EXPORTS
  connpointline_save
  connpointline_update
 
+ create_standard_arc
+ create_standard_bezierline
+ create_standard_beziergon
+ create_standard_box
+ create_standard_ellipse
+ create_standard_group
+ create_standard_image
+ create_standard_polygon
+ create_standard_polyline
+ create_standard_text
+
  data_add_boolean
  data_add_color
  data_add_composite
@@ -357,7 +368,7 @@ EXPORTS
  filter_get_import_filters
  filter_guess_export_filter
  filter_guess_import_filter
- filter_register_action
+ filter_register_callback
  filter_register_export
  filter_register_import
  filter_unregister_export

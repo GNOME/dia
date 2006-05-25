@@ -48,7 +48,9 @@
 
 #ifdef G_OS_WIN32 /* apparently _MSC_VER and mingw */
 #include <float.h>
-#define isinf(a) (!_finite(a))
+# ifndef isinf
+# define isinf(a) (!_finite(a))
+# endif
 #endif
 
 #define BUFLEN 1024
@@ -541,9 +543,9 @@ data_color(DataNode data, Color *col)
 
   if (val) xmlFree(val);
   
-  col->red = ((float)r)/255.0;
-  col->green = ((float)g)/255.0;
-  col->blue = ((float)b)/255.0;
+  col->red = (float)(r/255.0);
+  col->green = (float)(g/255.0);
+  col->blue = (float)(b/255.0);
 }
 
 /** Return the value of a point-type data node.

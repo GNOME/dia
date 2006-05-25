@@ -55,72 +55,72 @@ ToolButton tool_data[] =
 {
   { (char **) dia_modify_tool_icon,
     N_("Modify object(s)"),
-    N_("ToolsModify"),
+    "ToolsModify",
     { MODIFY_TOOL, NULL, NULL}
   },
   { (char **) dia_zoom_tool_icon,
     N_("Magnify"),
-    N_("ToolsMagnify"),
+    "ToolsMagnify",
     { MAGNIFY_TOOL, NULL, NULL}
   },
   { (char **) dia_scroll_tool_icon,
     N_("Scroll around the diagram"),
-    N_("ToolsScroll"),
+    "ToolsScroll",
     { SCROLL_TOOL, NULL, NULL}
   },
   { NULL,
     N_("Text"),
-    N_("ToolsText"),
+    "ToolsText",
     { CREATE_OBJECT_TOOL, "Standard - Text", NULL }
   },
   { NULL,
     N_("Box"),
-    N_("ToolsBox"),
+    "ToolsBox",
     { CREATE_OBJECT_TOOL, "Standard - Box", NULL }
   },
   { NULL,
     N_("Ellipse"),
-    N_("ToolsEllipse"),
+    "ToolsEllipse",
     { CREATE_OBJECT_TOOL, "Standard - Ellipse", NULL }
   },
   { NULL,
     N_("Polygon"),
-    N_("ToolsPolygon"),
+    "ToolsPolygon",
     { CREATE_OBJECT_TOOL, "Standard - Polygon", NULL }
   },
   { NULL,
     N_("Beziergon"),
-    N_("ToolsBeziergon"),
+    "ToolsBeziergon",
     { CREATE_OBJECT_TOOL, "Standard - Beziergon", NULL }
   },
   { NULL,
     N_("Line"),
-    N_("ToolsLine"),
+    "ToolsLine",
     { CREATE_OBJECT_TOOL, "Standard - Line", NULL }
   },
   { NULL,
     N_("Arc"),
-    N_("ToolsArc"),
+    "ToolsArc",
     { CREATE_OBJECT_TOOL, "Standard - Arc", NULL }
   },
   { NULL,
     N_("Zigzagline"),
-    N_("ToolsZigzagline"),
+    "ToolsZigzagline",
     { CREATE_OBJECT_TOOL, "Standard - ZigZagLine", NULL }
   },
   { NULL,
     N_("Polyline"),
-    N_("ToolsPolyline"),
+    "ToolsPolyline",
     { CREATE_OBJECT_TOOL, "Standard - PolyLine", NULL }
   },
   { NULL,
     N_("Bezierline"),
-    N_("ToolsBezierline"),
+    "ToolsBezierline",
     { CREATE_OBJECT_TOOL, "Standard - BezierLine", NULL }
   },
   { NULL,
     N_("Image"),
-    N_("ToolsImage"),
+    "ToolsImage",
     { CREATE_OBJECT_TOOL, "Standard - Image", NULL }
   }
 };
