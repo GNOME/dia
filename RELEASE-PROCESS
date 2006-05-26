@@ -102,7 +102,7 @@ How to make a tarball
 
 Script to update version:
 
-find . -name configure.in -o -name config.h.win32 -o -name dia.xml  | xargs sed -i 's/0\.95-pre[0-9]*/0.95-pre5/;'
+find . -name configure.in -o -name config.h.win32 -o -name dia.xml  | xargs sed -i 's/0\.95*/0.95-1/;'
 
 Issues to solve
 ---------------

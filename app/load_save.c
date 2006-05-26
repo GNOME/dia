@@ -200,7 +200,7 @@ read_objects(xmlNodePtr objects,
     g_hash_table_foreach(unknown_hash,
 			 GHFuncUnknownObjects,
 			 unknown_str);
-    message_error(unknown_str->str);
+    message_error("%s", unknown_str->str);
   }
   g_hash_table_destroy(unknown_hash);
   g_string_free(unknown_str, TRUE);

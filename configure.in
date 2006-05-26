@@ -1,6 +1,6 @@
 dnl Process this -*- autoconf -*- file with autoconf to produce a 
 dnl configure script.
-AC_INIT(dia, 0.95, http://bugzilla.gnome.org/enter_bug.cgi?product=dia)
+AC_INIT(dia, 0.95-1, http://bugzilla.gnome.org/enter_bug.cgi?product=dia)
 AC_CONFIG_SRCDIR(app/diagram.c)
 AM_INIT_AUTOMAKE(AC_PACKAGE_NAME,AC_PACKAGE_VERSION)
 
@@ -67,10 +67,10 @@ if test "$have_pangoft2" = "true"; then
   have_freetype=false
   AC_CHECK_LIB(freetype,FT_Init_FreeType,have_freetype=true,have_freetype=false,`freetype-config --libs`)
   if test "$have_freetype" = "true"; then
-    dnl Need 2.0.9, as a bug was fixed for us there.
+    dnl Need 2.0.95-1, as a bug was fixed for us there.
     dnl However, freetype-config doesn't give a meaningful version, so we must
     dnl do it like this.
-    AC_MSG_CHECKING([if FreeType version is 2.0.9 or higher])
+    AC_MSG_CHECKING([if FreeType version is 2.0.95-1 or higher])
     old_CPPFLAGS="$CPPFLAGS"
     CPPFLAGS="$CPPFLAGS `freetype-config --cflags`"
     AC_TRY_CPP([#include <ft2build.h>
@@ -87,7 +87,7 @@ if test "$have_pangoft2" = "true"; then
 	 GTK_MODULES="$GTK_MODULES pangoft2"
 	 AC_DEFINE(HAVE_FREETYPE,1,[Define if you have the FreeType2 library])]
     ,
-	[AC_MSG_ERROR([Need FreeType library version 2.0.9 or higher])])
+	[AC_MSG_ERROR([Need FreeType library version 2.0.95-1 or higher])])
     CPPFLAGS="$old_CPPFLAGS"
   else
    AC_MSG_ERROR(Can't find FreeType library)

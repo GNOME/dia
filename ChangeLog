@@ -1,3 +1,24 @@
+2006-05-26  Lars Clausen  <lars@raeder.dk>
+
+	* RELEASE-PROCESS: 
+	* doc/{en,pl,eu}/dia.xml: 
+	* config.h.win32: 
+	* configure.in: 
+	Update to version 0.95-1.
+
+	* app/app_procs.c: 
+	* app/filedlg.c
+	* app/display.c: 
+	* app/interface.c:
+	* app/load_save.c:
+	* app/sheets.c:
+	* lib/dia_image.c:
+	* lib/message.c:
+	* plug-ins/python/pydia-error.c:
+	* plug-ins/python/diamodule.c:
+	* plug-ins/wmf/wmf.cpp: Patch from Hans de Goede: Fix bug #342111,
+	security vulnerabilities from string format errors.
+	
 2006-05-21  Hans Breuer  <hans@breuer.org>
 
 	* app/pagesetup.c app/diapagelayout.c : restrict every page margin

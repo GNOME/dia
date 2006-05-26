@@ -46,7 +46,7 @@ _pyerror_report_last (gboolean popup, const char* fn, const char* file, int line
   PyFile_WriteObject (v, ef, 0);
   PyTraceBack_Print(tb, ef);
   if (((PyDiaError*)ef)->str && popup) 
-    message_error (((PyDiaError*)ef)->str->str);
+    message_error ("%s", ((PyDiaError*)ef)->str->str);
   g_free (sLoc);
   Py_DECREF (ef);
   Py_XDECREF(exc);

@@ -393,11 +393,11 @@ PyDia_Message (PyObject *self, PyObject *args)
 	return NULL;
 
     if (0 == type)
-	message_notice (text);
+	message_notice ("%s", text);
     else if (1 == type)
-	message_warning (text);
+	message_warning ("%s", text);
     else
-	message_error (text);
+	message_error ("%s", text);
 
     Py_INCREF(Py_None);
     return Py_None;

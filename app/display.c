@@ -1119,7 +1119,6 @@ ddisplay_close(DDisplay *ddisp)
   Diagram *dia;
   GtkWidget *dialog, *button;
   gchar *fname;
-  gchar *msg;
 
   g_return_if_fail(ddisp != NULL);
 
@@ -1134,10 +1133,6 @@ ddisplay_close(DDisplay *ddisp)
   fname = dia->filename;
   if (!fname)
     fname = _("<unnamed>");
-  msg = g_strdup_printf (
-          _("The diagram '%s'\n"
-            "has not been saved. Save changes now?"),
-	  fname);
 
   dialog = gtk_message_dialog_new(GTK_WINDOW (ddisp->shell), 
                                   GTK_DIALOG_MODAL,
@@ -1145,8 +1140,9 @@ ddisplay_close(DDisplay *ddisp)
                                   GTK_BUTTONS_NONE, /* no standard buttons */
 				  _("Closing diagram without saving"),
 				  NULL);
-  gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(dialog), msg);
-  g_free (msg);
+  gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(dialog),
+    _("The diagram '%s'\n"
+      "has not been saved. Save changes now?"), fname);
   gtk_window_set_title (GTK_WINDOW(dialog), _("Close Diagram"));
 
   button = gtk_button_new_from_stock (GTK_STOCK_CANCEL);

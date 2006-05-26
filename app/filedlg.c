@@ -299,7 +299,6 @@ file_save_as_response_callback(GtkWidget *fs,
 
     if (stat(filename, &stat_struct) == 0) {
       GtkWidget *dialog = NULL;
-      char buffer[300];
       char *utf8filename = NULL;
       if (!g_utf8_validate(filename, -1, NULL)) {
 	utf8filename = g_filename_to_utf8(filename, -1, NULL, NULL, NULL);
@@ -310,16 +309,15 @@ file_save_as_response_callback(GtkWidget *fs,
       }
       if (utf8filename == NULL) utf8filename = g_strdup(filename);
 
-      g_snprintf(buffer, 300,
-		 _("The file '%s' already exists.\n"
-		   "Do you want to overwrite it?"), utf8filename);
-      g_free(utf8filename);
 
       dialog = gtk_message_dialog_new (GTK_WINDOW(fs),
 				       GTK_DIALOG_MODAL, GTK_MESSAGE_QUESTION,
 				       GTK_BUTTONS_YES_NO,
 				       _("File already exists"));
-      gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(dialog), buffer);
+      gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(dialog),
+        _("The file '%s' already exists.\n"
+          "Do you want to overwrite it?"), utf8filename);
+      g_free(utf8filename);
       gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_YES);
 
       if (gtk_dialog_run (GTK_DIALOG (dialog)) != GTK_RESPONSE_YES) {
@@ -552,17 +550,15 @@ file_export_response_callback(GtkWidget *fs,
 
     if (stat(filename, &statbuf) == 0) {
       GtkWidget *dialog = NULL;
-      char buffer[300];
 
-      g_snprintf(buffer, 300,
-		 _("The file '%s' already exists.\n"
-		   "Do you want to overwrite it?"), dia_message_filename(filename));
       dialog = gtk_message_dialog_new (GTK_WINDOW(fs),
 				       GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT, 
 				       GTK_MESSAGE_QUESTION,
 				       GTK_BUTTONS_YES_NO,
 				       _("File already exists"));
-      gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(dialog), buffer);
+      gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(dialog),
+        _("The file '%s' already exists.\n"
+        "Do you want to overwrite it?"), dia_message_filename(filename));
       gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_YES);
 
       if (gtk_dialog_run (GTK_DIALOG (dialog)) != GTK_RESPONSE_YES) {

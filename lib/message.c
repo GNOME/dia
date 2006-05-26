@@ -86,7 +86,7 @@ message_create_dialog(const gchar *title, DiaMessageInfo *msginfo, gchar *buf)
 				   0,    /* GtkDialogFlags */
 				   type,
 				   GTK_BUTTONS_CLOSE,
-				   buf);
+				   "%s", buf);
   if (title) {
     gchar *real_title;
 
