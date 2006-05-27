@@ -1,3 +1,18 @@
+2006-05-27  Hans Breuer  <hans@breuer.org>
+
+	* tests/exports/cgm/* : cvs admin -kb *.cgm
+	  tests/exports/png/* tests/exports/png-libart/* 
+	  tests/exports/shape/* : cvs admin -kb *.png
+	  tests/exports/wpg/* : cvs admin -kb *.wpg
+	mark binary files as such to not get them broken on platforms which
+	insist on replacing line-ends.
+
+	* app/app_procs.c app/display.c app/filedlg.c app/interface.c
+	  app/load_save.c app/sheets.c lib/dia_image.c lib/message.c
+	  plug-ins/python/diamodule.c plug-ins/python/pydia-error.c
+	  plug-ins/wmf/wmf.cpp : fixed format string vulnerability on HEAD
+	as well. Patch from Hans de Goede, bug #342111
+
 2006-05-27  Rob Staudinger <robert.staudinger@gmail.com>
 
 	* Makefile.am: 

@@ -223,7 +223,7 @@ my_log(WmfRenderer* renderer, char* format, ...)
     va_end (args);
 
     //fprintf(renderer->file, string);
-    g_print(string);
+    g_print("%s", string);
 
     g_free(string);
 }

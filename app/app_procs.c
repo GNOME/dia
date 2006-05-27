@@ -1175,7 +1175,7 @@ process_opts(int argc, char **argv,
 #  endif
       if (!g_option_context_parse (context, &argc, &argv, &error)) {
         if (error) { /* IMO !error here is a bug upstream, triggered with --gdk-debug=updates */
-	g_print (error->message);
+	g_print ("%s", error->message);
 	  g_error_free (error);
 	} else {
 	  g_print ("Invalid option?");
@@ -1273,22 +1273,22 @@ print_credits(gboolean credits)
 
       g_print(_("The original author of Dia was:\n\n"));
       for (i = 0; i < NUMBER_OF_ORIG_AUTHORS; i++) {
-          g_print(authors[i]); g_print("\n");
+          g_print("%s\n", authors[i]);
       }
 
       g_print(_("\nThe current maintainers of Dia are:\n\n"));
       for (i = NUMBER_OF_ORIG_AUTHORS; i < NUMBER_OF_ORIG_AUTHORS + NUMBER_OF_MAINTAINERS; i++) {
-	  g_print(authors[i]); g_print("\n");
+	  g_print("%s\n", authors[i]);
       }
 
       g_print(_("\nOther authors are:\n\n"));
       for (i = NUMBER_OF_ORIG_AUTHORS + NUMBER_OF_MAINTAINERS; i < nauthors; i++) {
-          g_print(authors[i]); g_print("\n");
+          g_print("%s\n", authors[i]);
       }
 
       g_print(_("\nDia is documented by:\n\n"));
       for (i = 0; i < ndocumentors; i++) {
-          g_print(documentors[i]); g_print("\n");
+          g_print("%s\n", documentors[i]);
       }
 
       exit(0);

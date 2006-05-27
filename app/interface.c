@@ -894,7 +894,7 @@ sheet_menu_callback(DiaDynamicMenu *menu, const gchar *string, void *user_data)
 {
   Sheet *sheet = get_sheet_by_name(string);
   if (sheet == NULL) {
-    message_warning(g_strdup_printf(_("No sheet named %s"), string));
+    message_warning(_("No sheet named %s"), string);
   } else {
     persistence_set_string("last-sheet-selected", string);
     fill_sheet_wbox(sheet);

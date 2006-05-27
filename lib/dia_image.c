@@ -92,7 +92,7 @@ dia_image_load(gchar *filename)
      * only if there is something else wrong while loading it.
      */
     if (g_file_test(filename, G_FILE_TEST_EXISTS))
-      g_warning (error->message);
+      g_warning ("%s", error->message);
     g_error_free (error);
     return NULL;
   }
