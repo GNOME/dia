@@ -30,9 +30,9 @@ stdprop_files = \
 pkglib_LTLIBRARIES =     libdia.la
 
 ICON_PNG_PAIRS= \
-	dia_broken_icon pixmaps/broken.png \
-	dia_broken_chain_icon pixmaps/broken-chain.png \
-	dia_unbroken_chain_icon pixmaps/unbroken-chain.png
+	dia_broken_icon $(srcdir)/pixmaps/broken.png \
+	dia_broken_chain_icon $(srcdir)/pixmaps/broken-chain.png \
+	dia_unbroken_chain_icon $(srcdir)/pixmaps/unbroken-chain.png
 
 # Note that this doesn't seem to get run automatically.  It should, but
 # I'm not gonna chase goblins right now.
@@ -189,13 +189,13 @@ gen_sources = xgen-gwmh xgen-gwmc diamarshal.c diamarshal.h
 CLEANFILES = $(gen_sources)
 
 diamarshal.h: diamarshal.list
-	$(GLIB_GENMARSHAL) --prefix=dia_marshal diamarshal.list --header >> xgen-gwmh \
+	$(GLIB_GENMARSHAL) --prefix=dia_marshal $(srcdir)/diamarshal.list --header >> xgen-gwmh \
 	&& (cmp -s xgen-gwmh $(@F) || cp xgen-gwmh $(@F)) \
 	&& rm -f xgen-gwmh xgen-gwmh~
 
 diamarshal.c: diamarshal.h
 	echo "#include \"diamarshal.h\"" >> xgen-gwmc \
-	&& $(GLIB_GENMARSHAL) --prefix=dia_marshal diamarshal.list --body >> xgen-gwmc \
+	&& $(GLIB_GENMARSHAL) --prefix=dia_marshal $(srcdir)/diamarshal.list --body >> xgen-gwmc \
 	&& cp xgen-gwmc $(@F) \
 	&& rm -f xgen-gwmc xgen-gwmc~
 

@@ -1,3 +1,13 @@
+2006-05-27  Rob Staudinger <robert.staudinger@gmail.com>
+
+	* Makefile.am: 
+	* app/Makefile.am:
+	* app/diagram.c: 
+	* lib/Makefile.am:
+	* objects/standard/Makefile.am:
+	* plug-ins/python/Makefile.am:
+	Fix out of tree build (#340115).	
+
 2006-05-25  Hans Breuer  <hans@breuer.org>
 
 	* app/interface.[hc] app/menus.c : rename ToolButton::menu_item

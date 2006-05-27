@@ -17,17 +17,17 @@ libstandard_objects_la_SOURCES = 	arc.c \
 libstandard_objects_la_LDFLAGS = -export-dynamic -module -avoid-version
 
 ICON_PNG_PAIRS= \
-	arc_icon pixmaps/arc.png \
-	beziergon_icon pixmaps/beziergon.png \
-	bezierline_icon pixmaps/bezierline.png \
-	box_icon pixmaps/box.png \
-	ellipse_icon pixmaps/ellipse.png \
-	image_icon pixmaps/image.png \
-	line_icon pixmaps/line.png \
-	polygon_icon pixmaps/polygon.png \
-	polyline_icon pixmaps/polyline.png \
-	text_icon pixmaps/text.png \
-	zigzagline_icon pixmaps/zigzagline.png
+	arc_icon $(srcdir)/pixmaps/arc.png \
+	beziergon_icon $(srcdir)/pixmaps/beziergon.png \
+	bezierline_icon $(srcdir)/pixmaps/bezierline.png \
+	box_icon $(srcdir)/pixmaps/box.png \
+	ellipse_icon $(srcdir)/pixmaps/ellipse.png \
+	image_icon $(srcdir)/pixmaps/image.png \
+	line_icon $(srcdir)/pixmaps/line.png \
+	polygon_icon $(srcdir)/pixmaps/polygon.png \
+	polyline_icon $(srcdir)/pixmaps/polyline.png \
+	text_icon $(srcdir)/pixmaps/text.png \
+	zigzagline_icon $(srcdir)/pixmaps/zigzagline.png
 
 ICON_PNGS= \
 	pixmaps/arc.png \

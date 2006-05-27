@@ -42,7 +42,7 @@
 #include "autosave.h"
 #include "dynamic_refresh.h"
 #include "textedit.h"
-#include "diamarshal.h"
+#include "lib/diamarshal.h"
 
 static GList *open_diagrams = NULL;
 

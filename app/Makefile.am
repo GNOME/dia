@@ -37,23 +37,23 @@ endif
 bin_PROGRAMS = dia $(dia_embedd)
 
 ICON_PNG_PAIRS= \
-	dia_connectable_icon pixmaps/connectable.png \
-	dia_connectable_empty_icon pixmaps/connectable-empty.png \
-	dia_selectable_icon pixmaps/selectable.png \
-	dia_selectable_empty_icon pixmaps/selectable-empty.png \
-	dia_on_grid_icon pixmaps/on-grid.png \
-	dia_off_grid_icon pixmaps/off-grid.png \
-	dia_visible_icon pixmaps/visible.png \
-	dia_visible_empty_icon pixmaps/visible-empty.png \
-        dia_diagram_icon ../dia-diagram.png \
-	dia_app_icon ../dia_gnome_icon.png \
-	dia_modify_tool_icon pixmaps/arrow-22.png \
-	dia_scroll_tool_icon pixmaps/scroll-22.png \
-	dia_zoom_tool_icon pixmaps/zoom-22.png \
-	dia_group_icon pixmaps/group.png \
-	dia_ungroup_icon pixmaps/ungroup.png \
-	dia_mainpoints_on_icon pixmaps/mainpoints-on.png \
-	dia_mainpoints_off_icon pixmaps/mainpoints-off.png
+	dia_connectable_icon $(srcdir)/pixmaps/connectable.png \
+	dia_connectable_empty_icon $(srcdir)/pixmaps/connectable-empty.png \
+	dia_selectable_icon $(srcdir)/pixmaps/selectable.png \
+	dia_selectable_empty_icon $(srcdir)/pixmaps/selectable-empty.png \
+	dia_on_grid_icon $(srcdir)/pixmaps/on-grid.png \
+	dia_off_grid_icon $(srcdir)/pixmaps/off-grid.png \
+	dia_visible_icon $(srcdir)/pixmaps/visible.png \
+	dia_visible_empty_icon $(srcdir)/pixmaps/visible-empty.png \
+	dia_diagram_icon $(top_srcdir)/dia-diagram.png \
+	dia_app_icon $(top_srcdir)/dia_gnome_icon.png \
+	dia_modify_tool_icon $(srcdir)/pixmaps/arrow-22.png \
+	dia_scroll_tool_icon $(srcdir)/pixmaps/scroll-22.png \
+	dia_zoom_tool_icon $(srcdir)/pixmaps/zoom-22.png \
+	dia_group_icon $(srcdir)/pixmaps/group.png \
+	dia_ungroup_icon $(srcdir)/pixmaps/ungroup.png \
+	dia_mainpoints_on_icon $(srcdir)/pixmaps/mainpoints-on.png \
+	dia_mainpoints_off_icon $(srcdir)/pixmaps/mainpoints-off.png
 
 ICON_PNGS= \
 	pixmaps/connectable.png \
