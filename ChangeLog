@@ -1,5 +1,8 @@
 2006-05-27  Hans Breuer  <hans@breuer.org>
 
+	* app/menus.c : listen to Gtk-WARNING **: Unable to parse accelerator 
+	'<control>+': it wants '<control>plus', same for minus.
+
 	* tests/exports/cgm/* : cvs admin -kb *.cgm
 	  tests/exports/png/* tests/exports/png-libart/* 
 	  tests/exports/shape/* : cvs admin -kb *.png

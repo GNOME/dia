@@ -105,8 +105,8 @@ static const GtkActionEntry display_entries[] =
     { "DiagramLayers", NULL, N_("_Layers..."), NULL, NULL, G_CALLBACK (dialogs_layers_callback) },
 
   { "View", NULL, N_("_View"), NULL, NULL, NULL },
-    { "ViewZoomin", GTK_STOCK_ZOOM_IN, NULL, "<control>+", NULL, G_CALLBACK (view_zoom_in_callback) },
-    { "ViewZoomout", GTK_STOCK_ZOOM_OUT, NULL, "<control>-", NULL, G_CALLBACK (view_zoom_out_callback) },
+    { "ViewZoomin", GTK_STOCK_ZOOM_IN, NULL, "<control>plus", NULL, G_CALLBACK (view_zoom_in_callback) },
+    { "ViewZoomout", GTK_STOCK_ZOOM_OUT, NULL, "<control>minus", NULL, G_CALLBACK (view_zoom_out_callback) },
     { "ViewZoom", NULL, N_("_Zoom"), NULL, NULL, NULL },
       { "ViewZoom16000", NULL, N_("1600%"), NULL, NULL, G_CALLBACK (view_zoom_set_callback) },
       { "ViewZoom8000", NULL, N_("800%"), NULL, NULL, G_CALLBACK (view_zoom_set_callback) },
