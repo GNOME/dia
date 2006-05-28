@@ -371,7 +371,8 @@ diagram_selected_any_parents(Diagram *dia) {
   for (selected = dia->data->selected;
        selected != NULL; selected = selected->next) {
     DiaObject *obj = (DiaObject*)selected->data;
-    if (obj->can_parent && obj->children != NULL) return TRUE;
+    if (object_flags_set(obj, DIA_OBJECT_CAN_PARENT) && obj->children != NULL) 
+      return TRUE;
   }
   return FALSE;
 }
@@ -399,7 +400,7 @@ diagram_selected_can_parent(Diagram *dia) {
   for (selected = dia->data->selected;
        selected != NULL; selected = selected->next) {
     DiaObject *obj = (DiaObject*)selected->data;
-    if (obj->can_parent) {
+    if (object_flags_set(obj, DIA_OBJECT_CAN_PARENT)) {
       parents = g_list_prepend(parents, obj);
     }
   }
@@ -464,9 +465,9 @@ diagram_update_menu_sensitivity (Diagram *dia, UpdatableMenuItems *items)
     
   gtk_action_set_sensitive (items->parent, diagram_selected_can_parent (dia));
   gtk_action_set_sensitive (items->unparent, 
-							diagram_selected_any_children (dia));
-  gtk_action_set_sensitive (items->unparent_children, 
-							diagram_selected_any_parents (dia));
+			    diagram_selected_any_children (dia));
+  gtk_action_set_sensitive (items->unparent_children,
+			    diagram_selected_any_parents (dia));
   gtk_action_set_sensitive (items->group, selected_count > 1);
   gtk_action_set_sensitive (items->ungroup, diagram_selected_any_groups (dia));
   gtk_action_set_sensitive (items->properties, selected_count > 0);
@@ -966,7 +967,7 @@ void diagram_parent_selected(Diagram *dia)
     for (idx2 = idx + 1; idx2 < length; idx2++)
     {
       ObjectExtent *oe2 = g_ptr_array_index(extents, idx2);
-      if (!oe2->object->can_parent)
+      if (!object_flags_set(oe2->object, DIA_OBJECT_CAN_PARENT))
         continue;
 
       if (oe1->extent.right <= oe2->extent.right
@@ -1032,7 +1033,7 @@ void diagram_unparent_children_selected(Diagram *dia)
   for (list = dia->data->selected; list != NULL; list = g_list_next(list))
   {
     obj = (DiaObject *) list->data;
-    if (!obj->can_parent || !obj->children)
+    if (!object_flags_set(obj, DIA_OBJECT_CAN_PARENT) || !obj->children)
       continue;
 
     any_unparented = TRUE;

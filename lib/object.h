@@ -36,6 +36,17 @@
 
 G_BEGIN_DECLS
 
+/** Flags for DiaObject */
+/** Set this if the DiaObject can 'contain' other objects that move with
+ *  it, a.k.a. be a parent.  A parent moves its children along and 
+ *  constricts its children to live inside its borders.
+ */
+#define DIA_OBJECT_CAN_PARENT 1
+/** Set this if the DiaObject grabs all input destined for its children.
+ * This is typically used for group-like objects.
+ */
+#define DIA_OBJECT_GRABS_CHILD_INPUT 2
+
 /** This enumeration gives a bitset of modifier keys currently held down.
  */
 typedef enum {
@@ -356,6 +367,7 @@ void object_register_type(DiaObjectType *type);
 void object_registry_foreach(GHFunc func, gpointer  user_data);
 DiaObjectType *object_get_type(char *name);
 gchar *object_get_displayname (DiaObject* obj);
+gboolean object_flags_set(DiaObject* obj, gint flags);
  
 int object_return_false(DiaObject *obj); /* Just returns FALSE */
 void *object_return_null(DiaObject *obj); /* Just returns NULL */
@@ -463,7 +475,7 @@ struct _DiaObject {
 			   dia_object_get_parent_layer() */
   DiaObject *parent; /*!< Back-pointer to DiaObject which is parenting this object. Can be NULL */
   GList *children; /*!< In case this object is a parent of other object the children are listed here */
-  gboolean can_parent; /*!< Only some object support parenting, i.e. hosting other objects */
+  gint flags; /*!< Various flags that can be set for this object, see defines above */
 
   Color *highlight_color; /*!< The color that this object is currently
 			       highlighted with, or NULL if it is not 

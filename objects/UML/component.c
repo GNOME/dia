@@ -392,7 +392,7 @@ component_create(Point *startpoint,
 
   obj->ops = &component_ops;
 
-  obj->can_parent = TRUE;
+  obj->flags |= DIA_OBJECT_CAN_PARENT;
 
   elem->corner = *startpoint;
   cmp->line_color = attributes_get_foreground();

@@ -115,7 +115,7 @@ object_copy(DiaObject *from, DiaObject *to)
 
   to->ops = from->ops;
 
-  to->can_parent = from->can_parent;
+  to->flags = from->flags;
   to->parent = from->parent;
   to->children = g_list_copy(from->children);
 }
@@ -177,7 +177,8 @@ object_copy_list(GList *list_orig)
     if (obj_copy->parent)
       obj_copy->parent = g_hash_table_lookup(hash_table, obj_copy->parent);
 
-    if (obj_copy->can_parent && obj_copy->children)
+    if (object_flags_set(obj_copy, DIA_OBJECT_CAN_PARENT) 
+	&& obj_copy->children)
     {
       GList *child_list = obj_copy->children;
       while(child_list)
@@ -266,7 +267,7 @@ object_list_move_delta_r(GList *objects, Point *delta, gboolean affected)
     }
     objchange = obj->ops->move(obj, &pos);
 
-    if (obj->can_parent && obj->children)
+    if (object_flags_set(obj, DIA_OBJECT_CAN_PARENT) && obj->children)
       objchange = object_list_move_delta_r(obj->children, delta, FALSE);
 
     list = g_list_next(list);
@@ -708,6 +709,17 @@ DiaObjectType *
 object_get_type(char *name)
 {
   return (DiaObjectType *) g_hash_table_lookup(object_type_table, name);
+}
+
+/** True if all the given flags are set, false otherwise.
+ * @param obj An object to test.
+ * @param flags Flags to check if they are set.  See definitions in object.h
+ * @return TRUE if all the flags given are set on the object.
+ */
+gboolean
+object_flags_set(DiaObject *obj, gint flags)
+{
+  return (obj->flags & flags) == flags;
 }
 
 /** Utility function that always returns FALSE given any object.

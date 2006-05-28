@@ -228,12 +228,11 @@
       </listitem>
 
       <listitem>
-	<para><literal>eps</literal> or <literal>epsi</literal> or
+	<para><literal>eps</literal>  or
 	<literal>eps-builtin</literal> or <literal>eps-pango</literal>
 	(Encapsulated PostScript)</para>
 
-        <para>The format specifications <literal>eps</literal>,
-	<literal>epsi</literal>, and <literal>eps-pango</literal> all
+        <para>The format specifications <literal>eps</literal> and <literal>eps-pango</literal> both
 	use the font renderer of the Pango library, while
 	<literal>eps-builtin</literal> uses a dia specific font
 	renderer.  If you have problems with Pango rendering,

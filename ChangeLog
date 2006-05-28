@@ -1,3 +1,20 @@
+2006-05-28  Lars Clausen  <lars@raeder.dk>
+
+	* lib/parent.c (parent_handle_move_in_check): 
+	* app/create_object.c (create_object_button_press): 
+	* app/diagram.c (diagram_unparent_children_selected): 
+	* app/disp_callbacks.c (ddisplay_drop_object): 
+	* app/load_save.c (write_objects): 
+	* objects/network/radiocell.c (radiocell_create): 
+	* objects/AADL/aadlbox.c (aadlbox_create): 
+	* objects/UML/large_package.c (largepackage_create): 
+	* objects/UML/component.c (component_create): 
+	* lib/object.[ch]: DiaObject API change: DiaObject now has gint
+	flags rather than gboolean can_parent, and utility function
+	object_flags_set.  Uses of can_parent changed to call to function.
+
+	* doc/en/dia.dbk: Removal of obsolete epsi references.
+
 2006-05-27  Hans Breuer  <hans@breuer.org>
 
 	* app/menus.c : listen to Gtk-WARNING **: Unable to parse accelerator 

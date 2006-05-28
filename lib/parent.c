@@ -37,7 +37,7 @@ gboolean parent_list_expand(GList *obj_list)
   {
     DiaObject *obj = (DiaObject *) list->data;
 
-    if (obj->can_parent && obj->children)
+    if (object_flags_set(obj, DIA_OBJECT_CAN_PARENT) && obj->children)
     {
       obj_list = g_list_concat(obj_list, g_list_copy(obj->children));
       nothing_affected = FALSE;
@@ -169,7 +169,7 @@ gboolean parent_handle_move_in_check(DiaObject *object, Point *to, Point *start_
   Rectangle p_ext;
   Point new_delta;
 
-  if (!object->can_parent || !object->children)
+  if (!object_flags_set(object, DIA_OBJECT_CAN_PARENT) || !object->children)
     return FALSE;
 
   parent_point_extents(to, &p_ext);

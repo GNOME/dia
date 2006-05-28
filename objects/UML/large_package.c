@@ -361,7 +361,7 @@ largepackage_create(Point *startpoint,
 
   obj->ops = &largepackage_ops;
 
-  obj->can_parent = TRUE; 
+  obj->flags |= DIA_OBJECT_CAN_PARENT;
 
   elem->corner = *startpoint;
 

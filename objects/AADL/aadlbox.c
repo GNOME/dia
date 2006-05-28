@@ -868,7 +868,7 @@ DiaObject *aadlbox_create(Point *startpoint, void *user_data,
   elem = &aadlbox->element;
   obj = &elem->object;
 
-  obj->can_parent = TRUE;
+  obj->flags |= DIA_OBJECT_CAN_PARENT;
 
   elem->corner = *startpoint;
 

@@ -323,7 +323,7 @@ radiocell_create(Point *startpoint,
   obj = &poly->object;
   obj->type = &radiocell_type;
   obj->ops = &radiocell_ops;
-  obj->can_parent = TRUE;
+  obj->flags |= DIA_OBJECT_CAN_PARENT;
 
   radiocell->radius = 4.;
 

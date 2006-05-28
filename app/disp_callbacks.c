@@ -872,7 +872,8 @@ ddisplay_drop_object(DDisplay *ddisp, gint x, gint y, DiaObjectType *otype,
   p_obj = diagram_find_clicked_object(ddisp->diagram, &droppoint_orig,
 				    click_distance);
 
-  if (p_obj && p_obj->can_parent) /* the tool was dropped inside an object that takes children*/
+  if (p_obj && object_flags_set(p_obj, DIA_OBJECT_CAN_PARENT))
+    /* the tool was dropped inside an object that takes children*/
   {
     Rectangle p_ext, c_ext;
     real parent_height, child_height, parent_width, child_width;

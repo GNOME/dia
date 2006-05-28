@@ -643,7 +643,7 @@ write_objects(GList *objects, xmlNodePtr objects_node,
       (*obj_nr)++;
       
       /*
-      if (obj->can_parent && obj->children)
+      if (object_flags_set(obj, DIA_OBJECT_CAN_PARENT) && obj->children)
       {
 	int res;
 	xmlNodePtr parent_node;

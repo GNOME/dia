@@ -1,3 +1,8 @@
+dia-0.95-1: 25-May-2006
+
+* Fix of bug #339562 (page margins restriction), #338336 ("query" in 
+  umloperation_offsets), and #334771 (ungroup crashes)
+
 dia-0.95: 19-Apr-2006
 
 * Update of Gane/Sarson sheets.

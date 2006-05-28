@@ -88,7 +88,8 @@ create_object_button_press(CreateObjectTool *tool, GdkEventButton *event,
 
   g_list_free(avoid);
 
-  if (parent_obj && parent_obj->can_parent) /* starting point is within another object */
+  /* starting point is within another object */
+  if (parent_obj && object_flags_set(parent_obj, DIA_OBJECT_CAN_PARENT))
   {
     Change *change = undo_parenting(ddisp->diagram, parent_obj, obj, TRUE);
     (change->apply)(change, ddisp->diagram);
