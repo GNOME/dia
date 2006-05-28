@@ -12,6 +12,9 @@
     <object name="Misc - Analog Clock">
       <_description>Traditional clock</_description>
     </object>
+    <object name="Misc - NewGroup">
+      <_description>New-style group object, for testing</_description>
+    </object>
   </contents>
 </sheet>
 

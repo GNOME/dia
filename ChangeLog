@@ -1,5 +1,13 @@
 2006-05-28  Lars Clausen  <lars@raeder.dk>
 
+	* sheets/Misc.sheet.in: 
+	* objects/Misc/Makefile.am (EXTRA_DIST): 
+	* objects/Misc/pixmaps/newgroup.xpm: 
+	* objects/Misc/newgroup.c: 
+	* objects/Misc/libmisc.c: Start of new group model, with "visible"
+	object to test with.  This object will later become the default
+	group object and thus (mostly) invisible.
+
 	* lib/parent.c (parent_handle_move_in_check): 
 	* app/create_object.c (create_object_button_press): 
 	* app/diagram.c (diagram_unparent_children_selected): 

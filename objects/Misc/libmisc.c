@@ -29,6 +29,7 @@
 #include "plug-ins.h"
 
 extern DiaObjectType analog_clock_type;
+extern DiaObjectType newgroup_type;
 
 DIA_PLUGIN_CHECK_INIT
 
@@ -40,6 +41,7 @@ dia_plugin_init(PluginInfo *info)
     return DIA_PLUGIN_INIT_ERROR;
 
   object_register_type(&analog_clock_type);  
+  object_register_type(&newgroup_type);
 
   return DIA_PLUGIN_INIT_OK;
 }
