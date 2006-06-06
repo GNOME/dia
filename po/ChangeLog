@@ -1,3 +1,7 @@
+2006-06-06  Jakub Friedl <jfriedl@suse.cz>
+
+	* cs.po: Updated Czech translation.
+
 2006-05-26  Clytie Siddall <clytie@riverland.net.au>
 
 	* vi.po: Updated Vietnamese translation.
@@ -23,8 +27,8 @@
 	* es.po: Updated Spanish translation.
 
 2006-04-09  Kostas Papadimas <pkst@gnome.org>
-      
-          *el.po: Updated Greek Translation by Menelaos Maglis <mmaglis@metacom.gr>
+
+	**el.po: Updated Greek Translation by Menelaos Maglis <mmaglis@metacom.gr>
 
 2006-03-25  Raphael Higino  <raphaelh@cvs.gnome.org>
 
