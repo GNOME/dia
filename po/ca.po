@@ -3,6 +3,7 @@
 # Softcatalà  <gnome@softcatala.net>, 2000, 2001, 2002.
 # Aleix Badia <abadia@ica.es>, 2003.
 # Xavier Conde <xaviconde@eresmas.com>, 2003
+# Jordi Mas <jmas@softcatala.org>, 2006
 #
 msgid ""
 msgstr ""
@@ -85,9 +86,9 @@ msgid "TYPE"
 msgstr ""
 
 #: app/app_procs.c:690 app/app_procs.c:716
-#, fuzzy
+#
 msgid "Export graphics size"
-msgstr "Format d'exportació a utilitzar"
+msgstr "Mida del gràfic a exportar"
 
 #: app/app_procs.c:690 app/app_procs.c:716
 msgid "WxH"
@@ -151,9 +152,9 @@ msgstr ""
 "d'objectes, sortint...\n"
 
 #: app/app_procs.c:919
-#, fuzzy
+#
 msgid "Diagram1.dia"
-msgstr "Diagrama %d.dia"
+msgstr "Diagrama1.dia"
 
 #: app/app_procs.c:961
 msgid ""
@@ -303,26 +304,28 @@ msgstr ""
 #: app/commands.c:611
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
-"translator_credits- Gnome Catalan <gnome@softcatala.net>, Aleix Badia "
-"<abadia@ica.es>, Xavier Conde <xaviconde@eresmas.com>"
+"Softcatalà <gnome@softcatala.net>"
+"\nAleix Badia <abadia@ica.es>"
+"\nXavier Conde <xaviconde@eresmas.com>"
+"\nJordi Mas <jmas@softcatala.org>"
 
 #: app/commands.c:625
 msgid "Dia"
 msgstr "Dia"
 
 #: app/commands.c:627
-#, fuzzy
+#
 msgid "Copyright (C) 1998-2005 The Free Software Foundation and the authors"
-msgstr "Copyright (C) 1998-2002 Free Software Foundation i d'altres autors"
+msgstr "Copyright (C) 1998-2005 Free Software Foundation i d'altres autors"
 
 #: app/commands.c:628
-#, fuzzy
+#
 msgid ""
 "Dia is a program for drawing structured diagrams.\n"
 "Please visit http://www.gnome.org/projects/dia for more information."
 msgstr ""
 "El Dia és un programa per dibuixar diagrames estructurats.\n"
-"Per a més informació visiteu l'adreça http://www.lysator.liu.se/~alla/dia."
+"Per a més informació visiteu l'adreça http://www.gnome.org/projects/dia."
 
 #: app/commands.c:667
 msgid "About Dia"
@@ -339,11 +342,11 @@ msgid "Maintainers: Lars Clausen and Cyrille Chepelov"
 msgstr "Responsables de manteniment: Lars Clausen i Cyrille Chepelov"
 
 #: app/commands.c:720
-#, fuzzy
+#
 msgid "Please visit http://www.gnome.org/projects/dia for more information"
 msgstr ""
-"Per a més informació visiteu l'adreça http://www.lysator.liu.se/~alla/dia, "
-"si us plau"
+"Per a més informació visiteu l'adreça http://www.gnome.org/projects/dia."
+
 
 #: app/commands.c:725
 msgid "Contributors:"
@@ -411,7 +414,7 @@ msgid "Page Breaks"
 msgstr "Salt de pàgina"
 
 #: app/dia-props.c:242
-#, fuzzy
+#
 msgid "Colors"
 msgstr "Colors"
 
@@ -426,9 +429,9 @@ msgid "Could not initialize Bonobo!"
 msgstr "No s'ha pogut inicialitzar el Bonobo!"
 
 #: app/diacanvas.c:121
-#, fuzzy
+#
 msgid "X position"
-msgstr "Posició"
+msgstr "Posició X"
 
 #: app/diacanvas.c:122
 msgid "X position of child widget"
@@ -601,9 +604,9 @@ msgstr ""
 "S'ha esborrat la informació per a desfer."
 
 #: app/disp_callbacks.c:118
-#, fuzzy
+#
 msgid "Properties..."
-msgstr "_Propietats..."
+msgstr "Propietats..."
 
 #: app/disp_callbacks.c:925
 msgid ""
@@ -759,7 +762,7 @@ msgid ""
 "and saving.  Some text programs cannot manipulate compressed files."
 msgstr ""
 "La compressió redueix la mida del fitxer a una desena part i agilitza el "
-"procés de càrrega i desat.. Alguns programes de text no poden manipular "
+"procés de càrrega i desat. Alguns programes de text no poden manipular "
 "fitxers comprimits."
 
 #: app/filedlg.c:569
@@ -1080,7 +1083,7 @@ msgstr "/Fitxer/_Nou"
 
 #: app/menus.c:54 app/menus.c:92
 msgid "/File/_Open..."
-msgstr "Fitxer/_Obre..."
+msgstr "/Fitxer/_Obre..."
 
 #. {N_("/Open _Recent"),           NULL,         NULL,           0, "<Branch>"},
 #. {   "/Open Recent/tearoff",     NULL,         NULL,         0, "<Tearoff>" },
@@ -1114,9 +1117,9 @@ msgid "/_Help"
 msgstr "/A_juda"
 
 #: app/menus.c:75 app/menus.c:263
-#, fuzzy
+#
 msgid "/Help/_Contents"
-msgstr "/Ajuda/_Quant a..."
+msgstr "/Ajuda/_Continguts"
 
 #: app/menus.c:77 app/menus.c:265
 msgid "/Help/---"
@@ -1179,9 +1182,9 @@ msgid "/Edit/_Paste"
 msgstr "/Edita/_Enganxa"
 
 #: app/menus.c:126
-#, fuzzy
+#
 msgid "/Edit/_Duplicate"
-msgstr "/Edita/_Suprimeix"
+msgstr "/Edita/_Duplica"
 
 #: app/menus.c:127
 msgid "/Edit/_Delete"
@@ -1200,19 +1203,19 @@ msgid "/Edit/Paste _Text"
 msgstr "/Edita/Enganxa el _text"
 
 #: app/menus.c:136
-#, fuzzy
+#
 msgid "/_Diagram"
-msgstr "Diagrames:"
+msgstr "/Diagrama"
 
 #: app/menus.c:138
-#, fuzzy
+#
 msgid "/Diagram/_Properties..."
-msgstr "Propietats del diagrama..."
+msgstr "/Diagrama/_Propietats..."
 
 #: app/menus.c:140
-#, fuzzy
+#
 msgid "/Diagram/_Layers..."
-msgstr "/Diàlegs/_Capes..."
+msgstr "/Diagrama/_Capes..."
 
 #: app/menus.c:141
 msgid "/_View"
@@ -1231,14 +1234,14 @@ msgid "/View/_Zoom"
 msgstr "/Visualitza/_Zoom"
 
 #: app/menus.c:149
-#, fuzzy
+#
 msgid "/View/Zoom/1600%"
-msgstr "/Visualitza/Zoom/100%"
+msgstr "/Visualitza/Zoom/1600%"
 
 #: app/menus.c:150
-#, fuzzy
+#
 msgid "/View/Zoom/800%"
-msgstr "/Visualitza/Zoom/400%"
+msgstr "/Visualitza/Zoom/800%"
 
 #: app/menus.c:151
 msgid "/View/Zoom/400%"
@@ -1301,9 +1304,9 @@ msgid "/View/_Snap To Grid"
 msgstr "/Visualitza/_Desplaça a la graella"
 
 #: app/menus.c:169
-#, fuzzy
+#
 msgid "/View/_Snap To Objects"
-msgstr "/Visualitza/_Desplaça a la graella"
+msgstr "/Visualitza/_Desplaça als objectes"
 
 #: app/menus.c:170
 msgid "/View/Show _Rulers"
@@ -1372,64 +1375,64 @@ msgid "/Objects/_Unparent Children"
 msgstr "/Objectes/Des_associa els fills"
 
 #: app/menus.c:200
-#, fuzzy
+#
 msgid "/Objects/Align"
-msgstr "/Objectes/Alinea _verticalment"
+msgstr "/Objectes/Alineació"
 
 #: app/menus.c:202
-#, fuzzy
+#
 msgid "/Objects/Align/Left"
-msgstr "/Objectes/Alineació horitzontal/Esquerra"
+msgstr "/Objectes/Alineació/Dreta"
 
 #: app/menus.c:204
-#, fuzzy
+#
 msgid "/Objects/Align/Center"
-msgstr "/Objectes/Alineació horitzontal/Centre"
+msgstr "/Objectes/Alineació/Centre"
 
 #: app/menus.c:206
-#, fuzzy
+#
 msgid "/Objects/Align/Right"
-msgstr "/Objectes/Alineació horitzontal/Dreta"
+msgstr "/Objectes/Alineació/Dreta"
 
 #: app/menus.c:208 app/menus.c:212
-#, fuzzy
+#
 msgid "/Objects/Align/---"
-msgstr "/Objectes/---"
+msgstr "/Objectes/Alineació/---"
 
 #: app/menus.c:209
-#, fuzzy
+#
 msgid "/Objects/Align/Top"
-msgstr "/Objectes/Alineació vertical/Superior"
+msgstr "/Objectes/Alineació/Superior"
 
 #: app/menus.c:210
-#, fuzzy
+#
 msgid "/Objects/Align/Middle"
-msgstr "/Objectes/Alinea _verticalment/Centre"
+msgstr "/Objectes/Alineació/Al mig"
 
 #: app/menus.c:211
-#, fuzzy
+#
 msgid "/Objects/Align/Bottom"
-msgstr "/Objectes/Alineació vertical/Inferior"
+msgstr "/Objectes/Alineació/Inferior"
 
 #: app/menus.c:213
-#, fuzzy
+#
 msgid "/Objects/Align/Spread Out Horizontally"
-msgstr "/Objectes/Alinea _horitzontalment"
+msgstr "/Objectes/Alineació/Escampa horitzontalment"
 
 #: app/menus.c:214
-#, fuzzy
+#, 
 msgid "/Objects/Align/Spread Out Vertically"
-msgstr "/Objectes/Alinea _verticalment"
+msgstr "/Objectes/Alineació/Escampa verticalment"
 
 #: app/menus.c:215
-#, fuzzy
+#
 msgid "/Objects/Align/Adjacent"
-msgstr "/Objectes/Alineació vertical/Adjacent"
+msgstr "/Objectes/Alineació/Adjacent"
 
 #: app/menus.c:216
-#, fuzzy
+#
 msgid "/Objects/Align/Stacked"
-msgstr "/Objectes/Alinea _verticalment"
+msgstr "/Objectes/Alineació/Apila"
 
 #: app/menus.c:218
 msgid "/Objects/_Properties..."
@@ -1476,7 +1479,7 @@ msgid "/Select/Union"
 msgstr "/Selecciona/Unió"
 
 #: app/menus.c:234
-#, fuzzy
+#
 msgid "/Select/Intersection"
 msgstr "/Selecciona/Intersecta"
 
@@ -1486,7 +1489,7 @@ msgstr "/Selecciona/Suprimeix"
 
 #. Cannot also be called Invert, duplicate names caused keybinding problems
 #: app/menus.c:239
-#, fuzzy
+#
 msgid "/Select/Inverse"
 msgstr "/Selecciona/Inverteix"
 
@@ -1596,14 +1599,14 @@ msgid "OK"
 msgstr "D'acord"
 
 #: app/paginate_psprint.c:394
-#, fuzzy, c-format
+#, c-format
 msgid "Could not run command '%s': %s"
-msgstr "No s'ha pogut executar l'ordre '%s'"
+msgstr "No s'ha pogut executar l'ordre '%s': %s"
 
 #: app/paginate_psprint.c:397
-#, fuzzy, c-format
+#,c-format
 msgid "Could not open '%s' for writing: %s"
-msgstr "No s'ha pogut obrir '%s' per a la seva escriptura"
+msgstr "No s'ha pogut obrir '%s' per a la seva escriptura: %s"
 
 #: app/paginate_psprint.c:414
 #, c-format
@@ -1737,7 +1740,7 @@ msgid "Page breaks:"
 msgstr "Salts de pàgina:"
 
 #: app/preferences.c:155 app/preferences.c:165
-#, fuzzy
+#
 msgid "Color:"
 msgstr "Color:"
 
@@ -1866,9 +1869,9 @@ msgid "SVG Shape"
 msgstr "Forma SVG"
 
 #: app/sheets.c:457
-#, fuzzy
+#
 msgid "Programmed DiaObject"
-msgstr "Objecte programat"
+msgstr "Objecte Dia programat"
 
 #: app/sheets_dialog.c:83
 msgid "Sheets and Objects"
@@ -1940,9 +1943,9 @@ msgid "Edit Attributes"
 msgstr "Edita els atributs"
 
 #: app/sheets_dialog.c:583
-#, fuzzy
+#
 msgid "DiaObject"
-msgstr "Objecte"
+msgstr "Objecte del Dia"
 
 #: app/sheets_dialog.c:599 app/sheets_dialog.c:692
 msgid "Description:"
@@ -1976,9 +1979,9 @@ msgid "Remove"
 msgstr "Suprimeix"
 
 #: app/sheets_dialog.c:809
-#, fuzzy
+#
 msgid "DiaObject:"
-msgstr "Objecte:"
+msgstr "Objecte del Dia:"
 
 #: app/sheets_dialog.c:836
 msgid "Sheet:"
@@ -2093,14 +2096,14 @@ msgid "Dia v %s"
 msgstr "Versió del Dia %s"
 
 #: dia.desktop.in.h:1
-#, fuzzy
+#
 msgid "Dia Diagram Editor"
-msgstr "Editor de diagrames"
+msgstr "Editor de diagrames Dia"
 
 #: dia.desktop.in.h:2
-#, fuzzy
+#
 msgid "Edit your Diagrams"
-msgstr "Exporta el diagrama"
+msgstr "Edita els diagrames"
 
 #: lib/arrows.c:40 objects/Jackson/domain.c:96 objects/UML/association.c:1189
 msgid "None"
@@ -2496,7 +2499,7 @@ msgstr "Mida del tipus de lletra"
 
 #: lib/properties.c:83 lib/properties.h:543 objects/GRAFCET/step.c:169
 #: objects/chronogram/chronoline.c:187 objects/chronogram/chronoref.c:168
-#, fuzzy
+#
 msgid "Text color"
 msgstr "Color del text"
 
@@ -2506,9 +2509,9 @@ msgid "No attribute '%s' (%p) or no data(%p) in this attribute"
 msgstr ""
 
 #: lib/widgets.c:375
-#, fuzzy
+#
 msgid "Other fonts"
-msgstr "Altres tipus de lletra..."
+msgstr "Altres tipus de lletra"
 
 #: lib/widgets.c:445
 #, c-format
@@ -2547,17 +2550,17 @@ msgstr "Seleccioneu el color"
 
 #: lib/widgets.c:1025
 msgid "More colors..."
-msgstr ""
+msgstr "Més colors..."
 
 #: lib/widgets.c:1149
-#, fuzzy
+#
 msgid "More arrows"
-msgstr "Línia de punts"
+msgstr "Més fletxes"
 
 #: lib/widgets.c:1162
-#, fuzzy
+#
 msgid "Size: "
-msgstr "Mi_da:"
+msgstr "Mida:"
 
 #: lib/widgets.c:1307
 msgid "Select image file"
@@ -2597,9 +2600,9 @@ msgid "Weak:"
 msgstr "Feble:"
 
 #: objects/ER/entity.c:139
-#, fuzzy
+#
 msgid "Associative:"
-msgstr "Activa"
+msgstr "Associativa:"
 
 #: objects/ER/entity.c:413 objects/UML/classicon.c:129 sheets/ER.sheet.in.h:4
 msgid "Entity"
@@ -3812,9 +3815,9 @@ msgid "Agent"
 msgstr "Afegeix un segment"
 
 #: objects/Istar/actor.c:71
-#, fuzzy
+#
 msgid "Role"
-msgstr "Rol:"
+msgstr "Rol"
 
 #: objects/Istar/goal.c:76 objects/KAOS/goal.c:79
 msgid "Softgoal"
@@ -3851,18 +3854,18 @@ msgid "Dependency"
 msgstr "Dependència"
 
 #: objects/Istar/link.c:156
-#, fuzzy
+#
 msgid "Decomposition"
-msgstr "Composició"
+msgstr "Descomposició"
 
 #: objects/Istar/link.c:157
 msgid "Means-Ends"
 msgstr ""
 
 #: objects/Istar/other.c:73
-#, fuzzy
+#
 msgid "Resource"
-msgstr "Redueix"
+msgstr "Recurs"
 
 #: objects/Istar/other.c:74
 msgid "Task"
@@ -3888,9 +3891,9 @@ msgid "Designed Domain"
 msgstr ""
 
 #: objects/Jackson/domain.c:81
-#, fuzzy
+#
 msgid "Machine Domain"
-msgstr "Dona Mac"
+msgstr "Domini de la màquina"
 
 #: objects/Jackson/domain.c:97
 #, fuzzy
@@ -3910,7 +3913,7 @@ msgstr "Química"
 #: objects/Jackson/domain.c:176 objects/Jackson/domain.c:177
 #, fuzzy
 msgid "Domain Type"
-msgstr "Mateix tipus"
+msgstr "Tipus de domini"
 
 #: objects/Jackson/domain.c:181
 msgid "Domain Kind"
@@ -3983,9 +3986,9 @@ msgid "Operationalization"
 msgstr "Dades de les operacions"
 
 #: objects/KAOS/metaandorrel.c:161
-#, fuzzy
+#
 msgid "Text:"
-msgstr "Text"
+msgstr "Text:"
 
 #: objects/KAOS/metabinrel.c:155
 #, fuzzy
@@ -4008,14 +4011,14 @@ msgid "Responsibility"
 msgstr "Visibilitat:"
 
 #: objects/KAOS/metabinrel.c:159
-#, fuzzy
+#
 msgid "Monitors"
-msgstr "Monitor"
+msgstr "Monitors"
 
 #: objects/KAOS/metabinrel.c:160
-#, fuzzy
+#
 msgid "Controls"
-msgstr "Control"
+msgstr "Controls"
 
 #: objects/KAOS/metabinrel.c:161
 msgid "CapableOf"
@@ -4026,9 +4029,9 @@ msgid "Performs"
 msgstr ""
 
 #: objects/KAOS/metabinrel.c:164
-#, fuzzy
+#
 msgid "Output"
-msgstr "Entrada/Sortida"
+msgstr "Sortida"
 
 #: objects/KAOS/other.c:531
 #, fuzzy
@@ -4036,7 +4039,7 @@ msgid "KAOS other"
 msgstr "Encaminador de IAD"
 
 #: objects/Misc/analog_clock.c:137
-#, fuzzy
+#
 msgid "Arrow color"
 msgstr "Color de la fletxa"
 
@@ -4261,19 +4264,19 @@ msgid "Polymorphic"
 msgstr "Polimòrfic"
 
 #: objects/UML/class.c:154
-#, fuzzy
+#
 msgid "Classname"
-msgstr "Nom de la classe:"
+msgstr "Nom de la classe"
 
 #: objects/UML/class.c:156
-#, fuzzy
+#
 msgid "Abstract Classname"
-msgstr "Classe abstracte"
+msgstr "Nom de la classe abstracta"
 
 #: objects/UML/class.c:162 objects/UML/class.c:164 objects/UML/class.c:166
 #: objects/UML/class.c:168 objects/UML/class.c:170 objects/UML/class.c:172
 msgid " "
-msgstr ""
+msgstr " "
 
 #: objects/UML/class.c:178 objects/UML/object.c:153
 msgid "Attributes"
@@ -4284,20 +4287,20 @@ msgid "Operations"
 msgstr "Operacions"
 
 #: objects/UML/class.c:183
-#, fuzzy
+#
 msgid "Template Parameters"
-msgstr "Paràmetres"
+msgstr "Paràmetres de la plantilla"
 
 #: objects/UML/class.c:275
-#, fuzzy
+#
 msgid "Show Comments"
 msgstr "Mostra els comentaris"
 
 #. Class page:
 #: objects/UML/class_dialog.c:265
-#, fuzzy
+#
 msgid "_Class"
-msgstr "Classe"
+msgstr "_Classe"
 
 #: objects/UML/class_dialog.c:273
 msgid "Class name:"
@@ -4353,7 +4356,7 @@ msgstr "Classe abstracte"
 
 #. should probably be refactored too.
 #: objects/UML/class_dialog.c:394
-#, fuzzy
+#
 msgid "Text Color"
 msgstr "Color del text"
 
@@ -4367,15 +4370,15 @@ msgstr "Color del fons"
 
 #. Attributes page:
 #: objects/UML/class_dialog.c:834
-#, fuzzy
+#
 msgid "_Attributes"
-msgstr "Atributs"
+msgstr "_Atributs"
 
 #: objects/UML/class_dialog.c:862 objects/UML/class_dialog.c:1787
 #: objects/UML/class_dialog.c:2015 objects/UML/class_dialog.c:2535
-#, fuzzy
+#
 msgid "_New"
-msgstr "Nou"
+msgstr "_Nou"
 
 #: objects/UML/class_dialog.c:868 objects/UML/class_dialog.c:1793
 #: objects/UML/class_dialog.c:2022 objects/UML/class_dialog.c:2541
@@ -4406,9 +4409,9 @@ msgstr "Abast de la classe"
 
 #. Operations page:
 #: objects/UML/class_dialog.c:1759
-#, fuzzy
+#
 msgid "_Operations"
-msgstr "Operacions"
+msgstr "_Operacions"
 
 #: objects/UML/class_dialog.c:1817
 msgid "Operation data"
@@ -4460,9 +4463,9 @@ msgstr "Entrada i sortida"
 
 #. Templates page:
 #: objects/UML/class_dialog.c:2501
-#, fuzzy
+#
 msgid "_Templates"
-msgstr "Plantilles"
+msgstr "_Plantilles"
 
 #: objects/UML/class_dialog.c:2507 sheets/UML.sheet.in.h:29
 msgid "Template class"
@@ -4602,9 +4605,9 @@ msgid "The event that causes this transition to be taken"
 msgstr ""
 
 #: objects/UML/transition.c:134
-#, fuzzy
+#
 msgid "Action"
-msgstr "Actor"
+msgstr "Acció"
 
 #: objects/UML/transition.c:135
 msgid "Action to perform when this transition is taken"
@@ -4624,29 +4627,29 @@ msgid "Unified Modelling Language diagram objects"
 msgstr "Objectes de diagrama del Llenguatge Unificat de Modelatge (UML)"
 
 #: objects/UML/umlattribute.c:41 objects/UML/umlparameter.c:47
-#, fuzzy
+#
 msgid "Value"
-msgstr "Valor:"
+msgstr "Valor"
 
 #: objects/UML/umlattribute.c:45 objects/UML/umloperation.c:71
-#, fuzzy
+#
 msgid "Visibility"
-msgstr "Visibilitat:"
+msgstr "Visibilitat"
 
 #: objects/UML/umlattribute.c:47
-#, fuzzy
+#
 msgid "Abstract (?)"
-msgstr "Abstracte"
+msgstr "Abstracte (?)"
 
 #: objects/UML/umlattribute.c:49 objects/UML/umloperation.c:77
-#, fuzzy
+#
 msgid "Class scope (static)"
-msgstr "Abast de la classe"
+msgstr "Abast de la classe (estàtica)"
 
 #: objects/UML/umloperation.c:73
 #, fuzzy
 msgid "Inheritance type"
-msgstr "Tipus d'herència:"
+msgstr "Tipus d'herència"
 
 #: objects/UML/umloperation.c:75
 msgid "Query (const)"
@@ -4794,9 +4797,9 @@ msgid "Shear angle"
 msgstr "Retalla l'angle"
 
 #: objects/network/basestation.c:135
-#, fuzzy
+#
 msgid "Sectors"
-msgstr "Actor"
+msgstr "Sectors"
 
 #: objects/network/basestation.c:393 objects/network/basestation.c:395
 #, fuzzy
@@ -4834,9 +4837,9 @@ msgid "Radius"
 msgstr ""
 
 #: objects/network/radiocell.c:140
-#, fuzzy
+#
 msgid "Cell Type:"
-msgstr "Tipus:"
+msgstr "Tipus de cel·la:"
 
 #: objects/network/radiocell.c:152
 msgid "Subscribers"
@@ -4912,9 +4915,9 @@ msgid "Fixed aspect"
 msgstr ""
 
 #: objects/standard/ellipse.c:133 objects/standard/ellipse.c:672
-#, fuzzy
+#
 msgid "Circle"
-msgstr "Perfora"
+msgstr "Cercle"
 
 #: objects/standard/image.c:130
 msgid "Image file"
@@ -5077,9 +5080,9 @@ msgid "GNOME Portable Document Format"
 msgstr ""
 
 #: plug-ins/gprint/diagnomeprint.c:130
-#, fuzzy
+#
 msgid "GNOME Scalable Vector Graphic"
-msgstr "Gràfics vectorials escalables"
+msgstr "Gràfics vectorials escalables del GNOME"
 
 #: plug-ins/gprint/diagnomeprint.c:163
 msgid "GNOME Print based Rendering"
@@ -5142,13 +5145,13 @@ msgid "Can't export png without libart!"
 msgstr "No es pot exportar el png sense libart!"
 
 #: plug-ins/shape/shape-export.c:499
-#, fuzzy
+#
 msgid "Dia Shape File"
-msgstr "fitxer de formes del dia"
+msgstr "Fitxer de formes del Dia"
 
 #: plug-ins/shape/shape.c:36
 msgid "dia shape export filter"
-msgstr "Filtre d'exportació de formes del dia"
+msgstr "Filtre d'exportació de formes del Dia"
 
 #: plug-ins/svg/render_svg.c:290 plug-ins/svg/svg-import.c:672
 msgid "Scalable Vector Graphics"
@@ -5186,9 +5189,9 @@ msgid "Windows Meta File"
 msgstr "Metafitxer de Windows"
 
 #: plug-ins/wmf/wmf.cpp:1268
-#, fuzzy
+#
 msgid "Enhanced Meta File"
-msgstr "Metafitxer de Windows"
+msgstr "Metafitxer millorat del Windows"
 
 #: plug-ins/wmf/wmf.cpp:1284
 msgid "WMF export filter"
@@ -5221,7 +5224,7 @@ msgstr ""
 
 #: plug-ins/xfig/xfig-export.c:1186
 msgid "XFig format"
-msgstr "format del XFig"
+msgstr "Format del XFig"
 
 #: plug-ins/xfig/xfig-import.c:472
 msgid "Patterns are not supported by Dia"
@@ -5496,9 +5499,9 @@ msgid "Eight point star"
 msgstr "Estrella de vuit puntes"
 
 #: sheets/Assorted.sheet.in.h:13
-#, fuzzy
+#
 msgid "Five point star"
-msgstr "Estrella de set puntes"
+msgstr "Estrella de cinc puntes"
 
 #: sheets/Assorted.sheet.in.h:14
 msgid "Four point star"
@@ -7149,9 +7152,9 @@ msgid "Time scale"
 msgstr "Escala de temps"
 
 #: sheets/ciscocomputer.sheet.in.h:1
-#, fuzzy
+#
 msgid "BBS"
-msgstr "BBSM"
+msgstr "BBS"
 
 #: sheets/ciscocomputer.sheet.in.h:2
 msgid "Cisco - Computer"
@@ -7182,12 +7185,12 @@ msgid "Diskette"
 msgstr "Disquet"
 
 #: sheets/ciscocomputer.sheet.in.h:9
-#, fuzzy
+#
 msgid "EtherClient"
-msgstr "Bus ethernet"
+msgstr "Client Ethernet"
 
 #: sheets/ciscocomputer.sheet.in.h:10
-#, fuzzy
+#
 msgid "FC Storage"
 msgstr "Emmagatzemament FC"
 
@@ -7257,26 +7260,26 @@ msgid "Monitor"
 msgstr "Monitor"
 
 #: sheets/ciscocomputer.sheet.in.h:27
-#, fuzzy
+#
 msgid "Newton"
-msgstr "Nou"
+msgstr "Newton"
 
 #: sheets/ciscocomputer.sheet.in.h:28
 msgid "PC"
 msgstr "PC"
 
 #: sheets/ciscocomputer.sheet.in.h:29
-#, fuzzy
+#
 msgid "PC Adapter Card"
 msgstr "Targeta d'adaptació del PC"
 
 #: sheets/ciscocomputer.sheet.in.h:30
-#, fuzzy
+#
 msgid "PC Card"
-msgstr "Home PC"
+msgstr "Targeta del PC"
 
 #: sheets/ciscocomputer.sheet.in.h:31
-#, fuzzy
+#
 msgid "PC Router Card"
 msgstr "Targeta d'encaminament de PC"
 
@@ -7360,29 +7363,29 @@ msgid "Workgroup director"
 msgstr "Director del grup de treball"
 
 #: sheets/ciscohub.sheet.in.h:1
-#, fuzzy
+#
 msgid "100BaseT Hub"
 msgstr "Concentrador 100BaseT"
 
 #: sheets/ciscohub.sheet.in.h:2
-#, fuzzy
+#
 msgid "7500ARS (7513) Router"
-msgstr "7500ARS (7513)"
+msgstr "Encaminador 7500ARS (7513)"
 
 #: sheets/ciscohub.sheet.in.h:3
-#, fuzzy
+#
 msgid "7505 Router"
-msgstr "Encaminador"
+msgstr "Encaminador 7505"
 
 #: sheets/ciscohub.sheet.in.h:4
-#, fuzzy
+#
 msgid "7507 Router"
-msgstr "Encaminador"
+msgstr "Encaminador 7507"
 
 #: sheets/ciscohub.sheet.in.h:5
-#, fuzzy
+#
 msgid "ASIC Processor"
-msgstr "processador ASIC"
+msgstr "Processador ASIC"
 
 #: sheets/ciscohub.sheet.in.h:6
 msgid "ATM 3800"
@@ -7394,19 +7397,19 @@ msgid "ATM Fast Gigabit Etherswitch"
 msgstr "Encaminador per commutació d'etiqutes ATM de gigabits"
 
 #: sheets/ciscohub.sheet.in.h:8
-#, fuzzy
+#
 msgid "ATM Switch"
 msgstr "Commutador ATM"
 
 #: sheets/ciscohub.sheet.in.h:9
-#, fuzzy
+#
 msgid "ATM Tag Switch Router"
 msgstr "Encaminador per commutació d'etiqutes ATM"
 
 #: sheets/ciscohub.sheet.in.h:10
-#, fuzzy
+#
 msgid "Access Gateway"
-msgstr "Passarel·la d'accés Catalyst"
+msgstr "Passarel·la d'accés"
 
 #: sheets/ciscohub.sheet.in.h:11
 msgid "BBSM"
@@ -7425,23 +7428,23 @@ msgid "Carrier Routing System"
 msgstr ""
 
 #: sheets/ciscohub.sheet.in.h:15
-#, fuzzy
+#
 msgid "Cisco - Switch"
-msgstr "Cisco - Variat"
+msgstr "Cisco - Commutador"
 
 #: sheets/ciscohub.sheet.in.h:16
 msgid "Cisco 1000"
 msgstr "Cisco 1000"
 
 #: sheets/ciscohub.sheet.in.h:17
-#, fuzzy
+#
 msgid "Cisco Hub"
 msgstr "Cisco - Concentrador"
 
 #: sheets/ciscohub.sheet.in.h:18
-#, fuzzy
+#
 msgid "Content Router"
-msgstr "Encaminador de serveis de continguts"
+msgstr "Encaminador de continguts"
 
 #: sheets/ciscohub.sheet.in.h:19
 #, fuzzy
@@ -7454,7 +7457,7 @@ msgid "Content Service Switch 1100"
 msgstr "Commutador de servei de continguts 1100"
 
 #: sheets/ciscohub.sheet.in.h:21
-#, fuzzy
+#
 msgid "Content Switch"
 msgstr "Commutador de continguts"
 
@@ -7513,24 +7516,24 @@ msgid "Label Switch Router"
 msgstr "Servidor amb un encaminador PC"
 
 #: sheets/ciscohub.sheet.in.h:34
-#, fuzzy
+#
 msgid "Layer 2 Remote Switch"
-msgstr "Commutador de capa 3"
+msgstr "Commutador de capa 2 remot"
 
 #: sheets/ciscohub.sheet.in.h:35
-#, fuzzy
+#
 msgid "MGX 8220"
-msgstr "Commutador MGX 8220"
+msgstr "MGX 8220"
 
 #: sheets/ciscohub.sheet.in.h:36
-#, fuzzy
+#
 msgid "MGX 8240"
-msgstr "Commutador MGX 8240"
+msgstr "MGX 8240"
 
 #: sheets/ciscohub.sheet.in.h:37
 #, fuzzy
 msgid "MGX 8260"
-msgstr "Commutador MGX 8260"
+msgstr "MGX 8260"
 
 #: sheets/ciscohub.sheet.in.h:38
 #, fuzzy
@@ -8231,7 +8234,7 @@ msgid "ONS15540"
 msgstr ""
 
 #: sheets/cisconetwork.sheet.in.h:67
-#, fuzzy
+#
 msgid "Optical Amplifier"
 msgstr "Amplificador òptic"
 
@@ -8265,7 +8268,7 @@ msgid "PIX Firewall Left"
 msgstr "Tallafoc PIX"
 
 #: sheets/cisconetwork.sheet.in.h:74
-#, fuzzy
+#
 msgid "Protocol Translator"
 msgstr "Traductor de protocol"
 
