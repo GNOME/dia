@@ -1,3 +1,12 @@
+2006-06-12  Elijah Newren  <newren gmail com>
+
+	Pair of build fixes.  #344357
+
+	* Makefile.am: avoid cp errors when $(srcdir) == .
+
+	* objects/Misc/newgroup.c: include pixmaps/newgroup.xpm instead of
+	pixmaps/group.xpm as the latter doesn't exist.
+
 2006-06-12  Hans Breuer  <hans@breuer.org>
 
 	* plug-ins/python/codegen.py : applied patch from Thomas D Ahle

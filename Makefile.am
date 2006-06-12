@@ -36,8 +36,10 @@ po/Makefile: po/Makefile.in
 	(cd po ; make -f Makefile.in Makefile ; make) # gettext hack
 
 core-translation-report: po/dia.pot $(srcdir)/po-checktrans.py $(srcdir)/po-checktrans
-	cp $(srcdir)/po-checktrans .
-	cp $(srcdir)/po-checktrans.py .
+	if [ "$(srcdir)" != "." ]; then    \
+	  cp $(srcdir)/po-checktrans .;    \
+	  cp $(srcdir)/po-checktrans.py .; \
+	fi
 	./po-checktrans po/dia.pot $(srcdir)/po/*.po
 
 all-local: core-translation-report po/Makefile

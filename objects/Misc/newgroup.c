@@ -33,7 +33,7 @@
 #include "message.h"
 #include "properties.h"
 
-#include "pixmaps/group.xpm"
+#include "pixmaps/newgroup.xpm"
 
 #define NUM_CONNECTIONS 9
 
