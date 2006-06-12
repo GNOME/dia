@@ -75,5 +75,32 @@ autoconf
 
 cd $ORIGDIR
 
-echo You may want to run $srcdir/configure --enable-maintainer-mode --enable-db2html "$@"
-echo to build $PROJECT
+# Helper printing functions and some terminal codes, taken from
+# gnome-common/macros2/gnome-autogen.sh ...
+boldface="`tput bold 2>/dev/null`"
+normal="`tput sgr0 2>/dev/null`"
+printbold() {
+    echo $ECHO_N "$boldface"
+    echo "$@"
+    echo $ECHO_N "$normal"
+}
+printerr() {
+    echo "$@" >&2
+}
+
+conf_flags="--enable-maintainer-mode --enable-db2html"
+if test x$NOCONFIGURE = x; then
+    if [ "$#" = 0 ]; then
+      printerr "**Warning**: I am going to run \`configure' with no arguments."
+      printerr "If you wish to pass any to it, please specify them on the"
+      printerr \`$0\'" command line."
+      printerr
+    fi  
+
+    printbold Running $srcdir/configure $conf_flags "$@"
+    $srcdir/configure $conf_flags "$@" \
+        && echo Now type \`make\' to compile $PROJECT || exit 1
+else
+    echo You may want to run $srcdir/configure $conf_flags "$@"
+    echo to build $PROJECT
+fi

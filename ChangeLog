@@ -1,5 +1,10 @@
 2006-06-12  Elijah Newren  <newren gmail com>
 
+	* autogen.sh: Run configure by default, allow it to be skipped if
+	NOCONFIGURE is set in the environment.  #344574.
+
+2006-06-12  Elijah Newren  <newren gmail com>
+
 	Pair of build fixes.  #344357
 
 	* Makefile.am: avoid cp errors when $(srcdir) == .
