@@ -1,3 +1,8 @@
+2006-06-12  Hans Breuer  <hans@breuer.org>
+
+	* plug-ins/python/codegen.py : applied patch from Thomas D Ahle
+	which adds support for Java and inheritance. Closes bug #344187
+	
 2006-05-28  Lars Clausen  <lars@raeder.dk>
 
 	* sheets/Misc.sheet.in: 
