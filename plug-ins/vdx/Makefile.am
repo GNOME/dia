@@ -7,6 +7,7 @@ libvdx_filter_la_SOURCES = \
 	vdx-import.c \
 	vdx-export.c \
 	vdx-common.c \
+	vdx-xml.c \
 	vdx.h
 
 libvdx_filter_la_LDFLAGS = -export-dynamic -module -avoid-version

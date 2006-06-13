@@ -48,297 +48,97 @@
 #include "font.h"
 #include "vdx.h"
 #include "visio-types.h"
+#include "bezier_conn.h"
 
 gboolean import_vdx(const gchar *filename, DiagramData *dia, void* user_data);
 
-void static vdx_get_colors(xmlDocPtr doc, xmlNodePtr cur, VDXDocument* theDoc);
-void static vdx_get_facenames(xmlDocPtr doc, xmlNodePtr cur, VDXDocument* theDoc);
-void static vdx_get_fonts(xmlDocPtr doc, xmlNodePtr cur, VDXDocument* theDoc);
-void static vdx_get_masters(xmlDocPtr doc, xmlNodePtr cur, VDXDocument* theDoc);
-void static vdx_get_stylesheets(xmlDocPtr doc, xmlNodePtr cur, VDXDocument* theDoc);
+void static vdx_get_colors(xmlNodePtr cur, VDXDocument* theDoc);
+void static vdx_get_facenames(xmlNodePtr cur, VDXDocument* theDoc);
+void static vdx_get_fonts(xmlNodePtr cur, VDXDocument* theDoc);
+void static vdx_get_masters(xmlNodePtr cur, VDXDocument* theDoc);
+void static vdx_get_stylesheets(xmlNodePtr cur, VDXDocument* theDoc);
 void static vdx_free(VDXDocument *theDoc);
 
+/* Note: we can hold pointers to parts of the parsed XML during import, but
+   can't pass them to the rest of Dia, as they will be freed when we finish */
 
+static PropDescription vdx_line_prop_descs[] = {
+    { "start_point", PROP_TYPE_POINT },
+    { "end_point", PROP_TYPE_POINT },
+    PROP_STD_START_ARROW,
+    PROP_STD_END_ARROW,
+    PROP_DESC_END};
 
-static Color
-vdx_get_color(const char *s, VDXDocument *theDoc)
-{
-    int colorvalues;
-    Color c;
-    if (s[0] == '#')
-    {
-        if (sscanf(s, "#%xd", &colorvalues) != 1) {
-            message_error(_("Couldn't read color: %s\n"), s);
-            theDoc->ok = FALSE;
-            return c;
-        }
+static DiaObject *
+create_standard_line(Point *points,
+                     Arrow *end_arrow,
+                     Arrow *start_arrow) {
+    DiaObjectType *otype = object_get_type("Standard - Line");
+    DiaObject *new_obj;
+    Handle *h1, *h2;
+    PointProperty *ptprop;
+    GPtrArray *props;
 
-        c.red = ((colorvalues & 0x00ff0000)>>16) / 255.0;
-        c.green = ((colorvalues & 0x0000ff00)>>8) / 255.0;
-        c.blue = (colorvalues & 0x000000ff) / 255.0;
-        return c;
-    }
-    if (g_ascii_isdigit(*s))
-    {
-        /* Look in colour table */
-        Color *master = &g_array_index(theDoc->Colors, Color, atoi(s));
-        memcpy(&c, master, sizeof(c));
-        return c;
-    }
-    message_error(_("Couldn't read color: %s\n"), s);
-    return c;
+    new_obj = otype->ops->create(&points[0], otype->default_user_data,
+                                 &h1, &h2);
+
+    props = prop_list_from_descs(vdx_line_prop_descs, pdtpp_true);
+    g_assert(props->len == 4);
+
+    ptprop = g_ptr_array_index(props,0);
+    ptprop->point_data = points[0];
+
+    ptprop = g_ptr_array_index(props,1);
+    ptprop->point_data = points[1];
+
+    if (start_arrow != NULL)
+       ((ArrowProperty *)g_ptr_array_index(props, 2))->arrow_data = *start_arrow;
+    if (end_arrow != NULL)
+       ((ArrowProperty *)g_ptr_array_index(props, 3))->arrow_data = *end_arrow;
+
+    new_obj->ops->set_props(new_obj, props);
+
+    prop_list_free(props);
+
+    return new_obj;
 }
 
-static void 
-vdx_get_colors(xmlDocPtr doc, xmlNodePtr cur, VDXDocument* theDoc)
-{
-    xmlNodePtr ColorEntry = cur->xmlChildrenNode;
-    g_debug("vdx_get_colors");
-    theDoc->Colors = g_array_new (FALSE, FALSE, sizeof (Color));
-
-    while(ColorEntry) {
-        Color color;
-        xmlAttrPtr RGB;
-        if (xmlIsBlankNode(ColorEntry)) { 
-            ColorEntry = ColorEntry->next;
-            continue;
-        }
-        if (strcmp((char *)ColorEntry->name, "ColorEntry")) {
-            g_debug("Expecting ColorEntry got %s", ColorEntry->name);
-            ColorEntry = ColorEntry->next;
-            continue;
-        }
-        RGB = xmlHasProp(ColorEntry, (xmlChar *)"RGB");
-        if (!RGB) {
-            message_error(_("Couldn't read color: %s\n"), RGB);
-            theDoc->ok = FALSE;
-            return;
-        }
-        color = vdx_get_color((char *)RGB->children->content, theDoc);
-
-        g_array_append_val(theDoc->Colors, color);
-
-        ColorEntry = ColorEntry->next;
-    }
-}
-
-static void 
-vdx_get_facenames(xmlDocPtr doc, xmlNodePtr cur, VDXDocument* theDoc)
-{
-    g_debug("vdx_get_facenames");
-}
-
-static void 
-vdx_get_fonts(xmlDocPtr doc, xmlNodePtr cur, VDXDocument* theDoc)
-{
-    xmlNodePtr Font = cur->xmlChildrenNode;
-    g_debug("vdx_get_fonts");
-    theDoc->Fonts = g_array_new(FALSE, FALSE, 
-                                sizeof (struct vdx_FontEntry));
-    while(Font)
-    {
-        struct vdx_FontEntry FontEntry;
-        xmlAttrPtr attr = Font->properties;
-        if (xmlIsBlankNode(Font)) { Font = Font->next; continue; }
-        while(attr) {
-            if (!strcmp((char *)attr->name, "Name")) {
-                FontEntry.Name = (char *)attr->children->content;
-                g_debug("Font name %s", FontEntry.Name);
-            }
-            attr = attr->next;
-        }
-        g_array_append_val(theDoc->Fonts, FontEntry);
-        Font = Font->next;
-    }        
-}
-
-static void 
-vdx_get_masters(xmlDocPtr doc, xmlNodePtr cur, VDXDocument* theDoc)
-{
-    g_debug("vdx_get_masters");
-}
-
-static void 
-vdx_get_stylesheets(xmlDocPtr doc, xmlNodePtr cur, VDXDocument* theDoc)
-{
-    xmlNodePtr StyleSheet = cur->xmlChildrenNode;
-    unsigned int sheet_count = 0;
-    g_debug("vdx_get_stylesheets");
-    theDoc->StyleSheets = g_array_new (FALSE, FALSE, 
-                                       sizeof (struct vdx_StyleSheet));
-
-    while(StyleSheet)
-    {
-        struct vdx_StyleSheet newSheet;
-        xmlNodePtr node = StyleSheet->xmlChildrenNode;
-        xmlAttrPtr attr = StyleSheet->properties;
-
-        newSheet.children = NULL;
-        newSheet.type = vdx_types_StyleSheet;
-        if (xmlIsBlankNode(StyleSheet)) { 
-            StyleSheet = StyleSheet->next;
-            continue;
-        }
-        if (strcmp((char *)StyleSheet->name, "StyleSheet")) {
-            g_debug("Expecting StyleSheet got %s", StyleSheet->name);
-            StyleSheet = StyleSheet->next;
-            continue;
-        }
-
-        /* Setup basic props as attributes */
-        while(attr) {
-            if (!strcmp((char *)attr->name, "NameU") || 
-                !strcmp((char *)attr->name, "Name")) {
-                newSheet.Name = (char *)attr->children->content;
-                g_debug("StyleSheet[%d] = %s", sheet_count, newSheet.Name);
-            }
-            if (!strcmp((char *)attr->name, "LineStyle")) {
-                newSheet.LineStyle = atoi((char *)attr->children->content);
-            }
-            if (!strcmp((char *)attr->name, "FillStyle")) {
-                newSheet.FillStyle = atoi((char *)attr->children->content);
-            }
-            if (!strcmp((char *)attr->name, "TextStyle")) {
-                newSheet.TextStyle = atoi((char *)attr->children->content);
-            }
-            attr = attr->next;
-        }
-        
-
-        while(node)
-        {
-            if (xmlIsBlankNode(node)) { 
-                node = node->next;
-                continue;
-            }
-            if (!strcmp((char *)node->name, "Line"))
-            {
-                struct vdx_Line * LinePtr = g_new0(struct vdx_Line, 1);
-                xmlNodePtr subnode = node->xmlChildrenNode;
-
-                LinePtr->type = vdx_types_Line;
-                
-                while(subnode) {
-                    if (xmlIsBlankNode(subnode)) { 
-                        subnode = subnode->next;
-                        continue;
-                    }
-                    if (!strcmp((char *)subnode->name, "BeginArrow")) {
-                        LinePtr->BeginArrow = 
-                            atoi((char *)subnode->children->content);
-                    }
-                    if (!strcmp((char *)subnode->name, "BeginArrowSize")) {
-                        LinePtr->BeginArrowSize = 
-                            atoi((char *)subnode->children->content);
-                    }
-                    if (!strcmp((char *)subnode->name, "EndArrow")) {
-                        LinePtr->EndArrow = 
-                            atoi((char *)subnode->children->content);
-                    }
-                    if (!strcmp((char *)subnode->name, "EndArrowSize")) {
-                        LinePtr->EndArrowSize = 
-                            atoi((char *)subnode->children->content);
-                    }
-                    if (!strcmp((char *)subnode->name, "LineCap")) {
-                        if (subnode->children->content[0] != '0')
-                            LinePtr->LineCap = TRUE;
-                    }
-                    if (!strcmp((char *)subnode->name, "LineColor")) {
-                        LinePtr->LineColor = 
-                            vdx_get_color((char *)subnode->children->content, 
-                                          theDoc);
-                    }
-                    if (!strcmp((char *)subnode->name, "LineColorTrans")) {
-                        LinePtr->LineColorTrans = 
-                            atof((char *)subnode->children->content);
-                    }
-                    if (!strcmp((char *)subnode->name, "LinePattern")) {
-                        LinePtr->LinePattern = 
-                            atoi((char *)subnode->children->content);
-                    }
-                    if (!strcmp((char *)subnode->name, "LineWeight")) {
-                        LinePtr->LineWeight = 
-                            atof((char *)subnode->children->content);
-                    }
-                    if (!strcmp((char *)subnode->name, "Rounding")) {
-                        LinePtr->Rounding = 
-                            atof((char *)subnode->children->content);
-                    }
-                    subnode = subnode->next;
-                }
-                newSheet.children = 
-                    g_slist_prepend(newSheet.children, LinePtr);
-            }
-            if (!strcmp((char *)node->name, "Fill"))
-            {
-                struct vdx_Fill * FillPtr = g_new0(struct vdx_Fill, 1);
-                xmlNodePtr subnode = node->xmlChildrenNode;
-
-                FillPtr->type = vdx_types_Fill;
-                
-                while(subnode) {
-                    if (xmlIsBlankNode(subnode)) { 
-                        subnode = subnode->next;
-                        continue;
-                    }
-                    if (!strcmp((char *)subnode->name, "FillBkgnd")) {
-                        FillPtr->FillBkgnd = 
-                            vdx_get_color((char *)subnode->children->content, 
-                                          theDoc);
-                    }
-                    if (!strcmp((char *)subnode->name, "FillForegnd")) {
-                        FillPtr->FillForegnd = 
-                            vdx_get_color((char *)subnode->children->content, 
-                                          theDoc);
-                    }
-                    subnode = subnode->next;
-                }
-                newSheet.children = 
-                    g_slist_prepend(newSheet.children, FillPtr);
-            }
 
 
-            
+static DiaObject *
+create_vdx_beziergon(int num_points, 
+			  BezPoint *points) {
+    DiaObjectType *otype = object_get_type("Standard - Beziergon");
+    DiaObject *new_obj;
+    Handle *h1, *h2;
+    BezierCreateData *bcd;
+    BezierConn *bcp;
+    int i;
 
-            node = node->next;
-        }
 
-        g_array_append_val(theDoc->StyleSheets, newSheet);
-        StyleSheet = StyleSheet->next;
-        sheet_count++;
-    }
-}
-
-static void *
-get_style_child(unsigned int type, unsigned int style, VDXDocument* theDoc)
-{
-    struct vdx_StyleSheet theSheet;
-    GSList *p;
-    struct vdx_Fill *Fillptr;
-    g_debug("get_style_child(%s,%d)", vdx_Types[type], style);
-    while(1)
-    {
-        theSheet = g_array_index(theDoc->StyleSheets, 
-                                 struct vdx_StyleSheet, style);
-        g_debug(" Looking in sheet %d [%s]", style, theSheet.Name);
-        p = theSheet.children;
-        while(p)
-        {
-            Fillptr = (struct vdx_Fill*)p->data;
-            g_debug("  Has type %s", vdx_Types[(int)Fillptr->type]);
-            if (Fillptr->type == type) return p->data;
-            p = p->next;
-        }
-        if (!style) return 0;
-        style = 0;
-        if (type == vdx_types_Fill) style = theSheet.FillStyle;
-        if (type == vdx_types_Line) style = theSheet.LineStyle;
-        if (type == vdx_types_TextBlock) style = theSheet.TextStyle;
+    if (otype == NULL){
+	message_error(_("Can't find standard object"));
+	return NULL;
     }
 
-    return 0;
-}
+    bcd = g_new(BezierCreateData, 1);
+    bcd->num_points = num_points;
+    bcd->points = points;
 
+    new_obj = otype->ops->create(NULL, bcd,
+				 &h1, &h2);
+
+    g_free(bcd);
+
+    bcp = (BezierConn *)new_obj;
+    g_debug("bcp.np=%d", bcp->numpoints);
+    for (i=0; i<bcp->numpoints; i++) 
+    { 
+        bcp->corner_types[i] = BEZ_CORNER_CUSP;
+    }
+    
+    return new_obj;
+}
 
 static PropDescription vdx_simple_prop_descs_line[] = {
     { "line_width", PROP_TYPE_REAL },
@@ -353,15 +153,305 @@ static PropDescription vdx_text_descs[] = {
     /* Flags */
 };
 
+static DiaObject *
+create_standard_group(GList *items) {
+    DiaObject *new_obj;
 
+    new_obj = group_create((GList*)items);
+
+    return new_obj;
+}
+
+
+/** Turns a VDX colour definition into a Dia Color.
+ * @param s a string from the VDX
+ * @param theDoc the current document (with its colour table)
+ * @returns A Dia Color object
+ */
+
+Color
+vdx_parse_color(const char *s, const VDXDocument *theDoc)
+{
+    int colorvalues;
+    Color c = {0, 0, 0};
+    if (s[0] == '#')
+    {
+        sscanf(s, "#%xd", &colorvalues);
+        c.red = ((colorvalues & 0x00ff0000)>>16) / 255.0;
+        c.green = ((colorvalues & 0x0000ff00)>>8) / 255.0;
+        c.blue = (colorvalues & 0x000000ff) / 255.0;
+        return c;
+    }
+    if (g_ascii_isdigit(s[0]))
+    {
+        /* Look in colour table */
+        unsigned int i = atoi(s);
+        if (i < theDoc->Colors->len)
+            return g_array_index(theDoc->Colors, Color, i);
+    }
+    g_debug("Couldn't read color: %s", s);
+    message_error(_("Couldn't read color: %s\n"), s);
+    return c;
+}
+
+/** Reads the colour table from the start of a VDX document
+ * @param cur the current XML node
+ * @param theDoc the current document (with its colour table)
+ */
+
+static void 
+vdx_get_colors(xmlNodePtr cur, VDXDocument* theDoc)
+{
+    xmlNodePtr ColorEntry;
+    g_debug("vdx_get_colors");
+    theDoc->Colors = g_array_new(FALSE, TRUE, sizeof (Color));
+
+    for (ColorEntry = cur->xmlChildrenNode; ColorEntry; 
+         ColorEntry = ColorEntry->next) {
+        Color color;
+        struct vdx_ColorEntry temp_ColorEntry;
+
+        if (xmlIsBlankNode(ColorEntry)) { continue; }
+
+        vdx_read_object(ColorEntry, theDoc, &temp_ColorEntry);
+        /* Just in case Color entries aren't consecutive starting at 0 */
+        color = vdx_parse_color(temp_ColorEntry.RGB, theDoc);
+        if (theDoc->Colors->len <= temp_ColorEntry.IX)
+        {
+            theDoc->Colors = 
+                g_array_set_size(theDoc->Colors, temp_ColorEntry.IX+1);
+        }
+        g_array_index(theDoc->Colors, Color, temp_ColorEntry.IX) = color;
+        g_array_append_val(theDoc->Colors, color);
+    }
+}
+
+/** Reads the face table from the start of a VDX document
+ * @param cur the current XML node
+ * @param theDoc the current document
+ */
+
+static void 
+vdx_get_facenames(xmlNodePtr cur, VDXDocument* theDoc)
+{
+    xmlNodePtr Face = cur->xmlChildrenNode;
+    g_debug("vdx_get_facenames");
+    theDoc->FaceNames = 
+        g_array_new(FALSE, FALSE, sizeof (struct vdx_FaceName));
+
+    for (Face = cur->xmlChildrenNode; Face; Face = Face->next) {
+        struct vdx_FaceName FaceName;
+
+        if (xmlIsBlankNode(Face)) { continue; }
+
+        vdx_read_object(Face, theDoc, &FaceName);
+        g_debug("FaceName[%d] = %s", FaceName.ID, FaceName.Name);
+        /* FaceNames need not be numbered consecutively, or start at 0,
+           so make room for the new one in the array */
+        if (theDoc->FaceNames->len <= FaceName.ID)
+        {
+            theDoc->FaceNames = 
+                g_array_set_size(theDoc->FaceNames, FaceName.ID+1);
+        }
+        g_array_index(theDoc->FaceNames, struct vdx_FaceName, 
+                      FaceName.ID) = FaceName;
+    }
+}
+
+/** Reads the font table from the start of a VDX document
+ * @param cur the current XML node
+ * @param theDoc the current document
+ */
+
+static void 
+vdx_get_fonts(xmlNodePtr cur, VDXDocument* theDoc)
+{
+    xmlNodePtr Font = cur->xmlChildrenNode;
+    g_debug("vdx_get_fonts");
+    theDoc->Fonts = g_array_new(FALSE, FALSE, sizeof (struct vdx_FontEntry));
+
+    for (Font = cur->xmlChildrenNode; Font; Font = Font->next) {
+        struct vdx_FontEntry FontEntry;
+
+        if (xmlIsBlankNode(Font)) { continue; }
+
+        vdx_read_object(Font, theDoc, &FontEntry);
+        g_debug("Font[%d] = %s", FontEntry.ID, FontEntry.Name);
+        /* Defensive, in case Fonts are sometimes not consecutive from 0 */
+        if (theDoc->Fonts->len <= FontEntry.ID)
+        {
+            theDoc->Fonts = g_array_set_size(theDoc->Fonts, FontEntry.ID+1);
+        }
+        g_array_index(theDoc->Fonts, struct vdx_FontEntry, FontEntry.ID) = 
+            FontEntry;
+    }
+}
+
+/** Reads the masters table from the start of a VDX document
+ * @param cur the current XML node
+ * @param theDoc the current document
+ */
+
+static void 
+vdx_get_masters(xmlNodePtr cur, VDXDocument* theDoc)
+{
+    g_debug("vdx_get_masters");
+}
+
+/** Reads the stylesheet table from the start of a VDX document
+ * @param cur the current XML node
+ * @param theDoc the current document
+ */
+
+static void 
+vdx_get_stylesheets(xmlNodePtr cur, VDXDocument* theDoc)
+{
+    xmlNodePtr StyleSheet = cur->xmlChildrenNode;
+    g_debug("vdx_get_stylesheets");
+    theDoc->StyleSheets = g_array_new (FALSE, TRUE, 
+                                       sizeof (struct vdx_StyleSheet));
+    for (StyleSheet = cur->xmlChildrenNode; StyleSheet; 
+         StyleSheet = StyleSheet->next)
+    {
+        struct vdx_StyleSheet newSheet;
+        
+        if (xmlIsBlankNode(StyleSheet)) { continue; }
+
+        vdx_read_object(StyleSheet, theDoc, &newSheet);
+        g_debug("Stylesheet[%d] = %s", newSheet.ID, 
+                (newSheet.NameU));
+        /* StyleSheets need not be numbered consecutively,
+           so make room for the new one in the array */
+        if (theDoc->StyleSheets->len <= newSheet.ID)
+        {
+            theDoc->StyleSheets = 
+                g_array_set_size(theDoc->StyleSheets, newSheet.ID+1);
+        }
+        g_array_index(theDoc->StyleSheets, struct vdx_StyleSheet, 
+                      newSheet.ID) = newSheet;
+    }
+}
+
+/** Finds a child of an object with a specific type
+ * @param type a type code
+ * @param p the object
+ * @returns An object of the desired type, or NULL
+ */
+static void *
+find_child(unsigned int type, const void *p)
+{
+    struct vdx_any *Any = (struct vdx_any *)p;
+    GSList *child;
+    g_assert(p);
+    for(child = Any->children; child; child = child->next)
+    {
+        struct vdx_any *Any_child = (struct vdx_any *)child->data;
+        if (!child->data) continue;
+        /* g_debug("  Has type %s", vdx_Types[(int)Any_child->type]); */
+        if (Any_child->type == type) return Any_child;
+    }
+    return 0;
+}
+
+/** Frees all children of an object recursively
+ * @param p an object pointer (may be NULL)
+ */
+static void
+free_children(void *p)
+{
+    if (p)
+    {
+        struct vdx_any *Any = (struct vdx_any *)p;
+        GSList *list;
+        for (list = Any->children; list; list = list->next)
+        {
+            if (!list->data) continue;
+            free_children(list->data);
+            g_free(list->data);
+        }
+        g_slist_free(list);
+    }
+}
+
+/** Finds the stylesheet style object that applies
+ * @param type a type code
+ * @param style the starting stylesheet number
+ * @param theDoc the document
+ * @returns An object of the desired type, or NULL
+ */
+static void *
+get_style_child(unsigned int type, unsigned int style, VDXDocument* theDoc)
+{
+    struct vdx_StyleSheet theSheet;
+    struct vdx_any *Any;
+    g_debug("get_style_child(%s,%d)", vdx_Types[type], style);
+    while(1)
+    {
+        g_assert(style < theDoc->StyleSheets->len);
+        theSheet = g_array_index(theDoc->StyleSheets, 
+                                 struct vdx_StyleSheet, style);
+        g_debug(" Looking in sheet %d [%s]", style, theSheet.NameU);
+        Any = find_child(type, &theSheet);
+        if (Any) return Any;
+        /* Terminate on style 0 (default) */
+        if (!style) return 0;
+        /* Find a parent style to check */
+        style = 0;
+        if (type == vdx_types_Fill) style = theSheet.FillStyle;
+        else if (type == vdx_types_Line) style = theSheet.LineStyle;
+        else style = theSheet.TextStyle;
+    }
+
+    return 0;
+}
+
+
+/** General absolute length conversion Visio -> Dia
+ * @param a a length
+ * @param theDoc the document
+ * @returns a in Dia space
+ */
+  
+static double da(double a, VDXDocument* theDoc)
+{
+    return vdx_Point_Scale*a;
+}
+
+/** x conversion Visio -> Dia
+ * @param x
+ * @param theDoc the document
+ * @returns x in Dia space
+ */
+  
+static double dx(double x, VDXDocument* theDoc)
+{
+    return vdx_Point_Scale*x + vdx_Page_Width*theDoc->Page;
+}
+
+/** y conversion Visio -> Dia
+ * @param y
+ * @param theDoc the document
+ * @returns y in Dia space
+ */
+  
+static double dy(double y, VDXDocument* theDoc)
+{
+    return vdx_Y_Offset + vdx_Y_Flip*vdx_Point_Scale*y;
+}
+
+
+/** Sets simple props
+ * @param obj the object
+ * @param Fill any fill
+ * @param Line any line
+ * @param theDoc the document
+ * @bug dash length not yet done - much other work needed
+ */
+  
 static void
 vdx_simple_properties(DiaObject *obj,
-		      int line_style,
-		      float dash_length,
-		      int thickness,
-		      const Color *pen_colour,
-		      const Color *fill_colour, 
-                      VDXDocument* theDoc) 
+                      const struct vdx_Fill *Fill, const struct vdx_Line *Line,
+                      const VDXDocument* theDoc) 
 {
     GPtrArray *props = prop_list_from_descs(vdx_simple_prop_descs_line,
                                             pdtpp_true);
@@ -369,39 +459,60 @@ vdx_simple_properties(DiaObject *obj,
     ColorProperty *cprop;
 
     g_assert(props->len == 2);
-    
-    rprop = g_ptr_array_index(props,0);
-    rprop->real_data = thickness;
-    
-    cprop = g_ptr_array_index(props,1);
-    if (pen_colour) cprop->color_data = *pen_colour;
 
-    if (line_style != -1) {
-        LinestyleProperty *lsprop = 
-            (LinestyleProperty *)make_new_prop("line_style", 
-                                               PROP_TYPE_LINESTYLE,
-                                               PROP_FLAG_DONT_SAVE);
-        lsprop->dash = 0;
-        lsprop->style = LINESTYLE_SOLID;
+    if (Line)
+    {
+        rprop = g_ptr_array_index(props,0);
+        rprop->real_data = Line->LineWeight;
+    
+        cprop = g_ptr_array_index(props,1);
+        cprop->color_data = Line->LineColor;
 
-        g_ptr_array_add(props,lsprop);
+        if (!Line->LinePattern) 
+        { cprop->color_data = vdx_parse_color("#FFFFFF", theDoc); }
+
+        g_debug("line colour %f,%f,%f", Line->LineColor.red,
+                Line->LineColor.green, Line->LineColor.blue);
+
+        if (Line->LinePattern) 
+        {
+            LinestyleProperty *lsprop = 
+                (LinestyleProperty *)make_new_prop("line_style", 
+                                                   PROP_TYPE_LINESTYLE,
+                                                   PROP_FLAG_DONT_SAVE);
+            lsprop->style = LINESTYLE_SOLID;
+
+            if (Line->LinePattern > 1)
+                lsprop->style = LINESTYLE_DASHED;
+            if (Line->LinePattern == 4)
+                lsprop->style = LINESTYLE_DASH_DOT;
+            if (Line->LinePattern == 3)
+                lsprop->style = LINESTYLE_DOTTED;
+
+            lsprop->dash = vdx_Dash_Length;
+
+            g_ptr_array_add(props,lsprop);
+        }
     }
 
-    if (! fill_colour) {
+    if (Fill && Fill->FillPattern)
+    {
+        cprop = 
+            (ColorProperty *)make_new_prop("fill_colour",
+                                           PROP_TYPE_COLOUR,
+                                           PROP_FLAG_DONT_SAVE);
+        cprop->color_data = Fill->FillForegnd;
+        
+        g_ptr_array_add(props,cprop);
+    }
+    else
+    {
         BoolProperty *bprop = 
             (BoolProperty *)make_new_prop("show_background",
                                           PROP_TYPE_BOOL,PROP_FLAG_DONT_SAVE);
         bprop->bool_data = FALSE;
-
+        
         g_ptr_array_add(props,bprop);
-    } else {
-        ColorProperty *cprop = 
-            (ColorProperty *)make_new_prop("fill_colour",
-                                           PROP_TYPE_COLOUR,
-                                           PROP_FLAG_DONT_SAVE);
-        cprop->color_data = *fill_colour;
-
-        g_ptr_array_add(props,cprop);
     }
 
     obj->ops->set_props(obj, props);
@@ -409,508 +520,1077 @@ vdx_simple_properties(DiaObject *obj,
 }
 
 
+/* The following functions create the Dia standard objects */
 
-
-/* General absolute length conversion Visio -> Dia */
-static double da(double a, VDXDocument* theDoc)
-{
-    return vdx_Point_Scale*a;
-}
-
-/* Visio x -> Dia x */
-static double dx(double x, VDXDocument* theDoc)
-{
-    return vdx_Point_Scale*x + vdx_Page_Width*theDoc->Page;
-}
-
-/* Visio y -> Dia y */
-static double dy(double y, VDXDocument* theDoc)
-{
-    return vdx_Y_Offset + vdx_Y_Flip*vdx_Point_Scale*y;
-}
-
-static void
-plot_geom(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm, 
-          const struct vdx_Fill *Fill,
-          VDXDocument* theDoc, DiagramData *dia)
+/** Plots a line
+ * @param Geom the shape
+ * @param XForm any transformations
+ * @param XForm1D any linear transformations
+ * @param Fill any fill
+ * @param Line any line
+ * @param theDoc the document
+ * @returns the new object
+ */
+  
+static DiaObject *
+plot_line(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm, 
+          const struct vdx_XForm1D *XForm1D, 
+          const struct vdx_Fill *Fill, const struct vdx_Line *Line,
+          VDXDocument* theDoc)
 {
     DiaObject *newobj = NULL;
-    GPtrArray *props;
-    GSList *item = Geom->children;
+    GSList *item;
     struct vdx_MoveTo *MoveTo;
     struct vdx_LineTo *LineTo;
-    struct vdx_Ellipse *Ellipse;
-    struct vdx_EllipticalArcTo *EllipticalArcTo;
-    Point *points;
+    struct vdx_any *Any;
+    Point points[2];
+    Arrow start_arrow;
+    Arrow end_arrow;
+    Arrow* start_arrow_p = NULL;
+    Arrow* end_arrow_p = NULL;
 
-    /* Start with individual objects */
-    /* Later, we move to polylines */
-    /* Translate from Visio-space to Dia-space before plotting */
+    Point offset = {0, 0};
+    Point current = {0, 0};
+    Point end = {0, 0};
+
+    if (Geom->NoLine) return 0;
+
+    item = Geom->children;
+    Any = (struct vdx_any *)(item->data);
+    
+    if (Any->type == vdx_types_MoveTo)
+    {
+        MoveTo = (struct vdx_MoveTo*)(item->data);
+        current.x = MoveTo->X;
+        current.y = MoveTo->Y;
+        item = item->next;
+    }
+    LineTo = (struct vdx_LineTo*)(item->data);
+
+    end.x = LineTo->X;
+    end.y = LineTo->Y;
+
+    if (XForm1D)
+    {
+        /* As a special case, we can do rotation and scaling on
+           lines, as all we need is the end points */
+        current.x = XForm1D->BeginX;
+        current.y = XForm1D->BeginY;
+        end.x = XForm1D->EndX;
+        end.y = XForm1D->EndY;
+    }
+
+    points[0].x = dx(current.x + offset.x, theDoc);
+    points[0].y = dy(current.y + offset.y, theDoc);
+    points[1].x = dx(end.x + offset.x, theDoc);
+    points[1].y = dy(end.y + offset.y, theDoc);
+
+    if (Line->BeginArrow) 
+    {
+        start_arrow.type = ARROW_FILLED_TRIANGLE;
+        start_arrow.width = da(Line->BeginArrowSize*vdx_Arrow_Scale, theDoc);
+        start_arrow.length = da(Line->BeginArrowSize*vdx_Arrow_Scale, theDoc);
+        start_arrow_p = &start_arrow;
+    }
+
+    if (Line->EndArrow) 
+    {
+        end_arrow.type = ARROW_FILLED_TRIANGLE;
+        end_arrow.width = da(Line->EndArrowSize*vdx_Arrow_Scale, theDoc);
+        end_arrow.length = da(Line->EndArrowSize*vdx_Arrow_Scale, theDoc);
+        end_arrow_p = &end_arrow;
+    }
+
+    /* Yes, I've swapped start and end arrows */
+    newobj = create_standard_line(points, end_arrow_p, start_arrow_p);
+    vdx_simple_properties(newobj, Fill, Line, theDoc);
+    return newobj;
+}
+
+/** Plots an arc
+ * @param Geom the shape
+ * @param XForm any transformations
+ * @param Fill any fill
+ * @param Line any line
+ * @param theDoc the document
+ * @returns the new object
+ */
+  
+static DiaObject *
+plot_arc(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm, 
+         const struct vdx_Fill *Fill, const struct vdx_Line *Line,
+         VDXDocument* theDoc)
+{
+    DiaObject *newobj = NULL;
+    GSList *item;
+    struct vdx_MoveTo *MoveTo;
+    struct vdx_ArcTo *ArcTo;
+    struct vdx_any *Any;
+    Point points[2];
+    double chord_length_sq;
+    double A;
+    double R;
+    float radius;
+    Arrow start_arrow;
+    Arrow end_arrow;
+    Arrow* start_arrow_p = NULL;
+    Arrow* end_arrow_p = NULL;
 
     Point offset = {0, 0};
     Point current = {0, 0};
 
-    g_debug("plot_geom");
+    if (Geom->NoLine) return 0;
 
     if (XForm)
     {
-        offset.x = XForm->PinX;
-        offset.y = XForm->PinY;
+        offset.x = XForm->PinX - XForm->LocPinX;
+        offset.y = XForm->PinY - XForm->LocPinY;
     }
 
-    while(item)
+    item = Geom->children;
+    Any = (struct vdx_any *)(item->data);
+    
+    if (Any->type == vdx_types_MoveTo)
     {
-        switch(((struct vdx_MoveTo *)(item->data))->type)
+        MoveTo = (struct vdx_MoveTo*)(item->data);
+        current.x = MoveTo->X;
+        current.y = MoveTo->Y;
+        item = item->next;
+    }
+    ArcTo = (struct vdx_ArcTo*)(item->data);
+    points[0].x = dx(current.x + offset.x, theDoc);
+    points[0].y = dy(current.y + offset.y, theDoc);
+    points[1].x = dx(ArcTo->X + offset.x, theDoc);
+    points[1].y = dy(ArcTo->Y + offset.y, theDoc);
+
+    chord_length_sq = (ArcTo->X - current.x)*(ArcTo->X - current.x) +
+        (ArcTo->Y - current.y)*(ArcTo->Y - current.y);
+
+    /* A = The distance from the arc's midpoint to the midpoint of its chord.
+       By Pythagoras, R^2 = (chord_length/2)^2 + (R-A)^2 */
+
+    A = ArcTo->A;
+
+    R = (chord_length_sq + 4*A*A)/(8*A);
+
+    radius = da(R, theDoc);
+
+    if (Line->BeginArrow) 
+    {
+        start_arrow.type = ARROW_FILLED_TRIANGLE;
+        start_arrow.width = da(Line->BeginArrowSize*vdx_Arrow_Scale, theDoc);
+        start_arrow.length = da(Line->BeginArrowSize*vdx_Arrow_Scale, theDoc);
+        start_arrow_p = &start_arrow;
+    }
+
+    if (Line->EndArrow) 
+    {
+        end_arrow.type = ARROW_FILLED_TRIANGLE;
+        end_arrow.width = da(Line->EndArrowSize*vdx_Arrow_Scale, theDoc);
+        end_arrow.length = da(Line->EndArrowSize*vdx_Arrow_Scale, theDoc);
+        end_arrow_p = &end_arrow;
+    }
+
+    newobj = create_standard_arc(points[0].x, points[0].y, points[1].x, 
+                                 points[1].y, radius, 
+                                 start_arrow_p, end_arrow_p);
+    vdx_simple_properties(newobj, Fill, Line, theDoc);
+    return newobj;
+}
+
+/** Plots a polyline
+ * @param Geom the shape
+ * @param XForm any transformations
+ * @param Fill any fill
+ * @param Line any line
+ * @param theDoc the document
+ * @returns the new object
+ */
+  
+static DiaObject *
+plot_polyline(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm, 
+              const struct vdx_Fill *Fill, const struct vdx_Line *Line,
+              VDXDocument* theDoc)
+{
+    DiaObject *newobj = NULL;
+    GSList *item;
+    struct vdx_MoveTo *MoveTo;
+    struct vdx_LineTo *LineTo;
+    Point *points;
+    unsigned int num_points = 0;
+    unsigned int count = 0;
+
+    Point offset = {0, 0};
+
+    if (Geom->NoLine) return 0;
+
+    if (XForm)
+    {
+        offset.x = XForm->PinX - XForm->LocPinX;
+        offset.y = XForm->PinY - XForm->LocPinY;
+    }
+
+    for(item = Geom->children; item; item = item->next)
+    {
+        num_points++;
+    }
+
+    points = g_new0(Point, num_points);
+
+    for(item = Geom->children; item; item = item->next)
+    {
+        if (!item->data) continue;
+        switch (((struct vdx_any *)(item->data))->type)
+        {
+        case vdx_types_LineTo:
+            LineTo = (struct vdx_LineTo*)(item->data);
+            points[count].x = dx(LineTo->X + offset.x, theDoc);
+            points[count].y = dy(LineTo->Y + offset.y, theDoc);
+            break;
+        case vdx_types_MoveTo:
+            MoveTo = (struct vdx_MoveTo*)(item->data);
+            points[count].x = dx(MoveTo->X + offset.x, theDoc);
+            points[count].y = dy(MoveTo->Y + offset.y, theDoc);
+            break;
+        default:
+            break;
+        }
+        count++;
+    }
+
+    newobj = create_standard_polyline(num_points, points, NULL, NULL);
+    vdx_simple_properties(newobj, Fill, Line, theDoc);
+    return newobj;
+}
+
+/** Plots a polygon
+ * @param Geom the shape
+ * @param XForm any transformations
+ * @param Fill any fill
+ * @param Line any line
+ * @param theDoc the document
+ * @returns the new object
+ */
+  
+static DiaObject *
+plot_polygon(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm, 
+              const struct vdx_Fill *Fill, const struct vdx_Line *Line,
+              VDXDocument* theDoc)
+{
+    DiaObject *newobj = NULL;
+    GSList *item;
+    struct vdx_MoveTo *MoveTo;
+    struct vdx_LineTo *LineTo;
+    Point *points;
+    unsigned int num_points = 0;
+    unsigned int count = 0;
+
+    Point offset = {0, 0};
+
+    if (XForm)
+    {
+        offset.x = XForm->PinX - XForm->LocPinX;
+        offset.y = XForm->PinY - XForm->LocPinY;
+    }
+
+    for(item = Geom->children; item; item = item->next)
+    {
+        num_points++;
+    }
+
+    points = g_new0(Point, num_points);
+
+    for(item = Geom->children; item; item = item->next)
+    {
+        if (!item->data) continue;
+        switch (((struct vdx_any *)(item->data))->type)
+        {
+        case vdx_types_LineTo:
+            LineTo = (struct vdx_LineTo*)(item->data);
+            points[count].x = dx(LineTo->X + offset.x, theDoc);
+            points[count].y = dy(LineTo->Y + offset.y, theDoc);
+            break;
+        case vdx_types_MoveTo:
+            MoveTo = (struct vdx_MoveTo*)(item->data);
+            points[count].x = dx(MoveTo->X + offset.x, theDoc);
+            points[count].y = dy(MoveTo->Y + offset.y, theDoc);
+            break;
+        default:
+            break;
+        }
+        count++;
+    }
+
+    newobj = create_standard_polygon(num_points, points);
+    g_free(points);
+    vdx_simple_properties(newobj, Fill, Line, theDoc);
+    return newobj;
+}
+
+/** Plots an ellipse
+ * @param Geom the shape
+ * @param XForm any transformations
+ * @param Fill any fill
+ * @param Line any line
+ * @param theDoc the document
+ * @returns the new object
+ */
+  
+static DiaObject *
+plot_ellipse(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm, 
+             const struct vdx_Fill *Fill, const struct vdx_Line *Line,
+             VDXDocument* theDoc)
+{
+    DiaObject *newobj = NULL;
+    GSList *item;
+    struct vdx_MoveTo *MoveTo;
+    struct vdx_Ellipse *Ellipse;
+    struct vdx_any *Any;
+
+    Point offset = {0, 0};
+    Point current = {0, 0};
+
+    if (XForm)
+    {
+        offset.x = XForm->PinX - XForm->LocPinX;
+        offset.y = XForm->PinY - XForm->LocPinY;
+    }
+
+    item = Geom->children;
+    Any = (struct vdx_any *)(item->data);
+    
+    if (Any->type == vdx_types_MoveTo)
+    {
+        MoveTo = (struct vdx_MoveTo*)(item->data);
+        current.x = MoveTo->X;
+        current.y = MoveTo->Y;
+        item = item->next;
+    }
+
+    Ellipse = (struct vdx_Ellipse*)(Geom->children->data);
+
+    /* Dia pins its ellipses in the top left corner, so adjust by
+       the vertical radius */
+    current.y += Ellipse->D;
+
+    newobj = 
+        create_standard_ellipse(
+            dx(current.x + offset.x, theDoc), 
+            dy(current.y + offset.y, theDoc), 
+            da(Ellipse->A, theDoc), da(Ellipse->D, theDoc));
+
+    vdx_simple_properties(newobj, Fill, Line, theDoc);
+
+    return newobj;
+}
+
+/** Plots a beziergon
+ * @param Geom the shape
+ * @param XForm any transformations
+ * @param Fill any fill
+ * @param Line any line
+ * @param theDoc the document
+ * @returns the new object
+ * @bug deal with moveto not being first component
+ */
+  
+static DiaObject *
+plot_beziergon(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm, 
+               const struct vdx_Fill *Fill, const struct vdx_Line *Line,
+               VDXDocument* theDoc)
+{
+    DiaObject *newobj = NULL;
+    GSList *item;
+    struct vdx_MoveTo *MoveTo;
+    struct vdx_LineTo *LineTo;
+    struct vdx_EllipticalArcTo *EllipticalArcTo;
+    struct vdx_any *Any;
+    unsigned int num_points = 0;
+    unsigned int count = 0;
+    BezPoint *bezpoints = 0;
+
+    Point offset = {0, 0};
+    Point parallel;
+    Point normal;
+
+    if (XForm)
+    {
+        offset.x = XForm->PinX - XForm->LocPinX;
+        offset.y = XForm->PinY - XForm->LocPinY;
+    }
+
+    for(item = Geom->children; item; item = item->next)
+    {
+        if (!item->data) continue;
+        Any = (struct vdx_any *)(item->data);
+        if ((Any->type == vdx_types_MoveTo && num_points) ||
+            (Any->type != vdx_types_MoveTo && ! num_points))
+        {
+            g_debug("MoveTo not in first position!");
+            /* return 0; */
+        }
+        num_points++;
+    }
+
+    bezpoints = g_new0(BezPoint, num_points+1);
+
+    /* Dia always has a BEZ_MOVETO in the first slot, and all the rest are
+       BEZ_CURVETO or BEZ_LINETO */
+
+    for(item = Geom->children; item; item = item->next)
+    {
+        if (!item->data) continue;
+        Any = (struct vdx_any *)(item->data);
+        switch (Any->type)
         {
         case vdx_types_MoveTo:
             MoveTo = (struct vdx_MoveTo*)(item->data);
-            g_debug("MoveTo");
-            current.x = MoveTo->X;
-            current.y = MoveTo->Y;
+            bezpoints[count].type = BEZ_MOVE_TO;
+            bezpoints[count].p1.x = dx(MoveTo->X + offset.x, theDoc);
+            bezpoints[count].p1.y = dy(MoveTo->Y + offset.y, theDoc);
+            g_debug("Moveto(%f,%f)", MoveTo->X, MoveTo->Y);
             break;
-
         case vdx_types_LineTo:
-            points = calloc(sizeof(Point), 2);
             LineTo = (struct vdx_LineTo*)(item->data);
-            g_debug("LineTo");
-            points[0].x = dx(current.x + offset.x, theDoc);
-            points[0].y = dy(current.y + offset.y, theDoc);
-            points[1].x = dx(LineTo->X + offset.x, theDoc);
-            points[1].y = dy(LineTo->Y + offset.y, theDoc);
-
-            newobj = create_standard_polyline(2, points, NULL, NULL);
-            props = prop_list_from_descs(vdx_simple_prop_descs_line,
-                                         pdtpp_true);
-            newobj->ops->set_props(newobj, props);
-            prop_list_free(props);
-            layer_add_object(dia->active_layer, newobj);
-
-            free(points);
-            current.x = LineTo->X;
-            current.y = LineTo->Y;
+            bezpoints[count].type = BEZ_LINE_TO;
+            bezpoints[count].p1.x = dx(LineTo->X + offset.x, theDoc);
+            bezpoints[count].p1.y = dy(LineTo->Y + offset.y, theDoc);
+            g_debug("Lineto(%f,%f)", LineTo->X, LineTo->Y);
             break;
-
-        case vdx_types_Ellipse:
-            Ellipse = (struct vdx_Ellipse*)(item->data);
-            g_debug("Ellipse");
-            /* Visio Ellipse is centred, Dia is bottom left */
-            newobj = 
-                create_standard_ellipse(
-                    dx(current.x + offset.x + Ellipse->A/2, theDoc), 
-                    dy(current.y + offset.y + Ellipse->D/2, theDoc), 
-                    da(Ellipse->A, theDoc), da(Ellipse->D, theDoc));
-            props = prop_list_from_descs(vdx_simple_prop_descs_line,
-                                         pdtpp_true);
-            newobj->ops->set_props(newobj, props);
-            prop_list_free(props);
-
-            if (!Geom->NoFill && Fill)
-            {
-                vdx_simple_properties(newobj, 0, 0, 0, 0, &Fill->FillForegnd, 
-                                      theDoc);
-            }
-
-            layer_add_object(dia->active_layer, newobj);
-            break;
-
         case vdx_types_EllipticalArcTo:
-            g_debug("EllipticalArcTo");
+            EllipticalArcTo = (struct vdx_EllipticalArcTo*)(item->data);
+            bezpoints[count].type = BEZ_CURVE_TO;
+            bezpoints[count].p3.x = dx(EllipticalArcTo->X + offset.x, theDoc);
+            bezpoints[count].p3.y = dy(EllipticalArcTo->Y + offset.y, theDoc);
+            bezpoints[count].p2.x = dx(EllipticalArcTo->A + offset.x, theDoc);
+            bezpoints[count].p2.y = dy(EllipticalArcTo->B + offset.y, theDoc);
+            if (count > 1) bezpoints[count].p1 = bezpoints[count-1].p3;
+            if (count == 1) bezpoints[count].p1 = bezpoints[count-1].p1;
+            g_debug("Arcto(%f,%f;%f,%f;%f;%f)", 
+                    EllipticalArcTo->X, EllipticalArcTo->Y,
+                    EllipticalArcTo->A, EllipticalArcTo->B,
+                    EllipticalArcTo->C, EllipticalArcTo->D);
             break;
-
         default:
-            g_debug("default");
+            g_debug("Not plotting %s as Bezier", 
+                    vdx_Types[(unsigned int)Any->type]);
+            break;
         }
-        item = item->next;
+        count++;
     }
+    bezpoints[num_points].type = BEZ_CURVE_TO;
+    bezpoints[num_points].p3 = bezpoints[0].p1;
+    bezpoints[num_points].p2 = bezpoints[0].p1;
+    bezpoints[num_points].p1 = bezpoints[num_points-1].p3;
+
+    newobj = create_vdx_beziergon(num_points+1, bezpoints);
+    g_free(bezpoints); 
+    vdx_simple_properties(newobj, Fill, Line, theDoc);
+    return newobj;
 }
 
-static void
-plot_text(const char *Text, const struct vdx_XForm *XForm, 
-          const struct vdx_Char *Char, VDXDocument* theDoc, DiagramData *dia)
+/** Plots a bexier
+ * @param Geom the shape
+ * @param XForm any transformations
+ * @param Fill any fill
+ * @param Line any line
+ * @param theDoc the document
+ * @returns the new object
+ */
+  
+static DiaObject *
+plot_bezier(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm, 
+            const struct vdx_Fill *Fill, const struct vdx_Line *Line,
+            VDXDocument* theDoc)
+{
+    DiaObject *newobj = NULL;
+    GSList *item;
+    struct vdx_MoveTo *MoveTo;
+    struct vdx_LineTo *LineTo;
+    struct vdx_EllipticalArcTo *EllipticalArcTo;
+    struct vdx_any *Any;
+    unsigned int num_points = 0;
+    unsigned int count = 0;
+    BezPoint *bezpoints = 0;
+    Arrow start_arrow;
+    Arrow end_arrow;
+    Arrow* start_arrow_p = NULL;
+    Arrow* end_arrow_p = NULL;
+
+    Point offset = {0, 0};
+
+    if (XForm)
+    {
+        offset.x = XForm->PinX - XForm->LocPinX;
+        offset.y = XForm->PinY - XForm->LocPinY;
+    }
+
+    for(item = Geom->children; item; item = item->next)
+    {
+        if (!item->data) continue;
+        Any = (struct vdx_any *)(item->data);
+        if ((Any->type == vdx_types_MoveTo && num_points) ||
+            (Any->type != vdx_types_MoveTo && ! num_points))
+        {
+            g_debug("MoveTo not in first position!");
+            /* return 0; */
+        }
+        num_points++;
+    }
+
+    bezpoints = g_new0(BezPoint, num_points);
+
+    for(item = Geom->children; item; item = item->next)
+    {
+        if (!item->data) continue;
+        Any = (struct vdx_any *)(item->data);
+        switch (Any->type)
+        {
+        case vdx_types_MoveTo:
+            MoveTo = (struct vdx_MoveTo*)(item->data);
+            bezpoints[count].type = BEZ_MOVE_TO;
+            bezpoints[count].p1.x = dx(MoveTo->X + offset.x, theDoc);
+            bezpoints[count].p1.y = dy(MoveTo->Y + offset.y, theDoc);
+            g_debug("Moveto(%f,%f)", MoveTo->X, MoveTo->Y);
+            break;
+        case vdx_types_LineTo:
+            LineTo = (struct vdx_LineTo*)(item->data);
+            bezpoints[count].type = BEZ_LINE_TO;
+            bezpoints[count].p1.x = dx(LineTo->X + offset.x, theDoc);
+            bezpoints[count].p1.y = dy(LineTo->Y + offset.y, theDoc);
+            g_debug("Lineto(%f,%f)", LineTo->X, LineTo->Y);
+            break;
+        case vdx_types_EllipticalArcTo:
+            EllipticalArcTo = (struct vdx_EllipticalArcTo*)(item->data);
+            bezpoints[count].type = BEZ_CURVE_TO;
+            bezpoints[count].p3.x = dx(EllipticalArcTo->X + offset.x, theDoc);
+            bezpoints[count].p3.y = dy(EllipticalArcTo->Y + offset.y, theDoc);
+            bezpoints[count].p2.x = dx(EllipticalArcTo->A + offset.x, theDoc);
+            bezpoints[count].p2.y = dy(EllipticalArcTo->B + offset.y, theDoc);
+            if (count > 1) bezpoints[count].p1 = bezpoints[count-1].p3;
+            if (count == 1) bezpoints[count].p1 = bezpoints[count-1].p1;
+            g_debug("Arcto(%f,%f)", EllipticalArcTo->X, EllipticalArcTo->Y);
+            break;
+        default:
+            g_debug("Not plotting %s as Bezier", 
+                    vdx_Types[(unsigned int)Any->type]);
+            break;
+        }
+        count++;
+    }
+
+    if (Line->BeginArrow) 
+    {
+        start_arrow.type = ARROW_FILLED_TRIANGLE;
+        start_arrow.width = da(Line->BeginArrowSize*vdx_Arrow_Scale, theDoc);
+        start_arrow.length = da(Line->BeginArrowSize*vdx_Arrow_Scale, theDoc);
+        start_arrow_p = &start_arrow;
+    }
+
+    if (Line->EndArrow) 
+    {
+        end_arrow.type = ARROW_FILLED_TRIANGLE;
+        end_arrow.width = da(Line->EndArrowSize*vdx_Arrow_Scale, theDoc);
+        end_arrow.length = da(Line->EndArrowSize*vdx_Arrow_Scale, theDoc);
+        end_arrow_p = &end_arrow;
+    }
+
+    newobj = create_standard_bezierline(num_points, bezpoints, 
+                                        start_arrow_p, end_arrow_p);
+    g_free(bezpoints); 
+    vdx_simple_properties(newobj, Fill, Line, theDoc);
+    return newobj;
+}
+
+/** Plots a shape
+ * @param Geom the shape
+ * @param XForm any transformations
+ * @param Fill any fill
+ * @param Line any line
+ * @param theDoc the document
+ * @returns the new object
+ */
+  
+enum dia_types { vdx_dia_any = 0, vdx_dia_text, vdx_dia_ellipse, vdx_dia_box,
+                 vdx_dia_polyline, vdx_dia_polygon, vdx_dia_bezier, 
+                 vdx_dia_beziergon, vdx_dia_arc, vdx_dia_line, vdx_dia_image,
+                 vdx_dia_zigzagline };
+
+static DiaObject *
+plot_geom(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm, 
+          const struct vdx_XForm1D *XForm1D, 
+          const struct vdx_Fill *Fill, const struct vdx_Line *Line,
+          VDXDocument* theDoc)
+{
+    GSList *item;
+    gboolean all_lines = TRUE;
+    unsigned int num_steps = 0;
+    struct vdx_any *last_point = 0;
+    unsigned int dia_type_choice = vdx_dia_any;
+
+    /* Translate from Visio-space to Dia-space before plotting */
+
+    g_debug("plot_geom");
+
+    for(item = Geom->children; item; item = item->next)
+    {
+        if (!item->data) continue;
+        last_point = (struct vdx_any *)(item->data);
+        switch (((struct vdx_any *)(item->data))->type)
+        {
+        case vdx_types_LineTo:
+            num_steps++;
+            break;
+        case vdx_types_MoveTo:
+            if (item != Geom->children) { all_lines = FALSE; }
+            break;
+        default:
+            all_lines = FALSE;
+            num_steps++;
+        }
+    }
+
+    if (all_lines)
+    {
+        if (Geom->NoFill) { dia_type_choice = vdx_dia_polyline; }
+        else { dia_type_choice = vdx_dia_polygon; }
+    }
+    if (num_steps == 1) 
+    { 
+        if (last_point->type == vdx_types_EllipticalArcTo) 
+            dia_type_choice = vdx_dia_arc; 
+        if (last_point->type == vdx_types_Ellipse) 
+            dia_type_choice = vdx_dia_ellipse; 
+        if (last_point->type == vdx_types_LineTo) 
+            dia_type_choice = vdx_dia_line; 
+    }
+    if (dia_type_choice == vdx_dia_any)
+    {
+        if (Geom->NoFill) { dia_type_choice = vdx_dia_bezier; }
+        else { dia_type_choice = vdx_dia_beziergon; }
+    }
+
+    g_debug("Choice %d", dia_type_choice);
+
+    switch(dia_type_choice)
+    {
+    case vdx_dia_line:
+        return plot_line(Geom, XForm, XForm1D, Fill, Line, theDoc);
+        break;
+    case vdx_dia_polyline:
+        return plot_polyline(Geom, XForm, Fill, Line, theDoc);
+        break;
+    case vdx_dia_polygon:
+        return plot_polygon(Geom, XForm, Fill, Line, theDoc);
+        break;
+    case vdx_dia_ellipse:
+        return plot_ellipse(Geom, XForm, Fill, Line, theDoc); 
+        break;
+    case vdx_dia_beziergon:
+        return plot_beziergon(Geom, XForm, Fill, Line, theDoc);
+        break;
+    case vdx_dia_bezier:
+        return plot_bezier(Geom, XForm, Fill, Line, theDoc);
+        break;
+    case vdx_dia_arc:
+        return plot_arc(Geom, XForm, Fill, Line, theDoc);
+        break;
+    default:
+        g_debug("Not yet implemented");
+        break;
+    }
+    return 0;
+}
+
+
+/** Draws some text
+ * @param Text the text
+ * @param XForm any transformations
+ * @param Char font info
+ * @param Para alignment info
+ * @param theDoc the document
+ * @returns the new object
+ * @bug need to assemble multiple child text objects - much work yet to do
+ */
+static DiaObject *
+plot_text(const struct vdx_Text *Text, const struct vdx_XForm *XForm, 
+          const struct vdx_Char *Char, const struct vdx_Para *Para,
+          VDXDocument* theDoc)
 {
     DiaObject *newobj;
     GPtrArray *props;
     TextProperty *tprop;
     struct vdx_FontEntry FontEntry;
+    struct vdx_FaceName FaceName;
+    struct vdx_text * text = find_child(vdx_types_text, Text);
+    int i;
 
     g_debug("plot_text");
-    newobj = create_standard_text(dx(XForm->PinX + XForm->LocPinX/2, theDoc), 
-                                  dy(XForm->PinY + XForm->LocPinY/2, theDoc));
+    if (!Char || !text) { g_debug("Not enough info for text"); return 0; }
+    newobj = create_standard_text(dx(XForm->PinX, theDoc), 
+                                  dy(XForm->PinY, theDoc));
     props = prop_list_from_descs(vdx_text_descs,pdtpp_true);
     tprop = g_ptr_array_index(props,0);
-    tprop->text_data = g_strdup(Text);
-    /* tprop->attr.alignment = sub_type; */
-    tprop->attr.position.x = dx(XForm->PinX + XForm->LocPinX/2, theDoc);
-    tprop->attr.position.y = dy(XForm->PinY + XForm->LocPinY/2, theDoc);
-    if (theDoc->Fonts && Char->Font < theDoc->Fonts->len)
+    tprop->text_data = g_strdup(text->text);
+
+    /* Fix Unicode line breaks */
+    for (i=0; tprop->text_data[i]; i++)
     {
-        FontEntry = 
-            g_array_index(theDoc->Fonts, struct vdx_FontEntry, Char->Font);
+        if ((unsigned char)tprop->text_data[i] == 226 && 
+            (unsigned char)tprop->text_data[i+1] == 128 && 
+            (unsigned char)tprop->text_data[i+2] == 168)
+        {
+            g_debug("Newline fixup");
+            tprop->text_data[i] = 10;
+            memmove(&tprop->text_data[i+1], &tprop->text_data[i+3],
+                    strlen(&tprop->text_data[i+3])+1);
+        }
     }
-    else { FontEntry.Name = "sans"; }
-    tprop->attr.font = dia_font_new_from_legacy_name(FontEntry.Name);
+    tprop->attr.alignment = Para->HorzAlign;
+    tprop->attr.position.x = dx(0, theDoc);
+    tprop->attr.position.y = dy(0, theDoc);
+    if (theDoc->Fonts)
+    {
+        if (Char->Font < theDoc->Fonts->len)
+        {
+            FontEntry = 
+                g_array_index(theDoc->Fonts, struct vdx_FontEntry, Char->Font);
+        }
+        else { FontEntry.Name = "Helvetica"; }
+        tprop->attr.font = dia_font_new_from_legacy_name(FontEntry.Name);
+    }
+    else if (theDoc->FaceNames)
+    {
+        if (Char->Font < theDoc->FaceNames->len)
+        {
+            FaceName = 
+                g_array_index(theDoc->FaceNames, 
+                              struct vdx_FaceName, Char->Font);
+        }
+        else { FaceName.Name = "Helvetica"; }
+        tprop->attr.font = dia_font_new_from_legacy_name(FaceName.Name);
+    }
+    else 
+    {
+        tprop->attr.font = dia_font_new_from_legacy_name("sans");
+    }
     tprop->attr.height = Char->Size*vdx_Font_Size_Conversion; 
-    /* tprop->attr.color = fig_color(color); */
+    tprop->attr.color = Char->Color;
     newobj->ops->set_props(newobj, props);
     prop_list_free(props);
-    layer_add_object(dia->active_layer, newobj);
+    return newobj;
 }
 
+/** Plots a shape
+ * @param Shape the Shape
+ * @param objects list of plotted objects
+ * @param group_XForm a transform to apply to all objects, or NULL
+ * @param theDoc the document
+ * @returns list of objects to add
+ */
 
-static void
-vdx_add_shape(xmlDocPtr doc, xmlNodePtr Shape, VDXDocument* theDoc,
-              DiagramData *dia)
+static GSList *
+vdx_plot_shape(struct vdx_Shape *Shape, GSList *objects, 
+               struct vdx_XForm* group_XForm,
+               VDXDocument* theDoc)
 {
-    /* All decoding is done in Visio-space */
-    xmlNodePtr Element = Shape->xmlChildrenNode;
-    xmlAttrPtr attr = Shape->properties;
-    struct vdx_Geom Geom = {0, 0 };
-    char *Text = NULL;
-    struct vdx_XForm XForm = {0, 0 };
-    struct vdx_Shape theShape = {0, 0 };
-    struct vdx_Char Char = {0, 0 };
-    struct vdx_Fill Fill = {0, 0 };
-    struct vdx_Fill *Fillptr = 0;
-    struct vdx_Char *Charptr = 0;
-    struct vdx_Line *Lineptr = 0;
+    struct vdx_Fill *Fill = 0;
+    struct vdx_Char *Char = 0;
+    struct vdx_Line *Line = 0;
+    struct vdx_Geom *Geom = 0;
+    struct vdx_XForm *XForm = 0;
+    struct vdx_XForm1D *XForm1D = 0;
+    struct vdx_Text *Text = 0;
+    struct vdx_Para *Para = 0;
 
-    g_debug("vdx_add_shape");
-
-    /* Get the props */
-    while(attr) {
-        if (!strcmp((char *)attr->name, "LineStyle")) {
-            theShape.LineStyle = atoi((char *)attr->children->content);
-        }
-        if (!strcmp((char *)attr->name, "FillStyle")) {
-            theShape.FillStyle = atoi((char *)attr->children->content);
-            Fillptr = 
-                (struct vdx_Fill *)get_style_child(vdx_types_Fill, 
-                                                   theShape.FillStyle,
-                                                   theDoc);
-        }
-        if (!strcmp((char *)attr->name, "TextStyle")) {
-            theShape.TextStyle = atoi((char *)attr->children->content);
-        }
-        if (!strcmp((char *)attr->name, "Type")) {
-            theShape.Type = (char *)attr->children->content;
-        }
-        attr = attr->next;
+    if (Shape->Del) 
+    {
+        g_debug("Deleted");
+        return objects;
     }
 
-    /* Ignore Guide and Group */
-    if (strcmp(theShape.Type, "Shape")) 
+    /* Is there a Fill? */
+    Fill = (struct vdx_Fill *)find_child(vdx_types_Fill, Shape);
+    Line = (struct vdx_Line *)find_child(vdx_types_Line, Shape);
+    Char = (struct vdx_Char *)find_child(vdx_types_Char, Shape);
+    XForm = (struct vdx_XForm *)find_child(vdx_types_XForm, Shape);
+    XForm1D = (struct vdx_XForm1D *)find_child(vdx_types_XForm1D, Shape);
+    Geom = (struct vdx_Geom *)find_child(vdx_types_Geom, Shape);
+    Text = (struct vdx_Text *)find_child(vdx_types_Text, Shape);
+    Para = (struct vdx_Para *)find_child(vdx_types_Para, Shape);
+
+    if (!Fill && (!Geom || !Geom->NoFill))
+        Fill = (struct vdx_Fill *)get_style_child(vdx_types_Fill, 
+                                                  Shape->FillStyle,
+                                                  theDoc);
+    if (!Line && (!Geom || !Geom->NoLine))
+        Line = (struct vdx_Line *)get_style_child(vdx_types_Line, 
+                                                  Shape->LineStyle,
+                                                  theDoc);
+    if (!Char)
+        Char = (struct vdx_Char *)get_style_child(vdx_types_Char, 
+                                                  Shape->TextStyle,
+                                                  theDoc);
+    if (!Para)
+        Para = (struct vdx_Para *)get_style_child(vdx_types_Para, 
+                                                  Shape->TextStyle,
+                                                  theDoc);
+    
+    /* If we're in a group, apply an overall XForm to everything */
+    if (group_XForm)
+    {
+        if (XForm)
+        {
+            /* Change for masters? */
+            XForm->PinX += group_XForm->PinX - group_XForm->LocPinX;
+            XForm->PinY += group_XForm->PinY - group_XForm->LocPinY;
+        }
+        else
+        {
+            XForm = group_XForm;
+        }
+    }
+
+    /* Am I a group? */
+    if (!strcmp(Shape->Type, "Group") && find_child(vdx_types_Shapes, Shape))
+    {
+        GSList *members = NULL;
+        GSList *child;
+        GList *group = NULL;
+        struct vdx_Shapes* Shapes = 
+            (struct vdx_Shapes*)find_child(vdx_types_Shapes, Shape);
+        
+        /* Create a list of member objects */
+        for (child = Shapes->children; child; child = child->next)
+        {
+            struct vdx_Shape * theShape = (struct vdx_Shape*)(child->data);
+            if (!theShape) continue;
+            if (theShape->type == vdx_types_Shape)
+            {
+                members = vdx_plot_shape(theShape, members, XForm, theDoc);
+            }
+        }
+        for (child = members; child; child = child->next)
+        {
+            if (child->data) group = g_list_append(group, child->data);
+        }
+
+        objects = g_slist_append(objects, create_standard_group(group));
+        /* g_list_free(group); */
+        g_slist_free(members);
+    }
+    else
+    {
+        if (Geom)
+        {
+            objects = 
+                g_slist_append(objects,
+                               plot_geom(Geom, XForm, XForm1D, 
+                                         Fill, Line, theDoc));
+        }
+        /* Text always after the object it's attached to, 
+           so it appears on top */
+        if (Text && find_child(vdx_types_text, Text))
+        {
+            objects = 
+                g_slist_append(objects,
+                               plot_text(Text, XForm, Char, Para, theDoc));
+        }    
+    }
+    return objects;
+}
+
+/** Parses a shape and adds it to the diagram
+ * @param Shape the XML to parse
+ * @param PageSheet the page property sheet
+ * @param theDoc the document
+ * @param dia the growing diagram
+ */
+
+static void
+vdx_parse_shape(xmlNodePtr Shape, struct vdx_PageSheet *PageSheet, 
+                VDXDocument* theDoc, DiagramData *dia)
+{
+    /* All decoding is done in Visio-space */
+    struct vdx_Shape theShape = {0, 0 };
+    GSList *objects = NULL;
+    GSList *object;
+    struct vdx_LayerMem *LayerMem = NULL;
+    Layer *diaLayer = NULL;
+
+    g_debug("vdx_parse_shape");
+
+    if (PageSheet)
+    {
+        /* Default styles */
+        theShape.TextStyle = PageSheet->TextStyle;
+        theShape.FillStyle = PageSheet->FillStyle;
+        theShape.LineStyle = PageSheet->LineStyle;
+    }
+    vdx_read_object(Shape, theDoc, &theShape);
+
+    /* Avoid very bad shapes */
+    if (!theShape.Type) return;
+
+    g_debug("Shape %d [%s]", theShape.ID, theShape.NameU);
+    /* Ignore Guide */
+    /* For debugging purposes, use Del attribute and stop flag */
+    if (!strcmp(theShape.Type, "Guide") || theShape.Del || theDoc->stop) 
     {
         g_debug("Ignoring Type = %s", theShape.Type);
+        free_children(&theShape);
         return;
     }
 
-    /* Examine the children */
-    while(Element)
+    /* Remove NULLs */
+    theShape.children = g_slist_remove_all(theShape.children, 0);
+
+    /* What layer are we on, if any? */
+    LayerMem = find_child(vdx_types_LayerMem, &theShape);
+    if (LayerMem)
     {
-        if (xmlIsBlankNode(Element)) { 
-            Element = Element->next;
-            continue;
-        }
-        g_debug("Got element %s", Element->name);
-        if (!strcmp((char *)Element->name, "Text"))
+        unsigned int layer_num = (unsigned int)atoi(LayerMem->LayerMember);
+        if (layer_num < dia->layers->len)
         {
-            xmlNodePtr Child = Element->xmlChildrenNode;
-            while (Child)
-            {
-                if (xmlNodeIsText(Child)) { Text = (char *)Child->content; }
-                Child = Child->next;
-            } 
-            g_debug("Got Text '%s'", Text);
+            diaLayer = (Layer *)g_ptr_array_index(dia->layers, layer_num);
         }
-        if (!strcmp((char *)Element->name, "XForm"))
-        {
-            xmlNodePtr Child = Element->xmlChildrenNode;
-            while (Child)
-            {
-                if (xmlIsBlankNode(Child)) { Child = Child->next; continue; }
-                if (!strcmp((char *)Child->name, "PinX")) {
-                    XForm.PinX = atof((char *)Child->children->content);
-                }
-                if (!strcmp((char *)Child->name, "PinY")) {
-                    XForm.PinY = atof((char *)Child->children->content);
-                }
-                if (!strcmp((char *)Child->name, "LocPinX")) {
-                    XForm.LocPinX = atof((char *)Child->children->content);
-                }
-                if (!strcmp((char *)Child->name, "LocPinY")) {
-                    XForm.LocPinY = atof((char *)Child->children->content);
-                }
-                Child = Child->next;
-            }
-        }
-        if (!strcmp((char *)Element->name, "Char"))
-        {
-            xmlNodePtr Child = Element->xmlChildrenNode;
-            while (Child)
-            {
-                if (xmlIsBlankNode(Child)) { Child = Child->next; continue; }
-                if (!strcmp((char *)Child->name, "Size")) {
-                    Char.Size = 
-                        atof((char *)Child->children->content);
-                }
-                if (!strcmp((char *)Child->name, "Font")) {
-                    Char.Font = 
-                        atoi((char *)Child->children->content);
-                }
-                Child = Child->next;
-            }
-        }
+    }
+    if (!diaLayer) diaLayer = 
+                       (Layer *)g_ptr_array_index(dia->layers, 
+                                                  dia->layers->len - 1);
 
-        if (!strcmp((char *)Element->name, "Fill"))
-        {
-            xmlNodePtr Child = Element->xmlChildrenNode;
-            Fillptr = &Fill;
-            while (Child)
-            {
-                if (xmlIsBlankNode(Child)) { Child = Child->next; continue; }
-                if (!strcmp((char *)Child->name, "FillForegnd")) {
-                    Fill.FillForegnd = 
-                        vdx_get_color((char *)Child->children->content, 
-                                      theDoc);
-                }
-                Child = Child->next;
-            }
-        }
+    /* Draw the shape (or group) and get list of created objects */
+    objects = vdx_plot_shape(&theShape, objects, 0, theDoc);
 
-        if (!strcmp((char *)Element->name, "Geom"))
-        {
-            int IX = 0;
-            xmlNodePtr Child = Element->xmlChildrenNode;
-            Geom.children = NULL;
-            while (Child)
-            {
-                if (xmlIsBlankNode(Child)) { Child = Child->next; continue; }
-                g_debug("Got Geom element %s", Child->name);
-                if (!strcmp((char *)Child->name, "NoFill")) {
-                    Geom.NoFill = atoi((char *)Child->children->content);
-                }
-                if (!strcmp((char *)Child->name, "NoLine")) {
-                    Geom.NoLine = atoi((char *)Child->children->content);
-                }
-                if (!strcmp((char *)Child->name, "NoShow")) {
-                    Geom.NoShow = atoi((char *)Child->children->content);
-                }
-                if (!strcmp((char *)Child->name, "NoSnap")) {
-                    Geom.NoSnap = atoi((char *)Child->children->content);
-                }
-                /* Ellipse, EllipticalArcTo, InfiniteLine, LineTo, MoveTo */
-
-                if (!strcmp((char *)Child->name, "MoveTo")) {
-                    struct vdx_MoveTo *MoveTo = g_new0(struct vdx_MoveTo, 1);
-                    xmlNodePtr Param = Child->xmlChildrenNode;
-                    while(Param)
-                    {
-                        if (xmlIsBlankNode(Param)) 
-                        { Param = Param->next; continue; }
-                        if (!strcmp((char *)Param->name, "X")) {
-                            MoveTo->X = atof((char *)Param->children->content);
-                        }
-                        if (!strcmp((char *)Param->name, "Y")) {
-                            MoveTo->Y = atof((char *)Param->children->content);
-                        } 
-                        Param = Param->next;
-                    }
-                    MoveTo->type = vdx_types_MoveTo;
-                    Geom.children = g_slist_append(Geom.children, MoveTo);
-                }
-
-                if (!strcmp((char *)Child->name, "LineTo")) {
-                    struct vdx_LineTo *LineTo = g_new0(struct vdx_LineTo, 1);
-                    xmlNodePtr Param = Child->xmlChildrenNode;
-                    while(Param)
-                    {
-                        if (xmlIsBlankNode(Param)) 
-                        { Param = Param->next; continue; }
-                        if (!strcmp((char *)Param->name, "Del")) {
-                            LineTo->Del = 
-                                atoi((char *)Param->children->content);
-                        }
-                        if (!strcmp((char *)Param->name, "X")) {
-                            LineTo->X = 
-                                atof((char *)Param->children->content);
-                        }
-                        if (!strcmp((char *)Param->name, "Y")) {
-                            LineTo->Y = 
-                                atof((char *)Param->children->content);
-                        } 
-                        Param = Param->next;
-                    }
-                    LineTo->type = vdx_types_LineTo;
-                    Geom.children = g_slist_append(Geom.children, LineTo);
-                }
-
-                if (!strcmp((char *)Child->name, "Ellipse")) {
-                    struct vdx_Ellipse *Ellipse = 
-                        g_new0(struct vdx_Ellipse, 1);
-                    xmlNodePtr Param = Child->xmlChildrenNode;
-                    while(Param)
-                    {
-                        if (xmlIsBlankNode(Param)) 
-                        { Param = Param->next; continue; }
-                        if (!strcmp((char *)Param->name, "A")) {
-                            Ellipse->A =
-                                atof((char *)Param->children->content);
-                        }
-                        if (!strcmp((char *)Param->name, "D")) {
-                            Ellipse->D =
-                                atof((char *)Param->children->content);
-                        }
-                        Param = Param->next;
-                    }
-                    Ellipse->type = vdx_types_Ellipse;
-                    Geom.children = g_slist_append(Geom.children, Ellipse);
-                }
-
-                if (!strcmp((char *)Child->name, "EllipticalArcTo")) {
-                    struct vdx_EllipticalArcTo *EllipticalArcTo = 
-                        g_new0(struct vdx_EllipticalArcTo, 1);
-                    xmlNodePtr Param = Child->xmlChildrenNode;
-                    while(Param)
-                    {
-                        if (xmlIsBlankNode(Param)) 
-                        { Param = Param->next; continue; }
-                        if (!strcmp((char *)Param->name, "A")) {
-                            EllipticalArcTo->A = 
-                                atof((char *)Param->children->content);
-                        }
-                        if (!strcmp((char *)Param->name, "B")) {
-                            EllipticalArcTo->B = 
-                                atof((char *)Param->children->content);
-                        }
-                        if (!strcmp((char *)Param->name, "C")) {
-                            EllipticalArcTo->C = 
-                                atof((char *)Param->children->content);
-                        }
-                        if (!strcmp((char *)Param->name, "D")) {
-                            EllipticalArcTo->D = 
-                                atof((char *)Param->children->content);
-                        }
-                        if (!strcmp((char *)Param->name, "X")) {
-                            EllipticalArcTo->X = 
-                                atof((char *)Param->children->content);
-                        }
-                        if (!strcmp((char *)Param->name, "Y")) {
-                            EllipticalArcTo->Y = 
-                                atof((char *)Param->children->content);
-                        } 
-                        Param = Param->next;
-                    }
-                    EllipticalArcTo->type = vdx_types_EllipticalArcTo;
-                    Geom.children = g_slist_append(Geom.children, 
-                                                   EllipticalArcTo);
-                }
-                Child = Child->next;
-                IX++;
-            }
-        }
-
-        /* Connection, Control, Event, Fill, Hyperlink, LayerMem, Layout,
-           Line, Misc, Para, Protection, Shapes, TextBlock, TextXForm,
-           User, XForm1D */
-
-        Element = Element->next;
+    /* Add the objects straight into the diagram */
+    for (object = objects; object; object = object->next)
+    {
+        if (!object->data) continue;
+        layer_add_object(diaLayer, (DiaObject *)object->data);
     }
 
-    if (Text)
-    {
-        plot_text(Text, &XForm, &Char, theDoc, dia);
-    }    
-    else 
-    {
-        plot_geom(&Geom, &XForm, Fillptr, theDoc, dia);
-    }
-
-    if(Geom.children)
-    {
-        GSList *p = Geom.children;
-        while(p)
-        {
-            g_free(p->data);
-            p = p->next;
-        }
-        g_slist_free(Geom.children);
-    }
-    
+    free_children(&theShape);
+    g_slist_free(objects);
 }
 
+/** Parse the pages of the VDX
+ * @param PageSheet the PageSheet
+ * @param theDoc the document
+ * @param dia the growing diagram
+ * @bug This doesn't handle multi-page diagrams very well
+ */
+
+static void
+vdx_setup_layers(struct vdx_PageSheet* PageSheet, VDXDocument* theDoc,
+                 DiagramData *dia)
+{
+    GSList *child = NULL;
+    GSList *layernames = NULL;
+    GSList *layername = NULL;
+    struct vdx_any* Any;
+    struct vdx_Layer *theLayer;
+    Layer *diaLayer;
+    g_debug("vdx_setup_layers");
+    
+    /* We need the layers in reverse order */
+
+    for (child = PageSheet->children; child; child = child->next)
+    {
+        if (!child->data) continue;
+        Any = (struct vdx_any *)(child->data);
+        if (Any->type != vdx_types_Layer) continue;
+        theLayer = (struct vdx_Layer *)child->data;
+        layernames = g_slist_prepend(layernames, theLayer->Name);
+    }
+
+    for(layername = layernames; layername; layername = layername->next)
+    {
+        g_debug("Layer %s", (char *)layername->data);
+        diaLayer = new_layer(g_strdup((char*)layername->data), dia);
+	data_add_layer(dia, diaLayer);
+    }
+    data_set_active_layer(dia, diaLayer);
+}
+
+/** Parse the pages of the VDX
+ * @param cur current XML node
+ * @param theDoc the document
+ * @param dia the growing diagram
+ */
+
 static void 
-vdx_get_pages(xmlDocPtr doc, xmlNodePtr cur, VDXDocument* theDoc,
-              DiagramData *dia)
+vdx_get_pages(xmlNodePtr cur, VDXDocument* theDoc, DiagramData *dia)
 {
     xmlNodePtr Page = cur->xmlChildrenNode;
     xmlNodePtr Shapes;
     g_debug("vdx_get_pages");
 
-    /* Only do page 1 */
-    
-    while(Page)
+    for (Page = cur->xmlChildrenNode; Page; Page = Page->next)
     {
-        if (xmlIsBlankNode(Page)) { Page = Page->next; continue; }
+        struct vdx_PageSheet PageSheet;
+        if (xmlIsBlankNode(Page)) { continue; }
 
-        Shapes = Page->xmlChildrenNode;
-        
-        while(Shapes)
+        for (Shapes = Page->xmlChildrenNode; Shapes; Shapes = Shapes->next)
         {
-            if (xmlIsBlankNode(Shapes)) { 
-                Shapes = Shapes->next;
-                continue;
-            }
+            xmlNodePtr Shape;
+            if (xmlIsBlankNode(Shapes)) { continue; }
             g_debug("Page element: %s", Shapes->name);
-            if (strcmp((char *)Shapes->name, "Shapes")) {
-                /* Ignore non-shapes */
-                Shapes = Shapes->next;
+            if (!strcmp((char *)Shapes->name, "PageSheet")) {
+                vdx_read_object(Shapes, theDoc, &PageSheet);
+                vdx_setup_layers(&PageSheet, theDoc, dia);
                 continue;
-            } else {
-                xmlNodePtr Shape = Shapes->xmlChildrenNode;
-                while (Shape)
-                {
-                    if (xmlIsBlankNode(Shape)) { 
-                        Shape = Shape->next;
-                        continue;
-                    }
-                    vdx_add_shape(doc, Shape, theDoc, dia);
-                    Shape = Shape->next;
-                }
             }
-            Shapes = Shapes->next;
+                
+            if (strcmp((char *)Shapes->name, "Shapes")) {
+                /* Ignore non-shapes for now */
+                continue;
+            }
+            for (Shape = Shapes->xmlChildrenNode; Shape; Shape=Shape->next)
+            {
+                if (xmlIsBlankNode(Shape)) { continue; }
+                vdx_parse_shape(Shape, &PageSheet, theDoc, dia);
+            }
         }
         theDoc->Page++;
-        Page = Page->next;
+        free_children(&PageSheet);
     }
 }
+
+/** Free a document
+ * @param theDoc the document
+ */
 
 static void 
 vdx_free(VDXDocument *theDoc)
 {
     int i;
     struct vdx_StyleSheet theSheet;
-    GSList *p;
 
     g_debug("vdx_free");
-    g_array_free(theDoc->Colors, TRUE);
-    g_array_free(theDoc->Fonts, TRUE);
+    if (theDoc->Colors) g_array_free(theDoc->Colors, TRUE);
+    if (theDoc->Fonts) g_array_free(theDoc->Fonts, TRUE);
+    if (theDoc->FaceNames) g_array_free(theDoc->FaceNames, TRUE);
     
-    for (i=0; i<theDoc->StyleSheets->len; i++) {
-        theSheet = g_array_index(theDoc->StyleSheets, 
-                                 struct vdx_StyleSheet, i);
-        p = theSheet.children;
-        while(p)
-        {
-            g_free(p->data);
-            p = p->next;
+    if (theDoc->StyleSheets)
+    {
+        for (i=0; i<theDoc->StyleSheets->len; i++) {
+            theSheet = g_array_index(theDoc->StyleSheets, 
+                                     struct vdx_StyleSheet, i);
+            free_children(&theSheet);
         }
-        g_slist_free(theSheet.children);
+        g_array_free(theDoc->StyleSheets, TRUE);
     }
-    g_array_free(theDoc->StyleSheets, TRUE);
+    /* Masters */
 }
 
 
-/* imports the given  file, returns TRUE if successful */
+/** Imports the given file
+ * @param filename the file to read
+ * @param dia the diagram
+ * @param user_data unused
+ * @returns TRUE if successful, FALSE otherwise
+ */
+
 gboolean
 import_vdx(const gchar *filename, DiagramData *dia, void* user_data) 
 {
@@ -926,11 +1606,10 @@ import_vdx(const gchar *filename, DiagramData *dia, void* user_data)
         return FALSE;
     }
     /* skip comments */
-    root = doc->xmlRootNode;
-    while (root && (root->type != XML_ELEMENT_NODE))
+    for (root = doc->xmlRootNode; root; root = root->next)
     {
+        if (root->type == XML_ELEMENT_NODE) { break; }
         g_debug("Skipping node '%s'", root->name);
-        root = root->next;
     }
     if (!root || xmlIsBlankNode(root))
     {
@@ -959,27 +1638,21 @@ import_vdx(const gchar *filename, DiagramData *dia, void* user_data)
     theDoc = g_new0(struct VDXDocument, 1);
     theDoc->ok = TRUE;
     
-    cur = root->xmlChildrenNode;
-    while(cur)
+    for (cur = root->xmlChildrenNode; cur; cur = cur->next)
     {
-        if (xmlIsBlankNode(cur)) { cur = cur->next; continue; }
+        if (xmlIsBlankNode(cur)) { continue; }
         s = (const char *)cur->name;
         g_debug("Top level node '%s'", s);
-        if (!strcmp(s, "Colors")) vdx_get_colors(doc, cur, theDoc);
-        if (!strcmp(s, "FaceNames")) 
-            vdx_get_facenames(doc, cur, theDoc);
-        if (!strcmp(s, "Fonts")) 
-            vdx_get_fonts(doc, cur, theDoc);
-        if (!strcmp(s, "Masters")) 
-            vdx_get_masters(doc, cur, theDoc);
-        if (!strcmp(s, "StyleSheets")) 
-            vdx_get_stylesheets(doc, cur, theDoc);
-        if (!strcmp(s, "Pages")) 
-            vdx_get_pages(doc, cur, theDoc, dia);
-        if (!theDoc->ok) break;
-        cur = cur->next;
+        if (!strcmp(s, "Colors")) vdx_get_colors(cur, theDoc);
+        if (!strcmp(s, "FaceNames")) vdx_get_facenames(cur, theDoc);
+        if (!strcmp(s, "Fonts")) vdx_get_fonts(cur, theDoc);
+        if (!strcmp(s, "Masters")) vdx_get_masters(cur, theDoc);
+        if (!strcmp(s, "StyleSheets")) vdx_get_stylesheets(cur, theDoc);
+        if (!strcmp(s, "Pages")) vdx_get_pages(cur, theDoc, dia);
+        /* if (!theDoc->ok) break; */
     }
 
+    /* Get rid of internal strings before returning */
     vdx_free(theDoc);
     xmlFreeDoc(doc);
     return TRUE;

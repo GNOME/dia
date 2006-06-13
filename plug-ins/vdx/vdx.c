@@ -3,6 +3,8 @@
  * Copyright (C) 1998 Alexander Larsson
  *
  * vdx.c: Visio XML import filter for dia
+ * Copyright (C) 2006 Ian Redfern
+ * based on the xfig filter code
  * Copyright (C) 2001 Lars Clausen
  * based on the dxf filter code
  * Copyright (C) 2000 James Henstridge, Steffen Macke
