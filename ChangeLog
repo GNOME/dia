@@ -1,5 +1,9 @@
 2006-06-15  Hans Breuer  <hans@breuer.org>
 
+	* objects/UML/class.c : use g_list_append() rather than prepend
+	when copying attributes, operations, formalparams. Fixes bug #342902
+	Also removed some superfluous outcommented code and fixed a warning.
+
 	* objects/UML/class.c : dont break reading comment_line_length
 	by misguide compatibility code. Fixes bug #341887
 

@@ -565,7 +565,7 @@ uml_create_documentation_tag (gchar * comment,
 			LineLen = LengthOfComment-CommentIndex;
 		}
       while (LineLen > 0){
-        if ((LineLen == strlen(&comment[CommentIndex])) ||
+        if ((LineLen == (gint)strlen(&comment[CommentIndex])) ||
           isspace(comment[CommentIndex+LineLen])){
           break;
         } else{
@@ -1902,8 +1902,8 @@ umlclass_copy(UMLClass *umlclass)
     UMLAttribute *newattr = uml_attribute_copy(attr);
     uml_attribute_ensure_connection_points (newattr, newobj);
     
-    newumlclass->attributes = g_list_prepend(newumlclass->attributes,
-					     newattr);
+    newumlclass->attributes = g_list_append(newumlclass->attributes,
+					    newattr);
     list = g_list_next(list);
   }
 
@@ -1914,7 +1914,7 @@ umlclass_copy(UMLClass *umlclass)
     UMLOperation *newop = uml_operation_copy(op);
     uml_operation_ensure_connection_points (newop, newobj);
 
-    newumlclass->operations = g_list_prepend(newumlclass->operations,
+    newumlclass->operations = g_list_append(newumlclass->operations,
 					     newop);
     list = g_list_next(list);
   }
@@ -1926,7 +1926,7 @@ umlclass_copy(UMLClass *umlclass)
   while (list != NULL) {
     param = (UMLFormalParameter *)list->data;
     newumlclass->formal_params =
-      g_list_prepend(newumlclass->formal_params,
+      g_list_append(newumlclass->formal_params,
 		     uml_formalparameter_copy(param));
     list = g_list_next(list);
   }
@@ -2130,16 +2130,8 @@ static DiaObject *umlclass_load(ObjectNode obj_node, int version,
 
   fill_in_fontdata(umlclass);
   
-  /* kind of dirty, object_load_props() may leave us in an inconsnected = NULL;
-  }
-
-  fill_in_fontdata(umlclass);
-  
   /* kind of dirty, object_load_props() may leave us in an inconsistent state --hb */
   object_load_props(obj,obj_node);
-  /* a bunch of properties still need their own special handling */
-
-  /* Class info: */
 
   /* parameters loaded via StdProp dont belong here anymore. In case of strings they 
    * will produce leaks. Otherwise the are just wasteing time (at runtime and while 
