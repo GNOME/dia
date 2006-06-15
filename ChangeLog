@@ -1,5 +1,8 @@
 2006-06-15  Hans Breuer  <hans@breuer.org>
 
+	* objects/UML/class.c : dont break reading comment_line_length
+	by misguide compatibility code. Fixes bug #341887
+
 	* plug-ins/vdx/vdx-xml.c : added file missing from 0.3 
 	version commit. Fixes bug #344804
 	

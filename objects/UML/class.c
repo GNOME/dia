@@ -2158,15 +2158,16 @@ static DiaObject *umlclass_load(ObjectNode obj_node, int version,
   if (attr_node != NULL)
     umlclass->wrap_after_char = data_int(attribute_first_data(attr_node));
 
+  /* if it uses the new name the value is already set by object_load_props() above */
   umlclass->comment_line_length = UMLCLASS_COMMENT_LINE_LENGTH;
   attr_node = object_find_attribute(obj_node,"comment_line_length");
   /* support the unusal cased name, although it only existed in cvs version */
-  if (attr_node != NULL)
+  if (attr_node == NULL)
     attr_node = object_find_attribute(obj_node,"Comment_line_length");
   if (attr_node != NULL)
     umlclass->comment_line_length = data_int(attribute_first_data(attr_node));
 
-  /* comaptibility with 0.94 and before as well as the temporary state with only 'comment_line_length' */
+  /* compatibility with 0.94 and before as well as the temporary state with only 'comment_line_length' */
   umlclass->comment_tagging = (attr_node != NULL);
   attr_node = object_find_attribute(obj_node, "comment_tagging");
   if (attr_node != NULL)
