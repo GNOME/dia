@@ -1,5 +1,8 @@
 2006-06-15  Hans Breuer  <hans@breuer.org>
 
+	* app/display.c : use ngettext() for possible plural variations.
+	(Bug #344896, tokul@users.sourceforge.net)
+
 	* objects/UML/class.c : use g_list_append() rather than prepend
 	when copying attributes, operations, formalparams. Fixes bug #342902
 	Also removed some superfluous outcommented code and fixed a warning.
