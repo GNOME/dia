@@ -465,6 +465,7 @@ EXPORTS
  object_create_props_dialog
  object_destroy
  object_find_attribute
+ object_flags_set
  object_get_prop_descriptions
  object_get_props_from_offsets
  object_get_type

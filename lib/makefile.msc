@@ -51,6 +51,7 @@ OBJECTS = \
 	connection.obj \
 	connectionpoint.obj \
 	connpoint_line.obj \
+	create.obj \
 	debug.obj \
 	diaarrowchooser.obj \
 	dialinechooser.obj \

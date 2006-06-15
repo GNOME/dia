@@ -1,7 +1,7 @@
 !IFNDEF PACKAGE
 
 # dummy
-PLUGINS = gprint cairo cgm dxf hpgl metapost pgf pixbuf pstricks shape svg wmf wpg xfig xslt
+PLUGINS = gprint cairo cgm dxf hpgl metapost pgf pixbuf pstricks shape svg vdx wmf wpg xfig xslt
 
 #broken since StdProp overhaul : diaimport 
 
@@ -96,6 +96,15 @@ OBJECTS = \
   svg.obj \
   svg-import.obj \
   render_svg.obj
+!ENDIF
+
+!IFDEF OBJ_vdx 
+OBJECTS = \
+  vdx.obj \
+  vdx-common.obj \
+  vdx-export.obj \
+  vdx-import.obj \
+  vdx-xml.obj
 !ENDIF
 
 !IFDEF OBJ_wmf

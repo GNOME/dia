@@ -65,4 +65,6 @@ create_standard_arc(real x1, real y1, real x2, real y2,
 DiaObject *
 create_standard_image(real xpos, real ypos, real width, real height,
 		      char *file);
+DiaObject *
+create_standard_group(GList *items);
 #endif
