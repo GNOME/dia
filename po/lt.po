@@ -8,14 +8,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dia HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-06-07 18:12+0200\n"
+"POT-Creation-Date: 2006-06-17 23:25+0300\n"
 "PO-Revision-Date: 2006-06-14 19:09+0300\n"
 "Last-Translator: Tomas Kuliavas <tokul@users.sourceforge.net>\n"
 "Language-Team: Lithuanian <komp_lt@konferencijos.lt>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%100<10 || n%100>=20) ? 1 : 2);"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%"
+"100<10 || n%100>=20) ? 1 : 2);\n"
 
 #. This is not an errror
 #: ../app/app_procs.c:260
@@ -99,8 +100,9 @@ msgstr "PxA"
 msgid ""
 "Show only specified layers (e.g. when exporting). Can be either the layer "
 "name or a range of layer numbers (X-Y)"
-msgstr "Rodyti tik nurodytus sluoksnius (pvz. eksportavimo metu). Gali būti sluoksnio "
-"pavadinimas arba sluoksnių numerių seka (X-Y)"
+msgstr ""
+"Rodyti tik nurodytus sluoksnius (pvz. eksportavimo metu). Gali būti "
+"sluoksnio pavadinimas arba sluoksnių numerių seka (X-Y)"
 
 #: ../app/app_procs.c:694 ../app/app_procs.c:722
 msgid "LAYER,LAYER,..."
@@ -117,8 +119,8 @@ msgstr "Neįmanoma sukurti tuščios diagramos"
 #: ../app/app_procs.c:700 ../app/app_procs.c:728
 msgid "Send error messages to stderr instead of showing dialogs."
 msgstr ""
-"Nukreipti klaidų pranešimus į standartinį klaidų išvedimą užuot "
-"rodžius dialogo langus."
+"Nukreipti klaidų pranešimus į standartinį klaidų išvedimą užuot rodžius "
+"dialogo langus."
 
 #: ../app/app_procs.c:702 ../app/app_procs.c:730
 msgid "Display credits list and exit"
@@ -155,17 +157,14 @@ msgstr "Dia versija %s\n"
 #, c-format
 msgid ""
 "Couldn't find standard objects when looking for object-libs; exiting...\n"
-msgstr ""
-"Nepavyko rasti standartinių objektų; programa uždaroma...\n"
+msgstr "Nepavyko rasti standartinių objektų; programa uždaroma...\n"
 
 #: ../app/app_procs.c:896
 #, c-format
 msgid ""
 "Couldn't find standard objects when looking for object-libs in '%s'; "
 "exiting...\n"
-msgstr ""
-"Nepavyko rasti standartinių objektų tarp '%s'; "
-"programa uždaroma...\n"
+msgstr "Nepavyko rasti standartinių objektų tarp '%s'; programa uždaroma...\n"
 
 #: ../app/app_procs.c:937
 msgid "Diagram1.dia"
@@ -176,7 +175,8 @@ msgid ""
 "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you can cause this message to appear.\n"
 msgstr ""
-"Taip neturėtų atsitikti. Gal galėtumėte užpildyti pranešimą apie klaidą bugzilla.gnome.org\n"
+"Taip neturėtų atsitikti. Gal galėtumėte užpildyti pranešimą apie klaidą "
+"bugzilla.gnome.org\n"
 "adresu ir aprašyti, kaip Jums pavyko iškviesti šį klaidos pranešimą.\n"
 
 #. no standard buttons
@@ -211,8 +211,8 @@ msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
 msgstr ""
-"Nepavyko sukurti vartotojo Dia nustatymų katalogo. Įsitikinkite, kad katalogas "
-"nurodytas aplinkos kintamajame HOME egzistuoja."
+"Nepavyko sukurti vartotojo Dia nustatymų katalogo. Įsitikinkite, kad "
+"katalogas nurodytas aplinkos kintamajame HOME egzistuoja."
 
 #: ../app/app_procs.c:1101 ../app/diaconv.c:251
 msgid "Objects and filters internal to dia"
@@ -317,7 +317,8 @@ msgstr "Nepavyko rasti pagalbos sistemos katalogo"
 msgid ""
 "Could not open help directory:\n"
 "%s"
-msgstr "Nepavyko atidaryti pagalbos katalogo:\n"
+msgstr ""
+"Nepavyko atidaryti pagalbos katalogo:\n"
 "%s"
 
 #: ../app/commands.c:606
@@ -474,7 +475,8 @@ msgid ""
 "Run '%s --help' to see a full list of available command line options.\n"
 msgstr ""
 "Klaida: Nenurodyti jokie argumentai.\n"
-"Paleiskite '%s --help', jei norite pamatyti visus galimus komandinės eilutės parametrus.\n"
+"Paleiskite '%s --help', jei norite pamatyti visus galimus komandinės eilutės "
+"parametrus.\n"
 
 #: ../app/diaconv.c:159
 #, c-format
@@ -488,7 +490,8 @@ msgid ""
 "Run '%s --help' to see a full list of available command line options.\n"
 msgstr ""
 "%s klaida: galima nurodyti tik vieną iš -t arba -o parametrų.\n"
-"Paleiskite '%s --help', jei norite pamatyti visus galimus komandinės eilutės parametrus.\n"
+"Paleiskite '%s --help', jei norite pamatyti visus galimus komandinės eilutės "
+"parametrus.\n"
 
 #: ../app/diaconv.c:174
 #, c-format
@@ -680,33 +683,41 @@ msgid ""
 "The object you dropped cannot fit into its parent. \n"
 "Either expand the parent object, or drop the object elsewhere."
 msgstr ""
-"Objektas šioje vietoje netinka.\nIšskleiskite tėvinį objektą"
-" arba dėkite objektą kitur."
+"Objektas šioje vietoje netinka.\n"
+"Išskleiskite tėvinį objektą arba dėkite objektą kitur."
 
 #: ../app/display.c:94
 msgid "Diagram modified!"
 msgstr "Diagrama pakeista!"
 
-#: ../app/display.c:118
+#. http://www.gnu.org/software/gettext/manual/html_chapter/gettext_10.html#SEC150
+#. * Althoug the single objects wont get triggered here some languages have variations on the other numbers
+#.
+#: ../app/display.c:121
+#, fuzzy, c-format
+msgid "Selection of %d object"
+msgstr "Pasirinkti %d objektai"
+
+#: ../app/display.c:121
 #, c-format
 msgid "Selection of %d objects"
 msgstr "Pasirinkti %d objektai"
 
-#: ../app/display.c:128
+#: ../app/display.c:131
 #, c-format
 msgid "Selected '%s'"
 msgstr "Pasirinkta '%s'"
 
-#: ../app/display.c:1127
+#: ../app/display.c:1130
 msgid "<unnamed>"
 msgstr "<bevardis>"
 
 #. no standard buttons
-#: ../app/display.c:1133
+#: ../app/display.c:1136
 msgid "Closing diagram without saving"
 msgstr "Diagrama uždaroma neišsaugant"
 
-#: ../app/display.c:1136
+#: ../app/display.c:1139
 #, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -715,11 +726,11 @@ msgstr ""
 "Diagrama '%s'\n"
 "nebuvo išsaugota. Ar išsaugoti pakeitimus?"
 
-#: ../app/display.c:1138
+#: ../app/display.c:1141
 msgid "Close Diagram"
 msgstr "Uždaryti diagramą"
 
-#: ../app/display.c:1143
+#: ../app/display.c:1146
 msgid "_Discard Changes"
 msgstr "_Atsisakyti pakeitimų"
 
@@ -834,8 +845,9 @@ msgid ""
 "Compression reduces file size to less than 1/10th size and speeds up loading "
 "and saving.  Some text programs cannot manipulate compressed files."
 msgstr ""
-"Suspaudimas gali sumažinti bylos dydį iki 10 kartų ir pagreitinti bylos įkėlimą "
-"bei saugojimą. Dalis tekstinių programų negali dirbti su suspaustomis bylomis."
+"Suspaudimas gali sumažinti bylos dydį iki 10 kartų ir pagreitinti bylos "
+"įkėlimą bei saugojimą. Dalis tekstinių programų negali dirbti su "
+"suspaustomis bylomis."
 
 #: ../app/filedlg.c:583
 #, c-format
@@ -2107,10 +2119,9 @@ msgid ""
 "support of files generated by previous versions of dia, you will encounter  "
 "problems. Please report to dia-list@gnome.org if you see this message."
 msgstr ""
-"Esate pasirenkę UTF-8 simbolių koduotę. Ši koduotė turi problemų su "
-"libxml1 biblioteka ir ankstesnių dia bylų palaikymu. Jei susidursite su "
-"problemomis ir išvysite šį pranešimą, praneškite apie jas "
-"dia-list@gnome.org adresu."
+"Esate pasirenkę UTF-8 simbolių koduotę. Ši koduotė turi problemų su libxml1 "
+"biblioteka ir ankstesnių dia bylų palaikymu. Jei susidursite su problemomis "
+"ir išvysite šį pranešimą, praneškite apie jas dia-list@gnome.org adresu."
 
 #: ../lib/diaarrowchooser.c:322
 msgid "Arrow Properties"
@@ -5107,7 +5118,9 @@ msgstr "WordPerfect Graphics eksporto filtras"
 #: ../plug-ins/xfig/xfig-export.c:459
 #, c-format
 msgid "FIG format has no equivalent of arrow style %s, using simple arrow.\n"
-msgstr "FIG formatas neturi rodyklių, atitinkančių %s stilių. Naudojamos paprastos rodyklės.\n"
+msgstr ""
+"FIG formatas neturi rodyklių, atitinkančių %s stilių. Naudojamos paprastos "
+"rodyklės.\n"
 
 #: ../plug-ins/xfig/xfig-export.c:481
 msgid "No more user-definable colors - using black"
@@ -5407,8 +5420,7 @@ msgstr ""
 msgid ""
 "An Assorted Collection of Polygons, Beziergons and other Miscellaneous "
 "Geometric Shapes"
-msgstr ""
-"Daugiakampių, kreivinių ir kitokių geometrinių figūrų rinkinys"
+msgstr "Daugiakampių, kreivinių ir kitokių geometrinių figūrų rinkinys"
 
 #. Please talk to me before making any changes to this sheet
 #: ../sheets/Assorted.sheet.in.h:6
@@ -8745,4 +8757,3 @@ msgstr "Sybase duomenų serveris"
 #: ../sheets/sybase.sheet.in.h:8
 msgid "Sybase replication server"
 msgstr "Sybase replikavimo serveris"
-
