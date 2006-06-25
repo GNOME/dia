@@ -118,7 +118,7 @@ selection_changed (Diagram* dia, int n, DDisplay* ddisp)
     /* http://www.gnu.org/software/gettext/manual/html_chapter/gettext_10.html#SEC150 
      * Althoug the single objects wont get triggered here some languages have variations on the other numbers 
      */
-    msg = g_strdup_printf (ngettext (_("Selection of %d object"), _("Selection of %d objects"), n), n);
+    msg = g_strdup_printf (ngettext ("Selection of %d object", "Selection of %d objects", n), n);
     gtk_statusbar_pop (statusbar, context_id);
     gtk_statusbar_push (statusbar, context_id, msg);
     g_free (msg);
