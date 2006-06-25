@@ -141,8 +141,8 @@
 		</menu>
 		<menu name="Help" action="Help">
 			<menuitem name="HelpContents" action="HelpContents" />
-			<separator name="HelpExtensionStart" expand="true" />
-			<separator name="HelpExtensionEnd" expand="true" />
+			<separator name="HelpExtensionStart" />
+			<separator name="HelpExtensionEnd" />
 			<menuitem name="HelpAbout" action="HelpAbout" />
 		</menu>
 	</menubar>

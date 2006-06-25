@@ -1,3 +1,11 @@
+2006-06-25  Hans Breuer  <hans@breuer.org>
+
+	* data/ui/display-ui.xml data/ui/popup-ui.xml data/ui/toolbox-ui.xml :
+	removed expand="yes" because otherwise the files can't be read with
+	gtk+-2.6.x which follows Dia can't start. Fixes bug #344895
+	* app/menus.c app/Makefile.am : also find the ui files when run from
+	app/run_dia.sh
+
 2006-06-17  Gintautas Miliauskas  <gintas@akl.lt>
 
 	* configure.in: Added lt to ALL_LINGUAS.

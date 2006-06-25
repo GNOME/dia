@@ -407,6 +407,23 @@ register_stock_icons (void)
   factory = NULL;
 }
 
+static gchar*
+build_ui_filename (const gchar* name)
+{
+  gchar* uifile;
+
+  if (g_getenv ("DIA_BASE_PATH") != NULL) {
+    /* a small hack cause the final destination and the local path differ */
+    const gchar* p = strrchr (name, '/');
+    if (p != NULL)
+      name = p+1;
+    uifile = g_build_filename (g_getenv ("DIA_BASE_PATH"), "data", name, NULL);
+  } else
+    uifile = dia_get_data_directory (name);
+
+  return uifile;
+}
+
 static void
 menus_init(void)
 {
@@ -440,7 +457,7 @@ menus_init(void)
   toolbox_ui_manager = gtk_ui_manager_new ();
   gtk_ui_manager_set_add_tearoffs (toolbox_ui_manager, DIA_SHOW_TEAROFFS);
   gtk_ui_manager_insert_action_group (toolbox_ui_manager, toolbox_actions, 0);
-  uifile = dia_get_data_directory ("ui/toolbox-ui.xml");
+  uifile = build_ui_filename ("ui/toolbox-ui.xml");
   if (!gtk_ui_manager_add_ui_from_file (toolbox_ui_manager, uifile, &error)) {
     g_warning ("building menus failed: %s", error->message);
     g_error_free (error);
@@ -475,7 +492,7 @@ menus_init(void)
   gtk_ui_manager_set_add_tearoffs (display_ui_manager, DIA_SHOW_TEAROFFS);
   gtk_ui_manager_insert_action_group (display_ui_manager, display_actions, 0);
   gtk_ui_manager_insert_action_group (display_ui_manager, display_tool_actions, 0);
-  uifile = dia_get_data_directory ("ui/popup-ui.xml");
+  uifile = build_ui_filename ("ui/popup-ui.xml");
   /* TODO it would be more elegant if we had only one definition of the 
    * menu hierarchy and merge it into a popup somehow. */
   if (!gtk_ui_manager_add_ui_from_file (display_ui_manager, uifile, &error)) {
@@ -612,7 +629,7 @@ menus_create_display_menubar (GtkUIManager   **ui_manager,
   gtk_ui_manager_insert_action_group (*ui_manager, tool_actions, 0);
   g_object_unref (G_OBJECT (tool_actions));
   
-  uifile = dia_get_data_directory ("ui/display-ui.xml");
+  uifile = build_ui_filename ("ui/display-ui.xml");
   if (!gtk_ui_manager_add_ui_from_file (*ui_manager, uifile, &error)) {
     g_warning ("building menus failed: %s", error->message);
     g_error_free (error);
