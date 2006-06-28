@@ -1,3 +1,8 @@
+2006-06-28  Lars Clausen  <lars@raeder.dk>
+
+	* plug-ins/vdx/vdx-import.c: Removed create_standard_group which
+	is in create.c.
+
 2006-06-25  Hans Breuer  <hans@breuer.org>
 
 	* app/display.c : avoid to call gettext on parameters for ngettext()

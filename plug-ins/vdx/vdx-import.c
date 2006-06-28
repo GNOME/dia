@@ -153,15 +153,6 @@ static PropDescription vdx_text_descs[] = {
     /* Flags */
 };
 
-static DiaObject *
-create_standard_group(GList *items) {
-    DiaObject *new_obj;
-
-    new_obj = group_create((GList*)items);
-
-    return new_obj;
-}
-
 
 /** Turns a VDX colour definition into a Dia Color.
  * @param s a string from the VDX
