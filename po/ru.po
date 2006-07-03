@@ -1,4 +1,4 @@
-# Copyright (C) 1999-2002, 2003, 2004 Free Software Foundation, Inc.
+# Copyright (C) 1999-2006 Free Software Foundation, Inc.
 # Valek Filippov <frob@df.ru>, 1999.
 # Vitaly Lipatov <lav@altlinux.ru>, 2002, 2003, 2004.
 # Kvyato Sergey <kvantos@plotinka.ru> 2005, 2006
@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dia 0.95\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-06-09 07:08+0400\n"
-"PO-Revision-Date: 2006-06-04 02:21+0300\n"
+"POT-Creation-Date: 2006-07-03 23:27+0400\n"
+"PO-Revision-Date: 2006-07-03 10:59+0400\n"
 "Last-Translator: Sergey Kvyato <kvantos@sun-tel.net>\n"
 "Language-Team: Russian <gnome-cyr@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -701,26 +701,32 @@ msgstr ""
 msgid "Diagram modified!"
 msgstr "Диаграмма изменена!"
 
-#: ../app/display.c:118
+#. http://www.gnu.org/software/gettext/manual/html_chapter/gettext_10.html#SEC150
+#. * Althoug the single objects wont get triggered here some languages have variations on the other numbers
+#.
+#: ../app/display.c:121
 #, c-format
-msgid "Selection of %d objects"
-msgstr "Выделение %d объектов"
+msgid "Selection of %d object"
+msgid_plural "Selection of %d objects"
+msgstr[0] "Выделение %d объекта"
+msgstr[1] "Выделение %d объектов"
+msgstr[2] "Выделение %d объектов"
 
-#: ../app/display.c:128
+#: ../app/display.c:131
 #, c-format
 msgid "Selected '%s'"
 msgstr "Выделено «%s»"
 
-#: ../app/display.c:1127
+#: ../app/display.c:1130
 msgid "<unnamed>"
 msgstr "<без названия>"
 
 #. no standard buttons
-#: ../app/display.c:1133
+#: ../app/display.c:1136
 msgid "Closing diagram without saving"
 msgstr "Закрытие диаграммы без сохранения"
 
-#: ../app/display.c:1136
+#: ../app/display.c:1139
 #, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -729,11 +735,11 @@ msgstr ""
 "Диаграмма «%s»\n"
 "не была сохранена. Сохранить изменения сейчас?"
 
-#: ../app/display.c:1138
+#: ../app/display.c:1141
 msgid "Close Diagram"
 msgstr "Закрыть диаграмму"
 
-#: ../app/display.c:1143
+#: ../app/display.c:1146
 msgid "_Discard Changes"
 msgstr "_Отказаться от изменений"
 
