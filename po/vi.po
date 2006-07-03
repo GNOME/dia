@@ -3870,7 +3870,7 @@ msgstr "Kiểu của bước"
 
 #: ../objects/GRAFCET/step.c:163
 msgid "Active"
-msgstr "Hoặt động"
+msgstr "Hoạt động"
 
 #: ../objects/GRAFCET/step.c:163
 msgid "Shows a red dot to figure the step's activity"
