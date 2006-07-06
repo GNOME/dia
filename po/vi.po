@@ -21,7 +21,7 @@ msgstr "Project-Id-Version: dia HEAD\n"
 #: ../app/app_procs.c:260
 #, c-format
 msgid "Warning: invalid layer range %lu - %lu\n"
-msgstr "Cảnh báo: phạm vị lớp không hợp lệ %lu — %lu\n"
+msgstr "Cảnh báo: phạm vi lớp không hợp lệ %lu — %lu\n"
 
 #: ../app/app_procs.c:272
 #, c-format
@@ -106,7 +106,7 @@ msgstr "WxH"
 msgid ""
 "Show only specified layers (e.g. when exporting). Can be either the layer "
 "name or a range of layer numbers (X-Y)"
-msgstr "Hiển thị chỉ những lớp xác định (v.d. khi xuất). Có thể là hoặc tên lớp hoặc một phạm vị số lớp (X-Y)."
+msgstr "Hiển thị chỉ những lớp xác định (v.d. khi xuất). Có thể là hoặc tên lớp hoặc một phạm vi số lớp (X-Y)."
 
 #: ../app/app_procs.c:694
 #: ../app/app_procs.c:722
@@ -5455,7 +5455,7 @@ msgstr "Không biết kiểu mũi tên %d.\n"
 #: ../plug-ins/xfig/xfig-import.c:377
 #, c-format
 msgid "Depth %d of of range, only 0-%d allowed.\n"
-msgstr "Độ sâu %d ở ngoại phạm vị, cho phép chỉ 0-%d thôi.\n"
+msgstr "Độ sâu %d ở ngoại phạm vi, cho phép chỉ 0-%d thôi.\n"
 
 #: ../plug-ins/xfig/xfig-import.c:424
 #, c-format
@@ -5527,7 +5527,7 @@ msgstr "Không thể đọc màu: %s\n"
 #: ../plug-ins/xfig/xfig-import.c:1039
 #, c-format
 msgid "Color number %d out of range 0..%d.  Discarding color.\n"
-msgstr "Số hiệu màu %d ở ngoại phạm vị 0..%d nên hủy màu đó.\n"
+msgstr "Số hiệu màu %d ở ngoại phạm vi 0..%d nên hủy màu đó.\n"
 
 #: ../plug-ins/xfig/xfig-import.c:1085
 #, c-format
