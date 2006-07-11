@@ -1,3 +1,4 @@
+# translation of eu.po to Basque
 # translation of dia.po to Basque
 # translation of dia.HEAD_eu.po to Basque
 # This file is distributed under the same license as the PACKAGE package.
@@ -9,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-05-10 21:11+0000\n"
-"PO-Revision-Date: 2006-05-10 21:13+0000\n"
+"POT-Creation-Date: 2006-07-11 11:51+0000\n"
+"PO-Revision-Date: 2006-07-11 12:07+0000\n"
 "Last-Translator: Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>\n"
 "Language-Team: Basque <itzulpena@euskalgnu.org>\n"
 "MIME-Version: 1.0\n"
@@ -299,20 +300,20 @@ msgstr "Hautatu aurreko planoaren kolorea"
 msgid "Select background color"
 msgstr "Hautatu atzeko planoaren kolorea"
 
-#: ../app/commands.c:132
+#: ../app/commands.c:133
 #, c-format
 msgid "Diagram%d.dia"
 msgstr "Diagrama%d.dia"
 
-#: ../app/commands.c:205
+#: ../app/commands.c:206
 msgid "No existing object to paste.\n"
 msgstr "Ez dago objekturik itsasteko.\n"
 
-#: ../app/commands.c:531 ../app/commands.c:569
+#: ../app/commands.c:532 ../app/commands.c:570
 msgid "Could not find help directory"
 msgstr "Ezin izan da aurkitu laguntza-direktorioa."
 
-#: ../app/commands.c:538
+#: ../app/commands.c:539
 #, c-format
 msgid ""
 "Could not open help directory:\n"
@@ -321,13 +322,13 @@ msgstr ""
 "Ezin izan da laguntza-direktorioa ireki:\n"
 "%s"
 
-#: ../app/commands.c:605
+#: ../app/commands.c:606
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 "Hizkuntza Politikarako Sailburuordetza \n"
 "(<hizkpol@ej-gv.es>)"
 
-#: ../app/commands.c:607
+#: ../app/commands.c:608
 msgid ""
 "This program is free software; you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"
@@ -356,7 +357,7 @@ msgstr ""
 "zenuen; hala ez bada, idatzi hona: Free SoftwareFoundation, Inc., 59 Temple "
 "Place - Suite 330, Boston, MA 02111-1307, USA.\n"
 
-#: ../app/commands.c:630
+#: ../app/commands.c:631
 msgid "A program for drawing structured diagrams."
 msgstr "Diagrama egituratuak marrazteko editorea."
 
@@ -587,7 +588,7 @@ msgstr "/_Propietateak"
 msgid "/_Hide this type"
 msgstr "/_Ezkutatu mota hau"
 
-#: ../app/diagram_tree_window.c:73
+#: ../app/diagram_tree_window.c:80
 msgid "Diagram tree"
 msgstr "Diagrama-zuhaitza"
 
@@ -656,12 +657,12 @@ msgstr "Doitu:"
 msgid "by"
 msgstr "x"
 
-#: ../app/diapagelayout.c:682
+#: ../app/diapagelayout.c:698
 #, c-format
 msgid "%0.3gcm x %0.3gcm"
 msgstr "%0.3gcm x %0.3gcm"
 
-#: ../app/diapagelayout.c:786 ../app/pagesetup.c:76
+#: ../app/diapagelayout.c:802 ../app/pagesetup.c:76
 msgid "Page Setup"
 msgstr "Prestatu orrialdea"
 
@@ -677,7 +678,7 @@ msgstr ""
 msgid "Properties..."
 msgstr "Propietateak..."
 
-#: ../app/disp_callbacks.c:925
+#: ../app/disp_callbacks.c:920
 msgid ""
 "The object you dropped cannot fit into its parent. \n"
 "Either expand the parent object, or drop the object elsewhere."
@@ -689,21 +690,31 @@ msgstr ""
 msgid "Diagram modified!"
 msgstr "Diagrama aldatu egin da!"
 
-#: ../app/display.c:118
+#. http://www.gnu.org/software/gettext/manual/html_chapter/gettext_10.html#SEC150
+#. * Althoug the single objects wont get triggered here some languages have variations on the other numbers
+#.
+#: ../app/display.c:121
 #, c-format
-msgid "Selection of %d objects"
-msgstr "%d objektuen hautapena"
+msgid "Selection of %d object"
+msgid_plural "Selection of %d objects"
+msgstr[0] "Objektu %den hautapena"
+msgstr[1] "%d objektuen hautapena"
 
-#: ../app/display.c:128
+#: ../app/display.c:131
 #, c-format
 msgid "Selected '%s'"
 msgstr "'%s' hautatuta"
 
-#: ../app/display.c:1136
+#: ../app/display.c:1130
 msgid "<unnamed>"
 msgstr "<izengabea>"
 
-#: ../app/display.c:1138
+#. no standard buttons
+#: ../app/display.c:1136
+msgid "Closing diagram without saving"
+msgstr "Diagrama gorde gabe ixten"
+
+#: ../app/display.c:1139
 #, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -712,16 +723,11 @@ msgstr ""
 "'%s' diagrama\n"
 "ez da gorde. Aldaketak gorde nahi dituzu?"
 
-#. no standard buttons
-#: ../app/display.c:1146
-msgid "Closing diagram without saving"
-msgstr "Diagrama gorde gabe ixten"
-
-#: ../app/display.c:1150
+#: ../app/display.c:1141
 msgid "Close Diagram"
 msgstr "Itxi diagrama"
 
-#: ../app/display.c:1155
+#: ../app/display.c:1146
 msgid "_Discard Changes"
 msgstr "_Baztertu aldaketak"
 
@@ -774,7 +780,7 @@ msgstr "Irudiaren altuera:"
 msgid "Portable Network Graphics"
 msgstr "Portable Network Graphics"
 
-#: ../app/filedlg.c:129 ../app/filedlg.c:513
+#: ../app/filedlg.c:129 ../app/filedlg.c:511
 msgid "By extension"
 msgstr "Luzapenaren arabera"
 
@@ -786,19 +792,19 @@ msgstr "Ireki diagrama"
 msgid "Open Options"
 msgstr "Irekitzeko aukerak"
 
-#: ../app/filedlg.c:250 ../app/filedlg.c:635
+#: ../app/filedlg.c:250 ../app/filedlg.c:631
 msgid "Determine file type:"
 msgstr "Zehaztu fitxategi-mota:"
 
-#: ../app/filedlg.c:266 ../app/filedlg.c:648
+#: ../app/filedlg.c:266 ../app/filedlg.c:644
 msgid "All Files"
 msgstr "Fitxategi denak"
 
-#: ../app/filedlg.c:271 ../app/filedlg.c:653
+#: ../app/filedlg.c:271 ../app/filedlg.c:649
 msgid "Supported Formats"
 msgstr "Onartutako formatuak"
 
-#: ../app/filedlg.c:307
+#: ../app/filedlg.c:306
 msgid ""
 "Some characters in the filename are neither UTF-8\n"
 "nor your local encoding.\n"
@@ -808,7 +814,11 @@ msgstr ""
 "lokalekoak ere. \n"
 "Gauza batzuek ez dute funtzionatuko."
 
-#: ../app/filedlg.c:314 ../app/filedlg.c:558
+#: ../app/filedlg.c:316 ../app/filedlg.c:558
+msgid "File already exists"
+msgstr "Fitxategia badago lehendik ere"
+
+#: ../app/filedlg.c:318 ../app/filedlg.c:560
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
@@ -817,21 +827,17 @@ msgstr ""
 "'%s' fitxategia badago lehendik.\n"
 "Gainidatzi nahi duzu?"
 
-#: ../app/filedlg.c:321 ../app/filedlg.c:564
-msgid "File already exists"
-msgstr "Fitxategia badago lehendik ere"
-
-#: ../app/filedlg.c:370
+#: ../app/filedlg.c:368
 msgid "Save Diagram"
 msgstr "Gorde diagrama"
 
 #. Need better way to make it a reasonable size.  Isn't there some
 #. standard look for them (or is that just Gnome?)
-#: ../app/filedlg.c:382
+#: ../app/filedlg.c:380
 msgid "Compress diagram files"
 msgstr "Konprimitu diagrama-fitxategiak"
 
-#: ../app/filedlg.c:391
+#: ../app/filedlg.c:389
 msgid ""
 "Compression reduces file size to less than 1/10th size and speeds up loading "
 "and saving.  Some text programs cannot manipulate compressed files."
@@ -840,7 +846,7 @@ msgstr ""
 "kargatzea eta gordetzea azkartu. Testu-programa batzuek ezin dute fitxategi "
 "konprimiturik manipulatu."
 
-#: ../app/filedlg.c:587
+#: ../app/filedlg.c:583
 #, c-format
 msgid ""
 "Could not determine which export filter\n"
@@ -849,11 +855,11 @@ msgstr ""
 "Ezin izan da zehaztu zein esportazio-iragazki\n"
 "erabili '%s' gordetzeko"
 
-#: ../app/filedlg.c:610
+#: ../app/filedlg.c:606
 msgid "Export Diagram"
 msgstr "Esportatu diagrama"
 
-#: ../app/filedlg.c:627
+#: ../app/filedlg.c:623
 msgid "Export Options"
 msgstr "Esportatzeko aukerak"
 
@@ -861,12 +867,8 @@ msgstr "Esportatzeko aukerak"
 msgid "Modify object(s)"
 msgstr "Aldatu objektua(k)"
 
-#: ../app/interface.c:58
-msgid "Modify"
-msgstr "Aldatu"
-
 #. Translators: Menu item Verb/Control Magnitude/Change/Magnify
-#: ../app/interface.c:62 ../app/interface.c:63 ../objects/FS/function.c:986
+#: ../app/interface.c:62 ../app/menus.c:187 ../objects/FS/function.c:986
 msgid "Magnify"
 msgstr "Handitu"
 
@@ -874,12 +876,8 @@ msgstr "Handitu"
 msgid "Scroll around the diagram"
 msgstr "Korritu diagrama"
 
-#: ../app/interface.c:68
-msgid "Scroll"
-msgstr "Korritu"
-
-#: ../app/interface.c:72 ../app/interface.c:73 ../lib/properties.c:79
-#: ../lib/properties.h:519 ../objects/AADL/aadlbox.c:144
+#: ../app/interface.c:72 ../app/menus.c:189 ../lib/properties.c:79
+#: ../lib/properties.h:520 ../objects/AADL/aadlbox.c:144
 #: ../objects/Jackson/requirement.c:142 ../objects/UML/activity.c:127
 #: ../objects/UML/actor.c:122 ../objects/UML/classicon.c:144
 #: ../objects/UML/component.c:128 ../objects/UML/component_feature.c:155
@@ -891,84 +889,84 @@ msgstr "Korritu"
 msgid "Text"
 msgstr "Testua"
 
-#: ../app/interface.c:77 ../app/interface.c:78
+#: ../app/interface.c:77 ../app/menus.c:190
 msgid "Box"
 msgstr "Laukia"
 
-#: ../app/interface.c:82 ../app/interface.c:83
+#: ../app/interface.c:82 ../app/menus.c:191
 msgid "Ellipse"
 msgstr "Elipsea"
 
-#: ../app/interface.c:87 ../app/interface.c:88
+#: ../app/interface.c:87 ../app/menus.c:192
 msgid "Polygon"
 msgstr "Poligonoa"
 
-#: ../app/interface.c:92 ../app/interface.c:93
+#: ../app/interface.c:92 ../app/menus.c:193
 msgid "Beziergon"
 msgstr "Beziergonoa"
 
-#: ../app/interface.c:97 ../app/interface.c:98 ../objects/standard/line.c:225
+#: ../app/interface.c:97 ../app/menus.c:195 ../objects/standard/line.c:225
 msgid "Line"
 msgstr "Marra"
 
-#: ../app/interface.c:102 ../app/interface.c:103
+#: ../app/interface.c:102 ../app/menus.c:196
 msgid "Arc"
 msgstr "Arkua"
 
-#: ../app/interface.c:107 ../app/interface.c:108
+#: ../app/interface.c:107 ../app/menus.c:197
 msgid "Zigzagline"
 msgstr "Sigi-saga marra"
 
-#: ../app/interface.c:112 ../app/interface.c:113
+#: ../app/interface.c:112 ../app/menus.c:198
 msgid "Polyline"
 msgstr "Koska-marra"
 
-#: ../app/interface.c:117 ../app/interface.c:118
+#: ../app/interface.c:117 ../app/menus.c:199
 msgid "Bezierline"
 msgstr "Bezier-marra"
 
-#: ../app/interface.c:122 ../app/interface.c:123
+#: ../app/interface.c:122 ../app/menus.c:201
 msgid "Image"
 msgstr "Irudia"
 
-#: ../app/interface.c:408
+#: ../app/interface.c:402
 msgid "Diagram menu."
 msgstr "Diagrama menua."
 
-#: ../app/interface.c:446
+#: ../app/interface.c:440
 msgid "Pops up the Navigation window."
 msgstr "Nabigazio-leihoa bistaratzen du pantailan."
 
-#: ../app/interface.c:514
+#: ../app/interface.c:506
 msgid "Zoom"
 msgstr "Zooma"
 
-#: ../app/interface.c:529
+#: ../app/interface.c:521
 msgid "Toggles snap-to-grid for this window."
 msgstr "'Atxiki saretari' aktibatzen/desaktibatzen du leiho honetan."
 
-#: ../app/interface.c:540
+#: ../app/interface.c:532
 msgid "Toggles object snapping for this window."
 msgstr "Objektua atxikitzea aktibatzen/desaktibatzen du leiho honetan."
 
-#: ../app/interface.c:605
+#: ../app/interface.c:597
 msgid "NULL tooldata in tool_select_update"
 msgstr "Tooldata = NULL tool_select_update funtzioan"
 
-#: ../app/interface.c:905
+#: ../app/interface.c:897
 #, c-format
 msgid "No sheet named %s"
 msgstr "Ez dago %s izeneko orririk"
 
-#: ../app/interface.c:942
+#: ../app/interface.c:934
 msgid "Other sheets"
 msgstr "Beste orriak"
 
-#: ../app/interface.c:1000 ../sheets/Misc.sheet.in.h:3
+#: ../app/interface.c:992 ../sheets/Misc.sheet.in.h:3
 msgid "Misc"
 msgstr "Hainbat"
 
-#: ../app/interface.c:1061
+#: ../app/interface.c:1053
 msgid ""
 "Foreground & background colors for new objects.  The small black and white "
 "squares reset colors.  The small arrows swap colors.  Double click to change "
@@ -978,7 +976,7 @@ msgstr ""
 "zuri-beltzek koloreak berrezartzen dituzte. Gezi txikiek koloreak trukatzen "
 "dituzte. Egin klik bikoitza koloreak aldatzeko."
 
-#: ../app/interface.c:1076
+#: ../app/interface.c:1068
 msgid ""
 "Line widths.  Click on a line to set the default line width for new "
 "objects.  Double-click to set the line width more precisely."
@@ -987,7 +985,7 @@ msgstr ""
 "klik marra batean. Zabalera zehaztasun handiagoz ezartzeko, egin klik "
 "bikoitza."
 
-#: ../app/interface.c:1116
+#: ../app/interface.c:1108
 msgid ""
 "Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
 "arrow parameters with Details..."
@@ -995,7 +993,7 @@ msgstr ""
 "Marra berrien hasierako gezi-estiloa. Egin klik gezi bat hautatzeko, edo "
 "ezarri gezi-parametroak Xehetasunekin..."
 
-#: ../app/interface.c:1121
+#: ../app/interface.c:1113
 msgid ""
 "Line style for new lines.  Click to pick a line style, or set line style "
 "parameters with Details..."
@@ -1003,7 +1001,7 @@ msgstr ""
 "Marra berrien marra-estiloa. Egin klik marra-estilo bat hautatzeko, edo "
 "marra-estiloaren parametroak Xehetasunekin..."
 
-#: ../app/interface.c:1135
+#: ../app/interface.c:1127
 msgid ""
 "Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
 "parameters with Details..."
@@ -1011,7 +1009,7 @@ msgstr ""
 "Marra berrien amaierako gezi-estiloa. Egin klik gezi bat hautatzeko, edo "
 "ezarri gezi-parametroak Xehetasunekin..."
 
-#: ../app/interface.c:1243
+#: ../app/interface.c:1235
 msgid "Diagram Editor"
 msgstr "Diagrama-editorea"
 
@@ -1056,7 +1054,7 @@ msgstr "Editatu geruza-atributuak"
 msgid "Layer name:"
 msgstr "Geruza-izena:"
 
-#: ../app/linewidth_area.c:246 ../lib/properties.h:480 ../lib/properties.h:483
+#: ../app/linewidth_area.c:246 ../lib/properties.h:481 ../lib/properties.h:484
 #: ../objects/chronogram/chronoline.c:181
 #: ../objects/chronogram/chronoref.c:160
 msgid "Line width"
@@ -1101,7 +1099,7 @@ msgid "You must specify a file, not a directory.\n"
 msgstr "Fitxategi bat zehaztu behar duzu, ez direktorioa.\n"
 
 #: ../app/load_save.c:359 ../plug-ins/dxf/dxf-import.c:1306
-#: ../plug-ins/wpg/wpg.c:1175 ../plug-ins/xfig/xfig-import.c:1605
+#: ../plug-ins/wpg/wpg.c:1175 ../plug-ins/xfig/xfig-import.c:1258
 #: ../plug-ins/xslt/xslt.c:85
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
@@ -1145,496 +1143,314 @@ msgstr "Ezin izan da '%s' fitxategia gorde.\n"
 msgid "Dia Diagram File"
 msgstr "Dia diagrama natiboa"
 
-#: ../app/menus.c:50 ../app/menus.c:88
-msgid "/_File"
-msgstr "/_Fitxategia"
+#: ../app/menus.c:54
+msgid "_File"
+msgstr "_Fitxategia"
 
-#: ../app/menus.c:52 ../app/menus.c:90
-msgid "/File/_New"
-msgstr "/Fitxategia/_Berria"
-
-#: ../app/menus.c:54 ../app/menus.c:92
-msgid "/File/_Open..."
-msgstr "/Fitxategia/_Ireki..."
-
-#. {N_("/Open _Recent"),           NULL,         NULL,           0, "<Branch>"},
-#. {   "/Open Recent/tearoff",     NULL,         NULL,         0, "<Tearoff>" },
-#. recent file list is dynamically inserted here
-#. {N_("/Open _Recent"),           NULL,         NULL,           0, "<Branch>"},
-#. {   "/Open Recent/tearoff",     NULL,         NULL,         0, "<Tearoff>" },
-#: ../app/menus.c:58 ../app/menus.c:63 ../app/menus.c:68 ../app/menus.c:70
-#: ../app/menus.c:96 ../app/menus.c:103 ../app/menus.c:107
-msgid "/File/---"
-msgstr "/Fitxategia/---"
-
-#: ../app/menus.c:59
-msgid "/File/_Diagram tree"
-msgstr "/Fitxategia/_Diagrama-zuhaitza"
-
-#: ../app/menus.c:61
-msgid "/File/Sheets and Objects..."
-msgstr "/Fitxategia/Orriak eta objektuak..."
-
-#: ../app/menus.c:64
-msgid "/File/_Preferences..."
-msgstr "/Fitxategia/_Hobespenak..."
+#: ../app/menus.c:58
+msgid "_Help"
+msgstr "_Laguntza"
 
 #: ../app/menus.c:66
-msgid "/File/P_lugins..."
-msgstr "/Fitxategia/P_lugin-ak..."
+msgid "Sheets and Objects..."
+msgstr "Orriak eta objektuak..."
 
-#: ../app/menus.c:71 ../app/menus.c:111
-msgid "/File/_Quit"
-msgstr "/Fitxategia/_Irten"
+#: ../app/menus.c:68
+msgid "Plugins..."
+msgstr "Plugin-ak..."
 
-#: ../app/menus.c:73 ../app/menus.c:263
-msgid "/_Help"
-msgstr "/Lagu_ntza"
+#: ../app/menus.c:74
+msgid "_Diagram tree..."
+msgstr "_Diagrama-zuhaitza..."
 
-#: ../app/menus.c:75 ../app/menus.c:265
-msgid "/Help/_Contents"
-msgstr "/Laguntza/_Edukiak"
+#: ../app/menus.c:82
+msgid "_Export ..."
+msgstr "_Esportatu..."
 
-#: ../app/menus.c:77 ../app/menus.c:267
-msgid "/Help/---"
-msgstr "/Laguntza/---"
+#: ../app/menus.c:83
+msgid "Page Set_up..."
+msgstr "_Prestatu orrialdea..."
 
-#: ../app/menus.c:78 ../app/menus.c:268
-msgid "/Help/_About..."
-msgstr "/Laguntza/H_oni buruz..."
+#: ../app/menus.c:87 ../app/sheets_dialog.c:236
+msgid "_Edit"
+msgstr "_Editatu"
 
-#: ../app/menus.c:97
-msgid "/File/_Save"
-msgstr "/Fitxategia/_Gorde"
+#: ../app/menus.c:94
+msgid "_Duplicate"
+msgstr "B_ikoiztu"
 
+#. the following used to bind to <control><shift>C which collides with Unicode input.
+#. * <control>>alt> doesn't work either
 #: ../app/menus.c:99
-msgid "/File/Save _As..."
-msgstr "/Fitxategia/Gorde _honela..."
+msgid "Copy Text"
+msgstr "Kopiatu testua"
+
+#: ../app/menus.c:100
+msgid "Cut Text"
+msgstr "Ebaki testua"
 
 #: ../app/menus.c:101
-msgid "/File/_Export..."
-msgstr "/Fitxategia/_Esportatu..."
+msgid "Paste _Text"
+msgstr "Itsatsi _testua"
 
-#: ../app/menus.c:104
-msgid "/File/Page Set_up..."
-msgstr "/Fitxategia/Prestatu _orrialdea..."
+#: ../app/menus.c:103
+msgid "_Diagram"
+msgstr "_Diagrama"
 
 #: ../app/menus.c:105
-msgid "/File/_Print Diagram..."
-msgstr "/Fitxategia/I_nprimatu diagrama..."
+msgid "_Layers..."
+msgstr "_Geruzak..."
 
-#: ../app/menus.c:108
-msgid "/File/_Close"
-msgstr "/Fitxategia/It_xi"
+#: ../app/menus.c:107
+msgid "_View"
+msgstr "_Ikusi"
+
+#: ../app/menus.c:110
+msgid "_Zoom"
+msgstr "_Zooma"
+
+#: ../app/menus.c:111
+msgid "1600%"
+msgstr "%1600"
+
+#: ../app/menus.c:112
+msgid "800%"
+msgstr "%800"
 
 #: ../app/menus.c:113
-msgid "/_Edit"
-msgstr "/_Editatu"
+msgid "400%"
+msgstr "%400"
+
+#: ../app/menus.c:114
+msgid "283"
+msgstr "283"
 
 #: ../app/menus.c:115
-msgid "/Edit/_Undo"
-msgstr "/Editatu/_Desegin"
+msgid "200"
+msgstr "200"
 
-#: ../app/menus.c:117
-msgid "/Edit/_Redo"
-msgstr "/Editatu/_Berregin"
+#: ../app/menus.c:116
+msgid "141"
+msgstr "141"
 
-#: ../app/menus.c:119 ../app/menus.c:129
-msgid "/Edit/---"
-msgstr "/Editatu/---"
+#: ../app/menus.c:118
+msgid "85"
+msgstr "85"
+
+#: ../app/menus.c:119
+msgid "70.7"
+msgstr "70.7"
 
 #: ../app/menus.c:120
-msgid "/Edit/_Copy"
-msgstr "/Editatu/_Kopiatu"
+msgid "50"
+msgstr "50"
+
+#: ../app/menus.c:121
+msgid "35.4"
+msgstr "35.4"
 
 #: ../app/menus.c:122
-msgid "/Edit/C_ut"
-msgstr "/Editatu/Eb_aki"
+msgid "25"
+msgstr "25"
 
-#: ../app/menus.c:124
-msgid "/Edit/_Paste"
-msgstr "/Editatu/It_satsi"
-
+#. "display_toggle_entries" items go here
 #: ../app/menus.c:126
-msgid "/Edit/_Duplicate"
-msgstr "/Editatu/B_ikoiztu"
+msgid "New _View"
+msgstr "_Ikuspegi berria"
 
 #: ../app/menus.c:127
-msgid "/Edit/_Delete"
-msgstr "/Editatu/E_zabatu"
+msgid "C_lone View"
+msgstr "_Klonatu ikuspegia"
 
-#. the following used to bind to <control><shift>C which collides with Unicode input. <control>>alt> doesn't work either
-#: ../app/menus.c:131
-msgid "/Edit/Copy Text"
-msgstr "/Editatu/Kopiatu testua"
+#: ../app/menus.c:132
+msgid "_Objects"
+msgstr "_Objektuak"
 
 #: ../app/menus.c:133
-msgid "/Edit/Cut Text"
-msgstr "/Editatu/Ebaki testua"
+msgid "Send to _Back"
+msgstr "Bidali a_tzera"
+
+#: ../app/menus.c:134
+msgid "Bring to _Front"
+msgstr "Ekarri a_urrera"
 
 #: ../app/menus.c:135
-msgid "/Edit/Paste _Text"
-msgstr "/Editatu/Itsatsi _testua"
+msgid "Send Backwards"
+msgstr "Eraman atzerantz"
 
-#: ../app/menus.c:137
-msgid "/_Diagram"
-msgstr "/_Diagrama"
+#: ../app/menus.c:136
+msgid "Bring Forwards"
+msgstr "Ekarri aurrerantz"
 
-#: ../app/menus.c:139
-msgid "/Diagram/_Properties..."
-msgstr "/Diagrama/_Propietateak..."
-
-#: ../app/menus.c:141
-msgid "/Diagram/_Layers..."
-msgstr "/Diagrama/Geru_zak..."
-
-#: ../app/menus.c:142
-msgid "/_View"
-msgstr "/I_kusi"
-
-#: ../app/menus.c:144
-msgid "/View/Zoom _In"
-msgstr "/Ikusi/Ha_ndiagotu"
-
-#: ../app/menus.c:146
-msgid "/View/Zoom _Out"
-msgstr "/Ikusi/Txikia_gotu"
-
-#: ../app/menus.c:148
-msgid "/View/_Zoom"
-msgstr "/Ikusi/Zooma"
-
-#: ../app/menus.c:150
-msgid "/View/Zoom/1600%"
-msgstr "/Ikusi/Zooma/% 1600"
-
-#: ../app/menus.c:151
-msgid "/View/Zoom/800%"
-msgstr "/Ikusi/Zooma/% 800"
-
-#: ../app/menus.c:152
-msgid "/View/Zoom/400%"
-msgstr "/Ikusi/Zooma/% 400"
-
-#: ../app/menus.c:153
-msgid "/View/Zoom/283%"
-msgstr "/Ikusi/Zooma/% 283"
-
-#: ../app/menus.c:154
-msgid "/View/Zoom/200%"
-msgstr "/Ikusi/Zooma/% 200"
-
-#: ../app/menus.c:155
-msgid "/View/Zoom/141%"
-msgstr "/Ikusi/Zooma/% 141"
-
-#: ../app/menus.c:156
-msgid "/View/Zoom/100%"
-msgstr "/Ikusi/Zooma/% 100"
-
-#: ../app/menus.c:158
-msgid "/View/Zoom/85%"
-msgstr "/Ikusi/Zooma/% 85"
-
-#: ../app/menus.c:159
-msgid "/View/Zoom/70.7%"
-msgstr "/Ikusi/Zooma/% 70,7"
-
-#: ../app/menus.c:160
-msgid "/View/Zoom/50%"
-msgstr "/Ikusi/Zooma/% 50"
-
-#: ../app/menus.c:161
-msgid "/View/Zoom/35.4%"
-msgstr "/Ikusi/Zooma/% 35,4"
-
-#: ../app/menus.c:162
-msgid "/View/Zoom/25%"
-msgstr "/Ikusi/Zooma/% 25"
-
-#: ../app/menus.c:163 ../app/menus.c:173
-msgid "/View/---"
-msgstr "/Ikusi/---"
-
-#: ../app/menus.c:164
-msgid "/View/Fullscr_een"
-msgstr "/Ikusi/Pantaila _osoa"
-
-#: ../app/menus.c:166
-msgid "/View/_AntiAliased"
-msgstr "/Ikusi/_Antialiasing-a aplikatuta"
-
-#: ../app/menus.c:168
-msgid "/View/Show _Grid"
-msgstr "/Ikusi/Erakutsi _sareta"
-
-#: ../app/menus.c:169
-msgid "/View/_Snap To Grid"
-msgstr "/Ikusi/At_xiki saretari"
-
-#: ../app/menus.c:170
-msgid "/View/Snap To _Objects"
-msgstr "/Ikusi/At_xiki objetuei"
-
-#: ../app/menus.c:171
-msgid "/View/Show _Rulers"
-msgstr "/Ikusi/Erakutsi errege_lak"
-
-#: ../app/menus.c:172
-msgid "/View/Show _Connection Points"
-msgstr "/Ikusi/Erakutsi _Konexio-puntuak"
-
-#: ../app/menus.c:174
-msgid "/View/New _View"
-msgstr "/Ikusi/_Ikuspegi berria"
-
-#: ../app/menus.c:175
-msgid "/View/C_lone View"
-msgstr "/Ikusi/_Klonatu ikuspegia"
-
-#. Show All, Best Fit.  Same as the Gimp, Ctrl+E
-#: ../app/menus.c:177
-msgid "/View/Show _All"
-msgstr "/Ikusi/Erakutsi _denak"
-
-#: ../app/menus.c:179
-msgid "/View/Re_draw"
-msgstr "/Ikusi/Be_rriro marraztu"
-
-#: ../app/menus.c:181
-msgid "/_Objects"
-msgstr "/_Objektuak"
-
-#: ../app/menus.c:183
-msgid "/Objects/Send to _Back"
-msgstr "/Objektuak/Bidali a_tzera"
-
-#: ../app/menus.c:185
-msgid "/Objects/Bring to _Front"
-msgstr "/Objektuak/Ekarri a_urrera"
-
-#: ../app/menus.c:187
-msgid "/Objects/Send Backwards"
-msgstr "/Objektuak/Eraman atzerantz"
-
-#: ../app/menus.c:189
-msgid "/Objects/Bring Forwards"
-msgstr "/Objektuak/Ekarri aurrerantz"
-
-#: ../app/menus.c:191 ../app/menus.c:197 ../app/menus.c:201 ../app/menus.c:219
-msgid "/Objects/---"
-msgstr "/Objektuak/---"
-
-#: ../app/menus.c:192
-msgid "/Objects/_Group"
-msgstr "/Objektuak/_Elkartu"
+#: ../app/menus.c:138
+msgid "_Group"
+msgstr "_Ekartu"
 
 #. deliberately not using Ctrl+U for Ungroup
-#: ../app/menus.c:195
-msgid "/Objects/_Ungroup"
-msgstr "/Objektuak/_Banandu"
+#: ../app/menus.c:140
+msgid "_Ungroup"
+msgstr "_Banandu"
 
-#: ../app/menus.c:198
-msgid "/Objects/_Parent"
-msgstr "/Objektuak/_Gurasoa"
+#: ../app/menus.c:142
+msgid "_Parent"
+msgstr "_Jarri gurasoa"
 
-#: ../app/menus.c:199
-msgid "/Objects/_Unparent"
-msgstr "/Objektuak/_Kendu gurasoa"
+#: ../app/menus.c:143
+msgid "_Unparent"
+msgstr "_Kendu gurasoa"
 
-#: ../app/menus.c:200
-msgid "/Objects/_Unparent Children"
-msgstr "/Objektuak/_Kendu gurasoa umeari"
+#: ../app/menus.c:144
+msgid "_Unparent Children"
+msgstr "_Kendu gurasoa umeari"
 
-#: ../app/menus.c:202
-msgid "/Objects/Align"
-msgstr "/Objektuak/Lerrokatu"
+#. Translators: Menu item Verb/Support/Position/Align
+#: ../app/menus.c:146 ../objects/FS/function.c:806
+msgid "Align"
+msgstr "Lerrokatu"
 
-#: ../app/menus.c:204
-msgid "/Objects/Align/Left"
-msgstr "/Objektuak/Lerrokatu/Ezkerrean"
+#: ../app/menus.c:151 ../objects/standard/textobj.c:132
+msgid "Top"
+msgstr "Goian"
 
-#: ../app/menus.c:206
-msgid "/Objects/Align/Center"
-msgstr "/Objektuak/Lerrokatu/Erdian"
+#: ../app/menus.c:152
+msgid "Middle"
+msgstr "Erdian"
 
-#: ../app/menus.c:208
-msgid "/Objects/Align/Right"
-msgstr "/Objektuak/Lerrokatu/Eskuinean"
+#: ../app/menus.c:153 ../objects/standard/textobj.c:131
+msgid "Bottom"
+msgstr "Behean"
 
-#: ../app/menus.c:210 ../app/menus.c:214
-msgid "/Objects/Align/---"
-msgstr "/Objektuak/Lerrokatu/---"
+#: ../app/menus.c:155
+msgid "Spread Out Horizontally"
+msgstr "Zabaldu horizontalki"
 
-#: ../app/menus.c:211
-msgid "/Objects/Align/Top"
-msgstr "/Objektuak/Lerrokatu/Goian"
+#: ../app/menus.c:156
+msgid "Spread Out Vertically"
+msgstr "Zabaldu bertikalki"
 
-#: ../app/menus.c:212
-msgid "/Objects/Align/Middle"
-msgstr "/Objektuak/Lerrokatu/Erdian"
+#: ../app/menus.c:157
+msgid "Adjacent"
+msgstr "Ondoan"
+
+#: ../app/menus.c:158
+msgid "Stacked"
+msgstr "Pilatuta"
+
+#: ../app/menus.c:162
+msgid "_Select"
+msgstr "_Hautatu"
+
+#: ../app/menus.c:163
+msgid "All"
+msgstr "Denak"
+
+#: ../app/menus.c:164 ../lib/arrows.c:40 ../objects/Jackson/domain.c:96
+#: ../objects/UML/association.c:1183
+msgid "None"
+msgstr "Bat ere ez"
+
+#: ../app/menus.c:165
+msgid "Invert"
+msgstr "Alderantzikatu"
+
+#: ../app/menus.c:167
+msgid "Transitive"
+msgstr "Iragankorra"
+
+#: ../app/menus.c:168
+msgid "Connected"
+msgstr "Konektatuak"
+
+#: ../app/menus.c:169
+msgid "Same Type"
+msgstr "Mota berekoak"
+
+#. display_select_radio_entries go here
+#: ../app/menus.c:173
+#, fuzzy
+msgid "Select By"
+msgstr "Hautatu"
+
+#: ../app/menus.c:175
+msgid "_Input Methods"
+msgstr "_Sarrera-metodoak"
+
+#: ../app/menus.c:177
+msgid "D_ialogs"
+msgstr "_Elkarrizketa-koadroak"
+
+#: ../app/menus.c:179
+msgid "D_ebug"
+msgstr "_Araztu"
+
+#: ../app/menus.c:185
+msgid "_Tools"
+msgstr "_Tresnak"
+
+#: ../app/menus.c:186
+msgid "Modify"
+msgstr "Aldatu"
+
+#: ../app/menus.c:188
+msgid "Scroll"
+msgstr "Korritu"
+
+#: ../app/menus.c:210
+msgid "Fullscr_een"
+msgstr "Pantaila _osoa"
 
 #: ../app/menus.c:213
-msgid "/Objects/Align/Bottom"
-msgstr "/Objektuak/Lerrokatu/Behean"
+msgid "_AntiAliased"
+msgstr "_Antialiasing-a aplikatuta"
 
 #: ../app/menus.c:215
-msgid "/Objects/Align/Spread Out Horizontally"
-msgstr "/Objektuak/Lerrokatu/Zabaldu horizontalki"
+msgid "Show _Grid"
+msgstr "Erakutsi _sareta"
 
 #: ../app/menus.c:216
-msgid "/Objects/Align/Spread Out Vertically"
-msgstr "/Objektuak/Lerrokatu/Zabaldu bertikalki"
+msgid "_Snap To Grid"
+msgstr "At_xiki saretari"
 
 #: ../app/menus.c:217
-msgid "/Objects/Align/Adjacent"
-msgstr "/Objektuak/Lerrokatu/Ondoan"
+msgid "Snap To _Objects"
+msgstr "At_xiki objetuei"
 
 #: ../app/menus.c:218
-msgid "/Objects/Align/Stacked"
-msgstr "/Objektuak/Lerrokatu/Pilatuta"
+msgid "Show _Rulers"
+msgstr "Erakutsi errege_lak"
 
-#: ../app/menus.c:220
-msgid "/Objects/_Properties..."
-msgstr "/Objektuak/_Propietateak..."
-
-#: ../app/menus.c:222
-msgid "/_Select"
-msgstr "/_Hautatu"
-
-#: ../app/menus.c:224
-msgid "/Select/All"
-msgstr "/Hautatu/Denak"
+#: ../app/menus.c:219
+msgid "Show _Connection Points"
+msgstr "Erakutsi _konexio-puntuak"
 
 #: ../app/menus.c:225
-msgid "/Select/None"
-msgstr "/Hautatu/Bat ere ez"
+msgid "Replace"
+msgstr "Ordeztu"
 
 #: ../app/menus.c:226
-msgid "/Select/Invert"
-msgstr "/Hautatu/Alderantzikatu"
+msgid "Union"
+msgstr "Bildura"
 
-#: ../app/menus.c:227 ../app/menus.c:231
-msgid "/Select/---"
-msgstr "/Hautatu/---"
+#: ../app/menus.c:227
+msgid "Intersection"
+msgstr "Ebakidura"
 
-#: ../app/menus.c:228
-msgid "/Select/Transitive"
-msgstr "/Hautatu/Iragankorra"
-
-#: ../app/menus.c:229
-msgid "/Select/Connected"
-msgstr "/Hautatu/Konektatuak"
-
-#: ../app/menus.c:230
-msgid "/Select/Same Type"
-msgstr "/Hautatu/Mota berekoak"
-
-#: ../app/menus.c:232
-msgid "/Select/Replace"
-msgstr "/Hautatu/Ordeztu"
-
-#: ../app/menus.c:234
-msgid "/Select/Union"
-msgstr "/Hautatu/Bildura"
-
-#: ../app/menus.c:236
-msgid "/Select/Intersection"
-msgstr "/Hautatu/Ebakidura"
-
-#: ../app/menus.c:238
-msgid "/Select/Remove"
-msgstr "/Hautatu/Kendu"
+#. Translators: Menu item Verb/Channel/Export/Remove
+#. Translators: Menu item Verb/Branch/Separate/Remove
+#. Translators: Menu item Verb/Branch/Separate/Remove/Remove
+#: ../app/menus.c:228 ../app/sheets_dialog.c:785 ../objects/FS/function.c:706
+#: ../objects/FS/function.c:858 ../objects/FS/function.c:860
+msgid "Remove"
+msgstr "Kendu"
 
 #. Cannot also be called Invert, duplicate names caused keybinding problems
-#: ../app/menus.c:241
-msgid "/Select/Inverse"
-msgstr "/Hautatu/Alderantzikatu"
-
-#: ../app/menus.c:243
-msgid "/_Tools"
-msgstr "/_Tresnak"
-
-#: ../app/menus.c:245
-msgid "/Tools/Modify"
-msgstr "/Tresnak/Aldatu"
-
-#: ../app/menus.c:246
-msgid "/Tools/Magnify"
-msgstr "/Tresnak/Handitu"
-
-#: ../app/menus.c:247
-msgid "/Tools/Scroll"
-msgstr "/Tresnak/Korritu"
-
-#: ../app/menus.c:248
-msgid "/Tools/Text"
-msgstr "/Tresnak/Testua"
-
-#: ../app/menus.c:249
-msgid "/Tools/Box"
-msgstr "/Tresnak/Laukia"
-
-#: ../app/menus.c:250
-msgid "/Tools/Ellipse"
-msgstr "/Tresnak/Elipsea"
-
-#: ../app/menus.c:251
-msgid "/Tools/Polygon"
-msgstr "/Tresnak/Poligonoa"
-
-#: ../app/menus.c:252
-msgid "/Tools/Beziergon"
-msgstr "/Tresnak/Beziergonoa"
-
-#: ../app/menus.c:253 ../app/menus.c:259
-msgid "/Tools/---"
-msgstr "/Tresnak/---"
-
-#: ../app/menus.c:254
-msgid "/Tools/Line"
-msgstr "/Tresnak/Marra"
-
-#: ../app/menus.c:255
-msgid "/Tools/Arc"
-msgstr "/Tresnak/Arkua"
-
-#: ../app/menus.c:256
-msgid "/Tools/Zigzagline"
-msgstr "/Tresnak/Sigi-saga marra"
+#: ../app/menus.c:230
+msgid "Inverse"
+msgstr "Alderantzikatu"
 
 #: ../app/menus.c:257
-msgid "/Tools/Polyline"
-msgstr "/Tresnak/Koska-marra"
-
-#: ../app/menus.c:258
-msgid "/Tools/Bezierline"
-msgstr "/Tresnak/Bezier-marra"
-
-#: ../app/menus.c:260
-msgid "/Tools/Image"
-msgstr "/Tresnak/Irudia"
-
-#: ../app/menus.c:261
-msgid "/_Input Methods"
-msgstr "/_Sarrera-metodoak"
-
-#: ../app/menus.c:433
 msgid "NULL tooldata in tool_menu_select"
 msgstr "Tooldata = NULL tool_menu_select funtzioan"
-
-#: ../app/menus.c:530
-msgid "Diagram Menu"
-msgstr "Diagrama menua"
-
-#: ../app/menus.c:665
-#, c-format
-msgid ""
-"Can't find menu entry '%s'!\n"
-"This is probably a i18n problem (try LANG=C)."
-msgstr ""
-"Ezin izan da aurkitu '%s' menu-sarrera!\n"
-"Beharbada i18n arazoa egongo da (probatu LANG=C)."
 
 #: ../app/modify_tool.c:342
 msgid "Couldn't get GTK settings"
@@ -1865,16 +1681,6 @@ msgstr "Propietateak: "
 msgid "Object properties:"
 msgstr "Objektuaren propietateak:"
 
-#. Use the Plugins menu item to get a pointer to the File menu,
-#. but any item on the File menu will do
-#: ../app/recent_files.c:61
-msgid "<Toolbox>/File/Plugins..."
-msgstr "<Tresna-koadroa>/Fitxategia/Plugin-ak..."
-
-#: ../app/recent_files.c:135
-msgid "<Toolbox>/File/Quit"
-msgstr "<Tresna-koadroa>/Fitxategia/Irten..."
-
 #: ../app/render_eps.c:148
 msgid "Encapsulated Postscript (using Pango fonts)"
 msgstr "Postscript kapsulatua (Pango letra-tipoekin)"
@@ -1950,10 +1756,6 @@ msgstr "<- Lekuz aldatu dena"
 msgid "Edit"
 msgstr "Editatu"
 
-#: ../app/sheets_dialog.c:236
-msgid "_Edit"
-msgstr "_Editatu"
-
 #: ../app/sheets_dialog.c:267
 msgid "Revert"
 msgstr "Leheneratu"
@@ -2026,14 +1828,6 @@ msgstr "Orria"
 #: ../objects/UML/realizes.c:132
 msgid "Name:"
 msgstr "Izena:"
-
-#. Translators: Menu item Verb/Channel/Export/Remove
-#. Translators: Menu item Verb/Branch/Separate/Remove
-#. Translators: Menu item Verb/Branch/Separate/Remove/Remove
-#: ../app/sheets_dialog.c:785 ../objects/FS/function.c:706
-#: ../objects/FS/function.c:858 ../objects/FS/function.c:860
-msgid "Remove"
-msgstr "Kendu"
 
 #: ../app/sheets_dialog.c:810
 msgid "DiaObject:"
@@ -2158,11 +1952,6 @@ msgstr "DIa, diagrama-editorea"
 #: ../dia.desktop.in.h:2
 msgid "Edit your Diagrams"
 msgstr "Editatu diagramak"
-
-#: ../lib/arrows.c:40 ../objects/Jackson/domain.c:96
-#: ../objects/UML/association.c:1183
-msgid "None"
-msgstr "Bat ere ez"
 
 #: ../lib/arrows.c:41
 msgid "Lines"
@@ -2310,7 +2099,7 @@ msgstr "%s<karaktere ilegalak>..."
 msgid "Too many ..'s in filename %s\n"
 msgstr "%s fitxategi-izenean '..' gehiegi\n"
 
-#: ../lib/dia_xml.c:161
+#: ../lib/dia_xml.c:163
 #, c-format
 msgid ""
 "The file %s has no encoding specification;\n"
@@ -2319,26 +2108,26 @@ msgstr ""
 "%s fitxategiak ez du kodetze-zehaztapenik;\n"
 "%s kodeketa duela suposatuko da"
 
-#: ../lib/dia_xml.c:563
+#: ../lib/dia_xml.c:565
 msgid "Taking point value of non-point node."
 msgstr "Punturik gabeko nodoaren puntu-balioa hartzen."
 
-#: ../lib/dia_xml.c:574
+#: ../lib/dia_xml.c:576
 #, c-format
 msgid "Incorrect x Point value \"%s\" %f; discarding it."
 msgstr "x puntu balio okerra: \"%s\" %f; baztertzen."
 
-#: ../lib/dia_xml.c:581
+#: ../lib/dia_xml.c:583
 msgid "Error parsing point."
 msgstr "Errorea puntua analizatzean."
 
 #. don't bother with useless warnings (see above)
-#: ../lib/dia_xml.c:589
+#: ../lib/dia_xml.c:591
 #, c-format
 msgid "Incorrect y Point value \"%s\" %f; discarding it."
 msgstr "y puntu balio okerra: \"%s\" %f; baztertzen."
 
-#: ../lib/dia_xml.c:1061
+#: ../lib/dia_xml.c:1063
 msgid ""
 "Your local character set is UTF-8. Because of issues with libxml1 and the "
 "support of files generated by previous versions of dia, you will encounter  "
@@ -2412,7 +2201,7 @@ msgstr "Marra-estiloaren propietateak"
 msgid "Multiple export filters with unique name %s"
 msgstr "Hainbat esportazio-iragazki %s izen bakarrarekin"
 
-#: ../lib/font.c:99
+#: ../lib/font.c:104
 #, c-format
 msgid "Can't load font %s.\n"
 msgstr "Ezin da kargatu %s letra-tipoa.\n"
@@ -2497,51 +2286,51 @@ msgstr ""
 msgid "Group with %d objects"
 msgstr "Taldea (%d objektuekin)"
 
-#: ../lib/properties.c:64 ../lib/properties.h:468 ../lib/widgets.c:638
+#: ../lib/properties.c:64 ../lib/properties.h:469 ../lib/widgets.c:638
 msgid "Left"
 msgstr "Ezkerrean"
 
-#: ../lib/properties.c:65 ../lib/properties.h:469 ../lib/widgets.c:644
+#: ../lib/properties.c:65 ../lib/properties.h:470 ../lib/widgets.c:644
 #: ../objects/standard/textobj.c:133
 msgid "Center"
 msgstr "Erdian"
 
-#: ../lib/properties.c:66 ../lib/properties.h:470 ../lib/widgets.c:650
+#: ../lib/properties.c:66 ../lib/properties.h:471 ../lib/widgets.c:650
 msgid "Right"
 msgstr "Eskuinean"
 
-#: ../lib/properties.c:73 ../lib/properties.h:486 ../lib/properties.h:489
+#: ../lib/properties.c:73 ../lib/properties.h:487 ../lib/properties.h:490
 #: ../objects/chronogram/chronoline.c:179
 #: ../objects/chronogram/chronoref.c:158
 msgid "Line color"
 msgstr "Marra-kolorea"
 
-#: ../lib/properties.c:74 ../lib/properties.h:492 ../lib/properties.h:495
+#: ../lib/properties.c:74 ../lib/properties.h:493 ../lib/properties.h:496
 msgid "Line style"
 msgstr "Marra-estiloa"
 
-#: ../lib/properties.c:75 ../lib/properties.h:499 ../lib/properties.h:502
+#: ../lib/properties.c:75 ../lib/properties.h:500 ../lib/properties.h:503
 msgid "Fill color"
 msgstr "Kolore betegarria"
 
-#: ../lib/properties.c:76 ../lib/properties.h:505 ../lib/properties.h:508
+#: ../lib/properties.c:76 ../lib/properties.h:506 ../lib/properties.h:509
 msgid "Draw background"
 msgstr "Marraztu atzeko planoa"
 
-#: ../lib/properties.c:77 ../lib/properties.h:512
+#: ../lib/properties.c:77 ../lib/properties.h:513
 msgid "Start arrow"
 msgstr "Hasiera-gezia"
 
-#: ../lib/properties.c:78 ../lib/properties.h:515
+#: ../lib/properties.c:78 ../lib/properties.h:516
 msgid "End arrow"
 msgstr "Amaiera-gezia"
 
-#: ../lib/properties.c:80 ../lib/properties.h:525
+#: ../lib/properties.c:80 ../lib/properties.h:526
 msgid "Text alignment"
 msgstr "Testu-lerrokatzea"
 
 #. all this just to make the defaults selectable ...
-#: ../lib/properties.c:81 ../lib/properties.h:530
+#: ../lib/properties.c:81 ../lib/properties.h:531
 #: ../objects/GRAFCET/condition.c:132 ../objects/GRAFCET/step.c:165
 #: ../objects/GRAFCET/transition.c:142 ../objects/UML/class.c:170
 #: ../objects/UML/class_dialog.c:394 ../objects/chronogram/chronoline.c:183
@@ -2549,14 +2338,14 @@ msgstr "Testu-lerrokatzea"
 msgid "Font"
 msgstr "Letra-tipoa"
 
-#: ../lib/properties.c:82 ../lib/properties.h:536
+#: ../lib/properties.c:82 ../lib/properties.h:537
 #: ../objects/GRAFCET/condition.c:134 ../objects/GRAFCET/step.c:167
 #: ../objects/GRAFCET/transition.c:144 ../objects/chronogram/chronoline.c:185
 #: ../objects/chronogram/chronoref.c:166
 msgid "Font size"
 msgstr "Letra-tamaina"
 
-#: ../lib/properties.c:83 ../lib/properties.h:542
+#: ../lib/properties.c:83 ../lib/properties.h:543
 #: ../objects/GRAFCET/step.c:169 ../objects/chronogram/chronoline.c:187
 #: ../objects/chronogram/chronoref.c:168
 msgid "Text color"
@@ -3072,11 +2861,6 @@ msgstr "Kokalekua"
 #: ../objects/FS/function.c:804
 msgid "Orient"
 msgstr "Orientatu"
-
-#. Translators: Menu item Verb/Support/Position/Align
-#: ../objects/FS/function.c:806
-msgid "Align"
-msgstr "Lerrokatu"
 
 #. Translators: Menu item Verb/Support/Position/Locate
 #. Translators: Menu item Verb/Signal/Sense/Locate
@@ -4205,7 +3989,7 @@ msgstr "Segundo-orratzaren marra-zabalera"
 msgid "Show hours"
 msgstr "Erakutsi orduak"
 
-#: ../objects/Misc/libmisc.c:38
+#: ../objects/Misc/libmisc.c:39
 msgid "Miscellaneous objects"
 msgstr "Hainbat objektu"
 
@@ -5111,14 +4895,6 @@ msgstr "Ezabatu ertza"
 msgid "Standard objects"
 msgstr "Objektu estandarrak"
 
-#: ../objects/standard/textobj.c:131
-msgid "Bottom"
-msgstr "Behean"
-
-#: ../objects/standard/textobj.c:132
-msgid "Top"
-msgstr "Goian"
-
 #: ../objects/standard/textobj.c:134
 msgid "First Line"
 msgstr "Lehen lerroa"
@@ -5291,7 +5067,7 @@ msgstr "'TeX PSTricks' makroak"
 msgid "Couldn't open '%s' for writing.\n"
 msgstr "Ezin izan da '%s' idazteko ireki.\n"
 
-#: ../plug-ins/python/python.c:92
+#: ../plug-ins/python/python.c:96
 msgid "Python scripting support"
 msgstr "Python script-en euskarria"
 
@@ -5319,11 +5095,7 @@ msgstr ""
 "Datuen bide-izen baliogabea.\n"
 "svg: datuen bide-izena 'moveto'rekin hasi behar du."
 
-#: ../plug-ins/svg/svg-import.c:204 ../plug-ins/xfig/xfig-import.c:108
-#: ../plug-ins/xfig/xfig-import.c:159 ../plug-ins/xfig/xfig-import.c:188
-#: ../plug-ins/xfig/xfig-import.c:224 ../plug-ins/xfig/xfig-import.c:261
-#: ../plug-ins/xfig/xfig-import.c:289 ../plug-ins/xfig/xfig-import.c:326
-#: ../plug-ins/xfig/xfig-import.c:362 ../plug-ins/xfig/xfig-import.c:403
+#: ../plug-ins/svg/svg-import.c:204
 msgid "Can't find standard object"
 msgstr "Ezin da objektu estandarra aurkitu"
 
@@ -5387,195 +5159,197 @@ msgstr ""
 msgid "XFig format"
 msgstr "XFig formatua"
 
-#: ../plug-ins/xfig/xfig-import.c:451
+#: ../plug-ins/xfig/xfig-import.c:109
 #, c-format
 msgid "Color index %d too high, only 512 colors allowed. Using black instead."
-msgstr "Kolore-indizea altuegia da: %d. 512 kolore bakarrik onartzen dira. Beltza erabiliko da."
+msgstr ""
+"Kolore-indizea altuegia da: %d. 512 kolore bakarrik onartzen dira. Beltza "
+"erabiliko da."
 
-#: ../plug-ins/xfig/xfig-import.c:478
+#: ../plug-ins/xfig/xfig-import.c:136
 msgid "Patterns are not supported by Dia"
 msgstr "Dia-k ez du eredurik onartzen"
 
-#: ../plug-ins/xfig/xfig-import.c:506
+#: ../plug-ins/xfig/xfig-import.c:164
 msgid "Triple-dotted lines are not supported by Dia, using double-dotted"
 msgstr ""
 "Dia-k ez du onartzen puntukatze hirukoitzeko marrarik; puntukatze "
 "bikoitzekoa erabiliko da"
 
-#: ../plug-ins/xfig/xfig-import.c:510
+#: ../plug-ins/xfig/xfig-import.c:168
 #, c-format
 msgid "Line style %d should not appear\n"
 msgstr "%d marra-estiloak ez luke agertu beharko\n"
 
-#: ../plug-ins/xfig/xfig-import.c:578
+#: ../plug-ins/xfig/xfig-import.c:236
 #, c-format
 msgid "Error while reading %dth of %d points: %s\n"
 msgstr "Errorea %2$d puntuetako %1$d.a irakurtzean: %3$s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:606
+#: ../plug-ins/xfig/xfig-import.c:264
 msgid "Error while reading arrowhead\n"
 msgstr "Errorea gezi-burua irakurtzean\n"
 
-#: ../plug-ins/xfig/xfig-import.c:628
+#: ../plug-ins/xfig/xfig-import.c:286
 #, c-format
 msgid "Unknown arrow type %d\n"
 msgstr "Gezi-mota ezezaguna: %d\n"
 
-#: ../plug-ins/xfig/xfig-import.c:719
+#: ../plug-ins/xfig/xfig-import.c:377
 #, c-format
 msgid "Depth %d of of range, only 0-%d allowed.\n"
 msgstr "%d sakonera barrutitik kanpo, 0 - %d bakarrik onartzen da.\n"
 
-#: ../plug-ins/xfig/xfig-import.c:766
+#: ../plug-ins/xfig/xfig-import.c:424
 #, c-format
 msgid "Couldn't read ellipse info: %s\n"
 msgstr "Ezin izan da elipse-informazioa irakurri: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:835
+#: ../plug-ins/xfig/xfig-import.c:492
 #, c-format
 msgid "Couldn't read polyline info: %s\n"
 msgstr "Ezin izan da koska-marraren informazioa irakurri: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:850
+#: ../plug-ins/xfig/xfig-import.c:507
 #, c-format
 msgid "Couldn't read flipped bit: %s\n"
 msgstr "Ezin izan da iraulitako bita irakurri: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:868
+#: ../plug-ins/xfig/xfig-import.c:525
 msgid "Negative corner radius, negating"
 msgstr "Izkina-erradio negatiboa; alderantzikatu egingo da"
 
-#: ../plug-ins/xfig/xfig-import.c:912 ../plug-ins/xfig/xfig-import.c:1228
+#: ../plug-ins/xfig/xfig-import.c:568 ../plug-ins/xfig/xfig-import.c:881
 #, c-format
 msgid "Unknown polyline subtype: %d\n"
 msgstr "Koska-marraren azpimota ezezaguna: %d\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1062 ../plug-ins/xfig/xfig-import.c:1094
+#: ../plug-ins/xfig/xfig-import.c:718 ../plug-ins/xfig/xfig-import.c:750
 #, c-format
 msgid "Couldn't read spline info: %s\n"
 msgstr "Ezin izan da irakurri spline-ren informazioa: %s\n"
 
 #. Open approximated spline
 #. Closed approximated spline
-#: ../plug-ins/xfig/xfig-import.c:1081 ../plug-ins/xfig/xfig-import.c:1099
+#: ../plug-ins/xfig/xfig-import.c:737 ../plug-ins/xfig/xfig-import.c:755
 msgid "Cannot convert approximated spline yet."
 msgstr "Oraindik ezin da bihurtu gutxi gorabeherako spline-a."
 
-#: ../plug-ins/xfig/xfig-import.c:1139
+#: ../plug-ins/xfig/xfig-import.c:793
 #, c-format
 msgid "Unknown spline subtype: %d\n"
 msgstr "Spline azpimota ezezaguna: %d\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1202
+#: ../plug-ins/xfig/xfig-import.c:856
 #, c-format
 msgid "Couldn't read arc info: %s\n"
 msgstr "Ezin izan da irakurri arkuaren informazioa: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1292
+#: ../plug-ins/xfig/xfig-import.c:945
 #, c-format
 msgid "Couldn't read text info: %s\n"
 msgstr "Ezin izan da testu-informazioa irakurri: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1354
+#: ../plug-ins/xfig/xfig-import.c:1007
 #, c-format
 msgid "Couldn't identify FIG object: %s\n"
 msgstr "Ezin izan da FIG objektua identifikatu: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1362
+#: ../plug-ins/xfig/xfig-import.c:1015
 msgid "Compound end outside compound\n"
 msgstr "Konposatu-amaiera konposatutik kanpo\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1381
+#: ../plug-ins/xfig/xfig-import.c:1034
 #, c-format
 msgid "Couldn't read color: %s\n"
 msgstr "Ezin izan da kolorea irakurri: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1386
+#: ../plug-ins/xfig/xfig-import.c:1039
 #, c-format
 msgid "Color number %d out of range 0..%d.  Discarding color.\n"
 msgstr "%d kolore-zenbakia 0 - %d barrutitik kanpo. Kolorea baztertuko da.\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1432
+#: ../plug-ins/xfig/xfig-import.c:1085
 #, c-format
 msgid "Couldn't read group extend: %s\n"
 msgstr "Ezin izan da talde-hedapena irakurri: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1443
+#: ../plug-ins/xfig/xfig-import.c:1096
 #, c-format
 msgid "Unknown object type %d\n"
 msgstr "Objektu-mota ezezaguna: %d\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1467
+#: ../plug-ins/xfig/xfig-import.c:1120
 #, c-format
 msgid "`%s' is not one of `%s' or `%s'\n"
 msgstr "`%s' ez da hauetako bat: `%s' edo `%s'\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1477
+#: ../plug-ins/xfig/xfig-import.c:1130
 #, c-format
 msgid "Error reading paper size: %s\n"
 msgstr "Errorea paper-tamaina irakurtzean: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1488
+#: ../plug-ins/xfig/xfig-import.c:1141
 #, c-format
 msgid "Unknown paper size `%s', using default\n"
 msgstr "`%s' paper-tamaina ezezaguna; lehenetsia erabiliko da\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1500
+#: ../plug-ins/xfig/xfig-import.c:1153
 #, c-format
 msgid "Error reading paper orientation: %s\n"
 msgstr "Errorea paper-orientazioa irakurtzean: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1510
+#: ../plug-ins/xfig/xfig-import.c:1163
 #, c-format
 msgid "Error reading justification: %s\n"
 msgstr "Errorea justifikazioa irakurtzean: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1520
+#: ../plug-ins/xfig/xfig-import.c:1173
 #, c-format
 msgid "Error reading units: %s\n"
 msgstr "Errorea unitateak irakurtzean: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1536
+#: ../plug-ins/xfig/xfig-import.c:1189
 #, c-format
 msgid "Error reading magnification: %s\n"
 msgstr "Errorea handitze-maila irakurtzean: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1549
+#: ../plug-ins/xfig/xfig-import.c:1202
 #, c-format
 msgid "Error reading multipage indicator: %s\n"
 msgstr "Errorea orrialde anitzen adierazlea irakurtzean: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1560
+#: ../plug-ins/xfig/xfig-import.c:1213
 #, c-format
 msgid "Error reading transparent color: %s\n"
 msgstr "Errorea kolore gardena irakurtzean: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1569 ../plug-ins/xfig/xfig-import.c:1625
-#: ../plug-ins/xfig/xfig-import.c:1643
+#: ../plug-ins/xfig/xfig-import.c:1222 ../plug-ins/xfig/xfig-import.c:1278
+#: ../plug-ins/xfig/xfig-import.c:1296
 #, c-format
 msgid "Error reading FIG file: %s\n"
 msgstr "Errorea FIG fitxategia irakurtzean: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1571 ../plug-ins/xfig/xfig-import.c:1627
+#: ../plug-ins/xfig/xfig-import.c:1224 ../plug-ins/xfig/xfig-import.c:1280
 msgid "Premature end of FIG file\n"
 msgstr "FIG fitxategia uste baino lehen amaitu da\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1580
+#: ../plug-ins/xfig/xfig-import.c:1233
 #, c-format
 msgid "Error reading resolution: %s\n"
 msgstr "Errorea bereizmena irakurtzean: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1612
+#: ../plug-ins/xfig/xfig-import.c:1265
 #, c-format
 msgid "Doesn't look like a Fig file: %s\n"
 msgstr "Ez dirudi Fig fitxategia denik: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1618
+#: ../plug-ins/xfig/xfig-import.c:1271
 #, c-format
 msgid "This is a FIG version %d.%d file, I may not understand it\n"
 msgstr "%d.%d bertsioko FIG fitxategia da; beharbada ez dut ulertuko\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1666
+#: ../plug-ins/xfig/xfig-import.c:1319
 msgid "XFig File Format"
 msgstr "XFig fitxategi-formatua"
 
@@ -7050,6 +6824,10 @@ msgid "Miscellaneous Shapes"
 msgstr "Hainbat forma"
 
 #: ../sheets/Misc.sheet.in.h:5
+msgid "New-style group object, for testing"
+msgstr "Estilo berrien talde-objektua, probatzeko"
+
+#: ../sheets/Misc.sheet.in.h:6
 msgid "Traditional clock"
 msgstr "Erloju tradizionala"
 
