@@ -139,6 +139,8 @@ dia_image_draw(DiaImage image, GdkWindow *window,
 {
   GdkPixbuf *scaled;
 
+  if (width < 1 || height < 1)
+    return;
   if (gdk_pixbuf_get_width(image->image) != width ||
       gdk_pixbuf_get_height(image->image) != height) {
     /* Using TILES to make it look more like PostScript */

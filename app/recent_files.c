@@ -74,7 +74,8 @@ recent_file_history_make_menu()
 	gint i = 0;
 
 	items = persistent_list_get_glist ("recent-files");
-	g_return_if_fail (items != NULL);
+	if (!items)
+		return; /* on first start this is the usual case */
 
 	group = gtk_action_group_new ("recent-files");
 

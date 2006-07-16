@@ -1,3 +1,14 @@
+2006-07-16  Hans Breuer  <hans@breuer.org>
+
+	* app/recent_files.c : don't g_return_if_fail() on common use case,
+	here an empty recent file list
+	
+	* lib/dia_image.c(dia_image_draw) : don't try to draw anything if
+	width or height is smaller than 1 pixel
+	
+	* plug-ins/cairo/diacairo.c : allow to export to svg if available 
+	with cairo. Some tweaking of surface sizes.
+	
 2006-07-12  Lars Clausen  <lars@raeder.dk>
 
 	* {tests,test/exports,data,plug-ins/vdx}/.cvsignore: Added.
