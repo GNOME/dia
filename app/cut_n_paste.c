@@ -24,6 +24,7 @@
 #include "object_ops.h"
 
 static GList *stored_list = NULL;
+static int stored_generation = 0;
 
 static void free_stored(void)
 {
@@ -34,17 +35,20 @@ static void free_stored(void)
 }
 
 void
-cnp_store_objects(GList *object_list)
+cnp_store_objects(GList *object_list, int generation)
 {
   free_stored();
   stored_list = object_list;
+  stored_generation = generation;
 }
 
 GList *
-cnp_get_stored_objects(void)
+cnp_get_stored_objects(int* generation)
 {
   GList *copied_list;
   copied_list = object_copy_list(stored_list);
+  *generation = stored_generation;
+  ++stored_generation;
   return copied_list;
 }
 

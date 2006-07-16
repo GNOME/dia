@@ -1,5 +1,14 @@
 2006-07-16  Hans Breuer  <hans@breuer.org>
 
+	* app/cut_n_paste.[hc] : maintain a generation counter to count
+	how many times the stored object list is used
+	* app/commands.c : use the generation for paste placement. The
+	first one after cut is not moved at all: a nice way to move objects
+	between layers without changing their lateral position.
+	Also sprinkled some diagram_update_extents()
+	
+	* shapes/Civil/civil_rotor.shape : had inverted fg/bg colors, bug #347080
+	
 	* app/recent_files.c : don't g_return_if_fail() on common use case,
 	here an empty recent file list
 	
