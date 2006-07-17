@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dia 0.95\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-07-03 23:27+0400\n"
-"PO-Revision-Date: 2006-07-03 10:59+0400\n"
+"POT-Creation-Date: 2006-07-17 21:37+0400\n"
+"PO-Revision-Date: 2006-07-17 21:38+0400\n"
 "Last-Translator: Sergey Kvyato <kvantos@sun-tel.net>\n"
 "Language-Team: Russian <gnome-cyr@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -310,11 +310,11 @@ msgstr "Диаграмма%d.dia"
 msgid "No existing object to paste.\n"
 msgstr "Не существует объекта для вставки.\n"
 
-#: ../app/commands.c:532 ../app/commands.c:570
+#: ../app/commands.c:537 ../app/commands.c:575
 msgid "Could not find help directory"
 msgstr "Не удалось найти каталог с файлами помощи"
 
-#: ../app/commands.c:539
+#: ../app/commands.c:544
 #, c-format
 msgid ""
 "Could not open help directory:\n"
@@ -323,14 +323,14 @@ msgstr ""
 "Невозможно открыть каталог со справкой:\n"
 "%s"
 
-#: ../app/commands.c:606
+#: ../app/commands.c:611
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 "Valek Filippov <frob@df.ru>\n"
 "Vitaly Lipatov <lav@altlinux.ru>\n"
 "Sergey Kvayto <kvantos@sun-tel.net>"
 
-#: ../app/commands.c:608
+#: ../app/commands.c:613
 msgid ""
 "This program is free software; you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"
@@ -365,7 +365,7 @@ msgstr ""
 "этого не произошло, напишите to the Free Software Foundation, Inc., 59\n"
 "Temple Place, Suite 330, Boston, MA  02111-1307  USA\n"
 
-#: ../app/commands.c:631
+#: ../app/commands.c:636
 msgid "A program for drawing structured diagrams."
 msgstr "Приложение для рисования структурированных диаграмм."
 
@@ -744,7 +744,7 @@ msgid "_Discard Changes"
 msgstr "_Отказаться от изменений"
 
 #: ../app/export_png.c:136 ../app/load_save.c:918 ../app/render_eps.c:103
-#: ../plug-ins/cairo/diacairo.c:972 ../plug-ins/cgm/cgm.c:1151
+#: ../plug-ins/cairo/diacairo.c:976 ../plug-ins/cgm/cgm.c:1151
 #: ../plug-ins/dxf/dxf-export.c:484 ../plug-ins/hpgl/hpgl.c:708
 #: ../plug-ins/metapost/render_metapost.c:1106
 #: ../plug-ins/pgf/render_pgf.c:1143
@@ -4917,35 +4917,39 @@ msgstr "Первая линия"
 msgid "Vertical text alignment"
 msgstr "Вертикальное выравнивание текста"
 
-#: ../plug-ins/cairo/diacairo.c:1066
+#: ../plug-ins/cairo/diacairo.c:1086
 msgid "Cairo PostScript"
 msgstr "Cairo PostScript"
 
-#: ../plug-ins/cairo/diacairo.c:1077
+#: ../plug-ins/cairo/diacairo.c:1097
 msgid "Cairo Portable Document Format"
 msgstr "Cairo Portable Document Format"
 
-#: ../plug-ins/cairo/diacairo.c:1087
+#: ../plug-ins/cairo/diacairo.c:1108
+msgid "Cairo Scalable Vector Graphics"
+msgstr "Cairo масштабирумеая векторная графика (SVG)"
+
+#: ../plug-ins/cairo/diacairo.c:1118
 msgid "Cairo PNG"
 msgstr "Cairo PNG"
 
-#: ../plug-ins/cairo/diacairo.c:1095
+#: ../plug-ins/cairo/diacairo.c:1126
 msgid "Cairo PNG (with alpha)"
 msgstr "Cairo PNG (с прозрачностью)"
 
-#: ../plug-ins/cairo/diacairo.c:1105
+#: ../plug-ins/cairo/diacairo.c:1136
 msgid "Cairo WMF"
 msgstr "Cairo WMF"
 
-#: ../plug-ins/cairo/diacairo.c:1114
+#: ../plug-ins/cairo/diacairo.c:1145
 msgid "Cairo old WMF"
 msgstr "Cairo старый WMF"
 
-#: ../plug-ins/cairo/diacairo.c:1123
+#: ../plug-ins/cairo/diacairo.c:1154
 msgid "Cairo Clipboard"
 msgstr "Буфер Cairo"
 
-#: ../plug-ins/cairo/diacairo.c:1169
+#: ../plug-ins/cairo/diacairo.c:1203
 msgid "Cairo based Rendering"
 msgstr "Отрисовка с использованием Cairo"
 
