@@ -1,3 +1,4 @@
+# translation of cs.po to Czech
 # translation of cs.po to
 # Dia 2 Czech translation.
 # Copyright (C) 2002 Free Software Foundation
@@ -11,10 +12,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-06-06 16:58+0200\n"
-"PO-Revision-Date: 2006-06-06 18:02+0200\n"
+"POT-Creation-Date: 2006-07-18 13:12+0200\n"
+"PO-Revision-Date: 2006-07-18 13:09+0200\n"
 "Last-Translator: Jakub Friedl <jfriedl@suse.cz>\n"
-"Language-Team:  <cs@li.org>\n"
+"Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -156,7 +157,8 @@ msgstr "Dia verze %s\n"
 
 #: ../app/app_procs.c:894 ../app/diaconv.c:201 ../app/diaconv.c:203
 #, c-format
-msgid "Couldn't find standard objects when looking for object-libs; exiting...\n"
+msgid ""
+"Couldn't find standard objects when looking for object-libs; exiting...\n"
 msgstr "Nelze nalézt standardní objekty při hledání object-libs; končím...\n"
 
 #: ../app/app_procs.c:896
@@ -164,7 +166,8 @@ msgstr "Nelze nalézt standardní objekty při hledání object-libs; končím..
 msgid ""
 "Couldn't find standard objects when looking for object-libs in '%s'; "
 "exiting...\n"
-msgstr "Nelze nalézt standardní objekty při hledání object-libs v '%s'; končím...\n"
+msgstr ""
+"Nelze nalézt standardní objekty při hledání object-libs v '%s'; končím...\n"
 
 #: ../app/app_procs.c:937
 msgid "Diagram1.dia"
@@ -307,11 +310,11 @@ msgstr "Diagram%d.dia"
 msgid "No existing object to paste.\n"
 msgstr "Žádný existující objekt ke vložení.\n"
 
-#: ../app/commands.c:532 ../app/commands.c:570
+#: ../app/commands.c:537 ../app/commands.c:575
 msgid "Could not find help directory"
 msgstr "Nelze nalézt adresář s nápovědou"
 
-#: ../app/commands.c:539
+#: ../app/commands.c:544
 #, c-format
 msgid ""
 "Could not open help directory:\n"
@@ -320,13 +323,13 @@ msgstr ""
 "Nelze otevřít adresář s nápovědou:\n"
 "%s"
 
-#: ../app/commands.c:606
+#: ../app/commands.c:611
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 "Michal Bukovjan <bukm@centrum.cz>\n"
 "Miloslav Trmač <mitr@volny.cz>"
 
-#: ../app/commands.c:608
+#: ../app/commands.c:613
 msgid ""
 "This program is free software; you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"
@@ -343,7 +346,7 @@ msgid ""
 "Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.\n"
 msgstr ""
 
-#: ../app/commands.c:631
+#: ../app/commands.c:636
 msgid "A program for drawing structured diagrams."
 msgstr "Program pro kreslení strukturovaných diagramů."
 
@@ -678,26 +681,32 @@ msgstr ""
 msgid "Diagram modified!"
 msgstr "Diagram byl změněn!"
 
-#: ../app/display.c:118
+#. http://www.gnu.org/software/gettext/manual/html_chapter/gettext_10.html#SEC150
+#. * Althoug the single objects wont get triggered here some languages have variations on the other numbers
+#.
+#: ../app/display.c:121
 #, c-format
-msgid "Selection of %d objects"
-msgstr "Výběr %d objektů"
+msgid "Selection of %d object"
+msgid_plural "Selection of %d objects"
+msgstr[0] "Výběr %d objektu"
+msgstr[1] "Výběr %d objektů"
+msgstr[2] "Výběr %d objektů"
 
-#: ../app/display.c:128
+#: ../app/display.c:131
 #, c-format
 msgid "Selected '%s'"
 msgstr "Vybráno '%s'"
 
-#: ../app/display.c:1127
+#: ../app/display.c:1130
 msgid "<unnamed>"
 msgstr "<nepojmenovaný>"
 
 #. no standard buttons
-#: ../app/display.c:1133
+#: ../app/display.c:1136
 msgid "Closing diagram without saving"
 msgstr "Zavírám diagram bez uložení"
 
-#: ../app/display.c:1136
+#: ../app/display.c:1139
 #, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -706,16 +715,16 @@ msgstr ""
 "Diagram '%s'\n"
 "nebyl uložen. Chcete jej uložit nyní?"
 
-#: ../app/display.c:1138
+#: ../app/display.c:1141
 msgid "Close Diagram"
 msgstr "Zavřít diagram"
 
-#: ../app/display.c:1143
+#: ../app/display.c:1146
 msgid "_Discard Changes"
 msgstr "_Zahodit změny"
 
 #: ../app/export_png.c:136 ../app/load_save.c:918 ../app/render_eps.c:103
-#: ../plug-ins/cairo/diacairo.c:972 ../plug-ins/cgm/cgm.c:1151
+#: ../plug-ins/cairo/diacairo.c:976 ../plug-ins/cgm/cgm.c:1151
 #: ../plug-ins/dxf/dxf-export.c:484 ../plug-ins/hpgl/hpgl.c:708
 #: ../plug-ins/metapost/render_metapost.c:1106
 #: ../plug-ins/pgf/render_pgf.c:1143
@@ -1417,7 +1426,6 @@ msgid "Union"
 msgstr "Sjednocení"
 
 #: ../app/menus.c:227
-#, fuzzy
 msgid "Intersection"
 msgstr "Průnik"
 
@@ -1431,7 +1439,6 @@ msgstr "Odstranit"
 
 #. Cannot also be called Invert, duplicate names caused keybinding problems
 #: ../app/menus.c:230
-#, fuzzy
 msgid "Inverse"
 msgstr "Invertovat"
 
@@ -1457,7 +1464,7 @@ msgstr "Soubor"
 
 #: ../app/paginate_psprint.c:306
 msgid "OK"
-msgstr "OK"
+msgstr "Budiž"
 
 #: ../app/paginate_psprint.c:401
 #, c-format
@@ -1492,7 +1499,7 @@ msgstr "Načten"
 #: ../objects/UML/umlformalparameter.c:35 ../objects/UML/umloperation.c:62
 #: ../objects/UML/umlparameter.c:43
 msgid "Name"
-msgstr "Název"
+msgstr "Jméno"
 
 #: ../app/plugin-manager.c:268
 msgid "Description"
@@ -2075,7 +2082,8 @@ msgstr "Nekonečná přímka"
 
 #: ../lib/bezier_conn.c:636
 msgid "Internal error: Setting corner type of endpoint of bezier"
-msgstr "Interní chyba: Nastavení rohového typu koncového bodu u Beziérovy křivky"
+msgstr ""
+"Interní chyba: Nastavení rohového typu koncového bodu u Beziérovy křivky"
 
 #: ../lib/dia_dirs.c:237
 #, c-format
@@ -2465,27 +2473,23 @@ msgstr ""
 
 #: ../objects/AADL/aadlbox.c:371
 msgid "Add Port Group"
-msgstr ""
+msgstr "Přidat skupinu portů"
 
 #: ../objects/AADL/aadlbox.c:373
-#, fuzzy
 msgid "Add Connection Point"
 msgstr "Přidat bod připojení"
 
 #: ../objects/AADL/aadlbox.c:377
-#, fuzzy
 msgid "Delete Port"
-msgstr "Odstranit roh"
+msgstr "Smazat port"
 
 #: ../objects/AADL/aadlbox.c:378
-#, fuzzy
 msgid "Edit Port Declaration"
-msgstr "Příprava"
+msgstr "Upravit deklaraci portu"
 
 #: ../objects/AADL/aadlbox.c:382
-#, fuzzy
 msgid "Delete Connection Point"
-msgstr "Odstranit přípojný bod"
+msgstr "Smazat bod připojení"
 
 #: ../objects/ER/attribute.c:155
 msgid "Key:"
@@ -4514,9 +4518,8 @@ msgid "Multiple instance"
 msgstr "Vícenásobná instance"
 
 #: ../objects/UML/state.c:153
-#, fuzzy
 msgid "Entry action"
-msgstr "Extrahovat"
+msgstr "Vstupní akce"
 
 #: ../objects/UML/state.c:154
 msgid "Do action"
@@ -4769,9 +4772,8 @@ msgid "Radius"
 msgstr "Poloměr"
 
 #: ../objects/network/wanlink.c:117
-#, fuzzy
 msgid "Width"
-msgstr "Šířka:"
+msgstr "Šířka"
 
 #: ../objects/standard/arc.c:140
 msgid "Curve distance"
@@ -4901,35 +4903,40 @@ msgstr "První řádek"
 msgid "Vertical text alignment"
 msgstr "Svislé zarovnání textu"
 
-#: ../plug-ins/cairo/diacairo.c:1066
+#: ../plug-ins/cairo/diacairo.c:1086
 msgid "Cairo PostScript"
 msgstr "Cairo PostScript"
 
-#: ../plug-ins/cairo/diacairo.c:1077
+#: ../plug-ins/cairo/diacairo.c:1097
 msgid "Cairo Portable Document Format"
 msgstr "Cairo Portable Document Format"
 
-#: ../plug-ins/cairo/diacairo.c:1087
+#: ../plug-ins/cairo/diacairo.c:1108
+#, fuzzy
+msgid "Cairo Scalable Vector Graphics"
+msgstr "Scalable Vector Graphics"
+
+#: ../plug-ins/cairo/diacairo.c:1118
 msgid "Cairo PNG"
 msgstr "Cairo PNG"
 
-#: ../plug-ins/cairo/diacairo.c:1095
+#: ../plug-ins/cairo/diacairo.c:1126
 msgid "Cairo PNG (with alpha)"
 msgstr "Cairo PNG (s alfou)"
 
-#: ../plug-ins/cairo/diacairo.c:1105
+#: ../plug-ins/cairo/diacairo.c:1136
 msgid "Cairo WMF"
 msgstr "Cairo WMF"
 
-#: ../plug-ins/cairo/diacairo.c:1114
+#: ../plug-ins/cairo/diacairo.c:1145
 msgid "Cairo old WMF"
 msgstr "Cairo starý WMF"
 
-#: ../plug-ins/cairo/diacairo.c:1123
+#: ../plug-ins/cairo/diacairo.c:1154
 msgid "Cairo Clipboard"
 msgstr "Cairo Schránka"
 
-#: ../plug-ins/cairo/diacairo.c:1169
+#: ../plug-ins/cairo/diacairo.c:1203
 msgid "Cairo based Rendering"
 msgstr "Vykreslování založené na Cairo"
 
@@ -5143,11 +5150,13 @@ msgstr "Exportní filtr formátu WordPerfect Graphics"
 #: ../plug-ins/xfig/xfig-export.c:459
 #, c-format
 msgid "FIG format has no equivalent of arrow style %s, using simple arrow.\n"
-msgstr "Formát FIG nemá ekvivalent stylu šipky %s, používám jednoduchou šipku.\n"
+msgstr ""
+"Formát FIG nemá ekvivalent stylu šipky %s, používám jednoduchou šipku.\n"
 
 #: ../plug-ins/xfig/xfig-export.c:481
 msgid "No more user-definable colors - using black"
-msgstr "Není k dispozici více uživatelsky definovaných barev - použije se černá"
+msgstr ""
+"Není k dispozici více uživatelsky definovaných barev - použije se černá"
 
 #: ../plug-ins/xfig/xfig-export.c:1186
 msgid "XFig format"
@@ -5380,7 +5389,8 @@ msgstr "Filtr pro transformaci XSL"
 
 #: ../plug-ins/xslt/xslt.c:346
 msgid "No valid configuration files found for the XSLT plugin, not loading."
-msgstr "Nenalezeny platné konfigurační soubory pro zásuvný modul XSLT, nenačítám jej."
+msgstr ""
+"Nenalezeny platné konfigurační soubory pro zásuvný modul XSLT, nenačítám jej."
 
 #: ../plug-ins/xslt/xsltdialog.c:96
 msgid "Export through XSLT"
@@ -5408,13 +5418,12 @@ msgid "Bus"
 msgstr ""
 
 #: ../sheets/AADL.sheet.in.h:5
-#, fuzzy
 msgid "Device"
-msgstr "Dělit"
+msgstr "Zařízení"
 
 #: ../sheets/AADL.sheet.in.h:6
 msgid "Memory"
-msgstr ""
+msgstr "Paměť"
 
 #: ../sheets/AADL.sheet.in.h:7
 #, fuzzy
@@ -5422,28 +5431,24 @@ msgid "Package"
 msgstr "Zabalit"
 
 #: ../sheets/AADL.sheet.in.h:9
-#, fuzzy
 msgid "Processor"
-msgstr "Zpracovat"
+msgstr "Procesor"
 
 #: ../sheets/AADL.sheet.in.h:10
-#, fuzzy
 msgid "Subprogram"
-msgstr "Krok volání podprogramu"
+msgstr "Podprogram"
 
 #: ../sheets/AADL.sheet.in.h:11
-#, fuzzy
 msgid "System"
-msgstr "Sybase"
+msgstr "Systém"
 
 #: ../sheets/AADL.sheet.in.h:12
-#, fuzzy
 msgid "Thread"
-msgstr "Sdíleno"
+msgstr "Vlákno"
 
 #: ../sheets/AADL.sheet.in.h:13
 msgid "Thread Group"
-msgstr ""
+msgstr "Skupina vláken"
 
 #. Sheet Name: Assorted, was Geometric, maybe Basic Shapes instead?
 #. Leave as is for now, renaming too much hassle.
@@ -5606,9 +5611,8 @@ msgid "Trapezoid"
 msgstr "Trapézoid"
 
 #: ../sheets/Assorted.sheet.in.h:43
-#, fuzzy
 msgid "Turn-up arrow"
-msgstr "Šipka doleva-nahoru"
+msgstr "Šipka nahoru"
 
 #: ../sheets/Assorted.sheet.in.h:44
 msgid "Up arrow"
@@ -5751,13 +5755,12 @@ msgid "Plate Exchanger"
 msgstr ""
 
 #: ../sheets/ChemEng.sheet.in.h:32
-#, fuzzy
 msgid "Pneumatic Line"
-msgstr "Pneumatická"
+msgstr "Pneumatická linka"
 
 #: ../sheets/ChemEng.sheet.in.h:33
 msgid "Pneumatic Line, vertical"
-msgstr ""
+msgstr "Pneumatická linka, svislá"
 
 #: ../sheets/ChemEng.sheet.in.h:34
 msgid "Positive Displacement Rotary Pump or Compressor"
@@ -5790,11 +5793,11 @@ msgstr "Jednoduchá tiskárna"
 
 #: ../sheets/ChemEng.sheet.in.h:41
 msgid "Simple Heat Exchanger"
-msgstr ""
+msgstr "Jednoduchý tepelný výměník"
 
 #: ../sheets/ChemEng.sheet.in.h:42
 msgid "Simple Heat Exchanger, vertical"
-msgstr ""
+msgstr "Jednoduchý tepelný výměník, svislý"
 
 #: ../sheets/ChemEng.sheet.in.h:43
 msgid "Simple Vessel"
@@ -6393,23 +6396,21 @@ msgid "Alternate external entity"
 msgstr ""
 
 #: ../sheets/Gane_and_Sarson.sheet.in.h:2
-#, fuzzy
 msgid "Data store"
-msgstr "Barva dat"
+msgstr "Úložiště dat"
 
 #: ../sheets/Gane_and_Sarson.sheet.in.h:3
-#, fuzzy
 msgid "External entity"
-msgstr "Slabá entita"
+msgstr "Externí entita"
 
 #. Author: Nicholas Moore, 2005. mailto: shiny.nickel@gmail.com
 #: ../sheets/Gane_and_Sarson.sheet.in.h:5
 msgid "Gane and Sarson"
-msgstr ""
+msgstr "Gane a Sarson"
 
 #: ../sheets/Gane_and_Sarson.sheet.in.h:6
 msgid "Gane and Sarson DFD"
-msgstr ""
+msgstr "Gane a Sarson DFD"
 
 #: ../sheets/GRAFCET.sheet.in.h:1
 msgid "AND vergent"
@@ -7181,7 +7182,7 @@ msgstr "IBM mainframe s FEP"
 
 #: ../sheets/ciscocomputer.sheet.in.h:20
 msgid "JBOD"
-msgstr ""
+msgstr "JBOD"
 
 #: ../sheets/ciscocomputer.sheet.in.h:21
 msgid "Laptop"
@@ -7354,7 +7355,7 @@ msgstr "Broadband směrovač"
 
 #: ../sheets/ciscohub.sheet.in.h:13
 msgid "CSM-S"
-msgstr ""
+msgstr "CSM-S"
 
 #: ../sheets/ciscohub.sheet.in.h:14
 msgid "Carrier Routing System"
@@ -8839,4 +8840,3 @@ msgstr "Datový server Sybase"
 #: ../sheets/sybase.sheet.in.h:8
 msgid "Sybase replication server"
 msgstr "Replikační server Sybase"
-
