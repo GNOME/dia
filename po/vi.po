@@ -4855,7 +4855,7 @@ msgstr "Đối tượng đồ thị liên kết (bond)"
 
 #: ../objects/chronogram/chronogram.c:40
 msgid "Chronogram diagram objects"
-msgstr "Đối tượng biều đồ ghi thời gian"
+msgstr "Đối tượng biểu đồ ghi thời gian"
 
 #: ../objects/chronogram/chronoline.c:148
 #: ../sheets/AADL.sheet.in.h:4
