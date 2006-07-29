@@ -1,25 +1,24 @@
 # translation of es.po to Spanish
-# translation of Dia to Spanish.
 # Copyright © 2000-2006 Free Software Foundation, Inc.
 # This file is distributed under the same license as the Dia package.
+#
 # Francisco Vila Doncel <fravd@wanadoo.es> (Revisión), 2003.
 # Ana María García Molina <ana_gm@eresmas.com>, 2001.
 # Juan Manuel García Molina <juanma_gm@wanadoo.es>, 2000-2002.
 # Francisco Javier F. Serrador <serrador@cvs.gnome.org>, 2003-2006.
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-04-13 10:51+0200\n"
-"PO-Revision-Date: 2006-05-04 00:24+0200\n"
+"POT-Creation-Date: 2006-07-29 19:14+0200\n"
+"PO-Revision-Date: 2006-07-29 19:22+0200\n"
 "Last-Translator: Francisco Javier F. Serrador <serrador@cvs.gnome.org>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "serrador@hispalinux.es>\n"
-"X-Generator: KBabel 1.10.2\n"
+"X-Generator: KBabel 1.11.1\n"
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 
 #. This is not an errror
@@ -305,20 +304,20 @@ msgstr "Seleccione color de primer plano"
 msgid "Select background color"
 msgstr "Seleccione color de fondo"
 
-#: ../app/commands.c:132
+#: ../app/commands.c:133
 #, c-format
 msgid "Diagram%d.dia"
 msgstr "Diagrama%d.dia"
 
-#: ../app/commands.c:205
+#: ../app/commands.c:206
 msgid "No existing object to paste.\n"
 msgstr "No hay objetos que pegar.\n"
 
-#: ../app/commands.c:531 ../app/commands.c:569
+#: ../app/commands.c:537 ../app/commands.c:575
 msgid "Could not find help directory"
 msgstr "No se pudo encontrar el directorio de ayuda"
 
-#: ../app/commands.c:538
+#: ../app/commands.c:544
 #, c-format
 msgid ""
 "Could not open help directory:\n"
@@ -327,14 +326,14 @@ msgstr ""
 "No se pudo abrir el directorio de ayuda:\n"
 "%s"
 
-#: ../app/commands.c:605
+#: ../app/commands.c:611
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 "Juan Manuel García Molina <juanma_gm@wanadoo.es>\n"
 "Revisión por Francisco Vila <fravd@wanadoo.es> 2ª Revisión por Alberto "
 "Barrionuevo <traducciones@rizox.com> "
 
-#: ../app/commands.c:607
+#: ../app/commands.c:613
 msgid ""
 "This program is free software; you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"
@@ -351,7 +350,7 @@ msgid ""
 "Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.\n"
 msgstr ""
 
-#: ../app/commands.c:630
+#: ../app/commands.c:636
 msgid "A program for drawing structured diagrams."
 msgstr "Un programa para dibujar diagramas estructurados."
 
@@ -591,7 +590,7 @@ msgstr "/_Propiedades"
 msgid "/_Hide this type"
 msgstr "/_Ocultar este tipo"
 
-#: ../app/diagram_tree_window.c:73
+#: ../app/diagram_tree_window.c:80
 msgid "Diagram tree"
 msgstr "Árbol del diagrama"
 
@@ -660,12 +659,12 @@ msgstr "Ajustar a:"
 msgid "by"
 msgstr "por"
 
-#: ../app/diapagelayout.c:682
+#: ../app/diapagelayout.c:698
 #, c-format
 msgid "%0.3gcm x %0.3gcm"
 msgstr "%0.3gcm x %0.3gcm"
 
-#: ../app/diapagelayout.c:786 ../app/pagesetup.c:76
+#: ../app/diapagelayout.c:802 ../app/pagesetup.c:76
 msgid "Page Setup"
 msgstr "Configurar página"
 
@@ -681,7 +680,7 @@ msgstr ""
 msgid "Properties..."
 msgstr "Propiedades..."
 
-#: ../app/disp_callbacks.c:925
+#: ../app/disp_callbacks.c:920
 msgid ""
 "The object you dropped cannot fit into its parent. \n"
 "Either expand the parent object, or drop the object elsewhere."
@@ -693,21 +692,31 @@ msgstr ""
 msgid "Diagram modified!"
 msgstr "¡Diagrama modificado!"
 
-#: ../app/display.c:118
+#. http://www.gnu.org/software/gettext/manual/html_chapter/gettext_10.html#SEC150
+#. * Althoug the single objects wont get triggered here some languages have variations on the other numbers
+#.
+#: ../app/display.c:121
 #, c-format
-msgid "Selection of %d objects"
-msgstr "Selección de %d objetos"
+msgid "Selection of %d object"
+msgid_plural "Selection of %d objects"
+msgstr[0] "Selección de %d objeto"
+msgstr[1] "Selección de %d objetos"
 
-#: ../app/display.c:128
+#: ../app/display.c:131
 #, c-format
 msgid "Selected '%s'"
 msgstr "Seleccionados «%s»"
 
-#: ../app/display.c:1136
+#: ../app/display.c:1130
 msgid "<unnamed>"
 msgstr "<sin nombre>"
 
-#: ../app/display.c:1138
+#. no standard buttons
+#: ../app/display.c:1136
+msgid "Closing diagram without saving"
+msgstr "Cerrando el diagrama sin guardarc"
+
+#: ../app/display.c:1139
 #, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -716,21 +725,16 @@ msgstr ""
 "Este diagrama «%s»\n"
 "no ha sido guardado. ¿Guardar los cambios ahora?"
 
-#. no standard buttons
-#: ../app/display.c:1146
-msgid "Closing diagram without saving"
-msgstr "Cerrando el diagrama sin guardarc"
-
-#: ../app/display.c:1150
+#: ../app/display.c:1141
 msgid "Close Diagram"
 msgstr "Cerrar el diagrama"
 
-#: ../app/display.c:1155
+#: ../app/display.c:1146
 msgid "_Discard Changes"
 msgstr "_Descartar los cambios"
 
 #: ../app/export_png.c:136 ../app/load_save.c:918 ../app/render_eps.c:103
-#: ../plug-ins/cairo/diacairo.c:972 ../plug-ins/cgm/cgm.c:1151
+#: ../plug-ins/cairo/diacairo.c:976 ../plug-ins/cgm/cgm.c:1151
 #: ../plug-ins/dxf/dxf-export.c:484 ../plug-ins/hpgl/hpgl.c:708
 #: ../plug-ins/metapost/render_metapost.c:1106
 #: ../plug-ins/pgf/render_pgf.c:1143
@@ -778,7 +782,7 @@ msgstr "Alto de la imagen:"
 msgid "Portable Network Graphics"
 msgstr "Portable Network Graphics"
 
-#: ../app/filedlg.c:129 ../app/filedlg.c:513
+#: ../app/filedlg.c:129 ../app/filedlg.c:511
 msgid "By extension"
 msgstr "Por extensión"
 
@@ -790,19 +794,19 @@ msgstr "Abrir diagrama"
 msgid "Open Options"
 msgstr "Abrir opciones"
 
-#: ../app/filedlg.c:250 ../app/filedlg.c:635
+#: ../app/filedlg.c:250 ../app/filedlg.c:631
 msgid "Determine file type:"
 msgstr "Determinar tipo de archivo:"
 
-#: ../app/filedlg.c:266 ../app/filedlg.c:648
+#: ../app/filedlg.c:266 ../app/filedlg.c:644
 msgid "All Files"
 msgstr "Todos los archivos"
 
-#: ../app/filedlg.c:271 ../app/filedlg.c:653
+#: ../app/filedlg.c:271 ../app/filedlg.c:649
 msgid "Supported Formats"
 msgstr "Formatos soportados"
 
-#: ../app/filedlg.c:307
+#: ../app/filedlg.c:306
 msgid ""
 "Some characters in the filename are neither UTF-8\n"
 "nor your local encoding.\n"
@@ -812,7 +816,11 @@ msgstr ""
 " ni en su codificación local.\n"
 "Algunas cosas no funcionarán."
 
-#: ../app/filedlg.c:314 ../app/filedlg.c:558
+#: ../app/filedlg.c:316 ../app/filedlg.c:558
+msgid "File already exists"
+msgstr "El archivo ya existe"
+
+#: ../app/filedlg.c:318 ../app/filedlg.c:560
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
@@ -821,22 +829,18 @@ msgstr ""
 "El archivo «%s» ya existe.\n"
 "¿Quiere sobreescribirlo?"
 
-#: ../app/filedlg.c:321 ../app/filedlg.c:564
-msgid "File already exists"
-msgstr "El archivo ya existe"
-
-#: ../app/filedlg.c:370
+#: ../app/filedlg.c:368
 msgid "Save Diagram"
 msgstr "Guardar diagrama"
 
 #. Need better way to make it a reasonable size.  Isn't there some
 #. standard look for them (or is that just Gnome?)
-#: ../app/filedlg.c:382
+#: ../app/filedlg.c:380
 msgid "Compress diagram files"
 msgstr "Comprimir archivos del diagrama"
 
 # Me suena más natural y descriptivo "al cargar y al guardar" o "al cargar y guardar" que "del cargar y del guardar". RizOX
-#: ../app/filedlg.c:391
+#: ../app/filedlg.c:389
 msgid ""
 "Compression reduces file size to less than 1/10th size and speeds up loading "
 "and saving.  Some text programs cannot manipulate compressed files."
@@ -845,7 +849,7 @@ msgstr ""
 "incrementa la velocidad al cargar y al guardar. Algunos programas de texto "
 "no pueden manipular archivos comprimidos."
 
-#: ../app/filedlg.c:587
+#: ../app/filedlg.c:583
 #, c-format
 msgid ""
 "Could not determine which export filter\n"
@@ -854,11 +858,11 @@ msgstr ""
 "No se pudo determinar qué filtro de exportación\n"
 "usar para guardar «%s»"
 
-#: ../app/filedlg.c:610
+#: ../app/filedlg.c:606
 msgid "Export Diagram"
 msgstr "Exportar diagrama"
 
-#: ../app/filedlg.c:627
+#: ../app/filedlg.c:623
 msgid "Export Options"
 msgstr "Exportar opciones"
 
@@ -866,14 +870,10 @@ msgstr "Exportar opciones"
 msgid "Modify object(s)"
 msgstr "Modificar objeto(s)"
 
-#: ../app/interface.c:58
-msgid "Modify"
-msgstr "Modificar"
-
 # Yo diría "Ampliar" FVD
 # Yo también diría "Ampliar", lo de "Magnificar" me suena a barbarismo... RizOX
 #. Translators: Menu item Verb/Control Magnitude/Change/Magnify
-#: ../app/interface.c:62 ../app/interface.c:63 ../objects/FS/function.c:986
+#: ../app/interface.c:62 ../app/menus.c:187 ../objects/FS/function.c:986
 msgid "Magnify"
 msgstr "Ampliar"
 
@@ -883,14 +883,8 @@ msgstr "Ampliar"
 msgid "Scroll around the diagram"
 msgstr "Desplazar sobre el diagrama"
 
-# Creo que Scroll es Desplazamiento. Fuzzy. FVD
-# Yo más bien diría "Desplazar". Fuzzy. RizOX.
-#: ../app/interface.c:68
-msgid "Scroll"
-msgstr "Desplazar"
-
-#: ../app/interface.c:72 ../app/interface.c:73 ../lib/properties.c:79
-#: ../lib/properties.h:519 ../objects/AADL/aadlbox.c:144
+#: ../app/interface.c:72 ../app/menus.c:189 ../lib/properties.c:79
+#: ../lib/properties.h:520 ../objects/AADL/aadlbox.c:144
 #: ../objects/Jackson/requirement.c:142 ../objects/UML/activity.c:127
 #: ../objects/UML/actor.c:122 ../objects/UML/classicon.c:144
 #: ../objects/UML/component.c:128 ../objects/UML/component_feature.c:155
@@ -902,89 +896,89 @@ msgstr "Desplazar"
 msgid "Text"
 msgstr "Texto"
 
-#: ../app/interface.c:77 ../app/interface.c:78
+#: ../app/interface.c:77 ../app/menus.c:190
 msgid "Box"
 msgstr "Caja"
 
-#: ../app/interface.c:82 ../app/interface.c:83
+#: ../app/interface.c:82 ../app/menus.c:191
 msgid "Ellipse"
 msgstr "Elipse"
 
-#: ../app/interface.c:87 ../app/interface.c:88
+#: ../app/interface.c:87 ../app/menus.c:192
 msgid "Polygon"
 msgstr "Polígono"
 
-#: ../app/interface.c:92 ../app/interface.c:93
+#: ../app/interface.c:92 ../app/menus.c:193
 msgid "Beziergon"
 msgstr "Polígono Bézier"
 
-#: ../app/interface.c:97 ../app/interface.c:98 ../objects/standard/line.c:225
+#: ../app/interface.c:97 ../app/menus.c:195 ../objects/standard/line.c:225
 msgid "Line"
 msgstr "Línea"
 
-#: ../app/interface.c:102 ../app/interface.c:103
+#: ../app/interface.c:102 ../app/menus.c:196
 msgid "Arc"
 msgstr "Arco"
 
-#: ../app/interface.c:107 ../app/interface.c:108
+#: ../app/interface.c:107 ../app/menus.c:197
 msgid "Zigzagline"
 msgstr "Línea en zigzag"
 
-#: ../app/interface.c:112 ../app/interface.c:113
+#: ../app/interface.c:112 ../app/menus.c:198
 msgid "Polyline"
 msgstr "Polilínea"
 
-#: ../app/interface.c:117 ../app/interface.c:118
+#: ../app/interface.c:117 ../app/menus.c:199
 msgid "Bezierline"
 msgstr "Línea Bézier"
 
-#: ../app/interface.c:122 ../app/interface.c:123
+#: ../app/interface.c:122 ../app/menus.c:201
 msgid "Image"
 msgstr "Imagen"
 
-#: ../app/interface.c:408
+#: ../app/interface.c:402
 msgid "Diagram menu."
 msgstr "Menú de diagrama."
 
-#: ../app/interface.c:446
+#: ../app/interface.c:440
 msgid "Pops up the Navigation window."
 msgstr "Emerge la ventana de navegación."
 
 # ¿"Ampliación" o "Amplía"? Fuzzy. RizOX.
-#: ../app/interface.c:514
+#: ../app/interface.c:506
 msgid "Zoom"
 msgstr "Ampliación"
 
-#: ../app/interface.c:529
+#: ../app/interface.c:521
 msgid "Toggles snap-to-grid for this window."
 msgstr "Conmuta el ajuste a la rejilla para esta ventana."
 
-#: ../app/interface.c:540
+#: ../app/interface.c:532
 msgid "Toggles object snapping for this window."
 msgstr "Conmuta el ajuste del objeto para esta ventana."
 
 # Fuzzy. RizOX
-#: ../app/interface.c:605
+#: ../app/interface.c:597
 msgid "NULL tooldata in tool_select_update"
 msgstr "InArray de herramienta nula (NULL) en tool_select_update"
 
-#: ../app/interface.c:905
+#: ../app/interface.c:897
 #, c-format
 msgid "No sheet named %s"
 msgstr "No hay ninguna hoja llamada %s"
 
 # ¿De dónde salían esa traducción y esa variable? No concuerda con el original inglés en nada. Lo cambio. RizOX.
-#: ../app/interface.c:942
+#: ../app/interface.c:934
 msgid "Other sheets"
 msgstr "Otras hojas"
 
-#: ../app/interface.c:1000 ../sheets/Misc.sheet.in.h:3
+#: ../app/interface.c:992 ../sheets/Misc.sheet.in.h:3
 msgid "Misc"
 msgstr "Misc"
 
 # Corregido: lleva doble espacio antes de cada frase.
 # "Pulse doble" o "Pulse dos veces" me suena más natural. RizOX.
-#: ../app/interface.c:1061
+#: ../app/interface.c:1053
 msgid ""
 "Foreground & background colors for new objects.  The small black and white "
 "squares reset colors.  The small arrows swap colors.  Double click to change "
@@ -995,7 +989,7 @@ msgstr ""
 "los colores.  Pulse dos veces para cambiar los colores."
 
 # Corregido: doble espacio al principio de línea. Cambiada la segunda expresión para darle mayor naturalidad. RizOX.
-#: ../app/interface.c:1076
+#: ../app/interface.c:1068
 msgid ""
 "Line widths.  Click on a line to set the default line width for new "
 "objects.  Double-click to set the line width more precisely."
@@ -1005,7 +999,7 @@ msgstr ""
 "anchura con mayor precisión."
 
 # La coma antes del "o" no queda bien en la frase en español. RizOX.
-#: ../app/interface.c:1116
+#: ../app/interface.c:1108
 msgid ""
 "Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
 "arrow parameters with Details..."
@@ -1014,7 +1008,7 @@ msgstr ""
 "flecha o establezca los parámetros de la flecha en Detalles..."
 
 # La coma antes del "o" no queda bien en la frase en español. Añadido el doble espacio del comienzo de frase según original en inglés. RizOX.
-#: ../app/interface.c:1121
+#: ../app/interface.c:1113
 msgid ""
 "Line style for new lines.  Click to pick a line style, or set line style "
 "parameters with Details..."
@@ -1023,7 +1017,7 @@ msgstr ""
 "línea o establezca los parámetros de estilo de línea en Detalles..."
 
 # La coma antes del "o" no queda bien en la frase en español. Añadido el doble espacio del comienzo de frase según original en inglés. Cambiado "con Detalles" por "en Detalles" para mantener la coherencia con la traducción de las anteriores entradas. RizOX.
-#: ../app/interface.c:1135
+#: ../app/interface.c:1127
 msgid ""
 "Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
 "parameters with Details..."
@@ -1031,7 +1025,7 @@ msgstr ""
 "Estilo de flecha al final de las líneas nuevas.  Pulse para escoger una "
 "flecha o establezca los parámetros de la flecha en Detalles..."
 
-#: ../app/interface.c:1243
+#: ../app/interface.c:1235
 msgid "Diagram Editor"
 msgstr "Editor de diagramas"
 
@@ -1079,7 +1073,7 @@ msgstr "Editar atributos de capa"
 msgid "Layer name:"
 msgstr "Nombre de la capa:"
 
-#: ../app/linewidth_area.c:246 ../lib/properties.h:480 ../lib/properties.h:483
+#: ../app/linewidth_area.c:246 ../lib/properties.h:481 ../lib/properties.h:484
 #: ../objects/chronogram/chronoline.c:181
 #: ../objects/chronogram/chronoref.c:160
 msgid "Line width"
@@ -1125,7 +1119,7 @@ msgid "You must specify a file, not a directory.\n"
 msgstr "Debe especificar un archivo, no un directorio.\n"
 
 #: ../app/load_save.c:359 ../plug-ins/dxf/dxf-import.c:1306
-#: ../plug-ins/wpg/wpg.c:1175 ../plug-ins/xfig/xfig-import.c:1605
+#: ../plug-ins/wpg/wpg.c:1175 ../plug-ins/xfig/xfig-import.c:1258
 #: ../plug-ins/xslt/xslt.c:85
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
@@ -1169,500 +1163,318 @@ msgstr "Fallo al cargar el archivo «%s».\n"
 msgid "Dia Diagram File"
 msgstr "Archivo de diagrama de Dia"
 
-#: ../app/menus.c:50 ../app/menus.c:88
-msgid "/_File"
-msgstr "/_Archivo"
+#: ../app/menus.c:54
+msgid "_File"
+msgstr "_Archivo"
 
-#: ../app/menus.c:52 ../app/menus.c:90
-msgid "/File/_New"
-msgstr "/Archivo/_Nuevo"
-
-#: ../app/menus.c:54 ../app/menus.c:92
-msgid "/File/_Open..."
-msgstr "/Archivo/_Abrir..."
-
-#. {N_("/Open _Recent"),           NULL,         NULL,           0, "<Branch>"},
-#. {   "/Open Recent/tearoff",     NULL,         NULL,         0, "<Tearoff>" },
-#. recent file list is dynamically inserted here
-#. {N_("/Open _Recent"),           NULL,         NULL,           0, "<Branch>"},
-#. {   "/Open Recent/tearoff",     NULL,         NULL,         0, "<Tearoff>" },
-#: ../app/menus.c:58 ../app/menus.c:63 ../app/menus.c:68 ../app/menus.c:70
-#: ../app/menus.c:96 ../app/menus.c:103 ../app/menus.c:107
-msgid "/File/---"
-msgstr "/Archivo/---"
-
-#: ../app/menus.c:59
-msgid "/File/_Diagram tree"
-msgstr "/Archivo/Árbol del _diagrama"
-
-#: ../app/menus.c:61
-msgid "/File/Sheets and Objects..."
-msgstr "/Archivo/Hojas y objetos..."
-
-#: ../app/menus.c:64
-msgid "/File/_Preferences..."
-msgstr "/Archivo/_Preferencias..."
+#: ../app/menus.c:58
+msgid "_Help"
+msgstr "Ay_uda"
 
 #: ../app/menus.c:66
-msgid "/File/P_lugins..."
-msgstr "/Archivo/Ex_tensiones..."
+msgid "Sheets and Objects..."
+msgstr "Hojas y objetos…"
 
-#: ../app/menus.c:71 ../app/menus.c:111
-msgid "/File/_Quit"
-msgstr "/Archivo/_Salir"
+#: ../app/menus.c:68
+msgid "Plugins..."
+msgstr "Complementos…"
 
-#: ../app/menus.c:73 ../app/menus.c:263
-msgid "/_Help"
-msgstr "/A_yuda"
+#: ../app/menus.c:74
+msgid "_Diagram tree..."
+msgstr "Árbol del _diagrama…"
 
-#: ../app/menus.c:75 ../app/menus.c:265
-msgid "/Help/_Contents"
-msgstr "/Ayuda/_Contenido"
+#: ../app/menus.c:82
+msgid "_Export ..."
+msgstr "_Exportar…"
 
-#: ../app/menus.c:77 ../app/menus.c:267
-msgid "/Help/---"
-msgstr "/Ayuda/---"
+#: ../app/menus.c:83
+msgid "Page Set_up..."
+msgstr "_Configurar página…"
 
-#: ../app/menus.c:78 ../app/menus.c:268
-msgid "/Help/_About..."
-msgstr "/Ayuda/_Acerca de..."
+#: ../app/menus.c:87 ../app/sheets_dialog.c:236
+msgid "_Edit"
+msgstr "_Editar"
 
-#: ../app/menus.c:97
-msgid "/File/_Save"
-msgstr "/Archivo/_Guardar"
+#: ../app/menus.c:94
+msgid "_Duplicate"
+msgstr "_Duplicar"
 
+#. the following used to bind to <control><shift>C which collides with Unicode input.
+#. * <control>>alt> doesn't work either
 #: ../app/menus.c:99
-msgid "/File/Save _As..."
-msgstr "/Archivo/Guardar _como..."
+msgid "Copy Text"
+msgstr "Copiar texto"
+
+#: ../app/menus.c:100
+msgid "Cut Text"
+msgstr "Cortar texto"
 
 #: ../app/menus.c:101
-msgid "/File/_Export..."
-msgstr "/Archivo/_Exportar..."
+msgid "Paste _Text"
+msgstr "Pegar _texto"
 
-#: ../app/menus.c:104
-msgid "/File/Page Set_up..."
-msgstr "/Archivo/Configurar _página..."
+#: ../app/menus.c:103
+msgid "_Diagram"
+msgstr "_Diagrama"
 
 #: ../app/menus.c:105
-msgid "/File/_Print Diagram..."
-msgstr "/Archivo/_Imprimir diagrama..."
+msgid "_Layers..."
+msgstr "_Capas…"
 
-#: ../app/menus.c:108
-msgid "/File/_Close"
-msgstr "/Archivo/_Cerrar"
+#: ../app/menus.c:107
+msgid "_View"
+msgstr "_Ver"
+
+# ¿"Ampliación" o "Amplía"? Fuzzy. RizOX.
+#: ../app/menus.c:110
+msgid "_Zoom"
+msgstr "_Ampliación"
+
+#: ../app/menus.c:111
+msgid "1600%"
+msgstr "1600%"
+
+#: ../app/menus.c:112
+msgid "800%"
+msgstr "800%"
 
 #: ../app/menus.c:113
-msgid "/_Edit"
-msgstr "/_Editar"
+msgid "400%"
+msgstr "400%"
+
+#: ../app/menus.c:114
+msgid "283"
+msgstr "283"
 
 #: ../app/menus.c:115
-msgid "/Edit/_Undo"
-msgstr "/Editar/_Deshacer"
+msgid "200"
+msgstr "200"
 
-#: ../app/menus.c:117
-msgid "/Edit/_Redo"
-msgstr "/Editar/_Rehacer"
+#: ../app/menus.c:116
+msgid "141"
+msgstr "141"
 
-#: ../app/menus.c:119 ../app/menus.c:129
-msgid "/Edit/---"
-msgstr "/Editar/---"
+#: ../app/menus.c:118
+msgid "85"
+msgstr "85"
+
+#: ../app/menus.c:119
+msgid "70.7"
+msgstr "70.7"
 
 #: ../app/menus.c:120
-msgid "/Edit/_Copy"
-msgstr "/Editar/_Copiar"
+msgid "50"
+msgstr "50"
+
+#: ../app/menus.c:121
+msgid "35.4"
+msgstr "35.4"
 
 #: ../app/menus.c:122
-msgid "/Edit/C_ut"
-msgstr "/Editar/Co_rtar"
+msgid "25"
+msgstr "25"
 
-#: ../app/menus.c:124
-msgid "/Edit/_Paste"
-msgstr "/Editar/_Pegar"
-
+#. "display_toggle_entries" items go here
 #: ../app/menus.c:126
-msgid "/Edit/_Duplicate"
-msgstr "/Editar/_Duplicar"
+msgid "New _View"
+msgstr "_Vista nueva"
 
 #: ../app/menus.c:127
-msgid "/Edit/_Delete"
-msgstr "/Editar/_Borrar"
+msgid "C_lone View"
+msgstr "C_lonar vista"
 
-#. the following used to bind to <control><shift>C which collides with Unicode input. <control>>alt> doesn't work either
-#: ../app/menus.c:131
-msgid "/Edit/Copy Text"
-msgstr "/Editar/Copiar texto"
+#: ../app/menus.c:132
+msgid "_Objects"
+msgstr "_Objetos"
 
 #: ../app/menus.c:133
-msgid "/Edit/Cut Text"
-msgstr "/Editar/Cortar texto"
+msgid "Send to _Back"
+msgstr "Enviar al _fondo"
+
+#: ../app/menus.c:134
+msgid "Bring to _Front"
+msgstr "Traer al f_rente"
 
 #: ../app/menus.c:135
-msgid "/Edit/Paste _Text"
-msgstr "/Editar/Pegar _texto"
+msgid "Send Backwards"
+msgstr "Enviar hacia atrás"
 
-#: ../app/menus.c:137
-msgid "/_Diagram"
-msgstr "/_Diagrama"
+#: ../app/menus.c:136
+msgid "Bring Forwards"
+msgstr "Traer al frente"
 
-#: ../app/menus.c:139
-msgid "/Diagram/_Properties..."
-msgstr "/Diagrama/_Propiedades..."
-
-#: ../app/menus.c:141
-msgid "/Diagram/_Layers..."
-msgstr "/Diagrama/_Capas..."
-
-#: ../app/menus.c:142
-msgid "/_View"
-msgstr "/_Vista"
-
-#: ../app/menus.c:144
-msgid "/View/Zoom _In"
-msgstr "/Ver/_Aumentar zoom"
-
-#: ../app/menus.c:146
-msgid "/View/Zoom _Out"
-msgstr "/Ver/_Disminuir zoom"
-
-#: ../app/menus.c:148
-msgid "/View/_Zoom"
-msgstr "/Ver/_Zoom"
-
-#: ../app/menus.c:150
-msgid "/View/Zoom/1600%"
-msgstr "/Ver/Zoom/1600%"
-
-#: ../app/menus.c:151
-msgid "/View/Zoom/800%"
-msgstr "/Ver/Zoom/800%"
-
-#: ../app/menus.c:152
-msgid "/View/Zoom/400%"
-msgstr "/Ver/Zoom/400%"
-
-#: ../app/menus.c:153
-msgid "/View/Zoom/283%"
-msgstr "/Ver/Zoom/283%"
-
-#: ../app/menus.c:154
-msgid "/View/Zoom/200%"
-msgstr "/Ver/Zoom/200%"
-
-#: ../app/menus.c:155
-msgid "/View/Zoom/141%"
-msgstr "/Ver/Zoom/141%"
-
-#: ../app/menus.c:156
-msgid "/View/Zoom/100%"
-msgstr "/Ver/Zoom/100%"
-
-#: ../app/menus.c:158
-msgid "/View/Zoom/85%"
-msgstr "/Ver/Zoom/85%"
-
-#: ../app/menus.c:159
-msgid "/View/Zoom/70.7%"
-msgstr "/Ver/Zoom/70.7%"
-
-#: ../app/menus.c:160
-msgid "/View/Zoom/50%"
-msgstr "/Ver/Zoom/50%"
-
-#: ../app/menus.c:161
-msgid "/View/Zoom/35.4%"
-msgstr "/Ver/Zoom/35.4%"
-
-#: ../app/menus.c:162
-msgid "/View/Zoom/25%"
-msgstr "/Ver/Zoom/25%"
-
-#: ../app/menus.c:163 ../app/menus.c:173
-msgid "/View/---"
-msgstr "/Ver/---"
-
-#: ../app/menus.c:164
-msgid "/View/Fullscr_een"
-msgstr "/Ver/Pantalla completa"
-
-#: ../app/menus.c:166
-msgid "/View/_AntiAliased"
-msgstr "/Ver/_Alisado"
-
-#: ../app/menus.c:168
-msgid "/View/Show _Grid"
-msgstr "/Ver/Mostrar _cuadrícula"
-
-#: ../app/menus.c:169
-msgid "/View/_Snap To Grid"
-msgstr "/Ver/A_justar a cuadrícula"
-
-#: ../app/menus.c:170
-msgid "/View/Snap To _Objects"
-msgstr "/Ver/Ajustar a _objetos"
-
-#: ../app/menus.c:171
-msgid "/View/Show _Rulers"
-msgstr "/Ver/Mostrar _reglas"
-
-#: ../app/menus.c:172
-msgid "/View/Show _Connection Points"
-msgstr "/Ver/Mostrar puntos de _conexión"
-
-#: ../app/menus.c:174
-msgid "/View/New _View"
-msgstr "/Ver/Nueva _vista"
-
-#: ../app/menus.c:175
-msgid "/View/C_lone View"
-msgstr "/Ver/C_lonar vista"
-
-#. Show All, Best Fit.  Same as the Gimp, Ctrl+E
-#: ../app/menus.c:177
-msgid "/View/Show _All"
-msgstr "/Ver/Mostrar _todo"
-
-#: ../app/menus.c:179
-msgid "/View/Re_draw"
-msgstr "/Ver/Volver a _dibujar"
-
-#: ../app/menus.c:181
-msgid "/_Objects"
-msgstr "/_Objetos"
-
-#: ../app/menus.c:183
-msgid "/Objects/Send to _Back"
-msgstr "/Objetos/Enviar al _fondo"
-
-#: ../app/menus.c:185
-msgid "/Objects/Bring to _Front"
-msgstr "/Objetos/Traer al f_rente"
-
-#: ../app/menus.c:187
-msgid "/Objects/Send Backwards"
-msgstr "/Objetos/Enviar hacia atrás"
-
-#: ../app/menus.c:189
-msgid "/Objects/Bring Forwards"
-msgstr "/Objetos/Traer al frente"
-
-#: ../app/menus.c:191 ../app/menus.c:197 ../app/menus.c:201 ../app/menus.c:219
-msgid "/Objects/---"
-msgstr "/Objetos/---"
-
-#: ../app/menus.c:192
-msgid "/Objects/_Group"
-msgstr "/Objetos/A_grupar"
+#: ../app/menus.c:138
+msgid "_Group"
+msgstr "_Agrupar"
 
 #. deliberately not using Ctrl+U for Ungroup
-#: ../app/menus.c:195
-msgid "/Objects/_Ungroup"
-msgstr "/Objetos/_Desagrupar"
+#: ../app/menus.c:140
+msgid "_Ungroup"
+msgstr "_Desagrupar"
 
-# Me parece más descriptivo "Emparentar" que "Padre". RizOX.
-#: ../app/menus.c:198
-msgid "/Objects/_Parent"
-msgstr "/Objetos/Em_parentar"
+#: ../app/menus.c:142
+msgid "_Parent"
+msgstr "_Padre"
 
-#: ../app/menus.c:199
-msgid "/Objects/_Unparent"
-msgstr "/Objetos/_Orfandar"
+#: ../app/menus.c:143
+msgid "_Unparent"
+msgstr "_Orfandar"
 
-#: ../app/menus.c:200
-msgid "/Objects/_Unparent Children"
-msgstr "/Objetos/_Orfandar hijo"
+#: ../app/menus.c:144
+msgid "_Unparent Children"
+msgstr "_Orfandar hijos"
 
-#: ../app/menus.c:202
-msgid "/Objects/Align"
-msgstr "/Objetos/Alineación"
+# me parece que todo esto deberían ser verbos. FVD
+#. Translators: Menu item Verb/Support/Position/Align
+#: ../app/menus.c:146 ../objects/FS/function.c:806
+msgid "Align"
+msgstr "Alinear"
 
-#: ../app/menus.c:204
-msgid "/Objects/Align/Left"
-msgstr "/Objetos/Alineación/Izquierda"
+#: ../app/menus.c:151 ../objects/standard/textobj.c:132
+msgid "Top"
+msgstr "Superior"
 
-#: ../app/menus.c:206
-msgid "/Objects/Align/Center"
-msgstr "/Objetos/Alineación/Central"
+#: ../app/menus.c:152
+msgid "Middle"
+msgstr "Medio"
 
-#: ../app/menus.c:208
-msgid "/Objects/Align/Right"
-msgstr "/Objetos/Alineación/Derecha"
+#: ../app/menus.c:153 ../objects/standard/textobj.c:131
+msgid "Bottom"
+msgstr "Inferior"
 
-#: ../app/menus.c:210 ../app/menus.c:214
-msgid "/Objects/Align/---"
-msgstr "/Objetos/Alineación/---"
+#: ../app/menus.c:155
+msgid "Spread Out Horizontally"
+msgstr "Extender horizontalmente"
 
-#: ../app/menus.c:211
-msgid "/Objects/Align/Top"
-msgstr "/Objetos/Alineación/Superior"
+#: ../app/menus.c:156
+msgid "Spread Out Vertically"
+msgstr "Extender verticalmente"
 
-#: ../app/menus.c:212
-msgid "/Objects/Align/Middle"
-msgstr "/Objetos/Alineación/Media"
+#: ../app/menus.c:157
+msgid "Adjacent"
+msgstr "Adyacente"
+
+#: ../app/menus.c:158
+msgid "Stacked"
+msgstr "Apilado"
+
+#: ../app/menus.c:162
+msgid "_Select"
+msgstr "_Seleccionado"
+
+#: ../app/menus.c:163
+msgid "All"
+msgstr "Todo"
+
+#: ../app/menus.c:164 ../lib/arrows.c:40 ../objects/Jackson/domain.c:96
+#: ../objects/UML/association.c:1183
+msgid "None"
+msgstr "Nada"
+
+#: ../app/menus.c:165
+msgid "Invert"
+msgstr "Invertir"
+
+#: ../app/menus.c:167
+msgid "Transitive"
+msgstr "Transitivo"
+
+#: ../app/menus.c:168
+msgid "Connected"
+msgstr "Conectado"
+
+#: ../app/menus.c:169
+msgid "Same Type"
+msgstr "Mismo tipo"
+
+#. display_select_radio_entries go here
+#: ../app/menus.c:173
+msgid "Select By"
+msgstr "Seleccionar por"
+
+#: ../app/menus.c:175
+msgid "_Input Methods"
+msgstr "Mé_todos de entrada"
+
+#: ../app/menus.c:177
+msgid "D_ialogs"
+msgstr "_Diálogos"
+
+#: ../app/menus.c:179
+msgid "D_ebug"
+msgstr "D_epurar"
+
+#: ../app/menus.c:185
+msgid "_Tools"
+msgstr "_Herramientas"
+
+#: ../app/menus.c:186
+msgid "Modify"
+msgstr "Modificar"
+
+# Creo que Scroll es Desplazamiento. Fuzzy. FVD
+# Yo más bien diría "Desplazar". Fuzzy. RizOX.
+#: ../app/menus.c:188
+msgid "Scroll"
+msgstr "Desplazar"
+
+#: ../app/menus.c:210
+msgid "Fullscr_een"
+msgstr "Pantalla _completa"
 
 #: ../app/menus.c:213
-msgid "/Objects/Align/Bottom"
-msgstr "/Objetos/Alineación/Inferior"
+msgid "_AntiAliased"
+msgstr "_Antialias"
 
 #: ../app/menus.c:215
-msgid "/Objects/Align/Spread Out Horizontally"
-msgstr "/Objetos/Alineación/Extender horizontalmente"
+msgid "Show _Grid"
+msgstr "Mostrar _cuadrícula"
 
 #: ../app/menus.c:216
-msgid "/Objects/Align/Spread Out Vertically"
-msgstr "/Objetos/Alineación/Extender verticalmente"
+msgid "_Snap To Grid"
+msgstr "A_justar a cuadrícula"
 
 #: ../app/menus.c:217
-msgid "/Objects/Align/Adjacent"
-msgstr "/Objetos/Alineación/Adyacente"
+msgid "Snap To _Objects"
+msgstr "Ajustar a _objetos"
 
 #: ../app/menus.c:218
-msgid "/Objects/Align/Stacked"
-msgstr "/Objetos/Alineación/Apilada"
+msgid "Show _Rulers"
+msgstr "Mostrar _reglas"
 
-#: ../app/menus.c:220
-msgid "/Objects/_Properties..."
-msgstr "/Objetos/_Propiedades..."
-
-#: ../app/menus.c:222
-msgid "/_Select"
-msgstr "/_Seleccionar"
-
-#: ../app/menus.c:224
-msgid "/Select/All"
-msgstr "/Selección/Todo"
+#: ../app/menus.c:219
+msgid "Show _Connection Points"
+msgstr "Mostrar puntos de _conexión"
 
 #: ../app/menus.c:225
-msgid "/Select/None"
-msgstr "/Selección/Nada"
+msgid "Replace"
+msgstr "Reemplazar"
 
 #: ../app/menus.c:226
-msgid "/Select/Invert"
-msgstr "/Selección/Invertir"
+msgid "Union"
+msgstr "Unión"
 
-#: ../app/menus.c:227 ../app/menus.c:231
-msgid "/Select/---"
-msgstr "/Selección/---"
+#: ../app/menus.c:227
+msgid "Intersection"
+msgstr "Intersección"
 
-#: ../app/menus.c:228
-msgid "/Select/Transitive"
-msgstr "/Selección/Transitivo"
-
-#: ../app/menus.c:229
-msgid "/Select/Connected"
-msgstr "/Selección/Conectado"
-
-#: ../app/menus.c:230
-msgid "/Select/Same Type"
-msgstr "/Selección/Mismo tipo"
-
-#: ../app/menus.c:232
-msgid "/Select/Replace"
-msgstr "/Selección/Reemplazar"
-
-#: ../app/menus.c:234
-msgid "/Select/Union"
-msgstr "/Selección/Unión"
-
-#: ../app/menus.c:236
-msgid "/Select/Intersection"
-msgstr "/Selección/Intersección"
-
-#: ../app/menus.c:238
-msgid "/Select/Remove"
-msgstr "/Selección/Borrar"
+#. Translators: Menu item Verb/Channel/Export/Remove
+#. Translators: Menu item Verb/Branch/Separate/Remove
+#. Translators: Menu item Verb/Branch/Separate/Remove/Remove
+#: ../app/menus.c:228 ../app/sheets_dialog.c:785 ../objects/FS/function.c:706
+#: ../objects/FS/function.c:858 ../objects/FS/function.c:860
+msgid "Remove"
+msgstr "Eliminar"
 
 #. Cannot also be called Invert, duplicate names caused keybinding problems
-#: ../app/menus.c:241
-msgid "/Select/Inverse"
-msgstr "/Selección/Invertir"
-
-#: ../app/menus.c:243
-msgid "/_Tools"
-msgstr "/_Herramientas"
-
-#: ../app/menus.c:245
-msgid "/Tools/Modify"
-msgstr "/Herramientas/Modificar"
-
-# Según lo traducido anteriormente creo más correcto "Ampliar" que "Magnificar".
-#: ../app/menus.c:246
-msgid "/Tools/Magnify"
-msgstr "/Herramientas/Ampliar"
-
-# Entiendo que se refiere a la acción de "Desplazar" (To Scroll), no al "Desplazamiento" (Offset). RizOX.
-#: ../app/menus.c:247
-msgid "/Tools/Scroll"
-msgstr "/Herramientas/Desplazar"
-
-#: ../app/menus.c:248
-msgid "/Tools/Text"
-msgstr "/Herramientas/Texto"
-
-#: ../app/menus.c:249
-msgid "/Tools/Box"
-msgstr "/Herramientas/Caja"
-
-#: ../app/menus.c:250
-msgid "/Tools/Ellipse"
-msgstr "/Herramientas/Elipse"
-
-#: ../app/menus.c:251
-msgid "/Tools/Polygon"
-msgstr "/Herramientas/Polígono"
-
-#: ../app/menus.c:252
-msgid "/Tools/Beziergon"
-msgstr "/Herramientas/Polígono Bézier"
-
-#: ../app/menus.c:253 ../app/menus.c:259
-msgid "/Tools/---"
-msgstr "/Herramientas/---"
-
-#: ../app/menus.c:254
-msgid "/Tools/Line"
-msgstr "/Herramientas/Línea"
-
-#: ../app/menus.c:255
-msgid "/Tools/Arc"
-msgstr "/Herramientas/Arco"
-
-#: ../app/menus.c:256
-msgid "/Tools/Zigzagline"
-msgstr "/Herramientas/Línea en zigzag"
-
-#: ../app/menus.c:257
-msgid "/Tools/Polyline"
-msgstr "/Herramientas/Polilínea"
-
-#: ../app/menus.c:258
-msgid "/Tools/Bezierline"
-msgstr "/Herramientas/Línea Bézier"
-
-#: ../app/menus.c:260
-msgid "/Tools/Image"
-msgstr "/Herramientas/Imagen"
-
-#: ../app/menus.c:261
-msgid "/_Input Methods"
-msgstr "/Mé_todos de entrada"
+#: ../app/menus.c:230
+msgid "Inverse"
+msgstr "Inverso"
 
 # Traduzco "tooldata". RizOX.
-#: ../app/menus.c:433
+#: ../app/menus.c:257
 msgid "NULL tooldata in tool_menu_select"
 msgstr "InArray de herramienta nula (NULL) en tool_menu_select"
-
-#: ../app/menus.c:530
-msgid "Diagram Menu"
-msgstr "Menú diagrama"
-
-#: ../app/menus.c:665
-#, c-format
-msgid ""
-"Can't find menu entry '%s'!\n"
-"This is probably a i18n problem (try LANG=C)."
-msgstr ""
-"No se puede encontrar la entrada del menú «%s»\n"
-"Probablemente se deba a un problema de i18n (pruebe con LANG=C)."
 
 #: ../app/modify_tool.c:342
 msgid "Couldn't get GTK settings"
@@ -1898,17 +1710,6 @@ msgstr "Propiedades: "
 msgid "Object properties:"
 msgstr "Propiedades del objeto:"
 
-# Anteriormente se ha traducido "plug-in" por "Complemento" en vez de por "Extensión". Me parece más descriptivo "Complemento" y así lo mantengo en el resto de la traducción. RizOX.
-#. Use the Plugins menu item to get a pointer to the File menu,
-#. but any item on the File menu will do
-#: ../app/recent_files.c:61
-msgid "<Toolbox>/File/Plugins..."
-msgstr "<Caja de herramientas>/Archivo/Complementos..."
-
-#: ../app/recent_files.c:135
-msgid "<Toolbox>/File/Quit"
-msgstr "<Caja de herramientas>/Archivo/Salir"
-
 #: ../app/render_eps.c:148
 msgid "Encapsulated Postscript (using Pango fonts)"
 msgstr "PostScript encapsulado (usando tipografía Pango)"
@@ -1988,10 +1789,6 @@ msgstr "<- Mover todo"
 msgid "Edit"
 msgstr "Editar"
 
-#: ../app/sheets_dialog.c:236
-msgid "_Edit"
-msgstr "_Editar"
-
 # Seguro? Más bien Revertir. FVD
 #: ../app/sheets_dialog.c:267
 msgid "Revert"
@@ -2066,14 +1863,6 @@ msgstr "Hoja"
 #: ../objects/UML/realizes.c:132
 msgid "Name:"
 msgstr "Nombre:"
-
-#. Translators: Menu item Verb/Channel/Export/Remove
-#. Translators: Menu item Verb/Branch/Separate/Remove
-#. Translators: Menu item Verb/Branch/Separate/Remove/Remove
-#: ../app/sheets_dialog.c:785 ../objects/FS/function.c:706
-#: ../objects/FS/function.c:858 ../objects/FS/function.c:860
-msgid "Remove"
-msgstr "Borrar"
 
 #: ../app/sheets_dialog.c:810
 msgid "DiaObject:"
@@ -2203,11 +1992,6 @@ msgstr "Editor de diagramas"
 #: ../dia.desktop.in.h:2
 msgid "Edit your Diagrams"
 msgstr "Edite sus diagramas"
-
-#: ../lib/arrows.c:40 ../objects/Jackson/domain.c:96
-#: ../objects/UML/association.c:1183
-msgid "None"
-msgstr "Nada"
 
 #: ../lib/arrows.c:41
 msgid "Lines"
@@ -2363,7 +2147,7 @@ msgstr "%s<caracteres ilegales>..."
 msgid "Too many ..'s in filename %s\n"
 msgstr "Demasiados .. en el nombre del archivo %s\n"
 
-#: ../lib/dia_xml.c:161
+#: ../lib/dia_xml.c:163
 #, c-format
 msgid ""
 "The file %s has no encoding specification;\n"
@@ -2372,27 +2156,27 @@ msgstr ""
 "El archivo %s no tiene especificada la codificación;\n"
 "suponiendo que está codificado en %s"
 
-#: ../lib/dia_xml.c:563
+#: ../lib/dia_xml.c:565
 msgid "Taking point value of non-point node."
 msgstr "Tomando el valor del punto de un nodo que no es un punto."
 
-#: ../lib/dia_xml.c:574
+#: ../lib/dia_xml.c:576
 #, c-format
 msgid "Incorrect x Point value \"%s\" %f; discarding it."
 msgstr "Valor incorrecto del punto x \"%s\" %f; se descarta."
 
-#: ../lib/dia_xml.c:581
+#: ../lib/dia_xml.c:583
 msgid "Error parsing point."
 msgstr "Error analizando el punto."
 
 #. don't bother with useless warnings (see above)
-#: ../lib/dia_xml.c:589
+#: ../lib/dia_xml.c:591
 #, c-format
 msgid "Incorrect y Point value \"%s\" %f; discarding it."
 msgstr "Valor incorrecto del punto y \"%s\" %f; se descarta."
 
 # Traduzco "issues" como "problemas" en vez de como "asuntos". Cambiado el orden de la frase para hispanizarla. RizOX.
-#: ../lib/dia_xml.c:1061
+#: ../lib/dia_xml.c:1063
 msgid ""
 "Your local character set is UTF-8. Because of issues with libxml1 and the "
 "support of files generated by previous versions of dia, you will encounter  "
@@ -2468,7 +2252,7 @@ msgstr "Propiedades de estilo de la línea"
 msgid "Multiple export filters with unique name %s"
 msgstr "Filtros múltiples de exportación con nombre único %s"
 
-#: ../lib/font.c:99
+#: ../lib/font.c:104
 #, c-format
 msgid "Can't load font %s.\n"
 msgstr "No se puede cargar la tipografía %s.\n"
@@ -2559,52 +2343,52 @@ msgstr ""
 msgid "Group with %d objects"
 msgstr "Grupo con %d objetos"
 
-#: ../lib/properties.c:64 ../lib/properties.h:468 ../lib/widgets.c:638
+#: ../lib/properties.c:64 ../lib/properties.h:469 ../lib/widgets.c:638
 msgid "Left"
 msgstr "Izquierda"
 
-#: ../lib/properties.c:65 ../lib/properties.h:469 ../lib/widgets.c:644
+#: ../lib/properties.c:65 ../lib/properties.h:470 ../lib/widgets.c:644
 #: ../objects/standard/textobj.c:133
 msgid "Center"
 msgstr "Centro"
 
-#: ../lib/properties.c:66 ../lib/properties.h:470 ../lib/widgets.c:650
+#: ../lib/properties.c:66 ../lib/properties.h:471 ../lib/widgets.c:650
 msgid "Right"
 msgstr "Derecha"
 
-#: ../lib/properties.c:73 ../lib/properties.h:486 ../lib/properties.h:489
+#: ../lib/properties.c:73 ../lib/properties.h:487 ../lib/properties.h:490
 #: ../objects/chronogram/chronoline.c:179
 #: ../objects/chronogram/chronoref.c:158
 msgid "Line color"
 msgstr "Color de línea"
 
-#: ../lib/properties.c:74 ../lib/properties.h:492 ../lib/properties.h:495
+#: ../lib/properties.c:74 ../lib/properties.h:493 ../lib/properties.h:496
 msgid "Line style"
 msgstr "Estilo de la línea"
 
-#: ../lib/properties.c:75 ../lib/properties.h:499 ../lib/properties.h:502
+#: ../lib/properties.c:75 ../lib/properties.h:500 ../lib/properties.h:503
 msgid "Fill color"
 msgstr "Color de relleno"
 
-#: ../lib/properties.c:76 ../lib/properties.h:505 ../lib/properties.h:508
+#: ../lib/properties.c:76 ../lib/properties.h:506 ../lib/properties.h:509
 msgid "Draw background"
 msgstr "Dibujar fondo"
 
-#: ../lib/properties.c:77 ../lib/properties.h:512
+#: ../lib/properties.c:77 ../lib/properties.h:513
 msgid "Start arrow"
 msgstr "Flecha de inicio"
 
-#: ../lib/properties.c:78 ../lib/properties.h:515
+#: ../lib/properties.c:78 ../lib/properties.h:516
 msgid "End arrow"
 msgstr "Flecha de finalización"
 
-#: ../lib/properties.c:80 ../lib/properties.h:525
+#: ../lib/properties.c:80 ../lib/properties.h:526
 msgid "Text alignment"
 msgstr "Alineación del texto"
 
 # Creí que era Tipografía como en otros msgs. FVD
 #. all this just to make the defaults selectable ...
-#: ../lib/properties.c:81 ../lib/properties.h:530
+#: ../lib/properties.c:81 ../lib/properties.h:531
 #: ../objects/GRAFCET/condition.c:132 ../objects/GRAFCET/step.c:165
 #: ../objects/GRAFCET/transition.c:142 ../objects/UML/class.c:170
 #: ../objects/UML/class_dialog.c:394 ../objects/chronogram/chronoline.c:183
@@ -2612,14 +2396,14 @@ msgstr "Alineación del texto"
 msgid "Font"
 msgstr "Fuente"
 
-#: ../lib/properties.c:82 ../lib/properties.h:536
+#: ../lib/properties.c:82 ../lib/properties.h:537
 #: ../objects/GRAFCET/condition.c:134 ../objects/GRAFCET/step.c:167
 #: ../objects/GRAFCET/transition.c:144 ../objects/chronogram/chronoline.c:185
 #: ../objects/chronogram/chronoref.c:166
 msgid "Font size"
 msgstr "Tamaño de la fuente"
 
-#: ../lib/properties.c:83 ../lib/properties.h:542
+#: ../lib/properties.c:83 ../lib/properties.h:543
 #: ../objects/GRAFCET/step.c:169 ../objects/chronogram/chronoline.c:187
 #: ../objects/chronogram/chronoref.c:168
 msgid "Text color"
@@ -3151,12 +2935,6 @@ msgstr "Posición"
 msgid "Orient"
 msgstr "Orientar"
 
-# me parece que todo esto deberían ser verbos. FVD
-#. Translators: Menu item Verb/Support/Position/Align
-#: ../objects/FS/function.c:806
-msgid "Align"
-msgstr "Alinear"
-
 # "Locate" significa "Posicionar", no "Localizar" que vendría a ser "Find" (Buscar). RizOX.
 #. Translators: Menu item Verb/Support/Position/Locate
 #. Translators: Menu item Verb/Signal/Sense/Locate
@@ -3632,7 +3410,7 @@ msgstr "Diferenciar"
 
 #. Translators: Menu item Verb/Convert/Process
 #: ../objects/FS/function.c:1032 ../sheets/AADL.sheet.in.h:8
-#: ../sheets/EML.sheet.in.h:5 ../sheets/Gane_and_Sarson.sheet.in.h:7
+#: ../sheets/Gane_and_Sarson.sheet.in.h:7
 msgid "Process"
 msgstr "Procesar"
 
@@ -4312,7 +4090,7 @@ msgstr "Ancho de la manecilla de los segundos"
 msgid "Show hours"
 msgstr "Mostrar horas"
 
-#: ../objects/Misc/libmisc.c:38
+#: ../objects/Misc/libmisc.c:39
 msgid "Miscellaneous objects"
 msgstr "Figuras variadas"
 
@@ -5223,14 +5001,6 @@ msgstr "Borrar esquina"
 msgid "Standard objects"
 msgstr "Objetos estándar"
 
-#: ../objects/standard/textobj.c:131
-msgid "Bottom"
-msgstr "Inferior"
-
-#: ../objects/standard/textobj.c:132
-msgid "Top"
-msgstr "Superior"
-
 #: ../objects/standard/textobj.c:134
 msgid "First Line"
 msgstr "Primera línea"
@@ -5239,35 +5009,39 @@ msgstr "Primera línea"
 msgid "Vertical text alignment"
 msgstr "Alineación vertical del texto"
 
-#: ../plug-ins/cairo/diacairo.c:1066
+#: ../plug-ins/cairo/diacairo.c:1086
 msgid "Cairo PostScript"
 msgstr "Cairo PostScript"
 
-#: ../plug-ins/cairo/diacairo.c:1077
+#: ../plug-ins/cairo/diacairo.c:1097
 msgid "Cairo Portable Document Format"
 msgstr "Portable Document Format de Cairo"
 
-#: ../plug-ins/cairo/diacairo.c:1087
+#: ../plug-ins/cairo/diacairo.c:1108
+msgid "Cairo Scalable Vector Graphics"
+msgstr "Cairo Scalable Vector Graphics"
+
+#: ../plug-ins/cairo/diacairo.c:1118
 msgid "Cairo PNG"
 msgstr "Cairo PNG"
 
-#: ../plug-ins/cairo/diacairo.c:1095
+#: ../plug-ins/cairo/diacairo.c:1126
 msgid "Cairo PNG (with alpha)"
 msgstr "Cairo PNG (con alfa)"
 
-#: ../plug-ins/cairo/diacairo.c:1105
+#: ../plug-ins/cairo/diacairo.c:1136
 msgid "Cairo WMF"
 msgstr "Cairo WMF"
 
-#: ../plug-ins/cairo/diacairo.c:1114
+#: ../plug-ins/cairo/diacairo.c:1145
 msgid "Cairo old WMF"
 msgstr "WMF antiguo de Cairo"
 
-#: ../plug-ins/cairo/diacairo.c:1123
+#: ../plug-ins/cairo/diacairo.c:1154
 msgid "Cairo Clipboard"
 msgstr "Portapapeles Cairo"
 
-#: ../plug-ins/cairo/diacairo.c:1169
+#: ../plug-ins/cairo/diacairo.c:1203
 msgid "Cairo based Rendering"
 msgstr "Renderizado basado en Cairo"
 
@@ -5404,7 +5178,7 @@ msgid "Couldn't open '%s' for writing.\n"
 msgstr "No se pudo abrir «%s» para escritura.\n"
 
 # Quizá mejor "Guiones". FVD
-#: ../plug-ins/python/python.c:92
+#: ../plug-ins/python/python.c:96
 msgid "Python scripting support"
 msgstr "Soporte de scripts de python"
 
@@ -5432,11 +5206,7 @@ msgstr ""
 "Ruta de datos inválida.\n"
 "svg:la ruta de datos debe empezar con moveto."
 
-#: ../plug-ins/svg/svg-import.c:204 ../plug-ins/xfig/xfig-import.c:108
-#: ../plug-ins/xfig/xfig-import.c:159 ../plug-ins/xfig/xfig-import.c:188
-#: ../plug-ins/xfig/xfig-import.c:224 ../plug-ins/xfig/xfig-import.c:261
-#: ../plug-ins/xfig/xfig-import.c:289 ../plug-ins/xfig/xfig-import.c:326
-#: ../plug-ins/xfig/xfig-import.c:362 ../plug-ins/xfig/xfig-import.c:403
+#: ../plug-ins/svg/svg-import.c:204
 msgid "Can't find standard object"
 msgstr "No se pudo encontrar el objeto estándar"
 
@@ -5498,196 +5268,198 @@ msgstr "No más colores definibles por el usuario - se usará el negro"
 msgid "XFig format"
 msgstr "Formato XFig"
 
-#: ../plug-ins/xfig/xfig-import.c:451
+#: ../plug-ins/xfig/xfig-import.c:109
 #, c-format
 msgid "Color index %d too high, only 512 colors allowed. Using black instead."
-msgstr "Índice del color %d demasiado alto, sólo se permiten 512 colores. Se usará el negro en su lugar."
+msgstr ""
+"Índice del color %d demasiado alto, sólo se permiten 512 colores. Se usará "
+"el negro en su lugar."
 
-#: ../plug-ins/xfig/xfig-import.c:478
+#: ../plug-ins/xfig/xfig-import.c:136
 msgid "Patterns are not supported by Dia"
 msgstr "Dia no admite patrones"
 
-#: ../plug-ins/xfig/xfig-import.c:506
+#: ../plug-ins/xfig/xfig-import.c:164
 msgid "Triple-dotted lines are not supported by Dia, using double-dotted"
 msgstr "Dia no soporta las líneas triplemente punteadas, se utilizará doble punteado"
 
-#: ../plug-ins/xfig/xfig-import.c:510
+#: ../plug-ins/xfig/xfig-import.c:168
 #, c-format
 msgid "Line style %d should not appear\n"
 msgstr "El estilo de línea %d no debería aparecer\n"
 
 # Cuidado con esto: en formato C hay que respetar el formato de la cadena. FVD
-#: ../plug-ins/xfig/xfig-import.c:578
+#: ../plug-ins/xfig/xfig-import.c:236
 #, c-format
 msgid "Error while reading %dth of %d points: %s\n"
 msgstr "Error leyendo el punto %dº de %d: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:606
+#: ../plug-ins/xfig/xfig-import.c:264
 msgid "Error while reading arrowhead\n"
 msgstr "Error leyendo cabeza de flecha\n"
 
-#: ../plug-ins/xfig/xfig-import.c:628
+#: ../plug-ins/xfig/xfig-import.c:286
 #, c-format
 msgid "Unknown arrow type %d\n"
 msgstr "Tipo de flecha desconocida %d\n"
 
-#: ../plug-ins/xfig/xfig-import.c:719
+#: ../plug-ins/xfig/xfig-import.c:377
 #, c-format
 msgid "Depth %d of of range, only 0-%d allowed.\n"
 msgstr "La profundidad %d está fuera del rango, sólo se permite 0-%d.\n"
 
-#: ../plug-ins/xfig/xfig-import.c:766
+#: ../plug-ins/xfig/xfig-import.c:424
 #, c-format
 msgid "Couldn't read ellipse info: %s\n"
 msgstr "No se pudo leer inArray de elipse: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:835
+#: ../plug-ins/xfig/xfig-import.c:492
 #, c-format
 msgid "Couldn't read polyline info: %s\n"
 msgstr "No se pudo leer inArray de polilínea %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:850
+#: ../plug-ins/xfig/xfig-import.c:507
 #, c-format
 msgid "Couldn't read flipped bit: %s\n"
 msgstr "No se pudo leer bit cambiado: %s\n"
 
 # Se convertirá en positivo. FVD
-#: ../plug-ins/xfig/xfig-import.c:868
+#: ../plug-ins/xfig/xfig-import.c:525
 msgid "Negative corner radius, negating"
 msgstr "Radio de esquina negativo, se negará"
 
-#: ../plug-ins/xfig/xfig-import.c:912 ../plug-ins/xfig/xfig-import.c:1228
+#: ../plug-ins/xfig/xfig-import.c:568 ../plug-ins/xfig/xfig-import.c:881
 #, c-format
 msgid "Unknown polyline subtype: %d\n"
 msgstr "Subtipo de polilínea desconocido: %d\n"
 
 # spline-->spline. FVD
-#: ../plug-ins/xfig/xfig-import.c:1062 ../plug-ins/xfig/xfig-import.c:1094
+#: ../plug-ins/xfig/xfig-import.c:718 ../plug-ins/xfig/xfig-import.c:750
 #, c-format
 msgid "Couldn't read spline info: %s\n"
 msgstr "No se pudo leer la inArray de la línea spline: %s\n"
 
 #. Open approximated spline
 #. Closed approximated spline
-#: ../plug-ins/xfig/xfig-import.c:1081 ../plug-ins/xfig/xfig-import.c:1099
+#: ../plug-ins/xfig/xfig-import.c:737 ../plug-ins/xfig/xfig-import.c:755
 msgid "Cannot convert approximated spline yet."
 msgstr "No se puede convertir aproximadamente todavía la línea spline."
 
-#: ../plug-ins/xfig/xfig-import.c:1139
+#: ../plug-ins/xfig/xfig-import.c:793
 #, c-format
 msgid "Unknown spline subtype: %d\n"
 msgstr "Subtipo de línea spline desconocido: %d\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1202
+#: ../plug-ins/xfig/xfig-import.c:856
 #, c-format
 msgid "Couldn't read arc info: %s\n"
 msgstr "No se pudo leer la inArray del arco: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1292
+#: ../plug-ins/xfig/xfig-import.c:945
 #, c-format
 msgid "Couldn't read text info: %s\n"
 msgstr "No se pudo leer la inArray del texto: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1354
+#: ../plug-ins/xfig/xfig-import.c:1007
 #, c-format
 msgid "Couldn't identify FIG object: %s\n"
 msgstr "No se pudo identificar el objeto FIG: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1362
+#: ../plug-ins/xfig/xfig-import.c:1015
 msgid "Compound end outside compound\n"
 msgstr "Fin de compuesto fuera de compuesto\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1381
+#: ../plug-ins/xfig/xfig-import.c:1034
 #, c-format
 msgid "Couldn't read color: %s\n"
 msgstr "No se pudo leer color %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1386
+#: ../plug-ins/xfig/xfig-import.c:1039
 #, c-format
 msgid "Color number %d out of range 0..%d.  Discarding color.\n"
 msgstr "El número de colores %d está fuera de rango 0..%d. Descartando el color.\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1432
+#: ../plug-ins/xfig/xfig-import.c:1085
 #, c-format
 msgid "Couldn't read group extend: %s\n"
 msgstr "No se pudo leer grupo extendido %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1443
+#: ../plug-ins/xfig/xfig-import.c:1096
 #, c-format
 msgid "Unknown object type %d\n"
 msgstr "Tipo de objeto desconocido %d\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1467
+#: ../plug-ins/xfig/xfig-import.c:1120
 #, c-format
 msgid "`%s' is not one of `%s' or `%s'\n"
 msgstr "`%s' no es uno de `%s' o `%s'\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1477
+#: ../plug-ins/xfig/xfig-import.c:1130
 #, c-format
 msgid "Error reading paper size: %s\n"
 msgstr "Error leyendo tamaño de papel: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1488
+#: ../plug-ins/xfig/xfig-import.c:1141
 #, c-format
 msgid "Unknown paper size `%s', using default\n"
 msgstr "Tamaño de papel `%s' desconocido, usando la opción por defecto\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1500
+#: ../plug-ins/xfig/xfig-import.c:1153
 #, c-format
 msgid "Error reading paper orientation: %s\n"
 msgstr "Error leyendo orientación de papel: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1510
+#: ../plug-ins/xfig/xfig-import.c:1163
 #, c-format
 msgid "Error reading justification: %s\n"
 msgstr "Error leyendo justificación: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1520
+#: ../plug-ins/xfig/xfig-import.c:1173
 #, c-format
 msgid "Error reading units: %s\n"
 msgstr "Error leyendo unidades: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1536
+#: ../plug-ins/xfig/xfig-import.c:1189
 #, c-format
 msgid "Error reading magnification: %s\n"
 msgstr "Error leyendo aumento: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1549
+#: ../plug-ins/xfig/xfig-import.c:1202
 #, c-format
 msgid "Error reading multipage indicator: %s\n"
 msgstr "Error leyendo indicador de múltiples páginas: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1560
+#: ../plug-ins/xfig/xfig-import.c:1213
 #, c-format
 msgid "Error reading transparent color: %s\n"
 msgstr "Error leyendo color transparente: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1569 ../plug-ins/xfig/xfig-import.c:1625
-#: ../plug-ins/xfig/xfig-import.c:1643
+#: ../plug-ins/xfig/xfig-import.c:1222 ../plug-ins/xfig/xfig-import.c:1278
+#: ../plug-ins/xfig/xfig-import.c:1296
 #, c-format
 msgid "Error reading FIG file: %s\n"
 msgstr "Error leyendo archivo FIG: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1571 ../plug-ins/xfig/xfig-import.c:1627
+#: ../plug-ins/xfig/xfig-import.c:1224 ../plug-ins/xfig/xfig-import.c:1280
 msgid "Premature end of FIG file\n"
 msgstr "Fin prematuro de archivo FIG\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1580
+#: ../plug-ins/xfig/xfig-import.c:1233
 #, c-format
 msgid "Error reading resolution: %s\n"
 msgstr "Error leyendo resolución: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1612
+#: ../plug-ins/xfig/xfig-import.c:1265
 #, c-format
 msgid "Doesn't look like a Fig file: %s\n"
 msgstr "No parece un archivo Fig: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1618
+#: ../plug-ins/xfig/xfig-import.c:1271
 #, c-format
 msgid "This is a FIG version %d.%d file, I may not understand it\n"
 msgstr "Esto es un archivo FIG versión %d.%d, no puedo entenderlo\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1666
+#: ../plug-ins/xfig/xfig-import.c:1319
 msgid "XFig File Format"
 msgstr "Formato de archivo XFig"
 
@@ -6507,14 +6279,6 @@ msgstr "EML"
 msgid "Editor for EML Static Structure Diagrams."
 msgstr "Editor para diagramas de estructura estática EML."
 
-#: ../sheets/EML.sheet.in.h:3
-msgid "Instantiation. One process create others"
-msgstr "Instanciación. Un proceso crea otros"
-
-#: ../sheets/EML.sheet.in.h:4
-msgid "Interaction between processes."
-msgstr "Interacción entre procesos"
-
 #: ../sheets/ER.sheet.in.h:2
 msgid "ER"
 msgstr "ER"
@@ -6535,7 +6299,7 @@ msgstr "Entidad débil"
 msgid "Components for electric circuits"
 msgstr "Componentes para circuitos eléctricos"
 
-#: ../sheets/Electric.sheet.in.h:2 ../sheets/Pneumatic.sheet.in.h:9
+#: ../sheets/Electric.sheet.in.h:2 ../sheets/Pneumatic.sheet.in.h:7
 msgid "Connection point"
 msgstr "Punto de conexión"
 
@@ -7178,6 +6942,10 @@ msgid "Miscellaneous Shapes"
 msgstr "Figuras variadas"
 
 #: ../sheets/Misc.sheet.in.h:5
+msgid "New-style group object, for testing"
+msgstr ""
+
+#: ../sheets/Misc.sheet.in.h:6
 msgid "Traditional clock"
 msgstr "Reloj tradicional"
 
@@ -7190,86 +6958,78 @@ msgid "3/2 distributor"
 msgstr "Distribuidor 3/2"
 
 #: ../sheets/Pneumatic.sheet.in.h:3
-msgid "3/3 distributor"
-msgstr "Distribuidor 3/3"
-
-#: ../sheets/Pneumatic.sheet.in.h:4
 msgid "4/2 distributor"
 msgstr "Distribuidor 4/2"
 
-#: ../sheets/Pneumatic.sheet.in.h:5
+#: ../sheets/Pneumatic.sheet.in.h:4
 msgid "5/2 distributor"
 msgstr "Distribuidor 5/2"
 
-#: ../sheets/Pneumatic.sheet.in.h:6
-msgid "5/3 distributor"
-msgstr "Distribuidor 5/3"
-
-#: ../sheets/Pneumatic.sheet.in.h:7
+#: ../sheets/Pneumatic.sheet.in.h:5
 msgid "Air exhaust orifice"
 msgstr "Orificio para la salida de aire"
 
-#: ../sheets/Pneumatic.sheet.in.h:8
+#: ../sheets/Pneumatic.sheet.in.h:6
 msgid "Components for pneumatic and hydraulic circuits"
 msgstr "Componentes para circuitos hidráulicos y neumáticos"
 
-#: ../sheets/Pneumatic.sheet.in.h:10
+#: ../sheets/Pneumatic.sheet.in.h:8
 msgid "Double-effect jack"
 msgstr "Clavija de efecto doble"
 
-#: ../sheets/Pneumatic.sheet.in.h:11
+#: ../sheets/Pneumatic.sheet.in.h:9
 msgid "Electric command (double coil)"
 msgstr "Actuador eléctrico (bobina doble)"
 
-#: ../sheets/Pneumatic.sheet.in.h:12
+#: ../sheets/Pneumatic.sheet.in.h:10
 msgid "Electric command (single coil)"
 msgstr "Actuador eléctrico (bobina sencilla)"
 
-#: ../sheets/Pneumatic.sheet.in.h:13
+#: ../sheets/Pneumatic.sheet.in.h:11
 msgid "Generic pressure source"
 msgstr "Fuente de presión genérica"
 
-#: ../sheets/Pneumatic.sheet.in.h:14
+#: ../sheets/Pneumatic.sheet.in.h:12
 msgid "Hydraulic pressure source"
 msgstr "Fuente de presión hidráulica"
 
-#: ../sheets/Pneumatic.sheet.in.h:15
+#: ../sheets/Pneumatic.sheet.in.h:13
 msgid "Indirect command by hydraulic driver"
 msgstr "Actuador indirecto por manejador hidráulico"
 
-#: ../sheets/Pneumatic.sheet.in.h:16
+#: ../sheets/Pneumatic.sheet.in.h:14
 msgid "Indirect command by pneumatic driver"
 msgstr "Actuador indirecto por manejador neumático"
 
-#: ../sheets/Pneumatic.sheet.in.h:17
+#: ../sheets/Pneumatic.sheet.in.h:15
 msgid "Mechanical command by spring"
 msgstr "Actuador mecánico por muelle"
 
-#: ../sheets/Pneumatic.sheet.in.h:18
+#: ../sheets/Pneumatic.sheet.in.h:16
 msgid "Mechanical command by tappet"
 msgstr "Actuador mecánico por taqué"
 
-#: ../sheets/Pneumatic.sheet.in.h:19
+#: ../sheets/Pneumatic.sheet.in.h:17
 msgid "Muscular command"
 msgstr "Actuador muscular"
 
-#: ../sheets/Pneumatic.sheet.in.h:20
+#: ../sheets/Pneumatic.sheet.in.h:18
 msgid "Normally-in simple-effect jack"
 msgstr "Clavija de efecto simple normalmente enchufada"
 
-#: ../sheets/Pneumatic.sheet.in.h:21
+#: ../sheets/Pneumatic.sheet.in.h:19
 msgid "Normally-out simple-effect jack"
 msgstr "Clavija de efecto simple normalmente desenchufada"
 
-#: ../sheets/Pneumatic.sheet.in.h:22
+#: ../sheets/Pneumatic.sheet.in.h:20
 msgid "Pneumatic pressure source"
 msgstr "Fuente de presión neumática"
 
-#: ../sheets/Pneumatic.sheet.in.h:23
+#: ../sheets/Pneumatic.sheet.in.h:21
 msgid "Pneumatic/Hydraulic"
 msgstr "Neumático/Hidráulico"
 
-#: ../sheets/Pneumatic.sheet.in.h:24
+#: ../sheets/Pneumatic.sheet.in.h:22
 msgid "Push-button command"
 msgstr "Actuador de pulsador"
 
