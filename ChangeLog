@@ -1,3 +1,21 @@
+2006-08-02  Lars Clausen  <lars@raeder.dk>
+
+	* plug-ins/vdx/visio-types.h: 
+	* plug-ins/vdx/vdx.h: 
+	* plug-ins/vdx/vdx-xml.c: 
+	* plug-ins/vdx/vdx-import.c: 
+	* plug-ins/vdx/vdx-common.c: Update to version 0.4 (from 0.2) of
+	Visio import, thanks to Ian Redfern, who states: 
+
+	Version 0.4 does a passable job with curves, and has the first
+	implementation of Masters. It also handles XForm1D, and fixes a
+	potential crash. It gets some layers in the wrong order and still
+	has some major positioning and sizing issues. 
+
+        Version 0.3 gets object layout correct, and does a better job of
+	text, lines, arrows, layers etc. Some diagrams (that don't contain
+	curves) now render pretty much correctly. 
+
 2006-07-16  Hans Breuer  <hans@breuer.org>
 
 	* app/cut_n_paste.[hc] : maintain a generation counter to count

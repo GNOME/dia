@@ -49,6 +49,7 @@
 #include "vdx.h"
 #include "visio-types.h"
 #include "bezier_conn.h"
+#include "connection.h"
 
 gboolean import_vdx(const gchar *filename, DiagramData *dia, void* user_data);
 
@@ -61,6 +62,9 @@ void static vdx_free(VDXDocument *theDoc);
 
 /* Note: we can hold pointers to parts of the parsed XML during import, but
    can't pass them to the rest of Dia, as they will be freed when we finish */
+
+/* The following should be in create.h
+   Dia interface taken from xfig-import.c */
 
 static PropDescription vdx_line_prop_descs[] = {
     { "start_point", PROP_TYPE_POINT },
@@ -103,7 +107,7 @@ create_standard_line(Point *points,
     return new_obj;
 }
 
-
+/* This is a modified create_standard_beziergon. */
 
 static DiaObject *
 create_vdx_beziergon(int num_points, 
@@ -130,6 +134,8 @@ create_vdx_beziergon(int num_points,
 
     g_free(bcd);
 
+    /* Convert all points to cusps - not in API */
+
     bcp = (BezierConn *)new_obj;
     g_debug("bcp.np=%d", bcp->numpoints);
     for (i=0; i<bcp->numpoints; i++) 
@@ -139,6 +145,8 @@ create_vdx_beziergon(int num_points,
     
     return new_obj;
 }
+
+/* These are for later */
 
 static PropDescription vdx_simple_prop_descs_line[] = {
     { "line_width", PROP_TYPE_REAL },
@@ -152,6 +160,8 @@ static PropDescription vdx_text_descs[] = {
     /* Height and length are ignored */
     /* Flags */
 };
+
+/* End of code taken from xfig-import.c */
 
 
 /** Turns a VDX colour definition into a Dia Color.
@@ -286,7 +296,30 @@ vdx_get_fonts(xmlNodePtr cur, VDXDocument* theDoc)
 static void 
 vdx_get_masters(xmlNodePtr cur, VDXDocument* theDoc)
 {
+    xmlNodePtr Master = cur->xmlChildrenNode;
     g_debug("vdx_get_masters");
+    theDoc->Masters = g_array_new (FALSE, TRUE, 
+                                   sizeof (struct vdx_Master));
+    for (Master = cur->xmlChildrenNode; Master; 
+         Master = Master->next)
+    {
+        struct vdx_Master newMaster;
+        
+        if (xmlIsBlankNode(Master)) { continue; }
+
+        vdx_read_object(Master, theDoc, &newMaster);
+        g_debug("Master[%d] = %s", newMaster.ID, 
+                (newMaster.NameU));
+        /* Masters need not be numbered consecutively,
+           so make room for the new one in the array */
+        if (theDoc->Masters->len <= newMaster.ID)
+        {
+            theDoc->Masters = 
+                g_array_set_size(theDoc->Masters, newMaster.ID+1);
+        }
+        g_array_index(theDoc->Masters, struct vdx_Master, 
+                      newMaster.ID) = newMaster;
+    }
 }
 
 /** Reads the stylesheet table from the start of a VDX document
@@ -344,6 +377,32 @@ find_child(unsigned int type, const void *p)
     return 0;
 }
 
+/** Finds next child of an object with a specific type after a given
+ * @param type a type code
+ * @param p the object
+ * @param given the given child
+ * @returns An object of the desired type, or NULL
+ */
+static void *
+find_child_next(unsigned int type, const void *p, const void *given)
+{
+    struct vdx_any *Any = (struct vdx_any *)p;
+    GSList *child;
+    gboolean found_given = FALSE;
+    g_assert(p);
+    for(child = Any->children; child; child = child->next)
+    {
+        struct vdx_any *Any_child = (struct vdx_any *)child->data;
+        if (!child->data) continue;
+        if (Any_child->type == type)
+        {
+            if (found_given) return Any_child;
+            if (child->data == given) found_given = TRUE;
+        }
+    }
+    return 0;
+}
+
 /** Frees all children of an object recursively
  * @param p an object pointer (may be NULL)
  */
@@ -394,6 +453,70 @@ get_style_child(unsigned int type, unsigned int style, VDXDocument* theDoc)
     }
 
     return 0;
+}
+
+/** Finds a shape in any object including its grouped subshapes
+ * @param id shape id
+ * @param Shapes shape list
+ * @returns The Shape or NULL
+ */
+static struct vdx_Shape *
+get_shape_by_id(unsigned int id, struct vdx_Shapes *Shapes)
+{
+    struct vdx_Shape *Shape;
+    struct vdx_Shapes *SubShapes;
+    GSList *child;
+    g_assert(Shapes);
+
+    g_debug("get_shape_by_id(%d)", id);
+
+    /* A Master has a list of Shapes */
+    for(child = Shapes->children; child; child = child->next)
+    {
+        struct vdx_any *Any_child = (struct vdx_any *)child->data;
+        if (!child->data) continue;
+        if (Any_child->type == vdx_types_Shape)
+        {
+            Shape = (struct vdx_Shape *)Any_child;
+            if (Shape->ID == id) return Shape;
+
+            /* Any of the Shapes may have a list of Shapes */
+            SubShapes = (struct vdx_Shapes *)find_child(vdx_types_Shapes, 
+                                                        Shape);
+            if (SubShapes)
+            {
+                Shape = get_shape_by_id(id, SubShapes);
+                if (Shape) return Shape;
+            }
+        }
+    }
+    g_debug("Not found");
+    return 0;    
+}
+
+/** Finds the master style object that applies
+ * @param type a type code
+ * @param master the master number
+ * @param shape the mastershape number
+ * @param theDoc the document
+ * @returns The master's shape child
+ */
+static struct vdx_Shape *
+get_master_shape(unsigned int master, unsigned int shape, VDXDocument* theDoc)
+{
+    struct vdx_Master theMaster;
+    struct vdx_Shapes *Shapes;
+    g_debug("get_master_shape(%d,%d)", master, shape);
+
+    g_assert(master < theDoc->Masters->len);
+    theMaster = g_array_index(theDoc->Masters, 
+                              struct vdx_Master, master);
+    g_debug(" Looking in master %d [%s]", master, theMaster.NameU);
+
+    Shapes = find_child(vdx_types_Shapes, &theMaster);
+    if (!Shapes) return NULL;
+
+    return get_shape_by_id(shape, Shapes);
 }
 
 
@@ -454,7 +577,7 @@ vdx_simple_properties(DiaObject *obj,
     if (Line)
     {
         rprop = g_ptr_array_index(props,0);
-        rprop->real_data = Line->LineWeight;
+        rprop->real_data = Line->LineWeight * vdx_Line_Scale;
     
         cprop = g_ptr_array_index(props,1);
         cprop->color_data = Line->LineColor;
@@ -492,7 +615,15 @@ vdx_simple_properties(DiaObject *obj,
             (ColorProperty *)make_new_prop("fill_colour",
                                            PROP_TYPE_COLOUR,
                                            PROP_FLAG_DONT_SAVE);
-        cprop->color_data = Fill->FillForegnd;
+
+        /* Dia can't do fill patterns, so we have to choose either the
+           foreground or background colour.
+           I've chosen the background colour for all patterns except solid */
+
+        if (Fill->FillPattern == 1)
+            cprop->color_data = Fill->FillForegnd;
+        else
+            cprop->color_data = Fill->FillBkgnd;
         
         g_ptr_array_add(props,cprop);
     }
@@ -555,11 +686,15 @@ plot_line(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm,
         current.x = MoveTo->X;
         current.y = MoveTo->Y;
         item = item->next;
+        Any = (struct vdx_any *)(item->data);
     }
-    LineTo = (struct vdx_LineTo*)(item->data);
+    if (Any->type == vdx_types_MoveTo)
+    {
+        LineTo = (struct vdx_LineTo*)(item->data);
 
-    end.x = LineTo->X;
-    end.y = LineTo->Y;
+        end.x = LineTo->X;
+        end.y = LineTo->Y;
+    }
 
     if (XForm1D)
     {
@@ -609,6 +744,7 @@ plot_line(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm,
   
 static DiaObject *
 plot_arc(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm, 
+         const struct vdx_XForm1D *XForm1D, 
          const struct vdx_Fill *Fill, const struct vdx_Line *Line,
          VDXDocument* theDoc)
 {
@@ -626,6 +762,7 @@ plot_arc(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm,
     Arrow end_arrow;
     Arrow* start_arrow_p = NULL;
     Arrow* end_arrow_p = NULL;
+    struct _Connection *conn;
 
     Point offset = {0, 0};
     Point current = {0, 0};
@@ -648,23 +785,35 @@ plot_arc(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm,
         current.y = MoveTo->Y;
         item = item->next;
     }
-    ArcTo = (struct vdx_ArcTo*)(item->data);
     points[0].x = dx(current.x + offset.x, theDoc);
     points[0].y = dy(current.y + offset.y, theDoc);
+
+    ArcTo = (struct vdx_ArcTo*)(item->data);
+    
     points[1].x = dx(ArcTo->X + offset.x, theDoc);
     points[1].y = dy(ArcTo->Y + offset.y, theDoc);
-
+    
     chord_length_sq = (ArcTo->X - current.x)*(ArcTo->X - current.x) +
         (ArcTo->Y - current.y)*(ArcTo->Y - current.y);
-
-    /* A = The distance from the arc's midpoint to the midpoint of its chord.
+    
+    /* A = The distance from the arc midpoint to the midpoint of its chord.
        By Pythagoras, R^2 = (chord_length/2)^2 + (R-A)^2 */
-
+    
     A = ArcTo->A;
-
+    
     R = (chord_length_sq + 4*A*A)/(8*A);
 
     radius = da(R, theDoc);
+
+    if (XForm1D)
+    {
+        /* As a special case, we can do rotation and scaling on
+           lines, as all we need is the end points */
+        points[0].x = dx(XForm1D->BeginX, theDoc);
+        points[0].y = dy(XForm1D->BeginY, theDoc);
+        points[1].x = dx(XForm1D->EndX, theDoc);
+        points[1].y = dy(XForm1D->EndY, theDoc);
+    }
 
     if (Line->BeginArrow) 
     {
@@ -685,6 +834,10 @@ plot_arc(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm,
     newobj = create_standard_arc(points[0].x, points[0].y, points[1].x, 
                                  points[1].y, radius, 
                                  start_arrow_p, end_arrow_p);
+    conn = (struct _Connection *)newobj;
+
+    conn->endpoints[1] = points[1];
+
     vdx_simple_properties(newobj, Fill, Line, theDoc);
     return newobj;
 }
@@ -875,6 +1028,224 @@ plot_ellipse(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm,
     return newobj;
 }
 
+/** Converts an arc to Bezier points
+ * @param p0 start point
+ * @param p3 end point
+ * @param p4 arc control point
+ * @param C angle of the arc's major axis relative to the x-axis of its parent
+ * @param D ratio of an arc's major axis to its minor axis
+ * @param p1 first Bezier control point
+ * @param p2 second Bezier control point
+ */
+static gboolean
+arc_to_bezier(Point p0, Point p3, Point p4, double C, double D,
+              Point *p1, Point *p2)
+{
+    /* We wish to find the unique Bezier that:
+       Starts at p0 and ends at p3
+       Has the same tangent as the arc at p0 and p3
+       Meets the arc at its furthest point and has the same tangent there
+    */
+
+    Point P0, P1, P2, P3, P4, P5, Q, T0, T1, T2, T3;
+    double R, R2, R3, sinC, cosC;
+
+    double a, b, c, d, e, f, g; /* Scratch variables */
+
+    /* We assume the arc is not degenerate:
+       p0 != p4 != p3 != p0, 0 < D < infty 
+    */ 
+
+    g_debug("p0=(%f,%f);p3=(%f,%f);p4=(%f,%f),C=%f,D=%f", p0.x, p0.y,
+            p3.x, p3.y, p4.x, p4.y, C, D);
+
+    if (fabs(p0.x - p3.x) + fabs(p0.y - p3.y) < EPSILON ||
+        fabs(p0.x - p4.x) + fabs(p0.y - p4.y) < EPSILON ||
+        fabs(p3.x - p4.x) + fabs(p3.y - p4.y) < EPSILON ||
+        fabs(D) < EPSILON) 
+    { 
+        g_debug("Colinear");
+        return FALSE; 
+    }
+
+    /* First transform to a circle through P0, P3 and P4:
+       Rotate by -C, then scale by 1/D along the major (X) axis
+    */
+
+    sinC = sin(C); cosC = cos(C);
+
+    P0.x = (p0.x*cosC + p0.y*sinC)/D;
+    P0.y = (-p0.x*sinC + p0.y*cosC);
+
+    P3.x = (p3.x*cosC + p3.y*sinC)/D;
+    P3.y = (-p3.x*sinC + p3.y*cosC);
+
+    P4.x = (p4.x*cosC + p4.y*sinC)/D;
+    P4.y = (-p4.x*sinC + p4.y*cosC);
+
+    g_debug("P0=(%f,%f);P3=(%f,%f);P4=(%f,%f)", P0.x, P0.y,
+            P3.x, P3.y, P4.x, P4.y);
+
+    /* Centre of circumcircle is Q, radius R
+       Q is the intersection of the perpendicular bisectors of the sides */
+
+    /* Thanks to comp.graphics.algorithms FAQ 1.04 */
+
+    a = P3.x - P0.x;
+    b = P3.y - P0.y;
+    c = P4.x - P0.x;
+    d = P4.y - P0.y;
+    e = a*(P0.x + P3.x) + b*(P0.y + P3.y);
+    f = c*(P0.x + P4.x) + d*(P0.y + P4.y);
+    g = 2.0*(a*(P4.y - P3.y) - b*(P4.x - P3.x));
+    if (fabs(g) < EPSILON) { g_debug("g=%f too small", g); return FALSE; }
+    Q.x = (d*e - b*f)/g;
+    Q.y = (a*f - c*e)/g;
+    R = sqrt((P0.x - Q.x)*(P0.x - Q.x) + (P0.y - Q.y)*(P0.y - Q.y));
+    R2 = sqrt((P3.x - Q.x)*(P3.x - Q.x) + (P3.y - Q.y)*(P3.y - Q.y));
+    R3 = sqrt((P4.x - Q.x)*(P4.x - Q.x) + (P4.y - Q.y)*(P4.y - Q.y));
+
+    if (fabs(R-R2) > EPSILON || fabs(R-R3) > EPSILON)
+    {
+        g_debug("R=%f,R2=%f,R3=%f not equal", R, R2, R3);
+        return FALSE;
+    }
+
+    /* Construct unit tangents at P0 and P3 - P1 and P2 lie along these */
+    
+    T0.y = Q.x - P0.x; 
+    T0.x = -(Q.y - P0.y);
+    a = sqrt(T0.x*T0.x + T0.y*T0.y);
+    T0.x /= a;
+    T0.y /= a;
+
+    T3.y = Q.x - P3.x;
+    T3.x = -(Q.y - P3.y);
+    a = sqrt(T3.x*T3.x + T3.y*T3.y);
+    T3.x /= a;
+    T3.y /= a;
+
+    /* Now, we want T0 and T3 to both either point towards or away from 
+       their intersection point (assuming they're not parallel) 
+       So for some a and b, both <0, P0 + aT0 = P3 + bT3
+    */
+
+    d = T3.x*T0.y - T3.y*T0.x;
+    if (fabs(d) < EPSILON)
+    {
+        /* Hard case. 
+           Well, not really, as long as they point in the same direction... */
+        T3 = T0;
+    }
+    else
+    {
+        a =  (P3.y * T3.x - P0.y * T3.x + T3.y * P0.x - T3.y * P3.x) / d;
+        b = -(P0.y * T0.x - P3.y * T0.x + T0.y * P3.x - T0.y * P0.x) / d;
+
+        if (a < 0 && b > 0)
+        {
+            /* Opposite direction for one of them */
+            T0.x = - T0.x;
+            T0.y = - T0.y;
+        }
+        if (a > 0 && b < 0)
+        {
+            T3.x = - T3.x;
+            T3.y = - T3.y;
+        }
+    }
+
+    g_debug("Q=(%f,%f);R=%f; T0=(%f,%f);T3=(%f,%f)", Q.x, Q.y, R,
+            T0.x, T0.y, T3.x, T3.y);
+
+    /* So for some a and b, 
+       P1 = P0 + aT0
+       P2 = P3 + bT3
+    */
+
+    /* But this is a circle. So if we reflect it, we get another solution.
+       So a = b (as we have the vectors in the right direction).
+       Further, the extreme point of the arc is its midpoint,
+       and this must occur with t = 0.5
+       - doesn't symmetry make life easy?
+    */
+
+    /* Bezier formula is 
+       P(t) = P0 + [3P1 - 3P0]t + [3P2 - 6P1 + 3P0]t^2 +
+              [P3 - 3P2 + 3P1 - P0]t^3
+       P(t) = P0 + [3aT0]t + [3P3 - 3P0 + 3bT3 - 6aT0]t^2 +
+              [2P0 - 2P3 - 3bT3 + 3aT0]t^3
+       P(0.5) = (P0 + P3)/2 + 3a(T0 + T3)/8
+    */
+
+    /* Now, to find the mid point of the arc, first find T1, 
+       the midpoint of P0 and P3.
+    */
+    T1.x = (P0.x + P3.x)/2.0;
+    T1.y = (P0.y + P3.y)/2.0;
+    
+    /* Now drop a radius from Q */
+    T2.x = T1.x - Q.x;
+    T2.y = T1.y - Q.y;
+    a = sqrt(T2.x*T2.x + T2.y*T2.y);
+    if (fabs(a) < EPSILON)
+    {
+        /* So T1 = Q. In that case, pick a normal to P3 - P0 */
+        T2 = T0;
+        a = sqrt(T2.x*T2.x + T2.y*T2.y);
+    }
+    T2.x /= a;
+    T2.y /= a;
+
+    /* Now we want the radius from Q along T2 to be in the direction of P4 
+       - at least, the angle between them < 90 */
+
+    a = T2.x * (P4.x - Q.x) + T2.y * (P4.y - Q.y);
+    if (fabs(a) < EPSILON)
+    {
+        /* OK, this isn't possible - implies P4 = P0 or P3 */
+        g_debug("P4 = P0 or P3?");
+        return FALSE;
+    }
+    if (a < 0) { T2.x = - T2.x; T2.y = - T2.y; }
+
+    /* And now, we have the mid point of the arc */
+    P5.x = Q.x + R * T2.x;
+    P5.y = Q.y + R * T2.y;
+
+    /* Now we need to solve for a */
+
+    if (fabs(T0.x+T3.x) < EPSILON)
+    {
+        /* Do it with y */
+        a = (P5.y - (P0.y + P3.y)/2.0)*8.0/3.0/(T0.y + T3.y);
+    }
+    else
+    {
+        /* Do it with x */
+        a = (P5.x - (P0.x + P3.x)/2.0)*8.0/3.0/(T0.x + T3.x);
+    }
+
+    /* Construct P1 and P2 */
+    P1.x = P0.x + a * T0.x;
+    P1.y = P0.y + a * T0.y;
+    P2.x = P3.x + a * T3.x;
+    P2.y = P3.y + a * T3.y;
+
+    /* Transform back to an elliptical arc */
+
+    p1->x = (P1.x*D*cosC - P1.y*sinC);
+    p1->y = (P1.x*D*sinC + P1.y*cosC);
+    p2->x = (P2.x*D*cosC - P2.y*sinC);
+    p2->y = (P2.x*D*sinC + P2.y*cosC);
+
+    g_debug("T2=(%f,%f);P5=(%f,%f);a=%f;P1=(%f,%f);P2=(%f,%f);p1=(%f,%f);p2=(%f,%f)",
+            T2.x, T2.y, P5.x, P5.y, a, P1.x, P1.y, P2.x, P2.y, 
+            p1->x, p1->y, p2->x, p2->y);
+
+    return TRUE;
+}
+
 /** Plots a beziergon
  * @param Geom the shape
  * @param XForm any transformations
@@ -901,8 +1272,8 @@ plot_beziergon(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm,
     BezPoint *bezpoints = 0;
 
     Point offset = {0, 0};
-    Point parallel;
-    Point normal;
+    Point p0 = {0, 0};
+    Point p1 = p0, p2 = p0, p3 = p0, p4 = p0;
 
     if (XForm)
     {
@@ -923,7 +1294,7 @@ plot_beziergon(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm,
         num_points++;
     }
 
-    bezpoints = g_new0(BezPoint, num_points+1);
+    bezpoints = g_new0(BezPoint, num_points);
 
     /* Dia always has a BEZ_MOVETO in the first slot, and all the rest are
        BEZ_CURVETO or BEZ_LINETO */
@@ -939,6 +1310,7 @@ plot_beziergon(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm,
             bezpoints[count].type = BEZ_MOVE_TO;
             bezpoints[count].p1.x = dx(MoveTo->X + offset.x, theDoc);
             bezpoints[count].p1.y = dy(MoveTo->Y + offset.y, theDoc);
+            p0.x = MoveTo->X; p0.y = MoveTo->Y;
             g_debug("Moveto(%f,%f)", MoveTo->X, MoveTo->Y);
             break;
         case vdx_types_LineTo:
@@ -946,21 +1318,27 @@ plot_beziergon(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm,
             bezpoints[count].type = BEZ_LINE_TO;
             bezpoints[count].p1.x = dx(LineTo->X + offset.x, theDoc);
             bezpoints[count].p1.y = dy(LineTo->Y + offset.y, theDoc);
+            p0.x = LineTo->X; p0.y = LineTo->Y;
             g_debug("Lineto(%f,%f)", LineTo->X, LineTo->Y);
             break;
         case vdx_types_EllipticalArcTo:
             EllipticalArcTo = (struct vdx_EllipticalArcTo*)(item->data);
-            bezpoints[count].type = BEZ_CURVE_TO;
-            bezpoints[count].p3.x = dx(EllipticalArcTo->X + offset.x, theDoc);
-            bezpoints[count].p3.y = dy(EllipticalArcTo->Y + offset.y, theDoc);
-            bezpoints[count].p2.x = dx(EllipticalArcTo->A + offset.x, theDoc);
-            bezpoints[count].p2.y = dy(EllipticalArcTo->B + offset.y, theDoc);
-            if (count > 1) bezpoints[count].p1 = bezpoints[count-1].p3;
-            if (count == 1) bezpoints[count].p1 = bezpoints[count-1].p1;
             g_debug("Arcto(%f,%f;%f,%f;%f;%f)", 
                     EllipticalArcTo->X, EllipticalArcTo->Y,
                     EllipticalArcTo->A, EllipticalArcTo->B,
                     EllipticalArcTo->C, EllipticalArcTo->D);
+            p3.x = EllipticalArcTo->X; p3.y = EllipticalArcTo->Y;
+            p4.x = EllipticalArcTo->A; p4.y = EllipticalArcTo->B;
+            arc_to_bezier(p0, p3, p4, EllipticalArcTo->C, 
+                          EllipticalArcTo->D, &p1, &p2);
+            bezpoints[count].type = BEZ_CURVE_TO;
+            bezpoints[count].p3.x = dx(p3.x + offset.x, theDoc);
+            bezpoints[count].p3.y = dy(p3.y + offset.y, theDoc);
+            bezpoints[count].p2.x = dx(p2.x + offset.x, theDoc);
+            bezpoints[count].p2.y = dy(p2.y + offset.y, theDoc);
+            bezpoints[count].p1.x = dx(p1.x + offset.x, theDoc);
+            bezpoints[count].p1.y = dy(p1.y + offset.y, theDoc);
+            p0 = p3;
             break;
         default:
             g_debug("Not plotting %s as Bezier", 
@@ -969,18 +1347,14 @@ plot_beziergon(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm,
         }
         count++;
     }
-    bezpoints[num_points].type = BEZ_CURVE_TO;
-    bezpoints[num_points].p3 = bezpoints[0].p1;
-    bezpoints[num_points].p2 = bezpoints[0].p1;
-    bezpoints[num_points].p1 = bezpoints[num_points-1].p3;
 
-    newobj = create_vdx_beziergon(num_points+1, bezpoints);
+    newobj = create_vdx_beziergon(num_points, bezpoints);
     g_free(bezpoints); 
     vdx_simple_properties(newobj, Fill, Line, theDoc);
     return newobj;
 }
 
-/** Plots a bexier
+/** Plots a bezier
  * @param Geom the shape
  * @param XForm any transformations
  * @param Fill any fill
@@ -1009,6 +1383,8 @@ plot_bezier(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm,
     Arrow* end_arrow_p = NULL;
 
     Point offset = {0, 0};
+    Point p0 = {0, 0};
+    Point p1 = p0, p2 = p0, p3 = p0, p4 = p0;
 
     if (XForm)
     {
@@ -1042,6 +1418,7 @@ plot_bezier(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm,
             bezpoints[count].type = BEZ_MOVE_TO;
             bezpoints[count].p1.x = dx(MoveTo->X + offset.x, theDoc);
             bezpoints[count].p1.y = dy(MoveTo->Y + offset.y, theDoc);
+            p0.x = MoveTo->X; p0.y = MoveTo->Y;
             g_debug("Moveto(%f,%f)", MoveTo->X, MoveTo->Y);
             break;
         case vdx_types_LineTo:
@@ -1049,17 +1426,23 @@ plot_bezier(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm,
             bezpoints[count].type = BEZ_LINE_TO;
             bezpoints[count].p1.x = dx(LineTo->X + offset.x, theDoc);
             bezpoints[count].p1.y = dy(LineTo->Y + offset.y, theDoc);
+            p0.x = LineTo->X; p0.y = LineTo->Y;
             g_debug("Lineto(%f,%f)", LineTo->X, LineTo->Y);
             break;
         case vdx_types_EllipticalArcTo:
             EllipticalArcTo = (struct vdx_EllipticalArcTo*)(item->data);
+            p3.x = EllipticalArcTo->X; p3.y = EllipticalArcTo->Y;
+            p4.x = EllipticalArcTo->A; p4.y = EllipticalArcTo->B;
+            arc_to_bezier(p0, p3, p4, EllipticalArcTo->C, 
+                          EllipticalArcTo->D, &p1, &p2);
             bezpoints[count].type = BEZ_CURVE_TO;
-            bezpoints[count].p3.x = dx(EllipticalArcTo->X + offset.x, theDoc);
-            bezpoints[count].p3.y = dy(EllipticalArcTo->Y + offset.y, theDoc);
-            bezpoints[count].p2.x = dx(EllipticalArcTo->A + offset.x, theDoc);
-            bezpoints[count].p2.y = dy(EllipticalArcTo->B + offset.y, theDoc);
-            if (count > 1) bezpoints[count].p1 = bezpoints[count-1].p3;
-            if (count == 1) bezpoints[count].p1 = bezpoints[count-1].p1;
+            bezpoints[count].p3.x = dx(p3.x + offset.x, theDoc);
+            bezpoints[count].p3.y = dy(p3.y + offset.y, theDoc);
+            bezpoints[count].p2.x = dx(p2.x + offset.x, theDoc);
+            bezpoints[count].p2.y = dy(p2.y + offset.y, theDoc);
+            bezpoints[count].p1.x = dx(p1.x + offset.x, theDoc);
+            bezpoints[count].p1.y = dy(p1.y + offset.y, theDoc);
+            p0 = p3;
             g_debug("Arcto(%f,%f)", EllipticalArcTo->X, EllipticalArcTo->Y);
             break;
         default:
@@ -1149,11 +1532,12 @@ plot_geom(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm,
     if (num_steps == 1) 
     { 
         if (last_point->type == vdx_types_EllipticalArcTo) 
-            dia_type_choice = vdx_dia_arc; 
+            dia_type_choice = vdx_dia_bezier; 
         if (last_point->type == vdx_types_Ellipse) 
             dia_type_choice = vdx_dia_ellipse; 
         if (last_point->type == vdx_types_LineTo) 
             dia_type_choice = vdx_dia_line; 
+        if (XForm1D) { dia_type_choice = vdx_dia_line; }
     }
     if (dia_type_choice == vdx_dia_any)
     {
@@ -1184,7 +1568,7 @@ plot_geom(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm,
         return plot_bezier(Geom, XForm, Fill, Line, theDoc);
         break;
     case vdx_dia_arc:
-        return plot_arc(Geom, XForm, Fill, Line, theDoc);
+        return plot_arc(Geom, XForm, XForm1D, Fill, Line, theDoc);
         break;
     default:
         g_debug("Not yet implemented");
@@ -1294,13 +1678,14 @@ vdx_plot_shape(struct vdx_Shape *Shape, GSList *objects,
     struct vdx_Text *Text = 0;
     struct vdx_Para *Para = 0;
 
+    g_debug("vdx_plot_shape %d", Shape->ID);
     if (Shape->Del) 
     {
         g_debug("Deleted");
         return objects;
     }
 
-    /* Is there a Fill? */
+    /* Is there a local definition? */
     Fill = (struct vdx_Fill *)find_child(vdx_types_Fill, Shape);
     Line = (struct vdx_Line *)find_child(vdx_types_Line, Shape);
     Char = (struct vdx_Char *)find_child(vdx_types_Char, Shape);
@@ -1309,6 +1694,39 @@ vdx_plot_shape(struct vdx_Shape *Shape, GSList *objects,
     Geom = (struct vdx_Geom *)find_child(vdx_types_Geom, Shape);
     Text = (struct vdx_Text *)find_child(vdx_types_Text, Shape);
     Para = (struct vdx_Para *)find_child(vdx_types_Para, Shape);
+
+    /* Is there a Master? */
+    /* TODO - Master==0 */
+    if (Shape->Master)
+    {
+        /* We can pick up Fill, Line and Char from the master */
+        struct vdx_Shape *MasterShape = 0;
+        
+        if (Shape->MasterShape)
+        {
+            MasterShape = get_master_shape(Shape->Master, Shape->MasterShape,
+                                           theDoc);
+        }
+        else
+        {
+            /* The first one is always numbered 5 */
+            MasterShape = get_master_shape(Shape->Master, 5, theDoc);
+        }
+
+        if (MasterShape)
+        {
+            if (!Fill && (!Geom || !Geom->NoFill))
+                Fill = (struct vdx_Fill *)find_child(vdx_types_Fill, 
+                                                     MasterShape);
+            
+            if (!Line && (!Geom || !Geom->NoLine))
+                Line = (struct vdx_Line *)find_child(vdx_types_Line, 
+                                                     MasterShape);
+            if (!Char)
+                Char = (struct vdx_Char *)find_child(vdx_types_Char,
+                                                     MasterShape);
+        }
+    }
 
     if (!Fill && (!Geom || !Geom->NoFill))
         Fill = (struct vdx_Fill *)get_style_child(vdx_types_Fill, 
@@ -1358,6 +1776,7 @@ vdx_plot_shape(struct vdx_Shape *Shape, GSList *objects,
             if (!theShape) continue;
             if (theShape->type == vdx_types_Shape)
             {
+                if (!theShape->Master) { theShape->Master = Shape->Master; }
                 members = vdx_plot_shape(theShape, members, XForm, theDoc);
             }
         }
@@ -1372,12 +1791,14 @@ vdx_plot_shape(struct vdx_Shape *Shape, GSList *objects,
     }
     else
     {
-        if (Geom)
+        while (Geom)
         {
             objects = 
                 g_slist_append(objects,
                                plot_geom(Geom, XForm, XForm1D, 
                                          Fill, Line, theDoc));
+            /* Yes, you can have multiple (disconnected) Geoms */
+            Geom = find_child_next(vdx_types_Geom, Shape, Geom);
         }
         /* Text always after the object it's attached to, 
            so it appears on top */
@@ -1480,7 +1901,7 @@ vdx_setup_layers(struct vdx_PageSheet* PageSheet, VDXDocument* theDoc,
     GSList *layername = NULL;
     struct vdx_any* Any;
     struct vdx_Layer *theLayer;
-    Layer *diaLayer;
+    Layer *diaLayer = 0;
     g_debug("vdx_setup_layers");
     
     /* We need the layers in reverse order */
@@ -1519,6 +1940,8 @@ vdx_get_pages(xmlNodePtr cur, VDXDocument* theDoc, DiagramData *dia)
     for (Page = cur->xmlChildrenNode; Page; Page = Page->next)
     {
         struct vdx_PageSheet PageSheet;
+        xmlAttrPtr attr;
+        gboolean background = FALSE;
         if (xmlIsBlankNode(Page)) { continue; }
 
         for (Shapes = Page->xmlChildrenNode; Shapes; Shapes = Shapes->next)
@@ -1542,7 +1965,12 @@ vdx_get_pages(xmlNodePtr cur, VDXDocument* theDoc, DiagramData *dia)
                 vdx_parse_shape(Shape, &PageSheet, theDoc, dia);
             }
         }
-        theDoc->Page++;
+        for (attr = Page->properties; attr; attr = attr->next) 
+        {
+            if (!strcmp((char *)attr->name, "Background"))
+                background = TRUE;
+        }
+        if (!background) theDoc->Page++;
         free_children(&PageSheet);
     }
 }
@@ -1556,6 +1984,7 @@ vdx_free(VDXDocument *theDoc)
 {
     int i;
     struct vdx_StyleSheet theSheet;
+    struct vdx_Master theMaster;
 
     g_debug("vdx_free");
     if (theDoc->Colors) g_array_free(theDoc->Colors, TRUE);
@@ -1571,7 +2000,15 @@ vdx_free(VDXDocument *theDoc)
         }
         g_array_free(theDoc->StyleSheets, TRUE);
     }
-    /* Masters */
+    if (theDoc->Masters)
+    {
+        for (i=0; i<theDoc->Masters->len; i++) {
+            theMaster = g_array_index(theDoc->Masters, 
+                                     struct vdx_Master, i);
+            free_children(&theMaster);
+        }
+        g_array_free(theDoc->Masters, TRUE);
+    }
 }
 
 
