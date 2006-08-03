@@ -36,7 +36,7 @@
       layer and manipulating which layers are visible. If you want to automate
       post processing such slide show, you can use --show-layers command line switch.
       For example: 
-      <tt>dia --show-layers=Background,Slide3 --export-to-format=eps-builtin --export=foo.eps foo.dia</tt>
+      <tt>dia --show-layers=Background,Slide3 --filter=eps-builtin --export=foo.eps foo.dia</tt>
       will export the Background and Slide3 layers, i.e. the eps output has only these
       two layers and none others. You would then repeat the export for each
       combination of layers you need to produce your slides. Using this switch

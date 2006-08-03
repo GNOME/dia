@@ -5,11 +5,13 @@ sheet_in_files = \
   Flowchart.sheet.in Circuit.sheet.in Contact.sheet.in GRAFCET.sheet.in \
   chronogram.sheet.in SADT.sheet.in Pneumatic.sheet.in Electric.sheet.in \
   civil.sheet.in jigsaw.sheet.in MSE.sheet.in SDL.sheet.in Logic.sheet.in \
-  EML.sheet.in Misc.sheet.in Assorted.sheet.in ciscocomputer.sheet.in \
+  Misc.sheet.in Assorted.sheet.in ciscocomputer.sheet.in \
   ciscohub.sheet.in ciscomisc.sheet.in cisconetwork.sheet.in \
   ciscotelephony.sheet.in Cybernetics.sheet.in IsometricMap.sheet.in \
   Istar.sheet.in Jackson.sheet.in KAOS.sheet.in ChemEng.sheet.in \
   AADL.sheet.in Gane_and_Sarson.sheet.in
+
+# EML.sheet.in disabled as the objects have GPL issues, see objects/Makefile.am
 
 SHEETS = $(sheet_in_files:.sheet.in=.sheet)
 

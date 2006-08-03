@@ -1,3 +1,13 @@
+2006-08-03  Lars Clausen  <lars@raeder.dk>
+
+	* sheets/Makefile.am: EML sheet taken out since it's been empty
+	for five years anyway.  Fixes bug #347894.
+
+	* doc/eu/dia.dbk: 
+	* doc/en/dia.dbk: 
+	* doc/en/usage-layers.xml: Fixed obsolete references to
+	export-to-format.  Fixes bug #346510.
+
 2006-08-02  Lars Clausen  <lars@raeder.dk>
 
 	* plug-ins/vdx/visio-types.h: 

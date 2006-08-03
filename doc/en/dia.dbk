@@ -98,7 +98,7 @@
 
       <arg><option>-t <replaceable>FORMAT</replaceable></option></arg>
 
-      <arg><option>--export-to-format=<replaceable>FORMAT</replaceable></option></arg>
+      <arg><option>--filter=<replaceable>FORMAT</replaceable></option></arg>
 
       <arg><option>-v</option></arg>
 
