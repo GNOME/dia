@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-07-18 13:12+0200\n"
-"PO-Revision-Date: 2006-07-18 13:09+0200\n"
+"POT-Creation-Date: 2006-08-03 15:55+0200\n"
+"PO-Revision-Date: 2006-08-03 16:50+0200\n"
 "Last-Translator: Jakub Friedl <jfriedl@suse.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -157,8 +157,7 @@ msgstr "Dia verze %s\n"
 
 #: ../app/app_procs.c:894 ../app/diaconv.c:201 ../app/diaconv.c:203
 #, c-format
-msgid ""
-"Couldn't find standard objects when looking for object-libs; exiting...\n"
+msgid "Couldn't find standard objects when looking for object-libs; exiting...\n"
 msgstr "Nelze nalézt standardní objekty při hledání object-libs; končím...\n"
 
 #: ../app/app_procs.c:896
@@ -166,8 +165,7 @@ msgstr "Nelze nalézt standardní objekty při hledání object-libs; končím..
 msgid ""
 "Couldn't find standard objects when looking for object-libs in '%s'; "
 "exiting...\n"
-msgstr ""
-"Nelze nalézt standardní objekty při hledání object-libs v '%s'; končím...\n"
+msgstr "Nelze nalézt standardní objekty při hledání object-libs v '%s'; končím...\n"
 
 #: ../app/app_procs.c:937
 msgid "Diagram1.dia"
@@ -2082,8 +2080,7 @@ msgstr "Nekonečná přímka"
 
 #: ../lib/bezier_conn.c:636
 msgid "Internal error: Setting corner type of endpoint of bezier"
-msgstr ""
-"Interní chyba: Nastavení rohového typu koncového bodu u Beziérovy křivky"
+msgstr "Interní chyba: Nastavení rohového typu koncového bodu u Beziérovy křivky"
 
 #: ../lib/dia_dirs.c:237
 #, c-format
@@ -4912,9 +4909,8 @@ msgid "Cairo Portable Document Format"
 msgstr "Cairo Portable Document Format"
 
 #: ../plug-ins/cairo/diacairo.c:1108
-#, fuzzy
 msgid "Cairo Scalable Vector Graphics"
-msgstr "Scalable Vector Graphics"
+msgstr "Cairo Scalable Vector Graphics"
 
 #: ../plug-ins/cairo/diacairo.c:1118
 msgid "Cairo PNG"
@@ -4977,7 +4973,7 @@ msgstr "read_dxf_codes selhalo na '%s'\n"
 #: ../plug-ins/dxf/dxf-import.c:1324
 #, c-format
 msgid "Binary DXF from '%s' not supported\n"
-msgstr ""
+msgstr "Binární DXF z '%s' není podporováno\n"
 
 #: ../plug-ins/dxf/dxf-import.c:1355
 #, c-format
@@ -5047,9 +5043,8 @@ msgid "gdk-pixbuf based bitmap export/import"
 msgstr "export/import bitmapy založené na gdk-pixbuf"
 
 #: ../plug-ins/pgf/pgf.c:26
-#, fuzzy
 msgid "LaTeX PGF export filter"
-msgstr "Exportní filtr TeX Pstricks"
+msgstr "Exportní filtr LaTeX PGF"
 
 #: ../plug-ins/pgf/render_pgf.c:1047
 #: ../plug-ins/pstricks/render_pstricks.c:731
@@ -5057,9 +5052,8 @@ msgid "Not valid UTF8"
 msgstr "Není platné UTF8"
 
 #: ../plug-ins/pgf/render_pgf.c:1212
-#, fuzzy
 msgid "LaTeX PGF macros"
-msgstr "Makra formátu TeX PSTricks"
+msgstr "Makra LaTeX PGF"
 
 #: ../plug-ins/pstricks/pstricks.c:26
 msgid "TeX Pstricks export filter"
@@ -5099,6 +5093,8 @@ msgid ""
 "Invalid path data.\n"
 "svg:path data must start with moveto."
 msgstr ""
+"Neplatná data cesty.\n"
+"Data svg:path musí začínat příkazem moveto."
 
 #: ../plug-ins/svg/svg-import.c:204
 msgid "Can't find standard object"
@@ -5150,13 +5146,11 @@ msgstr "Exportní filtr formátu WordPerfect Graphics"
 #: ../plug-ins/xfig/xfig-export.c:459
 #, c-format
 msgid "FIG format has no equivalent of arrow style %s, using simple arrow.\n"
-msgstr ""
-"Formát FIG nemá ekvivalent stylu šipky %s, používám jednoduchou šipku.\n"
+msgstr "Formát FIG nemá ekvivalent stylu šipky %s, používám jednoduchou šipku.\n"
 
 #: ../plug-ins/xfig/xfig-export.c:481
 msgid "No more user-definable colors - using black"
-msgstr ""
-"Není k dispozici více uživatelsky definovaných barev - použije se černá"
+msgstr "Není k dispozici více uživatelsky definovaných barev - použije se černá"
 
 #: ../plug-ins/xfig/xfig-export.c:1186
 msgid "XFig format"
@@ -5165,7 +5159,7 @@ msgstr "Formát XFig"
 #: ../plug-ins/xfig/xfig-import.c:109
 #, c-format
 msgid "Color index %d too high, only 512 colors allowed. Using black instead."
-msgstr ""
+msgstr "Barevný index %d je příliš vysoký, je povoleno pouze 512 barev. Použije se černá."
 
 #: ../plug-ins/xfig/xfig-import.c:136
 msgid "Patterns are not supported by Dia"
@@ -5199,7 +5193,7 @@ msgstr "Neznámý typ šipky %d\n"
 #: ../plug-ins/xfig/xfig-import.c:377
 #, c-format
 msgid "Depth %d of of range, only 0-%d allowed.\n"
-msgstr ""
+msgstr "Hloubka %d je mimo rozsah, povoleno pouze 0-%d.\n"
 
 #: ../plug-ins/xfig/xfig-import.c:424
 #, c-format
@@ -5268,7 +5262,7 @@ msgstr "Nelze načíst barvu: %s\n"
 #: ../plug-ins/xfig/xfig-import.c:1039
 #, c-format
 msgid "Color number %d out of range 0..%d.  Discarding color.\n"
-msgstr ""
+msgstr "Číslo barvy %d mimo rozsah 0..%d. Barva zahozena.\n"
 
 #: ../plug-ins/xfig/xfig-import.c:1085
 #, c-format
@@ -5389,8 +5383,7 @@ msgstr "Filtr pro transformaci XSL"
 
 #: ../plug-ins/xslt/xslt.c:346
 msgid "No valid configuration files found for the XSLT plugin, not loading."
-msgstr ""
-"Nenalezeny platné konfigurační soubory pro zásuvný modul XSLT, nenačítám jej."
+msgstr "Nenalezeny platné konfigurační soubory pro zásuvný modul XSLT, nenačítám jej."
 
 #: ../plug-ins/xslt/xsltdialog.c:96
 msgid "Export through XSLT"
@@ -5406,12 +5399,11 @@ msgstr "Do:"
 
 #: ../sheets/AADL.sheet.in.h:1
 msgid "AADL"
-msgstr ""
+msgstr "AADL"
 
 #: ../sheets/AADL.sheet.in.h:2
-#, fuzzy
 msgid "AADL Shapes"
-msgstr "Tvarovat"
+msgstr "Tvary AADL"
 
 #: ../sheets/AADL.sheet.in.h:3
 msgid "Bus"
@@ -8840,3 +8832,4 @@ msgstr "Datový server Sybase"
 #: ../sheets/sybase.sheet.in.h:8
 msgid "Sybase replication server"
 msgstr "Replikační server Sybase"
+
