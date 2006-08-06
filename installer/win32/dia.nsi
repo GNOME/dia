@@ -2125,6 +2125,8 @@ ${File} "..\..\data\" "popup-ui.xml"
     SetShellVarContext all
     
     CreateDirectory "$SMPROGRAMS\Dia"
+    ReadRegStr $0 HKU ".DEFAULT\Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders" "My Pictures"
+    SetOutPath "$0"
     CreateShortCut "$SMPROGRAMS\Dia\Dia.lnk" "$INSTDIR\bin\diaw.exe"
     CreateShortCut "$SMPROGRAMS\Dia\Dia Manual (CHM).lnk" "$INSTDIR\help\C\dia-manual.chm"
     CreateShortCut "$SMPROGRAMS\Dia\Dia Manual (PDF).lnk" "$INSTDIR\help\C\dia-manual.pdf"
