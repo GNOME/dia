@@ -45,6 +45,7 @@ typedef struct _Group NewGroup;
 struct _Group {
   Element element;
 
+  gboolean is_open;
   ConnectionPoint connections[NUM_CONNECTIONS];
 };
 
@@ -110,6 +111,9 @@ static ObjectOps newgroup_ops = {
 
 static PropDescription newgroup_props[] = {
   ELEMENT_COMMON_PROPERTIES,
+  { "open", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE,
+    N_("Open group"), NULL, NULL},
+
   PROP_DESC_END
 };
 
@@ -123,6 +127,7 @@ newgroup_describe_props(NewGroup *group)
 
 static PropOffset newgroup_offsets[] = {
   ELEMENT_COMMON_PROPERTIES_OFFSETS,
+  { "open", PROP_TYPE_BOOL, offsetof(NewGroup, is_open) },
   { NULL, 0, 0 }
 };
 
@@ -158,8 +163,6 @@ static void
 newgroup_select(NewGroup *group, Point *clicked_point,
 	   DiaRenderer *interactive_renderer)
 {
-  real radius;
-
   element_update_handles(&group->element);
 }
 
@@ -258,6 +261,12 @@ newgroup_update_data(NewGroup *group)
   obj->position = elem->corner;
   
   element_update_handles(elem);
+
+  if (group->is_open) {
+    obj->flags &= ~DIA_OBJECT_GRABS_CHILD_INPUT;
+  } else {
+    obj->flags |= DIA_OBJECT_GRABS_CHILD_INPUT;
+  }
 }
 
 static DiaObject *

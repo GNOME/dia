@@ -1,3 +1,13 @@
+2006-08-06  Lars Clausen  <lars@raeder.dk>
+
+	* objects/Misc/newgroup.c: 
+	* lib/diagramdata.c: 
+	* app/diagram.[ch]: 
+	* app/select.c: 
+	* app/modify_tool.c: 
+	* lib/object.[ch]: Work towards a more reasonable definition of
+	Groups. 
+	
 2006-08-06  Steffen Macke <sdteffen@gmail.com>
 
 	* installer/win32/dia.nsi: Save diagrams by default in "My Pictures";

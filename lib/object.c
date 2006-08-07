@@ -639,6 +639,48 @@ dia_object_is_selected (const DiaObject *obj)
   return FALSE;
 }
 
+/** Return the top-most object in the parent chain that has the given
+ * flags set.
+ * @param obj An object to start at.  If this is NULL, NULL is returned.
+ * @param flags The flags to check.  If 0, the top-most parent is returned.
+ * If more than one flag is given, the top-most parent that has all the given
+ * flags set is returned.
+ * @returns An object that either has all the flags set or
+ * is obj itself.  It is guaranteed that no parent of this object has all the
+ * given flags set.
+ */
+DiaObject *
+dia_object_get_parent_with_flags(DiaObject *obj, guint flags)
+{
+  DiaObject *top = obj;
+  if (obj == NULL) {
+    return NULL;
+  }
+  while (obj->parent != NULL) {
+    obj = obj->parent;
+    if ((obj->flags & flags) == flags) {
+      top = obj;
+    }
+  }
+  return top;
+}
+
+/** Utility function: Checks if an objects can be selected.
+ * Reasons for not being selectable include:
+ * Being inside a closed group.
+ * Being in a non-active layer.
+ *
+ * @param obj An object to test.
+ * @returns TRUE if the object is not currently selected.
+ */
+gboolean
+dia_object_is_selectable(DiaObject *obj)
+{
+  return obj->parent_layer == obj->parent_layer->parent_diagram->active_layer
+    && obj == dia_object_get_parent_with_flags(obj, DIA_OBJECT_GRABS_CHILD_INPUT);
+}
+
+
 /****** DiaObject register: **********/
 
 static guint hash(gpointer key)

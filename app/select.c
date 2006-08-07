@@ -43,8 +43,9 @@ select_all_callback(gpointer data, guint action, GtkWidget *widget)
   while (objects != NULL) {
     DiaObject *obj = (DiaObject *)objects->data;
     
-    if (!diagram_is_selected(dia, obj))
+    if (!diagram_is_selected(dia, obj)) {
       diagram_select(dia, obj);
+    }
     
     objects = g_list_next(objects);
   }
@@ -85,10 +86,11 @@ select_invert_callback(gpointer data, guint action, GtkWidget *widget)
   for (; tmp != NULL; tmp = g_list_next(tmp)) {
     DiaObject *obj = (DiaObject *)tmp->data;
     
-    if (!diagram_is_selected(dia, obj))
+    if (!diagram_is_selected(dia, obj)) {
       diagram_select(dia, obj);
-    else
+    } else {
       diagram_unselect_object(dia, obj);
+    }
   }
 
   ddisplay_do_update_menu_sensitivity(ddisp);
@@ -119,11 +121,10 @@ select_connected_callback(gpointer data, guint action, GtkWidget *widget)
     for (i = 0; i < obj->num_handles; i++) {
       Handle *handle = obj->handles[i];
       
-      if (handle->connected_to != NULL &&
-	handle->connected_to->object->parent_layer == dia->data->active_layer) {
-	if (!diagram_is_selected(dia, handle->connected_to->object)) {
-          diagram_select(dia, handle->connected_to->object);
-	}
+      if (handle->connected_to != NULL
+	  && dia_object_is_selectable(handle->connected_to->object)
+	  && !diagram_is_selected(dia, handle->connected_to->object)) {
+	diagram_select(dia, handle->connected_to->object);
       }      
     }
   }
@@ -139,7 +140,7 @@ select_connected_callback(gpointer data, guint action, GtkWidget *widget)
       for (; conns != NULL; conns = g_list_next(conns)) {
         DiaObject *obj2 = (DiaObject *)conns->data;
 
-	if (obj2->parent_layer == dia->data->active_layer
+	if (dia_object_is_selectable(obj2) 
 	    && !diagram_is_selected(dia, obj2)) {
           diagram_select(dia, obj2);
 	}
@@ -163,10 +164,11 @@ select_transitively(Diagram *dia, DiaObject *obj)
     Handle *handle = obj->handles[i];
     
     if (handle->connected_to != NULL &&
-	handle->connected_to->object->parent_layer == dia->data->active_layer) {
-      if (!diagram_is_selected(dia, handle->connected_to->object)) {
-	diagram_select(dia, handle->connected_to->object);
-	newly_selected = g_list_prepend(newly_selected, handle->connected_to->object);
+	dia_object_is_selectable(handle->connected_to->object)) {
+      DiaObject *connected_object = handle->connected_to->object;
+      if (!diagram_is_selected(dia, connected_object)) {
+	diagram_select(dia, connected_object);
+	newly_selected = g_list_prepend(newly_selected, connected_object);
       }
     }      
   }
@@ -178,8 +180,7 @@ select_transitively(Diagram *dia, DiaObject *obj)
     for (; conns != NULL; conns = g_list_next(conns)) {
       DiaObject *obj2 = (DiaObject *)conns->data;
 
-      if (obj2->parent_layer == dia->data->active_layer
-	  && !diagram_is_selected(dia, obj2)) {
+      if (dia_object_is_selectable(obj2) && !diagram_is_selected(dia, obj2)) {
 	diagram_select(dia, obj2);
 	newly_selected = g_list_prepend(newly_selected, obj2);
       }
@@ -260,8 +261,3 @@ select_style_callback(gpointer data, guint action, GtkWidget *widget)
   /* simply set the selection style to the value of `action' */
   selection_style = action;
 }
-
-
-
-
-

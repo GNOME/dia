@@ -651,13 +651,22 @@ diagram_unselect_objects(Diagram *dia, GList *obj_list)
   g_signal_emit (dia, diagram_signals[SELECTION_CHANGED], 0, g_list_length (dia->data->selected));
 }
 
+/** Make a single object selected.
+ * Note that an object inside a closed group cannot be made selected, nor
+ * can an object in a non-active layer.
+ * @param diagram The diagram that the object belongs to (sorta redundant now)
+ * @param obj The object that should be made selected.
+ */
 void
 diagram_select(Diagram *diagram, DiaObject *obj)
 {
-  data_select(diagram->data, obj);
-  obj->ops->selectf(obj, NULL, NULL);
-  object_add_updates(obj, diagram);
-  g_signal_emit (diagram, diagram_signals[SELECTION_CHANGED], 0, g_list_length (diagram->data->selected));
+  if (dia_object_is_selectable(obj)) {
+    data_select(diagram->data, obj);
+    obj->ops->selectf(obj, NULL, NULL);
+    object_add_updates(obj, diagram);
+    g_signal_emit (diagram, diagram_signals[SELECTION_CHANGED], 0,
+		   g_list_length (diagram->data->selected));
+  }
 }
 
 void

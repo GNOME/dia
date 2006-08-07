@@ -598,14 +598,10 @@ find_selected_objects(DDisplay *ddisp, ModifyTool *tool)
   r.top = MIN(tool->start_box.y, tool->end_box.y);
   r.bottom = MAX(tool->start_box.y, tool->end_box.y);
   
-  if (prefs.reverse_rubberbanding_intersects) {
-    if (tool->start_box.x > tool->end_box.x) {
-      return
-	layer_find_objects_intersecting_rectangle(ddisp->diagram->data->active_layer, &r);
-    } else {
-      return
-	layer_find_objects_in_rectangle(ddisp->diagram->data->active_layer, &r);
-    }
+  if (prefs.reverse_rubberbanding_intersects && 
+      tool->start_box.x > tool->end_box.x) {
+    return
+      layer_find_objects_intersecting_rectangle(ddisp->diagram->data->active_layer, &r);
   } else {
     return
       layer_find_objects_in_rectangle(ddisp->diagram->data->active_layer, &r);

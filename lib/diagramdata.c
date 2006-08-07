@@ -867,7 +867,12 @@ layer_find_objects_intersecting_rectangle(Layer *layer, Rectangle *rect)
     obj = (DiaObject *)list->data;
 
     if (rectangle_intersects(rect, &obj->bounding_box)) {
-      selected_list = g_list_prepend(selected_list, obj);
+      if (dia_object_is_selectable(obj)) {
+	selected_list = g_list_prepend(selected_list, obj);
+      }
+      /* Objects in closed groups do not get selected, but their parents do.
+      * Since the parents bbox is outside the objects, they will be found
+      * anyway and the inner object can just be skipped. */
     }
 
     list = g_list_next(list);
@@ -892,10 +897,13 @@ layer_find_objects_in_rectangle(Layer *layer, Rectangle *rect)
   selected_list = NULL;
   list = layer->objects;
   while (list != NULL) {
+    DiaObject *parent;
     obj = (DiaObject *)list->data;
 
     if (rectangle_in_rectangle(rect, &obj->bounding_box)) {
-      selected_list = g_list_prepend(selected_list, obj);
+      if (dia_object_is_selectable(obj)) {
+	selected_list = g_list_prepend(selected_list, obj);
+      }
     }
     
     list = g_list_next(list);
@@ -944,6 +952,10 @@ layer_find_closest_object_except(Layer *layer, Point *pos,
   ;
   }
 
+  /* If the object is within a closed group, find the group. */
+  closest = dia_object_get_parent_with_flags(closest,
+					     DIA_OBJECT_GRABS_CHILD_INPUT);
+
   return closest;
 }
 
@@ -989,6 +1001,8 @@ layer_find_closest_connectionpoint(Layer *layer,
     obj = (DiaObject *) l->data;
 
     if (obj == notthis) continue;
+    if (obj != dia_object_get_parent_with_flags(obj, DIA_OBJECT_GRABS_CHILD_INPUT))
+      continue;
     for (i=0;i<obj->num_connections;i++) {
       cp = obj->connections[i];
       /* Note: Uses manhattan metric for speed... */
