@@ -27,6 +27,7 @@
 #include "object.h"
 #include "diagramdata.h" /* for Layer */
 #include "message.h"
+#include "parent.h"
 
 #include "dummy_dep.h"
 

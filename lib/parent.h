@@ -31,5 +31,6 @@ gboolean parent_list_expand(GList *obj_list);
 GList *parent_list_affected_hierarchy(GList *obj_list);
 gboolean parent_handle_move_out_check(DiaObject *object, Point *to);
 gboolean parent_handle_move_in_check(DiaObject *object, Point *to, Point *start_at);
+void parent_apply_to_children(DiaObject *obj, DiaObjectFunc func);
 
 #endif /* PARENT_H  */

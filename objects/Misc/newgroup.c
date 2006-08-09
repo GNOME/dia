@@ -218,7 +218,6 @@ newgroup_draw(NewGroup *group, DiaRenderer *renderer)
 			  &color_black);
 }
 
-
 static void
 newgroup_update_data(NewGroup *group)
 {

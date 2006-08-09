@@ -31,7 +31,6 @@
 #include "diamenu.h"
 #include "objchange.h"
 #include "dia_xml.h"
-#include "parent.h"
 #include "text.h"
 
 G_BEGIN_DECLS
@@ -563,6 +562,9 @@ DiaObject     *dia_object_get_parent_with_flags(DiaObject *obj, guint flags);
 gboolean       dia_object_is_selectable(DiaObject *obj);
 /* The below are for debugging purposes only. */
 gboolean   dia_object_sanity_check(const DiaObject *obj, const gchar *msg);
+
+/** A standard definition of a function that takes a DiaObject */
+typedef void (*DiaObjectFunc) (const DiaObject *obj);
 
 G_END_DECLS
 

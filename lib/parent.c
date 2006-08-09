@@ -18,9 +18,9 @@
 
 #include <config.h>
 
-#include "parent.h"
 #include "geometry.h"
 #include "object.h"
+#include "parent.h"
 #include <glib.h>
 
 
@@ -301,4 +301,20 @@ parent_handle_extents(DiaObject *obj, Rectangle *extents)
   extents->bottom = *bottom_most;
 
   return TRUE;
+}
+
+/** Apply a function to all children of the given object (recursively, 
+ * depth-first).
+ * @param obj A parent object.
+ * @param function A function that takes a single DiaObject as an argument.
+ */
+void
+parent_apply_to_children(DiaObject *obj, DiaObjectFunc function)
+{
+  GList *children;
+  for (children = obj->children; children != NULL; children = g_list_next(children)) {
+    DiaObject *child = children->data;
+    (*function)(child);
+    parent_apply_to_children(child, function);
+  }
 }
