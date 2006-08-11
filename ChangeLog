@@ -1,3 +1,9 @@
+2006-08-11  Lars Clausen  <lars@raeder.dk>
+
+	* app/properties.c (properties_give_focus): Give focus to first
+	thing in a properties dialog.  Still need our own compound widgets
+	to get focus right.
+
 2006-08-06  Lars Clausen  <lars@raeder.dk>
 
 	* objects/Misc/newgroup.c: 

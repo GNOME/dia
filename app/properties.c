@@ -164,6 +164,21 @@ properties_respond(GtkWidget *widget,
   return 0;
 }
 
+/** Give focus to the first focusable widget found in `widget'.
+ * @param widget Some (possibly composite) widget.
+ */
+static void
+properties_give_focus(GtkWidget *widget, gpointer data)
+{
+  if (GTK_WIDGET_CAN_FOCUS(widget)) {
+    gtk_widget_grab_focus(widget);
+  } else {
+    if (GTK_IS_CONTAINER(widget)) {
+      gtk_container_foreach(GTK_CONTAINER(widget), properties_give_focus, data);
+    }
+  }
+}
+
 void
 properties_show(Diagram *dia, DiaObject *obj)
 {
@@ -214,6 +229,8 @@ properties_show(Diagram *dia, DiaObject *obj)
   gtk_box_pack_start(GTK_BOX(dialog_vbox), properties, TRUE, TRUE, 0);
 
   gtk_widget_show (properties);
+
+  properties_give_focus(properties, NULL);
 
   if (obj != current_obj)
     gtk_window_resize (GTK_WINDOW(dialog), 1, 1); /* resize to minimum */
