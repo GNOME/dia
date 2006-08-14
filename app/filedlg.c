@@ -165,8 +165,8 @@ file_open_response_callback(GtkWidget *fs,
       diagram_update_extents(diagram);
       layer_dialog_set_diagram(diagram);
       
-      if (diagram->displays != NULL) {
-	GSList *displays = diagram->displays;
+      if (diagram->displays == NULL) {
+/*	GSList *displays = diagram->displays;
 	GSList *displays_head = displays;
 	diagram->displays = NULL;
 	for (; displays != NULL; displays = g_slist_next(displays)) {
@@ -176,6 +176,7 @@ file_open_response_callback(GtkWidget *fs,
 	}
 	g_slist_free(displays_head);
       } else {
+*/
 	new_display(diagram);
       }
     }

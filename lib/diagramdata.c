@@ -180,11 +180,9 @@ diagram_data_class_init(DiagramDataClass *klass)
               G_TYPE_POINTER,
               G_TYPE_POINTER);
 
-
   object_class->finalize = diagram_data_finalize;
   klass->object_add = _diagram_data_object_add;
   klass->object_remove = _diagram_data_object_remove;
-
 }
 
 /** Create a new layer in this diagram.
@@ -588,16 +586,16 @@ data_get_sorted_selected_remove(DiagramData *data)
  *  @param signal_name The name of the signal.
  */
 void 
-data_emit(DiagramData *data,Layer *layer,DiaObject* obj,const char *signal_name) 
+data_emit(DiagramData *data, Layer *layer, DiaObject* obj, 
+	  const char *signal_name) 
 {
-
-    /* check what signal it is */
-    if (strcmp("object_add",signal_name) == 0)
-        g_signal_emit (data, diagram_data_signals[OBJECT_ADD], 0,layer,obj);
-    
-    if (strcmp("object_remove",signal_name) == 0)
-        g_signal_emit (data, diagram_data_signals[OBJECT_REMOVE], 0,layer,obj);
-          
+  /* check what signal it is */
+  if (strcmp("object_add",signal_name) == 0)
+    g_signal_emit(data, diagram_data_signals[OBJECT_ADD], 0, layer, obj);
+  
+  if (strcmp("object_remove",signal_name) == 0)
+    g_signal_emit(data, diagram_data_signals[OBJECT_REMOVE], 0, layer, obj);
+  
 }
 
 

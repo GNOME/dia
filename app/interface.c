@@ -1209,7 +1209,9 @@ dia_dnd_file_drag_data_received (GtkWidget        *widget,
             diagram_update_extents(diagram);
             layer_dialog_set_diagram(diagram);
             
-            ddisp = new_display(diagram);
+	    if (diagram->displays == NULL) {
+	      ddisp = new_display(diagram);
+	    }
           }
 
           pFrom = strstr(pTo, "file:");

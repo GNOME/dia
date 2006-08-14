@@ -597,8 +597,9 @@ handle_initial_diagram(const char *in_file_name,
   } else {
     if (g_file_test(in_file_name, G_FILE_TEST_EXISTS)) {
       diagram = diagram_load (in_file_name, NULL);
-    } else
+    } else {
       diagram = new_diagram (in_file_name);
+    }
 	      
     if (diagram != NULL) {
       diagram_update_extents(diagram);
@@ -937,14 +938,12 @@ app_init (int argc, char **argv)
     gchar *filename = g_filename_from_utf8(_("Diagram1.dia"), -1, NULL, NULL, NULL);
     Diagram *diagram = new_diagram (filename);
     g_free(filename);
-	
-	      
+    
     if (diagram != NULL) {
       diagram_update_extents(diagram);
-      if (app_is_interactive()) {
-	layer_dialog_set_diagram(diagram);
-	new_display(diagram);
-      }
+      diagram->virtual = TRUE;
+      layer_dialog_set_diagram(diagram);
+      new_display(diagram);
     }
   }
   g_slist_free(files);

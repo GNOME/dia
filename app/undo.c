@@ -927,7 +927,7 @@ group_objects_revert(struct GroupObjectsChange *change, Diagram *dia)
   DEBUG_PRINTF(("group_objects_revert()\n"));
   change->applied = 0;
   
-  diagram_unselect_object(dia, change->group);
+  diagram_unselect_object(change->group);
   object_add_updates(change->group, dia);
 
   layer_set_object_list(change->layer, g_list_copy(change->orig_list));
@@ -995,7 +995,7 @@ ungroup_objects_apply(struct UngroupObjectsChange *change, Diagram *dia)
   
   change->applied = 1;
   
-  diagram_unselect_object(dia, change->group);
+  diagram_unselect_object(change->group);
   object_add_updates(change->group, dia);
   layer_replace_object_with_list(change->layer, change->group,
 				 g_list_copy(change->obj_list));

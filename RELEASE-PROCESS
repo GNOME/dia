@@ -5,6 +5,8 @@ This document, at this point, is a proposal only. It attempts to
 document how we intend to make the upcoming releases, in order to make
 as sure as possible no stupid bugs creep in just before the release.
 
+For the next release, consider getting coverity.com to bugcheck.
+
 Contents
 --------
 

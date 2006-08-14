@@ -29,6 +29,7 @@
 #include "plug-ins.h"
 
 extern DiaObjectType analog_clock_type;
+/** Taken from app, but here while testing. */
 extern DiaObjectType newgroup_type;
 
 DIA_PLUGIN_CHECK_INIT

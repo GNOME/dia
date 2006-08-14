@@ -32,8 +32,10 @@
 #include "widgets.h"
 #include "message.h"
 #include "properties.h"
+#include "diagramdata.h"
+#include "parent.h"
 
-#include "pixmaps/newgroup.xpm"
+#include "objects/Misc/pixmaps/newgroup.xpm"
 
 #define NUM_CONNECTIONS 9
 
@@ -264,7 +266,20 @@ newgroup_update_data(NewGroup *group)
   if (group->is_open) {
     obj->flags &= ~DIA_OBJECT_GRABS_CHILD_INPUT;
   } else {
+    gboolean newlySet = FALSE;
+    Layer *layer;
+    if (!object_flags_set(obj, DIA_OBJECT_GRABS_CHILD_INPUT)) {
+      newlySet = TRUE;
+    }
     obj->flags |= DIA_OBJECT_GRABS_CHILD_INPUT;
+    if (newlySet) {
+      layer = dia_object_get_parent_layer(obj);
+      if (layer != NULL) { /* Placed in diagram already */
+	/* Iterate through all selected objects, picking out children */
+	
+	parent_apply_to_children(obj, diagram_unselect_object);
+      }
+    }
   }
 }
 

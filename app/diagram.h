@@ -45,6 +45,7 @@ struct _Diagram {
 
   char *filename;
   int unsaved;            /* True if diagram is created but not saved.*/
+  gboolean virtual;       /* True if the diagram was created as the default.*/
   int mollified;
   gboolean autosaved;     /* True if the diagram is autosaved since last mod */
   char *autosavefilename;     /* Holds the name of the current autosave file
@@ -69,7 +70,7 @@ struct _Diagram {
 };
 
 typedef struct _DiagramClass {
-  GObjectClass parent_class;
+  DiagramDataClass parent_class;
 	
   /* signals */
   void (* removed)           (Diagram*);
@@ -94,7 +95,7 @@ void diagram_add_object(Diagram *dia, DiaObject *obj);
 void diagram_add_object_list(Diagram *dia, GList *list);
 void diagram_selected_break_external(Diagram *dia);
 void diagram_remove_all_selected(Diagram *diagram, int delete_empty);
-void diagram_unselect_object(Diagram *diagram, DiaObject *obj);
+void diagram_unselect_object(DiaObject *obj);
 void diagram_unselect_objects(Diagram *dia, GList *obj_list);
 void diagram_select(Diagram *diagram, DiaObject *obj);
 void diagram_select_list(Diagram *diagram, GList *list);

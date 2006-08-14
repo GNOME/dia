@@ -43,6 +43,7 @@
 #include "dynamic_refresh.h"
 #include "textedit.h"
 #include "lib/diamarshal.h"
+#include "parent.h"
 
 static GList *open_diagrams = NULL;
 
@@ -59,6 +60,7 @@ static gint diagram_parent_sort_cb(gconstpointer a, gconstpointer b);
 
 static void diagram_class_init (DiagramClass *klass);
 static gboolean diagram_init(Diagram *obj, const char *filename);
+static void diagram_update_for_filename(Diagram *dia);
 
 enum {
   SELECTION_CHANGED,
@@ -269,17 +271,32 @@ diagram_load_into(Diagram         *diagram,
 Diagram *
 diagram_load(const char *filename, DiaImportFilter *ifilter)
 {
-  Diagram *diagram;
+  Diagram *diagram = NULL;
+  GList *diagrams;
+
+  for (diagrams = open_diagrams; diagrams != NULL; diagrams = g_list_next(diagrams)) {
+    Diagram *old_diagram = (Diagram*)diagrams->data;
+    if (old_diagram->virtual) {
+      diagram = old_diagram;
+      break;
+    }	
+  }
 
   /* TODO: Make diagram not be initialized twice */
-  diagram = new_diagram(filename);
+  if (diagram == NULL) {
+    diagram = new_diagram(filename);
+  }
   if (diagram == NULL) return NULL;
 
   if (!diagram_load_into (diagram, filename, ifilter)) {
     diagram_destroy(diagram);
     diagram = NULL;
   }
-
+  if (diagram->virtual) {
+    diagram_update_for_filename(diagram);
+    diagram->virtual = FALSE;
+  }
+  
   return diagram;
 }
 
@@ -328,7 +345,10 @@ diagram_modified(Diagram *dia)
     ddisplay_update_statusbar(display);
     displays = g_slist_next(displays);
   }
-  if (diagram_is_modified(dia)) dia->autosaved = FALSE;
+  if (diagram_is_modified(dia)) {
+    dia->autosaved = FALSE;
+    dia->virtual = FALSE;
+  }
   /*  diagram_set_modified(dia, TRUE);*/
 }
 
@@ -621,12 +641,15 @@ diagram_remove_all_selected(Diagram *diagram, int delete_empty)
 }
 
 void
-diagram_unselect_object(Diagram *diagram, DiaObject *obj)
+diagram_unselect_object(DiaObject *obj)
 {
+  Diagram *diagram = DIA_DIAGRAM(layer_get_parent_diagram
+				 (dia_object_get_parent_layer(obj)));
   object_add_updates(obj, diagram);
   textedit_remove_focus(obj, diagram);
-  data_unselect(diagram->data, obj);
-  g_signal_emit (diagram, diagram_signals[SELECTION_CHANGED], 0, g_list_length (diagram->data->selected));
+  data_unselect(DIA_DIAGRAM_DATA(diagram), obj);
+  g_signal_emit (diagram, diagram_signals[SELECTION_CHANGED], 0,
+		 g_list_length (DIA_DIAGRAM_DATA(diagram)->selected));
 }
 
 void
@@ -642,7 +665,7 @@ diagram_unselect_objects(Diagram *dia, GList *obj_list)
     obj = (DiaObject *) list->data;
 
     if (g_list_find(dia->data->selected, obj) != NULL){
-      diagram_unselect_object(dia, obj);
+      diagram_unselect_object(obj);
     }
 
     list = g_list_next(list);
@@ -1141,7 +1164,7 @@ void diagram_ungroup_selected(Diagram *dia)
       Change *change;
 
       /* Fix selection */
-      diagram_unselect_object(dia, group);
+      diagram_unselect_object(group);
 
       group_list = group_objects(group);
       diagram_select_list(dia, group_list);
@@ -1318,12 +1341,24 @@ diagram_place_down_selected(Diagram *dia)
 void
 diagram_set_filename(Diagram *dia, const char *filename)
 {
+  g_free(dia->filename);
+  dia->filename = g_filename_to_utf8(filename, -1, NULL, NULL, NULL);
+  
+  diagram_update_for_filename(dia);
+}
+
+/** Update the various areas that require updating when changing filename
+ * This will ensure that all places that use the filename are updated:
+ * Window titles, layer dialog, recent files, diagram tree.
+ * @param dia The diagram whose filename has changed.
+ */
+static void
+diagram_update_for_filename(Diagram *dia)
+{
   GSList *l;
   DDisplay *ddisp;
   char *title;
-  
-  g_free(dia->filename);
-  dia->filename = g_filename_to_utf8(filename, -1, NULL, NULL, NULL);
+  char *filename = dia->filename;
 
   title = diagram_get_name(dia);
 

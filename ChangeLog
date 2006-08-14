@@ -1,3 +1,24 @@
+2006-08-13  Lars Clausen  <lars@raeder.dk>
+
+	* objects/Misc/libmisc.c:
+	* {app,objects/Misc}/Makefile.am:
+	* objects/Misc/newgroup.c:
+	* app/newgroup.c: Moved newgroup.
+	
+	* app/diagram.[ch]:
+	* app/undo.c: 
+	* app/modify_tool.c: 
+	* app/select.c: Trim diagram_unselect_object() to the one required
+	argument. 
+
+	* app/app_procs.c:
+	* app/interface.c (dia_dnd_file_drag_data_received): 
+	* app/recent_files.c (open_recent_file_callback): 
+	* app/filedlg.c (file_open_response_callback): 
+	* app/diagram.c (diagram_load): 
+	Make the diagram created at start-up be a virtual diagram that
+	if unchanged is filled in by the first opened diagram, like Gnumeric.
+
 2006-08-11  Lars Clausen  <lars@raeder.dk>
 
 	* app/properties.c (properties_give_focus): Give focus to first

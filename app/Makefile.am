@@ -201,6 +201,7 @@ dia_core_files = \
 	    textedit.c \
 	    textedit.h \
 	    diagrid.h \
+	    newgroup.c \
 	    $(print_files)
 
 dia_SOURCES = \
