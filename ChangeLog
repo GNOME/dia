@@ -1,3 +1,9 @@
+2006-08-16  Lars Clausen  <lars@raeder.dk>
+
+	* app/diagram.c (diagram_load): 
+	* lib/object.c (dia_object_is_selectable): Two silly null-pointer
+	errors detected by Michael Duelli <m.duelli@web.de>
+
 2006-08-16  Steffen Macke <sdteffen@gmail.com>
 
 	* app/modify_tool.c:

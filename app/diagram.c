@@ -292,7 +292,7 @@ diagram_load(const char *filename, DiaImportFilter *ifilter)
     diagram_destroy(diagram);
     diagram = NULL;
   }
-  if (diagram->virtual) {
+  if (diagram != NULL && diagram->virtual) {
     diagram_update_for_filename(diagram);
     diagram->virtual = FALSE;
   }
