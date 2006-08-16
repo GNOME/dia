@@ -1,3 +1,9 @@
+2006-08-16  Steffen Macke <sdteffen@gmail.com>
+
+	* app/modify_tool.c:
+	* app/undo.c: Include parent.h
+	* lib/libdia.def: Include dia_object_is_selectable()
+
 2006-08-13  Lars Clausen  <lars@raeder.dk>
 
 	* objects/Misc/libmisc.c:

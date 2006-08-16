@@ -27,6 +27,7 @@
 #include "preferences.h"
 #include "diagram_tree_window.h"
 #include "textedit.h"
+#include "parent.h"
 
 #if 0
 #define DEBUG_PRINTF(args) printf args

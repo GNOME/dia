@@ -275,6 +275,7 @@ EXPORTS
  dia_object_default_make
  dia_object_defaults_load
  dia_object_defaults_save
+ dia_object_is_selectable
  dia_object_sanity_check
 
  dia_plugin_can_unload

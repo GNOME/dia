@@ -32,6 +32,7 @@
 #include "highlight.h"
 #include "textedit.h"
 
+#include "parent.h"
 #include "diacanvas.h"
 #include "prop_text.h"
 #include "gtk/gtk.h"
