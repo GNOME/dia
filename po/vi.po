@@ -1,5 +1,5 @@
 # Vietnamese translation for Đia.
-# Copyright © 2005-2006 Gnome i18n Project for Vietnamese.
+# Copyright © 2006 Gnome i18n Project for Vietnamese.
 # Nguyễn Thái Ngọc Duy <pclouds@gmx.net>, 2002.
 # Clytie Siddall <clytie@riverland.net.au>, 2005-2006.
 # 
@@ -7,15 +7,15 @@ msgid ""
 ""
 msgstr "Project-Id-Version: dia HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-06-07 10:12+0200\n"
-"PO-Revision-Date: 2006-06-08 22:02+0930\n"
+"POT-Creation-Date: 2006-08-19 02:27+0200\n"
+"PO-Revision-Date: 2006-08-19 17:59+0930\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: Vietnamese <gnomevi-list@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0\n"
-"X-Generator: LocFactoryEditor 1.6b36\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: LocFactoryEditor 1.6fc1\n"
 
 #.This is not an errror
 #: ../app/app_procs.c:260
@@ -65,19 +65,19 @@ msgid "Can't find output format/filter %s\n"
 msgstr "Không tìm thấy bộ lọc/định dạng xuất %s.\n"
 
 #.Translators:  The argument is a list of options, not to be translated
-#: ../app/app_procs.c:668
+#: ../app/app_procs.c:669
 #, c-format
 msgid "Select the filter/format out of: %s"
 msgstr "Hãy chọn bộ lọc/định dạng trong: %s"
 
 #.&export_file_name
-#: ../app/app_procs.c:687
-#: ../app/app_procs.c:714
+#: ../app/app_procs.c:688
+#: ../app/app_procs.c:715
 msgid "Export loaded file and exit"
 msgstr "Xuất tập tin được tải rồi thoát"
 
-#: ../app/app_procs.c:687
-#: ../app/app_procs.c:714
+#: ../app/app_procs.c:688
+#: ../app/app_procs.c:715
 #: ../app/diaconv.c:94
 msgid "OUTPUT"
 msgstr "XUẤT"
@@ -85,154 +85,159 @@ msgstr "XUẤT"
 #.&export_file_format
 #.&export_format_string
 #.&export_file_format
-#: ../app/app_procs.c:689
-#: ../app/app_procs.c:716
+#: ../app/app_procs.c:690
+#: ../app/app_procs.c:717
 msgid "TYPE"
 msgstr "KIỂU"
 
-#: ../app/app_procs.c:691
-#: ../app/app_procs.c:719
+#: ../app/app_procs.c:692
+#: ../app/app_procs.c:720
 msgid "Export graphics size"
 msgstr "Dạng kích thước đồ họa"
 
-#: ../app/app_procs.c:691
-#: ../app/app_procs.c:719
+#: ../app/app_procs.c:692
+#: ../app/app_procs.c:720
 msgid "WxH"
 msgstr "WxH"
 
 #.13.3.2004 sampo@iki.fi
-#: ../app/app_procs.c:693
-#: ../app/app_procs.c:721
+#: ../app/app_procs.c:694
+#: ../app/app_procs.c:722
 msgid ""
 "Show only specified layers (e.g. when exporting). Can be either the layer "
 "name or a range of layer numbers (X-Y)"
-msgstr "Hiển thị chỉ những lớp xác định (v.d. khi xuất). Có thể là hoặc tên lớp hoặc một phạm vi số lớp (X-Y)."
+msgstr "Hiển thị chỉ những lớp xác định (v.d. khi xuất). Có thể là hoặc tên lớp hoặc "
+"một phạm vi số lớp (X-Y)."
 
-#: ../app/app_procs.c:694
-#: ../app/app_procs.c:722
+#: ../app/app_procs.c:695
+#: ../app/app_procs.c:723
 msgid "LAYER,LAYER,..."
 msgstr "TẦNG,TẦNG,..."
 
-#: ../app/app_procs.c:696
-#: ../app/app_procs.c:724
+#: ../app/app_procs.c:697
+#: ../app/app_procs.c:725
 msgid "Don't show the splash screen"
 msgstr "Không hiển thị màn hình giật gân"
 
-#: ../app/app_procs.c:698
-#: ../app/app_procs.c:726
+#: ../app/app_procs.c:699
+#: ../app/app_procs.c:727
 msgid "Don't create empty diagram"
 msgstr "Đừng tạo biểu đồ trống"
 
-#: ../app/app_procs.c:700
-#: ../app/app_procs.c:728
+#: ../app/app_procs.c:701
+#: ../app/app_procs.c:729
 msgid "Send error messages to stderr instead of showing dialogs."
 msgstr "Gởi các thông điệp lỗi cho thiết bị lỗi chuẩn thay vì hiển thị hộp thoại."
 
-#: ../app/app_procs.c:702
-#: ../app/app_procs.c:730
+#: ../app/app_procs.c:703
+#: ../app/app_procs.c:731
 msgid "Display credits list and exit"
 msgstr "Hiện danh sách công trạng rồi thoát"
 
-#: ../app/app_procs.c:704
-#: ../app/app_procs.c:732
+#: ../app/app_procs.c:705
+#: ../app/app_procs.c:733
 msgid "Generate verbose output"
 msgstr "Tạo ra dữ liệu xuất chi tiết"
 
-#: ../app/app_procs.c:706
-#: ../app/app_procs.c:734
+#: ../app/app_procs.c:707
+#: ../app/app_procs.c:735
 msgid "Display version and exit"
 msgstr "Hiện phiên bản rồi thoát"
 
-#: ../app/app_procs.c:735
+#: ../app/app_procs.c:736
 #: ../app/diaconv.c:95
 msgid "Show this help message"
 msgstr "Xem thông điệp trợ giúp này"
 
-#: ../app/app_procs.c:795
+#: ../app/app_procs.c:796
 msgid "Can't connect to session manager!\n"
 msgstr "Không thể kết nối với bộ quản lý phiên chạy.\n"
 
 #.TRANSLATOR: 2nd and 3rd %s are time and date respectively.
-#: ../app/app_procs.c:835
+#: ../app/app_procs.c:836
 #, c-format
 msgid "Dia version %s, compiled %s %s\n"
 msgstr "Dia phiên bản %s, biên dịch %s %s\n"
 
-#: ../app/app_procs.c:837
+#: ../app/app_procs.c:838
 #, c-format
 msgid "Dia version %s\n"
 msgstr "Dia phiên bản %s\n"
 
-#: ../app/app_procs.c:894
+#: ../app/app_procs.c:895
 #: ../app/diaconv.c:201
 #: ../app/diaconv.c:203
 #, c-format
 msgid ""
 "Couldn't find standard objects when looking for object-libs; exiting...\n"
-msgstr "Không thể tìm thấy các đối tượng tiêu chuẩn khi tìm « object-libs » (các thư viên đối tượng) nên thoát...\n"
+msgstr "Không thể tìm thấy các đối tượng tiêu chuẩn khi tìm « object-libs » (các thư "
+"viên đối tượng) nên thoát...\n"
 
-#: ../app/app_procs.c:896
+#: ../app/app_procs.c:897
 #, c-format
 msgid ""
 "Couldn't find standard objects when looking for object-libs in '%s'; "
 "exiting...\n"
-msgstr "Không thể tìm thấy các đối tượng tiêu chuẩn khi tìm « object-libs » (các thư viên đối tượng) trong « %s » nên thoát...\n"
+msgstr "Không thể tìm thấy các đối tượng tiêu chuẩn khi tìm « object-libs » (các thư "
+"viên đối tượng) trong « %s » nên thoát...\n"
 
-#: ../app/app_procs.c:937
+#: ../app/app_procs.c:938
 msgid "Diagram1.dia"
 msgstr "Hình1.dia"
 
-#: ../app/app_procs.c:979
+#: ../app/app_procs.c:978
 msgid ""
 "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you can cause this message to appear.\n"
-msgstr "Không nên xảy ra như thế. Vui lòng thông báo lỗi tại <http://bugzilla.gnome.org>\n"
+msgstr "Không nên xảy ra như thế. Vui lòng thông báo lỗi tại <http://bugzilla.gnome."
+"org>\n"
 "diễn tả cách gây ra thông điệp này xuất hiện.\n"
 
 #.no standard buttons
-#: ../app/app_procs.c:992
+#: ../app/app_procs.c:991
 msgid "Quitting without saving modified diagrams"
 msgstr "Đang thoát mà không lưu các sơ đồ đã sửa đổi"
 
-#: ../app/app_procs.c:994
+#: ../app/app_procs.c:993
 msgid ""
 "Modified diagrams exist. Are you sure you want to quit Dia without saving "
 "them?"
 msgstr "Có sơ đồ đã bị sửa đổi. Bạn có chắc muốn thoát mà không lưu các thay đổi "
 "không?"
 
-#: ../app/app_procs.c:998
+#: ../app/app_procs.c:997
 msgid "Quit Dia"
 msgstr "Thoát Dia"
 
 #.This printf seems to prevent a race condition with unrefs.
 #.Yuck.  -Lars
-#: ../app/app_procs.c:1051
+#: ../app/app_procs.c:1050
 msgid "Thank you for using Dia.\n"
 msgstr "Cám ơn bạn dùng Dia.\n"
 
-#: ../app/app_procs.c:1068
-#: ../app/app_procs.c:1075
+#: ../app/app_procs.c:1067
+#: ../app/app_procs.c:1074
 msgid "Could not create per-user Dia config directory"
 msgstr "Không thể tạo thư mục cấu hình Dia cho từng người dùng."
 
-#: ../app/app_procs.c:1078
+#: ../app/app_procs.c:1077
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
-msgstr "Không thể tạo thư mục cấu hình Dia cho từng người dùng. Vui lòng kiểm tra biến môi trường « HOME » (chính) có chỉ đến một thư mục hợp lệ hay không."
+msgstr "Không thể tạo thư mục cấu hình Dia cho từng người dùng. Vui lòng kiểm tra "
+"biến môi trường « HOME » (chính) có chỉ đến một thư mục hợp lệ hay không."
 
-#: ../app/app_procs.c:1101
+#: ../app/app_procs.c:1100
 #: ../app/diaconv.c:251
 msgid "Objects and filters internal to dia"
 msgstr "Đối tượng và bộ lọc nội tại của Dia"
 
-#: ../app/app_procs.c:1143
+#: ../app/app_procs.c:1142
 #: ../app/diaconv.c:121
 msgid "[OPTION...] [FILE...]"
 msgstr "[TÙY_CHỌN...] [TẬP_TIN...]"
 
-#: ../app/app_procs.c:1146
+#: ../app/app_procs.c:1145
 #: ../app/diaconv.c:128
 #, c-format
 msgid ""
@@ -241,23 +246,23 @@ msgid ""
 msgstr "Lỗi với tùy chọn %s: %s.\n"
 "Hãy chạy lệnh « %s --help » để xem danh sách các tùy chọn dòng lệ sẵn sàng.\n"
 
-#: ../app/app_procs.c:1170
+#: ../app/app_procs.c:1169
 msgid "[FILE...]"
 msgstr "[TẬP_TIN...]"
 
-#: ../app/app_procs.c:1193
+#: ../app/app_procs.c:1192
 #, c-format
 msgid "'%s' not found!\n"
 msgstr "Không tìm thấy « %s » !\n"
 
-#: ../app/app_procs.c:1274
+#: ../app/app_procs.c:1273
 msgid ""
 "The original author of Dia was:\n"
 "\n"
 msgstr "Tác giả gốc của Dia:\n"
 "\n"
 
-#: ../app/app_procs.c:1279
+#: ../app/app_procs.c:1278
 msgid ""
 "\n"
 "The current maintainers of Dia are:\n"
@@ -266,7 +271,7 @@ msgstr "\n"
 "Người dùng bảo quản Dia hiện thời:\n"
 "\n"
 
-#: ../app/app_procs.c:1284
+#: ../app/app_procs.c:1283
 msgid ""
 "\n"
 "Other authors are:\n"
@@ -275,7 +280,7 @@ msgstr "\n"
 "Tác giã khác:\n"
 "\n"
 
-#: ../app/app_procs.c:1289
+#: ../app/app_procs.c:1288
 msgid ""
 "\n"
 "Dia is documented by:\n"
@@ -314,12 +319,12 @@ msgstr "Hình%d.dia"
 msgid "No existing object to paste.\n"
 msgstr "Không có đối tượng tồn tại để dán.\n"
 
-#: ../app/commands.c:532
-#: ../app/commands.c:570
+#: ../app/commands.c:537
+#: ../app/commands.c:575
 msgid "Could not find help directory"
 msgstr "Không thể tìm thấy thư mục trợ giúp"
 
-#: ../app/commands.c:539
+#: ../app/commands.c:544
 #, c-format
 msgid ""
 "Could not open help directory:\n"
@@ -327,11 +332,11 @@ msgid ""
 msgstr "Không thể mở thư mục trợ giúp:\n"
 "%s"
 
-#: ../app/commands.c:606
+#: ../app/commands.c:611
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr "Nhóm Việt hóa Gnome <gnomevi-list@lists.sourceforge.net>"
 
-#: ../app/commands.c:608
+#: ../app/commands.c:613
 msgid ""
 "This program is free software; you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"
@@ -364,7 +369,7 @@ msgstr "Chương trình này là phần mềm dùng tự do;\n"
 "59 Temple Place - Suite 330, Boston,\n"
 "MA 02111-1307, USA (Mỹ).\n"
 
-#: ../app/commands.c:631
+#: ../app/commands.c:636
 msgid "A program for drawing structured diagrams."
 msgstr "Chương trình vẽ sơ đồ cấu trúc hàm."
 
@@ -569,11 +574,11 @@ msgstr "/Sắp xếp _sơ đồ"
 
 #: ../app/diagram_tree_menu.c:68
 msgid "/Sort _diagrams/by _name"
-msgstr "/Sắp xếp sơ đồ/theo tê_n"
+msgstr "/Sắp xếp _sơ đồ/theo tê_n"
 
 #: ../app/diagram_tree_menu.c:70
 msgid "/Sort _diagrams/as _inserted"
-msgstr "/Sắp xếp sơ đồ/như kh_i chèn"
+msgstr "/Sắp xếp _sơ đồ/như kh_i chèn"
 
 #: ../app/diagram_tree_menu.c:72
 msgid "/Sort diagrams/_Default"
@@ -594,7 +599,7 @@ msgstr "/Định _vị"
 
 #: ../app/diagram_tree_menu.c:84
 msgid "/_Properties"
-msgstr "/_Tài sản"
+msgstr "/Tài _sản"
 
 #: ../app/diagram_tree_menu.c:85
 msgid "/_Hide this type"
@@ -604,12 +609,12 @@ msgstr "/Ẩ_n kiểu này"
 msgid "Diagram tree"
 msgstr "Cây sơ đồ"
 
-#: ../app/diagram.c:219
+#: ../app/diagram.c:221
 #, c-format
 msgid "Couldn't convert filename '%s' to UTF-8: %s\n"
 msgstr "Không thể chuyển đổi tên tập tin « %s » sang bộ ký tự UTF-8: %s\n"
 
-#: ../app/diagram.c:222
+#: ../app/diagram.c:224
 #: ../lib/message.c:78
 #: ../lib/message.c:238
 msgid "Error"
@@ -705,26 +710,30 @@ msgstr "Bạn đã thả một đối tượng không thể vừa khít mẹ nó
 msgid "Diagram modified!"
 msgstr "Sơ đồ đã sửa đổi!"
 
-#: ../app/display.c:118
+#.http://www.gnu.org/software/gettext/manual/html_chapter/gettext_10.html#SEC150
+#.* Althoug the single objects wont get triggered here some languages have variations on the other numbers
+#.
+#: ../app/display.c:121
 #, c-format
-msgid "Selection of %d objects"
-msgstr "Chọn %d đối tượng"
+msgid "Selection of %d object"
+msgid_plural "Selection of %d objects"
+msgstr[0] "Chọn %d đối tượng"
 
-#: ../app/display.c:128
+#: ../app/display.c:131
 #, c-format
 msgid "Selected '%s'"
 msgstr "Đã chọn « %s »"
 
-#: ../app/display.c:1127
+#: ../app/display.c:1130
 msgid "<unnamed>"
 msgstr "<không tên>"
 
 #.no standard buttons
-#: ../app/display.c:1133
+#: ../app/display.c:1136
 msgid "Closing diagram without saving"
 msgstr "Đang đóng sơ đồ mà không lưu"
 
-#: ../app/display.c:1136
+#: ../app/display.c:1139
 #, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -732,18 +741,18 @@ msgid ""
 msgstr "Chưa lưu sơ đồ « %s ».\n"
 "Lưu ngay chứ?"
 
-#: ../app/display.c:1138
+#: ../app/display.c:1141
 msgid "Close Diagram"
 msgstr "Đóng sơ đồ"
 
-#: ../app/display.c:1143
+#: ../app/display.c:1146
 msgid "_Discard Changes"
 msgstr "_Hủy các thay đổi"
 
 #: ../app/export_png.c:136
 #: ../app/load_save.c:918
 #: ../app/render_eps.c:103
-#: ../plug-ins/cairo/diacairo.c:972
+#: ../plug-ins/cairo/diacairo.c:976
 #: ../plug-ins/cgm/cgm.c:1151
 #: ../plug-ins/dxf/dxf-export.c:484
 #: ../plug-ins/hpgl/hpgl.c:708
@@ -797,48 +806,49 @@ msgid "Portable Network Graphics"
 msgstr "PNG: Đồ họa mạng di động"
 
 #: ../app/filedlg.c:129
-#: ../app/filedlg.c:511
+#: ../app/filedlg.c:512
 msgid "By extension"
 msgstr "Theo phần mở rộng"
 
-#: ../app/filedlg.c:213
+#: ../app/filedlg.c:214
 msgid "Open Diagram"
 msgstr "Mở sơ đồ"
 
-#: ../app/filedlg.c:242
+#: ../app/filedlg.c:243
 msgid "Open Options"
 msgstr "Tùy chọn Mở"
 
-#: ../app/filedlg.c:250
-#: ../app/filedlg.c:631
+#: ../app/filedlg.c:251
+#: ../app/filedlg.c:632
 msgid "Determine file type:"
 msgstr "Xác định kiểu tập tin:"
 
-#: ../app/filedlg.c:266
-#: ../app/filedlg.c:644
+#: ../app/filedlg.c:267
+#: ../app/filedlg.c:645
 msgid "All Files"
 msgstr "Mọi tập tin"
 
-#: ../app/filedlg.c:271
-#: ../app/filedlg.c:649
+#: ../app/filedlg.c:272
+#: ../app/filedlg.c:650
 msgid "Supported Formats"
 msgstr "Các dạng thức được hỗ trợ"
 
-#: ../app/filedlg.c:306
+#: ../app/filedlg.c:307
 msgid ""
 "Some characters in the filename are neither UTF-8\n"
 "nor your local encoding.\n"
 "Some things will break."
-msgstr "Tên tập tin chứa vài ký tự không phải UTF-8, cũng không phải bằng bộ ký tự cục bộ của bạn.\n"
+msgstr "Tên tập tin chứa vài ký tự không phải UTF-8, cũng không phải bằng bộ ký tự "
+"cục bộ của bạn.\n"
 "Thì vài thứ sẽ bị sai."
 
-#: ../app/filedlg.c:316
-#: ../app/filedlg.c:558
+#: ../app/filedlg.c:317
+#: ../app/filedlg.c:559
 msgid "File already exists"
 msgstr "Tập tin đã có"
 
-#: ../app/filedlg.c:318
-#: ../app/filedlg.c:560
+#: ../app/filedlg.c:319
+#: ../app/filedlg.c:561
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
@@ -846,23 +856,24 @@ msgid ""
 msgstr "Tập tin « %s » đã có.\n"
 "Bạn có muốn ghi đè lên không?"
 
-#: ../app/filedlg.c:368
+#: ../app/filedlg.c:369
 msgid "Save Diagram"
 msgstr "Lưu sơ đồ"
 
 #.Need better way to make it a reasonable size.  Isn't there some
 #.standard look for them (or is that just Gnome?)
-#: ../app/filedlg.c:380
+#: ../app/filedlg.c:381
 msgid "Compress diagram files"
 msgstr "Nén tập tin sơ đồ"
 
-#: ../app/filedlg.c:389
+#: ../app/filedlg.c:390
 msgid ""
 "Compression reduces file size to less than 1/10th size and speeds up loading "
 "and saving.  Some text programs cannot manipulate compressed files."
-msgstr "Sự nén giảm kích cỡ của tập tin xuống thấp hơn 1/10 kích cỡ, và tăng tốc tải/lưu. Vài chương trình nhập thô không thể thao tác những tập tin đã nén."
+msgstr "Sự nén giảm kích cỡ của tập tin xuống thấp hơn 1/10 kích cỡ, và tăng tốc tải/"
+"lưu. Vài chương trình nhập thô không thể thao tác những tập tin đã nén."
 
-#: ../app/filedlg.c:583
+#: ../app/filedlg.c:584
 #, c-format
 msgid ""
 "Could not determine which export filter\n"
@@ -870,11 +881,11 @@ msgid ""
 msgstr "Không thể xác định bộ lọc xuất nào\n"
 "cần dùng để lưu « %s »."
 
-#: ../app/filedlg.c:606
+#: ../app/filedlg.c:607
 msgid "Export Diagram"
 msgstr "Xuất sơ đồ"
 
-#: ../app/filedlg.c:623
+#: ../app/filedlg.c:624
 msgid "Export Options"
 msgstr "Tùy chọn xuất"
 
@@ -989,7 +1000,8 @@ msgstr "Bật/tắt dính đối tượng đối với cửa sổ này."
 
 #: ../app/interface.c:597
 msgid "NULL tooldata in tool_select_update"
-msgstr "NULL tooldata (dữ liệu công cụ rỗng) trong « tool_select_update » (cập nhật chọn công cụ)."
+msgstr "NULL tooldata (dữ liệu công cụ rỗng) trong « tool_select_update » (cập nhật "
+"chọn công cụ)."
 
 #: ../app/interface.c:897
 #, c-format
@@ -1010,33 +1022,38 @@ msgid ""
 "Foreground & background colors for new objects.  The small black and white "
 "squares reset colors.  The small arrows swap colors.  Double click to change "
 "colors."
-msgstr "Màu nền và màu nổi của đối tượng mới. Ô vuông đen trắng nhỏ phục hồi màu. Mũi tên nhỏ trao đổi màu. Nhấp đúp để thay đổi màu."
+msgstr "Màu nền và màu nổi của đối tượng mới. Ô vuông đen trắng nhỏ phục hồi màu. "
+"Mũi tên nhỏ trao đổi màu. Nhấp đúp để thay đổi màu."
 
 #: ../app/interface.c:1068
 msgid ""
 "Line widths.  Click on a line to set the default line width for new "
 "objects.  Double-click to set the line width more precisely."
-msgstr "Độ dày đường. Nhấn vào đường để đặt bề dày mặc định cho các đối tượng mới. Nhấp đúp để đặt bề dày chính xác hơn."
+msgstr "Độ dày đường. Nhấn vào đường để đặt bề dày mặc định cho các đối tượng mới. "
+"Nhấp đúp để đặt bề dày chính xác hơn."
 
 #: ../app/interface.c:1108
 msgid ""
 "Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
 "arrow parameters with Details..."
-msgstr "Kiểu dạng mũi tiêu đầu các đường mới. Nhấn để chọn mũi tên, hoặc đặt tham số mũi tên trong phần Chi tiết..."
+msgstr "Kiểu dạng mũi tiêu đầu các đường mới. Nhấn để chọn mũi tên, hoặc đặt tham số "
+"mũi tên trong phần Chi tiết..."
 
 #: ../app/interface.c:1113
 msgid ""
 "Line style for new lines.  Click to pick a line style, or set line style "
 "parameters with Details..."
-msgstr "Kiểu dáng các đường mới. Nhấn để chọn kiểu dáng đường, hoặc đặt tham số kiểu dáng đường trong phần Chi tiết..."
+msgstr "Kiểu dáng các đường mới. Nhấn để chọn kiểu dáng đường, hoặc đặt tham số kiểu "
+"dáng đường trong phần Chi tiết..."
 
 #: ../app/interface.c:1127
 msgid ""
 "Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
 "parameters with Details..."
-msgstr "Kiểu dáng mũi tiêu cuối các đường mới. Nhấn để chọn mũi tên, hoặc đặt tham số mũi tên trong phần Chi tiết..."
+msgstr "Kiểu dáng mũi tiêu cuối các đường mới. Nhấn để chọn mũi tên, hoặc đặt tham "
+"số mũi tên trong phần Chi tiết..."
 
-#: ../app/interface.c:1235
+#: ../app/interface.c:1237
 msgid "Diagram Editor"
 msgstr "Bộ biên soạn sơ đồ"
 
@@ -1201,7 +1218,7 @@ msgstr "Thiết _lập trang..."
 #: ../app/menus.c:87
 #: ../app/sheets_dialog.c:236
 msgid "_Edit"
-msgstr "_Sừa"
+msgstr "_Sửa"
 
 #: ../app/menus.c:94
 msgid "_Duplicate"
@@ -1329,7 +1346,7 @@ msgstr "_Bỏ mẹ"
 
 #: ../app/menus.c:144
 msgid "_Unparent Children"
-msgstr "_Bỏ mẹ các điều con"
+msgstr "Bỏ mẹ các điề_u con"
 
 #.Translators: Menu item Verb/Support/Position/Align
 #: ../app/menus.c:146
@@ -1429,7 +1446,7 @@ msgstr "Cuộn"
 
 #: ../app/menus.c:210
 msgid "Fullscr_een"
-msgstr "_Toàn màn hình"
+msgstr "T_oàn màn hình"
 
 #: ../app/menus.c:213
 msgid "_AntiAliased"
@@ -1485,9 +1502,10 @@ msgstr "Kiểu đảo"
 
 #: ../app/menus.c:257
 msgid "NULL tooldata in tool_menu_select"
-msgstr "NULL tooldata (dữ liệu công cụ rỗng) trong « tool_menu_select » (chọn trình đơn công cụ)."
+msgstr "NULL tooldata (dữ liệu công cụ rỗng) trong « tool_menu_select » (chọn trình "
+"đơn công cụ)."
 
-#: ../app/modify_tool.c:342
+#: ../app/modify_tool.c:343
 msgid "Couldn't get GTK settings"
 msgstr "Không thể lấy thiết lập GTK."
 
@@ -1591,8 +1609,7 @@ msgstr "Số mức hồi lại:"
 msgid ""
 "Reverse dragging selects\n"
 "intersecting objects"
-msgstr ""
-"Kéo theo chiều ngược sẽ chọn\n"
+msgstr "Kéo theo chiều ngược sẽ chọn\n"
 "các đối tượng giao nhau:"
 
 #: ../app/preferences.c:128
@@ -1719,11 +1736,11 @@ msgstr "Tài sản đối tượng"
 msgid "This object has no properties."
 msgstr "Đối tượng này không có tài sản."
 
-#: ../app/properties.c:202
+#: ../app/properties.c:217
 msgid "Properties: "
-msgstr "Tài sản:"
+msgstr "Tài sản: "
 
-#: ../app/properties.c:206
+#: ../app/properties.c:221
 msgid "Object properties:"
 msgstr "Tài sản đối tượng:"
 
@@ -1851,7 +1868,7 @@ msgstr "Ngắt dòng"
 
 #: ../app/sheets_dialog.c:569
 msgid "Edit Attributes"
-msgstr "Sửa đổi thuộc tính"
+msgstr "Sửa thuộc tính"
 
 #: ../app/sheets_dialog.c:584
 msgid "DiaObject"
@@ -2237,7 +2254,7 @@ msgstr "_Nhóm:"
 
 #: ../lib/diagtkfontsel.c:327
 msgid "_Style:"
-msgstr "_Kiểu dạng:"
+msgstr "_Kiểu dáng:"
 
 #: ../lib/diagtkfontsel.c:333
 msgid "Si_ze:"
@@ -2443,7 +2460,8 @@ msgstr "Màu chữ"
 #: ../lib/proplist.c:163
 #, c-format
 msgid "No attribute '%s' (%p) or no data(%p) in this attribute"
-msgstr "Không có thuộc tính « %s » (%p), hoặc không có dữ liệu (%p) trong thuộc tính này."
+msgstr "Không có thuộc tính « %s » (%p), hoặc không có dữ liệu (%p) trong thuộc tính "
+"này."
 
 #: ../lib/widgets.c:375
 msgid "Other fonts"
@@ -3583,7 +3601,7 @@ msgstr "Đầu"
 #.Translators: Menu item Noun/Material/Human/Finger
 #: ../objects/FS/function.c:1090
 msgid "Finger"
-msgstr "Ngõn tay"
+msgstr "Ngón tay"
 
 #.Translators: Menu item Noun/Material/Human/Toe
 #: ../objects/FS/function.c:1092
@@ -4170,7 +4188,7 @@ msgstr "Bề rông đường mũi tên thứ hai"
 msgid "Show hours"
 msgstr "Hiện giờ"
 
-#: ../objects/Misc/libmisc.c:39
+#: ../objects/Misc/libmisc.c:40
 msgid "Miscellaneous objects"
 msgstr "Đối tượng linh tinh"
 
@@ -4529,7 +4547,7 @@ msgstr "Màu nền"
 #.Attributes page:
 #: ../objects/UML/class_dialog.c:897
 msgid "_Attributes"
-msgstr "_Thuộc tính"
+msgstr "Th_uộc tính"
 
 #: ../objects/UML/class_dialog.c:925
 #: ../objects/UML/class_dialog.c:1875
@@ -5168,37 +5186,41 @@ msgstr "Dòng đầu"
 msgid "Vertical text alignment"
 msgstr "Canh lề dọc"
 
-#: ../plug-ins/cairo/diacairo.c:1066
+#: ../plug-ins/cairo/diacairo.c:1086
 msgid "Cairo PostScript"
 msgstr "Cairo PostScript"
 
-#: ../plug-ins/cairo/diacairo.c:1077
+#: ../plug-ins/cairo/diacairo.c:1097
 msgid "Cairo Portable Document Format"
 msgstr "Dạng thức tài liệu di động Cairo"
 
-#: ../plug-ins/cairo/diacairo.c:1087
+#: ../plug-ins/cairo/diacairo.c:1108
+msgid "Cairo Scalable Vector Graphics"
+msgstr "Đồ hóa véctơ có thể co giãn Cairo"
+
+#: ../plug-ins/cairo/diacairo.c:1118
 msgid "Cairo PNG"
 msgstr "Cairo PNG"
 
-#: ../plug-ins/cairo/diacairo.c:1095
+#: ../plug-ins/cairo/diacairo.c:1126
 msgid "Cairo PNG (with alpha)"
 msgstr "Cairo PNG (có anfa)"
 
-#: ../plug-ins/cairo/diacairo.c:1105
+#: ../plug-ins/cairo/diacairo.c:1136
 msgid "Cairo WMF"
 msgstr "Cairo WMF"
 
-#: ../plug-ins/cairo/diacairo.c:1114
+#: ../plug-ins/cairo/diacairo.c:1145
 msgid "Cairo old WMF"
 msgstr "Cairo WMF cũ"
 
-#: ../plug-ins/cairo/diacairo.c:1123
+#: ../plug-ins/cairo/diacairo.c:1154
 msgid "Cairo Clipboard"
 msgstr "Bảng tạm Cairo"
 
-#: ../plug-ins/cairo/diacairo.c:1169
+#: ../plug-ins/cairo/diacairo.c:1203
 msgid "Cairo based Rendering"
-msgstr "Vẽ đựa vào Cairo"
+msgstr "Vẽ dựa vào Cairo"
 
 #: ../plug-ins/cgm/cgm.c:1103
 msgid ""
@@ -5273,7 +5295,7 @@ msgstr "GNOME SVG (đồ hoạ véc-tơ có khả năng co dãn)"
 
 #: ../plug-ins/gprint/diagnomeprint.c:164
 msgid "GNOME Print based Rendering"
-msgstr "Vẽ đựa vào in GNOME"
+msgstr "Vẽ dựa vào in GNOME"
 
 #: ../plug-ins/hpgl/hpgl.c:749
 msgid "HP Graphics Language"
@@ -5410,7 +5432,8 @@ msgstr "Bộ lọc xuất đồ họa WordPerfect"
 #: ../plug-ins/xfig/xfig-export.c:459
 #, c-format
 msgid "FIG format has no equivalent of arrow style %s, using simple arrow.\n"
-msgstr "Dạng thức FIG không có điều tương đương với kiểu dáng mũi tên « %s » nên dùng mũi tên đơn giản.\n"
+msgstr "Dạng thức FIG không có điều tương đương với kiểu dáng mũi tên « %s » nên "
+"dùng mũi tên đơn giản.\n"
 
 #: ../plug-ins/xfig/xfig-export.c:481
 msgid "No more user-definable colors - using black"
@@ -7140,7 +7163,7 @@ msgstr "Nguồn áp lực nước"
 
 #: ../sheets/Pneumatic.sheet.in.h:13
 msgid "Indirect command by hydraulic driver"
-msgstr "Điều khiển gián tiếp bởi bộ hỗ trợ thiết bị lỏnh"
+msgstr "Điều khiển gián tiếp bởi bộ hỗ trợ thiết bị nước"
 
 #: ../sheets/Pneumatic.sheet.in.h:14
 msgid "Indirect command by pneumatic driver"
@@ -7494,7 +7517,7 @@ msgstr "Ảnh động PC"
 
 #: ../sheets/ciscocomputer.sheet.in.h:34
 msgid "PC with Router-Based Software"
-msgstr "PC có phần mềm đựa vào bộ định tuyến"
+msgstr "PC có phần mềm dựa vào bộ định tuyến"
 
 #: ../sheets/ciscocomputer.sheet.in.h:35
 msgid "PDA"
@@ -7518,7 +7541,7 @@ msgstr "Máy phục vụ với bộ định tuyến PC"
 
 #: ../sheets/ciscocomputer.sheet.in.h:41
 msgid "Software-Based Router on File Server"
-msgstr "Bộ định tuyến đựa vào phần mềm trên máy phục vụ tập tin"
+msgstr "Bộ định tuyến dựa vào phần mềm trên máy phục vụ tập tin"
 
 #: ../sheets/ciscocomputer.sheet.in.h:42
 msgid "Storage array"
