@@ -6,7 +6,7 @@
 	plug-ins/python, but more iomportant made one function fromm
 	app/diagram.h asymmetric with all the others. We should not leave
 	the common C OO-pattern of passing an explicit "this pointer" just
-	because that can also be deduced from the ober object.
+	because that can also be deduced from the other object.
 
 2006-08-17  Steffen Macke <sdteffen@gmail.com>
 
