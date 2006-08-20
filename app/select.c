@@ -89,7 +89,7 @@ select_invert_callback(gpointer data, guint action, GtkWidget *widget)
     if (!diagram_is_selected(dia, obj)) {
       diagram_select(dia, obj);
     } else {
-      diagram_unselect_object(obj);
+      diagram_unselect_object(dia, obj);
     }
   }
 

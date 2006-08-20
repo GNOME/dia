@@ -179,7 +179,7 @@ click_select_object(DDisplay *ddisp, Point *clickedpoint,
       if (event->state & GDK_SHIFT_MASK) { /* Multi-select */
 	/* Remove the selected selected */
 	ddisplay_do_update_menu_sensitivity(ddisp);
-	diagram_unselect_object((DiaObject *)already->data);
+	diagram_unselect_object(diagram, (DiaObject *)already->data);
 	diagram_flush(ddisp->diagram);
       } else {
 	/* Maybe start editing text */
@@ -751,10 +751,10 @@ modify_button_release(ModifyTool *tool, GdkEventButton *event,
           
           if (selection_style == SELECT_REMOVE) {
             if (diagram_is_selected(ddisp->diagram, obj))
-              diagram_unselect_object(obj);
+              diagram_unselect_object(ddisp->diagram, obj);
           } else if (selection_style == SELECT_INVERT) { 
             if (diagram_is_selected(ddisp->diagram, obj))
-              diagram_unselect_object(obj);
+              diagram_unselect_object(ddisp->diagram, obj);
             else
               diagram_select(ddisp->diagram, obj);
           } else {

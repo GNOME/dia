@@ -641,10 +641,8 @@ diagram_remove_all_selected(Diagram *diagram, int delete_empty)
 }
 
 void
-diagram_unselect_object(DiaObject *obj)
+diagram_unselect_object(Diagram *diagram, DiaObject *obj)
 {
-  Diagram *diagram = DIA_DIAGRAM(layer_get_parent_diagram
-				 (dia_object_get_parent_layer(obj)));
   object_add_updates(obj, diagram);
   textedit_remove_focus(obj, diagram);
   data_unselect(DIA_DIAGRAM_DATA(diagram), obj);
@@ -665,7 +663,7 @@ diagram_unselect_objects(Diagram *dia, GList *obj_list)
     obj = (DiaObject *) list->data;
 
     if (g_list_find(dia->data->selected, obj) != NULL){
-      diagram_unselect_object(obj);
+      diagram_unselect_object(dia, obj);
     }
 
     list = g_list_next(list);
@@ -1164,7 +1162,7 @@ void diagram_ungroup_selected(Diagram *dia)
       Change *change;
 
       /* Fix selection */
-      diagram_unselect_object(group);
+      diagram_unselect_object(dia, group);
 
       group_list = group_objects(group);
       diagram_select_list(dia, group_list);

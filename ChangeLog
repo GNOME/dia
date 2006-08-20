@@ -1,3 +1,13 @@
+2006-08-20  Hans Breuer  <hans@breuer.org>
+
+	* plug-ins/cairo/diacairo.c : get rid of c++ coment
+	* app/diagram.h app/diagram.c app/modify_tool.c app/select.c 
+	  app/undo.c : reverted 'Shortened diagram_unselect'. It broke
+	plug-ins/python, but more iomportant made one function fromm
+	app/diagram.h asymmetric with all the others. We should not leave
+	the common C OO-pattern of passing an explicit "this pointer" just
+	because that can also be deduced from the ober object.
+
 2006-08-17  Steffen Macke <sdteffen@gmail.com>
 
 	* installer/win32/dia-diagram.ico:

@@ -1015,7 +1015,7 @@ export_data(DiagramData *data, const gchar *filename,
 #endif
 #ifdef CAIRO_HAS_PDF_SURFACE
   case OUTPUT_PDF :
-#define DPI 72.0 //600.0
+#define DPI 72.0 /* 600.0? */
     /* I just don't get how the scaling is supposed to work, dpi versus page size ? */
     renderer->scale = data->paper.scaling * (72.0 / 2.54);
     width = data->paper.width * (72.0 / 2.54);
