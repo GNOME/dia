@@ -24,6 +24,7 @@
 #include "diarenderer.h"
 #include "object.h"
 #include "text.h"
+#include "textline.h"
 
 struct _BezierApprox {
   Point *points;
@@ -93,6 +94,8 @@ static void draw_image (DiaRenderer *renderer,
                         DiaImage image);
 static void draw_text  (DiaRenderer *renderer,
                         Text *text);
+static void draw_text_line  (DiaRenderer *renderer,
+			     TextLine *text_line, Point *pos, Color *color);
 
 static void draw_rect (DiaRenderer *renderer,
                        Point *ul_corner, Point *lr_corner,
@@ -249,7 +252,8 @@ dia_renderer_class_init (DiaRendererClass *klass)
   renderer_class->draw_rounded_polyline  = draw_rounded_polyline;
   renderer_class->draw_polyline  = draw_polyline;
   renderer_class->draw_polygon   = draw_polygon;
-  renderer_class->draw_text    = draw_text;
+  renderer_class->draw_text      = draw_text;
+  renderer_class->draw_text_line = draw_text_line;
 
   /* highest level functions */
   renderer_class->draw_rounded_rect = draw_rounded_rect;
@@ -413,6 +417,19 @@ static void draw_text(DiaRenderer *renderer,
 						  &text->color);
     pos.y += text->height;
   }
+}
+
+/** Default implementation of draw_text_line */
+static void draw_text_line(DiaRenderer *renderer,
+			   TextLine *text_line, Point *pos, Color *color) {
+  DIA_RENDERER_GET_CLASS(renderer)->set_font(renderer, 
+					     text_line_get_font(text_line),
+					     text_line_get_height(text_line));
+  
+  DIA_RENDERER_GET_CLASS(renderer)->draw_string(renderer,
+						text_line_get_string(text_line),
+						pos, ALIGN_LEFT,
+						color);
 }
 
 static void 

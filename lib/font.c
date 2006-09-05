@@ -43,10 +43,6 @@
 #include "message.h"
 #include "intl.h"
 
-/** Define this if you want to use the layout cache to speed up output.
- *  Appears to be buggy, see bug #307320. */
-#undef LAYOUT_CACHE
-
 static PangoContext* pango_context = NULL;
 
 struct _DiaFont 
@@ -155,7 +151,6 @@ dia_font_get_context() {
     }
 #endif
   }
-
   return pango_context;
 }
 
@@ -535,97 +530,6 @@ real dia_font_descent(const char* string, DiaFont* font, real height)
     return dia_font_scaled_descent(string,font,height,global_zoom_factor);
 }
 
-typedef struct {
-  gchar *string;
-  DiaFont *font;
-  PangoLayout *layout;
-  int usecount;
-} LayoutCacheItem;
-
-static GHashTable *layoutcache;
-
-static gboolean
-layout_cache_equals(gconstpointer e1, gconstpointer e2) 
-{
-  LayoutCacheItem *i1 = (LayoutCacheItem*)e1,
-    *i2 = (LayoutCacheItem*)e2;
-
-  /* don't try strcmp() with null pointers ... */
-  if (!i1->string || i2->string)
-    return FALSE;
-  
-  return strcmp(i1->string, i2->string) == 0 &&
-    pango_font_description_equal(i1->font->pfd, i2->font->pfd);
-}
-
-static guint
-layout_cache_hash(gconstpointer el) 
-{
-  LayoutCacheItem *item = (LayoutCacheItem*)el;
-
-  return g_str_hash(item->string) ^
-    pango_font_description_hash(item->font->pfd);
-}
-
-static long layout_cache_last_use;
-
-static gboolean
-layout_cache_cleanup_entry(gpointer key, gpointer value, gpointer data)
-{
-  LayoutCacheItem *item = (LayoutCacheItem*)value;
-  /** Remove unused items */
-  if (item->usecount == 0) return TRUE;
-  item->usecount = 0;
-  return FALSE;
-}
-
-/** The actual hash cleanup, called when idle. */
-static gboolean
-layout_cache_cleanup_idle(gpointer data)
-{
-  GHashTable *table = (GHashTable*)(data);
-
-  g_hash_table_foreach_remove(table, layout_cache_cleanup_entry, NULL);
-  return FALSE;
-}
-
-/** Every ten minutes, clean up those strings that haven't seen use since
- * last cleanup.
- */
-static gboolean
-layout_cache_cleanup(gpointer data)
-{
-  /* Only cleanup if there has been font activity since last cleanup */
-  if (time(0) - layout_cache_last_use < 10) {
-    /* Don't go directly to cleanup, wait till there's a pause. */
-    g_idle_add(layout_cache_cleanup_idle, data);
-  }
-  /* Keep doing this */
-  return TRUE;
-}
-
-static void
-layout_cache_free_key(gpointer data)
-{
-    LayoutCacheItem *item = (LayoutCacheItem*)data;
-
-    if (item->string != NULL) {
-      g_free(item->string);
-      item->string = NULL;
-    }
-
-    if (item->font != NULL) {
-      dia_font_unref(item->font);
-      item->font = NULL;
-    }
-
-    if (item->layout != NULL) {
-      g_object_unref(item->layout);
-      item->layout = NULL;
-    }
-    g_free(item);
-}
-
 
 PangoLayout*
 dia_font_build_layout(const char* string, DiaFont* font, real height)
@@ -636,47 +540,9 @@ dia_font_build_layout(const char* string, DiaFont* font, real height)
     guint length;
     gchar *desc = NULL;
 
-#ifdef LAYOUT_CACHE
-    LayoutCacheItem *cached, *item;
-
-    layout_cache_last_use = time(0);
-    if (layoutcache == NULL) {
-      /** Note that key and value are the same -- it's a HashSet */
-      layoutcache = g_hash_table_new_full(layout_cache_hash,
-					  layout_cache_equals,
-					  layout_cache_free_key,
-					  NULL);
-      /** Check for cache cleanup every 10 seconds. */
-      /** This frequent a check is really a hack while we figure out the
-       *  exact problems with reffing the fonts.
-       *  Note to self:  The equals function should compare pfd's, but
-       *  then DiaFonts are freed too early. 
-       */
-      g_timeout_add(10*1000, layout_cache_cleanup, (gpointer)layoutcache);
-    }
-#endif
-
     height *= 0.7;
     dia_font_set_height(font, height);
 
-#ifdef LAYOUT_CACHE
-    item = g_new0(LayoutCacheItem,1);
-    item->string = g_strdup(string);
-    item->font = font;
-    
-    /* If it's in the cache, use that instead. */
-    cached = g_hash_table_lookup(layoutcache, item);
-    if (cached != NULL) {
-      g_object_ref(cached->layout);
-      g_free(item->string);
-      g_free(item);
-      cached->usecount ++;
-      return cached->layout;
-    }
-
-    item->font = dia_font_copy(font);
-    dia_font_ref(item->font);
-#endif
 
     /* This could should account for DPI, but it doesn't do right.  Grrr...
     {
@@ -710,13 +576,6 @@ dia_font_build_layout(const char* string, DiaFont* font, real height)
     pango_layout_set_justify(layout,FALSE);
     pango_layout_set_alignment(layout,PANGO_ALIGN_LEFT);
   
-#ifdef LAYOUT_CACHE
-    item->layout = layout;
-    g_object_ref(layout);
-    item->usecount = 1;
-    g_hash_table_replace(layoutcache, item, item);
-#endif
-
     return layout;
 }
 
@@ -821,6 +680,79 @@ real dia_font_scaled_descent(const char* string, DiaFont* font,
                               0,&top,&bline,&bottom);
   }
   return (bottom-bline)/(zoom_factor/global_zoom_factor);
+}
+
+/** Find the offsets of the individual letters in the iter and place them
+ * in an array.
+ * This currently assumes only one run per iter, which is all we can input.
+ * @param iter The PangoLayoutIter to count characters in.
+ * @param offsets The place to return the offsets
+ * @param n_offsets The place to return the number of offsets
+ */
+static void
+get_string_offsets(PangoLayoutIter *iter, real** offsets, int* n_offsets)
+{
+  int i;
+  PangoLayoutLine*   line = pango_layout_iter_get_line(iter);
+  PangoGlyphItem* item = (PangoGlyphItem*)line->runs->data;
+  PangoGlyphString* string = item->glyphs;
+
+  *n_offsets = string->num_glyphs;
+  *offsets = g_new(real, *n_offsets);
+
+  for (i = 0; i < string->num_glyphs; i++) {
+    PangoGlyphGeometry geom = string->glyphs[i].geometry;
+    
+    (*offsets)[i] = pdu_to_dcm(geom.width);
+  }
+}
+
+/** Get size information for the given string, font and height.
+ *
+ * @returns an array of offsets of the individual glyphs in the layout.
+ */
+real*
+dia_font_get_sizes(const char* string, DiaFont *font, real height,
+		   real *width, real *ascent, real *descent, int *n_offsets)
+{
+  real dummy;
+  PangoLayout* layout;
+  PangoLayoutIter* iter;
+  real top, bline, bottom;
+  gchar* non_empty_string;
+  PangoRectangle ink_rect,logical_rect;
+  real* offsets;
+  int i;
+
+  if (string == NULL || string[0] == '\0') {
+    non_empty_string = "XjgM149";
+  } else {
+    non_empty_string = string;
+  }
+  layout = dia_font_build_layout(non_empty_string, font, height);
+  
+  /* Only one line here */
+  iter = pango_layout_get_iter(layout);
+    
+  pango_layout_iter_get_line_extents(iter, &ink_rect, &logical_rect);
+
+  top = pdu_to_dcm(logical_rect.y);
+  bottom = pdu_to_dcm(logical_rect.y + logical_rect.height);
+  bline = pdu_to_dcm(pango_layout_iter_get_baseline(iter));
+
+  get_string_offsets(iter, &offsets, n_offsets);
+  
+  pango_layout_iter_free(iter);
+  g_object_unref(G_OBJECT(layout));
+
+  *ascent = bline-top;
+  *descent = bottom-bline;
+  if (non_empty_string != string) {
+    *width = 0.0;
+  } else {
+    *width = pdu_to_dcm(logical_rect.width);
+  }
+  return offsets;
 }
 
 PangoLayout*

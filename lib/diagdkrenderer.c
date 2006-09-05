@@ -25,6 +25,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <gdk/gdk.h>
+#include <sys/time.h>
 
 #define PANGO_ENABLE_ENGINE
 #include <pango/pango-engine.h>
@@ -37,6 +38,7 @@
 #include "font.h"
 #include "text.h"
 #include "object.h"
+#include "textline.h"
 
 #include "time.h"
 
@@ -87,6 +89,10 @@ static void draw_string (DiaRenderer *renderer,
                          Point *pos,
                          Alignment alignment,
                          Color *color);
+static void draw_text_line (DiaRenderer *renderer,
+			    TextLine *text,
+			    Point *pos,
+			    Color *color);
 static void draw_text (DiaRenderer *renderer,
                          Text *text);
 static void draw_image (DiaRenderer *renderer,
@@ -232,6 +238,7 @@ dia_gdk_renderer_class_init(DiaGdkRendererClass *klass)
 
   renderer_class->draw_string  = draw_string;
   renderer_class->draw_text    = draw_text;
+  renderer_class->draw_text_line = draw_text_line;
   renderer_class->draw_image   = draw_image;
 
   /* medium level functions */
@@ -262,14 +269,27 @@ renderer_color_convert(DiaGdkRenderer *renderer,
   }
 }
 
+static struct timeval t;
+
+long start_t, sum_t;
+
 static void 
 begin_render (DiaRenderer *object)
 {
+  gettimeofday(&t, NULL);
+  sum_t = 0;
 }
 
 static void 
 end_render (DiaRenderer *object)
 {
+  struct timeval t2;
+  long elapsed;
+  gettimeofday(&t2, NULL);
+  elapsed = (t2.tv_sec-t.tv_sec)*1000000 + (t2.tv_usec - t.tv_usec);
+  printf("Rendering took %ld micros (%ld millis)\n", elapsed, elapsed/1000);
+  printf("Text rendering took %ld micros (%ld millis): %ld%%\n",
+	 sum_t, sum_t / 1000, (100*sum_t)/elapsed);
 }
 
 static void 
@@ -648,11 +668,36 @@ draw_highlighted_string(DiaGdkRenderer *renderer,
 		      width+6, height+6);
 }
 
+static long
+get_time()
+{
+  struct timeval t;
+  gettimeofday(&t, NULL);
+  return t.tv_sec * 1000000 + t.tv_usec;
+}
+
 static void 
 draw_string (DiaRenderer *object,
              const gchar *text, Point *pos, Alignment alignment,
              Color *color)
 {
+#define DRAW_STRING_WITH_TEXT_LINE
+#ifdef DRAW_STRING_WITH_TEXT_LINE
+  TextLine *text_line = text_line_new(text, object->font, object->font_height);
+  real width = text_line_get_width(text_line);
+  Point realigned_pos = *pos;
+  switch (alignment) {
+      case ALIGN_LEFT:
+	break;
+      case ALIGN_CENTER:
+	realigned_pos.x -= width/2;
+	break;
+      case ALIGN_RIGHT:
+	realigned_pos.x -= width;
+	break;
+  }
+  draw_text_line(object, text_line, &realigned_pos, color);
+#else
   DiaGdkRenderer *renderer = DIA_GDK_RENDERER (object);
   GdkColor gdkcolor;
 
@@ -693,18 +738,22 @@ draw_string (DiaRenderer *object,
    int rowstride;
    GdkPixbuf *rgba = NULL;
 
+   start_t = get_time();
 
    start_pos.y -= 
      dia_font_scaled_ascent(text, object->font,
 			    object->font_height,
 			    dia_transform_length(renderer->transform, 1.0));
 
+     sum_t += get_time() - start_t;
+  
    dia_transform_coords(renderer->transform, 
 			start_pos.x, start_pos.y, &x, &y);
    
      layout = dia_font_scaled_build_layout(text, object->font,
 					   object->font_height,
 					   dia_transform_length(renderer->transform, 1.0));
+
      if (renderer->highlight_color != NULL) {
        draw_highlighted_string(renderer, layout, x, y, &gdkcolor);
      } else {
@@ -748,6 +797,7 @@ draw_string (DiaRenderer *object,
 	 gdk_draw_pixbuf(renderer->pixmap, renderer->gc, rgba, 0, 0, x, y, width, height, GDK_RGB_DITHER_NONE, 0, 0);
 	 g_object_unref(G_OBJECT(rgba));
        }
+
        /*
 	 gdk_gc_set_function(gc, GDK_COPY_INVERT);
 	 gdk_draw_gray_image(renderer->pixmap, gc, x, y, width, height, 
@@ -778,6 +828,216 @@ draw_string (DiaRenderer *object,
       /* abuse_layout_object(layout,text); */
   
   g_object_unref(G_OBJECT(layout));
+#endif
+}
+
+PangoGlyphString *
+adjust_glyphs(PangoGlyphString *glyphs, TextLine *line, real scale)
+{
+  PangoGlyphString* new_glyphs = g_new(PangoGlyphString, 1);
+  int i;
+
+  new_glyphs->num_glyphs = glyphs->num_glyphs;
+  new_glyphs->glyphs = g_new(PangoGlyphInfo, glyphs->num_glyphs);
+  new_glyphs->log_clusters = glyphs->log_clusters;
+
+  for (i = 0; i < new_glyphs->num_glyphs; i++) {
+    new_glyphs->glyphs[i] = glyphs->glyphs[i];
+/*
+    printf("Glyph %d: width %d, offset %f, textwidth %f\n",
+	   i, new_glyphs->glyphs[i].geometry.width, line->offsets[i],
+	   line->offsets[i] * scale * 20.0 * PANGO_SCALE);
+*/
+    new_glyphs->glyphs[i].geometry.width =
+      (int)(line->offsets[i] * scale * 20.0 * PANGO_SCALE);
+  }
+  return new_glyphs;
+}
+
+static void
+initialize_ft_bitmap(FT_Bitmap *ftbitmap, int width, int height)
+{
+  int rowstride = 32*((width+31)/31);
+  guint8 *graybitmap = (guint8*)g_new0(guint8, height*rowstride);
+       
+  ftbitmap->rows = height;
+  ftbitmap->width = width;
+  ftbitmap->pitch = rowstride;
+  ftbitmap->buffer = graybitmap;
+  ftbitmap->num_grays = 256;
+  ftbitmap->pixel_mode = ft_pixel_mode_grays;
+  ftbitmap->palette_mode = 0;
+  ftbitmap->palette = 0;
+}
+
+/** Draw a TextLine object.
+ * @param object The renderer object to use for transform and output
+ * @param text_line The TextLine to render, including font and height.
+ * @param pos The position to render it at.
+ * @param color The color to render it with.
+ */
+static void 
+draw_text_line (DiaRenderer *object, TextLine *text_line,
+             Point *pos, Color *color)
+{
+#if defined HAVE_FREETYPE
+  DiaGdkRenderer *renderer = DIA_GDK_RENDERER (object);
+  GdkColor gdkcolor;
+
+  int x,y;
+  Point start_pos;
+  PangoLayout* layout = NULL;
+
+  const gchar *text = text_line_get_string(text_line);
+  Alignment alignment = ALIGN_LEFT;
+  
+  if (text == NULL || *text == '\0') return; /* Don't render empty strings. */
+
+  point_copy(&start_pos,pos);
+
+  renderer_color_convert(renderer, color, &gdkcolor);
+ 
+  start_pos.x -= get_alignment_adjustment(object, text, alignment);
+  {
+    int height_pixels = dia_transform_length(renderer->transform, text_line_get_height(text_line));
+    if (height_pixels < 2) { /* "Greeking" instead of making tiny font */
+      int width_pixels = dia_transform_length(
+                            renderer->transform,
+			    text_line_get_width(text_line));
+      gdk_gc_set_foreground(renderer->gc, &gdkcolor);
+      gdk_gc_set_dashes(renderer->gc, 0, "\1\2", 2);
+      dia_transform_coords(renderer->transform, start_pos.x, start_pos.y, &x, &y);
+      gdk_draw_line(renderer->pixmap, renderer->gc, x, y, x + width_pixels, y);
+      return;
+    }
+  }
+
+  {
+   FT_Bitmap ftbitmap;
+   int width, height;
+   GdkPixbuf *rgba = NULL;
+   real adjust = 0.0;
+
+   start_t = get_time();
+
+   adjust = text_line_get_ascent(text_line);
+   start_pos.y -= adjust;
+   sum_t += get_time() - start_t;
+  
+   dia_transform_coords(renderer->transform, 
+			start_pos.x, start_pos.y, &x, &y);
+   
+		      
+   layout = dia_font_build_layout(text, text_line->font,
+				  dia_transform_length(renderer->transform, text_line->height)/20.0);
+
+   if (renderer->highlight_color != NULL) {
+     draw_highlighted_string(renderer, layout, x, y, &gdkcolor);
+   } else {
+     PangoLayoutLine *line;
+     PangoGlyphString *glyphs;
+     PangoGlyphItem *glyphItem;
+     PangoFont *pangoFont;
+     PangoFontMap *fontMap;
+
+     width = dia_transform_length(renderer->transform,
+				  text_line_get_width(text_line));
+     height = dia_transform_length(renderer->transform, 
+				     text_line_get_height(text_line));
+     
+     if (width > 0) {
+       initialize_ft_bitmap(&ftbitmap, width, height);
+
+       line = pango_layout_get_line(layout, 0);
+       glyphItem = (PangoGlyphItem*)line->runs->data;
+       glyphs = glyphItem->glyphs;
+       glyphs = adjust_glyphs(glyphs, text_line,
+			      dia_transform_length(renderer->transform, 1.0)/20.0);
+       pango_ft2_render(&ftbitmap, glyphItem->item->analysis.font, 
+			glyphs, 0, dia_transform_length(renderer->transform, adjust));
+       
+       {
+	   int stride;
+	   guchar* pixels;
+	   int i,j;
+	   guint8 *graybitmap = ftbitmap.buffer;
+	   
+	   rgba = gdk_pixbuf_new(GDK_COLORSPACE_RGB, TRUE, 8, width, height);
+	   stride = gdk_pixbuf_get_rowstride(rgba);
+	   pixels = gdk_pixbuf_get_pixels(rgba);
+	   for (i = 0; i < height; i++) {
+	     for (j = 0; j < width; j++) {
+	       pixels[i*stride+j*4] = gdkcolor.red>>8;
+	       pixels[i*stride+j*4+1] = gdkcolor.green>>8;
+	       pixels[i*stride+j*4+2] = gdkcolor.blue>>8;
+	       pixels[i*stride+j*4+3] = graybitmap[i*ftbitmap.pitch+j];
+	     }
+	   }
+	   g_free(graybitmap);
+	 }
+       }
+       if (rgba != NULL) { /* Non-null width */
+	 gdk_draw_pixbuf(renderer->pixmap, renderer->gc, rgba, 0, 0, x, y, width, height, GDK_RGB_DITHER_NONE, 0, 0);
+	 g_object_unref(G_OBJECT(rgba));
+       }
+     }
+  }
+
+  g_object_unref(G_OBJECT(layout));
+#else
+  /* This is a non-adjusted version.  To adjust, dig into the layout and
+   * use adjust_glyphs.  Then a fair amount of it can be collapsed with the
+   * above.
+   */
+  DiaGdkRenderer *renderer = DIA_GDK_RENDERER (object);
+  GdkColor gdkcolor;
+
+  int x,y;
+  Point start_pos;
+  PangoLayout* layout = NULL;
+  gchar *text = text_line_get_text(text_line);
+  DiaFont *font = text_line_get_font(text_line);
+  real font_height = text_line_get_height(text_line);
+
+  if (text == NULL || *text == '\0') return; /* Don't render empty strings. */
+
+  point_copy(&start_pos,pos);
+
+  renderer_color_convert(renderer, color, &gdkcolor);
+
+  start_pos.x -= get_alignment_adjustment(object, text, alignment);
+
+  {
+    int height_pixels = dia_transform_length(renderer->transform, font_height);
+    if (height_pixels < 2) { /* "Greeking" instead of making tiny font */
+      int width_pixels = dia_transform_length(
+                            renderer->transform, 
+                            dia_font_string_width(text, font, font_height));
+      gdk_gc_set_foreground(renderer->gc, &gdkcolor);
+      gdk_gc_set_dashes(renderer->gc, 0, "\1\2", 2);
+      dia_transform_coords(renderer->transform, start_pos.x, start_pos.y, &x, &y);
+      gdk_draw_line(renderer->pixmap, renderer->gc, x, y, x + width_pixels, y);
+      return;
+    }
+  }
+
+  {
+    GdkGC *gc = renderer->gc;
+    gdk_gc_set_foreground(gc, &gdkcolor);
+    dia_transform_coords(renderer->transform, start_pos.x, start_pos.y, &x, &y);
+
+    layout = dia_font_scaled_build_layout(text, font, font_height,
+                dia_transform_length (renderer->transform, 10.0) / 10.0);
+    y -= get_layout_first_baseline(layout);  
+    if (renderer->highlight_color != NULL) {
+      draw_highlighted_string(renderer, layout, x, y, &gdkcolor);
+    } else {
+      gdk_draw_layout(renderer->pixmap, gc, x, y, layout);
+    }
+  }
+
+  g_object_unref(G_OBJECT(layout));
+#endif
 }
 
 /** Caching Pango renderer */

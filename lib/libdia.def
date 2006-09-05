@@ -650,6 +650,21 @@ EXPORTS
  text_set_position
  text_set_string
 
+ text_line_new
+ text_line_destroy
+ text_line_copy
+ text_line_set_string
+ text_line_set_height
+ text_line_set_font
+ text_line_get_string
+ text_line_get_font
+ text_line_get_height
+ text_line_calc_boundingbox_size
+ text_line_draw
+ text_line_get_width
+ text_line_get_ascent
+ text_line_get_descent
+
  xmlDiaParseFile
  xmlDiaSaveFile
  xmlDoParseFile

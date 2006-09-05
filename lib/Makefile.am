@@ -58,6 +58,8 @@ libdia_la_SOURCES =  \
 		attributes.c \
 		text.c \
 		text.h \
+		textline.c \
+		textline.h \
 		font.c \
 		font.h \
 	        group.c \

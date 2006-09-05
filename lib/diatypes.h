@@ -164,6 +164,9 @@ typedef struct _SheetObject SheetObject;
 /* In text.h: */
 typedef struct _Text Text;
 
+/* In textline.h: */
+typedef struct _TextLine TextLine;
+
 /* In textattr.h: */
 typedef struct _TextAttributes TextAttributes;
 
