@@ -254,6 +254,7 @@ EXTRA_DIST = \
 	dia.rc \
 	\
 	diaconv.c \
+	dia-win-remote.c \
 	\
 	pixmaps/arrow.xpm \
 	pixmaps/swap.xpm \

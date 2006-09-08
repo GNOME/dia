@@ -215,7 +215,7 @@ Section $(DIA_SECTION_TITLE) SecDia
     WriteRegStr HKEY_CLASSES_ROOT ".dia" "Content Type" "application/dia"
     WriteRegStr HKEY_CLASSES_ROOT "diaFile" "" "diaFile"
     WriteRegBin HKEY_CLASSES_ROOT "diaFile" "EditFlags" 00000100
-    WriteRegStr HKEY_CLASSES_ROOT "diaFile\Shell\open\command" "" '"$INSTDIR\bin\diaw.exe" "%1"'
+    WriteRegStr HKEY_CLASSES_ROOT "diaFile\Shell\open\command" "" '"$INSTDIR\bin\dia-win-remote.exe" diaw.exe "%1"'
     WriteRegStr HKEY_CLASSES_ROOT "diaFile\DefaultIcon" "" "$INSTDIR\etc\dia-diagram.ico,0"
     WriteRegStr HKEY_CLASSES_ROOT "diaFile\Shell\createcgm" "" "Create CGM image"
     WriteRegStr HKEY_CLASSES_ROOT "diaFile\Shell\createcgm\command" "" '"$INSTDIR\bin\dia.exe" -t cgm "%1"'

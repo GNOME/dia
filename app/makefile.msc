@@ -105,7 +105,6 @@ ICON_PNG_PAIRS = \
 	dia_mainpoints_on_icon pixmaps\mainpoints-on.png \
 	dia_mainpoints_off_icon pixmaps\mainpoints-off.png
 
-
 dia-app-icons.h : makefile.msc pixmaps\*.png
 	gdk-pixbuf-csource --build-list \
 	$(ICON_PNG_PAIRS) > dia-app-icons.h
@@ -123,7 +122,8 @@ all : \
 	dia-app-icons.h \
 	$(PACKAGE)-app.dll \
 	$(PACKAGE).exe \
-	$(PACKAGE)w.exe
+	$(PACKAGE)w.exe \
+	$(PACKAGE)-win-remote.exe
 
 $(PACKAGE).res : $(PACKAGE).rc $(PACKAGE).ico
 	rc -r -fo $(PACKAGE).res $(PACKAGE).rc
@@ -144,6 +144,11 @@ $(PACKAGE).exe : $(OBJECTS) $(PACKAGE).def $(PACKAGE).res main.obj $(PACKAGE)-ap
 $(PACKAGE)w.exe : $(OBJECTS) $(PACKAGE).def $(PACKAGE).res winmain.obj $(PACKAGE)-app.dll
 	$(CC) $(CFLAGS) -Fe$(PACKAGE)w.exe $(PACKAGE).res winmain.obj dia-app.lib $(PKG_LINK) \
 	gdi32.lib comdlg32.lib user32.lib advapi32.lib $(LDFLAGS) /subsystem:windows
+	
+$(PACKAGE)-win-remote.exe : dia-win-remote.c dia-win-remote.obj
+	$(CC) $(CFLAGS) -Fedia-win-remote.exe $(PACKAGE).res dia-win-remote.obj \
+	$(LDFLAGS) gdi32.lib comdlg32.lib user32.lib advapi32.lib shell32.lib \
+	/subsystem:windows
 
 $(PRJ_TOP)/config.h: $(PRJ_TOP)/config.h.win32
 	copy $(PRJ_TOP)\config.h.win32 $(PRJ_TOP)\config.h

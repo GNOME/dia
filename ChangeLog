@@ -1,3 +1,11 @@
+2006-09-08  Steffen Macke <sdteffen@gmail.com>
+
+	* app/makefile.msc:
+	* app/Makefile.am:
+	* app/dia-win-remote.c:
+	* installer/win32/dia.nsi: From Windows Explorer, open .dia files in the 
+	running Dia instance (if possible). Fixes bug #70718
+
 2006-08-20  Hans Breuer  <hans@breuer.org>
 
 	* plug-ins/cairo/diacairo.c : get rid of c++ coment
