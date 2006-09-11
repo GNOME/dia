@@ -46,6 +46,7 @@
 #include "dia_image.h"
 
 #include "diasvgrenderer.h"
+#include "textline.h"
 
 #define DTOSTR_BUF_SIZE G_ASCII_DTOSTR_BUF_SIZE
 #define dia_svg_dtostr(buf,d) \
@@ -692,6 +693,56 @@ draw_string(DiaRenderer *self,
   xmlSetProp(node, "y", d_buf);
 }
 
+
+static void
+draw_text_line(DiaRenderer *self, TextLine *text_line,
+	       Point *pos, Color *colour)
+{    
+  DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
+  xmlNodePtr node;
+  char *style, *tmp;
+  real saved_width;
+  gchar d_buf[DTOSTR_BUF_SIZE];
+  DiaFont *font;
+
+  node = xmlNewChild(renderer->root, renderer->svg_name_space, "text", 
+		     text_line_get_string(text_line));
+ 
+  saved_width = renderer->linewidth;
+  renderer->linewidth = 0.001;
+  style = (char*)get_fill_style(renderer, colour);
+  /* return value must not be freed */
+  renderer->linewidth = saved_width;
+  tmp = g_strdup_printf("%s; font-size: %s", style,
+			dia_svg_dtostr(d_buf, text_line_get_height(text_line)));
+  g_free (style);
+  style = tmp;
+
+  tmp = g_strdup_printf("%s; length: %s", style,
+			dia_svg_dtostr(d_buf, text_line_get_width(text_line)));
+  g_free (style);
+  style = tmp;
+
+  font = text_line_get_font(text_line);
+  tmp = g_strdup_printf("%s; font-family: %s; font-style: %s; "
+			"font-weight: %s",style,
+			dia_font_get_family(font),
+			dia_font_get_slant_string(font),
+			dia_font_get_weight_string(font));
+  g_free(style);
+  style = tmp;
+
+  /* have to do something about fonts here ... */
+
+  xmlSetProp(node, "style", style);
+  g_free(style);
+
+  dia_svg_dtostr(d_buf, pos->x);
+  xmlSetProp(node, "x", d_buf);
+  dia_svg_dtostr(d_buf, pos->y);
+  xmlSetProp(node, "y", d_buf);
+}
+
 static void
 draw_image(DiaRenderer *self,
 	   Point *point,
@@ -802,6 +853,7 @@ dia_svg_renderer_class_init (DiaSvgRendererClass *klass)
 
   renderer_class->draw_bezier   = draw_bezier;
   renderer_class->fill_bezier   = fill_bezier;
+/*  renderer_class->draw_text_line  = draw_text_line;*/
 
   /* svg specific */
   svg_renderer_class->get_draw_style = get_draw_style;

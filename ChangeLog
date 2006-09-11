@@ -1,3 +1,12 @@
+2006-09-11  Lars Clausen  <lars@raeder.dk>
+
+	* lib/diasvgrenderer.c (draw_text_line): First stab at making svg
+	text line renderer, doesn't work yet.
+
+	* lib/textline.c (text_line_draw): Removed #define.
+
+	* lib/diagdkrenderer.c (draw_text_line): Slight cleanups.
+
 2006-09-11  Steffen Macke <sdteffen@gmail.com>
 
 	* plug-ins/vdx/vdx-export.c:
@@ -30,6 +39,31 @@
 	* installer/win32/dia.nsi: From Windows Explorer, open .dia files in the 
 	running Dia instance (if possible). Fixes bug #70718
 
+2006-09-05  Lars Clausen  <lars@raeder.dk>
+
+	* lib/diatypes.h: 
+	* lib/Makefile.am (libdia_la_SOURCES): 
+	* lib/diarenderer.[ch]: 
+	* lib/font.[ch]: 
+	* lib/diagdkrenderer.c: 
+	* lib/textline.[ch]: TextLine now ready for commit.  Rendering
+	with it is much faster and significantly more precise than
+	without.  All renderers should implement a good definitions for
+	this (though there is a default one that uses draw_string), as it
+	can tell the expected width of a string.
+	
+	* lib/libdia.def: Newly defined functions.	
+
+2006-08-29  Lars Clausen  <lars@raeder.dk>
+
+	* lib/textline.[ch]: New text rendering level: A self-contained
+	single-line text object that allows safer caching and hopefully
+	more accurate rendering at various zooms.  Using a PangoMatrix
+	didn't seem to help. 
+
+	* lib/font.c: Removing out-deffed layout cache code, it'll never
+	work.  Also a couple support functions for my quest of good zoom.
+
 2006-08-20  Hans Breuer  <hans@breuer.org>
 
 	* plug-ins/cairo/diacairo.c : get rid of c++ coment
@@ -39,6 +73,11 @@
 	app/diagram.h asymmetric with all the others. We should not leave
 	the common C OO-pattern of passing an explicit "this pointer" just
 	because that can also be deduced from the other object.
+
+2006-08-18  Lars Clausen  <lars@raeder.dk>
+
+	* lib/render.[ch]: Finally removed unused render files now known
+	as diarenderer.[ch].
 
 2006-08-17  Steffen Macke <sdteffen@gmail.com>
 

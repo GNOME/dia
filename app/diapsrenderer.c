@@ -31,6 +31,12 @@
 #include "message.h"
 #include "dia_image.h"
 #include "font.h"
+#include "textline.h"
+
+static void
+draw_text_line(DiaRenderer *self,
+	       const TextLine *text_line,
+	       Point *pos, Color *color);
 
 #define DTOSTR_BUF_SIZE G_ASCII_DTOSTR_BUF_SIZE
 #define psrenderer_dtostr(buf,d) \
@@ -132,6 +138,10 @@ end_render(DiaRenderer *self)
 
   if (renderer_is_eps(renderer))
     fprintf(renderer->file, "showpage\n");
+
+  if (self->font != NULL) {
+    dia_font_unref(self->font);
+  }
 }
 
 static void
@@ -278,9 +288,17 @@ set_font(DiaRenderer *self, DiaFont *font, real height)
   DiaPsRenderer *renderer = DIA_PS_RENDERER(self);
   gchar h_buf[DTOSTR_BUF_SIZE];
 
-  fprintf(renderer->file, "/%s-latin1 ff %s scf sf\n",
-          dia_font_get_psfontname(font),
-	  psrenderer_dtostr(h_buf, (gdouble) height*0.7) );
+  if (font != self->font || height != self->font_height) {
+    fprintf(renderer->file, "/%s-latin1 ff %s scf sf\n",
+	    dia_font_get_psfontname(font),
+	    psrenderer_dtostr(h_buf, (gdouble) height*0.7) );
+    if (self->font != NULL) {
+      dia_font_unref(self->font);
+    }
+    self->font = font;
+    dia_font_ref(self->font);
+    self->font_height = height;
+  }
 }
 
 static void
@@ -590,25 +608,14 @@ fill_bezier(DiaRenderer *self,
   psrenderer_bezier(renderer, points, numpoints, color, TRUE);
 }
 
-static void
-draw_string(DiaRenderer *self,
-	    const char *text,
-	    Point *pos, Alignment alignment,
-	    Color *color)
+static char*
+ps_convert_string(const char *text)
 {
-  DiaPsRenderer *renderer = DIA_PS_RENDERER(self);
-  gchar *buffer;
+  char *buffer;
   gchar *localestr;
-  gchar px_buf[DTOSTR_BUF_SIZE];
-  gchar py_buf[DTOSTR_BUF_SIZE];
   const gchar *str;
   gint len;
   GError * error = NULL;
-
-  if (1 > strlen(text))
-    return;
-
-  lazy_setcolor(renderer,color);
 
   localestr = g_convert(text, -1, "LATIN1", "UTF-8", NULL, NULL, &error);
 
@@ -631,9 +638,48 @@ draw_string(DiaRenderer *self,
       str++;
     }
   }
+  g_free(localestr);
+  return buffer;
+}
+
+static void
+draw_string(DiaRenderer *self,
+	    const char *text,
+	    Point *pos, Alignment alignment,
+	    Color *color)
+{
+#define DRAW_STRING_WITH_TEXT_LINE
+#ifdef DRAW_STRING_WITH_TEXT_LINE
+  TextLine *text_line = text_line_new(text, self->font, self->font_height);
+  real width = text_line_get_width(text_line);
+  Point realigned_pos = *pos;
+  switch (alignment) {
+      case ALIGN_LEFT:
+	break;
+      case ALIGN_CENTER:
+	realigned_pos.x -= width/2;
+	break;
+      case ALIGN_RIGHT:
+	realigned_pos.x -= width;
+	break;
+  }
+  draw_text_line(self, text_line, &realigned_pos, color);
+#else
+  DiaPsRenderer *renderer = DIA_PS_RENDERER(self);
+  gchar *buffer;
+  gchar px_buf[DTOSTR_BUF_SIZE];
+  gchar py_buf[DTOSTR_BUF_SIZE];
+  GError * error = NULL;
+
+  if (1 > strlen(text))
+    return;
+
+  lazy_setcolor(renderer,color);
+
+  buffer = ps_convert_string(text);
+
   fprintf(renderer->file, "(%s) ", buffer);
   g_free(buffer);
-  g_free(localestr);
 
   switch (alignment) {
   case ALIGN_LEFT:
@@ -654,6 +700,49 @@ draw_string(DiaRenderer *self,
   }
   
   fprintf(renderer->file, " gs 1 -1 sc sh gr\n");
+#endif
+}
+
+static void
+draw_text_line(DiaRenderer *self,
+	       const TextLine *text_line,
+	       Point *pos, Color *color)
+{
+  DiaPsRenderer *renderer = DIA_PS_RENDERER(self);
+  gchar *buffer;
+  gchar px_buf[DTOSTR_BUF_SIZE];
+  gchar py_buf[DTOSTR_BUF_SIZE];
+  real width;
+  gchar *text = text_line_get_string(text_line);
+  int n_chars = g_utf8_strlen(text, -1);
+
+  if (1 > n_chars)
+    return;
+
+  set_font(self, text_line_get_font(text_line),
+	   text_line_get_height(text_line));
+
+  lazy_setcolor(renderer, color);
+
+  buffer = ps_convert_string(text);
+
+  fprintf(renderer->file, "(%s) ", buffer);
+  g_free(buffer);
+
+  fprintf(renderer->file, "%s %s m \n",
+	  psrenderer_dtostr(px_buf, pos->x),
+	  psrenderer_dtostr(py_buf, pos->y) );
+  
+  /* Perform magic to ensure the right size */
+  width = text_line_get_width(text_line);
+  
+  /* Find the difference in length */
+  fprintf(renderer->file, "dup sw %f exch sub \n", width);
+
+  /* Divide by number of chars and set up for ashow */
+  fprintf(renderer->file, "%d div exch 0.0 exch \n", n_chars);
+  
+  fprintf(renderer->file, " gs 1 -1 sc ashow gr\n");
 }
 
 static void
@@ -1012,6 +1101,7 @@ dia_ps_renderer_class_init (DiaPsRendererClass *klass)
   renderer_class->fill_rect = fill_rect;
   renderer_class->draw_polyline  = draw_polyline;
   renderer_class->draw_polygon   = draw_polygon;
+  renderer_class->draw_text_line = draw_text_line;
 
   /* ps specific */
   ps_renderer_class->begin_prolog = begin_prolog;

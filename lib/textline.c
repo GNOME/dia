@@ -105,7 +105,7 @@ text_line_new(const gchar *string, DiaFont *font, real height)
 }
 
 TextLine *
-text_line_copy(TextLine *text_line)
+text_line_copy(const TextLine *text_line)
 {
   return text_line_new(text_line->chars, text_line->font, text_line->height);
 }
@@ -151,33 +151,24 @@ void
 text_line_draw(DiaRenderer *renderer, TextLine *text_line,
 	       Point *pos, Color *color)
 {
-#ifdef DIRECT_TEXT_LINE
-  DIA_RENDERER_GET_CLASS(renderer)->draw_text_line(renderer, 
-						   text_line,
+  DIA_RENDERER_GET_CLASS(renderer)->draw_text_line(renderer, text_line,
 						   pos, color);
-#else
-  DIA_RENDERER_GET_CLASS(renderer)->set_font(renderer, text_line->font,
-					     text_line->height);
-  DIA_RENDERER_GET_CLASS(renderer)->draw_string(renderer, 
-						text_line->chars,
-						pos, ALIGN_LEFT, color);
-#endif
 }
 
 gchar *
-text_line_get_string(TextLine *text_line)
+text_line_get_string(const TextLine *text_line)
 {
   return text_line->chars;
 }
 
 DiaFont *
-text_line_get_font(TextLine *text_line)
+text_line_get_font(const TextLine *text_line)
 {
   return text_line->font;
 }
 
 real 
-text_line_get_height(TextLine *text_line)
+text_line_get_height(const TextLine *text_line)
 {
   return text_line->height;
 }
@@ -242,4 +233,33 @@ text_line_cache_values(TextLine *text_line)
     text_line->font_cache = text_line->font;
     text_line->height_cache = text_line->height;
   }
+}
+
+/** Adjust a line of glyphs to match the sizes stored in the TextLine
+ * @param line The TextLine object that corresponds to the glyphs.
+ * @param glyphs The one set of glyphs contained in the TextLine's layout.
+ * @param scale The relative height of the font in glyphs.
+ * @return An adjusted glyphstring, which should be freed by the caller.
+ */
+PangoGlyphString *
+text_line_adjust_glyphs(TextLine *line, PangoGlyphString *glyphs, real scale)
+{
+  PangoGlyphString* new_glyphs = g_new(PangoGlyphString, 1);
+  int i;
+
+  new_glyphs->num_glyphs = glyphs->num_glyphs;
+  new_glyphs->glyphs = g_new(PangoGlyphInfo, glyphs->num_glyphs);
+  new_glyphs->log_clusters = glyphs->log_clusters;
+
+  for (i = 0; i < new_glyphs->num_glyphs; i++) {
+    new_glyphs->glyphs[i] = glyphs->glyphs[i];
+/*
+    printf("Glyph %d: width %d, offset %f, textwidth %f\n",
+	   i, new_glyphs->glyphs[i].geometry.width, line->offsets[i],
+	   line->offsets[i] * scale * 20.0 * PANGO_SCALE);
+*/
+    new_glyphs->glyphs[i].geometry.width =
+      (int)(line->offsets[i] * scale * 20.0 * PANGO_SCALE);
+  }
+  return new_glyphs;
 }

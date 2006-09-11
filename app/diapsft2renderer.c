@@ -23,9 +23,11 @@
 #include "font.h"
 
 #include "diapsft2renderer.h"
+#include "textline.h"
 
 #include <pango/pango.h>
 #include <pango/pangoft2.h>
+#include <pango/pango-engine.h>
 /* I'd really rather avoid this */
 #include <freetype/ftglyph.h>
 #include <freetype/ftoutln.h>
@@ -72,6 +74,11 @@ static int paps_cubic_to( FT_Vector*  control1,
 
 static void dia_ps_ft2_renderer_class_init (DiaPsFt2RendererClass *klass);
 
+static void
+draw_text_line(DiaRenderer *self,
+	       TextLine *text_line,
+	       Point *pos, Color *color);
+
 static gpointer parent_class = NULL;
 
 static void
@@ -79,13 +86,19 @@ set_font(DiaRenderer *self, DiaFont *font, real height)
 {
   DiaPsFt2Renderer *renderer = DIA_PS_FT2_RENDERER(self);
 
-  renderer->current_font = font;
-  /* Dammit!  We have a random factor once again! 
-   * And not only here but also in dia_font_scaled_build_layout() below ...
-   */
-  renderer->current_height = height*4.3;
+  if (renderer->current_font != font) {
+    if (renderer->current_font != NULL) {
+      dia_font_unref(renderer->current_font);
+    }
+    renderer->current_font = font;
+    /* Dammit!  We have a random factor once again! 
+     * And not only here but also in dia_font_scaled_build_layout() below ...
+     */
+    renderer->current_height = height*4.3;
+    dia_font_ref(font);
+  }
   pango_context_set_font_description(dia_font_get_context(), 
-                                     dia_font_get_description(font));
+				     dia_font_get_description(font));
 }
 
 /* ********************************************************* */
@@ -325,6 +338,25 @@ draw_string(DiaRenderer *self,
 	    Point *pos, Alignment alignment,
 	    Color *color)
 {
+#define DRAW_STRING_WITH_TEXT_LINE
+#ifdef DRAW_STRING_WITH_TEXT_LINE
+  DiaPsFt2Renderer *renderer = DIA_PS_FT2_RENDERER(self);
+  TextLine *text_line = text_line_new(text, renderer->current_font,
+				      renderer->current_height);
+  real width = text_line_get_width(text_line);
+  Point realigned_pos = *pos;
+  switch (alignment) {
+      case ALIGN_LEFT:
+	break;
+      case ALIGN_CENTER:
+	realigned_pos.x -= width/2;
+	break;
+      case ALIGN_RIGHT:
+	realigned_pos.x -= width;
+	break;
+  }
+  draw_text_line(self, text_line, &realigned_pos, color);
+#else
   DiaPsFt2Renderer *renderer = DIA_PS_FT2_RENDERER(self);
   PangoLayout *layout;
   int width;
@@ -415,6 +447,83 @@ draw_string(DiaRenderer *self,
     /* xpos should be adjusted for align and/or RTL */
     ypos += 10;/* Some line height thing??? */
   }
+#endif
+}
+
+static void
+draw_text_line(DiaRenderer *self,
+	       TextLine *text_line,
+	       Point *pos, Color *color)
+{
+  DiaPsFt2Renderer *renderer = DIA_PS_FT2_RENDERER(self);
+  PangoLayout *layout;
+  int width;
+  int line, linecount;
+  double xpos = pos->x, ypos = pos->y;
+  char *text = text_line_get_string(text_line);
+/* Using the global PangoContext does not allow to have renderer specific 
+ * different ones. Or it implies the push/pop _context mess. Anyway just 
+ * get rid of warnings for now. But the local code may be resurreted 
+ * sooner or later...                                               --hb
+ */
+#define USE_GLOBAL_CONTEXT
+#ifndef USE_GLOBAL_CONTEXT
+  PangoAttrList* list;
+  PangoAttribute* attr;
+  guint length;
+#endif
+
+  if ((!text)||(text == (const char *)(1))) return;
+
+  lazy_setcolor(DIA_PS_RENDERER(renderer),color);
+
+  /* Make sure the letters aren't too wide. */
+#ifdef USE_GLOBAL_CONTEXT
+  layout = dia_font_build_layout(text, text_line_get_font(text_line),
+				 text_line_get_height(text_line)/0.7);
+#else
+  /* approximately what would be required but w/o dia_font_get_context() */
+  dia_font_set_height(text_line_get_font(text_line),
+		      text_line_get_height(text_line));
+  layout = pango_layout_new(dia_font_get_context());
+
+  length = text ? strlen(text) : 0;
+  pango_layout_set_text(layout,text,length);
+        
+  list = pango_attr_list_new();
+
+  attr = pango_attr_font_desc_new(dia_font_get_description(text_line_get_font(text_line)));
+  attr->start_index = 0;
+  attr->end_index = length;
+  pango_attr_list_insert(list,attr);
+    
+  pango_layout_set_attributes(layout,list);
+  pango_attr_list_unref(list);
+
+  pango_layout_set_indent(layout,0);
+  pango_layout_set_justify(layout,FALSE);
+#endif
+
+  pango_layout_set_alignment(layout,PANGO_ALIGN_LEFT);
+    
+  pango_layout_get_size(layout, &width, NULL);
+  linecount = pango_layout_get_line_count(layout);
+  for (line = 0; line < linecount; line++) {
+    PangoLayoutLine *layoutline = pango_layout_get_line(layout, line);
+
+    /* This is currently rather crude, but it works under the assumption
+     * that a TextLine has exactly one glyphs object. */
+    PangoGlyphItem *glyphItem = (PangoGlyphItem*)layoutline->runs->data;
+    glyphItem->glyphs = text_line_adjust_glyphs(text_line, glyphItem->glyphs, 
+						1.3);
+    /* 1.3 is a magic constant that gives "reasonable" results.  Some
+       clean-up of the code might give better results and an explanation */
+
+    postscript_draw_contour(DIA_PS_RENDERER(renderer),
+			    DPI, /* dpi_x */
+			    layoutline, xpos, ypos);
+    ypos += 10;/* Some line height thing??? */
+  }
 }
 
 static void
@@ -454,6 +563,11 @@ dia_ps_ft2_renderer_get_type (void)
 static void
 dia_ps_ft2_renderer_finalize (GObject *object)
 {
+  DiaPsFt2Renderer *renderer = DIA_PS_FT2_RENDERER(object);
+  if (renderer->current_font != NULL) {
+    dia_font_unref(renderer->current_font);
+    renderer->current_font = NULL;
+  }
   G_OBJECT_CLASS (parent_class)->finalize (object);
 }
 
@@ -470,6 +584,8 @@ dia_ps_ft2_renderer_class_init (DiaPsFt2RendererClass *klass)
 
   renderer_class->set_font     = set_font;
   renderer_class->draw_string  = draw_string;
+
+  renderer_class->draw_text_line = draw_text_line;
 
   /* ps specific */
   ps_renderer_class->dump_fonts   = dump_fonts;

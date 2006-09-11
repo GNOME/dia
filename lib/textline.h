@@ -72,18 +72,22 @@ struct _TextLine {
 
 TextLine *text_line_new(const gchar *string, DiaFont *font, real height);
 void text_line_destroy(TextLine *text);
-TextLine *text_line_copy(TextLine *text);
+TextLine *text_line_copy(const TextLine *text);
 void text_line_set_string(TextLine *text, const char *string);
 void text_line_set_height(TextLine *text, real height);
 void text_line_set_font(TextLine *text, DiaFont *font);
-gchar *text_line_get_string(TextLine *text);
-DiaFont *text_line_get_font(TextLine *text);
-real text_line_get_height(TextLine *text);
+gchar *text_line_get_string(const TextLine *text);
+DiaFont *text_line_get_font(const TextLine *text);
+real text_line_get_height(const TextLine *text);
 void text_line_calc_boundingbox_size(TextLine *text, Point *size);
 void text_line_draw(DiaRenderer *renderer, TextLine *text_line,
 		    Point *pos, Color *color);
 real text_line_get_width(TextLine *text);
 real text_line_get_ascent(TextLine *text);
 real text_line_get_descent(TextLine *text);
+
+PangoGlyphString *text_line_adjust_glyphs(TextLine *line,
+					  PangoGlyphString *glyphs,
+					  real scale);
 
 #endif
