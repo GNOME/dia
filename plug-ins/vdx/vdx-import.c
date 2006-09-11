@@ -28,6 +28,7 @@
 #include <string.h>
 #include <math.h>
 #include <glib.h>
+#include <glib/gstdio.h>
 #include <stdlib.h>
 #include <ctype.h>
 #include <libxml/tree.h>
@@ -1502,7 +1503,7 @@ plot_image(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm,
            from or the current directory - both are problematic */
         image_dir = (char *)tempnam(0, "dia");
         if (!image_dir) return 0;
-        if (mkdir(image_dir, 0700))
+        if (g_mkdir(image_dir, 0700))
         {
             message_error(_("Couldn't make object dir %s"), image_dir);
             return 0;
