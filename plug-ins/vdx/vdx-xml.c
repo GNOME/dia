@@ -19,8 +19,8 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-/* Generated Sun Jun 25 08:08:55 2006 */
-/* From: All.vdx animation_tests.vdx BasicShapes.vdx basic_tests.vdx Beispiel 1.vdx Beispiel 2.vdx Beispiel 3.vdx Circle1.vdx Circle2.vdx curve_tests.vdx Drawing2.vdx emf_dump_test2.orig.vdx emf_dump_test2.vdx Entreprise_etat_desire.vdx Line1.vdx Line2.vdx Line3.vdx Line4.vdx Line5.vdx Line6.vdx LombardiWireframe.vdx pattern_tests.vdx Rectangle1.vdx Rectangle2.vdx Rectangle3.vdx Rectangle4.vdx sample1.vdx Sample2.vdx samp_vdx.vdx seq_test.vdx SmithWireframe.vdx states.vdx Text1.vdx Text2.vdx Text3.vdx text_tests.vdx */
+/* Generated Fri Sep  8 18:04:14 2006 */
+/* From: All.vdx animation_tests.vdx Arrows-2.vdx Arrow & Text samples.vdx BasicShapes.vdx basic_tests.vdx Beispiel 1.vdx Beispiel 2.vdx Beispiel 3.vdx Circle1.vdx Circle2.vdx curve_tests.vdx Drawing2.vdx Embedded-Pics-1.vdx emf_dump_test2.orig.vdx emf_dump_test2.vdx Entreprise_etat_desire.vdx Line1.vdx Line2.vdx Line3.vdx Line4.vdx Line5.vdx Line6.vdx LombardiWireframe.vdx pattern_tests.vdx Rectangle1.vdx Rectangle2.vdx Rectangle3.vdx Rectangle4.vdx sample1.vdx Sample2.vdx samp_vdx.vdx seq_test.vdx SmithWireframe.vdx states.vdx Text1.vdx Text2.vdx Text3.vdx text_tests.vdx */
 
 
 #include <glib.h>
@@ -53,7 +53,6 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
 {
     xmlNodePtr child;
     xmlAttrPtr attr;
-    g_debug(" XML Decoding %s", cur->name);
 
     if (!strcmp((char *)cur->name, "Act")) {
         struct vdx_Act *s;
@@ -382,19 +381,23 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
                 s->FromCell = (char *)attr->children->content;
             else if (!strcmp((char *)attr->name, "FromPart") &&
                      attr->children && attr->children->content)
-                s->FromPart = atoi((char *)attr->children->content);
+            {    s->FromPart = atoi((char *)attr->children->content);
+                s->FromPart_exists = TRUE; }
             else if (!strcmp((char *)attr->name, "FromSheet") &&
                      attr->children && attr->children->content)
-                s->FromSheet = atoi((char *)attr->children->content);
+            {    s->FromSheet = atoi((char *)attr->children->content);
+                s->FromSheet_exists = TRUE; }
             else if (!strcmp((char *)attr->name, "ToCell") &&
                      attr->children && attr->children->content)
                 s->ToCell = (char *)attr->children->content;
             else if (!strcmp((char *)attr->name, "ToPart") &&
                      attr->children && attr->children->content)
-                s->ToPart = atoi((char *)attr->children->content);
+            {    s->ToPart = atoi((char *)attr->children->content);
+                s->ToPart_exists = TRUE; }
             else if (!strcmp((char *)attr->name, "ToSheet") &&
                      attr->children && attr->children->content)
-                s->ToSheet = atoi((char *)attr->children->content);
+            {    s->ToSheet = atoi((char *)attr->children->content);
+                s->ToSheet_exists = TRUE; }
         }
         for (child = cur->xmlChildrenNode; child; child = child->next) {
             if (xmlIsBlankNode(child)) { continue; }
@@ -665,19 +668,24 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         for (attr = cur->properties; attr; attr = attr->next) {
             if (!strcmp((char *)attr->name, "DefaultFillStyle") &&
                      attr->children && attr->children->content)
-                s->DefaultFillStyle = atoi((char *)attr->children->content);
+            {    s->DefaultFillStyle = atoi((char *)attr->children->content);
+                s->DefaultFillStyle_exists = TRUE; }
             else if (!strcmp((char *)attr->name, "DefaultGuideStyle") &&
                      attr->children && attr->children->content)
-                s->DefaultGuideStyle = atoi((char *)attr->children->content);
+            {    s->DefaultGuideStyle = atoi((char *)attr->children->content);
+                s->DefaultGuideStyle_exists = TRUE; }
             else if (!strcmp((char *)attr->name, "DefaultLineStyle") &&
                      attr->children && attr->children->content)
-                s->DefaultLineStyle = atoi((char *)attr->children->content);
+            {    s->DefaultLineStyle = atoi((char *)attr->children->content);
+                s->DefaultLineStyle_exists = TRUE; }
             else if (!strcmp((char *)attr->name, "DefaultTextStyle") &&
                      attr->children && attr->children->content)
-                s->DefaultTextStyle = atoi((char *)attr->children->content);
+            {    s->DefaultTextStyle = atoi((char *)attr->children->content);
+                s->DefaultTextStyle_exists = TRUE; }
             else if (!strcmp((char *)attr->name, "TopPage") &&
                      attr->children && attr->children->content)
-                s->TopPage = atoi((char *)attr->children->content);
+            {    s->TopPage = atoi((char *)attr->children->content);
+                s->TopPage_exists = TRUE; }
         }
         for (child = cur->xmlChildrenNode; child; child = child->next) {
             if (xmlIsBlankNode(child)) { continue; }
@@ -721,10 +729,12 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         for (attr = cur->properties; attr; attr = attr->next) {
             if (!strcmp((char *)attr->name, "FillStyle") &&
                      attr->children && attr->children->content)
-                s->FillStyle = atoi((char *)attr->children->content);
+            {    s->FillStyle = atoi((char *)attr->children->content);
+                s->FillStyle_exists = TRUE; }
             else if (!strcmp((char *)attr->name, "LineStyle") &&
                      attr->children && attr->children->content)
-                s->LineStyle = atoi((char *)attr->children->content);
+            {    s->LineStyle = atoi((char *)attr->children->content);
+                s->LineStyle_exists = TRUE; }
             else if (!strcmp((char *)attr->name, "Name") &&
                      attr->children && attr->children->content)
                 s->Name = (char *)attr->children->content;
@@ -733,7 +743,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
                 s->NameU = (char *)attr->children->content;
             else if (!strcmp((char *)attr->name, "TextStyle") &&
                      attr->children && attr->children->content)
-                s->TextStyle = atoi((char *)attr->children->content);
+            {    s->TextStyle = atoi((char *)attr->children->content);
+                s->TextStyle_exists = TRUE; }
         }
         for (child = cur->xmlChildrenNode; child; child = child->next) {
             if (xmlIsBlankNode(child)) { continue; }
@@ -927,7 +938,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
                 s->Enabled = atoi((char *)attr->children->content);
             else if (!strcmp((char *)attr->name, "EventCode") &&
                      attr->children && attr->children->content)
-                s->EventCode = atoi((char *)attr->children->content);
+            {    s->EventCode = atoi((char *)attr->children->content);
+                s->EventCode_exists = TRUE; }
             else if (!strcmp((char *)attr->name, "ID") &&
                      attr->children && attr->children->content)
                 s->ID = atoi((char *)attr->children->content);
@@ -979,7 +991,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
                 s->CharSets = (char *)attr->children->content;
             else if (!strcmp((char *)attr->name, "Flags") &&
                      attr->children && attr->children->content)
-                s->Flags = atoi((char *)attr->children->content);
+            {    s->Flags = atoi((char *)attr->children->content);
+                s->Flags_exists = TRUE; }
             else if (!strcmp((char *)attr->name, "ID") &&
                      attr->children && attr->children->content)
                 s->ID = atoi((char *)attr->children->content);
@@ -1143,10 +1156,12 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         for (attr = cur->properties; attr; attr = attr->next) {
             if (!strcmp((char *)attr->name, "Attributes") &&
                      attr->children && attr->children->content)
-                s->Attributes = atoi((char *)attr->children->content);
+            {    s->Attributes = atoi((char *)attr->children->content);
+                s->Attributes_exists = TRUE; }
             else if (!strcmp((char *)attr->name, "CharSet") &&
                      attr->children && attr->children->content)
-                s->CharSet = atoi((char *)attr->children->content);
+            {    s->CharSet = atoi((char *)attr->children->content);
+                s->CharSet_exists = TRUE; }
             else if (!strcmp((char *)attr->name, "ID") &&
                      attr->children && attr->children->content)
                 s->ID = atoi((char *)attr->children->content);
@@ -1155,7 +1170,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
                 s->Name = (char *)attr->children->content;
             else if (!strcmp((char *)attr->name, "PitchAndFamily") &&
                      attr->children && attr->children->content)
-                s->PitchAndFamily = atoi((char *)attr->children->content);
+            {    s->PitchAndFamily = atoi((char *)attr->children->content);
+                s->PitchAndFamily_exists = TRUE; }
             else if (!strcmp((char *)attr->name, "Unicode") &&
                      attr->children && attr->children->content)
                 s->Unicode = atoi((char *)attr->children->content);
@@ -1228,24 +1244,34 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         s->children = 0;
         s->type = vdx_types_ForeignData;
         for (attr = cur->properties; attr; attr = attr->next) {
-            if (!strcmp((char *)attr->name, "ExtentX") &&
+            if (!strcmp((char *)attr->name, "CompressionLevel") &&
                      attr->children && attr->children->content)
-                s->ExtentX = atoi((char *)attr->children->content);
+                s->CompressionLevel = atof((char *)attr->children->content);
+            else if (!strcmp((char *)attr->name, "CompressionType") &&
+                     attr->children && attr->children->content)
+                s->CompressionType = (char *)attr->children->content;
+            else if (!strcmp((char *)attr->name, "ExtentX") &&
+                     attr->children && attr->children->content)
+            {    s->ExtentX = atoi((char *)attr->children->content);
+                s->ExtentX_exists = TRUE; }
             else if (!strcmp((char *)attr->name, "ExtentY") &&
                      attr->children && attr->children->content)
-                s->ExtentY = atoi((char *)attr->children->content);
+            {    s->ExtentY = atoi((char *)attr->children->content);
+                s->ExtentY_exists = TRUE; }
             else if (!strcmp((char *)attr->name, "ForeignType") &&
                      attr->children && attr->children->content)
                 s->ForeignType = (char *)attr->children->content;
             else if (!strcmp((char *)attr->name, "MappingMode") &&
                      attr->children && attr->children->content)
-                s->MappingMode = atoi((char *)attr->children->content);
+            {    s->MappingMode = atoi((char *)attr->children->content);
+                s->MappingMode_exists = TRUE; }
             else if (!strcmp((char *)attr->name, "ObjectHeight") &&
                      attr->children && attr->children->content)
                 s->ObjectHeight = atof((char *)attr->children->content);
             else if (!strcmp((char *)attr->name, "ObjectType") &&
                      attr->children && attr->children->content)
-                s->ObjectType = atoi((char *)attr->children->content);
+            {    s->ObjectType = atoi((char *)attr->children->content);
+                s->ObjectType_exists = TRUE; }
             else if (!strcmp((char *)attr->name, "ObjectWidth") &&
                      attr->children && attr->children->content)
                 s->ObjectWidth = atof((char *)attr->children->content);
@@ -1379,7 +1405,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
                 s->CharSet = atoi((char *)attr->children->content);
             else if (!strcmp((char *)attr->name, "ClipPrecision") &&
                      attr->children && attr->children->content)
-                s->ClipPrecision = atoi((char *)attr->children->content);
+            {    s->ClipPrecision = atoi((char *)attr->children->content);
+                s->ClipPrecision_exists = TRUE; }
             else if (!strcmp((char *)attr->name, "Escapement") &&
                      attr->children && attr->children->content)
                 s->Escapement = atoi((char *)attr->children->content);
@@ -1388,7 +1415,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
                 s->FaceName = (char *)attr->children->content;
             else if (!strcmp((char *)attr->name, "Height") &&
                      attr->children && attr->children->content)
-                s->Height = atoi((char *)attr->children->content);
+            {    s->Height = atoi((char *)attr->children->content);
+                s->Height_exists = TRUE; }
             else if (!strcmp((char *)attr->name, "Italic") &&
                      attr->children && attr->children->content)
                 s->Italic = atoi((char *)attr->children->content);
@@ -1397,10 +1425,12 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
                 s->Orientation = atoi((char *)attr->children->content);
             else if (!strcmp((char *)attr->name, "OutPrecision") &&
                      attr->children && attr->children->content)
-                s->OutPrecision = atoi((char *)attr->children->content);
+            {    s->OutPrecision = atoi((char *)attr->children->content);
+                s->OutPrecision_exists = TRUE; }
             else if (!strcmp((char *)attr->name, "PitchAndFamily") &&
                      attr->children && attr->children->content)
-                s->PitchAndFamily = atoi((char *)attr->children->content);
+            {    s->PitchAndFamily = atoi((char *)attr->children->content);
+                s->PitchAndFamily_exists = TRUE; }
             else if (!strcmp((char *)attr->name, "Quality") &&
                      attr->children && attr->children->content)
                 s->Quality = atoi((char *)attr->children->content);
@@ -1412,7 +1442,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
                 s->Underline = atoi((char *)attr->children->content);
             else if (!strcmp((char *)attr->name, "Weight") &&
                      attr->children && attr->children->content)
-                s->Weight = atoi((char *)attr->children->content);
+            {    s->Weight = atoi((char *)attr->children->content);
+                s->Weight_exists = TRUE; }
             else if (!strcmp((char *)attr->name, "Width") &&
                      attr->children && attr->children->content)
                 s->Width = atoi((char *)attr->children->content);
@@ -1809,7 +1840,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         for (attr = cur->properties; attr; attr = attr->next) {
             if (!strcmp((char *)attr->name, "AlignName") &&
                      attr->children && attr->children->content)
-                s->AlignName = atoi((char *)attr->children->content);
+            {    s->AlignName = atoi((char *)attr->children->content);
+                s->AlignName_exists = TRUE; }
             else if (!strcmp((char *)attr->name, "BaseID") &&
                      attr->children && attr->children->content)
                 s->BaseID = (char *)attr->children->content;
@@ -1821,7 +1853,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
                 s->ID = atoi((char *)attr->children->content);
             else if (!strcmp((char *)attr->name, "IconSize") &&
                      attr->children && attr->children->content)
-                s->IconSize = atoi((char *)attr->children->content);
+            {    s->IconSize = atoi((char *)attr->children->content);
+                s->IconSize_exists = TRUE; }
             else if (!strcmp((char *)attr->name, "IconUpdate") &&
                      attr->children && attr->children->content)
                 s->IconUpdate = atoi((char *)attr->children->content);
@@ -1836,7 +1869,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
                 s->NameU = (char *)attr->children->content;
             else if (!strcmp((char *)attr->name, "PatternFlags") &&
                      attr->children && attr->children->content)
-                s->PatternFlags = atoi((char *)attr->children->content);
+            {    s->PatternFlags = atoi((char *)attr->children->content);
+                s->PatternFlags_exists = TRUE; }
             else if (!strcmp((char *)attr->name, "Prompt") &&
                      attr->children && attr->children->content)
                 s->Prompt = (char *)attr->children->content;
@@ -2046,7 +2080,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         for (attr = cur->properties; attr; attr = attr->next) {
             if (!strcmp((char *)attr->name, "BackPage") &&
                      attr->children && attr->children->content)
-                s->BackPage = atoi((char *)attr->children->content);
+            {    s->BackPage = atoi((char *)attr->children->content);
+                s->BackPage_exists = TRUE; }
             else if (!strcmp((char *)attr->name, "Background") &&
                      attr->children && attr->children->content)
                 s->Background = atoi((char *)attr->children->content);
@@ -2241,13 +2276,16 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         for (attr = cur->properties; attr; attr = attr->next) {
             if (!strcmp((char *)attr->name, "FillStyle") &&
                      attr->children && attr->children->content)
-                s->FillStyle = atoi((char *)attr->children->content);
+            {    s->FillStyle = atoi((char *)attr->children->content);
+                s->FillStyle_exists = TRUE; }
             else if (!strcmp((char *)attr->name, "LineStyle") &&
                      attr->children && attr->children->content)
-                s->LineStyle = atoi((char *)attr->children->content);
+            {    s->LineStyle = atoi((char *)attr->children->content);
+                s->LineStyle_exists = TRUE; }
             else if (!strcmp((char *)attr->name, "TextStyle") &&
                      attr->children && attr->children->content)
-                s->TextStyle = atoi((char *)attr->children->content);
+            {    s->TextStyle = atoi((char *)attr->children->content);
+                s->TextStyle_exists = TRUE; }
             else if (!strcmp((char *)attr->name, "UniqueID") &&
                      attr->children && attr->children->content)
                 s->UniqueID = (char *)attr->children->content;
@@ -2332,7 +2370,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         for (attr = cur->properties; attr; attr = attr->next) {
             if (!strcmp((char *)attr->name, "Size") &&
                      attr->children && attr->children->content)
-                s->Size = atoi((char *)attr->children->content);
+            {    s->Size = atoi((char *)attr->children->content);
+                s->Size_exists = TRUE; }
         }
         for (child = cur->xmlChildrenNode; child; child = child->next) {
             if (xmlIsBlankNode(child)) { continue; }
@@ -2676,19 +2715,23 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
                 s->Del = atoi((char *)attr->children->content);
             else if (!strcmp((char *)attr->name, "FillStyle") &&
                      attr->children && attr->children->content)
-                s->FillStyle = atoi((char *)attr->children->content);
+            {    s->FillStyle = atoi((char *)attr->children->content);
+                s->FillStyle_exists = TRUE; }
             else if (!strcmp((char *)attr->name, "ID") &&
                      attr->children && attr->children->content)
                 s->ID = atoi((char *)attr->children->content);
             else if (!strcmp((char *)attr->name, "LineStyle") &&
                      attr->children && attr->children->content)
-                s->LineStyle = atoi((char *)attr->children->content);
+            {    s->LineStyle = atoi((char *)attr->children->content);
+                s->LineStyle_exists = TRUE; }
             else if (!strcmp((char *)attr->name, "Master") &&
                      attr->children && attr->children->content)
-                s->Master = atoi((char *)attr->children->content);
+            {    s->Master = atoi((char *)attr->children->content);
+                s->Master_exists = TRUE; }
             else if (!strcmp((char *)attr->name, "MasterShape") &&
                      attr->children && attr->children->content)
-                s->MasterShape = atoi((char *)attr->children->content);
+            {    s->MasterShape = atoi((char *)attr->children->content);
+                s->MasterShape_exists = TRUE; }
             else if (!strcmp((char *)attr->name, "Name") &&
                      attr->children && attr->children->content)
                 s->Name = (char *)attr->children->content;
@@ -2697,7 +2740,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
                 s->NameU = (char *)attr->children->content;
             else if (!strcmp((char *)attr->name, "TextStyle") &&
                      attr->children && attr->children->content)
-                s->TextStyle = atoi((char *)attr->children->content);
+            {    s->TextStyle = atoi((char *)attr->children->content);
+                s->TextStyle_exists = TRUE; }
             else if (!strcmp((char *)attr->name, "Type") &&
                      attr->children && attr->children->content)
                 s->Type = (char *)attr->children->content;
@@ -2707,21 +2751,6 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         }
         for (child = cur->xmlChildrenNode; child; child = child->next) {
             if (xmlIsBlankNode(child)) { continue; }
-            if (!strcmp((char *)child->name, "Char"))
-            { if (child->children && child->children->content)
-                s->Char = atoi((char *)child->children->content); }
-            else if (!strcmp((char *)child->name, "Field"))
-            { if (child->children && child->children->content)
-                s->Field = atoi((char *)child->children->content); }
-            else if (!strcmp((char *)child->name, "cp"))
-            { if (child->children && child->children->content)
-                s->cp = atoi((char *)child->children->content); }
-            else if (!strcmp((char *)child->name, "fld"))
-            { if (child->children && child->children->content)
-                s->fld = (char *)child->children->content; }
-            else if (!strcmp((char *)child->name, "pp"))
-            { if (child->children && child->children->content)
-                s->pp = atoi((char *)child->children->content); }
             else s->children =
                      g_slist_append(s->children,
                                     vdx_read_object(child, theDoc, 0));
@@ -2851,13 +2880,15 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         for (attr = cur->properties; attr; attr = attr->next) {
             if (!strcmp((char *)attr->name, "FillStyle") &&
                      attr->children && attr->children->content)
-                s->FillStyle = atoi((char *)attr->children->content);
+            {    s->FillStyle = atoi((char *)attr->children->content);
+                s->FillStyle_exists = TRUE; }
             else if (!strcmp((char *)attr->name, "ID") &&
                      attr->children && attr->children->content)
                 s->ID = atoi((char *)attr->children->content);
             else if (!strcmp((char *)attr->name, "LineStyle") &&
                      attr->children && attr->children->content)
-                s->LineStyle = atoi((char *)attr->children->content);
+            {    s->LineStyle = atoi((char *)attr->children->content);
+                s->LineStyle_exists = TRUE; }
             else if (!strcmp((char *)attr->name, "Name") &&
                      attr->children && attr->children->content)
                 s->Name = (char *)attr->children->content;
@@ -2866,7 +2897,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
                 s->NameU = (char *)attr->children->content;
             else if (!strcmp((char *)attr->name, "TextStyle") &&
                      attr->children && attr->children->content)
-                s->TextStyle = atoi((char *)attr->children->content);
+            {    s->TextStyle = atoi((char *)attr->children->content);
+                s->TextStyle_exists = TRUE; }
         }
         for (child = cur->xmlChildrenNode; child; child = child->next) {
             if (xmlIsBlankNode(child)) { continue; }
@@ -2939,6 +2971,12 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
             if (!strcmp((char *)child->name, "cp"))
             { if (child->children && child->children->content)
                 s->cp = atoi((char *)child->children->content); }
+            else if (!strcmp((char *)child->name, "pp"))
+            { if (child->children && child->children->content)
+                s->pp = atoi((char *)child->children->content); }
+            else if (!strcmp((char *)child->name, "tp"))
+            { if (child->children && child->children->content)
+                s->tp = atoi((char *)child->children->content); }
             else s->children =
                      g_slist_append(s->children,
                                     vdx_read_object(child, theDoc, 0));
@@ -3066,10 +3104,12 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         for (attr = cur->properties; attr; attr = attr->next) {
             if (!strcmp((char *)attr->name, "DocLangID") &&
                      attr->children && attr->children->content)
-                s->DocLangID = atoi((char *)attr->children->content);
+            {    s->DocLangID = atoi((char *)attr->children->content);
+                s->DocLangID_exists = TRUE; }
             else if (!strcmp((char *)attr->name, "buildnum") &&
                      attr->children && attr->children->content)
-                s->buildnum = atoi((char *)attr->children->content);
+            {    s->buildnum = atoi((char *)attr->children->content);
+                s->buildnum_exists = TRUE; }
             else if (!strcmp((char *)attr->name, "key") &&
                      attr->children && attr->children->content)
                 s->key = (char *)attr->children->content;
@@ -3078,7 +3118,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
                 s->metric = atoi((char *)attr->children->content);
             else if (!strcmp((char *)attr->name, "start") &&
                      attr->children && attr->children->content)
-                s->start = atoi((char *)attr->children->content);
+            {    s->start = atoi((char *)attr->children->content);
+                s->start_exists = TRUE; }
             else if (!strcmp((char *)attr->name, "version") &&
                      attr->children && attr->children->content)
                 s->version = (char *)attr->children->content;
@@ -3119,13 +3160,15 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
                 s->ID = atoi((char *)attr->children->content);
             else if (!strcmp((char *)attr->name, "Page") &&
                      attr->children && attr->children->content)
-                s->Page = atoi((char *)attr->children->content);
+            {    s->Page = atoi((char *)attr->children->content);
+                s->Page_exists = TRUE; }
             else if (!strcmp((char *)attr->name, "ParentWindow") &&
                      attr->children && attr->children->content)
                 s->ParentWindow = atoi((char *)attr->children->content);
             else if (!strcmp((char *)attr->name, "Sheet") &&
                      attr->children && attr->children->content)
-                s->Sheet = atoi((char *)attr->children->content);
+            {    s->Sheet = atoi((char *)attr->children->content);
+                s->Sheet_exists = TRUE; }
             else if (!strcmp((char *)attr->name, "ViewCenterX") &&
                      attr->children && attr->children->content)
                 s->ViewCenterX = atof((char *)attr->children->content);
@@ -3137,22 +3180,27 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
                 s->ViewScale = atof((char *)attr->children->content);
             else if (!strcmp((char *)attr->name, "WindowHeight") &&
                      attr->children && attr->children->content)
-                s->WindowHeight = atoi((char *)attr->children->content);
+            {    s->WindowHeight = atoi((char *)attr->children->content);
+                s->WindowHeight_exists = TRUE; }
             else if (!strcmp((char *)attr->name, "WindowLeft") &&
                      attr->children && attr->children->content)
-                s->WindowLeft = atoi((char *)attr->children->content);
+            {    s->WindowLeft = atoi((char *)attr->children->content);
+                s->WindowLeft_exists = TRUE; }
             else if (!strcmp((char *)attr->name, "WindowState") &&
                      attr->children && attr->children->content)
-                s->WindowState = atoi((char *)attr->children->content);
+            {    s->WindowState = atoi((char *)attr->children->content);
+                s->WindowState_exists = TRUE; }
             else if (!strcmp((char *)attr->name, "WindowTop") &&
                      attr->children && attr->children->content)
-                s->WindowTop = atoi((char *)attr->children->content);
+            {    s->WindowTop = atoi((char *)attr->children->content);
+                s->WindowTop_exists = TRUE; }
             else if (!strcmp((char *)attr->name, "WindowType") &&
                      attr->children && attr->children->content)
                 s->WindowType = (char *)attr->children->content;
             else if (!strcmp((char *)attr->name, "WindowWidth") &&
                      attr->children && attr->children->content)
-                s->WindowWidth = atoi((char *)attr->children->content);
+            {    s->WindowWidth = atoi((char *)attr->children->content);
+                s->WindowWidth_exists = TRUE; }
         }
         for (child = cur->xmlChildrenNode; child; child = child->next) {
             if (xmlIsBlankNode(child)) { continue; }
@@ -3208,10 +3256,12 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         for (attr = cur->properties; attr; attr = attr->next) {
             if (!strcmp((char *)attr->name, "ClientHeight") &&
                      attr->children && attr->children->content)
-                s->ClientHeight = atoi((char *)attr->children->content);
+            {    s->ClientHeight = atoi((char *)attr->children->content);
+                s->ClientHeight_exists = TRUE; }
             else if (!strcmp((char *)attr->name, "ClientWidth") &&
                      attr->children && attr->children->content)
-                s->ClientWidth = atoi((char *)attr->children->content);
+            {    s->ClientWidth = atoi((char *)attr->children->content);
+                s->ClientWidth_exists = TRUE; }
         }
         for (child = cur->xmlChildrenNode; child; child = child->next) {
             if (xmlIsBlankNode(child)) { continue; }
@@ -3393,4 +3443,1858 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
 
     message_error(_("Can't decode object %s"), (char*)cur->name);
     return 0;
+}
+
+/** Writes an object in internal representation as XML
+ * @param file the output file
+ * @param depth tag depth for pretty-printing
+ * @param p a pointer to the object
+ */
+
+void
+vdx_write_object(FILE *file, unsigned int depth, const void *p)
+{
+    const struct vdx_any *Any = (const struct vdx_any*)p;
+    const GSList *child = Any->children;
+
+    const struct vdx_Act *Act;
+    const struct vdx_Align *Align;
+    const struct vdx_ArcTo *ArcTo;
+    const struct vdx_BegTrigger *BegTrigger;
+    const struct vdx_BeginX *BeginX;
+    const struct vdx_BeginY *BeginY;
+    const struct vdx_Char *Char;
+    const struct vdx_ColorEntry *ColorEntry;
+    const struct vdx_Colors *Colors;
+    const struct vdx_Connect *Connect;
+    const struct vdx_Connection *Connection;
+    const struct vdx_Connects *Connects;
+    const struct vdx_Control *Control;
+    const struct vdx_CustomProp *CustomProp;
+    const struct vdx_CustomProps *CustomProps;
+    const struct vdx_DocProps *DocProps;
+    const struct vdx_DocumentProperties *DocumentProperties;
+    const struct vdx_DocumentSettings *DocumentSettings;
+    const struct vdx_DocumentSheet *DocumentSheet;
+    const struct vdx_Ellipse *Ellipse;
+    const struct vdx_EllipticalArcTo *EllipticalArcTo;
+    const struct vdx_EndX *EndX;
+    const struct vdx_EndY *EndY;
+    const struct vdx_Event *Event;
+    const struct vdx_EventDblClick *EventDblClick;
+    const struct vdx_EventItem *EventItem;
+    const struct vdx_EventList *EventList;
+    const struct vdx_FaceName *FaceName;
+    const struct vdx_FaceNames *FaceNames;
+    const struct vdx_Field *Field;
+    const struct vdx_Fill *Fill;
+    const struct vdx_FontEntry *FontEntry;
+    const struct vdx_Fonts *Fonts;
+    const struct vdx_Foreign *Foreign;
+    const struct vdx_ForeignData *ForeignData;
+    const struct vdx_Geom *Geom;
+    const struct vdx_Group *Group;
+    const struct vdx_HeaderFooter *HeaderFooter;
+    const struct vdx_HeaderFooterFont *HeaderFooterFont;
+    const struct vdx_Help *Help;
+    const struct vdx_Hyperlink *Hyperlink;
+    const struct vdx_Icon *Icon;
+    const struct vdx_Image *Image;
+    const struct vdx_InfiniteLine *InfiniteLine;
+    const struct vdx_Layer *Layer;
+    const struct vdx_LayerMem *LayerMem;
+    const struct vdx_Layout *Layout;
+    const struct vdx_Line *Line;
+    const struct vdx_LineTo *LineTo;
+    const struct vdx_Master *Master;
+    const struct vdx_Menu *Menu;
+    const struct vdx_Misc *Misc;
+    const struct vdx_MoveTo *MoveTo;
+    const struct vdx_NURBSTo *NURBSTo;
+    const struct vdx_NameUniv *NameUniv;
+    const struct vdx_Page *Page;
+    const struct vdx_PageLayout *PageLayout;
+    const struct vdx_PageProps *PageProps;
+    const struct vdx_PageSheet *PageSheet;
+    const struct vdx_Para *Para;
+    const struct vdx_PreviewPicture *PreviewPicture;
+    const struct vdx_PrintProps *PrintProps;
+    const struct vdx_PrintSetup *PrintSetup;
+    const struct vdx_Prop *Prop;
+    const struct vdx_Protection *Protection;
+    const struct vdx_RulerGrid *RulerGrid;
+    const struct vdx_Scratch *Scratch;
+    const struct vdx_Shape *Shape;
+    const struct vdx_Shapes *Shapes;
+    const struct vdx_SplineKnot *SplineKnot;
+    const struct vdx_SplineStart *SplineStart;
+    const struct vdx_StyleProp *StyleProp;
+    const struct vdx_StyleSheet *StyleSheet;
+    const struct vdx_Tab *Tab;
+    const struct vdx_Tabs *Tabs;
+    const struct vdx_Text *Text;
+    const struct vdx_TextBlock *TextBlock;
+    const struct vdx_TextXForm *TextXForm;
+    const struct vdx_User *User;
+    const struct vdx_VisioDocument *VisioDocument;
+    const struct vdx_Window *Window;
+    const struct vdx_Windows *Windows;
+    const struct vdx_XForm *XForm;
+    const struct vdx_XForm1D *XForm1D;
+    const struct vdx_cp *cp;
+    const struct vdx_fld *fld;
+    const struct vdx_pp *pp;
+    const struct vdx_tp *tp;
+    const struct vdx_text *text;
+    char *pad = (char *)malloc(2*depth+1);
+    unsigned int i;
+
+    g_debug(" XML Encoding %s", vdx_Types[(int)Any->type]);
+    for (i=0; i<2*depth; i++) { pad[i] = ' '; }
+    pad[2*depth] = 0;
+
+    switch (Any->type)
+    {
+    case vdx_types_Act:
+        Act = (const struct vdx_Act *)(p);
+        fprintf(file, "%s<Act ID='%u' IX='%u'", pad, Act->ID, Act->IX);
+        if (Act->NameU)
+            fprintf(file, " NameU='%s'",
+                    Act->NameU);
+        fprintf(file, ">\n");
+        fprintf(file, "%s  <Action>%f</Action>\n", pad,
+                Act->Action);
+        fprintf(file, "%s  <BeginGroup>%u</BeginGroup>\n", pad,
+                Act->BeginGroup);
+        fprintf(file, "%s  <ButtonFace>%u</ButtonFace>\n", pad,
+                Act->ButtonFace);
+        fprintf(file, "%s  <Checked>%u</Checked>\n", pad,
+                Act->Checked);
+        fprintf(file, "%s  <Disabled>%u</Disabled>\n", pad,
+                Act->Disabled);
+        fprintf(file, "%s  <Invisible>%u</Invisible>\n", pad,
+                Act->Invisible);
+        fprintf(file, "%s  <Menu>%s</Menu>\n", pad,
+                Act->Menu);
+        fprintf(file, "%s  <ReadOnly>%u</ReadOnly>\n", pad,
+                Act->ReadOnly);
+        fprintf(file, "%s  <SortKey>%u</SortKey>\n", pad,
+                Act->SortKey);
+        fprintf(file, "%s  <TagName>%u</TagName>\n", pad,
+                Act->TagName);
+        break;
+
+    case vdx_types_Align:
+        Align = (const struct vdx_Align *)(p);
+        fprintf(file, "%s<Align>\n", pad);
+        fprintf(file, "%s  <AlignBottom>%f</AlignBottom>\n", pad,
+                Align->AlignBottom);
+        fprintf(file, "%s  <AlignCenter>%f</AlignCenter>\n", pad,
+                Align->AlignCenter);
+        fprintf(file, "%s  <AlignLeft>%u</AlignLeft>\n", pad,
+                Align->AlignLeft);
+        fprintf(file, "%s  <AlignMiddle>%u</AlignMiddle>\n", pad,
+                Align->AlignMiddle);
+        fprintf(file, "%s  <AlignRight>%u</AlignRight>\n", pad,
+                Align->AlignRight);
+        fprintf(file, "%s  <AlignTop>%f</AlignTop>\n", pad,
+                Align->AlignTop);
+        break;
+
+    case vdx_types_ArcTo:
+        ArcTo = (const struct vdx_ArcTo *)(p);
+        fprintf(file, "%s<ArcTo IX='%u'>\n", pad, ArcTo->IX);
+        fprintf(file, "%s  <A>%f</A>\n", pad,
+                ArcTo->A);
+        fprintf(file, "%s  <X>%f</X>\n", pad,
+                ArcTo->X);
+        fprintf(file, "%s  <Y>%f</Y>\n", pad,
+                ArcTo->Y);
+        break;
+
+    case vdx_types_BegTrigger:
+        BegTrigger = (const struct vdx_BegTrigger *)(p);
+        fprintf(file, "%s<BegTrigger Err='%s'", pad, BegTrigger->Err);
+        if (!child)
+        {
+            fprintf(file, "/>\n");
+            return;
+        }
+        fprintf(file, ">\n");
+        break;
+
+    case vdx_types_BeginX:
+        BeginX = (const struct vdx_BeginX *)(p);
+        fprintf(file, "%s<BeginX Err='%s'", pad, BeginX->Err);
+        if (!child)
+        {
+            fprintf(file, "/>\n");
+            return;
+        }
+        fprintf(file, ">\n");
+        break;
+
+    case vdx_types_BeginY:
+        BeginY = (const struct vdx_BeginY *)(p);
+        fprintf(file, "%s<BeginY Err='%s'", pad, BeginY->Err);
+        if (!child)
+        {
+            fprintf(file, "/>\n");
+            return;
+        }
+        fprintf(file, ">\n");
+        break;
+
+    case vdx_types_Char:
+        Char = (const struct vdx_Char *)(p);
+        fprintf(file, "%s<Char IX='%u'", pad, Char->IX);
+        if (Char->Del)
+            fprintf(file, " Del='%u'",
+                    Char->Del);
+        fprintf(file, ">\n");
+        fprintf(file, "%s  <AsianFont>%u</AsianFont>\n", pad,
+                Char->AsianFont);
+        fprintf(file, "%s  <Case>%u</Case>\n", pad,
+                Char->Case);
+        fprintf(file, "%s  <Color>%s</Color>\n", pad,
+                vdx_string_color(Char->Color));
+        fprintf(file, "%s  <ColorTrans>%f</ColorTrans>\n", pad,
+                Char->ColorTrans);
+        fprintf(file, "%s  <ComplexScriptFont>%u</ComplexScriptFont>\n", pad,
+                Char->ComplexScriptFont);
+        fprintf(file, "%s  <ComplexScriptSize>%d)</ComplexScriptSize>\n", pad,
+                Char->ComplexScriptSize);
+        fprintf(file, "%s  <DblUnderline>%u</DblUnderline>\n", pad,
+                Char->DblUnderline);
+        fprintf(file, "%s  <DoubleStrikethrough>%u</DoubleStrikethrough>\n", pad,
+                Char->DoubleStrikethrough);
+        fprintf(file, "%s  <Font>%u</Font>\n", pad,
+                Char->Font);
+        fprintf(file, "%s  <FontScale>%f</FontScale>\n", pad,
+                Char->FontScale);
+        fprintf(file, "%s  <Highlight>%u</Highlight>\n", pad,
+                Char->Highlight);
+        fprintf(file, "%s  <LangID>%u</LangID>\n", pad,
+                Char->LangID);
+        fprintf(file, "%s  <Letterspace>%f</Letterspace>\n", pad,
+                Char->Letterspace);
+        fprintf(file, "%s  <Locale>%u</Locale>\n", pad,
+                Char->Locale);
+        fprintf(file, "%s  <LocalizeFont>%u</LocalizeFont>\n", pad,
+                Char->LocalizeFont);
+        fprintf(file, "%s  <Overline>%u</Overline>\n", pad,
+                Char->Overline);
+        fprintf(file, "%s  <Perpendicular>%u</Perpendicular>\n", pad,
+                Char->Perpendicular);
+        fprintf(file, "%s  <Pos>%u</Pos>\n", pad,
+                Char->Pos);
+        fprintf(file, "%s  <RTLText>%u</RTLText>\n", pad,
+                Char->RTLText);
+        fprintf(file, "%s  <Size>%f</Size>\n", pad,
+                Char->Size);
+        fprintf(file, "%s  <Strikethru>%u</Strikethru>\n", pad,
+                Char->Strikethru);
+        fprintf(file, "%s  <Style>%u</Style>\n", pad,
+                Char->Style);
+        fprintf(file, "%s  <UseVertical>%u</UseVertical>\n", pad,
+                Char->UseVertical);
+        break;
+
+    case vdx_types_ColorEntry:
+        ColorEntry = (const struct vdx_ColorEntry *)(p);
+        fprintf(file, "%s<ColorEntry IX='%u' RGB='%s'", pad, ColorEntry->IX, ColorEntry->RGB);
+        if (!child)
+        {
+            fprintf(file, "/>\n");
+            return;
+        }
+        fprintf(file, ">\n");
+        break;
+
+    case vdx_types_Colors:
+        Colors = (const struct vdx_Colors *)(p);
+        fprintf(file, "%s<Colors>\n", pad);
+        fprintf(file, "%s  <ColorEntry>%u</ColorEntry>\n", pad,
+                Colors->ColorEntry);
+        break;
+
+    case vdx_types_Connect:
+        Connect = (const struct vdx_Connect *)(p);
+        fprintf(file, "%s<Connect FromCell='%s' ToCell='%s'", pad, Connect->FromCell, Connect->ToCell);
+        if (Connect->FromPart_exists)
+            fprintf(file, " FromPart='%u'",
+                    Connect->FromPart);
+        if (Connect->FromSheet_exists)
+            fprintf(file, " FromSheet='%u'",
+                    Connect->FromSheet);
+        if (Connect->ToPart_exists)
+            fprintf(file, " ToPart='%u'",
+                    Connect->ToPart);
+        if (Connect->ToSheet_exists)
+            fprintf(file, " ToSheet='%u'",
+                    Connect->ToSheet);
+        if (!child)
+        {
+            fprintf(file, "/>\n");
+            return;
+        }
+        fprintf(file, ">\n");
+        break;
+
+    case vdx_types_Connection:
+        Connection = (const struct vdx_Connection *)(p);
+        fprintf(file, "%s<Connection ID='%u' IX='%u'", pad, Connection->ID, Connection->IX);
+        if (Connection->NameU)
+            fprintf(file, " NameU='%s'",
+                    Connection->NameU);
+        fprintf(file, ">\n");
+        fprintf(file, "%s  <AutoGen>%u</AutoGen>\n", pad,
+                Connection->AutoGen);
+        fprintf(file, "%s  <DirX>%f</DirX>\n", pad,
+                Connection->DirX);
+        fprintf(file, "%s  <DirY>%f</DirY>\n", pad,
+                Connection->DirY);
+        fprintf(file, "%s  <Prompt>%s</Prompt>\n", pad,
+                Connection->Prompt);
+        fprintf(file, "%s  <Type>%u</Type>\n", pad,
+                Connection->Type);
+        fprintf(file, "%s  <X>%f</X>\n", pad,
+                Connection->X);
+        fprintf(file, "%s  <Y>%f</Y>\n", pad,
+                Connection->Y);
+        break;
+
+    case vdx_types_Connects:
+        Connects = (const struct vdx_Connects *)(p);
+        fprintf(file, "%s<Connects>\n", pad);
+        fprintf(file, "%s  <Connect>%u</Connect>\n", pad,
+                Connects->Connect);
+        break;
+
+    case vdx_types_Control:
+        Control = (const struct vdx_Control *)(p);
+        fprintf(file, "%s<Control ID='%u' IX='%u'", pad, Control->ID, Control->IX);
+        if (Control->NameU)
+            fprintf(file, " NameU='%s'",
+                    Control->NameU);
+        fprintf(file, ">\n");
+        fprintf(file, "%s  <CanGlue>%u</CanGlue>\n", pad,
+                Control->CanGlue);
+        fprintf(file, "%s  <Prompt>%s</Prompt>\n", pad,
+                Control->Prompt);
+        fprintf(file, "%s  <X>%f</X>\n", pad,
+                Control->X);
+        fprintf(file, "%s  <XCon>%f</XCon>\n", pad,
+                Control->XCon);
+        fprintf(file, "%s  <XDyn>%f</XDyn>\n", pad,
+                Control->XDyn);
+        fprintf(file, "%s  <Y>%f</Y>\n", pad,
+                Control->Y);
+        fprintf(file, "%s  <YCon>%f</YCon>\n", pad,
+                Control->YCon);
+        fprintf(file, "%s  <YDyn>%f</YDyn>\n", pad,
+                Control->YDyn);
+        break;
+
+    case vdx_types_CustomProp:
+        CustomProp = (const struct vdx_CustomProp *)(p);
+        fprintf(file, "%s<CustomProp PropType='%s'", pad, CustomProp->PropType);
+        if (CustomProp->Name)
+            fprintf(file, " Name='%s'",
+                    CustomProp->Name);
+        if (!child)
+        {
+            fprintf(file, "/>\n");
+            return;
+        }
+        fprintf(file, ">\n");
+        break;
+
+    case vdx_types_CustomProps:
+        CustomProps = (const struct vdx_CustomProps *)(p);
+        fprintf(file, "%s<CustomProps>\n", pad);
+        fprintf(file, "%s  <CustomProp>%s</CustomProp>\n", pad,
+                CustomProps->CustomProp);
+        break;
+
+    case vdx_types_DocProps:
+        DocProps = (const struct vdx_DocProps *)(p);
+        fprintf(file, "%s<DocProps>\n", pad);
+        fprintf(file, "%s  <AddMarkup>%u</AddMarkup>\n", pad,
+                DocProps->AddMarkup);
+        fprintf(file, "%s  <DocLangID>%u</DocLangID>\n", pad,
+                DocProps->DocLangID);
+        fprintf(file, "%s  <LockPreview>%u</LockPreview>\n", pad,
+                DocProps->LockPreview);
+        fprintf(file, "%s  <OutputFormat>%u</OutputFormat>\n", pad,
+                DocProps->OutputFormat);
+        fprintf(file, "%s  <PreviewQuality>%u</PreviewQuality>\n", pad,
+                DocProps->PreviewQuality);
+        fprintf(file, "%s  <PreviewScope>%u</PreviewScope>\n", pad,
+                DocProps->PreviewScope);
+        fprintf(file, "%s  <ViewMarkup>%u</ViewMarkup>\n", pad,
+                DocProps->ViewMarkup);
+        break;
+
+    case vdx_types_DocumentProperties:
+        DocumentProperties = (const struct vdx_DocumentProperties *)(p);
+        fprintf(file, "%s<DocumentProperties>\n", pad);
+        fprintf(file, "%s  <BuildNumberCreated>%d)</BuildNumberCreated>\n", pad,
+                DocumentProperties->BuildNumberCreated);
+        fprintf(file, "%s  <BuildNumberEdited>%u</BuildNumberEdited>\n", pad,
+                DocumentProperties->BuildNumberEdited);
+        fprintf(file, "%s  <Company>%s</Company>\n", pad,
+                DocumentProperties->Company);
+        fprintf(file, "%s  <Creator>%s</Creator>\n", pad,
+                DocumentProperties->Creator);
+        fprintf(file, "%s  <Desc>%s</Desc>\n", pad,
+                DocumentProperties->Desc);
+        fprintf(file, "%s  <Subject>%s</Subject>\n", pad,
+                DocumentProperties->Subject);
+        fprintf(file, "%s  <Template>%s</Template>\n", pad,
+                DocumentProperties->Template);
+        fprintf(file, "%s  <TimeCreated>%s</TimeCreated>\n", pad,
+                DocumentProperties->TimeCreated);
+        fprintf(file, "%s  <TimeEdited>%s</TimeEdited>\n", pad,
+                DocumentProperties->TimeEdited);
+        fprintf(file, "%s  <TimePrinted>%s</TimePrinted>\n", pad,
+                DocumentProperties->TimePrinted);
+        fprintf(file, "%s  <TimeSaved>%s</TimeSaved>\n", pad,
+                DocumentProperties->TimeSaved);
+        fprintf(file, "%s  <Title>%s</Title>\n", pad,
+                DocumentProperties->Title);
+        break;
+
+    case vdx_types_DocumentSettings:
+        DocumentSettings = (const struct vdx_DocumentSettings *)(p);
+        fprintf(file, "%s<DocumentSettings", pad);
+        if (DocumentSettings->DefaultFillStyle_exists)
+            fprintf(file, " DefaultFillStyle='%u'",
+                    DocumentSettings->DefaultFillStyle);
+        if (DocumentSettings->DefaultGuideStyle_exists)
+            fprintf(file, " DefaultGuideStyle='%u'",
+                    DocumentSettings->DefaultGuideStyle);
+        if (DocumentSettings->DefaultLineStyle_exists)
+            fprintf(file, " DefaultLineStyle='%u'",
+                    DocumentSettings->DefaultLineStyle);
+        if (DocumentSettings->DefaultTextStyle_exists)
+            fprintf(file, " DefaultTextStyle='%u'",
+                    DocumentSettings->DefaultTextStyle);
+        if (DocumentSettings->TopPage_exists)
+            fprintf(file, " TopPage='%u'",
+                    DocumentSettings->TopPage);
+        fprintf(file, ">\n");
+        fprintf(file, "%s  <DynamicGridEnabled>%u</DynamicGridEnabled>\n", pad,
+                DocumentSettings->DynamicGridEnabled);
+        fprintf(file, "%s  <GlueSettings>%u</GlueSettings>\n", pad,
+                DocumentSettings->GlueSettings);
+        fprintf(file, "%s  <ProtectBkgnds>%u</ProtectBkgnds>\n", pad,
+                DocumentSettings->ProtectBkgnds);
+        fprintf(file, "%s  <ProtectMasters>%u</ProtectMasters>\n", pad,
+                DocumentSettings->ProtectMasters);
+        fprintf(file, "%s  <ProtectShapes>%u</ProtectShapes>\n", pad,
+                DocumentSettings->ProtectShapes);
+        fprintf(file, "%s  <ProtectStyles>%u</ProtectStyles>\n", pad,
+                DocumentSettings->ProtectStyles);
+        fprintf(file, "%s  <SnapExtensions>%u</SnapExtensions>\n", pad,
+                DocumentSettings->SnapExtensions);
+        fprintf(file, "%s  <SnapSettings>%u</SnapSettings>\n", pad,
+                DocumentSettings->SnapSettings);
+        break;
+
+    case vdx_types_DocumentSheet:
+        DocumentSheet = (const struct vdx_DocumentSheet *)(p);
+        fprintf(file, "%s<DocumentSheet", pad);
+        if (DocumentSheet->FillStyle_exists)
+            fprintf(file, " FillStyle='%u'",
+                    DocumentSheet->FillStyle);
+        if (DocumentSheet->LineStyle_exists)
+            fprintf(file, " LineStyle='%u'",
+                    DocumentSheet->LineStyle);
+        if (DocumentSheet->TextStyle_exists)
+            fprintf(file, " TextStyle='%u'",
+                    DocumentSheet->TextStyle);
+        if (DocumentSheet->Name)
+            fprintf(file, " Name='%s'",
+                    DocumentSheet->Name);
+        if (DocumentSheet->NameU)
+            fprintf(file, " NameU='%s'",
+                    DocumentSheet->NameU);
+        if (!child)
+        {
+            fprintf(file, "/>\n");
+            return;
+        }
+        fprintf(file, ">\n");
+        break;
+
+    case vdx_types_Ellipse:
+        Ellipse = (const struct vdx_Ellipse *)(p);
+        fprintf(file, "%s<Ellipse IX='%u'>\n", pad, Ellipse->IX);
+        fprintf(file, "%s  <A>%f</A>\n", pad,
+                Ellipse->A);
+        fprintf(file, "%s  <B>%f</B>\n", pad,
+                Ellipse->B);
+        fprintf(file, "%s  <C>%f</C>\n", pad,
+                Ellipse->C);
+        fprintf(file, "%s  <D>%f</D>\n", pad,
+                Ellipse->D);
+        fprintf(file, "%s  <X>%f</X>\n", pad,
+                Ellipse->X);
+        fprintf(file, "%s  <Y>%f</Y>\n", pad,
+                Ellipse->Y);
+        break;
+
+    case vdx_types_EllipticalArcTo:
+        EllipticalArcTo = (const struct vdx_EllipticalArcTo *)(p);
+        fprintf(file, "%s<EllipticalArcTo IX='%u'>\n", pad, EllipticalArcTo->IX);
+        fprintf(file, "%s  <A>%f</A>\n", pad,
+                EllipticalArcTo->A);
+        fprintf(file, "%s  <B>%f</B>\n", pad,
+                EllipticalArcTo->B);
+        fprintf(file, "%s  <C>%f</C>\n", pad,
+                EllipticalArcTo->C);
+        fprintf(file, "%s  <D>%f</D>\n", pad,
+                EllipticalArcTo->D);
+        fprintf(file, "%s  <X>%f</X>\n", pad,
+                EllipticalArcTo->X);
+        fprintf(file, "%s  <Y>%f</Y>\n", pad,
+                EllipticalArcTo->Y);
+        break;
+
+    case vdx_types_EndX:
+        EndX = (const struct vdx_EndX *)(p);
+        fprintf(file, "%s<EndX Err='%s'", pad, EndX->Err);
+        if (!child)
+        {
+            fprintf(file, "/>\n");
+            return;
+        }
+        fprintf(file, ">\n");
+        break;
+
+    case vdx_types_EndY:
+        EndY = (const struct vdx_EndY *)(p);
+        fprintf(file, "%s<EndY Err='%s'", pad, EndY->Err);
+        if (!child)
+        {
+            fprintf(file, "/>\n");
+            return;
+        }
+        fprintf(file, ">\n");
+        break;
+
+    case vdx_types_Event:
+        Event = (const struct vdx_Event *)(p);
+        fprintf(file, "%s<Event>\n", pad);
+        fprintf(file, "%s  <EventDblClick>%u</EventDblClick>\n", pad,
+                Event->EventDblClick);
+        fprintf(file, "%s  <EventDrop>%f</EventDrop>\n", pad,
+                Event->EventDrop);
+        fprintf(file, "%s  <EventXFMod>%u</EventXFMod>\n", pad,
+                Event->EventXFMod);
+        fprintf(file, "%s  <TheData>%u</TheData>\n", pad,
+                Event->TheData);
+        fprintf(file, "%s  <TheText>%u</TheText>\n", pad,
+                Event->TheText);
+        break;
+
+    case vdx_types_EventDblClick:
+        EventDblClick = (const struct vdx_EventDblClick *)(p);
+        fprintf(file, "%s<EventDblClick Err='%s'", pad, EventDblClick->Err);
+        if (!child)
+        {
+            fprintf(file, "/>\n");
+            return;
+        }
+        fprintf(file, ">\n");
+        break;
+
+    case vdx_types_EventItem:
+        EventItem = (const struct vdx_EventItem *)(p);
+        fprintf(file, "%s<EventItem Action='%u' Enabled='%u' ID='%u' Target='%s' TargetArgs='%s'", pad, EventItem->Action, EventItem->Enabled, EventItem->ID, EventItem->Target, EventItem->TargetArgs);
+        if (EventItem->EventCode_exists)
+            fprintf(file, " EventCode='%u'",
+                    EventItem->EventCode);
+        if (!child)
+        {
+            fprintf(file, "/>\n");
+            return;
+        }
+        fprintf(file, ">\n");
+        break;
+
+    case vdx_types_EventList:
+        EventList = (const struct vdx_EventList *)(p);
+        fprintf(file, "%s<EventList>\n", pad);
+        fprintf(file, "%s  <EventItem>%u</EventItem>\n", pad,
+                EventList->EventItem);
+        break;
+
+    case vdx_types_FaceName:
+        FaceName = (const struct vdx_FaceName *)(p);
+        fprintf(file, "%s<FaceName CharSets='%s' ID='%u' Panos='%s' UnicodeRanges='%s'", pad, FaceName->CharSets, FaceName->ID, FaceName->Panos, FaceName->UnicodeRanges);
+        if (FaceName->Flags_exists)
+            fprintf(file, " Flags='%u'",
+                    FaceName->Flags);
+        if (FaceName->Name)
+            fprintf(file, " Name='%s'",
+                    FaceName->Name);
+        if (!child)
+        {
+            fprintf(file, "/>\n");
+            return;
+        }
+        fprintf(file, ">\n");
+        break;
+
+    case vdx_types_FaceNames:
+        FaceNames = (const struct vdx_FaceNames *)(p);
+        fprintf(file, "%s<FaceNames>\n", pad);
+        fprintf(file, "%s  <FaceName>%u</FaceName>\n", pad,
+                FaceNames->FaceName);
+        break;
+
+    case vdx_types_Field:
+        Field = (const struct vdx_Field *)(p);
+        fprintf(file, "%s<Field IX='%u'", pad, Field->IX);
+        if (Field->Del)
+            fprintf(file, " Del='%u'",
+                    Field->Del);
+        fprintf(file, ">\n");
+        fprintf(file, "%s  <Calendar>%u</Calendar>\n", pad,
+                Field->Calendar);
+        fprintf(file, "%s  <EditMode>%u</EditMode>\n", pad,
+                Field->EditMode);
+        fprintf(file, "%s  <Format>%f</Format>\n", pad,
+                Field->Format);
+        fprintf(file, "%s  <ObjectKind>%u</ObjectKind>\n", pad,
+                Field->ObjectKind);
+        fprintf(file, "%s  <Type>%u</Type>\n", pad,
+                Field->Type);
+        fprintf(file, "%s  <UICat>%u</UICat>\n", pad,
+                Field->UICat);
+        fprintf(file, "%s  <UICod>%u</UICod>\n", pad,
+                Field->UICod);
+        fprintf(file, "%s  <UIFmt>%u</UIFmt>\n", pad,
+                Field->UIFmt);
+        fprintf(file, "%s  <Value>%f</Value>\n", pad,
+                Field->Value);
+        break;
+
+    case vdx_types_Fill:
+        Fill = (const struct vdx_Fill *)(p);
+        fprintf(file, "%s<Fill>\n", pad);
+        fprintf(file, "%s  <FillBkgnd>%s</FillBkgnd>\n", pad,
+                vdx_string_color(Fill->FillBkgnd));
+        fprintf(file, "%s  <FillBkgndTrans>%f</FillBkgndTrans>\n", pad,
+                Fill->FillBkgndTrans);
+        fprintf(file, "%s  <FillForegnd>%s</FillForegnd>\n", pad,
+                vdx_string_color(Fill->FillForegnd));
+        fprintf(file, "%s  <FillForegndTrans>%f</FillForegndTrans>\n", pad,
+                Fill->FillForegndTrans);
+        fprintf(file, "%s  <FillPattern>%u</FillPattern>\n", pad,
+                Fill->FillPattern);
+        fprintf(file, "%s  <ShapeShdwObliqueAngle>%f</ShapeShdwObliqueAngle>\n", pad,
+                Fill->ShapeShdwObliqueAngle);
+        fprintf(file, "%s  <ShapeShdwOffsetX>%f</ShapeShdwOffsetX>\n", pad,
+                Fill->ShapeShdwOffsetX);
+        fprintf(file, "%s  <ShapeShdwOffsetY>%f</ShapeShdwOffsetY>\n", pad,
+                Fill->ShapeShdwOffsetY);
+        fprintf(file, "%s  <ShapeShdwScaleFactor>%f</ShapeShdwScaleFactor>\n", pad,
+                Fill->ShapeShdwScaleFactor);
+        fprintf(file, "%s  <ShapeShdwType>%u</ShapeShdwType>\n", pad,
+                Fill->ShapeShdwType);
+        fprintf(file, "%s  <ShdwBkgnd>%u</ShdwBkgnd>\n", pad,
+                Fill->ShdwBkgnd);
+        fprintf(file, "%s  <ShdwBkgndTrans>%f</ShdwBkgndTrans>\n", pad,
+                Fill->ShdwBkgndTrans);
+        fprintf(file, "%s  <ShdwForegnd>%s</ShdwForegnd>\n", pad,
+                vdx_string_color(Fill->ShdwForegnd));
+        fprintf(file, "%s  <ShdwForegndTrans>%f</ShdwForegndTrans>\n", pad,
+                Fill->ShdwForegndTrans);
+        fprintf(file, "%s  <ShdwPattern>%u</ShdwPattern>\n", pad,
+                Fill->ShdwPattern);
+        break;
+
+    case vdx_types_FontEntry:
+        FontEntry = (const struct vdx_FontEntry *)(p);
+        fprintf(file, "%s<FontEntry ID='%u' Unicode='%u' Weight='%u'", pad, FontEntry->ID, FontEntry->Unicode, FontEntry->Weight);
+        if (FontEntry->Attributes_exists)
+            fprintf(file, " Attributes='%u'",
+                    FontEntry->Attributes);
+        if (FontEntry->CharSet_exists)
+            fprintf(file, " CharSet='%u'",
+                    FontEntry->CharSet);
+        if (FontEntry->PitchAndFamily_exists)
+            fprintf(file, " PitchAndFamily='%u'",
+                    FontEntry->PitchAndFamily);
+        if (FontEntry->Name)
+            fprintf(file, " Name='%s'",
+                    FontEntry->Name);
+        if (!child)
+        {
+            fprintf(file, "/>\n");
+            return;
+        }
+        fprintf(file, ">\n");
+        break;
+
+    case vdx_types_Fonts:
+        Fonts = (const struct vdx_Fonts *)(p);
+        fprintf(file, "%s<Fonts>\n", pad);
+        fprintf(file, "%s  <FontEntry>%u</FontEntry>\n", pad,
+                Fonts->FontEntry);
+        break;
+
+    case vdx_types_Foreign:
+        Foreign = (const struct vdx_Foreign *)(p);
+        fprintf(file, "%s<Foreign>\n", pad);
+        fprintf(file, "%s  <ImgHeight>%f</ImgHeight>\n", pad,
+                Foreign->ImgHeight);
+        fprintf(file, "%s  <ImgOffsetX>%f</ImgOffsetX>\n", pad,
+                Foreign->ImgOffsetX);
+        fprintf(file, "%s  <ImgOffsetY>%f</ImgOffsetY>\n", pad,
+                Foreign->ImgOffsetY);
+        fprintf(file, "%s  <ImgWidth>%f</ImgWidth>\n", pad,
+                Foreign->ImgWidth);
+        break;
+
+    case vdx_types_ForeignData:
+        ForeignData = (const struct vdx_ForeignData *)(p);
+        fprintf(file, "%s<ForeignData CompressionLevel='%f' CompressionType='%s' ForeignType='%s' ObjectHeight='%f' ObjectWidth='%f' ShowAsIcon='%u'", pad, ForeignData->CompressionLevel, ForeignData->CompressionType, ForeignData->ForeignType, ForeignData->ObjectHeight, ForeignData->ObjectWidth, ForeignData->ShowAsIcon);
+        if (ForeignData->ExtentX_exists)
+            fprintf(file, " ExtentX='%u'",
+                    ForeignData->ExtentX);
+        if (ForeignData->ExtentY_exists)
+            fprintf(file, " ExtentY='%u'",
+                    ForeignData->ExtentY);
+        if (ForeignData->MappingMode_exists)
+            fprintf(file, " MappingMode='%u'",
+                    ForeignData->MappingMode);
+        if (ForeignData->ObjectType_exists)
+            fprintf(file, " ObjectType='%u'",
+                    ForeignData->ObjectType);
+        if (!child)
+        {
+            fprintf(file, "/>\n");
+            return;
+        }
+        fprintf(file, ">\n");
+        break;
+
+    case vdx_types_Geom:
+        Geom = (const struct vdx_Geom *)(p);
+        fprintf(file, "%s<Geom IX='%u'>\n", pad, Geom->IX);
+        fprintf(file, "%s  <NoFill>%u</NoFill>\n", pad,
+                Geom->NoFill);
+        fprintf(file, "%s  <NoLine>%u</NoLine>\n", pad,
+                Geom->NoLine);
+        fprintf(file, "%s  <NoShow>%u</NoShow>\n", pad,
+                Geom->NoShow);
+        fprintf(file, "%s  <NoSnap>%u</NoSnap>\n", pad,
+                Geom->NoSnap);
+        break;
+
+    case vdx_types_Group:
+        Group = (const struct vdx_Group *)(p);
+        fprintf(file, "%s<Group>\n", pad);
+        fprintf(file, "%s  <DisplayMode>%u</DisplayMode>\n", pad,
+                Group->DisplayMode);
+        fprintf(file, "%s  <DontMoveChildren>%u</DontMoveChildren>\n", pad,
+                Group->DontMoveChildren);
+        fprintf(file, "%s  <IsDropTarget>%u</IsDropTarget>\n", pad,
+                Group->IsDropTarget);
+        fprintf(file, "%s  <IsSnapTarget>%u</IsSnapTarget>\n", pad,
+                Group->IsSnapTarget);
+        fprintf(file, "%s  <IsTextEditTarget>%u</IsTextEditTarget>\n", pad,
+                Group->IsTextEditTarget);
+        fprintf(file, "%s  <SelectMode>%u</SelectMode>\n", pad,
+                Group->SelectMode);
+        break;
+
+    case vdx_types_HeaderFooter:
+        HeaderFooter = (const struct vdx_HeaderFooter *)(p);
+        fprintf(file, "%s<HeaderFooter HeaderFooterColor='%s'>\n", pad, HeaderFooter->HeaderFooterColor);
+        fprintf(file, "%s  <FooterLeft>%s</FooterLeft>\n", pad,
+                HeaderFooter->FooterLeft);
+        fprintf(file, "%s  <FooterMargin>%f</FooterMargin>\n", pad,
+                HeaderFooter->FooterMargin);
+        fprintf(file, "%s  <HeaderFooterFont>%u</HeaderFooterFont>\n", pad,
+                HeaderFooter->HeaderFooterFont);
+        fprintf(file, "%s  <HeaderLeft>%s</HeaderLeft>\n", pad,
+                HeaderFooter->HeaderLeft);
+        fprintf(file, "%s  <HeaderMargin>%f</HeaderMargin>\n", pad,
+                HeaderFooter->HeaderMargin);
+        fprintf(file, "%s  <HeaderRight>%s</HeaderRight>\n", pad,
+                HeaderFooter->HeaderRight);
+        break;
+
+    case vdx_types_HeaderFooterFont:
+        HeaderFooterFont = (const struct vdx_HeaderFooterFont *)(p);
+        fprintf(file, "%s<HeaderFooterFont CharSet='%u' Escapement='%u' FaceName='%s' Italic='%u' Orientation='%u' Quality='%u' StrikeOut='%u' Underline='%u' Width='%u'", pad, HeaderFooterFont->CharSet, HeaderFooterFont->Escapement, HeaderFooterFont->FaceName, HeaderFooterFont->Italic, HeaderFooterFont->Orientation, HeaderFooterFont->Quality, HeaderFooterFont->StrikeOut, HeaderFooterFont->Underline, HeaderFooterFont->Width);
+        if (HeaderFooterFont->ClipPrecision_exists)
+            fprintf(file, " ClipPrecision='%u'",
+                    HeaderFooterFont->ClipPrecision);
+        if (HeaderFooterFont->Height_exists)
+            fprintf(file, " Height='%d)'",
+                    HeaderFooterFont->Height);
+        if (HeaderFooterFont->OutPrecision_exists)
+            fprintf(file, " OutPrecision='%u'",
+                    HeaderFooterFont->OutPrecision);
+        if (HeaderFooterFont->PitchAndFamily_exists)
+            fprintf(file, " PitchAndFamily='%u'",
+                    HeaderFooterFont->PitchAndFamily);
+        if (HeaderFooterFont->Weight_exists)
+            fprintf(file, " Weight='%u'",
+                    HeaderFooterFont->Weight);
+        if (!child)
+        {
+            fprintf(file, "/>\n");
+            return;
+        }
+        fprintf(file, ">\n");
+        break;
+
+    case vdx_types_Help:
+        Help = (const struct vdx_Help *)(p);
+        fprintf(file, "%s<Help>\n", pad);
+        fprintf(file, "%s  <Copyright>%s</Copyright>\n", pad,
+                Help->Copyright);
+        fprintf(file, "%s  <HelpTopic>%s</HelpTopic>\n", pad,
+                Help->HelpTopic);
+        break;
+
+    case vdx_types_Hyperlink:
+        Hyperlink = (const struct vdx_Hyperlink *)(p);
+        fprintf(file, "%s<Hyperlink ID='%u'", pad, Hyperlink->ID);
+        if (Hyperlink->NameU)
+            fprintf(file, " NameU='%s'",
+                    Hyperlink->NameU);
+        fprintf(file, ">\n");
+        fprintf(file, "%s  <Address>%s</Address>\n", pad,
+                Hyperlink->Address);
+        fprintf(file, "%s  <Default>%u</Default>\n", pad,
+                Hyperlink->Default);
+        fprintf(file, "%s  <Description>%s</Description>\n", pad,
+                Hyperlink->Description);
+        fprintf(file, "%s  <ExtraInfo>%s</ExtraInfo>\n", pad,
+                Hyperlink->ExtraInfo);
+        fprintf(file, "%s  <Frame>%u</Frame>\n", pad,
+                Hyperlink->Frame);
+        fprintf(file, "%s  <Invisible>%u</Invisible>\n", pad,
+                Hyperlink->Invisible);
+        fprintf(file, "%s  <NewWindow>%u</NewWindow>\n", pad,
+                Hyperlink->NewWindow);
+        fprintf(file, "%s  <SortKey>%u</SortKey>\n", pad,
+                Hyperlink->SortKey);
+        fprintf(file, "%s  <SubAddress>%s</SubAddress>\n", pad,
+                Hyperlink->SubAddress);
+        break;
+
+    case vdx_types_Icon:
+        Icon = (const struct vdx_Icon *)(p);
+        fprintf(file, "%s<Icon IX='%u'", pad, Icon->IX);
+        if (!child)
+        {
+            fprintf(file, "/>\n");
+            return;
+        }
+        fprintf(file, ">\n");
+        break;
+
+    case vdx_types_Image:
+        Image = (const struct vdx_Image *)(p);
+        fprintf(file, "%s<Image>\n", pad);
+        fprintf(file, "%s  <Blur>%f</Blur>\n", pad,
+                Image->Blur);
+        fprintf(file, "%s  <Brightness>%f</Brightness>\n", pad,
+                Image->Brightness);
+        fprintf(file, "%s  <Contrast>%f</Contrast>\n", pad,
+                Image->Contrast);
+        fprintf(file, "%s  <Denoise>%f</Denoise>\n", pad,
+                Image->Denoise);
+        fprintf(file, "%s  <Gamma>%u</Gamma>\n", pad,
+                Image->Gamma);
+        fprintf(file, "%s  <Sharpen>%f</Sharpen>\n", pad,
+                Image->Sharpen);
+        fprintf(file, "%s  <Transparency>%f</Transparency>\n", pad,
+                Image->Transparency);
+        break;
+
+    case vdx_types_InfiniteLine:
+        InfiniteLine = (const struct vdx_InfiniteLine *)(p);
+        fprintf(file, "%s<InfiniteLine IX='%u'>\n", pad, InfiniteLine->IX);
+        fprintf(file, "%s  <A>%f</A>\n", pad,
+                InfiniteLine->A);
+        fprintf(file, "%s  <B>%f</B>\n", pad,
+                InfiniteLine->B);
+        fprintf(file, "%s  <X>%f</X>\n", pad,
+                InfiniteLine->X);
+        fprintf(file, "%s  <Y>%f</Y>\n", pad,
+                InfiniteLine->Y);
+        break;
+
+    case vdx_types_Layer:
+        Layer = (const struct vdx_Layer *)(p);
+        fprintf(file, "%s<Layer IX='%u'>\n", pad, Layer->IX);
+        fprintf(file, "%s  <Active>%u</Active>\n", pad,
+                Layer->Active);
+        fprintf(file, "%s  <Color>%u</Color>\n", pad,
+                Layer->Color);
+        fprintf(file, "%s  <ColorTrans>%f</ColorTrans>\n", pad,
+                Layer->ColorTrans);
+        fprintf(file, "%s  <Glue>%u</Glue>\n", pad,
+                Layer->Glue);
+        fprintf(file, "%s  <Lock>%u</Lock>\n", pad,
+                Layer->Lock);
+        fprintf(file, "%s  <Name>%s</Name>\n", pad,
+                Layer->Name);
+        fprintf(file, "%s  <NameUniv>%s</NameUniv>\n", pad,
+                Layer->NameUniv);
+        fprintf(file, "%s  <Print>%u</Print>\n", pad,
+                Layer->Print);
+        fprintf(file, "%s  <Snap>%u</Snap>\n", pad,
+                Layer->Snap);
+        fprintf(file, "%s  <Status>%u</Status>\n", pad,
+                Layer->Status);
+        fprintf(file, "%s  <Visible>%u</Visible>\n", pad,
+                Layer->Visible);
+        break;
+
+    case vdx_types_LayerMem:
+        LayerMem = (const struct vdx_LayerMem *)(p);
+        fprintf(file, "%s<LayerMem>\n", pad);
+        fprintf(file, "%s  <LayerMember>%s</LayerMember>\n", pad,
+                LayerMem->LayerMember);
+        break;
+
+    case vdx_types_Layout:
+        Layout = (const struct vdx_Layout *)(p);
+        fprintf(file, "%s<Layout>\n", pad);
+        fprintf(file, "%s  <ConFixedCode>%u</ConFixedCode>\n", pad,
+                Layout->ConFixedCode);
+        fprintf(file, "%s  <ConLineJumpCode>%u</ConLineJumpCode>\n", pad,
+                Layout->ConLineJumpCode);
+        fprintf(file, "%s  <ConLineJumpDirX>%u</ConLineJumpDirX>\n", pad,
+                Layout->ConLineJumpDirX);
+        fprintf(file, "%s  <ConLineJumpDirY>%u</ConLineJumpDirY>\n", pad,
+                Layout->ConLineJumpDirY);
+        fprintf(file, "%s  <ConLineJumpStyle>%u</ConLineJumpStyle>\n", pad,
+                Layout->ConLineJumpStyle);
+        fprintf(file, "%s  <ConLineRouteExt>%u</ConLineRouteExt>\n", pad,
+                Layout->ConLineRouteExt);
+        fprintf(file, "%s  <ShapeFixedCode>%u</ShapeFixedCode>\n", pad,
+                Layout->ShapeFixedCode);
+        fprintf(file, "%s  <ShapePermeablePlace>%u</ShapePermeablePlace>\n", pad,
+                Layout->ShapePermeablePlace);
+        fprintf(file, "%s  <ShapePermeableX>%u</ShapePermeableX>\n", pad,
+                Layout->ShapePermeableX);
+        fprintf(file, "%s  <ShapePermeableY>%u</ShapePermeableY>\n", pad,
+                Layout->ShapePermeableY);
+        fprintf(file, "%s  <ShapePlaceFlip>%u</ShapePlaceFlip>\n", pad,
+                Layout->ShapePlaceFlip);
+        fprintf(file, "%s  <ShapePlowCode>%u</ShapePlowCode>\n", pad,
+                Layout->ShapePlowCode);
+        fprintf(file, "%s  <ShapeRouteStyle>%u</ShapeRouteStyle>\n", pad,
+                Layout->ShapeRouteStyle);
+        fprintf(file, "%s  <ShapeSplit>%u</ShapeSplit>\n", pad,
+                Layout->ShapeSplit);
+        fprintf(file, "%s  <ShapeSplittable>%u</ShapeSplittable>\n", pad,
+                Layout->ShapeSplittable);
+        break;
+
+    case vdx_types_Line:
+        Line = (const struct vdx_Line *)(p);
+        fprintf(file, "%s<Line>\n", pad);
+        fprintf(file, "%s  <BeginArrow>%u</BeginArrow>\n", pad,
+                Line->BeginArrow);
+        fprintf(file, "%s  <BeginArrowSize>%u</BeginArrowSize>\n", pad,
+                Line->BeginArrowSize);
+        fprintf(file, "%s  <EndArrow>%u</EndArrow>\n", pad,
+                Line->EndArrow);
+        fprintf(file, "%s  <EndArrowSize>%u</EndArrowSize>\n", pad,
+                Line->EndArrowSize);
+        fprintf(file, "%s  <LineCap>%u</LineCap>\n", pad,
+                Line->LineCap);
+        fprintf(file, "%s  <LineColor>%s</LineColor>\n", pad,
+                vdx_string_color(Line->LineColor));
+        fprintf(file, "%s  <LineColorTrans>%f</LineColorTrans>\n", pad,
+                Line->LineColorTrans);
+        fprintf(file, "%s  <LinePattern>%u</LinePattern>\n", pad,
+                Line->LinePattern);
+        fprintf(file, "%s  <LineWeight>%f</LineWeight>\n", pad,
+                Line->LineWeight);
+        fprintf(file, "%s  <Rounding>%f</Rounding>\n", pad,
+                Line->Rounding);
+        break;
+
+    case vdx_types_LineTo:
+        LineTo = (const struct vdx_LineTo *)(p);
+        fprintf(file, "%s<LineTo IX='%u'", pad, LineTo->IX);
+        if (LineTo->Del)
+            fprintf(file, " Del='%u'",
+                    LineTo->Del);
+        fprintf(file, ">\n");
+        fprintf(file, "%s  <X>%f</X>\n", pad,
+                LineTo->X);
+        fprintf(file, "%s  <Y>%f</Y>\n", pad,
+                LineTo->Y);
+        break;
+
+    case vdx_types_Master:
+        Master = (const struct vdx_Master *)(p);
+        fprintf(file, "%s<Master BaseID='%s' Hidden='%u' ID='%u' IconUpdate='%u' MatchByName='%u' Prompt='%s'", pad, Master->BaseID, Master->Hidden, Master->ID, Master->IconUpdate, Master->MatchByName, Master->Prompt);
+        if (Master->AlignName_exists)
+            fprintf(file, " AlignName='%u'",
+                    Master->AlignName);
+        if (Master->IconSize_exists)
+            fprintf(file, " IconSize='%u'",
+                    Master->IconSize);
+        if (Master->PatternFlags_exists)
+            fprintf(file, " PatternFlags='%u'",
+                    Master->PatternFlags);
+        if (Master->Name)
+            fprintf(file, " Name='%s'",
+                    Master->Name);
+        if (Master->NameU)
+            fprintf(file, " NameU='%s'",
+                    Master->NameU);
+        if (Master->UniqueID)
+            fprintf(file, " UniqueID='%s'",
+                    Master->UniqueID);
+        if (!child)
+        {
+            fprintf(file, "/>\n");
+            return;
+        }
+        fprintf(file, ">\n");
+        break;
+
+    case vdx_types_Menu:
+        Menu = (const struct vdx_Menu *)(p);
+        fprintf(file, "%s<Menu Err='%s'", pad, Menu->Err);
+        if (!child)
+        {
+            fprintf(file, "/>\n");
+            return;
+        }
+        fprintf(file, ">\n");
+        break;
+
+    case vdx_types_Misc:
+        Misc = (const struct vdx_Misc *)(p);
+        fprintf(file, "%s<Misc>\n", pad);
+        fprintf(file, "%s  <BegTrigger>%u</BegTrigger>\n", pad,
+                Misc->BegTrigger);
+        fprintf(file, "%s  <Calendar>%u</Calendar>\n", pad,
+                Misc->Calendar);
+        fprintf(file, "%s  <Comment>%s</Comment>\n", pad,
+                Misc->Comment);
+        fprintf(file, "%s  <DropOnPageScale>%u</DropOnPageScale>\n", pad,
+                Misc->DropOnPageScale);
+        fprintf(file, "%s  <DynFeedback>%u</DynFeedback>\n", pad,
+                Misc->DynFeedback);
+        fprintf(file, "%s  <EndTrigger>%u</EndTrigger>\n", pad,
+                Misc->EndTrigger);
+        fprintf(file, "%s  <GlueType>%u</GlueType>\n", pad,
+                Misc->GlueType);
+        fprintf(file, "%s  <HideText>%u</HideText>\n", pad,
+                Misc->HideText);
+        fprintf(file, "%s  <IsDropSource>%u</IsDropSource>\n", pad,
+                Misc->IsDropSource);
+        fprintf(file, "%s  <LangID>%u</LangID>\n", pad,
+                Misc->LangID);
+        fprintf(file, "%s  <LocalizeMerge>%u</LocalizeMerge>\n", pad,
+                Misc->LocalizeMerge);
+        fprintf(file, "%s  <NoAlignBox>%u</NoAlignBox>\n", pad,
+                Misc->NoAlignBox);
+        fprintf(file, "%s  <NoCtlHandles>%u</NoCtlHandles>\n", pad,
+                Misc->NoCtlHandles);
+        fprintf(file, "%s  <NoLiveDynamics>%u</NoLiveDynamics>\n", pad,
+                Misc->NoLiveDynamics);
+        fprintf(file, "%s  <NoObjHandles>%u</NoObjHandles>\n", pad,
+                Misc->NoObjHandles);
+        fprintf(file, "%s  <NonPrinting>%u</NonPrinting>\n", pad,
+                Misc->NonPrinting);
+        fprintf(file, "%s  <ObjType>%u</ObjType>\n", pad,
+                Misc->ObjType);
+        fprintf(file, "%s  <ShapeKeywords>%s</ShapeKeywords>\n", pad,
+                Misc->ShapeKeywords);
+        fprintf(file, "%s  <UpdateAlignBox>%u</UpdateAlignBox>\n", pad,
+                Misc->UpdateAlignBox);
+        fprintf(file, "%s  <WalkPreference>%u</WalkPreference>\n", pad,
+                Misc->WalkPreference);
+        break;
+
+    case vdx_types_MoveTo:
+        MoveTo = (const struct vdx_MoveTo *)(p);
+        fprintf(file, "%s<MoveTo IX='%u'>\n", pad, MoveTo->IX);
+        fprintf(file, "%s  <X>%f</X>\n", pad,
+                MoveTo->X);
+        fprintf(file, "%s  <Y>%f</Y>\n", pad,
+                MoveTo->Y);
+        break;
+
+    case vdx_types_NURBSTo:
+        NURBSTo = (const struct vdx_NURBSTo *)(p);
+        fprintf(file, "%s<NURBSTo IX='%u'>\n", pad, NURBSTo->IX);
+        fprintf(file, "%s  <A>%f</A>\n", pad,
+                NURBSTo->A);
+        fprintf(file, "%s  <B>%u</B>\n", pad,
+                NURBSTo->B);
+        fprintf(file, "%s  <C>%u</C>\n", pad,
+                NURBSTo->C);
+        fprintf(file, "%s  <D>%u</D>\n", pad,
+                NURBSTo->D);
+        fprintf(file, "%s  <E>%f</E>\n", pad,
+                NURBSTo->E);
+        fprintf(file, "%s  <X>%f</X>\n", pad,
+                NURBSTo->X);
+        fprintf(file, "%s  <Y>%f</Y>\n", pad,
+                NURBSTo->Y);
+        break;
+
+    case vdx_types_NameUniv:
+        NameUniv = (const struct vdx_NameUniv *)(p);
+        fprintf(file, "%s<NameUniv Err='%s'", pad, NameUniv->Err);
+        if (!child)
+        {
+            fprintf(file, "/>\n");
+            return;
+        }
+        fprintf(file, ">\n");
+        break;
+
+    case vdx_types_Page:
+        Page = (const struct vdx_Page *)(p);
+        fprintf(file, "%s<Page Background='%u' ID='%u' ViewCenterX='%f' ViewCenterY='%f' ViewScale='%f'", pad, Page->Background, Page->ID, Page->ViewCenterX, Page->ViewCenterY, Page->ViewScale);
+        if (Page->BackPage_exists)
+            fprintf(file, " BackPage='%u'",
+                    Page->BackPage);
+        if (Page->Name)
+            fprintf(file, " Name='%s'",
+                    Page->Name);
+        if (Page->NameU)
+            fprintf(file, " NameU='%s'",
+                    Page->NameU);
+        if (!child)
+        {
+            fprintf(file, "/>\n");
+            return;
+        }
+        fprintf(file, ">\n");
+        break;
+
+    case vdx_types_PageLayout:
+        PageLayout = (const struct vdx_PageLayout *)(p);
+        fprintf(file, "%s<PageLayout>\n", pad);
+        fprintf(file, "%s  <AvenueSizeX>%f</AvenueSizeX>\n", pad,
+                PageLayout->AvenueSizeX);
+        fprintf(file, "%s  <AvenueSizeY>%f</AvenueSizeY>\n", pad,
+                PageLayout->AvenueSizeY);
+        fprintf(file, "%s  <BlockSizeX>%f</BlockSizeX>\n", pad,
+                PageLayout->BlockSizeX);
+        fprintf(file, "%s  <BlockSizeY>%f</BlockSizeY>\n", pad,
+                PageLayout->BlockSizeY);
+        fprintf(file, "%s  <CtrlAsInput>%u</CtrlAsInput>\n", pad,
+                PageLayout->CtrlAsInput);
+        fprintf(file, "%s  <DynamicsOff>%u</DynamicsOff>\n", pad,
+                PageLayout->DynamicsOff);
+        fprintf(file, "%s  <EnableGrid>%u</EnableGrid>\n", pad,
+                PageLayout->EnableGrid);
+        fprintf(file, "%s  <LineAdjustFrom>%u</LineAdjustFrom>\n", pad,
+                PageLayout->LineAdjustFrom);
+        fprintf(file, "%s  <LineAdjustTo>%u</LineAdjustTo>\n", pad,
+                PageLayout->LineAdjustTo);
+        fprintf(file, "%s  <LineJumpCode>%u</LineJumpCode>\n", pad,
+                PageLayout->LineJumpCode);
+        fprintf(file, "%s  <LineJumpFactorX>%f</LineJumpFactorX>\n", pad,
+                PageLayout->LineJumpFactorX);
+        fprintf(file, "%s  <LineJumpFactorY>%f</LineJumpFactorY>\n", pad,
+                PageLayout->LineJumpFactorY);
+        fprintf(file, "%s  <LineJumpStyle>%u</LineJumpStyle>\n", pad,
+                PageLayout->LineJumpStyle);
+        fprintf(file, "%s  <LineRouteExt>%u</LineRouteExt>\n", pad,
+                PageLayout->LineRouteExt);
+        fprintf(file, "%s  <LineToLineX>%f</LineToLineX>\n", pad,
+                PageLayout->LineToLineX);
+        fprintf(file, "%s  <LineToLineY>%f</LineToLineY>\n", pad,
+                PageLayout->LineToLineY);
+        fprintf(file, "%s  <LineToNodeX>%f</LineToNodeX>\n", pad,
+                PageLayout->LineToNodeX);
+        fprintf(file, "%s  <LineToNodeY>%f</LineToNodeY>\n", pad,
+                PageLayout->LineToNodeY);
+        fprintf(file, "%s  <PageLineJumpDirX>%u</PageLineJumpDirX>\n", pad,
+                PageLayout->PageLineJumpDirX);
+        fprintf(file, "%s  <PageLineJumpDirY>%u</PageLineJumpDirY>\n", pad,
+                PageLayout->PageLineJumpDirY);
+        fprintf(file, "%s  <PageShapeSplit>%u</PageShapeSplit>\n", pad,
+                PageLayout->PageShapeSplit);
+        fprintf(file, "%s  <PlaceDepth>%u</PlaceDepth>\n", pad,
+                PageLayout->PlaceDepth);
+        fprintf(file, "%s  <PlaceFlip>%u</PlaceFlip>\n", pad,
+                PageLayout->PlaceFlip);
+        fprintf(file, "%s  <PlaceStyle>%u</PlaceStyle>\n", pad,
+                PageLayout->PlaceStyle);
+        fprintf(file, "%s  <PlowCode>%u</PlowCode>\n", pad,
+                PageLayout->PlowCode);
+        fprintf(file, "%s  <ResizePage>%u</ResizePage>\n", pad,
+                PageLayout->ResizePage);
+        fprintf(file, "%s  <RouteStyle>%u</RouteStyle>\n", pad,
+                PageLayout->RouteStyle);
+        break;
+
+    case vdx_types_PageProps:
+        PageProps = (const struct vdx_PageProps *)(p);
+        fprintf(file, "%s<PageProps>\n", pad);
+        fprintf(file, "%s  <DrawingScale>%f</DrawingScale>\n", pad,
+                PageProps->DrawingScale);
+        fprintf(file, "%s  <DrawingScaleType>%u</DrawingScaleType>\n", pad,
+                PageProps->DrawingScaleType);
+        fprintf(file, "%s  <DrawingSizeType>%u</DrawingSizeType>\n", pad,
+                PageProps->DrawingSizeType);
+        fprintf(file, "%s  <InhibitSnap>%u</InhibitSnap>\n", pad,
+                PageProps->InhibitSnap);
+        fprintf(file, "%s  <PageHeight>%f</PageHeight>\n", pad,
+                PageProps->PageHeight);
+        fprintf(file, "%s  <PageScale>%f</PageScale>\n", pad,
+                PageProps->PageScale);
+        fprintf(file, "%s  <PageWidth>%f</PageWidth>\n", pad,
+                PageProps->PageWidth);
+        fprintf(file, "%s  <ShdwObliqueAngle>%f</ShdwObliqueAngle>\n", pad,
+                PageProps->ShdwObliqueAngle);
+        fprintf(file, "%s  <ShdwOffsetX>%f</ShdwOffsetX>\n", pad,
+                PageProps->ShdwOffsetX);
+        fprintf(file, "%s  <ShdwOffsetY>%f</ShdwOffsetY>\n", pad,
+                PageProps->ShdwOffsetY);
+        fprintf(file, "%s  <ShdwScaleFactor>%f</ShdwScaleFactor>\n", pad,
+                PageProps->ShdwScaleFactor);
+        fprintf(file, "%s  <ShdwType>%u</ShdwType>\n", pad,
+                PageProps->ShdwType);
+        fprintf(file, "%s  <UIVisibility>%u</UIVisibility>\n", pad,
+                PageProps->UIVisibility);
+        break;
+
+    case vdx_types_PageSheet:
+        PageSheet = (const struct vdx_PageSheet *)(p);
+        fprintf(file, "%s<PageSheet", pad);
+        if (PageSheet->FillStyle_exists)
+            fprintf(file, " FillStyle='%u'",
+                    PageSheet->FillStyle);
+        if (PageSheet->LineStyle_exists)
+            fprintf(file, " LineStyle='%u'",
+                    PageSheet->LineStyle);
+        if (PageSheet->TextStyle_exists)
+            fprintf(file, " TextStyle='%u'",
+                    PageSheet->TextStyle);
+        if (PageSheet->UniqueID)
+            fprintf(file, " UniqueID='%s'",
+                    PageSheet->UniqueID);
+        if (!child)
+        {
+            fprintf(file, "/>\n");
+            return;
+        }
+        fprintf(file, ">\n");
+        break;
+
+    case vdx_types_Para:
+        Para = (const struct vdx_Para *)(p);
+        fprintf(file, "%s<Para IX='%u'>\n", pad, Para->IX);
+        fprintf(file, "%s  <Bullet>%u</Bullet>\n", pad,
+                Para->Bullet);
+        fprintf(file, "%s  <BulletFont>%u</BulletFont>\n", pad,
+                Para->BulletFont);
+        fprintf(file, "%s  <BulletFontSize>%d)</BulletFontSize>\n", pad,
+                Para->BulletFontSize);
+        fprintf(file, "%s  <BulletStr>%s</BulletStr>\n", pad,
+                Para->BulletStr);
+        fprintf(file, "%s  <Flags>%u</Flags>\n", pad,
+                Para->Flags);
+        fprintf(file, "%s  <HorzAlign>%f</HorzAlign>\n", pad,
+                Para->HorzAlign);
+        fprintf(file, "%s  <IndFirst>%f</IndFirst>\n", pad,
+                Para->IndFirst);
+        fprintf(file, "%s  <IndLeft>%f</IndLeft>\n", pad,
+                Para->IndLeft);
+        fprintf(file, "%s  <IndRight>%f</IndRight>\n", pad,
+                Para->IndRight);
+        fprintf(file, "%s  <LocalizeBulletFont>%u</LocalizeBulletFont>\n", pad,
+                Para->LocalizeBulletFont);
+        fprintf(file, "%s  <SpAfter>%f</SpAfter>\n", pad,
+                Para->SpAfter);
+        fprintf(file, "%s  <SpBefore>%f</SpBefore>\n", pad,
+                Para->SpBefore);
+        fprintf(file, "%s  <SpLine>%f</SpLine>\n", pad,
+                Para->SpLine);
+        fprintf(file, "%s  <TextPosAfterBullet>%u</TextPosAfterBullet>\n", pad,
+                Para->TextPosAfterBullet);
+        break;
+
+    case vdx_types_PreviewPicture:
+        PreviewPicture = (const struct vdx_PreviewPicture *)(p);
+        fprintf(file, "%s<PreviewPicture", pad);
+        if (PreviewPicture->Size_exists)
+            fprintf(file, " Size='%u'",
+                    PreviewPicture->Size);
+        if (!child)
+        {
+            fprintf(file, "/>\n");
+            return;
+        }
+        fprintf(file, ">\n");
+        break;
+
+    case vdx_types_PrintProps:
+        PrintProps = (const struct vdx_PrintProps *)(p);
+        fprintf(file, "%s<PrintProps>\n", pad);
+        fprintf(file, "%s  <CenterX>%u</CenterX>\n", pad,
+                PrintProps->CenterX);
+        fprintf(file, "%s  <CenterY>%u</CenterY>\n", pad,
+                PrintProps->CenterY);
+        fprintf(file, "%s  <OnPage>%u</OnPage>\n", pad,
+                PrintProps->OnPage);
+        fprintf(file, "%s  <PageBottomMargin>%f</PageBottomMargin>\n", pad,
+                PrintProps->PageBottomMargin);
+        fprintf(file, "%s  <PageLeftMargin>%f</PageLeftMargin>\n", pad,
+                PrintProps->PageLeftMargin);
+        fprintf(file, "%s  <PageRightMargin>%f</PageRightMargin>\n", pad,
+                PrintProps->PageRightMargin);
+        fprintf(file, "%s  <PageTopMargin>%f</PageTopMargin>\n", pad,
+                PrintProps->PageTopMargin);
+        fprintf(file, "%s  <PagesX>%u</PagesX>\n", pad,
+                PrintProps->PagesX);
+        fprintf(file, "%s  <PagesY>%u</PagesY>\n", pad,
+                PrintProps->PagesY);
+        fprintf(file, "%s  <PaperKind>%u</PaperKind>\n", pad,
+                PrintProps->PaperKind);
+        fprintf(file, "%s  <PaperSource>%u</PaperSource>\n", pad,
+                PrintProps->PaperSource);
+        fprintf(file, "%s  <PrintGrid>%u</PrintGrid>\n", pad,
+                PrintProps->PrintGrid);
+        fprintf(file, "%s  <PrintPageOrientation>%u</PrintPageOrientation>\n", pad,
+                PrintProps->PrintPageOrientation);
+        fprintf(file, "%s  <ScaleX>%u</ScaleX>\n", pad,
+                PrintProps->ScaleX);
+        fprintf(file, "%s  <ScaleY>%u</ScaleY>\n", pad,
+                PrintProps->ScaleY);
+        break;
+
+    case vdx_types_PrintSetup:
+        PrintSetup = (const struct vdx_PrintSetup *)(p);
+        fprintf(file, "%s<PrintSetup>\n", pad);
+        fprintf(file, "%s  <PageBottomMargin>%f</PageBottomMargin>\n", pad,
+                PrintSetup->PageBottomMargin);
+        fprintf(file, "%s  <PageLeftMargin>%f</PageLeftMargin>\n", pad,
+                PrintSetup->PageLeftMargin);
+        fprintf(file, "%s  <PageRightMargin>%f</PageRightMargin>\n", pad,
+                PrintSetup->PageRightMargin);
+        fprintf(file, "%s  <PageTopMargin>%f</PageTopMargin>\n", pad,
+                PrintSetup->PageTopMargin);
+        fprintf(file, "%s  <PaperSize>%u</PaperSize>\n", pad,
+                PrintSetup->PaperSize);
+        fprintf(file, "%s  <PrintCenteredH>%u</PrintCenteredH>\n", pad,
+                PrintSetup->PrintCenteredH);
+        fprintf(file, "%s  <PrintCenteredV>%u</PrintCenteredV>\n", pad,
+                PrintSetup->PrintCenteredV);
+        fprintf(file, "%s  <PrintFitOnPages>%u</PrintFitOnPages>\n", pad,
+                PrintSetup->PrintFitOnPages);
+        fprintf(file, "%s  <PrintLandscape>%u</PrintLandscape>\n", pad,
+                PrintSetup->PrintLandscape);
+        fprintf(file, "%s  <PrintPagesAcross>%u</PrintPagesAcross>\n", pad,
+                PrintSetup->PrintPagesAcross);
+        fprintf(file, "%s  <PrintPagesDown>%u</PrintPagesDown>\n", pad,
+                PrintSetup->PrintPagesDown);
+        fprintf(file, "%s  <PrintScale>%u</PrintScale>\n", pad,
+                PrintSetup->PrintScale);
+        break;
+
+    case vdx_types_Prop:
+        Prop = (const struct vdx_Prop *)(p);
+        fprintf(file, "%s<Prop ID='%u'", pad, Prop->ID);
+        if (Prop->NameU)
+            fprintf(file, " NameU='%s'",
+                    Prop->NameU);
+        fprintf(file, ">\n");
+        fprintf(file, "%s  <Calendar>%u</Calendar>\n", pad,
+                Prop->Calendar);
+        fprintf(file, "%s  <Format>%s</Format>\n", pad,
+                Prop->Format);
+        fprintf(file, "%s  <Invisible>%u</Invisible>\n", pad,
+                Prop->Invisible);
+        fprintf(file, "%s  <Label>%s</Label>\n", pad,
+                Prop->Label);
+        fprintf(file, "%s  <LangID>%u</LangID>\n", pad,
+                Prop->LangID);
+        fprintf(file, "%s  <Prompt>%s</Prompt>\n", pad,
+                Prop->Prompt);
+        fprintf(file, "%s  <SortKey>%s</SortKey>\n", pad,
+                Prop->SortKey);
+        fprintf(file, "%s  <Type>%u</Type>\n", pad,
+                Prop->Type);
+        fprintf(file, "%s  <Value>%f</Value>\n", pad,
+                Prop->Value);
+        fprintf(file, "%s  <Verify>%u</Verify>\n", pad,
+                Prop->Verify);
+        break;
+
+    case vdx_types_Protection:
+        Protection = (const struct vdx_Protection *)(p);
+        fprintf(file, "%s<Protection>\n", pad);
+        fprintf(file, "%s  <LockAspect>%u</LockAspect>\n", pad,
+                Protection->LockAspect);
+        fprintf(file, "%s  <LockBegin>%u</LockBegin>\n", pad,
+                Protection->LockBegin);
+        fprintf(file, "%s  <LockCalcWH>%u</LockCalcWH>\n", pad,
+                Protection->LockCalcWH);
+        fprintf(file, "%s  <LockCrop>%u</LockCrop>\n", pad,
+                Protection->LockCrop);
+        fprintf(file, "%s  <LockCustProp>%u</LockCustProp>\n", pad,
+                Protection->LockCustProp);
+        fprintf(file, "%s  <LockDelete>%u</LockDelete>\n", pad,
+                Protection->LockDelete);
+        fprintf(file, "%s  <LockEnd>%u</LockEnd>\n", pad,
+                Protection->LockEnd);
+        fprintf(file, "%s  <LockFormat>%u</LockFormat>\n", pad,
+                Protection->LockFormat);
+        fprintf(file, "%s  <LockGroup>%u</LockGroup>\n", pad,
+                Protection->LockGroup);
+        fprintf(file, "%s  <LockHeight>%u</LockHeight>\n", pad,
+                Protection->LockHeight);
+        fprintf(file, "%s  <LockMoveX>%u</LockMoveX>\n", pad,
+                Protection->LockMoveX);
+        fprintf(file, "%s  <LockMoveY>%u</LockMoveY>\n", pad,
+                Protection->LockMoveY);
+        fprintf(file, "%s  <LockRotate>%u</LockRotate>\n", pad,
+                Protection->LockRotate);
+        fprintf(file, "%s  <LockSelect>%u</LockSelect>\n", pad,
+                Protection->LockSelect);
+        fprintf(file, "%s  <LockTextEdit>%u</LockTextEdit>\n", pad,
+                Protection->LockTextEdit);
+        fprintf(file, "%s  <LockVtxEdit>%u</LockVtxEdit>\n", pad,
+                Protection->LockVtxEdit);
+        fprintf(file, "%s  <LockWidth>%u</LockWidth>\n", pad,
+                Protection->LockWidth);
+        break;
+
+    case vdx_types_RulerGrid:
+        RulerGrid = (const struct vdx_RulerGrid *)(p);
+        fprintf(file, "%s<RulerGrid>\n", pad);
+        fprintf(file, "%s  <XGridDensity>%u</XGridDensity>\n", pad,
+                RulerGrid->XGridDensity);
+        fprintf(file, "%s  <XGridOrigin>%f</XGridOrigin>\n", pad,
+                RulerGrid->XGridOrigin);
+        fprintf(file, "%s  <XGridSpacing>%f</XGridSpacing>\n", pad,
+                RulerGrid->XGridSpacing);
+        fprintf(file, "%s  <XRulerDensity>%u</XRulerDensity>\n", pad,
+                RulerGrid->XRulerDensity);
+        fprintf(file, "%s  <XRulerOrigin>%f</XRulerOrigin>\n", pad,
+                RulerGrid->XRulerOrigin);
+        fprintf(file, "%s  <YGridDensity>%u</YGridDensity>\n", pad,
+                RulerGrid->YGridDensity);
+        fprintf(file, "%s  <YGridOrigin>%f</YGridOrigin>\n", pad,
+                RulerGrid->YGridOrigin);
+        fprintf(file, "%s  <YGridSpacing>%f</YGridSpacing>\n", pad,
+                RulerGrid->YGridSpacing);
+        fprintf(file, "%s  <YRulerDensity>%u</YRulerDensity>\n", pad,
+                RulerGrid->YRulerDensity);
+        fprintf(file, "%s  <YRulerOrigin>%f</YRulerOrigin>\n", pad,
+                RulerGrid->YRulerOrigin);
+        break;
+
+    case vdx_types_Scratch:
+        Scratch = (const struct vdx_Scratch *)(p);
+        fprintf(file, "%s<Scratch IX='%u'>\n", pad, Scratch->IX);
+        fprintf(file, "%s  <A>%f</A>\n", pad,
+                Scratch->A);
+        fprintf(file, "%s  <B>%f</B>\n", pad,
+                Scratch->B);
+        fprintf(file, "%s  <C>%f</C>\n", pad,
+                Scratch->C);
+        fprintf(file, "%s  <D>%u</D>\n", pad,
+                Scratch->D);
+        fprintf(file, "%s  <X>%f</X>\n", pad,
+                Scratch->X);
+        fprintf(file, "%s  <Y>%f</Y>\n", pad,
+                Scratch->Y);
+        break;
+
+    case vdx_types_Shape:
+        Shape = (const struct vdx_Shape *)(p);
+        fprintf(file, "%s<Shape ID='%u' Type='%s'", pad, Shape->ID, Shape->Type);
+        if (Shape->FillStyle_exists)
+            fprintf(file, " FillStyle='%u'",
+                    Shape->FillStyle);
+        if (Shape->LineStyle_exists)
+            fprintf(file, " LineStyle='%u'",
+                    Shape->LineStyle);
+        if (Shape->Master_exists)
+            fprintf(file, " Master='%u'",
+                    Shape->Master);
+        if (Shape->MasterShape_exists)
+            fprintf(file, " MasterShape='%u'",
+                    Shape->MasterShape);
+        if (Shape->TextStyle_exists)
+            fprintf(file, " TextStyle='%u'",
+                    Shape->TextStyle);
+        if (Shape->Del)
+            fprintf(file, " Del='%u'",
+                    Shape->Del);
+        if (Shape->Name)
+            fprintf(file, " Name='%s'",
+                    Shape->Name);
+        if (Shape->NameU)
+            fprintf(file, " NameU='%s'",
+                    Shape->NameU);
+        if (Shape->UniqueID)
+            fprintf(file, " UniqueID='%s'",
+                    Shape->UniqueID);
+        if (!child)
+        {
+            fprintf(file, "/>\n");
+            return;
+        }
+        fprintf(file, ">\n");
+        break;
+
+    case vdx_types_Shapes:
+        Shapes = (const struct vdx_Shapes *)(p);
+        fprintf(file, "%s<Shapes", pad);
+        if (!child)
+        {
+            fprintf(file, "/>\n");
+            return;
+        }
+        fprintf(file, ">\n");
+        break;
+
+    case vdx_types_SplineKnot:
+        SplineKnot = (const struct vdx_SplineKnot *)(p);
+        fprintf(file, "%s<SplineKnot IX='%u'>\n", pad, SplineKnot->IX);
+        fprintf(file, "%s  <A>%f</A>\n", pad,
+                SplineKnot->A);
+        fprintf(file, "%s  <X>%f</X>\n", pad,
+                SplineKnot->X);
+        fprintf(file, "%s  <Y>%f</Y>\n", pad,
+                SplineKnot->Y);
+        break;
+
+    case vdx_types_SplineStart:
+        SplineStart = (const struct vdx_SplineStart *)(p);
+        fprintf(file, "%s<SplineStart IX='%u'>\n", pad, SplineStart->IX);
+        fprintf(file, "%s  <A>%u</A>\n", pad,
+                SplineStart->A);
+        fprintf(file, "%s  <B>%u</B>\n", pad,
+                SplineStart->B);
+        fprintf(file, "%s  <C>%f</C>\n", pad,
+                SplineStart->C);
+        fprintf(file, "%s  <D>%u</D>\n", pad,
+                SplineStart->D);
+        fprintf(file, "%s  <X>%f</X>\n", pad,
+                SplineStart->X);
+        fprintf(file, "%s  <Y>%f</Y>\n", pad,
+                SplineStart->Y);
+        break;
+
+    case vdx_types_StyleProp:
+        StyleProp = (const struct vdx_StyleProp *)(p);
+        fprintf(file, "%s<StyleProp>\n", pad);
+        fprintf(file, "%s  <EnableFillProps>%u</EnableFillProps>\n", pad,
+                StyleProp->EnableFillProps);
+        fprintf(file, "%s  <EnableLineProps>%u</EnableLineProps>\n", pad,
+                StyleProp->EnableLineProps);
+        fprintf(file, "%s  <EnableTextProps>%u</EnableTextProps>\n", pad,
+                StyleProp->EnableTextProps);
+        fprintf(file, "%s  <HideForApply>%u</HideForApply>\n", pad,
+                StyleProp->HideForApply);
+        break;
+
+    case vdx_types_StyleSheet:
+        StyleSheet = (const struct vdx_StyleSheet *)(p);
+        fprintf(file, "%s<StyleSheet ID='%u'", pad, StyleSheet->ID);
+        if (StyleSheet->FillStyle_exists)
+            fprintf(file, " FillStyle='%u'",
+                    StyleSheet->FillStyle);
+        if (StyleSheet->LineStyle_exists)
+            fprintf(file, " LineStyle='%u'",
+                    StyleSheet->LineStyle);
+        if (StyleSheet->TextStyle_exists)
+            fprintf(file, " TextStyle='%u'",
+                    StyleSheet->TextStyle);
+        if (StyleSheet->Name)
+            fprintf(file, " Name='%s'",
+                    StyleSheet->Name);
+        if (StyleSheet->NameU)
+            fprintf(file, " NameU='%s'",
+                    StyleSheet->NameU);
+        if (!child)
+        {
+            fprintf(file, "/>\n");
+            return;
+        }
+        fprintf(file, ">\n");
+        break;
+
+    case vdx_types_Tab:
+        Tab = (const struct vdx_Tab *)(p);
+        fprintf(file, "%s<Tab IX='%u'>\n", pad, Tab->IX);
+        fprintf(file, "%s  <Alignment>%u</Alignment>\n", pad,
+                Tab->Alignment);
+        fprintf(file, "%s  <Position>%f</Position>\n", pad,
+                Tab->Position);
+        break;
+
+    case vdx_types_Tabs:
+        Tabs = (const struct vdx_Tabs *)(p);
+        fprintf(file, "%s<Tabs IX='%u'", pad, Tabs->IX);
+        if (!child)
+        {
+            fprintf(file, "/>\n");
+            return;
+        }
+        fprintf(file, ">\n");
+        break;
+
+    case vdx_types_Text:
+        Text = (const struct vdx_Text *)(p);
+        fprintf(file, "%s<Text IX='%u'>", pad, Text->IX);
+        break;
+
+    case vdx_types_TextBlock:
+        TextBlock = (const struct vdx_TextBlock *)(p);
+        fprintf(file, "%s<TextBlock>\n", pad);
+        fprintf(file, "%s  <BottomMargin>%f</BottomMargin>\n", pad,
+                TextBlock->BottomMargin);
+        fprintf(file, "%s  <DefaultTabStop>%f</DefaultTabStop>\n", pad,
+                TextBlock->DefaultTabStop);
+        fprintf(file, "%s  <LeftMargin>%f</LeftMargin>\n", pad,
+                TextBlock->LeftMargin);
+        fprintf(file, "%s  <RightMargin>%f</RightMargin>\n", pad,
+                TextBlock->RightMargin);
+        fprintf(file, "%s  <TextBkgnd>%u</TextBkgnd>\n", pad,
+                TextBlock->TextBkgnd);
+        fprintf(file, "%s  <TextBkgndTrans>%f</TextBkgndTrans>\n", pad,
+                TextBlock->TextBkgndTrans);
+        fprintf(file, "%s  <TextDirection>%u</TextDirection>\n", pad,
+                TextBlock->TextDirection);
+        fprintf(file, "%s  <TopMargin>%f</TopMargin>\n", pad,
+                TextBlock->TopMargin);
+        fprintf(file, "%s  <VerticalAlign>%u</VerticalAlign>\n", pad,
+                TextBlock->VerticalAlign);
+        break;
+
+    case vdx_types_TextXForm:
+        TextXForm = (const struct vdx_TextXForm *)(p);
+        fprintf(file, "%s<TextXForm>\n", pad);
+        fprintf(file, "%s  <TxtAngle>%f</TxtAngle>\n", pad,
+                TextXForm->TxtAngle);
+        fprintf(file, "%s  <TxtHeight>%f</TxtHeight>\n", pad,
+                TextXForm->TxtHeight);
+        fprintf(file, "%s  <TxtLocPinX>%f</TxtLocPinX>\n", pad,
+                TextXForm->TxtLocPinX);
+        fprintf(file, "%s  <TxtLocPinY>%f</TxtLocPinY>\n", pad,
+                TextXForm->TxtLocPinY);
+        fprintf(file, "%s  <TxtPinX>%f</TxtPinX>\n", pad,
+                TextXForm->TxtPinX);
+        fprintf(file, "%s  <TxtPinY>%f</TxtPinY>\n", pad,
+                TextXForm->TxtPinY);
+        fprintf(file, "%s  <TxtWidth>%f</TxtWidth>\n", pad,
+                TextXForm->TxtWidth);
+        break;
+
+    case vdx_types_User:
+        User = (const struct vdx_User *)(p);
+        fprintf(file, "%s<User ID='%u'", pad, User->ID);
+        if (User->NameU)
+            fprintf(file, " NameU='%s'",
+                    User->NameU);
+        fprintf(file, ">\n");
+        fprintf(file, "%s  <Prompt>%s</Prompt>\n", pad,
+                User->Prompt);
+        fprintf(file, "%s  <Value>%f</Value>\n", pad,
+                User->Value);
+        break;
+
+    case vdx_types_VisioDocument:
+        VisioDocument = (const struct vdx_VisioDocument *)(p);
+        fprintf(file, "%s<VisioDocument key='%s' metric='%u' version='%s' xmlns='%s'", pad, VisioDocument->key, VisioDocument->metric, VisioDocument->version, VisioDocument->xmlns);
+        if (VisioDocument->DocLangID_exists)
+            fprintf(file, " DocLangID='%u'",
+                    VisioDocument->DocLangID);
+        if (VisioDocument->buildnum_exists)
+            fprintf(file, " buildnum='%u'",
+                    VisioDocument->buildnum);
+        if (VisioDocument->start_exists)
+            fprintf(file, " start='%u'",
+                    VisioDocument->start);
+        fprintf(file, ">\n");
+        fprintf(file, "%s  <EventList>%u</EventList>\n", pad,
+                VisioDocument->EventList);
+        fprintf(file, "%s  <Masters>%u</Masters>\n", pad,
+                VisioDocument->Masters);
+        break;
+
+    case vdx_types_Window:
+        Window = (const struct vdx_Window *)(p);
+        fprintf(file, "%s<Window ContainerType='%s' Document='%s' ID='%u' ParentWindow='%u' ViewCenterX='%f' ViewCenterY='%f' ViewScale='%f' WindowType='%s'", pad, Window->ContainerType, Window->Document, Window->ID, Window->ParentWindow, Window->ViewCenterX, Window->ViewCenterY, Window->ViewScale, Window->WindowType);
+        if (Window->Page_exists)
+            fprintf(file, " Page='%u'",
+                    Window->Page);
+        if (Window->Sheet_exists)
+            fprintf(file, " Sheet='%u'",
+                    Window->Sheet);
+        if (Window->WindowHeight_exists)
+            fprintf(file, " WindowHeight='%u'",
+                    Window->WindowHeight);
+        if (Window->WindowLeft_exists)
+            fprintf(file, " WindowLeft='%d)'",
+                    Window->WindowLeft);
+        if (Window->WindowState_exists)
+            fprintf(file, " WindowState='%u'",
+                    Window->WindowState);
+        if (Window->WindowTop_exists)
+            fprintf(file, " WindowTop='%d)'",
+                    Window->WindowTop);
+        if (Window->WindowWidth_exists)
+            fprintf(file, " WindowWidth='%u'",
+                    Window->WindowWidth);
+        fprintf(file, ">\n");
+        fprintf(file, "%s  <DynamicGridEnabled>%u</DynamicGridEnabled>\n", pad,
+                Window->DynamicGridEnabled);
+        fprintf(file, "%s  <GlueSettings>%u</GlueSettings>\n", pad,
+                Window->GlueSettings);
+        fprintf(file, "%s  <ShowConnectionPoints>%u</ShowConnectionPoints>\n", pad,
+                Window->ShowConnectionPoints);
+        fprintf(file, "%s  <ShowGrid>%u</ShowGrid>\n", pad,
+                Window->ShowGrid);
+        fprintf(file, "%s  <ShowGuides>%u</ShowGuides>\n", pad,
+                Window->ShowGuides);
+        fprintf(file, "%s  <ShowPageBreaks>%u</ShowPageBreaks>\n", pad,
+                Window->ShowPageBreaks);
+        fprintf(file, "%s  <ShowRulers>%u</ShowRulers>\n", pad,
+                Window->ShowRulers);
+        fprintf(file, "%s  <SnapExtensions>%u</SnapExtensions>\n", pad,
+                Window->SnapExtensions);
+        fprintf(file, "%s  <SnapSettings>%u</SnapSettings>\n", pad,
+                Window->SnapSettings);
+        fprintf(file, "%s  <StencilGroup>%u</StencilGroup>\n", pad,
+                Window->StencilGroup);
+        fprintf(file, "%s  <StencilGroupPos>%u</StencilGroupPos>\n", pad,
+                Window->StencilGroupPos);
+        fprintf(file, "%s  <TabSplitterPos>%f</TabSplitterPos>\n", pad,
+                Window->TabSplitterPos);
+        break;
+
+    case vdx_types_Windows:
+        Windows = (const struct vdx_Windows *)(p);
+        fprintf(file, "%s<Windows", pad);
+        if (Windows->ClientHeight_exists)
+            fprintf(file, " ClientHeight='%u'",
+                    Windows->ClientHeight);
+        if (Windows->ClientWidth_exists)
+            fprintf(file, " ClientWidth='%u'",
+                    Windows->ClientWidth);
+        fprintf(file, ">\n");
+        fprintf(file, "%s  <Window>%u</Window>\n", pad,
+                Windows->Window);
+        break;
+
+    case vdx_types_XForm:
+        XForm = (const struct vdx_XForm *)(p);
+        fprintf(file, "%s<XForm>\n", pad);
+        fprintf(file, "%s  <Angle>%f</Angle>\n", pad,
+                XForm->Angle);
+        fprintf(file, "%s  <FlipX>%u</FlipX>\n", pad,
+                XForm->FlipX);
+        fprintf(file, "%s  <FlipY>%u</FlipY>\n", pad,
+                XForm->FlipY);
+        fprintf(file, "%s  <Height>%f</Height>\n", pad,
+                XForm->Height);
+        fprintf(file, "%s  <LocPinX>%f</LocPinX>\n", pad,
+                XForm->LocPinX);
+        fprintf(file, "%s  <LocPinY>%f</LocPinY>\n", pad,
+                XForm->LocPinY);
+        fprintf(file, "%s  <PinX>%f</PinX>\n", pad,
+                XForm->PinX);
+        fprintf(file, "%s  <PinY>%f</PinY>\n", pad,
+                XForm->PinY);
+        fprintf(file, "%s  <ResizeMode>%u</ResizeMode>\n", pad,
+                XForm->ResizeMode);
+        fprintf(file, "%s  <Width>%f</Width>\n", pad,
+                XForm->Width);
+        break;
+
+    case vdx_types_XForm1D:
+        XForm1D = (const struct vdx_XForm1D *)(p);
+        fprintf(file, "%s<XForm1D>\n", pad);
+        fprintf(file, "%s  <BeginX>%f</BeginX>\n", pad,
+                XForm1D->BeginX);
+        fprintf(file, "%s  <BeginY>%f</BeginY>\n", pad,
+                XForm1D->BeginY);
+        fprintf(file, "%s  <EndX>%f</EndX>\n", pad,
+                XForm1D->EndX);
+        fprintf(file, "%s  <EndY>%f</EndY>\n", pad,
+                XForm1D->EndY);
+        break;
+
+    case vdx_types_cp:
+        cp = (const struct vdx_cp *)(p);
+        fprintf(file, "%s<cp IX='%u'", pad, cp->IX);
+        if (!child)
+        {
+            fprintf(file, "/>\n");
+            return;
+        }
+        fprintf(file, ">\n");
+        break;
+
+    case vdx_types_fld:
+        fld = (const struct vdx_fld *)(p);
+        fprintf(file, "%s<fld IX='%u'", pad, fld->IX);
+        if (!child)
+        {
+            fprintf(file, "/>\n");
+            return;
+        }
+        fprintf(file, ">\n");
+        break;
+
+    case vdx_types_pp:
+        pp = (const struct vdx_pp *)(p);
+        fprintf(file, "%s<pp IX='%u'", pad, pp->IX);
+        if (!child)
+        {
+            fprintf(file, "/>\n");
+            return;
+        }
+        fprintf(file, ">\n");
+        break;
+
+    case vdx_types_tp:
+        tp = (const struct vdx_tp *)(p);
+        fprintf(file, "%s<tp IX='%u'", pad, tp->IX);
+        if (!child)
+        {
+            fprintf(file, "/>\n");
+            return;
+        }
+        fprintf(file, ">\n");
+        break;
+
+    case vdx_types_text:
+        text = (const struct vdx_text *)(p);
+        fprintf(file, "%s\n", text->text);
+        break;
+
+    default:
+         message_error(_("Can't write object %u"), Any->type);
+    }
+    while(child)
+    {
+        vdx_write_object(file, depth+1, child->data);
+        child = child->next;
+    }
+    if (Any->type != vdx_types_text)
+        fprintf(file, "%s</%s>\n", pad, vdx_Types[(int)Any->type]);
 }

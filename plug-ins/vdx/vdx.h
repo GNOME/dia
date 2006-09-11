@@ -40,6 +40,7 @@ struct VDXDocument
     gboolean ok;             /* Flag for whether to stop processing */
     gboolean stop;           /* Flag for whether to stop processing */
     unsigned int Page;          /* Page number */
+    unsigned int Background_Layers; /* Number to add when flattening */
 };
 
 typedef struct VDXDocument VDXDocument;
@@ -52,15 +53,24 @@ static const double vdx_Y_Flip = -1.0; /* Upside down */
 static const double vdx_Point_Scale = 2.54; /* Visio is in inches, Dia in cm */
 static const double vdx_Line_Scale = 2.54; /* Visio is in inches, Dia in cm */
 static const double vdx_Page_Width = 35.0; /* in cm */
-static const double vdx_Arrow_Scale = 0.05; /* Empirical */
+static const double vdx_Arrow_Scale = 0.15; /* Empirical */
 static const double vdx_Dash_Length = 0.17; /* Empirical */
 static const double EPSILON = 0.01; /* Sensitivity */
+static const double vdx_Arrow_Sizes[] = 
+        { 1.0, 1.2, 1.4, 1.6, 1.8, 2.0 }; /* Empirical */
+#define VDX_NAMEU_LEN 30
 
 Color
 vdx_parse_color(const char *s, const VDXDocument *theDoc);
 
+const char *
+vdx_string_color(const Color c);
+
 void *
 vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p);
+
+void
+vdx_write_object(FILE *file, unsigned int depth, const void *p);
 
 
 #endif

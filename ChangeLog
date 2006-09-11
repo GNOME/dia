@@ -1,3 +1,27 @@
+2006-09-11  Steffen Macke <sdteffen@gmail.com>
+
+	* plug-ins/vdx/vdx-export.c:
+	* plug-ins/vdx/vdx-import.c:
+	* plug-ins/vdx/vdx-xml.c:
+	* plug-ins/vdx/vdx.h:
+	* plug-ins/vdx/visio-types.h: Update to version 0.5 (from 0.4) of
+	Visio import, thanks to Ian Redfern, who states: 
+	
+	This is the first version to support export to VDX - for now, just 
+	straight lines and text, but I'm working on the more complex bits. 
+	It currently writes Visio 2002 VDX as a lowest common denominator, 
+	but that won't handle Beziers, so when I get round to converting them 
+	to NURBS, only Visio 2003 users will be able to import them.
+
+	There are also several improvements to import, both to fix the layout 
+	and clean up the code, and it can now import embedded bitmaps - as Dia
+	needs them to be separate files, it puts them in /tmp (or wherever 
+	tempnam() goes to on your system). Alternative suggestions are welcome. 
+	NURBS import still doesn't work, but everything else seems pretty 
+	reliable.
+	
+	In addition, two small adjustments to compile on Windows
+
 2006-09-08  Steffen Macke <sdteffen@gmail.com>
 
 	* app/makefile.msc:

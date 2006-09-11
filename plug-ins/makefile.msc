@@ -1,7 +1,7 @@
 !IFNDEF PACKAGE
 
 # dummy
-PLUGINS = gprint cairo cgm dxf hpgl metapost pgf pixbuf pstricks shape svg vdx wmf wpg xfig xslt
+PLUGINS = gprint cairo cgm dxf hpgl metapost pgf pixbuf pstricks shape svg vdx wmf wpg xfig xslt sissi
 
 #broken since StdProp overhaul : diaimport 
 
@@ -126,6 +126,19 @@ EXTRACFLAGS = -DWIN32 $(LIBXSLT_CFLAGS)
 EXTRALIBS = $(LIBXSLT_LIBS)
 OBJECTS = xslt.obj \
 	xsltdialog.obj
+!ENDIF
+
+!IFDEF OBJ_sissi
+EXTRACFLAGS = -DWIN32 $(LIBXSLT_CFLAGS)
+EXTRALIBS = $(LIBXSLT_LIBS)
+OBJECTS = sissi.obj \
+	faraday.obj \
+	menace.obj \
+	room.obj \
+	sissi_dialog.obj \
+	sissi_object.obj \
+	site.obj \
+	zone.obj
 !ENDIF
 
 # just one file ...
