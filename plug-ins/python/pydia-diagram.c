@@ -50,7 +50,7 @@ static void
 PyDiaDiagram_Dealloc(PyDiaDiagram *self)
 {
     g_object_unref(self->dia);
-    PyMem_DEL(self);
+    PyObject_DEL(self);
 }
 
 static int

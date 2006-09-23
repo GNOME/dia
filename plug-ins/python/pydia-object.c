@@ -40,7 +40,7 @@ PyDiaObject_New(DiaObject *object)
 static void
 PyDiaObject_Dealloc(PyDiaObject *self)
 {
-     PyMem_DEL(self);
+     PyObject_DEL(self);
 }
 
 static int
@@ -250,7 +250,7 @@ PyDiaObjectType_New(DiaObjectType *otype)
 static void
 PyDiaObjectType_Dealloc(PyDiaObjectType *self)
 {
-     PyMem_DEL(self);
+     PyObject_DEL(self);
 }
 
 static int

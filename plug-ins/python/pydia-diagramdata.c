@@ -46,7 +46,7 @@ static void
 PyDiaDiagramData_Dealloc(PyDiaDiagramData *self)
 {
     g_object_unref (self->data);
-    PyMem_DEL(self);
+    PyObject_DEL(self);
 }
 
 static int

@@ -135,7 +135,7 @@ PyObject* PyDiaArrow_New (Arrow* arrow)
 static void
 PyDiaGeometry_Dealloc(void *self)
 {
-     PyMem_DEL(self);
+     PyObject_DEL(self);
 }
 
 /*

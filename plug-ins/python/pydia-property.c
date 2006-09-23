@@ -60,7 +60,7 @@ static void
 PyDiaProperty_Dealloc(PyDiaProperty *self)
 {
   self->property->ops->free(self->property);
-  PyMem_DEL(self);
+  PyObject_DEL(self);
 }
 
 /*

@@ -48,7 +48,7 @@ PyDiaFont_Dealloc(PyDiaFont *self)
 {
   if (self->font)
     dia_font_unref (self->font);
-  PyMem_DEL(self);
+  PyObject_DEL(self);
 }
 
 /*

@@ -49,7 +49,7 @@ static void
 PyDiaText_Dealloc(PyDiaText *self)
 {
   g_free (self->text_data);
-  PyMem_DEL(self);
+  PyObject_DEL(self);
 }
 
 /*
