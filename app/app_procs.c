@@ -941,7 +941,7 @@ app_init (int argc, char **argv)
     
     if (diagram != NULL) {
       diagram_update_extents(diagram);
-      diagram->virtual = TRUE;
+      diagram->is_default = TRUE;
       layer_dialog_set_diagram(diagram);
       new_display(diagram);
     }

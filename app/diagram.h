@@ -45,7 +45,7 @@ struct _Diagram {
 
   char *filename;
   int unsaved;            /* True if diagram is created but not saved.*/
-  gboolean virtual;       /* True if the diagram was created as the default.*/
+  gboolean is_default;       /* True if the diagram was created as the default.*/
   int mollified;
   gboolean autosaved;     /* True if the diagram is autosaved since last mod */
   char *autosavefilename;     /* Holds the name of the current autosave file

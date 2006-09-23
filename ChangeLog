@@ -1,5 +1,8 @@
 2006-08-20  Hans Breuer  <hans@breuer.org>
 
+	* app/diagram.[ch] app/app_procs.c : don't use C++ keyword 'virtual' 
+	as variable name: s/virtual/is_default/
+	
 	* plug-ins/python/*.c : don't mix PyObject_NEW() with PyMem_DEL()
 	Newer versions of Python (2.5) are not tolerant about this anymore.
 	

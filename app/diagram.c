@@ -276,7 +276,7 @@ diagram_load(const char *filename, DiaImportFilter *ifilter)
 
   for (diagrams = open_diagrams; diagrams != NULL; diagrams = g_list_next(diagrams)) {
     Diagram *old_diagram = (Diagram*)diagrams->data;
-    if (old_diagram->virtual) {
+    if (old_diagram->is_default) {
       diagram = old_diagram;
       break;
     }	
@@ -292,9 +292,9 @@ diagram_load(const char *filename, DiaImportFilter *ifilter)
     diagram_destroy(diagram);
     diagram = NULL;
   }
-  if (diagram != NULL && diagram->virtual) {
+  if (diagram != NULL && diagram->is_default) {
     diagram_update_for_filename(diagram);
-    diagram->virtual = FALSE;
+    diagram->is_default = FALSE;
   }
   
   return diagram;
@@ -347,7 +347,7 @@ diagram_modified(Diagram *dia)
   }
   if (diagram_is_modified(dia)) {
     dia->autosaved = FALSE;
-    dia->virtual = FALSE;
+    dia->is_default = FALSE;
   }
   /*  diagram_set_modified(dia, TRUE);*/
 }
