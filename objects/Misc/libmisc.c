@@ -29,8 +29,10 @@
 #include "plug-ins.h"
 
 extern DiaObjectType analog_clock_type;
+#ifndef _MSC_VER
 /** Taken from app, but here while testing. */
 extern DiaObjectType newgroup_type;
+#endif
 
 DIA_PLUGIN_CHECK_INIT
 
@@ -42,7 +44,9 @@ dia_plugin_init(PluginInfo *info)
     return DIA_PLUGIN_INIT_ERROR;
 
   object_register_type(&analog_clock_type);  
+#ifndef _MSC_VER
   object_register_type(&newgroup_type);
+#endif
 
   return DIA_PLUGIN_INIT_OK;
 }

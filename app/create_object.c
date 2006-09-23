@@ -26,6 +26,7 @@
 #include "cursor.h"
 #include "highlight.h"
 #include "textedit.h"
+#include "parent.h"
 
 static void create_object_button_press(CreateObjectTool *tool, GdkEventButton *event,
 				     DDisplay *ddisp);

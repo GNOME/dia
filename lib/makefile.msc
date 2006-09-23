@@ -106,6 +106,7 @@ OBJECTS = \
 	render_pixmap.obj \
 	sheet.obj \
 	text.obj \
+	textline.obj \
 	utils.obj \
 	widgets.obj \
 	diamarshal.obj \

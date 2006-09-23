@@ -177,7 +177,6 @@ OBJECTS = \
 !IFDEF OBJ_misc
 OBJECTS = \
 	analog_clock.obj \
-	newgroup.obj \
 	libmisc.obj
 !ENDIF
 

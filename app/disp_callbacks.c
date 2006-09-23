@@ -46,6 +46,7 @@
 #include "commands.h"
 #include "highlight.h"
 #include "textedit.h"
+#include "lib/parent.h"
 
 /* This contains the point that was clicked to get this menu */
 static Point object_menu_clicked_point;

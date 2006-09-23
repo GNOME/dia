@@ -1,22 +1,12 @@
 TOP = ..\..\..
 
 !INCLUDE $(TOP)\glib\build\win32\make.msc
-PY2=2
 
-!IFNDEF PY2
-PYTHON = ..\..\..\..\python
-!IFNDEF DEBUG
-EXTRALIBS = $(PYTHON)\libs\python15.lib user32.lib
-!ELSE
-EXTRALIBS = $(PYTHON)\libs\python15_d.lib user32.lib
-!ENDIF
-!ELSE
 PYTHON = ..\..\..\..\python23
 !IFNDEF DEBUG
 EXTRALIBS = $(PYTHON)\libs\python23.lib user32.lib
 !ELSE
-EXTRALIBS = $(PYTHON)\Python-2.2\PCbuild\python22_d.lib user32.lib
-!ENDIF
+EXTRALIBS = $(PYTHON)\Python-2.3\PC\python23_d.lib user32.lib
 !ENDIF
 
 !IFNDEF DEBUG

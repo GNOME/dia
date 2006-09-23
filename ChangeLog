@@ -1,4 +1,16 @@
-2006-08-20  Hans Breuer  <hans@breuer.org>
+2006-09-23  Hans Breuer  <hans@breuer.org>
+
+	* app/commands.c app/create_object.c app/disp_callbacks.c : add
+	missing #include "lib/parent.h"
+
+	* lib/makefile.msc : build textline.obj
+	
+	* objects/makefile.msc : don't build newgroup.obj
+	* objects/misc/libmisc.c : with newgroup gone to app/ newgroup_type can 
+	not be registered from the module any longer - at least not on win32
+
+	* plug-ins/python/makefile.msc : removed obsolete references to 
+	Python 1.5, also removed misleading link to Python 2.2 debug build
 
 	* app/diagram.[ch] app/app_procs.c : don't use C++ keyword 'virtual' 
 	as variable name: s/virtual/is_default/

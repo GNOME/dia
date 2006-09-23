@@ -78,6 +78,7 @@ ShellExecuteA (long        hwnd,
 #include <gdk/gdk.h>
 #include <gdk/gdkkeysyms.h>
 #include "lib/properties.h"
+#include "lib/parent.h"
 #include "dia-props.h"
 #include "diagram_tree_window.h"
 #include "authors.h"                /* master contributors data */
