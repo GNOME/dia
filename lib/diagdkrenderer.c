@@ -798,13 +798,12 @@ draw_string (DiaRenderer *object,
     }
   }
 #endif
-
-      /* abuse_layout_object(layout,text); */
   
   g_object_unref(G_OBJECT(layout));
 #endif
 }
 
+#ifdef HAVE_FREETYPE
 static void
 initialize_ft_bitmap(FT_Bitmap *ftbitmap, int width, int height)
 {
@@ -820,6 +819,7 @@ initialize_ft_bitmap(FT_Bitmap *ftbitmap, int width, int height)
   ftbitmap->palette_mode = 0;
   ftbitmap->palette = 0;
 }
+#endif
 
 /** Draw a TextLine object.
  * @param object The renderer object to use for transform and output
@@ -934,11 +934,12 @@ draw_text_line (DiaRenderer *object, TextLine *text_line,
    */
   DiaGdkRenderer *renderer = DIA_GDK_RENDERER (object);
   GdkColor gdkcolor;
+  Alignment alignment = ALIGN_LEFT;
 
   int x,y;
   Point start_pos;
   PangoLayout* layout = NULL;
-  gchar *text = text_line_get_text(text_line);
+  const gchar *text = text_line_get_string(text_line);
   DiaFont *font = text_line_get_font(text_line);
   real font_height = text_line_get_height(text_line);
 

@@ -1,3 +1,8 @@
+2006-09-24  Hans Breuer  <hans@breuer.org>
+
+	* lib/diagdkrenderer.c : I'm going to rip out all the Freetype
+	code the next time the GDK only compile breaks
+	
 2006-09-23  Hans Breuer  <hans@breuer.org>
 
 	* app/commands.c app/create_object.c app/disp_callbacks.c : add
