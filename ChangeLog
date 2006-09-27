@@ -1,3 +1,11 @@
+2006-09-27  Steffen Macke <sdteffen@gmail.com>
+
+	* shapes/flowchart/datasource.png:
+	* shapes/flowchart/datasource.shape:
+	* shapes/flowchart/Makefile.am: 
+	* sheets/Flowchart.sheet.in:
+	* installer/win32/dia.nsi: Added new "Data source" shape
+
 2006-09-24  Hans Breuer  <hans@breuer.org>
 
 	* lib/diagdkrenderer.c : I'm going to rip out all the Freetype

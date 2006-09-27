@@ -26,6 +26,7 @@ SHAPES = \
 	punchedcard.shape \
 	punchedtape.shape \
 	transmittape.shape \
+	datasource.shape \
 	display.png \
 	document.png \
 	transaction.png \
@@ -49,7 +50,8 @@ SHAPES = \
 	offlinestore.png \
 	punchedcard.png \
 	punchedtape.png \
-	transmittape.png
+	transmittape.png \
+	datasource.png
 
 
 EXTRA_DIST = $(SHAPES)

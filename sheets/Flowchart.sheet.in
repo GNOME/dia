@@ -90,5 +90,8 @@
     <object name="Flowchart - Offline Storage">
       <_description>Offline storage</_description>
     </object>
+    <object name="Flowchart - Data Source">
+      <_description>Data source</_description>
+    </object>
  </contents>
 </sheet>
