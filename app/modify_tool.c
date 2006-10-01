@@ -377,7 +377,7 @@ modify_motion(ModifyTool *tool, GdkEventMotion *event,
   Point to;
   Point now, delta, full_delta;
   gboolean auto_scroll, vertical = FALSE;
-  ConnectionPoint *connectionpoint;
+  ConnectionPoint *connectionpoint = NULL;
   ObjectChange *objchange;
   gchar *postext;
   GtkStatusbar *statusbar;
@@ -477,15 +477,14 @@ modify_motion(ModifyTool *tool, GdkEventMotion *event,
     if (!parent_handle_move_out_check(tool->object, &to))
       parent_handle_move_in_check(tool->object, &to, &tool->start_at);
 
-    /* Move to ConnectionPoint if near: */
-    connectionpoint =
-      object_find_connectpoint_display(ddisp, &to, tool->object, TRUE);
-
     if (event->state & GDK_CONTROL_MASK)
       vertical = (fabs(full_delta.x) < fabs(full_delta.y));
 
     highlight_reset_all(ddisp->diagram);
     if ((tool->handle->connect_type != HANDLE_NONCONNECTABLE)) {
+      /* Move to ConnectionPoint if near: */
+      connectionpoint =
+	object_find_connectpoint_display(ddisp, &to, tool->object, TRUE);
       if (connectionpoint != NULL) {
 	Color *hi_color;
 	to = connectionpoint->pos;

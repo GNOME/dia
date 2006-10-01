@@ -1,3 +1,11 @@
+2006-10-01  Lars Clausen  <lars@raeder.dk>
+
+	* app/modify_tool.c (modify_motion): Don't use null-ness of
+	connectionpoint to skip snap-to-grid for non-connectable handles.
+	Fixes bug #350246.
+
+	* shapes/flowchart/predefdproc.shape: Fixed midpoint.
+
 2006-09-27  Steffen Macke <sdteffen@gmail.com>
 
 	* shapes/flowchart/datasource.png:
