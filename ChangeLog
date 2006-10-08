@@ -1,3 +1,9 @@
+2006-10-08  Lars Clausen  <lars@raeder.dk>
+
+	* configure.in: Allow compiling without freetype on Unix systems.
+	The effect of changes to non-freetype parts of the code can now be
+	tested, and I have no excuse to not fix them anymore:(
+
 2006-10-01  Lars Clausen  <lars@raeder.dk>
 
 	* app/modify_tool.c (modify_motion): Don't use null-ness of
