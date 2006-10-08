@@ -10,13 +10,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.92.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-08-31 20:30+0200\n"
-"PO-Revision-Date: 2003-10-28 17:11GMT\n"
-"Last-Translator: Aleix Badia i Bosch <abadia@ica.es>\n"
+"POT-Creation-Date: 2006-10-08 15:12+0200\n"
+"PO-Revision-Date: 2006-10-08 15:44+0200\n"
+"Last-Translator: Maria Soler Climent <mariasolercliment@gmail.com>\n"
 "Language-Team: Catalan <tradgnome@softcatala.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #. This is not an errror
 #: ../app/app_procs.c:260
@@ -91,7 +92,7 @@ msgstr "TIPUS"
 #
 #: ../app/app_procs.c:692 ../app/app_procs.c:720
 msgid "Export graphics size"
-msgstr "Exporta la mida dels grafics"
+msgstr "Exporta la mida dels gràfics"
 
 #: ../app/app_procs.c:692 ../app/app_procs.c:720
 msgid "WxH"
@@ -116,7 +117,7 @@ msgstr "No mostris la pantalla de flaix"
 
 #: ../app/app_procs.c:699 ../app/app_procs.c:727
 msgid "Don't create empty diagram"
-msgstr ""
+msgstr "No creïs un diagrama buit"
 
 #: ../app/app_procs.c:701 ../app/app_procs.c:729
 msgid "Send error messages to stderr instead of showing dialogs."
@@ -154,21 +155,21 @@ msgid "Dia version %s\n"
 msgstr "Versió del Dia %s\n"
 
 #: ../app/app_procs.c:895 ../app/diaconv.c:201 ../app/diaconv.c:203
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Couldn't find standard objects when looking for object-libs; exiting...\n"
 msgstr ""
-"No s'han pogut trobar objectes estàndard quan s'han cercat biblioteques "
-"d'objectes, sortint...\n"
+"No s'han pogut trobar objectes estàndard en cercar biblioteques d'objectes; "
+"s'està sortint...\n"
 
 #: ../app/app_procs.c:897
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Couldn't find standard objects when looking for object-libs in '%s'; "
 "exiting...\n"
 msgstr ""
-"No s'han pogut trobar objectes estàndard quan s'han cercat biblioteques "
-"d'objectes, sortint...\n"
+"No s'han pogut trobar objectes estàndard en cercar biblioteques a «%s». "
+"S'està sortint...\n"
 
 #
 #: ../app/app_procs.c:938
@@ -187,16 +188,14 @@ msgstr ""
 #. no standard buttons
 #: ../app/app_procs.c:991
 msgid "Quitting without saving modified diagrams"
-msgstr ""
+msgstr "S'està sortint sense desar els diagrames modificats"
 
 #: ../app/app_procs.c:993
-#, fuzzy
 msgid ""
 "Modified diagrams exist. Are you sure you want to quit Dia without saving "
 "them?"
 msgstr ""
-"Hi ha diagrames que s'han modificat.\n"
-"Esteu segurs que voleu sortir del Dia\n"
+"Hi ha diagrames que s'han modificat. Esteu segur que voleu sortir del Dia "
 "sense desar-los?"
 
 #: ../app/app_procs.c:997
@@ -238,7 +237,7 @@ msgid ""
 msgstr ""
 "Error a l'opció %s: %s.\n"
 "Per visualitzar una llista completa de les opcions disponibles per a la "
-"línia d'ordres executeu '%s --help'.\n"
+"línia d'ordres executeu «%s --help».\n"
 
 #
 #: ../app/app_procs.c:1169
@@ -248,7 +247,7 @@ msgstr "[FITXER...]"
 #: ../app/app_procs.c:1192
 #, c-format
 msgid "'%s' not found!\n"
-msgstr "No s'ha trobat '%s'!\n"
+msgstr "No s'ha trobat «%s»!\n"
 
 #: ../app/app_procs.c:1273
 msgid ""
@@ -308,20 +307,20 @@ msgstr "Selecciona el color de primer pla"
 msgid "Select background color"
 msgstr "Selecciona el color de fons"
 
-#: ../app/commands.c:133
+#: ../app/commands.c:134
 #, c-format
 msgid "Diagram%d.dia"
 msgstr "Diagrama%d.dia"
 
-#: ../app/commands.c:206
+#: ../app/commands.c:207
 msgid "No existing object to paste.\n"
 msgstr "No hi ha cap objecte per enganxar.\n"
 
-#: ../app/commands.c:537 ../app/commands.c:575
+#: ../app/commands.c:538 ../app/commands.c:576
 msgid "Could not find help directory"
 msgstr "No s'ha pogut trobar el directori d'ajuda"
 
-#: ../app/commands.c:544
+#: ../app/commands.c:545
 #, c-format
 msgid ""
 "Could not open help directory:\n"
@@ -330,15 +329,16 @@ msgstr ""
 "No s'ha pogut obrir el directori d'ajuda:\n"
 "%s"
 
-#: ../app/commands.c:611
+#: ../app/commands.c:612
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 "Softcatalà <gnome@softcatala.net>\n"
 "Aleix Badia <abadia@ica.es>\n"
 "Xavier Conde <xaviconde@eresmas.com>\n"
-"Jordi Mas <jmas@softcatala.org>"
+"Jordi Mas <jmas@softcatala.org>\n"
+"Maria Soler <mariasolercliment@gmail.com>"
 
-#: ../app/commands.c:613
+#: ../app/commands.c:614
 msgid ""
 "This program is free software; you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"
@@ -354,11 +354,24 @@ msgid ""
 "along with this program; if not, write to the Free Software\n"
 "Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.\n"
 msgstr ""
+"Aquest és programari lliure; podeu redistribuir-lo i/o modificar-lo\n"
+"sota els termes de la Llicència Pública General GNU tal i com ha estat\n"
+"publicada per la Free Software Foundation; bé sota la versió 2 de la\n"
+"Llicència o bé (si ho preferiu) sota qualsevol versió posterior.\n"
+"\n"
+"Aquest programa es distribueix amb l'expectativa de que serà útil,\n"
+"però SENSE CAP GARANTIA; fins i tot la garantia implícita de\n"
+"COMERCIALITZACIÓ o ADEQUACIÓ PER UN PROPÒSIT PARTICULAR. Vegeu la\n"
+"Llicència Pública General GNU per obtenir-ne més detalls.\n"
+"\n"
+"Hauríeu d'haver rebut una còpia de la Llicència Pública General GNU\n"
+"juntament amb aquest programa; en cas contrari, escriviu a la Free\n"
+"Software Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111, "
+"USA.\n"
 
-#: ../app/commands.c:636
-#, fuzzy
+#: ../app/commands.c:637
 msgid "A program for drawing structured diagrams."
-msgstr "Editor de diagrames d'estructures de funcions"
+msgstr "Un programa per a dibuixar diagrames estructurats."
 
 #: ../app/defaults.c:43 ../app/defaults.c:146
 msgid "Object defaults"
@@ -443,7 +456,7 @@ msgstr "Posició X"
 
 #: ../app/diacanvas.c:122
 msgid "X position of child widget"
-msgstr ""
+msgstr "Posició X del giny fill"
 
 #
 #: ../app/diacanvas.c:131
@@ -452,7 +465,7 @@ msgstr "Posició Y"
 
 #: ../app/diacanvas.c:132
 msgid "Y position of child widget"
-msgstr "Posicio Y del giny fill"
+msgstr "Posició Y del giny fill"
 
 #. &export_file_format
 #: ../app/diaconv.c:92
@@ -494,8 +507,8 @@ msgid ""
 "Run '%s --help' to see a full list of available command line options.\n"
 msgstr ""
 "Error %s: només podeu especificar un -t o -o.\n"
-"Per veure la llista completa de les opcions de la línia d'ordres executeu '%"
-"s --help'.\n"
+"Per veure la llista completa de les opcions de la línia d'ordres executeu «%"
+"s --help».\n"
 
 #: ../app/diaconv.c:174
 #, c-format
@@ -530,7 +543,7 @@ msgstr "/Ordena els objectes/per ordre d'_inserció"
 
 #: ../app/diagram_tree_menu.c:54
 msgid "/Sort objects/All by name"
-msgstr "/Ordena els objectes/Tots pel noms"
+msgstr "/Ordena els objectes/Tots pel nom"
 
 #: ../app/diagram_tree_menu.c:56
 msgid "/Sort objects/All by type"
@@ -597,9 +610,9 @@ msgid "Diagram tree"
 msgstr "Arbre del diagrama"
 
 #: ../app/diagram.c:221
-#, fuzzy, c-format
+#, c-format
 msgid "Couldn't convert filename '%s' to UTF-8: %s\n"
-msgstr "No s'ha pogut obrir '%s': %s"
+msgstr "No s'ha pogut convertir el nom del fitxer «%s» a UTF-8: %s\n"
 
 #: ../app/diagram.c:224 ../lib/message.c:78 ../lib/message.c:238
 msgid "Error"
@@ -638,11 +651,11 @@ msgstr "Inferior:"
 
 #: ../app/diapagelayout.c:225
 msgid "Left:"
-msgstr "Esquerra:"
+msgstr "Esquerre:"
 
 #: ../app/diapagelayout.c:238
 msgid "Right:"
-msgstr "Dreta:"
+msgstr "Dret:"
 
 #. Scaling
 #: ../app/diapagelayout.c:252
@@ -670,20 +683,20 @@ msgstr "%0.3gcm x %0.3gcm"
 msgid "Page Setup"
 msgstr "Configuració de la pàgina"
 
-#: ../app/disp_callbacks.c:83 ../app/properties.c:152
+#: ../app/disp_callbacks.c:84 ../app/properties.c:152
 msgid ""
 "This object doesn't support Undo/Redo.\n"
 "Undo information erased."
 msgstr ""
-"Aquest objecte no suporta desfer/refer.\n"
+"Aquest objecte no permet desfer/refer.\n"
 "S'ha esborrat la informació per a desfer."
 
 #
-#: ../app/disp_callbacks.c:118
+#: ../app/disp_callbacks.c:119
 msgid "Properties..."
 msgstr "Propietats..."
 
-#: ../app/disp_callbacks.c:920
+#: ../app/disp_callbacks.c:921
 msgid ""
 "The object you dropped cannot fit into its parent. \n"
 "Either expand the parent object, or drop the object elsewhere."
@@ -699,16 +712,16 @@ msgstr "S'ha modificat el diagrama!"
 #. * Althoug the single objects wont get triggered here some languages have variations on the other numbers
 #.
 #: ../app/display.c:121
-#, fuzzy, c-format
+#, c-format
 msgid "Selection of %d object"
 msgid_plural "Selection of %d objects"
-msgstr[0] "Fulls i objectes"
-msgstr[1] "Fulls i objectes"
+msgstr[0] "%d objecte seleccionat"
+msgstr[1] "%d objectes seleccionats"
 
 #: ../app/display.c:131
 #, c-format
 msgid "Selected '%s'"
-msgstr "S'ha seleccionat '%s'"
+msgstr "S'ha seleccionat «%s»"
 
 #: ../app/display.c:1130
 msgid "<unnamed>"
@@ -717,7 +730,7 @@ msgstr "<sense nom>"
 #. no standard buttons
 #: ../app/display.c:1136
 msgid "Closing diagram without saving"
-msgstr ""
+msgstr "S'està tancant el diagrama sense desar-lo"
 
 #: ../app/display.c:1139
 #, c-format
@@ -725,7 +738,7 @@ msgid ""
 "The diagram '%s'\n"
 "has not been saved. Save changes now?"
 msgstr ""
-"El diagrama  '%s' no s'ha desat.\n"
+"El diagrama  «%s» no s'ha desat.\n"
 "Voleu desar-ne els canvis ara?"
 
 #: ../app/display.c:1141
@@ -733,9 +746,8 @@ msgid "Close Diagram"
 msgstr "Tanca el diagrama"
 
 #: ../app/display.c:1146
-#, fuzzy
 msgid "_Discard Changes"
-msgstr "Descarta els canvis"
+msgstr "_Descarta els canvis"
 
 #: ../app/export_png.c:136 ../app/load_save.c:918 ../app/render_eps.c:103
 #: ../plug-ins/cairo/diacairo.c:976 ../plug-ins/cgm/cgm.c:1151
@@ -760,7 +772,7 @@ msgstr "No s'ha pogut crear l'estructura de la informació de capçalera del PNG
 
 #: ../app/export_png.c:161
 msgid "Error occurred while writing PNG"
-msgstr "S'ha produït un error al escriure un fitxer PNG"
+msgstr "S'ha produït un error en escriure el PNG"
 
 #. Create a dialog
 #: ../app/export_png.c:301
@@ -813,7 +825,6 @@ msgid "Supported Formats"
 msgstr "Formats suportats"
 
 #: ../app/filedlg.c:307
-#, fuzzy
 msgid ""
 "Some characters in the filename are neither UTF-8\n"
 "nor your local encoding.\n"
@@ -833,7 +844,7 @@ msgid ""
 "The file '%s' already exists.\n"
 "Do you want to overwrite it?"
 msgstr ""
-"El fitxer '%s' ja existeix.\n"
+"El fitxer «%s» ja existeix.\n"
 "El voleu sobreescriure?"
 
 #: ../app/filedlg.c:369
@@ -862,7 +873,7 @@ msgid ""
 "to use to save '%s'"
 msgstr ""
 "No s'ha pogut determinar quin filtre d'exportació\n"
-"cal utilitzar per desar '%s'"
+"cal utilitzar per desar «%s»"
 
 #: ../app/filedlg.c:607
 msgid "Export Diagram"
@@ -940,11 +951,11 @@ msgstr "Imatge"
 
 #: ../app/interface.c:402
 msgid "Diagram menu."
-msgstr "Menú de diagrama"
+msgstr "Menú del diagrama."
 
 #: ../app/interface.c:440
 msgid "Pops up the Navigation window."
-msgstr "Pops up the Navigation window."
+msgstr "Mostra la finestra de navegació."
 
 #: ../app/interface.c:506
 msgid "Zoom"
@@ -955,25 +966,21 @@ msgid "Toggles snap-to-grid for this window."
 msgstr "Commuta l'ajust a la graella en aquesta finestra."
 
 #: ../app/interface.c:532
-#, fuzzy
 msgid "Toggles object snapping for this window."
-msgstr "Commuta l'ajust a la graella en aquesta finestra."
+msgstr "Commuta l'ajust als objectes en aquesta finestra."
 
 #: ../app/interface.c:597
 msgid "NULL tooldata in tool_select_update"
 msgstr "Dades d'eines NULL a tool_select_update"
 
 #: ../app/interface.c:897
-#, fuzzy, c-format
+#, c-format
 msgid "No sheet named %s"
-msgstr "Nom del full:"
+msgstr "No hi ha cap full anomenat %s"
 
 #: ../app/interface.c:934
-#, fuzzy
 msgid "Other sheets"
-msgstr ""
-"%s\n"
-"Full de l'usuari"
+msgstr "Altres fulls"
 
 #: ../app/interface.c:992 ../sheets/Misc.sheet.in.h:3
 msgid "Misc"
@@ -1036,11 +1043,11 @@ msgstr "Puja la capa"
 
 #: ../app/layer_dialog.c:71
 msgid "Lower Layer"
-msgstr "Capa inferior"
+msgstr "Baixa la capa"
 
 #: ../app/layer_dialog.c:72
 msgid "Delete Layer"
-msgstr "Esborra la capa"
+msgstr "Suprimeix la capa"
 
 #: ../app/layer_dialog.c:193
 msgid "Layers"
@@ -1048,7 +1055,6 @@ msgstr "Capes"
 
 #
 #: ../app/layer_dialog.c:207
-#, fuzzy
 msgid "Diagram:"
 msgstr "Diagrama:"
 
@@ -1085,7 +1091,7 @@ msgid ""
 "Error loading diagram.\n"
 "Linked object not found in document."
 msgstr ""
-"S'ha produït un error mentre es carregava el diagrama.\n"
+"S'ha produït un error en carregar el diagrama.\n"
 "L'objecte enllaçat no s'ha trobat al document."
 
 #: ../app/load_save.c:264
@@ -1093,22 +1099,22 @@ msgid ""
 "Error loading diagram.\n"
 "connection handle does not exist."
 msgstr ""
-"S'ha produït un error mentre es carregava el diagrama.\n"
+"S'ha produït un error en carregar el diagrama.\n"
 "La connexió associada no existeix"
 
 #: ../app/load_save.c:281
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Error loading diagram.\n"
 "connection point %s does not exist."
 msgstr ""
-"S'ha produït un error mentre es carregava el diagrama.\n"
-"El punt de connexió no existeix."
+"S'ha produït un error en carregar el diagrama.\n"
+"El punt de connexió %s no existeix."
 
 #: ../app/load_save.c:306
-#, fuzzy, c-format
+#, c-format
 msgid "Can't find parent %s of %s object\n"
-msgstr "No es pot trobar l'objecte estàndard"
+msgstr "No es pot trobar el pare %s de l'objecte %s\n"
 
 #: ../app/load_save.c:352
 msgid "You must specify a file, not a directory.\n"
@@ -1119,7 +1125,7 @@ msgstr "Heu d'especificar un fitxer, no un directori.\n"
 #: ../plug-ins/xslt/xslt.c:85
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
-msgstr "No s'ha pogut obrir: '%s' per a la seva lectura.\n"
+msgstr "No s'ha pogut obrir: «%s» per a la seva lectura.\n"
 
 #: ../app/load_save.c:377 ../app/load_save.c:383
 #, c-format
@@ -1127,7 +1133,7 @@ msgid ""
 "Error loading diagram %s.\n"
 "Unknown file type."
 msgstr ""
-"S'ha produït un error mentre es carregava el diagrama %s.\n"
+"S'ha produït un error en carregar el diagrama %s.\n"
 "Es desconeix el tipus de fitxer"
 
 #: ../app/load_save.c:391
@@ -1136,7 +1142,7 @@ msgid ""
 "Error loading diagram %s.\n"
 "Not a Dia file."
 msgstr ""
-"S'ha produït un error mentre es carregava el diagrama %s.\n"
+"S'ha produït un error en carregar el diagrama %s.\n"
 "El fitxer no és un fitxer Dia"
 
 #: ../app/load_save.c:597
@@ -1146,46 +1152,40 @@ msgid ""
 "%s.\n"
 "A valid Dia file defines at least one layer."
 msgstr ""
-"S'ha produït un error mentre es carregava el diagrama:\n"
+"S'ha produït un error en carregar el diagrama:\n"
 "%s.\n"
 "Un fitxer vàlid del Dia defineix almenys una capa."
 
 #: ../app/load_save.c:952
 #, c-format
 msgid "Failed to save file '%s'.\n"
-msgstr "No s'ha pogut desar el fitxer '%s'.\n"
+msgstr "No s'ha pogut desar el fitxer «%s».\n"
 
 #: ../app/load_save.c:1026 ../app/load_save.c:1031
-#, fuzzy
 msgid "Dia Diagram File"
-msgstr "Diagrama Dia original"
+msgstr "Fitxer de diagrama del Dia"
 
 #: ../app/menus.c:54
-#, fuzzy
 msgid "_File"
-msgstr "/_Fitxer"
+msgstr "_Fitxer"
 
 #: ../app/menus.c:58
 msgid "_Help"
 msgstr "A_juda"
 
 #: ../app/menus.c:66
-#, fuzzy
 msgid "Sheets and Objects..."
-msgstr "Full_s i objectes..."
+msgstr "Fulls i objectes..."
 
 #: ../app/menus.c:68
-#, fuzzy
 msgid "Plugins..."
-msgstr "Co_nnectors..."
+msgstr "Connectors..."
 
 #: ../app/menus.c:74
-#, fuzzy
 msgid "_Diagram tree..."
-msgstr "Arbre del _diagrama"
+msgstr "Arbre del _diagrama..."
 
 #: ../app/menus.c:82
-#, fuzzy
 msgid "_Export ..."
 msgstr "_Exporta..."
 
@@ -1199,9 +1199,8 @@ msgstr "_Edita"
 
 #
 #: ../app/menus.c:94
-#, fuzzy
 msgid "_Duplicate"
-msgstr "/Edita/_Duplica"
+msgstr "_Duplica"
 
 #. the following used to bind to <control><shift>C which collides with Unicode input.
 #. * <control>>alt> doesn't work either
@@ -1219,82 +1218,73 @@ msgstr "Enganxa el _text"
 
 #
 #: ../app/menus.c:103
-#, fuzzy
 msgid "_Diagram"
-msgstr "/Diagrama"
+msgstr "_Diagrama"
 
 #: ../app/menus.c:105
-#, fuzzy
 msgid "_Layers..."
-msgstr "_Capes"
+msgstr "_Capes..."
 
 #: ../app/menus.c:107
-#, fuzzy
 msgid "_View"
-msgstr "/_Visualitza"
+msgstr "_Visualitza"
 
 #: ../app/menus.c:110
 msgid "_Zoom"
-msgstr "_Zoom"
+msgstr "_Ampliació"
 
 #: ../app/menus.c:111
-#, fuzzy
 msgid "1600%"
-msgstr "15200"
+msgstr "1600%"
 
 #: ../app/menus.c:112
-#, fuzzy
 msgid "800%"
-msgstr "15200"
+msgstr "800%"
 
 #: ../app/menus.c:113
 msgid "400%"
-msgstr ""
+msgstr "400%"
 
 #: ../app/menus.c:114
 msgid "283"
-msgstr ""
+msgstr "283"
 
 #: ../app/menus.c:115
-#, fuzzy
 msgid "200"
-msgstr "15200"
+msgstr "200"
 
 #: ../app/menus.c:116
 msgid "141"
-msgstr ""
+msgstr "141"
 
 #: ../app/menus.c:118
 msgid "85"
-msgstr ""
+msgstr "85"
 
 #: ../app/menus.c:119
-#, fuzzy
 msgid "70.7"
-msgstr "7507"
+msgstr "70,7"
 
 #: ../app/menus.c:120
-#, fuzzy
 msgid "50"
-msgstr "7507"
+msgstr "50"
 
 #: ../app/menus.c:121
 msgid "35.4"
-msgstr ""
+msgstr "35,4"
 
 #: ../app/menus.c:122
 msgid "25"
-msgstr ""
+msgstr "25"
 
 #. "display_toggle_entries" items go here
 #: ../app/menus.c:126
 msgid "New _View"
-msgstr "Nova _vista"
+msgstr "Nova _visualització"
 
 #: ../app/menus.c:127
-#, fuzzy
 msgid "C_lone View"
-msgstr "Nova _vista"
+msgstr "C_lona la visualització"
 
 #: ../app/menus.c:132
 msgid "_Objects"
@@ -1310,11 +1300,11 @@ msgstr "Porta al _davant"
 
 #: ../app/menus.c:135
 msgid "Send Backwards"
-msgstr "Envia al _fons"
+msgstr "Envia enrere"
 
 #: ../app/menus.c:136
 msgid "Bring Forwards"
-msgstr "Porta a davant"
+msgstr "Porta endavant"
 
 #: ../app/menus.c:138
 msgid "_Group"
@@ -1323,7 +1313,7 @@ msgstr "_Agrupa"
 #. deliberately not using Ctrl+U for Ungroup
 #: ../app/menus.c:140
 msgid "_Ungroup"
-msgstr "_Desagrupa"
+msgstr "Desagr_upa"
 
 #: ../app/menus.c:142
 msgid "_Parent"
@@ -1347,7 +1337,6 @@ msgid "Top"
 msgstr "Superior"
 
 #: ../app/menus.c:152
-#, fuzzy
 msgid "Middle"
 msgstr "Centre"
 
@@ -1357,28 +1346,24 @@ msgstr "Inferior"
 
 #
 #: ../app/menus.c:155
-#, fuzzy
 msgid "Spread Out Horizontally"
-msgstr "/Objectes/Alineació/Escampa horitzontalment"
+msgstr "Escampa horitzontalment"
 
 #: ../app/menus.c:156
-#, fuzzy
 msgid "Spread Out Vertically"
-msgstr "/Objectes/Alineació/Escampa verticalment"
+msgstr "Escampa verticalment"
 
 #: ../app/menus.c:157
 msgid "Adjacent"
 msgstr "Adjacent"
 
 #: ../app/menus.c:158
-#, fuzzy
 msgid "Stacked"
-msgstr "Estat"
+msgstr "Apilat"
 
 #: ../app/menus.c:162
-#, fuzzy
 msgid "_Select"
-msgstr "/_Selecciona"
+msgstr "_Selecciona"
 
 #: ../app/menus.c:163
 msgid "All"
@@ -1402,28 +1387,25 @@ msgid "Connected"
 msgstr "Connectat"
 
 #: ../app/menus.c:169
-#, fuzzy
 msgid "Same Type"
-msgstr "/Selecciona/Mateix Tipus"
+msgstr "Mateix tipus"
 
 #. display_select_radio_entries go here
 #: ../app/menus.c:173
-#, fuzzy
 msgid "Select By"
-msgstr "/_Selecciona"
+msgstr "Selecciona per"
 
 #: ../app/menus.c:175
 msgid "_Input Methods"
 msgstr "Mètodes d'en_trada"
 
 #: ../app/menus.c:177
-#, fuzzy
 msgid "D_ialogs"
-msgstr "_Diàlegs"
+msgstr "D_iàlegs"
 
 #: ../app/menus.c:179
 msgid "D_ebug"
-msgstr ""
+msgstr "D_epura"
 
 #: ../app/menus.c:185
 msgid "_Tools"
@@ -1439,7 +1421,7 @@ msgstr "Desplaçament"
 
 #: ../app/menus.c:210
 msgid "Fullscr_een"
-msgstr ""
+msgstr "Pantalla compl_eta"
 
 #: ../app/menus.c:213
 msgid "_AntiAliased"
@@ -1451,13 +1433,12 @@ msgstr "Mostra la _graella"
 
 #: ../app/menus.c:216
 msgid "_Snap To Grid"
-msgstr "Aju_sta automàticament la graella"
+msgstr "Aju_sta a la graella"
 
 #
 #: ../app/menus.c:217
-#, fuzzy
 msgid "Snap To _Objects"
-msgstr "/Visualitza/_Desplaça als objectes"
+msgstr "Ajusta als _objectes"
 
 #: ../app/menus.c:218
 msgid "Show _Rulers"
@@ -1476,9 +1457,8 @@ msgid "Union"
 msgstr "Unió"
 
 #: ../app/menus.c:227
-#, fuzzy
 msgid "Intersection"
-msgstr "Intersecta"
+msgstr "Intersecció"
 
 #. Translators: Menu item Verb/Channel/Export/Remove
 #. Translators: Menu item Verb/Branch/Separate/Remove
@@ -1490,9 +1470,8 @@ msgstr "Suprimeix"
 
 #. Cannot also be called Invert, duplicate names caused keybinding problems
 #: ../app/menus.c:230
-#, fuzzy
 msgid "Inverse"
-msgstr "Inversor"
+msgstr "Invers"
 
 #: ../app/menus.c:257
 msgid "NULL tooldata in tool_menu_select"
@@ -1521,22 +1500,23 @@ msgstr "D'acord"
 #: ../app/paginate_psprint.c:401
 #, c-format
 msgid "Could not run command '%s': %s"
-msgstr "No s'ha pogut executar l'ordre '%s': %s"
+msgstr "No s'ha pogut executar l'ordre «%s»: %s"
 
 #: ../app/paginate_psprint.c:404
 #, c-format
 msgid "Could not open '%s' for writing: %s"
-msgstr "No s'ha pogut obrir '%s' per a la seva escriptura: %s"
+msgstr "No s'ha pogut obrir «%s» per a la seva escriptura: %s"
 
 #: ../app/paginate_psprint.c:421
 #, c-format
 msgid "Printing error: command '%s' returned %d\n"
-msgstr ""
+msgstr "Error d'impressió: l'ordre «%s» ha retornat %d\n"
 
 #: ../app/paginate_psprint.c:432
 #, c-format
 msgid "Printing error: command '%s' caused sigpipe."
 msgstr ""
+"Error d'impressió: l'ordre «%s» ha causat un senyal de conducte (sigpipe)."
 
 #: ../app/plugin-manager.c:200
 msgid "Plug-ins"
@@ -1599,7 +1579,7 @@ msgid ""
 "intersecting objects"
 msgstr ""
 "L'arrossegament invers selecciona\n"
-"les objectes que interseccionen"
+"els objectes que s'intersequen"
 
 #: ../app/preferences.c:128
 msgid "Recent documents list size:"
@@ -1611,7 +1591,7 @@ msgstr "Utilitza la barra de menú"
 
 #: ../app/preferences.c:131
 msgid "Keep tool box on top of diagram windows"
-msgstr "Manten la caixa d'eines al capdamunt de les finestres del diagrama"
+msgstr "Mantén la caixa d'eines al capdamunt de les finestres del diagrama"
 
 #: ../app/preferences.c:134
 msgid "New diagram:"
@@ -1626,7 +1606,6 @@ msgid "Paper type:"
 msgstr "Tipus de paper:"
 
 #: ../app/preferences.c:140
-#, fuzzy
 msgid "Background Color:"
 msgstr "Color del fons:"
 
@@ -1670,7 +1649,7 @@ msgstr "Línies sòlides"
 
 #: ../app/preferences.c:161
 msgid "Snap to"
-msgstr "Desplaça a"
+msgstr "Ajusta a"
 
 #: ../app/preferences.c:162
 msgid "Dynamic grid resizing"
@@ -1699,7 +1678,7 @@ msgstr "Finestra d'arbre del diagrama:"
 
 #: ../app/preferences.c:186
 msgid "Save hidden object types"
-msgstr "Desa els tipus d'objecte amagat"
+msgstr "Desa els tipus d'objecte amagats"
 
 #: ../app/preferences.c:394 ../lib/prop_inttypes.c:158
 msgid "Yes"
@@ -1731,17 +1710,18 @@ msgid "Object properties:"
 msgstr "Propietats de l'objecte:"
 
 #: ../app/render_eps.c:148
-#, fuzzy
 msgid "Encapsulated Postscript (using Pango fonts)"
-msgstr "Postscript encapsulat"
+msgstr "Postscript encapsulat (s'usen tipus de lletra del Pango)"
 
 #: ../app/render_eps.c:157
 msgid "Encapsulated Postscript with preview (using Pango fonts)"
 msgstr ""
+"Postscript encapsulat amb visualització prèvia (s'usen tipus de lletra del "
+"Pango)"
 
 #: ../app/render_eps.c:167
 msgid "Encapsulated Postscript (using PostScript Latin-1 fonts)"
-msgstr ""
+msgstr "Postscript encapsulat (s'usen tipus de lletra PostScript Latin-1)"
 
 #: ../app/sheets.c:156
 #, c-format
@@ -1766,7 +1746,7 @@ msgid ""
 "Can't get symbol 'custom_type' from any module.\n"
 "Editing shapes is disabled."
 msgstr ""
-"El símbol 'custom_type' no es pot obtenir de cap mòdul.\n"
+"El símbol «custom_type» no es pot obtenir de cap mòdul.\n"
 "S'inhabilita l'edició de figures."
 
 #: ../app/sheets.c:381
@@ -1843,7 +1823,7 @@ msgstr "Nom del full:"
 #: ../app/sheets_dialog.c:447 ../app/sheets_dialog_callbacks.c:290
 #: ../app/sheets_dialog_callbacks.c:1093
 msgid "Line Break"
-msgstr "Salta de línia"
+msgstr "Salt de línia"
 
 #: ../app/sheets_dialog.c:569
 msgid "Edit Attributes"
@@ -1892,7 +1872,7 @@ msgstr "Full:"
 
 #: ../app/sheets_dialog.c:921
 msgid "Select SVG Shape File"
-msgstr "Selecciona el fitxer de la forma SVG"
+msgstr "Selecciona el fitxer de forma SVG"
 
 #: ../app/sheets_dialog_callbacks.c:165
 msgid "Copy ->"
@@ -1940,17 +1920,17 @@ msgstr ""
 #: ../app/sheets_dialog_callbacks.c:801
 #, c-format
 msgid "Filename must end with '%s': '%s'"
-msgstr "El nom de fitxer ha d'acabar amb '%s': '%s'"
+msgstr "El nom de fitxer ha d'acabar amb «%s»: «%s»"
 
 #: ../app/sheets_dialog_callbacks.c:809
 #, c-format
 msgid "Error examining %s: %s"
-msgstr "S'ha produït un error mentre s'estava examinant %s: %s"
+msgstr "S'ha produït un error en examinar %s: %s"
 
 #: ../app/sheets_dialog_callbacks.c:830
 #, c-format
 msgid "Could not interpret shape file: '%s'"
-msgstr "No s'ha pogut interpretar el fitxer de la forma: '%s'"
+msgstr "No s'ha pogut interpretar el fitxer de forma: «%s»"
 
 #: ../app/sheets_dialog_callbacks.c:900
 msgid "Sheet must have a Name"
@@ -1959,12 +1939,12 @@ msgstr "El full ha de tenir un nom"
 #: ../app/sheets_dialog_callbacks.c:1597 ../app/sheets_dialog_callbacks.c:1604
 #, c-format
 msgid "Couldn't open '%s': %s"
-msgstr "No s'ha pogut obrir '%s': %s"
+msgstr "No s'ha pogut obrir «%s»: %s"
 
 #: ../app/sheets_dialog_callbacks.c:1656
 #, c-format
 msgid "Couldn't open: '%s' for writing"
-msgstr "No s'ha pogut obrir: '%s' per l'escriptura"
+msgstr "No s'ha pogut obrir: «%s» per l'escriptura"
 
 #: ../app/sheets_dialog_callbacks.c:1666
 msgid "a user"
@@ -1996,7 +1976,7 @@ msgstr "S'està carregant..."
 #: ../app/splash.c:74
 #, c-format
 msgid "Dia v %s"
-msgstr "Versió del Dia %s"
+msgstr "Dia v %s"
 
 #
 #: ../dia.desktop.in.h:1
@@ -2042,7 +2022,7 @@ msgstr "Mig cap"
 
 #: ../lib/arrows.c:49
 msgid "Slashed Cross"
-msgstr "Creu en x"
+msgstr "Creu inclinada"
 
 #: ../lib/arrows.c:50
 msgid "Filled Ellipse"
@@ -2065,19 +2045,16 @@ msgid "Blanked Dot"
 msgstr "Punt blanc"
 
 #: ../lib/arrows.c:55
-#, fuzzy
 msgid "Double Hollow Triangle"
 msgstr "Triangle buit doble"
 
 #: ../lib/arrows.c:56
-#, fuzzy
 msgid "Double Filled Triangle"
-msgstr "Triangle emplenat doble"
+msgstr "Triangle ple doble"
 
 #: ../lib/arrows.c:57
-#, fuzzy
 msgid "Filled Dot and Triangle"
-msgstr "Triangle ple"
+msgstr "Triangle i punt plens"
 
 #: ../lib/arrows.c:58
 msgid "Filled Box"
@@ -2105,27 +2082,27 @@ msgstr "Creu"
 
 #: ../lib/arrows.c:64
 msgid "1-or-many"
-msgstr ""
+msgstr "1-o-uns-quants"
 
 #: ../lib/arrows.c:65
 msgid "0-or-many"
-msgstr ""
+msgstr "0-o-uns-quants"
 
 #: ../lib/arrows.c:66
 msgid "1-or-0"
-msgstr ""
+msgstr "1-o-0"
 
 #: ../lib/arrows.c:67
 msgid "1 exactly"
-msgstr ""
+msgstr "1 exactament"
 
 #: ../lib/arrows.c:68
 msgid "Filled Concave"
-msgstr "Concau emplenat"
+msgstr "Còncau emplenat"
 
 #: ../lib/arrows.c:69
 msgid "Blanked Concave"
-msgstr "Concau blanc"
+msgstr "Còncau blanc"
 
 #: ../lib/arrows.c:70
 msgid "Round"
@@ -2137,25 +2114,25 @@ msgstr "Cercle obert"
 
 #: ../lib/arrows.c:72
 msgid "Backslash"
-msgstr ""
+msgstr "Barra inversa"
 
 #: ../lib/arrows.c:73
 msgid "Infinite Line"
-msgstr ""
+msgstr "Línia infinita"
 
 #: ../lib/bezier_conn.c:636
 msgid "Internal error: Setting corner type of endpoint of bezier"
-msgstr "Error intern: establiment de tipus de racó del punt final de bezier"
+msgstr "Error intern: establiment de tipus de punt final del bezier"
 
 #: ../lib/dia_dirs.c:237
 #, c-format
 msgid "%s<illegal characters>..."
-msgstr ""
+msgstr "%s<caràcters il·legals>..."
 
 #: ../lib/dia_dirs.c:268
 #, c-format
 msgid "Too many ..'s in filename %s\n"
-msgstr ""
+msgstr "Els caràcters '..' apareixen massa vegades en el nom del fitxer %s\n"
 
 #: ../lib/dia_xml.c:163
 #, c-format
@@ -2177,7 +2154,7 @@ msgstr "El valor \"%s\" %f del punt x és incorrecte, s'està descartant"
 
 #: ../lib/dia_xml.c:583
 msgid "Error parsing point."
-msgstr "S'ha produït un error mentre s'analitzava el punt."
+msgstr "S'ha produït un error en analitzar el punt."
 
 #. don't bother with useless warnings (see above)
 #: ../lib/dia_xml.c:591
@@ -2260,10 +2237,10 @@ msgstr "Propietats de l'estil de línia"
 msgid "Multiple export filters with unique name %s"
 msgstr "Múltiples filtres d'exportació amb un únic nom %s"
 
-#: ../lib/font.c:104
+#: ../lib/font.c:100
 #, c-format
 msgid "Can't load font %s.\n"
-msgstr "No es pot carregar la font %s.\n"
+msgstr "No es pot carregar el tipus de lletra %s.\n"
 
 #: ../lib/message.c:80 ../lib/message.c:226
 msgid "Warning"
@@ -2292,8 +2269,8 @@ msgid ""
 "Error loading defaults '%s'.\n"
 "Not a Dia diagram file."
 msgstr ""
-"S'ha produït un error mentre s'estava carregant per defecte '%s'.\n"
-"El fitxer no és un diagrama del DIa."
+"S'ha produït un error en carregar els predeterminats «%s».\n"
+"El fitxer no és un diagrama del Dia."
 
 #: ../lib/plug-ins.c:120
 msgid "???"
@@ -2310,13 +2287,13 @@ msgid ""
 "Could not load plugin '%s'\n"
 "%s"
 msgstr ""
-"No s'ha pogut carregar el connector '%s'\n"
+"No s'ha pogut carregar el connector «%s»\n"
 "%s"
 
 #: ../lib/plug-ins.c:246
 #, c-format
 msgid "Could not find plugin init function in `%s'"
-msgstr "No s'ha pogut trobar la funció d'inicialització del connector a `%s'"
+msgstr "No s'ha pogut trobar la funció d'inicialització del connector a «%s»"
 
 #: ../lib/plug-ins.c:248
 msgid "Missing symbol 'dia_plugin_init'"
@@ -2337,8 +2314,8 @@ msgid ""
 "Could not open `%s'\n"
 "`%s'"
 msgstr ""
-"No s'ha pogut obrir '%s'\n"
-"`%s'"
+"No s'ha pogut obrir «%s»\n"
+"«%s»"
 
 #: ../lib/prop_text.c:466
 #, c-format
@@ -2369,7 +2346,6 @@ msgid "Line style"
 msgstr "Estil de la línia"
 
 #: ../lib/properties.c:75 ../lib/properties.h:500 ../lib/properties.h:503
-#, fuzzy
 msgid "Fill color"
 msgstr "Color de l'emplenat"
 
@@ -2415,7 +2391,7 @@ msgstr "Color del text"
 #: ../lib/proplist.c:163
 #, c-format
 msgid "No attribute '%s' (%p) or no data(%p) in this attribute"
-msgstr "No hi ha cap atribut '%s' (%p) o no hi ha dades (%p) en aquest atribut"
+msgstr "No hi ha cap atribut «%s» (%p) o no hi ha dades (%p) en aquest atribut"
 
 #
 #: ../lib/widgets.c:375
@@ -2469,7 +2445,7 @@ msgstr "Més fletxes"
 #
 #: ../lib/widgets.c:1162
 msgid "Size: "
-msgstr "Mida:"
+msgstr "Mida: "
 
 #: ../lib/widgets.c:1314
 msgid "Select image file"
@@ -2480,89 +2456,81 @@ msgid "Browse"
 msgstr "Navega"
 
 #: ../lib/widgets.c:1962
-#, fuzzy
 msgid "Reset menu"
-msgstr "Utilitza la barra de menú"
+msgstr "Reinicia el menú"
 
 #: ../objects/AADL/aadl.c:52
-#, fuzzy
 msgid "Architecture Analysis & Design Language diagram objects"
-msgstr "Objectes de diagrama del Llenguatge Unificat de Modelatge (UML)"
+msgstr ""
+"Objectes de diagrama del llenguatge per al disseny i anàlisi d'arquitectura"
 
 #: ../objects/AADL/aadlbox.c:138
-#, fuzzy
 msgid "Declaration"
-msgstr "Descripció"
+msgstr "Declaració"
 
 #: ../objects/AADL/aadlbox.c:349
-#, fuzzy
 msgid "Add Access Provider"
-msgstr "Servidor de fitxers"
+msgstr "Afegeix un proveïdor d'accés"
 
 #: ../objects/AADL/aadlbox.c:351
-#, fuzzy
 msgid "Add Access Requirer"
-msgstr "Servidor de fitxers"
+msgstr "Afegeix un requeridor d'accés"
 
 #: ../objects/AADL/aadlbox.c:353
 msgid "Add In Data Port"
-msgstr ""
+msgstr "Afegeix un port d'entrada de dades"
 
 #: ../objects/AADL/aadlbox.c:355
 msgid "Add In Event Port"
-msgstr ""
+msgstr "Afegeix un port d'entrada d'esdeveniments"
 
 #: ../objects/AADL/aadlbox.c:357
 msgid "Add In Event Data Port"
-msgstr ""
+msgstr "Afegeix un port d'entrada de dades d'esdeveniments"
 
 #: ../objects/AADL/aadlbox.c:359
 msgid "Add Out Data Port"
-msgstr ""
+msgstr "Afegeix un port de sortida de dades"
 
 #: ../objects/AADL/aadlbox.c:361
 msgid "Add Out Event Port"
-msgstr ""
+msgstr "Afegeix un port de sortida d'esdeveniments"
 
 #: ../objects/AADL/aadlbox.c:363
 msgid "Add Out Event Data Port"
-msgstr ""
+msgstr "Afegeix un port de sortida de dades d'esdeveniments"
 
 #: ../objects/AADL/aadlbox.c:365
 msgid "Add In Out Data Port"
-msgstr ""
+msgstr "Afegeix un port d'entrada i sortida de dades"
 
 #: ../objects/AADL/aadlbox.c:367
 msgid "Add In Out Event Port"
-msgstr ""
+msgstr "Afegeix un port d'entrada i sortida d'esdeveniments"
 
 #: ../objects/AADL/aadlbox.c:369
 msgid "Add In Out Event Data Port"
-msgstr ""
+msgstr "Afegeix un port d'entrada i sortida de dades d'esdeveniments"
 
 #: ../objects/AADL/aadlbox.c:371
 msgid "Add Port Group"
-msgstr ""
+msgstr "Afegeix un grup de ports"
 
 #: ../objects/AADL/aadlbox.c:373
-#, fuzzy
 msgid "Add Connection Point"
 msgstr "Afegeix un punt de connexió"
 
 #: ../objects/AADL/aadlbox.c:377
-#, fuzzy
 msgid "Delete Port"
-msgstr "Esborra la cantonada"
+msgstr "Suprimeix el port"
 
 #: ../objects/AADL/aadlbox.c:378
-#, fuzzy
 msgid "Edit Port Declaration"
-msgstr "Preparació"
+msgstr "Edita la declaració del port"
 
 #: ../objects/AADL/aadlbox.c:382
-#, fuzzy
 msgid "Delete Connection Point"
-msgstr "Esborra el punt de connexió"
+msgstr "Suprimeix el punt de connexió"
 
 #: ../objects/ER/attribute.c:155
 msgid "Key:"
@@ -2622,7 +2590,7 @@ msgstr "Afegeix un segment"
 #: ../objects/UML/realizes.c:362 ../objects/UML/transition.c:162
 #: ../objects/standard/zigzagline.c:349
 msgid "Delete segment"
-msgstr "Esborra el segment"
+msgstr "Suprimeix el segment"
 
 #: ../objects/ER/relationship.c:142
 msgid "Left Cardinality:"
@@ -2671,7 +2639,7 @@ msgstr "Senyal"
 
 #: ../objects/FS/fs.c:43
 msgid "Function structure diagram objects"
-msgstr "Funció estructura objectes de diagrama"
+msgstr "Objectes del diagrama d'estructura de funció"
 
 #: ../objects/FS/function.c:142
 msgid "Wish function"
@@ -2730,7 +2698,7 @@ msgstr "Captura"
 #. Translators: Menu item Verb/Channel/Export/Discharge
 #: ../objects/FS/function.c:700
 msgid "Discharge"
-msgstr "Descarrega"
+msgstr "Descàrrega"
 
 #. Translators: Menu item Verb/Channel/Export/Eject
 #: ../objects/FS/function.c:702
@@ -2819,7 +2787,7 @@ msgstr "Gira"
 #. Translators: Menu item Verb/Channel/Guide/Rotate/Turn
 #: ../objects/FS/function.c:750
 msgid "Turn"
-msgstr "Gira"
+msgstr "Tomba"
 
 #. Translators: Menu item Verb/Channel/Guide/Rotate/Spin
 #: ../objects/FS/function.c:752
@@ -2952,7 +2920,7 @@ msgstr "Connecta"
 #. Translators: Menu item Verb/Connect/Couple/Couple
 #: ../objects/FS/function.c:814 ../objects/FS/function.c:816
 msgid "Couple"
-msgstr "Parella"
+msgstr "Aparella"
 
 #. Translators: Menu item Verb/Connect/Couple/Join
 #: ../objects/FS/function.c:818
@@ -2978,7 +2946,7 @@ msgstr "Combina"
 #. Translators: Menu item Verb/Connect/Mix/Blend
 #: ../objects/FS/function.c:830
 msgid "Blend"
-msgstr "Combina"
+msgstr "Mescla"
 
 #. Translators: Menu item Verb/Connect/Mix/Add
 #: ../objects/FS/function.c:832
@@ -3028,7 +2996,7 @@ msgstr "Llançament"
 #. Translators: Menu item Verb/Branch/Separate/Separate/Detach
 #: ../objects/FS/function.c:854
 msgid "Detach"
-msgstr "Separa"
+msgstr "Desenganxa"
 
 #. Translators: Menu item Verb/Branch/Separate/Separate/Disconnect
 #: ../objects/FS/function.c:856
@@ -3081,15 +3049,16 @@ msgstr "Tiba"
 msgid "Filter"
 msgstr "Filtra"
 
+# FIXME
 #. Translators: Menu item Verb/Branch/Refine/Percolate
 #: ../objects/FS/function.c:882
 msgid "Percolate"
-msgstr "Passar"
+msgstr "Passa"
 
 #. Translators: Menu item Verb/Branch/Refine/Clear
 #: ../objects/FS/function.c:884
 msgid "Clear"
-msgstr "Netejar"
+msgstr "Neteja"
 
 #. Translators: Menu item Verb/Branch/Distribute
 #. Translators: Menu item Verb/Branch/Distribute/Distribute
@@ -3164,7 +3133,7 @@ msgstr "Emmagatzema"
 #. Translators: Menu item Verb/Provision/Store/Contain
 #: ../objects/FS/function.c:922
 msgid "Contain"
-msgstr "Conté"
+msgstr "Contén"
 
 #. Translators: Menu item Verb/Provision/Store/Collect
 #: ../objects/FS/function.c:924
@@ -3203,7 +3172,7 @@ msgid "Expose"
 msgstr "Exposa"
 
 #. Translators: Menu item Verb/Provision/Extract
-#: ../objects/FS/function.c:942 ../sheets/Flowchart.sheet.in.h:8
+#: ../objects/FS/function.c:942 ../sheets/Flowchart.sheet.in.h:9
 msgid "Extract"
 msgstr "Extreu"
 
@@ -3240,7 +3209,7 @@ msgstr "Regula"
 #: ../objects/FS/function.c:960 ../objects/FS/function.c:1178
 #: ../objects/UML/classicon.c:127
 msgid "Control"
-msgstr "Control"
+msgstr "Controla"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Enable
 #: ../objects/FS/function.c:966
@@ -3317,7 +3286,7 @@ msgstr "Ajusta"
 #. Translators: Menu item Verb/Control Magnitude/Form/Form
 #: ../objects/FS/function.c:998 ../objects/FS/function.c:1000
 msgid "Form"
-msgstr "Prepara"
+msgstr "Forma"
 
 #. Translators: Menu item Verb/Control Magnitude/Form/Compact
 #: ../objects/FS/function.c:1002
@@ -3358,7 +3327,7 @@ msgstr "Transforma"
 #. Translators: Menu item Verb/Convert/Liquefy
 #: ../objects/FS/function.c:1018
 msgid "Liquefy"
-msgstr "Liquida"
+msgstr "Liqüefés"
 
 #. Translators: Menu item Verb/Convert/Solidify
 #: ../objects/FS/function.c:1020
@@ -3400,7 +3369,7 @@ msgstr "Processa"
 #. Translators: Menu item Verb/Signal/Sense/Sense
 #: ../objects/FS/function.c:1038 ../objects/FS/function.c:1040
 msgid "Sense"
-msgstr "Sentit"
+msgstr "Sent"
 
 #. Translators: Menu item Verb/Signal/Sense/Perceive
 #: ../objects/FS/function.c:1042
@@ -3439,7 +3408,7 @@ msgid "Mark"
 msgstr "Marca"
 
 #. Translators: Menu item Verb/Signal/Display
-#: ../objects/FS/function.c:1060 ../sheets/Flowchart.sheet.in.h:6
+#: ../objects/FS/function.c:1060 ../sheets/Flowchart.sheet.in.h:7
 msgid "Display"
 msgstr "Mostra"
 
@@ -3462,7 +3431,7 @@ msgstr "Representa"
 #. Translators: Menu item Noun
 #: ../objects/FS/function.c:1070
 msgid "Noun"
-msgstr "Cap"
+msgstr "Nom"
 
 #. Translators: Menu item Noun/Material/Liquid
 #: ../objects/FS/function.c:1076
@@ -3505,7 +3474,7 @@ msgstr "Dit"
 #. Translators: Menu item Noun/Material/Human/Toe
 #: ../objects/FS/function.c:1092
 msgid "Toe"
-msgstr "Punta del peu"
+msgstr "Dit del peu"
 
 #. Translators: Menu item Noun/Material/Biological
 #: ../objects/FS/function.c:1094
@@ -3520,7 +3489,7 @@ msgstr "Mecànic"
 #. Translators: Menu item Noun/Energy/Mechanical/Mech. Energy
 #: ../objects/FS/function.c:1100
 msgid "Mech. Energy"
-msgstr "Mecànica. Energia"
+msgstr "Energia mecànica"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Translation
 #: ../objects/FS/function.c:1102
@@ -3557,6 +3526,7 @@ msgstr "Vibració"
 msgid "Rotational Energy"
 msgstr "Energia de rotació"
 
+# FIXME: "translativa" ? (josep)
 #. Translators: Menu item Noun/Energy/Mechanical/Translational Energy
 #: ../objects/FS/function.c:1116
 msgid "Translational Energy"
@@ -3707,7 +3677,7 @@ msgstr "Crida a la macro"
 
 #: ../objects/GRAFCET/action.c:135
 msgid "This action is a call to a macro-step"
-msgstr "Aquesta acció és una crida a pas macro"
+msgstr "Aquesta acció és una crida a un pas macro"
 
 #: ../objects/GRAFCET/condition.c:130
 msgid "Condition"
@@ -3771,7 +3741,7 @@ msgstr "El nom de l'etapa"
 
 #: ../objects/GRAFCET/step.c:161
 msgid "Step type"
-msgstr "Tipus de l'etapa"
+msgstr "Tipus d'etapa"
 
 #: ../objects/GRAFCET/step.c:161
 msgid "The kind of step"
@@ -3815,7 +3785,7 @@ msgstr "Punt sud"
 
 #: ../objects/GRAFCET/vector.c:129
 msgid "Draw arrow heads on upward arcs:"
-msgstr "Dibuixa els caps de fletxa sobre arcs cap amunt"
+msgstr "Dibuixa els caps de fletxa sobre arcs cap amunt:"
 
 #: ../objects/GRAFCET/vergent.c:122
 msgid "OR"
@@ -3845,14 +3815,12 @@ msgid "GRAFCET OR/AND vergent"
 msgstr "Divergència I/O de GRAFCET"
 
 #: ../objects/Istar/actor.c:68 ../objects/Istar/link.c:152
-#, fuzzy
 msgid "Unspecified"
 msgstr "Indefinit"
 
 #: ../objects/Istar/actor.c:69 ../objects/KAOS/other.c:75
-#, fuzzy
 msgid "Agent"
-msgstr "Afegeix un segment"
+msgstr "Agent"
 
 #
 #: ../objects/Istar/actor.c:71
@@ -3875,19 +3843,16 @@ msgid "Goal Type"
 msgstr "Tipus d'objectiu"
 
 #: ../objects/Istar/istar.c:46
-#, fuzzy
 msgid "Istar diagram"
-msgstr "/Ordena els _diagrames"
+msgstr "Diagrama d'Istar"
 
 #: ../objects/Istar/link.c:153
-#, fuzzy
 msgid "Positive Contrib"
-msgstr "Posició"
+msgstr "Contribució positiva"
 
 #: ../objects/Istar/link.c:154
-#, fuzzy
 msgid "Negative contrib"
-msgstr "Variable de sortida negativa"
+msgstr "Contribució negativa"
 
 #: ../objects/Istar/link.c:155 ../sheets/UML.sheet.in.h:10
 msgid "Dependency"
@@ -3900,7 +3865,7 @@ msgstr "Descomposició"
 
 #: ../objects/Istar/link.c:157
 msgid "Means-Ends"
-msgstr ""
+msgstr "Mitjans-Fins"
 
 #
 #: ../objects/Istar/other.c:73
@@ -3918,17 +3883,16 @@ msgid "Delete connection point"
 msgstr "Esborra el punt de connexió"
 
 #: ../objects/Istar/other.c:475
-#, fuzzy
 msgid "i* other"
-msgstr "Encaminador de veu"
+msgstr "altre i*"
 
 #: ../objects/Jackson/domain.c:79
 msgid "Given Domain"
-msgstr ""
+msgstr "Domini donat"
 
 #: ../objects/Jackson/domain.c:80
 msgid "Designed Domain"
-msgstr ""
+msgstr "Domini dissenyat"
 
 #
 #: ../objects/Jackson/domain.c:81
@@ -3936,53 +3900,45 @@ msgid "Machine Domain"
 msgstr "Domini de la màquina"
 
 #: ../objects/Jackson/domain.c:97
-#, fuzzy
 msgid "Causal"
-msgstr "Crida"
+msgstr "Causal"
 
 #: ../objects/Jackson/domain.c:98
-#, fuzzy
 msgid "Biddable"
-msgstr "Centre"
+msgstr "Obedient"
 
 #: ../objects/Jackson/domain.c:99
-#, fuzzy
 msgid "Lexical"
-msgstr "Química"
+msgstr "Lèxic"
 
 #: ../objects/Jackson/domain.c:176 ../objects/Jackson/domain.c:177
-#, fuzzy
 msgid "Domain Type"
 msgstr "Tipus de domini"
 
 #: ../objects/Jackson/domain.c:181
 msgid "Domain Kind"
-msgstr ""
+msgstr "Classe de domini"
 
 #: ../objects/Jackson/domain.c:182
-#, fuzzy
 msgid "Optional kind which appears in the lower right corner of the Domain"
-msgstr "L'identificador que apareix a la cantonada inferior dreta de la caixa"
+msgstr ""
+"Classe opcional que apareix a la cantonada inferior esquerra del domini"
 
 #: ../objects/Jackson/domain.c:537
-#, fuzzy
 msgid "Jackson domain"
-msgstr "Dona Mac"
+msgstr "Domini de Jackson"
 
 #: ../objects/Jackson/jackson.c:47
-#, fuzzy
 msgid "Jackson diagram"
-msgstr "Crea un nou diagrama"
+msgstr "Diagrama de Jackson"
 
 #: ../objects/Jackson/phenomenon.c:134
-#, fuzzy
 msgid "Shared"
-msgstr "Forma"
+msgstr "Compartit"
 
 #: ../objects/Jackson/phenomenon.c:135 ../objects/KAOS/goal.c:81
-#, fuzzy
 msgid "Requirement"
-msgstr "Representa"
+msgstr "Requisit"
 
 #: ../objects/Jackson/phenomenon.c:142 ../objects/UML/message.c:151
 msgid "Message:"
@@ -3990,35 +3946,31 @@ msgstr "Missatge:"
 
 #: ../objects/KAOS/goal.c:82
 msgid "Assumption"
-msgstr ""
+msgstr "Assumpció"
 
 #: ../objects/KAOS/goal.c:83
-#, fuzzy
 msgid "Obstacle"
-msgstr "Abstracte"
+msgstr "Obstacle"
 
 #: ../objects/KAOS/goal.c:578
 msgid "KAOS goal"
-msgstr ""
+msgstr "Objectiu KAOS"
 
 #: ../objects/KAOS/kaos.c:49
-#, fuzzy
 msgid "KAOS diagram"
-msgstr "Nou diagrama:"
+msgstr "Diagrama KAOS"
 
 #: ../objects/KAOS/metaandorrel.c:151
-#, fuzzy
 msgid "AND Refinement"
-msgstr "Divergència I"
+msgstr "Refinament I"
 
 #: ../objects/KAOS/metaandorrel.c:152
 msgid "Complete AND Refinement"
-msgstr ""
+msgstr "Refinament I complet"
 
 #: ../objects/KAOS/metaandorrel.c:153
-#, fuzzy
 msgid "OR Refinement"
-msgstr "Refina"
+msgstr "Refinament O"
 
 #: ../objects/KAOS/metaandorrel.c:154
 #, fuzzy
@@ -4031,24 +3983,20 @@ msgid "Text:"
 msgstr "Text:"
 
 #: ../objects/KAOS/metabinrel.c:155
-#, fuzzy
 msgid "Contributes"
-msgstr "Col·laboradors:"
+msgstr "Contribueix"
 
 #: ../objects/KAOS/metabinrel.c:156
-#, fuzzy
 msgid "Obstructs"
-msgstr "Abstracte"
+msgstr "Obstrueix"
 
 #: ../objects/KAOS/metabinrel.c:157
-#, fuzzy
 msgid "Conflicts"
-msgstr "Condueix"
+msgstr "Entra en conflicte"
 
 #: ../objects/KAOS/metabinrel.c:158
-#, fuzzy
 msgid "Responsibility"
-msgstr "Visibilitat:"
+msgstr "Responsabilitat"
 
 #
 #: ../objects/KAOS/metabinrel.c:159
@@ -4062,11 +4010,11 @@ msgstr "Controls"
 
 #: ../objects/KAOS/metabinrel.c:161
 msgid "CapableOf"
-msgstr ""
+msgstr "CapaçDe"
 
 #: ../objects/KAOS/metabinrel.c:162
 msgid "Performs"
-msgstr ""
+msgstr "Executa"
 
 #
 #: ../objects/KAOS/metabinrel.c:164
@@ -4074,7 +4022,6 @@ msgid "Output"
 msgstr "Sortida"
 
 #: ../objects/KAOS/other.c:531
-#, fuzzy
 msgid "KAOS other"
 msgstr "un altre KAOS"
 
@@ -4088,7 +4035,6 @@ msgid "Arrow line width"
 msgstr "Amplada de la línia de la fletxa"
 
 #: ../objects/Misc/analog_clock.c:141
-#, fuzzy
 msgid "Seconds arrow color"
 msgstr "Color de l'agulla dels segons"
 
@@ -4100,7 +4046,7 @@ msgstr "Amplada de la línia de l'agulla dels segons"
 msgid "Show hours"
 msgstr "Mostra les hores"
 
-#: ../objects/Misc/libmisc.c:40
+#: ../objects/Misc/libmisc.c:42
 msgid "Miscellaneous objects"
 msgstr "Objecte variats"
 
@@ -4124,7 +4070,7 @@ msgstr "Línia de punts"
 
 #: ../objects/SADT/arrow.c:138
 msgid "disable arrow heads"
-msgstr "Inhabilita els caps de fletxa"
+msgstr "inhabilita les puntes de les fletxes"
 
 #: ../objects/SADT/arrow.c:144
 msgid "Flow style:"
@@ -4132,15 +4078,15 @@ msgstr "Estil de flux:"
 
 #: ../objects/SADT/arrow.c:146
 msgid "Automatically gray vertical flows:"
-msgstr "Posa en gris automàticament els fluxs verticals:"
+msgstr "Posa en gris automàticament els fluxos verticals:"
 
 #: ../objects/SADT/arrow.c:147
 msgid ""
 "To improve the ease of reading, flows which begin and end vertically can be "
 "rendered gray"
 msgstr ""
-"Per millorar la facilitat de lectura, els fluxes que comencen i acaben "
-"varticalment es poden representar en gris"
+"Per millorar la facilitat de lectura, els fluxos que comencen i acaben "
+"verticalment es poden representar en gris"
 
 #: ../objects/SADT/arrow.c:463
 msgid "SADT Arrow"
@@ -4154,7 +4100,7 @@ msgstr "Farciment de text"
 
 #: ../objects/SADT/box.c:144
 msgid "Activity/Data identifier"
-msgstr "Identificador d'activitat/de dades"
+msgstr "Identificador d'activitat/dades"
 
 #: ../objects/SADT/box.c:145
 msgid "The identifier which appears in the lower right corner of the Box"
@@ -4291,24 +4237,20 @@ msgid "Visible Comments"
 msgstr "Comentaris visibles"
 
 #: ../objects/UML/class.c:161 ../objects/UML/class_dialog.c:349
-#, fuzzy
 msgid "Wrap Operations"
-msgstr "Operacions"
+msgstr "Ajusta les operacions"
 
 #: ../objects/UML/class.c:163
-#, fuzzy
 msgid "Wrap after char"
-msgstr "Targeta d'adaptació del PC"
+msgstr "Ajusta després del caràcter"
 
 #: ../objects/UML/class.c:165
-#, fuzzy
 msgid "Comment line length"
-msgstr "Comentaris visibles"
+msgstr "Llargada de la línia de comentaris"
 
 #: ../objects/UML/class.c:167
-#, fuzzy
 msgid "Comment tagging"
-msgstr "Comentari"
+msgstr "Marcatge de comentaris"
 
 #: ../objects/UML/class.c:177 ../objects/UML/class_dialog.c:405
 msgid "Polymorphic"
@@ -4383,20 +4325,19 @@ msgstr "Elimina les operacions"
 
 #: ../objects/UML/class_dialog.c:356
 msgid "Wrap after this length: "
-msgstr "Ajusta despres d'aquesta llargada"
+msgstr "Ajusta després d'aquesta llargada:"
 
 #: ../objects/UML/class_dialog.c:364
 msgid "Comments visible"
 msgstr "Comentaris visibles"
 
 #: ../objects/UML/class_dialog.c:371
-#, fuzzy
 msgid "Wrap comment after this length: "
-msgstr "Ajusta despres d'aquesta llargada"
+msgstr "Ajusta el comentari després d'aquesta llargada"
 
 #: ../objects/UML/class_dialog.c:378
 msgid "Show documenation tag"
-msgstr ""
+msgstr "Mostra el marcador de la documentació"
 
 #. head line
 #: ../objects/UML/class_dialog.c:391 ../objects/UML/umlparameter.c:51
@@ -4546,19 +4487,19 @@ msgstr "És un objecte"
 
 #: ../objects/UML/component_feature.c:145 ../sheets/UML.sheet.in.h:14
 msgid "Facet"
-msgstr ""
+msgstr "Faceta"
 
 #: ../objects/UML/component_feature.c:146 ../sheets/UML.sheet.in.h:26
 msgid "Receptacle"
-msgstr ""
+msgstr "Receptacle"
 
 #: ../objects/UML/component_feature.c:147 ../sheets/UML.sheet.in.h:13
 msgid "Event Source"
-msgstr "Origen d'esdeveniments"
+msgstr "Font d'esdeveniments"
 
 #: ../objects/UML/component_feature.c:148 ../sheets/UML.sheet.in.h:12
 msgid "Event Sink"
-msgstr ""
+msgstr "Pica d'esdeveniments"
 
 #: ../objects/UML/constraint.c:125
 msgid "Constraint:"
@@ -4574,7 +4515,7 @@ msgstr "Interfície:"
 
 #: ../objects/UML/lifeline.c:144
 msgid "Draw focus of control:"
-msgstr "Dibuixa el focus de control"
+msgstr "Dibuixa el focus de control:"
 
 #: ../objects/UML/lifeline.c:146
 msgid "Draw destruction mark:"
@@ -4582,11 +4523,11 @@ msgstr "Dibuixa la marca de destrucció:"
 
 #: ../objects/UML/lifeline.c:417
 msgid "Add connection points"
-msgstr "Afegeix un punt de connexió"
+msgstr "Afegeix punts de connexió"
 
 #: ../objects/UML/lifeline.c:418
 msgid "Remove connection points"
-msgstr "Esborra el punt de connexió"
+msgstr "Treu punts de connexió"
 
 #: ../objects/UML/lifeline.c:422
 msgid "UML Lifeline"
@@ -4641,19 +4582,16 @@ msgid "Multiple instance"
 msgstr "Instàncies múltiples"
 
 #: ../objects/UML/state.c:153
-#, fuzzy
 msgid "Entry action"
-msgstr "Extreu"
+msgstr "Acció d'entrada"
 
 #: ../objects/UML/state.c:154
-#, fuzzy
 msgid "Do action"
-msgstr "Rotació"
+msgstr "Acció a fer"
 
 #: ../objects/UML/state.c:155
-#, fuzzy
 msgid "Exit action"
-msgstr "Extreu"
+msgstr "Acció de sortida"
 
 #. Would like to create a state_term instead, but making the connections
 #. * is a pain
@@ -4663,8 +4601,8 @@ msgid ""
 "That option will go away in future versions.\n"
 "Please use the Initial/Final State object instead\n"
 msgstr ""
-"El diagrama utilitza l'objecte Estat pels estats inicial i final.\n"
-"Aquesta opció desapareixerà en futures versions\n"
+"Aquest diagrama utilitza l'objecte Estat pels estats inicial i final.\n"
+"Aquesta opció desapareixerà en futures versions.\n"
 "Utilitzeu l'objecte Estat Inicial/Final, si us plau\n"
 
 #: ../objects/UML/state_term.c:120
@@ -4672,13 +4610,12 @@ msgid "Is final"
 msgstr "És final"
 
 #: ../objects/UML/transition.c:132
-#, fuzzy
 msgid "Trigger"
-msgstr "Dit"
+msgstr "Activador"
 
 #: ../objects/UML/transition.c:133
 msgid "The event that causes this transition to be taken"
-msgstr ""
+msgstr "L'esdeveniment que fa que s'activi aquesta transició"
 
 #
 #: ../objects/UML/transition.c:134
@@ -4687,21 +4624,19 @@ msgstr "Acció"
 
 #: ../objects/UML/transition.c:135
 msgid "Action to perform when this transition is taken"
-msgstr ""
+msgstr "Acció a emprendre quan s'activa aquesta transició"
 
 #: ../objects/UML/transition.c:136 ../sheets/cisconetwork.sheet.in.h:43
-#, fuzzy
 msgid "Guard"
-msgstr "Graella"
+msgstr "Guarda"
 
 #: ../objects/UML/transition.c:137
 msgid "Condition for taking this transition when the event is fired"
-msgstr ""
+msgstr "Condició per activar aquesta transició quan es llança l'esdeveniment"
 
 #: ../objects/UML/uml.c:66
-#, fuzzy
 msgid "Unified Modelling Language diagram objects UML 1.3"
-msgstr "Objectes de diagrama del Llenguatge Unificat de Modelatge (UML)"
+msgstr "Objectes de diagrama del Llenguatge Unificat de Modelatge UML 1.3"
 
 #
 #: ../objects/UML/umlattribute.c:41 ../objects/UML/umlparameter.c:47
@@ -4724,13 +4659,12 @@ msgid "Class scope (static)"
 msgstr "Abast de la classe (estàtica)"
 
 #: ../objects/UML/umloperation.c:73
-#, fuzzy
 msgid "Inheritance type"
 msgstr "Tipus d'herència"
 
 #: ../objects/UML/umloperation.c:75
 msgid "Query (const)"
-msgstr ""
+msgstr "Consulta (const)"
 
 #: ../objects/UML/umloperation.c:79 ../objects/chronogram/chronoline.c:162
 msgid "Parameters"
@@ -4776,11 +4710,11 @@ msgid ""
 "u duration  sets the signal to \"unknown\" state, then wait 'duration'.\n"
 "example : @ 1.0 (2.0)1.0(2.0)\n"
 msgstr ""
-"@ temps    defineix el punter en un temps absolut.\n"
-"( duració  activa el senyal, després s'espera 'duració' temps.\n"
-") duració  desactiva el senyal, després s'espera 'duració' temps.\n"
-"u duració  posa el senya en estat \"desconegut\", després s'espera 'duració' "
-"temps.\n"
+"@ temps    defineix el punter a un temps absolut.\n"
+"( duració  activa el senyal, després s'espera «duració».\n"
+") duració  desactiva el senyal, després s'espera «duració».\n"
+"u duració  posa el senyal en estat «desconegut», després s'espera "
+"«duració».\n"
 "exemple : @ 1.0 (2.0)1.0(2.0)\n"
 
 #: ../objects/chronogram/chronoline.c:164
@@ -4795,11 +4729,11 @@ msgstr "Hora final"
 
 #: ../objects/chronogram/chronoline.c:168
 msgid "Rise time"
-msgstr "Interval de pujada"
+msgstr "Temps de pujada"
 
 #: ../objects/chronogram/chronoline.c:170
 msgid "Fall time"
-msgstr "Interval de baixada"
+msgstr "Temps de baixada"
 
 #: ../objects/chronogram/chronoline.c:171
 msgid "Multi-bit data"
@@ -4852,16 +4786,16 @@ msgstr "Volteja verticalment"
 
 #: ../objects/custom/custom_object.c:1439
 msgid "Flip Horizontal"
-msgstr "Inverteix horitzontalment"
+msgstr "Volteja horitzontalment"
 
 #: ../objects/custom/custom_object.c:1440
 msgid "Flip Vertical"
-msgstr "Inverteix verticalment"
+msgstr "Volteja verticalment"
 
 #: ../objects/custom/custom_object.c:1477
 #, c-format
 msgid "Cannot open icon file %s for object type '%s'."
-msgstr "No s'ha pogut obrir el fitxer d'icona %s del tipus d'objecte '%s'."
+msgstr "No s'ha pogut obrir el fitxer d'icona %s del tipus d'objecte «%s»."
 
 #: ../objects/custom/shape_info.c:129
 #, c-format
@@ -4869,6 +4803,8 @@ msgid ""
 "The file '%s' has invalid path data.\n"
 "svg:path data must start with moveto."
 msgstr ""
+"El fitxer «%s» té les dades del camí invàlides.\n"
+"Les dades svg:path han de començar amb moveto."
 
 #: ../objects/flowchart/box.c:150 ../objects/standard/box.c:150
 #: ../objects/standard/polyline.c:134 ../objects/standard/zigzagline.c:130
@@ -4889,17 +4825,16 @@ msgid "Sectors"
 msgstr "Sectors"
 
 #: ../objects/network/basestation.c:396 ../objects/network/basestation.c:398
-#, fuzzy
 msgid "Base Station"
-msgstr "Orientació"
+msgstr "Estació base"
 
 #: ../objects/network/bus.c:611
 msgid "Add Handle"
-msgstr ""
+msgstr "Afegeix un gestor"
 
 #: ../objects/network/bus.c:612
 msgid "Delete Handle"
-msgstr ""
+msgstr "Suprimeix el gestor"
 
 #: ../objects/network/network.c:43
 msgid "Network diagram objects"
@@ -4907,14 +4842,11 @@ msgstr "Objectes de diagrama de xarxa"
 
 #: ../objects/network/radiocell.c:119
 msgid "Radius"
-msgstr ""
-"El fitxer %s té un camí de dades invàlid.\n"
-"svg:camí ha de començar amb moveto."
+msgstr "Radi"
 
 #: ../objects/network/wanlink.c:117
-#, fuzzy
 msgid "Width"
-msgstr "Amplada:"
+msgstr "Amplada"
 
 #: ../objects/standard/arc.c:140
 msgid "Curve distance"
@@ -4954,36 +4886,31 @@ msgstr "Control suau"
 
 #: ../objects/standard/bezier.c:735 ../objects/standard/beziergon.c:489
 msgid "Cusp control"
-msgstr ""
+msgstr "Control de punta"
 
 #: ../objects/standard/box.c:137 ../objects/standard/ellipse.c:131
-#, fuzzy
 msgid "Free"
-msgstr "Força"
+msgstr "Lliure"
 
 #: ../objects/standard/box.c:138 ../objects/standard/ellipse.c:132
-#, fuzzy
 msgid "Fixed"
-msgstr "Fitxer"
+msgstr "Fixat"
 
 #: ../objects/standard/box.c:139 ../objects/standard/box.c:694
-#, fuzzy
 msgid "Square"
-msgstr "Assegura"
+msgstr "Quadrat"
 
 #: ../objects/standard/box.c:152 ../objects/standard/ellipse.c:144
-#, fuzzy
 msgid "Aspect ratio"
-msgstr "Mantenir la relació de l'aspecte"
+msgstr "Relació d'aspecte"
 
 #: ../objects/standard/box.c:690 ../objects/standard/ellipse.c:668
-#, fuzzy
 msgid "Free aspect"
-msgstr "Mantenir la relació de l'aspecte"
+msgstr "Aspecte lliure"
 
 #: ../objects/standard/box.c:692 ../objects/standard/ellipse.c:670
 msgid "Fixed aspect"
-msgstr ""
+msgstr "Aspecte fixat"
 
 #
 #: ../objects/standard/ellipse.c:133 ../objects/standard/ellipse.c:672
@@ -5000,7 +4927,7 @@ msgstr "Dibuixa el contorn"
 
 #: ../objects/standard/image.c:136
 msgid "Keep aspect ratio"
-msgstr "Mantenir la relació de l'aspecte"
+msgstr "Mantén la relació de l'aspecte"
 
 #. Found file in same dir as diagram.
 #. Found file in current dir.
@@ -5010,14 +4937,14 @@ msgid ""
 "The image file '%s' was not found in that directory.\n"
 "Using the file '%s' instead\n"
 msgstr ""
-"El fitxer corresponent a la imatge '%s' no s'ha trobat al directori.\n"
-"S'utilitza alternativament el fitxer '%s'.\n"
+"El fitxer d'imatge «%s» no s'ha trobat al directori.\n"
+"S'utilitza alternativament el fitxer «%s».\n"
 
 #. Didn't find file in current dir.
 #: ../objects/standard/image.c:696 ../objects/standard/image.c:718
 #, c-format
 msgid "The image file '%s' was not found.\n"
-msgstr "No s'ha trobat el fitxer corresponent a la imatge '%s'.\n"
+msgstr "No s'ha trobat el fitxer d'imatge «%s».\n"
 
 #: ../objects/standard/line.c:132
 msgid "Arrows"
@@ -5037,58 +4964,55 @@ msgstr "Afegeix la cantonada"
 
 #: ../objects/standard/polygon.c:461 ../objects/standard/polyline.c:606
 msgid "Delete Corner"
-msgstr "Esborra la cantonada"
+msgstr "Suprimeix la cantonada"
 
 #: ../objects/standard/standard.c:45
 msgid "Standard objects"
 msgstr "Objectes estàndard"
 
 #: ../objects/standard/textobj.c:134
-#, fuzzy
 msgid "First Line"
-msgstr "Línies de la graella"
+msgstr "Primera línia"
 
 #: ../objects/standard/textobj.c:141
-#, fuzzy
 msgid "Vertical text alignment"
-msgstr "Alineació del text"
+msgstr "Alineació vertical del text"
 
 #: ../plug-ins/cairo/diacairo.c:1086
 msgid "Cairo PostScript"
-msgstr ""
+msgstr "PostScript de Cairo"
 
 #: ../plug-ins/cairo/diacairo.c:1097
 msgid "Cairo Portable Document Format"
-msgstr ""
+msgstr "Format de Document Portable de Cairo"
 
 #: ../plug-ins/cairo/diacairo.c:1108
-#, fuzzy
 msgid "Cairo Scalable Vector Graphics"
-msgstr "Gràfics vectorials escalables"
+msgstr "Gràfics vectorials escalables de Cairo"
 
 #: ../plug-ins/cairo/diacairo.c:1118
 msgid "Cairo PNG"
-msgstr ""
+msgstr "PNG de Cairo"
 
 #: ../plug-ins/cairo/diacairo.c:1126
 msgid "Cairo PNG (with alpha)"
-msgstr ""
+msgstr "PNG de Cairo (amb alfa)"
 
 #: ../plug-ins/cairo/diacairo.c:1136
 msgid "Cairo WMF"
-msgstr ""
+msgstr "WMF de Cairo"
 
 #: ../plug-ins/cairo/diacairo.c:1145
 msgid "Cairo old WMF"
-msgstr ""
+msgstr "WMF antic de Cairo"
 
 #: ../plug-ins/cairo/diacairo.c:1154
 msgid "Cairo Clipboard"
-msgstr ""
+msgstr "Porta-retalls de Cairo"
 
 #: ../plug-ins/cairo/diacairo.c:1203
 msgid "Cairo based Rendering"
-msgstr ""
+msgstr "Representació basada en Cairo"
 
 #: ../plug-ins/cgm/cgm.c:1103
 msgid ""
@@ -5111,8 +5035,9 @@ msgid "Drawing Interchange File"
 msgstr "Fitxer d'intercanvi de dibuixos (DIF)"
 
 #: ../plug-ins/dxf/dxf-import.c:481 ../plug-ins/dxf/dxf-import.c:498
+#, fuzzy
 msgid "Bad vertex bulge\n"
-msgstr "Filtre del fitxer d'intercanvi de dibuixos (DIF)\n"
+msgstr "Protuberància incorrecta del vèrtex\n"
 
 #: ../plug-ins/dxf/dxf-import.c:1051
 #, c-format
@@ -5120,14 +5045,14 @@ msgid "Scale: %f\n"
 msgstr "Escala: %f\n"
 
 #: ../plug-ins/dxf/dxf-import.c:1316
-#, fuzzy, c-format
+#, c-format
 msgid "read_dxf_codes failed on '%s'\n"
-msgstr "Ha fallat la funció read_dxf_codes\n"
+msgstr "Ha fallat read_dxf_codes en «%s»\n"
 
 #: ../plug-ins/dxf/dxf-import.c:1324
 #, c-format
 msgid "Binary DXF from '%s' not supported\n"
-msgstr ""
+msgstr "No està permès l'ús del binari DXF de «%s»\n"
 
 #: ../plug-ins/dxf/dxf-import.c:1355
 #, c-format
@@ -5137,6 +5062,7 @@ msgstr "Codi dxf desconegut %d\n"
 #: ../plug-ins/dxf/dxf.c:50
 msgid "Drawing Interchange File import and export filters"
 msgstr ""
+"Filtres d'importació i exportació de fitxers d'intercanvi de dibuixos (DIF)"
 
 #: ../plug-ins/gprint/diagnomeprint.c:81
 #, c-format
@@ -5145,14 +5071,17 @@ msgid ""
 " '%s'\n"
 " not available"
 msgstr ""
+"La impressió en segon pla de GNOME\n"
+"«%s»\n"
+"no està disponible"
 
 #: ../plug-ins/gprint/diagnomeprint.c:112
 msgid "GNOME PostScript"
-msgstr ""
+msgstr "PostScript del GNOME"
 
 #: ../plug-ins/gprint/diagnomeprint.c:121
 msgid "GNOME Portable Document Format"
-msgstr ""
+msgstr "Format de document portable del GNOME"
 
 #
 #: ../plug-ins/gprint/diagnomeprint.c:131
@@ -5161,7 +5090,7 @@ msgstr "Gràfics vectorials escalables del GNOME"
 
 #: ../plug-ins/gprint/diagnomeprint.c:164
 msgid "GNOME Print based Rendering"
-msgstr "Impressió de GNOME basada en la representació"
+msgstr "Representació basada en la impressió del GNOME"
 
 #: ../plug-ins/hpgl/hpgl.c:749
 msgid "HP Graphics Language"
@@ -5195,9 +5124,8 @@ msgid "gdk-pixbuf based bitmap export/import"
 msgstr "Exportació/importació de mapes de bits basats en gdk-pixbuf"
 
 #: ../plug-ins/pgf/pgf.c:26
-#, fuzzy
 msgid "LaTeX PGF export filter"
-msgstr "Filtre d'exportació del TeX Pstricks"
+msgstr "Filtre d'exportació de LaTeX PGF"
 
 #: ../plug-ins/pgf/render_pgf.c:1047
 #: ../plug-ins/pstricks/render_pstricks.c:731
@@ -5205,9 +5133,8 @@ msgid "Not valid UTF8"
 msgstr "No és UTF8 vàlid"
 
 #: ../plug-ins/pgf/render_pgf.c:1212
-#, fuzzy
 msgid "LaTeX PGF macros"
-msgstr "Macros de TeX PSTricks"
+msgstr "Macros de LaTeX PGF"
 
 #: ../plug-ins/pstricks/pstricks.c:26
 msgid "TeX Pstricks export filter"
@@ -5218,9 +5145,9 @@ msgid "TeX PSTricks macros"
 msgstr "Macros de TeX PSTricks"
 
 #: ../plug-ins/python/pydia-render.c:718
-#, fuzzy, c-format
+#, c-format
 msgid "Couldn't open '%s' for writing.\n"
-msgstr "No s'ha pogut obrir: '%s' per a la seva escriptura.\n"
+msgstr "No s'ha pogut obrir «%s» per a la seva escriptura.\n"
 
 #: ../plug-ins/python/python.c:96
 msgid "Python scripting support"
@@ -5248,6 +5175,8 @@ msgid ""
 "Invalid path data.\n"
 "svg:path data must start with moveto."
 msgstr ""
+"Dades del camí invàlides.\n"
+"svg:path ha de començar amb moveto."
 
 #: ../plug-ins/svg/svg-import.c:204
 msgid "Can't find standard object"
@@ -5255,12 +5184,12 @@ msgstr "No es pot trobar l'objecte estàndard"
 
 #: ../plug-ins/svg/svg-import.c:637
 msgid "Expected SVG Namespace not found in file"
-msgstr ""
+msgstr "No s'ha trobat l'espai de noms de SVG que s'esperava al fitxer"
 
 #: ../plug-ins/svg/svg-import.c:657
 #, c-format
 msgid "root element was '%s' -- expecting 'svg'."
-msgstr "l'element arrel era '%s' -- s'esperava 'svg'."
+msgstr "l'element arrel era «%s» -- s'esperava 'svg'."
 
 #: ../plug-ins/svg/svg.c:50
 msgid "Scalable Vector Graphics import and export filters"
@@ -5270,7 +5199,7 @@ msgstr ""
 #: ../plug-ins/wmf/wmf.cpp:1185
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
-msgstr "No s'ha pogut obrir: '%s' per a la seva escriptura.\n"
+msgstr "No s'ha pogut obrir: «%s» per a la seva escriptura.\n"
 
 #: ../plug-ins/wmf/wmf.cpp:1269
 msgid "Windows Meta File"
@@ -5302,13 +5231,12 @@ msgstr "Filtre d'exportació de gràfics WordPerfect"
 #, c-format
 msgid "FIG format has no equivalent of arrow style %s, using simple arrow.\n"
 msgstr ""
-"El format del FIg no disposa de cap estil de fletxa equivalent a %s, s'està "
-"utilitzant una fletxa simple.\n"
+"El format del FIG no disposa de cap estil de fletxa equivalent a %s, "
+"s'utilitzarà una fletxa simple.\n"
 
 #: ../plug-ins/xfig/xfig-export.c:481
 msgid "No more user-definable colors - using black"
-msgstr ""
-"No hi ha més colors definible per l'usuari - s'està utilitzant el negre"
+msgstr "No hi ha més colors definibles per l'usuari - s'utilitzarà el negre"
 
 #: ../plug-ins/xfig/xfig-export.c:1186
 msgid "XFig format"
@@ -5318,6 +5246,8 @@ msgstr "Format del XFig"
 #, c-format
 msgid "Color index %d too high, only 512 colors allowed. Using black instead."
 msgstr ""
+"L'índex de color %d és massa alt, només es permeten 512 colors. S'usarà el "
+"negre."
 
 #: ../plug-ins/xfig/xfig-import.c:136
 msgid "Patterns are not supported by Dia"
@@ -5335,11 +5265,11 @@ msgstr "No hauria d'aparèixer l'estil de línia %d\n"
 #: ../plug-ins/xfig/xfig-import.c:236
 #, c-format
 msgid "Error while reading %dth of %d points: %s\n"
-msgstr "S'ha produït un error mentre s'estava llegint el punt %d de %d: %s\n"
+msgstr "S'ha produït un error en llegir el punt %d de %d: %s\n"
 
 #: ../plug-ins/xfig/xfig-import.c:264
 msgid "Error while reading arrowhead\n"
-msgstr "S'ha produït un error mentre s'estava llegint l'extrem de la fletxa\n"
+msgstr "S'ha produït un error en llegir l'extrem de la fletxa\n"
 
 #: ../plug-ins/xfig/xfig-import.c:286
 #, c-format
@@ -5349,7 +5279,7 @@ msgstr "Tipus de fletxa desconegut %d\n"
 #: ../plug-ins/xfig/xfig-import.c:377
 #, c-format
 msgid "Depth %d of of range, only 0-%d allowed.\n"
-msgstr ""
+msgstr "Profunditat %d fora del rang, només es permet 0-%d.\n"
 
 #: ../plug-ins/xfig/xfig-import.c:424
 #, c-format
@@ -5368,9 +5298,7 @@ msgstr "No s'ha pogut llegir el bit canviat: %s\n"
 
 #: ../plug-ins/xfig/xfig-import.c:525
 msgid "Negative corner radius, negating"
-msgstr ""
-"El camí a les dades no és vàlid.\n"
-"svg: el camí a les dades ha de començar per moveto."
+msgstr "Radi de la cantonada negatiu, s'està negant"
 
 #: ../plug-ins/xfig/xfig-import.c:568 ../plug-ins/xfig/xfig-import.c:881
 #, c-format
@@ -5380,18 +5308,18 @@ msgstr "Subtipus de polilínia desconegut: %d\n"
 #: ../plug-ins/xfig/xfig-import.c:718 ../plug-ins/xfig/xfig-import.c:750
 #, c-format
 msgid "Couldn't read spline info: %s\n"
-msgstr ""
+msgstr "No s'ha pogut llegir la informació de la funció spline: %s\n"
 
 #. Open approximated spline
 #. Closed approximated spline
 #: ../plug-ins/xfig/xfig-import.c:737 ../plug-ins/xfig/xfig-import.c:755
 msgid "Cannot convert approximated spline yet."
-msgstr ""
+msgstr "Encara no s'ha pogut convertir la funció spline aproximada."
 
 #: ../plug-ins/xfig/xfig-import.c:793
 #, c-format
 msgid "Unknown spline subtype: %d\n"
-msgstr ""
+msgstr "Subtipus de funció spline desconegut: %d\n"
 
 #: ../plug-ins/xfig/xfig-import.c:856
 #, c-format
@@ -5421,6 +5349,7 @@ msgstr "No s'ha pogut llegir el color: %s\n"
 #, c-format
 msgid "Color number %d out of range 0..%d.  Discarding color.\n"
 msgstr ""
+"El número del color %d està fora del rang 0..%d.  Es descartarà el color.\n"
 
 #: ../plug-ins/xfig/xfig-import.c:1085
 #, c-format
@@ -5446,47 +5375,43 @@ msgstr "S'ha produït un error llegint la mida del paper: %s\n"
 #, c-format
 msgid "Unknown paper size `%s', using default\n"
 msgstr ""
-"Mida del paper `%s' desconegut, s'està utilitzant la mida per defecte\n"
+"Mida del paper `%s' desconeguda, s'està utilitzant la mida predeterminada\n"
 
 #: ../plug-ins/xfig/xfig-import.c:1153
 #, c-format
 msgid "Error reading paper orientation: %s\n"
-msgstr ""
-"S'ha produït un error mentre s'estava llegint l'orientació del paper: %s\n"
+msgstr "S'ha produït un error en llegir l'orientació del paper: %s\n"
 
 #: ../plug-ins/xfig/xfig-import.c:1163
 #, c-format
 msgid "Error reading justification: %s\n"
-msgstr "S'ha produït un error mentre s'estava legint la justificació: %s\n"
+msgstr "S'ha produït un error en llegir la justificació: %s\n"
 
 #: ../plug-ins/xfig/xfig-import.c:1173
 #, c-format
 msgid "Error reading units: %s\n"
-msgstr "S'ha produït un error mentre s'estava llegint les unitat: %s\n"
+msgstr "S'ha produït un error en llegir les unitat: %s\n"
 
 #: ../plug-ins/xfig/xfig-import.c:1189
 #, c-format
 msgid "Error reading magnification: %s\n"
-msgstr "S'ha produït un error mentre s'estava llegint l'augment: %s\n"
+msgstr "S'ha produït un error en llegir l'augment: %s\n"
 
 #: ../plug-ins/xfig/xfig-import.c:1202
 #, c-format
 msgid "Error reading multipage indicator: %s\n"
-msgstr ""
-"S'ha produït un error mentre s'estava llegint l'indicador de múltiples "
-"pàgines: %s\n"
+msgstr "S'ha produït un error en llegir l'indicador de múltiples pàgines: %s\n"
 
 #: ../plug-ins/xfig/xfig-import.c:1213
 #, c-format
 msgid "Error reading transparent color: %s\n"
-msgstr ""
-"S'ha produït un error mentre s'estava llegint el color transparent: %s\n"
+msgstr "S'ha produït un error en llegir el color transparent: %s\n"
 
 #: ../plug-ins/xfig/xfig-import.c:1222 ../plug-ins/xfig/xfig-import.c:1278
 #: ../plug-ins/xfig/xfig-import.c:1296
 #, c-format
 msgid "Error reading FIG file: %s\n"
-msgstr "S'ha produït un error mentre s'estava llegint el fitxer FIG: %s\n"
+msgstr "S'ha produït un error en llegir el fitxer FIG: %s\n"
 
 #: ../plug-ins/xfig/xfig-import.c:1224 ../plug-ins/xfig/xfig-import.c:1280
 msgid "Premature end of FIG file\n"
@@ -5495,12 +5420,12 @@ msgstr "Final prematur del fitxer FIG\n"
 #: ../plug-ins/xfig/xfig-import.c:1233
 #, c-format
 msgid "Error reading resolution: %s\n"
-msgstr "S'ha produït un error mentre s'estava llegint la resolució: %s\n"
+msgstr "S'ha produït un error en llegir la resolució: %s\n"
 
 #: ../plug-ins/xfig/xfig-import.c:1265
 #, c-format
 msgid "Doesn't look like a Fig file: %s\n"
-msgstr "No sembla ser una fitxer Fig: %s\n"
+msgstr "No sembla un fitxer Fig: %s\n"
 
 #: ../plug-ins/xfig/xfig-import.c:1271
 #, c-format
@@ -5519,27 +5444,27 @@ msgstr "Filtre d'importació i exportació del format Fig"
 #: ../plug-ins/xslt/xslt.c:102
 #, c-format
 msgid "Error while parsing %s\n"
-msgstr "S'ha produït un error mentre s'estava analitzant %s\n"
+msgstr "S'ha produït un error en analitzar %s\n"
 
 #: ../plug-ins/xslt/xslt.c:111
 #, c-format
 msgid "Error while parsing stylesheet %s\n"
-msgstr "S'ha produït un error mentre s'estava analitzant la fulla d'estil %s\n"
+msgstr "S'ha produït un error en analitzar el full d'estil %s\n"
 
 #: ../plug-ins/xslt/xslt.c:118
 #, c-format
 msgid "Error while applying stylesheet %s\n"
-msgstr "S'ha produït un error mentre s'estava aplicant la fulla d'estil %s\n"
+msgstr "S'ha produït un error en aplicar el full d'estil %s\n"
 
 #: ../plug-ins/xslt/xslt.c:127
 #, c-format
 msgid "Error while parsing stylesheet: %s\n"
-msgstr "Error mentre s'estava analitzant la fulla d'estil: %s\n"
+msgstr "S'ha produït un error en aplicar el full d'estil: %s\n"
 
 #: ../plug-ins/xslt/xslt.c:136
 #, c-format
 msgid "Error while applying stylesheet: %s\n"
-msgstr "Error mentre s'estava aplicant la fulla d'estil %s\n"
+msgstr "S'ha produït un error en aplicar el full d'estil: %s\n"
 
 #: ../plug-ins/xslt/xslt.c:322
 msgid "XSL Transformation filter"
@@ -5565,54 +5490,47 @@ msgstr "A:"
 
 #: ../sheets/AADL.sheet.in.h:1
 msgid "AADL"
-msgstr ""
+msgstr "AADL"
 
 #: ../sheets/AADL.sheet.in.h:2
-#, fuzzy
 msgid "AADL Shapes"
-msgstr "Forma"
+msgstr "Formes ADDL"
 
 #: ../sheets/AADL.sheet.in.h:3
 msgid "Bus"
-msgstr ""
+msgstr "Bus"
 
 #: ../sheets/AADL.sheet.in.h:5
-#, fuzzy
 msgid "Device"
-msgstr "Divideix"
+msgstr "Dispositiu"
 
 #: ../sheets/AADL.sheet.in.h:6
 msgid "Memory"
-msgstr ""
+msgstr "Memòria"
 
 #: ../sheets/AADL.sheet.in.h:7
-#, fuzzy
 msgid "Package"
-msgstr "Empaqueta"
+msgstr "Paquet"
 
 #: ../sheets/AADL.sheet.in.h:9
-#, fuzzy
 msgid "Processor"
-msgstr "Processa"
+msgstr "Processador"
 
 #: ../sheets/AADL.sheet.in.h:10
-#, fuzzy
 msgid "Subprogram"
-msgstr "Etapa de crida de subprograma"
+msgstr "Subprograma"
 
 #: ../sheets/AADL.sheet.in.h:11
-#, fuzzy
 msgid "System"
-msgstr "Sybase"
+msgstr "Sistema"
 
 #: ../sheets/AADL.sheet.in.h:12
-#, fuzzy
 msgid "Thread"
-msgstr "Forma"
+msgstr "Flux"
 
 #: ../sheets/AADL.sheet.in.h:13
 msgid "Thread Group"
-msgstr ""
+msgstr "Grup de fluxos"
 
 #. Sheet Name: Assorted, was Geometric, maybe Basic Shapes instead?
 #. Leave as is for now, renaming too much hassle.
@@ -5622,17 +5540,16 @@ msgid ""
 "An Assorted Collection of Polygons, Beziergons and other Miscellaneous "
 "Geometric Shapes"
 msgstr ""
-"Una variada col·lecció de polígons, beziergons i unes altres formes "
-"geomètriques més."
+"Una col·lecció variada de polígons, beziergons i altres formes geomètriques."
 
 #. Please talk to me before making any changes to this sheet
 #: ../sheets/Assorted.sheet.in.h:6
 msgid "Assorted"
-msgstr "Variada"
+msgstr "Variat"
 
 #: ../sheets/Assorted.sheet.in.h:7
 msgid "Chevron"
-msgstr ""
+msgstr "Galó"
 
 #: ../sheets/Assorted.sheet.in.h:8
 msgid "Curved eight point star"
@@ -5689,15 +5606,15 @@ msgstr "Fletxa a l'esquerra"
 
 #: ../sheets/Assorted.sheet.in.h:21
 msgid "Left-right arrow"
-msgstr "Fletxa d'esquerra a dreta"
+msgstr "Fletxa a l'esquerra i a la dreta"
 
 #: ../sheets/Assorted.sheet.in.h:22
 msgid "Left-right-up arrow"
-msgstr "Fletxa d'esquerra a dreta ascendent"
+msgstr "Fletxa a l'esquerra, a la dreta i ascendent"
 
 #: ../sheets/Assorted.sheet.in.h:23
 msgid "Left-up arrow"
-msgstr "Fletxa a l'esquerra ascendent"
+msgstr "Fletxa a l'esquerra i ascendent"
 
 #: ../sheets/Assorted.sheet.in.h:24
 msgid "Maltese cross"
@@ -5705,11 +5622,11 @@ msgstr "Creu maltesa"
 
 #: ../sheets/Assorted.sheet.in.h:25
 msgid "Notched left arrow"
-msgstr "Fletxa apuntant a l'esquerra"
+msgstr "Fletxa a l'esquerra tallada"
 
 #: ../sheets/Assorted.sheet.in.h:26
 msgid "Notched right arrow"
-msgstr "Fletxa apuntant a la dreta"
+msgstr "Fletxa a la dreta tallada"
 
 #: ../sheets/Assorted.sheet.in.h:27
 msgid "Octogon. Eight sided shape"
@@ -5717,7 +5634,7 @@ msgstr "Octàgon. Figure de vuit cares"
 
 #: ../sheets/Assorted.sheet.in.h:28
 msgid "Pentagon block arrow"
-msgstr ""
+msgstr "Fletxa pentagonal"
 
 #: ../sheets/Assorted.sheet.in.h:29
 msgid "Pentagon. Five sided shape"
@@ -5737,7 +5654,7 @@ msgstr "Fletxa quadrada"
 
 #: ../sheets/Assorted.sheet.in.h:33
 msgid "Quarter circle"
-msgstr "Una quarta part d'un cercle"
+msgstr "Quart de cercle"
 
 #: ../sheets/Assorted.sheet.in.h:34
 msgid "Quarter moon"
@@ -5757,7 +5674,7 @@ msgstr "Estrella de set puntes"
 
 #: ../sheets/Assorted.sheet.in.h:38
 msgid "Sharp eight point star"
-msgstr "Estrella de vuit puntes"
+msgstr "Estrella de vuit puntes afilades"
 
 #: ../sheets/Assorted.sheet.in.h:39
 msgid "Six point star"
@@ -5776,9 +5693,8 @@ msgid "Trapezoid"
 msgstr "Trapezoide"
 
 #: ../sheets/Assorted.sheet.in.h:43
-#, fuzzy
 msgid "Turn-up arrow"
-msgstr "Fletxa a l'esquerra ascendent"
+msgstr "Fletxa que gira amunt"
 
 #: ../sheets/Assorted.sheet.in.h:44
 msgid "Up arrow"
@@ -5786,11 +5702,11 @@ msgstr "Fletxa ascendent"
 
 #: ../sheets/Assorted.sheet.in.h:45
 msgid "Up-down arrow"
-msgstr "Fletxa descendent"
+msgstr "Fletxa ascendent i descendent"
 
 #: ../sheets/Assorted.sheet.in.h:46
 msgid "Up-down-left arrow"
-msgstr "Fletxa descendent a l'esquerra"
+msgstr "Fletxa ascendent, descendent i a l'esquerra"
 
 #: ../sheets/Assorted.sheet.in.h:47
 msgid "Vertical parallelogram"
@@ -5801,233 +5717,213 @@ msgid "AC Generator"
 msgstr "Generador CA"
 
 #: ../sheets/ChemEng.sheet.in.h:2
-#, fuzzy
 msgid "Air Cooler"
-msgstr "Afegeix la cantonada"
+msgstr "Refrigerador d'aire"
 
 #: ../sheets/ChemEng.sheet.in.h:3
 msgid "Autoclave"
-msgstr ""
+msgstr "Esterilitzador"
 
 #: ../sheets/ChemEng.sheet.in.h:4
-#, fuzzy
 msgid "Axial Flow Fan"
-msgstr "Permet DOF"
+msgstr "Ventilador de flux axial"
 
 #: ../sheets/ChemEng.sheet.in.h:5
-#, fuzzy
 msgid "Basic Filter"
-msgstr "Filtra"
+msgstr "Filtre bàsic"
 
 #: ../sheets/ChemEng.sheet.in.h:6
 msgid "Centrifugal Pump or Fan"
-msgstr ""
+msgstr "Ventilador o bomba centrífuga"
 
 #: ../sheets/ChemEng.sheet.in.h:7
-#, fuzzy
 msgid "Centrifuge"
-msgstr "Tallafocs Centri"
+msgstr "Centrifugadora"
 
 #. For: zenith
 #: ../sheets/ChemEng.sheet.in.h:9
-#, fuzzy
 msgid "ChemEng"
-msgstr "Canvia"
+msgstr "EngQuim"
 
 #: ../sheets/ChemEng.sheet.in.h:10
 msgid "Clarifier or Settling Tank"
-msgstr ""
+msgstr "Esclaridor o tanc d'assentament"
 
 #: ../sheets/ChemEng.sheet.in.h:11
 msgid "Collection for chemical engineering"
-msgstr ""
+msgstr "Col·lecció per a enginyeria química"
 
 #: ../sheets/ChemEng.sheet.in.h:12
-#, fuzzy
 msgid "Compressor or Turbine"
-msgstr "Comprimeix els fitxers del diagrama"
+msgstr "Compressor o turbina"
 
 #: ../sheets/ChemEng.sheet.in.h:13
-#, fuzzy
 msgid "Covered tank"
-msgstr "Converteix"
+msgstr "Tanc cobert"
 
 #: ../sheets/ChemEng.sheet.in.h:14
 msgid "Cyclone and hydrocyclone"
-msgstr ""
+msgstr "Cicló i hidrocicló"
 
 #: ../sheets/ChemEng.sheet.in.h:15
-#, fuzzy
 msgid "Double-Pipe Exchanger"
-msgstr "Triangle emplenat doble"
+msgstr "Intercanviador de doble tub"
 
 #: ../sheets/ChemEng.sheet.in.h:16
 msgid "Ejector or Injector"
-msgstr ""
+msgstr "Expulsor o injector"
 
 #: ../sheets/ChemEng.sheet.in.h:17
 msgid "Fan or Stirrer"
-msgstr ""
+msgstr "Ventilador o agitador"
 
 #: ../sheets/ChemEng.sheet.in.h:18
 msgid "Fixed-Sheet Exchanger"
-msgstr ""
+msgstr "Intercanviador de placa fixa"
 
 #: ../sheets/ChemEng.sheet.in.h:19
 msgid "Floating-Head or U-Tube Exchanger"
-msgstr ""
+msgstr "Intercanviador de tub en U o de cap flotant"
 
 #: ../sheets/ChemEng.sheet.in.h:20
 msgid "Fluid Contacting Vessel, simple"
-msgstr ""
+msgstr "Vas de contacte de fluids, simple"
 
 #: ../sheets/ChemEng.sheet.in.h:21
 msgid "Forced-Flow Air Cooler"
-msgstr ""
+msgstr "Refrigerador d'aire de flux forçat"
 
 #: ../sheets/ChemEng.sheet.in.h:22
 msgid "Gas Holder, basic"
-msgstr ""
+msgstr "Contenidor de gas, bàsic"
 
 #: ../sheets/ChemEng.sheet.in.h:23
 msgid "Heating/Cooling Coil"
-msgstr ""
+msgstr "Bobina escalfadora/refrigeradora"
 
 #: ../sheets/ChemEng.sheet.in.h:24
 msgid "Heating/Cooling Coil, vertical"
-msgstr ""
+msgstr "Bobina escalfadora/refrigeradora, vertical"
 
 #: ../sheets/ChemEng.sheet.in.h:25
 msgid "Induced-Flow Air Cooler"
-msgstr ""
+msgstr "Refrigerador d'aire de flux induït"
 
 #: ../sheets/ChemEng.sheet.in.h:26
 msgid "Kettle Reboiler"
-msgstr ""
+msgstr "Rebullidor"
 
 #: ../sheets/ChemEng.sheet.in.h:27
 msgid "Knock-out Drum (with demister pad)"
-msgstr ""
+msgstr "Timbal d'eliminació (amb coixinet)"
 
 #: ../sheets/ChemEng.sheet.in.h:28
-#, fuzzy
 msgid "Measurement"
 msgstr "Mesura"
 
 #: ../sheets/ChemEng.sheet.in.h:29
-#, fuzzy
 msgid "Mixer"
-msgstr "Barreja"
+msgstr "Mesclador"
 
 #: ../sheets/ChemEng.sheet.in.h:30
-#, fuzzy
 msgid "Open Tank"
-msgstr "Cercle obert"
+msgstr "Tanc obert"
 
 #: ../sheets/ChemEng.sheet.in.h:31
 msgid "Plate Exchanger"
-msgstr ""
+msgstr "Intercanviador de placa"
 
 #: ../sheets/ChemEng.sheet.in.h:32
-#, fuzzy
 msgid "Pneumatic Line"
-msgstr "Pneumàtica"
+msgstr "Línia pneumàtica"
 
 #: ../sheets/ChemEng.sheet.in.h:33
 msgid "Pneumatic Line, vertical"
-msgstr ""
+msgstr "Línia pneumàtica, vertical"
 
 #: ../sheets/ChemEng.sheet.in.h:34
 msgid "Positive Displacement Rotary Pump or Compressor"
-msgstr ""
+msgstr "Compressor o bomba rotatòria de desplaçament positiu"
 
 #: ../sheets/ChemEng.sheet.in.h:35
 msgid "Reactor or Absorption Vessel, simple"
-msgstr ""
+msgstr "Reactor o vas d'absorció, simple"
 
 #: ../sheets/ChemEng.sheet.in.h:36
 msgid "Reciprocating Compressor or Pump"
-msgstr ""
+msgstr "Bomba o Compressor bescanviador"
 
 #: ../sheets/ChemEng.sheet.in.h:37
-#, fuzzy
 msgid "Regulable Valve"
-msgstr "Regula"
+msgstr "Vàlvula regulable"
 
 #: ../sheets/ChemEng.sheet.in.h:38
 msgid "Regulable Valve, vertical"
-msgstr ""
+msgstr "Vàlvula regulable, vertical"
 
 #: ../sheets/ChemEng.sheet.in.h:39
 msgid "Sealed Tank"
-msgstr ""
+msgstr "Tanc segellat"
 
 #: ../sheets/ChemEng.sheet.in.h:40
-#, fuzzy
 msgid "Simple Furnace"
-msgstr "Impressora simple"
+msgstr "Forn simple"
 
 #: ../sheets/ChemEng.sheet.in.h:41
 msgid "Simple Heat Exchanger"
-msgstr ""
+msgstr "Intercanviador de calor simple"
 
 #: ../sheets/ChemEng.sheet.in.h:42
 msgid "Simple Heat Exchanger, vertical"
-msgstr ""
+msgstr "Intercanviador de calor simple, vertical"
 
 #: ../sheets/ChemEng.sheet.in.h:43
-#, fuzzy
 msgid "Simple Vessel"
-msgstr "Modem simple"
+msgstr "Vas simple"
 
 #: ../sheets/ChemEng.sheet.in.h:44
 msgid "Spray Drier"
-msgstr ""
+msgstr "Assecador d'esprai"
 
 #: ../sheets/ChemEng.sheet.in.h:45
 msgid "Spraying Device"
-msgstr ""
+msgstr "Dispositiu ruixador"
 
 #: ../sheets/ChemEng.sheet.in.h:46
-#, fuzzy
 msgid "Storage Sphere"
-msgstr "Encaminador d'emmagatzemament"
+msgstr "Esfera d'emmagatzematge"
 
 #: ../sheets/ChemEng.sheet.in.h:47
 msgid "Tank with Fixed Roof"
-msgstr ""
+msgstr "Tanc amb coberta fixa"
 
 #: ../sheets/ChemEng.sheet.in.h:48
 msgid "Tank with Floating Roof"
-msgstr ""
+msgstr "Tanc amb coberta flotant"
 
 #: ../sheets/ChemEng.sheet.in.h:49
 msgid "Tray Column, detailed"
-msgstr ""
+msgstr "Columna de safata, detallada"
 
 #: ../sheets/ChemEng.sheet.in.h:50
 msgid "Tray Column, simple"
-msgstr ""
+msgstr "Columna de safata, simple"
 
 #: ../sheets/ChemEng.sheet.in.h:51
-#, fuzzy
 msgid "Valve"
-msgstr "Valor:"
+msgstr "Vàlvula"
 
 #: ../sheets/ChemEng.sheet.in.h:52
-#, fuzzy
 msgid "Valve, vertical"
-msgstr "Volteja verticalment"
+msgstr "Vàlvula, vertical"
 
 #: ../sheets/ChemEng.sheet.in.h:53
-#, fuzzy
 msgid "Water Cooler"
-msgstr "Nivell de l'aigua"
+msgstr "Refrigerador d'aigua"
 
 #: ../sheets/ChemEng.sheet.in.h:54
-#, fuzzy
 msgid "Water Cooler, vertical"
-msgstr "Nivell de l'aigua"
+msgstr "Refrigerador d'aigua, vertical"
 
 #: ../sheets/Circuit.sheet.in.h:1
 msgid "Circuit"
@@ -6035,7 +5931,7 @@ msgstr "Circuit"
 
 #: ../sheets/Circuit.sheet.in.h:2
 msgid "Components for circuit diagrams"
-msgstr "Components per diagrames de circuit"
+msgstr "Components per a diagrames de circuit"
 
 #: ../sheets/Circuit.sheet.in.h:3
 msgid "Ground point"
@@ -6097,8 +5993,6 @@ msgstr "Micròfon"
 msgid "NMOS transistor"
 msgstr "Transistor NMOS"
 
-#.
-#.
 #: ../sheets/Circuit.sheet.in.h:20
 msgid "NPN bipolar transistor"
 msgstr "Transistor bipolar NPN"
@@ -6111,8 +6005,6 @@ msgstr "Amplificador operacional"
 msgid "PMOS transistor"
 msgstr "Transistor PMOS"
 
-#.
-#.
 #: ../sheets/Circuit.sheet.in.h:25
 msgid "PNP bipolar transistor"
 msgstr "Transistor bipolar PNP"
@@ -6163,11 +6055,11 @@ msgstr "Díode zener alineat verticalment"
 
 #: ../sheets/Contact.sheet.in.h:1
 msgid "'if not' (normally closed) ladder contact"
-msgstr "Contacte d'escala 'si no' (normalment tancat)"
+msgstr "Contacte 'si no' (normalment tancat) del llenguatge 'ladder'"
 
 #: ../sheets/Contact.sheet.in.h:2
 msgid "'if' (normally open) ladder contact"
-msgstr "Contacte d'escala 'si' (normalment obert)"
+msgstr "Contacte 'si' (normalment obert) del llenguatge 'ladder'"
 
 #: ../sheets/Contact.sheet.in.h:3
 msgid "'jump' output variable"
@@ -6187,7 +6079,7 @@ msgstr "Components pels circuits LADDER"
 
 #: ../sheets/Contact.sheet.in.h:7
 msgid "Ladder"
-msgstr "Escala"
+msgstr "Ladder"
 
 #: ../sheets/Contact.sheet.in.h:8
 msgid "Negative output variable"
@@ -6195,19 +6087,19 @@ msgstr "Variable de sortida negativa"
 
 #: ../sheets/Contact.sheet.in.h:9
 msgid "Power-saved 'reset' output variable"
-msgstr ""
+msgstr "Variable de sortida 'reset' amb protecció de potència"
 
 #: ../sheets/Contact.sheet.in.h:10
 msgid "Power-saved 'set' output variable"
-msgstr ""
+msgstr "Variable de sortida 'set' amb protecció de potència"
 
 #: ../sheets/Contact.sheet.in.h:11
 msgid "Power-saved negative output variable"
-msgstr ""
+msgstr "Variable de sortida negativa amb protecció de potència"
 
 #: ../sheets/Contact.sheet.in.h:12
 msgid "Power-saved simple output variable"
-msgstr ""
+msgstr "Variable de sortida simple amb protecció de potència"
 
 #: ../sheets/Contact.sheet.in.h:13
 msgid "Receptivity output variable"
@@ -6219,135 +6111,131 @@ msgstr "Variable de sortida simple"
 
 #: ../sheets/Cybernetics.sheet.in.h:1
 msgid "Constant factor below -1"
-msgstr ""
+msgstr "Factor constant per sota de -1"
 
 #: ../sheets/Cybernetics.sheet.in.h:2
 msgid "Constant factor between 0 and -1"
-msgstr ""
+msgstr "Factor constant entre 0 i -1"
 
 #: ../sheets/Cybernetics.sheet.in.h:3
 msgid "Constant factor between 0 and 1"
-msgstr ""
+msgstr "Factor constant entre 0 i 1"
 
 #: ../sheets/Cybernetics.sheet.in.h:4
 msgid "Constant factor greater 1"
-msgstr ""
+msgstr "Factor constant més gran que 1"
 
 #: ../sheets/Cybernetics.sheet.in.h:5
 msgid "Constant negative shift on the y-axis"
-msgstr ""
+msgstr "Desplaçament negatiu constant a l'eix y"
 
 #: ../sheets/Cybernetics.sheet.in.h:6
 msgid "Constant positive shift on the y-axis"
-msgstr ""
+msgstr "Desplaçament positiu constant a l'eix y"
 
 #: ../sheets/Cybernetics.sheet.in.h:7
 msgid "Cybernetics"
-msgstr ""
+msgstr "Cibernètica"
 
 #: ../sheets/Cybernetics.sheet.in.h:8
-#, fuzzy
 msgid "Elements of cybernetic circuits"
-msgstr "Components pels circuits elèctrics"
+msgstr "Elements de circuits cibernètics"
 
 #: ../sheets/Cybernetics.sheet.in.h:9
 msgid "Full wave rectifier (absolute value)"
-msgstr ""
+msgstr "Rectificador d'ona completa (valor absolut)"
 
 #: ../sheets/Cybernetics.sheet.in.h:10
 msgid "Half wave rectifier or ramp input"
-msgstr ""
+msgstr "Rectificador de mitja ona o entrada de rampa"
 
 #: ../sheets/Cybernetics.sheet.in.h:11
 msgid "High pass filter"
-msgstr ""
+msgstr "Filtre passa alts"
 
 #: ../sheets/Cybernetics.sheet.in.h:12
 msgid "Integrator - input bottom"
-msgstr ""
+msgstr "Integrador - entrada baixa"
 
 #: ../sheets/Cybernetics.sheet.in.h:13
 msgid "Integrator - input left"
-msgstr ""
+msgstr "Integrador - entrada esquerra"
 
 #: ../sheets/Cybernetics.sheet.in.h:14
 msgid "Integrator - input right"
-msgstr ""
+msgstr "Integrador - entrada dreta"
 
 #: ../sheets/Cybernetics.sheet.in.h:15
 msgid "Integrator - input top"
-msgstr ""
+msgstr "Integrador - entrada dalt"
 
 #: ../sheets/Cybernetics.sheet.in.h:16
 msgid "Low pass filter"
-msgstr ""
+msgstr "Filtre passa baixos"
 
 #: ../sheets/Cybernetics.sheet.in.h:17
-#, fuzzy
 msgid "Product"
-msgstr "Condueix"
+msgstr "Producte"
 
 #: ../sheets/Cybernetics.sheet.in.h:18
 msgid "Relay characteristic (sigma)"
-msgstr ""
+msgstr "Característica de relé (sigma)"
 
 #: ../sheets/Cybernetics.sheet.in.h:19
 msgid "Saturation characteristic"
-msgstr ""
+msgstr "Característica de saturació"
 
 #: ../sheets/Cybernetics.sheet.in.h:20
 msgid "Sensor - bottom"
-msgstr ""
+msgstr "Sensor - a baix"
 
 #: ../sheets/Cybernetics.sheet.in.h:21
 msgid "Sensor - left"
-msgstr ""
+msgstr "Sensor - esquerra"
 
 #: ../sheets/Cybernetics.sheet.in.h:22
 msgid "Sensor - right"
-msgstr ""
+msgstr "Sensor - dreta"
 
 #: ../sheets/Cybernetics.sheet.in.h:23
 msgid "Sensor - top"
-msgstr ""
+msgstr "Sensor - dalt"
 
 #: ../sheets/Cybernetics.sheet.in.h:24
 msgid "Sigmoid characteristic"
-msgstr ""
+msgstr "Característica de sigmoid"
 
 #: ../sheets/Cybernetics.sheet.in.h:25
 msgid "Sine characteristic or input"
-msgstr ""
+msgstr "Característica de sinus o entrada"
 
 #: ../sheets/Cybernetics.sheet.in.h:26
-#, fuzzy
 msgid "Sum"
-msgstr "Sol"
+msgstr "Suma"
 
 #: ../sheets/Cybernetics.sheet.in.h:27
 msgid "Sum, subtracting bottom input"
-msgstr ""
+msgstr "Suma, restant l'entrada de baix"
 
 #: ../sheets/Cybernetics.sheet.in.h:28
 msgid "Sum, subtracting left input"
-msgstr ""
+msgstr "Suma, restant l'entrada esquerra"
 
 #: ../sheets/Cybernetics.sheet.in.h:29
 msgid "Sum, subtracting right input"
-msgstr ""
+msgstr "Suma, restant l'entrada dreta"
 
 #: ../sheets/Cybernetics.sheet.in.h:30
 msgid "Sum, subtracting top input"
-msgstr ""
+msgstr "Suma, restant l'entrada de dalt"
 
 #: ../sheets/Cybernetics.sheet.in.h:31
 msgid "Template for custom characteristics"
-msgstr ""
+msgstr "Plantilla per a característiques personalitzades"
 
 #: ../sheets/Cybernetics.sheet.in.h:32
-#, fuzzy
 msgid "Time delay"
-msgstr "Dades de temps"
+msgstr "Retard de temps"
 
 #: ../sheets/EML.sheet.in.h:1
 msgid "EML"
@@ -6386,74 +6274,60 @@ msgid "Electric"
 msgstr "Elèctric"
 
 #: ../sheets/Electric.sheet.in.h:4
-#, fuzzy
 msgid "Lamp or indicator light (horizontal)"
-msgstr "Bombeta o indicador lluminós"
+msgstr "Bombeta o indicador lluminós (horitzontal)"
 
 #: ../sheets/Electric.sheet.in.h:5
-#, fuzzy
 msgid "Lamp or indicator light (vertical)"
-msgstr "Bombeta o indicador lluminós"
+msgstr "Bombeta o indicador lluminós (vertical)"
 
 #: ../sheets/Electric.sheet.in.h:6
-#, fuzzy
 msgid "Normally closed contact (horizontal)"
-msgstr "Contacte normalment tancat"
+msgstr "Contacte normalment tancat (horitzontal)"
 
 #: ../sheets/Electric.sheet.in.h:7
-#, fuzzy
 msgid "Normally closed contact (vertical)"
-msgstr "Contacte normalment tancat"
+msgstr "Contacte normalment tancat (vertical)"
 
 #: ../sheets/Electric.sheet.in.h:8
-#, fuzzy
 msgid "Normally closed position switch (horizontal)"
-msgstr "Commutador normalment tancat"
+msgstr "Interruptor de posició normalment tancat (horitzontal)"
 
 #: ../sheets/Electric.sheet.in.h:9
-#, fuzzy
 msgid "Normally closed position switch (vertical)"
-msgstr "Commutador normalment tancat"
+msgstr "Interruptor de posició normalment tancat (vertical)"
 
 #: ../sheets/Electric.sheet.in.h:10
-#, fuzzy
 msgid "Normally open contact (horizontal)"
-msgstr "Contacte normalment obert"
+msgstr "Contacte normalment obert (horitzontal)"
 
 #: ../sheets/Electric.sheet.in.h:11
-#, fuzzy
 msgid "Normally open contact (vertical)"
-msgstr "Contacte normalment obert"
+msgstr "Contacte normalment obert (vertical)"
 
 #: ../sheets/Electric.sheet.in.h:12
-#, fuzzy
 msgid "Normally open position switch (horizontal)"
-msgstr "Commutador normalment obert"
+msgstr "Interruptor de posició normalment obert (horitzontal)"
 
 #: ../sheets/Electric.sheet.in.h:13
-#, fuzzy
 msgid "Normally open position switch (vertical)"
-msgstr "Commutador normalment obert"
+msgstr "Interruptor de posició normalment obert (vertical)"
 
 #: ../sheets/Electric.sheet.in.h:14
-#, fuzzy
 msgid "Relay (horizontal)"
-msgstr "Volteja horitzontalment"
+msgstr "Relé (horitzontal)"
 
 #: ../sheets/Electric.sheet.in.h:15
-#, fuzzy
 msgid "Relay (vertical)"
-msgstr "Volteja verticalment"
+msgstr "Relé (vertical)"
 
 #: ../sheets/Electric.sheet.in.h:16
-#, fuzzy
 msgid "The command organ of a relay (horizontal)"
-msgstr "Actuador d'un relé"
+msgstr "L'actuador d'un relé (horitzontal)"
 
 #: ../sheets/Electric.sheet.in.h:17
-#, fuzzy
 msgid "The command organ of a relay (vertical)"
-msgstr "Actuador d'un relé"
+msgstr "L'actuador d'un relé (vertical)"
 
 #: ../sheets/FS.sheet.in.h:1
 msgid "Editor for Function Structure Diagrams."
@@ -6484,134 +6358,137 @@ msgstr "Cotejar"
 msgid "Connector"
 msgstr "Connector"
 
-#: ../sheets/Flowchart.sheet.in.h:4 ../sheets/SDL.sheet.in.h:4
+#: ../sheets/Flowchart.sheet.in.h:4
+#, fuzzy
+msgid "Data source"
+msgstr "Emmagatzemament de les dades"
+
+#: ../sheets/Flowchart.sheet.in.h:5 ../sheets/SDL.sheet.in.h:4
 msgid "Decision"
 msgstr "Decisió"
 
-#: ../sheets/Flowchart.sheet.in.h:5
+#: ../sheets/Flowchart.sheet.in.h:6
 msgid "Delay"
 msgstr "Retard"
 
-#: ../sheets/Flowchart.sheet.in.h:7
+#: ../sheets/Flowchart.sheet.in.h:8
 msgid "Document"
 msgstr "Document"
 
-#: ../sheets/Flowchart.sheet.in.h:9
+#: ../sheets/Flowchart.sheet.in.h:10
 msgid "Flowchart"
 msgstr "Diagrama de flux"
 
-#: ../sheets/Flowchart.sheet.in.h:10
+#: ../sheets/Flowchart.sheet.in.h:11
 msgid "Input/Output"
 msgstr "Entrada/Sortida"
 
-#: ../sheets/Flowchart.sheet.in.h:11
+#: ../sheets/Flowchart.sheet.in.h:12
 msgid "Internal storage"
 msgstr "Emmagatzemament intern"
 
-#: ../sheets/Flowchart.sheet.in.h:12
+#: ../sheets/Flowchart.sheet.in.h:13
 msgid "Magnetic disk"
 msgstr "Disc magnètic"
 
-#: ../sheets/Flowchart.sheet.in.h:13
+#: ../sheets/Flowchart.sheet.in.h:14
 msgid "Magnetic drum"
 msgstr "Tambor magnètic"
 
-#: ../sheets/Flowchart.sheet.in.h:14
+#: ../sheets/Flowchart.sheet.in.h:15
 msgid "Magnetic tape"
 msgstr "Cinta magnètica"
 
-#: ../sheets/Flowchart.sheet.in.h:15
+#: ../sheets/Flowchart.sheet.in.h:16
 msgid "Manual input"
 msgstr "Entrada manual"
 
-#: ../sheets/Flowchart.sheet.in.h:16
+#: ../sheets/Flowchart.sheet.in.h:17
 msgid "Manual operation"
 msgstr "Operació manual"
 
-#: ../sheets/Flowchart.sheet.in.h:17
+#: ../sheets/Flowchart.sheet.in.h:18
 msgid "Merge"
 msgstr "Combina"
 
-#: ../sheets/Flowchart.sheet.in.h:18
+#: ../sheets/Flowchart.sheet.in.h:19
 msgid "Objects to draw flowcharts"
 msgstr "Objectes per dibuixar diagrames de flux"
 
 #. XXX
-#: ../sheets/Flowchart.sheet.in.h:20
+#: ../sheets/Flowchart.sheet.in.h:21
 msgid "Off page connector"
 msgstr "Connector fora de pàgina"
 
-#: ../sheets/Flowchart.sheet.in.h:21
+#: ../sheets/Flowchart.sheet.in.h:22
 msgid "Offline storage"
 msgstr "Emmagatzematge fora de línia"
 
-#: ../sheets/Flowchart.sheet.in.h:22
+#: ../sheets/Flowchart.sheet.in.h:23
 msgid "Or"
 msgstr "O"
 
-#: ../sheets/Flowchart.sheet.in.h:23
+#: ../sheets/Flowchart.sheet.in.h:24
 msgid "Predefined process"
 msgstr "Procés predefinit"
 
-#: ../sheets/Flowchart.sheet.in.h:24
+#: ../sheets/Flowchart.sheet.in.h:25
 msgid "Preparation"
 msgstr "Preparació"
 
-#: ../sheets/Flowchart.sheet.in.h:25
-msgid "Process/Auxiliary Operation"
-msgstr "Procés/Operació auxiliar"
-
 #: ../sheets/Flowchart.sheet.in.h:26
+msgid "Process/Auxiliary Operation"
+msgstr "Operació de procés/auxiliar"
+
+#: ../sheets/Flowchart.sheet.in.h:27
 msgid "Punched card"
 msgstr "Targeta perforada"
 
-#: ../sheets/Flowchart.sheet.in.h:27
+#: ../sheets/Flowchart.sheet.in.h:28
 msgid "Punched tape"
 msgstr "Cinta perforada"
 
-#: ../sheets/Flowchart.sheet.in.h:28
+#: ../sheets/Flowchart.sheet.in.h:29
 msgid "Sort"
 msgstr "Ordena"
 
 #. XXX
-#: ../sheets/Flowchart.sheet.in.h:30
-msgid "Summing junction"
-msgstr ""
-
 #: ../sheets/Flowchart.sheet.in.h:31
+msgid "Summing junction"
+msgstr "Encreuament de suma"
+
+#: ../sheets/Flowchart.sheet.in.h:32
 msgid "Terminal Interrupt"
 msgstr "Interrupció del terminal"
 
-#: ../sheets/Flowchart.sheet.in.h:32
+#: ../sheets/Flowchart.sheet.in.h:33
 msgid "Transaction file"
 msgstr "Fitxer de transacció"
 
-#: ../sheets/Flowchart.sheet.in.h:33
+#: ../sheets/Flowchart.sheet.in.h:34
 msgid "Transmittal tape"
 msgstr "Cinta de transmissió"
 
 #: ../sheets/Gane_and_Sarson.sheet.in.h:1
 msgid "Alternate external entity"
-msgstr ""
+msgstr "Entitat externa alternativa"
 
 #: ../sheets/Gane_and_Sarson.sheet.in.h:2
-#, fuzzy
 msgid "Data store"
-msgstr "Color de les dades"
+msgstr "Emmagatzemament de les dades"
 
 #: ../sheets/Gane_and_Sarson.sheet.in.h:3
-#, fuzzy
 msgid "External entity"
-msgstr "Entitat feble"
+msgstr "Entitat externa"
 
 #. Author: Nicholas Moore, 2005. mailto: shiny.nickel@gmail.com
 #: ../sheets/Gane_and_Sarson.sheet.in.h:5
 msgid "Gane and Sarson"
-msgstr ""
+msgstr "Gane i Sarson"
 
 #: ../sheets/Gane_and_Sarson.sheet.in.h:6
 msgid "Gane and Sarson DFD"
-msgstr ""
+msgstr "DFD de Gane i Sarson"
 
 #: ../sheets/GRAFCET.sheet.in.h:1
 msgid "AND vergent"
@@ -6651,316 +6528,302 @@ msgstr "Transició"
 
 #: ../sheets/IsometricMap.sheet.in.h:1
 msgid "Block 1, 2:4"
-msgstr ""
+msgstr "Bloc 1, 2:4"
 
 #: ../sheets/IsometricMap.sheet.in.h:2
 msgid "Block 2, 2:8"
-msgstr ""
+msgstr "Bloc 2, 2:8"
 
 #: ../sheets/IsometricMap.sheet.in.h:3
 msgid "Block 3, 4:4"
-msgstr ""
+msgstr "Bloc 3, 4:4"
 
 #: ../sheets/IsometricMap.sheet.in.h:4
 msgid "Block 4, 4:8"
-msgstr ""
+msgstr "Bloc 4, 4:8"
 
 #: ../sheets/IsometricMap.sheet.in.h:5
 msgid "Block 5, 3:3"
-msgstr ""
+msgstr "Bloc 5, 3:3"
 
 #: ../sheets/IsometricMap.sheet.in.h:6
 msgid "Block 6, 4:6"
-msgstr ""
+msgstr "Bloc 6, 4:6"
 
 #: ../sheets/IsometricMap.sheet.in.h:7
-#, fuzzy
 msgid "Block 7"
-msgstr "Desbloqueja"
+msgstr "Bloc 7"
 
 #: ../sheets/IsometricMap.sheet.in.h:8
 msgid "Car 1, Front View"
-msgstr ""
+msgstr "Cotxe 1, vista frontal"
 
 #: ../sheets/IsometricMap.sheet.in.h:9
 msgid "Car 2, Rear View"
-msgstr ""
+msgstr "Cotxe 2, vista posterior"
 
 #: ../sheets/IsometricMap.sheet.in.h:10
-#, fuzzy
 msgid "Corner 1"
-msgstr "Courier"
+msgstr "Cantonada 1"
 
 #: ../sheets/IsometricMap.sheet.in.h:11
-#, fuzzy
 msgid "Corner 2"
-msgstr "Courier"
+msgstr "Cantonada 2"
 
 #: ../sheets/IsometricMap.sheet.in.h:12
-#, fuzzy
 msgid "Crossroads"
-msgstr "Creu"
+msgstr "Encreuament"
 
 #: ../sheets/IsometricMap.sheet.in.h:13
 msgid "Elevated Road"
-msgstr ""
+msgstr "Carretera elevada"
 
 #: ../sheets/IsometricMap.sheet.in.h:14
-#, fuzzy
 msgid "Factory"
-msgstr "Actor"
+msgstr "Fàbrica"
 
 #: ../sheets/IsometricMap.sheet.in.h:15
 msgid "Footbridge, Pedestrian Bridge"
-msgstr ""
+msgstr "Pont per als vianants"
 
 #. use dc:description instead?
 #: ../sheets/IsometricMap.sheet.in.h:17
 msgid "Isometric Directional Map Shapes"
-msgstr ""
+msgstr "Formes de mapa direccional isomètric"
 
 #: ../sheets/IsometricMap.sheet.in.h:18
 msgid "Long Straight Road Section"
-msgstr ""
+msgstr "Secció de carretera recta"
 
 #. use dc:title instead?
 #: ../sheets/IsometricMap.sheet.in.h:20
 msgid "Map, Isometric"
-msgstr ""
+msgstr "Mapa, isomètric"
 
 #: ../sheets/IsometricMap.sheet.in.h:21
 msgid "One Way Road Sign"
-msgstr ""
+msgstr "Senyal de carretera d'un sol sentit"
 
 #: ../sheets/IsometricMap.sheet.in.h:22
-#, fuzzy
 msgid "River"
-msgstr "Inverteix"
+msgstr "Riu"
 
 #: ../sheets/IsometricMap.sheet.in.h:23
-#, fuzzy
 msgid "Road Section"
-msgstr "Rotació"
+msgstr "Secció de carretera"
 
 #: ../sheets/IsometricMap.sheet.in.h:24
-#, fuzzy
 msgid "Roof1"
-msgstr "Rotor"
+msgstr "Teulada1"
 
 #: ../sheets/IsometricMap.sheet.in.h:25
-#, fuzzy
 msgid "T-Junction"
-msgstr "Funció"
+msgstr "Creuament en T"
 
 #: ../sheets/IsometricMap.sheet.in.h:26
 msgid "Train 1, angled downward"
-msgstr ""
+msgstr "Tren 1, mirant avall"
 
 #: ../sheets/IsometricMap.sheet.in.h:27
 msgid "Train 2, angled upward"
-msgstr ""
+msgstr "Tren 2, mirant amunt"
 
 #: ../sheets/IsometricMap.sheet.in.h:28
 msgid "Tree 1"
-msgstr ""
+msgstr "Arbre 1"
 
 #: ../sheets/Istar.sheet.in.h:1
 msgid "An i* agent"
-msgstr ""
+msgstr "Un agent de i*"
 
 #: ../sheets/Istar.sheet.in.h:2
 msgid "An i* decomposition link"
-msgstr ""
+msgstr "Un enllaç de descomposició de i*"
 
 #: ../sheets/Istar.sheet.in.h:3
 msgid "An i* dependency link"
-msgstr ""
+msgstr "Un enllaç de dependència de i*"
 
 #: ../sheets/Istar.sheet.in.h:4
 msgid "An i* goal"
-msgstr ""
+msgstr "Un objectiu de i*"
 
 #: ../sheets/Istar.sheet.in.h:5
 msgid "An i* means-ends link"
-msgstr ""
+msgstr "Un enllaç mitjans-fins de i*"
 
 #: ../sheets/Istar.sheet.in.h:6
 msgid "An i* negative contribution"
-msgstr ""
+msgstr "Una contribució negativa de i*"
 
 #: ../sheets/Istar.sheet.in.h:7
-#, fuzzy
 msgid "An i* position"
-msgstr "Composició"
+msgstr "Una posició de i*"
 
 #: ../sheets/Istar.sheet.in.h:8
 msgid "An i* positive contribution"
-msgstr ""
+msgstr "Una contribució positiva de i*"
 
 #: ../sheets/Istar.sheet.in.h:9
 msgid "An i* resource"
-msgstr ""
+msgstr "Un recurs de i*"
 
 #: ../sheets/Istar.sheet.in.h:10
 msgid "An i* role"
-msgstr ""
+msgstr "Un rol de i*"
 
 #: ../sheets/Istar.sheet.in.h:11
 msgid "An i* softgoal"
-msgstr ""
+msgstr "Un objectiu suau de i*"
 
 #: ../sheets/Istar.sheet.in.h:12
 msgid "An i* task"
-msgstr ""
+msgstr "Una tasca de i*"
 
 #: ../sheets/Istar.sheet.in.h:13
 msgid "An i* unspecified actor"
-msgstr ""
+msgstr "Un actor indeterminat de i*"
 
 #: ../sheets/Istar.sheet.in.h:14
 msgid "An i* unspecified link"
-msgstr ""
+msgstr "Un enllaç indeterminat de i*"
 
 #: ../sheets/Istar.sheet.in.h:15
-#, fuzzy
 msgid "Objects to design i* diagrams"
-msgstr "Objectes per dissenyar diagrames SADT"
+msgstr "Objectes per dissenyar diagrames i*"
 
 #: ../sheets/Istar.sheet.in.h:16
 msgid "RE-i*"
-msgstr ""
+msgstr "RE-i*"
 
 #: ../sheets/Jackson.sheet.in.h:1
 msgid "A Jackson designed domain"
-msgstr ""
+msgstr "Un domini dissenyat de Jackson"
 
 #: ../sheets/Jackson.sheet.in.h:2
 msgid "A Jackson given domain"
-msgstr ""
+msgstr "Un domini donat de Jackson"
 
 #: ../sheets/Jackson.sheet.in.h:3
 msgid "A Jackson machine domain"
-msgstr ""
+msgstr "Un domini màquina de Jackson"
 
 #: ../sheets/Jackson.sheet.in.h:4
 msgid "A Jackson requirement"
-msgstr ""
+msgstr "Un requisit de Jackson"
 
 #: ../sheets/Jackson.sheet.in.h:5
 msgid "A Jackson requirement phenomenon"
-msgstr ""
+msgstr "Un fenomen requisit de Jackson"
 
 #: ../sheets/Jackson.sheet.in.h:6
 msgid "A Jackson shared phenomenon"
-msgstr ""
+msgstr "Un fenomen compartit de Jackson"
 
 #: ../sheets/Jackson.sheet.in.h:7
-#, fuzzy
 msgid "Objects to design Jackson diagrams"
-msgstr "Objectes per dissenyar diagrames SADT"
+msgstr "Objectes per dissenyar diagrames Jackson"
 
 #: ../sheets/Jackson.sheet.in.h:8
 msgid "RE-Jackson"
-msgstr ""
+msgstr "RE-Jackson"
 
 #: ../sheets/KAOS.sheet.in.h:1
 msgid "A KAOS AND refinement"
-msgstr ""
+msgstr "Un refinament I de KAOS"
 
 #: ../sheets/KAOS.sheet.in.h:2
 msgid "A KAOS OR refinement"
-msgstr ""
+msgstr "Un refinament O de KAOS"
 
 #: ../sheets/KAOS.sheet.in.h:3
-#, fuzzy
 msgid "A KAOS agent"
-msgstr "Afegeix un segment"
+msgstr "Un agent de KAOS"
 
 #: ../sheets/KAOS.sheet.in.h:4
 msgid "A KAOS assumption"
-msgstr ""
+msgstr "Una assumpció de KAOS"
 
 #: ../sheets/KAOS.sheet.in.h:5
 msgid "A KAOS binary conflict"
-msgstr ""
+msgstr "Un conflicte binari de KAOS"
 
 #: ../sheets/KAOS.sheet.in.h:6
 msgid "A KAOS capable-of"
-msgstr ""
+msgstr "Un capaç-de KAOS"
 
 #: ../sheets/KAOS.sheet.in.h:7
 msgid "A KAOS complete AND refinement"
-msgstr ""
+msgstr "Un refinament I complet de KAOS"
 
 #: ../sheets/KAOS.sheet.in.h:8
 msgid "A KAOS complete OR refinement"
-msgstr ""
+msgstr "Un refinament O complet de KAOS"
 
 #: ../sheets/KAOS.sheet.in.h:9
 msgid "A KAOS contribution"
-msgstr ""
+msgstr "Una contribució de KAOS"
 
 #: ../sheets/KAOS.sheet.in.h:10
 msgid "A KAOS control link"
-msgstr ""
+msgstr "Un enllaç de control de KAOS"
 
 #: ../sheets/KAOS.sheet.in.h:11
 msgid "A KAOS goal"
-msgstr ""
+msgstr "Un objectiu de KAOS"
 
 #: ../sheets/KAOS.sheet.in.h:12
 msgid "A KAOS input"
-msgstr ""
+msgstr "Una entrada de KAOS"
 
 #: ../sheets/KAOS.sheet.in.h:13
 msgid "A KAOS monitor link"
-msgstr ""
+msgstr "Un enllaç de monitor de KAOS"
 
 #: ../sheets/KAOS.sheet.in.h:14
 msgid "A KAOS obstacle"
-msgstr ""
+msgstr "Un obstacle de KAOS"
 
 #: ../sheets/KAOS.sheet.in.h:15
 msgid "A KAOS obstruction"
-msgstr ""
+msgstr "Una obstrucció de KAOS"
 
 #: ../sheets/KAOS.sheet.in.h:16
-#, fuzzy
 msgid "A KAOS operation"
-msgstr "Operacions"
+msgstr "Una operació de KAOS"
 
 #: ../sheets/KAOS.sheet.in.h:17
+#, fuzzy
 msgid "A KAOS operationalization"
-msgstr ""
+msgstr "Una operacionalització de KAOS"
 
 #: ../sheets/KAOS.sheet.in.h:18
 msgid "A KAOS output"
-msgstr ""
+msgstr "Una sortida de KAOS"
 
 #: ../sheets/KAOS.sheet.in.h:19
 msgid "A KAOS performs"
-msgstr ""
+msgstr "Una execució de KAOS"
 
 #: ../sheets/KAOS.sheet.in.h:20
 msgid "A KAOS requirement"
-msgstr ""
+msgstr "Un requisit de KAOS"
 
 #: ../sheets/KAOS.sheet.in.h:21
 msgid "A KAOS responsibility"
-msgstr ""
+msgstr "Una responsabilitat de KAOS"
 
 #: ../sheets/KAOS.sheet.in.h:22
 msgid "A KAOS softgoal"
-msgstr ""
+msgstr "Un objectiu suau de KAOS"
 
 #: ../sheets/KAOS.sheet.in.h:23
-#, fuzzy
 msgid "Objects to design KAOS diagrams"
-msgstr "Objectes per dissenyar diagrames SADT"
+msgstr "Objectes per dissenyar diagrames KAOS"
 
 #: ../sheets/KAOS.sheet.in.h:24
 msgid "RE-KAOS"
-msgstr ""
+msgstr "RE-KAOS"
 
 #: ../sheets/Logic.sheet.in.h:1
 msgid "AND gate"
@@ -6972,7 +6835,7 @@ msgstr "Lògica booleana"
 
 #: ../sheets/Logic.sheet.in.h:3
 msgid "Crossconnector"
-msgstr ""
+msgstr "Connector creuat"
 
 #: ../sheets/Logic.sheet.in.h:4
 msgid "Inverter"
@@ -7036,7 +6899,7 @@ msgstr "Terminal de comunicacions d'un satèl·lit de comunicacions"
 
 #: ../sheets/MSE.sheet.in.h:8
 msgid "U.S. Army Mobile Subscriber Equipment Components"
-msgstr ""
+msgstr "Components de l'equipament del subscriptor mòbil de l'exèrcit dels EUA"
 
 #: ../sheets/Misc.sheet.in.h:2
 msgid "Folder"
@@ -7048,7 +6911,7 @@ msgstr "Figures variades"
 
 #: ../sheets/Misc.sheet.in.h:5
 msgid "New-style group object, for testing"
-msgstr ""
+msgstr "Grup d'objectes amb un nou estil, per a proves"
 
 #: ../sheets/Misc.sheet.in.h:6
 msgid "Traditional clock"
@@ -7056,19 +6919,19 @@ msgstr "Rellotge tradicional"
 
 #: ../sheets/Pneumatic.sheet.in.h:1
 msgid "2/2 distributor"
-msgstr "Distribuidor 2/2"
+msgstr "Distribuïdor 2/2"
 
 #: ../sheets/Pneumatic.sheet.in.h:2
 msgid "3/2 distributor"
-msgstr "Distribuidor 3/2"
+msgstr "Distribuïdor 3/2"
 
 #: ../sheets/Pneumatic.sheet.in.h:3
 msgid "4/2 distributor"
-msgstr "Distribuidor 4/2"
+msgstr "Distribuïdor 4/2"
 
 #: ../sheets/Pneumatic.sheet.in.h:4
 msgid "5/2 distributor"
-msgstr "Distribuidor 5/2"
+msgstr "Distribuïdor 5/2"
 
 #: ../sheets/Pneumatic.sheet.in.h:5
 msgid "Air exhaust orifice"
@@ -7080,7 +6943,7 @@ msgstr "Components pels circuits hidràulics i pneumàtics"
 
 #: ../sheets/Pneumatic.sheet.in.h:8
 msgid "Double-effect jack"
-msgstr ""
+msgstr "Gat de doble efecte"
 
 #: ../sheets/Pneumatic.sheet.in.h:9
 msgid "Electric command (double coil)"
@@ -7100,31 +6963,31 @@ msgstr "Origen de pressió hidràulica"
 
 #: ../sheets/Pneumatic.sheet.in.h:13
 msgid "Indirect command by hydraulic driver"
-msgstr ""
+msgstr "Comandament indirecte per transmissió hidràulica"
 
 #: ../sheets/Pneumatic.sheet.in.h:14
 msgid "Indirect command by pneumatic driver"
-msgstr ""
+msgstr "Comandament indirecte per transmissió pneumàtica"
 
 #: ../sheets/Pneumatic.sheet.in.h:15
 msgid "Mechanical command by spring"
-msgstr ""
+msgstr "Comandament mecànic per molla"
 
 #: ../sheets/Pneumatic.sheet.in.h:16
 msgid "Mechanical command by tappet"
-msgstr ""
+msgstr "Comandament mecànic per corissó"
 
 #: ../sheets/Pneumatic.sheet.in.h:17
 msgid "Muscular command"
-msgstr ""
+msgstr "Comandament muscular"
 
 #: ../sheets/Pneumatic.sheet.in.h:18
 msgid "Normally-in simple-effect jack"
-msgstr ""
+msgstr "Gat de simple efecte normalment dins"
 
 #: ../sheets/Pneumatic.sheet.in.h:19
 msgid "Normally-out simple-effect jack"
-msgstr ""
+msgstr "Gat de simple efecte normalment fora"
 
 #: ../sheets/Pneumatic.sheet.in.h:20
 msgid "Pneumatic pressure source"
@@ -7136,11 +6999,11 @@ msgstr "Pneumàtic/Hidràulic"
 
 #: ../sheets/Pneumatic.sheet.in.h:22
 msgid "Push-button command"
-msgstr ""
+msgstr "Comandament amb polsador"
 
 #: ../sheets/SADT.sheet.in.h:1
 msgid "Activity/data box"
-msgstr "Activitat/caixa de dades"
+msgstr "Caixa d'activitat/dades"
 
 #: ../sheets/SADT.sheet.in.h:2
 msgid "Activity/data flow arrow"
@@ -7248,7 +7111,7 @@ msgstr "Editor de diagrames d'estructures estàtiques UML"
 
 #: ../sheets/UML.sheet.in.h:15
 msgid "Fork/union"
-msgstr "Bifurcar/unir"
+msgstr "Bifurcació/unió"
 
 #: ../sheets/UML.sheet.in.h:16
 msgid "Generalization, class inheritance"
@@ -7288,7 +7151,7 @@ msgstr "Objecte"
 
 #: ../sheets/UML.sheet.in.h:25
 msgid "Realizes, implements a specific interface"
-msgstr ""
+msgstr "Realitza, implementa una interfície específica"
 
 #: ../sheets/UML.sheet.in.h:27
 msgid "Small package"
@@ -7345,7 +7208,7 @@ msgstr "Figures d'ordinadors de Cisco"
 
 #: ../sheets/ciscocomputer.sheet.in.h:7
 msgid "Disk subsystem"
-msgstr ""
+msgstr "Subsistema del disc"
 
 #: ../sheets/ciscocomputer.sheet.in.h:8
 msgid "Diskette"
@@ -7367,7 +7230,7 @@ msgstr "Servidor de fitxers"
 
 #: ../sheets/ciscocomputer.sheet.in.h:12
 msgid "Front End Processor"
-msgstr ""
+msgstr "Processador per a l'interfície amb l'usuari"
 
 #: ../sheets/ciscocomputer.sheet.in.h:13
 msgid "HP Mini"
@@ -7394,13 +7257,12 @@ msgid "IBM mainframe"
 msgstr "Servidor IBM"
 
 #: ../sheets/ciscocomputer.sheet.in.h:19
-#, fuzzy
 msgid "IBM mainframe with FEP"
-msgstr "Servidor IBM"
+msgstr "Unitat principal IBM amb FEP"
 
 #: ../sheets/ciscocomputer.sheet.in.h:20
 msgid "JBOD"
-msgstr ""
+msgstr "JBOD"
 
 #: ../sheets/ciscocomputer.sheet.in.h:21
 msgid "Laptop"
@@ -7416,7 +7278,7 @@ msgstr "MicroWebserver"
 
 #: ../sheets/ciscocomputer.sheet.in.h:24
 msgid "Mini VAX"
-msgstr "Mini Vax"
+msgstr "Mini VAX"
 
 #: ../sheets/ciscocomputer.sheet.in.h:25
 msgid "Modem"
@@ -7451,17 +7313,16 @@ msgid "PC Router Card"
 msgstr "Targeta d'encaminament de PC"
 
 #: ../sheets/ciscocomputer.sheet.in.h:32
-#, fuzzy
 msgid "PC Software"
-msgstr "IP Softphone"
+msgstr "Programari del PC"
 
 #: ../sheets/ciscocomputer.sheet.in.h:33
 msgid "PC Video"
-msgstr "PC vídeo"
+msgstr "Vídeo del PC"
 
 #: ../sheets/ciscocomputer.sheet.in.h:34
 msgid "PC with Router-Based Software"
-msgstr ""
+msgstr "PC amb programari basat en l'encaminament"
 
 #: ../sheets/ciscocomputer.sheet.in.h:35
 msgid "PDA"
@@ -7484,9 +7345,8 @@ msgid "Server with PC Router"
 msgstr "Servidor amb un encaminador PC"
 
 #: ../sheets/ciscocomputer.sheet.in.h:41
-#, fuzzy
 msgid "Software-Based Router on File Server"
-msgstr "Servidor basat en programari"
+msgstr "Encaminador basat en programari en un servidor de fitxers"
 
 #: ../sheets/ciscocomputer.sheet.in.h:42
 msgid "Storage array"
@@ -7498,12 +7358,11 @@ msgstr "Supercomputador"
 
 #: ../sheets/ciscocomputer.sheet.in.h:44
 msgid "Tablet"
-msgstr ""
+msgstr "Ordinador de mà"
 
 #: ../sheets/ciscocomputer.sheet.in.h:45
-#, fuzzy
 msgid "Tape array"
-msgstr "Matriu d'emmagatzematge"
+msgstr "Matriu de cinta"
 
 #: ../sheets/ciscocomputer.sheet.in.h:46
 msgid "Terminal"
@@ -7519,7 +7378,7 @@ msgstr "Navegador web"
 
 #: ../sheets/ciscocomputer.sheet.in.h:49
 msgid "Web cluster"
-msgstr ""
+msgstr "Clúster web"
 
 #: ../sheets/ciscocomputer.sheet.in.h:50
 msgid "Wireless"
@@ -7561,7 +7420,7 @@ msgstr "ATM 3800"
 #: ../sheets/ciscohub.sheet.in.h:7
 #, fuzzy
 msgid "ATM Fast Gigabit Etherswitch"
-msgstr "Encaminador per commutació d'etiqutes ATM de gigabits"
+msgstr "Encaminador per commutació d'etiquetes ATM de gigabits"
 
 #
 #: ../sheets/ciscohub.sheet.in.h:8
@@ -7571,7 +7430,7 @@ msgstr "Commutador ATM"
 #
 #: ../sheets/ciscohub.sheet.in.h:9
 msgid "ATM Tag Switch Router"
-msgstr "Encaminador per commutació d'etiqutes ATM"
+msgstr "Encaminador per commutació d'etiquetes ATM"
 
 #
 #: ../sheets/ciscohub.sheet.in.h:10
@@ -7588,11 +7447,12 @@ msgstr "Encaminador de banda ampla"
 
 #: ../sheets/ciscohub.sheet.in.h:13
 msgid "CSM-S"
-msgstr ""
+msgstr "CSM-S"
 
+# FIXME: Carrier -> operador (de telefònia, que transporta dades...) (josep)
 #: ../sheets/ciscohub.sheet.in.h:14
 msgid "Carrier Routing System"
-msgstr ""
+msgstr "Sistema d'encaminament Carrier"
 
 #
 #: ../sheets/ciscohub.sheet.in.h:15
@@ -7603,60 +7463,54 @@ msgstr "Cisco - Commutador"
 msgid "Cisco 1000"
 msgstr "Cisco 1000"
 
-#
 #: ../sheets/ciscohub.sheet.in.h:17
 msgid "Cisco Hub"
-msgstr "Cisco - Concentrador"
+msgstr "Concentrador Cisco"
 
-#
 #: ../sheets/ciscohub.sheet.in.h:18
 msgid "Content Router"
 msgstr "Encaminador de continguts"
 
 #: ../sheets/ciscohub.sheet.in.h:19
-#, fuzzy
 msgid "Content Service Module"
-msgstr "Encaminador de serveis de continguts"
+msgstr "Mòdul de serveis de continguts"
 
 #: ../sheets/ciscohub.sheet.in.h:20
-#, fuzzy
 msgid "Content Service Switch 1100"
 msgstr "Commutador de servei de continguts 1100"
 
-#
 #: ../sheets/ciscohub.sheet.in.h:21
 msgid "Content Switch"
 msgstr "Commutador de continguts"
 
 #: ../sheets/ciscohub.sheet.in.h:22
-#, fuzzy
 msgid "Data Center Switch"
-msgstr "Amplada de la línia de dades"
+msgstr "Interruptor del centre de dades"
 
 #: ../sheets/ciscohub.sheet.in.h:23
+#, fuzzy
 msgid "Data Center Switch Reversed"
-msgstr ""
+msgstr "Interruptor oposat del centre de dades"
 
 #: ../sheets/ciscohub.sheet.in.h:24
-#, fuzzy
 msgid "Data Switch Processor"
-msgstr "Processador del commutador de rutes"
+msgstr "Processador del commutador de dades"
 
 #: ../sheets/ciscohub.sheet.in.h:25
 msgid "Director-class Fibre Channel intelligent switch"
-msgstr ""
+msgstr "Interruptor intel·ligent del canal de fibra de classe Director"
 
 #: ../sheets/ciscohub.sheet.in.h:26
 #, fuzzy
 msgid "Edge Label Switch Router"
-msgstr "Servidor amb un encaminador PC"
+msgstr "Encaminador "
 
 #: ../sheets/ciscohub.sheet.in.h:27
+#, fuzzy
 msgid "Edge Label Switch Router with NetFlow"
-msgstr ""
+msgstr "Encaminador "
 
 #: ../sheets/ciscohub.sheet.in.h:28
-#, fuzzy
 msgid "Generic Processor"
 msgstr "Processador genèric"
 
@@ -7666,70 +7520,59 @@ msgstr "Concentrador"
 
 #: ../sheets/ciscohub.sheet.in.h:30
 msgid "Hub subdued"
-msgstr ""
+msgstr "Concentrador suavitzat"
 
 #: ../sheets/ciscohub.sheet.in.h:31
 msgid "ISDN switch"
 msgstr "Commutador ISDN"
 
 #: ../sheets/ciscohub.sheet.in.h:32
-#, fuzzy
 msgid "LAN2LAN Switch"
-msgstr "Canvia"
+msgstr "Commutador LAN2LAN"
 
 #: ../sheets/ciscohub.sheet.in.h:33
-#, fuzzy
 msgid "Label Switch Router"
-msgstr "Servidor amb un encaminador PC"
+msgstr "Encaminador d'interruptor d'etiqueta"
 
-#
 #: ../sheets/ciscohub.sheet.in.h:34
 msgid "Layer 2 Remote Switch"
 msgstr "Commutador de capa 2 remot"
 
-#
 #: ../sheets/ciscohub.sheet.in.h:35
 msgid "MGX 8220"
 msgstr "MGX 8220"
 
-#
 #: ../sheets/ciscohub.sheet.in.h:36
 msgid "MGX 8240"
 msgstr "MGX 8240"
 
 #: ../sheets/ciscohub.sheet.in.h:37
-#, fuzzy
 msgid "MGX 8260"
 msgstr "MGX 8260"
 
 #: ../sheets/ciscohub.sheet.in.h:38
-#, fuzzy
 msgid "Multi-Fabric Server Switch"
-msgstr "Commutador multicapa"
+msgstr "Commutador de servidor multi-teixit"
 
 #: ../sheets/ciscohub.sheet.in.h:39
-#, fuzzy
 msgid "MultiSwitch Device"
 msgstr "Dispositiu multicommutador"
 
 #: ../sheets/ciscohub.sheet.in.h:40
-#, fuzzy
 msgid "Multilayer Remote Switch"
-msgstr "Commutador multicapa"
+msgstr "Commutador remot multicapa"
 
 #: ../sheets/ciscohub.sheet.in.h:41
-#, fuzzy
 msgid "Multilayer Switch"
 msgstr "Commutador multicapa"
 
 #: ../sheets/ciscohub.sheet.in.h:42
-#, fuzzy
 msgid "Multilayer Switch with Silicon"
-msgstr "Commutador multicapa"
+msgstr "Commutador multicapa amb silici"
 
 #: ../sheets/ciscohub.sheet.in.h:43
 msgid "Multilayer Switch with Silicon subdued"
-msgstr ""
+msgstr "Commutador multicapa amb silici suavitzat"
 
 #: ../sheets/ciscohub.sheet.in.h:44
 msgid "NetFlow router"
@@ -7737,15 +7580,13 @@ msgstr "Encaminador NetFlow"
 
 #: ../sheets/ciscohub.sheet.in.h:45
 msgid "NetRanger"
-msgstr ""
+msgstr "NetRanger"
 
 #: ../sheets/ciscohub.sheet.in.h:46
-#, fuzzy
 msgid "NetSonar"
-msgstr "Xarxa"
+msgstr "NetSonar"
 
 #: ../sheets/ciscohub.sheet.in.h:47
-#, fuzzy
 msgid "Optical Services Router"
 msgstr "Encaminador de serveis òptics"
 
@@ -7754,7 +7595,6 @@ msgid "PXF"
 msgstr "PXF"
 
 #: ../sheets/ciscohub.sheet.in.h:49
-#, fuzzy
 msgid "Programmable Switch"
 msgstr "Commutador programable"
 
@@ -7763,137 +7603,116 @@ msgid "RateMUX"
 msgstr "RateMUX"
 
 #: ../sheets/ciscohub.sheet.in.h:51
-#, fuzzy
 msgid "Route Switch Processor"
 msgstr "Processador del commutador de rutes"
 
 #: ../sheets/ciscohub.sheet.in.h:52
-#, fuzzy
 msgid "Route Switch Processor with Si"
-msgstr "Processador del commutador de rutes"
+msgstr "Processador del commutador de rutes amb Si"
 
 #: ../sheets/ciscohub.sheet.in.h:53
 msgid "Router"
 msgstr "Encaminador"
 
 #: ../sheets/ciscohub.sheet.in.h:54
-#, fuzzy
 msgid "Router and switch shapes by Cisco"
-msgstr "Figures del commutador i el concentrador de Cisco"
+msgstr "Figures del commutador i l'encaminador de Cisco"
 
 #: ../sheets/ciscohub.sheet.in.h:55
-#, fuzzy
 msgid "Router subdued"
-msgstr "Símbol de l'encaminador"
+msgstr "Encaminador suavitzat"
 
 #: ../sheets/ciscohub.sheet.in.h:56
-#, fuzzy
 msgid "Router with Firewall"
 msgstr "Encaminador amb tallafoc"
 
 #: ../sheets/ciscohub.sheet.in.h:57
-#, fuzzy
 msgid "Router with Silicon Switch"
 msgstr "Encaminador amb commutador de silici"
 
 #: ../sheets/ciscohub.sheet.in.h:58
-#, fuzzy
 msgid "Server Switch"
-msgstr "Servidor amb un encaminador PC"
+msgstr "Commutador del servidor"
 
 #: ../sheets/ciscohub.sheet.in.h:59
-#, fuzzy
 msgid "Small Hub"
 msgstr "Concentrador petit"
 
 #: ../sheets/ciscohub.sheet.in.h:60
-#, fuzzy
 msgid "Storage Router"
 msgstr "Encaminador d'emmagatzemament"
 
 #: ../sheets/ciscohub.sheet.in.h:61
-#, fuzzy
 msgid "Switch Processor"
-msgstr "Processador del commutador de rutes"
+msgstr "Processador del commutador"
 
 #: ../sheets/ciscohub.sheet.in.h:62
-#, fuzzy
 msgid "Universal Gateway"
 msgstr "Passarel·la universal"
 
 #: ../sheets/ciscohub.sheet.in.h:63
-#, fuzzy
 msgid "Virtual Layer Switch"
-msgstr "Commutador multicapa"
+msgstr "Commutador de capes virtuals"
 
 #: ../sheets/ciscohub.sheet.in.h:64
 msgid "Wavelength router"
-msgstr "Encaminador de Wavelength"
+msgstr "Encaminador de longitud d'ona"
 
 #: ../sheets/ciscohub.sheet.in.h:65
-#, fuzzy
 msgid "Wireless router"
-msgstr "Encaminador tallafocs"
+msgstr "Encaminador sense fil"
 
 #: ../sheets/ciscohub.sheet.in.h:66
-#, fuzzy
 msgid "Workgroup 5000"
-msgstr "Commutador de grup de treball"
+msgstr "Grup de treball 5000"
 
 #: ../sheets/ciscohub.sheet.in.h:67
-#, fuzzy
 msgid "Workgroup 5002"
-msgstr "Commutador de grup de treball"
+msgstr "Grup de treball 5002"
 
 #: ../sheets/ciscohub.sheet.in.h:68
-#, fuzzy
 msgid "Workgroup 5500"
-msgstr "Commutador de grup de treball"
+msgstr "Grup de treball 5500"
 
 #: ../sheets/ciscohub.sheet.in.h:69
 msgid "Workgroup Fibre Channel intelligent switch"
-msgstr ""
+msgstr "Commutador intel·ligent pel canal de fibra del grup de treball"
 
 #: ../sheets/ciscohub.sheet.in.h:70
-#, fuzzy
 msgid "Workgroup Switch Voice-Enabled"
-msgstr "Commutador de grup de treball"
+msgstr "Commutador de grup de treball amb veu habilitada"
 
 #: ../sheets/ciscohub.sheet.in.h:71
 msgid "Workgroup switch"
 msgstr "Commutador de grup de treball"
 
 #: ../sheets/ciscohub.sheet.in.h:72
-#, fuzzy
 msgid "Workgroup switch Subdued"
-msgstr "Commutador de grup de treball"
+msgstr "Commutador de grup de treball suavitzat"
 
 #: ../sheets/ciscohub.sheet.in.h:73
-#, fuzzy
 msgid "iSCSI switch"
-msgstr "Commutador ISDN"
+msgstr "Commutador iSCSI"
 
 #: ../sheets/ciscomisc.sheet.in.h:1
 msgid "Androgynous Person"
-msgstr ""
+msgstr "Persona andrògina"
 
 #: ../sheets/ciscomisc.sheet.in.h:2
 msgid "Antenna"
-msgstr ""
+msgstr "Antena"
 
 #: ../sheets/ciscomisc.sheet.in.h:3
 msgid "Branch office"
-msgstr "Oficina branca"
+msgstr "Oficina filial"
 
 #: ../sheets/ciscomisc.sheet.in.h:4
-#, fuzzy
 msgid "Branch office blue"
-msgstr "Oficina branca"
+msgstr "Oficina filial blava"
 
 #: ../sheets/ciscomisc.sheet.in.h:5
-#, fuzzy
 msgid "Branch office subdued"
-msgstr "Oficina branca"
+msgstr "Oficina filial suavitzada"
 
 #: ../sheets/ciscomisc.sheet.in.h:6
 msgid "Car"
@@ -7904,52 +7723,44 @@ msgid "Cisco - Misc"
 msgstr "Cisco - Variat"
 
 #: ../sheets/ciscomisc.sheet.in.h:8
-#, fuzzy
 msgid "CiscoWorks Man"
-msgstr "Estació de treball CiscoWorks"
+msgstr "Home de CiscoWorks"
 
 #: ../sheets/ciscomisc.sheet.in.h:9
 msgid "File cabinet"
 msgstr "Arxivador de fitxers"
 
 #: ../sheets/ciscomisc.sheet.in.h:10
-#, fuzzy
 msgid "Generic Building"
 msgstr "Edificació genèrica"
 
 #: ../sheets/ciscomisc.sheet.in.h:11
-#, fuzzy
 msgid "Generic Building blue"
-msgstr "Edificació genèrica"
+msgstr "Edificació genèrica blava"
 
 #: ../sheets/ciscomisc.sheet.in.h:12
-#, fuzzy
 msgid "Generic Building subdued"
-msgstr "Edificació genèrica"
+msgstr "Edificació genèrica suavitzada"
 
 #: ../sheets/ciscomisc.sheet.in.h:13
-#, fuzzy
 msgid "Government Building"
 msgstr "Edificació del govern"
 
 #: ../sheets/ciscomisc.sheet.in.h:14
-#, fuzzy
 msgid "Headphones"
-msgstr "Telèfon"
+msgstr "Auriculars"
 
 #: ../sheets/ciscomisc.sheet.in.h:15
-#, fuzzy
 msgid "Home office"
-msgstr "Oficina final"
+msgstr "Oficina principal"
 
 #: ../sheets/ciscomisc.sheet.in.h:16
-#, fuzzy
 msgid "House"
-msgstr "Ordinador central"
+msgstr "Casa"
 
 #: ../sheets/ciscomisc.sheet.in.h:17
 msgid "House blue"
-msgstr ""
+msgstr "Casa blava"
 
 #: ../sheets/ciscomisc.sheet.in.h:18
 msgid "Key"
@@ -7957,74 +7768,67 @@ msgstr "Clau"
 
 #: ../sheets/ciscomisc.sheet.in.h:20
 msgid "Lock and Key"
-msgstr ""
+msgstr "Cadenat"
 
 #: ../sheets/ciscomisc.sheet.in.h:21
 msgid "MDU"
 msgstr "MDU"
 
 #: ../sheets/ciscomisc.sheet.in.h:22
-#, fuzzy
 msgid "Mac Woman"
 msgstr "Dona Mac"
 
 #: ../sheets/ciscomisc.sheet.in.h:23
-#, fuzzy
 msgid "Man"
-msgstr "Augmenta"
+msgstr "Home"
 
 #: ../sheets/ciscomisc.sheet.in.h:24
 msgid "Man blue"
-msgstr ""
+msgstr "Home blau"
 
 #: ../sheets/ciscomisc.sheet.in.h:25
 msgid "Man gold"
-msgstr ""
+msgstr "Home daurat"
 
 #: ../sheets/ciscomisc.sheet.in.h:26
-#, fuzzy
 msgid "Man red"
-msgstr "Forma"
+msgstr "Home vermell"
 
 #: ../sheets/ciscomisc.sheet.in.h:27
-#, fuzzy
 msgid "Medium Building"
-msgstr "Edificació genèrica"
+msgstr "Edificació mitjana"
 
 #: ../sheets/ciscomisc.sheet.in.h:28
 msgid "Medium Building blue"
-msgstr ""
+msgstr "Edificació mitjana blava"
 
 #: ../sheets/ciscomisc.sheet.in.h:29
 msgid "Medium Building subdued"
-msgstr ""
+msgstr "Edificació mitjana suavitzada"
 
 #: ../sheets/ciscomisc.sheet.in.h:31
 msgid "Miscellaneous shapes by Cisco"
 msgstr "Figures variades de Cisco"
 
 #: ../sheets/ciscomisc.sheet.in.h:32
-#, fuzzy
 msgid "PC Man"
 msgstr "Home PC"
 
 #: ../sheets/ciscomisc.sheet.in.h:33
 msgid "PC Man left"
-msgstr ""
+msgstr "Home PC esquerra"
 
 #: ../sheets/ciscomisc.sheet.in.h:34
 msgid "Running man"
 msgstr "Home que està corrent"
 
 #: ../sheets/ciscomisc.sheet.in.h:35
-#, fuzzy
 msgid "Running man subdued"
-msgstr "Home que està corrent"
+msgstr "Home que està corrent suavitzat"
 
 #: ../sheets/ciscomisc.sheet.in.h:36
-#, fuzzy
 msgid "Running woman"
-msgstr "Home que està corrent"
+msgstr "Dona que està corrent"
 
 #: ../sheets/ciscomisc.sheet.in.h:37
 msgid "Satellite"
@@ -8035,29 +7839,24 @@ msgid "Satellite dish"
 msgstr "Antena del satèl·lit"
 
 #: ../sheets/ciscomisc.sheet.in.h:39
-#, fuzzy
 msgid "Sitting Woman"
 msgstr "Dona que està asseguda"
 
 #: ../sheets/ciscomisc.sheet.in.h:40
-#, fuzzy
 msgid "Sitting Woman right"
-msgstr "Dona que està asseguda"
+msgstr "Dona que està asseguda amb el PC a la dreta"
 
 #: ../sheets/ciscomisc.sheet.in.h:41
-#, fuzzy
 msgid "Small Business"
-msgstr "Petit negoci"
+msgstr "Negoci petit"
 
 #: ../sheets/ciscomisc.sheet.in.h:43
-#, fuzzy
 msgid "Standing Man"
 msgstr "Home que està dret"
 
 #: ../sheets/ciscomisc.sheet.in.h:44
-#, fuzzy
 msgid "Standing woman"
-msgstr "Home que està dret"
+msgstr "Dona que està dreta"
 
 #: ../sheets/ciscomisc.sheet.in.h:45
 msgid "Telecommuter"
@@ -8068,9 +7867,8 @@ msgid "Telecommuter house"
 msgstr "Lloc del telecommutador"
 
 #: ../sheets/ciscomisc.sheet.in.h:47
-#, fuzzy
 msgid "Telecommuter house subdued"
-msgstr "Lloc del telecommutador"
+msgstr "Lloc del telecommutador suavitzat"
 
 #: ../sheets/ciscomisc.sheet.in.h:48
 msgid "Truck"
@@ -8081,32 +7879,28 @@ msgid "University"
 msgstr "Universitat"
 
 #: ../sheets/ciscomisc.sheet.in.h:50
-#, fuzzy
 msgid "Video Camera"
 msgstr "Càmera de vídeo"
 
 #: ../sheets/ciscomisc.sheet.in.h:51
-#, fuzzy
 msgid "Video Camera right"
-msgstr "Càmera de vídeo"
+msgstr "Càmera de vídeo cap a l'esquerra"
 
 #: ../sheets/ciscomisc.sheet.in.h:52
-#, fuzzy
 msgid "Woman"
-msgstr "Home/Dona"
+msgstr "Dona"
 
 #: ../sheets/ciscomisc.sheet.in.h:53
 msgid "Woman blue"
-msgstr ""
+msgstr "Dona blava"
 
 #: ../sheets/ciscomisc.sheet.in.h:54
 msgid "Woman gold"
-msgstr ""
+msgstr "Dona daurada"
 
 #: ../sheets/ciscomisc.sheet.in.h:55
-#, fuzzy
 msgid "Woman red"
-msgstr "Mateix tipus"
+msgstr "Dona vermella"
 
 #: ../sheets/cisconetwork.sheet.in.h:1
 msgid "10700"
@@ -8117,22 +7911,20 @@ msgid "15200"
 msgstr "15200"
 
 #: ../sheets/cisconetwork.sheet.in.h:3
-#, fuzzy
 msgid "15800"
-msgstr "15200"
+msgstr "15800"
 
 #: ../sheets/cisconetwork.sheet.in.h:4
 msgid "3174 (desktop) cluster controller"
-msgstr ""
+msgstr "Controlador del clúster 3174 (escriptori)"
 
 #: ../sheets/cisconetwork.sheet.in.h:5
 msgid "3X74 (floor) cluster controller"
-msgstr ""
+msgstr "Controlador del clúster 3x74 (terra)"
 
 #: ../sheets/cisconetwork.sheet.in.h:6
-#, fuzzy
 msgid "Access Server"
-msgstr "Servidor de fitxers"
+msgstr "Servidor d'accés"
 
 #: ../sheets/cisconetwork.sheet.in.h:7
 msgid "AccessPoint"
@@ -8140,7 +7932,7 @@ msgstr "Punt d'accés"
 
 #: ../sheets/cisconetwork.sheet.in.h:8
 msgid "Automatic Protection Switching"
-msgstr ""
+msgstr "Commutador de protecció automàtic"
 
 #: ../sheets/cisconetwork.sheet.in.h:9
 msgid "BBFW"
@@ -8148,23 +7940,21 @@ msgstr "BBFW"
 
 #: ../sheets/cisconetwork.sheet.in.h:10
 msgid "BBFW media"
-msgstr ""
+msgstr "Medi BBFW"
 
 #: ../sheets/cisconetwork.sheet.in.h:11
 msgid "Breakout box"
-msgstr ""
+msgstr "Capsa de fugues"
 
 #: ../sheets/cisconetwork.sheet.in.h:12
 msgid "Bridge"
 msgstr "Pont"
 
 #: ../sheets/cisconetwork.sheet.in.h:13
-#, fuzzy
 msgid "CDDI/FDDI Concentrator"
-msgstr "Concentrador de VPN"
+msgstr "Concentrador de CDDI/FDDI"
 
 #: ../sheets/cisconetwork.sheet.in.h:14
-#, fuzzy
 msgid "CDM Content Distribution Manager"
 msgstr "Gestor de la distribució de continguts CDM"
 
@@ -8173,24 +7963,20 @@ msgid "CSU/DSU"
 msgstr "CSU/DSU"
 
 #: ../sheets/cisconetwork.sheet.in.h:16
-#, fuzzy
 msgid "Cable Modem"
 msgstr "Mòdem de cable"
 
 #: ../sheets/cisconetwork.sheet.in.h:17
-#, fuzzy
 msgid "Catalyst Access Gateway"
 msgstr "Passarel·la d'accés Catalyst"
 
 #: ../sheets/cisconetwork.sheet.in.h:18
-#, fuzzy
 msgid "Centri Firewall"
-msgstr "Tallafocs Centri"
+msgstr "Tallafoc Centri"
 
 #: ../sheets/cisconetwork.sheet.in.h:19
-#, fuzzy
 msgid "Channelized Pipe"
-msgstr "Canal"
+msgstr "Tub canalitzat"
 
 #: ../sheets/cisconetwork.sheet.in.h:20
 msgid "Cisco - Network"
@@ -8201,31 +7987,26 @@ msgid "Cloud"
 msgstr "Núvol"
 
 #: ../sheets/cisconetwork.sheet.in.h:22
-#, fuzzy
 msgid "Cloud Dark"
-msgstr "Núvol"
+msgstr "Núvol fosc"
 
 #: ../sheets/cisconetwork.sheet.in.h:23
-#, fuzzy
 msgid "Cloud Gold"
-msgstr "Núvol"
+msgstr "Núvol daurat"
 
 #: ../sheets/cisconetwork.sheet.in.h:24
-#, fuzzy
 msgid "Cloud White"
-msgstr "Núvol"
+msgstr "Núvol blanc"
 
 #: ../sheets/cisconetwork.sheet.in.h:25
 msgid "Concatenated Payload"
-msgstr ""
+msgstr "Càrrega útil concatenada"
 
 #: ../sheets/cisconetwork.sheet.in.h:26
-#, fuzzy
 msgid "Content Engine (Cache Director)"
 msgstr "Motor de continguts (director de memòria cau)"
 
 #: ../sheets/cisconetwork.sheet.in.h:27
-#, fuzzy
 msgid "Content Transformation Engine (CTE)"
 msgstr "Motor de transformació de continguts (CTE)"
 
@@ -8234,103 +8015,88 @@ msgid "DSLAM"
 msgstr "DSLAM"
 
 #: ../sheets/cisconetwork.sheet.in.h:29
-#, fuzzy
 msgid "DWDM Filter"
 msgstr "Filtre DWDM"
 
 #: ../sheets/cisconetwork.sheet.in.h:30
-#, fuzzy
 msgid "Detector"
-msgstr "Actor"
+msgstr "Detector"
 
 #: ../sheets/cisconetwork.sheet.in.h:31
 msgid "Digital Cross-Connect"
-msgstr ""
+msgstr "Connectat en creu digitalment"
 
 #: ../sheets/cisconetwork.sheet.in.h:32
 msgid "Directory Server"
 msgstr "Servidor de directori"
 
 #: ../sheets/cisconetwork.sheet.in.h:33
-#, fuzzy
 msgid "Distributed Director"
 msgstr "Director distribuït"
 
 #: ../sheets/cisconetwork.sheet.in.h:34
-#, fuzzy
 msgid "Dual Mode AccessPoint"
-msgstr "Punt d'accés"
+msgstr "Punt d'accés en mode dual"
 
 #: ../sheets/cisconetwork.sheet.in.h:35
-#, fuzzy
 msgid "FDDI Ring"
 msgstr "Anell FDDI"
 
 #: ../sheets/cisconetwork.sheet.in.h:36
-#, fuzzy
 msgid "File Engine"
-msgstr "Arxivador de fitxers"
+msgstr "Motor de fitxers"
 
 #: ../sheets/cisconetwork.sheet.in.h:37
 msgid "Firewall"
 msgstr "Tallafoc"
 
 #: ../sheets/cisconetwork.sheet.in.h:38
-#, fuzzy
 msgid "Firewall Service Module"
-msgstr "Encaminador tallafocs"
+msgstr "Mòdul de servei de tallafoc"
 
 #: ../sheets/cisconetwork.sheet.in.h:39
-#, fuzzy
 msgid "Firewall horizontal"
-msgstr "Volteja horitzontalment"
+msgstr "Tallafoc horitzontal"
 
 #: ../sheets/cisconetwork.sheet.in.h:40
-#, fuzzy
 msgid "Firewall subdued"
-msgstr "Encaminador tallafocs"
+msgstr "Tallafoc suavitzat"
 
 #: ../sheets/cisconetwork.sheet.in.h:41
-#, fuzzy
 msgid "General Appliance"
-msgstr "Dispositiu general"
+msgstr "Aparell general"
 
 #: ../sheets/cisconetwork.sheet.in.h:42
-#, fuzzy
 msgid "Generic Gateway"
-msgstr "Pasarel·la genèrica"
+msgstr "Passarel·la genèrica"
 
 #: ../sheets/cisconetwork.sheet.in.h:44
-#, fuzzy
 msgid "IOS Firewall"
 msgstr "Tallafoc IOS"
 
 #: ../sheets/cisconetwork.sheet.in.h:45
-#, fuzzy
 msgid "IOS SLB"
-msgstr "IP DSL"
+msgstr "IOS SLB"
 
 #: ../sheets/cisconetwork.sheet.in.h:46
 msgid "IP"
 msgstr "IP"
 
 #: ../sheets/cisconetwork.sheet.in.h:47
-#, fuzzy
 msgid "IP DSL Switch"
-msgstr "Commutador ISDN"
+msgstr "Commutador IP DSL"
 
 #: ../sheets/cisconetwork.sheet.in.h:48
 msgid "IP Old-style"
-msgstr ""
+msgstr "IP d'estil antic"
 
 #: ../sheets/cisconetwork.sheet.in.h:49
-#, fuzzy
 msgid "IP Transport Concentrator"
-msgstr "Concentrador de VPN"
+msgstr "Concentrador de transport d'IP"
 
 #: ../sheets/cisconetwork.sheet.in.h:50
 msgid "IPTV broadcast server"
-msgstr "Servidor de difussió IPTV"
+msgstr "Servidor de difusió IPTV"
 
 #: ../sheets/cisconetwork.sheet.in.h:51
 msgid "IPTV content manager"
@@ -8342,25 +8108,23 @@ msgstr "LAN a LAN"
 
 #: ../sheets/cisconetwork.sheet.in.h:53
 msgid "Lightweight AP"
-msgstr ""
+msgstr "AP lleuger"
 
 #: ../sheets/cisconetwork.sheet.in.h:54
 msgid "LocalDirector"
 msgstr "Director local"
 
 #: ../sheets/cisconetwork.sheet.in.h:55
-#, fuzzy
 msgid "Location server"
-msgstr "Servidor de comunicacions"
+msgstr "Servidor d'ubicacions"
 
 #: ../sheets/cisconetwork.sheet.in.h:56
 msgid "LongReach CPE"
 msgstr "CPE LongReach"
 
 #: ../sheets/cisconetwork.sheet.in.h:57
-#, fuzzy
 msgid "MAS Gateway"
-msgstr "Pasarel·la MAS"
+msgstr "Passarel·la MAS"
 
 #: ../sheets/cisconetwork.sheet.in.h:58
 msgid "MAU"
@@ -8379,12 +8143,10 @@ msgid "Metro 1500"
 msgstr "Metro 1500"
 
 #: ../sheets/cisconetwork.sheet.in.h:62
-#, fuzzy
 msgid "NAT"
-msgstr "ATA"
+msgstr "NAT"
 
 #: ../sheets/cisconetwork.sheet.in.h:63
-#, fuzzy
 msgid "Network Management"
 msgstr "Gestió de la xarxa"
 
@@ -8394,11 +8156,11 @@ msgstr "Figura de xarxa de Cisco"
 
 #: ../sheets/cisconetwork.sheet.in.h:65
 msgid "ONS15104"
-msgstr ""
+msgstr "ONS15104"
 
 #: ../sheets/cisconetwork.sheet.in.h:66
 msgid "ONS15540"
-msgstr ""
+msgstr "ONS15540"
 
 #
 #: ../sheets/cisconetwork.sheet.in.h:67
@@ -8406,33 +8168,28 @@ msgid "Optical Amplifier"
 msgstr "Amplificador òptic"
 
 #: ../sheets/cisconetwork.sheet.in.h:68
-#, fuzzy
 msgid "Optical Cross-Connect"
-msgstr "Transport òptic"
+msgstr "Connectat en creu òpticament"
 
 #: ../sheets/cisconetwork.sheet.in.h:69
-#, fuzzy
 msgid "Optical Fiber"
-msgstr "Energia òptica"
+msgstr "Fibra òptica"
 
 #: ../sheets/cisconetwork.sheet.in.h:70
-#, fuzzy
 msgid "Optical Transport"
 msgstr "Transport òptic"
 
 #: ../sheets/cisconetwork.sheet.in.h:71
 msgid "PAD"
-msgstr "PADI"
+msgstr "PAD"
 
 #: ../sheets/cisconetwork.sheet.in.h:72
-#, fuzzy
 msgid "PIX Firewall"
 msgstr "Tallafoc PIX"
 
 #: ../sheets/cisconetwork.sheet.in.h:73
-#, fuzzy
 msgid "PIX Firewall Left"
-msgstr "Tallafoc PIX"
+msgstr "Tallafoc PIX esquerre"
 
 #
 #: ../sheets/cisconetwork.sheet.in.h:74
@@ -8448,28 +8205,24 @@ msgid "Repeater"
 msgstr "Repetidor"
 
 #: ../sheets/cisconetwork.sheet.in.h:77
-#, fuzzy
 msgid "SSL Terminator"
-msgstr "Terminal"
+msgstr "Terminal SSL"
 
 #: ../sheets/cisconetwork.sheet.in.h:78
 msgid "STB (set top box)"
-msgstr ""
+msgstr "STB fixa la capsa de dalt (set top box)"
 
 #: ../sheets/cisconetwork.sheet.in.h:79
-#, fuzzy
 msgid "Security appliance"
-msgstr "Dispositiu general"
+msgstr "Aparell de seguretat"
 
 #: ../sheets/cisconetwork.sheet.in.h:80
-#, fuzzy
 msgid "Service Control"
-msgstr "Control simètric"
+msgstr "Control del servei"
 
 #: ../sheets/cisconetwork.sheet.in.h:81
-#, fuzzy
 msgid "Storage Solution Engine"
-msgstr "Encaminador d'emmagatzemament"
+msgstr "Motor de la solució d'emmagatzemament"
 
 #: ../sheets/cisconetwork.sheet.in.h:82
 msgid "System controller"
@@ -8480,18 +8233,16 @@ msgid "TV"
 msgstr "TV"
 
 #: ../sheets/cisconetwork.sheet.in.h:84
-#, fuzzy
 msgid "Terminal Server"
-msgstr "Interrupció del terminal"
+msgstr "Servidor de terminal"
 
 #: ../sheets/cisconetwork.sheet.in.h:85
 msgid "TokenRing"
 msgstr "TokenRing"
 
 #: ../sheets/cisconetwork.sheet.in.h:86
-#, fuzzy
 msgid "TransPath"
-msgstr "Tradueix"
+msgstr "TransPath"
 
 #: ../sheets/cisconetwork.sheet.in.h:87
 msgid "UPS"
@@ -8503,79 +8254,71 @@ msgstr "VIP"
 
 #: ../sheets/cisconetwork.sheet.in.h:89
 msgid "VN2900"
-msgstr ""
+msgstr "VN2900"
 
 #: ../sheets/cisconetwork.sheet.in.h:90
 msgid "VN5900"
-msgstr ""
+msgstr "VN5900"
 
 #: ../sheets/cisconetwork.sheet.in.h:91
 msgid "VN5902"
-msgstr ""
+msgstr "VN5902"
 
 #: ../sheets/cisconetwork.sheet.in.h:92
-#, fuzzy
 msgid "VPN Concentrator"
 msgstr "Concentrador de VPN"
 
 #: ../sheets/cisconetwork.sheet.in.h:93
-#, fuzzy
 msgid "VPN Gateway"
 msgstr "Passarel·la de la VPN"
 
 #: ../sheets/cisconetwork.sheet.in.h:94
-#, fuzzy
 msgid "WAN"
-msgstr "I"
+msgstr "WAN"
 
 #: ../sheets/cisconetwork.sheet.in.h:95
-#, fuzzy
 msgid "WDM"
-msgstr "ADM"
+msgstr "WDM"
 
 #: ../sheets/cisconetwork.sheet.in.h:96
-#, fuzzy
 msgid "WLAN controller"
-msgstr "Controlador del sistema"
+msgstr "Controlador de WLAN"
 
 #: ../sheets/cisconetwork.sheet.in.h:97
 msgid "Wi-Fi Tag"
-msgstr ""
+msgstr "Etiqueta Wi-Fi"
 
 #: ../sheets/cisconetwork.sheet.in.h:98
-#, fuzzy
 msgid "Wireless Bridge"
 msgstr "Pont sense fils"
 
 #: ../sheets/cisconetwork.sheet.in.h:99
 msgid "Wireless Connectivity"
-msgstr ""
+msgstr "Connectivitat sense fils"
 
 #: ../sheets/cisconetwork.sheet.in.h:100
 msgid "Wireless Location Appliance"
-msgstr ""
+msgstr "Aparell d'ubicació sense fils"
 
 #: ../sheets/cisconetwork.sheet.in.h:101
-#, fuzzy
 msgid "Wireless Transport"
 msgstr "Transport sense fils"
 
 #: ../sheets/cisconetwork.sheet.in.h:102
 msgid "uBR910 Cable DSU"
-msgstr ""
+msgstr "uBR910 Cable DSU"
 
 #: ../sheets/ciscotelephony.sheet.in.h:1
 msgid "6701"
 msgstr "6701"
 
 #: ../sheets/ciscotelephony.sheet.in.h:2
-#, fuzzy
 msgid "6705"
-msgstr "6701"
+msgstr "6705"
 
 #: ../sheets/ciscotelephony.sheet.in.h:3
 msgid "6732"
-msgstr ""
+msgstr "6732"
 
 #: ../sheets/ciscotelephony.sheet.in.h:4
 msgid "ADM"
@@ -8594,21 +8337,18 @@ msgid "CallManager"
 msgstr "Gestor de trucades"
 
 #: ../sheets/ciscotelephony.sheet.in.h:8
-#, fuzzy
 msgid "Cellular Phone"
 msgstr "Telèfon mòbil"
 
 #: ../sheets/ciscotelephony.sheet.in.h:9
-#, fuzzy
 msgid "Cisco - Telephony"
-msgstr "Cisco - Xarxa"
+msgstr "Cisco - Telefonia"
 
 #: ../sheets/ciscotelephony.sheet.in.h:10
 msgid "Class 4/5 switch"
 msgstr "Commutador de classe 4/5"
 
 #: ../sheets/ciscotelephony.sheet.in.h:11
-#, fuzzy
 msgid "End Office"
 msgstr "Oficina final"
 
@@ -8618,7 +8358,7 @@ msgstr "Fax"
 
 #: ../sheets/ciscotelephony.sheet.in.h:13
 msgid "Gatekeeper"
-msgstr ""
+msgstr "Porter"
 
 #: ../sheets/ciscotelephony.sheet.in.h:14
 msgid "Generic softswitch"
@@ -8630,7 +8370,7 @@ msgstr "H.323"
 
 #: ../sheets/ciscotelephony.sheet.in.h:16
 msgid "HootPhone"
-msgstr ""
+msgstr "Telèfon de sirena"
 
 #: ../sheets/ciscotelephony.sheet.in.h:17
 msgid "IAD router"
@@ -8645,16 +8385,14 @@ msgid "ICS"
 msgstr "ICS"
 
 #: ../sheets/ciscotelephony.sheet.in.h:20
-#, fuzzy
 msgid "IP Phone"
-msgstr "telèfon IP"
+msgstr "Telèfon IP"
 
 #: ../sheets/ciscotelephony.sheet.in.h:21
 msgid "IP Softphone"
-msgstr "IP Softphone"
+msgstr "Telèfon IP per programari"
 
 #: ../sheets/ciscotelephony.sheet.in.h:22
-#, fuzzy
 msgid "IP Telephony Router"
 msgstr "Encaminador de telefonia IP"
 
@@ -8663,85 +8401,75 @@ msgid "ITP"
 msgstr "ITP"
 
 #: ../sheets/ciscotelephony.sheet.in.h:24
+#, fuzzy
 msgid "IntelliSwitch Stack"
-msgstr ""
+msgstr "IntelliSwitch Stack"
 
 #: ../sheets/ciscotelephony.sheet.in.h:25
-#, fuzzy
 msgid "MCU"
-msgstr "MUX"
+msgstr "MCU"
 
 #: ../sheets/ciscotelephony.sheet.in.h:26
 msgid "MGX 8000 Series Voice Gateway"
-msgstr ""
+msgstr "Passarel·la de veu MGX 8000 Series"
 
 #: ../sheets/ciscotelephony.sheet.in.h:27
 msgid "MoH server (Music on Hold)"
-msgstr ""
+msgstr "Servidor MoH (Music on Hold)"
 
 #: ../sheets/ciscotelephony.sheet.in.h:28
-#, fuzzy
 msgid "Mobile Access IP Phone"
-msgstr "Telefòn mòbil"
+msgstr "Telèfon IP amb accés mòbil"
 
 #: ../sheets/ciscotelephony.sheet.in.h:29
-#, fuzzy
 msgid "Mobile Access Router"
-msgstr "Encaminador de veu"
+msgstr "Encaminador d'accés mòbil"
 
 #: ../sheets/ciscotelephony.sheet.in.h:30
 msgid "Octel"
-msgstr ""
+msgstr "Octel"
 
 #: ../sheets/ciscotelephony.sheet.in.h:31
 msgid "PBX"
 msgstr "PBX"
 
 #: ../sheets/ciscotelephony.sheet.in.h:32
-#, fuzzy
 msgid "PBX Switch"
 msgstr "Commutador PBX"
 
 #: ../sheets/ciscotelephony.sheet.in.h:33
-#, fuzzy
 msgid "Pager"
-msgstr "Salt de pàgina"
+msgstr "Cercapersones"
 
 #: ../sheets/ciscotelephony.sheet.in.h:34
 msgid "Phone"
 msgstr "Telèfon"
 
 #: ../sheets/ciscotelephony.sheet.in.h:35
-#, fuzzy
 msgid "Phone 2"
-msgstr "Telèfon"
+msgstr "Telèfon 2"
 
 #: ../sheets/ciscotelephony.sheet.in.h:36
-#, fuzzy
 msgid "Phone Appliance"
-msgstr "Dispositiu general"
+msgstr "Aparell telefònic"
 
 #: ../sheets/ciscotelephony.sheet.in.h:37
-#, fuzzy
 msgid "Phone Ethernet"
-msgstr "Bus ethernet"
+msgstr "Telèfon amb ethernet"
 
 #: ../sheets/ciscotelephony.sheet.in.h:38
-#, fuzzy
 msgid "Phone Feature"
-msgstr "Telèfon/Fax"
+msgstr "Característica del telèfon"
 
 #: ../sheets/ciscotelephony.sheet.in.h:39
 msgid "Phone/Fax"
 msgstr "Telèfon/Fax"
 
 #: ../sheets/ciscotelephony.sheet.in.h:40
-#, fuzzy
 msgid "Radio Tower"
 msgstr "Torre de ràdio"
 
 #: ../sheets/ciscotelephony.sheet.in.h:41
-#, fuzzy
 msgid "SC2200 (Signalling Controller)"
 msgstr "SC2200 (controlador de senyalització)"
 
@@ -8750,13 +8478,12 @@ msgid "SC2200/VSC3000 host"
 msgstr "Ordinador central SC2200/VSC3000"
 
 #: ../sheets/ciscotelephony.sheet.in.h:43
-#, fuzzy
 msgid "SIP Proxy Server"
 msgstr "Servidor intermediari de SIP"
 
 #: ../sheets/ciscotelephony.sheet.in.h:44
 msgid "SONET MUX"
-msgstr ""
+msgstr "SONET MUX"
 
 #: ../sheets/ciscotelephony.sheet.in.h:45
 msgid "STP"
@@ -8771,9 +8498,8 @@ msgid "TDM router"
 msgstr "Encaminador de TDM"
 
 #: ../sheets/ciscotelephony.sheet.in.h:48
-#, fuzzy
 msgid "Telephony shapes by Cisco"
-msgstr "Figura de xarxa de Cisco"
+msgstr "Figures de xarxa de Cisco"
 
 #: ../sheets/ciscotelephony.sheet.in.h:49
 msgid "Turret"
@@ -8781,50 +8507,47 @@ msgstr "Torreta"
 
 #: ../sheets/ciscotelephony.sheet.in.h:50
 msgid "Unity Express"
-msgstr ""
+msgstr "Unitat urgent"
 
 #: ../sheets/ciscotelephony.sheet.in.h:51
 msgid "Unity server"
-msgstr ""
+msgstr "Unitat servidor"
 
 #: ../sheets/ciscotelephony.sheet.in.h:52
 msgid "Virtual switch controller (VSC 3000)"
 msgstr "Controlador de commutador virtual (VSC 3000)"
 
 #: ../sheets/ciscotelephony.sheet.in.h:53
-#, fuzzy
 msgid "Voice-Enabled ATM Switch"
 msgstr "Commutador de veu ATM"
 
 #: ../sheets/ciscotelephony.sheet.in.h:54
-#, fuzzy
 msgid "Voice-Enabled Access Server"
-msgstr "Servidor de comunicacions de veu"
+msgstr "Servidor d'accés de veu"
 
 #: ../sheets/ciscotelephony.sheet.in.h:55
-#, fuzzy
 msgid "Voice-Enabled Router"
 msgstr "Encaminador de veu"
 
 #: ../sheets/ciscotelephony.sheet.in.h:56
 msgid "uMG series"
-msgstr ""
+msgstr "sèries uMG"
 
 #: ../sheets/civil.sheet.in.h:1
 msgid "Aerator with bubbles"
-msgstr ""
+msgstr "Gasificador amb bombolles"
 
 #: ../sheets/civil.sheet.in.h:2
 msgid "Backflow preventer"
-msgstr ""
+msgstr "Previsor de corrent invers"
 
 #: ../sheets/civil.sheet.in.h:3
 msgid "Basin"
-msgstr ""
+msgstr "Pica"
 
 #: ../sheets/civil.sheet.in.h:4
 msgid "Bivalent vertical rest"
-msgstr ""
+msgstr "Recolzament vertical ambivalent"
 
 #: ../sheets/civil.sheet.in.h:5
 msgid "Civil"
@@ -8840,11 +8563,11 @@ msgstr "Contenidor"
 
 #: ../sheets/civil.sheet.in.h:8
 msgid "Final-settling basin"
-msgstr ""
+msgstr "Pica d'assentament final"
 
 #: ../sheets/civil.sheet.in.h:9
 msgid "Frequency converter"
-msgstr "Conversor de freqüència"
+msgstr "Convertidor de freqüència"
 
 #: ../sheets/civil.sheet.in.h:10
 msgid "Gas bottle"
@@ -8856,7 +8579,7 @@ msgstr "Línia de limitació horitzontal"
 
 #: ../sheets/civil.sheet.in.h:12
 msgid "Horizontal rest"
-msgstr ""
+msgstr "Recolzament horitzontal"
 
 #: ../sheets/civil.sheet.in.h:13
 msgid "Horizontally aligned arrow"
@@ -8900,7 +8623,7 @@ msgstr "Línia de limitació vertical"
 
 #: ../sheets/civil.sheet.in.h:23
 msgid "Vertical rest"
-msgstr ""
+msgstr "Recolzament vertical"
 
 #: ../sheets/civil.sheet.in.h:24
 msgid "Vertically aligned arrow"
@@ -8912,7 +8635,7 @@ msgstr "Compressor alineat verticalment"
 
 #: ../sheets/civil.sheet.in.h:26
 msgid "Vertically aligned propeller"
-msgstr ""
+msgstr "Hèlix alineada verticalment"
 
 #: ../sheets/civil.sheet.in.h:27
 msgid "Vertically aligned pump"
@@ -8999,16 +8722,17 @@ msgid "Pieces of a jigsaw"
 msgstr "Peces del trencaclosques"
 
 #: ../sheets/network.sheet.in.h:1
+#, fuzzy
 msgid "24 Port Patch Panel"
-msgstr ""
+msgstr "Tauler pedaç de 24 ports"
 
 #: ../sheets/network.sheet.in.h:2
 msgid "3 1/2 inch diskette"
-msgstr "Disqueta de 3 polzades i 1/2"
+msgstr "Disquet de 3 polzades i 1/2"
 
 #: ../sheets/network.sheet.in.h:3
 msgid "ATM switch symbol"
-msgstr "Símbol de comutació de ATM"
+msgstr "Símbol de commutació d'ATM"
 
 #: ../sheets/network.sheet.in.h:4
 msgid "Antenna for wireless transmission"
@@ -9040,7 +8764,7 @@ msgstr "Unitat de DAT externa"
 
 #: ../sheets/network.sheet.in.h:11
 msgid "Firewall router"
-msgstr "Encaminador tallafocs"
+msgstr "Encaminador tallafoc"
 
 #: ../sheets/network.sheet.in.h:12
 msgid "Laptop PC"
@@ -9060,12 +8784,11 @@ msgstr "Telefòn mòbil"
 
 #: ../sheets/network.sheet.in.h:16
 msgid "Mobile telephony base station"
-msgstr ""
+msgstr "Estació base de telefonia mòbil"
 
 #: ../sheets/network.sheet.in.h:17
-#, fuzzy
 msgid "Mobile telephony cell"
-msgstr "Telefòn mòbil"
+msgstr "Cel·la de telefonia mòbil"
 
 #: ../sheets/network.sheet.in.h:18
 msgid "Modular switching system"
@@ -9097,7 +8820,7 @@ msgstr "Símbol de l'encaminador"
 
 #: ../sheets/network.sheet.in.h:26
 msgid "Simple modem"
-msgstr "Modem simple"
+msgstr "Mòdem simple"
 
 #: ../sheets/network.sheet.in.h:27
 msgid "Simple printer"
@@ -9113,7 +8836,7 @@ msgstr "Altaveu sense amplificador"
 
 #: ../sheets/network.sheet.in.h:30
 msgid "Stackable hub or switch"
-msgstr "Commutador o concentrador apilables"
+msgstr "Commutador o concentrador apilable"
 
 #: ../sheets/network.sheet.in.h:31
 msgid "Storage"
