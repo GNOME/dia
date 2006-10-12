@@ -1,3 +1,8 @@
+2006-10-12  Lars Clausen  <lars@raeder.dk>
+
+	* objects/standard/box.c: Patch from Michael Duelli
+	<m.duelli@web.de>: Set line attributes before drawing anything.
+
 2006-10-08  Lars Clausen  <lars@raeder.dk>
 
 	* configure.in: Allow compiling without freetype on Unix systems.

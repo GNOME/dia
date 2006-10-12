@@ -311,6 +311,11 @@ box_draw(Box *box, DiaRenderer *renderer)
   lr_corner.x = elem->corner.x + elem->width;
   lr_corner.y = elem->corner.y + elem->height;
 
+  renderer_ops->set_linewidth(renderer, box->border_width);
+  renderer_ops->set_linestyle(renderer, box->line_style);
+  renderer_ops->set_dashlength(renderer, box->dashlength);
+  renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
+
   if (box->show_background) {
     renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
   
@@ -328,11 +333,6 @@ box_draw(Box *box, DiaRenderer *renderer)
 			       &box->inner_color);
     }
   }
-
-  renderer_ops->set_linewidth(renderer, box->border_width);
-  renderer_ops->set_linestyle(renderer, box->line_style);
-  renderer_ops->set_dashlength(renderer, box->dashlength);
-  renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
 
   if (box->corner_radius > 0) {
     renderer_ops->draw_rounded_rect(renderer, 
