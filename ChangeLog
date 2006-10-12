@@ -1,5 +1,9 @@
 2006-10-12  Lars Clausen  <lars@raeder.dk>
 
+	* plug-ins/pstricks/render_pstricks.c (export_pstricks) 
+	(draw_string): Use \psscalebox instead of \scalebox, courtesy of
+	Dan Bolser <dmb@mrc-dunn.cam.ac.uk> and the pstricks mailing list.
+
 	* shapes/Makefile.am (SUBDIRS): 
 	* configure.in: 
 	* shapes/BPMN/*
