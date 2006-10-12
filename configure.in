@@ -471,6 +471,7 @@ objects/standard/Makefile
 objects/UML/Makefile
 shapes/Makefile
 shapes/Assorted/Makefile
+shapes/BPMN/Makefile
 shapes/ChemEng/Makefile
 shapes/Circuit/Makefile
 shapes/Cisco/Makefile

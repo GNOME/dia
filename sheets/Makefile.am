@@ -1,5 +1,8 @@
 SUBDIRS = UML ER GRAFCET Jackson Istar KAOS
 
+# To create a .sheet.in file from a .sheet file, run
+# sed 's!<description!<_description!;s!</description!</_description!;s!<name!<_name!;s!</name!</_name!;' 
+
 sheet_in_files = \
   UML.sheet.in ER.sheet.in sybase.sheet.in FS.sheet.in network.sheet.in \
   Flowchart.sheet.in Circuit.sheet.in Contact.sheet.in GRAFCET.sheet.in \
@@ -9,7 +12,7 @@ sheet_in_files = \
   ciscohub.sheet.in ciscomisc.sheet.in cisconetwork.sheet.in \
   ciscotelephony.sheet.in Cybernetics.sheet.in IsometricMap.sheet.in \
   Istar.sheet.in Jackson.sheet.in KAOS.sheet.in ChemEng.sheet.in \
-  AADL.sheet.in Gane_and_Sarson.sheet.in
+  AADL.sheet.in Gane_and_Sarson.sheet.in BPMN.sheet.in
 
 # EML.sheet.in disabled as the objects have GPL issues, see objects/Makefile.am
 

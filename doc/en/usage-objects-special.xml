@@ -86,10 +86,11 @@
          </varlistentry>
 	 <!-- TODO fully describe all four of the Cisco Sheets -->
          <varlistentry>
-           <term>Ladder</term>
+           <term>PLC Ladder</term>
            <listitem>
              <para>
-               Components for Ladder Circuits.  
+               PLC 'Ladder' graphical programming (electrical
+               controls in manufacturing automation).
              </para>
            </listitem>
          </varlistentry>
@@ -136,16 +137,13 @@
            <term>GRAFCET</term>
            <listitem>
              <para>
-               A chart which shows the step, the action, the transition, and
+               Grafcet (or IEC 61131-3 SFC) diagrams. Used in graphical
+               programming and documenting sequential processes in
+               manufacturing automation.
+	     </para>
+	     <para>
+               A chart  shows the step, the action, the transition, and
                the condition associated with the transition.  
-               GRAFCET is a Sequential Function Chart created in 1975.  
-	       The name comes from graph because the model had a graphic basis,
-	       and from AFCET (Association française de cybernétique économique 
-	       et technique) 
-	       the scientific association which supported the work. 
-	       <!-- still needs more work see 
-	       http://www.lurpa.ens-cachan.fr/grafcet.html
-	       -->
              </para>
            </listitem>
          </varlistentry>
@@ -214,10 +212,11 @@
            </listitem>
          </varlistentry>
          <varlistentry>
-           <term>Electric</term>
+           <term>DIN Electric</term>
            <listitem>
              <para>
-               Shows flow of electricity. 
+	       DIN style electrical control schematics (electrical controls
+               in manufacturing automation). 
              </para>
            </listitem>
          </varlistentry>

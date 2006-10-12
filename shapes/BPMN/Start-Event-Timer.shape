@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
+  <name>BPMN - Start-Event-Timer</name>
+  <icon>Start-Event-Timer.png</icon>
+  <connections>
+    <point x="0" y="0"/>
+    <point x="10" y="0"/>
+    <point x="10" y="10"/>
+    <point x="0" y="10"/>
+    <point x="5" y="12"/>
+    <point x="5" y="-2"/>
+    <point x="-2" y="5"/>
+    <point x="12" y="5"/>
+  </connections>
+  <aspectratio type="fixed"/>
+  <svg:svg>
+    <svg:ellipse style="fill: #ffffff" cx="5" cy="5" rx="7" ry="7"/>
+    <svg:ellipse style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #000000" cx="5" cy="5" rx="7" ry="7"/>
+    <svg:ellipse style="fill: #ffffff" cx="5" cy="5" rx="4" ry="4"/>
+    <svg:ellipse style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #000000" cx="5" cy="5" rx="4" ry="4"/>
+    <svg:line style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #000000" x1="5" y1="1" x2="5" y2="2"/>
+    <svg:line style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #000000" x1="5" y1="8" x2="5" y2="9"/>
+    <svg:line style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #000000" x1="1" y1="5" x2="2" y2="5"/>
+    <svg:line style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #000000" x1="8" y1="5" x2="9" y2="5"/>
+    <svg:line style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #000000" x1="3.5" y1="7.5" x2="2.925" y2="8.425"/>
+    <svg:line style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #000000" x1="2.5" y1="6.5" x2="1.575" y2="7.075"/>
+    <svg:line style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #000000" x1="2.5" y1="3.5" x2="1.5875" y2="2.9125"/>
+    <svg:line style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #000000" x1="3.5" y1="2.5" x2="2.9375" y2="1.5875"/>
+    <svg:line style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #000000" x1="6.5" y1="2.5" x2="7.06721" y2="1.5625"/>
+    <svg:line style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #000000" x1="7.5" y1="3.5" x2="8.44221" y2="2.9375"/>
+    <svg:line style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #000000" x1="7.5" y1="6.5" x2="8.44221" y2="7.07236"/>
+    <svg:line style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #000000" x1="6.5" y1="7.5" x2="7.06721" y2="8.44736"/>
+    <svg:line style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #000000" x1="5" y1="5" x2="7" y2="5"/>
+    <svg:line style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #000000" x1="5" y1="5" x2="5.61721" y2="1.8687"/>
+  </svg:svg>
+</shape>

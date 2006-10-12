@@ -1,5 +1,14 @@
 2006-10-12  Lars Clausen  <lars@raeder.dk>
 
+	* shapes/Makefile.am (SUBDIRS): 
+	* configure.in: 
+	* shapes/BPMN/*
+	* sheets/BPMN.sheet.in: 
+	* sheets/Makefile.am (sheet_in_files): New shape set BPMN for
+	Business Process Modelling from anthonym@overture.com.
+
+	* doc/en/dia.dbk: Correctly describing connections.
+
 	* objects/standard/box.c: Patch from Michael Duelli
 	<m.duelli@web.de>: Set line attributes before drawing anything.
 
