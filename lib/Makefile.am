@@ -171,8 +171,8 @@ libdia_la_LDFLAGS = -avoid-version
 
 AM_CPPFLAGS = \
 	$(LIBART_CFLAGS) \
-	-DLIBDIR=\"$(libdir)\" \
-	-DDATADIR=\"$(pkgdatadir)\"
+	-DDIA_LIBDIR=\"$(libdir)\" \
+	-DDIA_DATADIR=\"$(pkgdatadir)\"
 
 sheetdir = $(pkgdatadir)/sheets
 

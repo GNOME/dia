@@ -1,5 +1,12 @@
 2006-10-12  Lars Clausen  <lars@raeder.dk>
 
+	* lib/dia_dirs.c (dia_get_lib_directory, dia_get_data_directory): 
+	* lib/Makefile.am (AM_CPPFLAGS): 
+	* app/Makefile.am (INCLUDES): Rename DATADIR and LIBDIR to
+	DIA_DATADIR and DIA_LIBDIR to avoid conflicts with libtool and the
+	like.  Thanks to lode leroy <lode_leroy@hotmail.com> for pointing
+	out the solution.
+
 	* plug-ins/pstricks/render_pstricks.c (export_pstricks) 
 	(draw_string): Use \psscalebox instead of \scalebox, courtesy of
 	Dan Bolser <dmb@mrc-dunn.cam.ac.uk> and the pstricks mailing list.
