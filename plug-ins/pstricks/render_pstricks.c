@@ -787,7 +787,7 @@ draw_string(DiaRenderer *self,
 	fprintf(renderer->file,"[r]");
 	break;
     }
-    fprintf(renderer->file,"(%s,%s){\\scalebox{1 -1}{%s}}\n",
+    fprintf(renderer->file,"(%s,%s){\\psscalebox{1 -1}{%s}}\n",
 	    pstricks_dtostr(px_buf,pos->x),
 	    pstricks_dtostr(py_buf,-pos->y),
 	    escaped ? escaped : text);
@@ -961,7 +961,7 @@ export_pstricks(DiagramData *data, const gchar *filename,
 	    pstricks_dtostr(eb_buf,-extent->bottom * data->paper.scaling),
 	    pstricks_dtostr(er_buf,extent->right * data->paper.scaling),
 	    pstricks_dtostr(et_buf,-extent->top * data->paper.scaling) );
-    fprintf(renderer->file,"\\scalebox{%s %s}{\n",
+    fprintf(renderer->file,"\\psscalebox{%s %s}{\n",
 	    pstricks_dtostr(scale1_buf,data->paper.scaling),
 	    pstricks_dtostr(scale2_buf,-data->paper.scaling) );
 
