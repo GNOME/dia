@@ -882,7 +882,12 @@ diagram_data_raw_save(DiagramData *data, const char *filename)
   return ret;
 }
 
-/** This saves the diagram, using a backup in case of failure */
+/** This saves the diagram, using a backup in case of failure.
+ * @param data
+ * @param filename
+ * @returns TRUE on successfull save, FALSE otherwise.  If a failure is
+ * indicated, an error message will already have been given to the user.
+ */
 static int
 diagram_data_save(DiagramData *data, const char *filename)
 {
@@ -891,7 +896,18 @@ diagram_data_save(DiagramData *data, const char *filename)
   int mode,_umask;
   int fildes;
   int ret;
-   
+
+  /* Once we depend on GTK 2.8+, we can use these tests. */
+#ifdef GLIB_CHECK_VERSION(2,8,0)
+  /* Check that we're allowed to write to the target file at all. */
+  if (g_file_test(filename, G_FILE_TEST_EXISTS) &&
+      g_access(filename, W_OK) != 0) {
+    message_error(_("No allowed to write to output file %s\n"), 
+		  dia_message_filename(filename));
+    return FALSE;
+  }
+#endif
+
   /* build the temporary and backup file names */
   dirname = g_strdup(filename);
   p = strrchr((char *)dirname,G_DIR_SEPARATOR);
@@ -903,6 +919,16 @@ diagram_data_save(DiagramData *data, const char *filename)
   }
   tmpname = g_strconcat(dirname,"__diaXXXXXX",NULL);
   bakname = g_strconcat(filename,"~",NULL);
+
+#ifdef GLIB_CHECK_VERSION(2,8,0)
+  /* Check that we can create the other files */
+  if (g_file_test(dirname, G_FILE_TEST_EXISTS) &&
+      g_access(dirname, W_OK) != 0) {
+    message_error(_("No allowed to write temporary files in %s\n"), 
+		  dia_message_filename(dirname));
+    return FALSE;
+  }
+#endif
 
   /* open a temporary name, and fix the modes to match what fopen() would have
      done (mkstemp() is (rightly so) a bit paranoid for what we do). */
@@ -926,6 +952,8 @@ diagram_data_save(DiagramData *data, const char *filename)
   if (ret < 0) {
     /* Save failed; we clean our stuff up, without touching the file named
        "filename" if it existed. */
+    message_error(_("Internal error %d writing file %s\n"), 
+		  ret, dia_message_filename(tmpname));
     unlink(tmpname);
     g_free(tmpname);
     g_free(dirname);
@@ -937,6 +965,11 @@ diagram_data_save(DiagramData *data, const char *filename)
   unlink(bakname);
   rename(filename,bakname);
   ret = rename(tmpname,filename);
+  if (ret < 0) {
+    message_error(_("Can't rename %s to final output file %s: %s\n"), 
+		  dia_message_filename(filename), 
+		  dia_message_filename(filename), strerror(errno));
+  }
   g_free(tmpname);
   g_free(dirname);
   g_free(bakname);
@@ -949,8 +982,6 @@ diagram_save(Diagram *dia, const char *filename)
   gboolean res = diagram_data_save(dia->data, filename);
 
   if (!res) {
-    message_error(_("Failed to save file '%s'.\n"), 
-		  dia_message_filename(filename));
     return res;
   }
 

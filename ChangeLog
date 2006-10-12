@@ -1,5 +1,9 @@
 2006-10-12  Lars Clausen  <lars@raeder.dk>
 
+	* app/load_save.c (diagram_data_save): If we have GTK 2.8, check
+	that we are allowed to write to the file in question (if it
+	exists) and to the directory (for backup/temp/newly created file).
+
 	* lib/dia_dirs.c (dia_get_lib_directory, dia_get_data_directory): 
 	* lib/Makefile.am (AM_CPPFLAGS): 
 	* app/Makefile.am (INCLUDES): Rename DATADIR and LIBDIR to
