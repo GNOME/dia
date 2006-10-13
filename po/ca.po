@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.92.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-10-08 15:12+0200\n"
-"PO-Revision-Date: 2006-10-08 15:44+0200\n"
+"POT-Creation-Date: 2006-10-13 06:30+0200\n"
+"PO-Revision-Date: 2006-10-13 06:36+0200\n"
 "Last-Translator: Maria Soler Climent <mariasolercliment@gmail.com>\n"
 "Language-Team: Catalan <tradgnome@softcatala.org>\n"
 "MIME-Version: 1.0\n"
@@ -147,12 +147,12 @@ msgstr "No es pot connectar al gestor de sessions!\n"
 #: ../app/app_procs.c:836
 #, c-format
 msgid "Dia version %s, compiled %s %s\n"
-msgstr "Versió del dia %s, compilat %s %s\n"
+msgstr "Dia versió %s, compilat %s %s\n"
 
 #: ../app/app_procs.c:838
 #, c-format
 msgid "Dia version %s\n"
-msgstr "Versió del Dia %s\n"
+msgstr "Dia versió %s\n"
 
 #: ../app/app_procs.c:895 ../app/diaconv.c:201 ../app/diaconv.c:203
 #, c-format
@@ -210,14 +210,15 @@ msgstr "Gràcies per utilitzar el Dia\n"
 
 #: ../app/app_procs.c:1067 ../app/app_procs.c:1074
 msgid "Could not create per-user Dia config directory"
-msgstr "No s'ha pogut crear un directori per usuari de configuració del Dia"
+msgstr ""
+"No s'ha pogut crear un directori de configuració per a l'usuari del Dia"
 
 #: ../app/app_procs.c:1077
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
 msgstr ""
-"No s'ha pogut crear un directori per usuari de configuració del Dia. "
+"No s'ha pogut crear un directori de configuració per a l'usuari del Dia. "
 "Assegureu-vos que la variable d'entorn HOME apunta a un directori existent, "
 "si us plau."
 
@@ -334,7 +335,7 @@ msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 "Softcatalà <gnome@softcatala.net>\n"
 "Aleix Badia <abadia@ica.es>\n"
-"Xavier Conde <xaviconde@eresmas.com>\n"
+"Xavier Conde <xavi.conde@gmail.com>\n"
 "Jordi Mas <jmas@softcatala.org>\n"
 "Maria Soler <mariasolercliment@gmail.com>"
 
@@ -361,13 +362,13 @@ msgstr ""
 "\n"
 "Aquest programa es distribueix amb l'expectativa de que serà útil,\n"
 "però SENSE CAP GARANTIA; fins i tot la garantia implícita de\n"
-"COMERCIALITZACIÓ o ADEQUACIÓ PER UN PROPÒSIT PARTICULAR. Vegeu la\n"
+"COMERCIALITZACIÓ o ADEQUACIÓ PER A CAP PROPÒSIT EN PARTICULAR. Vegeu la\n"
 "Llicència Pública General GNU per obtenir-ne més detalls.\n"
 "\n"
 "Hauríeu d'haver rebut una còpia de la Llicència Pública General GNU\n"
 "juntament amb aquest programa; en cas contrari, escriviu a la Free\n"
-"Software Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111, "
-"USA.\n"
+"Software Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-"
+"1307, USA.\n"
 
 #: ../app/commands.c:637
 msgid "A program for drawing structured diagrams."
@@ -749,7 +750,7 @@ msgstr "Tanca el diagrama"
 msgid "_Discard Changes"
 msgstr "_Descarta els canvis"
 
-#: ../app/export_png.c:136 ../app/load_save.c:918 ../app/render_eps.c:103
+#: ../app/export_png.c:136 ../app/load_save.c:944 ../app/render_eps.c:103
 #: ../plug-ins/cairo/diacairo.c:976 ../plug-ins/cgm/cgm.c:1151
 #: ../plug-ins/dxf/dxf-export.c:484 ../plug-ins/hpgl/hpgl.c:708
 #: ../plug-ins/metapost/render_metapost.c:1106
@@ -1156,12 +1157,29 @@ msgstr ""
 "%s.\n"
 "Un fitxer vàlid del Dia defineix almenys una capa."
 
-#: ../app/load_save.c:952
+#: ../app/load_save.c:905
 #, c-format
-msgid "Failed to save file '%s'.\n"
-msgstr "No s'ha pogut desar el fitxer «%s».\n"
+msgid "No allowed to write to output file %s\n"
+msgstr ""
 
-#: ../app/load_save.c:1026 ../app/load_save.c:1031
+#: ../app/load_save.c:927
+#, c-format
+msgid "No allowed to write temporary files in %s\n"
+msgstr ""
+
+#. Save failed; we clean our stuff up, without touching the file named
+#. "filename" if it existed.
+#: ../app/load_save.c:955
+#, fuzzy, c-format
+msgid "Internal error %d writing file %s\n"
+msgstr "Error %s: cal un fitxer d'entrada vàlid %s\n"
+
+#: ../app/load_save.c:969
+#, fuzzy, c-format
+msgid "Can't rename %s to final output file %s: %s\n"
+msgstr "No es pot obrir el fitxer de sortida %s: %s\n"
+
+#: ../app/load_save.c:1057 ../app/load_save.c:1062
 msgid "Dia Diagram File"
 msgstr "Fitxer de diagrama del Dia"
 
@@ -5993,6 +6011,8 @@ msgstr "Micròfon"
 msgid "NMOS transistor"
 msgstr "Transistor NMOS"
 
+#.
+#.
 #: ../sheets/Circuit.sheet.in.h:20
 msgid "NPN bipolar transistor"
 msgstr "Transistor bipolar NPN"
@@ -6005,6 +6025,8 @@ msgstr "Amplificador operacional"
 msgid "PMOS transistor"
 msgstr "Transistor PMOS"
 
+#.
+#.
 #: ../sheets/Circuit.sheet.in.h:25
 msgid "PNP bipolar transistor"
 msgstr "Transistor bipolar PNP"
@@ -8906,6 +8928,9 @@ msgstr "Servidor de dades del Sybase"
 msgid "Sybase replication server"
 msgstr "Servidor de replicació de Sybase"
 
+#~ msgid "Failed to save file '%s'.\n"
+#~ msgstr "No s'ha pogut desar el fitxer «%s».\n"
+
 #~ msgid "Dia"
 #~ msgstr "Dia"
 
@@ -9283,14 +9308,6 @@ msgstr "Servidor de replicació de Sybase"
 #~ msgid "<Toolbox>/File/Quit"
 #~ msgstr "<caixa d'eines>/Fitxer/Surt"
 
-#, fuzzy
-#~ msgid "Macro Cell"
-#~ msgstr "Crida a la macro"
-
-#, fuzzy
-#~ msgid "Micro Cell"
-#~ msgstr "Crida a la macro"
-
 #
 #~ msgid "Cell Type:"
 #~ msgstr "Tipus de cel·la:"
@@ -9315,10 +9332,6 @@ msgstr "Servidor de replicació de Sybase"
 
 #~ msgid "Text colour"
 #~ msgstr "Color del text"
-
-#, fuzzy
-#~ msgid "Implmentation"
-#~ msgstr "Implementació"
 
 #~ msgid "Workstation"
 #~ msgstr "Estació de treball"
