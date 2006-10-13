@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: dia 0.92.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-10-13 06:30+0200\n"
-"PO-Revision-Date: 2006-10-13 06:36+0200\n"
+"PO-Revision-Date: 2006-10-13 06:53+0200\n"
 "Last-Translator: Maria Soler Climent <mariasolercliment@gmail.com>\n"
 "Language-Team: Catalan <tradgnome@softcatala.org>\n"
 "MIME-Version: 1.0\n"
@@ -285,7 +285,7 @@ msgid ""
 "\n"
 msgstr ""
 "\n"
-"El Dia esta documentat per:\n"
+"Han documentat el Dia:\n"
 "\n"
 
 #: ../app/autosave.c:91
@@ -707,7 +707,7 @@ msgstr ""
 
 #: ../app/display.c:94
 msgid "Diagram modified!"
-msgstr "S'ha modificat el diagrama!"
+msgstr "El diagrana s'ha modificat."
 
 #. http://www.gnu.org/software/gettext/manual/html_chapter/gettext_10.html#SEC150
 #. * Althoug the single objects wont get triggered here some languages have variations on the other numbers
@@ -886,7 +886,7 @@ msgstr "Opcions d'exportació"
 
 #: ../app/interface.c:57
 msgid "Modify object(s)"
-msgstr "Modifica l'objecte(s)"
+msgstr "Modifica els objectes"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Magnify
 #: ../app/interface.c:62 ../app/menus.c:187 ../objects/FS/function.c:986
@@ -993,9 +993,9 @@ msgid ""
 "squares reset colors.  The small arrows swap colors.  Double click to change "
 "colors."
 msgstr ""
-"Colors frontals i de fons pels nous objectes. Els quadrats petits en blanc i "
-"negre reinicien els colors. Les fletxes petites intercanvien els colors. Feu "
-"un doble clic per canviar-los."
+"Colors frontals i de fons per als nous objectes. Els quadrats petits en "
+"blanc i negre reinicien els colors. Les fletxes petites intercanvien els "
+"colors. Feu un doble clic per canviar-los."
 
 #: ../app/interface.c:1068
 msgid ""
@@ -1228,7 +1228,7 @@ msgstr "Copia el text"
 
 #: ../app/menus.c:100
 msgid "Cut Text"
-msgstr "Talla el text"
+msgstr "Retalla el text"
 
 #: ../app/menus.c:101
 msgid "Paste _Text"
@@ -1589,7 +1589,7 @@ msgstr "Comprimeix els fitxers desats"
 
 #: ../app/preferences.c:126
 msgid "Number of undo levels:"
-msgstr "Número de nivells de desfer:"
+msgstr "Nombre de nivells de desfer:"
 
 #: ../app/preferences.c:127
 msgid ""
@@ -1779,7 +1779,7 @@ msgstr "Forma SVG"
 #
 #: ../app/sheets.c:458
 msgid "Programmed DiaObject"
-msgstr "Objecte Dia programat"
+msgstr "DiaObject programat"
 
 #: ../app/sheets_dialog.c:84
 msgid "Sheets and Objects"
@@ -1850,7 +1850,7 @@ msgstr "Edita els atributs"
 #
 #: ../app/sheets_dialog.c:584
 msgid "DiaObject"
-msgstr "Objecte del Dia"
+msgstr "DiaObject"
 
 #: ../app/sheets_dialog.c:600 ../app/sheets_dialog.c:693
 msgid "Description:"
@@ -1882,7 +1882,7 @@ msgstr "Nom:"
 #
 #: ../app/sheets_dialog.c:810
 msgid "DiaObject:"
-msgstr "Objecte del Dia:"
+msgstr "DiaObject:"
 
 #: ../app/sheets_dialog.c:837
 msgid "Sheet:"
@@ -1962,7 +1962,7 @@ msgstr "No s'ha pogut obrir «%s»: %s"
 #: ../app/sheets_dialog_callbacks.c:1656
 #, c-format
 msgid "Couldn't open: '%s' for writing"
-msgstr "No s'ha pogut obrir: «%s» per l'escriptura"
+msgstr "No s'ha pogut obrir: «%s» per a escriure-hi"
 
 #: ../app/sheets_dialog_callbacks.c:1666
 msgid "a user"
@@ -2622,6 +2622,7 @@ msgstr "Cardinalitat dreta:"
 msgid "Rotate:"
 msgstr "Gira:"
 
+# FIXME: identificació? 
 #: ../objects/ER/relationship.c:148
 msgid "Identifying:"
 msgstr "Identificant:"
@@ -2821,7 +2822,7 @@ msgstr "Permet DOF"
 #. Translators: Menu item Verb/Channel/Guide/Allow DOF/Constrain
 #: ../objects/FS/function.c:758
 msgid "Constrain"
-msgstr "Obliga"
+msgstr "Restricció"
 
 #. Translators: Menu item Verb/Channel/Guide/Allow DOF/Unlock
 #: ../objects/FS/function.c:760
@@ -3009,7 +3010,7 @@ msgstr "Divideix"
 #. Translators: Menu item Verb/Branch/Separate/Separate/Release
 #: ../objects/FS/function.c:852
 msgid "Release"
-msgstr "Llançament"
+msgstr "Deixa anar"
 
 #. Translators: Menu item Verb/Branch/Separate/Separate/Detach
 #: ../objects/FS/function.c:854
@@ -3024,7 +3025,7 @@ msgstr "Desconnecta"
 #. Translators: Menu item Verb/Branch/Separate/Remove/Cut
 #: ../objects/FS/function.c:862
 msgid "Cut"
-msgstr "Talla"
+msgstr "Retalla"
 
 #. Translators: Menu item Verb/Branch/Separate/Remove/Polish
 #: ../objects/FS/function.c:864
@@ -3263,7 +3264,7 @@ msgstr "Incrementa"
 #. Translators: Menu item Verb/Control Magnitude/Change/Decrease
 #: ../objects/FS/function.c:980
 msgid "Decrease"
-msgstr "Decrementa"
+msgstr "Redueix"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Amplify
 #: ../objects/FS/function.c:982
@@ -4619,7 +4620,7 @@ msgid ""
 "That option will go away in future versions.\n"
 "Please use the Initial/Final State object instead\n"
 msgstr ""
-"Aquest diagrama utilitza l'objecte Estat pels estats inicial i final.\n"
+"Aquest diagrama utilitza l'objecte Estat per als estats inicial i final.\n"
 "Aquesta opció desapareixerà en futures versions.\n"
 "Utilitzeu l'objecte Estat Inicial/Final, si us plau\n"
 
@@ -4755,7 +4756,7 @@ msgstr "Temps de baixada"
 
 #: ../objects/chronogram/chronoline.c:171
 msgid "Multi-bit data"
-msgstr "Dades de multi-bit"
+msgstr "Sades de multibit"
 
 #: ../objects/chronogram/chronoline.c:173
 #: ../objects/chronogram/chronoref.c:156
@@ -5014,7 +5015,7 @@ msgstr "PNG de Cairo"
 
 #: ../plug-ins/cairo/diacairo.c:1126
 msgid "Cairo PNG (with alpha)"
-msgstr "PNG de Cairo (amb alfa)"
+msgstr "PNG de Cairo (amb transparència)"
 
 #: ../plug-ins/cairo/diacairo.c:1136
 msgid "Cairo WMF"
@@ -5089,9 +5090,9 @@ msgid ""
 " '%s'\n"
 " not available"
 msgstr ""
-"La impressió en segon pla de GNOME\n"
+"El rerefons d'impressió\n"
 "«%s»\n"
-"no està disponible"
+"del GNOME no està disponible"
 
 #: ../plug-ins/gprint/diagnomeprint.c:112
 msgid "GNOME PostScript"
@@ -5258,7 +5259,7 @@ msgstr "No hi ha més colors definibles per l'usuari - s'utilitzarà el negre"
 
 #: ../plug-ins/xfig/xfig-export.c:1186
 msgid "XFig format"
-msgstr "Format del XFig"
+msgstr "Format de l'XFig"
 
 #: ../plug-ins/xfig/xfig-import.c:109
 #, c-format
@@ -6097,7 +6098,7 @@ msgstr "Variable de sortida 'especifica'"
 
 #: ../sheets/Contact.sheet.in.h:6
 msgid "Components for LADDER circuits"
-msgstr "Components pels circuits LADDER"
+msgstr "Components per als circuits LADDER"
 
 #: ../sheets/Contact.sheet.in.h:7
 msgid "Ladder"
@@ -6285,7 +6286,7 @@ msgstr "Entitat feble"
 
 #: ../sheets/Electric.sheet.in.h:1
 msgid "Components for electric circuits"
-msgstr "Components pels circuits elèctrics"
+msgstr "Components per als circuits elèctrics"
 
 #: ../sheets/Electric.sheet.in.h:2 ../sheets/Pneumatic.sheet.in.h:7
 msgid "Connection point"
@@ -6961,7 +6962,7 @@ msgstr "Orifici d'escapada d'aire"
 
 #: ../sheets/Pneumatic.sheet.in.h:6
 msgid "Components for pneumatic and hydraulic circuits"
-msgstr "Components pels circuits hidràulics i pneumàtics"
+msgstr "Components per als circuits hidràulics i pneumàtics"
 
 #: ../sheets/Pneumatic.sheet.in.h:8
 msgid "Double-effect jack"
