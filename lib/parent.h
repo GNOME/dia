@@ -24,7 +24,6 @@
 
 GList *parent_list_affected(GList *obj_list);
 gboolean parent_handle_extents(DiaObject *obj, Rectangle *extents);
-Point parent_move_child_delta_out(Rectangle *p_ext, Rectangle *c_ext, const Point *delta);
 Point parent_move_child_delta(Rectangle *p_ext, Rectangle *c_text, Point *delta);
 void parent_point_extents(Point *point, Rectangle *extents);
 gboolean parent_list_expand(GList *obj_list);

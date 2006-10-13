@@ -1,3 +1,8 @@
+2006-10-13  Hans Breuer  <hans@breuer.org>
+
+	* lib/parent.[ch] : parent_handle_move_in_check() was moving 
+	the checked point about twice as much as needed, bug #342773.
+	
 2006-10-12  Lars Clausen  <lars@raeder.dk>
 
 	* app/load_save.c (diagram_data_save): If we have GTK 2.8, check
