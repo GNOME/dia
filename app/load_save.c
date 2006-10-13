@@ -27,7 +27,12 @@
 #include <fcntl.h>
 #include <string.h>
 #include <glib.h>
+#include <gstdio.h> /* g_access() and friends */
 #include <errno.h>
+
+#ifndef W_OK
+#define W_OK 2
+#endif
 
 #include "intl.h"
 
@@ -898,7 +903,7 @@ diagram_data_save(DiagramData *data, const char *filename)
   int ret;
 
   /* Once we depend on GTK 2.8+, we can use these tests. */
-#ifdef GLIB_CHECK_VERSION(2,8,0)
+#if GLIB_CHECK_VERSION(2,8,0)
   /* Check that we're allowed to write to the target file at all. */
   if (g_file_test(filename, G_FILE_TEST_EXISTS) &&
       g_access(filename, W_OK) != 0) {
@@ -920,7 +925,7 @@ diagram_data_save(DiagramData *data, const char *filename)
   tmpname = g_strconcat(dirname,"__diaXXXXXX",NULL);
   bakname = g_strconcat(filename,"~",NULL);
 
-#ifdef GLIB_CHECK_VERSION(2,8,0)
+#if GLIB_CHECK_VERSION(2,8,0)
   /* Check that we can create the other files */
   if (g_file_test(dirname, G_FILE_TEST_EXISTS) &&
       g_access(dirname, W_OK) != 0) {

@@ -1,5 +1,10 @@
 2006-10-13  Hans Breuer  <hans@breuer.org>
 
+	* app/load_svae.c : make it compile by defining W_OK if it is
+	not there and also use '#if GLIB_CHECK_VERSION(2,8,0)' instead
+	of '#ifdef GLIB_CHECK_VERSION(2,8,0)'. Strange that gcc 
+	apparently compiled this
+
 	* lib/parent.[ch] : parent_handle_move_in_check() was moving 
 	the checked point about twice as much as needed, bug #342773.
 	
