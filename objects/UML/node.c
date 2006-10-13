@@ -304,32 +304,7 @@ node_update_data(Node *node)
   elem->height = MAX(elem->height, node->name->height * node->name->numlines + 2*NODE_TEXT_MARGIN);
   
   /* Update connections: */
-  node->connections[0].pos = elem->corner;
-  node->connections[0].directions = DIR_NORTH|DIR_WEST;
-  node->connections[1].pos.x = elem->corner.x + elem->width / 2.0;
-  node->connections[1].pos.y = elem->corner.y;
-  node->connections[1].directions = DIR_NORTH;
-  node->connections[2].pos.x = elem->corner.x + elem->width;
-  node->connections[2].pos.y = elem->corner.y;
-  node->connections[2].directions = DIR_NORTH|DIR_EAST;
-  node->connections[3].pos.x = elem->corner.x;
-  node->connections[3].pos.y = elem->corner.y + elem->height / 2.0;
-  node->connections[3].directions = DIR_WEST;
-  node->connections[4].pos.x = elem->corner.x + elem->width;
-  node->connections[4].pos.y = elem->corner.y + elem->height / 2.0;
-  node->connections[4].directions = DIR_EAST;
-  node->connections[5].pos.x = elem->corner.x;
-  node->connections[5].pos.y = elem->corner.y + elem->height;
-  node->connections[5].directions = DIR_SOUTH|DIR_WEST;
-  node->connections[6].pos.x = elem->corner.x + elem->width / 2.0;
-  node->connections[6].pos.y = elem->corner.y + elem->height;
-  node->connections[6].directions = DIR_SOUTH;
-  node->connections[7].pos.x = elem->corner.x + elem->width;
-  node->connections[7].pos.y = elem->corner.y + elem->height;
-  node->connections[7].directions = DIR_SOUTH|DIR_EAST;
-  node->connections[8].pos.x = elem->corner.x + elem->width/2;
-  node->connections[8].pos.y = elem->corner.y + elem->height/2;
-  node->connections[8].directions = DIR_ALL;
+  element_update_connections_rectangle(elem, node->connections);
   
   element_update_boundingbox(elem);
   /* fix boundingbox for depth: */

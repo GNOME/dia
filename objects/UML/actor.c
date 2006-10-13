@@ -298,33 +298,7 @@ actor_update_data(Actor *actor)
   actor_height = elem->height - actor->text->height;
 
   /* Update connections: */
-  actor->connections[0].pos.x = elem->corner.x;
-  actor->connections[0].pos.y = elem->corner.y;
-  actor->connections[0].directions = DIR_NORTH|DIR_WEST;
-  actor->connections[1].pos.x = elem->corner.x + elem->width / 2.0;
-  actor->connections[1].pos.y = elem->corner.y;
-  actor->connections[1].directions = DIR_NORTH;
-  actor->connections[2].pos.x = elem->corner.x + elem->width;
-  actor->connections[2].pos.y = elem->corner.y;
-  actor->connections[2].directions = DIR_NORTH|DIR_EAST;
-  actor->connections[3].pos.x = elem->corner.x;
-  actor->connections[3].pos.y = elem->corner.y + elem->height / 2.0;
-  actor->connections[3].directions = DIR_WEST;
-  actor->connections[4].pos.x = elem->corner.x + elem->width;
-  actor->connections[4].pos.y = elem->corner.y + elem->height / 2.0;
-  actor->connections[4].directions = DIR_EAST;
-  actor->connections[5].pos.x = elem->corner.x;
-  actor->connections[5].pos.y = elem->corner.y + elem->height;
-  actor->connections[5].directions = DIR_SOUTH|DIR_WEST;
-  actor->connections[6].pos.x = elem->corner.x + elem->width / 2.0;
-  actor->connections[6].pos.y = elem->corner.y + elem->height;
-  actor->connections[6].directions = DIR_SOUTH;
-  actor->connections[7].pos.x = elem->corner.x + elem->width;
-  actor->connections[7].pos.y = elem->corner.y + elem->height;
-  actor->connections[7].directions = DIR_SOUTH|DIR_EAST;
-  actor->connections[8].pos.x = elem->corner.x + elem->width/2;
-  actor->connections[8].pos.y = elem->corner.y + elem->height/2;
-  actor->connections[8].directions = DIR_ALL;
+  element_update_connections_rectangle(elem, actor->connections);
   
   element_update_boundingbox(elem);
 

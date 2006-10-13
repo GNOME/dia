@@ -1,6 +1,10 @@
 2006-10-13  Hans Breuer  <hans@breuer.org>
 
-	* app/load_svae.c : make it compile by defining W_OK if it is
+	* objects/UML/(actor|large_package|node|note).c : use 
+	element_update_connections_rectangle() instead of about 25 lines 
+	of copy and pasted code
+
+	* app/load_save.c : make it compile by defining W_OK if it is
 	not there and also use '#if GLIB_CHECK_VERSION(2,8,0)' instead
 	of '#ifdef GLIB_CHECK_VERSION(2,8,0)'. Strange that gcc 
 	apparently compiled this

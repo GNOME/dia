@@ -272,32 +272,7 @@ note_update_data(Note *note)
   text_set_position(note->text, &p);
 
   /* Update connections: */
-  note->connections[0].pos = elem->corner;
-  note->connections[0].directions = DIR_NORTH|DIR_WEST;
-  note->connections[1].pos.x = elem->corner.x + elem->width / 2.0;
-  note->connections[1].pos.y = elem->corner.y;
-  note->connections[0].directions = DIR_NORTH;
-  note->connections[2].pos.x = elem->corner.x + elem->width;
-  note->connections[2].pos.y = elem->corner.y;
-  note->connections[2].directions = DIR_NORTH|DIR_EAST;
-  note->connections[3].pos.x = elem->corner.x;
-  note->connections[3].pos.y = elem->corner.y + elem->height / 2.0;
-  note->connections[3].directions = DIR_WEST;
-  note->connections[4].pos.x = elem->corner.x + elem->width;
-  note->connections[4].pos.y = elem->corner.y + elem->height / 2.0;
-  note->connections[4].directions = DIR_EAST;
-  note->connections[5].pos.x = elem->corner.x;
-  note->connections[5].pos.y = elem->corner.y + elem->height;
-  note->connections[5].directions = DIR_SOUTH|DIR_WEST;
-  note->connections[6].pos.x = elem->corner.x + elem->width / 2.0;
-  note->connections[6].pos.y = elem->corner.y + elem->height;
-  note->connections[6].directions = DIR_SOUTH;
-  note->connections[7].pos.x = elem->corner.x + elem->width;
-  note->connections[7].pos.y = elem->corner.y + elem->height;
-  note->connections[7].directions = DIR_SOUTH|DIR_EAST;
-  note->connections[8].pos.x = elem->corner.x + elem->width/2;
-  note->connections[8].pos.y = elem->corner.y + elem->height/2;
-  note->connections[8].directions = DIR_ALL;
+  element_update_connections_rectangle(elem, note->connections);
   
   element_update_boundingbox(elem);
 

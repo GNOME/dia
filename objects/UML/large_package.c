@@ -306,33 +306,8 @@ largepackage_update_data(LargePackage *pkg)
     elem->height = 1.0;
   
   /* Update connections: */
-  pkg->connections[0].pos = elem->corner;
-  pkg->connections[1].pos.x = elem->corner.x + elem->width / 2.0;
-  pkg->connections[1].pos.y = elem->corner.y;
-  pkg->connections[2].pos.x = elem->corner.x + elem->width;
-  pkg->connections[2].pos.y = elem->corner.y;
-  pkg->connections[3].pos.x = elem->corner.x;
-  pkg->connections[3].pos.y = elem->corner.y + elem->height / 2.0;
-  pkg->connections[4].pos.x = elem->corner.x + elem->width;
-  pkg->connections[4].pos.y = elem->corner.y + elem->height / 2.0;
-  pkg->connections[5].pos.x = elem->corner.x;
-  pkg->connections[5].pos.y = elem->corner.y + elem->height;
-  pkg->connections[6].pos.x = elem->corner.x + elem->width / 2.0;
-  pkg->connections[6].pos.y = elem->corner.y + elem->height;
-  pkg->connections[7].pos.x = elem->corner.x + elem->width;
-  pkg->connections[7].pos.y = elem->corner.y + elem->height;
-  pkg->connections[8].pos.x = elem->corner.x + elem->width/2;
-  pkg->connections[8].pos.y = elem->corner.y + elem->height/2;
-  
-  pkg->connections[0].directions = DIR_NORTH|DIR_WEST;
-  pkg->connections[1].directions = DIR_NORTH;
-  pkg->connections[2].directions = DIR_NORTH|DIR_EAST;
-  pkg->connections[3].directions = DIR_WEST;
-  pkg->connections[4].directions = DIR_EAST;
-  pkg->connections[5].directions = DIR_SOUTH|DIR_WEST;
-  pkg->connections[6].directions = DIR_SOUTH;
-  pkg->connections[6].directions = DIR_ALL;
-                                                                                          
+  element_update_connections_rectangle(elem, pkg->connections);
+
   element_update_boundingbox(elem);
   /* fix boundingbox for top rectangle: */
   obj->bounding_box.top -= pkg->topheight;
