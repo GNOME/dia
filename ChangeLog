@@ -1,5 +1,8 @@
 2006-10-14  Hans Breuer  <hans@breuer.org>
 
+	* plug-ins/vdx/vdx-import.c : don't try to print("%s", NULL). It is
+	not generally supported and crashes on win32. Fixes bug #349883
+
 	* lib/arrows.[hc] : draw hollow arrow heads with linewidth 0.0 
 	correctly. Patch from Michael Duelli fixing bug #358176
 

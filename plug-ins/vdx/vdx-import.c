@@ -1925,7 +1925,7 @@ vdx_parse_shape(xmlNodePtr Shape, struct vdx_PageSheet *PageSheet,
     /* Avoid very bad shapes */
     if (!theShape.Type) return;
 
-    g_debug("Shape %d [%s]", theShape.ID, theShape.NameU);
+    g_debug("Shape %d [%s]", theShape.ID, theShape.NameU ? theShape.NameU : "(null)");
     /* Ignore Guide */
     /* For debugging purposes, use Del attribute and stop flag */
     if (!strcmp(theShape.Type, "Guide") || theShape.Del || theDoc->stop) 
