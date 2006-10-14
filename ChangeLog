@@ -1,5 +1,8 @@
 2006-10-14  Hans Breuer  <hans@breuer.org>
 
+	* lib/arrows.[hc] : draw hollow arrow heads with linewidth 0.0 
+	correctly. Patch from Michael Duelli fixing bug #358176
+
 	* objects/standard/arc.c : don't rely on the result of atan2(inf,inf),
 	it is C-runtime dependent. Fixes infinitesimal burning of CPU cycles,
 	bug #360013 and duplicates.

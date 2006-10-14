@@ -95,7 +95,7 @@ void arrow_draw(DiaRenderer *renderer, ArrowType type,
 void
 calculate_arrow_point(const Arrow *arrow, const Point *to, const Point *from,
 		      Point *move_arrow, Point *move_line,
-		      const real linewidth);
+		      real linewidth);
 
 /* Transforms 'start' to be at the back end of the arrow, and puts the
  * tip of the arrow into 'arrowtip'.

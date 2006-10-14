@@ -107,11 +107,17 @@ calculate_diamond(Point *poly/*[4]*/, Point *to, Point *from,
 void
 calculate_arrow_point(const Arrow *arrow, const Point *to, const Point *from,
 		      Point *move_arrow, Point *move_line,
-		      const real linewidth)
+		      real linewidth)
 {
   real add_len;
   real angle;
   Point tmp;
+
+  /* Otherwise line is drawn through arrow
+   * head for some hollow arrow heads
+   * */
+  if (linewidth == 0.0)
+    linewidth = 0.0001;
 
   /* First, we move the arrow head backwards.
    * This in most cases just accounts for the linewidth of the arrow.
