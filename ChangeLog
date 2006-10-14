@@ -1,5 +1,9 @@
 2006-10-14  Hans Breuer  <hans@breuer.org>
 
+	* objects/standard/arc.c : don't rely on the result of atan2(inf,inf),
+	it is C-runtime dependent. Fixes infinitesimal burning of CPU cycles,
+	bug #360013 and duplicates.
+
 	* app/load_save.c : protect gstdio.h by GLIB_CHECK_VERSION
 	and use the <glib/ form for installed version
 

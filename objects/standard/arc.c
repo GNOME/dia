@@ -606,9 +606,8 @@ arc_draw(Arc *arc, DiaRenderer *renderer)
   end_cp = arc->connection.endpoint_handles[1].connected_to;
 
   arc_update_data(arc);
- TRACE(printf("drawing arc:\n start:%f °:%f,%f \tend:%f °:%f,%f\n",arc->angle1,endpoints[0].x,endpoints[0].y, arc->angle2,endpoints[1].x,endpoints[1].y));
+  TRACE(printf("drawing arc:\n start:%f °:%f,%f \tend:%f °:%f,%f\n",arc->angle1,endpoints[0].x,endpoints[0].y, arc->angle2,endpoints[1].x,endpoints[1].y));
 
- 
   if (connpoint_is_autogap(start_cp)) {
      TRACE(printf("computing start intersection\ncurve_distance: %f\n",arc->curve_distance));
      if (arc->curve_distance < 0)
@@ -759,8 +758,11 @@ arc_update_data(Arc *arc)
   lensq = (x2-x1)*(x2-x1) + (y2-y1)*(y2-y1);
   radius = lensq/(8*arc->curve_distance) + arc->curve_distance/2.0;
 
-  alpha = (radius - arc->curve_distance) / sqrt(lensq);
-  
+  if (lensq == 0.0)
+	alpha = 1.0; /* arbitrary, but /not/ 1/0  */
+  else
+    alpha = (radius - arc->curve_distance) / sqrt(lensq);
+
   xc = (x1 + x2) / 2.0 + (y2 - y1)*alpha;
   yc = (y1 + y2) / 2.0 + (x1 - x2)*alpha;
 
