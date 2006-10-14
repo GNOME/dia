@@ -1,3 +1,8 @@
+2006-10-14  Hans Breuer  <hans@breuer.org>
+
+	* app/load_save.c : protect gstdio.h by GLIB_CHECK_VERSION
+	and use the <glib/ form for installed version
+
 2006-10-13  Hans Breuer  <hans@breuer.org>
 
 	* objects/UML/(actor|large_package|node|note).c : use 
