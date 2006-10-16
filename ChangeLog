@@ -1,3 +1,7 @@
+2006-10-16  Theppitak Karoonboonyanan  <thep@linux.thai.net>
+
+	* configure.in : Add 'th' (Thai) to ALL_LINGUAS.
+
 2006-10-14  Hans Breuer  <hans@breuer.org>
 
 	* plug-ins/vdx/vdx-import.c : don't try to print("%s", NULL). It is
