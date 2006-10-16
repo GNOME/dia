@@ -30,7 +30,6 @@
 #include <gtk/gtk.h>
 #include <math.h>
 #include <string.h>
-#include <ctype.h>
 
 #include "intl.h"
 #include "diarenderer.h"
@@ -517,89 +516,60 @@ uml_create_documentation_tag (gchar * comment,
 {
   gchar  *CommentTag           = tagging ? "{documentation = " : "";
   gint   TagLength             = strlen(CommentTag);
-  gchar  *WrappedComment       = g_malloc(TagLength+1);
-  gint   LengthOfComment       = strlen(comment);
-  gint   CommentIndex          = 0;
-  gint   LengthOfWrappedComment= 0;
   /* Make sure that there is at least some value greater then zero for the WrapPoint to 
    * support diagrams from earlier versions of Dia. So if the WrapPoint is zero then use
    * the taglength as the WrapPoint. If the Tag has been changed such that it has a length
    * of 0 then use 1.
    */
-  gint   WorkingWrapPoint      = (WrapPoint <= TagLength )?((TagLength<=0)?1:TagLength):WrapPoint;
-  gint   LineLen    = WorkingWrapPoint - TagLength;
+  gint     WorkingWrapPoint = (TagLength<WrapPoint) ? WrapPoint : ((TagLength<=0)?1:TagLength);
+  gint     RawLength        = TagLength + strlen(comment) + (tagging?1:0);
+  gint     MaxCookedLength  = RawLength + RawLength/WorkingWrapPoint;
+  gchar    *WrappedComment  = g_malloc0(MaxCookedLength+1);
+  gint     AvailSpace       = WorkingWrapPoint - TagLength;
+  gchar    *Scan;
+  gchar    *BreakCandidate;
+  gunichar ScanChar;
+  gboolean AddNL            = FALSE;
 
-  WrappedComment[0] = '\0';
-  strcat(WrappedComment, CommentTag);
-  LengthOfWrappedComment = strlen(WrappedComment);
+  if (tagging)
+    strcat(WrappedComment, CommentTag);
   *NumberOfLines = 1;
 
-  /* Remove leading whitespace */
-  while( isspace(comment[CommentIndex])){
-    CommentIndex++;
-  }
-
-
-  while( CommentIndex < LengthOfComment) /* more of the comment to go? */
-  {
-    gchar *Nl         = strchr(&comment[CommentIndex], '\n');
-    gint   BytesToNextNewLine = 0;
-
-    /* if this is the first line then we have to take into 
-     * account the tag of the tagged value
-     */
-
-    LengthOfWrappedComment = strlen(WrappedComment);
-    /*
-    * First handle the next new lines
-    */
-    if ( Nl != NULL){
-      BytesToNextNewLine = (Nl - &comment[CommentIndex]);
+  while ( *comment ) {
+    /* Skip spaces */
+    while ( *comment && g_unichar_isspace(g_utf8_get_char(comment)) ) {
+        comment = g_utf8_next_char(comment); 
     }
-
-    if ((Nl != NULL) && (BytesToNextNewLine < LineLen)){
-      LineLen = BytesToNextNewLine;
-    }
-    else{
-		if( (CommentIndex + LineLen) > LengthOfComment){
-			LineLen = LengthOfComment-CommentIndex;
-		}
-      while (LineLen > 0){
-        if ((LineLen == (gint)strlen(&comment[CommentIndex])) ||
-          isspace(comment[CommentIndex+LineLen])){
-          break;
-        } else{
-          LineLen--;
-        }
+    /* Copy chars */
+    if ( *comment ){
+      /* Scan to \n or avalable space exhausted */
+      Scan = comment;
+      BreakCandidate = NULL;
+      while ( *Scan && *Scan != '\n' && AvailSpace > 0 ) {
+        ScanChar = g_utf8_get_char(Scan);
+        /* We known, that g_unichar_isspace() is not recommended for word breaking; 
+         * but Pango usage seems too complex.
+         */
+        if ( g_unichar_isspace(ScanChar) )
+          BreakCandidate = Scan;
+        AvailSpace--; /* not valid for nonspacing marks */
+        Scan = g_utf8_next_char(Scan); 
       }
-      if ((*NumberOfLines > 1) &&( LineLen == 0)){
-          LineLen = WorkingWrapPoint;
+      if ( AvailSpace==0 && BreakCandidate != NULL )
+        Scan = BreakCandidate;
+      if ( AddNL ){
+        strcat(WrappedComment, "\n");
+        *NumberOfLines+=1;
       }
+      AddNL = TRUE;
+      strncat(WrappedComment, comment, Scan-comment);
+        AvailSpace = WorkingWrapPoint;
+      comment = Scan;
     }
-  if (LineLen < 0){
-	  LineLen = 0;
   }
-
-    /* Grow the wrapped text to make room for the NL and the next chunk */
-    WrappedComment = g_realloc(WrappedComment,LengthOfWrappedComment+LineLen+2);
-    memset(&WrappedComment[LengthOfWrappedComment],0,LineLen+2);
-    strncat(WrappedComment, &comment[CommentIndex], LineLen);
-
-    CommentIndex  += LineLen;
-    while( isspace(comment[CommentIndex])){
-      CommentIndex++;
-    }
-    if (CommentIndex < LengthOfComment){
-     /* if this is not the last line add a new-line*/
-      strcat(WrappedComment,"\n");
-      *NumberOfLines+=1;
-    }
-    LengthOfWrappedComment = strlen(WrappedComment);
-    LineLen    = WorkingWrapPoint;
-  }
-  WrappedComment = g_realloc(WrappedComment,LengthOfWrappedComment+2);
   if (tagging)
     strcat(WrappedComment, "}");
+  assert(strlen(WrappedComment)<=MaxCookedLength);
   return WrappedComment;
 }
 

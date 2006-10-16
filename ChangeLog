@@ -1,3 +1,8 @@
+2006-10-16  Hans Breuer  <hans@breuer.org>
+
+	* objects/UML/class.c : the comment wrapping was only working for
+	plain ASCII, now it deals with UTF-8 (Vadim Zelenin, bug #349765)
+
 2006-10-16  Theppitak Karoonboonyanan  <thep@linux.thai.net>
 
 	* configure.in : Add 'th' (Thai) to ALL_LINGUAS.
