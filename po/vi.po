@@ -7,8 +7,8 @@ msgid ""
 ""
 msgstr "Project-Id-Version: dia HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-08-19 02:27+0200\n"
-"PO-Revision-Date: 2006-08-19 17:59+0930\n"
+"POT-Creation-Date: 2006-10-17 10:20+0200\n"
+"PO-Revision-Date: 2006-10-17 22:23+0930\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: Vietnamese <gnomevi-list@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -21,22 +21,22 @@ msgstr "Project-Id-Version: dia HEAD\n"
 #: ../app/app_procs.c:260
 #, c-format
 msgid "Warning: invalid layer range %lu - %lu\n"
-msgstr "Cảnh báo: phạm vi lớp không hợp lệ %lu — %lu\n"
+msgstr "Cảnh báo : phạm vi lớp không hợp lệ %lu - %lu\n"
 
 #: ../app/app_procs.c:272
 #, c-format
 msgid "Warning: Layer %lu (%s) selected more than once.\n"
-msgstr "Cảnh báo: chọn lớp %lu (%s) nhiều lần.\n"
+msgstr "Cảnh báo : chọn lớp %lu (%s) nhiều lần.\n"
 
 #: ../app/app_procs.c:298
 #, c-format
 msgid "Warning: Layer %d (%s) selected more than once.\n"
-msgstr "Cảnh báo: chọn lớp %d (%s) nhiều lần.\n"
+msgstr "Cảnh báo : chọn lớp %d (%s) nhiều lần.\n"
 
 #: ../app/app_procs.c:307
 #, c-format
 msgid "Warning: There is no layer named %s\n"
-msgstr "Cảnh báo: không có lớp tên %s.\n"
+msgstr "Cảnh báo : không có lớp tên %s.\n"
 
 #: ../app/app_procs.c:389
 #, c-format
@@ -310,21 +310,21 @@ msgstr "Chọn màu cận cảnh"
 msgid "Select background color"
 msgstr "Chọn màu nền"
 
-#: ../app/commands.c:133
+#: ../app/commands.c:134
 #, c-format
 msgid "Diagram%d.dia"
 msgstr "Hình%d.dia"
 
-#: ../app/commands.c:206
+#: ../app/commands.c:207
 msgid "No existing object to paste.\n"
 msgstr "Không có đối tượng tồn tại để dán.\n"
 
-#: ../app/commands.c:537
-#: ../app/commands.c:575
+#: ../app/commands.c:538
+#: ../app/commands.c:576
 msgid "Could not find help directory"
 msgstr "Không thể tìm thấy thư mục trợ giúp"
 
-#: ../app/commands.c:544
+#: ../app/commands.c:545
 #, c-format
 msgid ""
 "Could not open help directory:\n"
@@ -332,11 +332,11 @@ msgid ""
 msgstr "Không thể mở thư mục trợ giúp:\n"
 "%s"
 
-#: ../app/commands.c:611
+#: ../app/commands.c:612
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr "Nhóm Việt hóa Gnome <gnomevi-list@lists.sourceforge.net>"
 
-#: ../app/commands.c:613
+#: ../app/commands.c:614
 msgid ""
 "This program is free software; you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"
@@ -369,7 +369,7 @@ msgstr "Chương trình này là phần mềm dùng tự do;\n"
 "59 Temple Place - Suite 330, Boston,\n"
 "MA 02111-1307, USA (Mỹ).\n"
 
-#: ../app/commands.c:636
+#: ../app/commands.c:637
 msgid "A program for drawing structured diagrams."
 msgstr "Chương trình vẽ sơ đồ cấu trúc hàm."
 
@@ -687,7 +687,7 @@ msgstr "%0.3gcm × %0.3gcm"
 msgid "Page Setup"
 msgstr "Thiết lập trang"
 
-#: ../app/disp_callbacks.c:83
+#: ../app/disp_callbacks.c:84
 #: ../app/properties.c:152
 msgid ""
 "This object doesn't support Undo/Redo.\n"
@@ -695,11 +695,11 @@ msgid ""
 msgstr "Đối tượng này không hỗ trợ khả năng Hồi lại/Làm lại.\n"
 "Thông tin « Hồi lại » bị xóa bỏ."
 
-#: ../app/disp_callbacks.c:118
+#: ../app/disp_callbacks.c:119
 msgid "Properties..."
 msgstr "Tài sản..."
 
-#: ../app/disp_callbacks.c:920
+#: ../app/disp_callbacks.c:921
 msgid ""
 "The object you dropped cannot fit into its parent. \n"
 "Either expand the parent object, or drop the object elsewhere."
@@ -750,7 +750,7 @@ msgid "_Discard Changes"
 msgstr "_Hủy các thay đổi"
 
 #: ../app/export_png.c:136
-#: ../app/load_save.c:918
+#: ../app/load_save.c:951
 #: ../app/render_eps.c:103
 #: ../plug-ins/cairo/diacairo.c:976
 #: ../plug-ins/cgm/cgm.c:1151
@@ -1110,21 +1110,21 @@ msgstr "Bề rộng đường"
 msgid "Line width:"
 msgstr "Rộng đường:"
 
-#: ../app/load_save.c:261
+#: ../app/load_save.c:268
 msgid ""
 "Error loading diagram.\n"
 "Linked object not found in document."
 msgstr "Gặp lỗi khi tải sơ đồ.\n"
 "Không tìm thấy đối tượng đã liên kết trong tài liệu."
 
-#: ../app/load_save.c:264
+#: ../app/load_save.c:271
 msgid ""
 "Error loading diagram.\n"
 "connection handle does not exist."
 msgstr "Gặp lỗi khi tải sơ đồ.\n"
 "Không có móc kết nối."
 
-#: ../app/load_save.c:281
+#: ../app/load_save.c:288
 #, c-format
 msgid ""
 "Error loading diagram.\n"
@@ -1132,16 +1132,16 @@ msgid ""
 msgstr "Gặp lỗi khi tải sơ đồ.\n"
 "Không có điểm kết nối %s."
 
-#: ../app/load_save.c:306
+#: ../app/load_save.c:313
 #, c-format
 msgid "Can't find parent %s of %s object\n"
 msgstr "Không thể tìm thấy mẹ %s của đối tượng %s\n"
 
-#: ../app/load_save.c:352
+#: ../app/load_save.c:359
 msgid "You must specify a file, not a directory.\n"
 msgstr "Bạn phải xác định một tập tin, không phải một thư mục.\n"
 
-#: ../app/load_save.c:359
+#: ../app/load_save.c:366
 #: ../plug-ins/dxf/dxf-import.c:1306
 #: ../plug-ins/wpg/wpg.c:1175
 #: ../plug-ins/xfig/xfig-import.c:1258
@@ -1150,8 +1150,8 @@ msgstr "Bạn phải xác định một tập tin, không phải một thư mụ
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "Không thể mở : « %s » để đọc.\n"
 
-#: ../app/load_save.c:377
-#: ../app/load_save.c:383
+#: ../app/load_save.c:384
+#: ../app/load_save.c:390
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -1159,7 +1159,7 @@ msgid ""
 msgstr "Gặp lỗi khi tải sơ đồ %s.\n"
 "Không biết kiểu tập tin."
 
-#: ../app/load_save.c:391
+#: ../app/load_save.c:398
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -1167,7 +1167,7 @@ msgid ""
 msgstr "Gặp lỗi khi tải sơ đồ %s.\n"
 "Không phải là tập tin kiểu Dia."
 
-#: ../app/load_save.c:597
+#: ../app/load_save.c:604
 #, c-format
 msgid ""
 "Error loading diagram:\n"
@@ -1177,13 +1177,30 @@ msgstr "Gặp lỗi khi tải sơ đồ:\n"
 "%s.\n"
 "Tập tin Dia hợp lệ phải định nghĩa ít nhất một lớp."
 
-#: ../app/load_save.c:952
+#: ../app/load_save.c:912
 #, c-format
-msgid "Failed to save file '%s'.\n"
-msgstr "Việc lưu tập tin « %s » bị lỗi.\n"
+msgid "No allowed to write to output file %s\n"
+msgstr "Không cho phép ghi vào tập tin xuất %s\n"
 
-#: ../app/load_save.c:1026
-#: ../app/load_save.c:1031
+#: ../app/load_save.c:934
+#, c-format
+msgid "No allowed to write temporary files in %s\n"
+msgstr "Không cho phép ghi tập tin tạm thời trong %s\n"
+
+#.Save failed; we clean our stuff up, without touching the file named
+#."filename" if it existed.
+#: ../app/load_save.c:962
+#, c-format
+msgid "Internal error %d writing file %s\n"
+msgstr "Lỗi nội bộ %d khi ghi tập tin %s\n"
+
+#: ../app/load_save.c:976
+#, c-format
+msgid "Can't rename %s to final output file %s: %s\n"
+msgstr "Không thể thay đổi tên %s thành tập tin xuất cuối cùng %s: %s\n"
+
+#: ../app/load_save.c:1064
+#: ../app/load_save.c:1069
 msgid "Dia Diagram File"
 msgstr "Tập tin sơ đồ Dia"
 
@@ -1556,7 +1573,7 @@ msgid "Loaded"
 msgstr "Tải"
 
 #: ../app/plugin-manager.c:262
-#: ../objects/UML/class.c:140
+#: ../objects/UML/class.c:139
 #: ../objects/UML/large_package.c:131
 #: ../objects/UML/umlattribute.c:37
 #: ../objects/UML/umlformalparameter.c:35
@@ -2282,7 +2299,7 @@ msgstr "Tài sản kiểu dáng đường"
 msgid "Multiple export filters with unique name %s"
 msgstr "Nhiều bộ lọc xuất có cùng tên %s."
 
-#: ../lib/font.c:104
+#: ../lib/font.c:100
 #, c-format
 msgid "Can't load font %s.\n"
 msgstr "Không thể tải phông chữ %s.\n"
@@ -2432,7 +2449,7 @@ msgstr "Canh lề chữ"
 #: ../objects/GRAFCET/condition.c:132
 #: ../objects/GRAFCET/step.c:165
 #: ../objects/GRAFCET/transition.c:142
-#: ../objects/UML/class.c:170
+#: ../objects/UML/class.c:169
 #: ../objects/UML/class_dialog.c:394
 #: ../objects/chronogram/chronoline.c:183
 #: ../objects/chronogram/chronoref.c:164
@@ -3291,7 +3308,7 @@ msgstr "Phơi ra"
 
 #.Translators: Menu item Verb/Provision/Extract
 #: ../objects/FS/function.c:942
-#: ../sheets/Flowchart.sheet.in.h:8
+#: ../sheets/Flowchart.sheet.in.h:9
 msgid "Extract"
 msgstr "Trích"
 
@@ -3538,7 +3555,7 @@ msgstr "Đánh dấu"
 
 #.Translators: Menu item Verb/Signal/Display
 #: ../objects/FS/function.c:1060
-#: ../sheets/Flowchart.sheet.in.h:6
+#: ../sheets/Flowchart.sheet.in.h:7
 msgid "Display"
 msgstr "Hiển thị"
 
@@ -4188,13 +4205,13 @@ msgstr "Bề rông đường mũi tên thứ hai"
 msgid "Show hours"
 msgstr "Hiện giờ"
 
-#: ../objects/Misc/libmisc.c:40
+#: ../objects/Misc/libmisc.c:42
 msgid "Miscellaneous objects"
 msgstr "Đối tượng linh tinh"
 
 #.property rows
 #: ../objects/SADT/arrow.c:134
-#: ../objects/UML/class.c:175
+#: ../objects/UML/class.c:174
 #: ../objects/UML/class_dialog.c:400
 msgid "Normal"
 msgstr "Chuẩn"
@@ -4257,8 +4274,8 @@ msgstr "Hộp SADT"
 msgid "SADT diagram objects"
 msgstr "Đối tượng sơ đồ SADT"
 
-#: ../objects/UML/actor.c:375
-#: ../objects/UML/actor.c:377
+#: ../objects/UML/actor.c:349
+#: ../objects/UML/actor.c:351
 #: ../sheets/UML.sheet.in.h:2
 msgid "Actor"
 msgstr "Diễn viên"
@@ -4343,14 +4360,14 @@ msgstr "Tập hợp"
 msgid "Composition"
 msgstr "Cấu thành"
 
-#: ../objects/UML/class.c:138
-#: ../objects/UML/class.c:309
-#: ../objects/UML/class.c:1708
+#: ../objects/UML/class.c:137
+#: ../objects/UML/class.c:308
+#: ../objects/UML/class.c:1678
 #: ../sheets/UML.sheet.in.h:6
 msgid "Class"
 msgstr "Hạng"
 
-#: ../objects/UML/class.c:142
+#: ../objects/UML/class.c:141
 #: ../objects/UML/classicon.c:138
 #: ../objects/UML/component.c:124
 #: ../objects/UML/large_package.c:129
@@ -4360,8 +4377,8 @@ msgstr "Hạng"
 msgid "Stereotype"
 msgstr "Khuôn đúc"
 
-#: ../objects/UML/class.c:144
-#: ../objects/UML/class.c:185
+#: ../objects/UML/class.c:143
+#: ../objects/UML/class.c:184
 #: ../objects/UML/class_dialog.c:425
 #: ../objects/UML/umlattribute.c:43
 #: ../objects/UML/umloperation.c:66
@@ -4370,8 +4387,8 @@ msgstr "Khuôn đúc"
 msgid "Comment"
 msgstr "Ghi chú"
 
-#: ../objects/UML/class.c:146
-#: ../objects/UML/class.c:179
+#: ../objects/UML/class.c:145
+#: ../objects/UML/class.c:178
 #: ../objects/UML/class_dialog.c:324
 #: ../objects/UML/class_dialog.c:410
 #: ../objects/UML/class_dialog.c:2016
@@ -4379,85 +4396,85 @@ msgstr "Ghi chú"
 msgid "Abstract"
 msgstr "Trích yếu"
 
-#: ../objects/UML/class.c:148
-#: ../objects/UML/class.c:1705
+#: ../objects/UML/class.c:147
+#: ../objects/UML/class.c:1675
 msgid "Template"
 msgstr "Biểu mẫu"
 
-#: ../objects/UML/class.c:151
+#: ../objects/UML/class.c:150
 #: ../objects/UML/class_dialog.c:333
 msgid "Suppress Attributes"
 msgstr "Thu hồi thuộc tính"
 
-#: ../objects/UML/class.c:153
+#: ../objects/UML/class.c:152
 msgid "Suppress Operations"
 msgstr "Thu hồi thao tác"
 
-#: ../objects/UML/class.c:155
+#: ../objects/UML/class.c:154
 msgid "Visible Attributes"
 msgstr "Thuộc tính hiển thị"
 
-#: ../objects/UML/class.c:157
+#: ../objects/UML/class.c:156
 msgid "Visible Operations"
 msgstr "Thao tác hiển thị"
 
-#: ../objects/UML/class.c:159
+#: ../objects/UML/class.c:158
 msgid "Visible Comments"
 msgstr "Ghi chú hiển thị"
 
-#: ../objects/UML/class.c:161
+#: ../objects/UML/class.c:160
 #: ../objects/UML/class_dialog.c:349
 msgid "Wrap Operations"
 msgstr "Thao tác ngắt dòng"
 
-#: ../objects/UML/class.c:163
+#: ../objects/UML/class.c:162
 msgid "Wrap after char"
 msgstr "Ngắt dòng sau ký tự"
 
-#: ../objects/UML/class.c:165
+#: ../objects/UML/class.c:164
 msgid "Comment line length"
 msgstr "Độ dài dòng ghi chú"
 
-#: ../objects/UML/class.c:167
+#: ../objects/UML/class.c:166
 msgid "Comment tagging"
 msgstr "Tạo thẻ ghi chú"
 
-#: ../objects/UML/class.c:177
+#: ../objects/UML/class.c:176
 #: ../objects/UML/class_dialog.c:405
 msgid "Polymorphic"
 msgstr "Đa dạng"
 
-#: ../objects/UML/class.c:181
+#: ../objects/UML/class.c:180
 msgid "Classname"
 msgstr "Tên hạng"
 
-#: ../objects/UML/class.c:183
+#: ../objects/UML/class.c:182
 msgid "Abstract Classname"
 msgstr "Tên hạng trừu tượng"
 
-#: ../objects/UML/class.c:189
-#: ../objects/UML/class.c:191
-#: ../objects/UML/class.c:193
-#: ../objects/UML/class.c:195
-#: ../objects/UML/class.c:197
-#: ../objects/UML/class.c:199
+#: ../objects/UML/class.c:188
+#: ../objects/UML/class.c:190
+#: ../objects/UML/class.c:192
+#: ../objects/UML/class.c:194
+#: ../objects/UML/class.c:196
+#: ../objects/UML/class.c:198
 msgid " "
 msgstr " "
 
-#: ../objects/UML/class.c:205
+#: ../objects/UML/class.c:204
 #: ../objects/UML/object.c:154
 msgid "Attributes"
 msgstr "Thuộc tính"
 
-#: ../objects/UML/class.c:207
+#: ../objects/UML/class.c:206
 msgid "Operations"
 msgstr "Thao tác"
 
-#: ../objects/UML/class.c:210
+#: ../objects/UML/class.c:209
 msgid "Template Parameters"
 msgstr "Tham số biểu mẫu"
 
-#: ../objects/UML/class.c:304
+#: ../objects/UML/class.c:303
 msgid "Show Comments"
 msgstr "Hiện ghi chú"
 
@@ -6563,109 +6580,113 @@ msgid "Connector"
 msgstr "Bộ kết nối"
 
 #: ../sheets/Flowchart.sheet.in.h:4
+msgid "Data source"
+msgstr "Nguồn dữ liệu"
+
+#: ../sheets/Flowchart.sheet.in.h:5
 #: ../sheets/SDL.sheet.in.h:4
 msgid "Decision"
 msgstr "Quyết định"
 
-#: ../sheets/Flowchart.sheet.in.h:5
+#: ../sheets/Flowchart.sheet.in.h:6
 msgid "Delay"
 msgstr "Hoãn"
 
-#: ../sheets/Flowchart.sheet.in.h:7
+#: ../sheets/Flowchart.sheet.in.h:8
 msgid "Document"
 msgstr "Tài liệu"
 
-#: ../sheets/Flowchart.sheet.in.h:9
+#: ../sheets/Flowchart.sheet.in.h:10
 msgid "Flowchart"
 msgstr "Lược đồ"
 
-#: ../sheets/Flowchart.sheet.in.h:10
+#: ../sheets/Flowchart.sheet.in.h:11
 msgid "Input/Output"
 msgstr "Nhập/Xuất"
 
-#: ../sheets/Flowchart.sheet.in.h:11
+#: ../sheets/Flowchart.sheet.in.h:12
 msgid "Internal storage"
 msgstr "Kho nội"
 
-#: ../sheets/Flowchart.sheet.in.h:12
+#: ../sheets/Flowchart.sheet.in.h:13
 msgid "Magnetic disk"
 msgstr "Đĩa từ"
 
-#: ../sheets/Flowchart.sheet.in.h:13
+#: ../sheets/Flowchart.sheet.in.h:14
 msgid "Magnetic drum"
 msgstr "Trống từ"
 
-#: ../sheets/Flowchart.sheet.in.h:14
+#: ../sheets/Flowchart.sheet.in.h:15
 msgid "Magnetic tape"
 msgstr "Băng từ"
 
-#: ../sheets/Flowchart.sheet.in.h:15
+#: ../sheets/Flowchart.sheet.in.h:16
 msgid "Manual input"
 msgstr "Tự nhập"
 
-#: ../sheets/Flowchart.sheet.in.h:16
+#: ../sheets/Flowchart.sheet.in.h:17
 msgid "Manual operation"
 msgstr "Tự thao tác"
 
-#: ../sheets/Flowchart.sheet.in.h:17
+#: ../sheets/Flowchart.sheet.in.h:18
 msgid "Merge"
 msgstr "Trộn"
 
-#: ../sheets/Flowchart.sheet.in.h:18
+#: ../sheets/Flowchart.sheet.in.h:19
 msgid "Objects to draw flowcharts"
 msgstr "Đối tượng để vẽ lược đồ"
 
 #.XXX
-#: ../sheets/Flowchart.sheet.in.h:20
+#: ../sheets/Flowchart.sheet.in.h:21
 msgid "Off page connector"
 msgstr "Bộ kết nối ra trang"
 
-#: ../sheets/Flowchart.sheet.in.h:21
+#: ../sheets/Flowchart.sheet.in.h:22
 msgid "Offline storage"
 msgstr "Kho ngoại tuyến"
 
-#: ../sheets/Flowchart.sheet.in.h:22
+#: ../sheets/Flowchart.sheet.in.h:23
 msgid "Or"
 msgstr "Hoặc"
 
-#: ../sheets/Flowchart.sheet.in.h:23
+#: ../sheets/Flowchart.sheet.in.h:24
 msgid "Predefined process"
 msgstr "Tiến trình xác định sẵn"
 
-#: ../sheets/Flowchart.sheet.in.h:24
+#: ../sheets/Flowchart.sheet.in.h:25
 msgid "Preparation"
 msgstr "Chuẩn bị"
 
-#: ../sheets/Flowchart.sheet.in.h:25
+#: ../sheets/Flowchart.sheet.in.h:26
 msgid "Process/Auxiliary Operation"
 msgstr "Thao tác tiến trình/phụ"
 
-#: ../sheets/Flowchart.sheet.in.h:26
+#: ../sheets/Flowchart.sheet.in.h:27
 msgid "Punched card"
 msgstr "Thẻ lỗ"
 
-#: ../sheets/Flowchart.sheet.in.h:27
+#: ../sheets/Flowchart.sheet.in.h:28
 msgid "Punched tape"
 msgstr "Băng lỗ"
 
-#: ../sheets/Flowchart.sheet.in.h:28
+#: ../sheets/Flowchart.sheet.in.h:29
 msgid "Sort"
 msgstr "Sắp xếp"
 
 #.XXX
-#: ../sheets/Flowchart.sheet.in.h:30
+#: ../sheets/Flowchart.sheet.in.h:31
 msgid "Summing junction"
 msgstr "Nối cộng"
 
-#: ../sheets/Flowchart.sheet.in.h:31
+#: ../sheets/Flowchart.sheet.in.h:32
 msgid "Terminal Interrupt"
 msgstr "Ngắt kết thúc"
 
-#: ../sheets/Flowchart.sheet.in.h:32
+#: ../sheets/Flowchart.sheet.in.h:33
 msgid "Transaction file"
 msgstr "Tập tin giao dịch"
 
-#: ../sheets/Flowchart.sheet.in.h:33
+#: ../sheets/Flowchart.sheet.in.h:34
 msgid "Transmittal tape"
 msgstr "Băng gửi"
 
@@ -9082,3 +9103,6 @@ msgstr "Máy phục vụ dữ liệu Sybase"
 #: ../sheets/sybase.sheet.in.h:8
 msgid "Sybase replication server"
 msgstr "Máy phục vụ sao chép Sybase"
+
+#~ msgid "Failed to save file '%s'.\n"
+#~ msgstr "Việc lưu tập tin « %s » bị lỗi.\n"
