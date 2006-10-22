@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-09-10 17:06+0100\n"
-"PO-Revision-Date: 2006-09-10 17:08-0000\n"
+"POT-Creation-Date: 2006-10-22 10:42+0100\n"
+"PO-Revision-Date: 2006-10-22 10:43-0000\n"
 "Last-Translator: David Lodge <dave@cirt.net>\n"
 "Language-Team: English/GB <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -302,21 +302,21 @@ msgstr "Select foreground colour"
 msgid "Select background color"
 msgstr "Select background colour"
 
-#: ../app/commands.c:133
+#: ../app/commands.c:134
 #, c-format
 msgid "Diagram%d.dia"
 msgstr "Diagram%d.dia"
 
-#: ../app/commands.c:206
+#: ../app/commands.c:207
 msgid "No existing object to paste.\n"
 msgstr "No existing object to paste.\n"
 
-#: ../app/commands.c:537
-#: ../app/commands.c:575
+#: ../app/commands.c:538
+#: ../app/commands.c:576
 msgid "Could not find help directory"
 msgstr "Could not find help directory"
 
-#: ../app/commands.c:544
+#: ../app/commands.c:545
 #, c-format
 msgid ""
 "Could not open help directory:\n"
@@ -325,13 +325,13 @@ msgstr ""
 "Could not open help directory:\n"
 "%s"
 
-#: ../app/commands.c:611
+#: ../app/commands.c:612
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 "David Lodge <dave@cirt.net>, \n"
 "Alan Horkan <horkana tcd ie>"
 
-#: ../app/commands.c:613
+#: ../app/commands.c:614
 msgid ""
 "This program is free software; you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"
@@ -361,7 +361,7 @@ msgstr ""
 "along with this program; if not, write to the Free Software\n"
 "Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.\n"
 
-#: ../app/commands.c:636
+#: ../app/commands.c:637
 msgid "A program for drawing structured diagrams."
 msgstr "A program for drawing structured diagrams."
 
@@ -679,7 +679,7 @@ msgstr "%0.3gcm x %0.3gcm"
 msgid "Page Setup"
 msgstr "Page Setup"
 
-#: ../app/disp_callbacks.c:83
+#: ../app/disp_callbacks.c:84
 #: ../app/properties.c:152
 msgid ""
 "This object doesn't support Undo/Redo.\n"
@@ -688,11 +688,11 @@ msgstr ""
 "This object doesn't support Undo/Redo.\n"
 "Undo information erased."
 
-#: ../app/disp_callbacks.c:118
+#: ../app/disp_callbacks.c:119
 msgid "Properties..."
 msgstr "Properties..."
 
-#: ../app/disp_callbacks.c:920
+#: ../app/disp_callbacks.c:921
 msgid ""
 "The object you dropped cannot fit into its parent. \n"
 "Either expand the parent object, or drop the object elsewhere."
@@ -746,7 +746,7 @@ msgid "_Discard Changes"
 msgstr "_Discard Changes"
 
 #: ../app/export_png.c:136
-#: ../app/load_save.c:918
+#: ../app/load_save.c:951
 #: ../app/render_eps.c:103
 #: ../plug-ins/cairo/diacairo.c:976
 #: ../plug-ins/cgm/cgm.c:1151
@@ -1089,7 +1089,7 @@ msgstr "Line width"
 msgid "Line width:"
 msgstr "Line width:"
 
-#: ../app/load_save.c:261
+#: ../app/load_save.c:268
 msgid ""
 "Error loading diagram.\n"
 "Linked object not found in document."
@@ -1097,7 +1097,7 @@ msgstr ""
 "Error loading diagram.\n"
 "Linked object not found in document."
 
-#: ../app/load_save.c:264
+#: ../app/load_save.c:271
 msgid ""
 "Error loading diagram.\n"
 "connection handle does not exist."
@@ -1105,7 +1105,7 @@ msgstr ""
 "Error loading diagram.\n"
 "connection handle does not exist."
 
-#: ../app/load_save.c:281
+#: ../app/load_save.c:288
 #, c-format
 msgid ""
 "Error loading diagram.\n"
@@ -1114,16 +1114,16 @@ msgstr ""
 "Error loading diagram.\n"
 "connection point %s does not exist."
 
-#: ../app/load_save.c:306
+#: ../app/load_save.c:313
 #, c-format
 msgid "Can't find parent %s of %s object\n"
 msgstr "Can't find parent %s of %s object\n"
 
-#: ../app/load_save.c:352
+#: ../app/load_save.c:359
 msgid "You must specify a file, not a directory.\n"
 msgstr "You must specify a file, not a directory.\n"
 
-#: ../app/load_save.c:359
+#: ../app/load_save.c:366
 #: ../plug-ins/dxf/dxf-import.c:1306
 #: ../plug-ins/wpg/wpg.c:1175
 #: ../plug-ins/xfig/xfig-import.c:1258
@@ -1132,8 +1132,8 @@ msgstr "You must specify a file, not a directory.\n"
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "Couldn't open: '%s' for reading.\n"
 
-#: ../app/load_save.c:377
-#: ../app/load_save.c:383
+#: ../app/load_save.c:384
+#: ../app/load_save.c:390
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -1142,7 +1142,7 @@ msgstr ""
 "Error loading diagram %s.\n"
 "Unknown file type."
 
-#: ../app/load_save.c:391
+#: ../app/load_save.c:398
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -1151,7 +1151,7 @@ msgstr ""
 "Error loading diagram %s.\n"
 "Not a Dia file."
 
-#: ../app/load_save.c:597
+#: ../app/load_save.c:604
 #, c-format
 msgid ""
 "Error loading diagram:\n"
@@ -1162,13 +1162,30 @@ msgstr ""
 "%s.\n"
 "A valid Dia file defines at least one layer."
 
-#: ../app/load_save.c:952
+#: ../app/load_save.c:912
 #, c-format
-msgid "Failed to save file '%s'.\n"
-msgstr "Failed to save file '%s'.\n"
+msgid "No allowed to write to output file %s\n"
+msgstr "Not allowed to write to output file %s\n"
 
-#: ../app/load_save.c:1026
-#: ../app/load_save.c:1031
+#: ../app/load_save.c:934
+#, c-format
+msgid "No allowed to write temporary files in %s\n"
+msgstr "Not allowed to write temporary files in %s\n"
+
+#. Save failed; we clean our stuff up, without touching the file named
+#. "filename" if it existed.
+#: ../app/load_save.c:962
+#, c-format
+msgid "Internal error %d writing file %s\n"
+msgstr "Internal error %d writing file %s\n"
+
+#: ../app/load_save.c:976
+#, c-format
+msgid "Can't rename %s to final output file %s: %s\n"
+msgstr "Can't rename %s to final output file %s: %s\n"
+
+#: ../app/load_save.c:1064
+#: ../app/load_save.c:1069
 msgid "Dia Diagram File"
 msgstr "Dia Diagram File"
 
@@ -1540,7 +1557,7 @@ msgid "Loaded"
 msgstr "Loaded"
 
 #: ../app/plugin-manager.c:262
-#: ../objects/UML/class.c:140
+#: ../objects/UML/class.c:139
 #: ../objects/UML/large_package.c:131
 #: ../objects/UML/umlattribute.c:37
 #: ../objects/UML/umlformalparameter.c:35
@@ -2422,7 +2439,7 @@ msgstr "Text alignment"
 #: ../objects/GRAFCET/condition.c:132
 #: ../objects/GRAFCET/step.c:165
 #: ../objects/GRAFCET/transition.c:142
-#: ../objects/UML/class.c:170
+#: ../objects/UML/class.c:169
 #: ../objects/UML/class_dialog.c:394
 #: ../objects/chronogram/chronoline.c:183
 #: ../objects/chronogram/chronoref.c:164
@@ -3280,7 +3297,7 @@ msgstr "Expose"
 
 #. Translators: Menu item Verb/Provision/Extract
 #: ../objects/FS/function.c:942
-#: ../sheets/Flowchart.sheet.in.h:8
+#: ../sheets/Flowchart.sheet.in.h:9
 msgid "Extract"
 msgstr "Extract"
 
@@ -3477,7 +3494,6 @@ msgstr "Differentiate"
 #. Translators: Menu item Verb/Convert/Process
 #: ../objects/FS/function.c:1032
 #: ../sheets/AADL.sheet.in.h:8
-#: ../sheets/EML.sheet.in.h:5
 #: ../sheets/Gane_and_Sarson.sheet.in.h:7
 msgid "Process"
 msgstr "Process"
@@ -3528,7 +3544,7 @@ msgstr "Mark"
 
 #. Translators: Menu item Verb/Signal/Display
 #: ../objects/FS/function.c:1060
-#: ../sheets/Flowchart.sheet.in.h:6
+#: ../sheets/Flowchart.sheet.in.h:7
 msgid "Display"
 msgstr "Display"
 
@@ -4178,13 +4194,13 @@ msgstr "Seconds arrow line width"
 msgid "Show hours"
 msgstr "Show hours"
 
-#: ../objects/Misc/libmisc.c:40
+#: ../objects/Misc/libmisc.c:42
 msgid "Miscellaneous objects"
 msgstr "Miscellaneous objects"
 
 #. property rows
 #: ../objects/SADT/arrow.c:134
-#: ../objects/UML/class.c:175
+#: ../objects/UML/class.c:174
 #: ../objects/UML/class_dialog.c:400
 msgid "Normal"
 msgstr "Normal"
@@ -4245,8 +4261,8 @@ msgstr "SADT box"
 msgid "SADT diagram objects"
 msgstr "SADT diagram objects"
 
-#: ../objects/UML/actor.c:375
-#: ../objects/UML/actor.c:377
+#: ../objects/UML/actor.c:349
+#: ../objects/UML/actor.c:351
 #: ../sheets/UML.sheet.in.h:2
 msgid "Actor"
 msgstr "Actor"
@@ -4331,14 +4347,14 @@ msgstr "Aggregate"
 msgid "Composition"
 msgstr "Composition"
 
-#: ../objects/UML/class.c:138
-#: ../objects/UML/class.c:309
-#: ../objects/UML/class.c:1708
+#: ../objects/UML/class.c:137
+#: ../objects/UML/class.c:308
+#: ../objects/UML/class.c:1678
 #: ../sheets/UML.sheet.in.h:6
 msgid "Class"
 msgstr "Class"
 
-#: ../objects/UML/class.c:142
+#: ../objects/UML/class.c:141
 #: ../objects/UML/classicon.c:138
 #: ../objects/UML/component.c:124
 #: ../objects/UML/large_package.c:129
@@ -4348,8 +4364,8 @@ msgstr "Class"
 msgid "Stereotype"
 msgstr "Stereotype"
 
-#: ../objects/UML/class.c:144
-#: ../objects/UML/class.c:185
+#: ../objects/UML/class.c:143
+#: ../objects/UML/class.c:184
 #: ../objects/UML/class_dialog.c:425
 #: ../objects/UML/umlattribute.c:43
 #: ../objects/UML/umloperation.c:66
@@ -4358,8 +4374,8 @@ msgstr "Stereotype"
 msgid "Comment"
 msgstr "Comment"
 
-#: ../objects/UML/class.c:146
-#: ../objects/UML/class.c:179
+#: ../objects/UML/class.c:145
+#: ../objects/UML/class.c:178
 #: ../objects/UML/class_dialog.c:324
 #: ../objects/UML/class_dialog.c:410
 #: ../objects/UML/class_dialog.c:2016
@@ -4367,85 +4383,85 @@ msgstr "Comment"
 msgid "Abstract"
 msgstr "Abstract"
 
-#: ../objects/UML/class.c:148
-#: ../objects/UML/class.c:1705
+#: ../objects/UML/class.c:147
+#: ../objects/UML/class.c:1675
 msgid "Template"
 msgstr "Template"
 
-#: ../objects/UML/class.c:151
+#: ../objects/UML/class.c:150
 #: ../objects/UML/class_dialog.c:333
 msgid "Suppress Attributes"
 msgstr "Suppress Attributes"
 
-#: ../objects/UML/class.c:153
+#: ../objects/UML/class.c:152
 msgid "Suppress Operations"
 msgstr "Suppress Operations"
 
-#: ../objects/UML/class.c:155
+#: ../objects/UML/class.c:154
 msgid "Visible Attributes"
 msgstr "Visible Attributes"
 
-#: ../objects/UML/class.c:157
+#: ../objects/UML/class.c:156
 msgid "Visible Operations"
 msgstr "Visible Operations"
 
-#: ../objects/UML/class.c:159
+#: ../objects/UML/class.c:158
 msgid "Visible Comments"
 msgstr "Visible Comments"
 
-#: ../objects/UML/class.c:161
+#: ../objects/UML/class.c:160
 #: ../objects/UML/class_dialog.c:349
 msgid "Wrap Operations"
 msgstr "Wrap Operations"
 
-#: ../objects/UML/class.c:163
+#: ../objects/UML/class.c:162
 msgid "Wrap after char"
 msgstr "Wrap after char"
 
-#: ../objects/UML/class.c:165
+#: ../objects/UML/class.c:164
 msgid "Comment line length"
 msgstr "Comments line length"
 
-#: ../objects/UML/class.c:167
+#: ../objects/UML/class.c:166
 msgid "Comment tagging"
 msgstr "Comment tagging"
 
-#: ../objects/UML/class.c:177
+#: ../objects/UML/class.c:176
 #: ../objects/UML/class_dialog.c:405
 msgid "Polymorphic"
 msgstr "Polymorphic"
 
-#: ../objects/UML/class.c:181
+#: ../objects/UML/class.c:180
 msgid "Classname"
 msgstr "Classname"
 
-#: ../objects/UML/class.c:183
+#: ../objects/UML/class.c:182
 msgid "Abstract Classname"
 msgstr "Abstract Classname"
 
-#: ../objects/UML/class.c:189
-#: ../objects/UML/class.c:191
-#: ../objects/UML/class.c:193
-#: ../objects/UML/class.c:195
-#: ../objects/UML/class.c:197
-#: ../objects/UML/class.c:199
+#: ../objects/UML/class.c:188
+#: ../objects/UML/class.c:190
+#: ../objects/UML/class.c:192
+#: ../objects/UML/class.c:194
+#: ../objects/UML/class.c:196
+#: ../objects/UML/class.c:198
 msgid " "
 msgstr " "
 
-#: ../objects/UML/class.c:205
+#: ../objects/UML/class.c:204
 #: ../objects/UML/object.c:154
 msgid "Attributes"
 msgstr "Attributes"
 
-#: ../objects/UML/class.c:207
+#: ../objects/UML/class.c:206
 msgid "Operations"
 msgstr "Operations"
 
-#: ../objects/UML/class.c:210
+#: ../objects/UML/class.c:209
 msgid "Template Parameters"
 msgstr "Template Parameters"
 
-#: ../objects/UML/class.c:304
+#: ../objects/UML/class.c:303
 msgid "Show Comments"
 msgstr "Show Comments"
 
@@ -6440,14 +6456,6 @@ msgstr "EML"
 msgid "Editor for EML Static Structure Diagrams."
 msgstr "Editor for EML Static Structure Diagrams."
 
-#: ../sheets/EML.sheet.in.h:3
-msgid "Instantiation. One process create others"
-msgstr "Instantiation. One process create others"
-
-#: ../sheets/EML.sheet.in.h:4
-msgid "Interaction between processes."
-msgstr "Interaction between processes."
-
 #: ../sheets/ER.sheet.in.h:2
 msgid "ER"
 msgstr "ER"
@@ -6469,7 +6477,7 @@ msgid "Components for electric circuits"
 msgstr "Components for electric circuits"
 
 #: ../sheets/Electric.sheet.in.h:2
-#: ../sheets/Pneumatic.sheet.in.h:9
+#: ../sheets/Pneumatic.sheet.in.h:7
 msgid "Connection point"
 msgstr "Connection point"
 
@@ -6563,109 +6571,113 @@ msgid "Connector"
 msgstr "Connector"
 
 #: ../sheets/Flowchart.sheet.in.h:4
+msgid "Data source"
+msgstr "Data source"
+
+#: ../sheets/Flowchart.sheet.in.h:5
 #: ../sheets/SDL.sheet.in.h:4
 msgid "Decision"
 msgstr "Decision"
 
-#: ../sheets/Flowchart.sheet.in.h:5
+#: ../sheets/Flowchart.sheet.in.h:6
 msgid "Delay"
 msgstr "Delay"
 
-#: ../sheets/Flowchart.sheet.in.h:7
+#: ../sheets/Flowchart.sheet.in.h:8
 msgid "Document"
 msgstr "Document"
 
-#: ../sheets/Flowchart.sheet.in.h:9
+#: ../sheets/Flowchart.sheet.in.h:10
 msgid "Flowchart"
 msgstr "Flowchart"
 
-#: ../sheets/Flowchart.sheet.in.h:10
+#: ../sheets/Flowchart.sheet.in.h:11
 msgid "Input/Output"
 msgstr "Input/Output"
 
-#: ../sheets/Flowchart.sheet.in.h:11
+#: ../sheets/Flowchart.sheet.in.h:12
 msgid "Internal storage"
 msgstr "Internal storage"
 
-#: ../sheets/Flowchart.sheet.in.h:12
+#: ../sheets/Flowchart.sheet.in.h:13
 msgid "Magnetic disk"
 msgstr "Magnetic disk"
 
-#: ../sheets/Flowchart.sheet.in.h:13
+#: ../sheets/Flowchart.sheet.in.h:14
 msgid "Magnetic drum"
 msgstr "Magnetic drum"
 
-#: ../sheets/Flowchart.sheet.in.h:14
+#: ../sheets/Flowchart.sheet.in.h:15
 msgid "Magnetic tape"
 msgstr "Magnetic tape"
 
-#: ../sheets/Flowchart.sheet.in.h:15
+#: ../sheets/Flowchart.sheet.in.h:16
 msgid "Manual input"
 msgstr "Manual input"
 
-#: ../sheets/Flowchart.sheet.in.h:16
+#: ../sheets/Flowchart.sheet.in.h:17
 msgid "Manual operation"
 msgstr "Manual operation"
 
-#: ../sheets/Flowchart.sheet.in.h:17
+#: ../sheets/Flowchart.sheet.in.h:18
 msgid "Merge"
 msgstr "Merge"
 
-#: ../sheets/Flowchart.sheet.in.h:18
+#: ../sheets/Flowchart.sheet.in.h:19
 msgid "Objects to draw flowcharts"
 msgstr "Objects to draw flowcharts"
 
 #. XXX
-#: ../sheets/Flowchart.sheet.in.h:20
+#: ../sheets/Flowchart.sheet.in.h:21
 msgid "Off page connector"
 msgstr "Off page connector"
 
-#: ../sheets/Flowchart.sheet.in.h:21
+#: ../sheets/Flowchart.sheet.in.h:22
 msgid "Offline storage"
 msgstr "Offline storage"
 
-#: ../sheets/Flowchart.sheet.in.h:22
+#: ../sheets/Flowchart.sheet.in.h:23
 msgid "Or"
 msgstr "Or"
 
-#: ../sheets/Flowchart.sheet.in.h:23
+#: ../sheets/Flowchart.sheet.in.h:24
 msgid "Predefined process"
 msgstr "Predefined process"
 
-#: ../sheets/Flowchart.sheet.in.h:24
+#: ../sheets/Flowchart.sheet.in.h:25
 msgid "Preparation"
 msgstr "Preparation"
 
-#: ../sheets/Flowchart.sheet.in.h:25
+#: ../sheets/Flowchart.sheet.in.h:26
 msgid "Process/Auxiliary Operation"
 msgstr "Process/Auxiliary Operation"
 
-#: ../sheets/Flowchart.sheet.in.h:26
+#: ../sheets/Flowchart.sheet.in.h:27
 msgid "Punched card"
 msgstr "Punched card"
 
-#: ../sheets/Flowchart.sheet.in.h:27
+#: ../sheets/Flowchart.sheet.in.h:28
 msgid "Punched tape"
 msgstr "Punched tape"
 
-#: ../sheets/Flowchart.sheet.in.h:28
+#: ../sheets/Flowchart.sheet.in.h:29
 msgid "Sort"
 msgstr "Sort"
 
 #. XXX
-#: ../sheets/Flowchart.sheet.in.h:30
+#: ../sheets/Flowchart.sheet.in.h:31
 msgid "Summing junction"
 msgstr "Summing junction"
 
-#: ../sheets/Flowchart.sheet.in.h:31
+#: ../sheets/Flowchart.sheet.in.h:32
 msgid "Terminal Interrupt"
 msgstr "Terminal Interrupt"
 
-#: ../sheets/Flowchart.sheet.in.h:32
+#: ../sheets/Flowchart.sheet.in.h:33
 msgid "Transaction file"
 msgstr "Transaction file"
 
-#: ../sheets/Flowchart.sheet.in.h:33
+#: ../sheets/Flowchart.sheet.in.h:34
 msgid "Transmittal tape"
 msgstr "Transmittal tape"
 
@@ -7126,86 +7138,78 @@ msgid "3/2 distributor"
 msgstr "3/2 distributor"
 
 #: ../sheets/Pneumatic.sheet.in.h:3
-msgid "3/3 distributor"
-msgstr "3/3 distributor"
-
-#: ../sheets/Pneumatic.sheet.in.h:4
 msgid "4/2 distributor"
 msgstr "4/2 distributor"
 
-#: ../sheets/Pneumatic.sheet.in.h:5
+#: ../sheets/Pneumatic.sheet.in.h:4
 msgid "5/2 distributor"
 msgstr "5/2 distributor"
 
-#: ../sheets/Pneumatic.sheet.in.h:6
-msgid "5/3 distributor"
-msgstr "5/3 distributor"
-
-#: ../sheets/Pneumatic.sheet.in.h:7
+#: ../sheets/Pneumatic.sheet.in.h:5
 msgid "Air exhaust orifice"
 msgstr "Air exhaust orifice"
 
-#: ../sheets/Pneumatic.sheet.in.h:8
+#: ../sheets/Pneumatic.sheet.in.h:6
 msgid "Components for pneumatic and hydraulic circuits"
 msgstr "Components for pneumatic and hydraulic circuits"
 
-#: ../sheets/Pneumatic.sheet.in.h:10
+#: ../sheets/Pneumatic.sheet.in.h:8
 msgid "Double-effect jack"
 msgstr "Double-effect jack"
 
-#: ../sheets/Pneumatic.sheet.in.h:11
+#: ../sheets/Pneumatic.sheet.in.h:9
 msgid "Electric command (double coil)"
 msgstr "Electric command (double coil)"
 
-#: ../sheets/Pneumatic.sheet.in.h:12
+#: ../sheets/Pneumatic.sheet.in.h:10
 msgid "Electric command (single coil)"
 msgstr "Electric command (single coil)"
 
-#: ../sheets/Pneumatic.sheet.in.h:13
+#: ../sheets/Pneumatic.sheet.in.h:11
 msgid "Generic pressure source"
 msgstr "Generic pressure source"
 
-#: ../sheets/Pneumatic.sheet.in.h:14
+#: ../sheets/Pneumatic.sheet.in.h:12
 msgid "Hydraulic pressure source"
 msgstr "Hydraulic pressure source"
 
-#: ../sheets/Pneumatic.sheet.in.h:15
+#: ../sheets/Pneumatic.sheet.in.h:13
 msgid "Indirect command by hydraulic driver"
 msgstr "Indirect command by hydraulic driver"
 
-#: ../sheets/Pneumatic.sheet.in.h:16
+#: ../sheets/Pneumatic.sheet.in.h:14
 msgid "Indirect command by pneumatic driver"
 msgstr "Indirect command by pneumatic driver"
 
-#: ../sheets/Pneumatic.sheet.in.h:17
+#: ../sheets/Pneumatic.sheet.in.h:15
 msgid "Mechanical command by spring"
 msgstr "Mechanical command by spring"
 
-#: ../sheets/Pneumatic.sheet.in.h:18
+#: ../sheets/Pneumatic.sheet.in.h:16
 msgid "Mechanical command by tappet"
 msgstr "Mechanical command by tappet"
 
-#: ../sheets/Pneumatic.sheet.in.h:19
+#: ../sheets/Pneumatic.sheet.in.h:17
 msgid "Muscular command"
 msgstr "Muscular command"
 
-#: ../sheets/Pneumatic.sheet.in.h:20
+#: ../sheets/Pneumatic.sheet.in.h:18
 msgid "Normally-in simple-effect jack"
 msgstr "Normally-in simple-effect jack"
 
-#: ../sheets/Pneumatic.sheet.in.h:21
+#: ../sheets/Pneumatic.sheet.in.h:19
 msgid "Normally-out simple-effect jack"
 msgstr "Normally-out simple-effect jack"
 
-#: ../sheets/Pneumatic.sheet.in.h:22
+#: ../sheets/Pneumatic.sheet.in.h:20
 msgid "Pneumatic pressure source"
 msgstr "Pneumatic pressure source"
 
-#: ../sheets/Pneumatic.sheet.in.h:23
+#: ../sheets/Pneumatic.sheet.in.h:21
 msgid "Pneumatic/Hydraulic"
 msgstr "Pneumatic/Hydraulic"
 
-#: ../sheets/Pneumatic.sheet.in.h:24
+#: ../sheets/Pneumatic.sheet.in.h:22
 msgid "Push-button command"
 msgstr "Push-button command"
 
@@ -9091,6 +9095,16 @@ msgstr "Sybase dataserver"
 msgid "Sybase replication server"
 msgstr "Sybase replication server"
 
+#~ msgid "Failed to save file '%s'.\n"
+#~ msgstr "Failed to save file '%s'.\n"
+#~ msgid "Instantiation. One process create others"
+#~ msgstr "Instantiation. One process create others"
+#~ msgid "Interaction between processes."
+#~ msgstr "Interaction between processes."
+#~ msgid "3/3 distributor"
+#~ msgstr "3/3 distributor"
+#~ msgid "5/3 distributor"
+#~ msgstr "5/3 distributor"
 #~ msgid "Dia"
 #~ msgstr "Dia"
 #~ msgid "Copyright (C) 1998-2005 The Free Software Foundation and the authors"
