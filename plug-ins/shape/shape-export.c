@@ -468,7 +468,8 @@ export_shape(DiagramData *data, const gchar *filename,
     point = g_strndup(filename, i);
     png_filename = g_strdup_printf("%s.png",point);
     g_free(point);
-    exportfilter = filter_guess_export_filter(png_filename);
+    /* we are especially requesting the libart/png cause it is the only one with the size-hack */
+    exportfilter = filter_get_by_name ("png-libart");
 
     if (!exportfilter) {
       message_warning(_("Can't export png without libart!"));
