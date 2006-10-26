@@ -55,71 +55,85 @@ ToolButton tool_data[] =
 {
   { (char **) dia_modify_tool_icon,
     N_("Modify object(s)"),
+    NULL,
     "ToolsModify",
     { MODIFY_TOOL, NULL, NULL}
   },
   { (char **) dia_zoom_tool_icon,
     N_("Magnify"),
+    "<alt>M",
     "ToolsMagnify",
     { MAGNIFY_TOOL, NULL, NULL}
   },
   { (char **) dia_scroll_tool_icon,
     N_("Scroll around the diagram"),
+    "<alt>S",
     "ToolsScroll",
     { SCROLL_TOOL, NULL, NULL}
   },
   { NULL,
     N_("Text"),
+    "<alt>T",
     "ToolsText",
     { CREATE_OBJECT_TOOL, "Standard - Text", NULL }
   },
   { NULL,
     N_("Box"),
+    "<alt>R",
     "ToolsBox",
     { CREATE_OBJECT_TOOL, "Standard - Box", NULL }
   },
   { NULL,
     N_("Ellipse"),
+    "<alt>E",
     "ToolsEllipse",
     { CREATE_OBJECT_TOOL, "Standard - Ellipse", NULL }
   },
   { NULL,
     N_("Polygon"),
+    "<alt>P",
     "ToolsPolygon",
     { CREATE_OBJECT_TOOL, "Standard - Polygon", NULL }
   },
   { NULL,
     N_("Beziergon"),
+    "<alt>B",
     "ToolsBeziergon",
     { CREATE_OBJECT_TOOL, "Standard - Beziergon", NULL }
   },
   { NULL,
     N_("Line"),
+    "<alt>L",
     "ToolsLine",
     { CREATE_OBJECT_TOOL, "Standard - Line", NULL }
   },
   { NULL,
     N_("Arc"),
+    "<alt>A",
     "ToolsArc",
     { CREATE_OBJECT_TOOL, "Standard - Arc", NULL }
   },
   { NULL,
     N_("Zigzagline"),
+    "<alt>Z",
     "ToolsZigzagline",
     { CREATE_OBJECT_TOOL, "Standard - ZigZagLine", NULL }
   },
   { NULL,
     N_("Polyline"),
+    NULL,
     "ToolsPolyline",
     { CREATE_OBJECT_TOOL, "Standard - PolyLine", NULL }
   },
   { NULL,
     N_("Bezierline"),
+    "<alt>C",
     "ToolsBezierline",
     { CREATE_OBJECT_TOOL, "Standard - BezierLine", NULL }
   },
   { NULL,
     N_("Image"),
+    "<alt>I",
     "ToolsImage",
     { CREATE_OBJECT_TOOL, "Standard - Image", NULL }
   }
@@ -759,8 +773,20 @@ create_tools(GtkWidget *parent)
 
     tool_data[i].callback_data.widget = button;
 
-    gtk_tooltips_set_tip (tool_tips, button,
-			  gettext(tool_data[i].tool_desc), NULL);
+    if (tool_data[i].tool_accelerator) {
+	guint key;
+	GdkModifierType mods;
+
+	gtk_accelerator_parse (tool_data[i].tool_accelerator, &key, &mods);
+
+	gtk_tooltips_set_tip (tool_tips, button,
+				g_strconcat(gettext(tool_data[i].tool_desc), 
+					" (", gtk_accelerator_get_label(key, mods), ")"),
+				NULL);
+    } else {
+	gtk_tooltips_set_tip (tool_tips, button,
+				gettext(tool_data[i].tool_desc), NULL);
+    }
     
     gtk_widget_show (pixmapwidget);
     gtk_widget_show (button);

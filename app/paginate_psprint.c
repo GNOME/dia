@@ -27,6 +27,7 @@
 #include <string.h> /* strlen */
 #include <signal.h>
 #include <errno.h>
+#include <sys/stat.h>
 
 #include "intl.h"
 #include "message.h"
@@ -336,13 +337,20 @@ diagram_print_ps(Diagram *dia)
     printcmd = NULL;
   }
 #endif
-  printf("Print dialog?\n");
   persistence_register_string_entry("printer-command", cmd);
   printcmd = g_strdup(gtk_entry_get_text(GTK_ENTRY(cmd)));
   orig_command = printcmd;
-  /* Ought to use filename+extension here */
-  gtk_entry_set_text(GTK_ENTRY(ofile), "output.ps");
-  persistence_register_string_entry("printer-file", ofile);
+
+  /* Work out diagram filename and use this as default .ps file */
+  char *filename = g_path_get_basename(dia->filename);
+  char *printer_filename = g_malloc(strlen(filename) + 4);
+  printer_filename = strcpy(printer_filename, filename);
+  char *dot = strrchr(printer_filename, '.');
+  if ((dot != NULL) && (strcmp(dot, ".dia") == 0))
+    *dot = '\0';
+  printer_filename = strcat(printer_filename, ".ps");
+  gtk_entry_set_text(GTK_ENTRY(ofile), printer_filename);
+  g_free(printer_filename);
   orig_file = g_strdup(gtk_entry_get_text(GTK_ENTRY(ofile)));
     
   /* Scaling is already set at creation. */
@@ -350,63 +358,111 @@ diagram_print_ps(Diagram *dia)
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(isofile), !last_print_options.printer);
   
   gtk_widget_show(dialog);
-  gtk_main();
+  gboolean done = FALSE;
+  gboolean write_file = TRUE;	/* Used in prompt to overwrite existing file */
+  do {
+    cont = FALSE;
+    write_file = TRUE;
+    gtk_main();
 
-  if(!dia) {
-    gtk_widget_destroy(dialog);
-    return;
-  }
-  
-  if (!cont) {
-    persistence_change_string_entry("printer-command", orig_command, cmd);
-    persistence_change_string_entry("printer-file", orig_file, ofile);
-    gtk_widget_destroy(dialog);
-    g_free(orig_command);
-    g_free(orig_file);
-    return;
-  }
-
-  if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(iscmd))) {
-    printcmd = g_strdup(gtk_entry_get_text(GTK_ENTRY(cmd)));
-#ifdef G_OS_WIN32
-    file = win32_printer_open (printcmd);
-#else
-    file = popen(printcmd, "w");
-#endif
-    is_pipe = TRUE;
-  } else {
-    const gchar *filename = gtk_entry_get_text(GTK_ENTRY(ofile));
-    if (!g_path_is_absolute(filename)) {
-      char *dirname;
-      char *full_filename;
-
-      dirname = g_path_get_dirname(dia->filename);
-      full_filename = g_build_filename(dirname, filename, NULL);
-      file = fopen(full_filename, "w");
-      g_free(full_filename);
-      g_free(dirname);
-    } else {
-      file = fopen(filename, "w");
+    if(!dia) {
+      gtk_widget_destroy(dialog);
+      return;
     }
-    is_pipe = FALSE;
-  }
+  
+    if (!cont) {
+      persistence_change_string_entry("printer-command", orig_command, cmd);
+      gtk_widget_destroy(dialog);
+      g_free(orig_command);
+      g_free(orig_file);
+      return;
+    }
 
-  /* Store dialog values */
+    if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(iscmd))) {
+      printcmd = g_strdup(gtk_entry_get_text(GTK_ENTRY(cmd)));
+#ifdef G_OS_WIN32
+      file = win32_printer_open (printcmd);
+#else
+      file = popen(printcmd, "w");
+#endif
+      is_pipe = TRUE;
+    } else {
+      const gchar *filename = gtk_entry_get_text(GTK_ENTRY(ofile));
+      struct stat statbuf;
+
+      if (stat(filename, &statbuf) == 0) {	/* Output file exists */
+        GtkWidget *confirm_overwrite_dialog = NULL;
+        char buffer[300];
+        char *utf8filename = NULL;
+
+        if (!g_utf8_validate(filename, -1, NULL)) {
+          utf8filename = g_filename_to_utf8(filename, -1, NULL, NULL, NULL);
+
+          if (utf8filename == NULL) {
+            message_warning(_("Some characters in the filename are neither "
+			    "UTF-8\nnor your local encoding.\nSome things will break."));
+          }
+        }
+
+        if (utf8filename == NULL) utf8filename = g_strdup(filename);
+        g_snprintf(buffer, 300,
+           _("The file '%s' already exists.\n"
+             "Do you want to overwrite it?"), utf8filename);
+        g_free(utf8filename);
+        confirm_overwrite_dialog = gtk_message_dialog_new(GTK_WINDOW (dialog),
+                       GTK_DIALOG_MODAL, GTK_MESSAGE_QUESTION,
+                       GTK_BUTTONS_YES_NO,
+                       buffer);
+        gtk_window_set_title(GTK_WINDOW (confirm_overwrite_dialog), 
+	                   _("File already exists"));
+        gtk_dialog_set_default_response (GTK_DIALOG (confirm_overwrite_dialog),
+	                   GTK_RESPONSE_NO);
+
+        if (gtk_dialog_run(GTK_DIALOG(confirm_overwrite_dialog)) 
+	                   != GTK_RESPONSE_YES) {
+          write_file = FALSE;
+		  file = 0;
+        }
+
+        gtk_widget_destroy(confirm_overwrite_dialog);
+      }
+
+	  if (write_file) {
+        if (!g_path_is_absolute(filename)) {
+          char *dirname;
+          char *full_filename;
+
+          dirname = g_path_get_dirname(dia->filename);
+          full_filename = g_build_filename(dirname, filename, NULL);
+          file = fopen(full_filename, "w");
+          g_free(full_filename);
+          g_free(dirname);
+        } else {
+          file = fopen(filename, "w");
+        }
+	  }
+
+      is_pipe = FALSE;
+    }
+
+    /* Store dialog values */
+    last_print_options.printer = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(iscmd));
+  
+    if (write_file) {
+      if (!file) {
+        if (is_pipe) {
+          message_warning(_("Could not run command '%s': %s"), printcmd, strerror(errno));
+          g_free(printcmd);
+        } else
+          message_warning(_("Could not open '%s' for writing: %s"),
+		      gtk_entry_get_text(GTK_ENTRY(ofile)), strerror(errno));
+      } else
+        done = TRUE;
+    }
+  } while(!done);
+
   g_free(orig_command);
   g_free(orig_file);
-  last_print_options.printer = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(iscmd));
-  
-  if (!file) {
-    if (is_pipe) {
-      message_warning(_("Could not run command '%s': %s"), printcmd, strerror(errno));
-      g_free(printcmd);
-    } else
-      message_warning(_("Could not open '%s' for writing: %s"),
-		      gtk_entry_get_text(GTK_ENTRY(ofile)), strerror(errno));
-    gtk_widget_destroy(dialog);
-    return;
-  }
-
 #ifndef G_OS_WIN32
   /* set up a SIGPIPE handler to catch IO errors, rather than segfaulting */
   sigpipe_received = FALSE;

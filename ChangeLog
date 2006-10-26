@@ -1,3 +1,13 @@
+2006-10-26  Lars Clausen  <lars@raeder.dk>
+
+	* app/interface.[ch]: Patch from jan@uos.de: Write the accelerator
+	keys in tooltips for standard tools.
+
+	* app/paginate_psprint.c: Patch for better printing: Reasonable
+	file name, check before overwriting, re-popup if file write
+	failed.  Thanks to Leon Stringer <leon.stringer@ntlworld.com> for
+	this patch.
+
 2006-10-26  Hans Breuer  <hans@breuer.org>
 
 	* plug-ins/shape/shape-export.c : the icon export facility dependens

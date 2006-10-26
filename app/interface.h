@@ -69,6 +69,7 @@ struct _ToolButton
 {
   gchar **icon_data;
   char  *tool_desc;
+  char	*tool_accelerator;
   char  *action_name;
   ToolButtonData callback_data;
 };
