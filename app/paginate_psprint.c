@@ -239,7 +239,12 @@ diagram_print_ps(Diagram *dia)
   gboolean cont = FALSE;
   gchar *printcmd = NULL;
   gchar *orig_command, *orig_file;
-
+  gchar *filename = NULL;
+  gchar *printer_filename = NULL;
+  gchar *dot = NULL;
+  gboolean done = FALSE;
+  gboolean write_file = TRUE;	/* Used in prompt to overwrite existing file */
+  
   FILE *file;
   gboolean is_pipe;
 #ifndef G_OS_WIN32
@@ -342,10 +347,10 @@ diagram_print_ps(Diagram *dia)
   orig_command = printcmd;
 
   /* Work out diagram filename and use this as default .ps file */
-  char *filename = g_path_get_basename(dia->filename);
-  char *printer_filename = g_malloc(strlen(filename) + 4);
+  filename = g_path_get_basename(dia->filename);
+  printer_filename = g_malloc(strlen(filename) + 4);
   printer_filename = strcpy(printer_filename, filename);
-  char *dot = strrchr(printer_filename, '.');
+  dot = strrchr(printer_filename, '.');
   if ((dot != NULL) && (strcmp(dot, ".dia") == 0))
     *dot = '\0';
   printer_filename = strcat(printer_filename, ".ps");
@@ -358,8 +363,7 @@ diagram_print_ps(Diagram *dia)
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(isofile), !last_print_options.printer);
   
   gtk_widget_show(dialog);
-  gboolean done = FALSE;
-  gboolean write_file = TRUE;	/* Used in prompt to overwrite existing file */
+  
   do {
     cont = FALSE;
     write_file = TRUE;

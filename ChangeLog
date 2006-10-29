@@ -1,3 +1,7 @@
+2006-10-29  Steffen Macke <sdteffen@gmail.com>
+
+	* app/paginate_psprint.c: Made compile with MSVC again
+
 2006-10-26  Lars Clausen  <lars@raeder.dk>
 
 	* app/interface.[ch]: Patch from jan@uos.de: Write the accelerator
