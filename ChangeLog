@@ -16,7 +16,7 @@
 
 	* lib/libdia.def: 
 	* lib/arrows.[ch]: Generic functions for loading and saving
-	arrows, including sanitizing on load (inspired by bug #144394).  
+	arrows, including sanitizing on load, part of fixing bug #144394.
 
 	* objects/FS/flow-ortho.c (orthflow_draw): 
 	* objects/FS/flow-poly.c (orthflow_draw): Update to use modern
