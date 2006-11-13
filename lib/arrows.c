@@ -1882,6 +1882,8 @@ sanitize_arrow(Arrow *arrow)
       arrow->width < MIN_ARROW_DIMENSION ||
       arrow->type < 0 || arrow->type > MAX_ARROW_TYPE) {
     arrow->type = ARROW_NONE;
+    arrow->width = DEFAULT_ARROW_WIDTH;
+    arrow->length = DEFAULT_ARROW_LENGTH;
   }
 }
 
