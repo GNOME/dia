@@ -703,7 +703,7 @@ get_string_offsets(PangoLayoutIter *iter, real** offsets, int* n_offsets)
   for (i = 0; i < string->num_glyphs; i++) {
     PangoGlyphGeometry geom = string->glyphs[i].geometry;
     
-    (*offsets)[i] = pdu_to_dcm(geom.width);
+    (*offsets)[i] = pdu_to_dcm(geom.width) / 20;
   }
 }
 
@@ -729,16 +729,16 @@ dia_font_get_sizes(const char* string, DiaFont *font, real height,
   } else {
     non_empty_string = string;
   }
-  layout = dia_font_build_layout(non_empty_string, font, height);
+  layout = dia_font_build_layout(non_empty_string, font, height * 20);
   
   /* Only one line here */
   iter = pango_layout_get_iter(layout);
     
   pango_layout_iter_get_line_extents(iter, &ink_rect, &logical_rect);
 
-  top = pdu_to_dcm(logical_rect.y);
-  bottom = pdu_to_dcm(logical_rect.y + logical_rect.height);
-  bline = pdu_to_dcm(pango_layout_iter_get_baseline(iter));
+  top = pdu_to_dcm(logical_rect.y) / 20;
+  bottom = pdu_to_dcm(logical_rect.y + logical_rect.height) / 20;
+  bline = pdu_to_dcm(pango_layout_iter_get_baseline(iter)) / 20;
 
   get_string_offsets(iter, &offsets, n_offsets);
   
@@ -750,7 +750,7 @@ dia_font_get_sizes(const char* string, DiaFont *font, real height,
   if (non_empty_string != string) {
     *width = 0.0;
   } else {
-    *width = pdu_to_dcm(logical_rect.width);
+    *width = pdu_to_dcm(logical_rect.width) / 20;
   }
   return offsets;
 }

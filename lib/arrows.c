@@ -1878,15 +1878,9 @@ arrow_draw(DiaRenderer *renderer, ArrowType type,
 static void
 sanitize_arrow(Arrow *arrow)
 {
-  if (arrow->length < MIN_ARROW_DIMENSION) {
-    arrow->length = MIN_ARROW_DIMENSION;
-  }
-  if (arrow->width < MIN_ARROW_DIMENSION) {
-    arrow->width = MIN_ARROW_DIMENSION;
-  }
-
-  if (arrow->type < 0 || arrow->type > MAX_ARROW_TYPE) {
-    message_error("Illegal arrow head type %d changed to no arrow", arrow->type);
+  if (arrow->length < MIN_ARROW_DIMENSION ||
+      arrow->width < MIN_ARROW_DIMENSION ||
+      arrow->type < 0 || arrow->type > MAX_ARROW_TYPE) {
     arrow->type = ARROW_NONE;
   }
 }

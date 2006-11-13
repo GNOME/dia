@@ -1,5 +1,8 @@
 2006-11-13  Lars Clausen  <lars@raeder.dk>
 
+	* lib/font.c: Internally calculate glyph offsets at *20 font size
+	to avoid rounding problems.
+
 	* app/layer_dialog.c: Revamped the visibility toggling system to
 	make visibility change a properly undoable operation, making the
 	page borders resize in the process.
