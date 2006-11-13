@@ -455,21 +455,13 @@ polyline_save(Polyline *polyline, ObjectNode obj_node,
 		  polyline->dashlength);
   
   if (polyline->start_arrow.type != ARROW_NONE) {
-    data_add_enum(new_attribute(obj_node, "start_arrow"),
-		  polyline->start_arrow.type);
-    data_add_real(new_attribute(obj_node, "start_arrow_length"),
-		  polyline->start_arrow.length);
-    data_add_real(new_attribute(obj_node, "start_arrow_width"),
-		  polyline->start_arrow.width);
+    save_arrow(obj_node, &polyline->start_arrow, "start_arrow",
+	     "start_arrow_length", "start_arrow_width");
   }
-  
+
   if (polyline->end_arrow.type != ARROW_NONE) {
-    data_add_enum(new_attribute(obj_node, "end_arrow"),
-		  polyline->end_arrow.type);
-    data_add_real(new_attribute(obj_node, "end_arrow_length"),
-		  polyline->end_arrow.length);
-    data_add_real(new_attribute(obj_node, "end_arrow_width"),
-		  polyline->end_arrow.width);
+    save_arrow(obj_node, &polyline->end_arrow, "end_arrow",
+	     "end_arrow_length", "end_arrow_width");
   }
 
   if (polyline->absolute_start_gap)
@@ -522,31 +514,11 @@ polyline_load(ObjectNode obj_node, int version, const char *filename)
   if (attr != NULL)
     polyline->dashlength = data_real(attribute_first_data(attr));
 
-  polyline->start_arrow.type = ARROW_NONE;
-  polyline->start_arrow.length = DEFAULT_ARROW_LENGTH;
-  polyline->start_arrow.width = DEFAULT_ARROW_WIDTH;
-  attr = object_find_attribute(obj_node, "start_arrow");
-  if (attr != NULL)
-    polyline->start_arrow.type = data_enum(attribute_first_data(attr));
-  attr = object_find_attribute(obj_node, "start_arrow_length");
-  if (attr != NULL)
-    polyline->start_arrow.length = data_real(attribute_first_data(attr));
-  attr = object_find_attribute(obj_node, "start_arrow_width");
-  if (attr != NULL)
-    polyline->start_arrow.width = data_real(attribute_first_data(attr));
+  load_arrow(obj_node, &polyline->start_arrow, "start_arrow",
+	     "start_arrow_length", "start_arrow_width");
 
-  polyline->end_arrow.type = ARROW_NONE;
-  polyline->end_arrow.length = DEFAULT_ARROW_LENGTH;
-  polyline->end_arrow.width = DEFAULT_ARROW_WIDTH;
-  attr = object_find_attribute(obj_node, "end_arrow");
-  if (attr != NULL)
-    polyline->end_arrow.type = data_enum(attribute_first_data(attr));
-  attr = object_find_attribute(obj_node, "end_arrow_length");
-  if (attr != NULL)
-    polyline->end_arrow.length = data_real(attribute_first_data(attr));
-  attr = object_find_attribute(obj_node, "end_arrow_width");
-  if (attr != NULL)
-    polyline->end_arrow.width = data_real(attribute_first_data(attr));
+  load_arrow(obj_node, &polyline->end_arrow, "end_arrow",
+	     "end_arrow_length", "end_arrow_width");
 
   polyline->absolute_start_gap = 0.0;
   attr = object_find_attribute(obj_node, "absolute_start_gap");

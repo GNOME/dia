@@ -54,10 +54,42 @@ enum LayerChangeType {
   TYPE_DELETE_LAYER,
   TYPE_ADD_LAYER,
   TYPE_RAISE_LAYER,
-  TYPE_LOWER_LAYER
+  TYPE_LOWER_LAYER,
 };
+
+struct LayerChange {
+  Change change;
+
+  enum LayerChangeType type;
+  Layer *layer;
+  int index;
+  int applied;
+};
+
+struct LayerVisibilityChange {
+  Change change;
+
+  GList *original_visibility;
+  Layer *layer;
+  gboolean is_exclusive;
+  int applied;
+};
+
+/** If TRUE, we're in the middle of a internal call to 
+ * dia_layer_widget_*_toggled and should not make undo, update diagram etc.
+ *
+ * If these calls were not done by simulating button presses, we could avoid
+ * this hack.
+ */
+static gboolean internal_call = FALSE;
+
 static Change *
 undo_layer(Diagram *dia, Layer *layer, enum LayerChangeType, int index);
+static struct LayerVisibilityChange *
+undo_layer_visibility(Diagram *dia, Layer *layer, gboolean exclusive);
+static void
+layer_visibility_change_apply(struct LayerVisibilityChange *change, 
+			      Diagram *dia);
 
 static void layer_dialog_new_callback(GtkWidget *widget, gpointer gdata);
 static void layer_dialog_raise_callback(GtkWidget *widget, gpointer gdata);
@@ -275,11 +307,13 @@ dia_layer_select_callback(GtkWidget *widget, gpointer data)
   diagram_add_update_all(lw->dia);
   diagram_flush(lw->dia);
 
+  internal_call = TRUE;
   if (lw->connect_off) { /* If the user wants this off, it becomes so */
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(lw->connectable), FALSE);
   } else {
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(lw->connectable), TRUE);
   }
+  internal_call = FALSE;
 }
 
 static void
@@ -290,9 +324,11 @@ dia_layer_deselect_callback(GtkWidget *widget, gpointer data)
   /** If layer dialog or diagram is missing, we are so dead. */
   if (layer_dialog == NULL || layer_dialog->diagram == NULL) return;
 
+  internal_call = TRUE;
   /** Set to on if the user has requested so. */
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(lw->connectable), 
 			       lw->connect_on);
+  internal_call = FALSE;
 }
 
 
@@ -651,43 +687,6 @@ dia_layer_widget_class_init(DiaLayerWidgetClass *klass)
 }
 
 static void
-dia_layer_widget_set_visible(DiaLayerWidget *layer_widget, gboolean on)
-{
-  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(layer_widget->visible), on);
-}
-
-static void
-dia_layer_widget_exclusive_visible(DiaLayerWidget *layer_widget)
-{
-  GList *list;
-  DiaLayerWidget *lw;
-  Layer *layer;
-  int visible = FALSE;
-  int i;
-
-  /*  First determine if _any_ other layer widgets are set to visible  */
-  for (i=0;i<layer_widget->dia->data->layers->len;i++) {
-    layer = g_ptr_array_index(layer_widget->dia->data->layers, i);
-    if (layer_widget->layer != layer) {
-	visible |= layer->visible;
-    }
-  }
-
-  /*  Now, toggle the visibility for all layers except the specified one  */
-  list = GTK_LIST(layer_dialog->layer_list)->children;
-  while (list) {
-    lw = DIA_LAYER_WIDGET(list->data);
-    if (lw != layer_widget)
-      dia_layer_widget_set_visible(lw, !visible);
-    else
-      dia_layer_widget_set_visible(lw, TRUE);
-    gtk_widget_queue_draw(GTK_WIDGET(lw));
-    
-    list = g_list_next(list);
-  }
-}
-
-static void
 dia_layer_widget_set_connectable(DiaLayerWidget *widget, gboolean on)
 {
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(widget->connectable), on);
@@ -735,6 +734,7 @@ dia_layer_widget_button_event(GtkWidget *widget,
   DiaLayerWidget *lw = DIA_LAYER_WIDGET(userdata);
 
   shifted = event->state & GDK_SHIFT_MASK;
+  internal_call = FALSE;
   /* Redraw the label? */
   gtk_widget_queue_draw(GTK_WIDGET(lw));
   return FALSE;
@@ -749,7 +749,9 @@ dia_layer_widget_connectable_toggled(GtkToggleButton *widget,
     return;
   if (shifted) {
     shifted = FALSE;
+    internal_call = TRUE;
     dia_layer_widget_exclusive_connectable(lw);
+    internal_call = FALSE;
   } else {
     lw->layer->connectable = gtk_toggle_button_get_active(widget);
   }
@@ -761,24 +763,29 @@ dia_layer_widget_connectable_toggled(GtkToggleButton *widget,
     if (lw->connect_on) lw->connect_off = FALSE;
   }
   gtk_widget_queue_draw(GTK_WIDGET(lw));
-  diagram_add_update_all(lw->dia);
-  diagram_flush(lw->dia);
+  if (!internal_call) {
+    diagram_add_update_all(lw->dia);
+    diagram_flush(lw->dia);
+  }
 }
 
 static void
-dia_layer_widget_visible_toggled(GtkToggleButton *widget,
+dia_layer_widget_visible_clicked(GtkToggleButton *widget,
 				 gpointer userdata)
 {
   DiaLayerWidget *lw = DIA_LAYER_WIDGET(userdata);
-  if (shifted) {
-    shifted = FALSE;
-    dia_layer_widget_exclusive_visible(lw);
-  } else {
-    lw->layer->visible = gtk_toggle_button_get_active(widget);
+  struct LayerVisibilityChange *change;
+
+  /* Have to use this internal_call hack 'cause there's no way to switch
+   * a toggle button without causing the 'clicked' event:(
+   */
+  if (!internal_call) {
+    Diagram *dia = lw->dia;
+    change = undo_layer_visibility(dia, lw->layer, shifted);
+    /** This apply kills 'lw', thus we have to hold onto 'lw->dia' */
+    layer_visibility_change_apply(change, dia);
+    undo_set_transactionpoint(dia->undo);   
   }
-  gtk_widget_queue_draw(GTK_WIDGET(lw));
-  diagram_add_update_all(lw->dia);
-  diagram_flush(lw->dia);
 }
 
 static void
@@ -805,8 +812,8 @@ dia_layer_widget_init(DiaLayerWidget *lw)
 		   G_CALLBACK(dia_layer_widget_button_event), lw);
   g_signal_connect(G_OBJECT(visible), "button-press-event",
 		   G_CALLBACK(dia_layer_widget_button_event), lw);
-  g_signal_connect(G_OBJECT(visible), "toggled",
-		   G_CALLBACK(dia_layer_widget_visible_toggled), lw);
+  g_signal_connect(G_OBJECT(visible), "clicked",
+		   G_CALLBACK(dia_layer_widget_visible_clicked), lw);
   gtk_box_pack_start (GTK_BOX (hbox), visible, FALSE, TRUE, 2);
   gtk_widget_show(visible);
 
@@ -820,7 +827,7 @@ dia_layer_widget_init(DiaLayerWidget *lw)
 		   G_CALLBACK(dia_layer_widget_button_event), lw);
   g_signal_connect(G_OBJECT(connectable), "button-press-event",
 		   G_CALLBACK(dia_layer_widget_button_event), lw);
-  g_signal_connect(G_OBJECT(connectable), "toggled",
+  g_signal_connect(G_OBJECT(connectable), "clicked",
 		   G_CALLBACK(dia_layer_widget_connectable_toggled), lw);
 
   gtk_box_pack_start (GTK_BOX (hbox), connectable, FALSE, TRUE, 2);
@@ -895,10 +902,13 @@ dia_layer_set_layer(DiaLayerWidget *widget, Diagram *dia, Layer *layer)
 void
 dia_layer_update_from_layer (DiaLayerWidget *widget)
 {
+  internal_call = TRUE;
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(widget->visible),
 			       widget->layer->visible);
+  
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(widget->connectable),
 			       widget->layer->connectable);
+  internal_call = FALSE;
 
   gtk_label_set_text (GTK_LABEL (widget->label), widget->layer->name);
 }
@@ -1026,15 +1036,6 @@ layer_dialog_edit_layer (DiaLayerWidget *layer_widget)
 
 /******** layer changes: */
 
-struct LayerChange {
-  Change change;
-
-  enum LayerChangeType type;
-  Layer *layer;
-  int index;
-  int applied;
-};
-
 static void
 layer_change_apply(struct LayerChange *change, Diagram *dia)
 {
@@ -1128,4 +1129,103 @@ undo_layer(Diagram *dia, Layer *layer, enum LayerChangeType type, int index)
 
   undo_push_change(dia->undo, (Change *) change);
   return (Change *)change;
+}
+
+static void
+layer_visibility_change_apply(struct LayerVisibilityChange *change, 
+			      Diagram *dia)
+{
+  GPtrArray *layers;
+  Layer *layer = change->layer;
+  int visible = FALSE;
+  int i;
+
+  if (change->is_exclusive) {
+    /*  First determine if _any_ other layer widgets are set to visible.
+     *  If there is, exclusive switching turns all off.  */
+    for (i=0;i<dia->data->layers->len;i++) {
+      Layer *temp_layer = g_ptr_array_index(dia->data->layers, i);
+      if (temp_layer != layer) {
+	visible |= temp_layer->visible;
+      }
+    }
+
+    /*  Now, toggle the visibility for all layers except the specified one  */
+    layers = dia->data->layers;
+    for (i = 0; i < layers->len; i++) {
+      Layer *temp_layer = (Layer *) g_ptr_array_index(layers, i);
+      if (temp_layer == layer) {
+	temp_layer->visible = TRUE;
+      } else {
+	temp_layer->visible = !visible;
+      }
+    }
+  } else {
+    layer->visible = !layer->visible;
+  }
+  diagram_add_update_all(dia);
+
+  if (layer_dialog->diagram == dia) {
+    layer_dialog_set_diagram(dia);
+  }
+}
+
+/** Revert to the visibility before this change was applied.
+ */
+static void
+layer_visibility_change_revert(struct LayerVisibilityChange *change,
+			       Diagram *dia)
+{
+  GList *vis = change->original_visibility;
+  GPtrArray *layers = dia->data->layers;
+  int i;
+
+  for (i = 0; vis != NULL && i < layers->len; vis = g_list_next(vis), i++) {
+    Layer *layer = (Layer*) g_ptr_array_index(layers, i);
+    layer->visible = (gboolean)vis->data;
+  }
+
+  if (vis != NULL || i < layers->len) {
+    printf("Internal error: visibility undo has %d visibilities, but %d layers\n",
+	   g_list_length(change->original_visibility), layers->len);
+  }
+
+  diagram_add_update_all(dia);
+
+  if (layer_dialog->diagram == dia) {
+    layer_dialog_set_diagram(dia);
+  }
+}
+
+static void
+layer_visibility_change_free(struct LayerVisibilityChange *change)
+{
+  g_list_free(change->original_visibility);
+}
+
+static struct LayerVisibilityChange *
+undo_layer_visibility(Diagram *dia, Layer *layer, gboolean exclusive)
+{
+  struct LayerVisibilityChange *change;
+  GList *visibilities = NULL;
+  int i;
+  GPtrArray *layers = dia->data->layers;
+
+  change = g_new0(struct LayerVisibilityChange, 1);
+  
+  change->change.apply = (UndoApplyFunc) layer_visibility_change_apply;
+  change->change.revert = (UndoRevertFunc) layer_visibility_change_revert;
+  change->change.free = (UndoFreeFunc) layer_visibility_change_free;
+
+  for (i = 0; i < layers->len; i++) {
+    Layer *temp_layer = (Layer *) g_ptr_array_index(layers, i);
+    visibilities = g_list_append(visibilities, (gpointer)temp_layer->visible);
+  }
+
+  change->original_visibility = visibilities;
+  change->layer = layer;
+  change->is_exclusive = exclusive;
+
+  undo_push_change(dia->undo, (Change *) change);
+  return change;
 }

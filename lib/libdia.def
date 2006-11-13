@@ -13,6 +13,8 @@ EXPORTS
  arrow_draw
  arrow_type_from_name
  get_arrow_names
+ load_arrow
+ save_arrow
 
  attribute_first_data
  attribute_num_data

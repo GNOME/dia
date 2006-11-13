@@ -388,12 +388,6 @@ orthflow_draw(Orthflow *orthflow, DiaRenderer *renderer)
 					  ORTHFLOW_WIDTH,
 					  render_color,
 					  NULL, &arrow); 
-#if 0
-  arrow_draw(renderer, 
-	     &points[n-1], &points[n-2],
-	     ORTHFLOW_ARROWLEN, ORTHFLOW_ARROWWIDTH, 
-	     render_color, &color_white);
-#endif
 
   renderer_ops->set_font(renderer, orthflow_font,
                           ORTHFLOW_FONTHEIGHT);

@@ -304,11 +304,10 @@ flow_draw(Flow *flow, DiaRenderer *renderer)
   int n1 = 1, n2 = 0;
   char *mname;
   Color* render_color ;
+  Arrow arrow;
 
   assert(flow != NULL);
   assert(renderer != NULL);
-
-  arrow_type = ARROW_FILLED_TRIANGLE;
  
   endpoints = &flow->connection.endpoints[0];
   
@@ -336,14 +335,14 @@ flow_draw(Flow *flow, DiaRenderer *renderer)
   p1 = endpoints[n1];
   p2 = endpoints[n2];
 
-  renderer_ops->draw_line(renderer,
-			   &p1, &p2,
-			   render_color); 
+  arrow.type = ARROW_FILLED_TRIANGLE;
+  arrow.length = FLOW_ARROWLEN;
+  arrow.width = FLOW_ARROWWIDTH;
 
-  arrow_draw(renderer, arrow_type,
-	     &p1, &p2,
-	     FLOW_ARROWLEN, FLOW_ARROWWIDTH, FLOW_WIDTH,
-	     render_color, &color_white);
+  renderer_ops->draw_line_with_arrows(renderer,
+				      &p1, &p2, FLOW_WIDTH,
+				      render_color,
+				      &arrow); 
 
   renderer_ops->set_font(renderer, flow_font,
 			  FLOW_FONTHEIGHT);

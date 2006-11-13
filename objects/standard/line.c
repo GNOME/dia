@@ -571,21 +571,13 @@ line_save(Line *line, ObjectNode obj_node, const char *filename)
 		  line->line_style);
   
   if (line->start_arrow.type != ARROW_NONE) {
-    data_add_enum(new_attribute(obj_node, "start_arrow"),
-		  line->start_arrow.type);
-    data_add_real(new_attribute(obj_node, "start_arrow_length"),
-		  line->start_arrow.length);
-    data_add_real(new_attribute(obj_node, "start_arrow_width"),
-		  line->start_arrow.width);
+    save_arrow(obj_node, &line->start_arrow,
+	       "start_arrow", "start_arrow_length", "startend_arrow_width");
   }
   
   if (line->end_arrow.type != ARROW_NONE) {
-    data_add_enum(new_attribute(obj_node, "end_arrow"),
-		  line->end_arrow.type);
-    data_add_real(new_attribute(obj_node, "end_arrow_length"),
-		  line->end_arrow.length);
-    data_add_real(new_attribute(obj_node, "end_arrow_width"),
-		  line->end_arrow.width);
+    save_arrow(obj_node, &line->end_arrow,
+	       "end_arrow", "end_arrow_length", "end_arrow_width");
   }
  
   if (line->absolute_start_gap)
@@ -633,31 +625,11 @@ line_load(ObjectNode obj_node, int version, const char *filename)
   if (attr != NULL)
     line->line_style = data_enum(attribute_first_data(attr));
 
-  line->start_arrow.type = ARROW_NONE;
-  line->start_arrow.length = DEFAULT_ARROW_LENGTH;
-  line->start_arrow.width = DEFAULT_ARROW_WIDTH;
-  attr = object_find_attribute(obj_node, "start_arrow");
-  if (attr != NULL)
-    line->start_arrow.type = data_enum(attribute_first_data(attr));
-  attr = object_find_attribute(obj_node, "start_arrow_length");
-  if (attr != NULL)
-    line->start_arrow.length = data_real(attribute_first_data(attr));
-  attr = object_find_attribute(obj_node, "start_arrow_width");
-  if (attr != NULL)
-    line->start_arrow.width = data_real(attribute_first_data(attr));
+  load_arrow(obj_node, &line->start_arrow, 
+	     "start_arrow", "start_arrow_length", "start_arrow_width");
 
-  line->end_arrow.type = ARROW_NONE;
-  line->end_arrow.length = DEFAULT_ARROW_LENGTH;
-  line->end_arrow.width = DEFAULT_ARROW_WIDTH;
-  attr = object_find_attribute(obj_node, "end_arrow");
-  if (attr != NULL)
-    line->end_arrow.type = data_enum(attribute_first_data(attr));
-  attr = object_find_attribute(obj_node, "end_arrow_length");
-  if (attr != NULL)
-    line->end_arrow.length = data_real(attribute_first_data(attr));
-  attr = object_find_attribute(obj_node, "end_arrow_width");
-  if (attr != NULL)
-    line->end_arrow.width = data_real(attribute_first_data(attr));
+  load_arrow(obj_node, &line->end_arrow, 
+	     "end_arrow", "end_arrow_length", "end_arrow_width");
 
   line->absolute_start_gap = 0.0;
   attr = object_find_attribute(obj_node, "absolute_start_gap");

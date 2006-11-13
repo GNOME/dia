@@ -1,3 +1,28 @@
+2006-11-13  Lars Clausen  <lars@raeder.dk>
+
+	* app/layer_dialog.c: Revamped the visibility toggling system to
+	make visibility change a properly undoable operation, making the
+	page borders resize in the process.
+
+	* objects/standard/line.c (line_load, line_save): 
+	* objects/standard/arc.c (arc_load, arc_save): 
+	* objects/standard/polyline.c (polyline_load, polyline_save): 
+	* objects/standard/bezier.c (bezierline_load, bezierline_save): 
+	* objects/standard/zigzagline.c (zigzagline_load, zigzagline_save):
+	Use generic load/save functions.
+
+	* lib/libdia.def: 
+	* lib/arrows.[ch]: Generic functions for loading and saving
+	arrows, including sanitizing on load (inspired by bug #144394).  
+
+	* objects/FS/flow-ortho.c (orthflow_draw): 
+	* objects/FS/flow-poly.c (orthflow_draw): Update to use modern
+	arrow rendering.
+
+	* app/modify_tool.c (modify_start_text_edit) 
+	(modify_make_text_edit): Don't use dia_font_scaled_* when
+	avoidable. 
+
 2006-10-29  Steffen Macke <sdteffen@gmail.com>
 
 	* app/paginate_psprint.c: Made compile with MSVC again

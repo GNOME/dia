@@ -22,6 +22,9 @@
 #include "diatypes.h"
 #include "geometry.h"
 #include "color.h"
+#include "dia_xml.h"
+#include "attributes.h"
+#include "widgets.h"
 
 /* NOTE: Add new arrow types at the end, or the enums
    will change order leading to file incompatibilities. */
@@ -63,6 +66,8 @@ typedef enum {
   ARROW_ONE_EXACTLY,            /* ER-model: exactly one*/
   ARROW_BACKSLASH,                  /* -\----  */
   ARROW_THREE_DOTS,
+
+  MAX_ARROW_TYPE /* No arrow heads may be defined beyond here. */
 } ArrowType;
 
 struct menudesc {
@@ -77,6 +82,11 @@ struct menudesc {
  * find . -name \*.[ch] | xargs grep \\.8
  */
 #define DEFAULT_ARROW_SIZE 0.5
+
+/** The minimum width or length of an arrowhead.  This to avoid borderline
+ *  cases that break trig functions, as seen in bug #144394
+ */
+#define MIN_ARROW_DIMENSION 0.001
 
 /* These are used to fill menus.  See dia_arrow_fill_menu in widgets.c */
 DIAVAR struct menudesc arrow_types[];
@@ -102,6 +112,11 @@ calculate_arrow_point(const Arrow *arrow, const Point *to, const Point *from,
  */
 void arrow_transform_points(Arrow *arrow, Point *start, Point *to,
 			    int linewidth, Point *arrowtip);
+
+void save_arrow(ObjectNode obj_node, Arrow *arrow, gchar *type_attribute,
+		gchar *length_attribute, gchar *width_attribute);
+void load_arrow(ObjectNode obj_node, Arrow *arrow, gchar *type_attribute, 
+		gchar *length_attribute, gchar *width_attribute);
 
 /** Returns the ArrowType for a given name of an arrow, or 0 if not found. */
 ArrowType arrow_type_from_name(gchar *name);

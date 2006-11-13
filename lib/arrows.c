@@ -22,6 +22,7 @@
 #include <string.h>
 #include <glib.h>
 #include <math.h>
+#include "message.h"
 
 #ifdef G_OS_WIN32
 #include <float.h>
@@ -1863,8 +1864,81 @@ arrow_draw(DiaRenderer *renderer, ArrowType type,
   case ARROW_THREE_DOTS:
     draw_three_dots(renderer,to,from,length,width,linewidth,fg_color);
     break;
+      case MAX_ARROW_TYPE:
+	break;
   } 
 }
+
+/* *** Loading and saving arrows. *** */
+/** Makes sure an arrow object is within reasonable limits
+ * @param arrow An arrow object.  This object may be modified to comply with
+ * restrictions of MIN_ARROW_DIMENSION on its length and width and to have a 
+ * legal head type.
+ */
+static void
+sanitize_arrow(Arrow *arrow)
+{
+  if (arrow->length < MIN_ARROW_DIMENSION) {
+    arrow->length = MIN_ARROW_DIMENSION;
+  }
+  if (arrow->width < MIN_ARROW_DIMENSION) {
+    arrow->width = MIN_ARROW_DIMENSION;
+  }
+
+  if (arrow->type < 0 || arrow->type > MAX_ARROW_TYPE) {
+    message_error("Illegal arrow head type %d changed to no arrow", arrow->type);
+    arrow->type = ARROW_NONE;
+  }
+}
+
+/** Save the arrow information into three attributes.
+ * @param obj_node The XML node to save to.
+ * @param arrow the arrow to save.
+ * @param type_attribute the name of the attribute of the arrow type.
+ * @param length_attribute the name of the attribute of the arrow length.
+ * @param width_attribute the name of the attribte of the arrow width.
+ */
+void
+save_arrow(ObjectNode obj_node, Arrow *arrow, gchar *type_attribute,
+	   gchar *length_attribute, gchar *width_attribute)
+{
+  data_add_enum(new_attribute(obj_node, type_attribute),
+		arrow->type);
+  data_add_real(new_attribute(obj_node, length_attribute),
+		arrow->length);
+  data_add_real(new_attribute(obj_node, width_attribute),
+		arrow->width);
+}
+
+/** Load arrow information from three attributes.
+ * @param obj_node The XML node to load from.
+ * @param arrow the arrow to store the data info.
+ * @param type_attribute the name of the attribute of the arrow type.
+ * @param length_attribute the name of the attribute of the arrow length.
+ * @param width_attribute the name of the attribte of the arrow width.
+ */
+void
+load_arrow(ObjectNode obj_node, Arrow *arrow, gchar *type_attribute, 
+	   gchar *length_attribute, gchar *width_attribute)
+{
+  AttributeNode *attr;
+
+  arrow->type = ARROW_NONE;
+  arrow->length = DEFAULT_ARROW_LENGTH;
+  arrow->width = DEFAULT_ARROW_WIDTH;
+  attr = object_find_attribute(obj_node, type_attribute);
+  if (attr != NULL)
+    arrow->type = data_enum(attribute_first_data(attr));
+  attr = object_find_attribute(obj_node, length_attribute);
+  if (attr != NULL)
+    arrow->length = data_real(attribute_first_data(attr));
+  attr = object_find_attribute(obj_node, width_attribute);
+  if (attr != NULL)
+    arrow->width = data_real(attribute_first_data(attr));
+
+  sanitize_arrow(arrow);
+}
+
 /** Returns the arrow type that corresponds to a given name.
  * @param name The name of an arrow type (case sensitive)
  * @returns The arrow type (@see ArrowType enum in arrows.h).  Returns

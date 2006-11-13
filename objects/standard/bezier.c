@@ -570,21 +570,14 @@ bezierline_save(Bezierline *bezierline, ObjectNode obj_node,
 		  bezierline->dashlength);
   
   if (bezierline->start_arrow.type != ARROW_NONE) {
-    data_add_enum(new_attribute(obj_node, "start_arrow"),
-		  bezierline->start_arrow.type);
-    data_add_real(new_attribute(obj_node, "start_arrow_length"),
-		  bezierline->start_arrow.length);
-    data_add_real(new_attribute(obj_node, "start_arrow_width"),
-		  bezierline->start_arrow.width);
+    save_arrow(obj_node, &bezierline->start_arrow, "start_arrow",
+	     "start_arrow_length", "start_arrow_width");
   }
-  
+
   if (bezierline->end_arrow.type != ARROW_NONE) {
-    data_add_enum(new_attribute(obj_node, "end_arrow"),
-		  bezierline->end_arrow.type);
-    data_add_real(new_attribute(obj_node, "end_arrow_length"),
-		  bezierline->end_arrow.length);
-    data_add_real(new_attribute(obj_node, "end_arrow_width"),
-		  bezierline->end_arrow.width);
+    save_arrow(obj_node, &bezierline->end_arrow, "end_arrow",
+	     "end_arrow_length", "end_arrow_width");
+  }
 
   if (bezierline->absolute_start_gap)
     data_add_real(new_attribute(obj_node, "absolute_start_gap"),
@@ -592,7 +585,6 @@ bezierline_save(Bezierline *bezierline, ObjectNode obj_node,
   if (bezierline->absolute_end_gap)
     data_add_real(new_attribute(obj_node, "absolute_end_gap"),
                  bezierline->absolute_end_gap);
-  }
 }
 
 static DiaObject *
@@ -637,33 +629,11 @@ bezierline_load(ObjectNode obj_node, int version, const char *filename)
   if (attr != NULL)
     bezierline->dashlength = data_real(attribute_first_data(attr));
 
-  bezierline->start_arrow.type = ARROW_NONE;
-  bezierline->start_arrow.length = DEFAULT_ARROW_LENGTH;
-  bezierline->start_arrow.width = DEFAULT_ARROW_WIDTH;
-  attr = object_find_attribute(obj_node, "start_arrow");
-  if (attr != NULL)
-    bezierline->start_arrow.type = data_enum(attribute_first_data(attr));
-  attr = object_find_attribute(obj_node, "start_arrow_length");
-  if (attr != NULL)
-    bezierline->start_arrow.length = data_real(attribute_first_data(attr));
-  attr = object_find_attribute(obj_node, "start_arrow_width");
-  if (attr != NULL)
-    bezierline->start_arrow.width = data_real(attribute_first_data(attr));
+  load_arrow(obj_node, &bezierline->start_arrow, "start_arrow",
+	     "start_arrow_length", "start_arrow_width");
 
-  bezierline->end_arrow.type = ARROW_NONE;
-  bezierline->end_arrow.length = 0.8;
-  bezierline->end_arrow.width = 0.8;
-  attr = object_find_attribute(obj_node, "end_arrow");
-  if (attr != NULL)
-    bezierline->end_arrow.type = data_enum(attribute_first_data(attr));
-  attr = object_find_attribute(obj_node, "end_arrow_length");
-  if (attr != NULL)
-    bezierline->end_arrow.length = data_real(attribute_first_data(attr));
-  attr = object_find_attribute(obj_node, "end_arrow_width");
-  if (attr != NULL)
-    bezierline->end_arrow.width = data_real(attribute_first_data(attr));
-
-  
+  load_arrow(obj_node, &bezierline->end_arrow, "end_arrow",
+	     "end_arrow_length", "end_arrow_width");
 
   bezierline->absolute_start_gap = 0.0;
   attr = object_find_attribute(obj_node, "absolute_start_gap");

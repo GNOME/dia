@@ -846,20 +846,13 @@ arc_save(Arc *arc, ObjectNode obj_node, const char *filename)
 		  arc->dashlength);
   
   if (arc->start_arrow.type != ARROW_NONE) {
-    data_add_enum(new_attribute(obj_node, "start_arrow"),
-		  arc->start_arrow.type);
-    data_add_real(new_attribute(obj_node, "start_arrow_length"),
-		  arc->start_arrow.length);
-    data_add_real(new_attribute(obj_node, "start_arrow_width"),
-		  arc->start_arrow.width);
+    save_arrow(obj_node, &arc->start_arrow, "start_arrow",
+	     "start_arrow_length", "start_arrow_width");
   }
+
   if (arc->end_arrow.type != ARROW_NONE) {
-    data_add_enum(new_attribute(obj_node, "end_arrow"),
-		  arc->end_arrow.type);
-    data_add_real(new_attribute(obj_node, "end_arrow_length"),
-		  arc->end_arrow.length);
-    data_add_real(new_attribute(obj_node, "end_arrow_width"),
-		  arc->end_arrow.width);
+    save_arrow(obj_node, &arc->end_arrow, "end_arrow",
+	     "end_arrow_length", "end_arrow_width");
   }
 }
 
@@ -906,32 +899,11 @@ arc_load(ObjectNode obj_node, int version, const char *filename)
   if (attr != NULL)
     arc->dashlength = data_real(attribute_first_data(attr));
 
+  load_arrow(obj_node, &arc->start_arrow, "start_arrow",
+	     "start_arrow_length", "start_arrow_width");
 
-  arc->start_arrow.type = ARROW_NONE;
-  arc->start_arrow.length = DEFAULT_ARROW_LENGTH;
-  arc->start_arrow.width = DEFAULT_ARROW_WIDTH;
-  attr = object_find_attribute(obj_node, "start_arrow");
-  if (attr != NULL)
-    arc->start_arrow.type = data_enum(attribute_first_data(attr));
-  attr = object_find_attribute(obj_node, "start_arrow_length");
-  if (attr != NULL)
-    arc->start_arrow.length = data_real(attribute_first_data(attr));
-  attr = object_find_attribute(obj_node, "start_arrow_width");
-  if (attr != NULL)
-    arc->start_arrow.width = data_real(attribute_first_data(attr));
-
-  arc->end_arrow.type = ARROW_NONE;
-  arc->end_arrow.length = DEFAULT_ARROW_LENGTH;
-  arc->end_arrow.width = DEFAULT_ARROW_WIDTH;
-  attr = object_find_attribute(obj_node, "end_arrow");
-  if (attr != NULL)
-    arc->end_arrow.type = data_enum(attribute_first_data(attr));
-  attr = object_find_attribute(obj_node, "end_arrow_length");
-  if (attr != NULL)
-    arc->end_arrow.length = data_real(attribute_first_data(attr));
-  attr = object_find_attribute(obj_node, "end_arrow_width");
-  if (attr != NULL)
-    arc->end_arrow.width = data_real(attribute_first_data(attr));
+  load_arrow(obj_node, &arc->end_arrow, "end_arrow",
+	     "end_arrow_length", "end_arrow_width");
 
   connection_init(conn, 3, 0);
 

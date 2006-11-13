@@ -848,20 +848,15 @@ modify_start_text_edit(DDisplay *ddisp, Text *text, DiaObject *obj, Point *click
   GtkTextIter start, end;
   real ascent;
   int ascent_pixels;
+  Rectangle text_bbox;
 
   printf("modify_start_text_edit\n");
+  /* This might need to account for zoom factor. */
+  text_calc_boundingbox(text, &text_bbox);
   ddisplay_transform_coords(ddisp,
-			    text->position.x,
-			    text->position.y,
+			    text_bbox.left,
+			    text_bbox.top,
 			    &x, &y);
-  ascent = dia_font_scaled_ascent(text->line[0], 
-				  text->font,
-				  text->height,
-				  ddisp->zoom_factor);
-  printf("Text prop string %s pos %d, %d ascent %f\n",
-	 text->line[0], x, y, ascent);
-  ascent_pixels = ddisplay_transform_length(ddisp, ascent);
-  y -= ascent_pixels;
   dia_canvas_put(DIA_CANVAS(ddisp->canvas), view, 
 		 x-EDIT_BORDER_WIDTH, y-EDIT_BORDER_WIDTH);
   buf = gtk_text_view_get_buffer(GTK_TEXT_VIEW(view));
@@ -922,6 +917,7 @@ modify_make_text_edit(DDisplay *ddisp, DiaObject *obj, Point *clickedpoint)
       GtkTextIter start, end;
       real ascent;
       int ascent_pixels;
+      TextLine *temp_line;
 
       g_ptr_array_add(textprops, prop);
 
@@ -932,10 +928,13 @@ modify_make_text_edit(DDisplay *ddisp, DiaObject *obj, Point *clickedpoint)
 				textprop->attr.position.x,
 				textprop->attr.position.y,
 				&x, &y);
-      ascent = dia_font_scaled_ascent(textprop->text_data, 
-				      textprop->attr.font,
-				      textprop->attr.height,
-				      ddisp->zoom_factor);
+      temp_line = text_line_new(textprop->text_data, 
+				textprop->attr.font,
+				textprop->attr.height);
+      /* This might need to account for zoom factor. */
+      ascent = ddisplay_transform_length(ddisp, 
+					 text_line_get_ascent(temp_line));
+      text_line_free(temp_line);
       printf("Text prop string %s pos %d, %d ascent %f\n",
 	     textprop->text_data, x, y, ascent);
       ascent_pixels = ddisplay_transform_length(ddisp, ascent);
