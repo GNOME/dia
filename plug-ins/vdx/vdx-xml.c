@@ -1,5 +1,5 @@
 /* -*- Mode: C; c-basic-offset: 4 -*- */
-/* Dia -- an diagram creation/manipulation program
+/* Dia -- a diagram creation/manipulation program
  *
  * vdx-xml.c: Visio XML import filter for dia
  * Copyright (C) 2006 Ian Redfern
@@ -19,7 +19,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-/* Generated Fri Sep  8 18:04:14 2006 */
+/* Generated Fri Sep 29 19:34:43 2006 */
 /* From: All.vdx animation_tests.vdx Arrows-2.vdx Arrow & Text samples.vdx BasicShapes.vdx basic_tests.vdx Beispiel 1.vdx Beispiel 2.vdx Beispiel 3.vdx Circle1.vdx Circle2.vdx curve_tests.vdx Drawing2.vdx Embedded-Pics-1.vdx emf_dump_test2.orig.vdx emf_dump_test2.vdx Entreprise_etat_desire.vdx Line1.vdx Line2.vdx Line3.vdx Line4.vdx Line5.vdx Line6.vdx LombardiWireframe.vdx pattern_tests.vdx Rectangle1.vdx Rectangle2.vdx Rectangle3.vdx Rectangle4.vdx sample1.vdx Sample2.vdx samp_vdx.vdx seq_test.vdx SmithWireframe.vdx states.vdx Text1.vdx Text2.vdx Text3.vdx text_tests.vdx */
 
 
@@ -3549,7 +3549,6 @@ vdx_write_object(FILE *file, unsigned int depth, const void *p)
     char *pad = (char *)malloc(2*depth+1);
     unsigned int i;
 
-    g_debug(" XML Encoding %s", vdx_Types[(int)Any->type]);
     for (i=0; i<2*depth; i++) { pad[i] = ' '; }
     pad[2*depth] = 0;
 
@@ -3560,7 +3559,7 @@ vdx_write_object(FILE *file, unsigned int depth, const void *p)
         fprintf(file, "%s<Act ID='%u' IX='%u'", pad, Act->ID, Act->IX);
         if (Act->NameU)
             fprintf(file, " NameU='%s'",
-                    Act->NameU);
+                    vdx_convert_xml_string(Act->NameU));
         fprintf(file, ">\n");
         fprintf(file, "%s  <Action>%f</Action>\n", pad,
                 Act->Action);
@@ -3575,7 +3574,7 @@ vdx_write_object(FILE *file, unsigned int depth, const void *p)
         fprintf(file, "%s  <Invisible>%u</Invisible>\n", pad,
                 Act->Invisible);
         fprintf(file, "%s  <Menu>%s</Menu>\n", pad,
-                Act->Menu);
+                vdx_convert_xml_string(Act->Menu));
         fprintf(file, "%s  <ReadOnly>%u</ReadOnly>\n", pad,
                 Act->ReadOnly);
         fprintf(file, "%s  <SortKey>%u</SortKey>\n", pad,
@@ -3614,7 +3613,7 @@ vdx_write_object(FILE *file, unsigned int depth, const void *p)
 
     case vdx_types_BegTrigger:
         BegTrigger = (const struct vdx_BegTrigger *)(p);
-        fprintf(file, "%s<BegTrigger Err='%s'", pad, BegTrigger->Err);
+        fprintf(file, "%s<BegTrigger Err='%s'", pad, vdx_convert_xml_string(BegTrigger->Err));
         if (!child)
         {
             fprintf(file, "/>\n");
@@ -3625,7 +3624,7 @@ vdx_write_object(FILE *file, unsigned int depth, const void *p)
 
     case vdx_types_BeginX:
         BeginX = (const struct vdx_BeginX *)(p);
-        fprintf(file, "%s<BeginX Err='%s'", pad, BeginX->Err);
+        fprintf(file, "%s<BeginX Err='%s'", pad, vdx_convert_xml_string(BeginX->Err));
         if (!child)
         {
             fprintf(file, "/>\n");
@@ -3636,7 +3635,7 @@ vdx_write_object(FILE *file, unsigned int depth, const void *p)
 
     case vdx_types_BeginY:
         BeginY = (const struct vdx_BeginY *)(p);
-        fprintf(file, "%s<BeginY Err='%s'", pad, BeginY->Err);
+        fprintf(file, "%s<BeginY Err='%s'", pad, vdx_convert_xml_string(BeginY->Err));
         if (!child)
         {
             fprintf(file, "/>\n");
@@ -3702,7 +3701,7 @@ vdx_write_object(FILE *file, unsigned int depth, const void *p)
 
     case vdx_types_ColorEntry:
         ColorEntry = (const struct vdx_ColorEntry *)(p);
-        fprintf(file, "%s<ColorEntry IX='%u' RGB='%s'", pad, ColorEntry->IX, ColorEntry->RGB);
+        fprintf(file, "%s<ColorEntry IX='%u' RGB='%s'", pad, ColorEntry->IX, vdx_convert_xml_string(ColorEntry->RGB));
         if (!child)
         {
             fprintf(file, "/>\n");
@@ -3720,7 +3719,7 @@ vdx_write_object(FILE *file, unsigned int depth, const void *p)
 
     case vdx_types_Connect:
         Connect = (const struct vdx_Connect *)(p);
-        fprintf(file, "%s<Connect FromCell='%s' ToCell='%s'", pad, Connect->FromCell, Connect->ToCell);
+        fprintf(file, "%s<Connect FromCell='%s' ToCell='%s'", pad, vdx_convert_xml_string(Connect->FromCell), vdx_convert_xml_string(Connect->ToCell));
         if (Connect->FromPart_exists)
             fprintf(file, " FromPart='%u'",
                     Connect->FromPart);
@@ -3746,7 +3745,7 @@ vdx_write_object(FILE *file, unsigned int depth, const void *p)
         fprintf(file, "%s<Connection ID='%u' IX='%u'", pad, Connection->ID, Connection->IX);
         if (Connection->NameU)
             fprintf(file, " NameU='%s'",
-                    Connection->NameU);
+                    vdx_convert_xml_string(Connection->NameU));
         fprintf(file, ">\n");
         fprintf(file, "%s  <AutoGen>%u</AutoGen>\n", pad,
                 Connection->AutoGen);
@@ -3755,7 +3754,7 @@ vdx_write_object(FILE *file, unsigned int depth, const void *p)
         fprintf(file, "%s  <DirY>%f</DirY>\n", pad,
                 Connection->DirY);
         fprintf(file, "%s  <Prompt>%s</Prompt>\n", pad,
-                Connection->Prompt);
+                vdx_convert_xml_string(Connection->Prompt));
         fprintf(file, "%s  <Type>%u</Type>\n", pad,
                 Connection->Type);
         fprintf(file, "%s  <X>%f</X>\n", pad,
@@ -3776,12 +3775,12 @@ vdx_write_object(FILE *file, unsigned int depth, const void *p)
         fprintf(file, "%s<Control ID='%u' IX='%u'", pad, Control->ID, Control->IX);
         if (Control->NameU)
             fprintf(file, " NameU='%s'",
-                    Control->NameU);
+                    vdx_convert_xml_string(Control->NameU));
         fprintf(file, ">\n");
         fprintf(file, "%s  <CanGlue>%u</CanGlue>\n", pad,
                 Control->CanGlue);
         fprintf(file, "%s  <Prompt>%s</Prompt>\n", pad,
-                Control->Prompt);
+                vdx_convert_xml_string(Control->Prompt));
         fprintf(file, "%s  <X>%f</X>\n", pad,
                 Control->X);
         fprintf(file, "%s  <XCon>%f</XCon>\n", pad,
@@ -3798,10 +3797,10 @@ vdx_write_object(FILE *file, unsigned int depth, const void *p)
 
     case vdx_types_CustomProp:
         CustomProp = (const struct vdx_CustomProp *)(p);
-        fprintf(file, "%s<CustomProp PropType='%s'", pad, CustomProp->PropType);
+        fprintf(file, "%s<CustomProp PropType='%s'", pad, vdx_convert_xml_string(CustomProp->PropType));
         if (CustomProp->Name)
             fprintf(file, " Name='%s'",
-                    CustomProp->Name);
+                    vdx_convert_xml_string(CustomProp->Name));
         if (!child)
         {
             fprintf(file, "/>\n");
@@ -3814,7 +3813,7 @@ vdx_write_object(FILE *file, unsigned int depth, const void *p)
         CustomProps = (const struct vdx_CustomProps *)(p);
         fprintf(file, "%s<CustomProps>\n", pad);
         fprintf(file, "%s  <CustomProp>%s</CustomProp>\n", pad,
-                CustomProps->CustomProp);
+                vdx_convert_xml_string(CustomProps->CustomProp));
         break;
 
     case vdx_types_DocProps:
@@ -3844,25 +3843,25 @@ vdx_write_object(FILE *file, unsigned int depth, const void *p)
         fprintf(file, "%s  <BuildNumberEdited>%u</BuildNumberEdited>\n", pad,
                 DocumentProperties->BuildNumberEdited);
         fprintf(file, "%s  <Company>%s</Company>\n", pad,
-                DocumentProperties->Company);
+                vdx_convert_xml_string(DocumentProperties->Company));
         fprintf(file, "%s  <Creator>%s</Creator>\n", pad,
-                DocumentProperties->Creator);
+                vdx_convert_xml_string(DocumentProperties->Creator));
         fprintf(file, "%s  <Desc>%s</Desc>\n", pad,
-                DocumentProperties->Desc);
+                vdx_convert_xml_string(DocumentProperties->Desc));
         fprintf(file, "%s  <Subject>%s</Subject>\n", pad,
-                DocumentProperties->Subject);
+                vdx_convert_xml_string(DocumentProperties->Subject));
         fprintf(file, "%s  <Template>%s</Template>\n", pad,
-                DocumentProperties->Template);
+                vdx_convert_xml_string(DocumentProperties->Template));
         fprintf(file, "%s  <TimeCreated>%s</TimeCreated>\n", pad,
-                DocumentProperties->TimeCreated);
+                vdx_convert_xml_string(DocumentProperties->TimeCreated));
         fprintf(file, "%s  <TimeEdited>%s</TimeEdited>\n", pad,
-                DocumentProperties->TimeEdited);
+                vdx_convert_xml_string(DocumentProperties->TimeEdited));
         fprintf(file, "%s  <TimePrinted>%s</TimePrinted>\n", pad,
-                DocumentProperties->TimePrinted);
+                vdx_convert_xml_string(DocumentProperties->TimePrinted));
         fprintf(file, "%s  <TimeSaved>%s</TimeSaved>\n", pad,
-                DocumentProperties->TimeSaved);
+                vdx_convert_xml_string(DocumentProperties->TimeSaved));
         fprintf(file, "%s  <Title>%s</Title>\n", pad,
-                DocumentProperties->Title);
+                vdx_convert_xml_string(DocumentProperties->Title));
         break;
 
     case vdx_types_DocumentSettings:
@@ -3916,10 +3915,10 @@ vdx_write_object(FILE *file, unsigned int depth, const void *p)
                     DocumentSheet->TextStyle);
         if (DocumentSheet->Name)
             fprintf(file, " Name='%s'",
-                    DocumentSheet->Name);
+                    vdx_convert_xml_string(DocumentSheet->Name));
         if (DocumentSheet->NameU)
             fprintf(file, " NameU='%s'",
-                    DocumentSheet->NameU);
+                    vdx_convert_xml_string(DocumentSheet->NameU));
         if (!child)
         {
             fprintf(file, "/>\n");
@@ -3964,7 +3963,7 @@ vdx_write_object(FILE *file, unsigned int depth, const void *p)
 
     case vdx_types_EndX:
         EndX = (const struct vdx_EndX *)(p);
-        fprintf(file, "%s<EndX Err='%s'", pad, EndX->Err);
+        fprintf(file, "%s<EndX Err='%s'", pad, vdx_convert_xml_string(EndX->Err));
         if (!child)
         {
             fprintf(file, "/>\n");
@@ -3975,7 +3974,7 @@ vdx_write_object(FILE *file, unsigned int depth, const void *p)
 
     case vdx_types_EndY:
         EndY = (const struct vdx_EndY *)(p);
-        fprintf(file, "%s<EndY Err='%s'", pad, EndY->Err);
+        fprintf(file, "%s<EndY Err='%s'", pad, vdx_convert_xml_string(EndY->Err));
         if (!child)
         {
             fprintf(file, "/>\n");
@@ -4001,7 +4000,7 @@ vdx_write_object(FILE *file, unsigned int depth, const void *p)
 
     case vdx_types_EventDblClick:
         EventDblClick = (const struct vdx_EventDblClick *)(p);
-        fprintf(file, "%s<EventDblClick Err='%s'", pad, EventDblClick->Err);
+        fprintf(file, "%s<EventDblClick Err='%s'", pad, vdx_convert_xml_string(EventDblClick->Err));
         if (!child)
         {
             fprintf(file, "/>\n");
@@ -4012,7 +4011,7 @@ vdx_write_object(FILE *file, unsigned int depth, const void *p)
 
     case vdx_types_EventItem:
         EventItem = (const struct vdx_EventItem *)(p);
-        fprintf(file, "%s<EventItem Action='%u' Enabled='%u' ID='%u' Target='%s' TargetArgs='%s'", pad, EventItem->Action, EventItem->Enabled, EventItem->ID, EventItem->Target, EventItem->TargetArgs);
+        fprintf(file, "%s<EventItem Action='%u' Enabled='%u' ID='%u' Target='%s' TargetArgs='%s'", pad, EventItem->Action, EventItem->Enabled, EventItem->ID, vdx_convert_xml_string(EventItem->Target), vdx_convert_xml_string(EventItem->TargetArgs));
         if (EventItem->EventCode_exists)
             fprintf(file, " EventCode='%u'",
                     EventItem->EventCode);
@@ -4033,13 +4032,13 @@ vdx_write_object(FILE *file, unsigned int depth, const void *p)
 
     case vdx_types_FaceName:
         FaceName = (const struct vdx_FaceName *)(p);
-        fprintf(file, "%s<FaceName CharSets='%s' ID='%u' Panos='%s' UnicodeRanges='%s'", pad, FaceName->CharSets, FaceName->ID, FaceName->Panos, FaceName->UnicodeRanges);
+        fprintf(file, "%s<FaceName CharSets='%s' ID='%u' Panos='%s' UnicodeRanges='%s'", pad, vdx_convert_xml_string(FaceName->CharSets), FaceName->ID, vdx_convert_xml_string(FaceName->Panos), vdx_convert_xml_string(FaceName->UnicodeRanges));
         if (FaceName->Flags_exists)
             fprintf(file, " Flags='%u'",
                     FaceName->Flags);
         if (FaceName->Name)
             fprintf(file, " Name='%s'",
-                    FaceName->Name);
+                    vdx_convert_xml_string(FaceName->Name));
         if (!child)
         {
             fprintf(file, "/>\n");
@@ -4131,7 +4130,7 @@ vdx_write_object(FILE *file, unsigned int depth, const void *p)
                     FontEntry->PitchAndFamily);
         if (FontEntry->Name)
             fprintf(file, " Name='%s'",
-                    FontEntry->Name);
+                    vdx_convert_xml_string(FontEntry->Name));
         if (!child)
         {
             fprintf(file, "/>\n");
@@ -4162,7 +4161,7 @@ vdx_write_object(FILE *file, unsigned int depth, const void *p)
 
     case vdx_types_ForeignData:
         ForeignData = (const struct vdx_ForeignData *)(p);
-        fprintf(file, "%s<ForeignData CompressionLevel='%f' CompressionType='%s' ForeignType='%s' ObjectHeight='%f' ObjectWidth='%f' ShowAsIcon='%u'", pad, ForeignData->CompressionLevel, ForeignData->CompressionType, ForeignData->ForeignType, ForeignData->ObjectHeight, ForeignData->ObjectWidth, ForeignData->ShowAsIcon);
+        fprintf(file, "%s<ForeignData CompressionLevel='%f' CompressionType='%s' ForeignType='%s' ObjectHeight='%f' ObjectWidth='%f' ShowAsIcon='%u'", pad, ForeignData->CompressionLevel, vdx_convert_xml_string(ForeignData->CompressionType), vdx_convert_xml_string(ForeignData->ForeignType), ForeignData->ObjectHeight, ForeignData->ObjectWidth, ForeignData->ShowAsIcon);
         if (ForeignData->ExtentX_exists)
             fprintf(file, " ExtentX='%u'",
                     ForeignData->ExtentX);
@@ -4215,24 +4214,24 @@ vdx_write_object(FILE *file, unsigned int depth, const void *p)
 
     case vdx_types_HeaderFooter:
         HeaderFooter = (const struct vdx_HeaderFooter *)(p);
-        fprintf(file, "%s<HeaderFooter HeaderFooterColor='%s'>\n", pad, HeaderFooter->HeaderFooterColor);
+        fprintf(file, "%s<HeaderFooter HeaderFooterColor='%s'>\n", pad, vdx_convert_xml_string(HeaderFooter->HeaderFooterColor));
         fprintf(file, "%s  <FooterLeft>%s</FooterLeft>\n", pad,
-                HeaderFooter->FooterLeft);
+                vdx_convert_xml_string(HeaderFooter->FooterLeft));
         fprintf(file, "%s  <FooterMargin>%f</FooterMargin>\n", pad,
                 HeaderFooter->FooterMargin);
         fprintf(file, "%s  <HeaderFooterFont>%u</HeaderFooterFont>\n", pad,
                 HeaderFooter->HeaderFooterFont);
         fprintf(file, "%s  <HeaderLeft>%s</HeaderLeft>\n", pad,
-                HeaderFooter->HeaderLeft);
+                vdx_convert_xml_string(HeaderFooter->HeaderLeft));
         fprintf(file, "%s  <HeaderMargin>%f</HeaderMargin>\n", pad,
                 HeaderFooter->HeaderMargin);
         fprintf(file, "%s  <HeaderRight>%s</HeaderRight>\n", pad,
-                HeaderFooter->HeaderRight);
+                vdx_convert_xml_string(HeaderFooter->HeaderRight));
         break;
 
     case vdx_types_HeaderFooterFont:
         HeaderFooterFont = (const struct vdx_HeaderFooterFont *)(p);
-        fprintf(file, "%s<HeaderFooterFont CharSet='%u' Escapement='%u' FaceName='%s' Italic='%u' Orientation='%u' Quality='%u' StrikeOut='%u' Underline='%u' Width='%u'", pad, HeaderFooterFont->CharSet, HeaderFooterFont->Escapement, HeaderFooterFont->FaceName, HeaderFooterFont->Italic, HeaderFooterFont->Orientation, HeaderFooterFont->Quality, HeaderFooterFont->StrikeOut, HeaderFooterFont->Underline, HeaderFooterFont->Width);
+        fprintf(file, "%s<HeaderFooterFont CharSet='%u' Escapement='%u' FaceName='%s' Italic='%u' Orientation='%u' Quality='%u' StrikeOut='%u' Underline='%u' Width='%u'", pad, HeaderFooterFont->CharSet, HeaderFooterFont->Escapement, vdx_convert_xml_string(HeaderFooterFont->FaceName), HeaderFooterFont->Italic, HeaderFooterFont->Orientation, HeaderFooterFont->Quality, HeaderFooterFont->StrikeOut, HeaderFooterFont->Underline, HeaderFooterFont->Width);
         if (HeaderFooterFont->ClipPrecision_exists)
             fprintf(file, " ClipPrecision='%u'",
                     HeaderFooterFont->ClipPrecision);
@@ -4260,9 +4259,9 @@ vdx_write_object(FILE *file, unsigned int depth, const void *p)
         Help = (const struct vdx_Help *)(p);
         fprintf(file, "%s<Help>\n", pad);
         fprintf(file, "%s  <Copyright>%s</Copyright>\n", pad,
-                Help->Copyright);
+                vdx_convert_xml_string(Help->Copyright));
         fprintf(file, "%s  <HelpTopic>%s</HelpTopic>\n", pad,
-                Help->HelpTopic);
+                vdx_convert_xml_string(Help->HelpTopic));
         break;
 
     case vdx_types_Hyperlink:
@@ -4270,16 +4269,16 @@ vdx_write_object(FILE *file, unsigned int depth, const void *p)
         fprintf(file, "%s<Hyperlink ID='%u'", pad, Hyperlink->ID);
         if (Hyperlink->NameU)
             fprintf(file, " NameU='%s'",
-                    Hyperlink->NameU);
+                    vdx_convert_xml_string(Hyperlink->NameU));
         fprintf(file, ">\n");
         fprintf(file, "%s  <Address>%s</Address>\n", pad,
-                Hyperlink->Address);
+                vdx_convert_xml_string(Hyperlink->Address));
         fprintf(file, "%s  <Default>%u</Default>\n", pad,
                 Hyperlink->Default);
         fprintf(file, "%s  <Description>%s</Description>\n", pad,
-                Hyperlink->Description);
+                vdx_convert_xml_string(Hyperlink->Description));
         fprintf(file, "%s  <ExtraInfo>%s</ExtraInfo>\n", pad,
-                Hyperlink->ExtraInfo);
+                vdx_convert_xml_string(Hyperlink->ExtraInfo));
         fprintf(file, "%s  <Frame>%u</Frame>\n", pad,
                 Hyperlink->Frame);
         fprintf(file, "%s  <Invisible>%u</Invisible>\n", pad,
@@ -4289,7 +4288,7 @@ vdx_write_object(FILE *file, unsigned int depth, const void *p)
         fprintf(file, "%s  <SortKey>%u</SortKey>\n", pad,
                 Hyperlink->SortKey);
         fprintf(file, "%s  <SubAddress>%s</SubAddress>\n", pad,
-                Hyperlink->SubAddress);
+                vdx_convert_xml_string(Hyperlink->SubAddress));
         break;
 
     case vdx_types_Icon:
@@ -4349,9 +4348,9 @@ vdx_write_object(FILE *file, unsigned int depth, const void *p)
         fprintf(file, "%s  <Lock>%u</Lock>\n", pad,
                 Layer->Lock);
         fprintf(file, "%s  <Name>%s</Name>\n", pad,
-                Layer->Name);
+                vdx_convert_xml_string(Layer->Name));
         fprintf(file, "%s  <NameUniv>%s</NameUniv>\n", pad,
-                Layer->NameUniv);
+                vdx_convert_xml_string(Layer->NameUniv));
         fprintf(file, "%s  <Print>%u</Print>\n", pad,
                 Layer->Print);
         fprintf(file, "%s  <Snap>%u</Snap>\n", pad,
@@ -4366,7 +4365,7 @@ vdx_write_object(FILE *file, unsigned int depth, const void *p)
         LayerMem = (const struct vdx_LayerMem *)(p);
         fprintf(file, "%s<LayerMem>\n", pad);
         fprintf(file, "%s  <LayerMember>%s</LayerMember>\n", pad,
-                LayerMem->LayerMember);
+                vdx_convert_xml_string(LayerMem->LayerMember));
         break;
 
     case vdx_types_Layout:
@@ -4444,7 +4443,7 @@ vdx_write_object(FILE *file, unsigned int depth, const void *p)
 
     case vdx_types_Master:
         Master = (const struct vdx_Master *)(p);
-        fprintf(file, "%s<Master BaseID='%s' Hidden='%u' ID='%u' IconUpdate='%u' MatchByName='%u' Prompt='%s'", pad, Master->BaseID, Master->Hidden, Master->ID, Master->IconUpdate, Master->MatchByName, Master->Prompt);
+        fprintf(file, "%s<Master BaseID='%s' Hidden='%u' ID='%u' IconUpdate='%u' MatchByName='%u' Prompt='%s'", pad, vdx_convert_xml_string(Master->BaseID), Master->Hidden, Master->ID, Master->IconUpdate, Master->MatchByName, vdx_convert_xml_string(Master->Prompt));
         if (Master->AlignName_exists)
             fprintf(file, " AlignName='%u'",
                     Master->AlignName);
@@ -4456,13 +4455,13 @@ vdx_write_object(FILE *file, unsigned int depth, const void *p)
                     Master->PatternFlags);
         if (Master->Name)
             fprintf(file, " Name='%s'",
-                    Master->Name);
+                    vdx_convert_xml_string(Master->Name));
         if (Master->NameU)
             fprintf(file, " NameU='%s'",
-                    Master->NameU);
+                    vdx_convert_xml_string(Master->NameU));
         if (Master->UniqueID)
             fprintf(file, " UniqueID='%s'",
-                    Master->UniqueID);
+                    vdx_convert_xml_string(Master->UniqueID));
         if (!child)
         {
             fprintf(file, "/>\n");
@@ -4473,7 +4472,7 @@ vdx_write_object(FILE *file, unsigned int depth, const void *p)
 
     case vdx_types_Menu:
         Menu = (const struct vdx_Menu *)(p);
-        fprintf(file, "%s<Menu Err='%s'", pad, Menu->Err);
+        fprintf(file, "%s<Menu Err='%s'", pad, vdx_convert_xml_string(Menu->Err));
         if (!child)
         {
             fprintf(file, "/>\n");
@@ -4490,7 +4489,7 @@ vdx_write_object(FILE *file, unsigned int depth, const void *p)
         fprintf(file, "%s  <Calendar>%u</Calendar>\n", pad,
                 Misc->Calendar);
         fprintf(file, "%s  <Comment>%s</Comment>\n", pad,
-                Misc->Comment);
+                vdx_convert_xml_string(Misc->Comment));
         fprintf(file, "%s  <DropOnPageScale>%u</DropOnPageScale>\n", pad,
                 Misc->DropOnPageScale);
         fprintf(file, "%s  <DynFeedback>%u</DynFeedback>\n", pad,
@@ -4520,7 +4519,7 @@ vdx_write_object(FILE *file, unsigned int depth, const void *p)
         fprintf(file, "%s  <ObjType>%u</ObjType>\n", pad,
                 Misc->ObjType);
         fprintf(file, "%s  <ShapeKeywords>%s</ShapeKeywords>\n", pad,
-                Misc->ShapeKeywords);
+                vdx_convert_xml_string(Misc->ShapeKeywords));
         fprintf(file, "%s  <UpdateAlignBox>%u</UpdateAlignBox>\n", pad,
                 Misc->UpdateAlignBox);
         fprintf(file, "%s  <WalkPreference>%u</WalkPreference>\n", pad,
@@ -4557,7 +4556,7 @@ vdx_write_object(FILE *file, unsigned int depth, const void *p)
 
     case vdx_types_NameUniv:
         NameUniv = (const struct vdx_NameUniv *)(p);
-        fprintf(file, "%s<NameUniv Err='%s'", pad, NameUniv->Err);
+        fprintf(file, "%s<NameUniv Err='%s'", pad, vdx_convert_xml_string(NameUniv->Err));
         if (!child)
         {
             fprintf(file, "/>\n");
@@ -4574,10 +4573,10 @@ vdx_write_object(FILE *file, unsigned int depth, const void *p)
                     Page->BackPage);
         if (Page->Name)
             fprintf(file, " Name='%s'",
-                    Page->Name);
+                    vdx_convert_xml_string(Page->Name));
         if (Page->NameU)
             fprintf(file, " NameU='%s'",
-                    Page->NameU);
+                    vdx_convert_xml_string(Page->NameU));
         if (!child)
         {
             fprintf(file, "/>\n");
@@ -4690,7 +4689,7 @@ vdx_write_object(FILE *file, unsigned int depth, const void *p)
                     PageSheet->TextStyle);
         if (PageSheet->UniqueID)
             fprintf(file, " UniqueID='%s'",
-                    PageSheet->UniqueID);
+                    vdx_convert_xml_string(PageSheet->UniqueID));
         if (!child)
         {
             fprintf(file, "/>\n");
@@ -4709,7 +4708,7 @@ vdx_write_object(FILE *file, unsigned int depth, const void *p)
         fprintf(file, "%s  <BulletFontSize>%d)</BulletFontSize>\n", pad,
                 Para->BulletFontSize);
         fprintf(file, "%s  <BulletStr>%s</BulletStr>\n", pad,
-                Para->BulletStr);
+                vdx_convert_xml_string(Para->BulletStr));
         fprintf(file, "%s  <Flags>%u</Flags>\n", pad,
                 Para->Flags);
         fprintf(file, "%s  <HorzAlign>%f</HorzAlign>\n", pad,
@@ -4815,22 +4814,22 @@ vdx_write_object(FILE *file, unsigned int depth, const void *p)
         fprintf(file, "%s<Prop ID='%u'", pad, Prop->ID);
         if (Prop->NameU)
             fprintf(file, " NameU='%s'",
-                    Prop->NameU);
+                    vdx_convert_xml_string(Prop->NameU));
         fprintf(file, ">\n");
         fprintf(file, "%s  <Calendar>%u</Calendar>\n", pad,
                 Prop->Calendar);
         fprintf(file, "%s  <Format>%s</Format>\n", pad,
-                Prop->Format);
+                vdx_convert_xml_string(Prop->Format));
         fprintf(file, "%s  <Invisible>%u</Invisible>\n", pad,
                 Prop->Invisible);
         fprintf(file, "%s  <Label>%s</Label>\n", pad,
-                Prop->Label);
+                vdx_convert_xml_string(Prop->Label));
         fprintf(file, "%s  <LangID>%u</LangID>\n", pad,
                 Prop->LangID);
         fprintf(file, "%s  <Prompt>%s</Prompt>\n", pad,
-                Prop->Prompt);
+                vdx_convert_xml_string(Prop->Prompt));
         fprintf(file, "%s  <SortKey>%s</SortKey>\n", pad,
-                Prop->SortKey);
+                vdx_convert_xml_string(Prop->SortKey));
         fprintf(file, "%s  <Type>%u</Type>\n", pad,
                 Prop->Type);
         fprintf(file, "%s  <Value>%f</Value>\n", pad,
@@ -4922,7 +4921,7 @@ vdx_write_object(FILE *file, unsigned int depth, const void *p)
 
     case vdx_types_Shape:
         Shape = (const struct vdx_Shape *)(p);
-        fprintf(file, "%s<Shape ID='%u' Type='%s'", pad, Shape->ID, Shape->Type);
+        fprintf(file, "%s<Shape ID='%u' Type='%s'", pad, Shape->ID, vdx_convert_xml_string(Shape->Type));
         if (Shape->FillStyle_exists)
             fprintf(file, " FillStyle='%u'",
                     Shape->FillStyle);
@@ -4943,13 +4942,13 @@ vdx_write_object(FILE *file, unsigned int depth, const void *p)
                     Shape->Del);
         if (Shape->Name)
             fprintf(file, " Name='%s'",
-                    Shape->Name);
+                    vdx_convert_xml_string(Shape->Name));
         if (Shape->NameU)
             fprintf(file, " NameU='%s'",
-                    Shape->NameU);
+                    vdx_convert_xml_string(Shape->NameU));
         if (Shape->UniqueID)
             fprintf(file, " UniqueID='%s'",
-                    Shape->UniqueID);
+                    vdx_convert_xml_string(Shape->UniqueID));
         if (!child)
         {
             fprintf(file, "/>\n");
@@ -5024,10 +5023,10 @@ vdx_write_object(FILE *file, unsigned int depth, const void *p)
                     StyleSheet->TextStyle);
         if (StyleSheet->Name)
             fprintf(file, " Name='%s'",
-                    StyleSheet->Name);
+                    vdx_convert_xml_string(StyleSheet->Name));
         if (StyleSheet->NameU)
             fprintf(file, " NameU='%s'",
-                    StyleSheet->NameU);
+                    vdx_convert_xml_string(StyleSheet->NameU));
         if (!child)
         {
             fprintf(file, "/>\n");
@@ -5059,6 +5058,7 @@ vdx_write_object(FILE *file, unsigned int depth, const void *p)
     case vdx_types_Text:
         Text = (const struct vdx_Text *)(p);
         fprintf(file, "%s<Text IX='%u'>", pad, Text->IX);
+        *pad = 0;
         break;
 
     case vdx_types_TextBlock:
@@ -5108,17 +5108,17 @@ vdx_write_object(FILE *file, unsigned int depth, const void *p)
         fprintf(file, "%s<User ID='%u'", pad, User->ID);
         if (User->NameU)
             fprintf(file, " NameU='%s'",
-                    User->NameU);
+                    vdx_convert_xml_string(User->NameU));
         fprintf(file, ">\n");
         fprintf(file, "%s  <Prompt>%s</Prompt>\n", pad,
-                User->Prompt);
+                vdx_convert_xml_string(User->Prompt));
         fprintf(file, "%s  <Value>%f</Value>\n", pad,
                 User->Value);
         break;
 
     case vdx_types_VisioDocument:
         VisioDocument = (const struct vdx_VisioDocument *)(p);
-        fprintf(file, "%s<VisioDocument key='%s' metric='%u' version='%s' xmlns='%s'", pad, VisioDocument->key, VisioDocument->metric, VisioDocument->version, VisioDocument->xmlns);
+        fprintf(file, "%s<VisioDocument key='%s' metric='%u' version='%s' xmlns='%s'", pad, vdx_convert_xml_string(VisioDocument->key), VisioDocument->metric, vdx_convert_xml_string(VisioDocument->version), vdx_convert_xml_string(VisioDocument->xmlns));
         if (VisioDocument->DocLangID_exists)
             fprintf(file, " DocLangID='%u'",
                     VisioDocument->DocLangID);
@@ -5137,7 +5137,7 @@ vdx_write_object(FILE *file, unsigned int depth, const void *p)
 
     case vdx_types_Window:
         Window = (const struct vdx_Window *)(p);
-        fprintf(file, "%s<Window ContainerType='%s' Document='%s' ID='%u' ParentWindow='%u' ViewCenterX='%f' ViewCenterY='%f' ViewScale='%f' WindowType='%s'", pad, Window->ContainerType, Window->Document, Window->ID, Window->ParentWindow, Window->ViewCenterX, Window->ViewCenterY, Window->ViewScale, Window->WindowType);
+        fprintf(file, "%s<Window ContainerType='%s' Document='%s' ID='%u' ParentWindow='%u' ViewCenterX='%f' ViewCenterY='%f' ViewScale='%f' WindowType='%s'", pad, vdx_convert_xml_string(Window->ContainerType), vdx_convert_xml_string(Window->Document), Window->ID, Window->ParentWindow, Window->ViewCenterX, Window->ViewCenterY, Window->ViewScale, vdx_convert_xml_string(Window->WindowType));
         if (Window->Page_exists)
             fprintf(file, " Page='%u'",
                     Window->Page);
@@ -5284,7 +5284,7 @@ vdx_write_object(FILE *file, unsigned int depth, const void *p)
 
     case vdx_types_text:
         text = (const struct vdx_text *)(p);
-        fprintf(file, "%s\n", text->text);
+        fputs(vdx_convert_xml_string(text->text), file);
         break;
 
     default:

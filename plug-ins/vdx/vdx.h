@@ -1,5 +1,5 @@
 /* -*- Mode: C; c-basic-offset: 4 -*- */
-/* Dia -- an diagram creation/manipulation program
+/* Dia -- a diagram creation/manipulation program
  * Copyright (C) 1998 Alexander Larsson
  *
  * vdx.h: Visio XML import and export filter for dia
@@ -59,6 +59,7 @@ static const double EPSILON = 0.01; /* Sensitivity */
 static const double vdx_Arrow_Sizes[] = 
         { 1.0, 1.2, 1.4, 1.6, 1.8, 2.0 }; /* Empirical */
 #define VDX_NAMEU_LEN 30
+#define DEG_TO_RAD M_PI/180.0                  /* Degrees to radians */
 
 Color
 vdx_parse_color(const char *s, const VDXDocument *theDoc);
@@ -71,6 +72,9 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p);
 
 void
 vdx_write_object(FILE *file, unsigned int depth, const void *p);
+
+const char *
+vdx_convert_xml_string(const char *s);
 
 
 #endif

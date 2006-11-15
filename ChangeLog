@@ -1,3 +1,8 @@
+2006-11-15  Lars Clausen  <lars@raeder.dk>
+
+	* plug-ins/vdx/*: Update to version 0.6.1 yields improvements in
+	both export and import.
+
 2006-11-13  Lars Clausen  <lars@raeder.dk>
 
 	* lib/font.c: Internally calculate glyph offsets at *20 font size

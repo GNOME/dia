@@ -1,5 +1,5 @@
 /* -*- Mode: C; c-basic-offset: 4 -*- */
-/* Dia -- an diagram creation/manipulation program
+/* Dia -- a diagram creation/manipulation program
  *
  * vdx-common.c: Visio XML import filter for dia
  * Copyright (C) 2006 Ian Redfern

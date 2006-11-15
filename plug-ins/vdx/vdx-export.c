@@ -1,5 +1,5 @@
 /* -*- Mode: C; c-basic-offset: 4 -*- */
-/* Dia -- an diagram creation/manipulation program
+/* Dia -- a diagram creation/manipulation program
  * Copyright (C) 1998 Alexander Larsson
  *
  * vdx-export.c: Visio XML export filter for dia
@@ -31,11 +31,13 @@
 #include <stdio.h>
 
 #include <string.h>
+#include <strings.h>
 #include <math.h>
 #include <glib.h>
 #include <stdlib.h>
 #include <errno.h>
 #include <locale.h>
+#include <glib/gstdio.h>
 
 #include "intl.h"
 #include "message.h"
@@ -111,18 +113,6 @@ static void draw_line(DiaRenderer *self,
 static void draw_polyline(DiaRenderer *self, 
 			  Point *points, int num_points, 
 			  Color *color);
-static void draw_line_with_arrows(DiaRenderer *self, 
-				  Point *start, Point *end, 
-				  real line_width,
-				  Color *color,
-				  Arrow *start_arrow,
-				  Arrow *end_arrow);
-static void draw_polyline_with_arrows(DiaRenderer *self, 
-				      Point *points, int num_points, 
-				      real line_width,
-				      Color *color,
-				      Arrow *start_arrow,
-				      Arrow *end_arrow);
 static void draw_polygon(DiaRenderer *self, 
 			 Point *points, int num_points, 
 			 Color *color);
@@ -140,14 +130,6 @@ static void draw_arc(DiaRenderer *self,
 		     real width, real height,
 		     real angle1, real angle2,
 		     Color *color);
-static void draw_arc_with_arrows(DiaRenderer *self, 
-				 Point *startpoint,
-				 Point *endpoint,
-				 Point *midpoint,
-				 real line_width,
-				 Color *color,
-				 Arrow *start_arrow,
-				 Arrow *end_arrow);
 static void fill_arc(DiaRenderer *self, 
 		     Point *center,
 		     real width, real height,
@@ -161,21 +143,6 @@ static void fill_ellipse(DiaRenderer *self,
 			 Point *center,
 			 real width, real height,
 			 Color *color);
-static void draw_bezier(DiaRenderer *self, 
-			BezPoint *points,
-			int numpoints,
-			Color *color);
-static void draw_bezier_with_arrows(DiaRenderer *self, 
-				    BezPoint *points,
-				    int numpoints,
-				    real line_width,
-				    Color *color,
-				    Arrow *start_arrow,
-				    Arrow *end_arrow);
-static void fill_bezier(DiaRenderer *self, 
-			BezPoint *points, /* Last point must be same as first point */
-			int numpoints,
-			Color *color);
 static void draw_string(DiaRenderer *self,
 			const char *text,
 			Point *pos, Alignment alignment,
@@ -184,8 +151,6 @@ static void draw_image(DiaRenderer *self,
 		       Point *point,
 		       real width, real height,
 		       DiaImage image);
-static void draw_object(DiaRenderer *self,
-			DiaObject *object);
 
 static void vdx_renderer_class_init (VDXRendererClass *klass);
 
@@ -281,18 +246,20 @@ vdx_renderer_class_init (VDXRendererClass *klass)
   renderer_class->draw_ellipse = draw_ellipse;
   renderer_class->fill_ellipse = fill_ellipse;
 
-  renderer_class->draw_bezier = draw_bezier;
-  renderer_class->fill_bezier = fill_bezier;
+  /* Until we have NURBS, let Dia use lines */
+  /* renderer_class->draw_bezier = draw_bezier; */
+  /* renderer_class->fill_bezier = fill_bezier; */
+  /* renderer_class->draw_bezier_with_arrows = draw_bezier_with_arrows; */
 
   renderer_class->draw_string = draw_string;
 
   renderer_class->draw_image = draw_image;
 
-  renderer_class->draw_line_with_arrows = draw_line_with_arrows;
-  renderer_class->draw_polyline_with_arrows = draw_polyline_with_arrows;
-  renderer_class->draw_arc_with_arrows = draw_arc_with_arrows;
-  renderer_class->draw_bezier_with_arrows = draw_bezier_with_arrows;
-  renderer_class->draw_object = draw_object;
+  /* Believe these are never used or are unnecessary */
+  /* renderer_class->draw_line_with_arrows = draw_line_with_arrows; */
+  /* renderer_class->draw_polyline_with_arrows = draw_polyline_with_arrows; */
+  /* renderer_class->draw_arc_with_arrows = draw_arc_with_arrows; */
+  /* renderer_class->draw_object = draw_object; */
 
 }
 
@@ -507,12 +474,72 @@ vdxCheckFont(VDXRenderer *renderer)
     return renderer->Fonts->len;
 }
 
+/** Create a Visio line style object
+ * @param self a VDXRenderer
+ * @param color a colour
+ * @param Line a Line object
+ * @param start_arrow optional start arrow
+ * @param end_arrow optional end arrow
+ * @todo join, caps, dashlength
+ */
+
+static void 
+create_Line(VDXRenderer *renderer, Color *color, struct vdx_Line *Line,
+            Arrow *start_arrow, Arrow *end_arrow) 
+{
+    /* A Line (colour etc) */
+    memset(Line, 0, sizeof(*Line));
+    Line->type = vdx_types_Line;
+    switch (renderer->stylemode)
+    {
+    case LINESTYLE_DASHED:
+        Line->LinePattern = 2;
+        break;
+    case LINESTYLE_DOTTED:
+        Line->LinePattern = 3;
+        break;
+    case LINESTYLE_DASH_DOT:
+        Line->LinePattern = 4;
+        break;
+    case LINESTYLE_DASH_DOT_DOT:
+        Line->LinePattern = 5;
+        break;
+    default:
+    case LINESTYLE_SOLID:
+        Line->LinePattern = 1;
+        break;
+    }
+    Line->LineColor = *color;
+    Line->LineWeight = renderer->linewidth / vdx_Line_Scale;
+    if (start_arrow || end_arrow) 
+    {
+        g_debug("create_Line (ARROWS)");
+    }
+}
+
+
+/** Create a Visio fill style object
+ * @param self a VDXRenderer
+ * @param color a colour
+ * @todo fillstyle
+ */
+
+static void 
+create_Fill(VDXRenderer *renderer, Color *color, struct vdx_Fill *Fill)
+{
+    /* A Fill (colour etc) */
+    memset(Fill, 0, sizeof(*Fill));
+    Fill->type = vdx_types_Fill;
+    Fill->FillForegnd = *color;
+    Fill->FillPattern = 1;      /* Solid fill */
+}
+
+
 /** Render a Dia line
  * @param self a renderer
  * @param start start of line
  * @param end end of line
  * @param color line colour
- * @todo color, dash, style, width
  */
 
 static void 
@@ -526,16 +553,17 @@ draw_line(DiaRenderer *self, Point *start, Point *end, Color *color)
     struct vdx_Geom Geom;
     struct vdx_MoveTo MoveTo;
     struct vdx_LineTo LineTo;
+    struct vdx_Line Line;
     char NameU[VDX_NAMEU_LEN];
 
-    g_debug("draw_line");
-    
     /* First time through, just construct the colour table */
     if (renderer->first_pass) 
     {
         vdxCheckColor(renderer, color);
         return;
     }
+    
+    g_debug("draw_line((%f,%f), (%f,%f))", start->x, start->y, end->x, end->y);
     
     /* Setup the standard shape object */
     memset(&Shape, 0, sizeof(Shape));
@@ -587,12 +615,16 @@ draw_line(DiaRenderer *self, Point *start, Point *end, Color *color)
     LineTo.X = b.x-a.x; 
     LineTo.Y = b.y-a.y;
 
+    /* A Line (colour etc) */
+    create_Line(renderer, color, &Line, 0, 0);
+
     /* Setup children */
     Geom.children = g_slist_append(Geom.children, &MoveTo);
     Geom.children = g_slist_append(Geom.children, &LineTo);
 
     Shape.children = g_slist_append(Shape.children, &XForm);
     Shape.children = g_slist_append(Shape.children, &XForm1D);
+    Shape.children = g_slist_append(Shape.children, &Line);
     Shape.children = g_slist_append(Shape.children, &Geom);
 
     /* Write out XML */
@@ -609,143 +641,110 @@ draw_line(DiaRenderer *self, Point *start, Point *end, Color *color)
  * @param points the points
  * @param num_points how many points
  * @param color line colour
- * @todo Not yet done
  */
 
 static void draw_polyline(DiaRenderer *self, Point *points, int num_points, 
 			  Color *color)
 {
     VDXRenderer *renderer = VDX_RENDERER(self);
-    
-    g_debug("draw_polyline");
-    if (renderer->first_pass) 
-    {
-        vdxCheckColor(renderer, color);
-        return;
-    }
-
-}
-
-/** Render a Dia line with arrows
- * @param self a renderer
- * @param start start of line
- * @param end end of line
- * @param line_width width of line
- * @param color line colour
- * @param start_arrow start arrow
- * @param end_arrow end arrow
- * @todo color, arrows, linewidth, dash, style
- */
-
-static void draw_line_with_arrows(DiaRenderer *self, 
-				  Point *start, Point *end, 
-				  real line_width,
-				  Color *color,
-				  Arrow *start_arrow,
-				  Arrow *end_arrow)
-{
-    VDXRenderer *renderer = VDX_RENDERER(self);
     Point a, b;
     struct vdx_Shape Shape;
     struct vdx_XForm XForm;
-    struct vdx_XForm1D XForm1D;
     struct vdx_Geom Geom;
     struct vdx_MoveTo MoveTo;
-    struct vdx_LineTo LineTo;
+    struct vdx_LineTo* LineTo;
+    struct vdx_Line Line;
     char NameU[VDX_NAMEU_LEN];
+    unsigned int i;
+    double minX, minY, maxX, maxY;
 
-    /* Exactly as draw_line for now */
-    g_debug("draw_line_with_arrows");
-    
+    /* First time through, just construct the colour table */
     if (renderer->first_pass) 
     {
         vdxCheckColor(renderer, color);
         return;
     }
+    
+    g_debug("draw_polyline(%d)", num_points);
+    
+    /* Setup the standard shape object */
     memset(&Shape, 0, sizeof(Shape));
     Shape.type = vdx_types_Shape;
     Shape.ID = renderer->shapeid++;
     Shape.Type = "Shape";
-    sprintf(NameU, "ArrowLine.%d", Shape.ID);
+    sprintf(NameU, "PolyLine.%d", Shape.ID);
     Shape.NameU = NameU;
     Shape.LineStyle_exists = 1;
     Shape.FillStyle_exists = 1;
     Shape.TextStyle_exists = 1;
 
+    /* An XForm */
     memset(&XForm, 0, sizeof(XForm));
     XForm.type = vdx_types_XForm;
-    a = visio_point(*start);
-    b = visio_point(*end);
-    XForm.PinX = a.x;
+    a = visio_point(points[0]);
+
+    /* Find width and height */
+    minX = points[0].x; minY = points[0].y; 
+    maxX = points[0].x; maxY = points[0].y;
+    for (i=1; i<num_points; i++)
+    {
+        if (points[i].x < minX) minX = points[i].x;
+        if (points[i].x > maxX) maxX = points[i].x;
+        if (points[i].y < minY) minY = points[i].y;
+        if (points[i].y > maxY) maxY = points[i].y;
+    }
+    XForm.Width = visio_length(maxX - minX);
+    XForm.Height = visio_length(maxY - minY);
+
+    XForm.PinX = a.x;           /* Start */
     XForm.PinY = a.y;
-    XForm.Width = fabs(b.x - a.x);
-    XForm.Height = fabs(b.y - a.y);
     XForm.LocPinX = 0.0;
     XForm.LocPinY = 0.0;
     XForm.Angle = 0.0;
 
-    memset(&XForm1D, 0, sizeof(XForm1D));
-    XForm1D.type = vdx_types_XForm1D;
-    XForm1D.BeginX = a.x;
-    XForm1D.BeginY = a.y;
-    XForm1D.EndX = b.x;
-    XForm1D.EndY = b.y;
-
+    /* Standard Geom object */
     memset(&Geom, 0, sizeof(Geom));
     Geom.NoFill = 1;
     Geom.type = vdx_types_Geom;
 
+    /* Multiple children - MoveTo(start) and LineTo(others) */
     memset(&MoveTo, 0, sizeof(MoveTo));
     MoveTo.type = vdx_types_MoveTo;
     MoveTo.IX = 1;
     MoveTo.X = 0;
     MoveTo.Y = 0;
 
-    memset(&LineTo, 0, sizeof(LineTo));
-    LineTo.type = vdx_types_LineTo;
-    LineTo.IX = 2;
-    LineTo.X = b.x-a.x; 
-    LineTo.Y = b.y-a.y;
+    LineTo = g_new0(struct vdx_LineTo, num_points-1);
+    for (i=0; i<num_points-1; i++)
+    {
+        LineTo[i].type = vdx_types_LineTo;
+        LineTo[i].IX = i+2;
+        b = visio_point(points[i+1]);
+        LineTo[i].X = b.x-a.x; 
+        LineTo[i].Y = b.y-a.y;
+    }
 
+    /* A Line (colour etc) */
+    create_Line(renderer, color, &Line, 0, 0);
+
+    /* Setup children */
     Geom.children = g_slist_append(Geom.children, &MoveTo);
-    Geom.children = g_slist_append(Geom.children, &LineTo);
+    for (i=0; i<num_points-1; i++)
+    {
+        Geom.children = g_slist_append(Geom.children, &LineTo[i]);
+    }
 
     Shape.children = g_slist_append(Shape.children, &XForm);
-    Shape.children = g_slist_append(Shape.children, &XForm1D);
+    Shape.children = g_slist_append(Shape.children, &Line);
     Shape.children = g_slist_append(Shape.children, &Geom);
 
+    /* Write out XML */
     vdx_write_object(renderer->file, renderer->xml_depth, &Shape);
 
+    /* Free up list entries */
     g_slist_free(Geom.children);
     g_slist_free(Shape.children);
-}
-
-/** Render a Dia polyline with arrows
- * @param self a renderer
- * @param points points on line
- * @param num_points number of points
- * @param line_width width of line
- * @param color line colour
- * @param start_arrow start arrow
- * @param end_arrow end arrow
- * @todo Not done yet
- */
-
-static void draw_polyline_with_arrows(DiaRenderer *self, 
-				      Point *points, int num_points, 
-				      real line_width,
-				      Color *color,
-				      Arrow *start_arrow,
-				      Arrow *end_arrow)
-{
-    VDXRenderer *renderer = VDX_RENDERER(self);
-    
-    g_debug("draw_polyline_with_arrows");
-    if (renderer->first_pass) 
-    {
-        vdxCheckColor(renderer, color);
-        return;
-    }
+    g_free(LineTo);
 }
 
 /** Render a Dia polygon
@@ -753,22 +752,18 @@ static void draw_polyline_with_arrows(DiaRenderer *self,
  * @param points corners of polygon
  * @param num_points number of points
  * @param color line colour
- * @todo Not done yet
  */
 
 static void draw_polygon(DiaRenderer *self, 
 			 Point *points, int num_points, 
 			 Color *color)
 {
-    VDXRenderer *renderer = VDX_RENDERER(self);
-    
-    g_debug("draw_polygon");
-    if (renderer->first_pass) 
-    {
-        vdxCheckColor(renderer, color);
-        return;
-    }
-
+    Point *more_points = g_new0(Point, num_points+1);
+    memcpy(more_points, points, num_points*sizeof(Point));
+    more_points[num_points] = more_points[0];
+    g_debug("draw_polygon -> draw_polyline");
+    draw_polyline(self, more_points, num_points+1, color);
+    g_free(more_points);
 }
 
 /** Render a Dia filled polygon
@@ -776,7 +771,6 @@ static void draw_polygon(DiaRenderer *self,
  * @param points corners of polygon
  * @param num_points number of points
  * @param color line colour
- * @todo Not done yet
  */
 
 static void fill_polygon(DiaRenderer *self, 
@@ -784,14 +778,105 @@ static void fill_polygon(DiaRenderer *self,
 			 Color *color)
 {
     VDXRenderer *renderer = VDX_RENDERER(self);
-    
-    g_debug("fill_polygon");
+    Point a, b;
+    struct vdx_Shape Shape;
+    struct vdx_XForm XForm;
+    struct vdx_Geom Geom;
+    struct vdx_MoveTo MoveTo;
+    struct vdx_LineTo* LineTo;
+    struct vdx_Fill Fill;
+    char NameU[VDX_NAMEU_LEN];
+    unsigned int i;
+    double minX, minY, maxX, maxY;
+
+    /* First time through, just construct the colour table */
     if (renderer->first_pass) 
     {
         vdxCheckColor(renderer, color);
         return;
     }
+    
+    g_debug("fill_polygon(%d)", num_points);
+    
+    /* Setup the standard shape object */
+    memset(&Shape, 0, sizeof(Shape));
+    Shape.type = vdx_types_Shape;
+    Shape.ID = renderer->shapeid++;
+    Shape.Type = "Shape";
+    sprintf(NameU, "FillPolygon.%d", Shape.ID);
+    Shape.NameU = NameU;
+    Shape.LineStyle_exists = 1;
+    Shape.FillStyle_exists = 1;
+    Shape.TextStyle_exists = 1;
 
+    /* An XForm */
+    memset(&XForm, 0, sizeof(XForm));
+    XForm.type = vdx_types_XForm;
+    a = visio_point(points[0]);
+
+    /* Find width and height */
+    minX = points[0].x; minY = points[0].y; 
+    maxX = points[0].x; maxY = points[0].y;
+    for (i=1; i<num_points; i++)
+    {
+        if (points[i].x < minX) minX = points[i].x;
+        if (points[i].x > maxX) maxX = points[i].x;
+        if (points[i].y < minY) minY = points[i].y;
+        if (points[i].y > maxY) maxY = points[i].y;
+    }
+    XForm.Width = visio_length(maxX - minX);
+    XForm.Height = visio_length(maxY - minY);
+
+    XForm.PinX = a.x;           /* Start */
+    XForm.PinY = a.y;
+    XForm.LocPinX = 0.0;
+    XForm.LocPinY = 0.0;
+    XForm.Angle = 0.0;
+
+    /* Standard Geom object */
+    memset(&Geom, 0, sizeof(Geom));
+    Geom.type = vdx_types_Geom;
+
+    /* Multiple children - MoveTo(start) and LineTo(others) */
+    memset(&MoveTo, 0, sizeof(MoveTo));
+    MoveTo.type = vdx_types_MoveTo;
+    MoveTo.IX = 1;
+    MoveTo.X = 0;
+    MoveTo.Y = 0;
+
+    LineTo = g_new0(struct vdx_LineTo, num_points);
+    for (i=0; i<num_points; i++)
+    {
+        LineTo[i].type = vdx_types_LineTo;
+        LineTo[i].IX = i+2;
+        /* Last point = first */
+        if (i == num_points-1) b = a;
+        else b = visio_point(points[i+1]);
+        LineTo[i].X = b.x-a.x; 
+        LineTo[i].Y = b.y-a.y;
+    }
+
+    /* A Line (colour etc) */
+    create_Fill(renderer, color, &Fill);
+
+    /* Setup children */
+    Geom.children = g_slist_append(Geom.children, &MoveTo);
+    for (i=0; i<num_points; i++)
+    {
+        Geom.children = g_slist_append(Geom.children, &LineTo[i]);
+    }
+
+    Shape.children = g_slist_append(Shape.children, &XForm);
+    Shape.children = g_slist_append(Shape.children, &Fill);
+    Shape.children = g_slist_append(Shape.children, &Geom);
+
+    /* Write out XML */
+    vdx_write_object(renderer->file, renderer->xml_depth, &Shape);
+
+    /* Free up list entries */
+    g_slist_free(Geom.children);
+    g_slist_free(Shape.children);
+    g_free(LineTo);
 }
 
 /** Render a Dia rectangle
@@ -799,118 +884,55 @@ static void fill_polygon(DiaRenderer *self,
  * @param ul_corner Upper-left corner
  * @param lr_corner Loower-right corner
  * @param color line colour
- * @todo color, linewidth, dash, style
  */
 
 static void draw_rect(DiaRenderer *self, 
 		      Point *ul_corner, Point *lr_corner,
 		      Color *color)
 {
-    VDXRenderer *renderer = VDX_RENDERER(self);
-    Point a, b;
-    struct vdx_Shape Shape;
-    struct vdx_XForm XForm;
-    struct vdx_Geom Geom;
-    struct vdx_LineTo LineTo[4];
-    struct vdx_MoveTo MoveTo;
-    char NameU[VDX_NAMEU_LEN];
-    unsigned int i;
+    Point points[5];            /* 5 so we close path */
+
+    g_debug("draw_rect((%f,%f), (%f,%f)) -> draw_polyline", 
+            ul_corner->x, ul_corner->y, lr_corner->x, lr_corner->y);
+    points[0].x = ul_corner->x; points[0].y = lr_corner->y;
+    points[1] = *lr_corner;
+    points[2].x = lr_corner->x; points[2].y = ul_corner->y;
+    points[3] = *ul_corner;
+    points[4] = points[0];
     
-    g_debug("draw_rect");
-    if (renderer->first_pass) 
-    {
-        vdxCheckColor(renderer, color);
-        return;
-    }
-
-    memset(&Shape, 0, sizeof(Shape));
-    Shape.type = vdx_types_Shape;
-    Shape.ID = renderer->shapeid++;
-    Shape.Type = "Shape";
-    sprintf(NameU, "Rect.%d", Shape.ID);
-    Shape.NameU = NameU;
-    Shape.LineStyle_exists = 1;
-    Shape.FillStyle_exists = 1;
-    Shape.TextStyle_exists = 1;
-
-    /* Just an XForm */
-    memset(&XForm, 0, sizeof(XForm));
-    XForm.type = vdx_types_XForm;
-    a = visio_point(*ul_corner);
-    b = visio_point(*lr_corner);
-    XForm.PinX = a.x;
-    XForm.PinY = a.y;
-    XForm.Width = b.x-a.x;
-    XForm.Height = b.y-a.y;
-    XForm.LocPinX = (b.x-a.x)/2.0;
-    XForm.LocPinY = (b.y-a.y)/2.0;
-
-    memset(&Geom, 0, sizeof(Geom));
-    Geom.type = vdx_types_Geom;
-    Geom.NoFill = 1;
-
-    /* MoveTo, LineTo, LineTo, LineTo, LineTo */
-    memset(&MoveTo, 0, sizeof(MoveTo));
-    MoveTo.type = vdx_types_MoveTo;
-    MoveTo.IX = 1;
-    MoveTo.X = 0;
-    MoveTo.Y = 0;
-
-    Geom.children = g_slist_append(Geom.children, &MoveTo);
-
-    for (i=0; i<4; i++)
-    {
-        memset(&LineTo[i], 0, sizeof(LineTo[i]));
-        LineTo[i].type = vdx_types_LineTo;
-        LineTo[i].IX = i+2;
-        Geom.children = g_slist_append(Geom.children, &LineTo[i]);
-    }
-
-    /* Setup 4 corners */
-    LineTo[0].X = b.x-a.x; LineTo[0].Y = 0;
-    LineTo[1].X = b.x-a.x; LineTo[1].Y = b.y-a.y;
-    LineTo[2].X = 0; LineTo[2].Y = b.y-a.y;
-    LineTo[3].X = 0; LineTo[0].Y = 0;
-
-    Shape.children = g_slist_append(Shape.children, &XForm);
-    Shape.children = g_slist_append(Shape.children, &Geom);
-
-    vdx_write_object(renderer->file, renderer->xml_depth, &Shape);
-
-    g_slist_free(Geom.children);
-    g_slist_free(Shape.children);
+    draw_polygon(self, points, 5, color);
 }
 
 /** Render a Dia filled rectangle
  * @param self a renderer
  * @param ul_corner Upper-left corner
- * @param lr_corner Loower-right corner
+ * @param lr_corner Lower-right corner
  * @param color line colour
- * @todo Not done yet
  */
 
 static void fill_rect(DiaRenderer *self, 
 		      Point *ul_corner, Point *lr_corner,
 		      Color *color)
 {
-    VDXRenderer *renderer = VDX_RENDERER(self);
-    
-    g_debug("fill_rect");
-    if (renderer->first_pass) 
-    {
-        vdxCheckColor(renderer, color);
-        return;
-    }
+    Point points[5];            /* 5 so we close path */
 
+    g_debug("fill_rect -> fill_polygon");
+    points[0].x = ul_corner->x; points[0].y = lr_corner->y;
+    points[1] = *lr_corner;
+    points[2].x = lr_corner->x; points[2].y = ul_corner->y;
+    points[3] = *ul_corner;
+    points[4] = points[0];
+    
+    fill_polygon(self, points, 5, color);
 }
 
 /** Render a Dia arc
  * @param self a renderer
  * @param center centre of arc
- * @param width width of bounding box
- * @param height height of bounding box
- * @param angle1 start angle
- * @param angle2 end angle
+ * @param width width of ellipse
+ * @param height height of ellipse (= width for Dia circular arcs)
+ * @param angle1 start angle to x axis in degrees
+ * @param angle2 end angle to x axis in degrees
  * @param color line colour
  * @todo Not done yet
  */
@@ -922,46 +944,127 @@ static void draw_arc(DiaRenderer *self,
 		     Color *color)
 {
     VDXRenderer *renderer = VDX_RENDERER(self);
-    
-    g_debug("draw_arc");
+    Point a;
+    struct vdx_Shape Shape;
+    struct vdx_XForm XForm;
+    struct vdx_Geom Geom;
+    struct vdx_EllipticalArcTo EllipticalArcTo;
+    struct vdx_MoveTo MoveTo;
+    struct vdx_Line Line;
+    char NameU[VDX_NAMEU_LEN];
+    Point start, control, end;
+    float control_angle;
+
+    /* First time through, just construct the colour table */
     if (renderer->first_pass) 
     {
         vdxCheckColor(renderer, color);
         return;
     }
-
-}
-
-/** Render a Dia arc with arrows
- * @param self a renderer
- * @param startpoint start of arc
- * @param endpoint end of arc
- * @param midpoint middle of arc
- * @param line_width line width
- * @param color line colour
- * @param start_arrow start arrow
- * @param end_arrow end arrow
- * @todo Not done yet
- */
-
-static void draw_arc_with_arrows(DiaRenderer *self, 
-				 Point *startpoint,
-				 Point *endpoint,
-				 Point *midpoint,
-				 real line_width,
-				 Color *color,
-				 Arrow *start_arrow,
-				 Arrow *end_arrow)
-{
-    VDXRenderer *renderer = VDX_RENDERER(self);
     
-    g_debug("draw_arc_with_arrows");
-    if (renderer->first_pass) 
-    {
-        vdxCheckColor(renderer, color);
-        return;
-    }
+    g_debug("draw_arc((%f,%f),%f,%f;%f,%f)", center->x, center->y,
+            width, height, angle1, angle2);
 
+    /* Setup the standard shape object */
+    memset(&Shape, 0, sizeof(Shape));
+    Shape.type = vdx_types_Shape;
+    Shape.ID = renderer->shapeid++;
+    Shape.Type = "Shape";
+    sprintf(NameU, "Arc.%d", Shape.ID);
+    Shape.NameU = NameU;
+    Shape.LineStyle_exists = 1;
+    Shape.FillStyle_exists = 1;
+    Shape.TextStyle_exists = 1;
+
+    /* An XForm */
+    memset(&XForm, 0, sizeof(XForm));
+    XForm.type = vdx_types_XForm;
+
+    /* Find the start of the arc */
+    start = *center;
+    start.x += (width/2.0)*cos(angle1*DEG_TO_RAD);
+    start.y -= (height/2.0)*sin(angle1*DEG_TO_RAD);
+    g_debug("start(%f,%f)", start.x, start.y);
+    start = visio_point(start);
+
+    /* Find a control point at the midpoint of the arc */
+    control = *center;
+    control_angle = (angle1 + angle2)/2.0;
+    if (angle1 > angle2)
+    {
+        /* Arc goes antclockwise - allow for this */
+        control_angle -= 180;
+    }
+    control.x += (width/2.0)*cos(control_angle*DEG_TO_RAD);
+    control.y -= (height/2.0)*sin(control_angle*DEG_TO_RAD);
+    g_debug("control(%f,%f @ %f)", control.x, control.y, control_angle);
+    control = visio_point(control);
+
+    /* And the endpoint */
+    end = *center;
+    end.x += (width/2.0)*cos(angle2*DEG_TO_RAD);
+    end.y -= (height/2.0)*sin(angle2*DEG_TO_RAD);
+    g_debug("end(%f,%f)", end.x, end.y);
+    end = visio_point(end);
+
+    a = start;
+    XForm.PinX = a.x;           /* Start */
+    XForm.PinY = a.y;
+    XForm.Width = visio_length(width);
+    XForm.Height = visio_length(height);
+    XForm.LocPinX = 0;
+    XForm.LocPinY = 0;
+    XForm.Angle = 0.0;
+
+    /* Standard Geom object */
+    memset(&Geom, 0, sizeof(Geom));
+    Geom.NoFill = 1;
+    Geom.type = vdx_types_Geom;
+
+    memset(&MoveTo, 0, sizeof(MoveTo));
+    MoveTo.type = vdx_types_MoveTo;
+    MoveTo.IX = 1;
+    MoveTo.X = 0;
+    MoveTo.Y = 0;
+
+    /* Second child - EllipticalArcTo */
+    memset(&EllipticalArcTo, 0, sizeof(EllipticalArcTo));
+    EllipticalArcTo.type = vdx_types_EllipticalArcTo;
+    EllipticalArcTo.IX = 2;
+
+    /* X and Y are the end point
+       A and B are a control point on the arc
+       C is the angle of the major axis
+       D is the ratio of the major to minor axes */
+
+    /* Need to fix these */
+    EllipticalArcTo.X = end.x - a.x;
+    EllipticalArcTo.Y = end.y - a.y;
+    EllipticalArcTo.A = control.x - a.x;
+    EllipticalArcTo.B = control.y - a.y;
+    EllipticalArcTo.C = 0.0;      /* Dia major axis always x axis  */
+    if (fabs(height) > EPSILON)
+        EllipticalArcTo.D = width/height; /* Always 1 for Dia */
+    else
+        EllipticalArcTo.D = 1/EPSILON;
+
+    /* A Line (colour etc) */
+    create_Line(renderer, color, &Line, 0, 0);
+
+    /* Setup children */
+    Geom.children = g_slist_append(Geom.children, &MoveTo);
+    Geom.children = g_slist_append(Geom.children, &EllipticalArcTo);
+
+    Shape.children = g_slist_append(Shape.children, &XForm);
+    Shape.children = g_slist_append(Shape.children, &Line);
+    Shape.children = g_slist_append(Shape.children, &Geom);
+
+    /* Write out XML */
+    vdx_write_object(renderer->file, renderer->xml_depth, &Shape);
+
+    /* Free up list entries */
+    g_slist_free(Geom.children);
+    g_slist_free(Shape.children);
 }
 
 /** Render a Dia filled arc
@@ -972,7 +1075,7 @@ static void draw_arc_with_arrows(DiaRenderer *self,
  * @param angle1 start angle
  * @param angle2 end angle
  * @param color line colour
- * @todo Not done yet
+ * @todo Not done yet - believe unused
  */
 
 static void fill_arc(DiaRenderer *self, 
@@ -983,13 +1086,12 @@ static void fill_arc(DiaRenderer *self,
 {
     VDXRenderer *renderer = VDX_RENDERER(self);
     
-    g_debug("fill_arc");
     if (renderer->first_pass) 
     {
         vdxCheckColor(renderer, color);
         return;
     }
-
+    g_debug("fill_arc (TODO)");
 }
 
 /** Render a Dia ellipse (parallel to axes)
@@ -998,7 +1100,6 @@ static void fill_arc(DiaRenderer *self,
  * @param width width of bounding box
  * @param height height of bounding box
  * @param color line colour
- * @todo Not done yet
  */
 
 static void draw_ellipse(DiaRenderer *self, 
@@ -1007,15 +1108,78 @@ static void draw_ellipse(DiaRenderer *self,
 			 Color *color)
 {
     VDXRenderer *renderer = VDX_RENDERER(self);
-    
-    g_debug("draw_ellipse");
+    Point a;
+    struct vdx_Shape Shape;
+    struct vdx_XForm XForm;
+    struct vdx_Geom Geom;
+    struct vdx_Ellipse Ellipse;
+    struct vdx_Line Line;
+    char NameU[VDX_NAMEU_LEN];
+
+    /* First time through, just construct the colour table */
     if (renderer->first_pass) 
     {
         vdxCheckColor(renderer, color);
         return;
     }
+    
+    g_debug("draw_ellipse");
+    
+    /* Setup the standard shape object */
+    memset(&Shape, 0, sizeof(Shape));
+    Shape.type = vdx_types_Shape;
+    Shape.ID = renderer->shapeid++;
+    Shape.Type = "Shape";
+    sprintf(NameU, "Ellipse.%d", Shape.ID);
+    Shape.NameU = NameU;
+    Shape.LineStyle_exists = 1;
+    Shape.FillStyle_exists = 1;
+    Shape.TextStyle_exists = 1;
 
+    /* An XForm */
+    memset(&XForm, 0, sizeof(XForm));
+    XForm.type = vdx_types_XForm;
+    a = visio_point(*center);
+    XForm.PinX = a.x;           /* Start */
+    XForm.PinY = a.y;
+    XForm.Width = visio_length(width);
+    XForm.Height = visio_length(height);
+    XForm.LocPinX = XForm.Width/2.0;
+    XForm.LocPinY = XForm.Height/2.0;
+    XForm.Angle = 0.0;
 
+    /* Standard Geom object */
+    memset(&Geom, 0, sizeof(Geom));
+    Geom.NoFill = 1;
+    Geom.type = vdx_types_Geom;
+
+    /* One child - Ellipse */
+    memset(&Ellipse, 0, sizeof(Ellipse));
+    Ellipse.type = vdx_types_Ellipse;
+    Ellipse.IX = 1;
+    Ellipse.X = XForm.Width/2.0;
+    Ellipse.Y = XForm.Height/2.0;
+    Ellipse.A = XForm.Width;
+    Ellipse.B = XForm.Height/2.0;
+    Ellipse.C = XForm.Width/2.0;
+    Ellipse.D = XForm.Height;
+
+    /* A Line (colour etc) */
+    create_Line(renderer, color, &Line, 0, 0);
+
+    /* Setup children */
+    Geom.children = g_slist_append(Geom.children, &Ellipse);
+
+    Shape.children = g_slist_append(Shape.children, &XForm);
+    Shape.children = g_slist_append(Shape.children, &Line);
+    Shape.children = g_slist_append(Shape.children, &Geom);
+
+    /* Write out XML */
+    vdx_write_object(renderer->file, renderer->xml_depth, &Shape);
+
+    /* Free up list entries */
+    g_slist_free(Geom.children);
+    g_slist_free(Shape.children);
 }
 
 /** Render a Dia filled ellipse (parallel to axes)
@@ -1024,7 +1188,6 @@ static void draw_ellipse(DiaRenderer *self,
  * @param width width of bounding box
  * @param height height of bounding box
  * @param color line colour
- * @todo Not done yet
  */
 
 static void fill_ellipse(DiaRenderer *self, 
@@ -1033,92 +1196,77 @@ static void fill_ellipse(DiaRenderer *self,
 			 Color *color)
 {
     VDXRenderer *renderer = VDX_RENDERER(self);
+    Point a;
+    struct vdx_Shape Shape;
+    struct vdx_XForm XForm;
+    struct vdx_Geom Geom;
+    struct vdx_Ellipse Ellipse;
+    struct vdx_Fill Fill;
+    char NameU[VDX_NAMEU_LEN];
+
+    /* First time through, just construct the colour table */
+    if (renderer->first_pass) 
+    {
+        vdxCheckColor(renderer, color);
+        return;
+    }
     
     g_debug("fill_ellipse");
-    if (renderer->first_pass) 
-    {
-        vdxCheckColor(renderer, color);
-        return;
-    }
-
-}
-
-/** Render a Dia Bezier
- * @param self a renderer
- * @param points list of Bezier points
- * @param numpoints number of points
- * @param color line colour
- * @todo Not done yet - either convert to arcs or NURBS (Visio 2003)
- */
-
-static void draw_bezier(DiaRenderer *self, 
-			BezPoint *points,
-			int numpoints,
-			Color *color)
-{
-    VDXRenderer *renderer = VDX_RENDERER(self);
     
-    g_debug("draw_bezier");
-    if (renderer->first_pass) 
-    {
-        vdxCheckColor(renderer, color);
-        return;
-    }
+    /* Setup the standard shape object */
+    memset(&Shape, 0, sizeof(Shape));
+    Shape.type = vdx_types_Shape;
+    Shape.ID = renderer->shapeid++;
+    Shape.Type = "Shape";
+    sprintf(NameU, "FillEllipse.%d", Shape.ID);
+    Shape.NameU = NameU;
+    Shape.LineStyle_exists = 1;
+    Shape.FillStyle_exists = 1;
+    Shape.TextStyle_exists = 1;
 
-}
+    /* An XForm */
+    memset(&XForm, 0, sizeof(XForm));
+    XForm.type = vdx_types_XForm;
+    a = visio_point(*center);
+    XForm.PinX = a.x;           /* Start */
+    XForm.PinY = a.y;
+    XForm.Width = visio_length(width);
+    XForm.Height = visio_length(height);
+    XForm.LocPinX = XForm.Width/2.0;
+    XForm.LocPinY = XForm.Height/2.0;
+    XForm.Angle = 0.0;
 
-/** Render a Dia Bezier with arrows
- * @param self a renderer
- * @param points list of Bezier points
- * @param numpoints number of points
- * @param line_width line width
- * @param color line colour
- * @param start_arrow start arrow
- * @param end_arrow end arrow
- * @todo Not done yet - either convert to arcs or NURBS (Visio 2003)
- */
+    /* Standard Geom object */
+    memset(&Geom, 0, sizeof(Geom));
+    Geom.type = vdx_types_Geom;
 
-static void draw_bezier_with_arrows(DiaRenderer *self, 
-				    BezPoint *points,
-				    int numpoints,
-				    real line_width,
-				    Color *color,
-				    Arrow *start_arrow,
-				    Arrow *end_arrow)
-{
-    VDXRenderer *renderer = VDX_RENDERER(self);
-    
-    g_debug("draw_bezier_with_arrows");
-    if (renderer->first_pass) 
-    {
-        vdxCheckColor(renderer, color);
-        return;
-    }
+    /* One child - Ellipse */
+    memset(&Ellipse, 0, sizeof(Ellipse));
+    Ellipse.type = vdx_types_Ellipse;
+    Ellipse.IX = 1;
+    Ellipse.X = XForm.Width/2.0;
+    Ellipse.Y = XForm.Height/2.0;
+    Ellipse.A = XForm.Width;
+    Ellipse.B = XForm.Height/2.0;
+    Ellipse.C = XForm.Width/2.0;
+    Ellipse.D = XForm.Height;
 
-}
+    /* A Fill (colour etc) */
+    create_Fill(renderer, color, &Fill);
 
-/** Render a Dia filled Bezier
- * @param self a renderer
- * @param points list of Bezier points (last = first)
- * @param numpoints number of points
- * @param color line colour
- * @todo Not done yet - either convert to arcs or NURBS (Visio 2003)
- */
+    /* Setup children */
+    Geom.children = g_slist_append(Geom.children, &Ellipse);
 
-static void fill_bezier(DiaRenderer *self, 
-			BezPoint *points,
-			int numpoints,
-			Color *color)
-{
-    VDXRenderer *renderer = VDX_RENDERER(self);
-    
-    g_debug("fill_bezier");
-    if (renderer->first_pass) 
-    {
-        vdxCheckColor(renderer, color);
-        return;
-    }
+    Shape.children = g_slist_append(Shape.children, &XForm);
+    Shape.children = g_slist_append(Shape.children, &Fill);
+    Shape.children = g_slist_append(Shape.children, &Geom);
 
+    /* Write out XML */
+    vdx_write_object(renderer->file, renderer->xml_depth, &Shape);
+
+    /* Free up list entries */
+    g_slist_free(Geom.children);
+    g_slist_free(Shape.children);
 }
 
 /** Render a Dia string
@@ -1127,7 +1275,7 @@ static void fill_bezier(DiaRenderer *self,
  * @param pos start (or centre etc.)
  * @param alignment alignment
  * @param color line colour
- * @todo Alignment, colour, special chars e.g. <, >, ", ', &, newline
+ * @todo Alignment, colour
  * @bug Bounding box incorrect
  */
 
@@ -1145,7 +1293,6 @@ static void draw_string(DiaRenderer *self,
     struct vdx_text my_text;
     char NameU[VDX_NAMEU_LEN];
 
-    g_debug("draw_string");
     if (renderer->first_pass) 
     {
         /* Add to colour and font tables */
@@ -1154,6 +1301,7 @@ static void draw_string(DiaRenderer *self,
         return;
     }
 
+    g_debug("draw_string");
     /* Standard shape */
     memset(&Shape, 0, sizeof(Shape));
     Shape.type = vdx_types_Shape;
@@ -1206,12 +1354,101 @@ static void draw_string(DiaRenderer *self,
     g_slist_free(Shape.children);
 }
 
+/** Reads binary file and converts to Base64 data
+ * @param filename file to read
+ * @returns Base64 encoded data (or NULL if problem)
+ * @note glibc 2.12 offers g_base64_encode()
+ */
+
+static char *
+read_base64_file(const char *filename)
+{
+    FILE *f;
+    char *b64 = 0;
+    char *s = 0;
+    int c = 0;
+    char map[64];
+    unsigned int buf_len = 0;
+    unsigned char buf[3];
+    struct stat stat_buf;
+
+    if (g_stat(filename, &stat_buf))
+    {
+        message_error(_("Couldn't read file %s"), filename); 
+        return 0;
+    }
+    b64 = g_new0(char, stat_buf.st_size*4/3+5);
+    s = b64;
+
+    f = g_fopen(filename, "r+b");
+    if (!f)
+    {
+        message_error(_("Couldn't read file %s"), filename); 
+        return 0;
+    }
+
+    /* Construct Base64 mapping table */
+    for(c=0; c<26; c++) map[c] = 'A' + c;
+    for(c=0; c<26; c++) map[c+26] = 'a' + c;
+    for(c=0; c<10; c++) map[c+52] = '0' + c;
+    map[62] = '+';
+    map[63] = '/';
+
+    while((c = fgetc(f)) != EOF)
+    {
+        buf[buf_len++] = (unsigned char)c;
+        if (buf_len == 3)
+        {
+            *s++ = map[buf[0] >> 2];
+            *s++ = map[((buf[0] & 3) << 4) + (buf[1] >> 4)];
+            *s++ = map[((buf[1] & 15) << 2) + (buf[2] >> 6)];
+            *s++ = map[buf[2] & 63];
+            buf_len = 0;
+        }
+    }
+
+    if (buf_len == 1)
+    {
+        *s++ = map[buf[0] >> 2];
+        *s++ = map[((buf[0] & 3) << 4)];
+        *s++ = '=';
+        *s++ = '=';
+    }
+    if (buf_len == 2)
+    {
+        *s++ = map[buf[0] >> 2];
+        *s++ = map[((buf[0] & 3) << 4) + (buf[1] >> 4)];
+        *s++ = map[((buf[1] & 15) << 2)];
+        *s++ = '=';
+    }
+
+    fclose(f);
+    *s = 0;
+    return b64;
+
+    /* Deal with any chunks left over */
+    if (buf_len)
+    {
+        fputc(buf[0] << 2 | buf[1] >> 4, f);
+        if (buf_len > 1)
+        {
+            fputc(buf[1] << 4 | buf[2] >> 2, f);
+            if (buf_len > 2)
+            {
+                /* This one can't happen */
+                fputc(buf[2] << 6 | buf[3], f);
+            }
+        }
+    }
+
+    fclose(f);
+}
+
 /** Render a Dia bitmap
  * @param self a renderer
- * @param point bottom left?
+ * @param point top left
  * @param width width
  * @param height height
- * @todo Not done yet
  */
 
 static void draw_image(DiaRenderer *self,
@@ -1219,25 +1456,107 @@ static void draw_image(DiaRenderer *self,
 		       real width, real height,
 		       DiaImage image)
 {
-    g_debug("draw_image");
-}
-
-/** Render a Dia object
- * @param self a renderer
- * @param object an object
- * @note No work done here - perhaps should push/pop renderer state
- */
-
-static void draw_object(DiaRenderer *self,
-			DiaObject *object)
-{
     VDXRenderer *renderer = VDX_RENDERER(self);
+    Point a, bottom_left;
+    struct vdx_Shape Shape;
+    struct vdx_XForm XForm;
+    struct vdx_Geom Geom;
+    struct vdx_Foreign Foreign;
+    struct vdx_ForeignData ForeignData;
+    struct vdx_text text;
+    char NameU[VDX_NAMEU_LEN];
+    const char *filename = NULL;
+    const char *suffix = NULL;
 
-    g_debug("draw_object");
-    /* Get the object to draw itself */
-    object->ops->draw(object, DIA_RENDERER(renderer));
+    if (renderer->first_pass) 
+    {
+        return;
+    }
+
+    g_debug("draw_image((%f,%f), %f, %f, %s", point->x, point->y, 
+            width, height, dia_image_filename(image));
+    /* Setup the standard shape object */
+    memset(&Shape, 0, sizeof(Shape));
+    Shape.type = vdx_types_Shape;
+    Shape.ID = renderer->shapeid++;
+    Shape.Type = "Foreign";
+    sprintf(NameU, "Foreign.%d", Shape.ID);
+    Shape.NameU = NameU;
+    Shape.LineStyle_exists = 1;
+    Shape.FillStyle_exists = 1;
+    Shape.TextStyle_exists = 1;
+
+    /* An XForm */
+    memset(&XForm, 0, sizeof(XForm));
+    XForm.type = vdx_types_XForm;
+    bottom_left.x = point->x;
+    bottom_left.y = point->y + height;
+    a = visio_point(bottom_left);
+    XForm.PinX = a.x;           /* Start */
+    XForm.PinY = a.y;
+    XForm.Width = visio_length(width);
+    XForm.Height = visio_length(height);
+    XForm.LocPinX = 0;
+    XForm.LocPinY = 0;
+    XForm.Angle = 0.0;
+
+    /* Standard Geom object */
+    memset(&Geom, 0, sizeof(Geom));
+    Geom.type = vdx_types_Geom;
+    /* We don't use it, but our decoder needs it */
+
+    /* And a Foreign */
+    memset(&Foreign, 0, sizeof(Foreign));
+    Foreign.type = vdx_types_Foreign;
+    Foreign.ImgOffsetX = 0;
+    Foreign.ImgOffsetY = 0;
+    Foreign.ImgHeight = visio_length(height);
+    Foreign.ImgWidth = visio_length(width);
+
+    /* And a ForeignData */
+    memset(&ForeignData, 0, sizeof(ForeignData));
+    ForeignData.type = vdx_types_ForeignData;
+    ForeignData.ForeignType = "Bitmap";
+    ForeignData.CompressionType = "JPEG";
+    ForeignData.CompressionLevel = 1.0;
+    ForeignData.ObjectHeight = visio_length(height);
+    ForeignData.ObjectWidth = visio_length(width);
+    
+    filename = dia_image_filename(image);
+    if ((suffix = strrchr(filename, '.')))
+    {
+        suffix++;
+        if (!strcasecmp(suffix, "png")) { ForeignData.CompressionType = "PNG"; }
+        if (!strcasecmp(suffix, "gif")) { ForeignData.CompressionType = "GIF"; }
+        if (!strcasecmp(suffix, "jpg") || !strcasecmp(suffix, "jpeg")) 
+        { ForeignData.CompressionType = "JPEG"; }
+        if (!strcasecmp(suffix, "tif") || !strcasecmp(suffix, "tiff")) 
+        { ForeignData.CompressionType = "TIFF"; }
+    }
+
+    /* And the data itself */
+    memset(&text, 0, sizeof(text));
+    text.type = vdx_types_text;
+    text.text = read_base64_file(filename);
+    if (!text.text) return;     /* Problem reading file */
+
+    /* Setup children */
+    Shape.children = g_slist_append(Shape.children, &XForm);
+    Shape.children = g_slist_append(Shape.children, &Geom);
+    Shape.children = g_slist_append(Shape.children, &Foreign);
+    Shape.children = g_slist_append(Shape.children, &ForeignData);
+    ForeignData.children = g_slist_append(ForeignData.children, &text);
+
+    /* Write out XML */
+    vdx_write_object(renderer->file, renderer->xml_depth, &Shape);
+
+    /* Free up list entries */
+    g_slist_free(ForeignData.children);
+    g_slist_free(Shape.children);
+
+    /* And the Base64 data */
+    g_free(text.text);
 }
-
 
 /** Convert Dia colour to hex string
  * @param c a colour
@@ -1252,6 +1571,51 @@ vdx_string_color(Color c)
     sprintf(buf, "#%.2X%.2X%.2X", 
             (int)(c.red*255), (int)(c.green*255), (int)(c.blue*255));
     return buf;
+}
+
+/** Return string XML-encoded
+ * @param s a string
+ * @returns encoded string
+ * @note uses static buffer so can be used as inline filter in printf
+ */
+
+const char *
+vdx_convert_xml_string(const char *s)
+{
+    static char *out = 0;
+    char *c;
+
+    /* If (as almost always) no change required, return intact */
+    if (strcspn(s, "&<>\"'") == strlen(s)) return s;
+
+    /* Ensure we have enough space, even if all the string is quotes */
+    out = realloc(out, 6*strlen(s)+1);
+    c = out;
+
+    while(*s)
+    {
+        switch(*s)
+        {
+        case '&':
+            strcpy(c, "&amp;"); c += 5;
+            break;
+        case '<':
+            strcpy(c, "&lt;"); c += 4;
+            break;
+        case '>':
+            strcpy(c, "&gt;"); c += 4;
+            break;
+        case '\"':
+        case '\'':
+            strcpy(c, "&quot;"); c += 6;
+            break;
+        default:
+            *c++ = *s;
+        }
+        s++;
+    }
+    *c = 0;
+    return out;
 }
 
 /** Write VDX file header
@@ -1542,3 +1906,260 @@ DiaExportFilter vdx_export_filter = {
   extensions,
   export_vdx
 };
+
+#if 0
+
+/* The following are not provided by vdx-export.c so we use the defaults.
+   If they become necessary after testing, we can reinstate them */
+
+/** Render a Dia line with arrows
+ * @param self a renderer
+ * @param start start of line
+ * @param end end of line
+ * @param line_width width of line
+ * @param color line colour
+ * @param start_arrow start arrow
+ * @param end_arrow end arrow
+ */
+
+static void draw_line_with_arrows(DiaRenderer *self, 
+				  Point *start, Point *end, 
+				  real line_width,
+				  Color *color,
+				  Arrow *start_arrow,
+				  Arrow *end_arrow)
+{
+    VDXRenderer *renderer = VDX_RENDERER(self);
+    Point a, b;
+    struct vdx_Shape Shape;
+    struct vdx_XForm XForm;
+    struct vdx_XForm1D XForm1D;
+    struct vdx_Geom Geom;
+    struct vdx_MoveTo MoveTo;
+    struct vdx_LineTo LineTo;
+    struct vdx_Line Line;
+    char NameU[VDX_NAMEU_LEN];
+
+    /* Exactly as draw_line for now */
+    
+    if (renderer->first_pass) 
+    {
+        vdxCheckColor(renderer, color);
+        return;
+    }
+
+    g_debug("draw_line_with_arrows");
+    memset(&Shape, 0, sizeof(Shape));
+    Shape.type = vdx_types_Shape;
+    Shape.ID = renderer->shapeid++;
+    Shape.Type = "Shape";
+    sprintf(NameU, "ArrowLine.%d", Shape.ID);
+    Shape.NameU = NameU;
+    Shape.LineStyle_exists = 1;
+    Shape.FillStyle_exists = 1;
+    Shape.TextStyle_exists = 1;
+
+    memset(&XForm, 0, sizeof(XForm));
+    XForm.type = vdx_types_XForm;
+    a = visio_point(*start);
+    b = visio_point(*end);
+    XForm.PinX = a.x;
+    XForm.PinY = a.y;
+    XForm.Width = fabs(b.x - a.x);
+    XForm.Height = fabs(b.y - a.y);
+    XForm.LocPinX = 0.0;
+    XForm.LocPinY = 0.0;
+    XForm.Angle = 0.0;
+
+    memset(&XForm1D, 0, sizeof(XForm1D));
+    XForm1D.type = vdx_types_XForm1D;
+    XForm1D.BeginX = a.x;
+    XForm1D.BeginY = a.y;
+    XForm1D.EndX = b.x;
+    XForm1D.EndY = b.y;
+
+    memset(&Geom, 0, sizeof(Geom));
+    Geom.NoFill = 1;
+    Geom.type = vdx_types_Geom;
+
+    memset(&MoveTo, 0, sizeof(MoveTo));
+    MoveTo.type = vdx_types_MoveTo;
+    MoveTo.IX = 1;
+    MoveTo.X = 0;
+    MoveTo.Y = 0;
+
+    memset(&LineTo, 0, sizeof(LineTo));
+    LineTo.type = vdx_types_LineTo;
+    LineTo.IX = 2;
+    LineTo.X = b.x-a.x; 
+    LineTo.Y = b.y-a.y;
+
+    create_Line(renderer, color, &Line, start_arrow, end_arrow);
+
+    Geom.children = g_slist_append(Geom.children, &MoveTo);
+    Geom.children = g_slist_append(Geom.children, &LineTo);
+
+    Shape.children = g_slist_append(Shape.children, &XForm);
+    Shape.children = g_slist_append(Shape.children, &XForm1D);
+    Shape.children = g_slist_append(Shape.children, &Line);
+    Shape.children = g_slist_append(Shape.children, &Geom);
+
+    vdx_write_object(renderer->file, renderer->xml_depth, &Shape);
+
+    g_slist_free(Geom.children);
+    g_slist_free(Shape.children);
+}
+
+/** Render a Dia polyline with arrows
+ * @param self a renderer
+ * @param points points on line
+ * @param num_points number of points
+ * @param line_width width of line
+ * @param color line colour
+ * @param start_arrow start arrow
+ * @param end_arrow end arrow
+ * @todo Not done yet
+ */
+
+static void draw_polyline_with_arrows(DiaRenderer *self, 
+				      Point *points, int num_points, 
+				      real line_width,
+				      Color *color,
+				      Arrow *start_arrow,
+				      Arrow *end_arrow)
+{
+    VDXRenderer *renderer = VDX_RENDERER(self);
+    
+    if (renderer->first_pass) 
+    {
+        vdxCheckColor(renderer, color);
+        return;
+    }
+    g_debug("draw_polyline_with_arrows (UNUSED)");
+}
+
+/** Render a Dia arc with arrows
+ * @param self a renderer
+ * @param startpoint start of arc
+ * @param endpoint end of arc
+ * @param midpoint middle of arc
+ * @param line_width line width
+ * @param color line colour
+ * @param start_arrow start arrow
+ * @param end_arrow end arrow
+ * @todo Not done yet - believe unused
+ */
+
+static void draw_arc_with_arrows(DiaRenderer *self, 
+				 Point *startpoint,
+				 Point *endpoint,
+				 Point *midpoint,
+				 real line_width,
+				 Color *color,
+				 Arrow *start_arrow,
+				 Arrow *end_arrow)
+{
+    VDXRenderer *renderer = VDX_RENDERER(self);
+    
+    if (renderer->first_pass) 
+    {
+        vdxCheckColor(renderer, color);
+        return;
+    }
+    g_debug("draw_arc_with_arrows (TODO)");
+}
+
+/** Render a Dia Bezier
+ * @param self a renderer
+ * @param points list of Bezier points
+ * @param numpoints number of points
+ * @param color line colour
+ * @todo Not done yet - either convert to arcs or NURBS (Visio 2003)
+ */
+
+static void draw_bezier(DiaRenderer *self, 
+			BezPoint *points,
+			int numpoints,
+			Color *color)
+{
+    VDXRenderer *renderer = VDX_RENDERER(self);
+    
+    if (renderer->first_pass) 
+    {
+        vdxCheckColor(renderer, color);
+        return;
+    }
+    g_debug("draw_bezier (TODO)");
+}
+
+/** Render a Dia Bezier with arrows
+ * @param self a renderer
+ * @param points list of Bezier points
+ * @param numpoints number of points
+ * @param line_width line width
+ * @param color line colour
+ * @param start_arrow start arrow
+ * @param end_arrow end arrow
+ * @todo Not done yet - either convert to arcs or NURBS (Visio 2003)
+ */
+
+static void draw_bezier_with_arrows(DiaRenderer *self, 
+				    BezPoint *points,
+				    int numpoints,
+				    real line_width,
+				    Color *color,
+				    Arrow *start_arrow,
+				    Arrow *end_arrow)
+{
+    VDXRenderer *renderer = VDX_RENDERER(self);
+    
+    if (renderer->first_pass) 
+    {
+        vdxCheckColor(renderer, color);
+        return;
+    }
+    g_debug("draw_bezier_with_arrows (TODO)");
+}
+
+/** Render a Dia filled Bezier
+ * @param self a renderer
+ * @param points list of Bezier points (last = first)
+ * @param numpoints number of points
+ * @param color line colour
+ * @todo Not done yet - either convert to arcs or NURBS (Visio 2003)
+ */
+
+static void fill_bezier(DiaRenderer *self, 
+			BezPoint *points,
+			int numpoints,
+			Color *color)
+{
+    VDXRenderer *renderer = VDX_RENDERER(self);
+    
+    if (renderer->first_pass) 
+    {
+        vdxCheckColor(renderer, color);
+        return;
+    }
+
+    g_debug("fill_bezier (TODO)");
+}
+
+/** Render a Dia object
+ * @param self a renderer
+ * @param object an object
+ * @note No work done here - perhaps should push/pop renderer state
+ */
+
+static void draw_object(DiaRenderer *self,
+			DiaObject *object)
+{
+    VDXRenderer *renderer = VDX_RENDERER(self);
+
+    g_debug("draw_object -> renderer");
+    /* Get the object to draw itself */
+    object->ops->draw(object, DIA_RENDERER(renderer));
+}
+
+
+#endif

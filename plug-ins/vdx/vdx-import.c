@@ -1,5 +1,5 @@
 /* -*- Mode: C; c-basic-offset: 4 -*- */
-/* Dia -- an diagram creation/manipulation program
+/* Dia -- a diagram creation/manipulation program
  *
  * vdx-import.c: Visio XML import filter for dia
  * Copyright (C) 2006 Ian Redfern
@@ -1395,11 +1395,16 @@ write_base64_file(const char *filename, const char *b64)
 {
     FILE *f;
     const char *c;
-    char d;
+    char d = 0;
     char buf[4];                /* For 4 decoded 6-bit chunks */
     unsigned int buf_len = 0;
 
-    f = fopen(filename, "w+b");
+    f = g_fopen(filename, "w+b");
+    if (!f)
+    {
+        message_error(_("Couldn't write file %s"), filename); 
+        return;
+    }
 
     for (c = b64; *c; c++)
     {
@@ -1533,6 +1538,9 @@ plot_image(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm,
     p = dia_point(apply_XForm(p, XForm), theDoc);
     h = dia_length(Foreign->ImgHeight, theDoc);
     w = dia_length(Foreign->ImgWidth, theDoc);
+
+    /* Visio supplies bottom left, but Dia needs top left */
+    p.y -= h;
 
     newobj = create_standard_image(p.x, p.y, w, h, filename);
 
@@ -1858,7 +1866,7 @@ vdx_plot_shape(struct vdx_Shape *Shape, GSList *objects,
                 if (!theShape->Master) 
                 { 
                     theShape->Master = Shape->Master; 
-                    theShape->Master_exists = TRUE;
+                    theShape->Master_exists = Shape->Master_exists;
                 }
                 members = vdx_plot_shape(theShape, members, XForm, theDoc);
             }
@@ -1912,6 +1920,7 @@ vdx_parse_shape(xmlNodePtr Shape, struct vdx_PageSheet *PageSheet,
     GSList *object;
     struct vdx_LayerMem *LayerMem = NULL;
     Layer *diaLayer = NULL;
+    char *name = NULL;
 
     if (PageSheet)
     {
@@ -1925,7 +1934,12 @@ vdx_parse_shape(xmlNodePtr Shape, struct vdx_PageSheet *PageSheet,
     /* Avoid very bad shapes */
     if (!theShape.Type) return;
 
-    g_debug("Shape %d [%s]", theShape.ID, theShape.NameU ? theShape.NameU : "(null)");
+    /* Name of shape could be in Unicode, or not, or missing */
+    name = theShape.NameU;
+    if (!name) name = theShape.Name;
+    if (!name) name = "Unnamed";
+    g_debug("Shape %d [%s]", theShape.ID, name);
+
     /* Ignore Guide */
     /* For debugging purposes, use Del attribute and stop flag */
     if (!strcmp(theShape.Type, "Guide") || theShape.Del || theDoc->stop) 
@@ -1987,7 +2001,7 @@ vdx_setup_layers(struct vdx_PageSheet* PageSheet, VDXDocument* theDoc,
 
     for (child = PageSheet->children; child; child = child->next)
     {
-        if (!child->data) continue;
+        if (!child || !child->data) continue;
         Any = (struct vdx_any *)(child->data);
         if (Any->type != vdx_types_Layer) continue;
         theLayer = (struct vdx_Layer *)child->data;
@@ -2019,6 +2033,7 @@ vdx_get_pages(xmlNodePtr cur, VDXDocument* theDoc, DiagramData *dia)
         struct vdx_PageSheet PageSheet;
         xmlAttrPtr attr;
         gboolean background = FALSE;
+        memset(&PageSheet, 0, sizeof(PageSheet));
         if (xmlIsBlankNode(Page)) { continue; }
 
         for (Shapes = Page->xmlChildrenNode; Shapes; Shapes = Shapes->next)
