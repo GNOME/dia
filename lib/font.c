@@ -707,13 +707,55 @@ get_string_offsets(PangoLayoutIter *iter, real** offsets, int* n_offsets)
   }
 }
 
+/** Copy the offsets into a storage object, adjusting for exaggerated size.
+ */
+static void
+get_layout_offsets(PangoLayoutLine *line, PangoLayoutLine **layout_line)
+{
+  /* Some info not copied. */
+  GSList *layout_runs = NULL;
+  GSList *runs = line->runs;
+
+  /* Not debugged yet, as we don't needs its functionality until textlines
+   * can have multiple runs. */
+  return;
+
+  *layout_line = g_new0(PangoLayoutLine, 1);
+
+  for (; runs != NULL; runs = g_slist_next(runs)) {
+    PangoGlyphItem *run = (PangoGlyphItem *) runs->data;
+    PangoGlyphItem *layout_run = g_new0(PangoGlyphItem, 1);
+    int i;
+
+    layout_run->glyphs = g_new0(PangoGlyphString, run->item->num_chars);
+    for (i = 0; i < run->item->num_chars; i++) {
+      int j;
+
+      layout_run->glyphs[i].num_glyphs = run->glyphs[i].num_glyphs;
+      layout_run->glyphs[i].glyphs = 
+	g_new0(PangoGlyphInfo, layout_run->glyphs[i].num_glyphs);
+      
+      for (j = 0; j < layout_run->glyphs[i].num_glyphs; j++) {
+	PangoGlyphInfo *info = &run->glyphs[i].glyphs[i];
+	PangoGlyphInfo *layout_info = &layout_run->glyphs[i].glyphs[i];
+	layout_info->geometry.width = info->geometry.width / 20;
+	layout_info->geometry.x_offset = info->geometry.x_offset / 20;
+	layout_info->geometry.y_offset = info->geometry.y_offset / 20;
+      }      
+    }
+
+    layout_runs = g_slist_append(layout_runs, layout_run);
+  }
+}
+
 /** Get size information for the given string, font and height.
  *
  * @returns an array of offsets of the individual glyphs in the layout.
  */
 real*
 dia_font_get_sizes(const char* string, DiaFont *font, real height,
-		   real *width, real *ascent, real *descent, int *n_offsets)
+		   real *width, real *ascent, real *descent, int *n_offsets,
+		   PangoLayoutLine **layout_offsets)
 {
   real dummy;
   PangoLayout* layout;
@@ -741,7 +783,9 @@ dia_font_get_sizes(const char* string, DiaFont *font, real height,
   bline = pdu_to_dcm(pango_layout_iter_get_baseline(iter)) / 20;
 
   get_string_offsets(iter, &offsets, n_offsets);
-  
+  /* Commented out until we can have more than one run in a line. 
+  get_layout_offsets(pango_layout_get_line(layout, 0), layout_offsets);
+  */
   pango_layout_iter_free(iter);
   g_object_unref(G_OBJECT(layout));
 

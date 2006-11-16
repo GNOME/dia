@@ -1,3 +1,20 @@
+2006-11-16  Lars Clausen  <lars@raeder.dk>
+
+	* lib/font.[ch] (get_layout_offsets): Start of function to adjust
+	all offsets in a layout line.  Not used yet, and not debugged.
+	Kept around for when we have more runs in a line.
+
+	* lib/textline.c (text_line_adjust_layout_line): Adjusts the glyph
+	sizes within a PangoLayoutLine to overcome the rounding problems
+	and ensure linear scaling of fonts.  Currently only fixes the
+	first run, since AFAIK that's all we can do with current text
+	input anyway.
+
+	* lib/diagdkrenderer.c (draw_text_line): Now uses
+	text_line_adjust_layout_line to avoid repeating Pango digging for
+	Freetype and GDK code both. Ready to merge freetype and GDK
+	duplicate code.
+
 2006-11-15  Lars Clausen  <lars@raeder.dk>
 
 	* plug-ins/vdx/*: Update to version 0.6.1 yields improvements in

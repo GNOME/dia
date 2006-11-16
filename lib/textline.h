@@ -33,7 +33,7 @@ typedef void RendererCacheFreeFunc;
 typedef struct _RendererCache {
   DiaRenderer *renderer;
   RendererCacheFreeFunc *free;
-  /* The renderer defines the rest */
+  gpointer data;
 } RendererCache;
 
 struct _TextLine {
@@ -62,9 +62,9 @@ struct _TextLine {
   DiaFont *font_cache;
   real height_cache;
 
-  /** Offsets of the individual glyphs in the string. 
-   * Should probably move to the render_cache eventually. */
+  /** Offsets of the individual glyphs in the string.  */
   real *offsets;
+  PangoLayoutLine *layout_offsets;
 
   /** Renderers can keep their private cache items in here */
   RendererCache *render_cache;
@@ -89,5 +89,7 @@ real text_line_get_descent(TextLine *text);
 PangoGlyphString *text_line_adjust_glyphs(TextLine *line,
 					  PangoGlyphString *glyphs,
 					  real scale);
+void text_line_adjust_layout_line(TextLine *line, PangoLayoutLine *layoutline,
+				  real scale);
 
 #endif

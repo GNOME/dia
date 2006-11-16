@@ -193,7 +193,8 @@ PangoLayout* dia_font_build_layout_with_matrix(const char* string,
 					       PangoMatrix *matrix);
 
 real* dia_font_get_sizes(const char* string, DiaFont *font, real height,
-			real* width, real* ascent, real* descent, int *n_offsets);
+			 real* width, real* ascent, real* descent, 
+			 int *n_offsets, PangoLayoutLine **layout_offsets);
 
 /* -------- Font and string functions - scaled versions.
    Use these version in Renderers, exclusively. */

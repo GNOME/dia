@@ -876,29 +876,18 @@ draw_text_line (DiaRenderer *object, TextLine *text_line,
     if (renderer->highlight_color != NULL) {
       draw_highlighted_string(renderer, layout, x, y, &gdkcolor);
     } else {
-      PangoLayoutLine *line;
-      PangoGlyphString *glyphs;
-      PangoGlyphItem *glyphItem;
-      PangoFont *pangoFont;
-      PangoFontMap *fontMap;
-
       width = dia_transform_length(renderer->transform,
 				   text_line_get_width(text_line));
       height = dia_transform_length(renderer->transform, 
 				    text_line_get_height(text_line));
      
       if (width > 0) {
+	text_line_adjust_layout_line(text_line, pango_layout_get_line(layout, 0),
+				     dia_transform_length(renderer->transform, 1.0)/20.0);
+	
 	initialize_ft_bitmap(&ftbitmap, width, height);
-
-	line = pango_layout_get_line(layout, 0);
-	glyphItem = (PangoGlyphItem*)line->runs->data;
-	glyphs = glyphItem->glyphs;
-	glyphs = text_line_adjust_glyphs(text_line, glyphs,
-					 dia_transform_length(renderer->transform, 1.0)/20.0);
-	pango_ft2_render(&ftbitmap, glyphItem->item->analysis.font, 
-			 glyphs, 0, dia_transform_length(renderer->transform, adjust));
+	pango_ft2_render_layout(&ftbitmap, layout, 0, 0);
        
-	g_free(glyphs);
 	{
 	  int stride;
 	  guchar* pixels;
@@ -969,9 +958,11 @@ draw_text_line (DiaRenderer *object, TextLine *text_line,
     GdkGC *gc = renderer->gc;
     gdk_gc_set_foreground(gc, &gdkcolor);
     dia_transform_coords(renderer->transform, start_pos.x, start_pos.y, &x, &y);
+    layout = dia_font_build_layout(text, text_line->font,
+				   dia_transform_length(renderer->transform, text_line->height)/20.0);
+    text_line_adjust_layout_line(text_line, pango_layout_get_line(layout, 0),
+				 dia_transform_length(renderer->transform, 1.0)/20.0);
 
-    layout = dia_font_scaled_build_layout(text, font, font_height,
-                dia_transform_length (renderer->transform, 10.0) / 10.0);
     y -= get_layout_first_baseline(layout);  
     if (renderer->highlight_color != NULL) {
       draw_highlighted_string(renderer, layout, x, y, &gdkcolor);
