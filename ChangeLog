@@ -1,3 +1,7 @@
+2006-11-18  Djihed Afifi  <djihed@gmail.com>
+	
+	* configure.in: Added Arabic Language (ar).
+
 2006-11-16  Lars Clausen  <lars@raeder.dk>
 
 	* lib/font.[ch] (get_layout_offsets): Start of function to adjust
