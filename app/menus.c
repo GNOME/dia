@@ -144,18 +144,18 @@ static const GtkActionEntry display_entries[] =
     { "ObjectsUnparentchildren", NULL, N_("_Unparent Children"), NULL, NULL, G_CALLBACK (objects_unparent_children_callback) },
 
     { "ObjectsAlign", NULL, N_("Align"), NULL, NULL, NULL },
-      { "ObjectsAlignLeft", GTK_STOCK_JUSTIFY_LEFT, NULL, NULL, NULL, G_CALLBACK (objects_align_h_callback) },
-      { "ObjectsAlignCenter", GTK_STOCK_JUSTIFY_CENTER, NULL, NULL, NULL, G_CALLBACK (objects_align_h_callback) },
-      { "ObjectsAlignRight", GTK_STOCK_JUSTIFY_RIGHT, NULL, NULL, NULL, G_CALLBACK (objects_align_h_callback) },
+      { "ObjectsAlignLeft", GTK_STOCK_JUSTIFY_LEFT, NULL, "<alt><shift>L", NULL, G_CALLBACK (objects_align_h_callback) },
+      { "ObjectsAlignCenter", GTK_STOCK_JUSTIFY_CENTER, NULL, "<alt><shift>C", NULL, G_CALLBACK (objects_align_h_callback) },
+      { "ObjectsAlignRight", GTK_STOCK_JUSTIFY_RIGHT, NULL, "<alt><shift>R", NULL, G_CALLBACK (objects_align_h_callback) },
 
-      { "ObjectsAlignTop", NULL, N_("Top"), NULL, NULL, G_CALLBACK (objects_align_v_callback) },
-      { "ObjectsAlignMiddle", NULL, N_("Middle"), NULL, NULL, G_CALLBACK (objects_align_v_callback) },
-      { "ObjectsAlignBottom", NULL, N_("Bottom"), NULL, NULL, G_CALLBACK (objects_align_v_callback) },
+      { "ObjectsAlignTop", NULL, N_("Top"), "<alt><shift>T", NULL, G_CALLBACK (objects_align_v_callback) },
+      { "ObjectsAlignMiddle", NULL, N_("Middle"), "<alt><shift>M", NULL, G_CALLBACK (objects_align_v_callback) },
+      { "ObjectsAlignBottom", NULL, N_("Bottom"), "<alt><shift>B", NULL, G_CALLBACK (objects_align_v_callback) },
 
-      { "ObjectsAlignSpreadouthorizontally", NULL, N_("Spread Out Horizontally"), NULL, NULL, G_CALLBACK (objects_align_h_callback) },
-      { "ObjectsAlignSpreadoutvertically", NULL, N_("Spread Out Vertically"), NULL, NULL, G_CALLBACK (objects_align_v_callback) },
-      { "ObjectsAlignAdjacent", NULL, N_("Adjacent"), NULL, NULL, G_CALLBACK (objects_align_h_callback) },
-      { "ObjectsAlignStacked", NULL, N_("Stacked"), NULL, NULL, G_CALLBACK (objects_align_v_callback) },
+      { "ObjectsAlignSpreadouthorizontally", NULL, N_("Spread Out Horizontally"), "<alt><shift>H", NULL, G_CALLBACK (objects_align_h_callback) },
+      { "ObjectsAlignSpreadoutvertically", NULL, N_("Spread Out Vertically"), "<alt><shift>V", NULL, G_CALLBACK (objects_align_v_callback) },
+      { "ObjectsAlignAdjacent", NULL, N_("Adjacent"), "<alt><shift>A", NULL, G_CALLBACK (objects_align_h_callback) },
+      { "ObjectsAlignStacked", NULL, N_("Stacked"), "<alt><shift>S", NULL, G_CALLBACK (objects_align_v_callback) },
 
       { "ObjectsProperties", GTK_STOCK_PROPERTIES, NULL, NULL, NULL, G_CALLBACK (dialogs_properties_callback) },
 
@@ -183,7 +183,7 @@ static const GtkActionEntry display_entries[] =
 static const GtkActionEntry tool_entries[] = 
 {
   { "Tools", NULL, N_("_Tools"), NULL, NULL, NULL },
-    { "ToolsModify", NULL, N_("Modify"), NULL, NULL, NULL },
+    { "ToolsModify", NULL, N_("Modify"), "<alt>N", NULL, NULL },
     { "ToolsMagnify", NULL, N_("Magnify"), "<alt>M", NULL, NULL },
     { "ToolsScroll", NULL, N_("Scroll"), "<alt>S", NULL, NULL },
     { "ToolsText", NULL, N_("Text"), "<alt>T", NULL, NULL },
