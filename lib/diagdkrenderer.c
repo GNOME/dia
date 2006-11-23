@@ -659,8 +659,6 @@ draw_string (DiaRenderer *object,
              const gchar *text, Point *pos, Alignment alignment,
              Color *color)
 {
-#define DRAW_STRING_WITH_TEXT_LINE
-#ifdef DRAW_STRING_WITH_TEXT_LINE
   TextLine *text_line = text_line_new(text, object->font, object->font_height);
   real width = text_line_get_width(text_line);
   Point realigned_pos = *pos;
@@ -675,132 +673,6 @@ draw_string (DiaRenderer *object,
 	break;
   }
   draw_text_line(object, text_line, &realigned_pos, color);
-#else
-  DiaGdkRenderer *renderer = DIA_GDK_RENDERER (object);
-  GdkColor gdkcolor;
-
-  int x,y;
-  Point start_pos;
-  PangoLayout* layout = NULL;
-  
-  if (text == NULL || *text == '\0') return; /* Don't render empty strings. */
-
-  point_copy(&start_pos,pos);
-
-  renderer_color_convert(renderer, color, &gdkcolor);
-
-  start_pos.x -= get_alignment_adjustment(object, text, alignment);
-
-  {
-    int height_pixels = dia_transform_length(renderer->transform, object->font_height);
-    if (height_pixels < 2) { /* "Greeking" instead of making tiny font */
-      int width_pixels = dia_transform_length(
-                            renderer->transform, 
-                            dia_font_string_width(text, object->font, object->font_height));
-      gdk_gc_set_foreground(renderer->gc, &gdkcolor);
-      gdk_gc_set_dashes(renderer->gc, 0, "\1\2", 2);
-      dia_transform_coords(renderer->transform, start_pos.x, start_pos.y, &x, &y);
-      gdk_draw_line(renderer->pixmap, renderer->gc, x, y, x + width_pixels, y);
-      return;
-    }
-  }
-
-  /* My apologies for adding more #hell, but the alternative is an abhorrent
-   * kludge.
-   */
-#if defined HAVE_FREETYPE
-  {
-   FT_Bitmap ftbitmap;
-   guint8 *graybitmap;
-   int width, height;
-   int rowstride;
-   GdkPixbuf *rgba = NULL;
-
-   start_pos.y -= 
-     dia_font_scaled_ascent(text, object->font,
-			    object->font_height,
-			    dia_transform_length(renderer->transform, 1.0));
-
-   dia_transform_coords(renderer->transform, 
-			start_pos.x, start_pos.y, &x, &y);
-   
-     layout = dia_font_scaled_build_layout(text, object->font,
-					   object->font_height,
-					   dia_transform_length(renderer->transform, 1.0));
-
-     if (renderer->highlight_color != NULL) {
-       draw_highlighted_string(renderer, layout, x, y, &gdkcolor);
-     } else {
-       /*   y -= get_layout_first_baseline(layout);  */
-       pango_layout_get_pixel_size(layout, &width, &height);
-     
-       if (width > 0) {
-	 rowstride = 32*((width+31)/31);
-       
-	 graybitmap = (guint8*)g_new0(guint8, height*rowstride);
-       
-	 ftbitmap.rows = height;
-	 ftbitmap.width = width;
-	 ftbitmap.pitch = rowstride;
-	 ftbitmap.buffer = graybitmap;
-	 ftbitmap.num_grays = 256;
-	 ftbitmap.pixel_mode = ft_pixel_mode_grays;
-	 ftbitmap.palette_mode = 0;
-	 ftbitmap.palette = 0;
-	 pango_ft2_render_layout(&ftbitmap, layout, 0, 0);
-       
-	 {
-	   int stride;
-	   guchar* pixels;
-	   int i,j;
-	   rgba = gdk_pixbuf_new(GDK_COLORSPACE_RGB, TRUE, 8, width, height);
-	   stride = gdk_pixbuf_get_rowstride(rgba);
-	   pixels = gdk_pixbuf_get_pixels(rgba);
-	   for (i = 0; i < height; i++) {
-	     for (j = 0; j < width; j++) {
-	       pixels[i*stride+j*4] = gdkcolor.red>>8;
-	       pixels[i*stride+j*4+1] = gdkcolor.green>>8;
-	       pixels[i*stride+j*4+2] = gdkcolor.blue>>8;
-	       pixels[i*stride+j*4+3] = graybitmap[i*rowstride+j];
-	     }
-	   }
-	   g_free(graybitmap);
-	 }
-       }
-       if (rgba != NULL) { /* Non-null width */
-	 gdk_draw_pixbuf(renderer->pixmap, renderer->gc, rgba, 0, 0, x, y, width, height, GDK_RGB_DITHER_NONE, 0, 0);
-	 g_object_unref(G_OBJECT(rgba));
-       }
-
-       /*
-	 gdk_gc_set_function(gc, GDK_COPY_INVERT);
-	 gdk_draw_gray_image(renderer->pixmap, gc, x, y, width, height, 
-	 GDK_RGB_DITHER_NONE, graybitmap, rowstride);
-	 gdk_gc_set_function(gc, GDK_COPY);
-       */
-     }
-  }
-#else
-  {
-    GdkGC *gc = renderer->gc;
-    gdk_gc_set_foreground(gc, &gdkcolor);
-    dia_transform_coords(renderer->transform, start_pos.x, start_pos.y, &x, &y);
-
-    layout = dia_font_scaled_build_layout(
-                text, object->font,
-                object->font_height,
-                dia_transform_length (renderer->transform, 10.0) / 10.0);
-    y -= get_layout_first_baseline(layout);  
-    if (renderer->highlight_color != NULL) {
-      draw_highlighted_string(renderer, layout, x, y, &gdkcolor);
-    } else {
-      gdk_draw_layout(renderer->pixmap,gc,x,y,layout);
-    }
-  }
-#endif
-  
-  g_object_unref(G_OBJECT(layout));
-#endif
 }
 
 #ifdef HAVE_FREETYPE
@@ -819,6 +691,21 @@ initialize_ft_bitmap(FT_Bitmap *ftbitmap, int width, int height)
   ftbitmap->palette_mode = 0;
   ftbitmap->palette = 0;
 }
+
+typedef struct _FreetypeCacheData {
+  int x;
+  int y;
+  int width;
+  int height;
+  GdkPixbuf *rgba;
+} FreetypeCacheData;
+
+void free_freetype_cache_data(gpointer data) {
+  FreetypeCacheData *ftdata = (FreetypeCacheData*) data;
+  
+  g_object_unref(ftdata->rgba);
+  g_free(ftdata);
+}
 #endif
 
 /** Draw a TextLine object.
@@ -829,18 +716,19 @@ initialize_ft_bitmap(FT_Bitmap *ftbitmap, int width, int height)
  */
 static void 
 draw_text_line (DiaRenderer *object, TextLine *text_line,
-             Point *pos, Color *color)
+		Point *pos, Color *color)
 {
-#if defined HAVE_FREETYPE
   DiaGdkRenderer *renderer = DIA_GDK_RENDERER (object);
   GdkColor gdkcolor;
+  Alignment alignment = ALIGN_LEFT;
   int x,y;
   Point start_pos;
   PangoLayout* layout = NULL;
   const gchar *text = text_line_get_string(text_line);
-  Alignment alignment = ALIGN_LEFT;
   int height_pixels;
-  
+  real font_height = text_line_get_height(text_line);
+  real scale = dia_transform_length(renderer->transform, 1.0);
+
   if (text == NULL || *text == '\0') return; /* Don't render empty strings. */
 
   point_copy(&start_pos,pos);
@@ -848,7 +736,8 @@ draw_text_line (DiaRenderer *object, TextLine *text_line,
   renderer_color_convert(renderer, color, &gdkcolor);
  
   start_pos.x -= get_alignment_adjustment(object, text, alignment);
-  height_pixels = dia_transform_length(renderer->transform, text_line_get_height(text_line));
+
+  height_pixels = dia_transform_length(renderer->transform, font_height);
   if (height_pixels < 2) { /* "Greeking" instead of making tiny font */
     int width_pixels = dia_transform_length(renderer->transform,
 					    text_line_get_width(text_line));
@@ -858,9 +747,6 @@ draw_text_line (DiaRenderer *object, TextLine *text_line,
     gdk_draw_line(renderer->pixmap, renderer->gc, x, y, x + width_pixels, y);
     return;
   } else {
-    FT_Bitmap ftbitmap;
-    int width, height;
-    GdkPixbuf *rgba = NULL;
     real adjust = 0.0;
 
     adjust = text_line_get_ascent(text_line);
@@ -868,32 +754,52 @@ draw_text_line (DiaRenderer *object, TextLine *text_line,
   
     dia_transform_coords(renderer->transform, 
 			 start_pos.x, start_pos.y, &x, &y);
-   
-		      
-    layout = dia_font_build_layout(text, text_line->font,
+   		       
+#ifdef HAVE_FREETYPE
+#if USE_TEXTLINE_CACHE
+    FreetypeCacheData *cache = text_line_get_renderer_cache(text_line,
+							    renderer,
+							    scale);
+    if (cache != NULL) {
+      gdk_draw_pixbuf(renderer->pixmap, renderer->gc, cache->rgba,
+		      0, 0, x, y, 
+		      cache->width, cache->height, GDK_RGB_DITHER_NONE, 0, 0);
+      return;
+    }
+#endif
+#endif
+
+   layout = dia_font_build_layout(text, text_line->font,
 				   dia_transform_length(renderer->transform, text_line->height)/20.0);
 
     if (renderer->highlight_color != NULL) {
       draw_highlighted_string(renderer, layout, x, y, &gdkcolor);
     } else {
-      width = dia_transform_length(renderer->transform,
-				   text_line_get_width(text_line));
-      height = dia_transform_length(renderer->transform, 
-				    text_line_get_height(text_line));
-     
-      if (width > 0) {
-	text_line_adjust_layout_line(text_line, pango_layout_get_line(layout, 0),
-				     dia_transform_length(renderer->transform, 1.0)/20.0);
+      text_line_adjust_layout_line(text_line, pango_layout_get_line(layout, 0),
+				   scale/20.0);
+#if defined HAVE_FREETYPE
+      {
+	FT_Bitmap ftbitmap;
+	int width, height;
+	GdkPixbuf *rgba = NULL;
 	
-	initialize_ft_bitmap(&ftbitmap, width, height);
-	pango_ft2_render_layout(&ftbitmap, layout, 0, 0);
-       
-	{
+	width = dia_transform_length(renderer->transform,
+				     text_line_get_width(text_line));
+	height = dia_transform_length(renderer->transform, 
+				      text_line_get_height(text_line));
+	
+	if (width > 0) {
 	  int stride;
 	  guchar* pixels;
 	  int i,j;
-	  guint8 *graybitmap = ftbitmap.buffer;
-	   
+	  guint8 *graybitmap;
+	  FreetypeCacheData *cache;
+
+	  initialize_ft_bitmap(&ftbitmap, width, height);
+	  pango_ft2_render_layout(&ftbitmap, layout, 0, 0);
+	  
+	  graybitmap = ftbitmap.buffer;
+	  
 	  rgba = gdk_pixbuf_new(GDK_COLORSPACE_RGB, TRUE, 8, width, height);
 	  stride = gdk_pixbuf_get_rowstride(rgba);
 	  pixels = gdk_pixbuf_get_pixels(rgba);
@@ -906,73 +812,31 @@ draw_text_line (DiaRenderer *object, TextLine *text_line,
 	    }
 	  }
 	  g_free(graybitmap);
+
+	  gdk_draw_pixbuf(renderer->pixmap, renderer->gc, rgba, 0, 0, x, y, width, height, GDK_RGB_DITHER_NONE, 0, 0);
+#if USE_TEXTLINE_CACHE
+	  /* This is not exactly useful until textline objects start hanging
+	   * around longer than the duration of draw_string().  Nor is it
+	   * entirely debugged (i.e. it crashes:)
+	   */
+	  cache = g_new(FreetypeCacheData, 1);
+	  cache->rgba = rgba;
+	  cache->width = width;
+	  cache->height = height;
+	  text_line_set_renderer_cache(text_line, renderer, free_freetype_cache_data, scale, cache);
+#else
+	  g_object_unref(G_OBJECT(rgba));
+#endif
 	}
       }
-      if (rgba != NULL) { /* Non-null width */
-	gdk_draw_pixbuf(renderer->pixmap, renderer->gc, rgba, 0, 0, x, y, width, height, GDK_RGB_DITHER_NONE, 0, 0);
-	g_object_unref(G_OBJECT(rgba));
-      }
-    }
-    g_object_unref(G_OBJECT(layout));
-  }
-
 #else
-  /* This is a non-adjusted version.  To adjust, dig into the layout and
-   * use adjust_glyphs.  Then a fair amount of it can be collapsed with the
-   * above.
-   */
-  DiaGdkRenderer *renderer = DIA_GDK_RENDERER (object);
-  GdkColor gdkcolor;
-  Alignment alignment = ALIGN_LEFT;
-
-  int x,y;
-  Point start_pos;
-  PangoLayout* layout = NULL;
-  const gchar *text = text_line_get_string(text_line);
-  DiaFont *font = text_line_get_font(text_line);
-  real font_height = text_line_get_height(text_line);
-
-  if (text == NULL || *text == '\0') return; /* Don't render empty strings. */
-
-  point_copy(&start_pos,pos);
-
-  renderer_color_convert(renderer, color, &gdkcolor);
-
-  start_pos.x -= get_alignment_adjustment(object, text, alignment);
-
-  {
-    int height_pixels = dia_transform_length(renderer->transform, font_height);
-    if (height_pixels < 2) { /* "Greeking" instead of making tiny font */
-      int width_pixels = dia_transform_length(
-                            renderer->transform, 
-                            dia_font_string_width(text, font, font_height));
       gdk_gc_set_foreground(renderer->gc, &gdkcolor);
-      gdk_gc_set_dashes(renderer->gc, 0, "\1\2", 2);
-      dia_transform_coords(renderer->transform, start_pos.x, start_pos.y, &x, &y);
-      gdk_draw_line(renderer->pixmap, renderer->gc, x, y, x + width_pixels, y);
-      return;
-    }
-  }
-
-  {
-    GdkGC *gc = renderer->gc;
-    gdk_gc_set_foreground(gc, &gdkcolor);
-    dia_transform_coords(renderer->transform, start_pos.x, start_pos.y, &x, &y);
-    layout = dia_font_build_layout(text, text_line->font,
-				   dia_transform_length(renderer->transform, text_line->height)/20.0);
-    text_line_adjust_layout_line(text_line, pango_layout_get_line(layout, 0),
-				 dia_transform_length(renderer->transform, 1.0)/20.0);
-
-    y -= get_layout_first_baseline(layout);  
-    if (renderer->highlight_color != NULL) {
-      draw_highlighted_string(renderer, layout, x, y, &gdkcolor);
-    } else {
-      gdk_draw_layout(renderer->pixmap, gc, x, y, layout);
-    }
-  }
-
-  g_object_unref(G_OBJECT(layout));
+	
+      gdk_draw_layout(renderer->pixmap, renderer->gc, x, y, layout);
 #endif
+      g_object_unref(G_OBJECT(layout));
+    }
+  }
 }
 
 /** Caching Pango renderer */

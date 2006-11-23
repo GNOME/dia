@@ -1,3 +1,11 @@
+2006-11-23  Lars Clausen  <lars@raeder.dk>
+
+	* lib/diagdkrenderer.c (draw_text_line): 
+	* lib/textline.[ch]: Underlying implementation and first
+	(currently commented out) attempt at use of textline renderer data
+	cache.  Not debugged, but thennobody holds textline objects long
+	enough to make a difference yet. 
+
 2006-11-22  Lars Clausen  <lars@raeder.dk>
 
 	* app/menus.c: Patch adding shortcuts for align functions, thanks

@@ -194,6 +194,50 @@ text_line_get_descent(TextLine *text_line)
   return text_line->descent;
 }
 
+/** Set some cache data for the renderer object.  This data will get
+ * freed if this textline is ever changed or viewed at a different size.
+ * Any cache already set, regardless of identity, will be freed.
+ * @param text_line
+ * @param renderer
+ * @param free_func A function for freeing the data.
+ * @param scale The zooming scale factor (as defined by the renderer) used
+ * to make these data.  If scale independent, just use 0.0.
+ * @param data
+ */
+void
+text_line_set_renderer_cache(TextLine *text_line, DiaRenderer *renderer,
+			     RendererCacheFreeFunc free_func, real scale,
+			     gpointer data) {
+  RendererCache *cache;
+  if (text_line->renderer_cache != NULL) {
+    (*text_line->renderer_cache->free_func)(text_line->renderer_cache);
+    text_line->renderer_cache = NULL;
+  }
+  cache = g_new(RendererCache, 1);
+  cache->renderer = renderer;
+  cache->free_func = free_func;
+  cache->scale = scale;
+  cache->data = data;
+}
+
+/** Get any renderer cache data that might be around.
+ * @param text_line
+ * @param renderer
+ * @param scale The scale we want text rendered at, or 0.0 if this renderer
+ * is scale independent.
+ * @returns Previously cached data (which shouldn't be freed) for the
+ * same text rendering.
+ */
+gpointer
+text_line_get_renderer_cache(TextLine *text_line, DiaRenderer *renderer,
+			     real scale) {
+  if (text_line->clean && text_line->renderer_cache != NULL &&
+      text_line->renderer_cache->renderer == renderer &&
+      fabs(text_line->renderer_cache->scale - scale) < 0.0000001) {
+    return text_line->renderer_cache->data;
+  }
+}
+
 /* **** Private functions **** */
 /** Mark this object as needing update before usage. 
  * @param text_line the object that has changed.
@@ -215,6 +259,11 @@ text_line_cache_values(TextLine *text_line)
 
     if (text_line->offsets != NULL) {
       g_free(text_line->offsets);
+      text_line->offsets = NULL;
+    }
+    if (text_line->renderer_cache != NULL) {
+      (*text_line->renderer_cache->free_func)(text_line->renderer_cache);
+      text_line->renderer_cache = NULL;
     }
     if (text_line->layout_offsets != NULL) {
 /* Non-debugged code for when we have multiple runs in a line.
