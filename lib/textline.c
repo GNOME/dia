@@ -235,7 +235,31 @@ text_line_get_renderer_cache(TextLine *text_line, DiaRenderer *renderer,
       text_line->renderer_cache->renderer == renderer &&
       fabs(text_line->renderer_cache->scale - scale) < 0.0000001) {
     return text_line->renderer_cache->data;
+  } else {
+    return NULL;
   }
+}
+
+/** Return the amount this text line would need to be shifted in order to
+ * implement the given alignment.
+ * @param text_line a line of text
+ * @param alignment how to align it.
+ * @returns The amount (in diagram lengths) to shift the x positiion of
+ * rendering this such that it looks aligned when printed with x at the left.
+ * Always a positive number.
+ */
+real
+text_line_get_alignment_adjustment(TextLine *text_line, Alignment alignment)
+{
+  text_line_cache_values(text_line);
+  switch (alignment) {
+      case ALIGN_CENTER:
+	return text_line->width / 2;
+      case ALIGN_RIGHT:
+	return text_line->width;
+      default:
+	return 0.0;
+   }  
 }
 
 /* **** Private functions **** */

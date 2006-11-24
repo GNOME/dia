@@ -29,7 +29,7 @@
 #include "properties.h"
 typedef struct _RendererCache RendererCache;
 
-typedef void (*RendererCacheFreeFunc) (RendererCache* data);
+typedef void (*RendererCacheFreeFunc) (gpointer* data);
 
 struct _RendererCache {
   DiaRenderer *renderer;
@@ -98,5 +98,7 @@ PangoGlyphString *text_line_adjust_glyphs(TextLine *line,
 					  real scale);
 void text_line_adjust_layout_line(TextLine *line, PangoLayoutLine *layoutline,
 				  real scale);
+real text_line_get_alignment_adjustment(TextLine *text_line, 
+					Alignment alignment);
 
 #endif

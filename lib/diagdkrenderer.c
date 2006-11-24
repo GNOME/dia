@@ -607,33 +607,6 @@ get_layout_first_baseline(PangoLayout* layout)
   return result;
 }
 
-/** Return the x adjustment needed for this text and alignment */
-static real
-get_alignment_adjustment(DiaRenderer *object, 
-			 const gchar *text,
-			 Alignment alignment)
-{
-  DiaGdkRenderer *renderer = DIA_GDK_RENDERER (object);
-
-   switch (alignment) {
-   case ALIGN_LEFT:
-     return 0.0;
-   case ALIGN_CENTER:
-     return
-       dia_font_scaled_string_width(text, object->font,
-				    object->font_height,
-				    dia_transform_length(renderer->transform, 10.0)/10.0)/2;
-     break;
-   case ALIGN_RIGHT:
-     return
-       dia_font_scaled_string_width(text, object->font,
-				    object->font_height,
-				    dia_transform_length(renderer->transform, 10.0)/10.0);
-     break;
-   }
-   return 0.0;
-}
-
 /* Draw a highlighted version of a string.
  */
 static void
@@ -662,16 +635,7 @@ draw_string (DiaRenderer *object,
   TextLine *text_line = text_line_new(text, object->font, object->font_height);
   real width = text_line_get_width(text_line);
   Point realigned_pos = *pos;
-  switch (alignment) {
-      case ALIGN_LEFT:
-	break;
-      case ALIGN_CENTER:
-	realigned_pos.x -= width/2;
-	break;
-      case ALIGN_RIGHT:
-	realigned_pos.x -= width;
-	break;
-  }
+  realigned_pos.x -= text_line_get_alignment_adjustment(text_line, alignment);
   draw_text_line(object, text_line, &realigned_pos, color);
 }
 
@@ -700,7 +664,8 @@ typedef struct _FreetypeCacheData {
   GdkPixbuf *rgba;
 } FreetypeCacheData;
 
-void free_freetype_cache_data(gpointer data) {
+static void
+free_freetype_cache_data(gpointer data) {
   FreetypeCacheData *ftdata = (FreetypeCacheData*) data;
   
   g_object_unref(ftdata->rgba);
@@ -735,8 +700,6 @@ draw_text_line (DiaRenderer *object, TextLine *text_line,
 
   renderer_color_convert(renderer, color, &gdkcolor);
  
-  start_pos.x -= get_alignment_adjustment(object, text, alignment);
-
   height_pixels = dia_transform_length(renderer->transform, font_height);
   if (height_pixels < 2) { /* "Greeking" instead of making tiny font */
     int width_pixels = dia_transform_length(renderer->transform,
@@ -754,11 +717,14 @@ draw_text_line (DiaRenderer *object, TextLine *text_line,
   
     dia_transform_coords(renderer->transform, 
 			 start_pos.x, start_pos.y, &x, &y);
-   		       
+
 #ifdef HAVE_FREETYPE
-#if USE_TEXTLINE_CACHE
+/* The cache appears to work, but there's no gain from it yet, since
+ * nobody hangs on to textline objects long enough.
+ */
+#ifdef USE_TEXTLINE_CACHE
     FreetypeCacheData *cache = text_line_get_renderer_cache(text_line,
-							    renderer,
+							    object,
 							    scale);
     if (cache != NULL) {
       gdk_draw_pixbuf(renderer->pixmap, renderer->gc, cache->rgba,
@@ -814,7 +780,7 @@ draw_text_line (DiaRenderer *object, TextLine *text_line,
 	  g_free(graybitmap);
 
 	  gdk_draw_pixbuf(renderer->pixmap, renderer->gc, rgba, 0, 0, x, y, width, height, GDK_RGB_DITHER_NONE, 0, 0);
-#if USE_TEXTLINE_CACHE
+#ifdef USE_TEXTLINE_CACHE
 	  /* This is not exactly useful until textline objects start hanging
 	   * around longer than the duration of draw_string().  Nor is it
 	   * entirely debugged (i.e. it crashes:)
@@ -823,7 +789,8 @@ draw_text_line (DiaRenderer *object, TextLine *text_line,
 	  cache->rgba = rgba;
 	  cache->width = width;
 	  cache->height = height;
-	  text_line_set_renderer_cache(text_line, renderer, free_freetype_cache_data, scale, cache);
+	  text_line_set_renderer_cache(text_line, object, 
+				       free_freetype_cache_data, scale, cache);
 #else
 	  g_object_unref(G_OBJECT(rgba));
 #endif

@@ -1,3 +1,14 @@
+2006-11-24  Lars Clausen  <lars@raeder.dk>
+
+	* samples/Metapost-Testcase.dia: A nice test case for MetaPost,
+	including most basic rendering things.
+
+	* lib/textline.[ch]: Little cache fix, and adding a function to
+	get alignment widths for a TextLine.
+
+	* lib/diagdkrenderer.c (draw_text_line): Make caching of renderer
+	data for textline work, get rid of last use of _scaled_ stuff.
+	
 2006-11-23  Lars Clausen  <lars@raeder.dk>
 
 	* lib/diagdkrenderer.c (draw_text_line): 
