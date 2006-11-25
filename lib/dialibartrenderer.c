@@ -29,6 +29,7 @@
 #include "intl.h"
 #include "dia_image.h"
 #include "object.h"
+#include "textline.h"
 
 #ifdef HAVE_LIBART
 
@@ -1060,12 +1061,9 @@ draw_highlighted_string(DiaLibartRenderer *renderer,
   art_svp_free( svp );
 }
 
-
 static void
-draw_string (DiaRenderer *self,
-	     const gchar *text,
-	     Point *pos, Alignment alignment,
-	     Color *color)
+draw_text_line(DiaRenderer *self, TextLine *text_line,
+	       Point *pos,  Color *color)
 {
   DiaLibartRenderer *renderer = DIA_LIBART_RENDERER (self);
   /* Not working with Pango */
@@ -1078,7 +1076,8 @@ draw_string (DiaRenderer *self,
   double affine[6], tmpaffine[6];
   guint32 rgba;
   int rowstride;
-  double font_height;
+  gchar *text = text_line_get_string(text_line);
+  real scale = dia_transform_length(renderer->transform, 1.0);
 
   point_copy(&start_pos,pos);
 
@@ -1092,34 +1091,18 @@ draw_string (DiaRenderer *self,
   old_zoom = ddisp->zoom_factor;
   ddisp->zoom_factor = ddisp->zoom_factor;
   */
-  switch (alignment) {
-  case ALIGN_LEFT:
-    break;
-  case ALIGN_CENTER:
-    start_pos.x -= dia_font_scaled_string_width(
-						text, self->font,
-						self->font_height,
-						dia_transform_length(renderer->transform, 1.0))/2;
-    break;
-  case ALIGN_RIGHT:
-    start_pos.x -= dia_font_scaled_string_width(
-						text, self->font,
-						self->font_height,
-						dia_transform_length(renderer->transform, 1.0));
-    break;
-  }
  
-  font_height = dia_transform_length(renderer->transform, self->font_height);
+  start_pos.y -= text_line_get_ascent(text_line);
 
-  start_pos.y -= dia_font_scaled_ascent(text, self->font,
-					self->font_height,
-					dia_transform_length(renderer->transform, 1.0));
   dia_transform_coords_double(renderer->transform, 
                               start_pos.x, start_pos.y, &x, &y);
 
-  layout = dia_font_scaled_build_layout(
-              text, self->font, self->font_height,
-              dia_transform_length(renderer->transform, 1.0));
+  layout = dia_font_build_layout(text, text_line->font, 
+				 dia_transform_length(renderer->transform,
+						      text_line_get_height(text_line)) / 20.0);
+
+  text_line_adjust_layout_line(text_line, pango_layout_get_line(layout, 0),
+			       scale/20.0);
 
   if (renderer->highlight_color != NULL) {
     draw_highlighted_string(renderer, layout, start_pos.x, start_pos.y, rgba);
@@ -1130,7 +1113,6 @@ draw_string (DiaRenderer *self,
   /*
   ddisp->zoom_factor = old_zoom;
   */
-
   pango_layout_get_pixel_size(layout, &width, &height);
   /* Pango doesn't have a 'render to raw bits' function, so we have
    * to render based on what other engines are available.
@@ -1225,6 +1207,19 @@ draw_string (DiaRenderer *self,
 #undef DEPTH
 }
 
+static void
+draw_string (DiaRenderer *self,
+	     const gchar *text,
+	     Point *pos, Alignment alignment,
+	     Color *color)
+{
+  TextLine *text_line = text_line_new(text, self->font, self->font_height);
+  Point realigned_pos = *pos;
+  realigned_pos.x -= text_line_get_alignment_adjustment(text_line, alignment);
+  draw_text_line(self, text_line, &realigned_pos, color);
+}
+
+
 /* Get the width of the given text in cm */
 static real
 get_text_width(DiaRenderer *object,
@@ -1232,6 +1227,7 @@ get_text_width(DiaRenderer *object,
 {
   DiaLibartRenderer *renderer = DIA_LIBART_RENDERER (object);
   real result;
+  TextLine *text_line;
 
   if (length != strlen(text)) {
     char *othertx;
@@ -1242,18 +1238,12 @@ get_text_width(DiaRenderer *object,
       g_warning ("Text at char %d not valid\n", length);
     }
     othertx = g_strndup(text, ulen);
-    result = dia_font_scaled_string_width(
-                othertx,object->font,
-                object->font_height,
-                dia_transform_length (renderer->transform, 10.0) / 10.0);
-    g_free(othertx);
+    text_line = text_line_new(othertx, object->font, object->font_height);
   } else {
-    result = 
-      dia_font_scaled_string_width(
-            text,object->font,
-            object->font_height,
-            dia_transform_length (renderer->transform, 10.0) / 10.0);
+    text_line = text_line_new(text, object->font, object->font_height);
   }
+  result = text_line_get_width(text_line);
+  text_line_destroy(text_line);
   return result;
 }
 
@@ -1446,6 +1436,7 @@ dia_libart_renderer_class_init (DiaLibartRendererClass *klass)
   renderer_class->fill_bezier = fill_bezier;
 
   renderer_class->draw_string = draw_string;
+  renderer_class->draw_text_line = draw_text_line;
 
   renderer_class->draw_image = draw_image;
 

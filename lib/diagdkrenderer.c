@@ -598,15 +598,6 @@ fill_ellipse (DiaRenderer *object, Point *center,
   fill_arc(object, center, width, height, 0.0, 360.0, color); 
 }
 
-static gint 
-get_layout_first_baseline(PangoLayout* layout) 
-{
-  PangoLayoutIter* iter = pango_layout_get_iter(layout);
-  gint result = pango_layout_iter_get_baseline(iter) / PANGO_SCALE;
-  pango_layout_iter_free(iter);
-  return result;
-}
-
 /* Draw a highlighted version of a string.
  */
 static void
@@ -633,7 +624,6 @@ draw_string (DiaRenderer *object,
              Color *color)
 {
   TextLine *text_line = text_line_new(text, object->font, object->font_height);
-  real width = text_line_get_width(text_line);
   Point realigned_pos = *pos;
   realigned_pos.x -= text_line_get_alignment_adjustment(text_line, alignment);
   draw_text_line(object, text_line, &realigned_pos, color);
@@ -685,7 +675,6 @@ draw_text_line (DiaRenderer *object, TextLine *text_line,
 {
   DiaGdkRenderer *renderer = DIA_GDK_RENDERER (object);
   GdkColor gdkcolor;
-  Alignment alignment = ALIGN_LEFT;
   int x,y;
   Point start_pos;
   PangoLayout* layout = NULL;
@@ -738,11 +727,11 @@ draw_text_line (DiaRenderer *object, TextLine *text_line,
    layout = dia_font_build_layout(text, text_line->font,
 				   dia_transform_length(renderer->transform, text_line->height)/20.0);
 
+   text_line_adjust_layout_line(text_line, pango_layout_get_line(layout, 0),
+				scale/20.0);
     if (renderer->highlight_color != NULL) {
       draw_highlighted_string(renderer, layout, x, y, &gdkcolor);
     } else {
-      text_line_adjust_layout_line(text_line, pango_layout_get_line(layout, 0),
-				   scale/20.0);
 #if defined HAVE_FREETYPE
       {
 	FT_Bitmap ftbitmap;
@@ -833,6 +822,7 @@ get_text_width(DiaRenderer *object,
 {
   DiaGdkRenderer *renderer = DIA_GDK_RENDERER (object);
   real result;
+  TextLine *text_line;
 
   if (length != strlen(text)) {
     char *othertx;
@@ -843,18 +833,12 @@ get_text_width(DiaRenderer *object,
       g_warning ("Text at char %d not valid\n", length);
     }
     othertx = g_strndup(text, ulen);
-    result = dia_font_scaled_string_width(
-                othertx,object->font,
-                object->font_height,
-                dia_transform_length (renderer->transform, 10.0) / 10.0);
-    g_free(othertx);
+    text_line = text_line_new(othertx, object->font, object->font_height);
   } else {
-    result = 
-      dia_font_scaled_string_width(
-            text,object->font,
-            object->font_height,
-            dia_transform_length (renderer->transform, 10.0) / 10.0);
+    text_line = text_line_new(text, object->font, object->font_height);
   }
+  result = text_line_get_width(text_line);
+  text_line_destroy(text_line);
   return result;
 }
 

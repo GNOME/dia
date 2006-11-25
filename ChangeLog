@@ -1,5 +1,14 @@
 2006-11-25  Lars Clausen  <lars@raeder.dk>
 
+	* lib/diagdkrenderer.c: Make highlighted area match text area, and
+	use text_line in get_text_width.  These should later be
+	superfluous due to increased use of text_line at higher levels.
+
+	* lib/dialibartrenderer.c: Implement text_line based rendering of
+	text.  Works.  Also get_text_width uses a text_line.  Text
+	bounding box is still a little off, but that will help once
+	text_line is used in the text system.
+
 	* lib/arrows.c (arrow_get_name_from_type): Function to get arrow
 	names, and proper error messages when a loaded diagram has bad
 	arrows.  Finally fixes bug #144394, thanks to both Pontus Pihlgren
