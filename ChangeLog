@@ -1,3 +1,11 @@
+2006-11-25  Lars Clausen  <lars@raeder.dk>
+
+	* lib/arrows.c (arrow_get_name_from_type): Function to get arrow
+	names, and proper error messages when a loaded diagram has bad
+	arrows.  Finally fixes bug #144394, thanks to both Pontus Pihlgren
+	<pontus.pihlgren@farmbio.uu.se> and Vadim Zelenin
+	<green@visoft.spb.ru> 
+
 2006-11-24  Lars Clausen  <lars@raeder.dk>
 
 	* samples/Metapost-Testcase.dia: A nice test case for MetaPost,

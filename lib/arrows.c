@@ -113,19 +113,27 @@ calculate_arrow_point(const Arrow *arrow, const Point *to, const Point *from,
   real add_len;
   real angle;
   Point tmp;
-
+  ArrowType arrow_type = arrow->type;
   /* Otherwise line is drawn through arrow
    * head for some hollow arrow heads
    * */
   if (linewidth == 0.0)
     linewidth = 0.0001;
 
+  /** Since some of the calculations are sensitive to small values,
+   * ignore small arrowheads.  They won't be visible anyway.
+   */
+  if (arrow->length < MIN_ARROW_DIMENSION ||
+      arrow->width < MIN_ARROW_DIMENSION) {
+    arrow_type = ARROW_NONE;
+  }
+
   /* First, we move the arrow head backwards.
    * This in most cases just accounts for the linewidth of the arrow.
    * In pointy arrows, this means we must look at the angle of the
    * arrowhead.
    * */
-  switch (arrow->type) {
+  switch (arrow_type) {
   case ARROW_LINES:
   case ARROW_HOLLOW_TRIANGLE:
   case ARROW_UNFILLED_TRIANGLE:
@@ -183,7 +191,7 @@ calculate_arrow_point(const Arrow *arrow, const Point *to, const Point *from,
   }
 
   /* Now move the line to be behind the arrowhead. */
-  switch (arrow->type) {
+  switch (arrow_type) {
   case ARROW_LINES:
   case ARROW_HALF_HEAD:
     *move_line = *move_arrow;
@@ -1878,9 +1886,17 @@ arrow_draw(DiaRenderer *renderer, ArrowType type,
 static void
 sanitize_arrow(Arrow *arrow)
 {
+  if (arrow->type < 0 || arrow->type > MAX_ARROW_TYPE) {
+    message_warning(_("Arrow head of unknown type"));
+    arrow->type = ARROW_NONE;
+    arrow->width = DEFAULT_ARROW_WIDTH;
+    arrow->length = DEFAULT_ARROW_LENGTH;
+  }
+
   if (arrow->length < MIN_ARROW_DIMENSION ||
-      arrow->width < MIN_ARROW_DIMENSION ||
-      arrow->type < 0 || arrow->type > MAX_ARROW_TYPE) {
+      arrow->width < MIN_ARROW_DIMENSION) {
+    message_warning(_("Arrow head of type %s has too small dimensions, removing.\n"),
+		    arrow_get_name_from_type(arrow->type));
     arrow->type = ARROW_NONE;
     arrow->width = DEFAULT_ARROW_WIDTH;
     arrow->length = DEFAULT_ARROW_LENGTH;
@@ -1917,7 +1933,7 @@ void
 load_arrow(ObjectNode obj_node, Arrow *arrow, gchar *type_attribute, 
 	   gchar *length_attribute, gchar *width_attribute)
 {
-  AttributeNode *attr;
+  AttributeNode attr;
 
   arrow->type = ARROW_NONE;
   arrow->length = DEFAULT_ARROW_LENGTH;
@@ -1986,4 +2002,19 @@ get_arrow_names(void)
     arrows = g_list_append(arrows, arrow_types[i].name);
   }
   return arrows;
+}
+
+/** Get the name of an arrow from its type.
+ * @param type A type of arrow.
+ * @returns The name of the type, if any such arrow type is defined,
+ * or else "unknown arrow".  This is a static string and should not be
+ * freed or modified.
+ */
+gchar *
+arrow_get_name_from_type(ArrowType type)
+{
+  if (type >= 0 && type < MAX_ARROW_TYPE) {
+    return arrow_types[type].name;
+  }
+  return _("unknown arrow");
 }
