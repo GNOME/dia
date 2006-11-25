@@ -338,8 +338,6 @@ draw_string(DiaRenderer *self,
 	    Point *pos, Alignment alignment,
 	    Color *color)
 {
-#define DRAW_STRING_WITH_TEXT_LINE
-#ifdef DRAW_STRING_WITH_TEXT_LINE
   DiaPsFt2Renderer *renderer = DIA_PS_FT2_RENDERER(self);
   TextLine *text_line = text_line_new(text, renderer->current_font,
 				      renderer->current_height);
@@ -356,98 +354,6 @@ draw_string(DiaRenderer *self,
 	break;
   }
   draw_text_line(self, text_line, &realigned_pos, color);
-#else
-  DiaPsFt2Renderer *renderer = DIA_PS_FT2_RENDERER(self);
-  PangoLayout *layout;
-  int width;
-  int line, linecount;
-  double xpos = pos->x, ypos = pos->y;
-/* Using the global PangoContext does not allow to have renderer specific 
- * different ones. Or it implies the push/pop _context mess. Anyway just 
- * get rid of warnings for now. But the local code may be resurreted 
- * sooner or later...                                               --hb
- */
-#define USE_GLOBAL_CONTEXT
-#ifndef USE_GLOBAL_CONTEXT
-  PangoAttrList* list;
-  PangoAttribute* attr;
-  guint length;
-#endif
-
-  if ((!text)||(text == (const char *)(1))) return;
-
-  lazy_setcolor(DIA_PS_RENDERER(renderer),color);
-
-  /* Make sure the letters aren't too wide. */
-#ifdef USE_GLOBAL_CONTEXT
-  layout = dia_font_scaled_build_layout(text, renderer->current_font,
-					renderer->current_height/0.7, 
-					20.0);
-#else
-  /* approximately what would be required but w/o dia_font_get_context() */
-  dia_font_set_height(renderer->current_font, renderer->current_height);
-  layout = pango_layout_new(dia_font_get_context());
-
-  length = text ? strlen(text) : 0;
-  pango_layout_set_text(layout,text,length);
-        
-  list = pango_attr_list_new();
-
-  attr = pango_attr_font_desc_new(dia_font_get_description(renderer->current_font));
-  attr->start_index = 0;
-  attr->end_index = length;
-  pango_attr_list_insert(list,attr);
-    
-  pango_layout_set_attributes(layout,list);
-  pango_attr_list_unref(list);
-
-  pango_layout_set_indent(layout,0);
-  pango_layout_set_justify(layout,FALSE);
-#endif
-
-  switch (alignment) {
-  case ALIGN_LEFT:
-    pango_layout_set_alignment(layout,PANGO_ALIGN_LEFT);
-    break;
-  case ALIGN_CENTER:
-    pango_layout_set_alignment(layout,PANGO_ALIGN_CENTER);
-    break;
-  case ALIGN_RIGHT:
-    pango_layout_set_alignment(layout,PANGO_ALIGN_RIGHT);
-    break;
-  }
-    
-  pango_layout_get_size(layout, &width, NULL);
-  linecount = pango_layout_get_line_count(layout);
-  for (line = 0; line < linecount; line++) {
-    PangoLayoutLine *layoutline = pango_layout_get_line(layout, line);
-    real width, xoff = 0.0;
-    PangoRectangle rectangle;
-
-    pango_layout_line_get_extents(layoutline, &rectangle, NULL);
-    width = rectangle.width;
-
-    switch (alignment) {
-    case ALIGN_LEFT:
-      xoff = 0.0;
-      break;
-    case ALIGN_CENTER:
-      xoff = width/2.0;
-      break;
-    case ALIGN_RIGHT:
-      xoff = width;
-      break;
-    }
-    xoff *= 2.54/PANGO_SCALE/DPI /* dpi_x */;
-
-    postscript_draw_contour(DIA_PS_RENDERER(renderer),
-			    DPI, /* dpi_x */
-			    layoutline,
-			    xpos-xoff, ypos);
-    /* xpos should be adjusted for align and/or RTL */
-    ypos += 10;/* Some line height thing??? */
-  }
-#endif
 }
 
 static void

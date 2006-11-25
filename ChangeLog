@@ -1,5 +1,12 @@
 2006-11-25  Lars Clausen  <lars@raeder.dk>
 
+	* lib/font.[ch]: Use text_line for the few remaining functions
+	that used _scaled_ (non of them actually *were* scaled:), and get
+	rid of all the _scaled_ stuff!  One less horror of a kludge!
+
+	* app/diapsft2renderer.c (draw_string): Happy with using text_line
+	for string output.
+
 	* lib/diagdkrenderer.c: Make highlighted area match text area, and
 	use text_line in get_text_width.  These should later be
 	superfluous due to increased use of text_line at higher levels.

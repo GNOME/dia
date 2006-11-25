@@ -203,27 +203,5 @@ real* dia_font_get_sizes(const char* string, DiaFont *font, real height,
      what is 1:1 scale. zoom_factor will then be divided by size_one. */
 void dia_font_set_nominal_zoom_factor(real size_one);
 
-    /* Get the width of the string with the given font in cm */
-real dia_font_scaled_string_width(const char* string, DiaFont* font,
-                                  real height, real zoom_factor);
-    /* Get the max ascent of the font in cm (a positive number).
-
-    FIXME: may turn out that we need to pass a string here as well. */
-real dia_font_scaled_ascent(const char* string, DiaFont* font,
-                            real height, real zoom_factor);
-    /* Get the max descent of the font in cm (a positive number) 
-       FIXME: may turn out that we need to pass a string here as well. */
-real dia_font_scaled_descent(const char* string, DiaFont* font,
-                             real height, real zoom_factor);
-
-    /* prepares a layout of the text, in font 'font'.
-
-    When zoom_factor != 1.0, may tweak the font's size or stretch so that its
-    bounding box is actually linear with respect to the zoom factor (kerning,
-    ligaturing and other wild beasts usually get in the way of linear
-    scaling). */
-PangoLayout* dia_font_scaled_build_layout(const char *string, DiaFont* font,
-                                          real height, real zoom_factor);
-
 
 #endif /* FONT_H */

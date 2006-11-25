@@ -42,6 +42,7 @@
 #include "font.h"
 #include "message.h"
 #include "intl.h"
+#include "textline.h"
 
 static PangoContext* pango_context = NULL;
 
@@ -516,18 +517,27 @@ void dia_font_set_slant_from_string(DiaFont* font, const char* obli) {
 real
 dia_font_string_width(const char* string, DiaFont *font, real height)
 {
-    return dia_font_scaled_string_width(string,font,height,global_zoom_factor);
+  TextLine *text_line = text_line_new(string, font, height);
+  real result = text_line_get_width(text_line);
+  text_line_destroy(text_line);
+  return result;
 }
 
 real
 dia_font_ascent(const char* string, DiaFont* font, real height)
 {
-    return dia_font_scaled_ascent(string,font,height,global_zoom_factor);
+  TextLine *text_line = text_line_new(string, font, height);
+  real result = text_line_get_ascent(text_line);
+  text_line_destroy(text_line);
+  return result;
 }
 
 real dia_font_descent(const char* string, DiaFont* font, real height)
 {
-    return dia_font_scaled_descent(string,font,height,global_zoom_factor);
+  TextLine *text_line = text_line_new(string, font, height);
+  real result = text_line_get_descent(text_line);
+  text_line_destroy(text_line);
+  return result;
 }
 
 
@@ -587,100 +597,6 @@ void
 dia_font_set_nominal_zoom_factor(real size_one)
 { global_zoom_factor = size_one; }
 
-
-
-real
-dia_font_scaled_string_width(const char* string, DiaFont *font, real height,
-                            real zoom_factor)
-{
-    int lw,lh;
-    real result;
-    PangoLayout* layout;
-
-    if (string == NULL || string[0] == '\0') {
-      return 0.0;
-    }
-
-    layout = dia_font_scaled_build_layout(string, font, height, zoom_factor);
-    pango_layout_get_size(layout,&lw,&lh);
-    g_object_unref(G_OBJECT(layout));
-    
-    result = pdu_to_dcm(lw);
-    /* Scale the result back for the zoom factor */
-    result /= (zoom_factor/global_zoom_factor);
-    return result;
-}
-
-static gboolean
-dia_font_vertical_extents(const char* string, DiaFont* font,
-                          real height, real zoom_factor,
-                          guint line_no,
-                          real* top, real* baseline, real* bottom)
-{
-    PangoRectangle ink_rect,logical_rect;
-    PangoLayout* layout;
-    PangoLayoutIter* iter;
-    guint i;
-
-    if (string == NULL || string[0] == '\0') {
-      return FALSE;
-    }
-
-    layout = dia_font_scaled_build_layout(string, font,
-                                          height, zoom_factor);
-    iter = pango_layout_get_iter(layout);
-    for (i = 0; i < line_no; ++i) {
-       if (!pango_layout_iter_next_line(iter)) {
-           pango_layout_iter_free(iter);
-           g_object_unref(G_OBJECT(layout));
-           return FALSE;
-       }
-    }
-    
-    pango_layout_iter_get_line_extents(iter,&ink_rect,&logical_rect);
-
-    *top = pdu_to_dcm(logical_rect.y);
-    *bottom = pdu_to_dcm(logical_rect.y + logical_rect.height);
-    *baseline = pdu_to_dcm(pango_layout_iter_get_baseline(iter));
-
-    pango_layout_iter_free(iter);
-    g_object_unref(G_OBJECT(layout));
-
-    return TRUE;
-}
-    
-
-real
-dia_font_scaled_ascent(const char* string, DiaFont* font, real height,
-                      real zoom_factor)
-{
-  real top,bline,bottom;
-  if (!string || string[0] == '\0') {
-    /* This hack won't work for fonts that don't cover ASCII */
-    dia_font_vertical_extents("XjgM149",font,height,zoom_factor,
-			      0,&top,&bline,&bottom);
-  } else {
-    dia_font_vertical_extents(string,font,height,zoom_factor,
-			      0,&top,&bline,&bottom);
-  }
-  return (bline-top)/(zoom_factor/global_zoom_factor);
-}
-
-real dia_font_scaled_descent(const char* string, DiaFont* font,
-                            real height, real zoom_factor)
-{
-  real top,bline,bottom;
-
-  if (!string || string[0] == '\0') {
-    /* This hack won't work for fonts that don't cover ASCII */
-    dia_font_vertical_extents("XjgM149",font,height,zoom_factor,
-			      0,&top,&bline,&bottom);
-  } else {
-    dia_font_vertical_extents(string,font,height,zoom_factor,
-                              0,&top,&bline,&bottom);
-  }
-  return (bottom-bline)/(zoom_factor/global_zoom_factor);
-}
 
 /** Find the offsets of the individual letters in the iter and place them
  * in an array.
@@ -799,55 +715,6 @@ dia_font_get_sizes(const char* string, DiaFont *font, real height,
   return offsets;
 }
 
-PangoLayout*
-dia_font_scaled_build_layout(const char* string, DiaFont* font,
-                            real height, real zoom_factor)
-{
-    DiaFont* altered_font;
-    real scaling;
-    real nozoom_width;
-    real target_zoomed_width;
-    PangoLayout* layout;
-    real altered_scaling;
-    real real_width;
-
-    scaling = zoom_factor / global_zoom_factor;
-    if (fabs(1.0 - scaling) < 1E-7) {
-        return dia_font_build_layout(string,font,height);
-    }
-
-    nozoom_width = dia_font_string_width(string,font,height);
-    target_zoomed_width = nozoom_width * scaling;
-
-        /* First try: no tweaks. */
-    real_width = dia_font_string_width(string,font, height * scaling);
-    if (real_width <= target_zoomed_width) {
-        return dia_font_build_layout(string,font,height*scaling);
-    }
-
-    altered_font = dia_font_copy(font);
-
-        /* Last try. Using the "reduce overall size" strategy. */
-    for (altered_scaling = scaling;
-         altered_scaling > (scaling / 2);
-         altered_scaling *= (target_zoomed_width/real_width>0.98?0.98:
-			     target_zoomed_width/real_width) ) {
-      real_width = dia_font_string_width(string,font,
-					 height * altered_scaling);
-
-        if (real_width <= target_zoomed_width) {
-            layout = dia_font_build_layout(string,altered_font,
-                                          height*altered_scaling);
-            dia_font_unref(altered_font);
-            return layout;
-        }
-    }
-
-    /* Everything has failed. Returning non-tweaked variant. */
-    g_warning("Failed to appropriately tweak zoomed font for zoom factor %f.", zoom_factor);
-    dia_font_unref(altered_font);
-    return dia_font_build_layout(string,font,height*scaling);    
-}
 
 /**
  * Compatibility with older files out of pre Pango Time. 
