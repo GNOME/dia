@@ -39,7 +39,6 @@ struct _Text {
   gchar **line;
   int numlines;
   int *strlen;  /* in characters */
-  int *alloclen; /* in bytes */
 
   /* Attributes: */
   DiaFont *font;

@@ -1,3 +1,9 @@
+2006-11-26  Lars Clausen  <lars@raeder.dk>
+
+	* lib/text.[ch]: Encapsulated the arrays in Text to prepare for 
+	switching to one array of TextLine.  Simplified operations a lot
+	by using standard functions.
+
 2006-11-25  Lars Clausen  <lars@raeder.dk>
 
 	* lib/font.[ch]: Use text_line for the few remaining functions
