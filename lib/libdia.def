@@ -215,9 +215,6 @@ EXPORTS
  dia_font_new_from_legacy_name
  dia_font_new_from_style
  dia_font_ref
- dia_font_scaled_ascent
- dia_font_scaled_build_layout
- dia_font_scaled_string_width
  dia_font_set_any_family
  dia_font_set_weight_from_string
  dia_font_set_slant_from_string

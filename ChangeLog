@@ -1,5 +1,10 @@
 2006-11-28  Lars Clausen  <lars@raeder.dk>
 
+	* app/modify_tool.c (modify_make_text_edit): Call
+	text_line_destroy rather than undefined text_line_free.
+
+	* lib/libdia.def: Removed disappeared _scaled_ functions.
+
 	* lib/arrows.[ch]: Moving inclusions towards .c, as too many
 	includes in .h confuses MSVC.
 

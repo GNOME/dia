@@ -31,6 +31,7 @@
 #include "cursor.h"
 #include "highlight.h"
 #include "textedit.h"
+#include "textline.h"
 
 #include "parent.h"
 #include "diacanvas.h"
@@ -934,7 +935,7 @@ modify_make_text_edit(DDisplay *ddisp, DiaObject *obj, Point *clickedpoint)
       /* This might need to account for zoom factor. */
       ascent = ddisplay_transform_length(ddisp, 
 					 text_line_get_ascent(temp_line));
-      text_line_free(temp_line);
+      text_line_destroy(temp_line);
       printf("Text prop string %s pos %d, %d ascent %f\n",
 	     textprop->text_data, x, y, ascent);
       ascent_pixels = ddisplay_transform_length(ddisp, ascent);
