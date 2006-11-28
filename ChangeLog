@@ -1,3 +1,10 @@
+2006-11-28  Lars Clausen  <lars@raeder.dk>
+
+	* lib/arrows.[ch]: Moving inclusions towards .c, as too many
+	includes in .h confuses MSVC.
+
+	* lib/text.h: Start of using TextLine for Text lines.
+
 2006-11-26  Lars Clausen  <lars@raeder.dk>
 
 	* lib/text.[ch]: Encapsulated the arrays in Text to prepare for 

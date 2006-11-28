@@ -30,14 +30,21 @@ typedef enum {
 #include "focus.h"
 #include "properties.h"
 
+#undef USE_TEXTLINE_FOR_LINES
+
 struct _Text {
   /** The object that owns this text. */
   DiaObject *parent_object;
   /* don't change these values directly, use the text_set* functions */
   
   /* Text data: */
-  gchar **line;
   int numlines;
+#ifdef USE_TEXTLINE_FOR_LINES
+  TextLine **lines;
+#else
+  gchar **line;
+  real *row_width;
+#endif
   int *strlen;  /* in characters */
 
   /* Attributes: */
@@ -56,7 +63,6 @@ struct _Text {
   real ascent; /* **average** ascent */
   real descent; /* **average** descent */
   real max_width;
-  real *row_width;
 };
 
 

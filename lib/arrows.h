@@ -23,8 +23,6 @@
 #include "geometry.h"
 #include "color.h"
 #include "dia_xml.h"
-#include "attributes.h"
-#include "widgets.h"
 
 /* NOTE: Add new arrow types at the end, or the enums
    will change order leading to file incompatibilities. */
@@ -96,6 +94,7 @@ struct _Arrow {
   real length;
   real width;
 };
+
 
 void arrow_draw(DiaRenderer *renderer, ArrowType type,
 		Point *to, Point *from,
