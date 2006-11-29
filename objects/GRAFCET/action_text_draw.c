@@ -50,12 +50,13 @@ action_text_draw(Text *text, DiaRenderer *renderer)
 
   space_width = action_text_spacewidth(text);
 
+  /* TODO: Use the TextLine object when available for faster rendering. */
   for (i=0;i<text->numlines;i++) {
     renderer_ops->draw_string(renderer,
-			       text->line[i],
-			       &pos, text->alignment,
-			       &text->color);
-    pos.x += dia_font_string_width(text->line[i],text->font,text->height) +
+			      text_get_line(text, i),
+			      &pos, text->alignment,
+			      &text->color);
+    pos.x += text_get_line_width(text, i) +
       2 * space_width;
   }
 
@@ -68,16 +69,16 @@ action_text_draw(Text *text, DiaRenderer *renderer)
 
     str_width_first =
       renderer_ops->get_text_width(renderer,
-                                   text->line[text->cursor_row],
+                                   text_get_line(text, text->cursor_row),
                                    text->cursor_pos);
     str_width_whole =
       renderer_ops->get_text_width(renderer,
-                                   text->line[text->cursor_row],
+                                   text_get_line(text, text->cursor_row),
                                    text->strlen[text->cursor_row]);
 
     curs_x = text->position.x + str_width_first;
     for (i=0;i<text->cursor_row;i++) {
-      curs_x += dia_font_string_width(text->line[i],text->font,text->height) +
+      curs_x += text_get_line_width(text, i) +
 	2 * space_width;
     }
     curs_y = text->position.y - text->ascent;
@@ -124,9 +125,7 @@ action_text_calc_boundingbox(Text *text, Rectangle *box)
 
   width = 0;
   for (i=0; i<text->numlines; i++)
-    width += dia_font_string_width(text->line[i],
-                                   text->font,
-                                   text->height);
+    width += text_get_line_width(text, i);
 
   width += text->numlines * 2.0 * action_text_spacewidth(text);
 

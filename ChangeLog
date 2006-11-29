@@ -1,3 +1,23 @@
+2006-11-29  Lars Clausen  <lars@raeder.dk>
+
+	* lib/diarenderer.c: Make default draw_text use its internal
+	TextLine structures.
+
+	* objects/UML/object.c: 
+	* objects/UML/classicon.c: 
+	* objects/UML/node.c: 
+	* objects/GRAFCET/action.c: 
+	* objects/GRAFCET/action_text_draw.c: 
+	* app/modify_tool.c: Use functions to access text internals.
+	There are more places that access the structure directly, which
+	should be changed, but are not critical now.
+
+	* lib/text.[ch]: Add variant (to become standard) that uses a
+	TextLine for each line.  Also expose some information in a more
+	encapsulated way.
+
+	* lib/diagdkrenderer.c: Use default draw_text implementation.
+
 2006-11-28  Lars Clausen  <lars@raeder.dk>
 
 	* app/modify_tool.c (modify_make_text_edit): Call

@@ -321,10 +321,10 @@ classicon_draw(Classicon *icon, DiaRenderer *renderer)
     renderer_ops->set_linewidth(renderer, 0.01);
     if (icon->stereotype==CLASSICON_BOUNDARY)
       x += r/2.0;
-    p1.y = p2.y = icon->text->position.y + icon->text->descent;
+    p1.y = p2.y = icon->text->position.y + text_get_descent(icon->text);
     for (i=0; i<icon->text->numlines; i++) { 
-      p1.x = x + (w - icon->text->row_width[i])/2;
-      p2.x = p1.x + icon->text->row_width[i];
+      p1.x = x + (w - text_get_line_width(icon->text, i))/2;
+      p2.x = p1.x + text_get_line_width(icon->text, i);
       renderer_ops->draw_line(renderer,
 			       &p1, &p2,
 			       &icon->line_color);

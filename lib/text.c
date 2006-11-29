@@ -32,6 +32,10 @@
 #include "diagramdata.h"
 #include "objchange.h"
 
+#ifdef USE_TEXTLINE_FOR_LINES
+#include "textline.h"
+#endif
+
 static int text_key_event(Focus *focus, guint keysym,
 			  const gchar *str, int strlen,
 			  ObjectChange **change);
@@ -62,7 +66,11 @@ struct TextObjectChange {
 static gchar *
 text_get_line(Text *text, int line)
 {
+#ifdef USE_TEXTLINE_FOR_LINES
+  return text_line_get_string(text->lines[line]);
+#else
   return text->line[line];
+#endif
 }
 
 /** Raw sets one line to a given text, not copying, not freeing.
@@ -70,7 +78,11 @@ text_get_line(Text *text, int line)
 static void
 text_set_line(Text *text, int line_no, gchar *line)
 {
+#ifdef USE_TEXTLINE_FOR_LINES
+  text_line_set_string(text->lines[line_no], line);
+#else
   text->line[line_no] = line;
+#endif
 }
 
 /** Set the text of a line, freeing, copying and mallocing as required.
@@ -79,13 +91,18 @@ text_set_line(Text *text, int line_no, gchar *line)
 static void
 text_set_line_text(Text *text, int line_no, gchar *line)
 {
+#ifdef USE_TEXTLINE_FOR_LINES
+  text_set_line(text, line_no, g_strdup(line));
+  text->strlen[line_no] = strlen(line);
+#else
   if (text->line[line_no] != NULL) {
     g_free(text->line[line_no]);
   }
-  text->line[line_no] = g_strdup(line);
+  text_set_line(text, line_no, g_strdup(line));
   text->row_width[line_no] = 
     dia_font_string_width(line, text->font, text->height);
   text->strlen[line_no] = strlen(line);
+#endif
 }
 
 /** Delete the line, freeing appropriately and moving stuff up.
@@ -96,6 +113,16 @@ text_delete_line(Text *text, int line_no)
 {
   int i;
 
+#ifdef USE_TEXTLINE_FOR_LINES
+  g_free(text->lines[line_no]);
+  for (i = line_no; i < text->numlines - 1; i++) {
+    text->lines[i] = text->lines[i+1];
+    text->strlen[i] = text->strlen[i+1];
+  }
+  text->numlines -= 1;
+  text->lines = g_realloc(text->lines, sizeof(TextLine *)*text->numlines);
+  text->strlen = g_realloc(text->strlen, sizeof(int)*text->numlines);
+#else
   if (text->line[line_no] != NULL) {
     free(text->line[line_no]);
   }
@@ -110,6 +137,7 @@ text_delete_line(Text *text, int line_no)
   text->line = g_realloc(text->line, sizeof(char *)*text->numlines);
   text->strlen = g_realloc(text->strlen, sizeof(int)*text->numlines);
   text->row_width = g_realloc(text->row_width, sizeof(real)*text->numlines);
+#endif
 }
 
 /** Insert a new (empty) line at line_no.
@@ -119,7 +147,17 @@ static void
 text_insert_line(Text *text, int line_no)
 {
   int i;
+#ifdef USE_TEXTLINE_FOR_LINES
+  text->numlines += 1;
+  text->lines = g_realloc(text->lines, sizeof(char *)*text->numlines);
+  text->strlen = g_realloc(text->strlen, sizeof(int)*text->numlines);
 
+  for (i = text->numlines - 1; i > line_no; i--) {
+    text->lines[i] = text->lines[i - 1];
+    text->strlen[i] = text->strlen[i - 1];
+  }
+  text->lines[line_no] = text_line_new("", text->font, text->height);;
+#else
   text->numlines += 1;
   text->line = g_realloc(text->line, sizeof(char *)*text->numlines);
   text->strlen = g_realloc(text->strlen, sizeof(int)*text->numlines);
@@ -131,18 +169,59 @@ text_insert_line(Text *text, int line_no)
     text->row_width[i] = text->row_width[i - 1];
   }
   text->line[line_no] = NULL;
+#endif
 }
 
-static real
-text_get_line_width(Text *text, int line)
+/** Get the in-diagram width of the given line.
+ * @param text The text object;
+ * @param line_no The index of the line in the text object, starting at 0.
+ * @returns The width in cm of the indicated line.
+ */
+real
+text_get_line_width(Text *text, int line_no)
 {
-  return text->row_width[line];
+#ifdef USE_TEXTLINE_FOR_LINES
+  return text_line_get_width(text->lines[line_no]);
+#else
+  return text->row_width[line_no];
+#endif
 }
 
-static int
-text_get_line_strlen(Text *text, int line)
+/** Get the number of characters of the given line.
+ * @param text The text object;
+ * @param line_no The index of the line in the text object, starting at 0.
+ * @returns The number of UTF-8 characters of the indicated line.
+ */
+int
+text_get_line_strlen(Text *text, int line_no)
 {
-  return text->strlen[line];
+  return text->strlen[line_no];
+}
+
+real
+text_get_max_width(Text *text)
+{
+  return text->max_width;
+}
+
+/** Get the *average* ascent of this Text object.
+ * @param a Text object
+ * @returns the average of the ascents of each line (height above baseline)
+ */
+real
+text_get_ascent(Text *text)
+{
+  return text->ascent;
+}
+
+/** Get the *average* descent of this Text object.
+ * @param a Text object
+ * @returns the average of the descents of each line (height below baseline)
+ */
+real
+text_get_descent(Text *text)
+{
+  return text->descent;
 }
 
 static ObjectChange *text_create_change(Text *text, enum change_type type,
@@ -156,8 +235,10 @@ calc_width(Text *text)
 
   width = 0.0;
   for (i = 0; i < text->numlines; i++) {
+#ifndef USE_TEXTLINE_FOR_LINES
     text->row_width[i] =
       dia_font_string_width(text_get_line(text, i), text->font, text->height);
+#endif
     width = MAX(width, text_get_line_width(text, i));
   }
   
@@ -171,8 +252,13 @@ calc_ascent_descent(Text *text)
   guint i;
     
   for ( i = 0; i < text->numlines; i++) {
+#ifdef USE_TEXTLINE_FOR_LINES
+    sig_a += text_line_get_ascent(text->lines[i]);
+    sig_d += text_line_get_descent(text->lines[i]);
+#else
     sig_a += dia_font_ascent(text_get_line(text, i), text->font, text->height);
     sig_d += dia_font_descent(text_get_line(text, i), text->font, text->height);
+#endif
   }
   
   text->ascent = sig_a / (real)text->numlines;
@@ -184,6 +270,17 @@ free_string(Text *text)
 {
   int i;
 
+#ifdef USE_TEXTLINE_FOR_LINES
+  for (i=0;i<text->numlines;i++) {
+    text_line_destroy(text->lines[i]);
+  }
+
+  g_free(text->lines);
+  text->lines = NULL;
+  
+  g_free(text->strlen);
+  text->strlen = NULL;
+#else
   for (i=0;i<text->numlines;i++) {
     g_free(text_get_line(text, i));
   }
@@ -196,6 +293,7 @@ free_string(Text *text)
 
   g_free(text->row_width);
   text->row_width = NULL;
+#endif
 }
 
 static void
@@ -215,9 +313,17 @@ set_string(Text *text, const char *string)
       }
     }
   text->numlines = numlines;
+#ifdef USE_TEXTLINE_FOR_LINES
+  text->lines = g_new0(TextLine *, numlines);
+  for (i = 0; i < numlines; i++) {
+    text->lines[i] = text_line_new("", text->font, text->height);
+  }
+  text->strlen = g_new(int, numlines);
+#else
   text->line = g_new0(char *, numlines);
   text->strlen = g_new(int, numlines);
   text->row_width = g_new(real, numlines);
+#endif
 
   s = string;
 
@@ -253,8 +359,13 @@ set_string(Text *text, const char *string)
 void
 text_set_string(Text *text, const char *string)
 {
+#ifdef USE_TEXTLINE_FOR_LINES
+  if (text->lines != NULL)
+    free_string(text);
+#else
   if (text->line != NULL)
     free_string(text);
+#endif
   
   set_string(text, string);
 }
@@ -297,19 +408,24 @@ text_copy(Text *text)
 
   copy = g_new(Text, 1);
   copy->numlines = text->numlines;
+#ifdef USE_TEXTLINE_FOR_LINES
+  copy->lines = g_new(TextLine *, text->numlines);
+  copy->strlen = g_new(int, text->numlines);
+#else
   copy->line = g_malloc(sizeof(char *)*text->numlines);
   copy->strlen = g_malloc(sizeof(int)*text->numlines);
   copy->row_width = g_malloc(sizeof(real)*text->numlines);
-  
-  for (i=0;i<text->numlines;i++) {
-    text_set_line_text(copy, i, text_get_line(text, i));
-  }
+#endif
   
   copy->font = dia_font_ref(text->font);
   copy->height = text->height;
   copy->position = text->position;
   copy->color = text->color;
   copy->alignment = text->alignment;
+
+  for (i=0;i<text->numlines;i++) {
+    text_set_line_text(copy, i, text_get_line(text, i));
+  }
 
   copy->cursor_pos = 0;
   copy->cursor_row = 0;
@@ -336,8 +452,13 @@ text_destroy(Text *text)
 void
 text_set_height(Text *text, real height)
 {
+  int i;
   text->height = height;
-
+#ifdef USE_TEXTLINE_FOR_LINES
+  for (i = 0; i < text->numlines; i++) {
+    text_line_set_height(text->lines[i], height);
+  }
+#endif
   calc_width(text);
   calc_ascent_descent(text);
 }
@@ -346,8 +467,16 @@ void
 text_set_font(Text *text, DiaFont *font)
 {
   DiaFont *old_font = text->font;
+  int i;
+
   text->font = dia_font_ref(font);
   dia_font_unref(old_font);
+
+#ifdef USE_TEXTLINE_FOR_LINES
+  for (i = 0; i < text->numlines; i++) {
+    text_line_set_font(text->lines[i], font);
+  }
+#endif
   
   calc_width(text);
   calc_ascent_descent(text);

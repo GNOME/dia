@@ -292,9 +292,7 @@ action_update_data(Action *action)
   connpointline_adjust_count(action->cps,2+(2 * action->text->numlines), &p1);
   
   for (i=0; i<action->text->numlines; i++) {
-    chunksize = dia_font_string_width(action->text->line[i],
-                                      action->text->font,
-                                      action->text->height);
+    chunksize = text_get_line_width(action->text, i);
     x1 = x + 1.0;
     if (x1 >= right) {
       x1 = right - ACTION_LINE_WIDTH;
@@ -373,9 +371,7 @@ action_draw(Action *action, DiaRenderer *renderer)
   p1.y = ul.y; p2.y = br.y;
 
   for (i=0; i<action->text->numlines-1; i++) {
-    chunksize = dia_font_string_width(action->text->line[i],
-                                      action->text->font,
-                                      action->text->height);
+    chunksize = text_get_line_width(action->text, i);
     p1.x = p2.x = p1.x + chunksize + 2 * action->space_width;
     renderer_ops->draw_line(renderer,&p1,&p2,&color_black);
   }

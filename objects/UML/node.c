@@ -274,7 +274,7 @@ static void node_draw(Node *node, DiaRenderer *renderer)
   points[0].y = points[1].y = node->name->position.y + node->name->descent;
   for (i = 0; i < node->name->numlines; i++)
     { 
-      points[1].x = points[0].x + node->name->row_width[i];
+      points[1].x = points[0].x + text_get_line_width(node->name, i);
       renderer_ops->draw_line(renderer, points, points + 1, &color_black);
       points[0].y = points[1].y += node->name->height;
     }

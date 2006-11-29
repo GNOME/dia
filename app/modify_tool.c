@@ -847,8 +847,6 @@ modify_start_text_edit(DDisplay *ddisp, Text *text, DiaObject *obj, Point *click
   GtkTextBuffer *buf;
   GtkTextTag *fonttag;
   GtkTextIter start, end;
-  real ascent;
-  int ascent_pixels;
   Rectangle text_bbox;
 
   printf("modify_start_text_edit\n");
@@ -862,7 +860,7 @@ modify_start_text_edit(DDisplay *ddisp, Text *text, DiaObject *obj, Point *click
 		 x-EDIT_BORDER_WIDTH, y-EDIT_BORDER_WIDTH);
   buf = gtk_text_view_get_buffer(GTK_TEXT_VIEW(view));
   for (i = 0; i < text->numlines; i++) {
-    gtk_text_buffer_insert_at_cursor(buf, text->line[i], -1);
+    gtk_text_buffer_insert_at_cursor(buf, text_get_line(text, i), -1);
   }
   fonttag = 
     gtk_text_buffer_create_tag(buf,

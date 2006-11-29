@@ -30,7 +30,7 @@ typedef enum {
 #include "focus.h"
 #include "properties.h"
 
-#undef USE_TEXTLINE_FOR_LINES
+#define USE_TEXTLINE_FOR_LINES
 
 struct _Text {
   /** The object that owns this text. */
@@ -89,6 +89,12 @@ int text_is_empty(Text *text);
 int text_delete_all(Text *text, ObjectChange **change);
 void text_get_attributes(Text *text, TextAttributes *attr);
 void text_set_attributes(Text *text, TextAttributes *attr);
+
+real text_get_line_width(Text *text, int line_no);
+int text_get_line_strlen(Text *text, int line_no);
+real text_get_max_width(Text *text);
+real text_get_ascent(Text *text);
+real text_get_descent(Text *text);
 
 void data_add_text(AttributeNode attr, Text *text);
 Text *data_text(AttributeNode attr);

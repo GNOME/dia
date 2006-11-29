@@ -318,16 +318,16 @@ objet_draw(Objet *ob, DiaRenderer *renderer)
   }
 
   /* Is there a better way to underline? */
-  p1.x = x + (w - ob->text->max_width)/2;
-  p1.y = ob->text->position.y + ob->text->descent;
-  p2.x = p1.x + ob->text->max_width;
+  p1.x = x + (w - text_get_max_width(ob->text))/2;
+  p1.y = ob->text->position.y + text_get_descent(ob->text);
+  p2.x = p1.x + text_get_max_width(ob->text);
   p2.y = p1.y;
   
   renderer_ops->set_linewidth(renderer, OBJET_LINEWIDTH);
     
   for (i=0; i<ob->text->numlines; i++) { 
-    p1.x = x + (w - ob->text->row_width[i])/2;
-    p2.x = p1.x + ob->text->row_width[i];
+    p1.x = x + (w - text_get_line_width(ob->text, i))/2;
+    p2.x = p1.x + tex_get_line_width(ob->text, i);
     renderer_ops->draw_line(renderer,
 			     &p1, &p2,
 			     &ob->text_color);

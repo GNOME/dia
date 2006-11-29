@@ -26,6 +26,8 @@
 #include <string.h>
 #include <gdk/gdk.h>
 
+#include <sys/time.h>
+
 #define PANGO_ENABLE_ENGINE
 #include <pango/pango-engine.h>
 #include <pango/pango.h>
@@ -92,8 +94,6 @@ static void draw_text_line (DiaRenderer *renderer,
 			    TextLine *text,
 			    Point *pos,
 			    Color *color);
-static void draw_text (DiaRenderer *renderer,
-                         Text *text);
 static void draw_image (DiaRenderer *renderer,
                         Point *point,
                         real width, real height,
@@ -236,7 +236,6 @@ dia_gdk_renderer_class_init(DiaGdkRendererClass *klass)
   /* use <draw|fill>_bezier from DiaRenderer */
 
   renderer_class->draw_string  = draw_string;
-  renderer_class->draw_text    = draw_text;
   renderer_class->draw_text_line = draw_text_line;
   renderer_class->draw_image   = draw_image;
 
@@ -794,26 +793,6 @@ draw_text_line (DiaRenderer *object, TextLine *text_line,
     }
   }
 }
-
-/** Caching Pango renderer */
-static void
-draw_text(DiaRenderer *renderer, Text *text) 
-{
-  Point pos;
-  int i;
-
-  DIA_RENDERER_GET_CLASS(renderer)->set_font(renderer, text->font, text->height);
-  pos = text->position;
-  
-  for (i=0;i<text->numlines;i++) {
-    DIA_RENDERER_GET_CLASS(renderer)->draw_string(renderer,
-						  text->line[i],
-						  &pos, text->alignment,
-						  &text->color);
-    pos.y += text->height;
-  }
-}
-
 
 /* Get the width of the given text in cm */
 static real
