@@ -1,3 +1,13 @@
+2006-11-30  Lars Clausen  <lars@raeder.dk>
+
+	* app/diapsft2renderer.c (draw_text_line): 
+	* lib/textline.[ch] (text_line_adjust_glyphs): 
+	* lib/diagdkrenderer.c (draw_text_line): Adjusting widths no
+	longer mallocs and frees, merely changes the existing object.
+
+	* lib/text.c (text_draw): Remember to set_font, even though
+	draw_text doesn't require it anymore.
+
 2006-11-29  Lars Clausen  <lars@raeder.dk>
 
 	* lib/diarenderer.c: Make default draw_text use its internal

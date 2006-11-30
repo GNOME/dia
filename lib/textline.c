@@ -329,31 +329,24 @@ text_line_cache_values(TextLine *text_line)
 
 /** Adjust a line of glyphs to match the sizes stored in the TextLine
  * @param line The TextLine object that corresponds to the glyphs.
- * @param glyphs The one set of glyphs contained in the TextLine's layout.
+ * @param glyphs The one set of glyphs contained in layout created for
+ * this TextLine during rendering.  The values in here will be changed.
  * @param scale The relative height of the font in glyphs.
- * @return An adjusted glyphstring, which should be freed by the caller.
  */
-PangoGlyphString *
+void
 text_line_adjust_glyphs(TextLine *line, PangoGlyphString *glyphs, real scale)
 {
-  PangoGlyphString* new_glyphs = g_new(PangoGlyphString, 1);
   int i;
 
-  new_glyphs->num_glyphs = glyphs->num_glyphs;
-  new_glyphs->glyphs = g_new(PangoGlyphInfo, glyphs->num_glyphs);
-  new_glyphs->log_clusters = glyphs->log_clusters;
-
-  for (i = 0; i < new_glyphs->num_glyphs; i++) {
-    new_glyphs->glyphs[i] = glyphs->glyphs[i];
+  for (i = 0; i < glyphs->num_glyphs; i++) {
 /*
     printf("Glyph %d: width %d, offset %f, textwidth %f\n",
 	   i, new_glyphs->glyphs[i].geometry.width, line->offsets[i],
 	   line->offsets[i] * scale * 20.0 * PANGO_SCALE);
 */
-    new_glyphs->glyphs[i].geometry.width =
+    glyphs->glyphs[i].geometry.width =
       (int)(line->offsets[i] * scale * 20.0 * PANGO_SCALE);
   }
-  return new_glyphs;
 }
 
 /** Adjust a layout line to match the more fine-grained values stored in the
@@ -384,10 +377,7 @@ text_line_adjust_layout_line(TextLine *line, PangoLayoutLine *layoutline,
 
     glyphItem = (PangoGlyphItem*)layoutline->runs->data;
     glyphs = glyphItem->glyphs;
-    glyphItem->glyphs = text_line_adjust_glyphs(line, glyphItem->glyphs, scale);
-    /* Free up the overwritten glyphs info */
-    g_free(glyphs->glyphs);
-    g_free(glyphs);
+    text_line_adjust_glyphs(line, glyphItem->glyphs, scale);
   }
 
 /* More advanced version.

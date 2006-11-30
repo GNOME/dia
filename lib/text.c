@@ -629,6 +629,8 @@ text_draw(Text *text, DiaRenderer *renderer)
     real height = text->ascent+text->descent;
     curs_y = text->position.y - text->ascent + text->cursor_row*text->height; 
 
+    DIA_RENDERER_GET_CLASS(renderer)->set_font(renderer, text->font, text->height);
+
     str_width_first =
       DIA_RENDERER_GET_CLASS(renderer)->get_text_width(renderer,
 						       text_get_line(text, text->cursor_row),

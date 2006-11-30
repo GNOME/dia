@@ -420,8 +420,7 @@ draw_text_line(DiaRenderer *self,
     /* This is currently rather crude, but it works under the assumption
      * that a TextLine has exactly one glyphs object. */
     PangoGlyphItem *glyphItem = (PangoGlyphItem*)layoutline->runs->data;
-    glyphItem->glyphs = text_line_adjust_glyphs(text_line, glyphItem->glyphs, 
-						1.3);
+    text_line_adjust_glyphs(text_line, glyphItem->glyphs, 1.3);
     /* 1.3 is a magic constant that gives "reasonable" results.  Some
        clean-up of the code might give better results and an explanation */
 
