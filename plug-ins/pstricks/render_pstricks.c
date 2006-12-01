@@ -256,7 +256,7 @@ set_linewidth(DiaRenderer *self, real linewidth)
     gchar d_buf[DTOSTR_BUF_SIZE];
 
 
-    fprintf(renderer->file, "\\psset{linewidth=%s}\n",
+    fprintf(renderer->file, "\\psset{linewidth=%scm}\n",
 	    pstricks_dtostr(d_buf, (gdouble) linewidth) );
 }
 

@@ -290,21 +290,18 @@ text_line_cache_values(TextLine *text_line)
       text_line->renderer_cache = NULL;
     }
     if (text_line->layout_offsets != NULL) {
-/* Non-debugged code for when we have multiple runs in a line.
         GSList *runs = text_line->layout_offsets->runs;
 
 	for (; runs != NULL; runs = g_slist_next(runs)) {
 	  PangoGlyphItem *run = (PangoGlyphItem *) runs->data;
 	  int i;
 	  
-	  for (i = 0; i < run->item->num_chars; i++) {
-	    g_free(run->glyphs[i].glyphs);
-	  }
+	  g_free(run->glyphs->glyphs);
 	  g_free(run->glyphs);
 	}
 	g_slist_free(runs);
 	g_free(text_line->layout_offsets);
-*/
+	text_line->layout_offsets = NULL;
     }
 
     if (text_line->chars == NULL ||
@@ -318,7 +315,8 @@ text_line_cache_values(TextLine *text_line)
       text_line->offsets = 
 	dia_font_get_sizes(text_line->chars, text_line->font, text_line->height,
 			   &text_line->width, &text_line->ascent, 
-			   &text_line->descent, &n_offsets, NULL);
+			   &text_line->descent, &n_offsets,
+			   &text_line->layout_offsets);
     }
     text_line->clean = TRUE;
     text_line->chars_cache = text_line->chars;
@@ -361,27 +359,6 @@ void
 text_line_adjust_layout_line(TextLine *line, PangoLayoutLine *layoutline,
 			     real scale)
 {
-
-  /* This is a one-run version that uses tried-and-true offset arrays. */
-  if (line->offsets == NULL) {
-    return;
-  } else {
-    PangoGlyphString *glyphs;
-    PangoGlyphItem *glyphItem;
-
-    if (g_slist_length(layoutline->runs) != 1) {
-      message_warning("Unexpected %d runs in %s\n",
-		      g_slist_length(layoutline->runs),
-		      line->chars);
-    }
-
-    glyphItem = (PangoGlyphItem*)layoutline->runs->data;
-    glyphs = glyphItem->glyphs;
-    text_line_adjust_glyphs(line, glyphItem->glyphs, scale);
-  }
-
-/* More advanced version.
- * Commented out until we can have more than one run in a line.
   GSList *layoutruns = layoutline->runs;
   GSList *runs;
 
@@ -391,6 +368,11 @@ text_line_adjust_layout_line(TextLine *line, PangoLayoutLine *layoutline,
 
   runs = line->layout_offsets->runs;
 
+  if (g_slist_length(runs) != g_slist_length(layoutruns)) {
+    printf("Runs length error: %d != %d\n",
+	   g_slist_length(line->layout_offsets->runs),
+	   g_slist_length(layoutline->runs));
+  }
   for (; runs != NULL && layoutruns != NULL; runs = g_slist_next(runs),
 	 layoutruns = g_slist_next(layoutruns)) {
     PangoGlyphString *glyphs = ((PangoLayoutRun *) runs->data)->glyphs;
@@ -411,10 +393,4 @@ text_line_adjust_layout_line(TextLine *line, PangoLayoutLine *layoutline,
 	     glyphs->num_glyphs, layoutglyphs->num_glyphs);
     }
   }
-  if (runs != layoutruns) {
-    printf("Runs length error: %d != %d\n",
-	   g_slist_length(line->layout_offsets->runs),
-	   g_slist_length(layoutline->runs));
-  }
-*/
 }

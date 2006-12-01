@@ -632,36 +632,38 @@ get_layout_offsets(PangoLayoutLine *line, PangoLayoutLine **layout_line)
   GSList *layout_runs = NULL;
   GSList *runs = line->runs;
 
-  /* Not debugged yet, as we don't needs its functionality until textlines
-   * can have multiple runs. */
-  return;
-
   *layout_line = g_new0(PangoLayoutLine, 1);
 
+  /* A LayoutLine contains a GSList runs of PangoGlyphItems.
+   * Each PangoGlyphItem contains an array glyphs of PangoGlyphString.
+   * This array is run->item->num_chars long?
+   * Each PangoGlyphString contains an array glyphs of PangoGlyphInfo.
+   * This array is run->glyphs[i].num_glyphs long.
+   */
   for (; runs != NULL; runs = g_slist_next(runs)) {
     PangoGlyphItem *run = (PangoGlyphItem *) runs->data;
     PangoGlyphItem *layout_run = g_new0(PangoGlyphItem, 1);
-    int i;
-
-    layout_run->glyphs = g_new0(PangoGlyphString, run->item->num_chars);
-    for (i = 0; i < run->item->num_chars; i++) {
-      int j;
-
-      layout_run->glyphs[i].num_glyphs = run->glyphs[i].num_glyphs;
-      layout_run->glyphs[i].glyphs = 
-	g_new0(PangoGlyphInfo, layout_run->glyphs[i].num_glyphs);
+    int j;
+    /* Make single pointer */
+    PangoGlyphString *glyph_string = run->glyphs;
+    PangoGlyphString *layout_glyph_string;
       
-      for (j = 0; j < layout_run->glyphs[i].num_glyphs; j++) {
-	PangoGlyphInfo *info = &run->glyphs[i].glyphs[i];
-	PangoGlyphInfo *layout_info = &layout_run->glyphs[i].glyphs[i];
-	layout_info->geometry.width = info->geometry.width / 20;
-	layout_info->geometry.x_offset = info->geometry.x_offset / 20;
-	layout_info->geometry.y_offset = info->geometry.y_offset / 20;
-      }      
-    }
+    layout_run->glyphs = g_new0(PangoGlyphString, 1);
+    layout_glyph_string = layout_run->glyphs;
 
+    layout_glyph_string->num_glyphs = glyph_string->num_glyphs;
+    layout_glyph_string->glyphs = 
+      g_new0(PangoGlyphInfo, glyph_string->num_glyphs);
+    for (j = 0; j < layout_glyph_string->num_glyphs; j++) {
+      PangoGlyphInfo *info = &glyph_string->glyphs[j];
+      PangoGlyphInfo *layout_info = &layout_glyph_string->glyphs[j];
+      layout_info->geometry.width = info->geometry.width / 20;
+      layout_info->geometry.x_offset = info->geometry.x_offset / 20;
+      layout_info->geometry.y_offset = info->geometry.y_offset / 20;
+    }
     layout_runs = g_slist_append(layout_runs, layout_run);
   }
+  (*layout_line)->runs = layout_runs;
 }
 
 /** Get size information for the given string, font and height.
@@ -699,9 +701,8 @@ dia_font_get_sizes(const char* string, DiaFont *font, real height,
   bline = pdu_to_dcm(pango_layout_iter_get_baseline(iter)) / 20;
 
   get_string_offsets(iter, &offsets, n_offsets);
-  /* Commented out until we can have more than one run in a line. 
   get_layout_offsets(pango_layout_get_line(layout, 0), layout_offsets);
-  */
+
   pango_layout_iter_free(iter);
   g_object_unref(G_OBJECT(layout));
 
