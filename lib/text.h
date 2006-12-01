@@ -71,6 +71,7 @@ Text *new_text(const char *string, DiaFont *font, real height,
 	       Point *pos, Color *color, Alignment align);
 void text_destroy(Text *text);
 Text *text_copy(Text *text);
+gchar *text_get_line(Text *text, int line);
 char *text_get_string_copy(Text *text);
 void text_set_string(Text *text, const char *string);
 void text_set_height(Text *text, real height);

@@ -31,7 +31,6 @@
 #include <stdio.h>
 
 #include <string.h>
-#include <strings.h>
 #include <math.h>
 #include <glib.h>
 #include <stdlib.h>
@@ -1526,11 +1525,11 @@ static void draw_image(DiaRenderer *self,
     if ((suffix = strrchr(filename, '.')))
     {
         suffix++;
-        if (!strcasecmp(suffix, "png")) { ForeignData.CompressionType = "PNG"; }
-        if (!strcasecmp(suffix, "gif")) { ForeignData.CompressionType = "GIF"; }
-        if (!strcasecmp(suffix, "jpg") || !strcasecmp(suffix, "jpeg")) 
+        if (!g_ascii_strncasecmp(suffix, "png", 3)) { ForeignData.CompressionType = "PNG"; }
+        if (!g_ascii_strncasecmp(suffix, "gif", 3)) { ForeignData.CompressionType = "GIF"; }
+        if (!g_ascii_strncasecmp(suffix, "jpg", 3) || !g_ascii_strncasecmp(suffix, "jpeg", 4)) 
         { ForeignData.CompressionType = "JPEG"; }
-        if (!strcasecmp(suffix, "tif") || !strcasecmp(suffix, "tiff")) 
+        if (!g_ascii_strncasecmp(suffix, "tif", 3) || !g_ascii_strncasecmp(suffix, "tiff", 4)) 
         { ForeignData.CompressionType = "TIFF"; }
     }
 

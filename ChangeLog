@@ -1,3 +1,13 @@
+2006-12-01  Steffen Macke <sdteffen@gmail.com>
+
+	* lib/text.h: Added text_get_line() declaration
+	* lib/text.c: 
+	* lib/libdia.def: Added text_get_line_width, text_get_line, 
+	text_get_descent,text_get_max_width
+	* objects/UML/object.c: Fixed typo in objet_draw()
+	* plug-ins/vdx/vdx-export.c: Use g_ascii_strncasecmp() instead of
+	strcasecmp()
+	
 2006-11-30  Lars Clausen  <lars@raeder.dk>
 
 	* app/diapsft2renderer.c (draw_text_line): 

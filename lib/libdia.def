@@ -637,6 +637,10 @@ EXPORTS
  text_distance_from
  text_draw
  text_get_attributes
+ text_get_descent
+ text_get_line
+ text_get_line_width
+ text_get_max_width
  text_get_string_copy
  text_grab_focus
  text_set_alignment

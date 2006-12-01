@@ -327,7 +327,7 @@ objet_draw(Objet *ob, DiaRenderer *renderer)
     
   for (i=0; i<ob->text->numlines; i++) { 
     p1.x = x + (w - text_get_line_width(ob->text, i))/2;
-    p2.x = p1.x + tex_get_line_width(ob->text, i);
+    p2.x = p1.x + text_get_line_width(ob->text, i);
     renderer_ops->draw_line(renderer,
 			     &p1, &p2,
 			     &ob->text_color);
