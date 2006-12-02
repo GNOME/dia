@@ -26,8 +26,6 @@
 #include <string.h>
 #include <gdk/gdk.h>
 
-#include <sys/time.h>
-
 #define PANGO_ENABLE_ENGINE
 #include <pango/pango-engine.h>
 #include <pango/pango.h>

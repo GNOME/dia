@@ -13,7 +13,8 @@
 
 	* lib/diagdkrenderer.c (draw_text_line): Removed code for caching
 	text rendering, it's not really needed with new textline based
-	rendering being so fast after all.
+	rendering being so fast after all.  Also remove debugging include
+	of sys/time.h.
 
 2006-12-01  Lars Clausen  <lars@raeder.dk>
 
