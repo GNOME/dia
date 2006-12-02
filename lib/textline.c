@@ -382,11 +382,11 @@ text_line_adjust_layout_line(TextLine *line, PangoLayoutLine *layoutline,
 
     for (i = 0; i < glyphs->num_glyphs && i < layoutglyphs->num_glyphs; i++) {
       layoutglyphs->glyphs[i].geometry.width =
-	(int)(glyphs->glyphs[i].geometry.width * scale * 20.0 * PANGO_SCALE);
+	(int)(glyphs->glyphs[i].geometry.width * scale / 20.0);
       layoutglyphs->glyphs[i].geometry.x_offset =
-	(int)(glyphs->glyphs[i].geometry.x_offset * scale * 20.0 * PANGO_SCALE);
+	(int)(glyphs->glyphs[i].geometry.x_offset * scale / 20.0);
       layoutglyphs->glyphs[i].geometry.y_offset =
-	(int)(glyphs->glyphs[i].geometry.y_offset * scale * 20.0 * PANGO_SCALE);
+	(int)(glyphs->glyphs[i].geometry.y_offset * scale / 20.0);
     }
     if (glyphs->num_glyphs != layoutglyphs->num_glyphs) {
       printf("Glyph length error: %d != %d\n", 

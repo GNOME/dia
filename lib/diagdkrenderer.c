@@ -706,23 +706,6 @@ draw_text_line (DiaRenderer *object, TextLine *text_line,
     dia_transform_coords(renderer->transform, 
 			 start_pos.x, start_pos.y, &x, &y);
 
-#ifdef HAVE_FREETYPE
-/* The cache appears to work, but there's no gain from it yet, since
- * nobody hangs on to textline objects long enough.
- */
-#ifdef USE_TEXTLINE_CACHE
-    FreetypeCacheData *cache = text_line_get_renderer_cache(text_line,
-							    object,
-							    scale);
-    if (cache != NULL) {
-      gdk_draw_pixbuf(renderer->pixmap, renderer->gc, cache->rgba,
-		      0, 0, x, y, 
-		      cache->width, cache->height, GDK_RGB_DITHER_NONE, 0, 0);
-      return;
-    }
-#endif
-#endif
-
    layout = dia_font_build_layout(text, text_line->font,
 				   dia_transform_length(renderer->transform, text_line->height)/20.0);
 
@@ -768,20 +751,8 @@ draw_text_line (DiaRenderer *object, TextLine *text_line,
 	  g_free(graybitmap);
 
 	  gdk_draw_pixbuf(renderer->pixmap, renderer->gc, rgba, 0, 0, x, y, width, height, GDK_RGB_DITHER_NONE, 0, 0);
-#ifdef USE_TEXTLINE_CACHE
-	  /* This is not exactly useful until textline objects start hanging
-	   * around longer than the duration of draw_string().  Nor is it
-	   * entirely debugged (i.e. it crashes:)
-	   */
-	  cache = g_new(FreetypeCacheData, 1);
-	  cache->rgba = rgba;
-	  cache->width = width;
-	  cache->height = height;
-	  text_line_set_renderer_cache(text_line, object, 
-				       free_freetype_cache_data, scale, cache);
-#else
+
 	  g_object_unref(G_OBJECT(rgba));
-#endif
 	}
       }
 #else

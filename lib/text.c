@@ -31,10 +31,7 @@
 #include "diarenderer.h"
 #include "diagramdata.h"
 #include "objchange.h"
-
-#ifdef USE_TEXTLINE_FOR_LINES
 #include "textline.h"
-#endif
 
 static int text_key_event(Focus *focus, guint keysym,
 			  const gchar *str, int strlen,
@@ -63,14 +60,10 @@ struct TextObjectChange {
 #define CURSOR_HEIGHT_RATIO 20
 
 /* *** Encapsulation functions for transferring to text_line *** */
-static gchar *
+gchar *
 text_get_line(Text *text, int line)
 {
-#ifdef USE_TEXTLINE_FOR_LINES
   return text_line_get_string(text->lines[line]);
-#else
-  return text->line[line];
-#endif
 }
 
 /** Raw sets one line to a given text, not copying, not freeing.
@@ -78,11 +71,7 @@ text_get_line(Text *text, int line)
 static void
 text_set_line(Text *text, int line_no, gchar *line)
 {
-#ifdef USE_TEXTLINE_FOR_LINES
   text_line_set_string(text->lines[line_no], line);
-#else
-  text->line[line_no] = line;
-#endif
 }
 
 /** Set the text of a line, freeing, copying and mallocing as required.
@@ -91,18 +80,8 @@ text_set_line(Text *text, int line_no, gchar *line)
 static void
 text_set_line_text(Text *text, int line_no, gchar *line)
 {
-#ifdef USE_TEXTLINE_FOR_LINES
   text_set_line(text, line_no, g_strdup(line));
   text->strlen[line_no] = strlen(line);
-#else
-  if (text->line[line_no] != NULL) {
-    g_free(text->line[line_no]);
-  }
-  text_set_line(text, line_no, g_strdup(line));
-  text->row_width[line_no] = 
-    dia_font_string_width(line, text->font, text->height);
-  text->strlen[line_no] = strlen(line);
-#endif
 }
 
 /** Delete the line, freeing appropriately and moving stuff up.
@@ -113,7 +92,6 @@ text_delete_line(Text *text, int line_no)
 {
   int i;
 
-#ifdef USE_TEXTLINE_FOR_LINES
   g_free(text->lines[line_no]);
   for (i = line_no; i < text->numlines - 1; i++) {
     text->lines[i] = text->lines[i+1];
@@ -122,22 +100,6 @@ text_delete_line(Text *text, int line_no)
   text->numlines -= 1;
   text->lines = g_realloc(text->lines, sizeof(TextLine *)*text->numlines);
   text->strlen = g_realloc(text->strlen, sizeof(int)*text->numlines);
-#else
-  if (text->line[line_no] != NULL) {
-    free(text->line[line_no]);
-  }
-  
-  for (i = line_no; i < text->numlines - 1; i++) {
-    text_set_line(text, i, text_get_line(text, i+1));
-    text->strlen[i] = text->strlen[i+1];
-    text->row_width[i] = text->row_width[i+1];
-  }
-  
-  text->numlines -= 1;
-  text->line = g_realloc(text->line, sizeof(char *)*text->numlines);
-  text->strlen = g_realloc(text->strlen, sizeof(int)*text->numlines);
-  text->row_width = g_realloc(text->row_width, sizeof(real)*text->numlines);
-#endif
 }
 
 /** Insert a new (empty) line at line_no.
@@ -147,7 +109,6 @@ static void
 text_insert_line(Text *text, int line_no)
 {
   int i;
-#ifdef USE_TEXTLINE_FOR_LINES
   text->numlines += 1;
   text->lines = g_realloc(text->lines, sizeof(char *)*text->numlines);
   text->strlen = g_realloc(text->strlen, sizeof(int)*text->numlines);
@@ -157,19 +118,6 @@ text_insert_line(Text *text, int line_no)
     text->strlen[i] = text->strlen[i - 1];
   }
   text->lines[line_no] = text_line_new("", text->font, text->height);;
-#else
-  text->numlines += 1;
-  text->line = g_realloc(text->line, sizeof(char *)*text->numlines);
-  text->strlen = g_realloc(text->strlen, sizeof(int)*text->numlines);
-  text->row_width = g_realloc(text->row_width, sizeof(real)*text->numlines); 
-
-  for (i = text->numlines - 1; i > line_no; i--) {
-    text_set_line(text, i, text_get_line(text, i - 1));
-    text->strlen[i] = text->strlen[i - 1];
-    text->row_width[i] = text->row_width[i - 1];
-  }
-  text->line[line_no] = NULL;
-#endif
 }
 
 /** Get the in-diagram width of the given line.
@@ -180,11 +128,7 @@ text_insert_line(Text *text, int line_no)
 real
 text_get_line_width(Text *text, int line_no)
 {
-#ifdef USE_TEXTLINE_FOR_LINES
   return text_line_get_width(text->lines[line_no]);
-#else
-  return text->row_width[line_no];
-#endif
 }
 
 /** Get the number of characters of the given line.
@@ -235,10 +179,6 @@ calc_width(Text *text)
 
   width = 0.0;
   for (i = 0; i < text->numlines; i++) {
-#ifndef USE_TEXTLINE_FOR_LINES
-    text->row_width[i] =
-      dia_font_string_width(text_get_line(text, i), text->font, text->height);
-#endif
     width = MAX(width, text_get_line_width(text, i));
   }
   
@@ -252,13 +192,8 @@ calc_ascent_descent(Text *text)
   guint i;
     
   for ( i = 0; i < text->numlines; i++) {
-#ifdef USE_TEXTLINE_FOR_LINES
     sig_a += text_line_get_ascent(text->lines[i]);
     sig_d += text_line_get_descent(text->lines[i]);
-#else
-    sig_a += dia_font_ascent(text_get_line(text, i), text->font, text->height);
-    sig_d += dia_font_descent(text_get_line(text, i), text->font, text->height);
-#endif
   }
   
   text->ascent = sig_a / (real)text->numlines;
@@ -270,7 +205,6 @@ free_string(Text *text)
 {
   int i;
 
-#ifdef USE_TEXTLINE_FOR_LINES
   for (i=0;i<text->numlines;i++) {
     text_line_destroy(text->lines[i]);
   }
@@ -280,20 +214,6 @@ free_string(Text *text)
   
   g_free(text->strlen);
   text->strlen = NULL;
-#else
-  for (i=0;i<text->numlines;i++) {
-    g_free(text_get_line(text, i));
-  }
-
-  g_free(text->line);
-  text->line = NULL;
-  
-  g_free(text->strlen);
-  text->strlen = NULL;
-
-  g_free(text->row_width);
-  text->row_width = NULL;
-#endif
 }
 
 static void
@@ -313,17 +233,11 @@ set_string(Text *text, const char *string)
       }
     }
   text->numlines = numlines;
-#ifdef USE_TEXTLINE_FOR_LINES
   text->lines = g_new0(TextLine *, numlines);
   for (i = 0; i < numlines; i++) {
     text->lines[i] = text_line_new("", text->font, text->height);
   }
   text->strlen = g_new(int, numlines);
-#else
-  text->line = g_new0(char *, numlines);
-  text->strlen = g_new(int, numlines);
-  text->row_width = g_new(real, numlines);
-#endif
 
   s = string;
 
@@ -359,13 +273,8 @@ set_string(Text *text, const char *string)
 void
 text_set_string(Text *text, const char *string)
 {
-#ifdef USE_TEXTLINE_FOR_LINES
   if (text->lines != NULL)
     free_string(text);
-#else
-  if (text->line != NULL)
-    free_string(text);
-#endif
   
   set_string(text, string);
 }
@@ -408,14 +317,8 @@ text_copy(Text *text)
 
   copy = g_new(Text, 1);
   copy->numlines = text->numlines;
-#ifdef USE_TEXTLINE_FOR_LINES
   copy->lines = g_new(TextLine *, text->numlines);
   copy->strlen = g_new(int, text->numlines);
-#else
-  copy->line = g_malloc(sizeof(char *)*text->numlines);
-  copy->strlen = g_malloc(sizeof(int)*text->numlines);
-  copy->row_width = g_malloc(sizeof(real)*text->numlines);
-#endif
   
   copy->font = dia_font_ref(text->font);
   copy->height = text->height;
@@ -424,7 +327,10 @@ text_copy(Text *text)
   copy->alignment = text->alignment;
 
   for (i=0;i<text->numlines;i++) {
-    text_set_line_text(copy, i, text_get_line(text, i));
+    TextLine *text_line = text->lines[i];
+    copy->lines[i] = text_line_new(text_line_get_string(text_line),
+				   text_line_get_font(text_line),
+				   text_line_get_height(text_line));
   }
 
   copy->cursor_pos = 0;
@@ -454,11 +360,9 @@ text_set_height(Text *text, real height)
 {
   int i;
   text->height = height;
-#ifdef USE_TEXTLINE_FOR_LINES
   for (i = 0; i < text->numlines; i++) {
     text_line_set_height(text->lines[i], height);
   }
-#endif
   calc_width(text);
   calc_ascent_descent(text);
 }
@@ -472,11 +376,9 @@ text_set_font(Text *text, DiaFont *font)
   text->font = dia_font_ref(font);
   dia_font_unref(old_font);
 
-#ifdef USE_TEXTLINE_FOR_LINES
   for (i = 0; i < text->numlines; i++) {
     text_line_set_font(text->lines[i], font);
   }
-#endif
   
   calc_width(text);
   calc_ascent_descent(text);
@@ -543,8 +445,6 @@ text_calc_boundingbox(Text *text, Rectangle *box)
     box->bottom += height/CURSOR_HEIGHT_RATIO;
   }
 }
-
-
 
 char *
 text_get_string_copy(Text *text)
@@ -1135,11 +1035,9 @@ void
 text_set_attributes(Text *text, TextAttributes *attr)
 {
   if (text->font != attr->font) {
-    DiaFont *old_font = text->font;
-    text->font = dia_font_ref(attr->font);
-    dia_font_unref(old_font);
+    text_set_font(text, attr->font);
   }
-  text->height = attr->height;
+  text_set_height(text, attr->height);
   text->position = attr->position;
   text->color = attr->color;
   text->alignment = attr->alignment;

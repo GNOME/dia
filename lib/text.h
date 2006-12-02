@@ -39,12 +39,7 @@ struct _Text {
   
   /* Text data: */
   int numlines;
-#ifdef USE_TEXTLINE_FOR_LINES
   TextLine **lines;
-#else
-  gchar **line;
-  real *row_width;
-#endif
   int *strlen;  /* in characters */
 
   /* Attributes: */

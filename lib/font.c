@@ -657,9 +657,9 @@ get_layout_offsets(PangoLayoutLine *line, PangoLayoutLine **layout_line)
     for (j = 0; j < layout_glyph_string->num_glyphs; j++) {
       PangoGlyphInfo *info = &glyph_string->glyphs[j];
       PangoGlyphInfo *layout_info = &layout_glyph_string->glyphs[j];
-      layout_info->geometry.width = info->geometry.width / 20;
-      layout_info->geometry.x_offset = info->geometry.x_offset / 20;
-      layout_info->geometry.y_offset = info->geometry.y_offset / 20;
+      layout_info->geometry.width = info->geometry.width;
+      layout_info->geometry.x_offset = info->geometry.x_offset;
+      layout_info->geometry.y_offset = info->geometry.y_offset;
     }
     layout_runs = g_slist_append(layout_runs, layout_run);
   }
@@ -684,6 +684,7 @@ dia_font_get_sizes(const char* string, DiaFont *font, real height,
   real* offsets;
   int i;
 
+  /* We need some reasonable ascent/descent values even for empty strings. */
   if (string == NULL || string[0] == '\0') {
     non_empty_string = "XjgM149";
   } else {

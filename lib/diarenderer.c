@@ -405,32 +405,21 @@ static void draw_text(DiaRenderer *renderer,
 		      Text *text) {
   Point pos;
   int i;
-#ifdef USE_TEXTLINE_FOR_LINES
+
   pos = text->position;
   
   for (i=0;i<text->numlines;i++) {
     Point aligned_pos = pos;
-    aligned_pos.x -= text_line_get_alignment_adjustment(text->lines[i],
+    TextLine *text_line = text->lines[i];
+
+    aligned_pos.x -= text_line_get_alignment_adjustment(text_line,
 							text->alignment);
     DIA_RENDERER_GET_CLASS(renderer)->draw_text_line(renderer,
-						     text->lines[i],
+						     text_line,
 						     &aligned_pos,
 						     &text->color);
     pos.y += text->height;
   }
-#else
-  DIA_RENDERER_GET_CLASS(renderer)->set_font(renderer, text->font, text->height);
-  
-  pos = text->position;
-  
-  for (i=0;i<text->numlines;i++) {
-    DIA_RENDERER_GET_CLASS(renderer)->draw_string(renderer,
-						  text->line[i],
-						  &pos, text->alignment,
-						  &text->color);
-    pos.y += text->height;
-  }
-#endif
 }
 
 /** Default implementation of draw_text_line */

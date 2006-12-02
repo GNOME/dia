@@ -1,3 +1,20 @@
+2006-12-02  Lars Clausen  <lars@raeder.dk>
+
+	* lib/textline.c (text_line_cache_values): 
+	* lib/font.c (get_layout_offsets): Fix (seemingly) remaining
+	problems in the textline adjustment process.
+
+	* lib/text.c: Fix a couple bugs, admit to using textline for text
+	rendering, make sure height&font are set from attributes.
+	
+	* lib/text.h: 
+	* lib/diarenderer.c: Admit to using textline for text rendering
+	always. 
+
+	* lib/diagdkrenderer.c (draw_text_line): Removed code for caching
+	text rendering, it's not really needed with new textline based
+	rendering being so fast after all.
+
 2006-12-01  Lars Clausen  <lars@raeder.dk>
 
 	* plug-ins/pstricks/render_pstricks.c (set_linewidth): Specify
