@@ -54,7 +54,7 @@ static const GtkTargetEntry create_object_targets[] = {
 ToolButton tool_data[] =
 {
   { (char **) dia_modify_tool_icon,
-    N_("Modify object(s)"),
+    N_("Modify object(s)\nUse <Space> to toggle between this and other tools"),
     NULL,
     "ToolsModify",
     { MODIFY_TOOL, NULL, NULL}
