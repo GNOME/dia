@@ -58,6 +58,7 @@
 #include <libart_lgpl/art_rgb_rgba_affine.h>
 #include <libart_lgpl/art_rgb_bitmap_affine.h>
 #include <libart_lgpl/art_filterlevel.h>
+#include <libart_lgpl/art_svp_intersect.h>
 
 static inline guint32 
 color_to_abgr(Color *col)
@@ -482,10 +483,11 @@ fill_polygon(DiaRenderer *self,
 {
   DiaLibartRenderer *renderer = DIA_LIBART_RENDERER (self);
   ArtVpath *vpath;
-  ArtSVP *svp;
+  ArtSVP *svp, *temp;
   guint32 rgba;
   double x,y;
   int i;
+  ArtSvpWriter *swr;
   
   rgba = color_to_rgba(renderer, color);
   
@@ -509,10 +511,17 @@ fill_polygon(DiaRenderer *self,
   vpath[i+1].x = 0;
   vpath[i+1].y = 0;
   
-  svp = art_svp_from_vpath (vpath);
+  temp = art_svp_from_vpath (vpath);
   
   art_free( vpath );
   
+  /** We always use odd-even wind rule */
+  swr = art_svp_writer_rewind_new(ART_WIND_RULE_ODDEVEN);
+
+  art_svp_intersector(temp, swr);
+  svp = art_svp_writer_rewind_reap(swr);
+  art_svp_free(temp);
+
   art_rgb_svp_alpha (svp,
 		     0, 0, 
 		     renderer->pixel_width,

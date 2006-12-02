@@ -1,5 +1,8 @@
 2006-12-02  Lars Clausen  <lars@raeder.dk>
 
+	* lib/dialibartrenderer.c (fill_polygon): Make sure to use
+	odd-even winding rule.  Fixes bug #378878.
+
 	* app/interface.c (tool_data): Add note about Space toggling tools.
 
 	* samples/render-test.dia: Updated font geometry part since font
