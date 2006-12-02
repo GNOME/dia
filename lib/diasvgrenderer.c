@@ -667,7 +667,7 @@ draw_string(DiaRenderer *self,
     style = g_strconcat(style, "; text-anchor:end", NULL);
     break;
   }
-  tmp = g_strdup_printf("%s; font-size: %s", style,
+  tmp = g_strdup_printf("%s; font-size: %s cm", style,
 			dia_svg_dtostr(d_buf, self->font_height) );
   g_free (style);
   style = tmp;
@@ -713,12 +713,12 @@ draw_text_line(DiaRenderer *self, TextLine *text_line,
   style = (char*)get_fill_style(renderer, colour);
   /* return value must not be freed */
   renderer->linewidth = saved_width;
-  tmp = g_strdup_printf("%s; font-size: %s", style,
+  tmp = g_strdup_printf("%s; font-size: %s cm", style,
 			dia_svg_dtostr(d_buf, text_line_get_height(text_line)));
   g_free (style);
   style = tmp;
 
-  tmp = g_strdup_printf("%s; length: %s", style,
+  tmp = g_strdup_printf("%s; length: %s cm", style,
 			dia_svg_dtostr(d_buf, text_line_get_width(text_line)));
   g_free (style);
   style = tmp;
