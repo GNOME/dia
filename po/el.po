@@ -5,18 +5,20 @@
 # Spiros Papadimitriou <spapadim+@cs.cmu.edu>, 2000.
 # Velonis Petros <velonis@freemail.gr>, 2004.
 # Kostas Papadimas <pkst@gnome.org>, 2004, 2006.
+# Dimitris Glezos <dimitris@glezos.com>, 2006.
 msgid ""
 msgstr ""
 "Project-Id-Version: el\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-09-12 12:29+0300\n"
-"PO-Revision-Date: 2006-04-09 13:32+0300\n"
-"Last-Translator: Kostas Papadimas <pkst@gnome.org>\n"
+"POT-Creation-Date: 2006-12-03 15:07+0000\n"
+"PO-Revision-Date: 2006-12-03 15:10+0000\n"
+"Last-Translator: Dimitris Glezos <dimitris@glezos.com>\n"
 "Language-Team: Greek <team@gnome.gr>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.2\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 
 #. This is not an errror
 #: ../app/app_procs.c:260
@@ -155,8 +157,7 @@ msgstr "Dia έκδοση %s\n"
 
 #: ../app/app_procs.c:895 ../app/diaconv.c:201 ../app/diaconv.c:203
 #, fuzzy, c-format
-msgid ""
-"Couldn't find standard objects when looking for object-libs; exiting...\n"
+msgid "Couldn't find standard objects when looking for object-libs; exiting...\n"
 msgstr ""
 "Δε βρέθηκαν τα στάνταρ αντικείμενα κατά την αναζήτηση των βιβλιοθηκών, "
 "τερματισμός...\n"
@@ -306,20 +307,20 @@ msgstr "Επιλογή προσκήνιου χρώματος"
 msgid "Select background color"
 msgstr "Επιλογή χρώματος φόντου"
 
-#: ../app/commands.c:133
+#: ../app/commands.c:134
 #, c-format
 msgid "Diagram%d.dia"
 msgstr "Διάγραμμα %d.dia"
 
-#: ../app/commands.c:206
+#: ../app/commands.c:207
 msgid "No existing object to paste.\n"
 msgstr "Δεν υπάρχει αντικείμενο προς επικόλληση.\n"
 
-#: ../app/commands.c:537 ../app/commands.c:575
+#: ../app/commands.c:538 ../app/commands.c:576
 msgid "Could not find help directory"
 msgstr "Δε βρέθηκε ο κατάλογος βοηθείας"
 
-#: ../app/commands.c:544
+#: ../app/commands.c:545
 #, c-format
 msgid ""
 "Could not open help directory:\n"
@@ -328,14 +329,14 @@ msgstr ""
 "Αδύνατο το άνοιγμα του καταλόγου βοηθείας:\n"
 "%s"
 
-#: ../app/commands.c:611
+#: ../app/commands.c:612
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 "Παπαδήμας Κώστας\n"
 "Μενέλαος Μαγκλής \n"
 "Δημήτρης Αγγελάκος"
 
-#: ../app/commands.c:613
+#: ../app/commands.c:614
 msgid ""
 "This program is free software; you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"
@@ -352,7 +353,7 @@ msgid ""
 "Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.\n"
 msgstr ""
 
-#: ../app/commands.c:636
+#: ../app/commands.c:637
 #, fuzzy
 msgid "A program for drawing structured diagrams."
 msgstr "Επεξεργαστής για Διαγράμματα Στατικής Δομής EML."
@@ -612,7 +613,7 @@ msgstr "Σφάλμα"
 msgid "Ok"
 msgstr "Εντάξει"
 
-#: ../app/dialogs.c:52 ../app/paginate_psprint.c:314
+#: ../app/dialogs.c:52 ../app/paginate_psprint.c:320
 msgid "Cancel"
 msgstr "Άκυρο"
 
@@ -673,7 +674,7 @@ msgstr "%0.3gcm x %0.3gcm"
 msgid "Page Setup"
 msgstr "Διαμόρφωση Σελίδας"
 
-#: ../app/disp_callbacks.c:83 ../app/properties.c:152
+#: ../app/disp_callbacks.c:84 ../app/properties.c:152
 msgid ""
 "This object doesn't support Undo/Redo.\n"
 "Undo information erased."
@@ -681,11 +682,11 @@ msgstr ""
 "Το παρόν αντικείμενο δεν υποστηρίζει Ακύρωση/Επαναφορά.\n"
 "Οι πληροφορίες ακύρωσης διαγράφησαν."
 
-#: ../app/disp_callbacks.c:118
+#: ../app/disp_callbacks.c:119
 msgid "Properties..."
 msgstr "Ιδιότητες..."
 
-#: ../app/disp_callbacks.c:920
+#: ../app/disp_callbacks.c:921
 msgid ""
 "The object you dropped cannot fit into its parent. \n"
 "Either expand the parent object, or drop the object elsewhere."
@@ -739,15 +740,15 @@ msgstr "Κλείσιμο Διαγράμματος"
 msgid "_Discard Changes"
 msgstr "Αποθήκευση αλλαγών"
 
-#: ../app/export_png.c:136 ../app/load_save.c:918 ../app/render_eps.c:103
+#: ../app/export_png.c:136 ../app/load_save.c:951 ../app/render_eps.c:103
 #: ../plug-ins/cairo/diacairo.c:976 ../plug-ins/cgm/cgm.c:1151
 #: ../plug-ins/dxf/dxf-export.c:484 ../plug-ins/hpgl/hpgl.c:708
 #: ../plug-ins/metapost/render_metapost.c:1106
 #: ../plug-ins/pgf/render_pgf.c:1143
 #: ../plug-ins/pstricks/render_pstricks.c:914
 #: ../plug-ins/shape/shape-export.c:134 ../plug-ins/svg/render_svg.c:150
-#: ../plug-ins/wpg/wpg.c:1070 ../plug-ins/xfig/xfig-export.c:1136
-#: ../plug-ins/xslt/xslt.c:93
+#: ../plug-ins/vdx/vdx-export.c:1848 ../plug-ins/wpg/wpg.c:1070
+#: ../plug-ins/xfig/xfig-export.c:1136 ../plug-ins/xslt/xslt.c:93
 #, c-format
 msgid "Can't open output file %s: %s\n"
 msgstr "Αδύνατο το άνοιγμα του αρχείου εξόδου %s: %s\n"
@@ -814,7 +815,7 @@ msgstr "Αρχείο"
 msgid "Supported Formats"
 msgstr "Λειτουργίες ορατές"
 
-#: ../app/filedlg.c:307
+#: ../app/filedlg.c:307 ../app/paginate_psprint.c:406
 #, fuzzy
 msgid ""
 "Some characters in the filename are neither UTF-8\n"
@@ -825,11 +826,11 @@ msgstr ""
 "κωδικοποίησης.\n"
 "Κάποια πράγματα θα σπάσουν."
 
-#: ../app/filedlg.c:317 ../app/filedlg.c:559
+#: ../app/filedlg.c:317 ../app/filedlg.c:559 ../app/paginate_psprint.c:421
 msgid "File already exists"
 msgstr "Το αρχείο υπάρχει ήδη"
 
-#: ../app/filedlg.c:319 ../app/filedlg.c:561
+#: ../app/filedlg.c:319 ../app/filedlg.c:561 ../app/paginate_psprint.c:413
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
@@ -875,19 +876,21 @@ msgid "Export Options"
 msgstr "Εξαγωγή επιλογών"
 
 #: ../app/interface.c:57
-msgid "Modify object(s)"
-msgstr "Τροποποίηση αντικειμένου(ων)"
+msgid ""
+"Modify object(s)\n"
+"Use <Space> to toggle between this and other tools"
+msgstr ""
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Magnify
-#: ../app/interface.c:62 ../app/menus.c:187 ../objects/FS/function.c:986
+#: ../app/interface.c:63 ../app/menus.c:187 ../objects/FS/function.c:986
 msgid "Magnify"
 msgstr "Μεγένθυση"
 
-#: ../app/interface.c:67
+#: ../app/interface.c:69
 msgid "Scroll around the diagram"
 msgstr "Κύλιση του διαγράμματος"
 
-#: ../app/interface.c:72 ../app/menus.c:189 ../lib/properties.c:79
+#: ../app/interface.c:75 ../app/menus.c:189 ../lib/properties.c:79
 #: ../lib/properties.h:520 ../objects/AADL/aadlbox.c:144
 #: ../objects/Jackson/requirement.c:142 ../objects/UML/activity.c:127
 #: ../objects/UML/actor.c:122 ../objects/UML/classicon.c:144
@@ -900,88 +903,88 @@ msgstr "Κύλιση του διαγράμματος"
 msgid "Text"
 msgstr "Κείμενο"
 
-#: ../app/interface.c:77 ../app/menus.c:190
+#: ../app/interface.c:81 ../app/menus.c:190
 msgid "Box"
 msgstr "Κουτί"
 
-#: ../app/interface.c:82 ../app/menus.c:191
+#: ../app/interface.c:87 ../app/menus.c:191
 msgid "Ellipse"
 msgstr "Έλλειψη"
 
-#: ../app/interface.c:87 ../app/menus.c:192
+#: ../app/interface.c:93 ../app/menus.c:192
 msgid "Polygon"
 msgstr "Πολύγωνο"
 
-#: ../app/interface.c:92 ../app/menus.c:193
+#: ../app/interface.c:99 ../app/menus.c:193
 msgid "Beziergon"
 msgstr "Πολύγωνο με καμπύλες Bezier"
 
-#: ../app/interface.c:97 ../app/menus.c:195 ../objects/standard/line.c:225
+#: ../app/interface.c:105 ../app/menus.c:195 ../objects/standard/line.c:225
 msgid "Line"
 msgstr "Γραμμή"
 
-#: ../app/interface.c:102 ../app/menus.c:196
+#: ../app/interface.c:111 ../app/menus.c:196
 msgid "Arc"
 msgstr "Τόξο"
 
-#: ../app/interface.c:107 ../app/menus.c:197
+#: ../app/interface.c:117 ../app/menus.c:197
 msgid "Zigzagline"
 msgstr "Γραμμή ζικ ζακ"
 
-#: ../app/interface.c:112 ../app/menus.c:198
+#: ../app/interface.c:123 ../app/menus.c:198
 msgid "Polyline"
 msgstr "Πολυγωνική Γραμμή"
 
-#: ../app/interface.c:117 ../app/menus.c:199
+#: ../app/interface.c:129 ../app/menus.c:199
 msgid "Bezierline"
 msgstr "Γραμμή Bezier"
 
-#: ../app/interface.c:122 ../app/menus.c:201
+#: ../app/interface.c:135 ../app/menus.c:201
 msgid "Image"
 msgstr "Εικόνα"
 
-#: ../app/interface.c:402
+#: ../app/interface.c:416
 msgid "Diagram menu."
 msgstr "Μενού Διαγράμματος."
 
-#: ../app/interface.c:440
+#: ../app/interface.c:454
 msgid "Pops up the Navigation window."
 msgstr "Ανάδυση παραθύρου Πλοήγησης."
 
-#: ../app/interface.c:506
+#: ../app/interface.c:520
 msgid "Zoom"
 msgstr "Μεγένθυση"
 
-#: ../app/interface.c:521
+#: ../app/interface.c:535
 msgid "Toggles snap-to-grid for this window."
 msgstr "Εναλλαγή σε ταίριασμα-στο-πλέγμα για αυτό το παράθυρο."
 
-#: ../app/interface.c:532
+#: ../app/interface.c:546
 #, fuzzy
 msgid "Toggles object snapping for this window."
 msgstr "Εναλλαγή σε ταίριασμα-στο-πλέγμα για αυτό το παράθυρο."
 
-#: ../app/interface.c:597
+#: ../app/interface.c:611
 msgid "NULL tooldata in tool_select_update"
 msgstr ""
 
-#: ../app/interface.c:897
+#: ../app/interface.c:923
 #, fuzzy, c-format
 msgid "No sheet named %s"
 msgstr "Όνομα φύλλου:"
 
-#: ../app/interface.c:934
+#: ../app/interface.c:960
 #, fuzzy
 msgid "Other sheets"
 msgstr ""
 "%s\n"
 "Φύλλο εργασίας χρήστη"
 
-#: ../app/interface.c:992 ../sheets/Misc.sheet.in.h:3
+#: ../app/interface.c:1018 ../sheets/Misc.sheet.in.h:3
 msgid "Misc"
 msgstr "Διάφορα"
 
-#: ../app/interface.c:1053
+#: ../app/interface.c:1079
 msgid ""
 "Foreground & background colors for new objects.  The small black and white "
 "squares reset colors.  The small arrows swap colors.  Double click to change "
@@ -991,7 +994,7 @@ msgstr ""
 "τετράγωνα επαναφέρουν τα αρχικά χρώματα.  Τα μικρά βέλη αντιμεταθέτουν τα "
 "χρώματα.  Διπλό κλίκ για αλλαγή χρώματος."
 
-#: ../app/interface.c:1068
+#: ../app/interface.c:1094
 msgid ""
 "Line widths.  Click on a line to set the default line width for new "
 "objects.  Double-click to set the line width more precisely."
@@ -1000,7 +1003,7 @@ msgstr ""
 "προεπιλεγμένου πλάτους γραμμής για νέα αντικείμενα. Κάντε διπλό κλικ για τον "
 "καθορισμό του πλάτους γραμμής με μεγαλύτερη ακρίβεια."
 
-#: ../app/interface.c:1108
+#: ../app/interface.c:1134
 msgid ""
 "Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
 "arrow parameters with Details..."
@@ -1008,7 +1011,7 @@ msgstr ""
 "Μορφή βέλους στην αρχή νέων γραμμών. Κάντε κλικ για την επιλογή ενός βέλους, "
 "ή καθορίστε τις παραμέτρους βέλους στις Λεπτομέρειες..."
 
-#: ../app/interface.c:1113
+#: ../app/interface.c:1139
 msgid ""
 "Line style for new lines.  Click to pick a line style, or set line style "
 "parameters with Details..."
@@ -1016,7 +1019,7 @@ msgstr ""
 "Μορφή γραμμής για νέες γραμμές. Κάντε κλικ για την επιλογή μορφής γραμμής, ή "
 "καθορίστε τις παραμέτρους γραμμής στις Λεπτομέρειες..."
 
-#: ../app/interface.c:1127
+#: ../app/interface.c:1153
 msgid ""
 "Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
 "parameters with Details..."
@@ -1024,49 +1027,49 @@ msgstr ""
 "Μορφή βέλους στο τέλος νέων γραμμών. Κάντε κλικ για την επιλογή ενός βέλους, "
 "ή καθορίστε τις παραμέτρους βέλους στις Λεπτομέρειες..."
 
-#: ../app/interface.c:1237
+#: ../app/interface.c:1263
 msgid "Diagram Editor"
-msgstr "Διορθωτής Διαγραμμάτων"
+msgstr "Επεξεργαστής Διαγραμμάτων"
 
-#: ../app/layer_dialog.c:69
+#: ../app/layer_dialog.c:101
 msgid "New Layer"
 msgstr "Νέο Στρώμα"
 
-#: ../app/layer_dialog.c:70
+#: ../app/layer_dialog.c:102
 msgid "Raise Layer"
 msgstr "Ανύψωση Στρώματος"
 
-#: ../app/layer_dialog.c:71
+#: ../app/layer_dialog.c:103
 msgid "Lower Layer"
 msgstr "Βύθιση Στρώματος"
 
-#: ../app/layer_dialog.c:72
+#: ../app/layer_dialog.c:104
 msgid "Delete Layer"
 msgstr "Διαγραφή Στρώματος"
 
-#: ../app/layer_dialog.c:193
+#: ../app/layer_dialog.c:225
 msgid "Layers"
 msgstr "Στρώματα"
 
-#: ../app/layer_dialog.c:207
+#: ../app/layer_dialog.c:239
 #, fuzzy
 msgid "Diagram:"
 msgstr "Διαγράμματα:"
 
-#: ../app/layer_dialog.c:313
+#: ../app/layer_dialog.c:349
 #, fuzzy, c-format
 msgid "New layer %d"
 msgstr "Νέο στρώμα"
 
-#: ../app/layer_dialog.c:525
+#: ../app/layer_dialog.c:561
 msgid "none"
 msgstr "κανένα"
 
-#: ../app/layer_dialog.c:973
+#: ../app/layer_dialog.c:983
 msgid "Edit Layer Attributes"
 msgstr "Ιδιότητες Στρώματος"
 
-#: ../app/layer_dialog.c:992
+#: ../app/layer_dialog.c:1002
 msgid "Layer name:"
 msgstr "Όνομα στρώματος:"
 
@@ -1080,7 +1083,7 @@ msgstr "Πλάτος γραμμής"
 msgid "Line width:"
 msgstr "Πλάτος γραμμής:"
 
-#: ../app/load_save.c:261
+#: ../app/load_save.c:268
 msgid ""
 "Error loading diagram.\n"
 "Linked object not found in document."
@@ -1088,7 +1091,7 @@ msgstr ""
 "Σφάλμα ανάγνωσης του διαγράμματος.\n"
 "Το ενσωματωμένο αντικείμενο δε βρέθηκε στο έγγραφο."
 
-#: ../app/load_save.c:264
+#: ../app/load_save.c:271
 msgid ""
 "Error loading diagram.\n"
 "connection handle does not exist."
@@ -1096,7 +1099,7 @@ msgstr ""
 "Σφάλμα ανάγνωσης του διαγράμματος.\n"
 "Η λαβή σύνδεσης δεν υπάρχει."
 
-#: ../app/load_save.c:281
+#: ../app/load_save.c:288
 #, c-format
 msgid ""
 "Error loading diagram.\n"
@@ -1105,23 +1108,23 @@ msgstr ""
 "Σφάλμα φόρτωσης διαγράμματος.\n"
 "δεν υπάρχει σημείο σύνδεσης %s."
 
-#: ../app/load_save.c:306
+#: ../app/load_save.c:313
 #, c-format
 msgid "Can't find parent %s of %s object\n"
 msgstr "Αδυναμία εύρεσης γονέα %s του αντικειμένου %s\n"
 
-#: ../app/load_save.c:352
+#: ../app/load_save.c:359
 msgid "You must specify a file, not a directory.\n"
 msgstr "Πρέπει να καθορίσετε αρχείο, όχι κατάλογο.\n"
 
-#: ../app/load_save.c:359 ../plug-ins/dxf/dxf-import.c:1306
+#: ../app/load_save.c:366 ../plug-ins/dxf/dxf-import.c:1306
 #: ../plug-ins/wpg/wpg.c:1175 ../plug-ins/xfig/xfig-import.c:1258
 #: ../plug-ins/xslt/xslt.c:85
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "Άνοιγμα του '%s' για ανάγνωση αδύνατο.\n"
 
-#: ../app/load_save.c:377 ../app/load_save.c:383
+#: ../app/load_save.c:384 ../app/load_save.c:390
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -1130,7 +1133,7 @@ msgstr ""
 "Σφάλμα ανάγνωσης του διαγράμματος %s.\n"
 "Άγνωστος τύπος αρχείου."
 
-#: ../app/load_save.c:391
+#: ../app/load_save.c:398
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -1139,7 +1142,7 @@ msgstr ""
 "Σφάλμα ανάγνωσης του διαγράμματος %s.\n"
 "Δεν είναι αρχείο του Dia."
 
-#: ../app/load_save.c:597
+#: ../app/load_save.c:604
 #, c-format
 msgid ""
 "Error loading diagram:\n"
@@ -1150,12 +1153,29 @@ msgstr ""
 "%s.\n"
 "Ένα έγκυρο αρχείο Dia καθορίζει τουλάχιστον ένα στρώμα."
 
-#: ../app/load_save.c:952
+#: ../app/load_save.c:912
 #, c-format
-msgid "Failed to save file '%s'.\n"
-msgstr "Αποθήκευση στο αρχείο '%s' ανεπιτυχής.\n"
+msgid "No allowed to write to output file %s\n"
+msgstr ""
 
-#: ../app/load_save.c:1026 ../app/load_save.c:1031
+#: ../app/load_save.c:934
+#, c-format
+msgid "No allowed to write temporary files in %s\n"
+msgstr ""
+
+#. Save failed; we clean our stuff up, without touching the file named
+#. "filename" if it existed.
+#: ../app/load_save.c:962
+#, fuzzy, c-format
+msgid "Internal error %d writing file %s\n"
+msgstr "σφάλμα %s: απαιτείται έγκυρο αρχείο εισόδου %s\n"
+
+#: ../app/load_save.c:976
+#, fuzzy, c-format
+msgid "Can't rename %s to final output file %s: %s\n"
+msgstr "Αδύνατο το άνοιγμα του αρχείου εξόδου %s: %s\n"
+
+#: ../app/load_save.c:1064 ../app/load_save.c:1069
 msgid "Dia Diagram File"
 msgstr "Αρχείο Διαγράμματος Dia"
 
@@ -1396,7 +1416,7 @@ msgstr "/_Επιλογή"
 msgid "All"
 msgstr "Επιτρέπεται"
 
-#: ../app/menus.c:164 ../lib/arrows.c:40 ../objects/Jackson/domain.c:96
+#: ../app/menus.c:164 ../lib/arrows.c:43 ../objects/Jackson/domain.c:96
 #: ../objects/UML/association.c:1183
 msgid "None"
 msgstr "Κανένα"
@@ -1498,9 +1518,8 @@ msgid "Union"
 msgstr "κανένα"
 
 #: ../app/menus.c:227
-#, fuzzy
 msgid "Intersection"
-msgstr "/Επιλογή/Διατομή"
+msgstr "Τομή"
 
 #. Translators: Menu item Verb/Channel/Export/Remove
 #. Translators: Menu item Verb/Branch/Separate/Remove
@@ -1520,42 +1539,42 @@ msgstr "Μετατροπή"
 msgid "NULL tooldata in tool_menu_select"
 msgstr ""
 
-#: ../app/modify_tool.c:343
+#: ../app/modify_tool.c:344
 msgid "Couldn't get GTK settings"
 msgstr "Αδυναμία παραλαβής ρυθμίσεων GTK"
 
-#: ../app/paginate_psprint.c:265
+#: ../app/paginate_psprint.c:271
 msgid "Select Printer"
 msgstr "Επιλογή εκτυπωτή"
 
-#: ../app/paginate_psprint.c:277 ../sheets/ciscocomputer.sheet.in.h:36
+#: ../app/paginate_psprint.c:283 ../sheets/ciscocomputer.sheet.in.h:36
 msgid "Printer"
 msgstr "Εκτυπωτής"
 
-#: ../app/paginate_psprint.c:291 ../sheets/Misc.sheet.in.h:1
+#: ../app/paginate_psprint.c:297 ../sheets/Misc.sheet.in.h:1
 msgid "File"
 msgstr "Αρχείο"
 
-#: ../app/paginate_psprint.c:306
+#: ../app/paginate_psprint.c:312
 msgid "OK"
 msgstr "Εντάξει"
 
-#: ../app/paginate_psprint.c:401
+#: ../app/paginate_psprint.c:458
 #, c-format
 msgid "Could not run command '%s': %s"
 msgstr "Δεν ήταν δυνατή η εκτέλεση της εντολής '%s': %s"
 
-#: ../app/paginate_psprint.c:404
+#: ../app/paginate_psprint.c:461
 #, c-format
 msgid "Could not open '%s' for writing: %s"
 msgstr "Δεν ήταν δυνατό να ανοιχτεί το '%s' για εγγραφή: %s"
 
-#: ../app/paginate_psprint.c:421
+#: ../app/paginate_psprint.c:481
 #, c-format
 msgid "Printing error: command '%s' returned %d\n"
 msgstr "Σφάλμα εκτύπωσης: η εντολή '%s' επέστρεψε %d\n"
 
-#: ../app/paginate_psprint.c:432
+#: ../app/paginate_psprint.c:492
 #, c-format
 msgid "Printing error: command '%s' caused sigpipe."
 msgstr "Σφάλμα εκτύπωσης: η εντολή '%s' προκάλεσε sigpipe."
@@ -1568,7 +1587,7 @@ msgstr "Επιπρόσθετες λειτουργίες"
 msgid "Loaded"
 msgstr "Φορτώθηκε"
 
-#: ../app/plugin-manager.c:262 ../objects/UML/class.c:140
+#: ../app/plugin-manager.c:262 ../objects/UML/class.c:139
 #: ../objects/UML/large_package.c:131 ../objects/UML/umlattribute.c:37
 #: ../objects/UML/umlformalparameter.c:35 ../objects/UML/umloperation.c:62
 #: ../objects/UML/umlparameter.c:43
@@ -2023,138 +2042,152 @@ msgstr "Διορθωτής Διαγραμμάτων"
 msgid "Edit your Diagrams"
 msgstr "Εξαγωγή Διαγράμματος"
 
-#: ../lib/arrows.c:41
+#: ../lib/arrows.c:44
 msgid "Lines"
 msgstr "Γραμμές"
 
-#: ../lib/arrows.c:42
+#: ../lib/arrows.c:45
 msgid "Hollow Triangle"
 msgstr "Κενό Τρίγωνο"
 
-#: ../lib/arrows.c:43
+#: ../lib/arrows.c:46
 msgid "Filled Triangle"
 msgstr "Γεμισμένο Τρίγωνο"
 
-#: ../lib/arrows.c:44
+#: ../lib/arrows.c:47
 msgid "Unfilled Triangle"
 msgstr "Μη Γεμισμένο Τρίγωνο"
 
-#: ../lib/arrows.c:45
+#: ../lib/arrows.c:48
 msgid "Hollow Diamond"
 msgstr "Κοίλο Διαμάντι"
 
-#: ../lib/arrows.c:46
+#: ../lib/arrows.c:49
 msgid "Filled Diamond"
 msgstr "Γεμισμένος Ρόμβος"
 
-#: ../lib/arrows.c:47
+#: ../lib/arrows.c:50
 msgid "Half Diamond"
 msgstr "Μισό Διαμάντι"
 
-#: ../lib/arrows.c:48
+#: ../lib/arrows.c:51
 msgid "Half Head"
 msgstr "Ημικύκλιο"
 
-#: ../lib/arrows.c:49
+#: ../lib/arrows.c:52
 msgid "Slashed Cross"
 msgstr "Πλάγιος Σταυρός"
 
-#: ../lib/arrows.c:50
+#: ../lib/arrows.c:53
 msgid "Filled Ellipse"
 msgstr "Γεμισμένη Έλλειψη"
 
-#: ../lib/arrows.c:51
+#: ../lib/arrows.c:54
 msgid "Hollow Ellipse"
 msgstr "Κενή Έλλειψη"
 
-#: ../lib/arrows.c:52
+#: ../lib/arrows.c:55
 msgid "Filled Dot"
 msgstr "Γεμισμένο Σημείο"
 
-#: ../lib/arrows.c:53
+#: ../lib/arrows.c:56
 msgid "Dimension Origin"
 msgstr "Αφετηρία Διάστασης"
 
-#: ../lib/arrows.c:54
+#: ../lib/arrows.c:57
 msgid "Blanked Dot"
 msgstr ""
 
-#: ../lib/arrows.c:55
+#: ../lib/arrows.c:58
 msgid "Double Hollow Triangle"
 msgstr "Διπλό Κενό Τρίγωνο"
 
-#: ../lib/arrows.c:56
+#: ../lib/arrows.c:59
 msgid "Double Filled Triangle"
 msgstr "Διπλό Γεμισμένο Τρίγωνο"
 
-#: ../lib/arrows.c:57
+#: ../lib/arrows.c:60
 msgid "Filled Dot and Triangle"
 msgstr "Γεμισμένο Σημείο και Τρίγωνο"
 
-#: ../lib/arrows.c:58
+#: ../lib/arrows.c:61
 msgid "Filled Box"
 msgstr "Γεμισμένο Κουτί"
 
-#: ../lib/arrows.c:59
+#: ../lib/arrows.c:62
 msgid "Blanked Box"
 msgstr ""
 
-#: ../lib/arrows.c:60
+#: ../lib/arrows.c:63
 msgid "Slashed"
 msgstr "Με κάθετο"
 
-#: ../lib/arrows.c:61
+#: ../lib/arrows.c:64
 msgid "Integral Symbol"
 msgstr "Σύμβολο Ακέραιου"
 
-#: ../lib/arrows.c:62
+#: ../lib/arrows.c:65
 #, fuzzy
 msgid "Crow Foot"
 msgstr "Γραμματοσειρά:"
 
-#: ../lib/arrows.c:63
+#: ../lib/arrows.c:66
 msgid "Cross"
 msgstr "Σταυρός"
 
-#: ../lib/arrows.c:64
+#: ../lib/arrows.c:67
 msgid "1-or-many"
 msgstr "1-ή-πολλά"
 
-#: ../lib/arrows.c:65
+#: ../lib/arrows.c:68
 msgid "0-or-many"
 msgstr "0-ή-πολλά"
 
-#: ../lib/arrows.c:66
+#: ../lib/arrows.c:69
 msgid "1-or-0"
 msgstr "1-ή-0"
 
-#: ../lib/arrows.c:67
+#: ../lib/arrows.c:70
 msgid "1 exactly"
 msgstr "ακριβώς 1"
 
-#: ../lib/arrows.c:68
+#: ../lib/arrows.c:71
 msgid "Filled Concave"
 msgstr "Γεμισμένο Κοίλο"
 
-#: ../lib/arrows.c:69
+#: ../lib/arrows.c:72
 msgid "Blanked Concave"
 msgstr "Κενό Κοίλο"
 
-#: ../lib/arrows.c:70
+#: ../lib/arrows.c:73
 msgid "Round"
 msgstr "Στρογγυλό"
 
-#: ../lib/arrows.c:71
+#: ../lib/arrows.c:74
 msgid "Open Round"
 msgstr "Ανοικτό Στρογυλλό"
 
-#: ../lib/arrows.c:72
+#: ../lib/arrows.c:75
 msgid "Backslash"
 msgstr "Αντίστροφη κάθετος"
 
-#: ../lib/arrows.c:73
+#: ../lib/arrows.c:76
 msgid "Infinite Line"
 msgstr ""
+
+#: ../lib/arrows.c:1892
+msgid "Arrow head of unknown type"
+msgstr ""
+
+#: ../lib/arrows.c:1900
+#, c-format
+msgid "Arrow head of type %s has too small dimensions, removing.\n"
+msgstr ""
+
+#: ../lib/arrows.c:2021
+#, fuzzy
+msgid "unknown arrow"
+msgstr "Βέλος κάτω"
 
 #: ../lib/bezier_conn.c:636
 msgid "Internal error: Setting corner type of endpoint of bezier"
@@ -2237,8 +2270,7 @@ msgstr "Προεπισκόπηση κειμένου"
 
 #: ../lib/diagtkfontsel.c:217
 msgid "The text to display in order to demonstrate the selected font."
-msgstr ""
-"Το εμφανιζόμενο κείμενο για την επίδειξη της επιλεγμένης γραμματοσειράς."
+msgstr "Το εμφανιζόμενο κείμενο για την επίδειξη της επιλεγμένης γραμματοσειράς."
 
 #: ../lib/diagtkfontsel.c:321
 msgid "_Family:"
@@ -2261,7 +2293,7 @@ msgstr "_Προεπισκόπηση:"
 msgid "Font Selection"
 msgstr "Επιλογή Γραμματοσειράς"
 
-#: ../lib/dialibartrenderer.c:293
+#: ../lib/dialibartrenderer.c:295
 msgid "gdk_renderer: Unsupported fill mode specified!\n"
 msgstr "gdk_renderer: Ορίστικε μη υποστηριζόμενος τρόπος γεμίσματος!\n"
 
@@ -2274,7 +2306,7 @@ msgstr "Ιδίοτητες Στύλ Γραμμής"
 msgid "Multiple export filters with unique name %s"
 msgstr "Πολλαπλά φίλτρα εξαγωγής με μοναδικό όνομα %s"
 
-#: ../lib/font.c:100
+#: ../lib/font.c:101
 #, c-format
 msgid "Can't load font %s.\n"
 msgstr "Αδυναμία φόρτωσης της γραμματοσειράς %s.\n"
@@ -2405,7 +2437,7 @@ msgstr "Στοίχιση κειμένου"
 #. all this just to make the defaults selectable ...
 #: ../lib/properties.c:81 ../lib/properties.h:531
 #: ../objects/GRAFCET/condition.c:132 ../objects/GRAFCET/step.c:165
-#: ../objects/GRAFCET/transition.c:142 ../objects/UML/class.c:170
+#: ../objects/GRAFCET/transition.c:142 ../objects/UML/class.c:169
 #: ../objects/UML/class_dialog.c:394 ../objects/chronogram/chronoline.c:183
 #: ../objects/chronogram/chronoref.c:164
 msgid "Font"
@@ -2616,7 +2648,7 @@ msgstr "Αντικείμενα διαγράμματος Οντότητα/Σχέ�
 msgid "Total:"
 msgstr "Σύνολο:"
 
-#: ../objects/ER/participation.c:406 ../objects/FS/flow-ortho.c:645
+#: ../objects/ER/participation.c:406 ../objects/FS/flow-ortho.c:639
 #: ../objects/GRAFCET/vector.c:312 ../objects/SADT/arrow.c:457
 #: ../objects/UML/association.c:769 ../objects/UML/component_feature.c:184
 #: ../objects/UML/dependency.c:374 ../objects/UML/generalization.c:370
@@ -2625,7 +2657,7 @@ msgstr "Σύνολο:"
 msgid "Add segment"
 msgstr "Νέο τμήμα"
 
-#: ../objects/ER/participation.c:407 ../objects/FS/flow-ortho.c:646
+#: ../objects/ER/participation.c:407 ../objects/FS/flow-ortho.c:640
 #: ../objects/GRAFCET/vector.c:313 ../objects/SADT/arrow.c:458
 #: ../objects/UML/association.c:770 ../objects/UML/component_feature.c:185
 #: ../objects/UML/dependency.c:375 ../objects/UML/generalization.c:371
@@ -2656,14 +2688,14 @@ msgid "Relationship"
 msgstr "Σχέση"
 
 #. Translators: Menu item Noun/Energy
-#: ../objects/FS/flow-ortho.c:160 ../objects/FS/flow-ortho.c:642
+#: ../objects/FS/flow-ortho.c:160 ../objects/FS/flow-ortho.c:636
 #: ../objects/FS/flow.c:137 ../objects/FS/flow.c:580
 #: ../objects/FS/function.c:1096
 msgid "Energy"
 msgstr "Ενέργεια"
 
 #. Translators: Menu item Noun/Material
-#: ../objects/FS/flow-ortho.c:161 ../objects/FS/flow-ortho.c:643
+#: ../objects/FS/flow-ortho.c:161 ../objects/FS/flow-ortho.c:637
 #: ../objects/FS/flow.c:138 ../objects/FS/flow.c:581
 #: ../objects/FS/function.c:1072
 msgid "Material"
@@ -2673,7 +2705,7 @@ msgstr "Υλικό"
 #. Translators: Menu item Verb/Signal/Signal
 #. Translators: Menu item Noun/Signal
 #. Translators: Menu item Noun/Signal/Signal
-#: ../objects/FS/flow-ortho.c:162 ../objects/FS/flow-ortho.c:644
+#: ../objects/FS/flow-ortho.c:162 ../objects/FS/flow-ortho.c:638
 #: ../objects/FS/flow.c:139 ../objects/FS/flow.c:582
 #: ../objects/FS/function.c:1034 ../objects/FS/function.c:1036
 #: ../objects/FS/function.c:1172 ../objects/FS/function.c:1174
@@ -3234,7 +3266,7 @@ msgid "Expose"
 msgstr "Νέα Έλλειψη"
 
 #. Translators: Menu item Verb/Provision/Extract
-#: ../objects/FS/function.c:942 ../sheets/Flowchart.sheet.in.h:8
+#: ../objects/FS/function.c:942 ../sheets/Flowchart.sheet.in.h:9
 #, fuzzy
 msgid "Extract"
 msgstr "Εξαγωγή"
@@ -3488,7 +3520,7 @@ msgid "Mark"
 msgstr ""
 
 #. Translators: Menu item Verb/Signal/Display
-#: ../objects/FS/function.c:1060 ../sheets/Flowchart.sheet.in.h:6
+#: ../objects/FS/function.c:1060 ../sheets/Flowchart.sheet.in.h:7
 msgid "Display"
 msgstr "Εμφάνιση"
 
@@ -3906,7 +3938,7 @@ msgstr ""
 
 #: ../objects/GRAFCET/vergent.c:405 ../objects/Istar/other.c:469
 #: ../objects/Jackson/domain.c:531 ../objects/KAOS/goal.c:572
-#: ../objects/KAOS/other.c:525 ../objects/SADT/box.c:445
+#: ../objects/KAOS/other.c:525 ../objects/SADT/box.c:447
 #: ../objects/standard/line.c:219
 msgid "Add connection point"
 msgstr "Νέο σημείο σύνδεσης"
@@ -3982,13 +4014,13 @@ msgstr ""
 msgid "Resource"
 msgstr "Πρότυπα"
 
-#: ../objects/Istar/other.c:74
+#: ../objects/Istar/other.c:74 ../sheets/BPMN.sheet.in.h:43
 msgid "Task"
 msgstr ""
 
 #: ../objects/Istar/other.c:470 ../objects/Jackson/domain.c:532
 #: ../objects/KAOS/goal.c:573 ../objects/KAOS/other.c:526
-#: ../objects/SADT/box.c:446 ../objects/standard/line.c:220
+#: ../objects/SADT/box.c:448 ../objects/standard/line.c:220
 msgid "Delete connection point"
 msgstr "Διαγραφή σημείου σύνδεσης"
 
@@ -4172,13 +4204,13 @@ msgstr "Πλάτος πλαισίου:"
 msgid "Show hours"
 msgstr "Εμφάνιση ωρών"
 
-#: ../objects/Misc/libmisc.c:40
+#: ../objects/Misc/libmisc.c:42
 #, fuzzy
 msgid "Miscellaneous objects"
 msgstr "/_Ταξινόμηση αντικειμένων"
 
 #. property rows
-#: ../objects/SADT/arrow.c:134 ../objects/UML/class.c:175
+#: ../objects/SADT/arrow.c:134 ../objects/UML/class.c:174
 #: ../objects/UML/class_dialog.c:400
 msgid "Normal"
 msgstr "Κανονικό"
@@ -4232,7 +4264,7 @@ msgstr ""
 msgid "The identifier which appears in the lower right corner of the Box"
 msgstr ""
 
-#: ../objects/SADT/box.c:451
+#: ../objects/SADT/box.c:453
 msgid "SADT box"
 msgstr "SADT box"
 
@@ -4240,7 +4272,7 @@ msgstr "SADT box"
 msgid "SADT diagram objects"
 msgstr "Αντικείμενα διαγράμματος SADT"
 
-#: ../objects/UML/actor.c:375 ../objects/UML/actor.c:377
+#: ../objects/UML/actor.c:349 ../objects/UML/actor.c:351
 #: ../sheets/UML.sheet.in.h:2
 msgid "Actor"
 msgstr "Πράκτης"
@@ -4314,108 +4346,108 @@ msgid "Composition"
 msgstr "Σύνθεση"
 
 # # NOTE: For consistency (as far as I remember from my information systems class):
-#: ../objects/UML/class.c:138 ../objects/UML/class.c:309
-#: ../objects/UML/class.c:1708 ../sheets/UML.sheet.in.h:6
+#: ../objects/UML/class.c:137 ../objects/UML/class.c:308
+#: ../objects/UML/class.c:1678 ../sheets/UML.sheet.in.h:6
 msgid "Class"
 msgstr "Οντότητα"
 
-#: ../objects/UML/class.c:142 ../objects/UML/classicon.c:138
+#: ../objects/UML/class.c:141 ../objects/UML/classicon.c:138
 #: ../objects/UML/component.c:124 ../objects/UML/large_package.c:129
 #: ../objects/UML/object.c:150 ../objects/UML/small_package.c:124
 #: ../objects/UML/umloperation.c:68
 msgid "Stereotype"
 msgstr "Στερεότυπο"
 
-#: ../objects/UML/class.c:144 ../objects/UML/class.c:185
+#: ../objects/UML/class.c:143 ../objects/UML/class.c:184
 #: ../objects/UML/class_dialog.c:425 ../objects/UML/umlattribute.c:43
 #: ../objects/UML/umloperation.c:66 ../objects/UML/umlparameter.c:49
 #: ../sheets/SDL.sheet.in.h:3
 msgid "Comment"
 msgstr "Σχόλιο"
 
-#: ../objects/UML/class.c:146 ../objects/UML/class.c:179
+#: ../objects/UML/class.c:145 ../objects/UML/class.c:178
 #: ../objects/UML/class_dialog.c:324 ../objects/UML/class_dialog.c:410
 #: ../objects/UML/class_dialog.c:2016 ../objects/UML/uml.c:110
 msgid "Abstract"
 msgstr "Αφηρημένο"
 
-#: ../objects/UML/class.c:148 ../objects/UML/class.c:1705
+#: ../objects/UML/class.c:147 ../objects/UML/class.c:1675
 msgid "Template"
 msgstr "Πρότυπο"
 
-#: ../objects/UML/class.c:151 ../objects/UML/class_dialog.c:333
+#: ../objects/UML/class.c:150 ../objects/UML/class_dialog.c:333
 msgid "Suppress Attributes"
 msgstr "Απόκυψη ιδιοτήτων"
 
-#: ../objects/UML/class.c:153
+#: ../objects/UML/class.c:152
 #, fuzzy
 msgid "Suppress Operations"
 msgstr "Λειτουργίες ορατές"
 
-#: ../objects/UML/class.c:155
+#: ../objects/UML/class.c:154
 msgid "Visible Attributes"
 msgstr "Ορατές ιδιότητες"
 
-#: ../objects/UML/class.c:157
+#: ../objects/UML/class.c:156
 msgid "Visible Operations"
 msgstr "Λειτουργίες ορατές"
 
-#: ../objects/UML/class.c:159
+#: ../objects/UML/class.c:158
 msgid "Visible Comments"
 msgstr "Ορατά σχόλια"
 
-#: ../objects/UML/class.c:161 ../objects/UML/class_dialog.c:349
+#: ../objects/UML/class.c:160 ../objects/UML/class_dialog.c:349
 #, fuzzy
 msgid "Wrap Operations"
 msgstr "Λειτουργίες"
 
-#: ../objects/UML/class.c:163
+#: ../objects/UML/class.c:162
 msgid "Wrap after char"
 msgstr ""
 
-#: ../objects/UML/class.c:165
+#: ../objects/UML/class.c:164
 #, fuzzy
 msgid "Comment line length"
 msgstr "Ορατά σχόλια"
 
-#: ../objects/UML/class.c:167
+#: ../objects/UML/class.c:166
 #, fuzzy
 msgid "Comment tagging"
 msgstr "Σχόλιο"
 
-#: ../objects/UML/class.c:177 ../objects/UML/class_dialog.c:405
+#: ../objects/UML/class.c:176 ../objects/UML/class_dialog.c:405
 msgid "Polymorphic"
 msgstr "Πολυμορφικό"
 
-#: ../objects/UML/class.c:181
+#: ../objects/UML/class.c:180
 msgid "Classname"
 msgstr "Όνομα οντότητας:"
 
-#: ../objects/UML/class.c:183
+#: ../objects/UML/class.c:182
 #, fuzzy
 msgid "Abstract Classname"
 msgstr "Αφηρημένο"
 
-#: ../objects/UML/class.c:189 ../objects/UML/class.c:191
-#: ../objects/UML/class.c:193 ../objects/UML/class.c:195
-#: ../objects/UML/class.c:197 ../objects/UML/class.c:199
+#: ../objects/UML/class.c:188 ../objects/UML/class.c:190
+#: ../objects/UML/class.c:192 ../objects/UML/class.c:194
+#: ../objects/UML/class.c:196 ../objects/UML/class.c:198
 msgid " "
 msgstr " "
 
-#: ../objects/UML/class.c:205 ../objects/UML/object.c:154
+#: ../objects/UML/class.c:204 ../objects/UML/object.c:154
 msgid "Attributes"
 msgstr "Ιδιότητες"
 
-#: ../objects/UML/class.c:207
+#: ../objects/UML/class.c:206
 msgid "Operations"
 msgstr "Λειτουργίες"
 
-#: ../objects/UML/class.c:210
+#: ../objects/UML/class.c:209
 #, fuzzy
 msgid "Template Parameters"
 msgstr "Παράμετροι"
 
-#: ../objects/UML/class.c:304
+#: ../objects/UML/class.c:303
 msgid "Show Comments"
 msgstr "Εμφάνιση σχολίων"
 
@@ -5029,26 +5061,26 @@ msgstr ""
 msgid "Absolute end gap"
 msgstr ""
 
-#: ../objects/standard/bezier.c:728 ../objects/standard/beziergon.c:482
+#: ../objects/standard/bezier.c:698 ../objects/standard/beziergon.c:482
 #, fuzzy
 msgid "Add Segment"
 msgstr "Προσθήκη αρχείων"
 
-#: ../objects/standard/bezier.c:729 ../objects/standard/beziergon.c:483
+#: ../objects/standard/bezier.c:699 ../objects/standard/beziergon.c:483
 #, fuzzy
 msgid "Delete Segment"
 msgstr "Διαγραφή αντικειμένου"
 
-#: ../objects/standard/bezier.c:731 ../objects/standard/beziergon.c:485
+#: ../objects/standard/bezier.c:701 ../objects/standard/beziergon.c:485
 msgid "Symmetric control"
 msgstr "Συμμετρικός έλεγχος"
 
-#: ../objects/standard/bezier.c:733 ../objects/standard/beziergon.c:487
+#: ../objects/standard/bezier.c:703 ../objects/standard/beziergon.c:487
 #, fuzzy
 msgid "Smooth control"
 msgstr "Συμμετρικός έλεγχος"
 
-#: ../objects/standard/bezier.c:735 ../objects/standard/beziergon.c:489
+#: ../objects/standard/bezier.c:705 ../objects/standard/beziergon.c:489
 #, fuzzy
 msgid "Cusp control"
 msgstr "Συμμετρικός έλεγχος"
@@ -5128,11 +5160,11 @@ msgstr "Σημείο έναρξης"
 msgid "End point"
 msgstr "Σημείο λήξης"
 
-#: ../objects/standard/polygon.c:460 ../objects/standard/polyline.c:605
+#: ../objects/standard/polygon.c:460 ../objects/standard/polyline.c:577
 msgid "Add Corner"
 msgstr "Προσθήκη Γωνίας"
 
-#: ../objects/standard/polygon.c:461 ../objects/standard/polyline.c:606
+#: ../objects/standard/polygon.c:461 ../objects/standard/polyline.c:578
 msgid "Delete Corner"
 msgstr "Διαγραφή Γωνίας"
 
@@ -5327,11 +5359,11 @@ msgstr "Άνοιγμα του '%s' για εγγραφή αδύνατο.\n"
 msgid "Python scripting support"
 msgstr "Υποστήριξη σεναρίων Python"
 
-#: ../plug-ins/shape/shape-export.c:474
+#: ../plug-ins/shape/shape-export.c:475
 msgid "Can't export png without libart!"
 msgstr "Αδύνατη η εξαγωγή png χωρίς το libart!"
 
-#: ../plug-ins/shape/shape-export.c:499
+#: ../plug-ins/shape/shape-export.c:500
 #, fuzzy
 msgid "Dia Shape File"
 msgstr "Αρχείο σχήματος dia"
@@ -5351,7 +5383,7 @@ msgid ""
 "svg:path data must start with moveto."
 msgstr ""
 
-#: ../plug-ins/svg/svg-import.c:204
+#: ../plug-ins/svg/svg-import.c:204 ../plug-ins/vdx/vdx-import.c:140
 #, fuzzy
 msgid "Can't find standard object"
 msgstr "Είναι οντότητα"
@@ -5369,6 +5401,115 @@ msgstr ""
 #, fuzzy
 msgid "Scalable Vector Graphics import and export filters"
 msgstr "Διανυσματικά Γραφικά"
+
+#: ../plug-ins/vdx/vdx-export.c:1376 ../plug-ins/vdx/vdx-export.c:1385
+#, fuzzy, c-format
+msgid "Couldn't read file %s"
+msgstr "Άνοιγμα του \"%s\" αδύνατο.\n"
+
+#: ../plug-ins/vdx/vdx-export.c:1904
+msgid "Visio XML format"
+msgstr ""
+
+#: ../plug-ins/vdx/vdx-import.c:208 ../plug-ins/xfig/xfig-import.c:1034
+#, c-format
+msgid "Couldn't read color: %s\n"
+msgstr ""
+
+#: ../plug-ins/vdx/vdx-import.c:491
+#, fuzzy, c-format
+msgid "Couldn't find shape %d\n"
+msgstr "Δε βρέθηκε ο κατάλογος βοηθείας"
+
+#: ../plug-ins/vdx/vdx-import.c:761
+#, c-format
+msgid "Unexpected LineTo object: %s\n"
+msgstr ""
+
+#: ../plug-ins/vdx/vdx-import.c:767
+msgid "Unexpected LineTo additional objects\n"
+msgstr ""
+
+#: ../plug-ins/vdx/vdx-import.c:836
+msgid "MoveTo after start of polyline\n"
+msgstr ""
+
+#: ../plug-ins/vdx/vdx-import.c:842
+#, fuzzy, c-format
+msgid "Unexpected polyline object: %s\n"
+msgstr "Άνοιγμα του \"%s\" αδύνατο.\n"
+
+#: ../plug-ins/vdx/vdx-import.c:900
+msgid "MoveTo after start of polygon\n"
+msgstr ""
+
+#: ../plug-ins/vdx/vdx-import.c:906
+#, c-format
+msgid "Unexpected polygon object: %s\n"
+msgstr ""
+
+#: ../plug-ins/vdx/vdx-import.c:961
+#, c-format
+msgid "Unexpected Ellipse object: %s\n"
+msgstr ""
+
+#: ../plug-ins/vdx/vdx-import.c:967
+msgid "Unexpected Ellipse additional objects\n"
+msgstr ""
+
+#: ../plug-ins/vdx/vdx-import.c:976
+#, fuzzy
+msgid "Can't rotate ellipse\n"
+msgstr "Άνοιγμα του \"%s\" αδύνατο.\n"
+
+#: ../plug-ins/vdx/vdx-import.c:1228 ../plug-ins/vdx/vdx-import.c:1322
+msgid "MoveTo not at start of Bezier\n"
+msgstr ""
+
+#: ../plug-ins/vdx/vdx-import.c:1272
+#, c-format
+msgid "Unexpected Bezier object: %s\n"
+msgstr ""
+
+#: ../plug-ins/vdx/vdx-import.c:1363
+#, c-format
+msgid "Unexpected Beziergon object: %s\n"
+msgstr ""
+
+#: ../plug-ins/vdx/vdx-import.c:1405
+#, fuzzy, c-format
+msgid "Couldn't write file %s"
+msgstr "Δεν έγινε ανάγνωση πληροφοριών κειμένου: %s\n"
+
+#: ../plug-ins/vdx/vdx-import.c:1486
+#, fuzzy, c-format
+msgid "Couldn't handle foreign object type %s"
+msgstr "Αδυναμία αναγνώρισης αντικειμένου FIG: %s\n"
+
+#: ../plug-ins/vdx/vdx-import.c:1513
+#, fuzzy, c-format
+msgid "Couldn't make object dir %s"
+msgstr "Αδυναμία αναγνώρισης αντικειμένου FIG: %s\n"
+
+#: ../plug-ins/vdx/vdx-import.c:2184
+#, fuzzy
+msgid "Visio XML File Format"
+msgstr "Μορφoποίηση αρχείου XFig"
+
+#: ../plug-ins/vdx/vdx-xml.c:3444
+#, fuzzy, c-format
+msgid "Can't decode object %s"
+msgstr "Αδυναμία φόρτωσης της γραμματοσειράς %s.\n"
+
+#: ../plug-ins/vdx/vdx-xml.c:5291
+#, fuzzy, c-format
+msgid "Can't write object %u"
+msgstr "Είναι οντότητα"
+
+#: ../plug-ins/vdx/vdx.c:53
+#, fuzzy
+msgid "Visio XML Format import and export filter"
+msgstr "Computer Graphics Metafile (CGM)"
 
 #: ../plug-ins/wmf/wmf.cpp:1185
 #, c-format
@@ -5512,11 +5653,6 @@ msgstr "Αδυναμία αναγνώρισης αντικειμένου FIG: %s
 #, fuzzy
 msgid "Compound end outside compound\n"
 msgstr "Πρόωρο τέλος αρχείου FIG\n"
-
-#: ../plug-ins/xfig/xfig-import.c:1034
-#, c-format
-msgid "Couldn't read color: %s\n"
-msgstr ""
 
 #: ../plug-ins/xfig/xfig-import.c:1039
 #, c-format
@@ -5905,6 +6041,192 @@ msgstr "Εμφάνιση βέλους"
 #, fuzzy
 msgid "Vertical parallelogram"
 msgstr "Ορι_ζόντια Στοίχιση"
+
+#: ../sheets/BPMN.sheet.in.h:1
+#, fuzzy
+msgid "Activity Looping"
+msgstr "Ενεργό αντικείμενο"
+
+#: ../sheets/BPMN.sheet.in.h:2
+msgid "Ad-Hoc Collapsed Sub-Process"
+msgstr ""
+
+#. For: anthonym
+#: ../sheets/BPMN.sheet.in.h:4
+msgid "BPMN"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:5
+msgid "Business Process Modeling Notation"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:6
+msgid "Collapsed Sub-Process"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:7
+msgid "Compensation Collapsed Sub-Process"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:8
+#, fuzzy
+msgid "Compensation Task"
+msgstr "Σύνθεση"
+
+#: ../sheets/BPMN.sheet.in.h:9
+#, fuzzy
+msgid "Complex"
+msgstr "Σύζευξη"
+
+#: ../sheets/BPMN.sheet.in.h:10
+#, fuzzy
+msgid "Data Object"
+msgstr "DiaObject"
+
+#: ../sheets/BPMN.sheet.in.h:11
+#, fuzzy
+msgid "End Event"
+msgstr "Σημείο λήξης"
+
+#: ../sheets/BPMN.sheet.in.h:12
+msgid "End Event - Cancel"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:13
+msgid "End Event - Compensation"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:14
+msgid "End Event - Error"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:15
+msgid "End Event - Link"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:16
+msgid "End Event - Message"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:17
+msgid "End Event - Multiple"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:18
+msgid "End Event - Terminate"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:19
+msgid "Exclusive (XOR) Data Based"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:20
+msgid "Exclusive (XOR) Event Based"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:21
+#, fuzzy
+msgid "Gateway"
+msgstr "Mas Sasquatch"
+
+#: ../sheets/BPMN.sheet.in.h:22
+#, fuzzy
+msgid "Group"
+msgstr "/Αντικείμενα/_Απομαδοποίηση"
+
+#: ../sheets/BPMN.sheet.in.h:23
+msgid "Inclusive (OR)"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:24
+msgid "Intermediate Event"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:25
+msgid "Intermediate Event - Cancel"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:26
+msgid "Intermediate Event - Compensation"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:27
+msgid "Intermediate Event - Error"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:28
+msgid "Intermediate Event - Link"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:29
+msgid "Intermediate Event - Message"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:30
+msgid "Intermediate Event - Multiple"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:31
+msgid "Intermediate Event - Rule"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:32
+msgid "Intermediate Event - Timer"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:33
+msgid "Looping Collapsed Sub-Process"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:34
+msgid "Multiple Instance Collapsed Sub-Process"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:35
+#, fuzzy
+msgid "Multiple Instance Task"
+msgstr "πολλαπλή ενσάρκωση"
+
+#: ../sheets/BPMN.sheet.in.h:36
+msgid "Parallel (AND)"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:37
+#, fuzzy
+msgid "Start Event"
+msgstr "Σημείο έναρξης"
+
+#: ../sheets/BPMN.sheet.in.h:38
+msgid "Start Event - Link"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:39
+#, fuzzy
+msgid "Start Event - Message"
+msgstr "Αποστολή μηνύματος"
+
+#: ../sheets/BPMN.sheet.in.h:40
+msgid "Start Event - Multiple"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:41
+msgid "Start Event - Rule"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:42
+#, fuzzy
+msgid "Start Event - Timer"
+msgstr "Βέλος έναρξης"
+
+#: ../sheets/BPMN.sheet.in.h:44
+#, fuzzy
+msgid "Text Annotation"
+msgstr "Προσανατολισμός"
+
+#: ../sheets/BPMN.sheet.in.h:45
+#, fuzzy
+msgid "Transaction"
+msgstr "Μετάφραση"
 
 #: ../sheets/ChemEng.sheet.in.h:1
 msgid "AC Generator"
@@ -6632,127 +6954,132 @@ msgstr "Κλήση"
 msgid "Connector"
 msgstr "Σύνδεση"
 
-#: ../sheets/Flowchart.sheet.in.h:4 ../sheets/SDL.sheet.in.h:4
+#: ../sheets/Flowchart.sheet.in.h:4
+#, fuzzy
+msgid "Data source"
+msgstr "Χρώμα δεδομένων"
+
+#: ../sheets/Flowchart.sheet.in.h:5 ../sheets/SDL.sheet.in.h:4
 #, fuzzy
 msgid "Decision"
 msgstr "Κατεύθυνση:"
 
-#: ../sheets/Flowchart.sheet.in.h:5
+#: ../sheets/Flowchart.sheet.in.h:6
 msgid "Delay"
 msgstr ""
 
-#: ../sheets/Flowchart.sheet.in.h:7
+#: ../sheets/Flowchart.sheet.in.h:8
 #, fuzzy
 msgid "Document"
 msgstr "Γραμματοσειρά:"
 
-#: ../sheets/Flowchart.sheet.in.h:9
+#: ../sheets/Flowchart.sheet.in.h:10
 #, fuzzy
 msgid "Flowchart"
 msgstr "Ενεργό αντικείμενο"
 
-#: ../sheets/Flowchart.sheet.in.h:10
+#: ../sheets/Flowchart.sheet.in.h:11
 msgid "Input/Output"
 msgstr "Είσοδος/Έξοδος"
 
-#: ../sheets/Flowchart.sheet.in.h:11
+#: ../sheets/Flowchart.sheet.in.h:12
 #, fuzzy
 msgid "Internal storage"
 msgstr "Διεπιφάνεια:"
 
-#: ../sheets/Flowchart.sheet.in.h:12
+#: ../sheets/Flowchart.sheet.in.h:13
 msgid "Magnetic disk"
 msgstr "Μαγνητική δισκέτα"
 
-#: ../sheets/Flowchart.sheet.in.h:13
+#: ../sheets/Flowchart.sheet.in.h:14
 #, fuzzy
 msgid "Magnetic drum"
 msgstr "Μαγνητική Ενέργεια"
 
-#: ../sheets/Flowchart.sheet.in.h:14
+#: ../sheets/Flowchart.sheet.in.h:15
 #, fuzzy
 msgid "Magnetic tape"
 msgstr "Μαγνητική Ενέργεια"
 
-#: ../sheets/Flowchart.sheet.in.h:15
+#: ../sheets/Flowchart.sheet.in.h:16
 #, fuzzy
 msgid "Manual input"
 msgstr "Είσοδος/Έξοδος"
 
-#: ../sheets/Flowchart.sheet.in.h:16
+#: ../sheets/Flowchart.sheet.in.h:17
 #, fuzzy
 msgid "Manual operation"
 msgstr "/Βοήθεια/_Εγχειρίδιο"
 
-#: ../sheets/Flowchart.sheet.in.h:17
+#: ../sheets/Flowchart.sheet.in.h:18
 #, fuzzy
 msgid "Merge"
 msgstr "Μέτρο"
 
-#: ../sheets/Flowchart.sheet.in.h:18
+#: ../sheets/Flowchart.sheet.in.h:19
 #, fuzzy
 msgid "Objects to draw flowcharts"
 msgstr "Αντικείμενα για σχεδίαση διαγραμμάτων δικτύου με"
 
 #. XXX
-#: ../sheets/Flowchart.sheet.in.h:20
+#: ../sheets/Flowchart.sheet.in.h:21
 #, fuzzy
 msgid "Off page connector"
 msgstr "Σύνδεση"
 
-#: ../sheets/Flowchart.sheet.in.h:21
+#: ../sheets/Flowchart.sheet.in.h:22
 #, fuzzy
 msgid "Offline storage"
 msgstr "Διεπιφάνεια:"
 
-#: ../sheets/Flowchart.sheet.in.h:22
+#: ../sheets/Flowchart.sheet.in.h:23
 #, fuzzy
 msgid "Or"
 msgstr "OR"
 
-#: ../sheets/Flowchart.sheet.in.h:23
+#: ../sheets/Flowchart.sheet.in.h:24
 #, fuzzy
 msgid "Predefined process"
 msgstr "Προτιμήσεις"
 
-#: ../sheets/Flowchart.sheet.in.h:24
+#: ../sheets/Flowchart.sheet.in.h:25
 msgid "Preparation"
 msgstr "Προετοιμασία"
 
-#: ../sheets/Flowchart.sheet.in.h:25
+#: ../sheets/Flowchart.sheet.in.h:26
 #, fuzzy
 msgid "Process/Auxiliary Operation"
 msgstr "Απόκρυψη λειτουργιών"
 
-#: ../sheets/Flowchart.sheet.in.h:26
+#: ../sheets/Flowchart.sheet.in.h:27
 msgid "Punched card"
 msgstr ""
 
-#: ../sheets/Flowchart.sheet.in.h:27
+#: ../sheets/Flowchart.sheet.in.h:28
 msgid "Punched tape"
 msgstr ""
 
-#: ../sheets/Flowchart.sheet.in.h:28
+#: ../sheets/Flowchart.sheet.in.h:29
 msgid "Sort"
 msgstr "Ταξινόμηση"
 
 #. XXX
-#: ../sheets/Flowchart.sheet.in.h:30
+#: ../sheets/Flowchart.sheet.in.h:31
 #, fuzzy
 msgid "Summing junction"
 msgstr "Συνάρτηση ευχής"
 
-#: ../sheets/Flowchart.sheet.in.h:31
+#: ../sheets/Flowchart.sheet.in.h:32
 #, fuzzy
 msgid "Terminal Interrupt"
 msgstr "Μετατροπή"
 
-#: ../sheets/Flowchart.sheet.in.h:32
+#: ../sheets/Flowchart.sheet.in.h:33
 #, fuzzy
 msgid "Transaction file"
 msgstr "Καινούριο Αρχείο"
 
-#: ../sheets/Flowchart.sheet.in.h:33
+#: ../sheets/Flowchart.sheet.in.h:34
 #, fuzzy
 msgid "Transmittal tape"
 msgstr "Μετάδοση"
@@ -9408,273 +9735,3 @@ msgstr "Εξυπηρετητής δεδομένων της Sybase"
 msgid "Sybase replication server"
 msgstr "Εξυπηρετητής αντιγραφής Sybase"
 
-#~ msgid "/File/_New"
-#~ msgstr "/Αρχείο/_Νέο"
-
-#~ msgid "/File/_Open..."
-#~ msgstr "/Αρχείο/_'Ανοιγμα..."
-
-#~ msgid "/File/---"
-#~ msgstr "/Αρχείο/---"
-
-#~ msgid "/File/_Diagram tree"
-#~ msgstr "/Αρχείο/_Δέντρο διαγράμματος"
-
-#~ msgid "/File/Sheets and Objects..."
-#~ msgstr "/Αρχείο/Φύλλα εργασίας και Αντικείμενα..."
-
-#~ msgid "/File/_Preferences..."
-#~ msgstr "/Αρχείο/Ρυ_θμίσεις..."
-
-#~ msgid "/File/P_lugins..."
-#~ msgstr "/Αρχείο/Επ_ιπρόσθετες λειτουργίες..."
-
-#~ msgid "/File/_Quit"
-#~ msgstr "/Αρχείο/Έ_ξοδος"
-
-#, fuzzy
-#~ msgid "/Help/_Contents"
-#~ msgstr "/Βοήθεια/_Περί..."
-
-#~ msgid "/Help/---"
-#~ msgstr "/Βοήθεια/---"
-
-#~ msgid "/Help/_About..."
-#~ msgstr "/Βοήθεια/_Περί..."
-
-#~ msgid "/File/_Save"
-#~ msgstr "/Αρχείο/Αποθήκευ_ση"
-
-#~ msgid "/File/Save _As..."
-#~ msgstr "/Αρχείο/Αποθήκευση _Ως..."
-
-#~ msgid "/File/Page Set_up..."
-#~ msgstr "/Αρχείο/Ρυθμίσεις Σε_λίδας"
-
-#~ msgid "/File/_Print Diagram..."
-#~ msgstr "/Αρχείο/Εκτύ_πωση Διαγράμματος..."
-
-#~ msgid "/File/_Close"
-#~ msgstr "/Αρχείο/Κ_λείσιμο"
-
-#~ msgid "/_Edit"
-#~ msgstr "/_Επεξεργασία"
-
-#~ msgid "/Edit/_Undo"
-#~ msgstr "/Επεξεργασία/Ακύ_ρωση"
-
-#~ msgid "/Edit/_Redo"
-#~ msgstr "/Επεξεργασία/Επα_ναφορά"
-
-#~ msgid "/Edit/---"
-#~ msgstr "/Επεξεργασία/---"
-
-#~ msgid "/Edit/_Copy"
-#~ msgstr "/Επεξεργασία/_Αντιγραφή"
-
-#~ msgid "/Edit/C_ut"
-#~ msgstr "/Επεξεργασία/Κο_πή"
-
-#~ msgid "/Edit/_Paste"
-#~ msgstr "/Επεξεργασία/Επι_κόλληση"
-
-#~ msgid "/Edit/_Delete"
-#~ msgstr "/Επεξεργασία/_Διαγραφή"
-
-#~ msgid "/Diagram/_Properties..."
-#~ msgstr "/Διάγραμμα/_Ιδιότητες..."
-
-#~ msgid "/Diagram/_Layers..."
-#~ msgstr "/Διάλογοι/Στ_ρώματα"
-
-#~ msgid "/View/Zoom _In"
-#~ msgstr "/Προβολή/Με_γένθυση"
-
-#~ msgid "/View/Zoom _Out"
-#~ msgstr "/Προβολή/Σ_μίκρυνση"
-
-#~ msgid "/View/_Zoom"
-#~ msgstr "/Προβολή/Κ_λίμακα"
-
-#, fuzzy
-#~ msgid "/View/Zoom/1600%"
-#~ msgstr "/Προβολή/Κλίμακα/100%"
-
-#, fuzzy
-#~ msgid "/View/Zoom/800%"
-#~ msgstr "/Προβολή/Κλίμακα/400%"
-
-#~ msgid "/View/Zoom/400%"
-#~ msgstr "/Προβολή/Κλίμακα/400%"
-
-#~ msgid "/View/Zoom/283%"
-#~ msgstr "/Προβολή/Κλίμακα/283%"
-
-#~ msgid "/View/Zoom/200%"
-#~ msgstr "/Προβολή/Κλίμακα/200%"
-
-#~ msgid "/View/Zoom/141%"
-#~ msgstr "/Προβολή/Κλίμακα/141%"
-
-#~ msgid "/View/Zoom/100%"
-#~ msgstr "/Προβολή/Κλίμακα/100%"
-
-#~ msgid "/View/Zoom/85%"
-#~ msgstr "/Προβολή/Κλίμακα/85%"
-
-#~ msgid "/View/Zoom/70.7%"
-#~ msgstr "/Προβολή/Κλίμακα/70.7%"
-
-#~ msgid "/View/Zoom/50%"
-#~ msgstr "/Προβολή/Κλίμακα/50%"
-
-#~ msgid "/View/Zoom/35.4%"
-#~ msgstr "/Προβολή/Κλίμακα/35.4%"
-
-#~ msgid "/View/Zoom/25%"
-#~ msgstr "/Προβολή/Κλίμακα/25%"
-
-#~ msgid "/View/---"
-#~ msgstr "/Προβολή/---"
-
-#~ msgid "/View/Show _All"
-#~ msgstr "/Προβολή/Εμφάνιση Ό_λων"
-
-#~ msgid "/View/Re_draw"
-#~ msgstr "/Εμφάνιση/Επα_νασχεδίαση"
-
-#~ msgid "/Objects/---"
-#~ msgstr "/Αντικείμενα/---"
-
-#~ msgid "/Objects/_Group"
-#~ msgstr "/Αντικείμενα/_Ομαδοποίηση"
-
-#, fuzzy
-#~ msgid "/Objects/_Parent"
-#~ msgstr "/_Ταξινόμηση αντικειμένων"
-
-#~ msgid "/Objects/Align"
-#~ msgstr "/Αντικείμενα/ΚΣτοίχιση"
-
-#~ msgid "/Objects/Align/Left"
-#~ msgstr "/Αντικείμενα/Στοίχιση/Αριστερά"
-
-#~ msgid "/Objects/Align/Center"
-#~ msgstr "/Αντικείμενα/Στοίχιση/Κέντρο"
-
-#~ msgid "/Objects/Align/Right"
-#~ msgstr "/Αντικείμενα/Στοίχιση/Δεξιά"
-
-#~ msgid "/Objects/Align/---"
-#~ msgstr "/Αντικείμενα/Στοίχιση/---"
-
-#~ msgid "/Objects/Align/Top"
-#~ msgstr "/Αντικείμενα/Στοίχιση/Επάνω"
-
-#~ msgid "/Objects/Align/Middle"
-#~ msgstr "/Αντικείμενα/Στοίχιση/Μέση"
-
-#~ msgid "/Objects/Align/Bottom"
-#~ msgstr "/Αντικείμενα/Στοίχιση/Κάτω"
-
-#~ msgid "/Objects/Align/Adjacent"
-#~ msgstr "/Αντικείμενα/Στοίχιση/Διαδοχικά"
-
-#~ msgid "/Objects/Align/Stacked"
-#~ msgstr "/Αντικείμενα/Στοίχιση/Συσσώρευση"
-
-#~ msgid "/Objects/_Properties..."
-#~ msgstr "/Αντικείμενα/_Ιδιότητες..."
-
-#~ msgid "/Select/All"
-#~ msgstr "/Επιλογή/Όλα"
-
-#~ msgid "/Select/None"
-#~ msgstr "/Επιλογή/Κανένα"
-
-#~ msgid "/Select/Invert"
-#~ msgstr "/Επιλογή/Αναστροφή"
-
-#~ msgid "/Select/---"
-#~ msgstr "/Επιλογή/---"
-
-#~ msgid "/Select/Transitive"
-#~ msgstr "/Επιλογή/Μεταβατικά"
-
-#~ msgid "/Select/Connected"
-#~ msgstr "/Επιλογή/Σύνδεδεμένα"
-
-#~ msgid "/Select/Replace"
-#~ msgstr "/Επιλογή/Αντικατάσταση"
-
-#~ msgid "/Select/Union"
-#~ msgstr "/Επιλογή/Ένωση"
-
-#~ msgid "/Select/Remove"
-#~ msgstr "/Επιλογή/Απομάκρυνση"
-
-#, fuzzy
-#~ msgid "/Select/Inverse"
-#~ msgstr "/Επιλογή/Αναστροφή"
-
-#~ msgid "/Tools/Modify"
-#~ msgstr "/Εργαλεία/Μετατροπή"
-
-#~ msgid "/Tools/Magnify"
-#~ msgstr "Εργαλεία/Μεγέθυνση"
-
-#~ msgid "/Tools/Scroll"
-#~ msgstr "/Εργαλεία/Κύλιση"
-
-#~ msgid "/Tools/Text"
-#~ msgstr "/Εργαλεία/Κείμενο"
-
-#~ msgid "/Tools/Box"
-#~ msgstr "/Εργαλεία/Κουτί"
-
-#~ msgid "/Tools/Ellipse"
-#~ msgstr "/Εργαλεία/Έλλειψη"
-
-#~ msgid "/Tools/Polygon"
-#~ msgstr "/Εργαλεία/Πολύγωνο"
-
-#, fuzzy
-#~ msgid "/Tools/Beziergon"
-#~ msgstr "/Εργαλεία/Γραμμή"
-
-#~ msgid "/Tools/---"
-#~ msgstr "/Εργαλεία/---"
-
-#~ msgid "/Tools/Line"
-#~ msgstr "/Εργαλεία/Γραμμή"
-
-#~ msgid "/Tools/Arc"
-#~ msgstr "/Εργαλεία/Τόξο"
-
-#~ msgid "/Tools/Zigzagline"
-#~ msgstr "/Εργαλεία/Εναλασσόμενη Γραμμή"
-
-#~ msgid "/Tools/Polyline"
-#~ msgstr "/Εργαλεία/Πολυ-Γραμμή"
-
-#~ msgid "/Tools/Bezierline"
-#~ msgstr "/Εργαλεία/Γραμμή Bezier"
-
-#~ msgid "/Tools/Image"
-#~ msgstr "/Εργαλεία/Εικόνα"
-
-#~ msgid "Diagram Menu"
-#~ msgstr "Μενού Διαγράμματος"
-
-#~ msgid ""
-#~ "Can't find menu entry '%s'!\n"
-#~ "This is probably a i18n problem (try LANG=C)."
-#~ msgstr ""
-#~ "Αδύνατη η εύρεση της εισαγωγής μενού '%s'!\n"
-#~ "Αυτό είναι μάλλον ένα i18n πρόβλημα (δοκιμάστε LANG=C)."
-
-#~ msgid "<Toolbox>/File/Plugins..."
-#~ msgstr "<Εργαλειοθήκη>/Αρχείο/Plugins..."
-
-#~ msgid "<Toolbox>/File/Quit"
-#~ msgstr "<Εργαλειοθήκη>/Αρχείο/Έξοδος"
