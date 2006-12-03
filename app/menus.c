@@ -101,7 +101,7 @@ static const GtkActionEntry display_entries[] =
     { "EditPastetext", NULL, N_("Paste _Text"), "<control><shift>V", NULL, G_CALLBACK (edit_paste_text_callback) },
 
   { "Diagram", NULL, N_("_Diagram"), NULL, NULL, NULL }, 
-    { "DiagramProperties", GTK_STOCK_PROPERTIES, NULL, NULL, NULL, G_CALLBACK (view_diagram_properties_callback) },
+    { "DiagramProperties", GTK_STOCK_PROPERTIES, NULL, "<shift><alt>Return", NULL, G_CALLBACK (view_diagram_properties_callback) },
     { "DiagramLayers", NULL, N_("_Layers..."), NULL, NULL, G_CALLBACK (dialogs_layers_callback) },
 
   { "View", NULL, N_("_View"), NULL, NULL, NULL },
@@ -157,7 +157,7 @@ static const GtkActionEntry display_entries[] =
       { "ObjectsAlignAdjacent", NULL, N_("Adjacent"), "<alt><shift>A", NULL, G_CALLBACK (objects_align_h_callback) },
       { "ObjectsAlignStacked", NULL, N_("Stacked"), "<alt><shift>S", NULL, G_CALLBACK (objects_align_v_callback) },
 
-      { "ObjectsProperties", GTK_STOCK_PROPERTIES, NULL, NULL, NULL, G_CALLBACK (dialogs_properties_callback) },
+      { "ObjectsProperties", GTK_STOCK_PROPERTIES, NULL, "<alt>Return", NULL, G_CALLBACK (dialogs_properties_callback) },
 
   { "Select", NULL, N_("_Select"), NULL, NULL, NULL },
     { "SelectAll", NULL, N_("All"), "<control>A", NULL, G_CALLBACK (select_all_callback) },

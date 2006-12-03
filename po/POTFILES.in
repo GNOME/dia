@@ -181,6 +181,10 @@ plug-ins/shape/shape.c
 plug-ins/svg/render_svg.c
 plug-ins/svg/svg-import.c
 plug-ins/svg/svg.c
+plug-ins/vdx/vdx-export.c
+plug-ins/vdx/vdx-import.c
+plug-ins/vdx/vdx-xml.c
+plug-ins/vdx/vdx.c
 plug-ins/wmf/wmf.cpp
 plug-ins/wpg/wpg.c
 plug-ins/xfig/xfig-export.c
@@ -190,6 +194,7 @@ plug-ins/xslt/xslt.c
 plug-ins/xslt/xsltdialog.c
 sheets/AADL.sheet.in
 sheets/Assorted.sheet.in
+sheets/BPMN.sheet.in
 sheets/ChemEng.sheet.in
 sheets/Circuit.sheet.in
 sheets/Contact.sheet.in

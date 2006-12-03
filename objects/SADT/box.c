@@ -366,7 +366,9 @@ sadtbox_update_data(Box *box, AnchorShape horiz, AnchorShape vert)
 
   /* Update connections: */
   nw = elem->corner;
-  se = bottom_right;
+  se.x = elem->corner.x + elem->width;
+  se.y = elem->corner.y + elem->height;
+
   ne.x = se.x;
   ne.y = nw.y;
   sw.y = se.y;
