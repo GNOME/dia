@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-10-22 10:42+0100\n"
-"PO-Revision-Date: 2006-10-22 10:43-0000\n"
+"POT-Creation-Date: 2006-12-05 22:06+0000\n"
+"PO-Revision-Date: 2006-12-05 22:07-0000\n"
 "Last-Translator: David Lodge <dave@cirt.net>\n"
 "Language-Team: English/GB <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -617,7 +617,7 @@ msgid "Ok"
 msgstr "Ok"
 
 #: ../app/dialogs.c:52
-#: ../app/paginate_psprint.c:314
+#: ../app/paginate_psprint.c:320
 msgid "Cancel"
 msgstr "Cancel"
 
@@ -757,6 +757,7 @@ msgstr "_Discard Changes"
 #: ../plug-ins/pstricks/render_pstricks.c:914
 #: ../plug-ins/shape/shape-export.c:134
 #: ../plug-ins/svg/render_svg.c:150
+#: ../plug-ins/vdx/vdx-export.c:1848
 #: ../plug-ins/wpg/wpg.c:1070
 #: ../plug-ins/xfig/xfig-export.c:1136
 #: ../plug-ins/xslt/xslt.c:93
@@ -830,6 +831,7 @@ msgid "Supported Formats"
 msgstr "Supported Formats"
 
 #: ../app/filedlg.c:307
+#: ../app/paginate_psprint.c:406
 msgid ""
 "Some characters in the filename are neither UTF-8\n"
 "nor your local encoding.\n"
@@ -841,11 +843,13 @@ msgstr ""
 
 #: ../app/filedlg.c:317
 #: ../app/filedlg.c:559
+#: ../app/paginate_psprint.c:421
 msgid "File already exists"
 msgstr "File already exists"
 
 #: ../app/filedlg.c:319
 #: ../app/filedlg.c:561
+#: ../app/paginate_psprint.c:413
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
@@ -886,21 +890,25 @@ msgid "Export Options"
 msgstr "Export Options"
 
 #: ../app/interface.c:57
-msgid "Modify object(s)"
-msgstr "Modify object(s)"
+msgid ""
+"Modify object(s)\n"
+"Use <Space> to toggle between this and other tools"
+msgstr ""
+"Modify object(s)\n"
+"Use <Space> to toggle between this and other tools"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Magnify
-#: ../app/interface.c:62
+#: ../app/interface.c:63
 #: ../app/menus.c:187
 #: ../objects/FS/function.c:986
 msgid "Magnify"
 msgstr "Magnify"
 
-#: ../app/interface.c:67
+#: ../app/interface.c:69
 msgid "Scroll around the diagram"
 msgstr "Scroll around the diagram"
 
-#: ../app/interface.c:72
+#: ../app/interface.c:75
 #: ../app/menus.c:189
 #: ../lib/properties.c:79
 #: ../lib/properties.h:520
@@ -923,157 +931,157 @@ msgstr "Scroll around the diagram"
 msgid "Text"
 msgstr "Text"
 
-#: ../app/interface.c:77
+#: ../app/interface.c:81
 #: ../app/menus.c:190
 msgid "Box"
 msgstr "Box"
 
-#: ../app/interface.c:82
+#: ../app/interface.c:87
 #: ../app/menus.c:191
 msgid "Ellipse"
 msgstr "Ellipse"
 
-#: ../app/interface.c:87
+#: ../app/interface.c:93
 #: ../app/menus.c:192
 msgid "Polygon"
 msgstr "Polygon"
 
-#: ../app/interface.c:92
+#: ../app/interface.c:99
 #: ../app/menus.c:193
 msgid "Beziergon"
 msgstr "Beziergon"
 
-#: ../app/interface.c:97
+#: ../app/interface.c:105
 #: ../app/menus.c:195
 #: ../objects/standard/line.c:225
 msgid "Line"
 msgstr "Line"
 
-#: ../app/interface.c:102
+#: ../app/interface.c:111
 #: ../app/menus.c:196
 msgid "Arc"
 msgstr "Arc"
 
-#: ../app/interface.c:107
+#: ../app/interface.c:117
 #: ../app/menus.c:197
 msgid "Zigzagline"
 msgstr "Zigzagline"
 
-#: ../app/interface.c:112
+#: ../app/interface.c:123
 #: ../app/menus.c:198
 msgid "Polyline"
 msgstr "Polyline"
 
-#: ../app/interface.c:117
+#: ../app/interface.c:129
 #: ../app/menus.c:199
 msgid "Bezierline"
 msgstr "Bezierline"
 
-#: ../app/interface.c:122
+#: ../app/interface.c:135
 #: ../app/menus.c:201
 msgid "Image"
 msgstr "Image"
 
-#: ../app/interface.c:402
+#: ../app/interface.c:416
 msgid "Diagram menu."
 msgstr "Diagram menu."
 
-#: ../app/interface.c:440
+#: ../app/interface.c:454
 msgid "Pops up the Navigation window."
 msgstr "Pops up the Navigation window."
 
-#: ../app/interface.c:506
+#: ../app/interface.c:520
 msgid "Zoom"
 msgstr "Zoom"
 
-#: ../app/interface.c:521
+#: ../app/interface.c:535
 msgid "Toggles snap-to-grid for this window."
 msgstr "Toggles snap-to-grid for this window."
 
-#: ../app/interface.c:532
+#: ../app/interface.c:546
 msgid "Toggles object snapping for this window."
 msgstr "Toggles object snapping for this window."
 
-#: ../app/interface.c:597
+#: ../app/interface.c:611
 msgid "NULL tooldata in tool_select_update"
 msgstr "NULL tooldata in tool_select_update"
 
-#: ../app/interface.c:897
+#: ../app/interface.c:923
 #, c-format
 msgid "No sheet named %s"
 msgstr "No sheet named %s"
 
-#: ../app/interface.c:934
+#: ../app/interface.c:960
 msgid "Other sheets"
 msgstr "Other sheets"
 
-#: ../app/interface.c:992
+#: ../app/interface.c:1018
 #: ../sheets/Misc.sheet.in.h:3
 msgid "Misc"
 msgstr "Misc"
 
-#: ../app/interface.c:1053
+#: ../app/interface.c:1079
 msgid "Foreground & background colors for new objects.  The small black and white squares reset colors.  The small arrows swap colors.  Double click to change colors."
 msgstr "Foreground & background colours for new objects.  The small black and white squares reset colours.  The small arrows swap colours.  Double click to change colours."
 
-#: ../app/interface.c:1068
+#: ../app/interface.c:1094
 msgid "Line widths.  Click on a line to set the default line width for new objects.  Double-click to set the line width more precisely."
 msgstr "Line widths. Click on a line to set the default line width for new objects. Double-click to set the line width more precisely."
 
-#: ../app/interface.c:1108
+#: ../app/interface.c:1134
 msgid "Arrow style at the beginning of new lines.  Click to pick an arrow, or set arrow parameters with Details..."
 msgstr "Arrow style at the beginning of new lines. Click to pick an arrow, or set arrow parameters with Details..."
 
-#: ../app/interface.c:1113
+#: ../app/interface.c:1139
 msgid "Line style for new lines.  Click to pick a line style, or set line style parameters with Details..."
 msgstr "Line style for new lines. Click to pick a line style, or set line style parameters with Details..."
 
-#: ../app/interface.c:1127
+#: ../app/interface.c:1153
 msgid "Arrow style at the end of new lines.  Click to pick an arrow, or set arrow parameters with Details..."
 msgstr "Arrow style at the end of new lines. Click to pick an arrow, or set arrow parameters with Details..."
 
-#: ../app/interface.c:1237
+#: ../app/interface.c:1263
 msgid "Diagram Editor"
 msgstr "Diagram Editor"
 
-#: ../app/layer_dialog.c:69
+#: ../app/layer_dialog.c:101
 msgid "New Layer"
 msgstr "New Layer"
 
-#: ../app/layer_dialog.c:70
+#: ../app/layer_dialog.c:102
 msgid "Raise Layer"
 msgstr "Raise Layer"
 
-#: ../app/layer_dialog.c:71
+#: ../app/layer_dialog.c:103
 msgid "Lower Layer"
 msgstr "Lower Layer"
 
-#: ../app/layer_dialog.c:72
+#: ../app/layer_dialog.c:104
 msgid "Delete Layer"
 msgstr "Delete Layer"
 
-#: ../app/layer_dialog.c:193
+#: ../app/layer_dialog.c:225
 msgid "Layers"
 msgstr "Layers"
 
-#: ../app/layer_dialog.c:207
+#: ../app/layer_dialog.c:239
 msgid "Diagram:"
 msgstr "Diagram:"
 
-#: ../app/layer_dialog.c:313
+#: ../app/layer_dialog.c:349
 #, c-format
 msgid "New layer %d"
 msgstr "New layer %d"
 
-#: ../app/layer_dialog.c:525
+#: ../app/layer_dialog.c:561
 msgid "none"
 msgstr "none"
 
-#: ../app/layer_dialog.c:973
+#: ../app/layer_dialog.c:983
 msgid "Edit Layer Attributes"
 msgstr "Edit Layer Attributes"
 
-#: ../app/layer_dialog.c:992
+#: ../app/layer_dialog.c:1002
 msgid "Layer name:"
 msgstr "Layer name:"
 
@@ -1395,7 +1403,7 @@ msgid "All"
 msgstr "All"
 
 #: ../app/menus.c:164
-#: ../lib/arrows.c:40
+#: ../lib/arrows.c:43
 #: ../objects/Jackson/domain.c:96
 #: ../objects/UML/association.c:1183
 msgid "None"
@@ -1506,44 +1514,44 @@ msgstr "Inverse"
 msgid "NULL tooldata in tool_menu_select"
 msgstr "NULL tooldata in tool_menu_select"
 
-#: ../app/modify_tool.c:343
+#: ../app/modify_tool.c:344
 msgid "Couldn't get GTK settings"
 msgstr "Couldn't get GTK settings"
 
-#: ../app/paginate_psprint.c:265
+#: ../app/paginate_psprint.c:271
 msgid "Select Printer"
 msgstr "Select Printer"
 
-#: ../app/paginate_psprint.c:277
+#: ../app/paginate_psprint.c:283
 #: ../sheets/ciscocomputer.sheet.in.h:36
 msgid "Printer"
 msgstr "Printer"
 
-#: ../app/paginate_psprint.c:291
+#: ../app/paginate_psprint.c:297
 #: ../sheets/Misc.sheet.in.h:1
 msgid "File"
 msgstr "File"
 
-#: ../app/paginate_psprint.c:306
+#: ../app/paginate_psprint.c:312
 msgid "OK"
 msgstr "OK"
 
-#: ../app/paginate_psprint.c:401
+#: ../app/paginate_psprint.c:458
 #, c-format
 msgid "Could not run command '%s': %s"
 msgstr "Could not run command '%s': %s"
 
-#: ../app/paginate_psprint.c:404
+#: ../app/paginate_psprint.c:461
 #, c-format
 msgid "Could not open '%s' for writing: %s"
 msgstr "Could not open '%s' for writing: %s"
 
-#: ../app/paginate_psprint.c:421
+#: ../app/paginate_psprint.c:481
 #, c-format
 msgid "Printing error: command '%s' returned %d\n"
 msgstr "Printing error: command '%s' returned %d\n"
 
-#: ../app/paginate_psprint.c:432
+#: ../app/paginate_psprint.c:492
 #, c-format
 msgid "Printing error: command '%s' caused sigpipe."
 msgstr "Printing error: command '%s' caused sigpipe."
@@ -2043,137 +2051,150 @@ msgstr "Dia Diagram Editor"
 msgid "Edit your Diagrams"
 msgstr "Edit your Diagrams"
 
-#: ../lib/arrows.c:41
+#: ../lib/arrows.c:44
 msgid "Lines"
 msgstr "Lines"
 
-#: ../lib/arrows.c:42
+#: ../lib/arrows.c:45
 msgid "Hollow Triangle"
 msgstr "Hollow Triangle"
 
-#: ../lib/arrows.c:43
+#: ../lib/arrows.c:46
 msgid "Filled Triangle"
 msgstr "Filled Triangle"
 
-#: ../lib/arrows.c:44
+#: ../lib/arrows.c:47
 msgid "Unfilled Triangle"
 msgstr "Unfilled Triangle"
 
-#: ../lib/arrows.c:45
+#: ../lib/arrows.c:48
 msgid "Hollow Diamond"
 msgstr "Hollow Diamond"
 
-#: ../lib/arrows.c:46
+#: ../lib/arrows.c:49
 msgid "Filled Diamond"
 msgstr "Filled Diamond"
 
-#: ../lib/arrows.c:47
+#: ../lib/arrows.c:50
 msgid "Half Diamond"
 msgstr "Half Diamond"
 
-#: ../lib/arrows.c:48
+#: ../lib/arrows.c:51
 msgid "Half Head"
 msgstr "Half Head"
 
-#: ../lib/arrows.c:49
+#: ../lib/arrows.c:52
 msgid "Slashed Cross"
 msgstr "Slashed Cross"
 
-#: ../lib/arrows.c:50
+#: ../lib/arrows.c:53
 msgid "Filled Ellipse"
 msgstr "Filled Ellipse"
 
-#: ../lib/arrows.c:51
+#: ../lib/arrows.c:54
 msgid "Hollow Ellipse"
 msgstr "Hollow Ellipse"
 
-#: ../lib/arrows.c:52
+#: ../lib/arrows.c:55
 msgid "Filled Dot"
 msgstr "Filled Dot"
 
-#: ../lib/arrows.c:53
+#: ../lib/arrows.c:56
 msgid "Dimension Origin"
 msgstr "Dimension Origin"
 
-#: ../lib/arrows.c:54
+#: ../lib/arrows.c:57
 msgid "Blanked Dot"
 msgstr "Blanked Dot"
 
-#: ../lib/arrows.c:55
+#: ../lib/arrows.c:58
 msgid "Double Hollow Triangle"
 msgstr "Double Hollow Triangle"
 
-#: ../lib/arrows.c:56
+#: ../lib/arrows.c:59
 msgid "Double Filled Triangle"
 msgstr "Double Filled Triangle"
 
-#: ../lib/arrows.c:57
+#: ../lib/arrows.c:60
 msgid "Filled Dot and Triangle"
 msgstr "Filled Dot and Triangle"
 
-#: ../lib/arrows.c:58
+#: ../lib/arrows.c:61
 msgid "Filled Box"
 msgstr "Filled Box"
 
-#: ../lib/arrows.c:59
+#: ../lib/arrows.c:62
 msgid "Blanked Box"
 msgstr "Blanked Box"
 
-#: ../lib/arrows.c:60
+#: ../lib/arrows.c:63
 msgid "Slashed"
 msgstr "Slashed"
 
-#: ../lib/arrows.c:61
+#: ../lib/arrows.c:64
 msgid "Integral Symbol"
 msgstr "Integral Symbol"
 
-#: ../lib/arrows.c:62
+#: ../lib/arrows.c:65
 msgid "Crow Foot"
 msgstr "Crow Foot"
 
-#: ../lib/arrows.c:63
+#: ../lib/arrows.c:66
 msgid "Cross"
 msgstr "Cross"
 
-#: ../lib/arrows.c:64
+#: ../lib/arrows.c:67
 msgid "1-or-many"
 msgstr "1-or-many"
 
-#: ../lib/arrows.c:65
+#: ../lib/arrows.c:68
 msgid "0-or-many"
 msgstr "0-or-many"
 
-#: ../lib/arrows.c:66
+#: ../lib/arrows.c:69
 msgid "1-or-0"
 msgstr "1-or-0"
 
-#: ../lib/arrows.c:67
+#: ../lib/arrows.c:70
 msgid "1 exactly"
 msgstr "1 exactly"
 
-#: ../lib/arrows.c:68
+#: ../lib/arrows.c:71
 msgid "Filled Concave"
 msgstr "Filled Concave"
 
-#: ../lib/arrows.c:69
+#: ../lib/arrows.c:72
 msgid "Blanked Concave"
 msgstr "Blanked Concave"
 
-#: ../lib/arrows.c:70
+#: ../lib/arrows.c:73
 msgid "Round"
 msgstr "Round"
 
-#: ../lib/arrows.c:71
+#: ../lib/arrows.c:74
 msgid "Open Round"
 msgstr "Open Round"
 
-#: ../lib/arrows.c:72
+#: ../lib/arrows.c:75
 msgid "Backslash"
 msgstr "Backslash"
 
-#: ../lib/arrows.c:73
+#: ../lib/arrows.c:76
 msgid "Infinite Line"
 msgstr "Infinite Line"
+
+#: ../lib/arrows.c:1892
+msgid "Arrow head of unknown type"
+msgstr "Arrow head of unknown type"
+
+#: ../lib/arrows.c:1900
+#, c-format
+msgid "Arrow head of type %s has too small dimensions, removing.\n"
+msgstr "Arrow head of type %s has too small dimensions, removing.\n"
+
+#: ../lib/arrows.c:2021
+msgid "unknown arrow"
+msgstr "unknown arrow"
 
 #: ../lib/bezier_conn.c:636
 msgid "Internal error: Setting corner type of endpoint of bezier"
@@ -2273,7 +2294,7 @@ msgstr "_Preview:"
 msgid "Font Selection"
 msgstr "Font Selection"
 
-#: ../lib/dialibartrenderer.c:293
+#: ../lib/dialibartrenderer.c:295
 msgid "gdk_renderer: Unsupported fill mode specified!\n"
 msgstr "gdk_renderer: Unsupported fill mode specified!\n"
 
@@ -2286,7 +2307,7 @@ msgstr "Line Style Properties"
 msgid "Multiple export filters with unique name %s"
 msgstr "Multiple export filters with unique name %s"
 
-#: ../lib/font.c:100
+#: ../lib/font.c:101
 #, c-format
 msgid "Can't load font %s.\n"
 msgstr "Can't load font %s.\n"
@@ -2649,7 +2670,7 @@ msgid "Total:"
 msgstr "Total:"
 
 #: ../objects/ER/participation.c:406
-#: ../objects/FS/flow-ortho.c:645
+#: ../objects/FS/flow-ortho.c:639
 #: ../objects/GRAFCET/vector.c:312
 #: ../objects/SADT/arrow.c:457
 #: ../objects/UML/association.c:769
@@ -2663,7 +2684,7 @@ msgid "Add segment"
 msgstr "Add segment"
 
 #: ../objects/ER/participation.c:407
-#: ../objects/FS/flow-ortho.c:646
+#: ../objects/FS/flow-ortho.c:640
 #: ../objects/GRAFCET/vector.c:313
 #: ../objects/SADT/arrow.c:458
 #: ../objects/UML/association.c:770
@@ -2699,7 +2720,7 @@ msgstr "Relationship"
 
 #. Translators: Menu item Noun/Energy
 #: ../objects/FS/flow-ortho.c:160
-#: ../objects/FS/flow-ortho.c:642
+#: ../objects/FS/flow-ortho.c:636
 #: ../objects/FS/flow.c:137
 #: ../objects/FS/flow.c:580
 #: ../objects/FS/function.c:1096
@@ -2708,7 +2729,7 @@ msgstr "Energy"
 
 #. Translators: Menu item Noun/Material
 #: ../objects/FS/flow-ortho.c:161
-#: ../objects/FS/flow-ortho.c:643
+#: ../objects/FS/flow-ortho.c:637
 #: ../objects/FS/flow.c:138
 #: ../objects/FS/flow.c:581
 #: ../objects/FS/function.c:1072
@@ -2720,7 +2741,7 @@ msgstr "Material"
 #. Translators: Menu item Noun/Signal
 #. Translators: Menu item Noun/Signal/Signal
 #: ../objects/FS/flow-ortho.c:162
-#: ../objects/FS/flow-ortho.c:644
+#: ../objects/FS/flow-ortho.c:638
 #: ../objects/FS/flow.c:139
 #: ../objects/FS/flow.c:582
 #: ../objects/FS/function.c:1034
@@ -3949,7 +3970,7 @@ msgstr "Vergent type:"
 #: ../objects/Jackson/domain.c:531
 #: ../objects/KAOS/goal.c:572
 #: ../objects/KAOS/other.c:525
-#: ../objects/SADT/box.c:445
+#: ../objects/SADT/box.c:447
 #: ../objects/standard/line.c:219
 msgid "Add connection point"
 msgstr "Add connection point"
@@ -4023,6 +4044,7 @@ msgid "Resource"
 msgstr "Resource"
 
 #: ../objects/Istar/other.c:74
+#: ../sheets/BPMN.sheet.in.h:43
 msgid "Task"
 msgstr "Task"
 
@@ -4030,7 +4052,7 @@ msgstr "Task"
 #: ../objects/Jackson/domain.c:532
 #: ../objects/KAOS/goal.c:573
 #: ../objects/KAOS/other.c:526
-#: ../objects/SADT/box.c:446
+#: ../objects/SADT/box.c:448
 #: ../objects/standard/line.c:220
 msgid "Delete connection point"
 msgstr "Delete connection point"
@@ -4253,7 +4275,7 @@ msgstr "Activity/Data identifier"
 msgid "The identifier which appears in the lower right corner of the Box"
 msgstr "The identifier which appears in the lower right corner of the Box"
 
-#: ../objects/SADT/box.c:451
+#: ../objects/SADT/box.c:453
 msgid "SADT box"
 msgstr "SADT box"
 
@@ -5068,27 +5090,27 @@ msgstr "Absolute start gap"
 msgid "Absolute end gap"
 msgstr "Absolute end gap"
 
-#: ../objects/standard/bezier.c:728
+#: ../objects/standard/bezier.c:698
 #: ../objects/standard/beziergon.c:482
 msgid "Add Segment"
 msgstr "Add Segment"
 
-#: ../objects/standard/bezier.c:729
+#: ../objects/standard/bezier.c:699
 #: ../objects/standard/beziergon.c:483
 msgid "Delete Segment"
 msgstr "Delete Segment"
 
-#: ../objects/standard/bezier.c:731
+#: ../objects/standard/bezier.c:701
 #: ../objects/standard/beziergon.c:485
 msgid "Symmetric control"
 msgstr "Symmetric control"
 
-#: ../objects/standard/bezier.c:733
+#: ../objects/standard/bezier.c:703
 #: ../objects/standard/beziergon.c:487
 msgid "Smooth control"
 msgstr "Smooth control"
 
-#: ../objects/standard/bezier.c:735
+#: ../objects/standard/bezier.c:705
 #: ../objects/standard/beziergon.c:489
 msgid "Cusp control"
 msgstr "Cusp control"
@@ -5172,12 +5194,12 @@ msgid "End point"
 msgstr "End point"
 
 #: ../objects/standard/polygon.c:460
-#: ../objects/standard/polyline.c:605
+#: ../objects/standard/polyline.c:577
 msgid "Add Corner"
 msgstr "Add Corner"
 
 #: ../objects/standard/polygon.c:461
-#: ../objects/standard/polyline.c:606
+#: ../objects/standard/polyline.c:578
 msgid "Delete Corner"
 msgstr "Delete Corner"
 
@@ -5367,11 +5389,11 @@ msgstr "Couldn't open '%s' for writing.\n"
 msgid "Python scripting support"
 msgstr "Python scripting support"
 
-#: ../plug-ins/shape/shape-export.c:474
+#: ../plug-ins/shape/shape-export.c:475
 msgid "Can't export png without libart!"
 msgstr "Can't export png without libart!"
 
-#: ../plug-ins/shape/shape-export.c:499
+#: ../plug-ins/shape/shape-export.c:500
 msgid "Dia Shape File"
 msgstr "Dia Shape File"
 
@@ -5393,6 +5415,7 @@ msgstr ""
 "svg:path data must start with moveto."
 
 #: ../plug-ins/svg/svg-import.c:204
+#: ../plug-ins/vdx/vdx-import.c:140
 msgid "Can't find standard object"
 msgstr "Can't find standard object"
 
@@ -5408,6 +5431,115 @@ msgstr "root element was '%s' -- expecting 'svg'."
 #: ../plug-ins/svg/svg.c:50
 msgid "Scalable Vector Graphics import and export filters"
 msgstr "Scalable Vector Graphics import and export filters"
+
+#: ../plug-ins/vdx/vdx-export.c:1376
+#: ../plug-ins/vdx/vdx-export.c:1385
+#, c-format
+msgid "Couldn't read file %s"
+msgstr "Couldn't read file %s"
+
+#: ../plug-ins/vdx/vdx-export.c:1904
+msgid "Visio XML format"
+msgstr "Visio XML format"
+
+#: ../plug-ins/vdx/vdx-import.c:208
+#: ../plug-ins/xfig/xfig-import.c:1034
+#, c-format
+msgid "Couldn't read color: %s\n"
+msgstr "Couldn't read colour: %s\n"
+
+#: ../plug-ins/vdx/vdx-import.c:491
+#, c-format
+msgid "Couldn't find shape %d\n"
+msgstr "Couldn't find shape %d\n"
+
+#: ../plug-ins/vdx/vdx-import.c:761
+#, c-format
+msgid "Unexpected LineTo object: %s\n"
+msgstr "Unexpected LineTo object: %s\n"
+
+#: ../plug-ins/vdx/vdx-import.c:767
+msgid "Unexpected LineTo additional objects\n"
+msgstr "Unexpected LineTo additional objects\n"
+
+#: ../plug-ins/vdx/vdx-import.c:836
+msgid "MoveTo after start of polyline\n"
+msgstr "MoveTo after start of polyline\n"
+
+#: ../plug-ins/vdx/vdx-import.c:842
+#, c-format
+msgid "Unexpected polyline object: %s\n"
+msgstr "Unexpected polyline object: %s\n"
+
+#: ../plug-ins/vdx/vdx-import.c:900
+msgid "MoveTo after start of polygon\n"
+msgstr "MoveTo after start of polygon\n"
+
+#: ../plug-ins/vdx/vdx-import.c:906
+#, c-format
+msgid "Unexpected polygon object: %s\n"
+msgstr "Unexpected polygon object: %s\n"
+
+#: ../plug-ins/vdx/vdx-import.c:961
+#, c-format
+msgid "Unexpected Ellipse object: %s\n"
+msgstr "Unexpected Ellipse object: %s\n"
+
+#: ../plug-ins/vdx/vdx-import.c:967
+msgid "Unexpected Ellipse additional objects\n"
+msgstr "Unexpected Ellipse additional objects\n"
+
+#: ../plug-ins/vdx/vdx-import.c:976
+msgid "Can't rotate ellipse\n"
+msgstr "Can't rotate ellipse\n"
+
+#: ../plug-ins/vdx/vdx-import.c:1228
+#: ../plug-ins/vdx/vdx-import.c:1322
+msgid "MoveTo not at start of Bezier\n"
+msgstr "MoveTo not at start of Bezier\n"
+
+#: ../plug-ins/vdx/vdx-import.c:1272
+#, c-format
+msgid "Unexpected Bezier object: %s\n"
+msgstr "Unexpected Bezier object: %s\n"
+
+#: ../plug-ins/vdx/vdx-import.c:1363
+#, c-format
+msgid "Unexpected Beziergon object: %s\n"
+msgstr "Unexpected Beziergon object: %s\n"
+
+#: ../plug-ins/vdx/vdx-import.c:1405
+#, c-format
+msgid "Couldn't write file %s"
+msgstr "Couldn't write file %s"
+
+#: ../plug-ins/vdx/vdx-import.c:1486
+#, c-format
+msgid "Couldn't handle foreign object type %s"
+msgstr "Couldn't handle foreign object type %s"
+
+#: ../plug-ins/vdx/vdx-import.c:1513
+#, c-format
+msgid "Couldn't make object dir %s"
+msgstr "Couldn't make object dir %s"
+
+#: ../plug-ins/vdx/vdx-import.c:2184
+msgid "Visio XML File Format"
+msgstr "Visio XML File Format"
+
+#: ../plug-ins/vdx/vdx-xml.c:3444
+#, c-format
+msgid "Can't decode object %s"
+msgstr "Can't decode object %s"
+
+#: ../plug-ins/vdx/vdx-xml.c:5291
+#, c-format
+msgid "Can't write object %u"
+msgstr "Can't write object %u"
+
+#: ../plug-ins/vdx/vdx.c:53
+msgid "Visio XML Format import and export filter"
+msgstr "Visio XML Format import and export filter"
 
 #: ../plug-ins/wmf/wmf.cpp:1185
 #, c-format
@@ -5551,11 +5683,6 @@ msgstr "Couldn't identify FIG object: %s\n"
 #: ../plug-ins/xfig/xfig-import.c:1015
 msgid "Compound end outside compound\n"
 msgstr "Compound end outside compound\n"
-
-#: ../plug-ins/xfig/xfig-import.c:1034
-#, c-format
-msgid "Couldn't read color: %s\n"
-msgstr "Couldn't read colour: %s\n"
 
 #: ../plug-ins/xfig/xfig-import.c:1039
 #, c-format
@@ -5916,6 +6043,179 @@ msgstr "Up-down-left arrow"
 #: ../sheets/Assorted.sheet.in.h:47
 msgid "Vertical parallelogram"
 msgstr "Vertical parallelogram"
+
+#: ../sheets/BPMN.sheet.in.h:1
+msgid "Activity Looping"
+msgstr "Activity Looping"
+
+#: ../sheets/BPMN.sheet.in.h:2
+msgid "Ad-Hoc Collapsed Sub-Process"
+msgstr "Ad-Hoc Collapsed Sub-Process"
+
+#. For: anthonym
+#: ../sheets/BPMN.sheet.in.h:4
+msgid "BPMN"
+msgstr "BPMN"
+
+#: ../sheets/BPMN.sheet.in.h:5
+msgid "Business Process Modeling Notation"
+msgstr "Business Process Modeling Notation"
+
+#: ../sheets/BPMN.sheet.in.h:6
+msgid "Collapsed Sub-Process"
+msgstr "Collapsed Sub-Process"
+
+#: ../sheets/BPMN.sheet.in.h:7
+msgid "Compensation Collapsed Sub-Process"
+msgstr "Compensation Collapsed Sub-Process"
+
+#: ../sheets/BPMN.sheet.in.h:8
+msgid "Compensation Task"
+msgstr "Compensation Task"
+
+#: ../sheets/BPMN.sheet.in.h:9
+msgid "Complex"
+msgstr "Complex"
+
+#: ../sheets/BPMN.sheet.in.h:10
+msgid "Data Object"
+msgstr "Data Object"
+
+#: ../sheets/BPMN.sheet.in.h:11
+msgid "End Event"
+msgstr "End Event"
+
+#: ../sheets/BPMN.sheet.in.h:12
+msgid "End Event - Cancel"
+msgstr "End Event - Cancel"
+
+#: ../sheets/BPMN.sheet.in.h:13
+msgid "End Event - Compensation"
+msgstr "End Event - Compensation"
+
+#: ../sheets/BPMN.sheet.in.h:14
+msgid "End Event - Error"
+msgstr "End Event - Error"
+
+#: ../sheets/BPMN.sheet.in.h:15
+msgid "End Event - Link"
+msgstr "End Event - Link"
+
+#: ../sheets/BPMN.sheet.in.h:16
+msgid "End Event - Message"
+msgstr "End Event - Message"
+
+#: ../sheets/BPMN.sheet.in.h:17
+msgid "End Event - Multiple"
+msgstr "End Event - Multiple"
+
+#: ../sheets/BPMN.sheet.in.h:18
+msgid "End Event - Terminate"
+msgstr "End Event - Terminate"
+
+#: ../sheets/BPMN.sheet.in.h:19
+msgid "Exclusive (XOR) Data Based"
+msgstr "Exclusive (XOR) Data Based"
+
+#: ../sheets/BPMN.sheet.in.h:20
+msgid "Exclusive (XOR) Event Based"
+msgstr "Exclusive (XOR) Event Based"
+
+#: ../sheets/BPMN.sheet.in.h:21
+msgid "Gateway"
+msgstr "Gateway"
+
+#: ../sheets/BPMN.sheet.in.h:22
+msgid "Group"
+msgstr "Group"
+
+#: ../sheets/BPMN.sheet.in.h:23
+msgid "Inclusive (OR)"
+msgstr "Inclusive (OR)"
+
+#: ../sheets/BPMN.sheet.in.h:24
+msgid "Intermediate Event"
+msgstr "Intermediate Event"
+
+#: ../sheets/BPMN.sheet.in.h:25
+msgid "Intermediate Event - Cancel"
+msgstr "Intermediate Event - Cancel"
+
+#: ../sheets/BPMN.sheet.in.h:26
+msgid "Intermediate Event - Compensation"
+msgstr "Intermediate Event - Compensation"
+
+#: ../sheets/BPMN.sheet.in.h:27
+msgid "Intermediate Event - Error"
+msgstr "Intermediate Event - Error"
+
+#: ../sheets/BPMN.sheet.in.h:28
+msgid "Intermediate Event - Link"
+msgstr "Intermediate Event - Link"
+
+#: ../sheets/BPMN.sheet.in.h:29
+msgid "Intermediate Event - Message"
+msgstr "Intermediate Event - Message"
+
+#: ../sheets/BPMN.sheet.in.h:30
+msgid "Intermediate Event - Multiple"
+msgstr "Intermediate Event - Multiple"
+
+#: ../sheets/BPMN.sheet.in.h:31
+msgid "Intermediate Event - Rule"
+msgstr "Intermediate Event - Rule"
+
+#: ../sheets/BPMN.sheet.in.h:32
+msgid "Intermediate Event - Timer"
+msgstr "Intermediate Event - Timer"
+
+#: ../sheets/BPMN.sheet.in.h:33
+msgid "Looping Collapsed Sub-Process"
+msgstr "Looping Collapsed Sub-Process"
+
+#: ../sheets/BPMN.sheet.in.h:34
+msgid "Multiple Instance Collapsed Sub-Process"
+msgstr "Multiple Instance Collapsed Sub-Process"
+
+#: ../sheets/BPMN.sheet.in.h:35
+msgid "Multiple Instance Task"
+msgstr "Multiple Instance Task"
+
+#: ../sheets/BPMN.sheet.in.h:36
+msgid "Parallel (AND)"
+msgstr "Parallel (AND)"
+
+#: ../sheets/BPMN.sheet.in.h:37
+msgid "Start Event"
+msgstr "Start Event"
+
+#: ../sheets/BPMN.sheet.in.h:38
+msgid "Start Event - Link"
+msgstr "Start Event - Link"
+
+#: ../sheets/BPMN.sheet.in.h:39
+msgid "Start Event - Message"
+msgstr "Start Event - Message"
+
+#: ../sheets/BPMN.sheet.in.h:40
+msgid "Start Event - Multiple"
+msgstr "Start Event - Multiple"
+
+#: ../sheets/BPMN.sheet.in.h:41
+msgid "Start Event - Rule"
+msgstr "Start Event - Rule"
+
+#: ../sheets/BPMN.sheet.in.h:42
+msgid "Start Event - Timer"
+msgstr "Start Event - Timer"
+
+#: ../sheets/BPMN.sheet.in.h:44
+msgid "Text Annotation"
+msgstr "Text Annotation"
+
+#: ../sheets/BPMN.sheet.in.h:45
+msgid "Transaction"
+msgstr "Transaction"
 
 #: ../sheets/ChemEng.sheet.in.h:1
 msgid "AC Generator"
@@ -9095,6 +9395,8 @@ msgstr "Sybase dataserver"
 msgid "Sybase replication server"
 msgstr "Sybase replication server"
 
+#~ msgid "Modify object(s)"
+#~ msgstr "Modify object(s)"
 #~ msgid "Failed to save file '%s'.\n"
 #~ msgstr "Failed to save file '%s'.\n"
 #~ msgid "Instantiation. One process create others"
