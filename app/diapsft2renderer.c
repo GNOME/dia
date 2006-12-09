@@ -94,7 +94,7 @@ set_font(DiaRenderer *self, DiaFont *font, real height)
     /* Dammit!  We have a random factor once again! 
      * And not only here but also in dia_font_scaled_build_layout() below ...
      */
-    renderer->current_height = height*4.3;
+    renderer->current_height = height/**4.3*/;
     dia_font_ref(font);
   }
   pango_context_set_font_description(dia_font_get_context(), 
@@ -363,7 +363,6 @@ draw_text_line(DiaRenderer *self,
 {
   DiaPsFt2Renderer *renderer = DIA_PS_FT2_RENDERER(self);
   PangoLayout *layout;
-  int width;
   int line, linecount;
   double xpos = pos->x, ypos = pos->y;
   char *text = text_line_get_string(text_line);
@@ -383,10 +382,12 @@ draw_text_line(DiaRenderer *self,
 
   lazy_setcolor(DIA_PS_RENDERER(renderer),color);
 
+#define ANNOYING_SCALE_FACTOR 5.9
+
   /* Make sure the letters aren't too wide. */
 #ifdef USE_GLOBAL_CONTEXT
   layout = dia_font_build_layout(text, text_line_get_font(text_line),
-				 text_line_get_height(text_line)/0.7);
+				 text_line_get_height(text_line)*ANNOYING_SCALE_FACTOR);
 #else
   /* approximately what would be required but w/o dia_font_get_context() */
   dia_font_set_height(text_line_get_font(text_line),
@@ -410,19 +411,14 @@ draw_text_line(DiaRenderer *self,
   pango_layout_set_justify(layout,FALSE);
 #endif
 
-  pango_layout_set_alignment(layout,PANGO_ALIGN_LEFT);
+  pango_layout_set_alignment(layout, PANGO_ALIGN_LEFT);
     
-  pango_layout_get_size(layout, &width, NULL);
   linecount = pango_layout_get_line_count(layout);
   for (line = 0; line < linecount; line++) {
     PangoLayoutLine *layoutline = pango_layout_get_line(layout, line);
 
-    /* This is currently rather crude, but it works under the assumption
-     * that a TextLine has exactly one glyphs object. */
-    PangoGlyphItem *glyphItem = (PangoGlyphItem*)layoutline->runs->data;
-    text_line_adjust_glyphs(text_line, glyphItem->glyphs, 1.3);
-    /* 1.3 is a magic constant that gives "reasonable" results.  Some
-       clean-up of the code might give better results and an explanation */
+    /* Not sure scale is the right one here.  */
+    text_line_adjust_layout_line(text_line, layoutline, ANNOYING_SCALE_FACTOR);
 
     postscript_draw_contour(DIA_PS_RENDERER(renderer),
 			    DPI, /* dpi_x */
