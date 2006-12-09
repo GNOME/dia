@@ -1,3 +1,12 @@
+2006-12-09  Lars Clausen  <lars@raeder.dk>
+
+	* app/Makefile.am: Make it possible to compile without freetype by
+	excluding freetype files.
+
+	* app/diapsrenderer.c: Don't font_unref until you have
+	font_ref'd the font, in case it's the same font.  Fixes crash.
+	Also adjust for baseline in text drawing.
+
 2006-12-03  Lars Clausen  <lars@raeder.dk>
 
 	* doc/en/usage-objects-special.xml: A few updates.

@@ -1,3 +1,35 @@
+dia-0.96-pre1: 3-Dev-2006
+
+* First release candidate for 0.96.  Main improvements:
+
+  * Text rendering is now based on the TextLine objects, each of which
+    contain one line of text along with font and font height.  This has
+    allowed proper control of text width and speedier rendering.
+
+  * Visio VXD files can now be imported and exported, thanks to Ian
+    Redfern.
+
+  * Renderer API change:  Added function draw_text_line.  Renderer (export)
+    implementations will need recompilation.
+
+  * Object API change: can_parent replaced by flags field.
+
+  * Dia menus now based on GtkAction framework.
+
+  * A number of new keyboard shortcuts.
+
+  * Layer visibility is now undoable.
+
+  * New sheets for Business Process Modelling
+
+  * The initial diagram will now be filled with opened diagram if
+    unchanged, like Gnumeric.
+
+  * Pasted objects now no longer land on top of each other.
+
+  * A number of smaller bugs have been fixed and improvements made, see
+    details in ChangeLog.
+
 dia-0.95-1: 25-May-2006
 
 * Fix of bug #339562 (page margins restriction), #338336 ("query" in 

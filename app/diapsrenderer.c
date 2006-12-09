@@ -289,14 +289,17 @@ set_font(DiaRenderer *self, DiaFont *font, real height)
   gchar h_buf[DTOSTR_BUF_SIZE];
 
   if (font != self->font || height != self->font_height) {
+    DiaFont *old_font;
+
     fprintf(renderer->file, "/%s-latin1 ff %s scf sf\n",
 	    dia_font_get_psfontname(font),
 	    psrenderer_dtostr(h_buf, (gdouble) height*0.7) );
-    if (self->font != NULL) {
-      dia_font_unref(self->font);
-    }
+    old_font = self->font;
     self->font = font;
     dia_font_ref(self->font);
+    if (old_font != NULL) {
+      dia_font_unref(old_font);
+    }
     self->font_height = height;
   }
 }
@@ -715,6 +718,7 @@ draw_text_line(DiaRenderer *self,
   real width;
   gchar *text = text_line_get_string(text_line);
   int n_chars = g_utf8_strlen(text, -1);
+  real adjust;
 
   if (1 > n_chars)
     return;
@@ -729,9 +733,11 @@ draw_text_line(DiaRenderer *self,
   fprintf(renderer->file, "(%s) ", buffer);
   g_free(buffer);
 
+  adjust = text_line_get_descent(text_line);
+
   fprintf(renderer->file, "%s %s m \n",
 	  psrenderer_dtostr(px_buf, pos->x),
-	  psrenderer_dtostr(py_buf, pos->y) );
+	  psrenderer_dtostr(py_buf, pos->y - adjust) );
   
   /* Perform magic to ensure the right size */
   width = text_line_get_width(text_line);

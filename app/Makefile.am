@@ -34,6 +34,12 @@ dia_embedd =
 dia_oafinfo =
 endif
 
+if WITH_FREETYPE
+freetype_files = diapsft2renderer.h diapsft2renderer.c
+else
+freetype_files = 
+endif
+
 bin_PROGRAMS = dia $(dia_embedd)
 
 ICON_PNG_PAIRS= \
@@ -190,8 +196,7 @@ dia_core_files = \
 	    dynamic_refresh.c \
 	    diapsrenderer.h \
 	    diapsrenderer.c \
-	    diapsft2renderer.h \
-	    diapsft2renderer.c \
+	    $(freetype_files) \
 	    navigation.h \
 	    navigation.c \
 	    diacanvas.c \
