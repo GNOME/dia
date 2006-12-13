@@ -1,3 +1,22 @@
+2006-12-13  Lars Clausen  <lars@raeder.dk>
+
+	* Makefile.am (core-translation-report): Clean up after
+	po-checktrans copying.
+
+	* lib/plug-ins.h (DIA_PLUGIN_API_VERSION): Updated due to changes.
+
+	* NEWS: 
+	* configure.in: 
+	* config.h.win32: 
+	* doc/en/dia.xml: 
+	* doc/pl/dia.xml: 
+	* doc/eu/dia.xml: Updated to version 0.96-pre1
+
+	* plug-ins/vdx/Makefile.am (libvdx_filter_la_SOURCES): Added
+	visio-types.h 
+
+	* po/POTFILES.in: Removed EML.sheet.in.
+
 2006-12-09  Lars Clausen  <lars@raeder.dk>
 
 	* app/diapsft2renderer.c (ANNOYING_SCALE_FACTOR): Recalculated the

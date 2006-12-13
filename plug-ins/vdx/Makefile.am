@@ -4,6 +4,7 @@ pkglib_LTLIBRARIES = libvdx_filter.la
 
 libvdx_filter_la_SOURCES = \
 	vdx.c \
+	visio-types.h \
 	vdx-import.c \
 	vdx-export.c \
 	vdx-common.c \
