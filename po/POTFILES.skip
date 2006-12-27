@@ -7,3 +7,5 @@ objects/EML/process.c
 objects/EML/process_dialog.c
 objects/FS/flow-poly.c
 objects/sybase/sybase.c
+sheets/EML.sheet.in
+

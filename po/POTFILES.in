@@ -25,6 +25,7 @@ app/linewidth_area.c
 app/load_save.c
 app/menus.c
 app/modify_tool.c
+app/newgroup.c
 app/pagesetup.c
 app/paginate_psprint.c
 app/plugin-manager.c
@@ -42,6 +43,7 @@ dia.desktop.in
 lib/arrows.c
 lib/attributes.c
 lib/bezier_conn.c
+lib/create.c
 lib/dia_dirs.c
 lib/dia_xml.c
 lib/diaarrowchooser.c

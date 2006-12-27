@@ -1,3 +1,9 @@
+2006-12-27  Kjartan Maraas  <kmaraas@gnome.org>
+
+	* POTFILES.skip: Add EML.sheet.in since it's disabled.
+	* POTFILES.in: Add two missing files.
+	* nb.po: Updated Norwegian bokmål translation.
+
 2006-12-23  Clytie Siddall <clytie@riverland.net.au>
 
 	* vi.po: Updated Vietnamese translation.
