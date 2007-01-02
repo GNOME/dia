@@ -1,3 +1,8 @@
+2007-01-02  Hans Breuer  <hans@breuer.org>
+
+	* lib/diagdkrenderer.c : avoid leaks in rounded rectangles,
+	bug #358171, Michael Duelli
+
 2006-12-13  Lars Clausen  <lars@raeder.dk>
 
 	* Makefile.am (core-translation-report): Clean up after
