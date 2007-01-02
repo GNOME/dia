@@ -1,5 +1,7 @@
 2007-01-02  Hans Breuer  <hans@breuer.org>
 
+	* *.xbm, *.xpm; *.shape, *.sheet : setting svn:eol-style=native
+
 	* lib/diagdkrenderer.c : avoid leaks in rounded rectangles,
 	bug #358171, Michael Duelli
 
