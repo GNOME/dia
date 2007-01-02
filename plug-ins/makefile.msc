@@ -1,7 +1,7 @@
 !IFNDEF PACKAGE
 
-# dummy
-PLUGINS = gprint cairo cgm dxf hpgl metapost pgf pixbuf pstricks shape svg vdx wmf wpg xfig xslt sissi
+# dummy sissi
+PLUGINS = gprint cairo cgm dxf hpgl metapost pgf pixbuf pstricks shape svg vdx wmf wpg xfig xslt 
 
 #broken since StdProp overhaul : diaimport 
 
