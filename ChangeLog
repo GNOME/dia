@@ -1,5 +1,8 @@
 2007-01-03  Hans Breuer  <hans@breuer.org>
 
+	* lib/persistence.c : before restoring window positions check if
+	they are still in valid range. Fixes bug #354266
+
 	* app/interface.c : refined the zooms-list drop-down to include
 	800%, stay symmetric and not have more than seven entries. 
 	Fixes bug #328596
