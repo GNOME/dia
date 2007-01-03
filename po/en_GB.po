@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-12-05 22:06+0000\n"
-"PO-Revision-Date: 2006-12-05 22:07-0000\n"
+"POT-Creation-Date: 2007-01-03 07:07+0000\n"
+"PO-Revision-Date: 2007-01-03 07:07-0000\n"
 "Last-Translator: David Lodge <dave@cirt.net>\n"
 "Language-Team: English/GB <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1518,6 +1518,10 @@ msgstr "NULL tooldata in tool_menu_select"
 msgid "Couldn't get GTK settings"
 msgstr "Couldn't get GTK settings"
 
+#: ../app/newgroup.c:117
+msgid "Open group"
+msgstr "Open group"
+
 #: ../app/paginate_psprint.c:271
 msgid "Select Printer"
 msgstr "Select Printer"
@@ -2199,6 +2203,20 @@ msgstr "unknown arrow"
 #: ../lib/bezier_conn.c:636
 msgid "Internal error: Setting corner type of endpoint of bezier"
 msgstr "Internal error: Setting corner type of endpoint of bezier"
+
+#: ../lib/create.c:50
+#: ../lib/create.c:100
+#: ../lib/create.c:127
+#: ../lib/create.c:161
+#: ../lib/create.c:197
+#: ../lib/create.c:224
+#: ../lib/create.c:260
+#: ../lib/create.c:295
+#: ../lib/create.c:335
+#: ../plug-ins/svg/svg-import.c:204
+#: ../plug-ins/vdx/vdx-import.c:140
+msgid "Can't find standard object"
+msgstr "Can't find standard object"
 
 #: ../lib/dia_dirs.c:237
 #, c-format
@@ -5414,11 +5432,6 @@ msgstr ""
 "Invalid path data.\n"
 "svg:path data must start with moveto."
 
-#: ../plug-ins/svg/svg-import.c:204
-#: ../plug-ins/vdx/vdx-import.c:140
-msgid "Can't find standard object"
-msgstr "Can't find standard object"
-
 #: ../plug-ins/svg/svg-import.c:637
 msgid "Expected SVG Namespace not found in file"
 msgstr "Expected SVG Namespace not found in file"
@@ -6747,14 +6760,6 @@ msgstr "Template for custom characteristics"
 #: ../sheets/Cybernetics.sheet.in.h:32
 msgid "Time delay"
 msgstr "Time delay"
-
-#: ../sheets/EML.sheet.in.h:1
-msgid "EML"
-msgstr "EML"
-
-#: ../sheets/EML.sheet.in.h:2
-msgid "Editor for EML Static Structure Diagrams."
-msgstr "Editor for EML Static Structure Diagrams."
 
 #: ../sheets/ER.sheet.in.h:2
 msgid "ER"
@@ -9395,6 +9400,10 @@ msgstr "Sybase dataserver"
 msgid "Sybase replication server"
 msgstr "Sybase replication server"
 
+#~ msgid "EML"
+#~ msgstr "EML"
+#~ msgid "Editor for EML Static Structure Diagrams."
+#~ msgstr "Editor for EML Static Structure Diagrams."
 #~ msgid "Modify object(s)"
 #~ msgstr "Modify object(s)"
 #~ msgid "Failed to save file '%s'.\n"
