@@ -1,6 +1,16 @@
+2007-01-03  Hans Breuer  <hans@breuer.org>
+
+	* objects/UML/constraint.c objects/UML/implements.c 
+	  objects/UML/message.c objects/Jackson/phenomenon.c
+	  objects/KAOS/metaandorrel.c : move_handle() method needs to call 
+	connection_adjust_for_autogap() after connection_move_handle() because 
+	the endpoints used for relative text movement need adjustment after 
+	possible autogap correction. Fixes bug #362254.
+
 2007-01-02  Hans Breuer  <hans@breuer.org>
 
-	* *.xbm, *.xpm; *.shape, *.sheet : setting svn:eol-style=native
+	* *.msc, *.win32, HACKING, *.nsh, *.am, 
+	  *.xbm, *.xpm; *.shape, *.sheet : setting svn:eol-style=native
 
 	* lib/diagdkrenderer.c : avoid leaks in rounded rectangles,
 	bug #358171, Michael Duelli

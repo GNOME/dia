@@ -240,6 +240,7 @@ maor_move_handle(Maor *maor, Handle *handle,
     p1.x = 0.5*(endpoints[0].x + endpoints[1].x);
     p1.y = 0.5*(endpoints[0].y + endpoints[1].y);
     connection_move_handle(&maor->connection, handle->id, to, cp, reason, modifiers);
+    connection_adjust_for_autogap(&maor->connection);
     p2.x = 0.5*(endpoints[0].x + endpoints[1].x);
     p2.y = 0.5*(endpoints[0].y + endpoints[1].y);
     point_sub(&p2, &p1);

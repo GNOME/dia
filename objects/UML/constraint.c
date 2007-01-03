@@ -205,6 +205,7 @@ constraint_move_handle(Constraint *constraint, Handle *handle,
     p1.y = 0.5*(endpoints[0].y + endpoints[1].y);
     connection_move_handle(&constraint->connection, handle->id, to, cp, 
 			   reason, modifiers);
+    connection_adjust_for_autogap(&constraint->connection);
     p2.x = 0.5*(endpoints[0].x + endpoints[1].x);
     p2.y = 0.5*(endpoints[0].y + endpoints[1].y);
     point_sub(&p2, &p1);

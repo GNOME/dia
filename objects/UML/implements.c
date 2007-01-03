@@ -215,6 +215,7 @@ implements_move_handle(Implements *implements, Handle *handle,
     v1 = implements->connection.endpoints[1];
     connection_move_handle(&implements->connection, handle->id, to, cp, 
 			   reason, modifiers);
+    connection_adjust_for_autogap(&implements->connection);
     point_sub(&v1, &implements->connection.endpoints[1]);
     point_sub(&implements->text_pos, &v1);
   }
