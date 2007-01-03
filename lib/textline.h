@@ -29,7 +29,7 @@
 #include "properties.h"
 typedef struct _RendererCache RendererCache;
 
-typedef void (*RendererCacheFreeFunc) (gpointer* data);
+typedef void (*RendererCacheFreeFunc) (gpointer data);
 
 struct _RendererCache {
   DiaRenderer *renderer;

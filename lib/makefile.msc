@@ -7,8 +7,7 @@ PACKAGE = libdia
 #	-DGTK_DISABLE_DEPRECATED \
 
 
-#PKG_CFLAGS = -FImsvc_recommended_pragmas.h \
-PKG_CFLAGS = \
+PKG_CFLAGS = -FImsvc_recommended_pragmas.h \
 	-I.. \
 	$(GTK2_CFLAGS) \
 	$(LIBXML2_CFLAGS) \

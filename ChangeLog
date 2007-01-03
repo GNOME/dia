@@ -1,5 +1,11 @@
 2007-01-03  Hans Breuer  <hans@breuer.org>
 
+	* lib/makefile.msc : enable strict checking again 
+	(-FImsvc_recommended_pragmas.h) to enforce e.g. matching pointers
+	at compile time
+	* lib/textline.h : RenderCacheFreeFunc is only taking a pointer,
+	not a pointer to a pointer
+	
 	* objects/UML/constraint.c objects/UML/implements.c 
 	  objects/UML/message.c objects/Jackson/phenomenon.c
 	  objects/KAOS/metaandorrel.c : move_handle() method needs to call 
