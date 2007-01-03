@@ -8,7 +8,8 @@
 	(-FImsvc_recommended_pragmas.h) to enforce e.g. matching pointers
 	at compile time
 	* lib/textline.h : RenderCacheFreeFunc is only taking a pointer,
-	not a pointer to a pointer
+	not a pointer to a pointer and we dont need a pointer to the 
+	function pointer in the struct
 	
 	* objects/UML/constraint.c objects/UML/implements.c 
 	  objects/UML/message.c objects/Jackson/phenomenon.c

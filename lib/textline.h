@@ -33,7 +33,7 @@ typedef void (*RendererCacheFreeFunc) (gpointer data);
 
 struct _RendererCache {
   DiaRenderer *renderer;
-  RendererCacheFreeFunc *free_func;
+  RendererCacheFreeFunc free_func;
   real scale;
   gpointer data;
 };
