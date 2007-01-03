@@ -261,16 +261,13 @@ create_zoom_widget(DDisplay *ddisp) {
   gtk_widget_show_all(button);
 
   menu = gtk_menu_new();
+  zoom_add_zoom_amount(menu, "800%", ddisp);
   zoom_add_zoom_amount(menu, "400%", ddisp);
-  zoom_add_zoom_amount(menu, "283%", ddisp);
   zoom_add_zoom_amount(menu, "200%", ddisp);
-  zoom_add_zoom_amount(menu, "141%", ddisp);
   zoom_add_zoom_amount(menu, "100%", ddisp);
-  zoom_add_zoom_amount(menu, "85%", ddisp);
-  zoom_add_zoom_amount(menu, "70.7%", ddisp);
   zoom_add_zoom_amount(menu, "50%", ddisp);
-  zoom_add_zoom_amount(menu, "35.4%", ddisp);
   zoom_add_zoom_amount(menu, "25%", ddisp);
+  zoom_add_zoom_amount(menu, "12%", ddisp);
 
   gtk_widget_show_all(menu);
 

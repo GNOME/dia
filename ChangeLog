@@ -1,5 +1,9 @@
 2007-01-03  Hans Breuer  <hans@breuer.org>
 
+	* app/interface.c : refined the zooms-list drop-down to include
+	800%, stay symmetric and not have more than seven entries. 
+	Fixes bug #328596
+
 	* lib/makefile.msc : enable strict checking again 
 	(-FImsvc_recommended_pragmas.h) to enforce e.g. matching pointers
 	at compile time
