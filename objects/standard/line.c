@@ -572,7 +572,7 @@ line_save(Line *line, ObjectNode obj_node, const char *filename)
   
   if (line->start_arrow.type != ARROW_NONE) {
     save_arrow(obj_node, &line->start_arrow,
-	       "start_arrow", "start_arrow_length", "startend_arrow_width");
+	       "start_arrow", "start_arrow_length", "start_arrow_width");
   }
   
   if (line->end_arrow.type != ARROW_NONE) {

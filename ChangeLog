@@ -1,5 +1,8 @@
 2007-01-05  Hans Breuer  <hans@breuer.org>
 
+	* objects/standard/line.c : fix typo in save_arrow(), patch from
+	Michael Duelli closing bug #393201
+
 	* app/dia-win-remote.c app/paginate_gdiprint.cpp app/win32print.c
 	  lib/dia_dirs.c lib/font.c plug-ins/wmf/wmf.cpp : 
 	#define WIN32_MEAN_AND_LEAN before windows.h inclusion where ever 
