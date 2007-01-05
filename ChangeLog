@@ -1,3 +1,10 @@
+2007-01-05  Hans Breuer  <hans@breuer.org>
+
+	* app/dia-win-remote.c app/paginate_gdiprint.cpp app/win32print.c
+	  lib/dia_dirs.c lib/font.c plug-ins/wmf/wmf.cpp : 
+	#define WIN32_MEAN_AND_LEAN before windows.h inclusion where ever 
+	possible to reduce namespace clashes
+
 2007-01-03  Hans Breuer  <hans@breuer.org>
 
 	* lib/persistence.c : before restoring window positions check if

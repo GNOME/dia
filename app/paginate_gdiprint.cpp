@@ -49,6 +49,9 @@ extern "C" {
 #endif
 
 namespace W32 {
+// can't 
+// #define WIN32_LEAN_AND_MEAN
+// because we need stuff like PRINTDLG
 #include <windows.h>
 }
 

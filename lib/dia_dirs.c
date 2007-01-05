@@ -24,6 +24,7 @@
 #include "intl.h"
 #include "message.h"
 #ifdef G_OS_WIN32
+#define WIN32_LEAN_AND_MEAN
 #include <windows.h>
 #include <direct.h>
 #define mkdir(s,a) _mkdir(s)
