@@ -1,5 +1,8 @@
 2007-01-06  Hans Breuer  <hans@breuer.org>
 
+	* plug-ins/python/bbox.py : draws bounding boxes of the objects in the
+	active layer into a new layer. Helps analyzing the font size problems.
+
 	* acinclude.m4 : deduce py_config_dir from py_prefix, helps GARNOME
 	and seems not to break anything (tested on Fedora and Gentoo)
 	Joseph Sacco, bug #338368
