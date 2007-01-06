@@ -448,6 +448,7 @@ AM_CONDITIONAL(WITH_PYTHON, test "x$with_python" != "xno")
 
 AC_OUTPUT(
 Makefile
+dia.desktop.in
 lib/Makefile
 lib/pixmaps/Makefile
 po/Makefile.in

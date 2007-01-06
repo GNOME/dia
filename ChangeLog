@@ -1,5 +1,14 @@
 2007-01-06  Hans Breuer  <hans@breuer.org>
 
+	* dia.desktop.in : 'svn mv dia.desktop.in dia.desktop.in.in'
+	  configure.in : add dia.desktop.in to AC_OUTPUT
+	  Makefile.am : changed rule for .desktop handling. Together this 
+	should resolve @VERSION@ in the dia.desktop file and thus gives us
+	version info via bug-buddy automatically. 
+	This is more important with bug-buddy 2.16 cause there the user can
+	not manually adapt the version anymore. Hopefully fixes bug #393618 
+	(see also bug #348827)
+
 	* plug-ins/python/bbox.py : draws bounding boxes of the objects in the
 	active layer into a new layer. Helps analyzing the font size problems.
 
