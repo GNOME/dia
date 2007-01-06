@@ -1,5 +1,7 @@
 2007-01-06  Hans Breuer  <hans@breuer.org>
 
+	* plug-ins/python/Makefile.am : EXTRA_DIST += bbox.py
+
 	* dia.desktop.in : 'svn mv dia.desktop.in dia.desktop.in.in'
 	  configure.in : add dia.desktop.in to AC_OUTPUT
 	  Makefile.am : changed rule for .desktop handling. Together this 

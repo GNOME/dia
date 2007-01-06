@@ -88,5 +88,6 @@ EXTRA_DIST = \
 	scascale.py \
 	select_by.py \
 	gtkcons.py \
+	bbox.py \
 	makefile.msc
 
