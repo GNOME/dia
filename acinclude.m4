@@ -225,7 +225,7 @@ AC_REQUIRE([AM_CHECK_PYTHON_HEADERS])
 
 AC_MSG_CHECKING(for libpython${PYTHON_VERSION}.a)
 
-py_config_dir=`$PYTHON -c "import os; print os.path.abspath('$pyexecdir/../config')"`
+py_config_dir="$py_prefix/lib/python${PYTHON_VERSION}/config"
 
 py_makefile="${py_config_dir}/Makefile"
 if test -f "$py_makefile"; then

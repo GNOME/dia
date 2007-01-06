@@ -1,3 +1,17 @@
+2007-01-06  Hans Breuer  <hans@breuer.org>
+
+	* acinclude.m4 : deduce py_config_dir from py_prefix, helps GARNOME
+	and seems not to break anything (tested on Fedora and Gentoo)
+	Joseph Sacco, bug #338368
+
+	* plug-ins/python/pydia-property.c : finally implemented 
+	getters/setters for LengthProperty and FontsizeProperty. (We really
+	should take g_warning more serious, this one was
+	WARNING **: No handler for type 'length')
+
+	* plug-ins/xslt/xslt.c : don't use g_warning but message_error for 
+	"No valid configuration files found for the XSLT plugin, not loading."
+
 2007-01-05  Hans Breuer  <hans@breuer.org>
 
 	* objects/standard/line.c : fix typo in save_arrow(), patch from
