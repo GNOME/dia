@@ -937,6 +937,7 @@ umlclass_draw_operationbox(UMLClass *umlclass, DiaRenderer *renderer, Element *e
         uml_draw_comments(renderer, umlclass->comment_font ,umlclass->comment_font_height, 
                                &umlclass->text_color, op->comment, umlclass->comment_tagging,
                                umlclass->comment_line_length, &StartPoint, ALIGN_LEFT);
+        StartPoint.y += umlclass->comment_font_height/2;
       }
 
       list = g_list_next(list);
@@ -1140,8 +1141,15 @@ umlclass_update_data(UMLClass *umlclass)
     attr->right_connection->directions = DIR_EAST;
 
     y += umlclass->font_height;
-    if (umlclass->visible_comments && attr->comment != NULL && attr->comment[0] != '\0')
-      y += umlclass->comment_font_height;
+    if (umlclass->visible_comments && attr->comment != NULL && attr->comment[0] != '\0') {
+      gint NumberOfLines = 0;
+      gchar *CommentString = 0;
+
+      CommentString = 
+        uml_create_documentation_tag(attr->comment, umlclass->comment_tagging, umlclass->comment_line_length, &NumberOfLines);
+      g_free(CommentString);
+      y += umlclass->comment_font_height*NumberOfLines + umlclass->comment_font_height/2;
+    }
 
     list = g_list_next(list);
   }
@@ -1167,8 +1175,15 @@ umlclass_update_data(UMLClass *umlclass)
     } else {
       y += umlclass->font_height;
     }
-    if (umlclass->visible_comments && op->comment != NULL && op->comment[0] != '\0')
-      y += umlclass->comment_font_height; /* Not adjusted for wrap */
+    if (umlclass->visible_comments && op->comment != NULL && op->comment[0] != '\0') {
+      gint NumberOfLines = 0;
+      gchar *CommentString = 0;
+
+      CommentString = 
+        uml_create_documentation_tag(op->comment, umlclass->comment_tagging, umlclass->comment_line_length, &NumberOfLines);
+      g_free(CommentString);
+      y += umlclass->comment_font_height*NumberOfLines + umlclass->comment_font_height/2;
+    }
     list = g_list_next(list);
   }
   
@@ -1238,22 +1253,22 @@ umlclass_calculate_name_data(UMLClass *umlclass)
 
   if (umlclass->visible_comments && umlclass->comment != NULL && umlclass->comment[0] != '\0')
   {
-    int NumberOfCommentLines = 0;
-    gchar *wrapped_box = uml_create_documentation_tag (umlclass->comment,
-                                                       umlclass->comment_tagging,
-                                                       umlclass->comment_line_length, 
-                                                       &NumberOfCommentLines);
-
-    width = dia_font_string_width (wrapped_box, 
-                                   umlclass->comment_font,
-                                   umlclass->comment_font_height);
-
-    g_free(wrapped_box);
-    umlclass->namebox_height += umlclass->comment_font_height * NumberOfCommentLines;
+    int NumberOfLines = 0;
+    gchar *CommentString = uml_create_documentation_tag (umlclass->comment,
+                                                         umlclass->comment_tagging,
+                                                         umlclass->comment_line_length, 
+                                                         &NumberOfLines);
+    width = dia_font_string_width (CommentString, 
+                                    umlclass->comment_font,
+                                    umlclass->comment_font_height);
+ 
+    g_free(CommentString);
+    umlclass->namebox_height += umlclass->comment_font_height * NumberOfLines;
     maxwidth = MAX(width, maxwidth);
   }
   return maxwidth;
 }
+
 /**
  * Calculate the dimensions of the attribute box on an object of type UMLClass.
  * @param   umlclass  a pointer to an object of UMLClass
@@ -1299,19 +1314,15 @@ umlclass_calculate_attribute_data(UMLClass *umlclass)
       if (umlclass->visible_comments && attr->comment != NULL && attr->comment[0] != '\0')
       {
         int NumberOfLines = 0;
-        gchar *Wrapped = uml_create_documentation_tag(attr->comment,
-	                                              umlclass->comment_tagging,
-                                                      umlclass->comment_line_length, 
-                                                      &NumberOfLines);
-
-        width = dia_font_string_width(Wrapped,
-                                      umlclass->comment_font,
-                                      umlclass->comment_font_height);
-
-        g_free(Wrapped);
-        umlclass->attributesbox_height += (umlclass->comment_font_height * (NumberOfLines));
-        umlclass->attributesbox_height += umlclass->comment_font_height/2;
-
+        gchar *CommentString = uml_create_documentation_tag(attr->comment,
+                                                            umlclass->comment_tagging,
+                                                            umlclass->comment_line_length, 
+                                                            &NumberOfLines);
+        width = dia_font_string_width(CommentString,
+                                       umlclass->comment_font,
+                                       umlclass->comment_font_height);
+        g_free(CommentString);
+        umlclass->attributesbox_height += umlclass->comment_font_height * NumberOfLines + umlclass->comment_font_height/2;
         maxwidth = MAX(width, maxwidth);
       }
 
@@ -1486,19 +1497,15 @@ umlclass_calculate_operation_data(UMLClass *umlclass)
 
       if (umlclass->visible_comments && op->comment != NULL && op->comment[0] != '\0'){
         int NumberOfLines = 0;
-        gchar *Wrapped = uml_create_documentation_tag(op->comment,
-	                                              umlclass->comment_tagging,
-                                                      umlclass->comment_line_length, 
-                                                      &NumberOfLines);
-
-        width = dia_font_string_width(Wrapped,
-                                      umlclass->comment_font,
-                                      umlclass->comment_font_height);
-
-        g_free(Wrapped);
-        umlclass->operationsbox_height += 
-	  (umlclass->comment_font_height * (NumberOfLines+1));
-
+        gchar *CommentString = uml_create_documentation_tag(op->comment,
+                                                            umlclass->comment_tagging,
+                                                            umlclass->comment_line_length, 
+                                                            &NumberOfLines);
+        width = dia_font_string_width(CommentString,
+                                       umlclass->comment_font,
+                                       umlclass->comment_font_height);
+        g_free(CommentString);
+        umlclass->operationsbox_height += umlclass->comment_font_height * NumberOfLines + umlclass->comment_font_height/2;
         maxwidth = MAX(width, maxwidth);
       }
 
