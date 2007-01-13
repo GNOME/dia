@@ -77,7 +77,7 @@ diagram_tree_window_new(DiagramTreeConfig *config)
 
   g_return_val_if_fail(window, NULL);
   
-  gtk_window_set_title(GTK_WINDOW(window), N_("Diagram tree"));
+  gtk_window_set_title(GTK_WINDOW(window), _("Diagram Tree"));
   gtk_window_set_role(GTK_WINDOW(window), "diagram_tree");
 
   /* simply hide the window when it is closed */

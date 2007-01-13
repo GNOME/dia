@@ -1,3 +1,8 @@
+2007-01-13  Tommi Vainikainen  <thv@iki.fi>
+
+	* app/diagram_tree_window.c (diagram_tree_window_new): "Diagram
+	Tree" window title is now shown as translated.
+
 2007-01-09  Hans Breuer  <hans@breuer.org>
 
 	* objects/UML/class.c : comments were not considered for connection
