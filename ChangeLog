@@ -1,3 +1,11 @@
+2007-01-13  Hans Breuer  <hans@breuer.org>
+
+	* app/menu.c : register action "ViewAntialised" even if we 
+	don't HAVE_LIBART ...
+	* app/display.c : ... and disable the respective menu entry
+	to avoid package dependent ui-file and crashing due to 
+	gtk+ bug http://bugzilla.gnome.org/show_bug.cgi?id=396161
+
 2007-01-13  Tommi Vainikainen  <thv@iki.fi>
 
 	* app/diagram_tree_window.c (diagram_tree_window_new): "Diagram

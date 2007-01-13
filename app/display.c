@@ -1177,6 +1177,9 @@ display_update_menu_state(DDisplay *ddisp)
     show_cx_pts  = GTK_TOGGLE_ACTION (menus_get_action ("ViewShowconnectionpoints"));
 #ifdef HAVE_LIBART
     antialiased  = GTK_TOGGLE_ACTION (menus_get_action ("ViewAntialiased"));
+#else 
+    /* the action is registered to avoid crashing, disable the entry */
+    gtk_action_set_sensitive (menus_get_action ("ViewAntialiased"), FALSE);
 #endif
   } else {
     rulers       = GTK_TOGGLE_ACTION (gtk_action_group_get_action (ddisp->actions, "ViewShowrulers"));
@@ -1185,6 +1188,8 @@ display_update_menu_state(DDisplay *ddisp)
     show_cx_pts  = GTK_TOGGLE_ACTION (gtk_action_group_get_action (ddisp->actions, "ViewShowconnectionpoints"));
 #ifdef HAVE_LIBART
     antialiased  = GTK_TOGGLE_ACTION (gtk_action_group_get_action (ddisp->actions, "ViewAntialiased"));
+#else
+    gtk_action_set_sensitive (gtk_action_group_get_action (ddisp->actions, "ViewAntialiased"), FALSE);
 #endif
   }
 

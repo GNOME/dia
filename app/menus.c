@@ -209,8 +209,13 @@ static const GtkToggleActionEntry display_toggle_entries[] =
 #else
     { "ViewFullscreen", NULL, N_("Fullscr_een"), "F11", NULL, G_CALLBACK (view_fullscreen_callback) },
 #endif
-#ifdef HAVE_LIBART  
+#ifdef HAVE_LIBART
     { "ViewAntialiased", NULL, N_("_AntiAliased"), NULL, NULL, G_CALLBACK (view_aa_callback) },
+#else
+    /* we must have all actions registered to avoid configuration specific ui-files and crashing in GTK+,
+    * see: http://bugzilla.gnome.org/show_bug.cgi?id=396161
+    */
+    { "ViewAntialiased", NULL, N_("_AntiAliased"), NULL, NULL, NULL },
 #endif
     { "ViewShowgrid", NULL, N_("Show _Grid"), NULL, NULL, G_CALLBACK (view_visible_grid_callback) },
     { "ViewSnaptogrid", NULL, N_("_Snap To Grid"), NULL, NULL, G_CALLBACK (view_snap_to_grid_callback) },
