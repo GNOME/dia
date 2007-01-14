@@ -1,5 +1,11 @@
 2007-01-14  Lars Clausen  <larsrc@static>
 
+	* plug-ins/vdx/vdx-import.c: 
+	* plug-ins/vdx/vdx-xml.c: 
+	* plug-ins/vdx/vdx.h: 
+	* plug-ins/vdx/visio-types.h: Updated to version 0.7.  Thanks to
+	Ian again for more work on this.
+
 	* objects/KAOS/metaandorrel.c: Full autogap enabled for line-like
 	connector. 
 
