@@ -9,7 +9,7 @@ pkgdata_DATA = dia_logo.png
 pixmapdir = $(gnomedatadir)/pixmaps
 pixmap_DATA = dia_gnome_icon.png dia-diagram.png
 
-desktop_in_files = dia.desktop.in.in
+desktop_in_in_files = dia.desktop.in.in
 desktop_files = $(desktop_in_files:.desktop.in.in=.desktop)
 
 applicationsdir = $(DESKTOP_DATADIR)/applications
@@ -22,11 +22,24 @@ dia.keys: $(srcdir)/dia.keys.in Makefile
 
 CLEANFILES = core-translation-report dia.keys dia.desktop dia.desktop.in
 
-DISTCLEANFILES = $(desktop_files)
+#DISTCLEANFILES = $(desktop_files)
 
+#--- Adapted from http://svn.xfce.org/svn/xfce/libexo/trunk/exo-helper/helpers/Makefile.am
 
-dia.desktop: dia.desktop.in $(wildcard $(top_srcdir)/po/*.po)
-	$(INTLTOOL_MERGE) $(top_srcdir)/po $< $(@) -d -u -c $(top_builddir)/po/.intltool-merge-cachemake
+desktopdir = $(datadir)
+desktop_in_files = $(desktop_in_in_files:.desktop.in.in=.desktop.in)
+desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
+%.desktop.in: %.desktop.in.in
+	sed -e "s,\@libexecdir\@,$(libexecdir),g" < $< > $(top_srcdir)/$@
+@INTLTOOL_DESKTOP_RULE@
+
+DISTCLEANFILES =							\
+	$(desktop_in_files)						\
+	$(desktop_DATA)
+
+#---
+#dia.desktop: dia.desktop.in $(wildcard $(top_srcdir)/po/*.po)
+#	$(INTLTOOL_MERGE) $(top_srcdir)/po $< $(@) -d -u -c $(top_builddir)/po/.intltool-merge-cachemake
 
 
 distclean-local:

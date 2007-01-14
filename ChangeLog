@@ -1,5 +1,8 @@
 2007-01-14  Lars Clausen  <larsrc@static>
 
+	* Makefile.am (%.desktop.in): Attempt at better desktop.in
+	building rule.  No luck.
+ 
 	* app/menus.c (tool_entries): Using shift-alt instead of alt for
 	menus to avoid conflicts with menu shortcuts.  Closing bug #350731.
 
