@@ -51,6 +51,9 @@
 #define DTOSTR_BUF_SIZE G_ASCII_DTOSTR_BUF_SIZE
 #define dia_svg_dtostr(buf,d) \
 	g_ascii_formatd(buf,sizeof(buf),"%g",d)
+static void
+draw_text_line(DiaRenderer *self, TextLine *text_line,
+	       Point *pos, Color *colour);
 
 /* DiaSvgRenderer methods */
 static void
@@ -640,6 +643,12 @@ draw_string(DiaRenderer *self,
 	    Point *pos, Alignment alignment,
 	    Color *colour)
 {    
+  TextLine *text_line = text_line_new(text, self->font, self->font_height);
+  Point realigned_pos = *pos;
+  realigned_pos.x -= text_line_get_alignment_adjustment(text_line, alignment);
+  draw_text_line(self, text_line, &realigned_pos, colour);
+  return;
+#if 0
   DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
   xmlNodePtr node;
   char *style, *tmp;
@@ -691,6 +700,7 @@ draw_string(DiaRenderer *self,
   xmlSetProp(node, "x", d_buf);
   dia_svg_dtostr(d_buf, pos->y);
   xmlSetProp(node, "y", d_buf);
+#endif
 }
 
 
@@ -715,9 +725,8 @@ draw_text_line(DiaRenderer *self, TextLine *text_line,
   renderer->linewidth = saved_width;
   tmp = g_strdup_printf("%s; font-size: %s cm", style,
 			dia_svg_dtostr(d_buf, text_line_get_height(text_line)));
-  g_free (style);
   style = tmp;
-
+  
   tmp = g_strdup_printf("%s; length: %s cm", style,
 			dia_svg_dtostr(d_buf, text_line_get_width(text_line)));
   g_free (style);
@@ -853,7 +862,7 @@ dia_svg_renderer_class_init (DiaSvgRendererClass *klass)
 
   renderer_class->draw_bezier   = draw_bezier;
   renderer_class->fill_bezier   = fill_bezier;
-/*  renderer_class->draw_text_line  = draw_text_line;*/
+  renderer_class->draw_text_line  = draw_text_line;
 
   /* svg specific */
   svg_renderer_class->get_draw_style = get_draw_style;

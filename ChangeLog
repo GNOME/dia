@@ -1,5 +1,9 @@
 2007-01-14  Lars Clausen  <larsrc@static>
 
+	* lib/diasvgrenderer.c (draw_text_line): Don't crash rendering
+	text line, use text_line for rendering.  Dimensions now correct in
+	SVG file for render-test, too bad nobody seems to obey them:(
+
 	* samples/Makefile.am (EXTRA_DIST): Added new samples to dist.
 
 	* plug-ins/vdx/vdx-import.c: 
