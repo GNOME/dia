@@ -1,5 +1,7 @@
 2007-01-14  Lars Clausen  <larsrc@static>
 
+	* samples/Makefile.am (EXTRA_DIST): Added new samples to dist.
+
 	* plug-ins/vdx/vdx-import.c: 
 	* plug-ins/vdx/vdx-xml.c: 
 	* plug-ins/vdx/vdx.h: 
