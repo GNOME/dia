@@ -468,10 +468,24 @@ uml_underline_text(DiaRenderer  *renderer,
   DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Point    UnderlineStartPoint;
   Point    UnderlineEndPoint;
+  Point    WhitespaceEndPoint;
+  gchar *whitespaces;
+  int first_non_whitespace = 0;
 
   UnderlineStartPoint = StartPoint;
   UnderlineStartPoint.y += font_height * 0.1;
   UnderlineEndPoint = UnderlineStartPoint;
+
+  whitespaces = string;
+  while (whitespaces &&
+	 g_unichar_isspace(g_utf8_get_char(whitespaces))) {
+    whitespaces = g_utf8_next_char(whitespaces);
+  }
+  first_non_whitespace = whitespaces - string;
+  whitespaces = g_strdup(string);
+  whitespaces[first_non_whitespace] = '\0';
+  UnderlineStartPoint.x += dia_font_string_width(whitespaces, font, font_height);
+  g_free(whitespaces);
   UnderlineEndPoint.x += dia_font_string_width(string, font, font_height);
   renderer_ops->set_linewidth(renderer, underline_width);
   renderer_ops->draw_line(renderer, &UnderlineStartPoint, &UnderlineEndPoint, color);
@@ -916,6 +930,10 @@ umlclass_draw_operationbox(UMLClass *umlclass, DiaRenderer *renderer, Element *e
 
           StartPoint.y += ascent;
           renderer_ops->draw_string(renderer, part_opstr, &StartPoint, ALIGN_LEFT, text_color);
+	  if (op->class_scope) {
+	    uml_underline_text(renderer, StartPoint, font, font_height, part_opstr, line_color, 
+			       UMLCLASS_BORDER, UMLCLASS_UNDERLINEWIDTH );
+	  }
           last_wrap_pos = wrap_pos;
           wrapsublist = g_list_next( wrapsublist);
         }
@@ -924,12 +942,12 @@ umlclass_draw_operationbox(UMLClass *umlclass, DiaRenderer *renderer, Element *e
       {
         StartPoint.y += ascent;
         renderer_ops->draw_string(renderer, opstr, &StartPoint, ALIGN_LEFT, text_color);
+	if (op->class_scope) {
+	  uml_underline_text(renderer, StartPoint, font, font_height, opstr, line_color, 
+			     UMLCLASS_BORDER, UMLCLASS_UNDERLINEWIDTH );
+	}
       }
 
-      if (op->class_scope) {
-        uml_underline_text(renderer, StartPoint, font, font_height, opstr, line_color, 
-                        UMLCLASS_BORDER, UMLCLASS_UNDERLINEWIDTH );
-      }
 
       StartPoint.y += font_height - ascent;
 

@@ -1,8 +1,16 @@
 2007-01-14  Lars Clausen  <larsrc@static>
 
+	* app/menus.c (tool_entries): Using shift-alt instead of alt for
+	menus to avoid conflicts with menu shortcuts.  Closing bug #350731.
+
+	* objects/UML/class.c (uml_underline_text): Underline that skips
+	leading whitespace, and is called on each part of a wrapped
+	operation. Fixes bug #390145.
+
 	* lib/diasvgrenderer.c (draw_text_line): Don't crash rendering
 	text line, use text_line for rendering.  Dimensions now correct in
 	SVG file for render-test, too bad nobody seems to obey them:(
+	Fixes bug #332826.
 
 	* samples/Makefile.am (EXTRA_DIST): Added new samples to dist.
 
@@ -13,7 +21,7 @@
 	Ian again for more work on this.
 
 	* objects/KAOS/metaandorrel.c: Full autogap enabled for line-like
-	connector. 
+	connector. Fixes bug #365437.
 
 	* objects/KAOS/metabinrel.c (mbr_update_data): Added comment on
 	why autogap is hard -- this line is a one-segment bezier.  The

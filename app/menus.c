@@ -183,22 +183,22 @@ static const GtkActionEntry display_entries[] =
 static const GtkActionEntry tool_entries[] = 
 {
   { "Tools", NULL, N_("_Tools"), NULL, NULL, NULL },
-    { "ToolsModify", NULL, N_("Modify"), "<alt>N", NULL, NULL },
-    { "ToolsMagnify", NULL, N_("Magnify"), "<alt>M", NULL, NULL },
-    { "ToolsScroll", NULL, N_("Scroll"), "<alt>S", NULL, NULL },
-    { "ToolsText", NULL, N_("Text"), "<alt>T", NULL, NULL },
-    { "ToolsBox", NULL, N_("Box"), "<alt>R", NULL, NULL },
-    { "ToolsEllipse", NULL, N_("Ellipse"), "<alt>E", NULL, NULL },
-    { "ToolsPolygon", NULL, N_("Polygon"), "<alt>P", NULL, NULL },
-    { "ToolsBeziergon", NULL, N_("Beziergon"), "<alt>B", NULL, NULL },
+    { "ToolsModify", NULL, N_("Modify"), "<alt><shift>N", NULL, NULL },
+    { "ToolsMagnify", NULL, N_("Magnify"), "<alt><shift>M", NULL, NULL },
+    { "ToolsScroll", NULL, N_("Scroll"), "<alt><shift>S", NULL, NULL },
+    { "ToolsText", NULL, N_("Text"), "<alt><shift>T", NULL, NULL },
+    { "ToolsBox", NULL, N_("Box"), "<alt><shift>R", NULL, NULL },
+    { "ToolsEllipse", NULL, N_("Ellipse"), "<alt><shift>E", NULL, NULL },
+    { "ToolsPolygon", NULL, N_("Polygon"), "<alt><shift>P", NULL, NULL },
+    { "ToolsBeziergon", NULL, N_("Beziergon"), "<alt><shift>B", NULL, NULL },
 
-    { "ToolsLine", NULL, N_("Line"), "<alt>L", NULL, NULL },
-    { "ToolsArc", NULL, N_("Arc"), "<alt>A", NULL, NULL },
-    { "ToolsZigzagline", NULL, N_("Zigzagline"), "<alt>Z", NULL, NULL },
-    { "ToolsPolyline", NULL, N_("Polyline"), NULL, NULL },
-    { "ToolsBezierline", NULL, N_("Bezierline"), "<alt>C", NULL, NULL },
+    { "ToolsLine", NULL, N_("Line"), "<alt><shift>L", NULL, NULL },
+    { "ToolsArc", NULL, N_("Arc"), "<alt><shift>A", NULL, NULL },
+    { "ToolsZigzagline", NULL, N_("Zigzagline"), "<alt><shift>Z", NULL, NULL },
+    { "ToolsPolyline", NULL, N_("Polyline"), "<alt><shift>Y", NULL },
+    { "ToolsBezierline", NULL, N_("Bezierline"), "<alt><shift>C", NULL, NULL },
 
-    { "ToolsImage", NULL, N_("Image"), "<alt>I", NULL, NULL },
+    { "ToolsImage", NULL, N_("Image"), "<alt><shift>I", NULL, NULL },
 };
 
 /* Toggle-Actions for diagram window */
