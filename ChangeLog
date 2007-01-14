@@ -1,3 +1,13 @@
+2007-01-14  Lars Clausen  <larsrc@static>
+
+	* objects/KAOS/metaandorrel.c: Full autogap enabled for line-like
+	connector. 
+
+	* objects/KAOS/metabinrel.c (mbr_update_data): Added comment on
+	why autogap is hard -- this line is a one-segment bezier.  The
+	standard bezier object has a generic bezier autogap function that
+	could be reused given some work.
+
 2007-01-13  Hans Breuer  <hans@breuer.org>
 
 	* app/menu.c : register action "ViewAntialised" even if we 

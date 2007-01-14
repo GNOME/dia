@@ -19,7 +19,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-/* Generated Fri Sep 29 19:34:43 2006 */
+/* Generated Thu Nov 30 19:27:17 2006 */
 /* From: All.vdx animation_tests.vdx Arrows-2.vdx Arrow & Text samples.vdx BasicShapes.vdx basic_tests.vdx Beispiel 1.vdx Beispiel 2.vdx Beispiel 3.vdx Circle1.vdx Circle2.vdx curve_tests.vdx Drawing2.vdx Embedded-Pics-1.vdx emf_dump_test2.orig.vdx emf_dump_test2.vdx Entreprise_etat_desire.vdx Line1.vdx Line2.vdx Line3.vdx Line4.vdx Line5.vdx Line6.vdx LombardiWireframe.vdx pattern_tests.vdx Rectangle1.vdx Rectangle2.vdx Rectangle3.vdx Rectangle4.vdx sample1.vdx Sample2.vdx samp_vdx.vdx seq_test.vdx SmithWireframe.vdx states.vdx Text1.vdx Text2.vdx Text3.vdx text_tests.vdx */
 
 
@@ -2028,16 +2028,16 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
                 s->A = atof((char *)child->children->content); }
             else if (!strcmp((char *)child->name, "B"))
             { if (child->children && child->children->content)
-                s->B = atoi((char *)child->children->content); }
+                s->B = atof((char *)child->children->content); }
             else if (!strcmp((char *)child->name, "C"))
             { if (child->children && child->children->content)
-                s->C = atoi((char *)child->children->content); }
+                s->C = atof((char *)child->children->content); }
             else if (!strcmp((char *)child->name, "D"))
             { if (child->children && child->children->content)
-                s->D = atoi((char *)child->children->content); }
+                s->D = atof((char *)child->children->content); }
             else if (!strcmp((char *)child->name, "E"))
             { if (child->children && child->children->content)
-                s->E = atof((char *)child->children->content); }
+                s->E = (char *)child->children->content; }
             else if (!strcmp((char *)child->name, "X"))
             { if (child->children && child->children->content)
                 s->X = atof((char *)child->children->content); }
@@ -2689,7 +2689,7 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
                 s->C = atof((char *)child->children->content); }
             else if (!strcmp((char *)child->name, "D"))
             { if (child->children && child->children->content)
-                s->D = atoi((char *)child->children->content); }
+                s->D = atof((char *)child->children->content); }
             else if (!strcmp((char *)child->name, "X"))
             { if (child->children && child->children->content)
                 s->X = atof((char *)child->children->content); }
@@ -2819,16 +2819,16 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
             if (xmlIsBlankNode(child)) { continue; }
             if (!strcmp((char *)child->name, "A"))
             { if (child->children && child->children->content)
-                s->A = atoi((char *)child->children->content); }
+                s->A = atof((char *)child->children->content); }
             else if (!strcmp((char *)child->name, "B"))
             { if (child->children && child->children->content)
-                s->B = atoi((char *)child->children->content); }
+                s->B = atof((char *)child->children->content); }
             else if (!strcmp((char *)child->name, "C"))
             { if (child->children && child->children->content)
                 s->C = atof((char *)child->children->content); }
             else if (!strcmp((char *)child->name, "D"))
             { if (child->children && child->children->content)
-                s->D = atoi((char *)child->children->content); }
+                s->D = atof((char *)child->children->content); }
             else if (!strcmp((char *)child->name, "X"))
             { if (child->children && child->children->content)
                 s->X = atof((char *)child->children->content); }
@@ -2971,6 +2971,9 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
             if (!strcmp((char *)child->name, "cp"))
             { if (child->children && child->children->content)
                 s->cp = atoi((char *)child->children->content); }
+            else if (!strcmp((char *)child->name, "fld"))
+            { if (child->children && child->children->content)
+                s->fld = atof((char *)child->children->content); }
             else if (!strcmp((char *)child->name, "pp"))
             { if (child->children && child->children->content)
                 s->pp = atoi((char *)child->children->content); }
@@ -3548,7 +3551,6 @@ vdx_write_object(FILE *file, unsigned int depth, const void *p)
     const struct vdx_text *text;
     char *pad = (char *)malloc(2*depth+1);
     unsigned int i;
-
     for (i=0; i<2*depth; i++) { pad[i] = ' '; }
     pad[2*depth] = 0;
 
@@ -4540,14 +4542,14 @@ vdx_write_object(FILE *file, unsigned int depth, const void *p)
         fprintf(file, "%s<NURBSTo IX='%u'>\n", pad, NURBSTo->IX);
         fprintf(file, "%s  <A>%f</A>\n", pad,
                 NURBSTo->A);
-        fprintf(file, "%s  <B>%u</B>\n", pad,
+        fprintf(file, "%s  <B>%f</B>\n", pad,
                 NURBSTo->B);
-        fprintf(file, "%s  <C>%u</C>\n", pad,
+        fprintf(file, "%s  <C>%f</C>\n", pad,
                 NURBSTo->C);
-        fprintf(file, "%s  <D>%u</D>\n", pad,
+        fprintf(file, "%s  <D>%f</D>\n", pad,
                 NURBSTo->D);
-        fprintf(file, "%s  <E>%f</E>\n", pad,
-                NURBSTo->E);
+        fprintf(file, "%s  <E>%s</E>\n", pad,
+                vdx_convert_xml_string(NURBSTo->E));
         fprintf(file, "%s  <X>%f</X>\n", pad,
                 NURBSTo->X);
         fprintf(file, "%s  <Y>%f</Y>\n", pad,
@@ -4911,7 +4913,7 @@ vdx_write_object(FILE *file, unsigned int depth, const void *p)
                 Scratch->B);
         fprintf(file, "%s  <C>%f</C>\n", pad,
                 Scratch->C);
-        fprintf(file, "%s  <D>%u</D>\n", pad,
+        fprintf(file, "%s  <D>%f</D>\n", pad,
                 Scratch->D);
         fprintf(file, "%s  <X>%f</X>\n", pad,
                 Scratch->X);
@@ -4982,13 +4984,13 @@ vdx_write_object(FILE *file, unsigned int depth, const void *p)
     case vdx_types_SplineStart:
         SplineStart = (const struct vdx_SplineStart *)(p);
         fprintf(file, "%s<SplineStart IX='%u'>\n", pad, SplineStart->IX);
-        fprintf(file, "%s  <A>%u</A>\n", pad,
+        fprintf(file, "%s  <A>%f</A>\n", pad,
                 SplineStart->A);
-        fprintf(file, "%s  <B>%u</B>\n", pad,
+        fprintf(file, "%s  <B>%f</B>\n", pad,
                 SplineStart->B);
         fprintf(file, "%s  <C>%f</C>\n", pad,
                 SplineStart->C);
-        fprintf(file, "%s  <D>%u</D>\n", pad,
+        fprintf(file, "%s  <D>%f</D>\n", pad,
                 SplineStart->D);
         fprintf(file, "%s  <X>%f</X>\n", pad,
                 SplineStart->X);

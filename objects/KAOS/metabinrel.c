@@ -536,7 +536,7 @@ mbr_update_data(Mbr *mbr)
   Point p3,p4;
   gchar *text;
 
-/* Too complex to easily decide */
+/* Too complex to easily decide -- this is essentially a bezier curve */
 /*
   if (connpoint_is_autogap(conn->endpoint_handles[0].connected_to) ||
       connpoint_is_autogap(conn->endpoint_handles[1].connected_to)) {

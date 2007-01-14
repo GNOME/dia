@@ -47,7 +47,7 @@ typedef struct VDXDocument VDXDocument;
 
 /* Various conversion ratios */
 
-static const double vdx_Font_Size_Conversion = 4; /* Empirical */
+static const double vdx_Font_Size_Conversion = 72/25.4*1.14; /* Empirical */
 static const double vdx_Y_Offset = 24.0; /* in cm */
 static const double vdx_Y_Flip = -1.0; /* Upside down */
 static const double vdx_Point_Scale = 2.54; /* Visio is in inches, Dia in cm */
@@ -57,7 +57,7 @@ static const double vdx_Arrow_Scale = 0.15; /* Empirical */
 static const double vdx_Dash_Length = 0.17; /* Empirical */
 static const double EPSILON = 0.01; /* Sensitivity */
 static const double vdx_Arrow_Sizes[] = 
-        { 1.0, 1.2, 1.4, 1.6, 1.8, 2.0 }; /* Empirical */
+        { 0.75, 1.0, 1.4, 1.6, 1.8, 2.0 }; /* Empirical */
 #define VDX_NAMEU_LEN 30
 #define DEG_TO_RAD M_PI/180.0                  /* Degrees to radians */
 

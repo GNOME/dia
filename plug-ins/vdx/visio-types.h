@@ -19,7 +19,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-/* Generated Fri Sep 29 19:34:43 2006 */
+/* Generated Thu Nov 30 19:27:16 2006 */
 /* From: All.vdx animation_tests.vdx Arrows-2.vdx Arrow & Text samples.vdx BasicShapes.vdx basic_tests.vdx Beispiel 1.vdx Beispiel 2.vdx Beispiel 3.vdx Circle1.vdx Circle2.vdx curve_tests.vdx Drawing2.vdx Embedded-Pics-1.vdx emf_dump_test2.orig.vdx emf_dump_test2.vdx Entreprise_etat_desire.vdx Line1.vdx Line2.vdx Line3.vdx Line4.vdx Line5.vdx Line6.vdx LombardiWireframe.vdx pattern_tests.vdx Rectangle1.vdx Rectangle2.vdx Rectangle3.vdx Rectangle4.vdx sample1.vdx Sample2.vdx samp_vdx.vdx seq_test.vdx SmithWireframe.vdx states.vdx Text1.vdx Text2.vdx Text3.vdx text_tests.vdx */
 
 
@@ -33,7 +33,7 @@ struct vdx_Act
 {
     GSList *children;
     char type;
-    float Action; /* F=0,1,SETF(&quot;LockDelete&quot;,&quot;Guard(0)&quot;),SETF(&quot;LockDelete&q */
+    float Action; /* F=0,1,SETF(&quot;LockDelete&quot;,&quot;Guard(0)&quot;),SETF(&quot;LockDelete&q Unit=BOOL */
     gboolean BeginGroup; /* F=No Formula =0 */
     unsigned int ButtonFace; /* F=No Formula = */
     gboolean Checked; /* F=0",1",2",Inh,LockDelete,LockTextEdit,No Formula =0,1 */
@@ -64,10 +64,10 @@ struct vdx_ArcTo
 {
     GSList *children;
     char type;
-    float A; /* F=-Scratch.Y1,-User.Margin*(3/2),-User.Margin/2,-User.Margin/4,-Width,0.125*Wid */
+    float A; /* F=-Scratch.Y1,-User.Margin*(3/2),-User.Margin/2,-User.Margin/4,-Width,0.125*Wid Unit=DL,IN,MM */
     unsigned int IX; /* */
-    float X; /* F=-User.Margin,0.4*Scratch.X1,0.6*Scratch.X1,Geometry1.X1,Geometry1.X2,Geometry */
-    float Y; /* F=-User.Margin*(3/2),Geometry1.Y1,Geometry1.Y4,Geometry2.Y1,Geometry2.Y4,Height */
+    float X; /* F=-User.Margin,0.4*Scratch.X1,0.6*Scratch.X1,Geometry1.X1,Geometry1.X2,Geometry Unit=IN,MM */
+    float Y; /* F=-User.Margin*(3/2),Geometry1.Y1,Geometry1.Y4,Geometry2.Y1,Geometry2.Y4,Height Unit=IN,MM */
 };
 
 struct vdx_BegTrigger
@@ -116,7 +116,7 @@ struct vdx_Char
     gboolean Perpendicular; /* F=FALSE,Inh,No Formula */
     gboolean Pos; /* F=0,Inh =0,1 */
     gboolean RTLText; /* F=Inh =0 */
-    float Size; /* F=0.11111111111111DT,0.125DT,0.16666666666667DT,10PT,12PT/User.ScaleRatio,14PT/ */
+    float Size; /* F=0.11111111111111DT,0.125DT,0.16666666666667DT,10PT,12PT/User.ScaleRatio,14PT/ Unit=PT */
     gboolean Strikethru; /* F=FALSE,Inh,No Formula */
     unsigned int Style; /* F=0,3,2,0)))',Inh */
     gboolean UseVertical; /* F=Inh =0 */
@@ -158,15 +158,15 @@ struct vdx_Connection
     GSList *children;
     char type;
     gboolean AutoGen; /* F=Inh,No Formula =0,1 */
-    float DirX; /* F=-25.4MM,Inh,No Formula */
-    float DirY; /* F=-25.4MM,Inh,No Formula */
+    float DirX; /* F=-25.4MM,Inh,No Formula Unit=IN,MM,NUM */
+    float DirY; /* F=-25.4MM,Inh,No Formula Unit=IN,MM,NUM */
     unsigned int ID; /* */
     unsigned int IX; /* */
     char * NameU; /* =Bottom,Float,Left,Right,Top */
     char * Prompt; /* F=No Formula =,&#xe000; */
     gboolean Type; /* F=Inh,No Formula =0 */
-    float X; /* F=0.5*Width,2,Width*0.18,Width*0.2003))",4,Width*0.0822,Width*0.1929))",4,Width */
-    float Y; /* F=0.5*Height,2,Height*0.05,Height*0.1233))))",3,Height*0,Height*0.1197)))",3,He */
+    float X; /* F=0.5*Width,2,Width*0.18,Width*0.2003))",4,Width*0.0822,Width*0.1929))",4,Width Unit=IN,MM */
+    float Y; /* F=0.5*Height,2,Height*0.05,Height*0.1233))))",3,Height*0,Height*0.1197)))",3,He Unit=IN,MM */
 };
 
 struct vdx_Connects
@@ -185,12 +185,12 @@ struct vdx_Control
     unsigned int IX; /* */
     char * NameU; /* =TextPosition */
     char * Prompt; /* F=Controls.Prompt,Controls.Row_1.Prompt,Inh =,&#xe000;,Adjust Frame Thickness,A */
-    float X; /* F=0.125IN*User.AntiScale,0.7IN*User.AntiScale,GUARD(Connections.X1+COS(User.Beg */
+    float X; /* F=0.125IN*User.AntiScale,0.7IN*User.AntiScale,GUARD(Connections.X1+COS(User.Beg Unit=IN,MM */
     float XCon; /* F=(Controls.X1&gt;Width/2)*2+2+5*Not(Actions.Action[2]),(Controls.X2&gt;Width/2 */
-    float XDyn; /* F=Controls.Row_1,Controls.Row_2,Controls.Row_3,Controls.Row_4,Controls.TextPosi */
-    float Y; /* F=Controls.Row_1.Y,GUARD(0),GUARD(Connections.Y1+SIN(User.BeginAngle+45DEG)*0.1 */
+    float XDyn; /* F=Controls.Row_1,Controls.Row_2,Controls.Row_3,Controls.Row_4,Controls.TextPosi Unit=IN,MM */
+    float Y; /* F=Controls.Row_1.Y,GUARD(0),GUARD(Connections.Y1+SIN(User.BeginAngle+45DEG)*0.1 Unit=IN,MM,PT */
     float YCon; /* F=(Controls.Y1&gt;Height/2)*2+2,(Controls.Y2&gt;Height/2)*2+2,4-2*Scratch.B1,In */
-    float YDyn; /* F=Controls.Row_1.Y,Controls.Row_2.Y,Controls.Row_3.Y,Controls.Row_4.Y,Controls. */
+    float YDyn; /* F=Controls.Row_1.Y,Controls.Row_2.Y,Controls.Row_3.Y,Controls.Row_4.Y,Controls. Unit=IN,MM,PT */
 };
 
 struct vdx_CustomProp
@@ -281,10 +281,10 @@ struct vdx_Ellipse
 {
     GSList *children;
     char type;
-    float A; /* F=Width*1 */
-    float B; /* F=Height*0.5 */
-    float C; /* F=Width*0.5 */
-    float D; /* F=Height*1 */
+    float A; /* F=Width*1 Unit=DL */
+    float B; /* F=Height*0.5 Unit=DL */
+    float C; /* F=Width*0.5 Unit=DL */
+    float D; /* F=Height*1 Unit=DL */
     unsigned int IX; /* */
     float X; /* F=Width*0.5 */
     float Y; /* F=Height*0.5 */
@@ -294,13 +294,13 @@ struct vdx_EllipticalArcTo
 {
     GSList *children;
     char type;
-    float A; /* F=Controls.Row_1,Controls.X1,Geometry1.A2,Geometry3.A2,Inh,Width,Width*0.000357 */
-    float B; /* F=2*Scratch.X1,Controls.Row_1.Y,Controls.Y1,Geometry1.B2,Geometry2.B2,Height*0, */
-    float C; /* F=Inh,_ELLIPSE_THETA(-0.010584331794649,1.0252774665981,8.2610199709935,10.5,Wi */
+    float A; /* F=Controls.Row_1,Controls.X1,Geometry1.A2,Geometry3.A2,Inh,Width,Width*0.000357 Unit=DL,IN,MM */
+    float B; /* F=2*Scratch.X1,Controls.Row_1.Y,Controls.Y1,Geometry1.B2,Geometry2.B2,Height*0, Unit=DL,IN,MM */
+    float C; /* F=Inh,_ELLIPSE_THETA(-0.010584331794649,1.0252774665981,8.2610199709935,10.5,Wi Unit=DA */
     float D; /* F=2*Geometry1.X1/Height,Geometry1.D3,Inh,Width/Height*0.049509756796392,Width/H */
     unsigned int IX; /* */
-    float X; /* F=Geometry1.X1,Geometry1.X2,Geometry2.X1,Geometry3.X1,Geometry4.X1,Geometry6.X1 */
-    float Y; /* F=Geometry1.Y1,Geometry1.Y4,Geometry2.Y1,Geometry3.Y1,Geometry4.Y1,Geometry6.Y1 */
+    float X; /* F=Geometry1.X1,Geometry1.X2,Geometry2.X1,Geometry3.X1,Geometry4.X1,Geometry6.X1 Unit=IN,MM */
+    float Y; /* F=Geometry1.Y1,Geometry1.Y4,Geometry2.Y1,Geometry3.Y1,Geometry4.Y1,Geometry6.Y1 Unit=IN,MM */
 };
 
 struct vdx_EndX
@@ -382,14 +382,14 @@ struct vdx_Field
     gboolean Calendar; /* F=No Formula =0 */
     gboolean Del; /* =1 */
     gboolean EditMode; /* F=Inh =0 */
-    float Format; /* F=FIELDPICTURE(0),FIELDPICTURE(201),FIELDPICTURE(21),FIELDPICTURE(24),FIELDPICT */
+    float Format; /* F=FIELDPICTURE(0),FIELDPICTURE(201),FIELDPICTURE(21),FIELDPICTURE(24),FIELDPICT Unit=STR */
     unsigned int IX; /* */
     gboolean ObjectKind; /* F=No Formula =0 */
     unsigned int Type; /* F=Inh =0,2,5 */
     unsigned int UICat; /* F=Inh =0,1,2,3,5 */
     unsigned int UICod; /* F=Inh =0,1,2,255,3,4,6,8 */
     unsigned int UIFmt; /* F=Inh =0,20,201,21,255,34,37,8 */
-    float Value; /* F=COMPANY(),CREATOR(),Creator(),DOCLASTSAVE(),DocCreation(),DocLastEdit(),DocLa */
+    float Value; /* F=COMPANY(),CREATOR(),Creator(),DOCLASTSAVE(),DocCreation(),DocLastEdit(),DocLa Unit=DATE,DL,STR */
 };
 
 struct vdx_Fill
@@ -494,11 +494,11 @@ struct vdx_HeaderFooter
     GSList *children;
     char type;
     char * FooterLeft; /* =&amp;f&amp;e&amp;n */
-    float FooterMargin; /* */
+    float FooterMargin; /* Unit=MM */
     char * HeaderFooterColor; /* =#000000 */
     unsigned int HeaderFooterFont; /* */
     char * HeaderLeft; /* =KVR GL/3 */
-    float HeaderMargin; /* */
+    float HeaderMargin; /* Unit=MM */
     char * HeaderRight; /* =&amp;D */
 };
 
@@ -576,8 +576,8 @@ struct vdx_InfiniteLine
 {
     GSList *children;
     char type;
-    float A; /* F=IF(Width&gt;0,Width,1DL),If(Width&gt;0,Width,0.039370078740157DL) */
-    float B; /* F=Height*0.5 */
+    float A; /* F=IF(Width&gt;0,Width,1DL),If(Width&gt;0,Width,0.039370078740157DL) Unit=DL */
+    float B; /* F=Height*0.5 Unit=DL */
     unsigned int IX; /* */
     float X; /* F=Width*0 */
     float Y; /* F=Height*0.5 */
@@ -641,8 +641,8 @@ struct vdx_Line
     Color LineColor; /* F=0,1,14,15,2,3,4,HSL(0,0,0),HSL(0,0,240),HSL(0,0,60),HSL(0,0,66),HSL(0,240,85) */
     float LineColorTrans; /* F=0%,Inh,No Formula */
     unsigned int LinePattern; /* F=0,1,1,0,1)',2,23,3,4,3,1)))',9,Inh */
-    float LineWeight; /* F=0.0033333333333333DT,0.01DT,0.03DT,0.12PT,0.24PT,0.254MM,0.5MM,0PT,IF(Sheet.5 */
-    float Rounding; /* F=0DL,4),0.25IN,0)',4,3*User.Margin,0))',Inh */
+    float LineWeight; /* F=0.0033333333333333DT,0.01DT,0.03DT,0.12PT,0.24PT,0.254MM,0.5MM,0PT,IF(Sheet.5 Unit=MM,PT */
+    float Rounding; /* F=0DL,4),0.25IN,0)',4,3*User.Margin,0))',Inh Unit=IN,MM */
 };
 
 struct vdx_LineTo
@@ -651,8 +651,8 @@ struct vdx_LineTo
     char type;
     gboolean Del; /* =1 */
     unsigned int IX; /* */
-    float X; /* F=(Width+Scratch.Y1)/2,-Scratch.A1,-Width*0.2,0,(Width*(9/10)),User.DividerY)', */
-    float Y; /* F=(Height-Scratch.X1)/2,-2*User.Margin,-User.Margin,0,User.DividerY,(Height*(9/ */
+    float X; /* F=(Width+Scratch.Y1)/2,-Scratch.A1,-Width*0.2,0,(Width*(9/10)),User.DividerY)', Unit=IN,IN_F,MM,PT */
+    float Y; /* F=(Height-Scratch.X1)/2,-2*User.Margin,-User.Margin,0,User.DividerY,(Height*(9/ Unit=IN,MM,PT */
 };
 
 struct vdx_Master
@@ -714,8 +714,8 @@ struct vdx_MoveTo
     GSList *children;
     char type;
     unsigned int IX; /* */
-    float X; /* F=(Width-Scratch.Y1)/2,-Scratch.A1,-Sheet.9!User.OFFSET/10,-Sheet.9!User.OFFSET */
-    float Y; /* F=(Height+Scratch.X1)/2,-2*User.Margin,-Height*0.2,-Height*0.25,-Scratch.A1,-Us */
+    float X; /* F=(Width-Scratch.Y1)/2,-Scratch.A1,-Sheet.9!User.OFFSET/10,-Sheet.9!User.OFFSET Unit=IN,IN_F,MM,PT */
+    float Y; /* F=(Height+Scratch.X1)/2,-2*User.Margin,-Height*0.2,-Height*0.25,-Scratch.A1,-Us Unit=IN,MM,PT */
 };
 
 struct vdx_NURBSTo
@@ -723,10 +723,10 @@ struct vdx_NURBSTo
     GSList *children;
     char type;
     float A; /* =1.222604887830752,13.370618992314,4.246853645432,5.7985449361335,8.58321900194 */
-    gboolean B; /* =1 */
-    gboolean C; /* =0 */
-    gboolean D; /* =1 */
-    float E; /* F=NURBS(12.641456682609,3,0,0,0.077695244759418,0.67702102041097,0,1,0.41485578 */
+    float B; /* =1 */
+    float C; /* =0 */
+    float D; /* =1 */
+    char * E; /* F=NURBS(12.641456682609,3,0,0,0.077695244759418,0.67702102041097,0,1,0.41485578 Unit=NURBS */
     unsigned int IX; /* */
     float X; /* F=Geometry1.X1,Width*1 */
     float Y; /* F=Geometry1.Y1,Height*0,Height*0.39287809665782,Height*1 */
@@ -758,10 +758,10 @@ struct vdx_PageLayout
 {
     GSList *children;
     char type;
-    float AvenueSizeX; /* F=0.29527559055118DL,0.375DL,Inh */
-    float AvenueSizeY; /* F=0.29527559055118DL,0.375DL,Inh */
-    float BlockSizeX; /* F=0.19685039370079DL,0.25DL,Inh */
-    float BlockSizeY; /* F=0.19685039370079DL,0.25DL,Inh */
+    float AvenueSizeX; /* F=0.29527559055118DL,0.375DL,Inh Unit=IN,MM */
+    float AvenueSizeY; /* F=0.29527559055118DL,0.375DL,Inh Unit=IN,MM */
+    float BlockSizeX; /* F=0.19685039370079DL,0.25DL,Inh Unit=IN,MM */
+    float BlockSizeY; /* F=0.19685039370079DL,0.25DL,Inh Unit=IN,MM */
     gboolean CtrlAsInput; /* F=FALSE,Inh */
     gboolean DynamicsOff; /* F=FALSE,Inh */
     gboolean EnableGrid; /* F=FALSE,Inh */
@@ -772,10 +772,10 @@ struct vdx_PageLayout
     float LineJumpFactorY; /* F=0.66666666666667,Inh */
     unsigned int LineJumpStyle; /* F=0,Inh */
     gboolean LineRouteExt; /* F=0,Inh,No Formula =0 */
-    float LineToLineX; /* F=0.098425196850394DL,0.125DL,Inh */
-    float LineToLineY; /* F=0.098425196850394DL,0.125DL,Inh */
-    float LineToNodeX; /* F=0.098425196850394DL,0.125DL,Inh */
-    float LineToNodeY; /* F=0.098425196850394DL,0.125DL,Inh */
+    float LineToLineX; /* F=0.098425196850394DL,0.125DL,Inh Unit=MM */
+    float LineToLineY; /* F=0.098425196850394DL,0.125DL,Inh Unit=MM */
+    float LineToNodeX; /* F=0.098425196850394DL,0.125DL,Inh Unit=MM */
+    float LineToNodeY; /* F=0.098425196850394DL,0.125DL,Inh Unit=MM */
     gboolean PageLineJumpDirX; /* F=0,Inh =0 */
     gboolean PageLineJumpDirY; /* F=0,Inh =0 */
     gboolean PageShapeSplit; /* F=Inh =0,1 */
@@ -791,16 +791,16 @@ struct vdx_PageProps
 {
     GSList *children;
     char type;
-    float DrawingScale; /* F=No Formula */
+    float DrawingScale; /* F=No Formula Unit=IN,IN_F,MM */
     unsigned int DrawingScaleType; /* F=No Formula =0,3 */
     unsigned int DrawingSizeType; /* F=No Formula =0,1,2,3,4,5,6 */
     gboolean InhibitSnap; /* F=No Formula =0 */
-    float PageHeight; /* F=No Formula */
-    float PageScale; /* F=No Formula */
-    float PageWidth; /* F=No Formula */
-    float ShdwObliqueAngle; /* F=No Formula */
-    float ShdwOffsetX; /* F=GUARD(3MM),No Formula */
-    float ShdwOffsetY; /* F=-0.11811023622047DP,-0.125DP,-0.125IN,GUARD(-3MM),No Formula */
+    float PageHeight; /* F=No Formula Unit=CM,DL,IN,IN_F,MM,NUM */
+    float PageScale; /* F=No Formula Unit=CM,IN,IN_F,MM */
+    float PageWidth; /* F=No Formula Unit=CM,DL,IN,IN_F,MM,NUM */
+    float ShdwObliqueAngle; /* F=No Formula Unit=NUM */
+    float ShdwOffsetX; /* F=GUARD(3MM),No Formula Unit=IN,MM,NUM */
+    float ShdwOffsetY; /* F=-0.11811023622047DP,-0.125DP,-0.125IN,GUARD(-3MM),No Formula Unit=IN,MM,NUM */
     float ShdwScaleFactor; /* F=No Formula */
     gboolean ShdwType; /* F=No Formula =0,1 */
     gboolean UIVisibility; /* F=No Formula =0 */
@@ -830,13 +830,13 @@ struct vdx_Para
     gboolean Flags; /* F=Inh =0 */
     float HorzAlign; /* F=0,1,EndX,0,2)",FlipX*2,If(User.ShapeType&gt;5,0,1),Inh */
     unsigned int IX; /* */
-    float IndFirst; /* F=0DP,Inh */
-    float IndLeft; /* F=0DP,Inh */
+    float IndFirst; /* F=0DP,Inh Unit=MM */
+    float IndLeft; /* F=0DP,Inh Unit=IN,MM */
     float IndRight; /* F=0DP,Inh */
     unsigned int LocalizeBulletFont; /* F=Inh */
-    float SpAfter; /* F=0DT,Inh */
-    float SpBefore; /* F=0DT,Inh */
-    float SpLine; /* F=-120%,Inh */
+    float SpAfter; /* F=0DT,Inh Unit=PT */
+    float SpBefore; /* F=0DT,Inh Unit=PT */
+    float SpLine; /* F=-120%,Inh Unit=DT */
     gboolean TextPosAfterBullet; /* F=Inh =0 */
 };
 
@@ -901,7 +901,7 @@ struct vdx_Prop
     char * Prompt; /* F=Inh,No Formula =,&#xe000;,Abteilung,Administrative Schnittstelle,Allow custom */
     char * SortKey; /* F=1,2,3,4,5,6,7,8,No Formula =,&#xe000;,1,2,3,4,5,6,7,8,Aktivposten,Geräte,Net */
     unsigned int Type; /* F="5","7",Inh,No Formula =0,1,2,3,4,5,7 */
-    float Value; /* F=-1,6,206,-1)',Guard(ThePage!Prop.Theme),Inh,No Formula,ThePage!Prop.ShowDivid */
+    float Value; /* F=-1,6,206,-1)',Guard(ThePage!Prop.Theme),Inh,No Formula,ThePage!Prop.ShowDivid Unit=BOOL,IN,STR */
     gboolean Verify; /* F=No Formula =0 */
 };
 
@@ -934,12 +934,12 @@ struct vdx_RulerGrid
     char type;
     unsigned int XGridDensity; /* F=8,Inh =0,4,8 */
     float XGridOrigin; /* F=0DL,Inh */
-    float XGridSpacing; /* F=0DL,Inh */
+    float XGridSpacing; /* F=0DL,Inh Unit=CM,IN,MM */
     unsigned int XRulerDensity; /* F=32,Inh =16,32 */
     float XRulerOrigin; /* F=0DL,Inh */
     unsigned int YGridDensity; /* F=8,Inh =0,4,8 */
     float YGridOrigin; /* F=0DL,Inh */
-    float YGridSpacing; /* F=0DL,Inh */
+    float YGridSpacing; /* F=0DL,Inh Unit=CM,IN,MM */
     unsigned int YRulerDensity; /* F=32,Inh =16,32 */
     float YRulerOrigin; /* F=0DL,Inh */
 };
@@ -948,13 +948,13 @@ struct vdx_Scratch
 {
     GSList *children;
     char type;
-    float A; /* F=0,0,1)+Int(Sheet.21!Width/Scratch.X1)',0,0,1)+Int(Sheet.38!Width/Scratch.X1)' */
-    float B; /* F=0,0,2)+Int(Sheet.21!Height/(Scratch.X1))',0,0,2)+Int(Sheet.38!Height/(Scratch */
-    float C; /* F=270DEG),1,0)',Inh,No Formula,User.Margin*4,_UCON_GEOTYP(Scratch.A1,Scratch.B1 */
-    gboolean D; /* F=If(And(FlipX,FlipY),Not(Scratch.C1),Scratch.C1),Inh,No Formula,_UCON_SIMPLE(S */
+    float A; /* F=0,0,1)+Int(Sheet.21!Width/Scratch.X1)',0,0,1)+Int(Sheet.38!Width/Scratch.X1)' Unit=DA,IN,MM */
+    float B; /* F=0,0,2)+Int(Sheet.21!Height/(Scratch.X1))',0,0,2)+Int(Sheet.38!Height/(Scratch Unit=DEG,IN */
+    float C; /* F=270DEG),1,0)',Inh,No Formula,User.Margin*4,_UCON_GEOTYP(Scratch.A1,Scratch.B1 Unit=DL,IN */
+    float D; /* F=If(And(FlipX,FlipY),Not(Scratch.C1),Scratch.C1),Inh,No Formula,_UCON_SIMPLE(S Unit=BOOL */
     unsigned int IX; /* */
-    float X; /* F=((4/9)*(Controls.X1-((8/27)*Geometry1.X1)-((1/27)*Geometry1.X4)))-((2/9)*(Con */
-    float Y; /* F=((4/9)*(Controls.Y1-((8/27)*Geometry1.Y1)-((1/27)*Geometry1.Y4)))-((2/9)*(Con */
+    float X; /* F=((4/9)*(Controls.X1-((8/27)*Geometry1.X1)-((1/27)*Geometry1.X4)))-((2/9)*(Con Unit=IN,MM,PT */
+    float Y; /* F=((4/9)*(Controls.Y1-((8/27)*Geometry1.Y1)-((1/27)*Geometry1.Y4)))-((2/9)*(Con Unit=IN,MM */
 };
 
 struct vdx_Shape
@@ -999,10 +999,10 @@ struct vdx_SplineStart
 {
     GSList *children;
     char type;
-    gboolean A; /* =0 */
-    gboolean B; /* =0 */
+    float A; /* =0 */
+    float B; /* =0 */
     float C; /* =0.13484716066176,3.1175 */
-    unsigned int D; /* =3 */
+    float D; /* =3 */
     unsigned int IX; /* */
     float X; /* F=Scratch.X1/(12/81),Width*-0.11 */
     float Y; /* F=Height*0.54325161324641,Scratch.Y1/(12/81) */
@@ -1039,7 +1039,7 @@ struct vdx_Tab
     char type;
     gboolean Alignment; /* =0 */
     unsigned int IX; /* */
-    float Position; /* */
+    float Position; /* Unit=DP,MM */
 };
 
 struct vdx_Tabs
@@ -1055,6 +1055,7 @@ struct vdx_Text
     char type;
     unsigned int IX; /* */
     unsigned int cp; /* = */
+    float fld; /* =0.006,0.009,0.011,0.031,0.042,0.046,0.048,0.061,0.063,0.071,0.081,0.084,0.086, */
     unsigned int pp; /* = */
     unsigned int tp; /* = */
 };
@@ -1063,14 +1064,14 @@ struct vdx_TextBlock
 {
     GSList *children;
     char type;
-    float BottomMargin; /* F=0DP,0DT,0PT,1PT,2PT,4PT,Char.Size*0.5,Inh */
-    float DefaultTabStop; /* F=0.59055118110236DP,0.5DP,Inh */
-    float LeftMargin; /* F=0DP,0PT,1PT,2PT,4PT,Inh */
-    float RightMargin; /* F=0DP,0PT,1PT,2PT,4PT,Inh */
+    float BottomMargin; /* F=0DP,0DT,0PT,1PT,2PT,4PT,Char.Size*0.5,Inh Unit=PT */
+    float DefaultTabStop; /* F=0.59055118110236DP,0.5DP,Inh =0.5,0.59055118110236,0.5905511811023622 */
+    float LeftMargin; /* F=0DP,0PT,1PT,2PT,4PT,Inh Unit=PT */
+    float RightMargin; /* F=0DP,0PT,1PT,2PT,4PT,Inh Unit=PT */
     unsigned int TextBkgnd; /* F=0,1+FillForegnd,15,2,Inh */
     float TextBkgndTrans; /* F=0%,Inh,No Formula */
     gboolean TextDirection; /* F=0,Inh =0 */
-    float TopMargin; /* F=0DP,0DT,0PT,1PT,2PT,4PT,GUARD(IF(Parameters!Geometry1.NoShow,1PT,7.2PT)),Inh */
+    float TopMargin; /* F=0DP,0DT,0PT,1PT,2PT,4PT,GUARD(IF(Parameters!Geometry1.NoShow,1PT,7.2PT)),Inh Unit=PT */
     unsigned int VerticalAlign; /* F=0,1,2,Inh =0,1,2 */
 };
 
@@ -1078,13 +1079,13 @@ struct vdx_TextXForm
 {
     GSList *children;
     char type;
-    float TxtAngle; /* F=-Angle,90DEG),0DEG,180DEG)",90DEG),0DEG,180DEG)',GUARD(-90DEG),GUARD(0DEG),Gr */
-    float TxtHeight; /* F=GUARD(0.25IN),GUARD(TEXTHEIGHT(TheText,TxtWidth)),GUARD(TEXTWIDTH(TheText,10) */
-    float TxtLocPinX; /* F=0.5*TxtWidth,GUARD(TxtWidth),GUARD(TxtWidth*0.5),Guard(TxtWidth*0.5),Inh,TxtW */
-    float TxtLocPinY; /* F=-90DEG,1,If(Abs(Angle)&gt;90DEG,1,0))",0.5*TxtHeight,GUARD(0.5*TxtHeight),GUA */
-    float TxtPinX; /* F=(Controls.X2+Controls.X1)/2,0,0,Width/2)",0.5*Width,1,1/2,1)*Width",1,Control */
-    float TxtPinY; /* F=(Controls.Y2+Controls.Y1)/2,0,1/2,0)*Height",0,Height/2,Height)",0.5*Height,0 */
-    float TxtWidth; /* F=GUARD(Height),GUARD(TEXTWIDTH(TheText)),GUARD(Width*1),Guard(Height),Guard(Wi */
+    float TxtAngle; /* F=-Angle,90DEG),0DEG,180DEG)",90DEG),0DEG,180DEG)',GUARD(-90DEG),GUARD(0DEG),Gr Unit=DEG */
+    float TxtHeight; /* F=GUARD(0.25IN),GUARD(TEXTHEIGHT(TheText,TxtWidth)),GUARD(TEXTWIDTH(TheText,10) Unit=CM,IN,IN_F,MM */
+    float TxtLocPinX; /* F=0.5*TxtWidth,GUARD(TxtWidth),GUARD(TxtWidth*0.5),Guard(TxtWidth*0.5),Inh,TxtW Unit=CM,IN,IN_F,MM,PT */
+    float TxtLocPinY; /* F=-90DEG,1,If(Abs(Angle)&gt;90DEG,1,0))",0.5*TxtHeight,GUARD(0.5*TxtHeight),GUA Unit=CM,IN,IN_F,MM */
+    float TxtPinX; /* F=(Controls.X2+Controls.X1)/2,0,0,Width/2)",0.5*Width,1,1/2,1)*Width",1,Control Unit=IN,IN_F,MM */
+    float TxtPinY; /* F=(Controls.Y2+Controls.Y1)/2,0,1/2,0)*Height",0,Height/2,Height)",0.5*Height,0 Unit=IN,IN_F,MM,PT */
+    float TxtWidth; /* F=GUARD(Height),GUARD(TEXTWIDTH(TheText)),GUARD(Width*1),Guard(Height),Guard(Wi Unit=CM,IN,IN_F,MM,PT */
 };
 
 struct vdx_User
@@ -1094,7 +1095,7 @@ struct vdx_User
     unsigned int ID; /* */
     char * NameU; /* =AL_JustOffset,AL_Justification,AL_PropJustOffset,AL_cxBtwnAssts,AL_cxBtwnSubs, */
     char * Prompt; /* F=Inh,No Formula =,&#xe000;,1=left, 2=center, 3=right,(-1)=none,Calculated text */
-    float Value; /* F=(0.125IN*User.AntiScale)/2,(PinX-LocPinX+Connections.X1)-BeginX,(PinY-LocPinY */
+    float Value; /* F=(0.125IN*User.AntiScale)/2,(PinX-LocPinX+Connections.X1)-BeginX,(PinY-LocPinY Unit=BOOL,DA,DL,GUID,IN,MM,PT,STR */
 };
 
 struct vdx_VisioDocument
@@ -1170,26 +1171,26 @@ struct vdx_XForm
 {
     GSList *children;
     char type;
-    float Angle; /* F=ATAN2(EndY-BeginY,EndX-BeginX),ATan2(EndY-BeginY,EndX-BeginX),GUARD(0),GUARD( */
+    float Angle; /* F=ATAN2(EndY-BeginY,EndX-BeginX),ATan2(EndY-BeginY,EndX-BeginX),GUARD(0),GUARD( Unit=DEG */
     gboolean FlipX; /* F=GUARD(0),GUARD(FALSE),Guard(0),Guard(EndX&lt;BeginX),Guard(FALSE),Inh =0,1 */
     gboolean FlipY; /* F=BeginY&lt;EndY)",BeginY&lt;EndY)',GUARD(0),GUARD(EndY&lt;BeginY),GUARD(FALSE) */
-    float Height; /* F=0.2IN-User.shade*2/3,1/2IN,5MM*User.AntiScale,Abs(EndY-BeginY),GUARD(0.1IN),G */
-    float LocPinX; /* F=0.5*Width,GUARD(0),GUARD(0.5IN),GUARD(Width*0),GUARD(Width*0.25),GUARD(Width* */
-    float LocPinY; /* F=0.5*Height,BeginX,Height,0)",EndX)*Height",GUARD(0),GUARD(Height*0),GUARD(Hei */
-    float PinX; /* F=(BeginX+EndX)/2,AlignCenter+-1.2100542789995E-10DL,AlignCenter+1.210054278999 */
-    float PinY; /* F=(BeginY+EndY)/2,AlignBottom+0.59055118063851DL,AlignBottom+0.59055118069901DL */
+    float Height; /* F=0.2IN-User.shade*2/3,1/2IN,5MM*User.AntiScale,Abs(EndY-BeginY),GUARD(0.1IN),G Unit=IN,IN_F,MM,PT */
+    float LocPinX; /* F=0.5*Width,GUARD(0),GUARD(0.5IN),GUARD(Width*0),GUARD(Width*0.25),GUARD(Width* Unit=IN,IN_F,MM,PT */
+    float LocPinY; /* F=0.5*Height,BeginX,Height,0)",EndX)*Height",GUARD(0),GUARD(Height*0),GUARD(Hei Unit=IN,IN_F,MM,PT */
+    float PinX; /* F=(BeginX+EndX)/2,AlignCenter+-1.2100542789995E-10DL,AlignCenter+1.210054278999 Unit=IN,IN_F,MM */
+    float PinY; /* F=(BeginY+EndY)/2,AlignBottom+0.59055118063851DL,AlignBottom+0.59055118069901DL Unit=IN,IN_F,MM */
     gboolean ResizeMode; /* F=GUARD(0),Inh,No Formula =0,1 */
-    float Width; /* F=3,2*User.Margin,0))',Abs(EndX-BeginX),GUARD(0.1563IN),GUARD(0.19685039370079D */
+    float Width; /* F=3,2*User.Margin,0))',Abs(EndX-BeginX),GUARD(0.1563IN),GUARD(0.19685039370079D Unit=IN,IN_F,MM,PT */
 };
 
 struct vdx_XForm1D
 {
     GSList *children;
     char type;
-    float BeginX; /* F=GUARD(Sheet.10!PinX),GUARD(Sheet.5!LocPinX),Guard(Sheet.6!Width+Sheet.9!Width */
-    float BeginY; /* F=GUARD(Sheet.13!PinY+Sheet.13!Height),GUARD(Sheet.5!LocPinY),GUARD(Sheet.8!Pin */
-    float EndX; /* F=GUARD(Sheet.13!PinX),GUARD(Sheet.5!Controls.Row_1),GUARD(Sheet.5!Controls.Row */
-    float EndY; /* F=GUARD(BeginY),GUARD(Sheet.13!PinY+Sheet.13!Height),GUARD(Sheet.5!Controls.Row */
+    float BeginX; /* F=GUARD(Sheet.10!PinX),GUARD(Sheet.5!LocPinX),Guard(Sheet.6!Width+Sheet.9!Width Unit=IN,IN_F,MM */
+    float BeginY; /* F=GUARD(Sheet.13!PinY+Sheet.13!Height),GUARD(Sheet.5!LocPinY),GUARD(Sheet.8!Pin Unit=IN,IN_F,MM */
+    float EndX; /* F=GUARD(Sheet.13!PinX),GUARD(Sheet.5!Controls.Row_1),GUARD(Sheet.5!Controls.Row Unit=IN,IN_F,MM */
+    float EndY; /* F=GUARD(BeginY),GUARD(Sheet.13!PinY+Sheet.13!Height),GUARD(Sheet.5!Controls.Row Unit=IN,IN_F,MM */
 };
 
 struct vdx_cp

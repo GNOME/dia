@@ -168,12 +168,22 @@ static PropDescription vdx_simple_prop_descs_line[] = {
     { "line_colour", PROP_TYPE_COLOUR },
     PROP_DESC_END};
 
+/* Not in sandard includes */
+
+typedef enum _Valign Valign;
+enum _Valign {
+        VALIGN_TOP,
+        VALIGN_BOTTOM,
+        VALIGN_CENTER,
+        VALIGN_FIRST_LINE
+};
+
+/* Vertical alignment is a separate property */
+
 static PropDescription vdx_text_descs[] = {
     { "text", PROP_TYPE_TEXT },
+    { "text_vert_alignment", PROP_TYPE_ENUM },
     PROP_DESC_END
-    /* Can't do the angle */
-    /* Height and length are ignored */
-    /* Flags */
 };
 
 /* End of code taken from xfig-import.c */
@@ -847,7 +857,7 @@ plot_polyline(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm,
         points[count++] = dia_point(apply_XForm(p, XForm), theDoc);
     }
 
-    /* FIXME Arrows */
+    /* Arrows apparently unnecessary */
 
     newobj = create_standard_polyline(num_points, points, NULL, NULL);
     vdx_simple_properties(newobj, Fill, Line, theDoc);
@@ -1269,7 +1279,7 @@ plot_beziergon(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm,
             p0 = p3;
             break;
         default:
-            message_error(_("Unexpected Bezier object: %s\n"), 
+            message_error(_("Unexpected Beziergon object: %s\n"), 
                           vdx_Types[(unsigned int)Any->type]);
             break;
         }
@@ -1360,7 +1370,7 @@ plot_bezier(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm,
             p0 = p3;
             break;
         default:
-            message_error(_("Unexpected Beziergon object: %s\n"), 
+            message_error(_("Unexpected Bezier object: %s\n"), 
                           vdx_Types[(unsigned int)Any->type]);
             break;
         }
@@ -1380,6 +1390,270 @@ plot_bezier(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm,
     newobj = create_standard_bezierline(num_points, bezpoints, 
                                         start_arrow_p, end_arrow_p);
     g_free(bezpoints); 
+    vdx_simple_properties(newobj, Fill, Line, theDoc);
+    return newobj;
+}
+
+/** NURBS basis function N_{i,k}(u)
+ * @param i knot number
+ * @param k degree
+ * @param u point on line
+ * @param n number of control points
+ * @param knot array of knots
+ * @returns the value of N
+ */
+
+static float
+NURBS_N(unsigned int i, unsigned int k, float u, unsigned int n, 
+        const float *knot)
+{
+    float sum = 0.0;
+
+    if (k == 0)
+    {
+        if (knot[i] <= u && u < knot[i+1])
+        {
+            return 1.0;
+        }
+        else
+        {
+            return 0.0;
+        }
+    }
+    
+    if (fabs(knot[i+k]-knot[i]) >= EPSILON)
+    {
+        sum = (u-knot[i])/(knot[i+k]-knot[i]) * NURBS_N(i, k-1, u, n, knot);
+    }
+
+    if (i <= n && fabs(knot[i+k+1]-knot[i+1]) >= EPSILON)
+    {
+        sum += (knot[i+k+1]-u)/(knot[i+k+1]-knot[i+1]) *
+            NURBS_N(i+1, k-1, u, n, knot);
+    }
+    
+    return sum;
+}
+
+/** NURBS function C(u)
+ * @param k degree
+ * @param u point on line
+ * @param n number of control points
+ * @param knot array of knots
+ * @param control array of control points
+ * @returns the value of C
+ */
+
+static Point
+NURBS_C(unsigned int k, float u, unsigned int n, 
+        const float *knot, const float *weight, const Point *control)
+{
+    float top_x = 0;
+    float top_y = 0;
+    float bottom = 0;
+    unsigned int i;
+    float N_i_k;
+    Point p;
+
+    for(i=0; i<=n; i++)
+    {
+        N_i_k = NURBS_N(i, k, u, n, knot);
+        top_x += weight[i]*control[i].x*N_i_k;
+        top_y += weight[i]*control[i].y*N_i_k;
+        bottom += weight[i]*N_i_k;
+    }
+
+    if (fabs(bottom) < EPSILON)
+    {
+        bottom = EPSILON;
+    }
+
+    p.x = top_x/bottom;
+    p.y = top_y/bottom;
+
+    return p;
+}
+
+
+/** Plots a NURBS
+ * @param Geom the shape
+ * @param XForm any transformations
+ * @param Fill any fill
+ * @param Line any line
+ * @param theDoc the document
+ * @returns the new object
+ */
+  
+static DiaObject *
+plot_nurbs(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm, 
+            const struct vdx_Fill *Fill, const struct vdx_Line *Line,
+            VDXDocument* theDoc)
+{
+    DiaObject *newobj = NULL;
+    GSList *item;
+    struct vdx_MoveTo *MoveTo;
+    struct vdx_NURBSTo *NURBSTo;
+    struct vdx_any *Any;
+
+    Point current = {0, 0};
+    Arrow* start_arrow_p = NULL;
+    Arrow* end_arrow_p = NULL;
+    Point* control;
+    Point *points = 0;
+    Point p;
+    float* weight;
+    float *knot;
+    unsigned int k = 0;
+    unsigned int n = 0;
+    float knotLast;
+    unsigned int xType;
+    unsigned int yType;
+    char *c;
+    unsigned int i = 0;
+    unsigned int num_points = 0;
+    float u;
+    unsigned int steps = 40;
+    float start_u, step_u;
+
+    item = Geom->children;
+    Any = (struct vdx_any *)(item->data);
+    
+    if (Any->type == vdx_types_MoveTo)
+    {
+        MoveTo = (struct vdx_MoveTo*)(item->data);
+        current.x = MoveTo->X;
+        current.y = MoveTo->Y;
+        item = item->next;
+        Any = (struct vdx_any *)(item->data);
+    }
+
+    if (Any->type == vdx_types_NURBSTo)
+    {
+        NURBSTo = (struct vdx_NURBSTo*)(item->data);
+    }
+    else
+    {
+        message_error(_("Unexpected NURBSTo object: %s\n"), 
+                      vdx_Types[(unsigned int)Any->type]);
+        return NULL;
+    }
+    if (item->next)
+    {
+        message_error(_("Unexpected NURBSTo additional objects\n"));
+    }
+
+    /* E holds the NURBS formula */
+    c = NURBSTo->E;
+
+    /* NURBS(knotLast, degree, xType, yType, x1, y1, knot1, weight1, ...) */
+
+    /* There should be 4n + 4 values, and so 4n + 3 commas */
+    n = 1;
+    while (*c)
+    {
+        if (*c++ == ',') { n++; }
+    }
+    if (n % 4 || ! n)
+    {
+        message_error(_("Invalid NURBS formula")); 
+        return 0;
+    }
+    n /= 4;
+    n--;
+
+    /* Parse out the first four params */
+    c = NURBSTo->E;
+    c += strlen("NURBS(");
+
+    knotLast = atof(c); 
+    c = strchr(c, ',');
+    if (!c) { return 0; }
+
+    k = atoi(++c);
+    c = strchr(c, ',');
+    if (!c) { return 0; }
+
+    xType = atoi(++c);
+    c = strchr(c, ',');
+    if (!c) return 0;
+
+    yType = atoi(++c);
+    c = strchr(c, ',');
+    if (!c) return 0;
+
+    /* Setup the arrays for n+1 points, degree k */
+    control = g_new(Point, n+1);
+    weight = g_new(float, n+1);
+    knot = g_new(float, n+k+2);
+    num_points = steps+1;
+    points = g_new0(Point, num_points);
+
+    i = 0;
+    while(c && *c && i < n)
+    {
+        g_assert(c);
+        control[i].x = atof(++c);
+        /* xType = 0 means X is proportion of Width */
+        if (xType == 0) control[i].x *= XForm->Width;
+        c = strchr(c, ',');
+
+        g_assert(c);
+        control[i].y = atof(++c);
+        /* yType = 0 means Y is proportion of Height */
+        if (yType == 0) control[i].y *= XForm->Height;
+        c = strchr(c, ',');
+
+        g_assert(c);
+        knot[i] = atof(++c);
+        c = strchr(c, ',');
+
+        g_assert(c);
+        weight[i] = atof(++c);
+        c = strchr(c, ',');
+        i++;
+    }
+
+    /* Add in remaining knots */
+    for (i=n; i<n+k+2; i++) { knot[i] = knotLast; }
+
+    /* Some missing data from the NURBSTo */
+    weight[n] = NURBSTo->B;
+    control[n].x = NURBSTo->X;
+    control[n].y = NURBSTo->Y;
+    knot[n] = NURBSTo->A;
+
+    step_u = (knotLast - knot[0])/steps;
+    start_u = knot[0];
+
+    for (i=1; i<=steps; i++)
+    {
+        u = start_u + i*step_u;
+        p = NURBS_C(k, u, n, knot, weight, control);
+        points[i] = dia_point(apply_XForm(p, XForm), theDoc);
+    }
+
+    /* Known start and end points */
+    points[0] = dia_point(apply_XForm(current, XForm), theDoc);
+
+    p.x = NURBSTo->X; p.y = NURBSTo->Y;
+    points[num_points-1] = dia_point(apply_XForm(p, XForm), theDoc);
+
+    if (Line->BeginArrow) 
+    {
+        start_arrow_p = make_arrow(Line, 's', theDoc);
+    }
+
+    if (Line->EndArrow) 
+    {
+        end_arrow_p = make_arrow(Line, 'e', theDoc);
+    }
+
+    newobj = create_standard_polyline(num_points, points, NULL, NULL);
+
+    g_free(control);
+    g_free(weight);
+    g_free(knot);
+
     vdx_simple_properties(newobj, Fill, Line, theDoc);
     return newobj;
 }
@@ -1562,7 +1836,7 @@ plot_image(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm,
 enum dia_types { vdx_dia_any = 0, vdx_dia_text, vdx_dia_ellipse, vdx_dia_box,
                  vdx_dia_polyline, vdx_dia_polygon, vdx_dia_bezier, 
                  vdx_dia_beziergon, vdx_dia_arc, vdx_dia_line, vdx_dia_image,
-                 vdx_dia_zigzagline };
+                 vdx_dia_zigzagline, vdx_dia_nurbs };
 
 static DiaObject *
 plot_geom(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm, 
@@ -1615,6 +1889,8 @@ plot_geom(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm,
         if (last_point->type == vdx_types_LineTo) 
             dia_type_choice = vdx_dia_line; 
         if (XForm1D) { dia_type_choice = vdx_dia_line; }
+        if (last_point->type == vdx_types_NURBSTo) 
+            dia_type_choice = vdx_dia_nurbs; 
     }
     if (ForeignData) { dia_type_choice = vdx_dia_image; }
     if (dia_type_choice == vdx_dia_any)
@@ -1647,6 +1923,9 @@ plot_geom(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm,
     case vdx_dia_image:
         return plot_image(Geom, XForm, Foreign, ForeignData, theDoc);
         break;
+    case vdx_dia_nurbs:
+        return plot_nurbs(Geom, XForm, Fill, Line, theDoc);
+        break;
     default:
         g_debug("Not yet implemented");
         break;
@@ -1662,16 +1941,19 @@ plot_geom(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm,
  * @param Para alignment info
  * @param theDoc the document
  * @returns the new object
- * @bug need to assemble multiple child text objects - much work yet to do
  */
 static DiaObject *
 plot_text(const struct vdx_Text *Text, const struct vdx_XForm *XForm, 
           const struct vdx_Char *Char, const struct vdx_Para *Para,
+          const struct vdx_TextBlock *TextBlock, 
           VDXDocument* theDoc)
 {
     DiaObject *newobj;
     GPtrArray *props;
     TextProperty *tprop;
+    Valign vert_align;
+    Alignment alignment;
+    EnumProperty *eprop = 0;
     struct vdx_FontEntry FontEntry;
     struct vdx_FaceName FaceName;
     struct vdx_text * text = find_child(vdx_types_text, Text);
@@ -1680,10 +1962,44 @@ plot_text(const struct vdx_Text *Text, const struct vdx_XForm *XForm,
 
     if (!Char || !text) { g_debug("Not enough info for text"); return 0; }
     p.x = 0; p.y = 0;
+
+    /* Setup position for horizontal alignment */
+    alignment = ALIGN_LEFT;
+    if (Para && Para->HorzAlign == 1)
+    {
+        alignment = ALIGN_CENTER;
+        p.x += XForm->Width/2.0;
+    }
+    if (Para && Para->HorzAlign == 2)
+    {
+        alignment = ALIGN_RIGHT;
+        p.x += XForm->Width;
+    }
+    /* And for vertical */
+    vert_align = VALIGN_TOP;
+    if (TextBlock && TextBlock->VerticalAlign == 1) 
+    {
+        p.y += XForm->Height/2.0;
+        vert_align = VALIGN_CENTER;
+    }
+    if (TextBlock && TextBlock->VerticalAlign == 2)
+    {
+        vert_align = VALIGN_BOTTOM;
+        p.y += XForm->Height;
+    }
+
+    /* Create the object at position p */
     p = dia_point(apply_XForm(p, XForm), theDoc);
     newobj = create_standard_text(p.x, p.y);
+
+    /* Get the property list */
     props = prop_list_from_descs(vdx_text_descs,pdtpp_true);
     tprop = g_ptr_array_index(props,0);
+    /* Verttical alignment gets a separate property */
+    eprop = g_ptr_array_index(props,1);
+    eprop->enum_data = vert_align;
+
+    /* set up the text property by including all children */
     tprop->text_data = g_strdup(text->text);
     while((text = find_child_next(vdx_types_text, Text, text)))
     {
@@ -1704,10 +2020,12 @@ plot_text(const struct vdx_Text *Text, const struct vdx_XForm *XForm,
                     strlen(&tprop->text_data[i+3])+1);
         }
     }
-    tprop->attr.alignment = 
-        (Para->HorzAlign < 3) ? Para->HorzAlign : ALIGN_LEFT;
+
+    /* Other standard text properties */
+    tprop->attr.alignment = alignment;
     tprop->attr.position.x = p.x;
     tprop->attr.position.y = p.y;
+
     if (theDoc->Fonts)
     {
         if (Char->Font < theDoc->Fonts->len)
@@ -1733,7 +2051,9 @@ plot_text(const struct vdx_Text *Text, const struct vdx_XForm *XForm,
     {
         tprop->attr.font = dia_font_new_from_legacy_name("sans");
     }
-    g_debug("Text: %s at %f,%f", tprop->text_data, p.x, p.y);
+    g_debug("Text: %s at %f,%f v=%d h=%d", tprop->text_data, p.x, p.y,
+            eprop->enum_data, tprop->attr.alignment);
+
     tprop->attr.height = Char->Size*vdx_Font_Size_Conversion; 
     tprop->attr.color = Char->Color;
     newobj->ops->set_props(newobj, props);
@@ -1761,6 +2081,7 @@ vdx_plot_shape(struct vdx_Shape *Shape, GSList *objects,
     struct vdx_XForm *XForm = 0;
     struct vdx_XForm1D *XForm1D = 0;
     struct vdx_Text *Text = 0;
+    struct vdx_TextBlock *TextBlock = 0;
     struct vdx_Para *Para = 0;
     struct vdx_Foreign * Foreign = 0;
     struct vdx_ForeignData * ForeignData = 0;
@@ -1778,6 +2099,7 @@ vdx_plot_shape(struct vdx_Shape *Shape, GSList *objects,
     XForm1D = (struct vdx_XForm1D *)find_child(vdx_types_XForm1D, Shape);
     Geom = (struct vdx_Geom *)find_child(vdx_types_Geom, Shape);
     Text = (struct vdx_Text *)find_child(vdx_types_Text, Shape);
+    TextBlock = (struct vdx_TextBlock *)find_child(vdx_types_TextBlock, Shape);
     Para = (struct vdx_Para *)find_child(vdx_types_Para, Shape);
     Foreign = (struct vdx_Foreign *)find_child(vdx_types_Foreign, Shape);
     ForeignData = 
@@ -1812,6 +2134,13 @@ vdx_plot_shape(struct vdx_Shape *Shape, GSList *objects,
             if (!Char)
                 Char = (struct vdx_Char *)find_child(vdx_types_Char,
                                                      MasterShape);
+            if (!Para)
+                Para = (struct vdx_Para *)find_child(vdx_types_Para,
+                                                     MasterShape);
+            if (!TextBlock)
+                TextBlock = (struct vdx_TextBlock *)
+                    find_child(vdx_types_TextBlock,
+                               MasterShape);
         }
     }
 
@@ -1831,6 +2160,11 @@ vdx_plot_shape(struct vdx_Shape *Shape, GSList *objects,
         Para = (struct vdx_Para *)get_style_child(vdx_types_Para, 
                                                   Shape->TextStyle,
                                                   theDoc);
+    if (!TextBlock)
+        TextBlock = (struct vdx_TextBlock *)
+            get_style_child(vdx_types_TextBlock, 
+                            Shape->TextStyle,
+                            theDoc);
     
     /* If we're in a group, apply an overall XForm to everything */
     if (group_XForm)
@@ -1897,7 +2231,8 @@ vdx_plot_shape(struct vdx_Shape *Shape, GSList *objects,
         {
             objects = 
                 g_slist_append(objects,
-                               plot_text(Text, XForm, Char, Para, theDoc));
+                               plot_text(Text, XForm, Char, Para, 
+                                         TextBlock, theDoc));
         }    
     }
     return objects;

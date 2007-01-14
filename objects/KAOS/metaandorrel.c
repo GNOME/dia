@@ -579,13 +579,11 @@ maor_update_data(Maor *maor)
   Rectangle rect;
   Point p1,p2,p3,p4;
 
-/* Too complex to easily decide */
-/*
   if (connpoint_is_autogap(conn->endpoint_handles[0].connected_to) ||
       connpoint_is_autogap(conn->endpoint_handles[1].connected_to)) {
     connection_adjust_for_autogap(conn);
   }
-*/  obj->position = conn->endpoints[0];
+  obj->position = conn->endpoints[0];
 
   maor->text_handle.pos = maor->text_pos;
 
