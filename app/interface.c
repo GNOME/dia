@@ -778,7 +778,7 @@ create_tools(GtkWidget *parent)
 
 	gtk_tooltips_set_tip (tool_tips, button,
 				g_strconcat(gettext(tool_data[i].tool_desc), 
-					" (", gtk_accelerator_get_label(key, mods), ")"),
+					" (", gtk_accelerator_get_label(key, mods), ")", NULL),
 				NULL);
     } else {
 	gtk_tooltips_set_tip (tool_tips, button,

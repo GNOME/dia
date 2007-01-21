@@ -4,7 +4,7 @@
 
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN" "../../dtd/docbookx.dtd" [
 
-    <!ENTITY VERSION "0.96-pre1">
+    <!ENTITY VERSION "0.96-pre2">
 
     <!ENTITY INTRODUCTION SYSTEM "intro.xml">
 

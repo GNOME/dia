@@ -1,6 +1,6 @@
 dnl Process this -*- autoconf -*- file with autoconf to produce a 
 dnl configure script.
-AC_INIT(dia, 0.96-pre1, http://bugzilla.gnome.org/enter_bug.cgi?product=dia)
+AC_INIT(dia, 0.96-pre2, http://bugzilla.gnome.org/enter_bug.cgi?product=dia)
 AC_CONFIG_SRCDIR(app/diagram.c)
 AM_INIT_AUTOMAKE(AC_PACKAGE_NAME,AC_PACKAGE_VERSION)
 
@@ -48,7 +48,6 @@ AC_PROG_INTLTOOL(0.21)
 
 APP_LIBS=""
 AC_SUBST(APP_LIBS)
-
 
 dnl Checks for libraries
 
@@ -448,7 +447,6 @@ AM_CONDITIONAL(WITH_PYTHON, test "x$with_python" != "xno")
 
 AC_OUTPUT(
 Makefile
-dia.desktop.in
 lib/Makefile
 lib/pixmaps/Makefile
 po/Makefile.in

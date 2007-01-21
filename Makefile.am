@@ -9,10 +9,10 @@ pkgdata_DATA = dia_logo.png
 pixmapdir = $(gnomedatadir)/pixmaps
 pixmap_DATA = dia_gnome_icon.png dia-diagram.png
 
-desktop_in_in_files = dia.desktop.in.in
-desktop_files = $(desktop_in_files:.desktop.in.in=.desktop)
+#desktop_in_in_files = dia.desktop.in.in
+#desktop_files = $(desktop_in_files:.desktop.in.in=.desktop)
 
-applicationsdir = $(DESKTOP_DATADIR)/applications
+applicationsdir = $(datadir)/applications
 applications_DATA = $(desktop_files)
 
 
@@ -20,27 +20,28 @@ dia.keys: $(srcdir)/dia.keys.in Makefile
 	sed -e 's^\@icondir\@^$(pixmapdir)^g' $(srcdir)/dia.keys.in > dia.keys.tmp \
 	&& mv dia.keys.tmp dia.keys
 
-CLEANFILES = core-translation-report dia.keys dia.desktop dia.desktop.in
+CLEANFILES = core-translation-report dia.keys dia.desktop 
 
 #DISTCLEANFILES = $(desktop_files)
 
 #--- Adapted from http://svn.xfce.org/svn/xfce/libexo/trunk/exo-helper/helpers/Makefile.am
 
 desktopdir = $(datadir)
-desktop_in_files = $(desktop_in_in_files:.desktop.in.in=.desktop.in)
+desktop_in_files = dia.desktop.in
 desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
-%.desktop.in: %.desktop.in.in
-	sed -e "s,\@libexecdir\@,$(libexecdir),g" < $< > $(top_srcdir)/$@
-@INTLTOOL_DESKTOP_RULE@
 
 DISTCLEANFILES =							\
-	$(desktop_in_files)						\
-	$(desktop_DATA)
+	$(desktop_DATA) $(desktop_in_files)
 
 #---
-#dia.desktop: dia.desktop.in $(wildcard $(top_srcdir)/po/*.po)
-#	$(INTLTOOL_MERGE) $(top_srcdir)/po $< $(@) -d -u -c $(top_builddir)/po/.intltool-merge-cachemake
+dia.desktop.in: $(top_srcdir)/dia.desktop.in.in $(wildcard $(top_srcdir)/po/*.po)
+	$(INTLTOOL_MERGE) $(top_srcdir)/po $< $(@) -d -u -c $(top_srcdir)/po/.intltool-merge-cachemake
 
+# I'd love to have automake do this substitution for me, but then it'd happen
+# before intltool above, and that one doesn't understand builddir and so can't
+# use the output.
+dia.desktop: dia.desktop.in
+	sed -e 's/@VERSION/@'$(VERSION)'/;' < $< > $@
 
 distclean-local:
 	rm -f dia.keys

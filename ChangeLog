@@ -1,3 +1,33 @@
+2007-01-21  Lars Clausen  <lars@raeder.dk>
+
+	* installer/rpm/dia.spec: 
+	* config.h.win32: 
+	* doc/en/dia.xml: 
+	* doc/pl/dia.xml: 
+	* doc/eu/dia.xml:
+	* configure.in: 
+	* NEWS: Prerelease 2 of 0.96.
+
+	* Makefile.am (applicationsdir): 
+	* po/POTFILES.in: Create versioned dia.desktop file by first
+	intltool'ing it and then replacing the version number.
+
+	* app/interface.c (create_tools): End g_strconcat with NULL.
+	Fixes bug #398286.
+
+2007-01-18  Lars Clausen  <lars@raeder.dk>
+
+	* lib/Makefile.am (AM_CPPFLAGS): 
+	* lib/dia_dirs.c: DIA_DATADIR and DIA_LIBDIR reverted to being
+	DATADIR and LIBDIR, see
+	http://mail.gnome.org/archives/dia-list/2007-January/msg00008.html
+	and bug #385701.
+
+2007-01-16  Lars Clausen  <larsrc@raeder.dk>
+
+	* doc/en/usage-layers.xml: Corrections from Mick Curtis & Tim
+	Bogie (see bug #347210).
+
 2007-01-14  Lars Clausen  <larsrc@static>
 
 	* Makefile.am (%.desktop.in): Attempt at better desktop.in

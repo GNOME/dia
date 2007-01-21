@@ -1,6 +1,28 @@
+dia-0.96-pre2: 21-Jan-2006
+
+  * Second release candidate for 0.96.  Main improvements:
+
+  * Version 0.7 of VDX plugin by Ian Redfern.
+
+  * Text-line rendering in SVG export.
+
+  * Keyboard shortcuts for tools now use shift-alt.
+
+  * Improvement in autogaps for some objects.
+
+  * .desktop file now has current version.
+
+  * Change in zoom levels in menus.
+
+  * Check that windows are within bounds before opening.
+
+  * Various compilation-time improvements.
+
+  * UML class improvements on comment and wrapped underlined names.
+
 dia-0.96-pre1: 13-Dev-2006
 
-* First release candidate for 0.96.  Main improvements:
+  * First release candidate for 0.96.  Main improvements:
 
   * Text rendering is now based on the TextLine objects, each of which
     contain one line of text along with font and font height.  This has

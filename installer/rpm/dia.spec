@@ -1,6 +1,6 @@
 %define name dia
 # This is the full Dia version
-%define ver 0.95
+%define ver 0.96
 
 Summary: A gtk+ based diagram creation program.
 Name: %name

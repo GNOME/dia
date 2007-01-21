@@ -39,7 +39,7 @@ app/sheets_dialog.c
 app/sheets_dialog_callbacks.c
 app/splash.c
 app/winmain.c
-dia.desktop.in
+dia.desktop.in.in
 lib/arrows.c
 lib/attributes.c
 lib/bezier_conn.c

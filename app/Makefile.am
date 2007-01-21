@@ -11,8 +11,8 @@ INCLUDES = \
 	$(LIBART_CFLAGS) \
 	-DPREFIX=\""$(prefix)"\" \
 	-DSYSCONFDIR=\""$(sysconfdir)"\" \
-	-DDIA_DATADIR=\""$(datadir)"\" \
-	-DDIA_LIBDIR=\""$(libdir)"\" \
+	-DDATADIR=\""$(datadir)"\" \
+	-DLIBDIR=\""$(libdir)"\" \
 	-DLOCALEDIR=\"$(localedir)\" \
 	-DUIDATADIR=\"$(uidatadir)\"
 
