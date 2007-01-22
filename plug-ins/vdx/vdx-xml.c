@@ -2,7 +2,7 @@
 /* Dia -- a diagram creation/manipulation program
  *
  * vdx-xml.c: Visio XML import filter for dia
- * Copyright (C) 2006 Ian Redfern
+ * Copyright (C) 2006-2007 Ian Redfern
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,8 +19,8 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-/* Generated Thu Nov 30 19:27:17 2006 */
-/* From: All.vdx animation_tests.vdx Arrows-2.vdx Arrow & Text samples.vdx BasicShapes.vdx basic_tests.vdx Beispiel 1.vdx Beispiel 2.vdx Beispiel 3.vdx Circle1.vdx Circle2.vdx curve_tests.vdx Drawing2.vdx Embedded-Pics-1.vdx emf_dump_test2.orig.vdx emf_dump_test2.vdx Entreprise_etat_desire.vdx Line1.vdx Line2.vdx Line3.vdx Line4.vdx Line5.vdx Line6.vdx LombardiWireframe.vdx pattern_tests.vdx Rectangle1.vdx Rectangle2.vdx Rectangle3.vdx Rectangle4.vdx sample1.vdx Sample2.vdx samp_vdx.vdx seq_test.vdx SmithWireframe.vdx states.vdx Text1.vdx Text2.vdx Text3.vdx text_tests.vdx */
+/* Generated Thu Jan 18 06:57:30 2007 */
+/* From: All.vdx animation_tests.vdx Arrows-2.vdx Arrow & Text samples.vdx BasicShapes.vdx basic_tests.vdx Beispiel 1.vdx Beispiel 2.vdx Beispiel 3.vdx cable loom EL axis.vdx Circle1.vdx Circle2.vdx circle with angles.vdx curve_tests.vdx Drawing2.vdx Electrical system SatMax.vdx Embedded-Pics-1.vdx emf_dump_test2.orig.vdx emf_dump_test2.vdx Entreprise_etat_desire.vdx IMU-DD Ver2.vdx ISAD_page1.vdx ISAD_page2.vdx Line1.vdx Line2.vdx Line3.vdx Line4.vdx Line5.vdx Line6.vdx LombardiWireframe.vdx London-Citibank-Network-detail-02-15-2006.vdx London-Citibank-Network Detail-11-07-2005.vdx London-Citibank-racks-11-04-2005.vdx London-colo-move.vdx London-Colo-Network-detail-11-01-2005.vdx London-Colo-Racks-11-03-2005.vdx Network DiagramV2.vdx pattern_tests.vdx Processflow.vdx Rectangle1.vdx Rectangle2.vdx Rectangle3.vdx Rectangle4.vdx sample1.vdx Sample2.vdx samp_vdx.vdx Satmax RF path.vdx seq_test.vdx Servo block diagram V2.vdx Servo block diagram V3.vdx Servo block diagram.vdx Sigma-function.vdx SmithWireframe.vdx states.vdx Text1.vdx Text2.vdx Text3.vdx text_tests.vdx Tracking Array -  Level.vdx Tracking Array -  Phase.vdx Wayzata-WAN-Detail.vdx Wayzata-WAN-Overview.vdx WDS Cabling.vdx */
 
 
 #include <glib.h>
@@ -67,6 +67,9 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
             else if (!strcmp((char *)attr->name, "IX") &&
                      attr->children && attr->children->content)
                 s->IX = atoi((char *)attr->children->content);
+            else if (!strcmp((char *)attr->name, "Name") &&
+                     attr->children && attr->children->content)
+                s->Name = (char *)attr->children->content;
             else if (!strcmp((char *)attr->name, "NameU") &&
                      attr->children && attr->children->content)
                 s->NameU = (char *)attr->children->content;
@@ -152,7 +155,10 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         s->children = 0;
         s->type = vdx_types_ArcTo;
         for (attr = cur->properties; attr; attr = attr->next) {
-            if (!strcmp((char *)attr->name, "IX") &&
+            if (!strcmp((char *)attr->name, "Del") &&
+                     attr->children && attr->children->content)
+                s->Del = atoi((char *)attr->children->content);
+            else if (!strcmp((char *)attr->name, "IX") &&
                      attr->children && attr->children->content)
                 s->IX = atoi((char *)attr->children->content);
         }
@@ -167,66 +173,6 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
             else if (!strcmp((char *)child->name, "Y"))
             { if (child->children && child->children->content)
                 s->Y = atof((char *)child->children->content); }
-            else s->children =
-                     g_slist_append(s->children,
-                                    vdx_read_object(child, theDoc, 0));
-        }
-        return s;
-    }
-
-    if (!strcmp((char *)cur->name, "BegTrigger")) {
-        struct vdx_BegTrigger *s;
-        if (p) { s = (struct vdx_BegTrigger *)(p); }
-        else { s = g_new0(struct vdx_BegTrigger, 1); }
-        s->children = 0;
-        s->type = vdx_types_BegTrigger;
-        for (attr = cur->properties; attr; attr = attr->next) {
-            if (!strcmp((char *)attr->name, "Err") &&
-                     attr->children && attr->children->content)
-                s->Err = (char *)attr->children->content;
-        }
-        for (child = cur->xmlChildrenNode; child; child = child->next) {
-            if (xmlIsBlankNode(child)) { continue; }
-            else s->children =
-                     g_slist_append(s->children,
-                                    vdx_read_object(child, theDoc, 0));
-        }
-        return s;
-    }
-
-    if (!strcmp((char *)cur->name, "BeginX")) {
-        struct vdx_BeginX *s;
-        if (p) { s = (struct vdx_BeginX *)(p); }
-        else { s = g_new0(struct vdx_BeginX, 1); }
-        s->children = 0;
-        s->type = vdx_types_BeginX;
-        for (attr = cur->properties; attr; attr = attr->next) {
-            if (!strcmp((char *)attr->name, "Err") &&
-                     attr->children && attr->children->content)
-                s->Err = (char *)attr->children->content;
-        }
-        for (child = cur->xmlChildrenNode; child; child = child->next) {
-            if (xmlIsBlankNode(child)) { continue; }
-            else s->children =
-                     g_slist_append(s->children,
-                                    vdx_read_object(child, theDoc, 0));
-        }
-        return s;
-    }
-
-    if (!strcmp((char *)cur->name, "BeginY")) {
-        struct vdx_BeginY *s;
-        if (p) { s = (struct vdx_BeginY *)(p); }
-        else { s = g_new0(struct vdx_BeginY, 1); }
-        s->children = 0;
-        s->type = vdx_types_BeginY;
-        for (attr = cur->properties; attr; attr = attr->next) {
-            if (!strcmp((char *)attr->name, "Err") &&
-                     attr->children && attr->children->content)
-                s->Err = (char *)attr->children->content;
-        }
-        for (child = cur->xmlChildrenNode; child; child = child->next) {
-            if (xmlIsBlankNode(child)) { continue; }
             else s->children =
                      g_slist_append(s->children,
                                     vdx_read_object(child, theDoc, 0));
@@ -267,7 +213,7 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
                 s->ComplexScriptFont = atoi((char *)child->children->content); }
             else if (!strcmp((char *)child->name, "ComplexScriptSize"))
             { if (child->children && child->children->content)
-                s->ComplexScriptSize = atoi((char *)child->children->content); }
+                s->ComplexScriptSize = atof((char *)child->children->content); }
             else if (!strcmp((char *)child->name, "DblUnderline"))
             { if (child->children && child->children->content)
                 s->DblUnderline = atoi((char *)child->children->content); }
@@ -616,7 +562,10 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         }
         for (child = cur->xmlChildrenNode; child; child = child->next) {
             if (xmlIsBlankNode(child)) { continue; }
-            if (!strcmp((char *)child->name, "BuildNumberCreated"))
+            if (!strcmp((char *)child->name, "AlternateNames"))
+            { if (child->children && child->children->content)
+                s->AlternateNames = (char *)child->children->content; }
+            else if (!strcmp((char *)child->name, "BuildNumberCreated"))
             { if (child->children && child->children->content)
                 s->BuildNumberCreated = atoi((char *)child->children->content); }
             else if (!strcmp((char *)child->name, "BuildNumberEdited"))
@@ -831,46 +780,6 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         return s;
     }
 
-    if (!strcmp((char *)cur->name, "EndX")) {
-        struct vdx_EndX *s;
-        if (p) { s = (struct vdx_EndX *)(p); }
-        else { s = g_new0(struct vdx_EndX, 1); }
-        s->children = 0;
-        s->type = vdx_types_EndX;
-        for (attr = cur->properties; attr; attr = attr->next) {
-            if (!strcmp((char *)attr->name, "Err") &&
-                     attr->children && attr->children->content)
-                s->Err = (char *)attr->children->content;
-        }
-        for (child = cur->xmlChildrenNode; child; child = child->next) {
-            if (xmlIsBlankNode(child)) { continue; }
-            else s->children =
-                     g_slist_append(s->children,
-                                    vdx_read_object(child, theDoc, 0));
-        }
-        return s;
-    }
-
-    if (!strcmp((char *)cur->name, "EndY")) {
-        struct vdx_EndY *s;
-        if (p) { s = (struct vdx_EndY *)(p); }
-        else { s = g_new0(struct vdx_EndY, 1); }
-        s->children = 0;
-        s->type = vdx_types_EndY;
-        for (attr = cur->properties; attr; attr = attr->next) {
-            if (!strcmp((char *)attr->name, "Err") &&
-                     attr->children && attr->children->content)
-                s->Err = (char *)attr->children->content;
-        }
-        for (child = cur->xmlChildrenNode; child; child = child->next) {
-            if (xmlIsBlankNode(child)) { continue; }
-            else s->children =
-                     g_slist_append(s->children,
-                                    vdx_read_object(child, theDoc, 0));
-        }
-        return s;
-    }
-
     if (!strcmp((char *)cur->name, "Event")) {
         struct vdx_Event *s;
         if (p) { s = (struct vdx_Event *)(p); }
@@ -896,26 +805,6 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
             else if (!strcmp((char *)child->name, "TheText"))
             { if (child->children && child->children->content)
                 s->TheText = atoi((char *)child->children->content); }
-            else s->children =
-                     g_slist_append(s->children,
-                                    vdx_read_object(child, theDoc, 0));
-        }
-        return s;
-    }
-
-    if (!strcmp((char *)cur->name, "EventDblClick")) {
-        struct vdx_EventDblClick *s;
-        if (p) { s = (struct vdx_EventDblClick *)(p); }
-        else { s = g_new0(struct vdx_EventDblClick, 1); }
-        s->children = 0;
-        s->type = vdx_types_EventDblClick;
-        for (attr = cur->properties; attr; attr = attr->next) {
-            if (!strcmp((char *)attr->name, "Err") &&
-                     attr->children && attr->children->content)
-                s->Err = (char *)attr->children->content;
-        }
-        for (child = cur->xmlChildrenNode; child; child = child->next) {
-            if (xmlIsBlankNode(child)) { continue; }
             else s->children =
                      g_slist_append(s->children,
                                     vdx_read_object(child, theDoc, 0));
@@ -1887,26 +1776,6 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         return s;
     }
 
-    if (!strcmp((char *)cur->name, "Menu")) {
-        struct vdx_Menu *s;
-        if (p) { s = (struct vdx_Menu *)(p); }
-        else { s = g_new0(struct vdx_Menu, 1); }
-        s->children = 0;
-        s->type = vdx_types_Menu;
-        for (attr = cur->properties; attr; attr = attr->next) {
-            if (!strcmp((char *)attr->name, "Err") &&
-                     attr->children && attr->children->content)
-                s->Err = (char *)attr->children->content;
-        }
-        for (child = cur->xmlChildrenNode; child; child = child->next) {
-            if (xmlIsBlankNode(child)) { continue; }
-            else s->children =
-                     g_slist_append(s->children,
-                                    vdx_read_object(child, theDoc, 0));
-        }
-        return s;
-    }
-
     if (!strcmp((char *)cur->name, "Misc")) {
         struct vdx_Misc *s;
         if (p) { s = (struct vdx_Misc *)(p); }
@@ -2044,26 +1913,6 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
             else if (!strcmp((char *)child->name, "Y"))
             { if (child->children && child->children->content)
                 s->Y = atof((char *)child->children->content); }
-            else s->children =
-                     g_slist_append(s->children,
-                                    vdx_read_object(child, theDoc, 0));
-        }
-        return s;
-    }
-
-    if (!strcmp((char *)cur->name, "NameUniv")) {
-        struct vdx_NameUniv *s;
-        if (p) { s = (struct vdx_NameUniv *)(p); }
-        else { s = g_new0(struct vdx_NameUniv, 1); }
-        s->children = 0;
-        s->type = vdx_types_NameUniv;
-        for (attr = cur->properties; attr; attr = attr->next) {
-            if (!strcmp((char *)attr->name, "Err") &&
-                     attr->children && attr->children->content)
-                s->Err = (char *)attr->children->content;
-        }
-        for (child = cur->xmlChildrenNode; child; child = child->next) {
-            if (xmlIsBlankNode(child)) { continue; }
             else s->children =
                      g_slist_append(s->children,
                                     vdx_read_object(child, theDoc, 0));
@@ -2361,6 +2210,35 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         return s;
     }
 
+    if (!strcmp((char *)cur->name, "PolylineTo")) {
+        struct vdx_PolylineTo *s;
+        if (p) { s = (struct vdx_PolylineTo *)(p); }
+        else { s = g_new0(struct vdx_PolylineTo, 1); }
+        s->children = 0;
+        s->type = vdx_types_PolylineTo;
+        for (attr = cur->properties; attr; attr = attr->next) {
+            if (!strcmp((char *)attr->name, "IX") &&
+                     attr->children && attr->children->content)
+                s->IX = atoi((char *)attr->children->content);
+        }
+        for (child = cur->xmlChildrenNode; child; child = child->next) {
+            if (xmlIsBlankNode(child)) { continue; }
+            if (!strcmp((char *)child->name, "A"))
+            { if (child->children && child->children->content)
+                s->A = atof((char *)child->children->content); }
+            else if (!strcmp((char *)child->name, "X"))
+            { if (child->children && child->children->content)
+                s->X = atof((char *)child->children->content); }
+            else if (!strcmp((char *)child->name, "Y"))
+            { if (child->children && child->children->content)
+                s->Y = atof((char *)child->children->content); }
+            else s->children =
+                     g_slist_append(s->children,
+                                    vdx_read_object(child, theDoc, 0));
+        }
+        return s;
+    }
+
     if (!strcmp((char *)cur->name, "PreviewPicture")) {
         struct vdx_PreviewPicture *s;
         if (p) { s = (struct vdx_PreviewPicture *)(p); }
@@ -2433,7 +2311,7 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
                 s->PrintPageOrientation = atoi((char *)child->children->content); }
             else if (!strcmp((char *)child->name, "ScaleX"))
             { if (child->children && child->children->content)
-                s->ScaleX = atoi((char *)child->children->content); }
+                s->ScaleX = atof((char *)child->children->content); }
             else if (!strcmp((char *)child->name, "ScaleY"))
             { if (child->children && child->children->content)
                 s->ScaleY = atoi((char *)child->children->content); }
@@ -2507,6 +2385,9 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
             if (!strcmp((char *)attr->name, "ID") &&
                      attr->children && attr->children->content)
                 s->ID = atoi((char *)attr->children->content);
+            else if (!strcmp((char *)attr->name, "Name") &&
+                     attr->children && attr->children->content)
+                s->Name = (char *)attr->children->content;
             else if (!strcmp((char *)attr->name, "NameU") &&
                      attr->children && attr->children->content)
                 s->NameU = (char *)attr->children->content;
@@ -2751,6 +2632,15 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         }
         for (child = cur->xmlChildrenNode; child; child = child->next) {
             if (xmlIsBlankNode(child)) { continue; }
+            if (!strcmp((char *)child->name, "Data1"))
+            { if (child->children && child->children->content)
+                s->Data1 = atoi((char *)child->children->content); }
+            else if (!strcmp((char *)child->name, "Data2"))
+            { if (child->children && child->children->content)
+                s->Data2 = atoi((char *)child->children->content); }
+            else if (!strcmp((char *)child->name, "Data3"))
+            { if (child->children && child->children->content)
+                s->Data3 = atoi((char *)child->children->content); }
             else s->children =
                      g_slist_append(s->children,
                                     vdx_read_object(child, theDoc, 0));
@@ -3079,6 +2969,9 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
             if (!strcmp((char *)attr->name, "ID") &&
                      attr->children && attr->children->content)
                 s->ID = atoi((char *)attr->children->content);
+            else if (!strcmp((char *)attr->name, "Name") &&
+                     attr->children && attr->children->content)
+                s->Name = (char *)attr->children->content;
             else if (!strcmp((char *)attr->name, "NameU") &&
                      attr->children && attr->children->content)
                 s->NameU = (char *)attr->children->content;
@@ -3167,7 +3060,11 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
                 s->Page_exists = TRUE; }
             else if (!strcmp((char *)attr->name, "ParentWindow") &&
                      attr->children && attr->children->content)
-                s->ParentWindow = atoi((char *)attr->children->content);
+            {    s->ParentWindow = atoi((char *)attr->children->content);
+                s->ParentWindow_exists = TRUE; }
+            else if (!strcmp((char *)attr->name, "ReadOnly") &&
+                     attr->children && attr->children->content)
+                s->ReadOnly = atoi((char *)attr->children->content);
             else if (!strcmp((char *)attr->name, "Sheet") &&
                      attr->children && attr->children->content)
             {    s->Sheet = atoi((char *)attr->children->content);
@@ -3463,9 +3360,6 @@ vdx_write_object(FILE *file, unsigned int depth, const void *p)
     const struct vdx_Act *Act;
     const struct vdx_Align *Align;
     const struct vdx_ArcTo *ArcTo;
-    const struct vdx_BegTrigger *BegTrigger;
-    const struct vdx_BeginX *BeginX;
-    const struct vdx_BeginY *BeginY;
     const struct vdx_Char *Char;
     const struct vdx_ColorEntry *ColorEntry;
     const struct vdx_Colors *Colors;
@@ -3481,10 +3375,7 @@ vdx_write_object(FILE *file, unsigned int depth, const void *p)
     const struct vdx_DocumentSheet *DocumentSheet;
     const struct vdx_Ellipse *Ellipse;
     const struct vdx_EllipticalArcTo *EllipticalArcTo;
-    const struct vdx_EndX *EndX;
-    const struct vdx_EndY *EndY;
     const struct vdx_Event *Event;
-    const struct vdx_EventDblClick *EventDblClick;
     const struct vdx_EventItem *EventItem;
     const struct vdx_EventList *EventList;
     const struct vdx_FaceName *FaceName;
@@ -3510,16 +3401,15 @@ vdx_write_object(FILE *file, unsigned int depth, const void *p)
     const struct vdx_Line *Line;
     const struct vdx_LineTo *LineTo;
     const struct vdx_Master *Master;
-    const struct vdx_Menu *Menu;
     const struct vdx_Misc *Misc;
     const struct vdx_MoveTo *MoveTo;
     const struct vdx_NURBSTo *NURBSTo;
-    const struct vdx_NameUniv *NameUniv;
     const struct vdx_Page *Page;
     const struct vdx_PageLayout *PageLayout;
     const struct vdx_PageProps *PageProps;
     const struct vdx_PageSheet *PageSheet;
     const struct vdx_Para *Para;
+    const struct vdx_PolylineTo *PolylineTo;
     const struct vdx_PreviewPicture *PreviewPicture;
     const struct vdx_PrintProps *PrintProps;
     const struct vdx_PrintSetup *PrintSetup;
@@ -3559,6 +3449,9 @@ vdx_write_object(FILE *file, unsigned int depth, const void *p)
     case vdx_types_Act:
         Act = (const struct vdx_Act *)(p);
         fprintf(file, "%s<Act ID='%u' IX='%u'", pad, Act->ID, Act->IX);
+        if (Act->Name)
+            fprintf(file, " Name='%s'",
+                    vdx_convert_xml_string(Act->Name));
         if (Act->NameU)
             fprintf(file, " NameU='%s'",
                     vdx_convert_xml_string(Act->NameU));
@@ -3604,46 +3497,17 @@ vdx_write_object(FILE *file, unsigned int depth, const void *p)
 
     case vdx_types_ArcTo:
         ArcTo = (const struct vdx_ArcTo *)(p);
-        fprintf(file, "%s<ArcTo IX='%u'>\n", pad, ArcTo->IX);
+        fprintf(file, "%s<ArcTo IX='%u'", pad, ArcTo->IX);
+        if (ArcTo->Del)
+            fprintf(file, " Del='%u'",
+                    ArcTo->Del);
+        fprintf(file, ">\n");
         fprintf(file, "%s  <A>%f</A>\n", pad,
                 ArcTo->A);
         fprintf(file, "%s  <X>%f</X>\n", pad,
                 ArcTo->X);
         fprintf(file, "%s  <Y>%f</Y>\n", pad,
                 ArcTo->Y);
-        break;
-
-    case vdx_types_BegTrigger:
-        BegTrigger = (const struct vdx_BegTrigger *)(p);
-        fprintf(file, "%s<BegTrigger Err='%s'", pad, vdx_convert_xml_string(BegTrigger->Err));
-        if (!child)
-        {
-            fprintf(file, "/>\n");
-            return;
-        }
-        fprintf(file, ">\n");
-        break;
-
-    case vdx_types_BeginX:
-        BeginX = (const struct vdx_BeginX *)(p);
-        fprintf(file, "%s<BeginX Err='%s'", pad, vdx_convert_xml_string(BeginX->Err));
-        if (!child)
-        {
-            fprintf(file, "/>\n");
-            return;
-        }
-        fprintf(file, ">\n");
-        break;
-
-    case vdx_types_BeginY:
-        BeginY = (const struct vdx_BeginY *)(p);
-        fprintf(file, "%s<BeginY Err='%s'", pad, vdx_convert_xml_string(BeginY->Err));
-        if (!child)
-        {
-            fprintf(file, "/>\n");
-            return;
-        }
-        fprintf(file, ">\n");
         break;
 
     case vdx_types_Char:
@@ -3663,7 +3527,7 @@ vdx_write_object(FILE *file, unsigned int depth, const void *p)
                 Char->ColorTrans);
         fprintf(file, "%s  <ComplexScriptFont>%u</ComplexScriptFont>\n", pad,
                 Char->ComplexScriptFont);
-        fprintf(file, "%s  <ComplexScriptSize>%d)</ComplexScriptSize>\n", pad,
+        fprintf(file, "%s  <ComplexScriptSize>%f</ComplexScriptSize>\n", pad,
                 Char->ComplexScriptSize);
         fprintf(file, "%s  <DblUnderline>%u</DblUnderline>\n", pad,
                 Char->DblUnderline);
@@ -3840,6 +3704,8 @@ vdx_write_object(FILE *file, unsigned int depth, const void *p)
     case vdx_types_DocumentProperties:
         DocumentProperties = (const struct vdx_DocumentProperties *)(p);
         fprintf(file, "%s<DocumentProperties>\n", pad);
+        fprintf(file, "%s  <AlternateNames>%s</AlternateNames>\n", pad,
+                vdx_convert_xml_string(DocumentProperties->AlternateNames));
         fprintf(file, "%s  <BuildNumberCreated>%d)</BuildNumberCreated>\n", pad,
                 DocumentProperties->BuildNumberCreated);
         fprintf(file, "%s  <BuildNumberEdited>%u</BuildNumberEdited>\n", pad,
@@ -3963,28 +3829,6 @@ vdx_write_object(FILE *file, unsigned int depth, const void *p)
                 EllipticalArcTo->Y);
         break;
 
-    case vdx_types_EndX:
-        EndX = (const struct vdx_EndX *)(p);
-        fprintf(file, "%s<EndX Err='%s'", pad, vdx_convert_xml_string(EndX->Err));
-        if (!child)
-        {
-            fprintf(file, "/>\n");
-            return;
-        }
-        fprintf(file, ">\n");
-        break;
-
-    case vdx_types_EndY:
-        EndY = (const struct vdx_EndY *)(p);
-        fprintf(file, "%s<EndY Err='%s'", pad, vdx_convert_xml_string(EndY->Err));
-        if (!child)
-        {
-            fprintf(file, "/>\n");
-            return;
-        }
-        fprintf(file, ">\n");
-        break;
-
     case vdx_types_Event:
         Event = (const struct vdx_Event *)(p);
         fprintf(file, "%s<Event>\n", pad);
@@ -3998,17 +3842,6 @@ vdx_write_object(FILE *file, unsigned int depth, const void *p)
                 Event->TheData);
         fprintf(file, "%s  <TheText>%u</TheText>\n", pad,
                 Event->TheText);
-        break;
-
-    case vdx_types_EventDblClick:
-        EventDblClick = (const struct vdx_EventDblClick *)(p);
-        fprintf(file, "%s<EventDblClick Err='%s'", pad, vdx_convert_xml_string(EventDblClick->Err));
-        if (!child)
-        {
-            fprintf(file, "/>\n");
-            return;
-        }
-        fprintf(file, ">\n");
         break;
 
     case vdx_types_EventItem:
@@ -4472,17 +4305,6 @@ vdx_write_object(FILE *file, unsigned int depth, const void *p)
         fprintf(file, ">\n");
         break;
 
-    case vdx_types_Menu:
-        Menu = (const struct vdx_Menu *)(p);
-        fprintf(file, "%s<Menu Err='%s'", pad, vdx_convert_xml_string(Menu->Err));
-        if (!child)
-        {
-            fprintf(file, "/>\n");
-            return;
-        }
-        fprintf(file, ">\n");
-        break;
-
     case vdx_types_Misc:
         Misc = (const struct vdx_Misc *)(p);
         fprintf(file, "%s<Misc>\n", pad);
@@ -4554,17 +4376,6 @@ vdx_write_object(FILE *file, unsigned int depth, const void *p)
                 NURBSTo->X);
         fprintf(file, "%s  <Y>%f</Y>\n", pad,
                 NURBSTo->Y);
-        break;
-
-    case vdx_types_NameUniv:
-        NameUniv = (const struct vdx_NameUniv *)(p);
-        fprintf(file, "%s<NameUniv Err='%s'", pad, vdx_convert_xml_string(NameUniv->Err));
-        if (!child)
-        {
-            fprintf(file, "/>\n");
-            return;
-        }
-        fprintf(file, ">\n");
         break;
 
     case vdx_types_Page:
@@ -4733,6 +4544,17 @@ vdx_write_object(FILE *file, unsigned int depth, const void *p)
                 Para->TextPosAfterBullet);
         break;
 
+    case vdx_types_PolylineTo:
+        PolylineTo = (const struct vdx_PolylineTo *)(p);
+        fprintf(file, "%s<PolylineTo IX='%u'>\n", pad, PolylineTo->IX);
+        fprintf(file, "%s  <A>%f</A>\n", pad,
+                PolylineTo->A);
+        fprintf(file, "%s  <X>%f</X>\n", pad,
+                PolylineTo->X);
+        fprintf(file, "%s  <Y>%f</Y>\n", pad,
+                PolylineTo->Y);
+        break;
+
     case vdx_types_PreviewPicture:
         PreviewPicture = (const struct vdx_PreviewPicture *)(p);
         fprintf(file, "%s<PreviewPicture", pad);
@@ -4776,7 +4598,7 @@ vdx_write_object(FILE *file, unsigned int depth, const void *p)
                 PrintProps->PrintGrid);
         fprintf(file, "%s  <PrintPageOrientation>%u</PrintPageOrientation>\n", pad,
                 PrintProps->PrintPageOrientation);
-        fprintf(file, "%s  <ScaleX>%u</ScaleX>\n", pad,
+        fprintf(file, "%s  <ScaleX>%f</ScaleX>\n", pad,
                 PrintProps->ScaleX);
         fprintf(file, "%s  <ScaleY>%u</ScaleY>\n", pad,
                 PrintProps->ScaleY);
@@ -4814,6 +4636,9 @@ vdx_write_object(FILE *file, unsigned int depth, const void *p)
     case vdx_types_Prop:
         Prop = (const struct vdx_Prop *)(p);
         fprintf(file, "%s<Prop ID='%u'", pad, Prop->ID);
+        if (Prop->Name)
+            fprintf(file, " Name='%s'",
+                    vdx_convert_xml_string(Prop->Name));
         if (Prop->NameU)
             fprintf(file, " NameU='%s'",
                     vdx_convert_xml_string(Prop->NameU));
@@ -4951,12 +4776,13 @@ vdx_write_object(FILE *file, unsigned int depth, const void *p)
         if (Shape->UniqueID)
             fprintf(file, " UniqueID='%s'",
                     vdx_convert_xml_string(Shape->UniqueID));
-        if (!child)
-        {
-            fprintf(file, "/>\n");
-            return;
-        }
         fprintf(file, ">\n");
+        fprintf(file, "%s  <Data1>%u</Data1>\n", pad,
+                Shape->Data1);
+        fprintf(file, "%s  <Data2>%u</Data2>\n", pad,
+                Shape->Data2);
+        fprintf(file, "%s  <Data3>%u</Data3>\n", pad,
+                Shape->Data3);
         break;
 
     case vdx_types_Shapes:
@@ -5108,6 +4934,9 @@ vdx_write_object(FILE *file, unsigned int depth, const void *p)
     case vdx_types_User:
         User = (const struct vdx_User *)(p);
         fprintf(file, "%s<User ID='%u'", pad, User->ID);
+        if (User->Name)
+            fprintf(file, " Name='%s'",
+                    vdx_convert_xml_string(User->Name));
         if (User->NameU)
             fprintf(file, " NameU='%s'",
                     vdx_convert_xml_string(User->NameU));
@@ -5139,10 +4968,13 @@ vdx_write_object(FILE *file, unsigned int depth, const void *p)
 
     case vdx_types_Window:
         Window = (const struct vdx_Window *)(p);
-        fprintf(file, "%s<Window ContainerType='%s' Document='%s' ID='%u' ParentWindow='%u' ViewCenterX='%f' ViewCenterY='%f' ViewScale='%f' WindowType='%s'", pad, vdx_convert_xml_string(Window->ContainerType), vdx_convert_xml_string(Window->Document), Window->ID, Window->ParentWindow, Window->ViewCenterX, Window->ViewCenterY, Window->ViewScale, vdx_convert_xml_string(Window->WindowType));
+        fprintf(file, "%s<Window ContainerType='%s' Document='%s' ID='%u' ReadOnly='%u' ViewCenterX='%f' ViewCenterY='%f' ViewScale='%f' WindowType='%s'", pad, vdx_convert_xml_string(Window->ContainerType), vdx_convert_xml_string(Window->Document), Window->ID, Window->ReadOnly, Window->ViewCenterX, Window->ViewCenterY, Window->ViewScale, vdx_convert_xml_string(Window->WindowType));
         if (Window->Page_exists)
             fprintf(file, " Page='%u'",
                     Window->Page);
+        if (Window->ParentWindow_exists)
+            fprintf(file, " ParentWindow='%u'",
+                    Window->ParentWindow);
         if (Window->Sheet_exists)
             fprintf(file, " Sheet='%u'",
                     Window->Sheet);

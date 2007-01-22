@@ -3,7 +3,7 @@
  * Copyright (C) 1998 Alexander Larsson
  *
  * vdx-export.c: Visio XML export filter for dia
- * Copyright (C) 2006 Ian Redfern
+ * Copyright (C) 2006-2007 Ian Redfern
  * based on the xfig filter code
  * Copyright (C) 2001 Lars Clausen
  * based on the dxf filter code

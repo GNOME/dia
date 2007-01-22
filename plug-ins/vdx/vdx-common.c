@@ -2,7 +2,7 @@
 /* Dia -- a diagram creation/manipulation program
  *
  * vdx-common.c: Visio XML import filter for dia
- * Copyright (C) 2006 Ian Redfern
+ * Copyright (C) 2006-2007 Ian Redfern
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -29,18 +29,24 @@ char * vdx_Units[] =
 {
   "BOOL",
   "CM",
+  "COLOR",
   "DA",
   "DATE",
   "DEG",
   "DL",
   "DP",
   "DT",
+  "FT",
+  "F_I",
   "GUID",
   "IN",
   "IN_F",
+  "M",
   "MM",
   "NUM",
   "NURBS",
+  "PNT",
+  "POLYLINE",
   "PT",
   "STR",
   NULL
@@ -51,9 +57,6 @@ char * vdx_Types[] =
   "Act",
   "Align",
   "ArcTo",
-  "BegTrigger",
-  "BeginX",
-  "BeginY",
   "Char",
   "ColorEntry",
   "Colors",
@@ -69,10 +72,7 @@ char * vdx_Types[] =
   "DocumentSheet",
   "Ellipse",
   "EllipticalArcTo",
-  "EndX",
-  "EndY",
   "Event",
-  "EventDblClick",
   "EventItem",
   "EventList",
   "FaceName",
@@ -98,16 +98,15 @@ char * vdx_Types[] =
   "Line",
   "LineTo",
   "Master",
-  "Menu",
   "Misc",
   "MoveTo",
   "NURBSTo",
-  "NameUniv",
   "Page",
   "PageLayout",
   "PageProps",
   "PageSheet",
   "Para",
+  "PolylineTo",
   "PreviewPicture",
   "PrintProps",
   "PrintSetup",

@@ -3,7 +3,7 @@
  * Copyright (C) 1998 Alexander Larsson
  *
  * vdx.h: Visio XML import and export filter for dia
- * Copyright (C) 2006 Ian Redfern
+ * Copyright (C) 2006-2007 Ian Redfern
  * based on the xfig filter code
  * Copyright (C) 2001 Lars Clausen
  * based on the dxf filter code
@@ -41,6 +41,9 @@ struct VDXDocument
     gboolean stop;           /* Flag for whether to stop processing */
     unsigned int Page;          /* Page number */
     unsigned int Background_Layers; /* Number to add when flattening */
+    gboolean debug_comments;        /* Flag for g_debug() output */
+    unsigned int *debug_shape_ids;  /* List to colour in */
+    unsigned int shape_id;          /* For debugging */
 };
 
 typedef struct VDXDocument VDXDocument;
@@ -53,11 +56,23 @@ static const double vdx_Y_Flip = -1.0; /* Upside down */
 static const double vdx_Point_Scale = 2.54; /* Visio is in inches, Dia in cm */
 static const double vdx_Line_Scale = 2.54; /* Visio is in inches, Dia in cm */
 static const double vdx_Page_Width = 35.0; /* in cm */
-static const double vdx_Arrow_Scale = 0.15; /* Empirical */
+static const double vdx_Arrow_Scale = 0.13; /* Empirical */
 static const double vdx_Dash_Length = 0.17; /* Empirical */
-static const double EPSILON = 0.01; /* Sensitivity */
+static const double EPSILON = 0.0001; /* Sensitivity */
 static const double vdx_Arrow_Sizes[] = 
         { 0.75, 1.0, 1.4, 1.6, 1.8, 2.0 }; /* Empirical */
+static const double vdx_Arrow_Width_Height_Ratio = 0.7; /* Empirical */
+static const ArrowType vdx_Arrows[] = { ARROW_NONE, 
+                                  ARROW_LINES, ARROW_FILLED_TRIANGLE, 
+                                  ARROW_FILLED_TRIANGLE, ARROW_FILLED_TRIANGLE,
+                                  ARROW_FILLED_CONCAVE, ARROW_FILLED_TRIANGLE, 
+                                  ARROW_FILLED_TRIANGLE, ARROW_FILLED_TRIANGLE, 
+                                  ARROW_SLASH_ARROW, ARROW_FILLED_ELLIPSE,
+                                  ARROW_FILLED_DIAMOND, ARROW_FILLED_TRIANGLE, 
+                                  ARROW_FILLED_TRIANGLE, ARROW_HOLLOW_TRIANGLE, 
+                                  ARROW_HOLLOW_TRIANGLE, ARROW_FILLED_TRIANGLE 
+                                };
+
 #define VDX_NAMEU_LEN 30
 #define DEG_TO_RAD M_PI/180.0                  /* Degrees to radians */
 
@@ -76,5 +91,7 @@ vdx_write_object(FILE *file, unsigned int depth, const void *p);
 const char *
 vdx_convert_xml_string(const char *s);
 
+char *
+tempnam(const char *dir, const char *pfx);
 
 #endif

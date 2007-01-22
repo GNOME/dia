@@ -1,3 +1,20 @@
+2007-01-22  Lars Clausen  <lars@raeder.dk>
+
+	* plug-ins/vdx/vdx-import.c: 
+	* plug-ins/vdx/vdx-export.c: 
+	* plug-ins/vdx/vdx-common.c: 
+	* plug-ins/vdx/vdx-xml.c: 
+	* plug-ins/vdx/vdx.[ch]: 
+	* plug-ins/vdx/visio-types.h: Updated to version 0.8.
+
+	* NEWS: 
+	* RELEASE-PROCESS: 
+	* config.h.win32: 
+	* doc/en/dia.xml: 
+	* doc/pl/dia.xml: 
+	* doc/eu/dia.xml:
+	* configure.in: Pre3
+
 2007-01-21  Lars Clausen  <lars@raeder.dk>
 
 	* installer/rpm/dia.spec: 
