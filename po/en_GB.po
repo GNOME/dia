@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-03 07:07+0000\n"
-"PO-Revision-Date: 2007-01-03 07:07-0000\n"
+"POT-Creation-Date: 2007-01-23 07:05+0000\n"
+"PO-Revision-Date: 2007-01-23 07:06-0000\n"
 "Last-Translator: David Lodge <dave@cirt.net>\n"
 "Language-Team: English/GB <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -598,8 +598,9 @@ msgid "/_Hide this type"
 msgstr "/_Hide this type"
 
 #: ../app/diagram_tree_window.c:80
-msgid "Diagram tree"
-msgstr "Diagram tree"
+#: ../app/preferences.c:110
+msgid "Diagram Tree"
+msgstr "Diagram Tree"
 
 #: ../app/diagram.c:221
 #, c-format
@@ -982,65 +983,65 @@ msgstr "Bezierline"
 msgid "Image"
 msgstr "Image"
 
-#: ../app/interface.c:416
+#: ../app/interface.c:413
 msgid "Diagram menu."
 msgstr "Diagram menu."
 
-#: ../app/interface.c:454
+#: ../app/interface.c:451
 msgid "Pops up the Navigation window."
 msgstr "Pops up the Navigation window."
 
-#: ../app/interface.c:520
+#: ../app/interface.c:517
 msgid "Zoom"
 msgstr "Zoom"
 
-#: ../app/interface.c:535
+#: ../app/interface.c:532
 msgid "Toggles snap-to-grid for this window."
 msgstr "Toggles snap-to-grid for this window."
 
-#: ../app/interface.c:546
+#: ../app/interface.c:543
 msgid "Toggles object snapping for this window."
 msgstr "Toggles object snapping for this window."
 
-#: ../app/interface.c:611
+#: ../app/interface.c:608
 msgid "NULL tooldata in tool_select_update"
 msgstr "NULL tooldata in tool_select_update"
 
-#: ../app/interface.c:923
+#: ../app/interface.c:920
 #, c-format
 msgid "No sheet named %s"
 msgstr "No sheet named %s"
 
-#: ../app/interface.c:960
+#: ../app/interface.c:957
 msgid "Other sheets"
 msgstr "Other sheets"
 
-#: ../app/interface.c:1018
+#: ../app/interface.c:1015
 #: ../sheets/Misc.sheet.in.h:3
 msgid "Misc"
 msgstr "Misc"
 
-#: ../app/interface.c:1079
+#: ../app/interface.c:1076
 msgid "Foreground & background colors for new objects.  The small black and white squares reset colors.  The small arrows swap colors.  Double click to change colors."
 msgstr "Foreground & background colours for new objects.  The small black and white squares reset colours.  The small arrows swap colours.  Double click to change colours."
 
-#: ../app/interface.c:1094
+#: ../app/interface.c:1091
 msgid "Line widths.  Click on a line to set the default line width for new objects.  Double-click to set the line width more precisely."
 msgstr "Line widths. Click on a line to set the default line width for new objects. Double-click to set the line width more precisely."
 
-#: ../app/interface.c:1134
+#: ../app/interface.c:1131
 msgid "Arrow style at the beginning of new lines.  Click to pick an arrow, or set arrow parameters with Details..."
 msgstr "Arrow style at the beginning of new lines. Click to pick an arrow, or set arrow parameters with Details..."
 
-#: ../app/interface.c:1139
+#: ../app/interface.c:1136
 msgid "Line style for new lines.  Click to pick a line style, or set line style parameters with Details..."
 msgstr "Line style for new lines. Click to pick a line style, or set line style parameters with Details..."
 
-#: ../app/interface.c:1153
+#: ../app/interface.c:1150
 msgid "Arrow style at the end of new lines.  Click to pick an arrow, or set arrow parameters with Details..."
 msgstr "Arrow style at the end of new lines. Click to pick an arrow, or set arrow parameters with Details..."
 
-#: ../app/interface.c:1263
+#: ../app/interface.c:1260
 msgid "Diagram Editor"
 msgstr "Diagram Editor"
 
@@ -1458,46 +1459,50 @@ msgstr "Scroll"
 msgid "Fullscr_een"
 msgstr "Fullscr_een"
 
+#. we must have all actions registered to avoid configuration specific ui-files and crashing in GTK+,
+#. * see: http://bugzilla.gnome.org/show_bug.cgi?id=396161
+#.
 #: ../app/menus.c:213
+#: ../app/menus.c:218
 msgid "_AntiAliased"
 msgstr "_AntiAliased"
 
-#: ../app/menus.c:215
+#: ../app/menus.c:220
 msgid "Show _Grid"
 msgstr "Show _Grid"
 
-#: ../app/menus.c:216
+#: ../app/menus.c:221
 msgid "_Snap To Grid"
 msgstr "_Snap To Grid"
 
-#: ../app/menus.c:217
+#: ../app/menus.c:222
 msgid "Snap To _Objects"
 msgstr "Snap To _Objects"
 
-#: ../app/menus.c:218
+#: ../app/menus.c:223
 msgid "Show _Rulers"
 msgstr "Show _Rulers"
 
-#: ../app/menus.c:219
+#: ../app/menus.c:224
 msgid "Show _Connection Points"
 msgstr "Show _Connection Points"
 
-#: ../app/menus.c:225
+#: ../app/menus.c:230
 msgid "Replace"
 msgstr "Replace"
 
-#: ../app/menus.c:226
+#: ../app/menus.c:231
 msgid "Union"
 msgstr "Union"
 
-#: ../app/menus.c:227
+#: ../app/menus.c:232
 msgid "Intersection"
 msgstr "Intersection"
 
 #. Translators: Menu item Verb/Channel/Export/Remove
 #. Translators: Menu item Verb/Branch/Separate/Remove
 #. Translators: Menu item Verb/Branch/Separate/Remove/Remove
-#: ../app/menus.c:228
+#: ../app/menus.c:233
 #: ../app/sheets_dialog.c:785
 #: ../objects/FS/function.c:706
 #: ../objects/FS/function.c:858
@@ -1506,11 +1511,11 @@ msgid "Remove"
 msgstr "Remove"
 
 #. Cannot also be called Invert, duplicate names caused keybinding problems
-#: ../app/menus.c:230
+#: ../app/menus.c:235
 msgid "Inverse"
 msgstr "Inverse"
 
-#: ../app/menus.c:257
+#: ../app/menus.c:262
 msgid "NULL tooldata in tool_menu_select"
 msgstr "NULL tooldata in tool_menu_select"
 
@@ -1601,10 +1606,6 @@ msgstr "Diagram Defaults"
 #: ../app/preferences.c:108
 msgid "View Defaults"
 msgstr "View Defaults"
-
-#: ../app/preferences.c:110
-msgid "Diagram Tree"
-msgstr "Diagram Tree"
 
 #: ../app/preferences.c:124
 msgid "Reset tools after create"
@@ -2047,11 +2048,11 @@ msgstr "Loading ..."
 msgid "Dia v %s"
 msgstr "Dia v %s"
 
-#: ../dia.desktop.in.h:1
+#: ../dia.desktop.in.in.h:1
 msgid "Dia Diagram Editor"
 msgstr "Dia Diagram Editor"
 
-#: ../dia.desktop.in.h:2
+#: ../dia.desktop.in.in.h:2
 msgid "Edit your Diagrams"
 msgstr "Edit your Diagrams"
 
@@ -2218,12 +2219,12 @@ msgstr "Internal error: Setting corner type of endpoint of bezier"
 msgid "Can't find standard object"
 msgstr "Can't find standard object"
 
-#: ../lib/dia_dirs.c:237
+#: ../lib/dia_dirs.c:238
 #, c-format
 msgid "%s<illegal characters>..."
 msgstr "%s<illegal characters>..."
 
-#: ../lib/dia_dirs.c:268
+#: ../lib/dia_dirs.c:269
 #, c-format
 msgid "Too many ..'s in filename %s\n"
 msgstr "Too many ..'s in filename %s\n"
@@ -2325,7 +2326,7 @@ msgstr "Line Style Properties"
 msgid "Multiple export filters with unique name %s"
 msgstr "Multiple export filters with unique name %s"
 
-#: ../lib/font.c:101
+#: ../lib/font.c:102
 #, c-format
 msgid "Can't load font %s.\n"
 msgstr "Can't load font %s.\n"
@@ -4389,7 +4390,7 @@ msgstr "Composition"
 
 #: ../objects/UML/class.c:137
 #: ../objects/UML/class.c:308
-#: ../objects/UML/class.c:1678
+#: ../objects/UML/class.c:1703
 #: ../sheets/UML.sheet.in.h:6
 msgid "Class"
 msgstr "Class"
@@ -4424,7 +4425,7 @@ msgid "Abstract"
 msgstr "Abstract"
 
 #: ../objects/UML/class.c:147
-#: ../objects/UML/class.c:1675
+#: ../objects/UML/class.c:1700
 msgid "Template"
 msgstr "Template"
 
@@ -5455,97 +5456,87 @@ msgstr "Couldn't read file %s"
 msgid "Visio XML format"
 msgstr "Visio XML format"
 
-#: ../plug-ins/vdx/vdx-import.c:208
+#: ../plug-ins/vdx/vdx-import.c:219
 #: ../plug-ins/xfig/xfig-import.c:1034
 #, c-format
 msgid "Couldn't read color: %s\n"
 msgstr "Couldn't read colour: %s\n"
 
-#: ../plug-ins/vdx/vdx-import.c:491
+#: ../plug-ins/vdx/vdx-import.c:507
 #, c-format
 msgid "Couldn't find shape %d\n"
 msgstr "Couldn't find shape %d\n"
 
-#: ../plug-ins/vdx/vdx-import.c:761
-#, c-format
-msgid "Unexpected LineTo object: %s\n"
-msgstr "Unexpected LineTo object: %s\n"
-
-#: ../plug-ins/vdx/vdx-import.c:767
-msgid "Unexpected LineTo additional objects\n"
-msgstr "Unexpected LineTo additional objects\n"
-
-#: ../plug-ins/vdx/vdx-import.c:836
+#: ../plug-ins/vdx/vdx-import.c:851
 msgid "MoveTo after start of polyline\n"
 msgstr "MoveTo after start of polyline\n"
 
-#: ../plug-ins/vdx/vdx-import.c:842
+#: ../plug-ins/vdx/vdx-import.c:864
 #, c-format
 msgid "Unexpected polyline object: %s\n"
 msgstr "Unexpected polyline object: %s\n"
 
-#: ../plug-ins/vdx/vdx-import.c:900
-msgid "MoveTo after start of polygon\n"
-msgstr "MoveTo after start of polygon\n"
-
-#: ../plug-ins/vdx/vdx-import.c:906
-#, c-format
-msgid "Unexpected polygon object: %s\n"
-msgstr "Unexpected polygon object: %s\n"
-
-#: ../plug-ins/vdx/vdx-import.c:961
+#: ../plug-ins/vdx/vdx-import.c:956
 #, c-format
 msgid "Unexpected Ellipse object: %s\n"
 msgstr "Unexpected Ellipse object: %s\n"
 
-#: ../plug-ins/vdx/vdx-import.c:967
+#: ../plug-ins/vdx/vdx-import.c:964
 msgid "Unexpected Ellipse additional objects\n"
 msgstr "Unexpected Ellipse additional objects\n"
 
-#: ../plug-ins/vdx/vdx-import.c:976
+#: ../plug-ins/vdx/vdx-import.c:974
 msgid "Can't rotate ellipse\n"
 msgstr "Can't rotate ellipse\n"
 
-#: ../plug-ins/vdx/vdx-import.c:1228
-#: ../plug-ins/vdx/vdx-import.c:1322
+#: ../plug-ins/vdx/vdx-import.c:1287
 msgid "MoveTo not at start of Bezier\n"
 msgstr "MoveTo not at start of Bezier\n"
 
-#: ../plug-ins/vdx/vdx-import.c:1272
+#: ../plug-ins/vdx/vdx-import.c:1374
 #, c-format
 msgid "Unexpected Bezier object: %s\n"
 msgstr "Unexpected Bezier object: %s\n"
 
-#: ../plug-ins/vdx/vdx-import.c:1363
+#: ../plug-ins/vdx/vdx-import.c:1595
 #, c-format
-msgid "Unexpected Beziergon object: %s\n"
-msgstr "Unexpected Beziergon object: %s\n"
+msgid "Unexpected NURBSTo object: %s\n"
+msgstr "Unexpected NURBSTo object: %s\n"
 
-#: ../plug-ins/vdx/vdx-import.c:1405
+#: ../plug-ins/vdx/vdx-import.c:1603
+msgid "Unexpected NURBSTo additional objects\n"
+msgstr "Unexpected NURBSTo additional objects\n"
+
+#: ../plug-ins/vdx/vdx-import.c:1620
+msgid "Invalid NURBS formula"
+msgstr "Invalid NURBS formula"
+
+#: ../plug-ins/vdx/vdx-import.c:1742
 #, c-format
 msgid "Couldn't write file %s"
 msgstr "Couldn't write file %s"
 
-#: ../plug-ins/vdx/vdx-import.c:1486
+#: ../plug-ins/vdx/vdx-import.c:1826
+#: ../plug-ins/vdx/vdx-import.c:1839
 #, c-format
 msgid "Couldn't handle foreign object type %s"
 msgstr "Couldn't handle foreign object type %s"
 
-#: ../plug-ins/vdx/vdx-import.c:1513
+#: ../plug-ins/vdx/vdx-import.c:1867
 #, c-format
 msgid "Couldn't make object dir %s"
 msgstr "Couldn't make object dir %s"
 
-#: ../plug-ins/vdx/vdx-import.c:2184
+#: ../plug-ins/vdx/vdx-import.c:2723
 msgid "Visio XML File Format"
 msgstr "Visio XML File Format"
 
-#: ../plug-ins/vdx/vdx-xml.c:3444
+#: ../plug-ins/vdx/vdx-xml.c:3344
 #, c-format
 msgid "Can't decode object %s"
 msgstr "Can't decode object %s"
 
-#: ../plug-ins/vdx/vdx-xml.c:5291
+#: ../plug-ins/vdx/vdx-xml.c:5125
 #, c-format
 msgid "Can't write object %u"
 msgstr "Can't write object %u"
@@ -5554,20 +5545,20 @@ msgstr "Can't write object %u"
 msgid "Visio XML Format import and export filter"
 msgstr "Visio XML Format import and export filter"
 
-#: ../plug-ins/wmf/wmf.cpp:1185
+#: ../plug-ins/wmf/wmf.cpp:1186
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
 msgstr "Couldn't open: '%s' for writing.\n"
 
-#: ../plug-ins/wmf/wmf.cpp:1269
+#: ../plug-ins/wmf/wmf.cpp:1270
 msgid "Windows Meta File"
 msgstr "Windows Meta File"
 
-#: ../plug-ins/wmf/wmf.cpp:1278
+#: ../plug-ins/wmf/wmf.cpp:1279
 msgid "Enhanced Meta File"
 msgstr "Enhanced Meta File"
 
-#: ../plug-ins/wmf/wmf.cpp:1294
+#: ../plug-ins/wmf/wmf.cpp:1295
 msgid "WMF export filter"
 msgstr "WMF export filter"
 
@@ -9400,6 +9391,14 @@ msgstr "Sybase dataserver"
 msgid "Sybase replication server"
 msgstr "Sybase replication server"
 
+#~ msgid "Diagram tree"
+#~ msgstr "Diagram tree"
+#~ msgid "MoveTo after start of polygon\n"
+#~ msgstr "MoveTo after start of polygon\n"
+#~ msgid "Unexpected polygon object: %s\n"
+#~ msgstr "Unexpected polygon object: %s\n"
+#~ msgid "Unexpected Beziergon object: %s\n"
+#~ msgstr "Unexpected Beziergon object: %s\n"
 #~ msgid "EML"
 #~ msgstr "EML"
 #~ msgid "Editor for EML Static Structure Diagrams."
