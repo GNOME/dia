@@ -1384,14 +1384,7 @@ diagram_update_for_filename(Diagram *dia)
 gchar *
 diagram_get_name(Diagram *dia)
 {
-  gchar *title = strrchr(dia->filename, G_DIR_SEPARATOR);
-  if (title==NULL) {
-    title = dia->filename;
-  } else {
-    title++;
-  }
-  
-  return g_strdup(title);
+  return g_path_get_basename(dia->filename);
 }
 
 int diagram_modified_exists(void)

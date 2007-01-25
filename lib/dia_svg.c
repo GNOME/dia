@@ -575,8 +575,10 @@ dia_svg_parse_path(const gchar *path_str, gchar **unparsed, gboolean *closed)
       last_relative = FALSE;
       break;
     case 'm':
-      if (points->len > 0)
+      if (points->len > 0) {
+	need_next_element = TRUE;
 	goto MORETOPARSE;
+      }
       path++;
       path_chomp(path);
       last_type = PATH_MOVE;

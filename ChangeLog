@@ -1,3 +1,15 @@
+2007-01-25  Lars Clausen  <lars@raeder.dk>
+
+	* plug-ins/metapost/render_metapost.c (draw_text_line): First stab
+	at text_line for metapost.  Needs width adjustment.
+
+	* app/diagram.c (diagram_get_name): Don't emulate
+	g_path_get_basename buggily, just use it.  Fixes bug #399535.
+
+	* lib/dia_svg.c (dia_svg_parse_path): Patch from
+	robert.young@dsto.defence.gov.au solves infinite loop in loading
+	shapes. 
+
 2007-01-25  Steffen Macke <sdteffen@gmail.com>
 
 	* installer/win32/dia.nsi: Added some more *.po files to the installer;
@@ -16845,7 +16857,7 @@
 	display list into account when calculating the distance.  Much nicer
 	than a simple bounding box.
 
-2000-04-13  Lars Clausen  <lrclause@cs.uiuc.edu>>
+2000-04-13  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* lib/geometry.c (line_crosses_ray): Fixed division by zero bug
 
