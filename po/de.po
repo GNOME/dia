@@ -353,7 +353,6 @@ msgid ""
 msgstr ""
 
 #: ../app/commands.c:637
-#, fuzzy
 msgid "A program for drawing structured diagrams."
 msgstr "Editor für Funktionsstrukturdiagramme"
 
@@ -1374,9 +1373,8 @@ msgid "Invert"
 msgstr "Umkehren"
 
 #: ../app/menus.c:167
-#, fuzzy
 msgid "Transitive"
-msgstr "Transitive"
+msgstr "Transitiv"
 
 #: ../app/menus.c:168
 msgid "Connected"
@@ -2525,19 +2523,16 @@ msgid "Add Connection Point"
 msgstr "Verbindungspunkt hinzufügen"
 
 #: ../objects/AADL/aadlbox.c:377
-#, fuzzy
 msgid "Delete Port"
-msgstr "Eckpunkt löschen"
+msgstr ""
 
 #: ../objects/AADL/aadlbox.c:378
-#, fuzzy
 msgid "Edit Port Declaration"
-msgstr "Vorbereitung"
+msgstr ""
 
 #: ../objects/AADL/aadlbox.c:382
-#, fuzzy
 msgid "Delete Connection Point"
-msgstr "Verbindungspunkt hinzufügen"
+msgstr ""
 
 #: ../objects/ER/attribute.c:155
 msgid "Key:"
@@ -4268,9 +4263,8 @@ msgid "Wrap after char"
 msgstr "Umbruch nach Zeichen"
 
 #: ../objects/UML/class.c:164
-#, fuzzy
 msgid "Comment line length"
-msgstr "Kommentare sichtbar"
+msgstr "Kommentarumbruch"
 
 #: ../objects/UML/class.c:166
 msgid "Comment tagging"
@@ -4650,9 +4644,8 @@ msgid "Condition for taking this transition when the event is fired"
 msgstr "Bedingung für den Zustandsübergang, wenn das Ereignis ausgelöst wurde"
 
 #: ../objects/UML/uml.c:66
-#, fuzzy
 msgid "Unified Modelling Language diagram objects UML 1.3"
-msgstr "'Unified Modelling Language' Diagrammobjekte"
+msgstr "'Unified Modelling Language' Diagrammobjekte (UML 1.3)"
 
 #: ../objects/UML/umlattribute.c:41 ../objects/UML/umlparameter.c:47
 msgid "Value"
@@ -5219,7 +5212,7 @@ msgid "MoveTo after start of polyline\n"
 msgstr "MoveTo nicht am Anfang\n"
 
 #: ../plug-ins/vdx/vdx-import.c:864
-#, fuzzy, c-format
+#, c-format
 msgid "Unexpected polyline object: %s\n"
 msgstr "Mehrfachlinien-Informationen konnten nicht gelesen werden: %s\n"
 
@@ -5233,9 +5226,8 @@ msgid "Unexpected Ellipse additional objects\n"
 msgstr ""
 
 #: ../plug-ins/vdx/vdx-import.c:974
-#, fuzzy
 msgid "Can't rotate ellipse\n"
-msgstr "Ellipseninformationen konnten nicht gelesen werden: %s\n"
+msgstr "Ellipsen nicht möglich\n"
 
 #: ../plug-ins/vdx/vdx-import.c:1287
 msgid "MoveTo not at start of Bezier\n"
@@ -5834,37 +5826,32 @@ msgid "Compensation Task"
 msgstr ""
 
 #: ../sheets/BPMN.sheet.in.h:9
-#, fuzzy
 msgid "Complex"
-msgstr "Koppeln"
+msgstr ""
 
 #: ../sheets/BPMN.sheet.in.h:10
-#, fuzzy
 msgid "Data Object"
-msgstr "Dia-Objekt"
+msgstr ""
 
 #: ../sheets/BPMN.sheet.in.h:11
-#, fuzzy
 msgid "End Event"
-msgstr "Endpunkt"
+msgstr ""
 
 #: ../sheets/BPMN.sheet.in.h:12
 msgid "End Event - Cancel"
 msgstr ""
 
 #: ../sheets/BPMN.sheet.in.h:13
-#, fuzzy
 msgid "End Event - Compensation"
-msgstr "Ereignisspezifikation"
+msgstr ""
 
 #: ../sheets/BPMN.sheet.in.h:14
 msgid "End Event - Error"
 msgstr ""
 
 #: ../sheets/BPMN.sheet.in.h:15
-#, fuzzy
 msgid "End Event - Link"
-msgstr "Ereignissenke"
+msgstr ""
 
 #: ../sheets/BPMN.sheet.in.h:16
 msgid "End Event - Message"
@@ -5887,9 +5874,8 @@ msgid "Exclusive (XOR) Event Based"
 msgstr ""
 
 #: ../sheets/BPMN.sheet.in.h:21
-#, fuzzy
 msgid "Gateway"
-msgstr "MAS-Gateway"
+msgstr ""
 
 #: ../sheets/BPMN.sheet.in.h:22
 msgid "Group"
@@ -5944,28 +5930,24 @@ msgid "Multiple Instance Collapsed Sub-Process"
 msgstr ""
 
 #: ../sheets/BPMN.sheet.in.h:35
-#, fuzzy
 msgid "Multiple Instance Task"
-msgstr "Mehrfache Instanz"
+msgstr ""
 
 #: ../sheets/BPMN.sheet.in.h:36
 msgid "Parallel (AND)"
 msgstr ""
 
 #: ../sheets/BPMN.sheet.in.h:37
-#, fuzzy
 msgid "Start Event"
-msgstr "Startpunkt"
+msgstr ""
 
 #: ../sheets/BPMN.sheet.in.h:38
-#, fuzzy
 msgid "Start Event - Link"
-msgstr "Ereignissenke"
+msgstr ""
 
 #: ../sheets/BPMN.sheet.in.h:39
-#, fuzzy
 msgid "Start Event - Message"
-msgstr "Nachricht verschicken"
+msgstr ""
 
 #: ../sheets/BPMN.sheet.in.h:40
 msgid "Start Event - Multiple"
@@ -5976,19 +5958,16 @@ msgid "Start Event - Rule"
 msgstr ""
 
 #: ../sheets/BPMN.sheet.in.h:42
-#, fuzzy
 msgid "Start Event - Timer"
-msgstr "Startzeit"
+msgstr ""
 
 #: ../sheets/BPMN.sheet.in.h:44
-#, fuzzy
 msgid "Text Annotation"
-msgstr "Ausrichtung"
+msgstr ""
 
 #: ../sheets/BPMN.sheet.in.h:45
-#, fuzzy
 msgid "Transaction"
-msgstr "Übersetzung"
+msgstr "Transaktion"
 
 #: ../sheets/ChemEng.sheet.in.h:1
 msgid "AC Generator"
@@ -6634,9 +6613,8 @@ msgid "Connector"
 msgstr "Verbinder"
 
 #: ../sheets/Flowchart.sheet.in.h:4
-#, fuzzy
 msgid "Data source"
-msgstr "Datenfarbe"
+msgstr "Datenquelle"
 
 #: ../sheets/Flowchart.sheet.in.h:5 ../sheets/SDL.sheet.in.h:4
 msgid "Decision"
@@ -6751,14 +6729,12 @@ msgid "Alternate external entity"
 msgstr ""
 
 #: ../sheets/Gane_and_Sarson.sheet.in.h:2
-#, fuzzy
 msgid "Data store"
-msgstr "Datenfarbe"
+msgstr ""
 
 #: ../sheets/Gane_and_Sarson.sheet.in.h:3
-#, fuzzy
 msgid "External entity"
-msgstr "Schwache Entität"
+msgstr ""
 
 #. Author: Nicholas Moore, 2005. mailto: shiny.nickel@gmail.com
 #: ../sheets/Gane_and_Sarson.sheet.in.h:5
@@ -7640,9 +7616,8 @@ msgid "Tablet"
 msgstr "Tablett"
 
 #: ../sheets/ciscocomputer.sheet.in.h:45
-#, fuzzy
 msgid "Tape array"
-msgstr "Speicherarray"
+msgstr "Bandarray"
 
 #: ../sheets/ciscocomputer.sheet.in.h:46
 msgid "Terminal"
@@ -7770,9 +7745,8 @@ msgid "Director-class Fibre Channel intelligent switch"
 msgstr ""
 
 #: ../sheets/ciscohub.sheet.in.h:26
-#, fuzzy
 msgid "Edge Label Switch Router"
-msgstr "Server mit PC-Router"
+msgstr ""
 
 #: ../sheets/ciscohub.sheet.in.h:27
 msgid "Edge Label Switch Router with NetFlow"
@@ -7887,9 +7861,8 @@ msgid "Router and switch shapes by Cisco"
 msgstr "Router- und Switch-Formen von Cisco"
 
 #: ../sheets/ciscohub.sheet.in.h:55
-#, fuzzy
 msgid "Router subdued"
-msgstr "Router-Symbol"
+msgstr ""
 
 #: ../sheets/ciscohub.sheet.in.h:56
 msgid "Router with Firewall"
@@ -7981,7 +7954,6 @@ msgid "Branch office blue"
 msgstr "Branch-Office blau"
 
 #: ../sheets/ciscomisc.sheet.in.h:5
-#, fuzzy
 msgid "Branch office subdued"
 msgstr "Branch-Office"
 
@@ -8011,7 +7983,6 @@ msgid "Generic Building blue"
 msgstr "Generisches Gebäude blau"
 
 #: ../sheets/ciscomisc.sheet.in.h:12
-#, fuzzy
 msgid "Generic Building subdued"
 msgstr "Generisches Gebäude"
 
@@ -8096,7 +8067,6 @@ msgid "Running man"
 msgstr "Laufender Mann"
 
 #: ../sheets/ciscomisc.sheet.in.h:35
-#, fuzzy
 msgid "Running man subdued"
 msgstr "Laufender Mann"
 
@@ -8141,7 +8111,6 @@ msgid "Telecommuter house"
 msgstr "Telecommuter-Haus"
 
 #: ../sheets/ciscomisc.sheet.in.h:47
-#, fuzzy
 msgid "Telecommuter house subdued"
 msgstr "Telecommuter-Haus"
 
@@ -8250,9 +8219,8 @@ msgid "Centri Firewall"
 msgstr "Centri-Firewall"
 
 #: ../sheets/cisconetwork.sheet.in.h:19
-#, fuzzy
 msgid "Channelized Pipe"
-msgstr "Kanal"
+msgstr "Kanalisierte Pfeife"
 
 #: ../sheets/cisconetwork.sheet.in.h:20
 msgid "Cisco - Network"
@@ -8320,7 +8288,6 @@ msgid "FDDI Ring"
 msgstr "FDDI-Ring"
 
 #: ../sheets/cisconetwork.sheet.in.h:36
-#, fuzzy
 msgid "File Engine"
 msgstr "Ordnerkabinett"
 
@@ -8337,9 +8304,8 @@ msgid "Firewall horizontal"
 msgstr "Firewall horizontal"
 
 #: ../sheets/cisconetwork.sheet.in.h:40
-#, fuzzy
 msgid "Firewall subdued"
-msgstr "Firewall-Router"
+msgstr "Brandschutzmauer"
 
 #: ../sheets/cisconetwork.sheet.in.h:41
 msgid "General Appliance"
@@ -8394,9 +8360,8 @@ msgid "LocalDirector"
 msgstr "LocalDirector"
 
 #: ../sheets/cisconetwork.sheet.in.h:55
-#, fuzzy
 msgid "Location server"
-msgstr "Kommunikations-Server"
+msgstr "Vorort-Server"
 
 #: ../sheets/cisconetwork.sheet.in.h:56
 msgid "LongReach CPE"
