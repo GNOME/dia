@@ -84,7 +84,7 @@ PyDiaError_Dealloc(PyDiaError *self)
 {
   if (self->str)
     g_string_free (self->str, TRUE);
-  PyMem_DEL(self);
+  PyObject_DEL(self);
 }
 
 /*

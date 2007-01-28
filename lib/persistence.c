@@ -557,6 +557,32 @@ persistence_update_window(GtkWindow *window, GdkEvent *event, gpointer data)
   return FALSE;
 }
 
+/**
+ * If the screen size has changed some persistent info maybe out of the visible area.
+ * This function checks that stored coordinates are at least paritally visible on some
+ * monitor. In GDK parlance a screen can have multiple monitors.
+ */
+static gboolean
+wininfo_in_range (const PersistentWindow *wininfo)
+{
+  GdkScreen *screen = gdk_screen_get_default ();
+  gint num_monitors = gdk_screen_get_n_monitors (screen), i;
+  GdkRectangle rwin = {wininfo->x, wininfo->y, wininfo->width, wininfo->height};
+  GdkRectangle rres = {0, 0, 0, 0};
+  
+  for (i = 0; i < num_monitors; ++i) {
+    GdkRectangle rmon;
+    
+    gdk_screen_get_monitor_geometry (screen, i, &rmon);
+    
+    gdk_rectangle_intersect (&rwin, &rmon, &rres);
+    if (rres.width * rres.height > 0)
+      break;
+  }
+
+  return (rres.width * rres.height > 0);
+}
+
 /* Call this function after the window has a role assigned to use any
  * persistence information about the window.
  */
@@ -572,8 +598,11 @@ persistence_register_window(GtkWindow *window)
   }    
   wininfo = (PersistentWindow *)g_hash_table_lookup(persistent_windows, name);
   if (wininfo != NULL) {
-    gtk_window_move(window, wininfo->x, wininfo->y);
-    gtk_window_resize(window, wininfo->width, wininfo->height);
+    if (wininfo_in_range (wininfo)) {
+      /* only restore position if partially visible */
+      gtk_window_move(window, wininfo->x, wininfo->y);
+      gtk_window_resize(window, wininfo->width, wininfo->height);
+    }
     if (wininfo->isopen) gtk_widget_show(GTK_WIDGET(window));
   } else {
     wininfo = g_new0(PersistentWindow, 1);

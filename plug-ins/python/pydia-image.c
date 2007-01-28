@@ -45,7 +45,7 @@ static void
 PyDiaImage_Dealloc(PyDiaImage *self)
 {
   dia_image_release (self->image);
-  PyMem_DEL(self);
+  PyObject_DEL(self);
 }
 
 /*

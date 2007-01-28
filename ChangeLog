@@ -1,3 +1,83 @@
+2007-01-28  Hans Breuer  <hans@breuer.org>
+
+	* plug-ins/cairo/diacairo.c : use version from trunk to get rid
+	of deprecated/unstable APIs
+
+<merged-from-trunk>
+2007-01-14  Lars Clausen  <larsrc@static>
+
+	* objects/UML/class.c (uml_underline_text): Underline that skips
+	leading whitespace, and is called on each part of a wrapped
+	operation. Fixes bug #390145.
+
+2007-01-09  Hans Breuer  <hans@breuer.org>
+
+	* objects/UML/class.c : comments were not considered for connection
+	point placement. Patch from Vadim Zelenin, fixes bug #342086
+	
+2007-01-06  Hans Breuer  <hans@breuer.org>
+
+	* plug-ins/python/pydia-property.c : finally implemented 
+	getters/setters for LengthProperty and FontsizeProperty. (We really
+	should take g_warning more serious, this one was
+	WARNING **: No handler for type 'length')
+
+	* plug-ins/python/pydia-property.c : finally implemented 
+	getters/setters for LengthProperty and FontsizeProperty. (We really
+	should take g_warning more serious, this one was
+	WARNING **: No handler for type 'length')
+
+2007-01-03  Hans Breuer  <hans@breuer.org>
+
+	* lib/persistence.c : before restoring window positions check if
+	they are still in valid range. Fixes bug #354266
+
+2006-12-02  Lars Clausen  <lars@raeder.dk>
+
+	* lib/dialibartrenderer.c (fill_polygon): Make sure to use
+	odd-even winding rule.  Fixes bug #378878.
+
+2006-10-16  Hans Breuer  <hans@breuer.org>
+
+	* objects/UML/class.c : the comment wrapping was only working for
+	plain ASCII, now it deals with UTF-8 (Vadim Zelenin, bug #349765)
+
+2006-10-14  Hans Breuer  <hans@breuer.org>
+
+	* objects/standard/arc.c : don't rely on the result of atan2(inf,inf),
+	it is C-runtime dependent. Fixes infinitesimal burning of CPU cycles,
+	bug #360013 and duplicates.
+
+2006-10-13  Hans Breuer  <hans@breuer.org>
+
+	* lib/parent.[ch] : parent_handle_move_in_check() was moving 
+	the checked point about twice as much as needed, bug #342773.
+
+2006-09-23  Hans Breuer  <hans@breuer.org>
+
+	* plug-ins/python/*.c : don't mix PyObject_NEW() with PyMem_DEL()
+	Newer versions of Python (2.5) are not tolerant about this anymore.
+	
+2006-07-16  Hans Breuer  <hans@breuer.org>
+
+	* plug-ins/cairo/diacairo.c : allow to export to svg if available 
+	with cairo. Some tweaking of surface sizes.
+	
+2006-06-15  Hans Breuer  <hans@breuer.org>
+
+	* objects/UML/class.c : use g_list_append() rather than prepend
+	when copying attributes, operations, formalparams. Fixes bug #342902
+	Also removed some superfluous outcommented code and fixed a warning.
+
+</merged-from-trunk>
+
+2007-01-27  Hans Breuer  <hans@breuer.org>
+	 [as done on trunk 2007-01-02]
+	* *.msc, *.win32, HACKING, *.nsh, *.am, 
+	  *.xbm, *.xpm; *.shape, *.sheet : setting svn:eol-style=native
+
+	* config.h.win32 configure.in : update to version 0.95.2
+
 2006-05-26  Lars Clausen  <lars@raeder.dk>
 
 	* RELEASE-PROCESS: 

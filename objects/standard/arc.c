@@ -759,8 +759,11 @@ arc_update_data(Arc *arc)
   lensq = (x2-x1)*(x2-x1) + (y2-y1)*(y2-y1);
   radius = lensq/(8*arc->curve_distance) + arc->curve_distance/2.0;
 
-  alpha = (radius - arc->curve_distance) / sqrt(lensq);
-  
+  if (lensq == 0.0)
+	alpha = 1.0; /* arbitrary, but /not/ 1/0  */
+  else
+    alpha = (radius - arc->curve_distance) / sqrt(lensq);
+
   xc = (x1 + x2) / 2.0 + (y2 - y1)*alpha;
   yc = (y1 + y2) / 2.0 + (x1 - x2)*alpha;
 

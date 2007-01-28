@@ -37,7 +37,7 @@ PyDiaExportFilter_New(DiaExportFilter *filter)
 static void
 PyDiaExportFilter_Dealloc(PyDiaExportFilter *self)
 {
-     PyMem_DEL(self);
+     PyObject_DEL(self);
 }
 
 static int

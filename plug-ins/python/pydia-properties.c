@@ -46,7 +46,7 @@ static void
 PyDiaProperties_Dealloc(PyDiaObject *self)
 {
   self->object = NULL; /* XXX: should dec ref */
-  PyMem_DEL(self);
+  PyObject_DEL(self);
 }
 
 /*

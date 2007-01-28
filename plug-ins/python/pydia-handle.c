@@ -40,7 +40,7 @@ PyDiaHandle_New(Handle *handle, DiaObject *owner)
 static void
 PyDiaHandle_Dealloc(PyDiaHandle *self)
 {
-     PyMem_DEL(self);
+     PyObject_DEL(self);
 }
 
 static int

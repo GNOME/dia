@@ -38,7 +38,7 @@ PyDiaDisplay_New(DDisplay *disp)
 static void
 PyDiaDisplay_Dealloc(PyDiaDisplay *self)
 {
-     PyMem_DEL(self);
+     PyObject_DEL(self);
 }
 
 static int

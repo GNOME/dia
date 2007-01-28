@@ -36,7 +36,7 @@
  * although there isn't any functionality behind it. Urgh.
  *
  * With Gtk+-2.7.x cairo must be available so this becomes even more ugly
- * when the user has choosen to to build the diacairo plug-in. If noone
+ * when the user has choosen to not build the diacairo plug-in. If noone
  * can come up with a convincing reason to do it this way I'll probably
  * go back to the dont-build-at-all approach when it breaks the next time.
  *                                                                    --hb 
@@ -52,6 +52,9 @@
 #  endif
 #  ifdef  CAIRO_HAS_PDF_SURFACE
 #  include <cairo-pdf.h>
+#  endif
+#  ifdef CAIRO_HAS_SVG_SURFACE
+#  include <cairo-svg.h>
 #  endif
 #endif
 
@@ -953,7 +956,8 @@ typedef enum OutputKind
   OUTPUT_PDF,
   OUTPUT_WMF,
   OUTPUT_EMF,
-  OUTPUT_CB
+  OUTPUT_CB,
+  OUTPUT_SVG
 } OutputKind;
 
 /* dia export funtion */
@@ -981,12 +985,13 @@ export_data(DiagramData *data, const gchar *filename,
   switch (kind) {
 #ifdef CAIRO_HAS_PS_SURFACE
   case OUTPUT_PS :
-    width  = data->paper.width / 2.54;
-    height = data->paper.height / 2.54;
-    renderer->scale = data->paper.scaling;
+    width  = data->paper.width * (72.0 / 2.54);
+    height = data->paper.height * (72.0 / 2.54);
+    renderer->scale = data->paper.scaling * (72.0 / 2.54);
     DIAG_NOTE(g_message ("PS Surface %dx%d\n", (int)width, (int)height)); 
     renderer->surface = cairo_ps_surface_create (filename,
-                                                 width*72, height*72); /*  in points? */
+                                                 width, height); /*  in points? */
+    /* maybe we should increase the resolution here as well */
     break;
 #endif  
 #if defined CAIRO_HAS_PNG_SURFACE || defined CAIRO_HAS_PNG_FUNCTIONS
@@ -1010,14 +1015,29 @@ export_data(DiagramData *data, const gchar *filename,
 #endif
 #ifdef CAIRO_HAS_PDF_SURFACE
   case OUTPUT_PDF :
-#define DPI 600.0
+#define DPI 72.0 /* 600.0? */
     /* I just don't get how the scaling is supposed to work, dpi versus page size ? */
-    renderer->scale = data->paper.scaling * 2.54;
+    renderer->scale = data->paper.scaling * (72.0 / 2.54);
+    width = data->paper.width * (72.0 / 2.54);
+    height = data->paper.height * (72.0 / 2.54);
     DIAG_NOTE(g_message ("PDF Surface %dx%d\n", (int)width, (int)height));
     renderer->surface = cairo_pdf_surface_create (filename,
-                                                  data->paper.width * 2.54, data->paper.height * 2.54);
-    cairo_pdf_surface_set_dpi (renderer->surface, DPI, DPI);
+                                                  width, height);
+    cairo_surface_set_fallback_resolution (renderer->surface, DPI, DPI);
 #undef DPI
+    break;
+#endif
+#ifdef CAIRO_HAS_SVG_SURFACE
+  case OUTPUT_SVG :
+    /* quite arbitrary, but consistent with ../pixbuf ;-) */
+    renderer->scale = 20.0 * data->paper.scaling; 
+    width  = (data->extents.right - data->extents.left) * renderer->scale;
+    height = (data->extents.bottom - data->extents.top) * renderer->scale;
+    DIAG_NOTE(g_message ("SVG Surface %dx%d\n", (int)width, (int)height));
+    /* use case screwed by API shakeup. We need to special case */
+    renderer->surface = cairo_svg_surface_create(
+						filename,
+						(int)width, (int)height);
     break;
 #endif
   /* the default Cairo/win32 surface isn't able to do such ... */
@@ -1079,6 +1099,17 @@ static DiaExportFilter pdf_export_filter = {
     export_data,
     (void*)OUTPUT_PDF,
     "cairo-pdf"
+};
+#endif
+
+#ifdef CAIRO_HAS_SVG_SURFACE
+static const gchar *svg_extensions[] = { "svg", NULL };
+static DiaExportFilter svg_export_filter = {
+    N_("Cairo Scalable Vector Graphics"),
+    svg_extensions,
+    export_data,
+    (void*)OUTPUT_SVG,
+    "cairo-svg"
 };
 #endif
 
@@ -1146,6 +1177,9 @@ _plugin_unload (PluginInfo *info)
 #ifdef CAIRO_HAS_PDF_SURFACE
   filter_unregister_export(&pdf_export_filter);
 #endif
+#ifdef CAIRO_HAS_SVG_SURFACE
+  filter_unregister_export(&svg_export_filter);
+#endif
 #if defined CAIRO_HAS_PNG_SURFACE || defined CAIRO_HAS_PNG_FUNCTIONS
   filter_unregister_export(&png_export_filter);
   filter_unregister_export(&pnga_export_filter);
@@ -1177,6 +1211,9 @@ dia_plugin_init(PluginInfo *info)
 #endif
 #ifdef CAIRO_HAS_PDF_SURFACE
   filter_register_export(&pdf_export_filter);
+#endif
+#ifdef CAIRO_HAS_SVG_SURFACE
+  filter_register_export(&svg_export_filter);
 #endif
 #if defined CAIRO_HAS_PNG_SURFACE || defined CAIRO_HAS_PNG_FUNCTIONS
   filter_register_export(&png_export_filter);

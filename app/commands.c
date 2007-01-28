@@ -155,7 +155,7 @@ edit_copy_callback(gpointer data, guint action, GtkWidget *widget)
   if (!ddisp) return;
   copy_list = parent_list_affected(diagram_get_sorted_selected(ddisp->diagram));
 
-  cnp_store_objects(object_copy_list(copy_list));
+  cnp_store_objects(object_copy_list(copy_list), 1);
   g_list_free(copy_list);
 
   ddisplay_do_update_menu_sensitivity(ddisp);
@@ -175,7 +175,7 @@ edit_cut_callback(gpointer data, guint action, GtkWidget *widget)
 
   cut_list = parent_list_affected(diagram_get_sorted_selected(ddisp->diagram));
 
-  cnp_store_objects(object_copy_list(cut_list));
+  cnp_store_objects(object_copy_list(cut_list), 0);
 
   change = undo_delete_objects_children(ddisp->diagram, cut_list);
   (change->apply)(change, ddisp->diagram);
@@ -185,6 +185,7 @@ edit_cut_callback(gpointer data, guint action, GtkWidget *widget)
 
 
   diagram_modified(ddisp->diagram);
+  diagram_update_extents(ddisp->diagram);
   undo_set_transactionpoint(ddisp->diagram->undo);
 
 }
@@ -197,6 +198,7 @@ edit_paste_callback(gpointer data, guint action, GtkWidget *widget)
   Point paste_corner;
   Point delta;
   Change *change;
+  int generation = 0;
   
   ddisp = ddisplay_active();
   if (!ddisp) return;
@@ -206,7 +208,7 @@ edit_paste_callback(gpointer data, guint action, GtkWidget *widget)
     return;
   }
   
-  paste_list = cnp_get_stored_objects(); /* Gets a copy */
+  paste_list = cnp_get_stored_objects(&generation); /* Gets a copy */
 
   paste_corner = object_list_corner(paste_list);
   
@@ -214,10 +216,11 @@ edit_paste_callback(gpointer data, guint action, GtkWidget *widget)
   delta.y = ddisp->visible.top - paste_corner.y;
 
   /* Move down some 10% of the visible area. */
-  delta.x += (ddisp->visible.right - ddisp->visible.left)*0.1;
-  delta.y += (ddisp->visible.bottom - ddisp->visible.top)*0.1;
+  delta.x += (ddisp->visible.right - ddisp->visible.left) * 0.1 * generation;
+  delta.y += (ddisp->visible.bottom - ddisp->visible.top) * 0.1 * generation;
 
-  object_list_move_delta(paste_list, &delta);
+  if (generation)
+    object_list_move_delta(paste_list, &delta);
 
   change = undo_insert_objects(ddisp->diagram, paste_list, 0);
   (change->apply)(change, ddisp->diagram);
@@ -228,6 +231,7 @@ edit_paste_callback(gpointer data, guint action, GtkWidget *widget)
   diagram_remove_all_selected(ddisp->diagram, TRUE);
   diagram_select_list(ddisp->diagram, paste_list);
 
+  diagram_update_extents(ddisp->diagram);
   diagram_flush(ddisp->diagram);
 }
 
@@ -479,6 +483,7 @@ edit_delete_callback(gpointer data, guint action, GtkWidget *widget)
   g_list_free(delete_list);
   
   diagram_modified(ddisp->diagram);
+  diagram_update_extents(ddisp->diagram);
 
   ddisplay_do_update_menu_sensitivity(ddisp);
   diagram_flush(ddisp->diagram);
@@ -496,6 +501,7 @@ edit_undo_callback(gpointer data, guint action, GtkWidget *widget)
 
   undo_revert_to_last_tp(dia->undo);
   diagram_modified(dia);
+  diagram_update_extents(dia);
 
   diagram_flush(dia);
 } 
@@ -510,6 +516,7 @@ edit_redo_callback(gpointer data, guint action, GtkWidget *widget)
 
   undo_apply_to_next_tp(dia->undo);
   diagram_modified(dia);
+  diagram_update_extents(dia);
 
   diagram_flush(dia);
 } 

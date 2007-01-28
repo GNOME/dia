@@ -166,62 +166,45 @@ gboolean parent_handle_move_in_check(DiaObject *object, Point *to, Point *start_
   GList *list = object->children;
   gboolean once = TRUE;
   Rectangle common_ext;
-  Rectangle p_ext;
-  Point new_delta;
+  gboolean restricted = FALSE;
 
   if (!object->can_parent || !object->children)
     return FALSE;
 
-  parent_point_extents(to, &p_ext);
   while (list)
   {
     if (once) {
       parent_handle_extents(list->data, &common_ext);
       once = FALSE;
     } else {
-      parent_handle_extents (list->data, &p_ext);
-      rectangle_union(&common_ext, &p_ext);
+      Rectangle c_ext;
+      parent_handle_extents (list->data, &c_ext);
+      rectangle_union(&common_ext, &c_ext);
     }
     list = g_list_next(list);
   }
-  new_delta = parent_move_child_delta_out(&p_ext, &common_ext, start_at);
-  point_add(to, &new_delta);
-
-  if (new_delta.x || new_delta.y)
-    return TRUE;
-
-  return FALSE;
-}
-
-/* this function is the opposite of parent_move_child_delta()
-   this function makes sure that the parent is OUTSIDE the child's "extent"
-   and if it's inside, it returns a delta that moves it back out
-   Also the last parameter is used as a direction guide FIX ME FIX ME FIX ME FIX ME FIX ME FIX ME
-   (the move is performed in the opposite direction of the passed parameter)
+  /* The start point gives the decision were to clip to:
+   * if it is below the child rect we need to clip to it's bottom.
+   * The check has nothing to do with 'to' being in the rectangle,
+   * but instead having the right barrier
    */
-Point parent_move_child_delta_out(Rectangle *p_ext, Rectangle *c_ext, const Point *start)
-{
-  Point direction;
-  Point new_delta = {0, 0};
+  if (start_at->y >= common_ext.bottom) {
+	if (to->y < common_ext.bottom)
+	  to->y = common_ext.bottom, restricted = TRUE;
+  } else if (start_at->y <= common_ext.top) {
+	if (to->y > common_ext.top)
+	  to->y = common_ext.top, restricted = TRUE;
+  }
 
-  direction.x = p_ext->left - start->x;
-  direction.y = p_ext->top - start->y;
+  if (start_at->x >= common_ext.right) {
+	if (to->x < common_ext.right)
+	  to->x = common_ext.right, restricted = TRUE;
+  } else if (start_at->x <= common_ext.left) {
+	if (to->x > common_ext.left)
+	  to->x = common_ext.left, restricted = TRUE;
+  }
 
-  /* if the start point is to the left of child and we're moving to the right */
-  if (start->x <= c_ext->left && direction.x > 0 && p_ext->left > c_ext->left)
-     new_delta.x = c_ext->left - p_ext->left;
-   /* if the start point is to the right of the child and we're moving left */
-   else if (start->x >= c_ext->right && direction.x < 0 && p_ext->left < c_ext->right)
-     new_delta.x =  c_ext->right - p_ext->left;
-
-   /* if the start point is above the child and we're moving down */
-   if (start->y <= c_ext->top && direction.y > 0 && p_ext->top > c_ext->top)
-     new_delta.y = c_ext->top - p_ext->top;
-   /* if the start poit is below the child and we're moving up */
-   else if (start->y >= c_ext->bottom && direction.y < 0 && p_ext->bottom < c_ext->bottom)
-     new_delta.y =  c_ext->bottom - p_ext->bottom;
-
-   return new_delta;
+  return restricted;
 }
 
     /* p_ext are the "extents" of the parent and c_ext are the "extents" of the child

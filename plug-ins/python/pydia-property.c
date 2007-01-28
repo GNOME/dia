@@ -60,7 +60,7 @@ static void
 PyDiaProperty_Dealloc(PyDiaProperty *self)
 {
   self->property->ops->free(self->property);
-  PyMem_DEL(self);
+  PyObject_DEL(self);
 }
 
 /*
@@ -125,6 +125,10 @@ static PyObject * PyDia_get_LineStyle (LinestyleProperty *prop)
 }
 static PyObject * PyDia_get_Real (RealProperty *prop) 
 { return PyFloat_FromDouble(prop->real_data); }
+static PyObject * PyDia_get_Length (LengthProperty *prop) 
+{ return PyFloat_FromDouble(prop->length_data); }
+static PyObject * PyDia_get_Fontsize (FontsizeProperty *prop) 
+{ return PyFloat_FromDouble(prop->fontsize_data); }
 static PyObject * PyDia_get_String (StringProperty *prop) 
 { 
   if (NULL == prop->string_data)
@@ -284,7 +288,7 @@ PyDia_set_LineStyle(Property *prop, PyObject *val)
   LinestyleProperty *p = (LinestyleProperty*)prop;
   if (PyTuple_Check(val) && PyTuple_Size(val) == 2) {
     p->style = PyInt_AsLong(PyTuple_GetItem(val, 0));
-    p->dash  = PyInt_AsLong(PyTuple_GetItem(val, 1));
+    p->dash  = PyFloat_Check(PyTuple_GetItem(val, 1)) ? PyFloat_AsDouble(PyTuple_GetItem(val, 1)) : PyInt_AsLong(PyTuple_GetItem(val, 1));
     return 0;
   }
   return -1;
@@ -303,6 +307,39 @@ PyDia_set_Real(Property *prop, PyObject *val)
   }
   return -1;
 }
+/* as of this writing the only difference between Real-, Length- and Fontsize-property 
+ * is the widget representing them. But that may change so here are the 'type-safe' 
+ * accessors.
+ */
+static int
+PyDia_set_Length(Property *prop, PyObject *val)
+{
+  LengthProperty *p = (LengthProperty *)prop;
+  if (PyFloat_Check(val)) {
+    p->length_data = PyFloat_AsDouble(val);
+    return 0;
+  } else if (PyInt_Check(val)) {
+    /* be tolerant for up-casting */
+    p->length_data = PyInt_AsLong(val);
+    return 0;
+  }
+  return -1;
+}
+static int
+PyDia_set_Fontsize(Property *prop, PyObject *val)
+{
+  FontsizeProperty *p = (FontsizeProperty *)prop;
+  if (PyFloat_Check(val)) {
+    p->fontsize_data = PyFloat_AsDouble(val);
+    return 0;
+  } else if (PyInt_Check(val)) {
+    /* be tolerant for up-casting */
+    p->fontsize_data = PyInt_AsLong(val);
+    return 0;
+  }
+  return -1;
+}
+
 static int
 PyDia_set_String(Property *prop, PyObject *val)
 {
@@ -448,6 +485,8 @@ struct {
   { PROP_TYPE_ENUMARRAY, PyDia_get_IntArray, PyDia_set_IntArray }, /* Enum == Int */
   { PROP_TYPE_LINESTYLE, PyDia_get_LineStyle, PyDia_set_LineStyle },
   { PROP_TYPE_REAL, PyDia_get_Real, PyDia_set_Real },
+  { PROP_TYPE_LENGTH, PyDia_get_Length, PyDia_set_Length },
+  { PROP_TYPE_FONTSIZE, PyDia_get_Fontsize, PyDia_set_Fontsize },
   { PROP_TYPE_STRING, PyDia_get_String, PyDia_set_String },
   { PROP_TYPE_STRINGLIST, PyDia_get_StringList },
   { PROP_TYPE_FILE, PyDia_get_String, PyDia_set_String },

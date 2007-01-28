@@ -38,7 +38,7 @@ PyDiaConnectionPoint_New(ConnectionPoint *cpoint)
 static void
 PyDiaConnectionPoint_Dealloc(PyDiaConnectionPoint *self)
 {
-     PyMem_DEL(self);
+     PyObject_DEL(self);
 }
 
 static int

@@ -1,11 +1,11 @@
 dnl Process this -*- autoconf -*- file with autoconf to produce a 
 dnl configure script.
-AC_INIT(dia, 0.95-1, http://bugzilla.gnome.org/enter_bug.cgi?product=dia)
+AC_INIT(dia, 0.95.2, http://bugzilla.gnome.org/enter_bug.cgi?product=dia)
 AC_CONFIG_SRCDIR(app/diagram.c)
 AM_INIT_AUTOMAKE(AC_PACKAGE_NAME,AC_PACKAGE_VERSION)
 
 AC_PREREQ(2.50)
-AC_REVISION($Revision$)
+AC_REVISION($Revision: 1.277.2.1 $)
 
 dnl Specify a header configuration file
 AM_CONFIG_HEADER(config.h)

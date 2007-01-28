@@ -43,7 +43,7 @@ PyObject* PyDiaColor_New (Color* color)
 static void
 PyDiaColor_Dealloc(PyObject *self)
 {
-  PyMem_DEL(self);
+  PyObject_DEL(self);
 }
 
 /*
