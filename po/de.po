@@ -9,6 +9,7 @@
 # Frank Arnold <frank@scirocco-5v-turbo.de>, 2005.
 # Hendrik Richter <hendrikr@gnome.org>, 2005. 
 # Jens Seidel <jseidel@cvs.gnome.org>, 2006.
+# Hans Breuer <hans@breuer.org>, 2007.
 #
 msgid ""
 msgstr ""
@@ -590,9 +591,9 @@ msgid "Diagram Tree"
 msgstr "Diagrammbaum"
 
 #: ../app/diagram.c:221
-#, fuzzy, c-format
+#, c-format
 msgid "Couldn't convert filename '%s' to UTF-8: %s\n"
-msgstr "Dateiname »%s« konnte nicht in UTF-8 konvertiert werden: %s"
+msgstr "Dateiname »%s« konnte nicht in UTF-8 konvertiert werden: %s\n"
 
 #: ../app/diagram.c:224 ../lib/message.c:78 ../lib/message.c:238
 msgid "Error"
@@ -691,10 +692,10 @@ msgstr "Diagramm wurde verändert!"
 #. * Althoug the single objects wont get triggered here some languages have variations on the other numbers
 #.
 #: ../app/display.c:121
-#, fuzzy, c-format
+#, c-format
 msgid "Selection of %d object"
 msgid_plural "Selection of %d objects"
-msgstr[0] "»%d« Objekte ausgewählt"
+msgstr[0] "»%d« Objekt ausgewählt"
 msgstr[1] "»%d« Objekte ausgewählt"
 
 #: ../app/display.c:131
@@ -725,7 +726,6 @@ msgid "Close Diagram"
 msgstr "Diagramm schließen"
 
 #: ../app/display.c:1146
-#, fuzzy
 msgid "_Discard Changes"
 msgstr "Änderungen verwerfen"
 
@@ -1147,258 +1147,222 @@ msgstr ""
 #. Save failed; we clean our stuff up, without touching the file named
 #. "filename" if it existed.
 #: ../app/load_save.c:962
-#, fuzzy, c-format
+#, c-format
 msgid "Internal error %d writing file %s\n"
-msgstr "%s-Fehler: Eine gültige Eingabedatei %s ist erforderlich\n"
+msgstr "Interner Fehler %d beim Schreiben von »%s«\n"
 
 #: ../app/load_save.c:976
-#, fuzzy, c-format
+#, c-format
 msgid "Can't rename %s to final output file %s: %s\n"
-msgstr "Die Ausgabedatei »%s« konnte nicht geöffnet werden: %s\n"
+msgstr "Die Ausgabedatei »%s« konnte nicht zu »%s« umbenannt werden: %s\n"
 
 #: ../app/load_save.c:1064 ../app/load_save.c:1069
 msgid "Dia Diagram File"
 msgstr "Dia-Diagrammdatei"
 
 #: ../app/menus.c:54
-#, fuzzy
 msgid "_File"
-msgstr "/_Datei"
+msgstr "_Datei"
 
 #: ../app/menus.c:58
-#, fuzzy
 msgid "_Help"
-msgstr "/_Hilfe"
+msgstr "_Hilfe"
 
 #: ../app/menus.c:66
-#, fuzzy
 msgid "Sheets and Objects..."
 msgstr "Objektbögen"
 
 #: ../app/menus.c:68
-#, fuzzy
 msgid "Plugins..."
-msgstr "Plugins"
+msgstr "Plugins..."
 
 #: ../app/menus.c:74
-#, fuzzy
 msgid "_Diagram tree..."
-msgstr "Diagrammbaum"
+msgstr "_Diagrammbaum..."
 
 #: ../app/menus.c:82
-#, fuzzy
 msgid "_Export ..."
-msgstr "/Datei/E_xportieren"
+msgstr "E_xportieren..."
 
 #: ../app/menus.c:83
-#, fuzzy
 msgid "Page Set_up..."
-msgstr "Seiteneinstellungen"
+msgstr "Seiteneinstellungen..."
 
 #: ../app/menus.c:87 ../app/sheets_dialog.c:236
 msgid "_Edit"
 msgstr "_Bearbeiten"
 
 #: ../app/menus.c:94
-#, fuzzy
 msgid "_Duplicate"
-msgstr "/Bearbeiten/_Duplizieren"
+msgstr "_Duplizieren"
 
 #. the following used to bind to <control><shift>C which collides with Unicode input.
 #. * <control>>alt> doesn't work either
 #: ../app/menus.c:99
-#, fuzzy
 msgid "Copy Text"
-msgstr "/Bearbeiten/Text kopieren"
+msgstr "Text kopieren"
 
 #: ../app/menus.c:100
-#, fuzzy
 msgid "Cut Text"
-msgstr "/Bearbeiten/Text ausschneiden"
+msgstr "Text ausschneiden"
 
 #: ../app/menus.c:101
-#, fuzzy
 msgid "Paste _Text"
-msgstr "/Bearbeiten/_Text einfügen"
+msgstr "_Text einfügen"
 
 #: ../app/menus.c:103
-#, fuzzy
 msgid "_Diagram"
-msgstr "/_Diagramm"
+msgstr "_Diagramm"
 
 #: ../app/menus.c:105
-#, fuzzy
 msgid "_Layers..."
-msgstr "Ebenen"
+msgstr "_Ebenen..."
 
 #: ../app/menus.c:107
-#, fuzzy
 msgid "_View"
-msgstr "/_Ansicht"
+msgstr "_Ansicht"
 
 #: ../app/menus.c:110
-#, fuzzy
 msgid "_Zoom"
-msgstr "Zoom"
+msgstr "_Zoom"
 
 #: ../app/menus.c:111
-#, fuzzy
 msgid "1600%"
-msgstr "15800"
+msgstr "1600%"
 
 #: ../app/menus.c:112
-#, fuzzy
 msgid "800%"
-msgstr "15800"
+msgstr "800%"
 
 #: ../app/menus.c:113
 msgid "400%"
-msgstr ""
+msgstr "400%"
 
 #: ../app/menus.c:114
 msgid "283"
-msgstr ""
+msgstr "283"
 
 #: ../app/menus.c:115
-#, fuzzy
 msgid "200"
-msgstr "15200"
+msgstr "200"
 
 #: ../app/menus.c:116
 msgid "141"
-msgstr ""
+msgstr "141"
 
 #: ../app/menus.c:118
 msgid "85"
-msgstr ""
+msgstr "85"
 
 #: ../app/menus.c:119
-#, fuzzy
 msgid "70.7"
-msgstr "7507"
+msgstr "71"
 
 #: ../app/menus.c:120
-#, fuzzy
 msgid "50"
-msgstr "7507"
+msgstr "50"
 
 #: ../app/menus.c:121
 msgid "35.4"
-msgstr ""
+msgstr "35"
 
 #: ../app/menus.c:122
 msgid "25"
-msgstr ""
+msgstr "25"
 
 #. "display_toggle_entries" items go here
 #: ../app/menus.c:126
-#, fuzzy
 msgid "New _View"
-msgstr "/Ansicht/_Neue Ansicht"
+msgstr "_Neue Ansicht"
 
 #: ../app/menus.c:127
 msgid "C_lone View"
-msgstr ""
+msgstr "Ansicht klonieren"
 
 #: ../app/menus.c:132
-#, fuzzy
 msgid "_Objects"
-msgstr "/_Objekte"
+msgstr "_Objekte"
 
 #: ../app/menus.c:133
-#, fuzzy
 msgid "Send to _Back"
-msgstr "/Objekte/Ganz nach _hinten"
+msgstr "Ganz nach _hinten"
 
 #: ../app/menus.c:134
-#, fuzzy
 msgid "Bring to _Front"
-msgstr "/Objekte/Ganz nach _vorne"
+msgstr "Ganz nach _vorne"
 
 #: ../app/menus.c:135
-#, fuzzy
 msgid "Send Backwards"
-msgstr "/Objekte/Nach hinten"
+msgstr "Nach hinten"
 
 #: ../app/menus.c:136
-#, fuzzy
 msgid "Bring Forwards"
-msgstr "/Objekte/Nach vorne"
+msgstr "Nach vorne"
 
 #: ../app/menus.c:138
 msgid "_Group"
-msgstr ""
+msgstr "_Gruppieren"
 
 #. deliberately not using Ctrl+U for Ungroup
 #: ../app/menus.c:140
-#, fuzzy
 msgid "_Ungroup"
-msgstr "/Objekte/Gruppierung _aufheben"
+msgstr "Gruppierung _aufheben"
 
 #: ../app/menus.c:142
-#, fuzzy
+# CHECK
 msgid "_Parent"
-msgstr "Vorbeugen"
+msgstr "Elternelement _verbinden"
 
 # CHECK
 #: ../app/menus.c:143
-#, fuzzy
 msgid "_Unparent"
-msgstr "/Objekte/Elternelement _trennen"
+msgstr "Elternelement _trennen"
 
 # CHECK
 #: ../app/menus.c:144
-#, fuzzy
 msgid "_Unparent Children"
-msgstr "/Objekte/Elternelement des Kindes _trennen"
+msgstr "Elternelement des Kindes _trennen"
 
 #. Translators: Menu item Verb/Support/Position/Align
 #: ../app/menus.c:146 ../objects/FS/function.c:806
 msgid "Align"
-msgstr "Ausrichtung"
+msgstr "Ausrichten"
 
 #: ../app/menus.c:151 ../objects/standard/textobj.c:132
 msgid "Top"
 msgstr "Oben"
 
 #: ../app/menus.c:152
-#, fuzzy
 msgid "Middle"
-msgstr "Datei"
+msgstr "Mitte"
 
 #: ../app/menus.c:153 ../objects/standard/textobj.c:131
 msgid "Bottom"
 msgstr "Unten"
 
 #: ../app/menus.c:155
-#, fuzzy
 msgid "Spread Out Horizontally"
-msgstr "/Objekte/Anordnen/Horizontal verteilen"
+msgstr "Horizontal verteilen"
 
 #: ../app/menus.c:156
-#, fuzzy
 msgid "Spread Out Vertically"
-msgstr "/Objekte/Anordnen/Vertikal verteilen"
+msgstr "Vertikal verteilen"
 
 #: ../app/menus.c:157
-#, fuzzy
 msgid "Adjacent"
-msgstr "Agent"
+msgstr "Angrenzend"
 
 #: ../app/menus.c:158
-#, fuzzy
 msgid "Stacked"
-msgstr "Zustand"
+msgstr "Gestappelt"
 
 #: ../app/menus.c:162
-#, fuzzy
 msgid "_Select"
-msgstr "/Aus_wahl"
+msgstr "Aus_wahl"
 
 #: ../app/menus.c:163
-#, fuzzy
 msgid "All"
-msgstr "Erlauben"
+msgstr "Alle"
 
 #: ../app/menus.c:164 ../lib/arrows.c:43 ../objects/Jackson/domain.c:96
 #: ../objects/UML/association.c:1183
@@ -1406,48 +1370,42 @@ msgid "None"
 msgstr "Keine"
 
 #: ../app/menus.c:165
-#, fuzzy
 msgid "Invert"
-msgstr "Inverter"
+msgstr "Umkehren"
 
 #: ../app/menus.c:167
 #, fuzzy
 msgid "Transitive"
-msgstr "Übersetzung"
+msgstr "Transitive"
 
 #: ../app/menus.c:168
-#, fuzzy
 msgid "Connected"
-msgstr "Verbinden"
+msgstr "Verbundene"
 
 #: ../app/menus.c:169
-#, fuzzy
 msgid "Same Type"
-msgstr "/Auswahl/Gleicher Typ"
+msgstr "Gleicher Typ"
 
 #. display_select_radio_entries go here
 #: ../app/menus.c:173
-#, fuzzy
 msgid "Select By"
-msgstr "/Aus_wahl"
+msgstr "Aus_wählen Nach"
 
 #: ../app/menus.c:175
-#, fuzzy
 msgid "_Input Methods"
-msgstr "/_Eingabemethoden"
+msgstr "_Eingabemethoden"
 
 #: ../app/menus.c:177
 msgid "D_ialogs"
-msgstr ""
+msgstr "D_ialoge"
 
 #: ../app/menus.c:179
 msgid "D_ebug"
-msgstr ""
+msgstr "D_ebug"
 
 #: ../app/menus.c:185
-#, fuzzy
 msgid "_Tools"
-msgstr "/_Werkzeuge"
+msgstr "_Werkzeuge"
 
 #: ../app/menus.c:186
 msgid "Modify"
@@ -1458,57 +1416,47 @@ msgid "Scroll"
 msgstr "Rollen"
 
 #: ../app/menus.c:210
-#, fuzzy
 msgid "Fullscr_een"
-msgstr "/Ansicht/_Vollbild"
+msgstr "_Vollbild"
 
 #. we must have all actions registered to avoid configuration specific ui-files and crashing in GTK+,
 #. * see: http://bugzilla.gnome.org/show_bug.cgi?id=396161
 #.
 #: ../app/menus.c:213 ../app/menus.c:218
-#, fuzzy
 msgid "_AntiAliased"
-msgstr "/Ansicht/Kantenglätt_ung"
+msgstr "Kantenglätt_ung"
 
 #: ../app/menus.c:220
-#, fuzzy
 msgid "Show _Grid"
-msgstr "/Ansicht/G_itter anzeigen"
+msgstr "G_itter anzeigen"
 
 #: ../app/menus.c:221
-#, fuzzy
 msgid "_Snap To Grid"
-msgstr "/Ansicht/Am Gitter einra_sten"
+msgstr "Am Gitter einra_sten"
 
 #: ../app/menus.c:222
-#, fuzzy
 msgid "Snap To _Objects"
-msgstr "/Ansicht/An Objekten einra_sten"
+msgstr "An Objekten einra_sten"
 
 #: ../app/menus.c:223
-#, fuzzy
 msgid "Show _Rulers"
-msgstr "/Ansicht/_Lineale anzeigen"
+msgstr "_Lineale anzeigen"
 
 #: ../app/menus.c:224
-#, fuzzy
 msgid "Show _Connection Points"
-msgstr "/Ansicht/Ver_bindungspunkte anzeigen"
+msgstr "Ver_bindungspunkte anzeigen"
 
 #: ../app/menus.c:230
-#, fuzzy
 msgid "Replace"
-msgstr "Lösen"
+msgstr "Ersetzen"
 
 #: ../app/menus.c:231
-#, fuzzy
 msgid "Union"
-msgstr "keine"
+msgstr "Vereinigung"
 
 #: ../app/menus.c:232
-#, fuzzy
 msgid "Intersection"
-msgstr "/Auswahl/Überschneidung"
+msgstr "Überschneidung"
 
 #. Translators: Menu item Verb/Channel/Export/Remove
 #. Translators: Menu item Verb/Branch/Separate/Remove
@@ -1520,9 +1468,8 @@ msgstr "Entfernen"
 
 #. Cannot also be called Invert, duplicate names caused keybinding problems
 #: ../app/menus.c:235
-#, fuzzy
 msgid "Inverse"
-msgstr "Inverter"
+msgstr "Invertieren"
 
 #: ../app/menus.c:278
 msgid "NULL tooldata in tool_menu_select"
@@ -1533,9 +1480,8 @@ msgid "Couldn't get GTK settings"
 msgstr "GTK-Einstellungen konnten nicht ermittelt werden"
 
 #: ../app/newgroup.c:117
-#, fuzzy
 msgid "Open group"
-msgstr "Offen, rund"
+msgstr "Gruppe öffnen"
 
 #: ../app/paginate_psprint.c:271
 msgid "Select Printer"
@@ -2172,9 +2118,8 @@ msgid "Arrow head of type %s has too small dimensions, removing.\n"
 msgstr ""
 
 #: ../lib/arrows.c:2021
-#, fuzzy
 msgid "unknown arrow"
-msgstr "Pfeil nach unten"
+msgstr "Unbekannter Pfeil"
 
 #: ../lib/bezier_conn.c:636
 msgid "Internal error: Setting corner type of endpoint of bezier"
@@ -2520,28 +2465,24 @@ msgid "Reset menu"
 msgstr "Menü zurücksetzen"
 
 #: ../objects/AADL/aadl.c:52
-#, fuzzy
 msgid "Architecture Analysis & Design Language diagram objects"
-msgstr "'Unified Modelling Language' Diagrammobjekte"
+msgstr "'Architecture Analysis & Design Language' Diagrammobjekte"
 
 #: ../objects/AADL/aadlbox.c:138
-#, fuzzy
 msgid "Declaration"
-msgstr "Beschreibung"
+msgstr "Deklaration"
 
 #: ../objects/AADL/aadlbox.c:349
-#, fuzzy
 msgid "Add Access Provider"
-msgstr "Access-Server"
+msgstr "Access-Provider"
 
 #: ../objects/AADL/aadlbox.c:351
-#, fuzzy
 msgid "Add Access Requirer"
-msgstr "Access-Server"
+msgstr "Access-Requirer"
 
 #: ../objects/AADL/aadlbox.c:353
 msgid "Add In Data Port"
-msgstr ""
+msgstr "In Data Port"
 
 #: ../objects/AADL/aadlbox.c:355
 msgid "Add In Event Port"
@@ -2580,7 +2521,6 @@ msgid "Add Port Group"
 msgstr ""
 
 #: ../objects/AADL/aadlbox.c:373
-#, fuzzy
 msgid "Add Connection Point"
 msgstr "Verbindungspunkt hinzufügen"
 
@@ -4333,9 +4273,8 @@ msgid "Comment line length"
 msgstr "Kommentare sichtbar"
 
 #: ../objects/UML/class.c:166
-#, fuzzy
 msgid "Comment tagging"
-msgstr "Kommentar"
+msgstr "Kommentarkennzeichnung"
 
 #: ../objects/UML/class.c:176 ../objects/UML/class_dialog.c:405
 msgid "Polymorphic"
@@ -4412,7 +4351,6 @@ msgid "Comments visible"
 msgstr "Kommentare sichtbar"
 
 #: ../objects/UML/class_dialog.c:371
-#, fuzzy
 msgid "Wrap comment after this length: "
 msgstr "Umbruch nach dieser Länge:"
 
@@ -4660,19 +4598,16 @@ msgid "Multiple instance"
 msgstr "Mehrfache Instanz"
 
 #: ../objects/UML/state.c:153
-#, fuzzy
 msgid "Entry action"
-msgstr "Extrahieren"
+msgstr "Eingangsaktion"
 
 #: ../objects/UML/state.c:154
-#, fuzzy
 msgid "Do action"
-msgstr "Drehung"
+msgstr "Arbeitsaktion"
 
 #: ../objects/UML/state.c:155
-#, fuzzy
 msgid "Exit action"
-msgstr "Extrahieren"
+msgstr "Ausgangsaktion"
 
 #. Would like to create a state_term instead, but making the connections
 #. * is a pain
@@ -4921,9 +4856,8 @@ msgid "Radius"
 msgstr "Radius"
 
 #: ../objects/network/wanlink.c:117
-#, fuzzy
 msgid "Width"
-msgstr "Breite:"
+msgstr "Breite"
 
 #: ../objects/standard/arc.c:140
 msgid "Curve distance"
@@ -5062,9 +4996,8 @@ msgid "Cairo Portable Document Format"
 msgstr "Cairo Portable Document Format"
 
 #: ../plug-ins/cairo/diacairo.c:1108
-#, fuzzy
 msgid "Cairo Scalable Vector Graphics"
-msgstr "Skalierbare Vektorgrafik (SVG)"
+msgstr "Skalierbare Vektorgrafik (SVG, cairo)"
 
 #: ../plug-ins/cairo/diacairo.c:1118
 msgid "Cairo PNG"
@@ -5120,14 +5053,14 @@ msgid "Scale: %f\n"
 msgstr "Skalierung: %f\n"
 
 #: ../plug-ins/dxf/dxf-import.c:1316
-#, fuzzy, c-format
+#, c-format
 msgid "read_dxf_codes failed on '%s'\n"
-msgstr "»read_dxf_codes« fehlgeschlagen\n"
+msgstr "»read_dxf_codes(%s)« fehlgeschlagen\n"
 
 #: ../plug-ins/dxf/dxf-import.c:1324
 #, c-format
 msgid "Binary DXF from '%s' not supported\n"
-msgstr ""
+msgstr "Binäres DXF (»%s«) nicht unterstützt\n"
 
 #: ../plug-ins/dxf/dxf-import.c:1355
 #, c-format
@@ -5198,9 +5131,8 @@ msgid "gdk-pixbuf based bitmap export/import"
 msgstr "gdk-pixbuf-basierender Export/Import von Bitmaps"
 
 #: ../plug-ins/pgf/pgf.c:26
-#, fuzzy
 msgid "LaTeX PGF export filter"
-msgstr "TeX Pstricks Exportfilter"
+msgstr "LaTeX PGF Exportfilter"
 
 #: ../plug-ins/pgf/render_pgf.c:1047
 #: ../plug-ins/pstricks/render_pstricks.c:731
@@ -5208,9 +5140,8 @@ msgid "Not valid UTF8"
 msgstr "Ungültiges UTF-8"
 
 #: ../plug-ins/pgf/render_pgf.c:1212
-#, fuzzy
 msgid "LaTeX PGF macros"
-msgstr "TeX PSTrick Makros"
+msgstr "LaTeX PGF Makros"
 
 #: ../plug-ins/pstricks/pstricks.c:26
 msgid "TeX Pstricks export filter"
@@ -5265,13 +5196,13 @@ msgid "Scalable Vector Graphics import and export filters"
 msgstr "Import- und Exportfilter für Skalierbare Vektorgrafik (SVG)"
 
 #: ../plug-ins/vdx/vdx-export.c:1376 ../plug-ins/vdx/vdx-export.c:1385
-#, fuzzy, c-format
+#, c-format
 msgid "Couldn't read file %s"
-msgstr "Farbe konnte nicht gelesen werden: %s\n"
+msgstr "Datei konnte nicht gelesen werden: %s"
 
 #: ../plug-ins/vdx/vdx-export.c:1904
 msgid "Visio XML format"
-msgstr ""
+msgstr "Visio XML Format"
 
 #: ../plug-ins/vdx/vdx-import.c:219 ../plug-ins/xfig/xfig-import.c:1034
 #, c-format
@@ -5279,13 +5210,13 @@ msgid "Couldn't read color: %s\n"
 msgstr "Farbe konnte nicht gelesen werden: %s\n"
 
 #: ../plug-ins/vdx/vdx-import.c:507
-#, fuzzy, c-format
+#, c-format
 msgid "Couldn't find shape %d\n"
-msgstr "Hilfeverzeichnis konnte nicht gefunden werden"
+msgstr "Form %d konnte nicht gefunden werden\n"
 
 #: ../plug-ins/vdx/vdx-import.c:851
 msgid "MoveTo after start of polyline\n"
-msgstr ""
+msgstr "MoveTo nicht am Anfang\n"
 
 #: ../plug-ins/vdx/vdx-import.c:864
 #, fuzzy, c-format
@@ -5329,39 +5260,37 @@ msgid "Invalid NURBS formula"
 msgstr ""
 
 #: ../plug-ins/vdx/vdx-import.c:1742
-#, fuzzy, c-format
+#, c-format
 msgid "Couldn't write file %s"
-msgstr "Farbe konnte nicht gelesen werden: %s\n"
+msgstr "Datei konnte nicht geschrieben werden: %s"
 
 #: ../plug-ins/vdx/vdx-import.c:1826 ../plug-ins/vdx/vdx-import.c:1839
-#, fuzzy, c-format
+#, c-format
 msgid "Couldn't handle foreign object type %s"
-msgstr "FIG-Objekt konnte nicht identifiziert werden: %s\n"
+msgstr "Fremd-Objekt konnte nicht behandelt werden: %s"
 
 #: ../plug-ins/vdx/vdx-import.c:1867
-#, fuzzy, c-format
+#, c-format
 msgid "Couldn't make object dir %s"
-msgstr "FIG-Objekt konnte nicht identifiziert werden: %s\n"
+msgstr "Objektverzeichnis konnte nicht erzeugt werden: %s"
 
 #: ../plug-ins/vdx/vdx-import.c:2723
-#, fuzzy
 msgid "Visio XML File Format"
-msgstr "XFig Dateiformat"
+msgstr "Visio XML File Format"
 
 #: ../plug-ins/vdx/vdx-xml.c:3344
-#, fuzzy, c-format
+#, c-format
 msgid "Can't decode object %s"
-msgstr "Schrift %s konnte nicht geladen werden.\n"
+msgstr "Object '%s' konnte nicht dekodiert werden"
 
 #: ../plug-ins/vdx/vdx-xml.c:5125
-#, fuzzy, c-format
+#, c-format
 msgid "Can't write object %u"
-msgstr "Das Standardobjekt konnte nicht gefunden werden"
+msgstr "Object %u konnte nicht geschrieben werden"
 
 #: ../plug-ins/vdx/vdx.c:53
-#, fuzzy
 msgid "Visio XML Format import and export filter"
-msgstr "FIG-Format Import- und Exportfilter"
+msgstr "Visio XML Format Import- und Exportfilter"
 
 #: ../plug-ins/wmf/wmf.cpp:1186
 #, c-format
@@ -5655,18 +5584,16 @@ msgid "AADL"
 msgstr ""
 
 #: ../sheets/AADL.sheet.in.h:2
-#, fuzzy
 msgid "AADL Shapes"
-msgstr "Modellieren"
+msgstr ""
 
 #: ../sheets/AADL.sheet.in.h:3
 msgid "Bus"
 msgstr ""
 
 #: ../sheets/AADL.sheet.in.h:5
-#, fuzzy
 msgid "Device"
-msgstr "Teilen"
+msgstr ""
 
 #: ../sheets/AADL.sheet.in.h:6
 msgid "Memory"
@@ -5674,33 +5601,28 @@ msgstr ""
 
 # CHECK Translation
 #: ../sheets/AADL.sheet.in.h:7
-#, fuzzy
 msgid "Package"
-msgstr "Packen"
+msgstr ""
 
 #: ../sheets/AADL.sheet.in.h:9
-#, fuzzy
 msgid "Processor"
-msgstr "Vorgang"
+msgstr ""
 
 #: ../sheets/AADL.sheet.in.h:10
-#, fuzzy
 msgid "Subprogram"
 msgstr "Unterprogrammaufrufsschritt"
 
 #: ../sheets/AADL.sheet.in.h:11
-#, fuzzy
 msgid "System"
-msgstr "Sybase"
+msgstr "Sytem"
 
 #: ../sheets/AADL.sheet.in.h:12
-#, fuzzy
 msgid "Thread"
-msgstr "Geteilt"
+msgstr "Faden"
 
 #: ../sheets/AADL.sheet.in.h:13
 msgid "Thread Group"
-msgstr ""
+msgstr "Faden Gruppe"
 
 #. Sheet Name: Assorted, was Geometric, maybe Basic Shapes instead?
 #. Leave as is for now, renaming too much hassle.
@@ -5883,9 +5805,8 @@ msgid "Vertical parallelogram"
 msgstr "Vertikales Parallelogramm"
 
 #: ../sheets/BPMN.sheet.in.h:1
-#, fuzzy
 msgid "Activity Looping"
-msgstr "Aktivität"
+msgstr ""
 
 #: ../sheets/BPMN.sheet.in.h:2
 msgid "Ad-Hoc Collapsed Sub-Process"
@@ -5898,7 +5819,7 @@ msgstr ""
 
 #: ../sheets/BPMN.sheet.in.h:5
 msgid "Business Process Modeling Notation"
-msgstr ""
+msgstr "Geschäftsprozess-Modellierungssprache"
 
 #: ../sheets/BPMN.sheet.in.h:6
 msgid "Collapsed Sub-Process"
@@ -5909,9 +5830,8 @@ msgid "Compensation Collapsed Sub-Process"
 msgstr ""
 
 #: ../sheets/BPMN.sheet.in.h:8
-#, fuzzy
 msgid "Compensation Task"
-msgstr "Zusammensetzung"
+msgstr ""
 
 #: ../sheets/BPMN.sheet.in.h:9
 #, fuzzy

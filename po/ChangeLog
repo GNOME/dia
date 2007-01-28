@@ -1,5 +1,7 @@
 2007-01-28  Hans Breuer  <hans@breuer.org>
 
+	* de.po : iteration on removing fuzzyness from menus
+
 	* *.po : 'make update-po'; as a result most translations
 	contain more fuzzyness. Especially menu translations need
 	to change because now single verbs without slash need to
