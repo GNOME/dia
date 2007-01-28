@@ -1,3 +1,12 @@
+2007-01-28  Hans Breuer  <hans@breuer.org>
+
+	* app/recent_files.c : don't treat underscores in filenames as 
+	accelerators, see bug #340352
+	* app/menus.c : again register a translation function for 
+	menus/actions. This fixes the code part of bug #400616
+	Every translation needs to be updated to translate 'verbs'
+	instead of complete menu pathes
+	
 2007-01-25  Lars Clausen  <lars@raeder.dk>
 
 	* plug-ins/metapost/render_metapost.c (draw_text_line): First stab

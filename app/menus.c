@@ -254,6 +254,35 @@ static GtkActionGroup *display_tool_actions = NULL;
 static GtkAccelGroup *display_accels = NULL;
 static GtkWidget *display_menubar = NULL;
 
+static gchar*
+_dia_translate (const gchar* term, gpointer data)
+{
+  gchar* trans = term;
+  
+  if (term && *term) {
+    /* first try our own ... */
+    trans = dgettext (GETTEXT_PACKAGE, term);
+    /* ... than gtk */
+    if (term == trans)
+      trans = dgettext ("gtk20", term);
+#if 0
+    /* FIXME: final fallback */
+    if (term == trans) { /* FIXME: translation to be updated */
+      gchar* kludge = g_strdup_printf ("/%s", term);
+      trans = dgettext (GETTEXT_PACKAGE, kludge);
+      if (kludge == trans)
+	trans = term;
+      else
+	++trans;
+      g_free (kludge);
+    }
+    if (term == trans)
+      trans = g_strdup_printf ("XXX: %s", term);
+#endif
+  }
+  return trans;
+}
+
 static void
 tool_menu_select(GtkWidget *w, gpointer   data) {
   ToolButtonData *tooldata = (ToolButtonData *) data;
@@ -295,6 +324,7 @@ create_tool_actions (void)
   name = g_strdup_printf ("tool-actions-%d", cnt);
   actions = gtk_action_group_new (name);
   gtk_action_group_set_translation_domain (actions, NULL);
+  gtk_action_group_set_translate_func (actions, _dia_translate, NULL, NULL);
   g_free (name);
   name = NULL;
   cnt++;
@@ -331,6 +361,7 @@ add_plugin_actions (GtkUIManager *ui_manager)
   name = g_strdup_printf ("plugin-actions-%d", cnt);
   actions = gtk_action_group_new (name);
   gtk_action_group_set_translation_domain (actions, NULL);
+  gtk_action_group_set_translate_func (actions, _dia_translate, NULL, NULL);
   g_free (name);
   name = NULL;
   cnt++;
@@ -451,6 +482,7 @@ menus_init(void)
   /* the toolbox menu */
   toolbox_actions = gtk_action_group_new ("toolbox-actions");
   gtk_action_group_set_translation_domain (toolbox_actions, NULL);
+  gtk_action_group_set_translate_func (toolbox_actions, _dia_translate, NULL, NULL);
   gtk_action_group_add_actions (toolbox_actions, common_entries, 
                 G_N_ELEMENTS (common_entries), NULL);
   gtk_action_group_add_actions (toolbox_actions, toolbox_entries, 
@@ -477,6 +509,7 @@ menus_init(void)
   /* the display menu */
   display_actions = gtk_action_group_new ("display-actions");
   gtk_action_group_set_translation_domain (display_actions, NULL);
+  gtk_action_group_set_translate_func (display_actions, _dia_translate, NULL, NULL);
   gtk_action_group_add_actions (display_actions, common_entries, 
                 G_N_ELEMENTS (common_entries), NULL);
   gtk_action_group_add_actions (display_actions, display_entries, 
@@ -515,6 +548,7 @@ menus_init(void)
   /* plugin menu hooks */  
   plugin_actions = gtk_action_group_new ("toolbox-plugin-actions");
   gtk_action_group_set_translation_domain (plugin_actions, NULL);
+  gtk_action_group_set_translate_func (plugin_actions, _dia_translate, NULL, NULL);
   gtk_ui_manager_insert_action_group (toolbox_ui_manager, 
                     plugin_actions, 5 /* "back" */);
   g_object_unref (plugin_actions);
@@ -611,6 +645,7 @@ menus_create_display_menubar (GtkUIManager   **ui_manager,
 
   *actions = gtk_action_group_new ("display-actions");
   gtk_action_group_set_translation_domain (*actions, NULL);
+  gtk_action_group_set_translate_func (*actions, _dia_translate, NULL, NULL);
 
   gtk_action_group_add_actions (*actions, common_entries, 
                 G_N_ELEMENTS (common_entries), NULL);
