@@ -1157,14 +1157,14 @@ msgid "Dia Diagram File"
 msgstr "Власний формат діаграм Dia"
 
 #: ../app/menus.c:54
-#, fuzzy
+#
 msgid "_File"
-msgstr "/_Файл"
+msgstr "_Файл"
 
 #: ../app/menus.c:58
-#, fuzzy
+#
 msgid "_Help"
-msgstr "/_Довідка"
+msgstr "_Довідка"
 
 #: ../app/menus.c:66
 #, fuzzy
@@ -1182,9 +1182,9 @@ msgid "_Diagram tree..."
 msgstr "Дерево діаграми"
 
 #: ../app/menus.c:82
-#, fuzzy
+#
 msgid "_Export ..."
-msgstr "/Файл/_Експортувати..."
+msgstr "_Експортувати..."
 
 #: ../app/menus.c:83
 #, fuzzy
@@ -1196,31 +1196,31 @@ msgid "_Edit"
 msgstr "_Правка"
 
 #: ../app/menus.c:94
-#, fuzzy
+#
 msgid "_Duplicate"
-msgstr "/Правка/_Дублікат"
+msgstr "_Дублікат"
 
 #. the following used to bind to <control><shift>C which collides with Unicode input.
 #. * <control>>alt> doesn't work either
 #: ../app/menus.c:99
-#, fuzzy
+#
 msgid "Copy Text"
-msgstr "/Правка/Копіювати текст"
+msgstr "Копіювати текст"
 
 #: ../app/menus.c:100
-#, fuzzy
+#
 msgid "Cut Text"
-msgstr "/Правка/Вирізати текст"
+msgstr "Вирізати текст"
 
 #: ../app/menus.c:101
-#, fuzzy
+#
 msgid "Paste _Text"
-msgstr "/Правка/Вставити _текст"
+msgstr "Вставити _текст"
 
 #: ../app/menus.c:103
-#, fuzzy
+#
 msgid "_Diagram"
-msgstr "/Д_іаграма"
+msgstr "Д_іаграма"
 
 #: ../app/menus.c:105
 #, fuzzy
@@ -1228,9 +1228,9 @@ msgid "_Layers..."
 msgstr "Шари"
 
 #: ../app/menus.c:107
-#, fuzzy
+#
 msgid "_View"
-msgstr "/_Вигляд"
+msgstr "_Вигляд"
 
 #: ../app/menus.c:110
 #, fuzzy
@@ -1288,38 +1288,38 @@ msgstr ""
 
 #. "display_toggle_entries" items go here
 #: ../app/menus.c:126
-#, fuzzy
+#
 msgid "New _View"
-msgstr "/Вигляд/Нове _вікно"
+msgstr "Нове _вікно"
 
 #: ../app/menus.c:127
 msgid "C_lone View"
 msgstr ""
 
 #: ../app/menus.c:132
-#, fuzzy
+#
 msgid "_Objects"
-msgstr "/_Об'єкти"
+msgstr "_Об'єкти"
 
 #: ../app/menus.c:133
-#, fuzzy
+#
 msgid "Send to _Back"
-msgstr "/Об'єкти/Перемістити на _задній план"
+msgstr "Перемістити на _задній план"
 
 #: ../app/menus.c:134
-#, fuzzy
+#
 msgid "Bring to _Front"
-msgstr "/Об'єкти/Перемістити на _передній план"
+msgstr "Перемістити на _передній план"
 
 #: ../app/menus.c:135
-#, fuzzy
+#
 msgid "Send Backwards"
-msgstr "/Об'єкти/Перемістити далі"
+msgstr "Перемістити далі"
 
 #: ../app/menus.c:136
-#, fuzzy
+#
 msgid "Bring Forwards"
-msgstr "/Об'єкти/Перемістити ближче"
+msgstr "Перемістити ближче"
 
 #: ../app/menus.c:138
 msgid "_Group"
@@ -1327,9 +1327,9 @@ msgstr ""
 
 #. deliberately not using Ctrl+U for Ungroup
 #: ../app/menus.c:140
-#, fuzzy
+#
 msgid "_Ungroup"
-msgstr "/Об'єкти/_Розгрупувати"
+msgstr "_Розгрупувати"
 
 #: ../app/menus.c:142
 #, fuzzy
@@ -1337,14 +1337,14 @@ msgid "_Parent"
 msgstr "Запобігати"
 
 #: ../app/menus.c:143
-#, fuzzy
+#
 msgid "_Unparent"
-msgstr "/Об'єкти/Зробити _не вкладеним"
+msgstr "Зробити _не вкладеним"
 
 #: ../app/menus.c:144
-#, fuzzy
+#
 msgid "_Unparent Children"
-msgstr "/Об'єкти/Зробити _об'єкти-нащадки не вкладеним"
+msgstr "Зробити _об'єкти-нащадки не вкладеним"
 
 #. Translators: Menu item Verb/Support/Position/Align
 #: ../app/menus.c:146 ../objects/FS/function.c:806
@@ -1367,14 +1367,14 @@ msgid "Bottom"
 msgstr "Нижній:"
 
 #: ../app/menus.c:155
-#, fuzzy
+#
 msgid "Spread Out Horizontally"
-msgstr "/Об'єкти/Вирівнювання/поширити по горизонталі"
+msgstr "поширити по горизонталі"
 
 #: ../app/menus.c:156
-#, fuzzy
+#
 msgid "Spread Out Vertically"
-msgstr "/Об'єкти/Вирівнювання/поширити по вертикалі"
+msgstr "поширити по вертикалі"
 
 #: ../app/menus.c:157
 #, fuzzy
@@ -1387,9 +1387,9 @@ msgid "Stacked"
 msgstr "Стан"
 
 #: ../app/menus.c:162
-#, fuzzy
+#
 msgid "_Select"
-msgstr "/Виді_лення"
+msgstr "Виді_лення"
 
 #: ../app/menus.c:163
 #, fuzzy
@@ -1417,15 +1417,15 @@ msgid "Connected"
 msgstr "Зв'язуватись"
 
 #: ../app/menus.c:169
-#, fuzzy
+#
 msgid "Same Type"
-msgstr "/Виділення/Того ж типу"
+msgstr "Того ж типу"
 
 #. display_select_radio_entries go here
 #: ../app/menus.c:173
-#, fuzzy
+#
 msgid "Select By"
-msgstr "/Виді_лення"
+msgstr "Виді_лення"
 
 #: ../app/menus.c:175
 #, fuzzy
@@ -1441,9 +1441,9 @@ msgid "D_ebug"
 msgstr ""
 
 #: ../app/menus.c:185
-#, fuzzy
+#
 msgid "_Tools"
-msgstr "/С_ервіс"
+msgstr "С_ервіс"
 
 #: ../app/menus.c:186
 msgid "Modify"
@@ -1461,34 +1461,34 @@ msgstr ""
 #. * see: http://bugzilla.gnome.org/show_bug.cgi?id=396161
 #.
 #: ../app/menus.c:213 ../app/menus.c:218
-#, fuzzy
+#
 msgid "_AntiAliased"
-msgstr "/Вигляд/З_гладжування"
+msgstr "З_гладжування"
 
 #: ../app/menus.c:220
-#, fuzzy
+#
 msgid "Show _Grid"
-msgstr "/Вигляд/Показати _сітку"
+msgstr "Показати _сітку"
 
 #: ../app/menus.c:221
-#, fuzzy
+#
 msgid "_Snap To Grid"
-msgstr "/Вигляд/Прив'_язувати до сітки"
+msgstr "Прив'_язувати до сітки"
 
 #: ../app/menus.c:222
-#, fuzzy
+#
 msgid "Snap To _Objects"
-msgstr "/Вигляд/Прив'_язувати до сітки"
+msgstr "Прив'_язувати до сітки"
 
 #: ../app/menus.c:223
-#, fuzzy
+#
 msgid "Show _Rulers"
-msgstr "/Вигляд/Показувати _лінійки"
+msgstr "Показувати _лінійки"
 
 #: ../app/menus.c:224
-#, fuzzy
+#
 msgid "Show _Connection Points"
-msgstr "/Вигляд/Показувати точки _з'єднання"
+msgstr "Показувати точки _з'єднання"
 
 #: ../app/menus.c:230
 #, fuzzy
@@ -1501,9 +1501,9 @@ msgid "Union"
 msgstr "немає"
 
 #: ../app/menus.c:232
-#, fuzzy
+#
 msgid "Intersection"
-msgstr "/Виділення/Перетинання"
+msgstr "Перетинання"
 
 #. Translators: Menu item Verb/Channel/Export/Remove
 #. Translators: Menu item Verb/Branch/Separate/Remove

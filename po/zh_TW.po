@@ -1141,14 +1141,14 @@ msgid "Dia Diagram File"
 msgstr "Dia 圖表檔案"
 
 #: ../app/menus.c:54
-#, fuzzy
+#
 msgid "_File"
-msgstr "/檔案(_F)"
+msgstr "檔案(_F)"
 
 #: ../app/menus.c:58
-#, fuzzy
+#
 msgid "_Help"
-msgstr "/求助(_H)"
+msgstr "求助(_H)"
 
 #: ../app/menus.c:66
 #, fuzzy
@@ -1166,9 +1166,9 @@ msgid "_Diagram tree..."
 msgstr "圖表結構樹"
 
 #: ../app/menus.c:82
-#, fuzzy
+#
 msgid "_Export ..."
-msgstr "/檔案(F)/匯出(_E)..."
+msgstr "匯出(_E)..."
 
 #: ../app/menus.c:83
 #, fuzzy
@@ -1180,31 +1180,31 @@ msgid "_Edit"
 msgstr "編輯 (_E)"
 
 #: ../app/menus.c:94
-#, fuzzy
+#
 msgid "_Duplicate"
-msgstr "/編輯/重製(_D)"
+msgstr "重製(_D)"
 
 #. the following used to bind to <control><shift>C which collides with Unicode input.
 #. * <control>>alt> doesn't work either
 #: ../app/menus.c:99
-#, fuzzy
+#
 msgid "Copy Text"
-msgstr "/編輯(E)/複製文字"
+msgstr "複製文字"
 
 #: ../app/menus.c:100
-#, fuzzy
+#
 msgid "Cut Text"
-msgstr "/編輯(E)/剪下文字"
+msgstr "剪下文字"
 
 #: ../app/menus.c:101
-#, fuzzy
+#
 msgid "Paste _Text"
-msgstr "/編輯(E)/貼上文字(_T)"
+msgstr "貼上文字(_T)"
 
 #: ../app/menus.c:103
-#, fuzzy
+#
 msgid "_Diagram"
-msgstr "/圖表(_D)"
+msgstr "圖表(_D)"
 
 #: ../app/menus.c:105
 #, fuzzy
@@ -1212,9 +1212,9 @@ msgid "_Layers..."
 msgstr "圖層"
 
 #: ../app/menus.c:107
-#, fuzzy
+#
 msgid "_View"
-msgstr "/顯示(_V)"
+msgstr "顯示(_V)"
 
 #: ../app/menus.c:110
 #, fuzzy
@@ -1270,38 +1270,38 @@ msgstr ""
 
 #. "display_toggle_entries" items go here
 #: ../app/menus.c:126
-#, fuzzy
+#
 msgid "New _View"
-msgstr "/檢視/新增檢視(_V)"
+msgstr "新增檢視(_V)"
 
 #: ../app/menus.c:127
 msgid "C_lone View"
 msgstr ""
 
 #: ../app/menus.c:132
-#, fuzzy
+#
 msgid "_Objects"
-msgstr "/物件(_O)"
+msgstr "物件(_O)"
 
 #: ../app/menus.c:133
-#, fuzzy
+#
 msgid "Send to _Back"
-msgstr "/物件/送到後層(_B)"
+msgstr "送到後層(_B)"
 
 #: ../app/menus.c:134
-#, fuzzy
+#
 msgid "Bring to _Front"
-msgstr "/物件/送到前層(_F)"
+msgstr "送到前層(_F)"
 
 #: ../app/menus.c:135
-#, fuzzy
+#
 msgid "Send Backwards"
-msgstr "/物件/向後一層"
+msgstr "向後一層"
 
 #: ../app/menus.c:136
-#, fuzzy
+#
 msgid "Bring Forwards"
-msgstr "/物件/向前一層"
+msgstr "向前一層"
 
 #: ../app/menus.c:138
 msgid "_Group"
@@ -1309,9 +1309,9 @@ msgstr ""
 
 #. deliberately not using Ctrl+U for Ungroup
 #: ../app/menus.c:140
-#, fuzzy
+#
 msgid "_Ungroup"
-msgstr "/物件/解散群組(_U)"
+msgstr "解散群組(_U)"
 
 #: ../app/menus.c:142
 #, fuzzy
@@ -1319,14 +1319,14 @@ msgid "_Parent"
 msgstr "防止"
 
 #: ../app/menus.c:143
-#, fuzzy
+#
 msgid "_Unparent"
-msgstr "/物件/解散群組(_U)"
+msgstr "解散群組(_U)"
 
 #: ../app/menus.c:144
-#, fuzzy
+#
 msgid "_Unparent Children"
-msgstr "/物件/解散群組內容(_U)"
+msgstr "解散群組內容(_U)"
 
 #. Translators: Menu item Verb/Support/Position/Align
 #: ../app/menus.c:146 ../objects/FS/function.c:806
@@ -1349,14 +1349,14 @@ msgid "Bottom"
 msgstr "下："
 
 #: ../app/menus.c:155
-#, fuzzy
+#
 msgid "Spread Out Horizontally"
-msgstr "/物件/對齊/水平散佈"
+msgstr "水平散佈"
 
 #: ../app/menus.c:156
-#, fuzzy
+#
 msgid "Spread Out Vertically"
-msgstr "/物件/對齊/垂直散佈"
+msgstr "垂直散佈"
 
 #: ../app/menus.c:157
 #, fuzzy
@@ -1369,9 +1369,9 @@ msgid "Stacked"
 msgstr "狀態"
 
 #: ../app/menus.c:162
-#, fuzzy
+#
 msgid "_Select"
-msgstr "/選取(_S)"
+msgstr "選取(_S)"
 
 #: ../app/menus.c:163
 #, fuzzy
@@ -1399,20 +1399,20 @@ msgid "Connected"
 msgstr "連接"
 
 #: ../app/menus.c:169
-#, fuzzy
+#
 msgid "Same Type"
-msgstr "/選取(S)/相同類別"
+msgstr "相同類別"
 
 #. display_select_radio_entries go here
 #: ../app/menus.c:173
-#, fuzzy
+#
 msgid "Select By"
-msgstr "/選取(_S)"
+msgstr "選取(_S)"
 
 #: ../app/menus.c:175
-#, fuzzy
+#
 msgid "_Input Methods"
-msgstr "/輸入法(_I)"
+msgstr "輸入法(_I)"
 
 #: ../app/menus.c:177
 msgid "D_ialogs"
@@ -1423,9 +1423,9 @@ msgid "D_ebug"
 msgstr ""
 
 #: ../app/menus.c:185
-#, fuzzy
+#
 msgid "_Tools"
-msgstr "/工具(_T)"
+msgstr "工具(_T)"
 
 #: ../app/menus.c:186
 msgid "Modify"
@@ -1436,42 +1436,42 @@ msgid "Scroll"
 msgstr "捲動"
 
 #: ../app/menus.c:210
-#, fuzzy
+#
 msgid "Fullscr_een"
-msgstr "/檢視/全螢幕(_E)"
+msgstr "全螢幕(_E)"
 
 #. we must have all actions registered to avoid configuration specific ui-files and crashing in GTK+,
 #. * see: http://bugzilla.gnome.org/show_bug.cgi?id=396161
 #.
 #: ../app/menus.c:213 ../app/menus.c:218
-#, fuzzy
+#
 msgid "_AntiAliased"
-msgstr "/顯示(V)/平滑化(_A)"
+msgstr "平滑化(_A)"
 
 #: ../app/menus.c:220
-#, fuzzy
+#
 msgid "Show _Grid"
-msgstr "/顯示(V)/顯示格線(_G)"
+msgstr "顯示格線(_G)"
 
 #: ../app/menus.c:221
-#, fuzzy
+#
 msgid "_Snap To Grid"
-msgstr "/顯示(V)/貼齊格線(_S)"
+msgstr "貼齊格線(_S)"
 
 #: ../app/menus.c:222
-#, fuzzy
+#
 msgid "Snap To _Objects"
-msgstr "/顯示(V)/貼齊格線(_S)"
+msgstr "貼齊格線(_S)"
 
 #: ../app/menus.c:223
-#, fuzzy
+#
 msgid "Show _Rulers"
-msgstr "/顯示(V)/顯示尺規(_R)"
+msgstr "顯示尺規(_R)"
 
 #: ../app/menus.c:224
-#, fuzzy
+#
 msgid "Show _Connection Points"
-msgstr "/顯示(V)/顯示連接點(_C)"
+msgstr "顯示連接點(_C)"
 
 #: ../app/menus.c:230
 #, fuzzy
@@ -1484,9 +1484,9 @@ msgid "Union"
 msgstr "無"
 
 #: ../app/menus.c:232
-#, fuzzy
+#
 msgid "Intersection"
-msgstr "/選取/相交"
+msgstr "相交"
 
 #. Translators: Menu item Verb/Channel/Export/Remove
 #. Translators: Menu item Verb/Branch/Separate/Remove

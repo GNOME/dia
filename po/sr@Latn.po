@@ -1150,9 +1150,9 @@ msgid "Dia Diagram File"
 msgstr "Datoteka sa dia dijagramima"
 
 #: ../app/menus.c:54
-#, fuzzy
+#
 msgid "_File"
-msgstr "/_Datoteka"
+msgstr "_Datoteka"
 
 #: ../app/menus.c:58
 msgid "_Help"
@@ -1207,9 +1207,9 @@ msgid "Paste _Text"
 msgstr "Ubaci tekst"
 
 #: ../app/menus.c:103
-#, fuzzy
+#
 msgid "_Diagram"
-msgstr "/_Dijagram"
+msgstr "_Dijagram"
 
 #: ../app/menus.c:105
 #, fuzzy
@@ -1217,9 +1217,9 @@ msgid "_Layers..."
 msgstr "Slojevi"
 
 #: ../app/menus.c:107
-#, fuzzy
+#
 msgid "_View"
-msgstr "/P_regled"
+msgstr "P_regled"
 
 #: ../app/menus.c:110
 msgid "_Zoom"
@@ -1344,14 +1344,14 @@ msgid "Bottom"
 msgstr "Dno"
 
 #: ../app/menus.c:155
-#, fuzzy
+#
 msgid "Spread Out Horizontally"
-msgstr "/Objekti/Poravnanje/Raširi vodoravno"
+msgstr "Raširi vodoravno"
 
 #: ../app/menus.c:156
-#, fuzzy
+#
 msgid "Spread Out Vertically"
-msgstr "/Objekti/Poravnanje/Raširi uspravno"
+msgstr "Raširi uspravno"
 
 #: ../app/menus.c:157
 msgid "Adjacent"
@@ -1363,9 +1363,9 @@ msgid "Stacked"
 msgstr "Stanje"
 
 #: ../app/menus.c:162
-#, fuzzy
+#
 msgid "_Select"
-msgstr "/Izaberi"
+msgstr "Izaberi"
 
 #: ../app/menus.c:163
 msgid "All"
@@ -1389,15 +1389,15 @@ msgid "Connected"
 msgstr "Povezan"
 
 #: ../app/menus.c:169
-#, fuzzy
+#
 msgid "Same Type"
-msgstr "/Izberi/Isti Tip"
+msgstr "Isti Tip"
 
 #. display_select_radio_entries go here
 #: ../app/menus.c:173
-#, fuzzy
+#
 msgid "Select By"
-msgstr "/Izaberi"
+msgstr "Izaberi"
 
 #: ../app/menus.c:175
 msgid "_Input Methods"
@@ -1444,9 +1444,9 @@ msgid "_Snap To Grid"
 msgstr "Uravnaj na mrežu"
 
 #: ../app/menus.c:222
-#, fuzzy
+#
 msgid "Snap To _Objects"
-msgstr "/Pregled/Uravnaj na mrežu"
+msgstr "Uravnaj na mrežu"
 
 #: ../app/menus.c:223
 msgid "Show _Rulers"

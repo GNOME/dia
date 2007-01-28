@@ -1172,14 +1172,14 @@ msgid "Dia Diagram File"
 msgstr "File diagramma di Dia"
 
 #: ../app/menus.c:54
-#, fuzzy
+#
 msgid "_File"
-msgstr "/_File "
+msgstr "_File "
 
 #: ../app/menus.c:58
-#, fuzzy
+#
 msgid "_Help"
-msgstr "/_Aiuto"
+msgstr "_Aiuto"
 
 #: ../app/menus.c:66
 #, fuzzy
@@ -1197,9 +1197,9 @@ msgid "_Diagram tree..."
 msgstr "Albero del diagramma"
 
 #: ../app/menus.c:82
-#, fuzzy
+#
 msgid "_Export ..."
-msgstr "/File/_Esporta..."
+msgstr "_Esporta..."
 
 #: ../app/menus.c:83
 #, fuzzy
@@ -1211,31 +1211,31 @@ msgid "_Edit"
 msgstr "_Modifica"
 
 #: ../app/menus.c:94
-#, fuzzy
+#
 msgid "_Duplicate"
-msgstr "/Modifica/_Duplica"
+msgstr "_Duplica"
 
 #. the following used to bind to <control><shift>C which collides with Unicode input.
 #. * <control>>alt> doesn't work either
 #: ../app/menus.c:99
-#, fuzzy
+#
 msgid "Copy Text"
-msgstr "/Modifica/Copia testo"
+msgstr "Copia testo"
 
 #: ../app/menus.c:100
-#, fuzzy
+#
 msgid "Cut Text"
-msgstr "/Modifica/Taglia testo"
+msgstr "Taglia testo"
 
 #: ../app/menus.c:101
-#, fuzzy
+#
 msgid "Paste _Text"
-msgstr "/Modifica/Incolla te_sto"
+msgstr "Incolla te_sto"
 
 #: ../app/menus.c:103
-#, fuzzy
+#
 msgid "_Diagram"
-msgstr "/_Diagramma"
+msgstr "_Diagramma"
 
 #: ../app/menus.c:105
 #, fuzzy
@@ -1243,9 +1243,9 @@ msgid "_Layers..."
 msgstr "Livelli"
 
 #: ../app/menus.c:107
-#, fuzzy
+#
 msgid "_View"
-msgstr "/_Vista"
+msgstr "_Vista"
 
 #: ../app/menus.c:110
 #, fuzzy
@@ -1303,38 +1303,38 @@ msgstr ""
 
 #. "display_toggle_entries" items go here
 #: ../app/menus.c:126
-#, fuzzy
+#
 msgid "New _View"
-msgstr "/Vista/Nuova _vista"
+msgstr "Nuova _vista"
 
 #: ../app/menus.c:127
 msgid "C_lone View"
 msgstr ""
 
 #: ../app/menus.c:132
-#, fuzzy
+#
 msgid "_Objects"
-msgstr "/_Oggetti"
+msgstr "_Oggetti"
 
 #: ../app/menus.c:133
-#, fuzzy
+#
 msgid "Send to _Back"
-msgstr "/Oggetti/Manda in _fondo"
+msgstr "Manda in _fondo"
 
 #: ../app/menus.c:134
-#, fuzzy
+#
 msgid "Bring to _Front"
-msgstr "/Oggetti/Porta in _primo piano"
+msgstr "Porta in _primo piano"
 
 #: ../app/menus.c:135
-#, fuzzy
+#
 msgid "Send Backwards"
-msgstr "/Oggetti/Manda indietro"
+msgstr "Manda indietro"
 
 #: ../app/menus.c:136
-#, fuzzy
+#
 msgid "Bring Forwards"
-msgstr "/Oggetti/Porta in primo piano"
+msgstr "Porta in primo piano"
 
 #: ../app/menus.c:138
 msgid "_Group"
@@ -1342,9 +1342,9 @@ msgstr ""
 
 #. deliberately not using Ctrl+U for Ungroup
 #: ../app/menus.c:140
-#, fuzzy
+#
 msgid "_Ungroup"
-msgstr "/Oggetti/_Separa"
+msgstr "_Separa"
 
 #: ../app/menus.c:142
 #, fuzzy
@@ -1352,14 +1352,14 @@ msgid "_Parent"
 msgstr "Previeni"
 
 #: ../app/menus.c:143
-#, fuzzy
+#
 msgid "_Unparent"
-msgstr "/Oggetti/_Non genitore"
+msgstr "_Non genitore"
 
 #: ../app/menus.c:144
-#, fuzzy
+#
 msgid "_Unparent Children"
-msgstr "/Oggetti/Figlio _non genitore"
+msgstr "Figlio _non genitore"
 
 #. Translators: Menu item Verb/Support/Position/Align
 #: ../app/menus.c:146 ../objects/FS/function.c:806
@@ -1382,14 +1382,14 @@ msgid "Bottom"
 msgstr "Inferiore:"
 
 #: ../app/menus.c:155
-#, fuzzy
+#
 msgid "Spread Out Horizontally"
-msgstr "/Oggetti/Allinea/Distendi Orizzontalmente"
+msgstr "Distendi Orizzontalmente"
 
 #: ../app/menus.c:156
-#, fuzzy
+#
 msgid "Spread Out Vertically"
-msgstr "/Oggetti/Allinea/Distendi Verticalmente"
+msgstr "Distendi Verticalmente"
 
 #: ../app/menus.c:157
 #, fuzzy
@@ -1402,9 +1402,9 @@ msgid "Stacked"
 msgstr "Status"
 
 #: ../app/menus.c:162
-#, fuzzy
+#
 msgid "_Select"
-msgstr "/_Seleziona"
+msgstr "_Seleziona"
 
 #: ../app/menus.c:163
 #, fuzzy
@@ -1432,20 +1432,20 @@ msgid "Connected"
 msgstr "Connetti"
 
 #: ../app/menus.c:169
-#, fuzzy
+#
 msgid "Same Type"
-msgstr "/Seleziona/Oggetti dello stesso tipo"
+msgstr "Oggetti dello stesso tipo"
 
 #. display_select_radio_entries go here
 #: ../app/menus.c:173
-#, fuzzy
+#
 msgid "Select By"
-msgstr "/_Seleziona"
+msgstr "_Seleziona"
 
 #: ../app/menus.c:175
-#, fuzzy
+#
 msgid "_Input Methods"
-msgstr "/_Metodi di ingresso"
+msgstr "_Metodi di ingresso"
 
 #: ../app/menus.c:177
 msgid "D_ialogs"
@@ -1456,9 +1456,9 @@ msgid "D_ebug"
 msgstr ""
 
 #: ../app/menus.c:185
-#, fuzzy
+#
 msgid "_Tools"
-msgstr "/_Strumenti"
+msgstr "_Strumenti"
 
 #: ../app/menus.c:186
 msgid "Modify"
@@ -1476,34 +1476,34 @@ msgstr ""
 #. * see: http://bugzilla.gnome.org/show_bug.cgi?id=396161
 #.
 #: ../app/menus.c:213 ../app/menus.c:218
-#, fuzzy
+#
 msgid "_AntiAliased"
-msgstr "/Vista/Con _antialias"
+msgstr "Con _antialias"
 
 #: ../app/menus.c:220
-#, fuzzy
+#
 msgid "Show _Grid"
-msgstr "/Vista/Mostra _griglia"
+msgstr "Mostra _griglia"
 
 #: ../app/menus.c:221
-#, fuzzy
+#
 msgid "_Snap To Grid"
-msgstr "/Vista/_Aggancia alla griglia"
+msgstr "_Aggancia alla griglia"
 
 #: ../app/menus.c:222
-#, fuzzy
+#
 msgid "Snap To _Objects"
-msgstr "/Vista/_Aggancia alla griglia"
+msgstr "_Aggancia alla griglia"
 
 #: ../app/menus.c:223
-#, fuzzy
+#
 msgid "Show _Rulers"
-msgstr "/Vista/Mostra i _righelli"
+msgstr "Mostra i _righelli"
 
 #: ../app/menus.c:224
-#, fuzzy
+#
 msgid "Show _Connection Points"
-msgstr "/Vista/Mostra i punti di _connessione"
+msgstr "Mostra i punti di _connessione"
 
 #: ../app/menus.c:230
 #, fuzzy
@@ -1516,9 +1516,9 @@ msgid "Union"
 msgstr "niente"
 
 #: ../app/menus.c:232
-#, fuzzy
+#
 msgid "Intersection"
-msgstr "/Seleziona/Intersezione"
+msgstr "Intersezione"
 
 #. Translators: Menu item Verb/Channel/Export/Remove
 #. Translators: Menu item Verb/Branch/Separate/Remove

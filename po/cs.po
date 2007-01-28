@@ -1422,14 +1422,14 @@ msgid "Show _Grid"
 msgstr "Zobrazovat _mřížku"
 
 #: ../app/menus.c:221
-#, fuzzy
+#
 msgid "_Snap To Grid"
-msgstr "/Zobrazit/_Lnout k mřížce"
+msgstr "_Lnout k mřížce"
 
 #: ../app/menus.c:222
-#, fuzzy
+#
 msgid "Snap To _Objects"
-msgstr "/Zobrazit/_Lnout k objektům"
+msgstr "_Lnout k objektům"
 
 #: ../app/menus.c:223
 msgid "Show _Rulers"

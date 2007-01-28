@@ -1144,14 +1144,14 @@ msgid "Dia Diagram File"
 msgstr "Domač Dia diagram"
 
 #: ../app/menus.c:54
-#, fuzzy
+#
 msgid "_File"
-msgstr "/_Datoteka"
+msgstr "_Datoteka"
 
 #: ../app/menus.c:58
-#, fuzzy
+#
 msgid "_Help"
-msgstr "/_Pomoč"
+msgstr "_Pomoč"
 
 #: ../app/menus.c:66
 #, fuzzy
@@ -1182,9 +1182,9 @@ msgid "_Edit"
 msgstr "_Uredi"
 
 #: ../app/menus.c:94
-#, fuzzy
+#
 msgid "_Duplicate"
-msgstr "/Uredi/_Zbriši"
+msgstr "_Zbriši"
 
 #. the following used to bind to <control><shift>C which collides with Unicode input.
 #. * <control>>alt> doesn't work either
@@ -1211,9 +1211,9 @@ msgid "_Layers..."
 msgstr "_Plasti"
 
 #: ../app/menus.c:107
-#, fuzzy
+#
 msgid "_View"
-msgstr "/_Pogled"
+msgstr "_Pogled"
 
 #: ../app/menus.c:110
 msgid "_Zoom"
@@ -1308,9 +1308,9 @@ msgid "_Parent"
 msgstr "Prepreči"
 
 #: ../app/menus.c:143
-#, fuzzy
+#
 msgid "_Unparent"
-msgstr "/Predmeti/_Odgrupiraj"
+msgstr "_Odgrupiraj"
 
 #: ../app/menus.c:144
 msgid "_Unparent Children"
@@ -1335,14 +1335,14 @@ msgid "Bottom"
 msgstr "Spodaj"
 
 #: ../app/menus.c:155
-#, fuzzy
+#
 msgid "Spread Out Horizontally"
-msgstr "/Predmeti/Poravnaj _vodoravno"
+msgstr "Poravnaj _vodoravno"
 
 #: ../app/menus.c:156
-#, fuzzy
+#
 msgid "Spread Out Vertically"
-msgstr "/Predmeti/Poravnaj _navpično"
+msgstr "Poravnaj _navpično"
 
 #: ../app/menus.c:157
 #, fuzzy
@@ -1355,9 +1355,9 @@ msgid "Stacked"
 msgstr "Stanje"
 
 #: ../app/menus.c:162
-#, fuzzy
+#
 msgid "_Select"
-msgstr "/_Izberi"
+msgstr "_Izberi"
 
 #: ../app/menus.c:163
 msgid "All"
@@ -1388,9 +1388,9 @@ msgstr "Vrsta stanja"
 
 #. display_select_radio_entries go here
 #: ../app/menus.c:173
-#, fuzzy
+#
 msgid "Select By"
-msgstr "/_Izberi"
+msgstr "_Izberi"
 
 #: ../app/menus.c:175
 msgid "_Input Methods"
@@ -1437,9 +1437,9 @@ msgid "_Snap To Grid"
 msgstr "_Preskakuj do mreže"
 
 #: ../app/menus.c:222
-#, fuzzy
+#
 msgid "Snap To _Objects"
-msgstr "/Pogled/Preskakuj do mreže"
+msgstr "Preskakuj do mreže"
 
 #: ../app/menus.c:223
 msgid "Show _Rulers"

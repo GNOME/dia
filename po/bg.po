@@ -1182,14 +1182,14 @@ msgid "Dia Diagram File"
 msgstr "Файл с диаграма на Dia"
 
 #: ../app/menus.c:54
-#, fuzzy
+#
 msgid "_File"
-msgstr "/_Файл"
+msgstr "_Файл"
 
 #: ../app/menus.c:58
-#, fuzzy
+#
 msgid "_Help"
-msgstr "/_Помощ"
+msgstr "_Помощ"
 
 #: ../app/menus.c:66
 #, fuzzy
@@ -1207,9 +1207,9 @@ msgid "_Diagram tree..."
 msgstr "Дърво на диаграмата"
 
 #: ../app/menus.c:82
-#, fuzzy
+#
 msgid "_Export ..."
-msgstr "/Файл/_Експортиране..."
+msgstr "_Експортиране..."
 
 #: ../app/menus.c:83
 #, fuzzy
@@ -1221,31 +1221,31 @@ msgid "_Edit"
 msgstr "_Редактиране"
 
 #: ../app/menus.c:94
-#, fuzzy
+#
 msgid "_Duplicate"
-msgstr "/Редактиране/Ко_пие"
+msgstr "Ко_пие"
 
 #. the following used to bind to <control><shift>C which collides with Unicode input.
 #. * <control>>alt> doesn't work either
 #: ../app/menus.c:99
-#, fuzzy
+#
 msgid "Copy Text"
-msgstr "/Редактиране/Копиране на текст"
+msgstr "Копиране на текст"
 
 #: ../app/menus.c:100
-#, fuzzy
+#
 msgid "Cut Text"
-msgstr "/Редактиране/Изрязване на текст"
+msgstr "Изрязване на текст"
 
 #: ../app/menus.c:101
-#, fuzzy
+#
 msgid "Paste _Text"
-msgstr "/Редактиране/Вмъкване на _текст"
+msgstr "Вмъкване на _текст"
 
 #: ../app/menus.c:103
-#, fuzzy
+#
 msgid "_Diagram"
-msgstr "/_Диаграма"
+msgstr "_Диаграма"
 
 #: ../app/menus.c:105
 #, fuzzy
@@ -1253,9 +1253,9 @@ msgid "_Layers..."
 msgstr "Слоеве"
 
 #: ../app/menus.c:107
-#, fuzzy
+#
 msgid "_View"
-msgstr "/_Изглед"
+msgstr "_Изглед"
 
 #: ../app/menus.c:110
 #, fuzzy
@@ -1311,38 +1311,38 @@ msgstr ""
 
 #. "display_toggle_entries" items go here
 #: ../app/menus.c:126
-#, fuzzy
+#
 msgid "New _View"
-msgstr "/Изглед/Нов _изглед"
+msgstr "Нов _изглед"
 
 #: ../app/menus.c:127
 msgid "C_lone View"
 msgstr ""
 
 #: ../app/menus.c:132
-#, fuzzy
+#
 msgid "_Objects"
-msgstr "/_Обекти"
+msgstr "_Обекти"
 
 #: ../app/menus.c:133
-#, fuzzy
+#
 msgid "Send to _Back"
-msgstr "/Обекти/Изпращане най-отзад"
+msgstr "Изпращане най-отзад"
 
 #: ../app/menus.c:134
-#, fuzzy
+#
 msgid "Bring to _Front"
-msgstr "/Обекти/Изнасяне най-отпред"
+msgstr "Изнасяне най-отпред"
 
 #: ../app/menus.c:135
-#, fuzzy
+#
 msgid "Send Backwards"
-msgstr "/Обекти/Изпращане _назад"
+msgstr "Изпращане _назад"
 
 #: ../app/menus.c:136
-#, fuzzy
+#
 msgid "Bring Forwards"
-msgstr "/Обекти/Изнасяне _напред"
+msgstr "Изнасяне _напред"
 
 #: ../app/menus.c:138
 msgid "_Group"
@@ -1351,9 +1351,9 @@ msgstr ""
 #  deliberately not using Ctrl+U for Ungroup
 #. deliberately not using Ctrl+U for Ungroup
 #: ../app/menus.c:140
-#, fuzzy
+#
 msgid "_Ungroup"
-msgstr "/Обекти/_Разгрупиране"
+msgstr "_Разгрупиране"
 
 #  Translators: Menu item Verb/Support/Stop/Prevent
 #  Translators: Menu item Verb/Control Magnitude/Regulate/Prevent
@@ -1363,14 +1363,14 @@ msgid "_Parent"
 msgstr "Спиране"
 
 #: ../app/menus.c:143
-#, fuzzy
+#
 msgid "_Unparent"
-msgstr "/Обекти/Премахване на подложката"
+msgstr "Премахване на подложката"
 
 #: ../app/menus.c:144
-#, fuzzy
+#
 msgid "_Unparent Children"
-msgstr "/Обекти/Освобождаване на под-обектите"
+msgstr "Освобождаване на под-обектите"
 
 #  Translators: Menu item Verb/Support/Position/Align
 #. Translators: Menu item Verb/Support/Position/Align
@@ -1394,14 +1394,14 @@ msgid "Bottom"
 msgstr "Надолу:"
 
 #: ../app/menus.c:155
-#, fuzzy
+#
 msgid "Spread Out Horizontally"
-msgstr "/Обекти/Подравняване/Хоризонтално разгръщане"
+msgstr "Хоризонтално разгръщане"
 
 #: ../app/menus.c:156
-#, fuzzy
+#
 msgid "Spread Out Vertically"
-msgstr "/Обекти/Подравняване/Вертикално разгръщане"
+msgstr "Вертикално разгръщане"
 
 #: ../app/menus.c:157
 #, fuzzy
@@ -1414,9 +1414,9 @@ msgid "Stacked"
 msgstr "Състояние"
 
 #: ../app/menus.c:162
-#, fuzzy
+#
 msgid "_Select"
-msgstr "/_Маркиране"
+msgstr "_Маркиране"
 
 #  Translators: Menu item Verb/Channel/Import/Allow
 #  Translators: Menu item Verb/Control Magnitude/Regulate/Allow
@@ -1448,20 +1448,20 @@ msgid "Connected"
 msgstr "Свързване"
 
 #: ../app/menus.c:169
-#, fuzzy
+#
 msgid "Same Type"
-msgstr "/Маркиране/Обекти от същия тип"
+msgstr "Обекти от същия тип"
 
 #. display_select_radio_entries go here
 #: ../app/menus.c:173
-#, fuzzy
+#
 msgid "Select By"
-msgstr "/_Маркиране"
+msgstr "_Маркиране"
 
 #: ../app/menus.c:175
-#, fuzzy
+#
 msgid "_Input Methods"
-msgstr "/Видове вход"
+msgstr "Видове вход"
 
 #: ../app/menus.c:177
 msgid "D_ialogs"
@@ -1472,9 +1472,9 @@ msgid "D_ebug"
 msgstr ""
 
 #: ../app/menus.c:185
-#, fuzzy
+#
 msgid "_Tools"
-msgstr "/_Инструменти"
+msgstr "_Инструменти"
 
 #: ../app/menus.c:186
 msgid "Modify"
@@ -1485,42 +1485,42 @@ msgid "Scroll"
 msgstr "Позициониране"
 
 #: ../app/menus.c:210
-#, fuzzy
+#
 msgid "Fullscr_een"
-msgstr "/Изглед/_Цял екран"
+msgstr "_Цял екран"
 
 #. we must have all actions registered to avoid configuration specific ui-files and crashing in GTK+,
 #. * see: http://bugzilla.gnome.org/show_bug.cgi?id=396161
 #.
 #: ../app/menus.c:213 ../app/menus.c:218
-#, fuzzy
+#
 msgid "_AntiAliased"
-msgstr "/Изглед/Изглаждане"
+msgstr "Изглаждане"
 
 #: ../app/menus.c:220
-#, fuzzy
+#
 msgid "Show _Grid"
-msgstr "/Изглед/Показване на помощната _мрежа"
+msgstr "Показване на помощната _мрежа"
 
 #: ../app/menus.c:221
-#, fuzzy
+#
 msgid "_Snap To Grid"
-msgstr "/Изглед/_Подравняване по помощната мрежата"
+msgstr "_Подравняване по помощната мрежата"
 
 #: ../app/menus.c:222
-#, fuzzy
+#
 msgid "Snap To _Objects"
-msgstr "/Изглед/_Подравняване по помощната мрежата"
+msgstr "_Подравняване по помощната мрежата"
 
 #: ../app/menus.c:223
-#, fuzzy
+#
 msgid "Show _Rulers"
-msgstr "/Изглед/Показване на _ролетките"
+msgstr "Показване на _ролетките"
 
 #: ../app/menus.c:224
-#, fuzzy
+#
 msgid "Show _Connection Points"
-msgstr "/Изглед/Показване на _точките на свързване"
+msgstr "Показване на _точките на свързване"
 
 #  Translators: Menu item Verb/Branch/Separate/Separate/Release
 #: ../app/menus.c:230
@@ -1534,9 +1534,9 @@ msgid "Union"
 msgstr "няма/никой"
 
 #: ../app/menus.c:232
-#, fuzzy
+#
 msgid "Intersection"
-msgstr "/Маркиране/Сечение"
+msgstr "Сечение"
 
 #  Translators: Menu item Verb/Channel/Export/Remove
 #  Translators: Menu item Verb/Branch/Separate/Remove

@@ -1149,9 +1149,9 @@ msgid "Dia Diagram File"
 msgstr "Dia diagrambestand"
 
 #: ../app/menus.c:54
-#, fuzzy
+#
 msgid "_File"
-msgstr "/_Bestand"
+msgstr "_Bestand"
 
 #: ../app/menus.c:58
 msgid "_Help"
@@ -1186,9 +1186,9 @@ msgid "_Edit"
 msgstr "Be_werken"
 
 #: ../app/menus.c:94
-#, fuzzy
+#
 msgid "_Duplicate"
-msgstr "/Bewerken/_Dupliceren"
+msgstr "_Dupliceren"
 
 #. the following used to bind to <control><shift>C which collides with Unicode input.
 #. * <control>>alt> doesn't work either
@@ -1205,9 +1205,9 @@ msgid "Paste _Text"
 msgstr "_Tekst Plakken"
 
 #: ../app/menus.c:103
-#, fuzzy
+#
 msgid "_Diagram"
-msgstr "/Dia_gram"
+msgstr "Dia_gram"
 
 #: ../app/menus.c:105
 #, fuzzy
@@ -1215,9 +1215,9 @@ msgid "_Layers..."
 msgstr "_Lagen"
 
 #: ../app/menus.c:107
-#, fuzzy
+#
 msgid "_View"
-msgstr "/Beel_d"
+msgstr "Beel_d"
 
 #: ../app/menus.c:110
 msgid "_Zoom"
@@ -1342,14 +1342,14 @@ msgid "Bottom"
 msgstr "Onder"
 
 #: ../app/menus.c:155
-#, fuzzy
+#
 msgid "Spread Out Horizontally"
-msgstr "/Object/Uitlijnen/Horizontaal uitspreiden"
+msgstr "Horizontaal uitspreiden"
 
 #: ../app/menus.c:156
-#, fuzzy
+#
 msgid "Spread Out Vertically"
-msgstr "/Objecten/Uitlijnen/Verticaal uitspreiden"
+msgstr "Verticaal uitspreiden"
 
 #: ../app/menus.c:157
 msgid "Adjacent"
@@ -1361,9 +1361,9 @@ msgid "Stacked"
 msgstr "Status"
 
 #: ../app/menus.c:162
-#, fuzzy
+#
 msgid "_Select"
-msgstr "/_Selecteren"
+msgstr "_Selecteren"
 
 #: ../app/menus.c:163
 msgid "All"
@@ -1387,15 +1387,15 @@ msgid "Connected"
 msgstr "Verbonden"
 
 #: ../app/menus.c:169
-#, fuzzy
+#
 msgid "Same Type"
-msgstr "/Selecteren/Zelfde Type"
+msgstr "Zelfde Type"
 
 #. display_select_radio_entries go here
 #: ../app/menus.c:173
-#, fuzzy
+#
 msgid "Select By"
-msgstr "/_Selecteren"
+msgstr "_Selecteren"
 
 #: ../app/menus.c:175
 msgid "_Input Methods"
@@ -1423,9 +1423,9 @@ msgid "Scroll"
 msgstr "Schuif"
 
 #: ../app/menus.c:210
-#, fuzzy
+#
 msgid "Fullscr_een"
-msgstr "/Beeld/Voll_edig scherm"
+msgstr "Voll_edig scherm"
 
 #. we must have all actions registered to avoid configuration specific ui-files and crashing in GTK+,
 #. * see: http://bugzilla.gnome.org/show_bug.cgi?id=396161
@@ -1443,9 +1443,9 @@ msgid "_Snap To Grid"
 msgstr "_Hecht Aan Rooster"
 
 #: ../app/menus.c:222
-#, fuzzy
+#
 msgid "Snap To _Objects"
-msgstr "/Beeld/_Hecht Aan Rooster"
+msgstr "_Hecht Aan Rooster"
 
 #: ../app/menus.c:223
 msgid "Show _Rulers"

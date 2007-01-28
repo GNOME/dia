@@ -1093,9 +1093,9 @@ msgid "Dia Diagram File"
 msgstr "Үндсэн Диа диаграм"
 
 #: ../app/menus.c:54
-#, fuzzy
+#
 msgid "_File"
-msgstr "/_Файл"
+msgstr "_Файл"
 
 #: ../app/menus.c:58
 msgid "_Help"
@@ -1130,9 +1130,9 @@ msgid "_Edit"
 msgstr ""
 
 #: ../app/menus.c:94
-#, fuzzy
+#
 msgid "_Duplicate"
-msgstr "/Засварла/_Устга"
+msgstr "_Устга"
 
 #. the following used to bind to <control><shift>C which collides with Unicode input.
 #. * <control>>alt> doesn't work either
@@ -1160,14 +1160,14 @@ msgid "_Layers..."
 msgstr "_Давхрагууд"
 
 #: ../app/menus.c:107
-#, fuzzy
+#
 msgid "_View"
-msgstr "/_Үзэмж"
+msgstr "_Үзэмж"
 
 #: ../app/menus.c:110
-#, fuzzy
+#
 msgid "_Zoom"
-msgstr "/Үзэмж/_Хэмжээ"
+msgstr "_Хэмжээ"
 
 #: ../app/menus.c:111
 msgid "1600%"
@@ -1384,9 +1384,9 @@ msgid "_Snap To Grid"
 msgstr ""
 
 #: ../app/menus.c:222
-#, fuzzy
+#
 msgid "Snap To _Objects"
-msgstr "/_Объектуудыг эрэмбэл"
+msgstr "_Объектуудыг эрэмбэл"
 
 #: ../app/menus.c:223
 msgid "Show _Rulers"

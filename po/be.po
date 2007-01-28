@@ -1128,14 +1128,14 @@ msgid "Dia Diagram File"
 msgstr "Свая дыяграма Дыя"
 
 #: ../app/menus.c:54
-#, fuzzy
+#
 msgid "_File"
-msgstr "/_Файл"
+msgstr "_Файл"
 
 #: ../app/menus.c:58
-#, fuzzy
+#
 msgid "_Help"
-msgstr "/_Дапамога"
+msgstr "_Дапамога"
 
 #: ../app/menus.c:66
 #, fuzzy
@@ -1166,9 +1166,9 @@ msgid "_Edit"
 msgstr "Р_эдагаваць"
 
 #: ../app/menus.c:94
-#, fuzzy
+#
 msgid "_Duplicate"
-msgstr "/Рэдагаваньне/Вы_даліць"
+msgstr "Вы_даліць"
 
 #. the following used to bind to <control><shift>C which collides with Unicode input.
 #. * <control>>alt> doesn't work either
@@ -1195,9 +1195,9 @@ msgid "_Layers..."
 msgstr "_Слаі"
 
 #: ../app/menus.c:107
-#, fuzzy
+#
 msgid "_View"
-msgstr "/_Выгляд"
+msgstr "_Выгляд"
 
 #: ../app/menus.c:110
 msgid "_Zoom"
@@ -1292,9 +1292,9 @@ msgid "_Parent"
 msgstr "Папярэджваць"
 
 #: ../app/menus.c:143
-#, fuzzy
+#
 msgid "_Unparent"
-msgstr "/Аб'екты/_Разгрупаваць"
+msgstr "_Разгрупаваць"
 
 #: ../app/menus.c:144
 msgid "_Unparent Children"
@@ -1319,14 +1319,14 @@ msgid "Bottom"
 msgstr "Нанізе"
 
 #: ../app/menus.c:155
-#, fuzzy
+#
 msgid "Spread Out Horizontally"
-msgstr "/Аб'екты/Раўнаньне па _гарызанталі"
+msgstr "Раўнаньне па _гарызанталі"
 
 #: ../app/menus.c:156
-#, fuzzy
+#
 msgid "Spread Out Vertically"
-msgstr "/Аб'екты/Раўнаньне па _вэртыкалі"
+msgstr "Раўнаньне па _вэртыкалі"
 
 #: ../app/menus.c:157
 #, fuzzy
@@ -1339,9 +1339,9 @@ msgid "Stacked"
 msgstr "Стан"
 
 #: ../app/menus.c:162
-#, fuzzy
+#
 msgid "_Select"
-msgstr "/_Вылучэньне"
+msgstr "_Вылучэньне"
 
 #: ../app/menus.c:163
 msgid "All"
@@ -1367,15 +1367,15 @@ msgid "Connected"
 msgstr "Далучанае"
 
 #: ../app/menus.c:169
-#, fuzzy
+#
 msgid "Same Type"
-msgstr "/Вылучэньне/Таго ж тыпу"
+msgstr "Таго ж тыпу"
 
 #. display_select_radio_entries go here
 #: ../app/menus.c:173
-#, fuzzy
+#
 msgid "Select By"
-msgstr "/_Вылучэньне"
+msgstr "_Вылучэньне"
 
 #: ../app/menus.c:175
 msgid "_Input Methods"
@@ -1422,9 +1422,9 @@ msgid "_Snap To Grid"
 msgstr "_Раўнаць па сетцы"
 
 #: ../app/menus.c:222
-#, fuzzy
+#
 msgid "Snap To _Objects"
-msgstr "/Выгляд/_Трымацца сеткі"
+msgstr "_Трымацца сеткі"
 
 #: ../app/menus.c:223
 msgid "Show _Rulers"
@@ -1444,9 +1444,9 @@ msgid "Union"
 msgstr "Аб'яднаньне"
 
 #: ../app/menus.c:232
-#, fuzzy
+#
 msgid "Intersection"
-msgstr "/Вылучэньне/Перакрыжаваньне"
+msgstr "Перакрыжаваньне"
 
 #. Translators: Menu item Verb/Channel/Export/Remove
 #. Translators: Menu item Verb/Branch/Separate/Remove
@@ -2483,14 +2483,14 @@ msgid "Declaration"
 msgstr "Апісаньне"
 
 #: ../objects/AADL/aadlbox.c:349
-#, fuzzy
+#
 msgid "Add Access Provider"
-msgstr "/Файл/_Захаваць"
+msgstr "_Захаваць"
 
 #: ../objects/AADL/aadlbox.c:351
-#, fuzzy
+#
 msgid "Add Access Requirer"
-msgstr "/Файл/_Захаваць"
+msgstr "_Захаваць"
 
 #: ../objects/AADL/aadlbox.c:353
 msgid "Add In Data Port"
@@ -3863,9 +3863,9 @@ msgid "Goal Type"
 msgstr "Таго ж тыпу"
 
 #: ../objects/Istar/istar.c:46
-#, fuzzy
+#
 msgid "Istar diagram"
-msgstr "/Сартаваць _дыяграмы"
+msgstr "Сартаваць _дыяграмы"
 
 #: ../objects/Istar/link.c:153
 #, fuzzy
@@ -7644,9 +7644,9 @@ msgid "FC Storage"
 msgstr "Сховішча"
 
 #: ../sheets/ciscocomputer.sheet.in.h:11
-#, fuzzy
+#
 msgid "File Server"
-msgstr "/Файл/_Захаваць"
+msgstr "_Захаваць"
 
 #: ../sheets/ciscocomputer.sheet.in.h:12
 #, fuzzy
@@ -8385,9 +8385,9 @@ msgid "3X74 (floor) cluster controller"
 msgstr ""
 
 #: ../sheets/cisconetwork.sheet.in.h:6
-#, fuzzy
+#
 msgid "Access Server"
-msgstr "/Файл/_Захаваць"
+msgstr "_Захаваць"
 
 #: ../sheets/cisconetwork.sheet.in.h:7
 msgid "AccessPoint"

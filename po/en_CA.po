@@ -1156,14 +1156,14 @@ msgid "Dia Diagram File"
 msgstr "Dia Diagram File"
 
 #: ../app/menus.c:54
-#, fuzzy
+#
 msgid "_File"
-msgstr "/_File"
+msgstr "_File"
 
 #: ../app/menus.c:58
-#, fuzzy
+#
 msgid "_Help"
-msgstr "/_Help"
+msgstr "_Help"
 
 #: ../app/menus.c:66
 #, fuzzy
@@ -1181,9 +1181,9 @@ msgid "_Diagram tree..."
 msgstr "Diagram tree"
 
 #: ../app/menus.c:82
-#, fuzzy
+#
 msgid "_Export ..."
-msgstr "/File/_Export..."
+msgstr "_Export..."
 
 #: ../app/menus.c:83
 #, fuzzy
@@ -1195,31 +1195,31 @@ msgid "_Edit"
 msgstr "_Edit"
 
 #: ../app/menus.c:94
-#, fuzzy
+#
 msgid "_Duplicate"
-msgstr "/Edit/_Duplicate"
+msgstr "_Duplicate"
 
 #. the following used to bind to <control><shift>C which collides with Unicode input.
 #. * <control>>alt> doesn't work either
 #: ../app/menus.c:99
-#, fuzzy
+#
 msgid "Copy Text"
-msgstr "/Edit/Copy Text"
+msgstr "Copy Text"
 
 #: ../app/menus.c:100
-#, fuzzy
+#
 msgid "Cut Text"
-msgstr "/Edit/Cut Text"
+msgstr "Cut Text"
 
 #: ../app/menus.c:101
-#, fuzzy
+#
 msgid "Paste _Text"
-msgstr "/Edit/Paste _Text"
+msgstr "Paste _Text"
 
 #: ../app/menus.c:103
-#, fuzzy
+#
 msgid "_Diagram"
-msgstr "/_Diagram"
+msgstr "_Diagram"
 
 #: ../app/menus.c:105
 #, fuzzy
@@ -1227,9 +1227,9 @@ msgid "_Layers..."
 msgstr "Layers"
 
 #: ../app/menus.c:107
-#, fuzzy
+#
 msgid "_View"
-msgstr "/_View"
+msgstr "_View"
 
 #: ../app/menus.c:110
 #, fuzzy
@@ -1285,39 +1285,39 @@ msgstr ""
 
 #. "display_toggle_entries" items go here
 #: ../app/menus.c:126
-#, fuzzy
+#
 msgid "New _View"
-msgstr "/View/New _View"
+msgstr "New _View"
 
 #: ../app/menus.c:127
-#, fuzzy
+#
 msgid "C_lone View"
-msgstr "/View/C_lone View"
+msgstr "C_lone View"
 
 #: ../app/menus.c:132
-#, fuzzy
+#
 msgid "_Objects"
-msgstr "/_Objects"
+msgstr "_Objects"
 
 #: ../app/menus.c:133
-#, fuzzy
+#
 msgid "Send to _Back"
-msgstr "/Objects/Send to _Back"
+msgstr "Send to _Back"
 
 #: ../app/menus.c:134
-#, fuzzy
+#
 msgid "Bring to _Front"
-msgstr "/Objects/Bring to _Front"
+msgstr "Bring to _Front"
 
 #: ../app/menus.c:135
-#, fuzzy
+#
 msgid "Send Backwards"
-msgstr "/Objects/Send Backwards"
+msgstr "Send Backwards"
 
 #: ../app/menus.c:136
-#, fuzzy
+#
 msgid "Bring Forwards"
-msgstr "/Objects/Bring Forwards"
+msgstr "Bring Forwards"
 
 #: ../app/menus.c:138
 msgid "_Group"
@@ -1325,9 +1325,9 @@ msgstr ""
 
 #. deliberately not using Ctrl+U for Ungroup
 #: ../app/menus.c:140
-#, fuzzy
+#
 msgid "_Ungroup"
-msgstr "/Objects/_Ungroup"
+msgstr "_Ungroup"
 
 #: ../app/menus.c:142
 #, fuzzy
@@ -1335,14 +1335,14 @@ msgid "_Parent"
 msgstr "Prevent"
 
 #: ../app/menus.c:143
-#, fuzzy
+#
 msgid "_Unparent"
-msgstr "/Objects/_Unparent"
+msgstr "_Unparent"
 
 #: ../app/menus.c:144
-#, fuzzy
+#
 msgid "_Unparent Children"
-msgstr "/Objects/_Unparent Children"
+msgstr "_Unparent Children"
 
 #. Translators: Menu item Verb/Support/Position/Align
 #: ../app/menus.c:146 ../objects/FS/function.c:806
@@ -1363,14 +1363,14 @@ msgid "Bottom"
 msgstr "Bottom"
 
 #: ../app/menus.c:155
-#, fuzzy
+#
 msgid "Spread Out Horizontally"
-msgstr "/Objects/Align/Spread Out Horizontally"
+msgstr "Spread Out Horizontally"
 
 #: ../app/menus.c:156
-#, fuzzy
+#
 msgid "Spread Out Vertically"
-msgstr "/Objects/Align/Spread Out Vertically"
+msgstr "Spread Out Vertically"
 
 #: ../app/menus.c:157
 #, fuzzy
@@ -1383,9 +1383,9 @@ msgid "Stacked"
 msgstr "State"
 
 #: ../app/menus.c:162
-#, fuzzy
+#
 msgid "_Select"
-msgstr "/_Select"
+msgstr "_Select"
 
 #: ../app/menus.c:163
 #, fuzzy
@@ -1413,20 +1413,20 @@ msgid "Connected"
 msgstr "Connect"
 
 #: ../app/menus.c:169
-#, fuzzy
+#
 msgid "Same Type"
-msgstr "/Select/Same Type"
+msgstr "Same Type"
 
 #. display_select_radio_entries go here
 #: ../app/menus.c:173
-#, fuzzy
+#
 msgid "Select By"
-msgstr "/_Select"
+msgstr "_Select"
 
 #: ../app/menus.c:175
-#, fuzzy
+#
 msgid "_Input Methods"
-msgstr "/_Input Methods"
+msgstr "_Input Methods"
 
 #: ../app/menus.c:177
 msgid "D_ialogs"
@@ -1437,9 +1437,9 @@ msgid "D_ebug"
 msgstr ""
 
 #: ../app/menus.c:185
-#, fuzzy
+#
 msgid "_Tools"
-msgstr "/_Tools"
+msgstr "_Tools"
 
 #: ../app/menus.c:186
 msgid "Modify"
@@ -1450,42 +1450,42 @@ msgid "Scroll"
 msgstr "Scroll"
 
 #: ../app/menus.c:210
-#, fuzzy
+#
 msgid "Fullscr_een"
-msgstr "/View/Fullscr_een"
+msgstr "Fullscr_een"
 
 #. we must have all actions registered to avoid configuration specific ui-files and crashing in GTK+,
 #. * see: http://bugzilla.gnome.org/show_bug.cgi?id=396161
 #.
 #: ../app/menus.c:213 ../app/menus.c:218
-#, fuzzy
+#
 msgid "_AntiAliased"
-msgstr "/View/_AntiAliased"
+msgstr "_AntiAliased"
 
 #: ../app/menus.c:220
-#, fuzzy
+#
 msgid "Show _Grid"
-msgstr "/View/Show _Grid"
+msgstr "Show _Grid"
 
 #: ../app/menus.c:221
-#, fuzzy
+#
 msgid "_Snap To Grid"
-msgstr "/View/_Snap To Grid"
+msgstr "_Snap To Grid"
 
 #: ../app/menus.c:222
-#, fuzzy
+#
 msgid "Snap To _Objects"
-msgstr "/View/Snap To _Objects"
+msgstr "Snap To _Objects"
 
 #: ../app/menus.c:223
-#, fuzzy
+#
 msgid "Show _Rulers"
-msgstr "/View/Show _Rulers"
+msgstr "Show _Rulers"
 
 #: ../app/menus.c:224
-#, fuzzy
+#
 msgid "Show _Connection Points"
-msgstr "/View/Show _Connection Points"
+msgstr "Show _Connection Points"
 
 #: ../app/menus.c:230
 #, fuzzy
@@ -1498,9 +1498,9 @@ msgid "Union"
 msgstr "none"
 
 #: ../app/menus.c:232
-#, fuzzy
+#
 msgid "Intersection"
-msgstr "/Select/Intersection"
+msgstr "Intersection"
 
 #. Translators: Menu item Verb/Channel/Export/Remove
 #. Translators: Menu item Verb/Branch/Separate/Remove

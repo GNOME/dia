@@ -1299,15 +1299,15 @@ msgid "Dia Diagram File"
 msgstr "Idosiye"
 
 #: ../app/menus.c:54
-#, fuzzy
+#
 msgid "_File"
-msgstr "/Idosiye"
+msgstr "Idosiye"
 
 # sfx2/source\appl\newhelp.src:STR_HELP_WINDOW_TITLE.text
 #: ../app/menus.c:58
-#, fuzzy
+#
 msgid "_Help"
-msgstr "/Kugoboka"
+msgstr "Kugoboka"
 
 #: ../app/menus.c:66
 #, fuzzy
@@ -1321,14 +1321,14 @@ msgid "Plugins..."
 msgstr "Utwinjizamuriro"
 
 #: ../app/menus.c:74
-#, fuzzy
+#
 msgid "_Diagram tree..."
-msgstr "/Idosiye"
+msgstr "Idosiye"
 
 #: ../app/menus.c:82
-#, fuzzy
+#
 msgid "_Export ..."
-msgstr "/Idosiye"
+msgstr "Idosiye"
 
 #: ../app/menus.c:83
 #, fuzzy
@@ -1468,14 +1468,14 @@ msgid "_Objects"
 msgstr "Igikoresho"
 
 #: ../app/menus.c:133
-#, fuzzy
+#
 msgid "Send to _Back"
-msgstr "/Kuri"
+msgstr "Kuri"
 
 #: ../app/menus.c:134
-#, fuzzy
+#
 msgid "Bring to _Front"
-msgstr "/Kuri"
+msgstr "Kuri"
 
 #: ../app/menus.c:135
 msgid "Send Backwards"
@@ -1548,9 +1548,9 @@ msgid "Stacked"
 msgstr "Leta"
 
 #: ../app/menus.c:162
-#, fuzzy
+#
 msgid "_Select"
-msgstr "/Hitamo..."
+msgstr "Hitamo..."
 
 #: ../app/menus.c:163
 #, fuzzy
@@ -1585,9 +1585,9 @@ msgstr "Ubwoko"
 
 #. display_select_radio_entries go here
 #: ../app/menus.c:173
-#, fuzzy
+#
 msgid "Select By"
-msgstr "/Hitamo..."
+msgstr "Hitamo..."
 
 #: ../app/menus.c:175
 msgid "_Input Methods"
@@ -1636,9 +1636,9 @@ msgid "_Snap To Grid"
 msgstr "ca uhereye ku"
 
 #: ../app/menus.c:222
-#, fuzzy
+#
 msgid "Snap To _Objects"
-msgstr "/Ibintu"
+msgstr "Ibintu"
 
 #: ../app/menus.c:223
 #, fuzzy

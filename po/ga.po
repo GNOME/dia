@@ -1080,9 +1080,9 @@ msgid "Dia Diagram File"
 msgstr "Léaráid Dia"
 
 #: ../app/menus.c:54
-#, fuzzy
+#
 msgid "_File"
-msgstr "/_Comhad"
+msgstr "_Comhad"
 
 #: ../app/menus.c:58
 msgid "_Help"
@@ -1104,9 +1104,9 @@ msgstr "Crann _léaráid"
 
 # FIXME
 #: ../app/menus.c:82
-#, fuzzy
+#
 msgid "_Export ..."
-msgstr "/Comhad/_Export..."
+msgstr "_Export..."
 
 #: ../app/menus.c:83
 msgid "Page Set_up..."
@@ -1117,9 +1117,9 @@ msgid "_Edit"
 msgstr "_Eagar"
 
 #: ../app/menus.c:94
-#, fuzzy
+#
 msgid "_Duplicate"
-msgstr "/Eagar/_Dealaigh"
+msgstr "_Dealaigh"
 
 #. the following used to bind to <control><shift>C which collides with Unicode input.
 #. * <control>>alt> doesn't work either
@@ -1146,9 +1146,9 @@ msgid "_Layers..."
 msgstr "Álbachtaí do Léaráid..."
 
 #: ../app/menus.c:107
-#, fuzzy
+#
 msgid "_View"
-msgstr "/_Amharc"
+msgstr "_Amharc"
 
 #: ../app/menus.c:110
 msgid "_Zoom"
@@ -1291,9 +1291,9 @@ msgid "Stacked"
 msgstr ""
 
 #: ../app/menus.c:162
-#, fuzzy
+#
 msgid "_Select"
-msgstr "/__Roghnaigh"
+msgstr "__Roghnaigh"
 
 #: ../app/menus.c:163
 msgid "All"
@@ -1310,14 +1310,14 @@ msgid "Invert"
 msgstr "Ollscoil"
 
 #: ../app/menus.c:167
-#, fuzzy
+#
 msgid "Transitive"
-msgstr "/Roghnaigh/Transitive"
+msgstr "Transitive"
 
 #: ../app/menus.c:168
-#, fuzzy
+#
 msgid "Connected"
-msgstr "/Roghnaigh/Connected"
+msgstr "Connected"
 
 #: ../app/menus.c:169
 #, fuzzy
@@ -1326,9 +1326,9 @@ msgstr "Roghnaigh/Same Type"
 
 #. display_select_radio_entries go here
 #: ../app/menus.c:173
-#, fuzzy
+#
 msgid "Select By"
-msgstr "/__Roghnaigh"
+msgstr "__Roghnaigh"
 
 #: ../app/menus.c:175
 msgid "_Input Methods"
@@ -1362,9 +1362,9 @@ msgstr ""
 #. * see: http://bugzilla.gnome.org/show_bug.cgi?id=396161
 #.
 #: ../app/menus.c:213 ../app/menus.c:218
-#, fuzzy
+#
 msgid "_AntiAliased"
-msgstr "/Amharc/_AntiAliased"
+msgstr "_AntiAliased"
 
 #: ../app/menus.c:220
 #, fuzzy
@@ -1398,9 +1398,9 @@ msgid "Union"
 msgstr "tada"
 
 #: ../app/menus.c:232
-#, fuzzy
+#
 msgid "Intersection"
-msgstr "/Roghnaigh/Intersect"
+msgstr "Intersect"
 
 #. Translators: Menu item Verb/Channel/Export/Remove
 #. Translators: Menu item Verb/Branch/Separate/Remove
@@ -1412,9 +1412,9 @@ msgstr "Scríos"
 
 #. Cannot also be called Invert, duplicate names caused keybinding problems
 #: ../app/menus.c:235
-#, fuzzy
+#
 msgid "Inverse"
-msgstr "/Roghnaigh/Invert"
+msgstr "Invert"
 
 #: ../app/menus.c:278
 msgid "NULL tooldata in tool_menu_select"

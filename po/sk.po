@@ -1152,9 +1152,9 @@ msgid "Dia Diagram File"
 msgstr "Pôvodný Dia diagram"
 
 #: ../app/menus.c:54
-#, fuzzy
+#
 msgid "_File"
-msgstr "/_Súbor"
+msgstr "_Súbor"
 
 #: ../app/menus.c:58
 msgid "_Help"
@@ -1189,9 +1189,9 @@ msgid "_Edit"
 msgstr "_Upraviť"
 
 #: ../app/menus.c:94
-#, fuzzy
+#
 msgid "_Duplicate"
-msgstr "/Upraviť/_Zmazať"
+msgstr "_Zmazať"
 
 #. the following used to bind to <control><shift>C which collides with Unicode input.
 #. * <control>>alt> doesn't work either
@@ -1218,9 +1218,9 @@ msgid "_Layers..."
 msgstr "_Vrstvy"
 
 #: ../app/menus.c:107
-#, fuzzy
+#
 msgid "_View"
-msgstr "/Zobra_zenie"
+msgstr "Zobra_zenie"
 
 #: ../app/menus.c:110
 msgid "_Zoom"
@@ -1345,14 +1345,14 @@ msgid "Bottom"
 msgstr "Dole"
 
 #: ../app/menus.c:155
-#, fuzzy
+#
 msgid "Spread Out Horizontally"
-msgstr "/Objekty/_Vodorovne zarovnať"
+msgstr "_Vodorovne zarovnať"
 
 #: ../app/menus.c:156
-#, fuzzy
+#
 msgid "Spread Out Vertically"
-msgstr "/Objekty/_Zvislo zarovnať"
+msgstr "_Zvislo zarovnať"
 
 #: ../app/menus.c:157
 msgid "Adjacent"
@@ -1364,9 +1364,9 @@ msgid "Stacked"
 msgstr "Stav"
 
 #: ../app/menus.c:162
-#, fuzzy
+#
 msgid "_Select"
-msgstr "/_Vybrať"
+msgstr "_Vybrať"
 
 #: ../app/menus.c:163
 msgid "All"
@@ -1390,15 +1390,15 @@ msgid "Connected"
 msgstr "Spojené"
 
 #: ../app/menus.c:169
-#, fuzzy
+#
 msgid "Same Type"
-msgstr "/Vybrať/Ten istý typ"
+msgstr "Ten istý typ"
 
 #. display_select_radio_entries go here
 #: ../app/menus.c:173
-#, fuzzy
+#
 msgid "Select By"
-msgstr "/_Vybrať"
+msgstr "_Vybrať"
 
 #: ../app/menus.c:175
 msgid "_Input Methods"
@@ -1445,9 +1445,9 @@ msgid "_Snap To Grid"
 msgstr "_Pritiahnuť k mriežke"
 
 #: ../app/menus.c:222
-#, fuzzy
+#
 msgid "Snap To _Objects"
-msgstr "/Zobrazenie/Pri_tiahnuť k mriežke"
+msgstr "Pri_tiahnuť k mriežke"
 
 #: ../app/menus.c:223
 msgid "Show _Rulers"

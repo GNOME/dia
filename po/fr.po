@@ -1287,33 +1287,33 @@ msgid "New _View"
 msgstr "Nouvelle _vue"
 
 #: ../app/menus.c:127
-#, fuzzy
+#
 msgid "C_lone View"
-msgstr "/Affichage/Nouvelle _vue"
+msgstr "Nouvelle _vue"
 
 #: ../app/menus.c:132
 msgid "_Objects"
 msgstr "_Objets"
 
 #: ../app/menus.c:133
-#, fuzzy
+#
 msgid "Send to _Back"
-msgstr "/Objets/Reculer à l'_arrière-plan"
+msgstr "Reculer à l'_arrière-plan"
 
 #: ../app/menus.c:134
-#, fuzzy
+#
 msgid "Bring to _Front"
-msgstr "/Objets/Avancer au _premier plan"
+msgstr "Avancer au _premier plan"
 
 #: ../app/menus.c:135
-#, fuzzy
+#
 msgid "Send Backwards"
-msgstr "/Objets/Reculer vers l'arrière-plan"
+msgstr "Reculer vers l'arrière-plan"
 
 #: ../app/menus.c:136
-#, fuzzy
+#
 msgid "Bring Forwards"
-msgstr "/Objets/Avancer vers le premier plan"
+msgstr "Avancer vers le premier plan"
 
 #: ../app/menus.c:138
 msgid "_Group"
@@ -1330,14 +1330,14 @@ msgid "_Parent"
 msgstr "Prévenir"
 
 #: ../app/menus.c:143
-#, fuzzy
+#
 msgid "_Unparent"
-msgstr "/Objets/_Abandonne"
+msgstr "_Abandonne"
 
 #: ../app/menus.c:144
-#, fuzzy
+#
 msgid "_Unparent Children"
-msgstr "/Objets/_Abandonne Enfants"
+msgstr "_Abandonne Enfants"
 
 #. Translators: Menu item Verb/Support/Position/Align
 #: ../app/menus.c:146 ../objects/FS/function.c:806
@@ -1358,14 +1358,14 @@ msgid "Bottom"
 msgstr "Bas"
 
 #: ../app/menus.c:155
-#, fuzzy
+#
 msgid "Spread Out Horizontally"
-msgstr "/Objets/Alignr/Étaler horizontalement"
+msgstr "Étaler horizontalement"
 
 #: ../app/menus.c:156
-#, fuzzy
+#
 msgid "Spread Out Vertically"
-msgstr "/Objets/Aligner/Étaler verticalement"
+msgstr "Étaler verticalement"
 
 #: ../app/menus.c:157
 #, fuzzy
@@ -1378,9 +1378,9 @@ msgid "Stacked"
 msgstr "État"
 
 #: ../app/menus.c:162
-#, fuzzy
+#
 msgid "_Select"
-msgstr "/_Sélection"
+msgstr "_Sélection"
 
 #: ../app/menus.c:163
 #, fuzzy
@@ -1408,20 +1408,20 @@ msgid "Connected"
 msgstr "Connecter"
 
 #: ../app/menus.c:169
-#, fuzzy
+#
 msgid "Same Type"
-msgstr "/Sélection/Même type"
+msgstr "Même type"
 
 #. display_select_radio_entries go here
 #: ../app/menus.c:173
-#, fuzzy
+#
 msgid "Select By"
-msgstr "/_Sélection"
+msgstr "_Sélection"
 
 #: ../app/menus.c:175
-#, fuzzy
+#
 msgid "_Input Methods"
-msgstr "/_Méthodes de saisie"
+msgstr "_Méthodes de saisie"
 
 #: ../app/menus.c:177
 msgid "D_ialogs"
@@ -1432,9 +1432,9 @@ msgid "D_ebug"
 msgstr ""
 
 #: ../app/menus.c:185
-#, fuzzy
+#
 msgid "_Tools"
-msgstr "/_Outils"
+msgstr "_Outils"
 
 #: ../app/menus.c:186
 msgid "Modify"

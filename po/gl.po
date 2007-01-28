@@ -1305,14 +1305,14 @@ msgid "_Parent"
 msgstr "Previr"
 
 #: ../app/menus.c:143
-#, fuzzy
+#
 msgid "_Unparent"
-msgstr "/Obxectos/_Desasociar do Pai"
+msgstr "_Desasociar do Pai"
 
 #: ../app/menus.c:144
-#, fuzzy
+#
 msgid "_Unparent Children"
-msgstr "/Obxectos/_Desasociar Fillos do Pai"
+msgstr "_Desasociar Fillos do Pai"
 
 #. Translators: Menu item Verb/Support/Position/Align
 #: ../app/menus.c:146 ../objects/FS/function.c:806

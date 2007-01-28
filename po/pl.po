@@ -1155,9 +1155,9 @@ msgid "Dia Diagram File"
 msgstr "Diagram Dia"
 
 #: ../app/menus.c:54
-#, fuzzy
+#
 msgid "_File"
-msgstr "/_Plik"
+msgstr "_Plik"
 
 #: ../app/menus.c:58
 msgid "_Help"
@@ -1192,9 +1192,9 @@ msgid "_Edit"
 msgstr "/Edycja"
 
 #: ../app/menus.c:94
-#, fuzzy
+#
 msgid "_Duplicate"
-msgstr "/Edycja/Z_duplikuj"
+msgstr "Z_duplikuj"
 
 #. the following used to bind to <control><shift>C which collides with Unicode input.
 #. * <control>>alt> doesn't work either
@@ -1211,9 +1211,9 @@ msgid "Paste _Text"
 msgstr "Wklej _tekst"
 
 #: ../app/menus.c:103
-#, fuzzy
+#
 msgid "_Diagram"
-msgstr "/_Diagram"
+msgstr "_Diagram"
 
 #: ../app/menus.c:105
 #, fuzzy
@@ -1221,9 +1221,9 @@ msgid "_Layers..."
 msgstr "W_arstwy"
 
 #: ../app/menus.c:107
-#, fuzzy
+#
 msgid "_View"
-msgstr "/_Widok"
+msgstr "_Widok"
 
 #: ../app/menus.c:110
 msgid "_Zoom"
@@ -1354,9 +1354,9 @@ msgid "Spread Out Horizontally"
 msgstr "Obróć poziomo"
 
 #: ../app/menus.c:156
-#, fuzzy
+#
 msgid "Spread Out Vertically"
-msgstr "/Obiekty/Wyrównanie pionowe"
+msgstr "Wyrównanie pionowe"
 
 #: ../app/menus.c:157
 msgid "Adjacent"
@@ -1368,9 +1368,9 @@ msgid "Stacked"
 msgstr "Stan"
 
 #: ../app/menus.c:162
-#, fuzzy
+#
 msgid "_Select"
-msgstr "/_Zaznaczenie"
+msgstr "_Zaznaczenie"
 
 #: ../app/menus.c:163
 msgid "All"
@@ -1394,15 +1394,15 @@ msgid "Connected"
 msgstr "Połączone"
 
 #: ../app/menus.c:169
-#, fuzzy
+#
 msgid "Same Type"
-msgstr "/Zaznaczenie/Ten sam typ"
+msgstr "Ten sam typ"
 
 #. display_select_radio_entries go here
 #: ../app/menus.c:173
-#, fuzzy
+#
 msgid "Select By"
-msgstr "/_Zaznaczenie"
+msgstr "_Zaznaczenie"
 
 #: ../app/menus.c:175
 msgid "_Input Methods"
@@ -1449,9 +1449,9 @@ msgid "_Snap To Grid"
 msgstr "P_rzyciąganie do siatki"
 
 #: ../app/menus.c:222
-#, fuzzy
+#
 msgid "Snap To _Objects"
-msgstr "/Widok/Przyciąganie do siatki"
+msgstr "Przyciąganie do siatki"
 
 #: ../app/menus.c:223
 msgid "Show _Rulers"

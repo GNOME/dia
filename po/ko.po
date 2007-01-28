@@ -1128,9 +1128,9 @@ msgid "Dia Diagram File"
 msgstr "도표 편집기"
 
 #: ../app/menus.c:54
-#, fuzzy
+#
 msgid "_File"
-msgstr "/파일(_F)"
+msgstr "파일(_F)"
 
 #: ../app/menus.c:58
 msgid "_Help"
@@ -1160,14 +1160,14 @@ msgid "Page Set_up..."
 msgstr "쪽 설정(_u)..."
 
 #: ../app/menus.c:87 ../app/sheets_dialog.c:236
-#, fuzzy
+#
 msgid "_Edit"
-msgstr "/편집(_E)"
+msgstr "편집(_E)"
 
 #: ../app/menus.c:94
-#, fuzzy
+#
 msgid "_Duplicate"
-msgstr "/편집/지우기(_D)"
+msgstr "지우기(_D)"
 
 #. the following used to bind to <control><shift>C which collides with Unicode input.
 #. * <control>>alt> doesn't work either
@@ -1194,9 +1194,9 @@ msgid "_Layers..."
 msgstr "계층(_L)"
 
 #: ../app/menus.c:107
-#, fuzzy
+#
 msgid "_View"
-msgstr "/보기(_V)"
+msgstr "보기(_V)"
 
 #: ../app/menus.c:110
 msgid "_Zoom"
@@ -1248,18 +1248,18 @@ msgstr ""
 
 #. "display_toggle_entries" items go here
 #: ../app/menus.c:126
-#, fuzzy
+#
 msgid "New _View"
-msgstr "/보기/새 보기(_V)"
+msgstr "새 보기(_V)"
 
 #: ../app/menus.c:127
 msgid "C_lone View"
 msgstr ""
 
 #: ../app/menus.c:132
-#, fuzzy
+#
 msgid "_Objects"
-msgstr "/객체(_O)"
+msgstr "객체(_O)"
 
 #: ../app/menus.c:133
 msgid "Send to _Back"
@@ -1275,9 +1275,9 @@ msgid "Send Backwards"
 msgstr "뒤로 보냄(_B)"
 
 #: ../app/menus.c:136
-#, fuzzy
+#
 msgid "Bring Forwards"
-msgstr "/객체/앞으로 보냄"
+msgstr "앞으로 보냄"
 
 #: ../app/menus.c:138
 msgid "_Group"
@@ -1294,9 +1294,9 @@ msgid "_Parent"
 msgstr "인자:"
 
 #: ../app/menus.c:143
-#, fuzzy
+#
 msgid "_Unparent"
-msgstr "/객체/풀기(_U)"
+msgstr "풀기(_U)"
 
 #: ../app/menus.c:144
 msgid "_Unparent Children"
@@ -1322,14 +1322,14 @@ msgid "Bottom"
 msgstr "아래"
 
 #: ../app/menus.c:155
-#, fuzzy
+#
 msgid "Spread Out Horizontally"
-msgstr "/객체/수평 정렬(_H)"
+msgstr "수평 정렬(_H)"
 
 #: ../app/menus.c:156
-#, fuzzy
+#
 msgid "Spread Out Vertically"
-msgstr "/객체/수직 정렬(_V)"
+msgstr "수직 정렬(_V)"
 
 #: ../app/menus.c:157
 #, fuzzy
@@ -1371,9 +1371,9 @@ msgid "Connected"
 msgstr "연결점:"
 
 #: ../app/menus.c:169
-#, fuzzy
+#
 msgid "Same Type"
-msgstr "/선택/같은 형태"
+msgstr "같은 형태"
 
 #. display_select_radio_entries go here
 #: ../app/menus.c:173
@@ -1386,9 +1386,9 @@ msgid "_Input Methods"
 msgstr ""
 
 #: ../app/menus.c:177
-#, fuzzy
+#
 msgid "D_ialogs"
-msgstr "/대화상자(_D)"
+msgstr "대화상자(_D)"
 
 #: ../app/menus.c:179
 msgid "D_ebug"
@@ -1424,14 +1424,14 @@ msgid "Show _Grid"
 msgstr "가장자리 보임:"
 
 #: ../app/menus.c:221
-#, fuzzy
+#
 msgid "_Snap To Grid"
-msgstr "/보기/끊긴 격자"
+msgstr "끊긴 격자"
 
 #: ../app/menus.c:222
-#, fuzzy
+#
 msgid "Snap To _Objects"
-msgstr "/보기/끊긴 격자"
+msgstr "끊긴 격자"
 
 #: ../app/menus.c:223
 msgid "Show _Rulers"
@@ -1452,9 +1452,9 @@ msgid "Union"
 msgstr "연결점:"
 
 #: ../app/menus.c:232
-#, fuzzy
+#
 msgid "Intersection"
-msgstr "/선택/반대"
+msgstr "반대"
 
 #. Translators: Menu item Verb/Channel/Export/Remove
 #. Translators: Menu item Verb/Branch/Separate/Remove

@@ -1142,14 +1142,14 @@ msgid "Dia Diagram File"
 msgstr "Ekte Dia-diagram"
 
 #: ../app/menus.c:54
-#, fuzzy
+#
 msgid "_File"
-msgstr "/_Fil"
+msgstr "_Fil"
 
 #: ../app/menus.c:58
-#, fuzzy
+#
 msgid "_Help"
-msgstr "/_Hjelp"
+msgstr "_Hjelp"
 
 #: ../app/menus.c:66
 #, fuzzy
@@ -1176,14 +1176,14 @@ msgid "Page Set_up..."
 msgstr "Side_oppsett ..."
 
 #: ../app/menus.c:87 ../app/sheets_dialog.c:236
-#, fuzzy
+#
 msgid "_Edit"
-msgstr "/_Rediger"
+msgstr "_Rediger"
 
 #: ../app/menus.c:94
-#, fuzzy
+#
 msgid "_Duplicate"
-msgstr "/Rediger/_Slett"
+msgstr "_Slett"
 
 #. the following used to bind to <control><shift>C which collides with Unicode input.
 #. * <control>>alt> doesn't work either
@@ -1210,9 +1210,9 @@ msgid "_Layers..."
 msgstr "_Lag"
 
 #: ../app/menus.c:107
-#, fuzzy
+#
 msgid "_View"
-msgstr "/_Vis"
+msgstr "_Vis"
 
 #: ../app/menus.c:110
 msgid "_Zoom"
@@ -1290,9 +1290,9 @@ msgid "Send Backwards"
 msgstr "Send til _bakgrunnen"
 
 #: ../app/menus.c:136
-#, fuzzy
+#
 msgid "Bring Forwards"
-msgstr "/Objekt/Hent _fram"
+msgstr "Hent _fram"
 
 #: ../app/menus.c:138
 msgid "_Group"
@@ -1309,9 +1309,9 @@ msgid "_Parent"
 msgstr "Førre"
 
 #: ../app/menus.c:143
-#, fuzzy
+#
 msgid "_Unparent"
-msgstr "/Objekt/_Grupper"
+msgstr "_Grupper"
 
 #: ../app/menus.c:144
 msgid "_Unparent Children"
@@ -1336,14 +1336,14 @@ msgid "Bottom"
 msgstr "Nederst"
 
 #: ../app/menus.c:155
-#, fuzzy
+#
 msgid "Spread Out Horizontally"
-msgstr "/Objekt/Juster _vassrett"
+msgstr "Juster _vassrett"
 
 #: ../app/menus.c:156
-#, fuzzy
+#
 msgid "Spread Out Vertically"
-msgstr "/Objekt/Juster _loddrett"
+msgstr "Juster _loddrett"
 
 #: ../app/menus.c:157
 #, fuzzy
@@ -1356,9 +1356,9 @@ msgid "Stacked"
 msgstr "Tilstand"
 
 #: ../app/menus.c:162
-#, fuzzy
+#
 msgid "_Select"
-msgstr "/_Vel"
+msgstr "_Vel"
 
 #: ../app/menus.c:163
 msgid "All"
@@ -1389,9 +1389,9 @@ msgstr "Datatype"
 
 #. display_select_radio_entries go here
 #: ../app/menus.c:173
-#, fuzzy
+#
 msgid "Select By"
-msgstr "/_Vel"
+msgstr "_Vel"
 
 #: ../app/menus.c:175
 msgid "_Input Methods"
@@ -1439,9 +1439,9 @@ msgid "_Snap To Grid"
 msgstr "Ju_ster til rutenett"
 
 #: ../app/menus.c:222
-#, fuzzy
+#
 msgid "Snap To _Objects"
-msgstr "/Vis/Ju_ster til rutenett"
+msgstr "Ju_ster til rutenett"
 
 #: ../app/menus.c:223
 msgid "Show _Rulers"

@@ -1177,14 +1177,14 @@ msgid "Dia Diagram File"
 msgstr "Dia-diagramfil"
 
 #: ../app/menus.c:54
-#, fuzzy
+#
 msgid "_File"
-msgstr "/_Arkiv"
+msgstr "_Arkiv"
 
 #: ../app/menus.c:58
-#, fuzzy
+#
 msgid "_Help"
-msgstr "/_Hjälp"
+msgstr "_Hjälp"
 
 #: ../app/menus.c:66
 #, fuzzy
@@ -1215,9 +1215,9 @@ msgid "_Edit"
 msgstr "_Redigera"
 
 #: ../app/menus.c:94
-#, fuzzy
+#
 msgid "_Duplicate"
-msgstr "/Redigera/_Duplicera"
+msgstr "_Duplicera"
 
 #. the following used to bind to <control><shift>C which collides with Unicode input.
 #. * <control>>alt> doesn't work either
@@ -1243,9 +1243,9 @@ msgid "_Layers..."
 msgstr "Lager"
 
 #: ../app/menus.c:107
-#, fuzzy
+#
 msgid "_View"
-msgstr "/_Visa"
+msgstr "_Visa"
 
 #: ../app/menus.c:110
 msgid "_Zoom"
@@ -1306,14 +1306,14 @@ msgid "New _View"
 msgstr "Ny _vy"
 
 #: ../app/menus.c:127
-#, fuzzy
+#
 msgid "C_lone View"
-msgstr "/Visa/Klona _vy"
+msgstr "Klona _vy"
 
 #: ../app/menus.c:132
-#, fuzzy
+#
 msgid "_Objects"
-msgstr "/_Objekt"
+msgstr "_Objekt"
 
 #: ../app/menus.c:133
 msgid "Send to _Back"
@@ -1350,9 +1350,9 @@ msgstr "_Avföräldra"
 
 # Knepigt, men så är originalet
 #: ../app/menus.c:144
-#, fuzzy
+#
 msgid "_Unparent Children"
-msgstr "/Objekt/_Avföräldra barn"
+msgstr "_Avföräldra barn"
 
 #. Translators: Menu item Verb/Support/Position/Align
 #: ../app/menus.c:146 ../objects/FS/function.c:806
@@ -1373,14 +1373,14 @@ msgid "Bottom"
 msgstr "Undersida"
 
 #: ../app/menus.c:155
-#, fuzzy
+#
 msgid "Spread Out Horizontally"
-msgstr "/Objekt/Justera/Sprid ut horisontellt"
+msgstr "Sprid ut horisontellt"
 
 #: ../app/menus.c:156
-#, fuzzy
+#
 msgid "Spread Out Vertically"
-msgstr "/Objekt/Justera/Sprid ut vertikalt"
+msgstr "Sprid ut vertikalt"
 
 #: ../app/menus.c:157
 msgid "Adjacent"
@@ -1392,9 +1392,9 @@ msgid "Stacked"
 msgstr "Tillstånd"
 
 #: ../app/menus.c:162
-#, fuzzy
+#
 msgid "_Select"
-msgstr "/_Markera"
+msgstr "_Markera"
 
 #: ../app/menus.c:163
 msgid "All"
@@ -1418,20 +1418,20 @@ msgid "Connected"
 msgstr "Ansluten"
 
 #: ../app/menus.c:169
-#, fuzzy
+#
 msgid "Same Type"
-msgstr "/Markera/Samma typ"
+msgstr "Samma typ"
 
 #. display_select_radio_entries go here
 #: ../app/menus.c:173
-#, fuzzy
+#
 msgid "Select By"
-msgstr "/_Markera"
+msgstr "_Markera"
 
 #: ../app/menus.c:175
-#, fuzzy
+#
 msgid "_Input Methods"
-msgstr "/_Inmatningsmetoder"
+msgstr "_Inmatningsmetoder"
 
 #: ../app/menus.c:177
 msgid "D_ialogs"
@@ -1442,9 +1442,9 @@ msgid "D_ebug"
 msgstr ""
 
 #: ../app/menus.c:185
-#, fuzzy
+#
 msgid "_Tools"
-msgstr "/_Verktyg"
+msgstr "_Verktyg"
 
 #: ../app/menus.c:186
 msgid "Modify"
@@ -1455,9 +1455,9 @@ msgid "Scroll"
 msgstr "Rulla"
 
 #: ../app/menus.c:210
-#, fuzzy
+#
 msgid "Fullscr_een"
-msgstr "/Visa/Helskä_rm"
+msgstr "Helskä_rm"
 
 #. we must have all actions registered to avoid configuration specific ui-files and crashing in GTK+,
 #. * see: http://bugzilla.gnome.org/show_bug.cgi?id=396161
@@ -1475,9 +1475,9 @@ msgid "_Snap To Grid"
 msgstr "_Fäst vid rutnät"
 
 #: ../app/menus.c:222
-#, fuzzy
+#
 msgid "Snap To _Objects"
-msgstr "/Visa/Fäst vid _objekt"
+msgstr "Fäst vid _objekt"
 
 #: ../app/menus.c:223
 msgid "Show _Rulers"

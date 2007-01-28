@@ -1183,14 +1183,14 @@ msgid "Dia Diagram File"
 msgstr "Dia Diagramë File"
 
 #: ../app/menus.c:54
-#, fuzzy
+#
 msgid "_File"
-msgstr "/_File"
+msgstr "_File"
 
 #: ../app/menus.c:58
-#, fuzzy
+#
 msgid "_Help"
-msgstr "/_Ndihmë"
+msgstr "_Ndihmë"
 
 #: ../app/menus.c:66
 #, fuzzy
@@ -1208,9 +1208,9 @@ msgid "_Diagram tree..."
 msgstr "Diagramë degëzimi"
 
 #: ../app/menus.c:82
-#, fuzzy
+#
 msgid "_Export ..."
-msgstr "/File/_Eksporto..."
+msgstr "_Eksporto..."
 
 #: ../app/menus.c:83
 #, fuzzy
@@ -1222,9 +1222,9 @@ msgid "_Edit"
 msgstr "_Ndrysho"
 
 #: ../app/menus.c:94
-#, fuzzy
+#
 msgid "_Duplicate"
-msgstr "/Ndrysho/_Ngjite"
+msgstr "_Ngjite"
 
 #. the following used to bind to <control><shift>C which collides with Unicode input.
 #. * <control>>alt> doesn't work either
@@ -1254,9 +1254,9 @@ msgid "_Layers..."
 msgstr "Nivelet"
 
 #: ../app/menus.c:107
-#, fuzzy
+#
 msgid "_View"
-msgstr "/_Paraqitja"
+msgstr "_Paraqitja"
 
 #: ../app/menus.c:110
 #, fuzzy
@@ -1462,9 +1462,9 @@ msgid "D_ebug"
 msgstr ""
 
 #: ../app/menus.c:185
-#, fuzzy
+#
 msgid "_Tools"
-msgstr "/_Instrumentë"
+msgstr "_Instrumentë"
 
 #: ../app/menus.c:186
 msgid "Modify"

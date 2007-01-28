@@ -1142,14 +1142,14 @@ msgid "Dia Diagram File"
 msgstr "Gerçek Dia Diyagramı"
 
 #: ../app/menus.c:54
-#, fuzzy
+#
 msgid "_File"
-msgstr "/_Dosya"
+msgstr "_Dosya"
 
 #: ../app/menus.c:58
-#, fuzzy
+#
 msgid "_Help"
-msgstr "/_Yardım"
+msgstr "_Yardım"
 
 #: ../app/menus.c:66
 #, fuzzy
@@ -1180,9 +1180,9 @@ msgid "_Edit"
 msgstr "_Düzenle"
 
 #: ../app/menus.c:94
-#, fuzzy
+#
 msgid "_Duplicate"
-msgstr "/Dğzenle/_Sil"
+msgstr "_Sil"
 
 #. the following used to bind to <control><shift>C which collides with Unicode input.
 #. * <control>>alt> doesn't work either
@@ -1209,9 +1209,9 @@ msgid "_Layers..."
 msgstr "_Katmanlar"
 
 #: ../app/menus.c:107
-#, fuzzy
+#
 msgid "_View"
-msgstr "/_Görünüm"
+msgstr "_Görünüm"
 
 #: ../app/menus.c:110
 msgid "_Zoom"
@@ -1289,9 +1289,9 @@ msgid "Send Backwards"
 msgstr "Öne getir"
 
 #: ../app/menus.c:136
-#, fuzzy
+#
 msgid "Bring Forwards"
-msgstr "/Nesneler/Öne getir"
+msgstr "Öne getir"
 
 #: ../app/menus.c:138
 msgid "_Group"
@@ -1335,14 +1335,14 @@ msgid "Bottom"
 msgstr "Alt"
 
 #: ../app/menus.c:155
-#, fuzzy
+#
 msgid "Spread Out Horizontally"
-msgstr "/Nesneler/Dikey hizala"
+msgstr "Dikey hizala"
 
 #: ../app/menus.c:156
-#, fuzzy
+#
 msgid "Spread Out Vertically"
-msgstr "/Nesneler/Dikey hizalama"
+msgstr "Dikey hizalama"
 
 #: ../app/menus.c:157
 msgid "Adjacent"
@@ -1354,9 +1354,9 @@ msgid "Stacked"
 msgstr "Başla"
 
 #: ../app/menus.c:162
-#, fuzzy
+#
 msgid "_Select"
-msgstr "/_Seç"
+msgstr "_Seç"
 
 #: ../app/menus.c:163
 msgid "All"
@@ -1386,9 +1386,9 @@ msgstr "Durum Tipi"
 
 #. display_select_radio_entries go here
 #: ../app/menus.c:173
-#, fuzzy
+#
 msgid "Select By"
-msgstr "/_Seç"
+msgstr "_Seç"
 
 #: ../app/menus.c:175
 msgid "_Input Methods"
@@ -1436,9 +1436,9 @@ msgid "_Snap To Grid"
 msgstr "Çizgiye takıl"
 
 #: ../app/menus.c:222
-#, fuzzy
+#
 msgid "Snap To _Objects"
-msgstr "/Görünüm/_Ağa takıl"
+msgstr "_Ağa takıl"
 
 #: ../app/menus.c:223
 msgid "Show _Rulers"

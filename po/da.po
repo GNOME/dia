@@ -1174,9 +1174,9 @@ msgid "Dia Diagram File"
 msgstr "Dia-diagramformat"
 
 #: ../app/menus.c:54
-#, fuzzy
+#
 msgid "_File"
-msgstr "/_Fil"
+msgstr "_Fil"
 
 #: ../app/menus.c:58
 msgid "_Help"
@@ -1211,9 +1211,9 @@ msgid "_Edit"
 msgstr "_Redigér"
 
 #: ../app/menus.c:94
-#, fuzzy
+#
 msgid "_Duplicate"
-msgstr "/Redigér/_Slet"
+msgstr "_Slet"
 
 #. the following used to bind to <control><shift>C which collides with Unicode input.
 #. * <control>>alt> doesn't work either
@@ -1240,9 +1240,9 @@ msgid "_Layers..."
 msgstr "_Lag"
 
 #: ../app/menus.c:107
-#, fuzzy
+#
 msgid "_View"
-msgstr "/_Vis"
+msgstr "_Vis"
 
 #: ../app/menus.c:110
 msgid "_Zoom"
@@ -1371,14 +1371,14 @@ msgid "Bottom"
 msgstr "Nederst"
 
 #: ../app/menus.c:155
-#, fuzzy
+#
 msgid "Spread Out Horizontally"
-msgstr "/Objekter/Justér _vandret"
+msgstr "Justér _vandret"
 
 #: ../app/menus.c:156
-#, fuzzy
+#
 msgid "Spread Out Vertically"
-msgstr "/Objekter/Justér _lodret"
+msgstr "Justér _lodret"
 
 #: ../app/menus.c:157
 msgid "Adjacent"
@@ -1390,9 +1390,9 @@ msgid "Stacked"
 msgstr "Tilstand"
 
 #: ../app/menus.c:162
-#, fuzzy
+#
 msgid "_Select"
-msgstr "/_Markér"
+msgstr "_Markér"
 
 #: ../app/menus.c:163
 msgid "All"
@@ -1422,9 +1422,9 @@ msgstr "Tilstandstype"
 
 #. display_select_radio_entries go here
 #: ../app/menus.c:173
-#, fuzzy
+#
 msgid "Select By"
-msgstr "/_Markér"
+msgstr "_Markér"
 
 #: ../app/menus.c:175
 msgid "_Input Methods"
@@ -1471,9 +1471,9 @@ msgid "_Snap To Grid"
 msgstr "_Ret ind efter gitter"
 
 #: ../app/menus.c:222
-#, fuzzy
+#
 msgid "Snap To _Objects"
-msgstr "/Vis/_Ret ind efter gitter"
+msgstr "_Ret ind efter gitter"
 
 #: ../app/menus.c:223
 msgid "Show _Rulers"
@@ -3923,9 +3923,9 @@ msgid "Goal Type"
 msgstr "Samme type"
 
 #: ../objects/Istar/istar.c:46
-#, fuzzy
+#
 msgid "Istar diagram"
-msgstr "/Sortér _diagrammer"
+msgstr "Sortér _diagrammer"
 
 #: ../objects/Istar/link.c:153
 #, fuzzy

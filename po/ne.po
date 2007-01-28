@@ -1163,14 +1163,14 @@ msgid "Dia Diagram File"
 msgstr "डाय चित्र फाइल"
 
 #: ../app/menus.c:54
-#, fuzzy
+#
 msgid "_File"
-msgstr "/फाइल"
+msgstr "फाइल"
 
 #: ../app/menus.c:58
-#, fuzzy
+#
 msgid "_Help"
-msgstr "/मद्दत"
+msgstr "मद्दत"
 
 #: ../app/menus.c:66
 #, fuzzy
@@ -1188,9 +1188,9 @@ msgid "_Diagram tree..."
 msgstr "चित्र ट्रि"
 
 #: ../app/menus.c:82
-#, fuzzy
+#
 msgid "_Export ..."
-msgstr "/फाइल/निर्यात गर्नुहोस्..."
+msgstr "निर्यात गर्नुहोस्..."
 
 #: ../app/menus.c:83
 #, fuzzy
@@ -1202,31 +1202,31 @@ msgid "_Edit"
 msgstr "सम्पादन"
 
 #: ../app/menus.c:94
-#, fuzzy
+#
 msgid "_Duplicate"
-msgstr "/सम्पादन/नक्कल"
+msgstr "नक्कल"
 
 #. the following used to bind to <control><shift>C which collides with Unicode input.
 #. * <control>>alt> doesn't work either
 #: ../app/menus.c:99
-#, fuzzy
+#
 msgid "Copy Text"
-msgstr "/सम्पादन/ पाठ प्रतिलिपि बनाउनुहोस्"
+msgstr " पाठ प्रतिलिपि बनाउनुहोस्"
 
 #: ../app/menus.c:100
-#, fuzzy
+#
 msgid "Cut Text"
-msgstr "/सम्पादन/पाठ काट्नुहोस्"
+msgstr "पाठ काट्नुहोस्"
 
 #: ../app/menus.c:101
-#, fuzzy
+#
 msgid "Paste _Text"
-msgstr "/सम्पादन/पाठ टाँस्नुहोस्"
+msgstr "पाठ टाँस्नुहोस्"
 
 #: ../app/menus.c:103
-#, fuzzy
+#
 msgid "_Diagram"
-msgstr "/चित्र"
+msgstr "चित्र"
 
 #: ../app/menus.c:105
 #, fuzzy
@@ -1234,9 +1234,9 @@ msgid "_Layers..."
 msgstr "तहहरू"
 
 #: ../app/menus.c:107
-#, fuzzy
+#
 msgid "_View"
-msgstr "/दृश्य"
+msgstr "दृश्य"
 
 #: ../app/menus.c:110
 #, fuzzy
@@ -1292,39 +1292,39 @@ msgstr ""
 
 #. "display_toggle_entries" items go here
 #: ../app/menus.c:126
-#, fuzzy
+#
 msgid "New _View"
-msgstr "/दृश्य/नयाँ दृश्य"
+msgstr "नयाँ दृश्य"
 
 #: ../app/menus.c:127
-#, fuzzy
+#
 msgid "C_lone View"
-msgstr "/दृश्य/क्लोन दृश्य"
+msgstr "क्लोन दृश्य"
 
 #: ../app/menus.c:132
-#, fuzzy
+#
 msgid "_Objects"
-msgstr "/वस्तुहरू"
+msgstr "वस्तुहरू"
 
 #: ../app/menus.c:133
-#, fuzzy
+#
 msgid "Send to _Back"
-msgstr "/वस्तुहरू/पछाडी पठाउनुहोस्"
+msgstr "पछाडी पठाउनुहोस्"
 
 #: ../app/menus.c:134
-#, fuzzy
+#
 msgid "Bring to _Front"
-msgstr "/वस्तुहरू/अगाडी ल्याउनुहोस्"
+msgstr "अगाडी ल्याउनुहोस्"
 
 #: ../app/menus.c:135
-#, fuzzy
+#
 msgid "Send Backwards"
-msgstr "/वस्तुहरू/पछिल्तिर पठाउनुहोस्"
+msgstr "पछिल्तिर पठाउनुहोस्"
 
 #: ../app/menus.c:136
-#, fuzzy
+#
 msgid "Bring Forwards"
-msgstr "/वस्तुहरू/अघिल्तिर ल्याउनुहोस्"
+msgstr "अघिल्तिर ल्याउनुहोस्"
 
 #: ../app/menus.c:138
 msgid "_Group"
@@ -1332,9 +1332,9 @@ msgstr ""
 
 #. deliberately not using Ctrl+U for Ungroup
 #: ../app/menus.c:140
-#, fuzzy
+#
 msgid "_Ungroup"
-msgstr "/वस्तुहरू/समूह छुट्याउनुहोस्"
+msgstr "समूह छुट्याउनुहोस्"
 
 #: ../app/menus.c:142
 #, fuzzy
@@ -1342,14 +1342,14 @@ msgid "_Parent"
 msgstr "रोक्नुहोस्"
 
 #: ../app/menus.c:143
-#, fuzzy
+#
 msgid "_Unparent"
-msgstr "/वस्तुहरू/अप्रमूल"
+msgstr "अप्रमूल"
 
 #: ../app/menus.c:144
-#, fuzzy
+#
 msgid "_Unparent Children"
-msgstr "/वस्तुहरू/अनप्यारेन्ट शाखा"
+msgstr "अनप्यारेन्ट शाखा"
 
 #. Translators: Menu item Verb/Support/Position/Align
 #: ../app/menus.c:146 ../objects/FS/function.c:806
@@ -1370,14 +1370,14 @@ msgid "Bottom"
 msgstr "तल"
 
 #: ../app/menus.c:155
-#, fuzzy
+#
 msgid "Spread Out Horizontally"
-msgstr "/वस्तुहरू/पङ्क्तिबद्ध गर्नुहोस्/तेर्सो गरी फैलाउनुहोस्"
+msgstr "तेर्सो गरी फैलाउनुहोस्"
 
 #: ../app/menus.c:156
-#, fuzzy
+#
 msgid "Spread Out Vertically"
-msgstr "/वस्तुहरू/पङ्क्तिबद्ध गर्नुहोस्/ठाडो गरी फैलाउनुहोस्"
+msgstr "ठाडो गरी फैलाउनुहोस्"
 
 #: ../app/menus.c:157
 #, fuzzy
@@ -1390,9 +1390,9 @@ msgid "Stacked"
 msgstr "स्थिति"
 
 #: ../app/menus.c:162
-#, fuzzy
+#
 msgid "_Select"
-msgstr "/चयन गर्नुहोस्"
+msgstr "चयन गर्नुहोस्"
 
 #: ../app/menus.c:163
 #, fuzzy
@@ -1420,20 +1420,20 @@ msgid "Connected"
 msgstr "जडान गर्नुहोस्"
 
 #: ../app/menus.c:169
-#, fuzzy
+#
 msgid "Same Type"
-msgstr "/चयन गर्नुहोस्/उस्तै प्रकारको"
+msgstr "उस्तै प्रकारको"
 
 #. display_select_radio_entries go here
 #: ../app/menus.c:173
-#, fuzzy
+#
 msgid "Select By"
-msgstr "/चयन गर्नुहोस्"
+msgstr "चयन गर्नुहोस्"
 
 #: ../app/menus.c:175
-#, fuzzy
+#
 msgid "_Input Methods"
-msgstr "/आगत तरिकाहरू"
+msgstr "आगत तरिकाहरू"
 
 #: ../app/menus.c:177
 msgid "D_ialogs"
@@ -1444,9 +1444,9 @@ msgid "D_ebug"
 msgstr ""
 
 #: ../app/menus.c:185
-#, fuzzy
+#
 msgid "_Tools"
-msgstr "/उपकरणहरू"
+msgstr "उपकरणहरू"
 
 #: ../app/menus.c:186
 msgid "Modify"
@@ -1457,42 +1457,42 @@ msgid "Scroll"
 msgstr "स्क्रोल गर्नुहोस्"
 
 #: ../app/menus.c:210
-#, fuzzy
+#
 msgid "Fullscr_een"
-msgstr "/दृश्य/पूरापर्दा"
+msgstr "पूरापर्दा"
 
 #. we must have all actions registered to avoid configuration specific ui-files and crashing in GTK+,
 #. * see: http://bugzilla.gnome.org/show_bug.cgi?id=396161
 #.
 #: ../app/menus.c:213 ../app/menus.c:218
-#, fuzzy
+#
 msgid "_AntiAliased"
-msgstr "/दृश्य/एन्टिएलाइज गरिएको"
+msgstr "एन्टिएलाइज गरिएको"
 
 #: ../app/menus.c:220
-#, fuzzy
+#
 msgid "Show _Grid"
-msgstr "/दृश्य/ग्रिड देखाउनुहोस्"
+msgstr "ग्रिड देखाउनुहोस्"
 
 #: ../app/menus.c:221
-#, fuzzy
+#
 msgid "_Snap To Grid"
-msgstr "/दृश्य/ग्रिडमा सटाउनुहोस्"
+msgstr "ग्रिडमा सटाउनुहोस्"
 
 #: ../app/menus.c:222
-#, fuzzy
+#
 msgid "Snap To _Objects"
-msgstr "/दृश्य/वस्तुहरूमा सटाउनुहोस्"
+msgstr "वस्तुहरूमा सटाउनुहोस्"
 
 #: ../app/menus.c:223
-#, fuzzy
+#
 msgid "Show _Rulers"
-msgstr "/दृश्य/रुलरहरू देखाउनुहोस्"
+msgstr "रुलरहरू देखाउनुहोस्"
 
 #: ../app/menus.c:224
-#, fuzzy
+#
 msgid "Show _Connection Points"
-msgstr "/दृश्य/जडान बिन्दुहरू देखाउनुहोस्"
+msgstr "जडान बिन्दुहरू देखाउनुहोस्"
 
 #: ../app/menus.c:230
 #, fuzzy
@@ -1505,9 +1505,9 @@ msgid "Union"
 msgstr "कुनै पनि होइन"
 
 #: ../app/menus.c:232
-#, fuzzy
+#
 msgid "Intersection"
-msgstr "/चयन गर्नुहोस्/प्रतिच्छेदन"
+msgstr "प्रतिच्छेदन"
 
 #. Translators: Menu item Verb/Channel/Export/Remove
 #. Translators: Menu item Verb/Branch/Separate/Remove

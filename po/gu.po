@@ -1151,24 +1151,24 @@ msgid "Dia Diagram File"
 msgstr "ડાયા આકૃતિ ફાઈલ"
 
 #: ../app/menus.c:54
-#, fuzzy
+#
 msgid "_File"
-msgstr "/ફાઈલ (_F)"
+msgstr "ફાઈલ (_F)"
 
 #: ../app/menus.c:58
-#, fuzzy
+#
 msgid "_Help"
-msgstr "/મદદ (_H)"
+msgstr "મદદ (_H)"
 
 #: ../app/menus.c:66
-#, fuzzy
+#
 msgid "Sheets and Objects..."
-msgstr "/ફાઈલ/શીટો અને ઓબ્જેક્ટો..."
+msgstr "શીટો અને ઓબ્જેક્ટો..."
 
 #: ../app/menus.c:68
-#, fuzzy
+#
 msgid "Plugins..."
-msgstr "/ફાઈલ/પ્લગઈનો (_l)..."
+msgstr "પ્લગઈનો (_l)..."
 
 #: ../app/menus.c:74
 #, fuzzy
@@ -1176,9 +1176,9 @@ msgid "_Diagram tree..."
 msgstr "આકૃતિનો વંશવેલો"
 
 #: ../app/menus.c:82
-#, fuzzy
+#
 msgid "_Export ..."
-msgstr "/ફાઈલ/નિકાસ કરો (_E)..."
+msgstr "નિકાસ કરો (_E)..."
 
 #: ../app/menus.c:83
 #, fuzzy
@@ -1190,31 +1190,31 @@ msgid "_Edit"
 msgstr ""
 
 #: ../app/menus.c:94
-#, fuzzy
+#
 msgid "_Duplicate"
-msgstr "/ફેરફાર કરો/નકલ બનાવો (_D)"
+msgstr "નકલ બનાવો (_D)"
 
 #. the following used to bind to <control><shift>C which collides with Unicode input.
 #. * <control>>alt> doesn't work either
 #: ../app/menus.c:99
-#, fuzzy
+#
 msgid "Copy Text"
-msgstr "/ફેરફાર કરો/લખાણની નકલ કરો"
+msgstr "લખાણની નકલ કરો"
 
 #: ../app/menus.c:100
-#, fuzzy
+#
 msgid "Cut Text"
-msgstr "/ફેરફાર કરો/લખાણ કાપો"
+msgstr "લખાણ કાપો"
 
 #: ../app/menus.c:101
-#, fuzzy
+#
 msgid "Paste _Text"
-msgstr "/ફેરફાર કરો/લખાણ ચોંટાડો (_T)"
+msgstr "લખાણ ચોંટાડો (_T)"
 
 #: ../app/menus.c:103
-#, fuzzy
+#
 msgid "_Diagram"
-msgstr "/આકૃતિ (_D)"
+msgstr "આકૃતિ (_D)"
 
 #: ../app/menus.c:105
 #, fuzzy
@@ -1222,9 +1222,9 @@ msgid "_Layers..."
 msgstr "સ્તરો"
 
 #: ../app/menus.c:107
-#, fuzzy
+#
 msgid "_View"
-msgstr "/જુઓ (_V)"
+msgstr "જુઓ (_V)"
 
 #: ../app/menus.c:110
 #, fuzzy
@@ -1277,38 +1277,38 @@ msgstr ""
 
 #. "display_toggle_entries" items go here
 #: ../app/menus.c:126
-#, fuzzy
+#
 msgid "New _View"
-msgstr "/જુઓ/નવો દેખાવ (_V)"
+msgstr "નવો દેખાવ (_V)"
 
 #: ../app/menus.c:127
 msgid "C_lone View"
 msgstr ""
 
 #: ../app/menus.c:132
-#, fuzzy
+#
 msgid "_Objects"
-msgstr "/ઓબ્જેક્ટો (_O)"
+msgstr "ઓબ્જેક્ટો (_O)"
 
 #: ../app/menus.c:133
-#, fuzzy
+#
 msgid "Send to _Back"
-msgstr "/ઓબ્જેક્ટો/પાછુ મોકલો (_B)"
+msgstr "પાછુ મોકલો (_B)"
 
 #: ../app/menus.c:134
-#, fuzzy
+#
 msgid "Bring to _Front"
-msgstr "/ઓબ્જેક્ટો/અગ્ર ભાગમાં લાવો (_F)"
+msgstr "અગ્ર ભાગમાં લાવો (_F)"
 
 #: ../app/menus.c:135
-#, fuzzy
+#
 msgid "Send Backwards"
-msgstr "/ઓબ્જેક્ટો/પાછળ મોકલો"
+msgstr "પાછળ મોકલો"
 
 #: ../app/menus.c:136
-#, fuzzy
+#
 msgid "Bring Forwards"
-msgstr "/ઓબ્જેક્ટો/આગળ લાવો"
+msgstr "આગળ લાવો"
 
 #: ../app/menus.c:138
 msgid "_Group"
@@ -1316,24 +1316,24 @@ msgstr ""
 
 #. deliberately not using Ctrl+U for Ungroup
 #: ../app/menus.c:140
-#, fuzzy
+#
 msgid "_Ungroup"
-msgstr "/ઓબ્જેક્ટો/જૂથ દૂર કરો (_U)"
+msgstr "જૂથ દૂર કરો (_U)"
 
 #: ../app/menus.c:142
-#, fuzzy
+#
 msgid "_Parent"
-msgstr "/ઓબ્જેક્ટો/પિતૃ (_P)"
+msgstr "પિતૃ (_P)"
 
 #: ../app/menus.c:143
-#, fuzzy
+#
 msgid "_Unparent"
-msgstr "/ઓબ્જેક્ટો/પિતૃ નથી (_U)"
+msgstr "પિતૃ નથી (_U)"
 
 #: ../app/menus.c:144
-#, fuzzy
+#
 msgid "_Unparent Children"
-msgstr "/ઓબ્જેક્ટો/બાળને પિતૃ નહિં બનાવો (_U)"
+msgstr "બાળને પિતૃ નહિં બનાવો (_U)"
 
 #. Translators: Menu item Verb/Support/Position/Align
 #: ../app/menus.c:146 ../objects/FS/function.c:806
@@ -1355,14 +1355,14 @@ msgid "Bottom"
 msgstr "તળિયે:"
 
 #: ../app/menus.c:155
-#, fuzzy
+#
 msgid "Spread Out Horizontally"
-msgstr "/ઓબ્જેક્ટો/ગોઠવો/આડી રીતે ફેલાવી રહ્યા છીએ"
+msgstr "આડી રીતે ફેલાવી રહ્યા છીએ"
 
 #: ../app/menus.c:156
-#, fuzzy
+#
 msgid "Spread Out Vertically"
-msgstr "/ઓબ્જેક્ટો/ગોઠવો/ઊભી રીતે ફેરવી રહ્યા છીએ"
+msgstr "ઊભી રીતે ફેરવી રહ્યા છીએ"
 
 #: ../app/menus.c:157
 msgid "Adjacent"
@@ -1373,9 +1373,9 @@ msgid "Stacked"
 msgstr ""
 
 #: ../app/menus.c:162
-#, fuzzy
+#
 msgid "_Select"
-msgstr "/પસંદ કરો (_S)"
+msgstr "પસંદ કરો (_S)"
 
 #: ../app/menus.c:163
 msgid "All"
@@ -1387,30 +1387,30 @@ msgid "None"
 msgstr ""
 
 #: ../app/menus.c:165
-#, fuzzy
+#
 msgid "Invert"
-msgstr "/પસંદ કરો/ઉલટુ"
+msgstr "ઉલટુ"
 
 #: ../app/menus.c:167
-#, fuzzy
+#
 msgid "Transitive"
-msgstr "/પસંદ કરો/પરિવહન રીતે"
+msgstr "પરિવહન રીતે"
 
 #: ../app/menus.c:168
-#, fuzzy
+#
 msgid "Connected"
-msgstr "/પસંદ કરો/જોડાયેલ"
+msgstr "જોડાયેલ"
 
 #: ../app/menus.c:169
-#, fuzzy
+#
 msgid "Same Type"
-msgstr "/પસંદ કરો/એક જ પ્રકારનું"
+msgstr "એક જ પ્રકારનું"
 
 #. display_select_radio_entries go here
 #: ../app/menus.c:173
-#, fuzzy
+#
 msgid "Select By"
-msgstr "/પસંદ કરો (_S)"
+msgstr "પસંદ કરો (_S)"
 
 #: ../app/menus.c:175
 msgid "_Input Methods"
@@ -1425,9 +1425,9 @@ msgid "D_ebug"
 msgstr ""
 
 #: ../app/menus.c:185
-#, fuzzy
+#
 msgid "_Tools"
-msgstr "/સાધનો (_T)"
+msgstr "સાધનો (_T)"
 
 #: ../app/menus.c:186
 msgid "Modify"
@@ -1445,39 +1445,39 @@ msgstr ""
 #. * see: http://bugzilla.gnome.org/show_bug.cgi?id=396161
 #.
 #: ../app/menus.c:213 ../app/menus.c:218
-#, fuzzy
+#
 msgid "_AntiAliased"
-msgstr "/જુઓ/એન્ટીએલિઆઝ થયેલ (_A)"
+msgstr "એન્ટીએલિઆઝ થયેલ (_A)"
 
 #: ../app/menus.c:220
-#, fuzzy
+#
 msgid "Show _Grid"
-msgstr "/જુઓ/જાળી બતાવો (_G)"
+msgstr "જાળી બતાવો (_G)"
 
 #: ../app/menus.c:221
-#, fuzzy
+#
 msgid "_Snap To Grid"
-msgstr "/જુઓ/જાળીમાં સ્નેપ લો (_S)"
+msgstr "જાળીમાં સ્નેપ લો (_S)"
 
 #: ../app/menus.c:222
-#, fuzzy
+#
 msgid "Snap To _Objects"
-msgstr "/જુઓ/જાળીમાં સ્નેપ લો (_S)"
+msgstr "જાળીમાં સ્નેપ લો (_S)"
 
 #: ../app/menus.c:223
-#, fuzzy
+#
 msgid "Show _Rulers"
-msgstr "/જુઓ/માપપટ્ટીઓ બતાવો (_R)"
+msgstr "માપપટ્ટીઓ બતાવો (_R)"
 
 #: ../app/menus.c:224
-#, fuzzy
+#
 msgid "Show _Connection Points"
-msgstr "/જુઓ/જોડાણ બિંદુઓ બતાવો (_C)"
+msgstr "જોડાણ બિંદુઓ બતાવો (_C)"
 
 #: ../app/menus.c:230
-#, fuzzy
+#
 msgid "Replace"
-msgstr "/પસંદ કરો/બદલો"
+msgstr "બદલો"
 
 #: ../app/menus.c:231
 #, fuzzy
@@ -1485,9 +1485,9 @@ msgid "Union"
 msgstr "કંઈ નહિં"
 
 #: ../app/menus.c:232
-#, fuzzy
+#
 msgid "Intersection"
-msgstr "/પસંદ કરો/છેદો"
+msgstr "છેદો"
 
 #. Translators: Menu item Verb/Channel/Export/Remove
 #. Translators: Menu item Verb/Branch/Separate/Remove
@@ -1499,9 +1499,9 @@ msgstr ""
 
 #. Cannot also be called Invert, duplicate names caused keybinding problems
 #: ../app/menus.c:235
-#, fuzzy
+#
 msgid "Inverse"
-msgstr "/પસંદ કરો/ઉલટુ"
+msgstr "ઉલટુ"
 
 #: ../app/menus.c:278
 msgid "NULL tooldata in tool_menu_select"

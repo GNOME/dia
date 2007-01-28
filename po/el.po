@@ -1181,14 +1181,14 @@ msgid "Dia Diagram File"
 msgstr "Αρχείο Διαγράμματος Dia"
 
 #: ../app/menus.c:54
-#, fuzzy
+#
 msgid "_File"
-msgstr "/_Αρχείο"
+msgstr "_Αρχείο"
 
 #: ../app/menus.c:58
-#, fuzzy
+#
 msgid "_Help"
-msgstr "/_Βοήθεια"
+msgstr "_Βοήθεια"
 
 #: ../app/menus.c:66
 #, fuzzy
@@ -1206,9 +1206,9 @@ msgid "_Diagram tree..."
 msgstr "Δέντρο Διαγράμματος"
 
 #: ../app/menus.c:82
-#, fuzzy
+#
 msgid "_Export ..."
-msgstr "/Αρχείο/Ε_ξαγωγή..."
+msgstr "Ε_ξαγωγή..."
 
 #: ../app/menus.c:83
 #, fuzzy
@@ -1220,31 +1220,31 @@ msgid "_Edit"
 msgstr "_Επεξεργασία"
 
 #: ../app/menus.c:94
-#, fuzzy
+#
 msgid "_Duplicate"
-msgstr "/Επεξεργασία/_Διπλότυπο"
+msgstr "_Διπλότυπο"
 
 #. the following used to bind to <control><shift>C which collides with Unicode input.
 #. * <control>>alt> doesn't work either
 #: ../app/menus.c:99
-#, fuzzy
+#
 msgid "Copy Text"
-msgstr "/Επεξεργασία/Αντιγραφή κειμένου"
+msgstr "Αντιγραφή κειμένου"
 
 #: ../app/menus.c:100
-#, fuzzy
+#
 msgid "Cut Text"
-msgstr "/Επεξεργασία/Αποκοπή κειμένου"
+msgstr "Αποκοπή κειμένου"
 
 #: ../app/menus.c:101
-#, fuzzy
+#
 msgid "Paste _Text"
-msgstr "/Επεξεργασία/Επικόλληση κειμένου"
+msgstr "Επικόλληση κειμένου"
 
 #: ../app/menus.c:103
-#, fuzzy
+#
 msgid "_Diagram"
-msgstr "/_Διάγραμμα"
+msgstr "_Διάγραμμα"
 
 #: ../app/menus.c:105
 #, fuzzy
@@ -1252,9 +1252,9 @@ msgid "_Layers..."
 msgstr "Στρώματα"
 
 #: ../app/menus.c:107
-#, fuzzy
+#
 msgid "_View"
-msgstr "/_Προβολή"
+msgstr "_Προβολή"
 
 #: ../app/menus.c:110
 #, fuzzy
@@ -1310,39 +1310,39 @@ msgstr ""
 
 #. "display_toggle_entries" items go here
 #: ../app/menus.c:126
-#, fuzzy
+#
 msgid "New _View"
-msgstr "/Προβολή/Νέα Α_πεικόνιση"
+msgstr "Νέα Α_πεικόνιση"
 
 #: ../app/menus.c:127
-#, fuzzy
+#
 msgid "C_lone View"
-msgstr "/Προβολή/Νέα Α_πεικόνιση"
+msgstr "Νέα Α_πεικόνιση"
 
 #: ../app/menus.c:132
-#, fuzzy
+#
 msgid "_Objects"
-msgstr "/Α_ντικείμενα"
+msgstr "Α_ντικείμενα"
 
 #: ../app/menus.c:133
-#, fuzzy
+#
 msgid "Send to _Back"
-msgstr "/Αντικείμενα/_Βύθιση"
+msgstr "_Βύθιση"
 
 #: ../app/menus.c:134
-#, fuzzy
+#
 msgid "Bring to _Front"
-msgstr "/Αντικείμενα/Ανύ_ψωση"
+msgstr "Ανύ_ψωση"
 
 #: ../app/menus.c:135
-#, fuzzy
+#
 msgid "Send Backwards"
-msgstr "/Αντικείμενα/Μεταφορά πίσω"
+msgstr "Μεταφορά πίσω"
 
 #: ../app/menus.c:136
-#, fuzzy
+#
 msgid "Bring Forwards"
-msgstr "/Αντικείμενα/Μεταφορά Εμπρός"
+msgstr "Μεταφορά Εμπρός"
 
 #: ../app/menus.c:138
 msgid "_Group"
@@ -1350,9 +1350,9 @@ msgstr ""
 
 #. deliberately not using Ctrl+U for Ungroup
 #: ../app/menus.c:140
-#, fuzzy
+#
 msgid "_Ungroup"
-msgstr "/Αντικείμενα/_Απομαδοποίηση"
+msgstr "_Απομαδοποίηση"
 
 #: ../app/menus.c:142
 #, fuzzy
@@ -1360,14 +1360,14 @@ msgid "_Parent"
 msgstr "Αποτροπή"
 
 #: ../app/menus.c:143
-#, fuzzy
+#
 msgid "_Unparent"
-msgstr "/_Ταξινόμηση αντικειμένων"
+msgstr "_Ταξινόμηση αντικειμένων"
 
 #: ../app/menus.c:144
-#, fuzzy
+#
 msgid "_Unparent Children"
-msgstr "/Ταξινόμηση αντικειμένων/_Εξ'ορισμού"
+msgstr "_Εξ'ορισμού"
 
 #. Translators: Menu item Verb/Support/Position/Align
 #: ../app/menus.c:146 ../objects/FS/function.c:806
@@ -1379,23 +1379,23 @@ msgid "Top"
 msgstr "Επάνω"
 
 #: ../app/menus.c:152
-#, fuzzy
+#
 msgid "Middle"
-msgstr "/_Αρχείο"
+msgstr "_Αρχείο"
 
 #: ../app/menus.c:153 ../objects/standard/textobj.c:131
 msgid "Bottom"
 msgstr "Κάτω"
 
 #: ../app/menus.c:155
-#, fuzzy
+#
 msgid "Spread Out Horizontally"
-msgstr "/Αντικείμενα/Στοίχιση/Οριζόντια Έκταση"
+msgstr "Οριζόντια Έκταση"
 
 #: ../app/menus.c:156
-#, fuzzy
+#
 msgid "Spread Out Vertically"
-msgstr "/Αντικείμενα/Στοίχιση/Κατακόρυφη Έκταση"
+msgstr "Κατακόρυφη Έκταση"
 
 #: ../app/menus.c:157
 #, fuzzy
@@ -1408,9 +1408,9 @@ msgid "Stacked"
 msgstr "Κατάσταση"
 
 #: ../app/menus.c:162
-#, fuzzy
+#
 msgid "_Select"
-msgstr "/_Επιλογή"
+msgstr "_Επιλογή"
 
 #: ../app/menus.c:163
 #, fuzzy
@@ -1438,20 +1438,20 @@ msgid "Connected"
 msgstr "Σύνδεση"
 
 #: ../app/menus.c:169
-#, fuzzy
+#
 msgid "Same Type"
-msgstr "/Επιλογή/Ίδιος Τύπος"
+msgstr "Ίδιος Τύπος"
 
 #. display_select_radio_entries go here
 #: ../app/menus.c:173
-#, fuzzy
+#
 msgid "Select By"
-msgstr "/_Επιλογή"
+msgstr "_Επιλογή"
 
 #: ../app/menus.c:175
-#, fuzzy
+#
 msgid "_Input Methods"
-msgstr "/_Μέθοδοι Εισαγωγής"
+msgstr "_Μέθοδοι Εισαγωγής"
 
 #: ../app/menus.c:177
 msgid "D_ialogs"
@@ -1462,9 +1462,9 @@ msgid "D_ebug"
 msgstr ""
 
 #: ../app/menus.c:185
-#, fuzzy
+#
 msgid "_Tools"
-msgstr "/_Εργαλεία"
+msgstr "_Εργαλεία"
 
 #: ../app/menus.c:186
 msgid "Modify"
@@ -1482,34 +1482,34 @@ msgstr ""
 #. * see: http://bugzilla.gnome.org/show_bug.cgi?id=396161
 #.
 #: ../app/menus.c:213 ../app/menus.c:218
-#, fuzzy
+#
 msgid "_AntiAliased"
-msgstr "/Προβολή/_AntiAliased"
+msgstr "_AntiAliased"
 
 #: ../app/menus.c:220
-#, fuzzy
+#
 msgid "Show _Grid"
-msgstr "/Προβολή/_Εμφάνιση πλέγματος"
+msgstr "_Εμφάνιση πλέγματος"
 
 #: ../app/menus.c:221
-#, fuzzy
+#
 msgid "_Snap To Grid"
-msgstr "/Προβολή/Τοπο_θέτηση Σε Πλέγμα"
+msgstr "Τοπο_θέτηση Σε Πλέγμα"
 
 #: ../app/menus.c:222
-#, fuzzy
+#
 msgid "Snap To _Objects"
-msgstr "/Προβολή/Τοπο_θέτηση Σε Πλέγμα"
+msgstr "Τοπο_θέτηση Σε Πλέγμα"
 
 #: ../app/menus.c:223
-#, fuzzy
+#
 msgid "Show _Rulers"
-msgstr "/Προβολή/Εμφάνιση _Χαράκων"
+msgstr "Εμφάνιση _Χαράκων"
 
 #: ../app/menus.c:224
-#, fuzzy
+#
 msgid "Show _Connection Points"
-msgstr "/Προβολή/Εμφάνιση Ση_μείων Σύνδεσης"
+msgstr "Εμφάνιση Ση_μείων Σύνδεσης"
 
 #: ../app/menus.c:230
 #, fuzzy
@@ -3258,9 +3258,9 @@ msgstr "Παροχή"
 
 #. Translators: Menu item Verb/Provision/Supply/Fill
 #: ../objects/FS/function.c:934
-#, fuzzy
+#
 msgid "Fill"
-msgstr "/_Αρχείο"
+msgstr "_Αρχείο"
 
 #. Translators: Menu item Verb/Provision/Supply/Provide
 #: ../objects/FS/function.c:936

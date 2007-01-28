@@ -1133,14 +1133,14 @@ msgid "Dia Diagram File"
 msgstr "File Diagram Dia"
 
 #: ../app/menus.c:54
-#, fuzzy
+#
 msgid "_File"
-msgstr "/_File"
+msgstr "_File"
 
 #: ../app/menus.c:58
-#, fuzzy
+#
 msgid "_Help"
-msgstr "/_Bantuan"
+msgstr "_Bantuan"
 
 #: ../app/menus.c:66
 #, fuzzy
@@ -1158,9 +1158,9 @@ msgid "_Diagram tree..."
 msgstr "Pohon diagram"
 
 #: ../app/menus.c:82
-#, fuzzy
+#
 msgid "_Export ..."
-msgstr "/File/_Ekspor..."
+msgstr "_Ekspor..."
 
 #: ../app/menus.c:83
 #, fuzzy
@@ -1172,31 +1172,31 @@ msgid "_Edit"
 msgstr "_Edit"
 
 #: ../app/menus.c:94
-#, fuzzy
+#
 msgid "_Duplicate"
-msgstr "/Edit/Ganda_kan"
+msgstr "Ganda_kan"
 
 #. the following used to bind to <control><shift>C which collides with Unicode input.
 #. * <control>>alt> doesn't work either
 #: ../app/menus.c:99
-#, fuzzy
+#
 msgid "Copy Text"
-msgstr "/Edit/Salin Teks"
+msgstr "Salin Teks"
 
 #: ../app/menus.c:100
-#, fuzzy
+#
 msgid "Cut Text"
-msgstr "/Edit/Potong Teks"
+msgstr "Potong Teks"
 
 #: ../app/menus.c:101
-#, fuzzy
+#
 msgid "Paste _Text"
-msgstr "/Edit/Tempel Tek_s"
+msgstr "Tempel Tek_s"
 
 #: ../app/menus.c:103
-#, fuzzy
+#
 msgid "_Diagram"
-msgstr "/_Diagram"
+msgstr "_Diagram"
 
 #: ../app/menus.c:105
 #, fuzzy
@@ -1204,9 +1204,9 @@ msgid "_Layers..."
 msgstr "Lapisan"
 
 #: ../app/menus.c:107
-#, fuzzy
+#
 msgid "_View"
-msgstr "/_Lihat"
+msgstr "_Lihat"
 
 #: ../app/menus.c:110
 #, fuzzy
@@ -1262,38 +1262,38 @@ msgstr ""
 
 #. "display_toggle_entries" items go here
 #: ../app/menus.c:126
-#, fuzzy
+#
 msgid "New _View"
-msgstr "/Lihat/Tampilan Ba_ru"
+msgstr "Tampilan Ba_ru"
 
 #: ../app/menus.c:127
 msgid "C_lone View"
 msgstr ""
 
 #: ../app/menus.c:132
-#, fuzzy
+#
 msgid "_Objects"
-msgstr "/_Obyek"
+msgstr "_Obyek"
 
 #: ../app/menus.c:133
-#, fuzzy
+#
 msgid "Send to _Back"
-msgstr "/Obyek/Kirim ke _Belakang"
+msgstr "Kirim ke _Belakang"
 
 #: ../app/menus.c:134
-#, fuzzy
+#
 msgid "Bring to _Front"
-msgstr "/Obyek/Bawa ke _Depan"
+msgstr "Bawa ke _Depan"
 
 #: ../app/menus.c:135
-#, fuzzy
+#
 msgid "Send Backwards"
-msgstr "/Obyek/Kirim Mundur"
+msgstr "Kirim Mundur"
 
 #: ../app/menus.c:136
-#, fuzzy
+#
 msgid "Bring Forwards"
-msgstr "/Obyek/Bawa Maju"
+msgstr "Bawa Maju"
 
 #: ../app/menus.c:138
 msgid "_Group"
@@ -1301,9 +1301,9 @@ msgstr ""
 
 #. deliberately not using Ctrl+U for Ungroup
 #: ../app/menus.c:140
-#, fuzzy
+#
 msgid "_Ungroup"
-msgstr "/Obyek/_Ungrup"
+msgstr "_Ungrup"
 
 #: ../app/menus.c:142
 #, fuzzy
@@ -1311,14 +1311,14 @@ msgid "_Parent"
 msgstr "Cegah"
 
 #: ../app/menus.c:143
-#, fuzzy
+#
 msgid "_Unparent"
-msgstr "/Obyek/_Tak-berinduk"
+msgstr "_Tak-berinduk"
 
 #: ../app/menus.c:144
-#, fuzzy
+#
 msgid "_Unparent Children"
-msgstr "/Obyek/Anak _Tak-berinduk"
+msgstr "Anak _Tak-berinduk"
 
 #. Translators: Menu item Verb/Support/Position/Align
 #: ../app/menus.c:146 ../objects/FS/function.c:806
@@ -1341,14 +1341,14 @@ msgid "Bottom"
 msgstr "Bawah:"
 
 #: ../app/menus.c:155
-#, fuzzy
+#
 msgid "Spread Out Horizontally"
-msgstr "/Obyek/Rapi/Sebar Mendatar"
+msgstr "Sebar Mendatar"
 
 #: ../app/menus.c:156
-#, fuzzy
+#
 msgid "Spread Out Vertically"
-msgstr "/Obyek/Rapi/Sebar Tegak"
+msgstr "Sebar Tegak"
 
 #: ../app/menus.c:157
 #, fuzzy
@@ -1361,9 +1361,9 @@ msgid "Stacked"
 msgstr "Status"
 
 #: ../app/menus.c:162
-#, fuzzy
+#
 msgid "_Select"
-msgstr "/_Pilih"
+msgstr "_Pilih"
 
 #: ../app/menus.c:163
 #, fuzzy
@@ -1391,20 +1391,20 @@ msgid "Connected"
 msgstr "Sambung"
 
 #: ../app/menus.c:169
-#, fuzzy
+#
 msgid "Same Type"
-msgstr "/Pilih/Sama Tipe"
+msgstr "Sama Tipe"
 
 #. display_select_radio_entries go here
 #: ../app/menus.c:173
-#, fuzzy
+#
 msgid "Select By"
-msgstr "/_Pilih"
+msgstr "_Pilih"
 
 #: ../app/menus.c:175
-#, fuzzy
+#
 msgid "_Input Methods"
-msgstr "/Metoda _Input"
+msgstr "Metoda _Input"
 
 #: ../app/menus.c:177
 msgid "D_ialogs"
@@ -1415,9 +1415,9 @@ msgid "D_ebug"
 msgstr ""
 
 #: ../app/menus.c:185
-#, fuzzy
+#
 msgid "_Tools"
-msgstr "/_Perkakas"
+msgstr "_Perkakas"
 
 #: ../app/menus.c:186
 msgid "Modify"
@@ -1428,42 +1428,42 @@ msgid "Scroll"
 msgstr "Gulung"
 
 #: ../app/menus.c:210
-#, fuzzy
+#
 msgid "Fullscr_een"
-msgstr "/Lihat/Layar-p_enuh"
+msgstr "Layar-p_enuh"
 
 #. we must have all actions registered to avoid configuration specific ui-files and crashing in GTK+,
 #. * see: http://bugzilla.gnome.org/show_bug.cgi?id=396161
 #.
 #: ../app/menus.c:213 ../app/menus.c:218
-#, fuzzy
+#
 msgid "_AntiAliased"
-msgstr "/Lihat/_AntiAliased"
+msgstr "_AntiAliased"
 
 #: ../app/menus.c:220
-#, fuzzy
+#
 msgid "Show _Grid"
-msgstr "/Lihat/Tampilkan _Grid"
+msgstr "Tampilkan _Grid"
 
 #: ../app/menus.c:221
-#, fuzzy
+#
 msgid "_Snap To Grid"
-msgstr "/Lihat/_Lengket Ke Grid"
+msgstr "_Lengket Ke Grid"
 
 #: ../app/menus.c:222
-#, fuzzy
+#
 msgid "Snap To _Objects"
-msgstr "/Lihat/_Lengket Ke Grid"
+msgstr "_Lengket Ke Grid"
 
 #: ../app/menus.c:223
-#, fuzzy
+#
 msgid "Show _Rulers"
-msgstr "/Lihat/Tampilkan _Penggaris"
+msgstr "Tampilkan _Penggaris"
 
 #: ../app/menus.c:224
-#, fuzzy
+#
 msgid "Show _Connection Points"
-msgstr "/Lihat/Tampilkan _Titik Koneksi"
+msgstr "Tampilkan _Titik Koneksi"
 
 #: ../app/menus.c:230
 #, fuzzy
@@ -1476,9 +1476,9 @@ msgid "Union"
 msgstr "Tidak ada"
 
 #: ../app/menus.c:232
-#, fuzzy
+#
 msgid "Intersection"
-msgstr "/Pilih/Perpotongan"
+msgstr "Perpotongan"
 
 #. Translators: Menu item Verb/Channel/Export/Remove
 #. Translators: Menu item Verb/Branch/Separate/Remove
