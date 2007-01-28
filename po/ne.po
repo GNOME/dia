@@ -14,8 +14,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia.HEAD.ne\n"
-"Report-Msgid-Bugs-To: <info@mpp.org.np>\n"
-"POT-Creation-Date: 2006-05-15 10:15+0200\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2007-01-28 12:03+0100\n"
 "PO-Revision-Date: 2006-08-04 16:48+0545\n"
 "Last-Translator: Mahesh subedi <submanesh@hotmail.com>\n"
 "Language-Team: Nepali <info@mpp.org.np>\n"
@@ -73,37 +73,37 @@ msgid "Can't find output format/filter %s\n"
 msgstr "निर्गत ढाँचा/फिल्टर %s फेला पार्न सकिँदैन\n"
 
 #. Translators:  The argument is a list of options, not to be translated
-#: ../app/app_procs.c:668
+#: ../app/app_procs.c:669
 #, c-format
 msgid "Select the filter/format out of: %s"
 msgstr "%s: मा फिल्टर/ढाँचा चयन गर्नुहोस्"
 
 #. &export_file_name
-#: ../app/app_procs.c:687 ../app/app_procs.c:714
+#: ../app/app_procs.c:688 ../app/app_procs.c:715
 msgid "Export loaded file and exit"
 msgstr "लोड गरिएको फाइल निर्यात गर्नुहोस् र निस्कनुहोस्"
 
-#: ../app/app_procs.c:687 ../app/app_procs.c:714 ../app/diaconv.c:94
+#: ../app/app_procs.c:688 ../app/app_procs.c:715 ../app/diaconv.c:94
 msgid "OUTPUT"
 msgstr "निर्गत"
 
 #. &export_file_format
 #. &export_format_string
 #. &export_file_format
-#: ../app/app_procs.c:689 ../app/app_procs.c:716
+#: ../app/app_procs.c:690 ../app/app_procs.c:717
 msgid "TYPE"
 msgstr "प्रकार"
 
-#: ../app/app_procs.c:691 ../app/app_procs.c:719
+#: ../app/app_procs.c:692 ../app/app_procs.c:720
 msgid "Export graphics size"
 msgstr "ग्राफिक साइज निर्यात गर्नुहोस्"
 
-#: ../app/app_procs.c:691 ../app/app_procs.c:719
+#: ../app/app_procs.c:692 ../app/app_procs.c:720
 msgid "WxH"
 msgstr "WxH"
 
 #. 13.3.2004 sampo@iki.fi
-#: ../app/app_procs.c:693 ../app/app_procs.c:721
+#: ../app/app_procs.c:694 ../app/app_procs.c:722
 msgid ""
 "Show only specified layers (e.g. when exporting). Can be either the layer "
 "name or a range of layer numbers (X-Y)"
@@ -111,115 +111,122 @@ msgstr ""
 "निर्दिष्ट गरिएको तहहरू (जस्तै: निर्यात गरिरहेको बेलामा) मात्रै देखाउनुहोस्। तह नाम या "
 "सङ्ख्याहरू (X-Y) को दायरामा हुनसक्दछ"
 
-#: ../app/app_procs.c:694 ../app/app_procs.c:722
+#: ../app/app_procs.c:695 ../app/app_procs.c:723
 msgid "LAYER,LAYER,..."
 msgstr "तह,तह,..."
 
-#: ../app/app_procs.c:696 ../app/app_procs.c:724
+#: ../app/app_procs.c:697 ../app/app_procs.c:725
 msgid "Don't show the splash screen"
 msgstr "स्प्लास पर्दा नदेखाउनुहोस्"
 
-#: ../app/app_procs.c:698 ../app/app_procs.c:726
+#: ../app/app_procs.c:699 ../app/app_procs.c:727
 msgid "Don't create empty diagram"
 msgstr "खाली चित्र सिर्जना नगर्नुहोस्"
 
-#: ../app/app_procs.c:700 ../app/app_procs.c:728
+#: ../app/app_procs.c:701 ../app/app_procs.c:729
 msgid "Send error messages to stderr instead of showing dialogs."
 msgstr "संवादहरू देखाउनुको सट्टा stderr मा त्रुटि सन्देशहरू पठाउनुहोस्।"
 
-#: ../app/app_procs.c:702 ../app/app_procs.c:730
+#: ../app/app_procs.c:703 ../app/app_procs.c:731
 msgid "Display credits list and exit"
 msgstr "श्रेय सूची प्रदर्शन गर्नुहोस् र निस्कनुहोस्"
 
-#: ../app/app_procs.c:704 ../app/app_procs.c:732
+#: ../app/app_procs.c:705 ../app/app_procs.c:733
 msgid "Generate verbose output"
 msgstr "भरबोस निर्गत उत्पन्न गर्नुहोस्"
 
-#: ../app/app_procs.c:706 ../app/app_procs.c:734
+#: ../app/app_procs.c:707 ../app/app_procs.c:735
 msgid "Display version and exit"
 msgstr "संस्करण प्रदर्शन गर्नुहोस् र निस्कनुहोस्"
 
-#: ../app/app_procs.c:735 ../app/diaconv.c:95
+#: ../app/app_procs.c:736 ../app/diaconv.c:95
 msgid "Show this help message"
 msgstr "यो मद्दत सन्देश देखाउनुहोस्"
 
-#: ../app/app_procs.c:795
+#: ../app/app_procs.c:796
 msgid "Can't connect to session manager!\n"
 msgstr "सत्र प्रबन्धकमा जडान गर्न सकिँदैन !\n"
 
 #. TRANSLATOR: 2nd and 3rd %s are time and date respectively.
-#: ../app/app_procs.c:835
+#: ../app/app_procs.c:836
 #, c-format
 msgid "Dia version %s, compiled %s %s\n"
 msgstr "डाय संस्करण %s, %s %s कम्पाईल गरियो\n"
 
-#: ../app/app_procs.c:837
+#: ../app/app_procs.c:838
 #, c-format
 msgid "Dia version %s\n"
 msgstr "डाय संस्करण %s\n"
 
-#: ../app/app_procs.c:894 ../app/diaconv.c:201 ../app/diaconv.c:203
+#: ../app/app_procs.c:895 ../app/diaconv.c:201 ../app/diaconv.c:203
 #, c-format
-msgid "Couldn't find standard objects when looking for object-libs; exiting...\n"
+msgid ""
+"Couldn't find standard objects when looking for object-libs; exiting...\n"
 msgstr "वस्तु-लिब्सका लागि खोजी गर्दा मानक वस्तुहरू फेला पर्न सकेन, निस्कदै...\n"
 
-#: ../app/app_procs.c:896
+#: ../app/app_procs.c:897
 #, c-format
 msgid ""
 "Couldn't find standard objects when looking for object-libs in '%s'; "
 "exiting...\n"
 msgstr "'%s' मा वस्तु-लिब्सका लागि खोजी गर्दा मानक वस्तुहरू फेला पर्न सकेन, निस्कदै....\n"
 
-#: ../app/app_procs.c:937
+#: ../app/app_procs.c:938
 msgid "Diagram1.dia"
 msgstr "Diagram1.dia"
 
-#: ../app/app_procs.c:979
+#: ../app/app_procs.c:978
 msgid ""
 "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you can cause this message to appear.\n"
-msgstr "यो हुन सक्तैन। यो सन्देश देखाउन तपाईँले कसरी कारण देखाउनुहुन्छ सो व्याख्या गर्दै bugzilla.gnome.org मा बग प्रतिवेदन फाइल गर्नुहोस्।\n"
+msgstr ""
+"यो हुन सक्तैन। यो सन्देश देखाउन तपाईँले कसरी कारण देखाउनुहुन्छ सो व्याख्या गर्दै bugzilla."
+"gnome.org मा बग प्रतिवेदन फाइल गर्नुहोस्।\n"
 
 #. no standard buttons
-#: ../app/app_procs.c:992
+#: ../app/app_procs.c:991
 msgid "Quitting without saving modified diagrams"
 msgstr "परिमार्जित चित्रहरू बचत नगरि अन्त्य हुँदैछ"
 
-#: ../app/app_procs.c:994
+#: ../app/app_procs.c:993
 msgid ""
 "Modified diagrams exist. Are you sure you want to quit Dia without saving "
 "them?"
-msgstr "परिमार्जित चित्रहरू अवस्थित छन्। के तपाईँ साँच्चिकै तिनीहरूलाई बचत नगरि डायबाट अन्त्य गर्न चाहनुहुन्छ ?"
+msgstr ""
+"परिमार्जित चित्रहरू अवस्थित छन्। के तपाईँ साँच्चिकै तिनीहरूलाई बचत नगरि डायबाट अन्त्य गर्न "
+"चाहनुहुन्छ ?"
 
-#: ../app/app_procs.c:998
+#: ../app/app_procs.c:997
 msgid "Quit Dia"
 msgstr "डाय बन्द गर्नुहोस्"
 
 #. This printf seems to prevent a race condition with unrefs.
 #. Yuck.  -Lars
-#: ../app/app_procs.c:1051
+#: ../app/app_procs.c:1050
 msgid "Thank you for using Dia.\n"
 msgstr "डाय प्रयोग गर्नुभएकोमा तपाईँलाई धन्यवाद छ।\n"
 
-#: ../app/app_procs.c:1068 ../app/app_procs.c:1075
+#: ../app/app_procs.c:1067 ../app/app_procs.c:1074
 msgid "Could not create per-user Dia config directory"
 msgstr "हरेक-प्रयोगकर्ता डाय कन्फिग डाइरेक्टरी सिर्जना गर्न सकेन"
 
-#: ../app/app_procs.c:1078
+#: ../app/app_procs.c:1077
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
-msgstr "हरेक-प्रयोगकर्ता डाय कन्फिग डाइरेक्टरी सिर्जना गर्न सकेन। कृपया पक्का गर्नुहोस् कि अवस्थित डाइरेक्टरीमा वातावरणीय चल गृह बिन्दुहरू छन्।"
+msgstr ""
+"हरेक-प्रयोगकर्ता डाय कन्फिग डाइरेक्टरी सिर्जना गर्न सकेन। कृपया पक्का गर्नुहोस् कि अवस्थित "
+"डाइरेक्टरीमा वातावरणीय चल गृह बिन्दुहरू छन्।"
 
-#: ../app/app_procs.c:1101 ../app/diaconv.c:251
+#: ../app/app_procs.c:1100 ../app/diaconv.c:251
 msgid "Objects and filters internal to dia"
 msgstr "वस्तुहरू र फिल्टरहरू डायमा आन्तरिक छन्"
 
-#: ../app/app_procs.c:1143 ../app/diaconv.c:121
+#: ../app/app_procs.c:1142 ../app/diaconv.c:121
 msgid "[OPTION...] [FILE...]"
 msgstr "[OPTION...] [FILE...]"
 
-#: ../app/app_procs.c:1146 ../app/diaconv.c:128
+#: ../app/app_procs.c:1145 ../app/diaconv.c:128
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
@@ -228,16 +235,16 @@ msgstr ""
 "विकल्प %s मा त्रुटि: %s\n"
 "उपलब्ध आदेश पङ्क्ति विकल्पहरूको पूरा सूची हेर्न '%s --मद्दत' चलानुहोस्।\n"
 
-#: ../app/app_procs.c:1170
+#: ../app/app_procs.c:1169
 msgid "[FILE...]"
 msgstr "[FILE...]"
 
-#: ../app/app_procs.c:1193
+#: ../app/app_procs.c:1192
 #, c-format
 msgid "'%s' not found!\n"
 msgstr "'%s' फेला परेन !\n"
 
-#: ../app/app_procs.c:1274
+#: ../app/app_procs.c:1273
 msgid ""
 "The original author of Dia was:\n"
 "\n"
@@ -245,7 +252,7 @@ msgstr ""
 "डायको वास्तविक लेखक:\n"
 "\n"
 
-#: ../app/app_procs.c:1279
+#: ../app/app_procs.c:1278
 msgid ""
 "\n"
 "The current maintainers of Dia are:\n"
@@ -255,7 +262,7 @@ msgstr ""
 "डायको हालको मर्मतकर्ताहरू:\n"
 "\n"
 
-#: ../app/app_procs.c:1284
+#: ../app/app_procs.c:1283
 msgid ""
 "\n"
 "Other authors are:\n"
@@ -265,7 +272,7 @@ msgstr ""
 "अन्य लेखकहरू:\n"
 "\n"
 
-#: ../app/app_procs.c:1289
+#: ../app/app_procs.c:1288
 msgid ""
 "\n"
 "Dia is documented by:\n"
@@ -295,20 +302,20 @@ msgstr "अग्रभूमि रङ चयन गर्नुहोस्"
 msgid "Select background color"
 msgstr "पृष्ठभूमि रङ चयन गर्नुहोस्"
 
-#: ../app/commands.c:132
+#: ../app/commands.c:134
 #, c-format
 msgid "Diagram%d.dia"
 msgstr "चित्र%d. डाय"
 
-#: ../app/commands.c:205
+#: ../app/commands.c:207
 msgid "No existing object to paste.\n"
 msgstr "टाँस्नका लागि कुनै अवस्थित वस्तु छैन।\n"
 
-#: ../app/commands.c:531 ../app/commands.c:569
+#: ../app/commands.c:538 ../app/commands.c:576
 msgid "Could not find help directory"
 msgstr "मद्दत डाइरेक्टरी फेला पार्न सकेन"
 
-#: ../app/commands.c:538
+#: ../app/commands.c:545
 #, c-format
 msgid ""
 "Could not open help directory:\n"
@@ -317,15 +324,14 @@ msgstr ""
 "मद्दत डाइरेक्टरी: %s\n"
 "खोल्न सकेन"
 
-#: ../app/commands.c:605
+#: ../app/commands.c:612
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
-"Mahesh Subedi<submanesh@gmail.com>"
-"Jyotshna Shrestha <jyotshna@mpp.org.np>"
-"Jaydeep Bhusal <zaydeep@hotmail.com>"
-"Shyam Krishna Bal <shyamkrishna_bal@yahoo.com>"
+"Mahesh Subedi<submanesh@gmail.com>Jyotshna Shrestha <jyotshna@mpp.org."
+"np>Jaydeep Bhusal <zaydeep@hotmail.com>Shyam Krishna Bal "
+"<shyamkrishna_bal@yahoo.com>"
 
-#: ../app/commands.c:607
+#: ../app/commands.c:614
 msgid ""
 "This program is free software; you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"
@@ -341,19 +347,20 @@ msgid ""
 "along with this program; if not, write to the Free Software\n"
 "Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.\n"
 msgstr ""
-"यो कार्यक्रम स्वतन्त्र सफ्टवेयर हो; तपाईँले यसलाई स्वतन्त्र सफ्टवेयर संस्थाद्वार"
-"प्रकाशित; इजाजतपत्रको संस्करण २, वा (तपाईँको विकल्पमा) कुनै पनि नयाँ संस्कर"
-"जि एन यु साधारण साझा इजाजतपत्रको आधारमा पुन:वितरणर/वा परिमार्जन गर्न सक्नुहुन्छ।\n"
+"यो कार्यक्रम स्वतन्त्र सफ्टवेयर हो; तपाईँले यसलाई स्वतन्त्र सफ्टवेयर संस्थाद्वारप्रकाशित; "
+"इजाजतपत्रको संस्करण २, वा (तपाईँको विकल्पमा) कुनै पनि नयाँ संस्करजि एन यु साधारण साझा "
+"इजाजतपत्रको आधारमा पुन:वितरणर/वा परिमार्जन गर्न सक्नुहुन्छ।\n"
 "\n"
-"यो कार्यक्रम उपयोगी हुँनेछ भन्ने आशामा वितरण गरिन्छ, तर कुनै वारेन्टि विना; यद्यपि निश्चित उद्देश्यका लागि व्यापरीक्षमता वा स्वास्थ्यको सूचित वारेन्टि विना। अरू विवरणका लागि\n"
+"यो कार्यक्रम उपयोगी हुँनेछ भन्ने आशामा वितरण गरिन्छ, तर कुनै वारेन्टि विना; यद्यपि निश्चित "
+"उद्देश्यका लागि व्यापरीक्षमता वा स्वास्थ्यको सूचित वारेन्टि विना। अरू विवरणका लागि\n"
 "जि एन यु साधारण साझा इजाजतपत्र हेर्नुहोस्।\n"
 "\n"
-"तपाईँँले यस कार्यक्रमसँगै जि एन यु साधारण साझा "
-"इजाजतपत्रको प्रति\n"
+"तपाईँँले यस कार्यक्रमसँगै जि एन यु साधारण साझा इजाजतपत्रको प्रति\n"
 "प्राप्त गरेको हुनुपर्दछ; यदि छैन भने, Free Software\n"
-"oundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA. लाई लेख्नुहोस्।\n"
+"oundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA. "
+"लाई लेख्नुहोस्।\n"
 
-#: ../app/commands.c:630
+#: ../app/commands.c:637
 msgid "A program for drawing structured diagrams."
 msgstr "चित्र बनावटहरू कोर्नका लागि कार्यक्रम"
 
@@ -584,16 +591,16 @@ msgstr "/गुण"
 msgid "/_Hide this type"
 msgstr "/यो प्रकार लुकाउनुहोस्"
 
-#: ../app/diagram_tree_window.c:73
-msgid "Diagram tree"
+#: ../app/diagram_tree_window.c:80 ../app/preferences.c:110
+msgid "Diagram Tree"
 msgstr "चित्र ट्रि"
 
-#: ../app/diagram.c:219
+#: ../app/diagram.c:221
 #, c-format
 msgid "Couldn't convert filename '%s' to UTF-8: %s\n"
 msgstr "फाइल नाम '%s' यु टि एफ-८: %s मा रूपान्तरण गर्न सकिँदैन\n"
 
-#: ../app/diagram.c:222 ../lib/message.c:78 ../lib/message.c:238
+#: ../app/diagram.c:224 ../lib/message.c:78 ../lib/message.c:238
 msgid "Error"
 msgstr "त्रुटि"
 
@@ -601,7 +608,7 @@ msgstr "त्रुटि"
 msgid "Ok"
 msgstr "ठीक छ"
 
-#: ../app/dialogs.c:52 ../app/paginate_psprint.c:314
+#: ../app/dialogs.c:52 ../app/paginate_psprint.c:320
 msgid "Cancel"
 msgstr "रद्द गर्नुहोस्"
 
@@ -653,16 +660,16 @@ msgstr "यसमा ठीक पार्नुहोस्:"
 msgid "by"
 msgstr "यसद्वारा"
 
-#: ../app/diapagelayout.c:682
+#: ../app/diapagelayout.c:698
 #, c-format
 msgid "%0.3gcm x %0.3gcm"
 msgstr "%0.3gcm x %0.3gcm"
 
-#: ../app/diapagelayout.c:786 ../app/pagesetup.c:76
+#: ../app/diapagelayout.c:802 ../app/pagesetup.c:76
 msgid "Page Setup"
 msgstr "पृष्ठ सेटअप"
 
-#: ../app/disp_callbacks.c:83 ../app/properties.c:152
+#: ../app/disp_callbacks.c:84 ../app/properties.c:152
 msgid ""
 "This object doesn't support Undo/Redo.\n"
 "Undo information erased."
@@ -670,11 +677,11 @@ msgstr ""
 "यो वस्तुले पूर्वस्थितिमा फर्काउन/रिडु समर्थन गर्दैन।\n"
 "मेटिएका सूचना पूर्वावस्थामा फर्काउनुहोस्।"
 
-#: ../app/disp_callbacks.c:118
+#: ../app/disp_callbacks.c:119
 msgid "Properties..."
 msgstr "गुण..."
 
-#: ../app/disp_callbacks.c:925
+#: ../app/disp_callbacks.c:921
 msgid ""
 "The object you dropped cannot fit into its parent. \n"
 "Either expand the parent object, or drop the object elsewhere."
@@ -686,21 +693,31 @@ msgstr ""
 msgid "Diagram modified!"
 msgstr "चित्र परिमार्जन गरियो !"
 
-#: ../app/display.c:118
-#, c-format
-msgid "Selection of %d objects"
-msgstr "%d वस्तुहरूको चयन"
+#. http://www.gnu.org/software/gettext/manual/html_chapter/gettext_10.html#SEC150
+#. * Althoug the single objects wont get triggered here some languages have variations on the other numbers
+#.
+#: ../app/display.c:121
+#, fuzzy, c-format
+msgid "Selection of %d object"
+msgid_plural "Selection of %d objects"
+msgstr[0] "%d वस्तुहरूको चयन"
+msgstr[1] "%d वस्तुहरूको चयन"
 
-#: ../app/display.c:128
+#: ../app/display.c:131
 #, c-format
 msgid "Selected '%s'"
 msgstr "चयन गरिएको '%s'"
 
-#: ../app/display.c:1136
+#: ../app/display.c:1130
 msgid "<unnamed>"
 msgstr "<unnamed>"
 
-#: ../app/display.c:1138
+#. no standard buttons
+#: ../app/display.c:1136
+msgid "Closing diagram without saving"
+msgstr "बचत नगरि चित्र बन्द हुँदैछ"
+
+#: ../app/display.c:1139
 #, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -709,28 +726,23 @@ msgstr ""
 "चित्र '%s'\n"
 "बचत गरिएको छैन। परिवर्तनहरू अहिले बचत गर्नुहुन्छ ?"
 
-#. no standard buttons
-#: ../app/display.c:1146
-msgid "Closing diagram without saving"
-msgstr "बचत नगरि चित्र बन्द हुँदैछ"
-
-#: ../app/display.c:1150
+#: ../app/display.c:1141
 msgid "Close Diagram"
 msgstr "चित्र बन्द गर्नुहोस्"
 
-#: ../app/display.c:1155
+#: ../app/display.c:1146
 msgid "_Discard Changes"
 msgstr "परिवर्तनहरू छोड्नुहोस्"
 
-#: ../app/export_png.c:136 ../app/load_save.c:918 ../app/render_eps.c:103
-#: ../plug-ins/cairo/diacairo.c:972 ../plug-ins/cgm/cgm.c:1151
+#: ../app/export_png.c:136 ../app/load_save.c:951 ../app/render_eps.c:103
+#: ../plug-ins/cairo/diacairo.c:976 ../plug-ins/cgm/cgm.c:1151
 #: ../plug-ins/dxf/dxf-export.c:484 ../plug-ins/hpgl/hpgl.c:708
-#: ../plug-ins/metapost/render_metapost.c:1106
+#: ../plug-ins/metapost/render_metapost.c:1145
 #: ../plug-ins/pgf/render_pgf.c:1143
 #: ../plug-ins/pstricks/render_pstricks.c:914
 #: ../plug-ins/shape/shape-export.c:134 ../plug-ins/svg/render_svg.c:150
-#: ../plug-ins/wpg/wpg.c:1070 ../plug-ins/xfig/xfig-export.c:1136
-#: ../plug-ins/xslt/xslt.c:93
+#: ../plug-ins/vdx/vdx-export.c:1848 ../plug-ins/wpg/wpg.c:1070
+#: ../plug-ins/xfig/xfig-export.c:1136 ../plug-ins/xslt/xslt.c:93
 #, c-format
 msgid "Can't open output file %s: %s\n"
 msgstr "प्रतिफल फाइल %s खोल्न सकिँदैन: %s\n"
@@ -771,31 +783,31 @@ msgstr "छवि उचाइ:"
 msgid "Portable Network Graphics"
 msgstr "चलायमान सञ्झ्याल ग्रफिक्स"
 
-#: ../app/filedlg.c:129 ../app/filedlg.c:513
+#: ../app/filedlg.c:129 ../app/filedlg.c:512
 msgid "By extension"
 msgstr "विस्तारद्वारा"
 
-#: ../app/filedlg.c:213
+#: ../app/filedlg.c:214
 msgid "Open Diagram"
 msgstr "चित्र खोल्नुहोस्"
 
-#: ../app/filedlg.c:242
+#: ../app/filedlg.c:243
 msgid "Open Options"
 msgstr "विकल्पहरू खोल्नुहोस्"
 
-#: ../app/filedlg.c:250 ../app/filedlg.c:635
+#: ../app/filedlg.c:251 ../app/filedlg.c:632
 msgid "Determine file type:"
 msgstr "फाइल प्रकार निर्धारण गर्नुहोस्:"
 
-#: ../app/filedlg.c:266 ../app/filedlg.c:648
+#: ../app/filedlg.c:267 ../app/filedlg.c:645
 msgid "All Files"
 msgstr "सबै फाइलहरू"
 
-#: ../app/filedlg.c:271 ../app/filedlg.c:653
+#: ../app/filedlg.c:272 ../app/filedlg.c:650
 msgid "Supported Formats"
 msgstr "समर्थित ढाँचाहरू"
 
-#: ../app/filedlg.c:307
+#: ../app/filedlg.c:307 ../app/paginate_psprint.c:406
 msgid ""
 "Some characters in the filename are neither UTF-8\n"
 "nor your local encoding.\n"
@@ -805,7 +817,11 @@ msgstr ""
 "न त तपाईँको स्थानीय सङ्केतन हो।\n"
 "केही वस्तुहरू बिच्छेद हुनसक्छन्।"
 
-#: ../app/filedlg.c:314 ../app/filedlg.c:558
+#: ../app/filedlg.c:317 ../app/filedlg.c:559 ../app/paginate_psprint.c:421
+msgid "File already exists"
+msgstr "फाइल पहिले नै अवस्थित छ"
+
+#: ../app/filedlg.c:319 ../app/filedlg.c:561 ../app/paginate_psprint.c:413
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
@@ -814,27 +830,25 @@ msgstr ""
 "फाइल '%s' पहिले नै अवस्थित छ।\n"
 "के तपाईँ यसलाई अधिलेखन गर्न चाहनुहुन्छ ?"
 
-#: ../app/filedlg.c:321 ../app/filedlg.c:564
-msgid "File already exists"
-msgstr "फाइल पहिले नै अवस्थित छ"
-
-#: ../app/filedlg.c:370
+#: ../app/filedlg.c:369
 msgid "Save Diagram"
 msgstr "चित्र बचत गर्नुहोस्"
 
 #. Need better way to make it a reasonable size.  Isn't there some
 #. standard look for them (or is that just Gnome?)
-#: ../app/filedlg.c:382
+#: ../app/filedlg.c:381
 msgid "Compress diagram files"
 msgstr "चित्र फाइलहरू सङ्कुचन गर्नुहोस्"
 
-#: ../app/filedlg.c:391
+#: ../app/filedlg.c:390
 msgid ""
 "Compression reduces file size to less than 1/10th size and speeds up loading "
 "and saving.  Some text programs cannot manipulate compressed files."
-msgstr "सङ्कुचनले फाइलको साइज १/१० औं भाग भन्दा सानो पार्दछ र लोड गर्ने र बचत गर्ने गति बढाउछ।  केही पाठ कार्यक्रमहरूले सङ्कुचित फाइलहरू मिलाउन सक्दैन।"
+msgstr ""
+"सङ्कुचनले फाइलको साइज १/१० औं भाग भन्दा सानो पार्दछ र लोड गर्ने र बचत गर्ने गति "
+"बढाउछ।  केही पाठ कार्यक्रमहरूले सङ्कुचित फाइलहरू मिलाउन सक्दैन।"
 
-#: ../app/filedlg.c:587
+#: ../app/filedlg.c:584
 #, c-format
 msgid ""
 "Could not determine which export filter\n"
@@ -843,36 +857,30 @@ msgstr ""
 "'%s' बचत गर्न कुन निर्यात फिल्टर प्रयोग गर्ने\n"
 "हो निर्धारण गर्न सकेन।"
 
-#: ../app/filedlg.c:610
+#: ../app/filedlg.c:607
 msgid "Export Diagram"
 msgstr "चित्र निर्यात गर्नुहोस्"
 
-#: ../app/filedlg.c:627
+#: ../app/filedlg.c:624
 msgid "Export Options"
 msgstr "निर्यात विकल्पहरू"
 
 #: ../app/interface.c:57
-msgid "Modify object(s)"
-msgstr "वस्तु(हरू) परिमार्जन गर्नुहोस्"
-
-#: ../app/interface.c:58
-msgid "Modify"
-msgstr "परिमार्जन गर्नुहोस्"
+msgid ""
+"Modify object(s)\n"
+"Use <Space> to toggle between this and other tools"
+msgstr ""
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Magnify
-#: ../app/interface.c:62 ../app/interface.c:63 ../objects/FS/function.c:986
+#: ../app/interface.c:63 ../app/menus.c:187 ../objects/FS/function.c:986
 msgid "Magnify"
 msgstr "ठूलो बनाउनुहोस्"
 
-#: ../app/interface.c:67
+#: ../app/interface.c:69
 msgid "Scroll around the diagram"
 msgstr "चित्रको वरिपरि स्क्रोल गर्नुहोस्"
 
-#: ../app/interface.c:68
-msgid "Scroll"
-msgstr "स्क्रोल गर्नुहोस्"
-
-#: ../app/interface.c:72 ../app/interface.c:73 ../lib/properties.c:79
+#: ../app/interface.c:75 ../app/menus.c:189 ../lib/properties.c:79
 #: ../lib/properties.h:520 ../objects/AADL/aadlbox.c:144
 #: ../objects/Jackson/requirement.c:142 ../objects/UML/activity.c:127
 #: ../objects/UML/actor.c:122 ../objects/UML/classicon.c:144
@@ -885,158 +893,166 @@ msgstr "स्क्रोल गर्नुहोस्"
 msgid "Text"
 msgstr "पाठ"
 
-#: ../app/interface.c:77 ../app/interface.c:78
+#: ../app/interface.c:81 ../app/menus.c:190
 msgid "Box"
 msgstr "बाकस"
 
-#: ../app/interface.c:82 ../app/interface.c:83
+#: ../app/interface.c:87 ../app/menus.c:191
 msgid "Ellipse"
 msgstr "दीर्घवृत"
 
-#: ../app/interface.c:87 ../app/interface.c:88
+#: ../app/interface.c:93 ../app/menus.c:192
 msgid "Polygon"
 msgstr "बहुभुज"
 
-#: ../app/interface.c:92 ../app/interface.c:93
+#: ../app/interface.c:99 ../app/menus.c:193
 msgid "Beziergon"
 msgstr "बेजिरगन"
 
-#: ../app/interface.c:97 ../app/interface.c:98 ../objects/standard/line.c:225
+#: ../app/interface.c:105 ../app/menus.c:195 ../objects/standard/line.c:225
 msgid "Line"
 msgstr "रेखा"
 
-#: ../app/interface.c:102 ../app/interface.c:103
+#: ../app/interface.c:111 ../app/menus.c:196
 msgid "Arc"
 msgstr "चाप"
 
-#: ../app/interface.c:107 ../app/interface.c:108
+#: ../app/interface.c:117 ../app/menus.c:197
 msgid "Zigzagline"
 msgstr "बाङ्गोटिङ्गो रेखा"
 
-#: ../app/interface.c:112 ../app/interface.c:113
+#: ../app/interface.c:123 ../app/menus.c:198
 msgid "Polyline"
 msgstr "संयुक्तरेखा"
 
-#: ../app/interface.c:117 ../app/interface.c:118
+#: ../app/interface.c:129 ../app/menus.c:199
 msgid "Bezierline"
 msgstr "बेजिररेखा"
 
-#: ../app/interface.c:122 ../app/interface.c:123
+#: ../app/interface.c:135 ../app/menus.c:201
 msgid "Image"
 msgstr "छवि"
 
-#: ../app/interface.c:408
+#: ../app/interface.c:413
 msgid "Diagram menu."
 msgstr "चित्र मेनु"
 
-#: ../app/interface.c:446
+#: ../app/interface.c:451
 msgid "Pops up the Navigation window."
 msgstr "नेभिगेसन सञ्झ्याल पपअप गर्दछ"
 
-#: ../app/interface.c:514
+#: ../app/interface.c:517
 msgid "Zoom"
 msgstr "जुम"
 
-#: ../app/interface.c:529
+#: ../app/interface.c:532
 msgid "Toggles snap-to-grid for this window."
 msgstr "यो सञ्झ्यालका लागि ग्रिडमा सटाउने टगल गर्दछ।"
 
-#: ../app/interface.c:540
+#: ../app/interface.c:543
 msgid "Toggles object snapping for this window."
 msgstr "यो सञ्झ्यालका लागि वस्तु सटाउने टगल गर्दछ।"
 
-#: ../app/interface.c:605
+#: ../app/interface.c:608
 msgid "NULL tooldata in tool_select_update"
 msgstr "उपकरण चयन अद्यावधिकमा शून्य उपकरण डेटा"
 
-#: ../app/interface.c:905
+#: ../app/interface.c:920
 #, c-format
 msgid "No sheet named %s"
 msgstr "%s नाम गरिएको कुनै पाना छैन"
 
-#: ../app/interface.c:942
+#: ../app/interface.c:957
 msgid "Other sheets"
 msgstr "अन्य पानाहरू"
 
-#: ../app/interface.c:1000 ../sheets/Misc.sheet.in.h:3
+#: ../app/interface.c:1015 ../sheets/Misc.sheet.in.h:3
 msgid "Misc"
 msgstr "विविध"
 
-#: ../app/interface.c:1061
+#: ../app/interface.c:1076
 msgid ""
 "Foreground & background colors for new objects.  The small black and white "
 "squares reset colors.  The small arrows swap colors.  Double click to change "
 "colors."
-msgstr "नयाँ वस्तुहरूका लागि अग्रभूमि र पृष्ठभूमि रङहरू।  साना काला र सेता वर्गहरूले रङहरू रिसेट गर्दछ। सानो बाँणहरूले रङहरू साटासाट गर्दछ।  रङ परिवर्तन गर्न डबल क्लिक गर्नुहोस्।"
+msgstr ""
+"नयाँ वस्तुहरूका लागि अग्रभूमि र पृष्ठभूमि रङहरू।  साना काला र सेता वर्गहरूले रङहरू रिसेट "
+"गर्दछ। सानो बाँणहरूले रङहरू साटासाट गर्दछ।  रङ परिवर्तन गर्न डबल क्लिक गर्नुहोस्।"
 
-#: ../app/interface.c:1076
+#: ../app/interface.c:1091
 msgid ""
 "Line widths.  Click on a line to set the default line width for new "
 "objects.  Double-click to set the line width more precisely."
 msgstr ""
-"रेखा चौडाइ। नयाँ वस्तुहरूका लागि पुर्वानिर्धारित रेखा चौडाइ सेट गर्न रेखामा "
-"क्लिक गर्नुहोस्। रेखा चौडाइ ठीक तरिकाले सेट गर्न डबल क्लिक गर्नुहोस्।"
+"रेखा चौडाइ। नयाँ वस्तुहरूका लागि पुर्वानिर्धारित रेखा चौडाइ सेट गर्न रेखामा क्लिक गर्नुहोस्। "
+"रेखा चौडाइ ठीक तरिकाले सेट गर्न डबल क्लिक गर्नुहोस्।"
 
-#: ../app/interface.c:1116
+#: ../app/interface.c:1131
 msgid ""
 "Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
 "arrow parameters with Details..."
-msgstr "नयाँ रेखाहरूको सुरुमा बाँण शैली। बाँण लिन क्लिक गर्नुहोस्, वा विवरणसँग बाँण परामितिहरू सेट गर्नुहोस्..."
+msgstr ""
+"नयाँ रेखाहरूको सुरुमा बाँण शैली। बाँण लिन क्लिक गर्नुहोस्, वा विवरणसँग बाँण परामितिहरू सेट "
+"गर्नुहोस्..."
 
-#: ../app/interface.c:1121
+#: ../app/interface.c:1136
 msgid ""
 "Line style for new lines.  Click to pick a line style, or set line style "
 "parameters with Details..."
-msgstr "नयाँ रेखाहरूका लागि बाँण शैली। रेखा शैली लिन क्लिक गर्नुहोस्, वा विवरणसँग रेखा शैली परामितिहरू सेट गर्नुहोस्..."
+msgstr ""
+"नयाँ रेखाहरूका लागि बाँण शैली। रेखा शैली लिन क्लिक गर्नुहोस्, वा विवरणसँग रेखा शैली "
+"परामितिहरू सेट गर्नुहोस्..."
 
-#: ../app/interface.c:1135
+#: ../app/interface.c:1150
 msgid ""
 "Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
 "parameters with Details..."
-msgstr "नयाँ रेखाहरूको अन्त्यमा बाँण शैली। बाँण लिन क्लिक गर्नुहोस्, वा विवरणसँग बाँण परामितिहरू सेट गर्नुहोस्..."
+msgstr ""
+"नयाँ रेखाहरूको अन्त्यमा बाँण शैली। बाँण लिन क्लिक गर्नुहोस्, वा विवरणसँग बाँण परामितिहरू सेट "
+"गर्नुहोस्..."
 
-#: ../app/interface.c:1243
+#: ../app/interface.c:1260
 msgid "Diagram Editor"
 msgstr "चित्र सम्पादक"
 
-#: ../app/layer_dialog.c:69
+#: ../app/layer_dialog.c:101
 msgid "New Layer"
 msgstr "नयाँ तह"
 
-#: ../app/layer_dialog.c:70
+#: ../app/layer_dialog.c:102
 msgid "Raise Layer"
 msgstr "तह उठाउनुहोस्"
 
-#: ../app/layer_dialog.c:71
+#: ../app/layer_dialog.c:103
 msgid "Lower Layer"
 msgstr "तल्लो तह"
 
-#: ../app/layer_dialog.c:72
+#: ../app/layer_dialog.c:104
 msgid "Delete Layer"
 msgstr "तह मेट्नुहोस्"
 
-#: ../app/layer_dialog.c:193
+#: ../app/layer_dialog.c:225
 msgid "Layers"
 msgstr "तहहरू"
 
-#: ../app/layer_dialog.c:207
+#: ../app/layer_dialog.c:239
 msgid "Diagram:"
 msgstr "चित्र:"
 
-#: ../app/layer_dialog.c:313
+#: ../app/layer_dialog.c:349
 #, c-format
 msgid "New layer %d"
 msgstr "नयाँ तह %d"
 
-#: ../app/layer_dialog.c:525
+#: ../app/layer_dialog.c:561
 msgid "none"
 msgstr "कुनै पनि होइन"
 
-#: ../app/layer_dialog.c:973
+#: ../app/layer_dialog.c:983
 msgid "Edit Layer Attributes"
 msgstr "तहका विशेषताहरू सम्पादन गर्नुहोस्"
 
-#: ../app/layer_dialog.c:992
+#: ../app/layer_dialog.c:1002
 msgid "Layer name:"
 msgstr "तहको नाम:"
 
@@ -1050,7 +1066,7 @@ msgstr "रेखाको चौडाइ"
 msgid "Line width:"
 msgstr "रेखाको चौडाइ:"
 
-#: ../app/load_save.c:261
+#: ../app/load_save.c:268
 msgid ""
 "Error loading diagram.\n"
 "Linked object not found in document."
@@ -1058,7 +1074,7 @@ msgstr ""
 "चित्र लोड गर्दा त्रुटि।\n"
 "कागजातमा लिङ्क गरिएको वस्तु फेला परेन।"
 
-#: ../app/load_save.c:264
+#: ../app/load_save.c:271
 msgid ""
 "Error loading diagram.\n"
 "connection handle does not exist."
@@ -1066,7 +1082,7 @@ msgstr ""
 "चित्र लोड गर्दा त्रुटि।\n"
 "जडान ह्याण्डल अवस्थित छैन।"
 
-#: ../app/load_save.c:281
+#: ../app/load_save.c:288
 #, c-format
 msgid ""
 "Error loading diagram.\n"
@@ -1075,23 +1091,23 @@ msgstr ""
 "चित्र लोड गर्दा त्रुटि।\n"
 "जडान बिन्दु  %s अवस्थित छैन।"
 
-#: ../app/load_save.c:306
+#: ../app/load_save.c:313
 #, c-format
 msgid "Can't find parent %s of %s object\n"
 msgstr "%s वस्तुको मूल %s फेला पार्न सकिँदैन\n"
 
-#: ../app/load_save.c:352
+#: ../app/load_save.c:359
 msgid "You must specify a file, not a directory.\n"
 msgstr "तपाईँले फाइल निर्दिष्ट गर्नु पर्दछ, डाइरेक्टरी होइन।\n"
 
-#: ../app/load_save.c:359 ../plug-ins/dxf/dxf-import.c:1306
-#: ../plug-ins/wpg/wpg.c:1175 ../plug-ins/xfig/xfig-import.c:1605
+#: ../app/load_save.c:366 ../plug-ins/dxf/dxf-import.c:1306
+#: ../plug-ins/wpg/wpg.c:1175 ../plug-ins/xfig/xfig-import.c:1258
 #: ../plug-ins/xslt/xslt.c:85
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "पढ्नका लागि: '%s' खोल्न सकेन।\n"
 
-#: ../app/load_save.c:377 ../app/load_save.c:383
+#: ../app/load_save.c:384 ../app/load_save.c:390
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -1100,7 +1116,7 @@ msgstr ""
 "चित्र %s लोड गर्दा त्रुटि।\n"
 "अज्ञात फाइल प्रकार"
 
-#: ../app/load_save.c:391
+#: ../app/load_save.c:398
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -1109,7 +1125,7 @@ msgstr ""
 "चित्र %s लोड गर्दा त्रुटि।\n"
 "डाय फाइल होइन"
 
-#: ../app/load_save.c:597
+#: ../app/load_save.c:604
 #, c-format
 msgid ""
 "Error loading diagram:\n"
@@ -1120,542 +1136,438 @@ msgstr ""
 "\n"
 "एउटा वैध डाय फाइलले कम्तीमा एक तह परिभाषित गर्दछ।"
 
-#: ../app/load_save.c:952
+#: ../app/load_save.c:912
 #, c-format
-msgid "Failed to save file '%s'.\n"
-msgstr "फाइल '%s' बचत गर्न असफल।\n"
+msgid "No allowed to write to output file %s\n"
+msgstr ""
 
-#: ../app/load_save.c:1026 ../app/load_save.c:1031
+#: ../app/load_save.c:934
+#, c-format
+msgid "No allowed to write temporary files in %s\n"
+msgstr ""
+
+#. Save failed; we clean our stuff up, without touching the file named
+#. "filename" if it existed.
+#: ../app/load_save.c:962
+#, fuzzy, c-format
+msgid "Internal error %d writing file %s\n"
+msgstr "%s त्रुटि: वैध आगत फाइल %s आवश्यक\n"
+
+#: ../app/load_save.c:976
+#, fuzzy, c-format
+msgid "Can't rename %s to final output file %s: %s\n"
+msgstr "प्रतिफल फाइल %s खोल्न सकिँदैन: %s\n"
+
+#: ../app/load_save.c:1064 ../app/load_save.c:1069
 msgid "Dia Diagram File"
 msgstr "डाय चित्र फाइल"
 
-#: ../app/menus.c:50 ../app/menus.c:88
-msgid "/_File"
+#: ../app/menus.c:54
+#, fuzzy
+msgid "_File"
 msgstr "/फाइल"
 
-#: ../app/menus.c:52 ../app/menus.c:90
-msgid "/File/_New"
-msgstr "/फाइल/नयाँ"
-
-#: ../app/menus.c:54 ../app/menus.c:92
-msgid "/File/_Open..."
-msgstr "/फाइल/खोल्नुहोस्..."
-
-#. {N_("/Open _Recent"),           NULL,         NULL,           0, "<Branch>"},
-#. {   "/Open Recent/tearoff",     NULL,         NULL,         0, "<Tearoff>" },
-#. recent file list is dynamically inserted here
-#. {N_("/Open _Recent"),           NULL,         NULL,           0, "<Branch>"},
-#. {   "/Open Recent/tearoff",     NULL,         NULL,         0, "<Tearoff>" },
-#: ../app/menus.c:58 ../app/menus.c:63 ../app/menus.c:68 ../app/menus.c:70
-#: ../app/menus.c:96 ../app/menus.c:103 ../app/menus.c:107
-msgid "/File/---"
-msgstr "/फाइल/---"
-
-#: ../app/menus.c:59
-msgid "/File/_Diagram tree"
-msgstr "/फाइल/चित्र ट्रि"
-
-#: ../app/menus.c:61
-msgid "/File/Sheets and Objects..."
-msgstr "/फाइल/पानाहरू र वस्तुहरू..."
-
-#: ../app/menus.c:64
-msgid "/File/_Preferences..."
-msgstr "/फाइल/प्राथमिकताहरू..."
-
-#: ../app/menus.c:66
-msgid "/File/P_lugins..."
-msgstr "/फाइल/प्लगइनहरू..."
-
-#: ../app/menus.c:71 ../app/menus.c:111
-msgid "/File/_Quit"
-msgstr "/फाइल/अन्त्य गर्नुहोस्"
-
-#: ../app/menus.c:73 ../app/menus.c:263
-msgid "/_Help"
+#: ../app/menus.c:58
+#, fuzzy
+msgid "_Help"
 msgstr "/मद्दत"
 
-#: ../app/menus.c:75 ../app/menus.c:265
-msgid "/Help/_Contents"
-msgstr "/मद्दत/सामग्रीहरू"
+#: ../app/menus.c:66
+#, fuzzy
+msgid "Sheets and Objects..."
+msgstr "पानाहरू र वस्तुहरू"
 
-#: ../app/menus.c:77 ../app/menus.c:267
-msgid "/Help/---"
-msgstr "/मद्दत/---"
+#: ../app/menus.c:68
+#, fuzzy
+msgid "Plugins..."
+msgstr "प्लगइनहरू"
 
-#: ../app/menus.c:78 ../app/menus.c:268
-msgid "/Help/_About..."
-msgstr "/मद्दत/बारेमा..."
+#: ../app/menus.c:74
+#, fuzzy
+msgid "_Diagram tree..."
+msgstr "चित्र ट्रि"
 
-#: ../app/menus.c:97
-msgid "/File/_Save"
-msgstr "/फाइल/बचत"
-
-#: ../app/menus.c:99
-msgid "/File/Save _As..."
-msgstr "/फाइल/यस रूपमा बचत गर्नुहोस्..."
-
-#: ../app/menus.c:101
-msgid "/File/_Export..."
+#: ../app/menus.c:82
+#, fuzzy
+msgid "_Export ..."
 msgstr "/फाइल/निर्यात गर्नुहोस्..."
 
-#: ../app/menus.c:104
-msgid "/File/Page Set_up..."
-msgstr "/फाइल/पृष्ठ सेटअप..."
+#: ../app/menus.c:83
+#, fuzzy
+msgid "Page Set_up..."
+msgstr "पृष्ठ सेटअप"
 
-#: ../app/menus.c:105
-msgid "/File/_Print Diagram..."
-msgstr "/फाइल/चित्र मुद्रण गर्नुहोस्..."
+#: ../app/menus.c:87 ../app/sheets_dialog.c:236
+msgid "_Edit"
+msgstr "सम्पादन"
 
-#: ../app/menus.c:108
-msgid "/File/_Close"
-msgstr "/फाइल/बन्द गर्नुहोस्"
-
-#: ../app/menus.c:113
-msgid "/_Edit"
-msgstr "/सम्पादन"
-
-#: ../app/menus.c:115
-msgid "/Edit/_Undo"
-msgstr "/सम्पादन/पुर्वस्थितिमा फर्काउनुहोस्"
-
-#: ../app/menus.c:117
-msgid "/Edit/_Redo"
-msgstr "/सम्पादन/रिडु गर्नुहोस्"
-
-#: ../app/menus.c:119 ../app/menus.c:129
-msgid "/Edit/---"
-msgstr "/सम्पादन/---"
-
-#: ../app/menus.c:120
-msgid "/Edit/_Copy"
-msgstr "/सम्पादन/प्रतिलिपि बनाउनुहोस्"
-
-#: ../app/menus.c:122
-msgid "/Edit/C_ut"
-msgstr "/सम्पादन/काट्नुहोस्"
-
-#: ../app/menus.c:124
-msgid "/Edit/_Paste"
-msgstr "/सम्पादन/टाँस्नुहोस्"
-
-#: ../app/menus.c:126
-msgid "/Edit/_Duplicate"
+#: ../app/menus.c:94
+#, fuzzy
+msgid "_Duplicate"
 msgstr "/सम्पादन/नक्कल"
 
-#: ../app/menus.c:127
-msgid "/Edit/_Delete"
-msgstr "/सम्पादन/मेट्नुहोस्"
-
-#. the following used to bind to <control><shift>C which collides with Unicode input. <control>>alt> doesn't work either
-#: ../app/menus.c:131
-msgid "/Edit/Copy Text"
+#. the following used to bind to <control><shift>C which collides with Unicode input.
+#. * <control>>alt> doesn't work either
+#: ../app/menus.c:99
+#, fuzzy
+msgid "Copy Text"
 msgstr "/सम्पादन/ पाठ प्रतिलिपि बनाउनुहोस्"
 
-#: ../app/menus.c:133
-msgid "/Edit/Cut Text"
+#: ../app/menus.c:100
+#, fuzzy
+msgid "Cut Text"
 msgstr "/सम्पादन/पाठ काट्नुहोस्"
 
-#: ../app/menus.c:135
-msgid "/Edit/Paste _Text"
+#: ../app/menus.c:101
+#, fuzzy
+msgid "Paste _Text"
 msgstr "/सम्पादन/पाठ टाँस्नुहोस्"
 
-#: ../app/menus.c:137
-msgid "/_Diagram"
+#: ../app/menus.c:103
+#, fuzzy
+msgid "_Diagram"
 msgstr "/चित्र"
 
-#: ../app/menus.c:139
-msgid "/Diagram/_Properties..."
-msgstr "/चित्र/गुण..."
+#: ../app/menus.c:105
+#, fuzzy
+msgid "_Layers..."
+msgstr "तहहरू"
 
-#: ../app/menus.c:141
-msgid "/Diagram/_Layers..."
-msgstr "/चित्र/तहहरू..."
-
-#: ../app/menus.c:142
-msgid "/_View"
+#: ../app/menus.c:107
+#, fuzzy
+msgid "_View"
 msgstr "/दृश्य"
 
-#: ../app/menus.c:144
-msgid "/View/Zoom _In"
-msgstr "/दृश्य/जुम बढाउनुहोस्"
+#: ../app/menus.c:110
+#, fuzzy
+msgid "_Zoom"
+msgstr "जुम"
 
-#: ../app/menus.c:146
-msgid "/View/Zoom _Out"
-msgstr "/दृश्य/जुम घटाउनुहोस्"
+#: ../app/menus.c:111
+#, fuzzy
+msgid "1600%"
+msgstr "१५२००"
 
-#: ../app/menus.c:148
-msgid "/View/_Zoom"
-msgstr "/दृश्य/जुम"
+#: ../app/menus.c:112
+#, fuzzy
+msgid "800%"
+msgstr "१५२००"
 
-#: ../app/menus.c:150
-msgid "/View/Zoom/1600%"
-msgstr "/दृश्य/जुम/१६००%"
+#: ../app/menus.c:113
+msgid "400%"
+msgstr ""
 
-#: ../app/menus.c:151
-msgid "/View/Zoom/800%"
-msgstr "/दृश्य/जुम/८००%"
+#: ../app/menus.c:114
+msgid "283"
+msgstr ""
 
-#: ../app/menus.c:152
-msgid "/View/Zoom/400%"
-msgstr "/दृश्य/जुम/४००%"
+#: ../app/menus.c:115
+#, fuzzy
+msgid "200"
+msgstr "१५२००"
 
-#: ../app/menus.c:153
-msgid "/View/Zoom/283%"
-msgstr "/दृश्य/जुम/२८३%"
+#: ../app/menus.c:116
+msgid "141"
+msgstr ""
 
-#: ../app/menus.c:154
-msgid "/View/Zoom/200%"
-msgstr "/दृश्य/जुम/२००%"
+#: ../app/menus.c:118
+msgid "85"
+msgstr ""
 
-#: ../app/menus.c:155
-msgid "/View/Zoom/141%"
-msgstr "/दृश्य/जुम/१४१%"
+#: ../app/menus.c:119
+msgid "70.7"
+msgstr ""
 
-#: ../app/menus.c:156
-msgid "/View/Zoom/100%"
-msgstr "/दृश्य/जुम/१००%"
+#: ../app/menus.c:120
+msgid "50"
+msgstr ""
 
-#: ../app/menus.c:158
-msgid "/View/Zoom/85%"
-msgstr "/दृश्य/जुम/८५%"
+#: ../app/menus.c:121
+msgid "35.4"
+msgstr ""
 
-#: ../app/menus.c:159
-msgid "/View/Zoom/70.7%"
-msgstr "/दृश्य/जुम/७०.७%"
+#: ../app/menus.c:122
+msgid "25"
+msgstr ""
 
-#: ../app/menus.c:160
-msgid "/View/Zoom/50%"
-msgstr "/दृश्य/जुम/५०%"
-
-#: ../app/menus.c:161
-msgid "/View/Zoom/35.4%"
-msgstr "/दृश्य/जुम/३५.४%"
-
-#: ../app/menus.c:162
-msgid "/View/Zoom/25%"
-msgstr "/दृश्य/जुम/२५%"
-
-#: ../app/menus.c:163 ../app/menus.c:173
-msgid "/View/---"
-msgstr "/दृश्य/---"
-
-#: ../app/menus.c:164
-msgid "/View/Fullscr_een"
-msgstr "/दृश्य/पूरापर्दा"
-
-#: ../app/menus.c:166
-msgid "/View/_AntiAliased"
-msgstr "/दृश्य/एन्टिएलाइज गरिएको"
-
-#: ../app/menus.c:168
-msgid "/View/Show _Grid"
-msgstr "/दृश्य/ग्रिड देखाउनुहोस्"
-
-#: ../app/menus.c:169
-msgid "/View/_Snap To Grid"
-msgstr "/दृश्य/ग्रिडमा सटाउनुहोस्"
-
-#: ../app/menus.c:170
-msgid "/View/Snap To _Objects"
-msgstr "/दृश्य/वस्तुहरूमा सटाउनुहोस्"
-
-#: ../app/menus.c:171
-msgid "/View/Show _Rulers"
-msgstr "/दृश्य/रुलरहरू देखाउनुहोस्"
-
-#: ../app/menus.c:172
-msgid "/View/Show _Connection Points"
-msgstr "/दृश्य/जडान बिन्दुहरू देखाउनुहोस्"
-
-#: ../app/menus.c:174
-msgid "/View/New _View"
+#. "display_toggle_entries" items go here
+#: ../app/menus.c:126
+#, fuzzy
+msgid "New _View"
 msgstr "/दृश्य/नयाँ दृश्य"
 
-#: ../app/menus.c:175
-msgid "/View/C_lone View"
+#: ../app/menus.c:127
+#, fuzzy
+msgid "C_lone View"
 msgstr "/दृश्य/क्लोन दृश्य"
 
-#. Show All, Best Fit.  Same as the Gimp, Ctrl+E
-#: ../app/menus.c:177
-msgid "/View/Show _All"
-msgstr "/दृश्य/सबै देखाउनुहोस्"
-
-#: ../app/menus.c:179
-msgid "/View/Re_draw"
-msgstr "/दृश्य/पुन: कोर्नुहोस्"
-
-#: ../app/menus.c:181
-msgid "/_Objects"
+#: ../app/menus.c:132
+#, fuzzy
+msgid "_Objects"
 msgstr "/वस्तुहरू"
 
-#: ../app/menus.c:183
-msgid "/Objects/Send to _Back"
+#: ../app/menus.c:133
+#, fuzzy
+msgid "Send to _Back"
 msgstr "/वस्तुहरू/पछाडी पठाउनुहोस्"
 
-#: ../app/menus.c:185
-msgid "/Objects/Bring to _Front"
+#: ../app/menus.c:134
+#, fuzzy
+msgid "Bring to _Front"
 msgstr "/वस्तुहरू/अगाडी ल्याउनुहोस्"
 
-#: ../app/menus.c:187
-msgid "/Objects/Send Backwards"
+#: ../app/menus.c:135
+#, fuzzy
+msgid "Send Backwards"
 msgstr "/वस्तुहरू/पछिल्तिर पठाउनुहोस्"
 
-#: ../app/menus.c:189
-msgid "/Objects/Bring Forwards"
+#: ../app/menus.c:136
+#, fuzzy
+msgid "Bring Forwards"
 msgstr "/वस्तुहरू/अघिल्तिर ल्याउनुहोस्"
 
-#: ../app/menus.c:191 ../app/menus.c:197 ../app/menus.c:201 ../app/menus.c:219
-msgid "/Objects/---"
-msgstr "/वस्तुहरू/---"
-
-#: ../app/menus.c:192
-msgid "/Objects/_Group"
-msgstr "/वस्तुहरू/समूह"
+#: ../app/menus.c:138
+msgid "_Group"
+msgstr ""
 
 #. deliberately not using Ctrl+U for Ungroup
-#: ../app/menus.c:195
-msgid "/Objects/_Ungroup"
+#: ../app/menus.c:140
+#, fuzzy
+msgid "_Ungroup"
 msgstr "/वस्तुहरू/समूह छुट्याउनुहोस्"
 
-#: ../app/menus.c:198
-msgid "/Objects/_Parent"
-msgstr "/वस्तुहरू/प्रमूल"
+#: ../app/menus.c:142
+#, fuzzy
+msgid "_Parent"
+msgstr "रोक्नुहोस्"
 
-#: ../app/menus.c:199
-msgid "/Objects/_Unparent"
+#: ../app/menus.c:143
+#, fuzzy
+msgid "_Unparent"
 msgstr "/वस्तुहरू/अप्रमूल"
 
-#: ../app/menus.c:200
-msgid "/Objects/_Unparent Children"
+#: ../app/menus.c:144
+#, fuzzy
+msgid "_Unparent Children"
 msgstr "/वस्तुहरू/अनप्यारेन्ट शाखा"
 
-#: ../app/menus.c:202
-msgid "/Objects/Align"
-msgstr "/वस्तुहरू/पङ्क्तिबद्ध गर्नुहोस्"
+#. Translators: Menu item Verb/Support/Position/Align
+#: ../app/menus.c:146 ../objects/FS/function.c:806
+msgid "Align"
+msgstr "पङ्क्तिबद्ध गर्नुहोस्"
 
-#: ../app/menus.c:204
-msgid "/Objects/Align/Left"
-msgstr "/वस्तुहरू/पङ्क्तिबद्ध गर्नुहोस्/बायाँ"
+#: ../app/menus.c:151 ../objects/standard/textobj.c:132
+msgid "Top"
+msgstr "माथि"
 
-#: ../app/menus.c:206
-msgid "/Objects/Align/Center"
-msgstr "/वस्तुहरू/पङ्क्तिबद्ध गर्नुहोस्/केन्द्र"
+#: ../app/menus.c:152
+#, fuzzy
+msgid "Middle"
+msgstr "निर्देशन मान्ने प्रकारको"
 
-#: ../app/menus.c:208
-msgid "/Objects/Align/Right"
-msgstr "/वस्तुहरू/पङ्क्तिबद्ध गर्नुहोस्/दायाँ"
+#: ../app/menus.c:153 ../objects/standard/textobj.c:131
+msgid "Bottom"
+msgstr "तल"
 
-#: ../app/menus.c:210 ../app/menus.c:214
-msgid "/Objects/Align/---"
-msgstr "/वस्तुहरू/पङ्क्तिबद्ध गर्नुहोस्/---"
-
-#: ../app/menus.c:211
-msgid "/Objects/Align/Top"
-msgstr "/वस्तुहरू/पङ्क्तिबद्ध गर्नुहोस्/माथि"
-
-#: ../app/menus.c:212
-msgid "/Objects/Align/Middle"
-msgstr "/वस्तुहरू/पङ्क्तिबद्ध गर्नुहोस्/बिच"
-
-#: ../app/menus.c:213
-msgid "/Objects/Align/Bottom"
-msgstr "/वस्तुहरू/पङ्क्तिबद्ध गर्नुहोस्/तल"
-
-#: ../app/menus.c:215
-msgid "/Objects/Align/Spread Out Horizontally"
+#: ../app/menus.c:155
+#, fuzzy
+msgid "Spread Out Horizontally"
 msgstr "/वस्तुहरू/पङ्क्तिबद्ध गर्नुहोस्/तेर्सो गरी फैलाउनुहोस्"
 
-#: ../app/menus.c:216
-msgid "/Objects/Align/Spread Out Vertically"
+#: ../app/menus.c:156
+#, fuzzy
+msgid "Spread Out Vertically"
 msgstr "/वस्तुहरू/पङ्क्तिबद्ध गर्नुहोस्/ठाडो गरी फैलाउनुहोस्"
 
-#: ../app/menus.c:217
-msgid "/Objects/Align/Adjacent"
-msgstr "/वस्तुहरू/पङ्क्तिबद्ध गर्नुहोस्/निकटवर्ती"
+#: ../app/menus.c:157
+#, fuzzy
+msgid "Adjacent"
+msgstr "प्रतिनिधि"
 
-#: ../app/menus.c:218
-msgid "/Objects/Align/Stacked"
-msgstr "/वस्तुहरू/पङ्क्तिबद्ध गर्नुहोस्/थाक पारिएको"
+#: ../app/menus.c:158
+#, fuzzy
+msgid "Stacked"
+msgstr "स्थिति"
 
-#: ../app/menus.c:220
-msgid "/Objects/_Properties..."
-msgstr "/वस्तुहरू/गुण..."
-
-#: ../app/menus.c:222
-msgid "/_Select"
+#: ../app/menus.c:162
+#, fuzzy
+msgid "_Select"
 msgstr "/चयन गर्नुहोस्"
 
-#: ../app/menus.c:224
-msgid "/Select/All"
-msgstr "/चयन गर्नुहोस्/सबै"
+#: ../app/menus.c:163
+#, fuzzy
+msgid "All"
+msgstr "अनुमति दिनुहोस्"
 
-#: ../app/menus.c:225
-msgid "/Select/None"
-msgstr "/चयन गर्नुहोस्/कुनै पनि होइन"
+#: ../app/menus.c:164 ../lib/arrows.c:43 ../objects/Jackson/domain.c:96
+#: ../objects/UML/association.c:1183
+msgid "None"
+msgstr "कुनै पनि होइन"
 
-#: ../app/menus.c:226
-msgid "/Select/Invert"
-msgstr "/चयन गर्नुहोस्/उल्टाउनुहोस्"
+#: ../app/menus.c:165
+#, fuzzy
+msgid "Invert"
+msgstr "विपरितकर्ता"
 
-#: ../app/menus.c:227 ../app/menus.c:231
-msgid "/Select/---"
-msgstr "/चयन गर्नुहोस्/---"
+#: ../app/menus.c:167
+#, fuzzy
+msgid "Transitive"
+msgstr "सङ्क्रमण"
 
-#: ../app/menus.c:228
-msgid "/Select/Transitive"
-msgstr "/चयन गर्नुहोस्/सकर्मक"
+#: ../app/menus.c:168
+#, fuzzy
+msgid "Connected"
+msgstr "जडान गर्नुहोस्"
 
-#: ../app/menus.c:229
-msgid "/Select/Connected"
-msgstr "/चयन गर्नुहोस्/जडान गरिएका"
-
-#: ../app/menus.c:230
-msgid "/Select/Same Type"
+#: ../app/menus.c:169
+#, fuzzy
+msgid "Same Type"
 msgstr "/चयन गर्नुहोस्/उस्तै प्रकारको"
 
-#: ../app/menus.c:232
-msgid "/Select/Replace"
-msgstr "/चयन गर्नुहोस्/बदल्नुहोस्"
+#. display_select_radio_entries go here
+#: ../app/menus.c:173
+#, fuzzy
+msgid "Select By"
+msgstr "/चयन गर्नुहोस्"
 
-#: ../app/menus.c:234
-msgid "/Select/Union"
-msgstr "/चयन गर्नुहोस्/संगठन"
-
-#: ../app/menus.c:236
-msgid "/Select/Intersection"
-msgstr "/चयन गर्नुहोस्/प्रतिच्छेदन"
-
-#: ../app/menus.c:238
-msgid "/Select/Remove"
-msgstr "/चयन गर्नुहोस्/हटाउनुहोस्"
-
-#. Cannot also be called Invert, duplicate names caused keybinding problems
-#: ../app/menus.c:241
-msgid "/Select/Inverse"
-msgstr "/चयन गर्नुहोस्/उल्टाउनुहोस्"
-
-#: ../app/menus.c:243
-msgid "/_Tools"
-msgstr "/उपकरणहरू"
-
-#: ../app/menus.c:245
-msgid "/Tools/Modify"
-msgstr "/उपकरणहरू/परिमार्जन गर्नुहोस्"
-
-#: ../app/menus.c:246
-msgid "/Tools/Magnify"
-msgstr "/उपकरणहरू/साइज ठूलो पार्नुहोस्"
-
-#: ../app/menus.c:247
-msgid "/Tools/Scroll"
-msgstr "/उपकरणहरू/स्क्रोल गर्नुहोस्"
-
-#: ../app/menus.c:248
-msgid "/Tools/Text"
-msgstr "/उपकरणहरू/पाठ"
-
-#: ../app/menus.c:249
-msgid "/Tools/Box"
-msgstr "/उपकरणहरू/बाकस"
-
-#: ../app/menus.c:250
-msgid "/Tools/Ellipse"
-msgstr "/उपकरणहरू/दीर्घवृत"
-
-#: ../app/menus.c:251
-msgid "/Tools/Polygon"
-msgstr "/उपकरणहरू/बहुभुज"
-
-#: ../app/menus.c:252
-msgid "/Tools/Beziergon"
-msgstr "/उपकरणहरू/बेजिरगन"
-
-#: ../app/menus.c:253 ../app/menus.c:259
-msgid "/Tools/---"
-msgstr "/उपकरणहरू/---"
-
-#: ../app/menus.c:254
-msgid "/Tools/Line"
-msgstr "/उपकरणहरू/रेखा"
-
-#: ../app/menus.c:255
-msgid "/Tools/Arc"
-msgstr "/उपकरणहरू/चाप"
-
-#: ../app/menus.c:256
-msgid "/Tools/Zigzagline"
-msgstr "/उपकरणहरू/बाङ्गोटिङ्गो रेखा"
-
-#: ../app/menus.c:257
-msgid "/Tools/Polyline"
-msgstr "/उपकरणहरू/संयुक्तरेखा"
-
-#: ../app/menus.c:258
-msgid "/Tools/Bezierline"
-msgstr "/उपकरणहरू/वेजिररेखा"
-
-#: ../app/menus.c:260
-msgid "/Tools/Image"
-msgstr "/उपकरणहरू/छवि"
-
-#: ../app/menus.c:261
-msgid "/_Input Methods"
+#: ../app/menus.c:175
+#, fuzzy
+msgid "_Input Methods"
 msgstr "/आगत तरिकाहरू"
 
-#: ../app/menus.c:433
+#: ../app/menus.c:177
+msgid "D_ialogs"
+msgstr ""
+
+#: ../app/menus.c:179
+msgid "D_ebug"
+msgstr ""
+
+#: ../app/menus.c:185
+#, fuzzy
+msgid "_Tools"
+msgstr "/उपकरणहरू"
+
+#: ../app/menus.c:186
+msgid "Modify"
+msgstr "परिमार्जन गर्नुहोस्"
+
+#: ../app/menus.c:188
+msgid "Scroll"
+msgstr "स्क्रोल गर्नुहोस्"
+
+#: ../app/menus.c:210
+#, fuzzy
+msgid "Fullscr_een"
+msgstr "/दृश्य/पूरापर्दा"
+
+#. we must have all actions registered to avoid configuration specific ui-files and crashing in GTK+,
+#. * see: http://bugzilla.gnome.org/show_bug.cgi?id=396161
+#.
+#: ../app/menus.c:213 ../app/menus.c:218
+#, fuzzy
+msgid "_AntiAliased"
+msgstr "/दृश्य/एन्टिएलाइज गरिएको"
+
+#: ../app/menus.c:220
+#, fuzzy
+msgid "Show _Grid"
+msgstr "/दृश्य/ग्रिड देखाउनुहोस्"
+
+#: ../app/menus.c:221
+#, fuzzy
+msgid "_Snap To Grid"
+msgstr "/दृश्य/ग्रिडमा सटाउनुहोस्"
+
+#: ../app/menus.c:222
+#, fuzzy
+msgid "Snap To _Objects"
+msgstr "/दृश्य/वस्तुहरूमा सटाउनुहोस्"
+
+#: ../app/menus.c:223
+#, fuzzy
+msgid "Show _Rulers"
+msgstr "/दृश्य/रुलरहरू देखाउनुहोस्"
+
+#: ../app/menus.c:224
+#, fuzzy
+msgid "Show _Connection Points"
+msgstr "/दृश्य/जडान बिन्दुहरू देखाउनुहोस्"
+
+#: ../app/menus.c:230
+#, fuzzy
+msgid "Replace"
+msgstr "निष्काशन"
+
+#: ../app/menus.c:231
+#, fuzzy
+msgid "Union"
+msgstr "कुनै पनि होइन"
+
+#: ../app/menus.c:232
+#, fuzzy
+msgid "Intersection"
+msgstr "/चयन गर्नुहोस्/प्रतिच्छेदन"
+
+#. Translators: Menu item Verb/Channel/Export/Remove
+#. Translators: Menu item Verb/Branch/Separate/Remove
+#. Translators: Menu item Verb/Branch/Separate/Remove/Remove
+#: ../app/menus.c:233 ../app/sheets_dialog.c:785 ../objects/FS/function.c:706
+#: ../objects/FS/function.c:858 ../objects/FS/function.c:860
+msgid "Remove"
+msgstr "हटाउनुहोस्"
+
+#. Cannot also be called Invert, duplicate names caused keybinding problems
+#: ../app/menus.c:235
+#, fuzzy
+msgid "Inverse"
+msgstr "विपरितकर्ता"
+
+#: ../app/menus.c:278
 msgid "NULL tooldata in tool_menu_select"
 msgstr "उपकरण मेनु चयनमा शून्य उपकरणडेटा"
 
-#: ../app/menus.c:530
-msgid "Diagram Menu"
-msgstr "चित्र मेनु"
-
-#: ../app/menus.c:665
-#, c-format
-msgid ""
-"Can't find menu entry '%s'!\n"
-"This is probably a i18n problem (try LANG=C)."
-msgstr ""
-"मेनु प्रविष्टि '%s' फेला पार्न सकिँदैन !\n"
-"यो सायद i18n समस्या हुनसक्छ (LANG=C प्रयास गर्नुहोस्)।"
-
-#: ../app/modify_tool.c:342
+#: ../app/modify_tool.c:344
 msgid "Couldn't get GTK settings"
 msgstr "GTK सेटिङ प्राप्त गर्न सकेन"
 
-#: ../app/paginate_psprint.c:265
+#: ../app/newgroup.c:117
+#, fuzzy
+msgid "Open group"
+msgstr "खुल्ला गोलाकार"
+
+#: ../app/paginate_psprint.c:271
 msgid "Select Printer"
 msgstr "मुद्रक चयन गर्नुहोस्"
 
-#: ../app/paginate_psprint.c:277 ../sheets/ciscocomputer.sheet.in.h:36
+#: ../app/paginate_psprint.c:283 ../sheets/ciscocomputer.sheet.in.h:36
 msgid "Printer"
 msgstr "मुद्रक"
 
-#: ../app/paginate_psprint.c:291 ../sheets/Misc.sheet.in.h:1
+#: ../app/paginate_psprint.c:297 ../sheets/Misc.sheet.in.h:1
 msgid "File"
 msgstr "फाइल"
 
-#: ../app/paginate_psprint.c:306
+#: ../app/paginate_psprint.c:312
 msgid "OK"
 msgstr "ठीक छ"
 
-#: ../app/paginate_psprint.c:401
+#: ../app/paginate_psprint.c:458
 #, c-format
 msgid "Could not run command '%s': %s"
 msgstr "'%s': %s आदेश चलाउन सकेन"
 
-#: ../app/paginate_psprint.c:404
+#: ../app/paginate_psprint.c:461
 #, c-format
 msgid "Could not open '%s' for writing: %s"
 msgstr "'%s': लेखनका लागि %s खोल्न सकेन"
 
-#: ../app/paginate_psprint.c:421
+#: ../app/paginate_psprint.c:481
 #, c-format
 msgid "Printing error: command '%s' returned %d\n"
 msgstr "मुद्रण त्रुटि: आदेश '%s' ले %d फर्कायो\n"
 
-#: ../app/paginate_psprint.c:432
+#: ../app/paginate_psprint.c:492
 #, c-format
 msgid "Printing error: command '%s' caused sigpipe."
 msgstr "मुद्रण त्रुटि: आदेश '%s' कारणले sigpipe"
@@ -1668,7 +1580,7 @@ msgstr "प्लगइनहरू"
 msgid "Loaded"
 msgstr "लोड गरिएको"
 
-#: ../app/plugin-manager.c:262 ../objects/UML/class.c:140
+#: ../app/plugin-manager.c:262 ../objects/UML/class.c:139
 #: ../objects/UML/large_package.c:131 ../objects/UML/umlattribute.c:37
 #: ../objects/UML/umlformalparameter.c:35 ../objects/UML/umloperation.c:62
 #: ../objects/UML/umlparameter.c:43
@@ -1698,10 +1610,6 @@ msgstr "चित्र पूर्वनिर्धारित"
 #: ../app/preferences.c:108
 msgid "View Defaults"
 msgstr "दृश्य पूर्वनिर्धारित"
-
-#: ../app/preferences.c:110
-msgid "Diagram Tree"
-msgstr "चित्र ट्रि"
 
 #: ../app/preferences.c:124
 msgid "Reset tools after create"
@@ -1841,23 +1749,13 @@ msgstr "वस्तु गुण"
 msgid "This object has no properties."
 msgstr "यो वस्तुको गुण छैन।"
 
-#: ../app/properties.c:202
+#: ../app/properties.c:217
 msgid "Properties: "
 msgstr "गुण: "
 
-#: ../app/properties.c:206
+#: ../app/properties.c:221
 msgid "Object properties:"
 msgstr "वस्तु गुण:"
-
-#. Use the Plugins menu item to get a pointer to the File menu,
-#. but any item on the File menu will do
-#: ../app/recent_files.c:61
-msgid "<Toolbox>/File/Plugins..."
-msgstr "<Toolbox>/फाइल/प्लगइनहरू..."
-
-#: ../app/recent_files.c:135
-msgid "<Toolbox>/File/Quit"
-msgstr "<Toolbox>/फाइल/अन्त्य गर्नुहोस्"
 
 #: ../app/render_eps.c:148
 msgid "Encapsulated Postscript (using Pango fonts)"
@@ -1934,10 +1832,6 @@ msgstr "<- सबै सार्नुहोस्"
 msgid "Edit"
 msgstr "सम्पादन गर्नुहोस्"
 
-#: ../app/sheets_dialog.c:236
-msgid "_Edit"
-msgstr "सम्पादन"
-
 #: ../app/sheets_dialog.c:267
 msgid "Revert"
 msgstr "पछाडि फर्काउनुहोस्"
@@ -2010,14 +1904,6 @@ msgstr "पाना"
 #: ../objects/UML/realizes.c:132
 msgid "Name:"
 msgstr "नाम:"
-
-#. Translators: Menu item Verb/Channel/Export/Remove
-#. Translators: Menu item Verb/Branch/Separate/Remove
-#. Translators: Menu item Verb/Branch/Separate/Remove/Remove
-#: ../app/sheets_dialog.c:785 ../objects/FS/function.c:706
-#: ../objects/FS/function.c:858 ../objects/FS/function.c:860
-msgid "Remove"
-msgstr "हटाउनुहोस्"
 
 #: ../app/sheets_dialog.c:810
 msgid "DiaObject:"
@@ -2135,166 +2021,182 @@ msgstr "लोड हुँदैछ ..."
 msgid "Dia v %s"
 msgstr "डाय v %s"
 
-#: ../dia.desktop.in.h:1
+#: ../dia.desktop.in.in.h:1
 msgid "Dia Diagram Editor"
 msgstr "डाय चित्र सम्पादक"
 
-#: ../dia.desktop.in.h:2
+#: ../dia.desktop.in.in.h:2
 msgid "Edit your Diagrams"
 msgstr "तपाईँको चित्रहरू सम्पादन गर्नुहोस्"
 
-#: ../lib/arrows.c:40 ../objects/Jackson/domain.c:96
-#: ../objects/UML/association.c:1183
-msgid "None"
-msgstr "कुनै पनि होइन"
-
-#: ../lib/arrows.c:41
+#: ../lib/arrows.c:44
 msgid "Lines"
 msgstr "रेखाहरू"
 
-#: ../lib/arrows.c:42
+#: ../lib/arrows.c:45
 msgid "Hollow Triangle"
 msgstr "खाली त्रिभुज"
 
-#: ../lib/arrows.c:43
+#: ../lib/arrows.c:46
 msgid "Filled Triangle"
 msgstr "भरिएको त्रिभुज"
 
-#: ../lib/arrows.c:44
+#: ../lib/arrows.c:47
 msgid "Unfilled Triangle"
 msgstr "नभरिएको त्रिभुज"
 
-#: ../lib/arrows.c:45
+#: ../lib/arrows.c:48
 msgid "Hollow Diamond"
 msgstr "खाली हिरा"
 
-#: ../lib/arrows.c:46
+#: ../lib/arrows.c:49
 msgid "Filled Diamond"
 msgstr "भरिएको हिरा"
 
-#: ../lib/arrows.c:47
+#: ../lib/arrows.c:50
 msgid "Half Diamond"
 msgstr "अर्ध हिरा"
 
-#: ../lib/arrows.c:48
+#: ../lib/arrows.c:51
 msgid "Half Head"
 msgstr "अर्ध शीर्षक"
 
-#: ../lib/arrows.c:49
+#: ../lib/arrows.c:52
 msgid "Slashed Cross"
 msgstr "स्ल्यास्ड क्रस"
 
-#: ../lib/arrows.c:50
+#: ../lib/arrows.c:53
 msgid "Filled Ellipse"
 msgstr "भरिएको दीर्धवृत"
 
-#: ../lib/arrows.c:51
+#: ../lib/arrows.c:54
 msgid "Hollow Ellipse"
 msgstr "खाली दिर्धवृत"
 
-#: ../lib/arrows.c:52
+#: ../lib/arrows.c:55
 msgid "Filled Dot"
 msgstr "भरिएको थोप्ला"
 
-#: ../lib/arrows.c:53
+#: ../lib/arrows.c:56
 msgid "Dimension Origin"
 msgstr "आयामिक उत्पत्ति"
 
-#: ../lib/arrows.c:54
+#: ../lib/arrows.c:57
 msgid "Blanked Dot"
 msgstr "खाली थोप्ला"
 
-#: ../lib/arrows.c:55
+#: ../lib/arrows.c:58
 msgid "Double Hollow Triangle"
 msgstr "दुई खाली त्रिभुज"
 
-#: ../lib/arrows.c:56
+#: ../lib/arrows.c:59
 msgid "Double Filled Triangle"
 msgstr "दुई पटक भरिएको त्रिभुज"
 
-#: ../lib/arrows.c:57
+#: ../lib/arrows.c:60
 msgid "Filled Dot and Triangle"
 msgstr "भरिएको थोप्ला र त्रिभुज"
 
-#: ../lib/arrows.c:58
+#: ../lib/arrows.c:61
 msgid "Filled Box"
 msgstr "भरिएको बाकस"
 
-#: ../lib/arrows.c:59
+#: ../lib/arrows.c:62
 msgid "Blanked Box"
 msgstr "खाली गरिएको बाकस"
 
-#: ../lib/arrows.c:60
+#: ../lib/arrows.c:63
 msgid "Slashed"
 msgstr "स्ल्यास्ड"
 
-#: ../lib/arrows.c:61
+#: ../lib/arrows.c:64
 msgid "Integral Symbol"
 msgstr "इन्टिजर प्रतिक"
 
-#: ../lib/arrows.c:62
+#: ../lib/arrows.c:65
 msgid "Crow Foot"
 msgstr "कागको खुट्टा"
 
-#: ../lib/arrows.c:63
+#: ../lib/arrows.c:66
 msgid "Cross"
 msgstr "क्रस"
 
-#: ../lib/arrows.c:64
+#: ../lib/arrows.c:67
 msgid "1-or-many"
 msgstr "१-वा-धेरै"
 
-#: ../lib/arrows.c:65
+#: ../lib/arrows.c:68
 msgid "0-or-many"
 msgstr "०-वा-धेरै"
 
-#: ../lib/arrows.c:66
+#: ../lib/arrows.c:69
 msgid "1-or-0"
 msgstr "१-वा-०"
 
-#: ../lib/arrows.c:67
+#: ../lib/arrows.c:70
 msgid "1 exactly"
 msgstr "ठ्याक्कै १"
 
-#: ../lib/arrows.c:68
+#: ../lib/arrows.c:71
 msgid "Filled Concave"
 msgstr "भरिएको नतोदर"
 
-#: ../lib/arrows.c:69
+#: ../lib/arrows.c:72
 msgid "Blanked Concave"
 msgstr "खाली नतोदर"
 
-#: ../lib/arrows.c:70
+#: ../lib/arrows.c:73
 msgid "Round"
 msgstr "गोलाकार"
 
-#: ../lib/arrows.c:71
+#: ../lib/arrows.c:74
 msgid "Open Round"
 msgstr "खुल्ला गोलाकार"
 
-#: ../lib/arrows.c:72
+#: ../lib/arrows.c:75
 msgid "Backslash"
 msgstr "ब्याकस्ल्यास"
 
-#: ../lib/arrows.c:73
+#: ../lib/arrows.c:76
 msgid "Infinite Line"
 msgstr "अनगिन्ति रेखा"
+
+#: ../lib/arrows.c:1892
+msgid "Arrow head of unknown type"
+msgstr ""
+
+#: ../lib/arrows.c:1900
+#, c-format
+msgid "Arrow head of type %s has too small dimensions, removing.\n"
+msgstr ""
+
+#: ../lib/arrows.c:2021
+#, fuzzy
+msgid "unknown arrow"
+msgstr "तल फर्केको बाँण"
 
 #: ../lib/bezier_conn.c:636
 msgid "Internal error: Setting corner type of endpoint of bezier"
 msgstr "आन्तरिक त्रुटि: बेजिरको अन्तिमबिन्दुको कुनो प्रकार सेटिड्"
 
-#: ../lib/dia_dirs.c:237
+#: ../lib/create.c:50 ../lib/create.c:100 ../lib/create.c:127
+#: ../lib/create.c:161 ../lib/create.c:197 ../lib/create.c:224
+#: ../lib/create.c:260 ../lib/create.c:295 ../lib/create.c:335
+#: ../plug-ins/svg/svg-import.c:204 ../plug-ins/vdx/vdx-import.c:140
+msgid "Can't find standard object"
+msgstr "मानक वस्तु फेला पार्न सकिँदैन"
+
+#: ../lib/dia_dirs.c:238
 #, c-format
 msgid "%s<illegal characters>..."
 msgstr "%s<illegal characters>..."
 
-#: ../lib/dia_dirs.c:268
+#: ../lib/dia_dirs.c:269
 #, c-format
 msgid "Too many ..'s in filename %s\n"
 msgstr "फाइलनाम %s मा धेरै ..'s\n"
 
-#: ../lib/dia_xml.c:161
+#: ../lib/dia_xml.c:163
 #, c-format
 msgid ""
 "The file %s has no encoding specification;\n"
@@ -2303,31 +2205,34 @@ msgstr ""
 "फाइल %sसँग सङ्केतन उल्लेख गरेको छैन;\n"
 "मानौ त्यो %s मा सङ्केतन गरिएको छ"
 
-#: ../lib/dia_xml.c:563
+#: ../lib/dia_xml.c:565
 msgid "Taking point value of non-point node."
 msgstr "बिन्दु विहिन नोडको बिन्दु मान लिदैछ।"
 
-#: ../lib/dia_xml.c:574
+#: ../lib/dia_xml.c:576
 #, c-format
 msgid "Incorrect x Point value \"%s\" %f; discarding it."
 msgstr "गलत x बिन्दु मान \"%s\" %f; यसलाई छाड्दैछ।"
 
-#: ../lib/dia_xml.c:581
+#: ../lib/dia_xml.c:583
 msgid "Error parsing point."
 msgstr "त्रुटि पद वर्णन बिन्दु"
 
 #. don't bother with useless warnings (see above)
-#: ../lib/dia_xml.c:589
+#: ../lib/dia_xml.c:591
 #, c-format
 msgid "Incorrect y Point value \"%s\" %f; discarding it."
 msgstr "गलत y बिन्दु मान  \"%s\" %f; यसलाई छाड्दैछ।"
 
-#: ../lib/dia_xml.c:1061
+#: ../lib/dia_xml.c:1063
 msgid ""
 "Your local character set is UTF-8. Because of issues with libxml1 and the "
 "support of files generated by previous versions of dia, you will encounter  "
 "problems. Please report to dia-list@gnome.org if you see this message."
-msgstr "तपाईँको स्थानीय क्यारेक्टर सेट UTF-8 हो। libxml1 र डायको पुरानो संस्करणद्वारा उत्पादित फाइलहरूको समर्थनसँग प्रकाशनको कारणले गर्दा, तपाईँले समस्याहरूको सामना गर्नु पर्दछ। यदि तपाईँले यो सन्देश देख्नु भएमा कृपया dia-list@gnome.org मा प्रतिवेदन गर्नुहोस्।"
+msgstr ""
+"तपाईँको स्थानीय क्यारेक्टर सेट UTF-8 हो। libxml1 र डायको पुरानो संस्करणद्वारा उत्पादित "
+"फाइलहरूको समर्थनसँग प्रकाशनको कारणले गर्दा, तपाईँले समस्याहरूको सामना गर्नु पर्दछ। यदि "
+"तपाईँले यो सन्देश देख्नु भएमा कृपया dia-list@gnome.org मा प्रतिवेदन गर्नुहोस्।"
 
 #: ../lib/diaarrowchooser.c:322
 msgid "Arrow Properties"
@@ -2380,7 +2285,7 @@ msgstr "पुर्वावलोकन:"
 msgid "Font Selection"
 msgstr "फन्ट चयन"
 
-#: ../lib/dialibartrenderer.c:293
+#: ../lib/dialibartrenderer.c:295
 msgid "gdk_renderer: Unsupported fill mode specified!\n"
 msgstr "gdk रेन्डरकर्ता: असमर्थित भर्ने मोड निर्दिष्ट गरिएको छ !\n"
 
@@ -2393,7 +2298,7 @@ msgstr "रेखा शैली गुण"
 msgid "Multiple export filters with unique name %s"
 msgstr "अद्वितिय नाम %sसँग बहुविध निर्यात फिल्टरहरू"
 
-#: ../lib/font.c:104
+#: ../lib/font.c:102
 #, c-format
 msgid "Can't load font %s.\n"
 msgstr "फन्ट %s लोड गर्न सकिँदैन।\n"
@@ -2524,7 +2429,7 @@ msgstr "पाठ पङ्क्तिबद्ध गर्नुहोस्"
 #. all this just to make the defaults selectable ...
 #: ../lib/properties.c:81 ../lib/properties.h:531
 #: ../objects/GRAFCET/condition.c:132 ../objects/GRAFCET/step.c:165
-#: ../objects/GRAFCET/transition.c:142 ../objects/UML/class.c:170
+#: ../objects/GRAFCET/transition.c:142 ../objects/UML/class.c:169
 #: ../objects/UML/class_dialog.c:394 ../objects/chronogram/chronoline.c:183
 #: ../objects/chronogram/chronoref.c:164
 msgid "Font"
@@ -2724,7 +2629,7 @@ msgstr "अस्तित्व/सम्बन्ध चित्र वस्
 msgid "Total:"
 msgstr "जम्मा:"
 
-#: ../objects/ER/participation.c:406 ../objects/FS/flow-ortho.c:645
+#: ../objects/ER/participation.c:406 ../objects/FS/flow-ortho.c:639
 #: ../objects/GRAFCET/vector.c:312 ../objects/SADT/arrow.c:457
 #: ../objects/UML/association.c:769 ../objects/UML/component_feature.c:184
 #: ../objects/UML/dependency.c:374 ../objects/UML/generalization.c:370
@@ -2733,7 +2638,7 @@ msgstr "जम्मा:"
 msgid "Add segment"
 msgstr "खण्ड थप्नुहोस्"
 
-#: ../objects/ER/participation.c:407 ../objects/FS/flow-ortho.c:646
+#: ../objects/ER/participation.c:407 ../objects/FS/flow-ortho.c:640
 #: ../objects/GRAFCET/vector.c:313 ../objects/SADT/arrow.c:458
 #: ../objects/UML/association.c:770 ../objects/UML/component_feature.c:185
 #: ../objects/UML/dependency.c:375 ../objects/UML/generalization.c:371
@@ -2763,14 +2668,14 @@ msgid "Relationship"
 msgstr "सम्बन्ध"
 
 #. Translators: Menu item Noun/Energy
-#: ../objects/FS/flow-ortho.c:160 ../objects/FS/flow-ortho.c:642
+#: ../objects/FS/flow-ortho.c:160 ../objects/FS/flow-ortho.c:636
 #: ../objects/FS/flow.c:137 ../objects/FS/flow.c:580
 #: ../objects/FS/function.c:1096
 msgid "Energy"
 msgstr "शक्ति"
 
 #. Translators: Menu item Noun/Material
-#: ../objects/FS/flow-ortho.c:161 ../objects/FS/flow-ortho.c:643
+#: ../objects/FS/flow-ortho.c:161 ../objects/FS/flow-ortho.c:637
 #: ../objects/FS/flow.c:138 ../objects/FS/flow.c:581
 #: ../objects/FS/function.c:1072
 msgid "Material"
@@ -2780,7 +2685,7 @@ msgstr "पदार्थ"
 #. Translators: Menu item Verb/Signal/Signal
 #. Translators: Menu item Noun/Signal
 #. Translators: Menu item Noun/Signal/Signal
-#: ../objects/FS/flow-ortho.c:162 ../objects/FS/flow-ortho.c:644
+#: ../objects/FS/flow-ortho.c:162 ../objects/FS/flow-ortho.c:638
 #: ../objects/FS/flow.c:139 ../objects/FS/flow.c:582
 #: ../objects/FS/function.c:1034 ../objects/FS/function.c:1036
 #: ../objects/FS/function.c:1172 ../objects/FS/function.c:1174
@@ -3054,11 +2959,6 @@ msgstr "स्थिति"
 msgid "Orient"
 msgstr "विन्यास"
 
-#. Translators: Menu item Verb/Support/Position/Align
-#: ../objects/FS/function.c:806
-msgid "Align"
-msgstr "पङ्क्तिबद्ध गर्नुहोस्"
-
 #. Translators: Menu item Verb/Support/Position/Locate
 #. Translators: Menu item Verb/Signal/Sense/Locate
 #: ../objects/FS/function.c:808 ../objects/FS/function.c:1050
@@ -3326,7 +3226,7 @@ msgid "Expose"
 msgstr "प्रदर्शन गर्नुहोस्"
 
 #. Translators: Menu item Verb/Provision/Extract
-#: ../objects/FS/function.c:942 ../sheets/Flowchart.sheet.in.h:8
+#: ../objects/FS/function.c:942 ../sheets/Flowchart.sheet.in.h:9
 msgid "Extract"
 msgstr "झिक्नुहोस्"
 
@@ -3562,7 +3462,7 @@ msgid "Mark"
 msgstr "चिन्ह लगाउनुहोस्"
 
 #. Translators: Menu item Verb/Signal/Display
-#: ../objects/FS/function.c:1060 ../sheets/Flowchart.sheet.in.h:6
+#: ../objects/FS/function.c:1060 ../sheets/Flowchart.sheet.in.h:7
 msgid "Display"
 msgstr "प्रदर्शन गर्नुहोस्"
 
@@ -3954,7 +3854,7 @@ msgstr "भरजेन्ट प्रकार:"
 
 #: ../objects/GRAFCET/vergent.c:405 ../objects/Istar/other.c:469
 #: ../objects/Jackson/domain.c:531 ../objects/KAOS/goal.c:572
-#: ../objects/KAOS/other.c:525 ../objects/SADT/box.c:445
+#: ../objects/KAOS/other.c:525 ../objects/SADT/box.c:447
 #: ../objects/standard/line.c:219
 msgid "Add connection point"
 msgstr "जडान बिन्दु थप्नुहोस्"
@@ -4020,13 +3920,13 @@ msgstr "Means-Ends"
 msgid "Resource"
 msgstr "संसाधन"
 
-#: ../objects/Istar/other.c:74
+#: ../objects/Istar/other.c:74 ../sheets/BPMN.sheet.in.h:43
 msgid "Task"
 msgstr "कार्य"
 
 #: ../objects/Istar/other.c:470 ../objects/Jackson/domain.c:532
 #: ../objects/KAOS/goal.c:573 ../objects/KAOS/other.c:526
-#: ../objects/SADT/box.c:446 ../objects/standard/line.c:220
+#: ../objects/SADT/box.c:448 ../objects/standard/line.c:220
 msgid "Delete connection point"
 msgstr "जडान बिन्दु मेट्नुहोस्"
 
@@ -4186,12 +4086,12 @@ msgstr "सेकेण्ड बाँणको रेखा चौडाइ"
 msgid "Show hours"
 msgstr "घण्टा देखाउनुहोस्"
 
-#: ../objects/Misc/libmisc.c:38
+#: ../objects/Misc/libmisc.c:42
 msgid "Miscellaneous objects"
 msgstr "विविध वस्तुहरू"
 
 #. property rows
-#: ../objects/SADT/arrow.c:134 ../objects/UML/class.c:175
+#: ../objects/SADT/arrow.c:134 ../objects/UML/class.c:174
 #: ../objects/UML/class_dialog.c:400
 msgid "Normal"
 msgstr "सामान्य"
@@ -4224,7 +4124,9 @@ msgstr "ठाडो प्रवाहहरू स्वचालित तर
 msgid ""
 "To improve the ease of reading, flows which begin and end vertically can be "
 "rendered gray"
-msgstr "अध्ययनको सजिलोपना बढाउनका लागि' ठाडो गरी सुरु र अन्त्य हुने प्रवाह खैरो रूपमा रेन्डर गर्न सकिन्छ"
+msgstr ""
+"अध्ययनको सजिलोपना बढाउनका लागि' ठाडो गरी सुरु र अन्त्य हुने प्रवाह खैरो रूपमा रेन्डर गर्न "
+"सकिन्छ"
 
 #: ../objects/SADT/arrow.c:463
 msgid "SADT Arrow"
@@ -4244,7 +4146,7 @@ msgstr "क्रियाकलाप/पाठ पहिचायक"
 msgid "The identifier which appears in the lower right corner of the Box"
 msgstr "पहिचायक जुन बाकसको तल्लो दायाँ कुनामा देखिन्छ"
 
-#: ../objects/SADT/box.c:451
+#: ../objects/SADT/box.c:453
 msgid "SADT box"
 msgstr "SADT बाकस"
 
@@ -4252,7 +4154,7 @@ msgstr "SADT बाकस"
 msgid "SADT diagram objects"
 msgstr "SADT चित्र वस्तुहरू"
 
-#: ../objects/UML/actor.c:375 ../objects/UML/actor.c:377
+#: ../objects/UML/actor.c:349 ../objects/UML/actor.c:351
 #: ../sheets/UML.sheet.in.h:2
 msgid "Actor"
 msgstr "कर्ता"
@@ -4325,102 +4227,102 @@ msgstr "सम्पूर्ण योगफल"
 msgid "Composition"
 msgstr "मिश्रण"
 
-#: ../objects/UML/class.c:138 ../objects/UML/class.c:309
-#: ../objects/UML/class.c:1708 ../sheets/UML.sheet.in.h:6
+#: ../objects/UML/class.c:137 ../objects/UML/class.c:308
+#: ../objects/UML/class.c:1703 ../sheets/UML.sheet.in.h:6
 msgid "Class"
 msgstr "वर्ग"
 
-#: ../objects/UML/class.c:142 ../objects/UML/classicon.c:138
+#: ../objects/UML/class.c:141 ../objects/UML/classicon.c:138
 #: ../objects/UML/component.c:124 ../objects/UML/large_package.c:129
 #: ../objects/UML/object.c:150 ../objects/UML/small_package.c:124
 #: ../objects/UML/umloperation.c:68
 msgid "Stereotype"
 msgstr "स्टेरियो प्रकार"
 
-#: ../objects/UML/class.c:144 ../objects/UML/class.c:185
+#: ../objects/UML/class.c:143 ../objects/UML/class.c:184
 #: ../objects/UML/class_dialog.c:425 ../objects/UML/umlattribute.c:43
 #: ../objects/UML/umloperation.c:66 ../objects/UML/umlparameter.c:49
 #: ../sheets/SDL.sheet.in.h:3
 msgid "Comment"
 msgstr "टिप्पणी"
 
-#: ../objects/UML/class.c:146 ../objects/UML/class.c:179
+#: ../objects/UML/class.c:145 ../objects/UML/class.c:178
 #: ../objects/UML/class_dialog.c:324 ../objects/UML/class_dialog.c:410
 #: ../objects/UML/class_dialog.c:2016 ../objects/UML/uml.c:110
 msgid "Abstract"
 msgstr "संक्षेप"
 
-#: ../objects/UML/class.c:148 ../objects/UML/class.c:1705
+#: ../objects/UML/class.c:147 ../objects/UML/class.c:1700
 msgid "Template"
 msgstr "टेम्प्लेट"
 
-#: ../objects/UML/class.c:151 ../objects/UML/class_dialog.c:333
+#: ../objects/UML/class.c:150 ../objects/UML/class_dialog.c:333
 msgid "Suppress Attributes"
 msgstr "विशेषताहरू दबाउनुहोस्"
 
-#: ../objects/UML/class.c:153
+#: ../objects/UML/class.c:152
 msgid "Suppress Operations"
 msgstr "सञ्चालन दबाउनुहोस्"
 
-#: ../objects/UML/class.c:155
+#: ../objects/UML/class.c:154
 msgid "Visible Attributes"
 msgstr "दृश्यात्मक विशेषताहरू"
 
-#: ../objects/UML/class.c:157
+#: ../objects/UML/class.c:156
 msgid "Visible Operations"
 msgstr "दृश्यात्मक सञ्चालन"
 
-#: ../objects/UML/class.c:159
+#: ../objects/UML/class.c:158
 msgid "Visible Comments"
 msgstr "दृश्यात्मक टिप्पणीहरू"
 
-#: ../objects/UML/class.c:161 ../objects/UML/class_dialog.c:349
+#: ../objects/UML/class.c:160 ../objects/UML/class_dialog.c:349
 msgid "Wrap Operations"
 msgstr "सञ्चालनहरू बेर्नुहोस्"
 
-#: ../objects/UML/class.c:163
+#: ../objects/UML/class.c:162
 msgid "Wrap after char"
 msgstr "char पछि बेर्नुहोस्"
 
-#: ../objects/UML/class.c:165
+#: ../objects/UML/class.c:164
 msgid "Comment line length"
 msgstr "टिप्पणी रेखा लम्बाइ"
 
-#: ../objects/UML/class.c:167
+#: ../objects/UML/class.c:166
 msgid "Comment tagging"
 msgstr "टिप्पणी ट्याग गर्दैछ"
 
-#: ../objects/UML/class.c:177 ../objects/UML/class_dialog.c:405
+#: ../objects/UML/class.c:176 ../objects/UML/class_dialog.c:405
 msgid "Polymorphic"
 msgstr "पोलिमोर्फिकय"
 
-#: ../objects/UML/class.c:181
+#: ../objects/UML/class.c:180
 msgid "Classname"
 msgstr "वर्गनाम"
 
-#: ../objects/UML/class.c:183
+#: ../objects/UML/class.c:182
 msgid "Abstract Classname"
 msgstr "वर्गनाम निकाल्नुहोस्"
 
-#: ../objects/UML/class.c:189 ../objects/UML/class.c:191
-#: ../objects/UML/class.c:193 ../objects/UML/class.c:195
-#: ../objects/UML/class.c:197 ../objects/UML/class.c:199
+#: ../objects/UML/class.c:188 ../objects/UML/class.c:190
+#: ../objects/UML/class.c:192 ../objects/UML/class.c:194
+#: ../objects/UML/class.c:196 ../objects/UML/class.c:198
 msgid " "
 msgstr "."
 
-#: ../objects/UML/class.c:205 ../objects/UML/object.c:154
+#: ../objects/UML/class.c:204 ../objects/UML/object.c:154
 msgid "Attributes"
 msgstr "विशेषताहरू"
 
-#: ../objects/UML/class.c:207
+#: ../objects/UML/class.c:206
 msgid "Operations"
 msgstr "सञ्चालनहरू"
 
-#: ../objects/UML/class.c:210
+#: ../objects/UML/class.c:209
 msgid "Template Parameters"
 msgstr "टेम्प्लेट परामितिहरू"
 
-#: ../objects/UML/class.c:304
+#: ../objects/UML/class.c:303
 msgid "Show Comments"
 msgstr "टिप्पणी देखाउनुहोस्"
 
@@ -4988,23 +4890,23 @@ msgstr "निश्चित सुरुआत अन्तर"
 msgid "Absolute end gap"
 msgstr "निश्चित अन्त्य अन्तर"
 
-#: ../objects/standard/bezier.c:728 ../objects/standard/beziergon.c:482
+#: ../objects/standard/bezier.c:698 ../objects/standard/beziergon.c:482
 msgid "Add Segment"
 msgstr "खण्ड थप्नुहोस्"
 
-#: ../objects/standard/bezier.c:729 ../objects/standard/beziergon.c:483
+#: ../objects/standard/bezier.c:699 ../objects/standard/beziergon.c:483
 msgid "Delete Segment"
 msgstr "खण्ड मेट्नुहोस्"
 
-#: ../objects/standard/bezier.c:731 ../objects/standard/beziergon.c:485
+#: ../objects/standard/bezier.c:701 ../objects/standard/beziergon.c:485
 msgid "Symmetric control"
 msgstr "सममित नियन्त्रण"
 
-#: ../objects/standard/bezier.c:733 ../objects/standard/beziergon.c:487
+#: ../objects/standard/bezier.c:703 ../objects/standard/beziergon.c:487
 msgid "Smooth control"
 msgstr "महिन नियन्त्रण"
 
-#: ../objects/standard/bezier.c:735 ../objects/standard/beziergon.c:489
+#: ../objects/standard/bezier.c:705 ../objects/standard/beziergon.c:489
 msgid "Cusp control"
 msgstr "बिन्दु नियन्त्रण"
 
@@ -5077,25 +4979,17 @@ msgstr "सुरुआत बिन्दु"
 msgid "End point"
 msgstr "अन्त्य बिन्दु"
 
-#: ../objects/standard/polygon.c:460 ../objects/standard/polyline.c:605
+#: ../objects/standard/polygon.c:460 ../objects/standard/polyline.c:577
 msgid "Add Corner"
 msgstr "कुनो थप्नुहोस्"
 
-#: ../objects/standard/polygon.c:461 ../objects/standard/polyline.c:606
+#: ../objects/standard/polygon.c:461 ../objects/standard/polyline.c:578
 msgid "Delete Corner"
 msgstr "कुनो मेट्नुहोस्"
 
 #: ../objects/standard/standard.c:45
 msgid "Standard objects"
 msgstr "मानक वस्तुहरू"
-
-#: ../objects/standard/textobj.c:131
-msgid "Bottom"
-msgstr "तल"
-
-#: ../objects/standard/textobj.c:132
-msgid "Top"
-msgstr "माथि"
 
 #: ../objects/standard/textobj.c:134
 msgid "First Line"
@@ -5105,35 +4999,40 @@ msgstr "पहिलो रेखा"
 msgid "Vertical text alignment"
 msgstr "ठाडो पाठ पङ्क्तिबद्धता"
 
-#: ../plug-ins/cairo/diacairo.c:1066
+#: ../plug-ins/cairo/diacairo.c:1086
 msgid "Cairo PostScript"
 msgstr "काइरो पोष्टस्क्रिप्ट"
 
-#: ../plug-ins/cairo/diacairo.c:1077
+#: ../plug-ins/cairo/diacairo.c:1097
 msgid "Cairo Portable Document Format"
 msgstr "काईरो चलायमान कागजात ढाँचा"
 
-#: ../plug-ins/cairo/diacairo.c:1087
+#: ../plug-ins/cairo/diacairo.c:1108
+#, fuzzy
+msgid "Cairo Scalable Vector Graphics"
+msgstr "मापनयोग्य भेक्टर ग्राफिक्स"
+
+#: ../plug-ins/cairo/diacairo.c:1118
 msgid "Cairo PNG"
 msgstr "काइरो PNG"
 
-#: ../plug-ins/cairo/diacairo.c:1095
+#: ../plug-ins/cairo/diacairo.c:1126
 msgid "Cairo PNG (with alpha)"
 msgstr "काइरो PNG (अल्फामा)"
 
-#: ../plug-ins/cairo/diacairo.c:1105
+#: ../plug-ins/cairo/diacairo.c:1136
 msgid "Cairo WMF"
 msgstr "काइरो WMF"
 
-#: ../plug-ins/cairo/diacairo.c:1114
+#: ../plug-ins/cairo/diacairo.c:1145
 msgid "Cairo old WMF"
 msgstr "काइरो पुरानो WMF"
 
-#: ../plug-ins/cairo/diacairo.c:1123
+#: ../plug-ins/cairo/diacairo.c:1154
 msgid "Cairo Clipboard"
 msgstr "काइरो क्लिपबोर्ड"
 
-#: ../plug-ins/cairo/diacairo.c:1169
+#: ../plug-ins/cairo/diacairo.c:1203
 msgid "Cairo based Rendering"
 msgstr "काइरोमा आधारित रेन्डरिङ"
 
@@ -5141,7 +5040,8 @@ msgstr "काइरोमा आधारित रेन्डरिङ"
 msgid ""
 "Image row length larger than maximum cell array.\n"
 "Image not exported to CGM."
-msgstr "अधिकतम कक्ष बाँण भन्दा छविचित्रको पङ्क्ति लम्बाइ ठूलो हुन्छ। छविचित्र CGM मा निर्यात भएन।"
+msgstr ""
+"अधिकतम कक्ष बाँण भन्दा छविचित्रको पङ्क्ति लम्बाइ ठूलो हुन्छ। छविचित्र CGM मा निर्यात भएन।"
 
 #: ../plug-ins/cgm/cgm.c:1358
 msgid "Computer Graphics Metafile"
@@ -5222,7 +5122,7 @@ msgstr "HP ग्राफिक्स भाषा निर्यात फि
 msgid "TeX Metapost export filter"
 msgstr "TeX मेटापोष्ट निर्यात फिल्टर"
 
-#: ../plug-ins/metapost/render_metapost.c:1175
+#: ../plug-ins/metapost/render_metapost.c:1214
 msgid "TeX Metapost macros"
 msgstr "TeX मेटापोष्ट म्याक्रोहरू"
 
@@ -5271,11 +5171,11 @@ msgstr "लेख्नका लागि '%s'खोल्न सकेन।\n
 msgid "Python scripting support"
 msgstr "पाइथोन स्क्रिप्ट समर्थन"
 
-#: ../plug-ins/shape/shape-export.c:474
+#: ../plug-ins/shape/shape-export.c:475
 msgid "Can't export png without libart!"
 msgstr "लिबआर्ट बिना png निर्यात गर्न सकिँदैन !"
 
-#: ../plug-ins/shape/shape-export.c:499
+#: ../plug-ins/shape/shape-export.c:500
 msgid "Dia Shape File"
 msgstr "डाय आकार फाइल"
 
@@ -5295,14 +5195,6 @@ msgstr ""
 "अवैध बाटो डेटा\n"
 "svg:path डेटा movetoसँगै सुरु हुनुपर्दछ।"
 
-#: ../plug-ins/svg/svg-import.c:204 ../plug-ins/xfig/xfig-import.c:108
-#: ../plug-ins/xfig/xfig-import.c:159 ../plug-ins/xfig/xfig-import.c:188
-#: ../plug-ins/xfig/xfig-import.c:224 ../plug-ins/xfig/xfig-import.c:261
-#: ../plug-ins/xfig/xfig-import.c:289 ../plug-ins/xfig/xfig-import.c:326
-#: ../plug-ins/xfig/xfig-import.c:362 ../plug-ins/xfig/xfig-import.c:403
-msgid "Can't find standard object"
-msgstr "मानक वस्तु फेला पार्न सकिँदैन"
-
 #: ../plug-ins/svg/svg-import.c:637
 msgid "Expected SVG Namespace not found in file"
 msgstr "अपेक्षित SVG नेमस्पेस फाइलमा फेला परेन"
@@ -5316,20 +5208,119 @@ msgstr "मूल तत्व '%s' -- 'svg' अपेक्षित थिय�
 msgid "Scalable Vector Graphics import and export filters"
 msgstr "मापनयोग्य भेक्टर ग्राफिक्स आयात र निर्यात फिल्टरहरू"
 
-#: ../plug-ins/wmf/wmf.cpp:1185
+#: ../plug-ins/vdx/vdx-export.c:1376 ../plug-ins/vdx/vdx-export.c:1385
+#, fuzzy, c-format
+msgid "Couldn't read file %s"
+msgstr "%s रङ पढ्न सकेन:\n"
+
+#: ../plug-ins/vdx/vdx-export.c:1904
+msgid "Visio XML format"
+msgstr ""
+
+#: ../plug-ins/vdx/vdx-import.c:219 ../plug-ins/xfig/xfig-import.c:1034
+#, c-format
+msgid "Couldn't read color: %s\n"
+msgstr "%s रङ पढ्न सकेन:\n"
+
+#: ../plug-ins/vdx/vdx-import.c:507
+#, fuzzy, c-format
+msgid "Couldn't find shape %d\n"
+msgstr "मद्दत डाइरेक्टरी फेला पार्न सकेन"
+
+#: ../plug-ins/vdx/vdx-import.c:851
+msgid "MoveTo after start of polyline\n"
+msgstr ""
+
+#: ../plug-ins/vdx/vdx-import.c:864
+#, fuzzy, c-format
+msgid "Unexpected polyline object: %s\n"
+msgstr "%s बहुरेखा सूचना पढ्न सकेन:\n"
+
+#: ../plug-ins/vdx/vdx-import.c:956
+#, c-format
+msgid "Unexpected Ellipse object: %s\n"
+msgstr ""
+
+#: ../plug-ins/vdx/vdx-import.c:964
+msgid "Unexpected Ellipse additional objects\n"
+msgstr ""
+
+#: ../plug-ins/vdx/vdx-import.c:974
+#, fuzzy
+msgid "Can't rotate ellipse\n"
+msgstr "%s दीर्घवृत सूचना पढ्न सकेन:\n"
+
+#: ../plug-ins/vdx/vdx-import.c:1287
+msgid "MoveTo not at start of Bezier\n"
+msgstr ""
+
+#: ../plug-ins/vdx/vdx-import.c:1374
+#, c-format
+msgid "Unexpected Bezier object: %s\n"
+msgstr ""
+
+#: ../plug-ins/vdx/vdx-import.c:1595
+#, c-format
+msgid "Unexpected NURBSTo object: %s\n"
+msgstr ""
+
+#: ../plug-ins/vdx/vdx-import.c:1603
+msgid "Unexpected NURBSTo additional objects\n"
+msgstr ""
+
+#: ../plug-ins/vdx/vdx-import.c:1620
+msgid "Invalid NURBS formula"
+msgstr ""
+
+#: ../plug-ins/vdx/vdx-import.c:1742
+#, fuzzy, c-format
+msgid "Couldn't write file %s"
+msgstr "%s रङ पढ्न सकेन:\n"
+
+#: ../plug-ins/vdx/vdx-import.c:1826 ../plug-ins/vdx/vdx-import.c:1839
+#, fuzzy, c-format
+msgid "Couldn't handle foreign object type %s"
+msgstr "%s FIG वस्तु पहिचान गर्न सकेन:\n"
+
+#: ../plug-ins/vdx/vdx-import.c:1867
+#, fuzzy, c-format
+msgid "Couldn't make object dir %s"
+msgstr "%s FIG वस्तु पहिचान गर्न सकेन:\n"
+
+#: ../plug-ins/vdx/vdx-import.c:2723
+#, fuzzy
+msgid "Visio XML File Format"
+msgstr "XFig फाइल ढाँचा"
+
+#: ../plug-ins/vdx/vdx-xml.c:3344
+#, fuzzy, c-format
+msgid "Can't decode object %s"
+msgstr "फन्ट %s लोड गर्न सकिँदैन।\n"
+
+#: ../plug-ins/vdx/vdx-xml.c:5125
+#, fuzzy, c-format
+msgid "Can't write object %u"
+msgstr "मानक वस्तु फेला पार्न सकिँदैन"
+
+#: ../plug-ins/vdx/vdx.c:53
+#, fuzzy
+msgid "Visio XML Format import and export filter"
+msgstr "Fig ढाँचा आयात र निर्यात फिल्टर"
+
+#: ../plug-ins/wmf/wmf.cpp:1186
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
 msgstr "लेख्नका लागि '%s'खोल्न सकेन।\n"
 
-#: ../plug-ins/wmf/wmf.cpp:1269
+#: ../plug-ins/wmf/wmf.cpp:1270
 msgid "Windows Meta File"
 msgstr "विण्डोज मेटा फाइल"
 
-#: ../plug-ins/wmf/wmf.cpp:1278
+#: ../plug-ins/wmf/wmf.cpp:1279
 msgid "Enhanced Meta File"
 msgstr "बढाइएको मेटा फाइल"
 
-#: ../plug-ins/wmf/wmf.cpp:1294
+#: ../plug-ins/wmf/wmf.cpp:1295
 msgid "WMF export filter"
 msgstr "WMF निर्यात फिल्टर"
 
@@ -5359,193 +5350,190 @@ msgstr "प्रयोगकर्ता-परिभाषित अरू र
 msgid "XFig format"
 msgstr "XFig ढाँचा"
 
-#: ../plug-ins/xfig/xfig-import.c:451
+#: ../plug-ins/xfig/xfig-import.c:109
 #, c-format
 msgid "Color index %d too high, only 512 colors allowed. Using black instead."
-msgstr "रङ अनुक्रमणिका %d निकै माथि छ, ५१२ रङहरू मात्र स्वीकार्य छ। सट्टामा कालि प्रयोग गर्दैछ।"
+msgstr ""
+"रङ अनुक्रमणिका %d निकै माथि छ, ५१२ रङहरू मात्र स्वीकार्य छ। सट्टामा कालि प्रयोग गर्दैछ।"
 
-#: ../plug-ins/xfig/xfig-import.c:478
+#: ../plug-ins/xfig/xfig-import.c:136
 msgid "Patterns are not supported by Dia"
 msgstr "डायद्वारा नमूनाहरूलाई समर्थन गदैन"
 
-#: ../plug-ins/xfig/xfig-import.c:506
+#: ../plug-ins/xfig/xfig-import.c:164
 msgid "Triple-dotted lines are not supported by Dia, using double-dotted"
-msgstr "तिन-पटक गरिएका थोप्लाहरू डायद्वारा समर्थन गर्दैन, दुई-पटक गरिएका थोप्लाहरू प्रयोग गर्दैछ"
+msgstr ""
+"तिन-पटक गरिएका थोप्लाहरू डायद्वारा समर्थन गर्दैन, दुई-पटक गरिएका थोप्लाहरू प्रयोग गर्दैछ"
 
-#: ../plug-ins/xfig/xfig-import.c:510
+#: ../plug-ins/xfig/xfig-import.c:168
 #, c-format
 msgid "Line style %d should not appear\n"
 msgstr "%d रेखा शैली देखिनु हुँदैन\n"
 
-#: ../plug-ins/xfig/xfig-import.c:578
+#: ../plug-ins/xfig/xfig-import.c:236
 #, c-format
 msgid "Error while reading %dth of %d points: %s\n"
 msgstr "%d बिन्दुहरूको %d औ पढ्दा त्रुटि:%s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:606
+#: ../plug-ins/xfig/xfig-import.c:264
 msgid "Error while reading arrowhead\n"
 msgstr "बाँण शीर्ष पढ्दा त्रुटि\n"
 
-#: ../plug-ins/xfig/xfig-import.c:628
+#: ../plug-ins/xfig/xfig-import.c:286
 #, c-format
 msgid "Unknown arrow type %d\n"
 msgstr "अपरिचित बाँणको प्रकार %d\n"
 
-#: ../plug-ins/xfig/xfig-import.c:719
+#: ../plug-ins/xfig/xfig-import.c:377
 #, c-format
 msgid "Depth %d of of range, only 0-%d allowed.\n"
 msgstr "दायराको गहिराइ %d, मात्र ०-%d अनुमति छ।\n"
 
-#: ../plug-ins/xfig/xfig-import.c:766
+#: ../plug-ins/xfig/xfig-import.c:424
 #, c-format
 msgid "Couldn't read ellipse info: %s\n"
 msgstr "%s दीर्घवृत सूचना पढ्न सकेन:\n"
 
-#: ../plug-ins/xfig/xfig-import.c:835
+#: ../plug-ins/xfig/xfig-import.c:492
 #, c-format
 msgid "Couldn't read polyline info: %s\n"
 msgstr "%s बहुरेखा सूचना पढ्न सकेन:\n"
 
-#: ../plug-ins/xfig/xfig-import.c:850
+#: ../plug-ins/xfig/xfig-import.c:507
 #, c-format
 msgid "Couldn't read flipped bit: %s\n"
 msgstr "%s फ्लिप गरिएको बिट पढ्न सकेन:\n"
 
-#: ../plug-ins/xfig/xfig-import.c:868
+#: ../plug-ins/xfig/xfig-import.c:525
 msgid "Negative corner radius, negating"
 msgstr "ऋणात्मक कुनो अर्धव्यास, अस्वीकार गर्दैछ"
 
-#: ../plug-ins/xfig/xfig-import.c:912 ../plug-ins/xfig/xfig-import.c:1228
+#: ../plug-ins/xfig/xfig-import.c:568 ../plug-ins/xfig/xfig-import.c:881
 #, c-format
 msgid "Unknown polyline subtype: %d\n"
 msgstr "अपरिचित बहुरेखाको सहायक प्रकार: %d\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1062 ../plug-ins/xfig/xfig-import.c:1094
+#: ../plug-ins/xfig/xfig-import.c:718 ../plug-ins/xfig/xfig-import.c:750
 #, c-format
 msgid "Couldn't read spline info: %s\n"
 msgstr "स्प्लाइन सूचना %s पढ्न सकेन:\n"
 
 #. Open approximated spline
 #. Closed approximated spline
-#: ../plug-ins/xfig/xfig-import.c:1081 ../plug-ins/xfig/xfig-import.c:1099
+#: ../plug-ins/xfig/xfig-import.c:737 ../plug-ins/xfig/xfig-import.c:755
 msgid "Cannot convert approximated spline yet."
 msgstr "अनुमानित स्प्लाइनलाई अहिलेसम्म रूपान्तरण गर्न सकिँदैन।"
 
-#: ../plug-ins/xfig/xfig-import.c:1139
+#: ../plug-ins/xfig/xfig-import.c:793
 #, c-format
 msgid "Unknown spline subtype: %d\n"
 msgstr "अज्ञात स्प्लाइन सहायक प्रकार: %d\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1202
+#: ../plug-ins/xfig/xfig-import.c:856
 #, c-format
 msgid "Couldn't read arc info: %s\n"
 msgstr "चाप सूचना: %s पढ्न सकेन\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1292
+#: ../plug-ins/xfig/xfig-import.c:945
 #, c-format
 msgid "Couldn't read text info: %s\n"
 msgstr "पाठ सूचना %s पढ्न सकेन:\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1354
+#: ../plug-ins/xfig/xfig-import.c:1007
 #, c-format
 msgid "Couldn't identify FIG object: %s\n"
 msgstr "%s FIG वस्तु पहिचान गर्न सकेन:\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1362
+#: ../plug-ins/xfig/xfig-import.c:1015
 msgid "Compound end outside compound\n"
 msgstr "मिश्रित अन्त्य मिश्रण बाहिर\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1381
-#, c-format
-msgid "Couldn't read color: %s\n"
-msgstr "%s रङ पढ्न सकेन:\n"
-
-#: ../plug-ins/xfig/xfig-import.c:1386
+#: ../plug-ins/xfig/xfig-import.c:1039
 #, c-format
 msgid "Color number %d out of range 0..%d.  Discarding color.\n"
 msgstr "रङ नम्बर %d दायरा 0..%d भन्दा बाहिर।  रङ छोड्दैछ।\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1432
+#: ../plug-ins/xfig/xfig-import.c:1085
 #, c-format
 msgid "Couldn't read group extend: %s\n"
 msgstr "%s समूह विस्तार पढ्न सकेन:\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1443
+#: ../plug-ins/xfig/xfig-import.c:1096
 #, c-format
 msgid "Unknown object type %d\n"
 msgstr "%d अज्ञात वस्तु प्रकार\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1467
+#: ../plug-ins/xfig/xfig-import.c:1120
 #, c-format
 msgid "`%s' is not one of `%s' or `%s'\n"
 msgstr "`%s` %s' वा `%s' मध्येको एउटा होइन\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1477
+#: ../plug-ins/xfig/xfig-import.c:1130
 #, c-format
 msgid "Error reading paper size: %s\n"
 msgstr "%s कागज साइज पढ्दा त्रुटि:\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1488
+#: ../plug-ins/xfig/xfig-import.c:1141
 #, c-format
 msgid "Unknown paper size `%s', using default\n"
 msgstr "`%s' अज्ञात कागज साइज, पूर्वनिर्धारित प्रयोग गर्दैछ\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1500
+#: ../plug-ins/xfig/xfig-import.c:1153
 #, c-format
 msgid "Error reading paper orientation: %s\n"
 msgstr "%s कागज अभिमुखिकरण पढ्दा त्रुटि:\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1510
+#: ../plug-ins/xfig/xfig-import.c:1163
 #, c-format
 msgid "Error reading justification: %s\n"
 msgstr "%s समरेखन पढ्दा त्रुटि:\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1520
+#: ../plug-ins/xfig/xfig-import.c:1173
 #, c-format
 msgid "Error reading units: %s\n"
 msgstr "%s एकाइ पढ्दा त्रुटि:\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1536
+#: ../plug-ins/xfig/xfig-import.c:1189
 #, c-format
 msgid "Error reading magnification: %s\n"
 msgstr "%s साइज ठूलो देखाउने पढ्दा त्रुटि:\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1549
+#: ../plug-ins/xfig/xfig-import.c:1202
 #, c-format
 msgid "Error reading multipage indicator: %s\n"
 msgstr "%s बहुपृष्ठ सूचक पढ्दा त्रुटि:\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1560
+#: ../plug-ins/xfig/xfig-import.c:1213
 #, c-format
 msgid "Error reading transparent color: %s\n"
 msgstr "%s पारदर्शक रङ पढ्नमा त्रुटि:\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1569 ../plug-ins/xfig/xfig-import.c:1625
-#: ../plug-ins/xfig/xfig-import.c:1643
+#: ../plug-ins/xfig/xfig-import.c:1222 ../plug-ins/xfig/xfig-import.c:1278
+#: ../plug-ins/xfig/xfig-import.c:1296
 #, c-format
 msgid "Error reading FIG file: %s\n"
 msgstr "%s FIG फाइल पढ्दा त्रुटि:\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1571 ../plug-ins/xfig/xfig-import.c:1627
+#: ../plug-ins/xfig/xfig-import.c:1224 ../plug-ins/xfig/xfig-import.c:1280
 msgid "Premature end of FIG file\n"
 msgstr "FIG फाइलको असायमिक अन्त्य\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1580
+#: ../plug-ins/xfig/xfig-import.c:1233
 #, c-format
 msgid "Error reading resolution: %s\n"
 msgstr "रिजोल्युसन पढ्दा त्रुटि: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1612
+#: ../plug-ins/xfig/xfig-import.c:1265
 #, c-format
 msgid "Doesn't look like a Fig file: %s\n"
 msgstr "Fig फाइल जस्तो देखिदैन: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1618
+#: ../plug-ins/xfig/xfig-import.c:1271
 #, c-format
 msgid "This is a FIG version %d.%d file, I may not understand it\n"
 msgstr "यो FIG को %d संस्करण हो। %d फाइल, मैले यसलाई नबुझ्न सक्छु \n"
 
-#: ../plug-ins/xfig/xfig-import.c:1666
+#: ../plug-ins/xfig/xfig-import.c:1319
 msgid "XFig File Format"
 msgstr "XFig फाइल ढाँचा"
 
@@ -5819,6 +5807,194 @@ msgstr "माथि-तल-बायाँ बाँण"
 #: ../sheets/Assorted.sheet.in.h:47
 msgid "Vertical parallelogram"
 msgstr "ठाडो समानान्तर चत्रुभुज"
+
+#: ../sheets/BPMN.sheet.in.h:1
+#, fuzzy
+msgid "Activity Looping"
+msgstr "क्रियाकलाप"
+
+#: ../sheets/BPMN.sheet.in.h:2
+msgid "Ad-Hoc Collapsed Sub-Process"
+msgstr ""
+
+#. For: anthonym
+#: ../sheets/BPMN.sheet.in.h:4
+msgid "BPMN"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:5
+msgid "Business Process Modeling Notation"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:6
+msgid "Collapsed Sub-Process"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:7
+msgid "Compensation Collapsed Sub-Process"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:8
+#, fuzzy
+msgid "Compensation Task"
+msgstr "मिश्रण"
+
+#: ../sheets/BPMN.sheet.in.h:9
+#, fuzzy
+msgid "Complex"
+msgstr "जोडी"
+
+#: ../sheets/BPMN.sheet.in.h:10
+#, fuzzy
+msgid "Data Object"
+msgstr "डाय वस्तु"
+
+#: ../sheets/BPMN.sheet.in.h:11
+#, fuzzy
+msgid "End Event"
+msgstr "अन्त्य बिन्दु"
+
+#: ../sheets/BPMN.sheet.in.h:12
+msgid "End Event - Cancel"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:13
+#, fuzzy
+msgid "End Event - Compensation"
+msgstr "घटना विशेषता"
+
+#: ../sheets/BPMN.sheet.in.h:14
+msgid "End Event - Error"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:15
+#, fuzzy
+msgid "End Event - Link"
+msgstr "घटना सिङ्क"
+
+#: ../sheets/BPMN.sheet.in.h:16
+msgid "End Event - Message"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:17
+msgid "End Event - Multiple"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:18
+msgid "End Event - Terminate"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:19
+msgid "Exclusive (XOR) Data Based"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:20
+msgid "Exclusive (XOR) Event Based"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:21
+#, fuzzy
+msgid "Gateway"
+msgstr "MAS गेटवे"
+
+#: ../sheets/BPMN.sheet.in.h:22
+msgid "Group"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:23
+msgid "Inclusive (OR)"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:24
+msgid "Intermediate Event"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:25
+msgid "Intermediate Event - Cancel"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:26
+msgid "Intermediate Event - Compensation"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:27
+msgid "Intermediate Event - Error"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:28
+msgid "Intermediate Event - Link"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:29
+msgid "Intermediate Event - Message"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:30
+msgid "Intermediate Event - Multiple"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:31
+msgid "Intermediate Event - Rule"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:32
+msgid "Intermediate Event - Timer"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:33
+msgid "Looping Collapsed Sub-Process"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:34
+msgid "Multiple Instance Collapsed Sub-Process"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:35
+#, fuzzy
+msgid "Multiple Instance Task"
+msgstr "बहुविध दृष्टान्त"
+
+#: ../sheets/BPMN.sheet.in.h:36
+msgid "Parallel (AND)"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:37
+#, fuzzy
+msgid "Start Event"
+msgstr "सुरुआत बिन्दु"
+
+#: ../sheets/BPMN.sheet.in.h:38
+#, fuzzy
+msgid "Start Event - Link"
+msgstr "घटना सिङ्क"
+
+#: ../sheets/BPMN.sheet.in.h:39
+#, fuzzy
+msgid "Start Event - Message"
+msgstr "सन्देश पठाउनुहोस्"
+
+#: ../sheets/BPMN.sheet.in.h:40
+msgid "Start Event - Multiple"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:41
+msgid "Start Event - Rule"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:42
+#, fuzzy
+msgid "Start Event - Timer"
+msgstr "सुरुआत समय"
+
+#: ../sheets/BPMN.sheet.in.h:44
+#, fuzzy
+msgid "Text Annotation"
+msgstr "अभिमुखिकरण"
+
+#: ../sheets/BPMN.sheet.in.h:45
+#, fuzzy
+msgid "Transaction"
+msgstr "अनुवाद"
 
 #: ../sheets/ChemEng.sheet.in.h:1
 msgid "AC Generator"
@@ -6349,14 +6525,6 @@ msgstr "अनुकूल विशेषताहरूका लागि ट
 msgid "Time delay"
 msgstr "समय विलम्व"
 
-#: ../sheets/EML.sheet.in.h:1
-msgid "EML"
-msgstr "EML"
-
-#: ../sheets/EML.sheet.in.h:2
-msgid "Editor for EML Static Structure Diagrams."
-msgstr "EML स्थिर बनोट चित्रहरूका लागि सम्पादक"
-
 #: ../sheets/ER.sheet.in.h:2
 msgid "ER"
 msgstr "ER"
@@ -6470,109 +6638,114 @@ msgstr "कोलेट गर्नुहोस्"
 msgid "Connector"
 msgstr "योजक"
 
-#: ../sheets/Flowchart.sheet.in.h:4 ../sheets/SDL.sheet.in.h:4
+#: ../sheets/Flowchart.sheet.in.h:4
+#, fuzzy
+msgid "Data source"
+msgstr "डेटा भण्डार"
+
+#: ../sheets/Flowchart.sheet.in.h:5 ../sheets/SDL.sheet.in.h:4
 msgid "Decision"
 msgstr "निर्णय"
 
-#: ../sheets/Flowchart.sheet.in.h:5
+#: ../sheets/Flowchart.sheet.in.h:6
 msgid "Delay"
 msgstr "विलम्व"
 
-#: ../sheets/Flowchart.sheet.in.h:7
+#: ../sheets/Flowchart.sheet.in.h:8
 msgid "Document"
 msgstr "कागजात"
 
-#: ../sheets/Flowchart.sheet.in.h:9
+#: ../sheets/Flowchart.sheet.in.h:10
 msgid "Flowchart"
 msgstr "प्रवाहचित्रपट"
 
-#: ../sheets/Flowchart.sheet.in.h:10
+#: ../sheets/Flowchart.sheet.in.h:11
 msgid "Input/Output"
 msgstr "आगत/निर्गत"
 
-#: ../sheets/Flowchart.sheet.in.h:11
+#: ../sheets/Flowchart.sheet.in.h:12
 msgid "Internal storage"
 msgstr "आन्तरिक भण्डारण"
 
-#: ../sheets/Flowchart.sheet.in.h:12
+#: ../sheets/Flowchart.sheet.in.h:13
 msgid "Magnetic disk"
 msgstr "चुम्बकिय डिस्क"
 
-#: ../sheets/Flowchart.sheet.in.h:13
+#: ../sheets/Flowchart.sheet.in.h:14
 msgid "Magnetic drum"
 msgstr "चुम्बकिय ड्रम"
 
-#: ../sheets/Flowchart.sheet.in.h:14
+#: ../sheets/Flowchart.sheet.in.h:15
 msgid "Magnetic tape"
 msgstr "चुम्बकिय फित्ता"
 
-#: ../sheets/Flowchart.sheet.in.h:15
+#: ../sheets/Flowchart.sheet.in.h:16
 msgid "Manual input"
 msgstr "म्यानुअल आगत"
 
-#: ../sheets/Flowchart.sheet.in.h:16
+#: ../sheets/Flowchart.sheet.in.h:17
 msgid "Manual operation"
 msgstr "म्यानुअल सञ्चालन"
 
-#: ../sheets/Flowchart.sheet.in.h:17
+#: ../sheets/Flowchart.sheet.in.h:18
 msgid "Merge"
 msgstr "गाभ्नुहोस्"
 
-#: ../sheets/Flowchart.sheet.in.h:18
+#: ../sheets/Flowchart.sheet.in.h:19
 msgid "Objects to draw flowcharts"
 msgstr "प्रवाहचित्रपटहरूमा कोर्नका लागि वस्तुहरू"
 
 #. XXX
-#: ../sheets/Flowchart.sheet.in.h:20
+#: ../sheets/Flowchart.sheet.in.h:21
 msgid "Off page connector"
 msgstr "बन्द पृष्ठ योजक"
 
-#: ../sheets/Flowchart.sheet.in.h:21
+#: ../sheets/Flowchart.sheet.in.h:22
 msgid "Offline storage"
 msgstr "अफलाइन भण्डारण"
 
-#: ../sheets/Flowchart.sheet.in.h:22
+#: ../sheets/Flowchart.sheet.in.h:23
 msgid "Or"
 msgstr "वा"
 
-#: ../sheets/Flowchart.sheet.in.h:23
+#: ../sheets/Flowchart.sheet.in.h:24
 msgid "Predefined process"
 msgstr "पूर्वपरिभाषित प्रक्रिया"
 
-#: ../sheets/Flowchart.sheet.in.h:24
+#: ../sheets/Flowchart.sheet.in.h:25
 msgid "Preparation"
 msgstr "तयारी"
 
-#: ../sheets/Flowchart.sheet.in.h:25
+#: ../sheets/Flowchart.sheet.in.h:26
 msgid "Process/Auxiliary Operation"
 msgstr "प्रक्रिया/सहायक सञ्चालन"
 
-#: ../sheets/Flowchart.sheet.in.h:26
+#: ../sheets/Flowchart.sheet.in.h:27
 msgid "Punched card"
 msgstr "छेडिएको कार्ड"
 
-#: ../sheets/Flowchart.sheet.in.h:27
+#: ../sheets/Flowchart.sheet.in.h:28
 msgid "Punched tape"
 msgstr "छेडिएको फित्ता"
 
-#: ../sheets/Flowchart.sheet.in.h:28
+#: ../sheets/Flowchart.sheet.in.h:29
 msgid "Sort"
 msgstr "क्रमबद्ध गर्नुहोस्"
 
 #. XXX
-#: ../sheets/Flowchart.sheet.in.h:30
+#: ../sheets/Flowchart.sheet.in.h:31
 msgid "Summing junction"
 msgstr "जोडिएको संगम"
 
-#: ../sheets/Flowchart.sheet.in.h:31
+#: ../sheets/Flowchart.sheet.in.h:32
 msgid "Terminal Interrupt"
 msgstr "टर्मिनल रोकावट"
 
-#: ../sheets/Flowchart.sheet.in.h:32
+#: ../sheets/Flowchart.sheet.in.h:33
 msgid "Transaction file"
 msgstr "कारोबार फाइल"
 
-#: ../sheets/Flowchart.sheet.in.h:33
+#: ../sheets/Flowchart.sheet.in.h:34
 msgid "Transmittal tape"
 msgstr "ट्रासमिटल फित्ता"
 
@@ -7016,6 +7189,10 @@ msgid "Miscellaneous Shapes"
 msgstr "विविध आकारहरू"
 
 #: ../sheets/Misc.sheet.in.h:5
+msgid "New-style group object, for testing"
+msgstr ""
+
+#: ../sheets/Misc.sheet.in.h:6
 msgid "Traditional clock"
 msgstr "परम्परागत घडी"
 
@@ -8983,3 +9160,279 @@ msgstr "सिवेस डेटासर्भर"
 msgid "Sybase replication server"
 msgstr "सिवेस प्रतिकरण सर्भर"
 
+#~ msgid "Modify object(s)"
+#~ msgstr "वस्तु(हरू) परिमार्जन गर्नुहोस्"
+
+#~ msgid "Failed to save file '%s'.\n"
+#~ msgstr "फाइल '%s' बचत गर्न असफल।\n"
+
+#~ msgid "/File/_New"
+#~ msgstr "/फाइल/नयाँ"
+
+#~ msgid "/File/_Open..."
+#~ msgstr "/फाइल/खोल्नुहोस्..."
+
+#~ msgid "/File/---"
+#~ msgstr "/फाइल/---"
+
+#~ msgid "/File/_Diagram tree"
+#~ msgstr "/फाइल/चित्र ट्रि"
+
+#~ msgid "/File/Sheets and Objects..."
+#~ msgstr "/फाइल/पानाहरू र वस्तुहरू..."
+
+#~ msgid "/File/_Preferences..."
+#~ msgstr "/फाइल/प्राथमिकताहरू..."
+
+#~ msgid "/File/P_lugins..."
+#~ msgstr "/फाइल/प्लगइनहरू..."
+
+#~ msgid "/File/_Quit"
+#~ msgstr "/फाइल/अन्त्य गर्नुहोस्"
+
+#~ msgid "/Help/_Contents"
+#~ msgstr "/मद्दत/सामग्रीहरू"
+
+#~ msgid "/Help/---"
+#~ msgstr "/मद्दत/---"
+
+#~ msgid "/Help/_About..."
+#~ msgstr "/मद्दत/बारेमा..."
+
+#~ msgid "/File/_Save"
+#~ msgstr "/फाइल/बचत"
+
+#~ msgid "/File/Save _As..."
+#~ msgstr "/फाइल/यस रूपमा बचत गर्नुहोस्..."
+
+#~ msgid "/File/Page Set_up..."
+#~ msgstr "/फाइल/पृष्ठ सेटअप..."
+
+#~ msgid "/File/_Print Diagram..."
+#~ msgstr "/फाइल/चित्र मुद्रण गर्नुहोस्..."
+
+#~ msgid "/File/_Close"
+#~ msgstr "/फाइल/बन्द गर्नुहोस्"
+
+#~ msgid "/_Edit"
+#~ msgstr "/सम्पादन"
+
+#~ msgid "/Edit/_Undo"
+#~ msgstr "/सम्पादन/पुर्वस्थितिमा फर्काउनुहोस्"
+
+#~ msgid "/Edit/_Redo"
+#~ msgstr "/सम्पादन/रिडु गर्नुहोस्"
+
+#~ msgid "/Edit/---"
+#~ msgstr "/सम्पादन/---"
+
+#~ msgid "/Edit/_Copy"
+#~ msgstr "/सम्पादन/प्रतिलिपि बनाउनुहोस्"
+
+#~ msgid "/Edit/C_ut"
+#~ msgstr "/सम्पादन/काट्नुहोस्"
+
+#~ msgid "/Edit/_Paste"
+#~ msgstr "/सम्पादन/टाँस्नुहोस्"
+
+#~ msgid "/Edit/_Delete"
+#~ msgstr "/सम्पादन/मेट्नुहोस्"
+
+#~ msgid "/Diagram/_Properties..."
+#~ msgstr "/चित्र/गुण..."
+
+#~ msgid "/Diagram/_Layers..."
+#~ msgstr "/चित्र/तहहरू..."
+
+#~ msgid "/View/Zoom _In"
+#~ msgstr "/दृश्य/जुम बढाउनुहोस्"
+
+#~ msgid "/View/Zoom _Out"
+#~ msgstr "/दृश्य/जुम घटाउनुहोस्"
+
+#~ msgid "/View/_Zoom"
+#~ msgstr "/दृश्य/जुम"
+
+#~ msgid "/View/Zoom/1600%"
+#~ msgstr "/दृश्य/जुम/१६००%"
+
+#~ msgid "/View/Zoom/800%"
+#~ msgstr "/दृश्य/जुम/८००%"
+
+#~ msgid "/View/Zoom/400%"
+#~ msgstr "/दृश्य/जुम/४००%"
+
+#~ msgid "/View/Zoom/283%"
+#~ msgstr "/दृश्य/जुम/२८३%"
+
+#~ msgid "/View/Zoom/200%"
+#~ msgstr "/दृश्य/जुम/२००%"
+
+#~ msgid "/View/Zoom/141%"
+#~ msgstr "/दृश्य/जुम/१४१%"
+
+#~ msgid "/View/Zoom/100%"
+#~ msgstr "/दृश्य/जुम/१००%"
+
+#~ msgid "/View/Zoom/85%"
+#~ msgstr "/दृश्य/जुम/८५%"
+
+#~ msgid "/View/Zoom/70.7%"
+#~ msgstr "/दृश्य/जुम/७०.७%"
+
+#~ msgid "/View/Zoom/50%"
+#~ msgstr "/दृश्य/जुम/५०%"
+
+#~ msgid "/View/Zoom/35.4%"
+#~ msgstr "/दृश्य/जुम/३५.४%"
+
+#~ msgid "/View/Zoom/25%"
+#~ msgstr "/दृश्य/जुम/२५%"
+
+#~ msgid "/View/---"
+#~ msgstr "/दृश्य/---"
+
+#~ msgid "/View/Show _All"
+#~ msgstr "/दृश्य/सबै देखाउनुहोस्"
+
+#~ msgid "/View/Re_draw"
+#~ msgstr "/दृश्य/पुन: कोर्नुहोस्"
+
+#~ msgid "/Objects/---"
+#~ msgstr "/वस्तुहरू/---"
+
+#~ msgid "/Objects/_Group"
+#~ msgstr "/वस्तुहरू/समूह"
+
+#~ msgid "/Objects/_Parent"
+#~ msgstr "/वस्तुहरू/प्रमूल"
+
+#~ msgid "/Objects/Align"
+#~ msgstr "/वस्तुहरू/पङ्क्तिबद्ध गर्नुहोस्"
+
+#~ msgid "/Objects/Align/Left"
+#~ msgstr "/वस्तुहरू/पङ्क्तिबद्ध गर्नुहोस्/बायाँ"
+
+#~ msgid "/Objects/Align/Center"
+#~ msgstr "/वस्तुहरू/पङ्क्तिबद्ध गर्नुहोस्/केन्द्र"
+
+#~ msgid "/Objects/Align/Right"
+#~ msgstr "/वस्तुहरू/पङ्क्तिबद्ध गर्नुहोस्/दायाँ"
+
+#~ msgid "/Objects/Align/---"
+#~ msgstr "/वस्तुहरू/पङ्क्तिबद्ध गर्नुहोस्/---"
+
+#~ msgid "/Objects/Align/Top"
+#~ msgstr "/वस्तुहरू/पङ्क्तिबद्ध गर्नुहोस्/माथि"
+
+#~ msgid "/Objects/Align/Middle"
+#~ msgstr "/वस्तुहरू/पङ्क्तिबद्ध गर्नुहोस्/बिच"
+
+#~ msgid "/Objects/Align/Bottom"
+#~ msgstr "/वस्तुहरू/पङ्क्तिबद्ध गर्नुहोस्/तल"
+
+#~ msgid "/Objects/Align/Adjacent"
+#~ msgstr "/वस्तुहरू/पङ्क्तिबद्ध गर्नुहोस्/निकटवर्ती"
+
+#~ msgid "/Objects/Align/Stacked"
+#~ msgstr "/वस्तुहरू/पङ्क्तिबद्ध गर्नुहोस्/थाक पारिएको"
+
+#~ msgid "/Objects/_Properties..."
+#~ msgstr "/वस्तुहरू/गुण..."
+
+#~ msgid "/Select/All"
+#~ msgstr "/चयन गर्नुहोस्/सबै"
+
+#~ msgid "/Select/None"
+#~ msgstr "/चयन गर्नुहोस्/कुनै पनि होइन"
+
+#~ msgid "/Select/Invert"
+#~ msgstr "/चयन गर्नुहोस्/उल्टाउनुहोस्"
+
+#~ msgid "/Select/---"
+#~ msgstr "/चयन गर्नुहोस्/---"
+
+#~ msgid "/Select/Transitive"
+#~ msgstr "/चयन गर्नुहोस्/सकर्मक"
+
+#~ msgid "/Select/Connected"
+#~ msgstr "/चयन गर्नुहोस्/जडान गरिएका"
+
+#~ msgid "/Select/Replace"
+#~ msgstr "/चयन गर्नुहोस्/बदल्नुहोस्"
+
+#~ msgid "/Select/Union"
+#~ msgstr "/चयन गर्नुहोस्/संगठन"
+
+#~ msgid "/Select/Remove"
+#~ msgstr "/चयन गर्नुहोस्/हटाउनुहोस्"
+
+#~ msgid "/Select/Inverse"
+#~ msgstr "/चयन गर्नुहोस्/उल्टाउनुहोस्"
+
+#~ msgid "/Tools/Modify"
+#~ msgstr "/उपकरणहरू/परिमार्जन गर्नुहोस्"
+
+#~ msgid "/Tools/Magnify"
+#~ msgstr "/उपकरणहरू/साइज ठूलो पार्नुहोस्"
+
+#~ msgid "/Tools/Scroll"
+#~ msgstr "/उपकरणहरू/स्क्रोल गर्नुहोस्"
+
+#~ msgid "/Tools/Text"
+#~ msgstr "/उपकरणहरू/पाठ"
+
+#~ msgid "/Tools/Box"
+#~ msgstr "/उपकरणहरू/बाकस"
+
+#~ msgid "/Tools/Ellipse"
+#~ msgstr "/उपकरणहरू/दीर्घवृत"
+
+#~ msgid "/Tools/Polygon"
+#~ msgstr "/उपकरणहरू/बहुभुज"
+
+#~ msgid "/Tools/Beziergon"
+#~ msgstr "/उपकरणहरू/बेजिरगन"
+
+#~ msgid "/Tools/---"
+#~ msgstr "/उपकरणहरू/---"
+
+#~ msgid "/Tools/Line"
+#~ msgstr "/उपकरणहरू/रेखा"
+
+#~ msgid "/Tools/Arc"
+#~ msgstr "/उपकरणहरू/चाप"
+
+#~ msgid "/Tools/Zigzagline"
+#~ msgstr "/उपकरणहरू/बाङ्गोटिङ्गो रेखा"
+
+#~ msgid "/Tools/Polyline"
+#~ msgstr "/उपकरणहरू/संयुक्तरेखा"
+
+#~ msgid "/Tools/Bezierline"
+#~ msgstr "/उपकरणहरू/वेजिररेखा"
+
+#~ msgid "/Tools/Image"
+#~ msgstr "/उपकरणहरू/छवि"
+
+#~ msgid "Diagram Menu"
+#~ msgstr "चित्र मेनु"
+
+#~ msgid ""
+#~ "Can't find menu entry '%s'!\n"
+#~ "This is probably a i18n problem (try LANG=C)."
+#~ msgstr ""
+#~ "मेनु प्रविष्टि '%s' फेला पार्न सकिँदैन !\n"
+#~ "यो सायद i18n समस्या हुनसक्छ (LANG=C प्रयास गर्नुहोस्)।"
+
+#~ msgid "<Toolbox>/File/Plugins..."
+#~ msgstr "<Toolbox>/फाइल/प्लगइनहरू..."
+
+#~ msgid "<Toolbox>/File/Quit"
+#~ msgstr "<Toolbox>/फाइल/अन्त्य गर्नुहोस्"
+
+#~ msgid "EML"
+#~ msgstr "EML"
+
+#~ msgid "Editor for EML Static Structure Diagrams."
+#~ msgstr "EML स्थिर बनोट चित्रहरूका लागि सम्पादक"

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-12-27 18:14+0100\n"
+"POT-Creation-Date: 2007-01-28 12:03+0100\n"
 "PO-Revision-Date: 2005-12-28 06:26+0100\n"
 "Last-Translator: Слободан Д. Средојевић <ssl@uns.ns.ac.yu>\n"
 "Language-Team: Serbian (sr) <gnom@prevod.org>\n"
@@ -66,100 +66,110 @@ msgid "Can't find output format/filter %s\n"
 msgstr "Не могу да нађем врсту излаза %s\n"
 
 #. Translators:  The argument is a list of options, not to be translated
-#: ../app/app_procs.c:667
+#: ../app/app_procs.c:669
 #, c-format
 msgid "Select the filter/format out of: %s"
 msgstr ""
 
 #. &export_file_name
-#: ../app/app_procs.c:686 ../app/app_procs.c:711
+#: ../app/app_procs.c:688 ../app/app_procs.c:715
 msgid "Export loaded file and exit"
 msgstr "Извези учитану датотеку и изађи"
 
-#: ../app/app_procs.c:686 ../app/app_procs.c:711 ../app/diaconv.c:94
+#: ../app/app_procs.c:688 ../app/app_procs.c:715 ../app/diaconv.c:94
 msgid "OUTPUT"
 msgstr "ИЗЛАЗ"
 
 #. &export_file_format
 #. &export_format_string
 #. &export_file_format
-#: ../app/app_procs.c:688 ../app/app_procs.c:713
+#: ../app/app_procs.c:690 ../app/app_procs.c:717
 msgid "TYPE"
 msgstr ""
 
-#: ../app/app_procs.c:690 ../app/app_procs.c:716
+#: ../app/app_procs.c:692 ../app/app_procs.c:720
 msgid "Export graphics size"
 msgstr "Величина извозне слике"
 
-#: ../app/app_procs.c:690 ../app/app_procs.c:716
+#: ../app/app_procs.c:692 ../app/app_procs.c:720
 msgid "WxH"
 msgstr "ШxВ"
 
 #. 13.3.2004 sampo@iki.fi
-#: ../app/app_procs.c:692 ../app/app_procs.c:718
+#: ../app/app_procs.c:694 ../app/app_procs.c:722
 msgid ""
 "Show only specified layers (e.g. when exporting). Can be either the layer "
 "name or a range of layer numbers (X-Y)"
 msgstr ""
 
-#: ../app/app_procs.c:693 ../app/app_procs.c:719
+#: ../app/app_procs.c:695 ../app/app_procs.c:723
 msgid "LAYER,LAYER,..."
 msgstr ""
 
-#: ../app/app_procs.c:695 ../app/app_procs.c:721
+#: ../app/app_procs.c:697 ../app/app_procs.c:725
 msgid "Don't show the splash screen"
 msgstr "Не приказуј насловни екран"
 
-#: ../app/app_procs.c:697 ../app/app_procs.c:723
+#: ../app/app_procs.c:699 ../app/app_procs.c:727
+msgid "Don't create empty diagram"
+msgstr ""
+
+#: ../app/app_procs.c:701 ../app/app_procs.c:729
 msgid "Send error messages to stderr instead of showing dialogs."
 msgstr ""
 "Пошаљи поруке о грешкама на стандардни излаз за грешке уместо приказивања "
 "прозорчета."
 
-#: ../app/app_procs.c:699 ../app/app_procs.c:725
+#: ../app/app_procs.c:703 ../app/app_procs.c:731
 msgid "Display credits list and exit"
 msgstr "Прикажи заслуге и изађи"
 
-#: ../app/app_procs.c:701 ../app/app_procs.c:727
+#: ../app/app_procs.c:705 ../app/app_procs.c:733
 msgid "Generate verbose output"
 msgstr ""
 
-#: ../app/app_procs.c:703 ../app/app_procs.c:729
+#: ../app/app_procs.c:707 ../app/app_procs.c:735
 msgid "Display version and exit"
 msgstr "Покажи верзију и изађи"
 
-#: ../app/app_procs.c:730 ../app/diaconv.c:95
+#: ../app/app_procs.c:736 ../app/diaconv.c:95
 msgid "Show this help message"
 msgstr "Прикажи овај помоћни текст"
 
-#: ../app/app_procs.c:780
+#: ../app/app_procs.c:796
 msgid "Can't connect to session manager!\n"
 msgstr "Не може се повезати са управником сесије!\n"
 
 #. TRANSLATOR: 2nd and 3rd %s are time and date respectively.
-#: ../app/app_procs.c:812
+#: ../app/app_procs.c:836
 #, c-format
 msgid "Dia version %s, compiled %s %s\n"
 msgstr "Диа верзија %s, преведена %s %s\n"
 
-#: ../app/app_procs.c:814
+#: ../app/app_procs.c:838
 #, c-format
 msgid "Dia version %s\n"
 msgstr "Диа верзија %s\n"
 
-#: ../app/app_procs.c:876 ../app/app_procs.c:878 ../app/diaconv.c:201
-#: ../app/diaconv.c:203
-#, c-format
+#: ../app/app_procs.c:895 ../app/diaconv.c:201 ../app/diaconv.c:203
+#, fuzzy, c-format
 msgid ""
-"Couldn't find standard objects when looking for object-libs, exiting...\n"
+"Couldn't find standard objects when looking for object-libs; exiting...\n"
 msgstr "Неможе да нађе стандардане објекте када тражи object-libs, излази...\n"
 
-#: ../app/app_procs.c:919
+#: ../app/app_procs.c:897
+#, fuzzy, c-format
+msgid ""
+"Couldn't find standard objects when looking for object-libs in '%s'; "
+"exiting...\n"
+msgstr "Неможе да нађе стандардане објекте када тражи object-libs, излази...\n"
+
+#: ../app/app_procs.c:938
 #, fuzzy
 msgid "Diagram1.dia"
 msgstr "Дијаграм %d.dia"
 
-#: ../app/app_procs.c:961
+#: ../app/app_procs.c:978
 msgid ""
 "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you can cause this message to appear.\n"
@@ -168,31 +178,35 @@ msgstr ""
 "описујући се грешка може изазвати.\n"
 
 #. no standard buttons
-#: ../app/app_procs.c:974
+#: ../app/app_procs.c:991
+msgid "Quitting without saving modified diagrams"
+msgstr ""
+
+#: ../app/app_procs.c:993
+#, fuzzy
 msgid ""
-"Modified diagrams exist.\n"
-"Are you sure you want to quit Dia\n"
-"without saving them?"
+"Modified diagrams exist. Are you sure you want to quit Dia without saving "
+"them?"
 msgstr ""
 "Постоји промењени дијаграм.\n"
 "Да ли сте сигурни да желите да завршите Диа\n"
 "без претходног снимања?"
 
-#: ../app/app_procs.c:977
+#: ../app/app_procs.c:997
 msgid "Quit Dia"
 msgstr "Прекини Диу"
 
 #. This printf seems to prevent a race condition with unrefs.
 #. Yuck.  -Lars
-#: ../app/app_procs.c:1030
+#: ../app/app_procs.c:1050
 msgid "Thank you for using Dia.\n"
 msgstr "Хвала вам што користите Диу.\n"
 
-#: ../app/app_procs.c:1047 ../app/app_procs.c:1054
+#: ../app/app_procs.c:1067 ../app/app_procs.c:1074
 msgid "Could not create per-user Dia config directory"
 msgstr "Не могу да направим директоријум са Диа подешавањима за корисника"
 
-#: ../app/app_procs.c:1057
+#: ../app/app_procs.c:1077
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -200,15 +214,15 @@ msgstr ""
 "Не могу да направим директоријум са Диа подешавањима за корисника. Проверите "
 "да ли променљива окружења HOME показује на постојећи директоријум."
 
-#: ../app/app_procs.c:1080 ../app/diaconv.c:251
+#: ../app/app_procs.c:1100 ../app/diaconv.c:251
 msgid "Objects and filters internal to dia"
 msgstr "Објекти и филтери интерни за диу"
 
-#: ../app/app_procs.c:1122 ../app/diaconv.c:121
+#: ../app/app_procs.c:1142 ../app/diaconv.c:121
 msgid "[OPTION...] [FILE...]"
 msgstr "[ОПЦИЈА...] [ДАТОТЕКА...]"
 
-#: ../app/app_procs.c:1125 ../app/diaconv.c:128
+#: ../app/app_procs.c:1145 ../app/diaconv.c:128
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
@@ -218,36 +232,36 @@ msgstr ""
 "Покрените '%s --help' да бисте видели целу листу доступних опција командне "
 "линије.\n"
 
-#: ../app/app_procs.c:1149
+#: ../app/app_procs.c:1169
 msgid "[FILE...]"
 msgstr "[ДАТОТЕКА...]"
 
-#: ../app/app_procs.c:1167
+#: ../app/app_procs.c:1192
 #, c-format
 msgid "'%s' not found!\n"
 msgstr ""
 
-#: ../app/app_procs.c:1248
+#: ../app/app_procs.c:1273
 msgid ""
 "The original author of Dia was:\n"
 "\n"
 msgstr ""
 
-#: ../app/app_procs.c:1253
+#: ../app/app_procs.c:1278
 msgid ""
 "\n"
 "The current maintainers of Dia are:\n"
 "\n"
 msgstr ""
 
-#: ../app/app_procs.c:1258
+#: ../app/app_procs.c:1283
 msgid ""
 "\n"
 "Other authors are:\n"
 "\n"
 msgstr ""
 
-#: ../app/app_procs.c:1263
+#: ../app/app_procs.c:1288
 msgid ""
 "\n"
 "Dia is documented by:\n"
@@ -274,7 +288,7 @@ msgstr "Одаберите боја текста"
 msgid "Select background color"
 msgstr "Изаберите боју позадине"
 
-#: ../app/commands.c:136
+#: ../app/commands.c:134
 #, c-format
 msgid "Diagram%d.dia"
 msgstr "Дијаграм %d.dia"
@@ -283,11 +297,11 @@ msgstr "Дијаграм %d.dia"
 msgid "No existing object to paste.\n"
 msgstr "Нема постојечег објекта за убацивање.\n"
 
-#: ../app/commands.c:533 ../app/commands.c:571
+#: ../app/commands.c:538 ../app/commands.c:576
 msgid "Could not find help directory"
 msgstr "Не могу да пронађем директоријум за помоћ"
 
-#: ../app/commands.c:540
+#: ../app/commands.c:545
 #, c-format
 msgid ""
 "Could not open help directory:\n"
@@ -296,12 +310,7 @@ msgstr ""
 "Не могу да отворим директоријум за помоћ:\n"
 "%s"
 
-#.
-#. * Translators should localize the following string
-#. * which will give them credit in the About box.
-#. * E.g. "Fulano de Tal <fulano@detal.com>"
-#.
-#: ../app/commands.c:611
+#: ../app/commands.c:612
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 "Дејан Матијевић <dmax@neobee.net>\n"
@@ -310,44 +319,27 @@ msgstr ""
 "\n"
 "Prevod.org — превод на српски језик."
 
-#: ../app/commands.c:625
-msgid "Dia"
-msgstr "Диа"
-
-#: ../app/commands.c:627
-msgid "Copyright (C) 1998-2005 The Free Software Foundation and the authors"
-msgstr "Сва права задржана, 1998-2005 Задужбина слободног софтвера и аутори"
-
-#: ../app/commands.c:628
+#: ../app/commands.c:614
 msgid ""
-"Dia is a program for drawing structured diagrams.\n"
-"Please visit http://www.gnome.org/projects/dia for more information."
+"This program is free software; you can redistribute it and/or modify\n"
+"it under the terms of the GNU General Public License as published by\n"
+"the Free Software Foundation; either version 2 of the License, or\n"
+"(at your option) any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful,\n"
+"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+"GNU General Public License for more details.\n"
+"\n"
+"You should have received a copy of the GNU General Public License\n"
+"along with this program; if not, write to the Free Software\n"
+"Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.\n"
 msgstr ""
-"Диа је један програм за цртање структуираних дијаграма.\n"
-"За више информација молим посетите http://www.gnome.org/projects/dia."
 
-#: ../app/commands.c:667
-msgid "About Dia"
-msgstr "О програму Диа"
-
-#: ../app/commands.c:710
-#, c-format
-msgid "Dia v %s by Alexander Larsson"
-msgstr "Диа %s од Александра Ларсона (Alexander Larsson)"
-
-#. Exact spelling is Ch&eacute;p&eacute;lov (using *ML entities)
-#: ../app/commands.c:716
-msgid "Maintainers: Lars Clausen and Cyrille Chepelov"
-msgstr ""
-"Одржавају: Ларс Клаусен (Lars Clausen) и Ћирил Чепелов (Cyrille Chepelov)"
-
-#: ../app/commands.c:720
-msgid "Please visit http://www.gnome.org/projects/dia for more information"
-msgstr "За више информација молим посетите http://www.gnome.org/projects/dia"
-
-#: ../app/commands.c:725
-msgid "Contributors:"
-msgstr "Допринели:"
+#: ../app/commands.c:637
+#, fuzzy
+msgid "A program for drawing structured diagrams."
+msgstr "Уређивач за дијаграме структуре функција."
 
 #: ../app/defaults.c:43 ../app/defaults.c:146
 msgid "Object defaults"
@@ -498,95 +490,96 @@ msgstr "%s грешка: очекивао сам само једну улазн�
 msgid "%s error: popt library not available on this system"
 msgstr "%s грешка: popt библиотека није доступна на овом систему"
 
-#: ../app/diagram_tree_menu.c:45
+#: ../app/diagram_tree_menu.c:46
 msgid "/_Sort objects"
 msgstr "/Сортирај објекте"
 
-#: ../app/diagram_tree_menu.c:46
+#: ../app/diagram_tree_menu.c:47
 msgid "/Sort objects/by _name"
 msgstr "/Сортирај објекте/по имену"
 
-#: ../app/diagram_tree_menu.c:48
+#: ../app/diagram_tree_menu.c:49
 msgid "/Sort objects/by _type"
 msgstr "/Сортирај објекте/по типу"
 
-#: ../app/diagram_tree_menu.c:50
+#: ../app/diagram_tree_menu.c:51
 msgid "/Sort objects/as _inserted"
 msgstr "/Сортирај објекте/по уносу"
 
-#: ../app/diagram_tree_menu.c:53
+#: ../app/diagram_tree_menu.c:54
 msgid "/Sort objects/All by name"
 msgstr "/Сортирај објекте/Све по имену"
 
-#: ../app/diagram_tree_menu.c:55
+#: ../app/diagram_tree_menu.c:56
 msgid "/Sort objects/All by type"
 msgstr "/Сортирај објекте/Све по типу"
 
-#: ../app/diagram_tree_menu.c:57
+#: ../app/diagram_tree_menu.c:58
 msgid "/Sort objects/All as inserted"
 msgstr "/Сортирај објекте/Све по уносу"
 
-#: ../app/diagram_tree_menu.c:59
+#: ../app/diagram_tree_menu.c:60
 msgid "/Sort objects/_Default"
 msgstr "/Сортирај објекте/Подразумевано"
 
-#: ../app/diagram_tree_menu.c:60
+#: ../app/diagram_tree_menu.c:61
 msgid "/Sort objects/Default/by _name"
 msgstr "/Сортирај објекте/Подразумевано/по имену"
 
-#: ../app/diagram_tree_menu.c:62
+#: ../app/diagram_tree_menu.c:63
 msgid "/Sort objects/Default/by _type"
 msgstr "/Сортирај објекте/Подразумевано/по типу"
 
-#: ../app/diagram_tree_menu.c:64
+#: ../app/diagram_tree_menu.c:65
 msgid "/Sort objects/Default/as _inserted"
 msgstr "/Сортирај објекте/Подразумевано/по уносу"
 
-#: ../app/diagram_tree_menu.c:66
+#: ../app/diagram_tree_menu.c:67
 msgid "/Sort _diagrams"
 msgstr "/Сортирај дијаграме"
 
-#: ../app/diagram_tree_menu.c:67
+#: ../app/diagram_tree_menu.c:68
 msgid "/Sort _diagrams/by _name"
 msgstr "/Сортирај дијаграме/по имену"
 
-#: ../app/diagram_tree_menu.c:69
+#: ../app/diagram_tree_menu.c:70
 msgid "/Sort _diagrams/as _inserted"
 msgstr "/Сортирај дијаграме/по уносу"
 
-#: ../app/diagram_tree_menu.c:71
+#: ../app/diagram_tree_menu.c:72
 msgid "/Sort diagrams/_Default"
 msgstr "/Сортирај дијаграме/Подразумевано"
 
-#: ../app/diagram_tree_menu.c:72
+#: ../app/diagram_tree_menu.c:73
 msgid "/Sort diagrams/Default/by _name"
 msgstr "/Сортирај дијаграме/Подразумевано/по имену"
 
-#: ../app/diagram_tree_menu.c:74
+#: ../app/diagram_tree_menu.c:75
 msgid "/Sort diagrams/Default/as _inserted"
 msgstr "/Сортирај дијаграме/Подразумевано/по уносу"
 
-#: ../app/diagram_tree_menu.c:82 ../app/diagram_tree_menu.c:93
+#: ../app/diagram_tree_menu.c:83 ../app/diagram_tree_menu.c:94
 msgid "/_Locate"
 msgstr "/Лоцирај"
 
-#: ../app/diagram_tree_menu.c:83
+#: ../app/diagram_tree_menu.c:84
 msgid "/_Properties"
 msgstr "/Особине"
 
-#: ../app/diagram_tree_menu.c:84
+#: ../app/diagram_tree_menu.c:85
 msgid "/_Hide this type"
 msgstr "/Сакриј овај тип"
 
-#: ../app/diagram_tree_window.c:73
-msgid "Diagram tree"
-msgstr "Дрво дијаграма"
+#: ../app/diagram_tree_window.c:80 ../app/preferences.c:110
+msgid "Diagram Tree"
+msgstr "Стабло Дијаграма"
 
-#: ../app/diagram.c:219
+#: ../app/diagram.c:221
+#, c-format
 msgid "Couldn't convert filename '%s' to UTF-8: %s\n"
 msgstr "Не могу да претворим име датотеке „%s“ у УТФ-8 запис: %s\n"
 
-#: ../app/diagram.c:222 ../lib/message.c:78 ../lib/message.c:238
+#: ../app/diagram.c:224 ../lib/message.c:78 ../lib/message.c:238
 msgid "Error"
 msgstr "Грешка"
 
@@ -594,7 +587,7 @@ msgstr "Грешка"
 msgid "Ok"
 msgstr "У реду"
 
-#: ../app/dialogs.c:52 ../app/paginate_psprint.c:307
+#: ../app/dialogs.c:52 ../app/paginate_psprint.c:320
 msgid "Cancel"
 msgstr "Поништи"
 
@@ -647,16 +640,16 @@ msgstr "Уклопити се у:"
 msgid "by"
 msgstr "са"
 
-#: ../app/diapagelayout.c:682
+#: ../app/diapagelayout.c:698
 #, c-format
 msgid "%0.3gcm x %0.3gcm"
 msgstr "%0.3gcm x %0.3gcm"
 
-#: ../app/diapagelayout.c:786 ../app/pagesetup.c:76
+#: ../app/diapagelayout.c:802 ../app/pagesetup.c:76
 msgid "Page Setup"
 msgstr "Подешавање стране"
 
-#: ../app/disp_callbacks.c:83 ../app/properties.c:152
+#: ../app/disp_callbacks.c:84 ../app/properties.c:152
 msgid ""
 "This object doesn't support Undo/Redo.\n"
 "Undo information erased."
@@ -664,11 +657,11 @@ msgstr ""
 "Овај објекат не подржава Опозови/Понови.\n"
 "Подаци за опозивање су обрисани."
 
-#: ../app/disp_callbacks.c:118
+#: ../app/disp_callbacks.c:119
 msgid "Properties..."
 msgstr "Особине..."
 
-#: ../app/disp_callbacks.c:925
+#: ../app/disp_callbacks.c:921
 msgid ""
 "The object you dropped cannot fit into its parent. \n"
 "Either expand the parent object, or drop the object elsewhere."
@@ -676,24 +669,36 @@ msgstr ""
 "Објекат који сте спустили не може да стане у свог садржаоца. \n"
 "Или раширите садржаоца, или објекат спустите негде другде."
 
-#: ../app/display.c:93
+#: ../app/display.c:94
 msgid "Diagram modified!"
 msgstr "Дијаграм измењен!"
 
 # bug(slobo): plural forms
-#: ../app/display.c:117
-msgid "Selection of %d objects"
-msgstr "Означен број објеката: %d"
+#. http://www.gnu.org/software/gettext/manual/html_chapter/gettext_10.html#SEC150
+#. * Althoug the single objects wont get triggered here some languages have variations on the other numbers
+#.
+#: ../app/display.c:121
+#, fuzzy, c-format
+msgid "Selection of %d object"
+msgid_plural "Selection of %d objects"
+msgstr[0] "Означен број објеката: %d"
+msgstr[1] "Означен број објеката: %d"
 
-#: ../app/display.c:127
+#: ../app/display.c:131
+#, c-format
 msgid "Selected '%s'"
 msgstr "Означено „%s“"
 
-#: ../app/display.c:1053
+#: ../app/display.c:1130
 msgid "<unnamed>"
 msgstr "<без имена>"
 
-#: ../app/display.c:1055
+#. no standard buttons
+#: ../app/display.c:1136
+msgid "Closing diagram without saving"
+msgstr ""
+
+#: ../app/display.c:1139
 #, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -702,87 +707,89 @@ msgstr ""
 "Дијаграм „%s“\n"
 "није сачуван. Да сачувам измене сада?"
 
-#: ../app/display.c:1066
+#: ../app/display.c:1141
 msgid "Close Diagram"
 msgstr "Затвори дијаграм"
 
-#: ../app/display.c:1071
-msgid "Discard Changes"
+#: ../app/display.c:1146
+#, fuzzy
+msgid "_Discard Changes"
 msgstr "Одбаци промене"
 
-#: ../app/export_png.c:134 ../app/load_save.c:917 ../app/render_eps.c:103
-#: ../plug-ins/cairo/diacairo.c:972 ../plug-ins/cgm/cgm.c:1151
-#: ../plug-ins/dxf/dxf-export.c:484 ../plug-ins/hpgl/hpgl.c:704
-#: ../plug-ins/metapost/render_metapost.c:1107
-#: ../plug-ins/pstricks/render_pstricks.c:910
-#: ../plug-ins/shape/shape-export.c:134 ../plug-ins/svg/render_svg.c:149
-#: ../plug-ins/wpg/wpg.c:1070 ../plug-ins/xfig/xfig-export.c:1136
-#: ../plug-ins/xslt/xslt.c:93
+#: ../app/export_png.c:136 ../app/load_save.c:951 ../app/render_eps.c:103
+#: ../plug-ins/cairo/diacairo.c:976 ../plug-ins/cgm/cgm.c:1151
+#: ../plug-ins/dxf/dxf-export.c:484 ../plug-ins/hpgl/hpgl.c:708
+#: ../plug-ins/metapost/render_metapost.c:1145
+#: ../plug-ins/pgf/render_pgf.c:1143
+#: ../plug-ins/pstricks/render_pstricks.c:914
+#: ../plug-ins/shape/shape-export.c:134 ../plug-ins/svg/render_svg.c:150
+#: ../plug-ins/vdx/vdx-export.c:1848 ../plug-ins/wpg/wpg.c:1070
+#: ../plug-ins/xfig/xfig-export.c:1136 ../plug-ins/xslt/xslt.c:93
 #, c-format
 msgid "Can't open output file %s: %s\n"
 msgstr "Неможе да отвори излазну датотеку %s: %s\n"
 
-#: ../app/export_png.c:142
+#: ../app/export_png.c:144
 msgid "Could not create PNG write structure"
 msgstr "Не може да направи PNG структуру за упис"
 
-#: ../app/export_png.c:151
+#: ../app/export_png.c:153
 msgid "Could not create PNG header info structure"
 msgstr "Не може да направи структуру PNG заглавља"
 
-#: ../app/export_png.c:159
+#: ../app/export_png.c:161
 msgid "Error occurred while writing PNG"
 msgstr "Грешка при писању PNG"
 
 #. Create a dialog
-#: ../app/export_png.c:299
+#: ../app/export_png.c:301
 msgid "PNG Export Options"
 msgstr "PNG извозне опције"
 
 #. Translators: Menu item Verb/Channel/Export
 #. Translators: Menu item Verb/Channel/Export/Export
-#: ../app/export_png.c:300 ../objects/FS/function.c:696
+#: ../app/export_png.c:302 ../objects/FS/function.c:696
 #: ../objects/FS/function.c:698
 msgid "Export"
 msgstr "Извоз"
 
-#: ../app/export_png.c:305
+#: ../app/export_png.c:307
 msgid "Image width:"
 msgstr "Ширина слике:"
 
-#: ../app/export_png.c:308
+#: ../app/export_png.c:310
 msgid "Image height:"
 msgstr "Висина слике:"
 
-#: ../app/export_png.c:354
+#: ../app/export_png.c:356
 msgid "Portable Network Graphics"
 msgstr "Преносна Мрежна Графика"
 
-#: ../app/filedlg.c:129 ../app/filedlg.c:495
+#: ../app/filedlg.c:129 ../app/filedlg.c:512
 msgid "By extension"
 msgstr "По екстензији"
 
-#: ../app/filedlg.c:202
+#: ../app/filedlg.c:214
 msgid "Open Diagram"
 msgstr "Отвори оијаграм"
 
-#: ../app/filedlg.c:230
+#: ../app/filedlg.c:243
 msgid "Open Options"
 msgstr "Отвори опције"
 
-#: ../app/filedlg.c:238 ../app/filedlg.c:616
+#: ../app/filedlg.c:251 ../app/filedlg.c:632
 msgid "Determine file type:"
 msgstr "Одреди тип датотеке:"
 
-#: ../app/filedlg.c:254 ../app/filedlg.c:629
+#: ../app/filedlg.c:267 ../app/filedlg.c:645
 msgid "All Files"
 msgstr "Све датотеке"
 
-#: ../app/filedlg.c:259 ../app/filedlg.c:634
+#: ../app/filedlg.c:272 ../app/filedlg.c:650
 msgid "Supported Formats"
 msgstr "Подржани формати"
 
-#: ../app/filedlg.c:295
+#: ../app/filedlg.c:307 ../app/paginate_psprint.c:406
 msgid ""
 "Some characters in the filename are neither UTF-8\n"
 "nor your local encoding.\n"
@@ -792,7 +799,11 @@ msgstr ""
 "ни u вашем локалном запису.\n"
 "Понешто неће радити."
 
-#: ../app/filedlg.c:302 ../app/filedlg.c:540
+#: ../app/filedlg.c:317 ../app/filedlg.c:559 ../app/paginate_psprint.c:421
+msgid "File already exists"
+msgstr "Датотека већ постоји"
+
+#: ../app/filedlg.c:319 ../app/filedlg.c:561 ../app/paginate_psprint.c:413
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
@@ -801,21 +812,17 @@ msgstr ""
 "Датотека „%s“ већ постоји.\n"
 "Да ли желите да је преснимите?"
 
-#: ../app/filedlg.c:310 ../app/filedlg.c:547
-msgid "File already exists"
-msgstr "Датотека већ постоји"
-
-#: ../app/filedlg.c:353
+#: ../app/filedlg.c:369
 msgid "Save Diagram"
 msgstr "Сачувај дијаграм"
 
 #. Need better way to make it a reasonable size.  Isn't there some
 #. standard look for them (or is that just Gnome?)
-#: ../app/filedlg.c:364
+#: ../app/filedlg.c:381
 msgid "Compress diagram files"
 msgstr "Компресуј датотеке дијаграма"
 
-#: ../app/filedlg.c:373
+#: ../app/filedlg.c:390
 msgid ""
 "Compression reduces file size to less than 1/10th size and speeds up loading "
 "and saving.  Some text programs cannot manipulate compressed files."
@@ -824,7 +831,7 @@ msgstr ""
 "учитавање и снимање. Неки текстуални програми не могу да раде са "
 "компресованим датотекама."
 
-#: ../app/filedlg.c:569
+#: ../app/filedlg.c:584
 #, c-format
 msgid ""
 "Could not determine which export filter\n"
@@ -833,126 +840,122 @@ msgstr ""
 "Не може да одреди који извозни филтер да \n"
 "користи за снимање „%s“"
 
-#: ../app/filedlg.c:592
+#: ../app/filedlg.c:607
 msgid "Export Diagram"
 msgstr "Извези дијаграм"
 
-#: ../app/filedlg.c:608
+#: ../app/filedlg.c:624
 msgid "Export Options"
 msgstr "Опције извоза"
 
-#: ../app/interface.c:54
-msgid "Modify object(s)"
-msgstr "Измени објекат(е)"
-
-#: ../app/interface.c:55
-msgid "Modify"
-msgstr "Измени"
+#: ../app/interface.c:57
+msgid ""
+"Modify object(s)\n"
+"Use <Space> to toggle between this and other tools"
+msgstr ""
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Magnify
-#: ../app/interface.c:59 ../app/interface.c:60 ../objects/FS/function.c:986
+#: ../app/interface.c:63 ../app/menus.c:187 ../objects/FS/function.c:986
 msgid "Magnify"
 msgstr "Увеличај"
 
-#: ../app/interface.c:64
+#: ../app/interface.c:69
 msgid "Scroll around the diagram"
 msgstr "Усправно померање око дијаграма"
 
-#: ../app/interface.c:65
-msgid "Scroll"
-msgstr "Померање текста"
-
-#: ../app/interface.c:69 ../app/interface.c:70 ../lib/properties.c:79
-#: ../lib/properties.h:520 ../objects/Jackson/requirement.c:142
-#: ../objects/UML/activity.c:126 ../objects/UML/actor.c:122
-#: ../objects/UML/classicon.c:144 ../objects/UML/component.c:128
-#: ../objects/UML/component_feature.c:155 ../objects/UML/node.c:127
-#: ../objects/UML/note.c:121 ../objects/UML/object.c:147
-#: ../objects/UML/small_package.c:128 ../objects/UML/state.c:152
-#: ../objects/UML/usecase.c:138 ../objects/custom/custom_object.c:200
-#: ../objects/network/basestation.c:133 ../objects/network/radiocell.c:146
+#: ../app/interface.c:75 ../app/menus.c:189 ../lib/properties.c:79
+#: ../lib/properties.h:520 ../objects/AADL/aadlbox.c:144
+#: ../objects/Jackson/requirement.c:142 ../objects/UML/activity.c:127
+#: ../objects/UML/actor.c:122 ../objects/UML/classicon.c:144
+#: ../objects/UML/component.c:128 ../objects/UML/component_feature.c:155
+#: ../objects/UML/node.c:127 ../objects/UML/note.c:121
+#: ../objects/UML/object.c:148 ../objects/UML/small_package.c:128
+#: ../objects/UML/state.c:152 ../objects/UML/usecase.c:138
+#: ../objects/custom/custom_object.c:200 ../objects/network/basestation.c:133
+#: ../objects/network/radiocell.c:125
 msgid "Text"
 msgstr "Текст"
 
-#: ../app/interface.c:74 ../app/interface.c:75
+#: ../app/interface.c:81 ../app/menus.c:190
 msgid "Box"
 msgstr "Кућица"
 
-#: ../app/interface.c:79 ../app/interface.c:80
+#: ../app/interface.c:87 ../app/menus.c:191
 msgid "Ellipse"
 msgstr "Елипса"
 
-#: ../app/interface.c:84 ../app/interface.c:85
+#: ../app/interface.c:93 ../app/menus.c:192
 msgid "Polygon"
 msgstr "Полигон"
 
 # Ово је склоп од „безиеров“ и „полигон“, па може и код нас
-#: ../app/interface.c:89 ../app/interface.c:90
+#: ../app/interface.c:99 ../app/menus.c:193
 msgid "Beziergon"
 msgstr "Безиергон"
 
-#: ../app/interface.c:94 ../app/interface.c:95 ../objects/standard/line.c:226
+#: ../app/interface.c:105 ../app/menus.c:195 ../objects/standard/line.c:225
 msgid "Line"
 msgstr "Линија"
 
-#: ../app/interface.c:99 ../app/interface.c:100
+#: ../app/interface.c:111 ../app/menus.c:196
 msgid "Arc"
 msgstr "Лук"
 
-#: ../app/interface.c:104 ../app/interface.c:105
+#: ../app/interface.c:117 ../app/menus.c:197
 msgid "Zigzagline"
 msgstr "Цик-цак линија"
 
-#: ../app/interface.c:109 ../app/interface.c:110
+#: ../app/interface.c:123 ../app/menus.c:198
 msgid "Polyline"
 msgstr "Изломљена линија"
 
-#: ../app/interface.c:114 ../app/interface.c:115
+#: ../app/interface.c:129 ../app/menus.c:199
 msgid "Bezierline"
 msgstr "Безиерова линија"
 
-#: ../app/interface.c:119 ../app/interface.c:120
+#: ../app/interface.c:135 ../app/menus.c:201
 msgid "Image"
 msgstr "Слика"
 
-#: ../app/interface.c:402
+#: ../app/interface.c:413
 msgid "Diagram menu."
 msgstr "Мени дијаграма."
 
-#: ../app/interface.c:440
+#: ../app/interface.c:451
 msgid "Pops up the Navigation window."
 msgstr "Избацује прозор за управљање."
 
-#: ../app/interface.c:506
+#: ../app/interface.c:517
 msgid "Zoom"
 msgstr "Увећај"
 
-#: ../app/interface.c:521
+#: ../app/interface.c:532
 msgid "Toggles snap-to-grid for this window."
 msgstr "Искључује или укључује пријањање уз мрежу за овај прозор."
 
-#: ../app/interface.c:532
+#: ../app/interface.c:543
 #, fuzzy
 msgid "Toggles object snapping for this window."
 msgstr "Искључује или укључује пријањање уз мрежу за овај прозор."
 
-#: ../app/interface.c:597
+#: ../app/interface.c:608
 msgid "NULL tooldata in tool_select_update"
 msgstr "NULL tooldata у tool_select_update"
 
-#: ../app/interface.c:890
+#: ../app/interface.c:920
+#, c-format
 msgid "No sheet named %s"
 msgstr "Нема табеле по имену %s"
 
-#: ../app/interface.c:922
+#: ../app/interface.c:957
 msgid "Other sheets"
 msgstr "Остале табеле"
 
-#: ../app/interface.c:980 ../sheets/Misc.sheet.in.h:3
+#: ../app/interface.c:1015 ../sheets/Misc.sheet.in.h:3
 msgid "Misc"
 msgstr "Разно"
 
-#: ../app/interface.c:1041
+#: ../app/interface.c:1076
 msgid ""
 "Foreground & background colors for new objects.  The small black and white "
 "squares reset colors.  The small arrows swap colors.  Double click to change "
@@ -961,7 +964,7 @@ msgstr ""
 "Боја и боја позадине за нове објекте. Мали црни и бели квадрати враћају "
 "старе боје. Мале стрелице размењују боје. Двоструким кликом мењате боје."
 
-#: ../app/interface.c:1056
+#: ../app/interface.c:1091
 msgid ""
 "Line widths.  Click on a line to set the default line width for new "
 "objects.  Double-click to set the line width more precisely."
@@ -970,7 +973,7 @@ msgstr ""
 "нових објеката. Кликните два пута да поставите дебљину линије пнешто "
 "прецизније."
 
-#: ../app/interface.c:1096
+#: ../app/interface.c:1131
 msgid ""
 "Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
 "arrow parameters with Details..."
@@ -978,7 +981,7 @@ msgstr ""
 "Стил стрелица за почетак нових линија. Кликните да изаберете стрелицу, или "
 "поставите особине стрелица помоћу „Детаља“..."
 
-#: ../app/interface.c:1101
+#: ../app/interface.c:1136
 msgid ""
 "Line style for new lines.  Click to pick a line style, or set line style "
 "parameters with Details..."
@@ -986,7 +989,7 @@ msgstr ""
 "Стил линија за нове линије. Кликните да изаберете стил линија, или поставите "
 "особине стила линија помоћу „Детаља“..."
 
-#: ../app/interface.c:1115
+#: ../app/interface.c:1150
 msgid ""
 "Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
 "parameters with Details..."
@@ -994,47 +997,48 @@ msgstr ""
 "Стил стрелица за крајеве линија. Кликните да изаберете стрелицу, или "
 "поставите особине стрелица помоћу „Детаља“..."
 
-#: ../app/interface.c:1223
+#: ../app/interface.c:1260
 msgid "Diagram Editor"
 msgstr "Уређиваћ Дијаграма"
 
-#: ../app/layer_dialog.c:69
+#: ../app/layer_dialog.c:101
 msgid "New Layer"
 msgstr "Нови слој"
 
-#: ../app/layer_dialog.c:70
+#: ../app/layer_dialog.c:102
 msgid "Raise Layer"
 msgstr "Подигни слој"
 
-#: ../app/layer_dialog.c:71
+#: ../app/layer_dialog.c:103
 msgid "Lower Layer"
 msgstr "Спусти слој"
 
-#: ../app/layer_dialog.c:72
+#: ../app/layer_dialog.c:104
 msgid "Delete Layer"
 msgstr "Избриши слој"
 
-#: ../app/layer_dialog.c:193
+#: ../app/layer_dialog.c:225
 msgid "Layers"
 msgstr "Слојеви"
 
-#: ../app/layer_dialog.c:207
+#: ../app/layer_dialog.c:239
 msgid "Diagram:"
 msgstr "Дијаграм:"
 
-#: ../app/layer_dialog.c:313
+#: ../app/layer_dialog.c:349
+#, c-format
 msgid "New layer %d"
 msgstr "Нови слој %d"
 
-#: ../app/layer_dialog.c:525
+#: ../app/layer_dialog.c:561
 msgid "none"
 msgstr "ништа"
 
-#: ../app/layer_dialog.c:958
+#: ../app/layer_dialog.c:983
 msgid "Edit Layer Attributes"
 msgstr "Измени својства слоја"
 
-#: ../app/layer_dialog.c:977
+#: ../app/layer_dialog.c:1002
 msgid "Layer name:"
 msgstr "Назив слоја:"
 
@@ -1048,7 +1052,7 @@ msgstr "Ширина линије"
 msgid "Line width:"
 msgstr "Ширина линије:"
 
-#: ../app/load_save.c:260
+#: ../app/load_save.c:268
 msgid ""
 "Error loading diagram.\n"
 "Linked object not found in document."
@@ -1056,7 +1060,7 @@ msgstr ""
 "Грешка при учитавању дијаграма.\n"
 "Везани објекат није нађен у документу."
 
-#: ../app/load_save.c:263
+#: ../app/load_save.c:271
 msgid ""
 "Error loading diagram.\n"
 "connection handle does not exist."
@@ -1064,7 +1068,8 @@ msgstr ""
 "Грешка при учитавању дијаграма.\n"
 "Ручка везе не постоји."
 
-#: ../app/load_save.c:280
+#: ../app/load_save.c:288
+#, c-format
 msgid ""
 "Error loading diagram.\n"
 "connection point %s does not exist."
@@ -1072,23 +1077,23 @@ msgstr ""
 "Грешка при учитавању дијаграма.\n"
 "Тачка везе %s не постоји."
 
-#: ../app/load_save.c:305
+#: ../app/load_save.c:313
 #, c-format
 msgid "Can't find parent %s of %s object\n"
 msgstr "Не могу да нађем садржаоца %s објекта %s\n"
 
-#: ../app/load_save.c:351
+#: ../app/load_save.c:359
 msgid "You must specify a file, not a directory.\n"
 msgstr "Треба да одредите датотеку, а не директоријум.\n"
 
-#: ../app/load_save.c:358 ../plug-ins/dxf/dxf-import.c:1306
-#: ../plug-ins/wpg/wpg.c:1175 ../plug-ins/xfig/xfig-import.c:1560
+#: ../app/load_save.c:366 ../plug-ins/dxf/dxf-import.c:1306
+#: ../plug-ins/wpg/wpg.c:1175 ../plug-ins/xfig/xfig-import.c:1258
 #: ../plug-ins/xslt/xslt.c:85
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "Не могу да отворим „%s“ за читање.\n"
 
-#: ../app/load_save.c:376 ../app/load_save.c:382
+#: ../app/load_save.c:384 ../app/load_save.c:390
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -1097,7 +1102,7 @@ msgstr ""
 "Грешлка учитавајући дијаграм %s.\n"
 "Непознати тип датотеке."
 
-#: ../app/load_save.c:390
+#: ../app/load_save.c:398
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -1106,7 +1111,7 @@ msgstr ""
 "Грешка учитавајући дијаграм %s.\n"
 "Није Диа датотека."
 
-#: ../app/load_save.c:596
+#: ../app/load_save.c:604
 #, c-format
 msgid ""
 "Error loading diagram:\n"
@@ -1117,540 +1122,411 @@ msgstr ""
 "%s.\n"
 "Исправана Диа датотека одређује најмање један ниво."
 
-#: ../app/load_save.c:951
+#: ../app/load_save.c:912
 #, c-format
-msgid "Failed to save file '%s'.\n"
-msgstr "Неможе да сними датотеку '%s'.\n"
+msgid "No allowed to write to output file %s\n"
+msgstr ""
 
-#: ../app/load_save.c:1024 ../app/load_save.c:1029
+#: ../app/load_save.c:934
+#, c-format
+msgid "No allowed to write temporary files in %s\n"
+msgstr ""
+
+#. Save failed; we clean our stuff up, without touching the file named
+#. "filename" if it existed.
+#: ../app/load_save.c:962
+#, fuzzy, c-format
+msgid "Internal error %d writing file %s\n"
+msgstr "%s грашка: треба исправан улазни тип %s\n"
+
+#: ../app/load_save.c:976
+#, fuzzy, c-format
+msgid "Can't rename %s to final output file %s: %s\n"
+msgstr "Неможе да отвори излазну датотеку %s: %s\n"
+
+#: ../app/load_save.c:1064 ../app/load_save.c:1069
 msgid "Dia Diagram File"
 msgstr "Датотека са диа дијаграмима"
 
-#: ../app/menus.c:50 ../app/menus.c:88
-msgid "/_File"
+#: ../app/menus.c:54
+#, fuzzy
+msgid "_File"
 msgstr "/_Датотека"
 
-#: ../app/menus.c:52 ../app/menus.c:90
-msgid "/File/_New"
-msgstr "/Датотека/Ново"
-
-#: ../app/menus.c:54 ../app/menus.c:92
-msgid "/File/_Open..."
-msgstr "/Датотека/Отворено..."
-
-#  recent file list is dynamically inserted here
-#. {N_("/Open _Recent"),           NULL,         NULL,           0, "<Branch>"},
-#. {   "/Open Recent/tearoff",     NULL,         NULL,         0, "<Tearoff>" },
-#. recent file list is dynamically inserted here
-#. {N_("/Open _Recent"),           NULL,         NULL,           0, "<Branch>"},
-#. {   "/Open Recent/tearoff",     NULL,         NULL,         0, "<Tearoff>" },
-#: ../app/menus.c:58 ../app/menus.c:63 ../app/menus.c:68 ../app/menus.c:70
-#: ../app/menus.c:96 ../app/menus.c:103 ../app/menus.c:107
-msgid "/File/---"
-msgstr "/Датотека/---"
-
-#: ../app/menus.c:59
-msgid "/File/_Diagram tree"
-msgstr "/Датотека/Стабло дијаграма"
-
-#: ../app/menus.c:61
-msgid "/File/Sheets and Objects..."
-msgstr "/Датотека/Стране и објекти..."
-
-#: ../app/menus.c:64
-msgid "/File/_Preferences..."
-msgstr "/Датотека/Поставке..."
+#: ../app/menus.c:58
+msgid "_Help"
+msgstr "_Помоћ"
 
 #: ../app/menus.c:66
-msgid "/File/P_lugins..."
-msgstr "/Датотека/Додаци..."
+#, fuzzy
+msgid "Sheets and Objects..."
+msgstr "Стране и објекти..."
 
-#: ../app/menus.c:71 ../app/menus.c:111
-msgid "/File/_Quit"
-msgstr "/Датотека/Изађи"
+#: ../app/menus.c:68
+#, fuzzy
+msgid "Plugins..."
+msgstr "Додаци..."
 
-#: ../app/menus.c:73 ../app/menus.c:261
-msgid "/_Help"
-msgstr "/Помоћ"
+#: ../app/menus.c:74
+#, fuzzy
+msgid "_Diagram tree..."
+msgstr "Стабло дијаграма"
 
-#: ../app/menus.c:75 ../app/menus.c:263
-msgid "/Help/_Contents"
-msgstr "/Помоћ/Сад_ржај"
+#: ../app/menus.c:82
+#, fuzzy
+msgid "_Export ..."
+msgstr "Извоз..."
 
-#: ../app/menus.c:77 ../app/menus.c:265
-msgid "/Help/---"
-msgstr "/Помоћ/---"
+#: ../app/menus.c:83
+msgid "Page Set_up..."
+msgstr "Подеси страницу ..."
 
-#: ../app/menus.c:78 ../app/menus.c:266
-msgid "/Help/_About..."
-msgstr "/Помоћ/О програму..."
+#: ../app/menus.c:87 ../app/sheets_dialog.c:236
+msgid "_Edit"
+msgstr "Уреди"
 
-#: ../app/menus.c:97
-msgid "/File/_Save"
-msgstr "/Датотека/Сними"
+# испари па кондензуј у чврсто стање
+#: ../app/menus.c:94
+#, fuzzy
+msgid "_Duplicate"
+msgstr "Удвостручи"
 
+#. the following used to bind to <control><shift>C which collides with Unicode input.
+#. * <control>>alt> doesn't work either
 #: ../app/menus.c:99
-msgid "/File/Save _As..."
-msgstr "/Датотека/Сними као..."
+msgid "Copy Text"
+msgstr "Копирај текст"
+
+#: ../app/menus.c:100
+msgid "Cut Text"
+msgstr "Исеци текст"
 
 #: ../app/menus.c:101
-msgid "/File/_Export..."
-msgstr "/Датотека/Извоз..."
+msgid "Paste _Text"
+msgstr "Убаци текст"
 
-#: ../app/menus.c:104
-msgid "/File/Page Set_up..."
-msgstr "/Датотека/Подешавање странице..."
-
-#: ../app/menus.c:105
-msgid "/File/_Print Diagram..."
-msgstr "/Датотека/Одштампај дијаграм..."
-
-#: ../app/menus.c:108
-msgid "/File/_Close"
-msgstr "/Датотека/Затвори"
-
-#: ../app/menus.c:113
-msgid "/_Edit"
-msgstr "/_Уређивање"
-
-#: ../app/menus.c:115
-msgid "/Edit/_Undo"
-msgstr "/Уређивање/Поништи"
-
-#: ../app/menus.c:117
-msgid "/Edit/_Redo"
-msgstr "/Уређивање/Врати"
-
-#: ../app/menus.c:119 ../app/menus.c:129
-msgid "/Edit/---"
-msgstr "/Уређивање/---"
-
-#: ../app/menus.c:120
-msgid "/Edit/_Copy"
-msgstr "/Уређивање/Копирај"
-
-#: ../app/menus.c:122
-msgid "/Edit/C_ut"
-msgstr "/Уређивање/Исеци"
-
-#: ../app/menus.c:124
-msgid "/Edit/_Paste"
-msgstr "/Уређивање/Убаци"
-
-#: ../app/menus.c:126
-msgid "/Edit/_Duplicate"
-msgstr "/Уређивање/У_двостручи"
-
-#: ../app/menus.c:127
-msgid "/Edit/_Delete"
-msgstr "/Уређивање/Обриши"
-
-#: ../app/menus.c:130
-msgid "/Edit/Copy Text"
-msgstr "/Уређивање/Копирај текст"
-
-#: ../app/menus.c:132
-msgid "/Edit/Cut Text"
-msgstr "/Уређивање/Исеци текст"
-
-#: ../app/menus.c:134
-msgid "/Edit/Paste _Text"
-msgstr "/Уређивање/Убаци текст"
-
-#: ../app/menus.c:136
-msgid "/_Diagram"
+#: ../app/menus.c:103
+#, fuzzy
+msgid "_Diagram"
 msgstr "/_Дијаграм"
 
-#: ../app/menus.c:138
-msgid "/Diagram/_Properties..."
-msgstr "/Дијаграм/_Особине..."
+#: ../app/menus.c:105
+#, fuzzy
+msgid "_Layers..."
+msgstr "Слојеви"
 
-#: ../app/menus.c:140
-msgid "/Diagram/_Layers..."
-msgstr "/Дијаграм/С_лојеви..."
-
-#: ../app/menus.c:141
-msgid "/_View"
+#: ../app/menus.c:107
+#, fuzzy
+msgid "_View"
 msgstr "/П_реглед"
 
-#: ../app/menus.c:143
-msgid "/View/Zoom _In"
-msgstr "/Преглед/Увећај"
+#: ../app/menus.c:110
+msgid "_Zoom"
+msgstr "Увећање"
 
-#: ../app/menus.c:145
-msgid "/View/Zoom _Out"
-msgstr "/Преглед/Удаљи"
+#: ../app/menus.c:111
+#, fuzzy
+msgid "1600%"
+msgstr "15800"
 
-#: ../app/menus.c:147
-msgid "/View/_Zoom"
-msgstr "/Преглед/Увећање"
+#: ../app/menus.c:112
+#, fuzzy
+msgid "800%"
+msgstr "15800"
 
-#: ../app/menus.c:149
-msgid "/View/Zoom/1600%"
-msgstr "/Преглед/Увећање/1600%"
-
-#: ../app/menus.c:150
-msgid "/View/Zoom/800%"
-msgstr "/Преглед/Увећање/800%"
-
-#: ../app/menus.c:151
-msgid "/View/Zoom/400%"
-msgstr "/Преглед/Увећање/400%"
-
-#: ../app/menus.c:152
-msgid "/View/Zoom/283%"
-msgstr "/Преглед/Увећање/283%"
-
-#: ../app/menus.c:153
-msgid "/View/Zoom/200%"
-msgstr "/Преглед/Увећање/200%"
-
-#: ../app/menus.c:154
-msgid "/View/Zoom/141%"
-msgstr "/Преглед/Увећање/141%"
-
-#: ../app/menus.c:155
-msgid "/View/Zoom/100%"
-msgstr "/Преглед/Увећање/100%"
-
-#: ../app/menus.c:157
-msgid "/View/Zoom/85%"
-msgstr "/Преглед/Увећање/85%"
-
-#: ../app/menus.c:158
-msgid "/View/Zoom/70.7%"
-msgstr "/Преглед/Увећање/70.7%"
-
-#: ../app/menus.c:159
-msgid "/View/Zoom/50%"
-msgstr "/Преглед/Увећање/50%"
-
-#: ../app/menus.c:160
-msgid "/View/Zoom/35.4%"
-msgstr "/Преглед/Увећање/35.4%"
-
-#: ../app/menus.c:161
-msgid "/View/Zoom/25%"
-msgstr "/Преглед/Увећање/25%"
-
-#: ../app/menus.c:162 ../app/menus.c:172
-msgid "/View/---"
-msgstr "/Преглед/---"
-
-#: ../app/menus.c:163
-msgid "/View/Fullscr_een"
+#: ../app/menus.c:113
+msgid "400%"
 msgstr ""
 
+#: ../app/menus.c:114
+msgid "283"
+msgstr ""
+
+#: ../app/menus.c:115
+#, fuzzy
+msgid "200"
+msgstr "15200"
+
+#: ../app/menus.c:116
+msgid "141"
+msgstr ""
+
+#: ../app/menus.c:118
+msgid "85"
+msgstr ""
+
+#: ../app/menus.c:119
+#, fuzzy
+msgid "70.7"
+msgstr "7507"
+
+#: ../app/menus.c:120
+#, fuzzy
+msgid "50"
+msgstr "7507"
+
+#: ../app/menus.c:121
+msgid "35.4"
+msgstr ""
+
+#: ../app/menus.c:122
+msgid "25"
+msgstr ""
+
+#. "display_toggle_entries" items go here
+#: ../app/menus.c:126
+msgid "New _View"
+msgstr "Нови поглед"
+
+#: ../app/menus.c:127
+#, fuzzy
+msgid "C_lone View"
+msgstr "Нови поглед"
+
+#: ../app/menus.c:132
+msgid "_Objects"
+msgstr "Објекти"
+
+#: ../app/menus.c:133
+msgid "Send to _Back"
+msgstr "Пошаљи на крај"
+
+#: ../app/menus.c:134
+msgid "Bring to _Front"
+msgstr "Додај на површину"
+
+#: ../app/menus.c:135
+msgid "Send Backwards"
+msgstr "Пошаљи уназад"
+
+#: ../app/menus.c:136
+msgid "Bring Forwards"
+msgstr "Додај унапред"
+
+#: ../app/menus.c:138
+msgid "_Group"
+msgstr "_Групиши"
+
+#. deliberately not using Ctrl+U for Ungroup
+#: ../app/menus.c:140
+msgid "_Ungroup"
+msgstr "О_дгрупиши"
+
+#: ../app/menus.c:142
+msgid "_Parent"
+msgstr "_Садржалац"
+
+#: ../app/menus.c:143
+msgid "_Unparent"
+msgstr "_Несадржалац"
+
+#: ../app/menus.c:144
+msgid "_Unparent Children"
+msgstr "Из_баци из садржаоца"
+
+#. Translators: Menu item Verb/Support/Position/Align
+#: ../app/menus.c:146 ../objects/FS/function.c:806
+msgid "Align"
+msgstr "Поравнати"
+
+#: ../app/menus.c:151 ../objects/standard/textobj.c:132
+msgid "Top"
+msgstr "Врх"
+
+#: ../app/menus.c:152
+#, fuzzy
+msgid "Middle"
+msgstr "Средина"
+
+#: ../app/menus.c:153 ../objects/standard/textobj.c:131
+msgid "Bottom"
+msgstr "Дно"
+
+#: ../app/menus.c:155
+#, fuzzy
+msgid "Spread Out Horizontally"
+msgstr "/Објекти/Поравнање/Рашири водоравно"
+
+#: ../app/menus.c:156
+#, fuzzy
+msgid "Spread Out Vertically"
+msgstr "/Објекти/Поравнање/Рашири усправно"
+
+#: ../app/menus.c:157
+msgid "Adjacent"
+msgstr "Подешавања"
+
+#: ../app/menus.c:158
+#, fuzzy
+msgid "Stacked"
+msgstr "Стање"
+
+#: ../app/menus.c:162
+#, fuzzy
+msgid "_Select"
+msgstr "/Изабери"
+
+#: ../app/menus.c:163
+msgid "All"
+msgstr "Све"
+
+#: ../app/menus.c:164 ../lib/arrows.c:43 ../objects/Jackson/domain.c:96
+#: ../objects/UML/association.c:1183
+msgid "None"
+msgstr "Ништа"
+
 #: ../app/menus.c:165
-msgid "/View/_AntiAliased"
-msgstr "/Преглед/_Омекшано"
+msgid "Invert"
+msgstr "Преокрени"
 
 #: ../app/menus.c:167
-msgid "/View/Show _Grid"
-msgstr "/Преглед/По_кажи мрежу"
+msgid "Transitive"
+msgstr "Прелазни"
 
 #: ../app/menus.c:168
-msgid "/View/_Snap To Grid"
-msgstr "/Преглед/Уравнај на мрежу"
+msgid "Connected"
+msgstr "Повезан"
 
 #: ../app/menus.c:169
 #, fuzzy
-msgid "/View/_Snap To Objects"
-msgstr "/Преглед/Уравнај на мрежу"
-
-#: ../app/menus.c:170
-msgid "/View/Show _Rulers"
-msgstr "/Преглед/Покажи лењире"
-
-#: ../app/menus.c:171
-msgid "/View/Show _Connection Points"
-msgstr "/Прикажи/Покажи тачке везе"
-
-#: ../app/menus.c:173
-msgid "/View/New _View"
-msgstr "/Преглед/Нови поглед"
-
-#. Show All, Best Fit.  Same as the Gimp, Ctrl+E
-#: ../app/menus.c:175
-msgid "/View/Show _All"
-msgstr "/Изглед/Прикажи све"
-
-#: ../app/menus.c:177
-msgid "/View/Re_draw"
-msgstr "/Преглед/Поново исцртај"
-
-#: ../app/menus.c:179
-msgid "/_Objects"
-msgstr "/Објекти"
-
-#: ../app/menus.c:181
-msgid "/Objects/Send to _Back"
-msgstr "/Објекти/Премести на крај"
-
-#: ../app/menus.c:183
-msgid "/Objects/Bring to _Front"
-msgstr "/Објекти/Добаци на Површину"
-
-#: ../app/menus.c:185
-msgid "/Objects/Send Backwards"
-msgstr "/Објекти/Премести уназад"
-
-#: ../app/menus.c:187
-msgid "/Objects/Bring Forwards"
-msgstr "/Објекти/Премести унапред"
-
-#: ../app/menus.c:189 ../app/menus.c:195 ../app/menus.c:199 ../app/menus.c:217
-msgid "/Objects/---"
-msgstr "/Објекти/---"
-
-#: ../app/menus.c:190
-msgid "/Objects/_Group"
-msgstr "/Објекти/Група"
-
-#. deliberately not using Ctrl+U for Ungroup
-#: ../app/menus.c:193
-msgid "/Objects/_Ungroup"
-msgstr "/Објекти/Одгруписано"
-
-#: ../app/menus.c:196
-msgid "/Objects/_Parent"
-msgstr "/Објекти/_Садржалац"
-
-#: ../app/menus.c:197
-msgid "/Objects/_Unparent"
-msgstr "/Објекти/Не_садржалац"
-
-#: ../app/menus.c:198
-msgid "/Objects/_Unparent Children"
-msgstr "/Објекти/Из_баци из садржаоца"
-
-#: ../app/menus.c:200
-msgid "/Objects/Align"
-msgstr "/Објекти/Поравнање"
-
-#: ../app/menus.c:202
-msgid "/Objects/Align/Left"
-msgstr "/Објекти/Поравнање/Лево"
-
-#: ../app/menus.c:204
-msgid "/Objects/Align/Center"
-msgstr "/Објекти/Поравнање/Центар"
-
-#: ../app/menus.c:206
-msgid "/Objects/Align/Right"
-msgstr "/Објекти/Поравнање/Десно"
-
-#: ../app/menus.c:208 ../app/menus.c:212
-msgid "/Objects/Align/---"
-msgstr "/Објекти/Поравнање/---"
-
-#: ../app/menus.c:209
-msgid "/Objects/Align/Top"
-msgstr "/Објекти/Поравнање/Горе"
-
-#: ../app/menus.c:210
-msgid "/Objects/Align/Middle"
-msgstr "/Објекти/Поравнање/Средина"
-
-#: ../app/menus.c:211
-msgid "/Objects/Align/Bottom"
-msgstr "/Објекти/Поравнање/Доле"
-
-#: ../app/menus.c:213
-msgid "/Objects/Align/Spread Out Horizontally"
-msgstr "/Објекти/Поравнање/Рашири водоравно"
-
-#: ../app/menus.c:214
-msgid "/Objects/Align/Spread Out Vertically"
-msgstr "/Објекти/Поравнање/Рашири усправно"
-
-#: ../app/menus.c:215
-msgid "/Objects/Align/Adjacent"
-msgstr "/Објекти/Поравнање/Суседно"
-
-#: ../app/menus.c:216
-msgid "/Objects/Align/Stacked"
-msgstr "/Објекти/Поравнање/Наређано"
-
-#: ../app/menus.c:218
-msgid "/Objects/_Properties..."
-msgstr "/Објекти/_Особине..."
-
-#: ../app/menus.c:220
-msgid "/_Select"
-msgstr "/Изабери"
-
-#: ../app/menus.c:222
-msgid "/Select/All"
-msgstr "/Изабери/Све"
-
-#: ../app/menus.c:223
-msgid "/Select/None"
-msgstr "/Изабери/Ништа"
-
-#: ../app/menus.c:224
-msgid "/Select/Invert"
-msgstr "/Изабери/Преокренуто"
-
-#: ../app/menus.c:225 ../app/menus.c:229
-msgid "/Select/---"
-msgstr "/Изабери/---"
-
-#: ../app/menus.c:226
-msgid "/Select/Transitive"
-msgstr "/Одабери/Прелазни"
-
-#: ../app/menus.c:227
-msgid "/Select/Connected"
-msgstr "/Изабери/Повезаност"
-
-#: ../app/menus.c:228
-msgid "/Select/Same Type"
+msgid "Same Type"
 msgstr "/Избери/Исти Тип"
 
+#. display_select_radio_entries go here
+#: ../app/menus.c:173
+#, fuzzy
+msgid "Select By"
+msgstr "/Изабери"
+
+#: ../app/menus.c:175
+msgid "_Input Methods"
+msgstr "Методе уноса"
+
+#: ../app/menus.c:177
+#, fuzzy
+msgid "D_ialogs"
+msgstr "Про_зори"
+
+#: ../app/menus.c:179
+msgid "D_ebug"
+msgstr ""
+
+#: ../app/menus.c:185
+msgid "_Tools"
+msgstr "_Алати"
+
+#: ../app/menus.c:186
+msgid "Modify"
+msgstr "Измени"
+
+#: ../app/menus.c:188
+msgid "Scroll"
+msgstr "Померање текста"
+
+#: ../app/menus.c:210
+msgid "Fullscr_een"
+msgstr ""
+
+#. we must have all actions registered to avoid configuration specific ui-files and crashing in GTK+,
+#. * see: http://bugzilla.gnome.org/show_bug.cgi?id=396161
+#.
+#: ../app/menus.c:213 ../app/menus.c:218
+msgid "_AntiAliased"
+msgstr "_Омекшано"
+
+#: ../app/menus.c:220
+msgid "Show _Grid"
+msgstr "Прикажи Мрежу"
+
+#: ../app/menus.c:221
+msgid "_Snap To Grid"
+msgstr "Уравнај на мрежу"
+
+#: ../app/menus.c:222
+#, fuzzy
+msgid "Snap To _Objects"
+msgstr "/Преглед/Уравнај на мрежу"
+
+#: ../app/menus.c:223
+msgid "Show _Rulers"
+msgstr "Прикажи Лењире"
+
+#: ../app/menus.c:224
+msgid "Show _Connection Points"
+msgstr "Покажи Поене Везе"
+
 #: ../app/menus.c:230
-msgid "/Select/Replace"
-msgstr "/Изабери/Замени"
+msgid "Replace"
+msgstr "Замени"
+
+#: ../app/menus.c:231
+msgid "Union"
+msgstr "Унија"
 
 #: ../app/menus.c:232
-msgid "/Select/Union"
-msgstr "/Изабери/Уједини"
+#, fuzzy
+msgid "Intersection"
+msgstr "Пресек"
 
-#: ../app/menus.c:234
-msgid "/Select/Intersection"
-msgstr "/Изабери/Пресек"
-
-#: ../app/menus.c:236
-msgid "/Select/Remove"
-msgstr "/Изабери/Уклони"
+#. Translators: Menu item Verb/Channel/Export/Remove
+#. Translators: Menu item Verb/Branch/Separate/Remove
+#. Translators: Menu item Verb/Branch/Separate/Remove/Remove
+#: ../app/menus.c:233 ../app/sheets_dialog.c:785 ../objects/FS/function.c:706
+#: ../objects/FS/function.c:858 ../objects/FS/function.c:860
+msgid "Remove"
+msgstr "Уклони"
 
 #. Cannot also be called Invert, duplicate names caused keybinding problems
-#: ../app/menus.c:239
+#: ../app/menus.c:235
 #, fuzzy
-msgid "/Select/Inverse"
-msgstr "/Изабери/Преокренуто"
+msgid "Inverse"
+msgstr "Инвертор"
 
-#: ../app/menus.c:241
-msgid "/_Tools"
-msgstr "/Алати"
-
-#: ../app/menus.c:243
-msgid "/Tools/Modify"
-msgstr "/Алати/Измени"
-
-#: ../app/menus.c:244
-msgid "/Tools/Magnify"
-msgstr "/Алати/Увеличај"
-
-#: ../app/menus.c:245
-msgid "/Tools/Scroll"
-msgstr "/Алати/Усправно померање"
-
-#: ../app/menus.c:246
-msgid "/Tools/Text"
-msgstr "/Алати/Текст"
-
-#: ../app/menus.c:247
-msgid "/Tools/Box"
-msgstr "/Алати/Кућица"
-
-#: ../app/menus.c:248
-msgid "/Tools/Ellipse"
-msgstr "/Алати/Елипса"
-
-#: ../app/menus.c:249
-msgid "/Tools/Polygon"
-msgstr "/Алати/Полигон"
-
-#: ../app/menus.c:250
-msgid "/Tools/Beziergon"
-msgstr "/Алати/Безиеров полигон"
-
-#: ../app/menus.c:251 ../app/menus.c:257
-msgid "/Tools/---"
-msgstr "/Алати/---"
-
-#: ../app/menus.c:252
-msgid "/Tools/Line"
-msgstr "/Алати/Линије"
-
-#: ../app/menus.c:253
-msgid "/Tools/Arc"
-msgstr "/Алати/Лук"
-
-#: ../app/menus.c:254
-msgid "/Tools/Zigzagline"
-msgstr "/Алати/Цик-цак линија"
-
-#: ../app/menus.c:255
-msgid "/Tools/Polyline"
-msgstr "/Алати/Полигонска линија"
-
-#: ../app/menus.c:256
-msgid "/Tools/Bezierline"
-msgstr "/Алати/Безијерова линија"
-
-#: ../app/menus.c:258
-msgid "/Tools/Image"
-msgstr "/Алати/Слика"
-
-#: ../app/menus.c:259
-msgid "/_Input Methods"
-msgstr "/_Начини уноса"
-
-#: ../app/menus.c:431
+#: ../app/menus.c:278
 msgid "NULL tooldata in tool_menu_select"
 msgstr "NULL tooldata у tool_menu_select"
 
-#: ../app/menus.c:528
-msgid "Diagram Menu"
-msgstr "Мени Дијаграма"
-
-#: ../app/menus.c:663
-#, c-format
-msgid ""
-"Can't find menu entry '%s'!\n"
-"This is probably a i18n problem (try LANG=C)."
-msgstr ""
-"Не могу да нађем ставку менија „%s“!\n"
-"Ово је вероватно проблем превода (пробајте LANG=C)."
-
-#: ../app/modify_tool.c:342
+#: ../app/modify_tool.c:344
 msgid "Couldn't get GTK settings"
 msgstr "Не може да преузме GTK подешавања"
 
-#: ../app/paginate_psprint.c:258
+#: ../app/newgroup.c:117
+#, fuzzy
+msgid "Open group"
+msgstr "Отворена округла"
+
+#: ../app/paginate_psprint.c:271
 msgid "Select Printer"
 msgstr "Одреди штампач"
 
-#: ../app/paginate_psprint.c:270 ../sheets/ciscocomputer.sheet.in.h:36
+#: ../app/paginate_psprint.c:283 ../sheets/ciscocomputer.sheet.in.h:36
 msgid "Printer"
 msgstr "Штампач"
 
-#: ../app/paginate_psprint.c:284 ../sheets/Misc.sheet.in.h:1
+#: ../app/paginate_psprint.c:297 ../sheets/Misc.sheet.in.h:1
 msgid "File"
 msgstr "Датотека"
 
-#: ../app/paginate_psprint.c:299
+#: ../app/paginate_psprint.c:312
 msgid "OK"
 msgstr "У реду"
 
-#: ../app/paginate_psprint.c:394
+#: ../app/paginate_psprint.c:458
 #, c-format
 msgid "Could not run command '%s': %s"
 msgstr "Не могу да покренем наредбу „%s“: %s"
 
-#: ../app/paginate_psprint.c:397
+#: ../app/paginate_psprint.c:461
 #, c-format
 msgid "Could not open '%s' for writing: %s"
 msgstr "Не могу да отворим „%s“ ради уписа: %s"
 
-#: ../app/paginate_psprint.c:414
+#: ../app/paginate_psprint.c:481
 #, c-format
 msgid "Printing error: command '%s' returned %d\n"
 msgstr "Грешка при штампи: наредба „%s“ је вратила %d\n"
 
-#: ../app/paginate_psprint.c:425
+#: ../app/paginate_psprint.c:492
 #, c-format
 msgid "Printing error: command '%s' caused sigpipe."
 msgstr "Грешка при штампи: наредба „%s“ је изазвала SIGPIPE."
@@ -1663,8 +1539,8 @@ msgstr "Додаци"
 msgid "Loaded"
 msgstr "Учитано"
 
-#: ../app/plugin-manager.c:262 ../objects/UML/class.c:136
-#: ../objects/UML/large_package.c:130 ../objects/UML/umlattribute.c:37
+#: ../app/plugin-manager.c:262 ../objects/UML/class.c:139
+#: ../objects/UML/large_package.c:131 ../objects/UML/umlattribute.c:37
 #: ../objects/UML/umlformalparameter.c:35 ../objects/UML/umloperation.c:62
 #: ../objects/UML/umlparameter.c:43
 msgid "Name"
@@ -1693,10 +1569,6 @@ msgstr "Подразумевано од дијаграма"
 #: ../app/preferences.c:108
 msgid "View Defaults"
 msgstr "Преглед подразумеваног"
-
-#: ../app/preferences.c:110
-msgid "Diagram Tree"
-msgstr "Стабло Дијаграма"
 
 #: ../app/preferences.c:124
 msgid "Reset tools after create"
@@ -1837,23 +1709,13 @@ msgstr "Особине objekta"
 msgid "This object has no properties."
 msgstr "Овај објекат нема одређене особине."
 
-#: ../app/properties.c:202
+#: ../app/properties.c:217
 msgid "Properties: "
 msgstr "Особине: "
 
-#: ../app/properties.c:206
+#: ../app/properties.c:221
 msgid "Object properties:"
 msgstr "Особине објекта:"
-
-#. Use the Plugins menu item to get a pointer to the File menu,
-#. but any item on the File menu will do
-#: ../app/recent_files.c:61
-msgid "<Toolbox>/File/Plugins..."
-msgstr "<Кутија за алат>/Датотека/Додаци..."
-
-#: ../app/recent_files.c:139
-msgid "<Toolbox>/File/Quit"
-msgstr "<Кутија за алат>/Датотека/Заврши..."
 
 #: ../app/render_eps.c:148
 msgid "Encapsulated Postscript (using Pango fonts)"
@@ -1867,7 +1729,7 @@ msgstr "Угњеждени Постскрипт са прегледом (EPS —
 msgid "Encapsulated Postscript (using PostScript Latin-1 fonts)"
 msgstr "Угњеждени Постскрипт (EPS — користи ИСО 8859-1 фонтове)"
 
-#: ../app/sheets.c:155
+#: ../app/sheets.c:156
 #, c-format
 msgid ""
 "%s\n"
@@ -1876,7 +1738,7 @@ msgstr ""
 "%s\n"
 "Систем страна"
 
-#: ../app/sheets.c:157
+#: ../app/sheets.c:158
 #, c-format
 msgid ""
 "%s\n"
@@ -1885,7 +1747,7 @@ msgstr ""
 "%s\n"
 "Корисничка страна"
 
-#: ../app/sheets.c:272
+#: ../app/sheets.c:273
 msgid ""
 "Can't get symbol 'custom_type' from any module.\n"
 "Editing shapes is disabled."
@@ -1893,56 +1755,52 @@ msgstr ""
 "Не може да нађе симбол „custom_type“ ни у једном модулу.\n"
 "Уређивање облика је искључено."
 
-#: ../app/sheets.c:380
+#: ../app/sheets.c:381
 #, c-format
 msgid "Widget not found: %s"
 msgstr "Елемент није нађен: %s"
 
-#: ../app/sheets.c:455
+#: ../app/sheets.c:456
 msgid "SVG Shape"
 msgstr "SVG облик"
 
-#: ../app/sheets.c:457
+#: ../app/sheets.c:458
 msgid "Programmed DiaObject"
 msgstr "Програмирани диа објекат"
 
-#: ../app/sheets_dialog.c:83
+#: ../app/sheets_dialog.c:84
 msgid "Sheets and Objects"
 msgstr "Површине и објекти"
 
-#: ../app/sheets_dialog.c:109 ../app/sheets_dialog_callbacks.c:177
+#: ../app/sheets_dialog.c:110 ../app/sheets_dialog_callbacks.c:178
 msgid "<- Copy"
 msgstr "<- Копирај"
 
-#: ../app/sheets_dialog.c:119 ../app/sheets_dialog_callbacks.c:179
+#: ../app/sheets_dialog.c:120 ../app/sheets_dialog_callbacks.c:180
 msgid "<- Copy All"
 msgstr "<- Копирај Све"
 
-#: ../app/sheets_dialog.c:126 ../app/sheets_dialog_callbacks.c:181
+#: ../app/sheets_dialog.c:127 ../app/sheets_dialog_callbacks.c:182
 msgid "<- Move"
 msgstr "<- Помери"
 
-#: ../app/sheets_dialog.c:136 ../app/sheets_dialog_callbacks.c:183
+#: ../app/sheets_dialog.c:137 ../app/sheets_dialog_callbacks.c:184
 msgid "<- Move All"
 msgstr "<- Омогући Све"
 
-#: ../app/sheets_dialog.c:233
+#: ../app/sheets_dialog.c:234
 msgid "Edit"
 msgstr "Уреди"
 
-#: ../app/sheets_dialog.c:235
-msgid "_Edit"
-msgstr "Уреди"
-
-#: ../app/sheets_dialog.c:266
+#: ../app/sheets_dialog.c:267
 msgid "Revert"
 msgstr "Поврати"
 
-#: ../app/sheets_dialog.c:354
+#: ../app/sheets_dialog.c:355
 msgid "New"
 msgstr "Ново"
 
-#: ../app/sheets_dialog.c:362 ../app/sheets_dialog.c:794
+#: ../app/sheets_dialog.c:363 ../app/sheets_dialog.c:795
 #: ../objects/Istar/actor.c:144 ../objects/Istar/actor.c:145
 #: ../objects/Istar/other.c:148 ../objects/Istar/other.c:149
 #: ../objects/KAOS/other.c:151 ../objects/KAOS/other.c:152
@@ -1951,99 +1809,91 @@ msgstr "Ново"
 msgid "Type"
 msgstr "Врста"
 
-#: ../app/sheets_dialog.c:377
+#: ../app/sheets_dialog.c:378
 msgid "Browse..."
 msgstr "Претражи..."
 
-#: ../app/sheets_dialog.c:386
+#: ../app/sheets_dialog.c:387
 msgid "SVG Shape:"
 msgstr "SVG облик:"
 
-#: ../app/sheets_dialog.c:413 ../app/sheets_dialog.c:476
+#: ../app/sheets_dialog.c:414 ../app/sheets_dialog.c:477
 msgid "description:"
 msgstr "опис:"
 
-#: ../app/sheets_dialog.c:425
+#: ../app/sheets_dialog.c:426
 msgid "Sheet name:"
 msgstr "Име стране:"
 
-#: ../app/sheets_dialog.c:446 ../app/sheets_dialog_callbacks.c:289
-#: ../app/sheets_dialog_callbacks.c:1092
+#: ../app/sheets_dialog.c:447 ../app/sheets_dialog_callbacks.c:290
+#: ../app/sheets_dialog_callbacks.c:1093
 msgid "Line Break"
 msgstr "Прелом линије"
 
-#: ../app/sheets_dialog.c:568
+#: ../app/sheets_dialog.c:569
 msgid "Edit Attributes"
 msgstr "Уреди својства"
 
-#: ../app/sheets_dialog.c:583
+#: ../app/sheets_dialog.c:584
 msgid "DiaObject"
 msgstr "Диа Објекат"
 
-#: ../app/sheets_dialog.c:599 ../app/sheets_dialog.c:692
+#: ../app/sheets_dialog.c:600 ../app/sheets_dialog.c:693
 msgid "Description:"
 msgstr "Опис:"
 
-#: ../app/sheets_dialog.c:618 ../objects/FS/flow-ortho.c:169
+#: ../app/sheets_dialog.c:619 ../objects/FS/flow-ortho.c:169
 #: ../objects/FS/flow.c:146 ../objects/Istar/link.c:164
 #: ../objects/Jackson/phenomenon.c:144 ../objects/KAOS/metaandorrel.c:164
-#: ../objects/KAOS/metabinrel.c:171 ../objects/UML/class_dialog.c:985
-#: ../objects/UML/class_dialog.c:1941 ../objects/UML/class_dialog.c:2177
-#: ../objects/UML/class_dialog.c:2700
+#: ../objects/KAOS/metabinrel.c:171 ../objects/UML/class_dialog.c:975
+#: ../objects/UML/class_dialog.c:1928 ../objects/UML/class_dialog.c:2166
+#: ../objects/UML/class_dialog.c:2692
 msgid "Type:"
 msgstr "Врста:"
 
-#: ../app/sheets_dialog.c:656
+#: ../app/sheets_dialog.c:657
 msgid "Sheet"
 msgstr "Страна"
 
-#: ../app/sheets_dialog.c:672 ../objects/ER/attribute.c:153
+#: ../app/sheets_dialog.c:673 ../objects/ER/attribute.c:153
 #: ../objects/ER/entity.c:135 ../objects/ER/relationship.c:140
-#: ../objects/UML/association.c:238 ../objects/UML/association.c:1166
-#: ../objects/UML/class_dialog.c:974 ../objects/UML/class_dialog.c:1930
-#: ../objects/UML/class_dialog.c:2166 ../objects/UML/class_dialog.c:2689
-#: ../objects/UML/dependency.c:134 ../objects/UML/generalization.c:130
-#: ../objects/UML/realizes.c:131
+#: ../objects/UML/association.c:238 ../objects/UML/association.c:1160
+#: ../objects/UML/class_dialog.c:964 ../objects/UML/class_dialog.c:1917
+#: ../objects/UML/class_dialog.c:2155 ../objects/UML/class_dialog.c:2681
+#: ../objects/UML/dependency.c:135 ../objects/UML/generalization.c:131
+#: ../objects/UML/realizes.c:132
 msgid "Name:"
 msgstr "Име:"
 
-#. Translators: Menu item Verb/Channel/Export/Remove
-#. Translators: Menu item Verb/Branch/Separate/Remove
-#. Translators: Menu item Verb/Branch/Separate/Remove/Remove
-#: ../app/sheets_dialog.c:784 ../objects/FS/function.c:706
-#: ../objects/FS/function.c:858 ../objects/FS/function.c:860
-msgid "Remove"
-msgstr "Уклони"
-
-#: ../app/sheets_dialog.c:809
+#: ../app/sheets_dialog.c:810
 msgid "DiaObject:"
 msgstr "Диа објекат:"
 
-#: ../app/sheets_dialog.c:836
+#: ../app/sheets_dialog.c:837
 msgid "Sheet:"
 msgstr "Страна:"
 
-#: ../app/sheets_dialog.c:920
+#: ../app/sheets_dialog.c:921
 msgid "Select SVG Shape File"
 msgstr "Изаберите SVG облик датотеке"
 
-#: ../app/sheets_dialog_callbacks.c:164
+#: ../app/sheets_dialog_callbacks.c:165
 msgid "Copy ->"
 msgstr "Копирај ->"
 
-#: ../app/sheets_dialog_callbacks.c:166
+#: ../app/sheets_dialog_callbacks.c:167
 msgid "Copy All ->"
 msgstr "Копирај Све ->"
 
-#: ../app/sheets_dialog_callbacks.c:168
+#: ../app/sheets_dialog_callbacks.c:169
 msgid "Move ->"
 msgstr "Помери ->"
 
-#: ../app/sheets_dialog_callbacks.c:170
+#: ../app/sheets_dialog_callbacks.c:171
 msgid "Move All ->"
 msgstr "Омогући Све ->"
 
-#: ../app/sheets_dialog_callbacks.c:303
+#: ../app/sheets_dialog_callbacks.c:304
 #, c-format
 msgid ""
 "%s\n"
@@ -2052,7 +1902,7 @@ msgstr ""
 "%s\n"
 "Облик"
 
-#: ../app/sheets_dialog_callbacks.c:306
+#: ../app/sheets_dialog_callbacks.c:307
 #, c-format
 msgid ""
 "%s\n"
@@ -2061,7 +1911,7 @@ msgstr ""
 "%s\n"
 "Објекат"
 
-#: ../app/sheets_dialog_callbacks.c:309
+#: ../app/sheets_dialog_callbacks.c:310
 #, c-format
 msgid ""
 "%s\n"
@@ -2070,228 +1920,244 @@ msgstr ""
 "%s\n"
 "Тип неодређеног предзнака"
 
-#: ../app/sheets_dialog_callbacks.c:800
+#: ../app/sheets_dialog_callbacks.c:801
 #, c-format
 msgid "Filename must end with '%s': '%s'"
 msgstr "Датотека се мора завршити са '%s': '%s'"
 
-#: ../app/sheets_dialog_callbacks.c:808
+#: ../app/sheets_dialog_callbacks.c:809
 #, c-format
 msgid "Error examining %s: %s"
 msgstr "Грешка испитујући %s: %s"
 
-#: ../app/sheets_dialog_callbacks.c:829
+#: ../app/sheets_dialog_callbacks.c:830
 #, c-format
 msgid "Could not interpret shape file: '%s'"
 msgstr "Не могу превести облик датотеке: '%s'"
 
-#: ../app/sheets_dialog_callbacks.c:899
+#: ../app/sheets_dialog_callbacks.c:900
 msgid "Sheet must have a Name"
 msgstr "Страна мора имати име"
 
-#: ../app/sheets_dialog_callbacks.c:1596 ../app/sheets_dialog_callbacks.c:1603
+#: ../app/sheets_dialog_callbacks.c:1597 ../app/sheets_dialog_callbacks.c:1604
 #, c-format
 msgid "Couldn't open '%s': %s"
 msgstr "Не може да отвори '%s': %s"
 
-#: ../app/sheets_dialog_callbacks.c:1655
+#: ../app/sheets_dialog_callbacks.c:1656
 #, c-format
 msgid "Couldn't open: '%s' for writing"
 msgstr "Не може да отвори: '%s' за писање"
 
-#: ../app/sheets_dialog_callbacks.c:1665
+#: ../app/sheets_dialog_callbacks.c:1666
 msgid "a user"
 msgstr "корисник"
 
-#: ../app/sheets_dialog_callbacks.c:1678
+#: ../app/sheets_dialog_callbacks.c:1679
 #, c-format
 msgid "File: %s"
 msgstr "Датотека: %s"
 
-#: ../app/sheets_dialog_callbacks.c:1681
+#: ../app/sheets_dialog_callbacks.c:1682
 #, c-format
 msgid "Date: %s"
 msgstr "Датум: %s"
 
-#: ../app/sheets_dialog_callbacks.c:1685
+#: ../app/sheets_dialog_callbacks.c:1686
 #, c-format
 msgid "For: %s"
 msgstr "За: %s"
 
-#: ../app/sheets_dialog_callbacks.c:1702
+#: ../app/sheets_dialog_callbacks.c:1703
 msgid "add shapes here"
 msgstr "додај облик овде"
 
-#: ../app/splash.c:58
+#: ../app/splash.c:56
 msgid "Loading ..."
 msgstr "Учитава..."
 
-#: ../app/splash.c:76
+#: ../app/splash.c:74
 #, c-format
 msgid "Dia v %s"
 msgstr "Диа в %s"
 
-#: ../dia.desktop.in.h:1
+#: ../dia.desktop.in.in.h:1
 msgid "Dia Diagram Editor"
 msgstr "Диа уређивач дијаграма"
 
-#: ../dia.desktop.in.h:2
+#: ../dia.desktop.in.in.h:2
 msgid "Edit your Diagrams"
 msgstr "Уређивање ваших дијаграм"
 
-#: ../lib/arrows.c:40 ../objects/Jackson/domain.c:96
-#: ../objects/UML/association.c:1189
-msgid "None"
-msgstr "Ништа"
-
-#: ../lib/arrows.c:41
+#: ../lib/arrows.c:44
 msgid "Lines"
 msgstr "Линија"
 
-#: ../lib/arrows.c:42
+#: ../lib/arrows.c:45
 msgid "Hollow Triangle"
 msgstr "Уоквирени троугао"
 
-#: ../lib/arrows.c:43
+#: ../lib/arrows.c:46
 msgid "Filled Triangle"
 msgstr "Испуњени троугао"
 
-#: ../lib/arrows.c:44
+#: ../lib/arrows.c:47
 msgid "Unfilled Triangle"
 msgstr "Неиспуњени троугао"
 
-#: ../lib/arrows.c:45
+#: ../lib/arrows.c:48
 msgid "Hollow Diamond"
 msgstr "Уоквирени дијамант"
 
-#: ../lib/arrows.c:46
+#: ../lib/arrows.c:49
 msgid "Filled Diamond"
 msgstr "Испуњени дијамант"
 
-#: ../lib/arrows.c:47
+#: ../lib/arrows.c:50
 msgid "Half Diamond"
 msgstr "Пола дијаманта"
 
-#: ../lib/arrows.c:48
+#: ../lib/arrows.c:51
 msgid "Half Head"
 msgstr "Пола Главе"
 
-#: ../lib/arrows.c:49
+#: ../lib/arrows.c:52
 msgid "Slashed Cross"
 msgstr "Прецртани крст"
 
-#: ../lib/arrows.c:50
+#: ../lib/arrows.c:53
 msgid "Filled Ellipse"
 msgstr "Испуњена Елипса"
 
-#: ../lib/arrows.c:51
+#: ../lib/arrows.c:54
 msgid "Hollow Ellipse"
 msgstr "Уоквирена Елипса"
 
-#: ../lib/arrows.c:52
+#: ../lib/arrows.c:55
 msgid "Filled Dot"
 msgstr "Испуњена Тачку"
 
-#: ../lib/arrows.c:53
+#: ../lib/arrows.c:56
 msgid "Dimension Origin"
 msgstr "Порекло Димензија"
 
-#: ../lib/arrows.c:54
+#: ../lib/arrows.c:57
 msgid "Blanked Dot"
 msgstr "Празна тачка"
 
-#: ../lib/arrows.c:55
+#: ../lib/arrows.c:58
 msgid "Double Hollow Triangle"
 msgstr "Двоструки уоквирени троугао"
 
-#: ../lib/arrows.c:56
+#: ../lib/arrows.c:59
 msgid "Double Filled Triangle"
 msgstr "Двоструки испуњени троугао"
 
-#: ../lib/arrows.c:57
+#: ../lib/arrows.c:60
 msgid "Filled Dot and Triangle"
 msgstr "Испуњена тачка и троугао"
 
-#: ../lib/arrows.c:58
+#: ../lib/arrows.c:61
 msgid "Filled Box"
 msgstr "Испуњена кућица"
 
-#: ../lib/arrows.c:59
+#: ../lib/arrows.c:62
 msgid "Blanked Box"
 msgstr "Празна кућица"
 
-#: ../lib/arrows.c:60
+#: ../lib/arrows.c:63
 msgid "Slashed"
 msgstr "Прецртано"
 
-#: ../lib/arrows.c:61
+#: ../lib/arrows.c:64
 msgid "Integral Symbol"
 msgstr "Интегрални Симбол"
 
-#: ../lib/arrows.c:62
+#: ../lib/arrows.c:65
 msgid "Crow Foot"
 msgstr "Нога вране"
 
-#: ../lib/arrows.c:63
+#: ../lib/arrows.c:66
 msgid "Cross"
 msgstr "Унакрсно"
 
-#: ../lib/arrows.c:64
+#: ../lib/arrows.c:67
 msgid "1-or-many"
 msgstr "1-или-више"
 
-#: ../lib/arrows.c:65
+#: ../lib/arrows.c:68
 msgid "0-or-many"
 msgstr "0-или-више"
 
-#: ../lib/arrows.c:66
+#: ../lib/arrows.c:69
 msgid "1-or-0"
 msgstr "1-или-0"
 
-#: ../lib/arrows.c:67
+#: ../lib/arrows.c:70
 msgid "1 exactly"
 msgstr "тачно 1"
 
-#: ../lib/arrows.c:68
+#: ../lib/arrows.c:71
 msgid "Filled Concave"
 msgstr "Испуњено конкавно"
 
-#: ../lib/arrows.c:69
+#: ../lib/arrows.c:72
 msgid "Blanked Concave"
 msgstr "Испражњено конкавно"
 
-#: ../lib/arrows.c:70
+#: ../lib/arrows.c:73
 msgid "Round"
 msgstr "Округла"
 
-#: ../lib/arrows.c:71
+#: ../lib/arrows.c:74
 msgid "Open Round"
 msgstr "Отворена округла"
 
-#: ../lib/arrows.c:72
+#: ../lib/arrows.c:75
 msgid "Backslash"
 msgstr ""
 
-#: ../lib/arrows.c:73
+#: ../lib/arrows.c:76
 msgid "Infinite Line"
 msgstr ""
 
-#: ../lib/bezier_conn.c:634
+#: ../lib/arrows.c:1892
+msgid "Arrow head of unknown type"
+msgstr ""
+
+#: ../lib/arrows.c:1900
+#, c-format
+msgid "Arrow head of type %s has too small dimensions, removing.\n"
+msgstr ""
+
+#: ../lib/arrows.c:2021
+#, fuzzy
+msgid "unknown arrow"
+msgstr "Стрелица надоле"
+
+#: ../lib/bezier_conn.c:636
 msgid "Internal error: Setting corner type of endpoint of bezier"
 msgstr ""
 "Унутрашња грешка: Постављање ћошкастог типа на крајњу тачку безијерове криве"
 
-#: ../lib/dia_dirs.c:237
+#: ../lib/create.c:50 ../lib/create.c:100 ../lib/create.c:127
+#: ../lib/create.c:161 ../lib/create.c:197 ../lib/create.c:224
+#: ../lib/create.c:260 ../lib/create.c:295 ../lib/create.c:335
+#: ../plug-ins/svg/svg-import.c:204 ../plug-ins/vdx/vdx-import.c:140
+msgid "Can't find standard object"
+msgstr "Не могу да нађем стандардан објекат"
+
+#: ../lib/dia_dirs.c:238
 #, c-format
 msgid "%s<illegal characters>..."
 msgstr "%s<недозвољени знаци>..."
 
-#: ../lib/dia_dirs.c:268
+#: ../lib/dia_dirs.c:269
 #, c-format
 msgid "Too many ..'s in filename %s\n"
 msgstr ""
 
-#: ../lib/dia_xml.c:159
+#: ../lib/dia_xml.c:163
 #, c-format
 msgid ""
 "The file %s has no encoding specification;\n"
@@ -2300,26 +2166,26 @@ msgstr ""
 "Датотека %s не садржи навод кодирања;\n"
 "претпостављам да је кодирана помоћу %s"
 
-#: ../lib/dia_xml.c:561
+#: ../lib/dia_xml.c:565
 msgid "Taking point value of non-point node."
 msgstr "Узима вредност тачке за чвор који није тачка."
 
-#: ../lib/dia_xml.c:572
+#: ../lib/dia_xml.c:576
 #, c-format
 msgid "Incorrect x Point value \"%s\" %f; discarding it."
 msgstr "Неисправна x-вредност тачке „%s“ %f; занемарујем је."
 
-#: ../lib/dia_xml.c:579
+#: ../lib/dia_xml.c:583
 msgid "Error parsing point."
 msgstr "Грешка при рашчлањивању тачке."
 
 #. don't bother with useless warnings (see above)
-#: ../lib/dia_xml.c:587
+#: ../lib/dia_xml.c:591
 #, c-format
 msgid "Incorrect y Point value \"%s\" %f; discarding it."
 msgstr "Неисправна y-вредност тачке „%s“ %f; занемарујем је."
 
-#: ../lib/dia_xml.c:1059
+#: ../lib/dia_xml.c:1063
 msgid ""
 "Your local character set is UTF-8. Because of issues with libxml1 and the "
 "support of files generated by previous versions of dia, you will encounter  "
@@ -2329,11 +2195,11 @@ msgstr ""
 "датотека из претходног издања Дие, наићи ћете на неприлике. Молим пријавите "
 "на dia-list@gnome.org уколико угледате ову поруку."
 
-#: ../lib/diaarrowchooser.c:321
+#: ../lib/diaarrowchooser.c:322
 msgid "Arrow Properties"
 msgstr "Поставке стрелица"
 
-#: ../lib/diaarrowchooser.c:420 ../lib/dialinechooser.c:333
+#: ../lib/diaarrowchooser.c:421 ../lib/dialinechooser.c:333
 msgid "Details..."
 msgstr "Детаљи..."
 
@@ -2382,7 +2248,7 @@ msgstr "Преглед:"
 msgid "Font Selection"
 msgstr "Избор словног лика"
 
-#: ../lib/dialibartrenderer.c:288
+#: ../lib/dialibartrenderer.c:295
 msgid "gdk_renderer: Unsupported fill mode specified!\n"
 msgstr "gdk_renderer: Наведен је неподржани режим испуњавања!\n"
 
@@ -2395,7 +2261,7 @@ msgstr "Поставке Стила Линија"
 msgid "Multiple export filters with unique name %s"
 msgstr "Више извозних филтера са јединственим именом %s"
 
-#: ../lib/font.c:99
+#: ../lib/font.c:102
 #, c-format
 msgid "Can't load font %s.\n"
 msgstr "Не могу да учитам словни лик %s.\n"
@@ -2526,8 +2392,8 @@ msgstr "Поравнање текста"
 #. all this just to make the defaults selectable ...
 #: ../lib/properties.c:81 ../lib/properties.h:531
 #: ../objects/GRAFCET/condition.c:132 ../objects/GRAFCET/step.c:165
-#: ../objects/GRAFCET/transition.c:142 ../objects/UML/class.c:164
-#: ../objects/UML/class_dialog.c:386 ../objects/chronogram/chronoline.c:183
+#: ../objects/GRAFCET/transition.c:142 ../objects/UML/class.c:169
+#: ../objects/UML/class_dialog.c:394 ../objects/chronogram/chronoline.c:183
 #: ../objects/chronogram/chronoref.c:164
 msgid "Font"
 msgstr "Словни лик"
@@ -2602,18 +2468,97 @@ msgstr "Још стрелица"
 msgid "Size: "
 msgstr "Величина: "
 
-#: ../lib/widgets.c:1307
+#: ../lib/widgets.c:1314
 msgid "Select image file"
 msgstr "Одаберите датотеку са сликом"
 
-#: ../lib/widgets.c:1343
+#: ../lib/widgets.c:1348
 msgid "Browse"
 msgstr "Претражи"
 
-#: ../lib/widgets.c:1957
+#: ../lib/widgets.c:1962
 #, fuzzy
 msgid "Reset menu"
 msgstr "Користи мени линију"
+
+#: ../objects/AADL/aadl.c:52
+msgid "Architecture Analysis & Design Language diagram objects"
+msgstr ""
+
+#: ../objects/AADL/aadlbox.c:138
+#, fuzzy
+msgid "Declaration"
+msgstr "Опис"
+
+#: ../objects/AADL/aadlbox.c:349
+#, fuzzy
+msgid "Add Access Provider"
+msgstr "Приступни сервер"
+
+#: ../objects/AADL/aadlbox.c:351
+#, fuzzy
+msgid "Add Access Requirer"
+msgstr "Приступни сервер"
+
+#: ../objects/AADL/aadlbox.c:353
+msgid "Add In Data Port"
+msgstr ""
+
+#: ../objects/AADL/aadlbox.c:355
+msgid "Add In Event Port"
+msgstr ""
+
+#: ../objects/AADL/aadlbox.c:357
+msgid "Add In Event Data Port"
+msgstr ""
+
+#: ../objects/AADL/aadlbox.c:359
+msgid "Add Out Data Port"
+msgstr ""
+
+#: ../objects/AADL/aadlbox.c:361
+msgid "Add Out Event Port"
+msgstr ""
+
+#: ../objects/AADL/aadlbox.c:363
+msgid "Add Out Event Data Port"
+msgstr ""
+
+#: ../objects/AADL/aadlbox.c:365
+msgid "Add In Out Data Port"
+msgstr ""
+
+#: ../objects/AADL/aadlbox.c:367
+msgid "Add In Out Event Port"
+msgstr ""
+
+#: ../objects/AADL/aadlbox.c:369
+msgid "Add In Out Event Data Port"
+msgstr ""
+
+#: ../objects/AADL/aadlbox.c:371
+msgid "Add Port Group"
+msgstr ""
+
+#: ../objects/AADL/aadlbox.c:373
+#, fuzzy
+msgid "Add Connection Point"
+msgstr "Додај везивну тачку"
+
+#: ../objects/AADL/aadlbox.c:377
+#, fuzzy
+msgid "Delete Port"
+msgstr "Обриши Угао"
+
+#: ../objects/AADL/aadlbox.c:378
+#, fuzzy
+msgid "Edit Port Declaration"
+msgstr "Припрема"
+
+#: ../objects/AADL/aadlbox.c:382
+#, fuzzy
+msgid "Delete Connection Point"
+msgstr "Обриши везивну тачку"
 
 #: ../objects/ER/attribute.c:155
 msgid "Key:"
@@ -2658,20 +2603,20 @@ msgstr "Објекти дијаграма ентитета/односа"
 msgid "Total:"
 msgstr "Укупно:"
 
-#: ../objects/ER/participation.c:406 ../objects/FS/flow-ortho.c:645
+#: ../objects/ER/participation.c:406 ../objects/FS/flow-ortho.c:639
 #: ../objects/GRAFCET/vector.c:312 ../objects/SADT/arrow.c:457
-#: ../objects/UML/association.c:775 ../objects/UML/component_feature.c:184
-#: ../objects/UML/dependency.c:373 ../objects/UML/generalization.c:369
-#: ../objects/UML/realizes.c:360 ../objects/UML/transition.c:161
+#: ../objects/UML/association.c:769 ../objects/UML/component_feature.c:184
+#: ../objects/UML/dependency.c:374 ../objects/UML/generalization.c:370
+#: ../objects/UML/realizes.c:361 ../objects/UML/transition.c:161
 #: ../objects/standard/zigzagline.c:348
 msgid "Add segment"
 msgstr "Додај сегмент"
 
-#: ../objects/ER/participation.c:407 ../objects/FS/flow-ortho.c:646
+#: ../objects/ER/participation.c:407 ../objects/FS/flow-ortho.c:640
 #: ../objects/GRAFCET/vector.c:313 ../objects/SADT/arrow.c:458
-#: ../objects/UML/association.c:776 ../objects/UML/component_feature.c:185
-#: ../objects/UML/dependency.c:374 ../objects/UML/generalization.c:370
-#: ../objects/UML/realizes.c:361 ../objects/UML/transition.c:162
+#: ../objects/UML/association.c:770 ../objects/UML/component_feature.c:185
+#: ../objects/UML/dependency.c:375 ../objects/UML/generalization.c:371
+#: ../objects/UML/realizes.c:362 ../objects/UML/transition.c:162
 #: ../objects/standard/zigzagline.c:349
 msgid "Delete segment"
 msgstr "Обриши сегмент"
@@ -2698,15 +2643,15 @@ msgid "Relationship"
 msgstr "Однос"
 
 #. Translators: Menu item Noun/Energy
-#: ../objects/FS/flow-ortho.c:160 ../objects/FS/flow-ortho.c:642
-#: ../objects/FS/flow.c:137 ../objects/FS/flow.c:576
+#: ../objects/FS/flow-ortho.c:160 ../objects/FS/flow-ortho.c:636
+#: ../objects/FS/flow.c:137 ../objects/FS/flow.c:580
 #: ../objects/FS/function.c:1096
 msgid "Energy"
 msgstr "Енергија"
 
 #. Translators: Menu item Noun/Material
-#: ../objects/FS/flow-ortho.c:161 ../objects/FS/flow-ortho.c:643
-#: ../objects/FS/flow.c:138 ../objects/FS/flow.c:577
+#: ../objects/FS/flow-ortho.c:161 ../objects/FS/flow-ortho.c:637
+#: ../objects/FS/flow.c:138 ../objects/FS/flow.c:581
 #: ../objects/FS/function.c:1072
 msgid "Material"
 msgstr "Материјал"
@@ -2715,8 +2660,8 @@ msgstr "Материјал"
 #. Translators: Menu item Verb/Signal/Signal
 #. Translators: Menu item Noun/Signal
 #. Translators: Menu item Noun/Signal/Signal
-#: ../objects/FS/flow-ortho.c:162 ../objects/FS/flow-ortho.c:644
-#: ../objects/FS/flow.c:139 ../objects/FS/flow.c:578
+#: ../objects/FS/flow-ortho.c:162 ../objects/FS/flow-ortho.c:638
+#: ../objects/FS/flow.c:139 ../objects/FS/flow.c:582
 #: ../objects/FS/function.c:1034 ../objects/FS/function.c:1036
 #: ../objects/FS/function.c:1172 ../objects/FS/function.c:1174
 msgid "Signal"
@@ -2997,11 +2942,6 @@ msgstr "Позиција"
 msgid "Orient"
 msgstr "Усмери"
 
-#. Translators: Menu item Verb/Support/Position/Align
-#: ../objects/FS/function.c:806
-msgid "Align"
-msgstr "Поравнати"
-
 #. Translators: Menu item Verb/Support/Position/Locate
 #. Translators: Menu item Verb/Signal/Sense/Locate
 #: ../objects/FS/function.c:808 ../objects/FS/function.c:1050
@@ -3271,7 +3211,7 @@ msgid "Expose"
 msgstr "Изложи"
 
 #. Translators: Menu item Verb/Provision/Extract
-#: ../objects/FS/function.c:942 ../sheets/Flowchart.sheet.in.h:8
+#: ../objects/FS/function.c:942 ../sheets/Flowchart.sheet.in.h:9
 msgid "Extract"
 msgstr "Извуци"
 
@@ -3461,7 +3401,8 @@ msgid "Differentiate"
 msgstr "Раздвоји"
 
 #. Translators: Menu item Verb/Convert/Process
-#: ../objects/FS/function.c:1032
+#: ../objects/FS/function.c:1032 ../sheets/AADL.sheet.in.h:8
+#: ../sheets/Gane_and_Sarson.sheet.in.h:7
 msgid "Process"
 msgstr "Обради"
 
@@ -3510,7 +3451,7 @@ msgid "Mark"
 msgstr "Означи"
 
 #. Translators: Menu item Verb/Signal/Display
-#: ../objects/FS/function.c:1060 ../sheets/Flowchart.sheet.in.h:6
+#: ../objects/FS/function.c:1060 ../sheets/Flowchart.sheet.in.h:7
 msgid "Display"
 msgstr "Прикажи"
 
@@ -3915,8 +3856,8 @@ msgstr "Врста темена:"
 
 #: ../objects/GRAFCET/vergent.c:405 ../objects/Istar/other.c:469
 #: ../objects/Jackson/domain.c:531 ../objects/KAOS/goal.c:572
-#: ../objects/KAOS/other.c:525 ../objects/SADT/box.c:445
-#: ../objects/standard/line.c:220
+#: ../objects/KAOS/other.c:525 ../objects/SADT/box.c:447
+#: ../objects/standard/line.c:219
 msgid "Add connection point"
 msgstr "Додај везивну тачку"
 
@@ -3982,13 +3923,13 @@ msgstr ""
 msgid "Resource"
 msgstr "Ресурс"
 
-#: ../objects/Istar/other.c:74
+#: ../objects/Istar/other.c:74 ../sheets/BPMN.sheet.in.h:43
 msgid "Task"
 msgstr "Задатак"
 
 #: ../objects/Istar/other.c:470 ../objects/Jackson/domain.c:532
 #: ../objects/KAOS/goal.c:573 ../objects/KAOS/other.c:526
-#: ../objects/SADT/box.c:446 ../objects/standard/line.c:221
+#: ../objects/SADT/box.c:448 ../objects/standard/line.c:220
 msgid "Delete connection point"
 msgstr "Обриши везивну тачку"
 
@@ -4050,7 +3991,7 @@ msgstr "Дељен"
 msgid "Requirement"
 msgstr "Захтев"
 
-#: ../objects/Jackson/phenomenon.c:142 ../objects/UML/message.c:150
+#: ../objects/Jackson/phenomenon.c:142 ../objects/UML/message.c:151
 msgid "Message:"
 msgstr "Порука:"
 
@@ -4154,13 +4095,13 @@ msgstr "Ширина казаљке за секунде"
 msgid "Show hours"
 msgstr "Прикажи време"
 
-#: ../objects/Misc/libmisc.c:38
+#: ../objects/Misc/libmisc.c:42
 msgid "Miscellaneous objects"
 msgstr "Разни објекти"
 
 #. property rows
-#: ../objects/SADT/arrow.c:134 ../objects/UML/class.c:169
-#: ../objects/UML/class_dialog.c:392
+#: ../objects/SADT/arrow.c:134 ../objects/UML/class.c:174
+#: ../objects/UML/class_dialog.c:400
 msgid "Normal"
 msgstr "Обичан"
 
@@ -4214,7 +4155,7 @@ msgstr "Идентификатор активности/података"
 msgid "The identifier which appears in the lower right corner of the Box"
 msgstr "Идентификатор који се појављује у доњем десном углу кутије"
 
-#: ../objects/SADT/box.c:451
+#: ../objects/SADT/box.c:453
 msgid "SADT box"
 msgstr "SADT кућица"
 
@@ -4222,357 +4163,366 @@ msgstr "SADT кућица"
 msgid "SADT diagram objects"
 msgstr "SADT дијаграм објеката"
 
-#: ../objects/UML/actor.c:364 ../objects/UML/actor.c:366
+#: ../objects/UML/actor.c:349 ../objects/UML/actor.c:351
 #: ../sheets/UML.sheet.in.h:2
 msgid "Actor"
 msgstr "Глумац"
 
-#: ../objects/UML/association.c:1179 ../objects/UML/class_dialog.c:2217
+#: ../objects/UML/association.c:1173 ../objects/UML/class_dialog.c:2208
 msgid "Direction:"
 msgstr "Правац:"
 
-#: ../objects/UML/association.c:1196
+#: ../objects/UML/association.c:1190
 msgid "From A to B"
 msgstr "Од А до Б"
 
-#: ../objects/UML/association.c:1203
+#: ../objects/UML/association.c:1197
 msgid "From B to A"
 msgstr "Од Б до А"
 
-#: ../objects/UML/association.c:1227 ../objects/UML/association.c:1235
+#: ../objects/UML/association.c:1221 ../objects/UML/association.c:1229
 msgid "Side A"
 msgstr "Страна А"
 
-#: ../objects/UML/association.c:1229 ../objects/UML/association.c:1237
+#: ../objects/UML/association.c:1223 ../objects/UML/association.c:1231
 msgid "Side B"
 msgstr "Страна Б"
 
-#: ../objects/UML/association.c:1243
+#: ../objects/UML/association.c:1237
 msgid "Role:"
 msgstr "Улога:"
 
-#: ../objects/UML/association.c:1255
+#: ../objects/UML/association.c:1249
 msgid "Multiplicity:"
 msgstr "Вишеструкост:"
 
-#: ../objects/UML/association.c:1266 ../objects/UML/class_dialog.c:1025
-#: ../objects/UML/class_dialog.c:1965
+#: ../objects/UML/association.c:1260 ../objects/UML/class_dialog.c:1019
+#: ../objects/UML/class_dialog.c:1952
 msgid "Visibility:"
 msgstr "Видљивост:"
 
-#: ../objects/UML/association.c:1275 ../objects/UML/class_dialog.c:1034
-#: ../objects/UML/class_dialog.c:1974 ../objects/UML/uml.c:102
+#: ../objects/UML/association.c:1269 ../objects/UML/class_dialog.c:1028
+#: ../objects/UML/class_dialog.c:1961 ../objects/UML/uml.c:102
 msgid "Public"
 msgstr "Јавно"
 
-#: ../objects/UML/association.c:1285 ../objects/UML/class_dialog.c:1042
-#: ../objects/UML/class_dialog.c:1982 ../objects/UML/uml.c:103
+#: ../objects/UML/association.c:1279 ../objects/UML/class_dialog.c:1036
+#: ../objects/UML/class_dialog.c:1969 ../objects/UML/uml.c:103
 msgid "Private"
 msgstr "Приватно"
 
-#: ../objects/UML/association.c:1295 ../objects/UML/class_dialog.c:1050
-#: ../objects/UML/class_dialog.c:1990 ../objects/UML/uml.c:104
+#: ../objects/UML/association.c:1289 ../objects/UML/class_dialog.c:1044
+#: ../objects/UML/class_dialog.c:1977 ../objects/UML/uml.c:104
 msgid "Protected"
 msgstr "Заштићен"
 
-#: ../objects/UML/association.c:1305 ../objects/UML/class_dialog.c:1058
-#: ../objects/UML/class_dialog.c:1998 ../objects/UML/uml.c:105
+#: ../objects/UML/association.c:1299 ../objects/UML/class_dialog.c:1052
+#: ../objects/UML/class_dialog.c:1985 ../objects/UML/uml.c:105
 msgid "Implementation"
 msgstr "Изведба"
 
 #. Show arrow:
-#: ../objects/UML/association.c:1324
+#: ../objects/UML/association.c:1318
 msgid "Show arrow"
 msgstr "Покажи стрелице"
 
 #. Aggregate
-#: ../objects/UML/association.c:1330
+#: ../objects/UML/association.c:1324
 msgid "Aggregate"
 msgstr "Сакупљено"
 
 #. Composition
-#: ../objects/UML/association.c:1338
+#: ../objects/UML/association.c:1332
 msgid "Composition"
 msgstr "Слагање"
 
 #  Class page:
-#: ../objects/UML/class.c:134 ../objects/UML/class.c:302
-#: ../objects/UML/class.c:1730 ../sheets/UML.sheet.in.h:6
+#: ../objects/UML/class.c:137 ../objects/UML/class.c:308
+#: ../objects/UML/class.c:1703 ../sheets/UML.sheet.in.h:6
 msgid "Class"
 msgstr "Класа"
 
-#: ../objects/UML/class.c:138 ../objects/UML/classicon.c:138
-#: ../objects/UML/component.c:124 ../objects/UML/large_package.c:128
-#: ../objects/UML/object.c:149 ../objects/UML/small_package.c:124
+#: ../objects/UML/class.c:141 ../objects/UML/classicon.c:138
+#: ../objects/UML/component.c:124 ../objects/UML/large_package.c:129
+#: ../objects/UML/object.c:150 ../objects/UML/small_package.c:124
 #: ../objects/UML/umloperation.c:68
 msgid "Stereotype"
 msgstr "Стереотип"
 
-#: ../objects/UML/class.c:140 ../objects/UML/class.c:179
-#: ../objects/UML/class_dialog.c:417 ../objects/UML/umlattribute.c:43
+#: ../objects/UML/class.c:143 ../objects/UML/class.c:184
+#: ../objects/UML/class_dialog.c:425 ../objects/UML/umlattribute.c:43
 #: ../objects/UML/umloperation.c:66 ../objects/UML/umlparameter.c:49
 #: ../sheets/SDL.sheet.in.h:3
 msgid "Comment"
 msgstr "Напомена"
 
-#: ../objects/UML/class.c:142 ../objects/UML/class.c:173
-#: ../objects/UML/class_dialog.c:322 ../objects/UML/class_dialog.c:402
-#: ../objects/UML/class_dialog.c:2029 ../objects/UML/uml.c:110
+#: ../objects/UML/class.c:145 ../objects/UML/class.c:178
+#: ../objects/UML/class_dialog.c:324 ../objects/UML/class_dialog.c:410
+#: ../objects/UML/class_dialog.c:2016 ../objects/UML/uml.c:110
 msgid "Abstract"
 msgstr "Апстракт"
 
-#: ../objects/UML/class.c:144 ../objects/UML/class.c:1727
+#: ../objects/UML/class.c:147 ../objects/UML/class.c:1700
 msgid "Template"
 msgstr "Шаблон"
 
-#: ../objects/UML/class.c:147 ../objects/UML/class_dialog.c:331
+#: ../objects/UML/class.c:150 ../objects/UML/class_dialog.c:333
 msgid "Suppress Attributes"
 msgstr "Занемари атрибуте"
 
-#: ../objects/UML/class.c:149
+#: ../objects/UML/class.c:152
 msgid "Suppress Operations"
 msgstr "Занемари операције"
 
-#: ../objects/UML/class.c:151
+#: ../objects/UML/class.c:154
 msgid "Visible Attributes"
 msgstr "Видљиве Особине"
 
-#: ../objects/UML/class.c:153
+#: ../objects/UML/class.c:156
 msgid "Visible Operations"
 msgstr "Видљиве Операције"
 
-#: ../objects/UML/class.c:155
+#: ../objects/UML/class.c:158
 msgid "Visible Comments"
 msgstr "Видљиви Коментари"
 
 #  Operations page:
-#: ../objects/UML/class.c:157 ../objects/UML/class_dialog.c:347
+#: ../objects/UML/class.c:160 ../objects/UML/class_dialog.c:349
 #, fuzzy
 msgid "Wrap Operations"
 msgstr "Операције"
 
-#: ../objects/UML/class.c:159
+#: ../objects/UML/class.c:162
 #, fuzzy
 msgid "Wrap after char"
 msgstr "PC картица за прикључење"
 
-#: ../objects/UML/class.c:161
+#: ../objects/UML/class.c:164
 msgid "Comment line length"
 msgstr "Дужина напомене"
 
-#: ../objects/UML/class.c:171 ../objects/UML/class_dialog.c:397
+#: ../objects/UML/class.c:166
+#, fuzzy
+msgid "Comment tagging"
+msgstr "Дужина напомене"
+
+#: ../objects/UML/class.c:176 ../objects/UML/class_dialog.c:405
 msgid "Polymorphic"
 msgstr "Полиморфна"
 
-#: ../objects/UML/class.c:175
+#: ../objects/UML/class.c:180
 msgid "Classname"
 msgstr "Име класе"
 
-#: ../objects/UML/class.c:177
+#: ../objects/UML/class.c:182
 msgid "Abstract Classname"
 msgstr "Апстрактна класа"
 
-#: ../objects/UML/class.c:183 ../objects/UML/class.c:185
-#: ../objects/UML/class.c:187 ../objects/UML/class.c:189
-#: ../objects/UML/class.c:191 ../objects/UML/class.c:193
+#: ../objects/UML/class.c:188 ../objects/UML/class.c:190
+#: ../objects/UML/class.c:192 ../objects/UML/class.c:194
+#: ../objects/UML/class.c:196 ../objects/UML/class.c:198
 msgid " "
 msgstr " "
 
 #  Attributes page:
-#: ../objects/UML/class.c:199 ../objects/UML/object.c:153
+#: ../objects/UML/class.c:204 ../objects/UML/object.c:154
 msgid "Attributes"
 msgstr "Особине"
 
 #  Operations page:
-#: ../objects/UML/class.c:201
+#: ../objects/UML/class.c:206
 msgid "Operations"
 msgstr "Операције"
 
-#: ../objects/UML/class.c:204
+#: ../objects/UML/class.c:209
 msgid "Template Parameters"
 msgstr "Параметри шаблона"
 
-#: ../objects/UML/class.c:297
+#: ../objects/UML/class.c:303
 msgid "Show Comments"
 msgstr "Прикажи напомене"
 
 #  Class page:
 #. Class page:
-#: ../objects/UML/class_dialog.c:283
+#: ../objects/UML/class_dialog.c:285
 msgid "_Class"
 msgstr "_Класа"
 
-#: ../objects/UML/class_dialog.c:291
+#: ../objects/UML/class_dialog.c:293
 msgid "Class name:"
 msgstr "Име класе:"
 
-#: ../objects/UML/class_dialog.c:299 ../objects/UML/class_dialog.c:1952
-#: ../objects/UML/dependency.c:136 ../objects/UML/generalization.c:132
-#: ../objects/UML/realizes.c:133
+#: ../objects/UML/class_dialog.c:301 ../objects/UML/class_dialog.c:1939
+#: ../objects/UML/dependency.c:137 ../objects/UML/generalization.c:133
+#: ../objects/UML/realizes.c:134
 msgid "Stereotype:"
 msgstr "Стереотип:"
 
-#: ../objects/UML/class_dialog.c:306 ../objects/UML/class_dialog.c:1007
-#: ../objects/UML/class_dialog.c:2070 ../objects/UML/class_dialog.c:2199
+#: ../objects/UML/class_dialog.c:308 ../objects/UML/class_dialog.c:997
+#: ../objects/UML/class_dialog.c:2057 ../objects/UML/class_dialog.c:2188
 msgid "Comment:"
 msgstr "Напомена:"
 
-#: ../objects/UML/class_dialog.c:328
+#: ../objects/UML/class_dialog.c:330
 msgid "Attributes visible"
 msgstr "Особине видљиве"
 
-#: ../objects/UML/class_dialog.c:337
+#: ../objects/UML/class_dialog.c:339
 msgid "Operations visible"
 msgstr "Операције видљиве"
 
-#: ../objects/UML/class_dialog.c:340
+#: ../objects/UML/class_dialog.c:342
 msgid "Suppress operations"
 msgstr "Потисни операције"
 
-#: ../objects/UML/class_dialog.c:354
+#: ../objects/UML/class_dialog.c:356
 msgid "Wrap after this length: "
 msgstr ""
 
-#: ../objects/UML/class_dialog.c:362
+#: ../objects/UML/class_dialog.c:364
 msgid "Comments visible"
 msgstr "Напомене су приказане"
 
-#: ../objects/UML/class_dialog.c:369
+#: ../objects/UML/class_dialog.c:371
 msgid "Wrap comment after this length: "
 msgstr ""
 
+#: ../objects/UML/class_dialog.c:378
+msgid "Show documenation tag"
+msgstr ""
+
 #. head line
-#: ../objects/UML/class_dialog.c:383 ../objects/UML/umlparameter.c:51
+#: ../objects/UML/class_dialog.c:391 ../objects/UML/umlparameter.c:51
 msgid "Kind"
 msgstr "Врста"
 
-#: ../objects/UML/class_dialog.c:388
+#: ../objects/UML/class_dialog.c:396
 msgid "Size"
 msgstr "Величина"
 
-#: ../objects/UML/class_dialog.c:407
+#: ../objects/UML/class_dialog.c:415
 msgid "Class Name"
 msgstr "Име класе"
 
-#: ../objects/UML/class_dialog.c:412
+#: ../objects/UML/class_dialog.c:420
 msgid "Abstract Class"
 msgstr "Апстрактна класа"
 
 #. should probably be refactored too.
-#: ../objects/UML/class_dialog.c:429
+#: ../objects/UML/class_dialog.c:437
 msgid "Text Color"
 msgstr "Боја текста"
 
-#: ../objects/UML/class_dialog.c:437
+#: ../objects/UML/class_dialog.c:445
 msgid "Foreground Color"
 msgstr "Боја исцртавања"
 
-#: ../objects/UML/class_dialog.c:445
+#: ../objects/UML/class_dialog.c:453
 msgid "Background Color"
 msgstr "Боја позадине"
 
 #  Attributes page:
 #. Attributes page:
-#: ../objects/UML/class_dialog.c:907
+#: ../objects/UML/class_dialog.c:897
 msgid "_Attributes"
 msgstr "Особ_ине"
 
-#: ../objects/UML/class_dialog.c:935 ../objects/UML/class_dialog.c:1888
-#: ../objects/UML/class_dialog.c:2123 ../objects/UML/class_dialog.c:2650
+#: ../objects/UML/class_dialog.c:925 ../objects/UML/class_dialog.c:1875
+#: ../objects/UML/class_dialog.c:2112 ../objects/UML/class_dialog.c:2642
 msgid "_New"
 msgstr "_Ново"
 
-#: ../objects/UML/class_dialog.c:941 ../objects/UML/class_dialog.c:1894
-#: ../objects/UML/class_dialog.c:2130 ../objects/UML/class_dialog.c:2656
+#: ../objects/UML/class_dialog.c:931 ../objects/UML/class_dialog.c:1881
+#: ../objects/UML/class_dialog.c:2119 ../objects/UML/class_dialog.c:2648
 msgid "_Delete"
 msgstr "О_бриши"
 
-#: ../objects/UML/class_dialog.c:947 ../objects/UML/class_dialog.c:1900
-#: ../objects/UML/class_dialog.c:2137 ../objects/UML/class_dialog.c:2662
+#: ../objects/UML/class_dialog.c:937 ../objects/UML/class_dialog.c:1887
+#: ../objects/UML/class_dialog.c:2126 ../objects/UML/class_dialog.c:2654
 msgid "Move up"
 msgstr "Помери навише"
 
-#: ../objects/UML/class_dialog.c:953 ../objects/UML/class_dialog.c:1906
-#: ../objects/UML/class_dialog.c:2144 ../objects/UML/class_dialog.c:2668
+#: ../objects/UML/class_dialog.c:943 ../objects/UML/class_dialog.c:1893
+#: ../objects/UML/class_dialog.c:2133 ../objects/UML/class_dialog.c:2660
 msgid "Move down"
 msgstr "Помери наниже"
 
-#: ../objects/UML/class_dialog.c:964
+#: ../objects/UML/class_dialog.c:954
 msgid "Attribute data"
 msgstr "Подаци особина"
 
-#: ../objects/UML/class_dialog.c:996
+#: ../objects/UML/class_dialog.c:986
 msgid "Value:"
 msgstr "Вредност:"
 
-#: ../objects/UML/class_dialog.c:1079 ../objects/UML/class_dialog.c:2014
+#: ../objects/UML/class_dialog.c:1073 ../objects/UML/class_dialog.c:2001
 msgid "Class scope"
 msgstr "Домет класе"
 
 #  Operations page:
 #. Operations page:
-#: ../objects/UML/class_dialog.c:1860
+#: ../objects/UML/class_dialog.c:1847
 msgid "_Operations"
 msgstr "_Операције"
 
-#: ../objects/UML/class_dialog.c:1918
+#: ../objects/UML/class_dialog.c:1905
 msgid "Operation data"
 msgstr "Подаци операција"
 
-#: ../objects/UML/class_dialog.c:2020
+#: ../objects/UML/class_dialog.c:2007
 msgid "Inheritance type:"
 msgstr "Наследни тип"
 
-#: ../objects/UML/class_dialog.c:2037 ../objects/UML/uml.c:111
+#: ../objects/UML/class_dialog.c:2024 ../objects/UML/uml.c:111
 msgid "Polymorphic (virtual)"
 msgstr "Полиморфна (виртуелна)"
 
-#: ../objects/UML/class_dialog.c:2045 ../objects/UML/uml.c:112
+#: ../objects/UML/class_dialog.c:2032 ../objects/UML/uml.c:112
 msgid "Leaf (final)"
 msgstr "Лист (крајњи)"
 
-#: ../objects/UML/class_dialog.c:2063
+#: ../objects/UML/class_dialog.c:2050
 msgid "Query"
 msgstr "Упит"
 
-#: ../objects/UML/class_dialog.c:2094
+#: ../objects/UML/class_dialog.c:2083
 msgid "Parameters:"
 msgstr "Параметри:"
 
-#: ../objects/UML/class_dialog.c:2156
+#: ../objects/UML/class_dialog.c:2145
 msgid "Parameter data"
 msgstr "Подаци параметара"
 
-#: ../objects/UML/class_dialog.c:2188
+#: ../objects/UML/class_dialog.c:2177
 msgid "Def. value:"
 msgstr "Подр. вредност:"
 
-#: ../objects/UML/class_dialog.c:2226 ../objects/UML/umlparameter.c:34
+#: ../objects/UML/class_dialog.c:2217 ../objects/UML/umlparameter.c:34
 msgid "Undefined"
 msgstr "Недефинисано"
 
-#: ../objects/UML/class_dialog.c:2234 ../objects/UML/umlparameter.c:35
+#: ../objects/UML/class_dialog.c:2225 ../objects/UML/umlparameter.c:35
 msgid "In"
 msgstr "Унутра"
 
-#: ../objects/UML/class_dialog.c:2243 ../objects/UML/umlparameter.c:36
+#: ../objects/UML/class_dialog.c:2234 ../objects/UML/umlparameter.c:36
 msgid "Out"
 msgstr "Напоље"
 
-#: ../objects/UML/class_dialog.c:2252 ../objects/UML/umlparameter.c:37
+#: ../objects/UML/class_dialog.c:2243 ../objects/UML/umlparameter.c:37
 msgid "In & Out"
 msgstr "Унутра и напоље"
 
 #. Templates page:
-#: ../objects/UML/class_dialog.c:2616
+#: ../objects/UML/class_dialog.c:2608
 msgid "_Templates"
 msgstr "_Шаблони"
 
-#: ../objects/UML/class_dialog.c:2622 ../sheets/UML.sheet.in.h:29
+#: ../objects/UML/class_dialog.c:2614 ../sheets/UML.sheet.in.h:29
 msgid "Template class"
 msgstr "Шаблонска класа"
 
-#: ../objects/UML/class_dialog.c:2679
+#: ../objects/UML/class_dialog.c:2671
 msgid "Formal parameter data"
 msgstr "Формални подаци параметара"
 
@@ -4604,11 +4554,11 @@ msgstr "Одредиште догађаја"
 msgid "Constraint:"
 msgstr "Ограничење:"
 
-#: ../objects/UML/dependency.c:138
+#: ../objects/UML/dependency.c:139
 msgid "Show arrow:"
 msgstr "Покажи стрелице:"
 
-#: ../objects/UML/implements.c:128
+#: ../objects/UML/implements.c:129
 msgid "Interface:"
 msgstr "Интерфејс"
 
@@ -4660,23 +4610,23 @@ msgstr "Пошаљи"
 msgid "Recursive"
 msgstr "Рекурзивно"
 
-#: ../objects/UML/message.c:152
+#: ../objects/UML/message.c:153
 msgid "Message type:"
 msgstr "Врста порука:"
 
-#: ../objects/UML/object.c:151
+#: ../objects/UML/object.c:152
 msgid "Explicit state"
 msgstr "Изричито стање"
 
-#: ../objects/UML/object.c:156
+#: ../objects/UML/object.c:157
 msgid "Active object"
 msgstr "Активни објекат"
 
-#: ../objects/UML/object.c:158
+#: ../objects/UML/object.c:159
 msgid "Show attributes"
 msgstr "Прикажи особине"
 
-#: ../objects/UML/object.c:160
+#: ../objects/UML/object.c:161
 msgid "Multiple instance"
 msgstr "Вишеструке инстанце"
 
@@ -4784,7 +4734,7 @@ msgstr "Везани објекти графика"
 msgid "Chronogram diagram objects"
 msgstr "Хронограмски дијаграмски објекти"
 
-#: ../objects/chronogram/chronoline.c:148
+#: ../objects/chronogram/chronoline.c:148 ../sheets/AADL.sheet.in.h:4
 msgid "Data"
 msgstr "Подаци"
 
@@ -4881,18 +4831,25 @@ msgstr "Обрни водоравно"
 msgid "Flip vertical"
 msgstr "Обрни усправно"
 
-#: ../objects/custom/custom_object.c:1432
+#: ../objects/custom/custom_object.c:1439
 msgid "Flip Horizontal"
 msgstr "Обрни Водоравно"
 
-#: ../objects/custom/custom_object.c:1433
+#: ../objects/custom/custom_object.c:1440
 msgid "Flip Vertical"
 msgstr "Обрни Усправно"
 
-#: ../objects/custom/custom_object.c:1470
+#: ../objects/custom/custom_object.c:1477
 #, c-format
 msgid "Cannot open icon file %s for object type '%s'."
 msgstr "Неможе отворити датотеку иконе %s за објекат типа '%s'."
+
+#: ../objects/custom/shape_info.c:129
+#, c-format
+msgid ""
+"The file '%s' has invalid path data.\n"
+"svg:path data must start with moveto."
+msgstr ""
 
 #: ../objects/flowchart/box.c:150 ../objects/standard/box.c:150
 #: ../objects/standard/polyline.c:134 ../objects/standard/zigzagline.c:130
@@ -4912,15 +4869,15 @@ msgstr "Оштар угао"
 msgid "Sectors"
 msgstr "Глумац"
 
-#: ../objects/network/basestation.c:393 ../objects/network/basestation.c:395
+#: ../objects/network/basestation.c:396 ../objects/network/basestation.c:398
 msgid "Base Station"
 msgstr "Базна станица"
 
-#: ../objects/network/bus.c:599
+#: ../objects/network/bus.c:611
 msgid "Add Handle"
 msgstr "Додај ручку"
 
-#: ../objects/network/bus.c:600
+#: ../objects/network/bus.c:612
 msgid "Delete Handle"
 msgstr "Обриши ручку"
 
@@ -4928,70 +4885,53 @@ msgstr "Обриши ручку"
 msgid "Network diagram objects"
 msgstr "Мрежни дијаграм објеката"
 
-#: ../objects/network/radiocell.c:130
-#, fuzzy
-msgid "Macro Cell"
-msgstr "Позив макроа"
-
-#: ../objects/network/radiocell.c:131
-#, fuzzy
-msgid "Micro Cell"
-msgstr "Позив макроа"
-
-#: ../objects/network/radiocell.c:132
-msgid "Pico Cell"
-msgstr ""
-
-#: ../objects/network/radiocell.c:138
+#: ../objects/network/radiocell.c:119
 msgid "Radius"
 msgstr ""
 
-#: ../objects/network/radiocell.c:140
-msgid "Cell Type:"
-msgstr "Врста ћелије:"
-
-#: ../objects/network/radiocell.c:152
-msgid "Subscribers"
-msgstr "Претплатници"
+#: ../objects/network/wanlink.c:117
+#, fuzzy
+msgid "Width"
+msgstr "Ширина:"
 
 #: ../objects/standard/arc.c:140
 msgid "Curve distance"
 msgstr "Растојање криве"
 
-#: ../objects/standard/bezier.c:137 ../objects/standard/line.c:142
+#: ../objects/standard/bezier.c:137 ../objects/standard/line.c:141
 #: ../objects/standard/polyline.c:135
 #, fuzzy
 msgid "Line gaps"
 msgstr "Линија"
 
-#: ../objects/standard/bezier.c:139 ../objects/standard/line.c:144
+#: ../objects/standard/bezier.c:139 ../objects/standard/line.c:143
 #: ../objects/standard/polyline.c:137
 msgid "Absolute start gap"
 msgstr ""
 
-#: ../objects/standard/bezier.c:141 ../objects/standard/line.c:146
+#: ../objects/standard/bezier.c:141 ../objects/standard/line.c:145
 #: ../objects/standard/polyline.c:139
 msgid "Absolute end gap"
 msgstr ""
 
-#: ../objects/standard/bezier.c:728 ../objects/standard/beziergon.c:482
+#: ../objects/standard/bezier.c:698 ../objects/standard/beziergon.c:482
 msgid "Add Segment"
 msgstr "Додај Сегмент"
 
-#: ../objects/standard/bezier.c:729 ../objects/standard/beziergon.c:483
+#: ../objects/standard/bezier.c:699 ../objects/standard/beziergon.c:483
 msgid "Delete Segment"
 msgstr "Обриши Сегмент"
 
-#: ../objects/standard/bezier.c:731 ../objects/standard/beziergon.c:485
+#: ../objects/standard/bezier.c:701 ../objects/standard/beziergon.c:485
 msgid "Symmetric control"
 msgstr "Контрола једнакости"
 
-#: ../objects/standard/bezier.c:733 ../objects/standard/beziergon.c:487
+#: ../objects/standard/bezier.c:703 ../objects/standard/beziergon.c:487
 msgid "Smooth control"
 msgstr "Контрола глаткости"
 
 # Ово нисам сигуран имамо ли ми бољи назив
-#: ../objects/standard/bezier.c:735 ../objects/standard/beziergon.c:489
+#: ../objects/standard/bezier.c:705 ../objects/standard/beziergon.c:489
 msgid "Cusp control"
 msgstr "Контрола локалних екстремума"
 
@@ -5024,21 +4964,21 @@ msgstr "Утврђен однос"
 msgid "Circle"
 msgstr "Круг"
 
-#: ../objects/standard/image.c:130
+#: ../objects/standard/image.c:132
 msgid "Image file"
 msgstr "Датотека слике"
 
-#: ../objects/standard/image.c:132
+#: ../objects/standard/image.c:134
 msgid "Draw border"
 msgstr "Исцртај границу"
 
-#: ../objects/standard/image.c:134
+#: ../objects/standard/image.c:136
 msgid "Keep aspect ratio"
 msgstr "Задржи однос ширине и висине"
 
 #. Found file in same dir as diagram.
 #. Found file in current dir.
-#: ../objects/standard/image.c:672 ../objects/standard/image.c:683
+#: ../objects/standard/image.c:679 ../objects/standard/image.c:690
 #, c-format
 msgid ""
 "The image file '%s' was not found in that directory.\n"
@@ -5049,42 +4989,34 @@ msgstr ""
 
 #  Didn't find file in current dir.
 #. Didn't find file in current dir.
-#: ../objects/standard/image.c:689 ../objects/standard/image.c:711
+#: ../objects/standard/image.c:696 ../objects/standard/image.c:718
 #, c-format
 msgid "The image file '%s' was not found.\n"
 msgstr "Датотека слике „%s“ није пронађена.\n"
 
-#: ../objects/standard/line.c:133
+#: ../objects/standard/line.c:132
 msgid "Arrows"
 msgstr "Стрелице"
 
-#: ../objects/standard/line.c:138
+#: ../objects/standard/line.c:137
 msgid "Start point"
 msgstr "Почетна тачка"
 
-#: ../objects/standard/line.c:140
+#: ../objects/standard/line.c:139
 msgid "End point"
 msgstr "Крајња тачка"
 
-#: ../objects/standard/polygon.c:460 ../objects/standard/polyline.c:605
+#: ../objects/standard/polygon.c:460 ../objects/standard/polyline.c:577
 msgid "Add Corner"
 msgstr "Додај Угао"
 
-#: ../objects/standard/polygon.c:461 ../objects/standard/polyline.c:606
+#: ../objects/standard/polygon.c:461 ../objects/standard/polyline.c:578
 msgid "Delete Corner"
 msgstr "Обриши Угао"
 
 #: ../objects/standard/standard.c:45
 msgid "Standard objects"
 msgstr "Стандардни објекат"
-
-#: ../objects/standard/textobj.c:131
-msgid "Bottom"
-msgstr "Дно"
-
-#: ../objects/standard/textobj.c:132
-msgid "Top"
-msgstr "Врх"
 
 #: ../objects/standard/textobj.c:134
 msgid "First Line"
@@ -5094,35 +5026,40 @@ msgstr "Прва Линија"
 msgid "Vertical text alignment"
 msgstr "Усправно поравнање текста"
 
-#: ../plug-ins/cairo/diacairo.c:1065
+#: ../plug-ins/cairo/diacairo.c:1086
 msgid "Cairo PostScript"
 msgstr "Каиро PostScript"
 
-#: ../plug-ins/cairo/diacairo.c:1074
+#: ../plug-ins/cairo/diacairo.c:1097
 msgid "Cairo Portable Document Format"
 msgstr "Каиро ПДФ"
 
-#: ../plug-ins/cairo/diacairo.c:1083
+#: ../plug-ins/cairo/diacairo.c:1108
+#, fuzzy
+msgid "Cairo Scalable Vector Graphics"
+msgstr "Скалабилна векторска графика (SVG)"
+
+#: ../plug-ins/cairo/diacairo.c:1118
 msgid "Cairo PNG"
 msgstr "Каиро ПНГ"
 
-#: ../plug-ins/cairo/diacairo.c:1091
+#: ../plug-ins/cairo/diacairo.c:1126
 msgid "Cairo PNG (with alpha)"
 msgstr "Каиро ПНГ (са алфа каналом)"
 
-#: ../plug-ins/cairo/diacairo.c:1101
+#: ../plug-ins/cairo/diacairo.c:1136
 msgid "Cairo WMF"
 msgstr "Каиро WMF"
 
-#: ../plug-ins/cairo/diacairo.c:1110
+#: ../plug-ins/cairo/diacairo.c:1145
 msgid "Cairo old WMF"
 msgstr "Каиро стари WMF"
 
-#: ../plug-ins/cairo/diacairo.c:1119
+#: ../plug-ins/cairo/diacairo.c:1154
 msgid "Cairo Clipboard"
 msgstr ""
 
-#: ../plug-ins/cairo/diacairo.c:1165
+#: ../plug-ins/cairo/diacairo.c:1203
 msgid "Cairo based Rendering"
 msgstr "Исцртавање уз помоћ Каиро технологије"
 
@@ -5142,7 +5079,7 @@ msgstr "Computer Graphics Metafile"
 msgid "Computer Graphics Metafile export filter"
 msgstr "Филтер за извоз CGM датотека"
 
-#: ../plug-ins/dxf/dxf-export.c:527 ../plug-ins/dxf/dxf-import.c:1383
+#: ../plug-ins/dxf/dxf-export.c:527 ../plug-ins/dxf/dxf-import.c:1389
 msgid "Drawing Interchange File"
 msgstr "Датотека за размену цртежа (DIF)"
 
@@ -5156,10 +5093,16 @@ msgid "Scale: %f\n"
 msgstr "Размера: %f\n"
 
 #: ../plug-ins/dxf/dxf-import.c:1316
+#, c-format
 msgid "read_dxf_codes failed on '%s'\n"
 msgstr "неуспешно извођење функције read_dxf_codes над „%s“\n"
 
-#: ../plug-ins/dxf/dxf-import.c:1349
+#: ../plug-ins/dxf/dxf-import.c:1324
+#, c-format
+msgid "Binary DXF from '%s' not supported\n"
+msgstr ""
+
+#: ../plug-ins/dxf/dxf-import.c:1355
 #, c-format
 msgid "Unknown dxf code %d\n"
 msgstr "Непознат dxf код %d\n"
@@ -5168,7 +5111,7 @@ msgstr "Непознат dxf код %d\n"
 msgid "Drawing Interchange File import and export filters"
 msgstr "Филтери за увоз и извоз DIF датотека"
 
-#: ../plug-ins/gprint/diagnomeprint.c:80
+#: ../plug-ins/gprint/diagnomeprint.c:81
 #, c-format
 msgid ""
 "GNOME Print Backend\n"
@@ -5176,27 +5119,27 @@ msgid ""
 " not available"
 msgstr ""
 
-#: ../plug-ins/gprint/diagnomeprint.c:111
+#: ../plug-ins/gprint/diagnomeprint.c:112
 msgid "GNOME PostScript"
 msgstr ""
 
-#: ../plug-ins/gprint/diagnomeprint.c:120
+#: ../plug-ins/gprint/diagnomeprint.c:121
 msgid "GNOME Portable Document Format"
 msgstr ""
 
-#: ../plug-ins/gprint/diagnomeprint.c:130
+#: ../plug-ins/gprint/diagnomeprint.c:131
 msgid "GNOME Scalable Vector Graphic"
 msgstr "Гномова скалабилна векторска графика (SVG)"
 
-#: ../plug-ins/gprint/diagnomeprint.c:163
+#: ../plug-ins/gprint/diagnomeprint.c:164
 msgid "GNOME Print based Rendering"
 msgstr ""
 
-#: ../plug-ins/hpgl/hpgl.c:745
+#: ../plug-ins/hpgl/hpgl.c:749
 msgid "HP Graphics Language"
 msgstr "HP-ов графички језик (HPGL)"
 
-#: ../plug-ins/hpgl/hpgl.c:770
+#: ../plug-ins/hpgl/hpgl.c:774
 msgid "HP Graphics Language export filter"
 msgstr "Извозни филтер за HPGL"
 
@@ -5204,11 +5147,11 @@ msgstr "Извозни филтер за HPGL"
 msgid "TeX Metapost export filter"
 msgstr "Извозни филтер за Метапост"
 
-#: ../plug-ins/metapost/render_metapost.c:1176
+#: ../plug-ins/metapost/render_metapost.c:1214
 msgid "TeX Metapost macros"
 msgstr "Метапост макрои"
 
-#: ../plug-ins/pixbuf/pixbuf.c:90
+#: ../plug-ins/pixbuf/pixbuf.c:91
 #, c-format
 msgid ""
 "Could not save file:\n"
@@ -5223,32 +5166,44 @@ msgstr ""
 msgid "gdk-pixbuf based bitmap export/import"
 msgstr "Извоз/увоз битмапа заснован на gdk-pixbuf-у"
 
-#: ../plug-ins/pstricks/pstricks.c:26
-msgid "TeX Pstricks export filter"
+#: ../plug-ins/pgf/pgf.c:26
+#, fuzzy
+msgid "LaTeX PGF export filter"
 msgstr "TeX Pstricks извозни филтер"
 
+#: ../plug-ins/pgf/render_pgf.c:1047
 #: ../plug-ins/pstricks/render_pstricks.c:731
 msgid "Not valid UTF8"
 msgstr "Није исправан УТФ8"
 
-#: ../plug-ins/pstricks/render_pstricks.c:981
+#: ../plug-ins/pgf/render_pgf.c:1212
+#, fuzzy
+msgid "LaTeX PGF macros"
+msgstr "ТеХ PSTricks макрои"
+
+#: ../plug-ins/pstricks/pstricks.c:26
+msgid "TeX Pstricks export filter"
+msgstr "TeX Pstricks извозни филтер"
+
+#: ../plug-ins/pstricks/render_pstricks.c:985
 msgid "TeX PSTricks macros"
 msgstr "ТеХ PSTricks макрои"
 
 # bug: ":" is not needed
 #: ../plug-ins/python/pydia-render.c:718
+#, c-format
 msgid "Couldn't open '%s' for writing.\n"
 msgstr "Не могу да отворим „%s“ ради уписа.\n"
 
-#: ../plug-ins/python/python.c:92
+#: ../plug-ins/python/python.c:96
 msgid "Python scripting support"
 msgstr "Подршка за Питон скрипте"
 
-#: ../plug-ins/shape/shape-export.c:474
+#: ../plug-ins/shape/shape-export.c:475
 msgid "Can't export png without libart!"
 msgstr "Не могу да извезем PNG без libart-а!"
 
-#: ../plug-ins/shape/shape-export.c:499
+#: ../plug-ins/shape/shape-export.c:500
 msgid "Dia Shape File"
 msgstr "Датотека Диа облика (DSF)"
 
@@ -5256,23 +5211,21 @@ msgstr "Датотека Диа облика (DSF)"
 msgid "dia shape export filter"
 msgstr "Извозни филтер за DSF"
 
-#: ../plug-ins/svg/render_svg.c:290 ../plug-ins/svg/svg-import.c:672
+#: ../plug-ins/svg/render_svg.c:291 ../plug-ins/svg/svg-import.c:676
 msgid "Scalable Vector Graphics"
 msgstr "Скалабилна векторска графика (SVG)"
 
-#: ../plug-ins/svg/svg-import.c:200 ../plug-ins/xfig/xfig-import.c:108
-#: ../plug-ins/xfig/xfig-import.c:159 ../plug-ins/xfig/xfig-import.c:188
-#: ../plug-ins/xfig/xfig-import.c:224 ../plug-ins/xfig/xfig-import.c:261
-#: ../plug-ins/xfig/xfig-import.c:289 ../plug-ins/xfig/xfig-import.c:326
-#: ../plug-ins/xfig/xfig-import.c:362 ../plug-ins/xfig/xfig-import.c:403
-msgid "Can't find standard object"
-msgstr "Не могу да нађем стандардан објекат"
+#: ../plug-ins/svg/svg-import.c:195
+msgid ""
+"Invalid path data.\n"
+"svg:path data must start with moveto."
+msgstr ""
 
-#: ../plug-ins/svg/svg-import.c:633
+#: ../plug-ins/svg/svg-import.c:637
 msgid "Expected SVG Namespace not found in file"
 msgstr ""
 
-#: ../plug-ins/svg/svg-import.c:653
+#: ../plug-ins/svg/svg-import.c:657
 #, c-format
 msgid "root element was '%s' -- expecting 'svg'."
 msgstr "корени елемент је био „%s“ — очекивао сам „svg“."
@@ -5281,22 +5234,121 @@ msgstr "корени елемент је био „%s“ — очекивао с
 msgid "Scalable Vector Graphics import and export filters"
 msgstr "Филтери за увоз и извоз SVG-а"
 
+#: ../plug-ins/vdx/vdx-export.c:1376 ../plug-ins/vdx/vdx-export.c:1385
+#, fuzzy, c-format
+msgid "Couldn't read file %s"
+msgstr "Не може да чита боју: %s\n"
+
+#: ../plug-ins/vdx/vdx-export.c:1904
+msgid "Visio XML format"
+msgstr ""
+
+#: ../plug-ins/vdx/vdx-import.c:219 ../plug-ins/xfig/xfig-import.c:1034
+#, c-format
+msgid "Couldn't read color: %s\n"
+msgstr "Не може да чита боју: %s\n"
+
+#: ../plug-ins/vdx/vdx-import.c:507
+#, fuzzy, c-format
+msgid "Couldn't find shape %d\n"
+msgstr "Не могу да пронађем директоријум за помоћ"
+
+#: ../plug-ins/vdx/vdx-import.c:851
+msgid "MoveTo after start of polyline\n"
+msgstr ""
+
+#: ../plug-ins/vdx/vdx-import.c:864
+#, fuzzy, c-format
+msgid "Unexpected polyline object: %s\n"
+msgstr "Не могу да учитам податке о полигонској линији: %s\n"
+
+#: ../plug-ins/vdx/vdx-import.c:956
+#, c-format
+msgid "Unexpected Ellipse object: %s\n"
+msgstr ""
+
+#: ../plug-ins/vdx/vdx-import.c:964
+msgid "Unexpected Ellipse additional objects\n"
+msgstr ""
+
+#: ../plug-ins/vdx/vdx-import.c:974
+#, fuzzy
+msgid "Can't rotate ellipse\n"
+msgstr "Не може да прочита информације елипсе: %s\n"
+
+#: ../plug-ins/vdx/vdx-import.c:1287
+msgid "MoveTo not at start of Bezier\n"
+msgstr ""
+
+#: ../plug-ins/vdx/vdx-import.c:1374
+#, c-format
+msgid "Unexpected Bezier object: %s\n"
+msgstr ""
+
+#: ../plug-ins/vdx/vdx-import.c:1595
+#, c-format
+msgid "Unexpected NURBSTo object: %s\n"
+msgstr ""
+
+#: ../plug-ins/vdx/vdx-import.c:1603
+msgid "Unexpected NURBSTo additional objects\n"
+msgstr ""
+
+#: ../plug-ins/vdx/vdx-import.c:1620
+msgid "Invalid NURBS formula"
+msgstr ""
+
+#: ../plug-ins/vdx/vdx-import.c:1742
+#, fuzzy, c-format
+msgid "Couldn't write file %s"
+msgstr "Не може да чита боју: %s\n"
+
+#: ../plug-ins/vdx/vdx-import.c:1826 ../plug-ins/vdx/vdx-import.c:1839
+#, fuzzy, c-format
+msgid "Couldn't handle foreign object type %s"
+msgstr "Не могу да идентификујем FIG објекат: %s\n"
+
+#: ../plug-ins/vdx/vdx-import.c:1867
+#, fuzzy, c-format
+msgid "Couldn't make object dir %s"
+msgstr "Не могу да идентификујем FIG објекат: %s\n"
+
+#: ../plug-ins/vdx/vdx-import.c:2723
+#, fuzzy
+msgid "Visio XML File Format"
+msgstr "XFig Формат Датотеке"
+
+#: ../plug-ins/vdx/vdx-xml.c:3344
+#, fuzzy, c-format
+msgid "Can't decode object %s"
+msgstr "Не могу да учитам словни лик %s.\n"
+
+#: ../plug-ins/vdx/vdx-xml.c:5125
+#, fuzzy, c-format
+msgid "Can't write object %u"
+msgstr "Не могу да нађем стандардан објекат"
+
+#: ../plug-ins/vdx/vdx.c:53
+#, fuzzy
+msgid "Visio XML Format import and export filter"
+msgstr "Филтер за увоз и извоз FIG датотека"
+
 # bug: ":" is not needed
-#: ../plug-ins/wmf/wmf.cpp:1188
+#: ../plug-ins/wmf/wmf.cpp:1186
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
 msgstr "Не могу да отворим „%s“ ради уписа.\n"
 
-#: ../plug-ins/wmf/wmf.cpp:1259
+#: ../plug-ins/wmf/wmf.cpp:1270
 msgid "Windows Meta File"
 msgstr "Windows мета датотека (WMF)"
 
-#: ../plug-ins/wmf/wmf.cpp:1268
+#: ../plug-ins/wmf/wmf.cpp:1279
 #, fuzzy
 msgid "Enhanced Meta File"
 msgstr "Windows мета датотека (WMF)"
 
-#: ../plug-ins/wmf/wmf.cpp:1284
+#: ../plug-ins/wmf/wmf.cpp:1295
 msgid "WMF export filter"
 msgstr "WMF извозни филтер"
 
@@ -5326,178 +5378,188 @@ msgstr "Нема више боја постављених од стране ко
 msgid "XFig format"
 msgstr "XFig формат"
 
-#: ../plug-ins/xfig/xfig-import.c:472
+#: ../plug-ins/xfig/xfig-import.c:109
+#, c-format
+msgid "Color index %d too high, only 512 colors allowed. Using black instead."
+msgstr ""
+
+#: ../plug-ins/xfig/xfig-import.c:136
 msgid "Patterns are not supported by Dia"
 msgstr "Обрасци нису подржани од Дие"
 
-#: ../plug-ins/xfig/xfig-import.c:500
+#: ../plug-ins/xfig/xfig-import.c:164
 msgid "Triple-dotted lines are not supported by Dia, using double-dotted"
 msgstr "Диа не подржава тротачкасте линије, користи двотачкасте"
 
-#: ../plug-ins/xfig/xfig-import.c:504
+#: ../plug-ins/xfig/xfig-import.c:168
 #, c-format
 msgid "Line style %d should not appear\n"
 msgstr "Не треба да се појави стил линија %d\n"
 
-#: ../plug-ins/xfig/xfig-import.c:573
+#: ../plug-ins/xfig/xfig-import.c:236
 #, c-format
 msgid "Error while reading %dth of %d points: %s\n"
 msgstr "Грешка при читању %dth од %d тачака: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:595
+#: ../plug-ins/xfig/xfig-import.c:264
 msgid "Error while reading arrowhead\n"
 msgstr "Грешка код читања главе стрелице\n"
 
-#: ../plug-ins/xfig/xfig-import.c:615
+#: ../plug-ins/xfig/xfig-import.c:286
 #, c-format
 msgid "Unknown arrow type %d\n"
 msgstr "Непознат тип стрелице %d\n"
 
-#: ../plug-ins/xfig/xfig-import.c:731
+#: ../plug-ins/xfig/xfig-import.c:377
+#, c-format
+msgid "Depth %d of of range, only 0-%d allowed.\n"
+msgstr ""
+
+#: ../plug-ins/xfig/xfig-import.c:424
 #, c-format
 msgid "Couldn't read ellipse info: %s\n"
 msgstr "Не може да прочита информације елипсе: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:799
+#: ../plug-ins/xfig/xfig-import.c:492
 #, c-format
 msgid "Couldn't read polyline info: %s\n"
 msgstr "Не могу да учитам податке о полигонској линији: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:814
+#: ../plug-ins/xfig/xfig-import.c:507
 #, c-format
 msgid "Couldn't read flipped bit: %s\n"
 msgstr "Не могу да прочитам изврнути бит: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:832
+#: ../plug-ins/xfig/xfig-import.c:525
 msgid "Negative corner radius, negating"
 msgstr "Негативни полупречник код ћошка, негира"
 
-#: ../plug-ins/xfig/xfig-import.c:876 ../plug-ins/xfig/xfig-import.c:1192
+#: ../plug-ins/xfig/xfig-import.c:568 ../plug-ins/xfig/xfig-import.c:881
 #, c-format
 msgid "Unknown polyline subtype: %d\n"
 msgstr "Непознат подтип полигонске линије: %d\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1026 ../plug-ins/xfig/xfig-import.c:1058
+#: ../plug-ins/xfig/xfig-import.c:718 ../plug-ins/xfig/xfig-import.c:750
 #, c-format
 msgid "Couldn't read spline info: %s\n"
 msgstr "Не могу да прочитам податке о кривој: %s\n"
 
 #. Open approximated spline
 #. Closed approximated spline
-#: ../plug-ins/xfig/xfig-import.c:1045 ../plug-ins/xfig/xfig-import.c:1063
+#: ../plug-ins/xfig/xfig-import.c:737 ../plug-ins/xfig/xfig-import.c:755
 msgid "Cannot convert approximated spline yet."
 msgstr "Још увек не могу да претворим приближну криву."
 
-#: ../plug-ins/xfig/xfig-import.c:1103
+#: ../plug-ins/xfig/xfig-import.c:793
 #, c-format
 msgid "Unknown spline subtype: %d\n"
 msgstr "Непозната подврста криве: %d\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1166
+#: ../plug-ins/xfig/xfig-import.c:856
 #, c-format
 msgid "Couldn't read arc info: %s\n"
 msgstr "Не могу да прочитам податке о луку: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1256
+#: ../plug-ins/xfig/xfig-import.c:945
 #, c-format
 msgid "Couldn't read text info: %s\n"
 msgstr "Не могу да прочитам текстуалне податке: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1319
+#: ../plug-ins/xfig/xfig-import.c:1007
 #, c-format
 msgid "Couldn't identify FIG object: %s\n"
 msgstr "Не могу да идентификујем FIG објекат: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1327
+#: ../plug-ins/xfig/xfig-import.c:1015
 msgid "Compound end outside compound\n"
 msgstr "Сложени и спољни сложени\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1346
+#: ../plug-ins/xfig/xfig-import.c:1039
 #, c-format
-msgid "Couldn't read color: %s\n"
-msgstr "Не може да чита боју: %s\n"
+msgid "Color number %d out of range 0..%d.  Discarding color.\n"
+msgstr ""
 
-#: ../plug-ins/xfig/xfig-import.c:1391
+#: ../plug-ins/xfig/xfig-import.c:1085
 #, c-format
 msgid "Couldn't read group extend: %s\n"
 msgstr "Не може да прочита продужење групе: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1402
+#: ../plug-ins/xfig/xfig-import.c:1096
 #, c-format
 msgid "Unknown object type %d\n"
 msgstr "Непозната врста објекта %d\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1426
+#: ../plug-ins/xfig/xfig-import.c:1120
 #, c-format
 msgid "`%s' is not one of `%s' or `%s'\n"
 msgstr "„%s“ није једна од „%s“ или „%s“\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1436
+#: ../plug-ins/xfig/xfig-import.c:1130
 #, c-format
 msgid "Error reading paper size: %s\n"
 msgstr "Грешка при читању величине папира: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1447
+#: ../plug-ins/xfig/xfig-import.c:1141
 #, c-format
 msgid "Unknown paper size `%s', using default\n"
 msgstr "Непозната величина папира „%s“, користи подразумевано\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1459
+#: ../plug-ins/xfig/xfig-import.c:1153
 #, c-format
 msgid "Error reading paper orientation: %s\n"
 msgstr "Грешка при читању оријентације папира: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1469
+#: ../plug-ins/xfig/xfig-import.c:1163
 #, c-format
 msgid "Error reading justification: %s\n"
 msgstr "Грешка при читању поравнања: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1479
+#: ../plug-ins/xfig/xfig-import.c:1173
 #, c-format
 msgid "Error reading units: %s\n"
 msgstr "Грешка при читању јединица: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1493
+#: ../plug-ins/xfig/xfig-import.c:1189
 #, c-format
 msgid "Error reading magnification: %s\n"
 msgstr "Грешка при читању увеличања: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1504
+#: ../plug-ins/xfig/xfig-import.c:1202
 #, c-format
 msgid "Error reading multipage indicator: %s\n"
 msgstr "Грешка при читању индикатора више-страница: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1515
+#: ../plug-ins/xfig/xfig-import.c:1213
 #, c-format
 msgid "Error reading transparent color: %s\n"
 msgstr "Грешка при читању провидних боја: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1524 ../plug-ins/xfig/xfig-import.c:1580
-#: ../plug-ins/xfig/xfig-import.c:1598
+#: ../plug-ins/xfig/xfig-import.c:1222 ../plug-ins/xfig/xfig-import.c:1278
+#: ../plug-ins/xfig/xfig-import.c:1296
 #, c-format
 msgid "Error reading FIG file: %s\n"
 msgstr "Грешка при читању FIG датотеке: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1526 ../plug-ins/xfig/xfig-import.c:1582
+#: ../plug-ins/xfig/xfig-import.c:1224 ../plug-ins/xfig/xfig-import.c:1280
 msgid "Premature end of FIG file\n"
 msgstr "Превремен крај FIG датотеке\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1535
+#: ../plug-ins/xfig/xfig-import.c:1233
 #, c-format
 msgid "Error reading resolution: %s\n"
 msgstr "Грешка при читању резолуције: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1567
+#: ../plug-ins/xfig/xfig-import.c:1265
 #, c-format
 msgid "Doesn't look like a Fig file: %s\n"
 msgstr "Не изгледа као FIG датотека: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1573
+#: ../plug-ins/xfig/xfig-import.c:1271
 #, c-format
 msgid "This is a FIG version %d.%d file, I may not understand it\n"
 msgstr "Ово је FIG датотека издања %d.%d, можда је нећу разумети\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1621
+#: ../plug-ins/xfig/xfig-import.c:1319
 msgid "XFig File Format"
 msgstr "XFig Формат Датотеке"
 
@@ -5550,6 +5612,57 @@ msgstr "Од:"
 #: ../plug-ins/xslt/xsltdialog.c:146
 msgid "To:"
 msgstr "До:"
+
+#: ../sheets/AADL.sheet.in.h:1
+msgid "AADL"
+msgstr ""
+
+#: ../sheets/AADL.sheet.in.h:2
+#, fuzzy
+msgid "AADL Shapes"
+msgstr "Обликуј"
+
+#: ../sheets/AADL.sheet.in.h:3
+msgid "Bus"
+msgstr ""
+
+#: ../sheets/AADL.sheet.in.h:5
+#, fuzzy
+msgid "Device"
+msgstr "Делити"
+
+#: ../sheets/AADL.sheet.in.h:6
+msgid "Memory"
+msgstr ""
+
+#: ../sheets/AADL.sheet.in.h:7
+#, fuzzy
+msgid "Package"
+msgstr "Смести"
+
+#: ../sheets/AADL.sheet.in.h:9
+#, fuzzy
+msgid "Processor"
+msgstr "Обради"
+
+#: ../sheets/AADL.sheet.in.h:10
+#, fuzzy
+msgid "Subprogram"
+msgstr "Позив корака подпрограма"
+
+#: ../sheets/AADL.sheet.in.h:11
+#, fuzzy
+msgid "System"
+msgstr "Sybase"
+
+#: ../sheets/AADL.sheet.in.h:12
+#, fuzzy
+msgid "Thread"
+msgstr "Дељен"
+
+#: ../sheets/AADL.sheet.in.h:13
+msgid "Thread Group"
+msgstr ""
 
 #. Sheet Name: Assorted, was Geometric, maybe Basic Shapes instead?
 #. Leave as is for now, renaming too much hassle.
@@ -5733,6 +5846,195 @@ msgstr "Горе–доле–лево стрелица"
 msgid "Vertical parallelogram"
 msgstr "Усправни паралелограм"
 
+#: ../sheets/BPMN.sheet.in.h:1
+#, fuzzy
+msgid "Activity Looping"
+msgstr "Радња"
+
+#: ../sheets/BPMN.sheet.in.h:2
+msgid "Ad-Hoc Collapsed Sub-Process"
+msgstr ""
+
+#. For: anthonym
+#: ../sheets/BPMN.sheet.in.h:4
+msgid "BPMN"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:5
+msgid "Business Process Modeling Notation"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:6
+msgid "Collapsed Sub-Process"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:7
+msgid "Compensation Collapsed Sub-Process"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:8
+#, fuzzy
+msgid "Compensation Task"
+msgstr "Слагање"
+
+#: ../sheets/BPMN.sheet.in.h:9
+#, fuzzy
+msgid "Complex"
+msgstr "Пар"
+
+#: ../sheets/BPMN.sheet.in.h:10
+#, fuzzy
+msgid "Data Object"
+msgstr "Диа Објекат"
+
+#: ../sheets/BPMN.sheet.in.h:11
+#, fuzzy
+msgid "End Event"
+msgstr "Крајња тачка"
+
+#: ../sheets/BPMN.sheet.in.h:12
+msgid "End Event - Cancel"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:13
+#, fuzzy
+msgid "End Event - Compensation"
+msgstr "Одреднице догађаја"
+
+#: ../sheets/BPMN.sheet.in.h:14
+msgid "End Event - Error"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:15
+#, fuzzy
+msgid "End Event - Link"
+msgstr "Одредиште догађаја"
+
+#: ../sheets/BPMN.sheet.in.h:16
+msgid "End Event - Message"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:17
+msgid "End Event - Multiple"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:18
+msgid "End Event - Terminate"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:19
+msgid "Exclusive (XOR) Data Based"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:20
+msgid "Exclusive (XOR) Event Based"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:21
+#, fuzzy
+msgid "Gateway"
+msgstr "MAS пролаз"
+
+#: ../sheets/BPMN.sheet.in.h:22
+#, fuzzy
+msgid "Group"
+msgstr "_Групиши"
+
+#: ../sheets/BPMN.sheet.in.h:23
+msgid "Inclusive (OR)"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:24
+msgid "Intermediate Event"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:25
+msgid "Intermediate Event - Cancel"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:26
+msgid "Intermediate Event - Compensation"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:27
+msgid "Intermediate Event - Error"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:28
+msgid "Intermediate Event - Link"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:29
+msgid "Intermediate Event - Message"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:30
+msgid "Intermediate Event - Multiple"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:31
+msgid "Intermediate Event - Rule"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:32
+msgid "Intermediate Event - Timer"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:33
+msgid "Looping Collapsed Sub-Process"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:34
+msgid "Multiple Instance Collapsed Sub-Process"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:35
+#, fuzzy
+msgid "Multiple Instance Task"
+msgstr "Вишеструке инстанце"
+
+#: ../sheets/BPMN.sheet.in.h:36
+msgid "Parallel (AND)"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:37
+#, fuzzy
+msgid "Start Event"
+msgstr "Почетна тачка"
+
+#: ../sheets/BPMN.sheet.in.h:38
+#, fuzzy
+msgid "Start Event - Link"
+msgstr "Одредиште догађаја"
+
+#: ../sheets/BPMN.sheet.in.h:39
+#, fuzzy
+msgid "Start Event - Message"
+msgstr "Пошаљи поруку"
+
+#: ../sheets/BPMN.sheet.in.h:40
+msgid "Start Event - Multiple"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:41
+msgid "Start Event - Rule"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:42
+#, fuzzy
+msgid "Start Event - Timer"
+msgstr "Почетно време:"
+
+#: ../sheets/BPMN.sheet.in.h:44
+#, fuzzy
+msgid "Text Annotation"
+msgstr "Орјентација"
+
+#: ../sheets/BPMN.sheet.in.h:45
+#, fuzzy
+msgid "Transaction"
+msgstr "Превод"
+
 #: ../sheets/ChemEng.sheet.in.h:1
 msgid "AC Generator"
 msgstr "Струјни наизменични извор"
@@ -5771,7 +6073,7 @@ msgstr "Технолошки процеси"
 msgid "Clarifier or Settling Tank"
 msgstr "Пречишћавач или суд за таложење"
 
-#: ../sheets/ChemEng..in.h:11
+#: ../sheets/ChemEng.sheet.in.h:11
 msgid "Collection for chemical engineering"
 msgstr "Збирка технолошких процеса"
 
@@ -6268,14 +6570,6 @@ msgstr "Шаблон за произвољне карактеристике"
 msgid "Time delay"
 msgstr "Кашњење"
 
-#: ../sheets/EML.sheet.in.h:1
-msgid "EML"
-msgstr "EML"
-
-#: ../sheets/EML.sheet.in.h:2
-msgid "Editor for EML Static Structure Diagrams."
-msgstr "Уређивач за EML статичне структурне дијаграме."
-
 #: ../sheets/ER.sheet.in.h:2
 msgid "ER"
 msgstr "ER"
@@ -6389,111 +6683,139 @@ msgstr "Уреди"
 msgid "Connector"
 msgstr "Повезивач"
 
-#: ../sheets/Flowchart.sheet.in.h:4 ../sheets/SDL.sheet.in.h:4
+#: ../sheets/Flowchart.sheet.in.h:4
+#, fuzzy
+msgid "Data source"
+msgstr "Подаци о бојама"
+
+#: ../sheets/Flowchart.sheet.in.h:5 ../sheets/SDL.sheet.in.h:4
 msgid "Decision"
 msgstr "Одлука"
 
-#: ../sheets/Flowchart.sheet.in.h:5
+#: ../sheets/Flowchart.sheet.in.h:6
 msgid "Delay"
 msgstr "Кашњење"
 
-#: ../sheets/Flowchart.sheet.in.h:7
+#: ../sheets/Flowchart.sheet.in.h:8
 msgid "Document"
 msgstr "Документ"
 
-#: ../sheets/Flowchart.sheet.in.h:9
+#: ../sheets/Flowchart.sheet.in.h:10
 msgid "Flowchart"
 msgstr "Дијаграм тока"
 
-#: ../sheets/Flowchart.sheet.in.h:10
+#: ../sheets/Flowchart.sheet.in.h:11
 msgid "Input/Output"
 msgstr "Улаз/излаз"
 
-#: ../sheets/Flowchart.sheet.in.h:11
+#: ../sheets/Flowchart.sheet.in.h:12
 msgid "Internal storage"
 msgstr "Унутрашњи смештај"
 
-#: ../sheets/Flowchart.sheet.in.h:12
+#: ../sheets/Flowchart.sheet.in.h:13
 msgid "Magnetic disk"
 msgstr "Магнетни диск"
 
-#: ../sheets/Flowchart.sheet.in.h:13
+#: ../sheets/Flowchart.sheet.in.h:14
 msgid "Magnetic drum"
 msgstr "Магнетни добош"
 
-#: ../sheets/Flowchart.sheet.in.h:14
+#: ../sheets/Flowchart.sheet.in.h:15
 msgid "Magnetic tape"
 msgstr "Магнетна трака"
 
-#: ../sheets/Flowchart.sheet.in.h:15
+#: ../sheets/Flowchart.sheet.in.h:16
 msgid "Manual input"
 msgstr "Ручни унос"
 
-#: ../sheets/Flowchart.sheet.in.h:16
+#: ../sheets/Flowchart.sheet.in.h:17
 msgid "Manual operation"
 msgstr "Ручна операција"
 
-#: ../sheets/Flowchart.sheet.in.h:17
+#: ../sheets/Flowchart.sheet.in.h:18
 msgid "Merge"
 msgstr "Споји"
 
-#: ../sheets/Flowchart.sheet.in.h:18
+#: ../sheets/Flowchart.sheet.in.h:19
 msgid "Objects to draw flowcharts"
 msgstr "Објекти за цртање дијаграма тока"
 
 #. XXX
-#: ../sheets/Flowchart.sheet.in.h:20
+#: ../sheets/Flowchart.sheet.in.h:21
 msgid "Off page connector"
 msgstr "Повезивач без стране"
 
-#: ../sheets/Flowchart.sheet.in.h:21
+#: ../sheets/Flowchart.sheet.in.h:22
 msgid "Offline storage"
 msgstr "Искључени смештај"
 
-#: ../sheets/Flowchart.sheet.in.h:22
+#: ../sheets/Flowchart.sheet.in.h:23
 msgid "Or"
 msgstr "Или"
 
-#: ../sheets/Flowchart.sheet.in.h:23
+#: ../sheets/Flowchart.sheet.in.h:24
 msgid "Predefined process"
 msgstr "Предодређени процес"
 
-#: ../sheets/Flowchart.sheet.in.h:24
+#: ../sheets/Flowchart.sheet.in.h:25
 msgid "Preparation"
 msgstr "Припрема"
 
-#: ../sheets/Flowchart.sheet.in.h:25
+#: ../sheets/Flowchart.sheet.in.h:26
 msgid "Process/Auxiliary Operation"
 msgstr "Допунска/процесна операција"
 
-#: ../sheets/Flowchart.sheet.in.h:26
+#: ../sheets/Flowchart.sheet.in.h:27
 msgid "Punched card"
 msgstr "Бушена картица"
 
-#: ../sheets/Flowchart.sheet.in.h:27
+#: ../sheets/Flowchart.sheet.in.h:28
 msgid "Punched tape"
 msgstr "Бушена трака"
 
-#: ../sheets/Flowchart.sheet.in.h:28
+#: ../sheets/Flowchart.sheet.in.h:29
 msgid "Sort"
 msgstr "Уреди"
 
 #. XXX
-#: ../sheets/Flowchart.sheet.in.h:30
+#: ../sheets/Flowchart.sheet.in.h:31
 msgid "Summing junction"
 msgstr "Збирна тачка"
 
-#: ../sheets/Flowchart.sheet.in.h:31
+#: ../sheets/Flowchart.sheet.in.h:32
 msgid "Terminal Interrupt"
 msgstr "Прекид терминала"
 
-#: ../sheets/Flowchart.sheet.in.h:32
+#: ../sheets/Flowchart.sheet.in.h:33
 msgid "Transaction file"
 msgstr "Датотека са трансакцијама"
 
-#: ../sheets/Flowchart.sheet.in.h:33
+#: ../sheets/Flowchart.sheet.in.h:34
 msgid "Transmittal tape"
 msgstr "Трака за пренос"
+
+#: ../sheets/Gane_and_Sarson.sheet.in.h:1
+msgid "Alternate external entity"
+msgstr ""
+
+#: ../sheets/Gane_and_Sarson.sheet.in.h:2
+#, fuzzy
+msgid "Data store"
+msgstr "Подаци о бојама"
+
+#: ../sheets/Gane_and_Sarson.sheet.in.h:3
+#, fuzzy
+msgid "External entity"
+msgstr "Слаб ентитет"
+
+#. Author: Nicholas Moore, 2005. mailto: shiny.nickel@gmail.com
+#: ../sheets/Gane_and_Sarson.sheet.in.h:5
+msgid "Gane and Sarson"
+msgstr ""
+
+#: ../sheets/Gane_and_Sarson.sheet.in.h:6
+msgid "Gane and Sarson DFD"
+msgstr ""
 
 #: ../sheets/GRAFCET.sheet.in.h:1
 msgid "AND vergent"
@@ -6919,6 +7241,10 @@ msgid "Miscellaneous Shapes"
 msgstr "Разни облици"
 
 #: ../sheets/Misc.sheet.in.h:5
+msgid "New-style group object, for testing"
+msgstr ""
+
+#: ../sheets/Misc.sheet.in.h:6
 msgid "Traditional clock"
 msgstr "Обичан часовник"
 
@@ -8964,6 +9290,401 @@ msgstr "Sybase срвер података"
 msgid "Sybase replication server"
 msgstr "Sybase репликациони сервер"
 
+#~ msgid "Dia"
+#~ msgstr "Диа"
+
+#~ msgid "Copyright (C) 1998-2005 The Free Software Foundation and the authors"
+#~ msgstr "Сва права задржана, 1998-2005 Задужбина слободног софтвера и аутори"
+
+#~ msgid ""
+#~ "Dia is a program for drawing structured diagrams.\n"
+#~ "Please visit http://www.gnome.org/projects/dia for more information."
+#~ msgstr ""
+#~ "Диа је један програм за цртање структуираних дијаграма.\n"
+#~ "За више информација молим посетите http://www.gnome.org/projects/dia."
+
+#~ msgid "About Dia"
+#~ msgstr "О програму Диа"
+
+#~ msgid "Dia v %s by Alexander Larsson"
+#~ msgstr "Диа %s од Александра Ларсона (Alexander Larsson)"
+
+#~ msgid "Maintainers: Lars Clausen and Cyrille Chepelov"
+#~ msgstr ""
+#~ "Одржавају: Ларс Клаусен (Lars Clausen) и Ћирил Чепелов (Cyrille Chepelov)"
+
+#~ msgid "Please visit http://www.gnome.org/projects/dia for more information"
+#~ msgstr ""
+#~ "За више информација молим посетите http://www.gnome.org/projects/dia"
+
+#~ msgid "Contributors:"
+#~ msgstr "Допринели:"
+
+#~ msgid "Diagram tree"
+#~ msgstr "Дрво дијаграма"
+
+#~ msgid "Modify object(s)"
+#~ msgstr "Измени објекат(е)"
+
+#~ msgid "Failed to save file '%s'.\n"
+#~ msgstr "Неможе да сними датотеку '%s'.\n"
+
+#~ msgid "/File/_New"
+#~ msgstr "/Датотека/Ново"
+
+#~ msgid "/File/_Open..."
+#~ msgstr "/Датотека/Отворено..."
+
+#  recent file list is dynamically inserted here
+#~ msgid "/File/---"
+#~ msgstr "/Датотека/---"
+
+#~ msgid "/File/_Diagram tree"
+#~ msgstr "/Датотека/Стабло дијаграма"
+
+#~ msgid "/File/Sheets and Objects..."
+#~ msgstr "/Датотека/Стране и објекти..."
+
+#~ msgid "/File/_Preferences..."
+#~ msgstr "/Датотека/Поставке..."
+
+#~ msgid "/File/P_lugins..."
+#~ msgstr "/Датотека/Додаци..."
+
+#~ msgid "/File/_Quit"
+#~ msgstr "/Датотека/Изађи"
+
+#~ msgid "/_Help"
+#~ msgstr "/Помоћ"
+
+#~ msgid "/Help/_Contents"
+#~ msgstr "/Помоћ/Сад_ржај"
+
+#~ msgid "/Help/---"
+#~ msgstr "/Помоћ/---"
+
+#~ msgid "/Help/_About..."
+#~ msgstr "/Помоћ/О програму..."
+
+#~ msgid "/File/_Save"
+#~ msgstr "/Датотека/Сними"
+
+#~ msgid "/File/Save _As..."
+#~ msgstr "/Датотека/Сними као..."
+
+#~ msgid "/File/_Export..."
+#~ msgstr "/Датотека/Извоз..."
+
+#~ msgid "/File/Page Set_up..."
+#~ msgstr "/Датотека/Подешавање странице..."
+
+#~ msgid "/File/_Print Diagram..."
+#~ msgstr "/Датотека/Одштампај дијаграм..."
+
+#~ msgid "/File/_Close"
+#~ msgstr "/Датотека/Затвори"
+
+#~ msgid "/_Edit"
+#~ msgstr "/_Уређивање"
+
+#~ msgid "/Edit/_Undo"
+#~ msgstr "/Уређивање/Поништи"
+
+#~ msgid "/Edit/_Redo"
+#~ msgstr "/Уређивање/Врати"
+
+#~ msgid "/Edit/---"
+#~ msgstr "/Уређивање/---"
+
+#~ msgid "/Edit/_Copy"
+#~ msgstr "/Уређивање/Копирај"
+
+#~ msgid "/Edit/C_ut"
+#~ msgstr "/Уређивање/Исеци"
+
+#~ msgid "/Edit/_Paste"
+#~ msgstr "/Уређивање/Убаци"
+
+#~ msgid "/Edit/_Duplicate"
+#~ msgstr "/Уређивање/У_двостручи"
+
+#~ msgid "/Edit/_Delete"
+#~ msgstr "/Уређивање/Обриши"
+
+#~ msgid "/Edit/Copy Text"
+#~ msgstr "/Уређивање/Копирај текст"
+
+#~ msgid "/Edit/Cut Text"
+#~ msgstr "/Уређивање/Исеци текст"
+
+#~ msgid "/Edit/Paste _Text"
+#~ msgstr "/Уређивање/Убаци текст"
+
+#~ msgid "/Diagram/_Properties..."
+#~ msgstr "/Дијаграм/_Особине..."
+
+#~ msgid "/Diagram/_Layers..."
+#~ msgstr "/Дијаграм/С_лојеви..."
+
+#~ msgid "/View/Zoom _In"
+#~ msgstr "/Преглед/Увећај"
+
+#~ msgid "/View/Zoom _Out"
+#~ msgstr "/Преглед/Удаљи"
+
+#~ msgid "/View/_Zoom"
+#~ msgstr "/Преглед/Увећање"
+
+#~ msgid "/View/Zoom/1600%"
+#~ msgstr "/Преглед/Увећање/1600%"
+
+#~ msgid "/View/Zoom/800%"
+#~ msgstr "/Преглед/Увећање/800%"
+
+#~ msgid "/View/Zoom/400%"
+#~ msgstr "/Преглед/Увећање/400%"
+
+#~ msgid "/View/Zoom/283%"
+#~ msgstr "/Преглед/Увећање/283%"
+
+#~ msgid "/View/Zoom/200%"
+#~ msgstr "/Преглед/Увећање/200%"
+
+#~ msgid "/View/Zoom/141%"
+#~ msgstr "/Преглед/Увећање/141%"
+
+#~ msgid "/View/Zoom/100%"
+#~ msgstr "/Преглед/Увећање/100%"
+
+#~ msgid "/View/Zoom/85%"
+#~ msgstr "/Преглед/Увећање/85%"
+
+#~ msgid "/View/Zoom/70.7%"
+#~ msgstr "/Преглед/Увећање/70.7%"
+
+#~ msgid "/View/Zoom/50%"
+#~ msgstr "/Преглед/Увећање/50%"
+
+#~ msgid "/View/Zoom/35.4%"
+#~ msgstr "/Преглед/Увећање/35.4%"
+
+#~ msgid "/View/Zoom/25%"
+#~ msgstr "/Преглед/Увећање/25%"
+
+#~ msgid "/View/---"
+#~ msgstr "/Преглед/---"
+
+#~ msgid "/View/_AntiAliased"
+#~ msgstr "/Преглед/_Омекшано"
+
+#~ msgid "/View/Show _Grid"
+#~ msgstr "/Преглед/По_кажи мрежу"
+
+#~ msgid "/View/_Snap To Grid"
+#~ msgstr "/Преглед/Уравнај на мрежу"
+
+#~ msgid "/View/Show _Rulers"
+#~ msgstr "/Преглед/Покажи лењире"
+
+#~ msgid "/View/Show _Connection Points"
+#~ msgstr "/Прикажи/Покажи тачке везе"
+
+#~ msgid "/View/New _View"
+#~ msgstr "/Преглед/Нови поглед"
+
+#~ msgid "/View/Show _All"
+#~ msgstr "/Изглед/Прикажи све"
+
+#~ msgid "/View/Re_draw"
+#~ msgstr "/Преглед/Поново исцртај"
+
+#~ msgid "/_Objects"
+#~ msgstr "/Објекти"
+
+#~ msgid "/Objects/Send to _Back"
+#~ msgstr "/Објекти/Премести на крај"
+
+#~ msgid "/Objects/Bring to _Front"
+#~ msgstr "/Објекти/Добаци на Површину"
+
+#~ msgid "/Objects/Send Backwards"
+#~ msgstr "/Објекти/Премести уназад"
+
+#~ msgid "/Objects/Bring Forwards"
+#~ msgstr "/Објекти/Премести унапред"
+
+#~ msgid "/Objects/---"
+#~ msgstr "/Објекти/---"
+
+#~ msgid "/Objects/_Group"
+#~ msgstr "/Објекти/Група"
+
+#~ msgid "/Objects/_Ungroup"
+#~ msgstr "/Објекти/Одгруписано"
+
+#~ msgid "/Objects/_Parent"
+#~ msgstr "/Објекти/_Садржалац"
+
+#~ msgid "/Objects/_Unparent"
+#~ msgstr "/Објекти/Не_садржалац"
+
+#~ msgid "/Objects/_Unparent Children"
+#~ msgstr "/Објекти/Из_баци из садржаоца"
+
+#~ msgid "/Objects/Align"
+#~ msgstr "/Објекти/Поравнање"
+
+#~ msgid "/Objects/Align/Left"
+#~ msgstr "/Објекти/Поравнање/Лево"
+
+#~ msgid "/Objects/Align/Center"
+#~ msgstr "/Објекти/Поравнање/Центар"
+
+#~ msgid "/Objects/Align/Right"
+#~ msgstr "/Објекти/Поравнање/Десно"
+
+#~ msgid "/Objects/Align/---"
+#~ msgstr "/Објекти/Поравнање/---"
+
+#~ msgid "/Objects/Align/Top"
+#~ msgstr "/Објекти/Поравнање/Горе"
+
+#~ msgid "/Objects/Align/Middle"
+#~ msgstr "/Објекти/Поравнање/Средина"
+
+#~ msgid "/Objects/Align/Bottom"
+#~ msgstr "/Објекти/Поравнање/Доле"
+
+#~ msgid "/Objects/Align/Adjacent"
+#~ msgstr "/Објекти/Поравнање/Суседно"
+
+#~ msgid "/Objects/Align/Stacked"
+#~ msgstr "/Објекти/Поравнање/Наређано"
+
+#~ msgid "/Objects/_Properties..."
+#~ msgstr "/Објекти/_Особине..."
+
+#~ msgid "/Select/All"
+#~ msgstr "/Изабери/Све"
+
+#~ msgid "/Select/None"
+#~ msgstr "/Изабери/Ништа"
+
+#~ msgid "/Select/Invert"
+#~ msgstr "/Изабери/Преокренуто"
+
+#~ msgid "/Select/---"
+#~ msgstr "/Изабери/---"
+
+#~ msgid "/Select/Transitive"
+#~ msgstr "/Одабери/Прелазни"
+
+#~ msgid "/Select/Connected"
+#~ msgstr "/Изабери/Повезаност"
+
+#~ msgid "/Select/Replace"
+#~ msgstr "/Изабери/Замени"
+
+#~ msgid "/Select/Union"
+#~ msgstr "/Изабери/Уједини"
+
+#~ msgid "/Select/Intersection"
+#~ msgstr "/Изабери/Пресек"
+
+#~ msgid "/Select/Remove"
+#~ msgstr "/Изабери/Уклони"
+
+#, fuzzy
+#~ msgid "/Select/Inverse"
+#~ msgstr "/Изабери/Преокренуто"
+
+#~ msgid "/_Tools"
+#~ msgstr "/Алати"
+
+#~ msgid "/Tools/Modify"
+#~ msgstr "/Алати/Измени"
+
+#~ msgid "/Tools/Magnify"
+#~ msgstr "/Алати/Увеличај"
+
+#~ msgid "/Tools/Scroll"
+#~ msgstr "/Алати/Усправно померање"
+
+#~ msgid "/Tools/Text"
+#~ msgstr "/Алати/Текст"
+
+#~ msgid "/Tools/Box"
+#~ msgstr "/Алати/Кућица"
+
+#~ msgid "/Tools/Ellipse"
+#~ msgstr "/Алати/Елипса"
+
+#~ msgid "/Tools/Polygon"
+#~ msgstr "/Алати/Полигон"
+
+#~ msgid "/Tools/Beziergon"
+#~ msgstr "/Алати/Безиеров полигон"
+
+#~ msgid "/Tools/---"
+#~ msgstr "/Алати/---"
+
+#~ msgid "/Tools/Line"
+#~ msgstr "/Алати/Линије"
+
+#~ msgid "/Tools/Arc"
+#~ msgstr "/Алати/Лук"
+
+#~ msgid "/Tools/Zigzagline"
+#~ msgstr "/Алати/Цик-цак линија"
+
+#~ msgid "/Tools/Polyline"
+#~ msgstr "/Алати/Полигонска линија"
+
+#~ msgid "/Tools/Bezierline"
+#~ msgstr "/Алати/Безијерова линија"
+
+#~ msgid "/Tools/Image"
+#~ msgstr "/Алати/Слика"
+
+#~ msgid "/_Input Methods"
+#~ msgstr "/_Начини уноса"
+
+#~ msgid "Diagram Menu"
+#~ msgstr "Мени Дијаграма"
+
+#~ msgid ""
+#~ "Can't find menu entry '%s'!\n"
+#~ "This is probably a i18n problem (try LANG=C)."
+#~ msgstr ""
+#~ "Не могу да нађем ставку менија „%s“!\n"
+#~ "Ово је вероватно проблем превода (пробајте LANG=C)."
+
+#~ msgid "<Toolbox>/File/Plugins..."
+#~ msgstr "<Кутија за алат>/Датотека/Додаци..."
+
+#~ msgid "<Toolbox>/File/Quit"
+#~ msgstr "<Кутија за алат>/Датотека/Заврши..."
+
+#, fuzzy
+#~ msgid "Macro Cell"
+#~ msgstr "Позив макроа"
+
+#, fuzzy
+#~ msgid "Micro Cell"
+#~ msgstr "Позив макроа"
+
+#~ msgid "Cell Type:"
+#~ msgstr "Врста ћелије:"
+
+#~ msgid "Subscribers"
+#~ msgstr "Претплатници"
+
+#~ msgid "EML"
+#~ msgstr "EML"
+
+#~ msgid "Editor for EML Static Structure Diagrams."
+#~ msgstr "Уређивач за EML статичне структурне дијаграме."
+
 #~ msgid "Instantiation. One process create others"
 #~ msgstr "Образовање. Један процес образује друге"
 
@@ -9043,9 +9764,6 @@ msgstr "Sybase репликациони сервер"
 #~ msgid "7505"
 #~ msgstr "7505"
 
-#~ msgid "7507"
-#~ msgstr "7507"
-
 #~ msgid "ATM router"
 #~ msgstr "ATM рутер"
 
@@ -9118,42 +9836,14 @@ msgstr "Sybase репликациони сервер"
 #~ msgid "Error occured while printing"
 #~ msgstr "Дошло је до грешке приликом штампања"
 
-#~ msgid "_Diagram tree"
-#~ msgstr "Стабло дијаграма"
-
 #~ msgid "Show diagram tree"
 #~ msgstr "Прикажи стабло дијаграма"
-
-#~ msgid "_Sheets and Objects..."
-#~ msgstr "Стране и објекти..."
 
 #~ msgid "Modify sheets and their objects"
 #~ msgstr "Измени странице и њихове објекте"
 
-#~ msgid "P_lugins..."
-#~ msgstr "Додаци..."
-
-#~ msgid "_Export..."
-#~ msgstr "Извоз..."
-
-#~ msgid "Page Set_up..."
-#~ msgstr "Подеси страницу ..."
-
 #~ msgid "_Print Diagram..."
 #~ msgstr "Одштампај дијаграм..."
-
-# испари па кондензуј у чврсто стање
-#~ msgid "Duplicate"
-#~ msgstr "Удвостручи"
-
-#~ msgid "Copy Text"
-#~ msgstr "Копирај текст"
-
-#~ msgid "Cut Text"
-#~ msgstr "Исеци текст"
-
-#~ msgid "Paste _Text"
-#~ msgstr "Убаци текст"
 
 #~ msgid "Zoom _In"
 #~ msgstr "Увећај"
@@ -9167,29 +9857,8 @@ msgstr "Sybase репликациони сервер"
 #~ msgid "Zoom out 50%"
 #~ msgstr "Умањи 50%"
 
-#~ msgid "_Zoom"
-#~ msgstr "Увећање"
-
 #~ msgid "Diagram Properties..."
 #~ msgstr "Особине дијаграма..."
-
-#~ msgid "_AntiAliased"
-#~ msgstr "_Омекшано"
-
-#~ msgid "Show _Grid"
-#~ msgstr "Прикажи Мрежу"
-
-#~ msgid "_Snap To Grid"
-#~ msgstr "Уравнај на мрежу"
-
-#~ msgid "Show _Rulers"
-#~ msgstr "Прикажи Лењире"
-
-#~ msgid "Show _Connection Points"
-#~ msgstr "Покажи Поене Везе"
-
-#~ msgid "New _View"
-#~ msgstr "Нови поглед"
 
 #~ msgid "Show _All"
 #~ msgstr "Прикажи све"
@@ -9197,59 +9866,8 @@ msgstr "Sybase репликациони сервер"
 #~ msgid "Redraw"
 #~ msgstr "Поново исцртај"
 
-#~ msgid "Replace"
-#~ msgstr "Замени"
-
-#~ msgid "Union"
-#~ msgstr "Унија"
-
-#~ msgid "Intersect"
-#~ msgstr "Пресек"
-
-#~ msgid "Invert"
-#~ msgstr "Преокрени"
-
-#~ msgid "All"
-#~ msgstr "Све"
-
-#~ msgid "Connected"
-#~ msgstr "Повезан"
-
-#~ msgid "Transitive"
-#~ msgstr "Прелазни"
-
 #~ msgid "Equal Distance"
 #~ msgstr "Једнака удаљеност"
-
-#~ msgid "Adjacent"
-#~ msgstr "Подешавања"
-
-#~ msgid "Send to _Back"
-#~ msgstr "Пошаљи на крај"
-
-#~ msgid "Bring to _Front"
-#~ msgstr "Додај на површину"
-
-#~ msgid "Send Backwards"
-#~ msgstr "Пошаљи уназад"
-
-#~ msgid "Bring Forwards"
-#~ msgstr "Додај унапред"
-
-#~ msgid "_Group"
-#~ msgstr "_Групиши"
-
-#~ msgid "_Ungroup"
-#~ msgstr "О_дгрупиши"
-
-#~ msgid "_Parent"
-#~ msgstr "_Садржалац"
-
-#~ msgid "_Unparent"
-#~ msgstr "_Несадржалац"
-
-#~ msgid "_Unparent Children"
-#~ msgstr "Из_баци из садржаоца"
 
 #~ msgid "Align _Horizontal"
 #~ msgstr "Водоравно поравнање"
@@ -9259,24 +9877,6 @@ msgstr "Sybase репликациони сервер"
 
 #~ msgid "_Properties..."
 #~ msgstr "Осо_бине..."
-
-#~ msgid "_Layers"
-#~ msgstr "Слојеви"
-
-#~ msgid "_Objects"
-#~ msgstr "Објекти"
-
-#~ msgid "_Tools"
-#~ msgstr "_Алати"
-
-#~ msgid "_Dialogs"
-#~ msgstr "Про_зори"
-
-#~ msgid "_Input Methods"
-#~ msgstr "Методе уноса"
-
-#~ msgid "_Help"
-#~ msgstr "_Помоћ"
 
 #~ msgid "Length: "
 #~ msgstr "Дужина:"

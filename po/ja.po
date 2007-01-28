@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia trunk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-24 06:48+0900\n"
+"POT-Creation-Date: 2007-01-28 12:03+0100\n"
 "PO-Revision-Date: 2007-01-24 06:47+0900\n"
 "Last-Translator: Takeshi AIHANA <takeshi.aihana@gmail.com>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
@@ -741,7 +741,7 @@ msgstr "破棄(_D)"
 #: ../app/export_png.c:136 ../app/load_save.c:951 ../app/render_eps.c:103
 #: ../plug-ins/cairo/diacairo.c:976 ../plug-ins/cgm/cgm.c:1151
 #: ../plug-ins/dxf/dxf-export.c:484 ../plug-ins/hpgl/hpgl.c:708
-#: ../plug-ins/metapost/render_metapost.c:1106
+#: ../plug-ins/metapost/render_metapost.c:1145
 #: ../plug-ins/pgf/render_pgf.c:1143
 #: ../plug-ins/pstricks/render_pstricks.c:914
 #: ../plug-ins/shape/shape-export.c:134 ../plug-ins/svg/render_svg.c:150
@@ -1478,7 +1478,7 @@ msgstr "削除"
 msgid "Inverse"
 msgstr "反転"
 
-#: ../app/menus.c:262
+#: ../app/menus.c:278
 msgid "NULL tooldata in tool_menu_select"
 msgstr "tool_menu_select の中に NULL の tooldata があります"
 
@@ -5076,7 +5076,7 @@ msgstr "HP Graphics Language のエキスポート用フィルタ"
 msgid "TeX Metapost export filter"
 msgstr "TeX Metapost のエキスポート用フィルタ"
 
-#: ../plug-ins/metapost/render_metapost.c:1175
+#: ../plug-ins/metapost/render_metapost.c:1214
 msgid "TeX Metapost macros"
 msgstr "Tex Metapost マクロ"
 

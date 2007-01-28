@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-10-03 10:41+0200\n"
+"POT-Creation-Date: 2007-01-28 12:03+0100\n"
 "PO-Revision-Date: 2006-10-16 18:23+0700\n"
 "Last-Translator: Tee Tanawatanakul <wallsfantasy@gmail.com>\n"
 "Language-Team: Thai <l10n@opentle.org>\n"
@@ -99,8 +99,8 @@ msgid ""
 "Show only specified layers (e.g. when exporting). Can be either the layer "
 "name or a range of layer numbers (X-Y)"
 msgstr ""
-"แสดงเฉพาะเลเยอร์ที่ระบุไว้ (เช่น ในขณะที่กำลังนำออก) "
-"สามารถระบุเป็นชื่อของเลเยอร์ หรือหมายเลขช่วงของเลเยอร์ (X-Y)"
+"แสดงเฉพาะเลเยอร์ที่ระบุไว้ (เช่น ในขณะที่กำลังนำออก) สามารถระบุเป็นชื่อของเลเยอร์ "
+"หรือหมายเลขช่วงของเลเยอร์ (X-Y)"
 
 #: ../app/app_procs.c:695 ../app/app_procs.c:723
 msgid "LAYER,LAYER,..."
@@ -183,8 +183,7 @@ msgstr "กำลังออกจากโปรแกรมโดยมิไ
 msgid ""
 "Modified diagrams exist. Are you sure you want to quit Dia without saving "
 "them?"
-msgstr ""
-"ยังมีแผนภูมิที่ถูกเปลี่ยนแปลงแล้วอยู่ ยืนยันที่จะออกจากโปรแกรมทั้งที่ยังไม่ได้บันทึกแฟ้มหรือไม่?"
+msgstr "ยังมีแผนภูมิที่ถูกเปลี่ยนแปลงแล้วอยู่ ยืนยันที่จะออกจากโปรแกรมทั้งที่ยังไม่ได้บันทึกแฟ้มหรือไม่?"
 
 #: ../app/app_procs.c:997
 msgid "Quit Dia"
@@ -499,7 +498,8 @@ msgid "/Sort objects/by _type"
 msgstr "/เรียงวัตถุ/ตาม_ประเภท"
 
 #: ../app/diagram_tree_menu.c:51
-msgid "/Sort objects/as_inserted"
+#, fuzzy
+msgid "/Sort objects/as _inserted"
 msgstr "/เรียงวัตถุ/ตามที่ลำดับการแ_ทรก"
 
 #: ../app/diagram_tree_menu.c:54
@@ -566,8 +566,8 @@ msgstr "/_คุณสมบัติ"
 msgid "/_Hide this type"
 msgstr "/_ซ่อนประเภทนี้"
 
-#: ../app/diagram_tree_window.c:80
-msgid "Diagram tree"
+#: ../app/diagram_tree_window.c:80 ../app/preferences.c:110
+msgid "Diagram Tree"
 msgstr ""
 
 #: ../app/diagram.c:221
@@ -583,7 +583,7 @@ msgstr "ผิดพลาด"
 msgid "Ok"
 msgstr "ตกลง"
 
-#: ../app/dialogs.c:52 ../app/paginate_psprint.c:314
+#: ../app/dialogs.c:52 ../app/paginate_psprint.c:320
 msgid "Cancel"
 msgstr "ยกเลิก"
 
@@ -707,15 +707,15 @@ msgstr "ปิดแผนภูมิ"
 msgid "_Discard Changes"
 msgstr "_ละทิ้งสิ่งที่เปลี่ยนไป"
 
-#: ../app/export_png.c:136 ../app/load_save.c:918 ../app/render_eps.c:103
+#: ../app/export_png.c:136 ../app/load_save.c:951 ../app/render_eps.c:103
 #: ../plug-ins/cairo/diacairo.c:976 ../plug-ins/cgm/cgm.c:1151
 #: ../plug-ins/dxf/dxf-export.c:484 ../plug-ins/hpgl/hpgl.c:708
-#: ../plug-ins/metapost/render_metapost.c:1106
+#: ../plug-ins/metapost/render_metapost.c:1145
 #: ../plug-ins/pgf/render_pgf.c:1143
 #: ../plug-ins/pstricks/render_pstricks.c:914
 #: ../plug-ins/shape/shape-export.c:134 ../plug-ins/svg/render_svg.c:150
-#: ../plug-ins/wpg/wpg.c:1070 ../plug-ins/xfig/xfig-export.c:1136
-#: ../plug-ins/xslt/xslt.c:93
+#: ../plug-ins/vdx/vdx-export.c:1848 ../plug-ins/wpg/wpg.c:1070
+#: ../plug-ins/xfig/xfig-export.c:1136 ../plug-ins/xslt/xslt.c:93
 #, c-format
 msgid "Can't open output file %s: %s\n"
 msgstr "ไม่สามารถเปิดแฟ้มข้อมูลออก %s: %s\n"
@@ -780,7 +780,7 @@ msgstr "ทุกแฟ้ม"
 msgid "Supported Formats"
 msgstr "ประเภทที่รองรับ"
 
-#: ../app/filedlg.c:307
+#: ../app/filedlg.c:307 ../app/paginate_psprint.c:406
 msgid ""
 "Some characters in the filename are neither UTF-8\n"
 "nor your local encoding.\n"
@@ -790,11 +790,11 @@ msgstr ""
 "และรหัสอักขระท้องถิ่นของคุณ\n"
 "จะมีบางอย่างเสียหาย"
 
-#: ../app/filedlg.c:317 ../app/filedlg.c:559
+#: ../app/filedlg.c:317 ../app/filedlg.c:559 ../app/paginate_psprint.c:421
 msgid "File already exists"
 msgstr "มีแฟ้มนี้อยู่แล้ว"
 
-#: ../app/filedlg.c:319 ../app/filedlg.c:561
+#: ../app/filedlg.c:319 ../app/filedlg.c:561 ../app/paginate_psprint.c:413
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
@@ -821,7 +821,6 @@ msgstr ""
 "การบีบอัดทำให้ขนาดแฟ้มลดลงเหลือน้อยกว่า 1 ใน 10 และทำให้โหลดและบันทึกข้อมูลได้เร็วขึ้น "
 "แต่โปรแกรมจัดการข้อความบางโปรแกรมจะไม่สามารถใช้งานแฟ้มที่ถูกบีบอัดได้"
 
-
 #: ../app/filedlg.c:584
 #, c-format
 msgid ""
@@ -838,19 +837,21 @@ msgid "Export Options"
 msgstr "นำตัวเลือกออก"
 
 #: ../app/interface.c:57
-msgid "Modify object(s)"
-msgstr "แก้ไขวัตถุ"
+msgid ""
+"Modify object(s)\n"
+"Use <Space> to toggle between this and other tools"
+msgstr ""
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Magnify
-#: ../app/interface.c:62 ../app/menus.c:187 ../objects/FS/function.c:986
+#: ../app/interface.c:63 ../app/menus.c:187 ../objects/FS/function.c:986
 msgid "Magnify"
 msgstr "ขยาย"
 
-#: ../app/interface.c:67
+#: ../app/interface.c:69
 msgid "Scroll around the diagram"
 msgstr "เลื่อนไปตามแผนภูมิ"
 
-#: ../app/interface.c:72 ../app/menus.c:189 ../lib/properties.c:79
+#: ../app/interface.c:75 ../app/menus.c:189 ../lib/properties.c:79
 #: ../lib/properties.h:520 ../objects/AADL/aadlbox.c:144
 #: ../objects/Jackson/requirement.c:142 ../objects/UML/activity.c:127
 #: ../objects/UML/actor.c:122 ../objects/UML/classicon.c:144
@@ -863,93 +864,93 @@ msgstr "เลื่อนไปตามแผนภูมิ"
 msgid "Text"
 msgstr "ตัวอักษร"
 
-#: ../app/interface.c:77 ../app/menus.c:190
+#: ../app/interface.c:81 ../app/menus.c:190
 msgid "Box"
 msgstr "กล่อง"
 
-#: ../app/interface.c:82 ../app/menus.c:191
+#: ../app/interface.c:87 ../app/menus.c:191
 msgid "Ellipse"
 msgstr "วงรี"
 
-#: ../app/interface.c:87 ../app/menus.c:192
+#: ../app/interface.c:93 ../app/menus.c:192
 msgid "Polygon"
 msgstr "รูปเหลี่ยม"
 
-#: ../app/interface.c:92 ../app/menus.c:193
+#: ../app/interface.c:99 ../app/menus.c:193
 msgid "Beziergon"
 msgstr "รูปโค้ง"
 
-#: ../app/interface.c:97 ../app/menus.c:195 ../objects/standard/line.c:225
+#: ../app/interface.c:105 ../app/menus.c:195 ../objects/standard/line.c:225
 msgid "Line"
 msgstr "เส้น"
 
-#: ../app/interface.c:102 ../app/menus.c:196
+#: ../app/interface.c:111 ../app/menus.c:196
 msgid "Arc"
 msgstr "โค้ง"
 
-#: ../app/interface.c:107 ../app/menus.c:197
+#: ../app/interface.c:117 ../app/menus.c:197
 msgid "Zigzagline"
 msgstr "ฟันปลา"
 
-#: ../app/interface.c:112 ../app/menus.c:198
+#: ../app/interface.c:123 ../app/menus.c:198
 msgid "Polyline"
 msgstr "เส้นเหลี่ยม"
 
-#: ../app/interface.c:117 ../app/menus.c:199
+#: ../app/interface.c:129 ../app/menus.c:199
 msgid "Bezierline"
 msgstr "เส้นโค้ง"
 
-#: ../app/interface.c:122 ../app/menus.c:201
+#: ../app/interface.c:135 ../app/menus.c:201
 msgid "Image"
 msgstr "ภาพ"
 
-#: ../app/interface.c:402
+#: ../app/interface.c:413
 msgid "Diagram menu."
 msgstr "เมนูแผนภูมิ"
 
-#: ../app/interface.c:440
+#: ../app/interface.c:451
 msgid "Pops up the Navigation window."
 msgstr "แสดงหน้าต่างใช้งาน"
 
-#: ../app/interface.c:506
+#: ../app/interface.c:517
 msgid "Zoom"
 msgstr "ซูม"
 
-#: ../app/interface.c:521
+#: ../app/interface.c:532
 msgid "Toggles snap-to-grid for this window."
 msgstr "กำหนดใช้การแนบเส้นตะแกรงสำหรับหน่าต่างนี้"
 
-#: ../app/interface.c:532
+#: ../app/interface.c:543
 msgid "Toggles object snapping for this window."
 msgstr "กำหนดให้วัตถุเกาะตารางสำหรับหน้าต่างนี้"
 
-#: ../app/interface.c:597
+#: ../app/interface.c:608
 msgid "NULL tooldata in tool_select_update"
 msgstr ""
 
-#: ../app/interface.c:897
+#: ../app/interface.c:920
 #, c-format
 msgid "No sheet named %s"
 msgstr "ไม่มีแผ่นงานชื่อ %s"
 
-#: ../app/interface.c:934
+#: ../app/interface.c:957
 msgid "Other sheets"
 msgstr "แผ่นงานอื่นๆ"
 
-#: ../app/interface.c:992 ../sheets/Misc.sheet.in.h:3
+#: ../app/interface.c:1015 ../sheets/Misc.sheet.in.h:3
 msgid "Misc"
 msgstr "อื่นๆ"
 
-#: ../app/interface.c:1053
+#: ../app/interface.c:1076
 msgid ""
 "Foreground & background colors for new objects.  The small black and white "
 "squares reset colors.  The small arrows swap colors.  Double click to change "
 "colors."
 msgstr ""
-"สีวาดและสีพื้นหลังสำหรับวัตถุใหม่ สี่เหลี่ยมขาวดำขนาดเล็กใช้เพื่อล้างค่าสี "
-"ลูกศรขนาดเล็กใช้เพื่อสลับสี ดับเบิลคลิกเพื่อเปลี่ยนสี"
+"สีวาดและสีพื้นหลังสำหรับวัตถุใหม่ สี่เหลี่ยมขาวดำขนาดเล็กใช้เพื่อล้างค่าสี ลูกศรขนาดเล็กใช้เพื่อสลับสี "
+"ดับเบิลคลิกเพื่อเปลี่ยนสี"
 
-#: ../app/interface.c:1068
+#: ../app/interface.c:1091
 msgid ""
 "Line widths.  Click on a line to set the default line width for new "
 "objects.  Double-click to set the line width more precisely."
@@ -957,69 +958,68 @@ msgstr ""
 "ความหนาของเส้น คลิกที่เส้นเพื่อกำหนดค่าปริยายของความหนาของเส้นสำหรับวัตถุใหม่ "
 "ดับเบิลคลิกเพื่อกำหนดความหนาของเส้นอย่างละเอียด"
 
-#: ../app/interface.c:1108
+#: ../app/interface.c:1131
 msgid ""
 "Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
 "arrow parameters with Details..."
 msgstr ""
 "รูปแบบของหัวลูกศรที่จุดเริ่มต้นของเส้นใหม่ คลิกเพื่อเลือกหัวลูกศรหรือตั้งค่าพร้อมแสดงรายละเอียด..."
 
-#: ../app/interface.c:1113
+#: ../app/interface.c:1136
 msgid ""
 "Line style for new lines.  Click to pick a line style, or set line style "
 "parameters with Details..."
-msgstr ""
-"รูปแบบของเส้นใหม่ คลิกเพื่อเลือกรูปแบบของเส้นหรือตั้งค่าพร้อมแสดงรายละเอียด..."
+msgstr "รูปแบบของเส้นใหม่ คลิกเพื่อเลือกรูปแบบของเส้นหรือตั้งค่าพร้อมแสดงรายละเอียด..."
 
-#: ../app/interface.c:1127
+#: ../app/interface.c:1150
 msgid ""
 "Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
 "parameters with Details..."
 msgstr ""
 "รูปแบบของหัวลูกศรที่จุดปลายของเส้นใหม่ คลิกเพื่อเลือกหัวลูกศรหรือตั้งค่าพร้อมแสดงรายละเอียด..."
 
-#: ../app/interface.c:1237
+#: ../app/interface.c:1260
 msgid "Diagram Editor"
 msgstr ""
 
-#: ../app/layer_dialog.c:69
+#: ../app/layer_dialog.c:101
 msgid "New Layer"
 msgstr "เลเยอร์ใหม่"
 
-#: ../app/layer_dialog.c:70
+#: ../app/layer_dialog.c:102
 msgid "Raise Layer"
 msgstr "ยกเลเยอร์ขึ้น"
 
-#: ../app/layer_dialog.c:71
+#: ../app/layer_dialog.c:103
 msgid "Lower Layer"
 msgstr "กดเลเยอร์ลง"
 
-#: ../app/layer_dialog.c:72
+#: ../app/layer_dialog.c:104
 msgid "Delete Layer"
 msgstr "ลบเลเยอร์"
 
-#: ../app/layer_dialog.c:193
+#: ../app/layer_dialog.c:225
 msgid "Layers"
 msgstr "เลเยอร์ต่างๆ"
 
-#: ../app/layer_dialog.c:207
+#: ../app/layer_dialog.c:239
 msgid "Diagram:"
 msgstr "แผนภูมิ:"
 
-#: ../app/layer_dialog.c:313
+#: ../app/layer_dialog.c:349
 #, c-format
 msgid "New layer %d"
 msgstr "เลเยอร์ใหม่ %d"
 
-#: ../app/layer_dialog.c:525
+#: ../app/layer_dialog.c:561
 msgid "none"
 msgstr "ไม่มี"
 
-#: ../app/layer_dialog.c:973
+#: ../app/layer_dialog.c:983
 msgid "Edit Layer Attributes"
 msgstr "แก้ไขคุณลักษณะเลเยอร์"
 
-#: ../app/layer_dialog.c:992
+#: ../app/layer_dialog.c:1002
 msgid "Layer name:"
 msgstr "ชื่อเลเยอร์:"
 
@@ -1033,7 +1033,7 @@ msgstr "ความหนาของเส้น"
 msgid "Line width:"
 msgstr "ความหนาของเส้น:"
 
-#: ../app/load_save.c:261
+#: ../app/load_save.c:268
 msgid ""
 "Error loading diagram.\n"
 "Linked object not found in document."
@@ -1041,7 +1041,7 @@ msgstr ""
 "การโหลดแผนภูมิผิดพลาด\n"
 "ไม่พบวัตถุที่ถูกเชื่อมโยงไว้ในเอกสาร"
 
-#: ../app/load_save.c:264
+#: ../app/load_save.c:271
 msgid ""
 "Error loading diagram.\n"
 "connection handle does not exist."
@@ -1049,7 +1049,7 @@ msgstr ""
 "การโหลดแผนภูมิผิดพลาด\n"
 "ไม่พบสิ่งรองรับการเชื่อมต่อ"
 
-#: ../app/load_save.c:281
+#: ../app/load_save.c:288
 #, c-format
 msgid ""
 "Error loading diagram.\n"
@@ -1058,23 +1058,23 @@ msgstr ""
 "การโหลดแผนภูมิผิดพลาด\n"
 "ไม่พบจุดเชื่อมต่อ %s"
 
-#: ../app/load_save.c:306
+#: ../app/load_save.c:313
 #, c-format
 msgid "Can't find parent %s of %s object\n"
 msgstr ""
 
-#: ../app/load_save.c:352
+#: ../app/load_save.c:359
 msgid "You must specify a file, not a directory.\n"
 msgstr "คุณต้องระบุแฟ้ม ไม่ใช่ไดเรกทอรี\n"
 
-#: ../app/load_save.c:359 ../plug-ins/dxf/dxf-import.c:1306
+#: ../app/load_save.c:366 ../plug-ins/dxf/dxf-import.c:1306
 #: ../plug-ins/wpg/wpg.c:1175 ../plug-ins/xfig/xfig-import.c:1258
 #: ../plug-ins/xslt/xslt.c:85
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "ไม่สามารถเปิด '%s' เพื่ออ่านข้อมูล\n"
 
-#: ../app/load_save.c:377 ../app/load_save.c:383
+#: ../app/load_save.c:384 ../app/load_save.c:390
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -1083,7 +1083,7 @@ msgstr ""
 "โหลดแผนภูมิ %s ผิดพลาด\n"
 "ไม่รู้จักประเภทแฟ้ม"
 
-#: ../app/load_save.c:391
+#: ../app/load_save.c:398
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -1092,7 +1092,7 @@ msgstr ""
 "โหลดแผนภูมิ %s ผิดพลาด\n"
 "ไม่ใช่แฟ้มรูปแบบ Dia"
 
-#: ../app/load_save.c:597
+#: ../app/load_save.c:604
 #, c-format
 msgid ""
 "Error loading diagram:\n"
@@ -1103,12 +1103,29 @@ msgstr ""
 "%s\n"
 "แฟ้มประเภท Dia ที่ถูกต้อง จะต้องมีอย่างน้อยหนึ่งเลเยอร์"
 
-#: ../app/load_save.c:952
+#: ../app/load_save.c:912
 #, c-format
-msgid "Failed to save file '%s'.\n"
-msgstr "บันทึกแฟ้ม '%s' ไม่สำเร็จ\n"
+msgid "No allowed to write to output file %s\n"
+msgstr ""
 
-#: ../app/load_save.c:1026 ../app/load_save.c:1031
+#: ../app/load_save.c:934
+#, c-format
+msgid "No allowed to write temporary files in %s\n"
+msgstr ""
+
+#. Save failed; we clean our stuff up, without touching the file named
+#. "filename" if it existed.
+#: ../app/load_save.c:962
+#, fuzzy, c-format
+msgid "Internal error %d writing file %s\n"
+msgstr "%s ผิดพลาด: ต้องการแฟ้มข้อมูลเข้า %s ที่มีลักษณะตรงตามรูปแบบ\n"
+
+#: ../app/load_save.c:976
+#, fuzzy, c-format
+msgid "Can't rename %s to final output file %s: %s\n"
+msgstr "ไม่สามารถเปิดแฟ้มข้อมูลออก %s: %s\n"
+
+#: ../app/load_save.c:1064 ../app/load_save.c:1069
 msgid "Dia Diagram File"
 msgstr "แฟ้มแผนภูมิ Dia"
 
@@ -1313,7 +1330,7 @@ msgstr "_เลือก"
 msgid "All"
 msgstr "ทั้งหมด"
 
-#: ../app/menus.c:164 ../lib/arrows.c:40 ../objects/Jackson/domain.c:96
+#: ../app/menus.c:164 ../lib/arrows.c:43 ../objects/Jackson/domain.c:96
 #: ../objects/UML/association.c:1183
 msgid "None"
 msgstr "ไม่มี"
@@ -1367,95 +1384,103 @@ msgstr "เลื่อน"
 msgid "Fullscr_een"
 msgstr "เต็มหน้า_จอ"
 
-#: ../app/menus.c:213
+#. we must have all actions registered to avoid configuration specific ui-files and crashing in GTK+,
+#. * see: http://bugzilla.gnome.org/show_bug.cgi?id=396161
+#.
+#: ../app/menus.c:213 ../app/menus.c:218
 msgid "_AntiAliased"
 msgstr "_ลดรอยหยัก"
 
-#: ../app/menus.c:215
+#: ../app/menus.c:220
 msgid "Show _Grid"
 msgstr "แสดง_ตะแกรง"
 
-#: ../app/menus.c:216
+#: ../app/menus.c:221
 msgid "_Snap To Grid"
 msgstr "_แนบกับตะแกรง"
 
-#: ../app/menus.c:217
+#: ../app/menus.c:222
 msgid "Snap To _Objects"
 msgstr "แนบกับ_วัตถุ"
 
-#: ../app/menus.c:218
+#: ../app/menus.c:223
 msgid "Show _Rulers"
 msgstr "แสดง_ไม้บรรทัด"
 
-#: ../app/menus.c:219
+#: ../app/menus.c:224
 msgid "Show _Connection Points"
 msgstr "แสดงจุด_เชื่อมต่อ"
 
-#: ../app/menus.c:225
+#: ../app/menus.c:230
 msgid "Replace"
 msgstr "แทนที่"
 
-#: ../app/menus.c:226
+#: ../app/menus.c:231
 msgid "Union"
 msgstr "รวมกัน"
 
-#: ../app/menus.c:227
+#: ../app/menus.c:232
 msgid "Intersection"
 msgstr "ตัดกัน"
 
 #. Translators: Menu item Verb/Channel/Export/Remove
 #. Translators: Menu item Verb/Branch/Separate/Remove
 #. Translators: Menu item Verb/Branch/Separate/Remove/Remove
-#: ../app/menus.c:228 ../app/sheets_dialog.c:785 ../objects/FS/function.c:706
+#: ../app/menus.c:233 ../app/sheets_dialog.c:785 ../objects/FS/function.c:706
 #: ../objects/FS/function.c:858 ../objects/FS/function.c:860
 msgid "Remove"
 msgstr "เอาออก"
 
 #. Cannot also be called Invert, duplicate names caused keybinding problems
-#: ../app/menus.c:230
+#: ../app/menus.c:235
 msgid "Inverse"
 msgstr "กลับด้าน"
 
-#: ../app/menus.c:257
+#: ../app/menus.c:278
 msgid "NULL tooldata in tool_menu_select"
 msgstr ""
 
-#: ../app/modify_tool.c:343
+#: ../app/modify_tool.c:344
 msgid "Couldn't get GTK settings"
 msgstr "ไม่พบค่าตั้งของ GTK"
 
-#: ../app/paginate_psprint.c:265
+#: ../app/newgroup.c:117
+#, fuzzy
+msgid "Open group"
+msgstr "โค้งเปิด"
+
+#: ../app/paginate_psprint.c:271
 msgid "Select Printer"
 msgstr "เลือกเครื่องพิมพ์"
 
-#: ../app/paginate_psprint.c:277 ../sheets/ciscocomputer.sheet.in.h:36
+#: ../app/paginate_psprint.c:283 ../sheets/ciscocomputer.sheet.in.h:36
 msgid "Printer"
 msgstr "เครื่องพิมพ์"
 
-#: ../app/paginate_psprint.c:291 ../sheets/Misc.sheet.in.h:1
+#: ../app/paginate_psprint.c:297 ../sheets/Misc.sheet.in.h:1
 msgid "File"
 msgstr "แฟ้ม"
 
-#: ../app/paginate_psprint.c:306
+#: ../app/paginate_psprint.c:312
 msgid "OK"
 msgstr "ตกลง"
 
-#: ../app/paginate_psprint.c:401
+#: ../app/paginate_psprint.c:458
 #, c-format
 msgid "Could not run command '%s': %s"
 msgstr "ไม่สามารถใช้คำสั่ง '%s': %s"
 
-#: ../app/paginate_psprint.c:404
+#: ../app/paginate_psprint.c:461
 #, c-format
 msgid "Could not open '%s' for writing: %s"
 msgstr "ไม่สามารถเปิด '%s' เพื่อเขียน: %s"
 
-#: ../app/paginate_psprint.c:421
+#: ../app/paginate_psprint.c:481
 #, c-format
 msgid "Printing error: command '%s' returned %d\n"
 msgstr "การพิมพ์ผิดพลาด: คำสั่ง '%s' ส่งค่า %d กลับมา\n"
 
-#: ../app/paginate_psprint.c:432
+#: ../app/paginate_psprint.c:492
 #, c-format
 msgid "Printing error: command '%s' caused sigpipe."
 msgstr "การพิมพ์ผิดพลาด: คำสั่ง '%s' ทำให้เกิด sigpipe"
@@ -1468,7 +1493,7 @@ msgstr "ปลั๊กอินต่างๆ"
 msgid "Loaded"
 msgstr "โหลดแล้ว"
 
-#: ../app/plugin-manager.c:262 ../objects/UML/class.c:140
+#: ../app/plugin-manager.c:262 ../objects/UML/class.c:139
 #: ../objects/UML/large_package.c:131 ../objects/UML/umlattribute.c:37
 #: ../objects/UML/umlformalparameter.c:35 ../objects/UML/umloperation.c:62
 #: ../objects/UML/umlparameter.c:43
@@ -1498,10 +1523,6 @@ msgstr "ค่าปริยายสำหรับแผนภูมิ"
 #: ../app/preferences.c:108
 msgid "View Defaults"
 msgstr "ดูค่าปริยาย"
-
-#: ../app/preferences.c:110
-msgid "Diagram Tree"
-msgstr ""
 
 #: ../app/preferences.c:124
 msgid "Reset tools after create"
@@ -1913,156 +1934,177 @@ msgstr "กำลังโหลด..."
 msgid "Dia v %s"
 msgstr ""
 
-#: ../dia.desktop.in.h:1
+#: ../dia.desktop.in.in.h:1
 msgid "Dia Diagram Editor"
 msgstr ""
 
-#: ../dia.desktop.in.h:2
+#: ../dia.desktop.in.in.h:2
 msgid "Edit your Diagrams"
 msgstr "แก้ไขแผนภูมิของคุณ"
 
-#: ../lib/arrows.c:41
+#: ../lib/arrows.c:44
 msgid "Lines"
 msgstr "เส้น"
 
-#: ../lib/arrows.c:42
+#: ../lib/arrows.c:45
 msgid "Hollow Triangle"
 msgstr "สามเหลี่ยมกลวง"
 
-#: ../lib/arrows.c:43
+#: ../lib/arrows.c:46
 msgid "Filled Triangle"
 msgstr "สามเหลี่ยมเติมสี"
 
-#: ../lib/arrows.c:44
+#: ../lib/arrows.c:47
 msgid "Unfilled Triangle"
 msgstr "สามเหลี่ยมไม่เติมสี"
 
-#: ../lib/arrows.c:45
+#: ../lib/arrows.c:48
 msgid "Hollow Diamond"
 msgstr "ข้าวหลามตัดกลวง"
 
-#: ../lib/arrows.c:46
+#: ../lib/arrows.c:49
 msgid "Filled Diamond"
 msgstr "ข้าวหลามตัดเติมสี"
 
-#: ../lib/arrows.c:47
+#: ../lib/arrows.c:50
 msgid "Half Diamond"
 msgstr "ข้าวหลามตัดครึ่งท่อน"
 
-#: ../lib/arrows.c:48
+#: ../lib/arrows.c:51
 msgid "Half Head"
 msgstr "หัวครึ่งเดียว"
 
-#: ../lib/arrows.c:49
+#: ../lib/arrows.c:52
 msgid "Slashed Cross"
 msgstr ""
 
-#: ../lib/arrows.c:50
+#: ../lib/arrows.c:53
 msgid "Filled Ellipse"
 msgstr "วงรีเติมสี"
 
-#: ../lib/arrows.c:51
+#: ../lib/arrows.c:54
 msgid "Hollow Ellipse"
 msgstr "วงรีกลวง"
 
-#: ../lib/arrows.c:52
+#: ../lib/arrows.c:55
 msgid "Filled Dot"
 msgstr "จุดเติมสี"
 
-#: ../lib/arrows.c:53
+#: ../lib/arrows.c:56
 msgid "Dimension Origin"
 msgstr ""
 
-#: ../lib/arrows.c:54
+#: ../lib/arrows.c:57
 msgid "Blanked Dot"
 msgstr ""
 
-#: ../lib/arrows.c:55
+#: ../lib/arrows.c:58
 msgid "Double Hollow Triangle"
 msgstr ""
 
-#: ../lib/arrows.c:56
+#: ../lib/arrows.c:59
 msgid "Double Filled Triangle"
 msgstr "สามเหลี่ยมกลวงคู่"
 
-#: ../lib/arrows.c:57
+#: ../lib/arrows.c:60
 msgid "Filled Dot and Triangle"
 msgstr "จุดเติมสีและสามเหลี่ยม"
 
-#: ../lib/arrows.c:58
+#: ../lib/arrows.c:61
 msgid "Filled Box"
 msgstr "กล่องเติมสี"
 
-#: ../lib/arrows.c:59
+#: ../lib/arrows.c:62
 msgid "Blanked Box"
 msgstr "กล่องเปล่า"
 
-#: ../lib/arrows.c:60
+#: ../lib/arrows.c:63
 msgid "Slashed"
 msgstr ""
 
-#: ../lib/arrows.c:61
+#: ../lib/arrows.c:64
 msgid "Integral Symbol"
 msgstr ""
 
-#: ../lib/arrows.c:62
+#: ../lib/arrows.c:65
 msgid "Crow Foot"
 msgstr "ตีนกา"
 
-#: ../lib/arrows.c:63
+#: ../lib/arrows.c:66
 msgid "Cross"
 msgstr "กางเขน"
 
-#: ../lib/arrows.c:64
+#: ../lib/arrows.c:67
 msgid "1-or-many"
 msgstr ""
 
-#: ../lib/arrows.c:65
+#: ../lib/arrows.c:68
 msgid "0-or-many"
 msgstr ""
 
-#: ../lib/arrows.c:66
+#: ../lib/arrows.c:69
 msgid "1-or-0"
 msgstr ""
 
-#: ../lib/arrows.c:67
+#: ../lib/arrows.c:70
 msgid "1 exactly"
 msgstr ""
 
-#: ../lib/arrows.c:68
+#: ../lib/arrows.c:71
 msgid "Filled Concave"
 msgstr ""
 
-#: ../lib/arrows.c:69
+#: ../lib/arrows.c:72
 msgid "Blanked Concave"
 msgstr ""
 
-#: ../lib/arrows.c:70
+#: ../lib/arrows.c:73
 msgid "Round"
 msgstr "โค้ง"
 
-#: ../lib/arrows.c:71
+#: ../lib/arrows.c:74
 msgid "Open Round"
 msgstr "โค้งเปิด"
 
-#: ../lib/arrows.c:72
+#: ../lib/arrows.c:75
 msgid "Backslash"
 msgstr ""
 
-#: ../lib/arrows.c:73
+#: ../lib/arrows.c:76
 msgid "Infinite Line"
 msgstr ""
+
+#: ../lib/arrows.c:1892
+msgid "Arrow head of unknown type"
+msgstr ""
+
+#: ../lib/arrows.c:1900
+#, c-format
+msgid "Arrow head of type %s has too small dimensions, removing.\n"
+msgstr ""
+
+#: ../lib/arrows.c:2021
+#, fuzzy
+msgid "unknown arrow"
+msgstr "ท้ายลูกศร"
 
 #: ../lib/bezier_conn.c:636
 msgid "Internal error: Setting corner type of endpoint of bezier"
 msgstr ""
 
-#: ../lib/dia_dirs.c:237
+#: ../lib/create.c:50 ../lib/create.c:100 ../lib/create.c:127
+#: ../lib/create.c:161 ../lib/create.c:197 ../lib/create.c:224
+#: ../lib/create.c:260 ../lib/create.c:295 ../lib/create.c:335
+#: ../plug-ins/svg/svg-import.c:204 ../plug-ins/vdx/vdx-import.c:140
+msgid "Can't find standard object"
+msgstr ""
+
+#: ../lib/dia_dirs.c:238
 #, c-format
 msgid "%s<illegal characters>..."
 msgstr "%s<อักขระผิดรูปแบบ>..."
 
-#: ../lib/dia_dirs.c:268
+#: ../lib/dia_dirs.c:269
 #, c-format
 msgid "Too many ..'s in filename %s\n"
 msgstr ""
@@ -2103,7 +2145,6 @@ msgid ""
 msgstr ""
 "รหัสอักขระท้องถิ่นของคุณเป็น UTF-8 คุณจะพบปัญหากับ libxml1 และการรองรับแฟ้มที่สร้างจาก Dia "
 "รุ่นก่อน กรุณาแจ้ง dia-list@gnome.org ถ้าคุณพบข้อความนี้"
-
 
 #: ../lib/diaarrowchooser.c:322
 msgid "Arrow Properties"
@@ -2156,7 +2197,7 @@ msgstr "_ตัวอย่าง:"
 msgid "Font Selection"
 msgstr "การเลือกแบบอักษร"
 
-#: ../lib/dialibartrenderer.c:293
+#: ../lib/dialibartrenderer.c:295
 msgid "gdk_renderer: Unsupported fill mode specified!\n"
 msgstr ""
 
@@ -2169,7 +2210,7 @@ msgstr "คุณสมบัติของรูปแบบเส้น"
 msgid "Multiple export filters with unique name %s"
 msgstr ""
 
-#: ../lib/font.c:100
+#: ../lib/font.c:102
 #, c-format
 msgid "Can't load font %s.\n"
 msgstr "ไม่สามารถโหลดแบบอักษร %s\n"
@@ -2300,7 +2341,7 @@ msgstr "การเรียงอักษร"
 #. all this just to make the defaults selectable ...
 #: ../lib/properties.c:81 ../lib/properties.h:531
 #: ../objects/GRAFCET/condition.c:132 ../objects/GRAFCET/step.c:165
-#: ../objects/GRAFCET/transition.c:142 ../objects/UML/class.c:170
+#: ../objects/GRAFCET/transition.c:142 ../objects/UML/class.c:169
 #: ../objects/UML/class_dialog.c:394 ../objects/chronogram/chronoline.c:183
 #: ../objects/chronogram/chronoref.c:164
 msgid "Font"
@@ -2500,7 +2541,7 @@ msgstr ""
 msgid "Total:"
 msgstr ""
 
-#: ../objects/ER/participation.c:406 ../objects/FS/flow-ortho.c:645
+#: ../objects/ER/participation.c:406 ../objects/FS/flow-ortho.c:639
 #: ../objects/GRAFCET/vector.c:312 ../objects/SADT/arrow.c:457
 #: ../objects/UML/association.c:769 ../objects/UML/component_feature.c:184
 #: ../objects/UML/dependency.c:374 ../objects/UML/generalization.c:370
@@ -2509,7 +2550,7 @@ msgstr ""
 msgid "Add segment"
 msgstr ""
 
-#: ../objects/ER/participation.c:407 ../objects/FS/flow-ortho.c:646
+#: ../objects/ER/participation.c:407 ../objects/FS/flow-ortho.c:640
 #: ../objects/GRAFCET/vector.c:313 ../objects/SADT/arrow.c:458
 #: ../objects/UML/association.c:770 ../objects/UML/component_feature.c:185
 #: ../objects/UML/dependency.c:375 ../objects/UML/generalization.c:371
@@ -2539,14 +2580,14 @@ msgid "Relationship"
 msgstr ""
 
 #. Translators: Menu item Noun/Energy
-#: ../objects/FS/flow-ortho.c:160 ../objects/FS/flow-ortho.c:642
+#: ../objects/FS/flow-ortho.c:160 ../objects/FS/flow-ortho.c:636
 #: ../objects/FS/flow.c:137 ../objects/FS/flow.c:580
 #: ../objects/FS/function.c:1096
 msgid "Energy"
 msgstr ""
 
 #. Translators: Menu item Noun/Material
-#: ../objects/FS/flow-ortho.c:161 ../objects/FS/flow-ortho.c:643
+#: ../objects/FS/flow-ortho.c:161 ../objects/FS/flow-ortho.c:637
 #: ../objects/FS/flow.c:138 ../objects/FS/flow.c:581
 #: ../objects/FS/function.c:1072
 msgid "Material"
@@ -2556,7 +2597,7 @@ msgstr ""
 #. Translators: Menu item Verb/Signal/Signal
 #. Translators: Menu item Noun/Signal
 #. Translators: Menu item Noun/Signal/Signal
-#: ../objects/FS/flow-ortho.c:162 ../objects/FS/flow-ortho.c:644
+#: ../objects/FS/flow-ortho.c:162 ../objects/FS/flow-ortho.c:638
 #: ../objects/FS/flow.c:139 ../objects/FS/flow.c:582
 #: ../objects/FS/function.c:1034 ../objects/FS/function.c:1036
 #: ../objects/FS/function.c:1172 ../objects/FS/function.c:1174
@@ -3725,7 +3766,7 @@ msgstr ""
 
 #: ../objects/GRAFCET/vergent.c:405 ../objects/Istar/other.c:469
 #: ../objects/Jackson/domain.c:531 ../objects/KAOS/goal.c:572
-#: ../objects/KAOS/other.c:525 ../objects/SADT/box.c:445
+#: ../objects/KAOS/other.c:525 ../objects/SADT/box.c:447
 #: ../objects/standard/line.c:219
 msgid "Add connection point"
 msgstr ""
@@ -3791,13 +3832,13 @@ msgstr ""
 msgid "Resource"
 msgstr ""
 
-#: ../objects/Istar/other.c:74
+#: ../objects/Istar/other.c:74 ../sheets/BPMN.sheet.in.h:43
 msgid "Task"
 msgstr ""
 
 #: ../objects/Istar/other.c:470 ../objects/Jackson/domain.c:532
 #: ../objects/KAOS/goal.c:573 ../objects/KAOS/other.c:526
-#: ../objects/SADT/box.c:446 ../objects/standard/line.c:220
+#: ../objects/SADT/box.c:448 ../objects/standard/line.c:220
 msgid "Delete connection point"
 msgstr ""
 
@@ -3962,7 +4003,7 @@ msgid "Miscellaneous objects"
 msgstr ""
 
 #. property rows
-#: ../objects/SADT/arrow.c:134 ../objects/UML/class.c:175
+#: ../objects/SADT/arrow.c:134 ../objects/UML/class.c:174
 #: ../objects/UML/class_dialog.c:400
 msgid "Normal"
 msgstr ""
@@ -4015,7 +4056,7 @@ msgstr ""
 msgid "The identifier which appears in the lower right corner of the Box"
 msgstr ""
 
-#: ../objects/SADT/box.c:451
+#: ../objects/SADT/box.c:453
 msgid "SADT box"
 msgstr ""
 
@@ -4023,7 +4064,7 @@ msgstr ""
 msgid "SADT diagram objects"
 msgstr ""
 
-#: ../objects/UML/actor.c:375 ../objects/UML/actor.c:377
+#: ../objects/UML/actor.c:349 ../objects/UML/actor.c:351
 #: ../sheets/UML.sheet.in.h:2
 msgid "Actor"
 msgstr ""
@@ -4096,102 +4137,102 @@ msgstr ""
 msgid "Composition"
 msgstr ""
 
-#: ../objects/UML/class.c:138 ../objects/UML/class.c:309
-#: ../objects/UML/class.c:1708 ../sheets/UML.sheet.in.h:6
+#: ../objects/UML/class.c:137 ../objects/UML/class.c:308
+#: ../objects/UML/class.c:1703 ../sheets/UML.sheet.in.h:6
 msgid "Class"
 msgstr ""
 
-#: ../objects/UML/class.c:142 ../objects/UML/classicon.c:138
+#: ../objects/UML/class.c:141 ../objects/UML/classicon.c:138
 #: ../objects/UML/component.c:124 ../objects/UML/large_package.c:129
 #: ../objects/UML/object.c:150 ../objects/UML/small_package.c:124
 #: ../objects/UML/umloperation.c:68
 msgid "Stereotype"
 msgstr ""
 
-#: ../objects/UML/class.c:144 ../objects/UML/class.c:185
+#: ../objects/UML/class.c:143 ../objects/UML/class.c:184
 #: ../objects/UML/class_dialog.c:425 ../objects/UML/umlattribute.c:43
 #: ../objects/UML/umloperation.c:66 ../objects/UML/umlparameter.c:49
 #: ../sheets/SDL.sheet.in.h:3
 msgid "Comment"
 msgstr ""
 
-#: ../objects/UML/class.c:146 ../objects/UML/class.c:179
+#: ../objects/UML/class.c:145 ../objects/UML/class.c:178
 #: ../objects/UML/class_dialog.c:324 ../objects/UML/class_dialog.c:410
 #: ../objects/UML/class_dialog.c:2016 ../objects/UML/uml.c:110
 msgid "Abstract"
 msgstr ""
 
-#: ../objects/UML/class.c:148 ../objects/UML/class.c:1705
+#: ../objects/UML/class.c:147 ../objects/UML/class.c:1700
 msgid "Template"
 msgstr ""
 
-#: ../objects/UML/class.c:151 ../objects/UML/class_dialog.c:333
+#: ../objects/UML/class.c:150 ../objects/UML/class_dialog.c:333
 msgid "Suppress Attributes"
 msgstr ""
 
-#: ../objects/UML/class.c:153
+#: ../objects/UML/class.c:152
 msgid "Suppress Operations"
 msgstr ""
 
-#: ../objects/UML/class.c:155
+#: ../objects/UML/class.c:154
 msgid "Visible Attributes"
 msgstr ""
 
-#: ../objects/UML/class.c:157
+#: ../objects/UML/class.c:156
 msgid "Visible Operations"
 msgstr ""
 
-#: ../objects/UML/class.c:159
+#: ../objects/UML/class.c:158
 msgid "Visible Comments"
 msgstr ""
 
-#: ../objects/UML/class.c:161 ../objects/UML/class_dialog.c:349
+#: ../objects/UML/class.c:160 ../objects/UML/class_dialog.c:349
 msgid "Wrap Operations"
 msgstr ""
 
-#: ../objects/UML/class.c:163
+#: ../objects/UML/class.c:162
 msgid "Wrap after char"
 msgstr ""
 
-#: ../objects/UML/class.c:165
+#: ../objects/UML/class.c:164
 msgid "Comment line length"
 msgstr ""
 
-#: ../objects/UML/class.c:167
+#: ../objects/UML/class.c:166
 msgid "Comment tagging"
 msgstr ""
 
-#: ../objects/UML/class.c:177 ../objects/UML/class_dialog.c:405
+#: ../objects/UML/class.c:176 ../objects/UML/class_dialog.c:405
 msgid "Polymorphic"
 msgstr ""
 
-#: ../objects/UML/class.c:181
+#: ../objects/UML/class.c:180
 msgid "Classname"
 msgstr ""
 
-#: ../objects/UML/class.c:183
+#: ../objects/UML/class.c:182
 msgid "Abstract Classname"
 msgstr ""
 
-#: ../objects/UML/class.c:189 ../objects/UML/class.c:191
-#: ../objects/UML/class.c:193 ../objects/UML/class.c:195
-#: ../objects/UML/class.c:197 ../objects/UML/class.c:199
+#: ../objects/UML/class.c:188 ../objects/UML/class.c:190
+#: ../objects/UML/class.c:192 ../objects/UML/class.c:194
+#: ../objects/UML/class.c:196 ../objects/UML/class.c:198
 msgid " "
 msgstr ""
 
-#: ../objects/UML/class.c:205 ../objects/UML/object.c:154
+#: ../objects/UML/class.c:204 ../objects/UML/object.c:154
 msgid "Attributes"
 msgstr ""
 
-#: ../objects/UML/class.c:207
+#: ../objects/UML/class.c:206
 msgid "Operations"
 msgstr ""
 
-#: ../objects/UML/class.c:210
+#: ../objects/UML/class.c:209
 msgid "Template Parameters"
 msgstr ""
 
-#: ../objects/UML/class.c:304
+#: ../objects/UML/class.c:303
 msgid "Show Comments"
 msgstr ""
 
@@ -4749,23 +4790,23 @@ msgstr ""
 msgid "Absolute end gap"
 msgstr ""
 
-#: ../objects/standard/bezier.c:728 ../objects/standard/beziergon.c:482
+#: ../objects/standard/bezier.c:698 ../objects/standard/beziergon.c:482
 msgid "Add Segment"
 msgstr ""
 
-#: ../objects/standard/bezier.c:729 ../objects/standard/beziergon.c:483
+#: ../objects/standard/bezier.c:699 ../objects/standard/beziergon.c:483
 msgid "Delete Segment"
 msgstr ""
 
-#: ../objects/standard/bezier.c:731 ../objects/standard/beziergon.c:485
+#: ../objects/standard/bezier.c:701 ../objects/standard/beziergon.c:485
 msgid "Symmetric control"
 msgstr ""
 
-#: ../objects/standard/bezier.c:733 ../objects/standard/beziergon.c:487
+#: ../objects/standard/bezier.c:703 ../objects/standard/beziergon.c:487
 msgid "Smooth control"
 msgstr ""
 
-#: ../objects/standard/bezier.c:735 ../objects/standard/beziergon.c:489
+#: ../objects/standard/bezier.c:705 ../objects/standard/beziergon.c:489
 msgid "Cusp control"
 msgstr ""
 
@@ -4836,11 +4877,11 @@ msgstr ""
 msgid "End point"
 msgstr ""
 
-#: ../objects/standard/polygon.c:460 ../objects/standard/polyline.c:605
+#: ../objects/standard/polygon.c:460 ../objects/standard/polyline.c:577
 msgid "Add Corner"
 msgstr ""
 
-#: ../objects/standard/polygon.c:461 ../objects/standard/polyline.c:606
+#: ../objects/standard/polygon.c:461 ../objects/standard/polyline.c:578
 msgid "Delete Corner"
 msgstr ""
 
@@ -4974,7 +5015,7 @@ msgstr ""
 msgid "TeX Metapost export filter"
 msgstr ""
 
-#: ../plug-ins/metapost/render_metapost.c:1175
+#: ../plug-ins/metapost/render_metapost.c:1214
 msgid "TeX Metapost macros"
 msgstr ""
 
@@ -5020,11 +5061,11 @@ msgstr ""
 msgid "Python scripting support"
 msgstr ""
 
-#: ../plug-ins/shape/shape-export.c:474
+#: ../plug-ins/shape/shape-export.c:475
 msgid "Can't export png without libart!"
 msgstr ""
 
-#: ../plug-ins/shape/shape-export.c:499
+#: ../plug-ins/shape/shape-export.c:500
 msgid "Dia Shape File"
 msgstr ""
 
@@ -5042,10 +5083,6 @@ msgid ""
 "svg:path data must start with moveto."
 msgstr ""
 
-#: ../plug-ins/svg/svg-import.c:204
-msgid "Can't find standard object"
-msgstr ""
-
 #: ../plug-ins/svg/svg-import.c:637
 msgid "Expected SVG Namespace not found in file"
 msgstr ""
@@ -5059,20 +5096,116 @@ msgstr ""
 msgid "Scalable Vector Graphics import and export filters"
 msgstr ""
 
-#: ../plug-ins/wmf/wmf.cpp:1185
+#: ../plug-ins/vdx/vdx-export.c:1376 ../plug-ins/vdx/vdx-export.c:1385
+#, fuzzy, c-format
+msgid "Couldn't read file %s"
+msgstr "ไม่สามารถแจงแฟ้มรูปร่าง: '%s'"
+
+#: ../plug-ins/vdx/vdx-export.c:1904
+msgid "Visio XML format"
+msgstr ""
+
+#: ../plug-ins/vdx/vdx-import.c:219 ../plug-ins/xfig/xfig-import.c:1034
+#, c-format
+msgid "Couldn't read color: %s\n"
+msgstr ""
+
+#: ../plug-ins/vdx/vdx-import.c:507
+#, fuzzy, c-format
+msgid "Couldn't find shape %d\n"
+msgstr "ไม่พบไดเรกทอรีคู่มือวิธีใช้"
+
+#: ../plug-ins/vdx/vdx-import.c:851
+msgid "MoveTo after start of polyline\n"
+msgstr ""
+
+#: ../plug-ins/vdx/vdx-import.c:864
+#, c-format
+msgid "Unexpected polyline object: %s\n"
+msgstr ""
+
+#: ../plug-ins/vdx/vdx-import.c:956
+#, c-format
+msgid "Unexpected Ellipse object: %s\n"
+msgstr ""
+
+#: ../plug-ins/vdx/vdx-import.c:964
+msgid "Unexpected Ellipse additional objects\n"
+msgstr ""
+
+#: ../plug-ins/vdx/vdx-import.c:974
+msgid "Can't rotate ellipse\n"
+msgstr ""
+
+#: ../plug-ins/vdx/vdx-import.c:1287
+msgid "MoveTo not at start of Bezier\n"
+msgstr ""
+
+#: ../plug-ins/vdx/vdx-import.c:1374
+#, c-format
+msgid "Unexpected Bezier object: %s\n"
+msgstr ""
+
+#: ../plug-ins/vdx/vdx-import.c:1595
+#, c-format
+msgid "Unexpected NURBSTo object: %s\n"
+msgstr ""
+
+#: ../plug-ins/vdx/vdx-import.c:1603
+msgid "Unexpected NURBSTo additional objects\n"
+msgstr ""
+
+#: ../plug-ins/vdx/vdx-import.c:1620
+msgid "Invalid NURBS formula"
+msgstr ""
+
+#: ../plug-ins/vdx/vdx-import.c:1742
+#, fuzzy, c-format
+msgid "Couldn't write file %s"
+msgstr "ไม่สามารถแจงแฟ้มรูปร่าง: '%s'"
+
+#: ../plug-ins/vdx/vdx-import.c:1826 ../plug-ins/vdx/vdx-import.c:1839
+#, c-format
+msgid "Couldn't handle foreign object type %s"
+msgstr ""
+
+#: ../plug-ins/vdx/vdx-import.c:1867
+#, fuzzy, c-format
+msgid "Couldn't make object dir %s"
+msgstr "ไม่สามารถเปิด '%s': %s"
+
+#: ../plug-ins/vdx/vdx-import.c:2723
+msgid "Visio XML File Format"
+msgstr ""
+
+#: ../plug-ins/vdx/vdx-xml.c:3344
+#, fuzzy, c-format
+msgid "Can't decode object %s"
+msgstr "ไม่สามารถโหลดแบบอักษร %s\n"
+
+#: ../plug-ins/vdx/vdx-xml.c:5125
+#, c-format
+msgid "Can't write object %u"
+msgstr ""
+
+#: ../plug-ins/vdx/vdx.c:53
+msgid "Visio XML Format import and export filter"
+msgstr ""
+
+#: ../plug-ins/wmf/wmf.cpp:1186
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
 msgstr ""
 
-#: ../plug-ins/wmf/wmf.cpp:1269
+#: ../plug-ins/wmf/wmf.cpp:1270
 msgid "Windows Meta File"
 msgstr ""
 
-#: ../plug-ins/wmf/wmf.cpp:1278
+#: ../plug-ins/wmf/wmf.cpp:1279
 msgid "Enhanced Meta File"
 msgstr ""
 
-#: ../plug-ins/wmf/wmf.cpp:1294
+#: ../plug-ins/wmf/wmf.cpp:1295
 msgid "WMF export filter"
 msgstr ""
 
@@ -5196,11 +5329,6 @@ msgstr ""
 
 #: ../plug-ins/xfig/xfig-import.c:1015
 msgid "Compound end outside compound\n"
-msgstr ""
-
-#: ../plug-ins/xfig/xfig-import.c:1034
-#, c-format
-msgid "Couldn't read color: %s\n"
 msgstr ""
 
 #: ../plug-ins/xfig/xfig-import.c:1039
@@ -5562,6 +5690,184 @@ msgstr ""
 #: ../sheets/Assorted.sheet.in.h:47
 msgid "Vertical parallelogram"
 msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:1
+msgid "Activity Looping"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:2
+msgid "Ad-Hoc Collapsed Sub-Process"
+msgstr ""
+
+#. For: anthonym
+#: ../sheets/BPMN.sheet.in.h:4
+msgid "BPMN"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:5
+msgid "Business Process Modeling Notation"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:6
+msgid "Collapsed Sub-Process"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:7
+msgid "Compensation Collapsed Sub-Process"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:8
+msgid "Compensation Task"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:9
+#, fuzzy
+msgid "Complex"
+msgstr "ลอกอักษร"
+
+#: ../sheets/BPMN.sheet.in.h:10
+#, fuzzy
+msgid "Data Object"
+msgstr "_วัตถุ"
+
+#: ../sheets/BPMN.sheet.in.h:11
+msgid "End Event"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:12
+msgid "End Event - Cancel"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:13
+msgid "End Event - Compensation"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:14
+msgid "End Event - Error"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:15
+msgid "End Event - Link"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:16
+msgid "End Event - Message"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:17
+msgid "End Event - Multiple"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:18
+msgid "End Event - Terminate"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:19
+msgid "Exclusive (XOR) Data Based"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:20
+msgid "Exclusive (XOR) Event Based"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:21
+msgid "Gateway"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:22
+#, fuzzy
+msgid "Group"
+msgstr "_จัดกลุ่ม"
+
+#: ../sheets/BPMN.sheet.in.h:23
+msgid "Inclusive (OR)"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:24
+msgid "Intermediate Event"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:25
+msgid "Intermediate Event - Cancel"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:26
+msgid "Intermediate Event - Compensation"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:27
+msgid "Intermediate Event - Error"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:28
+msgid "Intermediate Event - Link"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:29
+msgid "Intermediate Event - Message"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:30
+msgid "Intermediate Event - Multiple"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:31
+msgid "Intermediate Event - Rule"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:32
+msgid "Intermediate Event - Timer"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:33
+msgid "Looping Collapsed Sub-Process"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:34
+msgid "Multiple Instance Collapsed Sub-Process"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:35
+msgid "Multiple Instance Task"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:36
+msgid "Parallel (AND)"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:37
+msgid "Start Event"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:38
+msgid "Start Event - Link"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:39
+msgid "Start Event - Message"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:40
+msgid "Start Event - Multiple"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:41
+msgid "Start Event - Rule"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:42
+msgid "Start Event - Timer"
+msgstr ""
+
+#: ../sheets/BPMN.sheet.in.h:44
+#, fuzzy
+msgid "Text Annotation"
+msgstr "แนวกระดาษ"
+
+#: ../sheets/BPMN.sheet.in.h:45
+#, fuzzy
+msgid "Transaction"
+msgstr "เชื่อมถึงกัน"
 
 #: ../sheets/ChemEng.sheet.in.h:1
 msgid "AC Generator"
@@ -6090,14 +6396,6 @@ msgstr ""
 
 #: ../sheets/Cybernetics.sheet.in.h:32
 msgid "Time delay"
-msgstr ""
-
-#: ../sheets/EML.sheet.in.h:1
-msgid "EML"
-msgstr ""
-
-#: ../sheets/EML.sheet.in.h:2
-msgid "Editor for EML Static Structure Diagrams."
 msgstr ""
 
 #: ../sheets/ER.sheet.in.h:2
@@ -8733,3 +9031,9 @@ msgstr ""
 #: ../sheets/sybase.sheet.in.h:8
 msgid "Sybase replication server"
 msgstr ""
+
+#~ msgid "Modify object(s)"
+#~ msgstr "แก้ไขวัตถุ"
+
+#~ msgid "Failed to save file '%s'.\n"
+#~ msgstr "บันทึกแฟ้ม '%s' ไม่สำเร็จ\n"

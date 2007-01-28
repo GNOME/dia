@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-12 18:17+0200\n"
+"POT-Creation-Date: 2007-01-28 12:03+0100\n"
 "PO-Revision-Date: 2007-01-13 20:28+0200\n"
 "Last-Translator: Tommi Vainikainen <Tommi.Vainikainen@iki.fi>\n"
 "Language-Team: Finnish <gnome-fi-laatu@lists.sourceforge.net>\n"
@@ -595,8 +595,8 @@ msgstr "/_Ominaisuudet"
 msgid "/_Hide this type"
 msgstr "/_Piilota tämä tyyppi"
 
-#: ../app/diagram_tree_window.c:80
-msgid "Diagram tree"
+#: ../app/diagram_tree_window.c:80 ../app/preferences.c:110
+msgid "Diagram Tree"
 msgstr "Kaaviopuu"
 
 #: ../app/diagram.c:221
@@ -741,7 +741,7 @@ msgstr "_Hylkää muutokset"
 #: ../app/export_png.c:136 ../app/load_save.c:951 ../app/render_eps.c:103
 #: ../plug-ins/cairo/diacairo.c:976 ../plug-ins/cgm/cgm.c:1151
 #: ../plug-ins/dxf/dxf-export.c:484 ../plug-ins/hpgl/hpgl.c:708
-#: ../plug-ins/metapost/render_metapost.c:1106
+#: ../plug-ins/metapost/render_metapost.c:1145
 #: ../plug-ins/pgf/render_pgf.c:1143
 #: ../plug-ins/pstricks/render_pstricks.c:914
 #: ../plug-ins/shape/shape-export.c:134 ../plug-ins/svg/render_svg.c:150
@@ -1428,56 +1428,59 @@ msgstr "Vieritä"
 msgid "Fullscr_een"
 msgstr "_Kokoruutu"
 
-#: ../app/menus.c:213
+#. we must have all actions registered to avoid configuration specific ui-files and crashing in GTK+,
+#. * see: http://bugzilla.gnome.org/show_bug.cgi?id=396161
+#.
+#: ../app/menus.c:213 ../app/menus.c:218
 msgid "_AntiAliased"
 msgstr "_Antialiasoitu"
 
-#: ../app/menus.c:215
+#: ../app/menus.c:220
 msgid "Show _Grid"
 msgstr "Näytä _ruudukko"
 
-#: ../app/menus.c:216
+#: ../app/menus.c:221
 msgid "_Snap To Grid"
 msgstr "_Kiinnitä ruudukkoon"
 
-#: ../app/menus.c:217
+#: ../app/menus.c:222
 msgid "Snap To _Objects"
 msgstr "_Kiinnitä kohteisiin"
 
-#: ../app/menus.c:218
+#: ../app/menus.c:223
 msgid "Show _Rulers"
 msgstr "Näytä _sarkaimet"
 
-#: ../app/menus.c:219
+#: ../app/menus.c:224
 msgid "Show _Connection Points"
 msgstr "Näytä _liitoskohdat"
 
-#: ../app/menus.c:225
+#: ../app/menus.c:230
 msgid "Replace"
 msgstr "Korvaa"
 
-#: ../app/menus.c:226
+#: ../app/menus.c:231
 msgid "Union"
 msgstr "Liitos"
 
-#: ../app/menus.c:227
+#: ../app/menus.c:232
 msgid "Intersection"
 msgstr "Leikkaus"
 
 #. Translators: Menu item Verb/Channel/Export/Remove
 #. Translators: Menu item Verb/Branch/Separate/Remove
 #. Translators: Menu item Verb/Branch/Separate/Remove/Remove
-#: ../app/menus.c:228 ../app/sheets_dialog.c:785 ../objects/FS/function.c:706
+#: ../app/menus.c:233 ../app/sheets_dialog.c:785 ../objects/FS/function.c:706
 #: ../objects/FS/function.c:858 ../objects/FS/function.c:860
 msgid "Remove"
 msgstr "Poista"
 
 #. Cannot also be called Invert, duplicate names caused keybinding problems
-#: ../app/menus.c:230
+#: ../app/menus.c:235
 msgid "Inverse"
 msgstr "Käännetty"
 
-#: ../app/menus.c:257
+#: ../app/menus.c:278
 msgid "NULL tooldata in tool_menu_select"
 msgstr "TYHJÄ työkalutieto työkalu_valinta_valikossa"
 
@@ -1563,10 +1566,6 @@ msgstr "Kaavion oletukset"
 #: ../app/preferences.c:108
 msgid "View Defaults"
 msgstr "Katso oletusarvoja"
-
-#: ../app/preferences.c:110
-msgid "Diagram Tree"
-msgstr "Kaaviopuu"
 
 #: ../app/preferences.c:124
 msgid "Reset tools after create"
@@ -4185,7 +4184,7 @@ msgid "Composition"
 msgstr "Koostumus"
 
 #: ../objects/UML/class.c:137 ../objects/UML/class.c:308
-#: ../objects/UML/class.c:1685 ../sheets/UML.sheet.in.h:6
+#: ../objects/UML/class.c:1703 ../sheets/UML.sheet.in.h:6
 msgid "Class"
 msgstr "Luokka"
 
@@ -4209,7 +4208,7 @@ msgstr "Kommentti"
 msgid "Abstract"
 msgstr "Abstrakti"
 
-#: ../objects/UML/class.c:147 ../objects/UML/class.c:1682
+#: ../objects/UML/class.c:147 ../objects/UML/class.c:1700
 msgid "Template"
 msgstr "Malli"
 
@@ -5080,7 +5079,7 @@ msgstr "HP Graphics Language -vientisuodatin"
 msgid "TeX Metapost export filter"
 msgstr "TeX Pstricks -vientisuodatin"
 
-#: ../plug-ins/metapost/render_metapost.c:1175
+#: ../plug-ins/metapost/render_metapost.c:1214
 msgid "TeX Metapost macros"
 msgstr "TeX Metapost -makrot"
 
@@ -5175,95 +5174,86 @@ msgstr "Ei voi lukea tiedostoa %s"
 msgid "Visio XML format"
 msgstr "Visio-XML-muoto"
 
-#: ../plug-ins/vdx/vdx-import.c:208 ../plug-ins/xfig/xfig-import.c:1034
+#: ../plug-ins/vdx/vdx-import.c:219 ../plug-ins/xfig/xfig-import.c:1034
 #, c-format
 msgid "Couldn't read color: %s\n"
 msgstr "Ei voi lukea väriä: %s\n"
 
-#: ../plug-ins/vdx/vdx-import.c:491
+#: ../plug-ins/vdx/vdx-import.c:507
 #, c-format
 msgid "Couldn't find shape %d\n"
 msgstr "Muotoa %d ei löytynyt\n"
 
-#: ../plug-ins/vdx/vdx-import.c:761
-#, c-format
-msgid "Unexpected LineTo object: %s\n"
-msgstr "Odottamaton LineTo-objekti: %s\n"
-
-#: ../plug-ins/vdx/vdx-import.c:767
-msgid "Unexpected LineTo additional objects\n"
-msgstr "Lisää odottamattomia LineTo-objekteja\n"
-
-#: ../plug-ins/vdx/vdx-import.c:836
+#: ../plug-ins/vdx/vdx-import.c:851
 msgid "MoveTo after start of polyline\n"
 msgstr ""
 
-#: ../plug-ins/vdx/vdx-import.c:842
+#: ../plug-ins/vdx/vdx-import.c:864
 #, c-format
 msgid "Unexpected polyline object: %s\n"
 msgstr ""
 
-#: ../plug-ins/vdx/vdx-import.c:900
-msgid "MoveTo after start of polygon\n"
-msgstr ""
-
-#: ../plug-ins/vdx/vdx-import.c:906
-#, c-format
-msgid "Unexpected polygon object: %s\n"
-msgstr ""
-
-#: ../plug-ins/vdx/vdx-import.c:961
+#: ../plug-ins/vdx/vdx-import.c:956
 #, c-format
 msgid "Unexpected Ellipse object: %s\n"
 msgstr ""
 
-#: ../plug-ins/vdx/vdx-import.c:967
+#: ../plug-ins/vdx/vdx-import.c:964
 msgid "Unexpected Ellipse additional objects\n"
 msgstr ""
 
-#: ../plug-ins/vdx/vdx-import.c:976
+#: ../plug-ins/vdx/vdx-import.c:974
 msgid "Can't rotate ellipse\n"
 msgstr "Ei voi pyörittää ellipsiä\n"
 
-#: ../plug-ins/vdx/vdx-import.c:1228 ../plug-ins/vdx/vdx-import.c:1322
+#: ../plug-ins/vdx/vdx-import.c:1287
 msgid "MoveTo not at start of Bezier\n"
 msgstr ""
 
-#: ../plug-ins/vdx/vdx-import.c:1272
+#: ../plug-ins/vdx/vdx-import.c:1374
 #, c-format
 msgid "Unexpected Bezier object: %s\n"
 msgstr "Odottamaton Bezier-objekti: %s\n"
 
-#: ../plug-ins/vdx/vdx-import.c:1363
-#, c-format
-msgid "Unexpected Beziergon object: %s\n"
-msgstr "Odottamaton Beziergon-objekti: %s\n"
+#: ../plug-ins/vdx/vdx-import.c:1595
+#, fuzzy, c-format
+msgid "Unexpected NURBSTo object: %s\n"
+msgstr "Odottamaton LineTo-objekti: %s\n"
 
-#: ../plug-ins/vdx/vdx-import.c:1405
+#: ../plug-ins/vdx/vdx-import.c:1603
+#, fuzzy
+msgid "Unexpected NURBSTo additional objects\n"
+msgstr "Lisää odottamattomia LineTo-objekteja\n"
+
+#: ../plug-ins/vdx/vdx-import.c:1620
+msgid "Invalid NURBS formula"
+msgstr ""
+
+#: ../plug-ins/vdx/vdx-import.c:1742
 #, c-format
 msgid "Couldn't write file %s"
 msgstr "Ei voitu kirjoittaa tiedostoa %s"
 
-#: ../plug-ins/vdx/vdx-import.c:1486
+#: ../plug-ins/vdx/vdx-import.c:1826 ../plug-ins/vdx/vdx-import.c:1839
 #, c-format
 msgid "Couldn't handle foreign object type %s"
 msgstr "Ei voitu käsitellä vierasta objektityyppiä %s"
 
-#: ../plug-ins/vdx/vdx-import.c:1513
+#: ../plug-ins/vdx/vdx-import.c:1867
 #, c-format
 msgid "Couldn't make object dir %s"
 msgstr "Ei voitu luoda objektihakemistoa %s"
 
-#: ../plug-ins/vdx/vdx-import.c:2184
+#: ../plug-ins/vdx/vdx-import.c:2723
 msgid "Visio XML File Format"
 msgstr "Visio-XML-tiedostomuoto"
 
-#: ../plug-ins/vdx/vdx-xml.c:3444
+#: ../plug-ins/vdx/vdx-xml.c:3344
 #, c-format
 msgid "Can't decode object %s"
 msgstr "Ei voitu purkaa objektia %s"
 
-#: ../plug-ins/vdx/vdx-xml.c:5291
+#: ../plug-ins/vdx/vdx-xml.c:5125
 #, c-format
 msgid "Can't write object %u"
 msgstr "Ei voitu kirjoittaa objektia %u"
@@ -9116,6 +9106,12 @@ msgstr "Sybase-tietopalvelin"
 #: ../sheets/sybase.sheet.in.h:8
 msgid "Sybase replication server"
 msgstr "Sybase-varmistuspalvelin"
+
+#~ msgid "Diagram tree"
+#~ msgstr "Kaaviopuu"
+
+#~ msgid "Unexpected Beziergon object: %s\n"
+#~ msgstr "Odottamaton Beziergon-objekti: %s\n"
 
 #~ msgid "Modify object(s)"
 #~ msgstr "Muokkaa objektia/objekteja"

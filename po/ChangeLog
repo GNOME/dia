@@ -1,3 +1,11 @@
+2007-01-28  Hans Breuer  <hans@breuer.org>
+
+	* *.po : 'make update-po'; as a result most translations
+	contain more fuzzyness. Especially menu translations need
+	to change because now single verbs without slash need to
+	be translated instead of the former complete menu path.
+	Also removed the executable flag from many .po files.
+
 2007-01-24  Takeshi AIHANA <takeshi.aihana@gmail.com>
 
 	* ja.po: Updated Japanese translation.
