@@ -119,7 +119,7 @@ msgstr "Den Startbildschirm nicht anzeigen"
 
 #: ../app/app_procs.c:699 ../app/app_procs.c:727
 msgid "Don't create empty diagram"
-msgstr ""
+msgstr "Kein leeres Diagramm erzeugen"
 
 #: ../app/app_procs.c:701 ../app/app_procs.c:729
 msgid "Send error messages to stderr instead of showing dialogs."
@@ -189,7 +189,7 @@ msgstr ""
 #. no standard buttons
 #: ../app/app_procs.c:991
 msgid "Quitting without saving modified diagrams"
-msgstr ""
+msgstr "Beenden mit veränderten Diagrammen"
 
 #: ../app/app_procs.c:993
 msgid ""
@@ -354,7 +354,7 @@ msgstr ""
 
 #: ../app/commands.c:637
 msgid "A program for drawing structured diagrams."
-msgstr "Editor für Funktionsstrukturdiagramme"
+msgstr "Zum Zeichnen von strukturierten Diagrammen."
 
 #: ../app/defaults.c:43 ../app/defaults.c:146
 msgid "Object defaults"
@@ -709,7 +709,7 @@ msgstr "<namenlos>"
 #. no standard buttons
 #: ../app/display.c:1136
 msgid "Closing diagram without saving"
-msgstr ""
+msgstr "Diagramm schließen ohne zu speichern"
 
 #: ../app/display.c:1139
 #, c-format
@@ -865,6 +865,8 @@ msgid ""
 "Modify object(s)\n"
 "Use <Space> to toggle between this and other tools"
 msgstr ""
+"Objekte verändern\n"
+"Die <Leertaste> schaltet zwichen diesem und anderen Werkzeugen um"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Magnify
 #: ../app/interface.c:63 ../app/menus.c:187 ../objects/FS/function.c:986
@@ -1136,12 +1138,12 @@ msgstr ""
 #: ../app/load_save.c:912
 #, c-format
 msgid "No allowed to write to output file %s\n"
-msgstr ""
+msgstr "Keine Schreiberlaubnis auf »%s«\n"
 
 #: ../app/load_save.c:934
 #, c-format
 msgid "No allowed to write temporary files in %s\n"
-msgstr ""
+msgstr "Keine Schreiberlaubnis für temporäre Dateien in »%s«\n"
 
 #. Save failed; we clean our stuff up, without touching the file named
 #. "filename" if it existed.
@@ -2108,12 +2110,12 @@ msgstr "Unendliche Linie"
 
 #: ../lib/arrows.c:1892
 msgid "Arrow head of unknown type"
-msgstr ""
+msgstr "Pfeilspitze unbekannten Typs"
 
 #: ../lib/arrows.c:1900
 #, c-format
 msgid "Arrow head of type %s has too small dimensions, removing.\n"
-msgstr ""
+msgstr "Pfeilspize des Typs %s ist zu klein, gelöscht.\n"
 
 #: ../lib/arrows.c:2021
 msgid "unknown arrow"
@@ -4350,7 +4352,7 @@ msgstr "Umbruch nach dieser Länge:"
 
 #: ../objects/UML/class_dialog.c:378
 msgid "Show documenation tag"
-msgstr ""
+msgstr "Zeige Dokumentationsauszeichnung"
 
 #. head line
 #: ../objects/UML/class_dialog.c:391 ../objects/UML/umlparameter.c:51
