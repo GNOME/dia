@@ -50,6 +50,7 @@
 #include "filter.h"
 #include "dia_image.h"
 #include "font.h"
+#include "text.h"
 #include "textline.h"
 
 #define POINTS_in_INCH 28.346
@@ -78,7 +79,7 @@ typedef struct _font_lookup_entry {
 #define DEFAULT_MP_WEIGHT "m"
 #define DEFAULT_MP_SLANT "n"
 
-#define DEFAULT_SIZE_MULT 3.0F
+#define DEFAULT_SIZE_MULT (1.9F)
 
 #define MAX_FONT_NAME_LEN 256
 
@@ -91,14 +92,14 @@ static _font_lookup_entry FONT_LOOKUP_TABLE[] =
     {"century schoolbook l", DEFAULT_MP_FONT, DEFAULT_SIZE_MULT},
 
     /* Sans serif fonts go to phv. */
-    {"arial",       "phv", DEFAULT_SIZE_MULT},
-    {"helvetica",   "phv", DEFAULT_SIZE_MULT},
-    {"sans",        "phv", DEFAULT_SIZE_MULT},
+    {"arial",       "phv", 2.05F},
+    {"helvetica",   "phv", 2.05F},
+    {"sans",        "phv", 2.05F},
 
     /* Monospace fonts map to Computer Modern Typewriter. */
-    {"courier",         "cmtt", DEFAULT_SIZE_MULT},
-    {"courier new",     "cmtt", DEFAULT_SIZE_MULT},
-    {"monospace",       "cmtt", DEFAULT_SIZE_MULT},
+    {"courier",         "cmtt", 2.3F},
+    {"courier new",     "cmtt", 2.3F},
+    {"monospace",       "cmtt", 2.3F},
     {NULL, NULL, 0.0F}
         /* Terminator. */
 };
@@ -207,6 +208,8 @@ static void draw_string(DiaRenderer *self,
 			const char *text,
 			Point *pos, Alignment alignment,
 			Color *color);
+static void draw_text  (DiaRenderer *self,
+			Text *text);
 static void draw_image(DiaRenderer *self,
 		       Point *point,
 		       real width, real height,
@@ -293,6 +296,7 @@ metapost_renderer_class_init (MetapostRendererClass *klass)
   renderer_class->fill_bezier = fill_bezier;
 
   renderer_class->draw_string = draw_string;
+  renderer_class->draw_text = draw_text;
 
   renderer_class->draw_image = draw_image;
 }
@@ -972,16 +976,18 @@ draw_string(DiaRenderer *self,
 
     set_line_color(renderer,color);
 
-    /* text position gives the base line neither top nor bottom */
+    /* text position is correct for baseline. Uses macros defined
+	 * at top of MetaPost file (see export_metapost) to correctly
+	 * align text. See bug # 332554 */
     switch (alignment) {
     case ALIGN_LEFT:
-	fprintf(renderer->file,"  label.rt");
+	fprintf(renderer->file,"  draw");
 	break;
     case ALIGN_CENTER:
-	fprintf(renderer->file,"  label");
+	fprintf(renderer->file,"  draw hcentered");
 	break;
     case ALIGN_RIGHT:
-	fprintf(renderer->file,"  label.lft");
+	fprintf(renderer->file,"  draw rjust");
 	break;
     }
 
@@ -990,7 +996,7 @@ draw_string(DiaRenderer *self,
      * converting spaces into visible spaces, which looks rather yucky.  So we
      * embed some TeX with \usefont commands instead. */
     fprintf(renderer->file,
-            "(btex {\\usefont{OT1}{%s}{%s}{%s} %s} etex scaled %s,(%sx,%sy))",
+            " btex {\\usefont{OT1}{%s}{%s}{%s} %s} etex scaled %s shifted (%sx,%sy)",
             renderer->mp_font, renderer->mp_weight, renderer->mp_slant,
             text,
 	    g_ascii_formatd(height_buf, sizeof(height_buf), "%g", renderer->mp_font_height),
@@ -1004,6 +1010,28 @@ draw_string(DiaRenderer *self,
                 g_ascii_formatd(blue_buf, sizeof(blue_buf), "%5.4f", (gdouble) renderer->color.blue) );
 
     fprintf(renderer->file,";\n");
+}
+
+static void 
+draw_text(DiaRenderer *self, 
+		  Text *text) {
+  Point pos;
+  int i;
+  pos = text->position;
+  
+
+  set_font(self, text->font, text->height);
+  
+  for (i=0;i<text->numlines;i++) {
+    TextLine *text_line = text->lines[i];
+
+    draw_string(self,
+				text_line_get_string(text_line),
+				&pos,
+				text->alignment,
+				&text->color);
+    pos.y += text->height;
+  }
 }
 
 static void
@@ -1183,6 +1211,19 @@ export_metapost(DiagramData *data, const gchar *filename,
              "\\begin{document}\n"
              "etex\n");
 
+	/* Define Macros for Text Positioning */
+    fprintf(renderer->file,
+			"%% Define macro for horizontal centering.\n"
+			"vardef hcentered primary P =\n"
+			"  P shifted -(xpart center P, 0)\n"
+			"enddef;\n");
+
+    fprintf(renderer->file,
+			"%% Define macro for right justification.\n"
+			"vardef rjust primary P =\n"
+			"  P shifted -(xpart (lrcorner P - llcorner P), 0)\n"
+			"enddef;\n");
+	
  
     fprintf(renderer->file,"  %% picture(%s,%s)(%s,%s)\n",
 	    mp_dtostr(d1_buf, extent->left * data->paper.scaling),

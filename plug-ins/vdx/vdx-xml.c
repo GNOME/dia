@@ -19,8 +19,8 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-/* Generated Thu Jan 18 06:57:30 2007 */
-/* From: All.vdx animation_tests.vdx Arrows-2.vdx Arrow & Text samples.vdx BasicShapes.vdx basic_tests.vdx Beispiel 1.vdx Beispiel 2.vdx Beispiel 3.vdx cable loom EL axis.vdx Circle1.vdx Circle2.vdx circle with angles.vdx curve_tests.vdx Drawing2.vdx Electrical system SatMax.vdx Embedded-Pics-1.vdx emf_dump_test2.orig.vdx emf_dump_test2.vdx Entreprise_etat_desire.vdx IMU-DD Ver2.vdx ISAD_page1.vdx ISAD_page2.vdx Line1.vdx Line2.vdx Line3.vdx Line4.vdx Line5.vdx Line6.vdx LombardiWireframe.vdx London-Citibank-Network-detail-02-15-2006.vdx London-Citibank-Network Detail-11-07-2005.vdx London-Citibank-racks-11-04-2005.vdx London-colo-move.vdx London-Colo-Network-detail-11-01-2005.vdx London-Colo-Racks-11-03-2005.vdx Network DiagramV2.vdx pattern_tests.vdx Processflow.vdx Rectangle1.vdx Rectangle2.vdx Rectangle3.vdx Rectangle4.vdx sample1.vdx Sample2.vdx samp_vdx.vdx Satmax RF path.vdx seq_test.vdx Servo block diagram V2.vdx Servo block diagram V3.vdx Servo block diagram.vdx Sigma-function.vdx SmithWireframe.vdx states.vdx Text1.vdx Text2.vdx Text3.vdx text_tests.vdx Tracking Array -  Level.vdx Tracking Array -  Phase.vdx Wayzata-WAN-Detail.vdx Wayzata-WAN-Overview.vdx WDS Cabling.vdx */
+/* Generated Wed Jan 24 17:00:55 2007 */
+/* From: All.vdx animation_tests.vdx Arrows-2.vdx Arrow & Text samples.vdx BasicShapes.vdx basic_tests.vdx Beispiel 1.vdx Beispiel 2.vdx Beispiel 3.vdx cable loom EL axis.vdx Circle1.vdx Circle2.vdx circle with angles.vdx curve_tests.vdx Drawing2.vdx Electrical system SatMax.vdx Embedded-Pics-1.vdx emf_dump_test2.orig.vdx emf_dump_test2.vdx Entreprise_etat_desire.vdx IMU-DD Ver2.vdx ISAD_page1.vdx ISAD_page2.vdx Line1.vdx Line2.vdx Line3.vdx Line4.vdx Line5.vdx Line6.vdx LombardiWireframe.vdx London-Citibank-Network-detail-02-15-2006.vdx London-Citibank-Network Detail-11-07-2005.vdx London-Citibank-racks-11-04-2005.vdx London-colo-move.vdx London-Colo-Network-detail-11-01-2005.vdx London-Colo-Racks-11-03-2005.vdx Network DiagramV2.vdx pattern_tests.vdx Processflow.vdx Rectangle1.vdx Rectangle2.vdx Rectangle3.vdx Rectangle4.vdx render-test.vdx sample1.vdx Sample2.vdx samp_vdx.vdx Satmax RF path.vdx seq_test.vdx Servo block diagram V2.vdx Servo block diagram V3.vdx Servo block diagram.vdx Sigma-function.vdx SmithWireframe.vdx states.vdx Text1.vdx Text2.vdx Text3.vdx text_tests.vdx Tracking Array -  Level.vdx Tracking Array -  Phase.vdx Wayzata-WAN-Detail.vdx Wayzata-WAN-Overview.vdx WDS Cabling.vdx */
 
 
 #include <glib.h>
@@ -2169,7 +2169,7 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
                 s->BulletFont = atoi((char *)child->children->content); }
             else if (!strcmp((char *)child->name, "BulletFontSize"))
             { if (child->children && child->children->content)
-                s->BulletFontSize = atoi((char *)child->children->content); }
+                s->BulletFontSize = (char *)child->children->content; }
             else if (!strcmp((char *)child->name, "BulletStr"))
             { if (child->children && child->children->content)
                 s->BulletStr = (char *)child->children->content; }
@@ -2178,7 +2178,7 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
                 s->Flags = atoi((char *)child->children->content); }
             else if (!strcmp((char *)child->name, "HorzAlign"))
             { if (child->children && child->children->content)
-                s->HorzAlign = atof((char *)child->children->content); }
+                s->HorzAlign = atoi((char *)child->children->content); }
             else if (!strcmp((char *)child->name, "IndFirst"))
             { if (child->children && child->children->content)
                 s->IndFirst = atof((char *)child->children->content); }
@@ -4518,13 +4518,13 @@ vdx_write_object(FILE *file, unsigned int depth, const void *p)
                 Para->Bullet);
         fprintf(file, "%s  <BulletFont>%u</BulletFont>\n", pad,
                 Para->BulletFont);
-        fprintf(file, "%s  <BulletFontSize>%d)</BulletFontSize>\n", pad,
-                Para->BulletFontSize);
+        fprintf(file, "%s  <BulletFontSize>%s</BulletFontSize>\n", pad,
+                vdx_convert_xml_string(Para->BulletFontSize));
         fprintf(file, "%s  <BulletStr>%s</BulletStr>\n", pad,
                 vdx_convert_xml_string(Para->BulletStr));
         fprintf(file, "%s  <Flags>%u</Flags>\n", pad,
                 Para->Flags);
-        fprintf(file, "%s  <HorzAlign>%f</HorzAlign>\n", pad,
+        fprintf(file, "%s  <HorzAlign>%u</HorzAlign>\n", pad,
                 Para->HorzAlign);
         fprintf(file, "%s  <IndFirst>%f</IndFirst>\n", pad,
                 Para->IndFirst);

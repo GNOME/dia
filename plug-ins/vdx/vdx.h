@@ -37,10 +37,11 @@ struct VDXDocument
     GArray *Fonts;
     GArray *Masters;
     GArray *StyleSheets;
+    GArray *LayerNames;         /* Dia's multi-page list of layers */
+    GArray *PageLayers;         /* Layers on this page */
     gboolean ok;             /* Flag for whether to stop processing */
     gboolean stop;           /* Flag for whether to stop processing */
     unsigned int Page;          /* Page number */
-    unsigned int Background_Layers; /* Number to add when flattening */
     gboolean debug_comments;        /* Flag for g_debug() output */
     unsigned int *debug_shape_ids;  /* List to colour in */
     unsigned int shape_id;          /* For debugging */

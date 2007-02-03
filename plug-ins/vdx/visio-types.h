@@ -19,8 +19,8 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-/* Generated Thu Jan 18 06:57:30 2007 */
-/* From: All.vdx animation_tests.vdx Arrows-2.vdx Arrow & Text samples.vdx BasicShapes.vdx basic_tests.vdx Beispiel 1.vdx Beispiel 2.vdx Beispiel 3.vdx cable loom EL axis.vdx Circle1.vdx Circle2.vdx circle with angles.vdx curve_tests.vdx Drawing2.vdx Electrical system SatMax.vdx Embedded-Pics-1.vdx emf_dump_test2.orig.vdx emf_dump_test2.vdx Entreprise_etat_desire.vdx IMU-DD Ver2.vdx ISAD_page1.vdx ISAD_page2.vdx Line1.vdx Line2.vdx Line3.vdx Line4.vdx Line5.vdx Line6.vdx LombardiWireframe.vdx London-Citibank-Network-detail-02-15-2006.vdx London-Citibank-Network Detail-11-07-2005.vdx London-Citibank-racks-11-04-2005.vdx London-colo-move.vdx London-Colo-Network-detail-11-01-2005.vdx London-Colo-Racks-11-03-2005.vdx Network DiagramV2.vdx pattern_tests.vdx Processflow.vdx Rectangle1.vdx Rectangle2.vdx Rectangle3.vdx Rectangle4.vdx sample1.vdx Sample2.vdx samp_vdx.vdx Satmax RF path.vdx seq_test.vdx Servo block diagram V2.vdx Servo block diagram V3.vdx Servo block diagram.vdx Sigma-function.vdx SmithWireframe.vdx states.vdx Text1.vdx Text2.vdx Text3.vdx text_tests.vdx Tracking Array -  Level.vdx Tracking Array -  Phase.vdx Wayzata-WAN-Detail.vdx Wayzata-WAN-Overview.vdx WDS Cabling.vdx */
+/* Generated Wed Jan 24 17:00:55 2007 */
+/* From: All.vdx animation_tests.vdx Arrows-2.vdx Arrow & Text samples.vdx BasicShapes.vdx basic_tests.vdx Beispiel 1.vdx Beispiel 2.vdx Beispiel 3.vdx cable loom EL axis.vdx Circle1.vdx Circle2.vdx circle with angles.vdx curve_tests.vdx Drawing2.vdx Electrical system SatMax.vdx Embedded-Pics-1.vdx emf_dump_test2.orig.vdx emf_dump_test2.vdx Entreprise_etat_desire.vdx IMU-DD Ver2.vdx ISAD_page1.vdx ISAD_page2.vdx Line1.vdx Line2.vdx Line3.vdx Line4.vdx Line5.vdx Line6.vdx LombardiWireframe.vdx London-Citibank-Network-detail-02-15-2006.vdx London-Citibank-Network Detail-11-07-2005.vdx London-Citibank-racks-11-04-2005.vdx London-colo-move.vdx London-Colo-Network-detail-11-01-2005.vdx London-Colo-Racks-11-03-2005.vdx Network DiagramV2.vdx pattern_tests.vdx Processflow.vdx Rectangle1.vdx Rectangle2.vdx Rectangle3.vdx Rectangle4.vdx render-test.vdx sample1.vdx Sample2.vdx samp_vdx.vdx Satmax RF path.vdx seq_test.vdx Servo block diagram V2.vdx Servo block diagram V3.vdx Servo block diagram.vdx Sigma-function.vdx SmithWireframe.vdx states.vdx Text1.vdx Text2.vdx Text3.vdx text_tests.vdx Tracking Array -  Level.vdx Tracking Array -  Phase.vdx Wayzata-WAN-Detail.vdx Wayzata-WAN-Overview.vdx WDS Cabling.vdx */
 
 
 struct vdx_any
@@ -90,7 +90,7 @@ struct vdx_Char
     float FontScale; /* F=100%,Inh */
     gboolean Highlight; /* F=Inh,No Formula =0 */
     unsigned int IX; /* */
-    unsigned int LangID; /* F=Inh =1031,1033,1036,1053,2057,3081,3082,3084,4105 */
+    unsigned int LangID; /* F=Inh =0,1031,1033,1036,1053,2057,3081,3082,3084,4105 */
     float Letterspace; /* F=0DT,Inh,No Formula */
     unsigned int Locale; /* F=0,Inh =0,57 */
     unsigned int LocalizeFont; /* F=Inh */
@@ -109,7 +109,7 @@ struct vdx_ColorEntry
     GSList *children;
     char type;
     unsigned int IX; /* */
-    char * RGB; /* =#000000,#000080,#0000FF,#008000,#008080,#00FF00,#00FFFF,#1A1A1A,#333333,#4D4D4 */
+    char * RGB; /* =#000000,#000080,#0000FF,#007D7B,#008000,#008080,#00FF00,#00FFFF,#1A1A1A,#33333 */
 };
 
 struct vdx_Colors
@@ -386,7 +386,7 @@ struct vdx_FontEntry
     unsigned int CharSet; /* =0,2 */
     gboolean CharSet_exists;
     unsigned int ID; /* */
-    char * Name; /* =Arial,Arial Narrow,Monotype Sorts,Symbol,Times New Roman,Wingdings */
+    char * Name; /* =Arial,Arial Narrow,Courier,Courier-Bold,Helvetica-Bold,Monotype Sorts,Symbol,T */
     unsigned int PitchAndFamily; /* =18,2,32,34 */
     gboolean PitchAndFamily_exists;
     gboolean Unicode; /* =0 */
@@ -414,8 +414,8 @@ struct vdx_ForeignData
 {
     GSList *children;
     char type;
-    float CompressionLevel; /* =0.05 */
-    char * CompressionType; /* =GIF,JPEG */
+    float CompressionLevel; /* =0.05,1.000000 */
+    char * CompressionType; /* =GIF,JPEG,PNG */
     unsigned int ExtentX; /* =10112,10370,10413,10520,10523,107,10883,10948,11,11013,11043,11073,11138,11203 */
     gboolean ExtentX_exists;
     unsigned int ExtentY; /* =1034,10434,10504,1052,1061,1070,10807,1083,1093,11,11123,1123,1153,116,118,12, */
@@ -423,10 +423,10 @@ struct vdx_ForeignData
     char * ForeignType; /* =Bitmap,EnhMetaFile,MetaFile,Object */
     unsigned int MappingMode; /* =8 */
     gboolean MappingMode_exists;
-    float ObjectHeight; /* =0.6748031496063,2,3.5566929133858,6.5590551181102 */
+    float ObjectHeight; /* =0.6748031496063,0.775098,1.389201,2,3.5566929133858,6.5590551181102 */
     unsigned int ObjectType; /* =33280,49664 */
     gboolean ObjectType_exists;
-    float ObjectWidth; /* =1.2582677165354,2,20.204724409449,9.0783464566929 */
+    float ObjectWidth; /* =0.787402,1.2582677165354,2,20.204724409449,3.740157,9.0783464566929 */
     gboolean ShowAsIcon; /* =0 */
 };
 
@@ -778,10 +778,10 @@ struct vdx_Para
     char type;
     unsigned int Bullet; /* F=0,Inh =0,1,2 */
     unsigned int BulletFont; /* F=Inh */
-    int BulletFontSize; /* F=Inh =-1 */
-    char * BulletStr; /* F=Inh =,&#xe000;, */
+    char * BulletFontSize; /* F=Inh =-1,0) */
+    char * BulletStr; /* F=Inh =,&#xe000;,&amp;#xe000;, */
     gboolean Flags; /* F=Inh =0 */
-    float HorzAlign; /* F=0,1,EndX,0,2)",FlipX*2,If(User.ShapeType&gt;5,0,1),Inh */
+    unsigned int HorzAlign; /* F=0,1,EndX,0,2)",FlipX*2,If(User.ShapeType&gt;5,0,1),Inh */
     unsigned int IX; /* */
     float IndFirst; /* F=0DP,Inh Unit=MM */
     float IndLeft; /* F=0DP,Inh Unit=IN,MM */
@@ -1032,7 +1032,7 @@ struct vdx_TextBlock
     GSList *children;
     char type;
     float BottomMargin; /* F=0DP,0DT,0PT,1PT,2PT,4PT,Char.Size*0.5,Char.Size/4,Inh Unit=PT */
-    float DefaultTabStop; /* F=0.59055118110236DP,0.5DP,Inh =0.5,0.59055118110236,0.5905511811023622 */
+    float DefaultTabStop; /* F=0.59055118110236DP,0.5DP,Inh =0.5,0.590551,0.59055118110236,0.590551181102362 */
     float LeftMargin; /* F=0DP,0PT,1PT,2PT,4PT,Char.Size/2,Inh Unit=PT */
     float RightMargin; /* F=0DP,0PT,1PT,2PT,4PT,Char.Size/2,Inh Unit=PT */
     unsigned int TextBkgnd; /* F=0,1+FillForegnd,15,2,Inh */
