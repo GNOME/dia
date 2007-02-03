@@ -1,5 +1,17 @@
 2007-02-03  Lars Clausen  <lars@raeder.dk>
 
+	* lib/dialibartrenderer.c (get_text_width): 
+	* lib/diagdkrenderer.c (get_text_width): 
+	* lib/text.c: Use g_utf8_strlen where character, not bytes are the
+	goal.  Also remove utterly the unnecessary optimization of keeping
+	strlen around for each and every line.
+
+	* lib/text.[ch]: Remove clearly unneeded array of strlen.  Easier
+	to just call strlen when needed.
+
+	* objects/GRAFCET/action_text_draw.c (action_text_draw): Change
+	offending direct use of text->strlen.
+
 	* plug-ins/vdx/vdx.c
 	* plug-ins/vdx/vdx-common.c
 	* plug-ins/vdx/vdx-export.c

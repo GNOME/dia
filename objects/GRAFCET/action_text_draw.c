@@ -74,7 +74,7 @@ action_text_draw(Text *text, DiaRenderer *renderer)
     str_width_whole =
       renderer_ops->get_text_width(renderer,
                                    text_get_line(text, text->cursor_row),
-                                   text->strlen[text->cursor_row]);
+                                   text_get_line_strlen(text, text->cursor_row));
 
     curs_x = text->position.x + str_width_first;
     for (i=0;i<text->cursor_row;i++) {

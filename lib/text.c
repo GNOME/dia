@@ -81,7 +81,6 @@ static void
 text_set_line_text(Text *text, int line_no, gchar *line)
 {
   text_set_line(text, line_no, g_strdup(line));
-  text->strlen[line_no] = strlen(line);
 }
 
 /** Delete the line, freeing appropriately and moving stuff up.
@@ -95,11 +94,9 @@ text_delete_line(Text *text, int line_no)
   g_free(text->lines[line_no]);
   for (i = line_no; i < text->numlines - 1; i++) {
     text->lines[i] = text->lines[i+1];
-    text->strlen[i] = text->strlen[i+1];
   }
   text->numlines -= 1;
   text->lines = g_realloc(text->lines, sizeof(TextLine *)*text->numlines);
-  text->strlen = g_realloc(text->strlen, sizeof(int)*text->numlines);
 }
 
 /** Insert a new (empty) line at line_no.
@@ -111,11 +108,9 @@ text_insert_line(Text *text, int line_no)
   int i;
   text->numlines += 1;
   text->lines = g_realloc(text->lines, sizeof(char *)*text->numlines);
-  text->strlen = g_realloc(text->strlen, sizeof(int)*text->numlines);
 
   for (i = text->numlines - 1; i > line_no; i--) {
     text->lines[i] = text->lines[i - 1];
-    text->strlen[i] = text->strlen[i - 1];
   }
   text->lines[line_no] = text_line_new("", text->font, text->height);;
 }
@@ -139,7 +134,7 @@ text_get_line_width(Text *text, int line_no)
 int
 text_get_line_strlen(Text *text, int line_no)
 {
-  return text->strlen[line_no];
+  return g_utf8_strlen(text_line_get_string(text->lines[line_no]), -1);
 }
 
 real
@@ -211,9 +206,6 @@ free_string(Text *text)
 
   g_free(text->lines);
   text->lines = NULL;
-  
-  g_free(text->strlen);
-  text->strlen = NULL;
 }
 
 static void
@@ -237,7 +229,6 @@ set_string(Text *text, const char *string)
   for (i = 0; i < numlines; i++) {
     text->lines[i] = text_line_new("", text->font, text->height);
   }
-  text->strlen = g_new(int, numlines);
 
   s = string;
 
@@ -318,7 +309,6 @@ text_copy(Text *text)
   copy = g_new(Text, 1);
   copy->numlines = text->numlines;
   copy->lines = g_new(TextLine *, text->numlines);
-  copy->strlen = g_new(int, text->numlines);
   
   copy->font = dia_font_ref(text->font);
   copy->height = text->height;
@@ -454,7 +444,8 @@ text_get_string_copy(Text *text)
   
   num = 0;
   for (i=0;i<text->numlines;i++) {
-    num += strlen(text_get_line(text, i))+1;
+    /* This is for allocation, so it should not use g_utf8_strlen() */
+    num += strlen(text_get_line(text, i))+1; 
   }
 
   str = g_malloc(num);

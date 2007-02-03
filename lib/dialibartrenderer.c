@@ -1238,7 +1238,7 @@ get_text_width(DiaRenderer *object,
   real result;
   TextLine *text_line;
 
-  if (length != strlen(text)) {
+  if (length != g_utf8_strlen(text, -1)) {
     char *othertx;
     int ulen;
     /* A couple UTF8-chars: æblegrød Š Ť Ž ę ć ń уфхц�?ОПРЄ є �? Њ Ћ �? */

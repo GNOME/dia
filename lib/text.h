@@ -40,7 +40,6 @@ struct _Text {
   /* Text data: */
   int numlines;
   TextLine **lines;
-  int *strlen;  /* in characters */
 
   /* Attributes: */
   DiaFont *font;
