@@ -1,3 +1,15 @@
+2007-02-05  Lars Clausen  <lars@raeder.dk>
+
+	* NEWS: 
+	* RELEASE-PROCESS: 
+	* config.h.win32: 
+	* doc/en/dia.xml: 
+	* doc/pl/dia.xml: 
+	* doc/eu/dia.xml:
+	* configure.in: Pre4
+
+	* plug-ins/vdx/vdx-export.c: Patch for crash.
+
 2007-02-03  Lars Clausen  <lars@raeder.dk>
 
 	* lib/dialibartrenderer.c (get_text_width): 

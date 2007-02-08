@@ -1775,6 +1775,7 @@ write_header(DiagramData *data, VDXRenderer *renderer)
     Para.SpLine = -1.2;
     Para.HorzAlign = 1;
     Para.BulletStr = "&#xe000;";
+    Para.BulletFontSize = "-1";
 
     memset(&Tabs, 0, sizeof(Tabs));
     Tabs.type = vdx_types_Tabs;

@@ -1,3 +1,9 @@
+dia-0.96-pre4: 5-Feb-2007
+
+  * Fourth prerelease for 0.96.  This one has yet another new version of
+    the VDX plugin (v. 0.9.1), as well as a fix of a text rendering bug,
+    enhanced MetaPost output and some i18n and smaller fixes.
+
 dia-0.96-pre3: 22-Jan-2007
 
   * Third prerelease for 0.96.  This one adds a new version (0.8) of the
