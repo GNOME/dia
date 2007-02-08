@@ -23,6 +23,8 @@
 !define DIA_SECTION_DESCRIPTION			"Dia Dateien und -DLLs"
 !define TRANSLATIONS_SECTION_TITLE		"Übersetzungen"
 !define TRANSLATIONS_SECTION_DESCRIPTION 	"Optional Übersetzungen der Dia-Benutzeroberfläche fuer verschiedene Sprachen"
+!define PYTHON_SECTION_TITLE                    "Python plug-in"
+!define PYTHON_SECTION_DESCRIPTION              "Unterstütyung für die Skriptsprache Python 2.2. Bitte nur installieren, falls Python vorhanden ist."
   
 ; Installer Finish Page
 !define DIA_FINISH_VISIT_WEB_SITE		"Besuchen Sie die Dia für Windows Webseite"

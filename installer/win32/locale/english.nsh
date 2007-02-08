@@ -26,6 +26,8 @@
 !insertmacro DIA_MACRO_DEFAULT_STRING TRANSLATIONS_SECTION_TITLE	"Translations"
 !insertmacro DIA_MACRO_DEFAULT_STRING TRANSLATIONS_SECTION_DESCRIPTION  "Optional translations of the Dia user interface"
 !insertmacro DIA_MACRO_DEFAULT_STRING DIA_SECTION_DESCRIPTION		"Core Dia files and dlls"
+!insertmacro DIA_MACRO_DEFAULT_STRING PYTHON_SECTION_TITLE              "Python plug-in"
+!insertmacro DIA_MACRO_DEFAULT_STRING PYTHON_SECTION_DESCRIPTION              "Support for the Python Scripting Language 2.2. Do not select this if Python is not installed."
 
 ; Installer Finish Page
 !insertmacro DIA_MACRO_DEFAULT_STRING DIA_FINISH_VISIT_WEB_SITE		"Visit the Dia for Windows Web Page"

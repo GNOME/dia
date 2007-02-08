@@ -2361,6 +2361,29 @@ Section $(TRANSLATIONS_SECTION_TITLE) SecTranslations
   
 SectionEnd
 
+Section /o $(PYTHON_SECTION_TITLE) SecPython
+  SetOverwrite On
+  ${SetOutPath} "$INSTDIR\dia"
+  ${File} "..\..\plug-ins\python\" "dia-python.dll"
+  ${SetOutPath} "$INSTDIR\bin"
+  ${File} "..\..\plug-ins\python\" "dia.pyd"
+  ${SetOutPath} "$INSTDIR"
+  ${File} "..\..\plug-ins\python\" "bbox.py"
+  ${File} "..\..\plug-ins\python\" "codegen.py"
+  ${File} "..\..\plug-ins\python\" "debug_objects.py"
+  ${File} "..\..\plug-ins\python\" "diasvg_import.py"
+  ${File} "..\..\plug-ins\python\" "dot.py"
+  ${File} "..\..\plug-ins\python\" "export-object.py"
+  ${File} "..\..\plug-ins\python\" "export-render.py"
+  ${File} "..\..\plug-ins\python\" "group_props.py"
+  ${File} "..\..\plug-ins\python\" "gtkcons.py"
+  ${File} "..\..\plug-ins\python\" "otypes.py" 
+  ${File} "..\..\plug-ins\python\" "pydiadoc.py"
+  ${File} "..\..\plug-ins\python\" "python-startup.py"
+  ${File} "..\..\plug-ins\python\" "scascale.py"
+  ${File} "..\..\plug-ins\python\" "select_by.py" 
+SectionEnd
+
 Section -closelogfile
  FileClose $UninstLog
  SetFileAttributes "$INSTDIR\${UninstLog}" READONLY|SYSTEM|HIDDEN
@@ -2479,10 +2502,13 @@ SectionEnd ; end of uninstall section
 ;--------------------------------
 ;Descriptions
 !insertmacro MUI_FUNCTION_DESCRIPTION_BEGIN
-  !insertmacro MUI_DESCRIPTION_TEXT ${SecDia} \
+!insertmacro MUI_DESCRIPTION_TEXT ${SecDia} \
 	$(DIA_SECTION_DESCRIPTION)
-  !insertmacro MUI_DESCRIPTION_TEXT ${SecTranslations} \
+!insertmacro MUI_DESCRIPTION_TEXT ${SecTranslations} \
   	$(TRANSLATIONS_SECTION_DESCRIPTION)	
+!insertmacro MUI_DESCRIPTION_TEXT ${SecPython} \
+        $(PYTHON_SECTION_DESCRIPTION)     
+
 !insertmacro MUI_FUNCTION_DESCRIPTION_END
 
 ;--------------------------------

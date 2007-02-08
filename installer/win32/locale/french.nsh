@@ -23,6 +23,9 @@
 !define  DIA_SECTION_DESCRIPTION		"Fichiers principaux Dia et dlls"
 !define  TRANSLATIONS_SECTION_TITLE		"Translations"
 !define  TRANSLATIONS_SECTION_DESCRIPTION	"Optional translations of the Dia user interface."
+!define  PYTHON_SECTION_TITLE                   "Python plug-in"
+!define PYTHON_SECTION_DESCRIPTION              "Support for the Python Scripting Language 2.2. Do not select this if Python is not installed."
+
 ; Installer Finish Page
 !define  DIA_FINISH_VISIT_WEB_SITE		"Visiter la page Web de Dia pour Windows"
 
