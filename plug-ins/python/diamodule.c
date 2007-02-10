@@ -320,7 +320,7 @@ PyDia_RegisterImport(PyObject *self, PyObject *args)
 /*
  * This function gets called by Dia as a reaction to a menu item.
  * It needs to be registered before via Python function 
- * dia.register_action
+ * dia.register_action (or dia.register_callback)
  */
 static void
 PyDia_callback_func (DiagramData *dia, guint flags, void *user_data)
@@ -352,6 +352,65 @@ PyDia_callback_func (DiagramData *dia, guint flags, void *user_data)
 }
 
 static PyObject *
+_RegisterAction (gchar *action,
+                 gchar *desc,
+                 gchar *menupath,
+                 PyObject *func);
+
+static gchar *
+_strip_non_alphanum (gchar* in)
+{
+  int i, o;
+  int len = strlen (in);
+  gchar *out = g_new (gchar, len);
+  
+  for (i = 0, o = 0; i < len; ++i) {
+    if (g_ascii_isalnum (in[i])) {
+      out[o] = in[i];
+      ++o;
+    }
+  }
+  out[o] = '\0';
+  return out;
+}
+
+static PyObject *
+PyDia_RegisterCallback(PyObject *self, PyObject *args)
+{
+    gchar *desc;
+    gchar *menupath;
+    gchar *path;
+    PyObject *func;
+    DiaCallbackFilter *filter;
+    gchar *action;
+    PyObject *ret;
+
+    if (!PyArg_ParseTuple(args, "ssO:dia.register_callback",
+			  &desc, &menupath, &func))
+	return NULL;
+
+    /* if root node name does not match : <Display> -> /DisplayMenu */
+    if (strstr (menupath, "<Display>") == menupath)
+        path = g_strdup_printf ("/DisplayMenu%s", menupath + strlen("<Display>"));
+    else if (strstr (menupath, "<Toolbox>") == menupath)
+        path = g_strdup_printf ("/ToolboxMenu%s", menupath + strlen("<Toolbox>"));
+    else {
+        /* no need for g_warning here, we'll get one when entering into the GtkUiManager */
+	path = g_strdup (menupath);
+    }
+    action = _strip_non_alphanum (path);
+#if 1
+    if (strrchr (path, '/') - path < strlen(path))
+      *(strrchr (path, '/')) = '\0';
+#endif
+    ret = _RegisterAction (action, desc, path, func);
+    g_free (path);
+    g_free (action);
+
+    return ret;
+}
+
+static PyObject *
 PyDia_RegisterAction (PyObject *self, PyObject *args)
 {
 	gchar *action;
@@ -363,6 +422,17 @@ PyDia_RegisterAction (PyObject *self, PyObject *args)
     if (!PyArg_ParseTuple(args, "sssO:dia.register_action",
 			  &action, &desc, &menupath, &func))
 	return NULL;
+
+	return _RegisterAction (action, desc, menupath, func);
+}
+
+static PyObject *
+_RegisterAction (gchar *action,
+                 gchar *desc,
+                 gchar *menupath,
+                 PyObject *func)
+{
+	DiaCallbackFilter *filter;
 
     if (!PyCallable_Check(func)) {
         PyErr_SetString(PyExc_TypeError, "third parameter must be callable");
@@ -429,6 +499,9 @@ static PyMethodDef dia_methods[] = {
     { "register_import", PyDia_RegisterImport, METH_VARARGS,
       "allows to register an import filter written in Python, that is mainly a callback function which fills the"
       "given DiaDiagramData from the given filename" },
+    { "register_callback", PyDia_RegisterCallback, METH_VARARGS,
+      "register a callback function which appears in the menu. Depending on the menu path used during registration"
+      "the callback gets called with the current DiaDiagramData object" },
     { "register_action", PyDia_RegisterAction, METH_VARARGS,
       "register a callback function which appears in the menu. Depending on the menu path used during registration"
       "the callback gets called with the current DiaDiagramData object" },

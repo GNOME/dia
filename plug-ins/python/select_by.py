@@ -112,15 +112,15 @@ def select_by_line_color_cb (data, flags) :
 def select_by_text_color_cb (data, flags) :
 	select_by_selected (data, "text_colour")
 
-dia.register_action ("SelectByName", "Select By Name", 
+dia.register_action ("SelectByName", "Name", 
                        "/DisplayMenu/Select/SelectBy/SelectByExtensionStart", 
                        select_by_name_cb)
-dia.register_action ("SelectByFillcolor", "Select By Fill Color", 
+dia.register_action ("SelectByFillcolor", "Fill Color", 
                        "/DisplayMenu/Select/SelectBy/SelectByExtensionStart", 
                        select_by_fill_color_cb)
-dia.register_action ("SelectByLinecolor", "Select By Line Color", 
+dia.register_action ("SelectByLinecolor", "Line Color", 
                        "/DisplayMenu/Select/SelectBy/SelectByExtensionStart", 
                        select_by_line_color_cb)
-dia.register_action ("SelectByTextcolor", "Select By Text Color", 
+dia.register_action ("SelectByTextcolor", "Text Color", 
                        "/DisplayMenu/Select/SelectBy/SelectByExtensionStart", 
                        select_by_text_color_cb)

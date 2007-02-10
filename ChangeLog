@@ -1,3 +1,12 @@
+2007-02-10  Hans Breuer  <hans@breuer.org>
+
+	[ two more steps slowly fixing issues from bug #340352 ]
+	* plug-ins/python/diamodule.c : instead of breaking compatibility with
+	former PyDia plug-ins reimplmented dia.register_calback() by mapping
+	to the GtkAction framework (it is not yet possible again to create 
+	new menus, only adding menuitems to existing menus)
+	* plug-ins/python/select_by.py : restored menuitems to shorter form
+
 2007-02-08  Steffen Macke <sdteffen@gmail.com>
 
 	* installer/win32/dia.nsi:
