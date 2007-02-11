@@ -5,14 +5,14 @@
 # Xavier Conde <xaviconde@eresmas.com>, 2003
 # Jordi Mas <jmas@softcatala.org>, 2006
 # Maria Soler Climent <mariasolercliment@gmail.com>, 2006
-# 
+# David Planella Molas <david.planella@gmail.com>, 2007 
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.92.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-28 12:03+0100\n"
-"PO-Revision-Date: 2006-10-13 06:53+0200\n"
-"Last-Translator: Maria Soler Climent <mariasolercliment@gmail.com>\n"
+"POT-Creation-Date: 2007-02-04 03:19+0000\n"
+"PO-Revision-Date: 2007-02-11 19:32+0100\n"
+"Last-Translator: David Planella <david.planella@gmail.com>\n"
 "Language-Team: Catalan <tradgnome@softcatala.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -94,6 +94,7 @@ msgstr "TIPUS"
 msgid "Export graphics size"
 msgstr "Exporta la mida dels gràfics"
 
+# FIXME (dpm) AxL (Amplada per Llargada)?
 #: ../app/app_procs.c:692 ../app/app_procs.c:720
 msgid "WxH"
 msgstr "WxH"
@@ -141,7 +142,7 @@ msgstr "Mostra aquest missatge d'ajuda"
 
 #: ../app/app_procs.c:796
 msgid "Can't connect to session manager!\n"
-msgstr "No es pot connectar al gestor de sessions!\n"
+msgstr "No es pot connectar al gestor de sessions\n"
 
 #. TRANSLATOR: 2nd and 3rd %s are time and date respectively.
 #: ../app/app_procs.c:836
@@ -168,8 +169,8 @@ msgid ""
 "Couldn't find standard objects when looking for object-libs in '%s'; "
 "exiting...\n"
 msgstr ""
-"No s'han pogut trobar objectes estàndard en cercar biblioteques a «%s». "
-"S'està sortint...\n"
+"No s'han pogut trobar objectes estàndard en cercar biblioteques a «%s»; "
+"s'està sortint...\n"
 
 #
 #: ../app/app_procs.c:938
@@ -181,9 +182,9 @@ msgid ""
 "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you can cause this message to appear.\n"
 msgstr ""
-"Aquesta situació no hauria de succeir.  Introduïu un informe d'error a "
+"Aquesta situació no hauria de succeir.  Hauríeu d'enviar un informe d'error a "
 "bugzilla.gnome.org\n"
-"descrivint com provocar l'aparició d'aquest missatge, si us plau.\n"
+"en el qual descriviu com es pot provocar l'aparició d'aquest missatge.\n"
 
 #. no standard buttons
 #: ../app/app_procs.c:991
@@ -206,7 +207,7 @@ msgstr "Surt del Dia"
 #. Yuck.  -Lars
 #: ../app/app_procs.c:1050
 msgid "Thank you for using Dia.\n"
-msgstr "Gràcies per utilitzar el Dia\n"
+msgstr "Gràcies per utilitzar el Dia.\n"
 
 #: ../app/app_procs.c:1067 ../app/app_procs.c:1074
 msgid "Could not create per-user Dia config directory"
@@ -219,8 +220,7 @@ msgid ""
 "environment variable HOME points to an existing directory."
 msgstr ""
 "No s'ha pogut crear un directori de configuració per a l'usuari del Dia. "
-"Assegureu-vos que la variable d'entorn HOME apunta a un directori existent, "
-"si us plau."
+"Hauríeu d'assegurar-vos que la variable d'entorn HOME apunta a un directori existent. "
 
 #: ../app/app_procs.c:1100 ../app/diaconv.c:251
 msgid "Objects and filters internal to dia"
@@ -237,8 +237,8 @@ msgid ""
 "Run '%s --help' to see a full list of available command line options.\n"
 msgstr ""
 "Error a l'opció %s: %s.\n"
-"Per visualitzar una llista completa de les opcions disponibles per a la "
-"línia d'ordres executeu «%s --help».\n"
+"Executeu «%s --help» per a visualitzar una llista completa de les opcions "
+"disponibles a la línia d'ordres.\n"
 
 #
 #: ../app/app_procs.c:1169
@@ -298,7 +298,7 @@ msgid ""
 "Please select those you wish to recover."
 msgstr ""
 "Hi ha fitxers desats automàticament.\n"
-"Seleccioneu els que voleu recuperar, si us plau."
+"Seleccioneu els que voleu recuperar."
 
 #: ../app/color_area.c:317 ../app/color_area.c:364
 msgid "Select foreground color"
@@ -315,7 +315,7 @@ msgstr "Diagrama%d.dia"
 
 #: ../app/commands.c:207
 msgid "No existing object to paste.\n"
-msgstr "No hi ha cap objecte per enganxar.\n"
+msgstr "No hi ha cap objecte per a enganxar.\n"
 
 #: ../app/commands.c:538 ../app/commands.c:576
 msgid "Could not find help directory"
@@ -337,7 +337,8 @@ msgstr ""
 "Aleix Badia <abadia@ica.es>\n"
 "Xavier Conde <xavi.conde@gmail.com>\n"
 "Jordi Mas <jmas@softcatala.org>\n"
-"Maria Soler <mariasolercliment@gmail.com>"
+"Maria Soler <mariasolercliment@gmail.com>\n"
+"David Planella <david.planella@gmail.com>"
 
 #: ../app/commands.c:614
 msgid ""
@@ -355,13 +356,13 @@ msgid ""
 "along with this program; if not, write to the Free Software\n"
 "Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.\n"
 msgstr ""
-"Aquest és programari lliure; podeu redistribuir-lo i/o modificar-lo\n"
+"Aquest programa és programari lliure; podeu redistribuir-lo i/o modificar-lo\n"
 "sota els termes de la Llicència Pública General GNU tal i com ha estat\n"
-"publicada per la Free Software Foundation; bé sota la versió 2 de la\n"
-"Llicència o bé (si ho preferiu) sota qualsevol versió posterior.\n"
+"publicada per la Free Software Foundation; ja sigui la versió 2 de la\n"
+"Llicència o (si ho preferiu) qualsevol versió posterior.\n"
 "\n"
 "Aquest programa es distribueix amb l'expectativa de que serà útil,\n"
-"però SENSE CAP GARANTIA; fins i tot la garantia implícita de\n"
+"però SENSE CAP GARANTIA; fins i tot sense la garantia implícita de\n"
 "COMERCIALITZACIÓ o ADEQUACIÓ PER A CAP PROPÒSIT EN PARTICULAR. Vegeu la\n"
 "Llicència Pública General GNU per obtenir-ne més detalls.\n"
 "\n"
@@ -413,11 +414,11 @@ msgstr "Espaiat visible"
 #. Hexes!
 #: ../app/dia-props.c:177 ../app/preferences.c:167
 msgid "Hex grid"
-msgstr "Graella hex"
+msgstr "Graella hexagonal"
 
 #: ../app/dia-props.c:185
 msgid "Hex grid size"
-msgstr "Mida de la graella hex"
+msgstr "Mida de la graella hexagonal"
 
 #: ../app/dia-props.c:198
 msgid "Grid"
@@ -493,8 +494,8 @@ msgid ""
 "Run '%s --help' to see a full list of available command line options.\n"
 msgstr ""
 "Error: No s'ha trobat cap argument.\n"
-"Per veure la llista completa de les opcions de la línia d'ordres executeu '%"
-"s --help'.\n"
+"Executeu «%s --help» per a visualitzar una llista completa de les opcions "
+"disponibles a la línia d'ordres.\n"
 
 #: ../app/diaconv.c:159
 #, c-format
@@ -508,8 +509,8 @@ msgid ""
 "Run '%s --help' to see a full list of available command line options.\n"
 msgstr ""
 "Error %s: només podeu especificar un -t o -o.\n"
-"Per veure la llista completa de les opcions de la línia d'ordres executeu «%"
-"s --help».\n"
+"Executeu «%s --help» per a visualitzar una llista completa de les opcions "
+"disponibles a la línia d'ordres.\n"
 
 #: ../app/diaconv.c:174
 #, c-format
@@ -576,7 +577,7 @@ msgstr "/Ordena els _diagrames"
 
 #: ../app/diagram_tree_menu.c:68
 msgid "/Sort _diagrams/by _name"
-msgstr "/Ordena els diagrames/pel _nom"
+msgstr "/Ordena els _diagrames/pel _nom"
 
 #: ../app/diagram_tree_menu.c:70
 msgid "/Sort _diagrams/as _inserted"
@@ -702,12 +703,12 @@ msgid ""
 "The object you dropped cannot fit into its parent. \n"
 "Either expand the parent object, or drop the object elsewhere."
 msgstr ""
-"L'objecte que heu deixat anar no hi cap dins del seu pare.\n"
-"Expandiu l'objecte pare, o deixeu-lo anar en un altre lloc."
+"L'objecte que heu deixat anar no cap dins del seu pare.\n"
+"Expandiu l'objecte pare o bé deixeu-lo anar en un altre lloc."
 
 #: ../app/display.c:94
 msgid "Diagram modified!"
-msgstr "El diagrana s'ha modificat."
+msgstr "El diagrama s'ha modificat."
 
 #. http://www.gnu.org/software/gettext/manual/html_chapter/gettext_10.html#SEC150
 #. * Althoug the single objects wont get triggered here some languages have variations on the other numbers
@@ -739,7 +740,7 @@ msgid ""
 "The diagram '%s'\n"
 "has not been saved. Save changes now?"
 msgstr ""
-"El diagrama  «%s» no s'ha desat.\n"
+"El diagrama «%s» no s'ha desat.\n"
 "Voleu desar-ne els canvis ara?"
 
 #: ../app/display.c:1141
@@ -753,7 +754,7 @@ msgstr "_Descarta els canvis"
 #: ../app/export_png.c:136 ../app/load_save.c:951 ../app/render_eps.c:103
 #: ../plug-ins/cairo/diacairo.c:976 ../plug-ins/cgm/cgm.c:1151
 #: ../plug-ins/dxf/dxf-export.c:484 ../plug-ins/hpgl/hpgl.c:708
-#: ../plug-ins/metapost/render_metapost.c:1145
+#: ../plug-ins/metapost/render_metapost.c:1173
 #: ../plug-ins/pgf/render_pgf.c:1143
 #: ../plug-ins/pstricks/render_pstricks.c:914
 #: ../plug-ins/shape/shape-export.c:134 ../plug-ins/svg/render_svg.c:150
@@ -831,8 +832,8 @@ msgid ""
 "nor your local encoding.\n"
 "Some things will break."
 msgstr ""
-"Alguns dels caràcters del nom del fitxer no són UTF-8 o de la codificació "
-"local.\n"
+"Alguns dels caràcters del nom del fitxer no són ni UTF-8 ni tampoc de la codificació "
+"local del sistema.\n"
 "Es produiran errors."
 
 #: ../app/filedlg.c:317 ../app/filedlg.c:559 ../app/paginate_psprint.c:421
@@ -874,7 +875,7 @@ msgid ""
 "to use to save '%s'"
 msgstr ""
 "No s'ha pogut determinar quin filtre d'exportació\n"
-"cal utilitzar per desar «%s»"
+"cal utilitzar per a desar «%s»"
 
 #: ../app/filedlg.c:607
 msgid "Export Diagram"
@@ -889,6 +890,8 @@ msgid ""
 "Modify object(s)\n"
 "Use <Space> to toggle between this and other tools"
 msgstr ""
+"Modifiqueu els objectes\n"
+"Utilitzeu la tecla <Espai> per a commutar entre aquesta i altres eines"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Magnify
 #: ../app/interface.c:63 ../app/menus.c:187 ../objects/FS/function.c:986
@@ -997,15 +1000,15 @@ msgid ""
 msgstr ""
 "Colors frontals i de fons per als nous objectes. Els quadrats petits en "
 "blanc i negre reinicien els colors. Les fletxes petites intercanvien els "
-"colors. Feu un doble clic per canviar-los."
+"colors. Feu un doble clic per a canviar-los."
 
 #: ../app/interface.c:1091
 msgid ""
 "Line widths.  Click on a line to set the default line width for new "
 "objects.  Double-click to set the line width more precisely."
 msgstr ""
-"Amplada de la línia.  Feu clic sobre una línia per especificar l'amplada per "
-"defecte de les línies dels nous objectes.  Feu doble clic per especificar-la "
+"Amplada de la línia.  Feu clic sobre una línia per a especificar l'amplada per "
+"defecte de les línies dels nous objectes.  Feu doble clic per a especificar-la "
 "de forma més precisa."
 
 #: ../app/interface.c:1131
@@ -1013,7 +1016,7 @@ msgid ""
 "Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
 "arrow parameters with Details..."
 msgstr ""
-"Estil de fletxa al principi de les noves línies. Feu clic per escollir una "
+"Estil de fletxa a l'inici de les noves línies. Feu clic per a escollir una "
 "fletxa, o definiu els paràmetres de la fletxa a Detalls..."
 
 #: ../app/interface.c:1136
@@ -1021,7 +1024,7 @@ msgid ""
 "Line style for new lines.  Click to pick a line style, or set line style "
 "parameters with Details..."
 msgstr ""
-"Estil de línia de les noves línies.  Feu clic per escollir un estil de "
+"Estil de línia de les noves línies.  Feu clic per a escollir un estil de "
 "línia, o definiu els paràmetres d'estil de línia a Detalls..."
 
 #: ../app/interface.c:1150
@@ -1029,7 +1032,7 @@ msgid ""
 "Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
 "parameters with Details..."
 msgstr ""
-"Estil de fletxa al final de les noves línies.  Feu clic per escollir una "
+"Estil de fletxa al final de les noves línies.  Feu clic per a escollir una "
 "fletxa, o definiu els paràmetres de la fletxa a Detalls..."
 
 #: ../app/interface.c:1260
@@ -1162,24 +1165,24 @@ msgstr ""
 #: ../app/load_save.c:912
 #, c-format
 msgid "No allowed to write to output file %s\n"
-msgstr ""
+msgstr "No es permet escriure al fitxer de sortida %s\n"
 
 #: ../app/load_save.c:934
 #, c-format
 msgid "No allowed to write temporary files in %s\n"
-msgstr ""
+msgstr "No es permet escriure els fitxers temporals a %s\n"
 
 #. Save failed; we clean our stuff up, without touching the file named
 #. "filename" if it existed.
 #: ../app/load_save.c:962
-#, fuzzy, c-format
+#, c-format
 msgid "Internal error %d writing file %s\n"
-msgstr "Error %s: cal un fitxer d'entrada vàlid %s\n"
+msgstr "S'ha produït l'error intern %d en escriure el fitxer %s\n"
 
 #: ../app/load_save.c:976
-#, fuzzy, c-format
+#, c-format
 msgid "Can't rename %s to final output file %s: %s\n"
-msgstr "No es pot obrir el fitxer de sortida %s: %s\n"
+msgstr "No es pot canviar el nom de %s a %s com a fitxer de sortida: %s\n"
 
 #: ../app/load_save.c:1064 ../app/load_save.c:1069
 msgid "Dia Diagram File"
@@ -1316,15 +1319,15 @@ msgstr "Envia al _fons"
 
 #: ../app/menus.c:134
 msgid "Bring to _Front"
-msgstr "Porta al _davant"
+msgstr "Porta al p_rimer pla"
 
 #: ../app/menus.c:135
 msgid "Send Backwards"
-msgstr "Envia enrere"
+msgstr "Envia cap enrere"
 
 #: ../app/menus.c:136
 msgid "Bring Forwards"
-msgstr "Porta endavant"
+msgstr "Porta cap endavant"
 
 #: ../app/menus.c:138
 msgid "_Group"
@@ -1496,7 +1499,7 @@ msgstr "Suprimeix"
 msgid "Inverse"
 msgstr "Invers"
 
-#: ../app/menus.c:278
+#: ../app/menus.c:291
 msgid "NULL tooldata in tool_menu_select"
 msgstr "Dades d'eina NULL a tool_menu_select"
 
@@ -1505,9 +1508,8 @@ msgid "Couldn't get GTK settings"
 msgstr "No s'han pogut obtenir els paràmetres del GTK"
 
 #: ../app/newgroup.c:117
-#, fuzzy
 msgid "Open group"
-msgstr "Cercle obert"
+msgstr "Obre el grup"
 
 #: ../app/paginate_psprint.c:271
 msgid "Select Printer"
@@ -1575,7 +1577,7 @@ msgstr "Nom del fitxer"
 
 #: ../app/preferences.c:106
 msgid "User Interface"
-msgstr "Interfície de l'usuari"
+msgstr "Interfície d'usuari"
 
 #: ../app/preferences.c:107
 msgid "Diagram Defaults"
@@ -1583,7 +1585,7 @@ msgstr "Opcions per defecte del diagrama"
 
 #: ../app/preferences.c:108
 msgid "View Defaults"
-msgstr "Veure les opcions per defecte"
+msgstr "Opcions per defecte de la visualització"
 
 #: ../app/preferences.c:124
 msgid "Reset tools after create"
@@ -1694,7 +1696,7 @@ msgstr "Línies per cada línia principal"
 #
 #: ../app/preferences.c:168
 msgid "Hex Size:"
-msgstr "Mida hex:"
+msgstr "Mida de l'hexàgon:"
 
 #: ../app/preferences.c:184
 msgid "Diagram tree window:"
@@ -1771,7 +1773,7 @@ msgid ""
 "Editing shapes is disabled."
 msgstr ""
 "El símbol «custom_type» no es pot obtenir de cap mòdul.\n"
-"S'inhabilita l'edició de figures."
+"S'ha inhabilitat l'edició de figures."
 
 #: ../app/sheets.c:381
 #, c-format
@@ -2146,21 +2148,20 @@ msgstr "Línia infinita"
 
 #: ../lib/arrows.c:1892
 msgid "Arrow head of unknown type"
-msgstr ""
+msgstr "Punta de fletxa de tipus desconegut"
 
 #: ../lib/arrows.c:1900
 #, c-format
 msgid "Arrow head of type %s has too small dimensions, removing.\n"
-msgstr ""
+msgstr "Les dimensions de la punta de fletxa del tipus %s són massa petites, se suprimirà.\n"
 
 #: ../lib/arrows.c:2021
-#, fuzzy
 msgid "unknown arrow"
-msgstr "Fletxa cap avall"
+msgstr "tipus de fletxa desconegut"
 
 #: ../lib/bezier_conn.c:636
 msgid "Internal error: Setting corner type of endpoint of bezier"
-msgstr "Error intern: establiment de tipus de punt final del bezier"
+msgstr "Error intern: en establir el tipus de punt final de la corba Bézier"
 
 #: ../lib/create.c:50 ../lib/create.c:100 ../lib/create.c:127
 #: ../lib/create.c:161 ../lib/create.c:197 ../lib/create.c:224
@@ -2186,16 +2187,16 @@ msgid ""
 "assuming it is encoded in %s"
 msgstr ""
 "El fitxer %s no té cap especificació de la codificació;\n"
-"s'està assumint que està codificat en %s"
+"s'assumirà que està codificat en %s"
 
 #: ../lib/dia_xml.c:565
 msgid "Taking point value of non-point node."
-msgstr "El valor del punt s'està agafant d'un node que no és un punt."
+msgstr "El valor del punt es prendrà d'un node que no és un punt."
 
 #: ../lib/dia_xml.c:576
 #, c-format
 msgid "Incorrect x Point value \"%s\" %f; discarding it."
-msgstr "El valor \"%s\" %f del punt x és incorrecte, s'està descartant"
+msgstr "El valor «%s» %f del punt x és incorrecte; es descartarà."
 
 #: ../lib/dia_xml.c:583
 msgid "Error parsing point."
@@ -2205,7 +2206,7 @@ msgstr "S'ha produït un error en analitzar el punt."
 #: ../lib/dia_xml.c:591
 #, c-format
 msgid "Incorrect y Point value \"%s\" %f; discarding it."
-msgstr "El valor \"%s\" %f del punt y és incorrecte, s'està descartant"
+msgstr "El valor «%s» %f del punt y és incorrecte; es descartarà."
 
 #: ../lib/dia_xml.c:1063
 msgid ""
@@ -2214,9 +2215,9 @@ msgid ""
 "problems. Please report to dia-list@gnome.org if you see this message."
 msgstr ""
 "El vostre joc de caràcters és UTF-8. Tindreu problemes degut a qüestions "
-"relacionades amb la biblioteca libxml1 i el suport a fitxer de versions "
-"anteriors del Dia. Si us apareix aquest missatge informeu-ne a dia-"
-"list@gnome.org, si us plau."
+"relacionades amb la biblioteca libxml1 i el seu funcionament amb fitxers "
+"generats per versions anteriors del Dia. Si us apareix aquest missatge "
+"hauríeu d'informar-ne a la llista de correu dia-list@gnome.org."
 
 #: ../lib/diaarrowchooser.c:322
 msgid "Arrow Properties"
@@ -2246,7 +2247,7 @@ msgstr "Previsualitza el text"
 
 #: ../lib/diagtkfontsel.c:217
 msgid "The text to display in order to demonstrate the selected font."
-msgstr "Text a visualitzar per mostrar el tipus de lletra seleccionat."
+msgstr "Text a visualitzar per a mostrar el tipus de lletra seleccionat."
 
 #: ../lib/diagtkfontsel.c:321
 msgid "_Family:"
@@ -2289,7 +2290,7 @@ msgstr "No es pot carregar el tipus de lletra %s.\n"
 
 #: ../lib/message.c:80 ../lib/message.c:226
 msgid "Warning"
-msgstr "Advertència"
+msgstr "Advertiment"
 
 #: ../lib/message.c:106
 msgid "There is one similar message."
@@ -2314,7 +2315,7 @@ msgid ""
 "Error loading defaults '%s'.\n"
 "Not a Dia diagram file."
 msgstr ""
-"S'ha produït un error en carregar els predeterminats «%s».\n"
+"S'ha produït un error en carregar els valors predeterminats «%s».\n"
 "El fitxer no és un diagrama del Dia."
 
 #: ../lib/plug-ins.c:120
@@ -2324,7 +2325,7 @@ msgstr "???"
 #: ../lib/plug-ins.c:227
 #, c-format
 msgid "Could not deduce correct path for `%s'"
-msgstr "No s'ha pogut esbrinar el camí correcte per a `%s'"
+msgstr "No s'ha pogut esbrinar el camí correcte per a «%s»"
 
 #: ../lib/plug-ins.c:233
 #, c-format
@@ -2351,7 +2352,7 @@ msgstr "La crida dia_plugin_init() ha fallat"
 #: ../lib/plug-ins.c:283
 #, c-format
 msgid "%s Plugin could not be unloaded"
-msgstr "No s'ha pogut descarregar l'extensió %s"
+msgstr "No s'ha pogut descarregar el connector %s"
 
 #: ../lib/plug-ins.c:371
 #, c-format
@@ -2838,7 +2839,7 @@ msgstr "Tomba"
 #. Translators: Menu item Verb/Channel/Guide/Rotate/Spin
 #: ../objects/FS/function.c:752
 msgid "Spin"
-msgstr "Fés rodar"
+msgstr "Fes rodar"
 
 #. Translators: Menu item Verb/Channel/Guide/Allow DOF
 #. Translators: Menu item Verb/Channel/Guide/Allow DOF/Allow DOF
@@ -3799,7 +3800,7 @@ msgstr "Activa"
 
 #: ../objects/GRAFCET/step.c:163
 msgid "Shows a red dot to figure the step's activity"
-msgstr "Mostra un punt vermell per identificar l'activitat de l'etapa"
+msgstr "Mostra un punt vermell per a identificar l'activitat de l'etapa"
 
 #: ../objects/GRAFCET/transition.c:140
 msgid "Receptivity"
@@ -3831,7 +3832,7 @@ msgstr "Punt sud"
 
 #: ../objects/GRAFCET/vector.c:129
 msgid "Draw arrow heads on upward arcs:"
-msgstr "Dibuixa els caps de fletxa sobre arcs cap amunt:"
+msgstr "Dibuixa les puntes de fletxa en els arcs cap amunt:"
 
 #: ../objects/GRAFCET/vergent.c:122
 msgid "OR"
@@ -4019,9 +4020,8 @@ msgid "OR Refinement"
 msgstr "Refinament O"
 
 #: ../objects/KAOS/metaandorrel.c:154
-#, fuzzy
 msgid "Operationalization"
-msgstr "Dades de les operacions"
+msgstr "Operacionalització"
 
 #
 #: ../objects/KAOS/metaandorrel.c:161
@@ -4379,7 +4379,7 @@ msgstr "Comentaris visibles"
 
 #: ../objects/UML/class_dialog.c:371
 msgid "Wrap comment after this length: "
-msgstr "Ajusta el comentari després d'aquesta llargada"
+msgstr "Ajusta el comentari després d'aquesta llargada: "
 
 #: ../objects/UML/class_dialog.c:378
 msgid "Show documenation tag"
@@ -4436,12 +4436,12 @@ msgstr "_Suprimeix"
 #: ../objects/UML/class_dialog.c:937 ../objects/UML/class_dialog.c:1887
 #: ../objects/UML/class_dialog.c:2126 ../objects/UML/class_dialog.c:2654
 msgid "Move up"
-msgstr "Mou amunt"
+msgstr "Mou cap amunt"
 
 #: ../objects/UML/class_dialog.c:943 ../objects/UML/class_dialog.c:1893
 #: ../objects/UML/class_dialog.c:2133 ../objects/UML/class_dialog.c:2660
 msgid "Move down"
-msgstr "Mou avall"
+msgstr "Mou cap avall"
 
 #: ../objects/UML/class_dialog.c:954
 msgid "Attribute data"
@@ -4553,7 +4553,7 @@ msgstr "Restricció:"
 
 #: ../objects/UML/dependency.c:139
 msgid "Show arrow:"
-msgstr "Mostra sageta:"
+msgstr "Mostra la fletxa:"
 
 #: ../objects/UML/implements.c:129
 msgid "Interface:"
@@ -4573,7 +4573,7 @@ msgstr "Afegeix punts de connexió"
 
 #: ../objects/UML/lifeline.c:418
 msgid "Remove connection points"
-msgstr "Treu punts de connexió"
+msgstr "Suprimeix punts de connexió"
 
 #: ../objects/UML/lifeline.c:422
 msgid "UML Lifeline"
@@ -4649,7 +4649,7 @@ msgid ""
 msgstr ""
 "Aquest diagrama utilitza l'objecte Estat per als estats inicial i final.\n"
 "Aquesta opció desapareixerà en futures versions.\n"
-"Utilitzeu l'objecte Estat Inicial/Final, si us plau\n"
+"En lloc d'això hauríeu d'utilitzar l'objecte Estat Inicial/Final\n"
 
 #: ../objects/UML/state_term.c:120
 msgid "Is final"
@@ -4783,7 +4783,7 @@ msgstr "Temps de baixada"
 
 #: ../objects/chronogram/chronoline.c:171
 msgid "Multi-bit data"
-msgstr "Sades de multibit"
+msgstr "Dades de bits múltiples"
 
 #: ../objects/chronogram/chronoline.c:173
 #: ../objects/chronogram/chronoref.c:156
@@ -4849,7 +4849,7 @@ msgid ""
 "The file '%s' has invalid path data.\n"
 "svg:path data must start with moveto."
 msgstr ""
-"El fitxer «%s» té les dades del camí invàlides.\n"
+"El fitxer «%s» conté dades de camí invàlides.\n"
 "Les dades svg:path han de començar amb moveto."
 
 #: ../objects/flowchart/box.c:150 ../objects/standard/box.c:150
@@ -4896,23 +4896,22 @@ msgstr "Amplada"
 
 #: ../objects/standard/arc.c:140
 msgid "Curve distance"
-msgstr "Distància corba"
+msgstr "Distància de la corba"
 
 #: ../objects/standard/bezier.c:137 ../objects/standard/line.c:141
 #: ../objects/standard/polyline.c:135
-#, fuzzy
 msgid "Line gaps"
-msgstr "Forats de la línia"
+msgstr "Distàncies de la línia"
 
 #: ../objects/standard/bezier.c:139 ../objects/standard/line.c:143
 #: ../objects/standard/polyline.c:137
 msgid "Absolute start gap"
-msgstr ""
+msgstr "Distància absoluta d'inici"
 
 #: ../objects/standard/bezier.c:141 ../objects/standard/line.c:145
 #: ../objects/standard/polyline.c:139
 msgid "Absolute end gap"
-msgstr ""
+msgstr "Distància absoluta de final"
 
 #: ../objects/standard/bezier.c:698 ../objects/standard/beziergon.c:482
 msgid "Add Segment"
@@ -4920,7 +4919,7 @@ msgstr "Afegeix un segment"
 
 #: ../objects/standard/bezier.c:699 ../objects/standard/beziergon.c:483
 msgid "Delete Segment"
-msgstr "Suprimeix un segment"
+msgstr "Suprimeix el segment"
 
 #: ../objects/standard/bezier.c:701 ../objects/standard/beziergon.c:485
 msgid "Symmetric control"
@@ -4984,7 +4983,7 @@ msgid ""
 "Using the file '%s' instead\n"
 msgstr ""
 "El fitxer d'imatge «%s» no s'ha trobat al directori.\n"
-"S'utilitza alternativament el fitxer «%s».\n"
+"S'utilitzarà el fitxer «%s» com a alternativa\n"
 
 #. Didn't find file in current dir.
 #: ../objects/standard/image.c:696 ../objects/standard/image.c:718
@@ -5006,7 +5005,7 @@ msgstr "Punt final"
 
 #: ../objects/standard/polygon.c:460 ../objects/standard/polyline.c:577
 msgid "Add Corner"
-msgstr "Afegeix la cantonada"
+msgstr "Afegeix una cantonada"
 
 #: ../objects/standard/polygon.c:461 ../objects/standard/polyline.c:578
 msgid "Delete Corner"
@@ -5081,7 +5080,6 @@ msgid "Drawing Interchange File"
 msgstr "Fitxer d'intercanvi de dibuixos (DIF)"
 
 #: ../plug-ins/dxf/dxf-import.c:481 ../plug-ins/dxf/dxf-import.c:498
-#, fuzzy
 msgid "Bad vertex bulge\n"
 msgstr "Protuberància incorrecta del vèrtex\n"
 
@@ -5093,7 +5091,7 @@ msgstr "Escala: %f\n"
 #: ../plug-ins/dxf/dxf-import.c:1316
 #, c-format
 msgid "read_dxf_codes failed on '%s'\n"
-msgstr "Ha fallat read_dxf_codes en «%s»\n"
+msgstr "ha fallat read_dxf_codes en «%s»\n"
 
 #: ../plug-ins/dxf/dxf-import.c:1324
 #, c-format
@@ -5150,7 +5148,7 @@ msgstr "Filtre d'exportació del Llenguatge de gràfics de HP"
 msgid "TeX Metapost export filter"
 msgstr "Filtre d'exportació Metapost de TeX"
 
-#: ../plug-ins/metapost/render_metapost.c:1214
+#: ../plug-ins/metapost/render_metapost.c:1255
 msgid "TeX Metapost macros"
 msgstr "Macroinstruccions Metapost de TeX"
 
@@ -5197,11 +5195,11 @@ msgstr "No s'ha pogut obrir «%s» per a la seva escriptura.\n"
 
 #: ../plug-ins/python/python.c:96
 msgid "Python scripting support"
-msgstr "Suport per seqüències d'ordres de Python"
+msgstr "Suport per a seqüències d'ordres de Python"
 
 #: ../plug-ins/shape/shape-export.c:475
 msgid "Can't export png without libart!"
-msgstr "No es pot exportar el png sense libart!"
+msgstr "No es pot exportar el png sense libart"
 
 #
 #: ../plug-ins/shape/shape-export.c:500
@@ -5239,13 +5237,13 @@ msgstr ""
 "Filtres d'importació i exportació de gràfics vectorials escalables (SVG)"
 
 #: ../plug-ins/vdx/vdx-export.c:1376 ../plug-ins/vdx/vdx-export.c:1385
-#, fuzzy, c-format
+#, c-format
 msgid "Couldn't read file %s"
-msgstr "No s'ha pogut llegir el color: %s\n"
+msgstr "No s'ha pogut llegir el fitxer %s"
 
 #: ../plug-ins/vdx/vdx-export.c:1904
 msgid "Visio XML format"
-msgstr ""
+msgstr "Format XML del Visio"
 
 #: ../plug-ins/vdx/vdx-import.c:219 ../plug-ins/xfig/xfig-import.c:1034
 #, c-format
@@ -5253,89 +5251,59 @@ msgid "Couldn't read color: %s\n"
 msgstr "No s'ha pogut llegir el color: %s\n"
 
 #: ../plug-ins/vdx/vdx-import.c:507
-#, fuzzy, c-format
+#, c-format
 msgid "Couldn't find shape %d\n"
-msgstr "No s'ha pogut trobar el directori d'ajuda"
+msgstr "No s'ha pogut trobar la forma %d\n"
 
-#: ../plug-ins/vdx/vdx-import.c:851
-msgid "MoveTo after start of polyline\n"
-msgstr ""
-
-#: ../plug-ins/vdx/vdx-import.c:864
-#, fuzzy, c-format
-msgid "Unexpected polyline object: %s\n"
-msgstr "No s'ha pogut llegir la informació de la polilínia: %s\n"
-
-#: ../plug-ins/vdx/vdx-import.c:956
+#: ../plug-ins/vdx/vdx-import.c:976
 #, c-format
 msgid "Unexpected Ellipse object: %s\n"
-msgstr ""
+msgstr "Objecte el·lipse inesperat: %s\n"
 
-#: ../plug-ins/vdx/vdx-import.c:964
-msgid "Unexpected Ellipse additional objects\n"
-msgstr ""
-
-#: ../plug-ins/vdx/vdx-import.c:974
-#, fuzzy
+#: ../plug-ins/vdx/vdx-import.c:990
 msgid "Can't rotate ellipse\n"
-msgstr "No s'ha pogut llegir la informació de la el·lipse: %s\n"
+msgstr "No s'ha pogut girar l'el·lipse\n"
 
-#: ../plug-ins/vdx/vdx-import.c:1287
+#: ../plug-ins/vdx/vdx-import.c:1306
 msgid "MoveTo not at start of Bezier\n"
-msgstr ""
+msgstr "MoveTo no s'ha executat a l'inici de la corba de Bézier\n"
 
-#: ../plug-ins/vdx/vdx-import.c:1374
-#, c-format
-msgid "Unexpected Bezier object: %s\n"
-msgstr ""
-
-#: ../plug-ins/vdx/vdx-import.c:1595
-#, c-format
-msgid "Unexpected NURBSTo object: %s\n"
-msgstr ""
-
-#: ../plug-ins/vdx/vdx-import.c:1603
-msgid "Unexpected NURBSTo additional objects\n"
-msgstr ""
-
-#: ../plug-ins/vdx/vdx-import.c:1620
+#: ../plug-ins/vdx/vdx-import.c:1639
 msgid "Invalid NURBS formula"
-msgstr ""
+msgstr "Fórmula NURBS no vàlida"
 
-#: ../plug-ins/vdx/vdx-import.c:1742
-#, fuzzy, c-format
+#: ../plug-ins/vdx/vdx-import.c:1875
+#, c-format
 msgid "Couldn't write file %s"
-msgstr "No s'ha pogut llegir el color: %s\n"
+msgstr "No s'ha pogut escriure el fitxer %s"
 
-#: ../plug-ins/vdx/vdx-import.c:1826 ../plug-ins/vdx/vdx-import.c:1839
-#, fuzzy, c-format
+#: ../plug-ins/vdx/vdx-import.c:1960 ../plug-ins/vdx/vdx-import.c:1973
+#, c-format
 msgid "Couldn't handle foreign object type %s"
-msgstr "No s'ha pogut identificar l'objecte FIG: %s\n"
+msgstr "No s'ha pogut gestionar el tipus d'objecte forani %s"
 
-#: ../plug-ins/vdx/vdx-import.c:1867
-#, fuzzy, c-format
+#: ../plug-ins/vdx/vdx-import.c:2001
+#, c-format
 msgid "Couldn't make object dir %s"
-msgstr "No s'ha pogut identificar l'objecte FIG: %s\n"
+msgstr "No s'ha pogut crear el directori de l'objecte %s"
 
-#: ../plug-ins/vdx/vdx-import.c:2723
-#, fuzzy
+#: ../plug-ins/vdx/vdx-import.c:2948
 msgid "Visio XML File Format"
-msgstr "Format del fitxer del XFig"
+msgstr "Format de fitxer XML del Visio"
 
 #: ../plug-ins/vdx/vdx-xml.c:3344
-#, fuzzy, c-format
+#, c-format
 msgid "Can't decode object %s"
-msgstr "No es pot carregar el tipus de lletra %s.\n"
+msgstr "No s'ha pogut descodificar l'objecte %s"
 
 #: ../plug-ins/vdx/vdx-xml.c:5125
-#, fuzzy, c-format
+#, c-format
 msgid "Can't write object %u"
-msgstr "No es pot trobar l'objecte estàndard"
+msgstr "No s'ha pogut escriure l'objecte %u"
 
 #: ../plug-ins/vdx/vdx.c:53
-#, fuzzy
 msgid "Visio XML Format import and export filter"
-msgstr "Filtre d'importació i exportació del format Fig"
+msgstr "Filtre d'importació i exportació del format XML del Visio"
 
 #: ../plug-ins/wmf/wmf.cpp:1186
 #, c-format
@@ -5396,7 +5364,7 @@ msgstr "El Dia no suporta patrons"
 
 #: ../plug-ins/xfig/xfig-import.c:164
 msgid "Triple-dotted lines are not supported by Dia, using double-dotted"
-msgstr "El Dia no suporta línies de tres punt, utilitzarà línies de dos punts"
+msgstr "El Dia no suporta línies de tres punt, utilitzaran línies de dos punts"
 
 #: ../plug-ins/xfig/xfig-import.c:168
 #, c-format
@@ -5410,7 +5378,7 @@ msgstr "S'ha produït un error en llegir el punt %d de %d: %s\n"
 
 #: ../plug-ins/xfig/xfig-import.c:264
 msgid "Error while reading arrowhead\n"
-msgstr "S'ha produït un error en llegir l'extrem de la fletxa\n"
+msgstr "S'ha produït un error en llegir la punta de la fletxa\n"
 
 #: ../plug-ins/xfig/xfig-import.c:286
 #, c-format
@@ -5439,7 +5407,7 @@ msgstr "No s'ha pogut llegir el bit canviat: %s\n"
 
 #: ../plug-ins/xfig/xfig-import.c:525
 msgid "Negative corner radius, negating"
-msgstr "Radi de la cantonada negatiu, s'està negant"
+msgstr "Radi de la cantonada negatiu, es negarà"
 
 #: ../plug-ins/xfig/xfig-import.c:568 ../plug-ins/xfig/xfig-import.c:881
 #, c-format
@@ -5479,13 +5447,13 @@ msgstr "No s'ha pogut identificar l'objecte FIG: %s\n"
 
 #: ../plug-ins/xfig/xfig-import.c:1015
 msgid "Compound end outside compound\n"
-msgstr "El final del compost està fora del compost\n"
+msgstr "El final de l'objecte compost es troba fora d'ell\n"
 
 #: ../plug-ins/xfig/xfig-import.c:1039
 #, c-format
 msgid "Color number %d out of range 0..%d.  Discarding color.\n"
 msgstr ""
-"El número del color %d està fora del rang 0..%d.  Es descartarà el color.\n"
+"El número del color %d es troba fora del rang 0..%d.  Es descartarà el color.\n"
 
 #: ../plug-ins/xfig/xfig-import.c:1085
 #, c-format
@@ -5500,18 +5468,18 @@ msgstr "Tipus d'objecte %d desconegut\n"
 #: ../plug-ins/xfig/xfig-import.c:1120
 #, c-format
 msgid "`%s' is not one of `%s' or `%s'\n"
-msgstr "`%s' no és un dels `%s' o `%s'\n"
+msgstr "«%s» no és un dels «%s» o «%s»\n"
 
 #: ../plug-ins/xfig/xfig-import.c:1130
 #, c-format
 msgid "Error reading paper size: %s\n"
-msgstr "S'ha produït un error llegint la mida del paper: %s\n"
+msgstr "S'ha produït un error en llegir la mida del paper: %s\n"
 
 #: ../plug-ins/xfig/xfig-import.c:1141
 #, c-format
 msgid "Unknown paper size `%s', using default\n"
 msgstr ""
-"Mida del paper `%s' desconeguda, s'està utilitzant la mida predeterminada\n"
+"Mida del paper «%s» desconeguda, s»està utilitzant la mida predeterminada\n"
 
 #: ../plug-ins/xfig/xfig-import.c:1153
 #, c-format
@@ -5526,7 +5494,7 @@ msgstr "S'ha produït un error en llegir la justificació: %s\n"
 #: ../plug-ins/xfig/xfig-import.c:1173
 #, c-format
 msgid "Error reading units: %s\n"
-msgstr "S'ha produït un error en llegir les unitat: %s\n"
+msgstr "S'ha produït un error en llegir les unitats: %s\n"
 
 #: ../plug-ins/xfig/xfig-import.c:1189
 #, c-format
@@ -5536,7 +5504,7 @@ msgstr "S'ha produït un error en llegir l'augment: %s\n"
 #: ../plug-ins/xfig/xfig-import.c:1202
 #, c-format
 msgid "Error reading multipage indicator: %s\n"
-msgstr "S'ha produït un error en llegir l'indicador de múltiples pàgines: %s\n"
+msgstr "S'ha produït un error en llegir l'indicador de pàgines múltiples: %s\n"
 
 #: ../plug-ins/xfig/xfig-import.c:1213
 #, c-format
@@ -5609,12 +5577,12 @@ msgstr "Filtre de transformació XSL"
 #: ../plug-ins/xslt/xslt.c:346
 msgid "No valid configuration files found for the XSLT plugin, not loading."
 msgstr ""
-"No s'ha trobat cap fitxer de configuració vàlid pel connector de XSLT, no "
-"s'està carregant."
+"No s'ha trobat cap fitxer de configuració vàlid per al connector de XSLT, no "
+"es carregarà."
 
 #: ../plug-ins/xslt/xsltdialog.c:96
 msgid "Export through XSLT"
-msgstr "Exporta a través de XSLT"
+msgstr "Exporta a través d'XSLT"
 
 #: ../plug-ins/xslt/xsltdialog.c:111
 msgid "From:"
@@ -5766,7 +5734,7 @@ msgstr "Fletxa a la dreta tallada"
 
 #: ../sheets/Assorted.sheet.in.h:27
 msgid "Octogon. Eight sided shape"
-msgstr "Octàgon. Figure de vuit cares"
+msgstr "Octàgon. Figura de vuit cares"
 
 #: ../sheets/Assorted.sheet.in.h:28
 msgid "Pentagon block arrow"
@@ -5849,198 +5817,181 @@ msgid "Vertical parallelogram"
 msgstr "Paral·lelogram vertical"
 
 #: ../sheets/BPMN.sheet.in.h:1
-#, fuzzy
 msgid "Activity Looping"
-msgstr "Activitat"
+msgstr "Repetició de l'activitat"
 
 #: ../sheets/BPMN.sheet.in.h:2
 msgid "Ad-Hoc Collapsed Sub-Process"
-msgstr ""
+msgstr "Subprocés ad-hoc reduït"
 
 #. For: anthonym
 #: ../sheets/BPMN.sheet.in.h:4
 msgid "BPMN"
-msgstr ""
+msgstr "BPMN"
 
 #: ../sheets/BPMN.sheet.in.h:5
 msgid "Business Process Modeling Notation"
-msgstr ""
+msgstr "Notació per a la modelització de processos de negocis (BPMN)"
 
 #: ../sheets/BPMN.sheet.in.h:6
 msgid "Collapsed Sub-Process"
-msgstr ""
+msgstr "Subprocés reduït"
 
 #: ../sheets/BPMN.sheet.in.h:7
 msgid "Compensation Collapsed Sub-Process"
-msgstr ""
+msgstr "Subprocés reduït de compensació"
 
 #: ../sheets/BPMN.sheet.in.h:8
-#, fuzzy
 msgid "Compensation Task"
-msgstr "Composició"
+msgstr "Tasca de compensació"
 
 #: ../sheets/BPMN.sheet.in.h:9
-#, fuzzy
 msgid "Complex"
-msgstr "Aparella"
+msgstr "Complex"
 
-#
 #: ../sheets/BPMN.sheet.in.h:10
-#, fuzzy
 msgid "Data Object"
-msgstr "DiaObject"
+msgstr "Objecte de dades"
 
 #: ../sheets/BPMN.sheet.in.h:11
-#, fuzzy
 msgid "End Event"
-msgstr "Punt final"
+msgstr "Esdeveniment final"
 
 #: ../sheets/BPMN.sheet.in.h:12
 msgid "End Event - Cancel"
-msgstr ""
+msgstr "Esdeveniment final - cancel·lació"
 
 #: ../sheets/BPMN.sheet.in.h:13
-#, fuzzy
 msgid "End Event - Compensation"
-msgstr "Especificació d'esdeveniments"
+msgstr "Esdeveniment final - compensació"
 
 #: ../sheets/BPMN.sheet.in.h:14
 msgid "End Event - Error"
-msgstr ""
+msgstr "Esdeveniment final - error"
 
 #: ../sheets/BPMN.sheet.in.h:15
-#, fuzzy
 msgid "End Event - Link"
-msgstr "Pica d'esdeveniments"
+msgstr "Esdeveniment final - enllaç"
 
 #: ../sheets/BPMN.sheet.in.h:16
 msgid "End Event - Message"
-msgstr ""
+msgstr "Esdeveniment final - missatge"
 
 #: ../sheets/BPMN.sheet.in.h:17
 msgid "End Event - Multiple"
-msgstr ""
+msgstr "Esdeveniment final - múltiple"
 
 #: ../sheets/BPMN.sheet.in.h:18
 msgid "End Event - Terminate"
-msgstr ""
+msgstr "Esdeveniment final - terminació"
 
 #: ../sheets/BPMN.sheet.in.h:19
 msgid "Exclusive (XOR) Data Based"
-msgstr ""
+msgstr "Basat en dades exclusives-o (XOR)"
 
 #: ../sheets/BPMN.sheet.in.h:20
 msgid "Exclusive (XOR) Event Based"
-msgstr ""
+msgstr "Basat en esdeveniments exclusius-o (XOR)"
 
 #: ../sheets/BPMN.sheet.in.h:21
-#, fuzzy
 msgid "Gateway"
-msgstr "Passarel·la MAS"
+msgstr "Passarel·la"
 
 #: ../sheets/BPMN.sheet.in.h:22
-#, fuzzy
 msgid "Group"
-msgstr "_Agrupa"
+msgstr "Grup"
 
 #: ../sheets/BPMN.sheet.in.h:23
 msgid "Inclusive (OR)"
-msgstr ""
+msgstr "Inclusiu (O)"
 
 #: ../sheets/BPMN.sheet.in.h:24
 msgid "Intermediate Event"
-msgstr ""
+msgstr "Esdeveniment intermedi"
 
 #: ../sheets/BPMN.sheet.in.h:25
 msgid "Intermediate Event - Cancel"
-msgstr ""
+msgstr "Esdeveniment intermedi - cancel·lació"
 
 #: ../sheets/BPMN.sheet.in.h:26
 msgid "Intermediate Event - Compensation"
-msgstr ""
+msgstr "Esdeveniment intermedi - compensació"
 
 #: ../sheets/BPMN.sheet.in.h:27
 msgid "Intermediate Event - Error"
-msgstr ""
+msgstr "Esdeveniment intermedi - error"
 
 #: ../sheets/BPMN.sheet.in.h:28
 msgid "Intermediate Event - Link"
-msgstr ""
+msgstr "Esdeveniment intermedi - enllaç"
 
 #: ../sheets/BPMN.sheet.in.h:29
 msgid "Intermediate Event - Message"
-msgstr ""
+msgstr "Esdeveniment intermedi - missatge"
 
 #: ../sheets/BPMN.sheet.in.h:30
 msgid "Intermediate Event - Multiple"
-msgstr ""
+msgstr "Esdeveniment intermedi - múltiple"
 
 #: ../sheets/BPMN.sheet.in.h:31
 msgid "Intermediate Event - Rule"
-msgstr ""
+msgstr "Esdeveniment intermedi - regla"
 
 #: ../sheets/BPMN.sheet.in.h:32
 msgid "Intermediate Event - Timer"
-msgstr ""
+msgstr "Esdeveniment intermedi - temporitzador"
 
 #: ../sheets/BPMN.sheet.in.h:33
 msgid "Looping Collapsed Sub-Process"
-msgstr ""
+msgstr "Subprocés reduït en bucle"
 
 #: ../sheets/BPMN.sheet.in.h:34
 msgid "Multiple Instance Collapsed Sub-Process"
-msgstr ""
+msgstr "Subprocés reduït d'instàncies múltiples"
 
 #: ../sheets/BPMN.sheet.in.h:35
-#, fuzzy
 msgid "Multiple Instance Task"
-msgstr "Instàncies múltiples"
+msgstr "Tasca d'instàncies múltiples"
 
 #: ../sheets/BPMN.sheet.in.h:36
 msgid "Parallel (AND)"
-msgstr ""
+msgstr "Paral·lel (I)"
 
 #: ../sheets/BPMN.sheet.in.h:37
-#, fuzzy
 msgid "Start Event"
-msgstr "Punt d'inici"
+msgstr "Esdeveniment d'inici"
 
 #: ../sheets/BPMN.sheet.in.h:38
-#, fuzzy
 msgid "Start Event - Link"
-msgstr "Pica d'esdeveniments"
+msgstr "Esdeveniment d'inici - enllaç"
 
 #: ../sheets/BPMN.sheet.in.h:39
-#, fuzzy
 msgid "Start Event - Message"
-msgstr "Envia un missatge"
+msgstr "Esdeveniment d'inici - missatge"
 
 #: ../sheets/BPMN.sheet.in.h:40
 msgid "Start Event - Multiple"
-msgstr ""
+msgstr "Esdeveniment d'inici - múltiple"
 
 #: ../sheets/BPMN.sheet.in.h:41
 msgid "Start Event - Rule"
-msgstr ""
+msgstr "Esdeveniment d'inici - regla"
 
 #: ../sheets/BPMN.sheet.in.h:42
-#, fuzzy
 msgid "Start Event - Timer"
-msgstr "Hora d'inici"
+msgstr "Esdeveniment d'inici - temporitzador"
 
 #: ../sheets/BPMN.sheet.in.h:44
-#, fuzzy
 msgid "Text Annotation"
-msgstr "Orientació"
+msgstr "Anotació de text"
 
 #: ../sheets/BPMN.sheet.in.h:45
-#, fuzzy
 msgid "Transaction"
-msgstr "Translació"
+msgstr "Transacció"
 
 #: ../sheets/ChemEng.sheet.in.h:1
 msgid "AC Generator"
-msgstr "Generador CA"
+msgstr "Generador de CA"
 
 #: ../sheets/ChemEng.sheet.in.h:2
 msgid "Air Cooler"
@@ -6069,7 +6020,7 @@ msgstr "Centrifugadora"
 #. For: zenith
 #: ../sheets/ChemEng.sheet.in.h:9
 msgid "ChemEng"
-msgstr "EngQuim"
+msgstr "EngQuím"
 
 #: ../sheets/ChemEng.sheet.in.h:10
 msgid "Clarifier or Settling Tank"
@@ -6385,31 +6336,31 @@ msgstr "Díode zener alineat verticalment"
 
 #: ../sheets/Contact.sheet.in.h:1
 msgid "'if not' (normally closed) ladder contact"
-msgstr "Contacte 'si no' (normalment tancat) del llenguatge 'ladder'"
+msgstr "Contacte 'si no' (normalment tancat) del diagrama de contactes" 
 
 #: ../sheets/Contact.sheet.in.h:2
 msgid "'if' (normally open) ladder contact"
-msgstr "Contacte 'si' (normalment obert) del llenguatge 'ladder'"
+msgstr "Contacte 'si' (normalment obert) del diagrama de contactes"
 
 #: ../sheets/Contact.sheet.in.h:3
 msgid "'jump' output variable"
-msgstr "Variable de sortida 'salta'"
+msgstr "Variable de sortida «salta»"
 
 #: ../sheets/Contact.sheet.in.h:4
 msgid "'reset' output variable"
-msgstr "Variable de sortida 'reinicia'"
+msgstr "Variable de sortida «reinicia»"
 
 #: ../sheets/Contact.sheet.in.h:5
 msgid "'set' output variable"
-msgstr "Variable de sortida 'especifica'"
+msgstr "Variable de sortida «especifica»"
 
 #: ../sheets/Contact.sheet.in.h:6
 msgid "Components for LADDER circuits"
-msgstr "Components per als circuits LADDER"
+msgstr "Components per als circuits de diagrama de contactes"
 
 #: ../sheets/Contact.sheet.in.h:7
 msgid "Ladder"
-msgstr "Ladder"
+msgstr "Diagrama de contactes"
 
 #: ../sheets/Contact.sheet.in.h:8
 msgid "Negative output variable"
@@ -6417,11 +6368,11 @@ msgstr "Variable de sortida negativa"
 
 #: ../sheets/Contact.sheet.in.h:9
 msgid "Power-saved 'reset' output variable"
-msgstr "Variable de sortida 'reset' amb protecció de potència"
+msgstr "Variable de sortida «reset» amb protecció de potència"
 
 #: ../sheets/Contact.sheet.in.h:10
 msgid "Power-saved 'set' output variable"
-msgstr "Variable de sortida 'set' amb protecció de potència"
+msgstr "Variable de sortida «set» amb protecció de potència"
 
 #: ../sheets/Contact.sheet.in.h:11
 msgid "Power-saved negative output variable"
@@ -6529,7 +6480,7 @@ msgstr "Sensor - dreta"
 
 #: ../sheets/Cybernetics.sheet.in.h:23
 msgid "Sensor - top"
-msgstr "Sensor - dalt"
+msgstr "Sensor - a dalt"
 
 #: ../sheets/Cybernetics.sheet.in.h:24
 msgid "Sigmoid characteristic"
@@ -6674,16 +6625,15 @@ msgstr "Flux de polilínia ortogonal"
 #. XXX
 #: ../sheets/Flowchart.sheet.in.h:2
 msgid "Collate"
-msgstr "Cotejar"
+msgstr "Compara"
 
 #: ../sheets/Flowchart.sheet.in.h:3
 msgid "Connector"
 msgstr "Connector"
 
 #: ../sheets/Flowchart.sheet.in.h:4
-#, fuzzy
 msgid "Data source"
-msgstr "Emmagatzemament de les dades"
+msgstr "Font de dades"
 
 #: ../sheets/Flowchart.sheet.in.h:5 ../sheets/SDL.sheet.in.h:4
 msgid "Decision"
@@ -6707,7 +6657,7 @@ msgstr "Entrada/Sortida"
 
 #: ../sheets/Flowchart.sheet.in.h:12
 msgid "Internal storage"
-msgstr "Emmagatzemament intern"
+msgstr "Emmagatzematge intern"
 
 #: ../sheets/Flowchart.sheet.in.h:13
 msgid "Magnetic disk"
@@ -6735,7 +6685,7 @@ msgstr "Combina"
 
 #: ../sheets/Flowchart.sheet.in.h:19
 msgid "Objects to draw flowcharts"
-msgstr "Objectes per dibuixar diagrames de flux"
+msgstr "Objectes per a dibuixar diagrames de flux"
 
 #. XXX
 #: ../sheets/Flowchart.sheet.in.h:21
@@ -7115,7 +7065,6 @@ msgid "A KAOS operation"
 msgstr "Una operació de KAOS"
 
 #: ../sheets/KAOS.sheet.in.h:17
-#, fuzzy
 msgid "A KAOS operationalization"
 msgstr "Una operacionalització de KAOS"
 
@@ -7660,7 +7609,7 @@ msgstr "Estació de treball SUN"
 
 #: ../sheets/ciscocomputer.sheet.in.h:39
 msgid "Scanner"
-msgstr "Escàner"
+msgstr "Escànner"
 
 #: ../sheets/ciscocomputer.sheet.in.h:40
 msgid "Server with PC Router"
@@ -7740,9 +7689,8 @@ msgid "ATM 3800"
 msgstr "ATM 3800"
 
 #: ../sheets/ciscohub.sheet.in.h:7
-#, fuzzy
 msgid "ATM Fast Gigabit Etherswitch"
-msgstr "Encaminador per commutació d'etiquetes ATM de gigabits"
+msgstr "Commutador d'Ethernet ATM Fast Gigabit"
 
 #
 #: ../sheets/ciscohub.sheet.in.h:8
@@ -7771,10 +7719,9 @@ msgstr "Encaminador de banda ampla"
 msgid "CSM-S"
 msgstr "CSM-S"
 
-# FIXME: Carrier -> operador (de telefònia, que transporta dades...) (josep)
 #: ../sheets/ciscohub.sheet.in.h:14
 msgid "Carrier Routing System"
-msgstr "Sistema d'encaminament Carrier"
+msgstr "Sistema d'encaminament per a operadors de telefonia"
 
 #
 #: ../sheets/ciscohub.sheet.in.h:15
@@ -7810,9 +7757,8 @@ msgid "Data Center Switch"
 msgstr "Interruptor del centre de dades"
 
 #: ../sheets/ciscohub.sheet.in.h:23
-#, fuzzy
 msgid "Data Center Switch Reversed"
-msgstr "Interruptor oposat del centre de dades"
+msgstr "Commutador de centre de dades invertit"
 
 #: ../sheets/ciscohub.sheet.in.h:24
 msgid "Data Switch Processor"
@@ -7823,14 +7769,12 @@ msgid "Director-class Fibre Channel intelligent switch"
 msgstr "Interruptor intel·ligent del canal de fibra de classe Director"
 
 #: ../sheets/ciscohub.sheet.in.h:26
-#, fuzzy
 msgid "Edge Label Switch Router"
-msgstr "Encaminador "
+msgstr "Encaminador de commutació d'etiquetes frontera"
 
 #: ../sheets/ciscohub.sheet.in.h:27
-#, fuzzy
 msgid "Edge Label Switch Router with NetFlow"
-msgstr "Encaminador "
+msgstr "Encaminador de commutació d'etiquetes frontera"
 
 #: ../sheets/ciscohub.sheet.in.h:28
 msgid "Generic Processor"
@@ -8723,9 +8667,8 @@ msgid "ITP"
 msgstr "ITP"
 
 #: ../sheets/ciscotelephony.sheet.in.h:24
-#, fuzzy
 msgid "IntelliSwitch Stack"
-msgstr "IntelliSwitch Stack"
+msgstr "Pila IntelliSwitch"
 
 #: ../sheets/ciscotelephony.sheet.in.h:25
 msgid "MCU"
@@ -9044,7 +8987,6 @@ msgid "Pieces of a jigsaw"
 msgstr "Peces del trencaclosques"
 
 #: ../sheets/network.sheet.in.h:1
-#, fuzzy
 msgid "24 Port Patch Panel"
 msgstr "Tauler pedaç de 24 ports"
 
@@ -9227,6 +9169,7 @@ msgstr "Servidor de dades del Sybase"
 #: ../sheets/sybase.sheet.in.h:8
 msgid "Sybase replication server"
 msgstr "Servidor de replicació de Sybase"
+
 
 #~ msgid "Diagram tree"
 #~ msgstr "Arbre del diagrama"
