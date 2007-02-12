@@ -639,6 +639,7 @@ EXPORTS
  text_get_attributes
  text_get_descent
  text_get_line
+ text_get_line_strlen
  text_get_line_width
  text_get_max_width
  text_get_string_copy

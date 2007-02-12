@@ -58,6 +58,7 @@ compile :
 	cd ..\..
 	
 clean :
+	del config.h
 	cd lib
 	nmake -f makefile.msc clean
 	cd ..\app

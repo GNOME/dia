@@ -356,6 +356,14 @@ PyDia_set_String(Property *prop, PyObject *val)
     p->string_data = g_strdup (str);
     p->num_lines = 1;
     return 0;
+  } else if (PyUnicode_Check (val)) {
+    PyObject *uval = PyUnicode_AsUTF8String (val);
+    gchar *str = PyString_AsString(uval);
+    g_free (p->string_data);
+    p->string_data = g_strdup (str);
+    p->num_lines = 1;
+    Py_DECREF (uval); 
+    return 0;
   }
   return -1;
 }
@@ -368,6 +376,13 @@ PyDia_set_Text(Property *prop, PyObject *val)
     g_free (p->text_data);
     p->text_data = g_strdup (str);
     /* XXX: update size calculation ? */
+    return 0;
+  } else if (PyUnicode_Check (val)) {
+    PyObject *uval = PyUnicode_AsUTF8String (val);
+    gchar *str = PyString_AsString(uval);
+    g_free (p->text_data);
+    p->text_data = g_strdup (str);
+    Py_DECREF (uval); 
     return 0;
   }
   return -1;
