@@ -1,3 +1,15 @@
+2007-02-17  Lars Clausen  <lars@raeder.dk>
+
+        * objects/UML/class.c
+        * objects/UML/object.c
+        * objects/UML/state.c
+        * objects/UML/small_package.c
+        * objects/GRAFCET/boolequation.c: Make sure to call set_font
+	before calling draw_string
+
+	* objects/UML/class.c (umlclass_set_props): #ifdef out debugging
+	statement. 
+
 2007-02-12  Hans Breuer  <hans@breuer.org>
 
 	* lib/libdia.def : added text_get_line_strlen

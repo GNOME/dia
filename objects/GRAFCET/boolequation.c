@@ -204,6 +204,7 @@ opblock_draw(Block *block, Boolequation *booleq,DiaRenderer *renderer)
 {
   DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   g_assert(block); g_assert(block->type == BLOCK_OPERATOR);
+  renderer_ops->set_font(renderer,booleq->font,booleq->fontheight);
   renderer_ops->draw_string(renderer,opstring(block->d.operator),&block->pos,
 			     ALIGN_LEFT,&booleq->color);
 }

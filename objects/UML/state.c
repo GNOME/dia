@@ -247,6 +247,7 @@ state_draw_action_string(State *state, DiaRenderer *renderer, StateAction action
   Point pos;
   gchar* action_text = state_get_action_text(state, action);
   state_calc_action_text_pos(state, action, &pos);
+  renderer_ops->set_font(renderer, state->text->font, state->text->height);
   renderer_ops->draw_string(renderer,
                             action_text,
                             &pos, 

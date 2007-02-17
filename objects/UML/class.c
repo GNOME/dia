@@ -396,9 +396,11 @@ umlclass_set_props(UMLClass *umlclass, GPtrArray *props)
 
   umlclass_calculate_data(umlclass);
   umlclass_update_data(umlclass);
+#ifdef DEBUG
   /* Would like to sanity check here, but the call to object_load_props
    * in umlclass_load means we will be called with inconsistent data. */
   umlclass_sanity_check(umlclass, "After updating data");
+#endif
 }
 
 static real

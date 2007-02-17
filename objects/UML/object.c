@@ -303,6 +303,8 @@ objet_draw(Objet *ob, DiaRenderer *renderer)
   
   text_draw(ob->text, renderer);
 
+  renderer_ops->set_font(renderer, ob->text->font, ob->text->height);
+
   if ((ob->st_stereotype != NULL) && (ob->st_stereotype[0] != '\0')) {
       renderer_ops->draw_string(renderer,
 				 ob->st_stereotype,

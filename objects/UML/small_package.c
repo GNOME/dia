@@ -266,6 +266,8 @@ smallpackage_draw(SmallPackage *pkg, DiaRenderer *renderer)
   text_draw(pkg->text, renderer);
 
   if ((pkg->st_stereotype != NULL) && (pkg->st_stereotype[0] != '\0')) {
+    renderer_ops->set_font(renderer, pkg->text->font, pkg->text->height);
+
     p1 = pkg->text->position;
     p1.y -= pkg->text->height;
     renderer_ops->draw_string(renderer, pkg->st_stereotype, &p1, 
