@@ -89,5 +89,6 @@ EXTRA_DIST = \
 	select_by.py \
 	gtkcons.py \
 	bbox.py \
+	doxrev.py \
 	makefile.msc
 
