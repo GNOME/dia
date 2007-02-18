@@ -1,4 +1,5 @@
 INCLUDES = \
+	-I$(top_srcdir) \
 	-I$(top_srcdir)/intl \
 	-I$(top_srcdir)/lib \
 	$(GTK_CFLAGS) \
@@ -87,5 +88,7 @@ EXTRA_DIST = \
 	scascale.py \
 	select_by.py \
 	gtkcons.py \
+	bbox.py \
+	doxrev.py \
 	makefile.msc
 

@@ -251,16 +251,8 @@ diagram_load_into(Diagram         *diagram,
   if (!ifilter)  /* default to native format */
     ifilter = &dia_import_filter;
 
-  if (!diagram_init(diagram, filename)) {
-    return FALSE;
-  }
-
   if (ifilter->import_func(filename, diagram->data, ifilter->user_data)) {
-    diagram->unsaved = FALSE;
-    diagram_set_modified(diagram, FALSE);
-    if (app_is_interactive())
-      recent_file_history_add(filename);
-    diagram_tree_add(diagram_tree(), diagram);
+    diagram_set_modified(diagram, TRUE);
     return TRUE;
   } else
     return FALSE;
@@ -275,9 +267,16 @@ diagram_load(const char *filename, DiaImportFilter *ifilter)
   diagram = new_diagram(filename);
   if (diagram == NULL) return NULL;
 
-  if (!diagram_load_into (diagram, filename, ifilter)) {
+  if (   !diagram_init(diagram, filename)
+      || !diagram_load_into (diagram, filename, ifilter)) {
     diagram_destroy(diagram);
     diagram = NULL;
+  } else {
+    diagram->unsaved = FALSE;
+    diagram_set_modified(diagram, FALSE);
+    if (app_is_interactive())
+      recent_file_history_add(filename);
+    diagram_tree_add(diagram_tree(), diagram);
   }
 
   return diagram;

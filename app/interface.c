@@ -47,9 +47,93 @@
 
 #include "pixmaps/missing.xpm"
 
-static const GtkTargetEntry create_object_targets[] = {
-  { "application/x-dia-object", 0, 0 },
+/* HB: file dnd stuff lent by The Gimp, not fully understood but working ...
+ */
+enum
+{
+  DIA_DND_TYPE_URI_LIST,
+  DIA_DND_TYPE_TEXT_PLAIN,
 };
+
+static GtkTargetEntry toolbox_target_table[] =
+{
+  { "text/uri-list", 0, DIA_DND_TYPE_URI_LIST },
+  { "text/plain", 0, DIA_DND_TYPE_TEXT_PLAIN }
+};
+
+static guint toolbox_n_targets = (sizeof (toolbox_target_table) /
+                                 sizeof (toolbox_target_table[0]));
+
+static void
+dia_dnd_file_drag_data_received (GtkWidget        *widget,
+                                 GdkDragContext   *context,
+                                 gint              x,
+                                 gint              y,
+                                 GtkSelectionData *data,
+                                 guint             info,
+                                 guint             time,
+				 DDisplay         *ddisp)
+{
+  switch (context->action)
+    {
+    case GDK_ACTION_DEFAULT:
+    case GDK_ACTION_COPY:
+    case GDK_ACTION_MOVE:
+    case GDK_ACTION_LINK:
+    case GDK_ACTION_ASK:
+    default:
+      {
+        Diagram *diagram = NULL;
+        gchar *sPath = NULL, *pFrom, *pTo; 
+
+        pFrom = strstr((gchar *) data->data, "file:");
+        while (pFrom) {
+          GError *error = NULL;
+
+          pTo = pFrom;
+          while (*pTo != 0 && *pTo != 0xd && *pTo != 0xa) pTo ++;
+          sPath = g_strndup(pFrom, pTo - pFrom);
+
+          /* format changed with Gtk+2.0, use conversion */
+          pFrom = g_filename_from_uri (sPath, NULL, &error);
+	  if (!ddisp)
+            diagram = diagram_load (pFrom, NULL);
+	  else {
+	    diagram = ddisp->diagram;
+	    if (!diagram_load_into (diagram, pFrom, NULL)) {
+	      /* the import filter is supposed to show the error message */
+              gtk_drag_finish (context, TRUE, FALSE, time);
+	      break;
+	    }
+	  }
+
+          g_free (pFrom);
+          g_free(sPath);
+
+          if (diagram != NULL) {
+            diagram_update_extents(diagram);
+            layer_dialog_set_diagram(diagram);
+            
+	    if (diagram->displays == NULL) {
+	      new_display(diagram);
+	    }
+          }
+
+          pFrom = strstr(pTo, "file:");
+        } /* while */
+        gtk_drag_finish (context, TRUE, FALSE, time);
+      }
+      break;
+    }
+  return;
+}
+
+static const GtkTargetEntry display_target_table[] = {
+  { "application/x-dia-object", 0, 0 },
+  { "text/uri-list", 0, DIA_DND_TYPE_URI_LIST },
+  { "text/plain", 0, DIA_DND_TYPE_TEXT_PLAIN }
+};
+static int display_n_targets = sizeof(display_target_table)/sizeof(display_target_table[0]);
 
 ToolButton tool_data[] =
 {
@@ -287,9 +371,14 @@ display_drop_callback(GtkWidget *widget, GdkDragContext *context,
 }
 
 static void
-display_data_received_callback (GtkWidget *widget, GdkDragContext *context,
-				gint x, gint y, GtkSelectionData *data,
-				guint info, guint time, DDisplay *ddisp)
+display_data_received_callback (GtkWidget *widget, 
+				GdkDragContext *context,
+				gint x, 
+				gint y, 
+				GtkSelectionData *data,
+				guint info, 
+				guint time, 
+				DDisplay *ddisp)
 {
   if (data->format == 8 && data->length == sizeof(ToolButtonData *) &&
       gtk_drag_get_source_widget(context) != NULL) {
@@ -302,7 +391,7 @@ display_data_received_callback (GtkWidget *widget, GdkDragContext *context,
 
     gtk_drag_finish (context, TRUE, FALSE, time);
   } else
-    gtk_drag_finish (context, FALSE, FALSE, time);
+    dia_dnd_file_drag_data_received (widget, context, x, y, data, info, time, ddisp);
 }
 
 void
@@ -461,7 +550,7 @@ create_display_shell(DDisplay *ddisp,
 		      ddisp);
   
   gtk_drag_dest_set(ddisp->canvas, GTK_DEST_DEFAULT_ALL,
-		    create_object_targets, 1, GDK_ACTION_COPY);
+		    display_target_table, display_n_targets, GDK_ACTION_COPY);
   g_signal_connect (GTK_OBJECT (ddisp->canvas), "drag_drop",
 		    G_CALLBACK(display_drop_callback), NULL);
   g_signal_connect (GTK_OBJECT (ddisp->canvas), "drag_data_received",
@@ -651,7 +740,7 @@ tool_setup_drag_source(GtkWidget *button, ToolButtonData *tooldata,
   g_return_if_fail(tooldata->type == CREATE_OBJECT_TOOL);
 
   gtk_drag_source_set(button, GDK_BUTTON1_MASK,
-		      create_object_targets, 1,
+		      display_target_table, display_n_targets,
 		      GDK_ACTION_DEFAULT|GDK_ACTION_COPY);
   g_signal_connect(GTK_OBJECT(button), "drag_data_get",
 		   G_CALLBACK(tool_drag_data_get), tooldata);
@@ -679,7 +768,7 @@ tool_select_callback(GtkWidget *widget, gpointer data) {
 
 /*
  * Don't look too deep into this function. It is doing bad things
- * with casts to conform to the historically interface. We now
+ * with casts to conform to the historically interface. We know
  * the difference between char* and char** - most of the time ;)
  */
 static GtkWidget *
@@ -1160,75 +1249,6 @@ toolbox_delete (GtkWidget *widget, GdkEvent *event, gpointer data)
 }
 
 
-/* HB: file dnd stuff lent by The Gimp, not fully understood but working ...
- */
-enum
-{
-  DIA_DND_TYPE_URI_LIST,
-  DIA_DND_TYPE_TEXT_PLAIN,
-};
-
-static GtkTargetEntry toolbox_target_table[] =
-{
-  { "text/uri-list", 0, DIA_DND_TYPE_URI_LIST },
-  { "text/plain", 0, DIA_DND_TYPE_TEXT_PLAIN }
-};
-
-static guint toolbox_n_targets = (sizeof (toolbox_target_table) /
-                                 sizeof (toolbox_target_table[0]));
-
-static void
-dia_dnd_file_drag_data_received (GtkWidget        *widget,
-                                 GdkDragContext   *context,
-                                 gint              x,
-                                 gint              y,
-                                 GtkSelectionData *data,
-                                 guint             info,
-                                 guint             time)
-{
-  switch (context->action)
-    {
-    case GDK_ACTION_DEFAULT:
-    case GDK_ACTION_COPY:
-    case GDK_ACTION_MOVE:
-    case GDK_ACTION_LINK:
-    case GDK_ACTION_ASK:
-    default:
-      {
-        Diagram *diagram = NULL;
-        DDisplay *ddisp;
-        gchar *sPath = NULL, *pFrom, *pTo; 
-
-        pFrom = strstr((gchar *) data->data, "file:");
-        while (pFrom) {
-          GError *error = NULL;
-
-          pTo = pFrom;
-          while (*pTo != 0 && *pTo != 0xd && *pTo != 0xa) pTo ++;
-          sPath = g_strndup(pFrom, pTo - pFrom);
-
-          /* format changed with Gtk+2.0, use conversion */
-          pFrom = g_filename_from_uri (sPath, NULL, &error);
-          diagram = diagram_load (pFrom, NULL);
-          g_free (pFrom);
-          g_free(sPath);
-
-          if (diagram != NULL) {
-            diagram_update_extents(diagram);
-            layer_dialog_set_diagram(diagram);
-            
-            ddisp = new_display(diagram);
-          }
-
-          pFrom = strstr(pTo, "file:");
-        } /* while */
-        gtk_drag_finish (context, TRUE, FALSE, time);
-      }
-      break;
-    }
-  return;
-}
-
 void
 create_toolbox ()
 {
@@ -1302,7 +1322,7 @@ create_toolbox ()
 		     GDK_ACTION_COPY);
   g_signal_connect (GTK_OBJECT (wrapbox), "drag_data_received",
 		    G_CALLBACK (dia_dnd_file_drag_data_received),
-                      wrapbox);
+                    NULL); /* userdata == NULL here intentionally */
 
   /* menus -- initialised afterwards, because initing the display menus
    * uses the tool buttons*/
