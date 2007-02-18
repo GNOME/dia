@@ -620,7 +620,7 @@ PyDia_set_Array (Property *prop, PyObject *val)
       GPtrArray *record = g_ptr_array_new();
       guint j;
       if (!PyTuple_Check(t) || PyTuple_Size(t) != num_props) {
-        g_warning("PyDia_set_Array: no tuple or wrong size.");
+        g_warning("PyDia_set_Array: %s.", !PyTuple_Check(t) ? "no tuple" : " wrong size");
 	ret = -1;
 	break;
       }
@@ -631,9 +631,15 @@ PyDia_set_Array (Property *prop, PyObject *val)
 	PyObject *v = PyTuple_GetItem(t, j);
 
 	if (0 != setters[j] (inner, v)) {
-	  inner->ops->free(inner);
-	  ret = -1;
-	  break;
+	  if (Py_None == v) {
+            /* use just the defaults, setters don't need to handle this */
+	  } else {
+	    g_warning ("Failed to set '%s::%s' from '%s'", 
+	      p->common.name, inner->name, v->ob_type->tp_name);
+	    inner->ops->free(inner);
+	    ret = -1;
+	    break;
+	  }
 	}
 	g_ptr_array_add(record, inner);
       }
