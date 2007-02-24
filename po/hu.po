@@ -1,5 +1,5 @@
 # Hungarian translation of dia.
-# Copyright (C) 1999, 2000, 2001, 2003, 2004, 2005, 2006 Free Software Foundation, Inc.
+# Copyright (C) 1999, 2000, 2001, 2003, 2004, 2005, 2006, 2007 Free Software Foundation, Inc.
 # This file is distributed under the same license as the dia package.
 #
 # Szabolcs Ban <shooby@gnome.hu>, 1999.
@@ -8,13 +8,13 @@
 # Laszlo Dvornik <dvornik@gnome.hu>, 2004, 2005.
 # Kalman Kemenczy <kkemenczy@novell.com>, 2005.
 # Szabolcs Varga <shirokuma@shirokuma.hu>, 2005.
-# Gabor Kelemen <kelemeng@gnome.hu>, 2005, 2006.
+# Gabor Kelemen <kelemeng@gnome.hu>, 2005, 2006, 2007.
 msgid ""
 msgstr ""
 "Project-Id-Version: dia.HEAD.hu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-28 12:03+0100\n"
-"PO-Revision-Date: 2006-10-22 12:13+0200\n"
+"POT-Creation-Date: 2007-02-04 03:19+0000\n"
+"PO-Revision-Date: 2007-02-23 19:24+0100\n"
 "Last-Translator: Gabor Kelemen <kelemeng@gnome.hu>\n"
 "Language-Team: Hungarian <gnome@gnome.hu>\n"
 "MIME-Version: 1.0\n"
@@ -161,8 +161,7 @@ msgstr "Dia %s verzió\n"
 # app/app_procs.c:229 app/app_procs.c:231
 #: ../app/app_procs.c:895 ../app/diaconv.c:201 ../app/diaconv.c:203
 #, c-format
-msgid ""
-"Couldn't find standard objects when looking for object-libs; exiting...\n"
+msgid "Couldn't find standard objects when looking for object-libs; exiting...\n"
 msgstr ""
 "Nem találhatók szabvány objektumok az objektumkönyvtárak keresése közben, "
 "kilépés...\n"
@@ -761,7 +760,7 @@ msgstr "_Változtatások eldobása"
 #: ../app/export_png.c:136 ../app/load_save.c:951 ../app/render_eps.c:103
 #: ../plug-ins/cairo/diacairo.c:976 ../plug-ins/cgm/cgm.c:1151
 #: ../plug-ins/dxf/dxf-export.c:484 ../plug-ins/hpgl/hpgl.c:708
-#: ../plug-ins/metapost/render_metapost.c:1145
+#: ../plug-ins/metapost/render_metapost.c:1173
 #: ../plug-ins/pgf/render_pgf.c:1143
 #: ../plug-ins/pstricks/render_pstricks.c:914
 #: ../plug-ins/shape/shape-export.c:134 ../plug-ins/svg/render_svg.c:150
@@ -903,6 +902,8 @@ msgid ""
 "Modify object(s)\n"
 "Use <Space> to toggle between this and other tools"
 msgstr ""
+"Objektumok módosítása\n"
+"A <szóköz> segítségével válthat ez és a többi eszköz között"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Magnify
 #: ../app/interface.c:63 ../app/menus.c:187 ../objects/FS/function.c:986
@@ -1027,24 +1028,24 @@ msgid ""
 "Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
 "arrow parameters with Details..."
 msgstr ""
-"Nyíl stílusa új vonalak kezdeténél. Kattintson egy nyíl kiválasztásához, "
-"vagy a Részletek...-ben adja meg a nyíl paramétereit."
+"Nyíl stílusa új vonalak kezdeténél.  Kattintson egy nyíl kiválasztásához, "
+"vagy a Részletek... segítségével adja meg a nyíl paramétereit."
 
 #: ../app/interface.c:1136
 msgid ""
 "Line style for new lines.  Click to pick a line style, or set line style "
 "parameters with Details..."
 msgstr ""
-"Vonal stílusa új vonalak rajzolásánál. Kattintson egy vonalstílus "
-"kiválasztásához, vagy a Részletek...-ben adja meg a vonalstílus paramétereit."
+"Vonal stílusa új vonalak rajzolásánál.  Kattintson egy vonalstílus "
+"kiválasztásához, vagy a Részletek... segítségével adja meg a vonalstílus paramétereit."
 
 #: ../app/interface.c:1150
 msgid ""
 "Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
 "parameters with Details..."
 msgstr ""
-"Nyíl stílusa új vonalak végénél. Kattintson egy nyíl kiválasztásához, vagy a "
-"Részletek...-ben adja meg a nyíl paramétereit."
+"Nyíl stílusa új vonalak végénél.  Kattintson egy nyíl kiválasztásához, vagy "
+"a Részletek... segítségével adja meg a nyíl paramétereit."
 
 #: ../app/interface.c:1260
 msgid "Diagram Editor"
@@ -1095,11 +1096,11 @@ msgstr "Réteg neve:"
 #: ../objects/chronogram/chronoline.c:181
 #: ../objects/chronogram/chronoref.c:160
 msgid "Line width"
-msgstr "Vonalszélesség"
+msgstr "Vonalvastagság"
 
 #: ../app/linewidth_area.c:258
 msgid "Line width:"
-msgstr "Vonalszélesség:"
+msgstr "Vonalvastagság:"
 
 #: ../app/load_save.c:268
 msgid ""
@@ -1385,7 +1386,7 @@ msgstr "Függőleges elosztás"
 
 #: ../app/menus.c:157
 msgid "Adjacent"
-msgstr ""
+msgstr "Szomszédos"
 
 #: ../app/menus.c:158
 msgid "Stacked"
@@ -1505,7 +1506,7 @@ msgstr "Eltávolítás"
 msgid "Inverse"
 msgstr "Invertálás"
 
-#: ../app/menus.c:278
+#: ../app/menus.c:291
 msgid "NULL tooldata in tool_menu_select"
 msgstr "NULL tooldata a tool_menu_select-ben"
 
@@ -1514,9 +1515,8 @@ msgid "Couldn't get GTK settings"
 msgstr "Nem lehet lekérni a GTK-beállításokat"
 
 #: ../app/newgroup.c:117
-#, fuzzy
 msgid "Open group"
-msgstr "Félkör"
+msgstr "Csoport nyitása"
 
 #: ../app/paginate_psprint.c:271
 msgid "Select Printer"
@@ -2149,17 +2149,16 @@ msgstr "Végtelen egyenes"
 
 #: ../lib/arrows.c:1892
 msgid "Arrow head of unknown type"
-msgstr ""
+msgstr "Ismeretlen típusú nyílvég"
 
 #: ../lib/arrows.c:1900
 #, c-format
 msgid "Arrow head of type %s has too small dimensions, removing.\n"
-msgstr ""
+msgstr "A(z) %s típusú nyílvég túl kicsi, eltávolítás.\n"
 
 #: ../lib/arrows.c:2021
-#, fuzzy
 msgid "unknown arrow"
-msgstr "Lefelé mutató nyíl"
+msgstr "ismeretlen nyíl"
 
 #: ../lib/bezier_conn.c:636
 msgid "Internal error: Setting corner type of endpoint of bezier"
@@ -4077,7 +4076,7 @@ msgstr "Másodpercmutató színe"
 
 #: ../objects/Misc/analog_clock.c:143
 msgid "Seconds arrow line width"
-msgstr "Másodpercmutató vonalszélessége"
+msgstr "Másodpercmutató vonalvastagsága"
 
 #: ../objects/Misc/analog_clock.c:145
 msgid "Show hours"
@@ -4795,7 +4794,7 @@ msgstr "Kis időlépés"
 
 #: ../objects/chronogram/chronoref.c:162
 msgid "Minor step line width"
-msgstr "Kis lépés vonalszélessége"
+msgstr "Kis lépés vonalvastagsága"
 
 #: ../objects/custom/custom.c:117
 msgid "Custom"
@@ -5127,7 +5126,7 @@ msgstr "HP Graphics Language exportálási szűrő"
 msgid "TeX Metapost export filter"
 msgstr "TeX Metapost exportálási szűrő"
 
-#: ../plug-ins/metapost/render_metapost.c:1214
+#: ../plug-ins/metapost/render_metapost.c:1255
 msgid "TeX Metapost macros"
 msgstr "TeX Metapost makrók"
 
@@ -5214,13 +5213,13 @@ msgid "Scalable Vector Graphics import and export filters"
 msgstr "Scalable Vector Graphics import- és exportszűrők"
 
 #: ../plug-ins/vdx/vdx-export.c:1376 ../plug-ins/vdx/vdx-export.c:1385
-#, fuzzy, c-format
+#, c-format
 msgid "Couldn't read file %s"
-msgstr "Nem lehet beolvasni a színt: %s\n"
+msgstr "Nem lehet beolvasni a fájlt: %s"
 
 #: ../plug-ins/vdx/vdx-export.c:1904
 msgid "Visio XML format"
-msgstr ""
+msgstr "Visio XML formátum"
 
 #: ../plug-ins/vdx/vdx-import.c:219 ../plug-ins/xfig/xfig-import.c:1034
 #, c-format
@@ -5228,89 +5227,59 @@ msgid "Couldn't read color: %s\n"
 msgstr "Nem lehet beolvasni a színt: %s\n"
 
 #: ../plug-ins/vdx/vdx-import.c:507
-#, fuzzy, c-format
+#, c-format
 msgid "Couldn't find shape %d\n"
-msgstr "Nem található a súgó könyvtára"
+msgstr "Nem található a(z) %d alak\n"
 
-#: ../plug-ins/vdx/vdx-import.c:851
-msgid "MoveTo after start of polyline\n"
-msgstr ""
-
-#: ../plug-ins/vdx/vdx-import.c:864
-#, fuzzy, c-format
-msgid "Unexpected polyline object: %s\n"
-msgstr "Nem lehet beolvasni a töröttvonal adatait: %s\n"
-
-#: ../plug-ins/vdx/vdx-import.c:956
+#: ../plug-ins/vdx/vdx-import.c:976
 #, c-format
 msgid "Unexpected Ellipse object: %s\n"
-msgstr ""
+msgstr "Váratlan ellipszis objektum: %s\n"
 
-#: ../plug-ins/vdx/vdx-import.c:964
-msgid "Unexpected Ellipse additional objects\n"
-msgstr ""
-
-#: ../plug-ins/vdx/vdx-import.c:974
-#, fuzzy
+#: ../plug-ins/vdx/vdx-import.c:990
 msgid "Can't rotate ellipse\n"
-msgstr "Nem lehet olvasni az ellipszisinformációkat: %s\n"
+msgstr "Nem lehet forgatni az ellipszist\n"
 
-#: ../plug-ins/vdx/vdx-import.c:1287
+#: ../plug-ins/vdx/vdx-import.c:1306
 msgid "MoveTo not at start of Bezier\n"
-msgstr ""
+msgstr "A MoveTo elem nem a Bezier kezdeténél van\n"
 
-#: ../plug-ins/vdx/vdx-import.c:1374
-#, c-format
-msgid "Unexpected Bezier object: %s\n"
-msgstr ""
-
-#: ../plug-ins/vdx/vdx-import.c:1595
-#, c-format
-msgid "Unexpected NURBSTo object: %s\n"
-msgstr ""
-
-#: ../plug-ins/vdx/vdx-import.c:1603
-msgid "Unexpected NURBSTo additional objects\n"
-msgstr ""
-
-#: ../plug-ins/vdx/vdx-import.c:1620
+#: ../plug-ins/vdx/vdx-import.c:1639
 msgid "Invalid NURBS formula"
-msgstr ""
+msgstr "Érvénytelen NURBS képlet"
 
-#: ../plug-ins/vdx/vdx-import.c:1742
-#, fuzzy, c-format
+#: ../plug-ins/vdx/vdx-import.c:1875
+#, c-format
 msgid "Couldn't write file %s"
-msgstr "Nem lehet beolvasni a színt: %s\n"
+msgstr "Nem lehet írni a következő fájlba: %s"
 
-#: ../plug-ins/vdx/vdx-import.c:1826 ../plug-ins/vdx/vdx-import.c:1839
-#, fuzzy, c-format
+#: ../plug-ins/vdx/vdx-import.c:1960 ../plug-ins/vdx/vdx-import.c:1973
+#, c-format
 msgid "Couldn't handle foreign object type %s"
-msgstr "Nem lehet azonosítani a FIG-objektumot: %s\n"
+msgstr "A külső, %s típusú objektum nem kezelhető"
 
-#: ../plug-ins/vdx/vdx-import.c:1867
-#, fuzzy, c-format
+#: ../plug-ins/vdx/vdx-import.c:2001
+#, c-format
 msgid "Couldn't make object dir %s"
-msgstr "Nem lehet azonosítani a FIG-objektumot: %s\n"
+msgstr "Nem hozható létre a következő objektumkönyvtár: %s"
 
-#: ../plug-ins/vdx/vdx-import.c:2723
-#, fuzzy
+#: ../plug-ins/vdx/vdx-import.c:2948
 msgid "Visio XML File Format"
-msgstr "XFig-fájlformátum"
+msgstr "Visio XML fájlformátum"
 
 #: ../plug-ins/vdx/vdx-xml.c:3344
-#, fuzzy, c-format
+#, c-format
 msgid "Can't decode object %s"
-msgstr "Nem lehet betölteni a(z) %s betűkészletet.\n"
+msgstr "Nem lehet visszafejteni a(z) %s objektumot"
 
 #: ../plug-ins/vdx/vdx-xml.c:5125
-#, fuzzy, c-format
+#, c-format
 msgid "Can't write object %u"
-msgstr "Nem található a szabványos objektum"
+msgstr "Nem lehet írni a(z) %u. objektumba"
 
 #: ../plug-ins/vdx/vdx.c:53
-#, fuzzy
 msgid "Visio XML Format import and export filter"
-msgstr "Fig formátumú importálási és exportálási szűrő"
+msgstr "Visio XML formátumú importálási és exportálási szűrő"
 
 #: ../plug-ins/wmf/wmf.cpp:1186
 #, c-format
@@ -5581,8 +5550,7 @@ msgstr "XSL-átalakításszűrő"
 
 #: ../plug-ins/xslt/xslt.c:346
 msgid "No valid configuration files found for the XSLT plugin, not loading."
-msgstr ""
-"Nincs érvényes konfigurációs fájl az XSLT-bővítményhez, nem kerül betöltésre."
+msgstr "Nincs érvényes konfigurációs fájl az XSLT-bővítményhez, nem kerül betöltésre."
 
 #: ../plug-ins/xslt/xsltdialog.c:96
 msgid "Export through XSLT"
@@ -5819,193 +5787,177 @@ msgid "Vertical parallelogram"
 msgstr "Függőleges paralelogramma"
 
 #: ../sheets/BPMN.sheet.in.h:1
-#, fuzzy
 msgid "Activity Looping"
-msgstr "Tevékenység"
+msgstr "Tevékenységciklus"
 
 #: ../sheets/BPMN.sheet.in.h:2
 msgid "Ad-Hoc Collapsed Sub-Process"
-msgstr ""
+msgstr "Eseti összecsukott alfolyamat"
 
 #. For: anthonym
 #: ../sheets/BPMN.sheet.in.h:4
 msgid "BPMN"
-msgstr ""
+msgstr "BPMN"
 
 #: ../sheets/BPMN.sheet.in.h:5
 msgid "Business Process Modeling Notation"
-msgstr ""
+msgstr "Üzletifolyamat-modellezési jelölés"
 
 #: ../sheets/BPMN.sheet.in.h:6
 msgid "Collapsed Sub-Process"
-msgstr ""
+msgstr "Összecsukott alfolyamat"
 
 #: ../sheets/BPMN.sheet.in.h:7
 msgid "Compensation Collapsed Sub-Process"
-msgstr ""
+msgstr "Ellensúlyozott összecsukott alfolyamat"
 
 #: ../sheets/BPMN.sheet.in.h:8
-#, fuzzy
 msgid "Compensation Task"
-msgstr "Kompozíció"
+msgstr "Ellensúlyozási feladat"
 
 #: ../sheets/BPMN.sheet.in.h:9
-#, fuzzy
 msgid "Complex"
-msgstr "Csatolás"
+msgstr "Komplex"
 
 #: ../sheets/BPMN.sheet.in.h:10
-#, fuzzy
 msgid "Data Object"
-msgstr "DiaObject"
+msgstr "Adatobjektum"
 
 #: ../sheets/BPMN.sheet.in.h:11
-#, fuzzy
 msgid "End Event"
-msgstr "Végpont"
+msgstr "Záró esemény"
 
 #: ../sheets/BPMN.sheet.in.h:12
 msgid "End Event - Cancel"
-msgstr ""
+msgstr "Záró esemény - Megszakítás"
 
 #: ../sheets/BPMN.sheet.in.h:13
-#, fuzzy
 msgid "End Event - Compensation"
-msgstr "Események specifikációja"
+msgstr "Záró esemény - Ellensúlyozás"
 
 #: ../sheets/BPMN.sheet.in.h:14
 msgid "End Event - Error"
-msgstr ""
+msgstr "Záró esemény - Hiba"
 
 #: ../sheets/BPMN.sheet.in.h:15
-#, fuzzy
 msgid "End Event - Link"
-msgstr "Eseménygyűjtő"
+msgstr "Záró esemény - Hivatkozás"
 
 #: ../sheets/BPMN.sheet.in.h:16
 msgid "End Event - Message"
-msgstr ""
+msgstr "Záró esemény - Üzenet"
 
 #: ../sheets/BPMN.sheet.in.h:17
 msgid "End Event - Multiple"
-msgstr ""
+msgstr "Záró esemény - Többszörös"
 
 #: ../sheets/BPMN.sheet.in.h:18
 msgid "End Event - Terminate"
-msgstr ""
+msgstr "Záró esemény - Befejezés"
 
 #: ../sheets/BPMN.sheet.in.h:19
 msgid "Exclusive (XOR) Data Based"
-msgstr ""
+msgstr "Kizárólagos (XOR) adatalapú"
 
 #: ../sheets/BPMN.sheet.in.h:20
 msgid "Exclusive (XOR) Event Based"
-msgstr ""
+msgstr "Kizárólagos (XOR) eseményalapú"
 
 #: ../sheets/BPMN.sheet.in.h:21
-#, fuzzy
 msgid "Gateway"
-msgstr "MAS átjáró"
+msgstr "Átjáró"
 
 #: ../sheets/BPMN.sheet.in.h:22
-#, fuzzy
 msgid "Group"
-msgstr "_Csoport"
+msgstr "Csoport"
 
 #: ../sheets/BPMN.sheet.in.h:23
 msgid "Inclusive (OR)"
-msgstr ""
+msgstr "Megengedő (OR)"
 
 #: ../sheets/BPMN.sheet.in.h:24
 msgid "Intermediate Event"
-msgstr ""
+msgstr "Köztes esemény"
 
 #: ../sheets/BPMN.sheet.in.h:25
 msgid "Intermediate Event - Cancel"
-msgstr ""
+msgstr "Köztes esemény - Megszakítás"
 
 #: ../sheets/BPMN.sheet.in.h:26
 msgid "Intermediate Event - Compensation"
-msgstr ""
+msgstr "Köztes esemény - Ellensúlyozás"
 
 #: ../sheets/BPMN.sheet.in.h:27
 msgid "Intermediate Event - Error"
-msgstr ""
+msgstr "Köztes esemény - Hiba"
 
 #: ../sheets/BPMN.sheet.in.h:28
 msgid "Intermediate Event - Link"
-msgstr ""
+msgstr "Köztes esemény - Hivatkozás"
 
 #: ../sheets/BPMN.sheet.in.h:29
 msgid "Intermediate Event - Message"
-msgstr ""
+msgstr "Köztes esemény - Üzenet"
 
 #: ../sheets/BPMN.sheet.in.h:30
 msgid "Intermediate Event - Multiple"
-msgstr ""
+msgstr "Köztes esemény - Többszörös"
 
 #: ../sheets/BPMN.sheet.in.h:31
 msgid "Intermediate Event - Rule"
-msgstr ""
+msgstr "Köztes esemény - Szabály"
 
 #: ../sheets/BPMN.sheet.in.h:32
 msgid "Intermediate Event - Timer"
-msgstr ""
+msgstr "Köztes esemény - Időzítő"
 
 #: ../sheets/BPMN.sheet.in.h:33
 msgid "Looping Collapsed Sub-Process"
-msgstr ""
+msgstr "Ismétlődő összecsukott alfolyamat"
 
 #: ../sheets/BPMN.sheet.in.h:34
 msgid "Multiple Instance Collapsed Sub-Process"
-msgstr ""
+msgstr "Több példányos összecsukott alfolyamat"
 
 #: ../sheets/BPMN.sheet.in.h:35
-#, fuzzy
 msgid "Multiple Instance Task"
-msgstr "Több példány"
+msgstr "Több példányos feladat"
 
 #: ../sheets/BPMN.sheet.in.h:36
 msgid "Parallel (AND)"
-msgstr ""
+msgstr "Párhuzamos (AND)"
 
 #: ../sheets/BPMN.sheet.in.h:37
-#, fuzzy
 msgid "Start Event"
-msgstr "Kezdőpont"
+msgstr "Kezdőesemény"
 
 #: ../sheets/BPMN.sheet.in.h:38
-#, fuzzy
 msgid "Start Event - Link"
-msgstr "Eseménygyűjtő"
+msgstr "Kezdőesemény - Hivatkozás"
 
 #: ../sheets/BPMN.sheet.in.h:39
-#, fuzzy
 msgid "Start Event - Message"
-msgstr "Üzenet küldése"
+msgstr "Kezdőesemény - Üzenet"
 
 #: ../sheets/BPMN.sheet.in.h:40
 msgid "Start Event - Multiple"
-msgstr ""
+msgstr "Kezdőesemény - Többszörös"
 
 #: ../sheets/BPMN.sheet.in.h:41
 msgid "Start Event - Rule"
-msgstr ""
+msgstr "Kezdőesemény - Szabály"
 
 #: ../sheets/BPMN.sheet.in.h:42
-#, fuzzy
 msgid "Start Event - Timer"
-msgstr "Kezdési idő"
+msgstr "Kezdőesemény - Időzítő"
 
 #: ../sheets/BPMN.sheet.in.h:44
-#, fuzzy
 msgid "Text Annotation"
-msgstr "Tájolás"
+msgstr "Szöveges feljegyzés"
 
 #: ../sheets/BPMN.sheet.in.h:45
-#, fuzzy
 msgid "Transaction"
-msgstr "Elcsúszás"
+msgstr "Tranzakció"
 
 #: ../sheets/ChemEng.sheet.in.h:1
 msgid "AC Generator"
@@ -7366,8 +7318,7 @@ msgstr "Szolgáltatástípus-hivatkozás"
 
 #: ../sheets/SDL.sheet.in.h:17
 msgid "Specification and Description Language."
-msgstr ""
-"SDL (Specifikációs és leíró nyelv, Specification and Description Language)."
+msgstr "SDL (Specifikációs és leíró nyelv, Specification and Description Language)."
 
 #: ../sheets/SDL.sheet.in.h:18 ../sheets/UML.sheet.in.h:28
 msgid "State"
@@ -7664,7 +7615,7 @@ msgstr "Webböngésző"
 
 #: ../sheets/ciscocomputer.sheet.in.h:49
 msgid "Web cluster"
-msgstr "Web cluster"
+msgstr "Webes fürt"
 
 #: ../sheets/ciscocomputer.sheet.in.h:50
 msgid "Wireless"
@@ -8188,11 +8139,11 @@ msgstr "15800"
 
 #: ../sheets/cisconetwork.sheet.in.h:4
 msgid "3174 (desktop) cluster controller"
-msgstr "3174 (asztali) clustervezérlő"
+msgstr "3174 (asztali) fürtvezérlő"
 
 #: ../sheets/cisconetwork.sheet.in.h:5
 msgid "3X74 (floor) cluster controller"
-msgstr "3X74 (padlón álló) clustervezérlő"
+msgstr "3X74 (padlón álló) fürtvezérlő"
 
 #: ../sheets/cisconetwork.sheet.in.h:6
 msgid "Access Server"
@@ -9174,15 +9125,3 @@ msgstr "Sybase-adatkiszolgáló"
 msgid "Sybase replication server"
 msgstr "Sybase replikációs kiszolgáló"
 
-#~ msgid "Diagram tree"
-#~ msgstr "Diagramfa"
-
-# app/interface.c:37
-#~ msgid "Modify object(s)"
-#~ msgstr "Objektum(ok) módosítása"
-
-#~ msgid "EML"
-#~ msgstr "EML"
-
-#~ msgid "Editor for EML Static Structure Diagrams."
-#~ msgstr "EML statikus struktúra diagram szerkesztő."
