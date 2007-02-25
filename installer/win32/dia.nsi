@@ -154,6 +154,7 @@ VIProductVersion "0.95.1.0"
   !insertmacro MUI_LANGUAGE "English"
   !insertmacro MUI_LANGUAGE "German"
   !insertmacro MUI_LANGUAGE "French"
+  !insertmacro MUI_LANGUAGE "Hungarian"
 
 ;--------------------------------
 ;Translations
@@ -165,6 +166,7 @@ VIProductVersion "0.95.1.0"
   !insertmacro DIA_MACRO_INCLUDE_LANGFILE "ENGLISH" "locale\english.nsh"
   !insertmacro DIA_MACRO_INCLUDE_LANGFILE "GERMAN" "locale\german.nsh"
   !insertmacro DIA_MACRO_INCLUDE_LANGFILE "FRENCH" "locale\french.nsh"
+  !insertmacro DIA_MACRO_INCLUDE_LANGFILE "HUNGARIAN" "locale\hungarian.nsh"
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Start Install Sections ;;
