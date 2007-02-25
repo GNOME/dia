@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia.HEAD.hu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-02-04 03:19+0000\n"
-"PO-Revision-Date: 2007-02-23 19:24+0100\n"
+"POT-Creation-Date: 2007-02-24 20:03+0000\n"
+"PO-Revision-Date: 2007-02-25 23:03+0100\n"
 "Last-Translator: Gabor Kelemen <kelemeng@gnome.hu>\n"
 "Language-Team: Hungarian <gnome@gnome.hu>\n"
 "MIME-Version: 1.0\n"
@@ -764,7 +764,7 @@ msgstr "_Változtatások eldobása"
 #: ../plug-ins/pgf/render_pgf.c:1143
 #: ../plug-ins/pstricks/render_pstricks.c:914
 #: ../plug-ins/shape/shape-export.c:134 ../plug-ins/svg/render_svg.c:150
-#: ../plug-ins/vdx/vdx-export.c:1848 ../plug-ins/wpg/wpg.c:1070
+#: ../plug-ins/vdx/vdx-export.c:1849 ../plug-ins/wpg/wpg.c:1070
 #: ../plug-ins/xfig/xfig-export.c:1136 ../plug-ins/xslt/xslt.c:93
 #, c-format
 msgid "Can't open output file %s: %s\n"
@@ -897,7 +897,7 @@ msgstr "Diagram exportálása"
 msgid "Export Options"
 msgstr "Exportálás beállításai"
 
-#: ../app/interface.c:57
+#: ../app/interface.c:141
 msgid ""
 "Modify object(s)\n"
 "Use <Space> to toggle between this and other tools"
@@ -906,15 +906,15 @@ msgstr ""
 "A <szóköz> segítségével válthat ez és a többi eszköz között"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Magnify
-#: ../app/interface.c:63 ../app/menus.c:187 ../objects/FS/function.c:986
+#: ../app/interface.c:147 ../app/menus.c:187 ../objects/FS/function.c:986
 msgid "Magnify"
 msgstr "Nagyítás"
 
-#: ../app/interface.c:69
+#: ../app/interface.c:153
 msgid "Scroll around the diagram"
 msgstr "Körbegörgetés a diagramon"
 
-#: ../app/interface.c:75 ../app/menus.c:189 ../lib/properties.c:79
+#: ../app/interface.c:159 ../app/menus.c:189 ../lib/properties.c:79
 #: ../lib/properties.h:520 ../objects/AADL/aadlbox.c:144
 #: ../objects/Jackson/requirement.c:142 ../objects/UML/activity.c:127
 #: ../objects/UML/actor.c:122 ../objects/UML/classicon.c:144
@@ -927,84 +927,84 @@ msgstr "Körbegörgetés a diagramon"
 msgid "Text"
 msgstr "Szöveg"
 
-#: ../app/interface.c:81 ../app/menus.c:190
+#: ../app/interface.c:165 ../app/menus.c:190
 msgid "Box"
 msgstr "Doboz"
 
-#: ../app/interface.c:87 ../app/menus.c:191
+#: ../app/interface.c:171 ../app/menus.c:191
 msgid "Ellipse"
 msgstr "Ellipszis"
 
-#: ../app/interface.c:93 ../app/menus.c:192
+#: ../app/interface.c:177 ../app/menus.c:192
 msgid "Polygon"
 msgstr "Sokszög"
 
-#: ../app/interface.c:99 ../app/menus.c:193
+#: ../app/interface.c:183 ../app/menus.c:193
 msgid "Beziergon"
 msgstr "Bezier-síkidom"
 
-#: ../app/interface.c:105 ../app/menus.c:195 ../objects/standard/line.c:225
+#: ../app/interface.c:189 ../app/menus.c:195 ../objects/standard/line.c:225
 msgid "Line"
 msgstr "Vonal"
 
-#: ../app/interface.c:111 ../app/menus.c:196
+#: ../app/interface.c:195 ../app/menus.c:196
 msgid "Arc"
 msgstr "Körív"
 
-#: ../app/interface.c:117 ../app/menus.c:197
+#: ../app/interface.c:201 ../app/menus.c:197
 msgid "Zigzagline"
 msgstr "Cikkcakkvonal"
 
-#: ../app/interface.c:123 ../app/menus.c:198
+#: ../app/interface.c:207 ../app/menus.c:198
 msgid "Polyline"
 msgstr "Töröttvonal"
 
-#: ../app/interface.c:129 ../app/menus.c:199
+#: ../app/interface.c:213 ../app/menus.c:199
 msgid "Bezierline"
 msgstr "Bezier-görbe"
 
-#: ../app/interface.c:135 ../app/menus.c:201
+#: ../app/interface.c:219 ../app/menus.c:201
 msgid "Image"
 msgstr "Kép"
 
-#: ../app/interface.c:413
+#: ../app/interface.c:502
 msgid "Diagram menu."
 msgstr "Diagrammenü."
 
-#: ../app/interface.c:451
+#: ../app/interface.c:540
 msgid "Pops up the Navigation window."
 msgstr "Megjeleníti a Navigáció ablakot."
 
-#: ../app/interface.c:517
+#: ../app/interface.c:606
 msgid "Zoom"
 msgstr "Nagyítás"
 
-#: ../app/interface.c:532
+#: ../app/interface.c:621
 msgid "Toggles snap-to-grid for this window."
 msgstr "Be-/kikapcsolja ebben az ablakban a rácshoz igazítást."
 
-#: ../app/interface.c:543
+#: ../app/interface.c:632
 msgid "Toggles object snapping for this window."
 msgstr "Be-/kikapcsolja ebben az ablakban az objektumok rácshoz igazítását."
 
-#: ../app/interface.c:608
+#: ../app/interface.c:697
 msgid "NULL tooldata in tool_select_update"
 msgstr "NULL tooldata a tool_select_update-ben"
 
-#: ../app/interface.c:920
+#: ../app/interface.c:1009
 #, c-format
 msgid "No sheet named %s"
 msgstr "%s nevű lap nincs"
 
-#: ../app/interface.c:957
+#: ../app/interface.c:1046
 msgid "Other sheets"
 msgstr "Más lapok"
 
-#: ../app/interface.c:1015 ../sheets/Misc.sheet.in.h:3
+#: ../app/interface.c:1104 ../sheets/Misc.sheet.in.h:3
 msgid "Misc"
 msgstr "Egyéb"
 
-#: ../app/interface.c:1076
+#: ../app/interface.c:1165
 msgid ""
 "Foreground & background colors for new objects.  The small black and white "
 "squares reset colors.  The small arrows swap colors.  Double click to change "
@@ -1014,7 +1014,7 @@ msgstr ""
 "alapbeállítást nyújtanak. A kis nyilak felcserélik a színeket. Kettős "
 "kattintással lehet szerkeszteni."
 
-#: ../app/interface.c:1091
+#: ../app/interface.c:1180
 msgid ""
 "Line widths.  Click on a line to set the default line width for new "
 "objects.  Double-click to set the line width more precisely."
@@ -1023,7 +1023,7 @@ msgstr ""
 "alapértelmezett vonalvastagsága. Kettős kattintásra a vonalvastagság sokkal "
 "pontosabban megadható."
 
-#: ../app/interface.c:1131
+#: ../app/interface.c:1220
 msgid ""
 "Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
 "arrow parameters with Details..."
@@ -1031,15 +1031,16 @@ msgstr ""
 "Nyíl stílusa új vonalak kezdeténél.  Kattintson egy nyíl kiválasztásához, "
 "vagy a Részletek... segítségével adja meg a nyíl paramétereit."
 
-#: ../app/interface.c:1136
+#: ../app/interface.c:1225
 msgid ""
 "Line style for new lines.  Click to pick a line style, or set line style "
 "parameters with Details..."
 msgstr ""
 "Vonal stílusa új vonalak rajzolásánál.  Kattintson egy vonalstílus "
-"kiválasztásához, vagy a Részletek... segítségével adja meg a vonalstílus paramétereit."
+"kiválasztásához, vagy a Részletek... segítségével adja meg a vonalstílus "
+"paramétereit."
 
-#: ../app/interface.c:1150
+#: ../app/interface.c:1239
 msgid ""
 "Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
 "parameters with Details..."
@@ -1047,7 +1048,7 @@ msgstr ""
 "Nyíl stílusa új vonalak végénél.  Kattintson egy nyíl kiválasztásához, vagy "
 "a Részletek... segítségével adja meg a nyíl paramétereit."
 
-#: ../app/interface.c:1260
+#: ../app/interface.c:1278
 msgid "Diagram Editor"
 msgstr "Diagramszerkesztő"
 
@@ -1233,7 +1234,7 @@ msgstr "S_zerkesztés"
 
 #: ../app/menus.c:94
 msgid "_Duplicate"
-msgstr "_Kettőzés"
+msgstr "Más_olat"
 
 #. the following used to bind to <control><shift>C which collides with Unicode input.
 #. * <control>>alt> doesn't work either
@@ -1340,7 +1341,7 @@ msgstr "Előtérbe hoz"
 
 #: ../app/menus.c:138
 msgid "_Group"
-msgstr "_Csoport"
+msgstr "_Csoportosítás"
 
 #. deliberately not using Ctrl+U for Ungroup
 #: ../app/menus.c:140
@@ -1349,7 +1350,7 @@ msgstr "Csoport f_elbontása"
 
 #: ../app/menus.c:142
 msgid "_Parent"
-msgstr "S_zülő"
+msgstr "_Szülőhöz kötés"
 
 #: ../app/menus.c:143
 msgid "_Unparent"
@@ -1366,7 +1367,7 @@ msgstr "Igazítás"
 
 #: ../app/menus.c:151 ../objects/standard/textobj.c:132
 msgid "Top"
-msgstr "Fent"
+msgstr "Felülre"
 
 #: ../app/menus.c:152
 msgid "Middle"
@@ -1374,7 +1375,7 @@ msgstr "Középre"
 
 #: ../app/menus.c:153 ../objects/standard/textobj.c:131
 msgid "Bottom"
-msgstr "Lent"
+msgstr "Alulra"
 
 #: ../app/menus.c:155
 msgid "Spread Out Horizontally"
@@ -1386,11 +1387,11 @@ msgstr "Függőleges elosztás"
 
 #: ../app/menus.c:157
 msgid "Adjacent"
-msgstr "Szomszédos"
+msgstr "Egymás mellé"
 
 #: ../app/menus.c:158
 msgid "Stacked"
-msgstr ""
+msgstr "Egymásra"
 
 #: ../app/menus.c:162
 msgid "_Select"
@@ -1398,12 +1399,12 @@ msgstr "_Kijelölés"
 
 #: ../app/menus.c:163
 msgid "All"
-msgstr "Minden"
+msgstr "Mindent"
 
 #: ../app/menus.c:164 ../lib/arrows.c:43 ../objects/Jackson/domain.c:96
 #: ../objects/UML/association.c:1183
 msgid "None"
-msgstr "Nincs"
+msgstr "Semmit"
 
 #: ../app/menus.c:165
 msgid "Invert"
@@ -1411,11 +1412,11 @@ msgstr "Megfordítás"
 
 #: ../app/menus.c:167
 msgid "Transitive"
-msgstr "Átmenet"
+msgstr "Tranzitív"
 
 #: ../app/menus.c:168
 msgid "Connected"
-msgstr "Kapcsolódva"
+msgstr "Összekötött"
 
 #: ../app/menus.c:169
 msgid "Same Type"
@@ -1491,7 +1492,7 @@ msgstr "Unió"
 
 #: ../app/menus.c:232
 msgid "Intersection"
-msgstr "Metszéspont"
+msgstr "Metszet"
 
 #. Translators: Menu item Verb/Channel/Export/Remove
 #. Translators: Menu item Verb/Branch/Separate/Remove
@@ -1504,7 +1505,7 @@ msgstr "Eltávolítás"
 #. Cannot also be called Invert, duplicate names caused keybinding problems
 #: ../app/menus.c:235
 msgid "Inverse"
-msgstr "Invertálás"
+msgstr "Megfordítás"
 
 #: ../app/menus.c:291
 msgid "NULL tooldata in tool_menu_select"
@@ -4225,7 +4226,7 @@ msgid "Composition"
 msgstr "Kompozíció"
 
 #: ../objects/UML/class.c:137 ../objects/UML/class.c:308
-#: ../objects/UML/class.c:1703 ../sheets/UML.sheet.in.h:6
+#: ../objects/UML/class.c:1705 ../sheets/UML.sheet.in.h:6
 msgid "Class"
 msgstr "Osztály"
 
@@ -4249,7 +4250,7 @@ msgstr "Megjegyzés"
 msgid "Abstract"
 msgstr "Absztrakt"
 
-#: ../objects/UML/class.c:147 ../objects/UML/class.c:1700
+#: ../objects/UML/class.c:147 ../objects/UML/class.c:1702
 msgid "Template"
 msgstr "Sablon"
 
@@ -4629,7 +4630,7 @@ msgstr "Kilépés a műveletből"
 
 #. Would like to create a state_term instead, but making the connections
 #. * is a pain
-#: ../objects/UML/state.c:470
+#: ../objects/UML/state.c:471
 msgid ""
 "This diagram uses the State object for initial/final states.\n"
 "That option will go away in future versions.\n"
@@ -5217,7 +5218,7 @@ msgstr "Scalable Vector Graphics import- és exportszűrők"
 msgid "Couldn't read file %s"
 msgstr "Nem lehet beolvasni a fájlt: %s"
 
-#: ../plug-ins/vdx/vdx-export.c:1904
+#: ../plug-ins/vdx/vdx-export.c:1905
 msgid "Visio XML format"
 msgstr "Visio XML formátum"
 
