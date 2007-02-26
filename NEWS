@@ -1,3 +1,9 @@
+dia-0.96-pre5: 26-Feb-2007
+
+  * Fifth prerelease for 0.96.  A fix of a number of text-related crash
+    bugs has come in, and several Python fixes, including a Doxygen import
+    filter.  
+
 dia-0.96-pre4: 5-Feb-2007
 
   * Fourth prerelease for 0.96.  This one has yet another new version of

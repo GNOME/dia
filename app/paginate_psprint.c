@@ -23,6 +23,8 @@
 #include <config.h>
 #endif
 
+/* so we get popen and sigaction even when compiling with -ansi */
+#define _POSIX_C_SOURCE 2
 #include <stdio.h>
 #include <string.h> /* strlen */
 #include <signal.h>
@@ -252,7 +254,7 @@ diagram_print_ps(Diagram *dia)
    * needed anymore because the pipe handling - which never worked on win32
    * anyway - is replace by "native" postscript printing now ...
    */
-  void *old_action;
+  struct sigaction old_sigpipe_action, sigpipe_action;
 #endif
 
   /* create the dialog */
@@ -470,7 +472,9 @@ diagram_print_ps(Diagram *dia)
 #ifndef G_OS_WIN32
   /* set up a SIGPIPE handler to catch IO errors, rather than segfaulting */
   sigpipe_received = FALSE;
-  old_action = signal(SIGPIPE, pipe_handler);
+  memset(&sigpipe_action, 0, sizeof(struct sigaction));
+  sigpipe_action.sa_handler = pipe_handler;
+  sigaction(SIGPIPE, &sigpipe_action, &old_sigpipe_action);
 #endif
 
   paginate_psprint(dia, file);
@@ -486,7 +490,7 @@ diagram_print_ps(Diagram *dia)
 
 #ifndef G_OS_WIN32
   /* restore original behaviour */
-  signal(SIGPIPE, old_action);
+  sigaction(SIGPIPE, &old_sigpipe_action, NULL);
 #endif
   if (sigpipe_received)
     message_error(_("Printing error: command '%s' caused sigpipe."),

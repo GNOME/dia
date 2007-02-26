@@ -1,3 +1,13 @@
+2007-02-26  Lars Clausen  <lars@raeder.dk>
+
+	* NEWS: 
+	* RELEASE-PROCESS: 
+	* config.h.win32: 
+	* doc/en/dia.xml: 
+	* doc/pl/dia.xml: 
+	* doc/eu/dia.xml:
+	* configure.in: Pre5
+
 2007-02-25  Gabor Kelemen  <kelemeng@gnome.hu>
 
 	* installer/win32/locale/hungarian.nsh: 
