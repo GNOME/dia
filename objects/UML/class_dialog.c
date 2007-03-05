@@ -820,7 +820,9 @@ attributes_fill_in_dialog(UMLClass *umlclass)
   GList *list;
   int i;
 
+#ifdef DEBUG
   umlclass_sanity_check(umlclass, "Filling in dialog");  
+#endif
 
   prop_dialog = umlclass->properties_dialog;
 
@@ -2748,7 +2750,9 @@ destroy_properties_dialog (GtkWidget* widget,
 static void
 fill_in_dialog(UMLClass *umlclass)
 {
+#ifdef DEBUG
   umlclass_sanity_check(umlclass, "Filling in dialog before attrs");
+#endif
   class_fill_in_dialog(umlclass);
   attributes_fill_in_dialog(umlclass);
   operations_fill_in_dialog(umlclass);
@@ -2765,7 +2769,9 @@ umlclass_apply_props_from_dialog(UMLClass *umlclass, GtkWidget *widget)
   GList *added, *deleted, *disconnected;
   UMLClassState *old_state = NULL;
   
+#ifdef DEBUG
   umlclass_sanity_check(umlclass, "Apply from dialog start");
+#endif
 
   prop_dialog = umlclass->properties_dialog;
 
@@ -2833,7 +2839,9 @@ umlclass_apply_props_from_dialog(UMLClass *umlclass, GtkWidget *widget)
 
   /* Fill in class with the new data: */
   fill_in_dialog(umlclass);
+#ifdef DEBUG
   umlclass_sanity_check(umlclass, "Apply from dialog end");
+#endif
   return  new_umlclass_change(umlclass, old_state, added, deleted, disconnected);
 }
 
@@ -2853,7 +2861,9 @@ umlclass_get_properties(UMLClass *umlclass, gboolean is_default)
   GtkWidget *vbox;
   GtkWidget *notebook;
 
+#ifdef DEBUG
   umlclass_sanity_check(umlclass, "Get properties start");
+#endif
   if (umlclass->properties_dialog == NULL) {
     prop_dialog = g_new(UMLClassDialog, 1);
     umlclass->properties_dialog = prop_dialog;

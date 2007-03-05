@@ -1,3 +1,29 @@
+2007-03-05  Lars Clausen  <lars@raeder.dk>
+
+	* lib/diaarrowchooser.c: Use _dia_translate instead of gettext for
+	tooltips and "Details...".  Fixes bug #406066.
+	
+	* app/diagram_tree_menu.c (create_factory): Add translate_func to
+	item factory.
+
+	* plug-ins/metapost/render_metapost.c: Patch from Robert Young 
+	<robert.young%40dsto.defence.gov.au>: Scale text correctly with
+	page scaling.
+
+2007-03-04  Lars Clausen  <lars@raeder.dk>
+
+	* app/export_png.c (export_png_ok): 
+	* plug-ins/pixbuf/pixbuf.c (export_data): Fix rounding error of
+	bitmap export.  Fixes bug #413275.
+
+	* app/diagram.c (diagram_load): Correctly update title on
+	defaulted diagrams.
+
+	* objects/UML/class.c:
+	* objects/UML/class_dialog.c: 
+	* objects/standard/line.c (line_save): #ifdef DEBUG'ed out sanity
+	check calls.
+
 2007-02-26  Lars Clausen  <lars@raeder.dk>
 
 	* NEWS: 

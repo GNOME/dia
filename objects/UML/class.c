@@ -1219,7 +1219,9 @@ umlclass_update_data(UMLClass *umlclass)
 
   element_update_handles(elem);
 
+#ifdef DEBUG
   umlclass_sanity_check(umlclass, "After updating data");
+#endif
 }
 
 /**
@@ -1770,7 +1772,9 @@ umlclass_destroy(UMLClass *umlclass)
   UMLOperation *op;
   UMLFormalParameter *param;
 
+#ifdef DEBUG
   umlclass_sanity_check(umlclass, "Destroying");
+#endif
 
   umlclass->destroyed = TRUE;
 
@@ -1982,7 +1986,9 @@ umlclass_copy(UMLClass *umlclass)
 
   umlclass_update_data(newumlclass);
 
+#ifdef DEBUG
   umlclass_sanity_check(newumlclass, "Copied");
+#endif
   
   return &newumlclass->element.object;
 }
@@ -1998,7 +2004,9 @@ umlclass_save(UMLClass *umlclass, ObjectNode obj_node,
   GList *list;
   AttributeNode attr_node;
   
+#ifdef DEBUG
   umlclass_sanity_check(umlclass, "Saving");
+#endif
 
   element_save(&umlclass->element, obj_node);
 
@@ -2225,7 +2233,9 @@ static DiaObject *umlclass_load(ObjectNode obj_node, int version,
     obj->handles[i]->type = HANDLE_NON_MOVABLE;
   }
 
+#ifdef DEBUG
   umlclass_sanity_check(umlclass, "Loaded class");
+#endif
 
   return &umlclass->element.object;
 }

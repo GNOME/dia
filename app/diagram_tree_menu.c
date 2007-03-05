@@ -100,6 +100,35 @@ static GtkItemFactoryEntry dia_items_[] = {
 static GtkItemFactoryEntry *items_[] = { dia_items_, object_items_ };
 static gint items_size_[] = { DIA_ITEMS_SIZE_, OBJ_ITEMS_SIZE_ };
 
+static gchar*
+_dia_translate (const gchar* term, gpointer data)
+{
+  gchar* trans = term;
+  
+  if (term && *term) {
+    /* first try our own ... */
+    trans = dgettext (GETTEXT_PACKAGE, term);
+    /* ... than gtk */
+    if (term == trans)
+      trans = dgettext ("gtk20", term);
+#if 0
+    /* FIXME: final fallback */
+    if (term == trans) { /* FIXME: translation to be updated */
+      gchar* kludge = g_strdup_printf ("/%s", term);
+      trans = dgettext (GETTEXT_PACKAGE, kludge);
+      if (kludge == trans)
+	trans = term;
+      else
+	++trans;
+      g_free (kludge);
+    }
+    if (term == trans)
+      trans = g_strdup_printf ("XXX: %s", term);
+#endif
+  }
+  return trans;
+}
+
 static GtkItemFactory*
 create_factory(DiagramTree *tree, GtkWindow *window, gint no,
 	       GtkItemFactoryEntry entries[], const gchar *path)
@@ -110,6 +139,7 @@ create_factory(DiagramTree *tree, GtkWindow *window, gint no,
   GtkWidget *menu;
   
   factory = gtk_item_factory_new(GTK_TYPE_MENU, path, accel);
+  gtk_item_factory_set_translate_func(factory, _dia_translate, NULL, NULL);
   gtk_item_factory_create_items(factory, no, entries,tree);
   gtk_item_factory_create_items(factory, COMMON_ITEMS_SIZE_, common_items_,
 				tree);

@@ -117,7 +117,8 @@ export_png_ok(GtkButton *button, gpointer userdata)
     }
   }
 
-  imagezoom = ((real)imageheight/height) * DPCM * data->paper.scaling;
+  /* Subtract one to ensure all pixels are inside bitmap (see bug #413275 */
+  imagezoom = ((real)(imageheight - 1)/height) * DPCM * data->paper.scaling;
 
   /* we render in bands to try to keep memory consumption down ... */
   band = MIN(imageheight, BAND_HEIGHT);

@@ -265,11 +265,13 @@ diagram_load(const char *filename, DiaImportFilter *ifilter)
 {
   Diagram *diagram = NULL;
   GList *diagrams;
+  gboolean was_default = FALSE;
 
   for (diagrams = open_diagrams; diagrams != NULL; diagrams = g_list_next(diagrams)) {
     Diagram *old_diagram = (Diagram*)diagrams->data;
     if (old_diagram->is_default) {
       diagram = old_diagram;
+      was_default = TRUE;
       break;
     }	
   }
@@ -292,7 +294,7 @@ diagram_load(const char *filename, DiaImportFilter *ifilter)
     diagram_tree_add(diagram_tree(), diagram);
   }
   
-  if (diagram != NULL && diagram->is_default) {
+  if (diagram != NULL && was_default) {
     diagram_update_for_filename(diagram);
     diagram->is_default = FALSE;
   }

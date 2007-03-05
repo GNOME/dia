@@ -56,8 +56,10 @@ export_data(DiagramData *data, const gchar *filename,
 
   /* quite arbitrary */
   zoom = 20.0 * data->paper.scaling; 
-  width = (rect.right - rect.left) * zoom;
-  height = (rect.bottom - rect.top) * zoom;
+  /* Adding a bit of padding to account for rounding errors.  Better to
+   * pad than to clip.  See bug #413275 */
+  width = ceil((rect.right - rect.left) * zoom) + 1;
+  height = ceil((rect.bottom - rect.top) * zoom) + 1;
 
   renderer = g_object_new (DIA_TYPE_GDK_RENDERER, NULL);
   renderer->transform = dia_transform_new (&rect, &zoom);

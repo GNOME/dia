@@ -33,6 +33,35 @@
 static const char *button_menu_key = "dia-button-menu";
 static const char *menuitem_enum_key = "dia-menuitem-value";
 
+static gchar*
+_dia_translate (const gchar* term, gpointer data)
+{
+  gchar* trans = term;
+  
+  if (term && *term) {
+    /* first try our own ... */
+    trans = dgettext (GETTEXT_PACKAGE, term);
+    /* ... than gtk */
+    if (term == trans)
+      trans = dgettext ("gtk20", term);
+#if 0
+    /* FIXME: final fallback */
+    if (term == trans) { /* FIXME: translation to be updated */
+      gchar* kludge = g_strdup_printf ("/%s", term);
+      trans = dgettext (GETTEXT_PACKAGE, kludge);
+      if (kludge == trans)
+	trans = term;
+      else
+	++trans;
+      g_free (kludge);
+    }
+    if (term == trans)
+      trans = g_strdup_printf ("XXX: %s", term);
+#endif
+  }
+  return trans;
+}
+
 /* --------------- DiaArrowPreview -------------------------------- */
 static void dia_arrow_preview_set(DiaArrowPreview *arrow, 
                                   ArrowType atype, gboolean left);
@@ -407,7 +436,7 @@ dia_arrow_chooser_new(gboolean left, DiaChangeArrowCallback callback,
     g_object_set_data(G_OBJECT(mi), menuitem_enum_key,
 		      GINT_TO_POINTER(arrow_types[i].enum_value));
     if (tool_tips) {
-      gtk_tooltips_set_tip(tool_tips, mi, gettext(arrow_types[i].name), NULL);
+      gtk_tooltips_set_tip(tool_tips, mi, _dia_translate(arrow_types[i].name, NULL), NULL);
     }
     ar = dia_arrow_preview_new(arrow_types[i].enum_value, left);
 
@@ -418,7 +447,7 @@ dia_arrow_chooser_new(gboolean left, DiaChangeArrowCallback callback,
     gtk_menu_shell_append (GTK_MENU_SHELL (menu), mi);
     gtk_widget_show(mi);
   }
-  mi = gtk_menu_item_new_with_label(_("Details..."));
+  mi = gtk_menu_item_new_with_label(_dia_translate("Details...", NULL));
   g_signal_connect(G_OBJECT(mi), "activate",
 		   G_CALLBACK(dia_arrow_chooser_dialog_show), chooser);
   gtk_menu_shell_append (GTK_MENU_SHELL (menu), mi);

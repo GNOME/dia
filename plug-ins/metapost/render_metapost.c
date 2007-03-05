@@ -995,8 +995,9 @@ draw_string(DiaRenderer *self,
      * in the proper font.  Unfortunately, though, metapost is in the habit of
      * converting spaces into visible spaces, which looks rather yucky.  So we
      * embed some TeX with \usefont commands instead. */
+	/* Scale text by multiplying text by variable t in metapost */
     fprintf(renderer->file,
-            " btex {\\usefont{OT1}{%s}{%s}{%s} %s} etex scaled %s shifted (%sx,%sy)",
+            " btex {\\usefont{OT1}{%s}{%s}{%s} %s} etex scaled %st shifted (%sx,%sy)",
             renderer->mp_font, renderer->mp_weight, renderer->mp_slant,
             text,
 	    g_ascii_formatd(height_buf, sizeof(height_buf), "%g", renderer->mp_font_height),
@@ -1054,8 +1055,9 @@ draw_text_line(DiaRenderer *self, TextLine *text_line,
      * in the proper font.  Unfortunately, though, metapost is in the habit of
      * converting spaces into visible spaces, which looks rather yucky.  So we
      * embed some TeX with \usefont commands instead. */
+	/* Scale text by multiplying text by variable t in metapost */
     fprintf(renderer->file,
-            "draw btex {\\usefont{OT1}{%s}{%s}{%s} %s} etex scaled %s,(%sx,%sy)",
+            "draw btex {\\usefont{OT1}{%s}{%s}{%s} %s} etex scaled %st,(%sx,%sy)",
             renderer->mp_font, renderer->mp_weight, renderer->mp_slant,
             text_line_get_string(text_line),
 	    g_ascii_formatd(height_buf, sizeof(height_buf), "%g", renderer->mp_font_height),
@@ -1234,6 +1236,9 @@ export_metapost(DiagramData *data, const gchar *filename,
 	    mp_dtostr(d1_buf, data->paper.scaling),
 	    mp_dtostr(d2_buf, -data->paper.scaling) );
 
+	/* Create a variable for Text Scaling  't' */
+    fprintf(renderer->file,"  t = %s;\n\n",
+	    mp_dtostr(d1_buf, data->paper.scaling));
    
     initial_color.red=0.;
     initial_color.green=0.;
