@@ -2375,6 +2375,7 @@ Section /o $(PYTHON_SECTION_TITLE) SecPython
   ${File} "..\..\plug-ins\python\" "debug_objects.py"
   ${File} "..\..\plug-ins\python\" "diasvg_import.py"
   ${File} "..\..\plug-ins\python\" "dot.py"
+  ${File} "..\..\plug-ins\python\" "doxrev.py"
   ${File} "..\..\plug-ins\python\" "export-object.py"
   ${File} "..\..\plug-ins\python\" "export-render.py"
   ${File} "..\..\plug-ins\python\" "group_props.py"
