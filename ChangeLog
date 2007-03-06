@@ -1,5 +1,13 @@
 2007-03-05  Lars Clausen  <lars@raeder.dk>
 
+	* NEWS: 
+	* RELEASE-PROCESS: 
+	* config.h.win32: 
+	* doc/en/dia.xml: 
+	* doc/pl/dia.xml: 
+	* doc/eu/dia.xml:
+	* configure.in: Pre6
+
 	* lib/diaarrowchooser.c: Use _dia_translate instead of gettext for
 	tooltips and "Details...".  Fixes bug #406066.
 	
