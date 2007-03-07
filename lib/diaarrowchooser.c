@@ -24,7 +24,7 @@
  */
 
 #include <gtk/gtk.h>
-
+#include <config.h>
 #include "intl.h"
 #include "widgets.h"
 #include "diaarrowchooser.h"

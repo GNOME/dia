@@ -1,3 +1,7 @@
+2007-03-07  Steffen Macke <sdteffen@gmail.com>
+
+	* lib/diaarrowchooser.c: Include config.h to compile with MSVC
+	
 2007-03-06  Steffen Macke <sdteffen@gmail.com>
 
 	* installer/win32/dia.nsi: Added plug-ins/python/doxrev.py
