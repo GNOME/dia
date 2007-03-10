@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-28 12:03+0100\n"
+"POT-Creation-Date: 2007-02-04 03:19+0000\n"
 "PO-Revision-Date: 2004-03-14 16:18+0800\n"
 "Last-Translator: Wen Shaohua <nadwsh@sbell.com.cn>\n"
 "Language-Team: zh_CN <i18n-translation@lists.linux.net.cn>\n"
@@ -350,11 +350,11 @@ msgstr "动态网格"
 
 #: ../app/dia-props.c:127
 msgid "x"
-msgstr ""
+msgstr "x"
 
 #: ../app/dia-props.c:131
 msgid "y"
-msgstr ""
+msgstr "y"
 
 #: ../app/dia-props.c:136
 msgid "Spacing"
@@ -703,7 +703,7 @@ msgstr "丢弃更改"
 #: ../app/export_png.c:136 ../app/load_save.c:951 ../app/render_eps.c:103
 #: ../plug-ins/cairo/diacairo.c:976 ../plug-ins/cgm/cgm.c:1151
 #: ../plug-ins/dxf/dxf-export.c:484 ../plug-ins/hpgl/hpgl.c:708
-#: ../plug-ins/metapost/render_metapost.c:1145
+#: ../plug-ins/metapost/render_metapost.c:1173
 #: ../plug-ins/pgf/render_pgf.c:1143
 #: ../plug-ins/pstricks/render_pstricks.c:914
 #: ../plug-ins/shape/shape-export.c:134 ../plug-ins/svg/render_svg.c:150
@@ -1119,90 +1119,83 @@ msgid "Can't rename %s to final output file %s: %s\n"
 msgstr "无法打开输入文件 %s：%s\n"
 
 #: ../app/load_save.c:1064 ../app/load_save.c:1069
-#, fuzzy
 msgid "Dia Diagram File"
-msgstr "Dia 图表"
+msgstr "Dia 图表文件"
 
-#: ../app/menus.c:54
 #
+#: ../app/menus.c:54
 msgid "_File"
 msgstr "文件(_F)"
 
-#: ../app/menus.c:58
 #
+#: ../app/menus.c:58
 msgid "_Help"
 msgstr "帮助(_H)"
 
 #: ../app/menus.c:66
-#, fuzzy
 msgid "Sheets and Objects..."
 msgstr "工作表和对象"
 
 #: ../app/menus.c:68
-#, fuzzy
 msgid "Plugins..."
-msgstr "插件"
+msgstr "插件..."
 
 #: ../app/menus.c:74
-#, fuzzy
 msgid "_Diagram tree..."
-msgstr "图表树"
+msgstr "图表树(_D)..."
 
-#: ../app/menus.c:82
 #
+#: ../app/menus.c:82
 msgid "_Export ..."
 msgstr "导出(_E)..."
 
 #: ../app/menus.c:83
-#, fuzzy
 msgid "Page Set_up..."
-msgstr "页面设置"
+msgstr "页面设置(_U)..."
 
 #: ../app/menus.c:87 ../app/sheets_dialog.c:236
 msgid "_Edit"
 msgstr "编辑(_E)"
 
-#: ../app/menus.c:94
 #
+#: ../app/menus.c:94
 msgid "_Duplicate"
 msgstr "副本(_D)"
 
+#
 #. the following used to bind to <control><shift>C which collides with Unicode input.
 #. * <control>>alt> doesn't work either
 #: ../app/menus.c:99
-#
 msgid "Copy Text"
 msgstr "复制文本"
 
-#: ../app/menus.c:100
 #
+#: ../app/menus.c:100
 msgid "Cut Text"
 msgstr "剪切文本"
 
-#: ../app/menus.c:101
 #
+#: ../app/menus.c:101
 msgid "Paste _Text"
 msgstr "粘贴文本(_T)"
 
-#: ../app/menus.c:103
 #
+#: ../app/menus.c:103
 msgid "_Diagram"
 msgstr "图表(_D)"
 
 #: ../app/menus.c:105
-#, fuzzy
 msgid "_Layers..."
-msgstr "图层"
+msgstr "图层(_L)..."
 
-#: ../app/menus.c:107
 #
+#: ../app/menus.c:107
 msgid "_View"
 msgstr "查看(_V)"
 
 #: ../app/menus.c:110
-#, fuzzy
 msgid "_Zoom"
-msgstr "缩放"
+msgstr "缩放(_Z)"
 
 #: ../app/menus.c:111
 msgid "1600%"
@@ -1248,48 +1241,48 @@ msgstr ""
 msgid "25"
 msgstr ""
 
+#
 #. "display_toggle_entries" items go here
 #: ../app/menus.c:126
-#
 msgid "New _View"
 msgstr "新建视图(_V)"
 
 #: ../app/menus.c:127
 msgid "C_lone View"
-msgstr ""
+msgstr "克隆视图(_L)"
 
-#: ../app/menus.c:132
 #
+#: ../app/menus.c:132
 msgid "_Objects"
 msgstr "对象(_O)"
 
-#: ../app/menus.c:133
 #
+#: ../app/menus.c:133
 msgid "Send to _Back"
 msgstr "推到最后(_B)"
 
-#: ../app/menus.c:134
 #
+#: ../app/menus.c:134
 msgid "Bring to _Front"
 msgstr "提到最前(_F)"
 
-#: ../app/menus.c:135
 #
+#: ../app/menus.c:135
 msgid "Send Backwards"
 msgstr "下移一层"
 
-#: ../app/menus.c:136
 #
+#: ../app/menus.c:136
 msgid "Bring Forwards"
 msgstr "上移一层"
 
 #: ../app/menus.c:138
 msgid "_Group"
-msgstr ""
+msgstr "组合(_G)"
 
+#
 #. deliberately not using Ctrl+U for Ungroup
 #: ../app/menus.c:140
-#
 msgid "_Ungroup"
 msgstr "取消组合(_U)"
 
@@ -1298,13 +1291,13 @@ msgstr "取消组合(_U)"
 msgid "_Parent"
 msgstr "阻止"
 
-#: ../app/menus.c:143
 #
+#: ../app/menus.c:143
 msgid "_Unparent"
 msgstr "取消父对象(_U)"
 
-#: ../app/menus.c:144
 #
+#: ../app/menus.c:144
 msgid "_Unparent Children"
 msgstr "取消子对象的父对象(_U)"
 
@@ -1328,13 +1321,13 @@ msgstr "停用"
 msgid "Bottom"
 msgstr "底部："
 
-#: ../app/menus.c:155
 #
+#: ../app/menus.c:155
 msgid "Spread Out Horizontally"
 msgstr "水平平均分布"
 
-#: ../app/menus.c:156
 #
+#: ../app/menus.c:156
 msgid "Spread Out Vertically"
 msgstr "垂直平均分布"
 
@@ -1348,15 +1341,14 @@ msgstr "添加图段"
 msgid "Stacked"
 msgstr "状态"
 
-#: ../app/menus.c:162
 #
+#: ../app/menus.c:162
 msgid "_Select"
 msgstr "选择(_S)"
 
 #: ../app/menus.c:163
-#, fuzzy
 msgid "All"
-msgstr "允许"
+msgstr "全部"
 
 #: ../app/menus.c:164 ../lib/arrows.c:43 ../objects/Jackson/domain.c:96
 #: ../objects/UML/association.c:1183
@@ -1378,32 +1370,32 @@ msgstr "平动"
 msgid "Connected"
 msgstr "连接"
 
-#: ../app/menus.c:169
 #
+#: ../app/menus.c:169
 msgid "Same Type"
 msgstr "相同类型"
 
+#
 #. display_select_radio_entries go here
 #: ../app/menus.c:173
-#
 msgid "Select By"
-msgstr "选择(_S)"
+msgstr "选择"
 
-#: ../app/menus.c:175
 #
+#: ../app/menus.c:175
 msgid "_Input Methods"
 msgstr "输入法(_I)"
 
 #: ../app/menus.c:177
 msgid "D_ialogs"
-msgstr ""
+msgstr "对话框(_I)"
 
 #: ../app/menus.c:179
 msgid "D_ebug"
-msgstr ""
+msgstr "调试(_E)"
 
-#: ../app/menus.c:185
 #
+#: ../app/menus.c:185
 msgid "_Tools"
 msgstr "工具(_T)"
 
@@ -1417,53 +1409,52 @@ msgstr "移动"
 
 #: ../app/menus.c:210
 msgid "Fullscr_een"
-msgstr ""
+msgstr "全屏(_E)"
 
+#
 #. we must have all actions registered to avoid configuration specific ui-files and crashing in GTK+,
 #. * see: http://bugzilla.gnome.org/show_bug.cgi?id=396161
 #.
 #: ../app/menus.c:213 ../app/menus.c:218
-#
 msgid "_AntiAliased"
 msgstr "反锯齿(_A)"
 
-#: ../app/menus.c:220
 #
+#: ../app/menus.c:220
 msgid "Show _Grid"
 msgstr "显示网格(_G)"
 
-#: ../app/menus.c:221
 #
+#: ../app/menus.c:221
 msgid "_Snap To Grid"
 msgstr "对齐到网格(_S)"
 
-#: ../app/menus.c:222
 #
+#: ../app/menus.c:222
 msgid "Snap To _Objects"
 msgstr "对齐到网格(_S)"
 
-#: ../app/menus.c:223
 #
+#: ../app/menus.c:223
 msgid "Show _Rulers"
 msgstr "显示标尺(_R)"
 
-#: ../app/menus.c:224
 #
+#: ../app/menus.c:224
 msgid "Show _Connection Points"
 msgstr "显示连接点(_C)"
 
 #: ../app/menus.c:230
-#, fuzzy
 msgid "Replace"
-msgstr "释放"
+msgstr "替换"
 
 #: ../app/menus.c:231
 #, fuzzy
 msgid "Union"
 msgstr "无"
 
-#: ../app/menus.c:232
 #
+#: ../app/menus.c:232
 msgid "Intersection"
 msgstr "交叉"
 
@@ -1481,7 +1472,7 @@ msgstr "删除"
 msgid "Inverse"
 msgstr "插入"
 
-#: ../app/menus.c:278
+#: ../app/menus.c:291
 msgid "NULL tooldata in tool_menu_select"
 msgstr "工具选单选择中的空工具资料"
 
@@ -1536,7 +1527,7 @@ msgstr "插件"
 
 #: ../app/plugin-manager.c:255
 msgid "Loaded"
-msgstr "装载的"
+msgstr "已装入"
 
 #: ../app/plugin-manager.c:262 ../objects/UML/class.c:139
 #: ../objects/UML/large_package.c:131 ../objects/UML/umlattribute.c:37
@@ -4271,7 +4262,7 @@ msgstr "注释"
 #: ../objects/UML/class_dialog.c:324 ../objects/UML/class_dialog.c:410
 #: ../objects/UML/class_dialog.c:2016 ../objects/UML/uml.c:110
 msgid "Abstract"
-msgstr "摘要"
+msgstr "抽象"
 
 #: ../objects/UML/class.c:147 ../objects/UML/class.c:1700
 msgid "Template"
@@ -4294,9 +4285,8 @@ msgid "Visible Operations"
 msgstr "可见的操作"
 
 #: ../objects/UML/class.c:158
-#, fuzzy
 msgid "Visible Comments"
-msgstr "可见的操作"
+msgstr "可见的注释"
 
 #: ../objects/UML/class.c:160 ../objects/UML/class_dialog.c:349
 #, fuzzy
@@ -4323,20 +4313,18 @@ msgid "Polymorphic"
 msgstr "多态 (虚)"
 
 #: ../objects/UML/class.c:180
-#, fuzzy
 msgid "Classname"
-msgstr "类名："
+msgstr "类名"
 
 #: ../objects/UML/class.c:182
-#, fuzzy
 msgid "Abstract Classname"
-msgstr "抽象的类"
+msgstr "抽象类名"
 
 #: ../objects/UML/class.c:188 ../objects/UML/class.c:190
 #: ../objects/UML/class.c:192 ../objects/UML/class.c:194
 #: ../objects/UML/class.c:196 ../objects/UML/class.c:198
 msgid " "
-msgstr ""
+msgstr " "
 
 #: ../objects/UML/class.c:204 ../objects/UML/object.c:154
 msgid "Attributes"
@@ -4347,20 +4335,17 @@ msgid "Operations"
 msgstr "操作"
 
 #: ../objects/UML/class.c:209
-#, fuzzy
 msgid "Template Parameters"
-msgstr "参数"
+msgstr "模板参数"
 
 #: ../objects/UML/class.c:303
-#, fuzzy
 msgid "Show Comments"
-msgstr "注释"
+msgstr "显示注释"
 
 #. Class page:
 #: ../objects/UML/class_dialog.c:285
-#, fuzzy
 msgid "_Class"
-msgstr "类"
+msgstr "类(_C)"
 
 #: ../objects/UML/class_dialog.c:293
 msgid "Class name:"
@@ -4374,9 +4359,8 @@ msgstr "定型："
 
 #: ../objects/UML/class_dialog.c:308 ../objects/UML/class_dialog.c:997
 #: ../objects/UML/class_dialog.c:2057 ../objects/UML/class_dialog.c:2188
-#, fuzzy
 msgid "Comment:"
-msgstr "注释"
+msgstr "注释："
 
 #: ../objects/UML/class_dialog.c:330
 msgid "Attributes visible"
@@ -4395,9 +4379,8 @@ msgid "Wrap after this length: "
 msgstr ""
 
 #: ../objects/UML/class_dialog.c:364
-#, fuzzy
 msgid "Comments visible"
-msgstr "操作可见"
+msgstr "注释可见"
 
 #: ../objects/UML/class_dialog.c:371
 msgid "Wrap comment after this length: "
@@ -4405,7 +4388,7 @@ msgstr ""
 
 #: ../objects/UML/class_dialog.c:378
 msgid "Show documenation tag"
-msgstr ""
+msgstr "显示文档标签"
 
 #. head line
 #: ../objects/UML/class_dialog.c:391 ../objects/UML/umlparameter.c:51
@@ -4422,11 +4405,10 @@ msgstr "类名字"
 
 #: ../objects/UML/class_dialog.c:420
 msgid "Abstract Class"
-msgstr "抽象的类"
+msgstr "抽象类"
 
 #. should probably be refactored too.
 #: ../objects/UML/class_dialog.c:437
-#, fuzzy
 msgid "Text Color"
 msgstr "文本颜色"
 
@@ -4440,15 +4422,13 @@ msgstr "背景色"
 
 #. Attributes page:
 #: ../objects/UML/class_dialog.c:897
-#, fuzzy
 msgid "_Attributes"
-msgstr "属性"
+msgstr "属性(_A)"
 
 #: ../objects/UML/class_dialog.c:925 ../objects/UML/class_dialog.c:1875
 #: ../objects/UML/class_dialog.c:2112 ../objects/UML/class_dialog.c:2642
-#, fuzzy
 msgid "_New"
-msgstr "新建"
+msgstr "新建(_N)"
 
 #: ../objects/UML/class_dialog.c:931 ../objects/UML/class_dialog.c:1881
 #: ../objects/UML/class_dialog.c:2119 ../objects/UML/class_dialog.c:2648
@@ -4479,9 +4459,8 @@ msgstr "类范围"
 
 #. Operations page:
 #: ../objects/UML/class_dialog.c:1847
-#, fuzzy
 msgid "_Operations"
-msgstr "操作"
+msgstr "操作(_O)"
 
 #: ../objects/UML/class_dialog.c:1905
 msgid "Operation data"
@@ -4533,9 +4512,8 @@ msgstr "入 & 出"
 
 #. Templates page:
 #: ../objects/UML/class_dialog.c:2608
-#, fuzzy
 msgid "_Templates"
-msgstr "模板"
+msgstr "模板(_T)"
 
 #: ../objects/UML/class_dialog.c:2614 ../sheets/UML.sheet.in.h:29
 msgid "Template class"
@@ -5185,7 +5163,7 @@ msgstr "HP图形语言导出过滤器"
 msgid "TeX Metapost export filter"
 msgstr "TeX Metapost 导出过滤器"
 
-#: ../plug-ins/metapost/render_metapost.c:1214
+#: ../plug-ins/metapost/render_metapost.c:1255
 msgid "TeX Metapost macros"
 msgstr "TeX Metapost 宏"
 
@@ -5291,67 +5269,40 @@ msgstr "无法读颜色： %s\n"
 msgid "Couldn't find shape %d\n"
 msgstr "无法找到帮助目录"
 
-#: ../plug-ins/vdx/vdx-import.c:851
-msgid "MoveTo after start of polyline\n"
-msgstr ""
-
-#: ../plug-ins/vdx/vdx-import.c:864
-#, fuzzy, c-format
-msgid "Unexpected polyline object: %s\n"
-msgstr "不能读多线信息： %s\n"
-
-#: ../plug-ins/vdx/vdx-import.c:956
+#: ../plug-ins/vdx/vdx-import.c:976
 #, c-format
 msgid "Unexpected Ellipse object: %s\n"
 msgstr ""
 
-#: ../plug-ins/vdx/vdx-import.c:964
-msgid "Unexpected Ellipse additional objects\n"
-msgstr ""
-
-#: ../plug-ins/vdx/vdx-import.c:974
+#: ../plug-ins/vdx/vdx-import.c:990
 #, fuzzy
 msgid "Can't rotate ellipse\n"
 msgstr "不能读椭圆信息：%s\n"
 
-#: ../plug-ins/vdx/vdx-import.c:1287
+#: ../plug-ins/vdx/vdx-import.c:1306
 msgid "MoveTo not at start of Bezier\n"
 msgstr ""
 
-#: ../plug-ins/vdx/vdx-import.c:1374
-#, c-format
-msgid "Unexpected Bezier object: %s\n"
-msgstr ""
-
-#: ../plug-ins/vdx/vdx-import.c:1595
-#, c-format
-msgid "Unexpected NURBSTo object: %s\n"
-msgstr ""
-
-#: ../plug-ins/vdx/vdx-import.c:1603
-msgid "Unexpected NURBSTo additional objects\n"
-msgstr ""
-
-#: ../plug-ins/vdx/vdx-import.c:1620
+#: ../plug-ins/vdx/vdx-import.c:1639
 msgid "Invalid NURBS formula"
 msgstr ""
 
-#: ../plug-ins/vdx/vdx-import.c:1742
+#: ../plug-ins/vdx/vdx-import.c:1875
 #, fuzzy, c-format
 msgid "Couldn't write file %s"
 msgstr "无法读颜色： %s\n"
 
-#: ../plug-ins/vdx/vdx-import.c:1826 ../plug-ins/vdx/vdx-import.c:1839
+#: ../plug-ins/vdx/vdx-import.c:1960 ../plug-ins/vdx/vdx-import.c:1973
 #, fuzzy, c-format
 msgid "Couldn't handle foreign object type %s"
 msgstr "无法识别 FIG 对象： %s\n"
 
-#: ../plug-ins/vdx/vdx-import.c:1867
+#: ../plug-ins/vdx/vdx-import.c:2001
 #, fuzzy, c-format
 msgid "Couldn't make object dir %s"
 msgstr "无法识别 FIG 对象： %s\n"
 
-#: ../plug-ins/vdx/vdx-import.c:2723
+#: ../plug-ins/vdx/vdx-import.c:2948
 #, fuzzy
 msgid "Visio XML File Format"
 msgstr "XFig 文件格式"
@@ -9594,391 +9545,3 @@ msgstr "Sybase 数据服务器"
 msgid "Sybase replication server"
 msgstr "Sybase 复制服务器"
 
-#~ msgid "Dia"
-#~ msgstr "Dia"
-
-#, fuzzy
-#~ msgid "Copyright (C) 1998-2005 The Free Software Foundation and the authors"
-#~ msgstr "版权 (C) 1998-2002 自由软件基金会和作者"
-
-#, fuzzy
-#~ msgid ""
-#~ "Dia is a program for drawing structured diagrams.\n"
-#~ "Please visit http://www.gnome.org/projects/dia for more information."
-#~ msgstr ""
-#~ "Dia 是绘制结构化图表的程序。\n"
-#~ "请访问 http://www.lysator.liu.se/~alla/dia 获取更多信息。"
-
-#~ msgid "About Dia"
-#~ msgstr "关于 Dia"
-
-#~ msgid "Dia v %s by Alexander Larsson"
-#~ msgstr "Dia v %s，作者 Alexander Larsson"
-
-#~ msgid "Maintainers: Lars Clausen and Cyrille Chepelov"
-#~ msgstr "维护者：Lars Clausen 和 Cyrille Chepelov"
-
-#, fuzzy
-#~ msgid "Please visit http://www.gnome.org/projects/dia for more information"
-#~ msgstr "请访问 http://www.lysator.liu.se/~alla/dia 获取更多信息"
-
-#~ msgid "Contributors:"
-#~ msgstr "贡献者："
-
-#~ msgid "Modify object(s)"
-#~ msgstr "修改对象"
-
-#~ msgid "Failed to save file '%s'.\n"
-#~ msgstr "无法保存文件“%s”。\n"
-
-#~ msgid "/File/_New"
-#~ msgstr "/文件(F)/新建(_N)"
-
-#~ msgid "/File/_Open..."
-#~ msgstr "/文件(F)/打开(_O)..."
-
-#~ msgid "/File/---"
-#~ msgstr "/文件(F)/---"
-
-#~ msgid "/File/_Diagram tree"
-#~ msgstr "/文件(F)/图表树(_D)"
-
-#~ msgid "/File/Sheets and Objects..."
-#~ msgstr "/文件(F)/工作表和对象..."
-
-#~ msgid "/File/_Preferences..."
-#~ msgstr "/文件(F)/首选项(_P)..."
-
-#~ msgid "/File/P_lugins..."
-#~ msgstr "/文件(F)/插件(_L)..."
-
-#~ msgid "/File/_Quit"
-#~ msgstr "/文件(F)/退出(_Q)"
-
-#, fuzzy
-#~ msgid "/Help/_Contents"
-#~ msgstr "/帮助(H)/关于(_A)..."
-
-#~ msgid "/Help/---"
-#~ msgstr "/帮助(H)/---"
-
-#~ msgid "/Help/_About..."
-#~ msgstr "/帮助(H)/关于(_A)..."
-
-#~ msgid "/File/_Save"
-#~ msgstr "/文件(F)/保存(_S)"
-
-#~ msgid "/File/Save _As..."
-#~ msgstr "/文件(F)/另存为(_A)..."
-
-#~ msgid "/File/Page Set_up..."
-#~ msgstr "/文件(F)/页面设置(_U)..."
-
-#~ msgid "/File/_Print Diagram..."
-#~ msgstr "/文件(F)/打印图表(_P)..."
-
-#~ msgid "/File/_Close"
-#~ msgstr "/文件(F)/关闭(_C)"
-
-#~ msgid "/_Edit"
-#~ msgstr "/编辑(_E)"
-
-#~ msgid "/Edit/_Undo"
-#~ msgstr "/编辑(E)/撤消(_U)"
-
-#~ msgid "/Edit/_Redo"
-#~ msgstr "/编辑(E)/重做(_R)"
-
-#~ msgid "/Edit/---"
-#~ msgstr "/编辑(E)/---"
-
-#~ msgid "/Edit/_Copy"
-#~ msgstr "/编辑(E)/复制(_C)"
-
-#~ msgid "/Edit/C_ut"
-#~ msgstr "/编辑(E)/剪切(_U)"
-
-#~ msgid "/Edit/_Paste"
-#~ msgstr "/编辑(E)/粘贴(_P)"
-
-#~ msgid "/Edit/_Delete"
-#~ msgstr "/编辑(E)/删除(_D)"
-
-#~ msgid "/Diagram/_Properties..."
-#~ msgstr "/图表(D)/属性(_P)..."
-
-#~ msgid "/Diagram/_Layers..."
-#~ msgstr "/图表(D)/图层(_L)..."
-
-#~ msgid "/View/Zoom _In"
-#~ msgstr "/查看(V)/放大(_I)"
-
-#~ msgid "/View/Zoom _Out"
-#~ msgstr "/查看(V)/缩小(_O)"
-
-#~ msgid "/View/_Zoom"
-#~ msgstr "/查看(V)/缩放(_Z)"
-
-#, fuzzy
-#~ msgid "/View/Zoom/1600%"
-#~ msgstr "/查看(V)/缩放(Z)/100%"
-
-#, fuzzy
-#~ msgid "/View/Zoom/800%"
-#~ msgstr "/查看(V)/缩放(Z)/400%"
-
-#~ msgid "/View/Zoom/400%"
-#~ msgstr "/查看(V)/缩放(Z)/400%"
-
-#~ msgid "/View/Zoom/283%"
-#~ msgstr "/查看(V)/缩放(Z)/283%"
-
-#~ msgid "/View/Zoom/200%"
-#~ msgstr "/查看(V)/缩放(Z)/200%"
-
-#~ msgid "/View/Zoom/141%"
-#~ msgstr "/查看(V)/缩放(Z)/141%"
-
-#~ msgid "/View/Zoom/100%"
-#~ msgstr "/查看(V)/缩放(Z)/100%"
-
-#~ msgid "/View/Zoom/85%"
-#~ msgstr "/查看(V)/缩放(Z)/85%"
-
-#~ msgid "/View/Zoom/70.7%"
-#~ msgstr "/查看(V)/缩放(Z)/70.7%"
-
-#~ msgid "/View/Zoom/50%"
-#~ msgstr "/查看(V)/缩放(Z)/50%"
-
-#~ msgid "/View/Zoom/35.4%"
-#~ msgstr "/查看(V)/缩放(Z)/35.4%"
-
-#~ msgid "/View/Zoom/25%"
-#~ msgstr "/查看(V)/缩放(Z)/25%"
-
-#~ msgid "/View/---"
-#~ msgstr "/查看(V)/---"
-
-#~ msgid "/View/Show _All"
-#~ msgstr "/查看(V)/全部显示(_A)"
-
-#~ msgid "/View/Re_draw"
-#~ msgstr "/查看(V)/重绘(_D)"
-
-#~ msgid "/Objects/---"
-#~ msgstr "/对象(O)/---"
-
-#~ msgid "/Objects/_Group"
-#~ msgstr "/对象(O)/组合(_G)"
-
-#~ msgid "/Objects/_Parent"
-#~ msgstr "/对象(O)/父对象(_P)"
-
-#~ msgid "/Objects/Align"
-#~ msgstr "/对象(O)/对齐"
-
-#~ msgid "/Objects/Align/Left"
-#~ msgstr "/对象(O)/对齐/左"
-
-#~ msgid "/Objects/Align/Center"
-#~ msgstr "/对象(O)/对齐/中"
-
-#~ msgid "/Objects/Align/Right"
-#~ msgstr "/对象(O)/对齐/右"
-
-#~ msgid "/Objects/Align/---"
-#~ msgstr "/对象(O)/对齐/---"
-
-#~ msgid "/Objects/Align/Top"
-#~ msgstr "/对象(O)/对齐/上"
-
-#~ msgid "/Objects/Align/Middle"
-#~ msgstr "/对象(O)/对齐/中"
-
-#~ msgid "/Objects/Align/Bottom"
-#~ msgstr "/对象(O)/对齐/下"
-
-#~ msgid "/Objects/Align/Adjacent"
-#~ msgstr "/对象(O)/对齐/相邻"
-
-#~ msgid "/Objects/Align/Stacked"
-#~ msgstr "/对象(O)/对齐/堆叠"
-
-#~ msgid "/Objects/_Properties..."
-#~ msgstr "/对象(O)/属性(_P)..."
-
-#~ msgid "/Select/All"
-#~ msgstr "/选择(S)/全部"
-
-#~ msgid "/Select/None"
-#~ msgstr "/选择(S)/无"
-
-#~ msgid "/Select/Invert"
-#~ msgstr "/选择(S)/反转"
-
-#~ msgid "/Select/---"
-#~ msgstr "/选择(S)/---"
-
-#~ msgid "/Select/Transitive"
-#~ msgstr "/选择(S)/触及的"
-
-#~ msgid "/Select/Connected"
-#~ msgstr "/选择(S)/连接的"
-
-#~ msgid "/Select/Replace"
-#~ msgstr "/选择(S)/替换"
-
-#~ msgid "/Select/Union"
-#~ msgstr "/选择(S)/合并"
-
-#~ msgid "/Select/Remove"
-#~ msgstr "/选择(S)/删除"
-
-#, fuzzy
-#~ msgid "/Select/Inverse"
-#~ msgstr "/选择(S)/反转"
-
-#~ msgid "/Tools/Modify"
-#~ msgstr "/工具(T)/修改"
-
-#~ msgid "/Tools/Magnify"
-#~ msgstr "/工具(T)/放大"
-
-#~ msgid "/Tools/Scroll"
-#~ msgstr "/工具(T)/滚动"
-
-#~ msgid "/Tools/Text"
-#~ msgstr "/工具(T)/文本"
-
-#~ msgid "/Tools/Box"
-#~ msgstr "/工具(T)/方框"
-
-#~ msgid "/Tools/Ellipse"
-#~ msgstr "/工具(T)/椭圆"
-
-#~ msgid "/Tools/Polygon"
-#~ msgstr "/工具(T)/多边形"
-
-#~ msgid "/Tools/Beziergon"
-#~ msgstr "/工具(T)/贝塞尔封闭线"
-
-#~ msgid "/Tools/---"
-#~ msgstr "/工具(T)/---"
-
-#~ msgid "/Tools/Line"
-#~ msgstr "/工具(T)/直线"
-
-#~ msgid "/Tools/Arc"
-#~ msgstr "/工具(T)/圆弧"
-
-#~ msgid "/Tools/Zigzagline"
-#~ msgstr "/工具(T)/横竖折线"
-
-#~ msgid "/Tools/Polyline"
-#~ msgstr "/工具(T)/曲线"
-
-#~ msgid "/Tools/Bezierline"
-#~ msgstr "/工具(T)/贝塞尔曲线"
-
-#~ msgid "/Tools/Image"
-#~ msgstr "/工具(T)/图像"
-
-#~ msgid "Diagram Menu"
-#~ msgstr "图表菜单"
-
-#~ msgid "<Toolbox>/File/Plugins..."
-#~ msgstr "<工具箱>/文件/插件..."
-
-#~ msgid "<Toolbox>/File/Quit"
-#~ msgstr "<工具箱>/文件/退出"
-
-#, fuzzy
-#~ msgid "Macro Cell"
-#~ msgstr "调用宏"
-
-#, fuzzy
-#~ msgid "Micro Cell"
-#~ msgstr "调用宏"
-
-#, fuzzy
-#~ msgid "Cell Type:"
-#~ msgstr "类型："
-
-#~ msgid "Editor for EML Static Structure Diagrams."
-#~ msgstr "EML 静态结构图编辑器。"
-
-#~ msgid "Instantiation. One process create others"
-#~ msgstr "实例化。一个进程创建另外的一个进程"
-
-#~ msgid "Interaction between processes."
-#~ msgstr "进程之间的交互作用。"
-
-#, fuzzy
-#~ msgid "3/3 distributor"
-#~ msgstr "3/3 分配器"
-
-#, fuzzy
-#~ msgid "5/3 distributor"
-#~ msgstr "5/3 分配器"
-
-#~ msgid "Fill colour"
-#~ msgstr "填充颜色"
-
-#~ msgid "Line colour"
-#~ msgstr "线颜色"
-
-#~ msgid "Text colour"
-#~ msgstr "文本颜色"
-
-#, fuzzy
-#~ msgid "Implmentation"
-#~ msgstr "实现"
-
-#, fuzzy
-#~ msgid "Workstation"
-#~ msgstr "UNIX 工作站"
-
-#, fuzzy
-#~ msgid "Dot-Dot"
-#~ msgstr "双点划线"
-
-#, fuzzy
-#~ msgid "ATM router"
-#~ msgstr "计算机"
-
-#~ msgid "Export to file format and exit.  Supported formats are: %s"
-#~ msgstr "导出到文件格式然后退出。支持的格式为：%s"
-
-#~ msgid "FORMAT"
-#~ msgstr "格式"
-
-#~ msgid "/Help/_Manual"
-#~ msgstr "/帮助(H)/手册(_M)"
-
-#~ msgid "Error occured while printing"
-#~ msgstr "打印时出错"
-
-#~ msgid "Could not open `%s' for writing"
-#~ msgstr "无法以写方式打开“%s”"
-
-#~ msgid "Can't open history file for writing."
-#~ msgstr "无法以写方式打开历史文件。"
-
-#~ msgid "Diagram editor"
-#~ msgstr "图表编辑器"
-
-#~ msgid "Select font"
-#~ msgstr "选择字体"
-
-#, fuzzy
-#~ msgid "Helvetica"
-#~ msgstr "垂直翻转"
-
-#, fuzzy
-#~ msgid "Courier"
-#~ msgstr "结合"
-
-#, fuzzy
-#~ msgid "Could not find SVG namespace."
-#~ msgstr "无法找到帮助目录"
