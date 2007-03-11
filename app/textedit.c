@@ -170,6 +170,7 @@ textedit_remove_focus(DiaObject *obj, Diagram *diagram)
     /* TODO: make sure the focus is deactivated */
     textedit_end_edit(ddisplay_active(), old_focus);
   }
+  g_free(old_focus);
 }
 
 /** Call when the entire list of focusable texts gets reset. */

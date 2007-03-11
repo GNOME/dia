@@ -134,7 +134,7 @@ dia_image_release(DiaImage image)
  * @param height Height in pixels of rendering in window.
  */
 void 
-dia_image_draw(DiaImage image, GdkWindow *window,
+dia_image_draw(DiaImage image, GdkWindow *window, GdkGC *gc,
 	       int x, int y, int width, int height)
 {
   GdkPixbuf *scaled;
@@ -164,10 +164,10 @@ dia_image_draw(DiaImage image, GdkWindow *window,
   }
 
   /* Once we can render Alpha, we'll do it! */
-  gdk_pixbuf_render_to_drawable_alpha(scaled, window,
-				      0, 0, x, y, width, height, 
-				      GDK_PIXBUF_ALPHA_BILEVEL, 128,
-				      GDK_RGB_DITHER_NORMAL, 0, 0);
+  gdk_draw_pixbuf(window, gc, scaled,
+		  0, 0, x, y, width, height, 
+		  GDK_RGB_DITHER_NORMAL, 0, 0);
+
 #ifndef SCALING_CACHE
   gdk_pixbuf_unref(scaled);
 #endif

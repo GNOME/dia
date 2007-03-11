@@ -1470,7 +1470,7 @@ dia_unit_spinner_value_changed(GtkAdjustment *adjustment,
   char buf[256];
   GtkSpinButton *sbutton = GTK_SPIN_BUTTON(spinner);
 
-  g_snprintf(buf, sizeof(buf), "%0.*f%s", sbutton->digits, adjustment->value,
+  g_snprintf(buf, sizeof(buf), "%0.*f %s", sbutton->digits, adjustment->value,
 	     units[spinner->unit_num].unit);
   gtk_entry_set_text(GTK_ENTRY(spinner), buf);
 }

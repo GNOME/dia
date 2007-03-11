@@ -30,7 +30,7 @@ DiaImage dia_image_get_broken(void);
 DiaImage dia_image_load(gchar *filename);
 void dia_image_add_ref(DiaImage image);
 void dia_image_release(DiaImage image);
-void dia_image_draw(DiaImage image, GdkWindow *window,
+void dia_image_draw(DiaImage image, GdkWindow *window, GdkGC *gc,
 		    int x, int y, int width, int height);
 
 int dia_image_width(DiaImage image);

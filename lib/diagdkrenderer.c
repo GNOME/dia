@@ -813,7 +813,7 @@ draw_image (DiaRenderer *object,
     dia_transform_coords(renderer->transform, point->x, point->y,
 			 &real_x, &real_y);
 
-    dia_image_draw(image,  renderer->pixmap, real_x, real_y,
+    dia_image_draw(image,  renderer->pixmap, renderer->gc, real_x, real_y,
 		   real_width, real_height);
   }
 }

@@ -26,7 +26,7 @@ CLEANFILES = core-translation-report dia.keys dia.desktop
 
 #--- Adapted from http://svn.xfce.org/svn/xfce/libexo/trunk/exo-helper/helpers/Makefile.am
 
-desktopdir = $(datadir)
+desktopdir = $(datadir)/applications
 desktop_in_files = dia.desktop.in
 desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
 

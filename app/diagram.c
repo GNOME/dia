@@ -1100,6 +1100,11 @@ void diagram_group_selected(Diagram *dia)
   GList *orig_list;
   Change *change;
 
+  if (g_list_length(dia->data->selected) < 1) {
+    message_error("Trying to group with no selected objects.");
+    return;
+  }
+  
 #if 0
   /* the following is wrong as it screws up the selected list, see bug #153525
      * I just don't get what was originally intented so please speak up if you know  --hb
@@ -1132,13 +1137,13 @@ void diagram_group_selected(Diagram *dia)
   group = group_create(group_list);
   change = undo_group_objects(dia, group_list, group, orig_list);
   (change->apply)(change, dia);
-
+  
   /* Select the created group */
   diagram_select(dia, group);
   
   diagram_modified(dia);
   diagram_flush(dia);
-
+  
   undo_set_transactionpoint(dia->undo);
 }
 

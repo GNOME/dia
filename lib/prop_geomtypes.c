@@ -181,7 +181,7 @@ lengthprop_get_widget(LengthProperty *prop, PropDialog *dialog)
                                                          G_MINFLOAT, 
                                                          G_MAXFLOAT,
                                                          0.1, 1.0, 1.0));
-  GtkWidget *ret = dia_unit_spinner_new(adj, 2, DIA_UNIT_MILLIMETER);
+  GtkWidget *ret = dia_unit_spinner_new(adj, 2, DIA_UNIT_CENTIMETER);
   /*  gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(ret),TRUE);*/
   prophandler_connect(&prop->common,GTK_OBJECT(adj),"value_changed");
   

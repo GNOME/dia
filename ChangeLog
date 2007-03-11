@@ -1,10 +1,38 @@
 2007-03-11  Lars Clausen  <lars@raeder.dk>
 
+	* NEWS: 
+	* RELEASE-PROCESS: 
+	* config.h.win32: 
+	* doc/en/dia.xml: 
+	* doc/pl/dia.xml: 
+	* doc/eu/dia.xml:
+	* configure.in: Pre7
+
+	* lib/prop_geomtypes.c (lengthprop_get_widget): Default to cm in
+	display to be similar to other reals.
+
+	* lib/widgets.c (dia_unit_spinner_value_changed): Leave space
+	before unit.
+
+	* Makefile.am (desktopdir): Put .desktop file in right dir.  Fixes
+	bug #415767.
+
+	* app/diagram.c (diagram_group_selected): Don't try to group no
+	objects.  Fixes bug #410483, though the overall problem of
+	activateable insensitive menu items remains.
+
+	* lib/dia_image.c (dia_image_draw): 
+	* lib/dia_image.h: 
+	* lib/diagdkrenderer.c (draw_image): Give a GC to the image
+	rendering function -- also change to using gdk_draw_pixbuf.  Fixes
+	bug #401774.
+
 	* lib/focus.c (remove_focus_object): Make sure a removed object no
 	longer has the active focus.  Fixes bug #414708.
 
 	* app/textedit.c (textedit_end_edit): Don't assert active_focus
 	when it might not be true (during destruction).
+	(textedit_remove_focus): Free the old focus when done.
 
 2007-03-07  Steffen Macke <sdteffen@gmail.com>
 
