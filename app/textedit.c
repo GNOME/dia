@@ -45,7 +45,6 @@ textedit_end_edit(DDisplay *ddisp, Focus *focus)
   /* Leak of focus highlight color here, but should it be handled
      by highlight or by us?
   */
-  g_assert(focus == active_focus());
   highlight_object_off(focus->obj, ddisp->diagram);
   object_add_updates(focus->obj, ddisp->diagram);
 }

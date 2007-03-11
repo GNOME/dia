@@ -149,16 +149,25 @@ remove_focus_object(DiaObject *obj)
 {
   GList *tmplist = text_foci;
   gboolean active = FALSE;
+  Focus *next_focus = NULL;
 
   for (; tmplist != NULL; ) {
     Focus *focus = (Focus*)tmplist->data;
     GList *link = tmplist;
     tmplist = g_list_next(tmplist);
     if (focus_get_object(focus) == obj) {
-      text_foci = g_list_delete_link(text_foci, link);
       if (focus == active_focus_ptr) {
+	next_focus = focus_next();
 	active = TRUE;
       }
+      text_foci = g_list_delete_link(text_foci, link);
+    }
+  }
+  if (next_focus != NULL && text_foci != NULL) {
+    give_focus(next_focus);
+  } else {
+    if (text_foci == NULL) {
+      active_focus_ptr = NULL;
     }
   }
   return active;

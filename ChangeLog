@@ -1,3 +1,11 @@
+2007-03-11  Lars Clausen  <lars@raeder.dk>
+
+	* lib/focus.c (remove_focus_object): Make sure a removed object no
+	longer has the active focus.  Fixes bug #414708.
+
+	* app/textedit.c (textedit_end_edit): Don't assert active_focus
+	when it might not be true (during destruction).
+
 2007-03-07  Steffen Macke <sdteffen@gmail.com>
 
 	* lib/diaarrowchooser.c: Include config.h to compile with MSVC
