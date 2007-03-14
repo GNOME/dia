@@ -1,3 +1,10 @@
+2007-03-14  Steffen Macke <sdteffen@gmail.com>
+
+	* installer/win32/locale/slovak.nsh: (added)
+	* installer/win32/locale/Makefile.am: 
+	* installer/win32/dia.nsi: Added Slovak translations for installer.
+	Thanks to helix84 <helix84@users.sourceforge.net>
+	
 2007-03-11  Lars Clausen  <lars@raeder.dk>
 
 	* NEWS: 

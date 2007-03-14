@@ -3,7 +3,7 @@
 ;  
 ; dia-installer.nsi : Nullsoft Installation System (NSIS) script
 ; Copyright (C) 2000-2004 Herman Bloggs, Steffen Macke
-; Copyright (C) 2005,2006 Steffen Macke
+; Copyright (C) 2005-2007 Steffen Macke
 ;  
 ; This program is free software; you can redistribute it and/or modify
 ; it under the terms of the GNU General Public License as published by
@@ -155,6 +155,7 @@ VIProductVersion "0.95.1.0"
   !insertmacro MUI_LANGUAGE "German"
   !insertmacro MUI_LANGUAGE "French"
   !insertmacro MUI_LANGUAGE "Hungarian"
+  !insertmacro MUI_LANGUAGE "Slovak"
 
 ;--------------------------------
 ;Translations
@@ -167,6 +168,7 @@ VIProductVersion "0.95.1.0"
   !insertmacro DIA_MACRO_INCLUDE_LANGFILE "GERMAN" "locale\german.nsh"
   !insertmacro DIA_MACRO_INCLUDE_LANGFILE "FRENCH" "locale\french.nsh"
   !insertmacro DIA_MACRO_INCLUDE_LANGFILE "HUNGARIAN" "locale\hungarian.nsh"
+  !insertmacro DIA_MACRO_INCLUDE_LANGFILE "SLOVAK" "locale\slovak.nsh"
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Start Install Sections ;;
