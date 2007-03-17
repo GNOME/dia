@@ -189,7 +189,7 @@ radiocell_select(RadioCell *radiocell, Point *clicked_point,
 {
   text_set_cursor(radiocell->text, clicked_point, interactive_renderer);
   text_grab_focus(radiocell->text, &radiocell->poly.object);
-  polyshape_update_data(&radiocell->poly);
+  radiocell_update_data(radiocell);
 }
 
 static ObjectChange*
@@ -344,7 +344,11 @@ radiocell_create(Point *startpoint,
   polyshape_init(poly, 6);
 
   radiocell->center = *startpoint;
-  radiocell->center.x -= radiocell->radius;
+  /* rather broken but otherwise we will always calculate from unitialized data
+   * see polyshape_update_data() */
+  poly->points[0].y = startpoint->y;
+  poly->points[0].x = startpoint->x - radiocell->radius;
+  poly->points[3].x = startpoint->x + radiocell->radius;
 
   radiocell_update_data(radiocell);
   *handle1 = poly->object.handles[0];

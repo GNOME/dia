@@ -862,13 +862,16 @@ create_tools(GtkWidget *parent)
     if (tool_data[i].tool_accelerator) {
 	guint key;
 	GdkModifierType mods;
+	gchar *alabel, *atip;
 
 	gtk_accelerator_parse (tool_data[i].tool_accelerator, &key, &mods);
 
-	gtk_tooltips_set_tip (tool_tips, button,
-				g_strconcat(gettext(tool_data[i].tool_desc), 
-					" (", gtk_accelerator_get_label(key, mods), ")", NULL),
-				NULL);
+	alabel = gtk_accelerator_get_label(key, mods);
+	atip = g_strconcat(gettext(tool_data[i].tool_desc), " (", alabel, ")", NULL);
+	gtk_tooltips_set_tip (tool_tips, button, atip, NULL);
+	g_free (atip);
+	g_free (alabel);
+
     } else {
 	gtk_tooltips_set_tip (tool_tips, button,
 				gettext(tool_data[i].tool_desc), NULL);

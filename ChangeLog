@@ -1,5 +1,14 @@
 2007-03-17  Hans Breuer  <hans@breuer.org>
 
+	  [some playing with valgrind : memory leaks]
+	* lib/text.c(text_set_line_text) : removed superfluous g_strdup()
+	* app/interface.c : gtk_accelerator_get_label() and g_strconcat()
+	return newly allocated strings and gtk_tooltips_set_tip() does not
+	free them
+	  [jump or move depends on uninitialised value(s)]
+	* objects/network/radiocell.c : dont call polyshape_update_data()
+	without initialized points
+
 	* plug-ins/python/aobjects.py : somehow an extra 'd' got commited :)
 
 	* plug-ins/python/aobjects.py plug-ins/python/Makefile.am : 

@@ -80,7 +80,7 @@ text_set_line(Text *text, int line_no, gchar *line)
 static void
 text_set_line_text(Text *text, int line_no, gchar *line)
 {
-  text_set_line(text, line_no, g_strdup(line));
+  text_set_line(text, line_no, line);
 }
 
 /** Delete the line, freeing appropriately and moving stuff up.
