@@ -149,7 +149,7 @@ file_open_response_callback(GtkWidget *fs,
                             gint       response, 
                             gpointer   user_data)
 {
-  const char *filename;
+  char *filename;
   Diagram *diagram = NULL;
 
   if (response == GTK_RESPONSE_ACCEPT) {
@@ -160,6 +160,8 @@ file_open_response_callback(GtkWidget *fs,
     filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(fs));
     
     diagram = diagram_load(filename, ifilter_by_index (index - 1, filename));
+
+    g_free (filename);
     
     if (diagram != NULL) {
       diagram_update_extents(diagram);
@@ -289,7 +291,7 @@ file_save_as_response_callback(GtkWidget *fs,
                                gint       response, 
                                gpointer   user_data)
 {
-  const char *filename;
+  char *filename;
   Diagram *dia;
   struct stat stat_struct;
 
@@ -325,6 +327,7 @@ file_save_as_response_callback(GtkWidget *fs,
 	/* don't hide/destroy the dialog, but simply go back to it */
 	gtk_window_present (GTK_WINDOW (fs));
 	gtk_widget_destroy(dialog);
+        g_free (filename);
 	return;
       }
       gtk_widget_destroy(dialog);
@@ -336,6 +339,8 @@ file_save_as_response_callback(GtkWidget *fs,
 
     diagram_set_filename(dia, filename);
     diagram_save(dia, filename);
+
+    g_free (filename);
   }
   /* if we have our own reference, drop it before destroy */
   if ((dia = gtk_object_get_user_data(GTK_OBJECT(fs))) != NULL) {
@@ -455,48 +460,62 @@ file_save_callback(gpointer data, guint action, GtkWidget *widget)
 }
 
 /**
- * Given an export filter index and optionally a filename for fallback
- * return the export filter to use
+ * Given an export filter index return the export filter to use
  */
 static DiaExportFilter *
-efilter_by_index (int index, const char* filename)
+efilter_by_index (int index, const gchar** ext)
 {
   DiaExportFilter *efilter = NULL;
 
-  if (index >= 0)
+  /* the index in the selection list *is* the index of the filter, 
+   * filters supporing multiple formats are multiple times in the list */
+  if (index >= 0) {
     efilter = g_list_nth_data (filter_get_export_filters(), index);
-  else if (filename) /* fallback, should not happen */
-    efilter = filter_guess_export_filter(filename);
+    if (efilter) {
+      if (ext)
+        *ext = efilter->extensions[0];
+      return efilter;
+    }
+    else /* getting here means invalid index */
+      g_warning ("efilter_by_index() index=%d out of range", index);
+  }
 
   return efilter;
 }
 
 /**
- * Adapt the filename to the export filter selection
+ * Adapt the filename to the export filter index
  */
 static void
-export_set_extension(GtkWidget *widget)
+export_adapt_extension (const gchar* name, int index)
 {
-  int index = gtk_combo_box_get_active (GTK_COMBO_BOX(widget)) - 1; /* Ignore "By Extension" */
-  DiaExportFilter *efilter = efilter_by_index (index, NULL);
-  GString *s;
-  const gchar *text = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(exportdlg));
-  const gchar *last_dot = text ? strrchr(text, '.') : NULL;
-  gchar *basename = NULL;
+  const gchar* ext = NULL;
+  DiaExportFilter *efilter = efilter_by_index (index, &ext);
+  gchar *basename = g_path_get_basename (name);
 
-  if (!efilter || last_dot == text || text[0] == '\0' ||
-      efilter->extensions[0] == NULL)
-    return;
-  basename = g_path_get_basename (text);
-  last_dot = strrchr(basename, '.');
-  s = g_string_new(basename);
-  if (last_dot)
-    g_string_truncate(s, last_dot-basename);
-  g_string_append(s, ".");
-  g_string_append(s, efilter->extensions[0]);
-  gtk_file_chooser_set_current_name(GTK_FILE_CHOOSER(exportdlg), s->str);
-  g_string_free (s, TRUE);
+  if (!efilter || !ext)
+    gtk_file_chooser_set_current_name(GTK_FILE_CHOOSER(exportdlg), basename);
+  else {
+    const gchar *last_dot = strrchr(basename, '.');
+    GString *s = g_string_new(basename);
+    if (last_dot)
+      g_string_truncate(s, last_dot-basename);
+    g_string_append(s, ".");
+    g_string_append(s, ext);
+    gtk_file_chooser_set_current_name(GTK_FILE_CHOOSER(exportdlg), s->str);
+    g_string_free (s, TRUE);
+  }
   g_free (basename);
+}
+static void
+export_adapt_extension_callback(GtkWidget *widget)
+{
+  int index = gtk_combo_box_get_active (GTK_COMBO_BOX(widget)); 
+  gchar *name = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(exportdlg));
+
+  if (name && index > 0) /* Ignore "By Extension" */
+    export_adapt_extension (name, index - 1);
+  g_free (name);
 }
 
 /**
@@ -522,7 +541,7 @@ create_export_menu(void)
     g_free(filter_label);
   }
   g_signal_connect(GTK_OBJECT(menu), "changed",
-	           G_CALLBACK(export_set_extension), NULL);
+	           G_CALLBACK(export_adapt_extension_callback), NULL);
   return menu;
 }
 
@@ -534,7 +553,7 @@ file_export_response_callback(GtkWidget *fs,
                               gint       response, 
                               gpointer   user_data)
 {
-  const char *filename;
+  char *filename;
   Diagram *dia;
   DiaExportFilter *ef;
   struct stat statbuf;
@@ -565,6 +584,7 @@ file_export_response_callback(GtkWidget *fs,
       if (gtk_dialog_run (GTK_DIALOG (dialog)) != GTK_RESPONSE_YES) {
 	/* if not overwrite allow to select another filename */
 	gtk_widget_destroy(dialog);
+	g_free (filename);
 	return;
       }
       gtk_widget_destroy(dialog);
@@ -573,7 +593,7 @@ file_export_response_callback(GtkWidget *fs,
     index = gtk_combo_box_get_active (GTK_COMBO_BOX(user_data));
     if (index >= 0)
       persistence_set_integer ("export-filter", index);
-    ef = efilter_by_index (index - 1, filename);
+    ef = efilter_by_index (index - 1, NULL);
     if (!ef)
       ef = filter_guess_export_filter(filename);
     if (ef) {
@@ -583,6 +603,7 @@ file_export_response_callback(GtkWidget *fs,
     } else
       message_error(_("Could not determine which export filter\n"
 		      "to use to save '%s'"), dia_message_filename(filename));
+    g_free (filename);
   }
   g_object_unref (dia); /* drop our diagram reference */
   gtk_widget_destroy(exportdlg);
@@ -672,15 +693,13 @@ file_export_callback(gpointer data, guint action, GtkWidget *widget)
       char *basename = g_path_get_basename (fnabs);
       /* can't use gtk_file_chooser_set_filename for various reasons, see e.g. bug #305850 */
       gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER(exportdlg), folder);
-      gtk_file_chooser_set_current_name (GTK_FILE_CHOOSER(exportdlg), basename);
+      export_adapt_extension (basename, persistence_get_integer ("export-filter") - 1);
       g_free (folder);
       g_free (basename);
     }
     g_free(fnabs);
     g_free(filename);
   }
-  export_set_extension(GTK_WIDGET(g_object_get_data(G_OBJECT(exportdlg), 
-						    "export-menu")));
 
   gtk_widget_show(exportdlg);
 }

@@ -1,5 +1,9 @@
 2007-03-17  Hans Breuer  <hans@breuer.org>
 
+	* app/filedlg.c : plugged some leaks and made the filter sensitive 
+	extension update work, by relying less on what we get back from gtk+
+	Fixes bug #403195.
+
 	  [some playing with valgrind : memory leaks]
 	* lib/text.c(text_set_line_text) : removed superfluous g_strdup()
 	* app/interface.c : gtk_accelerator_get_label() and g_strconcat()
