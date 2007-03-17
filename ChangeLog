@@ -1,5 +1,7 @@
 2007-03-17  Hans Breuer  <hans@breuer.org>
 
+	* plug-ins/python/aobjects.py : somehow an extra 'd' got commited :)
+
 	* plug-ins/python/aobjects.py plug-ins/python/Makefile.am : 
 	Self Documenation Part III and stress test, creates all Dia Objects
 	* objects/FS/flow-ortho.c objects/FS/flow.c : removed partial

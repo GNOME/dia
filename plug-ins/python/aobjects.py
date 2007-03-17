@@ -80,7 +80,7 @@ def aobjects_cb(data, flags) :
 		layer.update_extents()
 	data.update_extents()
 	if diagram :
-		diagram.updated_extents()
+		diagram.update_extents()
 		diagram.flush()
 	return data
 
