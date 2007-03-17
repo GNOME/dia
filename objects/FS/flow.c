@@ -70,8 +70,6 @@ struct _Flow {
 #define FLOW_ARROWWIDTH 0.5
 #define HANDLE_MOVE_TEXT (HANDLE_CUSTOM1)
 
-static DiaFont *flow_font = NULL;
-
 static ObjectChange* flow_move_handle(Flow *flow, Handle *handle,
 				      Point *to, ConnectionPoint *cp,
 				      HandleMoveReason reason, 
@@ -355,8 +353,6 @@ flow_draw(Flow *flow, DiaRenderer *renderer)
 				       render_color,
 				       &arrow, NULL); 
 
-  renderer_ops->set_font(renderer, flow_font,FLOW_FONTHEIGHT);
-
   text_draw(flow->text, renderer);
 }
 
@@ -522,11 +518,6 @@ flow_load(ObjectNode obj_node, int version, const char *filename)
   Connection *conn;
   DiaObject *obj;
   LineBBExtras *extra;
-
-  if (flow_font == NULL) {
-	  flow_font = dia_font_new_from_style (DIA_FONT_SANS|DIA_FONT_ITALIC,
-                                         FLOW_FONTHEIGHT);
-  }
 
   flow = g_malloc0(sizeof(Flow));
 

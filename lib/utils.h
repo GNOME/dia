@@ -20,6 +20,8 @@
 
 #include <stdarg.h>
 
+G_BEGIN_DECLS
+
 int nearest_pow (int num);
 int format_string_length_upper_bound (const char* fmt,
 				      va_list *args);
@@ -27,6 +29,8 @@ int format_string_length_upper_bound (const char* fmt,
 #ifndef HAVE_SNPRINTF
 int snprintf ( char *str, size_t n, const char *format, ... );
 #endif
+
+G_END_DECLS
 
 #endif /* UTILS_H */
 

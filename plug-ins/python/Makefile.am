@@ -58,37 +58,41 @@ pkgdata_DATA = python-startup.py
 
 pyplugindir = $(pkgdatadir)/python
 pyplugin_DATA = \
-	gtkcons.py \
+	aobjects.py \
 	codegen.py \
 	diasvg.py \
 	diasvg_import.py \
+	dot.py \
+	doxrev.py \
 	group_props.py \
+	gtkcons.py \
 	otypes.py \
-	scascale.py \
-	select_by.py \
 	pydiadoc.py \
-	dot.py
+	scascale.py \
+	select_by.py
 
 endif
 
 EXTRA_DIST = \
 	python-startup.py \
-	debug_objects.py \
+	\
+	aobjects.py \
 	codegen.py \
-	export-object.py \
-	export-render.py \
 	diasvg.py \
 	diasvg_import.py \
-	group_props.py \
-	otypes.py \
-	scascale.py \
-	select_by.py \
-	pydiadoc.py \
 	dot.py \
+	doxrev.py \
+	group_props.py \
+	gtkcons.py \
+	otypes.py \
+	pydiadoc.py \
+	scascale.py \
 	scascale.py \
 	select_by.py \
-	gtkcons.py \
+	\
 	bbox.py \
-	doxrev.py \
+	debug_objects.py \
+	export-object.py \
+	export-render.py \
+	\
 	makefile.msc
-

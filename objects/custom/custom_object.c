@@ -656,6 +656,7 @@ custom_draw(Custom *custom, DiaRenderer *renderer)
 
   renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
   renderer_ops->set_linewidth(renderer, custom->border_width);
+  cur_line = custom->border_width;
   renderer_ops->set_linestyle(renderer, cur_style);
   renderer_ops->set_dashlength(renderer, custom->dashlength);
   renderer_ops->set_linecaps(renderer, cur_caps);
@@ -1346,6 +1347,8 @@ custom_copy(Custom *custom)
     newcustom->connections[i].last_pos = custom->connections[i].last_pos;
     newcustom->connections[i].flags = custom->connections[i].flags;
   }
+
+  custom_update_data(newcustom, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
 
   return &newcustom->element.object;
 }

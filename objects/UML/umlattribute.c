@@ -193,8 +193,9 @@ uml_get_attribute_string (UMLAttribute *attribute)
   int len;
   char *str;
 
-  len = 1 + strlen (attribute->name) + strlen (attribute->type);
-  if (attribute->name[0] && attribute->type[0]) {
+  len = 1 + (attribute->name ? strlen (attribute->name) : 0) 
+          + (attribute->type ? strlen (attribute->type) : 0);
+  if (attribute->name && attribute->name[0] && attribute->type && attribute->type[0]) {
     len += 2;
   }
   if (attribute->value != NULL && attribute->value[0] != '\0') {
@@ -206,11 +207,11 @@ uml_get_attribute_string (UMLAttribute *attribute)
   str[0] = visible_char[(int) attribute->visibility];
   str[1] = 0;
 
-  strcat (str, attribute->name);
-  if (attribute->name[0] && attribute->type[0]) {
+  strcat (str, attribute->name ? attribute->name : "");
+  if (attribute->name && attribute->name[0] && attribute->type && attribute->type[0]) {
     strcat (str, ": ");
   }
-  strcat (str, attribute->type);
+  strcat (str, attribute->type ? attribute->type : "");
   if (attribute->value != NULL && attribute->value[0] != '\0') {
     strcat (str, " = ");
     strcat (str, attribute->value);

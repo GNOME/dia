@@ -20,6 +20,8 @@
 
 #include <stdarg.h>
 
+G_BEGIN_DECLS
+
 typedef void (*MessageInternal)(const char *title, const char *fmt,
                                 va_list *args,  va_list *args2);
 
@@ -31,6 +33,8 @@ void message_error(const char *format, ...);
 
 /* also declared in dia_dirs.h, where I think it does not belong! --hb */
 const gchar *dia_message_filename (const gchar *filename);
+
+G_END_DECLS
 
 #endif /* MESSAGES_H */
 

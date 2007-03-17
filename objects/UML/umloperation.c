@@ -310,7 +310,7 @@ uml_get_operation_string (UMLOperation *operation)
   UMLParameter *param;
 
   /* Calculate length: */
-  len = 1 + strlen (operation->name)  + 1;
+  len = 1 + (operation->name ? strlen (operation->name) : 0) + 1;
   if(operation->stereotype != NULL && operation->stereotype[0] != '\0') {
     len += 5 + strlen (operation->stereotype);
   }   
@@ -334,7 +334,7 @@ uml_get_operation_string (UMLOperation *operation)
 	len += 6;
 	break;	  
       }
-    len += strlen (param->name);
+    len += (param->name ? strlen (param->name) : 0);
     if (param->type != NULL) {
       len += strlen (param->type);
       if (param->type[0] && param->name[0]) {
@@ -371,7 +371,7 @@ uml_get_operation_string (UMLOperation *operation)
     strcat(str, " ");
   }
 
-  strcat (str, operation->name);
+  strcat (str, operation->name ? operation->name : "");
   strcat (str, "(");
   
   list = operation->parameters;
@@ -393,7 +393,7 @@ uml_get_operation_string (UMLOperation *operation)
 	strcat (str, "inout ");
 	break;
       }
-    strcat (str, param->name);
+    strcat (str, param->name ? param->name : "");
 
     if (param->type != NULL) {
       if (param->type[0] && param->name[0]) {

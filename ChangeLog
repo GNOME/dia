@@ -1,3 +1,22 @@
+2007-03-17  Hans Breuer  <hans@breuer.org>
+
+	* plug-ins/python/aobjects.py plug-ins/python/Makefile.am : 
+	Self Documenation Part III and stress test, creates all Dia Objects
+	* objects/FS/flow-ortho.c objects/FS/flow.c : removed partial
+	left over of 'static DiaFont*' which caused a crash on creation
+
+	* objects/UML/umlattribute.c objects/UML/umlformalparameter.c
+	  objects/UML/umloperation.c : don't crash on name being NULL
+
+	* objects/custom/custom_object.c : call *_update_data in *_copy
+	Fixes the disappearance of object drawing after cut&paste
+	(bug #416414, Stein Somers)
+
+	* plug-ins/python/pydia-font.c : cmpfunc is supposed to return out
+	of (-1, 0, 1)
+
+	* lib/utils.h lib/message.h : added C++ guards
+
 2007-03-17  Steffen Macke <sdteffen@gmail.com>
 
 	* installer/win32/locale/slovak.nsh: Use Codepage 1250, fixed errors
@@ -148,7 +167,7 @@
         * objects/UML/state.c
         * objects/UML/small_package.c
         * objects/GRAFCET/boolequation.c: Make sure to call set_font
-	before calling draw_string
+	before calling draw_string, fixes bug #408519
 
 	* objects/UML/class.c (umlclass_set_props): #ifdef out debugging
 	statement. 

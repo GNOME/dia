@@ -91,8 +91,6 @@ Color orthflow_color_signal   = { 0.0f, 0.0f, 1.0f };
 #define ORTHFLOW_ARROWWIDTH 0.5
 #define HANDLE_MOVE_TEXT (HANDLE_CUSTOM2)
 
-static DiaFont *orthflow_font = NULL;
-
 static ObjectChange* orthflow_move_handle(Orthflow *orthflow, Handle *handle,
 					  Point *to, ConnectionPoint *cp,
 					  HandleMoveReason reason, 
@@ -389,9 +387,6 @@ orthflow_draw(Orthflow *orthflow, DiaRenderer *renderer)
 					  render_color,
 					  NULL, &arrow); 
 
-  renderer_ops->set_font(renderer, orthflow_font,
-                          ORTHFLOW_FONTHEIGHT);
-
   text_draw(orthflow->text, renderer);
 }
 
@@ -435,11 +430,6 @@ orthflow_create(Point *startpoint,
   } else {
     Color* color = &orthflow_color_signal;
 
-    if (orthflow_font == NULL) {
-	    orthflow_font = dia_font_new_from_style(DIA_FONT_SANS|DIA_FONT_ITALIC,
-                                              1.0);
-    }
-
     switch (orthflow->type) {
     case ORTHFLOW_ENERGY:
       color = &orthflow_color_energy ;
@@ -452,8 +442,6 @@ orthflow_create(Point *startpoint,
       break ;
     }
 
-    orthflow->text = new_text("", orthflow_font, ORTHFLOW_FONTHEIGHT, 
-                              &p, color, ALIGN_CENTER);
   }
 #endif
 
@@ -565,11 +553,6 @@ orthflow_load(ObjectNode obj_node, int version, const char *filename)
   OrthConn *orth;
   DiaObject *obj;
   PolyBBExtras *extra;
-
-  if (orthflow_font == NULL) {
-    orthflow_font = dia_font_new_from_style(DIA_FONT_SANS|DIA_FONT_ITALIC,
-                                            1.0);
-  }
 
   orthflow = g_malloc0(sizeof(Orthflow));
 

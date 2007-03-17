@@ -73,7 +73,7 @@ PyDiaFont_Compare(PyDiaFont *self,
     return ret;
 
   ret = dia_font_get_style (self->font) - dia_font_get_style (other->font);
-  return ret;
+  return ret > 0 ? 1 : (ret < 0 ? -1 : 0);
 }
 
 /*
