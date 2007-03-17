@@ -39,7 +39,7 @@ DISTCLEANFILES = dia.1
 # --nonet.  But I don't think that's going to solve more problems
 # than it causes.
 dia.1: dia.dbk
-	xsltproc --nonet --novalid $(DB2MAN) $< >dia.1
+	xsltproc --novalid $(DB2MAN) $< >dia.1
 endif
 
 man_MANS = dia.1

@@ -213,10 +213,11 @@ vdx_parse_color(const char *s, const VDXDocument *theDoc)
     {
         /* Look in colour table */
         unsigned int i = atoi(s);
-        if (i < theDoc->Colors->len)
+        if (theDoc->Colors && i < theDoc->Colors->len)
             return g_array_index(theDoc->Colors, Color, i);
     }
-    message_error(_("Couldn't read color: %s\n"), s);
+    message_warning(_("Couldn't read color: %s\n"), s);
+    g_debug("Couldn't read color: %s", s);
     return c;
 }
 
@@ -447,9 +448,14 @@ get_style_child(unsigned int type, unsigned int style, VDXDocument* theDoc)
 {
     struct vdx_StyleSheet theSheet;
     struct vdx_any *Any;
+    if (!theDoc->StyleSheets)
+    {
+        g_debug("Unknown stylesheet reference");
+        return 0;
+    }
     while(1)
     {
-        g_assert(style < theDoc->StyleSheets->len);
+        g_assert(theDoc->StyleSheets && style < theDoc->StyleSheets->len);
         theSheet = g_array_index(theDoc->StyleSheets, 
                                  struct vdx_StyleSheet, style);
         Any = find_child(type, &theSheet);

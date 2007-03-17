@@ -1,3 +1,25 @@
+2007-03-16  Lars Clausen  <lars@raeder.dk>
+
+	* NEWS: 
+	* RELEASE-PROCESS: 
+	* config.h.win32: 
+	* doc/en/dia.xml: 
+	* doc/pl/dia.xml: 
+	* doc/eu/dia.xml:
+	* configure.in: Pre8?  Really?  Furrfu!
+
+	* doc/en/Makefile.am (dia.1): Allow net access for getting the
+	XSLT.  Let's see if it causes more problems than it solves.  Fixes
+	bug #391545.
+
+	* app/textedit.c (textedit_remove_focus): Do not free that which
+	has not been allocated (focus!).  Fixes bug #418188.
+
+	* plug-ins/pgf/render_pgf.c (draw_*_with_arrows): Don't
+	assume that the arrow pointers are non-null.  Fixes bug #413309
+
+	* plug-ins/vdx/vdx-import.c: Patch to fix crash bug #417956.
+
 2007-03-14  Steffen Macke <sdteffen@gmail.com>
 
 	* installer/win32/locale/slovak.nsh: (added)
@@ -6,6 +28,9 @@
 	Thanks to helix84 <helix84@users.sourceforge.net>
 	
 2007-03-11  Lars Clausen  <lars@raeder.dk>
+
+	* widgets.c (get_units_name_list): 
+	* widgets.h: New function to give names of units for prefs.
 
 	* NEWS: 
 	* RELEASE-PROCESS: 

@@ -910,9 +910,21 @@ draw_line_with_arrows(DiaRenderer *self, Point *start, Point *end,
                                   Arrow *start_arrow, Arrow *end_arrow)
 {
     int nat_arr;
-    Arrow st_arrow=*start_arrow;
-    Arrow e_arrow=*end_arrow;
+    Arrow st_arrow;
+    Arrow e_arrow;
     PgfRenderer *renderer = PGF_RENDERER(self);
+
+    if (start_arrow != NULL) {
+	st_arrow = *start_arrow;
+    } else {
+	st_arrow.type = ARROW_NONE;
+    }
+
+    if (end_arrow != NULL) {
+	e_arrow = *end_arrow;
+    } else {
+	e_arrow.type = ARROW_NONE;
+    }
     fprintf(renderer->file, "{\n");
     set_fill_color(renderer, line_color);
     nat_arr = set_arrows(renderer, &st_arrow, &e_arrow);
@@ -936,9 +948,22 @@ draw_arc_with_arrows(DiaRenderer *self, Point *start, Point *end, Point *midpoin
                                  Arrow *start_arrow, Arrow *end_arrow)
 {
     int nat_arr;
-    Arrow st_arrow=*start_arrow;
-    Arrow e_arrow=*end_arrow;
+    Arrow st_arrow;
+    Arrow e_arrow;
     PgfRenderer *renderer = PGF_RENDERER(self);
+
+    if (start_arrow != NULL) {
+	st_arrow = *start_arrow;
+    } else {
+	st_arrow.type = ARROW_NONE;
+    }
+
+    if (end_arrow != NULL) {
+	e_arrow = *end_arrow;
+    } else {
+	e_arrow.type = ARROW_NONE;
+    }
+
     fprintf(renderer->file, "{\n");
     set_fill_color(renderer, color);
     nat_arr = set_arrows(renderer, &st_arrow, &e_arrow);
@@ -959,9 +984,22 @@ draw_polyline_with_arrows(DiaRenderer *self, Point *points, int num_points,
                                      Arrow *start_arrow, Arrow *end_arrow)
 {
     int nat_arr;
-    Arrow st_arrow=*start_arrow;
-    Arrow e_arrow=*end_arrow;
+    Arrow st_arrow;
+    Arrow e_arrow;
     PgfRenderer *renderer = PGF_RENDERER(self);
+
+    if (start_arrow != NULL) {
+	st_arrow = *start_arrow;
+    } else {
+	st_arrow.type = ARROW_NONE;
+    }
+
+    if (end_arrow != NULL) {
+	e_arrow = *end_arrow;
+    } else {
+	e_arrow.type = ARROW_NONE;
+    }
+
     fprintf(renderer->file, "{\n");
     set_fill_color(renderer, color);
     nat_arr = set_arrows(renderer, &st_arrow, &e_arrow);
@@ -982,9 +1020,22 @@ draw_rounded_polyline_with_arrows(DiaRenderer *self,
 				     Arrow *start_arrow, Arrow *end_arrow, real radius)
 {
     int nat_arr;
-    Arrow st_arrow=*start_arrow;
-    Arrow e_arrow=*end_arrow;
+    Arrow st_arrow;
+    Arrow e_arrow;
     PgfRenderer *renderer = PGF_RENDERER(self);
+
+    if (start_arrow != NULL) {
+	st_arrow = *start_arrow;
+    } else {
+	st_arrow.type = ARROW_NONE;
+    }
+
+    if (end_arrow != NULL) {
+	e_arrow = *end_arrow;
+    } else {
+	e_arrow.type = ARROW_NONE;
+    }
+
     fprintf(renderer->file, "{\n");
     set_fill_color(renderer, color);
     nat_arr = set_arrows(renderer, &st_arrow, &e_arrow);
@@ -1007,9 +1058,22 @@ draw_bezier_with_arrows(DiaRenderer *self, BezPoint *points, int num_points,
                                    Arrow *start_arrow, Arrow *end_arrow)
 {
     int nat_arr;
-    Arrow st_arrow=*start_arrow;
-    Arrow e_arrow=*end_arrow;
+    Arrow st_arrow;
+    Arrow e_arrow;
     PgfRenderer *renderer = PGF_RENDERER(self);
+
+    if (start_arrow != NULL) {
+	st_arrow = *start_arrow;
+    } else {
+	st_arrow.type = ARROW_NONE;
+    }
+
+    if (end_arrow != NULL) {
+	e_arrow = *end_arrow;
+    } else {
+	e_arrow.type = ARROW_NONE;
+    }
+
     fprintf(renderer->file, "{\n");
     set_fill_color(renderer, color);
     nat_arr = set_arrows(renderer, &st_arrow, &e_arrow);
