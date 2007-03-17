@@ -481,8 +481,12 @@ ddisplay_add_update(DDisplay *ddisp, Rectangle *rect)
   Rectangle *r;
   int top,bottom,left,right;
   Rectangle *visible;
-  int width = dia_renderer_get_width_pixels (ddisp->renderer);
-  int height = dia_renderer_get_height_pixels (ddisp->renderer);
+  int width, height;
+
+  if (!ddisp->renderer)
+    return; /* can happen at creation time of the diagram */
+  width = dia_renderer_get_width_pixels (ddisp->renderer);
+  height = dia_renderer_get_height_pixels (ddisp->renderer);
 
   if (!rectangle_intersects(rect, &ddisp->visible))
     return;
