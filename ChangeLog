@@ -1,3 +1,7 @@
+2007-03-17  Steffen Macke <sdteffen@gmail.com>
+
+	* installer/win32/locale/slovak.nsh: Use Codepage 1250, fixed errors
+
 2007-03-16  Lars Clausen  <lars@raeder.dk>
 
 	* NEWS: 
