@@ -1,5 +1,13 @@
 2007-03-18  Hans Breuer  <hans@breuer.org>
 
+	* NEWS: 
+	* RELEASE-PROCESS: 
+	* config.h.win32: 
+	* doc/en/dia.xml: 
+	* doc/pl/dia.xml: 
+	* doc/eu/dia.xml:
+	* configure.in: Pre9 hot on the heels of pre8.
+
 	* app/app_procs.c plug-ins/wmf/wmf.cpp : portability fixes
 
 2007-03-17  Hans Breuer  <hans@breuer.org>

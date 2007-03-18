@@ -1,3 +1,9 @@
+dia-0.96-pre9: 18-Mar-2007
+
+  * Ninth prerelease for 0.96.  Fixes I18N of file names, filename
+    extension bugs, several leaks, two crash bugs, paste update bug, and
+    diverse other things.
+
 dia-0.96-pre8: 16-Mar-2007
 
   * Eighth prerelease for 0.96.  Fixes three crash bugs.
