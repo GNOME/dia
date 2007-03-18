@@ -1185,7 +1185,7 @@ export_data(DiagramData *data, const gchar *filename,
 
     if (file == NULL) {
         message_error(_("Couldn't open: '%s' for writing.\n"), 
-	              dia_message_filename(filename), strerror(errno));
+	              dia_message_filename(filename));
         return;
     }
 
