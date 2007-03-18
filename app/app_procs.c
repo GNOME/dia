@@ -22,7 +22,6 @@
 #include <stdlib.h>
 #include <sys/types.h>
 #include <errno.h>
-#include <sys/stat.h>
 #include <string.h>
 #include <signal.h>
 #include <locale.h>
@@ -68,10 +67,7 @@ typedef void* poptContext;
 #include <libxml/parser.h>
 #include <libxml/xmlerror.h>
 
-#ifdef G_OS_WIN32
-#include <direct.h>
-#define mkdir(s,a) _mkdir(s)
-#endif
+#include <glib/gstdio.h>
 
 #include "intl.h"
 #include "app_procs.h"
@@ -501,10 +497,16 @@ dump_dependencies(void)
   }
 #endif
   {
-    gint   libxml_version   = atoi(xmlParserVersion);
-
-    g_print ("libxml  : %d.%d.%d (%s)\n", 
-             libxml_version / 100 / 100, libxml_version / 100 % 100, libxml_version % 100, LIBXML_DOTTED_VERSION);
+    gchar* libxml_rt_version   = "?";
+    xmlInitParser();
+    if (xmlGetGlobalState())
+      libxml_rt_version = xmlGetGlobalState()->xmlParserVersion;
+    if (atoi(libxml_rt_version))
+      g_print ("libxml  : %d.%d.%d (%s)\n", 
+               atoi(libxml_rt_version) / 10000, atoi(libxml_rt_version) / 100 % 100, atoi(libxml_rt_version) % 100,
+	       LIBXML_DOTTED_VERSION);
+    else /* may include "extra" */
+      g_print ("libxml  : %s (%s)\n", libxml_rt_version ? libxml_rt_version : "??", LIBXML_DOTTED_VERSION);
   }
   g_print ("glib    : %d.%d.%d (%d.%d.%d)\n", 
            glib_major_version, glib_minor_version, glib_micro_version,
@@ -1069,7 +1071,7 @@ static void create_user_dirs(void)
   }
 #endif
   dir = g_strconcat(g_get_home_dir(), G_DIR_SEPARATOR_S ".dia", NULL);
-  if (mkdir(dir, 0755) && errno != EEXIST) {
+  if (g_mkdir(dir, 0755) && errno != EEXIST) {
 #ifndef G_OS_WIN32
     g_critical(_("Could not create per-user Dia config directory"));
     exit(1);
@@ -1081,13 +1083,13 @@ static void create_user_dirs(void)
 
   /* it is no big deal if these directories can't be created */
   subdir = g_strconcat(dir, G_DIR_SEPARATOR_S "objects", NULL);
-  mkdir(subdir, 0755);
+  g_mkdir(subdir, 0755);
   g_free(subdir);
   subdir = g_strconcat(dir, G_DIR_SEPARATOR_S "shapes", NULL);
-  mkdir(subdir, 0755);
+  g_mkdir(subdir, 0755);
   g_free(subdir);
   subdir = g_strconcat(dir, G_DIR_SEPARATOR_S "sheets", NULL);
-  mkdir(subdir, 0755);
+  g_mkdir(subdir, 0755);
   g_free(subdir);
 
   g_free(dir);

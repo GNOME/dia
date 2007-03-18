@@ -25,9 +25,10 @@
 #include <string.h>
 #include <math.h>
 
+#include <errno.h>
 #define G_LOG_DOMAIN "DiaCairo"
 #include <glib.h>
-#include <errno.h>
+#include <glib/gstdio.h>
 
 /*
  * To me the following looks rather suspicious. Why do we need to compile
@@ -962,19 +963,26 @@ typedef enum OutputKind
 
 /* dia export funtion */
 static void
-export_data(DiagramData *data, const gchar *filename, 
+export_data(DiagramData *data, const gchar *filename_utf8, 
             const gchar *diafilename, void* user_data)
 {
   DiaCairoRenderer *renderer;
   FILE *file;
   real width, height;
   OutputKind kind = (OutputKind)user_data;
+  gchar* filename = g_locale_from_utf8 (filename_utf8, -1, NULL, NULL, NULL);
 
+  if (!filename) {
+    message_error(_("Can't convert output filename '%s' to locale encoding.\n"
+                    "Please choose a different name to save with cairo.\n"), 
+		  dia_message_filename(filename_utf8), strerror(errno));
+    return;
+  }
   file = fopen(filename, "wb"); /* "wb" for binary! */
 
   if (file == NULL) {
     message_error(_("Can't open output file %s: %s\n"), 
-		  dia_message_filename(filename), strerror(errno));
+		  dia_message_filename(filename_utf8), strerror(errno));
     return;
   }
   fclose (file);

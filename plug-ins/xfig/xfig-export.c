@@ -11,10 +11,12 @@
 
 #include <string.h>
 #include <math.h>
-#include <glib.h>
 #include <stdlib.h>
 #include <errno.h>
 #include <locale.h>
+
+#include <glib.h>
+#include <glib/gstdio.h>
 
 #include "intl.h"
 #include "message.h"
@@ -1130,7 +1132,7 @@ export_fig(DiagramData *data, const gchar *filename,
   Layer *layer;
   gchar d_buf[DTOSTR_BUF_SIZE];
 
-  file = fopen(filename, "w");
+  file = g_fopen(filename, "w");
 
   if (file == NULL) {
     message_error(_("Can't open output file %s: %s\n"), 

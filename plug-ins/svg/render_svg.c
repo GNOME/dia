@@ -24,11 +24,13 @@
 #include <string.h>
 #include <time.h>
 #include <math.h>
-#include <glib.h>
 #include <errno.h>
 #ifdef HAVE_UNISTD_H
 #include <unistd.h>
 #endif
+
+#include <glib.h>
+#include <glib/gstdio.h>
 
 #include <libxml/entities.h>
 #include <libxml/tree.h>
@@ -144,7 +146,7 @@ new_svg_renderer(DiagramData *data, const char *filename)
   const char *name;
   xmlDtdPtr dtd;
  
-  file = fopen(filename, "w");
+  file = g_fopen(filename, "w");
 
   if (file==NULL) {
     message_error(_("Can't open output file %s: %s\n"), 

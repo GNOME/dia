@@ -31,6 +31,8 @@
 #include <glib.h>
 #include <errno.h>
 
+#include <glib/gstdio.h>
+
 #include "intl.h"
 #include "message.h"
 #include "geometry.h"
@@ -1145,7 +1147,7 @@ export_cgm(DiagramData *data, const gchar *filename,
     Rectangle *extent;
     gint len;
 
-    file = fopen(filename, "wb");
+    file = g_fopen(filename, "wb");
 
     if (file == NULL) {
 	message_error(_("Can't open output file %s: %s\n"), 

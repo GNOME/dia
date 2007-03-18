@@ -18,12 +18,14 @@
 /** \file dia_xml.c  Helper function to convert Dia's basic to and from XML */
 #include <config.h>
 
-#include <glib.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
 #include <fcntl.h>
+
+#include <glib.h>
+#include <glib/gstdio.h>
 
 #include <libxml/parser.h>
 #include <libxml/parserInternals.h>
@@ -77,7 +79,8 @@
 static const gchar *
 xml_file_check_encoding(const gchar *filename, const gchar *default_enc)
 {
-  gzFile zf = gzopen(filename,"rb");  
+  int fd = g_open (filename, O_RDONLY, 0);
+  gzFile zf = gzdopen(fd,"rb");  
   gchar *buf;
   gchar *p,*pmax;
   int len;
@@ -155,7 +158,8 @@ xml_file_check_encoding(const gchar *filename, const gchar *default_enc)
     return filename;
   } else {
     gzclose(zf); /* poor man's fseek */
-    zf = gzopen(filename,"rb"); 
+    fd = g_open (filename, O_RDONLY, 0);
+    zf = gzdopen(fd,"rb"); 
     len = gzread(zf,buf,BUFLEN);
   }
 
@@ -223,10 +227,9 @@ xmlDiaParseFile(const char *filename)
   }
 }
 
-/** Relic of earlier, unhappier days.
- * @param filename A file to parse.
+/** Parse an xml file from a filename given in Dia's/GLib's filename encoding 
+ * @param filename A file to parse. On win32 the filename encoding is utf-8 since GLib 2.6
  * @return An XML document.
- * @bug Could probably be inlined. So what?
  */
 xmlDocPtr
 xmlDoParseFile(const char *filename)

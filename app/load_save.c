@@ -55,12 +55,6 @@
 
 #ifdef G_OS_WIN32
 #include <io.h>
-#define mkstemp(s) _open(_mktemp(s), O_CREAT | O_TRUNC | O_WRONLY | _O_BINARY, 0644)
-#define fchmod(f,m) (0)
-#endif
-#ifdef __EMX__
-#define mkstemp(s) _open(_mktemp(s), O_CREAT | O_TRUNC | O_WRONLY | O_BINARY, 0644)
-#define fchmod(f,m) (0)
 #endif
 
 static void read_connections(GList *objects, xmlNodePtr layer_node,
@@ -360,7 +354,7 @@ diagram_data_load(const char *filename, DiagramData *data, void* user_data)
     return FALSE;
   }
 
-  fd = open(filename, O_RDONLY);
+  fd = g_open(filename, O_RDONLY, 0);
 
   if (fd==-1) {
     message_error(_("Couldn't open: '%s' for reading.\n"),
@@ -938,11 +932,16 @@ diagram_data_save(DiagramData *data, const char *filename)
 #endif
 
   /* open a temporary name, and fix the modes to match what fopen() would have
-     done (mkstemp() is (rightly so) a bit paranoid for what we do). */
-  fildes = mkstemp(tmpname);
+     done (mkstemp() is (rightly so) a bit paranoid for what we do).  */
+  fildes = g_mkstemp(tmpname);
+  /* should not be necessary anymore on *NIXas well, because we are using g_mkstemp ? */
   _umask = umask(0); umask(_umask);
   mode = 0666 & ~_umask;
+#ifndef G_OS_WIN32
   ret = fchmod(fildes,mode);
+#else
+  ret = 0; /* less paranoia on windoze */ 
+#endif
   file = fdopen(fildes,"wb");
 
   /* Now write the data in the temporary file name. */
@@ -961,7 +960,7 @@ diagram_data_save(DiagramData *data, const char *filename)
        "filename" if it existed. */
     message_error(_("Internal error %d writing file %s\n"), 
 		  ret, dia_message_filename(tmpname));
-    unlink(tmpname);
+    g_unlink(tmpname);
     g_free(tmpname);
     g_free(dirname);
     g_free(bakname);
@@ -969,9 +968,9 @@ diagram_data_save(DiagramData *data, const char *filename)
   }
   /* save succeeded. We kill the old backup file, move the old file into 
      backup, and the temp file into the new saved file. */
-  unlink(bakname);
-  rename(filename,bakname);
-  ret = rename(tmpname,filename);
+  g_unlink(bakname);
+  g_rename(filename,bakname);
+  ret = g_rename(tmpname,filename);
   if (ret < 0) {
     message_error(_("Can't rename %s to final output file %s: %s\n"), 
 		  dia_message_filename(filename), 
@@ -1014,8 +1013,8 @@ diagram_cleanup_autosave(Diagram *dia)
   g_print("Cleaning up autosave %s for %s\n", 
           savefile, dia->filename ? dia->filename : "<no name>");
 #endif
-  if (stat(savefile, &statbuf) == 0) { /* Success */
-    unlink(savefile);
+  if (g_stat(savefile, &statbuf) == 0) { /* Success */
+    g_unlink(savefile);
   }
   g_free(savefile);
   dia->autosavefilename = NULL;

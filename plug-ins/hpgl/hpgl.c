@@ -34,8 +34,10 @@
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
-#include <glib.h>
 #include <errno.h>
+
+#include <glib.h>
+#include <glib/gstdio.h>
 
 #include "intl.h"
 #include "message.h"
@@ -702,7 +704,7 @@ export_data(DiagramData *data, const gchar *filename,
     Rectangle *extent;
     real width, height;
 
-    file = fopen(filename, "w"); /* "wb" for binary! */
+    file = g_fopen(filename, "w"); /* "wb" for binary! */
 
     if (file == NULL) {
 	message_error(_("Can't open output file %s: %s\n"), 

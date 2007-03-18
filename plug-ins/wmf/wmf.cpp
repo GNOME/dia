@@ -25,6 +25,7 @@
 #include <string.h>
 #include <math.h>
 #include <glib.h>
+#include <glib/gstdio.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -266,7 +267,7 @@ end_render(DiaRenderer *self)
 
         W32::HDC hdc = W32::GetDC(NULL);
 
-        f = fopen(renderer->sFileName, "wb");
+        f = g_fopen(renderer->sFileName, "wb");
 
 	if (renderer->target_emf) {
 	  nSize = W32::GetEnhMetaFileBits (hEmf, 0, NULL);
@@ -1183,7 +1184,8 @@ export_data(DiagramData *data, const gchar *filename,
                     "Dia\0Diagram\0"); // pointer to an optional description string 
 
     if (file == NULL) {
-        message_error(_("Couldn't open: '%s' for writing.\n"), filename);
+        message_error(_("Couldn't open: '%s' for writing.\n"), 
+	              dia_message_filename(filename), strerror(errno));
         return;
     }
 

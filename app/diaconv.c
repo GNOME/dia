@@ -26,7 +26,6 @@
 #ifdef HAVE_DIRENT_H
 #include <dirent.h>
 #endif
-#include <sys/stat.h>
 #include <string.h>
 #include <signal.h>
 #include <locale.h>
@@ -36,11 +35,6 @@
 #include <gmodule.h>
 
 #include <libxml/parser.h>
-
-#ifdef G_OS_WIN32
-#include <direct.h>
-#define mkdir(s,a) _mkdir(s)
-#endif
 
 #include "intl.h"
 #include "app_procs.h"

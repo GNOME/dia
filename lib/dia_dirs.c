@@ -26,12 +26,11 @@
 #ifdef G_OS_WIN32
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
-#include <direct.h>
-#define mkdir(s,a) _mkdir(s)
 #else
 #include <sys/stat.h>
 #include <sys/types.h>
 #endif
+#include <glib/gstdio.h>
 
 /** Get the name of a subdirectory of our data directory.
  *  This function does not create the subdirectory, just make the correct name.
@@ -136,7 +135,7 @@ dia_config_ensure_dir(const gchar *filename)
       exists = TRUE;
     } else {
       if (dia_config_ensure_dir(dir)) {
-	exists = (mkdir(dir, 0755) == 0);
+	exists = (g_mkdir(dir, 0755) == 0);
       } else {
 	exists = FALSE;
       }

@@ -28,6 +28,9 @@
 #ifdef HAVE_UNISTD_H
 #include <unistd.h>
 #endif
+#include <stdio.h>
+#include <glib/gstdio.h>
+
 #include <gtk/gtk.h>
 #include "intl.h"
 #include "filter.h"
@@ -300,7 +303,7 @@ file_save_as_response_callback(GtkWidget *fs,
 
     filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(fs));
 
-    if (stat(filename, &stat_struct) == 0) {
+    if (g_stat(filename, &stat_struct) == 0) {
       GtkWidget *dialog = NULL;
       char *utf8filename = NULL;
       if (!g_utf8_validate(filename, -1, NULL)) {
@@ -568,7 +571,7 @@ file_export_response_callback(GtkWidget *fs,
 
     filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(fs));
 
-    if (stat(filename, &statbuf) == 0) {
+    if (g_stat(filename, &statbuf) == 0) {
       GtkWidget *dialog = NULL;
 
       dialog = gtk_message_dialog_new (GTK_WINDOW(fs),

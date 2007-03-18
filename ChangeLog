@@ -1,5 +1,32 @@
 2007-03-17  Hans Breuer  <hans@breuer.org>
 
+	* app/app_procs.c app/autosave.c app/commands.c app/diaconv.c
+	  app/export_png.c app/filedlg.c app/load_save.c 
+	  app/paginate_psprint.c app/preferences.c app/render_eps.c 
+	  app/sheets_dialog.c app/sheets_dialog_callbacks.c
+	  lib/dia_dirs.c lib/dia_xml.c lib/diagdkrenderer.c 
+	  plug-ins/cgm/cgm.c plug-ins/dxf/dxf-export.c 
+	  plug-ins/dxf/dxf-import.c plug-ins/hpgl/hpgl.c 
+	  plug-ins/metapost/render_metapost.c plug-ins/pgf/render_pgf.c 
+	  plug-ins/pstricks/render_pstricks.c plug-ins/python/pydia-render.c 
+	  plug-ins/shape/shape-export.c plug-ins/svg/render_svg.c 
+	  plug-ins/vdx/vdx-export.c plug-ins/vdx/vdx-import.c 
+	  plug-ins/wmf/wmf.cpp plug-ins/wpg/wpg.c 
+	  plug-ins/xfig/xfig-export.c plug-ins/xfig/xfig-import.c
+	  plug-ins/xslt/xslt.c : use <glib/gstdio.h> to match GLib's filename
+	encoding to the io functions used, that is: g_open, g_fopen, g_stat, 
+	g_unlink, g_mkdir, g_rename (, g_access, g_lstat, g_remove, g_freopen, 
+	g_chdir, g_rmdir). Also replace gzopen() with gzdopen(g_open(), ...)
+	to properly handle unicode filenames; finally use g_mkstemp().
+	Fixes bug #131210 and bug #397159. To make this fully work on win32
+	a recent enough version of libxml2 is required - tested with 2.6.27 -
+	but anything from 2.6.24 should do.
+
+	* plug-ins/cairo/diacairo.c : special handling for cairo which 
+	currently only supports filenames in the C runtime locale.
+	
+2007-03-17  Hans Breuer  <hans@breuer.org>
+
 	* plug-ins/python/aobjects.py : if created a diagram, display it ...
 	* app/display.c : ... and don't crash with display update before we
 	had the chance to reate a renderer.

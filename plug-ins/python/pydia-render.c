@@ -21,6 +21,7 @@
 
 #include <Python.h>
 #include <glib.h>
+#include <glib/gstdio.h>
 
 #include <locale.h>
 
@@ -712,7 +713,7 @@ PyDia_export_data(DiagramData *data, const gchar *filename,
 
   {
     FILE *file;
-    file = fopen(filename, "w"); /* "wb" for binary! */
+    file = g_fopen(filename, "w"); /* "wb" for binary! */
 
     if (file == NULL) {
       message_error(_("Couldn't open '%s' for writing.\n"), 

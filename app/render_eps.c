@@ -55,6 +55,8 @@
 #include <locale.h>
 #include <errno.h>
 
+#include <glib/gstdio.h>
+
 #include "intl.h"
 #include "render_eps.h"
 #include "message.h"
@@ -98,7 +100,7 @@ export_render_eps(DiaPsRenderer *renderer,
 {
   FILE *outfile;
 
-  outfile = fopen(filename, "w");
+  outfile = g_fopen(filename, "w");
   if (outfile == NULL) {
     message_error(_("Can't open output file %s: %s\n"), 
 		  dia_message_filename(filename), strerror(errno));

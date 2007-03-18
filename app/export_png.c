@@ -28,6 +28,7 @@
 #include <string.h>
 #include <errno.h>
 
+#include <glib/gstdio.h>
 #include <gtk/gtk.h>
 
 #include "intl.h"
@@ -132,7 +133,7 @@ export_png_ok(GtkButton *button, gpointer userdata)
   la_renderer = DIA_LIBART_RENDERER (renderer);
   dia_renderer_set_size(renderer, NULL, imagewidth, band);
 
-  fp = fopen(cbdata->filename, "wb");
+  fp = g_fopen(cbdata->filename, "wb");
   if (fp == NULL) {
     message_error(_("Can't open output file %s: %s\n"), cbdata->filename, strerror(errno));
     goto error;

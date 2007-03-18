@@ -43,6 +43,8 @@
 #endif
 #include <errno.h>
 
+#include <glib/gstdio.h>
+
 #include "intl.h"
 #include "render_metapost.h"
 #include "message.h"
@@ -1169,7 +1171,7 @@ export_metapost(DiagramData *data, const gchar *filename,
 
     Color initial_color;
  
-    file = fopen(filename, "wb");
+    file = g_fopen(filename, "wb");
 
     if (file==NULL) {
 	message_error(_("Can't open output file %s: %s\n"), 

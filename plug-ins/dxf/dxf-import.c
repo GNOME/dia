@@ -25,12 +25,13 @@
 #include <config.h>
 #endif
 
+#include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
 #include <glib.h>
-#include <stdlib.h>
 #include <locale.h>
+#include <glib/gstdio.h>
 
 #include "intl.h"
 #include "message.h"
@@ -1301,7 +1302,7 @@ import_dxf(const gchar *filename, DiagramData *dia, void* user_data)
     DxfData *data;
     int codedxf;
     
-    filedxf = fopen(filename,"r");
+    filedxf = g_fopen(filename,"r");
     if(filedxf == NULL){
         message_error(_("Couldn't open: '%s' for reading.\n"), 
 		      dia_message_filename(filename));

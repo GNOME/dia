@@ -2850,7 +2850,7 @@ vdx_free(VDXDocument *theDoc)
 gboolean
 import_vdx(const gchar *filename, DiagramData *dia, void* user_data) 
 {
-    xmlDocPtr doc = xmlParseFile(filename);
+    xmlDocPtr doc = xmlDoParseFile(filename);
     xmlNodePtr root, cur;
     struct VDXDocument *theDoc;
     const char *s;

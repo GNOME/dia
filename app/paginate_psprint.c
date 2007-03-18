@@ -31,6 +31,8 @@
 #include <errno.h>
 #include <sys/stat.h>
 
+#include <glib/gstdio.h>
+
 #include "intl.h"
 #include "message.h"
 #include "diagram.h"
@@ -396,7 +398,7 @@ diagram_print_ps(Diagram *dia)
       const gchar *filename = gtk_entry_get_text(GTK_ENTRY(ofile));
       struct stat statbuf;
 
-      if (stat(filename, &statbuf) == 0) {	/* Output file exists */
+      if (g_stat(filename, &statbuf) == 0) {	/* Output file exists */
         GtkWidget *confirm_overwrite_dialog = NULL;
         char buffer[300];
         char *utf8filename = NULL;
@@ -440,11 +442,11 @@ diagram_print_ps(Diagram *dia)
 
           dirname = g_path_get_dirname(dia->filename);
           full_filename = g_build_filename(dirname, filename, NULL);
-          file = fopen(full_filename, "w");
+          file = g_fopen(full_filename, "w");
           g_free(full_filename);
           g_free(dirname);
         } else {
-          file = fopen(filename, "w");
+          file = g_fopen(filename, "w");
         }
 	  }
 

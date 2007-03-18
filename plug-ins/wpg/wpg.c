@@ -37,8 +37,10 @@
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
-#include <glib.h>
 #include <errno.h>
+
+#include <glib.h>
+#include <glib/gstdio.h>
 
 #include "intl.h"
 #include "message.h"
@@ -946,7 +948,7 @@ draw_image(DiaRenderer *self,
   {
     FILE* f;
     int i, j;
-    f = fopen("c:\\temp\\wpg_bmp.raw", "wb");
+    f = g_fopen("c:\\temp\\wpg_bmp.raw", "wb");
     j = p - pOut;
     for (i = 0; i < j; i+=2)
     {
@@ -1064,7 +1066,7 @@ export_data(DiagramData *data, const gchar *filename,
   Rectangle *extent;
   real width, height;
 
-  file = fopen(filename, "wb"); /* "wb" for binary! */
+  file = g_fopen(filename, "wb"); /* "wb" for binary! */
 
   if (file == NULL) {
     message_error(_("Can't open output file %s: %s\n"), 
@@ -1169,7 +1171,7 @@ import_data (const gchar *filename, DiagramData *dia, void* user_data)
   gboolean bRet;
   WPGHead8 rh;
 
-  f = fopen(filename, "rb");
+  f = g_fopen(filename, "rb");
 
   if (NULL == f) {
     message_error(_("Couldn't open: '%s' for reading.\n"), 

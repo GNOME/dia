@@ -35,10 +35,12 @@
 
 #include <string.h>
 #include <math.h>
-#include <glib.h>
 #include <stdlib.h>
 #include <errno.h>
 #include <locale.h>
+
+#include <glib.h>
+#include <glib/gstdio.h>
 
 #include "intl.h"
 #include "message.h"
@@ -1253,7 +1255,7 @@ import_fig(const gchar *filename, DiagramData *dia, void* user_data) {
 	depths[i] = NULL;
     }
 
-    figfile = fopen(filename,"r");
+    figfile = g_fopen(filename,"r");
     if(figfile == NULL){
 	message_error(_("Couldn't open: '%s' for reading.\n"), 
 		      dia_message_filename(filename));

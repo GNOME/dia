@@ -40,6 +40,8 @@
 #include <unistd.h>
 #endif
 
+#include <glib/gstdio.h>
+
 /* the dots per centimetre to render this diagram at */
 /* this matches the setting `100%' setting in dia. */
 #define DPCM 20
@@ -128,7 +130,7 @@ new_shape_renderer(DiagramData *data, const char *filename)
   char *shapename, *dirname, *fullname;
   char *sheetname;
 
-  file = fopen(filename, "w");
+  file = g_fopen(filename, "w");
 
   if (file==NULL) {
       message_error(_("Can't open output file %s: %s\n"), 

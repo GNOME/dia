@@ -62,6 +62,7 @@ TODO:
 #include <errno.h>
 
 #include <glib/gprintf.h>
+#include <glib/gstdio.h>
 
 #include "intl.h"
 #include "render_pgf.h"
@@ -1201,7 +1202,7 @@ export_pgf(DiagramData *data, const gchar *filename,
 
     Color initial_color;
  
-    file = fopen(filename, "wb");
+    file = g_fopen(filename, "wb");
 
     if (file==NULL) {
 	message_error(_("Can't open output file %s: %s\n"), 

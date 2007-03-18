@@ -1843,7 +1843,7 @@ export_vdx(DiagramData *data, const gchar *filename,
     int i;
     Layer *layer;
 
-    file = fopen(filename, "w");
+    file = g_fopen(filename, "w");
 
     if (file == NULL) {
         message_error(_("Can't open output file %s: %s\n"), 

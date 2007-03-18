@@ -39,11 +39,12 @@
 /* isn't this placement common ? */
 #include <sys/utime.h>
 #ifdef G_OS_WIN32
-#  define utime(n,b) _(n,b)
+#  define utime(n,b) _utime(n,b)
 #  define utim_buf _utimbuf
 #endif
 #endif
 
+#include <glib/gstdio.h>
 #include <gmodule.h>
 
 #ifdef GNOME
@@ -804,7 +805,7 @@ on_sheets_new_dialog_button_ok_clicked (GtkButton       *button,
       return;
     }
 
-    if (stat(file_name, &stat_buf) == -1)
+    if (g_stat(file_name, &stat_buf) == -1)
     {
       message_error(_("Error examining %s: %s"), 
 		    dia_message_filename(file_name), strerror(errno));
@@ -1592,14 +1593,14 @@ copy_file(gchar *src, gchar *dst)
   FILE *fp_dst;
   int c;
 
-  if ((fp_src = fopen(src, "rb")) == NULL)
+  if ((fp_src = g_fopen(src, "rb")) == NULL)
   {
     message_error(_("Couldn't open '%s': %s"), 
 		  dia_message_filename(src), strerror(errno));
     return FALSE;
   }
  
-  if ((fp_dst = fopen(dst, "wb")) == NULL)
+  if ((fp_dst = g_fopen(dst, "wb")) == NULL)
   {
     message_error(_("Couldn't open '%s': %s"), 
 		  dia_message_filename(dst), strerror(errno));
@@ -1649,7 +1650,7 @@ write_user_sheet(Sheet *sheet)
     filename = g_strdup_printf("%s%s%s", dir_user_sheets,
                                G_DIR_SEPARATOR_S, g_basename(sheet->filename));
 
-  file = fopen(filename, "w");
+  file = g_fopen(filename, "w");
    
   if (file==NULL)
   {
@@ -1774,7 +1775,7 @@ touch_file(gchar *filename)
   struct stat stat_buf;
   struct utimbuf utim_buf;
 
-  stat(filename, &stat_buf);
+  g_stat(filename, &stat_buf);
   utim_buf.actime = stat_buf.st_atime;
   utim_buf.modtime = time(NULL);
   utime(filename, &utim_buf);
@@ -1860,7 +1861,7 @@ on_sheets_dialog_button_apply_clicked  (GtkButton       *button,
       if (sm->sheet.scope == SHEET_SCOPE_SYSTEM)
         touch_file(sm->sheet.shadowing->filename);
       else
-        unlink(sm->sheet.filename);
+        g_unlink(sm->sheet.filename);
 
       sheets_list = get_sheets_list();
       find_list = g_slist_find_custom(sheets_list, &sm->sheet,

@@ -21,15 +21,12 @@
 #include <stdio.h>
 #include <string.h>
 #include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
 #ifdef HAVE_UNISTD_H
 #include <unistd.h>
 #endif
 #ifdef HAVE_STDDEF_H
 #include <stddef.h>
 #endif
-#include <locale.h>
 
 #include <gtk/gtk.h>
 

@@ -26,6 +26,9 @@
 #include <stdio.h>
 #include <string.h>
 #include <errno.h>
+
+#include <glib/gstdio.h>
+
 #include "filter.h"
 #include "intl.h"
 #include "message.h"
@@ -35,7 +38,7 @@
 #include <libxslt/transform.h>
 #include <libxslt/xsltutils.h>
 #include <libxml/tree.h>
-
+#include "dia_xml_libxml.h"
 #include "xslt.h"
 
 
@@ -47,8 +50,8 @@ toxsl_t *xsl_to;
 fromxsl_t *xsl_from;
 
 
-static char *diafilename;
-static char *filename;
+static char *diafilename = NULL;
+static char *filename = NULL;
 
 static void
 export_xslt(DiagramData *data, const gchar *f, 
@@ -79,7 +82,7 @@ xslt_ok(void)
 
 	params[1] = g_strconcat("'", g_dirname(filename), G_DIR_SEPARATOR_S, "'", NULL);
 	
-	file = fopen(diafilename, "r");
+	file = g_fopen(diafilename, "r");
 
 	if (file == NULL) {
 	    message_error(_("Couldn't open: '%s' for reading.\n"), 
@@ -87,7 +90,7 @@ xslt_ok(void)
 	    return;
 	}
 
-	out = fopen(filename, "w+");
+	out = g_fopen(filename, "w+");
 	
 	if (out == NULL) {
 	  message_error(_("Can't open output file %s: %s\n"), 
@@ -96,7 +99,7 @@ xslt_ok(void)
 	}
 	
 	xmlSubstituteEntitiesDefault(0);
-	doc = xmlParseFile(diafilename);
+	doc = xmlDoParseFile(diafilename);
 
 	if(doc == NULL) {
 		message_error(_("Error while parsing %s\n"), 
@@ -209,7 +212,7 @@ static PluginInitResult read_configuration(const char *config)
     if (!g_file_test(config, G_FILE_TEST_EXISTS))
 	return DIA_PLUGIN_INIT_ERROR;
     
-    doc = xmlParseFile(config);
+    doc = xmlDoParseFile(config);
     
     if (doc == NULL) 
     {

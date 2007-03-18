@@ -29,6 +29,7 @@
 #include <math.h>
 #include <glib.h>
 #include <errno.h>
+#include <glib/gstdio.h>
 
 #include "intl.h"
 #include "message.h"
@@ -478,7 +479,7 @@ export_dxf(DiagramData *data, const gchar *filename,
     int i;
     Layer *layer;
 
-    file = fopen(filename, "w");
+    file = g_fopen(filename, "w");
 
     if (file == NULL) {
 	message_error(_("Can't open output file %s: %s\n"), 
