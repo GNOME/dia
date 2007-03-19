@@ -498,16 +498,18 @@ dump_dependencies(void)
 #endif
   {
     gchar* libxml_rt_version = "?";
-#ifdef G_OS_WIN32
+#if 0
     /* this is stupid, does not compile on Linux:
      * app_procs.c:504: error: expected identifier before '(' token
+     *
+     * In fact libxml2 has different ABI for LIBXML_THREAD_ENABLED, this code only compiles without
+     * threads enabled, but apparently it does only work when theay are.
      */
     xmlInitParser();
     if (xmlGetGlobalState())
       libxml_rt_version = xmlGetGlobalState()->xmlParserVersion;
-#else
-    libxml_rt_version = xmlParserVersion;
 #endif
+    libxml_rt_version = xmlParserVersion;
     if (atoi(libxml_rt_version))
       g_print ("libxml  : %d.%d.%d (%s)\n", 
                atoi(libxml_rt_version) / 10000, atoi(libxml_rt_version) / 100 % 100, atoi(libxml_rt_version) % 100,

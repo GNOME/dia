@@ -1,5 +1,10 @@
 2007-03-18  Hans Breuer  <hans@breuer.org>
 
+	* app/app_procs.c : avoid stumbling over libxml2 preprocessor
+	tricks for LIBXML_THREAD_ENABLED (not at all platform specific)
+
+2007-03-17  Lars Clausen  <lars@raeder.dk>
+
 	* NEWS: 
 	* RELEASE-PROCESS: 
 	* config.h.win32: 
