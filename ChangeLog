@@ -1,5 +1,11 @@
 2007-03-18  Hans Breuer  <hans@breuer.org>
 
+	* app/load_save.c : glib/gstdio.h was protected by
+	#if GLIB_CHECK_VERSION(2,8,0) but it is supposed to be available
+	since glib-2-6. We rely on that anyway.
+
+2007-03-18  Hans Breuer  <hans@breuer.org>
+
 	* app/app_procs.c : avoid stumbling over libxml2 preprocessor
 	tricks for LIBXML_THREAD_ENABLED (not at all platform specific)
 

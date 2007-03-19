@@ -27,9 +27,7 @@
 #include <fcntl.h>
 #include <string.h>
 #include <glib.h>
-#if GLIB_CHECK_VERSION(2,8,0)
 #include <glib/gstdio.h> /* g_access() and friends */
-#endif
 #include <errno.h>
 
 #ifndef W_OK
