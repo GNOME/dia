@@ -1,3 +1,13 @@
+2007-03-25  Lars Clausen  <lars@raeder.dk>
+
+	* NEWS: 
+	* RELEASE-PROCESS: 
+	* config.h.win32: 
+	* doc/en/dia.xml: 
+	* doc/pl/dia.xml: 
+	* doc/eu/dia.xml:
+	* configure.in: Release 0.96 hits the streets.
+
 2007-03-18  Hans Breuer  <hans@breuer.org>
 
 	* app/load_save.c : glib/gstdio.h was protected by
@@ -9,7 +19,7 @@
 	* app/app_procs.c : avoid stumbling over libxml2 preprocessor
 	tricks for LIBXML_THREAD_ENABLED (not at all platform specific)
 
-2007-03-17  Lars Clausen  <lars@raeder.dk>
+2007-03-18  Lars Clausen  <lars@raeder.dk>
 
 	* NEWS: 
 	* RELEASE-PROCESS: 

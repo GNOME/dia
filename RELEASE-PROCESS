@@ -13,7 +13,7 @@ Contents
 When a new version is about to be released:
 
 0) Day Zero (D+0): The core developers announce their intention of
-   making a new release. They call for a feature freeze on the CVS
+   making a new release. They call for a feature freeze on the SVN
    HEAD (bug fixes are okay to commit). They also announce the
    provisional duration of the freeze before the first release
    candidate tarball is about to be made (actual freeze duration may vary for
@@ -21,7 +21,7 @@ When a new version is about to be released:
    last release; for the purpose of this document, it's assumed to be
    three days).
 
-   Advanced users are encouraged to download the CVS HEAD or the
+   Advanced users are encouraged to download the SVN HEAD or the
    snapshot tarballs, and pound on them.
 
    Make sure to check for open Bugzilla bugs with the PATCH keyword.
@@ -35,7 +35,7 @@ When a new version is about to be released:
    to be updated.
 
 2) D+3: a release candidate tarball is made. It is called
-   $VERSION-pre1. Simultaneously, a CVS branch is made with the name
+   $VERSION-pre1. Simultaneously, a SVN branch is made with the name
    "DIA_$VERSION_RELEASE" (with the non-alphanumeric characters in $VERSION
    replaced by underscores, e.g. cvs tag -b DIA_0_93_RELEASE).
    $VERSION-pre1 is registered with the Bugzilla, however it is encouraged
@@ -59,9 +59,9 @@ When a new version is about to be released:
    (cvs update -j).
 
 3b) D+10: if there are no release-critical bugs in the pre-release,
-   then the same source (fetched from the CVS branch) is rebuilt with the
+   then the same source (fetched from the SVN branch) is rebuilt with the
    final $VERSION number (and the resulting "new" version is re-tagged
-   in CVS). $VERSION is registered with the Bugzilla, and all
+   in SVN). $VERSION is registered with the Bugzilla, and all
    $VERSION-preX are removed (from now on, bugs against -preX are
    rejected as INVALID).
 
@@ -72,11 +72,11 @@ When a new version is about to be released:
    various distributions is also a good idea, get names from MAINTAINERS
    and update those who have changed.
 
-5) the CVS HEAD freeze is lifted one week /after/ the release is
+5) the SVN HEAD freeze is lifted one week /after/ the release is
    generally available, unless a release critical bug is discovered in
    the release. If the latter is the case, a new, fixed "brown bag" release is
    released and announced as soon as possible (extending the one-week
-   delay on the CVS HEAD thaw).
+   delay on the SVN HEAD thaw).
 
    Once the head is lifted, the release branch is considered dead and
    should no longer be used.
