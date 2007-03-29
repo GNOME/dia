@@ -97,7 +97,11 @@ create_standard_line(Point *points,
                                  &h1, &h2);
 
     props = prop_list_from_descs(vdx_line_prop_descs, pdtpp_true);
-    g_assert(props->len == 4);
+    if (props->len != 4)
+    {
+        g_debug("create_standard_line() - props->len != 4");
+        return 0;
+    }
 
     ptprop = g_ptr_array_index(props,0);
     ptprop->point_data = points[0];
@@ -216,8 +220,12 @@ vdx_parse_color(const char *s, const VDXDocument *theDoc)
         if (theDoc->Colors && i < theDoc->Colors->len)
             return g_array_index(theDoc->Colors, Color, i);
     }
-    message_warning(_("Couldn't read color: %s\n"), s);
-    g_debug("Couldn't read color: %s", s);
+    /* Colour 0 is always black, so don't warn (OmniGraffle) */
+    if (*s != '0')
+    {
+        message_warning(_("Couldn't read color: %s\n"), s);
+        g_debug("Couldn't read color: %s", s);
+    }
     return c;
 }
 
@@ -381,7 +389,13 @@ find_child(unsigned int type, const void *p)
 {
     struct vdx_any *Any = (struct vdx_any *)p;
     GSList *child;
-    g_assert(p);
+    
+    if (!p)
+    {
+        g_debug("find_child called with p=0");
+        return 0;
+    }
+
     for(child = Any->children; child; child = child->next)
     {
         struct vdx_any *Any_child = (struct vdx_any *)child->data;
@@ -403,7 +417,12 @@ find_child_next(unsigned int type, const void *p, const void *given)
     struct vdx_any *Any = (struct vdx_any *)p;
     GSList *child;
     gboolean found_given = FALSE;
-    g_assert(p);
+
+    if (!p)
+    {
+        g_debug("find_child_next() called with p=0");
+        return 0;
+    }
     for(child = Any->children; child; child = child->next)
     {
         struct vdx_any *Any_child = (struct vdx_any *)child->data;
@@ -448,14 +467,17 @@ get_style_child(unsigned int type, unsigned int style, VDXDocument* theDoc)
 {
     struct vdx_StyleSheet theSheet;
     struct vdx_any *Any;
-    if (!theDoc->StyleSheets)
-    {
-        g_debug("Unknown stylesheet reference");
-        return 0;
-    }
     while(1)
     {
-        g_assert(theDoc->StyleSheets && style < theDoc->StyleSheets->len);
+        if (!theDoc->StyleSheets || style >= theDoc->StyleSheets->len)
+        {
+            /* Ignore style 0 for OmniGraffle */
+            if (style)
+            {
+                g_debug("Unknown stylesheet reference: %d", style);
+            }
+            return 0;
+        }
         theSheet = g_array_index(theDoc->StyleSheets, 
                                  struct vdx_StyleSheet, style);
         Any = find_child(type, &theSheet);
@@ -486,7 +508,12 @@ get_shape_by_id(unsigned int id, struct vdx_Shapes *Shapes, unsigned int depth)
     struct vdx_Shape *Shape;
     struct vdx_Shapes *SubShapes;
     GSList *child;
-    g_assert(Shapes);
+
+    if (!Shapes)
+    {
+        g_debug("get_shape_by_id() called with Shapes=0");
+        return 0;
+    }
 
     /* A Master has a list of Shapes */
     for(child = Shapes->children; child; child = child->next)
@@ -529,7 +556,12 @@ get_master_shape(unsigned int master, unsigned int shape, VDXDocument* theDoc)
     struct vdx_Master theMaster;
     struct vdx_Shapes *Shapes;
 
-    g_assert(master < theDoc->Masters->len);
+    if (!theDoc->Masters || master >= theDoc->Masters->len)
+    {
+        g_debug("Unknown master reference");
+        return 0;
+    }
+
     if (theDoc->debug_comments)
         g_debug("Looking for Master %d Shape %d", master, shape);
     theMaster = g_array_index(theDoc->Masters, 
@@ -586,7 +618,11 @@ vdx_simple_properties(DiaObject *obj,
     ColorProperty *cprop = 0;
     unsigned int debug_id;
 
-    g_assert(props->len == 2);
+    if (props->len != 2)
+    {
+        g_debug("vdx_simple_properties() - props->len != 4");
+        return;
+    }
 
     if (Line)
     {
@@ -711,6 +747,12 @@ apply_XForm(Point p, const struct vdx_XForm *XForm)
     double sin_theta, cos_theta;
 
     /* Remove the offset of the rotation pin from the object */
+    if (!XForm)
+    {
+        g_debug("apply_XForm() called with XForm=0");
+        return q;
+    }
+
     q.x -= XForm->LocPinX;
     q.y -= XForm->LocPinY;
 
@@ -771,6 +813,11 @@ make_arrow(const struct vdx_Line *Line, char start_end,
     double size = 0;
     unsigned int type = 0;
 
+    if (!Line)
+    {
+        g_debug("make_arrow() called with Line=0");
+        return 0;
+    }
     a->type = ARROW_FILLED_TRIANGLE;
     
     if (start_end == 's') 
@@ -823,17 +870,18 @@ plot_polyline(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm,
     struct vdx_ArcTo *ArcTo;
     struct vdx_any *Any;
     Point *points, p;
-    unsigned int num_points = 0;
+    unsigned int num_points = 1;
     unsigned int count = 0;
     Arrow* start_arrow_p = NULL;
     Arrow* end_arrow_p = NULL;
     gboolean done = FALSE;
 
     if (theDoc->debug_comments) g_debug("plot_polyline()");
-    if ((Geom->NoFill || (Fill && !Fill->FillPattern)) &&
-        (Geom->NoLine || (Line && !Line->LinePattern)))
+    if (!Geom || ((Geom->NoFill || (Fill && !Fill->FillPattern)) &&
+                  (Geom->NoLine || (Line && !Line->LinePattern))))
     {
         *more = 0;
+        if (theDoc->debug_comments) g_debug("Nothing to plot");
         return 0;
     }
 
@@ -854,6 +902,12 @@ plot_polyline(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm,
             LineTo = (struct vdx_LineTo*)(item->data);
             if (LineTo->Del) continue;
             p.x = LineTo->X; p.y = LineTo->Y;
+            if (!count)
+            {
+                /* Use current as start point */
+                points[count++] = 
+                    dia_point(apply_XForm(*current, XForm), theDoc);
+            }
             break;
         case vdx_types_MoveTo:
             MoveTo = (struct vdx_MoveTo*)(item->data);
@@ -866,11 +920,6 @@ plot_polyline(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm,
                     *more = item;
                     done = TRUE;
                     break;
-                }
-                else
-                {
-                    num_points--;
-                    continue;
                 }
             }
             break;
@@ -908,7 +957,8 @@ plot_polyline(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm,
 
     if (count > 2)
     {
-        if (Geom->NoFill)
+        /* If we had to break the Geom partway, it's not a polygon */
+        if (Geom->NoFill || done)
         {
             /* Yes, it is end_arrow followed by start_arrow */
             newobj = create_standard_polyline(count, points, 
@@ -928,6 +978,7 @@ plot_polyline(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm,
         }
         else
         {
+            /* Don't plot lines with only one point */
             if (theDoc->debug_comments)
                 g_debug("Empty polyline");
         }
@@ -1017,6 +1068,12 @@ arc_to_ellipticalarc(struct vdx_ArcTo *ArcTo, const Point *Start,
     Point perp;
     double length;
 
+    if (!EllipticalArcTo || !ArcTo || !Start)
+    {
+        g_debug("arc_to_ellipticalarc() called with null parameters");
+        return FALSE;
+    }
+
     EllipticalArcTo->type = vdx_types_EllipticalArcTo;
     EllipticalArcTo->children = 0;
 
@@ -1081,6 +1138,12 @@ ellipticalarc_to_bezier(Point p0, Point p3, Point p4, double C, double D,
     double R, R2, R3, sinC, cosC;
 
     double a, b, c, d, e, f, g; /* Scratch variables */
+
+    if (!p1 || !p2)
+    {
+        g_debug("ellipticalarc_to_bezier() called with null parameters");
+        return FALSE;
+    }
 
     /* We assume the arc is not degenerate:
        p0 != p4 != p3 != p0, 0 < D < infty 
@@ -1423,7 +1486,7 @@ plot_bezier(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm,
     if (!all_lines)
     {
         /* It's a Bezier */
-        if (Geom->NoFill)
+        if (Geom && Geom->NoFill)
         {
             /* Yes, it is end then start arrow */
             newobj = create_standard_bezierline(num_points, bezpoints, 
@@ -1450,7 +1513,7 @@ plot_bezier(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm,
 
         if (count > 2)
         {
-            if (Geom->NoFill)
+            if (Geom && Geom->NoFill)
             {
                 /* Yes, it is end_arrow followed by start_arrow */
                 newobj = create_standard_polyline(count, points, 
@@ -1498,6 +1561,12 @@ NURBS_N(unsigned int i, unsigned int k, float u, unsigned int n,
 {
     float sum = 0.0;
 
+    if (! knot)
+    {
+        g_debug("NURBS_N() called with knot=0");
+        return sum;
+    }
+
     if (k == 0)
     {
         if (knot[i] <= u && u < knot[i+1])
@@ -1542,7 +1611,13 @@ NURBS_C(unsigned int k, float u, unsigned int n,
     float bottom = 0;
     unsigned int i;
     float N_i_k;
-    Point p;
+    Point p = {0, 0};
+
+    if (!knot || !weight || !control)
+    {
+        g_debug("NURBS_C() called with null parameters");
+        return p;
+    }
 
     for(i=0; i<=n; i++)
     {
@@ -1608,8 +1683,8 @@ plot_nurbs(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm,
     unsigned int steps = 40;
     float start_u, step_u;
 
-    if(theDoc->debug_comments)
-        g_debug("plot_nurbs()");
+    if (theDoc->debug_comments) 
+        g_debug("plot_nurbs(), current x=%f y=%f", current->x, current->y);
 
     item = *more;
     Any = (struct vdx_any *)(item->data);
@@ -1620,6 +1695,8 @@ plot_nurbs(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm,
         current->x = MoveTo->X;
         current->y = MoveTo->Y;
         begin = *current;
+        if (theDoc->debug_comments) 
+            g_debug("MoveTo x=%f y=%f", begin.x, begin.y);
         item = item->next;
         Any = (struct vdx_any *)(item->data);
         *more = item;
@@ -1627,6 +1704,7 @@ plot_nurbs(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm,
 
     if (Any->type == vdx_types_NURBSTo)
     {
+        if (theDoc->debug_comments) g_debug("NURBSTo");
         NURBSTo = (struct vdx_NURBSTo*)(item->data);
 
         /* E holds the NURBS formula */
@@ -1688,25 +1766,25 @@ plot_nurbs(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm,
         i = 0;
         while(c && *c && i < n)
         {
-            g_assert(c);
+            if (!c) break;
             control[i].x = atof(++c);
             current->x = control[i].x;
             /* xType = 0 means X is proportion of Width */
             if (xType == 0) control[i].x *= XForm->Width;
             c = strchr(c, ',');
             
-            g_assert(c);
+            if (!c) break;
             control[i].y = atof(++c);
             current->y = control[i].y;
             /* yType = 0 means Y is proportion of Height */
             if (yType == 0) control[i].y *= XForm->Height;
             c = strchr(c, ',');
             
-            g_assert(c);
+            if (!c) break;
             knot[i] = atof(++c);
             c = strchr(c, ',');
             
-            g_assert(c);
+            if (!c) break;
             weight[i] = atof(++c);
             c = strchr(c, ',');
             i++;
@@ -1717,6 +1795,7 @@ plot_nurbs(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm,
     {
         if (Any->type == vdx_types_SplineStart)
         {
+            if (theDoc->debug_comments) g_debug("SplineStart");
             SplineStart = (struct vdx_SplineStart*)(item->data);
             item2 = item;
             n = 1;
@@ -1829,7 +1908,8 @@ plot_nurbs(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm,
     {
         points[num_points-1] = dia_point(apply_XForm(end, XForm), theDoc);
         if (theDoc->debug_comments)
-            g_debug("Point %d VDX x=%f y=%f", num_points-1, end.x, end.y);
+            g_debug("End Point %d VDX x=%f y=%f", num_points-1, end.x, end.y);
+        *current = end;
     }
 
     if (theDoc->debug_comments)
@@ -1874,6 +1954,12 @@ write_base64_file(const char *filename, const char *b64)
     char d = 0;
     char buf[4];                /* For 4 decoded 6-bit chunks */
     unsigned int buf_len = 0;
+
+    if (!filename || !b64)
+    {
+        g_debug("write_base64_file() called with null parameters");
+        return;
+    }
 
     f = g_fopen(filename, "w+b");
     if (!f)
@@ -2068,6 +2154,7 @@ plot_geom(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm,
 {
     const GSList *item;
     gboolean all_lines = TRUE;  /* Flag for line/polyline */
+    gboolean has_nurbs = FALSE; /* Flag for NURBS */
     unsigned int num_steps = 0; /* Flag for poly */
     struct vdx_any *last_point = 0;
     unsigned int dia_type_choice = vdx_dia_any;
@@ -2076,7 +2163,7 @@ plot_geom(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm,
     struct vdx_ArcTo *ArcTo;
 
     /* Is it disabled? */
-    if (Geom->NoShow)
+    if (!Geom || Geom->NoShow)
     {
         if (theDoc->debug_comments)
             g_debug("NoShow");
@@ -2101,6 +2188,11 @@ plot_geom(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm,
         case vdx_types_ArcTo:
             ArcTo = (struct vdx_ArcTo*)(item->data);
             if (ArcTo->Del) continue;
+            all_lines = FALSE;
+            break;
+        case vdx_types_NURBSTo:
+        case vdx_types_SplineKnot:
+            has_nurbs = TRUE;
             all_lines = FALSE;
             break;
         default:
@@ -2141,7 +2233,7 @@ plot_geom(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm,
         if (Geom->NoFill) { dia_type_choice = vdx_dia_bezier; }
         else { dia_type_choice = vdx_dia_beziergon; }
         /* Unless it's a spline */
-        if (last_point->type == vdx_types_SplineKnot)
+        if (last_point->type == vdx_types_SplineKnot || has_nurbs)
             dia_type_choice = vdx_dia_nurbs;
     }
 
@@ -2203,8 +2295,13 @@ plot_text(const struct vdx_Text *Text, const struct vdx_XForm *XForm,
     double height;
     char *font_name = 0;
     DiaFontStyle style = 0;
+    DiaFont *font = 0;
 
-    if (!Char || !text) { g_debug("Not enough info for text"); return 0; }
+    if (!Text || !Char || !text || !XForm) 
+    { 
+        g_debug("Not enough info for text"); 
+        return 0; 
+    }
     p.x = 0; p.y = 0;
 
     /* Setup position for horizontal alignment */
@@ -2316,11 +2413,17 @@ plot_text(const struct vdx_Text *Text, const struct vdx_XForm *XForm,
             font_name = FaceName.Name;
         }
     }
-    tprop->attr.font = dia_font_new(font_name, style, height);
+
+    font = dia_font_new_from_legacy_name(font_name);
+    dia_font_set_weight(font, DIA_FONT_STYLE_GET_WEIGHT(style));
+    dia_font_set_slant(font, DIA_FONT_STYLE_GET_SLANT(style));
+    dia_font_set_height(font, height);
+    tprop->attr.font = font;
+
     if (theDoc->debug_comments)
-        g_debug("Text: %s at %f,%f v=%d h=%d s=%.2x", 
+        g_debug("Text: %s at %f,%f v=%d h=%d s=%.2x f=%s", 
                 tprop->text_data, p.x, p.y,
-                eprop->enum_data, tprop->attr.alignment, style);
+                eprop->enum_data, tprop->attr.alignment, style, font_name);
 
     tprop->attr.height = height;
     tprop->attr.color = Char->Color;
@@ -2359,6 +2462,11 @@ vdx_plot_shape(struct vdx_Shape *Shape, GSList *objects,
     const GSList *more = 0;
     Point current = {0, 0};
 
+    if (!Shape)
+    {
+        g_debug("vdx_plot_shape() called with Shape=0");
+        return 0;
+    }
     theDoc->shape_id = Shape->ID;
     if (Shape->Del) 
     {
@@ -2700,6 +2808,12 @@ vdx_setup_layers(struct vdx_PageSheet* PageSheet, VDXDocument* theDoc,
     gboolean found;
     
     /* What layers are on this page? */
+
+    if (!PageSheet)
+    {
+        g_debug("vdx_setup_layers() called with PageSheet=0");
+        return;
+    }
 
     for (child = PageSheet->children; child; child = child->next)
     {

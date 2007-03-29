@@ -1,7 +1,30 @@
-2007-03-26  Hans Breuer  <hans@breuer.org>
+2007-03-29  Lars Clausen  <lars@raeder.dk>
 
-	* bindings/* : dia/lib bindings with the help of SWIG, for details
-	see: http://mail.gnome.org/archives/dia-list/2007-March/msg00092.html
+	* NEWS: 
+	* RELEASE-PROCESS: 
+	* config.h.win32: 
+	* doc/en/dia.xml: 
+	* doc/pl/dia.xml: 
+	* doc/eu/dia.xml:
+	* configure.in: Release 0.96.1 is a brown-bag release for empty
+	initial line problem in shapes, and a couple other bugs.
+
+	* app/diapsrenderer.c (draw_text_line): Use language-independent
+	float conversion in new text rendering code.  Fixes bug #424052.
+
+	* plug-ins/vdx/vdx-import.c: Updated to version 0.9.4 to fix shape
+	problems and text errors.  Fixes bug #417956.
+
+	* lib/text.c (text_key_event): Treat keypad enter like return.
+	Fixes bug #423480.
+
+	* plug-ins/dxf/dxf-import.c: Load closed polyline as polygon,
+	patch from Ben Abbott fixes font height problems.  Fixes bug #421250.
+
+2007-03-28  Lars Clausen  <lars@raeder.dk>
+
+	* objects/custom/custom_object.c (custom_update_data): Use newer
+	way to get text ascent. Fixes bug #423351.
 
 2007-03-25  Lars Clausen  <lars@raeder.dk>
 

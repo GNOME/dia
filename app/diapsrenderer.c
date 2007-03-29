@@ -719,6 +719,7 @@ draw_text_line(DiaRenderer *self,
   gchar *text = text_line_get_string(text_line);
   int n_chars = g_utf8_strlen(text, -1);
   real adjust;
+  gchar sw_buf[DTOSTR_BUF_SIZE];
 
   if (1 > n_chars)
     return;
@@ -743,7 +744,8 @@ draw_text_line(DiaRenderer *self,
   width = text_line_get_width(text_line);
   
   /* Find the difference in length */
-  fprintf(renderer->file, "dup sw %f exch sub \n", width);
+  fprintf(renderer->file, "dup sw %s exch sub \n", 
+	  psrenderer_dtostr(sw_buf, (gdouble) width));
 
   /* Divide by number of chars and set up for ashow */
   fprintf(renderer->file, "%d div exch 0.0 exch \n", n_chars);
