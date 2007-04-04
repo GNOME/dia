@@ -1,3 +1,7 @@
+200704-04  Pema Geyleg  <pema.geyleg@gmail.com>
+
+	*configure.in: Added 'dz' to ALL_LINGUAS
+
 2007-03-26  Hans Breuer  <hans@breuer.org>
 
 	* bindings/* : dia/lib bindings with the help of SWIG, for details
