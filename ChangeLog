@@ -1,6 +1,12 @@
-200704-04  Pema Geyleg  <pema.geyleg@gmail.com>
+2007-04-12  Steffen Macke <sdteffen@gmail.com>
 
-	*configure.in: Added 'dz' to ALL_LINGUAS
+	* lib/makefile.msc: Use $(GLIB_GEN_MARSHAL), to be defined in 
+	$(TOP)/glib/build/win32/make.msc, allows flexible use of different
+	GTK+ development environments
+	
+2007-04-04  Pema Geyleg  <pema.geyleg@gmail.com>
+
+	* configure.in: Added 'dz' to ALL_LINGUAS
 
 2007-03-26  Hans Breuer  <hans@breuer.org>
 

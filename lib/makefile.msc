@@ -118,13 +118,13 @@ gen_sources = xgen-gwmh xgen-gwmc
 CLEANFILES = $(gen_sources)
 
 diamarshal.h: diamarshal.list
-	$(GLIB)\gobject\glib-genmarshal --prefix=dia_marshal diamarshal.list --header >> xgen-gwmh \
+	$(GLIB_GEN_MARSHAL) --prefix=dia_marshal diamarshal.list --header >> xgen-gwmh \
 	&& copy /y xgen-gwmh diamarshal.h \
 	&& del xgen-gwmh xgen-gwmh~
 
 diamarshal.c: diamarshal.h
 	echo #include "diamarshal.h" >> xgen-gwmc \
-	&& $(GLIB)\gobject\glib-genmarshal --prefix=dia_marshal diamarshal.list --body >> xgen-gwmc \
+	&& $(GLIB_GEN_MARSHAL) --prefix=dia_marshal diamarshal.list --body >> xgen-gwmc \
 	&& copy xgen-gwmc diamarshal.c \
 	&& del xgen-gwmc xgen-gwmc~
 
