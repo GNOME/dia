@@ -1,5 +1,5 @@
 ; Dia -- an diagram creation/manipulation program
-; Copyright (C) 1998-2006 Alexander Larsson, Lars Clausen and others
+; Copyright (C) 1998-2007 Alexander Larsson, Lars Clausen and others
 ;  
 ; dia-installer.nsi : Nullsoft Installation System (NSIS) script
 ; Copyright (C) 2000-2004 Herman Bloggs, Steffen Macke
@@ -254,10 +254,10 @@ ${File} "..\..\..\bin\" "diaw.exe"
 ${File} "..\..\..\bin\" "dia-win-remote.exe"
 ${File} "..\..\..\bin\" "dia-app.dll"
 ${File} "..\..\..\bin\" "libart_lgpl_2-2.dll"
-${File} "..\..\..\bin\" "libcairo.dll"
+${File} "..\..\..\bin\" "libcairo-2.dll"
 ${File} "..\..\..\bin\" "libdia.dll"
-${File} "..\..\..\bin\" "libiconv2.dll"
-${File} "..\..\..\bin\" "libintl3.dll"
+${File} "..\..\..\bin\" "iconv.dll"
+${File} "..\..\..\bin\" "intl.dll"
 ${File} "..\..\..\bin\" "libxml2.dll"
 ${File} "..\..\..\bin\" "libxslt.dll"
 ${SetOutPath} "$INSTDIR\etc"
@@ -2069,7 +2069,6 @@ ${File} "..\..\sheets\" "civil.sheet"
 ${File} "..\..\sheets\" "Contact.sheet"
 ${File} "..\..\sheets\" "Cybernetics.sheet"
 ${File} "..\..\sheets\" "Electric.sheet"
-${File} "..\..\sheets\" "EML.sheet"
 ${File} "..\..\sheets\" "ER.sheet"
 ${File} "..\..\sheets\" "Flowchart.sheet"
 ${File} "..\..\sheets\" "FS.sheet"
@@ -2185,17 +2184,20 @@ ${SetOutPath} "$INSTDIR\help\C"
 ${File} "..\..\..\help\C\" "dia-manual.chm"
 ${File} "..\..\..\help\C\" "dia-manual.pdf"
 ${File} "..\..\..\dia-web\" "faq.html"
-${File} "..\..\..\dia-web\" "dia.css"
-${SetOutPath} "$INSTDIR\help\C\images"
-${File} "..\..\..\dia-web\images\" "faq2.jpg"
-${File} "..\..\..\dia-web\images\" "addbend1.png"
-${File} "..\..\..\dia-web\images\" "addbend2.png"
-${File} "..\..\..\dia-web\images\" "addbend3.png"
-${File} "..\..\..\dia-web\images\" "zig1.png"
-${File} "..\..\..\dia-web\images\" "zig2.png"
-${File} "..\..\..\dia-web\images\" "zig3.png"
-${File} "..\..\..\dia-web\images\" "zig4.png"
-${File} "..\..\..\dia-web\images\" "zig5.png"
+${SetOutPath} "$INSTDIR\help\C\faq_files"
+${File} "..\..\..\dia-web\faq_files\" "addbend1.png"
+${File} "..\..\..\dia-web\faq_files\" "addbend2.png"
+${File} "..\..\..\dia-web\faq_files\" "addbend3.png"
+${File} "..\..\..\dia-web\faq_files\" "common.css"
+${File} "..\..\..\dia-web\faq_files\" "print.css"
+${File} "..\..\..\dia-web\faq_files\" "projection.css"
+${File} "..\..\..\dia-web\faq_files\" "screen.css"
+${File} "..\..\..\dia-web\faq_files\" "smile.png"
+${File} "..\..\..\dia-web\faq_files\" "spacer.png"
+${File} "..\..\..\dia-web\faq_files\" "zig1.png"
+${File} "..\..\..\dia-web\faq_files\" "zig2.png"
+${File} "..\..\..\dia-web\faq_files\" "zig4.png"
+${File} "..\..\..\dia-web\faq_files\" "zig5.png"
 
 ${SetOutPath} "$INSTDIR"
 ${File} "..\..\" "dia_logo.png"
@@ -2309,8 +2311,6 @@ Section $(TRANSLATIONS_SECTION_TITLE) SecTranslations
   ${File} "..\..\..\locale\nl\LC_MESSAGES\" "dia.mo"
   ${SetOutPath} "$INSTDIR\locale\nn\LC_MESSAGES"
   ${File} "..\..\..\locale\nn\LC_MESSAGES\" "dia.mo"
-  ${SetOutPath} "$INSTDIR\locale\no\LC_MESSAGES"
-  ${File} "..\..\..\locale\no\LC_MESSAGES\" "dia.mo"
   ${SetOutPath} "$INSTDIR\locale\pa\LC_MESSAGES"
   ${File} "..\..\..\locale\pa\LC_MESSAGES\" "dia.mo"
   ${SetOutPath} "$INSTDIR\locale\pl\LC_MESSAGES"
@@ -2687,6 +2687,10 @@ Function .onInit
   StrCmp $1 "2.3." outdated_gtk
   StrCmp $1 "2.4." outdated_gtk
   StrCmp $1 "2.5." outdated_gtk
+  StrCmp $1 "2.6." outdated_gtk
+  StrCmp $1 "2.7." outdated_gtk
+  StrCmp $1 "2.8." outdated_gtk
+  StrCmp $1 "2.9." outdated_gtk
   Goto has_gtk
   no_gtk:
   Push "GTKBIN"         ; push the search string onto the stack
@@ -2699,7 +2703,13 @@ Function .onInit
   Abort $(DIA_NO_GTK)
   
   has_gtk:
-    
+  
+  ;Fix Freetype DLL naming problem gimp-win/gladewin32
+  IfFileExists "$GTKBIN\bin\libfreetype-6.dll" copy_freetype_dll has_gladewin32_freetype_dll
+  copy_freetype_dll:
+    CopyFiles "$GTKBIN\bin\freetype6.dll" "$GTKBIN\bin\libfreetype-6.dll" 
+  has_gladewin32_freetype_dll:
+  
   ; If install path was set on the command, use it.
   StrCmp $INSTDIR "" 0 instdir_done
 
