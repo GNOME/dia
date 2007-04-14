@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?> <!-- -*- xml -*- -->
+<sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
+  <name>SISSI</name>
+  <_description>Objects to design sissi diagrams </_description>
+  <contents>
+   <object name="SISSI - sissi_object" intdata="1">
+      <_description>Workstation</_description>
+      <icon>SISSI/pc.png</icon>
+    </object>
+   <object name="SISSI - sissi_object" intdata="2">
+      <_description>Relational Database</_description>
+      <icon>SISSI/relational_database.png</icon>
+    </object>
+   <object name="SISSI - sissi_object" intdata="3">
+      <_description>server</_description>
+      <icon>SISSI/ibm_mini.png</icon>
+    </object>
+   <object name="SISSI - sissi_object" intdata="4">
+      <_description>Laptop</_description>
+      <icon>SISSI/laptop.png</icon>
+    </object>
+   <object name="SISSI - sissi_object" intdata="5">
+      <_description>PDA</_description>
+      <icon>SISSI/pda.png</icon>
+    </object>
+   <object name="SISSI - sissi_object" intdata="6">
+      <_description>Storage array</_description>
+      <icon>SISSI/storage_array.png</icon>
+    </object>
+   <object name="SISSI - sissi_object" intdata="7">
+      <_description>Router</_description>
+      <icon>SISSI/router.png</icon>
+    </object>
+   <object name="SISSI - sissi_object" intdata="8">
+      <_description>Network cloud</_description>
+      <icon>SISSI/cloud.png</icon>
+    </object>
+   <object name="SISSI - sissi_object" intdata="9">
+      <_description>Telephone</_description>
+      <icon>SISSI/phone.png</icon>
+    </object>
+   <object name="SISSI - sissi_object" intdata="10">
+      <_description>Cellular phone</_description>
+      <icon>SISSI/cellular_phone.png</icon>
+    </object>
+   <object name="SISSI - sissi_object" intdata="11">
+      <_description>Hub</_description>
+      <icon>SISSI/hub.png</icon>
+    </object>
+   <object name="SISSI - sissi_object" intdata="12">
+      <_description>Modem</_description>
+      <icon>SISSI/modem.png</icon>
+    </object>
+    <object name="SISSI - sissi_object" intdata="13">
+      <_description>Boitier de chiffrement</_description>
+      <icon>SISSI/key.png</icon>
+    </object>
+    <object name="SISSI - sissi_object" intdata="14">
+      <_description>Magnetic support</_description>
+      <icon>SISSI/diskette.png</icon>
+    </object>
+    <object name="SISSI - sissi_object" intdata="15">
+      <_description>Paper support</_description>
+      <icon>SISSI/file.png</icon>
+    </object>
+     <object name="SISSI - sissi_object"  intdata="16">
+      <_description>Person</_description>
+      <icon>SISSI/personne.xpm</icon>
+     </object>
+     <object name="SISSI - sissi_object" intdata="17">
+      <_description>File cabinet</_description>
+      <icon>SISSI/meuble.xpm</icon>
+     </object>
+     <object name="SISSI - sissi_object" intdata="18">
+      <_description>Safe</_description>
+      <icon>SISSI/safe.png</icon>
+     </object>
+       <object name="SISSI - sissi_object" intdata="19">
+      <_description>Backup</_description>
+      <icon>SISSI/sauvegarde.xpm</icon>
+      </object>
+         <object name="SISSI - sissi_object" intdata="20">
+      <_description>Software</_description>
+      <icon>SISSI/logiciel.xpm</icon>
+      </object>
+        <object name="SISSI - sissi_object" intdata="21">
+      <_description>Analyse de Log</_description>
+      <icon>SISSI/analyse.xpm</icon>
+      </object>
+        <object name="SISSI - sissi_object" intdata="22">
+      <_description>Information system</_description>
+      <icon>SISSI/si.xpm</icon>
+      </object>
+       <object name="SISSI - sissi_object" intdata="23">
+      <_description>Information</_description>
+      <icon>SISSI/info.xpm</icon>
+      </object>
+    <object name="SISSI - room" intdata="75">
+      <_description>Room</_description>
+      <icon>../shapes/Assorted/square.png</icon>
+    </object>
+    <object name="SISSI - faraday" intdata="76">
+      <_description>cage de faraday</_description>
+      <icon>SISSI/faraday.png</icon>
+    </object>
+   <object name="SISSI - area" intdata="71">
+      <_description>Security area</_description>
+      <icon>../shapes/Assorted/star7.png</icon>
+    </object>
+    <object name="SISSI - site" intdata="70">
+      <_description>Site geographique</_description>
+      <icon>../shapes/Map/Isometric/Block7.png</icon>
+    </object>
+   <object name="SISSI - sissi_object" intdata="28">
+      <_description>Gate</_description>
+      <icon>SISSI/barriere.png</icon>
+    </object>
+   <object name="SISSI - sissi_object" intdata="29">
+      <_description>Video camera</_description>
+      <icon>SISSI/camera_interphone.png</icon>
+    </object>
+   <object name="SISSI - sissi_object" intdata="30">
+      <_description>capteur brise glace</_description>
+      <icon>SISSI/capteur_brise_glace.png</icon>
+    </object>
+   <object name="SISSI - sissi_object" intdata="31">
+      <_description>capteur faisceau</_description>
+      <icon>SISSI/capteur_faisceau.png</icon>
+    </object>
+   <object name="SISSI - sissi_object" intdata="32">
+      <_description>condensateur</_description>
+      <icon>SISSI/condensateur.png</icon>
+    </object>
+   <object name="SISSI - sissi_object" intdata="33">
+      <_description>detecteur d'alimentation</_description>
+      <icon>SISSI/detecteur_alimentation.png</icon>
+    </object>
+   <object name="SISSI - sissi_object" intdata="34">
+      <_description>detecteur de courant</_description>
+      <icon>SISSI/detecteur_courant.png</icon>
+    </object>
+   <object name="SISSI - sissi_object" intdata="35">
+      <_description>detecteur enthalpie</_description>
+      <icon>SISSI/detecteur_enthalpie.png</icon>
+    </object>
+   <object name="SISSI - sissi_object" intdata="36">
+      <_description>detecteur de fumee</_description>
+      <icon>SISSI/detecteur_fumee.png</icon>
+    </object>
+   <object name="SISSI - sissi_object" intdata="37">
+      <_description>detecteur d'humidite</_description>
+      <icon>SISSI/detecteur_humidite.png</icon>
+    </object>
+   <object name="SISSI - sissi_object" intdata="38">
+      <_description>detecteur de lumiere</_description>
+      <icon>SISSI/detecteur_lumiere.png</icon>
+    </object>
+   <object name="SISSI - sissi_object" intdata="39">
+      <_description>detecteur de mouvement</_description>
+      <icon>SISSI/detecteur_mouvement.png</icon>
+    </object>
+   <object name="SISSI - sissi_object" intdata="40">
+      <_description>detecteur de mouvement video</_description>
+      <icon>SISSI/detecteur_mouvement_video.png</icon>
+    </object>
+   <object name="SISSI - sissi_object" intdata="41">
+      <_description>detecteur de niveau</_description>
+      <icon>SISSI/detecteur_niveau.png</icon>
+    </object>
+   <object name="SISSI - sissi_object" intdata="42">
+      <_description>detecteur de pression</_description>
+      <icon>SISSI/detecteur_pression.png</icon>
+    </object>
+   <object name="SISSI - sissi_object" intdata="43">
+      <_description>detecteur de qualite de l'air</_description>
+      <icon>SISSI/detecteur_qualite_air.png</icon>
+    </object>
+   <object name="SISSI - sissi_object" intdata="44">
+      <_description>detecteur de tension</_description>
+      <icon>SISSI/detecteur_tension.png</icon>
+    </object>
+   <object name="SISSI - sissi_object" intdata="45">
+      <_description>detecteur de vehicule</_description>
+      <icon>SISSI/detecteur_vehicule.png</icon>
+    </object>
+   <object name="SISSI - sissi_object" intdata="46">
+      <_description>detecteur de vibration</_description>
+      <icon>SISSI/detecteur_vibration.png</icon>
+    </object>
+   <object name="SISSI - sissi_object" intdata="47">
+      <_description>digi code</_description>
+      <icon>SISSI/digi_code.png</icon>
+    </object>
+   <object name="SISSI - sissi_object" intdata="48">
+      <_description>extracteur d'humidite</_description>
+      <icon>SISSI/extracteur_humidite.png</icon>
+    </object>
+   <object name="SISSI - sissi_object" intdata="50">
+      <_description>filtre a air</_description>
+      <icon>SISSI/filtre_air.png</icon>
+    </object>
+   <object name="SISSI - sissi_object" intdata="51">
+      <_description>lecteur de badge clavier</_description>
+      <icon>SISSI/lecteur_badge_clavier.png</icon>
+    </object>
+   <object name="SISSI - sissi_object" intdata="52">
+      <_description>lecteur de badge</_description>
+      <icon>SISSI/lecteur_badge.png</icon>
+    </object>
+   <object name="SISSI - sissi_object" intdata="53">
+      <_description>lecteur biometrique</_description>
+      <icon>SISSI/lecteur_biometrique.png</icon>
+    </object>
+   <object name="SISSI - sissi_object" intdata="54">
+      <_description>pompe</_description>
+      <icon>SISSI/pompe.png</icon>7
+    </object>
+   <object name="SISSI - sissi_object" intdata="55">
+      <_description>pompe rotative</_description>
+      <icon>SISSI/pompe_rotative.png</icon>
+    </object>
+   <object name="SISSI - sissi_object" intdata="56">
+      <_description>porte tambour</_description>
+      <icon>SISSI/porte_tambour.png</icon>
+    </object>
+   <object name="SISSI - sissi_object" intdata="57">
+      <_description>ventilateur axial</_description>
+      <icon>SISSI/ventilateur_axial.png</icon>
+    </object>
+   <object name="SISSI - sissi_object" intdata="58">
+      <_description>ventilateur centrifuge</_description>
+      <icon>SISSI/ventilateur_centrifuge.png</icon>
+    </object>
+   <object name="SISSI - sissi_object" intdata="59">
+      <_description>ventilateur</_description>
+      <icon>SISSI/ventilateur.png</icon>
+    </object>
+   <object name="SISSI - sissi_object" intdata="60">
+      <_description>extincteur</_description>
+      <icon>SISSI/extincteur.png</icon>
+    </object>
+   <object name="SISSI - sissi_object" intdata="61">
+      <_description>onduleur</_description>
+      <icon>SISSI/onduleur.png</icon>
+    </object>
+   <object name="SISSI - sissi_object" intdata="62">
+      <_description>climatisation</_description>
+      <icon>SISSI/aircooler.png</icon>
+    </object>
+   <object name="SISSI - sissi_object" intdata="63">
+      <_description>Alarm center</_description>
+      <icon>SISSI/alarm_center.png</icon>
+    </object>  </contents>
+</sheet>

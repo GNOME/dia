@@ -1,3 +1,97 @@
+2007-04-14  Steffen Macke <sdteffen@gmail.com>
+
+	* objects/Makefile.am:
+	* objects/SISSI/Makefile.am:
+	* objects/SISSI/area.[ch]:
+	* objects/SISSI/classification.h:
+	* objects/SISSI/faraday.[ch]:
+	* objects/SISSI/Makefile.am:
+	* objects/SISSI/menace.[ch]:
+	* objects/SISSI/methode_attack.h:
+	* objects/SISSI/room.[ch]:
+	* objects/SISSI/sissi.[ch]:
+	* objects/SISSI/sissi_dialog.[ch]:
+	* objects/SISSI/sissi_object.[ch]:
+	* objects/SISSI/site.[ch]:
+	* objects/SISSI/pixmaps/broken.xpm:
+	* objects/SISSI/pixmaps/faraday.png:
+	* objects/SISSI/pixmaps/sissi_object.xpm:
+	* sheets/Makefile.am:
+	* sheets/SISSI.sheet.in:
+	* sheets/SISSI/(1-76).xml:
+	* sheets/SISSI/aircooler.png:
+	* sheets/SISSI/alarm_center.png:
+	* sheets/SISSI/analyse.xpm:
+	* sheets/SISSI/barriere.png:
+	* sheets/SISSI/broken.xpm:
+	* sheets/SISSI/broken-chain.xpm:
+	* sheets/SISSI/camera_interphone.png:
+	* sheets/SISSI/capteur_brise_glace.png:
+	* sheets/SISSI/capteur_faisceau.png:
+	* sheets/SISSI/cellular_phone.png:
+	* sheets/SISSI/cloud.png:
+	* sheets/SISSI/condensateur.png:
+	* sheets/SISSI/detecteur_alimentation.png:
+	* sheets/SISSI/detecteur_courant.png:
+	* sheets/SISSI/detecteur_enthalpie.png:
+	* sheets/SISSI/detecteur_fumee.png:
+	* sheets/SISSI/detecteur_lumiere.png:
+	* sheets/SISSI/detecteur_mouvement.png:
+	* sheets/SISSI/detecteur_mouvement_video.png:
+	* sheets/SISSI/detecteur_mouvement_video.png:
+	* sheets/SISSI/detecteur_niveau.png:
+	* sheets/SISSI/detecteur_pression.png:
+	* sheets/SISSI/detecteur_qualite_air.png:
+	* sheets/SISSI/detecteur_tension.png:
+	* sheets/SISSI/detecteur_vehicule.png:
+	* sheets/SISSI/detecteur_vibration.png:
+	* sheets/SISSI/digi_code.png:
+	* sheets/SISSI/diskette.png:
+	* sheets/SISSI/extincteur.png:
+	* sheets/SISSI/extracteur_humidite.png:
+	* sheets/SISSI/faraday.png:
+	* sheets/SISSI/file.png:
+	* sheets/SISSI/file_cabinet.png:
+	* sheets/SISSI/filtre_air.png:
+	* sheets/SISSI/hub.png:
+	* sheets/SISSI/ibm_mini.png:
+	* sheets/SISSI/info.xpm:
+	* sheets/SISSI/information.png:
+	* sheets/SISSI/key.png:
+	* sheets/SISSI/laptop.png:
+	* sheets/SISSI/lecteur_badge.png:
+	* sheets/SISSI/lecteur_badge_clavier.png:
+	* sheets/SISSI/lecteur_biometrique.png:
+	* sheets/SISSI/logiciel.xpm:
+	* sheets/SISSI/Makefile.am:
+	* sheets/SISSI/menace.xpm:
+	* sheets/SISSI/meuble.xpm:
+	* sheets/SISSI/modem.png:
+	* sheets/SISSI/onduleur.png:
+	* sheets/SISSI/ordinateur_portable.gif:
+	* sheets/SISSI/pc.png:
+	* sheets/SISSI/pda.png:
+	* sheets/SISSI/personne.xpm:
+	* sheets/SISSI/phone.png:
+	* sheets/SISSI/pompe.png:
+	* sheets/SISSI/pompe_rotative.png:
+	* sheets/SISSI/porte_tambour.png:
+	* sheets/SISSI/relational_database.png:
+	* sheets/SISSI/router.png:
+	* sheets/SISSI/safe.png:
+	* sheets/SISSI/sauvegarde.xpm:
+	* sheets/SISSI/si.xpm:
+	* sheets/SISSI/sissi_object.xpm:
+	* sheets/SISSI/storage_array.png:
+	* sheets/SISSI/support.xpm:
+	* sheets/SISSI/tourniquet.png:
+	* sheets/SISSI/unbroken-chain.xpm:
+	* sheets/SISSI/ventilateur.png:
+	* sheets/SISSI/ventilateur_axial.png:
+	* sheets/SISSI/ventilateur_centrifuge.png: New objects to draw
+	systems security diagrams. Closes bug #355995.
+	Provided by Luc Cessieux <cessieux@hotmail.com>
+	
 2007-04-13  Steffen Macke <sdteffen@gmail.com>
 
 	* installer/win32/dia.nsi: Updates for 0.96.1-1 installer. Fixes

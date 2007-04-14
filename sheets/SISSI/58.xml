@@ -1,0 +1,722 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sissi:diagram xmlns:sissi="http://www.sissi.fr/draw_security/">
+    <sissi:object type="SISSI - sissi_object" version="0" id="O0">
+      <sissi:attribute name="obj_pos">
+        <sissi:point val="13.4,7.95"/>
+      </sissi:attribute>
+      <sissi:attribute name="obj_bb">
+        <sissi:rectangle val="13.4,7.95;14.4,9.55"/>
+      </sissi:attribute>
+      <sissi:attribute name="elem_corner">
+        <sissi:point val="13.4,7.95"/>
+      </sissi:attribute>
+      <sissi:attribute name="elem_width">
+        <sissi:real val="1"/>
+      </sissi:attribute>
+      <sissi:attribute name="elem_height">
+        <sissi:real val="1.6000000000000001"/>
+      </sissi:attribute>
+      <sissi:attribute name="name">
+        <sissi:string>##</sissi:string>
+      </sissi:attribute>
+      <sissi:attribute name="subscribers">
+        <sissi:int val="0"/>
+      </sissi:attribute>
+      <sissi:attribute name="show_background">
+        <sissi:boolean val="false"/>
+      </sissi:attribute>
+      <sissi:attribute name="draw_border">
+        <sissi:boolean val="false"/>
+      </sissi:attribute>
+      <sissi:attribute name="keep_aspect">
+        <sissi:boolean val="false"/>
+      </sissi:attribute>
+      <sissi:attribute name="fill_colour">
+        <sissi:color val="#ffffff"/>
+      </sissi:attribute>
+      <sissi:attribute name="line_colour">
+        <sissi:color val="#000000"/>
+      </sissi:attribute>
+      <sissi:attribute name="border_color">
+        <sissi:color val="#ffffff"/>
+      </sissi:attribute>
+      <sissi:attribute name="radius">
+        <sissi:real val="0"/>
+      </sissi:attribute>
+      <sissi:attribute name="dashlength">
+        <sissi:real val="0"/>
+      </sissi:attribute>
+      <sissi:attribute name="border_width">
+        <sissi:real val="0"/>
+      </sissi:attribute>
+      <sissi:attribute name="line_width">
+        <sissi:real val="0"/>
+      </sissi:attribute>
+      <sissi:attribute name="file_image">
+	      <sissi:string>#sheets/SISSI/ventilateur_centrifuge.png#</sissi:string>
+      </sissi:attribute>
+      <sissi:attribute name="confidentiality">
+        <sissi:string>##</sissi:string>
+      </sissi:attribute>
+      <sissi:attribute name="integrity">
+        <sissi:string>##</sissi:string>
+      </sissi:attribute>
+      <sissi:attribute name="disponibility_level">
+        <sissi:string>##</sissi:string>
+      </sissi:attribute>
+      <sissi:attribute name="disponibility_value">
+        <sissi:real val="0"/>
+      </sissi:attribute>
+      <sissi:attribute name="id_db">
+        <sissi:string>##</sissi:string>
+      </sissi:attribute>
+      <sissi:attribute name="entity">
+        <sissi:string>##</sissi:string>
+      </sissi:attribute>
+      <sissi:attribute name="entity_type">
+        <sissi:string>#PHY_ACTION_AIR#</sissi:string>
+      </sissi:attribute>
+      <sissi:attribute name="type_element">
+	      <sissi:string>#ventilateur centrifuge#</sissi:string>
+      </sissi:attribute>
+      <sissi:attribute name="room">
+        <sissi:string>##</sissi:string>
+      </sissi:attribute>
+      <sissi:attribute name="site">
+        <sissi:string>##</sissi:string>
+      </sissi:attribute>
+      <sissi:attribute name="nb_others_fixes">
+        <sissi:int val="12"/>
+      </sissi:attribute>
+      <sissi:attribute name="properties">
+        <sissi:composite type="propriety_other">
+          <sissi:attribute name="label">
+            <sissi:string>#Type#</sissi:string>
+          </sissi:attribute>
+          <sissi:attribute name="value">
+            <sissi:string>##</sissi:string>
+          </sissi:attribute>
+          <sissi:attribute name="description">
+            <sissi:string>##</sissi:string>
+          </sissi:attribute>
+        </sissi:composite>
+        <sissi:composite type="propriety_other">
+          <sissi:attribute name="label">
+            <sissi:string>#Capacity#</sissi:string>
+          </sissi:attribute>
+          <sissi:attribute name="value">
+            <sissi:string>##</sissi:string>
+          </sissi:attribute>
+          <sissi:attribute name="description">
+            <sissi:string>##</sissi:string>
+          </sissi:attribute>
+        </sissi:composite>
+        <sissi:composite type="propriety_other">
+          <sissi:attribute name="label">
+            <sissi:string>#Power#</sissi:string>
+          </sissi:attribute>
+          <sissi:attribute name="value">
+            <sissi:string>##</sissi:string>
+          </sissi:attribute>
+          <sissi:attribute name="description">
+            <sissi:string>##</sissi:string>
+          </sissi:attribute>
+        </sissi:composite>
+        <sissi:composite type="propriety_other">
+          <sissi:attribute name="label">
+            <sissi:string>#Organism in charge#</sissi:string>
+          </sissi:attribute>
+          <sissi:attribute name="value">
+            <sissi:string>##</sissi:string>
+          </sissi:attribute>
+          <sissi:attribute name="description">
+            <sissi:string>##</sissi:string>
+          </sissi:attribute>
+        </sissi:composite>
+        <sissi:composite type="propriety_other">
+          <sissi:attribute name="label">
+            <sissi:string>#Function#</sissi:string>
+          </sissi:attribute>
+          <sissi:attribute name="value">
+            <sissi:string>##</sissi:string>
+          </sissi:attribute>
+          <sissi:attribute name="description">
+            <sissi:string>##</sissi:string>
+          </sissi:attribute>
+        </sissi:composite>
+        <sissi:composite type="propriety_other">
+          <sissi:attribute name="label">
+            <sissi:string>#Description#</sissi:string>
+          </sissi:attribute>
+          <sissi:attribute name="value">
+            <sissi:string>##</sissi:string>
+          </sissi:attribute>
+          <sissi:attribute name="description">
+            <sissi:string>#Host description#</sissi:string>
+          </sissi:attribute>
+        </sissi:composite>
+        <sissi:composite type="propriety_other">
+          <sissi:attribute name="label">
+            <sissi:string>#Pattern#</sissi:string>
+          </sissi:attribute>
+          <sissi:attribute name="value">
+            <sissi:string>##</sissi:string>
+          </sissi:attribute>
+          <sissi:attribute name="description">
+            <sissi:string>##</sissi:string>
+          </sissi:attribute>
+        </sissi:composite>
+        <sissi:composite type="propriety_other">
+          <sissi:attribute name="label">
+            <sissi:string>#Inventory number#</sissi:string>
+          </sissi:attribute>
+          <sissi:attribute name="value">
+            <sissi:string>##</sissi:string>
+          </sissi:attribute>
+          <sissi:attribute name="description">
+            <sissi:string>##</sissi:string>
+          </sissi:attribute>
+        </sissi:composite>
+        <sissi:composite type="propriety_other">
+          <sissi:attribute name="label">
+            <sissi:string>#Serial number#</sissi:string>
+          </sissi:attribute>
+          <sissi:attribute name="value">
+            <sissi:string>##</sissi:string>
+          </sissi:attribute>
+          <sissi:attribute name="description">
+            <sissi:string>##</sissi:string>
+          </sissi:attribute>
+        </sissi:composite>
+        <sissi:composite type="propriety_other">
+          <sissi:attribute name="label">
+            <sissi:string>#Periode of visit#</sissi:string>
+          </sissi:attribute>
+          <sissi:attribute name="value">
+            <sissi:string>##</sissi:string>
+          </sissi:attribute>
+          <sissi:attribute name="description">
+            <sissi:string>##</sissi:string>
+          </sissi:attribute>
+        </sissi:composite>
+        <sissi:composite type="propriety_other">
+          <sissi:attribute name="label">
+            <sissi:string>#Date of last visit#</sissi:string>
+          </sissi:attribute>
+          <sissi:attribute name="value">
+            <sissi:string>##</sissi:string>
+          </sissi:attribute>
+          <sissi:attribute name="description">
+            <sissi:string>##</sissi:string>
+          </sissi:attribute>
+        </sissi:composite>
+        <sissi:composite type="propriety_other">
+          <sissi:attribute name="label">
+            <sissi:string>#Link system name#</sissi:string>
+          </sissi:attribute>
+          <sissi:attribute name="value">
+            <sissi:string>##</sissi:string>
+          </sissi:attribute>
+          <sissi:attribute name="description">
+            <sissi:string>#Link system name object#</sissi:string>
+          </sissi:attribute>
+        </sissi:composite>
+      </sissi:attribute>
+      <sissi:attribute name="menaces">
+        <sissi:composite type="propriety_menace">
+          <sissi:attribute name="label">
+            <sissi:string>#Pollution#</sissi:string>
+          </sissi:attribute>
+          <sissi:attribute name="action">
+            <sissi:real val="0"/>
+          </sissi:attribute>
+          <sissi:attribute name="detection">
+            <sissi:real val="0"/>
+          </sissi:attribute>
+          <sissi:attribute name="vulnerability">
+            <sissi:real val="0"/>
+          </sissi:attribute>
+          <sissi:attribute name="comments">
+            <sissi:string>##</sissi:string>
+          </sissi:attribute>
+        </sissi:composite>
+        <sissi:composite type="propriety_menace">
+          <sissi:attribute name="label">
+            <sissi:string>#Major accidents#</sissi:string>
+          </sissi:attribute>
+          <sissi:attribute name="action">
+            <sissi:real val="0"/>
+          </sissi:attribute>
+          <sissi:attribute name="detection">
+            <sissi:real val="0"/>
+          </sissi:attribute>
+          <sissi:attribute name="vulnerability">
+            <sissi:real val="0"/>
+          </sissi:attribute>
+          <sissi:attribute name="comments">
+            <sissi:string>##</sissi:string>
+          </sissi:attribute>
+        </sissi:composite>
+        <sissi:composite type="propriety_menace">
+          <sissi:attribute name="label">
+            <sissi:string>#Materials or supports destroy#</sissi:string>
+          </sissi:attribute>
+          <sissi:attribute name="action">
+            <sissi:real val="0"/>
+          </sissi:attribute>
+          <sissi:attribute name="detection">
+            <sissi:real val="0"/>
+          </sissi:attribute>
+          <sissi:attribute name="vulnerability">
+            <sissi:real val="0"/>
+          </sissi:attribute>
+          <sissi:attribute name="comments">
+            <sissi:string>##</sissi:string>
+          </sissi:attribute>
+        </sissi:composite>
+        <sissi:composite type="propriety_menace">
+          <sissi:attribute name="label">
+            <sissi:string>#Climatic phenomenon#</sissi:string>
+          </sissi:attribute>
+          <sissi:attribute name="action">
+            <sissi:real val="0"/>
+          </sissi:attribute>
+          <sissi:attribute name="detection">
+            <sissi:real val="0"/>
+          </sissi:attribute>
+          <sissi:attribute name="vulnerability">
+            <sissi:real val="0"/>
+          </sissi:attribute>
+          <sissi:attribute name="comments">
+            <sissi:string>##</sissi:string>
+          </sissi:attribute>
+        </sissi:composite>
+        <sissi:composite type="propriety_menace">
+          <sissi:attribute name="label">
+            <sissi:string>#Meteorological phenomen#</sissi:string>
+          </sissi:attribute>
+          <sissi:attribute name="action">
+            <sissi:real val="0"/>
+          </sissi:attribute>
+          <sissi:attribute name="detection">
+            <sissi:real val="0"/>
+          </sissi:attribute>
+          <sissi:attribute name="vulnerability">
+            <sissi:real val="0"/>
+          </sissi:attribute>
+          <sissi:attribute name="comments">
+            <sissi:string>##</sissi:string>
+          </sissi:attribute>
+        </sissi:composite>
+        <sissi:composite type="propriety_menace">
+          <sissi:attribute name="label">
+            <sissi:string>#Failure of air-conditioning#</sissi:string>
+          </sissi:attribute>
+          <sissi:attribute name="action">
+            <sissi:real val="0"/>
+          </sissi:attribute>
+          <sissi:attribute name="detection">
+            <sissi:real val="0"/>
+          </sissi:attribute>
+          <sissi:attribute name="vulnerability">
+            <sissi:real val="0"/>
+          </sissi:attribute>
+          <sissi:attribute name="comments">
+            <sissi:string>##</sissi:string>
+          </sissi:attribute>
+        </sissi:composite>
+        <sissi:composite type="propriety_menace">
+          <sissi:attribute name="label">
+            <sissi:string>#Loss of power supply#</sissi:string>
+          </sissi:attribute>
+          <sissi:attribute name="action">
+            <sissi:real val="0"/>
+          </sissi:attribute>
+          <sissi:attribute name="detection">
+            <sissi:real val="0"/>
+          </sissi:attribute>
+          <sissi:attribute name="vulnerability">
+            <sissi:real val="0"/>
+          </sissi:attribute>
+          <sissi:attribute name="comments">
+            <sissi:string>##</sissi:string>
+          </sissi:attribute>
+        </sissi:composite>
+        <sissi:composite type="propriety_menace">
+          <sissi:attribute name="label">
+            <sissi:string>#Failure of telecommunication equipment#</sissi:string>
+          </sissi:attribute>
+          <sissi:attribute name="action">
+            <sissi:real val="0"/>
+          </sissi:attribute>
+          <sissi:attribute name="detection">
+            <sissi:real val="0"/>
+          </sissi:attribute>
+          <sissi:attribute name="vulnerability">
+            <sissi:real val="0"/>
+          </sissi:attribute>
+          <sissi:attribute name="comments">
+            <sissi:string>##</sissi:string>
+          </sissi:attribute>
+        </sissi:composite>
+        <sissi:composite type="propriety_menace">
+          <sissi:attribute name="label">
+            <sissi:string>#Electromagnetic radiation#</sissi:string>
+          </sissi:attribute>
+          <sissi:attribute name="action">
+            <sissi:real val="0"/>
+          </sissi:attribute>
+          <sissi:attribute name="detection">
+            <sissi:real val="0"/>
+          </sissi:attribute>
+          <sissi:attribute name="vulnerability">
+            <sissi:real val="0"/>
+          </sissi:attribute>
+          <sissi:attribute name="comments">
+            <sissi:string>##</sissi:string>
+          </sissi:attribute>
+        </sissi:composite>
+        <sissi:composite type="propriety_menace">
+          <sissi:attribute name="label">
+            <sissi:string>#Thermal radiations#</sissi:string>
+          </sissi:attribute>
+          <sissi:attribute name="action">
+            <sissi:real val="0"/>
+          </sissi:attribute>
+          <sissi:attribute name="detection">
+            <sissi:real val="0"/>
+          </sissi:attribute>
+          <sissi:attribute name="vulnerability">
+            <sissi:real val="0"/>
+          </sissi:attribute>
+          <sissi:attribute name="comments">
+            <sissi:string>##</sissi:string>
+          </sissi:attribute>
+        </sissi:composite>
+        <sissi:composite type="propriety_menace">
+          <sissi:attribute name="label">
+            <sissi:string>#Electromagnetic pulse (emp)#</sissi:string>
+          </sissi:attribute>
+          <sissi:attribute name="action">
+            <sissi:real val="0"/>
+          </sissi:attribute>
+          <sissi:attribute name="detection">
+            <sissi:real val="0"/>
+          </sissi:attribute>
+          <sissi:attribute name="vulnerability">
+            <sissi:real val="0"/>
+          </sissi:attribute>
+          <sissi:attribute name="comments">
+            <sissi:string>##</sissi:string>
+          </sissi:attribute>
+        </sissi:composite>
+        <sissi:composite type="propriety_menace">
+          <sissi:attribute name="label">
+            <sissi:string>#Interception of compromising interference signals#</sissi:string>
+          </sissi:attribute>
+          <sissi:attribute name="action">
+            <sissi:real val="0"/>
+          </sissi:attribute>
+          <sissi:attribute name="detection">
+            <sissi:real val="0"/>
+          </sissi:attribute>
+          <sissi:attribute name="vulnerability">
+            <sissi:real val="0"/>
+          </sissi:attribute>
+          <sissi:attribute name="comments">
+            <sissi:string>##</sissi:string>
+          </sissi:attribute>
+        </sissi:composite>
+        <sissi:composite type="propriety_menace">
+          <sissi:attribute name="label">
+            <sissi:string>#Theft of media or documents#</sissi:string>
+          </sissi:attribute>
+          <sissi:attribute name="action">
+            <sissi:real val="0"/>
+          </sissi:attribute>
+          <sissi:attribute name="detection">
+            <sissi:real val="0"/>
+          </sissi:attribute>
+          <sissi:attribute name="vulnerability">
+            <sissi:real val="0"/>
+          </sissi:attribute>
+          <sissi:attribute name="comments">
+            <sissi:string>##</sissi:string>
+          </sissi:attribute>
+        </sissi:composite>
+        <sissi:composite type="propriety_menace">
+          <sissi:attribute name="label">
+            <sissi:string>#Theft of equipment#</sissi:string>
+          </sissi:attribute>
+          <sissi:attribute name="action">
+            <sissi:real val="0"/>
+          </sissi:attribute>
+          <sissi:attribute name="detection">
+            <sissi:real val="0"/>
+          </sissi:attribute>
+          <sissi:attribute name="vulnerability">
+            <sissi:real val="0"/>
+          </sissi:attribute>
+          <sissi:attribute name="comments">
+            <sissi:string>##</sissi:string>
+          </sissi:attribute>
+        </sissi:composite>
+        <sissi:composite type="propriety_menace">
+          <sissi:attribute name="label">
+            <sissi:string>#Disclosure#</sissi:string>
+          </sissi:attribute>
+          <sissi:attribute name="action">
+            <sissi:real val="0"/>
+          </sissi:attribute>
+          <sissi:attribute name="detection">
+            <sissi:real val="0"/>
+          </sissi:attribute>
+          <sissi:attribute name="vulnerability">
+            <sissi:real val="0"/>
+          </sissi:attribute>
+          <sissi:attribute name="comments">
+            <sissi:string>##</sissi:string>
+          </sissi:attribute>
+        </sissi:composite>
+        <sissi:composite type="propriety_menace">
+          <sissi:attribute name="label">
+            <sissi:string>#Data from untrustworthy sources#</sissi:string>
+          </sissi:attribute>
+          <sissi:attribute name="action">
+            <sissi:real val="0"/>
+          </sissi:attribute>
+          <sissi:attribute name="detection">
+            <sissi:real val="0"/>
+          </sissi:attribute>
+          <sissi:attribute name="vulnerability">
+            <sissi:real val="0"/>
+          </sissi:attribute>
+          <sissi:attribute name="comments">
+            <sissi:string>##</sissi:string>
+          </sissi:attribute>
+        </sissi:composite>
+        <sissi:composite type="propriety_menace">
+          <sissi:attribute name="label">
+            <sissi:string>#Tampering with hardware#</sissi:string>
+          </sissi:attribute>
+          <sissi:attribute name="action">
+            <sissi:real val="0"/>
+          </sissi:attribute>
+          <sissi:attribute name="detection">
+            <sissi:real val="0"/>
+          </sissi:attribute>
+          <sissi:attribute name="vulnerability">
+            <sissi:real val="0"/>
+          </sissi:attribute>
+          <sissi:attribute name="comments">
+            <sissi:string>##</sissi:string>
+          </sissi:attribute>
+        </sissi:composite>
+        <sissi:composite type="propriety_menace">
+          <sissi:attribute name="label">
+            <sissi:string>#Tampering with software#</sissi:string>
+          </sissi:attribute>
+          <sissi:attribute name="action">
+            <sissi:real val="0"/>
+          </sissi:attribute>
+          <sissi:attribute name="detection">
+            <sissi:real val="0"/>
+          </sissi:attribute>
+          <sissi:attribute name="vulnerability">
+            <sissi:real val="0"/>
+          </sissi:attribute>
+          <sissi:attribute name="comments">
+            <sissi:string>##</sissi:string>
+          </sissi:attribute>
+        </sissi:composite>
+        <sissi:composite type="propriety_menace">
+          <sissi:attribute name="label">
+            <sissi:string>#Position detection#</sissi:string>
+          </sissi:attribute>
+          <sissi:attribute name="action">
+            <sissi:real val="0"/>
+          </sissi:attribute>
+          <sissi:attribute name="detection">
+            <sissi:real val="0"/>
+          </sissi:attribute>
+          <sissi:attribute name="vulnerability">
+            <sissi:real val="0"/>
+          </sissi:attribute>
+          <sissi:attribute name="comments">
+            <sissi:string>##</sissi:string>
+          </sissi:attribute>
+        </sissi:composite>
+        <sissi:composite type="propriety_menace">
+          <sissi:attribute name="label">
+            <sissi:string>#Equipment failure#</sissi:string>
+          </sissi:attribute>
+          <sissi:attribute name="action">
+            <sissi:real val="0"/>
+          </sissi:attribute>
+          <sissi:attribute name="detection">
+            <sissi:real val="0"/>
+          </sissi:attribute>
+          <sissi:attribute name="vulnerability">
+            <sissi:real val="0"/>
+          </sissi:attribute>
+          <sissi:attribute name="comments">
+            <sissi:string>##</sissi:string>
+          </sissi:attribute>
+        </sissi:composite>
+        <sissi:composite type="propriety_menace">
+          <sissi:attribute name="label">
+            <sissi:string>#Equipment malfunction#</sissi:string>
+          </sissi:attribute>
+          <sissi:attribute name="action">
+            <sissi:real val="0"/>
+          </sissi:attribute>
+          <sissi:attribute name="detection">
+            <sissi:real val="0"/>
+          </sissi:attribute>
+          <sissi:attribute name="vulnerability">
+            <sissi:real val="0"/>
+          </sissi:attribute>
+          <sissi:attribute name="comments">
+            <sissi:string>##</sissi:string>
+          </sissi:attribute>
+        </sissi:composite>
+        <sissi:composite type="propriety_menace">
+          <sissi:attribute name="label">
+            <sissi:string>#Saturation of the information system#</sissi:string>
+          </sissi:attribute>
+          <sissi:attribute name="action">
+            <sissi:real val="0"/>
+          </sissi:attribute>
+          <sissi:attribute name="detection">
+            <sissi:real val="0"/>
+          </sissi:attribute>
+          <sissi:attribute name="vulnerability">
+            <sissi:real val="0"/>
+          </sissi:attribute>
+          <sissi:attribute name="comments">
+            <sissi:string>##</sissi:string>
+          </sissi:attribute>
+        </sissi:composite>
+        <sissi:composite type="propriety_menace">
+          <sissi:attribute name="label">
+            <sissi:string>#Software malfunction#</sissi:string>
+          </sissi:attribute>
+          <sissi:attribute name="action">
+            <sissi:real val="0"/>
+          </sissi:attribute>
+          <sissi:attribute name="detection">
+            <sissi:real val="0"/>
+          </sissi:attribute>
+          <sissi:attribute name="vulnerability">
+            <sissi:real val="0"/>
+          </sissi:attribute>
+          <sissi:attribute name="comments">
+            <sissi:string>##</sissi:string>
+          </sissi:attribute>
+        </sissi:composite>
+        <sissi:composite type="propriety_menace">
+          <sissi:attribute name="label">
+            <sissi:string>#Breach of information system maintainability#</sissi:string>
+          </sissi:attribute>
+          <sissi:attribute name="action">
+            <sissi:real val="0"/>
+          </sissi:attribute>
+          <sissi:attribute name="detection">
+            <sissi:real val="0"/>
+          </sissi:attribute>
+          <sissi:attribute name="vulnerability">
+            <sissi:real val="0"/>
+          </sissi:attribute>
+          <sissi:attribute name="comments">
+            <sissi:string>##</sissi:string>
+          </sissi:attribute>
+        </sissi:composite>
+        <sissi:composite type="propriety_menace">
+          <sissi:attribute name="label">
+            <sissi:string>#Unauthorised use of equipment#</sissi:string>
+          </sissi:attribute>
+          <sissi:attribute name="action">
+            <sissi:real val="0"/>
+          </sissi:attribute>
+          <sissi:attribute name="detection">
+            <sissi:real val="0"/>
+          </sissi:attribute>
+          <sissi:attribute name="vulnerability">
+            <sissi:real val="0"/>
+          </sissi:attribute>
+          <sissi:attribute name="comments">
+            <sissi:string>##</sissi:string>
+          </sissi:attribute>
+        </sissi:composite>
+        <sissi:composite type="propriety_menace">
+          <sissi:attribute name="label">
+            <sissi:string>#Illegal processing of data#</sissi:string>
+          </sissi:attribute>
+          <sissi:attribute name="action">
+            <sissi:real val="0"/>
+          </sissi:attribute>
+          <sissi:attribute name="detection">
+            <sissi:real val="0"/>
+          </sissi:attribute>
+          <sissi:attribute name="vulnerability">
+            <sissi:real val="0"/>
+          </sissi:attribute>
+          <sissi:attribute name="comments">
+            <sissi:string>##</sissi:string>
+          </sissi:attribute>
+        </sissi:composite>
+        <sissi:composite type="propriety_menace">
+          <sissi:attribute name="label">
+            <sissi:string>#Error in use#</sissi:string>
+          </sissi:attribute>
+          <sissi:attribute name="action">
+            <sissi:real val="0"/>
+          </sissi:attribute>
+          <sissi:attribute name="detection">
+            <sissi:real val="0"/>
+          </sissi:attribute>
+          <sissi:attribute name="vulnerability">
+            <sissi:real val="0"/>
+          </sissi:attribute>
+          <sissi:attribute name="comments">
+            <sissi:string>##</sissi:string>
+          </sissi:attribute>
+        </sissi:composite>
+        <sissi:composite type="propriety_menace">
+          <sissi:attribute name="label">
+            <sissi:string>#Denial of actions#</sissi:string>
+          </sissi:attribute>
+          <sissi:attribute name="action">
+            <sissi:real val="0"/>
+          </sissi:attribute>
+          <sissi:attribute name="detection">
+            <sissi:real val="0"/>
+          </sissi:attribute>
+          <sissi:attribute name="vulnerability">
+            <sissi:real val="0"/>
+          </sissi:attribute>
+          <sissi:attribute name="comments">
+            <sissi:string>##</sissi:string>
+          </sissi:attribute>
+        </sissi:composite>
+        <sissi:composite type="propriety_menace">
+          <sissi:attribute name="label">
+            <sissi:string>#Breach of personnel availability#</sissi:string>
+          </sissi:attribute>
+          <sissi:attribute name="action">
+            <sissi:real val="0"/>
+          </sissi:attribute>
+          <sissi:attribute name="detection">
+            <sissi:real val="0"/>
+          </sissi:attribute>
+          <sissi:attribute name="vulnerability">
+            <sissi:real val="0"/>
+          </sissi:attribute>
+          <sissi:attribute name="comments">
+            <sissi:string>##</sissi:string>
+          </sissi:attribute>
+        </sissi:composite>
+      </sissi:attribute>
+      <sissi:attribute name="documentation"/>
+    </sissi:object>
+</sissi:diagram>

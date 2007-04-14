@@ -1,7 +1,7 @@
 !IFNDEF PACKAGE
 
 PLUGINS = aadl bondgraph chronogram custom er flowchart fs grafcet \
-	Istar Jackson Kaos misc network sadt standard uml
+	Istar Jackson Kaos misc network sadt SISSI standard uml
 
 #outdated:	labels
 
@@ -243,6 +243,20 @@ $(OBJECTS) : tool-icons.h
 tool-icons.h: $(ICON_PNGS)
 	gdk-pixbuf-csource --raw --build-list $(ICON_PNG_PAIRS) > tool-icons.h
 
+!ENDIF
+
+!IFDEF OBJ_sissi
+OBJECTS = \
+        area.obj \
+        faraday.obj \
+        menace.obj \
+        room.obj \
+        sissi.obj \
+		sissi_dialog.obj \
+		sissi_object.obj \
+		site.obj
+# this plug-in imports diagram_load_and_display () from dia.exe 
+PKG_LINK = $(PKG_LINK) $(LIBXML2_LIBS) $(GTK2_LIBS) ..\..\app\dia-app.lib
 !ENDIF
 
 !IFDEF OBJ_specware
