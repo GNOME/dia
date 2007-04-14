@@ -2705,9 +2705,9 @@ Function .onInit
   has_gtk:
   
   ;Fix Freetype DLL naming problem gimp-win/gladewin32
-  IfFileExists "$GTKBIN\bin\libfreetype-6.dll" copy_freetype_dll has_gladewin32_freetype_dll
+  IfFileExists "$GTKBIN\libfreetype-6.dll" has_gladewin32_freetype_dll copy_freetype_dll 
   copy_freetype_dll:
-    CopyFiles "$GTKBIN\bin\freetype6.dll" "$GTKBIN\bin\libfreetype-6.dll" 
+    CopyFiles "$GTKBIN\freetype6.dll" "$GTKBIN\libfreetype-6.dll" 
   has_gladewin32_freetype_dll:
   
   ; If install path was set on the command, use it.
