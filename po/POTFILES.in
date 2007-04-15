@@ -9,10 +9,10 @@ app/dia-props.c
 app/dia_embedd.c
 app/diacanvas.c
 app/diaconv.c
+app/diagram.c
 app/diagram_tree.c
 app/diagram_tree_menu.c
 app/diagram_tree_window.c
-app/diagram.c
 app/dialogs.c
 app/diapagelayout.c
 app/disp_callbacks.c
@@ -103,6 +103,15 @@ objects/SADT/annotation.c
 objects/SADT/arrow.c
 objects/SADT/box.c
 objects/SADT/sadt.c
+objects/SISSI/area.c
+objects/SISSI/classification.h
+objects/SISSI/faraday.c
+objects/SISSI/room.c
+objects/SISSI/sissi.c
+objects/SISSI/sissi.h
+objects/SISSI/sissi_dialog.c
+objects/SISSI/sissi_object.c
+objects/SISSI/site.c
 objects/UML/activity.c
 objects/UML/actor.c
 objects/UML/association.c
@@ -171,9 +180,9 @@ plug-ins/gprint/diagnomeprintrenderer.c
 plug-ins/hpgl/hpgl.c
 plug-ins/metapost/metapost.c
 plug-ins/metapost/render_metapost.c
-plug-ins/pixbuf/pixbuf.c
 plug-ins/pgf/pgf.c
 plug-ins/pgf/render_pgf.c
+plug-ins/pixbuf/pixbuf.c
 plug-ins/pstricks/pstricks.c
 plug-ins/pstricks/render_pstricks.c
 plug-ins/python/pydia-render.c
@@ -205,8 +214,8 @@ sheets/ER.sheet.in
 sheets/Electric.sheet.in
 sheets/FS.sheet.in
 sheets/Flowchart.sheet.in
-sheets/Gane_and_Sarson.sheet.in
 sheets/GRAFCET.sheet.in
+sheets/Gane_and_Sarson.sheet.in
 sheets/IsometricMap.sheet.in
 sheets/Istar.sheet.in
 sheets/Jackson.sheet.in
@@ -217,6 +226,7 @@ sheets/Misc.sheet.in
 sheets/Pneumatic.sheet.in
 sheets/SADT.sheet.in
 sheets/SDL.sheet.in
+sheets/SISSI.sheet.in
 sheets/UML.sheet.in
 sheets/chronogram.sheet.in
 sheets/ciscocomputer.sheet.in
