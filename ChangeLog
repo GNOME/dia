@@ -1,3 +1,7 @@
+2007-04-15  Steffen Macke <sdteffen@gmail.com>
+
+	* configure.in: Create Makefiles for SISSI folders
+
 2007-04-14  Steffen Macke <sdteffen@gmail.com>
 
 	* installer/win32/dia.nsi: Fixed freetype dll

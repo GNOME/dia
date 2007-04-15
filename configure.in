@@ -467,6 +467,7 @@ objects/Misc/Makefile
 objects/network/Makefile
 objects/SADT/Makefile
 objects/standard/Makefile
+objects/SISSI/Makefile
 objects/UML/Makefile
 shapes/Makefile
 shapes/Assorted/Makefile
@@ -500,6 +501,7 @@ sheets/GRAFCET/Makefile
 sheets/Istar/Makefile
 sheets/Jackson/Makefile
 sheets/KAOS/Makefile
+sheets/SISSI/Makefile
 sheets/UML/Makefile
 plug-ins/Makefile
 plug-ins/cgm/Makefile
