@@ -9,10 +9,10 @@
 ;;  Author: Steffen Macke <sdteffen@gmail.com> 2006
 
 ; No GTK+ was found
-!define DIA_NO_GTK				"Please install GTK+ Version 2.6.0 or higher. It is available from http://dia-installer.sourceforge.net." 
+!define DIA_NO_GTK				"GTK+ is not installed. Please use the full installer. It is available from http://dia-installer.de." 
 
 ; Don't install over pre 0.95 versions
-!define DIA_NO_INSTALL_OVER			"Please remove Dia installations before 0.95 completely or install Dia to a different location."
+!define DIA_NO_INSTALL_OVER			"Please remove old Dia installations completely or install Dia to a different location."
 
 ; License Page
 !define  DIA_LICENSE_BUTTON			"Suivant >"

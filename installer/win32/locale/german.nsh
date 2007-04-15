@@ -9,7 +9,7 @@
 ;;
 
 ; No GTK+ was found
-!define DIA_NO_GTK				"Bitte installieren sie GTK+ Version 2.6.0 oder besser. Es kann unter http://dia-installer.sourceforge.net heruntergeladen werden."
+!define DIA_NO_GTK				"GTK+ ist nicht installiert. Bitte benutzen Sie die komplette Installationsprogramm. Es kann unter http://dia-installer.de heruntergeladen werden."
 
 ; Don't install over pre 0.95 versions
 !define DIA_NO_INSTALL_OVER			"Bitte deinstallieren Sie Dia Versionen vor 0.95 komplett oder installieren Sie Dia unter einem anderen Pfad."
@@ -41,5 +41,5 @@
 !define un.DIA_UNINSTALL_ERROR_1		"Der Deinstaller konnte keine Registrierungschlüssel für Dia finden.$\rEs ist wahrscheinlich, dass ein anderer Benutzer diese Anwendunng installiert hat."
 !define un.DIA_UNINSTALL_ERROR_2		"Sie haben keine Berechtigung, diese Anwendung zu deinstallieren."
 !define un.DIA_UNINSTALLATION_WARNING		"Die Deinstallation wird $INSTDIR und alle Unterverzeichnisse komplett löschen. Fortfahren?"
-!define un.DIA_DOTDIA_WARNING			"Die Deinstallation wird $PROFILE\.dia und all Unterverzeichnisse komplett löschen. Fortfahren?"
+!define un.DIA_DOTDIA_WARNING			"Die Deinstallation wird $PROFILE\.dia und alle Unterverzeichnisse komplett löschen. Fortfahren?"
 

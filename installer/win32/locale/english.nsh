@@ -12,10 +12,10 @@
 ; langmacros.nsh when updating this file
 
 ; GTK+ was not found
-!insertmacro DIA_MACRO_DEFAULT_STRING DIA_NO_GTK			"Please install GTK+ version 2.6.0 or higher. It is available from dia-installer.sourceforge.net"
+!insertmacro DIA_MACRO_DEFAULT_STRING DIA_NO_GTK			"GTK+ is not installed. Please use the full installer. It is available from http://dia-installer.de."
 
 ; Don't install over pre 0.95 versions
-!insertmacro DIA_MACRO_DEFAULT_STRING DIA_NO_INSTALL_OVER		"Please remove Dia installations before 0.95 completely or install Dia to a different location."
+!insertmacro DIA_MACRO_DEFAULT_STRING DIA_NO_INSTALL_OVER		"Please remove old Dia installations completely or install Dia to a different location."
 
 ; License Page
 !insertmacro DIA_MACRO_DEFAULT_STRING DIA_LICENSE_BUTTON		"Next >"
@@ -40,5 +40,5 @@
 ; Uninstall Section Prompts
 !insertmacro DIA_MACRO_DEFAULT_STRING un.DIA_UNINSTALL_ERROR_1		"The uninstaller could not find registry entries for Dia.$\rIt is likely that another user installed this application."
 !insertmacro DIA_MACRO_DEFAULT_STRING un.DIA_UNINSTALL_ERROR_2		"You do not have permission to uninstall this application."
-!insertmacro DIA_MACRO_DEFAULT_STRING un.DIA_UNINSTALLATION_WARNING	"This will completely delete $INSTDIR and all all subdirectories. Continue?"
+!insertmacro DIA_MACRO_DEFAULT_STRING un.DIA_UNINSTALLATION_WARNING	"This will completely delete $INSTDIR and all subdirectories. Continue?"
 !insertmacro DIA_MACRO_DEFAULT_STRING un.DIA_DOTDIA_WARNING		"This will completely delete $PROFILE\.dia and all subdirectories. Continue?"
