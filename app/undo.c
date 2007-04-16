@@ -1149,3 +1149,70 @@ undo_parenting(Diagram *dia, DiaObject* parentobj, DiaObject* childobj,
   undo_push_change(dia->undo, change);
   return change;
 }
+
+/* ********* MOVE TO OTHER LAYER  */
+#ifdef MOVE_OTHER_LAYER
+struct MoveObjectToLayerChange {
+  Change change;
+  GList *objects;
+  gboolean moving_up;
+};
+
+static void 
+move_object_layer_relative(Diagram *dia, GList *objects, gint dist)
+{
+
+}
+
+static void
+move_object_to_layer_apply(Change *change, Diagram *dia)
+{
+  struct MoveObjectToLayerChange *movechange 
+    = (struct MoveObjectToLayerChange*)change;
+  if (movechange->moving_up) {
+    move_object_layer_relative(dia, movechange->objects, 1);
+  } else {
+    move_object_layer_relative(dia, movechange->objects, -1);
+  }
+}
+
+static void
+move_object_to_layer_revert(Change *change, Diagram *dia)
+{
+  struct MoveObjectToLayerChange *movechange 
+    = (struct MoveObjectToLayerChange*)change;
+  if (movechange->moving_up) {
+    move_object_layer_relative(dia, movechange->objects, -1);
+  } else {
+    move_object_layer_relative(dia, movechange->objects, 1);
+  }
+}
+
+static void
+move_object_to_layer_free(Change *change)
+{
+  struct MoveObjectToLayerChange *movechange 
+    = (struct MoveObjectToLayerChange*)change;
+  g_list_free(movechange->objects);
+}
+
+Change *
+undo_move_object_other_layer(Diagram *diagram, GList *selected_list,
+			     gboolean moving_up)
+{
+  struct MoveObjectToLayerChange *movetolayerchange 
+= g_new0(struct MoveObjectToLayerChange, 1);
+  Change *change = (Change*)movetolayerchange;
+  change->apply = move_object_to_layer_apply;
+  change->revert = move_object_to_layer_revert;
+  change->free = move_object_to_layer_free;
+
+  movetolayerchange->objects = selected_list;
+  movetolayerchange->moving_up = moving_up;
+
+  DEBUG_PRINTF(("UNDO: Push new obj_change at %d\n", depth(dia->undo)));
+  undo_push_change(dia->undo, change);
+  return change;
+  
+}
+#endif

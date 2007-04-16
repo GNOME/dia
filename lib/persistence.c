@@ -45,6 +45,26 @@ static GHashTable *persistent_integers, *persistent_reals;
 static GHashTable *persistent_booleans, *persistent_strings;
 static GHashTable *persistent_colors;
 
+/* *********************** GENERAL INTERNAL FUNCTIONS ************** */
+/** Lookup an entry in any of the type tables, ensuring existence on the way.
+ * @param type_table A pointer to one of the above type tables.
+ * @param role The role (name) within the table.
+ * @return The value of the role in the table, or NULL if either role is
+ * NULL or the table does not contain the value.
+ */
+static gchar *
+persistence_lookup(GHashTable **type_table, gchar *role)
+{
+  if (role == NULL) {
+    return NULL;
+  }
+  if (*type_table == NULL) {
+    *type_table = g_hash_table_new(g_str_hash, g_str_equal);
+  }
+  return g_hash_table_lookup(*type_table, role);
+}
+
+
 /* *********************** LOADING FUNCTIONS *********************** */
 
 typedef void (*PersistenceLoadFunc)(gchar *role, xmlNodePtr node);
@@ -996,6 +1016,19 @@ persistence_set_real(gchar *role, real newvalue)
 
 
 /* ********* BOOLEANS ********** */
+/** Returns true if the given role has been registered. */
+gboolean
+persistence_boolean_is_registered(gchar *role)
+{
+  gboolean *booleanval;
+  if (role == NULL) return 0;
+  if (persistent_booleans == NULL) {
+    persistent_booleans = g_hash_table_new(g_str_hash, g_str_equal);
+  }    
+  booleanval = (gboolean *)g_hash_table_lookup(persistent_booleans, role);
+  return booleanval != NULL;
+}
+
 gboolean
 persistence_register_boolean(gchar *role, gboolean defaultvalue)
 {

@@ -188,6 +188,7 @@ new_svg_renderer(DiagramData *data, const char *filename)
 	     (int)ceil(extent->right - extent->left),
 	     (int)ceil(extent->bottom - extent->top));
   xmlSetProp(renderer->root, "viewBox", buf);
+  xmlSetProp(renderer->root,"xmlns","http://www.w3.org/2000/svg");
   
   time_now = time(NULL);
   name = g_get_user_name();

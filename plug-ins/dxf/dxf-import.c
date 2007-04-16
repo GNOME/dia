@@ -552,10 +552,7 @@ DiaObject *read_entity_polyline_dxf(FILE *filedxf, DxfData *data, DiagramData *d
    
     if( closed )
     {
-        ++points;
-        p = g_realloc( p, sizeof( Point ) * points );
-        p[points-1].x = p[0].x;
-        p[points-1].y = p[0].y;
+	otype = object_get_type("Standard - Polygon");
     }
    
     pcd->num_points = points;

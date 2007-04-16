@@ -70,6 +70,8 @@ void persistent_list_remove_all(const gchar *role);
 void persistent_list_add_listener(const gchar *role, PersistenceCallback func, 
 				  GObject *watch, gpointer userdata);
 
+gboolean persistence_is_registered(gchar *role);
+
 gint persistence_register_integer(gchar *role, int defaultvalue);
 gint persistence_get_integer(gchar *role);
 void persistence_set_integer(gchar *role, gint newvalue);

@@ -158,11 +158,11 @@ static PropOffset entity_offsets[] = {
   { "name", PROP_TYPE_STRING, offsetof(Entity, name) },
   { "weak", PROP_TYPE_BOOL, offsetof(Entity, weak) },
   { "associative", PROP_TYPE_BOOL, offsetof(Entity, associative) },
-  { "line_width", PROP_TYPE_REAL, offsetof(Entity, border_width) },
+  { "line_width", PROP_TYPE_LENGTH, offsetof(Entity, border_width) },
   { "line_colour", PROP_TYPE_COLOUR, offsetof(Entity, border_color) },
   { "fill_colour", PROP_TYPE_COLOUR, offsetof(Entity, inner_color) },
   { "text_font", PROP_TYPE_FONT, offsetof (Entity, font) },
-  { "text_height", PROP_TYPE_REAL, offsetof(Entity, font_height) },
+  { "text_height", PROP_TYPE_FONTSIZE, offsetof(Entity, font_height) },
   { NULL, 0, 0}
 };
 

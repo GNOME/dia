@@ -216,7 +216,7 @@ set_line_color(PstricksRenderer *renderer,Color *color)
     gchar green_buf[DTOSTR_BUF_SIZE];
     gchar blue_buf[DTOSTR_BUF_SIZE];
 
-    fprintf(renderer->file, "\\newrgbcolor{dialinecolor}{%s %s %s}\n",
+    fprintf(renderer->file, "\\newrgbcolor{dialinecolor}{%s %s %s}%%\n",
 	    pstricks_dtostr(red_buf, (gdouble) color->red),
 	    pstricks_dtostr(green_buf, (gdouble) color->green),
 	    pstricks_dtostr(blue_buf, (gdouble) color->blue) );
@@ -230,7 +230,7 @@ set_fill_color(PstricksRenderer *renderer,Color *color)
     gchar green_buf[DTOSTR_BUF_SIZE];
     gchar blue_buf[DTOSTR_BUF_SIZE];
 
-    fprintf(renderer->file, "\\newrgbcolor{diafillcolor}{%s %s %s}\n",
+    fprintf(renderer->file, "\\newrgbcolor{diafillcolor}{%s %s %s}%%\n",
 	    pstricks_dtostr(red_buf, (gdouble) color->red),
 	    pstricks_dtostr(green_buf, (gdouble) color->green),
 	    pstricks_dtostr(blue_buf, (gdouble) color->blue) );
@@ -791,7 +791,7 @@ draw_string(DiaRenderer *self,
     }
     fprintf(renderer->file,"(%s,%s){\\psscalebox{1 -1}{%s}}\n",
 	    pstricks_dtostr(px_buf,pos->x),
-	    pstricks_dtostr(py_buf,-pos->y),
+	    pstricks_dtostr(py_buf,pos->y),
 	    escaped ? escaped : text);
     g_free(escaped);
 }

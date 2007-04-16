@@ -39,7 +39,7 @@
 #include "diagramdata.h"
 #include "paper.h"
 #include "interface.h"
-
+#include "lib/prefs.h"
 #include "persistence.h"
 
 #ifdef G_OS_WIN32
@@ -76,6 +76,7 @@ typedef struct _DiaPrefData {
 } DiaPrefData;
 
 static void update_floating_toolbox(DiaPrefData *pref, char *ptr);
+static void update_internal_prefs(DiaPrefData *pref, char *ptr);
 
 static int default_true = 1;
 static int default_false = 0;
@@ -91,6 +92,8 @@ static Color pbreak_colour = DEFAULT_PAGEBREAK_COLOR;
 static guint default_dtree_dia_sort = DIA_TREE_SORT_INSERT;
 static guint default_dtree_obj_sort = DIA_TREE_SORT_INSERT;
 static const gchar *default_paper_name = NULL;
+static const gchar *default_length_unit = "cm";
+static const gchar *default_fontsize_unit = "point";
 
 struct DiaPrefsTab {
   char *title;
@@ -127,6 +130,12 @@ DiaPrefData prefs_data[] =
   { "toolbox_on_top", PREF_BOOLEAN, PREF_OFFSET(toolbox_on_top),
     &default_false, 0, N_("Keep tool box on top of diagram windows"),
     NULL, FALSE, NULL, update_floating_toolbox},
+  { "length_unit", PREF_CHOICE, PREF_OFFSET(length_unit),
+    &default_length_unit, 0, N_("Unit for lengths:"), NULL, FALSE,
+    get_units_name_list, update_internal_prefs },
+  { "fontsize_unit", PREF_CHOICE, PREF_OFFSET(fontsize_unit),
+    &default_fontsize_unit, 0, N_("Unit for font sizes:"), NULL, FALSE,
+    get_units_name_list, update_internal_prefs },
   
   { NULL, PREF_NONE, 0, NULL, 1, N_("New diagram:") },
   { "is_portrait", PREF_BOOLEAN, PREF_OFFSET(new_diagram.is_portrait), &default_true, 1, N_("Portrait") },
@@ -650,6 +659,13 @@ prefs_update_dialog_from_prefs(void)
     
     prefs_set_value_in_widget(widget, &prefs_data[i],  ptr);
   }
+}
+
+static void
+update_internal_prefs(DiaPrefData *pref, char *ptr)
+{
+  prefs_set_length_unit(prefs.length_unit);
+  prefs_set_fontsize_unit(prefs.fontsize_unit);
 }
 
 static void

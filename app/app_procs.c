@@ -123,12 +123,12 @@ static void print_credits(gboolean credits);
 
 static gboolean dia_is_interactive = TRUE;
 static void
-stderr_message_internal(const char *title, const char *fmt,
-                        va_list *args,  va_list *args2);
+stderr_message_internal(const char *title, enum ShowAgainStyle showAgain,
+			const char *fmt, va_list *args,  va_list *args2);
 
 static void
-stderr_message_internal(const char *title, const char *fmt,
-                        va_list *args,  va_list *args2)
+stderr_message_internal(const char *title, enum ShowAgainStyle showAgain,
+			const char *fmt, va_list *args,  va_list *args2)
 {
   static gchar *buf = NULL;
   static gint   alloc = 0;

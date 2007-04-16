@@ -165,13 +165,14 @@ typedef struct _DiaUnitSpinner DiaUnitSpinner;
 typedef struct _DiaUnitSpinnerClass DiaUnitSpinnerClass;
 
 typedef enum {
-  DIA_UNIT_FEET,
-  DIA_UNIT_METER,
+  DIA_UNIT_CENTIMETER,
   DIA_UNIT_DECIMETER,
+  DIA_UNIT_FEET,
+  DIA_UNIT_INCH,
+  DIA_UNIT_METER,
   DIA_UNIT_MILLIMETER,
   DIA_UNIT_POINT,
-  DIA_UNIT_CENTIMETER,
-  DIA_UNIT_INCH,
+  DIA_UNIT_PICA,
 } DiaUnit;
 
 struct _DiaUnitSpinner {
@@ -187,10 +188,10 @@ struct _DiaUnitSpinnerClass {
 
 GtkType    dia_unit_spinner_get_type  (void);
 GtkWidget *dia_unit_spinner_new       (GtkAdjustment *adjustment,
-				       guint digits,
 				       DiaUnit adj_unit);
 void       dia_unit_spinner_set_value (DiaUnitSpinner *self, gfloat val);
 gfloat     dia_unit_spinner_get_value (DiaUnitSpinner *self);
+GList *    get_units_name_list(void);
 
 /* DiaDynamicMenu */
 
@@ -235,25 +236,23 @@ struct _DiaDynamicMenu {
 
 struct _DiaDynamicMenuClass {
   GtkOptionMenuClass parent_class;
+  void (*default_handler) (DiaDynamicMenu *dss);
 };
 
 GtkType    dia_dynamic_menu_get_type  (void);
 
 GtkWidget *dia_dynamic_menu_new(DDMCreateItemFunc create,
-				DDMCallbackFunc activate, gpointer userdata,
+				gpointer userdata,
 				GtkMenuItem *otheritem, gchar *persist);
 GtkWidget *dia_dynamic_menu_new_stringbased(GtkMenuItem *otheritem, 
-					    DDMCallbackFunc activate,
 					    gpointer userdata,
 					    gchar *persist);
 GtkWidget *dia_dynamic_menu_new_listbased(DDMCreateItemFunc create,
-					  DDMCallbackFunc activate,
 					  gpointer userdata,
 					  gchar *other_label,
 					  GList *items, gchar *persist);
 GtkWidget *dia_dynamic_menu_new_stringlistbased(gchar *other_label,
 						GList *items, 
-						DDMCallbackFunc activate,
 						gpointer userdata,
 						gchar *persist);
 void dia_dynamic_menu_add_default_entry(DiaDynamicMenu *ddm, const gchar *entry);
@@ -264,6 +263,7 @@ void dia_dynamic_menu_set_max_entries(DiaDynamicMenu *ddm, gint max);
 void dia_dynamic_menu_set_columns(DiaDynamicMenu *ddm, gint cols);
 gchar *dia_dynamic_menu_get_entry(DiaDynamicMenu *ddm);
 void dia_dynamic_menu_select_entry(DiaDynamicMenu *ddm, const gchar *entry);
+
 
 /* **** Util functions for Gtk stuff **** */
 /** Create a toggle button with two icons (created with gdk-pixbuf-csource,

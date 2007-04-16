@@ -22,6 +22,7 @@
 #include "color.h"
 #include "diagram_tree_window.h"
 #include "diagramdata.h"
+#include "lib/widgets.h"
 
 #define DEFAULT_GRID_COLOR { 0.85, .90, .90 }
 #define DEFAULT_PAGEBREAK_COLOR { 0.0, 0.0, 0.6 }
@@ -52,6 +53,9 @@ struct DiaPreferences {
   int undo_depth;
   int reverse_rubberbanding_intersects;
   guint recent_documents_list_size;
+
+  gchar* length_unit;
+  gchar* fontsize_unit;
   
   struct {
     int visible;

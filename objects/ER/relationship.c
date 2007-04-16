@@ -169,11 +169,11 @@ static PropOffset relationship_offsets[] = {
   { "right_cardinality", PROP_TYPE_STRING, offsetof(Relationship, right_cardinality) },
   { "rotate", PROP_TYPE_BOOL, offsetof(Relationship, rotate) },
   { "identifying", PROP_TYPE_BOOL, offsetof(Relationship, identifying) },
-  { "line_width", PROP_TYPE_REAL, offsetof(Relationship, border_width) },
+  { "line_width", PROP_TYPE_LENGTH, offsetof(Relationship, border_width) },
   { "line_colour", PROP_TYPE_COLOUR, offsetof(Relationship, border_color) },
   { "fill_colour", PROP_TYPE_COLOUR, offsetof(Relationship, inner_color) },
   { "text_font", PROP_TYPE_FONT, offsetof (Relationship, font) },
-  { "text_height", PROP_TYPE_REAL, offsetof(Relationship, font_height) },
+  { "text_height", PROP_TYPE_FONTSIZE, offsetof(Relationship, font_height) },
   { NULL, 0, 0}
 };
 

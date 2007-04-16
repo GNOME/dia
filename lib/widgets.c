@@ -271,7 +271,15 @@ struct _DiaFontSelector
 struct _DiaFontSelectorClass
 {
   GtkHBoxClass parent_class;
+  void (*default_handler) (DiaFontSelector *dfs);
 };
+
+enum {
+    DFONTSEL_VALUE_CHANGED,
+    DFONTSEL_LAST_SIGNAL
+};
+
+static guint dfontsel_signals[DFONTSEL_LAST_SIGNAL] = { 0 };
 
 
 /* New and improved font selector:  Contains the three standard fonts
@@ -291,8 +299,9 @@ struct _DiaFontSelectorClass
  * +----------------+
  */
 
-static void dia_font_selector_fontmenu_callback(DiaDynamicMenu *button,
-						const gchar *fontname,
+static void dia_font_selector_fontmenu_callback(DiaDynamicMenu *ddm,
+						gpointer data);
+static void dia_font_selector_stylemenu_callback(GtkMenu *menu,
 						gpointer data);
 static void dia_font_selector_set_styles(DiaFontSelector *fs,
 					 const gchar *name,
@@ -307,6 +316,16 @@ dia_font_selector_class_init (DiaFontSelectorClass *class)
   GtkObjectClass *object_class;
   
   object_class = (GtkObjectClass*) class;
+
+  dfontsel_signals[DFONTSEL_VALUE_CHANGED]
+      = g_signal_new("value_changed"
+		     , G_TYPE_FROM_CLASS(class)
+		     , G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION
+		     , G_STRUCT_OFFSET(DiaFontSelectorClass, default_handler)
+		     , NULL, NULL
+		     , g_cclosure_marshal_VOID__VOID
+		     , G_TYPE_NONE
+		     , 0);
 }
 
 static int
@@ -366,15 +385,13 @@ dia_font_selector_init (DiaFontSelector *fs)
 			      g_strdup(pango_font_family_get_name(families[i])));
   }
   g_free (families);
-
-  fs->font_omenu = 
-    GTK_OPTION_MENU
-    (dia_dynamic_menu_new_listbased(dia_font_selector_create_string_item,
-				    dia_font_selector_fontmenu_callback,
-				    fs,
-				    _("Other fonts"),
-				    fontnames,
-				    "font-menu"));
+  
+  fs->font_omenu =
+      GTK_OPTION_MENU(dia_dynamic_menu_new_listbased(dia_font_selector_create_string_item,
+				     fs, _("Other fonts"),
+				     fontnames, "font-menu"));
+  g_signal_connect(fs->font_omenu, "changed",
+		   G_CALLBACK(dia_font_selector_fontmenu_callback), fs);
   dia_dynamic_menu_add_default_entry(DIA_DYNAMIC_MENU(fs->font_omenu),
 				     "sans");
   dia_dynamic_menu_add_default_entry(DIA_DYNAMIC_MENU(fs->font_omenu),
@@ -387,6 +404,7 @@ dia_font_selector_init (DiaFontSelector *fs)
   omenu = gtk_option_menu_new();
   fs->style_omenu = GTK_OPTION_MENU(omenu);
   menu = gtk_menu_new ();
+  /* No callback needed since fs->style_menu keeps getting replaced. */
   fs->style_menu = GTK_MENU(menu);
   gtk_option_menu_set_menu (GTK_OPTION_MENU (fs->style_omenu), menu);
 
@@ -448,10 +466,21 @@ dia_font_selector_get_family_from_name(GtkWidget *widget, const gchar *fontname)
 }
 
 static void
-dia_font_selector_fontmenu_callback(DiaDynamicMenu *ddm, const gchar *fontname, gpointer data) 
+dia_font_selector_fontmenu_callback(DiaDynamicMenu *ddm, gpointer data) 
 {
   DiaFontSelector *fs = DIAFONTSELECTOR(data);
+  char *fontname = dia_dynamic_menu_get_entry(ddm);
   dia_font_selector_set_styles(fs, fontname, -1);
+  g_signal_emit(GTK_OBJECT(fs),
+		dfontsel_signals[DFONTSEL_VALUE_CHANGED], 0);
+}
+
+static void
+dia_font_selector_stylemenu_callback(GtkMenu *menu, gpointer data)
+{
+  DiaFontSelector *fs = DIAFONTSELECTOR(data);
+  g_signal_emit(GTK_OBJECT(fs),
+		dfontsel_signals[DFONTSEL_VALUE_CHANGED], 0);
 }
 
 static char *style_labels[] = {
@@ -495,6 +524,9 @@ dia_font_selector_set_style_menu(DiaFontSelector *fs,
   GSList *group = NULL;
 
   menu = gtk_menu_new ();
+  g_signal_connect(menu, "selection-done",
+		   G_CALLBACK(dia_font_selector_stylemenu_callback), fs);
+  
   pango_font_family_list_faces(pff, &faces, &nfaces);
 
   for (i = 0; i < nfaces; i++) {
@@ -579,6 +611,8 @@ dia_font_selector_set_font(DiaFontSelector *fs, DiaFont *font)
   const gchar *fontname = dia_font_get_family(font);
   /* side effect: adds fontname to presistence list */
   dia_dynamic_menu_select_entry(DIA_DYNAMIC_MENU(fs->font_omenu), fontname);
+  g_signal_emit(GTK_OBJECT(fs),
+		dfontsel_signals[DFONTSEL_VALUE_CHANGED], 0);
   dia_font_selector_set_styles(fs, fontname, dia_font_get_style (font));
 }
 
@@ -949,11 +983,6 @@ dia_color_selector_more_ok(GtkWidget *ok, gpointer userdata)
 }
 
 static void
-dia_color_selector_activate(DiaDynamicMenu *ddm, const gchar *entry, gpointer data)
-{
-}
-
-static void
 dia_color_selector_more_callback(GtkWidget *widget, gpointer userdata)
 {
   GtkColorSelectionDialog *dialog = GTK_COLOR_SELECTION_DIALOG (gtk_color_selection_dialog_new(_("Select color")));
@@ -1024,7 +1053,6 @@ dia_color_selector_new ()
 {
   GtkWidget *otheritem = gtk_menu_item_new_with_label(_("More colors..."));
   GtkWidget *ddm = dia_dynamic_menu_new(dia_color_selector_create_string_item,
-					dia_color_selector_activate,
 					NULL,
 					GTK_MENU_ITEM(otheritem),
 					"color-menu");
@@ -1095,11 +1123,28 @@ struct _DiaArrowSelector
 struct _DiaArrowSelectorClass
 {
   GtkVBoxClass parent_class;
+  void (*default_handler) (DiaArrowSelector *dss);
 };
+
+enum {
+    DAS_VALUE_CHANGED,
+    DAS_LAST_SIGNAL
+};
+
+static guint das_signals[DAS_LAST_SIGNAL] = {0};
 
 static void
 dia_arrow_selector_class_init (DiaArrowSelectorClass *class)
 {
+  das_signals[DAS_VALUE_CHANGED]
+      = g_signal_new("value_changed"
+		     , G_TYPE_FROM_CLASS(class)
+		     , G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION
+		     , G_STRUCT_OFFSET(DiaArrowSelectorClass, default_handler)
+		     , NULL, NULL
+		     , g_cclosure_marshal_VOID__VOID
+		     , G_TYPE_NONE
+		     , 0);
 }
   
 static void
@@ -1116,9 +1161,10 @@ set_size_sensitivity(DiaArrowSelector *as)
 }
 
 static void
-arrow_type_change_callback(DiaDynamicMenu *ddm, const gchar *name, gpointer userdata)
+arrow_type_change_callback(DiaDynamicMenu *ddm, gpointer userdata)
 {
   set_size_sensitivity(DIA_ARROW_SELECTOR(userdata));
+  g_signal_emit(userdata, das_signals[DAS_VALUE_CHANGED], 0);
 }
 
 static GtkWidget *
@@ -1145,7 +1191,7 @@ dia_arrow_selector_init (DiaArrowSelector *as,
   
   GList *arrow_names = get_arrow_names();
   omenu = dia_dynamic_menu_new_listbased(create_arrow_menu_item,
-					 arrow_type_change_callback, as,
+					 as,
 					 _("More arrows"),
 					 arrow_names,
 					 "arrow-menu");
@@ -1155,6 +1201,8 @@ dia_arrow_selector_init (DiaArrowSelector *as,
   as->omenu = GTK_OPTION_MENU(omenu);
   gtk_box_pack_start(GTK_BOX(as), omenu, FALSE, TRUE, 0);
   gtk_widget_show(omenu);
+
+  g_signal_connect(omenu, "changed", G_CALLBACK(arrow_type_change_callback), as);
 
   box = gtk_hbox_new(FALSE,0);
   as->sizebox = GTK_HBOX(box);
@@ -1173,7 +1221,6 @@ dia_arrow_selector_init (DiaArrowSelector *as,
   gtk_box_pack_start_defaults(GTK_BOX(as), box);
 
   gtk_widget_show(box);
-
 }
 
 GType
@@ -1236,6 +1283,8 @@ dia_arrow_selector_set_arrow (DiaArrowSelector *as,
 				arrow_types[arrow_index_from_type(arrow.type)].name);
   set_size_sensitivity(as);
   dia_size_selector_set_size(DIA_SIZE_SELECTOR(as->size), arrow.width, arrow.length);
+
+  g_signal_emit(GTK_OBJECT(as), das_signals[DAS_VALUE_CHANGED], 0);
 }
 
 /************* DiaFileSelector: ***************/
@@ -1416,6 +1465,7 @@ struct _DiaUnitDef {
   char* name;
   char* unit;
   float factor;
+  int digits; /** Number of digits after the decimal separator */
 };
 
 /* from gnome-libs/libgnome/gnome-paper.c */
@@ -1424,14 +1474,14 @@ static const DiaUnitDef units[] =
   /* XXX does anyone *really* measure paper size in feet?  meters? */
 
   /* human name, abreviation, points per unit */
-  { "Feet",       "ft", 864 },
-  { "Meter",      "m",  2834.6457 },
-  { "Decimeter",  "dm", 283.46457 },
-  { "Millimeter", "mm", 2.8346457 },
-  { "Point",      "pt", 1. },
-  { "Centimeter", "cm", 28.346457 },
-  { "Inch",       "in", 72 },
-  { "Pica",       "pi", 12 },
+  { "Centimeter", "cm", 28.346457, 2 },
+  { "Decimeter",  "dm", 283.46457, 3 },
+  { "Feet",       "ft", 864, 4 },
+  { "Inch",       "in", 72, 3 },
+  { "Meter",      "m",  2834.6457, 4 },
+  { "Millimeter", "mm", 2.8346457, 2 },
+  { "Point",      "pt", 1, 2 },
+  { "Pica",       "pi", 12, 2 },
   { 0 }
 };
 
@@ -1518,13 +1568,13 @@ dia_unit_spinner_init(DiaUnitSpinner *self)
 }
 
 GtkWidget *
-dia_unit_spinner_new(GtkAdjustment *adjustment, guint digits, DiaUnit adj_unit)
+dia_unit_spinner_new(GtkAdjustment *adjustment, DiaUnit adj_unit)
 {
   DiaUnitSpinner *self = gtk_type_new(dia_unit_spinner_get_type());
 
   self->unit_num = adj_unit;
 
-  gtk_spin_button_configure(GTK_SPIN_BUTTON(self), adjustment, 0.0, digits);
+  gtk_spin_button_configure(GTK_SPIN_BUTTON(self), adjustment, 0.0, units[adj_unit].digits);
 
   if (adjustment) {
     gtk_signal_disconnect_by_data(GTK_OBJECT(adjustment),
@@ -1632,6 +1682,20 @@ dia_unit_spinner_activate(GtkEntry *editable)
     dia_unit_spinner_update(DIA_UNIT_SPINNER(editable));
 }
 
+GList *
+get_units_name_list(void)
+{
+  int i;
+  static GList *name_list = NULL;
+
+  if (name_list == NULL) {
+    for (i = 0; units[i].name != NULL; i++) {
+      name_list = g_list_append(name_list, units[i].name);
+    }
+  }
+
+  return name_list;
+}
 
 /* ************************ Dynamic menus ************************ */
 
@@ -1642,6 +1706,13 @@ static void dia_dynamic_menu_create_sublist(DiaDynamicMenu *ddm,
 					    DDMCreateItemFunc create);
 static void dia_dynamic_menu_create_menu(DiaDynamicMenu *ddm);
 static void dia_dynamic_menu_destroy(GtkObject *object);
+
+enum {
+    DDM_VALUE_CHANGED,
+    DDM_LAST_SIGNAL
+};
+
+static guint ddm_signals[DDM_LAST_SIGNAL] = { 0 };
 
 GtkType
 dia_dynamic_menu_get_type(void)
@@ -1670,6 +1741,16 @@ dia_dynamic_menu_class_init(DiaDynamicMenuClass *class)
   GtkObjectClass *object_class = (GtkObjectClass*)class;
 
   object_class->destroy = dia_dynamic_menu_destroy;
+  
+  ddm_signals[DDM_VALUE_CHANGED]
+      = g_signal_new("changed"
+		     , G_TYPE_FROM_CLASS(class)
+		     , G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION
+		     , G_STRUCT_OFFSET(DiaDynamicMenuClass, default_handler)
+		     , NULL, NULL
+		     , g_cclosure_marshal_VOID__VOID
+		     , G_TYPE_NONE
+		     , 0);
 }
 
 static void
@@ -1702,7 +1783,7 @@ dia_dynamic_menu_destroy(GtkObject *object)
  */
 GtkWidget *
 dia_dynamic_menu_new(DDMCreateItemFunc create, 
-		     DDMCallbackFunc activate, gpointer userdata,
+		     gpointer userdata,
 		     GtkMenuItem *otheritem, gchar *persist)
 {
   DiaDynamicMenu *ddm;
@@ -1712,7 +1793,6 @@ dia_dynamic_menu_new(DDMCreateItemFunc create,
   ddm = DIA_DYNAMIC_MENU ( gtk_type_new (dia_dynamic_menu_get_type ()));
   
   ddm->create_func = create;
-  ddm->activate_func = activate;
   ddm->userdata = userdata;
   ddm->other_item = otheritem;
   ddm->persistent_name = persist;
@@ -1746,9 +1826,10 @@ dia_dynamic_menu_select_entry(DiaDynamicMenu *ddm, const gchar *name)
     else
       gtk_option_menu_set_history(GTK_OPTION_MENU(ddm), 0);
   }
-  if (ddm->activate_func != NULL) {
-    (ddm->activate_func)(ddm, name, ddm->userdata);
-  }
+
+  g_free(ddm->active);
+  ddm->active = g_strdup(name);
+  g_signal_emit(GTK_OBJECT(ddm), ddm_signals[DDM_VALUE_CHANGED], 0);
 }
 
 static void
@@ -1771,12 +1852,11 @@ dia_dynamic_menu_create_string_item(DiaDynamicMenu *ddm, gchar *string)
  */
 GtkWidget *
 dia_dynamic_menu_new_stringbased(GtkMenuItem *otheritem, 
-				 DDMCallbackFunc activate,
 				 gpointer userdata,
 				 gchar *persist)
 {
   GtkWidget *ddm = dia_dynamic_menu_new(dia_dynamic_menu_create_string_item,
-					activate, userdata,
+					userdata,
 					otheritem, persist);
   return ddm;
 }
@@ -1787,13 +1867,12 @@ dia_dynamic_menu_new_stringbased(GtkMenuItem *otheritem,
  */
 GtkWidget *
 dia_dynamic_menu_new_listbased(DDMCreateItemFunc create,
-			       DDMCallbackFunc activate,
 			       gpointer userdata,
 			       gchar *other_label, GList *items, 
 			       gchar *persist)
 {
   GtkWidget *item = gtk_menu_item_new_with_label(other_label);
-  GtkWidget *ddm = dia_dynamic_menu_new(create, activate, userdata,
+  GtkWidget *ddm = dia_dynamic_menu_new(create, userdata,
 					GTK_MENU_ITEM(item), persist);
   dia_dynamic_menu_create_sublist(DIA_DYNAMIC_MENU(ddm), items,  create);
 
@@ -1807,12 +1886,11 @@ dia_dynamic_menu_new_listbased(DDMCreateItemFunc create,
 GtkWidget *
 dia_dynamic_menu_new_stringlistbased(gchar *other_label, 
 				     GList *items,
-				     DDMCallbackFunc activate,
 				     gpointer userdata,
 				     gchar *persist)
 {
   return dia_dynamic_menu_new_listbased(dia_dynamic_menu_create_string_item,
-					activate, userdata,
+					userdata,
 					other_label, items, persist);
 }
 
@@ -1881,9 +1959,6 @@ dia_dynamic_menu_add_entry(DiaDynamicMenu *ddm, const gchar *entry)
 {
   GList *tmp;
   gboolean existed;
-
-  g_free(ddm->active);
-  ddm->active = g_strdup(entry);
 
   for (tmp = ddm->default_entries; tmp != NULL; tmp = g_list_next(tmp)) {
     if (!g_strcasecmp(tmp->data, entry))
@@ -2111,3 +2186,5 @@ dia_toggle_button_new_with_icons(const guint8 *on_icon,
   return dia_toggle_button_new(gtk_image_new_from_pixbuf(p1),
 			       gtk_image_new_from_pixbuf(p2));
 }
+
+

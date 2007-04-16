@@ -402,7 +402,7 @@ group_describe_props(Group *group)
 
       if (desc) descs = g_list_append(descs, (gpointer)desc);
     }
-    group->pdesc = prop_desc_lists_intersection(descs);
+    group->pdesc = prop_desc_lists_union(descs);
     g_list_free(descs); /* XXX: haven't we got a leak here ? */
 
     if (group->pdesc != NULL) {

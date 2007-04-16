@@ -466,8 +466,8 @@ objects/KAOS/Makefile
 objects/Misc/Makefile
 objects/network/Makefile
 objects/SADT/Makefile
-objects/standard/Makefile
 objects/SISSI/Makefile
+objects/standard/Makefile
 objects/UML/Makefile
 shapes/Makefile
 shapes/Assorted/Makefile

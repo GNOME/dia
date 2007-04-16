@@ -22,7 +22,14 @@
 
 G_BEGIN_DECLS
 
-typedef void (*MessageInternal)(const char *title, const char *fmt,
+enum ShowAgainStyle {
+  ALWAYS_SHOW,
+  SUGGEST_SHOW_AGAIN,
+  SUGGEST_NO_SHOW_AGAIN
+};
+
+typedef void (*MessageInternal)(const char *title, enum ShowAgainStyle showAgain,
+				const char *fmt,
                                 va_list *args,  va_list *args2);
 
 void set_message_func(MessageInternal func);

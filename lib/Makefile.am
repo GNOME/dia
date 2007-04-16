@@ -160,6 +160,8 @@ libdia_la_SOURCES =  \
 		diamarshal.h \
 		debug.c \
 		debug.h \
+		prefs.c \
+		prefs.h \
 		dia-lib-icons.h
 
 #		charconv.c \

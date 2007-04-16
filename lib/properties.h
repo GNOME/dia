@@ -477,10 +477,10 @@ extern PropEnumData prop_std_text_align_data[];
 #endif
 
 #define PROP_STD_LINE_WIDTH \
-  { "line_width", PROP_TYPE_REAL, PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD, \
+  { "line_width", PROP_TYPE_LENGTH, PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD, \
     N_("Line width"), NULL, &prop_std_line_width_data }
 #define PROP_STD_LINE_WIDTH_OPTIONAL \
-  { "line_width", PROP_TYPE_REAL, PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD|PROP_FLAG_OPTIONAL, \
+  { "line_width", PROP_TYPE_LENGTH, PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD|PROP_FLAG_OPTIONAL, \
     N_("Line width"), NULL, &prop_std_line_width_data }
 #define PROP_STD_LINE_COLOUR \
   { "line_colour", PROP_TYPE_COLOUR, PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD, \
@@ -533,7 +533,7 @@ extern PropEnumData prop_std_text_align_data[];
         PROP_STD_TEXT_FONT_OPTIONS(PROP_FLAG_VISIBLE|PROP_FLAG_DONT_SAVE)
 
 #define PROP_STD_TEXT_HEIGHT_OPTIONS(options) \
-  { "text_height", PROP_TYPE_REAL, (options), \
+  { "text_height", PROP_TYPE_FONTSIZE, (options), \
     N_("Font size"), NULL, &prop_std_text_height_data }
 #define PROP_STD_TEXT_HEIGHT \
         PROP_STD_TEXT_HEIGHT_OPTIONS(PROP_FLAG_VISIBLE|PROP_FLAG_DONT_SAVE)

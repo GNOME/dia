@@ -36,6 +36,7 @@
 #include "geometry.h"
 #include "connpoint_line.h"
 #include "prop_geomtypes.h"
+#include "prefs.h"
 
 static void fontsizeprop_reset_widget(FontsizeProperty *prop, WIDGET *widget);
 
@@ -72,7 +73,7 @@ realprop_get_widget(RealProperty *prop, PropDialog *dialog)
                                                          0.1, 1.0, 1.0));
   GtkWidget *ret = gtk_spin_button_new(adj, 1.0, 2);
   gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(ret),TRUE);
-  prophandler_connect(&prop->common,GTK_OBJECT(adj),"value_changed");
+  prophandler_connect(&prop->common,GTK_OBJECT(ret),"value_changed");
   
   return ret;
 }
@@ -181,7 +182,7 @@ lengthprop_get_widget(LengthProperty *prop, PropDialog *dialog)
                                                          G_MINFLOAT, 
                                                          G_MAXFLOAT,
                                                          0.1, 1.0, 1.0));
-  GtkWidget *ret = dia_unit_spinner_new(adj, 2, DIA_UNIT_CENTIMETER);
+  GtkWidget *ret = dia_unit_spinner_new(adj, prefs_get_length_unit());
   /*  gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(ret),TRUE);*/
   prophandler_connect(&prop->common,GTK_OBJECT(adj),"value_changed");
   
@@ -296,7 +297,7 @@ fontsizeprop_get_widget(FontsizeProperty *prop, PropDialog *dialog)
                                                          G_MINFLOAT, 
                                                          G_MAXFLOAT,
                                                          0.1, 1.0, 1.0));
-  GtkWidget *ret = dia_unit_spinner_new(adj, 2, DIA_UNIT_POINT);
+  GtkWidget *ret = dia_unit_spinner_new(adj, prefs_get_fontsize_unit());
   /*  gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(ret),TRUE);*/
   prophandler_connect(&prop->common,GTK_OBJECT(adj),"value_changed");
   fontsizeprop_reset_widget(prop, ret);

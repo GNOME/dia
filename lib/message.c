@@ -28,15 +28,18 @@
 #include "intl.h"
 #include "utils.h"
 #include "message.h"
+#include "persistence.h"
 
 static GHashTable *message_hash_table;
 
 typedef struct {
+  gchar *title;
   GtkWidget *dialog;
   GtkWidget *repeat_label;
   GList *repeats;
   GtkWidget *repeat_view;
   GtkWidget *show_repeats;
+  GtkWidget *no_show_again;
 } DiaMessageInfo;
 
 static void
@@ -51,15 +54,23 @@ gtk_message_toggle_repeats(GtkWidget *button, gpointer *userdata) {
 }
 
 static void
+gtk_message_toggle_show_again(GtkWidget *button, gpointer *userdata) {
+  DiaMessageInfo *msginfo = (DiaMessageInfo*)userdata;
+  persistence_set_boolean(msginfo->title, 
+			  gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(button)));
+}
+
+static void
 message_dialog_destroyed(GtkWidget *widget, gpointer userdata)
 {
   DiaMessageInfo *msginfo = (DiaMessageInfo *)userdata;
 
+  msginfo->title = NULL;
   msginfo->dialog = NULL;
   msginfo->repeat_label = NULL;
   msginfo->repeat_view = NULL;
   msginfo->show_repeats = NULL;
-  
+  msginfo->no_show_again = NULL;
 }
 
 /** Set up a dialog for these messages.
@@ -90,6 +101,7 @@ message_create_dialog(const gchar *title, DiaMessageInfo *msginfo, gchar *buf)
   if (title) {
     gchar *real_title;
 
+    msginfo->title = title;
     real_title = g_strdup_printf ("Dia: %s", title);
     gtk_window_set_title (GTK_WINDOW(dialog), real_title);
     g_free (real_title);
@@ -127,10 +139,18 @@ message_create_dialog(const gchar *title, DiaMessageInfo *msginfo, gchar *buf)
       gtk_text_buffer_insert_at_cursor(textbuffer, (gchar*)repeats->data, -1);
     }
   }
+
+  msginfo->no_show_again =
+    gtk_check_button_new_with_label(_("Don't show this message again"));
+  gtk_container_add(GTK_CONTAINER(GTK_DIALOG(msginfo->dialog)->vbox), 
+		    msginfo->no_show_again);
+  g_signal_connect(G_OBJECT(msginfo->no_show_again), "toggled",
+		   G_CALLBACK(gtk_message_toggle_show_again), msginfo);
 }
 
 static void
-gtk_message_internal(const char* title, const char *fmt,
+gtk_message_internal(const char* title, enum ShowAgainStyle showAgain,
+		     const char *fmt,
                      va_list *args,  va_list *args2)
 {
   static gchar *buf = NULL;
@@ -138,6 +158,18 @@ gtk_message_internal(const char* title, const char *fmt,
   gint len;
   DiaMessageInfo *msginfo;
   GtkTextBuffer *textbuffer;
+  gboolean askForShowAgain = FALSE;
+
+  if (showAgain != ALWAYS_SHOW) {
+    /* We persistently stored that the user has chosen to not see the
+     * dialog again (whether by checking or not unchecking the box) */
+    persistence_register_boolean((gchar *)title, FALSE);
+    if (persistence_get_boolean((gchar *)title)) {
+      /* If not showing again, just return at once */
+      return;
+    }
+    askForShowAgain = TRUE;    
+  }
 
   if (message_hash_table == NULL) {
     message_hash_table = g_hash_table_new(g_str_hash, g_str_equal);
@@ -180,7 +212,17 @@ gtk_message_internal(const char* title, const char *fmt,
     textbuffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(msginfo->repeat_view));
     gtk_text_buffer_insert_at_cursor(textbuffer, buf, -1);
   }
+
   msginfo->repeats = g_list_append(msginfo->repeats, g_strdup(buf));
+
+  if (askForShowAgain) {
+    gtk_widget_show(msginfo->no_show_again);
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(msginfo->no_show_again),
+				 showAgain == SUGGEST_NO_SHOW_AGAIN);
+  } else {
+    gtk_widget_hide(msginfo->no_show_again);
+  }
+
   gtk_widget_show (msginfo->dialog);
 }
 
@@ -200,11 +242,15 @@ message(const char *title, const char *format, ...)
 
   va_start (args, format);
   va_start (args2, format);
-  message_internal(title, format, &args, &args2);
+  message_internal(title, ALWAYS_SHOW, format, &args, &args2);
   va_end (args);
   va_end (args2);
 }
 
+/** Emit a message about something the user should be aware of.
+ *  In the default GTK message system, this message will by default only
+ *  be shown once.
+ */
 void
 message_notice(const char *format, ...)
 {
@@ -212,10 +258,15 @@ message_notice(const char *format, ...)
 
   va_start (args, format);
   va_start (args2, format);
-  message_internal(_("Notice"), format, &args, &args2);
+  message_internal(_("Notice"), SUGGEST_NO_SHOW_AGAIN, format, &args, &args2);
   va_end (args);
   va_end (args2);
 }
+
+/** Emit a message about a possible danger.
+ *  In the default GTK message system, this message can be made to only be
+ *  shown once, but is by default shown every time it is invoked.
+ */
 void
 message_warning(const char *format, ...)
 {
@@ -223,11 +274,14 @@ message_warning(const char *format, ...)
 
   va_start (args, format);
   va_start (args2, format);
-  message_internal(_("Warning"), format, &args, &args2);
+  message_internal(_("Warning"), SUGGEST_SHOW_AGAIN, format, &args, &args2);
   va_end (args);
   va_end (args2);
 }
 
+/** Emit a message about an error.
+ *  In the default GTK message system, this message is always shown.
+ */
 void
 message_error(const char *format, ...)
 {
@@ -235,7 +289,7 @@ message_error(const char *format, ...)
 
   va_start (args, format);
   va_start (args2, format);
-  message_internal(_("Error"), format, &args, &args2);
+  message_internal(_("Error"), ALWAYS_SHOW, format, &args, &args2);
   va_end (args);
   va_end (args2);
 }

@@ -35,6 +35,7 @@
 
 #include "preferences.h"
 #include "paper.h"
+#include "prefs.h"
 
 enum {
   CHANGED,
@@ -204,7 +205,7 @@ dia_page_layout_init(DiaPageLayout *self)
 
   self->tmargin = dia_unit_spinner_new(
 	GTK_ADJUSTMENT(gtk_adjustment_new(1, 0,100, 0.1,10,10)),
-	2, DIA_UNIT_CENTIMETER);
+	prefs_get_length_unit());
   gtk_table_attach(GTK_TABLE(table), self->tmargin, 1,2, 0,1,
 		   GTK_FILL|GTK_EXPAND, GTK_FILL|GTK_EXPAND, 0, 0);
   gtk_widget_show(self->tmargin);
@@ -217,7 +218,7 @@ dia_page_layout_init(DiaPageLayout *self)
 
   self->bmargin = dia_unit_spinner_new(
 	GTK_ADJUSTMENT(gtk_adjustment_new(1, 0,100, 0.1,10,10)),
-	2, DIA_UNIT_CENTIMETER);
+	prefs_get_length_unit());
   gtk_table_attach(GTK_TABLE(table), self->bmargin, 1,2, 1,2,
 		   GTK_FILL|GTK_EXPAND, GTK_FILL|GTK_EXPAND, 0, 0);
   gtk_widget_show(self->bmargin);
@@ -230,7 +231,7 @@ dia_page_layout_init(DiaPageLayout *self)
 
   self->lmargin = dia_unit_spinner_new(
 	GTK_ADJUSTMENT(gtk_adjustment_new(1, 0,100, 0.1,10,10)),
-	2, DIA_UNIT_CENTIMETER);
+	prefs_get_length_unit());
   gtk_table_attach(GTK_TABLE(table), self->lmargin, 1,2, 2,3,
 		   GTK_FILL|GTK_EXPAND, GTK_FILL|GTK_EXPAND, 0, 0);
   gtk_widget_show(self->lmargin);
@@ -243,7 +244,7 @@ dia_page_layout_init(DiaPageLayout *self)
 
   self->rmargin = dia_unit_spinner_new(
 	GTK_ADJUSTMENT(gtk_adjustment_new(1, 0,100, 0.1,10,10)),
-	2, DIA_UNIT_CENTIMETER);
+	prefs_get_length_unit());
   gtk_table_attach(GTK_TABLE(table), self->rmargin, 1,2, 3,4,
 		   GTK_FILL|GTK_EXPAND, GTK_FILL|GTK_EXPAND, 0, 0);
   gtk_widget_show(self->rmargin);

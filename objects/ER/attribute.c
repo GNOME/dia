@@ -182,11 +182,11 @@ static PropOffset attribute_offsets[] = {
   { "weakkey", PROP_TYPE_BOOL, offsetof(Attribute, weakkey) },
   { "derived", PROP_TYPE_BOOL, offsetof(Attribute, derived) },
   { "multivalue", PROP_TYPE_BOOL, offsetof(Attribute, multivalue) },
-  { "line_width", PROP_TYPE_REAL, offsetof(Attribute, border_width) },
+  { "line_width", PROP_TYPE_LENGTH, offsetof(Attribute, border_width) },
   { "line_colour", PROP_TYPE_COLOUR, offsetof(Attribute, border_color) },
   { "fill_colour", PROP_TYPE_COLOUR, offsetof(Attribute, inner_color) },
   { "text_font", PROP_TYPE_FONT, offsetof(Attribute, font) },
-  { "text_height", PROP_TYPE_REAL, offsetof(Attribute, font_height) },
+  { "text_height", PROP_TYPE_FONTSIZE, offsetof(Attribute, font_height) },
   { NULL, 0, 0}
 };
 

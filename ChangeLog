@@ -1,3 +1,72 @@
+2007-04-16  Lars Clausen  <lars@raeder.dk>
+
+	* doc/en/usage-layers.xml: Use normal quotation marks.  Fixes bug
+	#404535. 
+
+	* plug-ins/svg/render_svg.c (new_svg_renderer): Add a namespace
+	for SVG output, patch by Thomas Harding
+	<thomas.harding@laposte.net>.  Fixes bug #424530. 
+
+	* lib/diasvgrenderer.c (draw_text_line): Don't supply units for
+	text size when nobody else does.  Doesn't fix FireFox size
+	strangeness, but at least makes the SVG a little more consistent.
+
+	* plug-ins/pstricks/render_pstricks.c: Patch of extra line endings
+	and inverted y-coords from Dan Gildea <gildea@pobox.com>.
+
+	* plug-ins/dxf/dxf-import.c (read_entity_polyline_dxf): Make
+	closed lines be polygons instead of polylines.  Fixes bug #421250.
+
+	* lib/persistence.[ch] (persistence_boolean_is_registered): Function
+	to check if a boolean value is registered at all.  Support
+	functions for this check in general.
+
+	* lib/prop_geomtypes.c (realprop_get_widget): Fix wrong parameter
+	to gtk_spin_button_set_numeric.  From a bug whose number I forget.
+	
+	(lengthprop_get_widget, fontsizeprop_get_widget): Use prefs-set units.
+
+	* lib/propdialogs.c: 
+	* lib/group.c (group_describe_props): Set properties properly for
+	groups.  By Sameer D. Sahasrabuddhe <sameerds@dmail.com>, work on
+	bug #60331.
+
+	* lib/widgets.[ch]:
+	* app/interface.c (sheet_option_menu_changed): Use signals for
+	dynamic menu changes.  By  Sameer D. Sahasrabuddhe
+	<sameerds@dmail.com>, work on bug #60331.
+
+	* app/undo.c: 
+	* app/commands.c: New commands for moving objects between layers.
+	Not entirely working yet.
+
+	* app/diapagelayout.c (dia_page_layout_init): 
+	* app/preferences.c: Added new prefs length_unit and fontsize_unit
+	and used these in margins, properties.
+	
+	* app/preferences.c: 
+	* lib/prefs.[ch]: Core preferences data structure moved into lib.
+
+	* app/app_procs.c: 
+	* lib/message.[ch]: Added three intermediate-level message functions
+	to distinguish between notices, warnings and errors.  Errors are
+	always shown, warnings are shown unless the user takes action,
+	notices are shown once unless the user takes action.
+
+	* objects/ER/relationship.c: 
+	* objects/ER/entity.c: 
+	* objects/custom/custom_object.c: 
+	* objects/ER/attribute.c: 
+	* objects/chronogram/chronoref.c: 
+	* objects/AADL/aadlbox.c: 
+	* objects/chronogram/chronoline.c:
+	* lib/properties.h (PROP_STD_TEXT_HEIGHT_OPTIONS): Set a number of
+	properties to be length/fontsize when applicable.
+
+	* widgets.c (get_units_name_list): 
+	* widgets.h: New function to give names of units for prefs.  Sort
+	units list alphabetically.
+
 2007-04-15  Steffen Macke <sdteffen@gmail.com>
 
 	* installer/win32/locale/english.nsh:
@@ -253,11 +322,8 @@
 	* installer/win32/locale/Makefile.am: 
 	* installer/win32/dia.nsi: Added Slovak translations for installer.
 	Thanks to helix84 <helix84@users.sourceforge.net>
-	
-2007-03-11  Lars Clausen  <lars@raeder.dk>
 
-	* widgets.c (get_units_name_list): 
-	* widgets.h: New function to give names of units for prefs.
+2007-03-11  Lars Clausen  <lars@raeder.dk>
 
 	* NEWS: 
 	* RELEASE-PROCESS: 

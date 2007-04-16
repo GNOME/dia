@@ -178,11 +178,15 @@ property_signal_handler(GtkObject *obj,
     DiaObject *obj = dialog->obj_copy;
     int j;
 
-    g_assert(prop->event_handler);
     g_assert(obj);
     g_assert(object_complies_with_stdprop(obj));
     g_assert(obj->ops->set_props);
     g_assert(obj->ops->get_props);
+
+    prop->experience &= !PXP_NOTSET;
+
+    if (!prop->event_handler)
+	return;
 
     /* g_message("Received a signal for object %s from property %s",
        obj->type->name,prop->name); */
@@ -216,7 +220,6 @@ prophandler_connect(const Property *prop,
 {
   DiaObject *obj = prop->self.dialog->obj_copy;
 
-  if (!prop->event_handler) return;
   if (0==strcmp(signal,"FIXME")) {
     g_warning("signal type unknown for this kind of property (name is %s), \n"
               "handler ignored.",prop->name);
@@ -244,7 +247,7 @@ prop_dialog_add_property(PropDialog *dialog, Property *prop)
   PropWidgetAssoc pwa;
   GtkWidget *label;
 
-  if ((prop->event_handler) && (!dialog->obj_copy)) 
+  if (!dialog->obj_copy)
     dialog->obj_copy = dialog->orig_obj->ops->copy(dialog->orig_obj);
 
   prop->self.dialog = dialog;
@@ -256,6 +259,7 @@ prop_dialog_add_property(PropDialog *dialog, Property *prop)
 
   prop->self.widget = widget;
   if (prop->ops->reset_widget) prop->ops->reset_widget(prop,widget);
+  prop->experience |= PXP_NOTSET;
   
   pwa.prop = prop;
   pwa.widget = widget;  
