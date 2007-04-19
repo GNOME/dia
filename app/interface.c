@@ -1007,7 +1007,7 @@ fill_sheet_wbox(Sheet *sheet)
 static void
 sheet_option_menu_changed(DiaDynamicMenu *menu, gpointer user_data)
 {
-    char *string = dia_dynamic_menu_get_entry(menu);
+  char *string = dia_dynamic_menu_get_entry(menu);
   Sheet *sheet = get_sheet_by_name(string);
   if (sheet == NULL) {
     message_warning(_("No sheet named %s"), string);
@@ -1015,6 +1015,7 @@ sheet_option_menu_changed(DiaDynamicMenu *menu, gpointer user_data)
     persistence_set_string("last-sheet-selected", string);
     fill_sheet_wbox(sheet);
   }
+  g_free(string);
 }
 
 static int
@@ -1049,7 +1050,7 @@ create_sheet_dropdown_menu(GtkWidget *parent)
   sheet_option_menu =
     dia_dynamic_menu_new_stringlistbased(_("Other sheets"), sheet_names, 
 					 NULL, "sheets");
-  g_signal_connect(sheet_option_menu, "changed",
+  g_signal_connect(DIA_DYNAMIC_MENU(sheet_option_menu), "value-changed",
 		   G_CALLBACK(sheet_option_menu_changed), sheet_option_menu);
   dia_dynamic_menu_add_default_entry(DIA_DYNAMIC_MENU(sheet_option_menu),
 				     "Assorted");

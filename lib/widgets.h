@@ -90,6 +90,10 @@ void       dia_line_style_selector_set_linestyle (DiaLineStyleSelector *as,
 #define DEFAULT_COLOR color_white
 
 
+/*
+  FIXME: DiaColorSelector is actually a DiaDynamicMenu,
+  as returned by dia_color_selector_new
+*/
 struct _DiaColorSelector
 {
   GtkButton button;
@@ -106,6 +110,7 @@ struct _DiaColorSelectorClass
   GtkButtonClass parent_class;
 };
 
+/* FIXME: _get_type is not implemented */
 GtkType    dia_color_selector_get_type  (void);
 GtkWidget* dia_color_selector_new       (void);
 void       dia_color_selector_get_color (GtkWidget *cs, Color *color);
@@ -236,7 +241,6 @@ struct _DiaDynamicMenu {
 
 struct _DiaDynamicMenuClass {
   GtkOptionMenuClass parent_class;
-  void (*default_handler) (DiaDynamicMenu *dss);
 };
 
 GtkType    dia_dynamic_menu_get_type  (void);

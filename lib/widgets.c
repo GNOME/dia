@@ -60,6 +60,13 @@ struct _DiaSizeSelectorClass
   GtkHBoxClass parent_class;
 };
 
+enum {
+    DSS_VALUE_CHANGED,
+    DSS_LAST_SIGNAL
+};
+
+static guint dss_signals[DSS_LAST_SIGNAL] = { 0 };
+
 static void
 dia_size_selector_unrealize(GtkWidget *widget)
 {
@@ -75,6 +82,14 @@ dia_size_selector_class_init (DiaSizeSelectorClass *class)
   object_class = (GtkObjectClass*) class;
   widget_class = (GtkWidgetClass*) class;
   widget_class->unrealize = dia_size_selector_unrealize;
+
+  dss_signals[DSS_VALUE_CHANGED]
+      = g_signal_new("value-changed",
+		     G_TYPE_FROM_CLASS(class),
+		     G_SIGNAL_RUN_FIRST,
+		     0, NULL, NULL,
+		     g_cclosure_marshal_VOID__VOID,
+		     G_TYPE_NONE, 0);
 }
 
 static void
@@ -115,6 +130,9 @@ dia_size_selector_ratio_callback(GtkAdjustment *limits, gpointer userdata)
   }
 
   in_progress = FALSE;
+
+  g_signal_emit(ss, dss_signals[DSS_VALUE_CHANGED], 0);
+
 }
 
 /** Update the ratio of this DSS to be the ratio of width to height.
@@ -259,6 +277,8 @@ dia_size_selector_get_size(DiaSizeSelector *ss, real *width, real *height)
 
 /************* DiaFontSelector: ***************/
 
+/* FIXME: Should these structs be in widgets.h instead? */
+
 struct _DiaFontSelector
 {
   GtkHBox hbox;
@@ -271,7 +291,6 @@ struct _DiaFontSelector
 struct _DiaFontSelectorClass
 {
   GtkHBoxClass parent_class;
-  void (*default_handler) (DiaFontSelector *dfs);
 };
 
 enum {
@@ -318,14 +337,12 @@ dia_font_selector_class_init (DiaFontSelectorClass *class)
   object_class = (GtkObjectClass*) class;
 
   dfontsel_signals[DFONTSEL_VALUE_CHANGED]
-      = g_signal_new("value_changed"
-		     , G_TYPE_FROM_CLASS(class)
-		     , G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION
-		     , G_STRUCT_OFFSET(DiaFontSelectorClass, default_handler)
-		     , NULL, NULL
-		     , g_cclosure_marshal_VOID__VOID
-		     , G_TYPE_NONE
-		     , 0);
+      = g_signal_new("value_changed",
+		     G_TYPE_FROM_CLASS(class),
+		     G_SIGNAL_RUN_FIRST,
+		     0, NULL, NULL,
+		     g_cclosure_marshal_VOID__VOID,
+		     G_TYPE_NONE, 0);
 }
 
 static int
@@ -390,7 +407,7 @@ dia_font_selector_init (DiaFontSelector *fs)
       GTK_OPTION_MENU(dia_dynamic_menu_new_listbased(dia_font_selector_create_string_item,
 				     fs, _("Other fonts"),
 				     fontnames, "font-menu"));
-  g_signal_connect(fs->font_omenu, "changed",
+  g_signal_connect(DIA_DYNAMIC_MENU(fs->font_omenu), "value-changed",
 		   G_CALLBACK(dia_font_selector_fontmenu_callback), fs);
   dia_dynamic_menu_add_default_entry(DIA_DYNAMIC_MENU(fs->font_omenu),
 				     "sans");
@@ -473,6 +490,7 @@ dia_font_selector_fontmenu_callback(DiaDynamicMenu *ddm, gpointer data)
   dia_font_selector_set_styles(fs, fontname, -1);
   g_signal_emit(GTK_OBJECT(fs),
 		dfontsel_signals[DFONTSEL_VALUE_CHANGED], 0);
+  g_free(fontname);
 }
 
 static void
@@ -1109,6 +1127,8 @@ dia_color_selector_set_color (GtkWidget *widget,
 
 
 /************* DiaArrowSelector: ***************/
+
+/* FIXME: Should these structs be in widgets.h instead? */
 struct _DiaArrowSelector
 {
   GtkVBox vbox;
@@ -1123,7 +1143,6 @@ struct _DiaArrowSelector
 struct _DiaArrowSelectorClass
 {
   GtkVBoxClass parent_class;
-  void (*default_handler) (DiaArrowSelector *dss);
 };
 
 enum {
@@ -1137,14 +1156,12 @@ static void
 dia_arrow_selector_class_init (DiaArrowSelectorClass *class)
 {
   das_signals[DAS_VALUE_CHANGED]
-      = g_signal_new("value_changed"
-		     , G_TYPE_FROM_CLASS(class)
-		     , G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION
-		     , G_STRUCT_OFFSET(DiaArrowSelectorClass, default_handler)
-		     , NULL, NULL
-		     , g_cclosure_marshal_VOID__VOID
-		     , G_TYPE_NONE
-		     , 0);
+      = g_signal_new("value_changed",
+		     G_TYPE_FROM_CLASS(class),
+		     G_SIGNAL_RUN_FIRST,
+		     0, NULL, NULL,
+		     g_cclosure_marshal_VOID__VOID,
+		     G_TYPE_NONE, 0);
 }
   
 static void
@@ -1164,7 +1181,15 @@ static void
 arrow_type_change_callback(DiaDynamicMenu *ddm, gpointer userdata)
 {
   set_size_sensitivity(DIA_ARROW_SELECTOR(userdata));
-  g_signal_emit(userdata, das_signals[DAS_VALUE_CHANGED], 0);
+  g_signal_emit(DIA_ARROW_SELECTOR(userdata),
+		das_signals[DAS_VALUE_CHANGED], 0);
+}
+
+static void
+arrow_size_change_callback(DiaSizeSelector *size, gpointer userdata)
+{
+  g_signal_emit(DIA_ARROW_SELECTOR(userdata),
+		das_signals[DAS_VALUE_CHANGED], 0);
 }
 
 static GtkWidget *
@@ -1202,7 +1227,9 @@ dia_arrow_selector_init (DiaArrowSelector *as,
   gtk_box_pack_start(GTK_BOX(as), omenu, FALSE, TRUE, 0);
   gtk_widget_show(omenu);
 
-  g_signal_connect(omenu, "changed", G_CALLBACK(arrow_type_change_callback), as);
+  g_signal_connect(DIA_DYNAMIC_MENU(omenu),
+		   "value-changed", G_CALLBACK(arrow_type_change_callback),
+		   as);
 
   box = gtk_hbox_new(FALSE,0);
   as->sizebox = GTK_HBOX(box);
@@ -1215,7 +1242,9 @@ dia_arrow_selector_init (DiaArrowSelector *as,
   size = dia_size_selector_new(0.0, 0.0);
   as->size = DIA_SIZE_SELECTOR(size);
   gtk_box_pack_start_defaults(GTK_BOX(box), size);
-  gtk_widget_show(size);  
+  gtk_widget_show(size);
+  g_signal_connect(size, "value-changed",
+		   G_CALLBACK(arrow_size_change_callback), as);
 
   set_size_sensitivity(as);
   gtk_box_pack_start_defaults(GTK_BOX(as), box);
@@ -1283,8 +1312,6 @@ dia_arrow_selector_set_arrow (DiaArrowSelector *as,
 				arrow_types[arrow_index_from_type(arrow.type)].name);
   set_size_sensitivity(as);
   dia_size_selector_set_size(DIA_SIZE_SELECTOR(as->size), arrow.width, arrow.length);
-
-  g_signal_emit(GTK_OBJECT(as), das_signals[DAS_VALUE_CHANGED], 0);
 }
 
 /************* DiaFileSelector: ***************/
@@ -1743,14 +1770,12 @@ dia_dynamic_menu_class_init(DiaDynamicMenuClass *class)
   object_class->destroy = dia_dynamic_menu_destroy;
   
   ddm_signals[DDM_VALUE_CHANGED]
-      = g_signal_new("changed"
-		     , G_TYPE_FROM_CLASS(class)
-		     , G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION
-		     , G_STRUCT_OFFSET(DiaDynamicMenuClass, default_handler)
-		     , NULL, NULL
-		     , g_cclosure_marshal_VOID__VOID
-		     , G_TYPE_NONE
-		     , 0);
+      = g_signal_new("value-changed",
+		     G_TYPE_FROM_CLASS(class),
+		     G_SIGNAL_RUN_FIRST,
+		     0, NULL, NULL,
+		     g_cclosure_marshal_VOID__VOID,
+		     G_TYPE_NONE, 0);
 }
 
 static void
@@ -1826,7 +1851,7 @@ dia_dynamic_menu_select_entry(DiaDynamicMenu *ddm, const gchar *name)
     else
       gtk_option_menu_set_history(GTK_OPTION_MENU(ddm), 0);
   }
-
+  
   g_free(ddm->active);
   ddm->active = g_strdup(name);
   g_signal_emit(GTK_OBJECT(ddm), ddm_signals[DDM_VALUE_CHANGED], 0);
@@ -1928,7 +1953,8 @@ dia_dynamic_menu_create_sublist(DiaDynamicMenu *ddm,
 void
 dia_dynamic_menu_add_default_entry(DiaDynamicMenu *ddm, const gchar *entry)
 {
-  ddm->default_entries = g_list_append(ddm->default_entries, g_strdup(entry));
+  ddm->default_entries = g_list_append(ddm->default_entries,
+				       g_strdup(entry));
 
   dia_dynamic_menu_create_menu(ddm);
 }
@@ -2060,14 +2086,14 @@ dia_dynamic_menu_reset(GtkWidget *item, gpointer userdata)
 {
   DiaDynamicMenu *ddm = DIA_DYNAMIC_MENU(userdata);
   PersistentList *plist = persistent_list_get(ddm->persistent_name);
-  gchar *active = g_strdup (ddm->active); 
+  gchar *active = dia_dynamic_menu_get_entry(ddm);
   g_list_foreach(plist->glist, (GFunc)g_free, NULL);
   g_list_free(plist->glist);
   plist->glist = NULL;
   dia_dynamic_menu_create_menu(ddm);
   if (active)
     dia_dynamic_menu_select_entry(ddm, active);
-  g_free (active);
+  g_free(active);
 }
 
 /** Set the maximum number of non-default entries.

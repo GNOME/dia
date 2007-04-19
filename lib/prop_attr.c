@@ -178,7 +178,7 @@ static WIDGET *
 arrowprop_get_widget(ArrowProperty *prop, PropDialog *dialog)
 { 
   GtkWidget *ret = dia_arrow_selector_new();
-  prophandler_connect(&prop->common,GTK_OBJECT(ret),"FIXME");
+  prophandler_connect(&prop->common,GTK_OBJECT(ret),"value-changed");
   return ret;
 }
 
@@ -295,7 +295,7 @@ static WIDGET *
 colorprop_get_widget(ColorProperty *prop, PropDialog *dialog)
 { 
   GtkWidget *ret = dia_color_selector_new();
-  prophandler_connect(&prop->common,GTK_OBJECT(ret),"FIXME");
+  prophandler_connect(&prop->common,GTK_OBJECT(ret),"value-changed");
   return ret;
 }
 
@@ -395,7 +395,7 @@ static WIDGET *
 fontprop_get_widget(FontProperty *prop, PropDialog *dialog)
 { 
   GtkWidget *ret = dia_font_selector_new();
-  prophandler_connect(&prop->common,GTK_OBJECT(ret),"FIXME");
+  prophandler_connect(&prop->common,GTK_OBJECT(ret),"value-changed");
   return ret;
 }
 

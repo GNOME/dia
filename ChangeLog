@@ -1,3 +1,17 @@
+2007-04-19  Lars Clausen  <lars@raeder.dk>
+
+	* lib/prop_attr.c: Use new signals in props. Patch from Sameer
+	D. Sahasrabuddhee <sameerds@dmail.com> for bug #60331.
+
+	* lib/widgets.c (dia_font_selector_class_init): Remove undefined
+	default handlers, fix leak of font name, define and use new
+	signal. Patch from Sameer D. Sahasrabuddhe <sameerds@dmail.com>
+	for bug #60331. 
+
+	* app/interface.c (sheet_option_menu_changed): Use new signal, fix
+	leak of sheet name.  Patch from Sameer D. Sahasrabuddhe
+	<sameerds@dmail.com> for bug #60331.
+
 2007-04-16  Lars Clausen  <lars@raeder.dk>
 
 	* doc/en/usage-layers.xml: Use normal quotation marks.  Fixes bug
