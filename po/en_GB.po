@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-27 19:46+0100\n"
-"PO-Revision-Date: 2007-03-27 19:47-0000\n"
+"POT-Creation-Date: 2007-04-25 07:13+0100\n"
+"PO-Revision-Date: 2007-04-25 07:16-0000\n"
 "Last-Translator: David Lodge <dave@cirt.net>\n"
 "Language-Team: English/GB <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -311,12 +311,12 @@ msgstr "Diagram%d.dia"
 msgid "No existing object to paste.\n"
 msgstr "No existing object to paste.\n"
 
-#: ../app/commands.c:537
-#: ../app/commands.c:575
+#: ../app/commands.c:582
+#: ../app/commands.c:620
 msgid "Could not find help directory"
 msgstr "Could not find help directory"
 
-#: ../app/commands.c:544
+#: ../app/commands.c:589
 #, c-format
 msgid ""
 "Could not open help directory:\n"
@@ -325,13 +325,13 @@ msgstr ""
 "Could not open help directory:\n"
 "%s"
 
-#: ../app/commands.c:611
+#: ../app/commands.c:656
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 "David Lodge <dave@cirt.net>, \n"
 "Alan Horkan <horkana tcd ie>"
 
-#: ../app/commands.c:613
+#: ../app/commands.c:658
 msgid ""
 "This program is free software; you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"
@@ -361,7 +361,7 @@ msgstr ""
 "along with this program; if not, write to the Free Software\n"
 "Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.\n"
 
-#: ../app/commands.c:636
+#: ../app/commands.c:681
 msgid "A program for drawing structured diagrams."
 msgstr "A program for drawing structured diagrams."
 
@@ -404,7 +404,7 @@ msgstr "Visible spacing"
 
 #. Hexes!
 #: ../app/dia-props.c:177
-#: ../app/preferences.c:164
+#: ../app/preferences.c:173
 msgid "Hex grid"
 msgstr "Hex grid"
 
@@ -422,7 +422,7 @@ msgid "Background"
 msgstr "Background"
 
 #: ../app/dia-props.c:220
-#: ../app/preferences.c:106
+#: ../app/preferences.c:109
 msgid "Grid Lines"
 msgstr "Grid Lines"
 
@@ -516,6 +516,17 @@ msgstr "%s error: only one input file expected."
 msgid "%s error: popt library not available on this system"
 msgstr "%s error: popt library not available on this system"
 
+#: ../app/diagram.c:221
+#, c-format
+msgid "Couldn't convert filename '%s' to UTF-8: %s\n"
+msgstr "Couldn't convert filename '%s' to UTF-8: %s\n"
+
+#: ../app/diagram.c:224
+#: ../lib/message.c:89
+#: ../lib/message.c:292
+msgid "Error"
+msgstr "Error"
+
 #: ../app/diagram_tree_menu.c:46
 msgid "/_Sort objects"
 msgstr "/_Sort objects"
@@ -598,20 +609,9 @@ msgid "/_Hide this type"
 msgstr "/_Hide this type"
 
 #: ../app/diagram_tree_window.c:80
-#: ../app/preferences.c:107
+#: ../app/preferences.c:110
 msgid "Diagram Tree"
 msgstr "Diagram Tree"
-
-#: ../app/diagram.c:221
-#, c-format
-msgid "Couldn't convert filename '%s' to UTF-8: %s\n"
-msgstr "Couldn't convert filename '%s' to UTF-8: %s\n"
-
-#: ../app/diagram.c:224
-#: ../lib/message.c:78
-#: ../lib/message.c:238
-msgid "Error"
-msgstr "Error"
 
 #: ../app/dialogs.c:51
 msgid "Ok"
@@ -623,59 +623,59 @@ msgid "Cancel"
 msgstr "Cancel"
 
 #. paper size
-#: ../app/diapagelayout.c:116
+#: ../app/diapagelayout.c:117
 msgid "Paper Size"
 msgstr "Paper Size"
 
 #. orientation
-#: ../app/diapagelayout.c:149
+#: ../app/diapagelayout.c:150
 msgid "Orientation"
 msgstr "Orientation"
 
 #. margins
-#: ../app/diapagelayout.c:187
+#: ../app/diapagelayout.c:188
 msgid "Margins"
 msgstr "Margins"
 
-#: ../app/diapagelayout.c:199
+#: ../app/diapagelayout.c:200
 msgid "Top:"
 msgstr "Top:"
 
-#: ../app/diapagelayout.c:212
+#: ../app/diapagelayout.c:213
 msgid "Bottom:"
 msgstr "Bottom:"
 
-#: ../app/diapagelayout.c:225
+#: ../app/diapagelayout.c:226
 msgid "Left:"
 msgstr "Left:"
 
-#: ../app/diapagelayout.c:238
+#: ../app/diapagelayout.c:239
 msgid "Right:"
 msgstr "Right:"
 
 #. Scaling
-#: ../app/diapagelayout.c:252
+#: ../app/diapagelayout.c:253
 msgid "Scaling"
 msgstr "Scaling"
 
-#: ../app/diapagelayout.c:263
+#: ../app/diapagelayout.c:264
 msgid "Scale:"
 msgstr "Scale:"
 
-#: ../app/diapagelayout.c:275
+#: ../app/diapagelayout.c:276
 msgid "Fit to:"
 msgstr "Fit to:"
 
-#: ../app/diapagelayout.c:287
+#: ../app/diapagelayout.c:288
 msgid "by"
 msgstr "by"
 
-#: ../app/diapagelayout.c:698
+#: ../app/diapagelayout.c:699
 #, c-format
 msgid "%0.3gcm x %0.3gcm"
 msgstr "%0.3gcm x %0.3gcm"
 
-#: ../app/diapagelayout.c:802
+#: ../app/diapagelayout.c:803
 #: ../app/pagesetup.c:76
 msgid "Page Setup"
 msgstr "Page Setup"
@@ -1007,41 +1007,41 @@ msgstr "Toggles object snapping for this window."
 msgid "NULL tooldata in tool_select_update"
 msgstr "NULL tooldata in tool_select_update"
 
-#: ../app/interface.c:1012
+#: ../app/interface.c:1013
 #, c-format
 msgid "No sheet named %s"
 msgstr "No sheet named %s"
 
-#: ../app/interface.c:1049
+#: ../app/interface.c:1051
 msgid "Other sheets"
 msgstr "Other sheets"
 
-#: ../app/interface.c:1107
+#: ../app/interface.c:1110
 #: ../sheets/Misc.sheet.in.h:3
 msgid "Misc"
 msgstr "Misc"
 
-#: ../app/interface.c:1168
+#: ../app/interface.c:1171
 msgid "Foreground & background colors for new objects.  The small black and white squares reset colors.  The small arrows swap colors.  Double click to change colors."
 msgstr "Foreground & background colours for new objects.  The small black and white squares reset colours.  The small arrows swap colours.  Double click to change colours."
 
-#: ../app/interface.c:1183
+#: ../app/interface.c:1186
 msgid "Line widths.  Click on a line to set the default line width for new objects.  Double-click to set the line width more precisely."
 msgstr "Line widths. Click on a line to set the default line width for new objects. Double-click to set the line width more precisely."
 
-#: ../app/interface.c:1223
+#: ../app/interface.c:1226
 msgid "Arrow style at the beginning of new lines.  Click to pick an arrow, or set arrow parameters with Details..."
 msgstr "Arrow style at the beginning of new lines. Click to pick an arrow, or set arrow parameters with Details..."
 
-#: ../app/interface.c:1228
+#: ../app/interface.c:1231
 msgid "Line style for new lines.  Click to pick a line style, or set line style parameters with Details..."
 msgstr "Line style for new lines. Click to pick a line style, or set line style parameters with Details..."
 
-#: ../app/interface.c:1242
+#: ../app/interface.c:1245
 msgid "Arrow style at the end of new lines.  Click to pick an arrow, or set arrow parameters with Details..."
 msgstr "Arrow style at the end of new lines. Click to pick an arrow, or set arrow parameters with Details..."
 
-#: ../app/interface.c:1281
+#: ../app/interface.c:1284
 msgid "Diagram Editor"
 msgstr "Diagram Editor"
 
@@ -1129,11 +1129,21 @@ msgid "Can't find parent %s of %s object\n"
 msgstr "Can't find parent %s of %s object\n"
 
 #: ../app/load_save.c:351
+#: ../objects/SISSI/area.c:204
+#: ../objects/SISSI/faraday.c:204
+#: ../objects/SISSI/room.c:204
+#: ../objects/SISSI/sissi_object.c:194
+#: ../objects/SISSI/site.c:207
 msgid "You must specify a file, not a directory.\n"
 msgstr "You must specify a file, not a directory.\n"
 
 #: ../app/load_save.c:358
-#: ../plug-ins/dxf/dxf-import.c:1307
+#: ../objects/SISSI/area.c:210
+#: ../objects/SISSI/faraday.c:210
+#: ../objects/SISSI/room.c:210
+#: ../objects/SISSI/sissi_object.c:201
+#: ../objects/SISSI/site.c:213
+#: ../plug-ins/dxf/dxf-import.c:1304
 #: ../plug-ins/wpg/wpg.c:1177
 #: ../plug-ins/xfig/xfig-import.c:1260
 #: ../plug-ins/xslt/xslt.c:88
@@ -1143,6 +1153,16 @@ msgstr "Couldn't open: '%s' for reading.\n"
 
 #: ../app/load_save.c:376
 #: ../app/load_save.c:382
+#: ../objects/SISSI/area.c:219
+#: ../objects/SISSI/area.c:225
+#: ../objects/SISSI/faraday.c:219
+#: ../objects/SISSI/faraday.c:225
+#: ../objects/SISSI/room.c:219
+#: ../objects/SISSI/room.c:225
+#: ../objects/SISSI/sissi_object.c:211
+#: ../objects/SISSI/sissi_object.c:217
+#: ../objects/SISSI/site.c:222
+#: ../objects/SISSI/site.c:228
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -1152,6 +1172,11 @@ msgstr ""
 "Unknown file type."
 
 #: ../app/load_save.c:390
+#: ../objects/SISSI/area.c:233
+#: ../objects/SISSI/faraday.c:233
+#: ../objects/SISSI/room.c:233
+#: ../objects/SISSI/sissi_object.c:225
+#: ../objects/SISSI/site.c:236
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -1573,7 +1598,9 @@ msgstr "Plug-ins"
 msgid "Loaded"
 msgstr "Loaded"
 
+#. *** board of value **************
 #: ../app/plugin-manager.c:262
+#: ../objects/SISSI/sissi_dialog.c:618
 #: ../objects/UML/class.c:139
 #: ../objects/UML/large_package.c:131
 #: ../objects/UML/umlattribute.c:37
@@ -1584,6 +1611,8 @@ msgid "Name"
 msgstr "Name"
 
 #: ../app/plugin-manager.c:268
+#: ../objects/SISSI/sissi_dialog.c:614
+#: ../objects/SISSI/sissi_dialog.c:766
 msgid "Description"
 msgstr "Description"
 
@@ -1595,31 +1624,31 @@ msgstr "Load at Startup"
 msgid "File Name"
 msgstr "File Name"
 
-#: ../app/preferences.c:103
+#: ../app/preferences.c:106
 msgid "User Interface"
 msgstr "User Interface"
 
-#: ../app/preferences.c:104
+#: ../app/preferences.c:107
 msgid "Diagram Defaults"
 msgstr "Diagram Defaults"
 
-#: ../app/preferences.c:105
+#: ../app/preferences.c:108
 msgid "View Defaults"
 msgstr "View Defaults"
 
-#: ../app/preferences.c:121
+#: ../app/preferences.c:124
 msgid "Reset tools after create"
 msgstr "Reset tools after create"
 
-#: ../app/preferences.c:122
+#: ../app/preferences.c:125
 msgid "Compress saved files"
 msgstr "Compress saved files"
 
-#: ../app/preferences.c:123
+#: ../app/preferences.c:126
 msgid "Number of undo levels:"
 msgstr "Number of undo levels:"
 
-#: ../app/preferences.c:124
+#: ../app/preferences.c:127
 msgid ""
 "Reverse dragging selects\n"
 "intersecting objects"
@@ -1627,119 +1656,127 @@ msgstr ""
 "Reverse dragging selects\n"
 "intersecting objects"
 
-#: ../app/preferences.c:125
+#: ../app/preferences.c:128
 msgid "Recent documents list size:"
 msgstr "Recent documents list size:"
 
-#: ../app/preferences.c:126
+#: ../app/preferences.c:129
 msgid "Use menu bar"
 msgstr "Use menu bar"
 
-#: ../app/preferences.c:128
+#: ../app/preferences.c:131
 msgid "Keep tool box on top of diagram windows"
 msgstr "Keep tool box on top of diagram windows"
 
-#: ../app/preferences.c:131
+#: ../app/preferences.c:134
+msgid "Unit for lengths:"
+msgstr "Unit for lengths:"
+
+#: ../app/preferences.c:137
+msgid "Unit for font sizes:"
+msgstr "Unit for font sizes:"
+
+#: ../app/preferences.c:140
 msgid "New diagram:"
 msgstr "New diagram:"
 
-#: ../app/preferences.c:132
+#: ../app/preferences.c:141
 msgid "Portrait"
 msgstr "Portrait"
 
-#: ../app/preferences.c:134
+#: ../app/preferences.c:143
 msgid "Paper type:"
 msgstr "Paper type:"
 
-#: ../app/preferences.c:137
+#: ../app/preferences.c:146
 msgid "Background Color:"
 msgstr "Background Colour:"
 
-#: ../app/preferences.c:140
+#: ../app/preferences.c:149
 msgid "New window:"
 msgstr "New window:"
 
-#: ../app/preferences.c:141
+#: ../app/preferences.c:150
 msgid "Width:"
 msgstr "Width:"
 
-#: ../app/preferences.c:142
+#: ../app/preferences.c:151
 msgid "Height:"
 msgstr "Height:"
 
-#: ../app/preferences.c:143
+#: ../app/preferences.c:152
 msgid "Magnify:"
 msgstr "Magnify:"
 
-#: ../app/preferences.c:146
+#: ../app/preferences.c:155
 msgid "Connection Points:"
 msgstr "Connection Points:"
 
 #. { NULL, PREF_NONE, 0, NULL, 3, N_("Grid:") },
-#: ../app/preferences.c:147
-#: ../app/preferences.c:151
-#: ../app/preferences.c:157
+#: ../app/preferences.c:156
+#: ../app/preferences.c:160
+#: ../app/preferences.c:166
 msgid "Visible"
 msgstr "Visible"
 
-#: ../app/preferences.c:150
+#: ../app/preferences.c:159
 msgid "Page breaks:"
 msgstr "Page breaks:"
 
-#: ../app/preferences.c:152
-#: ../app/preferences.c:162
+#: ../app/preferences.c:161
+#: ../app/preferences.c:171
 msgid "Color:"
 msgstr "Colour:"
 
-#: ../app/preferences.c:153
+#: ../app/preferences.c:162
 msgid "Solid lines"
 msgstr "Solid lines"
 
-#: ../app/preferences.c:158
+#: ../app/preferences.c:167
 msgid "Snap to"
 msgstr "Snap to"
 
-#: ../app/preferences.c:159
+#: ../app/preferences.c:168
 msgid "Dynamic grid resizing"
 msgstr "Dynamic grid resizing"
 
-#: ../app/preferences.c:160
+#: ../app/preferences.c:169
 msgid "X Size:"
 msgstr "X Size:"
 
-#: ../app/preferences.c:161
+#: ../app/preferences.c:170
 msgid "Y Size:"
 msgstr "Y Size:"
 
-#: ../app/preferences.c:163
+#: ../app/preferences.c:172
 msgid "Lines per major line"
 msgstr "Lines per major line"
 
-#: ../app/preferences.c:165
+#: ../app/preferences.c:174
 msgid "Hex Size:"
 msgstr "Hex Size:"
 
-#: ../app/preferences.c:181
+#: ../app/preferences.c:190
 msgid "Diagram tree window:"
 msgstr "Diagram tree window:"
 
-#: ../app/preferences.c:183
+#: ../app/preferences.c:192
 msgid "Save hidden object types"
 msgstr "Save hidden object types"
 
-#: ../app/preferences.c:391
+#: ../app/preferences.c:400
 #: ../lib/prop_inttypes.c:158
 msgid "Yes"
 msgstr "Yes"
 
-#: ../app/preferences.c:391
-#: ../app/preferences.c:402
+#: ../app/preferences.c:400
+#: ../app/preferences.c:411
 #: ../lib/prop_inttypes.c:160
 #: ../lib/prop_inttypes.c:186
 msgid "No"
 msgstr "No"
 
-#: ../app/preferences.c:504
+#: ../app/preferences.c:513
 msgid "Preferences"
 msgstr "Preferences"
 
@@ -2330,25 +2367,29 @@ msgstr "Multiple export filters with unique name %s"
 msgid "Can't load font %s.\n"
 msgstr "Can't load font %s.\n"
 
-#: ../lib/message.c:80
-#: ../lib/message.c:226
+#: ../lib/message.c:91
+#: ../lib/message.c:277
 msgid "Warning"
 msgstr "Warning"
 
-#: ../lib/message.c:106
+#: ../lib/message.c:118
 msgid "There is one similar message."
 msgstr "There is one similar message."
 
-#: ../lib/message.c:111
+#: ../lib/message.c:123
 msgid "Show repeated messages"
 msgstr "Show repeated messages"
 
-#: ../lib/message.c:170
+#: ../lib/message.c:144
+msgid "Don't show this message again"
+msgstr "Don't show this message again"
+
+#: ../lib/message.c:202
 #, c-format
 msgid "There are %d similar messages."
 msgstr "There are %d similar messages."
 
-#: ../lib/message.c:215
+#: ../lib/message.c:261
 msgid "Notice"
 msgstr "Notice"
 
@@ -2414,20 +2455,20 @@ msgstr "Group with %d objects"
 
 #: ../lib/properties.c:64
 #: ../lib/properties.h:469
-#: ../lib/widgets.c:638
+#: ../lib/widgets.c:690
 msgid "Left"
 msgstr "Left"
 
 #: ../lib/properties.c:65
 #: ../lib/properties.h:470
-#: ../lib/widgets.c:644
+#: ../lib/widgets.c:696
 #: ../objects/standard/textobj.c:133
 msgid "Center"
 msgstr "Centre"
 
 #: ../lib/properties.c:66
 #: ../lib/properties.h:471
-#: ../lib/widgets.c:650
+#: ../lib/widgets.c:702
 msgid "Right"
 msgstr "Right"
 
@@ -2508,67 +2549,67 @@ msgstr "Text colour"
 msgid "No attribute '%s' (%p) or no data(%p) in this attribute"
 msgstr "No attribute '%s' (%p) or no data(%p) in this attribute"
 
-#: ../lib/widgets.c:375
+#: ../lib/widgets.c:408
 msgid "Other fonts"
 msgstr "Other fonts"
 
-#: ../lib/widgets.c:445
+#: ../lib/widgets.c:480
 #, c-format
 msgid "Couldn't find font family for %s\n"
 msgstr "Couldn't find font family for %s\n"
 
 #. Translators: Menu item Noun/Material/Solid
-#: ../lib/widgets.c:786
+#: ../lib/widgets.c:838
 #: ../objects/FS/function.c:1074
 msgid "Solid"
 msgstr "Solid"
 
-#: ../lib/widgets.c:792
+#: ../lib/widgets.c:844
 msgid "Dashed"
 msgstr "Dashed"
 
-#: ../lib/widgets.c:798
+#: ../lib/widgets.c:850
 msgid "Dash-Dot"
 msgstr "Dash-Dot"
 
-#: ../lib/widgets.c:804
+#: ../lib/widgets.c:856
 msgid "Dash-Dot-Dot"
 msgstr "Dash-Dot-Dot"
 
-#: ../lib/widgets.c:810
+#: ../lib/widgets.c:862
 msgid "Dotted"
 msgstr "Dotted"
 
 #. fs->sizebox = GTK_HBOX(box);
-#: ../lib/widgets.c:829
+#: ../lib/widgets.c:881
 msgid "Dash length: "
 msgstr "Dash length: "
 
-#: ../lib/widgets.c:959
+#: ../lib/widgets.c:1006
 msgid "Select color"
 msgstr "Select colour"
 
-#: ../lib/widgets.c:1025
+#: ../lib/widgets.c:1072
 msgid "More colors..."
 msgstr "More colours..."
 
-#: ../lib/widgets.c:1149
+#: ../lib/widgets.c:1220
 msgid "More arrows"
 msgstr "More arrows"
 
-#: ../lib/widgets.c:1162
+#: ../lib/widgets.c:1237
 msgid "Size: "
 msgstr "Size: "
 
-#: ../lib/widgets.c:1314
+#: ../lib/widgets.c:1390
 msgid "Select image file"
 msgstr "Select image file"
 
-#: ../lib/widgets.c:1348
+#: ../lib/widgets.c:1424
 msgid "Browse"
 msgstr "Browse"
 
-#: ../lib/widgets.c:1962
+#: ../lib/widgets.c:2063
 msgid "Reset menu"
 msgstr "Reset menu"
 
@@ -4301,6 +4342,433 @@ msgstr "SADT box"
 msgid "SADT diagram objects"
 msgstr "SADT diagram objects"
 
+#: ../objects/SISSI/classification.h:38
+#: ../objects/SISSI/sissi.h:218
+msgid "No Protection"
+msgstr "No Protection"
+
+#: ../objects/SISSI/classification.h:39
+#: ../objects/SISSI/sissi.h:219
+msgid "Restricted Diffusion"
+msgstr "Restricted Diffusion"
+
+#: ../objects/SISSI/classification.h:40
+#: ../objects/SISSI/sissi.h:220
+msgid "Special Country Confidential"
+msgstr "Special Country Confidential"
+
+#: ../objects/SISSI/classification.h:41
+msgid "Confidential"
+msgstr "Confidential"
+
+#: ../objects/SISSI/classification.h:42
+#: ../objects/SISSI/sissi.h:221
+msgid "NATO Confidential"
+msgstr "NATO Confidential"
+
+#: ../objects/SISSI/classification.h:43
+#: ../objects/SISSI/sissi.h:222
+msgid "Personal Confidential"
+msgstr "Personal Confidential"
+
+#: ../objects/SISSI/classification.h:44
+#: ../objects/SISSI/sissi.h:223
+msgid "Medical Confidential"
+msgstr "Medical Confidential"
+
+#: ../objects/SISSI/classification.h:45
+#: ../objects/SISSI/sissi.h:224
+msgid "Industrie Confidential"
+msgstr "Industry Confidential"
+
+#: ../objects/SISSI/classification.h:46
+msgid "Defense Confidential"
+msgstr "Defence Confidential"
+
+#: ../objects/SISSI/classification.h:47
+#: ../objects/SISSI/sissi.h:225
+msgid "Secret"
+msgstr "Secret"
+
+#: ../objects/SISSI/classification.h:48
+msgid "Defense Secret"
+msgstr "Defence Secret"
+
+#: ../objects/SISSI/classification.h:49
+#: ../objects/SISSI/sissi.h:226
+msgid "Secret special country"
+msgstr "Secret special country"
+
+#: ../objects/SISSI/classification.h:50
+#: ../objects/SISSI/sissi.h:227
+msgid "NATO Secret"
+msgstr "NATO Secret"
+
+#: ../objects/SISSI/classification.h:51
+#: ../objects/SISSI/sissi.h:228
+msgid "Very Secret"
+msgstr "Very Secret"
+
+#: ../objects/SISSI/classification.h:52
+#: ../objects/SISSI/sissi.h:229
+msgid "NATO Very Secret"
+msgstr "NATO Very Secret"
+
+#: ../objects/SISSI/sissi.c:64
+msgid "SISSI diagram"
+msgstr "SISSI diagram"
+
+#: ../objects/SISSI/sissi.h:234
+msgid "No integrity"
+msgstr "No integrity"
+
+#: ../objects/SISSI/sissi.h:235
+msgid "Low integrity"
+msgstr "Low integrity"
+
+#: ../objects/SISSI/sissi.h:236
+msgid "Average software integrity"
+msgstr "Average software integrity"
+
+#: ../objects/SISSI/sissi.h:237
+msgid "Hight software integrity"
+msgstr "Hight software integrity"
+
+#: ../objects/SISSI/sissi.h:238
+msgid "Average hardware integrity"
+msgstr "Average hardware integrity"
+
+#: ../objects/SISSI/sissi.h:239
+msgid "Hight hardware integrity"
+msgstr "Hight hardware integrity"
+
+#: ../objects/SISSI/sissi.h:244
+msgid "Millisecond"
+msgstr "Millisecond"
+
+#: ../objects/SISSI/sissi.h:245
+msgid "Second"
+msgstr "Second"
+
+#: ../objects/SISSI/sissi.h:246
+msgid "Minute"
+msgstr "Minute"
+
+#: ../objects/SISSI/sissi.h:247
+msgid "Hour"
+msgstr "Hour"
+
+#: ../objects/SISSI/sissi.h:248
+msgid "Day"
+msgstr "Day"
+
+#: ../objects/SISSI/sissi.h:249
+msgid "Week"
+msgstr "Week"
+
+#: ../objects/SISSI/sissi.h:254
+msgid "SYSTEM"
+msgstr "SYSTEM"
+
+#: ../objects/SISSI/sissi.h:255
+msgid "Internet access device"
+msgstr "Internet access device"
+
+#: ../objects/SISSI/sissi.h:256
+msgid "Electronic messaging"
+msgstr "Electronic messaging"
+
+#: ../objects/SISSI/sissi.h:257
+msgid "Intranet"
+msgstr "Intranet"
+
+#: ../objects/SISSI/sissi.h:258
+msgid "Company directory"
+msgstr "Company directory"
+
+#: ../objects/SISSI/sissi.h:259
+msgid "External portal"
+msgstr "External portal"
+
+#: ../objects/SISSI/sissi.h:264
+msgid "ORGANISATION"
+msgstr "ORGANISATION"
+
+#: ../objects/SISSI/sissi.h:265
+msgid "Higher-tier organisation"
+msgstr "Higher-tier organisation"
+
+#: ../objects/SISSI/sissi.h:266
+msgid "Structure of the organisation"
+msgstr "Structure of the organisation"
+
+#: ../objects/SISSI/sissi.h:267
+msgid "Project or system organisation"
+msgstr "Project or system organisation"
+
+#: ../objects/SISSI/sissi.h:268
+msgid "Subcontractors / Suppliers / Manufacturers"
+msgstr "Subcontractors/Suppliers/Manufacturers"
+
+#: ../objects/SISSI/sissi.h:273
+msgid "SITE"
+msgstr "SITE"
+
+#: ../objects/SISSI/sissi.h:274
+msgid "Places"
+msgstr "Places"
+
+#: ../objects/SISSI/sissi.h:275
+msgid "External environment"
+msgstr "External environment"
+
+#: ../objects/SISSI/sissi.h:276
+msgid "Premises"
+msgstr "Premises"
+
+#: ../objects/SISSI/sissi.h:277
+msgid "Zone"
+msgstr "Zone"
+
+#: ../objects/SISSI/sissi.h:278
+msgid "Service Essentiel"
+msgstr "Service Essential"
+
+#: ../objects/SISSI/sissi.h:279
+msgid "Communication"
+msgstr "Communication"
+
+#: ../objects/SISSI/sissi.h:280
+msgid "Power"
+msgstr "Power"
+
+#: ../objects/SISSI/sissi.h:281
+msgid "Cooling / Pollution"
+msgstr "Cooling/Pollution"
+
+#: ../objects/SISSI/sissi.h:285
+msgid "THERMIC DETECTION"
+msgstr "THERMIC DETECTION"
+
+#: ../objects/SISSI/sissi.h:289
+msgid "FIRE DETECTION"
+msgstr "FIRE DETECTION"
+
+#: ../objects/SISSI/sissi.h:293
+msgid "WATER DETECTION"
+msgstr "WATER DETECTION"
+
+#: ../objects/SISSI/sissi.h:297
+msgid "AIR DETECTION"
+msgstr "AIR DETECTION"
+
+#: ../objects/SISSI/sissi.h:301
+msgid "ENERGY DETECTION"
+msgstr "ENERGY DETECTION"
+
+#: ../objects/SISSI/sissi.h:305
+msgid "INTRUSION DETECTION"
+msgstr "INTRUSION DETECTION"
+
+#: ../objects/SISSI/sissi.h:309
+msgid "THERMIC ACTION"
+msgstr "THERMIC ACTION"
+
+#: ../objects/SISSI/sissi.h:313
+msgid "FIRE ACTION"
+msgstr "FIRE ACTION"
+
+#: ../objects/SISSI/sissi.h:317
+msgid "WATER ACTION"
+msgstr "WATER ACTION"
+
+#: ../objects/SISSI/sissi.h:321
+msgid "AIR ACTION"
+msgstr "AIR ACTION"
+
+#: ../objects/SISSI/sissi.h:325
+msgid "ENERGY ACTION"
+msgstr "ENERGY ACTION"
+
+#: ../objects/SISSI/sissi.h:329
+msgid "INTRUSION ACTION"
+msgstr "INTRUSION ACTION"
+
+#: ../objects/SISSI/sissi.h:334
+msgid "PERSONAL"
+msgstr "PERSONAL"
+
+#: ../objects/SISSI/sissi.h:335
+msgid "Decision maker"
+msgstr "Decision maker"
+
+#: ../objects/SISSI/sissi.h:336
+msgid "SSI Responsible"
+msgstr "SSI Responsible"
+
+#: ../objects/SISSI/sissi.h:337
+msgid "Users"
+msgstr "Users"
+
+#: ../objects/SISSI/sissi.h:338
+msgid "Fonctionnal administrator"
+msgstr "Functional administrator"
+
+#: ../objects/SISSI/sissi.h:339
+msgid "Technician aministrator"
+msgstr "Technician administrator"
+
+#: ../objects/SISSI/sissi.h:340
+msgid "SSI administrator"
+msgstr "SSI administrator"
+
+#: ../objects/SISSI/sissi.h:341
+msgid "Developer"
+msgstr "Developer"
+
+#: ../objects/SISSI/sissi.h:342
+msgid "Operator / Maintenance"
+msgstr "Operator / Maintenance"
+
+#: ../objects/SISSI/sissi.h:347
+msgid "NETWORK"
+msgstr "NETWORK"
+
+#: ../objects/SISSI/sissi.h:348
+msgid "Medium and supports"
+msgstr "Medium and supports"
+
+#: ../objects/SISSI/sissi.h:349
+msgid "Passive or active relay"
+msgstr "Passive or active relay"
+
+#: ../objects/SISSI/sissi.h:350
+msgid "Communication interface"
+msgstr "Communication interface"
+
+#: ../objects/SISSI/sissi.h:355
+msgid "LOGICIEL"
+msgstr "LOGICAL"
+
+#: ../objects/SISSI/sissi.h:356
+msgid "Operating System"
+msgstr "Operating System"
+
+#: ../objects/SISSI/sissi.h:357
+msgid "Service - maintenance or administration software"
+msgstr "Service - maintenance or administration software"
+
+#: ../objects/SISSI/sissi.h:358
+msgid "Package software or standard software"
+msgstr "Package software or standard software"
+
+#: ../objects/SISSI/sissi.h:359
+msgid "Business application"
+msgstr "Business application"
+
+#: ../objects/SISSI/sissi.h:360
+msgid "Standard business application"
+msgstr "Standard business application"
+
+#: ../objects/SISSI/sissi.h:361
+msgid "Specific business application"
+msgstr "Specific business application"
+
+#: ../objects/SISSI/sissi.h:366
+msgid "HARDWARE"
+msgstr "HARDWARE"
+
+#: ../objects/SISSI/sissi.h:367
+msgid "Data processing equipement (active)"
+msgstr "Data processing equipement (active)"
+
+#: ../objects/SISSI/sissi.h:368
+msgid "Transportable equipement"
+msgstr "Transportable equipement"
+
+#: ../objects/SISSI/sissi.h:369
+msgid "Fixed equipement"
+msgstr "Fixed equipement"
+
+#: ../objects/SISSI/sissi.h:370
+msgid "Peripheral processing"
+msgstr "Peripheral processing"
+
+#: ../objects/SISSI/sissi.h:371
+msgid "Electronic medium"
+msgstr "Electronic medium"
+
+#: ../objects/SISSI/sissi.h:372
+msgid "Other media"
+msgstr "Other media"
+
+#: ../objects/SISSI/sissi.h:373
+msgid "Data medium (passive)"
+msgstr "Data medium (passive)"
+
+#. Class page:
+#: ../objects/SISSI/sissi_dialog.c:185
+msgid "_Menace"
+msgstr "_Menace"
+
+#. ********* label of board *********
+#: ../objects/SISSI/sissi_dialog.c:201
+#: ../objects/SISSI/sissi_dialog.c:210
+msgid "Menace"
+msgstr "Menace"
+
+#: ../objects/SISSI/sissi_dialog.c:203
+#: ../objects/SISSI/sissi_dialog.c:212
+msgid "P Action"
+msgstr "P Action"
+
+#: ../objects/SISSI/sissi_dialog.c:205
+#: ../objects/SISSI/sissi_dialog.c:214
+msgid "P Detection"
+msgstr "P Detection"
+
+#: ../objects/SISSI/sissi_dialog.c:207
+#: ../objects/SISSI/sissi_dialog.c:216
+msgid "Vulnerability"
+msgstr "Vulnerability"
+
+#. Other properties of page:
+#: ../objects/SISSI/sissi_dialog.c:372
+msgid "Others properties"
+msgstr "Others properties"
+
+#. ********* selection menu of entity ********
+#. ********* Label of board *********
+#: ../objects/SISSI/sissi_dialog.c:610
+msgid "Libelle"
+msgstr "Label"
+
+#: ../objects/SISSI/sissi_dialog.c:612
+msgid "value"
+msgstr "value"
+
+#: ../objects/SISSI/sissi_dialog.c:623
+#: ../objects/SISSI/sissi_dialog.c:755
+#: ../objects/UML/class_dialog.c:927
+#: ../objects/UML/class_dialog.c:1877
+#: ../objects/UML/class_dialog.c:2114
+#: ../objects/UML/class_dialog.c:2644
+msgid "_New"
+msgstr "_New"
+
+#. Other properties of page
+#: ../objects/SISSI/sissi_dialog.c:746
+msgid "Documents"
+msgstr "Documents"
+
+#: ../objects/SISSI/sissi_dialog.c:762
+msgid "Document title"
+msgstr "Document title"
+
+#: ../objects/SISSI/sissi_dialog.c:764
+msgid "URL"
+msgstr "URL"
+
 #: ../objects/UML/actor.c:349
 #: ../objects/UML/actor.c:351
 #: ../sheets/UML.sheet.in.h:2
@@ -4592,13 +5060,6 @@ msgstr "Background Colour"
 #: ../objects/UML/class_dialog.c:899
 msgid "_Attributes"
 msgstr "_Attributes"
-
-#: ../objects/UML/class_dialog.c:927
-#: ../objects/UML/class_dialog.c:1877
-#: ../objects/UML/class_dialog.c:2114
-#: ../objects/UML/class_dialog.c:2644
-msgid "_New"
-msgstr "_New"
 
 #: ../objects/UML/class_dialog.c:933
 #: ../objects/UML/class_dialog.c:1883
@@ -5295,7 +5756,7 @@ msgid "Computer Graphics Metafile export filter"
 msgstr "Computer Graphics Metafile export filter"
 
 #: ../plug-ins/dxf/dxf-export.c:528
-#: ../plug-ins/dxf/dxf-import.c:1390
+#: ../plug-ins/dxf/dxf-import.c:1387
 msgid "Drawing Interchange File"
 msgstr "Drawing Interchange File"
 
@@ -5304,22 +5765,22 @@ msgstr "Drawing Interchange File"
 msgid "Bad vertex bulge\n"
 msgstr "Bad vertex bulge\n"
 
-#: ../plug-ins/dxf/dxf-import.c:1052
+#: ../plug-ins/dxf/dxf-import.c:1049
 #, c-format
 msgid "Scale: %f\n"
 msgstr "Scale: %f\n"
 
-#: ../plug-ins/dxf/dxf-import.c:1317
+#: ../plug-ins/dxf/dxf-import.c:1314
 #, c-format
 msgid "read_dxf_codes failed on '%s'\n"
 msgstr "read_dxf_codes failed on '%s'\n"
 
-#: ../plug-ins/dxf/dxf-import.c:1325
+#: ../plug-ins/dxf/dxf-import.c:1322
 #, c-format
 msgid "Binary DXF from '%s' not supported\n"
 msgstr "Binary DXF from '%s' not supported\n"
 
-#: ../plug-ins/dxf/dxf-import.c:1356
+#: ../plug-ins/dxf/dxf-import.c:1353
 #, c-format
 msgid "Unknown dxf code %d\n"
 msgstr "Unknown dxf code %d\n"
@@ -5371,6 +5832,19 @@ msgstr "TeX Metapost export filter"
 msgid "TeX Metapost macros"
 msgstr "TeX Metapost macros"
 
+#: ../plug-ins/pgf/pgf.c:26
+msgid "LaTeX PGF export filter"
+msgstr "LaTeX PGF export filter"
+
+#: ../plug-ins/pgf/render_pgf.c:1112
+#: ../plug-ins/pstricks/render_pstricks.c:733
+msgid "Not valid UTF8"
+msgstr "Not valid UTF8"
+
+#: ../plug-ins/pgf/render_pgf.c:1277
+msgid "LaTeX PGF macros"
+msgstr "LaTeX PGF macros"
+
 #: ../plug-ins/pixbuf/pixbuf.c:93
 #, c-format
 msgid ""
@@ -5385,19 +5859,6 @@ msgstr ""
 #: ../plug-ins/pixbuf/pixbuf.c:199
 msgid "gdk-pixbuf based bitmap export/import"
 msgstr "gdk-pixbuf based bitmap export/import"
-
-#: ../plug-ins/pgf/pgf.c:26
-msgid "LaTeX PGF export filter"
-msgstr "LaTeX PGF export filter"
-
-#: ../plug-ins/pgf/render_pgf.c:1112
-#: ../plug-ins/pstricks/render_pstricks.c:733
-msgid "Not valid UTF8"
-msgstr "Not valid UTF8"
-
-#: ../plug-ins/pgf/render_pgf.c:1277
-msgid "LaTeX PGF macros"
-msgstr "LaTeX PGF macros"
 
 #: ../plug-ins/pstricks/pstricks.c:26
 msgid "TeX Pstricks export filter"
@@ -5428,7 +5889,7 @@ msgstr "Dia Shape File"
 msgid "dia shape export filter"
 msgstr "dia shape export filter"
 
-#: ../plug-ins/svg/render_svg.c:293
+#: ../plug-ins/svg/render_svg.c:294
 #: ../plug-ins/svg/svg-import.c:676
 msgid "Scalable Vector Graphics"
 msgstr "Scalable Vector Graphics"
@@ -6958,27 +7419,6 @@ msgstr "Transaction file"
 msgid "Transmittal tape"
 msgstr "Transmittal tape"
 
-#: ../sheets/Gane_and_Sarson.sheet.in.h:1
-msgid "Alternate external entity"
-msgstr "Alternate external entity"
-
-#: ../sheets/Gane_and_Sarson.sheet.in.h:2
-msgid "Data store"
-msgstr "Data store"
-
-#: ../sheets/Gane_and_Sarson.sheet.in.h:3
-msgid "External entity"
-msgstr "External entity"
-
-#. Author: Nicholas Moore, 2005. mailto: shiny.nickel@gmail.com
-#: ../sheets/Gane_and_Sarson.sheet.in.h:5
-msgid "Gane and Sarson"
-msgstr "Gane and Sarson"
-
-#: ../sheets/Gane_and_Sarson.sheet.in.h:6
-msgid "Gane and Sarson DFD"
-msgstr "Gane and Sarson DFD"
-
 #: ../sheets/GRAFCET.sheet.in.h:1
 msgid "AND vergent"
 msgstr "AND vergent"
@@ -7015,6 +7455,27 @@ msgstr "Objects to design GRAFCET charts"
 #: ../sheets/UML.sheet.in.h:30
 msgid "Transition"
 msgstr "Transition"
+
+#: ../sheets/Gane_and_Sarson.sheet.in.h:1
+msgid "Alternate external entity"
+msgstr "Alternate external entity"
+
+#: ../sheets/Gane_and_Sarson.sheet.in.h:2
+msgid "Data store"
+msgstr "Data store"
+
+#: ../sheets/Gane_and_Sarson.sheet.in.h:3
+msgid "External entity"
+msgstr "External entity"
+
+#. Author: Nicholas Moore, 2005. mailto: shiny.nickel@gmail.com
+#: ../sheets/Gane_and_Sarson.sheet.in.h:5
+msgid "Gane and Sarson"
+msgstr "Gane and Sarson"
+
+#: ../sheets/Gane_and_Sarson.sheet.in.h:6
+msgid "Gane and Sarson DFD"
+msgstr "Gane and Sarson DFD"
 
 #: ../sheets/IsometricMap.sheet.in.h:1
 msgid "Block 1, 2:4"
@@ -7571,6 +8032,268 @@ msgstr "Specification and Description Language."
 msgid "State"
 msgstr "State"
 
+#: ../sheets/SISSI.sheet.in.h:1
+msgid "Alarm center"
+msgstr "Alarm centre"
+
+#: ../sheets/SISSI.sheet.in.h:2
+msgid "Analyse de Log"
+msgstr "Analyse de Log"
+
+#: ../sheets/SISSI.sheet.in.h:3
+msgid "Backup"
+msgstr "Backup"
+
+#: ../sheets/SISSI.sheet.in.h:4
+msgid "Boitier de chiffrement"
+msgstr "Boitier de chiffrement"
+
+#: ../sheets/SISSI.sheet.in.h:5
+msgid "Cellular phone"
+msgstr "Mobile phone"
+
+#: ../sheets/SISSI.sheet.in.h:6
+#: ../sheets/ciscomisc.sheet.in.h:9
+msgid "File cabinet"
+msgstr "File cabinet"
+
+#: ../sheets/SISSI.sheet.in.h:7
+msgid "Gate"
+msgstr "Gate"
+
+#: ../sheets/SISSI.sheet.in.h:8
+#: ../sheets/ciscohub.sheet.in.h:29
+msgid "Hub"
+msgstr "Hub"
+
+#: ../sheets/SISSI.sheet.in.h:9
+msgid "Information"
+msgstr "Information"
+
+#: ../sheets/SISSI.sheet.in.h:10
+msgid "Information system"
+msgstr "Information system"
+
+#: ../sheets/SISSI.sheet.in.h:11
+#: ../sheets/ciscocomputer.sheet.in.h:21
+msgid "Laptop"
+msgstr "Laptop"
+
+#: ../sheets/SISSI.sheet.in.h:12
+msgid "Magnetic support"
+msgstr "Magnetic support"
+
+#: ../sheets/SISSI.sheet.in.h:13
+#: ../sheets/ciscocomputer.sheet.in.h:25
+msgid "Modem"
+msgstr "Modem"
+
+#: ../sheets/SISSI.sheet.in.h:14
+#: ../sheets/network.sheet.in.h:21
+msgid "Network cloud"
+msgstr "Network cloud"
+
+#: ../sheets/SISSI.sheet.in.h:15
+msgid "Objects to design sissi diagrams"
+msgstr "Objects to design sissi diagrams"
+
+#: ../sheets/SISSI.sheet.in.h:16
+#: ../sheets/ciscocomputer.sheet.in.h:35
+msgid "PDA"
+msgstr "PDA"
+
+#: ../sheets/SISSI.sheet.in.h:17
+msgid "Paper support"
+msgstr "Paper support"
+
+#: ../sheets/SISSI.sheet.in.h:18
+msgid "Person"
+msgstr "Person"
+
+#: ../sheets/SISSI.sheet.in.h:19
+#: ../sheets/ciscocomputer.sheet.in.h:37
+msgid "Relational Database"
+msgstr "Relational Database"
+
+#: ../sheets/SISSI.sheet.in.h:20
+msgid "Room"
+msgstr "Room"
+
+#: ../sheets/SISSI.sheet.in.h:21
+#: ../sheets/ciscohub.sheet.in.h:53
+msgid "Router"
+msgstr "Router"
+
+#: ../sheets/SISSI.sheet.in.h:22
+msgid "Safe"
+msgstr "Safe"
+
+#: ../sheets/SISSI.sheet.in.h:23
+msgid "Security area"
+msgstr "Security area"
+
+#: ../sheets/SISSI.sheet.in.h:24
+msgid "Site geographique"
+msgstr "Site geographique"
+
+#: ../sheets/SISSI.sheet.in.h:25
+msgid "Software"
+msgstr "Software"
+
+#: ../sheets/SISSI.sheet.in.h:26
+#: ../sheets/ciscocomputer.sheet.in.h:42
+msgid "Storage array"
+msgstr "Storage array"
+
+#: ../sheets/SISSI.sheet.in.h:27
+#: ../sheets/network.sheet.in.h:33
+msgid "Telephone"
+msgstr "Telephone"
+
+#: ../sheets/SISSI.sheet.in.h:28
+msgid "Video camera"
+msgstr "Video camera"
+
+#: ../sheets/SISSI.sheet.in.h:29
+msgid "Workstation"
+msgstr "Workstation"
+
+#: ../sheets/SISSI.sheet.in.h:30
+msgid "cage de faraday"
+msgstr "cage de faraday"
+
+#: ../sheets/SISSI.sheet.in.h:31
+msgid "capteur brise glace"
+msgstr "capteur brise glace"
+
+#: ../sheets/SISSI.sheet.in.h:32
+msgid "capteur faisceau"
+msgstr "capteur faisceau"
+
+#: ../sheets/SISSI.sheet.in.h:33
+msgid "climatisation"
+msgstr "climatisation"
+
+#: ../sheets/SISSI.sheet.in.h:34
+msgid "condensateur"
+msgstr "condensateur"
+
+#: ../sheets/SISSI.sheet.in.h:35
+msgid "detecteur d'alimentation"
+msgstr "detecteur d'alimentation"
+
+#: ../sheets/SISSI.sheet.in.h:36
+msgid "detecteur d'humidite"
+msgstr "detecteur d'humidite"
+
+#: ../sheets/SISSI.sheet.in.h:37
+msgid "detecteur de courant"
+msgstr "detecteur de courant"
+
+#: ../sheets/SISSI.sheet.in.h:38
+msgid "detecteur de fumee"
+msgstr "detecteur de fumee"
+
+#: ../sheets/SISSI.sheet.in.h:39
+msgid "detecteur de lumiere"
+msgstr "detecteur de lumiere"
+
+#: ../sheets/SISSI.sheet.in.h:40
+msgid "detecteur de mouvement"
+msgstr "detecteur de mouvement"
+
+#: ../sheets/SISSI.sheet.in.h:41
+msgid "detecteur de mouvement video"
+msgstr "detecteur de mouvement video"
+
+#: ../sheets/SISSI.sheet.in.h:42
+msgid "detecteur de niveau"
+msgstr "detecteur de niveau"
+
+#: ../sheets/SISSI.sheet.in.h:43
+msgid "detecteur de pression"
+msgstr "detecteur de pression"
+
+#: ../sheets/SISSI.sheet.in.h:44
+msgid "detecteur de qualite de l'air"
+msgstr "detecteur de qualite de l'air"
+
+#: ../sheets/SISSI.sheet.in.h:45
+msgid "detecteur de tension"
+msgstr "detecteur de tension"
+
+#: ../sheets/SISSI.sheet.in.h:46
+msgid "detecteur de vehicule"
+msgstr "detecteur de vehicule"
+
+#: ../sheets/SISSI.sheet.in.h:47
+msgid "detecteur de vibration"
+msgstr "detecteur de vibration"
+
+#: ../sheets/SISSI.sheet.in.h:48
+msgid "detecteur enthalpie"
+msgstr "detecteur enthalpie"
+
+#: ../sheets/SISSI.sheet.in.h:49
+msgid "digi code"
+msgstr "digi code"
+
+#: ../sheets/SISSI.sheet.in.h:50
+msgid "extincteur"
+msgstr "extincteur"
+
+#: ../sheets/SISSI.sheet.in.h:51
+msgid "extracteur d'humidite"
+msgstr "extracteur d'humidite"
+
+#: ../sheets/SISSI.sheet.in.h:52
+msgid "filtre a air"
+msgstr "filtre a air"
+
+#: ../sheets/SISSI.sheet.in.h:53
+msgid "lecteur biometrique"
+msgstr "lecteur biometrique"
+
+#: ../sheets/SISSI.sheet.in.h:54
+msgid "lecteur de badge"
+msgstr "lecteur de badge"
+
+#: ../sheets/SISSI.sheet.in.h:55
+msgid "lecteur de badge clavier"
+msgstr "lecteur de badge clavier"
+
+#: ../sheets/SISSI.sheet.in.h:56
+msgid "onduleur"
+msgstr "onduleur"
+
+#: ../sheets/SISSI.sheet.in.h:57
+msgid "pompe"
+msgstr "pompe"
+
+#: ../sheets/SISSI.sheet.in.h:58
+msgid "pompe rotative"
+msgstr "pompe rotative"
+
+#: ../sheets/SISSI.sheet.in.h:59
+msgid "porte tambour"
+msgstr "porte tambour"
+
+#: ../sheets/SISSI.sheet.in.h:60
+msgid "server"
+msgstr "server"
+
+#: ../sheets/SISSI.sheet.in.h:61
+msgid "ventilateur"
+msgstr "ventilateur"
+
+#: ../sheets/SISSI.sheet.in.h:62
+msgid "ventilateur axial"
+msgstr "ventilateur axial"
+
+#: ../sheets/SISSI.sheet.in.h:63
+msgid "ventilateur centrifuge"
+msgstr "ventilateur centrifuge"
+
 #: ../sheets/UML.sheet.in.h:1
 msgid "Activity"
 msgstr "Activity"
@@ -7751,10 +8474,6 @@ msgstr "IBM mainframe with FEP"
 msgid "JBOD"
 msgstr "JBOD"
 
-#: ../sheets/ciscocomputer.sheet.in.h:21
-msgid "Laptop"
-msgstr "Laptop"
-
 #: ../sheets/ciscocomputer.sheet.in.h:22
 msgid "Macintosh"
 msgstr "Macintosh"
@@ -7766,10 +8485,6 @@ msgstr "MicroWebserver"
 #: ../sheets/ciscocomputer.sheet.in.h:24
 msgid "Mini VAX"
 msgstr "Mini VAX"
-
-#: ../sheets/ciscocomputer.sheet.in.h:25
-msgid "Modem"
-msgstr "Modem"
 
 #: ../sheets/ciscocomputer.sheet.in.h:26
 #: ../sheets/network.sheet.in.h:19
@@ -7808,14 +8523,6 @@ msgstr "PC Video"
 msgid "PC with Router-Based Software"
 msgstr "PC with Router-Based Software"
 
-#: ../sheets/ciscocomputer.sheet.in.h:35
-msgid "PDA"
-msgstr "PDA"
-
-#: ../sheets/ciscocomputer.sheet.in.h:37
-msgid "Relational Database"
-msgstr "Relational Database"
-
 #: ../sheets/ciscocomputer.sheet.in.h:38
 msgid "SUN workstation"
 msgstr "SUN workstation"
@@ -7831,10 +8538,6 @@ msgstr "Server with PC Router"
 #: ../sheets/ciscocomputer.sheet.in.h:41
 msgid "Software-Based Router on File Server"
 msgstr "Software-Based Router on File Server"
-
-#: ../sheets/ciscocomputer.sheet.in.h:42
-msgid "Storage array"
-msgstr "Storage array"
 
 #: ../sheets/ciscocomputer.sheet.in.h:43
 msgid "Supercomputer"
@@ -7984,10 +8687,6 @@ msgstr "Edge Label Switch Router with NetFlow"
 msgid "Generic Processor"
 msgstr "Generic Processor"
 
-#: ../sheets/ciscohub.sheet.in.h:29
-msgid "Hub"
-msgstr "Hub"
-
 #: ../sheets/ciscohub.sheet.in.h:30
 msgid "Hub subdued"
 msgstr "Hub subdued"
@@ -8079,10 +8778,6 @@ msgstr "Route Switch Processor"
 #: ../sheets/ciscohub.sheet.in.h:52
 msgid "Route Switch Processor with Si"
 msgstr "Route Switch Processor with Si"
-
-#: ../sheets/ciscohub.sheet.in.h:53
-msgid "Router"
-msgstr "Router"
 
 #: ../sheets/ciscohub.sheet.in.h:54
 msgid "Router and switch shapes by Cisco"
@@ -8195,10 +8890,6 @@ msgstr "Cisco - Misc"
 #: ../sheets/ciscomisc.sheet.in.h:8
 msgid "CiscoWorks Man"
 msgstr "CiscoWorks Man"
-
-#: ../sheets/ciscomisc.sheet.in.h:9
-msgid "File cabinet"
-msgstr "File cabinet"
 
 #: ../sheets/ciscomisc.sheet.in.h:10
 msgid "Generic Building"
@@ -9264,10 +9955,6 @@ msgstr "Modular switching system"
 msgid "Network"
 msgstr "Network"
 
-#: ../sheets/network.sheet.in.h:21
-msgid "Network cloud"
-msgstr "Network cloud"
-
 #: ../sheets/network.sheet.in.h:22
 msgid "Objects to design network diagrams with"
 msgstr "Objects to design network diagrams with"
@@ -9311,10 +9998,6 @@ msgstr "Storage"
 #: ../sheets/network.sheet.in.h:32
 msgid "Switch symbol"
 msgstr "Switch symbol"
-
-#: ../sheets/network.sheet.in.h:33
-msgid "Telephone"
-msgstr "Telephone"
 
 #: ../sheets/network.sheet.in.h:34
 msgid "UNIX workstation"
@@ -9627,8 +10310,6 @@ msgstr "Sybase replication server"
 #, fuzzy
 #~ msgid "Implmentation"
 #~ msgstr "Implementation"
-#~ msgid "Workstation"
-#~ msgstr "Workstation"
 #~ msgid "Cisco hub"
 #~ msgstr "Cisco hub"
 #~ msgid "Content switch module"
@@ -9643,8 +10324,6 @@ msgstr "Sybase replication server"
 #~ msgstr "SVX (interchangeable with End office)"
 #~ msgid "Telecommuter house/router"
 #~ msgstr "Telecommuter house/router"
-#~ msgid "6705 Integrated access device"
-#~ msgstr "6705 Integrated access device"
 #~ msgid "6732 Multiservice access platform"
 #~ msgstr "6732 Multiservice access platform"
 #~ msgid "CDDI-FDDI"
