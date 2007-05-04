@@ -145,7 +145,7 @@ static PropOffset smallpackage_offsets[] = {
   {"stereotype", PROP_TYPE_STRING, offsetof(SmallPackage , stereotype) },
   {"text",PROP_TYPE_TEXT,offsetof(SmallPackage,text)},
   {"text_font",PROP_TYPE_FONT,offsetof(SmallPackage,attrs.font)},
-  {"text_height",PROP_TYPE_REAL,offsetof(SmallPackage,attrs.height)},
+  {PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(SmallPackage,attrs.height)},
   {"text_colour",PROP_TYPE_COLOUR,offsetof(SmallPackage,attrs.color)},  
   { NULL, 0, 0 },
 };

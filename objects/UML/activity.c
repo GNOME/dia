@@ -144,7 +144,7 @@ static PropOffset state_offsets[] = {
   {"fill_colour",PROP_TYPE_COLOUR,offsetof(State,fill_color)},
   {"text",PROP_TYPE_TEXT,offsetof(State,text)},
   {"text_font",PROP_TYPE_FONT,offsetof(State,attrs.font)},
-  {"text_height",PROP_TYPE_REAL,offsetof(State,attrs.height)},
+  {PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(State,attrs.height)},
   {"text_colour",PROP_TYPE_COLOUR,offsetof(State,attrs.color)},
   { NULL, 0, 0 },
 };

@@ -151,7 +151,7 @@ static PropOffset basestation_offsets[] = {
   {"fill_colour", PROP_TYPE_COLOUR, offsetof(Basestation, fill_colour)},
   {"text", PROP_TYPE_TEXT, offsetof(Basestation, text)},
   {"text_font", PROP_TYPE_FONT, offsetof(Basestation, attrs.font)},
-  {"text_height", PROP_TYPE_REAL, offsetof(Basestation, attrs.height)},
+  {PROP_STDNAME_TEXT_HEIGHT, PROP_STDTYPE_TEXT_HEIGHT, offsetof(Basestation, attrs.height)},
   {"text_colour", PROP_TYPE_COLOUR, offsetof(Basestation, attrs.color)},
   {"text_alignment", PROP_TYPE_ENUM,
    offsetof(Basestation, attrs.alignment)},

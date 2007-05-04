@@ -176,7 +176,7 @@ static PropOffset diamond_offsets[] = {
   { "padding", PROP_TYPE_REAL, offsetof(Diamond, padding) },
   {"text",PROP_TYPE_TEXT,offsetof(Diamond,text)},
   {"text_font",PROP_TYPE_FONT,offsetof(Diamond,attrs.font)},
-  {"text_height",PROP_TYPE_REAL,offsetof(Diamond,attrs.height)},
+  {PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(Diamond,attrs.height)},
   {"text_colour",PROP_TYPE_COLOUR,offsetof(Diamond,attrs.color)},
   {"text_alignment",PROP_TYPE_ENUM,offsetof(Diamond,attrs.alignment)},
   { NULL, 0, 0 },

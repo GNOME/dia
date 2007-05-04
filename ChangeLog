@@ -1,3 +1,40 @@
+2007-05-04  Lars Clausen  <lars@raeder.dk>
+
+	* lib/properties.h: 
+	* objects/Jackson/requirement.c:
+	* objects/Jackson/domain.c:
+	* objects/flowchart/parallelogram.c:
+	* objects/flowchart/box.c:
+	* objects/flowchart/diamond.c:
+	* objects/flowchart/ellipse.c:
+	* objects/network/radiocell.c:
+	* objects/network/basestation.c:
+	* objects/SADT/box.c:
+	* objects/SADT/annotation.c:
+	* objects/UML/component.c:
+	* objects/UML/note.c:
+	* objects/UML/component_feature.c:
+	* objects/UML/usecase.c:
+	* objects/UML/activity.c:
+	* objects/UML/actor.c:
+	* objects/UML/classicon.c:
+	* objects/UML/state.c:
+	* objects/UML/small_package.c:
+	* objects/UML/node.c:
+	* objects/standard/textobj.c:
+	* objects/AADL/aadlbox.c:
+	* objects/ER/relationship.c:
+	* objects/ER/attribute.c:
+	* objects/ER/entity.c:
+	* objects/FS/flow-ortho.c:
+	* objects/FS/function.c:
+	* objects/FS/flow.c:
+	* objects/FS/flow-poly.c:
+	* objects/custom/custom_object.c:
+	* objects/GRAFCET/action.c:
+	* lib/properties.h: Patch from Sameer D. Sahasrabuddhee
+	<sameerds@dmail.com>: Fix names and types of std text props.
+
 2007-04-25  Christophe Merlet  <redfox@redfoxcenter.org>
 
 	* configure.in: Added "oc" (Occitan) to ALL_LINGUAS.

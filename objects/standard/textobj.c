@@ -158,7 +158,7 @@ static PropOffset textobj_offsets[] = {
   OBJECT_COMMON_PROPERTIES_OFFSETS,
   {"text",PROP_TYPE_TEXT,offsetof(Textobj,text)},
   {"text_font",PROP_TYPE_FONT,offsetof(Textobj,attrs.font)},
-  {"text_height",PROP_TYPE_REAL,offsetof(Textobj,attrs.height)},
+  {PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(Textobj,attrs.height)},
   {"text_colour",PROP_TYPE_COLOUR,offsetof(Textobj,attrs.color)},
   {"text_alignment",PROP_TYPE_ENUM,offsetof(Textobj,attrs.alignment)},
   {"text_vert_alignment",PROP_TYPE_ENUM,offsetof(Textobj,vert_align)},

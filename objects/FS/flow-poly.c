@@ -156,7 +156,7 @@ static PropOffset flow_offsets[] = {
   { "text", PROP_TYPE_TEXT, offsetof (Flow, text) },
   { "text_alignment", PROP_TYPE_ENUM, offsetof (Flow, attrs.alignment) },
   { "text_font", PROP_TYPE_FONT, offsetof (Flow, attrs.font) },
-  { "text_height", PROP_TYPE_REAL, offsetof (Flow, attrs.height) },
+  { PROP_STDNAME_TEXT_HEIGHT, PROP_STDTYPE_TEXT_HEIGHT, offsetof (Flow, attrs.height) },
   { "text_colour", PROP_TYPE_COLOUR, offsetof (Flow, attrs.color) },
   { NULL, 0, 0 }
 };

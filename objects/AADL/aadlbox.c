@@ -162,7 +162,7 @@ static PropOffset aadlbox_offsets[] = {
   {"fill_colour",PROP_TYPE_COLOUR,offsetof(Aadlbox,fill_color)},
   {"name",PROP_TYPE_TEXT,offsetof(Aadlbox,name)},
   {"text_font",PROP_TYPE_FONT,offsetof(Aadlbox,attrs.font)},
-  {"text_height",PROP_TYPE_FONTSIZE,offsetof(Aadlbox,attrs.height)},
+  {PROP_STDNAME_TEXT_HEIGHT, PROP_STDTYPE_TEXT_HEIGHT,offsetof(Aadlbox,attrs.height)},
   {"text_colour",PROP_TYPE_COLOUR,offsetof(Aadlbox,attrs.color)},
   { NULL, 0, 0 },
 };

@@ -175,7 +175,7 @@ static PropOffset ellipse_offsets[] = {
   { "padding", PROP_TYPE_REAL, offsetof(Ellipse, padding) },
   {"text",PROP_TYPE_TEXT,offsetof(Ellipse,text)},
   {"text_font",PROP_TYPE_FONT,offsetof(Ellipse,attrs.font)},
-  {"text_height",PROP_TYPE_REAL,offsetof(Ellipse,attrs.height)},
+  {PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(Ellipse,attrs.height)},
   {"text_colour",PROP_TYPE_COLOUR,offsetof(Ellipse,attrs.color)},
   {"text_alignment",PROP_TYPE_ENUM,offsetof(Ellipse,attrs.alignment)},
   { NULL, 0, 0 },

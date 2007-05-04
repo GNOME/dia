@@ -137,7 +137,7 @@ static PropOffset note_offsets[] = {
   {"fill_colour",PROP_TYPE_COLOUR,offsetof(Note,fill_color)},
   {"text",PROP_TYPE_TEXT,offsetof(Note,text)},
   {"text_font",PROP_TYPE_FONT,offsetof(Note,attrs.font)},
-  {"text_height",PROP_TYPE_REAL,offsetof(Note,attrs.height)},
+  {PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(Note,attrs.height)},
   {"text_colour",PROP_TYPE_COLOUR,offsetof(Note,attrs.color)},
   { NULL, 0, 0 },
 };

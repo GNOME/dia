@@ -164,7 +164,7 @@ static PropOffset function_offsets[] = {
   { "user function", PROP_TYPE_BOOL, offsetof(Function, is_user) },
   { "text", PROP_TYPE_TEXT, offsetof (Function, text) },
   { "text_font", PROP_TYPE_FONT, offsetof (Function, attrs.font) },
-  { "text_height", PROP_TYPE_REAL, offsetof (Function, attrs.height) },
+  { PROP_STDNAME_TEXT_HEIGHT, PROP_STDTYPE_TEXT_HEIGHT, offsetof (Function, attrs.height) },
   { "text_colour", PROP_TYPE_COLOUR, offsetof (Function, attrs.color) },
   { NULL, 0, 0}
 };

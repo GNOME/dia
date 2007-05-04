@@ -189,7 +189,7 @@ static PropOffset orthflow_offsets[] = {
   { "text", PROP_TYPE_TEXT, offsetof (Orthflow, text) },
   { "text_alignment", PROP_TYPE_REAL, offsetof (Orthflow, attrs.alignment) },
   { "text_font", PROP_TYPE_FONT, offsetof (Orthflow, attrs.font) },
-  { "text_height", PROP_TYPE_REAL, offsetof (Orthflow, attrs.height) },
+  { PROP_STDNAME_TEXT_HEIGHT, PROP_STDTYPE_TEXT_HEIGHT, offsetof (Orthflow, attrs.height) },
   { "text_colour", PROP_TYPE_COLOUR, offsetof (Orthflow, attrs.color) },
   { NULL, 0, 0 }
 };

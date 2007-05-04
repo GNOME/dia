@@ -165,7 +165,7 @@ static PropOffset annotation_offsets[] = {
   {"text",PROP_TYPE_TEXT,offsetof(Annotation,text)},
   {"text_alignment",PROP_TYPE_ENUM,offsetof(Annotation,attrs.alignment)},
   {"text_font",PROP_TYPE_FONT,offsetof(Annotation,attrs.font)},
-  {"text_height",PROP_TYPE_REAL,offsetof(Annotation,attrs.height)},
+  {PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(Annotation,attrs.height)},
   {"text_colour",PROP_TYPE_COLOUR,offsetof(Annotation,attrs.color)},
   {"pos", PROP_TYPE_POINT, offsetof(Annotation,text_handle.pos)},
   { NULL,0,0 }

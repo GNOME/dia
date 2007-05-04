@@ -221,7 +221,7 @@ static PropOffset compfeat_offsets[] = {
   { "role", PROP_TYPE_ENUM, offsetof(Compfeat, role) },
   { "text", PROP_TYPE_TEXT, offsetof(Compfeat, text) },
   { "text_font", PROP_TYPE_FONT, offsetof(Compfeat, attrs.font) },
-  { "text_height", PROP_TYPE_REAL, offsetof(Compfeat, attrs.height) },
+  { PROP_STDNAME_TEXT_HEIGHT, PROP_STDTYPE_TEXT_HEIGHT, offsetof(Compfeat, attrs.height) },
   { "text_colour", PROP_TYPE_COLOUR, offsetof(Compfeat, attrs.color) },
   { "text_alignment", PROP_TYPE_ENUM, offsetof(Compfeat, attrs.alignment) },
   { "text_pos", PROP_TYPE_POINT, offsetof(Compfeat, text_pos) },

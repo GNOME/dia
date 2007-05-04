@@ -145,7 +145,7 @@ static PropOffset component_offsets[] = {
   {"stereotype", PROP_TYPE_STRING, offsetof(Component , stereotype) },
   {"text",PROP_TYPE_TEXT,offsetof(Component,text)},
   {"text_font",PROP_TYPE_FONT,offsetof(Component,attrs.font)},
-  {"text_height",PROP_TYPE_REAL,offsetof(Component,attrs.height)},
+  {PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(Component,attrs.height)},
   {"text_colour",PROP_TYPE_COLOUR,offsetof(Component,attrs.color)},  
   { NULL, 0, 0 },
 };

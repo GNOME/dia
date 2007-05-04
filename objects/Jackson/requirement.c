@@ -154,7 +154,7 @@ static PropOffset req_offsets[] = {
   ELEMENT_COMMON_PROPERTIES_OFFSETS,
   {"text",PROP_TYPE_TEXT,offsetof(Requirement,text)},
   {"text_font",PROP_TYPE_FONT,offsetof(Requirement,attrs.font)},
-  {"text_height",PROP_TYPE_REAL,offsetof(Requirement,attrs.height)},
+  {PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(Requirement,attrs.height)},
   {"text_colour",PROP_TYPE_COLOUR,offsetof(Requirement,attrs.color)},
   { NULL, 0, 0 },
 };

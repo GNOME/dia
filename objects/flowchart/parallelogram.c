@@ -181,7 +181,7 @@ static PropOffset pgram_offsets[] = {
   { "padding", PROP_TYPE_REAL, offsetof(Pgram, padding) },
   {"text",PROP_TYPE_TEXT,offsetof(Pgram,text)},
   {"text_font",PROP_TYPE_FONT,offsetof(Pgram,attrs.font)},
-  {"text_height",PROP_TYPE_REAL,offsetof(Pgram,attrs.height)},
+  {PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(Pgram,attrs.height)},
   {"text_colour",PROP_TYPE_COLOUR,offsetof(Pgram,attrs.color)},
   {"text_alignment",PROP_TYPE_ENUM,offsetof(Pgram,attrs.alignment)},
   { NULL, 0, 0 },

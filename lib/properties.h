@@ -532,8 +532,10 @@ extern PropEnumData prop_std_text_align_data[];
 #define PROP_STD_TEXT_FONT \
         PROP_STD_TEXT_FONT_OPTIONS(PROP_FLAG_VISIBLE|PROP_FLAG_DONT_SAVE)
 
+#define PROP_STDNAME_TEXT_HEIGHT "text_height"
+#define PROP_STDTYPE_TEXT_HEIGHT PROP_TYPE_FONTSIZE
 #define PROP_STD_TEXT_HEIGHT_OPTIONS(options) \
-  { "text_height", PROP_TYPE_FONTSIZE, (options), \
+  { PROP_STDNAME_TEXT_HEIGHT, PROP_STDTYPE_TEXT_HEIGHT, (options), \
     N_("Font size"), NULL, &prop_std_text_height_data }
 #define PROP_STD_TEXT_HEIGHT \
         PROP_STD_TEXT_HEIGHT_OPTIONS(PROP_FLAG_VISIBLE|PROP_FLAG_DONT_SAVE)

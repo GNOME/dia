@@ -330,8 +330,8 @@ fontsizeprop_reset_widget(FontsizeProperty *prop, WIDGET *widget)
 static void 
 fontsizeprop_set_from_widget(FontsizeProperty *prop, WIDGET *widget) 
 {
-  printf("Setting\n");
   prop->fontsize_data = dia_unit_spinner_get_value(DIA_UNIT_SPINNER(widget));
+  printf("Set font size %f\n", prop->fontsize_data);
 }
 
 static void 

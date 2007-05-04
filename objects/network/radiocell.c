@@ -151,7 +151,7 @@ static PropOffset radiocell_offsets[] = {
     offsetof(RadioCell, show_background) },
   { "text", PROP_TYPE_TEXT, offsetof(RadioCell, text) },
   { "text_font", PROP_TYPE_FONT, offsetof(RadioCell, attrs.font) },
-  { "text_height", PROP_TYPE_REAL, offsetof(RadioCell, attrs.height) },
+  { PROP_STDNAME_TEXT_HEIGHT, PROP_STDTYPE_TEXT_HEIGHT, offsetof(RadioCell, attrs.height) },
   { "text_colour", PROP_TYPE_COLOUR, offsetof(RadioCell, attrs.color) },
   { "text_alignment", PROP_TYPE_ENUM,
     offsetof(RadioCell, attrs.alignment) },

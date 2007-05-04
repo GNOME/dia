@@ -186,7 +186,7 @@ static PropOffset attribute_offsets[] = {
   { "line_colour", PROP_TYPE_COLOUR, offsetof(Attribute, border_color) },
   { "fill_colour", PROP_TYPE_COLOUR, offsetof(Attribute, inner_color) },
   { "text_font", PROP_TYPE_FONT, offsetof(Attribute, font) },
-  { "text_height", PROP_TYPE_FONTSIZE, offsetof(Attribute, font_height) },
+  { PROP_STDNAME_TEXT_HEIGHT, PROP_STDTYPE_TEXT_HEIGHT, offsetof(Attribute, font_height) },
   { NULL, 0, 0}
 };
 

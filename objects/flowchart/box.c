@@ -179,7 +179,7 @@ static PropOffset box_offsets[] = {
   { "padding", PROP_TYPE_REAL, offsetof(Box, padding) },
   {"text",PROP_TYPE_TEXT,offsetof(Box,text)},
   {"text_font",PROP_TYPE_FONT,offsetof(Box,attrs.font)},
-  {"text_height",PROP_TYPE_REAL,offsetof(Box,attrs.height)},
+  {PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(Box,attrs.height)},
   {"text_colour",PROP_TYPE_COLOUR,offsetof(Box,attrs.color)},
   {"text_alignment",PROP_TYPE_ENUM,offsetof(Box,attrs.alignment)},
   { NULL, 0, 0 },

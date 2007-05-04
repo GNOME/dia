@@ -145,7 +145,7 @@ static PropOffset node_offsets[] = {
   {"fill_colour",PROP_TYPE_COLOUR,offsetof(Node,fill_color)},
   {"name",PROP_TYPE_TEXT,offsetof(Node,name)},
   {"text_font",PROP_TYPE_FONT,offsetof(Node,attrs.font)},
-  {"text_height",PROP_TYPE_REAL,offsetof(Node,attrs.height)},
+  {PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(Node,attrs.height)},
   {"text_colour",PROP_TYPE_COLOUR,offsetof(Node,attrs.color)},
   { NULL, 0, 0 },
 };

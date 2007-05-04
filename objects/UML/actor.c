@@ -136,7 +136,7 @@ static PropOffset actor_offsets[] = {
   ELEMENT_COMMON_PROPERTIES_OFFSETS,
   {"text",PROP_TYPE_TEXT,offsetof(Actor,text)},
   {"text_font",PROP_TYPE_FONT,offsetof(Actor,attrs.font)},
-  {"text_height",PROP_TYPE_REAL,offsetof(Actor,attrs.height)},
+  {PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(Actor,attrs.height)},
   {"text_colour",PROP_TYPE_COLOUR,offsetof(Actor,attrs.color)},
   {"line_colour",PROP_TYPE_COLOUR,offsetof(Actor,line_color)},
   {"fill_colour",PROP_TYPE_COLOUR,offsetof(Actor,fill_color)},
