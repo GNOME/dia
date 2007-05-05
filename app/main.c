@@ -17,13 +17,8 @@
  */
 #include <config.h>
 
-#include "geometry.h"
-#include "diagram.h"
-#include "display.h"
 #include "app_procs.h"
-#include "group.h"
 
-#include "load_save.h"
 #include "interface.h"
 
 int main(int argc, char *argv[])

@@ -920,11 +920,13 @@ app_init (int argc, char **argv)
     /* further initialization *before* reading files */  
     active_tool = create_modify_tool();
 
-    create_toolbox();
+    if( prefs.use_integrated_ui )
+      create_integrated_ui();
+    else 
+      create_toolbox();
 
     persistence_register_window_create("layer_window",
 				       (NullaryFunc*)&create_layer_dialog);
-
 
     /*fill recent file menu */
     recent_file_history_init();
@@ -936,7 +938,6 @@ app_init (int argc, char **argv)
 
     persistence_register_window_create("sheets_main_dialog",
 				       (NullaryFunc*)&sheets_dialog_create);
-
 
     /* In current setup, we can't find the autosaved files. */
     /*autosave_restore_documents();*/
@@ -954,7 +955,7 @@ app_init (int argc, char **argv)
       diagram_update_extents(diagram);
       diagram->is_default = TRUE;
       layer_dialog_set_diagram(diagram);
-      new_display(diagram);
+      new_display(diagram); 
     }
   }
   g_slist_free(files);
@@ -1044,10 +1045,8 @@ app_exit(void)
       slist = g_slist_next(slist);
 
       gtk_widget_destroy(ddisp->shell);
-
     }
     /* The diagram is freed when the last display is destroyed */
-
   }
   
   /* save pluginrc */

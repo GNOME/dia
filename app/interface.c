@@ -65,6 +65,9 @@ static guint toolbox_n_targets = (sizeof (toolbox_target_table) /
                                  sizeof (toolbox_target_table[0]));
 
 static void
+use_integrated_ui_for_display_shell(DDisplay *ddisp, char *title);
+
+static void
 dia_dnd_file_drag_data_received (GtkWidget        *widget,
                                  GdkDragContext   *context,
                                  gint              x,
@@ -231,6 +234,15 @@ const int num_tools = NUM_TOOLS;
 
 static GtkWidget *toolbox_shell = NULL;
 static GtkWidget *tool_widgets[NUM_TOOLS];
+
+static struct 
+{
+    GtkWindow    * main_window;
+    GtkToolbar   * toolbar;
+    GtkNotebook  * diagram_notebook;
+    GtkStatusbar * statusbar;
+} ui;
+
 /*static*/ GtkTooltips *tool_tips;
 static GSList *tool_group = NULL;
 
@@ -399,6 +411,260 @@ display_data_received_callback (GtkWidget *widget,
     dia_dnd_file_drag_data_received (widget, context, x, y, data, info, time, ddisp);
 }
 
+/**
+ * @param ddisp The diagram display object that a window is created for
+ * @param title
+ */
+static void
+use_integrated_ui_for_display_shell(DDisplay *ddisp, char *title)
+{
+  GtkWidget *table;
+  GtkWidget *navigation_button;
+  GtkWidget *status_hbox;
+  GtkWidget *zoom_hbox, *zoom_label;
+  GtkWidget *label;                /* Text label for the notebook page */
+  GtkWidget *tab_label_container;  /* Container to hold text label & close button */
+  int width, height;               /* Width/Heigth of the diagram */
+  GtkWidget *page;                 /* Container to hold the diagram */
+  GtkWidget *image;
+  GtkWidget *close_button;         /* Close button for the notebook page */
+  GtkWidget *widget;
+  GtkRcStyle *rcstyle;
+	
+  /* I think this is purposeless but I don't want to bother to figure it out at the moment */
+  if (!tool_tips) /* needed here if we dont create_toolbox() */
+    tool_tips = gtk_tooltips_new ();
+    
+  /* ddisp->shell = page; */
+  /* ddisp->shell = gtk_event_box_new (); */
+  /* ddisp->shell = gtk_window_new (GTK_WINDOW_TOPLEVEL); */
+  ddisp->shell = GTK_WIDGET (ui.main_window);
+ 
+  /* Create a new tab page */
+  page = gtk_vbox_new(FALSE, 0);
+  tab_label_container = gtk_hbox_new(FALSE,3);
+  
+  label = gtk_label_new( title );
+  gtk_box_pack_start( GTK_BOX(tab_label_container), label, FALSE, FALSE, 0 );
+  gtk_widget_show (label);
+
+  /* <from GEdit> */
+  /* don't allow focus on the close button */
+  close_button = gtk_button_new();
+  gtk_button_set_relief (GTK_BUTTON (close_button), GTK_RELIEF_NONE);
+  gtk_button_set_focus_on_click (GTK_BUTTON (close_button), FALSE);
+
+  /* make it as small as possible */
+  rcstyle = gtk_rc_style_new ();
+  rcstyle->xthickness = rcstyle->ythickness = 0;
+  gtk_widget_modify_style (close_button, rcstyle);
+  gtk_rc_style_unref (rcstyle),
+
+  image = gtk_image_new_from_stock (GTK_STOCK_CLOSE,
+                                    GTK_ICON_SIZE_MENU);
+
+  gtk_container_add (GTK_CONTAINER(close_button), image);
+  /* <from GEdit/> */
+
+  gtk_box_pack_start( GTK_BOX(tab_label_container), close_button, FALSE, FALSE, 0 );
+  gtk_widget_show (close_button);
+  gtk_widget_show (image);
+
+  /* TODO: Add close button to notebook label (and create close function) */
+ 
+  gtk_notebook_append_page (GTK_NOTEBOOK(ui.diagram_notebook),
+                            page,
+                            tab_label_container);
+
+  gtk_object_set_user_data (GTK_OBJECT (page), (gpointer) ddisp);
+  g_object_set_data (G_OBJECT (page), "window", ui.main_window);
+
+  gtk_widget_set_events (page,
+                         GDK_POINTER_MOTION_MASK |
+                         GDK_POINTER_MOTION_HINT_MASK |
+                         GDK_FOCUS_CHANGE_MASK);
+
+  /*  the table containing all widgets  */
+  table = gtk_table_new (3, 3, FALSE);
+  gtk_table_set_col_spacing (GTK_TABLE (table), 0, 1);
+  gtk_table_set_col_spacing (GTK_TABLE (table), 1, 2);
+  gtk_table_set_row_spacing (GTK_TABLE (table), 0, 1);
+  gtk_table_set_row_spacing (GTK_TABLE (table), 1, 2);
+  gtk_container_set_border_width (GTK_CONTAINER (table), 2);
+
+  /* TODO:Maybe assign ddisp->shell to page??? 
+  gtk_container_add (GTK_CONTAINER (ddisp->shell), table); */
+  gtk_box_pack_start( GTK_BOX(page), table, TRUE, TRUE, 0 );
+  /*gtk_container_add (GTK_CONTAINER (ddisp->shell), table); */
+
+  /*  scrollbars, rulers, canvas, menu popup button  */
+  ddisp->origin = gtk_frame_new (NULL);
+  gtk_frame_set_shadow_type (GTK_FRAME (ddisp->origin), GTK_SHADOW_OUT);
+
+  ddisp->hrule = gtk_hruler_new ();
+  g_signal_connect_swapped (GTK_OBJECT (page), "motion_notify_event",
+                            G_CALLBACK(GTK_WIDGET_GET_CLASS (ddisp->hrule)->motion_notify_event),
+                            GTK_OBJECT (ddisp->hrule));
+
+  ddisp->vrule = gtk_vruler_new ();
+  g_signal_connect_swapped (GTK_OBJECT (page), "motion_notify_event",
+			    G_CALLBACK(GTK_WIDGET_GET_CLASS (ddisp->vrule)->motion_notify_event),
+                            GTK_OBJECT (ddisp->vrule));
+
+  /* Get the width/height of the Notebook child area */
+  /* TODO: Fix width/height hardcoded values */
+  width = 100;
+  height = 100;
+
+  /*  The adjustment datums  */
+  ddisp->hsbdata = GTK_ADJUSTMENT (gtk_adjustment_new (0, 0, width, 1, (width-1)/4, width-1));
+  ddisp->vsbdata = GTK_ADJUSTMENT (gtk_adjustment_new (0, 0, height, 1, (height-1)/4, height-1));
+
+  ddisp->hsb = gtk_hscrollbar_new (ddisp->hsbdata);
+  GTK_WIDGET_UNSET_FLAGS (ddisp->hsb, GTK_CAN_FOCUS);
+  ddisp->vsb = gtk_vscrollbar_new (ddisp->vsbdata);
+  GTK_WIDGET_UNSET_FLAGS (ddisp->vsb, GTK_CAN_FOCUS);
+
+  /*  set up the scrollbar observers  */
+  g_signal_connect (GTK_OBJECT (ddisp->hsbdata), "value_changed",
+		    G_CALLBACK(ddisplay_hsb_update),
+		      ddisp);
+  g_signal_connect (GTK_OBJECT (ddisp->vsbdata), "value_changed",
+		    G_CALLBACK(ddisplay_vsb_update),
+		      ddisp);
+
+  /*  Popup button between scrollbars for navigation window  */
+  navigation_button = navigation_popup_new(ddisp);
+  gtk_tooltips_set_tip(tool_tips, navigation_button,
+                       _("Pops up the Navigation window."), NULL);
+  gtk_widget_show(navigation_button);
+
+  /*  Canvas  */
+  ddisp->canvas = dia_canvas_new();
+  
+  /* Dia's canvas does it' double buffering alone so switch off GTK's */
+  gtk_widget_set_double_buffered (ddisp->canvas, FALSE);
+
+  gtk_widget_set_events (ddisp->canvas, CANVAS_EVENT_MASK);
+  GTK_WIDGET_SET_FLAGS (ddisp->canvas, GTK_CAN_FOCUS);
+  g_signal_connect (GTK_OBJECT (ddisp->canvas), "event",
+                    G_CALLBACK(ddisplay_canvas_events),
+                    ddisp);
+  
+  gtk_drag_dest_set(ddisp->canvas, GTK_DEST_DEFAULT_ALL,
+		    display_target_table, display_n_targets, GDK_ACTION_COPY);
+  g_signal_connect (GTK_OBJECT (ddisp->canvas), "drag_drop",
+		    G_CALLBACK(display_drop_callback), NULL);
+  g_signal_connect (GTK_OBJECT (ddisp->canvas), "drag_data_received",
+		    G_CALLBACK(display_data_received_callback), ddisp);
+/*
+  gtk_object_set_user_data (GTK_OBJECT (ddisp->canvas), (gpointer) ddisp);
+*/
+  /*  place all the widgets  */
+  gtk_table_attach (GTK_TABLE (table), ddisp->origin, 0, 1, 0, 1,
+                    GTK_FILL, GTK_FILL, 0, 0);
+  gtk_table_attach (GTK_TABLE (table), ddisp->hrule, 1, 2, 0, 1,
+                    GTK_EXPAND | GTK_SHRINK | GTK_FILL, GTK_FILL, 0, 0);
+  gtk_table_attach (GTK_TABLE (table), ddisp->vrule, 0, 1, 1, 2,
+                    GTK_FILL, GTK_EXPAND | GTK_SHRINK | GTK_FILL, 0, 0);
+  gtk_table_attach (GTK_TABLE (table), ddisp->canvas, 1, 2, 1, 2,
+                    GTK_EXPAND | GTK_SHRINK | GTK_FILL,
+                    GTK_EXPAND | GTK_SHRINK | GTK_FILL, 0, 0);
+  gtk_table_attach (GTK_TABLE (table), ddisp->hsb, 0, 2, 2, 3,
+                    GTK_EXPAND | GTK_SHRINK | GTK_FILL, GTK_FILL, 0, 0);
+  gtk_table_attach (GTK_TABLE (table), ddisp->vsb, 2, 3, 0, 2,
+                    GTK_FILL, GTK_EXPAND | GTK_SHRINK | GTK_FILL, 0, 0);
+  gtk_table_attach (GTK_TABLE (table), navigation_button, 2, 3, 2, 3,
+                    GTK_FILL, GTK_FILL, 0, 0);
+
+  /* TODO rob use per window accel */
+  ddisp->accel_group = menus_get_display_accels ();
+
+  /* TODO: Do this once! */
+  gtk_window_add_accel_group(GTK_WINDOW(page), ddisp->accel_group);
+
+  /* the statusbars */
+  status_hbox = gtk_hbox_new (FALSE, 2);
+
+  /* TODO: Migrate Zoom, Grid Status to main window toolbar */
+  /* Zoom status pseudo-optionmenu */
+  ddisp->zoom_status = create_zoom_widget(ddisp);
+  zoom_hbox = gtk_hbox_new(FALSE, 0);
+  zoom_label = gtk_label_new(_("Zoom"));
+  gtk_box_pack_start (GTK_BOX(zoom_hbox), zoom_label,
+		      FALSE, FALSE, 0);
+  gtk_box_pack_start (GTK_BOX(zoom_hbox), ddisp->zoom_status,
+		      FALSE, FALSE, 0);
+
+  gtk_box_pack_start (GTK_BOX (status_hbox), zoom_hbox, FALSE, FALSE, 0);
+
+  /* Grid on/off button */
+  ddisp->grid_status = dia_toggle_button_new_with_icons(dia_on_grid_icon,
+							dia_off_grid_icon);
+  
+  g_signal_connect(G_OBJECT(ddisp->grid_status), "toggled",
+		   G_CALLBACK (grid_toggle_snap), ddisp);
+  gtk_tooltips_set_tip(tool_tips, ddisp->grid_status,
+		       _("Toggles snap-to-grid for this window."), NULL);
+  gtk_box_pack_start (GTK_BOX (status_hbox), ddisp->grid_status,
+		      FALSE, FALSE, 0);
+
+  ddisp->mainpoint_status = dia_toggle_button_new_with_icons(dia_mainpoints_on_icon,
+							dia_mainpoints_off_icon);
+  
+  g_signal_connect(G_OBJECT(ddisp->mainpoint_status), "toggled",
+		   G_CALLBACK (interface_toggle_mainpoint_magnetism), ddisp);
+  gtk_tooltips_set_tip(tool_tips, ddisp->mainpoint_status,
+		       _("Toggles object snapping for this window."), NULL);
+  gtk_box_pack_start (GTK_BOX (status_hbox), ddisp->mainpoint_status,
+		      FALSE, FALSE, 0);
+
+  /* Statusbar */
+  ddisp->modified_status = GTK_WIDGET( ui.statusbar );
+/*
+  gtk_box_pack_start (GTK_BOX (status_hbox), ddisp->modified_status,
+		      TRUE, TRUE, 0);
+
+  gtk_table_attach (GTK_TABLE (table), status_hbox, 0, 3, 3, 4,
+                    GTK_FILL, GTK_FILL, 0, 0);
+*/
+
+  gtk_widget_show (ddisp->hsb);
+  gtk_widget_show (ddisp->vsb);
+  gtk_widget_show (ddisp->origin);
+  gtk_widget_show (ddisp->hrule);
+  gtk_widget_show (ddisp->vrule);
+  gtk_widget_show (ddisp->zoom_status);
+  gtk_widget_show (zoom_hbox);
+  gtk_widget_show (zoom_label);
+  gtk_widget_show (ddisp->grid_status);
+  gtk_widget_show (ddisp->mainpoint_status);
+  /*gtk_widget_show (ddisp->modified_status);*/
+  gtk_widget_show (status_hbox);
+  gtk_widget_show (table);
+  gtk_widget_show (page);
+
+  gtk_widget_show (ddisp->canvas);
+
+  /* TODO: Figure out how to detect if anti-aliased renderer was set */
+  /** For the distributed display this is called when the ddisp->canvas is shown.
+   * The show causes a GDK_CONFIGURE event but this is not happening here.  If this
+   * is not set a seg-fault occurs when dia_renderer_get_width_pixels() is called
+   */
+  ddisplay_set_renderer(ddisp, /* aa */0);
+
+  /*  set the focus to the canvas area  */
+  gtk_widget_grab_focus (ddisp->canvas);
+}
+
+/**
+ * @param ddisp The diagram display object that a window is created for
+ * @param width Diagram widgth
+ * @param height Diagram Height
+ * @param title Window title
+ * @param use_mbar Flag to indicate whether to add a menubar to the window
+ * @param top_level_window
+ */
 void
 create_display_shell(DDisplay *ddisp,
 		     int width, int height,
@@ -410,6 +676,12 @@ create_display_shell(DDisplay *ddisp,
   GtkWidget *root_vbox = NULL;
   GtkWidget *zoom_hbox, *zoom_label;
   int s_width, s_height;
+
+  if (prefs.use_integrated_ui)
+  {
+    use_integrated_ui_for_display_shell(ddisp, title);
+    return;
+  }
 
   if (!tool_tips) /* needed here if we dont create_toolbox() */
     tool_tips = gtk_tooltips_new ();
@@ -1269,7 +1541,190 @@ toolbox_delete (GtkWidget *widget, GdkEvent *event, gpointer data)
   return FALSE;
 }
 
+/**
+ *
+ */
+static gboolean 
+toolbar_callback (GtkWidget *toolbar, gpointer data) 
+{
+  /* TODO: Implement Integrated UI Toolbar callback */
+  return FALSE;
+}
 
+static GtkWidget * 
+create_integrated_ui_toolbar (void)
+{
+  GtkToolbar  *toolbar;
+  GtkToolItem *button;
+  GtkToolItem *sep;
+  GtkToolItem *tool_item; 
+  GtkWidget   *w;
+
+  toolbar = GTK_TOOLBAR (gtk_toolbar_new ());
+
+  button = gtk_tool_button_new_from_stock (GTK_STOCK_NEW);
+  gtk_toolbar_insert (toolbar, button, -1);
+  gtk_widget_show (GTK_WIDGET (button));
+
+  button = gtk_tool_button_new_from_stock (GTK_STOCK_OPEN);
+  gtk_toolbar_insert (toolbar, button, -1);
+  gtk_widget_show (GTK_WIDGET (button));
+
+  button = gtk_tool_button_new_from_stock (GTK_STOCK_SAVE);
+  gtk_toolbar_insert (toolbar, button, -1);
+  gtk_widget_show (GTK_WIDGET (button));
+
+  sep = gtk_separator_tool_item_new ();
+  gtk_toolbar_insert (toolbar, sep, -1);
+  gtk_widget_show (GTK_WIDGET (sep));
+
+  button = gtk_tool_button_new_from_stock (GTK_STOCK_ZOOM_OUT);
+  gtk_toolbar_insert (toolbar, button, -1);
+  gtk_widget_show (GTK_WIDGET (button));
+
+  button = gtk_tool_button_new_from_stock (GTK_STOCK_ZOOM_IN);
+  gtk_toolbar_insert (toolbar, button, -1);
+  gtk_widget_show (GTK_WIDGET (button));
+
+  tool_item = gtk_tool_item_new ();
+  /* TODO: Create a Zoom Indicator for the toolbar */
+  w = gtk_label_new ("100%");
+  gtk_container_add (GTK_CONTAINER (tool_item), w);
+  gtk_toolbar_insert (toolbar, tool_item, -1);
+  gtk_widget_show (GTK_WIDGET (tool_item));
+  gtk_widget_show (w);
+
+  sep = gtk_separator_tool_item_new ();
+  gtk_toolbar_insert (toolbar, sep, -1);
+  gtk_widget_show (GTK_WIDGET (sep));
+
+  return GTK_WIDGET (toolbar);
+}
+
+/**
+ * Create integrated user interface
+ */
+void create_integrated_ui (void)
+{
+  GtkWidget *window;
+  GtkWidget *main_vbox;
+  GtkWidget *hbox;
+  GtkWidget *wrapbox;
+  GtkWidget *menubar;
+  GtkWidget *toolbar;
+  GtkWidget *notebook;
+  GtkWidget *statusbar;
+  GtkAccelGroup *accel_group;
+  GdkPixbuf *pixbuf;
+
+#ifdef GNOME
+  window = gnome_app_new ("Dia", _("Diagram Editor"));
+#else
+  window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+  gtk_widget_ref (window);
+  gtk_window_set_title (GTK_WINDOW (window), "Dia v" VERSION);
+#endif
+  gtk_window_set_role (GTK_WINDOW (window), "main_window");
+  gtk_window_set_default_size(GTK_WINDOW(window), 146, 349);
+
+  pixbuf = gdk_pixbuf_new_from_inline (-1, dia_app_icon, FALSE, NULL);
+  if (pixbuf) {
+    gtk_window_set_icon (GTK_WINDOW (window), pixbuf);
+    g_object_unref (pixbuf);
+  }
+
+  g_signal_connect (GTK_OBJECT (window), "delete_event",
+		    G_CALLBACK (toolbox_delete),
+		      window);
+
+  g_signal_connect (GTK_OBJECT (window), "destroy",
+		    G_CALLBACK (toolbox_destroy),
+		      window);
+
+  main_vbox = gtk_vbox_new (FALSE, 1);
+  gtk_container_set_border_width (GTK_CONTAINER (main_vbox), 1);
+#ifdef GNOME
+  gnome_app_set_contents (GNOME_APP(window), main_vbox);
+#else
+  gtk_container_add (GTK_CONTAINER (window), main_vbox);
+#endif
+  gtk_widget_show (main_vbox);
+
+  /* Applicatioon Statusbar */
+  statusbar = gtk_statusbar_new ();
+  gtk_box_pack_end (GTK_BOX (main_vbox), statusbar, FALSE, TRUE, 0);
+  gtk_widget_show (statusbar);
+
+  /* HBox for everything below the menubar and toolbars */
+  hbox = gtk_hbox_new(FALSE, 0);
+  gtk_box_pack_end (GTK_BOX (main_vbox), hbox, TRUE, TRUE, 0);
+  gtk_widget_show (hbox);
+  
+  /* Diagram Notebook */
+  notebook = gtk_notebook_new ();
+  gtk_box_pack_end (GTK_BOX (hbox), notebook, TRUE, TRUE, 0);
+  gtk_widget_show (notebook);
+
+  /*  tooltips  */
+  tool_tips = gtk_tooltips_new ();
+
+  wrapbox = gtk_hwrap_box_new(FALSE);
+  gtk_wrap_box_set_aspect_ratio(GTK_WRAP_BOX(wrapbox), 144.0 / 318.0);
+  gtk_wrap_box_set_justify(GTK_WRAP_BOX(wrapbox), GTK_JUSTIFY_TOP);
+  gtk_wrap_box_set_line_justify(GTK_WRAP_BOX(wrapbox), GTK_JUSTIFY_LEFT);
+
+  /* pack the rest of the stuff */
+  gtk_box_pack_start (GTK_BOX (hbox), wrapbox, FALSE, TRUE, 0);
+  gtk_container_set_border_width (GTK_CONTAINER (wrapbox), 0);
+  gtk_widget_show (wrapbox);
+
+  create_tools (wrapbox);
+  create_sheets (wrapbox);
+  create_color_area (wrapbox);
+  create_lineprops_area (wrapbox);
+
+  /* Setup toolbox area as file drop destination */
+  gtk_drag_dest_set (wrapbox,
+		     GTK_DEST_DEFAULT_ALL,
+		     toolbox_target_table, toolbox_n_targets,
+		     GDK_ACTION_COPY);
+  g_signal_connect (GTK_OBJECT (wrapbox), "drag_data_received",
+		    G_CALLBACK (dia_dnd_file_drag_data_received),
+                    NULL); /* userdata == NULL here intentionally */
+
+  /* menus -- initialised afterwards, because initing the display menus
+   * uses the tool buttons*/
+  menus_get_toolbox_menubar(&menubar, &accel_group);
+  gtk_window_add_accel_group (GTK_WINDOW (window), accel_group);
+#ifdef GNOME
+  gnome_app_set_menus (GNOME_APP (window), GTK_MENU_BAR (menubar));
+#else
+  gtk_box_pack_start (GTK_BOX (main_vbox), menubar, FALSE, TRUE, 0);
+  gtk_widget_show (menubar);
+#endif
+
+  /* Toolbar */
+  toolbar = create_integrated_ui_toolbar ();
+
+  /* TODO: delete set_style */
+  gtk_toolbar_set_style (GTK_TOOLBAR (toolbar), GTK_TOOLBAR_ICONS);
+  gtk_box_pack_start (GTK_BOX (main_vbox), toolbar, FALSE, TRUE, 0);
+  gtk_widget_show (toolbar);
+
+  persistence_register_window(GTK_WINDOW(window));
+
+  ui.main_window      = GTK_WINDOW    (window);
+  ui.toolbar          = GTK_TOOLBAR   (toolbar);
+  ui.diagram_notebook = GTK_NOTEBOOK  (notebook);
+  ui.statusbar        = GTK_STATUSBAR (statusbar);
+
+  /* TODO: Figure out what to do about toolbox_shell for integrated UI */
+  toolbox_shell = window;
+}
+
+/**
+ * Create toolbox component for distributed user interface 
+ */
 void
 create_toolbox ()
 {

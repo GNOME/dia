@@ -68,6 +68,8 @@ struct DiaPreferences {
   int toolbox_on_top;
 
   DiagramTreeConfig dia_tree;
+
+  int use_integrated_ui;
 };
 
 extern struct DiaPreferences prefs;

@@ -1,3 +1,13 @@
+2007-05-05  Lars Clausen  <lars@raeder.dk>
+
+	* app/preferences.c:
+	* app/preferences.h:
+	* app/display.h:
+	* app/app_procs.c:
+	* app/main.c:
+	* app/interface.c: Patch from Patrick Hallinan
+	<patrick.j.hallinan@gmail.com>: Start of integrated UI.
+
 2007-05-04  Lars Clausen  <lars@raeder.dk>
 
 	* lib/properties.h: 

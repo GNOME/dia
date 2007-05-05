@@ -121,12 +121,24 @@ struct DiaPrefsTab prefs_tabs[] =
 
 DiaPrefData prefs_data[] =
 {
-  { "reset_tools_after_create", PREF_BOOLEAN, PREF_OFFSET(reset_tools_after_create), &default_true, 0, N_("Reset tools after create") },
-  { "compress_save", PREF_BOOLEAN, PREF_OFFSET(new_diagram.compress_save), &default_true, 0, N_("Compress saved files") },
-  { "undo_depth", PREF_UINT, PREF_OFFSET(undo_depth), &default_undo_depth, 0, N_("Number of undo levels:") },
-  { "reverse_rubberbanding_intersects", PREF_BOOLEAN, PREF_OFFSET(reverse_rubberbanding_intersects), &default_true, 0, N_("Reverse dragging selects\nintersecting objects") },
-  { "recent_documents_list_size", PREF_UINT, PREF_OFFSET(recent_documents_list_size), &default_recent_documents, 0, N_("Recent documents list size:") },
-  { "use_menu_bar", PREF_BOOLEAN, PREF_OFFSET(new_view.use_menu_bar), &default_true, 0, N_("Use menu bar") },
+  { "reset_tools_after_create", PREF_BOOLEAN, PREF_OFFSET(reset_tools_after_create), 
+    &default_true,       0, N_("Reset tools after create") },
+
+  { "compress_save",            PREF_BOOLEAN, PREF_OFFSET(new_diagram.compress_save), 
+    &default_true,       0, N_("Compress saved files") },
+
+  { "undo_depth",               PREF_UINT,    PREF_OFFSET(undo_depth), 
+    &default_undo_depth, 0, N_("Number of undo levels:") },
+
+  { "reverse_rubberbanding_intersects", PREF_BOOLEAN, PREF_OFFSET(reverse_rubberbanding_intersects), 
+    &default_true,       0, N_("Reverse dragging selects\nintersecting objects") },
+
+  { "recent_documents_list_size", PREF_UINT, PREF_OFFSET(recent_documents_list_size), 
+    &default_recent_documents, 0, N_("Recent documents list size:") },
+
+  { "use_menu_bar", PREF_BOOLEAN, PREF_OFFSET(new_view.use_menu_bar), 
+    &default_true, 0, N_("Use menu bar") },
+
   { "toolbox_on_top", PREF_BOOLEAN, PREF_OFFSET(toolbox_on_top),
     &default_false, 0, N_("Keep tool box on top of diagram windows"),
     NULL, FALSE, NULL, update_floating_toolbox},
@@ -137,6 +149,9 @@ DiaPrefData prefs_data[] =
     &default_fontsize_unit, 0, N_("Unit for font sizes:"), NULL, FALSE,
     get_units_name_list, update_internal_prefs },
   
+  { "use_integrated_ui", PREF_BOOLEAN, PREF_OFFSET(use_integrated_ui),
+    &default_false, 0, N_("Integrated UI") },
+
   { NULL, PREF_NONE, 0, NULL, 1, N_("New diagram:") },
   { "is_portrait", PREF_BOOLEAN, PREF_OFFSET(new_diagram.is_portrait), &default_true, 1, N_("Portrait") },
   { "new_diagram_papertype", PREF_CHOICE, PREF_OFFSET(new_diagram.papertype),
@@ -178,7 +193,7 @@ DiaPrefData prefs_data[] =
   { "render_bounding_boxes", PREF_BOOLEAN,PREF_OFFSET(render_bounding_boxes),
     &default_false,0,"render bounding boxes",NULL, TRUE},
 
-  /* There's really no reason to not pertty format it, and allowing non-pretty
+  /* There's really no reason to not pretty format it, and allowing non-pretty
      can lead to problems with long lines, CVS etc. 
   { "pretty_formated_xml", PREF_BOOLEAN,PREF_OFFSET(pretty_formated_xml),
     &default_true,0,"pretty formated xml",NULL, TRUE},

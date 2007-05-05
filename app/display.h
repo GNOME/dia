@@ -51,7 +51,7 @@ struct _DDisplay {
   GtkWidget      *canvas;              /* canvas widget for this ddisplay   */
   GtkWidget      *hsb, *vsb;           /* widgets for scroll bars           */
   GtkWidget      *hrule, *vrule;       /* widgets for rulers                */
-  GtkWidget      *origin;              /* widgets for rulers                */
+  GtkWidget      *origin;              /* either decoration or menu button  */
   GtkWidget      *menu_bar;            /* widget for the menu bar           */
   GtkUIManager   *ui_manager;     /* ui manager used to create the menu bar */
   GtkActionGroup *actions;        
