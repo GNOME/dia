@@ -1,21 +1,20 @@
 # Occitan translation of dia.
 # Copyright (C) 2007 Free Software Foundation, Inc.
 # This file is distributed under the same license as the dia package.
+# Yannig MARCHEGAY (yannig@marchegay.org) - 2006-2007
 #
-# Yannig MARCHEGAY (yannig@marchegay.org), 2007.
-# 
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.96\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-04-25 21:54+0200\n"
-"PO-Revision-Date: 2007-04-18 10:00+0200\n"
+"PO-Revision-Date: 2007-05-08 15:28+0200\n"
 "Last-Translator: Yannig MARCHEGAY <yannig@marchegay.org>\n"
 "Language-Team: Occitan (post 1500) <ubuntu-l10n-oci@lists.ubuntu.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);"
 
 #. This is not an errror
 #: ../app/app_procs.c:256
@@ -296,8 +295,8 @@ msgstr ""
 #: ../app/commands.c:656
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
-"La còla de revirada en occitan d'Ubuntu, 2006 <ubuntu-l10n-oci@lists.ubuntu."
-"com>"
+"La còla de revirada en occitan d'Ubuntu, 2006 <ubuntu-l10n-"
+"oci@lists.ubuntu.com>"
 
 #: ../app/commands.c:658
 msgid ""
@@ -647,9 +646,7 @@ msgstr ""
 #: ../app/display.c:121
 #, c-format
 msgid "Selection of %d object"
-msgid_plural "Selection of %d objects"
-msgstr[0] ""
-msgstr[1] ""
+msgstr ""
 
 #: ../app/display.c:131
 #, c-format
@@ -731,7 +728,7 @@ msgstr ""
 
 #: ../app/filedlg.c:132 ../app/filedlg.c:534
 msgid "By extension"
-msgstr ""
+msgstr "Per extension"
 
 #: ../app/filedlg.c:219
 msgid "Open Diagram"
@@ -1155,11 +1152,11 @@ msgstr ""
 
 #: ../app/menus.c:111
 msgid "1600%"
-msgstr "1600 %"
+msgstr ""
 
 #: ../app/menus.c:112
 msgid "800%"
-msgstr "800 %"
+msgstr ""
 
 #: ../app/menus.c:113
 msgid "400%"
@@ -1167,7 +1164,7 @@ msgstr "400 %"
 
 #: ../app/menus.c:114
 msgid "283"
-msgstr "283"
+msgstr ""
 
 #: ../app/menus.c:115
 msgid "200"
@@ -1175,7 +1172,7 @@ msgstr "200"
 
 #: ../app/menus.c:116
 msgid "141"
-msgstr "141"
+msgstr ""
 
 #: ../app/menus.c:118
 msgid "85"
@@ -1183,7 +1180,7 @@ msgstr "85"
 
 #: ../app/menus.c:119
 msgid "70.7"
-msgstr "70,7"
+msgstr ""
 
 #: ../app/menus.c:120
 msgid "50"
@@ -1191,7 +1188,7 @@ msgstr "50"
 
 #: ../app/menus.c:121
 msgid "35.4"
-msgstr "35,4"
+msgstr ""
 
 #: ../app/menus.c:122
 msgid "25"
@@ -2178,9 +2175,8 @@ msgid "Show repeated messages"
 msgstr ""
 
 #: ../lib/message.c:144
-#, fuzzy
 msgid "Don't show this message again"
-msgstr "Mostra aqueste messatge d'ajuda"
+msgstr ""
 
 #: ../lib/message.c:202
 #, c-format
@@ -4018,9 +4014,8 @@ msgid "SADT diagram objects"
 msgstr ""
 
 #: ../objects/SISSI/classification.h:38 ../objects/SISSI/sissi.h:218
-#, fuzzy
 msgid "No Protection"
-msgstr "Protegir"
+msgstr ""
 
 #: ../objects/SISSI/classification.h:39 ../objects/SISSI/sissi.h:219
 msgid "Restricted Diffusion"
@@ -4032,7 +4027,7 @@ msgstr ""
 
 #: ../objects/SISSI/classification.h:41
 msgid "Confidential"
-msgstr ""
+msgstr "Confidencial"
 
 #: ../objects/SISSI/classification.h:42 ../objects/SISSI/sissi.h:221
 msgid "NATO Confidential"
@@ -4055,9 +4050,8 @@ msgid "Defense Confidential"
 msgstr ""
 
 #: ../objects/SISSI/classification.h:47 ../objects/SISSI/sissi.h:225
-#, fuzzy
 msgid "Secret"
-msgstr "Fuèlha"
+msgstr ""
 
 #: ../objects/SISSI/classification.h:48
 msgid "Defense Secret"
@@ -4112,27 +4106,24 @@ msgid "Millisecond"
 msgstr ""
 
 #: ../objects/SISSI/sissi.h:245
-#, fuzzy
 msgid "Second"
-msgstr "Enviar"
+msgstr "Segonda"
 
 #: ../objects/SISSI/sissi.h:246
-#, fuzzy
 msgid "Minute"
-msgstr "Estampaira"
+msgstr "Minuta"
 
 #: ../objects/SISSI/sissi.h:247
 msgid "Hour"
-msgstr ""
+msgstr "Ora"
 
 #: ../objects/SISSI/sissi.h:248
-#, fuzzy
 msgid "Day"
-msgstr "Afichar"
+msgstr "Jorn"
 
 #: ../objects/SISSI/sissi.h:249
 msgid "Week"
-msgstr ""
+msgstr "Setmana"
 
 #: ../objects/SISSI/sissi.h:254
 msgid "SYSTEM"
@@ -4147,9 +4138,8 @@ msgid "Electronic messaging"
 msgstr ""
 
 #: ../objects/SISSI/sissi.h:257
-#, fuzzy
 msgid "Intranet"
-msgstr "Interfaç :"
+msgstr ""
 
 #: ../objects/SISSI/sissi.h:258
 msgid "Company directory"
@@ -4184,37 +4174,32 @@ msgid "SITE"
 msgstr ""
 
 #: ../objects/SISSI/sissi.h:274
-#, fuzzy
 msgid "Places"
-msgstr "Remplaçar"
+msgstr "Acorchis"
 
 #: ../objects/SISSI/sissi.h:275
 msgid "External environment"
 msgstr ""
 
 #: ../objects/SISSI/sissi.h:276
-#, fuzzy
 msgid "Premises"
-msgstr "Pression"
+msgstr ""
 
 #: ../objects/SISSI/sissi.h:277
-#, fuzzy
 msgid "Zone"
-msgstr "pas cap"
+msgstr ""
 
 #: ../objects/SISSI/sissi.h:278
 msgid "Service Essentiel"
 msgstr ""
 
 #: ../objects/SISSI/sissi.h:279
-#, fuzzy
 msgid "Communication"
-msgstr "Condicion"
+msgstr "Comunicacion"
 
 #: ../objects/SISSI/sissi.h:280
-#, fuzzy
 msgid "Power"
-msgstr "Telefòn"
+msgstr "Poténcia"
 
 #: ../objects/SISSI/sissi.h:281
 msgid "Cooling / Pollution"
@@ -4282,7 +4267,7 @@ msgstr ""
 
 #: ../objects/SISSI/sissi.h:337
 msgid "Users"
-msgstr ""
+msgstr "Utilizaires"
 
 #: ../objects/SISSI/sissi.h:338
 msgid "Fonctionnal administrator"
@@ -4325,9 +4310,8 @@ msgid "LOGICIEL"
 msgstr ""
 
 #: ../objects/SISSI/sissi.h:356
-#, fuzzy
 msgid "Operating System"
-msgstr "Operacions"
+msgstr "Sistèma d'explotacion"
 
 #: ../objects/SISSI/sissi.h:357
 msgid "Service - maintenance or administration software"
@@ -4351,7 +4335,7 @@ msgstr ""
 
 #: ../objects/SISSI/sissi.h:366
 msgid "HARDWARE"
-msgstr ""
+msgstr "MATERIAL"
 
 #: ../objects/SISSI/sissi.h:367
 msgid "Data processing equipement (active)"
@@ -4388,30 +4372,25 @@ msgstr ""
 
 #. ********* label of board *********
 #: ../objects/SISSI/sissi_dialog.c:201 ../objects/SISSI/sissi_dialog.c:210
-#, fuzzy
 msgid "Menace"
-msgstr "Remplaçar"
+msgstr ""
 
 #: ../objects/SISSI/sissi_dialog.c:203 ../objects/SISSI/sissi_dialog.c:212
-#, fuzzy
 msgid "P Action"
-msgstr "Accion"
+msgstr ""
 
 #: ../objects/SISSI/sissi_dialog.c:205 ../objects/SISSI/sissi_dialog.c:214
-#, fuzzy
 msgid "P Detection"
-msgstr "Direction :"
+msgstr ""
 
 #: ../objects/SISSI/sissi_dialog.c:207 ../objects/SISSI/sissi_dialog.c:216
-#, fuzzy
 msgid "Vulnerability"
-msgstr "Visibilitat"
+msgstr ""
 
 #. Other properties of page:
 #: ../objects/SISSI/sissi_dialog.c:372
-#, fuzzy
 msgid "Others properties"
-msgstr "Propietats del objècte"
+msgstr ""
 
 #. ********* selection menu of entity ********
 #. ********* Label of board *********
@@ -4420,9 +4399,8 @@ msgid "Libelle"
 msgstr ""
 
 #: ../objects/SISSI/sissi_dialog.c:612
-#, fuzzy
 msgid "value"
-msgstr "Valor"
+msgstr "valor"
 
 #: ../objects/SISSI/sissi_dialog.c:623 ../objects/SISSI/sissi_dialog.c:755
 #: ../objects/UML/class_dialog.c:927 ../objects/UML/class_dialog.c:1877
@@ -4432,18 +4410,16 @@ msgstr "_Nòu"
 
 #. Other properties of page
 #: ../objects/SISSI/sissi_dialog.c:746
-#, fuzzy
 msgid "Documents"
-msgstr "Document"
+msgstr "Documents"
 
 #: ../objects/SISSI/sissi_dialog.c:762
-#, fuzzy
 msgid "Document title"
-msgstr "Document"
+msgstr "Titol del document"
 
 #: ../objects/SISSI/sissi_dialog.c:764
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 #: ../objects/UML/actor.c:349 ../objects/UML/actor.c:351
 #: ../sheets/UML.sheet.in.h:2
@@ -7584,45 +7560,40 @@ msgid "State"
 msgstr "Estat"
 
 #: ../sheets/SISSI.sheet.in.h:1
-#, fuzzy
 msgid "Alarm center"
-msgstr "Paramètres"
+msgstr ""
 
 #: ../sheets/SISSI.sheet.in.h:2
 msgid "Analyse de Log"
 msgstr ""
 
 #: ../sheets/SISSI.sheet.in.h:3
-#, fuzzy
 msgid "Backup"
-msgstr "Fons"
+msgstr ""
 
 #: ../sheets/SISSI.sheet.in.h:4
 msgid "Boitier de chiffrement"
 msgstr ""
 
 #: ../sheets/SISSI.sheet.in.h:5
-#, fuzzy
 msgid "Cellular phone"
-msgstr "Telefòn"
+msgstr ""
 
 #: ../sheets/SISSI.sheet.in.h:6 ../sheets/ciscomisc.sheet.in.h:9
 msgid "File cabinet"
 msgstr ""
 
 #: ../sheets/SISSI.sheet.in.h:7
-#, fuzzy
 msgid "Gate"
-msgstr "Estat"
+msgstr ""
 
 #: ../sheets/SISSI.sheet.in.h:8 ../sheets/ciscohub.sheet.in.h:29
 msgid "Hub"
 msgstr ""
 
 #: ../sheets/SISSI.sheet.in.h:9
-#, fuzzy
 msgid "Information"
-msgstr "Rotacion"
+msgstr "Informacions"
 
 #: ../sheets/SISSI.sheet.in.h:10
 msgid "Information system"
@@ -7665,18 +7636,16 @@ msgid "Relational Database"
 msgstr ""
 
 #: ../sheets/SISSI.sheet.in.h:20
-#, fuzzy
 msgid "Room"
-msgstr "Inferior"
+msgstr ""
 
 #: ../sheets/SISSI.sheet.in.h:21 ../sheets/ciscohub.sheet.in.h:53
 msgid "Router"
 msgstr ""
 
 #: ../sheets/SISSI.sheet.in.h:22
-#, fuzzy
 msgid "Safe"
-msgstr "Estat"
+msgstr ""
 
 #: ../sheets/SISSI.sheet.in.h:23
 msgid "Security area"
@@ -7687,9 +7656,8 @@ msgid "Site geographique"
 msgstr ""
 
 #: ../sheets/SISSI.sheet.in.h:25
-#, fuzzy
 msgid "Software"
-msgstr "Store"
+msgstr "Logicial"
 
 #: ../sheets/SISSI.sheet.in.h:26 ../sheets/ciscocomputer.sheet.in.h:42
 msgid "Storage array"
@@ -7704,9 +7672,8 @@ msgid "Video camera"
 msgstr ""
 
 #: ../sheets/SISSI.sheet.in.h:29
-#, fuzzy
 msgid "Workstation"
-msgstr "Rotacion"
+msgstr ""
 
 #: ../sheets/SISSI.sheet.in.h:30
 msgid "cage de faraday"
@@ -7789,9 +7756,8 @@ msgid "digi code"
 msgstr ""
 
 #: ../sheets/SISSI.sheet.in.h:50
-#, fuzzy
 msgid "extincteur"
-msgstr "Centre"
+msgstr ""
 
 #: ../sheets/SISSI.sheet.in.h:51
 msgid "extracteur d'humidite"
@@ -7818,9 +7784,8 @@ msgid "onduleur"
 msgstr ""
 
 #: ../sheets/SISSI.sheet.in.h:57
-#, fuzzy
 msgid "pompe"
-msgstr "Compressar"
+msgstr ""
 
 #: ../sheets/SISSI.sheet.in.h:58
 msgid "pompe rotative"
@@ -7831,9 +7796,8 @@ msgid "porte tambour"
 msgstr ""
 
 #: ../sheets/SISSI.sheet.in.h:60
-#, fuzzy
 msgid "server"
-msgstr "Servidor WWW"
+msgstr "servidor"
 
 #: ../sheets/SISSI.sheet.in.h:61
 msgid "ventilateur"
