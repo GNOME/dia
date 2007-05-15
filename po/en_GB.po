@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-04-25 07:13+0100\n"
-"PO-Revision-Date: 2007-04-25 07:16-0000\n"
+"POT-Creation-Date: 2007-05-15 23:13+0100\n"
+"PO-Revision-Date: 2007-05-15 23:13-0000\n"
 "Last-Translator: David Lodge <dave@cirt.net>\n"
 "Language-Team: English/GB <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -173,11 +173,11 @@ msgstr "Couldn't find standard objects when looking for object-libs; exiting...\
 msgid "Couldn't find standard objects when looking for object-libs in '%s'; exiting...\n"
 msgstr "Couldn't find standard objects when looking for object-libs in '%s'; exiting...\n"
 
-#: ../app/app_procs.c:949
+#: ../app/app_procs.c:950
 msgid "Diagram1.dia"
 msgstr "Diagram1.dia"
 
-#: ../app/app_procs.c:989
+#: ../app/app_procs.c:990
 msgid ""
 "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you can cause this message to appear.\n"
@@ -186,44 +186,44 @@ msgstr ""
 "describing how you can cause this message to appear.\n"
 
 #. no standard buttons
-#: ../app/app_procs.c:1002
+#: ../app/app_procs.c:1003
 msgid "Quitting without saving modified diagrams"
 msgstr "Quitting without saving modified diagrams"
 
-#: ../app/app_procs.c:1004
+#: ../app/app_procs.c:1005
 msgid "Modified diagrams exist. Are you sure you want to quit Dia without saving them?"
 msgstr "Modified diagrams exist. Are you sure you want to quit Dia without saving them?"
 
-#: ../app/app_procs.c:1008
+#: ../app/app_procs.c:1009
 msgid "Quit Dia"
 msgstr "Quit Dia"
 
 #. This printf seems to prevent a race condition with unrefs.
 #. Yuck.  -Lars
-#: ../app/app_procs.c:1061
+#: ../app/app_procs.c:1060
 msgid "Thank you for using Dia.\n"
 msgstr "Thank you for using Dia.\n"
 
-#: ../app/app_procs.c:1078
-#: ../app/app_procs.c:1085
+#: ../app/app_procs.c:1077
+#: ../app/app_procs.c:1084
 msgid "Could not create per-user Dia config directory"
 msgstr "Could not create per-user Dia config directory"
 
-#: ../app/app_procs.c:1088
+#: ../app/app_procs.c:1087
 msgid "Could not create per-user Dia config directory. Please make sure that the environment variable HOME points to an existing directory."
 msgstr "Could not create per-user Dia config directory. Please make sure that the environment variable HOME points to an existing directory."
 
-#: ../app/app_procs.c:1111
+#: ../app/app_procs.c:1110
 #: ../app/diaconv.c:245
 msgid "Objects and filters internal to dia"
 msgstr "Objects and filters internal to dia"
 
-#: ../app/app_procs.c:1153
+#: ../app/app_procs.c:1152
 #: ../app/diaconv.c:115
 msgid "[OPTION...] [FILE...]"
 msgstr "[OPTION...] [FILE...]"
 
-#: ../app/app_procs.c:1156
+#: ../app/app_procs.c:1155
 #: ../app/diaconv.c:122
 #, c-format
 msgid ""
@@ -233,16 +233,16 @@ msgstr ""
 "Error on option %s: %s.\n"
 "Run '%s --help' to see a full list of available command line options.\n"
 
-#: ../app/app_procs.c:1180
+#: ../app/app_procs.c:1179
 msgid "[FILE...]"
 msgstr "[FILE...]"
 
-#: ../app/app_procs.c:1203
+#: ../app/app_procs.c:1202
 #, c-format
 msgid "'%s' not found!\n"
 msgstr "'%s' not found!\n"
 
-#: ../app/app_procs.c:1284
+#: ../app/app_procs.c:1283
 msgid ""
 "The original author of Dia was:\n"
 "\n"
@@ -250,7 +250,7 @@ msgstr ""
 "The original author of Dia was:\n"
 "\n"
 
-#: ../app/app_procs.c:1289
+#: ../app/app_procs.c:1288
 msgid ""
 "\n"
 "The current maintainers of Dia are:\n"
@@ -260,7 +260,7 @@ msgstr ""
 "The current maintainers of Dia are:\n"
 "\n"
 
-#: ../app/app_procs.c:1294
+#: ../app/app_procs.c:1293
 msgid ""
 "\n"
 "Other authors are:\n"
@@ -270,7 +270,7 @@ msgstr ""
 "Other authors are:\n"
 "\n"
 
-#: ../app/app_procs.c:1299
+#: ../app/app_procs.c:1298
 msgid ""
 "\n"
 "Dia is documented by:\n"
@@ -404,7 +404,7 @@ msgstr "Visible spacing"
 
 #. Hexes!
 #: ../app/dia-props.c:177
-#: ../app/preferences.c:173
+#: ../app/preferences.c:188
 msgid "Hex grid"
 msgstr "Hex grid"
 
@@ -890,7 +890,7 @@ msgstr "Export Diagram"
 msgid "Export Options"
 msgstr "Export Options"
 
-#: ../app/interface.c:141
+#: ../app/interface.c:144
 msgid ""
 "Modify object(s)\n"
 "Use <Space> to toggle between this and other tools"
@@ -899,17 +899,17 @@ msgstr ""
 "Use <Space> to toggle between this and other tools"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Magnify
-#: ../app/interface.c:147
+#: ../app/interface.c:150
 #: ../app/menus.c:187
 #: ../objects/FS/function.c:986
 msgid "Magnify"
 msgstr "Magnify"
 
-#: ../app/interface.c:153
+#: ../app/interface.c:156
 msgid "Scroll around the diagram"
 msgstr "Scroll around the diagram"
 
-#: ../app/interface.c:159
+#: ../app/interface.c:162
 #: ../app/menus.c:189
 #: ../lib/properties.c:79
 #: ../lib/properties.h:520
@@ -932,116 +932,121 @@ msgstr "Scroll around the diagram"
 msgid "Text"
 msgstr "Text"
 
-#: ../app/interface.c:165
+#: ../app/interface.c:168
 #: ../app/menus.c:190
 msgid "Box"
 msgstr "Box"
 
-#: ../app/interface.c:171
+#: ../app/interface.c:174
 #: ../app/menus.c:191
 msgid "Ellipse"
 msgstr "Ellipse"
 
-#: ../app/interface.c:177
+#: ../app/interface.c:180
 #: ../app/menus.c:192
 msgid "Polygon"
 msgstr "Polygon"
 
-#: ../app/interface.c:183
+#: ../app/interface.c:186
 #: ../app/menus.c:193
 msgid "Beziergon"
 msgstr "Beziergon"
 
-#: ../app/interface.c:189
+#: ../app/interface.c:192
 #: ../app/menus.c:195
 #: ../objects/standard/line.c:225
 msgid "Line"
 msgstr "Line"
 
-#: ../app/interface.c:195
+#: ../app/interface.c:198
 #: ../app/menus.c:196
 msgid "Arc"
 msgstr "Arc"
 
-#: ../app/interface.c:201
+#: ../app/interface.c:204
 #: ../app/menus.c:197
 msgid "Zigzagline"
 msgstr "Zigzagline"
 
-#: ../app/interface.c:207
+#: ../app/interface.c:210
 #: ../app/menus.c:198
 msgid "Polyline"
 msgstr "Polyline"
 
-#: ../app/interface.c:213
+#: ../app/interface.c:216
 #: ../app/menus.c:199
 msgid "Bezierline"
 msgstr "Bezierline"
 
-#: ../app/interface.c:219
+#: ../app/interface.c:222
 #: ../app/menus.c:201
 msgid "Image"
 msgstr "Image"
 
-#: ../app/interface.c:502
-msgid "Diagram menu."
-msgstr "Diagram menu."
-
-#: ../app/interface.c:540
+#: ../app/interface.c:539
+#: ../app/interface.c:812
 msgid "Pops up the Navigation window."
 msgstr "Pops up the Navigation window."
 
-#: ../app/interface.c:606
+#: ../app/interface.c:593
+#: ../app/interface.c:878
 msgid "Zoom"
 msgstr "Zoom"
 
-#: ../app/interface.c:621
+#: ../app/interface.c:608
+#: ../app/interface.c:893
 msgid "Toggles snap-to-grid for this window."
 msgstr "Toggles snap-to-grid for this window."
 
-#: ../app/interface.c:632
+#: ../app/interface.c:618
+#: ../app/interface.c:904
 msgid "Toggles object snapping for this window."
 msgstr "Toggles object snapping for this window."
 
-#: ../app/interface.c:697
+#: ../app/interface.c:774
+msgid "Diagram menu."
+msgstr "Diagram menu."
+
+#: ../app/interface.c:969
 msgid "NULL tooldata in tool_select_update"
 msgstr "NULL tooldata in tool_select_update"
 
-#: ../app/interface.c:1013
+#: ../app/interface.c:1285
 #, c-format
 msgid "No sheet named %s"
 msgstr "No sheet named %s"
 
-#: ../app/interface.c:1051
+#: ../app/interface.c:1323
 msgid "Other sheets"
 msgstr "Other sheets"
 
-#: ../app/interface.c:1110
+#: ../app/interface.c:1382
 #: ../sheets/Misc.sheet.in.h:3
 msgid "Misc"
 msgstr "Misc"
 
-#: ../app/interface.c:1171
+#: ../app/interface.c:1443
 msgid "Foreground & background colors for new objects.  The small black and white squares reset colors.  The small arrows swap colors.  Double click to change colors."
 msgstr "Foreground & background colours for new objects.  The small black and white squares reset colours.  The small arrows swap colours.  Double click to change colours."
 
-#: ../app/interface.c:1186
+#: ../app/interface.c:1458
 msgid "Line widths.  Click on a line to set the default line width for new objects.  Double-click to set the line width more precisely."
 msgstr "Line widths. Click on a line to set the default line width for new objects. Double-click to set the line width more precisely."
 
-#: ../app/interface.c:1226
+#: ../app/interface.c:1498
 msgid "Arrow style at the beginning of new lines.  Click to pick an arrow, or set arrow parameters with Details..."
 msgstr "Arrow style at the beginning of new lines. Click to pick an arrow, or set arrow parameters with Details..."
 
-#: ../app/interface.c:1231
+#: ../app/interface.c:1503
 msgid "Line style for new lines.  Click to pick a line style, or set line style parameters with Details..."
 msgstr "Line style for new lines. Click to pick a line style, or set line style parameters with Details..."
 
-#: ../app/interface.c:1245
+#: ../app/interface.c:1517
 msgid "Arrow style at the end of new lines.  Click to pick an arrow, or set arrow parameters with Details..."
 msgstr "Arrow style at the end of new lines. Click to pick an arrow, or set arrow parameters with Details..."
 
-#: ../app/interface.c:1284
+#: ../app/interface.c:1621
+#: ../app/interface.c:1739
 msgid "Diagram Editor"
 msgstr "Diagram Editor"
 
@@ -1636,19 +1641,19 @@ msgstr "Diagram Defaults"
 msgid "View Defaults"
 msgstr "View Defaults"
 
-#: ../app/preferences.c:124
+#: ../app/preferences.c:125
 msgid "Reset tools after create"
 msgstr "Reset tools after create"
 
-#: ../app/preferences.c:125
+#: ../app/preferences.c:128
 msgid "Compress saved files"
 msgstr "Compress saved files"
 
-#: ../app/preferences.c:126
+#: ../app/preferences.c:131
 msgid "Number of undo levels:"
 msgstr "Number of undo levels:"
 
-#: ../app/preferences.c:127
+#: ../app/preferences.c:134
 msgid ""
 "Reverse dragging selects\n"
 "intersecting objects"
@@ -1656,127 +1661,131 @@ msgstr ""
 "Reverse dragging selects\n"
 "intersecting objects"
 
-#: ../app/preferences.c:128
+#: ../app/preferences.c:137
 msgid "Recent documents list size:"
 msgstr "Recent documents list size:"
 
-#: ../app/preferences.c:129
+#: ../app/preferences.c:140
 msgid "Use menu bar"
 msgstr "Use menu bar"
 
-#: ../app/preferences.c:131
+#: ../app/preferences.c:143
 msgid "Keep tool box on top of diagram windows"
 msgstr "Keep tool box on top of diagram windows"
 
-#: ../app/preferences.c:134
+#: ../app/preferences.c:146
 msgid "Unit for lengths:"
 msgstr "Unit for lengths:"
 
-#: ../app/preferences.c:137
+#: ../app/preferences.c:149
 msgid "Unit for font sizes:"
 msgstr "Unit for font sizes:"
 
-#: ../app/preferences.c:140
+#: ../app/preferences.c:153
+msgid "Integrated UI"
+msgstr "Integrated UI"
+
+#: ../app/preferences.c:155
 msgid "New diagram:"
 msgstr "New diagram:"
 
-#: ../app/preferences.c:141
+#: ../app/preferences.c:156
 msgid "Portrait"
 msgstr "Portrait"
 
-#: ../app/preferences.c:143
+#: ../app/preferences.c:158
 msgid "Paper type:"
 msgstr "Paper type:"
 
-#: ../app/preferences.c:146
+#: ../app/preferences.c:161
 msgid "Background Color:"
 msgstr "Background Colour:"
 
-#: ../app/preferences.c:149
+#: ../app/preferences.c:164
 msgid "New window:"
 msgstr "New window:"
 
-#: ../app/preferences.c:150
+#: ../app/preferences.c:165
 msgid "Width:"
 msgstr "Width:"
 
-#: ../app/preferences.c:151
+#: ../app/preferences.c:166
 msgid "Height:"
 msgstr "Height:"
 
-#: ../app/preferences.c:152
+#: ../app/preferences.c:167
 msgid "Magnify:"
 msgstr "Magnify:"
 
-#: ../app/preferences.c:155
+#: ../app/preferences.c:170
 msgid "Connection Points:"
 msgstr "Connection Points:"
 
 #. { NULL, PREF_NONE, 0, NULL, 3, N_("Grid:") },
-#: ../app/preferences.c:156
-#: ../app/preferences.c:160
-#: ../app/preferences.c:166
+#: ../app/preferences.c:171
+#: ../app/preferences.c:175
+#: ../app/preferences.c:181
 msgid "Visible"
 msgstr "Visible"
 
-#: ../app/preferences.c:159
+#: ../app/preferences.c:174
 msgid "Page breaks:"
 msgstr "Page breaks:"
 
-#: ../app/preferences.c:161
-#: ../app/preferences.c:171
+#: ../app/preferences.c:176
+#: ../app/preferences.c:186
 msgid "Color:"
 msgstr "Colour:"
 
-#: ../app/preferences.c:162
+#: ../app/preferences.c:177
 msgid "Solid lines"
 msgstr "Solid lines"
 
-#: ../app/preferences.c:167
+#: ../app/preferences.c:182
 msgid "Snap to"
 msgstr "Snap to"
 
-#: ../app/preferences.c:168
+#: ../app/preferences.c:183
 msgid "Dynamic grid resizing"
 msgstr "Dynamic grid resizing"
 
-#: ../app/preferences.c:169
+#: ../app/preferences.c:184
 msgid "X Size:"
 msgstr "X Size:"
 
-#: ../app/preferences.c:170
+#: ../app/preferences.c:185
 msgid "Y Size:"
 msgstr "Y Size:"
 
-#: ../app/preferences.c:172
+#: ../app/preferences.c:187
 msgid "Lines per major line"
 msgstr "Lines per major line"
 
-#: ../app/preferences.c:174
+#: ../app/preferences.c:189
 msgid "Hex Size:"
 msgstr "Hex Size:"
 
-#: ../app/preferences.c:190
+#: ../app/preferences.c:205
 msgid "Diagram tree window:"
 msgstr "Diagram tree window:"
 
-#: ../app/preferences.c:192
+#: ../app/preferences.c:207
 msgid "Save hidden object types"
 msgstr "Save hidden object types"
 
-#: ../app/preferences.c:400
+#: ../app/preferences.c:415
 #: ../lib/prop_inttypes.c:158
 msgid "Yes"
 msgstr "Yes"
 
-#: ../app/preferences.c:400
-#: ../app/preferences.c:411
+#: ../app/preferences.c:415
+#: ../app/preferences.c:426
 #: ../lib/prop_inttypes.c:160
 #: ../lib/prop_inttypes.c:186
 msgid "No"
 msgstr "No"
 
-#: ../app/preferences.c:513
+#: ../app/preferences.c:528
 msgid "Preferences"
 msgstr "Preferences"
 
@@ -2527,7 +2536,7 @@ msgid "Font"
 msgstr "Font"
 
 #: ../lib/properties.c:82
-#: ../lib/properties.h:537
+#: ../lib/properties.h:539
 #: ../objects/GRAFCET/condition.c:134
 #: ../objects/GRAFCET/step.c:167
 #: ../objects/GRAFCET/transition.c:144
@@ -2537,7 +2546,7 @@ msgid "Font size"
 msgstr "Font size"
 
 #: ../lib/properties.c:83
-#: ../lib/properties.h:543
+#: ../lib/properties.h:545
 #: ../objects/GRAFCET/step.c:169
 #: ../objects/chronogram/chronoline.c:187
 #: ../objects/chronogram/chronoref.c:168
