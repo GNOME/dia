@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: dia 0.96\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-04-25 21:54+0200\n"
-"PO-Revision-Date: 2007-05-08 15:28+0200\n"
+"PO-Revision-Date: 2007-05-16 22:51+0200\n"
 "Last-Translator: Yannig MARCHEGAY <yannig@marchegay.org>\n"
 "Language-Team: Occitan (post 1500) <ubuntu-l10n-oci@lists.ubuntu.com>\n"
 "MIME-Version: 1.0\n"
@@ -1152,11 +1152,11 @@ msgstr ""
 
 #: ../app/menus.c:111
 msgid "1600%"
-msgstr ""
+msgstr "1600 %"
 
 #: ../app/menus.c:112
 msgid "800%"
-msgstr ""
+msgstr "800 %"
 
 #: ../app/menus.c:113
 msgid "400%"
@@ -1164,7 +1164,7 @@ msgstr "400 %"
 
 #: ../app/menus.c:114
 msgid "283"
-msgstr ""
+msgstr "283"
 
 #: ../app/menus.c:115
 msgid "200"
@@ -1180,7 +1180,7 @@ msgstr "85"
 
 #: ../app/menus.c:119
 msgid "70.7"
-msgstr ""
+msgstr "70,7"
 
 #: ../app/menus.c:120
 msgid "50"
@@ -1188,7 +1188,7 @@ msgstr "50"
 
 #: ../app/menus.c:121
 msgid "35.4"
-msgstr ""
+msgstr "35,4"
 
 #: ../app/menus.c:122
 msgid "25"
