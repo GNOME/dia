@@ -1,5 +1,6 @@
 2007-05-15  Steffen Macke <sdteffen@gmail.com>
 
+	* config.h.win32: Version number is now 0.96+svn
 	* lib/makefile.msc:
 	* lib/makefile.mingw: Include prefs.c
 	* lib/prefs.c: #include <string.h>
