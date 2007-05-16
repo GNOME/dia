@@ -19,6 +19,7 @@
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
+#include <string.h>
 
 #include "prefs.h"
 #include "widgets.h"

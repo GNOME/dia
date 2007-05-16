@@ -63,6 +63,7 @@ OBJECTS = \
 	plug-ins.o \
 	poly_conn.o \
 	polyshape.o \
+	prefs.o \
 	prop_attr.o \
 	prop_basic.o \
 	prop_geomtypes.o \

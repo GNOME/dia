@@ -392,6 +392,7 @@ EXPORTS
  get_paper_pswidth
  get_paper_rmargin
  get_paper_tmargin
+ get_units_name_list
 
  group_create
  group_destroy_shallow
@@ -596,6 +597,9 @@ EXPORTS
 
  stdprops_init
  make_new_prop
+ prefs_get_length_unit
+ prefs_set_fontsize_unit
+ prefs_set_length_unit
  prop_desc_find_real_handler
  prop_desc_insert_handler
  prop_desc_list_calculate_quarks

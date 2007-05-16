@@ -87,6 +87,7 @@ OBJECTS = \
 	plug-ins.obj \
 	poly_conn.obj \
 	polyshape.obj \
+	prefs.obj \
 	prop_attr.obj \
 	prop_basic.obj \
 	prop_geomtypes.obj \

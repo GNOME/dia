@@ -1,3 +1,11 @@
+2007-05-15  Steffen Macke <sdteffen@gmail.com>
+
+	* lib/makefile.msc:
+	* lib/makefile.mingw: Include prefs.c
+	* lib/prefs.c: #include <string.h>
+	* lib/libdia.def: Added several preferences-related functions
+	* app/interface.h: Added prototype for create_integrated_ui()
+
 2007-05-05  Lars Clausen  <lars@raeder.dk>
 
 	* app/preferences.c:
