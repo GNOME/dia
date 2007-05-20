@@ -743,7 +743,8 @@ draw_text_line(DiaRenderer *self,
   width = text_line_get_width(text_line);
   
   /* Find the difference in length */
-  fprintf(renderer->file, "dup sw %f exch sub \n", width);
+  fprintf(renderer->file, "dup sw %s exch sub \n", 
+	  psrenderer_dtostr(px_buf, width));
 
   /* Divide by number of chars and set up for ashow */
   fprintf(renderer->file, "%d div exch 0.0 exch \n", n_chars);

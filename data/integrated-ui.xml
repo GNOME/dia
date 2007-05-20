@@ -65,6 +65,7 @@
 				<menuitem name="ViewZoom354" action="ViewZoom354" />
 				<menuitem name="ViewZoom250" action="ViewZoom250" />
 			</menu>
+			<menuitem name="ViewShowall" action="ViewShowall" />
 			<separator name="ViewSep1" />
 			<menuitem name="ViewFullscreen" action="ViewFullscreen" />
 			<menuitem name="ViewAntialiased" action="ViewAntialiased" />
@@ -76,7 +77,6 @@
 			<separator name="ViewSep2" />
 			<menuitem name="ViewNewview" action="ViewNewview" />
 			<menuitem name="ViewCloneview" action="ViewCloneview" />
-			<menuitem name="ViewShowall" action="ViewShowall" />
 			<menuitem name="ViewRedraw" action="ViewRedraw" />
 		</menu>
 

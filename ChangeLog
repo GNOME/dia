@@ -1,5 +1,16 @@
 2007-05-20  Lars Clausen  <lars@raeder.dk>
 
+	* app/diapsrenderer.c (draw_text_line): Use non-i18n output for
+	float in postscript.  Fixes eps latin-1 output, bug #439369.
+
+	* app/interface.c: Update tooltips to follow new shortcuts.
+
+	* data/display-ui.xml
+	* data/integrated-ui.xml
+	* app/menus.c:
+	Move "Best Fit" up under zoom options where it belongs.  Response
+	to bug #439838.
+
 	* app/export_png.c: Make clearer distinction between pixbuf and
 	libart PNG.
 
