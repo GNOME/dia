@@ -1,3 +1,8 @@
+2007-05-20  Lars Clausen  <lars@raeder.dk>
+
+	* app/export_png.c: Make clearer distinction between pixbuf and
+	libart PNG.
+
 2007-05-15  Steffen Macke <sdteffen@gmail.com>
 
 	* config.h.win32: Version number is now 0.96+svn
@@ -51,8 +56,8 @@
 	* objects/FS/flow-poly.c:
 	* objects/custom/custom_object.c:
 	* objects/GRAFCET/action.c:
-	* lib/properties.h: Patch from Sameer D. Sahasrabuddhee
-	<sameerds@dmail.com>: Fix names and types of std text props.
+	* lib/properties.h: Patch from Sameer Sahasrabuddhe
+	<sameerds@gmail.com>: Fix names and types of std text props. 
 
 2007-04-25  Christophe Merlet  <redfox@redfoxcenter.org>
 
@@ -66,16 +71,16 @@
 2007-04-19  Lars Clausen  <lars@raeder.dk>
 
 	* lib/prop_attr.c: Use new signals in props. Patch from Sameer
-	D. Sahasrabuddhee <sameerds@dmail.com> for bug #60331.
+	Sahasrabuddhe <sameerds@gmail.com> for bug #60331. 
 
 	* lib/widgets.c (dia_font_selector_class_init): Remove undefined
 	default handlers, fix leak of font name, define and use new
-	signal. Patch from Sameer D. Sahasrabuddhe <sameerds@dmail.com>
+	signal. Patch from Sameer Sahasrabuddhe <sameerds@gmail.com>
 	for bug #60331. 
 
 	* app/interface.c (sheet_option_menu_changed): Use new signal, fix
-	leak of sheet name.  Patch from Sameer D. Sahasrabuddhe
-	<sameerds@dmail.com> for bug #60331.
+	leak of sheet name.  Patch from Sameer Sahasrabuddhe
+	<sameerds@gmail.com> for bug #60331. 
 
 2007-04-16  Lars Clausen  <lars@raeder.dk>
 
@@ -107,13 +112,13 @@
 
 	* lib/propdialogs.c: 
 	* lib/group.c (group_describe_props): Set properties properly for
-	groups.  By Sameer D. Sahasrabuddhe <sameerds@dmail.com>, work on
+	groups.  By Sameer Sahasrabuddhe <sameerds@gmail.com>, work on
 	bug #60331.
 
 	* lib/widgets.[ch]:
 	* app/interface.c (sheet_option_menu_changed): Use signals for
-	dynamic menu changes.  By  Sameer D. Sahasrabuddhe
-	<sameerds@dmail.com>, work on bug #60331.
+	dynamic menu changes.  By Sameer Sahasrabuddhe
+	<sameerds@gmail.com>, work on bug #60331. 
 
 	* app/undo.c: 
 	* app/commands.c: New commands for moving objects between layers.

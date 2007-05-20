@@ -355,7 +355,7 @@ export_png(DiagramData *data, const gchar *filename,
 
 static const gchar *extensions[] = { "png", NULL };
 DiaExportFilter png_export_filter = {
-  N_("Portable Network Graphics"),
+  N_("PNG (anti-aliased)"),
   extensions,
   export_png,
   NULL,
