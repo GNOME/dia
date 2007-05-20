@@ -3,6 +3,34 @@
 	* app/export_png.c: Make clearer distinction between pixbuf and
 	libart PNG.
 
+	* app/preferences.c
+	* app/display.c
+	* app/display.h
+	* app/app_procs.c
+	* app/filedlg.c
+	* app/interface.c
+	* app/interface.h
+	* app/diagram.c
+	* app/menus.c
+	* app/menus.h
+	* data/integrated-ui.xml
+	* data/toolbar.xml: Patch from Patrick Hallinan
+	<patrick.j.hallinan@gmail.com>: More work on integrated UI:
+
+	 +Add popup message "Settings change will take effect after Dia is
+	  restarted" to the integrated UI option. 
+	 +Add snap tool items to the toolbar.
+	 +Default the file filter for the Open File Dialog to "Supported
+	  Formats" 
+	 +Force the new diagram to be shown!!!
+	 +Make the toolbar actually do something
+	 +Make the diagram tree show a diagram's tab (when it should).
+	 +Created Missing application menus.
+	 +Make the name of second diagram created be numbered 2 instead of 1.
+	 +Make diagram close button actually close the diagram.
+	 +Add shortcut cntl-w for closing the current tab (free when
+	  menu's were added).	 
+	
 2007-05-15  Steffen Macke <sdteffen@gmail.com>
 
 	* config.h.win32: Version number is now 0.96+svn

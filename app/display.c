@@ -68,14 +68,25 @@ static guint display_hash(DDisplay *ddisp);
 static void
 update_zoom_status(DDisplay *ddisp)
 {
-  GtkWidget *zoomcombo;
   gchar* zoom_text;
 
-  zoomcombo = ddisp->zoom_status;
-  zoom_text = g_strdup_printf("%.1f%%",
+  if (is_integrated_ui ())
+  {
+    zoom_text = g_strdup_printf("%.0f%%",
 	   ddisp->zoom_factor * 100.0 / DDISPLAY_NORMAL_ZOOM);
-  gtk_entry_set_text(GTK_ENTRY(gtk_object_get_user_data(GTK_OBJECT(zoomcombo))),
-		     zoom_text);
+
+    integrated_ui_toolbar_set_zoom_text (ddisp->common_toolbar, zoom_text);  
+  }
+  else
+  {
+    GtkWidget *zoomcombo;
+    zoom_text = g_strdup_printf("%.1f%%",
+	     ddisp->zoom_factor * 100.0 / DDISPLAY_NORMAL_ZOOM);
+    zoomcombo = ddisp->zoom_status;
+    gtk_entry_set_text(GTK_ENTRY(gtk_object_get_user_data(GTK_OBJECT(zoomcombo))),
+		       zoom_text);
+  }
+
   g_free(zoom_text); /* Copied by gtk_entry_set_text */
 }
 
@@ -797,12 +808,18 @@ ddisplay_set_snap_to_grid(DDisplay *ddisp, gboolean snap)
   GtkToggleAction *snap_to_grid;
   ddisp->grid.snap = snap;
 
-  if (ddisp->menu_bar == NULL) {
-    snap_to_grid = GTK_TOGGLE_ACTION (menus_get_action ("ViewSnaptogrid"));
-  } else {
-    snap_to_grid = GTK_TOGGLE_ACTION (gtk_action_group_get_action (ddisp->actions, "ViewSnaptogrid"));
+  if (is_integrated_ui ())
+  {
+     snap_to_grid = GTK_TOGGLE_ACTION (menus_get_action ("ViewSnaptogrid"));
   }
-
+  else
+  {
+    if (ddisp->menu_bar == NULL) {
+      snap_to_grid = GTK_TOGGLE_ACTION (menus_get_action ("ViewSnaptogrid"));
+    } else {
+      snap_to_grid = GTK_TOGGLE_ACTION (gtk_action_group_get_action (ddisp->actions, "ViewSnaptogrid"));
+    }
+  }
   /* Currently, this can cause double emit, but that's a small problem.
    */
   gtk_toggle_action_set_active (snap_to_grid, ddisp->grid.snap);
@@ -1000,6 +1017,7 @@ ddisplay_scroll_to_object(DDisplay *ddisp, DiaObject *obj)
   p.x = (r.left+r.right)/2;
   p.y = (r.top+r.bottom)/2;
 
+  display_set_active(ddisp);
   return ddisplay_scroll_center_point(ddisp, &p);
 }
 
@@ -1079,7 +1097,10 @@ ddisp_destroy(DDisplay *ddisp)
   ddisplay_im_context_preedit_reset(ddisp, active_focus());
 
   /* This calls ddisplay_really_destroy */
-  gtk_widget_destroy (ddisp->shell);
+  if (ddisp->is_standalone_window)
+    gtk_widget_destroy (ddisp->shell);
+  else 
+    gtk_widget_destroy (ddisp->container);
 }
 
 static void
@@ -1263,7 +1284,27 @@ ddisplay_really_destroy(DDisplay *ddisp)
 void
 ddisplay_set_title(DDisplay  *ddisp, char *title)
 {
-  gtk_window_set_title (GTK_WINDOW (ddisp->shell), title);
+  if (ddisp->is_standalone_window)
+    gtk_window_set_title (GTK_WINDOW (ddisp->shell), title);
+  else
+  {
+    GtkNotebook *notebook = g_object_get_data (G_OBJECT (ddisp->shell), 
+                                               DIA_MAIN_NOTEBOOK);
+    /* Find the page with ddisp then set the label on the tab */
+    gint num_pages = gtk_notebook_get_n_pages (notebook);
+    gint num;
+    GtkWidget *page;
+    for (num = 0 ; num < num_pages ; num++)
+    {
+      page = gtk_notebook_get_nth_page (notebook,num);
+      if (g_object_get_data (G_OBJECT (page), "DDisplay") == ddisp)
+      {
+        GtkLabel *label = g_object_get_data (G_OBJECT (page), "tab-label");
+        gtk_label_set_text(label,title);
+        break;
+      }
+    }
+  }
 }
 
 void
@@ -1319,16 +1360,48 @@ display_set_active(DDisplay *ddisp)
     diagram_properties_set_diagram(ddisp ? ddisp->diagram : NULL);
 
     if (ddisp) {
-      display_update_menu_state(ddisp);
+      if (ddisp->is_standalone_window)
+      {
+        display_update_menu_state(ddisp);
 
-      if (prefs.toolbox_on_top) {
-        gtk_window_set_transient_for(GTK_WINDOW(interface_get_toolbox_shell()),
-                                     GTK_WINDOW(ddisp->shell));
+        if (prefs.toolbox_on_top) {
+          gtk_window_set_transient_for(GTK_WINDOW(interface_get_toolbox_shell()),
+                                       GTK_WINDOW(ddisp->shell));
+        } else {
+          gtk_window_set_transient_for(GTK_WINDOW(interface_get_toolbox_shell()),
+                                       NULL);
+        }
       } else {
-        gtk_window_set_transient_for(GTK_WINDOW(interface_get_toolbox_shell()),
-                                     NULL);
+        GtkNotebook *notebook = g_object_get_data (G_OBJECT (ddisp->shell), 
+                                                   DIA_MAIN_NOTEBOOK);
+        /* Find the page with ddisp then set the label on the tab */
+        gint num_pages = gtk_notebook_get_n_pages (notebook);
+        gint num;
+        GtkWidget *page;
+        for (num = 0 ; num < num_pages ; num++)
+        {
+          page = gtk_notebook_get_nth_page (notebook,num);
+          if (g_object_get_data (G_OBJECT (page), "DDisplay") == ddisp)
+          {
+            gtk_notebook_set_current_page (notebook,num);
+            break;
+          }
+        }
+        /* synchronize_ui_to_active_display (ddisp); */
+        /* ZOOM */
+        update_zoom_status (ddisp);
+
+        /* Snap to grid */
+        ddisplay_set_snap_to_grid (ddisp, ddisp->grid.snap); /* menus */
+        integrated_ui_toolbar_grid_snap_synchronize_to_display (ddisp);
+
+        /* Object snapping */
+        ddisplay_set_snap_to_objects (ddisp, ddisp->mainpoint_magnetism);
+        integrated_ui_toolbar_object_snap_synchronize_to_display (ddisp);
+
       }
     } else {
+      /* TODO: Prevent gtk_window_set_transient_for() in Integrated UI case */
       gtk_window_set_transient_for(GTK_WINDOW(interface_get_toolbox_shell()),
                                    NULL);
     }

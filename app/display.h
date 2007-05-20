@@ -92,6 +92,16 @@ struct _DDisplay {
   /* Preedit String */
   gchar *preedit_string;
   PangoAttrList *preedit_attrs;
+ 
+  /* Is there another case?  Like I see embedded-dia modules, do these do something
+   * in addition??? */  
+  gboolean   is_standalone_window;
+
+  /* Points to Integrated UI Toolbar */
+  GtkToolbar *common_toolbar;
+
+  /* Points to widget containing the diagram if not standalone window */
+  GtkWidget *container; 
 };
 
 extern GdkCursor *default_cursor;

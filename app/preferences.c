@@ -77,6 +77,7 @@ typedef struct _DiaPrefData {
 
 static void update_floating_toolbox(DiaPrefData *pref, char *ptr);
 static void update_internal_prefs(DiaPrefData *pref, char *ptr);
+static void update_ui_type_prefs(DiaPrefData *pref, char *ptr);
 
 static int default_true = 1;
 static int default_false = 0;
@@ -150,7 +151,8 @@ DiaPrefData prefs_data[] =
     get_units_name_list, update_internal_prefs },
   
   { "use_integrated_ui", PREF_BOOLEAN, PREF_OFFSET(use_integrated_ui),
-    &default_false, 0, N_("Integrated UI") },
+    &default_false, 0, N_("Integrated UI"), NULL, FALSE, NULL, update_ui_type_prefs },
+
 
   { NULL, PREF_NONE, 0, NULL, 1, N_("New diagram:") },
   { "is_portrait", PREF_BOOLEAN, PREF_OFFSET(new_diagram.is_portrait), &default_true, 1, N_("Portrait") },
@@ -704,4 +706,10 @@ update_floating_toolbox(DiaPrefData *pref, char *ptr)
     gtk_window_set_transient_for(GTK_WINDOW(interface_get_toolbox_shell()),
 				 NULL);
   }
+}
+
+static void 
+update_ui_type_prefs(DiaPrefData *pref, char *ptr)
+{
+  message_notice(_("User Interface type settings change will take after restart"));  
 }

@@ -934,6 +934,7 @@ app_init (int argc, char **argv)
     /* Set up autosave to check every 5 minutes */
     gtk_timeout_add(5*60*1000, autosave_check_autosave, NULL);
 
+    /* Create Diagram Tree Window */
     create_tree_window();
 
     persistence_register_window_create("sheets_main_dialog",
@@ -947,15 +948,34 @@ app_init (int argc, char **argv)
   made_conversions = handle_all_diagrams(files, export_file_name,
 					 export_file_format, size, show_layers);
   if (dia_is_interactive && files == NULL && !nonew) {
-    gchar *filename = g_filename_from_utf8(_("Diagram1.dia"), -1, NULL, NULL, NULL);
-    Diagram *diagram = new_diagram (filename);
-    g_free(filename);
+    if (prefs.use_integrated_ui)
+    {
+      /* Use the same function call to create a new diagram as that used by
+       * the menu and toolbar                                               */
+      GList * list;
+      file_new_callback(NULL);  
+      list = dia_open_diagrams();
+      if (list) 
+      {
+        Diagram * diagram = list->data;
+        diagram_update_extents(diagram);
+        diagram->is_default = TRUE;
+      }
+    }
+    else
+    {
+      gchar *filename = g_filename_from_utf8(_("Diagram1.dia"), -1, NULL, NULL, NULL);
+      Diagram *diagram = new_diagram (filename);
+      g_free(filename);
     
-    if (diagram != NULL) {
-      diagram_update_extents(diagram);
-      diagram->is_default = TRUE;
-      layer_dialog_set_diagram(diagram);
-      new_display(diagram); 
+      if (diagram != NULL) {
+        diagram_update_extents(diagram);
+        diagram->is_default = TRUE;
+        /* I think this is done in diagram_init() with a call to 
+         * layer_dialog_update_diagram_list() */
+        layer_dialog_set_diagram(diagram);
+        new_display(diagram); 
+      }
     }
   }
   g_slist_free(files);

@@ -145,7 +145,7 @@ create_open_menu(void)
 }
 
 /**
- * Respond to the user finishing the Save Dialog either accept or cancel/destroy 
+ * Respond to the user finishing the Open Dialog either accept or cancel/destroy 
  */
 static void
 file_open_response_callback(GtkWidget *fs, 
@@ -267,16 +267,16 @@ file_open_callback(gpointer data, guint action, GtkWidget *widget)
     gtk_widget_show(options);
     g_signal_connect(GTK_OBJECT(opendlg), "response",
 		     G_CALLBACK(file_open_response_callback), omenu);
-    /* set up file filters */
-    filter = gtk_file_filter_new ();
-    gtk_file_filter_set_name (filter, _("All Files"));
-    gtk_file_filter_add_pattern (filter, "*");
-    gtk_file_chooser_add_filter (GTK_FILE_CHOOSER (opendlg), filter);
     /* match the other selections extension */
     filter = gtk_file_filter_new ();
     gtk_file_filter_set_name (filter, _("Supported Formats"));
     gtk_file_filter_add_custom (filter, GTK_FILE_FILTER_FILENAME,
                                 matching_extensions_filter, filter_guess_import_filter, NULL);
+    gtk_file_chooser_add_filter (GTK_FILE_CHOOSER (opendlg), filter);
+    /* set up file filters */
+    filter = gtk_file_filter_new ();
+    gtk_file_filter_set_name (filter, _("All Files"));
+    gtk_file_filter_add_pattern (filter, "*");
     gtk_file_chooser_add_filter (GTK_FILE_CHOOSER (opendlg), filter);
 
     /* candidate for user prefs */

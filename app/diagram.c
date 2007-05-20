@@ -297,6 +297,8 @@ diagram_load(const char *filename, DiaImportFilter *ifilter)
   if (diagram != NULL && was_default) {
     diagram_update_for_filename(diagram);
     diagram->is_default = FALSE;
+    if ( g_slist_length(diagram->displays) == 1 )
+      display_set_active (diagram->displays->data);
   }
   
   return diagram;

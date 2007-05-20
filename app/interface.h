@@ -36,6 +36,19 @@
 #include "linewidth_area.h"
 #include "attributes.h"
 
+/* Integrated UI Constants */
+#define  DIA_MAIN_WINDOW   "dia-main-window"
+#define  DIA_MAIN_NOTEBOOK "dia-main-notebook"
+
+/* Distributed UI Constants */
+#define  DIA_TOOLBOX       "dia-toolbox"
+
+void create_integrated_ui (void);
+
+void synchronize_ui_to_active_display (DDisplay *ddisp);
+
+int is_integrated_ui (void);
+
 void create_display_shell(DDisplay *ddisp,
 			  int width, int height,
 			  char *title, int use_mbar, int top_level_window);
