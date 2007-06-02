@@ -208,7 +208,7 @@ static PropDescription custom_props_text[] = {
 
 static PropOffset custom_offsets[] = {
   ELEMENT_COMMON_PROPERTIES_OFFSETS,
-  { "line_width", PROP_TYPE_LENGTH, offsetof(Custom, border_width) },
+  { PROP_STDNAME_LINE_WIDTH, PROP_STDTYPE_LINE_WIDTH, offsetof(Custom, border_width) },
   { "line_colour", PROP_TYPE_COLOUR, offsetof(Custom, border_color) },
   { "fill_colour", PROP_TYPE_COLOUR, offsetof(Custom, inner_color) },
   { "show_background", PROP_TYPE_BOOL, offsetof(Custom, show_background) },
@@ -221,7 +221,7 @@ static PropOffset custom_offsets[] = {
 
 static PropOffset custom_offsets_text[] = {
   ELEMENT_COMMON_PROPERTIES_OFFSETS,
-  { "line_width", PROP_TYPE_LENGTH, offsetof(Custom, border_width) },
+  { PROP_STDNAME_LINE_WIDTH, PROP_STDTYPE_LINE_WIDTH, offsetof(Custom, border_width) },
   { "line_colour", PROP_TYPE_COLOUR, offsetof(Custom, border_color) },
   { "fill_colour", PROP_TYPE_COLOUR, offsetof(Custom, inner_color) },
   { "show_background", PROP_TYPE_BOOL, offsetof(Custom, show_background) },

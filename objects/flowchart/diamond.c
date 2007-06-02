@@ -167,7 +167,7 @@ diamond_describe_props(Diamond *diamond)
 
 static PropOffset diamond_offsets[] = {
   ELEMENT_COMMON_PROPERTIES_OFFSETS,
-  { "line_width", PROP_TYPE_REAL, offsetof(Diamond, border_width) },
+  { PROP_STDNAME_LINE_WIDTH, PROP_STDTYPE_LINE_WIDTH, offsetof(Diamond, border_width) },
   { "line_colour", PROP_TYPE_COLOUR, offsetof(Diamond, border_color) },
   { "fill_colour", PROP_TYPE_COLOUR, offsetof(Diamond, inner_color) },
   { "show_background", PROP_TYPE_BOOL, offsetof(Diamond, show_background) },

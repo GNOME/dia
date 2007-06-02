@@ -1074,6 +1074,14 @@ persistence_set_boolean(gchar *role, gboolean newvalue)
 }
 
 /* ********* STRINGS ********** */
+/** Register a string in persistence.
+ * @param role The name used to refer to the string.  Must be unique within
+ *             registered strings (and preferably with all registered items)
+ * @param defaultvalue A value to use if the role does not exist yet.
+ * @returns The value that role has after registering.  The caller is
+ *          responsible for freeing this memory.  It will never be the same
+ *          memory as defaultvalue.
+ */
 gchar *
 persistence_register_string(gchar *role, gchar *defaultvalue)
 {
@@ -1087,7 +1095,7 @@ persistence_register_string(gchar *role, gchar *defaultvalue)
     stringval = g_strdup(defaultvalue);
     g_hash_table_insert(persistent_strings, role, stringval);
   }
-  return stringval;
+  return g_strdup(stringval);
 }
 
 gchar *

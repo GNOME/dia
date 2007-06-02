@@ -270,7 +270,7 @@ prefs_set_defaults(void)
       *(Color *)ptr = *persistence_register_color(prefs_data[i].name, (Color *)ptr);
       break;
     case PREF_CHOICE:
-    case PREF_STRING:
+    case PREF_STRING: 
       *(gchar **)ptr = *(gchar **)prefs_data[i].default_value;
       *(gchar **)ptr = persistence_register_string(prefs_data[i].name, *(gchar **)ptr);
       break;

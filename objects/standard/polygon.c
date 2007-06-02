@@ -148,7 +148,7 @@ polygon_describe_props(Polygon *polygon)
 
 static PropOffset polygon_offsets[] = {
   POLYSHAPE_COMMON_PROPERTIES_OFFSETS,
-  { "line_width", PROP_TYPE_REAL, offsetof(Polygon, line_width) },
+  { PROP_STDNAME_LINE_WIDTH, PROP_STDTYPE_LINE_WIDTH, offsetof(Polygon, line_width) },
   { "line_colour", PROP_TYPE_COLOUR, offsetof(Polygon, line_color) },
   { "line_style", PROP_TYPE_LINESTYLE,
     offsetof(Polygon, line_style), offsetof(Polygon, dashlength) },
@@ -347,7 +347,7 @@ polygon_save(Polygon *polygon, ObjectNode obj_node,
 		   &polygon->line_color);
   
   if (polygon->line_width != 0.1)
-    data_add_real(new_attribute(obj_node, "line_width"),
+    data_add_real(new_attribute(obj_node, PROP_STDNAME_LINE_WIDTH),
 		  polygon->line_width);
   
   if (!color_equals(&polygon->inner_color, &color_white))
@@ -392,7 +392,7 @@ polygon_load(ObjectNode obj_node, int version, const char *filename)
     data_color(attribute_first_data(attr), &polygon->line_color);
 
   polygon->line_width = 0.1;
-  attr = object_find_attribute(obj_node, "line_width");
+  attr = object_find_attribute(obj_node, PROP_STDNAME_LINE_WIDTH);
   if (attr != NULL)
     polygon->line_width = data_real(attribute_first_data(attr));
 

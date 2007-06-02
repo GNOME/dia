@@ -1,3 +1,54 @@
+2007-06-02  Lars Clausen  <lars@raeder.dk>
+
+	* objects/flowchart/parallelogram.c
+	* objects/flowchart/box.c
+	* objects/flowchart/diamond.c
+	* objects/flowchart/ellipse.c
+	* objects/network/radiocell.c
+	* objects/SISSI/sissi.c
+	* objects/Misc/analog_clock.c
+	* objects/standard/zigzagline.c
+	* objects/standard/arc.c
+	* objects/standard/bezier.c
+	* objects/standard/image.c
+	* objects/standard/beziergon.c
+	* objects/standard/polygon.c
+	* objects/standard/line.c
+	* objects/standard/box.c
+	* objects/standard/polyline.c
+	* objects/standard/ellipse.c
+	* objects/ER/relationship.c
+	* objects/ER/attribute.c
+	* objects/ER/entity.c
+	* objects/custom/custom_object.c
+	* plug-ins/dxf/dxf-import.c
+	* plug-ins/xfig/xfig-import.c
+	* plug-ins/svg/svg-import.c
+	* plug-ins/vdx/vdx-import.c
+	* lib/properties.h: Patch from Sameer Sahasrabuddhe
+	<sameerds@gmail.com>: Fix names and types of std line width. 
+
+	* app/interface.c
+	* lib/persistence.c: Firmly define what happens with dupping and
+	freeing persistence strings.  Fixes crash with integrated UI.
+	
+	* app/commands.c
+	* app/display.c
+	* app/display.h
+	* app/app_procs.c
+	* app/dia_embedd.c
+	* app/interface.c
+	* app/menus.c
+	* app/menus.h
+	* data/toolbar-ui.xml
+	* lib/diainteractiverenderer.c: Patch from Patrick Hallinan
+	<patrick.j.hallinan@gmail.com>: More work on integrated UI.
+	Post-patch hid rulers_are_showing field.
+
+	* data/toolbar-ui.xml: Renamed from data/toolbar.xml
+
+	* data/Makefile.am: Added items for integrated UI.
+
 2007-05-20  Lars Clausen  <lars@raeder.dk>
 
 	* app/diapsrenderer.c (draw_text_line): Use non-i18n output for

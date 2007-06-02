@@ -151,7 +151,7 @@ polyline_describe_props(Polyline *polyline)
 
 static PropOffset polyline_offsets[] = {
   POLYCONN_COMMON_PROPERTIES_OFFSETS,
-  { "line_width", PROP_TYPE_REAL, offsetof(Polyline, line_width) },
+  { PROP_STDNAME_LINE_WIDTH, PROP_STDTYPE_LINE_WIDTH, offsetof(Polyline, line_width) },
   { "line_colour", PROP_TYPE_COLOUR, offsetof(Polyline, line_color) },
   { "line_style", PROP_TYPE_LINESTYLE,
     offsetof(Polyline, line_style), offsetof(Polyline, dashlength) },
@@ -442,7 +442,7 @@ polyline_save(Polyline *polyline, ObjectNode obj_node,
 		   &polyline->line_color);
   
   if (polyline->line_width != 0.1)
-    data_add_real(new_attribute(obj_node, "line_width"),
+    data_add_real(new_attribute(obj_node, PROP_STDNAME_LINE_WIDTH),
 		  polyline->line_width);
   
   if (polyline->line_style != LINESTYLE_SOLID)
@@ -500,7 +500,7 @@ polyline_load(ObjectNode obj_node, int version, const char *filename)
     data_color(attribute_first_data(attr), &polyline->line_color);
 
   polyline->line_width = 0.1;
-  attr = object_find_attribute(obj_node, "line_width");
+  attr = object_find_attribute(obj_node, PROP_STDNAME_LINE_WIDTH);
   if (attr != NULL)
     polyline->line_width = data_real(attribute_first_data(attr));
 

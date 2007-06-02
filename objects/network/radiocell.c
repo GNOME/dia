@@ -142,7 +142,7 @@ radiocell_describe_props(RadioCell *radiocell)
 static PropOffset radiocell_offsets[] = {
   POLYSHAPE_COMMON_PROPERTIES_OFFSETS,
   { "radius", PROP_TYPE_REAL, offsetof(RadioCell, radius) },
-  { "line_width", PROP_TYPE_REAL, offsetof(RadioCell, line_width) },
+  { PROP_STDNAME_LINE_WIDTH, PROP_STDTYPE_LINE_WIDTH, offsetof(RadioCell, line_width) },
   { "line_colour", PROP_TYPE_COLOUR, offsetof(RadioCell, line_colour) },
   { "line_style", PROP_TYPE_LINESTYLE,
     offsetof(RadioCell, line_style), offsetof(RadioCell, dashlength) },

@@ -423,41 +423,18 @@ display_data_received_callback (GtkWidget *widget,
 }
 
 /**
- * Updates toolbar and menu items to reflect the active display
- */
-void synchronize_ui_to_active_display (DDisplay *ddisp)
-{
-  /* TOOLBAR ITEM */
-
-  /* Zoom */
- 
-  /* Snap-to-grid */
-
-  /* Object Snapping */
-  
-}
-
-
-/**
- * @param ddisp The diagram display object that a window is created for
- * @param width Diagram widgth
- * @param height Diagram Height
- * @param title Window title
- * @param use_mbar Flag to indicate whether to add a menubar to the window
- * @param top_level_window
+ * @param button The notebook close button.
+ * @param user_data Container widget (e.g. VBox).
  */
 void
 close_notebook_page_callback (GtkButton *button,
                               gpointer   user_data)
 {
   GtkBox      *page     = user_data;
-  GtkNotebook *notebook = g_object_get_data (G_OBJECT (page), "GtkNotebook"); 
-  gint         page_num = gtk_notebook_page_num (notebook, GTK_WIDGET(page)); 
   DDisplay    *ddisp    = g_object_get_data (G_OBJECT (page), "DDisplay");
- 
+
+  /* When the page widget is destroyed it removes itself from the notebook */
   ddisplay_close (ddisp);
-  /*gtk_notebook_remove_page (notebook, page_num);*/
-  /* gtk_widget_destroy( GTK_WIDGET (page)); */
 }
 
 /**
@@ -482,9 +459,17 @@ use_integrated_ui_for_display_shell(DDisplay *ddisp, char *title)
   ddisp->is_standalone_window = FALSE;
 
   ddisp->shell = GTK_WIDGET (ui.main_window);
+
+  /* Statusbar */
+  ddisp->modified_status = GTK_WIDGET (ui.statusbar);
  
   /* Create a new tab page */
   ddisp->container = gtk_vbox_new(FALSE, 0);
+  gtk_widget_set_events (ddisp->container,
+                         GDK_POINTER_MOTION_MASK |
+                         GDK_POINTER_MOTION_HINT_MASK |
+                         GDK_FOCUS_CHANGE_MASK);
+
   tab_label_container = gtk_hbox_new(FALSE,3);
   
   label = gtk_label_new( title );
@@ -515,18 +500,9 @@ use_integrated_ui_for_display_shell(DDisplay *ddisp, char *title)
   gtk_widget_show (close_button);
   gtk_widget_show (image);
 
-  gtk_notebook_append_page (GTK_NOTEBOOK(ui.diagram_notebook),
-                            ddisp->container,
-                            tab_label_container);
-
   g_object_set_data (G_OBJECT (ddisp->container), "DDisplay",  ddisp);
   g_object_set_data (G_OBJECT (ddisp->container), "tab-label", label);
   g_object_set_data (G_OBJECT (ddisp->container), "window",    ui.main_window);
-
-  gtk_widget_set_events (ddisp->container,
-                         GDK_POINTER_MOTION_MASK |
-                         GDK_POINTER_MOTION_HINT_MASK |
-                         GDK_FOCUS_CHANGE_MASK);
 
   /*  the table containing all widgets  */
   table = gtk_table_new (3, 3, FALSE);
@@ -618,34 +594,18 @@ use_integrated_ui_for_display_shell(DDisplay *ddisp, char *title)
   gtk_table_attach (GTK_TABLE (table), navigation_button, 2, 3, 2, 3,
                     GTK_FILL, GTK_FILL, 0, 0);
 
-  /* the statusbars */
-  status_hbox = gtk_hbox_new (FALSE, 2);
-
   ddisp->common_toolbar = ui.toolbar;
 
-  /* TODO: Migrate Zoom, Grid Status to main window toolbar */
+  ddisp->menu_bar = NULL;
+
   /* Zoom status pseudo-optionmenu */
   ddisp->zoom_status = NULL;
-/*create_zoom_widget(ddisp);
-  zoom_hbox = gtk_hbox_new(FALSE, 0);
-  zoom_label = gtk_label_new(_("Zoom"));
-  gtk_box_pack_start (GTK_BOX(zoom_hbox), zoom_label,
-		      FALSE, FALSE, 0);
-  gtk_box_pack_start (GTK_BOX(zoom_hbox), ddisp->zoom_status,
-		      FALSE, FALSE, 0);
-
-  gtk_box_pack_start (GTK_BOX (status_hbox), zoom_hbox, FALSE, FALSE, 0);
-*/
 
   /* Grid on/off button */
   ddisp->grid_status = NULL;
-/*
-  g_signal_connect(G_OBJECT(ddisp->grid_status), "toggled",
-		   G_CALLBACK (grid_toggle_snap), ddisp);
-*/
   ddisp->mainpoint_status = dia_toggle_button_new_with_icons(dia_mainpoints_on_icon,
 							dia_mainpoints_off_icon);
-  
+
   g_signal_connect(G_OBJECT(ddisp->mainpoint_status), "toggled",
 		   G_CALLBACK (interface_toggle_mainpoint_magnetism), ddisp);
   gtk_tooltips_set_tip(tool_tips, ddisp->mainpoint_status,
@@ -653,40 +613,28 @@ use_integrated_ui_for_display_shell(DDisplay *ddisp, char *title)
   gtk_box_pack_start (GTK_BOX (status_hbox), ddisp->mainpoint_status,
 		      FALSE, FALSE, 0);
 
-  /* Statusbar */
-  ddisp->modified_status = GTK_WIDGET (ui.statusbar);
-/*
-  gtk_box_pack_start (GTK_BOX (status_hbox), ddisp->modified_status,
-		      TRUE, TRUE, 0);
-
-  gtk_table_attach (GTK_TABLE (table), status_hbox, 0, 3, 3, 4,
-                    GTK_FILL, GTK_FILL, 0, 0);
-*/
-
   gtk_widget_show (ddisp->hsb);
   gtk_widget_show (ddisp->vsb);
-  gtk_widget_show (ddisp->origin);
-  gtk_widget_show (ddisp->hrule);
-  gtk_widget_show (ddisp->vrule);
-/* Zoom-status not migrated yet */
-/*
-  gtk_widget_show (ddisp->zoom_status);
-  gtk_widget_show (zoom_hbox);
-  gtk_widget_show (zoom_label);
-*/
-  gtk_widget_show (status_hbox);
+  display_rulers_show (ddisp);
   gtk_widget_show (table);
   gtk_widget_show (ddisp->container);
 
   gtk_widget_show (ddisp->canvas);
 
   /* Ensure that the the new page is showing */
-  gtk_notebook_set_current_page (ui.diagram_notebook,
-                                 gtk_notebook_get_n_pages (ui.diagram_notebook)-1);
- 
+  if (gtk_notebook_get_n_pages (ui.diagram_notebook) > 1)
+  {
+    gtk_notebook_set_current_page (ui.diagram_notebook,
+                                   gtk_notebook_get_n_pages (ui.diagram_notebook)-1);
+  }
+
   integrated_ui_toolbar_grid_snap_synchronize_to_display (ddisp);
 
   integrated_ui_toolbar_object_snap_synchronize_to_display (ddisp);
+
+  gtk_notebook_append_page (GTK_NOTEBOOK(ui.diagram_notebook),
+                            ddisp->container,
+                            tab_label_container);
 
   /* TODO: Figure out how to detect if anti-aliased renderer was set */
   /** For the distributed display this is called when the ddisp->canvas is shown.
@@ -963,9 +911,7 @@ create_display_shell(DDisplay *ddisp,
 
   gtk_widget_show (ddisp->hsb);
   gtk_widget_show (ddisp->vsb);
-  gtk_widget_show (ddisp->origin);
-  gtk_widget_show (ddisp->hrule);
-  gtk_widget_show (ddisp->vrule);
+  display_rulers_show (ddisp);
   gtk_widget_show (ddisp->zoom_status);
   gtk_widget_show (zoom_hbox);
   gtk_widget_show (zoom_label);
@@ -1425,8 +1371,7 @@ create_sheets(GtkWidget *parent)
   gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(swin), sheet_wbox);
   gtk_widget_show(sheet_wbox);
 
-  persistence_register_string("last-sheet-selected", _("Misc"));
-  sheetname = persistence_get_string("last-sheet-selected");
+  sheetname = persistence_register_string("last-sheet-selected", _("Misc"));
   sheet = get_sheet_by_name(sheetname);
   if (sheet == NULL) {
     /* Couldn't find it */
@@ -1533,12 +1478,15 @@ create_lineprops_area(GtkWidget *parent)
   Arrow arrow;
   real dash_length;
   LineStyle style;
+  gchar *arrow_name;
 
   chooser = dia_arrow_chooser_new(TRUE, change_start_arrow_style, NULL, tool_tips);
   gtk_wrap_box_pack_wrapped(GTK_WRAP_BOX(parent), chooser, FALSE, TRUE, FALSE, TRUE, TRUE);
   arrow.width = persistence_register_real("start-arrow-width", DEFAULT_ARROW_WIDTH);
   arrow.length = persistence_register_real("start-arrow-length", DEFAULT_ARROW_LENGTH);
-  arrow.type = arrow_type_from_name(persistence_register_string("start-arrow-type", "None"));
+  arrow_name = persistence_register_string("start-arrow-type", "None");
+  arrow.type = arrow_type_from_name(arrow_name);
+  g_free(arrow_name);
   dia_arrow_chooser_set_arrow(DIA_ARROW_CHOOSER(chooser), &arrow);
   attributes_set_default_start_arrow(arrow);
   gtk_tooltips_set_tip(tool_tips, chooser, _("Arrow style at the beginning of new lines.  Click to pick an arrow, or set arrow parameters with Details..."), NULL);
@@ -1555,7 +1503,9 @@ create_lineprops_area(GtkWidget *parent)
   chooser = dia_arrow_chooser_new(FALSE, change_end_arrow_style, NULL, tool_tips);
   arrow.width = persistence_register_real("end-arrow-width", DEFAULT_ARROW_WIDTH);
   arrow.length = persistence_register_real("end-arrow-length", DEFAULT_ARROW_LENGTH);
-  arrow.type = arrow_type_from_name(persistence_register_string("end-arrow-type", "Filled Concave"));
+  arrow_name = persistence_register_string("end-arrow-type", "Filled Concave");
+  arrow.type = arrow_type_from_name(arrow_name);
+  g_free(arrow_name);
   dia_arrow_chooser_set_arrow(DIA_ARROW_CHOOSER(chooser), &arrow);
   attributes_set_default_end_arrow(arrow);
 

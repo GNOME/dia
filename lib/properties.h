@@ -476,11 +476,13 @@ extern PropNumData prop_std_line_width_data, prop_std_text_height_data;
 extern PropEnumData prop_std_text_align_data[];
 #endif
 
+#define PROP_STDNAME_LINE_WIDTH "line_width"
+#define PROP_STDTYPE_LINE_WIDTH PROP_TYPE_LENGTH
 #define PROP_STD_LINE_WIDTH \
-  { "line_width", PROP_TYPE_LENGTH, PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD, \
+  { PROP_STDNAME_LINE_WIDTH, PROP_STDTYPE_LINE_WIDTH, PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD, \
     N_("Line width"), NULL, &prop_std_line_width_data }
 #define PROP_STD_LINE_WIDTH_OPTIONAL \
-  { "line_width", PROP_TYPE_LENGTH, PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD|PROP_FLAG_OPTIONAL, \
+  { PROP_STDNAME_LINE_WIDTH, PROP_STDTYPE_LINE_WIDTH, PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD|PROP_FLAG_OPTIONAL, \
     N_("Line width"), NULL, &prop_std_line_width_data }
 #define PROP_STD_LINE_COLOUR \
   { "line_colour", PROP_TYPE_COLOUR, PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD, \

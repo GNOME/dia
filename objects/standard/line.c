@@ -158,7 +158,7 @@ line_describe_props(Line *line)
 
 static PropOffset line_offsets[] = {
   OBJECT_COMMON_PROPERTIES_OFFSETS,
-  { "line_width", PROP_TYPE_REAL, offsetof(Line, line_width) },
+  { PROP_STDNAME_LINE_WIDTH, PROP_STDTYPE_LINE_WIDTH, offsetof(Line, line_width) },
   { "line_colour", PROP_TYPE_COLOUR, offsetof(Line, line_color) },
   { "line_style", PROP_TYPE_LINESTYLE,
     offsetof(Line, line_style), offsetof(Line, dashlength) },
@@ -565,7 +565,7 @@ line_save(Line *line, ObjectNode obj_node, const char *filename)
 		   &line->line_color);
   
   if (line->line_width != 0.1)
-    data_add_real(new_attribute(obj_node, "line_width"),
+    data_add_real(new_attribute(obj_node, PROP_STDNAME_LINE_WIDTH),
 		  line->line_width);
   
   if (line->line_style != LINESTYLE_SOLID)
@@ -618,7 +618,7 @@ line_load(ObjectNode obj_node, int version, const char *filename)
     data_color(attribute_first_data(attr), &line->line_color);
 
   line->line_width = 0.1;
-  attr = object_find_attribute(obj_node, "line_width");
+  attr = object_find_attribute(obj_node, PROP_STDNAME_LINE_WIDTH);
   if (attr != NULL)
     line->line_width = data_real(attribute_first_data(attr));
 

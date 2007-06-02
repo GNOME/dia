@@ -148,7 +148,7 @@ void object_sissi_save(ObjetSISSI *object_sissi, ObjectNode obj_node, const char
   data_add_real (new_attribute (obj_node, "radius"), object_sissi->radius);
   data_add_real (new_attribute (obj_node, "dashlength"), object_sissi->dashlength);
   data_add_real (new_attribute (obj_node, "border_width"), object_sissi->border_width);
-  data_add_real (new_attribute (obj_node, "line_width"), object_sissi->line_width);
+  data_add_real (new_attribute (obj_node, PROP_STDNAME_LINE_WIDTH), object_sissi->line_width);
   data_add_string(new_attribute(obj_node, "file_image"), object_sissi->file);
   data_add_string(new_attribute(obj_node, "confidentiality"), object_sissi->confidentiality);
   data_add_string(new_attribute(obj_node, "integrity"), object_sissi->integrity);
@@ -647,7 +647,7 @@ ObjetSISSI *object_sissi_load(ObjectNode obj_node, int version, const char *file
   if (attr_node != NULL)
     object_sissi->border_width = data_real(attribute_first_data(attr_node));
   
-  attr_node = object_find_attribute(obj_node, "line_width");
+  attr_node = object_find_attribute(obj_node, PROP_STDNAME_LINE_WIDTH);
   if (attr_node != NULL)
     object_sissi->line_width = data_real(attribute_first_data(attr_node));
     

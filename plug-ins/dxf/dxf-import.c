@@ -139,7 +139,7 @@ static PropDescription dxf_prop_descs[] = {
     { "start_point", PROP_TYPE_POINT },
     { "end_point", PROP_TYPE_POINT },
     { "line_colour", PROP_TYPE_COLOUR },
-    { "line_width", PROP_TYPE_REAL },
+    { PROP_STDNAME_LINE_WIDTH, PROP_STDTYPE_LINE_WIDTH },
     { "line_style", PROP_TYPE_LINESTYLE},
     PROP_DESC_END};
 
@@ -231,7 +231,7 @@ DiaObject *read_entity_line_dxf(FILE *filedxf, DxfData *data, DiagramData *dia){
 
 static PropDescription dxf_solid_prop_descs[] = {
      { "line_colour", PROP_TYPE_COLOUR },
-     { "line_width", PROP_TYPE_REAL },
+     { PROP_STDNAME_LINE_WIDTH, PROP_STDTYPE_LINE_WIDTH },
      { "line_style", PROP_TYPE_LINESTYLE },
      { "fill_colour", PROP_TYPE_COLOUR },
      { "show_background", PROP_TYPE_BOOL },
@@ -373,7 +373,7 @@ DiaObject *read_entity_solid_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 
 static PropDescription dxf_polyline_prop_descs[] = {
      { "line_colour", PROP_TYPE_COLOUR },
-     { "line_width", PROP_TYPE_REAL },
+     { PROP_STDNAME_LINE_WIDTH, PROP_STDTYPE_LINE_WIDTH },
      { "line_style", PROP_TYPE_LINESTYLE },
    PROP_DESC_END};
 
@@ -591,7 +591,7 @@ static PropDescription dxf_ellipse_prop_descs[] = {
     { "elem_width", PROP_TYPE_REAL },
     { "elem_height", PROP_TYPE_REAL },
     { "line_colour", PROP_TYPE_COLOUR },
-    { "line_width", PROP_TYPE_REAL },
+    { PROP_STDNAME_LINE_WIDTH, PROP_STDTYPE_LINE_WIDTH },
     { "show_background", PROP_TYPE_BOOL},
     PROP_DESC_END};
 
@@ -681,7 +681,7 @@ static PropDescription dxf_arc_prop_descs[] = {
     { "end_point", PROP_TYPE_POINT },
     { "curve_distance", PROP_TYPE_REAL },
     { "line_colour", PROP_TYPE_COLOUR },
-    { "line_width", PROP_TYPE_REAL },
+    { PROP_STDNAME_LINE_WIDTH, PROP_STDTYPE_LINE_WIDTH },
     PROP_DESC_END};
 
 /* reads a circle entity from the dxf file and creates a circle object in dia*/

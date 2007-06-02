@@ -165,7 +165,7 @@ create_vdx_beziergon(int num_points,
 /* These are for later */
 
 static PropDescription vdx_simple_prop_descs_line[] = {
-    { "line_width", PROP_TYPE_REAL },
+    { PROP_STDNAME_LINE_WIDTH, PROP_STDTYPE_LINE_WIDTH },
     { "line_colour", PROP_TYPE_COLOUR },
     PROP_DESC_END};
 

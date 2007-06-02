@@ -151,7 +151,7 @@ arc_describe_props(Arc *arc)
 
 static PropOffset arc_offsets[] = {
   OBJECT_COMMON_PROPERTIES_OFFSETS,
-  { "line_width", PROP_TYPE_REAL, offsetof(Arc, line_width) },
+  { PROP_STDNAME_LINE_WIDTH, PROP_STDTYPE_LINE_WIDTH, offsetof(Arc, line_width) },
   { "line_colour", PROP_TYPE_COLOUR, offsetof(Arc, arc_color) },
   { "line_style", PROP_TYPE_LINESTYLE,
     offsetof(Arc, line_style), offsetof(Arc, dashlength) },
@@ -833,7 +833,7 @@ arc_save(Arc *arc, ObjectNode obj_node, const char *filename)
 		  arc->curve_distance);
   
   if (arc->line_width != 0.1)
-    data_add_real(new_attribute(obj_node, "line_width"),
+    data_add_real(new_attribute(obj_node, PROP_STDNAME_LINE_WIDTH),
 		  arc->line_width);
   
   if (arc->line_style != LINESTYLE_SOLID)
@@ -885,7 +885,7 @@ arc_load(ObjectNode obj_node, int version, const char *filename)
     arc->curve_distance = data_real(attribute_first_data(attr));
 
   arc->line_width = 0.1;
-  attr = object_find_attribute(obj_node, "line_width");
+  attr = object_find_attribute(obj_node, PROP_STDNAME_LINE_WIDTH);
   if (attr != NULL)
     arc->line_width = data_real(attribute_first_data(attr));
 

@@ -867,28 +867,12 @@ view_toggle_rulers_callback (GtkToggleAction *action)
   if (!ddisp) return;
 
   if (!gtk_toggle_action_get_active (action)) {
-    if (GTK_WIDGET_VISIBLE (ddisp->origin)) {
-      gtk_widget_unmap (ddisp->origin);
-      gtk_widget_unmap (ddisp->hrule);
-      gtk_widget_unmap (ddisp->vrule);
-      
-      GTK_WIDGET_UNSET_FLAGS (ddisp->origin, GTK_VISIBLE);
-      GTK_WIDGET_UNSET_FLAGS (ddisp->hrule, GTK_VISIBLE);
-      GTK_WIDGET_UNSET_FLAGS (ddisp->vrule, GTK_VISIBLE);
-      
-      gtk_widget_queue_resize (GTK_WIDGET (ddisp->origin->parent));
+    if (display_get_rulers_showing(ddisp)) {
+      display_rulers_hide (ddisp);
     }
   } else {
-    if (!GTK_WIDGET_VISIBLE (ddisp->origin)) {
-      GTK_WIDGET_SET_FLAGS (ddisp->origin, GTK_VISIBLE);
-      GTK_WIDGET_SET_FLAGS (ddisp->hrule, GTK_VISIBLE);
-      GTK_WIDGET_SET_FLAGS (ddisp->vrule, GTK_VISIBLE);
-      
-      gtk_widget_map (ddisp->origin);
-      gtk_widget_map (ddisp->hrule);
-      gtk_widget_map (ddisp->vrule);
-      
-      gtk_widget_queue_resize (GTK_WIDGET (ddisp->origin->parent));
+    if (!display_get_rulers_showing(ddisp)) {
+      display_rulers_show (ddisp);
     }
   }
 }

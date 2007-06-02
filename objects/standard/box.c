@@ -163,7 +163,7 @@ box_describe_props(Box *box)
 
 static PropOffset box_offsets[] = {
   ELEMENT_COMMON_PROPERTIES_OFFSETS,
-  { "line_width", PROP_TYPE_REAL, offsetof(Box, border_width) },
+  { PROP_STDNAME_LINE_WIDTH, PROP_STDTYPE_LINE_WIDTH, offsetof(Box, border_width) },
   { "line_colour", PROP_TYPE_COLOUR, offsetof(Box, border_color) },
   { "fill_colour", PROP_TYPE_COLOUR, offsetof(Box, inner_color) },
   { "show_background", PROP_TYPE_BOOL, offsetof(Box, show_background) },

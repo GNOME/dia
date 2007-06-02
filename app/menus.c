@@ -61,6 +61,9 @@ create_integrated_ui_toolbar (void);
 static void
 add_toolbox_plugin_actions (GtkUIManager *ui_manager);
 
+static gchar*
+build_ui_filename (const gchar* name);
+
 /* Actions common to toolbox and diagram window */
 static const GtkActionEntry common_entries[] =
 {
@@ -329,22 +332,6 @@ save_accels(gpointer data)
   return TRUE;
 }
 
-/**
- * Temporary hack
- */
-static gboolean 
-toolbar_callback (GtkWidget *toolbar, gpointer data) 
-{
-  if (data)
-  {
-    void (*callback)(GtkAction *action);
-
-    callback = data;
-    callback(NULL);
-  }
-  return FALSE;
-}
-
 static void
 integrated_ui_toolbar_grid_snap_set_state(int state)
 {
@@ -360,7 +347,7 @@ integrated_ui_toolbar_grid_snap_set_state(int state)
  * @param param Display to synchronize to.
  */
 void
-integrated_ui_toolbar_object_snap_synchronize_to_display(gpointer *param)
+integrated_ui_toolbar_object_snap_synchronize_to_display(gpointer param)
 {
   DDisplay *ddisp = param;
   if (ddisp && ddisp->common_toolbar)
@@ -392,7 +379,7 @@ integrated_ui_toolbar_object_snap_toggle(GtkToggleButton *b, gpointer *not_used)
  * @param param Display to synchronize to.
  */
 void
-integrated_ui_toolbar_grid_snap_synchronize_to_display(gpointer *param)
+integrated_ui_toolbar_grid_snap_synchronize_to_display(gpointer param)
 {
   DDisplay *ddisp = param;
   if (ddisp && ddisp->common_toolbar)
@@ -445,40 +432,20 @@ create_integrated_ui_toolbar (void)
   GtkWidget   *w;
   GtkAction   *action;
   int          i;
+  GError      *error = NULL;
+  const gchar *uifile;
 
-  struct item_t {
-    const gchar * stock_id;
-    void (*callback)(GtkAction *);
-  } item[] = {  
-    { GTK_STOCK_NEW,      file_new_callback },
-    { GTK_STOCK_OPEN,     file_open_callback },
-    { GTK_STOCK_SAVE,     file_save_callback },
-    { GTK_STOCK_SAVE_AS,  file_save_as_callback },
-    { 0 },
-    { GTK_STOCK_ZOOM_IN,  view_zoom_in_callback },
-    { GTK_STOCK_ZOOM_OUT, view_zoom_out_callback },
-  };
-  size_t num_items = sizeof(item)/sizeof(struct item_t);
-
-  toolbar = GTK_TOOLBAR (gtk_toolbar_new ());
-
-  for(i = 0 ; i < num_items ; i++)
-  {
-    if (item[i].stock_id)
-    {
-      button = gtk_tool_button_new_from_stock (item[i].stock_id);
-      gtk_toolbar_insert (toolbar, button, -1);
-      gtk_signal_connect (GTK_OBJECT (button),"clicked", 
-                          GTK_SIGNAL_FUNC (toolbar_callback), item[i].callback);
-      gtk_widget_show (GTK_WIDGET (button));
-    }
-    else
-    {
-      sep = gtk_separator_tool_item_new ();
-      gtk_toolbar_insert (toolbar, sep, -1);
-      gtk_widget_show (GTK_WIDGET (sep));
-    }
+  uifile = build_ui_filename ("ui/toolbar-ui.xml");
+  if (!gtk_ui_manager_add_ui_from_file (integrated_ui_manager, uifile, &error)) {
+    g_warning ("building menus failed: %s", error->message);
+    g_error_free (error);
+    error = NULL;
+    toolbar = GTK_TOOLBAR (gtk_toolbar_new ());
   }
+  else {
+    toolbar =  gtk_ui_manager_get_widget (integrated_ui_manager, "/Toolbar");
+  }
+  g_free (uifile);  
 
   tool_item = gtk_tool_item_new ();
   w = gtk_label_new ("100%");

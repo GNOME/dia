@@ -74,6 +74,8 @@ dia_renderer_set_size (DiaRenderer* renderer, gpointer window,
   g_return_if_fail (irenderer != NULL);
   g_return_if_fail (irenderer->set_size != NULL);
 
+printf(__FILE__": dia_renderer_set_size()--->  %d  <--------------\n", __LINE__);
   irenderer->set_size (renderer, window, width, height);
+printf(__FILE__": dia_renderer_set_size()--->  %d  <--------------\n", __LINE__);
 }
 

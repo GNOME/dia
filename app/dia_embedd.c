@@ -61,9 +61,7 @@ view_show_hide (EmbeddedView *view_data,
   if (activate) {
     toolbox_show();
 
-    gtk_widget_show(ddisp->origin);
-    gtk_widget_show(ddisp->hrule);
-    gtk_widget_show(ddisp->vrule);
+    display_rulers_show(ddisp);
     gtk_widget_show(ddisp->hsb);
     gtk_widget_show(ddisp->vsb);
     gtk_widget_show(ddisp->zoom_status->parent);
@@ -71,9 +69,7 @@ view_show_hide (EmbeddedView *view_data,
   } else {
     toolbox_hide();
 
-    gtk_widget_hide(ddisp->origin);
-    gtk_widget_hide(ddisp->hrule);
-    gtk_widget_hide(ddisp->vrule);
+    display_rulers_hide(ddisp);
     gtk_widget_hide(ddisp->hsb);
     gtk_widget_hide(ddisp->vsb);
     gtk_widget_hide(ddisp->zoom_status->parent);

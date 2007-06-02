@@ -83,7 +83,7 @@ static PropDescription svg_rect_prop_descs[] = {
 
 static PropDescription svg_style_prop_descs[] = {
     { "line_colour", PROP_TYPE_COLOUR },
-    { "line_width", PROP_TYPE_REAL },
+    { PROP_STDNAME_LINE_WIDTH, PROP_STDTYPE_LINE_WIDTH },
     { "line_style", PROP_TYPE_LINESTYLE},
     { "fill_colour", PROP_TYPE_COLOUR },
     { "show_background", PROP_TYPE_BOOL },

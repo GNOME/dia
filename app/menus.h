@@ -73,10 +73,10 @@ void
 integrated_ui_toolbar_set_zoom_text (GtkToolbar *toolbar, const gchar * text);
 
 void 
-integrated_ui_toolbar_grid_snap_synchronize_to_display (gpointer *ddisp);
+integrated_ui_toolbar_grid_snap_synchronize_to_display (gpointer ddisp);
 
 void
-integrated_ui_toolbar_object_snap_synchronize_to_display (gpointer *ddisp);
+integrated_ui_toolbar_object_snap_synchronize_to_display (gpointer ddisp);
 
 /* TODO: rename: menus_get_integrated_ui_menubar() */
 void            menus_get_integrated_ui_menubar  (GtkWidget **menubar, GtkWidget **toolbar, 

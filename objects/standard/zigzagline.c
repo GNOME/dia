@@ -141,7 +141,7 @@ zigzagline_describe_props(Zigzagline *zigzagline)
 
 static PropOffset zigzagline_offsets[] = {
   ORTHCONN_COMMON_PROPERTIES_OFFSETS,
-  { "line_width", PROP_TYPE_REAL, offsetof(Zigzagline, line_width) },
+  { PROP_STDNAME_LINE_WIDTH, PROP_STDTYPE_LINE_WIDTH, offsetof(Zigzagline, line_width) },
   { "line_colour", PROP_TYPE_COLOUR, offsetof(Zigzagline, line_color) },
   { "line_style", PROP_TYPE_LINESTYLE,
     offsetof(Zigzagline, line_style), offsetof(Zigzagline, dashlength) },
@@ -383,7 +383,7 @@ zigzagline_save(Zigzagline *zigzagline, ObjectNode obj_node,
 		   &zigzagline->line_color);
   
   if (zigzagline->line_width != 0.1)
-    data_add_real(new_attribute(obj_node, "line_width"),
+    data_add_real(new_attribute(obj_node, PROP_STDNAME_LINE_WIDTH),
 		  zigzagline->line_width);
   
   if (zigzagline->line_style != LINESTYLE_SOLID)
@@ -434,7 +434,7 @@ zigzagline_load(ObjectNode obj_node, int version, const char *filename)
     data_color(attribute_first_data(attr), &zigzagline->line_color);
 
   zigzagline->line_width = 0.1;
-  attr = object_find_attribute(obj_node, "line_width");
+  attr = object_find_attribute(obj_node, PROP_STDNAME_LINE_WIDTH);
   if (attr != NULL)
     zigzagline->line_width = data_real(attribute_first_data(attr));
 

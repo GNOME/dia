@@ -159,7 +159,7 @@ analog_clock_describe_props(Analog_Clock *analog_clock)
 
 static PropOffset analog_clock_offsets[] = {
   ELEMENT_COMMON_PROPERTIES_OFFSETS,
-  { "line_width", PROP_TYPE_REAL, offsetof(Analog_Clock, border_line_width) },
+  { PROP_STDNAME_LINE_WIDTH, PROP_STDTYPE_LINE_WIDTH, offsetof(Analog_Clock, border_line_width) },
   { "line_colour", PROP_TYPE_COLOUR, offsetof(Analog_Clock, border_color) },
   { "fill_colour", PROP_TYPE_COLOUR, offsetof(Analog_Clock,inner_color) },
   { "show_background", PROP_TYPE_BOOL,offsetof(Analog_Clock,show_background) },

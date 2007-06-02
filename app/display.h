@@ -102,6 +102,9 @@ struct _DDisplay {
 
   /* Points to widget containing the diagram if not standalone window */
   GtkWidget *container; 
+
+  /* Private field, indicates if rulers are shown for this diagram */
+  gboolean rulers_are_showing;
 };
 
 extern GdkCursor *default_cursor;
@@ -153,6 +156,10 @@ void ddisplay_close(DDisplay *ddisp);
 void ddisplay_set_title(DDisplay *ddisp, char *title);
 void ddisplay_set_cursor(DDisplay *ddisp, GdkCursor *cursor);
 void ddisplay_set_all_cursor(GdkCursor *cursor);
+
+gboolean display_get_rulers_showing(DDisplay *ddisp);
+void display_rulers_show (DDisplay *ddisp);
+void display_rulers_hide (DDisplay *ddisp);
 
 gboolean ddisplay_scroll(DDisplay *ddisp, Point *delta);
 gboolean ddisplay_autoscroll(DDisplay *ddisp, int x, int y);

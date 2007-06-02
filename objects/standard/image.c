@@ -153,7 +153,7 @@ static PropOffset image_offsets[] = {
   { "image_file", PROP_TYPE_FILE, offsetof(Image, file) },
   { "show_border", PROP_TYPE_BOOL, offsetof(Image, draw_border) },
   { "keep_aspect", PROP_TYPE_BOOL, offsetof(Image, keep_aspect) },
-  { "line_width", PROP_TYPE_REAL, offsetof(Image, border_width) },
+  { PROP_STDNAME_LINE_WIDTH, PROP_STDTYPE_LINE_WIDTH, offsetof(Image, border_width) },
   { "line_colour", PROP_TYPE_COLOUR, offsetof(Image, border_color) },
   { "line_style", PROP_TYPE_LINESTYLE,
     offsetof(Image, line_style), offsetof(Image, dashlength) },

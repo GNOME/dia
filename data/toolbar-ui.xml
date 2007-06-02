@@ -1,0 +1,11 @@
+<ui>
+  <toolbar name="Toolbar">
+	<toolitem name="FileNew" action="FileNew" />
+	<toolitem name="FileOpen" action="FileOpen" />
+	<toolitem name="FileSave" action="FileSave" />
+	<toolitem name="FileSaveas" action="FileSaveas" />
+	<separator/>
+	<toolitem name="ViewZoomin" action="ViewZoomin" />
+	<toolitem name="ViewZoomout" action="ViewZoomout" />
+  </toolbar>
+</ui>

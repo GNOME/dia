@@ -166,7 +166,7 @@ ellipse_describe_props(Ellipse *ellipse)
 
 static PropOffset ellipse_offsets[] = {
   ELEMENT_COMMON_PROPERTIES_OFFSETS,
-  { "line_width", PROP_TYPE_REAL, offsetof(Ellipse, border_width) },
+  { PROP_STDNAME_LINE_WIDTH, PROP_STDTYPE_LINE_WIDTH, offsetof(Ellipse, border_width) },
   { "line_colour", PROP_TYPE_COLOUR, offsetof(Ellipse, border_color) },
   { "fill_colour", PROP_TYPE_COLOUR, offsetof(Ellipse, inner_color) },
   { "show_background", PROP_TYPE_BOOL, offsetof(Ellipse, show_background) },

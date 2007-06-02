@@ -145,7 +145,7 @@ beziergon_describe_props(Beziergon *beziergon)
 
 static PropOffset beziergon_offsets[] = {
   BEZSHAPE_COMMON_PROPERTIES_OFFSETS,
-  { "line_width", PROP_TYPE_REAL, offsetof(Beziergon, line_width) },
+  { PROP_STDNAME_LINE_WIDTH, PROP_STDTYPE_LINE_WIDTH, offsetof(Beziergon, line_width) },
   { "line_colour", PROP_TYPE_COLOUR, offsetof(Beziergon, line_color) },
   { "line_style", PROP_TYPE_LINESTYLE,
     offsetof(Beziergon, line_style), offsetof(Beziergon, dashlength) },
@@ -361,7 +361,7 @@ beziergon_save(Beziergon *beziergon, ObjectNode obj_node,
 		   &beziergon->line_color);
   
   if (beziergon->line_width != 0.1)
-    data_add_real(new_attribute(obj_node, "line_width"),
+    data_add_real(new_attribute(obj_node, PROP_STDNAME_LINE_WIDTH),
 		  beziergon->line_width);
   
   if (!color_equals(&beziergon->inner_color, &color_white))
@@ -406,7 +406,7 @@ beziergon_load(ObjectNode obj_node, int version, const char *filename)
     data_color(attribute_first_data(attr), &beziergon->line_color);
 
   beziergon->line_width = 0.1;
-  attr = object_find_attribute(obj_node, "line_width");
+  attr = object_find_attribute(obj_node, PROP_STDNAME_LINE_WIDTH);
   if (attr != NULL)
     beziergon->line_width = data_real(attribute_first_data(attr));
 

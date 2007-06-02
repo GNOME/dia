@@ -171,7 +171,7 @@ pgram_describe_props(Pgram *pgram)
 
 static PropOffset pgram_offsets[] = {
   ELEMENT_COMMON_PROPERTIES_OFFSETS,
-  { "line_width", PROP_TYPE_REAL, offsetof(Pgram, border_width) },
+  { PROP_STDNAME_LINE_WIDTH, PROP_STDTYPE_LINE_WIDTH, offsetof(Pgram, border_width) },
   { "line_colour", PROP_TYPE_COLOUR, offsetof(Pgram, border_color) },
   { "fill_colour", PROP_TYPE_COLOUR, offsetof(Pgram, inner_color) },
   { "show_background", PROP_TYPE_BOOL, offsetof(Pgram, show_background) },

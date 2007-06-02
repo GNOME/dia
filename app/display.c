@@ -210,7 +210,7 @@ initialize_display_widgets(DDisplay *ddisp)
   }
   create_display_shell(ddisp, prefs.new_view.width, prefs.new_view.height,
 		       filename, prefs.new_view.use_menu_bar, !app_is_embedded());
-  
+
   ddisplay_update_statusbar (ddisp);
 
   ddisplay_set_origo(ddisp, ddisp->visible.left, ddisp->visible.top);
@@ -808,18 +808,13 @@ ddisplay_set_snap_to_grid(DDisplay *ddisp, gboolean snap)
   GtkToggleAction *snap_to_grid;
   ddisp->grid.snap = snap;
 
-  if (is_integrated_ui ())
-  {
-     snap_to_grid = GTK_TOGGLE_ACTION (menus_get_action ("ViewSnaptogrid"));
-  }
-  else
-  {
     if (ddisp->menu_bar == NULL) {
       snap_to_grid = GTK_TOGGLE_ACTION (menus_get_action ("ViewSnaptogrid"));
+      if (is_integrated_ui ())
+         integrated_ui_toolbar_grid_snap_synchronize_to_display (ddisp);
     } else {
       snap_to_grid = GTK_TOGGLE_ACTION (gtk_action_group_get_action (ddisp->actions, "ViewSnaptogrid"));
     }
-  }
   /* Currently, this can cause double emit, but that's a small problem.
    */
   gtk_toggle_action_set_active (snap_to_grid, ddisp->grid.snap);
@@ -844,6 +839,8 @@ ddisplay_set_snap_to_objects(DDisplay *ddisp, gboolean magnetic)
 
   if (ddisp->menu_bar == NULL) {
     mainpoint_magnetism = GTK_TOGGLE_ACTION (menus_get_action ("ViewSnaptoobjects"));
+    if (is_integrated_ui ())
+      integrated_ui_toolbar_object_snap_synchronize_to_display (ddisp);
   } else {
     mainpoint_magnetism = GTK_TOGGLE_ACTION (gtk_action_group_get_action (ddisp->actions, "ViewSnaptoobjects"));
   }
@@ -1099,8 +1096,10 @@ ddisp_destroy(DDisplay *ddisp)
   /* This calls ddisplay_really_destroy */
   if (ddisp->is_standalone_window)
     gtk_widget_destroy (ddisp->shell);
-  else 
+  else {
     gtk_widget_destroy (ddisp->container);
+    ddisplay_really_destroy (ddisp);
+  }
 }
 
 static void
@@ -1220,9 +1219,8 @@ display_update_menu_state(DDisplay *ddisp)
 
 
   ddisplay_do_update_menu_sensitivity (ddisp);
-  
-  gtk_toggle_action_set_active (rulers,
-				 GTK_WIDGET_VISIBLE (ddisp->hrule) ? 1 : 0); 
+
+  gtk_toggle_action_set_active (rulers, display_get_rulers_showing(ddisp));
   gtk_toggle_action_set_active (visible_grid,
 				 ddisp->grid.visible);
   gtk_toggle_action_set_active (snap_to_grid,
@@ -1340,6 +1338,61 @@ ddisplay_set_cursor(DDisplay *ddisp, GdkCursor *cursor)
   gdk_window_set_cursor(ddisp->canvas->window, cursor);
 }
 
+/** Returns whether the rulers are currently showing on the display.
+ */
+gboolean display_get_rulers_showing(DDisplay *ddisp) {
+  return ddisp->rulers_are_showing;
+}
+
+
+/**
+ * Shows the rulers and sets flag ddisp->rulers_are_showing.  This
+ * is needed to detect whether a show() has been issued.  There is a 
+ * delay between the time that gtk_widget_show() is called and the time
+ * when GTK_WIDGET_IS_VISIBLE(w) will indicate true.
+ * @param ddisp The display to show the rulers on.
+ */
+void display_rulers_show (DDisplay *ddisp)
+{
+  if (ddisp)
+  {
+    GtkWidget *parent = GTK_WIDGET (ddisp->origin->parent);
+
+    gtk_widget_show (ddisp->origin);
+    gtk_widget_show (ddisp->hrule);
+    gtk_widget_show (ddisp->vrule);
+
+    if (GTK_WIDGET_VISIBLE (parent))
+      gtk_widget_queue_resize (parent);
+
+    ddisp->rulers_are_showing = TRUE;
+  }
+}
+
+/**
+ * Hides the rulers and resets the flag ddisp->rulers_are_showing.  This
+ * is needed to detect whether a hide() has been issued.  There is a 
+ * delay between the time that gtk_widget_hide() is called and the time
+ * when GTK_WIDGET_IS_VISIBLE(w) will indicate false.
+ * @param ddisp The display to hide the rulers on.
+ */
+void display_rulers_hide (DDisplay *ddisp)
+{
+  if (ddisp)
+  {
+    GtkWidget *parent = GTK_WIDGET (ddisp->origin->parent);
+
+    gtk_widget_hide (ddisp->origin);
+    gtk_widget_hide (ddisp->hrule);
+    gtk_widget_hide (ddisp->vrule);
+    
+    if (GTK_WIDGET_VISIBLE (parent))
+      gtk_widget_queue_resize (parent);
+
+    ddisp->rulers_are_showing = FALSE;
+  }
+}
+
 void 
 ddisplay_update_statusbar(DDisplay *ddisp)
 {
@@ -1393,11 +1446,11 @@ display_set_active(DDisplay *ddisp)
 
         /* Snap to grid */
         ddisplay_set_snap_to_grid (ddisp, ddisp->grid.snap); /* menus */
-        integrated_ui_toolbar_grid_snap_synchronize_to_display (ddisp);
 
         /* Object snapping */
         ddisplay_set_snap_to_objects (ddisp, ddisp->mainpoint_magnetism);
-        integrated_ui_toolbar_object_snap_synchronize_to_display (ddisp);
+
+        display_update_menu_state (ddisp);
 
       }
     } else {
