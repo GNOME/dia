@@ -275,9 +275,13 @@ newgroup_update_data(NewGroup *group)
     if (newlySet) {
       layer = dia_object_get_parent_layer(obj);
       if (layer != NULL) { /* Placed in diagram already */
-	/* Iterate through all selected objects, picking out children */
-	
-	parent_apply_to_children(obj, diagram_unselect_object);
+	GList *children = g_list_prepend(NULL, obj);
+	children = parent_list_affected(children);
+	/* Remove the group object that stayed at the start of the list,
+	   leaving only the children */
+	children = g_list_remove_link(children, children);
+	diagram_unselect_objects(layer_get_parent_diagram(layer), children);
+	g_list_free(children);
       }
     }
   }
@@ -370,7 +374,6 @@ newgroup_load(ObjectNode obj_node, int version, const char *filename)
   Element *elem;
   DiaObject *obj;
   int i;
-  AttributeNode attr;
 
   group = g_malloc0(sizeof(NewGroup));
   elem = &group->element;

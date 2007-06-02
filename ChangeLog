@@ -1,5 +1,8 @@
 2007-06-02  Lars Clausen  <lars@raeder.dk>
 
+	* app/newgroup.c (newgroup_update_data): Correctly update
+	selection of children when closing group, fixes crash.
+
 	* objects/flowchart/parallelogram.c
 	* objects/flowchart/box.c
 	* objects/flowchart/diamond.c
