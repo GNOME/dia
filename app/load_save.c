@@ -901,7 +901,7 @@ diagram_data_save(DiagramData *data, const char *filename)
   /* Check that we're allowed to write to the target file at all. */
   if (g_file_test(filename, G_FILE_TEST_EXISTS) &&
       g_access(filename, W_OK) != 0) {
-    message_error(_("No allowed to write to output file %s\n"), 
+    message_error(_("Not allowed to write to output file %s\n"), 
 		  dia_message_filename(filename));
     return FALSE;
   }
@@ -923,7 +923,7 @@ diagram_data_save(DiagramData *data, const char *filename)
   /* Check that we can create the other files */
   if (g_file_test(dirname, G_FILE_TEST_EXISTS) &&
       g_access(dirname, W_OK) != 0) {
-    message_error(_("No allowed to write temporary files in %s\n"), 
+    message_error(_("Not allowed to write temporary files in %s\n"), 
 		  dia_message_filename(dirname));
     return FALSE;
   }

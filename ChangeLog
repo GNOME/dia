@@ -1,3 +1,7 @@
+2007-06-05  Jakub Friedl  <jfriedl@suse.cz>
+
+	* app/load_save.c: Corrected error messages (proper English)
+
 2007-06-02  Lars Clausen  <lars@raeder.dk>
 
 	* app/newgroup.c (newgroup_update_data): Correctly update
