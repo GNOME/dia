@@ -94,5 +94,8 @@ GtkAction *     menus_get_action       (const gchar *name);
 void            menus_set_recent       (GtkActionGroup *actions);
 void            menus_clear_recent     (void);
 
+#define VIEW_MAIN_TOOLBAR_ACTION     "ViewMainToolbar"
+#define VIEW_MAIN_STATUSBAR_ACTION   "ViewMainStatusbar"
+
 #endif /* MENUS_H */
 

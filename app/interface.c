@@ -494,7 +494,7 @@ use_integrated_ui_for_display_shell(DDisplay *ddisp, char *title)
   gtk_container_add (GTK_CONTAINER(close_button), image);
   gtk_signal_connect (GTK_OBJECT (close_button), "clicked", 
                       GTK_SIGNAL_FUNC (close_notebook_page_callback), ddisp->container);
-  /* <from GEdit/> */
+  /* </from GEdit> */
 
   gtk_box_pack_start( GTK_BOX(tab_label_container), close_button, FALSE, FALSE, 0 );
   gtk_widget_show (close_button);
@@ -559,7 +559,7 @@ use_integrated_ui_for_display_shell(DDisplay *ddisp, char *title)
   /*  Canvas  */
   ddisp->canvas = dia_canvas_new();
   
-  /* Dia's canvas does it' double buffering alone so switch off GTK's */
+  /* Dia's canvas does it's double buffering alone so switch off GTK's */
   gtk_widget_set_double_buffered (ddisp->canvas, FALSE);
 
   gtk_widget_set_events (ddisp->canvas, CANVAS_EVENT_MASK);
@@ -574,9 +574,7 @@ use_integrated_ui_for_display_shell(DDisplay *ddisp, char *title)
 		    G_CALLBACK(display_drop_callback), NULL);
   g_signal_connect (GTK_OBJECT (ddisp->canvas), "drag_data_received",
 		    G_CALLBACK(display_data_received_callback), ddisp);
-/*
-  gtk_object_set_user_data (GTK_OBJECT (ddisp->canvas), (gpointer) ddisp);
-*/
+
   /*  place all the widgets  */
   gtk_table_attach (GTK_TABLE (table), ddisp->origin, 0, 1, 0, 1,
                     GTK_FILL, GTK_FILL, 0, 0);
@@ -596,29 +594,23 @@ use_integrated_ui_for_display_shell(DDisplay *ddisp, char *title)
 
   ddisp->common_toolbar = ui.toolbar;
 
+  /* Stand-alone window menubar */
   ddisp->menu_bar = NULL;
 
-  /* Zoom status pseudo-optionmenu */
+  /* Stand-alone window Zoom status/menu */
   ddisp->zoom_status = NULL;
 
-  /* Grid on/off button */
+  /* Stand-alone window Grid on/off button */
   ddisp->grid_status = NULL;
-  ddisp->mainpoint_status = dia_toggle_button_new_with_icons(dia_mainpoints_on_icon,
-							dia_mainpoints_off_icon);
 
-  g_signal_connect(G_OBJECT(ddisp->mainpoint_status), "toggled",
-		   G_CALLBACK (interface_toggle_mainpoint_magnetism), ddisp);
-  gtk_tooltips_set_tip(tool_tips, ddisp->mainpoint_status,
-		       _("Toggles object snapping for this window."), NULL);
-  gtk_box_pack_start (GTK_BOX (status_hbox), ddisp->mainpoint_status,
-		      FALSE, FALSE, 0);
+  /* Stand-alone window Object Snapping button */
+  ddisp->mainpoint_status = NULL;
 
+  gtk_widget_show (ddisp->container);
+  gtk_widget_show (table);
   gtk_widget_show (ddisp->hsb);
   gtk_widget_show (ddisp->vsb);
   display_rulers_show (ddisp);
-  gtk_widget_show (table);
-  gtk_widget_show (ddisp->container);
-
   gtk_widget_show (ddisp->canvas);
 
   /* Ensure that the the new page is showing */
@@ -1593,8 +1585,6 @@ void create_integrated_ui (void)
   /* Applicatioon Statusbar */
   statusbar = gtk_statusbar_new ();
   gtk_box_pack_end (GTK_BOX (main_vbox), statusbar, FALSE, TRUE, 0);
-  gtk_widget_show (statusbar);
-
   /* HBox for everything below the menubar and toolbars */
   hbox = gtk_hbox_new(FALSE, 0);
   gtk_box_pack_end (GTK_BOX (main_vbox), hbox, TRUE, TRUE, 0);
@@ -1657,6 +1647,11 @@ void create_integrated_ui (void)
   ui.toolbar          = GTK_TOOLBAR   (toolbar);
   ui.diagram_notebook = GTK_NOTEBOOK  (notebook);
   ui.statusbar        = GTK_STATUSBAR (statusbar);
+
+  /* NOTE: These functions use ui.xxx assignments above and so must come after
+   *       the user interface components are set.                              */
+  integrated_ui_main_toolbar_show ();
+  integrated_ui_main_statusbar_show ();
 
   /* For access outside here: */
   g_object_set_data (G_OBJECT (ui.main_window), DIA_MAIN_NOTEBOOK, notebook);
@@ -1785,3 +1780,76 @@ interface_get_toolbox_shell(void)
 
   return toolbox_shell;
 }
+
+/* Indicate if the integrated UI toolbar is showing.
+ * @return TRUE if showing, FALSE if not showing or doesn't exist 
+ */ 
+gboolean integrated_ui_main_toolbar_is_showing (void)
+{
+  if (ui.toolbar)
+  {
+    return GTK_WIDGET_VISIBLE (ui.toolbar)? TRUE : FALSE;
+  }
+  return FALSE;
+}
+
+/* show() integrated UI main toolbar and set pulldown menu action. */
+void integrated_ui_main_toolbar_show (void)
+{
+  if (ui.toolbar)
+  {
+    gtk_widget_show (GTK_WIDGET (ui.toolbar));
+    GtkAction * action = menus_get_action (VIEW_MAIN_TOOLBAR_ACTION);
+    if (action)
+      gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action), TRUE);
+  }
+}
+
+/* hide() integrated UI main toolbar and reset pulldown menu action. */
+void integrated_ui_main_toolbar_hide (void)
+{
+  if (ui.toolbar)
+  {
+    gtk_widget_hide (GTK_WIDGET (ui.toolbar));
+    GtkAction * action = menus_get_action (VIEW_MAIN_TOOLBAR_ACTION);
+    if (action)
+      gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action), FALSE);
+  }
+}
+
+/* Indicate if the integrated UI statusbar is showing.
+ * @return TRUE if showing, FALSE if not showing or doesn't exist 
+ */ 
+gboolean integrated_ui_main_statusbar_is_showing (void)
+{
+  if (ui.statusbar)
+  {
+    return GTK_WIDGET_VISIBLE (ui.statusbar)? TRUE : FALSE;
+  }
+}
+
+/* show() integrated UI main statusbar and set pulldown menu action. */
+void integrated_ui_main_statusbar_show (void)
+{
+  if (ui.statusbar)
+  {
+    gtk_widget_show (GTK_WIDGET (ui.statusbar));
+    GtkAction * action = menus_get_action (VIEW_MAIN_STATUSBAR_ACTION);
+    if (action)
+      gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action), TRUE);
+  }
+}
+
+/* hide() integrated UI main statusbar and reset pulldown menu action. */
+void integrated_ui_main_statusbar_hide (void)
+{
+  if (ui.statusbar)
+  {
+    gtk_widget_hide (GTK_WIDGET (ui.statusbar));
+    GtkAction * action = menus_get_action (VIEW_MAIN_STATUSBAR_ACTION);
+    if (action)
+      gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action), FALSE);
+  }
+}
+
+

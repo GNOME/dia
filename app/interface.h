@@ -45,7 +45,17 @@
 
 void create_integrated_ui (void);
 
+gboolean integrated_ui_main_toolbar_is_showing (void);
+void     integrated_ui_main_toolbar_show (void);
+void     integrated_ui_main_toolbar_hide (void);
+
+gboolean integrated_ui_main_statusbar_is_showing (void);
+void     integrated_ui_main_statusbar_show (void);
+void     integrated_ui_main_statusbar_hide (void);
+
+/*
 void synchronize_ui_to_active_display (DDisplay *ddisp);
+*/
 
 int is_integrated_ui (void);
 

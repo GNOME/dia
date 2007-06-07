@@ -90,6 +90,13 @@ static const GtkToggleActionEntry toolbox_toggle_entries[] =
     { "FileTree", NULL, N_("_Diagram tree..."), "F8", NULL, G_CALLBACK (diagtree_show_callback) }
 };
 
+/* Toggle-Actions for toolbox menu */
+static const GtkToggleActionEntry integrated_ui_view_toggle_entries[] = 
+{
+    { VIEW_MAIN_TOOLBAR_ACTION,   NULL, N_("Show Toolbar"),   NULL, NULL, G_CALLBACK (view_main_toolbar_callback) },
+    { VIEW_MAIN_STATUSBAR_ACTION, NULL, N_("Show Statusbar"), NULL, NULL, G_CALLBACK (view_main_statusbar_callback) }
+};
+
 /* Actions for diagram window */
 static const GtkActionEntry display_entries[] =
 {
@@ -823,6 +830,8 @@ menus_get_integrated_ui_menubar (GtkWidget     **menubar,
                 G_N_ELEMENTS (toolbox_entries), NULL);
   gtk_action_group_add_actions (integrated_ui_actions, display_entries, 
                 G_N_ELEMENTS (display_entries), NULL);
+  gtk_action_group_add_toggle_actions (integrated_ui_actions, integrated_ui_view_toggle_entries, 
+                G_N_ELEMENTS (integrated_ui_view_toggle_entries), NULL);
   gtk_action_group_add_toggle_actions (integrated_ui_actions, toolbox_toggle_entries,
                 G_N_ELEMENTS (toolbox_toggle_entries), 
                 NULL);

@@ -825,8 +825,11 @@ ddisplay_set_snap_to_grid(DDisplay *ddisp, gboolean snap)
 static void
 update_snap_grid_status(DDisplay *ddisp)
 {
-  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ddisp->grid_status),
-			       ddisp->grid.snap);
+  if (ddisp->grid_status)
+  {
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (ddisp->grid_status),
+                                  ddisp->grid.snap);
+  }
 }
 
 /** Set the display's mainpoint magnetism setting, updating menu and button
@@ -855,8 +858,11 @@ ddisplay_set_snap_to_objects(DDisplay *ddisp, gboolean magnetic)
 static void
 update_mainpoint_status(DDisplay *ddisp)
 {
-  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ddisp->mainpoint_status),
-			       ddisp->mainpoint_magnetism);
+  if (ddisp->mainpoint_status)
+  {
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ddisp->mainpoint_status),
+                                 ddisp->mainpoint_magnetism);
+  }
 }
 
 /** Scroll display to where point x,y (window coords) is visible */

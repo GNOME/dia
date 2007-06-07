@@ -68,13 +68,16 @@
 			<menuitem name="ViewShowall" action="ViewShowall" />
 			<separator name="ViewSep1" />
 			<menuitem name="ViewFullscreen" action="ViewFullscreen" />
+			<menuitem name="ViewMainToolbar" action="ViewMainToolbar" />
+			<menuitem name="ViewMainStatusbar" action="ViewMainStatusbar" />
+			<separator name="ViewSep2" />
 			<menuitem name="ViewAntialiased" action="ViewAntialiased" />
 			<menuitem name="ViewShowgrid" action="ViewShowgrid" />
 			<menuitem name="ViewSnaptogrid" action="ViewSnaptogrid" />
 			<menuitem name="ViewSnaptoobjects" action="ViewSnaptoobjects" />
 			<menuitem name="ViewShowrulers" action="ViewShowrulers" />
 			<menuitem name="ViewShowconnectionpoints" action="ViewShowconnectionpoints" />
-			<separator name="ViewSep2" />
+			<separator name="ViewSep3" />
 			<menuitem name="ViewNewview" action="ViewNewview" />
 			<menuitem name="ViewCloneview" action="ViewCloneview" />
 			<menuitem name="ViewRedraw" action="ViewRedraw" />

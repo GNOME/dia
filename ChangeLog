@@ -1,12 +1,32 @@
+2007-06-07  Lars Clausen  <lars@raeder.dk>
+
+	* app/commands.c
+	* app/display.c
+	* app/commands.h
+	* app/app_procs.c
+	* app/interface.c
+	* app/interface.h
+	* app/disp_callbacks.c
+	* app/menus.c
+	* app/menus.h
+	* lib/diainteractiverenderer.c
+	* data/integrated-ui.xml: Patch from Patrick Hallinan
+	<patrick.j.hallinan@gmail.com>: More work on integrated UI:
+	Toolbar visibility, right-mouse menu.
+
 2007-06-05  Jakub Friedl  <jfriedl@suse.cz>
 
 	* app/load_save.c: Corrected error messages (proper English)
 
 2007-06-02  Lars Clausen  <lars@raeder.dk>
 
+	* lib/Makefile.am (libdia_la_SOURCES): 
+	* app/Makefile.am (dia_core_files): 
+	* lib/newgroup.c: Moved here from app.
+	
 	* app/newgroup.c (newgroup_update_data): Correctly update
 	selection of children when closing group, fixes crash.
-
+	
 	* objects/flowchart/parallelogram.c
 	* objects/flowchart/box.c
 	* objects/flowchart/diamond.c

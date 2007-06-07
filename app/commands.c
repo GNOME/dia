@@ -969,6 +969,32 @@ view_diagram_properties_callback (GtkAction *action)
   diagram_properties_show(ddisp->diagram);
 }
 
+void
+view_main_toolbar_callback (GtkAction *action)
+{
+  if (gtk_toggle_action_get_active (action) == TRUE)
+  {
+    integrated_ui_main_toolbar_show ();
+  }
+  else
+  {
+    integrated_ui_main_toolbar_hide ();
+  }
+}
+
+void
+view_main_statusbar_callback (GtkAction *action)
+{
+  if (gtk_toggle_action_get_active (action) == TRUE)
+  {
+    integrated_ui_main_statusbar_show ();
+  }
+  else
+  {
+    integrated_ui_main_statusbar_hide ();
+  }
+}
+
 
 void
 objects_place_over_callback (GtkAction *action)

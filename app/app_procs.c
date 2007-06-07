@@ -954,13 +954,16 @@ app_init (int argc, char **argv)
   if (dia_is_interactive && files == NULL && !nonew) {
     if (prefs.use_integrated_ui)
     {
-      /* Add Diagram after window is shown */
-      GtkWidget *ui = interface_get_toolbox_shell();
-
-      g_signal_connect (G_OBJECT (ui), 
-                       "window-state-event",
-                        integrated_ui_create_initial_diagrams_callback,
-                        NULL);
+      GList * list;
+    
+      file_new_callback(NULL);  
+      list = dia_open_diagrams();
+      if (list) 
+      {
+        Diagram * diagram = list->data;
+        diagram_update_extents(diagram);
+        diagram->is_default = TRUE;
+      }
     }
     else
     {
@@ -983,26 +986,6 @@ app_init (int argc, char **argv)
 
   dynobj_refresh_init();
 }
-
-static void
-integrated_ui_create_initial_diagrams_callback (GtkWidget *widget,
-                                                gpointer   user_data)
-{
-  GList * list;
-
-  file_new_callback(NULL);  
-  list = dia_open_diagrams();
-  if (list) 
-  {
-    Diagram * diagram = list->data;
-    diagram_update_extents(diagram);
-    diagram->is_default = TRUE;
-  }
-
-  g_signal_handler_disconnect (widget, 
-                               integrated_ui_create_initial_diagrams_callback);
-}
-
 
 #if 0
 /* app_procs.c: warning: `set_true_callback' defined but not used */

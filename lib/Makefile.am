@@ -162,6 +162,7 @@ libdia_la_SOURCES =  \
 		debug.h \
 		prefs.c \
 		prefs.h \
+	        newgroup.c \
 		dia-lib-icons.h
 
 #		charconv.c \

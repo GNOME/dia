@@ -600,7 +600,7 @@ ddisplay_canvas_events (GtkWidget *canvas,
               if (transient_tool)
                 break;
               if (ddisp->menu_bar == NULL) {
-                if (bevent->state & GDK_CONTROL_MASK) {
+                if (bevent->state & GDK_CONTROL_MASK || is_integrated_ui ()) {
                       /* for two button mouse users ... */
                   popup_object_menu(ddisp, bevent);
                   break;
