@@ -60,6 +60,7 @@ ShellExecuteA (long        hwnd,
 #include "display.h"
 #include "object_ops.h"
 #include "cut_n_paste.h"
+#include "interface.h"
 #include "load_save.h"
 #include "utils.h"
 #include "message.h"

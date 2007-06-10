@@ -73,6 +73,7 @@ typedef void* poptContext;
 #include "app_procs.h"
 #include "object.h"
 #include "color.h"
+#include "commands.h"
 #include "tool.h"
 #include "interface.h"
 #include "modify_tool.h"

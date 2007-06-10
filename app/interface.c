@@ -1798,8 +1798,9 @@ void integrated_ui_main_toolbar_show (void)
 {
   if (ui.toolbar)
   {
+    GtkAction *action = NULL;
     gtk_widget_show (GTK_WIDGET (ui.toolbar));
-    GtkAction * action = menus_get_action (VIEW_MAIN_TOOLBAR_ACTION);
+    action = menus_get_action (VIEW_MAIN_TOOLBAR_ACTION);
     if (action)
       gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action), TRUE);
   }
@@ -1810,8 +1811,9 @@ void integrated_ui_main_toolbar_hide (void)
 {
   if (ui.toolbar)
   {
+    GtkAction *action = NULL;
     gtk_widget_hide (GTK_WIDGET (ui.toolbar));
-    GtkAction * action = menus_get_action (VIEW_MAIN_TOOLBAR_ACTION);
+    action = menus_get_action (VIEW_MAIN_TOOLBAR_ACTION);
     if (action)
       gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action), FALSE);
   }
@@ -1833,8 +1835,9 @@ void integrated_ui_main_statusbar_show (void)
 {
   if (ui.statusbar)
   {
+    GtkAction *action = NULL;
     gtk_widget_show (GTK_WIDGET (ui.statusbar));
-    GtkAction * action = menus_get_action (VIEW_MAIN_STATUSBAR_ACTION);
+    action = menus_get_action (VIEW_MAIN_STATUSBAR_ACTION);
     if (action)
       gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action), TRUE);
   }
@@ -1845,8 +1848,9 @@ void integrated_ui_main_statusbar_hide (void)
 {
   if (ui.statusbar)
   {
+    GtkAction *action = NULL;
     gtk_widget_hide (GTK_WIDGET (ui.statusbar));
-    GtkAction * action = menus_get_action (VIEW_MAIN_STATUSBAR_ACTION);
+    action = menus_get_action (VIEW_MAIN_STATUSBAR_ACTION);
     if (action)
       gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action), FALSE);
   }
