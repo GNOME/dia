@@ -110,7 +110,7 @@ static ObjectOps object_sissi_ops = {
 /*********** facultatif  start ***************/
 static PropDescription sissi_object_props[] = {
   ELEMENT_COMMON_PROPERTIES,
-/*       { "confidentialite", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE, N_("Confidentialite :"), N_("confidentialite "), property_confidentialite_data},*/
+/*       { "confidentialite", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE, N_("Confidentiality :"), N_("confidentiality "), property_confidentialite_data},*/
     PROP_DESC_END
 };
 

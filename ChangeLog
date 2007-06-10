@@ -1,5 +1,10 @@
 2007-06-10  Steffen Macke <sdteffen@gmail.com>
 
+	* objects/sissi/site.c:
+	* objects/sissi/area.c:
+	* objects/sissi/room.c:
+	* objects/sissi/sissi_object.c: Translated confidentiality from French to
+	English; partial fix for bug #355995
 	* installer/win32/dia.nsi: Added SISSI files, ui files
 	* app/app_procs.c: #include commands.h
 	* app/commands.c: #include interface.h
