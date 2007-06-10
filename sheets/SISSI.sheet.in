@@ -12,7 +12,7 @@
       <icon>SISSI/relational_database.png</icon>
     </object>
    <object name="SISSI - sissi_object" intdata="3">
-      <_description>server</_description>
+      <_description>Server</_description>
       <icon>SISSI/ibm_mini.png</icon>
     </object>
    <object name="SISSI - sissi_object" intdata="4">
@@ -52,7 +52,7 @@
       <icon>SISSI/modem.png</icon>
     </object>
     <object name="SISSI - sissi_object" intdata="13">
-      <_description>Boitier de chiffrement</_description>
+      <_description>Cipher machine</_description>
       <icon>SISSI/key.png</icon>
     </object>
     <object name="SISSI - sissi_object" intdata="14">
@@ -84,7 +84,7 @@
       <icon>SISSI/logiciel.xpm</icon>
       </object>
         <object name="SISSI - sissi_object" intdata="21">
-      <_description>Analyse de Log</_description>
+      <_description>Log analysis</_description>
       <icon>SISSI/analyse.xpm</icon>
       </object>
         <object name="SISSI - sissi_object" intdata="22">
@@ -100,7 +100,7 @@
       <icon>../shapes/Assorted/square.png</icon>
     </object>
     <object name="SISSI - faraday" intdata="76">
-      <_description>cage de faraday</_description>
+      <_description>Faraday cage</_description>
       <icon>SISSI/faraday.png</icon>
     </object>
    <object name="SISSI - area" intdata="71">
@@ -108,7 +108,7 @@
       <icon>../shapes/Assorted/star7.png</icon>
     </object>
     <object name="SISSI - site" intdata="70">
-      <_description>Site geographique</_description>
+      <_description>Geographic site</_description>
       <icon>../shapes/Map/Isometric/Block7.png</icon>
     </object>
    <object name="SISSI - sissi_object" intdata="28">
@@ -120,19 +120,19 @@
       <icon>SISSI/camera_interphone.png</icon>
     </object>
    <object name="SISSI - sissi_object" intdata="30">
-      <_description>capteur brise glace</_description>
+      <_description>Glass-break sensor</_description>
       <icon>SISSI/capteur_brise_glace.png</icon>
     </object>
    <object name="SISSI - sissi_object" intdata="31">
-      <_description>capteur faisceau</_description>
+      <_description>Sensor beam</_description>
       <icon>SISSI/capteur_faisceau.png</icon>
     </object>
    <object name="SISSI - sissi_object" intdata="32">
-      <_description>condensateur</_description>
+      <_description>Condensator</_description>
       <icon>SISSI/condensateur.png</icon>
     </object>
    <object name="SISSI - sissi_object" intdata="33">
-      <_description>detecteur d'alimentation</_description>
+      <_description>Power transducer</_description>
       <icon>SISSI/detecteur_alimentation.png</icon>
     </object>
    <object name="SISSI - sissi_object" intdata="34">

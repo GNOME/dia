@@ -1,5 +1,6 @@
 2007-06-10  Steffen Macke <sdteffen@gmail.com>
 
+	* sheets/SISSI.sheet.in: Translating texts from French to English
 	* objects/sissi/site.c:
 	* objects/sissi/area.c:
 	* objects/sissi/room.c:
