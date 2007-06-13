@@ -1,3 +1,8 @@
+2007-06-13  Steffen Macke <sdteffen@gmail.com>
+
+	* doc/en/dia.dbk: Applied patch from Peter Breitenlohner < peb@mppmu.mpg.de>
+	typo in manpage; fixes bug #340992
+	
 2007-06-10  Steffen Macke <sdteffen@gmail.com>
 
 	* sheets/SISSI.sheet.in: Translating texts from French to English

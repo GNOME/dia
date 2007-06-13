@@ -123,7 +123,7 @@
     When objects are moved or resized the connections will follow the
     objects.</para>
 
-    <para>Diagrams drawn in <command>Dia</command> can be exported
+    <para>Diagrams drawn in <command>Dia</command> can be exported as
     PostScript.</para>
   </refsect1>
 
@@ -228,15 +228,15 @@
       </listitem>
 
       <listitem>
-	<para><literal>eps</literal>  or
+        <para><literal>eps</literal>  or
 	<literal>eps-builtin</literal> or <literal>eps-pango</literal>
 	(Encapsulated PostScript)</para>
 
         <para>The format specifications <literal>eps</literal> and <literal>eps-pango</literal> both
 	use the font renderer of the Pango library, while
-	<literal>eps-builtin</literal> uses a dia specific font
-	renderer.  If you have problems with Pango rendering,
-	e.g. Unicode, try <literal>eps-builtin</literal>
+        <literal>eps-builtin</literal> uses a dia specific font
+        renderer.  If you have problems with Pango rendering,
+        e.g. Unicode, try <literal>eps-builtin</literal>
 	instead.</para>
       </listitem>
 
@@ -296,7 +296,7 @@
       </listitem>
       <listitem>
 	<para><filename>diarc</filename>: keeps
-	<command>dia</command> preferences (ASCII).</para>
+        <command>dia</command> preferences (ASCII).</para>
       </listitem>
       <listitem>
 	<para><filename>history</filename>: keeps the list of last
