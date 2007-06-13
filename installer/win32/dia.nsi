@@ -2399,7 +2399,10 @@ ${File} "..\..\..\etc\fonts\" "fonts.conf"
 ${SetOutPath} "$INSTDIR\etc\gtk-2.0"
 ${File} "..\..\..\etc\gtk-2.0\" "gdk-pixbuf.loaders"
 ${File} "..\..\..\etc\gtk-2.0\" "gtk.immodules"
-${File} "..\..\..\etc\gtk-2.0\" "gtkrc"
+# Workaround 0.96.1 installer bug
+RMDir "$INSTDIR\etc\gtk-2.0\gtkrc"
+
+${File} "..\..\..\share\themes\MS-Windows\gtk-2.0\" "gtkrc"
 ${SetOutPath} "$INSTDIR\etc\pango"
 ${File} "..\..\..\etc\pango\" "pango.aliases"
 ${File} "..\..\..\etc\pango\" "pango.modules"
