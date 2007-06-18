@@ -25,7 +25,6 @@ app/linewidth_area.c
 app/load_save.c
 app/menus.c
 app/modify_tool.c
-app/newgroup.c
 app/pagesetup.c
 app/paginate_psprint.c
 app/plugin-manager.c
@@ -54,6 +53,7 @@ lib/dialinechooser.c
 lib/filter.c
 lib/font.c
 lib/message.c
+lib/newgroup.c
 lib/object_defaults.c
 lib/plug-ins.c
 lib/prop_inttypes.c
