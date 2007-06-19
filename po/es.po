@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia.HEAD.es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-06-06 03:20+0100\n"
-"PO-Revision-Date: 2007-06-15 15:24+0200\n"
+"POT-Creation-Date: 2007-06-19 03:38+0100\n"
+"PO-Revision-Date: 2007-06-19 10:28+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -24,64 +24,64 @@ msgstr ""
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 
 #. This is not an errror
-#: ../app/app_procs.c:260
+#: ../app/app_procs.c:261
 #, c-format
 msgid "Warning: invalid layer range %lu - %lu\n"
 msgstr "Atención: rango de capa inválido %lu - %lu\n"
 
-#: ../app/app_procs.c:272
+#: ../app/app_procs.c:273
 #, c-format
 msgid "Warning: Layer %lu (%s) selected more than once.\n"
 msgstr "Atención: Capa %lu (%s) seleccionada más de una vez.\n"
 
-#: ../app/app_procs.c:298
+#: ../app/app_procs.c:299
 #, c-format
 msgid "Warning: Layer %d (%s) selected more than once.\n"
 msgstr "Atención: Capa %d (%s) seleccionada más de una vez.\n"
 
-#: ../app/app_procs.c:307
+#: ../app/app_procs.c:308
 #, c-format
 msgid "Warning: There is no layer named %s\n"
 msgstr "Atención: No hay ninguna capa llamada %s\n"
 
-#: ../app/app_procs.c:389
+#: ../app/app_procs.c:390
 #, c-format
 msgid "%s error: don't know how to export into %s\n"
 msgstr "%s error: no se sabe cómo exportar a %s\n"
 
-#: ../app/app_procs.c:398
+#: ../app/app_procs.c:399
 #, c-format
 msgid "%s error: input and output file name is identical: %s"
 msgstr "%s error: el nombre de los ficheros de entrada y salida es idéntico: %s"
 
-#: ../app/app_procs.c:406
+#: ../app/app_procs.c:407
 #, c-format
 msgid "%s error: need valid input file %s\n"
 msgstr "%s error: se necesita un archivo de entrada válido %s\n"
 
 #. if (!quiet)
-#: ../app/app_procs.c:431
+#: ../app/app_procs.c:432
 #, c-format
 msgid "%s --> %s\n"
 msgstr "%s --> %s\n"
 
-#: ../app/app_procs.c:592
+#: ../app/app_procs.c:593
 #, c-format
 msgid "Can't find output format/filter %s\n"
 msgstr "No se pudo encontrar el formato/filtro de salida %s\n"
 
 #. Translators:  The argument is a list of options, not to be translated
-#: ../app/app_procs.c:684
+#: ../app/app_procs.c:685
 #, c-format
 msgid "Select the filter/format out of: %s"
 msgstr "Seleccione el filtro/formato de salida de: %s"
 
 #. &export_file_name
-#: ../app/app_procs.c:703 ../app/app_procs.c:730
+#: ../app/app_procs.c:704 ../app/app_procs.c:731
 msgid "Export loaded file and exit"
 msgstr "Exportar archivo cargado y salir"
 
-#: ../app/app_procs.c:703 ../app/app_procs.c:730 ../app/diaconv.c:88
+#: ../app/app_procs.c:704 ../app/app_procs.c:731 ../app/diaconv.c:88
 msgid "OUTPUT"
 msgstr "SALIDA"
 
@@ -89,20 +89,20 @@ msgstr "SALIDA"
 #. &export_file_format
 #. &export_format_string
 #. &export_file_format
-#: ../app/app_procs.c:705 ../app/app_procs.c:732
+#: ../app/app_procs.c:706 ../app/app_procs.c:733
 msgid "TYPE"
 msgstr "TIPO"
 
-#: ../app/app_procs.c:707 ../app/app_procs.c:735
+#: ../app/app_procs.c:708 ../app/app_procs.c:736
 msgid "Export graphics size"
 msgstr "Tamaño del gráfico exportado"
 
-#: ../app/app_procs.c:707 ../app/app_procs.c:735
+#: ../app/app_procs.c:708 ../app/app_procs.c:736
 msgid "WxH"
 msgstr "AnchoxAlto"
 
 #. 13.3.2004 sampo@iki.fi
-#: ../app/app_procs.c:709 ../app/app_procs.c:737
+#: ../app/app_procs.c:710 ../app/app_procs.c:738
 msgid ""
 "Show only specified layers (e.g. when exporting). Can be either the layer "
 "name or a range of layer numbers (X-Y)"
@@ -110,73 +110,73 @@ msgstr ""
 "mostrar sólo las capas especificadas (ej: al exportar). Puede ser o el "
 "nombre de capa o un rango de números de capas (X-Y)"
 
-#: ../app/app_procs.c:710 ../app/app_procs.c:738
+#: ../app/app_procs.c:711 ../app/app_procs.c:739
 msgid "LAYER,LAYER,..."
 msgstr "CAPA,CAPA..."
 
-#: ../app/app_procs.c:712 ../app/app_procs.c:740
+#: ../app/app_procs.c:713 ../app/app_procs.c:741
 msgid "Don't show the splash screen"
 msgstr "No mostrar la pantalla de bienvenida"
 
-#: ../app/app_procs.c:714 ../app/app_procs.c:742
+#: ../app/app_procs.c:715 ../app/app_procs.c:743
 msgid "Don't create empty diagram"
 msgstr "No crear un diagrama vacío"
 
-#: ../app/app_procs.c:716 ../app/app_procs.c:744
+#: ../app/app_procs.c:717 ../app/app_procs.c:745
 msgid "Send error messages to stderr instead of showing dialogs."
 msgstr "Enviar los mensajes de error a stderr en vez de mostrar diálogos."
 
-#: ../app/app_procs.c:718 ../app/app_procs.c:746
+#: ../app/app_procs.c:719 ../app/app_procs.c:747
 msgid "Display credits list and exit"
 msgstr "Mostrar la lista de créditos y salir"
 
-#: ../app/app_procs.c:720 ../app/app_procs.c:748
+#: ../app/app_procs.c:721 ../app/app_procs.c:749
 msgid "Generate verbose output"
 msgstr "Generar salida detallada"
 
-#: ../app/app_procs.c:722 ../app/app_procs.c:750
+#: ../app/app_procs.c:723 ../app/app_procs.c:751
 msgid "Display version and exit"
 msgstr "Mostrar la versión y salir"
 
-#: ../app/app_procs.c:751 ../app/diaconv.c:89
+#: ../app/app_procs.c:752 ../app/diaconv.c:89
 msgid "Show this help message"
 msgstr "Mostrar este mensaje de ayuda"
 
-#: ../app/app_procs.c:811
+#: ../app/app_procs.c:812
 msgid "Can't connect to session manager!\n"
 msgstr "¡No se puede conectar con el gestor de sesiones!\n"
 
 #. TRANSLATOR: 2nd and 3rd %s are time and date respectively.
-#: ../app/app_procs.c:851
+#: ../app/app_procs.c:852
 #, c-format
 msgid "Dia version %s, compiled %s %s\n"
 msgstr "Versión %s de Dia, compilada %s %s\n"
 
-#: ../app/app_procs.c:853
+#: ../app/app_procs.c:854
 #, c-format
 msgid "Dia version %s\n"
 msgstr "Versión %s de Dia\n"
 
 # Como adjetivo creo que el plural es "estándar". FVD
-#: ../app/app_procs.c:910 ../app/diaconv.c:195 ../app/diaconv.c:197
+#: ../app/app_procs.c:911 ../app/diaconv.c:195 ../app/diaconv.c:197
 #, c-format
 msgid "Couldn't find standard objects when looking for object-libs; exiting...\n"
 msgstr "No se encontraron objetos estándar en object-libs, saliendo...\n"
 
 # Como adjetivo creo que el plural es "estándar". FVD
-#: ../app/app_procs.c:912
+#: ../app/app_procs.c:913
 #, c-format
 msgid ""
 "Couldn't find standard objects when looking for object-libs in '%s'; "
 "exiting...\n"
 msgstr "No se encontraron objetos estándar en object-libs en «%s»; saliendo...\n"
 
-#: ../app/app_procs.c:967
+#: ../app/app_procs.c:971
 msgid "Diagram1.dia"
 msgstr "Diagrama1.dia"
 
 # Me parece más correcta y explicativa esta traducción aunque sea algo más larga. RizOX.
-#: ../app/app_procs.c:1030
+#: ../app/app_procs.c:1014
 msgid ""
 "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you can cause this message to appear.\n"
@@ -186,11 +186,11 @@ msgstr ""
 "describiendo cómo conseguir que este mensaje vuelva a aparecer.\n"
 
 #. no standard buttons
-#: ../app/app_procs.c:1043
+#: ../app/app_procs.c:1027
 msgid "Quitting without saving modified diagrams"
 msgstr "¿Salir sin guardar los diagramas modificados?"
 
-#: ../app/app_procs.c:1045
+#: ../app/app_procs.c:1029
 msgid ""
 "Modified diagrams exist. Are you sure you want to quit Dia without saving "
 "them?"
@@ -198,21 +198,21 @@ msgstr ""
 "Hay diagramas modificados. ¿Está seguro de que desea salir de Dia\n"
 "sin guardarlos?"
 
-#: ../app/app_procs.c:1049
+#: ../app/app_procs.c:1033
 msgid "Quit Dia"
 msgstr "Salir de Dia"
 
 #. This printf seems to prevent a race condition with unrefs.
 #. Yuck.  -Lars
-#: ../app/app_procs.c:1100
+#: ../app/app_procs.c:1084
 msgid "Thank you for using Dia.\n"
 msgstr "Gracias por usar Dia.\n"
 
-#: ../app/app_procs.c:1117 ../app/app_procs.c:1124
+#: ../app/app_procs.c:1101 ../app/app_procs.c:1108
 msgid "Could not create per-user Dia config directory"
 msgstr "No se pudo crear el directorio de configuración de Dia para el usuario"
 
-#: ../app/app_procs.c:1127
+#: ../app/app_procs.c:1111
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -221,15 +221,15 @@ msgstr ""
 "favor, asegúrese de que la variable de entorno HOME apunta a un directorio "
 "existente."
 
-#: ../app/app_procs.c:1150 ../app/diaconv.c:245
+#: ../app/app_procs.c:1134 ../app/diaconv.c:245
 msgid "Objects and filters internal to dia"
 msgstr "Objetos y filtros internos para dia"
 
-#: ../app/app_procs.c:1192 ../app/diaconv.c:115
+#: ../app/app_procs.c:1176 ../app/diaconv.c:115
 msgid "[OPTION...] [FILE...]"
 msgstr "[OPCIÓN...] [ARCHIVO...]"
 
-#: ../app/app_procs.c:1195 ../app/diaconv.c:122
+#: ../app/app_procs.c:1179 ../app/diaconv.c:122
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
@@ -239,16 +239,16 @@ msgstr ""
 "Ejecute «%s --help» para ver la lista completa de opciones de la línea de "
 "comandos.\n"
 
-#: ../app/app_procs.c:1219
+#: ../app/app_procs.c:1203
 msgid "[FILE...]"
 msgstr "[ARCHIVO...]"
 
-#: ../app/app_procs.c:1242
+#: ../app/app_procs.c:1226
 #, c-format
 msgid "'%s' not found!\n"
 msgstr "«%s» no encontrado\n"
 
-#: ../app/app_procs.c:1323
+#: ../app/app_procs.c:1307
 msgid ""
 "The original author of Dia was:\n"
 "\n"
@@ -256,7 +256,7 @@ msgstr ""
 "El autor original de Dia fue:\n"
 "\n"
 
-#: ../app/app_procs.c:1328
+#: ../app/app_procs.c:1312
 msgid ""
 "\n"
 "The current maintainers of Dia are:\n"
@@ -266,7 +266,7 @@ msgstr ""
 "Los actuales mantenedores de Dia son:\n"
 "\n"
 
-#: ../app/app_procs.c:1333
+#: ../app/app_procs.c:1317
 msgid ""
 "\n"
 "Other authors are:\n"
@@ -276,7 +276,7 @@ msgstr ""
 "Otros autores son:\n"
 "\n"
 
-#: ../app/app_procs.c:1338
+#: ../app/app_procs.c:1322
 msgid ""
 "\n"
 "Dia is documented by:\n"
@@ -306,20 +306,20 @@ msgstr "Seleccione color de primer plano"
 msgid "Select background color"
 msgstr "Seleccione color de fondo"
 
-#: ../app/commands.c:133
+#: ../app/commands.c:134
 #, c-format
 msgid "Diagram%d.dia"
 msgstr "Diagrama%d.dia"
 
-#: ../app/commands.c:206
+#: ../app/commands.c:207
 msgid "No existing object to paste.\n"
 msgstr "No hay objetos que pegar.\n"
 
-#: ../app/commands.c:582 ../app/commands.c:620
+#: ../app/commands.c:583 ../app/commands.c:621
 msgid "Could not find help directory"
 msgstr "No se pudo encontrar el directorio de ayuda"
 
-#: ../app/commands.c:589
+#: ../app/commands.c:590
 #, c-format
 msgid ""
 "Could not open help directory:\n"
@@ -328,7 +328,7 @@ msgstr ""
 "No se pudo abrir el directorio de ayuda:\n"
 "%s"
 
-#: ../app/commands.c:656
+#: ../app/commands.c:657
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 "Jorge González <jorgegonz@svn.gnome.org>, 2007\n"
@@ -336,7 +336,7 @@ msgstr ""
 "Revisión por Francisco Vila <fravd@wanadoo.es>\n"
 "2ª Revisión por Alberto Barrionuevo <traducciones@rizox.com> "
 
-#: ../app/commands.c:658
+#: ../app/commands.c:659
 msgid ""
 "This program is free software; you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"
@@ -368,7 +368,7 @@ msgstr ""
 "Inc,\n"
 "59 Temple Place - Suite 330, Boston, MA 02111-1307, EE.UU.\n"
 
-#: ../app/commands.c:681
+#: ../app/commands.c:682
 msgid "A program for drawing structured diagrams."
 msgstr "Un programa para dibujar diagramas estructurados."
 
@@ -725,16 +725,16 @@ msgstr[1] "Selección de %d objetos"
 msgid "Selected '%s'"
 msgstr "Seleccionados «%s»"
 
-#: ../app/display.c:1154
+#: ../app/display.c:1160
 msgid "<unnamed>"
 msgstr "<sin nombre>"
 
 #. no standard buttons
-#: ../app/display.c:1160
+#: ../app/display.c:1166
 msgid "Closing diagram without saving"
 msgstr "Cerrando el diagrama sin guardarc"
 
-#: ../app/display.c:1163
+#: ../app/display.c:1169
 #, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -743,11 +743,11 @@ msgstr ""
 "Este diagrama «%s»\n"
 "no ha sido guardado. ¿Guardar los cambios ahora?"
 
-#: ../app/display.c:1165
+#: ../app/display.c:1171
 msgid "Close Diagram"
 msgstr "Cerrar el diagrama"
 
-#: ../app/display.c:1170
+#: ../app/display.c:1176
 msgid "_Discard Changes"
 msgstr "_Descartar los cambios"
 
@@ -895,7 +895,7 @@ msgstr ""
 # Yo diría "Ampliar" FVD
 # Yo también diría "Ampliar", lo de "Magnificar" me suena a barbarismo... RizOX
 #. Translators: Menu item Verb/Control Magnitude/Change/Magnify
-#: ../app/interface.c:150 ../app/menus.c:203 ../objects/FS/function.c:986
+#: ../app/interface.c:150 ../app/menus.c:210 ../objects/FS/function.c:986
 msgid "Magnify"
 msgstr "Ampliar"
 
@@ -905,7 +905,7 @@ msgstr "Ampliar"
 msgid "Scroll around the diagram"
 msgstr "Desplazar sobre el diagrama"
 
-#: ../app/interface.c:162 ../app/menus.c:205 ../lib/properties.c:79
+#: ../app/interface.c:162 ../app/menus.c:212 ../lib/properties.c:79
 #: ../lib/properties.h:522 ../objects/AADL/aadlbox.c:144
 #: ../objects/Jackson/requirement.c:142 ../objects/UML/activity.c:127
 #: ../objects/UML/actor.c:122 ../objects/UML/classicon.c:144
@@ -918,89 +918,89 @@ msgstr "Desplazar sobre el diagrama"
 msgid "Text"
 msgstr "Texto"
 
-#: ../app/interface.c:168 ../app/menus.c:206
+#: ../app/interface.c:168 ../app/menus.c:213
 msgid "Box"
 msgstr "Caja"
 
-#: ../app/interface.c:174 ../app/menus.c:207
+#: ../app/interface.c:174 ../app/menus.c:214
 msgid "Ellipse"
 msgstr "Elipse"
 
-#: ../app/interface.c:180 ../app/menus.c:208
+#: ../app/interface.c:180 ../app/menus.c:215
 msgid "Polygon"
 msgstr "Polígono"
 
-#: ../app/interface.c:186 ../app/menus.c:209
+#: ../app/interface.c:186 ../app/menus.c:216
 msgid "Beziergon"
 msgstr "Polígono Bézier"
 
-#: ../app/interface.c:192 ../app/menus.c:211 ../objects/standard/line.c:225
+#: ../app/interface.c:192 ../app/menus.c:218 ../objects/standard/line.c:225
 msgid "Line"
 msgstr "Línea"
 
-#: ../app/interface.c:198 ../app/menus.c:212
+#: ../app/interface.c:198 ../app/menus.c:219
 msgid "Arc"
 msgstr "Arco"
 
-#: ../app/interface.c:204 ../app/menus.c:213
+#: ../app/interface.c:204 ../app/menus.c:220
 msgid "Zigzagline"
 msgstr "Línea en zigzag"
 
-#: ../app/interface.c:210 ../app/menus.c:214
+#: ../app/interface.c:210 ../app/menus.c:221
 msgid "Polyline"
 msgstr "Polilínea"
 
-#: ../app/interface.c:216 ../app/menus.c:215
+#: ../app/interface.c:216 ../app/menus.c:222
 msgid "Bezierline"
 msgstr "Línea Bézier"
 
-#: ../app/interface.c:222 ../app/menus.c:217
+#: ../app/interface.c:222 ../app/menus.c:224
 msgid "Image"
 msgstr "Imagen"
 
-#: ../app/interface.c:556 ../app/interface.c:806
+#: ../app/interface.c:556 ../app/interface.c:798
 msgid "Pops up the Navigation window."
 msgstr "Emerge la ventana de navegación."
 
-#: ../app/interface.c:612 ../app/interface.c:898
-msgid "Toggles object snapping for this window."
-msgstr "Conmuta el ajuste del objeto para esta ventana."
-
-#: ../app/interface.c:768
+#: ../app/interface.c:760
 msgid "Diagram menu."
 msgstr "Menú de diagrama."
 
 # ¿"Ampliación" o "Amplía"? Fuzzy. RizOX.
-#: ../app/interface.c:872
+#: ../app/interface.c:864
 msgid "Zoom"
 msgstr "Ampliación"
 
-#: ../app/interface.c:887
+#: ../app/interface.c:879
 msgid "Toggles snap-to-grid for this window."
 msgstr "Conmuta el ajuste a la rejilla para esta ventana."
 
+#: ../app/interface.c:890
+msgid "Toggles object snapping for this window."
+msgstr "Conmuta el ajuste del objeto para esta ventana."
+
 # Fuzzy. RizOX
-#: ../app/interface.c:961
+#: ../app/interface.c:953
 msgid "NULL tooldata in tool_select_update"
 msgstr "InArray de herramienta nula (NULL) en tool_select_update"
 
-#: ../app/interface.c:1277
+#: ../app/interface.c:1269
 #, c-format
 msgid "No sheet named %s"
 msgstr "No hay ninguna hoja llamada %s"
 
 # ¿De dónde salían esa traducción y esa variable? No concuerda con el original inglés en nada. Lo cambio. RizOX.
-#: ../app/interface.c:1315
+#: ../app/interface.c:1307
 msgid "Other sheets"
 msgstr "Otras hojas"
 
-#: ../app/interface.c:1374 ../sheets/Misc.sheet.in.h:3
+#: ../app/interface.c:1366 ../sheets/Misc.sheet.in.h:3
 msgid "Misc"
 msgstr "Misc"
 
 # Corregido: lleva doble espacio antes de cada frase.
 # "Pulse doble" o "Pulse dos veces" me suena más natural. RizOX.
-#: ../app/interface.c:1434
+#: ../app/interface.c:1426
 msgid ""
 "Foreground & background colors for new objects.  The small black and white "
 "squares reset colors.  The small arrows swap colors.  Double click to change "
@@ -1011,7 +1011,7 @@ msgstr ""
 "los colores.  Pulse dos veces para cambiar los colores."
 
 # Corregido: doble espacio al principio de línea. Cambiada la segunda expresión para darle mayor naturalidad. RizOX.
-#: ../app/interface.c:1449
+#: ../app/interface.c:1441
 msgid ""
 "Line widths.  Click on a line to set the default line width for new "
 "objects.  Double-click to set the line width more precisely."
@@ -1021,7 +1021,7 @@ msgstr ""
 "anchura con mayor precisión."
 
 # La coma antes del "o" no queda bien en la frase en español. RizOX.
-#: ../app/interface.c:1492
+#: ../app/interface.c:1484
 msgid ""
 "Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
 "arrow parameters with Details..."
@@ -1030,7 +1030,7 @@ msgstr ""
 "flecha o establezca los parámetros de la flecha en Detalles..."
 
 # La coma antes del "o" no queda bien en la frase en español. Añadido el doble espacio del comienzo de frase según original en inglés. RizOX.
-#: ../app/interface.c:1497
+#: ../app/interface.c:1489
 msgid ""
 "Line style for new lines.  Click to pick a line style, or set line style "
 "parameters with Details..."
@@ -1039,7 +1039,7 @@ msgstr ""
 "línea o establezca los parámetros de estilo de línea en Detalles..."
 
 # La coma antes del "o" no queda bien en la frase en español. Añadido el doble espacio del comienzo de frase según original en inglés. Cambiado "con Detalles" por "en Detalles" para mantener la coherencia con la traducción de las anteriores entradas. RizOX.
-#: ../app/interface.c:1513
+#: ../app/interface.c:1505
 msgid ""
 "Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
 "parameters with Details..."
@@ -1047,7 +1047,7 @@ msgstr ""
 "Estilo de flecha al final de las líneas nuevas.  Pulse para escoger una "
 "flecha o establezca los parámetros de la flecha en Detalles..."
 
-#: ../app/interface.c:1557 ../app/interface.c:1682
+#: ../app/interface.c:1549 ../app/interface.c:1677
 msgid "Diagram Editor"
 msgstr "Editor de diagramas"
 
@@ -1233,318 +1233,321 @@ msgstr "Complementos…"
 msgid "_Diagram tree..."
 msgstr "Árbol del _diagrama…"
 
-#: ../app/menus.c:98
+#: ../app/menus.c:96
+msgid "Show Toolbar"
+msgstr "Mostrar la barra de herramientas"
+
+#: ../app/menus.c:97
+msgid "Show Statusbar"
+msgstr "Mostrar la barra de estado"
+
+#: ../app/menus.c:105
 msgid "_Export ..."
 msgstr "_Exportar…"
 
-#: ../app/menus.c:99
+#: ../app/menus.c:106
 msgid "Page Set_up..."
 msgstr "_Configurar página…"
 
-#: ../app/menus.c:103 ../app/sheets_dialog.c:235
+#: ../app/menus.c:110 ../app/sheets_dialog.c:235
 msgid "_Edit"
 msgstr "_Editar"
 
-#: ../app/menus.c:110
+#: ../app/menus.c:117
 msgid "_Duplicate"
 msgstr "_Duplicar"
 
 #. the following used to bind to <control><shift>C which collides with Unicode input.
 #. * <control>>alt> doesn't work either
-#: ../app/menus.c:115
+#: ../app/menus.c:122
 msgid "Copy Text"
 msgstr "Copiar texto"
 
-#: ../app/menus.c:116
+#: ../app/menus.c:123
 msgid "Cut Text"
 msgstr "Cortar texto"
 
-#: ../app/menus.c:117
+#: ../app/menus.c:124
 msgid "Paste _Text"
 msgstr "Pegar _texto"
 
-#: ../app/menus.c:119
+#: ../app/menus.c:126
 msgid "_Diagram"
 msgstr "_Diagrama"
 
-#: ../app/menus.c:121
+#: ../app/menus.c:128
 msgid "_Layers..."
 msgstr "_Capas…"
 
-#: ../app/menus.c:123
+#: ../app/menus.c:130
 msgid "_View"
 msgstr "_Ver"
 
 # ¿"Ampliación" o "Amplía"? Fuzzy. RizOX.
-#: ../app/menus.c:126
+#: ../app/menus.c:133
 msgid "_Zoom"
 msgstr "_Ampliación"
 
-#: ../app/menus.c:127
+#: ../app/menus.c:134
 msgid "1600%"
 msgstr "1600%"
 
-#: ../app/menus.c:128
+#: ../app/menus.c:135
 msgid "800%"
 msgstr "800%"
 
-#: ../app/menus.c:129
+#: ../app/menus.c:136
 msgid "400%"
 msgstr "400%"
 
-#: ../app/menus.c:130
+#: ../app/menus.c:137
 msgid "283"
 msgstr "283"
 
-#: ../app/menus.c:131
+#: ../app/menus.c:138
 msgid "200"
 msgstr "200"
 
-#: ../app/menus.c:132
+#: ../app/menus.c:139
 msgid "141"
 msgstr "141"
 
-#: ../app/menus.c:134
+#: ../app/menus.c:141
 msgid "85"
 msgstr "85"
 
-#: ../app/menus.c:135
+#: ../app/menus.c:142
 msgid "70.7"
 msgstr "70.7"
 
-#: ../app/menus.c:136
+#: ../app/menus.c:143
 msgid "50"
 msgstr "50"
 
-#: ../app/menus.c:137
+#: ../app/menus.c:144
 msgid "35.4"
 msgstr "35.4"
 
-#: ../app/menus.c:138
+#: ../app/menus.c:145
 msgid "25"
 msgstr "25"
 
 #. "display_toggle_entries" items go here
-#: ../app/menus.c:144
+#: ../app/menus.c:151
 msgid "New _View"
 msgstr "_Vista nueva"
 
-#: ../app/menus.c:145
+#: ../app/menus.c:152
 msgid "C_lone View"
 msgstr "C_lonar vista"
 
-#: ../app/menus.c:148
+#: ../app/menus.c:155
 msgid "_Objects"
 msgstr "_Objetos"
 
-#: ../app/menus.c:149
+#: ../app/menus.c:156
 msgid "Send to _Back"
 msgstr "Enviar al _fondo"
 
-#: ../app/menus.c:150
+#: ../app/menus.c:157
 msgid "Bring to _Front"
 msgstr "Traer al f_rente"
 
-#: ../app/menus.c:151
+#: ../app/menus.c:158
 msgid "Send Backwards"
 msgstr "Enviar hacia atrás"
 
-#: ../app/menus.c:152
+#: ../app/menus.c:159
 msgid "Bring Forwards"
 msgstr "Traer al frente"
 
-#: ../app/menus.c:154
+#: ../app/menus.c:161
 msgid "_Group"
 msgstr "_Agrupar"
 
 #. deliberately not using Ctrl+U for Ungroup
-#: ../app/menus.c:156
+#: ../app/menus.c:163
 msgid "_Ungroup"
 msgstr "_Desagrupar"
 
-#: ../app/menus.c:158
+#: ../app/menus.c:165
 msgid "_Parent"
 msgstr "_Padre"
 
-#: ../app/menus.c:159
+#: ../app/menus.c:166
 msgid "_Unparent"
 msgstr "_Orfandar"
 
-#: ../app/menus.c:160
+#: ../app/menus.c:167
 msgid "_Unparent Children"
 msgstr "_Orfandar hijos"
 
 # me parece que todo esto deberían ser verbos. FVD
 #. Translators: Menu item Verb/Support/Position/Align
-#: ../app/menus.c:162 ../objects/FS/function.c:806
+#: ../app/menus.c:169 ../objects/FS/function.c:806
 msgid "Align"
 msgstr "Alinear"
 
-#: ../app/menus.c:167 ../objects/standard/textobj.c:132
+#: ../app/menus.c:174 ../objects/standard/textobj.c:132
 msgid "Top"
 msgstr "Superior"
 
-#: ../app/menus.c:168
+#: ../app/menus.c:175
 msgid "Middle"
 msgstr "Medio"
 
-#: ../app/menus.c:169 ../objects/standard/textobj.c:131
+#: ../app/menus.c:176 ../objects/standard/textobj.c:131
 msgid "Bottom"
 msgstr "Inferior"
 
-#: ../app/menus.c:171
+#: ../app/menus.c:178
 msgid "Spread Out Horizontally"
 msgstr "Extender horizontalmente"
 
-#: ../app/menus.c:172
+#: ../app/menus.c:179
 msgid "Spread Out Vertically"
 msgstr "Extender verticalmente"
 
-#: ../app/menus.c:173
+#: ../app/menus.c:180
 msgid "Adjacent"
 msgstr "Adyacente"
 
-#: ../app/menus.c:174
+#: ../app/menus.c:181
 msgid "Stacked"
 msgstr "Apilado"
 
-#: ../app/menus.c:178
+#: ../app/menus.c:185
 msgid "_Select"
 msgstr "_Seleccionado"
 
-#: ../app/menus.c:179
+#: ../app/menus.c:186
 msgid "All"
 msgstr "Todo"
 
-#: ../app/menus.c:180 ../lib/arrows.c:43 ../objects/Jackson/domain.c:96
+#: ../app/menus.c:187 ../lib/arrows.c:43 ../objects/Jackson/domain.c:96
 #: ../objects/UML/association.c:1183
 msgid "None"
 msgstr "Nada"
 
-#: ../app/menus.c:181
+#: ../app/menus.c:188
 msgid "Invert"
 msgstr "Invertir"
 
-#: ../app/menus.c:183
+#: ../app/menus.c:190
 msgid "Transitive"
 msgstr "Transitivo"
 
-#: ../app/menus.c:184
+#: ../app/menus.c:191
 msgid "Connected"
 msgstr "Conectado"
 
-#: ../app/menus.c:185
+#: ../app/menus.c:192
 msgid "Same Type"
 msgstr "Mismo tipo"
 
 #. display_select_radio_entries go here
-#: ../app/menus.c:189
+#: ../app/menus.c:196
 msgid "Select By"
 msgstr "Seleccionar por"
 
-#: ../app/menus.c:191
+#: ../app/menus.c:198
 msgid "_Input Methods"
 msgstr "Mé_todos de entrada"
 
-#: ../app/menus.c:193
+#: ../app/menus.c:200
 msgid "D_ialogs"
 msgstr "_Diálogos"
 
-#: ../app/menus.c:195
+#: ../app/menus.c:202
 msgid "D_ebug"
 msgstr "D_epurar"
 
-#: ../app/menus.c:201
+#: ../app/menus.c:208
 msgid "_Tools"
 msgstr "_Herramientas"
 
-#: ../app/menus.c:202
+#: ../app/menus.c:209
 msgid "Modify"
 msgstr "Modificar"
 
 # Creo que Scroll es Desplazamiento. Fuzzy. FVD
 # Yo más bien diría "Desplazar". Fuzzy. RizOX.
-#: ../app/menus.c:204
+#: ../app/menus.c:211
 msgid "Scroll"
 msgstr "Desplazar"
 
-#: ../app/menus.c:226
+#: ../app/menus.c:233
 msgid "Fullscr_een"
 msgstr "Pantalla _completa"
 
 #. we must have all actions registered to avoid configuration specific ui-files and crashing in GTK+,
 #. * see: http://bugzilla.gnome.org/show_bug.cgi?id=396161
 #.
-#: ../app/menus.c:229 ../app/menus.c:234
+#: ../app/menus.c:236 ../app/menus.c:241
 msgid "_AntiAliased"
 msgstr "_Antialias"
 
-#: ../app/menus.c:236
+#: ../app/menus.c:243
 msgid "Show _Grid"
 msgstr "Mostrar _cuadrícula"
 
-#: ../app/menus.c:237
+#: ../app/menus.c:244
 msgid "_Snap To Grid"
 msgstr "A_justar a cuadrícula"
 
-#: ../app/menus.c:238
+#: ../app/menus.c:245
 msgid "Snap To _Objects"
 msgstr "Ajustar a _objetos"
 
-#: ../app/menus.c:239
+#: ../app/menus.c:246
 msgid "Show _Rulers"
 msgstr "Mostrar _reglas"
 
-#: ../app/menus.c:240
+#: ../app/menus.c:247
 msgid "Show _Connection Points"
 msgstr "Mostrar puntos de _conexión"
 
-#: ../app/menus.c:246
+#: ../app/menus.c:253
 msgid "Replace"
 msgstr "Reemplazar"
 
-#: ../app/menus.c:247
+#: ../app/menus.c:254
 msgid "Union"
 msgstr "Unión"
 
-#: ../app/menus.c:248
+#: ../app/menus.c:255
 msgid "Intersection"
 msgstr "Intersección"
 
 #. Translators: Menu item Verb/Channel/Export/Remove
 #. Translators: Menu item Verb/Branch/Separate/Remove
 #. Translators: Menu item Verb/Branch/Separate/Remove/Remove
-#: ../app/menus.c:249 ../app/sheets_dialog.c:784 ../objects/FS/function.c:706
+#: ../app/menus.c:256 ../app/sheets_dialog.c:784 ../objects/FS/function.c:706
 #: ../objects/FS/function.c:858 ../objects/FS/function.c:860
 msgid "Remove"
 msgstr "Eliminar"
 
 #. Cannot also be called Invert, duplicate names caused keybinding problems
-#: ../app/menus.c:251
+#: ../app/menus.c:258
 msgid "Inverse"
 msgstr "Inverso"
 
 # Traduzco "tooldata". RizOX.
-#: ../app/menus.c:315
+#: ../app/menus.c:322
 msgid "NULL tooldata in tool_menu_select"
 msgstr "InArray de herramienta nula (NULL) en tool_menu_select"
 
-#: ../app/menus.c:473
+#: ../app/menus.c:480
 msgid "Toggles snap-to-grid."
 msgstr "Conmuta el ajuste a la rejilla."
 
-#: ../app/menus.c:489
+#: ../app/menus.c:496
 msgid "Toggles object snapping."
 msgstr "Conmuta el ajuste del objeto."
 
 #: ../app/modify_tool.c:344
 msgid "Couldn't get GTK settings"
 msgstr "No se pudieron obtener las preferencias de GTK"
-
-# La traducción "ronda" es incorrecta, existiendo varias opciones dependientes del contexto. Me inclino por "curva" en vez de "redonda", "circular" o "romo". RizOX.
-#: ../app/newgroup.c:117
-msgid "Open group"
-msgstr "Abrir grupo"
 
 #: ../app/paginate_psprint.c:275
 msgid "Select Printer"
@@ -2383,6 +2386,11 @@ msgstr "Hay %d mensajes similares."
 #: ../lib/message.c:261
 msgid "Notice"
 msgstr "Observación"
+
+# La traducción "ronda" es incorrecta, existiendo varias opciones dependientes del contexto. Me inclino por "curva" en vez de "redonda", "circular" o "romo". RizOX.
+#: ../lib/newgroup.c:117
+msgid "Open group"
+msgstr "Abrir grupo"
 
 # Si cabe yo añadiría "los valores predeterminados" en vez de sólo "predeterminados" que no aclara suficientemente a qué se refiere. RizOX.
 #: ../lib/object_defaults.c:127
@@ -4549,7 +4557,7 @@ msgstr "Soporte y medio"
 
 #: ../objects/SISSI/sissi.h:349
 msgid "Passive or active relay"
-msgstr ""
+msgstr "Relé activo o pasivo"
 
 #: ../objects/SISSI/sissi.h:350
 msgid "Communication interface"
@@ -7617,7 +7625,7 @@ msgstr "Lógica booleana"
 msgid "Crossconnector"
 msgstr "Conector en cruz"
 
-#: ../sheets/Logic.sheet.in.h:4
+#: ../sheets/Logic.sheet.in.h:4 ../sheets/SISSI.sheet.in.h:27
 msgid "Inverter"
 msgstr "Inversor"
 
@@ -7863,262 +7871,257 @@ msgid "State"
 msgstr "Estado"
 
 #: ../sheets/SISSI.sheet.in.h:1
+msgid "Air condition"
+msgstr "Aire acondicionado"
+
+#: ../sheets/SISSI.sheet.in.h:2
+msgid "Air filter"
+msgstr "Filtro del aire"
+
+#: ../sheets/SISSI.sheet.in.h:3
+msgid "Air quality detector"
+msgstr "Detector de calidad del aire"
+
+#: ../sheets/SISSI.sheet.in.h:4
 msgid "Alarm center"
 msgstr "Centro de alarma"
 
-#: ../sheets/SISSI.sheet.in.h:2
-msgid "Analyse de Log"
-msgstr "Análisis de sucesos"
+#: ../sheets/SISSI.sheet.in.h:5
+msgid "Axial Ventilator"
+msgstr "Ventilador axial"
 
-#: ../sheets/SISSI.sheet.in.h:3
+#: ../sheets/SISSI.sheet.in.h:6
 msgid "Backup"
 msgstr "Respaldo"
 
-#: ../sheets/SISSI.sheet.in.h:4
-msgid "Boitier de chiffrement"
-msgstr ""
+#: ../sheets/SISSI.sheet.in.h:7
+msgid "Badge reader"
+msgstr "Lector de placas"
 
-#: ../sheets/SISSI.sheet.in.h:5
+#: ../sheets/SISSI.sheet.in.h:8
+msgid "Badge reader/keyboard"
+msgstr "Lector de placas/teclado"
+
+#: ../sheets/SISSI.sheet.in.h:9
+msgid "Biometric reader"
+msgstr "Lector biométrico"
+
+#: ../sheets/SISSI.sheet.in.h:10
 msgid "Cellular phone"
 msgstr "Teléfono móvil"
 
-#: ../sheets/SISSI.sheet.in.h:6 ../sheets/ciscomisc.sheet.in.h:9
+#: ../sheets/SISSI.sheet.in.h:11
+msgid "Centrifugal Ventilator"
+msgstr "Ventilador de centrifugado"
+
+#: ../sheets/SISSI.sheet.in.h:12
+msgid "Cipher machine"
+msgstr "Máquina de cifrado"
+
+#: ../sheets/SISSI.sheet.in.h:13
+msgid "Circulation pump"
+msgstr "Bomba de circulación"
+
+#: ../sheets/SISSI.sheet.in.h:14
+msgid "Condensator"
+msgstr "Condensador"
+
+#: ../sheets/SISSI.sheet.in.h:15
+msgid "Current transducer"
+msgstr "Transductor actual"
+
+#: ../sheets/SISSI.sheet.in.h:16
+msgid "Digital code"
+msgstr "Código digital"
+
+#: ../sheets/SISSI.sheet.in.h:17
+msgid "Enthalpy transducer"
+msgstr "Transductor de entalpía"
+
+#: ../sheets/SISSI.sheet.in.h:18
+msgid "Extinguisher"
+msgstr "Extintor"
+
+#: ../sheets/SISSI.sheet.in.h:19
+msgid "Faraday cage"
+msgstr "Celda de Faraday"
+
+#: ../sheets/SISSI.sheet.in.h:20 ../sheets/ciscomisc.sheet.in.h:9
 msgid "File cabinet"
 msgstr "Archivador de ficheros"
 
-#: ../sheets/SISSI.sheet.in.h:7
+#: ../sheets/SISSI.sheet.in.h:21
 msgid "Gate"
 msgstr "Puerta"
 
-#: ../sheets/SISSI.sheet.in.h:8 ../sheets/ciscohub.sheet.in.h:29
+#: ../sheets/SISSI.sheet.in.h:22
+msgid "Geographic site"
+msgstr "Sitio geográfico"
+
+#: ../sheets/SISSI.sheet.in.h:23
+msgid "Glass-break sensor"
+msgstr "Sensor de rotura de cristal"
+
+#: ../sheets/SISSI.sheet.in.h:24 ../sheets/ciscohub.sheet.in.h:29
 msgid "Hub"
 msgstr "Concentrador"
 
-#: ../sheets/SISSI.sheet.in.h:9
+#: ../sheets/SISSI.sheet.in.h:25
 msgid "Information"
 msgstr "Información"
 
 # Esto es XSLT: T mayúscula necesaria. FVD
-#: ../sheets/SISSI.sheet.in.h:10
+#: ../sheets/SISSI.sheet.in.h:26
 msgid "Information system"
 msgstr "Sistema de información"
 
-#: ../sheets/SISSI.sheet.in.h:11 ../sheets/ciscocomputer.sheet.in.h:21
+#: ../sheets/SISSI.sheet.in.h:28 ../sheets/ciscocomputer.sheet.in.h:21
 msgid "Laptop"
 msgstr "Portátil"
 
-#: ../sheets/SISSI.sheet.in.h:12
+#: ../sheets/SISSI.sheet.in.h:29
+msgid "Level detector"
+msgstr "Detector de nivel"
+
+#: ../sheets/SISSI.sheet.in.h:30
+msgid "Light detector"
+msgstr "Detector de luz"
+
+#: ../sheets/SISSI.sheet.in.h:31
+msgid "Log analysis"
+msgstr "Análisis del registro"
+
+#: ../sheets/SISSI.sheet.in.h:32
 msgid "Magnetic support"
 msgstr "Soporte magnético"
 
-#: ../sheets/SISSI.sheet.in.h:13 ../sheets/ciscocomputer.sheet.in.h:25
+#: ../sheets/SISSI.sheet.in.h:33 ../sheets/ciscocomputer.sheet.in.h:25
 msgid "Modem"
 msgstr "Módem"
 
-#: ../sheets/SISSI.sheet.in.h:14 ../sheets/network.sheet.in.h:21
+#: ../sheets/SISSI.sheet.in.h:34
+msgid "Moisture extractor"
+msgstr "Extractor de humedad"
+
+#: ../sheets/SISSI.sheet.in.h:35
+msgid "Moisture sensor"
+msgstr "Sensor de humedad"
+
+#: ../sheets/SISSI.sheet.in.h:36
+msgid "Movement detector"
+msgstr "Detector de movimiento"
+
+#: ../sheets/SISSI.sheet.in.h:37 ../sheets/network.sheet.in.h:21
 msgid "Network cloud"
 msgstr "Nube de la red"
 
-#: ../sheets/SISSI.sheet.in.h:15
+#: ../sheets/SISSI.sheet.in.h:38
 msgid "Objects to design sissi diagrams"
 msgstr "Objetos para diseñar diagramas SISSI"
 
-#: ../sheets/SISSI.sheet.in.h:16 ../sheets/ciscocomputer.sheet.in.h:35
+#: ../sheets/SISSI.sheet.in.h:39 ../sheets/ciscocomputer.sheet.in.h:35
 msgid "PDA"
 msgstr "PDA"
 
-#: ../sheets/SISSI.sheet.in.h:17
+#: ../sheets/SISSI.sheet.in.h:40
 msgid "Paper support"
 msgstr ""
 
 # También creo que todo esto son verbos. FVD
 # Parece que el verbo es la acción que se hace con la "Provisión" (los siguientes textos son verbos). RizOX.
-#: ../sheets/SISSI.sheet.in.h:18
+#: ../sheets/SISSI.sheet.in.h:41
 msgid "Person"
 msgstr "Persona"
 
-#: ../sheets/SISSI.sheet.in.h:19 ../sheets/ciscocomputer.sheet.in.h:37
+#: ../sheets/SISSI.sheet.in.h:42
+msgid "Power transducer"
+msgstr "Transductor de electricidad"
+
+#: ../sheets/SISSI.sheet.in.h:43
+msgid "Pressure transducer"
+msgstr "Transductor de presión"
+
+#: ../sheets/SISSI.sheet.in.h:44
+msgid "Pump"
+msgstr "Bomba"
+
+#: ../sheets/SISSI.sheet.in.h:45 ../sheets/ciscocomputer.sheet.in.h:37
 msgid "Relational Database"
 msgstr "Base de datos relacional"
 
+#: ../sheets/SISSI.sheet.in.h:46
+msgid "Revolving door"
+msgstr "Puerta giratoria"
+
 # ¿"Ampliación" o "Amplía"? Fuzzy. RizOX.
-#: ../sheets/SISSI.sheet.in.h:20
+#: ../sheets/SISSI.sheet.in.h:47
 msgid "Room"
 msgstr "Habitación"
 
-#: ../sheets/SISSI.sheet.in.h:21 ../sheets/ciscohub.sheet.in.h:53
+#: ../sheets/SISSI.sheet.in.h:48 ../sheets/ciscohub.sheet.in.h:53
 msgid "Router"
 msgstr "Encaminador"
 
-#: ../sheets/SISSI.sheet.in.h:22
+#: ../sheets/SISSI.sheet.in.h:49
 msgid "Safe"
 msgstr "Seguro"
 
-#: ../sheets/SISSI.sheet.in.h:23
+#: ../sheets/SISSI.sheet.in.h:50
 msgid "Security area"
 msgstr "Área de seguridad"
 
-#: ../sheets/SISSI.sheet.in.h:24
-msgid "Site geographique"
-msgstr "Sitio geográfico"
+#: ../sheets/SISSI.sheet.in.h:51
+msgid "Sensor beam"
+msgstr ""
 
-#: ../sheets/SISSI.sheet.in.h:25
+#: ../sheets/SISSI.sheet.in.h:52
+msgid "Server"
+msgstr "Servidor"
+
+#: ../sheets/SISSI.sheet.in.h:53
+msgid "Smoke detector"
+msgstr "Detector de humos"
+
+#: ../sheets/SISSI.sheet.in.h:54
 msgid "Software"
 msgstr "Software"
 
-#: ../sheets/SISSI.sheet.in.h:26 ../sheets/ciscocomputer.sheet.in.h:42
+#: ../sheets/SISSI.sheet.in.h:55 ../sheets/ciscocomputer.sheet.in.h:42
 msgid "Storage array"
 msgstr "Array de almacenamiento"
 
-#: ../sheets/SISSI.sheet.in.h:27 ../sheets/network.sheet.in.h:33
+#: ../sheets/SISSI.sheet.in.h:56 ../sheets/network.sheet.in.h:33
 msgid "Telephone"
 msgstr "Teléfono"
 
-#: ../sheets/SISSI.sheet.in.h:28
+#: ../sheets/SISSI.sheet.in.h:57
+msgid "Vehicle detector"
+msgstr "Detector de vehículos"
+
+# Esto para distinguirlo de Start-->Iniciar. FVD
+#: ../sheets/SISSI.sheet.in.h:58
+msgid "Ventilator"
+msgstr "Ventilador"
+
+#: ../sheets/SISSI.sheet.in.h:59
+msgid "Vibration sensor"
+msgstr "Sensor de vibración"
+
+#: ../sheets/SISSI.sheet.in.h:60
 msgid "Video camera"
 msgstr "Cámara de vídeo"
 
-#: ../sheets/SISSI.sheet.in.h:29
-msgid "Workstation"
-msgstr "Estación de trabajo"
-
-#: ../sheets/SISSI.sheet.in.h:30
-msgid "cage de faraday"
-msgstr "jaula de Faraday"
-
-#: ../sheets/SISSI.sheet.in.h:31
-msgid "capteur brise glace"
-msgstr ""
-
-#: ../sheets/SISSI.sheet.in.h:32
-msgid "capteur faisceau"
-msgstr ""
-
-#: ../sheets/SISSI.sheet.in.h:33
-msgid "climatisation"
-msgstr "climatización"
-
-#: ../sheets/SISSI.sheet.in.h:34
-msgid "condensateur"
-msgstr "condensador"
-
-#: ../sheets/SISSI.sheet.in.h:35
-msgid "detecteur d'alimentation"
-msgstr "detector de alimentación"
-
-#: ../sheets/SISSI.sheet.in.h:36
-msgid "detecteur d'humidite"
-msgstr "detector de humedad"
-
-#: ../sheets/SISSI.sheet.in.h:37
-msgid "detecteur de courant"
-msgstr "detector de corriente"
-
-#: ../sheets/SISSI.sheet.in.h:38
-msgid "detecteur de fumee"
-msgstr "detector de humo"
-
-#: ../sheets/SISSI.sheet.in.h:39
-msgid "detecteur de lumiere"
-msgstr "detector de luz"
-
-#: ../sheets/SISSI.sheet.in.h:40
-msgid "detecteur de mouvement"
-msgstr "detector de movimiento"
-
-#: ../sheets/SISSI.sheet.in.h:41
-msgid "detecteur de mouvement video"
-msgstr "detector de movimiento de vídeo"
-
-#: ../sheets/SISSI.sheet.in.h:42
-msgid "detecteur de niveau"
-msgstr "detector de nivel"
-
-#: ../sheets/SISSI.sheet.in.h:43
-msgid "detecteur de pression"
-msgstr "detector de presión"
-
-#: ../sheets/SISSI.sheet.in.h:44
-msgid "detecteur de qualite de l'air"
-msgstr "detector de calidad del aire"
-
-#: ../sheets/SISSI.sheet.in.h:45
-msgid "detecteur de tension"
-msgstr "detector de tensión"
-
-#: ../sheets/SISSI.sheet.in.h:46
-msgid "detecteur de vehicule"
-msgstr "detector de vehículo"
-
-#: ../sheets/SISSI.sheet.in.h:47
-msgid "detecteur de vibration"
-msgstr "detector de vibración"
-
-#: ../sheets/SISSI.sheet.in.h:48
-msgid "detecteur enthalpie"
-msgstr "detector de entalpía"
-
-#: ../sheets/SISSI.sheet.in.h:49
-msgid "digi code"
-msgstr ""
-
-#: ../sheets/SISSI.sheet.in.h:50
-msgid "extincteur"
-msgstr "extintor"
-
-#: ../sheets/SISSI.sheet.in.h:51
-msgid "extracteur d'humidite"
-msgstr "extractor de humedad"
-
-#: ../sheets/SISSI.sheet.in.h:52
-msgid "filtre a air"
-msgstr ""
-
-#: ../sheets/SISSI.sheet.in.h:53
-msgid "lecteur biometrique"
-msgstr "lector biométrico"
-
-#: ../sheets/SISSI.sheet.in.h:54
-msgid "lecteur de badge"
-msgstr "lector de pin"
-
-#: ../sheets/SISSI.sheet.in.h:55
-msgid "lecteur de badge clavier"
-msgstr ""
-
-#: ../sheets/SISSI.sheet.in.h:56
-msgid "onduleur"
-msgstr "inversor"
-
-# Emparejar? FVD
-#: ../sheets/SISSI.sheet.in.h:57
-msgid "pompe"
-msgstr "bomba"
-
-#: ../sheets/SISSI.sheet.in.h:58
-msgid "pompe rotative"
-msgstr "bomba rotativa"
-
-#: ../sheets/SISSI.sheet.in.h:59
-msgid "porte tambour"
-msgstr ""
-
-#: ../sheets/SISSI.sheet.in.h:60
-msgid "server"
-msgstr "servidor"
-
-# Esto para distinguirlo de Start-->Iniciar. FVD
 #: ../sheets/SISSI.sheet.in.h:61
-msgid "ventilateur"
-msgstr "ventilador"
+msgid "Video movement detector"
+msgstr "Vídeo detector de movimiento"
 
 #: ../sheets/SISSI.sheet.in.h:62
-msgid "ventilateur axial"
-msgstr "ventilador axial"
+msgid "Voltage detector"
+msgstr "Detector de voltaje"
 
 #: ../sheets/SISSI.sheet.in.h:63
-msgid "ventilateur centrifuge"
-msgstr "ventilador centrífugo"
+msgid "Workstation"
+msgstr "Estación de trabajo"
 
 #: ../sheets/UML.sheet.in.h:1
 msgid "Activity"
