@@ -586,7 +586,7 @@ ddisplay_canvas_events (GtkWidget *canvas,
               break;
 
             case 2:
-              if (ddisp->menu_bar == NULL) {
+              if (ddisp->menu_bar == NULL && !is_integrated_ui()) {
                 popup_object_menu(ddisp, bevent);
               }
 	      else if (!transient_tool) {
