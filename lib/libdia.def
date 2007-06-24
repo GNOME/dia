@@ -640,6 +640,7 @@ EXPORTS
  text_destroy
  text_distance_from
  text_draw
+ text_get_ascent
  text_get_attributes
  text_get_descent
  text_get_line

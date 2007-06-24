@@ -1,3 +1,7 @@
+2007-06-24  Steffen Macke <sdteffen@gmail.com>
+
+	* lib/libdia.def: exporting text_get_ascent, required by custom object 
+
 2007-06-20  Lars Clausen  <lars@raeder.dk>
 
 	* app/disp_callbacks.c: Patch from Patrick Hallinan
