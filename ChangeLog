@@ -1,6 +1,8 @@
 2007-06-24  Steffen Macke <sdteffen@gmail.com>
 
-	* lib/libdia.def: exporting text_get_ascent, required by custom object 
+	* lib/libdia.def: exporting text_get_ascent, required by custom object,
+	exporting dia_font_set_slant, dia_font_set_weight, required by vdx
+	plug-in 
 
 2007-06-20  Lars Clausen  <lars@raeder.dk>
 
