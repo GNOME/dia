@@ -1,3 +1,7 @@
+2007-06-25  Steffen Macke <sdteffen@gmail.com>
+
+	* installer/win32/dia.nsi: Fix freetype installation problem
+
 2007-06-24  Steffen Macke <sdteffen@gmail.com>
 
 	* installer/win32/dia.nsi: Check for python22.dll before enabling

@@ -2373,6 +2373,8 @@ ${File} "..\..\..\bin\" "libcairo-2.dll"
 ;${File} "..\..\..\bin\" "libexpat.dll"
 ${File} "..\..\..\bin\" "libfontconfig-1.dll"
 ${File} "..\..\..\bin\" "freetype6.dll"
+; TODO: Remove the following, once gladewin32 has switched to freetype6.dll
+${File} "..\..\..\bin\" "libfreetype-6.dll"
 ${File} "..\..\..\bin\" "libgdk-win32-2.0-0.dll"
 ${File} "..\..\..\bin\" "libgdk_pixbuf-2.0-0.dll"
 ${File} "..\..\..\bin\" "libglib-2.0-0.dll"
@@ -3518,9 +3520,9 @@ Function .onInit
   Abort $(DIA_NO_GTK)
   has_gtk:
   ;Fix Freetype DLL naming problem gimp-win/gladewin32
-  #IfFileExists "$GTKBIN\libfreetype-6.dll" has_gladewin32_freetype_dll copy_freetype_dll 
-  #copy_freetype_dll:
-  #CopyFiles "$GTKBIN\freetype6.dll" "$GTKBIN\libfreetype-6.dll" 
+  IfFileExists "$GTKBIN\libfreetype-6.dll" has_gladewin32_freetype_dll copy_freetype_dll 
+  copy_freetype_dll:
+  CopyFiles "$GTKBIN\freetype6.dll" "$GTKBIN\libfreetype-6.dll" 
   has_gladewin32_freetype_dll:
   !endif
 FunctionEnd
