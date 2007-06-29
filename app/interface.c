@@ -455,6 +455,7 @@ use_integrated_ui_for_display_shell(DDisplay *ddisp, char *title)
   GtkWidget *close_button;         /* Close button for the notebook page */
   GtkWidget *widget;
   GtkRcStyle *rcstyle;
+  gint       notebook_page_index;
 	
   ddisp->is_standalone_window = FALSE;
 
@@ -463,13 +464,6 @@ use_integrated_ui_for_display_shell(DDisplay *ddisp, char *title)
   /* Statusbar */
   ddisp->modified_status = GTK_WIDGET (ui.statusbar);
  
-  /* Create a new tab page */
-  ddisp->container = gtk_vbox_new(FALSE, 0);
-  gtk_widget_set_events (ddisp->container,
-                         GDK_POINTER_MOTION_MASK |
-                         GDK_POINTER_MOTION_HINT_MASK |
-                         GDK_FOCUS_CHANGE_MASK);
-
   tab_label_container = gtk_hbox_new(FALSE,3);
   
   label = gtk_label_new( title );
@@ -499,6 +493,17 @@ use_integrated_ui_for_display_shell(DDisplay *ddisp, char *title)
   gtk_box_pack_start( GTK_BOX(tab_label_container), close_button, FALSE, FALSE, 0 );
   gtk_widget_show (close_button);
   gtk_widget_show (image);
+
+  /* Create a new tab page */
+  ddisp->container = gtk_vbox_new(FALSE, 0);
+  gtk_widget_set_events (ddisp->container,
+                         GDK_POINTER_MOTION_MASK |
+                         GDK_POINTER_MOTION_HINT_MASK |
+                         GDK_FOCUS_CHANGE_MASK);
+
+  notebook_page_index = gtk_notebook_append_page (GTK_NOTEBOOK(ui.diagram_notebook),
+                                                  ddisp->container,
+                                                  tab_label_container);
 
   g_object_set_data (G_OBJECT (ddisp->container), "DDisplay",  ddisp);
   g_object_set_data (G_OBJECT (ddisp->container), "tab-label", label);
@@ -613,20 +618,12 @@ use_integrated_ui_for_display_shell(DDisplay *ddisp, char *title)
   display_rulers_show (ddisp);
   gtk_widget_show (ddisp->canvas);
 
-  /* Ensure that the the new page is showing */
-  if (gtk_notebook_get_n_pages (ui.diagram_notebook) > 1)
-  {
-    gtk_notebook_set_current_page (ui.diagram_notebook,
-                                   gtk_notebook_get_n_pages (ui.diagram_notebook)-1);
-  }
+  /* Show new page */
+  gtk_notebook_set_current_page (ui.diagram_notebook, notebook_page_index);
 
   integrated_ui_toolbar_grid_snap_synchronize_to_display (ddisp);
 
   integrated_ui_toolbar_object_snap_synchronize_to_display (ddisp);
-
-  gtk_notebook_append_page (GTK_NOTEBOOK(ui.diagram_notebook),
-                            ddisp->container,
-                            tab_label_container);
 
   /* TODO: Figure out how to detect if anti-aliased renderer was set */
   /** For the distributed display this is called when the ddisp->canvas is shown.

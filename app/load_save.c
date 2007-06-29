@@ -17,6 +17,8 @@
  */
 #include <config.h>
 
+/* so we get fdopen declared even when compiling with -ansi */
+#define _POSIX_C_SOURCE 2
 #ifdef HAVE_UNISTD_H
 #include <unistd.h>
 #endif
