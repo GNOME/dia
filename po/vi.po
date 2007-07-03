@@ -1,6 +1,6 @@
 # Vietnamese translation for Đia.
 # Copyright © 2007 Gnome i18n Project for Vietnamese.
-# Nguyễn Thái Ngọc Duy <pclouds@gmx.net>, 2002.
+# Nguyễn Thái Ngọc Duy <pclouds@gmail.com>, 2002, 2007.
 # Clytie Siddall <clytie@riverland.net.au>, 2005-2007.
 # 
 msgid ""
@@ -225,7 +225,7 @@ msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
 msgstr "Không thể tạo thư mục cấu hình Dia cho từng người dùng. Vui lòng kiểm tra "
-"biến môi trường « HOME » (chính) có chỉ đến một thư mục hợp lệ hay không."
+"biến môi trường HOME có chỉ đến một thư mục hợp lệ hay không."
 
 #: ../app/app_procs.c:1134
 #: ../app/diaconv.c:245
@@ -388,7 +388,7 @@ msgstr "Mặc định: "
 
 #: ../app/dia-props.c:85
 msgid "Diagram Properties"
-msgstr "Tài sản sơ đồ"
+msgstr "Thuộc tính sơ đồ"
 
 #: ../app/dia-props.c:119
 msgid "Dynamic grid"
@@ -446,7 +446,7 @@ msgstr "Màu sắc"
 #, c-format
 #. Can we be sure that the filename is the 'proper title'?
 msgid "Diagram Properties: %s"
-msgstr "Tài sản sơ đồ: %s"
+msgstr "Thuộc tính sơ đồ: %s"
 
 #: ../app/dia_embedd.c:348
 msgid "Could not initialize Bonobo!"
@@ -610,7 +610,7 @@ msgstr "/Định _vị"
 
 #: ../app/diagram_tree_menu.c:84
 msgid "/_Properties"
-msgstr "/Tài _sản"
+msgstr "/_Thuộc tính"
 
 #: ../app/diagram_tree_menu.c:85
 msgid "/_Hide this type"
@@ -698,7 +698,7 @@ msgstr "Đối tượng này không hỗ trợ khả năng Hồi lại/Làm lạ
 
 #: ../app/disp_callbacks.c:119
 msgid "Properties..."
-msgstr "Tài sản..."
+msgstr "Thuộc tính..."
 
 #: ../app/disp_callbacks.c:921
 msgid ""
@@ -1818,19 +1818,19 @@ msgstr "Thay đổi trong thiết lập kiểu giao diện sẽ có tác động
 
 #: ../app/properties.c:55
 msgid "Object properties"
-msgstr "Tài sản đối tượng"
+msgstr "Thuộc tính đối tượng"
 
 #: ../app/properties.c:80
 msgid "This object has no properties."
-msgstr "Đối tượng này không có tài sản."
+msgstr "Đối tượng này không có thuộc tính."
 
 #: ../app/properties.c:217
 msgid "Properties: "
-msgstr "Tài sản: "
+msgstr "Thuộc tính: "
 
 #: ../app/properties.c:221
 msgid "Object properties:"
-msgstr "Tài sản đối tượng:"
+msgstr "Thuộc tính đối tượng:"
 
 #: ../app/render_eps.c:150
 msgid "Encapsulated Postscript (using Pango fonts)"
@@ -2334,7 +2334,7 @@ msgstr "Bộ ký tự địa phương của bạn là UTF-8. Vì lỗi của lí
 
 #: ../lib/diaarrowchooser.c:351
 msgid "Arrow Properties"
-msgstr "Tài sản mũi tên"
+msgstr "Thuộc tính mũi tên"
 
 #: ../lib/diagtkfontsel.c:74
 #. This is the default text shown in the preview entry, though the user
@@ -2385,7 +2385,7 @@ msgstr "gdk_renderer: xác định chế độ tô không được hỗ trợ.\n
 
 #: ../lib/dialinechooser.c:297
 msgid "Line Style Properties"
-msgstr "Tài sản kiểu dáng đường"
+msgstr "Thuộc tính kiểu dáng đường"
 
 #: ../lib/dialinechooser.c:333
 msgid "Details..."
@@ -4566,7 +4566,7 @@ msgstr "Nhà cửa"
 
 #: ../objects/SISSI/sissi.h:277
 msgid "Zone"
-msgstr "Múi"
+msgstr "Vùng"
 
 #: ../objects/SISSI/sissi.h:278
 msgid "Service Essentiel"
@@ -6095,7 +6095,7 @@ msgstr "Không biết kiểu mũi tên %d.\n"
 #: ../plug-ins/xfig/xfig-import.c:379
 #, c-format
 msgid "Depth %d of of range, only 0-%d allowed.\n"
-msgstr "Độ sâu %d ở ngoại phạm vi, cho phép chỉ 0-%d thôi.\n"
+msgstr "Độ sâu %d ở ngoài phạm vi, cho phép chỉ 0-%d thôi.\n"
 
 #: ../plug-ins/xfig/xfig-import.c:426
 #, c-format
@@ -6162,7 +6162,7 @@ msgstr "Kết thúc hợp điều bên ngoài hợp điều.\n"
 #: ../plug-ins/xfig/xfig-import.c:1041
 #, c-format
 msgid "Color number %d out of range 0..%d.  Discarding color.\n"
-msgstr "Số hiệu màu %d ở ngoại phạm vi 0..%d nên hủy màu đó.\n"
+msgstr "Số hiệu màu %d ở ngoài phạm vi 0..%d nên hủy màu đó.\n"
 
 #: ../plug-ins/xfig/xfig-import.c:1087
 #, c-format
