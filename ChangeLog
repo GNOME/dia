@@ -1,5 +1,7 @@
 2007-07-06  Steffen Macke <sdteffen@gmail.com>
 
+	* app/sheets_dialog_callbacks.c: Additional warning if the user tries
+	to load a diagram as a shape. Fixes bug #97903
 	* doc/eu/dia.1: Remove epsi reference. Fixes bug #336972
 
 2007-06-29  Lars Clausen  <lars@raeder.dk>

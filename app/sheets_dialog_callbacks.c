@@ -828,8 +828,22 @@ on_sheets_new_dialog_button_ok_clicked (GtkButton       *button,
 
     if (!(*custom_object_load_fn)(file_name, &ot))
     {
-      message_error(_("Could not interpret shape file: '%s'"), 
+    	xmlDoc *doc = NULL;
+	xmlNode *root_element = NULL;
+	
+	/* See if the user tries to open a diagram as a shape */	
+	doc = xmlReadFile(file_name, NULL, 0);
+	if(doc != NULL)
+	{
+		root_element = xmlDocGetRootElement(doc);
+		if(0 == g_strncasecmp(root_element->name, "dia", 3))
+			message_error(
+				_("Please export the diagram as a shape."));
+		xmlFreeDoc(doc);
+	}
+	message_error(_("Could not interpret shape file: '%s'"), 
 		    dia_message_filename(file_name));
+	xmlCleanupParser();
       g_free(file_name);
       return;
     }
