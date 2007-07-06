@@ -1,3 +1,7 @@
+2007-07-06  Steffen Macke <sdteffen@gmail.com>
+
+	* doc/eu/dia.1: Remove epsi reference. Fixes bug #336972
+
 2007-06-29  Lars Clausen  <lars@raeder.dk>
 
 	* app/interface.c: Patch from Patrick Hallinan
