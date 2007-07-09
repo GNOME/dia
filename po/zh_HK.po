@@ -1,4 +1,4 @@
-# traditional Chinese translation for dia.
+# Chinese (Hong Kong) translation for dia.
 # Copyright (C) 2000, 2001, 2003 Free Software Foundation, Inc.
 # Jing-Jong Shyue <shyue@sonoma.com.tw>, 2000
 # Abel Cheung <maddog@linux.org.hk>, 2001, 2003
@@ -9,9 +9,9 @@ msgstr ""
 "Project-Id-Version: dia 0.96.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-07-09 20:57+0800\n"
-"PO-Revision-Date: 2007-06-10 09:31+0800\n"
+"PO-Revision-Date: 2007-07-09 20:58+0800\n"
 "Last-Translator: Chao-Hsiung Liao <pesder.liao@msa.hinet.net>\n"
-"Language-Team: Chinese (Traditional) <zh-l10n@linux.org.tw>\n"
+"Language-Team: Chinese (Hong Kong) <community@linuxhall.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -99,8 +99,7 @@ msgstr "寬x高"
 msgid ""
 "Show only specified layers (e.g. when exporting). Can be either the layer "
 "name or a range of layer numbers (X-Y)"
-msgstr ""
-"只顯示指定的圖層（例如：用於匯出時）。可使用圖層名稱或是圖層號碼的範圍(X-Y)"
+msgstr "只顯示指定的圖層（例如：用於匯出時）。可使用圖層名稱或是圖層號碼的範圍(X-Y)"
 
 #: ../app/app_procs.c:711 ../app/app_procs.c:739
 msgid "LAYER,LAYER,..."
@@ -172,7 +171,7 @@ msgid ""
 "describing how you can cause this message to appear.\n"
 msgstr ""
 "這不該發生。請在 bugzilla.gnome.org 提出錯誤回報\n"
-"以描述您如何使此訊息出現。\n"
+"以描述你如何使此訊息出現。\n"
 
 #. no standard buttons
 #: ../app/app_procs.c:1027
@@ -193,7 +192,7 @@ msgstr "離開 Dia"
 #. Yuck.  -Lars
 #: ../app/app_procs.c:1084
 msgid "Thank you for using Dia.\n"
-msgstr "感謝您使用 Dia。\n"
+msgstr "感謝你使用 Dia。\n"
 
 #: ../app/app_procs.c:1101 ../app/app_procs.c:1108
 msgid "Could not create per-user Dia config directory"
@@ -470,9 +469,7 @@ msgstr "%s 錯誤：-t 或 -o 選項之中只可使用其中一個。"
 msgid ""
 "%s error: must specify only one of -t or -o.\n"
 "Run '%s --help' to see a full list of available command line options.\n"
-msgstr ""
-"%s 錯誤：-t 或 -o 選項之中只可使用其中一個。執行‘%s --help’可列出完整的指令列"
-"選項。\n"
+msgstr "%s 錯誤：-t 或 -o 選項之中只可使用其中一個。執行‘%s --help’可列出完整的指令列選項。\n"
 
 #: ../app/diaconv.c:168
 #, c-format
@@ -664,8 +661,8 @@ msgid ""
 "The object you dropped cannot fit into its parent. \n"
 "Either expand the parent object, or drop the object elsewhere."
 msgstr ""
-"您所拖放的物件無法放進它的父物件中。\n"
-"您可以將父物件擴大或是把該物件拖放到別處。"
+"你所拖放的物件無法放進它的父物件中。\n"
+"你可以將父物件擴大或是把該物件拖放到別處。"
 
 #: ../app/display.c:105
 msgid "Diagram modified!"
@@ -751,7 +748,7 @@ msgstr "匯出"
 
 #: ../app/export_png.c:309
 msgid "Image width:"
-msgstr "圖像寬度："
+msgstr "圖像闊度："
 
 #: ../app/export_png.c:312
 msgid "Image height:"
@@ -791,8 +788,8 @@ msgid ""
 "nor your local encoding.\n"
 "Some things will break."
 msgstr ""
-"檔案名稱中某些字元不屬於 UTF-8，\n"
-"也不屬於您目前使用的編碼。\n"
+"檔案名稱中某些字符不屬於 UTF-8，\n"
+"也不屬於你目前使用的編碼。\n"
 "將來可能會發生錯誤。"
 
 #: ../app/filedlg.c:322 ../app/filedlg.c:581 ../app/paginate_psprint.c:425
@@ -822,9 +819,7 @@ msgstr "壓縮圖表檔案"
 msgid ""
 "Compression reduces file size to less than 1/10th size and speeds up loading "
 "and saving.  Some text programs cannot manipulate compressed files."
-msgstr ""
-"壓縮會令檔案小於原來的 1/10，同時會加快載入及儲存。但某些文字編輯器無法處理壓"
-"縮檔案。"
+msgstr "壓縮會令檔案小於原來的 1/10，同時會加快載入及儲存。但某些文字編輯器無法處理壓縮檔案。"
 
 #: ../app/filedlg.c:607
 #, c-format
@@ -959,33 +954,31 @@ msgstr ""
 "新物件的前景及背景色彩。\n"
 "黑白小方塊可重設色彩。\n"
 "小箭頭可交換色彩。\n"
-"雙擊可更改色彩。"
+"連按兩下可更改色彩。"
 
 #: ../app/interface.c:1438
 msgid ""
 "Line widths.  Click on a line to set the default line width for new "
 "objects.  Double-click to set the line width more precisely."
-msgstr ""
-"線條寬度。單擊線條可以設定新物件的預設線條寬度。雙擊則可以更精確的設定線條寬"
-"度。"
+msgstr "線條闊度。點選線條可以設定新物件的預設線條闊度。連按兩下則可以更精確的設定線條闊度。"
 
 #: ../app/interface.c:1481
 msgid ""
 "Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
 "arrow parameters with Details..."
-msgstr "新線條開頭的箭頭樣式。單擊可以挑選箭頭，或是用 詳情... 設定箭頭參數"
+msgstr "新線條開頭的箭頭樣式。點選可以挑選箭頭，或是用 詳情... 設定箭頭參數"
 
 #: ../app/interface.c:1486
 msgid ""
 "Line style for new lines.  Click to pick a line style, or set line style "
 "parameters with Details..."
-msgstr "新線條的線段樣式。單擊可以挑選線段樣式，或是用 詳情... 設定線段參數"
+msgstr "新線條的線段樣式。點選可以挑選線段樣式，或是用 詳情... 設定線段參數"
 
 #: ../app/interface.c:1502
 msgid ""
 "Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
 "parameters with Details..."
-msgstr "新線條結尾的箭頭樣式。單擊可以挑選箭頭，或是用 詳情... 設定箭頭參數"
+msgstr "新線條結尾的箭頭樣式。點選可以挑選箭頭，或是用 詳情... 設定箭頭參數"
 
 #: ../app/interface.c:1546 ../app/interface.c:1674
 msgid "Diagram Editor"
@@ -1036,11 +1029,11 @@ msgstr "圖層名稱："
 #: ../objects/chronogram/chronoline.c:181
 #: ../objects/chronogram/chronoref.c:160
 msgid "Line width"
-msgstr "線段寬度"
+msgstr "線段闊度"
 
 #: ../app/linewidth_area.c:258
 msgid "Line width:"
-msgstr "線段寬度："
+msgstr "線段闊度："
 
 #: ../app/load_save.c:262
 msgid ""
@@ -1076,7 +1069,7 @@ msgstr "找不到 %2$s 物件的父項目 %1$s\n"
 #: ../objects/SISSI/faraday.c:204 ../objects/SISSI/room.c:204
 #: ../objects/SISSI/sissi_object.c:194 ../objects/SISSI/site.c:207
 msgid "You must specify a file, not a directory.\n"
-msgstr "您必須指定檔案而不是目錄。\n"
+msgstr "你必須指定檔案而不是目錄。\n"
 
 #: ../app/load_save.c:360 ../objects/SISSI/area.c:210
 #: ../objects/SISSI/faraday.c:210 ../objects/SISSI/room.c:210
@@ -1314,13 +1307,13 @@ msgstr "向前一層"
 
 #: ../app/menus.c:161
 msgid "_Group"
-msgstr "群組(_G)"
+msgstr "羣組(_G)"
 
 #
 #. deliberately not using Ctrl+U for Ungroup
 #: ../app/menus.c:163
 msgid "_Ungroup"
-msgstr "解散群組(_U)"
+msgstr "解散羣組(_U)"
 
 #: ../app/menus.c:165
 msgid "_Parent"
@@ -1516,11 +1509,11 @@ msgstr "無法獲取 GTK 設定"
 
 #: ../app/paginate_psprint.c:275
 msgid "Select Printer"
-msgstr "選取印表機"
+msgstr "選取打印機"
 
 #: ../app/paginate_psprint.c:287 ../sheets/ciscocomputer.sheet.in.h:36
 msgid "Printer"
-msgstr "印表機"
+msgstr "打印機"
 
 #: ../app/paginate_psprint.c:301 ../sheets/Misc.sheet.in.h:1
 msgid "File"
@@ -1543,12 +1536,12 @@ msgstr "無法開啟‘%s’來寫入資料：%s"
 #: ../app/paginate_psprint.c:487
 #, c-format
 msgid "Printing error: command '%s' returned %d\n"
-msgstr "列印錯誤：指令“%s”傳回 %d\n"
+msgstr "打印錯誤：指令“%s”傳回 %d\n"
 
 #: ../app/paginate_psprint.c:498
 #, c-format
 msgid "Printing error: command '%s' caused sigpipe."
-msgstr "列印錯誤：指令“%s”造成 sigpipe。"
+msgstr "打印錯誤：指令“%s”造成 sigpipe。"
 
 #: ../app/plugin-manager.c:200
 msgid "Plug-ins"
@@ -1657,7 +1650,7 @@ msgstr "新增視窗："
 
 #: ../app/preferences.c:167
 msgid "Width:"
-msgstr "寬度："
+msgstr "闊度："
 
 #: ../app/preferences.c:168
 msgid "Height:"
@@ -1735,7 +1728,7 @@ msgstr "偏好設定"
 
 #: ../app/preferences.c:714
 msgid "User Interface type settings change will take after restart"
-msgstr "使用者界面類型設定變更會於重新啟動後生效"
+msgstr "使用者界面類型設定更改會於重新啟動後生效"
 
 #: ../app/properties.c:55
 msgid "Object properties"
@@ -2010,7 +2003,7 @@ msgstr "給：%s"
 
 #: ../app/sheets_dialog_callbacks.c:1718
 msgid "add shapes here"
-msgstr "在這裡加入圖形"
+msgstr "在這裏加入圖形"
 
 #: ../app/splash.c:56
 msgid "Loading ..."
@@ -2027,7 +2020,7 @@ msgstr "Dia 圖表編輯器"
 
 #: ../dia.desktop.in.in.h:2
 msgid "Edit your Diagrams"
-msgstr "編輯您的圖表"
+msgstr "編輯你的圖表"
 
 #: ../lib/arrows.c:44
 msgid "Lines"
@@ -2188,7 +2181,7 @@ msgstr "找不到標準物件"
 #: ../lib/dia_dirs.c:237
 #, c-format
 msgid "%s<illegal characters>..."
-msgstr "%s<不能使用的字元>..."
+msgstr "%s<不能使用的字符>..."
 
 #: ../lib/dia_dirs.c:268
 #, c-format
@@ -2228,10 +2221,7 @@ msgid ""
 "Your local character set is UTF-8. Because of issues with libxml1 and the "
 "support of files generated by previous versions of dia, you will encounter  "
 "problems. Please report to dia-list@gnome.org if you see this message."
-msgstr ""
-"您現在使用 UTF-8 字元集編碼。因為 libxml1 的緣故，及對於以往版本的 dia 產生出"
-"來的檔案支援不足，您將會遇到問題。當您看到這個訊息時，請向 dia-list@gnome."
-"org 匯報。"
+msgstr "你現在使用 UTF-8 字符集編碼。因為 libxml1 的緣故，及對於以往版本的 dia 產生出來的檔案支援不足，你將會遇到問題。當你看到這個訊息時，請向 dia-list@gnome.org 匯報。"
 
 #: ../lib/diaarrowchooser.c:351
 msgid "Arrow Properties"
@@ -2329,7 +2319,7 @@ msgstr "注意"
 
 #: ../lib/newgroup.c:117
 msgid "Open group"
-msgstr "開放群組"
+msgstr "開放羣組"
 
 #: ../lib/object_defaults.c:127
 #, c-format
@@ -2361,7 +2351,7 @@ msgstr ""
 #: ../lib/plug-ins.c:246
 #, c-format
 msgid "Could not find plugin init function in `%s'"
-msgstr "找不到‘%s’中的增效模組 init 函式"
+msgstr "找不到‘%s’中的增效模組 init 函數"
 
 #: ../lib/plug-ins.c:248
 msgid "Missing symbol 'dia_plugin_init'"
@@ -2388,7 +2378,7 @@ msgstr ""
 #: ../lib/prop_text.c:466
 #, c-format
 msgid "Group with %d objects"
-msgstr "具 %d 個物件的群組"
+msgstr "具 %d 個物件的羣組"
 
 #: ../lib/properties.c:64 ../lib/properties.h:469 ../lib/widgets.c:690
 msgid "Left"
@@ -2577,7 +2567,7 @@ msgstr ""
 
 #: ../objects/AADL/aadlbox.c:371
 msgid "Add Port Group"
-msgstr "增加連接埠群組"
+msgstr "增加連接埠羣組"
 
 #: ../objects/AADL/aadlbox.c:373
 msgid "Add Connection Point"
@@ -3296,7 +3286,7 @@ msgstr "中斷"
 #. Translators: Menu item Verb/Control Magnitude/Change/Change
 #: ../objects/FS/function.c:974 ../objects/FS/function.c:976
 msgid "Change"
-msgstr "變更"
+msgstr "更改"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Increase
 #: ../objects/FS/function.c:978
@@ -3745,7 +3735,7 @@ msgstr "條件"
 
 #: ../objects/GRAFCET/condition.c:130
 msgid "The boolean equation of the condition"
-msgstr "此條件的布林運算式"
+msgstr "此條件的邏輯運算式"
 
 #: ../objects/GRAFCET/condition.c:132
 msgid "The condition's font"
@@ -3913,7 +3903,7 @@ msgstr "負 contrib"
 
 #: ../objects/Istar/link.c:155 ../sheets/UML.sheet.in.h:10
 msgid "Dependency"
-msgstr "相依性"
+msgstr "相根據性"
 
 #: ../objects/Istar/link.c:156
 msgid "Decomposition"
@@ -4079,7 +4069,7 @@ msgstr "箭頭顏色"
 
 #: ../objects/Misc/analog_clock.c:139
 msgid "Arrow line width"
-msgstr "指針線條寬度"
+msgstr "指針線條闊度"
 
 #: ../objects/Misc/analog_clock.c:141
 msgid "Seconds arrow color"
@@ -4087,7 +4077,7 @@ msgstr "第二箭頭顏色"
 
 #: ../objects/Misc/analog_clock.c:143
 msgid "Seconds arrow line width"
-msgstr "秒針線條寬度"
+msgstr "秒針線條闊度"
 
 #: ../objects/Misc/analog_clock.c:145
 msgid "Show hours"
@@ -4233,19 +4223,19 @@ msgstr "低完整性"
 
 #: ../objects/SISSI/sissi.h:236
 msgid "Average software integrity"
-msgstr "普通軟體完整性"
+msgstr "普通軟件完整性"
 
 #: ../objects/SISSI/sissi.h:237
 msgid "Hight software integrity"
-msgstr "高軟體完整性"
+msgstr "高軟件完整性"
 
 #: ../objects/SISSI/sissi.h:238
 msgid "Average hardware integrity"
-msgstr "普通硬體完整性"
+msgstr "普通硬件完整性"
 
 #: ../objects/SISSI/sissi.h:239
 msgid "Hight hardware integrity"
-msgstr "高硬體完整性"
+msgstr "高硬件完整性"
 
 #: ../objects/SISSI/sissi.h:244
 msgid "Millisecond"
@@ -4437,7 +4427,7 @@ msgstr "操作者 / 維修運作"
 
 #: ../objects/SISSI/sissi.h:347
 msgid "NETWORK"
-msgstr "網路"
+msgstr "網絡"
 
 #: ../objects/SISSI/sissi.h:348
 msgid "Medium and supports"
@@ -4461,11 +4451,11 @@ msgstr "操作系統"
 
 #: ../objects/SISSI/sissi.h:357
 msgid "Service - maintenance or administration software"
-msgstr "服務 - 維修或管理軟體"
+msgstr "服務 - 維修或管理軟件"
 
 #: ../objects/SISSI/sissi.h:358
 msgid "Package software or standard software"
-msgstr "套件軟體或標準軟體"
+msgstr "套件軟件或標準軟件"
 
 #: ../objects/SISSI/sissi.h:359
 msgid "Business application"
@@ -4481,7 +4471,7 @@ msgstr "特定商業應用程式"
 
 #: ../objects/SISSI/sissi.h:366
 msgid "HARDWARE"
-msgstr "硬體"
+msgstr "硬件"
 
 #: ../objects/SISSI/sissi.h:367
 msgid "Data processing equipement (active)"
@@ -4695,7 +4685,7 @@ msgstr "摺疊操作"
 
 #: ../objects/UML/class.c:162
 msgid "Wrap after char"
-msgstr "將此字元後折行"
+msgstr "將此字符後折行"
 
 #: ../objects/UML/class.c:164
 msgid "Comment line length"
@@ -5198,7 +5188,7 @@ msgstr "細刻度的時間長度"
 
 #: ../objects/chronogram/chronoref.c:162
 msgid "Minor step line width"
-msgstr "細刻度的線段寬度"
+msgstr "細刻度的線段闊度"
 
 #: ../objects/custom/custom.c:117
 msgid "Custom"
@@ -5267,7 +5257,7 @@ msgstr "刪除控制點"
 
 #: ../objects/network/network.c:43
 msgid "Network diagram objects"
-msgstr "網路圖表物件"
+msgstr "網絡圖表物件"
 
 #: ../objects/network/radiocell.c:119
 msgid "Radius"
@@ -5275,7 +5265,7 @@ msgstr "半徑"
 
 #: ../objects/network/wanlink.c:117
 msgid "Width"
-msgstr "寬度"
+msgstr "闊度"
 
 #: ../objects/standard/arc.c:140
 msgid "Curve distance"
@@ -5448,7 +5438,7 @@ msgstr "Cairo 剪貼簿"
 
 #: ../plug-ins/cairo/diacairo.c:1211
 msgid "Cairo based Rendering"
-msgstr "基於 Cairo 的著色"
+msgstr "基於 Cairo 的着色"
 
 #: ../plug-ins/cgm/cgm.c:1105
 msgid ""
@@ -5505,7 +5495,7 @@ msgid ""
 " '%s'\n"
 " not available"
 msgstr ""
-"GNOME 列印後端程式\n"
+"GNOME 打印後端程式\n"
 "“%s”\n"
 "無法使用"
 
@@ -5523,7 +5513,7 @@ msgstr "GNOME 可縮放向量圖"
 
 #: ../plug-ins/gprint/diagnomeprint.c:164
 msgid "GNOME Print based Rendering"
-msgstr "基於 GNOME 列印的著色"
+msgstr "基於 GNOME 打印的着色"
 
 #: ../plug-ins/hpgl/hpgl.c:751
 msgid "HP Graphics Language"
@@ -5840,7 +5830,7 @@ msgstr "色彩編號 %d 超出 0..%d 範圍。捨棄色彩。\n"
 #: ../plug-ins/xfig/xfig-import.c:1087
 #, c-format
 msgid "Couldn't read group extend: %s\n"
-msgstr "無法讀取群組擴充：%s\n"
+msgstr "無法讀取羣組擴充：%s\n"
 
 #: ../plug-ins/xfig/xfig-import.c:1098
 #, c-format
@@ -5905,7 +5895,7 @@ msgstr "FIG 檔案過早完結\n"
 #: ../plug-ins/xfig/xfig-import.c:1235
 #, c-format
 msgid "Error reading resolution: %s\n"
-msgstr "讀取解析度時發生錯誤：%s\n"
+msgstr "讀取解像度時發生錯誤：%s\n"
 
 #: ../plug-ins/xfig/xfig-import.c:1267
 #, c-format
@@ -6012,7 +6002,7 @@ msgstr "線程"
 
 #: ../sheets/AADL.sheet.in.h:13
 msgid "Thread Group"
-msgstr "線程群組"
+msgstr "線程羣組"
 
 #. Sheet Name: Assorted, was Geometric, maybe Basic Shapes instead?
 #. Leave as is for now, renaming too much hassle.
@@ -6275,7 +6265,7 @@ msgstr "閘道"
 
 #: ../sheets/BPMN.sheet.in.h:22
 msgid "Group"
-msgstr "群組"
+msgstr "羣組"
 
 #: ../sheets/BPMN.sheet.in.h:23
 msgid "Inclusive (OR)"
@@ -6768,19 +6758,19 @@ msgstr "簡單輸出變數"
 
 #: ../sheets/Cybernetics.sheet.in.h:1
 msgid "Constant factor below -1"
-msgstr "固定係數小於 -1"
+msgstr "固定系數小於 -1"
 
 #: ../sheets/Cybernetics.sheet.in.h:2
 msgid "Constant factor between 0 and -1"
-msgstr "固定係數介於 0 到 -1"
+msgstr "固定系數介於 0 到 -1"
 
 #: ../sheets/Cybernetics.sheet.in.h:3
 msgid "Constant factor between 0 and 1"
-msgstr "固定係數介於 0 到 1"
+msgstr "固定系數介於 0 到 1"
 
 #: ../sheets/Cybernetics.sheet.in.h:4
 msgid "Constant factor greater 1"
-msgstr "固定係數大於 1"
+msgstr "固定系數大於 1"
 
 #: ../sheets/Cybernetics.sheet.in.h:5
 msgid "Constant negative shift on the y-axis"
@@ -6888,7 +6878,7 @@ msgstr "和，減去上方輸入"
 
 #: ../sheets/Cybernetics.sheet.in.h:31
 msgid "Template for custom characteristics"
-msgstr "自訂特性的樣板"
+msgstr "自選特性的樣板"
 
 #: ../sheets/Cybernetics.sheet.in.h:32
 msgid "Time delay"
@@ -6980,7 +6970,7 @@ msgstr "繼電器命令器官(垂直)"
 
 #: ../sheets/FS.sheet.in.h:1
 msgid "Editor for Function Structure Diagrams."
-msgstr "函式結構圖表編輯器。"
+msgstr "函數結構圖表編輯器。"
 
 #: ../sheets/FS.sheet.in.h:2
 msgid "FS"
@@ -6992,7 +6982,7 @@ msgstr "流程"
 
 #: ../sheets/FS.sheet.in.h:4
 msgid "Function"
-msgstr "函式"
+msgstr "函數"
 
 #: ../sheets/FS.sheet.in.h:5
 msgid "Orthogonal polyline flow"
@@ -7478,7 +7468,7 @@ msgstr "及閘"
 
 #: ../sheets/Logic.sheet.in.h:2
 msgid "Boolean Logic"
-msgstr "布林邏輯"
+msgstr "邏輯邏輯"
 
 #: ../sheets/Logic.sheet.in.h:3
 msgid "Crossconnector"
@@ -7678,7 +7668,7 @@ msgstr "區塊類型參考"
 
 #: ../sheets/SDL.sheet.in.h:5
 msgid "Function call"
-msgstr "函式呼叫"
+msgstr "函數呼叫"
 
 #: ../sheets/SDL.sheet.in.h:6
 msgid "Function header"
@@ -7770,7 +7760,7 @@ msgstr ""
 
 #: ../sheets/SISSI.sheet.in.h:10
 msgid "Cellular phone"
-msgstr "行動電話"
+msgstr "流動電話"
 
 #: ../sheets/SISSI.sheet.in.h:11
 #, fuzzy
@@ -7798,7 +7788,7 @@ msgstr "曲線距離"
 #: ../sheets/SISSI.sheet.in.h:16
 #, fuzzy
 msgid "Digital code"
-msgstr "數位交叉連線"
+msgstr "數碼交叉連線"
 
 #: ../sheets/SISSI.sheet.in.h:17
 msgid "Enthalpy transducer"
@@ -7843,7 +7833,7 @@ msgstr "資訊系統"
 
 #: ../sheets/SISSI.sheet.in.h:28 ../sheets/ciscocomputer.sheet.in.h:21
 msgid "Laptop"
-msgstr "筆記型電腦"
+msgstr "手提電腦"
 
 #: ../sheets/SISSI.sheet.in.h:29
 #, fuzzy
@@ -7881,7 +7871,7 @@ msgstr ""
 
 #: ../sheets/SISSI.sheet.in.h:37 ../sheets/network.sheet.in.h:21
 msgid "Network cloud"
-msgstr "代表網路的雲狀圖案"
+msgstr "代表網絡的雲狀圖案"
 
 #: ../sheets/SISSI.sheet.in.h:38
 msgid "Objects to design sissi diagrams"
@@ -7953,7 +7943,7 @@ msgstr "偵測器"
 
 #: ../sheets/SISSI.sheet.in.h:54
 msgid "Software"
-msgstr "軟體"
+msgstr "軟件"
 
 #: ../sheets/SISSI.sheet.in.h:55 ../sheets/ciscocomputer.sheet.in.h:42
 msgid "Storage array"
@@ -7979,7 +7969,7 @@ msgstr "震動"
 
 #: ../sheets/SISSI.sheet.in.h:60
 msgid "Video camera"
-msgstr "視訊攝影機"
+msgstr "視像攝影機"
 
 #: ../sheets/SISSI.sheet.in.h:61
 msgid "Video movement detector"
@@ -8212,15 +8202,15 @@ msgstr "PC 路由器卡"
 
 #: ../sheets/ciscocomputer.sheet.in.h:32
 msgid "PC Software"
-msgstr "PC 軟體"
+msgstr "PC 軟件"
 
 #: ../sheets/ciscocomputer.sheet.in.h:33
 msgid "PC Video"
-msgstr "PC 視訊"
+msgstr "PC 視像"
 
 #: ../sheets/ciscocomputer.sheet.in.h:34
 msgid "PC with Router-Based Software"
-msgstr "具路由軟體的 PC"
+msgstr "具路由軟件的 PC"
 
 #: ../sheets/ciscocomputer.sheet.in.h:38
 msgid "SUN workstation"
@@ -8236,7 +8226,7 @@ msgstr "具 PC 路由的伺服器"
 
 #: ../sheets/ciscocomputer.sheet.in.h:41
 msgid "Software-Based Router on File Server"
-msgstr "檔案伺服器上的軟體路由器"
+msgstr "檔案伺服器上的軟件路由器"
 
 #: ../sheets/ciscocomputer.sheet.in.h:43
 msgid "Supercomputer"
@@ -8268,11 +8258,11 @@ msgstr "網頁叢集"
 
 #: ../sheets/ciscocomputer.sheet.in.h:50
 msgid "Wireless"
-msgstr "無線網路"
+msgstr "無線網絡"
 
 #: ../sheets/ciscocomputer.sheet.in.h:51
 msgid "Workgroup director"
-msgstr "工作群組管理"
+msgstr "工作羣組管理"
 
 #: ../sheets/ciscohub.sheet.in.h:1
 msgid "100BaseT Hub"
@@ -8624,11 +8614,11 @@ msgstr "住家（藍色）"
 
 #: ../sheets/ciscomisc.sheet.in.h:18
 msgid "Key"
-msgstr "鑰匙"
+msgstr "密碼匙"
 
 #: ../sheets/ciscomisc.sheet.in.h:20
 msgid "Lock and Key"
-msgstr "鎖與鑰匙"
+msgstr "鎖與密碼匙"
 
 #: ../sheets/ciscomisc.sheet.in.h:21
 msgid "MDU"
@@ -8700,11 +8690,11 @@ msgstr "衛星天線"
 
 #: ../sheets/ciscomisc.sheet.in.h:39
 msgid "Sitting Woman"
-msgstr "坐著的女人"
+msgstr "坐着的女人"
 
 #: ../sheets/ciscomisc.sheet.in.h:40
 msgid "Sitting Woman right"
-msgstr "坐著的女人（右）"
+msgstr "坐着的女人（右）"
 
 #: ../sheets/ciscomisc.sheet.in.h:41
 msgid "Small Business"
@@ -8740,11 +8730,11 @@ msgstr "大學"
 
 #: ../sheets/ciscomisc.sheet.in.h:50
 msgid "Video Camera"
-msgstr "視訊攝影機"
+msgstr "視像攝影機"
 
 #: ../sheets/ciscomisc.sheet.in.h:51
 msgid "Video Camera right"
-msgstr "視訊攝影機（右）"
+msgstr "視像攝影機（右）"
 
 #: ../sheets/ciscomisc.sheet.in.h:52
 msgid "Woman"
@@ -8840,7 +8830,7 @@ msgstr "頻道化管道"
 
 #: ../sheets/cisconetwork.sheet.in.h:20
 msgid "Cisco - Network"
-msgstr "Cisco - 網路"
+msgstr "Cisco - 網絡"
 
 #: ../sheets/cisconetwork.sheet.in.h:21
 msgid "Cloud"
@@ -8884,7 +8874,7 @@ msgstr "偵測器"
 
 #: ../sheets/cisconetwork.sheet.in.h:31
 msgid "Digital Cross-Connect"
-msgstr "數位交叉連線"
+msgstr "數碼交叉連線"
 
 #: ../sheets/cisconetwork.sheet.in.h:32
 msgid "Directory Server"
@@ -9008,11 +8998,11 @@ msgstr "NAT"
 
 #: ../sheets/cisconetwork.sheet.in.h:63
 msgid "Network Management"
-msgstr "網路管理"
+msgstr "網絡管理"
 
 #: ../sheets/cisconetwork.sheet.in.h:64
 msgid "Network shapes by Cisco"
-msgstr "Cisco 網路圖形"
+msgstr "Cisco 網絡圖形"
 
 #: ../sheets/cisconetwork.sheet.in.h:65
 msgid "ONS15104"
@@ -9140,7 +9130,7 @@ msgstr "WDM"
 
 #: ../sheets/cisconetwork.sheet.in.h:96
 msgid "WLAN controller"
-msgstr "無線網路控制器"
+msgstr "無線網絡控制器"
 
 #: ../sheets/cisconetwork.sheet.in.h:97
 msgid "Wi-Fi Tag"
@@ -9152,7 +9142,7 @@ msgstr "無線橋接器"
 
 #: ../sheets/cisconetwork.sheet.in.h:99
 msgid "Wireless Connectivity"
-msgstr "無線網路連線"
+msgstr "無線網絡連線"
 
 #: ../sheets/cisconetwork.sheet.in.h:100
 msgid "Wireless Location Appliance"
@@ -9196,7 +9186,7 @@ msgstr "CallManager"
 
 #: ../sheets/ciscotelephony.sheet.in.h:8
 msgid "Cellular Phone"
-msgstr "行動電話"
+msgstr "流動電話"
 
 #: ../sheets/ciscotelephony.sheet.in.h:9
 msgid "Cisco - Telephony"
@@ -9220,7 +9210,7 @@ msgstr "Gatekeeper"
 
 #: ../sheets/ciscotelephony.sheet.in.h:14
 msgid "Generic softswitch"
-msgstr "一般軟體交換器"
+msgstr "一般軟件交換器"
 
 #: ../sheets/ciscotelephony.sheet.in.h:15
 msgid "H.323"
@@ -9248,7 +9238,7 @@ msgstr "IP 電話"
 
 #: ../sheets/ciscotelephony.sheet.in.h:21
 msgid "IP Softphone"
-msgstr "IP 軟體電話"
+msgstr "IP 軟件電話"
 
 #: ../sheets/ciscotelephony.sheet.in.h:22
 msgid "IP Telephony Router"
@@ -9296,7 +9286,7 @@ msgstr "PBX 交換器"
 
 #: ../sheets/ciscotelephony.sheet.in.h:33
 msgid "Pager"
-msgstr "呼叫器"
+msgstr "傳呼機"
 
 #: ../sheets/ciscotelephony.sheet.in.h:34
 msgid "Phone"
@@ -9312,7 +9302,7 @@ msgstr "電話裝置"
 
 #: ../sheets/ciscotelephony.sheet.in.h:37
 msgid "Phone Ethernet"
-msgstr "電話乙太網路"
+msgstr "電話乙太網絡"
 
 #: ../sheets/ciscotelephony.sheet.in.h:38
 msgid "Phone Feature"
@@ -9348,7 +9338,7 @@ msgstr "STP"
 
 #: ../sheets/ciscotelephony.sheet.in.h:46
 msgid "Softphone"
-msgstr "軟體電話"
+msgstr "軟件電話"
 
 #: ../sheets/ciscotelephony.sheet.in.h:47
 msgid "TDM router"
@@ -9592,7 +9582,7 @@ msgstr "ATM 交換器(switch)"
 
 #: ../sheets/network.sheet.in.h:4
 msgid "Antenna for wireless transmission"
-msgstr "無線網路天線"
+msgstr "無線網絡天線"
 
 #: ../sheets/network.sheet.in.h:5
 msgid "Bigtower PC"
@@ -9608,7 +9598,7 @@ msgstr "桌面電腦"
 
 #: ../sheets/network.sheet.in.h:8
 msgid "Digitizing board"
-msgstr "視訊卡"
+msgstr "視像卡"
 
 #: ../sheets/network.sheet.in.h:9
 msgid "Ethernet bus"
@@ -9624,7 +9614,7 @@ msgstr "防火牆路由器"
 
 #: ../sheets/network.sheet.in.h:12
 msgid "Laptop PC"
-msgstr "攜帶型電腦"
+msgstr "手提電腦"
 
 #: ../sheets/network.sheet.in.h:13
 msgid "Miditower PC"
@@ -9636,15 +9626,15 @@ msgstr "Minitower PC"
 
 #: ../sheets/network.sheet.in.h:15
 msgid "Mobile phone"
-msgstr "行動電話"
+msgstr "流動電話"
 
 #: ../sheets/network.sheet.in.h:16
 msgid "Mobile telephony base station"
-msgstr "行動電話基地台"
+msgstr "流動電話基地台"
 
 #: ../sheets/network.sheet.in.h:17
 msgid "Mobile telephony cell"
-msgstr "行動電話網格"
+msgstr "流動電話網格"
 
 #: ../sheets/network.sheet.in.h:18
 msgid "Modular switching system"
@@ -9652,11 +9642,11 @@ msgstr "模組化交換系統"
 
 #: ../sheets/network.sheet.in.h:20
 msgid "Network"
-msgstr "網路"
+msgstr "網絡"
 
 #: ../sheets/network.sheet.in.h:22
 msgid "Objects to design network diagrams with"
-msgstr "設計網路圖表用的物件"
+msgstr "設計網絡圖表用的物件"
 
 #: ../sheets/network.sheet.in.h:23
 msgid "Plotter"
@@ -9676,7 +9666,7 @@ msgstr "普通數據機"
 
 #: ../sheets/network.sheet.in.h:27
 msgid "Simple printer"
-msgstr "普通印表機"
+msgstr "普通打印機"
 
 #: ../sheets/network.sheet.in.h:28
 msgid "Speaker with integrated amplifier"

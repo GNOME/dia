@@ -1,3 +1,7 @@
+2007-07-09  Chao-Hsiung Liao  <j_h_liau@yahoo.com.tw>
+
+	* configure.in: Add "zh_HK" to ALL_LINGUAS.
+	
 2007-07-06  Steffen Macke <sdteffen@gmail.com>
 
 	* app/sheets_dialog_callbacks.c: Additional warning if the user tries
