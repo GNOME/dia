@@ -13,10 +13,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia.HEAD.es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-06-20 03:21+0100\n"
-"PO-Revision-Date: 2007-06-28 11:37+0200\n"
-"Last-Translator: Jorge Gonzalez <jorgegonz@svn.gnome.org>\n"
-"Language-Team: Español <traductores@es.gnome.org>\n"
+"POT-Creation-Date: 2007-07-07 03:39+0100\n"
+"PO-Revision-Date: 2007-07-12 11:21+0200\n"
+"Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
+"Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -752,7 +752,7 @@ msgstr "Cerrar el diagrama"
 msgid "_Discard Changes"
 msgstr "_Descartar los cambios"
 
-#: ../app/export_png.c:138 ../app/load_save.c:948 ../app/render_eps.c:105
+#: ../app/export_png.c:138 ../app/load_save.c:950 ../app/render_eps.c:105
 #: ../plug-ins/cairo/diacairo.c:984 ../plug-ins/cgm/cgm.c:1153
 #: ../plug-ins/dxf/dxf-export.c:485 ../plug-ins/hpgl/hpgl.c:710
 #: ../plug-ins/metapost/render_metapost.c:1177
@@ -959,49 +959,49 @@ msgstr "Línea Bézier"
 msgid "Image"
 msgstr "Imagen"
 
-#: ../app/interface.c:556 ../app/interface.c:798
+#: ../app/interface.c:561 ../app/interface.c:795
 msgid "Pops up the Navigation window."
 msgstr "Emerge la ventana de navegación."
 
-#: ../app/interface.c:760
+#: ../app/interface.c:757
 msgid "Diagram menu."
 msgstr "Menú de diagrama."
 
 # ¿"Ampliación" o "Amplía"? Fuzzy. RizOX.
-#: ../app/interface.c:864
+#: ../app/interface.c:861
 msgid "Zoom"
 msgstr "Ampliación"
 
-#: ../app/interface.c:879
+#: ../app/interface.c:876
 msgid "Toggles snap-to-grid for this window."
 msgstr "Conmuta el ajuste a la rejilla para esta ventana."
 
-#: ../app/interface.c:890
+#: ../app/interface.c:887
 msgid "Toggles object snapping for this window."
 msgstr "Conmuta el ajuste del objeto para esta ventana."
 
 # Fuzzy. RizOX
-#: ../app/interface.c:953
+#: ../app/interface.c:950
 msgid "NULL tooldata in tool_select_update"
 msgstr "InArray de herramienta nula (NULL) en tool_select_update"
 
-#: ../app/interface.c:1269
+#: ../app/interface.c:1266
 #, c-format
 msgid "No sheet named %s"
 msgstr "No hay ninguna hoja llamada %s"
 
 # ¿De dónde salían esa traducción y esa variable? No concuerda con el original inglés en nada. Lo cambio. RizOX.
-#: ../app/interface.c:1307
+#: ../app/interface.c:1304
 msgid "Other sheets"
 msgstr "Otras hojas"
 
-#: ../app/interface.c:1366 ../sheets/Misc.sheet.in.h:3
+#: ../app/interface.c:1363 ../sheets/Misc.sheet.in.h:3
 msgid "Misc"
 msgstr "Misc"
 
 # Corregido: lleva doble espacio antes de cada frase.
 # "Pulse doble" o "Pulse dos veces" me suena más natural. RizOX.
-#: ../app/interface.c:1426
+#: ../app/interface.c:1423
 msgid ""
 "Foreground & background colors for new objects.  The small black and white "
 "squares reset colors.  The small arrows swap colors.  Double click to change "
@@ -1012,7 +1012,7 @@ msgstr ""
 "los colores.  Pulse dos veces para cambiar los colores."
 
 # Corregido: doble espacio al principio de línea. Cambiada la segunda expresión para darle mayor naturalidad. RizOX.
-#: ../app/interface.c:1441
+#: ../app/interface.c:1438
 msgid ""
 "Line widths.  Click on a line to set the default line width for new "
 "objects.  Double-click to set the line width more precisely."
@@ -1022,7 +1022,7 @@ msgstr ""
 "anchura con mayor precisión."
 
 # La coma antes del "o" no queda bien en la frase en español. RizOX.
-#: ../app/interface.c:1484
+#: ../app/interface.c:1481
 msgid ""
 "Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
 "arrow parameters with Details..."
@@ -1031,7 +1031,7 @@ msgstr ""
 "flecha o establezca los parámetros de la flecha en Detalles..."
 
 # La coma antes del "o" no queda bien en la frase en español. Añadido el doble espacio del comienzo de frase según original en inglés. RizOX.
-#: ../app/interface.c:1489
+#: ../app/interface.c:1486
 msgid ""
 "Line style for new lines.  Click to pick a line style, or set line style "
 "parameters with Details..."
@@ -1040,7 +1040,7 @@ msgstr ""
 "línea o establezca los parámetros de estilo de línea en Detalles..."
 
 # La coma antes del "o" no queda bien en la frase en español. Añadido el doble espacio del comienzo de frase según original en inglés. Cambiado "con Detalles" por "en Detalles" para mantener la coherencia con la traducción de las anteriores entradas. RizOX.
-#: ../app/interface.c:1505
+#: ../app/interface.c:1502
 msgid ""
 "Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
 "parameters with Details..."
@@ -1048,7 +1048,7 @@ msgstr ""
 "Estilo de flecha al final de las líneas nuevas.  Pulse para escoger una "
 "flecha o establezca los parámetros de la flecha en Detalles..."
 
-#: ../app/interface.c:1549 ../app/interface.c:1677
+#: ../app/interface.c:1546 ../app/interface.c:1674
 msgid "Diagram Editor"
 msgstr "Editor de diagramas"
 
@@ -1107,7 +1107,7 @@ msgid "Line width:"
 msgstr "Ancho de línea:"
 
 # Cambiado el orden de la frase para mayor naturalidad. RizOX.
-#: ../app/load_save.c:260
+#: ../app/load_save.c:262
 msgid ""
 "Error loading diagram.\n"
 "Linked object not found in document."
@@ -1115,7 +1115,7 @@ msgstr ""
 "Error cargando diagrama.\n"
 "No se ha encontrado en el documento el objeto enlazado."
 
-#: ../app/load_save.c:263
+#: ../app/load_save.c:265
 msgid ""
 "Error loading diagram.\n"
 "connection handle does not exist."
@@ -1123,7 +1123,7 @@ msgstr ""
 "Error cargando diagrama.\n"
 "No existe manejador de conexión."
 
-#: ../app/load_save.c:280
+#: ../app/load_save.c:282
 #, c-format
 msgid ""
 "Error loading diagram.\n"
@@ -1132,18 +1132,18 @@ msgstr ""
 "Error cargando diagrama.\n"
 "El punto de conexión %s no existe."
 
-#: ../app/load_save.c:305
+#: ../app/load_save.c:307
 #, c-format
 msgid "Can't find parent %s of %s object\n"
 msgstr "No se pudo encontrar el objeto padre %s de %s\n"
 
-#: ../app/load_save.c:351 ../objects/SISSI/area.c:204
+#: ../app/load_save.c:353 ../objects/SISSI/area.c:204
 #: ../objects/SISSI/faraday.c:204 ../objects/SISSI/room.c:204
 #: ../objects/SISSI/sissi_object.c:194 ../objects/SISSI/site.c:207
 msgid "You must specify a file, not a directory.\n"
 msgstr "Debe especificar un archivo, no un directorio.\n"
 
-#: ../app/load_save.c:358 ../objects/SISSI/area.c:210
+#: ../app/load_save.c:360 ../objects/SISSI/area.c:210
 #: ../objects/SISSI/faraday.c:210 ../objects/SISSI/room.c:210
 #: ../objects/SISSI/sissi_object.c:201 ../objects/SISSI/site.c:213
 #: ../plug-ins/dxf/dxf-import.c:1304 ../plug-ins/wpg/wpg.c:1177
@@ -1152,7 +1152,7 @@ msgstr "Debe especificar un archivo, no un directorio.\n"
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "No se pudo abrir: «%s» para lectura.\n"
 
-#: ../app/load_save.c:376 ../app/load_save.c:382 ../objects/SISSI/area.c:219
+#: ../app/load_save.c:378 ../app/load_save.c:384 ../objects/SISSI/area.c:219
 #: ../objects/SISSI/area.c:225 ../objects/SISSI/faraday.c:219
 #: ../objects/SISSI/faraday.c:225 ../objects/SISSI/room.c:219
 #: ../objects/SISSI/room.c:225 ../objects/SISSI/sissi_object.c:211
@@ -1166,7 +1166,7 @@ msgstr ""
 "Error cargando el diagrama %s.\n"
 "Tipo de archivo desconocido."
 
-#: ../app/load_save.c:390 ../objects/SISSI/area.c:233
+#: ../app/load_save.c:392 ../objects/SISSI/area.c:233
 #: ../objects/SISSI/faraday.c:233 ../objects/SISSI/room.c:233
 #: ../objects/SISSI/sissi_object.c:225 ../objects/SISSI/site.c:236
 #, c-format
@@ -1177,7 +1177,7 @@ msgstr ""
 "Error cargando el diagrama %s.\n"
 "No es un archivo de Dia."
 
-#: ../app/load_save.c:596
+#: ../app/load_save.c:598
 #, c-format
 msgid ""
 "Error loading diagram:\n"
@@ -1188,29 +1188,29 @@ msgstr ""
 "%s.\n"
 "Un archivo válido de Dia define al menos una capa."
 
-#: ../app/load_save.c:904
+#: ../app/load_save.c:906
 #, c-format
 msgid "Not allowed to write to output file %s\n"
 msgstr "No hay permiso para escribir el archivo de salida %s\n"
 
-#: ../app/load_save.c:926
+#: ../app/load_save.c:928
 #, c-format
 msgid "Not allowed to write temporary files in %s\n"
 msgstr "No se permite escribir archivos temporales en %s\n"
 
 #. Save failed; we clean our stuff up, without touching the file named
 #. "filename" if it existed.
-#: ../app/load_save.c:959
+#: ../app/load_save.c:961
 #, c-format
 msgid "Internal error %d writing file %s\n"
 msgstr "Error interno %d escribiendo archivo %s\n"
 
-#: ../app/load_save.c:973
+#: ../app/load_save.c:975
 #, c-format
 msgid "Can't rename %s to final output file %s: %s\n"
 msgstr "No se pudo renombrar %s al archivo final de salida %s: %s\n"
 
-#: ../app/load_save.c:1061 ../app/load_save.c:1066
+#: ../app/load_save.c:1063 ../app/load_save.c:1068
 msgid "Dia Diagram File"
 msgstr "Archivo de diagrama de Dia"
 
@@ -1909,7 +1909,7 @@ msgid "Sheet name:"
 msgstr "Nombre de la hoja:"
 
 #: ../app/sheets_dialog.c:446 ../app/sheets_dialog_callbacks.c:291
-#: ../app/sheets_dialog_callbacks.c:1094
+#: ../app/sheets_dialog_callbacks.c:1108
 msgid "Line Break"
 msgstr "Salto de línea"
 
@@ -2015,47 +2015,51 @@ msgstr "El nombre de archivo debe terminar en «%s»: «%s»"
 msgid "Error examining %s: %s"
 msgstr "Error al examinar %s: %s"
 
+#: ../app/sheets_dialog_callbacks.c:841
+msgid "Please export the diagram as a shape."
+msgstr "Por favor, exporte el diagrama como una forma."
+
 # Mantengo la traducción anterior de "Shape" como "Forma" en vez de "Figura". RizOX.
-#: ../app/sheets_dialog_callbacks.c:831
+#: ../app/sheets_dialog_callbacks.c:844
 #, c-format
 msgid "Could not interpret shape file: '%s'"
 msgstr "No se pudo interpretar el archivo de forma: «%s»"
 
-#: ../app/sheets_dialog_callbacks.c:901
+#: ../app/sheets_dialog_callbacks.c:915
 msgid "Sheet must have a Name"
 msgstr "La hoja debe tener un nombre"
 
-#: ../app/sheets_dialog_callbacks.c:1598 ../app/sheets_dialog_callbacks.c:1605
+#: ../app/sheets_dialog_callbacks.c:1612 ../app/sheets_dialog_callbacks.c:1619
 #, c-format
 msgid "Couldn't open '%s': %s"
 msgstr "No se pudo abrir «%s»: %s"
 
-#: ../app/sheets_dialog_callbacks.c:1657
+#: ../app/sheets_dialog_callbacks.c:1671
 #, c-format
 msgid "Couldn't open: '%s' for writing"
 msgstr "No se pudo abrir: «%s» para escritura."
 
-#: ../app/sheets_dialog_callbacks.c:1667
+#: ../app/sheets_dialog_callbacks.c:1681
 msgid "a user"
 msgstr "un usuario"
 
-#: ../app/sheets_dialog_callbacks.c:1680
+#: ../app/sheets_dialog_callbacks.c:1694
 #, c-format
 msgid "File: %s"
 msgstr "Archivo: %s"
 
-#: ../app/sheets_dialog_callbacks.c:1683
+#: ../app/sheets_dialog_callbacks.c:1697
 #, c-format
 msgid "Date: %s"
 msgstr "Fecha: %s"
 
-#: ../app/sheets_dialog_callbacks.c:1687
+#: ../app/sheets_dialog_callbacks.c:1701
 #, c-format
 msgid "For: %s"
 msgstr "Para: %s"
 
 # Mantengo la traducción anterior de "Shape" como "Forma" en vez de "Figura". RizOX.
-#: ../app/sheets_dialog_callbacks.c:1704
+#: ../app/sheets_dialog_callbacks.c:1718
 msgid "add shapes here"
 msgstr "añadir formas aquí"
 
@@ -2223,7 +2227,9 @@ msgstr "Cabezas de flechas de tipo desconocido"
 #: ../lib/arrows.c:1900
 #, c-format
 msgid "Arrow head of type %s has too small dimensions, removing.\n"
-msgstr "Las dimensiones de la cabeza de flecha de tipo %s son muy pequeñas, se ha eliminado.\n"
+msgstr ""
+"Las dimensiones de la cabeza de flecha de tipo %s son muy pequeñas, se ha "
+"eliminado.\n"
 
 #: ../lib/arrows.c:2021
 msgid "unknown arrow"
@@ -3463,7 +3469,7 @@ msgstr "Colisionar"
 #. Translators: Menu item Verb/Control Magnitude/Form/Shape
 #: ../objects/FS/function.c:1006
 msgid "Shape"
-msgstr "Figura"
+msgstr "Forma"
 
 #. Translators: Menu item Verb/Control Magnitude/Form/Compress
 #: ../objects/FS/function.c:1008
@@ -4414,7 +4420,7 @@ msgstr "ORGANIZACIÓN"
 
 #: ../objects/SISSI/sissi.h:265
 msgid "Higher-tier organisation"
-msgstr ""
+msgstr "Organización de alto nivel"
 
 #: ../objects/SISSI/sissi.h:266
 msgid "Structure of the organisation"
@@ -4450,7 +4456,7 @@ msgstr "Zona"
 
 #: ../objects/SISSI/sissi.h:278
 msgid "Service Essentiel"
-msgstr ""
+msgstr "Control de revisión"
 
 #: ../objects/SISSI/sissi.h:279
 msgid "Communication"
@@ -4566,7 +4572,7 @@ msgstr "Interfaz de comunicación"
 
 #: ../objects/SISSI/sissi.h:355
 msgid "LOGICIEL"
-msgstr ""
+msgstr "LÓGICO"
 
 #: ../objects/SISSI/sissi.h:356
 msgid "Operating System"
@@ -4656,7 +4662,7 @@ msgstr "Otras propiedades"
 #. ********* Label of board *********
 #: ../objects/SISSI/sissi_dialog.c:610
 msgid "Libelle"
-msgstr ""
+msgstr "Etiqueta"
 
 #: ../objects/SISSI/sissi_dialog.c:612
 msgid "value"
@@ -5718,7 +5724,7 @@ msgstr "Archivo de forma de Dia"
 
 #: ../plug-ins/shape/shape.c:36
 msgid "dia shape export filter"
-msgstr "Filtro de exportación de archivo de figura de Dia"
+msgstr "Filtro de exportación de archivo de forma de Dia"
 
 #: ../plug-ins/svg/render_svg.c:294 ../plug-ins/svg/svg-import.c:676
 msgid "Scalable Vector Graphics"
@@ -6334,7 +6340,7 @@ msgstr "Bucle de actividad"
 
 #: ../sheets/BPMN.sheet.in.h:2
 msgid "Ad-Hoc Collapsed Sub-Process"
-msgstr "Sub-Proceso contraído Ad-Hoc"
+msgstr "Subproceso contraído Ad-Hoc"
 
 #. For: anthonym
 #: ../sheets/BPMN.sheet.in.h:4
@@ -6458,11 +6464,11 @@ msgstr "Evento intermedio - Contador"
 
 #: ../sheets/BPMN.sheet.in.h:33
 msgid "Looping Collapsed Sub-Process"
-msgstr ""
+msgstr "Subproceso contraído en bucle"
 
 #: ../sheets/BPMN.sheet.in.h:34
 msgid "Multiple Instance Collapsed Sub-Process"
-msgstr ""
+msgstr "Subproceso contraído de múltiples instancias"
 
 #: ../sheets/BPMN.sheet.in.h:35
 msgid "Multiple Instance Task"
@@ -8805,7 +8811,7 @@ msgstr "Edificio medio azul poco activo"
 
 #: ../sheets/ciscomisc.sheet.in.h:31
 msgid "Miscellaneous shapes by Cisco"
-msgstr "Figuras variadas de Cisco"
+msgstr "Formas variadas de Cisco"
 
 #: ../sheets/ciscomisc.sheet.in.h:32
 msgid "PC Man"
