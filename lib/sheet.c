@@ -192,7 +192,7 @@ load_register_sheet(const gchar *dirname, const gchar *filename,
   xmlDocPtr doc;
   xmlNsPtr ns;
   xmlNodePtr node, contents,subnode,root;
-  char *tmp;
+  xmlChar *tmp;
   gchar *name = NULL, *description = NULL;
   int name_score = -1;
   int descr_score = -1;
@@ -212,13 +212,13 @@ load_register_sheet(const gchar *dirname, const gchar *filename,
   if (!root) return;
   if (xmlIsBlankNode(root)) return;
 
-  if (!(ns = xmlSearchNsByHref(doc,root,
+  if (!(ns = xmlSearchNsByHref(doc,root, (const xmlChar *)
 	   DIA_XML_NAME_SPACE_BASE "dia-sheet-ns"))) {
     g_warning("could not find sheet namespace");
     xmlFreeDoc(doc); 
     return;
   }
-    if ((root->ns != ns) || (strcmp(root->name,"sheet"))) {
+    if ((root->ns != ns) || (xmlStrcmp(root->name, (const xmlChar *)"sheet"))) {
     g_warning("root element was %s -- expecting sheet", 
               doc->xmlRootNode->name);
     xmlFreeDoc(doc);
@@ -231,7 +231,7 @@ load_register_sheet(const gchar *dirname, const gchar *filename,
     if (node->type != XML_ELEMENT_NODE)
       continue;
 
-    if (node->ns == ns && !strcmp(node->name, "name")) {
+    if (node->ns == ns && !xmlStrcmp(node->name, (const xmlChar *)"name")) {
       gint score;
       
       /* compare the xml:lang property on this element to see if we get a
@@ -253,26 +253,26 @@ load_register_sheet(const gchar *dirname, const gchar *filename,
       if (name_score < 0 || score < name_score) {
         name_score = score;
         if (name) xmlFree(name);
-        name = xmlNodeGetContent(node);
+        name = (char *) xmlNodeGetContent(node);
       }      
-    } else if (node->ns == ns && !strcmp(node->name, "description")) {
+    } else if (node->ns == ns && !xmlStrcmp(node->name, (const xmlChar *)"description")) {
       gint score;
 
       /* compare the xml:lang property on this element to see if we get a
        * better language match.  LibXML seems to throw away attribute
        * namespaces, so we use "lang" instead of "xml:lang" */
-      tmp = xmlGetProp(node, "xml:lang");
-      if (!tmp) tmp = xmlGetProp(node, "lang");
-      score = intl_score_locale(tmp);
+      tmp = xmlGetProp(node, (const xmlChar *)"xml:lang");
+      if (!tmp) tmp = xmlGetProp(node, (const xmlChar *)"lang");
+      score = intl_score_locale((char *) tmp);
       if (tmp) xmlFree(tmp);
 
       if (descr_score < 0 || score < descr_score) {
         descr_score = score;
         if (description) xmlFree(description);
-        description = xmlNodeGetContent(node);
+        description = (char *) xmlNodeGetContent(node);
       }
       
-    } else if (node->ns == ns && !strcmp(node->name, "contents")) {
+    } else if (node->ns == ns && !xmlStrcmp(node->name, (const xmlChar *)"contents")) {
       contents = node;
     }
   }
@@ -359,27 +359,27 @@ load_register_sheet(const gchar *dirname, const gchar *filename,
     if (node->type != XML_ELEMENT_NODE) 
       continue;
     if (node->ns != ns) continue;
-    if (!strcmp(node->name,"object")) {
+    if (!xmlStrcmp(node->name, (const xmlChar *)"object")) {
       /* nothing */
-    } else if (!strcmp(node->name,"shape")) {
+    } else if (!xmlStrcmp(node->name, (const xmlChar *)"shape")) {
       g_message("%s: you should use object tags rather than shape tags now",
                 filename);
-    } else if (!strcmp(node->name,"br")) {
+    } else if (!xmlStrcmp(node->name, (const xmlChar *)"br")) {
       /* Line break tag. */
       set_line_break = TRUE;
       continue;
     } else
       continue; /* unknown tag */
     
-    tmp = xmlGetProp(node,"intdata");
+    tmp = xmlGetProp(node, (const xmlChar *)"intdata");
     if (tmp) { 
       char *p;
-      intdata = (gint)strtol(tmp,&p,0);
+      intdata = (gint)strtol((char *) tmp,&p,0);
       if (*p != 0) intdata = 0;
       xmlFree(tmp);
       has_intdata = TRUE;
     }
-    chardata = xmlGetProp(node,"chardata");
+    chardata = (gchar *) xmlGetProp(node, (const xmlChar *)"chardata");
     /* TODO.... */
     if (chardata) xmlFree(chardata);
     
@@ -388,36 +388,36 @@ load_register_sheet(const gchar *dirname, const gchar *filename,
          subnode = subnode->next) {
       if (xmlIsBlankNode(subnode)) continue;
 
-      if (subnode->ns == ns && !strcmp(subnode->name, "description")) {
+      if (subnode->ns == ns && !xmlStrcmp(subnode->name, (const xmlChar *)"description")) {
 	gint score;
 
 	/* compare the xml:lang property on this element to see if we get a
 	 * better language match.  LibXML seems to throw away attribute
 	 * namespaces, so we use "lang" instead of "xml:lang" */
 	  
-	tmp = xmlGetProp(subnode, "xml:lang");
-	if (!tmp) tmp = xmlGetProp(subnode, "lang");
-	score = intl_score_locale(tmp);
+	tmp = xmlGetProp(subnode, (xmlChar *)"xml:lang");
+	if (!tmp) tmp = xmlGetProp(subnode, (xmlChar *)"lang");
+	score = intl_score_locale((char *) tmp);
 	if (tmp) xmlFree(tmp);
 
 	if (subdesc_score < 0 || score < subdesc_score) {
 	  subdesc_score = score;
-	  if (objdesc) xmlFree(objdesc);
-	  objdesc = xmlNodeGetContent(subnode);
+	  if (objdesc) free(objdesc);
+	  objdesc = (gchar *) xmlNodeGetContent(subnode);
 	}
 	  
-      } else if (subnode->ns == ns && !strcmp(subnode->name,"icon")) {
+      } else if (subnode->ns == ns && !xmlStrcmp(subnode->name, (const xmlChar *)"icon")) {
           tmp = xmlNodeGetContent(subnode);
-          iconname = g_strconcat(dirname,G_DIR_SEPARATOR_S,tmp,NULL);
+          iconname = g_strconcat(dirname,G_DIR_SEPARATOR_S, (char *) tmp,NULL);
           has_icon_on_sheet = TRUE;
           if (tmp) xmlFree(tmp);
       }
     }
 
-    tmp = xmlGetProp(node,"name");
+    tmp = xmlGetProp(node, (xmlChar *)"name");
 
     sheet_obj = g_new(SheetObject,1);
-    sheet_obj->object_type = g_strdup(tmp);
+    sheet_obj->object_type = g_strdup((char *) tmp);
     sheet_obj->description = g_strdup(objdesc);
     xmlFree(objdesc); objdesc = NULL;
 
@@ -430,7 +430,7 @@ load_register_sheet(const gchar *dirname, const gchar *filename,
     sheet_obj->line_break = set_line_break;
     set_line_break = FALSE;
 
-    if ((otype = object_get_type(tmp)) == NULL) {
+    if ((otype = object_get_type((char *) tmp)) == NULL) {
       /* Don't complain. This does happen when disabling plug-ins too.
       g_warning("object_get_type(%s) returned NULL", tmp); */
       if (sheet_obj->description) g_free(sheet_obj->description);

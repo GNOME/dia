@@ -522,10 +522,10 @@ ensure_pluginrc(void)
   g_free(filename);
 
   if (!pluginrc) {
-    pluginrc = xmlNewDoc("1.0");
-    pluginrc->encoding = xmlStrdup("UTF-8");
+    pluginrc = xmlNewDoc((const xmlChar *)"1.0");
+    pluginrc->encoding = xmlStrdup((const xmlChar *)"UTF-8");
     xmlDocSetRootElement(pluginrc,
-			 xmlNewDocNode(pluginrc, NULL, "plugins", NULL));
+			 xmlNewDocNode(pluginrc, NULL, (const xmlChar *)"plugins", NULL));
   }
 }
 
@@ -552,10 +552,10 @@ plugin_load_inhibited(const gchar *filename)
 
     if (xmlIsBlankNode(node)) continue;
 
-    if (node->type != XML_ELEMENT_NODE || strcmp(node->name, "plugin") != 0)
+    if (node->type != XML_ELEMENT_NODE || xmlStrcmp(node->name, (const xmlChar *)"plugin") != 0)
       continue;
-    node_filename = xmlGetProp(node, "filename");
-    if (node_filename && !strcmp(filename, node_filename)) {
+    node_filename = xmlGetProp(node, (const xmlChar *)"filename");
+    if (node_filename && !strcmp(filename, (gchar *)node_filename)) {
       xmlNodePtr node2;
 
       xmlFree(node_filename);
@@ -564,7 +564,7 @@ plugin_load_inhibited(const gchar *filename)
            node2 = node2->next) {
         if (xmlIsBlankNode(node2)) continue;
 	if (node2->type == XML_ELEMENT_NODE &&
-	    !strcmp(node2->name, "inhibit-load"))
+	    !xmlStrcmp(node2->name, (const xmlChar *)"inhibit-load"))
 	  return TRUE;
       }
       return FALSE;
@@ -596,27 +596,27 @@ info_fill_from_pluginrc(PluginInfo *info)
 
     if (xmlIsBlankNode(node)) continue;
 
-    if (node->type != XML_ELEMENT_NODE || strcmp(node->name, "plugin") != 0)
+    if (node->type != XML_ELEMENT_NODE || xmlStrcmp(node->name, (const xmlChar *)"plugin") != 0)
       continue;
-    node_filename = xmlGetProp(node, "filename");
-    if (node_filename && !strcmp(info->filename, node_filename)) {
+    node_filename = xmlGetProp(node, (const xmlChar *)"filename");
+    if (node_filename && !strcmp(info->filename, (char *) node_filename)) {
       xmlNodePtr node2;
 
       xmlFree(node_filename);
       for (node2 = node->xmlChildrenNode; 
            node2 != NULL; 
            node2 = node2->next) {
-	char *content;
+	gchar *content;
 
         if (xmlIsBlankNode(node2)) continue;
 
 	if (node2->type != XML_ELEMENT_NODE)
 	  continue;
-	content = xmlNodeGetContent(node2);
-	if (!strcmp(node2->name, "name")) {
+	content = (gchar *)xmlNodeGetContent(node2);
+	if (!xmlStrcmp(node2->name, (const xmlChar *)"name")) {
 	  g_free(info->name);
 	  info->name = g_strdup(content);
-	} else if (!strcmp(node2->name, "description")) {
+	} else if (!xmlStrcmp(node2->name, (const xmlChar *)"description")) {
 	  g_free(info->description);
 	  info->description = g_strdup(content);
 	}
@@ -643,17 +643,17 @@ dia_pluginrc_write(void)
       continue;
     }
 
-    pluginnode = xmlNewNode(NULL, "plugin");
-    datanode = xmlNewChild(pluginnode, NULL, "name", info->name);
+    pluginnode = xmlNewNode(NULL, (const xmlChar *)"plugin");
+    datanode = xmlNewChild(pluginnode, NULL, (const xmlChar *)"name", (xmlChar *)info->name);
     /* FIXME: UNICODE_WORK_IN_PROGRESS why is this reencoding necessary ?*/
  {
      xmlChar *enc = xmlEncodeEntitiesReentrant(pluginnode->doc,
-                                               info->description);
-     datanode = xmlNewChild(pluginnode, NULL, "description", enc);
+                                               (xmlChar *)info->description);
+     datanode = xmlNewChild(pluginnode, NULL, (const xmlChar *)"description", enc);
      xmlFree(enc);
  }
     if (info->inhibit_load)
-      datanode = xmlNewChild(pluginnode, NULL, "inhibit-load", NULL);
+      datanode = xmlNewChild(pluginnode, NULL, (const xmlChar *)"inhibit-load", NULL);
 
     for (node = pluginrc->xmlRootNode->xmlChildrenNode; 
          node != NULL; 
@@ -662,10 +662,10 @@ dia_pluginrc_write(void)
 
       if (xmlIsBlankNode(node)) continue;
 
-      if (node->type != XML_ELEMENT_NODE || strcmp(node->name, "plugin") != 0)
+      if (node->type != XML_ELEMENT_NODE || xmlStrcmp(node->name, (const xmlChar *)"plugin") != 0)
 	continue;
-      node_filename = xmlGetProp(node, "filename");
-      if (node_filename && !strcmp(info->filename, node_filename)) {
+      node_filename = xmlGetProp(node, (const xmlChar *)"filename");
+      if (node_filename && !strcmp(info->filename, (char *) node_filename)) {
 	xmlFree(node_filename);
 	xmlReplaceNode(node, pluginnode);
 	xmlFreeNode(node);
@@ -677,7 +677,7 @@ dia_pluginrc_write(void)
     if (!node)
       xmlAddChild(pluginrc->xmlRootNode, pluginnode);
     /* have to call this after adding node to document */
-    xmlSetProp(pluginnode, "filename", info->filename);
+    xmlSetProp(pluginnode, (const xmlChar *)"filename", (xmlChar *)info->filename);
   }
 
   filename = dia_config_filename("pluginrc");

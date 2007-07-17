@@ -284,23 +284,23 @@ void custom_setup_properties (ShapeInfo *info, xmlNodePtr node)
 	continue;
       if (node->type != XML_ELEMENT_NODE)
 	continue;
-      if (!strcmp(node->name, "ext_attribute"))
+      if (!xmlStrcmp(node->name, (const xmlChar *)"ext_attribute"))
       {
 	gchar *pname, *ptype = 0;
 
-	str = xmlGetProp(node, "name");
+	str = xmlGetProp(node, (const xmlChar *)"name");
 	if (!str)
 	  continue;
-	pname = g_strdup(str);
+	pname = g_strdup((gchar *) str);
 	xmlFree(str);
 
-	str = xmlGetProp(node, "type");
+	str = xmlGetProp(node, (const xmlChar *)"type");
 	if (!str)
 	{
 	  g_free (pname);
 	  continue;
 	}
-	ptype = g_strdup(str);
+	ptype = g_strdup((gchar *) str);
 	xmlFree(str);
 
 	/* we got here, then fill an entry */
@@ -308,11 +308,11 @@ void custom_setup_properties (ShapeInfo *info, xmlNodePtr node)
 	info->props[i].type = ptype;
 	info->props[i].flags = PROP_FLAG_VISIBLE;
 
-	str = xmlGetProp(node, "description");
+	str = xmlGetProp(node, (const xmlChar *)"description");
 	if (str)
 	{
 	  g_free (pname);
-	  pname = g_strdup(str);
+	  pname = g_strdup((gchar *) str);
 	  xmlFree(str);
 	}
 	info->props[i++].description = pname;

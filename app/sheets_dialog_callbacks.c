@@ -836,7 +836,7 @@ on_sheets_new_dialog_button_ok_clicked (GtkButton       *button,
 	if(doc != NULL)
 	{
 		root_element = xmlDocGetRootElement(doc);
-		if(0 == g_strncasecmp(root_element->name, "dia", 3))
+		if(0 == g_strncasecmp((gchar *)root_element->name, "dia", 3))
 			message_error(
 				_("Please export the diagram as a shape."));
 		xmlFreeDoc(doc);
@@ -1680,43 +1680,43 @@ write_user_sheet(Sheet *sheet)
   if (username==NULL)
     username = _("a user");
 
-  doc = xmlNewDoc("1.0");
-  doc->encoding = xmlStrdup("UTF-8");
+  doc = xmlNewDoc((const xmlChar *)"1.0");
+  doc->encoding = xmlStrdup((const xmlChar *)"UTF-8");
   doc->standalone = FALSE;
-  root = xmlNewDocNode(doc, NULL, "sheet", NULL);
+  root = xmlNewDocNode(doc, NULL, (const xmlChar *)"sheet", NULL);
   doc->xmlRootNode = root;
-  xmlSetProp(root, "xmlns", DIA_XML_NAME_SPACE_BASE "dia-sheet-ns");
+  xmlSetProp(root, (const xmlChar *)"xmlns", (const xmlChar *) DIA_XML_NAME_SPACE_BASE "dia-sheet-ns");
 
   /* comments */
-  xmlAddChild(root, xmlNewText("\n"));
-  xmlAddChild(root, xmlNewComment("Dia-Version: "VERSION));
-  xmlAddChild(root, xmlNewText("\n"));
+  xmlAddChild(root, xmlNewText((const xmlChar *)"\n"));
+  xmlAddChild(root, xmlNewComment((const xmlChar *)"Dia-Version: "VERSION));
+  xmlAddChild(root, xmlNewText((const xmlChar *)"\n"));
   g_snprintf(buf, sizeof(buf), _("File: %s"), filename);
-  xmlAddChild(root, xmlNewComment(buf));
-  xmlAddChild(root, xmlNewText("\n"));
+  xmlAddChild(root, xmlNewComment((xmlChar *)buf));
+  xmlAddChild(root, xmlNewText((const xmlChar *)"\n"));
   g_snprintf(buf, sizeof(buf), _("Date: %s"), ctime(&time_now));
   buf[strlen(buf)-1] = '\0'; /* remove the trailing new line */
-  xmlAddChild(root, xmlNewComment(buf));
-  xmlAddChild(root, xmlNewText("\n"));
+  xmlAddChild(root, xmlNewComment((xmlChar *)buf));
+  xmlAddChild(root, xmlNewText((const xmlChar *)"\n"));
   g_snprintf(buf, sizeof(buf), _("For: %s"), username);
-  xmlAddChild(root, xmlNewComment(buf));
-  xmlAddChild(root, xmlNewText("\n\n"));
+  xmlAddChild(root, xmlNewComment((xmlChar *)buf));
+  xmlAddChild(root, xmlNewText((const xmlChar *)"\n\n"));
 
   /* sheet name */
-  node = xmlNewChild(root, NULL, "name", NULL);
-  xmlAddChild(node, xmlNewText(sheet->name));
-  xmlAddChild(root, xmlNewText("\n"));
+  node = xmlNewChild(root, NULL, (const xmlChar *)"name", NULL);
+  xmlAddChild(node, xmlNewText((xmlChar *)sheet->name));
+  xmlAddChild(root, xmlNewText((const xmlChar *)"\n"));
 
   /* sheet description */
-  node = xmlNewChild(root, NULL, "description", NULL);
-  xmlAddChild(node, xmlNewText(sheet->description));
-  xmlAddChild(root, xmlNewText("\n"));
+  node = xmlNewChild(root, NULL, (const xmlChar *)"description", NULL);
+  xmlAddChild(node, xmlNewText((xmlChar *)sheet->description));
+  xmlAddChild(root, xmlNewText((const xmlChar *)"\n"));
 
   /* content */
-  node = xmlNewChild(root, NULL, "contents", NULL);
-  xmlAddChild(node, xmlNewText("\n"));
-  xmlAddChild(node, xmlNewComment(_("add shapes here")));
-  xmlAddChild(node, xmlNewText("\n"));
+  node = xmlNewChild(root, NULL, (const xmlChar *)"contents", NULL);
+  xmlAddChild(node, xmlNewText((const xmlChar *)"\n"));
+  xmlAddChild(node, xmlNewComment((const xmlChar *) _("add shapes here")));
+  xmlAddChild(node, xmlNewText((const xmlChar *)"\n"));
 
   /* objects */
   for (sheet_objects = sheet->objects; sheet_objects; 
@@ -1751,30 +1751,30 @@ write_user_sheet(Sheet *sheet)
     }
 
     sheetobject = &som->sheet_object;
-    object_node = xmlNewChild(node, NULL, "object", NULL);
+    object_node = xmlNewChild(node, NULL, (const xmlChar *)"object", NULL);
     
-    xmlSetProp(object_node, "name", sheetobject->object_type);
+    xmlSetProp(object_node, (const xmlChar *)"name", (xmlChar *)sheetobject->object_type);
     
     if (sheetobject->user_data_type == USER_DATA_IS_INTDATA)
     {
       gchar *user_data;
 
       user_data = g_strdup_printf("%u", (guint)(sheetobject->user_data));
-      xmlSetProp(object_node, "intdata", user_data);
+      xmlSetProp(object_node, (const xmlChar *)"intdata", (xmlChar *) user_data);
       g_free(user_data);
     }
       
-    xmlAddChild(object_node, xmlNewText("\n"));
-    desc_node = xmlNewChild(object_node, NULL, "description", NULL);
-    xmlAddChild(desc_node, xmlNewText(sheetobject->description));
-    /*    xmlAddChild(object_node, xmlNewText("\n")); */
+    xmlAddChild(object_node, xmlNewText((const xmlChar *)"\n"));
+    desc_node = xmlNewChild(object_node, NULL, (const xmlChar *)"description", NULL);
+    xmlAddChild(desc_node, xmlNewText((xmlChar *) sheetobject->description));
+    /*    xmlAddChild(object_node, xmlNewText((const xmlChar *)"\n")); */
 
     if (sheetobject->has_icon_on_sheet == TRUE)
     {
-      xmlAddChild(object_node, xmlNewText("\n"));
-      icon_node = xmlNewChild(desc_node, NULL, "icon", NULL);
-      xmlAddChild(icon_node, xmlNewText(sheetobject->pixmap_file));
-      xmlAddChild(object_node, xmlNewText("\n"));
+      xmlAddChild(object_node, xmlNewText((const xmlChar *)"\n"));
+      icon_node = xmlNewChild(desc_node, NULL, (const xmlChar *)"icon", NULL);
+      xmlAddChild(icon_node, xmlNewText((xmlChar *) sheetobject->pixmap_file));
+      xmlAddChild(object_node, xmlNewText((const xmlChar *)"\n"));
     }
   }
   xmlSetDocCompressMode(doc, 0);

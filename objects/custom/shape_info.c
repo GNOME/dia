@@ -60,11 +60,11 @@ ShapeInfo *
 shape_info_get(ObjectNode obj_node)
 {
   ShapeInfo *info = NULL;
-  char *str;
+  xmlChar *str;
 
-  str = xmlGetProp(obj_node, "type");
+  str = xmlGetProp(obj_node, (const xmlChar *)"type");
   if (str && name_to_info) {
-    info = g_hash_table_lookup(name_to_info, str);
+    info = g_hash_table_lookup(name_to_info, (gchar *) str);
     xmlFree(str);
   }
   return info;
@@ -173,39 +173,40 @@ parse_svg_node(ShapeInfo *info, xmlNodePtr node, xmlNsPtr svg_ns,
       continue;
     dia_svg_style_init (&s, style);
     dia_svg_parse_style(node, &s);
-    if (!strcmp(node->name, "line")) {
+    if (!xmlStrcmp(node->name, (const xmlChar *)"line")) {
       GraphicElementLine *line = g_new0(GraphicElementLine, 1);
 
       el = (GraphicElement *)line;
       line->type = GE_LINE;
-      str = xmlGetProp(node, "x1");
+      str = xmlGetProp(node, (const xmlChar *)"x1");
       if (str) {
-        line->p1.x = g_ascii_strtod(str, NULL);
+        line->p1.x = g_ascii_strtod((gchar *) str, NULL);
         xmlFree(str);
       }
-      str = xmlGetProp(node, "y1");
+      str = xmlGetProp(node, (const xmlChar *)"y1");
       if (str) {
-        line->p1.y = g_ascii_strtod(str, NULL);
+        line->p1.y = g_ascii_strtod((gchar *) str, NULL);
         xmlFree(str);
       }
-      str = xmlGetProp(node, "x2");
+      str = xmlGetProp(node, (const xmlChar *)"x2");
       if (str) {
-        line->p2.x = g_ascii_strtod(str, NULL);
+        line->p2.x = g_ascii_strtod((gchar *) str, NULL);
         xmlFree(str);
       }
-      str = xmlGetProp(node, "y2");
+      str = xmlGetProp(node, (const xmlChar *)"y2");
       if (str) {
-        line->p2.y = g_ascii_strtod(str, NULL);
+        line->p2.y = g_ascii_strtod((gchar *) str, NULL);
         xmlFree(str);
       }
-    } else if (!strcmp(node->name, "polyline")) {
+    } else if (!xmlStrcmp(node->name, (const xmlChar *)"polyline")) {
       GraphicElementPoly *poly;
       GArray *arr = g_array_new(FALSE, FALSE, sizeof(real));
       real val, *rarr;
-      char *tmp;
+      gchar *tmp;
       int i;
 
-      tmp = str = xmlGetProp(node, "points");
+      str = xmlGetProp(node, (const xmlChar *)"points");
+      tmp = (gchar *) str;
       while (tmp[0] != '\0') {
             /* skip junk */
         while (tmp[0] != '\0' && !g_ascii_isdigit(tmp[0]) && tmp[0]!='.'&&tmp[0]!='-')
@@ -228,14 +229,15 @@ parse_svg_node(ShapeInfo *info, xmlNodePtr node, xmlNsPtr svg_ns,
         poly->points[i].y = rarr[2*i+1];
       }
       g_array_free(arr, TRUE);
-    } else if (!strcmp(node->name, "polygon")) {
+    } else if (!xmlStrcmp(node->name, (const xmlChar *)"polygon")) {
       GraphicElementPoly *poly;
       GArray *arr = g_array_new(FALSE, FALSE, sizeof(real));
       real val, *rarr;
       char *tmp;
       int i;
 
-      tmp = str = xmlGetProp(node, "points");
+      str = xmlGetProp(node, (const xmlChar *)"points");
+      tmp = (char *) str;
       while (tmp[0] != '\0') {
             /* skip junk */
         while (tmp[0] != '\0' && !g_ascii_isdigit(tmp[0]) && tmp[0]!='.'&&tmp[0]!='-')
@@ -258,138 +260,138 @@ parse_svg_node(ShapeInfo *info, xmlNodePtr node, xmlNsPtr svg_ns,
         poly->points[i].y = rarr[2*i+1];
       }
       g_array_free(arr, TRUE);
-    } else if (!strcmp(node->name, "rect")) {
+    } else if (!xmlStrcmp(node->name, (const xmlChar *)"rect")) {
       GraphicElementRect *rect = g_new0(GraphicElementRect, 1);
 
       el = (GraphicElement *)rect;
       rect->type = GE_RECT;
-      str = xmlGetProp(node, "x");
+      str = xmlGetProp(node, (const xmlChar *)"x");
       if (str) {
-        rect->corner1.x = g_ascii_strtod(str, NULL);
+        rect->corner1.x = g_ascii_strtod((gchar *) str, NULL);
         xmlFree(str);
       } else rect->corner1.x = 0;
-      str = xmlGetProp(node, "y");
+      str = xmlGetProp(node, (const xmlChar *)"y");
       if (str) {
-        rect->corner1.y = g_ascii_strtod(str, NULL);
+        rect->corner1.y = g_ascii_strtod((gchar *) str, NULL);
         xmlFree(str);
       } else rect->corner1.y = 0;
-      str = xmlGetProp(node, "width");
+      str = xmlGetProp(node, (const xmlChar *)"width");
       if (str) {
-        rect->corner2.x = rect->corner1.x + g_ascii_strtod(str, NULL);
+        rect->corner2.x = rect->corner1.x + g_ascii_strtod((gchar *) str, NULL);
         xmlFree(str);
       }
-      str = xmlGetProp(node, "height");
+      str = xmlGetProp(node, (const xmlChar *)"height");
       if (str) {
-        rect->corner2.y = rect->corner1.y + g_ascii_strtod(str, NULL);
+        rect->corner2.y = rect->corner1.y + g_ascii_strtod((gchar *) str, NULL);
         xmlFree(str);
       }
-    } else if (!strcmp(node->name, "text")) {
+    } else if (!xmlStrcmp(node->name, (const xmlChar *)"text")) {
 
       GraphicElementText *text = g_new(GraphicElementText, 1);
       el = (GraphicElement *)text;
       text->type = GE_TEXT;
       text->object = NULL;
-      str = xmlGetProp(node, "x");
+      str = xmlGetProp(node, (const xmlChar *)"x");
       if (str) {
-        text->anchor.x = g_ascii_strtod(str, NULL);
+        text->anchor.x = g_ascii_strtod((gchar *) str, NULL);
         xmlFree(str);
       } else text->anchor.x = 0;
-      str = xmlGetProp(node, "y");
+      str = xmlGetProp(node, (const xmlChar *)"y");
       if (str) {
-        text->anchor.y = g_ascii_strtod(str, NULL);
+        text->anchor.y = g_ascii_strtod((gchar *) str, NULL);
         xmlFree(str);
       } else text->anchor.y = 0;
 
       str = xmlNodeGetContent(node);
       if (str) {
-        text->string = g_strdup(str);
+        text->string = g_strdup((gchar *) str);
         xmlFree(str);
       } else text->string = g_strdup("");
-    } else if (!strcmp(node->name, "circle")) {
+    } else if (!xmlStrcmp(node->name, (const xmlChar *)"circle")) {
       GraphicElementEllipse *ellipse = g_new0(GraphicElementEllipse, 1);
 
       el = (GraphicElement *)ellipse;
       ellipse->type = GE_ELLIPSE;
-      str = xmlGetProp(node, "cx");
+      str = xmlGetProp(node, (const xmlChar *)"cx");
       if (str) {
-        ellipse->center.x = g_ascii_strtod(str, NULL);
+        ellipse->center.x = g_ascii_strtod((gchar *) str, NULL);
         xmlFree(str);
       }
-      str = xmlGetProp(node, "cy");
+      str = xmlGetProp(node, (const xmlChar *)"cy");
       if (str) {
-        ellipse->center.y = g_ascii_strtod(str, NULL);
+        ellipse->center.y = g_ascii_strtod((gchar *) str, NULL);
         xmlFree(str);
       }
-      str = xmlGetProp(node, "r");
+      str = xmlGetProp(node, (const xmlChar *)"r");
       if (str) {
-        ellipse->width = ellipse->height = 2 * g_ascii_strtod(str, NULL);
+        ellipse->width = ellipse->height = 2 * g_ascii_strtod((gchar *) str, NULL);
         xmlFree(str);
       }
-    } else if (!strcmp(node->name, "ellipse")) {
+    } else if (!xmlStrcmp(node->name, (const xmlChar *)"ellipse")) {
       GraphicElementEllipse *ellipse = g_new0(GraphicElementEllipse, 1);
 
       el = (GraphicElement *)ellipse;
       ellipse->type = GE_ELLIPSE;
-      str = xmlGetProp(node, "cx");
+      str = xmlGetProp(node, (const xmlChar *)"cx");
       if (str) {
-        ellipse->center.x = g_ascii_strtod(str, NULL);
+        ellipse->center.x = g_ascii_strtod((gchar *) str, NULL);
         xmlFree(str);
       }
-      str = xmlGetProp(node, "cy");
+      str = xmlGetProp(node, (const xmlChar *)"cy");
       if (str) {
-        ellipse->center.y = g_ascii_strtod(str, NULL);
+        ellipse->center.y = g_ascii_strtod((gchar *) str, NULL);
         xmlFree(str);
       }
-      str = xmlGetProp(node, "rx");
+      str = xmlGetProp(node, (const xmlChar *)"rx");
       if (str) {
-        ellipse->width = 2 * g_ascii_strtod(str, NULL);
+        ellipse->width = 2 * g_ascii_strtod((gchar *) str, NULL);
         xmlFree(str);
       }
-      str = xmlGetProp(node, "ry");
+      str = xmlGetProp(node, (const xmlChar *)"ry");
       if (str) {
-        ellipse->height = 2 * g_ascii_strtod(str, NULL);
+        ellipse->height = 2 * g_ascii_strtod((gchar *) str, NULL);
         xmlFree(str);
       }
-    } else if (!strcmp(node->name, "path")) {
-      str = xmlGetProp(node, "d");
+    } else if (!xmlStrcmp(node->name, (const xmlChar *)"path")) {
+      str = xmlGetProp(node, (const xmlChar *)"d");
       if (str) {
-        parse_path(info, str, &s, filename);
+        parse_path(info, (char *) str, &s, filename);
         xmlFree(str);
       }
-    } else if (!strcmp(node->name, "image")) {
+    } else if (!xmlStrcmp(node->name, (const xmlChar *)"image")) {
       GraphicElementImage *image = g_new0(GraphicElementImage, 1);
 
       el = (GraphicElement *)image;
       image->type = GE_IMAGE;
-      str = xmlGetProp(node, "x");
+      str = xmlGetProp(node, (const xmlChar *)"x");
       if (str) {
-        image->topleft.x = g_ascii_strtod(str, NULL);
+        image->topleft.x = g_ascii_strtod((gchar *) str, NULL);
         xmlFree(str);
       }
-      str = xmlGetProp(node, "y");
+      str = xmlGetProp(node, (const xmlChar *)"y");
       if (str) {
-        image->topleft.y = g_ascii_strtod(str, NULL);
+        image->topleft.y = g_ascii_strtod((gchar *) str, NULL);
         xmlFree(str);
       }
-      str = xmlGetProp(node, "width");
+      str = xmlGetProp(node, (const xmlChar *)"width");
       if (str) {
-        image->width = g_ascii_strtod(str, NULL);
+        image->width = g_ascii_strtod((gchar *) str, NULL);
         xmlFree(str);
       }
-      str = xmlGetProp(node, "height");
+      str = xmlGetProp(node, (const xmlChar *)"height");
       if (str) {
-        image->height = g_ascii_strtod(str, NULL);
+        image->height = g_ascii_strtod((gchar *) str, NULL);
         xmlFree(str);
       }
-      str = xmlGetProp(node, "xlink:href");
+      str = xmlGetProp(node, (const xmlChar *)"xlink:href");
       if (!str) /* this doesn't look right but it appears to work w/o namespace --hb */
-        str = xmlGetProp(node, "href");
+        str = xmlGetProp(node, (const xmlChar *)"href");
       if (str) {
-        gchar *imgfn = g_filename_from_uri(str, NULL, NULL);
+        gchar *imgfn = g_filename_from_uri((gchar *) str, NULL, NULL);
 
         if (!imgfn)
 	  /* despite it's name it ensures an absolute filename */
-          imgfn = custom_get_relative_filename(filename, str);
+          imgfn = custom_get_relative_filename(filename, (gchar *) str);
 
         image->image = dia_image_load(imgfn);
         /* w/o the image we would crash later */
@@ -400,7 +402,7 @@ parse_svg_node(ShapeInfo *info, xmlNodePtr node, xmlNsPtr svg_ns,
         g_free(imgfn);
         xmlFree(str);
       }
-    } else if (!strcmp(node->name, "g")) {
+    } else if (!xmlStrcmp(node->name, (const xmlChar *)"g")) {
           /* add elements from the group element */
       parse_svg_node(info, node, svg_ns, &s, filename);
     }
@@ -495,7 +497,7 @@ load_shape_info(const gchar *filename)
   xmlNsPtr shape_ns, svg_ns;
   xmlNodePtr node, root, ext_node = NULL;
   ShapeInfo *info;
-  char *tmp;
+  gchar *tmp;
   int i;
   
   if (!doc) {
@@ -509,17 +511,17 @@ load_shape_info(const gchar *filename)
   if (xmlIsBlankNode(root)) return NULL;
 
   if (!(shape_ns = xmlSearchNsByHref(doc, root,
-		"http://www.daa.com.au/~james/dia-shape-ns"))) {
+		(const xmlChar *)"http://www.daa.com.au/~james/dia-shape-ns"))) {
     xmlFreeDoc(doc);
     g_warning("could not find shape namespace");
     return NULL;
   }
-  if (!(svg_ns = xmlSearchNsByHref(doc, root, "http://www.w3.org/2000/svg"))) {
+  if (!(svg_ns = xmlSearchNsByHref(doc, root, (const xmlChar *)"http://www.w3.org/2000/svg"))) {
     xmlFreeDoc(doc);
     g_warning("could not find svg namespace");
     return NULL;
   }
-  if (root->ns != shape_ns || strcmp(root->name, "shape")) {
+  if (root->ns != shape_ns || xmlStrcmp(root->name, (const xmlChar *)"shape")) {
     g_warning("root element was %s -- expecting shape", root->name);
     xmlFreeDoc(doc);
     return NULL;
@@ -537,17 +539,17 @@ load_shape_info(const gchar *filename)
   for (node = root->xmlChildrenNode; node != NULL; node = node->next) {
     if (xmlIsBlankNode(node)) continue;
     if (node->type != XML_ELEMENT_NODE) continue;
-    if (node->ns == shape_ns && !strcmp(node->name, "name")) {
-      tmp = xmlNodeGetContent(node);
+    if (node->ns == shape_ns && !xmlStrcmp(node->name, (const xmlChar *)"name")) {
+      tmp = (gchar *) xmlNodeGetContent(node);
       g_free(info->name);
       info->name = g_strdup(tmp);
       xmlFree(tmp);
-    } else if (node->ns == shape_ns && !strcmp(node->name, "icon")) {
-      tmp = xmlNodeGetContent(node);
+    } else if (node->ns == shape_ns && !xmlStrcmp(node->name, (const xmlChar *)"icon")) {
+      tmp = (gchar *) xmlNodeGetContent(node);
       g_free(info->icon);
       info->icon = custom_get_relative_filename(filename, tmp);
       xmlFree(tmp);
-    } else if (node->ns == shape_ns && !strcmp(node->name, "connections")) {
+    } else if (node->ns == shape_ns && !xmlStrcmp(node->name, (const xmlChar *)"connections")) {
       GArray *arr = g_array_new(FALSE, FALSE, sizeof(Point));
       xmlNodePtr pt_node;
 
@@ -556,22 +558,22 @@ load_shape_info(const gchar *filename)
            pt_node = pt_node->next) {
         if (xmlIsBlankNode(pt_node)) continue;
 
-	if (pt_node->ns == shape_ns && !strcmp(pt_node->name, "point")) {
+	if (pt_node->ns == shape_ns && !xmlStrcmp(pt_node->name, (const xmlChar *)"point")) {
 	  Point pt = { 0.0, 0.0 };
 	  xmlChar *str;
 
-	  str = xmlGetProp(pt_node, "x");
+	  str = xmlGetProp(pt_node, (const xmlChar *)"x");
 	  if (str) {
-	    pt.x = g_ascii_strtod(str, NULL);
+	    pt.x = g_ascii_strtod((gchar *) str, NULL);
 	    xmlFree(str);
 	  }
-	  str = xmlGetProp(pt_node, "y");
+	  str = xmlGetProp(pt_node, (const xmlChar *)"y");
 	  if (str) {
-	    pt.y = g_ascii_strtod(str, NULL);
+	    pt.y = g_ascii_strtod((gchar *) str, NULL);
 	    xmlFree(str);
 	  }
 	  g_array_append_val(arr, pt);
-	  str = xmlGetProp(pt_node, "main");
+	  str = xmlGetProp(pt_node, (const xmlChar *)"main");
 	  if (str && str[0] != '\0') {
 	    if (info->main_cp != -1) {
 	      message_warning("More than one main connection point in %s.  Only the first one will be used.\n",
@@ -587,68 +589,68 @@ load_shape_info(const gchar *filename)
       info->nconnections = arr->len;
       info->connections = (Point *)arr->data;
       g_array_free(arr, FALSE);
-    } else if (node->ns == shape_ns && !strcmp(node->name, "textbox")) {
+    } else if (node->ns == shape_ns && !xmlStrcmp(node->name, (const xmlChar *)"textbox")) {
       xmlChar *str;
       
-      str = xmlGetProp(node, "x1");
+      str = xmlGetProp(node, (const xmlChar *)"x1");
       if (str) {
-	info->text_bounds.left = g_ascii_strtod(str, NULL);
+	info->text_bounds.left = g_ascii_strtod((gchar *) str, NULL);
 	xmlFree(str);
       }
-      str = xmlGetProp(node, "y1");
+      str = xmlGetProp(node, (const xmlChar *)"y1");
       if (str) {
-	info->text_bounds.top = g_ascii_strtod(str, NULL);
+	info->text_bounds.top = g_ascii_strtod((gchar *) str, NULL);
 	xmlFree(str);
       }
-      str = xmlGetProp(node, "x2");
+      str = xmlGetProp(node, (const xmlChar *)"x2");
       if (str) {
-	info->text_bounds.right = g_ascii_strtod(str, NULL);
+	info->text_bounds.right = g_ascii_strtod((gchar *) str, NULL);
 	xmlFree(str);
       }
-      str = xmlGetProp(node, "y2");
+      str = xmlGetProp(node, (const xmlChar *)"y2");
       if (str) {
-	info->text_bounds.bottom = g_ascii_strtod(str, NULL);
+	info->text_bounds.bottom = g_ascii_strtod((gchar *) str, NULL);
 	xmlFree(str);
       }
       info->resize_with_text = TRUE;
-      str = xmlGetProp(node, "resize");
+      str = xmlGetProp(node, (const xmlChar *)"resize");
       if (str) {
         info->resize_with_text = TRUE;
-        if (!strcmp(str,"no"))
+        if (!xmlStrcmp(str,(const xmlChar *)"no"))
           info->resize_with_text = FALSE;
 	xmlFree(str);
       }
       info->text_align = ALIGN_CENTER;
-      str = xmlGetProp(node, "align");
+      str = xmlGetProp(node, (const xmlChar *)"align");
       if (str) {
-	if (!strcmp(str, "left")) 
+	if (!xmlStrcmp(str, (const xmlChar *)"left")) 
 	  info->text_align = ALIGN_LEFT;
-	else if (!strcmp(str, "right"))
+	else if (!xmlStrcmp(str, (const xmlChar *)"right"))
 	  info->text_align = ALIGN_RIGHT;
 	xmlFree(str);
       }
       info->has_text = TRUE;
-    } else if (node->ns == shape_ns && !strcmp(node->name, "aspectratio")) {
-      tmp = xmlGetProp(node, "type");
+    } else if (node->ns == shape_ns && !xmlStrcmp(node->name, (const xmlChar *)"aspectratio")) {
+      tmp = (gchar *) xmlGetProp(node, (const xmlChar *)"type");
       if (tmp) {
 	if (!strcmp(tmp, "free"))
 	  info->aspect_type = SHAPE_ASPECT_FREE;
 	else if (!strcmp(tmp, "fixed"))
 	  info->aspect_type = SHAPE_ASPECT_FIXED;
 	else if (!strcmp(tmp, "range")) {
-	  char *str;
+	  xmlChar *str;
 
 	  info->aspect_type = SHAPE_ASPECT_RANGE;
 	  info->aspect_min = 0.0;
 	  info->aspect_max = G_MAXFLOAT;
-	  str = xmlGetProp(node, "min");
+	  str = xmlGetProp(node, (const xmlChar *)"min");
 	  if (str) {
-	    info->aspect_min = g_ascii_strtod(str, NULL);
+	    info->aspect_min = g_ascii_strtod((gchar *) str, NULL);
 	    xmlFree(str);
 	  }
-	  str = xmlGetProp(node, "max");
+	  str = xmlGetProp(node, (const xmlChar *)"max");
 	  if (str) {
-	    info->aspect_max = g_ascii_strtod(str, NULL);
+	    info->aspect_max = g_ascii_strtod((gchar *) str, NULL);
 	    xmlFree(str);
 	  }
 	  if (info->aspect_max < info->aspect_min) {
@@ -659,7 +661,7 @@ load_shape_info(const gchar *filename)
 	}
 	xmlFree(tmp);
       }
-    } else if (node->ns == svg_ns && !strcmp(node->name, "svg")) {
+    } else if (node->ns == svg_ns && !xmlStrcmp(node->name, (const xmlChar *)"svg")) {
       DiaSvgStyle s = {
 	1.0, DIA_SVG_COLOUR_FOREGROUND, DIA_SVG_COLOUR_NONE,
 	DIA_SVG_LINECAPS_DEFAULT, DIA_SVG_LINEJOIN_DEFAULT, DIA_SVG_LINESTYLE_DEFAULT, 1.0
@@ -669,7 +671,7 @@ load_shape_info(const gchar *filename)
       parse_svg_node(info, node, svg_ns, &s, filename);
       update_bounds(info);
     }
-	else if (!strcmp(node->name, "ext_attributes")) {
+	else if (!xmlStrcmp(node->name, (const xmlChar *)"ext_attributes")) {
       ext_node = node;
     }
   }

@@ -168,6 +168,10 @@ DiaObject *read_entity_line_dxf(FILE *filedxf, DxfData *data, DiagramData *dia){
     Layer *layer = NULL;
     
     old_locale = setlocale(LC_NUMERIC, "C");
+
+    end.x=0;
+    end.y=0;
+
     do {
         if(read_dxf_codes(filedxf, data) == FALSE){
             setlocale(LC_NUMERIC, old_locale);

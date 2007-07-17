@@ -410,7 +410,7 @@ static guchar *
 figText(XfigRenderer *renderer, const guchar *text) 
 {
   int i, j;
-  int len = strlen(text);
+  int len = strlen((char *) text);
   int newlen = len;
   guchar *returntext;
   for (i = 0; i < len; i++) {
@@ -1069,7 +1069,7 @@ draw_string(DiaRenderer *self,
     return;
   }
 
-  figtext = figText(renderer, text);
+  figtext = figText(renderer, (unsigned char *) text);
   /* xfig texts are specials */
   fprintf(renderer->file, "4 %d %d %d 0 %d %s 0.0 6 0.0 0.0 %d %d %s\\001\n",
 	  figAlignment(renderer, alignment),

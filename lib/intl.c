@@ -141,9 +141,9 @@ compute_locale_variants (const gchar *locale)
   GList *retval = NULL;
 
   gchar *language;
-  gchar *territory;
-  gchar *codeset;
-  gchar *modifier;
+  gchar *territory=NULL;
+  gchar *codeset=NULL;
+  gchar *modifier=NULL;
 
   guint mask;
   guint i;

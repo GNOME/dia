@@ -267,18 +267,18 @@ draw_line(DiaRenderer *self,
   xmlNodePtr node;
   gchar d_buf[DTOSTR_BUF_SIZE];
 
-  node = xmlNewChild(renderer->root, renderer->svg_name_space, "line", NULL);
+  node = xmlNewChild(renderer->root, renderer->svg_name_space, (const xmlChar *)"line", NULL);
 
-  xmlSetProp(node, "style", get_draw_style(renderer, line_colour));
+  xmlSetProp(node, (const xmlChar *)"style", (xmlChar *) get_draw_style(renderer, line_colour));
 
   dia_svg_dtostr(d_buf, start->x);
-  xmlSetProp(node, "x1", d_buf);
+  xmlSetProp(node, (const xmlChar *)"x1", (xmlChar *) d_buf);
   dia_svg_dtostr(d_buf, start->y);
-  xmlSetProp(node, "y1", d_buf);
+  xmlSetProp(node, (const xmlChar *)"y1", (xmlChar *) d_buf);
   dia_svg_dtostr(d_buf, end->x);
-  xmlSetProp(node, "x2", d_buf);
+  xmlSetProp(node, (const xmlChar *)"x2", (xmlChar *) d_buf);
   dia_svg_dtostr(d_buf, end->y);
-  xmlSetProp(node, "y2", d_buf);
+  xmlSetProp(node, (const xmlChar *)"y2", (xmlChar *) d_buf);
 }
 
 static void
@@ -293,16 +293,16 @@ draw_polyline(DiaRenderer *self,
   gchar px_buf[DTOSTR_BUF_SIZE];
   gchar py_buf[DTOSTR_BUF_SIZE];
 
-  node = xmlNewChild(renderer->root, renderer->svg_name_space, "polyline", NULL);
+  node = xmlNewChild(renderer->root, renderer->svg_name_space, (const xmlChar *)"polyline", NULL);
   
-  xmlSetProp(node, "style", get_draw_style(renderer, line_colour));
+  xmlSetProp(node, (const xmlChar *)"style", (xmlChar *) get_draw_style(renderer, line_colour));
 
   str = g_string_new(NULL);
   for (i = 0; i < num_points; i++)
     g_string_sprintfa(str, "%s,%s ",
 		      dia_svg_dtostr(px_buf, points[i].x),
 		      dia_svg_dtostr(py_buf, points[i].y) );
-  xmlSetProp(node, "points", str->str);
+  xmlSetProp(node, (const xmlChar *)"points", (xmlChar *) str->str);
   g_string_free(str, TRUE);
 }
 
@@ -318,16 +318,16 @@ draw_polygon(DiaRenderer *self,
   gchar px_buf[DTOSTR_BUF_SIZE];
   gchar py_buf[DTOSTR_BUF_SIZE];
 
-  node = xmlNewChild(renderer->root, renderer->svg_name_space, "polygon", NULL);
+  node = xmlNewChild(renderer->root, renderer->svg_name_space, (const xmlChar *)"polygon", NULL);
   
-  xmlSetProp(node, "style", get_draw_style(renderer, line_colour));
+  xmlSetProp(node, (const xmlChar *)"style", (xmlChar *) get_draw_style(renderer, line_colour));
 
   str = g_string_new(NULL);
   for (i = 0; i < num_points; i++)
     g_string_sprintfa(str, "%s,%s ",
 		      dia_svg_dtostr(px_buf, points[i].x),
 		      dia_svg_dtostr(py_buf, points[i].y) );
-  xmlSetProp(node, "points", str->str);
+  xmlSetProp(node, (const xmlChar *)"points", (xmlChar *) str->str);
   g_string_free(str, TRUE);
 }
 
@@ -343,16 +343,16 @@ fill_polygon(DiaRenderer *self,
   gchar px_buf[DTOSTR_BUF_SIZE];
   gchar py_buf[DTOSTR_BUF_SIZE];
 
-  node = xmlNewChild(renderer->root, renderer->svg_name_space, "polygon", NULL);
+  node = xmlNewChild(renderer->root, renderer->svg_name_space, (const xmlChar *)"polygon", NULL);
   
-  xmlSetProp(node, "style", get_fill_style(renderer, colour));
+  xmlSetProp(node, (const xmlChar *)"style", (xmlChar *) get_fill_style(renderer, colour));
 
   str = g_string_new(NULL);
   for (i = 0; i < num_points; i++)
     g_string_sprintfa(str, "%s,%s ",
 		      dia_svg_dtostr(px_buf, points[i].x),
 		      dia_svg_dtostr(py_buf, points[i].y) );
-  xmlSetProp(node, "points", str->str);
+  xmlSetProp(node, (const xmlChar *)"points", (xmlChar *)str->str);
   g_string_free(str, TRUE);
 }
 
@@ -365,18 +365,18 @@ draw_rect(DiaRenderer *self,
   xmlNodePtr node;
   gchar d_buf[DTOSTR_BUF_SIZE];
 
-  node = xmlNewChild(renderer->root, NULL, "rect", NULL);
+  node = xmlNewChild(renderer->root, NULL, (const xmlChar *)"rect", NULL);
 
-  xmlSetProp(node, "style", get_draw_style(renderer, colour));
+  xmlSetProp(node, (const xmlChar *)"style", (xmlChar *)get_draw_style(renderer, colour));
 
   dia_svg_dtostr(d_buf, ul_corner->x);
-  xmlSetProp(node, "x", d_buf);
+  xmlSetProp(node, (const xmlChar *)"x", (xmlChar *) d_buf);
   dia_svg_dtostr(d_buf, ul_corner->y);
-  xmlSetProp(node, "y", d_buf);
+  xmlSetProp(node, (const xmlChar *)"y", (xmlChar *) d_buf);
   dia_svg_dtostr(d_buf, lr_corner->x - ul_corner->x);
-  xmlSetProp(node, "width", d_buf);
+  xmlSetProp(node, (const xmlChar *)"width", (xmlChar *) d_buf);
   dia_svg_dtostr(d_buf, lr_corner->y - ul_corner->y);
-  xmlSetProp(node, "height", d_buf);
+  xmlSetProp(node, (const xmlChar *)"height", (xmlChar *) d_buf);
 }
 
 static void
@@ -388,18 +388,18 @@ fill_rect(DiaRenderer *self,
   xmlNodePtr node;
   gchar d_buf[DTOSTR_BUF_SIZE];
 
-  node = xmlNewChild(renderer->root, renderer->svg_name_space, "rect", NULL);
+  node = xmlNewChild(renderer->root, renderer->svg_name_space, (const xmlChar *)"rect", NULL);
 
-  xmlSetProp(node, "style", get_fill_style(renderer, colour));
+  xmlSetProp(node, (const xmlChar *)"style", (xmlChar *) get_fill_style(renderer, colour));
 
   dia_svg_dtostr(d_buf, ul_corner->x);
-  xmlSetProp(node, "x", d_buf);
+  xmlSetProp(node, (const xmlChar *)"x", (xmlChar *)d_buf);
   dia_svg_dtostr(d_buf, ul_corner->y);
-  xmlSetProp(node, "y", d_buf);
+  xmlSetProp(node, (const xmlChar *)"y", (xmlChar *)d_buf);
   dia_svg_dtostr(d_buf, lr_corner->x - ul_corner->x);
-  xmlSetProp(node, "width", d_buf);
+  xmlSetProp(node, (const xmlChar *)"width", (xmlChar *)d_buf);
   dia_svg_dtostr(d_buf, lr_corner->y - ul_corner->y);
-  xmlSetProp(node, "height", d_buf);
+  xmlSetProp(node, (const xmlChar *)"height", (xmlChar *)d_buf);
 }
 
 static void
@@ -426,9 +426,9 @@ draw_arc(DiaRenderer *self,
   gchar ex_buf[DTOSTR_BUF_SIZE];
   gchar ey_buf[DTOSTR_BUF_SIZE];
 
-  node = xmlNewChild(renderer->root, renderer->svg_name_space, "path", NULL);
+  node = xmlNewChild(renderer->root, renderer->svg_name_space, (const xmlChar *)"path", NULL);
   
-  xmlSetProp(node, "style", get_draw_style(renderer, colour));
+  xmlSetProp(node, (const xmlChar *)"style", (xmlChar *) get_draw_style(renderer, colour));
 
   g_snprintf(buf, sizeof(buf), "M %s,%s A %s,%s 0 %d %d %s,%s",
 	     dia_svg_dtostr(sx_buf, sx), dia_svg_dtostr(sy_buf, sy),
@@ -436,7 +436,7 @@ draw_arc(DiaRenderer *self,
 	     large_arc, swp,
 	     dia_svg_dtostr(ex_buf, ex), dia_svg_dtostr(ey_buf, ey) );
 
-  xmlSetProp(node, "d", buf);
+  xmlSetProp(node, (const xmlChar *)"d", (xmlChar *) buf);
 }
 
 static void
@@ -465,9 +465,9 @@ fill_arc(DiaRenderer *self,
   gchar cx_buf[DTOSTR_BUF_SIZE];
   gchar cy_buf[DTOSTR_BUF_SIZE];
 
-  node = xmlNewChild(renderer->root, NULL, "path", NULL);
+  node = xmlNewChild(renderer->root, NULL, (const xmlChar *)"path", NULL);
   
-  xmlSetProp(node, "style", get_fill_style(renderer, colour));
+  xmlSetProp(node, (const xmlChar *)"style", (xmlChar *)get_fill_style(renderer, colour));
 
   g_snprintf(buf, sizeof(buf), "M %s,%s A %s,%s 0 %d %d %s,%s L %s,%s z",
 	     dia_svg_dtostr(sx_buf, sx), dia_svg_dtostr(sy_buf, sy),
@@ -477,7 +477,7 @@ fill_arc(DiaRenderer *self,
 	     dia_svg_dtostr(cx_buf, center->x),
 	     dia_svg_dtostr(cy_buf, center->y) );
 
-  xmlSetProp(node, "d", buf);
+  xmlSetProp(node, (const xmlChar *)"d", (xmlChar *) buf);
 }
 
 static void
@@ -490,18 +490,18 @@ draw_ellipse(DiaRenderer *self,
   xmlNodePtr node;
   gchar d_buf[DTOSTR_BUF_SIZE];
 
-  node = xmlNewChild(renderer->root, renderer->svg_name_space, "ellipse", NULL);
+  node = xmlNewChild(renderer->root, renderer->svg_name_space, (const xmlChar *)"ellipse", NULL);
 
-  xmlSetProp(node, "style", get_draw_style(renderer, colour));
+  xmlSetProp(node, (const xmlChar *)"style", (xmlChar *) get_draw_style(renderer, colour));
 
   dia_svg_dtostr(d_buf, center->x);
-  xmlSetProp(node, "cx", d_buf);
+  xmlSetProp(node, (const xmlChar *)"cx", (xmlChar *) d_buf);
   dia_svg_dtostr(d_buf, center->y);
-  xmlSetProp(node, "cy", d_buf);
+  xmlSetProp(node, (const xmlChar *)"cy", (xmlChar *) d_buf);
   dia_svg_dtostr(d_buf, width / 2);
-  xmlSetProp(node, "rx", d_buf);
+  xmlSetProp(node, (const xmlChar *)"rx", (xmlChar *) d_buf);
   dia_svg_dtostr(d_buf, height / 2);
-  xmlSetProp(node, "ry", d_buf);
+  xmlSetProp(node, (const xmlChar *)"ry", (xmlChar *) d_buf);
 }
 
 static void
@@ -514,18 +514,18 @@ fill_ellipse(DiaRenderer *self,
   xmlNodePtr node;
   gchar d_buf[DTOSTR_BUF_SIZE];
 
-  node = xmlNewChild(renderer->root, renderer->svg_name_space, "ellipse", NULL);
+  node = xmlNewChild(renderer->root, renderer->svg_name_space, (const xmlChar *)"ellipse", NULL);
 
-  xmlSetProp(node, "style", get_fill_style(renderer, colour));
+  xmlSetProp(node, (const xmlChar *)"style", (xmlChar *) get_fill_style(renderer, colour));
 
   dia_svg_dtostr(d_buf, center->x);
-  xmlSetProp(node, "cx", d_buf);
+  xmlSetProp(node, (const xmlChar *)"cx", (xmlChar *) d_buf);
   dia_svg_dtostr(d_buf, center->y);
-  xmlSetProp(node, "cy", d_buf);
+  xmlSetProp(node, (const xmlChar *)"cy", (xmlChar *) d_buf);
   dia_svg_dtostr(d_buf, width / 2);
-  xmlSetProp(node, "rx", d_buf);
+  xmlSetProp(node, (const xmlChar *)"rx", (xmlChar *) d_buf);
   dia_svg_dtostr(d_buf, height / 2);
-  xmlSetProp(node, "ry", d_buf);
+  xmlSetProp(node, (const xmlChar *)"ry", (xmlChar *) d_buf);
 }
 
 static void
@@ -545,9 +545,9 @@ draw_bezier(DiaRenderer *self,
   gchar p3x_buf[DTOSTR_BUF_SIZE];
   gchar p3y_buf[DTOSTR_BUF_SIZE];
 
-  node = xmlNewChild(renderer->root, renderer->svg_name_space, "path", NULL);
+  node = xmlNewChild(renderer->root, renderer->svg_name_space, (const xmlChar *)"path", NULL);
   
-  xmlSetProp(node, "style", get_draw_style(renderer, colour));
+  xmlSetProp(node, (const xmlChar *)"style", (xmlChar *) get_draw_style(renderer, colour));
 
   str = g_string_new(NULL);
 
@@ -578,7 +578,7 @@ draw_bezier(DiaRenderer *self,
 			dia_svg_dtostr(p3y_buf, (gdouble) points[i].p3.y) );
       break;
     }
-  xmlSetProp(node, "d", str->str);
+  xmlSetProp(node, (const xmlChar *)"d", (xmlChar *) str->str);
   g_string_free(str, TRUE);
 }
 
@@ -599,9 +599,9 @@ fill_bezier(DiaRenderer *self,
   gchar p3x_buf[DTOSTR_BUF_SIZE];
   gchar p3y_buf[DTOSTR_BUF_SIZE];
 
-  node = xmlNewChild(renderer->root, renderer->svg_name_space, "path", NULL);
+  node = xmlNewChild(renderer->root, renderer->svg_name_space, (const xmlChar *)"path", NULL);
   
-  xmlSetProp(node, "style", get_fill_style(renderer, colour));
+  xmlSetProp(node, (const xmlChar *)"style", (xmlChar *) get_fill_style(renderer, colour));
 
   str = g_string_new(NULL);
 
@@ -633,7 +633,7 @@ fill_bezier(DiaRenderer *self,
       break;
     }
   g_string_append(str, "z");
-  xmlSetProp(node, "d", str->str);
+  xmlSetProp(node, (const xmlChar *)"d", (xmlChar *) str->str);
   g_string_free(str, TRUE);
 }
 
@@ -715,8 +715,8 @@ draw_text_line(DiaRenderer *self, TextLine *text_line,
   gchar d_buf[DTOSTR_BUF_SIZE];
   DiaFont *font;
 
-  node = xmlNewChild(renderer->root, renderer->svg_name_space, "text", 
-		     text_line_get_string(text_line));
+  node = xmlNewChild(renderer->root, renderer->svg_name_space, (const xmlChar *)"text", 
+		     (xmlChar *) text_line_get_string(text_line));
  
   saved_width = renderer->linewidth;
   renderer->linewidth = 0.001;
@@ -743,13 +743,13 @@ draw_text_line(DiaRenderer *self, TextLine *text_line,
 
   /* have to do something about fonts here ... */
 
-  xmlSetProp(node, "style", style);
+  xmlSetProp(node, (const xmlChar *)"style", (xmlChar *) style);
   g_free(style);
 
   dia_svg_dtostr(d_buf, pos->x);
-  xmlSetProp(node, "x", d_buf);
+  xmlSetProp(node, (const xmlChar *)"x", (xmlChar *) d_buf);
   dia_svg_dtostr(d_buf, pos->y);
-  xmlSetProp(node, "y", d_buf);
+  xmlSetProp(node, (const xmlChar *)"y", (xmlChar *) d_buf);
 }
 
 static void
@@ -762,17 +762,17 @@ draw_image(DiaRenderer *self,
   xmlNodePtr node;
   gchar d_buf[DTOSTR_BUF_SIZE];
 
-  node = xmlNewChild(renderer->root, NULL, "image", NULL);
+  node = xmlNewChild(renderer->root, NULL, (const xmlChar *)"image", NULL);
 
   dia_svg_dtostr(d_buf, point->x);
-  xmlSetProp(node, "x", d_buf);
+  xmlSetProp(node, (const xmlChar *)"x", (xmlChar *) d_buf);
   dia_svg_dtostr(d_buf, point->y);
-  xmlSetProp(node, "y", d_buf);
+  xmlSetProp(node, (const xmlChar *)"y", (xmlChar *) d_buf);
   dia_svg_dtostr(d_buf, width);
-  xmlSetProp(node, "width", d_buf);
+  xmlSetProp(node, (const xmlChar *)"width", (xmlChar *) d_buf);
   dia_svg_dtostr(d_buf, height);
-  xmlSetProp(node, "height", d_buf);
-  xmlSetProp(node, "xlink:href", dia_image_filename(image));
+  xmlSetProp(node, (const xmlChar *)"height", (xmlChar *) d_buf);
+  xmlSetProp(node, (const xmlChar *)"xlink:href", (xmlChar *) dia_image_filename(image));
 }
 
 /* constructor */

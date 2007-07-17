@@ -24,6 +24,7 @@
 #endif
 
 #include <stdio.h>
+#include <unistd.h>
 #include <assert.h>
 #include <math.h>
 #include <string.h>
@@ -143,11 +144,11 @@ static DiaObject *faraday_create(Point *startpoint,  void *user_data, Handle **h
   DiaObject *obj;
   int i,num;
   DiaFont* action_font;
-  Point defaultlen  = {1.0,0.0}, pos;
+  Point /* defaultlen  = {1.0,0.0}, */pos;
   gchar *filename;
   xmlDocPtr doc;
   xmlNsPtr namespace;
-  DiagramData *data;
+  /* DiagramData *data; */
   xmlNodePtr diagramdata,composite;
   AttributeNode attr;
   char composition_filename[255];
@@ -228,8 +229,8 @@ if (GPOINTER_TO_INT(user_data)!=0)
 	return FALSE;
 	}
 	
-	namespace = xmlSearchNs(doc, doc->xmlRootNode, "sissi");
-	if (strcmp (doc->xmlRootNode->name, "diagram") || (namespace == NULL)){
+	namespace = xmlSearchNs(doc, doc->xmlRootNode, (const xmlChar *)"sissi");
+	if (xmlStrcmp (doc->xmlRootNode->name, (const xmlChar *)"diagram") || (namespace == NULL)){
 	message_error(_("Error loading diagram %s.\nNot a Dia file."), 
 			dia_message_filename(filename));
 	xmlFreeDoc (doc);

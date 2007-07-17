@@ -140,10 +140,10 @@ read_objects(xmlNodePtr objects,
 
     if (!obj_node) break;
 
-    if (strcmp(obj_node->name, "object")==0) {
-      typestr = xmlGetProp(obj_node, "type");
-      versionstr = xmlGetProp(obj_node, "version");
-      id = xmlGetProp(obj_node, "id");
+    if (xmlStrcmp(obj_node->name, (const xmlChar *)"object")==0) {
+      typestr = (char *) xmlGetProp(obj_node, (const xmlChar *)"type");
+      versionstr = (char *) xmlGetProp(obj_node, (const xmlChar *)"version");
+      id = (char *) xmlGetProp(obj_node, (const xmlChar *)"id");
       
       version = 0;
       if (versionstr != NULL) {
@@ -174,7 +174,7 @@ read_objects(xmlNodePtr objects,
 
         while(child_node)
         {
-          if (strcmp(child_node->name, "children") == 0)
+          if (xmlStrcmp(child_node->name, (const xmlChar *)"children") == 0)
           {
 	    GList *children_read = read_objects(child_node, objects_hash, filename, obj);
             list = g_list_concat(list, children_read);
@@ -185,7 +185,7 @@ read_objects(xmlNodePtr objects,
       }
       if (typestr) xmlFree(typestr);
       if (id) xmlFree (id);
-    } else if (   strcmp(obj_node->name, "group")==0
+    } else if (xmlStrcmp(obj_node->name, (const xmlChar *)"group")==0
                && obj_node->children) {
       /* don't create empty groups */
       obj = group_create(read_objects(obj_node, objects_hash, filename, NULL));
@@ -236,7 +236,7 @@ read_connections(GList *objects, xmlNodePtr layer_node,
     } else {
       connections = obj_node->xmlChildrenNode;
       while ((connections!=NULL) &&
-	     (strcmp(connections->name, "connections")!=0))
+	     (xmlStrcmp(connections->name, (const xmlChar *)"connections")!=0))
 	connections = connections->next;
       if (connections != NULL) {
 	connection = connections->xmlChildrenNode;
@@ -246,9 +246,9 @@ read_connections(GList *objects, xmlNodePtr layer_node,
             connection = connection->next;
             continue;
           }
-	  handlestr = xmlGetProp(connection, "handle");
-	  tostr = xmlGetProp(connection, "to");
-	  connstr = xmlGetProp(connection, "connection");
+	  handlestr = (char * )xmlGetProp(connection, (const xmlChar *)"handle");
+	  tostr = (char *) xmlGetProp(connection, (const xmlChar *)"to");
+ 	  connstr = (char *) xmlGetProp(connection, (const xmlChar *)"connection");
 	  
 	  handle = atoi(handlestr);
 	  conn = strtol(connstr, &donestr, 10);
@@ -297,10 +297,10 @@ read_connections(GList *objects, xmlNodePtr layer_node,
     /* Now set up parent relationships. */
     connections = obj_node->xmlChildrenNode;
     while ((connections!=NULL) &&
-	   (strcmp(connections->name, "childnode")!=0))
+	   (xmlStrcmp(connections->name, (const xmlChar *)"childnode")!=0))
       connections = connections->next;
     if (connections != NULL) {
-      tostr = xmlGetProp(connections, "parent");
+      tostr = (char *)xmlGetProp(connections, (const xmlChar *)"parent");
       if (tostr) {
 	obj->parent = g_hash_table_lookup(objects_hash, tostr);
 	if (obj->parent == NULL) {
@@ -328,7 +328,7 @@ hash_free_string(gpointer       key,
 static xmlNodePtr
 find_node_named (xmlNodePtr p, const char *name)
 {
-  while (p && 0 != strcmp(p->name, name))
+  while (p && 0 != xmlStrcmp(p->name, (xmlChar *)name))
     p = p->next;
   return p;
 }
@@ -387,8 +387,8 @@ diagram_data_load(const char *filename, DiagramData *data, void* user_data)
     return FALSE;
   }
 
-  namespace = xmlSearchNs(doc, doc->xmlRootNode, "dia");
-  if (strcmp (doc->xmlRootNode->name, "diagram") || (namespace == NULL)){
+  namespace = xmlSearchNs(doc, doc->xmlRootNode, (const xmlChar *)"dia");
+  if (xmlStrcmp (doc->xmlRootNode->name, (const xmlChar *)"diagram") || (namespace == NULL)){
     message_error(_("Error loading diagram %s.\nNot a Dia file."), 
 		  dia_message_filename(filename));
     xmlFreeDoc (doc);
@@ -562,10 +562,10 @@ diagram_data_load(const char *filename, DiagramData *data, void* user_data)
 
     if (!layer_node) break;
     
-    name = (char *)xmlGetProp(layer_node, "name");
+    name = (char *)xmlGetProp(layer_node, (const xmlChar *)"name");
     if (!name) break; /* name is mandatory */
 
-    visible = (char *)xmlGetProp(layer_node, "visible");
+    visible = (char *)xmlGetProp(layer_node, (const xmlChar *)"visible");
 
     layer = new_layer(g_strdup(name), data);
     if (name) xmlFree(name);
@@ -624,18 +624,18 @@ write_objects(GList *objects, xmlNodePtr objects_node,
     }
 
     if (IS_GROUP(obj) && group_objects(obj) != NULL) {
-      group_node = xmlNewChild(objects_node, NULL, "group", NULL);
+      group_node = xmlNewChild(objects_node, NULL, (const xmlChar *)"group", NULL);
       write_objects(group_objects(obj), group_node,
 		    objects_hash, obj_nr, filename);
     } else {
-      obj_node = xmlNewChild(objects_node, NULL, "object", NULL);
+      obj_node = xmlNewChild(objects_node, NULL, (const xmlChar *)"object", NULL);
     
-      xmlSetProp(obj_node, "type", obj->type->name);
+      xmlSetProp(obj_node, (const xmlChar *)"type", (xmlChar *)obj->type->name);
       g_snprintf(buffer, 30, "%d", obj->type->version);
-      xmlSetProp(obj_node, "version", buffer);
+      xmlSetProp(obj_node, (const xmlChar *)"version", (xmlChar *)buffer);
       
       g_snprintf(buffer, 30, "O%d", *obj_nr);
-      xmlSetProp(obj_node, "id", buffer);
+      xmlSetProp(obj_node, (const xmlChar *)"id", (xmlChar *)buffer);
 
       (*obj->type->ops->save)(obj, obj_node, filename);
 
@@ -711,25 +711,25 @@ write_connections(GList *objects, xmlNodePtr layer_node,
 	  }
 	  
 	  if (connections == NULL)
-	    connections = xmlNewChild(obj_node, NULL, "connections", NULL);
+	    connections = xmlNewChild(obj_node, NULL, (const xmlChar *)"connections", NULL);
 	  
-	  connection = xmlNewChild(connections, NULL, "connection", NULL);
+	  connection = xmlNewChild(connections, NULL, (const xmlChar *)"connection", NULL);
 	  /* from what handle on this object*/
 	  g_snprintf(buffer, 30, "%d", i);
-	  xmlSetProp(connection, "handle", buffer);
+	  xmlSetProp(connection, (const xmlChar *)"handle", (xmlChar *)buffer);
 	  /* to what object */
 	  g_snprintf(buffer, 30, "O%d",
 		     GPOINTER_TO_INT(g_hash_table_lookup(objects_hash,
 							 other_obj)));
 
-	  xmlSetProp(connection, "to", buffer);
+	  xmlSetProp(connection, (const xmlChar *)"to", (xmlChar *) buffer);
 	  /* to what connection_point on that object */
 	  if (other_obj->connections[con_point_nr]->name != NULL) {
 	    g_snprintf(buffer, 30, "%s", other_obj->connections[con_point_nr]->name);
 	  } else {
 	    g_snprintf(buffer, 30, "%d", con_point_nr);
 	  }
-	  xmlSetProp(connection, "connection", buffer);
+	  xmlSetProp(connection, (const xmlChar *)"connection", (xmlChar *) buffer);
 	}
       }
     }
@@ -739,8 +739,8 @@ write_connections(GList *objects, xmlNodePtr layer_node,
       xmlNodePtr parent;
       g_snprintf(buffer, 30, "O%d",
 		 GPOINTER_TO_INT(g_hash_table_lookup(objects_hash, other_obj)));
-      parent = xmlNewChild(obj_node, NULL, "childnode", NULL);
-      xmlSetProp(parent, "parent", buffer);
+      parent = xmlNewChild(obj_node, NULL, (const xmlChar *)"childnode", NULL);
+      xmlSetProp(parent, (const xmlChar *)"parent", (xmlChar *)buffer);
     }
     
     list = g_list_next(list);
@@ -766,16 +766,16 @@ diagram_data_write_doc(DiagramData *data, const char *filename)
   xmlNs *name_space;
   Diagram *diagram = DIA_IS_DIAGRAM (data) ? DIA_DIAGRAM (data) : NULL;
 
-  doc = xmlNewDoc("1.0");
-  doc->encoding = xmlStrdup("UTF-8");
-  doc->xmlRootNode = xmlNewDocNode(doc, NULL, "diagram", NULL);
+  doc = xmlNewDoc((const xmlChar *)"1.0");
+  doc->encoding = xmlStrdup((const xmlChar *)"UTF-8");
+  doc->xmlRootNode = xmlNewDocNode(doc, NULL, (const xmlChar *)"diagram", NULL);
 
   name_space = xmlNewNs(doc->xmlRootNode, 
-                        DIA_XML_NAME_SPACE_BASE,
-			"dia");
+                        (const xmlChar *)DIA_XML_NAME_SPACE_BASE,
+			(const xmlChar *)"dia");
   xmlSetNs(doc->xmlRootNode, name_space);
 
-  tree = xmlNewChild(doc->xmlRootNode, name_space, "diagramdata", NULL);
+  tree = xmlNewChild(doc->xmlRootNode, name_space, (const xmlChar *)"diagramdata", NULL);
   
   attr = new_attribute((ObjectNode)tree, "background");
   data_add_color(attr, &data->bg_color);
@@ -839,14 +839,14 @@ diagram_data_write_doc(DiagramData *data, const char *filename)
   obj_nr = 0;
 
   for (i = 0; i < data->layers->len; i++) {
-    layer_node = xmlNewChild(doc->xmlRootNode, name_space, "layer", NULL);
+    layer_node = xmlNewChild(doc->xmlRootNode, name_space, (const xmlChar *)"layer", NULL);
     layer = (Layer *) g_ptr_array_index(data->layers, i);
-    xmlSetProp(layer_node, "name", layer->name);
+    xmlSetProp(layer_node, (const xmlChar *)"name", (xmlChar *)layer->name);
 
     if (layer->visible)
-      xmlSetProp(layer_node, "visible", "true");
+      xmlSetProp(layer_node, (const xmlChar *)"visible", (const xmlChar *)"true");
     else
-      xmlSetProp(layer_node, "visible", "false");
+      xmlSetProp(layer_node, (const xmlChar *)"visible", (const xmlChar *)"false");
     
     write_objects(layer->objects, layer_node,
 		  objects_hash, &obj_nr, filename);

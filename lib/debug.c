@@ -24,6 +24,8 @@
 #include <glib/gprintf.h>
 #include <stdarg.h>
 
+#include "debug.h"
+
 /** Output a message if the given value is not true. 
  * @param val A value to test. 
  * @param format A printf-style message to output if the value is false.

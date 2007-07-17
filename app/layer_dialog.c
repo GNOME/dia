@@ -621,7 +621,7 @@ layer_dialog_set_diagram(Diagram *dia)
   if (layer_dialog == NULL || layer_dialog->dialog == NULL) 
     create_layer_dialog(); /* May have been destroyed */
 
-  gtk_container_foreach (GTK_LIST(layer_dialog->layer_list),
+  gtk_container_foreach (GTK_CONTAINER(layer_dialog->layer_list),
                          _layer_widget_clear_layer, NULL);
   gtk_list_clear_items(GTK_LIST(layer_dialog->layer_list), 0, -1);
   layer_dialog->diagram = dia;

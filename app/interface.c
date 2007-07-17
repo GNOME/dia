@@ -446,14 +446,14 @@ use_integrated_ui_for_display_shell(DDisplay *ddisp, char *title)
 {
   GtkWidget *table;
   GtkWidget *navigation_button;
-  GtkWidget *status_hbox;
-  GtkWidget *zoom_hbox, *zoom_label;
+  /* GtkWidget *status_hbox; */
+  /* GtkWidget *zoom_hbox, *zoom_label; */
   GtkWidget *label;                /* Text label for the notebook page */
   GtkWidget *tab_label_container;  /* Container to hold text label & close button */
   int width, height;               /* Width/Heigth of the diagram */
   GtkWidget *image;
   GtkWidget *close_button;         /* Close button for the notebook page */
-  GtkWidget *widget;
+  /* GtkWidget *widget; */
   GtkRcStyle *rcstyle;
   gint       notebook_page_index;
 	
@@ -1059,7 +1059,7 @@ create_tools(GtkWidget *parent)
   GtkWidget *pixmapwidget;
   GdkPixmap *pixmap = NULL;
   GdkBitmap *mask = NULL;
-  GtkStyle *style;
+  /* GtkStyle *style; */
   char **pixmap_data;
   int i;
 
@@ -1825,6 +1825,7 @@ gboolean integrated_ui_main_statusbar_is_showing (void)
   {
     return GTK_WIDGET_VISIBLE (ui.statusbar)? TRUE : FALSE;
   }
+  return FALSE;
 }
 
 /* show() integrated UI main statusbar and set pulldown menu action. */

@@ -214,6 +214,7 @@ extern void gestion_specificite(ObjetSISSI *object_sissi,int user_data);
 extern xmlNodePtr find_node_named (xmlNodePtr p, const char *name);
 
 /************* creation of variable repeat for each object based on EBIOS method */
+
 static SISSI_Property property_classification_data[] = {
   { N_("No Protection"), "NO_PROTECTION" ,NULL},
   { N_("Restricted Diffusion"), "RESTRICTED_DIFFUSION" ,NULL},
@@ -373,7 +374,6 @@ static SISSI_Property property_material_data[] = {
   { N_("Data medium (passive)"), "MAT_PAS",NULL},
   { NULL, 0,NULL}
 };
-
 
 /*///////////////d�inition of color types  ////////////////*/
 static Color color_red = { 1.0f, 0.0f, 0.0f };

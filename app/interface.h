@@ -106,4 +106,6 @@ void fill_sheet_menu(void);
 
 extern GtkTooltips *tool_tips;
 
+void close_notebook_page_callback (GtkButton *button, gpointer user_data);
+
 #endif /* INTERFACE_H */

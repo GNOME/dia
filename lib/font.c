@@ -676,14 +676,12 @@ dia_font_get_sizes(const char* string, DiaFont *font, real height,
 		   real *width, real *ascent, real *descent, int *n_offsets,
 		   PangoLayoutLine **layout_offsets)
 {
-  real dummy;
   PangoLayout* layout;
   PangoLayoutIter* iter;
   real top, bline, bottom;
   gchar* non_empty_string;
   PangoRectangle ink_rect,logical_rect;
   real* offsets;
-  int i;
 
   /* We need some reasonable ascent/descent values even for empty strings. */
   if (string == NULL || string[0] == '\0') {

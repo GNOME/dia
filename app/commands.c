@@ -973,7 +973,7 @@ view_diagram_properties_callback (GtkAction *action)
 void
 view_main_toolbar_callback (GtkAction *action)
 {
-  if (gtk_toggle_action_get_active (action) == TRUE)
+  if (gtk_toggle_action_get_active (GTK_TOGGLE_ACTION(action)) == TRUE)
   {
     integrated_ui_main_toolbar_show ();
   }
@@ -986,7 +986,7 @@ view_main_toolbar_callback (GtkAction *action)
 void
 view_main_statusbar_callback (GtkAction *action)
 {
-  if (gtk_toggle_action_get_active (action) == TRUE)
+  if (gtk_toggle_action_get_active (GTK_TOGGLE_ACTION(action)) == TRUE)
   {
     integrated_ui_main_statusbar_show ();
   }

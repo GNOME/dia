@@ -186,7 +186,7 @@ read_path_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list)
     GArray *bezpoints = NULL;
     gboolean closed = FALSE;
     
-    pathdata = str = xmlGetProp(node, "d");
+    pathdata = str = (char *) xmlGetProp(node, (const xmlChar *)"d");
     do {
       bezpoints = dia_svg_parse_path (pathdata, &unparsed, &closed);
 
@@ -246,15 +246,15 @@ read_text_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list)
     point.x = 0;
     point.y = 0;
 
-    str = xmlGetProp(node, "x");
+    str = xmlGetProp(node, (const xmlChar *)"x");
     if (str) {
-      point.x = g_ascii_strtod(str, NULL);
+      point.x = g_ascii_strtod((char *) str, NULL);
       xmlFree(str);
     }
 
-    str = xmlGetProp(node, "y");
+    str = xmlGetProp(node, (const xmlChar *)"y");
     if (str) {
-      point.y = g_ascii_strtod(str, NULL);
+      point.y = g_ascii_strtod((char *) str, NULL);
       xmlFree(str);
     }
 
@@ -274,7 +274,7 @@ read_text_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list)
       }
       prop = g_ptr_array_index(props, 0);
       g_free(prop->text_data);
-      prop->text_data = g_strdup(str);
+      prop->text_data = g_strdup((char *) str);
       xmlFree(str);
       prop->attr.alignment = gs->alignment;
       prop->attr.position.x = point.x;
@@ -306,7 +306,8 @@ read_poly_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list, char *obj
     char *tmp;
     int i;
     
-    tmp = str = xmlGetProp(node, "points");
+    str = xmlGetProp(node, (const xmlChar *)"points");
+    tmp = (char *) str;
     while (tmp[0] != '\0') {
       /* skip junk */
       while (tmp[0] != '\0' && !g_ascii_isdigit(tmp[0]) && tmp[0]!='.'&&tmp[0]!='-')
@@ -352,36 +353,36 @@ read_ellipse_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list)
   GPtrArray *props;
   Point start;
   
-  str = xmlGetProp(node, "cx");
+  str = xmlGetProp(node, (const xmlChar *)"cx");
   if (str) {
-    start.x = g_ascii_strtod(str, NULL);
+    start.x = g_ascii_strtod((char *) str, NULL);
     xmlFree(str);
   }
   else return list;
-  str = xmlGetProp(node, "cy");
+  str = xmlGetProp(node, (const xmlChar *)"cy");
   if (str) {
-    start.y = g_ascii_strtod(str, NULL);
+    start.y = g_ascii_strtod((char *) str, NULL);
     xmlFree(str);
   }
   else return list;
-  str = xmlGetProp(node, "rx");
+  str = xmlGetProp(node, (const xmlChar *)"rx");
   if (str) {
-    width = g_ascii_strtod(str, NULL)*2;
+    width = g_ascii_strtod((char *) str, NULL)*2;
     xmlFree(str);
   }
-  str = xmlGetProp(node, "ry");
+  str = xmlGetProp(node, (const xmlChar *)"ry");
   if (str) {
-    height = g_ascii_strtod(str, NULL)*2;
+    height = g_ascii_strtod((char *) str, NULL)*2;
     xmlFree(str);
   }
-  str = xmlGetProp(node, "ry");
+  str = xmlGetProp(node, (const xmlChar *)"ry");
   if (str) {
-    height = g_ascii_strtod(str, NULL)*2;
+    height = g_ascii_strtod((char *) str, NULL)*2;
     xmlFree(str);
   }
-  str = xmlGetProp(node, "r");
+  str = xmlGetProp(node, (const xmlChar *)"r");
   if (str) {
-    width = height = g_ascii_strtod(str, NULL)*2;
+    width = height = g_ascii_strtod((char *) str, NULL)*2;
     xmlFree(str);
   }
   if (width <= 0.0 || height <= 0.0)
@@ -409,27 +410,27 @@ read_line_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list)
   GPtrArray *props;
   Point start, end;
 
-  str = xmlGetProp(node, "x1");
+  str = xmlGetProp(node, (const xmlChar *)"x1");
   if (str) {
-    start.x = g_ascii_strtod(str, NULL);
+    start.x = g_ascii_strtod((char *) str, NULL);
     xmlFree(str);
   }
   else return list;
-  str = xmlGetProp(node, "y1");
+  str = xmlGetProp(node, (const xmlChar *)"y1");
   if (str) {
-    start.y = g_ascii_strtod(str, NULL);
+    start.y = g_ascii_strtod((char *) str, NULL);
     xmlFree(str);
   }
   else return list;
-  str = xmlGetProp(node, "x2");
+  str = xmlGetProp(node, (const xmlChar *)"x2");
   if (str) {
-    end.x = g_ascii_strtod(str, NULL);
+    end.x = g_ascii_strtod((char *) str, NULL);
     xmlFree(str);
   }
   else return list;
-  str = xmlGetProp(node, "y2");
+  str = xmlGetProp(node, (const xmlChar *)"y2");
   if (str) {
-    end.y = g_ascii_strtod(str, NULL);
+    end.y = g_ascii_strtod((char *) str, NULL);
     xmlFree(str);
   }
   else return list;
@@ -470,42 +471,42 @@ read_rect_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list)
   Point start,end;
   real corner_radius = 0.0;
 
-  str = xmlGetProp(node, "x");
+  str = xmlGetProp(node, (const xmlChar *)"x");
   if (str) {
-    start.x = g_ascii_strtod(str, NULL);
+    start.x = g_ascii_strtod((char *) str, NULL);
     xmlFree(str);
   }
   else return list;
-  str = xmlGetProp(node, "y");
+  str = xmlGetProp(node, (const xmlChar *)"y");
   if (str) {
-    start.y = g_ascii_strtod(str, NULL);
+    start.y = g_ascii_strtod((char *) str, NULL);
     xmlFree(str);
   }
   else return list;
-  str = xmlGetProp(node, "width");
+  str = xmlGetProp(node, (const xmlChar *)"width");
   if (str) {
-    width = g_ascii_strtod(str, NULL);
+    width = g_ascii_strtod((char *) str, NULL);
     xmlFree(str);
   }
   else return list;
-  str = xmlGetProp(node, "height");
+  str = xmlGetProp(node, (const xmlChar *)"height");
   if (str) {
-    height = g_ascii_strtod(str, NULL);
+    height = g_ascii_strtod((char *) str, NULL);
     xmlFree(str);
   }
   else return list;
-  str = xmlGetProp(node, "rx");
+  str = xmlGetProp(node, (const xmlChar *)"rx");
   if (str) {
-    corner_radius = g_ascii_strtod(str, NULL);
+    corner_radius = g_ascii_strtod((char *) str, NULL);
     xmlFree(str);
   }
-  str = xmlGetProp(node, "ry");
+  str = xmlGetProp(node, (const xmlChar *)"ry");
   if (str) {
     if(corner_radius != 0.0) {
       /* calculate the mean value of rx and ry */
-      corner_radius = (corner_radius+g_ascii_strtod(str, NULL))/2;
+      corner_radius = (corner_radius+g_ascii_strtod((char *) str, NULL))/2;
     } else {
-      corner_radius = g_ascii_strtod(str, NULL);
+      corner_radius = g_ascii_strtod((char *) str, NULL);
     }
     xmlFree(str);
   }
@@ -553,7 +554,7 @@ read_items (xmlNodePtr startnode, DiaSvgStyle *parent_gs)
     if (xmlIsBlankNode(node)) continue;
     if (node->type != XML_ELEMENT_NODE) continue;
 
-    if (!strcmp(node->name, "g")) {
+    if (!xmlStrcmp(node->name, (const xmlChar *)"g")) {
       GList *moreitems;
       DiaSvgStyle *group_gs;
 
@@ -574,33 +575,33 @@ read_items (xmlNodePtr startnode, DiaSvgStyle *parent_gs)
       g_free (group_gs);
       continue;
     }
-    if (!strcmp(node->name, "rect")) {
+    if (!xmlStrcmp(node->name, (const xmlChar *)"rect")) {
       items = read_rect_svg(node, parent_gs, items);
       continue;
     }
-    if (!strcmp(node->name, "line")) {
+    if (!xmlStrcmp(node->name, (const xmlChar *)"line")) {
       items = read_line_svg(node, parent_gs, items);
       continue;
     }
-    if (!strcmp(node->name, "ellipse") || !strcmp(node->name, "circle")) {
+    if (!xmlStrcmp(node->name, (const xmlChar *)"ellipse") || !xmlStrcmp(node->name, (const xmlChar *)"circle")) {
       items = read_ellipse_svg(node, parent_gs, items);
       continue;
     }
-    if (!strcmp(node->name, "polyline")) {
+    if (!xmlStrcmp(node->name, (const xmlChar *)"polyline")) {
       /* Uh, oh, no : apparently a fill="" in a group above make this a polygon */
       items = read_poly_svg(node, parent_gs, items, parent_gs && parent_gs->fill >= 0 ?
                             "Standard - Polygon" : "Standard - PolyLine");
       continue;
     }
-    if (!strcmp(node->name, "polygon")) {
+    if (!xmlStrcmp(node->name, (const xmlChar *)"polygon")) {
       items = read_poly_svg(node, parent_gs, items, "Standard - Polygon");
       continue;
     }
-    if(!strcmp(node->name, "text")) {
+    if(!xmlStrcmp(node->name, (const xmlChar *)"text")) {
       items = read_text_svg(node, parent_gs, items);
       continue;
     }
-    if(!strcmp(node->name, "path")) {
+    if(!xmlStrcmp(node->name, (const xmlChar *)"path")) {
       items = read_path_svg(node, parent_gs, items);
       continue;
     }
@@ -628,7 +629,7 @@ import_svg(const gchar *filename, DiagramData *dia, void* user_data)
   if (!root) return FALSE;
   if (xmlIsBlankNode(root)) return FALSE;
 
-  if (!(svg_ns = xmlSearchNsByHref(doc, root, "http://www.w3.org/2000/svg"))) {
+  if (!(svg_ns = xmlSearchNsByHref(doc, root, (const xmlChar *)"http://www.w3.org/2000/svg"))) {
     /* correct filetype vs. robust import */
 #if 0
     xmlFreeDoc(doc);
@@ -653,7 +654,7 @@ import_svg(const gchar *filename, DiagramData *dia, void* user_data)
       root = node;
   }
 
-  if (root->ns != svg_ns && 0 != strcmp(root->name, "svg")) {
+  if (root->ns != svg_ns && 0 != xmlStrcmp(root->name, (const xmlChar *)"svg")) {
     message_warning(_("root element was '%s' -- expecting 'svg'."), root->name);
     xmlFreeDoc(doc);
     return FALSE;

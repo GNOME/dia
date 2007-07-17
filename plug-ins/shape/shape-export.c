@@ -149,14 +149,14 @@ new_shape_renderer(DiagramData *data, const char *filename)
   renderer->saved_line_style = LINESTYLE_SOLID;
 
   /* set up the root node */
-  renderer->doc = xmlNewDoc("1.0");
-  renderer->doc->encoding = xmlStrdup("UTF-8");
-  renderer->root = xmlNewDocNode(renderer->doc, NULL, "shape", NULL);
+  renderer->doc = xmlNewDoc((const xmlChar *)"1.0");
+  renderer->doc->encoding = xmlStrdup((const xmlChar *)"UTF-8");
+  renderer->root = xmlNewDocNode(renderer->doc, NULL, (const xmlChar *)"shape", NULL);
   name_space = xmlNewNs(renderer->root,
-                        "http://www.daa.com.au/~james/dia-shape-ns", NULL);
+                        (const xmlChar *)"http://www.daa.com.au/~james/dia-shape-ns", NULL);
 
   renderer->svg_name_space = xmlNewNs(renderer->root,
-                                      "http://www.w3.org/2000/svg", "svg");
+                                      (const xmlChar *)"http://www.w3.org/2000/svg", (const xmlChar *)"svg");
   renderer->doc->xmlRootNode = renderer->root;
 
   dirname = g_path_get_dirname(filename);
@@ -167,19 +167,19 @@ new_shape_renderer(DiagramData *data, const char *filename)
   g_free(sheetname);
   g_free(shapename);
 
-  xmlNewChild(renderer->root, NULL, "name", fullname);
+  xmlNewChild(renderer->root, NULL, (const xmlChar *)"name", (xmlChar *) fullname);
   g_free(fullname);
   point = strrchr(filename, '.');
   i = (int)(point-filename);
   point = g_strndup(filename, i);
   png_filename = g_strdup_printf("%s.png",point);
   g_free(point);
-  xmlNewChild(renderer->root, NULL, "icon", g_basename(png_filename));
+  xmlNewChild(renderer->root, NULL, (const xmlChar *)"icon", (xmlChar *) g_basename(png_filename));
   g_free(png_filename);
-  shape_renderer->connection_root = xmlNewChild(renderer->root, NULL, "connections", NULL);
-  xml_node_ptr = xmlNewChild(renderer->root, NULL, "aspectratio",NULL);
-  xmlSetProp(xml_node_ptr, "type","fixed");
-  renderer->root = xmlNewChild(renderer->root, renderer->svg_name_space, "svg", NULL);
+  shape_renderer->connection_root = xmlNewChild(renderer->root, NULL, (const xmlChar *)"connections", NULL);
+  xml_node_ptr = xmlNewChild(renderer->root, NULL, (const xmlChar *)"aspectratio",NULL);
+  xmlSetProp(xml_node_ptr, (const xmlChar *)"type", (const xmlChar *)"fixed");
+  renderer->root = xmlNewChild(renderer->root, renderer->svg_name_space, (const xmlChar *)"svg", NULL);
     
   return renderer;
 }
@@ -273,11 +273,11 @@ add_connection_point (ShapeRenderer *renderer,
   xmlNodePtr node;
   gchar buf[G_ASCII_DTOSTR_BUF_SIZE];
   
-  node = xmlNewChild(renderer->connection_root, NULL, "point", NULL);
+  node = xmlNewChild(renderer->connection_root, NULL, (const xmlChar *)"point", NULL);
   g_ascii_formatd(buf, sizeof(buf), "%g", point->x);
-  xmlSetProp(node, "x", buf);
+  xmlSetProp(node, (const xmlChar *)"x", (xmlChar *) buf);
   g_ascii_formatd(buf, sizeof(buf), "%g", point->y);
-  xmlSetProp(node, "y", buf);
+  xmlSetProp(node, (const xmlChar *)"y", (xmlChar *) buf);
 }
 
 static void
@@ -314,10 +314,10 @@ draw_polyline(DiaRenderer *self,
   gchar px_buf[G_ASCII_DTOSTR_BUF_SIZE];
   gchar py_buf[G_ASCII_DTOSTR_BUF_SIZE];
 
-  node = xmlNewChild(renderer->root, renderer->svg_name_space, "polyline", NULL);
+  node = xmlNewChild(renderer->root, renderer->svg_name_space, (const xmlChar *)"polyline", NULL);
   
-  xmlSetProp(node, "style", 
-             DIA_SVG_RENDERER_GET_CLASS(renderer)->get_draw_style(renderer, line_colour));
+  xmlSetProp(node, (const xmlChar *)"style", 
+             (xmlChar *) DIA_SVG_RENDERER_GET_CLASS(renderer)->get_draw_style(renderer, line_colour));
 
   str = g_string_new(NULL);
   for (i = 0; i < num_points; i++) {
@@ -326,7 +326,7 @@ draw_polyline(DiaRenderer *self,
 			   g_ascii_formatd(py_buf, sizeof(py_buf), "%g", points[i].y) );
     add_connection_point(SHAPE_RENDERER(self), &points[i]);
   }
-  xmlSetProp(node, "points", str->str);
+  xmlSetProp(node, (const xmlChar *)"points", (xmlChar *) str->str);
   g_string_free(str, TRUE);
   for(i = 1; i < num_points; i++) {
     center.x = (points[i].x + points[i-1].x)/2;
@@ -350,10 +350,10 @@ draw_polygon(DiaRenderer *self,
   gchar px_buf[G_ASCII_DTOSTR_BUF_SIZE];
   gchar py_buf[G_ASCII_DTOSTR_BUF_SIZE];
 
-  node = xmlNewChild(renderer->root, renderer->svg_name_space, "polygon", NULL);
+  node = xmlNewChild(renderer->root, renderer->svg_name_space, (const xmlChar *)"polygon", NULL);
   
-  xmlSetProp(node, "style", 
-             DIA_SVG_RENDERER_GET_CLASS(renderer)->get_draw_style(renderer, line_colour));
+  xmlSetProp(node, (const xmlChar *)"style", 
+             (xmlChar *) DIA_SVG_RENDERER_GET_CLASS(renderer)->get_draw_style(renderer, line_colour));
 
   str = g_string_new(NULL);
   for (i = 0; i < num_points; i++) {
@@ -367,7 +367,7 @@ draw_polygon(DiaRenderer *self,
     center.y = (points[i].y + points[i-1].y)/2;
     add_connection_point(SHAPE_RENDERER(self), &center);
   }
-  xmlSetProp(node, "points", str->str);
+  xmlSetProp(node, (const xmlChar *)"points", (xmlChar *) str->str);
   g_string_free(str, TRUE);
 }
 

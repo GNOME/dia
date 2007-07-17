@@ -224,7 +224,7 @@ static void
 newgroup_update_data(NewGroup *group)
 {
   Element *elem = &group->element;
-  ElementBBExtras *extra = &elem->extra_spacing;
+  /* ElementBBExtras *extra = &elem->extra_spacing; */
   DiaObject *obj = &elem->object;
 
   /* Update connections: */

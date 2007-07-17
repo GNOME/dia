@@ -101,9 +101,9 @@ static GtkItemFactoryEntry *items_[] = { dia_items_, object_items_ };
 static gint items_size_[] = { DIA_ITEMS_SIZE_, OBJ_ITEMS_SIZE_ };
 
 static gchar*
-_dia_translate (const gchar* term, gpointer data)
+_dia_translate (const gchar *term, gpointer data)
 {
-  gchar* trans = term;
+  gchar *trans = term;
   
   if (term && *term) {
     /* first try our own ... */

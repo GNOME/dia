@@ -26,6 +26,21 @@
 #include "text.h"
 #include "textline.h"
 
+/*
+ * redefinition of isnan, for portability, as explained in :
+ * http://www.gnu.org/software/autoconf/manual/html_node/Function-Portability.html
+ */
+
+#ifndef isnan
+# define isnan(x) \
+     (sizeof (x) == sizeof (long double) ? isnan_ld (x) \
+     : sizeof (x) == sizeof (double) ? isnan_d (x) \
+     : isnan_f (x))
+static inline int isnan_f  (float       x) { return x != x; }
+static inline int isnan_d  (double      x) { return x != x; }
+static inline int isnan_ld (long double x) { return x != x; }
+#endif
+
 struct _BezierApprox {
   Point *points;
   int numpoints;

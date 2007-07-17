@@ -371,7 +371,7 @@ static void
 set_linejoin(DiaRenderer *self, LineJoin mode)
 {
     PgfRenderer *renderer = PGF_RENDERER(self);
-    int ps_mode;
+    /* int ps_mode; */
   
     switch(mode) {
     case LINEJOIN_MITER:
@@ -470,7 +470,7 @@ static void
 set_font(DiaRenderer *self, DiaFont *font, real height)
 {
     PgfRenderer *renderer = PGF_RENDERER(self);
-    gchar d_buf[DTOSTR_BUF_SIZE];
+    /* gchar d_buf[DTOSTR_BUF_SIZE]; */
 
     fprintf(renderer->file, "%% setfont left to latex\n");
 }
@@ -1193,10 +1193,10 @@ export_pgf(DiagramData *data, const gchar *filename,
     double scale;
     Rectangle *extent;
     const char *name;
-    gchar el_buf[DTOSTR_BUF_SIZE];
+    /* gchar el_buf[DTOSTR_BUF_SIZE];
     gchar er_buf[DTOSTR_BUF_SIZE];
     gchar eb_buf[DTOSTR_BUF_SIZE];
-    gchar et_buf[DTOSTR_BUF_SIZE];
+    gchar et_buf[DTOSTR_BUF_SIZE]; */
     gchar scale1_buf[DTOSTR_BUF_SIZE];
     gchar scale2_buf[DTOSTR_BUF_SIZE];
 

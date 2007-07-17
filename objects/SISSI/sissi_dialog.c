@@ -257,7 +257,7 @@ gtk_widget_show_all (pScroll);
 
 static void properties_others_read_from_dialog(ObjetSISSI *object_sissi, SISSIDialog *prop_dialog)
 {
-  GList *list;
+  /* GList *list; */
   unsigned int i;
      /************** classification list box *************/
   if (GTK_IS_OPTION_MENU(object_sissi->properties_dialog->confidentiality)) {
@@ -362,7 +362,7 @@ static void properties_others_create_page(GtkNotebook *notebook,  ObjetSISSI *ob
   GtkWidget *pScroll_others;
 
 
-  GtkWidget *menu_classification, *menu_integrity, *menu_disponibility_level, *disponibility_value;  
+  GtkWidget *menu_classification, *menu_integrity, *menu_disponibility_level/* , *disponibility_value */;  
   GtkWidget *menu_entity;
   unsigned int j;  
   
@@ -673,7 +673,7 @@ document_new_callback(GtkWidget *button, ObjetSISSI *object_sissi)
 static void
 document_fill_in_dialog(ObjetSISSI *object_sissi)
 {
-  GList *list;
+  /* GList *list; */
   SISSIDialog *prop_dialog;
   unsigned int i;
   
@@ -708,7 +708,7 @@ document_fill_in_dialog(ObjetSISSI *object_sissi)
 
 static void document_read_from_dialog(ObjetSISSI *object_sissi, SISSIDialog *prop_dialog)
 {
-  GList *list;
+  /* GList *list; */
   unsigned int i;
   
   object_sissi->url_docs=clear_list_url_doc(object_sissi->url_docs);
@@ -737,8 +737,8 @@ static void document_create_page(GtkNotebook *notebook, ObjetSISSI *object_sissi
 {
   SISSIDialog *prop_dialog;
   GtkWidget *label,*button;
-  GtkWidget *menu_classification, *menu_integrity, *menu_disponibility_level, *disponibility_value;  
-  GtkWidget *menu_entity;
+  /* GtkWidget *menu_classification, *menu_integrity, *menu_disponibility_level, *disponibility_value;  
+  GtkWidget *menu_entity; */
  
   prop_dialog = object_sissi->properties_dialog;
   
@@ -984,7 +984,9 @@ extern ObjectChange *object_sissi_apply_properties_dialog(ObjetSISSI *object_sis
 {
   SISSIDialog *prop_dialog;
   DiaObject *obj;
-  GList *added, *deleted, *disconnected;
+  GList *added = NULL;
+  GList *deleted = NULL;
+  GList *disconnected = NULL;
   SISSIState *old_state = NULL;
   prop_dialog = object_sissi->properties_dialog;
 
@@ -1008,7 +1010,7 @@ extern GtkWidget *object_sissi_get_properties_dialog(ObjetSISSI *object_sissi, g
   SISSIDialog *prop_dialog;
   GtkWidget *vbox;
   GtkWidget *notebook;
-GtkObject *Adjust;
+  /* GtkObject *Adjust; */
 
   if (object_sissi->properties_dialog == NULL) {
     prop_dialog = g_new(SISSIDialog, 1);

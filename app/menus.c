@@ -433,14 +433,14 @@ static GtkWidget *
 create_integrated_ui_toolbar (void)
 {
   GtkToolbar  *toolbar;
-  GtkToolItem *button;
+  /* GtkToolItem *button; */
   GtkToolItem *sep;
   GtkToolItem *tool_item; 
   GtkWidget   *w;
-  GtkAction   *action;
-  int          i;
+  /* GtkAction   *action;
+  int          i; */
   GError      *error = NULL;
-  const gchar *uifile;
+  gchar *uifile;
 
   uifile = build_ui_filename ("ui/toolbar-ui.xml");
   if (!gtk_ui_manager_add_ui_from_file (integrated_ui_manager, uifile, &error)) {
@@ -450,7 +450,7 @@ create_integrated_ui_toolbar (void)
     toolbar = GTK_TOOLBAR (gtk_toolbar_new ());
   }
   else {
-    toolbar =  gtk_ui_manager_get_widget (integrated_ui_manager, "/Toolbar");
+    toolbar =  GTK_TOOLBAR(gtk_ui_manager_get_widget (integrated_ui_manager, "/Toolbar"));
   }
   g_free (uifile);  
 
@@ -759,13 +759,13 @@ static void
 add_toolbox_plugin_actions (GtkUIManager *ui_manager) 
 {
   GtkActionGroup    *plugin_actions;
-  GtkActionGroup    *actions;
+  /* GtkActionGroup    *actions; */
   GtkAction         *action;
   GList             *cblist;
   DiaCallbackFilter *cbf = NULL;
-  gchar             *name;
+  /* gchar             *name; */
   guint              id;
-  static guint       cnt = 0;
+  /* static guint       cnt = 0; */
 
   /* plugin menu hooks */  
   plugin_actions = gtk_action_group_new ("toolbox-plugin-actions");

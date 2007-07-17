@@ -57,6 +57,31 @@
 
 #define BUFLEN 1024
 
+/*
+ * redefinition of isnan and isinf, for portability, as explained in :
+ * http://www.gnu.org/software/autoconf/manual/html_node/Function-Portability.html
+ */
+
+#ifndef isnan
+# define isnan(x) \
+     (sizeof (x) == sizeof (long double) ? isnan_ld (x) \
+     : sizeof (x) == sizeof (double) ? isnan_d (x) \
+     : isnan_f (x))
+static inline int isnan_f  (float       x) { return x != x; }
+static inline int isnan_d  (double      x) { return x != x; }
+static inline int isnan_ld (long double x) { return x != x; }
+#endif
+          
+#ifndef isinf
+# define isinf(x) \
+    (sizeof (x) == sizeof (long double) ? isinf_ld (x) \
+     : sizeof (x) == sizeof (double) ? isinf_d (x) \
+     : isinf_f (x))
+static inline int isinf_f  (float       x) { return isnan (x - x); }
+static inline int isinf_d  (double      x) { return isnan (x - x); }
+static inline int isinf_ld (long double x) { return isnan (x - x); }
+#endif
+
 /** If all files produced by dia were good XML files, we wouldn't have to do 
  *  this little gymnastic. Alas, during the libxml1 days, we were outputting 
  *  files with no encoding specification (which means UTF-8 if we're in an
@@ -262,8 +287,8 @@ object_find_attribute(ObjectNode obj_node,
       continue;
     }
 
-    name = xmlGetProp(attr, "name");
-    if ( (name!=NULL) && (strcmp(name, attrname)==0) ) {
+    name = xmlGetProp(attr, (const xmlChar *)"name");
+    if ( (name!=NULL) && (strcmp((char *) name, attrname)==0) ) {
       xmlFree(name);
       return attr;
     }
@@ -299,8 +324,8 @@ composite_find_attribute(DataNode composite_node,
       continue;
     }
 
-    name = xmlGetProp(attr, "name");
-    if ( (name!=NULL) && (strcmp(name, attrname)==0) ) {
+    name = xmlGetProp(attr, (const xmlChar *)"name");
+    if ( (name!=NULL) && (strcmp((char *) name, attrname)==0) ) {
       xmlFree(name);
       return attr;
     }
@@ -417,8 +442,8 @@ data_int(DataNode data)
     return 0;
   }
 
-  val = xmlGetProp(data, "val");
-  res = atoi(val);
+  val = xmlGetProp(data, (const xmlChar *)"val");
+  res = atoi((char *) val);
   if (val) xmlFree(val);
   
   return res;
@@ -439,8 +464,8 @@ int data_enum(DataNode data)
     return 0;
   }
 
-  val = xmlGetProp(data, "val");
-  res = atoi(val);
+  val = xmlGetProp(data, (const xmlChar *)"val");
+  res = atoi((char *) val);
   if (val) xmlFree(val);
   
   return res;
@@ -462,8 +487,8 @@ data_real(DataNode data)
     return 0;
   }
 
-  val = xmlGetProp(data, "val");
-  res = g_ascii_strtod(val, NULL);
+  val = xmlGetProp(data, (const xmlChar *)"val");
+  res = g_ascii_strtod((char *) val, NULL);
   if (val) xmlFree(val);
   
   return res;
@@ -485,9 +510,9 @@ data_boolean(DataNode data)
     return 0;
   }
 
-  val = xmlGetProp(data, "val");
+  val = xmlGetProp(data, (const xmlChar *)"val");
 
-  if ((val) && (strcmp(val, "true")==0))
+  if ((val) && (strcmp((char *) val, "true")==0))
     res =  TRUE;
   else 
     res = FALSE;
@@ -533,12 +558,12 @@ data_color(DataNode data, Color *col)
     return;
   }
 
-  val = xmlGetProp(data, "val");
+  val = xmlGetProp(data, (const xmlChar *)"val");
 
   /* Format #RRGGBB */
   /*        0123456 */
 
-  if ((val) && (strlen(val)>=7)) {
+  if ((val) && (xmlStrlen(val)>=7)) {
     r = hex_digit(val[1])*16 + hex_digit(val[2]);
     g = hex_digit(val[3])*16 + hex_digit(val[4]);
     b = hex_digit(val[5])*16 + hex_digit(val[6]);
@@ -569,8 +594,8 @@ data_point(DataNode data, Point *point)
     return;
   }
   
-  val = xmlGetProp(data, "val");
-  point->x = g_ascii_strtod(val, &str);
+  val = xmlGetProp(data, (const xmlChar *)"val");
+  point->x = g_ascii_strtod((char *)val, &str);
   ax = fabs(point->x);
   if ((ax > 1e9) || ((ax < 1e-9) && (ax != 0.0)) || isnan(ax) || isinf(ax)) {
     /* there is no provision to keep values larger when saving, 
@@ -614,9 +639,9 @@ data_rectangle(DataNode data, Rectangle *rect)
     return;
   }
   
-  val = xmlGetProp(data, "val");
+  val = xmlGetProp(data, (const xmlChar *)"val");
   
-  rect->left = g_ascii_strtod(val, &str);
+  rect->left = g_ascii_strtod((char *)val, &str);
   
   while ((*str != ',') && (*str!=0))
     str++;
@@ -673,9 +698,9 @@ data_string(DataNode data)
     return NULL;
   }
 
-  val = xmlGetProp(data, "val");
+  val = xmlGetProp(data, (const xmlChar *)"val");
   if (val != NULL) { /* Old kind of string. Left for backwards compatibility */
-    str  = g_malloc(4 * (sizeof(char)*(strlen(val)+1))); /* extra room 
+    str  = g_malloc(4 * (sizeof(char)*(xmlStrlen(val)+1))); /* extra room 
                                                             for UTF8 */
     p = str;
     while (*val) {
@@ -710,7 +735,7 @@ data_string(DataNode data)
   }
 
   if (data->xmlChildrenNode!=NULL) {
-    p = xmlNodeListGetString(data->doc, data->xmlChildrenNode, TRUE);
+    p = (char *)xmlNodeListGetString(data->doc, data->xmlChildrenNode, TRUE);
     
     if (*p!='#')
       message_error("Error in file, string not starting with #\n");
@@ -765,21 +790,21 @@ data_font(DataNode data)
     return NULL;
   }
 
-  family = xmlGetProp(data, "family");
+  family = xmlGetProp(data, (const xmlChar *)"family");
   /* always prefer the new format */
   if (family) {
     DiaFontStyle style;
-    xmlChar* style_name = xmlGetProp(data, "style");
+    char* style_name = (char *) xmlGetProp(data, (const xmlChar *)"style");
     style = style_name ? atoi(style_name) : 0;
 
-    font = dia_font_new (family, style, 1.0);
-    if (family) xmlFree(family);
+    font = dia_font_new ((char *)family, style, 1.0);
+    if (family) free(family);
     if (style_name) xmlFree(style_name);
   } else {
     /* Legacy format support */
-    char *name = xmlGetProp(data, "name");
+    char *name = (char *)xmlGetProp(data, (const xmlChar *)"name");
     font = dia_font_new_from_legacy_name(name);
-    xmlFree(name);
+    free(name);
   }
   return font;
 }
@@ -798,8 +823,8 @@ new_attribute(ObjectNode obj_node,
 	      const char *attrname)
 {
   AttributeNode attr;
-  attr = xmlNewChild(obj_node, NULL, "attribute", NULL);
-  xmlSetProp(attr, "name", attrname);
+  attr = xmlNewChild(obj_node, NULL, (const xmlChar *)"attribute", NULL);
+  xmlSetProp(attr, (const xmlChar *)"name", (xmlChar *)attrname);
 
   return attr;
 }
@@ -815,8 +840,8 @@ composite_add_attribute(DataNode composite_node,
 			const char *attrname)
 {
   AttributeNode attr;
-  attr = xmlNewChild(composite_node, NULL, "attribute", NULL);
-  xmlSetProp(attr, "name", attrname);
+  attr = xmlNewChild(composite_node, NULL, (const xmlChar *)"attribute", NULL);
+  xmlSetProp(attr, (const xmlChar *)"name", (xmlChar *)attrname);
 
   return attr;
 }
@@ -833,8 +858,8 @@ data_add_int(AttributeNode attr, int data)
 
   g_snprintf(buffer, 20, "%d", data);
   
-  data_node = xmlNewChild(attr, NULL, "int", NULL);
-  xmlSetProp(data_node, "val", buffer);
+  data_node = xmlNewChild(attr, NULL, (const xmlChar *)"int", NULL);
+  xmlSetProp(data_node, (const xmlChar *)"val", (xmlChar *)buffer);
 }
 
 /** Add enum data to an attribute node.
@@ -849,8 +874,8 @@ data_add_enum(AttributeNode attr, int data)
 
   g_snprintf(buffer, 20, "%d", data);
   
-  data_node = xmlNewChild(attr, NULL, "enum", NULL);
-  xmlSetProp(data_node, "val", buffer);
+  data_node = xmlNewChild(attr, NULL, (const xmlChar *)"enum", NULL);
+  xmlSetProp(data_node, (const xmlChar *)"val", (xmlChar *)buffer);
 }
 
 /** Add real-typed data to an attribute node.
@@ -865,8 +890,8 @@ data_add_real(AttributeNode attr, real data)
 
   g_ascii_dtostr(buffer, G_ASCII_DTOSTR_BUF_SIZE, data);
   
-  data_node = xmlNewChild(attr, NULL, "real", NULL);
-  xmlSetProp(data_node, "val", buffer);
+  data_node = xmlNewChild(attr, NULL, (const xmlChar *)"real", NULL);
+  xmlSetProp(data_node, (const xmlChar *)"val", (xmlChar *)buffer);
 }
 
 /** Add boolean data to an attribute node.
@@ -878,11 +903,11 @@ data_add_boolean(AttributeNode attr, int data)
 {
   DataNode data_node;
 
-  data_node = xmlNewChild(attr, NULL, "boolean", NULL);
+  data_node = xmlNewChild(attr, NULL, (const xmlChar *)"boolean", NULL);
   if (data)
-    xmlSetProp(data_node, "val", "true");
+    xmlSetProp(data_node, (const xmlChar *)"val", (const xmlChar *)"true");
   else
-    xmlSetProp(data_node, "val", "false");
+    xmlSetProp(data_node, (const xmlChar *)"val", (const xmlChar *)"false");
 }
 
 /** Convert a floating-point value to hexadecimal.
@@ -925,8 +950,8 @@ data_add_color(AttributeNode attr, const Color *col)
   convert_to_hex(col->blue, &buffer[5]);
   buffer[7] = 0;
 
-  data_node = xmlNewChild(attr, NULL, "color", NULL);
-  xmlSetProp(data_node, "val", buffer);
+  data_node = xmlNewChild(attr, NULL, (const xmlChar *)"color", NULL);
+  xmlSetProp(data_node, (const xmlChar *)"val", (xmlChar *)buffer);
 }
 
 /** Add point data to an attribute node.
@@ -945,8 +970,8 @@ data_add_point(AttributeNode attr, const Point *point)
   g_ascii_formatd(py_buf, sizeof(py_buf), "%g", point->y);
   buffer = g_strconcat(px_buf, ",", py_buf, NULL);
   
-  data_node = xmlNewChild(attr, NULL, "point", NULL);
-  xmlSetProp(data_node, "val", buffer);
+  data_node = xmlNewChild(attr, NULL, (const xmlChar *)"point", NULL);
+  xmlSetProp(data_node, (const xmlChar *)"val", (xmlChar *)buffer);
   g_free(buffer);
 }
 
@@ -971,8 +996,8 @@ data_add_rectangle(AttributeNode attr, const Rectangle *rect)
 
   buffer = g_strconcat(rl_buf, ",", rt_buf, ";", rr_buf, ",", rb_buf, NULL);
   
-  data_node = xmlNewChild(attr, NULL, "rectangle", NULL);
-  xmlSetProp(data_node, "val", buffer);
+  data_node = xmlNewChild(attr, NULL, (const xmlChar *)"rectangle", NULL);
+  xmlSetProp(data_node, (const xmlChar *)"val", (xmlChar *)buffer);
 
   g_free(buffer);
 }
@@ -989,17 +1014,17 @@ data_add_string(AttributeNode attr, const char *str)
     xmlChar *sharped_str;
 
     if (str==NULL) {
-        data_node = xmlNewChild(attr, NULL, "string", "##");
+        data_node = xmlNewChild(attr, NULL, (const xmlChar *)"string", (const xmlChar *)"##");
         return;
     } 
 
-    escaped_str = xmlEncodeEntitiesReentrant(attr->doc,str);
+    escaped_str = xmlEncodeEntitiesReentrant(attr->doc, (xmlChar *) str);
     
-    sharped_str = g_strconcat("#", escaped_str, "#", NULL);
+    sharped_str = (xmlChar *) g_strconcat("#", (char *) escaped_str, "#", NULL);
 
     xmlFree(escaped_str);
     
-    data_node = xmlNewChild(attr, NULL, "string", sharped_str);
+    data_node = xmlNewChild(attr, NULL, (const xmlChar *)"string", (xmlChar *) sharped_str);
   
     g_free(sharped_str);
 }
@@ -1030,14 +1055,14 @@ data_add_font(AttributeNode attr, const DiaFont *font)
   DiaFontStyle style;
   char buffer[20+1]; /* Enought for 64bit int + zero */
 
-  data_node = xmlNewChild(attr, NULL, "font", NULL);
+  data_node = xmlNewChild(attr, NULL, (const xmlChar *)"font", NULL);
   style = dia_font_get_style (font);
-  xmlSetProp(data_node, "family", dia_font_get_family(font));
+  xmlSetProp(data_node, (const xmlChar *)"family", (xmlChar *) dia_font_get_family(font));
   g_snprintf(buffer, 20, "%d", dia_font_get_style(font));
  
-  xmlSetProp(data_node, "style", buffer);
+  xmlSetProp(data_node, (const xmlChar *)"style", (xmlChar *) buffer);
   /* Legacy support: don't crash older Dia on missing 'name' attribute */
-  xmlSetProp(data_node, "name", dia_font_get_legacy_name(font));
+  xmlSetProp(data_node, (const xmlChar *)"name", (xmlChar *) dia_font_get_legacy_name(font));
 }
 
 /** Add a new composite node to an attribute node.
@@ -1051,9 +1076,9 @@ data_add_composite(AttributeNode attr, const char *type)
   /* type can be NULL */
   DataNode data_node;
  
-  data_node = xmlNewChild(attr, NULL, "composite", NULL);
+  data_node = xmlNewChild(attr, NULL, (const xmlChar *)"composite", NULL);
   if (type != NULL) 
-    xmlSetProp(data_node, "type", type);
+    xmlSetProp(data_node, (const xmlChar *)"type", (xmlChar *)type);
 
   return data_node;
 }

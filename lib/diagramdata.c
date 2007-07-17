@@ -895,7 +895,6 @@ layer_find_objects_in_rectangle(Layer *layer, Rectangle *rect)
   selected_list = NULL;
   list = layer->objects;
   while (list != NULL) {
-    DiaObject *parent;
     obj = (DiaObject *)list->data;
 
     if (rectangle_in_rectangle(rect, &obj->bounding_box)) {

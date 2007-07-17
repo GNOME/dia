@@ -728,7 +728,6 @@ draw_text_line (DiaRenderer *object, TextLine *text_line,
 	  guchar* pixels;
 	  int i,j;
 	  guint8 *graybitmap;
-	  FreetypeCacheData *cache;
 
 	  initialize_ft_bitmap(&ftbitmap, width, height);
 	  pango_ft2_render_layout(&ftbitmap, layout, 0, 0);
@@ -768,7 +767,6 @@ static real
 get_text_width(DiaRenderer *object,
                const gchar *text, int length)
 {
-  DiaGdkRenderer *renderer = DIA_GDK_RENDERER (object);
   real result;
   TextLine *text_line;
 

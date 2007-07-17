@@ -239,7 +239,8 @@ element_move_handle_aspect(Element *elem, HandleId id,
   Point *corner;
   real width, height;
   real new_width, new_height;
-  real move_x, move_y;
+  real move_x=0;
+  real move_y=0;
   
   assert(id>=HANDLE_RESIZE_NW);
   assert(id<=HANDLE_RESIZE_SE);

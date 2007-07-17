@@ -80,6 +80,7 @@ real persistence_register_real(gchar *role, real defaultvalue);
 real persistence_get_real(gchar *role);
 void persistence_set_real(gchar *role, real newvalue);
 
+gboolean persistence_boolean_is_registered(gchar *role);
 gboolean persistence_register_boolean(gchar *role, gboolean defaultvalue);
 gboolean persistence_get_boolean(gchar *role);
 void persistence_set_boolean(gchar *role, gboolean newvalue);

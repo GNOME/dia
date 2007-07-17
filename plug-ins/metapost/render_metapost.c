@@ -1049,7 +1049,7 @@ draw_text_line(DiaRenderer *self, TextLine *text_line,
     gchar green_buf[DTOSTR_BUF_SIZE];
     gchar blue_buf[DTOSTR_BUF_SIZE];
 
-    real width = text_line_get_width(text_line);
+    /* real width = text_line_get_width(text_line); */
 
     set_line_color(renderer,color);
 

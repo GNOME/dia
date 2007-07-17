@@ -294,7 +294,6 @@ text_line_cache_values(TextLine *text_line)
 
 	for (; runs != NULL; runs = g_slist_next(runs)) {
 	  PangoGlyphItem *run = (PangoGlyphItem *) runs->data;
-	  int i;
 	  
 	  g_free(run->glyphs->glyphs);
 	  g_free(run->glyphs);

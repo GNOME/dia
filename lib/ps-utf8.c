@@ -126,8 +126,10 @@ static void psu_add_encoding(PSUnicoder *psu, gunichar uchar)
   }
   if (!encoding_page_add_unichar(psu->last_page,uchar)) {
     psu_make_new_encoding_page(psu);
-    if (!encoding_page_add_unichar(psu->last_page,uchar))
-      g_assert_not_reached();
+    if (!encoding_page_add_unichar(psu->last_page,uchar)) 
+      {
+	g_assert_not_reached();
+      }
   }
   g_hash_table_insert(psu->unicode_to_page,
                       GINT_TO_POINTER(uchar),

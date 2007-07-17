@@ -1234,7 +1234,6 @@ static real
 get_text_width(DiaRenderer *object,
                const gchar *text, int length)
 {
-  DiaLibartRenderer *renderer = DIA_LIBART_RENDERER (object);
   real result;
   TextLine *text_line;
 

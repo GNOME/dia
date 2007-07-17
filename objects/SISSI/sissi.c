@@ -377,7 +377,7 @@ ObjectChange* object_sissi_move_handle(ObjetSISSI *object_sissi, Handle *handle,
   SISSI_Property *property_aux;
   Url_Docs *url_aux;
   DiaFont* action_font;
-  Point defaultlen  = {1.0,0.0}, pos;
+  Point /* defaultlen  = {1.0,0.0}, */pos;
  
   elem_origin = &object_sissi_origin->element; 
   
@@ -843,7 +843,7 @@ GList *clear_list_url_doc (GList *list)
 xmlNodePtr
 find_node_named (xmlNodePtr p, const char *name)
 {
-  while (p && 0 != strcmp(p->name, name))
+  while (p && 0 != strcmp((char *) p->name, name))
     p = p->next;
   return p;
 }

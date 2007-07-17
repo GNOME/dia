@@ -307,7 +307,9 @@ polybezier_bbox(const BezPoint *pts, int numpoints,
                 const PolyBBExtras *extra, gboolean closed,            
                 Rectangle *rect)
 {
-  Point vx,vp,vn,vsc;
+  Point vx,vn,vsc,vp;
+  vp.x=0;
+  vp.y=0;
   int i,prev,next;
   Rectangle rt;
   PolyBBExtras bextra,start_bextra,end_bextra;

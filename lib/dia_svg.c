@@ -148,7 +148,7 @@ dia_svg_parse_style(xmlNodePtr node, DiaSvgStyle *s)
   gboolean over = FALSE;
   char *family = NULL, *style = NULL, *weight = NULL;
 
-  str = xmlGetProp(node, "style");
+  str = xmlGetProp(node, (const xmlChar *)"style");
 
   if (str) {
     gchar *ptr = (gchar *)str;
@@ -321,19 +321,19 @@ dia_svg_parse_style(xmlNodePtr node, DiaSvgStyle *s)
   /* ugly svg variations, it is allowed to give style properties without
    * the style attribute, i.e. direct attributes
    */
-  str = xmlGetProp(node, "fill");
+  str = xmlGetProp(node, (const xmlChar *)"fill");
   if (str) {
-    _parse_color (&s->fill, str);
+    _parse_color (&s->fill, (char *) str);
     xmlFree(str);
   }
-  str = xmlGetProp(node, "stroke");
+  str = xmlGetProp(node, (const xmlChar *)"stroke");
   if (str) {
-    _parse_color (&s->stroke, str);
+    _parse_color (&s->stroke, (char *) str);
     xmlFree(str);
   }
-  str = xmlGetProp(node, "stroke-width");
+  str = xmlGetProp(node, (const xmlChar *)"stroke-width");
   if (str) {
-    s->line_width = g_ascii_strtod(str, NULL);
+    s->line_width = g_ascii_strtod((char *) str, NULL);
     xmlFree(str);
   }
 
@@ -805,6 +805,8 @@ dia_svg_parse_path(const gchar *path_str, gchar **unparsed, gboolean *closed)
 	real  xrot;
 	int   largearc, sweep;
 	Point dest, dest_c;
+	dest_c.x=0;
+	dest_c.y=0;
 
 	rx = g_ascii_strtod(path, &path);
 	path_chomp(path);

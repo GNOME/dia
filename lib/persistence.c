@@ -248,7 +248,7 @@ persistence_load_color(gchar *role, xmlNodePtr node)
 static xmlNodePtr
 find_node_named (xmlNodePtr p, const char *name)
 {
-  while (p && 0 != strcmp(p->name, name))
+  while (p && 0 != strcmp((char *)p->name, name))
     p = p->next;
   return p;
 }
@@ -261,7 +261,7 @@ static GHashTable *type_handlers;
 static void
 persistence_load_type(xmlNodePtr node)
 {
-  const gchar *typename = node->name;
+  const gchar *typename = (gchar *) node->name;
   gchar *name;
 
   PersistenceLoadFunc func =
@@ -270,7 +270,7 @@ persistence_load_type(xmlNodePtr node)
     return;
   }
 
-  name = xmlGetProp(node, "role");
+  name = (gchar *)xmlGetProp(node, (const xmlChar *)"role");
   if (name == NULL) {
     return;
   }
@@ -342,8 +342,8 @@ persistence_load()
   doc = xmlDiaParseFile(filename);
   if (doc != NULL) {
     if (doc->xmlRootNode != NULL) {
-      xmlNsPtr namespace = xmlSearchNs(doc, doc->xmlRootNode, "dia");
-      if (!strcmp (doc->xmlRootNode->name, "persistence") &&
+      xmlNsPtr namespace = xmlSearchNs(doc, doc->xmlRootNode, (const xmlChar *)"dia");
+      if (!xmlStrcmp (doc->xmlRootNode->name, (const xmlChar *)"persistence") &&
 	  namespace != NULL) {
 	xmlNodePtr child_node = doc->xmlRootNode->children;
 	for (; child_node != NULL; child_node = child_node->next) {
@@ -366,9 +366,9 @@ persistence_save_window(gpointer key, gpointer value, gpointer data)
   PersistentWindow *window_pos = (PersistentWindow *)value;
   ObjectNode window;
 
-  window = (ObjectNode)xmlNewChild(tree, NULL, "window", NULL);
+  window = (ObjectNode)xmlNewChild(tree, NULL, (const xmlChar *)"window", NULL);
   
-  xmlSetProp(window, "role", (char *)key);
+  xmlSetProp(window, (const xmlChar *)"role", (xmlChar *) key);
   data_add_int(new_attribute(window, "xpos"), window_pos->x);
   data_add_int(new_attribute(window, "ypos"), window_pos->y);
   data_add_int(new_attribute(window, "width"), window_pos->width);
@@ -386,9 +386,9 @@ persistence_save_list(gpointer key, gpointer value, gpointer data)
   GString *buf;
   GList *items;
 
-  listnode = (ObjectNode)xmlNewChild(tree, NULL, "list", NULL);
+  listnode = (ObjectNode)xmlNewChild(tree, NULL, (const xmlChar *)"list", NULL);
 
-  xmlSetProp(listnode, "role", (char *)key);
+  xmlSetProp(listnode, (const xmlChar *)"role", (xmlChar *) key);
   /* Make a string out of the list */
   buf = g_string_new("");
   for (items = ((PersistentList*)value)->glist; items != NULL;
@@ -407,9 +407,9 @@ persistence_save_entrystring(gpointer key, gpointer value, gpointer data)
   xmlNodePtr tree = (xmlNodePtr)data;
   ObjectNode stringnode;
 
-  stringnode = (ObjectNode)xmlNewChild(tree, NULL, "entrystring", NULL);
+  stringnode = (ObjectNode)xmlNewChild(tree, NULL, (const xmlChar *)"entrystring", NULL);
 
-  xmlSetProp(stringnode, "role", (char *)key);
+  xmlSetProp(stringnode, (const xmlChar *)"role", (xmlChar *)key);
   data_add_string(new_attribute(stringnode, "stringvalue"), (char *)value);
 }
 
@@ -419,9 +419,9 @@ persistence_save_integer(gpointer key, gpointer value, gpointer data)
   xmlNodePtr tree = (xmlNodePtr)data;
   ObjectNode integernode;
 
-  integernode = (ObjectNode)xmlNewChild(tree, NULL, "integer", NULL);
+  integernode = (ObjectNode)xmlNewChild(tree, NULL, (const xmlChar *)"integer", NULL);
 
-  xmlSetProp(integernode, "role", (char *)key);
+  xmlSetProp(integernode, (const xmlChar *)"role", (xmlChar *)key);
   data_add_int(new_attribute(integernode, "intvalue"), *(gint *)value);
 }
 
@@ -431,9 +431,9 @@ persistence_save_real(gpointer key, gpointer value, gpointer data)
   xmlNodePtr tree = (xmlNodePtr)data;
   ObjectNode realnode;
 
-  realnode = (ObjectNode)xmlNewChild(tree, NULL, "real", NULL);
+  realnode = (ObjectNode)xmlNewChild(tree, NULL, (const xmlChar *)"real", NULL);
 
-  xmlSetProp(realnode, "role", (char *)key);
+  xmlSetProp(realnode, (const xmlChar *)"role", (xmlChar *)key);
   data_add_real(new_attribute(realnode, "realvalue"), *(real *)value);
 }
 
@@ -443,9 +443,9 @@ persistence_save_boolean(gpointer key, gpointer value, gpointer data)
   xmlNodePtr tree = (xmlNodePtr)data;
   ObjectNode booleannode;
 
-  booleannode = (ObjectNode)xmlNewChild(tree, NULL, "boolean", NULL);
+  booleannode = (ObjectNode)xmlNewChild(tree, NULL, (const xmlChar *)"boolean", NULL);
 
-  xmlSetProp(booleannode, "role", (char *)key);
+  xmlSetProp(booleannode, (const xmlChar *)"role", (xmlChar *)key);
   data_add_boolean(new_attribute(booleannode, "booleanvalue"), *(gboolean *)value);
 }
 
@@ -455,9 +455,9 @@ persistence_save_string(gpointer key, gpointer value, gpointer data)
   xmlNodePtr tree = (xmlNodePtr)data;
   ObjectNode stringnode;
 
-  stringnode = (ObjectNode)xmlNewChild(tree, NULL, "string", NULL);
+  stringnode = (ObjectNode)xmlNewChild(tree, NULL, (const xmlChar *)"string", NULL);
 
-  xmlSetProp(stringnode, "role", (char *)key);
+  xmlSetProp(stringnode, (const xmlChar *)"role", (xmlChar *)key);
   data_add_string(new_attribute(stringnode, "stringvalue"), (gchar *)value);
 }
 
@@ -467,9 +467,9 @@ persistence_save_color(gpointer key, gpointer value, gpointer data)
   xmlNodePtr tree = (xmlNodePtr)data;
   ObjectNode colornode;
 
-  colornode = (ObjectNode)xmlNewChild(tree, NULL, "color", NULL);
+  colornode = (ObjectNode)xmlNewChild(tree, NULL, (const xmlChar *)"color", NULL);
 
-  xmlSetProp(colornode, "role", (char *)key);
+  xmlSetProp(colornode, (const xmlChar *)"role", (xmlChar *)key);
   data_add_color(new_attribute(colornode, "colorvalue"), (Color *)value);
 }
 
@@ -490,13 +490,13 @@ persistence_save()
   xmlNs *name_space;
   gchar *filename = dia_config_filename("persistence");
 
-  doc = xmlNewDoc("1.0");
-  doc->encoding = xmlStrdup("UTF-8");
-  doc->xmlRootNode = xmlNewDocNode(doc, NULL, "persistence", NULL);
+  doc = xmlNewDoc((const xmlChar *)"1.0");
+  doc->encoding = xmlStrdup((const xmlChar *)"UTF-8");
+  doc->xmlRootNode = xmlNewDocNode(doc, NULL, (const xmlChar *)"persistence", NULL);
 
   name_space = xmlNewNs(doc->xmlRootNode, 
-                        DIA_XML_NAME_SPACE_BASE,
-			"dia");
+                        (const xmlChar *) DIA_XML_NAME_SPACE_BASE,
+			(const xmlChar *)"dia");
   xmlSetNs(doc->xmlRootNode, name_space);
 
   persistence_save_type(doc, persistent_windows, persistence_save_window);

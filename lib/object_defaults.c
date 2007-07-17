@@ -120,8 +120,8 @@ dia_object_defaults_load (const gchar *filename, gboolean create_lazy)
   if (!doc)
       return FALSE;
 
-  name_space = xmlSearchNs(doc, doc->xmlRootNode, "dia");
-  if (   strcmp (doc->xmlRootNode->name, "diagram") 
+  name_space = xmlSearchNs(doc, doc->xmlRootNode, (const xmlChar *)"dia");
+  if (xmlStrcmp (doc->xmlRootNode->name, (const xmlChar *)"diagram") 
       || (name_space == NULL))
     {
       message_error(_("Error loading defaults '%s'.\n"
@@ -135,16 +135,16 @@ dia_object_defaults_load (const gchar *filename, gboolean create_lazy)
   while (layer_node)
     {
       if (   !xmlIsBlankNode(layer_node)
-          && 0 == strcmp(layer_node->name, "layer")) 
+          && 0 == xmlStrcmp(layer_node->name, (const xmlChar *)"layer")) 
         {
 	  obj_node = layer_node->xmlChildrenNode;
 	  while (obj_node)
 	    {
-	      if (   !xmlIsBlankNode(obj_node)
-		  && 0 == strcmp(obj_node->name, "object")) 
+	      if (!xmlIsBlankNode(obj_node)
+		  && 0 == xmlStrcmp(obj_node->name, (const xmlChar *)"object")) 
 		{
-		  char *typestr = xmlGetProp(obj_node, "type");
-		  char *version = xmlGetProp(obj_node, "version");
+		  char *typestr = (char *) xmlGetProp(obj_node, (const xmlChar *)"type");
+		  char *version = (char *) xmlGetProp(obj_node, (const xmlChar *)"version");
 		  if (typestr)
 		    {
 		      DiaObject *obj = g_hash_table_lookup (defaults_hash, typestr);
@@ -343,23 +343,23 @@ _obj_store (gpointer key,
   if (!li)
     {
       li = g_new (MyLayerInfo, 1);
-      li->node = xmlNewChild(ri->node, ri->name_space, "layer", NULL);
-      xmlSetProp(li->node, "name", layer_name);
-      xmlSetProp(li->node, "visible", "false");
+      li->node = xmlNewChild(ri->node, ri->name_space, (const xmlChar *)"layer", NULL);
+      xmlSetProp(li->node, (const xmlChar *)"name", (xmlChar *)layer_name);
+      xmlSetProp(li->node, (const xmlChar *)"visible", (const xmlChar *)"false");
       li->pos.x = li->pos.y = 0.0;
       g_hash_table_insert (ri->layer_hash, layer_name, li);
     }
   else
     g_free (layer_name);
 
-  obj_node = xmlNewChild(li->node, NULL, "object", NULL);
-  xmlSetProp(obj_node, "type", obj->type->name);
+  obj_node = xmlNewChild(li->node, NULL, (const xmlChar *)"object", NULL);
+  xmlSetProp(obj_node, (const xmlChar *)"type", (xmlChar *) obj->type->name);
 
   g_snprintf(buffer, 30, "%d", obj->type->version);
-  xmlSetProp(obj_node, "version", buffer);
+  xmlSetProp(obj_node, (const xmlChar *)"version", (xmlChar *)buffer);
 
   g_snprintf(buffer, 30, "O%d", ri->obj_nr++);
-  xmlSetProp(obj_node, "id", buffer);
+  xmlSetProp(obj_node, (const xmlChar *)"id", (xmlChar *)buffer);
 
   obj->ops->move (obj,&(li->pos));
   obj->type->ops->save (obj, obj_node, ri->filename);
@@ -393,13 +393,13 @@ dia_object_defaults_save (const gchar *filename)
   else
     real_filename = g_strdup (filename);
 
-  doc = xmlNewDoc("1.0");
-  doc->encoding = xmlStrdup("UTF-8");
-  doc->xmlRootNode = xmlNewDocNode(doc, NULL, "diagram", NULL);
+  doc = xmlNewDoc((const xmlChar *)"1.0");
+  doc->encoding = xmlStrdup((const xmlChar *)"UTF-8");
+  doc->xmlRootNode = xmlNewDocNode(doc, NULL, (const xmlChar *)"diagram", NULL);
 
   ni.name_space = xmlNewNs(doc->xmlRootNode, 
-                           DIA_XML_NAME_SPACE_BASE,
-			   "dia");
+                           (const xmlChar *)DIA_XML_NAME_SPACE_BASE,
+			   (const xmlChar *)"dia");
   xmlSetNs(doc->xmlRootNode, ni.name_space);
 
   ni.obj_nr = 0;

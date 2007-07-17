@@ -357,6 +357,8 @@ remove_handles(BezierShape *bezier, int pos)
   ConnectionPoint *old_cp1, *old_cp2;
   Point tmppoint;
   Point controlvector;
+  controlvector.x=0;
+  controlvector.y=0;
 
   g_assert(pos > 0);
   g_assert(pos < bezier->numpoints);

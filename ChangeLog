@@ -1,3 +1,53 @@
+2007-07-17  Steffen Macke <sdteffen@gmail.com>
+
+	* patching file app/commands.c:
+	* app/sheets_dialog_callbacks.c:
+	* app/layer_dialog.c:
+	* app/load_save.c:
+	* app/interface.c:
+	* app/interface.h
+	* app/diagram_tree_menu.c:
+	* app/menus.c:
+	* objects/SISSI/sissi.h
+	* objects/SISSI/site.c:
+	* objects/SISSI/faraday.c:
+	* objects/SISSI/area.c:
+	* objects/SISSI/sissi_dialog.c:
+	* objects/SISSI/room.c:
+	* objects/SISSI/sissi_object.c:
+	* objects/SISSI/sissi.c:
+	* objects/custom/custom_object.c:
+	* objects/custom/shape_info.c:
+	* lib/sheet.c:
+	* lib/dia_xml.c:
+	* lib/debug.c:
+	* lib/beziershape.c:
+	* lib/intl.c:
+	* lib/dialibartrenderer.c:
+	* lib/element.c:
+	* lib/diarenderer.c:
+	* lib/object_defaults.c:
+	* lib/diasvgrenderer.c:
+	* lib/newgroup.c:
+	* lib/font.c:
+	* lib/diagramdata.c:
+	* lib/ps-utf8.c:
+	* lib/diagdkrenderer.c:
+	* lib/dia_svg.c:
+	* lib/textline.c:
+	* lib/plug-ins.c:
+	* lib/persistence.c:
+	* lib/persistence.h
+	* lib/boundingbox.c:
+	* plug-ins/dxf/dxf-import.c:
+	* plug-ins/metapost/render_metapost.c:
+	* plug-ins/xfig/xfig-export.c:
+	* plug-ins/svg/render_svg.c:
+	* plug-ins/svg/svg-import.c:
+	* plug-ins/shape/shape-export.c:
+	* plug-ins/pgf/render_pgf.c: patch from Elie Roux 
+	<elie.roux@enst-bretagne.fr> that fixes many compiler warnings
+
 2007-07-10  Steffen Macke <sdteffen@gmail.com>
 
 	* configure.in: ALL_LINGUAS are in one line again; Thanks to Elie
