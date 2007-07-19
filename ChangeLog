@@ -1,3 +1,8 @@
+2007-07-19  Steffen Macke <sdteffen@gmail.com>
+
+	* app/command.c: Updated website link to point to live.gnome.org/Dia; 
+	fixes bug #456637
+
 2007-07-17  Steffen Macke <sdteffen@gmail.com>
 
 	* patching file app/commands.c:
