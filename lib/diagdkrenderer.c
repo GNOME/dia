@@ -112,6 +112,12 @@ static void draw_polyline (DiaRenderer *renderer,
 static void draw_polygon (DiaRenderer *renderer,
                           Point *points, int num_points,
                           Color *color);
+static void draw_rounded_rect (DiaRenderer *renderer,
+                               Point *ul_corner, Point *lr_corner,
+                               Color *color, real radius);
+static void fill_rounded_rect (DiaRenderer *renderer,
+                               Point *ul_corner, Point *lr_corner,
+                               Color *color, real radius);
 static void draw_object (DiaRenderer *renderer, DiaObject *object);
 
 static real get_text_width (DiaRenderer *renderer,
@@ -242,6 +248,10 @@ dia_gdk_renderer_class_init(DiaGdkRendererClass *klass)
   renderer_class->draw_polyline  = draw_polyline;
   renderer_class->draw_polygon   = draw_polygon;
   renderer_class->draw_object    = draw_object;
+
+  /* highest level functions */
+  renderer_class->draw_rounded_rect = draw_rounded_rect;
+  renderer_class->fill_rounded_rect = fill_rounded_rect;
 
   /* Interactive functions */
   renderer_class->get_text_width = get_text_width;
@@ -916,6 +926,73 @@ draw_polygon (DiaRenderer *self,
   
   gdk_draw_polygon(renderer->pixmap, gc, FALSE, gdk_points, num_points);
   g_free(gdk_points);
+}
+
+/*!
+ * Implemented to avoid seams between arcs and lines caused by the base class working in real
+ * which than gets rounded independently to int here
+ */
+static void
+draw_fill_rounded_rect (DiaRenderer *self, 
+                        Point *ul_corner, Point *lr_corner,
+                        Color *color, real radius,
+		        gboolean fill)
+{
+  DiaGdkRenderer *renderer = DIA_GDK_RENDERER (self);
+  GdkGC *gc = renderer->gc;
+  GdkColor gdkcolor;
+  gint top, bottom, left, right, r, d;
+
+  dia_transform_coords(renderer->transform, 
+                       ul_corner->x, ul_corner->y, &left, &top);
+  dia_transform_coords(renderer->transform, 
+                       lr_corner->x, lr_corner->y, &right, &bottom);
+  r = dia_transform_length(renderer->transform, radius);
+
+  if ((left>right) || (top>bottom))
+    return;
+  /* adjust radius to possible size */
+  if (r>(right-left)/2)
+    r = (right-left)/2;
+  if (r>(bottom-top)/2)
+    r = (bottom-top)/2;
+  if (r < 1)
+    return;
+  d = r<<1;
+
+  renderer_color_convert(renderer, color, &gdkcolor);
+  gdk_gc_set_foreground(gc, &gdkcolor);
+
+  gdk_draw_arc(renderer->pixmap, gc, fill, left, top, d, d, 90<<6, 90<<6);
+  gdk_draw_arc(renderer->pixmap, gc, fill, right-d, top, d, d, 0<<6, 90<<6);
+  gdk_draw_arc(renderer->pixmap, gc, fill, right-d, bottom-d, d, d, 270<<6, 90<<6);
+  gdk_draw_arc(renderer->pixmap, gc, fill, left, bottom-d, d, d, 180<<6, 90<<6);
+
+  if (fill) {
+    gdk_draw_rectangle (renderer->pixmap, renderer->gc, TRUE, 
+                        left+r, top, right-left-d, bottom-top);
+    gdk_draw_rectangle (renderer->pixmap, renderer->gc, TRUE, 
+                        left, top+r, right-left, bottom-top-d);
+  } else {
+    gdk_draw_line(renderer->pixmap, gc, left+r, top, right-r, top);
+    gdk_draw_line(renderer->pixmap, gc, right, top+r, right, bottom-r);
+    gdk_draw_line(renderer->pixmap, gc, right-r, bottom, left+r-1, bottom);
+    gdk_draw_line(renderer->pixmap, gc, left, bottom-r, left, top+r-1);
+  }
+}
+static void 
+draw_rounded_rect (DiaRenderer *renderer, 
+                   Point *ul_corner, Point *lr_corner,
+                   Color *color, real radius) 
+{
+  draw_fill_rounded_rect (renderer, ul_corner, lr_corner, color, radius, FALSE);
+}
+static void 
+fill_rounded_rect (DiaRenderer *renderer, 
+                   Point *ul_corner, Point *lr_corner,
+                   Color *color, real radius) 
+{
+  draw_fill_rounded_rect (renderer, ul_corner, lr_corner, color, radius, TRUE);
 }
 
 static void
