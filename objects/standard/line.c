@@ -524,7 +524,7 @@ line_update_data(Line *line)
 
   if (connpoint_is_autogap(line->connection.endpoint_handles[0].connected_to) ||
       connpoint_is_autogap(line->connection.endpoint_handles[1].connected_to)) {
-    connection_adjust_for_autogap(line);
+    connection_adjust_for_autogap(conn);
   }
   if (line->absolute_start_gap || line->absolute_end_gap ) {
     Point gap_endpoints[2];

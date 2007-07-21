@@ -23,7 +23,9 @@
 #endif
 
 #include <stdio.h>
+#ifdef HAVE_UNISTD_H
 #include <unistd.h>
+#endif
 #include <assert.h>
 #include <math.h>
 #include <string.h>

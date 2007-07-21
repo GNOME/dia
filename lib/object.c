@@ -860,7 +860,7 @@ DiaObject *object_copy_using_properties(DiaObject *obj)
  * @return A pointer to a Rectangle object.  This object should *not*
  *  be freed after use, as it belongs to the object.
  */
-Rectangle *
+const Rectangle *
 dia_object_get_bounding_box(const DiaObject *obj) {
   return &obj->bounding_box;
 }
@@ -870,7 +870,7 @@ dia_object_get_bounding_box(const DiaObject *obj) {
  * @return A pointer to a Rectangle object.  This object should *not*
  *  be freed after use, as it belongs to the object.
  */
-Rectangle *dia_object_get_enclosing_box(const DiaObject *obj) {
+const Rectangle *dia_object_get_enclosing_box(const DiaObject *obj) {
   /* I believe we can do this comparison, as it is only to compare for cases
    * where it would be set explicitly to 0.
    */

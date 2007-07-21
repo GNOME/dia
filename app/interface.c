@@ -1773,7 +1773,7 @@ GtkWidget *
 interface_get_toolbox_shell(void)
 {
   if (is_integrated_ui ())
-    return ui.main_window;
+    return GTK_WIDGET(ui.main_window);
 
   return toolbox_shell;
 }

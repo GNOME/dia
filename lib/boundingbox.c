@@ -308,13 +308,14 @@ polybezier_bbox(const BezPoint *pts, int numpoints,
                 Rectangle *rect)
 {
   Point vx,vn,vsc,vp;
-  vp.x=0;
-  vp.y=0;
   int i,prev,next;
   Rectangle rt;
   PolyBBExtras bextra,start_bextra,end_bextra;
   LineBBExtras lextra,start_lextra,end_lextra,full_lextra;
   gboolean start,end;
+
+  vp.x=0;
+  vp.y=0;
 
   g_assert(pts[0].type == BEZ_MOVE_TO);
   

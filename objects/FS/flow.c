@@ -468,7 +468,7 @@ flow_update_data(Flow *flow)
   
   if (connpoint_is_autogap(flow->connection.endpoint_handles[0].connected_to) ||
       connpoint_is_autogap(flow->connection.endpoint_handles[1].connected_to)) {
-    connection_adjust_for_autogap(flow);
+    connection_adjust_for_autogap(conn);
   }
   obj->position = conn->endpoints[0];
 

@@ -553,13 +553,13 @@ DiaObject  *dia_object_default_create (const DiaObjectType *type,
                                     void *user_data,
                                     Handle **handle1,
                                     Handle **handle2);
-gboolean       dia_object_defaults_save (const gchar *filename);
-Layer         *dia_object_get_parent_layer(DiaObject *obj);
-gboolean       dia_object_is_selected (const DiaObject *obj);
-Rectangle     *dia_object_get_bounding_box(const DiaObject *obj);
-Rectangle     *dia_object_get_enclosing_box(const DiaObject *obj);
-DiaObject     *dia_object_get_parent_with_flags(DiaObject *obj, guint flags);
-gboolean       dia_object_is_selectable(DiaObject *obj);
+gboolean         dia_object_defaults_save (const gchar *filename);
+Layer           *dia_object_get_parent_layer(DiaObject *obj);
+gboolean         dia_object_is_selected (const DiaObject *obj);
+const Rectangle *dia_object_get_bounding_box(const DiaObject *obj);
+const Rectangle *dia_object_get_enclosing_box(const DiaObject *obj);
+DiaObject       *dia_object_get_parent_with_flags(DiaObject *obj, guint flags);
+gboolean         dia_object_is_selectable(DiaObject *obj);
 /* The below are for debugging purposes only. */
 gboolean   dia_object_sanity_check(const DiaObject *obj, const gchar *msg);
 
