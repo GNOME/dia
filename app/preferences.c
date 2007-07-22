@@ -144,10 +144,10 @@ DiaPrefData prefs_data[] =
     &default_false, 0, N_("Keep tool box on top of diagram windows"),
     NULL, FALSE, NULL, update_floating_toolbox},
   { "length_unit", PREF_CHOICE, PREF_OFFSET(length_unit),
-    &default_length_unit, 0, N_("Unit for lengths:"), NULL, FALSE,
+    &default_length_unit, 0, N_("Length unit:"), NULL, FALSE,
     get_units_name_list, update_internal_prefs },
   { "fontsize_unit", PREF_CHOICE, PREF_OFFSET(fontsize_unit),
-    &default_fontsize_unit, 0, N_("Unit for font sizes:"), NULL, FALSE,
+    &default_fontsize_unit, 0, N_("Font-size unit:"), NULL, FALSE,
     get_units_name_list, update_internal_prefs },
   
   { "use_integrated_ui", PREF_BOOLEAN, PREF_OFFSET(use_integrated_ui),

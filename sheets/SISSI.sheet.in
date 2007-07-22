@@ -40,7 +40,7 @@
       <icon>SISSI/phone.png</icon>
     </object>
    <object name="SISSI - sissi_object" intdata="10">
-      <_description>Cellular phone</_description>
+      <_description>Cell phone</_description>
       <icon>SISSI/cellular_phone.png</icon>
     </object>
    <object name="SISSI - sissi_object" intdata="11">
@@ -56,11 +56,11 @@
       <icon>SISSI/key.png</icon>
     </object>
     <object name="SISSI - sissi_object" intdata="14">
-      <_description>Magnetic support</_description>
+      <_description>Magnetic storage</_description>
       <icon>SISSI/diskette.png</icon>
     </object>
     <object name="SISSI - sissi_object" intdata="15">
-      <_description>Paper support</_description>
+      <_description>Paper storage</_description>
       <icon>SISSI/file.png</icon>
     </object>
      <object name="SISSI - sissi_object"  intdata="16">
@@ -244,7 +244,7 @@
       <icon>SISSI/onduleur.png</icon>
     </object>
    <object name="SISSI - sissi_object" intdata="62">
-      <_description>Air condition</_description>
+      <_description>Airconditioner</_description>
       <icon>SISSI/aircooler.png</icon>
     </object>
    <object name="SISSI - sissi_object" intdata="63">

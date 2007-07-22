@@ -1,5 +1,10 @@
 2007-07-22  Steffen Macke <sdteffen@gmail.com>
 
+	* app/preferences.c:
+	* objects/SISSI/sissi.h:
+	* objects/SISSI/sissi_dialog.c:
+	* sheets/SISSI.sheet.in: Fixed typos mentioned in bug report #45238;
+	Thanks to Clytie Siddall
 	* app/display.c:
 	* app/makefile.msc:
 	* app/app_procs.c:

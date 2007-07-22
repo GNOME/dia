@@ -369,7 +369,7 @@ static void properties_others_create_page(GtkNotebook *notebook,  ObjetSISSI *ob
   prop_dialog = object_sissi->properties_dialog;
   
   /* Other properties of page: */
-  prop_dialog->page_label_others = gtk_label_new_with_mnemonic (_("Others properties"));
+  prop_dialog->page_label_others = gtk_label_new_with_mnemonic (_("Other properties"));
 
   prop_dialog->vbox_others = gtk_vbox_new(FALSE, 0);
   gtk_container_set_border_width (GTK_CONTAINER (prop_dialog->vbox_others), 0);
@@ -607,7 +607,7 @@ gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(pScroll_others), prop_
 
 
   /********** Label of board **********/
-  label = gtk_label_new (_("Libelle"));
+  label = gtk_label_new (_("Libel"));
   gtk_table_attach_defaults (GTK_TABLE (prop_dialog->table_others), label, 0, 1, 2, 3);
   label = gtk_label_new (_("value"));
   gtk_table_attach_defaults (GTK_TABLE (prop_dialog->table_others), label, 1, 2, 2, 3);

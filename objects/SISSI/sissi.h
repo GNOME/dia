@@ -222,7 +222,7 @@ static SISSI_Property property_classification_data[] = {
   { N_("NATO Confidential"), "NATO_CONFIDENTIAL" ,NULL},
   { N_("Personal Confidential"), "PERSONAL_CONFIDENTIAL" ,NULL},
   { N_("Medical Confidential"), "MEDICAL_CONFIDENTIAL" ,NULL},
-  { N_("Industrie Confidential"), "INDUSTRIE_CONFIDENTIAL" ,NULL},
+  { N_("Industrial Confidential"), "INDUSTRIE_CONFIDENTIAL" ,NULL},
   { N_("Secret"), "SECRET" ,NULL},
   { N_("Secret special country"), "SECRET_SPECIAL_COUNTRY" ,NULL},
   { N_("NATO Secret"), "NATO_SECRET" ,NULL},
@@ -235,9 +235,9 @@ static SISSI_Property property_integrity_data[] = {
   { N_("No integrity"), "NULL" ,NULL},
   { N_("Low integrity"), "LOW_INTEGRITY" ,NULL},
   { N_("Average software integrity"), "AVERAGE_SOFTWARE_INTEGRITY" ,NULL},
-  { N_("Hight software integrity"), "HIGHT_SOFTWARE_INTEGRITY" ,NULL},
+  { N_("High software integrity"), "HIGHT_SOFTWARE_INTEGRITY" ,NULL},
   { N_("Average hardware integrity"), "AVERAGE_HARDWARE_INTEGRITY" ,NULL},
-  { N_("Hight hardware integrity"), "HIGHT_HARDWARE_INTEGRITY" ,NULL},
+  { N_("High hardware integrity"), "HIGHT_HARDWARE_INTEGRITY" ,NULL},
   { NULL,0,NULL}
 };
 
@@ -276,68 +276,68 @@ static SISSI_Property property_physic_data[] = {
      { N_("External environment"), "PHY_LIE1",NULL},
      { N_("Premises"), "PHY_LIE2",NULL},
      { N_("Zone"), "PHY_LIE3",NULL},
-   { N_("Service Essentiel"), "PHY_SRV",NULL},
+   { N_("Essential Services"), "PHY_SRV",NULL},
      { N_("Communication"), "PHY_SRV1",NULL},
      { N_("Power"), "PHY_SRV2",NULL},
      { N_("Cooling / Pollution"), "PHY_SRV3",NULL},
   { NULL, 0,NULL}
 };
 static SISSI_Property property_physic_detecTHERMIC_data[] = {
-  { N_("THERMIC DETECTION"), "PHY_DETECTION_THERMIC",NULL},
+  { N_("Thermal detection"), "PHY_DETECTION_THERMIC",NULL},
   { NULL, 0,NULL}
 };
 static SISSI_Property property_physic_detecFIRE_data[] = {
-  { N_("FIRE DETECTION"), "PHY_DETECTION_FIRE",NULL},
+  { N_("Fire detection"), "PHY_DETECTION_FIRE",NULL},
   { NULL, 0,NULL}
 };
 static SISSI_Property property_physic_detecWATER_data[] = {
-  { N_("WATER DETECTION"), "PHY_DETECTION_WATER",NULL},
+  { N_("Water detection"), "PHY_DETECTION_WATER",NULL},
   { NULL, 0,NULL}
 };
 static SISSI_Property property_physic_detecAIR_data[] = {
-  { N_("AIR DETECTION"), "PHY_DETECTION_AIR",NULL},
+  { N_("Air detection"), "PHY_DETECTION_AIR",NULL},
   { NULL, 0,NULL}
 };
 static SISSI_Property property_physic_detecENERGY_data[] = {
-  { N_("ENERGY DETECTION"), "PHY_DETECTION_ENERGY",NULL},
+  { N_("Energy detection"), "PHY_DETECTION_ENERGY",NULL},
   { NULL, 0,NULL}
 };
 static SISSI_Property property_physic_detecINTRUSION_data[] = {
-  { N_("INTRUSION DETECTION"), "PHY__DETECTION_INTRUSION",NULL},
+  { N_("Intrusion detection"), "PHY__DETECTION_INTRUSION",NULL},
   { NULL, 0,NULL}
 };
 static SISSI_Property property_physic_actionTHERMIC_data[] = {
-  { N_("THERMIC ACTION"), "PHY_ACTION_THERMIC",NULL},
+  { N_("Thermal action"), "PHY_ACTION_THERMIC",NULL},
   { NULL, 0,NULL}
 };
 static SISSI_Property property_physic_actionFIRE_data[] = {
-  { N_("FIRE ACTION"), "PHY_ACTION_FIRE",NULL},
+  { N_("Fire action"), "PHY_ACTION_FIRE",NULL},
   { NULL, 0,NULL}
 };
 static SISSI_Property property_physic_actionWATER_data[] = {
- { N_("WATER ACTION"), "PHY_ACTION_WATER",NULL},
+ { N_("Water action"), "PHY_ACTION_WATER",NULL},
   { NULL, 0,NULL}
 };
 static SISSI_Property property_physic_actionAIR_data[] = {
-  { N_("AIR ACTION"), "PHY_ACTION_AIR",NULL},
+  { N_("Air action"), "PHY_ACTION_AIR",NULL},
   { NULL, 0,NULL}
 };
 static SISSI_Property property_physic_actionENERGY_data[] = {
-  { N_("ENERGY ACTION"), "PHY_ACTION_ENERGY",NULL},
+  { N_("Energy action"), "PHY_ACTION_ENERGY",NULL},
   { NULL, 0,NULL}
 };
 static SISSI_Property property_physic_actionINTRUSION_data[] = {
-  { N_("INTRUSION ACTION"), "PHY_ACTION_INTRUSION",NULL},
+  { N_("Intrusion action"), "PHY_ACTION_INTRUSION",NULL},
   { NULL, 0,NULL}
 };
 
 static SISSI_Property property_personnel_data[] = {
-  { N_("PERSONAL"), "PER",NULL},
+  { N_("Personal"), "PER",NULL},
    { N_("Decision maker"), "PER_DEC",NULL},
    { N_("SSI Responsible"), "PER_RESP_SSI",NULL},
    { N_("Users"), "PER_UTI",NULL},
-   { N_("Fonctionnal administrator"), "PER_FONC_ADMIN",NULL},
-   { N_("Technician aministrator"), "PER_TECH_ADMIN",NULL},
+   { N_("Functional administrator"), "PER_FONC_ADMIN",NULL},
+   { N_("Technical administrator"), "PER_TECH_ADMIN",NULL},
    { N_("SSI administrator"), "PER_SSI_ADMIN",NULL},
    { N_("Developer"), "PER_DEV",NULL},
    { N_("Operator / Maintenance"), "PER_EXP",NULL},
@@ -345,18 +345,18 @@ static SISSI_Property property_personnel_data[] = {
 };
 
 static SISSI_Property property_reseau_data[] = {
-  { N_("NETWORK"), "RES",NULL},
-   { N_("Medium and supports"), "RES_INF",NULL},
+  { N_("Network"), "RES",NULL},
+   { N_("Medium and support"), "RES_INF",NULL},
    { N_("Passive or active relay"), "RES_REL",NULL},
    { N_("Communication interface"), "RES_INT",NULL},
   { NULL, 0,NULL}
 };
 
 static SISSI_Property property_logiciel_data[] = {
-  { N_("LOGICIEL"), "LOG",NULL},
+  { N_("Software"), "LOG",NULL},
     { N_("Operating System"), "LOG_OS",NULL},
     { N_("Service - maintenance or administration software"), "LOG_SRV",NULL},
-    { N_("Package software or standard software"), "LOG_STD",NULL},
+    { N_("Packaged software or standard software"), "LOG_STD",NULL},
     { N_("Business application"), "LOG_APP",NULL},
       { N_("Standard business application"), "LOG_APP1",NULL},
       { N_("Specific business application"), "LOG_APP2",NULL},
@@ -365,9 +365,9 @@ static SISSI_Property property_logiciel_data[] = {
 
 static SISSI_Property property_material_data[] = {
   { N_("HARDWARE"), "MAT",NULL},
-  { N_("Data processing equipement (active)"), "MAT_ACT",NULL},
-  { N_("Transportable equipement"), "MAT_ACT1",NULL},
-  { N_("Fixed equipement"), "MAT_ACT2",NULL},
+  { N_("Data-processing equipment (active)"), "MAT_ACT",NULL},
+  { N_("Mobile equipment"), "MAT_ACT1",NULL},
+  { N_("Fixed equipment"), "MAT_ACT2",NULL},
   { N_("Peripheral processing"), "MAT_ACT3",NULL},
   { N_("Electronic medium"), "MAT_PAS1",NULL},
   { N_("Other media"), "MAT_PAS2",NULL},  
