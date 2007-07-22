@@ -90,6 +90,8 @@ oafinfodir = $(datadir)/oaf
 oafinfo_DATA = $(dia_oafinfo)
 
 dia_core_files = \
+	    exit_dialog.h \
+	    exit_dialog.c \
 	    diagram.c \
 	    diagram.h \
 	    preferences.c \

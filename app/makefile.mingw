@@ -43,6 +43,7 @@ OBJECTS = \
 	disp_callbacks.o \
 	display.o \
 	dynamic_refresh.o \
+	exit_dialog.o \
 	export_png.o \
 	filedlg.o \
 	grid.o \

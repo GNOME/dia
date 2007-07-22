@@ -96,6 +96,12 @@ update_modified_status(DDisplay *ddisp)
   GtkStatusbar *statusbar;
   guint context_id;
 
+  if (is_integrated_ui ())
+  {
+     integrated_ui_show_diagram_modified_status (ddisp);
+     return;
+  }
+
   if (diagram_is_modified(ddisp->diagram))
   {
     statusbar = GTK_STATUSBAR (ddisp->modified_status);

@@ -95,6 +95,7 @@ typedef void* poptContext;
 #include "persistence.h"
 #include "sheets.h"
 #include "utils.h"
+#include "exit_dialog.h"
 
 #if defined(HAVE_LIBPNG) && defined(HAVE_LIBART)
 extern DiaExportFilter png_export_filter;
@@ -1017,9 +1018,60 @@ app_exit(void)
   }
 
   if (diagram_modified_exists()) {
+    if (is_integrated_ui ())
+    {
+      GtkWidget                *dialog;
+      int                       result;
+      exit_dialog_item_array_t *items  = NULL;
+      GList *                   list; 
+      Diagram *                 diagram;
+      
+      dialog = exit_dialog_make (GTK_WINDOW (interface_get_toolbox_shell ()), 
+                                _("Exiting Dia"));
+
+      list = dia_open_diagrams();
+      while (list)
+      {
+        diagram = list->data;
+
+        if (diagram_is_modified (diagram))
+        {
+          const gchar * name = diagram_get_name (diagram);
+          const gchar * path = diagram->filename;
+          exit_dialog_add_item (dialog, name, path, diagram);
+        }
+
+        list = g_slist_next (list);
+      }
+
+      result = exit_dialog_run (dialog, &items);
+  
+      gtk_widget_destroy (dialog);
+
+      if (result == EXIT_DIALOG_EXIT_CANCEL)
+      {
+        return FALSE;
+      }
+      else if (result == EXIT_DIALOG_EXIT_SAVE_SELECTED)
+      {
+        int i;
+        for (i = 0 ; i < items->array_size ; i++)
+        {
+          gchar *filename;
+
+          diagram  = items->array[i].data;
+          filename = g_filename_from_utf8 (diagram->filename, -1, NULL, NULL, NULL);
+          diagram_update_extents (diagram);
+          diagram_save (diagram, filename);
+          g_free (filename);
+        }
+        exit_dialog_free_items (items);
+      }
+    }
+    else
+    {
     GtkWidget *dialog;
     GtkWidget *button;
-
     dialog = gtk_message_dialog_new(
 	       NULL, GTK_DIALOG_MODAL,
                GTK_MESSAGE_QUESTION,
@@ -1047,6 +1099,7 @@ app_exit(void)
       return FALSE;
     }
     gtk_widget_destroy(dialog);
+    }
   }
   prefs_save();
 

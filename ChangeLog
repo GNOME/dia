@@ -1,3 +1,20 @@
+2007-07-22  Steffen Macke <sdteffen@gmail.com>
+
+	* app/display.c:
+	* app/makefile.msc:
+	* app/app_procs.c:
+	* app/exit_dialog.c:
+	* app/exit_dialog.h:
+	* app/Makefile.am:
+	* app/interface.c:
+	* app/interface.h:
+	* app/makefile.mingw:
+	* app/disp_callbacks.c: Patch from Patrick Hallinan 
+	<patrick.j.hallinan@gmail.com, fixes the problem with the active diagram	during resize; adds an asterisk to the tab when diagram has changed;
+	adds a new dialog to save unsaved files when exiting
+	* app/authors.h: Added Patrick Hallinan
+	* app/commands.c: Bumped copyright year to 2007
+
 2007-07-19  Steffen Macke <sdteffen@gmail.com>
 
 	* app/command.c: Updated website link to point to live.gnome.org/Dia; 
@@ -5,7 +22,7 @@
 
 2007-07-17  Steffen Macke <sdteffen@gmail.com>
 
-	* patching file app/commands.c:
+	* app/commands.c:
 	* app/sheets_dialog_callbacks.c:
 	* app/layer_dialog.c:
 	* app/load_save.c:

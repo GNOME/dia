@@ -527,7 +527,11 @@ ddisplay_canvas_events (GtkWidget *canvas,
                                  ddisp->canvas->allocation.height);
           ddisplay_update_scrollbars(ddisp);
         }
-        display_set_active(ddisp);
+        /* TODO: Find out if display_set_active is needed for the GDK_CONFIGURE event */
+        /* This is prevented for the integrated UI because it causes the diagram 
+           showing in the diagram notebook to change on a resize event          */
+        if (is_integrated_ui () == 0)
+          display_set_active(ddisp);
         break;
 
       case GDK_FOCUS_CHANGE: {

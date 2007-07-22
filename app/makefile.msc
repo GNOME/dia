@@ -48,6 +48,7 @@ OBJECTS = \
 	disp_callbacks.obj \
 	display.obj \
 	dynamic_refresh.obj \
+	exit_dialog.obj \
 	export_png.obj \
 	filedlg.obj \
 	grid.obj \
