@@ -2,6 +2,7 @@
 
 	* lib/paper.c : instead of special casing for the thrid compiler
 	just removed the superfluous inline on the get_paper_* functions
+	Fixes bug #447737.
 
 2007-07-22  Steffen Macke <sdteffen@gmail.com>
 
