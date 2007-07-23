@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia.HEAD.es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-07-07 03:39+0100\n"
-"PO-Revision-Date: 2007-07-12 11:21+0200\n"
+"POT-Creation-Date: 2007-07-23 03:20+0100\n"
+"PO-Revision-Date: 2007-07-23 14:52+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -25,64 +25,64 @@ msgstr ""
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 
 #. This is not an errror
-#: ../app/app_procs.c:261
+#: ../app/app_procs.c:262
 #, c-format
 msgid "Warning: invalid layer range %lu - %lu\n"
 msgstr "Atención: rango de capa inválido %lu - %lu\n"
 
-#: ../app/app_procs.c:273
+#: ../app/app_procs.c:274
 #, c-format
 msgid "Warning: Layer %lu (%s) selected more than once.\n"
 msgstr "Atención: Capa %lu (%s) seleccionada más de una vez.\n"
 
-#: ../app/app_procs.c:299
+#: ../app/app_procs.c:300
 #, c-format
 msgid "Warning: Layer %d (%s) selected more than once.\n"
 msgstr "Atención: Capa %d (%s) seleccionada más de una vez.\n"
 
-#: ../app/app_procs.c:308
+#: ../app/app_procs.c:309
 #, c-format
 msgid "Warning: There is no layer named %s\n"
 msgstr "Atención: No hay ninguna capa llamada %s\n"
 
-#: ../app/app_procs.c:390
+#: ../app/app_procs.c:391
 #, c-format
 msgid "%s error: don't know how to export into %s\n"
 msgstr "%s error: no se sabe cómo exportar a %s\n"
 
-#: ../app/app_procs.c:399
+#: ../app/app_procs.c:400
 #, c-format
 msgid "%s error: input and output file name is identical: %s"
 msgstr "%s error: el nombre de los ficheros de entrada y salida es idéntico: %s"
 
-#: ../app/app_procs.c:407
+#: ../app/app_procs.c:408
 #, c-format
 msgid "%s error: need valid input file %s\n"
 msgstr "%s error: se necesita un archivo de entrada válido %s\n"
 
 #. if (!quiet)
-#: ../app/app_procs.c:432
+#: ../app/app_procs.c:433
 #, c-format
 msgid "%s --> %s\n"
 msgstr "%s --> %s\n"
 
-#: ../app/app_procs.c:593
+#: ../app/app_procs.c:594
 #, c-format
 msgid "Can't find output format/filter %s\n"
 msgstr "No se pudo encontrar el formato/filtro de salida %s\n"
 
 #. Translators:  The argument is a list of options, not to be translated
-#: ../app/app_procs.c:685
+#: ../app/app_procs.c:686
 #, c-format
 msgid "Select the filter/format out of: %s"
 msgstr "Seleccione el filtro/formato de salida de: %s"
 
 #. &export_file_name
-#: ../app/app_procs.c:704 ../app/app_procs.c:731
+#: ../app/app_procs.c:705 ../app/app_procs.c:732
 msgid "Export loaded file and exit"
 msgstr "Exportar archivo cargado y salir"
 
-#: ../app/app_procs.c:704 ../app/app_procs.c:731 ../app/diaconv.c:88
+#: ../app/app_procs.c:705 ../app/app_procs.c:732 ../app/diaconv.c:88
 msgid "OUTPUT"
 msgstr "SALIDA"
 
@@ -90,20 +90,20 @@ msgstr "SALIDA"
 #. &export_file_format
 #. &export_format_string
 #. &export_file_format
-#: ../app/app_procs.c:706 ../app/app_procs.c:733
+#: ../app/app_procs.c:707 ../app/app_procs.c:734
 msgid "TYPE"
 msgstr "TIPO"
 
-#: ../app/app_procs.c:708 ../app/app_procs.c:736
+#: ../app/app_procs.c:709 ../app/app_procs.c:737
 msgid "Export graphics size"
 msgstr "Tamaño del gráfico exportado"
 
-#: ../app/app_procs.c:708 ../app/app_procs.c:736
+#: ../app/app_procs.c:709 ../app/app_procs.c:737
 msgid "WxH"
 msgstr "AnchoxAlto"
 
 #. 13.3.2004 sampo@iki.fi
-#: ../app/app_procs.c:710 ../app/app_procs.c:738
+#: ../app/app_procs.c:711 ../app/app_procs.c:739
 msgid ""
 "Show only specified layers (e.g. when exporting). Can be either the layer "
 "name or a range of layer numbers (X-Y)"
@@ -111,73 +111,73 @@ msgstr ""
 "mostrar sólo las capas especificadas (ej: al exportar). Puede ser o el "
 "nombre de capa o un rango de números de capas (X-Y)"
 
-#: ../app/app_procs.c:711 ../app/app_procs.c:739
+#: ../app/app_procs.c:712 ../app/app_procs.c:740
 msgid "LAYER,LAYER,..."
 msgstr "CAPA,CAPA..."
 
-#: ../app/app_procs.c:713 ../app/app_procs.c:741
+#: ../app/app_procs.c:714 ../app/app_procs.c:742
 msgid "Don't show the splash screen"
 msgstr "No mostrar la pantalla de bienvenida"
 
-#: ../app/app_procs.c:715 ../app/app_procs.c:743
+#: ../app/app_procs.c:716 ../app/app_procs.c:744
 msgid "Don't create empty diagram"
 msgstr "No crear un diagrama vacío"
 
-#: ../app/app_procs.c:717 ../app/app_procs.c:745
+#: ../app/app_procs.c:718 ../app/app_procs.c:746
 msgid "Send error messages to stderr instead of showing dialogs."
 msgstr "Enviar los mensajes de error a stderr en vez de mostrar diálogos."
 
-#: ../app/app_procs.c:719 ../app/app_procs.c:747
+#: ../app/app_procs.c:720 ../app/app_procs.c:748
 msgid "Display credits list and exit"
 msgstr "Mostrar la lista de créditos y salir"
 
-#: ../app/app_procs.c:721 ../app/app_procs.c:749
+#: ../app/app_procs.c:722 ../app/app_procs.c:750
 msgid "Generate verbose output"
 msgstr "Generar salida detallada"
 
-#: ../app/app_procs.c:723 ../app/app_procs.c:751
+#: ../app/app_procs.c:724 ../app/app_procs.c:752
 msgid "Display version and exit"
 msgstr "Mostrar la versión y salir"
 
-#: ../app/app_procs.c:752 ../app/diaconv.c:89
+#: ../app/app_procs.c:753 ../app/diaconv.c:89
 msgid "Show this help message"
 msgstr "Mostrar este mensaje de ayuda"
 
-#: ../app/app_procs.c:812
+#: ../app/app_procs.c:813
 msgid "Can't connect to session manager!\n"
 msgstr "¡No se puede conectar con el gestor de sesiones!\n"
 
 #. TRANSLATOR: 2nd and 3rd %s are time and date respectively.
-#: ../app/app_procs.c:852
+#: ../app/app_procs.c:853
 #, c-format
 msgid "Dia version %s, compiled %s %s\n"
 msgstr "Versión %s de Dia, compilada %s %s\n"
 
-#: ../app/app_procs.c:854
+#: ../app/app_procs.c:855
 #, c-format
 msgid "Dia version %s\n"
 msgstr "Versión %s de Dia\n"
 
 # Como adjetivo creo que el plural es "estándar". FVD
-#: ../app/app_procs.c:911 ../app/diaconv.c:195 ../app/diaconv.c:197
+#: ../app/app_procs.c:912 ../app/diaconv.c:195 ../app/diaconv.c:197
 #, c-format
 msgid "Couldn't find standard objects when looking for object-libs; exiting...\n"
 msgstr "No se encontraron objetos estándar en object-libs, saliendo...\n"
 
 # Como adjetivo creo que el plural es "estándar". FVD
-#: ../app/app_procs.c:913
+#: ../app/app_procs.c:914
 #, c-format
 msgid ""
 "Couldn't find standard objects when looking for object-libs in '%s'; "
 "exiting...\n"
 msgstr "No se encontraron objetos estándar en object-libs en «%s»; saliendo...\n"
 
-#: ../app/app_procs.c:971
+#: ../app/app_procs.c:972
 msgid "Diagram1.dia"
 msgstr "Diagrama1.dia"
 
 # Me parece más correcta y explicativa esta traducción aunque sea algo más larga. RizOX.
-#: ../app/app_procs.c:1014
+#: ../app/app_procs.c:1015
 msgid ""
 "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you can cause this message to appear.\n"
@@ -186,12 +186,16 @@ msgstr ""
 "gnome.org\n"
 "describiendo cómo conseguir que este mensaje vuelva a aparecer.\n"
 
+#: ../app/app_procs.c:1030
+msgid "Exiting Dia"
+msgstr "Salir de Dia"
+
 #. no standard buttons
-#: ../app/app_procs.c:1027
+#: ../app/app_procs.c:1079
 msgid "Quitting without saving modified diagrams"
 msgstr "¿Salir sin guardar los diagramas modificados?"
 
-#: ../app/app_procs.c:1029
+#: ../app/app_procs.c:1081
 msgid ""
 "Modified diagrams exist. Are you sure you want to quit Dia without saving "
 "them?"
@@ -199,21 +203,21 @@ msgstr ""
 "Hay diagramas modificados. ¿Está seguro de que desea salir de Dia\n"
 "sin guardarlos?"
 
-#: ../app/app_procs.c:1033
+#: ../app/app_procs.c:1085
 msgid "Quit Dia"
 msgstr "Salir de Dia"
 
 #. This printf seems to prevent a race condition with unrefs.
 #. Yuck.  -Lars
-#: ../app/app_procs.c:1084
+#: ../app/app_procs.c:1137
 msgid "Thank you for using Dia.\n"
 msgstr "Gracias por usar Dia.\n"
 
-#: ../app/app_procs.c:1101 ../app/app_procs.c:1108
+#: ../app/app_procs.c:1154 ../app/app_procs.c:1161
 msgid "Could not create per-user Dia config directory"
 msgstr "No se pudo crear el directorio de configuración de Dia para el usuario"
 
-#: ../app/app_procs.c:1111
+#: ../app/app_procs.c:1164
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -222,15 +226,15 @@ msgstr ""
 "favor, asegúrese de que la variable de entorno HOME apunta a un directorio "
 "existente."
 
-#: ../app/app_procs.c:1134 ../app/diaconv.c:245
+#: ../app/app_procs.c:1187 ../app/diaconv.c:245
 msgid "Objects and filters internal to dia"
 msgstr "Objetos y filtros internos para dia"
 
-#: ../app/app_procs.c:1176 ../app/diaconv.c:115
+#: ../app/app_procs.c:1229 ../app/diaconv.c:115
 msgid "[OPTION...] [FILE...]"
 msgstr "[OPCIÓN...] [ARCHIVO...]"
 
-#: ../app/app_procs.c:1179 ../app/diaconv.c:122
+#: ../app/app_procs.c:1232 ../app/diaconv.c:122
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
@@ -240,16 +244,16 @@ msgstr ""
 "Ejecute «%s --help» para ver la lista completa de opciones de la línea de "
 "comandos.\n"
 
-#: ../app/app_procs.c:1203
+#: ../app/app_procs.c:1256
 msgid "[FILE...]"
 msgstr "[ARCHIVO...]"
 
-#: ../app/app_procs.c:1226
+#: ../app/app_procs.c:1279
 #, c-format
 msgid "'%s' not found!\n"
 msgstr "«%s» no encontrado\n"
 
-#: ../app/app_procs.c:1307
+#: ../app/app_procs.c:1360
 msgid ""
 "The original author of Dia was:\n"
 "\n"
@@ -257,7 +261,7 @@ msgstr ""
 "El autor original de Dia fue:\n"
 "\n"
 
-#: ../app/app_procs.c:1312
+#: ../app/app_procs.c:1365
 msgid ""
 "\n"
 "The current maintainers of Dia are:\n"
@@ -267,7 +271,7 @@ msgstr ""
 "Los actuales mantenedores de Dia son:\n"
 "\n"
 
-#: ../app/app_procs.c:1317
+#: ../app/app_procs.c:1370
 msgid ""
 "\n"
 "Other authors are:\n"
@@ -277,7 +281,7 @@ msgstr ""
 "Otros autores son:\n"
 "\n"
 
-#: ../app/app_procs.c:1322
+#: ../app/app_procs.c:1375
 msgid ""
 "\n"
 "Dia is documented by:\n"
@@ -699,7 +703,7 @@ msgstr ""
 msgid "Properties..."
 msgstr "Propiedades..."
 
-#: ../app/disp_callbacks.c:921
+#: ../app/disp_callbacks.c:925
 msgid ""
 "The object you dropped cannot fit into its parent. \n"
 "Either expand the parent object, or drop the object elsewhere."
@@ -707,35 +711,35 @@ msgstr ""
 "El objeto que soltó no cabe en su padre.\n"
 "Expanda el objeto padre o suelte el objeto en otro lugar."
 
-#: ../app/display.c:105
+#: ../app/display.c:111
 msgid "Diagram modified!"
 msgstr "¡Diagrama modificado!"
 
 #. http://www.gnu.org/software/gettext/manual/html_chapter/gettext_10.html#SEC150
 #. * Althoug the single objects wont get triggered here some languages have variations on the other numbers
 #.
-#: ../app/display.c:132
+#: ../app/display.c:138
 #, c-format
 msgid "Selection of %d object"
 msgid_plural "Selection of %d objects"
 msgstr[0] "Selección de %d objeto"
 msgstr[1] "Selección de %d objetos"
 
-#: ../app/display.c:142
+#: ../app/display.c:148
 #, c-format
 msgid "Selected '%s'"
 msgstr "Seleccionados «%s»"
 
-#: ../app/display.c:1160
+#: ../app/display.c:1166
 msgid "<unnamed>"
 msgstr "<sin nombre>"
 
 #. no standard buttons
-#: ../app/display.c:1166
+#: ../app/display.c:1172
 msgid "Closing diagram without saving"
 msgstr "Cerrando el diagrama sin guardarc"
 
-#: ../app/display.c:1169
+#: ../app/display.c:1175
 #, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -744,11 +748,11 @@ msgstr ""
 "Este diagrama «%s»\n"
 "no ha sido guardado. ¿Guardar los cambios ahora?"
 
-#: ../app/display.c:1171
+#: ../app/display.c:1177
 msgid "Close Diagram"
 msgstr "Cerrar el diagrama"
 
-#: ../app/display.c:1176
+#: ../app/display.c:1182
 msgid "_Discard Changes"
 msgstr "_Descartar los cambios"
 
@@ -959,49 +963,49 @@ msgstr "Línea Bézier"
 msgid "Image"
 msgstr "Imagen"
 
-#: ../app/interface.c:561 ../app/interface.c:795
+#: ../app/interface.c:596 ../app/interface.c:830
 msgid "Pops up the Navigation window."
 msgstr "Emerge la ventana de navegación."
 
-#: ../app/interface.c:757
+#: ../app/interface.c:792
 msgid "Diagram menu."
 msgstr "Menú de diagrama."
 
 # ¿"Ampliación" o "Amplía"? Fuzzy. RizOX.
-#: ../app/interface.c:861
+#: ../app/interface.c:896
 msgid "Zoom"
 msgstr "Ampliación"
 
-#: ../app/interface.c:876
+#: ../app/interface.c:911
 msgid "Toggles snap-to-grid for this window."
 msgstr "Conmuta el ajuste a la rejilla para esta ventana."
 
-#: ../app/interface.c:887
+#: ../app/interface.c:922
 msgid "Toggles object snapping for this window."
 msgstr "Conmuta el ajuste del objeto para esta ventana."
 
 # Fuzzy. RizOX
-#: ../app/interface.c:950
+#: ../app/interface.c:985
 msgid "NULL tooldata in tool_select_update"
 msgstr "InArray de herramienta nula (NULL) en tool_select_update"
 
-#: ../app/interface.c:1266
+#: ../app/interface.c:1301
 #, c-format
 msgid "No sheet named %s"
 msgstr "No hay ninguna hoja llamada %s"
 
 # ¿De dónde salían esa traducción y esa variable? No concuerda con el original inglés en nada. Lo cambio. RizOX.
-#: ../app/interface.c:1304
+#: ../app/interface.c:1339
 msgid "Other sheets"
 msgstr "Otras hojas"
 
-#: ../app/interface.c:1363 ../sheets/Misc.sheet.in.h:3
+#: ../app/interface.c:1398 ../sheets/Misc.sheet.in.h:3
 msgid "Misc"
 msgstr "Misc"
 
 # Corregido: lleva doble espacio antes de cada frase.
 # "Pulse doble" o "Pulse dos veces" me suena más natural. RizOX.
-#: ../app/interface.c:1423
+#: ../app/interface.c:1458
 msgid ""
 "Foreground & background colors for new objects.  The small black and white "
 "squares reset colors.  The small arrows swap colors.  Double click to change "
@@ -1012,7 +1016,7 @@ msgstr ""
 "los colores.  Pulse dos veces para cambiar los colores."
 
 # Corregido: doble espacio al principio de línea. Cambiada la segunda expresión para darle mayor naturalidad. RizOX.
-#: ../app/interface.c:1438
+#: ../app/interface.c:1473
 msgid ""
 "Line widths.  Click on a line to set the default line width for new "
 "objects.  Double-click to set the line width more precisely."
@@ -1022,7 +1026,7 @@ msgstr ""
 "anchura con mayor precisión."
 
 # La coma antes del "o" no queda bien en la frase en español. RizOX.
-#: ../app/interface.c:1481
+#: ../app/interface.c:1516
 msgid ""
 "Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
 "arrow parameters with Details..."
@@ -1031,7 +1035,7 @@ msgstr ""
 "flecha o establezca los parámetros de la flecha en Detalles..."
 
 # La coma antes del "o" no queda bien en la frase en español. Añadido el doble espacio del comienzo de frase según original en inglés. RizOX.
-#: ../app/interface.c:1486
+#: ../app/interface.c:1521
 msgid ""
 "Line style for new lines.  Click to pick a line style, or set line style "
 "parameters with Details..."
@@ -1040,7 +1044,7 @@ msgstr ""
 "línea o establezca los parámetros de estilo de línea en Detalles..."
 
 # La coma antes del "o" no queda bien en la frase en español. Añadido el doble espacio del comienzo de frase según original en inglés. Cambiado "con Detalles" por "en Detalles" para mantener la coherencia con la traducción de las anteriores entradas. RizOX.
-#: ../app/interface.c:1502
+#: ../app/interface.c:1537
 msgid ""
 "Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
 "parameters with Details..."
@@ -1048,7 +1052,7 @@ msgstr ""
 "Estilo de flecha al final de las líneas nuevas.  Pulse para escoger una "
 "flecha o establezca los parámetros de la flecha en Detalles..."
 
-#: ../app/interface.c:1546 ../app/interface.c:1674
+#: ../app/interface.c:1581 ../app/interface.c:1709
 msgid "Diagram Editor"
 msgstr "Editor de diagramas"
 
@@ -1137,27 +1141,27 @@ msgstr ""
 msgid "Can't find parent %s of %s object\n"
 msgstr "No se pudo encontrar el objeto padre %s de %s\n"
 
-#: ../app/load_save.c:353 ../objects/SISSI/area.c:204
-#: ../objects/SISSI/faraday.c:204 ../objects/SISSI/room.c:204
-#: ../objects/SISSI/sissi_object.c:194 ../objects/SISSI/site.c:207
+#: ../app/load_save.c:353 ../objects/SISSI/area.c:207
+#: ../objects/SISSI/faraday.c:207 ../objects/SISSI/room.c:207
+#: ../objects/SISSI/sissi_object.c:197 ../objects/SISSI/site.c:210
 msgid "You must specify a file, not a directory.\n"
 msgstr "Debe especificar un archivo, no un directorio.\n"
 
-#: ../app/load_save.c:360 ../objects/SISSI/area.c:210
-#: ../objects/SISSI/faraday.c:210 ../objects/SISSI/room.c:210
-#: ../objects/SISSI/sissi_object.c:201 ../objects/SISSI/site.c:213
-#: ../plug-ins/dxf/dxf-import.c:1304 ../plug-ins/wpg/wpg.c:1177
+#: ../app/load_save.c:360 ../objects/SISSI/area.c:213
+#: ../objects/SISSI/faraday.c:213 ../objects/SISSI/room.c:213
+#: ../objects/SISSI/sissi_object.c:204 ../objects/SISSI/site.c:216
+#: ../plug-ins/dxf/dxf-import.c:1308 ../plug-ins/wpg/wpg.c:1177
 #: ../plug-ins/xfig/xfig-import.c:1260 ../plug-ins/xslt/xslt.c:88
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "No se pudo abrir: «%s» para lectura.\n"
 
-#: ../app/load_save.c:378 ../app/load_save.c:384 ../objects/SISSI/area.c:219
-#: ../objects/SISSI/area.c:225 ../objects/SISSI/faraday.c:219
-#: ../objects/SISSI/faraday.c:225 ../objects/SISSI/room.c:219
-#: ../objects/SISSI/room.c:225 ../objects/SISSI/sissi_object.c:211
-#: ../objects/SISSI/sissi_object.c:217 ../objects/SISSI/site.c:222
-#: ../objects/SISSI/site.c:228
+#: ../app/load_save.c:378 ../app/load_save.c:384 ../objects/SISSI/area.c:222
+#: ../objects/SISSI/area.c:228 ../objects/SISSI/faraday.c:222
+#: ../objects/SISSI/faraday.c:228 ../objects/SISSI/room.c:222
+#: ../objects/SISSI/room.c:228 ../objects/SISSI/sissi_object.c:214
+#: ../objects/SISSI/sissi_object.c:220 ../objects/SISSI/site.c:225
+#: ../objects/SISSI/site.c:231
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -1166,9 +1170,9 @@ msgstr ""
 "Error cargando el diagrama %s.\n"
 "Tipo de archivo desconocido."
 
-#: ../app/load_save.c:392 ../objects/SISSI/area.c:233
-#: ../objects/SISSI/faraday.c:233 ../objects/SISSI/room.c:233
-#: ../objects/SISSI/sissi_object.c:225 ../objects/SISSI/site.c:236
+#: ../app/load_save.c:392 ../objects/SISSI/area.c:236
+#: ../objects/SISSI/faraday.c:236 ../objects/SISSI/room.c:236
+#: ../objects/SISSI/sissi_object.c:228 ../objects/SISSI/site.c:239
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -1663,12 +1667,12 @@ msgid "Keep tool box on top of diagram windows"
 msgstr "Mantener la caja de herramientas encima de las ventanas del diagrama"
 
 #: ../app/preferences.c:147
-msgid "Unit for lengths:"
-msgstr "Unidad para longitudes:"
+msgid "Length unit:"
+msgstr "Unidad de longitud:"
 
 #: ../app/preferences.c:150
-msgid "Unit for font sizes:"
-msgstr "Unidad para tamaños de tipografía:"
+msgid "Font-size unit:"
+msgstr "Tamaño de la tipografía:"
 
 #: ../app/preferences.c:154
 msgid "Integrated UI"
@@ -2257,7 +2261,7 @@ msgstr "%s<caracteres ilegales>..."
 msgid "Too many ..'s in filename %s\n"
 msgstr "Demasiados .. en el nombre del archivo %s\n"
 
-#: ../lib/dia_xml.c:167
+#: ../lib/dia_xml.c:192
 #, c-format
 msgid ""
 "The file %s has no encoding specification;\n"
@@ -2266,27 +2270,27 @@ msgstr ""
 "El archivo %s no tiene especificada la codificación;\n"
 "suponiendo que está codificado en %s"
 
-#: ../lib/dia_xml.c:568
+#: ../lib/dia_xml.c:593
 msgid "Taking point value of non-point node."
 msgstr "Tomando el valor del punto de un nodo que no es un punto."
 
-#: ../lib/dia_xml.c:579
+#: ../lib/dia_xml.c:604
 #, c-format
 msgid "Incorrect x Point value \"%s\" %f; discarding it."
 msgstr "Valor incorrecto del punto x «%s» %f; se descarta."
 
-#: ../lib/dia_xml.c:586
+#: ../lib/dia_xml.c:611
 msgid "Error parsing point."
 msgstr "Error analizando el punto."
 
 #. don't bother with useless warnings (see above)
-#: ../lib/dia_xml.c:594
+#: ../lib/dia_xml.c:619
 #, c-format
 msgid "Incorrect y Point value \"%s\" %f; discarding it."
 msgstr "Valor incorrecto del punto y «%s» %f; se descarta."
 
 # Traduzco "issues" como "problemas" en vez de como "asuntos". Cambiado el orden de la frase para hispanizarla. RizOX.
-#: ../lib/dia_xml.c:1066
+#: ../lib/dia_xml.c:1091
 msgid ""
 "Your local character set is UTF-8. Because of issues with libxml1 and the "
 "support of files generated by previous versions of dia, you will encounter  "
@@ -4277,15 +4281,15 @@ msgstr "Caja SADT"
 msgid "SADT diagram objects"
 msgstr "Objetos de diagrama SADT"
 
-#: ../objects/SISSI/classification.h:38 ../objects/SISSI/sissi.h:218
+#: ../objects/SISSI/classification.h:38 ../objects/SISSI/sissi.h:219
 msgid "No Protection"
 msgstr "Sin protección"
 
-#: ../objects/SISSI/classification.h:39 ../objects/SISSI/sissi.h:219
+#: ../objects/SISSI/classification.h:39 ../objects/SISSI/sissi.h:220
 msgid "Restricted Diffusion"
 msgstr "Difusión restringida"
 
-#: ../objects/SISSI/classification.h:40 ../objects/SISSI/sissi.h:220
+#: ../objects/SISSI/classification.h:40 ../objects/SISSI/sissi.h:221
 msgid "Special Country Confidential"
 msgstr "Confidencial de país especial"
 
@@ -4293,19 +4297,19 @@ msgstr "Confidencial de país especial"
 msgid "Confidential"
 msgstr "Confidencial"
 
-#: ../objects/SISSI/classification.h:42 ../objects/SISSI/sissi.h:221
+#: ../objects/SISSI/classification.h:42 ../objects/SISSI/sissi.h:222
 msgid "NATO Confidential"
 msgstr "Confidencial de la OTAN"
 
-#: ../objects/SISSI/classification.h:43 ../objects/SISSI/sissi.h:222
+#: ../objects/SISSI/classification.h:43 ../objects/SISSI/sissi.h:223
 msgid "Personal Confidential"
 msgstr "Confidencial personal"
 
-#: ../objects/SISSI/classification.h:44 ../objects/SISSI/sissi.h:223
+#: ../objects/SISSI/classification.h:44 ../objects/SISSI/sissi.h:224
 msgid "Medical Confidential"
 msgstr "Confidencial de medicina"
 
-#: ../objects/SISSI/classification.h:45 ../objects/SISSI/sissi.h:224
+#: ../objects/SISSI/classification.h:45
 msgid "Industrie Confidential"
 msgstr "Confidencial de industria"
 
@@ -4313,7 +4317,7 @@ msgstr "Confidencial de industria"
 msgid "Defense Confidential"
 msgstr "Confidencial de defensa"
 
-#: ../objects/SISSI/classification.h:47 ../objects/SISSI/sissi.h:225
+#: ../objects/SISSI/classification.h:47 ../objects/SISSI/sissi.h:226
 msgid "Secret"
 msgstr "Secreto"
 
@@ -4321,19 +4325,19 @@ msgstr "Secreto"
 msgid "Defense Secret"
 msgstr "Secreto de defensa"
 
-#: ../objects/SISSI/classification.h:49 ../objects/SISSI/sissi.h:226
+#: ../objects/SISSI/classification.h:49 ../objects/SISSI/sissi.h:227
 msgid "Secret special country"
 msgstr "Secreto de país especial"
 
-#: ../objects/SISSI/classification.h:50 ../objects/SISSI/sissi.h:227
+#: ../objects/SISSI/classification.h:50 ../objects/SISSI/sissi.h:228
 msgid "NATO Secret"
 msgstr "Secreto de la OTAN"
 
-#: ../objects/SISSI/classification.h:51 ../objects/SISSI/sissi.h:228
+#: ../objects/SISSI/classification.h:51 ../objects/SISSI/sissi.h:229
 msgid "Very Secret"
 msgstr "Alto secreto"
 
-#: ../objects/SISSI/classification.h:52 ../objects/SISSI/sissi.h:229
+#: ../objects/SISSI/classification.h:52 ../objects/SISSI/sissi.h:230
 msgid "NATO Very Secret"
 msgstr "Alto secreto de la OTAN"
 
@@ -4341,293 +4345,299 @@ msgstr "Alto secreto de la OTAN"
 msgid "SISSI diagram"
 msgstr "Diagrama de SISSI"
 
-#: ../objects/SISSI/sissi.h:234
+#: ../objects/SISSI/sissi.h:225
+msgid "Industrial Confidential"
+msgstr "Confidencial de industria"
+
+#: ../objects/SISSI/sissi.h:235
 msgid "No integrity"
 msgstr "Sin integridad"
 
-#: ../objects/SISSI/sissi.h:235
+#: ../objects/SISSI/sissi.h:236
 msgid "Low integrity"
 msgstr "Baja integridad"
 
-#: ../objects/SISSI/sissi.h:236
+#: ../objects/SISSI/sissi.h:237
 msgid "Average software integrity"
 msgstr "Media integridad del software"
 
-#: ../objects/SISSI/sissi.h:237
-msgid "Hight software integrity"
+#: ../objects/SISSI/sissi.h:238
+msgid "High software integrity"
 msgstr "Alta integridad del software"
 
-#: ../objects/SISSI/sissi.h:238
+#: ../objects/SISSI/sissi.h:239
 msgid "Average hardware integrity"
 msgstr "Media integridad del hardware"
 
 # Yo diría mejor "Cardinalidad a derechas". RizOX.
-#: ../objects/SISSI/sissi.h:239
-msgid "Hight hardware integrity"
+#: ../objects/SISSI/sissi.h:240
+msgid "High hardware integrity"
 msgstr "Alta integridad del hardware"
 
-#: ../objects/SISSI/sissi.h:244
+#: ../objects/SISSI/sissi.h:245
 msgid "Millisecond"
 msgstr "Milisegundo"
 
-#: ../objects/SISSI/sissi.h:245
+#: ../objects/SISSI/sissi.h:246
 msgid "Second"
 msgstr "Segundo"
 
-#: ../objects/SISSI/sissi.h:246
+#: ../objects/SISSI/sissi.h:247
 msgid "Minute"
 msgstr "Minuto"
 
-#: ../objects/SISSI/sissi.h:247
+#: ../objects/SISSI/sissi.h:248
 msgid "Hour"
 msgstr "Hora"
 
-#: ../objects/SISSI/sissi.h:248
+#: ../objects/SISSI/sissi.h:249
 msgid "Day"
 msgstr "Día"
 
-#: ../objects/SISSI/sissi.h:249
+#: ../objects/SISSI/sissi.h:250
 msgid "Week"
 msgstr "Semana"
 
-#: ../objects/SISSI/sissi.h:254
+#: ../objects/SISSI/sissi.h:255
 msgid "SYSTEM"
 msgstr "SISTEMA"
 
-#: ../objects/SISSI/sissi.h:255
+#: ../objects/SISSI/sissi.h:256
 msgid "Internet access device"
 msgstr "Dispositivo de acceso a Internet"
 
-#: ../objects/SISSI/sissi.h:256
+#: ../objects/SISSI/sissi.h:257
 msgid "Electronic messaging"
 msgstr "Mensajería electrónica"
 
-#: ../objects/SISSI/sissi.h:257
+#: ../objects/SISSI/sissi.h:258
 msgid "Intranet"
 msgstr "Intranet"
 
-#: ../objects/SISSI/sissi.h:258
+#: ../objects/SISSI/sissi.h:259
 msgid "Company directory"
 msgstr "Directorio de empresa"
 
-#: ../objects/SISSI/sissi.h:259
+#: ../objects/SISSI/sissi.h:260
 msgid "External portal"
 msgstr "Portal externo"
 
-#: ../objects/SISSI/sissi.h:264
+#: ../objects/SISSI/sissi.h:265
 msgid "ORGANISATION"
 msgstr "ORGANIZACIÓN"
 
-#: ../objects/SISSI/sissi.h:265
+#: ../objects/SISSI/sissi.h:266
 msgid "Higher-tier organisation"
 msgstr "Organización de alto nivel"
 
-#: ../objects/SISSI/sissi.h:266
+#: ../objects/SISSI/sissi.h:267
 msgid "Structure of the organisation"
 msgstr "Estructura de la organización"
 
-#: ../objects/SISSI/sissi.h:267
+#: ../objects/SISSI/sissi.h:268
 msgid "Project or system organisation"
 msgstr "Organización del proyecto o sistema"
 
-#: ../objects/SISSI/sissi.h:268
+#: ../objects/SISSI/sissi.h:269
 msgid "Subcontractors / Suppliers / Manufacturers"
 msgstr "Subcontratas / Proveedores / Fabricantes"
 
-#: ../objects/SISSI/sissi.h:273
+#: ../objects/SISSI/sissi.h:274
 msgid "SITE"
 msgstr "SITIO"
 
-#: ../objects/SISSI/sissi.h:274
+#: ../objects/SISSI/sissi.h:275
 msgid "Places"
 msgstr "Lugares"
 
-#: ../objects/SISSI/sissi.h:275
+#: ../objects/SISSI/sissi.h:276
 msgid "External environment"
 msgstr "Ambiente externo"
 
-#: ../objects/SISSI/sissi.h:276
+#: ../objects/SISSI/sissi.h:277
 msgid "Premises"
 msgstr "Premisas"
 
-#: ../objects/SISSI/sissi.h:277
+#: ../objects/SISSI/sissi.h:278
 msgid "Zone"
 msgstr "Zona"
 
-#: ../objects/SISSI/sissi.h:278
-msgid "Service Essentiel"
-msgstr "Control de revisión"
-
 #: ../objects/SISSI/sissi.h:279
+msgid "Essential Services"
+msgstr "Servicios esenciales"
+
+#: ../objects/SISSI/sissi.h:280
 msgid "Communication"
 msgstr "Comunicación"
 
-#: ../objects/SISSI/sissi.h:280
+#: ../objects/SISSI/sissi.h:281
 msgid "Power"
 msgstr "Energía"
 
-#: ../objects/SISSI/sissi.h:281
+#: ../objects/SISSI/sissi.h:282
 msgid "Cooling / Pollution"
 msgstr "Refrigerado / Polución"
 
-#: ../objects/SISSI/sissi.h:285
-msgid "THERMIC DETECTION"
-msgstr "DETECCIÓN TÉRMICA"
+#: ../objects/SISSI/sissi.h:286
+msgid "Thermal detection"
+msgstr "Detección térmica"
 
-#: ../objects/SISSI/sissi.h:289
-msgid "FIRE DETECTION"
-msgstr "DETECCIÓN DE FUEGO"
+#: ../objects/SISSI/sissi.h:290
+msgid "Fire detection"
+msgstr "Detección de fuego"
 
-#: ../objects/SISSI/sissi.h:293
-msgid "WATER DETECTION"
-msgstr "DETECCIÓN DE AGUA"
+#: ../objects/SISSI/sissi.h:294
+msgid "Water detection"
+msgstr "Detección de agua"
 
-#: ../objects/SISSI/sissi.h:297
-msgid "AIR DETECTION"
-msgstr "DETECCIÓN DE AIRE"
+#: ../objects/SISSI/sissi.h:298
+msgid "Air detection"
+msgstr "Detección de aire"
 
-#: ../objects/SISSI/sissi.h:301
-msgid "ENERGY DETECTION"
-msgstr "DETECCIÓN DE ENERGÍA"
+#: ../objects/SISSI/sissi.h:302
+msgid "Energy detection"
+msgstr "Detección de energía"
 
-#: ../objects/SISSI/sissi.h:305
-msgid "INTRUSION DETECTION"
-msgstr "DETECCIÓN DE INTRUSIÓN"
+#: ../objects/SISSI/sissi.h:306
+msgid "Intrusion detection"
+msgstr "Detección de intrusión"
 
-#: ../objects/SISSI/sissi.h:309
-msgid "THERMIC ACTION"
-msgstr "ACCIÓN TÉRMICA"
+#: ../objects/SISSI/sissi.h:310
+msgid "Thermal action"
+msgstr "Acción térmica"
 
-#: ../objects/SISSI/sissi.h:313
-msgid "FIRE ACTION"
-msgstr "ACCIÓN DE FUEGO"
+#: ../objects/SISSI/sissi.h:314
+msgid "Fire action"
+msgstr "Acción del fuego"
 
-#: ../objects/SISSI/sissi.h:317
-msgid "WATER ACTION"
-msgstr "ACCIÓN DE AGUA"
+#: ../objects/SISSI/sissi.h:318
+msgid "Water action"
+msgstr "Acción del agua"
 
-#: ../objects/SISSI/sissi.h:321
-msgid "AIR ACTION"
-msgstr "ACCIÓN DE AIRE"
+#: ../objects/SISSI/sissi.h:322
+msgid "Air action"
+msgstr "Acción del aire"
 
-#: ../objects/SISSI/sissi.h:325
-msgid "ENERGY ACTION"
-msgstr "ACCIÓN DE ENERGÍA"
+#: ../objects/SISSI/sissi.h:326
+msgid "Energy action"
+msgstr "Acción de energía"
 
-#: ../objects/SISSI/sissi.h:329
-msgid "INTRUSION ACTION"
-msgstr "ACCIÓN DE INTRUSIÓN"
+#: ../objects/SISSI/sissi.h:330
+msgid "Intrusion action"
+msgstr "Acción de intrusión"
 
-#: ../objects/SISSI/sissi.h:334
-msgid "PERSONAL"
-msgstr "PERSONAL"
-
+# También creo que todo esto son verbos. FVD
+# Parece que el verbo es la acción que se hace con la "Provisión" (los siguientes textos son verbos). RizOX.
 #: ../objects/SISSI/sissi.h:335
+msgid "Personal"
+msgstr "Personal"
+
+#: ../objects/SISSI/sissi.h:336
 msgid "Decision maker"
 msgstr "Tomador de decisiones"
 
-#: ../objects/SISSI/sissi.h:336
+#: ../objects/SISSI/sissi.h:337
 msgid "SSI Responsible"
 msgstr "Responsable SSI"
 
-#: ../objects/SISSI/sissi.h:337
+#: ../objects/SISSI/sissi.h:338
 msgid "Users"
 msgstr "Usuarios"
 
-#: ../objects/SISSI/sissi.h:338
-msgid "Fonctionnal administrator"
+#: ../objects/SISSI/sissi.h:339
+msgid "Functional administrator"
 msgstr "Administrador funcional"
 
-#: ../objects/SISSI/sissi.h:339
-msgid "Technician aministrator"
+#: ../objects/SISSI/sissi.h:340
+msgid "Technical administrator"
 msgstr "Administrador técnico"
 
-#: ../objects/SISSI/sissi.h:340
+#: ../objects/SISSI/sissi.h:341
 msgid "SSI administrator"
 msgstr "Administrador SSI"
 
-#: ../objects/SISSI/sissi.h:341
+#: ../objects/SISSI/sissi.h:342
 msgid "Developer"
 msgstr "Desarrollador"
 
-#: ../objects/SISSI/sissi.h:342
+#: ../objects/SISSI/sissi.h:343
 msgid "Operator / Maintenance"
 msgstr "Operador / Mantenimiento"
 
-#: ../objects/SISSI/sissi.h:347
-msgid "NETWORK"
-msgstr "RED"
-
-#: ../objects/SISSI/sissi.h:348
-msgid "Medium and supports"
-msgstr "Soporte y medio"
+#: ../objects/SISSI/sissi.h:348 ../sheets/network.sheet.in.h:20
+msgid "Network"
+msgstr "Red"
 
 #: ../objects/SISSI/sissi.h:349
+msgid "Medium and support"
+msgstr "Soporte y medio"
+
+#: ../objects/SISSI/sissi.h:350
 msgid "Passive or active relay"
 msgstr "Relé activo o pasivo"
 
-#: ../objects/SISSI/sissi.h:350
+#: ../objects/SISSI/sissi.h:351
 msgid "Communication interface"
 msgstr "Interfaz de comunicación"
 
-#: ../objects/SISSI/sissi.h:355
-msgid "LOGICIEL"
-msgstr "LÓGICO"
+#: ../objects/SISSI/sissi.h:356 ../sheets/SISSI.sheet.in.h:54
+msgid "Software"
+msgstr "Software"
 
-#: ../objects/SISSI/sissi.h:356
+#: ../objects/SISSI/sissi.h:357
 msgid "Operating System"
 msgstr "Sistema operativo"
 
-#: ../objects/SISSI/sissi.h:357
+#: ../objects/SISSI/sissi.h:358
 msgid "Service - maintenance or administration software"
 msgstr "Servicio - mantenimiento o administración de software"
 
-#: ../objects/SISSI/sissi.h:358
-msgid "Package software or standard software"
+#: ../objects/SISSI/sissi.h:359
+msgid "Packaged software or standard software"
 msgstr "Paquete de software o software estándar"
 
-#: ../objects/SISSI/sissi.h:359
+#: ../objects/SISSI/sissi.h:360
 msgid "Business application"
 msgstr "Aplicación de negocio"
 
-#: ../objects/SISSI/sissi.h:360
+#: ../objects/SISSI/sissi.h:361
 msgid "Standard business application"
 msgstr "Aplicación estándar de negocio"
 
-#: ../objects/SISSI/sissi.h:361
+#: ../objects/SISSI/sissi.h:362
 msgid "Specific business application"
 msgstr "Aplicación específica de negocio"
 
-#: ../objects/SISSI/sissi.h:366
+#: ../objects/SISSI/sissi.h:367
 msgid "HARDWARE"
 msgstr "HARDWARE"
 
-#: ../objects/SISSI/sissi.h:367
-msgid "Data processing equipement (active)"
+#: ../objects/SISSI/sissi.h:368
+msgid "Data-processing equipment (active)"
 msgstr "Equipo de procesamiento de datos (activo)"
 
-#: ../objects/SISSI/sissi.h:368
-msgid "Transportable equipement"
-msgstr "Equipo transportable"
-
 #: ../objects/SISSI/sissi.h:369
-msgid "Fixed equipement"
-msgstr "Equipo fijo"
+msgid "Mobile equipment"
+msgstr "Equipo móvil"
 
 #: ../objects/SISSI/sissi.h:370
+msgid "Fixed equipment"
+msgstr "Equipo fijo"
+
+#: ../objects/SISSI/sissi.h:371
 msgid "Peripheral processing"
 msgstr "Procesado periférico"
 
-#: ../objects/SISSI/sissi.h:371
+#: ../objects/SISSI/sissi.h:372
 msgid "Electronic medium"
 msgstr "Elecrónico medio"
 
 # ¿De dónde salían esa traducción y esa variable? No concuerda con el original inglés en nada. Lo cambio. RizOX.
-#: ../objects/SISSI/sissi.h:372
+#: ../objects/SISSI/sissi.h:373
 msgid "Other media"
 msgstr "Otros medios"
 
-#: ../objects/SISSI/sissi.h:373
+#: ../objects/SISSI/sissi.h:374
 msgid "Data medium (passive)"
 msgstr "Datos medios (pasivo)"
 
@@ -4655,13 +4665,13 @@ msgstr "Vulnerabilidad"
 
 #. Other properties of page:
 #: ../objects/SISSI/sissi_dialog.c:372
-msgid "Others properties"
+msgid "Other properties"
 msgstr "Otras propiedades"
 
 #. ********* selection menu of entity ********
 #. ********* Label of board *********
 #: ../objects/SISSI/sissi_dialog.c:610
-msgid "Libelle"
+msgid "Libel"
 msgstr "Etiqueta"
 
 #: ../objects/SISSI/sissi_dialog.c:612
@@ -5593,30 +5603,30 @@ msgstr "Computer Graphics Metafile"
 msgid "Computer Graphics Metafile export filter"
 msgstr "Filtro de exportación de Computer Graphics Metafile"
 
-#: ../plug-ins/dxf/dxf-export.c:528 ../plug-ins/dxf/dxf-import.c:1387
+#: ../plug-ins/dxf/dxf-export.c:528 ../plug-ins/dxf/dxf-import.c:1391
 msgid "Drawing Interchange File"
 msgstr "Drawing Interchange File"
 
-#: ../plug-ins/dxf/dxf-import.c:482 ../plug-ins/dxf/dxf-import.c:499
+#: ../plug-ins/dxf/dxf-import.c:486 ../plug-ins/dxf/dxf-import.c:503
 msgid "Bad vertex bulge\n"
 msgstr "Vértice de bombeo incorrecto\n"
 
-#: ../plug-ins/dxf/dxf-import.c:1049
+#: ../plug-ins/dxf/dxf-import.c:1053
 #, c-format
 msgid "Scale: %f\n"
 msgstr "Escala: %f\n"
 
-#: ../plug-ins/dxf/dxf-import.c:1314
+#: ../plug-ins/dxf/dxf-import.c:1318
 #, c-format
 msgid "read_dxf_codes failed on '%s'\n"
 msgstr "falló read_dxf_codes en «%s»\n"
 
-#: ../plug-ins/dxf/dxf-import.c:1322
+#: ../plug-ins/dxf/dxf-import.c:1326
 #, c-format
 msgid "Binary DXF from '%s' not supported\n"
 msgstr "DXF binario desde «%s» no soportado\n"
 
-#: ../plug-ins/dxf/dxf-import.c:1353
+#: ../plug-ins/dxf/dxf-import.c:1357
 #, c-format
 msgid "Unknown dxf code %d\n"
 msgstr "Código dxf desconocido %d\n"
@@ -5726,7 +5736,7 @@ msgstr "Archivo de forma de Dia"
 msgid "dia shape export filter"
 msgstr "Filtro de exportación de archivo de forma de Dia"
 
-#: ../plug-ins/svg/render_svg.c:294 ../plug-ins/svg/svg-import.c:676
+#: ../plug-ins/svg/render_svg.c:294 ../plug-ins/svg/svg-import.c:677
 msgid "Scalable Vector Graphics"
 msgstr "Scalable Vector Graphics"
 
@@ -5738,11 +5748,11 @@ msgstr ""
 "Ruta de datos inválida.\n"
 "svg:la ruta de datos debe empezar con moveto."
 
-#: ../plug-ins/svg/svg-import.c:637
+#: ../plug-ins/svg/svg-import.c:638
 msgid "Expected SVG Namespace not found in file"
 msgstr "No se encontró en el archivo el espacio de nombres SVG esperado"
 
-#: ../plug-ins/svg/svg-import.c:657
+#: ../plug-ins/svg/svg-import.c:658
 #, c-format
 msgid "root element was '%s' -- expecting 'svg'."
 msgstr "el elemento raíz era «%s» -- se esperaba «svg»."
@@ -7878,16 +7888,16 @@ msgid "State"
 msgstr "Estado"
 
 #: ../sheets/SISSI.sheet.in.h:1
-msgid "Air condition"
-msgstr "Aire acondicionado"
-
-#: ../sheets/SISSI.sheet.in.h:2
 msgid "Air filter"
 msgstr "Filtro del aire"
 
-#: ../sheets/SISSI.sheet.in.h:3
+#: ../sheets/SISSI.sheet.in.h:2
 msgid "Air quality detector"
 msgstr "Detector de calidad del aire"
+
+#: ../sheets/SISSI.sheet.in.h:3
+msgid "Airconditioner"
+msgstr "Aire acondicionado"
 
 #: ../sheets/SISSI.sheet.in.h:4
 msgid "Alarm center"
@@ -7914,7 +7924,7 @@ msgid "Biometric reader"
 msgstr "Lector biométrico"
 
 #: ../sheets/SISSI.sheet.in.h:10
-msgid "Cellular phone"
+msgid "Cell phone"
 msgstr "Teléfono móvil"
 
 #: ../sheets/SISSI.sheet.in.h:11
@@ -7999,8 +8009,8 @@ msgid "Log analysis"
 msgstr "Análisis del registro"
 
 #: ../sheets/SISSI.sheet.in.h:32
-msgid "Magnetic support"
-msgstr "Soporte magnético"
+msgid "Magnetic storage"
+msgstr "Cinta magnética"
 
 #: ../sheets/SISSI.sheet.in.h:33 ../sheets/ciscocomputer.sheet.in.h:25
 msgid "Modem"
@@ -8031,8 +8041,8 @@ msgid "PDA"
 msgstr "PDA"
 
 #: ../sheets/SISSI.sheet.in.h:40
-msgid "Paper support"
-msgstr "Soporte de papel"
+msgid "Paper storage"
+msgstr "Almacenamiento en papel"
 
 # También creo que todo esto son verbos. FVD
 # Parece que el verbo es la acción que se hace con la "Provisión" (los siguientes textos son verbos). RizOX.
@@ -8088,10 +8098,6 @@ msgstr "Servidor"
 #: ../sheets/SISSI.sheet.in.h:53
 msgid "Smoke detector"
 msgstr "Detector de humos"
-
-#: ../sheets/SISSI.sheet.in.h:54
-msgid "Software"
-msgstr "Software"
 
 #: ../sheets/SISSI.sheet.in.h:55 ../sheets/ciscocomputer.sheet.in.h:42
 msgid "Storage array"
@@ -9793,10 +9799,6 @@ msgstr "Celda de telefonía móvil"
 #: ../sheets/network.sheet.in.h:18
 msgid "Modular switching system"
 msgstr "Sistema de conexión modular"
-
-#: ../sheets/network.sheet.in.h:20
-msgid "Network"
-msgstr "Red"
 
 #: ../sheets/network.sheet.in.h:22
 msgid "Objects to design network diagrams with"
