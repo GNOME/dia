@@ -150,52 +150,43 @@ get_paper_name_list(void)
   return name_list;
 }
 
-#if defined(_MSC_VER) || defined(__SUNPRO_C)
-/* can't export inlined functions. Shouldn't they be declared as such
- * in paper.h ? The following is a hack. Isn't there a proper sollution
- * provided by glib ?
- */
-#undef inline
-#define inline
-#endif
-
-inline const gchar *
+const gchar *
 get_paper_name(int i)
 {
   return paper_metrics[i].paper;
 }
 
-inline gdouble
+gdouble
 get_paper_psheight(int i)
 {
   return paper_metrics[i].psheight;
 }
 
-inline gdouble
+gdouble
 get_paper_pswidth(int i)
 {
   return paper_metrics[i].pswidth;
 }
 
-inline gdouble
+gdouble
 get_paper_lmargin(int i)
 {
   return paper_metrics[i].lmargin;
 }
 
-inline gdouble
+gdouble
 get_paper_rmargin(int i)
 {
   return paper_metrics[i].rmargin;
 }
 
-inline gdouble
+gdouble
 get_paper_tmargin(int i)
 {
   return paper_metrics[i].tmargin;
 }
 
-inline gdouble
+gdouble
 get_paper_bmargin(int i)
 {
   return paper_metrics[i].bmargin;

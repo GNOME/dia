@@ -1,3 +1,8 @@
+2007-07-23  Hans Breuer  <hans@breuer.org>
+
+	* lib/paper.c : instead of special casing for the thrid compiler
+	just removed the superfluous inline on the get_paper_* functions
+
 2007-07-22  Steffen Macke <sdteffen@gmail.com>
 
 	* app/preferences.c:
@@ -15,10 +20,27 @@
 	* app/interface.h:
 	* app/makefile.mingw:
 	* app/disp_callbacks.c: Patch from Patrick Hallinan 
-	<patrick.j.hallinan@gmail.com, fixes the problem with the active diagram	during resize; adds an asterisk to the tab when diagram has changed;
+	<patrick.j.hallinan@gmail.com, fixes the problem with the active diagram
+	during resize; adds an asterisk to the tab when diagram has changed;
 	adds a new dialog to save unsaved files when exiting
 	* app/authors.h: Added Patrick Hallinan
 	* app/commands.c: Bumped copyright year to 2007
+
+2007-07-21  Hans Breuer  <hans@breuer.org>
+
+	[maket it compile with msvc/win32]
+	* lib/bounding_box.c : fix c99ism to 
+	* objects/SISSI/*.c : dont include unistd.h unconditionally
+	
+	[warningectomy]
+	* app/interface.c : cast GtkWindow to GtkWidget
+	* lib/object.[hc] : const correctness
+	* objects/FS/flow.c objects/standard/line.c : 
+	connection_adjust_for_autogap take a Connection*, not the 
+	specialization
+
+	* lib/diagdkrenderer.c : implement draw_fill_rounded_rect to
+	avoid seams
 
 2007-07-19  Steffen Macke <sdteffen@gmail.com>
 
