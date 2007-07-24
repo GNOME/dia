@@ -527,9 +527,9 @@ ddisplay_canvas_events (GtkWidget *canvas,
                                  ddisp->canvas->allocation.height);
           ddisplay_update_scrollbars(ddisp);
         }
-        /* TODO: Find out if display_set_active is needed for the GDK_CONFIGURE event */
-        /* This is prevented for the integrated UI because it causes the diagram 
-           showing in the diagram notebook to change on a resize event          */
+	/* If the UI is not integrated, resizing should set the resized
+	 * window as active.  With integrated UI, there is only one window.
+	 */
         if (is_integrated_ui () == 0)
           display_set_active(ddisp);
         break;

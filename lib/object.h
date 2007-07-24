@@ -45,6 +45,9 @@ G_BEGIN_DECLS
  * This is typically used for group-like objects.
  */
 #define DIA_OBJECT_GRABS_CHILD_INPUT 2
+/** Set this if the DiaObject expands/contracts when children are 
+ * moved/modified/added/deleted */
+#define DIA_OBJECT_EXPAND_WITH_CHILDREN 4
 
 /** This enumeration gives a bitset of modifier keys currently held down.
  */

@@ -1,3 +1,10 @@
+2007-07-24  Lars Clausen  <lars@raeder.dk>
+
+	* lib/object.h (DIA_OBJECT_EXPAND_WITH_CHILDREN): New
+	parent-related flag, not in use yet.
+
+	* app/disp_callbacks.c: Document need for setting active diagram.
+
 2007-07-23  Hans Breuer  <hans@breuer.org>
 
 	* lib/paper.c : instead of special casing for the thrid compiler
