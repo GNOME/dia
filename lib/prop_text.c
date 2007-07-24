@@ -156,7 +156,7 @@ static GtkWidget *
 fileprop_get_widget(StringProperty *prop, PropDialog *dialog) 
 { 
   GtkWidget *ret = dia_file_selector_new();
-  prophandler_connect(&prop->common,GTK_OBJECT(ret),"FIXME");
+  prophandler_connect(&prop->common,GTK_OBJECT(ret),"value-changed");
   return ret;
 }
 

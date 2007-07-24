@@ -194,8 +194,8 @@ struct _DiaUnitSpinnerClass {
 GtkType    dia_unit_spinner_get_type  (void);
 GtkWidget *dia_unit_spinner_new       (GtkAdjustment *adjustment,
 				       DiaUnit adj_unit);
-void       dia_unit_spinner_set_value (DiaUnitSpinner *self, gfloat val);
-gfloat     dia_unit_spinner_get_value (DiaUnitSpinner *self);
+void       dia_unit_spinner_set_value (DiaUnitSpinner *self, gdouble val);
+gdouble    dia_unit_spinner_get_value (DiaUnitSpinner *self);
 GList *    get_units_name_list(void);
 
 /* DiaDynamicMenu */

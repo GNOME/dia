@@ -184,7 +184,7 @@ lengthprop_get_widget(LengthProperty *prop, PropDialog *dialog)
                                                          0.1, 1.0, 1.0));
   GtkWidget *ret = dia_unit_spinner_new(adj, prefs_get_length_unit());
   /*  gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(ret),TRUE);*/
-  prophandler_connect(&prop->common,GTK_OBJECT(adj),"value_changed");
+  prophandler_connect(&prop->common,GTK_OBJECT(ret),"value_changed");
   
   return ret;
 }
@@ -307,23 +307,6 @@ fontsizeprop_get_widget(FontsizeProperty *prop, PropDialog *dialog)
 static void 
 fontsizeprop_reset_widget(FontsizeProperty *prop, WIDGET *widget)
 {
-  /*
-  GtkAdjustment *adj;
-  if (prop->common.extra_data) {
-    PropNumData *numdata = prop->common.extra_data;
-    adj = GTK_ADJUSTMENT(gtk_adjustment_new(prop->fontsize_data,
-                                            numdata->min, numdata->max,
-                                            numdata->step, 
-                                            10.0 * numdata->step,
-                                            10.0 * numdata->step));
-  } else {
-    adj = GTK_ADJUSTMENT(gtk_adjustment_new(prop->fontsize_data,
-                                            G_MINFLOAT, G_MAXFLOAT,
-                                            0.1, 1.0, 1.0));
-  }
-  gtk_spin_button_set_adjustment(GTK_SPIN_BUTTON(widget), adj);
-  */
-  printf("Resetting\n");
   dia_unit_spinner_set_value(DIA_UNIT_SPINNER(widget), prop->fontsize_data);
 }
 
@@ -331,7 +314,6 @@ static void
 fontsizeprop_set_from_widget(FontsizeProperty *prop, WIDGET *widget) 
 {
   prop->fontsize_data = dia_unit_spinner_get_value(DIA_UNIT_SPINNER(widget));
-  printf("Set font size %f\n", prop->fontsize_data);
 }
 
 static void 

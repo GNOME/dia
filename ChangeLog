@@ -1,5 +1,15 @@
 2007-07-24  Lars Clausen  <lars@raeder.dk>
 
+	* lib/widgets.c
+	* lib/prop_attr.c
+	* lib/widgets.h
+	* lib/prop_inttypes.c
+	* lib/prop_text.c
+	* lib/prop_geomtypes.c: Patch from Sameer Sahasrabuddhe
+	<sameerds@gmail.com>: simplified some widgets in the property
+	dialog and all of them now have an event handler to track
+	PXP_NOTSET.  Yet another patch from bug #60331.
+
 	* lib/object.h (DIA_OBJECT_EXPAND_WITH_CHILDREN): New
 	parent-related flag, not in use yet.
 

@@ -776,12 +776,27 @@ struct _DiaLineStyleSelectorClass
   GtkVBoxClass parent_class;
 };
 
+enum {
+    DLS_VALUE_CHANGED,
+    DLS_LAST_SIGNAL
+};
+
+static guint dls_signals[DLS_LAST_SIGNAL] = { 0 };
+
 static void
 dia_line_style_selector_class_init (DiaLineStyleSelectorClass *class)
 {
   GtkObjectClass *object_class;
   
   object_class = (GtkObjectClass*) class;
+
+  dls_signals[DLS_VALUE_CHANGED]
+      = g_signal_new("value-changed",
+		     G_TYPE_FROM_CLASS(class),
+		     G_SIGNAL_RUN_FIRST,
+		     0, NULL, NULL,
+		     g_cclosure_marshal_VOID__VOID,
+		     G_TYPE_NONE, 0);
 }
 
 static void
@@ -799,9 +814,18 @@ set_linestyle_sensitivity(DiaLineStyleSelector *fs)
 }
 
 static void
-linestyle_type_change_callback(GtkObject *as, gboolean arg1, gpointer data)
+linestyle_type_change_callback(GtkMenu *menu, gpointer data)
 {
-  set_linestyle_sensitivity(DIALINESTYLESELECTOR(as));
+  set_linestyle_sensitivity(DIALINESTYLESELECTOR(data));
+  g_signal_emit(DIALINESTYLESELECTOR(data),
+		dls_signals[DLS_VALUE_CHANGED], 0);
+}
+
+static void
+linestyle_dashlength_change_callback(GtkSpinButton *sb, gpointer data)
+{
+  g_signal_emit(DIALINESTYLESELECTOR(data),
+		dls_signals[DLS_VALUE_CHANGED], 0);
 }
 
 static void
@@ -868,9 +892,8 @@ dia_line_style_selector_init (DiaLineStyleSelector *fs)
   
   gtk_menu_set_active(GTK_MENU (menu), DEFAULT_LINESTYLE);
   gtk_option_menu_set_menu (GTK_OPTION_MENU (fs->omenu), menu);
-  gtk_signal_connect_object(GTK_OBJECT(menu), "selection-done", 
-			    GTK_SIGNAL_FUNC(linestyle_type_change_callback), 
-			    (gpointer)fs);
+  g_signal_connect(GTK_OBJECT(menu), "selection-done", 
+		   G_CALLBACK(linestyle_type_change_callback), fs);
  
   gtk_box_pack_start(GTK_BOX(fs), GTK_WIDGET(fs->omenu), FALSE, TRUE, 0);
   gtk_widget_show(GTK_WIDGET(fs->omenu));
@@ -890,6 +913,9 @@ dia_line_style_selector_init (DiaLineStyleSelector *fs)
   fs->dashlength = GTK_SPIN_BUTTON(length);
   gtk_box_pack_start_defaults(GTK_BOX (box), length);
   gtk_widget_show (length);
+
+  g_signal_connect(GTK_OBJECT(length), "changed", 
+		   G_CALLBACK(linestyle_dashlength_change_callback), fs);
 
   set_linestyle_sensitivity(fs);
   gtk_box_pack_start_defaults(GTK_BOX(fs), box);
@@ -1329,6 +1355,13 @@ struct _DiaFileSelectorClass
   GtkHBoxClass parent_class;
 };
 
+enum {
+    DFILE_VALUE_CHANGED,
+    DFILE_LAST_SIGNAL
+};
+
+static guint dfile_signals[DFILE_LAST_SIGNAL] = { 0 };
+
 static void
 dia_file_selector_unrealize(GtkWidget *widget)
 {
@@ -1355,6 +1388,22 @@ dia_file_selector_class_init (DiaFileSelectorClass *class)
   object_class = (GtkObjectClass*) class;
   widget_class = (GtkWidgetClass*) class;
   widget_class->unrealize = dia_file_selector_unrealize;
+
+  dfile_signals[DFILE_VALUE_CHANGED]
+      = g_signal_new("value-changed",
+		     G_TYPE_FROM_CLASS(class),
+		     G_SIGNAL_RUN_FIRST,
+		     0, NULL, NULL,
+		     g_cclosure_marshal_VOID__VOID,
+		     G_TYPE_NONE, 0);
+}
+
+static void
+dia_file_selector_entry_changed(GtkEditable *editable
+				, gpointer data)
+{
+  DiaFileSelector *fs = DIAFILESELECTOR(data);
+  g_signal_emit(fs, dfile_signals[DFILE_VALUE_CHANGED], 0);
 }
 
 static void
@@ -1418,9 +1467,13 @@ dia_file_selector_init (DiaFileSelector *fs)
   /* Here's where we set up the real thing */
   fs->dialog = NULL;
   fs->sys_filename = NULL;  
+
   fs->entry = GTK_ENTRY(gtk_entry_new());
   gtk_box_pack_start(GTK_BOX(fs), GTK_WIDGET(fs->entry), FALSE, TRUE, 0);
+  g_signal_connect(GTK_OBJECT(fs->entry), "changed",
+		   G_CALLBACK(dia_file_selector_entry_changed), fs);
   gtk_widget_show(GTK_WIDGET(fs->entry));
+
   fs->browse = GTK_BUTTON(gtk_button_new_with_label(_("Browse")));
   gtk_box_pack_start(GTK_BOX(fs), GTK_WIDGET(fs->browse), FALSE, TRUE, 0);
   gtk_signal_connect (GTK_OBJECT (fs->browse), "clicked",
@@ -1512,147 +1565,75 @@ static const DiaUnitDef units[] =
   { 0 }
 };
 
-static GtkObjectClass *parent_class;
-static GtkObjectClass *entry_class;
-
-static void dia_unit_spinner_class_init(DiaUnitSpinnerClass *class);
 static void dia_unit_spinner_init(DiaUnitSpinner *self);
 
-GtkType
+GType
 dia_unit_spinner_get_type(void)
 {
-  static GtkType us_type = 0;
+  static GType us_type = 0;
 
   if (!us_type) {
-    static const GtkTypeInfo us_info = {
-      "DiaUnitSpinner",
-      sizeof(DiaUnitSpinner),
+    static const GTypeInfo us_info = {
       sizeof(DiaUnitSpinnerClass),
-      (GtkClassInitFunc) dia_unit_spinner_class_init,
-      (GtkObjectInitFunc) dia_unit_spinner_init,
-      NULL,
-      NULL,
-      (GtkClassInitFunc) NULL,
+      NULL, /* base_init */
+      NULL, /* base_finalize */
+      NULL, /* class_init*/
+      NULL, /* class_finalize */
+      NULL, /* class_data */
+      sizeof(DiaUnitSpinner),
+      0,    /* n_preallocs */
+      (GInstanceInitFunc) dia_unit_spinner_init,
     };
-    us_type = gtk_type_unique(gtk_spin_button_get_type(), &us_info);
+    us_type = g_type_register_static(GTK_TYPE_SPIN_BUTTON,
+                                     "DiaUnitSpinner",
+                                     &us_info, 0);
   }
   return us_type;
 }
 
-/** Updates the spinner display to show digits and units */
-static void
-dia_unit_spinner_value_changed(GtkAdjustment *adjustment,
-			       DiaUnitSpinner *spinner)
-{
-  char buf[256];
-  GtkSpinButton *sbutton = GTK_SPIN_BUTTON(spinner);
-
-  g_snprintf(buf, sizeof(buf), "%0.*f %s", sbutton->digits, adjustment->value,
-	     units[spinner->unit_num].unit);
-  gtk_entry_set_text(GTK_ENTRY(spinner), buf);
-}
-
-static void dia_unit_spinner_set_value_direct(DiaUnitSpinner *self, gfloat val);
-static gint dia_unit_spinner_focus_out(GtkWidget *widget, GdkEventFocus *ev);
-static gint dia_unit_spinner_button_press(GtkWidget *widget,GdkEventButton*ev);
-static gint dia_unit_spinner_key_press(GtkWidget *widget, GdkEventKey *event);
-static void dia_unit_spinner_activate(GtkEntry *editable);
-
-static void
-dia_unit_spinner_class_init(DiaUnitSpinnerClass *class)
-{
-  GtkObjectClass *object_class;
-  GtkWidgetClass *widget_class;
-  GtkEntryClass  *editable_class;
-
-  object_class = (GtkObjectClass *)class;
-  widget_class = (GtkWidgetClass *)class;
-  editable_class = (GtkEntryClass *)class;
-
-  widget_class->focus_out_event    = dia_unit_spinner_focus_out;
-  widget_class->button_press_event = dia_unit_spinner_button_press;
-  widget_class->key_press_event    = dia_unit_spinner_key_press;
-  editable_class->activate         = dia_unit_spinner_activate;
-
-  parent_class = gtk_type_class(GTK_TYPE_SPIN_BUTTON);
-  entry_class  = gtk_type_class(GTK_TYPE_ENTRY);
-}
 
 static void
 dia_unit_spinner_init(DiaUnitSpinner *self)
 {
-  /* change over to our own print function that appends the unit name on the
-   * end */
-  if (self->parent.adjustment) {
-    gtk_signal_disconnect_by_data(GTK_OBJECT(self->parent.adjustment),
-				  (gpointer) self);
-    g_signal_connect(GTK_OBJECT(self->parent.adjustment), "value_changed",
-		      G_CALLBACK(dia_unit_spinner_value_changed),
-		       (gpointer) self);
-  }
-
   self->unit_num = DIA_UNIT_CENTIMETER;
 }
+
+/*
+  Callback functions for the "input" and "output" signals emitted by
+  GtkSpinButton. All the normal work is done by the spin button, we
+  simply modify how the text in the GtkEntry is treated.
+*/
+static gboolean
+dia_unit_spinner_input(DiaUnitSpinner *self, gdouble *value);
+static gboolean dia_unit_spinner_output(DiaUnitSpinner *self);
 
 GtkWidget *
 dia_unit_spinner_new(GtkAdjustment *adjustment, DiaUnit adj_unit)
 {
-  DiaUnitSpinner *self = gtk_type_new(dia_unit_spinner_get_type());
-
-  self->unit_num = adj_unit;
-
-  gtk_spin_button_configure(GTK_SPIN_BUTTON(self), adjustment, 0.0, units[adj_unit].digits);
-
+  DiaUnitSpinner *self;
+  
   if (adjustment) {
-    gtk_signal_disconnect_by_data(GTK_OBJECT(adjustment),
-				  (gpointer) self);
-    g_signal_connect(GTK_OBJECT(adjustment), "value_changed",
-		     G_CALLBACK(dia_unit_spinner_value_changed),
-		       (gpointer) self);
-    dia_unit_spinner_set_value(self, adjustment->value);
-  } else {
-    /* Don't know any better, hopefully it'll be set later. */
-    dia_unit_spinner_set_value(self, 1.0);
+    g_return_val_if_fail (GTK_IS_ADJUSTMENT (adjustment), NULL);
   }
+  
+  self = gtk_type_new(dia_unit_spinner_get_type());
+  self->unit_num = adj_unit;
+  
+  gtk_spin_button_configure(GTK_SPIN_BUTTON(self),
+                            adjustment, 0.0, units[adj_unit].digits);
+
+  g_signal_connect(GTK_SPIN_BUTTON(self), "output",
+                   G_CALLBACK(dia_unit_spinner_output),
+                   NULL);
+  g_signal_connect(GTK_SPIN_BUTTON(self), "input",
+                   G_CALLBACK(dia_unit_spinner_input),
+                   NULL);
 
   return GTK_WIDGET(self);
 }
 
-/** Set the value (in cm).
- * */
-void
-dia_unit_spinner_set_value(DiaUnitSpinner *self, gfloat val)
-{
-  dia_unit_spinner_set_value_direct(self, val /
-				    (units[self->unit_num].factor / units[DIA_UNIT_CENTIMETER].factor));
-}
-
-/** Set the value (in preferred units) */
-static void
-dia_unit_spinner_set_value_direct(DiaUnitSpinner *self, gfloat val)
-{
-  GtkSpinButton *sbutton = GTK_SPIN_BUTTON(self);
-
-  if (val < sbutton->adjustment->lower)
-    val = sbutton->adjustment->lower;
-  else if (val > sbutton->adjustment->upper)
-    val = sbutton->adjustment->upper;
-  sbutton->adjustment->value = val;
-  dia_unit_spinner_value_changed(sbutton->adjustment, self);
-}
-
-/** Get the value (in cm) */
-gfloat
-dia_unit_spinner_get_value(DiaUnitSpinner *self)
-{
-  GtkSpinButton *sbutton = GTK_SPIN_BUTTON(self);
-
-  return sbutton->adjustment->value *
-    (units[self->unit_num].factor / units[DIA_UNIT_CENTIMETER].factor);
-}
-
-static void
-dia_unit_spinner_update(DiaUnitSpinner *self)
+static gboolean
+dia_unit_spinner_input(DiaUnitSpinner *self, gdouble *value)
 {
   gfloat val, factor = 1.0;
   gchar *extra = NULL;
@@ -1672,41 +1653,52 @@ dia_unit_spinner_update(DiaUnitSpinner *self)
   }
   /* convert to prefered units */
   val *= factor;
-  dia_unit_spinner_set_value_direct(self, val);
+
+  /* Store value in the location provided by the signal emitter. */
+  *value = val;
+
+  /* Return true, so that the default input function is not invoked. */
+  return TRUE;
 }
 
-static gint
-dia_unit_spinner_focus_out(GtkWidget *widget, GdkEventFocus *event)
+static gboolean dia_unit_spinner_output(DiaUnitSpinner *self)
 {
-  if (GTK_ENTRY (widget)->editable)
-    dia_unit_spinner_update(DIA_UNIT_SPINNER(widget));
-  return GTK_WIDGET_CLASS(entry_class)->focus_out_event(widget, event);
+  char buf[256];
+
+  GtkSpinButton *sbutton = GTK_SPIN_BUTTON(self);
+  GtkAdjustment *adjustment = gtk_spin_button_get_adjustment(sbutton);
+
+  g_snprintf(buf, sizeof(buf), "%0.*f %s",
+             gtk_spin_button_get_digits(sbutton),
+             gtk_adjustment_get_value(adjustment),
+	      units[self->unit_num].unit);
+  gtk_entry_set_text(GTK_ENTRY(self), buf);
+
+  /* Return true, so that the default output function is not invoked. */
+  return TRUE;
 }
 
-static gint
-dia_unit_spinner_button_press(GtkWidget *widget, GdkEventButton *event)
+/** Set the value (in cm).
+ * */
+void
+dia_unit_spinner_set_value(DiaUnitSpinner *self, gdouble val)
 {
-  dia_unit_spinner_update(DIA_UNIT_SPINNER(widget));
-  return GTK_WIDGET_CLASS(parent_class)->button_press_event(widget, event);
+  GtkSpinButton *sbutton = GTK_SPIN_BUTTON(self);
+
+  gtk_spin_button_set_value(sbutton,
+                            val /
+                            (units[self->unit_num].factor /
+                             units[DIA_UNIT_CENTIMETER].factor));
 }
 
-static gint
-dia_unit_spinner_key_press(GtkWidget *widget, GdkEventKey *event)
+/** Get the value (in cm) */
+gdouble
+dia_unit_spinner_get_value(DiaUnitSpinner *self)
 {
-  gint key = event->keyval;
+  GtkSpinButton *sbutton = GTK_SPIN_BUTTON(self);
 
-  if (GTK_ENTRY (widget)->editable &&
-      (key == GDK_Up || key == GDK_Down || 
-       key == GDK_Page_Up || key == GDK_Page_Down))
-    dia_unit_spinner_update (DIA_UNIT_SPINNER(widget));
-  return GTK_WIDGET_CLASS(parent_class)->key_press_event(widget, event);
-}
-
-static void
-dia_unit_spinner_activate(GtkEntry *editable)
-{
-  if (editable->editable)
-    dia_unit_spinner_update(DIA_UNIT_SPINNER(editable));
+  return gtk_spin_button_get_value(sbutton) *
+      (units[self->unit_num].factor / units[DIA_UNIT_CENTIMETER].factor);
 }
 
 GList *
