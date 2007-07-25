@@ -1,3 +1,9 @@
+2007-07-25  Steffen Macke <sdteffen@gmail.com>
+
+	* lib/plug-ins.c: Patch from Rémi Cardona <remi@gentoo.org> that
+	removes the run-time dependency on libtool files (*.la) for
+	plug-ins
+
 2007-07-24  Lars Clausen  <lars@raeder.dk>
 
 	* lib/widgets.c

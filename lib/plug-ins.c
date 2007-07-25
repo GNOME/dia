@@ -42,25 +42,9 @@
 #include "message.h"
 #include "dia_dirs.h"
 
-#ifdef G_OS_WIN32
-#include <io.h> /* open, close */
-#endif
-
-#if defined(G_OS_WIN32) || defined(__EMX__)
-#  define PLUG_IN_EXT ".dll"
-#  define PLUG_IN_EXT_LEN 4
-#  define USING_LIBTOOL 0
-#else
-/* this one should work on any platform where libtool is used to compile dia */
-#  define PLUG_IN_EXT ".la"
-#  define PLUG_IN_EXT_LEN 3
-#  define USING_LIBTOOL 1
-#endif
-
 struct _PluginInfo {
   GModule *module;
   gchar *filename;      /* plugin filename */
-  gchar *real_filename; /* not a .la file */
 
   gboolean is_loaded;
   gboolean inhibit_load;
@@ -164,54 +148,6 @@ dia_plugin_set_inhibit_load(PluginInfo *info, gboolean inhibit_load)
   info->inhibit_load = inhibit_load;
 }
 
-/* implementation stollen from BEAST/BSE */
-static gchar *
-find_real_filename(const gchar *filename)
-{
-  const gint TOKEN_DLNAME = G_TOKEN_LAST + 1;
-  GScanner *scanner;
-  gint len, fd;
-  gchar *str, *ret;
-
-  g_return_val_if_fail(filename != NULL, NULL);
-
-  len = strlen(filename);
-
-  /* is this a libtool .la file? */
-  if (len < 3 || strcmp(&filename[len-3], ".la") != 0)
-    return g_strdup(filename);
-  
-  fd = open(filename, O_RDONLY, 0);
-  if (fd < 0)
-    return NULL;
-
-  scanner = g_scanner_new(NULL);
-  g_scanner_input_file(scanner, fd);
-  scanner->config->symbol_2_token = TRUE;
-  g_scanner_add_symbol(scanner, "dlname", GUINT_TO_POINTER(TOKEN_DLNAME));
-
-  /* skip ahead to dlname part */
-  while (!g_scanner_eof(scanner) &&
-	 g_scanner_peek_next_token(scanner) != TOKEN_DLNAME)
-    g_scanner_get_next_token(scanner);
-  /* parse dlname */
-  if (g_scanner_get_next_token (scanner) != TOKEN_DLNAME ||
-      g_scanner_get_next_token (scanner) != '=' ||
-      g_scanner_get_next_token (scanner) != G_TOKEN_STRING) {
-    g_scanner_destroy(scanner);
-    close(fd);
-    return NULL;
-  }
-  
-  str = g_path_get_dirname(filename);
-  ret = g_build_filename(str, scanner->value.v_string, NULL);
-  g_free(str);
-  g_scanner_destroy(scanner);
-  close(fd);
-
-  return ret;
-}
-
 void
 dia_plugin_load(PluginInfo *info)
 {
@@ -221,13 +157,7 @@ dia_plugin_load(PluginInfo *info)
   if (info->is_loaded)
     return;
 
-  g_free(info->real_filename);
-  info->real_filename = find_real_filename(info->filename);
-  if (info->real_filename == NULL) {
-    message_error(_("Could not deduce correct path for `%s'"), info->filename);
-    return;
-  }
-  info->module = g_module_open(info->real_filename, G_MODULE_BIND_LAZY);
+  info->module = g_module_open(info->filename, G_MODULE_BIND_LAZY);
   if (!info->module) {
     gchar *msg_utf8 = g_locale_to_utf8 (g_module_error(), -1, NULL, NULL, NULL);
     message_error(_("Could not load plugin '%s'\n%s"), 
@@ -331,24 +261,7 @@ dia_register_plugin(const gchar *filename)
 static gboolean
 this_is_a_plugin(const gchar *name) 
 {
-#if USING_LIBTOOL
-  gchar *soname,*basename;
-#endif
-  guint len = strlen(name);
-  if (0 != strcmp(&name[len-PLUG_IN_EXT_LEN], PLUG_IN_EXT)) 
-    return FALSE;
-#if USING_LIBTOOL
-  basename = g_strndup(name,len-PLUG_IN_EXT_LEN);
-  soname = g_strconcat(basename,".so",NULL);
-  if (!g_file_test(soname, G_FILE_TEST_IS_REGULAR)) {    
-    g_free(basename);
-    g_free(soname);
-    return FALSE;
-  }
-  g_free(basename);
-  g_free(soname);
-#endif
-  return TRUE;
+  return g_str_has_suffix(name, G_MODULE_SUFFIX);
 }
 
 typedef void (*ForEachInDirDoFunc)(const gchar *name);
@@ -405,8 +318,6 @@ dia_plugin_filter(const gchar *name)
 
   if (!g_file_test (name, G_FILE_TEST_IS_REGULAR | G_FILE_TEST_IS_DIR))
     return FALSE;
-  
-  if (len <= PLUG_IN_EXT_LEN) return FALSE;
 
   return this_is_a_plugin(name);
 }
