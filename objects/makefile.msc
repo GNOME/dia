@@ -245,7 +245,7 @@ tool-icons.h: $(ICON_PNGS)
 
 !ENDIF
 
-!IFDEF OBJ_sissi
+!IFDEF OBJ_SISSI
 OBJECTS = \
         area.obj \
         faraday.obj \

@@ -1,3 +1,7 @@
+2007-07-26  Steffen Macke <sdteffen@gmail.com>
+
+	* objects/makefile.msc: Correct case to build SISSI dll
+	
 2007-07-25  Steffen Macke <sdteffen@gmail.com>
 
 	* lib/plug-ins.c: Patch from Rémi Cardona <remi@gentoo.org> that
