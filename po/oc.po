@@ -289,7 +289,7 @@ msgid ""
 "Could not open help directory:\n"
 "%s"
 msgstr ""
-"Impossible de dubrir lo repertòri d'ajuda :\n"
+"Impossible de dobrir lo repertòri d'ajuda :\n"
 "%s"
 
 #: ../app/commands.c:656
@@ -2234,7 +2234,7 @@ msgid ""
 "Could not open `%s'\n"
 "`%s'"
 msgstr ""
-"Impossible de dubrir '%s'\n"
+"Impossible de dobrir '%s'\n"
 "'%s'"
 
 #: ../lib/prop_text.c:466
@@ -4591,7 +4591,7 @@ msgstr ""
 
 #: ../objects/UML/class.c:303
 msgid "Show Comments"
-msgstr "Mostrar los comentaris"
+msgstr "Visualizar los comentaris"
 
 #. Class page:
 #: ../objects/UML/class_dialog.c:285
