@@ -38,20 +38,30 @@
 
 #define PORT_HANDLE_AADLBOX (HANDLE_CUSTOM9)
 
-#define new_port(p, t, d)                      \
-    p = g_new0(Aadlport,1);		       \
-    p->handle = g_new0(Handle,1);	       \
-    p->type = t;                               \
-    p->declaration = d;
+static Aadlport *
+new_port(Aadl_type t, gchar *d) {
+  Aadlport *p;
+  p = g_new0(Aadlport,1);		       
+  p->handle = g_new0(Handle,1);	       
+  p->type = t;                               
+  p->declaration = g_strdup(d);
+  return p;
+}
 
 
-#define free_port(port)                                    \
-    if (port) {                                            \
-      if (port->handle) g_free((port)->handle);	           \
-      if (port->declaration) g_free((port)->declaration);  \
-    g_free(port);                                          \
+static void
+free_port(Aadlport *port)                                    
+{
+  if (port) {                                            
+    if (port->handle) {
+      g_free((port)->handle);	           
     }
-
+    if (port->declaration) {
+      g_free((port)->declaration);  
+    }
+    g_free(port);                                          
+  }
+}
 
 enum change_type {
   TYPE_ADD_POINT,
@@ -204,7 +214,7 @@ DiaObject *aadlbox_copy(DiaObject *obj)
   for (i=0; i<aadlbox->num_ports; i++) {
     p = g_malloc(sizeof(Point));
     point_copy(p, &aadlbox->ports[i]->handle->pos);
-    new_port(port, aadlbox->ports[i]->type, aadlbox->ports[i]->declaration);
+    port = new_port(aadlbox->ports[i]->type, aadlbox->ports[i]->declaration);
     
     
     aadlbox_add_port((Aadlbox *)newobj, p, port);
@@ -528,7 +538,7 @@ aadlbox_add_port_callback (DiaObject *obj, Point *clicked, gpointer data)
   Aadl_type type = *((Aadl_type *) data);
   Aadlport *port;
 
-  new_port(port, type, "");
+  port = new_port(type, "");
   aadlbox_add_port(aadlbox, clicked, port);
   aadlbox_update_data(aadlbox);
 

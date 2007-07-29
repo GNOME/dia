@@ -34,6 +34,7 @@
 #include "properties.h"
 #include "diagramdata.h"
 #include "parent.h"
+#include "newgroup.h"
 
 #include "objects/Misc/pixmaps/newgroup.xpm"
 
@@ -322,8 +323,12 @@ newgroup_create(Point *startpoint,
 
   newgroup_update_data(group);
 
-  *handle1 = NULL;
-  *handle2 = obj->handles[7];  
+  if (handle1 != NULL) {
+    *handle1 = NULL;
+  }
+  if (handle2 != NULL) {
+    *handle2 = obj->handles[7];  
+  }
   return &group->element.object;
 }
 

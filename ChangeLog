@@ -1,3 +1,20 @@
+2007-07-29  Lars Clausen  <lars@raeder.dk>
+
+	* lib/Makefile.am: Added newgroup.h
+
+	* lib/newgroup.c: 
+	* lib/newgroup.h: Definitions for the new group system.
+
+	* app/diagram.c (diagram_group_selected): Work on
+	creating/removing new style groups (ifdeffed, not finished).
+
+	* objects/AADL/aadlbox.c: Fix for bug #458373: Correctly strdup.
+
+2007-07-28  Lars Clausen  <lars@raeder.dk>
+
+	* app/load_save.c (read_objects): Experimental use of new group
+	system in load (ifdeffed).
+
 2007-07-26  Steffen Macke <sdteffen@gmail.com>
 
 	* objects/makefile.msc: Correct case to build SISSI dll
