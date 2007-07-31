@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia.HEAD.es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-07-23 03:20+0100\n"
-"PO-Revision-Date: 2007-07-23 14:52+0200\n"
+"POT-Creation-Date: 2007-07-30 03:21+0100\n"
+"PO-Revision-Date: 2007-08-01 00:41+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -542,6 +542,16 @@ msgstr "No se pudo convertir el nombre de archivo «%s» a UTF-8: %s\n"
 msgid "Error"
 msgstr "Error"
 
+#: ../app/diagram.c:1106
+msgid "Trying to group with no selected objects."
+msgstr "Intentando agrupar sin objetos seleccionados."
+
+#: ../app/diagram.c:1116
+msgid ""
+"You cannot group objects that belong to different groups or have different "
+"parents"
+msgstr "No puede agrupar objetos que pertenezcan a diferentes grupos o tengan diferentes padres"
+
 #: ../app/diagram_tree_menu.c:46
 msgid "/_Sort objects"
 msgstr "/_Ordenar objetos"
@@ -756,7 +766,7 @@ msgstr "Cerrar el diagrama"
 msgid "_Discard Changes"
 msgstr "_Descartar los cambios"
 
-#: ../app/export_png.c:138 ../app/load_save.c:950 ../app/render_eps.c:105
+#: ../app/export_png.c:138 ../app/load_save.c:989 ../app/render_eps.c:105
 #: ../plug-ins/cairo/diacairo.c:984 ../plug-ins/cgm/cgm.c:1153
 #: ../plug-ins/dxf/dxf-export.c:485 ../plug-ins/hpgl/hpgl.c:710
 #: ../plug-ins/metapost/render_metapost.c:1177
@@ -911,7 +921,7 @@ msgid "Scroll around the diagram"
 msgstr "Desplazar sobre el diagrama"
 
 #: ../app/interface.c:162 ../app/menus.c:212 ../lib/properties.c:79
-#: ../lib/properties.h:522 ../objects/AADL/aadlbox.c:144
+#: ../lib/properties.h:522 ../objects/AADL/aadlbox.c:154
 #: ../objects/Jackson/requirement.c:142 ../objects/UML/activity.c:127
 #: ../objects/UML/actor.c:122 ../objects/UML/classicon.c:144
 #: ../objects/UML/component.c:128 ../objects/UML/component_feature.c:155
@@ -1111,7 +1121,7 @@ msgid "Line width:"
 msgstr "Ancho de línea:"
 
 # Cambiado el orden de la frase para mayor naturalidad. RizOX.
-#: ../app/load_save.c:262
+#: ../app/load_save.c:301
 msgid ""
 "Error loading diagram.\n"
 "Linked object not found in document."
@@ -1119,7 +1129,7 @@ msgstr ""
 "Error cargando diagrama.\n"
 "No se ha encontrado en el documento el objeto enlazado."
 
-#: ../app/load_save.c:265
+#: ../app/load_save.c:304
 msgid ""
 "Error loading diagram.\n"
 "connection handle does not exist."
@@ -1127,7 +1137,7 @@ msgstr ""
 "Error cargando diagrama.\n"
 "No existe manejador de conexión."
 
-#: ../app/load_save.c:282
+#: ../app/load_save.c:321
 #, c-format
 msgid ""
 "Error loading diagram.\n"
@@ -1136,18 +1146,18 @@ msgstr ""
 "Error cargando diagrama.\n"
 "El punto de conexión %s no existe."
 
-#: ../app/load_save.c:307
+#: ../app/load_save.c:346
 #, c-format
 msgid "Can't find parent %s of %s object\n"
 msgstr "No se pudo encontrar el objeto padre %s de %s\n"
 
-#: ../app/load_save.c:353 ../objects/SISSI/area.c:207
+#: ../app/load_save.c:392 ../objects/SISSI/area.c:207
 #: ../objects/SISSI/faraday.c:207 ../objects/SISSI/room.c:207
 #: ../objects/SISSI/sissi_object.c:197 ../objects/SISSI/site.c:210
 msgid "You must specify a file, not a directory.\n"
 msgstr "Debe especificar un archivo, no un directorio.\n"
 
-#: ../app/load_save.c:360 ../objects/SISSI/area.c:213
+#: ../app/load_save.c:399 ../objects/SISSI/area.c:213
 #: ../objects/SISSI/faraday.c:213 ../objects/SISSI/room.c:213
 #: ../objects/SISSI/sissi_object.c:204 ../objects/SISSI/site.c:216
 #: ../plug-ins/dxf/dxf-import.c:1308 ../plug-ins/wpg/wpg.c:1177
@@ -1156,7 +1166,7 @@ msgstr "Debe especificar un archivo, no un directorio.\n"
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "No se pudo abrir: «%s» para lectura.\n"
 
-#: ../app/load_save.c:378 ../app/load_save.c:384 ../objects/SISSI/area.c:222
+#: ../app/load_save.c:417 ../app/load_save.c:423 ../objects/SISSI/area.c:222
 #: ../objects/SISSI/area.c:228 ../objects/SISSI/faraday.c:222
 #: ../objects/SISSI/faraday.c:228 ../objects/SISSI/room.c:222
 #: ../objects/SISSI/room.c:228 ../objects/SISSI/sissi_object.c:214
@@ -1170,7 +1180,7 @@ msgstr ""
 "Error cargando el diagrama %s.\n"
 "Tipo de archivo desconocido."
 
-#: ../app/load_save.c:392 ../objects/SISSI/area.c:236
+#: ../app/load_save.c:431 ../objects/SISSI/area.c:236
 #: ../objects/SISSI/faraday.c:236 ../objects/SISSI/room.c:236
 #: ../objects/SISSI/sissi_object.c:228 ../objects/SISSI/site.c:239
 #, c-format
@@ -1181,7 +1191,7 @@ msgstr ""
 "Error cargando el diagrama %s.\n"
 "No es un archivo de Dia."
 
-#: ../app/load_save.c:598
+#: ../app/load_save.c:637
 #, c-format
 msgid ""
 "Error loading diagram:\n"
@@ -1192,29 +1202,29 @@ msgstr ""
 "%s.\n"
 "Un archivo válido de Dia define al menos una capa."
 
-#: ../app/load_save.c:906
+#: ../app/load_save.c:945
 #, c-format
 msgid "Not allowed to write to output file %s\n"
 msgstr "No hay permiso para escribir el archivo de salida %s\n"
 
-#: ../app/load_save.c:928
+#: ../app/load_save.c:967
 #, c-format
 msgid "Not allowed to write temporary files in %s\n"
 msgstr "No se permite escribir archivos temporales en %s\n"
 
 #. Save failed; we clean our stuff up, without touching the file named
 #. "filename" if it existed.
-#: ../app/load_save.c:961
+#: ../app/load_save.c:1000
 #, c-format
 msgid "Internal error %d writing file %s\n"
 msgstr "Error interno %d escribiendo archivo %s\n"
 
-#: ../app/load_save.c:975
+#: ../app/load_save.c:1014
 #, c-format
 msgid "Can't rename %s to final output file %s: %s\n"
 msgstr "No se pudo renombrar %s al archivo final de salida %s: %s\n"
 
-#: ../app/load_save.c:1063 ../app/load_save.c:1068
+#: ../app/load_save.c:1102 ../app/load_save.c:1107
 msgid "Dia Diagram File"
 msgstr "Archivo de diagrama de Dia"
 
@@ -2399,7 +2409,7 @@ msgid "Notice"
 msgstr "Observación"
 
 # La traducción "ronda" es incorrecta, existiendo varias opciones dependientes del contexto. Me inclino por "curva" en vez de "redonda", "circular" o "romo". RizOX.
-#: ../lib/newgroup.c:117
+#: ../lib/newgroup.c:118
 msgid "Open group"
 msgstr "Abrir grupo"
 
@@ -2413,17 +2423,12 @@ msgstr ""
 "Error al cargar los valores predeterminados «%s».\n"
 "No es un archivo de diagrama de Dia."
 
-#: ../lib/plug-ins.c:120
+#: ../lib/plug-ins.c:104
 msgid "???"
 msgstr "???"
 
-#: ../lib/plug-ins.c:227
-#, c-format
-msgid "Could not deduce correct path for `%s'"
-msgstr "No se pudo deducir el camino correcto para «%s»"
-
 # Se traduce "plug-in" como "complemento" en vez de "extensión" para que no se confunda con las extensiones de los ficheros y para mantener la coherencia con lo anterior. RizOX.
-#: ../lib/plug-ins.c:233
+#: ../lib/plug-ins.c:163
 #, c-format
 msgid ""
 "Could not load plugin '%s'\n"
@@ -2433,26 +2438,26 @@ msgstr ""
 "%s"
 
 # Se traduce "plug-in" como "complemento" en vez de "extensión" para que no se confunda con las extensiones de los ficheros y para mantener la coherencia con lo anterior. RizOX.
-#: ../lib/plug-ins.c:246
+#: ../lib/plug-ins.c:176
 #, c-format
 msgid "Could not find plugin init function in `%s'"
 msgstr "No se pudo encontrar función de iniciación del complemento en «%s»"
 
-#: ../lib/plug-ins.c:248
+#: ../lib/plug-ins.c:178
 msgid "Missing symbol 'dia_plugin_init'"
 msgstr "No se encuentra el símbolo «dia_plugin_init»"
 
-#: ../lib/plug-ins.c:256 ../lib/plug-ins.c:264
+#: ../lib/plug-ins.c:186 ../lib/plug-ins.c:194
 msgid "dia_plugin_init() call failed"
 msgstr "falló la llamada a dia_plugin_init()"
 
 # Se traduce "plug-in" como "complemento" en vez de "extensión" para que no se confunda con las extensiones de los ficheros y para mantener la coherencia con lo anterior. RizOX.
-#: ../lib/plug-ins.c:283
+#: ../lib/plug-ins.c:213
 #, c-format
 msgid "%s Plugin could not be unloaded"
 msgstr "El complemento %s no pudo descargarse"
 
-#: ../lib/plug-ins.c:371
+#: ../lib/plug-ins.c:284
 #, c-format
 msgid ""
 "Could not open `%s'\n"
@@ -2547,58 +2552,58 @@ msgid "Couldn't find font family for %s\n"
 msgstr "No se pudo encontrar la familia de tipografías para %s\n"
 
 #. Translators: Menu item Noun/Material/Solid
-#: ../lib/widgets.c:838 ../objects/FS/function.c:1074
+#: ../lib/widgets.c:862 ../objects/FS/function.c:1074
 msgid "Solid"
 msgstr "Sólido"
 
-#: ../lib/widgets.c:844
+#: ../lib/widgets.c:868
 msgid "Dashed"
 msgstr "Discontinuo"
 
-#: ../lib/widgets.c:850
+#: ../lib/widgets.c:874
 msgid "Dash-Dot"
 msgstr "Línea-Punto"
 
-#: ../lib/widgets.c:856
+#: ../lib/widgets.c:880
 msgid "Dash-Dot-Dot"
 msgstr "Línea-Punto-Punto"
 
-#: ../lib/widgets.c:862
+#: ../lib/widgets.c:886
 msgid "Dotted"
 msgstr "Punteado"
 
 #. fs->sizebox = GTK_HBOX(box);
-#: ../lib/widgets.c:881
+#: ../lib/widgets.c:904
 msgid "Dash length: "
 msgstr "Longitud de la discontinuidad: "
 
-#: ../lib/widgets.c:1006
+#: ../lib/widgets.c:1032
 msgid "Select color"
 msgstr "Seleccione color"
 
-#: ../lib/widgets.c:1072
+#: ../lib/widgets.c:1098
 msgid "More colors..."
 msgstr "Más colores"
 
 # Corregido, no tenía sentido. RizOX.
-#: ../lib/widgets.c:1220
+#: ../lib/widgets.c:1246
 msgid "More arrows"
 msgstr "Más flechas"
 
-#: ../lib/widgets.c:1237
+#: ../lib/widgets.c:1263
 msgid "Size: "
 msgstr "Tamaño: "
 
-#: ../lib/widgets.c:1390
+#: ../lib/widgets.c:1439
 msgid "Select image file"
 msgstr "Seleccionar archivo de imagen"
 
-#: ../lib/widgets.c:1424
+#: ../lib/widgets.c:1477
 msgid "Browse"
 msgstr "Navegar"
 
 # Corregido. No tenía sentido. RizOX.
-#: ../lib/widgets.c:2063
+#: ../lib/widgets.c:2055
 msgid "Reset menu"
 msgstr "Restaurar menú"
 
@@ -2606,71 +2611,71 @@ msgstr "Restaurar menú"
 msgid "Architecture Analysis & Design Language diagram objects"
 msgstr "Objetos de diagrama de análisis de arquitectura y lenguaje de diseño"
 
-#: ../objects/AADL/aadlbox.c:138
+#: ../objects/AADL/aadlbox.c:148
 msgid "Declaration"
 msgstr "Declaración"
 
-#: ../objects/AADL/aadlbox.c:349
+#: ../objects/AADL/aadlbox.c:359
 msgid "Add Access Provider"
 msgstr "Añadir proveedor de acceso"
 
-#: ../objects/AADL/aadlbox.c:351
+#: ../objects/AADL/aadlbox.c:361
 msgid "Add Access Requirer"
 msgstr "Añadir solicitante de acceso"
 
-#: ../objects/AADL/aadlbox.c:353
+#: ../objects/AADL/aadlbox.c:363
 msgid "Add In Data Port"
 msgstr "Añadir puerto de datos entrantes"
 
-#: ../objects/AADL/aadlbox.c:355
+#: ../objects/AADL/aadlbox.c:365
 msgid "Add In Event Port"
 msgstr "Añadir puerto de eventos entrantes"
 
-#: ../objects/AADL/aadlbox.c:357
+#: ../objects/AADL/aadlbox.c:367
 msgid "Add In Event Data Port"
 msgstr "Añadir puerto de eventos entrantes"
 
-#: ../objects/AADL/aadlbox.c:359
+#: ../objects/AADL/aadlbox.c:369
 msgid "Add Out Data Port"
 msgstr "Añadir puerto de datos salientes"
 
-#: ../objects/AADL/aadlbox.c:361
+#: ../objects/AADL/aadlbox.c:371
 msgid "Add Out Event Port"
 msgstr "Añadir puerto de eventos salientes"
 
-#: ../objects/AADL/aadlbox.c:363
+#: ../objects/AADL/aadlbox.c:373
 msgid "Add Out Event Data Port"
 msgstr "Añadir puerto de datos y eventos salientes"
 
-#: ../objects/AADL/aadlbox.c:365
+#: ../objects/AADL/aadlbox.c:375
 msgid "Add In Out Data Port"
 msgstr "Añadir puerto de datos de entrada salida"
 
-#: ../objects/AADL/aadlbox.c:367
+#: ../objects/AADL/aadlbox.c:377
 msgid "Add In Out Event Port"
 msgstr "Añadir puerto de eventos de entrada salida"
 
-#: ../objects/AADL/aadlbox.c:369
+#: ../objects/AADL/aadlbox.c:379
 msgid "Add In Out Event Data Port"
 msgstr "Añadir puerto de eventros de datos de entrada salida"
 
-#: ../objects/AADL/aadlbox.c:371
+#: ../objects/AADL/aadlbox.c:381
 msgid "Add Port Group"
 msgstr "Añadir grupo de puertos"
 
-#: ../objects/AADL/aadlbox.c:373
+#: ../objects/AADL/aadlbox.c:383
 msgid "Add Connection Point"
 msgstr "Añadir punto de conexión"
 
-#: ../objects/AADL/aadlbox.c:377
+#: ../objects/AADL/aadlbox.c:387
 msgid "Delete Port"
 msgstr "Borrar puerto"
 
-#: ../objects/AADL/aadlbox.c:378
+#: ../objects/AADL/aadlbox.c:388
 msgid "Edit Port Declaration"
 msgstr "Editar declaración de puerto"
 
-#: ../objects/AADL/aadlbox.c:382
+#: ../objects/AADL/aadlbox.c:392
 msgid "Delete Connection Point"
 msgstr "Borrar punto de conexión"
 
