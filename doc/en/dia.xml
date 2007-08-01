@@ -29,11 +29,16 @@
     <!ENTITY CUSTOMIZATION SYSTEM "usage-customization.xml">
 
     <!ENTITY LAYERS SYSTEM "usage-layers.xml">
+    
+    <!ENTITY CUSTOM-SHAPES SYSTEM "custom-shapes.xml">
+
+    <!ENTITY MANPAGE SYSTEM "dia-cmdline.xml">
 
     <!ENTITY AUTHORS SYSTEM "authors.xml">
 
     <!ENTITY LICENSE SYSTEM "license.xml">
 
+    <!ENTITY pngfile "png">
   ]
 
 >
@@ -135,6 +140,10 @@
 &CUSTOMIZATION;
 
 &LAYERS;
+
+&CUSTOM-SHAPES;
+
+&MANPAGE;
 
 &AUTHORS;
 

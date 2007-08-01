@@ -1,4 +1,4 @@
-<chapter label="8" id="usage-customization">
+<chapter label="9" id="usage-customization">
 <title>Customization</title>
  <sect1 id="prefs">
  <title>Customization</title>
@@ -12,8 +12,14 @@
    <guimenu>File</guimenu> <guimenuitem>Preferences...</guimenuitem>
    </menuchoice> from the <interface>Toolbox Menu Bar</interface>.  
    This opens the    <interface>Preferences</interface> dialog  
-   <!-- , shown in  [TODO: add
-   screenshot].--> <!-- <xref linkend="preferences-fig">. -->
+    <figure>
+      <title><interface>Preferences</interface> dialog box</title>
+        <screenshot>
+          <screeninfo><interface>Preferences.</interface>dialog box</screeninfo>
+            <graphic format="PNG" fileref="graphics/preferences-fig.&pngfile;"
+                srccredit="Jeremy" />
+        </screenshot>
+    </figure>
  </para>
  <para>
   The configurable properties in the <guilabel>User Interface</guilabel> tab

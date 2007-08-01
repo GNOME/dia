@@ -7,6 +7,8 @@ entities=
 include $(top_srcdir)/xmldocs.make
 dist-hook: app-dist-hook
 
+all: include-cmdline
+
 nodist_include_EXTRAS = dia.1
 
 xml_files += \
@@ -23,7 +25,10 @@ xml_files += \
 	usage-objects-selecting.xml \
 	usage-objects-special.xml \
 	usage-objects.xml \
-	usage-quickstart.xml
+	usage-quickstart.xml \
+	dia-cmdline.xml \
+	custom-shapes.xml
+
 
 EXTRA_DIST += \
 	dia.dbk
@@ -43,3 +48,7 @@ dia.1: dia.dbk
 endif
 
 man_MANS = dia.1
+
+#outputs and filter dia.dbk into documentation chapter
+include-cmdline: dia.dbk
+	sed -f dia-dbk-to-chapter.sed $< >dia-cmdline.xml

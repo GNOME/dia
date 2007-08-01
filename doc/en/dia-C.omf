@@ -1,9 +1,22 @@
 <?xml version="1.0" standalone="no"?>
 <omf>
   <resource>
+   <creator>Henry House</creator>
+   <creator>Judith Samson</creator>
+   <creator>Kevin Breit</creator>
+   <creator>Alan Horkan</creator>
+   <maintainer>docs@gnome.org</maintainer>
+   <contributor>James Henstridge</contributor>
+   <contributor>Dolores Alia de Saravia</contributor>
+   <contributor>Fredrik Hallenberg</contributor>
+   <contributor>W. Borgert</contributor>
+   <contributor>Thomas Harding</contributor>
+
     <title>
       The Dia Manual
     </title>
+    <date>05/20/2007</date>
+    <version identifier="0.5" date="05/20/2007" />
     <subject>
       <category>GNOME|Office</category>
    </subject>

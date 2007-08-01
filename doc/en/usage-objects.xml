@@ -1,4 +1,4 @@
-<chapter label="3" id="objects-chapter">
+<chapter label="4" id="objects-chapter">
 <title>Objects</title>
   <sect1 id="objects-introduction">
   <title>Objects Introduction</title>
@@ -51,7 +51,7 @@
        <title>Adjuster Dots</title>
        <screenshot>
          <screeninfo>The green dots allow resizing the image.</screeninfo>
-         <graphic format="PNG" fileref="graphics/greendots.png" srccredit=
+         <graphic format="PNG" fileref="graphics/greendots.&pngfile;" srccredit=
 	 "Kevin Breit" />
        </screenshot>
      </figure> 
@@ -91,7 +91,7 @@
      From the menus choose Edit, Delete.  
     </para>
    </sect2>
-   <sect3 id="aligning-objects">
+   <sect2 id="aligning-objects">
    <title>Aligning Objects</title>
     <para>
       <application>Dia</application> provides some functionality to help 
@@ -99,8 +99,8 @@
       individually.  
       <!-- TODO explain the different types of Alignment -->
     </para>
-   </sect3>
-   <sect3 id="grouping-objects">
+   </sect2>
+   <sect2 id="grouping-objects">
    <title>Grouping Objects</title>
     <para>
        Grouping allows you to treat several objects as a unified group that 
@@ -109,7 +109,7 @@
        Select more than one object and then from the menu choose 
        Object, Group to group them.  
     </para>
-   </sect3>
+   </sect2>
   <sect2 id="line-properties">
    <title>Line Properties</title>
     <para>
@@ -120,7 +120,7 @@
       <title>The line icon</title>
      <screenshot>
       <screeninfo>The line icon</screeninfo>
-      <graphic format="PNG" fileref="graphics/line_icon.png" srccredit=
+      <graphic format="PNG" fileref="graphics/line_icon.&pngfile;" srccredit=
       "Steffen Macke" />
       </screenshot>
     </figure>
@@ -137,7 +137,7 @@
     <title>Line properties</title>
       <screenshot>
         <screeninfo>The three sections are all described below.</screeninfo>
-        <graphic format="PNG" fileref="graphics/line_props.png" 
+        <graphic format="PNG" fileref="graphics/line_props.&pngfile;" 
 	srccredit="Kevin Breit" />
       </screenshot>
     </figure>
@@ -249,5 +249,73 @@
     </para>
    </tip>
   </para>
+  <sect2>
+  <title>Colors selector box</title>
+      <figure>
+      <title>Colors selector box</title>
+            <screenshot>
+                <screeninfo>The colors selector box is described below.</screeninfo>
+                <graphic format="PNG"
+                         fileref="graphics/color_selector.&pngfile;"
+                         srccredit="Jeremy" />
+            </screenshot>
+      </figure>
+      <para>
+        The Colors selector box counts 6 zones:
+        <itemizedlist>
+           <listitem>
+              <para>
+                The colors wheel: cliquez then slip on the circle
+                to defined tint, then click and move the litle circle
+                into the triangle to defined saturation
+                et value.
+              </para>
+           </listitem>
+           <listitem>
+              <para>
+                Below the color wheel there are two rectangles. Left one
+                displays current color, and right one the new color (the
+                one which will be defined if you <emphasis>Valid</emphasis>).
+              </para>
+              <para>
+                Just right on these rectangles, you'll find a pipette.
+                while clicking this button, the mouse pointer will be
+                transformed as a pipette. You can, while clicking on
+                the canvas or any open application window (Like
+                <application>The Gimp</application>), pick-up any color!
+              </para>
+           </listitem>
+           <listitem>
+              <para>
+                Just right there is a pre-defined color pallets
+                Click on one rectangle to choose color.
+              </para>
+           </listitem>
+           <listitem>
+              <para>
+                On top center there are TSV settings
+                (Tint/Saturation/Value). You can setup
+                color by typing or by the ascenceurs
+              </para>
+           </listitem>
+           <listitem>
+              <para>
+                To the right, the RGB settings (Red, Green, Blue).
+                Same behavior than TSV.
+              </para>
+           </listitem>
+           <listitem>
+              <para>
+                Below, the color name input. Supports standard colors names.
+                (See
+                <ulink type="http"
+                       url="http://www.w3.org/TR/html401/types.html#h-6.5"
+                >HTML4.01 colors on http://www.w3.org</ulink>), and hexadecimal
+                values (0-9A-F) on 3 or 6 octets.
+              </para>
+           </listitem>
+        </itemizedlist>
+      </para>
+  </sect2>
  </sect1>
 </chapter>

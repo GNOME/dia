@@ -1,4 +1,4 @@
-<chapter label="1" id="quickstart-chapter">
+<chapter label="2" id="quickstart-chapter">
 <title>Quickstart</title>
   <sect1 id="what-can-you-do">
   <title>What Can You Do?</title>
@@ -14,7 +14,7 @@
         <screeninfo>This is a diagram of a home network produced in under
         5 minutes using <application>Dia</application>.
         </screeninfo>
-        <graphic format="PNG" fileref="graphics/home_network.png" srccredit=
+        <graphic format="PNG" fileref="graphics/home_network.&pngfile;" srccredit=
 	"Kevin Breit" />
       </screenshot>
     </figure>
