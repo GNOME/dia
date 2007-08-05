@@ -144,7 +144,6 @@ static PropDescription analog_clock_props[] = {
   { "show_ticks", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE,
     N_("Show hours"), NULL, NULL },
   
-  PROP_STD_NOTEBOOK_END,
   {NULL}
 };
 

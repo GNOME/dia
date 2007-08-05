@@ -1,3 +1,8 @@
+2007-08-05  Hans Breuer  <hans@breuer.org>
+
+	* objects/Misc/analog_clock.c : remove stray PROP_STD_NOTEBOOK_END,
+	fixing bug #444749
+
 2007-07-29  Lars Clausen  <lars@raeder.dk>
 
 	* lib/Makefile.am: Added newgroup.h
