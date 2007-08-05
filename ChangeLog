@@ -1,5 +1,10 @@
 2007-08-05  Hans Breuer  <hans@breuer.org>
 
+	* objects/UML/class_dialog.c : first step in shrinking the dialog,
+	moved color and font settings to it's own page 'Style', bug #445698
+	It only shrinks from 577x744 to 577x692, depends on font size. 
+	Next step would be reorganize Operations page.
+
 	* objects/Misc/analog_clock.c : remove stray PROP_STD_NOTEBOOK_END,
 	fixing bug #444749
 

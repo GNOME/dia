@@ -380,9 +380,39 @@ class_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   gtk_box_pack_start (GTK_BOX (hbox), checkbox, TRUE, TRUE, 0);
   gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, TRUE, 0);
 
-  /** Fonts and Colors selection **/
-  gtk_box_pack_start (GTK_BOX (vbox), gtk_hseparator_new(), FALSE, FALSE, 3);
+  gtk_widget_show_all (vbox);
+  gtk_widget_show (page_label);
+  gtk_notebook_append_page(notebook, vbox, page_label);
+  
+}
 
+
+static void 
+style_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
+{
+  UMLClassDialog *prop_dialog;
+  GtkWidget *page_label;
+  GtkWidget *label;
+  GtkWidget *hbox;
+  GtkWidget *hbox2;
+  GtkWidget *vbox;
+  GtkWidget *entry;
+  GtkWidget *scrolledwindow;
+  GtkWidget *checkbox;
+  GtkWidget *text_color;
+  GtkWidget *fill_color;
+  GtkWidget *line_color;
+  GtkWidget *table;
+  GtkObject *adj;
+
+  prop_dialog = umlclass->properties_dialog;
+
+  /** Fonts and Colors selection **/
+  page_label = gtk_label_new_with_mnemonic (_("_Style"));
+  
+  vbox = gtk_vbox_new(FALSE, 5);
+  gtk_container_set_border_width (GTK_CONTAINER (vbox), 10);
+  
   table = gtk_table_new (5, 6, TRUE);
   gtk_box_pack_start (GTK_BOX (vbox), table, FALSE, TRUE, 0);
   gtk_table_set_homogeneous (GTK_TABLE (table), FALSE);
@@ -2852,6 +2882,7 @@ create_dialog_pages(GtkNotebook *notebook, UMLClass *umlclass)
   attributes_create_page(notebook, umlclass);
   operations_create_page(notebook, umlclass);
   templates_create_page(notebook, umlclass);
+  style_create_page(notebook, umlclass);
 }
 
 GtkWidget *
