@@ -1,3 +1,9 @@
+2007-08-06  Lars Clausen  <lars@raeder.dk>
+
+	* app/interface.c: Patch from Patrick Hallinan 
+	<patrick.j.hallinan@gmail.com> fixes double-close issue with
+	integrated UI.
+
 2007-08-05  Hans Breuer  <hans@breuer.org>
 
 	* objects/UML/class_dialog.c : first step in shrinking the dialog,
@@ -75,7 +81,7 @@
 	* app/interface.h:
 	* app/makefile.mingw:
 	* app/disp_callbacks.c: Patch from Patrick Hallinan 
-	<patrick.j.hallinan@gmail.com, fixes the problem with the active diagram
+	<patrick.j.hallinan@gmail.com>, fixes the problem with the active diagram
 	during resize; adds an asterisk to the tab when diagram has changed;
 	adds a new dialog to save unsaved files when exiting
 	* app/authors.h: Added Patrick Hallinan

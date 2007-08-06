@@ -505,6 +505,9 @@ use_integrated_ui_for_display_shell(DDisplay *ddisp, char *title)
   gtk_box_pack_start( GTK_BOX(tab_label_container), label, FALSE, FALSE, 0 );
   gtk_widget_show (label);
 
+  /* Create a new tab page */
+  ddisp->container = gtk_vbox_new(FALSE, 0);
+
   /* <from GEdit> */
   /* don't allow focus on the close button */
   close_button = gtk_button_new();
@@ -525,12 +528,11 @@ use_integrated_ui_for_display_shell(DDisplay *ddisp, char *title)
                       GTK_SIGNAL_FUNC (close_notebook_page_callback), ddisp->container);
   /* </from GEdit> */
 
+  /* Set events for new tab page */
   gtk_box_pack_start( GTK_BOX(tab_label_container), close_button, FALSE, FALSE, 0 );
   gtk_widget_show (close_button);
   gtk_widget_show (image);
 
-  /* Create a new tab page */
-  ddisp->container = gtk_vbox_new(FALSE, 0);
   gtk_widget_set_events (ddisp->container,
                          GDK_POINTER_MOTION_MASK |
                          GDK_POINTER_MOTION_HINT_MASK |
