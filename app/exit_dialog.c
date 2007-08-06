@@ -31,7 +31,7 @@
 
 #include <glib.h>
 
-#define EXIT_DIALOG_ITEM_DATA _("EXIT_DIALOG_ITEM_DATA")
+#define EXIT_DIALOG_TREEVIEW "EXIT_DIALOG_TREEVIEW"
 
 enum {
   CHECK_COL,
@@ -41,13 +41,6 @@ enum {
   NUM_COL
 };
 
-typedef struct
-{
-    GSList *       item_list;
-    GtkTreeView  * treeview;
-
-} exit_dialog_item_data_t;
-
 static void selected_state_set_all   (GtkTreeView * treeview,
                                       gboolean      state);
 
@@ -55,6 +48,9 @@ static gint get_selected_items (GtkWidget * dialog,
                                 exit_dialog_item_array_t ** items);
 
 /* Event Handlers */
+static void exit_dialog_destroy  (GtkWidget * exit_dialog,
+                                  gpointer    data);
+
 static void select_all_clicked   (GtkButton * button,
                                   gpointer    data);
 
@@ -99,8 +95,6 @@ exit_dialog_make (GtkWindow * parent_window,
     GtkListStore *      model;
     GtkCellRenderer *   renderer;
     GtkTreeViewColumn * column;
-
-    exit_dialog_item_data_t * data; 
 
     gtk_box_pack_start (vbox, label, FALSE, FALSE, 0);
     
@@ -165,15 +159,13 @@ exit_dialog_make (GtkWindow * parent_window,
     g_object_unref (model);
     gtk_widget_show (GTK_WIDGET (treeview));
 
-    list = g_slist_alloc ();
-
-    data = g_malloc (sizeof (exit_dialog_item_data_t));
-    data->item_list = list;
-    data->treeview  = GTK_TREE_VIEW (treeview);
-
     gtk_widget_show_all (GTK_WIDGET(vbox));
 
-    g_object_set_data (G_OBJECT (dialog), EXIT_DIALOG_ITEM_DATA,  data);
+    g_object_set_data (G_OBJECT (dialog), EXIT_DIALOG_TREEVIEW,  treeview);
+    
+    g_signal_connect (G_OBJECT (dialog), "destroy",
+                      G_CALLBACK (exit_dialog_destroy), 
+                      treeview);
     
     return dialog;
 }
@@ -191,20 +183,22 @@ exit_dialog_add_item (GtkWidget *    dialog,
                       const gchar *  path, 
                       const gpointer optional_data)
 {
+    GtkTreeView *  treeview;
     GtkTreeIter    iter;
     GtkListStore * model;
+    const gchar *  name_copy = g_strdup (name);
+    const gchar *  path_copy = g_strdup (path);
 
-    exit_dialog_item_data_t * data = 
-        g_object_get_data (G_OBJECT (dialog), EXIT_DIALOG_ITEM_DATA);
+    treeview = g_object_get_data (G_OBJECT (dialog), EXIT_DIALOG_TREEVIEW);
   
-    model = GTK_LIST_STORE (gtk_tree_view_get_model (data->treeview)); 
+    model = GTK_LIST_STORE (gtk_tree_view_get_model (treeview)); 
 
     gtk_list_store_append (model, &iter);
 
     gtk_list_store_set (model, &iter,
                         CHECK_COL, 1,
-                        NAME_COL, name,
-                        PATH_COL, path,
+                        NAME_COL, name_copy,
+                        PATH_COL, path_copy,
                         DATA_COL, optional_data,
                         -1);
 }
@@ -267,7 +261,7 @@ gint
 get_selected_items (GtkWidget * dialog,
                     exit_dialog_item_array_t ** items)
 {
-    exit_dialog_item_data_t *  data;
+    GtkTreeView *              treeview;
     GtkTreeIter                iter;
     GtkListStore *             model;
     gboolean                   valid;
@@ -276,9 +270,9 @@ get_selected_items (GtkWidget * dialog,
     gint                       selected_count;
     gint                       i;
 
-    data = g_object_get_data (G_OBJECT (dialog), EXIT_DIALOG_ITEM_DATA);
+    treeview = g_object_get_data (G_OBJECT (dialog), EXIT_DIALOG_TREEVIEW);
   
-    model = GTK_LIST_STORE (gtk_tree_view_get_model (data->treeview)); 
+    model = GTK_LIST_STORE (gtk_tree_view_get_model (treeview)); 
   
     /* Get the first iter in the list */
     valid = gtk_tree_model_get_iter_first (GTK_TREE_MODEL (model), &iter);
@@ -377,6 +371,44 @@ static void toggle_check_button (GtkCellRendererToggle * renderer,
     {
         gtk_tree_model_get (model, &iter, CHECK_COL, &value, -1);
         gtk_list_store_set (GTK_LIST_STORE (model), &iter, CHECK_COL, !value, -1);
+    }
+}
+
+/*
+ * Signal handler for "destroy" event to free memory allocated for the exit_dialog.
+ *
+ * @param exit_dialog 
+ * @param data Exit dialog's treeview
+ */
+static void exit_dialog_destroy  (GtkWidget * exit_dialog,
+                                  gpointer    data)
+{
+    GtkTreeView *  treeview;
+    GtkTreeIter    iter;
+    GtkTreeModel * model;
+    gboolean       valid;
+  
+    treeview = g_object_get_data (G_OBJECT (exit_dialog), EXIT_DIALOG_TREEVIEW);
+
+    model = GTK_TREE_MODEL (gtk_tree_view_get_model (treeview)); 
+    
+    /* Get the first iter in the list */
+    valid = gtk_tree_model_get_iter_first (GTK_TREE_MODEL (model), &iter);
+
+    while (valid)
+    {
+        gchar * name = NULL;
+        gchar * path = NULL;
+
+        gtk_tree_model_get (model, &iter,
+                            NAME_COL, &name,
+                            PATH_COL, &path,
+                            -1);
+
+        g_free (name);
+        g_free (path);
+
+        valid = gtk_tree_model_iter_next (GTK_TREE_MODEL (model), &iter);
     }
 }
 

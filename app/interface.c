@@ -447,18 +447,8 @@ void integrated_ui_show_diagram_modified_status (DDisplay *ddisp)
 {
    GtkLabel * label = g_object_get_data (G_OBJECT (ddisp->container), "tab-label");
    const gchar * name;
-   const gchar * sep;
    
-   sep = g_strrstr (ddisp->diagram->filename,G_DIR_SEPARATOR_S);
-
-   if (sep)
-   {
-     name = sep + 1;  /* IS THIS PORTABLE??? */
-   }
-   else
-   {
-     name = ddisp->diagram->filename;
-   }
+   name = diagram_get_name (ddisp->diagram);
 
    if (diagram_is_modified (ddisp->diagram))
    {
@@ -470,6 +460,8 @@ void integrated_ui_show_diagram_modified_status (DDisplay *ddisp)
    {
      gtk_label_set_text (label,name);  
    }
+
+   g_free (name);
 }
 
 /**
@@ -508,6 +500,9 @@ use_integrated_ui_for_display_shell(DDisplay *ddisp, char *title)
   /* Create a new tab page */
   ddisp->container = gtk_vbox_new(FALSE, 0);
 
+  /* Create a new tab page */
+  ddisp->container = gtk_vbox_new(FALSE, 0);
+
   /* <from GEdit> */
   /* don't allow focus on the close button */
   close_button = gtk_button_new();
@@ -528,11 +523,11 @@ use_integrated_ui_for_display_shell(DDisplay *ddisp, char *title)
                       GTK_SIGNAL_FUNC (close_notebook_page_callback), ddisp->container);
   /* </from GEdit> */
 
-  /* Set events for new tab page */
   gtk_box_pack_start( GTK_BOX(tab_label_container), close_button, FALSE, FALSE, 0 );
   gtk_widget_show (close_button);
   gtk_widget_show (image);
 
+  /* Set events for new tab page */
   gtk_widget_set_events (ddisp->container,
                          GDK_POINTER_MOTION_MASK |
                          GDK_POINTER_MOTION_HINT_MASK |

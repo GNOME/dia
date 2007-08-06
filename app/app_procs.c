@@ -1039,6 +1039,7 @@ app_exit(void)
           const gchar * name = diagram_get_name (diagram);
           const gchar * path = diagram->filename;
           exit_dialog_add_item (dialog, name, path, diagram);
+          g_free (name);
         }
 
         list = g_slist_next (list);
