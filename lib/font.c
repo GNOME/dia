@@ -611,8 +611,16 @@ get_string_offsets(PangoLayoutIter *iter, real** offsets, int* n_offsets)
 {
   int i;
   PangoLayoutLine*   line = pango_layout_iter_get_line(iter);
-  PangoGlyphItem* item = (PangoGlyphItem*)line->runs->data;
-  PangoGlyphString* string = item->glyphs;
+  PangoGlyphItem* item;
+  PangoGlyphString* string;
+
+  if(0 == line->length)
+  {
+    *n_offsets = 0;
+    return;
+  }
+  item = (PangoGlyphItem*)line->runs->data;
+  string = item->glyphs;
 
   *n_offsets = string->num_glyphs;
   *offsets = g_new(real, *n_offsets);

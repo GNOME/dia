@@ -1,3 +1,8 @@
+2007-08-07  Steffen Macke <sdteffen@gmail.com>
+
+	* lib/font.c: get_string_offsets() Don't crash when line length is 0
+	fixes bug #450040
+ 
 2007-08-06  Lars Clausen  <lars@raeder.dk>
 
 	* app/interface.c: Patch from Patrick Hallinan 
