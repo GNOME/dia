@@ -88,13 +88,13 @@ dia.tex: dia.xml
     jw -b tex -V paper-type=$(papersize) -V paper-size=$(papersize) -o ps/ doc-ps.xml
 	rm doc-ps.xml
 	mv ps/doc-ps.tex ps/`basename $< .xml`.tex
-    
+
 mk-chapter-cmdline: dia.dbk
 	sed -f dia-dbk-to-chapter.sed $< > dia-cmdline.xml
-	 
+
 pdf_docs = \
 	dia.pdf
-	 
+
 ps_docs = \
 	dia.ps
 
@@ -120,7 +120,7 @@ install-html:
 	  echo " $(INSTALL_DATA) $$file $(sysdoc)/$(lang)/$$dest"; \
 	  $(INSTALL_DATA) $$file $(sysdoc)/$(lang)/$$dest; \
 	done
-	
+
 
 uninstall-html:
 	@list='$(html_pages)'; \

@@ -13,6 +13,50 @@ the user numerous basic objects.
     object.  Text can be placed on the canvas by clicking on the text button on
     the toolbox.
    </para>
+   <para>
+The text object, and several other objects, offers direct text entry in the
+dia gram.  Text can be entered by selecting the object and then typing the text. The font,
+size, and other formatting properties can be changed by double-clicking the
+object.
+</para>
+<para>
+Here are some important tips regarding short-cut keys when entering text.
+</para>
+
+<itemizedlist>
+<listitem>
+<para>
+The normal Copy / Cut / Paste keys (CTRL-C, CTRL-X, CTRL-V) don't work for
+text. They work for entire objects. Use CTRL-SHIFT-X to cut and 
+CTRL-SHIFT-V to paste just the text in an object. There is no shortcut to copy
+just the text. 
+</para>
+<note><para>When you paste text into an object, the text is
+formatted according to the Dia object properties, not the text source.
+</para></note>
+</listitem>
+<listitem>
+<para>
+You cannot select a section of text inside an object with the mouse (this
+moves the object). You can insert characters at the current cursor position
+just by typing. You can delete the character to the left of the mouse using
+Backspace. 
+</para>
+<note><para>
+The DEL key deletes the entire object, not the text
+to the right of the cursor. Use SHIFT-DEL to delete the text to the right of
+the cursor. (Use Edit / Undo or CTRL-Z if you delete an object by mistake.) To
+delete all of the text in an object, use the Cut (CTRL-SHIFT-X). 
+</para></note>
+</listitem>
+
+<listitem><para>
+ If you are using a non-default font or font size, one trick for productivity
+is to create a palette of empty objects with the desired font settings on a
+separate diagram. Then copy and paste these objects onto your working diagram
+as you need them (i.e., instead of using the toolbar).
+</para></listitem>
+</itemizedlist>
    <note>
     <para>
      Text in <application>Dia</application> can use any font available to Gnome.

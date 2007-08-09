@@ -1,5 +1,12 @@
 2007-08-09  Lars Clausen  <lars@raeder.dk>
 
+	* doc/en/usage-customization.xml: Fixed wrong image filename.
+
+	* doc/fr/hardcopies.makefile: Clean-up of some spaces.
+
+	* doc/en/usage-objects-basic.xml: Added some more detail on how to
+	use the text object.  Fixes bug #455400.
+
 	* objects/FS/flow.c: Added undo support, fixing bug #456419.
 
 	* objects/SISSI/sissi_object.c (sissi_object_create): Fixed
