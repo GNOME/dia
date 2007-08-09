@@ -1,5 +1,12 @@
 2007-08-09  Lars Clausen  <lars@raeder.dk>
 
+	* objects/SISSI/sissi_object.c (sissi_object_create): Fixed
+	formatting and took things that should always be run outside of
+	the if.  Fixes bug #463700.
+
+	* objects/SISSI/sissi.h: Removed double newlines and fixed some
+	formatting. 
+
 	* shapes/Lights/*:
 	* sheets/Lights.sheet.in:
 	* sheets/Makefile.am (sheet_in_files): New shape set for lighting

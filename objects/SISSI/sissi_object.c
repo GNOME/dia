@@ -132,7 +132,8 @@ static PropDescription *sissi_object_describe_props(ObjetSISSI *pc)
 }
 
 
-static void sissi_object_set_props(ObjetSISSI *object_sissi, GPtrArray *props)
+static void 
+sissi_object_set_props(ObjetSISSI *object_sissi, GPtrArray *props)
 {
 /*   object_set_props_from_offsets(&object_sissi->element.object, sissi_object_offsets,props);
 
@@ -140,13 +141,15 @@ static void sissi_object_set_props(ObjetSISSI *object_sissi, GPtrArray *props)
 */
 }
 
-static void sissi_object_get_props(ObjetSISSI *object_sissi, GPtrArray *props)
+static void 
+sissi_object_get_props(ObjetSISSI *object_sissi, GPtrArray *props)
 {
   object_get_props_from_offsets(&object_sissi->element.object, sissi_object_offsets,props);
 }
 /********** end facultatif **************/
 	/********* create ********/
-static DiaObject *sissi_object_create(Point *startpoint,  void *user_data, Handle **handle1, Handle **handle2)
+static DiaObject *
+sissi_object_create(Point *startpoint,  void *user_data, Handle **handle1, Handle **handle2)
 {
   ObjetSISSI *object_sissi;
   Element *elem;
@@ -168,174 +171,173 @@ static DiaObject *sissi_object_create(Point *startpoint,  void *user_data, Handl
   AttributeNode attr;
 
 
-	object_sissi = g_malloc0(sizeof(ObjetSISSI));
-	elem = &object_sissi->element;
-	obj = &elem->object;
+  object_sissi = g_malloc0(sizeof(ObjetSISSI));
+  elem = &object_sissi->element;
+  obj = &elem->object;
 	
-	obj->type = &sissi_object_type;
-	obj->ops = &object_sissi_ops;
-	
-	elem->corner = *startpoint;
-	elem->width = DEFAULT_WIDTH;
-	elem->height = DEFAULT_HEIGHT;
-	element_init(elem, 8, NUM_CONNECTIONS);
-	
-	for (i=0;i<NUM_CONNECTIONS;i++) {
-	obj->connections[i] = &object_sissi->connections[i];
-	object_sissi->connections[i].object = obj;
-	object_sissi->connections[i].connected = NULL;
-	object_sissi->connections[i].flags = 0;
-	}
-	object_sissi->connections[8].flags = CP_FLAGS_MAIN;
+  obj->type = &sissi_object_type;
+  obj->ops = &object_sissi_ops;
 
-if (GPOINTER_TO_INT(user_data)!=0)
-{	
-	/* start of read XML file */
-	sprintf(composition_filename,"sheets/SISSI/%d.xml",GPOINTER_TO_INT(user_data));
-	filename = g_strdup(dia_get_data_directory(composition_filename));
-	if (g_file_test (filename, G_FILE_TEST_IS_DIR)) {
-	message_error(_("You must specify a file, not a directory.\n"));
-	return FALSE;
-	}
+  elem->corner = *startpoint;
+  elem->width = DEFAULT_WIDTH;
+  elem->height = DEFAULT_HEIGHT;
+  element_init(elem, 8, NUM_CONNECTIONS);
 	
-	
-	fd = open(filename, O_RDONLY);
-	if (fd==-1) {
-	message_error(_("Couldn't open: '%s' for reading.\n"),
-			dia_message_filename(filename));
-	return FALSE;
-	}
+  for (i=0;i<NUM_CONNECTIONS;i++) {
+    obj->connections[i] = &object_sissi->connections[i];
+    object_sissi->connections[i].object = obj;
+    object_sissi->connections[i].connected = NULL;
+    object_sissi->connections[i].flags = 0;
+  }
+  object_sissi->connections[8].flags = CP_FLAGS_MAIN;
 
-	/* Note that this closing and opening means we can't read from a pipe */
-	close(fd);
-	
-	doc = xmlDiaParseFile(filename);
-	if (doc == NULL){
-	message_error(_("Error loading diagram %s.\nUnknown file type."),
-			dia_message_filename(filename));
-	return FALSE;
-	}
-	
-	if (doc->xmlRootNode == NULL) {
-	message_error(_("Error loading diagram %s.\nUnknown file type."),
-			dia_message_filename(filename));
-	xmlFreeDoc (doc);
-	return FALSE;
-	}
-	
-	namespace = xmlSearchNs(doc, doc->xmlRootNode, (const xmlChar *)"sissi");
-	if (xmlStrcmp (doc->xmlRootNode->name, (const xmlChar *)"diagram") || (namespace == NULL)){
-	message_error(_("Error loading diagram %s.\nNot a Dia file."), 
-			dia_message_filename(filename));
-	xmlFreeDoc (doc);
-	return FALSE;
-	}
-	
-	diagramdata = find_node_named (doc->xmlRootNode->xmlChildrenNode, "object");
-	
-	/* load paper information from diagram object section */
-	attr = composite_find_attribute(diagramdata, "type_element");
-	if (attr != NULL) {
-	object_sissi->type_element =  data_string( attribute_first_data(attr) );
-	}
-	
-	attr = composite_find_attribute(diagramdata, "file_image");
-	if (attr != NULL) {
-	object_sissi->file =  data_string( attribute_first_data(attr) );
-	}
-	
-	attr = composite_find_attribute(diagramdata, "entity_type");
-	if (attr != NULL) {
-	object_sissi->entity_type = data_string( attribute_first_data(attr) );
-	}
-	
-	attr = composite_find_attribute(diagramdata, "type_element");
-	if (attr != NULL) {
-	object_sissi->type_element = data_string( attribute_first_data(attr) );
-	}
-	
-	attr = composite_find_attribute(diagramdata, "entity");
-	if (attr != NULL) {
-	object_sissi->entity = data_string( attribute_first_data(attr) );
-	}
+  if (GPOINTER_TO_INT(user_data)!=0)
+  {	
+    /* start of read XML file */
+    sprintf(composition_filename,"sheets/SISSI/%d.xml",GPOINTER_TO_INT(user_data));
+    filename = g_strdup(dia_get_data_directory(composition_filename));
+    if (g_file_test (filename, G_FILE_TEST_IS_DIR)) {
+      message_error(_("You must specify a file, not a directory.\n"));
+      return FALSE;
+    }
 	
 	
-	attr = composite_find_attribute(diagramdata, "nb_others_fixes");
-	if (attr != NULL) {
-	object_sissi->nb_others_fixes = data_int ( attribute_first_data(attr) );
-	}
+    fd = open(filename, O_RDONLY);
+    if (fd==-1) {
+      message_error(_("Couldn't open: '%s' for reading.\n"),
+		    dia_message_filename(filename));
+      return FALSE;
+    }
+
+    /* Note that this closing and opening means we can't read from a pipe */
+    close(fd);
 	
-	attr = composite_find_attribute(diagramdata, "border_color");
-	if (attr != NULL) {
-	data_color(attribute_first_data(attr), &object_sissi->border_color);
-	}
-	attr = composite_find_attribute(diagramdata, "fill_colour");
-	if (attr != NULL) {
-	data_color(attribute_first_data(attr), &object_sissi->fill_colour);
-	}
+    doc = xmlDiaParseFile(filename);
+    if (doc == NULL){
+      message_error(_("Error loading diagram %s.\nUnknown file type."),
+		    dia_message_filename(filename));
+      return FALSE;
+    }
 	
-	/**** read the other properties *******/
-	attr = object_find_attribute(diagramdata, "properties");
-	num = attribute_num_data(attr);
-	composite = attribute_first_data(attr);
-	object_sissi->properties_others = NULL;
-	for (i=0;i<num;i++) {
-	properties_others = property_other_read(composite);
-	object_sissi->properties_others = g_list_append(object_sissi->properties_others, properties_others);
-	composite = data_next(composite);
-	}
+    if (doc->xmlRootNode == NULL) {
+      message_error(_("Error loading diagram %s.\nUnknown file type."),
+		    dia_message_filename(filename));
+      xmlFreeDoc (doc);
+      return FALSE;
+    }
 	
+    namespace = xmlSearchNs(doc, doc->xmlRootNode, (const xmlChar *)"sissi");
+    if (xmlStrcmp (doc->xmlRootNode->name, (const xmlChar *)"diagram") || (namespace == NULL)){
+      message_error(_("Error loading diagram %s.\nNot a Dia file."), 
+		    dia_message_filename(filename));
+      xmlFreeDoc (doc);
+      return FALSE;
+    }
 	
-	/******** read the menaces properties ************/
-	attr = object_find_attribute(diagramdata, "menaces");
-	num = attribute_num_data(attr);
-	composite = attribute_first_data(attr);
-	object_sissi->properties_menaces = NULL;
-	for (i=0;i<num;i++) {
-	properties_menaces = property_menace_read(composite);
-	object_sissi->properties_menaces = g_list_append(object_sissi->properties_menaces, properties_menaces);
-	composite = data_next(composite);
-	}
+    diagramdata = find_node_named (doc->xmlRootNode->xmlChildrenNode, "object");
 	
-	/********* read the docs *************/
-	attr = object_find_attribute(diagramdata, "documentation");
-	num = attribute_num_data(attr);
-	composite = attribute_first_data(attr);
-	object_sissi->url_docs = NULL;
-	for (i=0;i<num;i++) {
-	url_doc = url_doc_read(composite);
-	object_sissi->url_docs = g_list_append(object_sissi->url_docs, url_doc);
-	composite = data_next(composite);
-	}
-	free (filename);
+    /* load paper information from diagram object section */
+    attr = composite_find_attribute(diagramdata, "type_element");
+    if (attr != NULL) {
+      object_sissi->type_element =  data_string( attribute_first_data(attr) );
+    }
 	
-	/* end of XML reading */
+    attr = composite_find_attribute(diagramdata, "file_image");
+    if (attr != NULL) {
+      object_sissi->file =  data_string( attribute_first_data(attr) );
+    }
 	
-	object_sissi->image = dia_image_load(dia_get_data_directory(object_sissi->file));
+    attr = composite_find_attribute(diagramdata, "entity_type");
+    if (attr != NULL) {
+      object_sissi->entity_type = data_string( attribute_first_data(attr) );
+    }
 	
-	if (object_sissi->image) {
-	elem->width = (elem->width*(float)dia_image_width(object_sissi->image))/(float)dia_image_height(object_sissi->image);
-	elem->height= elem->height + TEXT_FONT_HEIGHT;
-	}
+    attr = composite_find_attribute(diagramdata, "type_element");
+    if (attr != NULL) {
+      object_sissi->type_element = data_string( attribute_first_data(attr) );
+    }
 	
-	object_sissi->url_docs=NULL;
-	
-	object_sissi->entity=g_strdup("");
-	action_font = dia_font_new_from_style(TEXT_FONT,TEXT_FONT_HEIGHT); 
-	object_sissi->text = new_text("",action_font, TEXT_FONT_HEIGHT, &pos, &color_black, ALIGN_LEFT);
+    attr = composite_find_attribute(diagramdata, "entity");
+    if (attr != NULL) {
+      object_sissi->entity = data_string( attribute_first_data(attr) );
+    }
 	
 	
+    attr = composite_find_attribute(diagramdata, "nb_others_fixes");
+    if (attr != NULL) {
+      object_sissi->nb_others_fixes = data_int ( attribute_first_data(attr) );
+    }
 	
-	object_sissi_update_data(object_sissi, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
-	*handle1 = NULL;
-	*handle2 = obj->handles[7];
+    attr = composite_find_attribute(diagramdata, "border_color");
+    if (attr != NULL) {
+      data_color(attribute_first_data(attr), &object_sissi->border_color);
+    }
+    attr = composite_find_attribute(diagramdata, "fill_colour");
+    if (attr != NULL) {
+      data_color(attribute_first_data(attr), &object_sissi->fill_colour);
+    }
 	
-	xmlFreeDoc (doc);
-}	
-return &object_sissi->element.object;
+    /**** read the other properties *******/
+    attr = object_find_attribute(diagramdata, "properties");
+    num = attribute_num_data(attr);
+    composite = attribute_first_data(attr);
+    object_sissi->properties_others = NULL;
+    for (i=0;i<num;i++) {
+      properties_others = property_other_read(composite);
+      object_sissi->properties_others = g_list_append(object_sissi->properties_others, properties_others);
+      composite = data_next(composite);
+    }
+	
+	
+    /******** read the menaces properties ************/
+    attr = object_find_attribute(diagramdata, "menaces");
+    num = attribute_num_data(attr);
+    composite = attribute_first_data(attr);
+    object_sissi->properties_menaces = NULL;
+    for (i=0;i<num;i++) {
+      properties_menaces = property_menace_read(composite);
+      object_sissi->properties_menaces = g_list_append(object_sissi->properties_menaces, properties_menaces);
+      composite = data_next(composite);
+    }
+	
+    /********* read the docs *************/
+    attr = object_find_attribute(diagramdata, "documentation");
+    num = attribute_num_data(attr);
+    composite = attribute_first_data(attr);
+    object_sissi->url_docs = NULL;
+    for (i=0;i<num;i++) {
+      url_doc = url_doc_read(composite);
+      object_sissi->url_docs = g_list_append(object_sissi->url_docs, url_doc);
+      composite = data_next(composite);
+    }
+    free (filename);
+	
+    /* end of XML reading */
+	
+    object_sissi->image = dia_image_load(dia_get_data_directory(object_sissi->file));
+	
+    if (object_sissi->image) {
+      elem->width = (elem->width*(float)dia_image_width(object_sissi->image))/(float)dia_image_height(object_sissi->image);
+      elem->height= elem->height + TEXT_FONT_HEIGHT;
+    }
+	
+    object_sissi->url_docs=NULL;
+
+    xmlFreeDoc (doc);
+  }	
+  object_sissi->entity=g_strdup("");
+  action_font = dia_font_new_from_style(TEXT_FONT,TEXT_FONT_HEIGHT); 
+  object_sissi->text = new_text("",action_font, TEXT_FONT_HEIGHT, &pos, &color_black, ALIGN_LEFT);
+	
+  object_sissi_update_data(object_sissi, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
+  *handle1 = NULL;
+  *handle2 = obj->handles[7];
+  
+  return &object_sissi->element.object;
 }
  
-DiaObject *sissi_object_load(ObjectNode obj_node, int version, const char *filename)
+DiaObject *
+sissi_object_load(ObjectNode obj_node, int version, const char *filename)
 {
   ObjetSISSI *object_sissi;
   Element *elem;
@@ -363,5 +365,4 @@ DiaObject *sissi_object_load(ObjectNode obj_node, int version, const char *filen
   object_sissi_update_data(object_sissi, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
 
   return &object_sissi->element.object;
-
 }

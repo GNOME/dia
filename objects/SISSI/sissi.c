@@ -78,7 +78,8 @@ extern GtkWidget *object_sissi_get_properties_dialog(ObjetSISSI *object_sissi, g
 extern ObjectChange *object_sissi_apply_properties_dialog(ObjetSISSI *object_sissi);
 
 
-void url_doc_write(AttributeNode attr_node, Url_Docs *url_docs)
+void 
+url_doc_write(AttributeNode attr_node, Url_Docs *url_docs)
 {
   DataNode composite;
 
@@ -90,7 +91,8 @@ void url_doc_write(AttributeNode attr_node, Url_Docs *url_docs)
 
 }
 
-void property_menace_write(AttributeNode attr_node, SISSI_Property_Menace *properties_menaces)
+void 
+property_menace_write(AttributeNode attr_node, SISSI_Property_Menace *properties_menaces)
 {
   DataNode composite;
 
@@ -103,7 +105,8 @@ void property_menace_write(AttributeNode attr_node, SISSI_Property_Menace *prope
   data_add_string(composite_add_attribute(composite, "comments"), properties_menaces->comments);
 }
 
-void property_other_write(AttributeNode attr_node, SISSI_Property *properties_other)
+void 
+property_other_write(AttributeNode attr_node, SISSI_Property *properties_other)
 {
   DataNode composite;
 
@@ -114,7 +117,8 @@ void property_other_write(AttributeNode attr_node, SISSI_Property *properties_ot
   data_add_string(composite_add_attribute(composite, "description"), properties_other->description);
 }
 
-void property_url_write(AttributeNode attr_node, Url_Docs *url_docs)
+void 
+property_url_write(AttributeNode attr_node, Url_Docs *url_docs)
 {
   DataNode composite;
 
@@ -125,7 +129,8 @@ void property_url_write(AttributeNode attr_node, Url_Docs *url_docs)
   data_add_string(composite_add_attribute(composite, "description"), url_docs->description);
 }
 
-void object_sissi_save(ObjetSISSI *object_sissi, ObjectNode obj_node, const char *filename)
+void 
+object_sissi_save(ObjetSISSI *object_sissi, ObjectNode obj_node, const char *filename)
 {
   SISSI_Property_Menace *properties_menaces;
   SISSI_Property *properties_others;
@@ -190,7 +195,8 @@ void object_sissi_save(ObjetSISSI *object_sissi, ObjectNode obj_node, const char
   }
 }
 
- real object_sissi_distance_from(ObjetSISSI *object_sissi, Point *point)
+real 
+object_sissi_distance_from(ObjetSISSI *object_sissi, Point *point)
 {
   Element *elem = &object_sissi->element;
   Rectangle rect;
@@ -201,12 +207,14 @@ void object_sissi_save(ObjetSISSI *object_sissi, ObjectNode obj_node, const char
   return distance_rectangle_point(&rect, point);
 }
 
- void object_sissi_select(ObjetSISSI *object_sissi, Point *clicked_point, DiaRenderer *interactive_renderer)
+ void 
+object_sissi_select(ObjetSISSI *object_sissi, Point *clicked_point, DiaRenderer *interactive_renderer)
 {
   element_update_handles(&object_sissi->element);
 }
 
-ObjectChange* object_sissi_move_handle(ObjetSISSI *object_sissi, Handle *handle, Point *to, ConnectionPoint *cp, HandleMoveReason reason, ModifierKeys modifiers)
+ObjectChange* 
+object_sissi_move_handle(ObjetSISSI *object_sissi, Handle *handle, Point *to, ConnectionPoint *cp, HandleMoveReason reason, ModifierKeys modifiers)
 {
   AnchorShape horiz = ANCHOR_MIDDLE, vert = ANCHOR_MIDDLE;
   assert(object_sissi!=NULL);
@@ -241,15 +249,18 @@ ObjectChange* object_sissi_move_handle(ObjetSISSI *object_sissi, Handle *handle,
   return NULL;
 }
 
- ObjectChange* object_sissi_move(ObjetSISSI *object_sissi, Point *to)
+ObjectChange* 
+object_sissi_move(ObjetSISSI *object_sissi, Point *to)
 {
   object_sissi->element.corner = *to;
 
   object_sissi_update_data(object_sissi, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
   return NULL;
 }
+
 /************ draw method ***********/
- void object_sissi_draw(ObjetSISSI *object_sissi, DiaRenderer *renderer)
+void 
+object_sissi_draw(ObjetSISSI *object_sissi, DiaRenderer *renderer)
 {
  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
  Point ul_corner, lr_corner, text_corner;
@@ -298,7 +309,8 @@ ObjectChange* object_sissi_move_handle(ObjetSISSI *object_sissi, Handle *handle,
     text_draw(object_sissi->text, renderer);
 }
 
- void object_sissi_update_data(ObjetSISSI *object_sissi, AnchorShape horiz, AnchorShape vert)
+void 
+object_sissi_update_data(ObjetSISSI *object_sissi, AnchorShape horiz, AnchorShape vert)
 {
   Element *elem = &object_sissi->element;
   ElementBBExtras *extra = &elem->extra_spacing;
@@ -365,9 +377,10 @@ ObjectChange* object_sissi_move_handle(ObjetSISSI *object_sissi, Handle *handle,
   element_update_handles(elem);
  }
  
- /*********** copy function **********/
- DiaObject *object_sissi_copy_using_properties(ObjetSISSI *object_sissi_origin)
- {
+/*********** copy function **********/
+DiaObject *
+object_sissi_copy_using_properties(ObjetSISSI *object_sissi_origin)
+{
   ObjetSISSI *object_sissi;
   Element *elem,*elem_origin;
   DiaObject *obj;
@@ -451,7 +464,8 @@ ObjectChange* object_sissi_move_handle(ObjetSISSI *object_sissi, Handle *handle,
     
 }
  
- void object_sissi_destroy(ObjetSISSI *object_sissi)
+void 
+object_sissi_destroy(ObjetSISSI *object_sissi)
 {
   g_free(object_sissi->file);  
   g_free(object_sissi->confidentiality);  
@@ -473,12 +487,14 @@ ObjectChange* object_sissi_move_handle(ObjetSISSI *object_sissi, Handle *handle,
   element_destroy(&object_sissi->element);
 }
 
-void dialog_sissi_destroy(SISSIDialog *properties_dialog)
+void 
+dialog_sissi_destroy(SISSIDialog *properties_dialog)
 {
   gtk_widget_destroy(properties_dialog->dialog);
 }
 
-SISSI_Property_Menace *property_menace_read(DataNode composite)
+SISSI_Property_Menace *
+property_menace_read(DataNode composite)
 {
   SISSI_Property_Menace *properties_menaces;
   AttributeNode attr_node;
@@ -513,7 +529,8 @@ SISSI_Property_Menace *property_menace_read(DataNode composite)
   return properties_menaces;
 }
 
-SISSI_Property *property_other_read(DataNode composite)
+SISSI_Property *
+property_other_read(DataNode composite)
 {
   SISSI_Property *properties_others;
   AttributeNode attr_node;
@@ -541,7 +558,8 @@ SISSI_Property *property_other_read(DataNode composite)
   return properties_others;
 }
 
-Url_Docs *url_doc_read(DataNode composite)
+Url_Docs *
+url_doc_read(DataNode composite)
 {
   Url_Docs *url_doc;
   AttributeNode attr_node;
@@ -567,7 +585,8 @@ Url_Docs *url_doc_read(DataNode composite)
 }
 
 
-ObjetSISSI *object_sissi_load(ObjectNode obj_node, int version, const char *filename, ObjetSISSI *object_sissi,Element *elem,DiaObject *obj)
+ObjetSISSI *
+object_sissi_load(ObjectNode obj_node, int version, const char *filename, ObjetSISSI *object_sissi,Element *elem,DiaObject *obj)
 {
   SISSI_Property_Menace *properties_menaces;
   SISSI_Property *properties_others;
@@ -577,17 +596,17 @@ ObjetSISSI *object_sissi_load(ObjectNode obj_node, int version, const char *file
   int i;
   int num;
 
-   elem = &object_sissi->element;
-   obj = &elem->object;
+  elem = &object_sissi->element;
+  obj = &elem->object;
   
-   element_load(elem, obj_node);
+  element_load(elem, obj_node);
 
-    element_init(elem, 8, NUM_CONNECTIONS);
+  element_init(elem, 8, NUM_CONNECTIONS);
   for (i=0;i<NUM_CONNECTIONS;i++) {
-      obj->connections[i] = &object_sissi->connections[i];
-     object_sissi->connections[i].object = obj;
-     object_sissi->connections[i].connected = NULL;
-   }
+    obj->connections[i] = &object_sissi->connections[i];
+    object_sissi->connections[i].object = obj;
+    object_sissi->connections[i].connected = NULL;
+  }
 
   /* Initialisation of object */
 
@@ -741,17 +760,20 @@ ObjetSISSI *object_sissi_load(ObjectNode obj_node, int version, const char *file
   return object_sissi;
 }
 
-GtkWidget *object_sissi_get_properties(ObjetSISSI *object_sissi, gboolean is_default)
+GtkWidget *
+object_sissi_get_properties(ObjetSISSI *object_sissi, gboolean is_default)
 {
     return object_sissi_get_properties_dialog(object_sissi, is_default);
 }
 
-void object_sissi_apply_properties(ObjetSISSI *object_sissi)
+void 
+object_sissi_apply_properties(ObjetSISSI *object_sissi)
 {
     object_sissi_apply_properties_dialog(object_sissi);
 }
 
-SISSI_Property *create_new_property_other(gchar *label, gchar *description, gchar *value)
+SISSI_Property *
+create_new_property_other(gchar *label, gchar *description, gchar *value)
 {
   SISSI_Property *property;
   property = g_new0(SISSI_Property, 1);
@@ -780,7 +802,8 @@ SISSI_Property *create_new_property_other(gchar *label, gchar *description, gcha
   return property;
 }
 
-Url_Docs *create_new_url(gchar *label, gchar *description, gchar *url)
+Url_Docs *
+create_new_url(gchar *label, gchar *description, gchar *url)
 {
   Url_Docs *url_doc;
   url_doc = g_new0(Url_Docs, 1);
@@ -810,7 +833,8 @@ Url_Docs *create_new_url(gchar *label, gchar *description, gchar *url)
 }
 
 
-GList *clear_list_property (GList *list)
+GList *
+clear_list_property (GList *list)
 {  
   while (list != NULL) {
     SISSI_Property *property = (SISSI_Property *) list->data;
@@ -825,7 +849,8 @@ GList *clear_list_property (GList *list)
   return list;
 }
 
-GList *clear_list_url_doc (GList *list)
+GList *
+clear_list_url_doc (GList *list)
 {  
   while (list != NULL) {
     Url_Docs *url_doc = (Url_Docs *) list->data;
