@@ -1,3 +1,7 @@
+2007-08-09  Steffen Macke <sdteffen@gmail.com>
+
+	* installer/win32/dia.nsi: Added Lights shapes and sheet
+
 2007-08-09  Lars Clausen  <lars@raeder.dk>
 
 	* lib/element.h (ELEMENT_COMMON_PROPERTIES): Use
