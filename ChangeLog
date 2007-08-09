@@ -1,9 +1,22 @@
+2007-08-09  Lars Clausen  <lars@raeder.dk>
+
+	* dia_gnome_icon_small.png: Less fuzzy 32x32 icon.  Fixes bug
+	#463115. 
+	
+	* objects/FS/flow-ortho.c: text_alignment is an enum, not a real.
+	Fixes bug #462563.
+
 2007-08-07  Steffen Macke <sdteffen@gmail.com>
 
 	* lib/font.c: get_string_offsets() Don't crash when line length is 0
 	fixes bug #450040
  
 2007-08-06  Lars Clausen  <lars@raeder.dk>
+
+	* app/exit_dialog.c: 
+	* app/app_procs.c: 
+	* app/interface.c: More patch from Patrick, cleaning up memory
+	usage and using more standard functionality.
 
 	* app/interface.c: Patch from Patrick Hallinan 
 	<patrick.j.hallinan@gmail.com> fixes double-close issue with
