@@ -558,13 +558,61 @@ flow_load(ObjectNode obj_node, int version, const char *filename)
   return &flow->connection.object;
 }
 
+struct TypeChange {
+  ObjectChange obj_change;
+  int old_type, new_type;
+};
+
+static void
+type_change_free(struct TypeChange *change)
+{
+}
+
+static void
+type_change_apply(struct TypeChange *change, DiaObject *obj)
+{
+  Flow *flow = (Flow*)obj;
+
+  flow->type = change->new_type;
+  flow_update_data(flow);
+}
+
+static void
+type_change_revert(struct TypeChange *change, DiaObject *obj)
+{
+  Flow *flow = (Flow*)obj;
+
+  flow->type = change->old_type;
+  flow_update_data(flow);
+}
+
+static ObjectChange *
+type_create_change(Flow *flow, int type)
+{
+  struct TypeChange *change;
+
+  change = g_new0(struct TypeChange, 1);
+
+  change->obj_change.apply = (ObjectChangeApplyFunc) type_change_apply;
+  change->obj_change.revert = (ObjectChangeRevertFunc) type_change_revert;
+  change->obj_change.free = (ObjectChangeFreeFunc) type_change_free;
+
+  change->old_type = flow->type;
+  change->new_type = type;
+
+  return (ObjectChange *)change;
+}
+
+
 static ObjectChange *
 flow_set_type_callback (DiaObject* obj, Point* clicked, gpointer data)
 {
-  ((Flow*)obj)->type = (int) data ;
-  flow_update_data((Flow*)obj);
+  ObjectChange *change;
 
-  return NULL;
+  change = type_create_change((Flow *)obj, (int)data);
+  change->apply(change, obj);
+
+  return change;
 }
 
 static DiaMenuItem flow_menu_items[] = {
