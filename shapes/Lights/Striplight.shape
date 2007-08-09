@@ -13,7 +13,7 @@
   </connections>
   <aspectratio type="fixed"/>
   <svg:svg>
-    <svg:polygon style="fill: #ffffff" points="1.4,0 3.8,0 5.2,2.6 2.22045e-16,2.6 "/>
-    <svg:polygon style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #000000" points="1.4,0 3.8,0 5.2,2.6 2.22045e-16,2.6 "/>
+    <svg:polygon style="fill: background" points="1.4,0 3.8,0 5.2,2.6 2.22045e-16,2.6 "/>
+    <svg:polygon style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: foreground" points="1.4,0 3.8,0 5.2,2.6 2.22045e-16,2.6 "/>
   </svg:svg>
 </shape>

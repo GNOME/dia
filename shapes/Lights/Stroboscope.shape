@@ -27,9 +27,9 @@
   </connections>
   <aspectratio type="fixed"/>
   <svg:svg>
-    <svg:rect style="fill: #ffffff" x="0" y="0" width="3" height="3"/>
-    <svg:rect style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #000000" x="0" y="0" width="3" height="3"/>
-    <svg:polygon style="fill: #000000" points="1.8,0 2.4,0 1.8,1 2.4,1 0.6,2.8 1.4,1.4 0.8,1.4 "/>
-    <svg:polygon style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #000000" points="1.8,0 2.4,0 1.8,1 2.4,1 0.6,2.8 1.4,1.4 0.8,1.4 "/>
+    <svg:rect style="fill: background" x="0" y="0" width="3" height="3"/>
+    <svg:rect style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: foreground" x="0" y="0" width="3" height="3"/>
+    <svg:polygon style="fill: foreground" points="1.8,0 2.4,0 1.8,1 2.4,1 0.6,2.8 1.4,1.4 0.8,1.4 "/>
+    <svg:polygon style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: foreground" points="1.8,0 2.4,0 1.8,1 2.4,1 0.6,2.8 1.4,1.4 0.8,1.4 "/>
   </svg:svg>
 </shape>

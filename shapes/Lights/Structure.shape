@@ -46,13 +46,13 @@
   </connections>
   <aspectratio type="fixed"/>
   <svg:svg>
-    <svg:polygon style="fill: #ffffff" points="0,0 0,0.2 0.4,0.2 2.4,0.2 2.6,0.2 2.8,0.2 2.8,0 "/>
-    <svg:polygon style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #000000" points="0,0 0,0.2 0.4,0.2 2.4,0.2 2.6,0.2 2.8,0.2 2.8,0 "/>
-    <svg:polygon style="fill: #ffffff" points="0,2 0,2.2 2.8,2.2 2.8,2 1.8,2 1.6,2 1.2,2 1,2 "/>
-    <svg:polygon style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #000000" points="0,2 0,2.2 2.8,2.2 2.8,2 1.8,2 1.6,2 1.2,2 1,2 "/>
-    <svg:line style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #000000" x1="0.2" y1="0.2" x2="1" y2="2"/>
-    <svg:line style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #000000" x1="0.4" y1="0.2" x2="1.2" y2="2"/>
-    <svg:line style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #000000" x1="1.6" y1="2" x2="2.4" y2="0.2"/>
-    <svg:line style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #000000" x1="1.8" y1="2" x2="2.6" y2="0.2"/>
+    <svg:polygon style="fill: background" points="0,0 0,0.2 0.4,0.2 2.4,0.2 2.6,0.2 2.8,0.2 2.8,0 "/>
+    <svg:polygon style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: foreground" points="0,0 0,0.2 0.4,0.2 2.4,0.2 2.6,0.2 2.8,0.2 2.8,0 "/>
+    <svg:polygon style="fill: background" points="0,2 0,2.2 2.8,2.2 2.8,2 1.8,2 1.6,2 1.2,2 1,2 "/>
+    <svg:polygon style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: foreground" points="0,2 0,2.2 2.8,2.2 2.8,2 1.8,2 1.6,2 1.2,2 1,2 "/>
+    <svg:line style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: foreground" x1="0.2" y1="0.2" x2="1" y2="2"/>
+    <svg:line style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: foreground" x1="0.4" y1="0.2" x2="1.2" y2="2"/>
+    <svg:line style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: foreground" x1="1.6" y1="2" x2="2.4" y2="0.2"/>
+    <svg:line style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: foreground" x1="1.8" y1="2" x2="2.6" y2="0.2"/>
   </svg:svg>
 </shape>

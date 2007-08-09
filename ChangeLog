@@ -1,5 +1,7 @@
 2007-08-09  Lars Clausen  <lars@raeder.dk>
 
+	* shapes/Lights/*: Changed hardcoded B&W to foreground/background.
+
 	* doc/en/usage-customization.xml: Fixed wrong image filename.
 
 	* doc/fr/hardcopies.makefile: Clean-up of some spaces.
@@ -19,8 +21,8 @@
 	* shapes/Lights/*:
 	* sheets/Lights.sheet.in:
 	* sheets/Makefile.am (sheet_in_files): New shape set for lighting
-	arrangements from Elie Roux (eroux@resel.fr?).  Needs a little
-	fixing of colors, but otherwise fine.
+	arrangements from Elie Roux (elie.roux@enst-bretagne.fr).  Needs a
+	little fixing of colors, but otherwise fine.
 
 	* doc/fr/Makefile.am (EXTRA_DIST): Include the PNG files in
 	distribution. 
