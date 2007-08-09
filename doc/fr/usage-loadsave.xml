@@ -1,0 +1,214 @@
+<chapter label="8" id="loadsave-chapter">
+<title>Charger et sauver des diagrammes</title>
+<sect1 id="loadsave-intro">
+ <title>Charger et sauver des diagrammes&nbsp;: Introduction</title>
+  <para>
+   <application>Dia</application> suit le modèle de sauvegarde commun à la
+   plupart des applications&nbsp;: vous devez sauver explicitement chaque
+   canevas que vous désirez retenir pour un usage futur. Pour sauver un
+   fichier, utilisez
+    <menuchoice>
+     <guimenu>Fichier</guimenu>
+      <guimenuitem>Enregistrer</guimenuitem>
+    </menuchoice>
+   du <interface>&stdpop;</interface>.  Le résultat est une boîte
+   de dialogue de sauvegarde standard.  Votre canevas est sauvé dans le format
+   XML <application>Dia</application>.  Aucune extension de fichier n'est
+   ajoutée automatiquement, aussi il est une bonne idée d'ajouter
+   &og;.dia&fg; au nom que vous entrez.
+  </para>
+  <para>
+   Pour charger un canevas à partir d'un fichier sauvé précédemment par
+   <application>Dia</application> ou créé par une autre application,
+   sélectionnez
+    <menuchoice>
+     <guimenu>Fichier</guimenu>
+     <guimenuitem>Ouvrir</guimenuitem>
+    </menuchoice>
+   de l'interface <interface>Barre de menu principale</interface>.  Le résultat
+   est une <interface>boîte de dialogue ouvrir</interface>&nbsp;; selectionnez
+   le fichier que vous désirez et choisissez le bouton
+   <guibutton>Ouvrir</guibutton>. la <interface>boîte de dialogue
+   ouvrir</interface> est standard à part le menu popup étiqueté
+   <guimenu>Déterminer le type de fichier</guimenu>. Choisissez le format du
+   fichier à ouvrir (<application>Dia</application> XML, ou Drawing
+   Interchange, ou un autre format) si <application>Dia</application> ne
+   détermine pas correctement le format sans assistance.
+  </para>
+  <para>
+  Une méthode alternative pour charger un fichier est de démarrer
+  <application>Dia</application> à partir de la ligne de commande avec le nom
+  du fichier donné en argument.
+  </para>
+ </sect1>
+   <sect1 id="loadsave-filetypes">
+   <title>Types de fichiers</title>
+    <para>
+     Quelques mots sur les types de fichier sont de rigueur. Vous devriez être
+     attentif à ce que tous les formats de fichier ne peuvent être rechargés
+     dans <application>Dia</application> après sauvegarde et que la plupart des
+     formats de fichier supportés perdent un certain degré d'information.
+    </para>
+    <sect2 id="loadsave-filetypes-dia">
+    <title>Fichiers de diagrammes Dia natifs</title>
+     <para>
+      Le seul format garanti sans perte est <application>Dia</application> XML.
+      Heureusement, vous n'avez aucune chance de sauvegarder accidentellement
+      dans un format avec pertes car
+       <menuchoice>
+        <guimenu>Fichier</guimenu>
+         <guimenuitem>Enregistrer</guimenuitem>
+       </menuchoice>
+      Produit toujours un fichier de format <application>Dia</application> XML.
+     </para>
+     <para>
+      Les fichiers de format <application>Dia</application> XML sont compressés
+      automatiquement en utilisant gzip pour sauver de l'espace disque. Ceci
+      est presque nécessaire puisque, sans compression, même des diagrammes
+      simples sont très gros, puisqu'ils stockent beaucoup d'informations
+      redondantes.
+      Les fichiers <application>Dia</application> XML sont déjà compressés,
+      aussi les compresser de nouveau dans un autre format d'archive n'aidera
+      pas à les rendre significativement plus petits.
+     </para>
+    </sect2>
+    <sect2 id="loadsave-filetypes-import">
+    <title>Formats d'importation</title>
+     <para>
+      <application>Dia</application> peut importer les types de fichiers suivants&nbsp;:
+      <itemizedlist>
+       <listitem>
+        <para>
+	 Scalable Vector Graphics (.svg)
+	</para>
+       </listitem>
+       <listitem>
+        <para>
+	 format AutoCad Drawing eXchange (.dxf)
+	</para>
+       </listitem>
+       <listitem>
+        <para>
+	 format de fichier XFig (.fig)
+	</para>
+       </listitem>
+       <listitem>
+        <para>
+          graphiques GdkPixbuf bitmpap (.bmp, .gif, .jpg, .png, .pnm, .ras, .tif, .wmf)
+        </para>
+       </listitem>
+       <listitem>
+       <para>
+       format de fichier XML MS Visio (.vdx)
+       </para>
+       </listitem>
+      </itemizedlist> 
+     </para>
+    </sect2>
+<!-- Add loadsave-filestypes-dif section in future -->
+    <sect2 id="loadsave-filetypes-export">
+    <title>Exportation: Support d'autres formats</title>
+     <para>
+     <application>Dia</application> supporte l'exportation dans beaucoup d'autres types de fichiers, comme&nbsp;:
+     <itemizedlist>
+      <listitem>
+       <para>
+         Computer Graphics Metafile (.cgm)
+       </para>
+      </listitem>
+      <listitem>
+       <para>
+        Diagramme natif Dia (.dia)
+       </para>
+      </listitem>
+      <listitem>
+       <para>
+        Fichier de forme Dia (.shape)
+       </para>
+      </listitem>
+      <listitem>
+       <para>
+         AutoCad Drawing eXchange Format (.dxf)
+       </para>	
+      </listitem>
+      <listitem>
+       <para>
+        Langages Graphique HP (.plt, .hpgl) 
+       </para>
+      </listitem>
+      <listitem>
+       <para>
+        Postscript Encapsulé (.eps, .epsi)
+       </para>
+      </listitem>
+      <listitem>
+       <para>
+        Portable Network Graphics (.png)
+       </para>
+      </listitem>
+      <listitem>
+       <para>
+        Scalable Vector Graphics (.svg)
+       </para>
+      </listitem>
+      <listitem>
+       <para>
+        Scalable Vector Graphics compressé gzip (.svgz)
+       </para>
+      </listitem>
+      <listitem>
+       <para>
+        macros TeX Metapost (.mp)
+       </para>
+      </listitem>
+      <listitem>
+       <para>
+        macros TeX PSTricks (.tex)
+       </para>
+      </listitem>	
+      <listitem>
+       <para>
+        WordPerfect Graphics (.wpg)
+       </para>
+      </listitem>
+      <listitem>
+       <para>
+        format XFig (.fig)
+       </para>
+      </listitem> 
+      <listitem>
+       <para>
+        XSLT (eXtensible Stylesheet Language Transformation) (.code)
+       </para>
+      </listitem>
+     </itemizedlist>
+     <application>Dia</application>
+     ne peut charger de fichiers dans la plupart de ces formats. ces formats
+     sont utiles pour les diagrammes que vous avez besoin d'utiliser dans une
+     autre application (comme le World-wide Web), ou de distribuer à des
+     utilisateurs d'un autre système d'exploitation que
+     <application>Dia</application> ne supporte pas.
+     <!--Lets go through later and make this a variablelist, as well as describe
+     the strengths of each of these formats  -->
+<!--      Computer Graphics Metafile, HPGL, EPS, PNG, SVG,
+      TeX, and WPG formats are supported for crating files
+      only&mdash;<application>Dia</application> cannot load files in these
+      formats. These formats are useful for diagrams that you need to use
+      in another application (e.g., the World-wide Web) or distribute to
+      users of an operating system that <application>Dia</application>
+      does not support.
+-->
+     </para>
+     <para>
+      Pour créer un fichier dans un de ces formats, sélectionnez
+       <menuchoice>
+            <guimenu>Fichier</guimenu> <guimenuitem>Exporter...</guimenuitem>
+       </menuchoice>
+      dans le <interface>&stdpop;</interface>.  Choisissez un nom
+      et le format désiré dans le dialogue résultant, qui fonctionne comme le
+      dialogue <interface>Enregistrer</interface>.  Une extension de fichier
+      appropriée est ajoutée automatiquement.
+     </para>
+   </sect2>
+  </sect1>
+</chapter> 

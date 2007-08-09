@@ -1,0 +1,338 @@
+<chapter label="4" id="objects-chapter">
+<title>Objets</title>
+  <sect1 id="objects-introduction">
+  <title>Introduction aux objets</title>
+   <para>
+    Les objets sont ce qui fait un diagramme. Les objets sont des formes
+    prédéfinies ou définies par l'utilisateur.
+   </para>
+  </sect1>
+  <sect1 id="using-objects">
+  <title>Utiliser les objets</title>
+   <sect2 id="adding-objects">
+   <title>Ajouter des Objets</title>
+    <para>
+     Ajouter des objet au canevas <application>Dia</application> peut être
+     accompli en cliquant l'objet désiré dans la
+     <interface>&toolbox;</interface> pour sélectionner ce que vous voulez
+     placer dans le canevas.  Cliquer le canevas pour y placer l'objet.
+    </para>
+    <para>
+     <application>Dia</application> fourni deux types d'objets&nbsp;:
+      <itemizedlist>
+       <listitem>
+        <para>
+         Les objets définis par l'utilisateur permettent à l'utilisateur de
+         créer ses propres objets, basés sur un &og;template&fg;
+         préfabriqué.
+        </para>
+        <para>
+         Par exemple, cliquer l'objet &og;carré&fg; et le placer sur le
+         canevas, crée un carré. Les dimensions de l'objet peuvent être
+         changées. Voir la section Changer la taille des objets pour plus
+         d'informations.
+         <!-- Add link to resizing objects -->
+        </para>
+       </listitem>
+       <listitem>
+        <para>
+         Les objets prédéfinis ne sont le plus souvent pas éditables.
+         On peut changer leur taille, mais l'objet lui-même ne peut être édité.
+        </para>
+       </listitem>
+      </itemizedlist>
+    </para>
+   </sect2>
+   <sect2 id="moving-objects">
+   <title>Mouvoir les objets</title>
+    <para>
+     Lorsqu'un objet est inséré dans le canevas, l'objet désiré apparaît avec
+     de petites boîtes vertes (autrement appelées poignées), définissant les
+     bords.
+     <figure>
+       <title>Points d'ajustement</title>
+       <screenshot>
+         <screeninfo>Les points verts permettent de changer la taille de l'image.</screeninfo>
+         <graphic format="PNG" fileref="graphics/greendots.&pngfile;" srccredit="Kevin Breit" />
+       </screenshot>
+     </figure> 
+     La zone à l'intérieur des boites est la surface de l'objet. &og;Cliquez et
+     maintenez&fg; sur la surface de l'objet. Puis bougez la souris à
+     l'intérieur du canevas pour changer l'objet de place.
+    </para>
+   </sect2>
+   <sect2 id="resizing-objects">
+   <title>Changer la taille des objets</title>
+    <para>
+     Le paragraphe précédent explique le concept des boîtes vertes.  Elles sont
+     utilisées pour manipuler la taille des objets. Pour changer la taille,
+     &og;cliquer et maintenir&fg; sur un bouton vert. Étirer à la taille
+     désirée et relacher.
+    </para>
+    <para> 
+     Les boutons verts aux coins changent à la fois la largeur et la hauteur.
+     Ceux au centre des côtés haut et bas de l'objet éditent la hauteur, et ceux
+     au milieu des côtés droit et gauche la largeur.
+    </para>
+    <tip>
+     <para>
+      Pour garder les proportions avec les boutons de coin, maintenir appuyée
+      la touche Majuscules. Ceci ne s'applique qu'aux objets spéciaux et pas
+      aux formes communes.
+     </para>
+    </tip>
+   </sect2>
+   <sect2 id="deleting-objects">
+   <title>Supprimer des objets</title>
+    <para>
+     Pour supprimer un objet, cliquer dessus pour le sélectionner. Les boîtes
+     vertes apparaissent signalant qu'il est sélectionné. dans le &stdpop;,
+     choisir
+     <menuchoice><guimenu>Édition</guimenu><guimenuitem>Supprimer</guimenuitem></menuchoice>
+    </para>
+    <tip>
+    <para>
+        Utiliser la touche suppr du clavier après avoir sélectionné l'objet
+        peut être plus rapide.
+    </para>
+    </tip>
+   </sect2>
+   <sect2 id="aligning-objects">
+   <title>Aligner les objets</title>
+    <para>
+      <application>Dia</application>
+      fourni des fonctionnalités pour arranger de multiples objets sans avoir à les bouger individuellement.
+      Par exemple&nbsp;:
+      &stdpop; <menuchoice><guimenu>Objets</guimenu><guimenuitem>Aligner</guimenuitem><guimenuitem>Droite</guimenuitem></menuchoice>
+      <!-- TODO explain the different types of Alignment -->
+    </para>
+   </sect2>
+   <sect2 id="grouping-objects">
+   <title>Grouper les objets</title>
+    <para>
+       Grouper les objets vous permet de traiter plusieurs objets comme un
+       groupe, qui se comporte plus comme un objet unique. Un groupe vous
+       permet de fixer la position des objets en relation avec chacun des
+       autres. Sélectionnez deux ou plusieurs objets, puis &stdpop;,
+       <menuchoice><guimenu>Objets</guimenu><guimenuitem>Grouper</guimenuitem></menuchoice>
+       pour les grouper.
+    </para>
+   </sect2>
+  <sect2 id="line-properties">
+   <title>Propiétés de la ligne</title>
+    <para>
+     Un des objets de <application>Dia</application> est la ligne. 
+     L'objet ligne est symbolisé par l'icône suivant&nbsp;:
+    </para> 
+    <figure>
+      <title>L'icône ligne</title>
+     <screenshot>
+      <screeninfo>L'icône ligne</screeninfo>
+      <graphic format="PNG" fileref="graphics/line_icon.&pngfile;" srccredit=
+      "Steffen Macke" />
+      </screenshot>
+    </figure>
+   </sect2>
+   <sect2 id="line-styles">
+   <title>Styles de ligne</title>
+    <para>
+     Les lignes peuvent être aisément éditées pour créer, par exemple, des
+     flèches. Au bas de la &toolbox; se trouvent trois boutons traversés par
+     des lignes.  Cliquer et maintenir l'un d'eux ouvre un menu montrant à quoi
+     ressemblera le changement.
+    </para>
+    <para>
+        Les propriétés d'une ligne existante peuvent être changées en la
+        double-cliquant, ou par click droit/propriétés.
+    </para>
+    <figure>
+    <title>Propriétés de ligne</title>
+      <screenshot>
+        <screeninfo>Les trois sections sont décrites ci-dessous.</screeninfo>
+        <graphic format="PNG" fileref="graphics/line_props.&pngfile;" 
+	srccredit="Kevin Breit" />
+      </screenshot>
+    </figure>
+    <para>
+     Les différents styles de ligne sont:
+     <itemizedlist>
+      <listitem>
+       <para>
+        solide
+       </para>
+      </listitem>
+      <listitem>
+      <para>
+       pointillé
+      </para>
+      </listitem>
+      <listitem>
+       <para>
+        trait-point 
+       </para>
+      </listitem>
+      <listitem>
+       <para>
+        trait-point-point
+       </para>
+      </listitem>
+      <listitem>
+       <para>
+        ligne de points
+       </para>
+      </listitem>
+     </itemizedlist>
+    </para>
+   </sect2>
+   <sect2 id="line-thickness">
+   <title>Épaisseur de ligne</title>
+    <para>
+     La finesse de ligne peut être éditée en cliquant l'une des cinq 
+     épaisseurs situées à droite du sélecteur de couleur de la &toolbox;.
+    </para>
+   </sect2>
+   <sect2 id="arrows">
+   <title>Lignes</title>
+    <para>
+     L'outil ligne peut être utilisé pour créer des flèches. En cliquant sur
+     les boutons de côté au bas de la &toolbox;, un menu apparaît, montrant les
+     dessins de début et de fin de ligne pour les flèches.
+    </para>
+   </sect2>
+   <sect2 id="line-colors">
+   <title>Couleurs de ligne</title>
+    <para>
+     La couleur de ligne peut être éditée une fois qu'elle a été placée sur le
+     canevas. En la double-cliquant, une fenêtre apparaît. La seconde ligne est
+     étiquetée &og;Couleur des lignes&fg;, avec une barre montrant la couleur
+     sélectionnée. En cliquant cette barre, vous pouvez changer la couleur.
+    </para>
+   </sect2>
+  </sect1>
+  <sect1 id="object-properties">
+  <title>Propriétés d'un objet</title>
+   <para>
+    A chaque objet sont assignées des propriétés qui lui sont particulières.
+    Elle sont accessibles en double-cliquant l'objet déjà placé sur le canevas.
+    Une fenêtre apparaît, vous permettant d'éditer de nombreuses propriétés
+    incluant&nbsp;:
+    <itemizedlist>
+     <listitem>
+      <para>
+       Largeur de ligne
+      </para>
+     </listitem>
+     <listitem>
+      <para>
+       Couleur des lignes
+      </para>
+     </listitem>
+    </itemizedlist>
+    Parmis d'autres propriétés (qui varient en fonction du type d'objet, p.ex. les...propriétés d'une classe UML).
+   </para>
+  </sect1>
+
+  <sect1 id="colors">
+  <title>Couleurs</title> 
+   <para>
+    Tous les objets peuvent être colorés de différentes façons, en fonction des
+    réglages définis par l'utilisateur.
+   </para>
+   <para>
+    Le sélecteur de couleurs est située près du bas de la &toolbox;. Deux
+    rectangles réalisent le contrôle. Celui en bas à droite définit la couleur
+    de fond, et l'autre la couleur d'avant-plan (ndt: ~ couleur de ligne).
+    Cliquer sur le rectangle désiré pour éditer, et sélectionner la couleur
+    dans la boîte qui apparaît. Voir plus bas la boîte de sélection de
+    couleurs.
+   <note>
+    <para>
+     Ces sélecteurs de couleur permettent seulement de sélectionner les couleurs
+     des objets qui n'ont <emphasis>pas encore</emphasis> été placés sur le
+     canevas.
+    </para>
+   </note>
+   <tip>
+    <para>
+     Pour inverser les couleurs, cliquez sur la double-flèche en haut à droite des deux rectangles de couleurs sur la &toolbox;.
+    </para>
+   </tip>
+   <tip>
+    <para>
+     Pour remettre à zéro les couleurs, cliquer les deux petits carrés noir et blanc en bas à gauche des rectangles de couleur sur la &toolbox;
+    </para>
+   </tip>
+  </para>
+  <sect2>
+  <title>Boîte de sélection de couleurs</title>
+      <figure>
+      <title>Boîte de sélection de couleurs</title>
+            <screenshot>
+                <screeninfo>La boîte de sélection de couleurs est décrite
+                ci-dessous.</screeninfo>
+                <graphic format="PNG"
+                         fileref="graphics/color_selector.&pngfile;"
+                         srccredit="Thomas Harding" />
+            </screenshot>
+      </figure>
+      <para>
+        La boîte de sélection de couleurs est divisée en 6 zones&nbsp;:
+        <itemizedlist>
+           <listitem>
+              <para>
+                La roue de couleurs&nbsp;: cliquez et glissez le cercle
+                extérieur pour définir la teinte, puis cliquez et déplacez le
+                petit cercle à l'intérieur du triangle pour définir saturation
+                et valeur.
+              </para>
+           </listitem>
+           <listitem>
+              <para>
+                Sous la roue de couleur se trouvent deux rectangles. Celui de
+                gauche indique la couleur courante, alors que celui de droite
+                affiche la nouvelle couleur (celle qui sera définie si vous
+                <emphasis>Validez</emphasis>).
+              </para>
+              <para>
+                Immédiatement à droite de ces rectangle se trouve le bouton
+                pipette. En cliquant ce bouton, le pointeur de souris se
+                transforme en pipette. Vous pouvez, en cliquant sur un canevas
+                ou dans un document ouvert dans une autre application (comme
+                <application>The Gimp</application>), récupérer
+                n'importe-quelle couleur !
+              </para>
+           </listitem>
+           <listitem>
+              <para>
+                Encore à droite se trouve une palette de couleurs prédéfinies.
+                cliquer un des rectangles pour choisir la couleur.
+              </para>
+           </listitem>
+           <listitem>
+              <para>
+                En haut au milieu se trouvent les réglages TSV
+                (Teinte/Saturation/Valeur). On peut modifier le contenu en
+                frappant ou par les ascenseurs.
+              </para>
+           </listitem>
+           <listitem>
+              <para>
+                A droite, les réglages RGB (Rouge, Vert, Bleu). Même principe
+                que pour le TSV.
+              </para>
+           </listitem>
+           <listitem>
+              <para>
+                En dessous, La case nom de la couleur. Supporte les noms
+                standards de couleur (en anglais, c.f. 
+                <ulink type="http"
+                       url="http://www.w3.org/TR/html401/types.html#h-6.5">couleurs
+                HTML4.01 sur http://www.w3.org</ulink>), et les valeurs
+                hexadécimales (0-9A-F) sur trois ou six octets.
+              </para>
+           </listitem>
+        </itemizedlist>
+      </para>
+  </sect2>
+ </sect1>
+</chapter>

@@ -1,0 +1,113 @@
+<chapter label="3" id="canvas-chapter">
+<title>Canevas</title>
+ <sect1 id="canvas">
+  <title>Introduction au Canevas</title>
+   <para>
+    Le canevas est la partie principale de Dia. Le canevas Dia est la fenêtre
+    où tous les objets de l'utilisateur seront placés sur l'écran et arrangés.
+    Lorsque le diagramme est enregistré ou imprimé, le contenu du canevas
+    est sauvé.
+   </para>
+  </sect1>
+  <sect1 id="gridlines">
+  <title>Lignes de grille</title>
+   <para>
+    Les lignes de grille sont similaires au lignes sur une feuille de graphe.
+    Elles permettent à l'utilisateur d'aligner facilement les objets sur le
+    canevas. Les lignes de grille peuvent être cachées temporairement pour
+    le document courant en choisissant le détail du menu
+    <menuchoice>
+     <guimenu>
+      Affichage
+     </guimenu>
+     <guimenuitem>
+      Afficher la grille
+     </guimenuitem>
+    </menuchoice>.
+    Les lignes de grille peuvent être cachées pour tout nouveau document
+    en allant dans
+    <menuchoice>
+     <guimenu>
+      Fichier
+     </guimenu>
+     <guimenuitem>
+      Preferences
+     </guimenuitem>
+    </menuchoice>.
+    Dans l'onglet Caractéristiques de la grille, cliquez la case à cocher nommée Visible 
+    et laissez-la vide pour cacher les lignes de grille.
+   </para>
+  </sect1>
+  <sect1 id="Rulers">
+  <title>Règles</title>
+   <para>
+    Les règles apparaîssent en haut et à gauche du canevas
+    <application>Dia</application>.
+    Elles affichent, en centimètres, la taille du canevas.
+   </para>
+   <para>
+    Il y a une flèche sur chaque règle. Les flèches bougent sur la règle en
+    fonction de la position du pointeur de souris. Par exemple, si l'utilisateur
+    bouge la souris vers le haut, la flèche de la règle verticale bouge également
+    dans ce sens, indiquant le changement. Ces flèches deviennent très utiles
+    lorsqu'un objet à besoin d'être aligné exactement en un certain point de
+    mesure.
+	</para>
+   <para>
+    Les règles peuvent être cachées temporairement pour le document courant
+    en choisissant le menu
+    <menuchoice>
+     <guimenu>
+      Affichage
+     </guimenu>
+     <guimenuitem>
+      Afficher les règles
+     </guimenuitem>
+    </menuchoice>.
+    Les règles, au contraire des lignes de grille, ne peuvent être cachées par défaut
+    pour les nouveaux documents.
+   </para>
+  </sect1>
+  <sect1 id="background-color">
+  <title>Couleur d'arrière plan</title>
+   <para>
+    L'option Couleur d'arrière plan vous permet de changer l'apparence de
+    l'arrière-plan dans le canevas. Par défaut, sa couleur est blanche.
+    Toutefois, la couleur peut-être changée en allant dans
+    <menuchoice>
+      <guimenu>
+        Diagramme
+      </guimenu>
+      <guimenu>
+        Propriétés
+      </guimenu>
+      <guimenuitem>
+        onglet Couleurs
+      </guimenuitem>
+    </menuchoice>
+    et en cliquant la barre nommée arrière-plan. la barre affiche la couleur
+    courante. La couleur des lignes de grille changera automatiquement
+    pour rester visible si la couleur est changée pour &og;noir&fg;.
+   </para>
+  </sect1>
+  <sect1 id="zooming">
+  <title>Zoom (grossir)</title>
+   <para>
+    Zoom permet à l'utilisateur d'avoir une vue rapprochée du diagramme. Cela
+    aide l'utilisateur à faire des dessins de grande précision.
+   </para>
+   <para>
+    Le canevas peut être &og;zoomé&fg; jusqu'à 1600 %. Le zoom peut être effectué
+    en cliquant la loupe dans la &toolbox; et en cliquant sur le canevas.
+    Pour réduire, maintenir la touche &og;majuscules&fg; et cliquer de nouveau sur
+    le canevas.
+   </para>
+  </sect1>
+</chapter>
+
+
+<!--
+Local Variables:
+sgml-parent-document: "dia.xml"
+End:
+-->

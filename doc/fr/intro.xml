@@ -1,0 +1,25 @@
+<chapter label="1" id="intro-chapter">
+<title>Introduction</title>
+ <sect1 id="intro">
+  <title>Introduction</title>
+  <para>
+   <application>Dia</application> est une application permettant de créer des
+   diagrammes techniques. Son interface et ses caractéristiques s'inspirent
+   du programme Windows Visio. Dia
+   permet l'impression multi-pages, l'exportation vers de nombreux formats
+   (EPS, SVG, CGM, WMF, VXD et PNG), et la possibilité d'utiliser des formes
+   personnalisées que l'utilisateur crée avec une simple description XML.
+   <application>Dia</application>  sert notamment à dessiner des diagrammes UML,
+   des topologies de réseaux, et des diagrammes de flux de données.
+  </para>
+<!--
+   I don't think it is in any official package
+   <application>Dia</application> is included in the
+   <filename>GNOME-PACKAGE</filename> package, which is part of the
+   GNOME desktop environment.
+-->
+  <para>
+   Ce manuel documente la version &VERSION; de <application>Dia</application>.
+  </para>
+ </sect1>
+</chapter>                                                                       

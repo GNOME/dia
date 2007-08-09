@@ -1,0 +1,278 @@
+<chapter label="6" id="special-objects-chapter">
+<title>Objets spéciaux</title>
+ <sect1 id="special-objects">
+ <title>Introduction aux objets spéciaux</title>
+   <para>
+     La discussion précédente définissait l'objet de base. La section suivante
+     franchit une étape et vous apprend comment créer des objets, comment
+     utiliser des objets préfabriqués, qui sont plus détaillés que les formes,
+     et beaucoup plus !
+   </para>
+ </sect1>
+   <sect1 id="special-object-categories">
+   <title>Catégories d'objets spéciaux</title>
+     <para>
+       Les objets spéciaux sont séparés en différentes catégories, ou feuilles.
+       De cette façon, à quelqu'un créant un diagramme de circuit imprimé n'est
+       montré que les objets s'y appliquant. <application>Dia</application>
+       supporte de nombreuses catégories prédéfinies.
+
+<!-- Please try to keep the list Alphabetically sorted.  -->
+       
+       <variablelist>
+         <varlistentry>
+           <term>Formes assorties</term>
+           <listitem>
+             <para>
+             Formes géométriques assorties. L'objet de cette feuille est
+             de fournir une sélection simple et appropriée de formes basiques
+             prédéfinies qu'un utilisateur a besoin de créer, sans qu'il ait à
+             perdre de temps à créer les siennes. Ce jeu de formes inclut des
+             cercles, carrés, des triangles variés et des croix.
+             </para>
+           </listitem>
+         </varlistentry>
+         <varlistentry>
+           <term>Génie chimique</term>
+           <listitem>
+             <para>
+             Une collection d'objets pour modeler le processus de génie
+             chimique.
+             </para>
+           </listitem>
+         </varlistentry>
+	 <varlistentry>
+           <term>Chronogramme</term>
+           <listitem>
+             <para>
+               Objets utilisés dans le design chronographique. Lignes de temps
+               banales.
+	       <!-- TODO: meilleure traduction de: These are common place in time lines. -->
+             </para>
+           </listitem>
+         </varlistentry>
+         <varlistentry>
+           <term>Circuit</term>
+           <listitem>
+             <para>
+               Un groupe pour ceux interressés par la création de diagrammes de
+               circuits électriques.
+             </para>
+           </listitem>
+         </varlistentry>
+         <varlistentry>
+           <term>Génie civil</term>
+           <listitem>
+             <para>
+               Composants de génie civil.  
+             </para>
+           </listitem>
+         </varlistentry>
+	 <varlistentry>
+           <term>Cybernétique</term>
+           <listitem>
+             <para>
+               Formes pour créer des diagrammes de circuits cybernétiques.  
+             </para>
+           </listitem>
+         </varlistentry>
+        <varlistentry>
+           <term>Cisco</term>
+           <listitem>
+             <para>
+               Formes représentant des équipements de marque Cisco (fabriquant
+               d'équipements de réseaux informatiques).
+	     </para>
+           </listitem>
+         </varlistentry>
+	 <!-- TODO fully describe all four of the Cisco Sheets -->
+         <varlistentry>
+           <term>Ladder</term>
+           <listitem>
+             <para>
+               Programmation graphique 'Ladder' (contrôles électriques dans la
+               fabrication d'automates)
+             </para>
+           </listitem>
+         </varlistentry>
+         <varlistentry>
+           <term>ER</term>
+           <listitem>
+             <para>
+               Editeur pour les diagrammes Entité Relations (ER).  Les
+               diagrammes ER sont utilisés pour représenter des descriptions de
+               haut niveau de modèles conceptuels. Ils décrivent de quelle
+               façon chaque entité de donnée est en relation avec d'autres
+               données dans le modèle. Ces diagrammes sont le plus souvent
+               utilisés pour modeler la structure des données stockées dans une
+               base de données.
+             </para>
+           </listitem>
+         </varlistentry>
+         <varlistentry>
+           <term>Structure de fonction, FS. </term>
+           <listitem>
+             <para>
+               Éditeur de diagrammes de structures de fonction (FS).  Notez que
+               les objets requièrent l'usage du <interface>menu
+               contextuel</interface>  (bouton du mileu de la souris, ou droit
+               avec la barre de menus activée) pour accéder à la plupart des
+               fonctionnalités de ces objets.
+	       <!-- TODO this needs to be explained much more clearly
+	       that it is the middle click context menu, unless the 
+	       main menubar is turned on for each document window 
+	       but this will be enough of a warning for now.  -->
+             </para>
+           </listitem>
+         </varlistentry>
+         <varlistentry>
+           <term>Graphes de flux</term>
+           <listitem>
+             <para>
+               Un groupe dédié à la fourniture de formes utilisées couremment
+               dans les graphes de flux. Les graphes de flux sont la routine
+               dans la programmation informatique, le marketting, l'économie,
+               et toute opération semi-linéaire requiérant une planification.
+             </para>
+           </listitem>
+         </varlistentry>
+         <varlistentry>
+           <term>GRAFCET</term>
+           <listitem>
+             <para>
+               Les diagrammes Grafcet (ou IEC 61131-3 SFC).
+               Utilisés dans la programmation graphique et la documentation de
+               processus séquentiels dans la production automatisée.
+	     </para>
+	     <para>
+               Une carte montre l'étape, l'action, la transition, et la
+               condition associée à la transition.
+             </para>
+           </listitem>
+         </varlistentry>
+         <varlistentry>
+           <term>Ingénierie des exigences, représentation Istar</term>
+           <listitem>
+             <para>
+               Istar est un framework orienté agent. Istar s'écrit également
+               i*.
+	     </para>
+           </listitem>
+         </varlistentry>
+         <varlistentry>
+           <term>Ingénierie des exigences - représentation de Jackson</term>
+           <listitem>
+             <para>
+	       Diagrammes de méthode Jackson Software Design (JSD).  
+	     </para>
+           </listitem>
+         </varlistentry>
+         <varlistentry>
+           <term>Ingénierie des exigences - représentation KAOS</term>
+           <listitem>
+             <para>
+	       Diagrammes KAOS.  
+	       <!-- provide a help description that is actually helpful! -->
+	     </para>
+           </listitem>
+         </varlistentry>
+
+	 <varlistentry>
+	 <term>Map, Isometric</term>
+           <listitem>
+             <para>
+               Formes isométriques pseudo 3D pour créer des cartes directionnelles.
+	       Microsoft Visio appelle ces formes &og;Map, Directional Map 3D&fg;. 
+	     </para>
+           </listitem>
+         </varlistentry>
+	 <varlistentry>
+	 <term>Divers</term>
+           <listitem>
+             <para>
+               Formes diverses qui n'entrent dans aucun autre groupe. Inclues
+               des formes de système de fichiers et une horloge animée
+               indiquant l'heure réelle.
+	     </para>
+           </listitem>
+         </varlistentry>
+	 <varlistentry>
+	 <term>MSE</term>
+           <listitem>
+             <para>
+	        Mobile Subscriber Equipment Components, 
+		Utilisée par l'US Army.  
+	     </para>
+           </listitem>
+         </varlistentry>
+	 <varlistentry>
+           <term>Réseau</term>
+           <listitem>
+             <para>
+               Utilisée par les administrateurs réseau pouur créer leur schéma
+               de réseau.
+             </para>
+           </listitem>
+         </varlistentry>
+         <varlistentry>
+           <term>Électricité</term>
+           <listitem>
+             <para>
+             Schéma dans le style DIN de contrôles électriques (dans la
+             fabrication d'automatismes)
+             </para>
+           </listitem>
+         </varlistentry>
+         <varlistentry>
+           <term>Pneumatique/Hydraulique</term>
+           <listitem>
+             <para>
+               Permet la création de schémas d'automatisme pneumatique.
+             </para>
+           </listitem>
+         </varlistentry>
+         <varlistentry>
+           <term>SADT/IDEF0</term>
+           <listitem>
+             <para>
+               Structured Analysis Design Technique.  
+             </para>
+           </listitem>
+         </varlistentry>
+	 <varlistentry>
+           <term>SDL</term>
+           <listitem>
+             <para>
+               Specification and Description Language (SDL).  SDL est utilisé
+               pour décrire le comportement de systèmes interactifs basés sur
+               le temps.  SDL était originellement axé sur les systèmes de
+               télécommunication, mais commence d'être utilisé pour décrire les
+               processus de contrôle des applications en temps réel en général.
+	     </para>
+           </listitem>
+         </varlistentry>
+       </variablelist>
+       <variablelist>
+         <varlistentry>
+           <term>Sybase</term>
+           <listitem>
+             <para>
+               Dessin de diagrames affichant le flux d'un réseau informatique Sybase.
+             </para>
+           </listitem>
+         </varlistentry>
+         <varlistentry>
+           <term>UML</term>
+           <listitem>
+             <para>
+               Unified Modelling Language (UML).  UML est un langage de modèle
+               et de spécification utilisé couremment pour créer des diagrammes
+               montrant la structure d'un code informatique orienté objet, en
+               particulier pour les projets à grande échelle.
+             </para>
+           </listitem>
+         </varlistentry>
+       </variablelist>
+     </para> 
+ </sect1>
+</chapter>                   

@@ -1,0 +1,203 @@
+<chapter label="9" id="usage-customization">
+<title>Personnalisation</title>
+ <sect1 id="prefs">
+ <title>Personnalisation</title>
+ <para>
+  <application>Dia</application> 
+  peut être changé en quelques façons, permettant à l'utilisateur
+  de faire que <application>Dia</application> corresponde plus à ses besoin.
+ </para>
+ <para>
+  Pour changer les réglages de comportement, sélectionner
+  <menuchoice>
+   <guimenu>Fichier</guimenu> <guimenuitem>Préférences</guimenuitem>
+   </menuchoice> dans la <interface>barre de menus de la &toolbox;</interface>.  
+   Cela ouvre la boîte de dialogue    <interface>Préférences</interface>.
+ <figure>
+ <title>La boîte de dialogue préférences</title>
+ <screenshot>
+  <screeninfo>La boîte de dialogue <interface>Préférences.</interface></screeninfo>
+   <graphic format="PNG" fileref="graphics/preferences-fig.&pngfile;"
+        srccredit="Thomas Harding" />
+ </screenshot>
+ </figure>
+ </para>
+ <para>
+  Les propriétés configurables dans l'onglet <guilabel>Interface utilisateur</guilabel>
+  sont :
+  <itemizedlist>
+   <listitem>
+    <para>
+     Quitter un outil après une création.
+     Si ce bouton est coché, alors les boutons dans la &toolbox;
+     seront réinitialisés à l'outil &og;Modifie les objets&fg;
+     après avoir été utilisés une fois.
+     Si le bouton est décoché, alors l'outil courant sera actif jusqu'à ce qu'un
+     autre outil soit choisi, ce qui est pratique lorsque vous voulez dessiner
+     beaucoup de formes à la suite en utilisant le même outil.
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+      Compresser les fichiers enregistrés, fournit l'option de compression
+      des fichiers XML Dia dans des fichiers de taille réduite en utilisant gzip,
+      ou permet de laisser les fichiers Dia XML en texte plein, qui peuvent être
+      plus facilement édités avec d'autres logiciels.
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+      Un rectangle de sélection inversé sélectionne tous les objets
+      ayant une intersection avec lui, ce qui veut dire que vous pouvez créer des sélections
+      ne couvrant qu'une partie de l'objet que vous voulez sélectionner,
+      alors que normalement vous avez besoin de créer une sélection autour
+      de l'objet que vous voulez sélectionnner dans sa totalité.
+    </para>  
+    <para>
+      L'entraînement inversé signifie créer une sélection en entraînant en direction
+      &og;en haut, à gauche&fg;, à l'opposé de la sélection en bas, à droite.
+    </para>  
+    <para>
+      Ceci peut être utile lorsque vous voulez faire des sélections très précises
+      alors qu'il y a beaucoup d'objets sur le canevas.
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+      le Nombre de niveaux d'annulation définit combien d'étapes
+      l'outil Édition/défaire se rappelle.
+      L'utilisateur peut revenir en arrière d'autant d'étapes que ce nombre
+      est élevé, consommant alors d'autant plus de mémoire.
+      Régler le nombre de niveaux d'annulation à zéro ne le désactive pas,
+      il donne un nombre infini d'annulations (ce qui veut dire qu'il utilise
+      autant de mémoire de l'ordinateur que possible).
+    </para>
+   </listitem>
+   <!-- The description of Recent Documents is deliberately vague so that it 
+   will still make some sense if a submenu for Recent items is added. -->
+   <listitem>
+    <para>
+      La taille de la liste des documents récents vous permet de régler
+      le nombre de choix qui seront afichés dans la section 
+      Documents Récents du menu <guimenu>Fichiers</guimenu>.
+      <note>
+      <para>
+        ndt : cette section n&apos;existe pas encore dans la version 0.96... 
+      </para>
+      </note>
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+      Utiliser la barre de menus vous permet d'avoir une barre de menus
+      en haut de chaque canevas au lieu d'avoir besoin du clic droit
+      pour accéder aux menus.
+      Avec cette barre de menus activée vous pouvez accéder au menu contexte
+      de l'objet par un clic droit (au lieu du clic du milieu, ce qui est
+      essentiel pour ceux qui n'ont pas une souris à trois boutons).
+    </para>
+   </listitem> 
+   <listitem>
+    <para>
+      Maintenir la &toolbox; par-dessus les diagrammes s'assure
+      que la &toolbox; est toujours en avant de toutes les fenêtres
+      de canevas ce qui rend plus facile de garder sa trace, et de toujours
+      avoir un accès rapide à l'outil.
+    </para>
+   </listitem> 
+   </itemizedlist>
+   </para>
+ <para>
+  Les propriétés configurables dans l'onglet <guilabel>Menu des diagrammes</guilabel>
+  sont :
+  <itemizedlist>
+   <listitem>
+    <para>
+     portrait&nbsp;: permet de définir qu'un nouveau diagramme soit orienté en portrait ou en paysage
+     selon qu'il est coché ou non.
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+    Type de papier&nbsp;: définit la taille de papier normalisé d'une page d'un nouveau diagramme.
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+      Couleur d'arrièrere-plan&nbsp;: définit la couleur d'arrière-plan d'un nouveau diagramme.
+    </para>
+    </listitem>
+   <listitem>
+    <para>
+     Largeur&nbsp;: contrôle la largeur, en pixels, d'une nouvelle fenêtre.
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+     Hauteur&nbsp;: contrôle la hauteur, en pixels, d'une nouvelle fenêtre.
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+      Grossissement&nbsp;: règle le facteur de multiplication du zoom
+      d'une nouvelle fenêtre.
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+     Visible&nbsp;: définit la visibilité des points de connexion.
+    </para>
+   </listitem> 
+   </itemizedlist>
+  </para>
+  <para>
+   Les propriétés configurables dans l'onglet <guilabel>Caractéristiques de la grille</guilabel>
+   Sont :
+   <itemizedlist>
+   <listitem>
+    <para>
+     Visible (ou non)
+    </para>
+   </listitem> 
+   <listitem>
+    <para>
+      Magnétisme&nbsp;: fait que les objets sont attirés aux intersections de la grille.
+      Ceci permettant un alignement plus aisé des objets, les objets séparés revenant
+      brusquement à la même ligne.
+    </para>
+   </listitem>
+   <listitem>
+     <para>
+       Largeur du pas&nbsp;: l'utilisateur définit un multiplicateur qui règle
+       l'espacement horizontal des lignes de la grille.
+     </para>
+   </listitem>
+   <listitem>
+     <para>
+       Hauteur du pas&nbsp;: l'utilisateur définit un multiplicateur qui règle
+       l'espacement vertical des lignes de la grille.
+     </para>
+   </listitem>
+   <listitem>
+     <para>
+       Couleur&nbsp;: règle la couleur d'affichage des lignes de la grille.
+     </para>
+   </listitem>
+   <listitem>
+     <para>
+       Lignes par subdivision majeure&nbsp;: indique ce que sera l'emplacement 
+       des bords de page lorsque vous imprimez le diagramme.
+     </para>
+   </listitem>
+  </itemizedlist>
+  </para>
+  <para>
+   Après que vous ayez fait tous les changements voulus, cliquez le
+   bouton <guibutton>Valider</guibutton> pour appliquer les changements
+   et fermer le dialogue <interface>Préférences</interface>.
+   Pour annuler les changements, cliquez le bouton <guibutton>Fermer</guibutton>.
+   Vous pouvez prévisualiser les effets de vos changements en utilisant le
+   bouton <guibutton>Appliquer</guibutton>.
+  </para>
+ </sect1>
+</chapter>

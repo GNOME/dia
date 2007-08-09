@@ -1,0 +1,14 @@
+
+to build pdf, postscript and html, run:
+
+Make -f hardcopies.makefile dia.pdf dia.ps dia.html
+
+from this directory
+
+
+REQUIREMENTS:
+    - "convert" from ImageMagick (only for postscript output)
+    - openjade
+    - "jw" (from docbook-utils package in Debian)
+        depends on jadetex
+    - sed

@@ -1,0 +1,262 @@
+<chapter label="10" id="layers-chapter">
+<title>Gérer les calques</title> 
+  <!-- (introductory info...)  --> 
+
+  <sect1 id="layers-introduction">
+  <title>Introduction aux calques</title>
+    <para>
+      Dans <application>Dia</application>, les diagrammes consistent en l'objet
+      canevas, en objets calques, et en objets éléments de diagramme. L'objet
+      calque peut être comparé à une feuille se situant au-dessus du canevas.
+      Chaque feuille peut posséder des éléments de diagramme y-ajoutés pour
+      fabriquer un diagramme. Chaque diagramme consiste en au moins un calque
+      et chaque diagramme peut consister en autant de calques que requiert
+      l'auteur du diagramme.
+    </para>
+    <para>
+      Comme usage générique, les calques visent à être un raccourci pour
+      grouper des objets en relation à l'intérieur d'un diagramme. Ils
+      permettent d'isoler les différentes parties d'un diagramme, dans une voie
+      qui vous permet de décider de montrer seulement certaines de ses parties,
+      et pas d'autres qui resteront cachées même lors de l'exportation ou de
+      l'impression du diagramme.
+    </para>
+    <tip>
+      <para>
+        Utilisez l'option <command>--show-layers</command> de la ligne de
+        commande pour contrôler quels calques seront visibles lors d'une
+        exportation par lot.
+      </para>
+    </tip>
+    <para>
+      Dans un calque, toute opération que vous voudriez faire sur des objets
+      sont possible à travers le &stdpop;, vous pouvez influer sur
+      les objets exactement de la même manière que d'habitude.
+    </para>
+    <tip>
+      <para>
+        Seul les objets présents dans le calque courant peuvent être
+        sélectionnnés.  Si un objet ne veut décidément pas être sélectionné,
+        vous devriez vérifier si il est affecté au calque courant ou non.
+      </para>
+    </tip>
+    <para>
+      Chaque nouveau diagramme vient avec un calque par défaut étiqueté
+      &og;Arrière-plan&fg;.  Vous pouvez bien-sûr changer son nom et ses
+      réglages à vos besoins comme vous pouvez le faire pour n'importe quel
+      autre calque.
+    </para>
+    <para>
+      Vous pouvez utiliser les calques pour créer un diaporama par
+      recouvrement, en dessinant chaque diapo augmentée dans un calque et
+      manipulant la visibilité des calques. Si vous voulez automatiser un
+      post-processus comme un diaporama, vous pouvez utiliser l'option
+      <command>--show-layers</command> de la ligne de commande.  Par exemple :
+      <command>dia --show-layers="Arrière-plan",Dia3 --filter=eps-builtin --export=foo.eps foo.dia</command>
+      Exportera les calques &og;Arrière-plan&fg; et &og;Dia3&fg;,
+      càd. que la sortie EPS aura seulement ces deux calques et pas d'autres.
+      Vous voudrez alors répéter l'exportation pour chaque combinaison de
+      calques dont vous avez besoin pour produire vos diapos. En utilisant
+      cette option et un script shell ou un Makefile, vous pouvez correctement
+      automatiser le processus d'exportation.
+    </para>
+  </sect1>
+  
+  <sect1 id="layers-basics">
+  <title>Bases de la gestion des calques</title>
+  <!-- we should probably drop the related icons in front of each 
+        subsection, that way we won't have to describe them and 
+        the user to find them into the dialog box faster, what 
+        do you think ?
+
+        I think its a great idea and could go in for the next chapter revision - TBogie  -->
+    <para>
+      Le dialogue Calques est utilisé pour gérer l'ordre et le visibilité de
+      chaque calque dans le diagrammme.
+    </para>
+
+    <sect2 id="create-layers">
+    <title>Créer un nouveau calque</title>
+     <para>
+       Créer un nouveau calque est possible en cliquant le bouton
+       <guibutton>Ajouter</guibutton> en bas à gauche de la boîte de dialogue
+       Calques .  Puisque la boîte de dialogue Calques n'est pas spécifique au
+       diagramme mais à l'application, vous avez à choisir dans quel diagramme
+       va le calque.  Pour ce faire, en haut du dialogue
+       <interface>Calques</interface>, sélectionner le diagramme devant
+       recevoir le nouveau calque et ajoutez-y celui-ci.
+     </para>
+     <para>
+       Le calque nouvellement créé sera placé en haut de la pile et deviendra
+       le calque courant du diagramme sélectionné.
+     </para>
+     <para>
+       Il est alors possible d'éditer quelque objet de votre choix, de copier
+       et coller à-partir de n'importe-quel calque ou diagramme, comme vous
+       pourriez le faire dans un diagramme à un seul calque.
+     </para>   
+    </sect2>
+
+    <sect2 id="selecting-layers">
+    <title>Sélectionner les calques</title>
+     <para>
+       Un calque est dit &og;activé&fg; lorsqu'il est sélectionné dans le
+       dialogue <interface>Calques</interface>.  Pour sélectionner un calque,
+       il suffit de cliquer son nom dans le dialogue.  Le calque sélectionné
+       sera alors surligné dans le dialogue.  Les changements faits au
+       diagramme ne seront effectués que dans le calque sélectionné.
+     </para>
+     <note>
+      <para>
+       Seul un calque peut-être sélectionné à la fois. De cette façon vous
+       pouvez faire quoi que vous désirez dans ce calque sans affecter les
+       autres calques de votre diagramme.
+      </para>
+     </note>
+    </sect2>
+
+    <sect2 id="ordering-layers">
+    <title>Ordonner les calques</title>
+      <para>
+        À côté du bouton <guibutton>Ajouter</guibutton> au bas de l'interface
+        <interface>Calques</interface>, se trouvent deux boutons utiles qui
+        vous permettent de régler l'ordre de la pile de calques que vous avez
+        créés.
+      </para>
+      <para>
+        Ces deux boutons sont utilisés pour monter ou descendre les calques
+        dans la hiérarchie.  Le bouton avec la flèche haut est utilisé pour
+        monter le <emphasis>calque actif</emphasis>, alors que celui avec la
+        flèche bas permet de descendre la position du calque dans la
+        hiérarchie.
+      </para>
+      <para>
+        Ordonner les calque peut-être très utile lorsque vous voulez cacher
+        certaines parties d'un objet avec un autre.
+      </para>
+    </sect2>
+    
+    <sect2 id="deleting-layers">
+    <title>Supprimer des calques</title>
+      <para>
+        Lorsqu'un calque n'est plus requis, vous pouvez le supprimer. Lorsque
+        vous supprimez un calque, celui-ci et tous les objets qu'il contient
+        sont retirés du canevas.  Les calques sont supprimés du canevas en
+        cliquant le bouton <guibutton>Supprimer</guibutton>. Cela bien-sûr
+        n'affecte que le calque actuellement sélectionné.
+      </para>
+      <para>
+        Le faire de façon régulière est la meilleure façon de garder votre
+        diagrame propre et léger lorsque vous voulez exporter celui-ci dans un
+        autre format que le format natif <application>Dia</application>.
+      </para>
+    </sect2>
+
+    <sect2 id="renaming-layers">
+    <title>Renommer les calques</title>
+      <para>
+        Les calques peuvent être renommés pour exprimer quelle partie du
+        diagramme ils représentent, leur permettant d'être rapidement retrouvés
+        parmis les autres.  Plus important, les calques peuvent être montrés ou
+        cachés, dépendant de quelle partie du diagramme vous désirez afficher.
+      </para>
+      <para>
+        Double-cliquer le nom du calque ouvre le dialogue <interface>Éditer les
+        attributs du calque</interface>, qui affiche le nom courant du calque
+        dans une boîte de texte.  Entrer un nouveau nom dans la boîte de texte.
+        Pour confirmer les changements, appuyer sur le bouton
+        <guibutton>Valider</guibutton>. Sélectionner le bouton
+        <guibutton>Annuler</guibutton> Fermera la boîte de dialogue Calques
+        sans faire aucun changement.
+      </para>
+      <tip>
+        <para>
+          Donner des nom aux calques qui en décrivent l'usage est utile pour
+          rappeler ce pour quoi ils sont faits. N'hésitez pas à créer de
+          nombreux calques différents, <application>Dia</application> ne vous
+          impose pas de contraites quant au nombre de calques que vous avez
+          créés, aussi sentez-vous libre d'ajuster la hiérarchie du diagramme à
+          vos besoins.
+        </para>
+      </tip>
+    </sect2>
+
+  </sect1>
+  <sect1 id="viewing-layers">
+  <title>Voir les calques</title>
+    <para>
+      Maintenant que vous avez vu ce que sont les bases de la manipulation des
+      calques, vous comprendrez pourquoi les <emphasis>calques</emphasis> sont
+      un puissant outil lorsque vous créez et maintenez des diagrames avec
+      <application>Dia</application>.
+    </para>
+    <para>
+      Comprendre ce à quoi servent les calques peut améliorer de façon
+      spectaculaire la qualité et l'effet visuel que vos diagrammes produiront.
+    </para>  
+    <para>
+      Par exemple, imaginez que vous construisez un diagramme comprenant
+      beaucoup d'objets, comme un diagrame UML ou électrique. Si vous placez
+      tous vos objets dans le même calque, -- Arrière-plan --, après peu de
+      temps vous obtiendrez un énorme brouillon ingérable, duquel vous ne
+      voudrez rien faire. Y changer quoi que ce soit sera pénible, vous perdrez
+      du temps à vous rappeler quel objet est connecté à tel objet qui semble
+      prendre tout l'espace au milieu de la mélasse d'objets que vous avez déjà
+      posés ici.
+    </para>
+    <para>
+      Puisque <application>Dia</application> est un <emphasis>Constructeur de
+      diagrammes structurés</emphasis>, tous les diagrammes que vous
+      construisez avec sont naturellement structurés et divisés en plein de
+      petits morceaux. Utiliser une approche avec calques permet de mieux gérer
+      de grands nombres de pièces, de façon plus aisée et efficace que vous
+      pourriez le faire avec un simple et monolithique bloc d'objets.
+    </para>
+    <note>
+      <para>
+        Par définition, un diagramme doit être structuré. Aussi le diviser en
+        plusieurs parties logique devrait être un processus facile. C'est là
+        que les <emphasis>calques</emphasis> deviennent un outil important et
+        pratique pour la gestion du contenu des diagrammes. Ils vous permettent
+        d'isoler chacune des parties en diapositives séparées, aussi il devient
+        un réel plaisir de les manipuler de la façon que vous préférez.
+      </para>
+    </note>
+    <para>
+      L'<guibutton>icone &og;&oelig;il&fg;</guibutton> à la gauche du nom
+      du calque est ce qui fait que les calque sont si utiles. Elle vous permet
+      de montrer ou cacher le calque correspondant. Ce qui veut dire que si
+      pour quelque raison vous décider de cacher un calque particulier, il vous
+      suffit de cliquer l'<guibutton>icone &og;&oelig;il&fg;</guibutton>
+      : le calque et tout ce qu'il contient disparaîtront du canevas. Si vous
+      maintenez la touche majuscules et cliquez l'<guibutton>icone
+      &og;&oelig;il&fg;</guibutton>, vous cachez tous les autres calques
+      excepté le calque courant, et si vous cliquez de nouveau tout en
+      maintenant la touche majuscules tous les autres calques seront de nouveau
+      apparents.
+    </para>
+    <para>
+      Ne visualiser que certains calques est réellement pratique lorsque vous
+      voulez manipuler une petite partie du diagramme sans affecter le reste.
+      Des utilisateurs créent des calques séparés pour contenir tous leurs
+      objets texte et utilisent des calques différents pour contenir les
+      traductions dans d'autres langages. Vous pouvez aussi travailler de cette
+      façon si vous voulez imprimer votre diagramme sur différentes pages ou
+      tester différents réglages qui peuvent affecter le rendu de cette partie.
+      De nouveau, sentez-vous libre d'expérimenter avec les calques, qui s'ils
+      sont utilisés correctement peuvent rendre meilleure l'apparence de votre
+      diagramme.
+    </para>
+    <note>
+      <para>
+        Dans <application>Dia</application>, le création et manipulation des
+        <emphasis>calques</emphasis> est aussi courante que dessiner ou
+        sélectionner des objets dans le diagramme. Vous devez garder la main
+        sur eux, car probablement vous aurez à les utiliser chaque fois que
+        vous voudrez créer un nouveau diagramme. 
+      </para>
+    </note>
+  </sect1>
+
+<!-- end of id="layers"  -->
+</chapter>

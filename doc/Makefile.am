@@ -1,5 +1,5 @@
 
-SUBDIRS = en eu pl
+SUBDIRS = en eu pl fr
 
 EXTRA_DIST = \
 	custom-shapes \

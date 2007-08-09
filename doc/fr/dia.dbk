@@ -1,0 +1,368 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
+"http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
+
+<refentry>
+  <refentryinfo>
+    <copyright>
+      <year>1999</year>
+      <year>2004</year>
+      <holder>Fredrik Hallenberg, W. Borgert, Alan Horkan</holder>
+    </copyright>
+    <date>2004-11-26</date>
+    <authorgroup>
+      <author>
+	<firstname>Fredrik</firstname>
+	<surname>Hallenberg</surname>
+	<email>hallon@lysator.liu.se</email>
+      </author>
+      <author>
+	<firstname>W.</firstname>
+	<surname>Borgert</surname>
+	<email>debacle@debian.org</email>
+      </author>
+      <author>
+	<firstname>Alan</firstname>
+	<surname>Horkan</surname>
+	<email>horkana@tcd.ie</email>
+      </author>
+    </authorgroup>
+    <revhistory>
+      <revision>
+	<revnumber>4</revnumber>
+	<date>2004-11-26</date>
+	<authorinitials>AH</authorinitials>
+	<revremark>Ajout de Voir aussi, correction de la syntaxe</revremark>
+      </revision>
+      <revision>
+	<revnumber>3</revnumber>
+	<date>2003-11-26</date>
+	<authorinitials>WB</authorinitials>
+	<revremark>ajout de l&apos;option --size</revremark>
+      </revision>
+      <revision>
+	<revnumber>2</revnumber>
+	<date>2003-10-16</date>
+	<authorinitials>WB</authorinitials>
+	<revremark>ajout de differentes variantes EPS et de la section
+	fichiers</revremark>
+      </revision>
+      <revision>
+	<revnumber>1</revnumber>
+	<date>2003-10-12</date>
+	<authorinitials>WB</authorinitials>
+	<revremark>1ère version DocBook/XML</revremark>
+      </revision>
+    </revhistory>
+  </refentryinfo>
+
+  <refmeta>
+    <refentrytitle>dia</refentrytitle>
+
+    <manvolnum>1</manvolnum>
+  </refmeta>
+
+  <refnamediv>
+    <refname>dia</refname>
+
+    <refpurpose>un programme de dessin de diagrammes</refpurpose>
+  </refnamediv>
+
+  <refsynopsisdiv>
+    <cmdsynopsis>
+      <command>dia</command>
+
+      <arg><option>-c</option></arg>
+
+      <arg><option>--credits</option></arg>
+
+      <arg><option>-e <replaceable>SORTIE</replaceable></option></arg>
+
+      <arg><option>--export=<replaceable>SORTIE</replaceable></option></arg>
+
+      <arg><option>-L <replaceable>CALQUE,CALQUE,...</replaceable></option></arg>
+
+      <arg><option>--show-layers=<replaceable>CALQUE,CALQUE,...</replaceable></option></arg>
+
+      <arg><option>-h</option></arg>
+
+      <arg><option>--help</option></arg>
+
+      <arg><option>-n</option></arg>
+
+      <arg><option>--nosplash</option></arg>
+
+      <arg><option>-s <replaceable>WxH</replaceable></option></arg>
+
+      <arg><option>--size=<replaceable>WxH</replaceable></option></arg>
+
+      <arg><option>-t <replaceable>FORMAT</replaceable></option></arg>
+
+      <arg><option>--filter=<replaceable>FORMAT</replaceable></option></arg>
+
+      <arg><option>-v</option></arg>
+
+      <arg><option>--version</option></arg>
+
+      <arg>file ...</arg>
+    </cmdsynopsis>
+  </refsynopsisdiv>
+
+  <refsect1>
+    <title>DESCRIPTION</title>
+
+        <para><command>Dia</command> est utilisé pour créer des diagrammes.
+        Dia possède des outils de base, comme les lignes et les boîtes, mais
+        peut également charger dynamiquement des <emphasis>feuilles</emphasis>.
+        Une feuille est une collection d&apos;outils utilisés dans
+        un certain type de diagramme.</para>
+
+        <para>La plupart des objets de diagramme dans <command>Dia</command>
+        ont des <emphasis>points de connexion</emphasis>.  Les lignes peuvent
+        être connectées à ces points de connexion, et par ce moyen des
+        structures de graphe peuvent être mises en forme.  Lorsque les
+        objets sont déplacés, ou leurs dimensions changées, les
+        connexions suivent ces objets.</para>
+
+        <para>les diagrammes dessinés avec <command>Dia</command> peuvent
+        être exportés dans le format PostScript.</para>
+  </refsect1>
+
+  <refsect1>
+    <title>OPTIONS</title>
+
+    <para><command>Dia</command> accepte les options suivantes :</para>
+
+    <variablelist>
+      <varlistentry>
+	<term><option>-c</option>
+	  <option>--credits</option></term>
+	<listitem>
+	  <para>Affiche la liste des attributions et quitte.</para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term><option>-e <replaceable>SORTIE</replaceable></option>
+	  <option>--export=<replaceable>SORTIE</replaceable></option></term>
+	<listitem>
+	  <para>Exporte le fichier chargé dans SORTIE et quitte.</para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term><option>-h</option>
+	  <option>--help</option></term>
+	<listitem>
+      <para>Affiche la liste de toutes les options de la ligne de
+      commande.</para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term><option>-n</option>
+	  <option>--nosplash</option></term>
+	<listitem>
+	  <para>N&apos;affiche pas l&apos;écran de lancement.</para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term><option>-s <replaceable>LxH</replaceable></option>
+	  <option>--size=<replaceable>LxH</replaceable></option></term>
+	<listitem>
+      <para>Exporte le fichier chargé dans la largeur et/ou la hauteur
+      décimale donnée.  Il est possible de ne sélectionner que la
+      hauteur ou la largeur.  P.ex.
+      <option>--size=<replaceable>520x</replaceable></option> exporte une image
+      de 520 pixels largeur, alors que
+      <option>--size=<replaceable>x900</replaceable></option> exporte une image
+      de 900 pixels de hauteur.</para>
+
+	  <note>
+        <para>Cette option n&apos;est actuellement implémentée que pour
+        le filtre d&apos;export PNG.</para>
+	  </note>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	    <term><option>-L <replaceable>CALQUE,CALQUE,...</replaceable></option>
+	    <option>--show-layers=<replaceable>CALQUE,CALQUE,...</replaceable></option></term>
+        <listitem>
+            <para>N&apos;inclue que les calques spécifiés lors de
+            l&apos;exportation.  Les calques peuvent être spécifiés
+            par leur nom, leur numéro, ou une étandue numérique X-Y de
+            calques. --show-layers=background,2-5 montre
+            les calques nommés background et les calques 2 à 5,
+            --show-layers=2- montre les calques 2 et supérieurs.</para>
+	    </listitem>
+      </varlistentry>
+      <varlistentry>
+	    <term><option>-t <replaceable>FORMAT</replaceable></option>
+	    <option>--export-to-format=<replaceable>FORMAT</replaceable></option></term>
+	    <listitem>
+            <para>Exporte le fichier chargé dans le FORMAT et quitte.  Les
+            FORMATS D&apos;EXPORTATION sont décrits ci-dessous.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>-v</option>
+	    <option>--version</option></term>
+	    <listitem>
+            <para>Affiche la version de <command>dia</command> et
+            quitte.</para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+  </refsect1>
+
+  <refsect1>
+    <title>FORMATS D&apos;EXPORTATION</title>
+
+        <para>Les formats d&apos;exportation suivants sont supportés par
+        <command>dia</command>.</para>
+
+    <itemizedlist>
+      <listitem>
+	    <para><literal>cgm</literal> (Computer Graphics Metafile, ISO
+        8632)</para>
+      </listitem>
+
+      <listitem>
+	    <para><literal>dia</literal> (diagram Dia natif)</para>
+      </listitem>
+
+      <listitem>
+	    <para><literal>dxf</literal> (Drawing Interchange File)</para>
+      </listitem>
+
+      <listitem>
+        <para><literal>eps</literal>  ou <literal>eps-builtin</literal> ou
+        <literal>eps-pango</literal> (PostScript encapsulé)</para>
+
+        <para>Les spécifications de format <literal>eps</literal> et
+        <literal>eps-pango</literal> utilisent toutes-deux le rendu de fontes
+        de la bibliothèque Pango, alors que <literal>eps-builtin</literal>
+        utilise le rendu de fontes spécifique de dia.  Si vous avez des
+        problèmes avec le rendu de Pango, p.ex. avec Unicode, utilisez
+        <literal>eps-builtin</literal> à la place.</para>
+      </listitem>
+
+      <listitem>
+        <para><literal>fig</literal> (format XFig)</para>
+      </listitem>
+
+      <listitem>
+	    <para><literal>mp</literal> (macros TeX MetaPost)</para>
+      </listitem>
+
+      <listitem>
+        <para><literal>plt</literal> or <literal>hpgl</literal> (HP Graphics
+        Language)</para>
+      </listitem>
+
+      <listitem>
+        <para><literal>png</literal> (Portable Network Graphics)</para>
+      </listitem>
+
+      <listitem>
+	    <para><literal>shape</literal> (Fichier Dia Shape)</para>
+      </listitem>
+
+      <listitem>
+	    <para><literal>svg</literal> (Scalable Vector Graphics)</para>
+      </listitem>
+
+      <listitem>
+	    <para><literal>tex</literal> (macros TeX PSTricks)</para>
+      </listitem>
+
+      <listitem>
+	    <para><literal>wpg</literal> (WordPerfect Graphics)</para>
+      </listitem>
+
+      <listitem arch="win32">
+        <para><literal>wmf</literal> (Windows MetaFile)</para>
+      </listitem>
+    </itemizedlist>
+  </refsect1>
+
+  <refsect1>
+    <title>FICHIERS</title>
+
+    <para><command>dia</command> crée un répertoire
+    <filename>.dia</filename> dans le répertoire « home » de
+    l&apos;utilisateur, contenant différents fichiers qui enregistrent ses
+    préférences.  Pour initialiser
+    <command>dia</command> dans son comportement par défaut, il suffit
+    d&apos;effacer les fichiers suivants :</para>
+
+    <itemizedlist>
+      <listitem>
+        <para><filename>defaults.dia</filename>: contient les valeurs par
+        défaut des éléments (format XML).</para>
+      </listitem>
+      <listitem>
+        <para><filename>diarc</filename>: garde les préférences de
+        <command>dia</command> (ASCII).</para>
+      </listitem>
+      <listitem>
+        <para><filename>history</filename>: garde la liste des derniers
+        diagrammes édités (ASCII).</para>
+      </listitem>
+      <listitem>
+        <para><filename>menurc</filename>: contient une emprunte de carte
+        d&apos;accélération automatisée (Lisp).</para>
+      </listitem>
+      <listitem>
+        <para><filename>persistence</filename>: contient les information
+        d&apos;interface graphique, p.ex. les fenêtres ouvertes
+        (XML).</para>
+      </listitem>
+      <listitem>
+        <para><filename>pluginrc</filename>: la liste des plugins chargés
+        (XML).</para>
+      </listitem>
+    </itemizedlist>
+  </refsect1>
+
+  <refsect1>
+    <title>VOIR AUSSI</title>
+
+    <para><ulink url="http://www.pango.org/">Pango</ulink></para>
+    <para>X (1)</para>
+    <para>xfig (1)</para>
+    <para>inkscape (1)</para>
+  </refsect1>
+
+  <refsect1>
+    <title>COPYRIGHT</title>
+
+    <para>Copyright 1999 Alexander Larsson.</para>
+
+    <para>Permission to use, copy, modify, and distribute this
+    software and its documentation for any purpose and without fee is
+    hereby granted, provided that the above copyright notice appear in
+    all copies and that both that copyright notice and this permission
+    notice appear in supporting documentation.</para>
+  </refsect1>
+
+  <refsect1>
+    <title>AUTEURS</title>
+
+    <para><author><firstname>Alexander</firstname>
+	<surname>Larsson</surname>
+	<email>alla@lysator.liu.se</email></author></para>
+
+    <para>This manual was written by
+    <author><firstname>Fredrik</firstname>
+	<surname>Hallenberg</surname>
+	<email>hallon@lysator.liu.se</email></author>.</para>
+  </refsect1>
+  <refsect1>
+    <title>TRADUCTION</title>
+    <para>
+    <author>
+    <firstname>Thomas</firstname>
+    <surname>Harding</surname>
+    <email>thomas.harding@laposte.net</email>
+    </author>
+    </para>
+  </refsect1>
+</refentry>

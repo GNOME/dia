@@ -1,0 +1,51 @@
+<chapter label="13" id="authors-chap">
+<title>Auteurs</title>
+  <para>
+   <application>Dia</application> a été créé par Alexander Larsson et est
+   actuellement maintenu  par Lars Clausen et d'autres volontaires.
+   Pour plus d'informations sur
+   <application>Dia</application>, visitez la page web officielle, <ulink
+   url="http://www.gnome.org/projects/dia"
+   type="http">www.gnome.org/projects/dia</ulink>.
+   Merci d'envoyer tous commentaires, suggestions, et rapports de bogues à
+   <ulink url="http://bugs.gnome.org" type="http">la base de données GNOME de
+   suivi d'anomalies</ulink>.  (les instructions pour soumettre les rapports
+   de bogue sont disponibles <ulink url="http://bugs.gnome.org/Reporting.html"
+   type="http">en ligne</ulink>).  Si vous utilisez GNOME 1.1 ou une version
+   supérieure, vous pouvez également utiliser <application>l'outil de rapport
+   d'anomalie</application> (<command>bug-buddy</command>), disponible dans le
+   sous-menu <guisubmenu>Utilitaires</guisubmenu> du <guimenu>Menu
+   principal</guimenu>. Vous pouvez
+   également souscrire à la <ulink
+   url="http://mail.gnome.org/mailman/listinfo/dia-list">liste de
+   diffusion</ulink> de <application>Dia</application>.
+  </para>
+ 
+  <para>
+   Ce manuel a été rédigé par Henry House
+   (<email>hajhouse@houseag.com</email>), Judith Samson
+   (<email>judith@samsonsource.com</email>), Kevin Breit
+   (<email>battery841@mypad.com</email>) et Alan Horkan
+   (<email>horkana@tcd.ie</email>). Merci d'envoyer les commentaires et
+   suggestions à propos de ce manuel au <ulink type="http"
+   url="http://www.gnome.org/gdp">projet de documentation GNOME</ulink> via
+   l'adresse mail <email>docs@gnome.org</email>. Vous pouvez également ajouter
+   vos
+   commentaires en ligne sur <ulink type="http"
+   url="http://www.gnome.org/gdp/doctable/">Le tableau d'état de la
+   documentation GNOME</ulink>.
+  </para>
+ 
+  <para>
+   La traduction française à été effectuée par Thomas Harding,
+   (<email>thomas.harding@laposte.net</email>), avec quelques ajouts au manuel
+   original (sections sélecteur de couleur et custom-shape, tirée d'un fichier
+   texte à la racine du répertoire doc des sources). La 
+   relecture à été assurée par Christophe Bliard. Merci d'envoyer tous
+   commentaires et suggestions concernant cette traduction à la liste de
+   diffusion Dia (<email>dia-list@gnome.org</email>), avec les tags
+   [Manual][French] dans le titre de votre message.
+  </para>
+ 
+ 
+</chapter>

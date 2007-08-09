@@ -528,6 +528,7 @@ doc/Makefile
 doc/en/Makefile
 doc/eu/Makefile
 doc/pl/Makefile
+doc/fr/Makefile
 )
 
 dnl GTK2: simplify this, we will have much less options.

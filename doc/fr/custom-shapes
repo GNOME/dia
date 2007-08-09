@@ -1,0 +1,311 @@
+Module Custom Shape
+===================
+
+Le module custom shape vous permet de créer de nouvelles formes pour Dia
+sans avoir à écrire de code C. À la place, vous avez juste à écrire un
+simple fichier XML décrivant la forme. Ceci ouvre la possibilité aux non
+programmeurs de créer de nouvelles formes pour Dia.
+
+La forme elle-même est décrite en utilisant un sous-ensemble de la
+spécification SVG. Les éléments line, polyline, polygon, rect, circle,
+ellipse, path et g sont supportés.  Notez que l'élément path supporte
+seulement les commandes M,m,L,l,H,h,V,v,C,c,S,s,Z et z.  Les
+transformations et unités CSS ne sont pas supportées (seules les unités
+« user » le sont), et seul un jeu limité d'attributs CSS sont supportés.
+
+Des points de connexion peuvent être associés à la forme, et sont
+spécifiés dans le même système de coordonnées que la description SVG de
+la forme.
+
+_Une_ boîte de texte peut être associée à la forme. La boîte de texte
+est également spécifiée dans le même repère de coordonnées que la forme.
+
+Pour choisir la taille et la position de la boîte de texte, vous pouvez
+penser à un rectangle contenant la boîte de texte, et un autre contenant
+tous les autres éléments SVG (appelons-le le rectangle Image) : lorsque
+vous obtenez la forme sur le canevas, et y écrivez du texte, tout le
+texte doit entrer dans la boîte de texte. Si nécessaire, la boîte de
+texte s'aggrandira et, dans les mêmes proportions, le rectangle Image
+s'aggrandira également.
+
+Dia prend soin du reste pour vous (changement de taille, de position,
+connexion de lignes, chargement, sauvegarde, etc).
+
+
+Shapes
+======
+
+Un fichier de forme typique peut ressembler à ceci :
+  <?xml version="1.0"?>
+
+  <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
+         xmlns:svg="http://www.w3.org/2000/svg">
+    <name>Circuit with identifiers - NPN Transistor</name>
+    <icon>npn.xpm</icon>
+    <connections>
+      <point x="0" y="0"/>
+      <point x="6" y="-4"/>
+      <point x="6" y="4"/>
+    </connections>
+
+    <aspectratio type="fixed"/>
+
+    <textbox x1="4" y1="-3" x2="12" y2="3" />
+
+    <svg:svg>
+      <svg:line x1="0" y1="0" x2="3" y2="0" />
+      <svg:line x1="3" y1="-3" x2="3" y2="3" />
+      <svg:line x1="3" y1="-2" x2="6" y2="-4" />
+      <svg:line x1="3" y1="2" x2="6" y2="4" />
+
+      <svg:polyline points="5,4 6,4 5.6154,3.0769" />
+    </svg:svg>
+
+  </shape>
+
+Seuls les éléments « name » et « svg » sont requis dans le fichier
+shape. Le reste est optionnel.
+
+L'élément name donne le nom de l'objet. Le nom est l'identifiant unique
+de cette forme, utilisé pour le chargement et la sauvegarde.
+
+Comme dans cet exemple, vous pouvez utiliser des « noms composés «.
+Beaucoup de formes ont pour première partie de leur nom le nom de la
+feuille (sheet) dans laquelle elles apparaissent, mais c'est optionnel.
+   
+L'élément « icon » spécifie un fichier xpm ou png utilisé comme icône
+dans la Boîte à outils Dia. Le nom de fichier peut être relatif au
+fichier de forme (le chemin peut...). S'il n'est pas donné, un icône par
+défault pour les formes personnalisées sera utilisé.
+
+La section « connections » specifie un jeu de points de connexion pour
+la forme. Le repère de coordonnées pour ces points est le même que le
+repère utilisé dans la description svg de la forme.
+
+L'élément « aspectratio » vous permet de spécifier de quelle manière la
+forme peut être distordue. Les trois possibilités sont :
+  <aspectratio type="free"/>    tout ratio d'aspect OK (le defaut)
+  <aspectratio type="fixed"/>   le ratio d'aspect est fixe.
+  <aspectratio type="range" min="n" max="m"/>  Donne une gamme de valeurs.
+
+La dernière option vous permet de spécifier une étendue de montants de
+distorsion, ce qui peut être utile dans certains cas.
+
+L'élément textbox vous permet d'associer du texte[1] à la forme
+La syntaxe est :
+  <textbox x1="left" y1="top" x2="right" y2="bottom"/>
+(seulement une textbox par forme) où les attributs donnent les limites
+de la boîte de texte dans le même repère que la description SVG de la
+forme.
+
+[1]en plus d'éléments text dans le svg, qui eux seront fixes.
+
+L'élement svg décrit la forme. les attributs width et height sont
+ignorés, et donnés seulement pour compatibilité avec la spécification
+SVG. voir les pages du W3C à-propos du format à :
+  http://www.w3.org/Graphics/SVG/
+
+La section suivante détaille quelles parties de la spécification SVG
+peuvent être utilisées dans un fichier shape.
+
+La description de forme
+=======================
+
+Le format Scalable Vector Graphics est utilisé pour décrire la forme.
+C'est pourquoi un espace de noms séparé est utilisé pour cette partie du
+fichier.
+
+Chaque élément du dessin SVG prend en compte l'attribut « style ».
+L'attribut doit être de la forme :
+  <svg:toto style="name1: value1; name2: value2; ... name42: value42"/>
+
+Actuellement, seuls les styles suivants sont interprètés :
+
+  stroke-width - La largeur de ligne, relative à la largeur spécifiée
+                    par l'utilisateur dans le tag svg.
+  
+  stroke-linecap    - Le style des bouts de ligne. Un parmis butt, 
+                      round, square, projecting (un synonyme de 
+                      square), ou default.
+  
+  stroke-linejoin   - Le style des jointures. Un parmis miter, round,
+                      bevel ou default.
+  
+  stroke-pattern    - Le motif de points. Un parmis, dashed, dash-dot,
+                      dash-dot-dot, dotted ou default.
+  
+  stroke-dashlength - La longueur des traits dans le motif précédent, en
+                      relation avec la valeur spécifiée par
+                      l'utilisateur (default est un synonyme pour 1.0).
+
+  stroke       - La couleur de ligne. Vous pouvez utiliser un des noms
+                 symboliques foreground, fg, default, background, bg
+                 inverse, text ou none, ou utiliser une couleur
+                 hexadécimale de forme #rrggbb.
+  
+  fill         - La couleur de remplissage. Mêmes valeurs que pour
+                 stroke, excepté que la signification de default et
+                 inverse sont échangées.  Par défaut, les éléments ne
+                 sont pas remplis, aussi, pour obtenir le remplissage
+                 par défaut, utilisez "fill: default"
+
+Pour dessiner un rectangle avec une ligne de largeur minimale
+(hairline), cette astuce devrait fontionner :
+  <svg:rect style="stroke-width: 0" x="..." y="..." width="..." height="..."/>
+
+
+Les ordonnées x et y grandissent comme dans Dia.
+
+Les éléments de dessin reconnus sont :
+
+<svg:g>
+  Ceci est l'élément groupe. Vous pouvez y placer d'autres éléments. Le
+  contenu de l'attribut style de l'élément g est propagé aux éléments
+  contenus (à moins qu'ils les réécrivent).
+
+<svg:line x1="..." y1="..." x2="..." y2="..."/>
+  Cet élément est une ligne.
+
+<svg:polyline points="...."/>
+  Ceci est une ligne brisée (une collection de segments de droite
+  connectés). l'attribut « points » contient les coordonnées des
+  extrémités des segments. Les coordonnées sont séparées par un blanc ou
+  des virgules. Le format suggéré est "x1,y1 x2,y2 x3,y3 ...".
+
+<svg:polygon points="...."/>
+  Ceci est un polygône. Largument « points » est du même format que
+  celui de l'élément « polyline ».
+
+<svg:rect x1="..." y1="..." width="..." height="..."/>
+  Ceci est un rectangle. Le coin en haut à gauche est (x1,y1), et le
+  coin en bas à droite est (x1+width,y1+height).
+
+<svg:image x1="..." y1="..." width="..." height="..." xlink:href="..." />
+  Ceci est une image externe.  Le coin en haut à gauche est (x1,y1), et
+  le coin en bas à droite est (x1+width,y1+height).
+  Deux formes de lien sont supportés, un chemin absolu de la forme
+  "file:///home/user/image.png", ou relatif sans le préfixe file://
+  comme dans "image.png". La dernière forme est préférable car
+  indépendante de l'installation. Le nom de fichier est relatif à
+  l'emplacement du fichier de forme (xxx.shape). Dans l'exemple
+  ci-dessus les fichiers PNG et shape doivent être dans le même
+  répertoire.
+
+<svg:circle cx="..." cy="..." r="..."/>
+  Ceci est un cercle avec pour centre (cx,cy) et rayon r.
+
+<svg:ellipse cx="..." cy="..." rx="..." ry="..."/>
+  Ceci est une ellipse avec pour centre (cx, cy), rayon rx dans la
+  direction x et ry dans la direction y.
+
+<svg:path d="...."/>
+  Ceci est l'élément de dessin le plus complexe. Il décrit un chemin
+  Fait de segmets de droite et de courbes de bézier. Actuellement, il ne
+  supporte pas l'arc elliptique ni les courbes de bézier quadratiques.
+  La chaîne « d  » est faite de commandes de la forme "x arg1 arg2 ..."
+  où « x » est le code de caractère idantifiant la commade, et les
+  arguments des nombres séparé par un blanc ou des virgules.
+  Chaque commande a une variante absolue et relative. Les relatives sont
+  données par une lettre minuscule, et utilisent le point d'extrémité de
+  la commande précédente comme origine.
+
+  Les commandes supportées sont :
+    M x,y                 Bouge le curseur
+    L x,y                 Dessine une ligne jusqu'à (x,y)
+    H x                   Dessine une ligne horizontale jusqu'à x
+    V y                   Dessine une ligne verticale jusqu'à y
+    C x1,y1 x2,y2, x3,y3  Dessine une courbe de bézier jusqu'à (x3,y3)
+                          avec (x1,y1) et (x2,y2) comme points de
+                          contrôle.
+    S x1,y1 x2,y2         Même chôse qu'au-dessus, mais dessine un
+                          bézier lisse. c.à.d que le premier point de
+                          contrôle est déduit du bézier précédent.
+    Z                     Ferme le chemin.
+
+  Si le chemin est fermé avec z ou Z, il peut être rempli.
+  Autrement, il peut juste être dessiné.
+
+<svg:text x="..." y="..." style="...">...</svg:text>
+  Un texte dans la forme. Le texte doit être compris dans les tags.
+  
+  Les paramètres sont :
+  x,y			  La position du texte
+  style			  Les options de formatage de texte
+  
+  Les options de style sont les suivantes :
+  font-size: Taille de fonte en « pt » (point)
+  
+La description de feuille (sheet)
+=================================
+
+Vous pouvez disposer plusieurs formes dans une feuille : les formes que
+vous créez ou toute forme « appartenant » à d'autres feuilles.
+
+Une « feuille » simple pourrait ressembler à ceci :
+
+<?xml version="1.0" encoding="utf-8"?> 
+<sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
+  <name>Circuit with identifiers</name>
+  <name xml:lang="es">Circuito con identificadores</name>
+  <name xml:lang="fr">Circuit avec identifiants</name>
+  <description>Components for circuit diagrams</description>
+  <description xml:lang="es">Componentes para diagramas de circuitos</description>
+  <description xml:lang="fr">Composants pour les diagrammes de circuits</description>
+  <contents>
+    <object name="Circuit with identifiers - NPN Transistor">
+     <description>A bipolar npn transistor</description>
+     <description xml:lang="es">Un transistor bipolar npn identificable</description>
+     <description xml:lang="fr">Un transistor bipolaire npn identifiable</description>
+    </object>
+    <object name="UML - Objet">
+     <description>An UML object</description>
+     <description xml:lang="es">Un objeto UML</description>
+     <description xml:lang="fr">Un objet UML</description>
+    </object>
+   </contents>
+</sheet>
+
+De comment Dia vous aide à gérer les feuilles et les formes.
+============================================================
+
+Vous pouvez utiliser Dia avec ses éléments existants pour dessiner une
+forme et l'exporter dans un fichier shape, en utilisant
+   Fichier->Exporter
+   et dans les options d'exportation
+   Déterminer le type de fichier « Fichier de forme Dia (*.shape) ».
+
+Mais jusqu'ici, ces « shapes » n'ont pas de boîte de texte (Elles
+peuvent avoir des éléments svg:text mais pas de boîte de texte).
+Si vous en avez besoin, vous pouvez éditer le fichier.
+
+Avec le fichier shape, vient également un fichier png (après que vous
+ayez accepté la taille proposée) qui peut être utilisé comme l'icône de
+la forme.
+
+En utilisant
+
+      Fichier(du menu principal)->Feuilles et objets
+vous pouvez créer de nouvelles feuilles, et ajouter, enlever, éditer
+partiellement les formes, et copier ou passer les formes d'une feuille à
+l'autre.
+
+
+Notes sur la conception du code
+===============================
+Le code « custom shape » est conçu pour qu'une feuille d'objets puisse
+être contenue dans un seul répertoire. Installer des formes peut être
+aussi simple que de décompresser un fichier .tar.gz dans ~/.dia/shapes
+ou $(prefix)/share/dia/shapes, avec la description de feuille (.sheet)
+allant dans ~/.dia/sheets
+
+Si vous avez des suggestions à-propos de ce code, dites-le moi
+(ndt: en anglais...).
+
+
+  James Henstridge <james@daa.com.au>
+ with some modifications written by 
+ Dolores Alia de Saravia<loli@unsa.edu.ar>     
+
+ Traduction: Thomas Harding <thomas.harding@laposte.net>
+
+

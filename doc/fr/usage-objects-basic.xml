@@ -1,0 +1,143 @@
+<chapter label="5" id="basic-objects-chapter">
+<title>Objets de base</title>
+<sect1 id="basic-objects-introduction">
+<title>Introduction aux objets de base</title>
+  <para>
+   Le premier et plus répandu type d'objet est l'objet de base. Les objets de
+   base sont normalement des formes géométriques, qui peuvent être
+   personnalisées. <application>Dia</application> offre à l'utilisateur de
+   nombreux objets de base.
+  </para>
+  <sect2 id="text">
+  <title>Texte</title>
+   <para>
+    <application>Dia</application> supporte supporte l'utilisation de texte comme
+    son propre type d'objet. Un texte peut être placé sur le canevas en
+    cliquant sur le bouton <guibutton>T</guibutton> (texte) dans la &toolbox;.
+   </para>
+   <note>
+    <para>
+     Le <emphasis>Texte</emphasis> dans <application>Dia</application> peut
+     utiliser toute fonte disponible à Gnome.
+    </para>
+   </note>
+   </sect2>
+   <sect2 id="box">
+   <title>Boîte</title>
+    <para>
+     Les boîtes dans <application>Dia</application> peuvent être personnalisées
+     pour prendre n'importe quelle taille désirée par l'utilisateur.  Les
+     propriétés disponibles sont&nbsp;:
+     <itemizedlist>
+      <listitem>
+       <para>
+       Arrondis des coins -- fait que les coins sont arrondis plutôt qu'à bords
+       durs.
+       </para>
+      </listitem>
+      <listitem>
+       <para>
+        Dessiner le fond -- garde le centre transparent ou remplit avec la
+        couleur de remplissage.
+       </para>
+      </listitem>
+     </itemizedlist>
+    </para>
+   </sect2>
+   <sect2 id="ellipse">
+   <title>Ellipse</title>
+    <para>
+     Une ellipse est une forme avec des faces arrondies, comme un cercle ou un
+     ovale.
+    </para>
+   </sect2>
+   <sect2 id="polygon">
+   <title>Polygone</title>
+    <para>
+     Un polygone est une forme faite de lignes droites. L'outil polygone permet
+     à l'utilisateur de créer des formes avec toutes leurs lignes droites.
+    </para>
+   </sect2>
+   <sect2 id="beziergon">
+   <title>Courbe de bésier fermée</title>
+    <para>
+     Une courbe de bésier fermée est similaire au polygone car l'utilisateur
+     définit la forme.  D'autre part, il diffère du polygone en ce qu'il permet
+     à des courbes d'exister dans la forme.
+    </para>
+   </sect2>
+   <sect2 id="line">
+   <title>Ligne</title> 
+    <para>
+     Une ligne est simplement... une ligne.
+     <!--fix this wording...it sucks-->
+     Référez-vous à la section ligne pour trouver plus d'information.
+    </para>
+   </sect2>
+   <sect2 id="arc">
+   <title>Arc</title>
+    <para>
+     Un arc est une ligne qui a été courbée pour créer une forme de demi-cercle.
+    </para>
+   </sect2>
+   <sect2 id="zigzagline">
+   <title>Ligne zigzag</title>
+    <para>
+     Une ligne zigzag est une ligne qui a un angle aigû à 90 degrés.
+     Elle est similaire à des marches d'escalier.
+    </para>
+   </sect2>
+   <sect2 id="polyline">
+   <title>Ligne brisée</title>
+    <para>
+     Une ligne brisée est comme une ligne zigzag, mais n'a pas nécessairement des
+     angles à 90 degrés.  Les angles peuvent être personnalisés.
+    </para>
+   </sect2>
+   <sect2 id="bezier">
+   <title>Courbe de bésier</title>
+    <para>
+     Une courbe de bésier est une ligne courbe. L'outil bésier est édité en
+     cliquant et tirant les points verts et orange. Les points verts règlent la
+     taille alors que les points orange règlent les angle auquel la courbe
+     s'incurve.
+    </para>
+   </sect2>
+   <sect2 id="image">
+   <title>Images</title>
+    <para>
+     Le canevas <application>Dia</application> peut posséder des images aussi
+     bien que des formes.
+    </para>
+    <para>
+     Pour ajouter une image, cliquez le <guibutton>bouton image</guibutton> et
+     ajoutez-le au canevas. Un objet affichant &og;Broken Image&fg;
+     apparaît. Double-cliquer pour ouvrir les propriétés. Cliquer
+     <guibutton>parcourir</guibutton> et sélectionner votre fichier. Cliquer
+     <guibutton>Ouvrir</guibutton> puis <guibutton>Valider</guibutton> et
+     l'image sera mise à jour en conséquence.
+    </para>
+    <para>
+     Les formats d'image suivants sont actuellement supportés pour l'inclusion
+     dans les diagrammes
+      <application>Dia</application> &nbsp;:
+      <itemizedlist>
+        <listitem><para>ANI</para></listitem>
+	<listitem><para>BMP</para></listitem>
+	<listitem><para>GIF</para></listitem>
+	<listitem><para>ICO</para></listitem>
+	<listitem><para>JPEG</para></listitem>
+	<listitem><para>PNG</para></listitem>
+	<listitem><para>PNM</para></listitem>
+	<listitem><para>RAS</para></listitem>
+	<listitem><para>SVG</para></listitem>
+	<listitem><para>TGA</para></listitem>
+	<listitem><para>TIFF</para></listitem>
+	<listitem><para>WMF</para></listitem>
+	<listitem><para>XBM</para></listitem>
+	<listitem><para>XPM</para></listitem>
+      </itemizedlist>
+    </para>
+   </sect2>
+  </sect1>
+</chapter>

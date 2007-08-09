@@ -39,7 +39,7 @@
 if HAVE_GNOME
 docdir = $(datadir)/gnome/help/$(docname)/$(lang)
 else
-docdir = $(datadir)/help/$(docname)/$(lang)
+docdir = $(datadir)/$(docname)/help/$(lang)
 endif
 
 # **********  You should not have to edit below this line  **********
