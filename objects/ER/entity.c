@@ -133,7 +133,7 @@ static PropDescription entity_props[] = {
   ELEMENT_COMMON_PROPERTIES,
   { "name", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
     N_("Name:"), NULL, NULL },
-  { "weak", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE,
+  { "weak", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE | PROP_FLAG_NO_DEFAULTS,
     N_("Weak:"), NULL, NULL },
   { "associative", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE,
     N_("Associative:"), NULL, NULL },
