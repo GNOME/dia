@@ -31,7 +31,7 @@ xml_files += \
 	dia-cmdline.xml
 
 EXTRA_DIST += \
-	dia.dbk
+	dia.dbk \
 	graphics/line_props.png \
 	graphics/home_network.png \
 	graphics/line_icon.png \

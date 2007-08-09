@@ -12,7 +12,8 @@ sheet_in_files = \
   ciscohub.sheet.in ciscomisc.sheet.in cisconetwork.sheet.in \
   ciscotelephony.sheet.in Cybernetics.sheet.in IsometricMap.sheet.in \
   Istar.sheet.in Jackson.sheet.in KAOS.sheet.in ChemEng.sheet.in \
-  AADL.sheet.in Gane_and_Sarson.sheet.in BPMN.sheet.in SISSI.sheet.in
+  AADL.sheet.in Gane_and_Sarson.sheet.in BPMN.sheet.in SISSI.sheet.in \
+  Lights.sheet.in
 
 # EML.sheet.in disabled as the objects have GPL issues, see objects/Makefile.am
 
