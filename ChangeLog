@@ -1,5 +1,9 @@
 2007-08-09  Lars Clausen  <lars@raeder.dk>
 
+	* lib/element.h (ELEMENT_COMMON_PROPERTIES): Use
+	PROP_FLAG_NO_DEFAULTS on element widths -- gives strange caching
+	behaviour for shapes.
+
 	* objects/ER/entity.c: Add PROP_FLAG_NO_DEFAULTS to make possible
 	to set "weak" attribute from intdata.
 
