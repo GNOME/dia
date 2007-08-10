@@ -300,6 +300,8 @@ object_list_align_v(GList *objects, Diagram *dia, int align)
       break;
     }
 
+    pos.x = obj->position.x;
+
     orig_pos[i] = obj->position;
     dest_pos[i] = pos;
     
