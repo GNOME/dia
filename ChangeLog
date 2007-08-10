@@ -1,9 +1,18 @@
+2007-08-10  Lars Clausen  <lars@raeder.dk>
+
+	* app/create_object.c (create_object_button_release): Update menus
+	after creating an object.
+
 2007-08-09  Steffen Macke <sdteffen@gmail.com>
 
 	* installer/win32/dia.nsi: Added Lights shapes and sheet
 
 2007-08-09  Lars Clausen  <lars@raeder.dk>
 
+	* doc/fr/graphics/*: Updated with french versions where needed.
+	Last fix from Thomas Harding <thomas.harding@laposte.net>, closing
+	bug #427552.
+	
 	* lib/element.h (ELEMENT_COMMON_PROPERTIES): Use
 	PROP_FLAG_NO_DEFAULTS on element widths -- gives strange caching
 	behaviour for shapes.

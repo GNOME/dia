@@ -64,6 +64,9 @@ add_toolbox_plugin_actions (GtkUIManager *ui_manager);
 static gchar*
 build_ui_filename (const gchar* name);
 
+/* Active/inactive state is set in ddisplay_do_update_menu_sensitivity()
+ * in display.c */
+
 /* Actions common to toolbox and diagram window */
 static const GtkActionEntry common_entries[] =
 {

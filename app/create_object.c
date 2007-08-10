@@ -181,7 +181,9 @@ create_object_button_release(CreateObjectTool *tool, GdkEventButton *event,
   if (prefs.reset_tools_after_create != tool->invert_persistence)
       tool_reset();
   ddisplay_set_all_cursor(default_cursor);
+  ddisplay_do_update_menu_sensitivity(ddisp);
 }
+
 static void
 create_object_motion(CreateObjectTool *tool, GdkEventMotion *event,
 		   DDisplay *ddisp)
