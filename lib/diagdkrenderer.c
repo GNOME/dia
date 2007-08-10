@@ -956,17 +956,18 @@ draw_fill_rounded_rect (DiaRenderer *self,
     r = (right-left)/2;
   if (r>(bottom-top)/2)
     r = (bottom-top)/2;
-  if (r < 1)
-    return;
+
   d = r<<1;
 
   renderer_color_convert(renderer, color, &gdkcolor);
   gdk_gc_set_foreground(gc, &gdkcolor);
 
-  gdk_draw_arc(renderer->pixmap, gc, fill, left, top, d, d, 90<<6, 90<<6);
-  gdk_draw_arc(renderer->pixmap, gc, fill, right-d, top, d, d, 0<<6, 90<<6);
-  gdk_draw_arc(renderer->pixmap, gc, fill, right-d, bottom-d, d, d, 270<<6, 90<<6);
-  gdk_draw_arc(renderer->pixmap, gc, fill, left, bottom-d, d, d, 180<<6, 90<<6);
+  if (d > 0) {
+    gdk_draw_arc(renderer->pixmap, gc, fill, left, top, d, d, 90<<6, 90<<6);
+    gdk_draw_arc(renderer->pixmap, gc, fill, right-d, top, d, d, 0<<6, 90<<6);
+    gdk_draw_arc(renderer->pixmap, gc, fill, right-d, bottom-d, d, d, 270<<6, 90<<6);
+    gdk_draw_arc(renderer->pixmap, gc, fill, left, bottom-d, d, d, 180<<6, 90<<6);
+  }
 
   if (fill) {
     gdk_draw_rectangle (renderer->pixmap, renderer->gc, TRUE, 
