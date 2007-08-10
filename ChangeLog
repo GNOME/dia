@@ -1,5 +1,14 @@
 2007-08-10  Lars Clausen  <lars@raeder.dk>
 
+	* app/interface.c (create_sheets): Use a slightly more useful
+	sheet as default selection.
+
+	* sheets/Lights.sheet.in: Patch from Elie Roux
+	(elie.roux@enst-bretagne.fr) fixes some wrong shape names.
+
+	* app/menus.c (menus_clear_recent): Don't assert non-critical
+	things, just put appropriate ifs around them.
+
 	* app/create_object.c (create_object_button_release): Update menus
 	after creating an object.
 

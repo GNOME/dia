@@ -1051,20 +1051,22 @@ menus_clear_recent (void)
   else
     ui_manager  = toolbox_ui_manager;
 
-  g_return_if_fail (recent_merge_ids);
+  if (recent_merge_ids) {
+    id = recent_merge_ids;
+    do {
+      gtk_ui_manager_remove_ui (ui_manager, (guint) id->data);
+      
+    } while (NULL != (id = id->next));
+    
+    g_slist_free (recent_merge_ids);
+    recent_merge_ids = NULL;
+  }
 
-  id = recent_merge_ids;
-  do {
-    gtk_ui_manager_remove_ui (ui_manager, (guint) id->data);
-
-  } while (NULL != (id = id->next));
-
-  g_slist_free (recent_merge_ids);
-  recent_merge_ids = NULL;
-
-  gtk_ui_manager_remove_action_group (ui_manager, recent_actions);
-  g_object_unref (G_OBJECT (recent_actions));
-  recent_actions = NULL;
+  if (recent_actions) {
+    gtk_ui_manager_remove_action_group (ui_manager, recent_actions);
+    g_object_unref (G_OBJECT (recent_actions));
+    recent_actions = NULL;
+  }
 }
 
 void 

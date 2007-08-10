@@ -1392,7 +1392,7 @@ create_sheets(GtkWidget *parent)
   gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(swin), sheet_wbox);
   gtk_widget_show(sheet_wbox);
 
-  sheetname = persistence_register_string("last-sheet-selected", _("Misc"));
+  sheetname = persistence_register_string("last-sheet-selected", _("Flowchart"));
   sheet = get_sheet_by_name(sheetname);
   if (sheet == NULL) {
     /* Couldn't find it */
