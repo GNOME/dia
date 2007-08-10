@@ -17,6 +17,7 @@ app/dialogs.c
 app/diapagelayout.c
 app/disp_callbacks.c
 app/display.c
+app/exit_dialog.c
 app/export_png.c
 app/filedlg.c
 app/interface.c
@@ -220,6 +221,7 @@ sheets/IsometricMap.sheet.in
 sheets/Istar.sheet.in
 sheets/Jackson.sheet.in
 sheets/KAOS.sheet.in
+sheets/Lights.sheet.in
 sheets/Logic.sheet.in
 sheets/MSE.sheet.in
 sheets/Misc.sheet.in

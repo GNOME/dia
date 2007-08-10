@@ -1132,11 +1132,11 @@ app_exit(void)
     dia_pluginrc_write();
 
   gtk_main_quit();
-#ifndef G_OS_WIN32
+
   /* This printf seems to prevent a race condition with unrefs. */
   /* Yuck.  -Lars */
-  g_print(_("Thank you for using Dia.\n"));
-#endif
+  /* Trying to live without it. -Lars 10/8/07*/
+  /* g_print(_("Thank you for using Dia.\n")); */
   app_exit_once = TRUE;
 
   return TRUE;

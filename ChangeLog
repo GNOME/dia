@@ -1,5 +1,16 @@
 2007-08-10  Lars Clausen  <lars@raeder.dk>
 
+	* po/POTFILES.in: Patch from Elie Roux
+	(elie.roux@enst-bretagne.fr) adds two missing POTFILES.
+
+	* app/app_procs.c (app_exit): Remove kludge printf from exit.
+	Fixes bug #442044.
+
+	* installer/rpm/dia.spec.fedora-core-6: Spec file for fedora core
+	6, from John Pye (john@curioussymbols.com).  The main Dia
+	maintainers will probably not maintain this, but patches to update
+	to more current versions are welcome.
+
 	* app/object_ops.c (object_list_align_v): Symmetry between vert
 	and horiz alignment functions.  Probably fixes bug #442054.
 
