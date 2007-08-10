@@ -1,5 +1,9 @@
 2007-08-10  Lars Clausen  <lars@raeder.dk>
 
+	* app/diagram.c (diagram_load_into): Translate filename of non-Dia
+	files opened to be a Dia file.  Also notify users (once) of this
+	translation. 
+
 	* po/POTFILES.in: Patch from Elie Roux
 	(elie.roux@enst-bretagne.fr) adds two missing POTFILES.
 

@@ -254,6 +254,24 @@ diagram_load_into(Diagram         *diagram,
     ifilter = &dia_import_filter;
 
   if (ifilter->import_func(filename, diagram->data, ifilter->user_data)) {
+    if (ifilter != &dia_import_filter) {
+      /* When loading non-Dia files, change filename to reflect that saving
+       * will produce a Dia file. See bug #440093 */
+      gchar *filename = diagram_get_name(diagram);
+      gchar *suffix_offset = g_utf8_strrchr(filename, -1, (gunichar)'.');
+      gchar *new_filename;
+      if (suffix_offset != NULL) {
+	new_filename = g_strndup(filename, suffix_offset - filename);
+	g_free(filename);
+      } else {
+	new_filename = filename;
+      }
+      filename = g_strconcat(new_filename, ".dia", NULL);
+      g_free(new_filename);
+      diagram_set_filename(diagram, filename);
+      g_free(filename);
+      message_notice(_("You have loaded a non-Dia file.  The file has become an element in a new diagram, and if you save it, it will be saved as a Dia diagram."));
+    }
     diagram_set_modified(diagram, TRUE);
     return TRUE;
   } else
