@@ -1,3 +1,10 @@
+2007-08-11  Steffen Macke <sdteffen@gmail.com>
+
+	* shapes/ChemEng/prv.shape:
+	* shapes/ChemEng/prv.png:
+	* sheets/ChemEng.sheet.in: Added Pressure Relief shape; fixes bug
+	#439842
+
 2007-08-10  Lars Clausen  <lars@raeder.dk>
 
 	* app/diagram.c (diagram_load_into): Translate filename of non-Dia

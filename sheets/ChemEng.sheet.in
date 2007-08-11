@@ -60,4 +60,5 @@
 <_description>Mixer</_description></object><object name="chemengtmp - cyclone">
 <_description>Cyclone and hydrocyclone</_description></object><object name="chemengtmp - spraydrier">
 <_description>Spray Drier</_description></object><object name="chemengtmp - centrifuge">
-<_description>Centrifuge</_description></object></contents></sheet>
+<_description>Centrifuge</_description></object>
+<object name="chemeng - prv"><_description>Pressure Relief Valve</_description></object></contents></sheet>

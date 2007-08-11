@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
+  <name>chemeng - prv</name>
+  <icon>prv.png</icon>
+  <connections>
+    <point x="19" y="25"/>
+    <point x="17" y="27"/>
+    <point x="17" y="25"/>
+    <point x="17" y="22.5"/>
+  </connections>
+  <aspectratio type="fixed"/>
+  <svg:svg>
+    <svg:polygon style="fill:default; stroke:none" points="19,24 19,26 17,25 "/>
+    <svg:polygon points="19,24 19,26 17,25 "/>
+    <svg:polygon style="fill:default; stroke:none" points="17,25 18,27 16,27 "/>
+    <svg:polygon points="17,25 18,27 16,27 "/>
+    <svg:line x1="17" y1="25" x2="17" y2="22.5"/>
+    <svg:line x1="16.5" y1="24.5" x2="17.5" y2="24"/>
+    <svg:line x1="16.5" y1="24" x2="17.5" y2="23.5"/>
+    <svg:line x1="16.5" y1="23.5" x2="17.5" y2="23"/>
+  </svg:svg>
+</shape>
