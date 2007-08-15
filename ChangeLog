@@ -1,3 +1,8 @@
+2007-08-15  Lars Clausen  <lars@raeder.dk>
+
+	* dia.desktop.in.in (Categories): Patch from Roland Stigge
+	<stigge@antcom.de> removes deprecated category, fixes bug #466997.
+
 2007-08-11  Steffen Macke <sdteffen@gmail.com>
 
 	* shapes/ChemEng/prv.shape:
