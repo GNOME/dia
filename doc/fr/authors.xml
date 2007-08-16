@@ -5,8 +5,8 @@
    actuellement maintenu  par Lars Clausen et d'autres volontaires.
    Pour plus d'informations sur
    <application>Dia</application>, visitez la page web officielle, <ulink
-   url="http://www.gnome.org/projects/dia"
-   type="http">www.gnome.org/projects/dia</ulink>.
+   url="http://live.gnome.org/Dia"
+   type="http">live.gnome.org/Dia</ulink>.
    Merci d'envoyer tous commentaires, suggestions, et rapports de bogues à
    <ulink url="http://bugs.gnome.org" type="http">la base de données GNOME de
    suivi d'anomalies</ulink>.  (les instructions pour soumettre les rapports
@@ -28,11 +28,11 @@
    (<email>battery841@mypad.com</email>) et Alan Horkan
    (<email>horkana@tcd.ie</email>). Merci d'envoyer les commentaires et
    suggestions à propos de ce manuel au <ulink type="http"
-   url="http://www.gnome.org/gdp">projet de documentation GNOME</ulink> via
+   url="http://developer.gnome.org/projects/gdp">projet de documentation GNOME</ulink> via
    l'adresse mail <email>docs@gnome.org</email>. Vous pouvez également ajouter
    vos
    commentaires en ligne sur <ulink type="http"
-   url="http://www.gnome.org/gdp/doctable/">Le tableau d'état de la
+   url="http://developer.gnome.org/projects/gdp/doctable/">Le tableau d'état de la
    documentation GNOME</ulink>.
   </para>
  

@@ -5,8 +5,8 @@
    James Henstridge-k egiten ditu mantentze-lanak. 
    <application>Dia</application>-ri buruzko informazio gehiago nahi izanez 
    gero, bisitatu web gune ofiziala: 
-   <ulink url="http://www.lysator.liu.se/~alla/dia" 
-   type="http">www.lysator.liu.se/~alla/dia</ulink>. 
+   <ulink url="http://live.gnome.org/Dia" 
+   type="http">live.gnome.org/Dia</ulink>. 
     Bidali zure iruzkin, iradokizun eta akatsen berri-emateak 
    <ulink url="http://bugs.gnome.org" type="http">GNOMEren akatsen 
    segimendurako datu-basera</ulink>. (Programa-erroreen berri emateko 
@@ -23,10 +23,10 @@
    , Judith Samson (<email>judith@samsonsource.com</email>), eta Kevin 
    Breit (<email>battery841@mypad.com</email>) dira. Eskuliburu honi buruzko 
    ohar edo iradokizunik baduzu, bidal ezazu mesedez <ulink type="http" 
-   url="http://www.gnome.org/gdp">GNOMEren dokumentazio-proiektu</ulink>ra, 
+   url="http://developer.gnome.org/projects/gdp">GNOMEren dokumentazio-proiektu</ulink>ra, 
    <email>docs@gnome.org</email> helbidera mezu bat bidaliz. Linean ere 
    bidal daitezke oharrak, 
-   <ulink type="http" url="http://www.gnome.org/gdp/doctable/">GNOMEren 
+   <ulink type="http" url="http://developer.gnome.org/projects/gdp/doctable">GNOMEren 
    dokumentazioaren egoeraren taula</ulink>ren bidez.
   </para>
  

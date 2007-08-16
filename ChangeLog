@@ -1,3 +1,11 @@
+2007-08-16  Lars Clausen  <lars@raeder.dk>
+
+	* doc/en/authors.xml: 
+	* doc/fr/authors.xml: 
+	* doc/pl/authors.sgml: 
+	* doc/eu/authors.xml: 
+	* doc/pl/authors.xml: Updated links to Dia page and GDP.
+
 2007-08-15  Lars Clausen  <lars@raeder.dk>
 
 	* dia.desktop.in.in (Categories): Patch from Roland Stigge
