@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-04-25 21:54+0200\n"
 "PO-Revision-Date: 2007-05-16 22:51+0200\n"
-"Last-Translator: Yannig MARCHEGAY <yannig@marchegay.org>\n"
+"Last-Translator: Yannig MARCHEGAY (Kokoyaya) <yannig@marchegay.org>\n"
 "Language-Team: Occitan (post 1500) <ubuntu-l10n-oci@lists.ubuntu.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1144,7 +1144,7 @@ msgstr ""
 
 #: ../app/menus.c:107
 msgid "_View"
-msgstr "_Mostrar"
+msgstr "_Visualizar"
 
 #: ../app/menus.c:110
 msgid "_Zoom"
@@ -1405,11 +1405,11 @@ msgstr ""
 
 #: ../app/paginate_psprint.c:275
 msgid "Select Printer"
-msgstr "Seleccionar una estampaira"
+msgstr "Seleccionar una estampadoira"
 
 #: ../app/paginate_psprint.c:287 ../sheets/ciscocomputer.sheet.in.h:36
 msgid "Printer"
-msgstr "Estampaira"
+msgstr "Estampadoira"
 
 #: ../app/paginate_psprint.c:301 ../sheets/Misc.sheet.in.h:1
 msgid "File"
@@ -1707,7 +1707,7 @@ msgstr ""
 
 #: ../app/sheets_dialog.c:354
 msgid "New"
-msgstr "Nòu"
+msgstr "Novèl"
 
 #: ../app/sheets_dialog.c:362 ../app/sheets_dialog.c:794
 #: ../objects/Istar/actor.c:144 ../objects/Istar/actor.c:145
@@ -4406,7 +4406,7 @@ msgstr "valor"
 #: ../objects/UML/class_dialog.c:927 ../objects/UML/class_dialog.c:1877
 #: ../objects/UML/class_dialog.c:2114 ../objects/UML/class_dialog.c:2644
 msgid "_New"
-msgstr "_Nòu"
+msgstr "_Novèl"
 
 #. Other properties of page
 #: ../objects/SISSI/sissi_dialog.c:746
@@ -5048,7 +5048,7 @@ msgstr ""
 
 #: ../objects/custom/custom.c:117
 msgid "Custom"
-msgstr "Personalizat"
+msgstr "Personalisat"
 
 #: ../objects/custom/custom.c:117
 msgid "Custom XML shapes loader"
