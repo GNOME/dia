@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia.HEAD.es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-08-12 03:43+0100\n"
-"PO-Revision-Date: 2007-08-13 18:07+0200\n"
+"POT-Creation-Date: 2007-08-13 17:09+0100\n"
+"PO-Revision-Date: 2007-08-19 12:12+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -541,8 +541,9 @@ msgid ""
 "You have loaded a non-Dia file.  The file has become an element in a new "
 "diagram, and if you save it, it will be saved as a Dia diagram."
 msgstr ""
-"Ha cargado un archivo que no es propio de Dia. El archivo se ha convertido en un elemento "
-"en un diagrama nuevo y si lo guarda, se guardará como un diagrama de Dia."
+"Ha cargado un archivo que no es propio de Dia. El archivo se ha convertido "
+"en un elemento en un diagrama nuevo y si lo guarda, se guardará como un "
+"diagrama de Dia."
 
 #: ../app/diagram.c:1124
 msgid "Trying to group with no selected objects."
@@ -6679,7 +6680,7 @@ msgstr "Rehervidor tetera"
 
 #: ../sheets/ChemEng.sheet.in.h:27
 msgid "Knock-out Drum (with demister pad)"
-msgstr ""
+msgstr "Separación de líquidos (con dispositivo antivaho)"
 
 #: ../sheets/ChemEng.sheet.in.h:28
 msgid "Measurement"
@@ -7688,7 +7689,7 @@ msgstr "ER-KAOS"
 
 #: ../sheets/Lights.sheet.in.h:1
 msgid "ACL"
-msgstr ""
+msgstr "Lista de control de acceso (ACL)"
 
 #: ../sheets/Lights.sheet.in.h:2
 msgid "Black light"
@@ -8209,7 +8210,7 @@ msgstr "Área de seguridad"
 
 #: ../sheets/SISSI.sheet.in.h:51
 msgid "Sensor beam"
-msgstr ""
+msgstr "Sensor"
 
 #: ../sheets/SISSI.sheet.in.h:52
 msgid "Server"
