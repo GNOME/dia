@@ -829,7 +829,7 @@ msgstr "Tèxt"
 
 #: ../app/interface.c:165 ../app/menus.c:190
 msgid "Box"
-msgstr "Bóstia"
+msgstr "Brustia"
 
 #: ../app/interface.c:171 ../app/menus.c:191
 msgid "Ellipse"
