@@ -1,3 +1,9 @@
+2007-08-19  Hans Breuer  <hans@breuer.org>
+
+	* objects/UML/class_dialog.c : second step in shrinking the dialog,
+	reorganization of the operations page make the dialog wider than tall
+	(now 634x559 with my window manager/font settings). Closes bug #445698
+	
 2007-08-16  Lars Clausen  <lars@raeder.dk>
 
 	* doc/en/authors.xml: 
