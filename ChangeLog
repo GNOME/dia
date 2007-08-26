@@ -1,3 +1,9 @@
+2007-08-26  Lars Clausen  <lars@raeder.dk>
+
+	* objects/UML/class.c: Patch from <djpohly+gnome@gmail.com> fixes
+	semi-random vertical alignment in UML attributes and operations,
+	making them consistent at least.  Fixes bug #465623.
+
 2007-08-19  Hans Breuer  <hans@breuer.org>
 
 	* objects/UML/class_dialog.c : second step in shrinking the dialog,

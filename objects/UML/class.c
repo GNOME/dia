@@ -621,6 +621,7 @@ uml_draw_comments(DiaRenderer *renderer,
 {
   gint      NumberOfLines = 0;
   gint      Index;
+  real      ascent;
   gchar     *CommentString = 0;
   gchar     *NewLineP= NULL;
   gchar     *RenderP;
@@ -631,13 +632,20 @@ uml_draw_comments(DiaRenderer *renderer,
         uml_create_documentation_tag(comment, comment_tagging, Comment_line_length, &NumberOfLines);
   RenderP = CommentString;                                                       
   renderer_ops->set_font(renderer, font, font_height);
+  ascent = dia_font_ascent(RenderP, font, font_height);
   for ( Index=0; Index < NumberOfLines; Index++)
   {
-    p->y += font_height;                    /* Advance to the next line */
     NewLineP = strchr(RenderP, '\n');
     if ( NewLineP != NULL)
     {
       *NewLineP++ = '\0';
+    }
+    if (Index == 0) {
+      p->y += ascent;
+    }
+    else
+    {
+      p->y += font_height;                    /* Advance to the next line */
     }
     renderer_ops->draw_string(renderer, RenderP, p, alignment, text_color);
     RenderP = NewLineP;
@@ -645,6 +653,7 @@ uml_draw_comments(DiaRenderer *renderer,
         break;
     }
   }
+  p->y += font_height - ascent;
   g_free(CommentString);
 }
 
@@ -673,6 +682,7 @@ umlclass_draw_namebox(UMLClass *umlclass, DiaRenderer *renderer, Element *elem )
 {
   DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   real     font_height;
+  real     ascent;
   DiaFont *font;
   Point   StartPoint;
   Point   LowerRightPoint;
@@ -699,14 +709,16 @@ umlclass_draw_namebox(UMLClass *umlclass, DiaRenderer *renderer, Element *elem )
 
   /* Start at the midpoint on the X axis */
   StartPoint.x += elem->width / 2.0;
+  StartPoint.y += 0.2;
 
   /* stereotype: */
   if (umlclass->stereotype != NULL && umlclass->stereotype[0] != '\0') {
     gchar *String = umlclass->stereotype_string;
-    StartPoint.y += 0.1;
-    StartPoint.y += dia_font_ascent(String, umlclass->normal_font, umlclass->font_height);
+    ascent = dia_font_ascent(String, umlclass->normal_font, umlclass->font_height);
+    StartPoint.y += ascent;
     renderer_ops->set_font(renderer, umlclass->normal_font, umlclass->font_height);
     renderer_ops->draw_string(renderer,  String, &StartPoint, ALIGN_CENTER, text_color);
+    StartPoint.y += umlclass->font_height - ascent;
   }
 
   /* name: */
@@ -718,10 +730,12 @@ umlclass_draw_namebox(UMLClass *umlclass, DiaRenderer *renderer, Element *elem )
       font = umlclass->classname_font;
       font_height = umlclass->classname_font_height;
     }
-    StartPoint.y += font_height;
+    ascent = dia_font_ascent(umlclass->name, font, font_height);
+    StartPoint.y += ascent;
 
     renderer_ops->set_font(renderer, font, font_height);
     renderer_ops->draw_string(renderer, umlclass->name, &StartPoint, ALIGN_CENTER, text_color);
+    StartPoint.y += font_height - ascent;
   }
 
   /* comment */
@@ -757,6 +771,7 @@ umlclass_draw_attributebox(UMLClass *umlclass, DiaRenderer *renderer, Element *e
 {
   DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   real     font_height;
+  real     ascent;
   Point    StartPoint;
   Point    LowerRight;
   DiaFont *font;
@@ -795,9 +810,11 @@ umlclass_draw_attributebox(UMLClass *umlclass, DiaRenderer *renderer, Element *e
         font = umlclass->normal_font;
         font_height = umlclass->font_height;
       }
-      StartPoint.y += font_height;
+      ascent = dia_font_ascent(attstr, font, font_height);
+      StartPoint.y += ascent;
       renderer_ops->set_font (renderer, font, font_height);
       renderer_ops->draw_string(renderer, attstr, &StartPoint, ALIGN_LEFT, text_color);
+      StartPoint.y += font_height - ascent;
 
       if (attr->class_scope) {
         uml_underline_text(renderer, StartPoint, font, font_height, attstr, line_color, 
@@ -930,7 +947,13 @@ umlclass_draw_operationbox(UMLClass *umlclass, DiaRenderer *renderer, Element *e
             strncat( part_opstr, opstr+last_wrap_pos, wrap_pos-last_wrap_pos);
           }
 
-          StartPoint.y += ascent;
+          if( last_wrap_pos == 0 ) {
+            StartPoint.y += ascent;
+          }
+          else
+          {
+            StartPoint.y += font_height;
+          }
           renderer_ops->draw_string(renderer, part_opstr, &StartPoint, ALIGN_LEFT, text_color);
 	  if (op->class_scope) {
 	    uml_underline_text(renderer, StartPoint, font, font_height, part_opstr, line_color, 
@@ -995,6 +1018,7 @@ umlclass_draw_template_parameters_box(UMLClass *umlclass, DiaRenderer *renderer,
   gint   i;
   DiaFont   *font = umlclass->normal_font;
   real       font_height = umlclass->font_height;
+  real       ascent;
   Color     *fill_color = &umlclass->fill_color;
   Color     *line_color = &umlclass->line_color;
   Color     *text_color = &umlclass->text_color;
@@ -1016,6 +1040,7 @@ umlclass_draw_template_parameters_box(UMLClass *umlclass, DiaRenderer *renderer,
   renderer_ops->draw_rect(renderer, &UpperLeft, &LowerRight, line_color);
 
   TextInsert.x += 0.3;
+  TextInsert.y += 0.1;
   renderer_ops->set_font(renderer, font, font_height);
   i = 0;
   list = umlclass->formal_params;
@@ -1023,8 +1048,10 @@ umlclass_draw_template_parameters_box(UMLClass *umlclass, DiaRenderer *renderer,
   {
     gchar *paramstr = uml_get_formalparameter_string((UMLFormalParameter *)list->data);
     
-    TextInsert.y +=(0.1 + dia_font_ascent(paramstr, font, font_height));
+    ascent = dia_font_ascent(paramstr, font, font_height);
+    TextInsert.y += ascent;
     renderer_ops->draw_string(renderer, paramstr, &TextInsert, ALIGN_LEFT, text_color);
+    TextInsert.y += font_height - ascent;
 
     list = g_list_next(list);
     i++;
@@ -1479,10 +1506,7 @@ umlclass_calculate_operation_data(UMLClass *umlclass)
             }
 
             width = dia_font_string_width(part_opstr,Font,FontHeight);
-            umlclass->operationsbox_height += op->ascent;
-	    if (last_wrap_pos == 0) {
-	      umlclass->operationsbox_height += (FontHeight - op->ascent);
-	    }
+            umlclass->operationsbox_height += FontHeight;
 
             maxwidth = MAX(width, maxwidth);
             last_wrap_pos = wrap_pos;
