@@ -1,5 +1,9 @@
 2007-09-08  Hans Breuer  <hans@breuer.org>
 
+	* plug-ins/python/codegen.py : reset the internal state in 
+	begin_render(). Otherwise the renderer would remember previous 
+	exports. Fixes bug #436311
+
 	* lib/diasvgrenderer.[ch] plug-ins/shape/shape-export.c
 	  plug-ins/svg/render_svg.c : based on analysis and patch by
 	Dov Grobgeld the values written to SVGs are now scaled up, because

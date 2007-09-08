@@ -50,6 +50,9 @@ class ObjRenderer :
 		
 	def begin_render (self, data, filename) :
 		self.filename = filename
+		# not only reset the filename but also the other state, otherwise we would accumulate information through every export
+		self.klasses = {}
+		self.arrows = []
 		for layer in data.layers :
 			# for the moment ignore layer info. But we could use this to spread accross different files
 			for o in layer.objects :
@@ -104,10 +107,6 @@ class ObjRenderer :
 							self.klasses[chi_name].AddParrent(par_name)
 						else: self.klasses[chi_name].AddTemplate(par_name)
 					
-	def end_render(self) :
-		# without this we would accumulate info from every pass
-		self.attributes = {}
-		self.operations = {}
 
 class PyRenderer(ObjRenderer) : 
 	def __init__(self) :
