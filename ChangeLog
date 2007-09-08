@@ -1,3 +1,22 @@
+2007-09-08  Hans Breuer  <hans@breuer.org>
+
+	* lib/diasvgrenderer.[ch] plug-ins/shape/shape-export.c
+	  plug-ins/svg/render_svg.c : based on analysis and patch by
+	Dov Grobgeld the values written to SVGs are now scaled up, because
+	many SVG interpreters don't cope very well with small values.
+	The overall size of the image is kept by writing with and height in cm 
+	but the viewBox scaled like the values in the file.
+	For the Shape export the scale value is kept at 1.0 to avoid breaking
+	Dia's Shape/SVG consumption. Fixes bug #316590
+	
+	* lib/dia_svg.[ch](dia_svg_parse_style) : allow to pass in user_scale	
+	* plug-ins/svg/svg-import.c : implment some unit awareness and use it 
+	to scale the input to Dia's internal cm. Adapt the user_scale with the
+	viewBox as explained above. This not only gives almost correct 
+	round-trip with Dia's own SVG writing, but also works better for the
+	general case.
+	* objects/custom/shape_info.c : adapt to API change
+
 2007-09-01  Hans Breuer  <hans@breuer.org>
 
 	* MAINTAINERS : http://blogs.gnome.org/ovitters/2007/08/31/

@@ -172,7 +172,7 @@ parse_svg_node(ShapeInfo *info, xmlNodePtr node, xmlNsPtr svg_ns,
     if (node->type != XML_ELEMENT_NODE || node->ns != svg_ns)
       continue;
     dia_svg_style_init (&s, style);
-    dia_svg_parse_style(node, &s);
+    dia_svg_parse_style(node, &s, -1);
     if (!xmlStrcmp(node->name, (const xmlChar *)"line")) {
       GraphicElementLine *line = g_new0(GraphicElementLine, 1);
 
@@ -667,7 +667,7 @@ load_shape_info(const gchar *filename)
 	DIA_SVG_LINECAPS_DEFAULT, DIA_SVG_LINEJOIN_DEFAULT, DIA_SVG_LINESTYLE_DEFAULT, 1.0
       };
 
-      dia_svg_parse_style(node, &s);
+      dia_svg_parse_style(node, &s, -1);
       parse_svg_node(info, node, svg_ns, &s, filename);
       update_bounds(info);
     }

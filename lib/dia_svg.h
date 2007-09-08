@@ -57,7 +57,7 @@ struct _DiaSvgStyle {
 
 void dia_svg_style_init (DiaSvgStyle *gs, DiaSvgStyle *parent_style);
 void dia_svg_style_copy (DiaSvgStyle *dest, DiaSvgStyle *src);
-void dia_svg_parse_style(xmlNodePtr node, DiaSvgStyle *s);
+void dia_svg_parse_style(xmlNodePtr node, DiaSvgStyle *s, real user_scale);
 /* parse the svg sub format for pathes int an array of BezPoint */
 GArray* dia_svg_parse_path(const gchar *path_str, gchar **unparsed, gboolean *closed);
 

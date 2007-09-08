@@ -33,6 +33,7 @@ struct _DiaSvgRenderer
   const char *linecap;
   const char *linejoin;
   char *linestyle; /* not const -- must free */
+  real scale;  /* 1.0 for shape output, more for svg output,  */
 };
 
 struct _DiaSvgRendererClass

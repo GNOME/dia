@@ -70,6 +70,46 @@ get_colour(gint32 c)
     return colour;
 }
 
+/* Dia default scale is 20px per cm; the user scale *should* be dynamic but this would involve a 
+ *  much more complicated approach than implemented in this imported (transformations!)  
+ */
+const gdouble DEFAULT_SVG_SCALE = 20.0;
+static gdouble user_scale = 20.0;
+
+/*!
+ * Read a numeric value from a string taking unit into account. The signature is the same as
+ * g_ascii_strtod but also reads the unit if there is one
+ */
+static gdouble
+get_value_as_cm (const gchar *nptr,
+		 gchar      **endptr)
+{
+    gchar *endp = NULL;
+    gdouble val = 0.0;
+
+    g_return_val_if_fail (nptr != NULL, 0.0);
+    
+    val = g_ascii_strtod (nptr, &endp);
+    if (!endp || '\0' == *endp || ' ' == *endp || ',' == *endp || ';' == *endp)
+        val /= user_scale;
+    else if (strncmp(endp, "px", 2) == 0)
+        val /= user_scale, endp+=2;
+    else if (strncmp(endp, "cm", 2) == 0)
+        val *= 1.0, endp+=2; /* nothing to scale */
+    else if (strncmp(endp, "mm", 2) == 0)
+        val /= 10.0, endp+=2;
+    else if (strncmp(endp, "in", 2) == 0)
+        val /= 2.54, endp+=2;
+    else if (strncmp(endp, "pt", 2) == 0)
+        val /= 0.03528, endp+=2;
+    /* the rest can't really be resolved here, passing unit to caller (who will just ignore at the moment) */
+    
+    if (endptr)
+        *endptr = endp;
+	
+    return val;
+}
+
 static PropDescription svg_line_prop_descs[] = {
     { "start_point", PROP_TYPE_POINT },
     { "end_point", PROP_TYPE_POINT },
@@ -136,7 +176,7 @@ apply_style(DiaObject *obj, xmlNodePtr node, DiaSvgStyle *parent_style)
       /* SVG defaults */
       dia_svg_style_init (gs, parent_style);
             
-      dia_svg_parse_style(node, gs);
+      dia_svg_parse_style(node, gs, user_scale);
       props = prop_list_from_descs(svg_style_prop_descs, pdtpp_true);
       g_assert(props->len == 5);
   
@@ -185,6 +225,7 @@ read_path_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list)
     gchar *str, *pathdata, *unparsed = NULL;
     GArray *bezpoints = NULL;
     gboolean closed = FALSE;
+    guint i;
     
     pathdata = str = (char *) xmlGetProp(node, (const xmlChar *)"d");
     do {
@@ -206,7 +247,17 @@ read_path_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list)
         }
 	bcd = g_new(BezierCreateData, 1);
 	bcd->num_points = bezpoints->len;
-	bcd->points = &(g_array_index(bezpoints, BezPoint, 0));	
+	bcd->points = &(g_array_index(bezpoints, BezPoint, 0));
+	/* dia_svg_parse_path does not scale to the user coordinate system, do it here */
+	for (i = 0; i < bcd->num_points; ++i) {
+	  bcd->points[i].p1.x /= user_scale;
+	  bcd->points[i].p1.y /= user_scale;
+	  if (bcd->points[i].type != BEZ_CURVE_TO) continue; /* don't scale unintitialized */
+	  bcd->points[i].p2.x /= user_scale;
+	  bcd->points[i].p2.y /= user_scale;
+	  bcd->points[i].p3.x /= user_scale;
+	  bcd->points[i].p3.y /= user_scale;
+	}
 	new_obj = otype->ops->create(NULL, bcd, &h1, &h2);
 	g_free(bcd);
 	apply_style(new_obj, node, parent_style);
@@ -220,6 +271,7 @@ read_path_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list)
 
     if (bezpoints)
       g_array_free (bezpoints, TRUE);
+
     xmlFree (str);
 
     return list;
@@ -241,20 +293,20 @@ read_text_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list)
     gs = g_new(DiaSvgStyle, 1);
     gs->font = NULL;
     gs->font_height = 1.0;
-    gs->alignment = ALIGN_CENTER;
+    gs->alignment = ALIGN_LEFT;
 
     point.x = 0;
     point.y = 0;
 
     str = xmlGetProp(node, (const xmlChar *)"x");
     if (str) {
-      point.x = g_ascii_strtod((char *) str, NULL);
+      point.x = get_value_as_cm((char *) str, NULL);
       xmlFree(str);
     }
 
     str = xmlGetProp(node, (const xmlChar *)"y");
     if (str) {
-      point.y = g_ascii_strtod((char *) str, NULL);
+      point.y = get_value_as_cm((char *) str, NULL);
       xmlFree(str);
     }
 
@@ -267,8 +319,7 @@ read_text_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list)
       props = prop_list_from_descs(svg_text_prop_descs, pdtpp_true);
       g_assert(props->len == 1);
 
-      dia_svg_parse_style(node, gs);
-    
+      dia_svg_parse_style(node, gs, user_scale);    
       if(gs->font == NULL) {
 	gs->font = dia_font_new_from_legacy_name("Courier");
       }
@@ -281,6 +332,7 @@ read_text_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list)
       prop->attr.position.y = point.y;
       prop->attr.font = gs->font;
       prop->attr.height = gs->font_height;
+      prop->attr.color = get_colour (gs->fill);
       new_obj->ops->set_props(new_obj, props);
       prop_list_free(props);
     }
@@ -313,7 +365,7 @@ read_poly_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list, char *obj
       while (tmp[0] != '\0' && !g_ascii_isdigit(tmp[0]) && tmp[0]!='.'&&tmp[0]!='-')
 	tmp++;
       if (tmp[0] == '\0') break;
-      val = g_ascii_strtod(tmp, &tmp);
+      val = get_value_as_cm(tmp, &tmp);
       g_array_append_val(arr, val);
     }
     xmlFree(str);
@@ -355,34 +407,34 @@ read_ellipse_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list)
   
   str = xmlGetProp(node, (const xmlChar *)"cx");
   if (str) {
-    start.x = g_ascii_strtod((char *) str, NULL);
+    start.x = get_value_as_cm((char *) str, NULL);
     xmlFree(str);
   }
   else return list;
   str = xmlGetProp(node, (const xmlChar *)"cy");
   if (str) {
-    start.y = g_ascii_strtod((char *) str, NULL);
+    start.y = get_value_as_cm((char *) str, NULL);
     xmlFree(str);
   }
   else return list;
   str = xmlGetProp(node, (const xmlChar *)"rx");
   if (str) {
-    width = g_ascii_strtod((char *) str, NULL)*2;
+    width = get_value_as_cm((char *) str, NULL)*2;
     xmlFree(str);
   }
   str = xmlGetProp(node, (const xmlChar *)"ry");
   if (str) {
-    height = g_ascii_strtod((char *) str, NULL)*2;
+    height = get_value_as_cm((char *) str, NULL)*2;
     xmlFree(str);
   }
   str = xmlGetProp(node, (const xmlChar *)"ry");
   if (str) {
-    height = g_ascii_strtod((char *) str, NULL)*2;
+    height = get_value_as_cm((char *) str, NULL)*2;
     xmlFree(str);
   }
   str = xmlGetProp(node, (const xmlChar *)"r");
   if (str) {
-    width = height = g_ascii_strtod((char *) str, NULL)*2;
+    width = height = get_value_as_cm((char *) str, NULL)*2;
     xmlFree(str);
   }
   if (width <= 0.0 || height <= 0.0)
@@ -412,25 +464,25 @@ read_line_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list)
 
   str = xmlGetProp(node, (const xmlChar *)"x1");
   if (str) {
-    start.x = g_ascii_strtod((char *) str, NULL);
+    start.x = get_value_as_cm((char *) str, NULL);
     xmlFree(str);
   }
   else return list;
   str = xmlGetProp(node, (const xmlChar *)"y1");
   if (str) {
-    start.y = g_ascii_strtod((char *) str, NULL);
+    start.y = get_value_as_cm((char *) str, NULL);
     xmlFree(str);
   }
   else return list;
   str = xmlGetProp(node, (const xmlChar *)"x2");
   if (str) {
-    end.x = g_ascii_strtod((char *) str, NULL);
+    end.x = get_value_as_cm((char *) str, NULL);
     xmlFree(str);
   }
   else return list;
   str = xmlGetProp(node, (const xmlChar *)"y2");
   if (str) {
-    end.y = g_ascii_strtod((char *) str, NULL);
+    end.y = get_value_as_cm((char *) str, NULL);
     xmlFree(str);
   }
   else return list;
@@ -473,40 +525,40 @@ read_rect_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list)
 
   str = xmlGetProp(node, (const xmlChar *)"x");
   if (str) {
-    start.x = g_ascii_strtod((char *) str, NULL);
+    start.x = get_value_as_cm((char *) str, NULL);
     xmlFree(str);
   }
   else return list;
   str = xmlGetProp(node, (const xmlChar *)"y");
   if (str) {
-    start.y = g_ascii_strtod((char *) str, NULL);
+    start.y = get_value_as_cm((char *) str, NULL);
     xmlFree(str);
   }
   else return list;
   str = xmlGetProp(node, (const xmlChar *)"width");
   if (str) {
-    width = g_ascii_strtod((char *) str, NULL);
+    width = get_value_as_cm((char *) str, NULL);
     xmlFree(str);
   }
   else return list;
   str = xmlGetProp(node, (const xmlChar *)"height");
   if (str) {
-    height = g_ascii_strtod((char *) str, NULL);
+    height = get_value_as_cm((char *) str, NULL);
     xmlFree(str);
   }
   else return list;
   str = xmlGetProp(node, (const xmlChar *)"rx");
   if (str) {
-    corner_radius = g_ascii_strtod((char *) str, NULL);
+    corner_radius = get_value_as_cm((char *) str, NULL);
     xmlFree(str);
   }
   str = xmlGetProp(node, (const xmlChar *)"ry");
   if (str) {
     if(corner_radius != 0.0) {
       /* calculate the mean value of rx and ry */
-      corner_radius = (corner_radius+g_ascii_strtod((char *) str, NULL))/2;
+      corner_radius = (corner_radius+get_value_as_cm((char *) str, NULL))/2;
     } else {
-      corner_radius = g_ascii_strtod((char *) str, NULL);
+      corner_radius = get_value_as_cm((char *) str, NULL);
     }
     xmlFree(str);
   }
@@ -561,7 +613,7 @@ read_items (xmlNodePtr startnode, DiaSvgStyle *parent_gs)
       /* We need to have/apply the groups style before the objects style */
       group_gs = g_new0 (DiaSvgStyle, 1);
       dia_svg_style_init (group_gs, parent_gs);
-      dia_svg_parse_style (node, group_gs);
+      dia_svg_parse_style (node, group_gs, user_scale);
 
       moreitems = read_items (node->xmlChildrenNode, group_gs);
 
@@ -660,6 +712,44 @@ import_svg(const gchar *filename, DiagramData *dia, void* user_data)
     return FALSE;
   }
 
+  /* the following calls rely on the fact that noone messed with the original scale */
+  user_scale = DEFAULT_SVG_SCALE;
+  /* if the svg root element contains width, height and viewBox calculate our user scale from it */
+  {
+    xmlChar *swidth = xmlGetProp(root, (const xmlChar *)"width");
+    xmlChar *sheight = xmlGetProp(root, (const xmlChar *)"height");
+    xmlChar *sviewbox = xmlGetProp(root, (const xmlChar *)"viewBox");
+
+    if (swidth && sheight && sviewbox) {
+      real width = get_value_as_cm (swidth, NULL);
+      real height = get_value_as_cm (sheight, NULL);
+      gint x1 = 0, y1 = 0, x2 = 0, y2 = 0;
+      
+      if (4 == sscanf (sviewbox, "%d %d %d %d", &x1, &y1, &x2, &y2)) {
+        real xs, ys;
+	g_print ("viewBox(%d %d %d %d) = (%f,%f)\n", x1, y1, x2, y2, width, height);
+        /* some basic sanity check */
+	if (x2 > x1 && y2 > y1 && width > 0 && height > 0)
+	  xs = ((real)x2 - x1) / width;
+	  ys = ((real)y2 - y1) / height;
+	  /* plausibility check, strictly speaking these are not required to be the same 
+	       * /or/ are they and Dia is writting a bogus viewBox?
+	       */
+	  if (fabs((fabs (xs/ys) - 1.0) < 0.1)) {
+	    user_scale = xs;
+	    g_print ("viewBox(%d %d %d %d) scaling (%f,%f) -> %f\n", x1, y1, x2, y2, xs, ys, user_scale);
+	  }
+      }
+    }
+    
+    if (swidth)
+      xmlFree (swidth);
+    if (sheight)
+      xmlFree (sheight);
+    if (sviewbox)
+      xmlFree (sviewbox);
+  }
+  
   items = read_items (root->xmlChildrenNode, NULL);
   for (item = items; item != NULL; item = g_list_next (item)) {
     DiaObject *obj = (DiaObject *)item->data;

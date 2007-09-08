@@ -137,10 +137,11 @@ enum
  * @param node An XML node to parse a style from.
  * @param s The SVG style object to fill out.  This should previously be
  *          initialized to some default values.
+ * @param user_scale, if >0 scalable values (font-size, stroke-width, ...) are divided by this, otherwise ignored
  * @bug This function is way too long (213 lines). So dont touch it :)
  */
 void
-dia_svg_parse_style(xmlNodePtr node, DiaSvgStyle *s)
+dia_svg_parse_style(xmlNodePtr node, DiaSvgStyle *s, real user_scale)
 {
   xmlChar *str;
   gchar temp[FONT_NAME_LENGTH_MAX+1]; /* font-family names will be limited to 40 characters */
@@ -214,6 +215,8 @@ dia_svg_parse_style(xmlNodePtr node, DiaSvgStyle *s)
 
 	if (!over) {
 	  s->font_height = g_ascii_strtod(temp, NULL);
+	  if (user_scale > 0)
+	    s->font_height /= user_scale;
 	}
       } else if (!strncmp("text-anchor:", ptr, 12)) {
 	ptr += 12;
@@ -228,6 +231,8 @@ dia_svg_parse_style(xmlNodePtr node, DiaSvgStyle *s)
       } else if (!strncmp("stroke-width:", ptr, 13)) {
 	ptr += 13;
 	s->line_width = g_ascii_strtod(ptr, &ptr);
+	if (user_scale > 0)
+	  s->line_width /= user_scale;
       } else if (!strncmp("stroke:", ptr, 7)) {
 	ptr += 7;
 	while ((ptr[0] != '\0') && g_ascii_isspace(ptr[0])) ptr++;
@@ -293,6 +298,8 @@ dia_svg_parse_style(xmlNodePtr node, DiaSvgStyle *s)
 	  s->dashlength = 1.0;
 	else {
 	  s->dashlength = g_ascii_strtod(ptr, &ptr);
+	  if (user_scale > 0)
+	    s->dashlength /= user_scale;
 	}
       } else if (!strncmp("stroke-dasharray:", ptr, 17)) {
 	/* FIXME? do we need to read an array here (not clear from
@@ -308,6 +315,8 @@ dia_svg_parse_style(xmlNodePtr node, DiaSvgStyle *s)
 	  s->dashlength = 1.0;
 	else {
 	  s->dashlength = g_ascii_strtod(ptr, &ptr);
+	  if (user_scale > 0)
+	    s->dashlength /= user_scale;
 	}
       }
 
@@ -335,6 +344,8 @@ dia_svg_parse_style(xmlNodePtr node, DiaSvgStyle *s)
   if (str) {
     s->line_width = g_ascii_strtod((char *) str, NULL);
     xmlFree(str);
+    if (user_scale > 0)
+      s->line_width /= user_scale;
   }
 
   if (family || style || weight) {

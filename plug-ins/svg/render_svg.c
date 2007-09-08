@@ -116,7 +116,9 @@ svg_renderer_get_type (void)
 static void
 svg_renderer_finalize (GObject *object)
 {
-  G_OBJECT_CLASS (parent_class)->finalize (object);
+  SvgRenderer *svg_renderer = SVG_RENDERER (object);
+
+  G_OBJECT_CLASS (parent_class)->finalize (object);  
 }
 
 static void
@@ -139,6 +141,7 @@ static DiaSvgRenderer *
 new_svg_renderer(DiagramData *data, const char *filename)
 {
   DiaSvgRenderer *renderer;
+  SvgRenderer *svg_renderer;
   FILE *file;
   gchar buf[512];
   time_t time_now;
@@ -163,6 +166,8 @@ new_svg_renderer(DiagramData *data, const char *filename)
   renderer->dash_length = 1.0;
   renderer->dot_length = 0.2;
   renderer->saved_line_style = LINESTYLE_SOLID;
+  /* apparently most svg readers don't like small values, especially not in the viewBox attribute */
+  renderer->scale = 20.0;
 
   /* set up the root node */
   renderer->doc = xmlNewDoc((const xmlChar *)"1.0");
@@ -175,6 +180,9 @@ new_svg_renderer(DiagramData *data, const char *filename)
   renderer->root = xmlNewDocNode(renderer->doc, NULL, (const xmlChar *)"svg", NULL);
   xmlAddSibling(renderer->doc->children, (xmlNodePtr) renderer->root);
 
+  /* add namespaces to make strict parsers happy, e.g. Firefox */
+  svg_renderer = SVG_RENDERER (renderer);
+
   /* set the extents of the SVG document */
   extent = &data->extents;
   g_snprintf(buf, sizeof(buf), "%dcm",
@@ -184,12 +192,14 @@ new_svg_renderer(DiagramData *data, const char *filename)
 	     (int)ceil((extent->bottom - extent->top)));
   xmlSetProp(renderer->root, (const xmlChar *)"height", (xmlChar *) buf);
   g_snprintf(buf, sizeof(buf), "%d %d %d %d",
-	     (int)floor(extent->left), (int)floor(extent->top),
-	     (int)ceil(extent->right - extent->left),
-	     (int)ceil(extent->bottom - extent->top));
+	     (int)floor(extent->left  * renderer->scale), (int)floor(extent->top * renderer->scale),
+	     (int)ceil((extent->right - extent->left) * renderer->scale),
+	     (int)ceil((extent->bottom - extent->top) * renderer->scale));
   xmlSetProp(renderer->root, (const xmlChar *)"viewBox", (xmlChar *) buf);
   xmlSetProp(renderer->root,(const xmlChar *)"xmlns", (const xmlChar *)"http://www.w3.org/2000/svg");
-  
+  xmlSetProp(renderer->root,(const xmlChar *)"xmlns", (const xmlChar *)"http://www.w3.org/2000/svg");
+  xmlSetProp(renderer->root,(const xmlChar *)"xmlns:xlink", (const xmlChar *)"http://www.w3.org/1999/xlink");
+
   time_now = time(NULL);
   name = g_get_user_name();
 
@@ -237,15 +247,15 @@ draw_rounded_rect(DiaRenderer *self,
   xmlSetProp(node, (const xmlChar *)"style", 
              (const xmlChar *) DIA_SVG_RENDERER_GET_CLASS(self)->get_draw_style(renderer, colour));
 
-  g_ascii_formatd(buf, sizeof(buf), "%g", ul_corner->x);
+  g_ascii_formatd(buf, sizeof(buf), "%g", ul_corner->x * renderer->scale);
   xmlSetProp(node, (const xmlChar *)"x", (xmlChar *) buf);
-  g_ascii_formatd(buf, sizeof(buf), "%g", ul_corner->y);
+  g_ascii_formatd(buf, sizeof(buf), "%g", ul_corner->y * renderer->scale);
   xmlSetProp(node, (const xmlChar *)"y", (xmlChar *) buf);
-  g_ascii_formatd(buf, sizeof(buf), "%g", lr_corner->x - ul_corner->x);
+  g_ascii_formatd(buf, sizeof(buf), "%g", (lr_corner->x - ul_corner->x) * renderer->scale);
   xmlSetProp(node, (const xmlChar *)"width", (xmlChar *) buf);
-  g_ascii_formatd(buf, sizeof(buf), "%g", lr_corner->y - ul_corner->y);
+  g_ascii_formatd(buf, sizeof(buf), "%g", (lr_corner->y - ul_corner->y) * renderer->scale);
   xmlSetProp(node, (const xmlChar *)"height", (xmlChar *) buf);
-  g_ascii_formatd(buf, sizeof(buf),"%g", rounding);
+  g_ascii_formatd(buf, sizeof(buf),"%g", (rounding * renderer->scale));
   xmlSetProp(node, (const xmlChar *)"rx", (xmlChar *) buf);
   xmlSetProp(node, (const xmlChar *)"ry", (xmlChar *) buf);
 }
@@ -264,15 +274,15 @@ fill_rounded_rect(DiaRenderer *self,
   xmlSetProp(node, (const xmlChar *)"style", 
              (const xmlChar *) DIA_SVG_RENDERER_GET_CLASS(self)->get_fill_style(renderer, colour));
 
-  g_ascii_formatd(buf, sizeof(buf), "%g", ul_corner->x);
+  g_ascii_formatd(buf, sizeof(buf), "%g", (ul_corner->x * renderer->scale));
   xmlSetProp(node, (const xmlChar *)"x", (xmlChar *) buf);
-  g_ascii_formatd(buf, sizeof(buf), "%g", ul_corner->y);
+  g_ascii_formatd(buf, sizeof(buf), "%g", (ul_corner->y * renderer->scale));
   xmlSetProp(node, (const xmlChar *)"y", (xmlChar *) buf);
-  g_ascii_formatd(buf, sizeof(buf), "%g", lr_corner->x - ul_corner->x);
+  g_ascii_formatd(buf, sizeof(buf), "%g", (lr_corner->x - ul_corner->x) * renderer->scale);
   xmlSetProp(node, (const xmlChar *)"width", (xmlChar *) buf);
-  g_ascii_formatd(buf, sizeof(buf), "%g", lr_corner->y - ul_corner->y);
+  g_ascii_formatd(buf, sizeof(buf), "%g", (lr_corner->y - ul_corner->y) * renderer->scale);
   xmlSetProp(node, (const xmlChar *)"height", (xmlChar *) buf);
-  g_ascii_formatd(buf, sizeof(buf),"%g", rounding);
+  g_ascii_formatd(buf, sizeof(buf),"%g", (rounding * renderer->scale));
   xmlSetProp(node, (const xmlChar *)"rx", (xmlChar *) buf);
   xmlSetProp(node, (const xmlChar *)"ry", (xmlChar *) buf);
 }

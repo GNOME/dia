@@ -49,8 +49,8 @@
 #include "textline.h"
 
 #define DTOSTR_BUF_SIZE G_ASCII_DTOSTR_BUF_SIZE
-#define dia_svg_dtostr(buf,d) \
-	g_ascii_formatd(buf,sizeof(buf),"%g",d)
+#define dia_svg_dtostr(buf,d)                                  \
+  g_ascii_formatd(buf,sizeof(buf),"%g",(d)*renderer->scale)
 static void
 draw_text_line(DiaRenderer *self, TextLine *text_line,
 	       Point *pos, Color *colour);
@@ -761,6 +761,7 @@ draw_image(DiaRenderer *self,
   DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
   xmlNodePtr node;
   gchar d_buf[DTOSTR_BUF_SIZE];
+  gchar *uri;
 
   node = xmlNewChild(renderer->root, NULL, (const xmlChar *)"image", NULL);
 
@@ -772,13 +773,23 @@ draw_image(DiaRenderer *self,
   xmlSetProp(node, (const xmlChar *)"width", (xmlChar *) d_buf);
   dia_svg_dtostr(d_buf, height);
   xmlSetProp(node, (const xmlChar *)"height", (xmlChar *) d_buf);
-  xmlSetProp(node, (const xmlChar *)"xlink:href", (xmlChar *) dia_image_filename(image));
+  
+  uri = g_filename_to_uri(dia_image_filename(image), NULL, NULL);
+  if (uri)
+    xmlSetProp(node, (const xmlChar *)"xlink:href", (xmlChar *) uri);
+  else /* not sure if this fallbach is better than nothing */
+    xmlSetProp(node, (const xmlChar *)"xlink:href", (xmlChar *) dia_image_filename(image));
+  g_free (uri);
 }
 
 /* constructor */
 static void
-dia_svg_renderer_init (GTypeInstance   *instance, gpointer g_class)
+dia_svg_renderer_init (GTypeInstance *self, gpointer g_class)
 {
+  DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
+  
+  renderer->scale = 1.0;
+  
 }
 
 static gpointer parent_class = NULL;
