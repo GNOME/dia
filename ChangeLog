@@ -1,5 +1,9 @@
 2007-09-08  Hans Breuer  <hans@breuer.org>
 
+	* plug-ins/python/doxrev.py : moved the import of xml.parsers.expat
+	to Parse() so it is not called during start-up. Fixes the start-up
+	crash without understanding what is really causing it, bug #457828
+
 	* plug-ins/python/codegen.py : reset the internal state in 
 	begin_render(). Otherwise the renderer would remember previous 
 	exports. Fixes bug #436311

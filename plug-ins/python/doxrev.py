@@ -324,9 +324,9 @@ def find_object (ctx) :
 			break
 	return o
 
-import xml.parsers.expat
 # a SAX based parser turning XML tags into Python code
 def Parse (sData) :
+	import xml.parsers.expat
 	unhandled = {}
 	ctx = []
 	classes = []
