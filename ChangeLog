@@ -1,3 +1,12 @@
+2007-09-09  Hans Breuer  <hans@breuer.org>
+
+	* app/diagram.c(diagram_update_for_filename) : don't add every 
+	filename change to the recent file menu, only loaded or saved
+	files belong there. Fixes bug #474941
+	* app/filedlg.c : add to recent file menu also when saving but
+	not on export
+	* app/recent_file.[ch] : cleanup, updated comments	
+
 2007-09-08  Hans Breuer  <hans@breuer.org>
 
 	* plug-ins/python/doxrev.py : moved the import of xml.parsers.expat

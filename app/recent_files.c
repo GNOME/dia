@@ -105,9 +105,8 @@ recent_file_history_make_menu()
 }
 
 /** Add a new item to the file history list.
- * Since this only happens when a new files is opened, we can afford the
- * time it takes to rebuild the menus, rather than messing around with
- * moving them.
+ * Can also handle the addition of an already exisiting file. The whole recent menu is rebuild every time but
+ * it should be fast enough to favor simplicity of the code.
  */
 void
 recent_file_history_add(const char *fname)

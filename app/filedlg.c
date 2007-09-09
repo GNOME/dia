@@ -42,6 +42,7 @@
 #include "load_save.h"
 #include "preferences.h"
 #include "interface.h"
+#include "recent_files.h"
 
 static GtkWidget *opendlg = NULL;
 static GtkWidget *savedlg = NULL;
@@ -341,7 +342,8 @@ file_save_as_response_callback(GtkWidget *fs,
     diagram_update_extents(dia);
 
     diagram_set_filename(dia, filename);
-    diagram_save(dia, filename);
+    if (diagram_save(dia, filename))
+      recent_file_history_add(filename);
 
     g_free (filename);
   }
@@ -457,7 +459,8 @@ file_save_callback(gpointer data, guint action, GtkWidget *widget)
   } else {
     gchar *filename = g_filename_from_utf8(diagram->filename, -1, NULL, NULL, NULL);
     diagram_update_extents(diagram);
-    diagram_save(diagram, filename);
+    if (diagram_save(diagram, filename))
+      recent_file_history_add(filename);
     g_free (filename);
   }
 }

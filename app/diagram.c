@@ -1419,7 +1419,6 @@ diagram_update_for_filename(Diagram *dia)
   g_free(title);
 
   layer_dialog_update_diagram_list();
-  recent_file_history_add(filename);
 
   diagram_tree_update_name(diagram_tree(), dia);
 }

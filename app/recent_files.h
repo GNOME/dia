@@ -22,8 +22,6 @@
 #ifndef RECENT_FILES_H
 #define RECENT_FILES_H
 
-#include "../lib/filter.h"
-
 void	recent_file_history_add(const char *fname);
 void 	recent_file_history_init(void);
 
