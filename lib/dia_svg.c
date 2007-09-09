@@ -558,7 +558,7 @@ dia_svg_parse_path(const gchar *path_str, gchar **unparsed, gboolean *closed)
   Point last_control = {0.0, 0.0};
   gboolean last_relative = FALSE;
   GArray *points;
-  BezPoint bez;
+  BezPoint bez = { 0, };
   gchar *path = (gchar *)path_str;
   gboolean need_next_element = FALSE;
 

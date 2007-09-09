@@ -222,6 +222,7 @@ static void branch_draw(Branch *branch, DiaRenderer *renderer)
 static void branch_update_data(Branch *branch)
 {
   Element *elem = &branch->element;
+  ElementBBExtras *extra = &elem->extra_spacing;
   DiaObject *obj = &elem->object;
  
   elem->width = BRANCH_WIDTH;
@@ -240,7 +241,8 @@ static void branch_update_data(Branch *branch)
   branch->connections[3].pos.x = elem->corner.x + elem->width / 2.;;
   branch->connections[3].pos.y = elem->corner.y + elem->height;
   branch->connections[3].directions = DIR_SOUTH;
-  
+
+  extra->border_trans = BRANCH_BORDERWIDTH / 1.4142;  /* not 2.0, it is rotated 45° */
   element_update_boundingbox(elem);
   obj->position = elem->corner;
 

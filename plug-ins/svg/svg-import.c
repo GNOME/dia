@@ -252,7 +252,6 @@ read_path_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list)
 	for (i = 0; i < bcd->num_points; ++i) {
 	  bcd->points[i].p1.x /= user_scale;
 	  bcd->points[i].p1.y /= user_scale;
-	  if (bcd->points[i].type != BEZ_CURVE_TO) continue; /* don't scale unintitialized */
 	  bcd->points[i].p2.x /= user_scale;
 	  bcd->points[i].p2.y /= user_scale;
 	  bcd->points[i].p3.x /= user_scale;

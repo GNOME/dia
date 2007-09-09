@@ -1238,8 +1238,11 @@ umlclass_update_data(UMLClass *umlclass)
 
   if (umlclass->template) {
     /* fix boundingumlclass for templates: */
-    obj->bounding_box.top -= (umlclass->templates_height - 0.3) ;
-    obj->bounding_box.right += (umlclass->templates_width - 2.3);
+    real bb_width = obj->bounding_box.right - obj->bounding_box.left;
+    obj->bounding_box.top -= (umlclass->templates_height  - UMLCLASS_TEMPLATE_OVERLAY_Y) ;
+    obj->bounding_box.right += (umlclass->templates_width - UMLCLASS_TEMPLATE_OVERLAY_X);
+    obj->bounding_box.left  -= (elem->width < UMLCLASS_TEMPLATE_OVERLAY_X) ? 
+				(UMLCLASS_TEMPLATE_OVERLAY_X - elem->width) : 0;
   }
   
   obj->position = elem->corner;
@@ -1614,7 +1617,7 @@ umlclass_calculate_data(UMLClass *umlclass)
     umlclass->templates_height = MAX(umlclass->templates_height, 0.4);
 
 
-    maxwidth = 2.3;
+    maxwidth = UMLCLASS_TEMPLATE_OVERLAY_X;
     if (num_templates != 0)
     {
       i = 0;

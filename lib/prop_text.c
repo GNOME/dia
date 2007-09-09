@@ -127,7 +127,7 @@ multistringprop_get_widget(StringProperty *prop, PropDialog *dialog)
   g_signal_connect(G_OBJECT(ret), "key-release-event", 
 		   G_CALLBACK(multistringprop_handle_key), NULL);
   gtk_widget_show(ret);
-  prophandler_connect(&prop->common,GTK_OBJECT(ret),"changed");
+  prophandler_connect(&prop->common,GTK_OBJECT(ret),"insert-at-cursor");
   return frame;
 }
 

@@ -239,12 +239,14 @@ state_update_data(State *state)
   real w, h;
 
   Element *elem = &state->element;
+  ElementBBExtras *extra = &elem->extra_spacing;
   DiaObject *obj = &elem->object;
   
   w = h = (state->is_final) ? STATE_ENDRATIO: STATE_RATIO;
    
   elem->width = w;
   elem->height = h;
+  extra->border_trans = STATE_LINEWIDTH / 2.0;
 
  /* Update connections: */
   element_update_connections_rectangle(elem, state->connections);

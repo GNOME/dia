@@ -549,7 +549,7 @@ lifeline_update_data(Lifeline *lifeline)
     extra->end_trans = LIFELINE_LINEWIDTH/2.0;
   if (lifeline->draw_focuscontrol) {
     extra->start_trans =
-      extra->end_trans = MAX(LIFELINE_LINEWIDTH/2,LIFELINE_WIDTH/2);
+      extra->end_trans = MAX(LIFELINE_LINEWIDTH/2,(LIFELINE_WIDTH/2+LIFELINE_BOXWIDTH/2));
   }
   if (lifeline->draw_cross) {
     extra->end_trans += LIFELINE_CROSSLEN;

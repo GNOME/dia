@@ -246,23 +246,24 @@ state_update_data(State *state)
   real w, h;
 
   Element *elem = &state->element;
+  ElementBBExtras *extra = &elem->extra_spacing;
   DiaObject *obj = &elem->object;
   Point p;
   
   text_calc_boundingbox(state->text, NULL);
   w = state->text->max_width + 2*STATE_MARGIN_X;
-   h = state->text->height*state->text->numlines +2*STATE_MARGIN_Y;
-   if (w < STATE_WIDTH)
-     w = STATE_WIDTH;
-   p.x = elem->corner.x + w/2.0;
-   p.y = elem->corner.y + STATE_MARGIN_Y + state->text->ascent;
-   text_set_position(state->text, &p);
-   
+  h = state->text->height*state->text->numlines +2*STATE_MARGIN_Y;
+  if (w < STATE_WIDTH)
+    w = STATE_WIDTH;
+  p.x = elem->corner.x + w/2.0;
+  p.y = elem->corner.y + STATE_MARGIN_Y + state->text->ascent;
+  text_set_position(state->text, &p);
 
-   elem->width = w;
-   elem->height = h;
+  elem->width = w;
+  elem->height = h;
+  extra->border_trans = STATE_LINEWIDTH / 2.0;
 
- /* Update connections: */
+  /* Update connections: */
   state->connections[0].pos = elem->corner;
   state->connections[1].pos.x = elem->corner.x + elem->width / 2.0;
   state->connections[1].pos.y = elem->corner.y;

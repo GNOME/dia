@@ -288,6 +288,7 @@ usecase_update_data(Usecase *usecase)
   Point c, half, r,p;
   
   Element *elem = &usecase->element;
+  ElementBBExtras *extra = &elem->extra_spacing;
   DiaObject *obj = &elem->object;
   
   text_calc_boundingbox(usecase->text, NULL);
@@ -319,6 +320,7 @@ usecase_update_data(Usecase *usecase)
 
   elem->width = r.x;
   elem->height = r.y;
+  extra->border_trans = USECASE_LINEWIDTH / 2.0;
 
   if (usecase->text_outside) { 
 	  elem->width = MAX(elem->width, w);

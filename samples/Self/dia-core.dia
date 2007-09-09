@@ -63,18 +63,18 @@
     </dia:attribute>
   </dia:diagramdata>
   <dia:layer name="Background" visible="true">
-    <dia:object type="UML - Generalization" version="0" id="O0">
+    <dia:object type="UML - Generalization" version="1" id="O0">
       <dia:attribute name="obj_pos">
-        <dia:point val="15.375,24.2"/>
+        <dia:point val="15.5222,24.1421"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="14.525,24.15;19.375,30.05"/>
+        <dia:rectangle val="14.6722,24.0921;19.2297,29.9921"/>
       </dia:attribute>
       <dia:attribute name="orth_points">
-        <dia:point val="15.375,24.2"/>
-        <dia:point val="15.375,27.1"/>
-        <dia:point val="19.325,27.1"/>
-        <dia:point val="19.325,30"/>
+        <dia:point val="15.5222,24.1421"/>
+        <dia:point val="15.5222,27.0421"/>
+        <dia:point val="19.1797,27.0421"/>
+        <dia:point val="19.1797,29.9421"/>
       </dia:attribute>
       <dia:attribute name="orth_orient">
         <dia:enum val="1"/>
@@ -82,7 +82,10 @@
         <dia:enum val="1"/>
       </dia:attribute>
       <dia:attribute name="orth_autoroute">
-        <dia:boolean val="true"/>
+        <dia:boolean val="false"/>
+      </dia:attribute>
+      <dia:attribute name="text_colour">
+        <dia:color val="#000000"/>
       </dia:attribute>
       <dia:attribute name="line_colour">
         <dia:color val="#000000"/>
@@ -103,13 +106,13 @@
         <dia:point val="2,2"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="1.95,1.95;5.9,4.25"/>
+        <dia:rectangle val="1.95,1.95;6.175,4.25"/>
       </dia:attribute>
       <dia:attribute name="elem_corner">
         <dia:point val="2,2"/>
       </dia:attribute>
       <dia:attribute name="elem_width">
-        <dia:real val="3.8500000000000001"/>
+        <dia:real val="4.125"/>
       </dia:attribute>
       <dia:attribute name="elem_height">
         <dia:real val="2.1999999999999997"/>
@@ -147,6 +150,12 @@
       <dia:attribute name="wrap_after_char">
         <dia:int val="40"/>
       </dia:attribute>
+      <dia:attribute name="comment_line_length">
+        <dia:int val="40"/>
+      </dia:attribute>
+      <dia:attribute name="comment_tagging">
+        <dia:boolean val="false"/>
+      </dia:attribute>
       <dia:attribute name="line_color">
         <dia:color val="#000000"/>
       </dia:attribute>
@@ -160,21 +169,21 @@
         <dia:font family="monospace" style="0" name="Courier"/>
       </dia:attribute>
       <dia:attribute name="abstract_font">
-        <dia:font family="monospace" style="88" name="Courier"/>
+        <dia:font family="monospace" style="88" name="Courier-BoldOblique"/>
       </dia:attribute>
       <dia:attribute name="polymorphic_font">
-        <dia:font family="monospace" style="8" name="Courier"/>
+        <dia:font family="monospace" style="8" name="Courier-Oblique"/>
       </dia:attribute>
       <dia:attribute name="classname_font">
-        <dia:font family="sans" style="80" name="Helvetica"/>
+        <dia:font family="sans" style="80" name="Helvetica-Bold"/>
       </dia:attribute>
       <dia:attribute name="abstract_classname_font">
-        <dia:font family="sans" style="88" name="Helvetica"/>
+        <dia:font family="sans" style="88" name="Helvetica-BoldOblique"/>
       </dia:attribute>
       <dia:attribute name="comment_font">
-        <dia:font family="sans" style="8" name="Helvetica"/>
+        <dia:font family="sans" style="8" name="Helvetica-Oblique"/>
       </dia:attribute>
-      <dia:attribute name="font_height">
+      <dia:attribute name="normal_font_height">
         <dia:real val="0.80000000000000004"/>
       </dia:attribute>
       <dia:attribute name="polymorphic_font_height">
@@ -204,13 +213,13 @@
         <dia:point val="6,7"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="5.95,6.95;20.6,11.25"/>
+        <dia:rectangle val="5.95,6.95;24.45,11.25"/>
       </dia:attribute>
       <dia:attribute name="elem_corner">
         <dia:point val="6,7"/>
       </dia:attribute>
       <dia:attribute name="elem_width">
-        <dia:real val="14.549999999999999"/>
+        <dia:real val="18.399999999999999"/>
       </dia:attribute>
       <dia:attribute name="elem_height">
         <dia:real val="4.2000000000000002"/>
@@ -248,6 +257,12 @@
       <dia:attribute name="wrap_after_char">
         <dia:int val="40"/>
       </dia:attribute>
+      <dia:attribute name="comment_line_length">
+        <dia:int val="40"/>
+      </dia:attribute>
+      <dia:attribute name="comment_tagging">
+        <dia:boolean val="false"/>
+      </dia:attribute>
       <dia:attribute name="line_color">
         <dia:color val="#000000"/>
       </dia:attribute>
@@ -261,21 +276,21 @@
         <dia:font family="monospace" style="0" name="Courier"/>
       </dia:attribute>
       <dia:attribute name="abstract_font">
-        <dia:font family="monospace" style="88" name="Courier"/>
+        <dia:font family="monospace" style="88" name="Courier-BoldOblique"/>
       </dia:attribute>
       <dia:attribute name="polymorphic_font">
-        <dia:font family="monospace" style="8" name="Courier"/>
+        <dia:font family="monospace" style="8" name="Courier-Oblique"/>
       </dia:attribute>
       <dia:attribute name="classname_font">
-        <dia:font family="sans" style="80" name="Helvetica"/>
+        <dia:font family="sans" style="80" name="Helvetica-Bold"/>
       </dia:attribute>
       <dia:attribute name="abstract_classname_font">
-        <dia:font family="sans" style="88" name="Helvetica"/>
+        <dia:font family="sans" style="88" name="Helvetica-BoldOblique"/>
       </dia:attribute>
       <dia:attribute name="comment_font">
-        <dia:font family="sans" style="8" name="Helvetica"/>
+        <dia:font family="sans" style="8" name="Helvetica-Oblique"/>
       </dia:attribute>
-      <dia:attribute name="font_height">
+      <dia:attribute name="normal_font_height">
         <dia:real val="0.80000000000000004"/>
       </dia:attribute>
       <dia:attribute name="polymorphic_font_height">
@@ -423,16 +438,16 @@
     </dia:object>
     <dia:object type="UML - Class" version="0" id="O3">
       <dia:attribute name="obj_pos">
-        <dia:point val="10,15"/>
+        <dia:point val="8.78343,14.9421"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="9.95,14.95;20.8,24.25"/>
+        <dia:rectangle val="8.73343,14.8921;22.3109,24.1921"/>
       </dia:attribute>
       <dia:attribute name="elem_corner">
-        <dia:point val="10,15"/>
+        <dia:point val="8.78343,14.9421"/>
       </dia:attribute>
       <dia:attribute name="elem_width">
-        <dia:real val="10.75"/>
+        <dia:real val="13.477500000000001"/>
       </dia:attribute>
       <dia:attribute name="elem_height">
         <dia:real val="9.1999999999999993"/>
@@ -470,6 +485,12 @@
       <dia:attribute name="wrap_after_char">
         <dia:int val="40"/>
       </dia:attribute>
+      <dia:attribute name="comment_line_length">
+        <dia:int val="40"/>
+      </dia:attribute>
+      <dia:attribute name="comment_tagging">
+        <dia:boolean val="false"/>
+      </dia:attribute>
       <dia:attribute name="line_color">
         <dia:color val="#000000"/>
       </dia:attribute>
@@ -483,21 +504,21 @@
         <dia:font family="monospace" style="0" name="Courier"/>
       </dia:attribute>
       <dia:attribute name="abstract_font">
-        <dia:font family="monospace" style="88" name="Courier"/>
+        <dia:font family="monospace" style="88" name="Courier-BoldOblique"/>
       </dia:attribute>
       <dia:attribute name="polymorphic_font">
-        <dia:font family="monospace" style="8" name="Courier"/>
+        <dia:font family="monospace" style="8" name="Courier-Oblique"/>
       </dia:attribute>
       <dia:attribute name="classname_font">
-        <dia:font family="sans" style="80" name="Helvetica"/>
+        <dia:font family="sans" style="80" name="Helvetica-Bold"/>
       </dia:attribute>
       <dia:attribute name="abstract_classname_font">
-        <dia:font family="sans" style="88" name="Helvetica"/>
+        <dia:font family="sans" style="88" name="Helvetica-BoldOblique"/>
       </dia:attribute>
       <dia:attribute name="comment_font">
-        <dia:font family="sans" style="8" name="Helvetica"/>
+        <dia:font family="sans" style="8" name="Helvetica-Oblique"/>
       </dia:attribute>
-      <dia:attribute name="font_height">
+      <dia:attribute name="normal_font_height">
         <dia:real val="0.80000000000000004"/>
       </dia:attribute>
       <dia:attribute name="polymorphic_font_height">
@@ -732,16 +753,16 @@
     </dia:object>
     <dia:object type="UML - Class" version="0" id="O4">
       <dia:attribute name="obj_pos">
-        <dia:point val="15,30"/>
+        <dia:point val="13.7834,29.9421"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="14.95,29.95;23.7,34.45"/>
+        <dia:rectangle val="13.7334,29.8921;24.6259,34.3921"/>
       </dia:attribute>
       <dia:attribute name="elem_corner">
-        <dia:point val="15,30"/>
+        <dia:point val="13.7834,29.9421"/>
       </dia:attribute>
       <dia:attribute name="elem_width">
-        <dia:real val="8.6500000000000004"/>
+        <dia:real val="10.7925"/>
       </dia:attribute>
       <dia:attribute name="elem_height">
         <dia:real val="4.4000000000000004"/>
@@ -779,6 +800,12 @@
       <dia:attribute name="wrap_after_char">
         <dia:int val="40"/>
       </dia:attribute>
+      <dia:attribute name="comment_line_length">
+        <dia:int val="40"/>
+      </dia:attribute>
+      <dia:attribute name="comment_tagging">
+        <dia:boolean val="false"/>
+      </dia:attribute>
       <dia:attribute name="line_color">
         <dia:color val="#000000"/>
       </dia:attribute>
@@ -792,21 +819,21 @@
         <dia:font family="monospace" style="0" name="Courier"/>
       </dia:attribute>
       <dia:attribute name="abstract_font">
-        <dia:font family="monospace" style="88" name="Courier"/>
+        <dia:font family="monospace" style="88" name="Courier-BoldOblique"/>
       </dia:attribute>
       <dia:attribute name="polymorphic_font">
-        <dia:font family="monospace" style="8" name="Courier"/>
+        <dia:font family="monospace" style="8" name="Courier-Oblique"/>
       </dia:attribute>
       <dia:attribute name="classname_font">
-        <dia:font family="sans" style="80" name="Helvetica"/>
+        <dia:font family="sans" style="80" name="Helvetica-Bold"/>
       </dia:attribute>
       <dia:attribute name="abstract_classname_font">
-        <dia:font family="sans" style="88" name="Helvetica"/>
+        <dia:font family="sans" style="88" name="Helvetica-BoldOblique"/>
       </dia:attribute>
       <dia:attribute name="comment_font">
-        <dia:font family="sans" style="8" name="Helvetica"/>
+        <dia:font family="sans" style="8" name="Helvetica-Oblique"/>
       </dia:attribute>
-      <dia:attribute name="font_height">
+      <dia:attribute name="normal_font_height">
         <dia:real val="0.80000000000000004"/>
       </dia:attribute>
       <dia:attribute name="polymorphic_font_height">
@@ -906,13 +933,13 @@
         <dia:point val="25,15"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="24.95,14.95;35.7,21.85"/>
+        <dia:rectangle val="24.95,14.95;38.5275,21.85"/>
       </dia:attribute>
       <dia:attribute name="elem_corner">
         <dia:point val="25,15"/>
       </dia:attribute>
       <dia:attribute name="elem_width">
-        <dia:real val="10.65"/>
+        <dia:real val="13.477500000000001"/>
       </dia:attribute>
       <dia:attribute name="elem_height">
         <dia:real val="6.8000000000000007"/>
@@ -950,6 +977,12 @@
       <dia:attribute name="wrap_after_char">
         <dia:int val="40"/>
       </dia:attribute>
+      <dia:attribute name="comment_line_length">
+        <dia:int val="40"/>
+      </dia:attribute>
+      <dia:attribute name="comment_tagging">
+        <dia:boolean val="false"/>
+      </dia:attribute>
       <dia:attribute name="line_color">
         <dia:color val="#000000"/>
       </dia:attribute>
@@ -963,21 +996,21 @@
         <dia:font family="monospace" style="0" name="Courier"/>
       </dia:attribute>
       <dia:attribute name="abstract_font">
-        <dia:font family="monospace" style="88" name="Courier"/>
+        <dia:font family="monospace" style="88" name="Courier-BoldOblique"/>
       </dia:attribute>
       <dia:attribute name="polymorphic_font">
-        <dia:font family="monospace" style="8" name="Courier"/>
+        <dia:font family="monospace" style="8" name="Courier-Oblique"/>
       </dia:attribute>
       <dia:attribute name="classname_font">
-        <dia:font family="sans" style="80" name="Helvetica"/>
+        <dia:font family="sans" style="80" name="Helvetica-Bold"/>
       </dia:attribute>
       <dia:attribute name="abstract_classname_font">
-        <dia:font family="sans" style="88" name="Helvetica"/>
+        <dia:font family="sans" style="88" name="Helvetica-BoldOblique"/>
       </dia:attribute>
       <dia:attribute name="comment_font">
-        <dia:font family="sans" style="8" name="Helvetica"/>
+        <dia:font family="sans" style="8" name="Helvetica-Oblique"/>
       </dia:attribute>
-      <dia:attribute name="font_height">
+      <dia:attribute name="normal_font_height">
         <dia:real val="0.80000000000000004"/>
       </dia:attribute>
       <dia:attribute name="polymorphic_font_height">
@@ -1143,16 +1176,16 @@
     </dia:object>
     <dia:object type="UML - Class" version="0" id="O6">
       <dia:attribute name="obj_pos">
-        <dia:point val="40,15"/>
+        <dia:point val="42.0855,15.0579"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="39.95,14.95;44.6,17.25"/>
+        <dia:rectangle val="42.0355,15.0079;46.9855,17.3079"/>
       </dia:attribute>
       <dia:attribute name="elem_corner">
-        <dia:point val="40,15"/>
+        <dia:point val="42.0855,15.0579"/>
       </dia:attribute>
       <dia:attribute name="elem_width">
-        <dia:real val="4.5499999999999998"/>
+        <dia:real val="4.8499999999999996"/>
       </dia:attribute>
       <dia:attribute name="elem_height">
         <dia:real val="2.1999999999999997"/>
@@ -1190,6 +1223,12 @@
       <dia:attribute name="wrap_after_char">
         <dia:int val="40"/>
       </dia:attribute>
+      <dia:attribute name="comment_line_length">
+        <dia:int val="40"/>
+      </dia:attribute>
+      <dia:attribute name="comment_tagging">
+        <dia:boolean val="false"/>
+      </dia:attribute>
       <dia:attribute name="line_color">
         <dia:color val="#000000"/>
       </dia:attribute>
@@ -1203,21 +1242,21 @@
         <dia:font family="monospace" style="0" name="Courier"/>
       </dia:attribute>
       <dia:attribute name="abstract_font">
-        <dia:font family="monospace" style="88" name="Courier"/>
+        <dia:font family="monospace" style="88" name="Courier-BoldOblique"/>
       </dia:attribute>
       <dia:attribute name="polymorphic_font">
-        <dia:font family="monospace" style="8" name="Courier"/>
+        <dia:font family="monospace" style="8" name="Courier-Oblique"/>
       </dia:attribute>
       <dia:attribute name="classname_font">
-        <dia:font family="sans" style="80" name="Helvetica"/>
+        <dia:font family="sans" style="80" name="Helvetica-Bold"/>
       </dia:attribute>
       <dia:attribute name="abstract_classname_font">
-        <dia:font family="sans" style="88" name="Helvetica"/>
+        <dia:font family="sans" style="88" name="Helvetica-BoldOblique"/>
       </dia:attribute>
       <dia:attribute name="comment_font">
-        <dia:font family="sans" style="8" name="Helvetica"/>
+        <dia:font family="sans" style="8" name="Helvetica-Oblique"/>
       </dia:attribute>
-      <dia:attribute name="font_height">
+      <dia:attribute name="normal_font_height">
         <dia:real val="0.80000000000000004"/>
       </dia:attribute>
       <dia:attribute name="polymorphic_font_height">
@@ -1244,16 +1283,16 @@
     </dia:object>
     <dia:object type="UML - Class" version="0" id="O7">
       <dia:attribute name="obj_pos">
-        <dia:point val="46,24"/>
+        <dia:point val="48.0855,24.0579"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="45.95,23.95;51.3,26.25"/>
+        <dia:rectangle val="48.0355,24.0079;53.713,26.3079"/>
       </dia:attribute>
       <dia:attribute name="elem_corner">
-        <dia:point val="46,24"/>
+        <dia:point val="48.0855,24.0579"/>
       </dia:attribute>
       <dia:attribute name="elem_width">
-        <dia:real val="5.25"/>
+        <dia:real val="5.5774999999999997"/>
       </dia:attribute>
       <dia:attribute name="elem_height">
         <dia:real val="2.1999999999999997"/>
@@ -1291,6 +1330,12 @@
       <dia:attribute name="wrap_after_char">
         <dia:int val="40"/>
       </dia:attribute>
+      <dia:attribute name="comment_line_length">
+        <dia:int val="40"/>
+      </dia:attribute>
+      <dia:attribute name="comment_tagging">
+        <dia:boolean val="false"/>
+      </dia:attribute>
       <dia:attribute name="line_color">
         <dia:color val="#000000"/>
       </dia:attribute>
@@ -1304,21 +1349,21 @@
         <dia:font family="monospace" style="0" name="Courier"/>
       </dia:attribute>
       <dia:attribute name="abstract_font">
-        <dia:font family="monospace" style="88" name="Courier"/>
+        <dia:font family="monospace" style="88" name="Courier-BoldOblique"/>
       </dia:attribute>
       <dia:attribute name="polymorphic_font">
-        <dia:font family="monospace" style="8" name="Courier"/>
+        <dia:font family="monospace" style="8" name="Courier-Oblique"/>
       </dia:attribute>
       <dia:attribute name="classname_font">
-        <dia:font family="sans" style="80" name="Helvetica"/>
+        <dia:font family="sans" style="80" name="Helvetica-Bold"/>
       </dia:attribute>
       <dia:attribute name="abstract_classname_font">
-        <dia:font family="sans" style="88" name="Helvetica"/>
+        <dia:font family="sans" style="88" name="Helvetica-BoldOblique"/>
       </dia:attribute>
       <dia:attribute name="comment_font">
-        <dia:font family="sans" style="8" name="Helvetica"/>
+        <dia:font family="sans" style="8" name="Helvetica-Oblique"/>
       </dia:attribute>
-      <dia:attribute name="font_height">
+      <dia:attribute name="normal_font_height">
         <dia:real val="0.80000000000000004"/>
       </dia:attribute>
       <dia:attribute name="polymorphic_font_height">
@@ -1348,13 +1393,13 @@
         <dia:point val="24,4"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="23.95,3.95;28.05,6.25"/>
+        <dia:rectangle val="23.95,3.95;28.2275,6.25"/>
       </dia:attribute>
       <dia:attribute name="elem_corner">
         <dia:point val="24,4"/>
       </dia:attribute>
       <dia:attribute name="elem_width">
-        <dia:real val="4"/>
+        <dia:real val="4.1775000000000002"/>
       </dia:attribute>
       <dia:attribute name="elem_height">
         <dia:real val="2.1999999999999997"/>
@@ -1392,6 +1437,12 @@
       <dia:attribute name="wrap_after_char">
         <dia:int val="40"/>
       </dia:attribute>
+      <dia:attribute name="comment_line_length">
+        <dia:int val="40"/>
+      </dia:attribute>
+      <dia:attribute name="comment_tagging">
+        <dia:boolean val="false"/>
+      </dia:attribute>
       <dia:attribute name="line_color">
         <dia:color val="#000000"/>
       </dia:attribute>
@@ -1405,21 +1456,21 @@
         <dia:font family="monospace" style="0" name="Courier"/>
       </dia:attribute>
       <dia:attribute name="abstract_font">
-        <dia:font family="monospace" style="88" name="Courier"/>
+        <dia:font family="monospace" style="88" name="Courier-BoldOblique"/>
       </dia:attribute>
       <dia:attribute name="polymorphic_font">
-        <dia:font family="monospace" style="8" name="Courier"/>
+        <dia:font family="monospace" style="8" name="Courier-Oblique"/>
       </dia:attribute>
       <dia:attribute name="classname_font">
-        <dia:font family="sans" style="80" name="Helvetica"/>
+        <dia:font family="sans" style="80" name="Helvetica-Bold"/>
       </dia:attribute>
       <dia:attribute name="abstract_classname_font">
-        <dia:font family="sans" style="88" name="Helvetica"/>
+        <dia:font family="sans" style="88" name="Helvetica-BoldOblique"/>
       </dia:attribute>
       <dia:attribute name="comment_font">
-        <dia:font family="sans" style="8" name="Helvetica"/>
+        <dia:font family="sans" style="8" name="Helvetica-Oblique"/>
       </dia:attribute>
-      <dia:attribute name="font_height">
+      <dia:attribute name="normal_font_height">
         <dia:real val="0.80000000000000004"/>
       </dia:attribute>
       <dia:attribute name="polymorphic_font_height">
@@ -1444,18 +1495,18 @@
       </dia:attribute>
       <dia:attribute name="templates"/>
     </dia:object>
-    <dia:object type="UML - Generalization" version="0" id="O9">
+    <dia:object type="UML - Generalization" version="1" id="O9">
       <dia:attribute name="obj_pos">
-        <dia:point val="3.925,4.2"/>
+        <dia:point val="4.0625,4.2"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="3.075,4.15;13.325,7.05"/>
+        <dia:rectangle val="3.2125,4.15;15.25,7.05"/>
       </dia:attribute>
       <dia:attribute name="orth_points">
-        <dia:point val="3.925,4.2"/>
-        <dia:point val="3.925,5.6"/>
-        <dia:point val="13.275,5.6"/>
-        <dia:point val="13.275,7"/>
+        <dia:point val="4.0625,4.2"/>
+        <dia:point val="4.0625,5.6"/>
+        <dia:point val="15.2,5.6"/>
+        <dia:point val="15.2,7"/>
       </dia:attribute>
       <dia:attribute name="orth_orient">
         <dia:enum val="1"/>
@@ -1463,7 +1514,10 @@
         <dia:enum val="1"/>
       </dia:attribute>
       <dia:attribute name="orth_autoroute">
-        <dia:boolean val="true"/>
+        <dia:boolean val="false"/>
+      </dia:attribute>
+      <dia:attribute name="text_colour">
+        <dia:color val="#000000"/>
       </dia:attribute>
       <dia:attribute name="line_colour">
         <dia:color val="#000000"/>
@@ -1479,18 +1533,18 @@
         <dia:connection handle="1" to="O2" connection="1"/>
       </dia:connections>
     </dia:object>
-    <dia:object type="UML - Generalization" version="0" id="O10">
+    <dia:object type="UML - Generalization" version="1" id="O10">
       <dia:attribute name="obj_pos">
-        <dia:point val="13.275,11.2"/>
+        <dia:point val="15.2,11.2"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="12.425,11.15;42.325,15.05"/>
+        <dia:rectangle val="14.35,11.15;44.5605,15.1079"/>
       </dia:attribute>
       <dia:attribute name="orth_points">
-        <dia:point val="13.275,11.2"/>
-        <dia:point val="13.275,13.1"/>
-        <dia:point val="42.275,13.1"/>
-        <dia:point val="42.275,15"/>
+        <dia:point val="15.2,11.2"/>
+        <dia:point val="15.2,13.1"/>
+        <dia:point val="44.5105,13.1"/>
+        <dia:point val="44.5105,15.0579"/>
       </dia:attribute>
       <dia:attribute name="orth_orient">
         <dia:enum val="1"/>
@@ -1498,7 +1552,10 @@
         <dia:enum val="1"/>
       </dia:attribute>
       <dia:attribute name="orth_autoroute">
-        <dia:boolean val="true"/>
+        <dia:boolean val="false"/>
+      </dia:attribute>
+      <dia:attribute name="text_colour">
+        <dia:color val="#000000"/>
       </dia:attribute>
       <dia:attribute name="line_colour">
         <dia:color val="#000000"/>
@@ -1514,18 +1571,18 @@
         <dia:connection handle="1" to="O6" connection="1"/>
       </dia:connections>
     </dia:object>
-    <dia:object type="UML - Generalization" version="0" id="O11">
+    <dia:object type="UML - Generalization" version="1" id="O11">
       <dia:attribute name="obj_pos">
-        <dia:point val="13.275,11.2"/>
+        <dia:point val="15.2,11.2"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="12.425,11.15;30.375,15.05"/>
+        <dia:rectangle val="14.35,11.15;31.7888,15.05"/>
       </dia:attribute>
       <dia:attribute name="orth_points">
-        <dia:point val="13.275,11.2"/>
-        <dia:point val="13.275,13.1"/>
-        <dia:point val="30.325,13.1"/>
-        <dia:point val="30.325,15"/>
+        <dia:point val="15.2,11.2"/>
+        <dia:point val="15.2,13.1"/>
+        <dia:point val="31.7388,13.1"/>
+        <dia:point val="31.7388,15"/>
       </dia:attribute>
       <dia:attribute name="orth_orient">
         <dia:enum val="1"/>
@@ -1533,7 +1590,10 @@
         <dia:enum val="1"/>
       </dia:attribute>
       <dia:attribute name="orth_autoroute">
-        <dia:boolean val="true"/>
+        <dia:boolean val="false"/>
+      </dia:attribute>
+      <dia:attribute name="text_colour">
+        <dia:color val="#000000"/>
       </dia:attribute>
       <dia:attribute name="line_colour">
         <dia:color val="#000000"/>
@@ -1549,18 +1609,18 @@
         <dia:connection handle="1" to="O5" connection="1"/>
       </dia:connections>
     </dia:object>
-    <dia:object type="UML - Generalization" version="0" id="O12">
+    <dia:object type="UML - Generalization" version="1" id="O12">
       <dia:attribute name="obj_pos">
-        <dia:point val="13.275,11.2"/>
+        <dia:point val="15.2,11.2"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="12.425,11.15;15.425,15.05"/>
+        <dia:rectangle val="14.35,11.15;16.05,14.9921"/>
       </dia:attribute>
       <dia:attribute name="orth_points">
-        <dia:point val="13.275,11.2"/>
-        <dia:point val="13.275,13.1"/>
-        <dia:point val="15.375,13.1"/>
-        <dia:point val="15.375,15"/>
+        <dia:point val="15.2,11.2"/>
+        <dia:point val="15.2,13.1"/>
+        <dia:point val="15.5222,13.1"/>
+        <dia:point val="15.5222,14.9421"/>
       </dia:attribute>
       <dia:attribute name="orth_orient">
         <dia:enum val="1"/>
@@ -1568,7 +1628,10 @@
         <dia:enum val="1"/>
       </dia:attribute>
       <dia:attribute name="orth_autoroute">
-        <dia:boolean val="true"/>
+        <dia:boolean val="false"/>
+      </dia:attribute>
+      <dia:attribute name="text_colour">
+        <dia:color val="#000000"/>
       </dia:attribute>
       <dia:attribute name="line_colour">
         <dia:color val="#000000"/>
@@ -1586,16 +1649,16 @@
     </dia:object>
     <dia:object type="UML - Class" version="0" id="O13">
       <dia:attribute name="obj_pos">
-        <dia:point val="34,24"/>
+        <dia:point val="36.0855,24.0579"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="33.95,23.95;40.5,26.25"/>
+        <dia:rectangle val="36.0355,24.0079;43.213,26.3079"/>
       </dia:attribute>
       <dia:attribute name="elem_corner">
-        <dia:point val="34,24"/>
+        <dia:point val="36.0855,24.0579"/>
       </dia:attribute>
       <dia:attribute name="elem_width">
-        <dia:real val="6.4499999999999993"/>
+        <dia:real val="7.0775000000000006"/>
       </dia:attribute>
       <dia:attribute name="elem_height">
         <dia:real val="2.1999999999999997"/>
@@ -1633,6 +1696,12 @@
       <dia:attribute name="wrap_after_char">
         <dia:int val="40"/>
       </dia:attribute>
+      <dia:attribute name="comment_line_length">
+        <dia:int val="40"/>
+      </dia:attribute>
+      <dia:attribute name="comment_tagging">
+        <dia:boolean val="false"/>
+      </dia:attribute>
       <dia:attribute name="line_color">
         <dia:color val="#000000"/>
       </dia:attribute>
@@ -1646,21 +1715,21 @@
         <dia:font family="monospace" style="0" name="Courier"/>
       </dia:attribute>
       <dia:attribute name="abstract_font">
-        <dia:font family="monospace" style="88" name="Courier"/>
+        <dia:font family="monospace" style="88" name="Courier-BoldOblique"/>
       </dia:attribute>
       <dia:attribute name="polymorphic_font">
-        <dia:font family="monospace" style="8" name="Courier"/>
+        <dia:font family="monospace" style="8" name="Courier-Oblique"/>
       </dia:attribute>
       <dia:attribute name="classname_font">
-        <dia:font family="sans" style="80" name="Helvetica"/>
+        <dia:font family="sans" style="80" name="Helvetica-Bold"/>
       </dia:attribute>
       <dia:attribute name="abstract_classname_font">
-        <dia:font family="sans" style="88" name="Helvetica"/>
+        <dia:font family="sans" style="88" name="Helvetica-BoldOblique"/>
       </dia:attribute>
       <dia:attribute name="comment_font">
-        <dia:font family="sans" style="8" name="Helvetica"/>
+        <dia:font family="sans" style="8" name="Helvetica-Oblique"/>
       </dia:attribute>
-      <dia:attribute name="font_height">
+      <dia:attribute name="normal_font_height">
         <dia:real val="0.80000000000000004"/>
       </dia:attribute>
       <dia:attribute name="polymorphic_font_height">
@@ -1685,18 +1754,18 @@
       </dia:attribute>
       <dia:attribute name="templates"/>
     </dia:object>
-    <dia:object type="UML - Generalization" version="0" id="O14">
+    <dia:object type="UML - Generalization" version="1" id="O14">
       <dia:attribute name="obj_pos">
-        <dia:point val="42.275,17.2"/>
+        <dia:point val="44.5105,17.2579"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="37.175,17.15;43.125,24.05"/>
+        <dia:rectangle val="39.5743,17.2079;45.3605,24.1079"/>
       </dia:attribute>
       <dia:attribute name="orth_points">
-        <dia:point val="42.275,17.2"/>
-        <dia:point val="42.275,20.6"/>
-        <dia:point val="37.225,20.6"/>
-        <dia:point val="37.225,24"/>
+        <dia:point val="44.5105,17.2579"/>
+        <dia:point val="44.5105,20.6579"/>
+        <dia:point val="39.6243,20.6579"/>
+        <dia:point val="39.6243,24.0579"/>
       </dia:attribute>
       <dia:attribute name="orth_orient">
         <dia:enum val="1"/>
@@ -1704,7 +1773,10 @@
         <dia:enum val="1"/>
       </dia:attribute>
       <dia:attribute name="orth_autoroute">
-        <dia:boolean val="true"/>
+        <dia:boolean val="false"/>
+      </dia:attribute>
+      <dia:attribute name="text_colour">
+        <dia:color val="#000000"/>
       </dia:attribute>
       <dia:attribute name="line_colour">
         <dia:color val="#000000"/>
@@ -1720,18 +1792,18 @@
         <dia:connection handle="1" to="O13" connection="1"/>
       </dia:connections>
     </dia:object>
-    <dia:object type="UML - Generalization" version="0" id="O15">
+    <dia:object type="UML - Generalization" version="1" id="O15">
       <dia:attribute name="obj_pos">
-        <dia:point val="42.275,17.2"/>
+        <dia:point val="44.5105,17.2579"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="41.425,17.15;48.675,24.05"/>
+        <dia:rectangle val="43.6605,17.2079;50.9243,24.1079"/>
       </dia:attribute>
       <dia:attribute name="orth_points">
-        <dia:point val="42.275,17.2"/>
-        <dia:point val="42.275,20.6"/>
-        <dia:point val="48.625,20.6"/>
-        <dia:point val="48.625,24"/>
+        <dia:point val="44.5105,17.2579"/>
+        <dia:point val="44.5105,20.6579"/>
+        <dia:point val="50.8743,20.6579"/>
+        <dia:point val="50.8743,24.0579"/>
       </dia:attribute>
       <dia:attribute name="orth_orient">
         <dia:enum val="1"/>
@@ -1739,7 +1811,10 @@
         <dia:enum val="1"/>
       </dia:attribute>
       <dia:attribute name="orth_autoroute">
-        <dia:boolean val="true"/>
+        <dia:boolean val="false"/>
+      </dia:attribute>
+      <dia:attribute name="text_colour">
+        <dia:color val="#000000"/>
       </dia:attribute>
       <dia:attribute name="line_colour">
         <dia:color val="#000000"/>
@@ -1757,16 +1832,16 @@
     </dia:object>
     <dia:object type="UML - Class" version="0" id="O16">
       <dia:attribute name="obj_pos">
-        <dia:point val="30,30"/>
+        <dia:point val="32.0855,30.0579"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="29.95,29.95;35.85,32.25"/>
+        <dia:rectangle val="32.0355,30.0079;38.4355,32.3079"/>
       </dia:attribute>
       <dia:attribute name="elem_corner">
-        <dia:point val="30,30"/>
+        <dia:point val="32.0855,30.0579"/>
       </dia:attribute>
       <dia:attribute name="elem_width">
-        <dia:real val="5.7999999999999998"/>
+        <dia:real val="6.2999999999999998"/>
       </dia:attribute>
       <dia:attribute name="elem_height">
         <dia:real val="2.1999999999999997"/>
@@ -1804,6 +1879,12 @@
       <dia:attribute name="wrap_after_char">
         <dia:int val="40"/>
       </dia:attribute>
+      <dia:attribute name="comment_line_length">
+        <dia:int val="40"/>
+      </dia:attribute>
+      <dia:attribute name="comment_tagging">
+        <dia:boolean val="false"/>
+      </dia:attribute>
       <dia:attribute name="line_color">
         <dia:color val="#000000"/>
       </dia:attribute>
@@ -1817,21 +1898,21 @@
         <dia:font family="monospace" style="0" name="Courier"/>
       </dia:attribute>
       <dia:attribute name="abstract_font">
-        <dia:font family="monospace" style="88" name="Courier"/>
+        <dia:font family="monospace" style="88" name="Courier-BoldOblique"/>
       </dia:attribute>
       <dia:attribute name="polymorphic_font">
-        <dia:font family="monospace" style="8" name="Courier"/>
+        <dia:font family="monospace" style="8" name="Courier-Oblique"/>
       </dia:attribute>
       <dia:attribute name="classname_font">
-        <dia:font family="sans" style="80" name="Helvetica"/>
+        <dia:font family="sans" style="80" name="Helvetica-Bold"/>
       </dia:attribute>
       <dia:attribute name="abstract_classname_font">
-        <dia:font family="sans" style="88" name="Helvetica"/>
+        <dia:font family="sans" style="88" name="Helvetica-BoldOblique"/>
       </dia:attribute>
       <dia:attribute name="comment_font">
-        <dia:font family="sans" style="8" name="Helvetica"/>
+        <dia:font family="sans" style="8" name="Helvetica-Oblique"/>
       </dia:attribute>
-      <dia:attribute name="font_height">
+      <dia:attribute name="normal_font_height">
         <dia:real val="0.80000000000000004"/>
       </dia:attribute>
       <dia:attribute name="polymorphic_font_height">
@@ -1856,18 +1937,18 @@
       </dia:attribute>
       <dia:attribute name="templates"/>
     </dia:object>
-    <dia:object type="UML - Generalization" version="0" id="O17">
+    <dia:object type="UML - Generalization" version="1" id="O17">
       <dia:attribute name="obj_pos">
-        <dia:point val="37.225,26.2"/>
+        <dia:point val="39.6243,26.2579"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="32.85,26.15;38.075,30.05"/>
+        <dia:rectangle val="35.1855,26.2079;40.4743,30.1079"/>
       </dia:attribute>
       <dia:attribute name="orth_points">
-        <dia:point val="37.225,26.2"/>
-        <dia:point val="37.225,28.1"/>
-        <dia:point val="32.9,28.1"/>
-        <dia:point val="32.9,30"/>
+        <dia:point val="39.6243,26.2579"/>
+        <dia:point val="39.6243,28.1579"/>
+        <dia:point val="35.2355,28.1579"/>
+        <dia:point val="35.2355,30.0579"/>
       </dia:attribute>
       <dia:attribute name="orth_orient">
         <dia:enum val="1"/>
@@ -1875,7 +1956,10 @@
         <dia:enum val="1"/>
       </dia:attribute>
       <dia:attribute name="orth_autoroute">
-        <dia:boolean val="true"/>
+        <dia:boolean val="false"/>
+      </dia:attribute>
+      <dia:attribute name="text_colour">
+        <dia:color val="#000000"/>
       </dia:attribute>
       <dia:attribute name="line_colour">
         <dia:color val="#000000"/>
@@ -1893,16 +1977,16 @@
     </dia:object>
     <dia:object type="UML - Note" version="0" id="O18">
       <dia:attribute name="obj_pos">
-        <dia:point val="1,22"/>
+        <dia:point val="0.710342,27.967"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="0.95,21.95;8.25,24.55"/>
+        <dia:rectangle val="0.660342,27.917;9.71534,30.517"/>
       </dia:attribute>
       <dia:attribute name="elem_corner">
-        <dia:point val="1,22"/>
+        <dia:point val="0.710342,27.967"/>
       </dia:attribute>
       <dia:attribute name="elem_width">
-        <dia:real val="7.2000000000000002"/>
+        <dia:real val="8.9550000000000001"/>
       </dia:attribute>
       <dia:attribute name="elem_height">
         <dia:real val="2.5"/>
@@ -1926,7 +2010,7 @@ but needs cleanup#</dia:string>
             <dia:real val="0.80000000000000004"/>
           </dia:attribute>
           <dia:attribute name="pos">
-            <dia:point val="1.35,23.2"/>
+            <dia:point val="1.06034,29.2395"/>
           </dia:attribute>
           <dia:attribute name="color">
             <dia:color val="#000000"/>
@@ -1942,13 +2026,13 @@ but needs cleanup#</dia:string>
         <dia:point val="43,2"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="42.95,1.95;49.55,4.55"/>
+        <dia:rectangle val="42.95,1.95;51.11,4.55"/>
       </dia:attribute>
       <dia:attribute name="elem_corner">
         <dia:point val="43,2"/>
       </dia:attribute>
       <dia:attribute name="elem_width">
-        <dia:real val="6.5"/>
+        <dia:real val="8.0599999999999987"/>
       </dia:attribute>
       <dia:attribute name="elem_height">
         <dia:real val="2.5"/>
@@ -1972,7 +2056,7 @@ in code#</dia:string>
             <dia:real val="0.80000000000000004"/>
           </dia:attribute>
           <dia:attribute name="pos">
-            <dia:point val="43.35,3.2"/>
+            <dia:point val="43.35,3.2725"/>
           </dia:attribute>
           <dia:attribute name="color">
             <dia:color val="#000000"/>
@@ -1988,13 +2072,13 @@ in code#</dia:string>
         <dia:point val="49,14"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="48.95,13.95;56.95,17.35"/>
+        <dia:rectangle val="48.95,13.95;58.9,17.35"/>
       </dia:attribute>
       <dia:attribute name="elem_corner">
         <dia:point val="49,14"/>
       </dia:attribute>
       <dia:attribute name="elem_width">
-        <dia:real val="7.9000000000000004"/>
+        <dia:real val="9.8499999999999996"/>
       </dia:attribute>
       <dia:attribute name="elem_height">
         <dia:real val="3.3000000000000003"/>
@@ -2019,7 +2103,7 @@ to GObject usage#</dia:string>
             <dia:real val="0.80000000000000004"/>
           </dia:attribute>
           <dia:attribute name="pos">
-            <dia:point val="49.35,15.2"/>
+            <dia:point val="49.35,15.2725"/>
           </dia:attribute>
           <dia:attribute name="color">
             <dia:color val="#000000"/>
@@ -2035,13 +2119,13 @@ to GObject usage#</dia:string>
         <dia:point val="11,2"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="10.95,1.95;17.2,4.55"/>
+        <dia:rectangle val="10.95,1.95;18.6625,4.55"/>
       </dia:attribute>
       <dia:attribute name="elem_corner">
         <dia:point val="11,2"/>
       </dia:attribute>
       <dia:attribute name="elem_width">
-        <dia:real val="6.1500000000000004"/>
+        <dia:real val="7.6124999999999998"/>
       </dia:attribute>
       <dia:attribute name="elem_height">
         <dia:real val="2.5"/>
@@ -2065,7 +2149,7 @@ of Dia#</dia:string>
             <dia:real val="0.80000000000000004"/>
           </dia:attribute>
           <dia:attribute name="pos">
-            <dia:point val="11.35,3.2"/>
+            <dia:point val="11.35,3.2725"/>
           </dia:attribute>
           <dia:attribute name="color">
             <dia:color val="#000000"/>
@@ -2078,16 +2162,16 @@ of Dia#</dia:string>
     </dia:object>
     <dia:object type="UML - Class" version="0" id="O22">
       <dia:attribute name="obj_pos">
-        <dia:point val="39,30"/>
+        <dia:point val="41.0855,30.0579"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="38.95,29.95;41.55,32.25"/>
+        <dia:rectangle val="41.0355,30.0079;43.4555,32.3079"/>
       </dia:attribute>
       <dia:attribute name="elem_corner">
-        <dia:point val="39,30"/>
+        <dia:point val="41.0855,30.0579"/>
       </dia:attribute>
       <dia:attribute name="elem_width">
-        <dia:real val="2.5"/>
+        <dia:real val="2.3199999999999998"/>
       </dia:attribute>
       <dia:attribute name="elem_height">
         <dia:real val="2.1999999999999997"/>
@@ -2125,6 +2209,12 @@ of Dia#</dia:string>
       <dia:attribute name="wrap_after_char">
         <dia:int val="40"/>
       </dia:attribute>
+      <dia:attribute name="comment_line_length">
+        <dia:int val="40"/>
+      </dia:attribute>
+      <dia:attribute name="comment_tagging">
+        <dia:boolean val="false"/>
+      </dia:attribute>
       <dia:attribute name="line_color">
         <dia:color val="#000000"/>
       </dia:attribute>
@@ -2138,21 +2228,21 @@ of Dia#</dia:string>
         <dia:font family="monospace" style="0" name="Courier"/>
       </dia:attribute>
       <dia:attribute name="abstract_font">
-        <dia:font family="monospace" style="88" name="Courier"/>
+        <dia:font family="monospace" style="88" name="Courier-BoldOblique"/>
       </dia:attribute>
       <dia:attribute name="polymorphic_font">
-        <dia:font family="monospace" style="8" name="Courier"/>
+        <dia:font family="monospace" style="8" name="Courier-Oblique"/>
       </dia:attribute>
       <dia:attribute name="classname_font">
-        <dia:font family="sans" style="80" name="Helvetica"/>
+        <dia:font family="sans" style="80" name="Helvetica-Bold"/>
       </dia:attribute>
       <dia:attribute name="abstract_classname_font">
-        <dia:font family="sans" style="88" name="Helvetica"/>
+        <dia:font family="sans" style="88" name="Helvetica-BoldOblique"/>
       </dia:attribute>
       <dia:attribute name="comment_font">
-        <dia:font family="sans" style="8" name="Helvetica"/>
+        <dia:font family="sans" style="8" name="Helvetica-Oblique"/>
       </dia:attribute>
-      <dia:attribute name="font_height">
+      <dia:attribute name="normal_font_height">
         <dia:real val="0.80000000000000004"/>
       </dia:attribute>
       <dia:attribute name="polymorphic_font_height">
@@ -2177,18 +2267,18 @@ of Dia#</dia:string>
       </dia:attribute>
       <dia:attribute name="templates"/>
     </dia:object>
-    <dia:object type="UML - Generalization" version="0" id="O23">
+    <dia:object type="UML - Generalization" version="1" id="O23">
       <dia:attribute name="obj_pos">
-        <dia:point val="37.225,26.2"/>
+        <dia:point val="39.6243,26.2579"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="36.375,26.15;40.3,30.05"/>
+        <dia:rectangle val="38.7743,26.2079;42.2955,30.1079"/>
       </dia:attribute>
       <dia:attribute name="orth_points">
-        <dia:point val="37.225,26.2"/>
-        <dia:point val="37.225,28.1"/>
-        <dia:point val="40.25,28.1"/>
-        <dia:point val="40.25,30"/>
+        <dia:point val="39.6243,26.2579"/>
+        <dia:point val="39.6243,28.1579"/>
+        <dia:point val="42.2455,28.1579"/>
+        <dia:point val="42.2455,30.0579"/>
       </dia:attribute>
       <dia:attribute name="orth_orient">
         <dia:enum val="1"/>
@@ -2196,7 +2286,10 @@ of Dia#</dia:string>
         <dia:enum val="1"/>
       </dia:attribute>
       <dia:attribute name="orth_autoroute">
-        <dia:boolean val="true"/>
+        <dia:boolean val="false"/>
+      </dia:attribute>
+      <dia:attribute name="text_colour">
+        <dia:color val="#000000"/>
       </dia:attribute>
       <dia:attribute name="line_colour">
         <dia:color val="#000000"/>
@@ -2214,16 +2307,16 @@ of Dia#</dia:string>
     </dia:object>
     <dia:object type="UML - Class" version="0" id="O24">
       <dia:attribute name="obj_pos">
-        <dia:point val="44,30"/>
+        <dia:point val="46.0855,30.0579"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="43.95,29.95;47.8,32.25"/>
+        <dia:rectangle val="46.0355,30.0079;50.1055,32.3079"/>
       </dia:attribute>
       <dia:attribute name="elem_corner">
-        <dia:point val="44,30"/>
+        <dia:point val="46.0855,30.0579"/>
       </dia:attribute>
       <dia:attribute name="elem_width">
-        <dia:real val="3.75"/>
+        <dia:real val="3.9700000000000002"/>
       </dia:attribute>
       <dia:attribute name="elem_height">
         <dia:real val="2.1999999999999997"/>
@@ -2261,6 +2354,12 @@ of Dia#</dia:string>
       <dia:attribute name="wrap_after_char">
         <dia:int val="40"/>
       </dia:attribute>
+      <dia:attribute name="comment_line_length">
+        <dia:int val="40"/>
+      </dia:attribute>
+      <dia:attribute name="comment_tagging">
+        <dia:boolean val="false"/>
+      </dia:attribute>
       <dia:attribute name="line_color">
         <dia:color val="#000000"/>
       </dia:attribute>
@@ -2274,21 +2373,21 @@ of Dia#</dia:string>
         <dia:font family="monospace" style="0" name="Courier"/>
       </dia:attribute>
       <dia:attribute name="abstract_font">
-        <dia:font family="monospace" style="88" name="Courier"/>
+        <dia:font family="monospace" style="88" name="Courier-BoldOblique"/>
       </dia:attribute>
       <dia:attribute name="polymorphic_font">
-        <dia:font family="monospace" style="8" name="Courier"/>
+        <dia:font family="monospace" style="8" name="Courier-Oblique"/>
       </dia:attribute>
       <dia:attribute name="classname_font">
-        <dia:font family="sans" style="80" name="Helvetica"/>
+        <dia:font family="sans" style="80" name="Helvetica-Bold"/>
       </dia:attribute>
       <dia:attribute name="abstract_classname_font">
-        <dia:font family="sans" style="88" name="Helvetica"/>
+        <dia:font family="sans" style="88" name="Helvetica-BoldOblique"/>
       </dia:attribute>
       <dia:attribute name="comment_font">
-        <dia:font family="sans" style="8" name="Helvetica"/>
+        <dia:font family="sans" style="8" name="Helvetica-Oblique"/>
       </dia:attribute>
-      <dia:attribute name="font_height">
+      <dia:attribute name="normal_font_height">
         <dia:real val="0.80000000000000004"/>
       </dia:attribute>
       <dia:attribute name="polymorphic_font_height">
@@ -2313,18 +2412,18 @@ of Dia#</dia:string>
       </dia:attribute>
       <dia:attribute name="templates"/>
     </dia:object>
-    <dia:object type="UML - Generalization" version="0" id="O25">
+    <dia:object type="UML - Generalization" version="1" id="O25">
       <dia:attribute name="obj_pos">
-        <dia:point val="48.625,26.2"/>
+        <dia:point val="50.8743,26.2579"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="45.825,26.15;49.475,30.05"/>
+        <dia:rectangle val="48.0205,26.2079;51.7243,30.1079"/>
       </dia:attribute>
       <dia:attribute name="orth_points">
-        <dia:point val="48.625,26.2"/>
-        <dia:point val="48.625,28"/>
-        <dia:point val="45.875,28"/>
-        <dia:point val="45.875,30"/>
+        <dia:point val="50.8743,26.2579"/>
+        <dia:point val="50.8743,28.0579"/>
+        <dia:point val="48.0705,28.0579"/>
+        <dia:point val="48.0705,30.0579"/>
       </dia:attribute>
       <dia:attribute name="orth_orient">
         <dia:enum val="1"/>
@@ -2333,6 +2432,9 @@ of Dia#</dia:string>
       </dia:attribute>
       <dia:attribute name="orth_autoroute">
         <dia:boolean val="false"/>
+      </dia:attribute>
+      <dia:attribute name="text_colour">
+        <dia:color val="#000000"/>
       </dia:attribute>
       <dia:attribute name="line_colour">
         <dia:color val="#000000"/>
@@ -2350,16 +2452,16 @@ of Dia#</dia:string>
     </dia:object>
     <dia:object type="UML - Class" version="0" id="O26">
       <dia:attribute name="obj_pos">
-        <dia:point val="50,30"/>
+        <dia:point val="52.0855,30.0579"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="49.95,29.95;52.55,32.25"/>
+        <dia:rectangle val="52.0355,30.0079;54.4555,32.3079"/>
       </dia:attribute>
       <dia:attribute name="elem_corner">
-        <dia:point val="50,30"/>
+        <dia:point val="52.0855,30.0579"/>
       </dia:attribute>
       <dia:attribute name="elem_width">
-        <dia:real val="2.5"/>
+        <dia:real val="2.3199999999999998"/>
       </dia:attribute>
       <dia:attribute name="elem_height">
         <dia:real val="2.1999999999999997"/>
@@ -2397,6 +2499,12 @@ of Dia#</dia:string>
       <dia:attribute name="wrap_after_char">
         <dia:int val="40"/>
       </dia:attribute>
+      <dia:attribute name="comment_line_length">
+        <dia:int val="40"/>
+      </dia:attribute>
+      <dia:attribute name="comment_tagging">
+        <dia:boolean val="false"/>
+      </dia:attribute>
       <dia:attribute name="line_color">
         <dia:color val="#000000"/>
       </dia:attribute>
@@ -2410,21 +2518,21 @@ of Dia#</dia:string>
         <dia:font family="monospace" style="0" name="Courier"/>
       </dia:attribute>
       <dia:attribute name="abstract_font">
-        <dia:font family="monospace" style="88" name="Courier"/>
+        <dia:font family="monospace" style="88" name="Courier-BoldOblique"/>
       </dia:attribute>
       <dia:attribute name="polymorphic_font">
-        <dia:font family="monospace" style="8" name="Courier"/>
+        <dia:font family="monospace" style="8" name="Courier-Oblique"/>
       </dia:attribute>
       <dia:attribute name="classname_font">
-        <dia:font family="sans" style="80" name="Helvetica"/>
+        <dia:font family="sans" style="80" name="Helvetica-Bold"/>
       </dia:attribute>
       <dia:attribute name="abstract_classname_font">
-        <dia:font family="sans" style="88" name="Helvetica"/>
+        <dia:font family="sans" style="88" name="Helvetica-BoldOblique"/>
       </dia:attribute>
       <dia:attribute name="comment_font">
-        <dia:font family="sans" style="8" name="Helvetica"/>
+        <dia:font family="sans" style="8" name="Helvetica-Oblique"/>
       </dia:attribute>
-      <dia:attribute name="font_height">
+      <dia:attribute name="normal_font_height">
         <dia:real val="0.80000000000000004"/>
       </dia:attribute>
       <dia:attribute name="polymorphic_font_height">
@@ -2449,18 +2557,18 @@ of Dia#</dia:string>
       </dia:attribute>
       <dia:attribute name="templates"/>
     </dia:object>
-    <dia:object type="UML - Generalization" version="0" id="O27">
+    <dia:object type="UML - Generalization" version="1" id="O27">
       <dia:attribute name="obj_pos">
-        <dia:point val="48.625,26.2"/>
+        <dia:point val="50.8743,26.2579"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="47.775,26.15;51.3,30.05"/>
+        <dia:rectangle val="50.0243,26.2079;53.2955,30.1079"/>
       </dia:attribute>
       <dia:attribute name="orth_points">
-        <dia:point val="48.625,26.2"/>
-        <dia:point val="48.625,28"/>
-        <dia:point val="51.25,28"/>
-        <dia:point val="51.25,30"/>
+        <dia:point val="50.8743,26.2579"/>
+        <dia:point val="50.8743,28.0579"/>
+        <dia:point val="53.2455,28.0579"/>
+        <dia:point val="53.2455,30.0579"/>
       </dia:attribute>
       <dia:attribute name="orth_orient">
         <dia:enum val="1"/>
@@ -2469,6 +2577,9 @@ of Dia#</dia:string>
       </dia:attribute>
       <dia:attribute name="orth_autoroute">
         <dia:boolean val="false"/>
+      </dia:attribute>
+      <dia:attribute name="text_colour">
+        <dia:color val="#000000"/>
       </dia:attribute>
       <dia:attribute name="line_colour">
         <dia:color val="#000000"/>
@@ -2486,16 +2597,16 @@ of Dia#</dia:string>
     </dia:object>
     <dia:object type="UML - Class" version="0" id="O28">
       <dia:attribute name="obj_pos">
-        <dia:point val="34.2854,36.1142"/>
+        <dia:point val="36.3709,36.1721"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="34.2354,36.0642;36.8354,38.3642"/>
+        <dia:rectangle val="36.3209,36.1221;38.7409,38.4221"/>
       </dia:attribute>
       <dia:attribute name="elem_corner">
-        <dia:point val="34.2854,36.1142"/>
+        <dia:point val="36.3709,36.1721"/>
       </dia:attribute>
       <dia:attribute name="elem_width">
-        <dia:real val="2.5"/>
+        <dia:real val="2.3199999999999998"/>
       </dia:attribute>
       <dia:attribute name="elem_height">
         <dia:real val="2.1999999999999997"/>
@@ -2533,6 +2644,12 @@ of Dia#</dia:string>
       <dia:attribute name="wrap_after_char">
         <dia:int val="40"/>
       </dia:attribute>
+      <dia:attribute name="comment_line_length">
+        <dia:int val="40"/>
+      </dia:attribute>
+      <dia:attribute name="comment_tagging">
+        <dia:boolean val="false"/>
+      </dia:attribute>
       <dia:attribute name="line_color">
         <dia:color val="#000000"/>
       </dia:attribute>
@@ -2546,21 +2663,21 @@ of Dia#</dia:string>
         <dia:font family="monospace" style="0" name="Courier"/>
       </dia:attribute>
       <dia:attribute name="abstract_font">
-        <dia:font family="monospace" style="88" name="Courier"/>
+        <dia:font family="monospace" style="88" name="Courier-BoldOblique"/>
       </dia:attribute>
       <dia:attribute name="polymorphic_font">
-        <dia:font family="monospace" style="8" name="Courier"/>
+        <dia:font family="monospace" style="8" name="Courier-Oblique"/>
       </dia:attribute>
       <dia:attribute name="classname_font">
-        <dia:font family="sans" style="80" name="Helvetica"/>
+        <dia:font family="sans" style="80" name="Helvetica-Bold"/>
       </dia:attribute>
       <dia:attribute name="abstract_classname_font">
-        <dia:font family="sans" style="88" name="Helvetica"/>
+        <dia:font family="sans" style="88" name="Helvetica-BoldOblique"/>
       </dia:attribute>
       <dia:attribute name="comment_font">
-        <dia:font family="sans" style="8" name="Helvetica"/>
+        <dia:font family="sans" style="8" name="Helvetica-Oblique"/>
       </dia:attribute>
-      <dia:attribute name="font_height">
+      <dia:attribute name="normal_font_height">
         <dia:real val="0.80000000000000004"/>
       </dia:attribute>
       <dia:attribute name="polymorphic_font_height">
@@ -2585,18 +2702,18 @@ of Dia#</dia:string>
       </dia:attribute>
       <dia:attribute name="templates"/>
     </dia:object>
-    <dia:object type="UML - Generalization" version="0" id="O29">
+    <dia:object type="UML - Generalization" version="1" id="O29">
       <dia:attribute name="obj_pos">
-        <dia:point val="32.9,32.2"/>
+        <dia:point val="35.2355,32.2579"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="32.05,32.15;35.5854,36.1642"/>
+        <dia:rectangle val="34.3855,32.2079;37.5809,36.2221"/>
       </dia:attribute>
       <dia:attribute name="orth_points">
-        <dia:point val="32.9,32.2"/>
-        <dia:point val="32.9,34.1142"/>
-        <dia:point val="35.5354,34.1142"/>
-        <dia:point val="35.5354,36.1142"/>
+        <dia:point val="35.2355,32.2579"/>
+        <dia:point val="35.2355,34.1721"/>
+        <dia:point val="37.5309,34.1721"/>
+        <dia:point val="37.5309,36.1721"/>
       </dia:attribute>
       <dia:attribute name="orth_orient">
         <dia:enum val="1"/>
@@ -2605,6 +2722,9 @@ of Dia#</dia:string>
       </dia:attribute>
       <dia:attribute name="orth_autoroute">
         <dia:boolean val="false"/>
+      </dia:attribute>
+      <dia:attribute name="text_colour">
+        <dia:color val="#000000"/>
       </dia:attribute>
       <dia:attribute name="line_colour">
         <dia:color val="#000000"/>
@@ -2625,16 +2745,16 @@ of Dia#</dia:string>
         <dia:point val="29.2,2.75"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="29.15,2.7;37.65,9.3"/>
+        <dia:rectangle val="29.15,2.7;39.9625,9.3"/>
       </dia:attribute>
       <dia:attribute name="elem_corner">
         <dia:point val="29.2,2.75"/>
       </dia:attribute>
       <dia:attribute name="elem_width">
-        <dia:real val="8.4000000000000004"/>
+        <dia:real val="10.7125"/>
       </dia:attribute>
       <dia:attribute name="elem_height">
-        <dia:real val="6.5"/>
+        <dia:real val="6.4999999999999991"/>
       </dia:attribute>
       <dia:attribute name="line_colour">
         <dia:color val="#000000"/>
@@ -2661,7 +2781,7 @@ would be cool.#</dia:string>
             <dia:real val="0.69999999999999996"/>
           </dia:attribute>
           <dia:attribute name="pos">
-            <dia:point val="29.55,3.9"/>
+            <dia:point val="29.55,3.9425"/>
           </dia:attribute>
           <dia:attribute name="color">
             <dia:color val="#000000"/>

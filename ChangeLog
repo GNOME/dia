@@ -1,5 +1,20 @@
 2007-09-09  Hans Breuer  <hans@breuer.org>
 
+	* object/UML/class.c : the template box was not considered in the
+	bounding box, part of bug #475173
+	* object/UML/(activity|branch|state|state_term|usecase).c : 
+	ElementBBExtras, should fix bug #475173
+
+	* lib/prop_text.c : GtkTextView has no "changed" signal, connect 
+	to "insert-at-cursor" although it probably does not catch every change
+	
+	* lib/dia_svg.c(dia_svg_parse_path) 
+	  plug-ins/svg-import.c : initialize BezPoint to 0/scale all to 
+	avoid uninitialized values in all BezPoint, even the ones which
+	don't use all control points
+
+	* samples/Self/dia-core.dia : adapted to font size changes from 0.96
+
 	* app/diagram.c(diagram_update_for_filename) : don't add every 
 	filename change to the recent file menu, only loaded or saved
 	files belong there. Fixes bug #474941
