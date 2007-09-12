@@ -1,3 +1,8 @@
+2007-08-27  Marc-Andre Lureau  <marcandre.lureau@gmail.com>
+
+	* configure.in:
+	* po/LINGUAS: Use po/LINGUAS. Fixes bug #470797
+	
 2007-09-12  Lars Clausen  <lars@raeder.dk>
 
 	* objects/UML/lifeline.c: Patch from Filippo Bergamasco
