@@ -607,7 +607,7 @@ gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(pScroll_others), prop_
 
 
   /********** Label of board **********/
-  label = gtk_label_new (_("Libel"));
+  label = gtk_label_new (_("Label"));
   gtk_table_attach_defaults (GTK_TABLE (prop_dialog->table_others), label, 0, 1, 2, 3);
   label = gtk_label_new (_("value"));
   gtk_table_attach_defaults (GTK_TABLE (prop_dialog->table_others), label, 1, 2, 2, 3);

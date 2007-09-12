@@ -1,3 +1,16 @@
+2007-09-12  Lars Clausen  <lars@raeder.dk>
+
+	* objects/UML/lifeline.c: Patch from Filippo Bergamasco
+	<fbergama@gmail.com>: Improved behaviour of lifeline object,
+	including being able to connect multiple.
+
+	* lib/diasvgrenderer.c (draw_text_line): Use "textLength"
+	attribute instead of unknown "length" attribute.  Fixes bug
+	#474882.
+
+	* objects/SISSI/sissi_dialog.c (properties_others_create_page):
+	Libel changed to label.  Fixes bug #471506.
+
 2007-09-09  Hans Breuer  <hans@breuer.org>
 
 	* object/UML/class.c : the template box was not considered in the

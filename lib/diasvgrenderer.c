@@ -727,7 +727,7 @@ draw_text_line(DiaRenderer *self, TextLine *text_line,
 			dia_svg_dtostr(d_buf, text_line_get_height(text_line)));
   style = tmp;
   
-  tmp = g_strdup_printf("%s; length: %s", style,
+  tmp = g_strdup_printf("%s; textLength: %s", style,
 			dia_svg_dtostr(d_buf, text_line_get_width(text_line)));
   g_free (style);
   style = tmp;

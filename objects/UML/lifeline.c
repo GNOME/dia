@@ -42,12 +42,16 @@ typedef struct _Lifeline Lifeline;
 struct _Lifeline {
   Connection connection;  
 
-  ConnectionPoint connections[6]; /* the static ones. 6 is meant to 
-                                     be hardcoded. */
+  ConnectionPoint connections[7]; /* 7°th cp position is at rbot handle location 
+                                     (this is useful to attach another lifeline
+                                      just below this one in case of an object
+                                      activated more than once in a sequence diagram.)*/
   Handle boxbot_handle;
   Handle boxtop_handle;
 
+
   real rtop, rbot;
+  real cp_distance;
     
   int draw_focuscontrol;
   int draw_cross;
@@ -65,6 +69,8 @@ struct _Lifeline {
   */
 };
 
+#define LIFELINE_CP_DEFAULT_DISTANCE 0.5
+#define LIFELINE_CP_DISTANCE_INCREASE_FACTOR 0.25
 #define LIFELINE_LINEWIDTH 0.05
 #define LIFELINE_BOXWIDTH 0.1
 #define LIFELINE_WIDTH 0.7
@@ -186,6 +192,14 @@ lifeline_set_props(Lifeline *lifeline, GPtrArray *props)
 {
   object_set_props_from_offsets(&lifeline->connection.object, 
                                 lifeline_offsets, props);
+
+  /* This magic is necessary to correctly load data
+     from old lifeline behavior. It calculates the
+     cp_distance in function of saved rtop-rbot distance and
+     num of cp.
+     ( It's just the inverse of lifeline_rect_size :)
+  */
+  lifeline->cp_distance = ((real)(lifeline->rbot) - (real)(lifeline->rtop) ) / ( (real)(lifeline->northwest->num_connections+1) * 2.0 );
   lifeline_update_data(lifeline);
 }
 
@@ -201,6 +215,13 @@ lifeline_distance_from(Lifeline *lifeline, Point *point)
   dist2 = dist1;
   
   return MIN(dist1, dist2);
+}
+
+
+static inline real
+lifeline_rect_size(Lifeline *lifeline)
+{
+   return ( (real)(lifeline->northwest->num_connections+1) * 2.0 * lifeline->cp_distance );
 }
 
 static void
@@ -225,19 +246,15 @@ lifeline_move_handle(Lifeline *lifeline, Handle *handle,
   conn = &lifeline->connection;
   if (handle->id == HANDLE_BOXBOT) {
       t = to->y - conn->endpoints[0].y;
-      if (t > LIFELINE_BOXMINHEIGHT && 
-	  t < conn->endpoints[1].y - conn->endpoints[0].y) {
+	if ( t > lifeline_rect_size( lifeline ) ) {
 	  lifeline->rbot = t;
-	  if (t < lifeline->rtop + LIFELINE_BOXMINHEIGHT)
-	      lifeline->rtop = t - LIFELINE_BOXMINHEIGHT;
+          lifeline->rtop = lifeline-> rbot - lifeline_rect_size( lifeline );
       }
   } else if (handle->id == HANDLE_BOXTOP) {
       t = to->y - conn->endpoints[0].y;
       if (t > 0 && 
-	  t < conn->endpoints[1].y-conn->endpoints[0].y-LIFELINE_BOXMINHEIGHT) {
-	  lifeline->rtop = t;	
-	  if (t > lifeline->rbot - LIFELINE_BOXMINHEIGHT)
-	      lifeline->rbot = t + LIFELINE_BOXMINHEIGHT;
+	  t + lifeline_rect_size( lifeline ) < conn->endpoints[1].y) {
+	  lifeline->rtop = t;
       }
   } else {
     /* move horizontally only if startpoint is moved */
@@ -299,8 +316,21 @@ lifeline_draw(Lifeline *lifeline, DiaRenderer *renderer)
   renderer_ops->set_dashlength(renderer, LIFELINE_DASHLEN);
   renderer_ops->set_linestyle(renderer, LINESTYLE_DASHED);
 
+  
+
+  /* Ok, instead rendering one big line between two endpoints we just
+     from endpoints to rtop and rbottom respectively.
+     This trick lets dashed line displayed correctly if we attach another
+     lifeline object to "rbot" connectionpoint
+  */
+  p1.x = p2.x = endpoints[0].x;
+  p1.y = endpoints[0].y + lifeline->rtop;
+  p2.y = endpoints[0].y + lifeline->rbot;
   renderer_ops->draw_line(renderer,
-			   &endpoints[0], &endpoints[1],
+			   &endpoints[0], &p1,
+			   &lifeline->line_color);
+  renderer_ops->draw_line(renderer,
+			   &p2, &endpoints[1],
 			   &lifeline->line_color);
 
 
@@ -340,44 +370,65 @@ lifeline_draw(Lifeline *lifeline, DiaRenderer *renderer)
   }
 }
 
+
 /* DiaObject menu handling */
+
+#define LIFELINE_CHANGE_ADD 0x01
+#define LIFELINE_CHANGE_DEL 0x02
+#define LIFELINE_CHANGE_INC 0x03
+#define LIFELINE_CHANGE_DEC 0x04
+#define LIFELINE_CHANGE_DEF 0x05
+
 
 typedef struct {
   ObjectChange obj_change;
   
   ObjectChange *northeast,*southeast,*northwest,*southwest;
+  real cp_distance_change;
+  unsigned char type;
 } LifelineChange;
 
 static void lifeline_change_apply(LifelineChange *change, DiaObject *obj)
 {
-  change->northwest->apply(change->northwest,obj);
-  change->southwest->apply(change->southwest,obj);
-  change->northeast->apply(change->northeast,obj);
-  change->southeast->apply(change->southeast,obj);
+  if( change->type == LIFELINE_CHANGE_ADD ||  change->type == LIFELINE_CHANGE_DEL ) {
+    change->northwest->apply(change->northwest,obj);
+    change->southwest->apply(change->southwest,obj);
+    change->northeast->apply(change->northeast,obj);
+    change->southeast->apply(change->southeast,obj);
+  } else {
+    ((Lifeline*)obj)->cp_distance += change->cp_distance_change;
+  }
+  
 }
 
 static void lifeline_change_revert(LifelineChange *change, DiaObject *obj)
 {
-  change->northwest->revert(change->northwest,obj);
-  change->southwest->revert(change->southwest,obj);
-  change->northeast->revert(change->northeast,obj);
-  change->southeast->revert(change->southeast,obj);
+  if( change->type == LIFELINE_CHANGE_ADD ||  change->type == LIFELINE_CHANGE_DEL ) {
+	change->northwest->revert(change->northwest,obj);
+	change->southwest->revert(change->southwest,obj);
+	change->northeast->revert(change->northeast,obj);
+	change->southeast->revert(change->southeast,obj);
+  } else {
+    ((Lifeline*)obj)->cp_distance -= change->cp_distance_change;
+  }
 }
 
 static void lifeline_change_free(LifelineChange *change) 
 {
-  if (change->northeast->free) change->northeast->free(change->northeast);
-  g_free(change->northeast);
-  if (change->northwest->free) change->northwest->free(change->northwest);
-  g_free(change->northwest);
-  if (change->southeast->free) change->southeast->free(change->southeast);
-  g_free(change->southeast);
-  if (change->southwest->free) change->southwest->free(change->southwest);
-  g_free(change->southwest);
+  if( change->type == LIFELINE_CHANGE_ADD ||  change->type == LIFELINE_CHANGE_DEL ) {
+    if (change->northeast->free) change->northeast->free(change->northeast);
+      g_free(change->northeast);
+    if (change->northwest->free) change->northwest->free(change->northwest);
+      g_free(change->northwest);
+    if (change->southeast->free) change->southeast->free(change->southeast);
+      g_free(change->southeast);
+    if (change->southwest->free) change->southwest->free(change->southwest);
+      g_free(change->southwest);
+  }
 }
 
 static ObjectChange *
-lifeline_create_change(Lifeline *lifeline, int add, Point *clicked) 
+lifeline_create_change(Lifeline *lifeline, unsigned char changetype, Point *clicked) 
 {
   LifelineChange *vc;
  
@@ -385,17 +436,34 @@ lifeline_create_change(Lifeline *lifeline, int add, Point *clicked)
   vc->obj_change.apply = (ObjectChangeApplyFunc)lifeline_change_apply;
   vc->obj_change.revert = (ObjectChangeRevertFunc)lifeline_change_revert;
   vc->obj_change.free = (ObjectChangeFreeFunc)lifeline_change_free;
+  vc->type = changetype;
   
-  if (add) {
-    vc->northeast = connpointline_add_point(lifeline->northeast,clicked);
-    vc->northwest = connpointline_add_point(lifeline->northwest,clicked);
-    vc->southeast = connpointline_add_point(lifeline->southeast,clicked);
-    vc->southwest = connpointline_add_point(lifeline->southwest,clicked);
-  } else {
-    vc->northeast = connpointline_remove_point(lifeline->northeast,clicked);
-    vc->southwest = connpointline_remove_point(lifeline->southwest,clicked);
-    vc->southeast = connpointline_remove_point(lifeline->southeast,clicked);
-    vc->northwest = connpointline_remove_point(lifeline->northwest,clicked);
+  switch( vc->type ) 
+  {
+    case LIFELINE_CHANGE_ADD:
+      vc->northeast = connpointline_add_point(lifeline->northeast,clicked);
+      vc->northwest = connpointline_add_point(lifeline->northwest,clicked);
+      vc->southeast = connpointline_add_point(lifeline->southeast,clicked);
+      vc->southwest = connpointline_add_point(lifeline->southwest,clicked);
+      break;
+    case LIFELINE_CHANGE_DEL:
+      vc->northeast = connpointline_remove_point(lifeline->northeast,clicked);
+      vc->southwest = connpointline_remove_point(lifeline->southwest,clicked);
+      vc->southeast = connpointline_remove_point(lifeline->southeast,clicked);
+      vc->northwest = connpointline_remove_point(lifeline->northwest,clicked);
+      break;
+    case LIFELINE_CHANGE_INC:
+      vc->cp_distance_change = LIFELINE_CP_DISTANCE_INCREASE_FACTOR;
+      lifeline->cp_distance += vc->cp_distance_change;
+      break;
+    case LIFELINE_CHANGE_DEC:
+      vc->cp_distance_change = -1 * LIFELINE_CP_DISTANCE_INCREASE_FACTOR;
+      lifeline->cp_distance += vc->cp_distance_change;
+      break;
+    case LIFELINE_CHANGE_DEF:
+      vc->cp_distance_change = LIFELINE_CP_DEFAULT_DISTANCE*2 - lifeline->cp_distance;
+      lifeline->cp_distance += vc->cp_distance_change;
+      break;
   }
   lifeline_update_data(lifeline);
   return (ObjectChange *)vc;
@@ -404,18 +472,39 @@ lifeline_create_change(Lifeline *lifeline, int add, Point *clicked)
 static ObjectChange *
 lifeline_add_cp_callback(DiaObject *obj, Point *clicked, gpointer data)
 {
-  return lifeline_create_change((Lifeline *)obj,1,clicked);
+  return lifeline_create_change((Lifeline *)obj,LIFELINE_CHANGE_ADD,clicked);
 }
 
 static ObjectChange *
 lifeline_delete_cp_callback(DiaObject *obj, Point *clicked, gpointer data)
 { 
-  return lifeline_create_change((Lifeline *)obj,0,clicked); 
+  return lifeline_create_change((Lifeline *)obj,LIFELINE_CHANGE_DEL,clicked);
+}
+
+static ObjectChange *
+lifeline_increase_cp_distance_callback(DiaObject *obj, Point *clicked, gpointer data)
+{
+  return lifeline_create_change((Lifeline *)obj,LIFELINE_CHANGE_INC,clicked);
+}
+
+static ObjectChange *
+lifeline_decrease_cp_distance_callback(DiaObject *obj, Point *clicked, gpointer data)
+{
+  return lifeline_create_change((Lifeline *)obj,LIFELINE_CHANGE_DEC,clicked);
+}
+
+static ObjectChange *
+lifeline_default_cp_distance_callback(DiaObject *obj, Point *clicked, gpointer data)
+{
+  return lifeline_create_change((Lifeline *)obj,LIFELINE_CHANGE_DEF,clicked);
 }
 
 static DiaMenuItem object_menu_items[] = {
   { N_("Add connection points"), lifeline_add_cp_callback, NULL, 1 },
   { N_("Remove connection points"), lifeline_delete_cp_callback, NULL, 1 },
+  { N_("Increase connection points distance"), lifeline_increase_cp_distance_callback, NULL, 1 },
+  { N_("Decrease connection points distance"), lifeline_decrease_cp_distance_callback, NULL, 1 },
+  { N_("Set default connection points distance"), lifeline_default_cp_distance_callback, NULL, 1 },
 };
 
 static DiaMenu object_menu = {
@@ -454,25 +543,25 @@ lifeline_create(Point *startpoint,
   int i;
 
   lifeline = g_malloc0(sizeof(Lifeline));
+  lifeline->cp_distance = LIFELINE_CP_DEFAULT_DISTANCE;
 
   conn = &lifeline->connection;
   conn->endpoints[0] = *startpoint;
   conn->endpoints[0].x += LIFELINE_WIDTH/2;
   conn->endpoints[1] = conn->endpoints[0];
-  conn->endpoints[1].y += LIFELINE_HEIGHT; 
+  conn->endpoints[1].y = conn->endpoints[0].y + 6.0*lifeline->cp_distance;
  
   obj = &conn->object;
   
   obj->type = &lifeline_type;
   obj->ops = &lifeline_ops;
 
-  connection_init(conn, 4, 6);
+  connection_init(conn, 4, 7);
 
   lifeline->line_color = attributes_get_foreground();
   lifeline->fill_color = attributes_get_background();
 
-  lifeline->rtop = LIFELINE_HEIGHT/3;
-  lifeline->rbot = lifeline->rtop+0.7;
+  lifeline->rtop = conn->endpoints[0].y + lifeline->cp_distance;
   lifeline->draw_focuscontrol = 1;
   lifeline->draw_cross = 0;
     
@@ -492,7 +581,7 @@ lifeline_create(Point *startpoint,
   obj->handles[1]->connect_type = HANDLE_NONCONNECTABLE;
 
   /* Connection points */
-  for (i=0;i<6;i++) {
+  for (i=0;i<7;i++) {
     obj->connections[i] = &lifeline->connections[i];
     lifeline->connections[i].object = obj;
     lifeline->connections[i].connected = NULL;
@@ -522,6 +611,7 @@ lifeline_destroy(Lifeline *lifeline)
   connection_destroy(&lifeline->connection);
 }
 
+
 static void
 lifeline_update_data(Lifeline *lifeline)
 {
@@ -531,6 +621,13 @@ lifeline_update_data(Lifeline *lifeline)
   Point p1, p2, pnw, psw, pne, pse, pmw,pme;
 
   obj->position = conn->endpoints[0];
+
+  /* Update lifeline rbot using num. of cp and cp_distance */
+  lifeline->rbot =  lifeline->rtop + lifeline_rect_size( lifeline ) ;
+  /* Update conn->endpoints[0].y if rbot is greater */ 
+  if( conn->endpoints[1].y < conn->endpoints[0].y + lifeline->rbot )
+     conn->endpoints[1].y = conn->endpoints[0].y + lifeline->rbot + lifeline->cp_distance;
+
 
   /* box handles: */
   p1.x = conn->endpoints[0].x;
@@ -569,7 +666,12 @@ lifeline_update_data(Lifeline *lifeline)
   pse.x = p2.x; pse.y = p2.y;
   pmw.x = pnw.x;
   pme.x = pne.x;
-  pmw.y = pme.y = (p1.y + p2.y)/2;
+  
+  pmw.y = pme.y = (p1.y + p2.y)/2.0;
+
+
+  lifeline->connections[6].pos.x = conn->endpoints[0].x;
+  lifeline->connections[6].pos.y = conn->endpoints[0].y + lifeline->rbot;
 
   lifeline->connections[0].pos = pnw;
   lifeline->connections[1].pos = pne;
@@ -584,6 +686,7 @@ lifeline_update_data(Lifeline *lifeline)
   lifeline->connections[4].directions = DIR_SOUTH|DIR_WEST;
   lifeline->connections[5].directions = DIR_SOUTH|DIR_EAST;
 
+
   connpointline_update(lifeline->northwest);
   connpointline_putonaline(lifeline->northwest,&pnw,&pmw);
   connpointline_update(lifeline->southwest);
@@ -592,6 +695,8 @@ lifeline_update_data(Lifeline *lifeline)
   connpointline_putonaline(lifeline->northeast,&pne,&pme);
   connpointline_update(lifeline->southeast);
   connpointline_putonaline(lifeline->southeast,&pme,&pse);
+
+
 }
 
 static DiaObject *
