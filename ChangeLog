@@ -1,3 +1,9 @@
+2007-09-13  Lars Clausen  <lars@raeder.dk>
+
+	* objects/UML/class.c: Patch from <djpohly+gnome@gmail.com>:
+	Further adjustment of UML class connection points, this time
+	adjusted for wrapping.  Fixes bug #470598.
+
 2007-08-27  Marc-Andre Lureau  <marcandre.lureau@gmail.com>
 
 	* configure.in:

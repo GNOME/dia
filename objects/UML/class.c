@@ -1217,8 +1217,7 @@ umlclass_update_data(UMLClass *umlclass)
 
     if (op->needs_wrapping) { /* Wrapped */
       int lines = g_list_length(op->wrappos);
-      y += umlclass->font_height - op->ascent;
-      y += op->ascent * lines;
+      y += umlclass->font_height * lines;
     } else {
       y += umlclass->font_height;
     }
