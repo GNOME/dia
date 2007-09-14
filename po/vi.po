@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-08-12 03:43+0100\n"
-"PO-Revision-Date: 2007-09-04 19:15+0930\n"
+"POT-Creation-Date: 2007-09-13 03:27+0100\n"
+"PO-Revision-Date: 2007-09-14 21:45+0930\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: Vietnamese <gnomevi-list@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -554,7 +554,10 @@ msgstr "Lỗi"
 msgid ""
 "You have loaded a non-Dia file.  The file has become an element in a new "
 "diagram, and if you save it, it will be saved as a Dia diagram."
-msgstr "Bạn đã nạp một tập tin không phải thuộc về Dia. Tập tin này đã trở thành một yếu tố trong một sơ đồ mới, và nếu bạn lưu nó, nó sẽ được lưu theo định dạng sơ đồ Dia."
+msgstr ""
+"Bạn đã nạp một tập tin không phải thuộc về Dia. Tập tin này đã trở thành một "
+"yếu tố trong một sơ đồ mới, và nếu bạn lưu nó, nó sẽ được lưu theo định dạng "
+"sơ đồ Dia."
 
 #: ../app/diagram.c:1124
 msgid "Trying to group with no selected objects."
@@ -564,7 +567,9 @@ msgstr "Đang thử nhóm lại nhưng chưa chọn đối tượng."
 msgid ""
 "You cannot group objects that belong to different groups or have different "
 "parents"
-msgstr "Bạn không thể nhóm lại các đối tượng thuộc về các nhóm khác nhau hoặc có cha khác nhau"
+msgstr ""
+"Bạn không thể nhóm lại các đối tượng thuộc về các nhóm khác nhau hoặc có cha "
+"khác nhau"
 
 #: ../app/diagram_tree_menu.c:46
 msgid "/_Sort objects"
@@ -848,7 +853,7 @@ msgstr "Chưa chọn gì cần lưu. Bạn muốn thử lại không?"
 #: ../plug-ins/pgf/render_pgf.c:1208
 #: ../plug-ins/pstricks/render_pstricks.c:916
 #: ../plug-ins/shape/shape-export.c:136
-#: ../plug-ins/svg/render_svg.c:152
+#: ../plug-ins/svg/render_svg.c:155
 #: ../plug-ins/vdx/vdx-export.c:1849
 #: ../plug-ins/wpg/wpg.c:1072
 #: ../plug-ins/xfig/xfig-export.c:1138
@@ -894,35 +899,35 @@ msgstr "Cao ảnh:"
 msgid "PNG (anti-aliased)"
 msgstr "PNG (làm trơn)"
 
-#: ../app/filedlg.c:132
-#: ../app/filedlg.c:534
+#: ../app/filedlg.c:133
+#: ../app/filedlg.c:537
 msgid "By extension"
 msgstr "Theo phần mở rộng"
 
-#: ../app/filedlg.c:219
+#: ../app/filedlg.c:220
 msgid "Open Diagram"
 msgstr "Mở sơ đồ"
 
-#: ../app/filedlg.c:248
+#: ../app/filedlg.c:249
 msgid "Open Options"
 msgstr "Tùy chọn Mở"
 
-#: ../app/filedlg.c:256
-#: ../app/filedlg.c:656
+#: ../app/filedlg.c:257
+#: ../app/filedlg.c:659
 msgid "Determine file type:"
 msgstr "Xác định kiểu tập tin:"
 
-#: ../app/filedlg.c:272
-#: ../app/filedlg.c:674
+#: ../app/filedlg.c:273
+#: ../app/filedlg.c:677
 msgid "Supported Formats"
 msgstr "Các dạng thức được hỗ trợ"
 
-#: ../app/filedlg.c:278
-#: ../app/filedlg.c:669
+#: ../app/filedlg.c:279
+#: ../app/filedlg.c:672
 msgid "All Files"
 msgstr "Mọi tập tin"
 
-#: ../app/filedlg.c:312
+#: ../app/filedlg.c:313
 #: ../app/paginate_psprint.c:410
 msgid ""
 "Some characters in the filename are neither UTF-8\n"
@@ -933,14 +938,14 @@ msgstr ""
 "cục bộ của bạn.\n"
 "Thì vài thứ sẽ bị sai."
 
-#: ../app/filedlg.c:322
-#: ../app/filedlg.c:581
+#: ../app/filedlg.c:323
+#: ../app/filedlg.c:584
 #: ../app/paginate_psprint.c:425
 msgid "File already exists"
 msgstr "Tập tin đã có"
 
-#: ../app/filedlg.c:324
-#: ../app/filedlg.c:583
+#: ../app/filedlg.c:325
+#: ../app/filedlg.c:586
 #: ../app/paginate_psprint.c:417
 #, c-format
 msgid ""
@@ -950,17 +955,17 @@ msgstr ""
 "Tập tin « %s » đã có.\n"
 "Bạn có muốn ghi đè lên không?"
 
-#: ../app/filedlg.c:377
+#: ../app/filedlg.c:379
 msgid "Save Diagram"
 msgstr "Lưu sơ đồ"
 
-#: ../app/filedlg.c:389
+#: ../app/filedlg.c:391
 #. Need better way to make it a reasonable size.  Isn't there some
 #. standard look for them (or is that just Gnome?)
 msgid "Compress diagram files"
 msgstr "Nén tập tin sơ đồ"
 
-#: ../app/filedlg.c:398
+#: ../app/filedlg.c:400
 msgid ""
 "Compression reduces file size to less than 1/10th size and speeds up loading "
 "and saving.  Some text programs cannot manipulate compressed files."
@@ -968,7 +973,7 @@ msgstr ""
 "Sự nén giảm kích cỡ của tập tin xuống thấp hơn 1/10 kích cỡ, và tăng tốc tải/"
 "lưu. Vài chương trình nhập thô không thể thao tác những tập tin đã nén."
 
-#: ../app/filedlg.c:607
+#: ../app/filedlg.c:610
 #, c-format
 msgid ""
 "Could not determine which export filter\n"
@@ -977,11 +982,11 @@ msgstr ""
 "Không thể xác định bộ lọc xuất nào\n"
 "cần dùng để lưu « %s »."
 
-#: ../app/filedlg.c:631
+#: ../app/filedlg.c:634
 msgid "Export Diagram"
 msgstr "Xuất sơ đồ"
 
-#: ../app/filedlg.c:648
+#: ../app/filedlg.c:651
 msgid "Export Options"
 msgstr "Tùy chọn xuất"
 
@@ -2073,9 +2078,9 @@ msgstr "Mô tả:"
 #: ../objects/KAOS/metaandorrel.c:164
 #: ../objects/KAOS/metabinrel.c:171
 #: ../objects/UML/class_dialog.c:1007
-#: ../objects/UML/class_dialog.c:1960
-#: ../objects/UML/class_dialog.c:2198
-#: ../objects/UML/class_dialog.c:2724
+#: ../objects/UML/class_dialog.c:1891
+#: ../objects/UML/class_dialog.c:2168
+#: ../objects/UML/class_dialog.c:2793
 msgid "Type:"
 msgstr "Kiểu :"
 
@@ -2090,9 +2095,9 @@ msgstr "Tờ"
 #: ../objects/UML/association.c:238
 #: ../objects/UML/association.c:1160
 #: ../objects/UML/class_dialog.c:996
-#: ../objects/UML/class_dialog.c:1949
-#: ../objects/UML/class_dialog.c:2187
-#: ../objects/UML/class_dialog.c:2713
+#: ../objects/UML/class_dialog.c:1880
+#: ../objects/UML/class_dialog.c:2157
+#: ../objects/UML/class_dialog.c:2782
 #: ../objects/UML/dependency.c:135
 #: ../objects/UML/generalization.c:131
 #: ../objects/UML/realizes.c:132
@@ -2386,7 +2391,7 @@ msgstr "Lỗi nội tại: thiết lập kiểu góc của điểm kết thúc c
 #: ../lib/create.c:260
 #: ../lib/create.c:295
 #: ../lib/create.c:335
-#: ../plug-ins/svg/svg-import.c:204
+#: ../plug-ins/svg/svg-import.c:245
 #: ../plug-ins/vdx/vdx-import.c:140
 msgid "Can't find standard object"
 msgstr "Không thể tìm thấy đối tượng chuẩn."
@@ -4889,8 +4894,8 @@ msgstr "Thuộc tính khác"
 #: ../objects/SISSI/sissi_dialog.c:610
 #. ********* selection menu of entity ********
 #. ********* Label of board *********
-msgid "Libel"
-msgstr "Phỉ báng"
+msgid "Label"
+msgstr "Nhãn"
 
 #: ../objects/SISSI/sissi_dialog.c:612
 msgid "value"
@@ -4899,9 +4904,9 @@ msgstr "giá trị"
 #: ../objects/SISSI/sissi_dialog.c:623
 #: ../objects/SISSI/sissi_dialog.c:755
 #: ../objects/UML/class_dialog.c:957
-#: ../objects/UML/class_dialog.c:1907
-#: ../objects/UML/class_dialog.c:2144
-#: ../objects/UML/class_dialog.c:2674
+#: ../objects/UML/class_dialog.c:2089
+#: ../objects/UML/class_dialog.c:2319
+#: ../objects/UML/class_dialog.c:2743
 msgid "_New"
 msgstr "_Mới"
 
@@ -4925,7 +4930,7 @@ msgid "Actor"
 msgstr "Diễn viên"
 
 #: ../objects/UML/association.c:1173
-#: ../objects/UML/class_dialog.c:2240
+#: ../objects/UML/class_dialog.c:2213
 msgid "Direction:"
 msgstr "Hướng:"
 
@@ -4957,34 +4962,34 @@ msgstr "Vô số :"
 
 #: ../objects/UML/association.c:1260
 #: ../objects/UML/class_dialog.c:1051
-#: ../objects/UML/class_dialog.c:1984
+#: ../objects/UML/class_dialog.c:1914
 msgid "Visibility:"
 msgstr "Khả kiến:"
 
 #: ../objects/UML/association.c:1269
 #: ../objects/UML/class_dialog.c:1060
-#: ../objects/UML/class_dialog.c:1993
+#: ../objects/UML/class_dialog.c:1923
 #: ../objects/UML/uml.c:102
 msgid "Public"
 msgstr "Công"
 
 #: ../objects/UML/association.c:1279
 #: ../objects/UML/class_dialog.c:1068
-#: ../objects/UML/class_dialog.c:2001
+#: ../objects/UML/class_dialog.c:1931
 #: ../objects/UML/uml.c:103
 msgid "Private"
 msgstr "Riêng tư"
 
 #: ../objects/UML/association.c:1289
 #: ../objects/UML/class_dialog.c:1076
-#: ../objects/UML/class_dialog.c:2009
+#: ../objects/UML/class_dialog.c:1939
 #: ../objects/UML/uml.c:104
 msgid "Protected"
 msgstr "Đã bảo vệ"
 
 #: ../objects/UML/association.c:1299
 #: ../objects/UML/class_dialog.c:1084
-#: ../objects/UML/class_dialog.c:2017
+#: ../objects/UML/class_dialog.c:1947
 #: ../objects/UML/uml.c:105
 msgid "Implementation"
 msgstr "Thi hành"
@@ -5006,7 +5011,7 @@ msgstr "Cấu thành"
 
 #: ../objects/UML/class.c:137
 #: ../objects/UML/class.c:308
-#: ../objects/UML/class.c:1707
+#: ../objects/UML/class.c:1734
 #: ../sheets/UML.sheet.in.h:6
 msgid "Class"
 msgstr "Hạng"
@@ -5035,13 +5040,13 @@ msgstr "Ghi chú"
 #: ../objects/UML/class.c:178
 #: ../objects/UML/class_dialog.c:324
 #: ../objects/UML/class_dialog.c:440
-#: ../objects/UML/class_dialog.c:2048
+#: ../objects/UML/class_dialog.c:1973
 #: ../objects/UML/uml.c:110
 msgid "Abstract"
 msgstr "Trích yếu"
 
 #: ../objects/UML/class.c:147
-#: ../objects/UML/class.c:1704
+#: ../objects/UML/class.c:1731
 msgid "Template"
 msgstr "Biểu mẫu"
 
@@ -5132,7 +5137,7 @@ msgid "Class name:"
 msgstr "Tên hạng:"
 
 #: ../objects/UML/class_dialog.c:301
-#: ../objects/UML/class_dialog.c:1971
+#: ../objects/UML/class_dialog.c:1902
 #: ../objects/UML/dependency.c:137
 #: ../objects/UML/generalization.c:133
 #: ../objects/UML/realizes.c:134
@@ -5141,8 +5146,8 @@ msgstr "Khuôn đúc:"
 
 #: ../objects/UML/class_dialog.c:308
 #: ../objects/UML/class_dialog.c:1029
-#: ../objects/UML/class_dialog.c:2089
-#: ../objects/UML/class_dialog.c:2220
+#: ../objects/UML/class_dialog.c:2012
+#: ../objects/UML/class_dialog.c:2190
 msgid "Comment:"
 msgstr "Ghi chú :"
 
@@ -5216,23 +5221,23 @@ msgid "_Attributes"
 msgstr "Th_uộc tính"
 
 #: ../objects/UML/class_dialog.c:963
-#: ../objects/UML/class_dialog.c:1913
-#: ../objects/UML/class_dialog.c:2151
-#: ../objects/UML/class_dialog.c:2680
+#: ../objects/UML/class_dialog.c:2096
+#: ../objects/UML/class_dialog.c:2325
+#: ../objects/UML/class_dialog.c:2749
 msgid "_Delete"
 msgstr "_Xóa bỏ"
 
 #: ../objects/UML/class_dialog.c:969
-#: ../objects/UML/class_dialog.c:1919
-#: ../objects/UML/class_dialog.c:2158
-#: ../objects/UML/class_dialog.c:2686
+#: ../objects/UML/class_dialog.c:2103
+#: ../objects/UML/class_dialog.c:2331
+#: ../objects/UML/class_dialog.c:2755
 msgid "Move up"
 msgstr "Đem lên"
 
 #: ../objects/UML/class_dialog.c:975
-#: ../objects/UML/class_dialog.c:1925
-#: ../objects/UML/class_dialog.c:2165
-#: ../objects/UML/class_dialog.c:2692
+#: ../objects/UML/class_dialog.c:2110
+#: ../objects/UML/class_dialog.c:2337
+#: ../objects/UML/class_dialog.c:2761
 msgid "Move down"
 msgstr "Đem xuống"
 
@@ -5245,80 +5250,82 @@ msgid "Value:"
 msgstr "Giá trị:"
 
 #: ../objects/UML/class_dialog.c:1105
-#: ../objects/UML/class_dialog.c:2033
+#: ../objects/UML/class_dialog.c:2004
+#. end: Inheritance type
 msgid "Class scope"
 msgstr "Phạm vi hạng"
 
-#: ../objects/UML/class_dialog.c:1879
-#. Operations page:
-msgid "_Operations"
-msgstr "Tha_o tác"
-
-#: ../objects/UML/class_dialog.c:1937
-msgid "Operation data"
-msgstr "Dữ liệu thao tác"
-
-#: ../objects/UML/class_dialog.c:2039
+#: ../objects/UML/class_dialog.c:1964
+#. end: Visibility
 msgid "Inheritance type:"
 msgstr "Kiểu kế thừa:"
 
-#: ../objects/UML/class_dialog.c:2056
+#: ../objects/UML/class_dialog.c:1981
 #: ../objects/UML/uml.c:111
 msgid "Polymorphic (virtual)"
 msgstr "Đa dạng (ảo)"
 
-#: ../objects/UML/class_dialog.c:2064
+#: ../objects/UML/class_dialog.c:1989
 #: ../objects/UML/uml.c:112
 msgid "Leaf (final)"
 msgstr "Lá (kết thúc)"
 
-#: ../objects/UML/class_dialog.c:2082
+#: ../objects/UML/class_dialog.c:2008
 msgid "Query"
 msgstr "Truy vấn"
 
-#: ../objects/UML/class_dialog.c:2115
+#: ../objects/UML/class_dialog.c:2060
 msgid "Parameters:"
 msgstr "Tham số :"
 
-#: ../objects/UML/class_dialog.c:2177
+#: ../objects/UML/class_dialog.c:2146
 msgid "Parameter data"
 msgstr "Dữ liệu tham số"
 
-#: ../objects/UML/class_dialog.c:2209
+#: ../objects/UML/class_dialog.c:2179
 msgid "Def. value:"
 msgstr "Giá trị mặc định:"
 
-#: ../objects/UML/class_dialog.c:2249
+#: ../objects/UML/class_dialog.c:2222
 #: ../objects/UML/umlparameter.c:34
 msgid "Undefined"
 msgstr "Chưa xác định"
 
-#: ../objects/UML/class_dialog.c:2257
+#: ../objects/UML/class_dialog.c:2230
 #: ../objects/UML/umlparameter.c:35
 msgid "In"
 msgstr "Đến"
 
-#: ../objects/UML/class_dialog.c:2266
+#: ../objects/UML/class_dialog.c:2239
 #: ../objects/UML/umlparameter.c:36
 msgid "Out"
 msgstr "Đi"
 
-#: ../objects/UML/class_dialog.c:2275
+#: ../objects/UML/class_dialog.c:2248
 #: ../objects/UML/umlparameter.c:37
 msgid "In & Out"
 msgstr "Đến và Đi"
 
-#: ../objects/UML/class_dialog.c:2640
+#: ../objects/UML/class_dialog.c:2291
+#. Operations page:
+msgid "_Operations"
+msgstr "Tha_o tác"
+
+#: ../objects/UML/class_dialog.c:2349
+msgid "Operation data"
+msgstr "Dữ liệu thao tác"
+
+#: ../objects/UML/class_dialog.c:2709
 #. Templates page:
 msgid "_Templates"
 msgstr "_Biểu mẫu"
 
-#: ../objects/UML/class_dialog.c:2646
+#: ../objects/UML/class_dialog.c:2715
 #: ../sheets/UML.sheet.in.h:29
 msgid "Template class"
 msgstr "Hạng biểu mẫu"
 
-#: ../objects/UML/class_dialog.c:2703
+#: ../objects/UML/class_dialog.c:2772
 msgid "Formal parameter data"
 msgstr "Dữ liệu tham số hình thức"
 
@@ -5362,23 +5369,35 @@ msgstr "Hiện mũi tên:"
 msgid "Interface:"
 msgstr "Giao diện:"
 
-#: ../objects/UML/lifeline.c:144
+#: ../objects/UML/lifeline.c:150
 msgid "Draw focus of control:"
 msgstr "Vẽ tiêu điểm điều khiển:"
 
-#: ../objects/UML/lifeline.c:146
+#: ../objects/UML/lifeline.c:152
 msgid "Draw destruction mark:"
 msgstr "Vẽ dấu hủy:"
 
-#: ../objects/UML/lifeline.c:417
+#: ../objects/UML/lifeline.c:503
 msgid "Add connection points"
 msgstr "Thêm điểm nối"
 
-#: ../objects/UML/lifeline.c:418
+#: ../objects/UML/lifeline.c:504
 msgid "Remove connection points"
 msgstr "Gỡ bỏ điểm nối"
 
-#: ../objects/UML/lifeline.c:422
+#: ../objects/UML/lifeline.c:505
+msgid "Increase connection points distance"
+msgstr "Tăng khoảng cách giữa các điểm nối"
+
+#: ../objects/UML/lifeline.c:506
+msgid "Decrease connection points distance"
+msgstr "Giảm khoảng cách giữa các điểm nối"
+
+#: ../objects/UML/lifeline.c:507
+msgid "Set default connection points distance"
+msgstr "Đặt khoảng cách mặc định giữa các điểm nối"
+
+#: ../objects/UML/lifeline.c:511
 msgid "UML Lifeline"
 msgstr "Đường sống UML"
 
@@ -5442,7 +5461,7 @@ msgstr "Làm hành động"
 msgid "Exit action"
 msgstr "Hành động thoát"
 
-#: ../objects/UML/state.c:471
+#: ../objects/UML/state.c:473
 #. Would like to create a state_term instead, but making the connections
 #. * is a pain
 msgid ""
@@ -6033,11 +6052,11 @@ msgstr "Không thể mở « %s » để ghi.\n"
 msgid "Python scripting support"
 msgstr "Hỗ trợ tập lệnh Python"
 
-#: ../plug-ins/shape/shape-export.c:477
+#: ../plug-ins/shape/shape-export.c:479
 msgid "Can't export png without libart!"
 msgstr "Không thể xuất ra dạng PNG mà không có « libart »."
 
-#: ../plug-ins/shape/shape-export.c:502
+#: ../plug-ins/shape/shape-export.c:504
 msgid "Dia Shape File"
 msgstr "Tập tin hình Dia"
 
@@ -6045,12 +6064,12 @@ msgstr "Tập tin hình Dia"
 msgid "dia shape export filter"
 msgstr "Bộ lọc xuất hình Dia"
 
-#: ../plug-ins/svg/render_svg.c:294
-#: ../plug-ins/svg/svg-import.c:677
+#: ../plug-ins/svg/render_svg.c:304
+#: ../plug-ins/svg/svg-import.c:766
 msgid "Scalable Vector Graphics"
 msgstr "SVG: Đồ hóa véctơ có thể co giãn"
 
-#: ../plug-ins/svg/svg-import.c:195
+#: ../plug-ins/svg/svg-import.c:236
 msgid ""
 "Invalid path data.\n"
 "svg:path data must start with moveto."
@@ -6058,11 +6077,11 @@ msgstr ""
 "Dữ liệu đường dẫn không hợp lệ.\n"
 "Dữ liệu kiểu <svg:path> phải bắt đầu với « moveto » (chuyển tới)."
 
-#: ../plug-ins/svg/svg-import.c:638
+#: ../plug-ins/svg/svg-import.c:689
 msgid "Expected SVG Namespace not found in file"
 msgstr "Ngờ bộ miền tên SVG không được tìm thấy trong tập tin."
 
-#: ../plug-ins/svg/svg-import.c:658
+#: ../plug-ins/svg/svg-import.c:709
 #, c-format
 msgid "root element was '%s' -- expecting 'svg'."
 msgstr "phần tử gốc là « %s » — còn ngờ« svg »."
