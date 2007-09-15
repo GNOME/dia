@@ -1,3 +1,8 @@
+2007-09-15  Hans Breuer  <hans@breuer.org>
+
+	* plug-ins/cairo/diacairo.c : don't position the image twice,
+	cairo_set_source_surface() does get 0,0 offset. Fixes bug #470926
+
 2007-09-13  Lars Clausen  <lars@raeder.dk>
 
 	* objects/UML/class.c: Patch from <djpohly+gnome@gmail.com>:

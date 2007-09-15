@@ -767,7 +767,7 @@ draw_image(DiaRenderer *self,
   cairo_surface_set_filter (renderer->surface, CAIRO_FILTER_BEST);
   cairo_surface_set_filter (surface, CAIRO_FILTER_BEST);
 #endif
-  cairo_set_source_surface (renderer->cr, surface, point->x, point->y);
+  cairo_set_source_surface (renderer->cr, surface, 0.0, 0.0);
   cairo_paint (renderer->cr);
   cairo_restore (renderer->cr);
   cairo_surface_destroy (surface);
