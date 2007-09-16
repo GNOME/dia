@@ -1,5 +1,8 @@
 2007-09-16  Hans Breuer  <hans@breuer.org>
 
+	* samples/arrows.dia : show some arrows (and their bounding
+	box issues)
+
 	* objects/custom/custom/custom_object.c : loading 
 	samples/all_objects.dia produced a g_warning()
 	"No attribute '%s' (%p) or no data(%p) in this attribute".
