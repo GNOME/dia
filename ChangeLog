@@ -1,3 +1,11 @@
+2007-09-16  Hans Breuer  <hans@breuer.org>
+
+	* app/preferences.c : move "Compressed saved files" to 
+	"Diagram defaults", the setting already beahved like the other
+	defaults. Fixes bug #439894.
+	* app/diagram.c : finally respect diagram defaults again, probably
+	broken with 0.95. Fixes bug #477451 
+
 2007-09-15  Hans Breuer  <hans@breuer.org>
 
 	* plug-ins/cairo/diacairo.c : don't position the image twice,

@@ -125,9 +125,6 @@ DiaPrefData prefs_data[] =
   { "reset_tools_after_create", PREF_BOOLEAN, PREF_OFFSET(reset_tools_after_create), 
     &default_true,       0, N_("Reset tools after create") },
 
-  { "compress_save",            PREF_BOOLEAN, PREF_OFFSET(new_diagram.compress_save), 
-    &default_true,       0, N_("Compress saved files") },
-
   { "undo_depth",               PREF_UINT,    PREF_OFFSET(undo_depth), 
     &default_undo_depth, 0, N_("Number of undo levels:") },
 
@@ -157,10 +154,11 @@ DiaPrefData prefs_data[] =
   { NULL, PREF_NONE, 0, NULL, 1, N_("New diagram:") },
   { "is_portrait", PREF_BOOLEAN, PREF_OFFSET(new_diagram.is_portrait), &default_true, 1, N_("Portrait") },
   { "new_diagram_papertype", PREF_CHOICE, PREF_OFFSET(new_diagram.papertype),
-    &default_paper_name, 1, N_("Paper type:"), NULL, FALSE,
-    get_paper_name_list },
+    &default_paper_name, 1, N_("Paper type:"), NULL, FALSE, get_paper_name_list },
   { "new_diagram_bgcolour", PREF_COLOUR, PREF_OFFSET(new_diagram.bg_color),
     &color_white, 1, N_("Background Color:") },
+  { "compress_save",            PREF_BOOLEAN, PREF_OFFSET(new_diagram.compress_save), 
+    &default_true, 1, N_("Compress saved files") },
   { NULL, PREF_END_GROUP, 0, NULL, 1, NULL },
 
   { NULL, PREF_NONE, 0, NULL, 1, N_("New window:") },
