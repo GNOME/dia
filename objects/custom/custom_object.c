@@ -306,7 +306,7 @@ void custom_setup_properties (ShapeInfo *info, xmlNodePtr node)
 	/* we got here, then fill an entry */
 	info->props[i].name = g_strdup_printf("custom:%s", pname);
 	info->props[i].type = ptype;
-	info->props[i].flags = PROP_FLAG_VISIBLE;
+	info->props[i].flags = PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL;
 
 	str = xmlGetProp(node, (const xmlChar *)"description");
 	if (str)
