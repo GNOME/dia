@@ -1,3 +1,9 @@
+2007-09-21  Hans Breuer  <hans@breuer.org>
+
+	* plug-ins/python/python-startup.py : allow to override system
+	python plug-ins with users version. Patch from Tom Parker,
+	fixes bug #478554
+
 2007-09-16  Hans Breuer  <hans@breuer.org>
 
 	* samples/arrows.dia : show some arrows (and their bounding
@@ -6,7 +12,7 @@
 	* objects/custom/custom/custom_object.c : loading 
 	samples/all_objects.dia produced a g_warning()
 	"No attribute '%s' (%p) or no data(%p) in this attribute".
-	Silenced it by makring all those "ext_attribute" optional.
+	Silenced it by marking all those "ext_attribute" optional.
 	
 	* app/preferences.c : move "Compressed saved files" to 
 	"Diagram defaults", the setting already beahved like the other
