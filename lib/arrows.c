@@ -23,6 +23,7 @@
 #include <glib.h>
 #include <math.h>
 #include "message.h"
+#include "boundingbox.h"
 
 #ifdef G_OS_WIN32
 #include <float.h>
@@ -39,7 +40,12 @@
 #include "widgets.h"
 #include "intl.h"
 
-struct menudesc arrow_types[] =
+struct ArrowDesc {
+  const char *name;
+  ArrowType enum_value;
+};
+
+struct ArrowDesc arrow_types[] =
   {{N_("None"),ARROW_NONE},
    {N_("Lines"),ARROW_LINES},
    {N_("Hollow Triangle"),ARROW_HOLLOW_TRIANGLE},
@@ -316,7 +322,7 @@ calculate_arrow_point(const Arrow *arrow, const Point *to, const Point *from,
  * @param width How wide the arrowhead should be.
  */
 static void
-calculate_arrow(Point *poly, Point *to, Point *from,
+calculate_arrow(Point *poly, const Point *to, const Point *from,
 		real length, real width)
 {
   Point delta;
@@ -1747,6 +1753,37 @@ draw_three_dots(DiaRenderer *renderer, Point *to, Point *from,
   }
 }
 
+/** following the signature pattern of lib/boundingbox.h 
+ * the arrow bounding box is added to the given rect 
+ * @param arrow the arrow
+ * @param linewidth arrows use the same line width
+ * @param to The point that the arrow points to.
+ * @param from Where the arrow points from (e.g. end of stem)
+ * @param rect the preintialized bounding box
+ */
+void 
+arrow_bbox (const Arrow *arrow, real line_width, const Point *to, const Point *from, 
+            Rectangle *rect)
+{
+#define N_POINTS 3 /* 3 for calculate_arrow() */
+  Point poly[N_POINTS];
+  PolyBBExtras pextra;
+
+  if (ARROW_NONE == arrow->type)
+    return; /* bbox not growing */
+  
+  /* some extra steps necessary for e.g circle shapes? */
+  calculate_arrow(poly, to, from, arrow->length, arrow->width);
+  
+  pextra.start_trans = pextra.end_trans = 
+  pextra.start_long = pextra.end_long =
+  pextra.middle_trans = line_width/2.0;
+
+  polyline_bbox (poly, N_POINTS, &pextra, TRUE, rect);
+
+#undef N_POINTS
+}
+
 /** Draw any arrowhead.
  * @param renderer A renderer instance to draw into
  * @param type Which kind of arrowhead to draw.
@@ -1874,9 +1911,25 @@ arrow_draw(DiaRenderer *renderer, ArrowType type,
   case ARROW_THREE_DOTS:
     draw_three_dots(renderer,to,from,length,width,linewidth,fg_color);
     break;
-      case MAX_ARROW_TYPE:
-	break;
-  } 
+  case MAX_ARROW_TYPE:
+    break;
+  }
+  if ((type != ARROW_NONE) && (render_bounding_boxes) && (renderer->is_interactive)) {
+    Arrow arrow = {type, length, width};
+    Rectangle bbox = {0, };
+    Point p1, p2;
+    Color col = {1.0, 0.0, 1.0};
+    
+    arrow_bbox (&arrow, linewidth, to, from, &bbox);
+
+    p1.x = bbox.left;
+    p1.y = bbox.top;
+    p2.x = bbox.right;
+    p2.y = bbox.bottom;
+
+    DIA_RENDERER_GET_CLASS(renderer)->set_linewidth(renderer,0.01);
+    DIA_RENDERER_GET_CLASS(renderer)->draw_rect(renderer, &p1, &p2, &col);
+  }
 }
 
 /* *** Loading and saving arrows. *** */
@@ -1959,7 +2012,7 @@ load_arrow(ObjectNode obj_node, Arrow *arrow, gchar *type_attribute,
  *          ARROW_NONE if the name doesn't match any known arrow head type.
  */
 ArrowType
-arrow_type_from_name(gchar *name)
+arrow_type_from_name(const gchar *name)
 {
   int i;
   for (i = 0; arrow_types[i].name != NULL; i++) {
@@ -1990,6 +2043,18 @@ arrow_index_from_type(ArrowType atype)
   return 0;
 }
 
+/**
+ * Return the arrow type for a given arrow index (preferred sorting)
+ */
+ArrowType
+arrow_type_from_index (gint index)
+{
+  if (index >= 0 && index < MAX_ARROW_TYPE) {
+    return arrow_types[index].enum_value;
+  }
+  return MAX_ARROW_TYPE;
+}
+
 /** Get a list of all known arrow head names, in arrow_types order.
  * @returns A newly allocated list of the names.  The list should be 
  *          freed after use, but the strings are owned by arrow_types.
@@ -2001,7 +2066,7 @@ get_arrow_names(void)
   GList *arrows = NULL;
 
   for (i = 0; arrow_types[i].name != NULL; i++) {
-    arrows = g_list_append(arrows, arrow_types[i].name);
+    arrows = g_list_append(arrows, (char*)arrow_types[i].name);
   }
   return arrows;
 }
@@ -2012,11 +2077,11 @@ get_arrow_names(void)
  * or else "unknown arrow".  This is a static string and should not be
  * freed or modified.
  */
-gchar *
+const gchar *
 arrow_get_name_from_type(ArrowType type)
 {
   if (type >= 0 && type < MAX_ARROW_TYPE) {
-    return arrow_types[type].name;
+    return arrow_types[arrow_index_from_type(type)].name;
   }
   return _("unknown arrow");
 }

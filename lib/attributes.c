@@ -136,7 +136,7 @@ attributes_set_default_start_arrow(Arrow arrow)
 {
   attributes_start_arrow = arrow;
   persistence_set_string("start-arrow-type", 
-			 arrow_types[arrow_index_from_type(arrow.type)].name);
+			 arrow_get_name_from_type(arrow.type));
   persistence_set_real("start-arrow-width", arrow.width);
   persistence_set_real("start-arrow-length", arrow.length);
 }
@@ -158,7 +158,7 @@ attributes_set_default_end_arrow(Arrow arrow)
 {
   attributes_end_arrow = arrow;
   persistence_set_string("end-arrow-type", 
-			 arrow_types[arrow_index_from_type(arrow.type)].name);
+			 arrow_get_name_from_type(arrow.type));
   persistence_set_real("end-arrow-width", arrow.width);
   persistence_set_real("end-arrow-length", arrow.length);
 }

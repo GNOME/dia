@@ -23,7 +23,6 @@
 
 #include "diatypes.h"
 #include <gdk/gdk.h>
-#include "diavar.h"
 
 gboolean
 autoroute_layout_orthconn(OrthConn *conn,

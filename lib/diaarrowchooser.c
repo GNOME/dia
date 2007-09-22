@@ -431,14 +431,16 @@ dia_arrow_chooser_new(gboolean left, DiaChangeArrowCallback callback,
   gtk_object_sink(GTK_OBJECT(menu));
   g_object_set_data_full(G_OBJECT(chooser), button_menu_key, menu,
 			 (GtkDestroyNotify)gtk_widget_unref);
-  for (i = 0; arrow_types[i].name != NULL; i++) {
+  /* although from ARROW_NONE to MAX_ARROW_TYPE-1 this is sorted by *index* to keep the order consistent with earlier releases */
+  for (i = ARROW_NONE; i < MAX_ARROW_TYPE; ++i) {
+    ArrowType arrow_type = arrow_type_from_index(i);
     mi = gtk_menu_item_new();
     g_object_set_data(G_OBJECT(mi), menuitem_enum_key,
-		      GINT_TO_POINTER(arrow_types[i].enum_value));
+		      GINT_TO_POINTER(arrow_type));
     if (tool_tips) {
-      gtk_tooltips_set_tip(tool_tips, mi, _dia_translate(arrow_types[i].name, NULL), NULL);
+      gtk_tooltips_set_tip(tool_tips, mi, _dia_translate(arrow_get_name_from_type(arrow_type), NULL), NULL);
     }
-    ar = dia_arrow_preview_new(arrow_types[i].enum_value, left);
+    ar = dia_arrow_preview_new(arrow_type, left);
 
     gtk_container_add(GTK_CONTAINER(mi), ar);
     gtk_widget_show(ar);

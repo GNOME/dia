@@ -1,3 +1,35 @@
+2007-09-21  Hans Breuer  <hans@breuer.org>
+
+	* lib/arrow.[hc] : refactoring to more information hiding: 
+	type menudesc renamed to ArrowDesc and moved arrow_types to arrow.c. 
+	It will probably contain some additional information to calculate 
+	arrow bounding boxes.
+	* lib/attributes.c lib/diaarrowchooser.c lib/widgets.c
+	  plug-ins/xfig/xfig-export.c : now only using accessors
+
+	* lib/autoroute.h lib/diagramdata.h lib/diavar.h lib/font.h :
+	minor cleanup for DIAVAR: removed unneeded includes, move
+	render_boundig_boxes to diavar.h to make it useable for arrow.c
+	
+	* lib/libdia.def : adapted to the above
+
+	* lib/arrow.[hc] : declare and implement arrow_bbox() taking the
+	calculated start-point of arrows. The real size of arrows is only
+	known in lib/arrow.c so finally all the *BBoxExtras stuff concerned 
+	with arrows needs to vanish. The issue is further complicated by
+	gap and other arrow posistion adjustmens; see bug #475168.
+	
+	* objects/standard/arc.c : use arrow_bbox() and calculate_arrow_point()
+	for bounding box calculation. Get rid LineBBExtras usage for that.
+	(arc_update_handles) always intialize the middle_handle.pos, not only
+	when there is enough distance.
+	
+	* samples/arrows.dia : updated for broader coverage
+
+	* app/interface.c : get rid of const for non-const strings, no more
+	interface.c(477) : 'function' : different 'const' qualifiers
+	interface.c(477) : 'g_free' : pointer mismatch for actual parameter 1
+
 2007-09-22  Lars Clausen  <lars@raeder.dk>
 
 	* app/commands.c:
@@ -7,7 +39,6 @@
 	<patrick.j.hallinan@gmail.com>: Provide a proper zoom-box in the
 	integrated UI.  This implementation looks better than the old one,
 	and should be used in the non-integrated version as well.
-
 
 2007-09-21  Hans Breuer  <hans@breuer.org>
 

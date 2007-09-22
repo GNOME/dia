@@ -1335,7 +1335,7 @@ dia_arrow_selector_set_arrow (DiaArrowSelector *as,
 			      Arrow arrow)
 {
   dia_dynamic_menu_select_entry(DIA_DYNAMIC_MENU(as->omenu),
-				arrow_types[arrow_index_from_type(arrow.type)].name);
+				arrow_get_name_from_type(arrow.type));
   set_size_sensitivity(as);
   dia_size_selector_set_size(DIA_SIZE_SELECTOR(as->size), arrow.width, arrow.length);
 }

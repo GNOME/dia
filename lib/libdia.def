@@ -1,5 +1,5 @@
 EXPORTS
-;
+; variables need to be exported by DIAVAR
  render_bounding_boxes
  color_gdk_black
  color_gdk_white
@@ -10,8 +10,10 @@ EXPORTS
  active_focus
  apply_textattr_properties
  apply_textstr_properties
+ arrow_bbox
  arrow_draw
  arrow_type_from_name
+ arrow_get_name_from_type
  get_arrow_names
  load_arrow
  save_arrow

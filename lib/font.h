@@ -24,7 +24,6 @@
 #include <pango/pango.h>
 #include "dia-enums.h"
 #include "geometry.h"
-#include "diavar.h"
 
 /* Do NOT put these strings through the .po mechanism. If you need to add
    non-Roman alternatives, please insert them in the list */

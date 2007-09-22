@@ -141,12 +141,13 @@ static void draw_line_with_arrows  (DiaRenderer *renderer,
                                     Arrow *start_arrow,
                                     Arrow *end_arrow);
 static void draw_arc_with_arrows  (DiaRenderer *renderer, 
-                                  Point *start, Point *end,
-                                  Point *midpoint,
+                                  const Point *start, 
+				  const Point *end,
+                                  const Point *midpoint,
                                   real line_width,
-                                  Color *color,
-                                  Arrow *start_arrow,
-                                  Arrow *end_arrow);
+                                  const Color *color,
+                                  const Arrow *start_arrow,
+                                  const Arrow *end_arrow);
 static void draw_polyline_with_arrows (DiaRenderer *renderer, 
                                        Point *points, int num_points,
                                        real line_width,
@@ -1150,7 +1151,7 @@ intersection_line_line(Point *cross,
  * The renderer should disappear once the debugging is done.
  */
 static gboolean
-find_center_point(Point *center, Point *p1, Point *p2, Point *p3) 
+find_center_point(Point *center, const Point *p1, const Point *p2, const Point *p3) 
 {
   Point mid1;
   Point mid2;
@@ -1222,18 +1223,18 @@ is_right_hand (const Point *a, const Point *b, const Point *c)
 
 static void
 draw_arc_with_arrows (DiaRenderer *renderer, 
-                      Point *startpoint, 
-                      Point *endpoint,
-                      Point *midpoint,
+                      const Point *startpoint, 
+                      const Point *endpoint,
+                      const Point *midpoint,
                       real line_width,
-                      Color *color,
-                      Arrow *start_arrow,
-                      Arrow *end_arrow)
+                      const Color *color,
+                      const Arrow *start_arrow,
+                      const Arrow *end_arrow)
 {
-  Point oldstart = *startpoint;
-  Point oldend = *endpoint;
+  Point new_startpoint = *startpoint;
+  Point new_endpoint = *endpoint;
   Point center;
-  real width, angle1, angle2, arrow_ofs = 0.0;
+  real width, angle1, angle2;
   gboolean righthand;
   Point start_arrow_head;
   Point start_arrow_end;
@@ -1270,8 +1271,7 @@ draw_arc_with_arrows (DiaRenderer *renderer,
 			  line_width);
     start_arrow_head = *startpoint;
     point_sub(&start_arrow_head, &move_arrow);
-    point_sub(startpoint, &move_line);
-    arrow_ofs += sqrt (move_line.x * move_line.x + move_line.y * move_line.y);
+    point_sub(&new_startpoint, &move_line);
   }
   if (end_arrow != NULL && end_arrow->type != ARROW_NONE) {
     Point move_arrow, move_line;
@@ -1294,8 +1294,7 @@ draw_arc_with_arrows (DiaRenderer *renderer,
 			  line_width);
     end_arrow_head = *endpoint;
     point_sub(&end_arrow_head, &move_arrow);
-    point_sub(endpoint, &move_line);
-    arrow_ofs += sqrt (move_line.x * move_line.x + move_line.y * move_line.y);
+    point_sub(&new_endpoint, &move_line);
   }
 
   /* Now we possibly have new start- and endpoint. We must not
@@ -1308,9 +1307,9 @@ draw_arc_with_arrows (DiaRenderer *renderer,
    * Done this way the arc does not come out the back of the arrows.
    *  -LC, 20/2/2006
    */
-  angle1 = -atan2(startpoint->y - center.y, startpoint->x - center.x)*180.0/G_PI;
+  angle1 = -atan2(new_startpoint.y - center.y, new_startpoint.x - center.x)*180.0/G_PI;
   while (angle1 < 0.0) angle1 += 360.0;
-  angle2 = -atan2(endpoint->y - center.y, endpoint->x - center.x)*180.0/G_PI;
+  angle2 = -atan2(new_endpoint.y - center.y, new_endpoint.x - center.x)*180.0/G_PI;
   while (angle2 < 0.0) angle2 += 360.0;
   if (righthand) {
     real tmp = angle1;
@@ -1319,12 +1318,12 @@ draw_arc_with_arrows (DiaRenderer *renderer,
   }
   /* now with the angles we can bring the startpoint back to the arc, but there must be a less expensive way to do this? */
   if (start_arrow != NULL && start_arrow->type != ARROW_NONE) {
-    startpoint->x = cos (G_PI * angle1 / 180.0) * width / 2.0 + center.x;
-    startpoint->y = sin (G_PI * angle1 / 180.0) * width / 2.0 + center.y;
+    new_startpoint.x = cos (G_PI * angle1 / 180.0) * width / 2.0 + center.x;
+    new_startpoint.y = sin (G_PI * angle1 / 180.0) * width / 2.0 + center.y;
   }
   if (end_arrow != NULL && end_arrow->type != ARROW_NONE) {
-    endpoint->x = cos (G_PI * angle1 / 180.0) * width / 2.0 + center.x;
-    endpoint->y = sin (G_PI * angle1 / 180.0) * width / 2.0 + center.y;
+    new_endpoint.x = cos (G_PI * angle1 / 180.0) * width / 2.0 + center.x;
+    new_endpoint.y = sin (G_PI * angle1 / 180.0) * width / 2.0 + center.y;
   }
 
   DIA_RENDERER_GET_CLASS(renderer)->draw_arc(renderer, &center, width, width,
@@ -1342,9 +1341,6 @@ draw_arc_with_arrows (DiaRenderer *renderer,
 	       end_arrow->length, end_arrow->width,
 	       line_width,
 	       color, &color_white);
-
-  *startpoint = oldstart;
-  *endpoint = oldend;
 }
 
 static void

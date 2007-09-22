@@ -458,7 +458,8 @@ figArrow(XfigRenderer *renderer, Arrow *arrow, real line_width)
   case ARROW_FILLED_DIAMOND:
     type = 3; style = 1; break;
   default:
-    message_warning(_("FIG format has no equivalent of arrow style %s, using simple arrow.\n"), arrow_types[arrow->type].name);
+    message_warning(_("FIG format has no equivalent of arrow style %s, using simple arrow.\n"), 
+		    arrow_get_name_from_type(arrow->type));
     /* Notice fallthrough */
   case ARROW_FILLED_CONCAVE:
     type = 2; style = 1; break;

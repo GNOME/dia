@@ -18,7 +18,6 @@
 #ifndef ARROWS_H
 #define ARROWS_H
 
-#include "diavar.h"
 #include "diatypes.h"
 #include "geometry.h"
 #include "color.h"
@@ -30,7 +29,7 @@
 /* Comments in curly braces mention ISO 10303-AP201 names */
 
 typedef enum {
-  ARROW_NONE,
+  ARROW_NONE = 0,
   ARROW_LINES,             /* {open arrow} */
   ARROW_HOLLOW_TRIANGLE,   /* {blanked arrow} */
   ARROW_FILLED_TRIANGLE,   /* {filled arrow} */
@@ -68,11 +67,6 @@ typedef enum {
   MAX_ARROW_TYPE /* No arrow heads may be defined beyond here. */
 } ArrowType;
 
-struct menudesc {
-  char *name;
-  ArrowType enum_value;
-};
-
 /** The number of centimeters long and wide an arrow starts with by default.
  * This can be changed without breaking old diagrams, as the arrow width
  * is stored in there.
@@ -86,9 +80,6 @@ struct menudesc {
  */
 #define MIN_ARROW_DIMENSION 0.001
 
-/* These are used to fill menus.  See dia_arrow_fill_menu in widgets.c */
-DIAVAR struct menudesc arrow_types[];
-
 struct _Arrow {
   ArrowType type;
   real length;
@@ -101,16 +92,15 @@ void arrow_draw(DiaRenderer *renderer, ArrowType type,
 		real length, real width, real linewidth,
 		Color *fg_color, Color *bg_color);
 
+/** following the signature pattern of lib/boundingbox.h 
+ * the arrow bounding box is returned in rect */
+void arrow_bbox (const Arrow *arrow, real line_width, const Point *to, const Point *from, 
+                 Rectangle *rect);
+
 void
 calculate_arrow_point(const Arrow *arrow, const Point *to, const Point *from,
 		      Point *move_arrow, Point *move_line,
 		      real linewidth);
-
-/* Transforms 'start' to be at the back end of the arrow, and puts the
- * tip of the arrow into 'arrowtip'.
- */
-void arrow_transform_points(Arrow *arrow, Point *start, Point *to,
-			    int linewidth, Point *arrowtip);
 
 void save_arrow(ObjectNode obj_node, Arrow *arrow, gchar *type_attribute,
 		gchar *length_attribute, gchar *width_attribute);
@@ -118,10 +108,11 @@ void load_arrow(ObjectNode obj_node, Arrow *arrow, gchar *type_attribute,
 		gchar *length_attribute, gchar *width_attribute);
 
 /** Returns the ArrowType for a given name of an arrow, or 0 if not found. */
-ArrowType arrow_type_from_name(gchar *name);
+ArrowType arrow_type_from_name(const gchar *name);
 /** Returns the index in arrow_types of the given arrow type. */
 gint arrow_index_from_type(ArrowType type);
-gchar *arrow_get_name_from_type(ArrowType type);
+ArrowType arrow_type_from_index(gint index);
+const gchar *arrow_get_name_from_type(ArrowType type);
 GList *get_arrow_names(void);
 
 #endif /* ARROWS_H */

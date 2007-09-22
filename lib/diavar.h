@@ -13,4 +13,8 @@
 #  define DIAVAR extern
 #endif
 
+/*! bounding box debug helper : set to !0 to see the caclulated bounding boxes */
+DIAVAR int render_bounding_boxes;
+
+
 #endif

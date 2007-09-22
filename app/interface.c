@@ -466,13 +466,13 @@ close_notebook_page_callback (GtkButton *button,
 void integrated_ui_show_diagram_modified_status (DDisplay *ddisp)
 {
    GtkLabel * label = g_object_get_data (G_OBJECT (ddisp->container), "tab-label");
-   const gchar * name;
+   gchar * name;
    
    name = diagram_get_name (ddisp->diagram);
 
    if (diagram_is_modified (ddisp->diagram))
    {
-     const gchar * text = g_strdup_printf ("*%s",name);
+     gchar * text = g_strdup_printf ("*%s",name);
      gtk_label_set_text (label, text);  
      g_free (text);
    }

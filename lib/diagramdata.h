@@ -117,9 +117,6 @@ struct _Layer {
 				  layer_get_parent_diagram() */
 };
 
-/*! bounding box debug helper : set to !0 to see the caclulated bounding boxes */
-DIAVAR int render_bounding_boxes;
-
 Layer *new_layer (char *name, DiagramData *parent);
 void layer_destroy(Layer *layer);
 

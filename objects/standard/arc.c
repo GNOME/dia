@@ -238,18 +238,16 @@ arc_update_handles(Arc *arc)
   connection_update_handles(conn);
   
   middle_pos = &arc->middle_handle.pos;
+  middle_pos->x = (conn->endpoints[0].x + conn->endpoints[1].x) / 2.0;
+  middle_pos->y = (conn->endpoints[0].y + conn->endpoints[1].y) / 2.0;
 
   dx = conn->endpoints[1].x - conn->endpoints[0].x;
   dy = conn->endpoints[1].y - conn->endpoints[0].y;
   
   dist = sqrt(dx*dx + dy*dy);
   if (dist > 0.000001) {
-    middle_pos->x =
-      (conn->endpoints[0].x + conn->endpoints[1].x) / 2.0 -
-      arc->curve_distance*dy/dist;
-    middle_pos->y =
-      (conn->endpoints[0].y + conn->endpoints[1].y) / 2.0 +
-      arc->curve_distance*dx/dist;
+    middle_pos->x -= arc->curve_distance*dy/dist;
+    middle_pos->y += arc->curve_distance*dx/dist;
   }
 }
 /** returns the number of intersection the circle has with the horizontal line at y=horiz
@@ -605,7 +603,6 @@ arc_draw(Arc *arc, DiaRenderer *renderer)
   start_cp = arc->connection.endpoint_handles[0].connected_to;
   end_cp = arc->connection.endpoint_handles[1].connected_to;
 
-  arc_update_data(arc);
   TRACE(printf("drawing arc:\n start:%f °:%f,%f \tend:%f °:%f,%f\n",arc->angle1,endpoints[0].x,endpoints[0].y, arc->angle2,endpoints[1].x,endpoints[1].y));
 
   if (connpoint_is_autogap(start_cp)) {
@@ -735,6 +732,8 @@ arc_copy(Arc *arc)
   
   newarc->middle_handle = arc->middle_handle;
 
+  arc_update_data(arc);
+
   return &newarc->connection.object;
 }
 
@@ -786,32 +785,83 @@ arc_update_data(Arc *arc)
   arc->angle1 = angle1;
   arc->angle2 = angle2;
 
-  extra->start_trans =  (arc->line_width / 2.0);
-  extra->end_trans =     (arc->line_width / 2.0);
-  if (arc->start_arrow.type != ARROW_NONE) 
-    extra->start_trans = MAX(extra->start_trans,arc->start_arrow.width);
-  if (arc->end_arrow.type != ARROW_NONE) 
-    extra->end_trans = MAX(extra->end_trans,arc->end_arrow.width);
-  extra->start_long  = (arc->line_width / 2.0);
+  /* LineBBExtras not applicable to calculate the arrows bounding box */
+  extra->start_trans =
+  extra->end_trans   =
+  extra->start_long  =
   extra->end_long    = (arc->line_width / 2.0);
 
   connection_update_boundingbox(conn);
   /* fix boundingbox for arc's special shape XXX find a more elegant way: */
   if (in_angle(0, arc->angle1, arc->angle2)) {
-    obj->bounding_box.right = arc->center.x + arc->radius 
-      + (arc->line_width / 2.0);
+    /* rigth side, y does not matter if included */
+    Point pt = { arc->center.x + arc->radius + (arc->line_width / 2.0), y1 };
+    rectangle_add_point (&obj->bounding_box, &pt);
   }
   if (in_angle(90, arc->angle1, arc->angle2)) {
-    obj->bounding_box.top = arc->center.y - arc->radius
-      - (arc->line_width / 2.0);
+    /* top side, x does not matter if included */
+    Point pt = {x1, arc->center.y - arc->radius - (arc->line_width / 2.0) };
+    rectangle_add_point (&obj->bounding_box, &pt);
   }
   if (in_angle(180, arc->angle1, arc->angle2)) {
-    obj->bounding_box.left = arc->center.x - arc->radius
-      - (arc->line_width / 2.0);
+    /* left side, y does not matter if included */
+    Point pt = { arc->center.x - arc->radius - (arc->line_width / 2.0) };
+    rectangle_add_point (&obj->bounding_box, &pt);
   }
   if (in_angle(270, arc->angle1, arc->angle2)) {
-    obj->bounding_box.bottom = arc->center.y + arc->radius
-      + (arc->line_width / 2.0);
+    /* bootom side, x does not matter if included */
+    Point pt = { x1, arc->center.y + arc->radius + (arc->line_width / 2.0) };
+    rectangle_add_point (&obj->bounding_box, &pt);
+  }
+  if (arc->start_arrow.type != ARROW_NONE) {
+    /* a good from-point would be the chord of arrow length, but draw_arc_with_arrows currently uses the tangent
+     * For big arcs the difference is not huge and the minimum size of small arcs should be limited by the arror length.
+     */
+    Rectangle bbox = {0,};
+    real tmp;
+    Point move_arrow, move_line;
+    Point to = arc->connection.endpoints[0]; 
+    Point from = to;
+    point_sub (&from, &arc->center);
+    tmp = from.x;
+    if (angle2 > angle1)
+      from.x = -from.y, from.y = tmp;
+    else
+      from.x = from.y, from.y = -tmp;
+    point_add (&from, &to);
+#if 0
+    calculate_arrow_point(&arc->start_arrow, &to, &from,
+                          &move_arrow, &move_line, arc->line_width);
+    /* make them absolute positions, i.e. moved */
+    point_add(&move_arrow, &to);
+    point_add(&move_line, &from);
+    arrow_bbox(&arc->start_arrow, arc->line_width, &move_arrow, &move_line, &bbox);
+#else
+    arrow_bbox(&arc->start_arrow, arc->line_width, &to, &from, &bbox);
+#endif
+    /* to test the bounding box it was quite useful to */
+    rectangle_union(&obj->bounding_box, &bbox);
+  }
+  if (arc->end_arrow.type != ARROW_NONE) {
+    Rectangle bbox = {0,};
+    real tmp;
+    Point move_arrow, move_line;
+    Point to = arc->connection.endpoints[1]; 
+    Point from = to;
+    point_sub (&from, &arc->center);
+    tmp = from.x;
+    if (angle2 > angle1)
+      from.x = from.y, from.y = -tmp;
+    else
+      from.x = -from.y, from.y = tmp;
+    point_add (&from, &to);
+    calculate_arrow_point(&arc->end_arrow, &to, &from,
+                          &move_arrow, &move_line, arc->line_width);
+    /* make them absolute positions, i.e. moved */
+    point_add(&move_arrow, &to);
+    point_add(&move_line, &from);
+    arrow_bbox(&arc->end_arrow, arc->line_width, &move_arrow, &move_line, &bbox);
+    rectangle_union(&obj->bounding_box, &bbox);
   }
 
   obj->position = conn->endpoints[0];
