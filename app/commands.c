@@ -726,28 +726,13 @@ view_zoom_out_callback (GtkAction *action)
   ddisplay_zoom(ddisp, &middle, M_SQRT1_2);
 }
 
-void
+void 
 view_zoom_set_callback (GtkAction *action)
 {
-  DDisplay *ddisp;
-  real scale;
-  Point middle;
-  Rectangle *visible;
   int factor;
-
-  ddisp = ddisplay_active();
-  if (!ddisp) return;
-
   /* HACK the actual factor is a suffix to the action name */
   factor = atoi (gtk_action_get_name (action) + strlen ("ViewZoom"));
-
-  visible = &ddisp->visible;
-  middle.x = visible->left*0.5 + visible->right*0.5;
-  middle.y = visible->top*0.5 + visible->bottom*0.5;
-
-  scale = ((real) factor)/1000.0 * DDISPLAY_NORMAL_ZOOM;
-
-  ddisplay_zoom(ddisp, &middle, scale / ddisp->zoom_factor);  
+  view_zoom_set (factor);
 }
 
 void

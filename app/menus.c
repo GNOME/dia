@@ -49,9 +49,11 @@
 #define DIA_SHOW_TEAROFFS TRUE
 
 /* Integrated UI Toolbar Constants */
-#define DIA_INTEGRATED_TOOLBAR_ZOOM_TEXT   "dia-integrated-toolbar-zoom_text"
+#define DIA_INTEGRATED_TOOLBAR_ZOOM_COMBO  "dia-integrated-toolbar-zoom-combo_entry"
 #define DIA_INTEGRATED_TOOLBAR_SNAP_GRID   "dia-integrated-toolbar-snap-grid"
 #define DIA_INTEGRATED_TOOLBAR_OBJECT_SNAP "dia-integrated-toolbar-object-snap"
+
+#define ZOOM_FIT        _("Fit")
 
 static void plugin_callback (GtkWidget *widget, gpointer data);
 
@@ -342,16 +344,6 @@ save_accels(gpointer data)
   return TRUE;
 }
 
-static void
-integrated_ui_toolbar_grid_snap_set_state(int state)
-{
-  DDisplay *ddisp = ddisplay_active ();
-  if (ddisp)
-  {
-    ;/* Get the current state */
-  }
-}
-
 /**
  * Synchronized the Object snap property button with the display.
  * @param param Display to synchronize to.
@@ -425,23 +417,89 @@ void integrated_ui_toolbar_set_zoom_text (GtkToolbar *toolbar, const gchar * tex
 {
   if (toolbar)
   {
-    GtkLabel *label = g_object_get_data (G_OBJECT (toolbar), 
-                                         DIA_INTEGRATED_TOOLBAR_ZOOM_TEXT);
-    gtk_label_set_text (label, text);
+    GtkComboBoxEntry *combo_entry = g_object_get_data (G_OBJECT (toolbar), 
+                                                       DIA_INTEGRATED_TOOLBAR_ZOOM_COMBO);
+    
+    if (combo_entry)
+    {
+        GtkWidget * entry = gtk_bin_get_child (GTK_BIN (combo_entry));
+
+        gtk_entry_set_text (GTK_ENTRY (entry), text);
+    }
   }
 }
 
-/* Create the toolbar for the integrated UI */
+/** 
+ * Adds a widget to the toolbar making sure that it doesn't take any excess space, and
+ * vertically centers it.
+ * @param toolbar The toolbar to add the widget to.
+ * @param w       The widget to add to the toolbar.
+ */
+static void integrated_ui_toolbar_add_custom_item (GtkToolbar *toolbar, GtkWidget *w)
+{
+    GtkToolItem *tool_item; 
+    GtkWidget   *c; /* container */
+
+    tool_item = gtk_tool_item_new ();
+    c = gtk_vbox_new (FALSE, 0);
+    gtk_container_add (GTK_CONTAINER (tool_item), c);
+    gtk_box_set_homogeneous (GTK_BOX (c), TRUE);            /* Centers the button */
+    gtk_box_pack_start (GTK_BOX (c), w, FALSE, FALSE, 0);
+    gtk_toolbar_insert (toolbar, tool_item, -1);
+    gtk_widget_show (GTK_WIDGET (tool_item));
+    gtk_widget_show (c);
+    gtk_widget_show (w);
+}
+
+static void
+integrated_ui_toolbar_zoom_activate (GtkWidget *item, 
+                                     gpointer   user_data)
+{
+    const gchar *text =  gtk_entry_get_text (GTK_ENTRY (item));
+    float        zoom_percent;
+
+    if (sscanf (text, "%f", &zoom_percent) == 1)
+    {
+        view_zoom_set (10.0 * zoom_percent);
+    }
+}
+
+static void
+integrated_ui_toolbar_zoom_combo_selection_changed (GtkComboBox *combo,
+                                                    gpointer     user_data)
+{
+    /* 
+     * We call gtk_combo_get_get_active() so that typing in the combo entry
+     * doesn't get handled as a selection change                           
+     */
+    if (gtk_combo_box_get_active (combo) != -1)
+    {
+        float zoom_percent;
+        gchar * text = gtk_combo_box_get_active_text (combo);
+
+        if (sscanf (text, "%f", &zoom_percent) == 1)
+        {
+            view_zoom_set (zoom_percent * 10.0);
+        }
+        else if (g_strcasecmp (text, ZOOM_FIT) == 0)
+        {
+            view_show_all_callback (NULL);
+        }
+        
+        g_free (text);
+    }
+}
+
+/**
+ * Create the toolbar for the integrated UI
+ * @return Main toolbar (GtkToolbar*) for the integrated UI main window
+ */
 static GtkWidget * 
 create_integrated_ui_toolbar (void)
 {
   GtkToolbar  *toolbar;
-  /* GtkToolItem *button; */
   GtkToolItem *sep;
-  GtkToolItem *tool_item; 
   GtkWidget   *w;
-  /* GtkAction   *action;
-  int          i; */
   GError      *error = NULL;
   gchar *uifile;
 
@@ -457,53 +515,67 @@ create_integrated_ui_toolbar (void)
   }
   g_free (uifile);  
 
-  tool_item = gtk_tool_item_new ();
-  w = gtk_label_new ("100%");
-  gtk_container_add (GTK_CONTAINER (tool_item), w);
-  gtk_toolbar_insert (toolbar, tool_item, -1);
-  gtk_widget_show (GTK_WIDGET (tool_item));
-  gtk_widget_show (w);
-  g_object_set_data (G_OBJECT (toolbar), 
-                     DIA_INTEGRATED_TOOLBAR_ZOOM_TEXT,
-                     w);
+  /* Zoom Combo Box Entry */
+  w = gtk_combo_box_entry_new_text ();
 
+  g_object_set_data (G_OBJECT (toolbar), 
+                     DIA_INTEGRATED_TOOLBAR_ZOOM_COMBO,
+                     w);
+  integrated_ui_toolbar_add_custom_item (toolbar, w);
+ 
+  gtk_combo_box_append_text (GTK_COMBO_BOX (w), ZOOM_FIT);
+  gtk_combo_box_append_text (GTK_COMBO_BOX (w), _("800%"));
+  gtk_combo_box_append_text (GTK_COMBO_BOX (w), _("400%"));
+  gtk_combo_box_append_text (GTK_COMBO_BOX (w), _("300%"));
+  gtk_combo_box_append_text (GTK_COMBO_BOX (w), _("200%"));
+  gtk_combo_box_append_text (GTK_COMBO_BOX (w), _("150%"));
+  gtk_combo_box_append_text (GTK_COMBO_BOX (w), _("100%"));
+  gtk_combo_box_append_text (GTK_COMBO_BOX (w), _("75%"));
+  gtk_combo_box_append_text (GTK_COMBO_BOX (w), _("50%"));
+  gtk_combo_box_append_text (GTK_COMBO_BOX (w), _("25%"));
+  gtk_combo_box_append_text (GTK_COMBO_BOX (w), _("10%"));
+
+  g_signal_connect (G_OBJECT (w), 
+                    "changed",
+		            G_CALLBACK (integrated_ui_toolbar_zoom_combo_selection_changed), 
+                    NULL);
+  
+  /* Get the combo's GtkEntry child to set the width for the widget */
+  w = gtk_bin_get_child (GTK_BIN (w));
+  gtk_entry_set_width_chars (GTK_ENTRY (w), 6);
+  
+  g_signal_connect (GTK_OBJECT (w), "activate",
+		            G_CALLBACK(integrated_ui_toolbar_zoom_activate),
+		            NULL);
+  
+  /* Seperator */
   sep = gtk_separator_tool_item_new ();
   gtk_toolbar_insert (toolbar, sep, -1);
   gtk_widget_show (GTK_WIDGET (sep));
 
   /* Snap to grid */
-  /*action = menus_get_action ("ViewSnaptogrid");
-  tool_item = gtk_action_create_tool_item (action);*/
-  tool_item = gtk_tool_item_new ();
   w = dia_toggle_button_new_with_icons (dia_on_grid_icon,
                                         dia_off_grid_icon);
   g_signal_connect (G_OBJECT (w), "toggled",
 		   G_CALLBACK (integrated_ui_toolbar_grid_snap_toggle), toolbar);
   gtk_tooltips_set_tip (tool_tips, w,
 		      _("Toggles snap-to-grid."), NULL);
-  gtk_container_add (GTK_CONTAINER (tool_item), w);
-  gtk_toolbar_insert (toolbar, tool_item, -1);
-  gtk_widget_show (GTK_WIDGET (tool_item));
-  gtk_widget_show (w);
   g_object_set_data (G_OBJECT (toolbar), 
                      DIA_INTEGRATED_TOOLBAR_SNAP_GRID,
                      w);
+  integrated_ui_toolbar_add_custom_item (toolbar, w);
  
   /* Object Snapping */
-  tool_item = gtk_tool_item_new ();
   w = dia_toggle_button_new_with_icons (dia_mainpoints_on_icon,
                                         dia_mainpoints_off_icon);
   g_signal_connect (G_OBJECT (w), "toggled",
 		   G_CALLBACK (integrated_ui_toolbar_object_snap_toggle), toolbar);
   gtk_tooltips_set_tip (tool_tips, w,
 		       _("Toggles object snapping."), NULL);
-  gtk_container_add (GTK_CONTAINER (tool_item), w);
-  gtk_toolbar_insert (toolbar, tool_item, -1);
-  gtk_widget_show (GTK_WIDGET (tool_item));
-  gtk_widget_show (w);
   g_object_set_data (G_OBJECT (toolbar), 
                      DIA_INTEGRATED_TOOLBAR_OBJECT_SNAP,
                      w);
+  integrated_ui_toolbar_add_custom_item (toolbar, w);
 
   sep = gtk_separator_tool_item_new ();
   gtk_toolbar_insert (toolbar, sep, -1);

@@ -1,3 +1,14 @@
+2007-09-22  Lars Clausen  <lars@raeder.dk>
+
+	* app/commands.c:
+	* app/interface.c:
+	* app/interface.h:
+	* app/menus.c: Patch from Patrick Hallinan 
+	<patrick.j.hallinan@gmail.com>: Provide a proper zoom-box in the
+	integrated UI.  This implementation looks better than the old one,
+	and should be used in the non-integrated version as well.
+
+
 2007-09-21  Hans Breuer  <hans@breuer.org>
 
 	* plug-ins/python/python-startup.py : allow to override system

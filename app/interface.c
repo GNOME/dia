@@ -292,6 +292,26 @@ origin_button_press(GtkWidget *widget, GdkEventButton *event, gpointer data)
   return FALSE;
 }
 
+void
+view_zoom_set (float factor)
+{
+  DDisplay *ddisp;
+  real scale;
+  Point middle;
+  Rectangle *visible;
+
+  ddisp = ddisplay_active();
+  if (!ddisp) return;
+
+  visible = &ddisp->visible;
+  middle.x = visible->left*0.5 + visible->right*0.5;
+  middle.y = visible->top*0.5 + visible->bottom*0.5;
+
+  scale = ((real) factor)/1000.0 * DDISPLAY_NORMAL_ZOOM;
+
+  ddisplay_zoom(ddisp, &middle, scale / ddisp->zoom_factor);  
+}
+
 static void
 zoom_activate_callback(GtkWidget *item, gpointer user_data) {
   DDisplay *ddisp = (DDisplay *)user_data;
