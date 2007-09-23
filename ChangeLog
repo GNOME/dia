@@ -1,3 +1,11 @@
+2007-09-23  Lars Clausen  <lars@raeder.dk>
+
+	* app/preferences.c:
+	* app/diaunitspinner.[ch]:
+	* lib/prop_geomtypes.c: Font & length unit spinners now get the right
+	settings from prefs on startup.  Fixes bug #479244.  Also a bit of
+	cleanup. 
+
 2007-09-21  Hans Breuer  <hans@breuer.org>
 
 	* lib/arrow.[hc] : refactoring to more information hiding: 

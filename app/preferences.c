@@ -277,6 +277,7 @@ prefs_set_defaults(void)
       break;
     }
   }
+  update_internal_prefs(NULL, NULL);
 }
 
 void
@@ -676,6 +677,9 @@ prefs_update_dialog_from_prefs(void)
   }
 }
 
+/** Updates certain preferences that are kept in lib.  Both args
+ *  are currently unused and may be null.
+ */
 static void
 update_internal_prefs(DiaPrefData *pref, char *ptr)
 {

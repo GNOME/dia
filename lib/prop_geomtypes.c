@@ -184,7 +184,7 @@ lengthprop_get_widget(LengthProperty *prop, PropDialog *dialog)
                                                          0.1, 1.0, 1.0));
   GtkWidget *ret = dia_unit_spinner_new(adj, prefs_get_length_unit());
   /*  gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(ret),TRUE);*/
-  prophandler_connect(&prop->common,GTK_OBJECT(ret),"value_changed");
+  prophandler_connect(&prop->common,GTK_OBJECT(ret),"value-changed");
   
   return ret;
 }
@@ -214,8 +214,7 @@ lengthprop_reset_widget(LengthProperty *prop, WIDGET *widget)
 static void 
 lengthprop_set_from_widget(LengthProperty *prop, WIDGET *widget) 
 {
-  prop->length_data = dia_unit_spinner_get_value((DiaUnitSpinner *)
-                                                 GTK_SPIN_BUTTON(widget));
+  prop->length_data = dia_unit_spinner_get_value(DIA_UNIT_SPINNER(widget));
 }
 
 static void 
@@ -299,8 +298,8 @@ fontsizeprop_get_widget(FontsizeProperty *prop, PropDialog *dialog)
                                                          0.1, 1.0, 1.0));
   GtkWidget *ret = dia_unit_spinner_new(adj, prefs_get_fontsize_unit());
   /*  gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(ret),TRUE);*/
-  prophandler_connect(&prop->common,GTK_OBJECT(adj),"value_changed");
-  fontsizeprop_reset_widget(prop, ret);
+  prophandler_connect(&prop->common,GTK_OBJECT(ret),"value-changed");
+  /*fontsizeprop_reset_widget(prop, ret);*/
   return ret;
 }
 
