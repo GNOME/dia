@@ -1,5 +1,9 @@
 2007-09-23  Lars Clausen  <lars@raeder.dk>
 
+	* objects/UML/class.c (umlclass_update_data): Patch from
+	<djpohly+gnome@gmail.com>: Don't add attributes	size to connection
+	point placement if attributes aren't visible.  Fixes bug #470594.
+
 	* lib/font.c: 
 	(dia_font_get_sizes): Fixed lack of const.
 	(dia_font_get_psfontname): Fixed postscript font name getter to

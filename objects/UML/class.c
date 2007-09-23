@@ -1201,8 +1201,10 @@ umlclass_update_data(UMLClass *umlclass)
     list = g_list_next(list);
   }
 
-  y = elem->corner.y + umlclass->namebox_height +
-    umlclass->attributesbox_height + 0.1 + umlclass->font_height/2;
+  y = elem->corner.y + umlclass->namebox_height + 0.1 + umlclass->font_height/2;
+  if (umlclass->visible_attributes) {
+    y += umlclass->attributesbox_height;
+  }
     
   list = (!umlclass->visible_operations || umlclass->suppress_operations) ? NULL : umlclass->operations;
   while (list != NULL) {
