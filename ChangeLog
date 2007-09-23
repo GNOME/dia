@@ -1,5 +1,15 @@
 2007-09-23  Lars Clausen  <lars@raeder.dk>
 
+	* lib/font.c: 
+	(dia_font_get_sizes): Fixed lack of const.
+	(dia_font_get_psfontname): Fixed postscript font name getter to
+	comply with postscript standard.
+
+	* app/diapsrenderer.c (dump_fonts): Use NewCenturySchlbk for
+	NewCenturySchoolbook, following Adobe standards.  Also for some
+	reason AvantGarde-Gothic is the "plain" name of the AvantGarde-Book
+	series. Stupid Adobe. Fixes bug #477079.
+
 	* app/preferences.c:
 	* app/diaunitspinner.[ch]:
 	* lib/prop_geomtypes.c: Font & length unit spinners now get the right

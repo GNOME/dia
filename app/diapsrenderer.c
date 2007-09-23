@@ -952,7 +952,7 @@ dump_fonts (DiaPsRenderer *renderer)
   print_reencode_font(renderer->file, "Times-Italic");
   print_reencode_font(renderer->file, "Times-Bold");
   print_reencode_font(renderer->file, "Times-BoldItalic");
-  print_reencode_font(renderer->file, "AvantGarde-Book");
+  print_reencode_font(renderer->file, "AvantGarde-Gothic");
   print_reencode_font(renderer->file, "AvantGarde-BookOblique");
   print_reencode_font(renderer->file, "AvantGarde-Demi");
   print_reencode_font(renderer->file, "AvantGarde-DemiOblique");
@@ -972,10 +972,10 @@ dump_fonts (DiaPsRenderer *renderer)
   print_reencode_font(renderer->file, "Helvetica-Narrow-Oblique");
   print_reencode_font(renderer->file, "Helvetica-Narrow-Bold");
   print_reencode_font(renderer->file, "Helvetica-Narrow-BoldOblique");
-  print_reencode_font(renderer->file, "NewCenturySchoolbook-Roman");
-  print_reencode_font(renderer->file, "NewCenturySchoolbook-Italic");
-  print_reencode_font(renderer->file, "NewCenturySchoolbook-Bold");
-  print_reencode_font(renderer->file, "NewCenturySchoolbook-BoldItalic");
+  print_reencode_font(renderer->file, "NewCenturySchlbk-Roman");
+  print_reencode_font(renderer->file, "NewCenturySchlbk-Italic");
+  print_reencode_font(renderer->file, "NewCenturySchlbk-Bold");
+  print_reencode_font(renderer->file, "NewCenturySchlbk-BoldItalic");
   print_reencode_font(renderer->file, "Palatino-Roman");
   print_reencode_font(renderer->file, "Palatino-Italic");
   print_reencode_font(renderer->file, "Palatino-Bold");

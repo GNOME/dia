@@ -396,8 +396,32 @@ dia_font_set_height(DiaFont* font, real height)
 G_CONST_RETURN char*
 dia_font_get_psfontname(const DiaFont *font)
 {
-    /* FIXME: this will very likely not work ! */
-  return dia_font_get_legacy_name(font);
+  /* This hack corrects a couple fonts that were misnamed in
+   * earlier versions of Dia.   See bug #477079.
+   */
+  const char *fontname = dia_font_get_legacy_name(font);
+
+  if (fontname == NULL) {
+    return NULL;
+  }
+
+  if (!strcmp(fontname, "AvantGarde-Book")) {
+    return "AvantGarde-Gothic";
+  }
+  if (!strcmp(fontname, "NewCenturySchoolbook-Roman")) {
+    return "NewCenturySchlbk-Roman";
+  }
+  if (!strcmp(fontname, "NewCenturySchoolbook-Italic")) {
+    return "NewCenturySchlbk-Italic";
+  }
+  if (!strcmp(fontname, "NewCenturySchoolbook-Bold")) {
+    return "NewCenturySchlbk-Bold";
+  }
+  if (!strcmp(fontname, "NewCenturySchoolbook-BoldItalic")) {
+    return "NewCenturySchlbk-BoldItalic";
+  }
+  
+  return fontname;
 }
 
 void dia_font_set_any_family(DiaFont* font, const char* family)
@@ -687,7 +711,7 @@ dia_font_get_sizes(const char* string, DiaFont *font, real height,
   PangoLayout* layout;
   PangoLayoutIter* iter;
   real top, bline, bottom;
-  gchar* non_empty_string;
+  const gchar* non_empty_string;
   PangoRectangle ink_rect,logical_rect;
   real* offsets;
 
@@ -732,6 +756,15 @@ dia_font_get_sizes(const char* string, DiaFont *font, real height,
  * duplicates the one with the preferred newname comes first.
  *
  * FIXME: DIA_FONT_FAMILY_ANY in the list below does mean noone knows better
+ *
+ * The PostScript names can be found on page 19 of 
+ * http://partners.adobe.com/public/developer/en/ps/5011.FaxProtocol_Spec.pdf
+ * 
+ * Note that these are not strictly the Adobe names, as a few were used
+ * incorrectly and are kept for backwards compatibility.  The latin-1
+ * postscript renderer mangles these.
+ *
+ * Some additional fairly standard fonts for asian scripts are also added.
  */
 static struct _legacy_font {
   gchar*       oldname;
