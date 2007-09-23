@@ -125,6 +125,25 @@ umlclass_store_disconnects(UMLClassDialog *prop_dialog,
   }
 }
 
+/** Add an option to an option menu item for a class.
+ * @param menu The GtkMenu to add an item to.
+ * @param label The I18N'd label to show in the menu.
+ * @param umlclass The class object that the dialog is being built for.
+ * @param user_data Arbitrary data, here typically an integer indicating the
+ * option internally.
+ */
+static void
+add_option_menu_item(GtkMenu *menu, gchar *label, GtkSignalFunc update_func,
+		     UMLClass *umlclass, gpointer user_data)
+{
+  GtkWidget *menuitem = gtk_menu_item_new_with_label (label);
+  gtk_signal_connect (GTK_OBJECT (menuitem), "activate",
+		      update_func, umlclass);
+  gtk_object_set_user_data(GTK_OBJECT(menuitem), user_data);
+  gtk_menu_append (GTK_MENU (menu), menuitem);
+  gtk_widget_show (menuitem);  
+}
+
 /********************************************************
  ******************** CLASS *****************************
  ********************************************************/
@@ -1057,38 +1076,18 @@ attributes_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   submenu = NULL;
   group = NULL;
     
-  menuitem = gtk_radio_menu_item_new_with_label (group, _("Public"));
-  gtk_signal_connect (GTK_OBJECT (menuitem), "activate",
-		      GTK_SIGNAL_FUNC (attributes_update), umlclass);
-  gtk_object_set_user_data(GTK_OBJECT(menuitem),
-			   GINT_TO_POINTER(UML_PUBLIC) );
-  group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
-  gtk_menu_append (GTK_MENU (menu), menuitem);
-  gtk_widget_show (menuitem);
-  menuitem = gtk_radio_menu_item_new_with_label (group, _("Private"));
-  gtk_signal_connect (GTK_OBJECT (menuitem), "activate",
-		      GTK_SIGNAL_FUNC (attributes_update), umlclass);
-  gtk_object_set_user_data(GTK_OBJECT(menuitem),
-			   GINT_TO_POINTER(UML_PRIVATE) );
-  group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
-  gtk_menu_append (GTK_MENU (menu), menuitem);
-  gtk_widget_show (menuitem);
-  menuitem = gtk_radio_menu_item_new_with_label (group, _("Protected"));
-  gtk_signal_connect (GTK_OBJECT (menuitem), "activate",
-		      GTK_SIGNAL_FUNC (attributes_update), umlclass);
-  gtk_object_set_user_data(GTK_OBJECT(menuitem),
-			   GINT_TO_POINTER(UML_PROTECTED) );
-  group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
-  gtk_menu_append (GTK_MENU (menu), menuitem);
-  gtk_widget_show (menuitem);
-  menuitem = gtk_radio_menu_item_new_with_label (group, _("Implementation"));
-  gtk_signal_connect (GTK_OBJECT (menuitem), "activate",
-		      GTK_SIGNAL_FUNC (attributes_update), umlclass);
-  gtk_object_set_user_data(GTK_OBJECT(menuitem),
-			   GINT_TO_POINTER(UML_IMPLEMENTATION) );
-  group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
-  gtk_menu_append (GTK_MENU (menu), menuitem);
-  gtk_widget_show (menuitem);
+  add_option_menu_item(GTK_MENU(menu), _("Public"), 
+		       GTK_SIGNAL_FUNC (attributes_update), 
+		       umlclass, GINT_TO_POINTER(UML_PUBLIC));
+  add_option_menu_item(GTK_MENU(menu), _("Private"), 
+		       GTK_SIGNAL_FUNC (attributes_update),
+		       umlclass, GINT_TO_POINTER(UML_PRIVATE) );
+  add_option_menu_item(GTK_MENU(menu), _("Protected"), 
+		       GTK_SIGNAL_FUNC (attributes_update),
+		       umlclass, GINT_TO_POINTER(UML_PROTECTED) );
+  add_option_menu_item(GTK_MENU(menu), _("Implementation"), 
+		       GTK_SIGNAL_FUNC (attributes_update),
+		       umlclass, GINT_TO_POINTER(UML_IMPLEMENTATION) );
   
   gtk_option_menu_set_menu (GTK_OPTION_MENU (omenu), menu);
 
@@ -1919,39 +1918,19 @@ operations_data_create_hbox (UMLClass *umlclass)
   prop_dialog->op_visible_button = GTK_OPTION_MENU(omenu);
   submenu = NULL;
   group = NULL;
-    
-  menuitem = gtk_radio_menu_item_new_with_label (group, _("Public"));
-  gtk_signal_connect (GTK_OBJECT (menuitem), "activate",
-		      GTK_SIGNAL_FUNC (operations_update), umlclass);
-  gtk_object_set_user_data(GTK_OBJECT(menuitem),
-			   GINT_TO_POINTER(UML_PUBLIC) );
-  group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
-  gtk_menu_append (GTK_MENU (menu), menuitem);
-  gtk_widget_show (menuitem);
-  menuitem = gtk_radio_menu_item_new_with_label (group, _("Private"));
-  gtk_signal_connect (GTK_OBJECT (menuitem), "activate",
-		      GTK_SIGNAL_FUNC (operations_update), umlclass);
-  gtk_object_set_user_data(GTK_OBJECT(menuitem),
-			   GINT_TO_POINTER(UML_PRIVATE) );
-  group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
-  gtk_menu_append (GTK_MENU (menu), menuitem);
-  gtk_widget_show (menuitem);
-  menuitem = gtk_radio_menu_item_new_with_label (group, _("Protected"));
-  gtk_signal_connect (GTK_OBJECT (menuitem), "activate",
-		      GTK_SIGNAL_FUNC (operations_update), umlclass);
-  gtk_object_set_user_data(GTK_OBJECT(menuitem),
-			   GINT_TO_POINTER(UML_PROTECTED) );
-  group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
-  gtk_menu_append (GTK_MENU (menu), menuitem);
-  gtk_widget_show (menuitem);
-  menuitem = gtk_radio_menu_item_new_with_label (group, _("Implementation"));
-  gtk_signal_connect (GTK_OBJECT (menuitem), "activate",
-		      GTK_SIGNAL_FUNC (operations_update), umlclass);
-  gtk_object_set_user_data(GTK_OBJECT(menuitem),
-			   GINT_TO_POINTER(UML_IMPLEMENTATION) );
-  group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
-  gtk_menu_append (GTK_MENU (menu), menuitem);
-  gtk_widget_show (menuitem);
+
+  add_option_menu_item(GTK_MENU(menu), _("Public"), 
+		       GTK_SIGNAL_FUNC (operations_update), umlclass, 
+		       GINT_TO_POINTER(UML_PUBLIC) );
+  add_option_menu_item(GTK_MENU(menu), _("Private"), 
+		       GTK_SIGNAL_FUNC (operations_update), umlclass, 
+		       GINT_TO_POINTER(UML_PRIVATE) );
+  add_option_menu_item(GTK_MENU(menu), _("Protected"),
+		       GTK_SIGNAL_FUNC (operations_update), umlclass, 
+		       GINT_TO_POINTER(UML_PROTECTED) );
+  add_option_menu_item(GTK_MENU(menu), _("Implementation"),
+		       GTK_SIGNAL_FUNC (operations_update), umlclass, 
+		       GINT_TO_POINTER(UML_IMPLEMENTATION) );
   
   gtk_option_menu_set_menu (GTK_OPTION_MENU (omenu), menu);
 
@@ -1969,31 +1948,16 @@ operations_data_create_hbox (UMLClass *umlclass)
   prop_dialog->op_inheritance_type_button = GTK_OPTION_MENU(omenu);
   submenu = NULL;
   group = NULL;
-    
-  menuitem = gtk_radio_menu_item_new_with_label (group, _("Abstract"));
-  gtk_signal_connect (GTK_OBJECT (menuitem), "activate",
-		      GTK_SIGNAL_FUNC (operations_update), umlclass);
-  gtk_object_set_user_data(GTK_OBJECT(menuitem),
-			   GINT_TO_POINTER(UML_ABSTRACT) );
-  group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
-  gtk_menu_append (GTK_MENU (menu), menuitem);
-  gtk_widget_show (menuitem);
-  menuitem = gtk_radio_menu_item_new_with_label (group, _("Polymorphic (virtual)"));
-  gtk_signal_connect (GTK_OBJECT (menuitem), "activate",
-		      GTK_SIGNAL_FUNC (operations_update), umlclass);
-  gtk_object_set_user_data(GTK_OBJECT(menuitem),
-			   GINT_TO_POINTER(UML_POLYMORPHIC) );
-  group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
-  gtk_menu_append (GTK_MENU (menu), menuitem);
-  gtk_widget_show (menuitem);
-  menuitem = gtk_radio_menu_item_new_with_label (group, _("Leaf (final)"));
-  gtk_signal_connect (GTK_OBJECT (menuitem), "activate",
-		      GTK_SIGNAL_FUNC (operations_update), umlclass);
-  gtk_object_set_user_data(GTK_OBJECT(menuitem),
-			   GINT_TO_POINTER(UML_LEAF) );
-  group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
-  gtk_menu_append (GTK_MENU (menu), menuitem);
-  gtk_widget_show (menuitem);
+
+  add_option_menu_item(GTK_MENU(menu), _("Abstract"),
+		       GTK_SIGNAL_FUNC (operations_update),  umlclass, 
+		       GINT_TO_POINTER(UML_ABSTRACT) );
+  add_option_menu_item(GTK_MENU(menu), _("Polymorphic (virtual)"),
+		       GTK_SIGNAL_FUNC (operations_update), umlclass, 
+		       GINT_TO_POINTER(UML_POLYMORPHIC) );
+  add_option_menu_item(GTK_MENU(menu), _("Leaf (final)"),
+		       GTK_SIGNAL_FUNC (operations_update), umlclass, 
+		       GINT_TO_POINTER(UML_LEAF) );
 
   gtk_option_menu_set_menu (GTK_OPTION_MENU (omenu), menu);
 
@@ -2219,40 +2183,18 @@ operations_parameters_data_create_vbox (UMLClass *umlclass)
   submenu = NULL;
   group = NULL;
     
-  menuitem = gtk_radio_menu_item_new_with_label (group, _("Undefined"));
-  gtk_signal_connect (GTK_OBJECT (menuitem), "activate",
-		      GTK_SIGNAL_FUNC (operations_update), umlclass);
-  gtk_object_set_user_data(GTK_OBJECT(menuitem),
-			   GINT_TO_POINTER(UML_UNDEF_KIND) );
-  group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
-  gtk_menu_append (GTK_MENU (menu), menuitem);
-  gtk_widget_show (menuitem);
-  menuitem = gtk_radio_menu_item_new_with_label (group, _("In"));
-  gtk_signal_connect (GTK_OBJECT (menuitem), "activate",
-		      GTK_SIGNAL_FUNC (operations_update), umlclass);
-  gtk_object_set_user_data(GTK_OBJECT(menuitem),
-			   GINT_TO_POINTER(UML_IN) );
-  group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
-  gtk_menu_append (GTK_MENU (menu), menuitem);
-  gtk_widget_show (menuitem);
-
-  menuitem = gtk_radio_menu_item_new_with_label (group, _("Out"));
-  gtk_signal_connect (GTK_OBJECT (menuitem), "activate",
-		      GTK_SIGNAL_FUNC (operations_update), umlclass);
-  gtk_object_set_user_data(GTK_OBJECT(menuitem),
-			   GINT_TO_POINTER(UML_OUT) );
-  group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
-  gtk_menu_append (GTK_MENU (menu), menuitem);
-  gtk_widget_show (menuitem);
-
-  menuitem = gtk_radio_menu_item_new_with_label (group, _("In & Out"));
-  gtk_signal_connect (GTK_OBJECT (menuitem), "activate",
-		      GTK_SIGNAL_FUNC (operations_update), umlclass);
-  gtk_object_set_user_data(GTK_OBJECT(menuitem),
-			   GINT_TO_POINTER(UML_INOUT) );
-  group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
-  gtk_menu_append (GTK_MENU (menu), menuitem);
-  gtk_widget_show (menuitem);
+  add_option_menu_item(GTK_MENU(menu), _("Undefined"),
+		       GTK_SIGNAL_FUNC (operations_update), umlclass, 
+		       GINT_TO_POINTER(UML_UNDEF_KIND) );
+  add_option_menu_item(GTK_MENU(menu), _("In"),
+		       GTK_SIGNAL_FUNC (operations_update), umlclass, 
+		       GINT_TO_POINTER(UML_IN) );
+  add_option_menu_item(GTK_MENU(menu), _("Out"),
+		       GTK_SIGNAL_FUNC (operations_update), umlclass, 
+		       GINT_TO_POINTER(UML_OUT) );
+  add_option_menu_item(GTK_MENU(menu), _("In & Out"),
+		       GTK_SIGNAL_FUNC (operations_update), umlclass, 
+		       GINT_TO_POINTER(UML_INOUT) );
 
   gtk_option_menu_set_menu (GTK_OPTION_MENU (omenu), menu);
 
