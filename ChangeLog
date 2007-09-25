@@ -1,3 +1,9 @@
+2007-09-25  Lars Clausen  <lars@raeder.dk>
+
+	* dia.desktop.in.in (Exec): Patch from Chidambar 'ilLogict'
+	Zinnoury <illogict@online.fr>: Add file as arg to exec for those
+	file managers who don't hack their way around it.  Bug #480079.
+
 2007-09-23  Lars Clausen  <lars@raeder.dk>
 
 	* objects/UML/class_dialog.c: Make UML properties dialogs use
