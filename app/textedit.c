@@ -35,6 +35,68 @@
 #include "object_ops.h"
 #include "text.h"
 
+static gboolean textedit_mode_on = FALSE;
+
+/** Returns TRUE if the given display is currently in text-edit mode. */
+gboolean
+textedit_mode(DDisplay *ddisp)
+{
+  return textedit_mode_on && active_focus() != NULL;
+}
+
+/** Start editing text.  This brings Dia into text-edit mode, which
+ * changes some menu items.  We may or may not already be in text-edit mode,
+ * but at the return of this function we are known to be in text-edit mode.
+ * @param ddisp The display that editing happens in.
+ */
+static void
+textedit_enter(DDisplay *ddisp)
+{
+  if (textedit_mode(ddisp)) {
+    return;
+  }
+  /* Set textedit menus */
+  /* Set textedit key-event handler */
+  textedit_mode_on = TRUE;
+}
+
+/** Stop editing text.  Whether or not we already are in text-edit mode,
+ * this function leaves us in object-edit mode.
+ * @param ddisp The display that editing happens in.
+ */
+static void
+textedit_exit(DDisplay *ddisp)
+{
+  if (!textedit_mode(ddisp)) {
+    return;
+  }
+  /* Set object-edit menus */
+  /* Set object-edit key-event handler */
+  textedit_mode_on = FALSE;
+}
+
+/** Begin editing a particular text focus.  This must only be called in
+ * text-edit mode.
+ * @param ddisp The display in use
+ * @param focus The text focus to edit 
+ */
+static void
+textedit_begin_edit(DDisplay *ddisp, Focus *focus)
+{
+  Color *focus_col = color_new_rgb(1.0, 1.0, 0.0);
+  
+  g_assert(textedit_mode(ddisp));
+  g_assert(dia_object_is_selected(focus_get_object(focus)));
+  highlight_object(focus->obj, focus_col, ddisp->diagram);
+  object_add_updates(focus->obj, ddisp->diagram);
+}
+
+/** Stop editing a particular text focus.  This must only be called in
+ * text-edit mode.  This handles the object-specific changes required to
+ * edit it.
+ * @param ddisp The display in use
+ * @param focus The text focus to stop editing
+ */
 static void
 textedit_end_edit(DDisplay *ddisp, Focus *focus) 
 {
@@ -42,20 +104,12 @@ textedit_end_edit(DDisplay *ddisp, Focus *focus)
   if (!ddisp)
     return;
 
+  g_assert(textedit_mode(ddisp));
+
   /* Leak of focus highlight color here, but should it be handled
      by highlight or by us?
   */
   highlight_object_off(focus->obj, ddisp->diagram);
-  object_add_updates(focus->obj, ddisp->diagram);
-}
-
-static void
-textedit_begin_edit(DDisplay *ddisp, Focus *focus)
-{
-  Color *focus_col = color_new_rgb(1.0, 1.0, 0.0);
-  
-  g_assert(dia_object_is_selected(focus_get_object(focus)));
-  highlight_object(focus->obj, focus_col, ddisp->diagram);
   object_add_updates(focus->obj, ddisp->diagram);
 }
 
@@ -101,6 +155,8 @@ textedit_activate_focus(DDisplay *ddisp, Focus *focus, Point *clicked)
 }
 
 /** Call when an object is chosen for activation (e.g. due to creation).
+ * Calling this function will put us into text-edit mode if there is
+ * text to edit, otherwise it will take us out of text-edit mode.
  */
 void
 textedit_activate_object(DDisplay *ddisp, DiaObject *obj, Point *clicked)
@@ -113,17 +169,22 @@ textedit_activate_object(DDisplay *ddisp, DiaObject *obj, Point *clicked)
   }
   new_focus = focus_get_first_on_object(obj);
   if (new_focus != NULL) {
+    textedit_enter(ddisp);
     give_focus(new_focus); 
     if (clicked) {
       text_set_cursor((Text*)new_focus->user_data, clicked, ddisp->renderer);
     }
     textedit_begin_edit(ddisp, new_focus);
     diagram_flush(ddisp->diagram);
+  } else {
+    textedit_exit(ddisp);
   }
 }
 
 /** Call to activate the first editable selected object.
  * Deactivates the old edit.
+ * Calling this function will put us into text-edit mode if there is
+ * text to edit, otherwise it will take us out of text-edit mode.
  */
 void
 textedit_activate_first(DDisplay *ddisp)
@@ -135,22 +196,27 @@ textedit_activate_first(DDisplay *ddisp)
     Focus *focus = active_focus();
     textedit_end_edit(ddisp, focus);
   }
-  while (new_focus != NULL && selected != NULL) {
+  while (new_focus == NULL && selected != NULL) {
     DiaObject *obj = (DiaObject*) selected->data;
     new_focus = focus_get_first_on_object(obj);
   }
   if (new_focus != NULL) {
+    textedit_enter(ddisp);
     give_focus(new_focus); 
     textedit_begin_edit(ddisp, new_focus);
     diagram_flush(ddisp->diagram);
-  }  
+  } else {
+    textedit_exit(ddisp);
+  }
 }
 
 /** Call when something causes the text focus to disappear.
  * Does not remove objects from the focus list, but removes the
  * focus highlight and stuff.
  * Calling remove_focus on the active object or remove_focus_all
- * implies deactivating the focus. */
+ * implies deactivating the focus.
+ * Calling this takes us out of textedit mode.
+ */
 void
 textedit_deactivate_focus(void)
 {
@@ -159,9 +225,12 @@ textedit_deactivate_focus(void)
     textedit_end_edit(ddisplay_active(), focus);
     remove_focus();
   }
+  textedit_exit(ddisplay_active());
 }
 
-/** Call when something should be removed from the focus list */
+/** Call when something should be removed from the focus list.
+ * Calling this takes us out of textedit mode.
+ */
 void
 textedit_remove_focus(DiaObject *obj, Diagram *diagram)
 {
@@ -170,9 +239,12 @@ textedit_remove_focus(DiaObject *obj, Diagram *diagram)
     /* TODO: make sure the focus is deactivated */
     textedit_end_edit(ddisplay_active(), old_focus);
   }
+  textedit_exit(ddisplay_active());
 }
 
-/** Call when the entire list of focusable texts gets reset. */
+/** Call when the entire list of focusable texts gets reset.
+ * Calling this takes us out of textedit mode.
+ */
 void
 textedit_remove_focus_all(Diagram *diagram)
 {
@@ -182,4 +254,5 @@ textedit_remove_focus_all(Diagram *diagram)
     textedit_end_edit(ddisplay_active(), focus);
   }
   reset_foci();
+  textedit_exit(ddisplay_active());
 }

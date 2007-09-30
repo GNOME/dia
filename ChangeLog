@@ -1,3 +1,14 @@
+2007-09-30  Lars Clausen  <lars@raeder.dk>
+
+	* app/undo.[ch]: Slight work on moving objects between layers.
+
+	* app/modify_tool.c: 
+	* app/disp_callbacks.c: 
+	* app/textedit.[ch]: First stab at separate edit mode: Introduce
+	"textedit_mode" check and entering/exiting text edit mode.  Make
+	keyboard input understand textedit and switch in and out.  Don't
+	automatically enter text edit mode on selection, only on creation.
+
 2007-09-25  Lars Clausen  <lars@raeder.dk>
 
 	* dia.desktop.in.in (Exec): Patch from Chidambar 'ilLogict'

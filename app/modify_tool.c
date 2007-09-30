@@ -157,7 +157,10 @@ click_select_object(DDisplay *ddisp, Point *clickedpoint,
       }
       
       diagram_select(diagram, obj);
-      textedit_activate_object(ddisp, obj, clickedpoint);
+      /* To be removed once text edit mode is stable.  By then,
+       * we don't want to automatically edit selected objects. 
+	 textedit_activate_object(ddisp, obj, clickedpoint);
+      */
 
       /*
 	This stuff is buggy, fix it later.
@@ -173,7 +176,10 @@ click_select_object(DDisplay *ddisp, Point *clickedpoint,
       return obj;
     } else { /* Clicked on already selected. */
       /*printf("Already selected\n");*/
+      /* To be removed once text edit mode is stable.  By then,
+       * we don't want to automatically edit selected objects.
       textedit_activate_object(ddisp, obj, clickedpoint);
+      */
       object_add_updates_list(diagram->data->selected, diagram);
       diagram_flush(diagram);
       
@@ -770,12 +776,15 @@ modify_button_release(ModifyTool *tool, GdkEventButton *event,
       
     }
     
+    /* To be removed once text edit mode is stable.  By then,
+     * we don't want to automatically edit selected objects.
     if (active_obj != NULL &&
 	diagram_is_selected(ddisp->diagram, active_obj)) {
       textedit_activate_object(ddisp, active_obj, NULL);
     } else {
       textedit_activate_first(ddisp);
     }
+    */
     ddisplay_do_update_menu_sensitivity(ddisp);
     ddisplay_flush(ddisp);
 

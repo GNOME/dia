@@ -682,6 +682,8 @@ ddisplay_canvas_events (GtkWidget *canvas,
         key_handled = FALSE;
         im_context_used = FALSE;
 
+	printf("Key input %d in state %d\n", kevent->keyval, textedit_mode(ddisp));
+
         focus = active_focus();
         if (focus != NULL) {
 	  /* Keys goes to the active focus. */
@@ -691,16 +693,21 @@ ddisplay_canvas_events (GtkWidget *canvas,
 	    if (!gtk_im_context_filter_keypress(
 		  GTK_IM_CONTEXT(ddisp->im_context), kevent)) {
 	      
-	      if (kevent->keyval == GDK_Tab) {
-		focus = textedit_move_focus(ddisp, focus,
-					    (state & GDK_SHIFT_MASK) == 0);
-		obj = focus_get_object(focus);
-	      } else {
-		/*! key event not swallowed by the input method ? */
-		handle_key_event(ddisp, focus, kevent->keyval,
-				 kevent->string, kevent->length);
-		
-		diagram_flush(ddisp->diagram);
+	      switch (kevent->keyval) {
+		  case GDK_Tab:
+		    focus = textedit_move_focus(ddisp, focus,
+						(state & GDK_SHIFT_MASK) == 0);
+		    obj = focus_get_object(focus);
+		    break;
+		  case GDK_Escape:
+		    textedit_deactivate_focus();
+		    break;
+		  default:
+		    /*! key event not swallowed by the input method ? */
+		    handle_key_event(ddisp, focus, kevent->keyval,
+				     kevent->string, kevent->length);
+		    
+		    diagram_flush(ddisp->diagram);
 	      }
 	    }
 	    return_val = key_handled = im_context_used = TRUE;
@@ -758,6 +765,11 @@ ddisplay_canvas_events (GtkWidget *canvas,
               case GDK_Escape:
                 view_unfullscreen();
                 break;
+	      case GDK_F2:
+	      case GDK_Return:
+		printf("Activating first\n");
+		textedit_activate_first(ddisp);
+		break;
               default:
                 if (kevent->string && kevent->keyval == ' ') {
                   tool_select_former();

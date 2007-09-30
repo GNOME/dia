@@ -81,6 +81,8 @@ Change *undo_ungroup_objects(Diagram *dia, GList *obj_list,
 			     DiaObject *group, int group_index);
 Change *undo_parenting(Diagram *dia, DiaObject *parentobj, DiaObject *childobj,
 		       gboolean parent);
+Change *undo_move_object_other_layer(Diagram *diagram, GList *selected_list,
+				     GList *original_list, gboolean moving_up);
 
 #endif /* UNDO_H */
 
