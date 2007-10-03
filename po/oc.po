@@ -1470,7 +1470,7 @@ msgstr "Nom de fichièr"
 
 #: ../app/preferences.c:106
 msgid "User Interface"
-msgstr "Interfaç usuari"
+msgstr "Interfaç utilizaire"
 
 #: ../app/preferences.c:107
 msgid "Diagram Defaults"
@@ -4415,7 +4415,7 @@ msgstr "Documents"
 
 #: ../objects/SISSI/sissi_dialog.c:762
 msgid "Document title"
-msgstr "Titol del document"
+msgstr "Títol del document"
 
 #: ../objects/SISSI/sissi_dialog.c:764
 msgid "URL"
