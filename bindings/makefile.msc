@@ -14,8 +14,7 @@ EXTRALIBS = $(PYTHON)\Python-2.5\PC\VC6\python25_d.lib user32.lib
 
 INCLUDES = \
 	-I.. \
-	-I..\lib \
-	-I..\app
+	-I..\lib
 
 SWIG_FLAGS = $(INCLUDES)
 
@@ -31,7 +30,7 @@ CFLAGS = -FImsvc_recommended_pragmas.h \
 CPPFLAGS = $(CFLAGS) -GX -GR -Zi
 
 EXTRALIBS = $(EXTRALIBS) $(LIBXML2_LIBS) $(INTL_LIBS) $(PANGO_LIBS) \
-	..\lib\libdia.lib ..\app\dia-app.lib
+	..\lib\libdia.lib
 
 GENERATED = \
 	dia-python.cpp \

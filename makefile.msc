@@ -47,6 +47,8 @@ full: 	build \
 compile :
 	cd lib
 	nmake -f makefile.msc
+	cd ..\bindings
+	nmake -f makefile.msc
 	cd ..\app
 	nmake -f makefile.msc
 	cd ..\objects
