@@ -1,5 +1,21 @@
 2007-10-06  Hans Breuer  <hans@breuer.org>
 
+	* lib/arrows.c : major restructuring - getting calculate and draw by
+	function pointer. A lot of arrows are converted to the new style thus
+	arrow_bbox() can give the correct bounding box.
+	* objects/standard/arc.c : bug #340705 and bug #477569
+	  objects/standard/bezier.c : bug #300055 
+	  objects/standard/line.c objects/standard/polyline.c 
+	  objects/standard/zigzagline.c : not using *BBExtra to adjust the 
+	bounding box for arrows but instead a combination of arrow_bbox()
+	and calculate_arrow_point() 
+	* lib/bounding_box.c : just a comment for now
+	* samples/arrows.dia : more coverage
+
+2007-10-06  Hans Breuer  <hans@breuer.org>
+
+	* makefile.msc bindings/makefile.msc : integrated bindings in the build
+
 	* configure.in acinclude.m4 Makefile.am bindings/Makefile.am : 
 	build bindings given --with-swig (and SWIG is found)
 	* bindings/dia-diagramdata.h bindings/dia-extra.cpp 
@@ -58,7 +74,7 @@
 	settings from prefs on startup.  Fixes bug #479244.  Also a bit of
 	cleanup. 
 
-2007-09-21  Hans Breuer  <hans@breuer.org>
+2007-09-22  Hans Breuer  <hans@breuer.org>
 
 	* lib/arrow.[hc] : refactoring to more information hiding: 
 	type menudesc renamed to ArrowDesc and moved arrow_types to arrow.c. 

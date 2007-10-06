@@ -411,22 +411,52 @@ polyline_update_data(Polyline *polyline)
   PolyConn *poly = &polyline->poly;
   DiaObject *obj = &poly->object;
   PolyBBExtras *extra = &poly->extra_spacing;
+  Point gap_endpoints[2];
 
   polyconn_update_data(&polyline->poly);
 
   extra->start_trans =  (polyline->line_width / 2.0);
   extra->end_trans =     (polyline->line_width / 2.0);
   extra->middle_trans = (polyline->line_width / 2.0);
-    
-  if (polyline->start_arrow.type != ARROW_NONE) 
-    extra->start_trans = MAX(extra->start_trans,polyline->start_arrow.width);
-  if (polyline->end_arrow.type != ARROW_NONE) 
-    extra->end_trans = MAX(extra->end_trans,polyline->end_arrow.width);
-
   extra->start_long = (polyline->line_width / 2.0);
   extra->end_long   = (polyline->line_width / 2.0);
 
+  polyline_calculate_gap_endpoints(polyline, gap_endpoints);
+  polyline_exchange_gap_points(polyline, gap_endpoints);
+
   polyconn_update_boundingbox(poly);
+
+  if (polyline->start_arrow.type != ARROW_NONE) {
+    Rectangle bbox;
+    Point move_arrow, move_line;
+    Point to = gap_endpoints[0];
+    Point from = poly->points[1];
+    calculate_arrow_point(&polyline->start_arrow, &to, &from,
+                          &move_arrow, &move_line, polyline->line_width);
+    /* move them */
+    point_sub(&to, &move_arrow);
+    point_sub(&from, &move_line);
+
+    arrow_bbox (&polyline->start_arrow, polyline->line_width, &to, &from, &bbox);
+    rectangle_union (&obj->bounding_box, &bbox);
+  }
+  if (polyline->end_arrow.type != ARROW_NONE) {
+    Rectangle bbox;
+    int n = polyline->poly.numpoints;
+    Point move_arrow, move_line;
+    Point to = gap_endpoints[1];
+    Point from = poly->points[n-2];
+    calculate_arrow_point(&polyline->start_arrow, &to, &from,
+                          &move_arrow, &move_line, polyline->line_width);
+    /* move them */
+    point_sub(&to, &move_arrow);
+    point_sub(&from, &move_line);
+
+    arrow_bbox (&polyline->end_arrow, polyline->line_width, &to, &from, &bbox);
+    rectangle_union (&obj->bounding_box, &bbox);
+  }
+
+  polyline_exchange_gap_points(polyline, gap_endpoints);
 
   obj->position = poly->points[0];
 }

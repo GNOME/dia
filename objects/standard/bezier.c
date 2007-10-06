@@ -508,31 +508,49 @@ bezierline_update_data(Bezierline *bezierline)
 
   bezierconn_update_data(bez);
     
-  extra->start_trans =  (bezierline->line_width / 2.0);
-  extra->end_trans =     (bezierline->line_width / 2.0);
-  extra->middle_trans = (bezierline->line_width / 2.0);
-    
-  if (bezierline->start_arrow.type != ARROW_NONE) 
-    extra->start_trans = MAX(extra->start_trans,bezierline->start_arrow.width);
-  if (bezierline->end_arrow.type != ARROW_NONE) 
-    extra->end_trans = MAX(extra->end_trans,bezierline->end_arrow.width);
-
-  extra->start_long = (bezierline->line_width / 2.0);
-  extra->end_long   = (bezierline->line_width / 2.0);
+  extra->start_trans = extra->start_long = 
+  extra->middle_trans =
+  extra->end_trans = extra->end_long = (bezierline->line_width / 2.0);
 
   obj->position = bez->points[0].p1;
 
   if (connpoint_is_autogap(bez->object.handles[0]->connected_to) ||
       connpoint_is_autogap(bez->object.handles[3*(bez->numpoints-1)]->connected_to) ||
-      bezierline->absolute_start_gap || bezierline->absolute_end_gap) {
+      bezierline->absolute_start_gap || bezierline->absolute_end_gap ||
+      bezierline->start_arrow.type != ARROW_NONE || bezierline->end_arrow.type != ARROW_NONE) {
     Point gap_points[4];
+    Rectangle bbox_union = {bez->points[0].p1.x, bez->points[0].p1.y, bez->points[0].p1.x, bez->points[0].p1.y};
     compute_gap_points(bezierline, gap_points);
     exchange_bez_gap_points(bez,gap_points);
+    /* further modifying the points data, accounts for corrcet arrow and bezier bounding box */
+    if (bezierline->start_arrow.type != ARROW_NONE) {
+      Rectangle bbox;
+      Point move_arrow, move_line;
+      Point to = bez->points[0].p1, from = bez->points[1].p1;
+      
+      calculate_arrow_point(&bezierline->start_arrow, &to, &from, &move_arrow, &move_line, bezierline->line_width);
+      point_sub(&to, &move_arrow);
+      point_sub(&bez->points[0].p1, &move_line);
+      arrow_bbox (&bezierline->start_arrow, bezierline->line_width, &to, &from, &bbox);
+      rectangle_union (&bbox_union, &bbox);
+    }
+    if (bezierline->end_arrow.type != ARROW_NONE) {
+      Rectangle bbox;
+      Point move_arrow, move_line;
+      int num_points = bez->numpoints;
+      Point to = bez->points[num_points-1].p3, from = bez->points[num_points-1].p2;
+      
+      calculate_arrow_point(&bezierline->end_arrow, &to, &from, &move_arrow, &move_line, bezierline->line_width);
+      point_sub(&to, &move_arrow);
+      point_sub(&bez->points[num_points-1].p3, &move_line);
+      arrow_bbox (&bezierline->end_arrow, bezierline->line_width, &to, &from, &bbox);
+      rectangle_union (&bbox_union, &bbox);
+    }
     bezierconn_update_boundingbox(bez);
-    exchange_bez_gap_points(bez,gap_points);
-          
+    rectangle_union (&obj->bounding_box, &bbox_union);
+    exchange_bez_gap_points(bez,gap_points);          
   } else {
-          bezierconn_update_boundingbox(bez);
+    bezierconn_update_boundingbox(bez);
   }
 
 }

@@ -308,22 +308,48 @@ static void
 zigzagline_update_data(Zigzagline *zigzagline)
 {
   OrthConn *orth = &zigzagline->orth;
+  DiaObject *obj = &orth->object;
   PolyBBExtras *extra = &orth->extra_spacing;
 
   orthconn_update_data(&zigzagline->orth);
     
   extra->start_long = 
     extra->end_long = 
-    extra->middle_trans = zigzagline->line_width/2.0;
-  extra->start_trans = (zigzagline->line_width / 2.0);
-  extra->end_trans = (zigzagline->line_width / 2.0);
+    extra->middle_trans = 
+    extra->start_trans =
+    extra->end_trans = (zigzagline->line_width / 2.0);
 
-  if (zigzagline->start_arrow.type != ARROW_NONE) 
-    extra->start_trans = MAX(extra->start_trans,zigzagline->start_arrow.width);
-  if (zigzagline->end_arrow.type != ARROW_NONE) 
-    extra->end_trans = MAX(extra->end_trans,zigzagline->end_arrow.width);
-  
   orthconn_update_boundingbox(orth);
+
+  if (zigzagline->start_arrow.type != ARROW_NONE) {
+    Rectangle bbox;
+    Point move_arrow, move_line;
+    Point to = orth->points[0];
+    Point from = orth->points[1];
+    calculate_arrow_point(&zigzagline->start_arrow, &to, &from,
+                          &move_arrow, &move_line, zigzagline->line_width);
+    /* move them */
+    point_sub(&to, &move_arrow);
+    point_sub(&from, &move_line);
+
+    arrow_bbox (&zigzagline->start_arrow, zigzagline->line_width, &to, &from, &bbox);
+    rectangle_union (&obj->bounding_box, &bbox);
+  }
+  if (zigzagline->end_arrow.type != ARROW_NONE) {
+    Rectangle bbox;
+    Point move_arrow, move_line;
+    int n = orth->numpoints;
+    Point to = orth->points[n-1];
+    Point from = orth->points[n-2];
+    calculate_arrow_point(&zigzagline->start_arrow, &to, &from,
+                          &move_arrow, &move_line, zigzagline->line_width);
+    /* move them */
+    point_sub(&to, &move_arrow);
+    point_sub(&from, &move_line);
+
+    arrow_bbox (&zigzagline->end_arrow, zigzagline->line_width, &to, &from, &bbox);
+    rectangle_union (&obj->bounding_box, &bbox);
+  }
 }
 
 static ObjectChange *

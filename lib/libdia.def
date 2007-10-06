@@ -554,6 +554,7 @@ EXPORTS
  point_add_scaled
  point_convex
  point_copy
+ point_cross
  point_dot
  point_len
  point_normalize

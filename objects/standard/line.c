@@ -513,14 +513,10 @@ line_update_data(Line *line)
   LineBBExtras *extra = &conn->extra_spacing;
   Point start, end;
 
-  extra->start_trans = (line->line_width / 2.0);
-  extra->end_trans   = (line->line_width / 2.0);
-  extra->start_long  = (line->line_width / 2.0);
+  extra->start_trans =
+  extra->end_trans   =
+  extra->start_long  =
   extra->end_long    = (line->line_width / 2.0);
-  if (line->start_arrow.type != ARROW_NONE) 
-    extra->start_trans = MAX(extra->start_trans,line->start_arrow.width);
-  if (line->end_arrow.type != ARROW_NONE) 
-    extra->end_trans = MAX(extra->end_trans,line->end_arrow.width);
 
   if (connpoint_is_autogap(line->connection.endpoint_handles[0].connected_to) ||
       connpoint_is_autogap(line->connection.endpoint_handles[1].connected_to)) {
@@ -539,11 +535,39 @@ line_update_data(Line *line)
     start = conn->endpoints[0];
     end = conn->endpoints[1];
   }
+  if (line->start_arrow.type != ARROW_NONE) {
+    Rectangle bbox;
+    Point move_arrow, move_line;
+    Point to = start;
+    Point from = end;
+    calculate_arrow_point(&line->start_arrow, &to, &from,
+                          &move_arrow, &move_line, line->line_width);
+    /* move them */
+    point_sub(&to, &move_arrow);
+    point_sub(&from, &move_line);
+
+    arrow_bbox (&line->start_arrow, line->line_width, &to, &from, &bbox);
+    rectangle_union (&obj->bounding_box, &bbox);
+  }
+  if (line->end_arrow.type != ARROW_NONE) {
+    Rectangle bbox;
+    Point move_arrow, move_line;
+    Point to = end;
+    Point from = start;
+    calculate_arrow_point(&line->start_arrow, &to, &from,
+                          &move_arrow, &move_line, line->line_width);
+    /* move them */
+    point_sub(&to, &move_arrow);
+    point_sub(&from, &move_line);
+
+    arrow_bbox (&line->end_arrow, line->line_width, &to, &from, &bbox);
+    rectangle_union (&obj->bounding_box, &bbox);
+  }
 
   obj->position = conn->endpoints[0];
 
   connpointline_update(line->cpl);
-  connpointline_putonaline(line->cpl,&start, &end);
+  connpointline_putonaline(line->cpl, &start, &end);
   
   connection_update_handles(conn);
 }

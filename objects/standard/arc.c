@@ -737,6 +737,21 @@ arc_copy(Arc *arc)
   return &newarc->connection.object;
 }
 
+/* copied from lib/diarenderer.c, the one there should be removed */
+static gboolean
+is_right_hand (const Point *a, const Point *b, const Point *c)
+{
+  Point dot1, dot2;
+
+  dot1 = *a;
+  point_sub(&dot1, c);
+  point_normalize(&dot1);
+  dot2 = *b;
+  point_sub(&dot2, c);
+  point_normalize(&dot2);
+  return point_cross(&dot1, &dot2) > 0;
+}
+
 static void
 arc_update_data(Arc *arc)
 {
@@ -747,6 +762,7 @@ arc_update_data(Arc *arc)
   real x1,y1,x2,y2,xc,yc;
   real lensq, alpha, radius;
   real angle1, angle2;
+  gboolean righthand;
   
   endpoints = &arc->connection.endpoints[0];
   x1 = endpoints[0].x;
@@ -791,7 +807,12 @@ arc_update_data(Arc *arc)
   extra->start_long  =
   extra->end_long    = (arc->line_width / 2.0);
 
+  /* updates midpoint */
+  arc_update_handles(arc);
+  /* startpoint, midpoint, endpoint */
+  righthand = is_right_hand (&endpoints[0], &arc->middle_handle.pos, &endpoints[1]);
   connection_update_boundingbox(conn);
+
   /* fix boundingbox for arc's special shape XXX find a more elegant way: */
   if (in_angle(0, arc->angle1, arc->angle2)) {
     /* rigth side, y does not matter if included */
@@ -805,7 +826,7 @@ arc_update_data(Arc *arc)
   }
   if (in_angle(180, arc->angle1, arc->angle2)) {
     /* left side, y does not matter if included */
-    Point pt = { arc->center.x - arc->radius - (arc->line_width / 2.0) };
+    Point pt = { arc->center.x - arc->radius - (arc->line_width / 2.0), y1 };
     rectangle_add_point (&obj->bounding_box, &pt);
   }
   if (in_angle(270, arc->angle1, arc->angle2)) {
@@ -824,22 +845,18 @@ arc_update_data(Arc *arc)
     Point from = to;
     point_sub (&from, &arc->center);
     tmp = from.x;
-    if (angle2 > angle1)
+    if (righthand)
       from.x = -from.y, from.y = tmp;
     else
       from.x = from.y, from.y = -tmp;
     point_add (&from, &to);
-#if 0
+
     calculate_arrow_point(&arc->start_arrow, &to, &from,
                           &move_arrow, &move_line, arc->line_width);
-    /* make them absolute positions, i.e. moved */
-    point_add(&move_arrow, &to);
-    point_add(&move_line, &from);
-    arrow_bbox(&arc->start_arrow, arc->line_width, &move_arrow, &move_line, &bbox);
-#else
+    /* move them */
+    point_sub(&to, &move_arrow);
+    point_sub(&from, &move_line);
     arrow_bbox(&arc->start_arrow, arc->line_width, &to, &from, &bbox);
-#endif
-    /* to test the bounding box it was quite useful to */
     rectangle_union(&obj->bounding_box, &bbox);
   }
   if (arc->end_arrow.type != ARROW_NONE) {
@@ -850,23 +867,21 @@ arc_update_data(Arc *arc)
     Point from = to;
     point_sub (&from, &arc->center);
     tmp = from.x;
-    if (angle2 > angle1)
+    if (righthand)
       from.x = from.y, from.y = -tmp;
     else
       from.x = -from.y, from.y = tmp;
     point_add (&from, &to);
     calculate_arrow_point(&arc->end_arrow, &to, &from,
                           &move_arrow, &move_line, arc->line_width);
-    /* make them absolute positions, i.e. moved */
-    point_add(&move_arrow, &to);
-    point_add(&move_line, &from);
-    arrow_bbox(&arc->end_arrow, arc->line_width, &move_arrow, &move_line, &bbox);
+    /* move them */
+    point_sub(&to, &move_arrow);
+    point_sub(&from, &move_line);
+    arrow_bbox(&arc->end_arrow, arc->line_width, &to, &from, &bbox);
     rectangle_union(&obj->bounding_box, &bbox);
   }
 
   obj->position = conn->endpoints[0];
-  
-  arc_update_handles(arc);
 }
 
 static void

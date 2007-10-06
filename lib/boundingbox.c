@@ -201,7 +201,7 @@ line_bbox(const Point *p1, const Point *p2,
   rect->left = rect->right = p1->x;
   rect->top = rect->bottom = p1->y;
 
-  rectangle_add_point(rect,p2); /* as a safety */
+  rectangle_add_point(rect,p2); /* as a safety, so we don't need to care if it above or below p1 */
   
   point_copy_add_scaled(&vl,p1,p2,-1);
   point_normalize(&vl);
