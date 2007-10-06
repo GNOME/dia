@@ -1,5 +1,8 @@
 2007-10-06  Hans Breuer  <hans@breuer.org>
 
+	* plug-ins/python/gtkcons.py : replace deprecated symbols, patch from
+	Roland Stigge, fixes bug #483049
+
 	* lib/arrows.c : major restructuring - getting calculate and draw by
 	function pointer. A lot of arrows are converted to the new style thus
 	arrow_bbox() can give the correct bounding box.
@@ -11,8 +14,6 @@
 	and calculate_arrow_point() 
 	* lib/bounding_box.c : just a comment for now
 	* samples/arrows.dia : more coverage
-
-2007-10-06  Hans Breuer  <hans@breuer.org>
 
 	* makefile.msc bindings/makefile.msc : integrated bindings in the build
 

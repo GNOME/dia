@@ -35,6 +35,7 @@ pygtk.require("2.0")
 
 import gtk
 import gtk.keysyms
+import gobject
 
 stdout = sys.stdout
 
@@ -115,7 +116,7 @@ class Console(gtk.VBox):
 		self.inp.show()
 
 		self.text = gtk.TextView()
-		self.text.set_editable(gtk.FALSE)
+		self.text.set_editable(False)
 		self.text.set_wrap_mode (gtk.WRAP_WORD)
 		self.text.set_size_request(500, 400)
 		self.inp.pack_start(self.text, padding=1)
@@ -136,22 +137,22 @@ class Console(gtk.VBox):
 		self.text.set_scroll_adjustments (hadj, vadj)
 		self.vscroll = gtk.VScrollbar(vadj)
 		self.vscroll.set_update_policy(gtk.POLICY_AUTOMATIC)
-		self.inp.pack_end(self.vscroll, expand=gtk.FALSE)
+		self.inp.pack_end(self.vscroll, expand=False)
 		self.vscroll.show()
 
 		self.inputbox = gtk.HBox(spacing=2)
-		self.pack_end(self.inputbox, expand=gtk.FALSE)
+		self.pack_end(self.inputbox, expand=False)
 		self.inputbox.show()
 
 		self.prompt = gtk.Label(sys.ps1)
 		self.prompt.set_padding(2, 0)
 		self.prompt.set_size_request(26, -1)
-		self.inputbox.pack_start(self.prompt, fill=gtk.FALSE, expand=gtk.FALSE)
+		self.inputbox.pack_start(self.prompt, fill=False, expand=False)
 		self.prompt.show()
 
 		self.closer = gtk.Button("Close")
 		self.closer.connect("clicked", self.quit)
-		self.inputbox.pack_end(self.closer, fill=gtk.FALSE, expand=gtk.FALSE)
+		self.inputbox.pack_end(self.closer, fill=False, expand=False)
 		self.closer.show()
 
 		self.line = gtk.Entry()
@@ -187,14 +188,14 @@ class Console(gtk.VBox):
 
 	def scroll_to_end (self):
 		iter = self.text.get_buffer().get_end_iter()
-		self.text.scroll_to_iter(iter, 0.0, 0.5)
-		return gtk.FALSE  # don't requeue this handler
+		self.text.scroll_to_iter(iter, 0.0)
+		return False  # don't requeue this handler
 
 	def text_insert(self, tag, s) :
 		buffer = self.text.get_buffer()
 		iter = buffer.get_end_iter()
 		buffer.insert_with_tags (iter, s, tag)
-		gtk.idle_add(self.scroll_to_end)
+		gobject.idle_add(self.scroll_to_end)
 
 	def init(self):
 		self.text.realize()
@@ -220,15 +221,15 @@ class Console(gtk.VBox):
 		if event.keyval == gtk.keysyms.Tab:
 		        self.line.emit_stop_by_name("key_press_event")
 			self.line.append_text('\t')
-			gtk.idle_add(self.focus_text)
+			gobject.idle_add(self.focus_text)
 		elif event.keyval in (gtk.keysyms.KP_Up, gtk.keysyms.Up):
 			self.line.emit_stop_by_name("key_press_event")
 			self.historyUp()
-			gtk.idle_add(self.focus_text)
+			gobject.idle_add(self.focus_text)
 		elif event.keyval in (gtk.keysyms.KP_Down, gtk.keysyms.Down):
 			self.line.emit_stop_by_name("key_press_event")
 			self.historyDown()
-			gtk.idle_add(self.focus_text)
+			gobject.idle_add(self.focus_text)
 		elif event.keyval in (gtk.keysyms.D, gtk.keysyms.d) and \
 		     event.state & gtk.gdk.CONTROL_MASK:
 			self.line.emit_stop_by_name("key_press_event")
@@ -236,7 +237,7 @@ class Console(gtk.VBox):
 
 	def focus_text(self):
 		self.line.grab_focus()
-		return gtk.FALSE  # don't requeue this handler
+		return False  # don't requeue this handler
 
 	def ctrld(self):
 		self.quit()
@@ -324,7 +325,7 @@ def gtk_console(ns, title='Python', copyright='', menu=None):
 		box = gtk.VBox()
 		win.add(box)
 		box.show()
-		box.pack_start(menu, expand=gtk.FALSE)
+		box.pack_start(menu, expand=False)
 		menu.show()
 		box.pack_start(cons)
 	else:
