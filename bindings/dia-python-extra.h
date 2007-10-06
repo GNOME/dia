@@ -15,3 +15,4 @@ bool DiaPythonExtra_ToVector (PyObject*, std::vector<double>& vec);
 bool DiaPythonExtra_ToVector (PyObject*, std::vector<dia::IProperty*>& vec);
 
 #endif /* DIA__PYTHON_EXTRA_H */
+

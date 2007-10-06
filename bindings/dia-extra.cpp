@@ -35,8 +35,11 @@
 /*
  * copied from ../app/diaconv.c
  */
-static void __cdecl
-stderr_message_internal(const char *title, const char *fmt,
+static void 
+#ifdef _MSC_VER
+__cdecl
+#endif
+stderr_message_internal(const char *title, ShowAgainStyle, const char *fmt,
                         va_list *args,  va_list *args2)
 {
   static gchar *buf = NULL;

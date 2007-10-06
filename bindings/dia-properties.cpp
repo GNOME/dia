@@ -32,13 +32,13 @@
 #include "dia-properties.h"
 #include "dia-object.h"
 
-dia::Property<::Property*>::Property (::Property* p) : self(p) 
+dia::Property< ::Property* >::Property (::Property* p) : self(p) 
 {
 }
 
 //! read-only attribute; the name of the property; at least unique within an object, but supposed to be unique global 
 const char* 
-dia::Property<::Property*>::get_name () const
+dia::Property< ::Property* >::get_name () const
 {
     if (self)
         return self->name;
@@ -46,7 +46,7 @@ dia::Property<::Property*>::get_name () const
 }
 //! read-only attribute giving the data type represented
 const char* 
-dia::Property<::Property*>::get_type () const
+dia::Property< ::Property* >::get_type () const
 {
     if (self)
         return self->type;
@@ -61,7 +61,7 @@ dia::Property<::Property*>::get_type () const
  * an wrap them into one Property.value for runtime typed languages or ... ?
  */
 bool 
-dia::Property<::Property*>::get (int* v) const
+dia::Property< ::Property* >::get (int* v) const
 {
     g_return_val_if_fail (self != NULL, false);
     bool ret = true;
@@ -79,7 +79,7 @@ dia::Property<::Property*>::get (int* v) const
 }
 //! getter for double
 bool 
-dia::Property<::Property*>::get (double* v) const
+dia::Property< ::Property* >::get (double* v) const
 {
     g_return_val_if_fail (self != NULL, false);
     if (strcmp (self->type, PROP_TYPE_REAL) == 0) {
@@ -90,7 +90,7 @@ dia::Property<::Property*>::get (double* v) const
 }
 //! getter for string
 bool 
-dia::Property<::Property*>::get (const char** v) const
+dia::Property< ::Property* >::get (const char** v) const
 {
     g_return_val_if_fail (self != NULL, false);
     if (strcmp (self->type, PROP_TYPE_STRING) == 0) {
@@ -103,7 +103,7 @@ dia::Property<::Property*>::get (const char** v) const
 }
 //! Now it starts to become ugly: isn't there a better way with SWIG to map one to may types?
 bool 
-dia::Property<::Property*>::get (::_Point* v) const 
+dia::Property< ::Property* >::get (::_Point* v) const 
 { 
     g_return_val_if_fail (self != NULL, false);
     if (strcmp (self->type, PROP_TYPE_POINT) == 0) {
@@ -114,7 +114,7 @@ dia::Property<::Property*>::get (::_Point* v) const
 }
 //! almost complete ;)
 bool
-dia::Property<::Property*>::get (::_Rectangle* v) const 
+dia::Property< ::Property* >::get (::_Rectangle* v) const 
 { 
     g_return_val_if_fail (self != NULL, false);
     if (strcmp (self->type, PROP_TYPE_RECT) == 0) {
@@ -125,7 +125,7 @@ dia::Property<::Property*>::get (::_Rectangle* v) const
 }
 //! the final one
 bool
-dia::Property<::Property*>::get (const std::vector<IProperty*>** v) const 
+dia::Property< ::Property* >::get (const std::vector<IProperty*>** v) const 
 { 
     g_return_val_if_fail (self != NULL, false);
     if (strcmp (self->type, PROP_TYPE_DARRAY) == 0) {
@@ -150,7 +150,8 @@ dia::Property<::Property*>::get (const std::vector<IProperty*>** v) const
     }
     return false; 
 }
-dia::Property<::Property*>::~Property ()
+
+dia::Property< ::Property* >::~Property ()
 {
     std::vector<IProperty*>::iterator it;
     for (it = _vec.begin(); it != _vec.end(); ++it)
@@ -164,7 +165,7 @@ dia::Property<::Property*>::~Property ()
  * in the .swig file.
  */
 bool
-dia::Property<::Property*>::get (::_Color* v) const 
+dia::Property< ::Property* >::get (::_Color* v) const 
 { 
     g_return_val_if_fail (self != NULL, false);
     if (strcmp (self->type, PROP_TYPE_COLOUR) == 0) {
@@ -176,7 +177,7 @@ dia::Property<::Property*>::get (::_Color* v) const
 
 //! if the property is to be shown (in a dialog)
 bool 
-dia::Property<::Property*>::visible () const
+dia::Property< ::Property* >::visible () const
 {
     g_return_val_if_fail (self != NULL, false);
     return !!(self->descr->flags & PROP_FLAG_VISIBLE);
@@ -501,7 +502,7 @@ dia::Properties::getitem (const char* name) const
     g_return_val_if_fail (object != NULL, 0);
     ::Property *p = object_prop_by_name (object, name);
     if (p)
-        return new dia::Property<::Property*>(p);
+        return new dia::Property< ::Property* >(p);
     return 0;
 }
 
@@ -523,3 +524,4 @@ dia::Properties::keys () const
     }
     return _keys;
 }
+

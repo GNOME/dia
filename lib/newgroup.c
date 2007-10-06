@@ -281,7 +281,11 @@ newgroup_update_data(NewGroup *group)
 	/* Remove the group object that stayed at the start of the list,
 	   leaving only the children */
 	children = g_list_remove_link(children, children);
+#if 0 /* this introduces a crircular dependency, does not work on win32 and is bad style everywhere */
 	diagram_unselect_objects(layer_get_parent_diagram(layer), children);
+#else
+	g_warning ("used to call diagram_unselect_objects()");
+#endif
 	g_list_free(children);
       }
     }

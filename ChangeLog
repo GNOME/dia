@@ -1,3 +1,21 @@
+2007-10-06  Hans Breuer  <hans@breuer.org>
+
+	* configure.in acinclude.m4 Makefile.am bindings/Makefile.am : 
+	build bindings given --with-swig (and SWIG is found)
+	* bindings/dia-diagramdata.h bindings/dia-extra.cpp 
+	  bindings/dia-properties.cpp bindings/dia-diagramdata.cpp
+	  bindings/dia-properties.h bindings/dia-python-extra.h 
+	  bindings/dia.swig : first time built with g++
+	* bindings/test.py : some adaptions to run on Linux, not
+	complete yet but something works;)
+
+	* lib/utils.[ch] : removed superfluous definition of snprintf()
+	which did not work from C++ and isn't needed anymore. Use g_snprintf().
+
+	* lib/newgroup.c : remove the circular dependency to app, it does 
+	not work on win32 and even Linuix has problems when app is not used,
+	e.g. by providing bindings only for libdia
+
 2007-09-30  Lars Clausen  <lars@raeder.dk>
 
 	* app/undo.[ch]: Slight work on moving objects between layers.

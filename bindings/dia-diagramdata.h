@@ -101,7 +101,11 @@ class DiagramData
 {
 public :
     //! the size of the diagram, from last DiagramData::update_extents();
-    const ::Rectangle extents;
+#ifdef SWIG
+    const // this is read only from Python , too. But gcc does not like it that way 
+          // error: uninitialized member 'dia::DiagramData::extents' with 'const' type 'const Rectangle'
+#endif
+    ::Rectangle extents;
     //! trying ot be compatible, read-only
     const Layer* active_layer;
     //! the read-only list of layers, \todo typemap it in SWIG

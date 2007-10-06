@@ -115,7 +115,7 @@ dia::Layer*
 dia::Layers::getitem (int n) const
 {
   if (list && n >= 0 && n < (*list)->len)
-    return new dia::Layer(static_cast<::Layer*>(g_ptr_array_index (*list, n)));
+    return new dia::Layer(static_cast< ::Layer* >(g_ptr_array_index (*list, n)));
   return 0;
 }
 
@@ -125,7 +125,7 @@ dia::Layers::getitem (int n) const
 dia::DiagramData::DiagramData () : self(0), active_layer(0), _selected(0)
 {
     // the usual GObjetc cast DIA_DIAGRAM_DATA does not work when playing games with namespaces ;)
-    self = static_cast<::DiagramData*> (g_object_new (DIA_TYPE_DIAGRAM_DATA, NULL));
+    self = static_cast< ::DiagramData* > (g_object_new (DIA_TYPE_DIAGRAM_DATA, NULL));
     //FIXME: grumpf
     if (self->active_layer)
       active_layer = new Layer(self->active_layer);
@@ -139,7 +139,7 @@ dia::DiagramData::~DiagramData ()
     if (_selected)
         delete _selected;
     if (layers)
-      delete const_cast<dia::Layers*>(layers);
+      delete const_cast< dia::Layers* >(layers);
 }
 
 dia::Layer*
@@ -162,7 +162,7 @@ dia::DiagramData::update_extents ()
     g_return_if_fail(self != NULL);
     data_update_extents(self);
     // conceptionally const, i.e. read-only
-    *const_cast<::Rectangle*>(&extents) = self->extents;
+    *const_cast< ::Rectangle* >(&extents) = self->extents;
 }
 dia::Objects&
 dia::DiagramData::get_sorted_selected () const
@@ -171,6 +171,7 @@ dia::DiagramData::get_sorted_selected () const
         delete _selected;
 
     static GList* list = data_get_sorted_selected(self);
-    const_cast<DiagramData*>(this)->_selected = new dia::Objects (&list);
+    const_cast< DiagramData* >(this)->_selected = new dia::Objects (&list);
     return *_selected;
 }
+

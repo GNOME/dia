@@ -1,4 +1,14 @@
+import os, sys
+
+if os.uname()[0] == "Linux" :
+	sys.path.insert (0, os.getcwd() + "/.libs")
+	sys.path.insert(0, r'../plug-ins/python')
+else : # sorry only Linux and win32 tested ;)
+	sys.path.insert(0, r'd:\graph\dia2\python')
+	sys.path.insert(0, r'..\plug-ins\python')
+
 import dia
+
 # a global object to make it changeable by main()
 format_extensions = ["wmf", "svg", "png"]
 
@@ -12,12 +22,13 @@ def Dump () :
 	rd = dia.Renderer
 	print rd, dir(rd)
 
-import sys
-sys.path.insert(0, r'd:\graph\dia2\python')
-sys.path.insert(0, r'..\plug-ins\python')
+if os.uname()[0] == "Linux" :
+	print "FIXME: trouble with dynamic loading on Linux, no plug-ins"
+	#base_path = os.getcwd() + "/.."
+	#os.environ["DIA_LIB_PATH"] = base_path + "/objects//:" + base_path + "/plug-ins//"
+else :
+	os.environ["DIA_LIB_PATH"] = r"d:\graph\dia2\dia"
 
-import os
-os.environ["DIA_LIB_PATH"] = r"d:\graph\dia2\dia"
 dia.register_plugins()
 
 def Export (name, data) :
@@ -131,3 +142,4 @@ for arg in sys.argv :
 		Gen()
 		DRaw()
 	else : format_extensions.insert(0, arg)
+

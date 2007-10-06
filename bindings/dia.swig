@@ -184,7 +184,7 @@ PyObject* dia_IProperty_value_get (dia::IProperty* self) {
      if (self->get (&vc)) return SWIG_NewPointerObj(&vc, SWIGTYPE_p__Color, 0);
      const std::vector<dia::IProperty*>* vecProp;
      if (self->get (&vecProp)) {
-       const n = vecProp->size();
+       const size_t n = vecProp->size();
        PyObject* ret = PyTuple_New(n);
        for (int i = 0; i < n; ++i)
          PyTuple_SetItem(ret, i, SWIG_NewPointerObj((*vecProp)[i], SWIGTYPE_p_dia__IProperty, 0));

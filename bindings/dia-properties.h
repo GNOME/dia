@@ -80,27 +80,27 @@ private :
     T self;
 };
 
-inline bool Property<int>::get (int* p) const 
+template<> inline bool Property<int>::get (int* p) const 
 { 
   *p = self; return true; 
 }
-inline bool Property<double>::get (double* p) const 
+template<> inline bool Property<double>::get (double* p) const 
 { 
   *p = self; return true; 
 }
-inline Property<const char*>::Property (const char* v) 
+template<> inline Property<const char*>::Property (const char* v) 
 { 
   self = v ? g_strdup (v) : g_strdup(""); 
 }
-inline bool Property<const char*>::get (const char** p) const 
+template<> inline bool Property<const char*>::get (const char** p) const 
 { 
   *p = self; return true; 
 }
-inline Property<char*>::Property (char* v) 
+template<> inline Property<char*>::Property (char* v) 
 { 
   self = v ? g_strdup (v) : g_strdup(""); 
 }
-inline bool Property<char*>::get (char** p) const 
+template<> inline bool Property<char*>::get (char** p) const 
 { 
   *p = self; return true; 
 }
@@ -113,7 +113,7 @@ inline bool Property<char*>::get (char** p) const
  * used to get or read a property from its underlying type.
  */
 template<>
-class Property<::Property*> : public IProperty
+class Property< ::Property* > : public IProperty
 {
 public :
     //! construct from underlying object
