@@ -67,41 +67,7 @@
 #include "filter.h"
 #include "plug-ins.h"
 
-#ifdef HAVE_CAIRO
-/* --- the renderer --- */
-G_BEGIN_DECLS
-
-#define DIA_CAIRO_TYPE_RENDERER           (dia_cairo_renderer_get_type ())
-#define DIA_CAIRO_RENDERER(obj)           (G_TYPE_CHECK_INSTANCE_CAST ((obj), DIA_CAIRO_TYPE_RENDERER, DiaCairoRenderer))
-#define DIA_CAIRO_RENDERER_CLASS(klass)   (G_TYPE_CHECK_CLASS_CAST ((klass), DIA_CAIRO_TYPE_RENDERER, DiaCairoRendererClass))
-#define DIA_CAIRO_IS_RENDERER(obj)        (G_TYPE_CHECK_INSTANCE_TYPE ((obj), DIA_CAIRO_TYPE_RENDERER))
-#define DIA_CAIRO_RENDERER_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS ((obj), DIA_CAIRO_TYPE_RENDERER, DiaCairoRendererClass))
-
-GType dia_cairo_renderer_get_type (void) G_GNUC_CONST;
-
-typedef struct _DiaCairoRenderer DiaCairoRenderer;
-typedef struct _DiaCairoRendererClass DiaCairoRendererClass;
-
-struct _DiaCairoRenderer
-{
-  DiaRenderer parent_instance;
-
-  cairo_t *cr;
-  cairo_surface_t *surface;
- 
-  double dash_length;
-  DiagramData *dia;
-
-  real scale;
-  gboolean with_alpha;
-};
-
-struct _DiaCairoRendererClass
-{
-  DiaRendererClass parent_class;
-};
-
-G_END_DECLS
+#include "diacairo.h"
 
 /*
 #define DEBUG_CAIRO
@@ -203,7 +169,7 @@ set_linecaps(DiaRenderer *self, LineCaps mode)
     cairo_set_line_cap (renderer->cr, CAIRO_LINE_CAP_SQUARE); /* ?? */
     break;
   default:
-    message_error("DiaCairoRenderer : Unsupported fill mode specified!\n");
+    message_error("DiaCairoRenderer : Unsupported caps mode specified!\n");
   }
   DIAG_STATE(renderer->cr)
 }
@@ -226,7 +192,7 @@ set_linejoin(DiaRenderer *self, LineJoin mode)
     cairo_set_line_join (renderer->cr, CAIRO_LINE_JOIN_BEVEL);
     break;
   default:
-    message_error("DiaCairoRenderer : Unsupported fill mode specified!\n");
+    message_error("DiaCairoRenderer : Unsupported join mode specified!\n");
   }
   DIAG_STATE(renderer->cr)
 }
@@ -272,7 +238,7 @@ set_linestyle(DiaRenderer *self, LineStyle mode)
     cairo_set_dash (renderer->cr, dash, 2, 0);
     break;
   default:
-    message_error("DiaCairoRenderer : Unsupported fill mode specified!\n");
+    message_error("DiaCairoRenderer : Unsupported line style specified!\n");
   }
   DIAG_STATE(renderer->cr)
 }
@@ -986,7 +952,7 @@ export_data(DiagramData *data, const gchar *filename_utf8,
     return;
   }
   fclose (file);
-  renderer = g_object_new (DIA_CAIRO_TYPE_RENDERER, NULL);
+  renderer = g_object_new (DIA_TYPE_CAIRO_RENDERER, NULL);
   renderer->dia = data; /* FIXME: not sure if this a good idea */
   renderer->scale = 1.0;
 
@@ -1167,18 +1133,16 @@ static DiaExportFilter cb_export_filter = {
 };
 #endif /* CAIRO_HAS_WIN32X_SURFACE */
 
-#endif /* HAVE_CAIRO */
-
 static gboolean
 _plugin_can_unload (PluginInfo *info)
 {
-  return TRUE;
+  /* Can't unlaod as long as we are giving away our types, e.g. dia_cairo_interactive_renderer_get_type () */
+  return FALSE;
 }
 
 static void
 _plugin_unload (PluginInfo *info)
 {
-#ifdef HAVE_CAIRO
 #ifdef CAIRO_HAS_PS_SURFACE
   filter_unregister_export(&ps_export_filter);
 #endif
@@ -1197,7 +1161,6 @@ _plugin_unload (PluginInfo *info)
   filter_unregister_export(&wmf_export_filter);
   filter_unregister_export(&cb_export_filter);
 #endif
-#endif /* HAVE_CAIRO */
 }
 
 /* --- dia plug-in interface --- */
@@ -1213,7 +1176,6 @@ dia_plugin_init(PluginInfo *info)
                             _plugin_unload))
     return DIA_PLUGIN_INIT_ERROR;
 
-#ifdef HAVE_CAIRO
 #ifdef CAIRO_HAS_PS_SURFACE
   filter_register_export(&ps_export_filter);
 #endif
@@ -1232,7 +1194,9 @@ dia_plugin_init(PluginInfo *info)
   filter_register_export(&wmf_export_filter);
   filter_register_export(&cb_export_filter);
 #endif
-#endif
 
+  /* FIXME: need to think about of proper way of registartion, see also app/display.c */
+  dia_cairo_interactive_renderer_get_type ();
+  
   return DIA_PLUGIN_INIT_OK;
 }

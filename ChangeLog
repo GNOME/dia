@@ -1,5 +1,18 @@
 2007-10-06  Hans Breuer  <hans@breuer.org>
 
+	* plug-ins/cairo/diacairo-interactive.c : based on a patch from
+	Nguyen Thai Ngoc Duy (bug #329860) there is an interactive renderer
+	based on cairo now. After some work in the cairo renderer base class
+	(pango_cairo, hairlines, ...) this should finally allow us to get rid
+	of the libart depedency
+	* plug-ins/cairo/diacairo.c app/display.c : HACK to select the 
+	DiaCairoInteractiveRenderer for antialiased rendering. If the points
+	mentioned above are not fixed for the next release it should be
+	disabled again in app/display.c(new_aa_renderer)
+	* plug-ins/cairo/diacairo-print.c : almost empty, should become the
+	place for GtkPrint/Cairo based printing.
+	* plug-ins/cairo/Makefile.am plug-ins/makefile.msc : adapted
+
 	* plug-ins/python/gtkcons.py : replace deprecated symbols, patch from
 	Roland Stigge, fixes bug #483049
 

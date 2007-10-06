@@ -1,5 +1,5 @@
 
-plugin_sources = diacairo.c
+plugin_sources = diacairo.c diacairo-ineractive.c diacairo-print.c
 
 pkglib_LTLIBRARIES = libcairo_filter.la
 

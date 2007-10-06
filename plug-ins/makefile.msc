@@ -48,7 +48,10 @@ PKG_LINK = $(GTK2_LIBS) $(GLIB_LIBS) \
 !IFDEF OBJ_cairo
 PKG_CFLAGS = $(PKG_CFLAGS) $(CAIRO_CFLAGS)
 PKG_LINK = $(PKG_LINK) $(CAIRO_LIBS)
-OBJECTS = diacairo.obj
+OBJECTS = \
+	diacairo.obj \
+	diacairo-interactive.obj \
+	diacairo-print.obj
 !ENDIF
 
 !IFDEF OBJ_dxf

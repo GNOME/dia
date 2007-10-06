@@ -542,6 +542,8 @@ ddisplay_add_display_area(DDisplay *ddisp,
 {
   IRectangle *r;
 
+  if (!ddisp->renderer)
+    return; /* if we don't have a renderer yet prefer ignoring over crashing */
   if (left < 0)
     left = 0;
   if (top < 0)
@@ -1030,10 +1032,39 @@ ddisplay_scroll_to_object(DDisplay *ddisp, DiaObject *obj)
   return ddisplay_scroll_center_point(ddisp, &p);
 }
 
+/**
+ * Kind of dirty way to init an antialiased renderer, there should be some plug-in interface to do this
+ * but first libart needs to be moved out of the core.
+ */
+static DiaRenderer *
+new_aa_renderer (DDisplay *ddisp)
+{
+  GType cairo_renderer_type;
+  cairo_renderer_type = g_type_from_name ("DiaCairoInteractiveRenderer");
+  if (cairo_renderer_type) {
+    DiaRenderer *renderer = g_object_new(cairo_renderer_type, NULL);
+    g_object_set (renderer,
+                  "zoom", &ddisp->zoom_factor,
+		  "rect", &ddisp->visible,
+		  NULL);
+    return renderer;
+  } else {
+    /* fallback: built-in libart renderer */
+    return new_libart_renderer (dia_transform_new (&ddisp->visible, 
+                                                   &ddisp->zoom_factor), 1);
+  }
+}
+
 void
 ddisplay_set_renderer(DDisplay *ddisp, int aa_renderer)
 {
   int width, height;
+
+  /* dont mix new renderer with old updates */
+  if (ddisp->update_id) {
+    gtk_idle_remove (ddisp->update_id);
+    ddisp->update_id = 0;
+  }
 
   if (ddisp->renderer)
     g_object_unref (ddisp->renderer);
@@ -1044,9 +1075,7 @@ ddisplay_set_renderer(DDisplay *ddisp, int aa_renderer)
   height = ddisp->canvas->allocation.height;
 
   if (ddisp->aa_renderer){
-    ddisp->renderer = new_libart_renderer(
-                         dia_transform_new (&ddisp->visible, 
-                                            &ddisp->zoom_factor), 1);
+    ddisp->renderer = new_aa_renderer (ddisp);
   } else {
     ddisp->renderer = new_gdk_renderer(ddisp);
   }
