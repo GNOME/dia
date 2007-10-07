@@ -1,5 +1,7 @@
 2007-10-06  Hans Breuer  <hans@breuer.org>
 
+	* plug-ins/cairo/Makefile.am : now tested on Linux ;)
+
 	* plug-ins/cairo/diacairo.h plug-ins/cairo/Makefile.am : oops, forgot
 	to add this
 
