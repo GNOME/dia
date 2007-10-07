@@ -43,6 +43,8 @@ libpython_plugin_la_SOURCES = \
 	pydia-layer.h \
 	pydia-object.c \
 	pydia-object.h \
+	pydia-paperinfo.c \
+	pydia-paperinfo.h \
 	pydia-properties.c \
 	pydia-properties.h \
 	pydia-property.c \
@@ -66,6 +68,7 @@ pyplugin_DATA = \
 	doxrev.py \
 	group_props.py \
 	gtkcons.py \
+	imgmap.py \
 	otypes.py \
 	pydiadoc.py \
 	scascale.py \
@@ -84,6 +87,7 @@ EXTRA_DIST = \
 	doxrev.py \
 	group_props.py \
 	gtkcons.py \
+	imgmap.py \
 	otypes.py \
 	pydiadoc.py \
 	scascale.py \

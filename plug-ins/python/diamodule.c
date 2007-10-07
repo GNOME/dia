@@ -37,6 +37,7 @@
 #include "pydia-properties.h"
 #include "pydia-error.h"
 #include "pydia-text.h"
+#include "pydia-paperinfo.h"
 
 #include "lib/object.h"
 #include "lib/group.h"
@@ -539,6 +540,7 @@ initdia(void)
     PyDiaError_Type.ob_type = &PyType_Type;
     PyDiaArrow_Type.ob_type = &PyType_Type;
     PyDiaText_Type.ob_type = &PyType_Type;
+    PyDiaPaperinfo_Type.ob_type = &PyType_Type;
 #endif
 
     m = Py_InitModule("dia", dia_methods);
@@ -591,6 +593,8 @@ initdia(void)
 			 (PyObject *)&PyDiaArrow_Type);
     PyDict_SetItemString(d, "Text",
 			 (PyObject *)&PyDiaText_Type);
+    PyDict_SetItemString(d, "Paperinfo",
+			 (PyObject *)&PyDiaPaperinfo_Type);
 
     if (PyErr_Occurred())
 	Py_FatalError("can't initialise module dia");

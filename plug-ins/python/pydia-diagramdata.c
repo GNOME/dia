@@ -26,6 +26,7 @@
 #include "pydia-geometry.h"
 #include "pydia-layer.h"
 #include "pydia-color.h"
+#include "pydia-paperinfo.h"
 
 #include "app/diagram.h"
 
@@ -326,9 +327,7 @@ PyDiaDiagramData_GetAttr(PyDiaDiagramData *self, gchar *attr)
     } else if (!strcmp(attr, "active_layer")) {
 	return PyDiaLayer_New(self->data->active_layer);
     } else if (!strcmp(attr, "paper")) {
-      /* XXX */
-      Py_INCREF(Py_None);
-      return Py_None;
+        return PyDiaPaperinfo_New (&self->data->paper);
     }
     else if (diagram && !strcmp(attr, "grid_width")) 
       return Py_BuildValue("(dd)", diagram->grid.width_x, diagram->grid.width_y);

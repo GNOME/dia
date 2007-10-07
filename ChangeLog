@@ -1,3 +1,11 @@
+2007-10-07  Hans Breuer  <hans@breuer.org>
+
+	* plug-ins/python/paper-info.[ch] plug-ins/python/diamodule.c
+	  plug-ins/python/Makefile.am plug-ins/python/makefile.msc : wrap 
+	PaperInfo and ...
+	* plug-ins/python/imgmap.py : (new) .. use it to scale the
+	html image map like most bitmap exporters do
+
 2007-10-06  Hans Breuer  <hans@breuer.org>
 
 	* plug-ins/cairo/Makefile.am : now tested on Linux ;)
