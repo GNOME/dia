@@ -1,5 +1,10 @@
 2007-10-06  Hans Breuer  <hans@breuer.org>
 
+	* plug-ins/cairo/diacairo.h plug-ins/cairo/Makefile.am : oops, forgot
+	to add this
+
+2007-10-06  Hans Breuer  <hans@breuer.org>
+
 	* plug-ins/cairo/diacairo-interactive.c : based on a patch from
 	Nguyen Thai Ngoc Duy (bug #329860) there is an interactive renderer
 	based on cairo now. After some work in the cairo renderer base class
