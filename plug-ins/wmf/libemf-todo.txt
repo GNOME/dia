@@ -1,0 +1,17 @@
+Unfortunately libEMF ( http://libemf.sf.net ) appears to be unmaintained.
+
+While porting from win32/GDI was quite easy there are something lacking:
+
+missing:
+	GetACP() // also not in headers
+	GetVersion()
+	IntersectClipRect()
+	TextOutW()
+	RoundedRect()
+	Pie()
+	CreateCompatibleDC()
+probably:
+	CreateDIBSection()
+
+CreateEnhMetaFile (,filename, ...) did not create the file as advertized.
+Using CreateEnhMetaFileWithFILEA() did work without any other code changes.

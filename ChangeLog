@@ -1,5 +1,9 @@
 2007-10-07  Hans Breuer  <hans@breuer.org>
 
+	* configure.in plug-ins/wmf/Makefile.am plug-ins/wmf/wmf.cpp :
+	with the help of libEMF dia now can write EMF on Linux(x86), too.
+	* plug-ins/wmf/libemf-todo.txt : stuff not working from libEMF
+
 	* plug-ins/python/paper-info.[ch] plug-ins/python/diamodule.c
 	  plug-ins/python/Makefile.am plug-ins/python/makefile.msc : wrap 
 	PaperInfo and ...

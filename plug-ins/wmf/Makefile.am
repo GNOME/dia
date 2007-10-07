@@ -1,13 +1,18 @@
-plugin_sources = wmf.cpp wmf_gdi.cpp wmf_gdi.h
+plugin_sources = wmf.cpp 
+
+if !WITH_LIBEMF
+plugin_sources += wmf_gdi.cpp wmf_gdi.h
+endif
+
 pkglib_LTLIBRARIES = libwmf_filter.la
 
 libwmf_filter_la_SOURCES = $(plugin_sources)
 libwmf_filter_la_LDFLAGS = -export-dynamic -module -avoid-version 
-libwmf_filter_la_LIBADD = -lstdc++
+libwmf_filter_la_LIBADD = -lstdc++ $(LIBEMF_LIBS)
 
 INCLUDES = -I$(top_srcdir)/intl -I$(top_srcdir)/lib \
   $(GTK_CFLAGS) $(GNOME_CFLAGS) $(PANGOFT2_CFLAGS) $(UNICODE_CFLAGS) \
-  $(DEBUG_CFLAGS)
+  $(DEBUG_CFLAGS) $(LIBEMF_CFLAGS)
 
 EXTRA_DIST = 
 

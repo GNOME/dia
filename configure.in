@@ -227,6 +227,25 @@ AC_SUBST(PNG_LIBS)
 
 LIBS="${old_LIBS} ${PNG_LIBS}"
 
+dnl check for libEMF to provide Windows Metafile plug-in on Linux
+old_CPPFLAGS="${CPPFLAGS}"
+old_CFLAGS="${CFLAGS}"
+old_LIBS="${LIBS}"
+CPPFLAGS="${CPPFLAGS} -I /usr/include/libEMF"
+AC_CHECK_HEADER(emf.h, emf_ok=yes, emf_ok=no)
+AC_CHECK_LIB(EMF, CreateEnhMetaFileWithFILEW, , emf_ok=no, -lstdc++)
+if test "$emf_ok" = yes; then
+  LIBEMF_CFLAGS='-I /usr/include/libEMF'
+  LIBEMF_LIBS='-lEMF'
+  AC_DEFINE(HAVE_LIBEMF,1,[libEMF library available])
+fi
+AC_SUBST(LIBEMF_CFLAGS)
+AC_SUBST(LIBEMF_LIBS)
+AM_CONDITIONAL(WITH_LIBEMF, test "$emf_ok" = yes)
+CPPFLAGS="${old_CPPFLAGS}"
+CFLAGS="${old_CFLAGS}"
+LIBS="${old_LIBS}"
+
 dnl
 dnl Debugging
 dnl
@@ -445,6 +464,7 @@ fi
 AM_CONDITIONAL(WITH_PYTHON, test "x$with_python" != "xno")
 
 dnl Handling of Python bindings with SWIG
+with_swig=no
 AC_ARG_WITH(swig,
 [  --with-swig          generate python bindings with swig],,with_swig=no)
 
@@ -557,7 +577,8 @@ Configuration:
 	Libart support (PNG export):		${have_libart}
 	Cairo support (experimental):		${with_cairo}
 	Gnome Print support (experimental):	${with_gnomeprint}
-	Dia Python bindings with SWIG		$(with_swig)
+	Dia Python bindings with SWIG		${with_swig}
+	WMF plug-in with libEMF:                ${emf_ok}
 "
 
 echo "Now type make to build dia..."

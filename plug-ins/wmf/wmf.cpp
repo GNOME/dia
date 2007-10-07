@@ -43,14 +43,18 @@ extern "C" {
 #endif
 
 #if defined HAVE_WINDOWS_H || defined G_OS_WIN32
-namespace W32 {
-// at least Rectangle conflicts ...
-#define WIN32_LEAN_AND_MEAN
-#include <windows.h>
-}
+  namespace W32 {
+   // at least Rectangle conflicts ...
+#  define WIN32_LEAN_AND_MEAN
+#  include <windows.h>
+  }
+#elif HAVE_LIBEMF
+  namespace W32 {
+#  include <emf.h>
+  }
 #else
-#include "wmf_gdi.h"
-#define SAVE_EMF
+#  include "wmf_gdi.h"
+#  define SAVE_EMF
 #endif
 
 /* force linking with gdi32 */
@@ -139,7 +143,7 @@ UsePen(WmfRenderer* renderer, Color* colour)
     W32::HPEN hOldPen;
     if (colour) {
 	W32::COLORREF rgb = W32COLOR(colour);
-#ifdef G_OS_WIN32
+#if defined(G_OS_WIN32) || HAVE_LIBEMF
 	if ((renderer->platform_is_nt && renderer->hPrintDC) || renderer->target_emf) {
           W32::LOGBRUSH logbrush;
 	  W32::DWORD    dashes[6];
@@ -211,9 +215,13 @@ DonePen(WmfRenderer* renderer, W32::HPEN hPen)
     }
 }
 
-#define DIAG_NOTE /* my_log */
+#ifndef HAVE_LIBEMF
+#  define DIAG_NOTE /* my_log */
+#else
+#  define DIAG_NOTE my_log
+#endif
 void
-my_log(WmfRenderer* renderer, char* format, ...)
+my_log(WmfRenderer* renderer, const char* format, ...)
 {
     gchar *string;
     va_list args;
@@ -467,6 +475,10 @@ set_font(DiaRenderer *self, DiaFont *font, real height)
     case DIA_FONT_HEAVY         : dwWeight = FW_HEAVY; break;
     default : dwWeight = FW_NORMAL; break;
     }
+    //Hack to get BYTE out of namespace W32
+#  ifndef BYTE
+#  define BYTE unsigned char
+#  endif
 
     renderer->hFont = (W32::HFONT)W32::CreateFont( 
 	- SC (height),  // logical height of font 
@@ -872,10 +884,15 @@ draw_string(DiaRenderer *self,
     hOld = W32::SelectObject(renderer->hFileDC, renderer->hFont);
     {
         // one way to go, but see below ...
-        char* scp; 
+        char* scp = NULL; 
         /* convert from utf8 to active codepage */
         static char codepage[10];
+#ifndef HAVE_LIBEMF
         sprintf (codepage, "CP%d", W32::GetACP ());
+#else
+        /* GetACP() not available in libEMF */
+        sprintf (codepage, "CP1252");
+#endif
 
         scp = g_convert (text, strlen (text),
                          codepage, "UTF-8",
@@ -1120,13 +1137,16 @@ wmf_renderer_class_init (WmfRendererClass *klass)
   renderer_class->draw_rect    = draw_rect;
   renderer_class->fill_rect    = fill_rect;
   renderer_class->draw_arc     = draw_arc;
+#ifndef HAVE_LIBEMF
   renderer_class->fill_arc     = fill_arc;
+#endif
   renderer_class->draw_ellipse = draw_ellipse;
   renderer_class->fill_ellipse = fill_ellipse;
 
   renderer_class->draw_string  = draw_string;
+#ifndef HAVE_LIBEMF
   renderer_class->draw_image   = draw_image;
-
+#endif
   /* medium level functions */
   renderer_class->draw_rect = draw_rect;
   renderer_class->draw_polyline  = draw_polyline;
@@ -1136,8 +1156,10 @@ wmf_renderer_class_init (WmfRendererClass *klass)
 #ifndef SAVE_EMF
   renderer_class->fill_bezier   = fill_bezier;
 #endif
+#ifndef HAVE_LIBEMF
   renderer_class->draw_rounded_rect = draw_rounded_rect;
   renderer_class->fill_rounded_rect = fill_rounded_rect;
+#endif
 }
 
 /* plug-in export api */
@@ -1146,7 +1168,7 @@ export_data(DiagramData *data, const gchar *filename,
             const gchar *diafilename, void* user_data)
 {
     WmfRenderer *renderer;
-    W32::HDC  file;
+    W32::HDC  file = NULL;
     W32::HDC refDC;
     Rectangle *extent;
     gint len;
@@ -1173,16 +1195,21 @@ export_data(DiagramData *data, const gchar *filename,
     bbox.bottom = (int)((data->extents.bottom - data->extents.top) * scale *
         100 * W32::GetDeviceCaps(refDC, VERTSIZE) / W32::GetDeviceCaps(refDC, VERTRES));
 
+#if HAVE_LIBEMF
+    FILE* ofile = g_fopen (filename, "w");
+    if (ofile)
+      file = CreateEnhMetaFileWithFILEA (refDC, ofile, &bbox, "Created with Dia/libEMF\0");
+#else
     file = (W32::HDC)W32::CreateEnhMetaFile(
                     refDC, // handle to a reference device context
-#ifdef SAVE_EMF
+#  ifdef SAVE_EMF
                     filename, // pointer to a filename string
-#else
+#  else
                     NULL, // in memory
-#endif
+#  endif
                     &bbox, // pointer to a bounding rectangle
                     "Dia\0Diagram\0"); // pointer to an optional description string 
-
+#endif
     if (file == NULL) {
         message_error(_("Couldn't open: '%s' for writing.\n"), 
 	              dia_message_filename(filename));
@@ -1199,9 +1226,15 @@ export_data(DiagramData *data, const gchar *filename,
     } else {
         renderer->hPrintDC = (W32::HDC)user_data;
     }
-    /* printing is platform dependent */
-    renderer->platform_is_nt = (W32::GetVersion () < 0x80000000);
 
+    DIAG_NOTE(renderer, "Saving %s:%s\n", renderer->target_emf ? "EMF" : "WMF", filename);
+
+    /* printing is platform dependent */
+#ifdef HAVE_LIBEMF
+    renderer->platform_is_nt = TRUE;
+#else
+    renderer->platform_is_nt = (W32::GetVersion () < 0x80000000);
+#endif
     extent = &data->extents;
 
     /* calculate offsets */
@@ -1242,7 +1275,7 @@ export_data(DiagramData *data, const gchar *filename,
     /* write the placeable header */
     fwrite(&renderer->pmh, 1, 22 /* NOT: sizeof(PLACEABLEMETAHEADER) */, file->file);
 #endif
-    
+
     /* bounding box in device units */
     bbox.left = 0;
     bbox.top = 0;
@@ -1252,9 +1285,11 @@ export_data(DiagramData *data, const gchar *filename,
     /* initialize drawing */
     W32::SetBkMode(renderer->hFileDC, TRANSPARENT);
     W32::SetMapMode(renderer->hFileDC, MM_TEXT);
+#ifndef HAVE_LIBEMF
     W32::IntersectClipRect(renderer->hFileDC, 
                            bbox.left, bbox.top,
                            bbox.right, bbox.bottom);
+#endif
 
     /* write extents */
     DIAG_NOTE(renderer, "export_data extents %f,%f -> %f,%f\n", 
@@ -1264,6 +1299,10 @@ export_data(DiagramData *data, const gchar *filename,
 
     g_object_unref(renderer);
     
+#if HAVE_LIBEMF
+    fclose (ofile);
+#endif
+
     W32::ReleaseDC (NULL, refDC);
 }
 
@@ -1305,6 +1344,9 @@ dia_plugin_init(PluginInfo *info)
      * when processed by wmf_gdi.cpp ...
      */
     filter_register_export(&wmf_export_filter);
+    filter_register_export(&emf_export_filter);
+#elif HAVE_LIBEMF
+    /* not sure if libEMF really saves EMF ;) */
     filter_register_export(&emf_export_filter);
 #endif
 
