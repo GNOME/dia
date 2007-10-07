@@ -185,6 +185,8 @@ diagram_init(Diagram *dia, const char *filename)
   dia->data = &dia->parent_instance; /* compatibility */
 
   dia->pagebreak_color = prefs.new_diagram.pagebreak_color;
+  
+  get_paper_info (&dia->data->paper, -1, &prefs.new_diagram);
 
   dia->grid.width_x = prefs.grid.x;
   dia->grid.width_y = prefs.grid.y;

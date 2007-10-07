@@ -125,6 +125,25 @@ umlclass_store_disconnects(UMLClassDialog *prop_dialog,
   }
 }
 
+/** Add an option to an option menu item for a class.
+ * @param menu The GtkMenu to add an item to.
+ * @param label The I18N'd label to show in the menu.
+ * @param umlclass The class object that the dialog is being built for.
+ * @param user_data Arbitrary data, here typically an integer indicating the
+ * option internally.
+ */
+static void
+add_option_menu_item(GtkMenu *menu, gchar *label, GtkSignalFunc update_func,
+		     UMLClass *umlclass, gpointer user_data)
+{
+  GtkWidget *menuitem = gtk_menu_item_new_with_label (label);
+  gtk_signal_connect (GTK_OBJECT (menuitem), "activate",
+		      update_func, umlclass);
+  gtk_object_set_user_data(GTK_OBJECT(menuitem), user_data);
+  gtk_menu_append (GTK_MENU (menu), menuitem);
+  gtk_widget_show (menuitem);  
+}
+
 /********************************************************
  ******************** CLASS *****************************
  ********************************************************/
@@ -380,9 +399,39 @@ class_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   gtk_box_pack_start (GTK_BOX (hbox), checkbox, TRUE, TRUE, 0);
   gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, TRUE, 0);
 
-  /** Fonts and Colors selection **/
-  gtk_box_pack_start (GTK_BOX (vbox), gtk_hseparator_new(), FALSE, FALSE, 3);
+  gtk_widget_show_all (vbox);
+  gtk_widget_show (page_label);
+  gtk_notebook_append_page(notebook, vbox, page_label);
+  
+}
 
+
+static void 
+style_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
+{
+  UMLClassDialog *prop_dialog;
+  GtkWidget *page_label;
+  GtkWidget *label;
+  GtkWidget *hbox;
+  GtkWidget *hbox2;
+  GtkWidget *vbox;
+  GtkWidget *entry;
+  GtkWidget *scrolledwindow;
+  GtkWidget *checkbox;
+  GtkWidget *text_color;
+  GtkWidget *fill_color;
+  GtkWidget *line_color;
+  GtkWidget *table;
+  GtkObject *adj;
+
+  prop_dialog = umlclass->properties_dialog;
+
+  /** Fonts and Colors selection **/
+  page_label = gtk_label_new_with_mnemonic (_("_Style"));
+  
+  vbox = gtk_vbox_new(FALSE, 5);
+  gtk_container_set_border_width (GTK_CONTAINER (vbox), 10);
+  
   table = gtk_table_new (5, 6, TRUE);
   gtk_box_pack_start (GTK_BOX (vbox), table, FALSE, TRUE, 0);
   gtk_table_set_homogeneous (GTK_TABLE (table), FALSE);
@@ -820,7 +869,9 @@ attributes_fill_in_dialog(UMLClass *umlclass)
   GList *list;
   int i;
 
+#ifdef DEBUG
   umlclass_sanity_check(umlclass, "Filling in dialog");  
+#endif
 
   prop_dialog = umlclass->properties_dialog;
 
@@ -1025,38 +1076,18 @@ attributes_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   submenu = NULL;
   group = NULL;
     
-  menuitem = gtk_radio_menu_item_new_with_label (group, _("Public"));
-  gtk_signal_connect (GTK_OBJECT (menuitem), "activate",
-		      GTK_SIGNAL_FUNC (attributes_update), umlclass);
-  gtk_object_set_user_data(GTK_OBJECT(menuitem),
-			   GINT_TO_POINTER(UML_PUBLIC) );
-  group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
-  gtk_menu_append (GTK_MENU (menu), menuitem);
-  gtk_widget_show (menuitem);
-  menuitem = gtk_radio_menu_item_new_with_label (group, _("Private"));
-  gtk_signal_connect (GTK_OBJECT (menuitem), "activate",
-		      GTK_SIGNAL_FUNC (attributes_update), umlclass);
-  gtk_object_set_user_data(GTK_OBJECT(menuitem),
-			   GINT_TO_POINTER(UML_PRIVATE) );
-  group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
-  gtk_menu_append (GTK_MENU (menu), menuitem);
-  gtk_widget_show (menuitem);
-  menuitem = gtk_radio_menu_item_new_with_label (group, _("Protected"));
-  gtk_signal_connect (GTK_OBJECT (menuitem), "activate",
-		      GTK_SIGNAL_FUNC (attributes_update), umlclass);
-  gtk_object_set_user_data(GTK_OBJECT(menuitem),
-			   GINT_TO_POINTER(UML_PROTECTED) );
-  group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
-  gtk_menu_append (GTK_MENU (menu), menuitem);
-  gtk_widget_show (menuitem);
-  menuitem = gtk_radio_menu_item_new_with_label (group, _("Implementation"));
-  gtk_signal_connect (GTK_OBJECT (menuitem), "activate",
-		      GTK_SIGNAL_FUNC (attributes_update), umlclass);
-  gtk_object_set_user_data(GTK_OBJECT(menuitem),
-			   GINT_TO_POINTER(UML_IMPLEMENTATION) );
-  group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
-  gtk_menu_append (GTK_MENU (menu), menuitem);
-  gtk_widget_show (menuitem);
+  add_option_menu_item(GTK_MENU(menu), _("Public"), 
+		       GTK_SIGNAL_FUNC (attributes_update), 
+		       umlclass, GINT_TO_POINTER(UML_PUBLIC));
+  add_option_menu_item(GTK_MENU(menu), _("Private"), 
+		       GTK_SIGNAL_FUNC (attributes_update),
+		       umlclass, GINT_TO_POINTER(UML_PRIVATE) );
+  add_option_menu_item(GTK_MENU(menu), _("Protected"), 
+		       GTK_SIGNAL_FUNC (attributes_update),
+		       umlclass, GINT_TO_POINTER(UML_PROTECTED) );
+  add_option_menu_item(GTK_MENU(menu), _("Implementation"), 
+		       GTK_SIGNAL_FUNC (attributes_update),
+		       umlclass, GINT_TO_POINTER(UML_IMPLEMENTATION) );
   
   gtk_option_menu_set_menu (GTK_OPTION_MENU (omenu), menu);
 
@@ -1816,28 +1847,383 @@ operations_update_event(GtkWidget *widget, GdkEventFocus *ev, UMLClass *umlclass
   return 0;
 }
 
+static GtkWidget*
+operations_data_create_hbox (UMLClass *umlclass)
+{
+  UMLClassDialog *prop_dialog;
+  GtkWidget *hbox;
+  GtkWidget *vbox2;
+  GtkWidget *table;
+  GtkWidget *label;
+  GtkWidget *entry;
+  GtkWidget *omenu;
+  GtkWidget *menu;
+  GtkWidget *submenu;
+  GtkWidget *menuitem;
+  GtkWidget *scrolledwindow;
+  GtkWidget *checkbox;
+  GSList *group;
+
+  prop_dialog = umlclass->properties_dialog;
+
+  hbox = gtk_hbox_new(FALSE, 5);
+  gtk_container_set_border_width (GTK_CONTAINER (hbox), 5);
+
+  vbox2 = gtk_vbox_new(FALSE, 0);
+
+  /* table containing operation 'name' up to 'query' and also the comment */
+  table = gtk_table_new (5, 3, FALSE);
+  gtk_table_set_col_spacings (GTK_TABLE (table), 5);
+  gtk_box_pack_start (GTK_BOX (vbox2), table, FALSE, FALSE, 0);
+
+  label = gtk_label_new(_("Name:"));
+  entry = gtk_entry_new();
+  prop_dialog->op_name = GTK_ENTRY(entry);
+  gtk_signal_connect (GTK_OBJECT (entry), "focus_out_event",
+		      GTK_SIGNAL_FUNC (operations_update_event), umlclass);
+  gtk_signal_connect (GTK_OBJECT (entry), "activate",
+		      GTK_SIGNAL_FUNC (operations_update), umlclass);
+  gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
+  gtk_table_attach (GTK_TABLE (table), label, 0,1,0,1, GTK_FILL,0, 0,0);
+  gtk_table_attach (GTK_TABLE (table), entry, 1,2,0,1, GTK_FILL | GTK_EXPAND,0, 0,2);
+
+  label = gtk_label_new(_("Type:"));
+  entry = gtk_entry_new();
+  prop_dialog->op_type = GTK_ENTRY(entry);
+  gtk_signal_connect (GTK_OBJECT (entry), "focus_out_event",
+		      GTK_SIGNAL_FUNC (operations_update_event), umlclass);
+  gtk_signal_connect (GTK_OBJECT (entry), "activate",
+		      GTK_SIGNAL_FUNC (operations_update), umlclass);
+  gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
+  gtk_table_attach (GTK_TABLE (table), label, 0,1,1,2, GTK_FILL,0, 0,0);
+  gtk_table_attach (GTK_TABLE (table), entry, 1,2,1,2, GTK_FILL | GTK_EXPAND,0, 0,2);
+
+  label = gtk_label_new(_("Stereotype:"));
+  entry = gtk_entry_new();
+  prop_dialog->op_stereotype = GTK_ENTRY(entry);
+  gtk_signal_connect (GTK_OBJECT (entry), "focus_out_event",
+		      GTK_SIGNAL_FUNC (operations_update_event), umlclass);
+  gtk_signal_connect (GTK_OBJECT (entry), "activate",
+		      GTK_SIGNAL_FUNC (operations_update), umlclass);
+  gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
+  gtk_table_attach (GTK_TABLE (table), label, 0,1,2,3, GTK_FILL,0, 0,0);
+  gtk_table_attach (GTK_TABLE (table), entry, 1,2,2,3, GTK_FILL | GTK_EXPAND,0, 0,2);
+
+
+  label = gtk_label_new(_("Visibility:"));
+
+  omenu = gtk_option_menu_new ();
+  menu = gtk_menu_new ();
+  prop_dialog->op_visible = GTK_MENU(menu);
+  prop_dialog->op_visible_button = GTK_OPTION_MENU(omenu);
+  submenu = NULL;
+  group = NULL;
+
+  add_option_menu_item(GTK_MENU(menu), _("Public"), 
+		       GTK_SIGNAL_FUNC (operations_update), umlclass, 
+		       GINT_TO_POINTER(UML_PUBLIC) );
+  add_option_menu_item(GTK_MENU(menu), _("Private"), 
+		       GTK_SIGNAL_FUNC (operations_update), umlclass, 
+		       GINT_TO_POINTER(UML_PRIVATE) );
+  add_option_menu_item(GTK_MENU(menu), _("Protected"),
+		       GTK_SIGNAL_FUNC (operations_update), umlclass, 
+		       GINT_TO_POINTER(UML_PROTECTED) );
+  add_option_menu_item(GTK_MENU(menu), _("Implementation"),
+		       GTK_SIGNAL_FUNC (operations_update), umlclass, 
+		       GINT_TO_POINTER(UML_IMPLEMENTATION) );
+  
+  gtk_option_menu_set_menu (GTK_OPTION_MENU (omenu), menu);
+
+  gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
+					/* left, right, top, bottom */
+  gtk_table_attach (GTK_TABLE (table), label, 2,3,0,1, GTK_FILL,0, 0,0);
+  gtk_table_attach (GTK_TABLE (table), omenu, 3,4,0,1, GTK_FILL | GTK_EXPAND,0, 0,2);
+  /* end: Visibility */
+
+  label = gtk_label_new(_("Inheritance type:"));
+
+  omenu = gtk_option_menu_new ();
+  menu = gtk_menu_new ();
+  prop_dialog->op_inheritance_type = GTK_MENU(menu);
+  prop_dialog->op_inheritance_type_button = GTK_OPTION_MENU(omenu);
+  submenu = NULL;
+  group = NULL;
+
+  add_option_menu_item(GTK_MENU(menu), _("Abstract"),
+		       GTK_SIGNAL_FUNC (operations_update),  umlclass, 
+		       GINT_TO_POINTER(UML_ABSTRACT) );
+  add_option_menu_item(GTK_MENU(menu), _("Polymorphic (virtual)"),
+		       GTK_SIGNAL_FUNC (operations_update), umlclass, 
+		       GINT_TO_POINTER(UML_POLYMORPHIC) );
+  add_option_menu_item(GTK_MENU(menu), _("Leaf (final)"),
+		       GTK_SIGNAL_FUNC (operations_update), umlclass, 
+		       GINT_TO_POINTER(UML_LEAF) );
+
+  gtk_option_menu_set_menu (GTK_OPTION_MENU (omenu), menu);
+
+  gtk_table_attach (GTK_TABLE (table), label, 2,3,1,2, GTK_FILL,0, 0,0);
+  gtk_table_attach (GTK_TABLE (table), omenu, 3,4,1,2, GTK_FILL | GTK_EXPAND,0, 0,2);
+  /* end: Inheritance type */
+
+  checkbox = gtk_check_button_new_with_label(_("Class scope"));
+  prop_dialog->op_class_scope = GTK_TOGGLE_BUTTON(checkbox);
+  gtk_table_attach (GTK_TABLE (table), checkbox, 2,3,2,3, GTK_FILL,0, 0,2);
+
+  checkbox = gtk_check_button_new_with_label(_("Query"));
+  prop_dialog->op_query = GTK_TOGGLE_BUTTON(checkbox);
+  gtk_table_attach (GTK_TABLE (table), checkbox, 3,4,2,3, GTK_FILL,0, 2,0);
+
+  label = gtk_label_new(_("Comment:"));
+  scrolledwindow = gtk_scrolled_window_new (NULL, NULL);
+  gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolledwindow), GTK_SHADOW_IN);
+  /* with GTK_POLICY_NEVER the comment filed gets smaller unti l text is entered; than it would resize the dialog! */
+  gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolledwindow), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+
+  entry = gtk_text_view_new ();
+  prop_dialog->op_comment = GTK_TEXT_VIEW(entry);
+  gtk_container_add (GTK_CONTAINER (scrolledwindow), entry);
+  gtk_text_view_set_wrap_mode (GTK_TEXT_VIEW (entry), GTK_WRAP_WORD);
+  gtk_text_view_set_cursor_visible(GTK_TEXT_VIEW (entry),TRUE);
+
+  gtk_signal_connect (GTK_OBJECT (entry), "focus_out_event",
+		      GTK_SIGNAL_FUNC (operations_update_event), umlclass);
+#if 0 /* no "activate" signal on GtkTextView */
+  gtk_signal_connect (GTK_OBJECT (entry), "activate",
+		      GTK_SIGNAL_FUNC (operations_update), umlclass);
+#endif  
+  gtk_table_attach (GTK_TABLE (table), label, 4,5,0,1, GTK_FILL,0, 0,0);
+  gtk_table_attach (GTK_TABLE (table), scrolledwindow, 4,5,1,3, GTK_FILL | GTK_EXPAND,0, 0,0);
+  gtk_box_pack_start (GTK_BOX (hbox), vbox2, TRUE, TRUE, 0);
+
+  return hbox;  
+}
+
+static GtkWidget*
+operations_parameters_editor_create_vbox (UMLClass *umlclass)
+{
+  UMLClassDialog *prop_dialog;
+  GtkWidget *vbox2;
+  GtkWidget *hbox2;
+  GtkWidget *vbox3;
+  GtkWidget *entry;
+  GtkWidget *label;
+  GtkWidget *menu;
+  GtkWidget *submenu;
+  GtkWidget *menuitem;
+  GtkWidget *scrolled_win;
+  GtkWidget *list;
+  GtkWidget *button;
+  GSList *group;
+
+  prop_dialog = umlclass->properties_dialog;
+
+  vbox2 = gtk_vbox_new(FALSE, 5);
+  /* Parameters list label */
+  hbox2 = gtk_hbox_new(FALSE, 5);
+
+  label = gtk_label_new(_("Parameters:"));
+  gtk_box_pack_start( GTK_BOX(hbox2), label, FALSE, TRUE, 0);
+  
+  gtk_box_pack_start (GTK_BOX (vbox2), hbox2, TRUE, TRUE, 0);
+
+  /* Parameters list editor - with of list at least width of buttons*/
+  hbox2 = gtk_hbox_new(TRUE, 5);
+  
+  scrolled_win = gtk_scrolled_window_new (NULL, NULL);
+  gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_win),
+				  GTK_POLICY_AUTOMATIC, 
+				  GTK_POLICY_AUTOMATIC);
+  gtk_box_pack_start (GTK_BOX (hbox2), scrolled_win, TRUE, TRUE, 0);
+  gtk_widget_show (scrolled_win);
+
+  list = gtk_list_new ();
+  prop_dialog->parameters_list = GTK_LIST(list);
+  gtk_list_set_selection_mode (GTK_LIST (list), GTK_SELECTION_SINGLE);
+  gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled_win), list);
+  gtk_container_set_focus_vadjustment (GTK_CONTAINER (list),
+				       gtk_scrolled_window_get_vadjustment (GTK_SCROLLED_WINDOW (scrolled_win)));
+  gtk_widget_show (list);
+
+  gtk_signal_connect (GTK_OBJECT (list), "selection_changed",
+		      GTK_SIGNAL_FUNC(parameters_list_selection_changed_callback),
+		      umlclass);
+
+  vbox3 = gtk_vbox_new(FALSE, 5);
+
+  button = gtk_button_new_with_mnemonic (_("_New"));
+  prop_dialog->param_new_button = button;
+  gtk_signal_connect (GTK_OBJECT (button), "clicked",
+		      GTK_SIGNAL_FUNC(parameters_list_new_callback),
+		      umlclass);
+  gtk_box_pack_start (GTK_BOX (vbox3), button, FALSE, TRUE, 0);
+  gtk_widget_show (button);
+  button = gtk_button_new_with_mnemonic (_("_Delete"));
+  prop_dialog->param_delete_button = button;
+  gtk_signal_connect (GTK_OBJECT (button), "clicked",
+		      GTK_SIGNAL_FUNC(parameters_list_delete_callback),
+		      umlclass);
+  gtk_box_pack_start (GTK_BOX (vbox3), button, FALSE, TRUE, 0);
+  gtk_widget_show (button);
+  button = gtk_button_new_with_label (_("Move up"));
+  prop_dialog->param_up_button = button;
+  gtk_signal_connect (GTK_OBJECT (button), "clicked",
+		      GTK_SIGNAL_FUNC(parameters_list_move_up_callback),
+		      umlclass);
+  gtk_box_pack_start (GTK_BOX (vbox3), button, FALSE, TRUE, 0);
+  gtk_widget_show (button);
+  button = gtk_button_new_with_label (_("Move down"));
+  prop_dialog->param_down_button = button;
+  gtk_signal_connect (GTK_OBJECT (button), "clicked",
+		      GTK_SIGNAL_FUNC(parameters_list_move_down_callback),
+		      umlclass);
+  gtk_box_pack_start (GTK_BOX (vbox3), button, FALSE, TRUE, 0);
+  gtk_widget_show (button);
+
+  gtk_box_pack_start (GTK_BOX (hbox2), vbox3, FALSE, TRUE, 0);
+
+  gtk_box_pack_start (GTK_BOX (vbox2), hbox2, TRUE, TRUE, 0);
+  /* end: Parameter list editor */
+  
+  return vbox2;
+}
+
+static GtkWidget*
+operations_parameters_data_create_vbox (UMLClass *umlclass)
+{
+  UMLClassDialog *prop_dialog;
+  GtkWidget *vbox2;
+  GtkWidget *frame;
+  GtkWidget *vbox3;
+  GtkWidget *table;
+  GtkWidget *label;
+  GtkWidget *entry;
+  GtkWidget *scrolledwindow;
+  GtkWidget *omenu;
+  GtkWidget *menu;
+  GtkWidget *submenu;
+  GtkWidget *menuitem;
+  GSList *group;
+  
+  prop_dialog = umlclass->properties_dialog;
+
+  vbox2 = gtk_vbox_new(FALSE, 5);
+  frame = gtk_frame_new(_("Parameter data"));
+  vbox3 = gtk_vbox_new(FALSE, 5);
+  gtk_container_set_border_width (GTK_CONTAINER (vbox3), 5);
+  gtk_container_add (GTK_CONTAINER (frame), vbox3);
+  gtk_widget_show(frame);
+  gtk_box_pack_start (GTK_BOX (vbox2), frame, FALSE, TRUE, 0);
+  
+  table = gtk_table_new (3, 4, FALSE);
+  gtk_table_set_col_spacings (GTK_TABLE (table), 5);
+  gtk_box_pack_start (GTK_BOX (vbox3), table, FALSE, FALSE, 0);
+
+  label = gtk_label_new(_("Name:"));
+  entry = gtk_entry_new();
+  prop_dialog->param_name = GTK_ENTRY(entry);
+  gtk_signal_connect (GTK_OBJECT (entry), "focus_out_event",
+		      GTK_SIGNAL_FUNC (operations_update_event), umlclass);
+  gtk_signal_connect (GTK_OBJECT (entry), "activate",
+		      GTK_SIGNAL_FUNC (operations_update), umlclass);
+  gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
+  gtk_table_attach (GTK_TABLE (table), label, 0,1,0,1, GTK_FILL,0, 0,0);
+  gtk_table_attach (GTK_TABLE (table), entry, 1,2,0,1, GTK_FILL | GTK_EXPAND,0, 0,2);
+
+  label = gtk_label_new(_("Type:"));
+  entry = gtk_entry_new();
+  gtk_signal_connect (GTK_OBJECT (entry), "focus_out_event",
+		      GTK_SIGNAL_FUNC (operations_update_event), umlclass);
+  gtk_signal_connect (GTK_OBJECT (entry), "activate",
+		      GTK_SIGNAL_FUNC (operations_update), umlclass);
+  prop_dialog->param_type = GTK_ENTRY(entry);
+  gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
+  gtk_table_attach (GTK_TABLE (table), label, 0,1,1,2, GTK_FILL,0, 0,0);
+  gtk_table_attach (GTK_TABLE (table), entry, 1,2,1,2, GTK_FILL | GTK_EXPAND,0, 0,2);
+
+  label = gtk_label_new(_("Def. value:"));
+  entry = gtk_entry_new();
+  prop_dialog->param_value = GTK_ENTRY(entry);
+  gtk_signal_connect (GTK_OBJECT (entry), "focus_out_event",
+		      GTK_SIGNAL_FUNC (operations_update_event), umlclass);
+  gtk_signal_connect (GTK_OBJECT (entry), "activate",
+		      GTK_SIGNAL_FUNC (operations_update), umlclass);
+  gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
+  gtk_table_attach (GTK_TABLE (table), label, 0,1,2,3, GTK_FILL,0, 0,0);
+  gtk_table_attach (GTK_TABLE (table), entry, 1,2,2,3, GTK_FILL | GTK_EXPAND,0, 0,2);
+
+  label = gtk_label_new(_("Comment:"));
+  scrolledwindow = gtk_scrolled_window_new (NULL, NULL);
+  gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolledwindow),
+				       GTK_SHADOW_IN);
+  gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolledwindow), 
+				  GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+
+  entry = gtk_text_view_new ();
+  prop_dialog->param_comment = GTK_TEXT_VIEW(entry);
+  gtk_container_add (GTK_CONTAINER (scrolledwindow), entry);
+  gtk_text_view_set_wrap_mode (GTK_TEXT_VIEW (entry), GTK_WRAP_WORD);
+  gtk_text_view_set_cursor_visible(GTK_TEXT_VIEW (entry),TRUE);
+
+  gtk_signal_connect (GTK_OBJECT (entry), "focus_out_event",
+		      GTK_SIGNAL_FUNC (operations_update_event), umlclass);
+#if 0 /* no "activate" signal on GtkTextView */
+  gtk_signal_connect (GTK_OBJECT (entry), "activate",
+		      GTK_SIGNAL_FUNC (operations_update), umlclass);
+#endif
+  gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
+  gtk_table_attach (GTK_TABLE (table), label, 2,3,1,2, GTK_FILL,0, 0,0);
+  gtk_table_attach (GTK_TABLE (table), scrolledwindow, 3,4,1,3, GTK_FILL | GTK_EXPAND,0, 0,2);
+
+  label = gtk_label_new(_("Direction:"));
+
+  omenu = gtk_option_menu_new ();
+  menu = gtk_menu_new ();
+  prop_dialog->param_kind = GTK_MENU(menu);
+  prop_dialog->param_kind_button = GTK_OPTION_MENU(omenu);
+  submenu = NULL;
+  group = NULL;
+    
+  add_option_menu_item(GTK_MENU(menu), _("Undefined"),
+		       GTK_SIGNAL_FUNC (operations_update), umlclass, 
+		       GINT_TO_POINTER(UML_UNDEF_KIND) );
+  add_option_menu_item(GTK_MENU(menu), _("In"),
+		       GTK_SIGNAL_FUNC (operations_update), umlclass, 
+		       GINT_TO_POINTER(UML_IN) );
+  add_option_menu_item(GTK_MENU(menu), _("Out"),
+		       GTK_SIGNAL_FUNC (operations_update), umlclass, 
+		       GINT_TO_POINTER(UML_OUT) );
+  add_option_menu_item(GTK_MENU(menu), _("In & Out"),
+		       GTK_SIGNAL_FUNC (operations_update), umlclass, 
+		       GINT_TO_POINTER(UML_INOUT) );
+
+  gtk_option_menu_set_menu (GTK_OPTION_MENU (omenu), menu);
+
+  { 
+    GtkWidget * align;
+    align = gtk_alignment_new(0.0, 0.5, 0.0, 0.0);
+    gtk_container_add(GTK_CONTAINER(align), omenu);
+    gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
+    gtk_table_attach (GTK_TABLE (table), label, 2,3,0,1, GTK_FILL,0, 0,3);
+    gtk_table_attach (GTK_TABLE (table), align, 3,4,0,1, GTK_FILL,0, 0,3);
+  }
+
+  return vbox2;
+}
+
 static void 
 operations_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
 {
   UMLClassDialog *prop_dialog;
   GtkWidget *page_label;
-  GtkWidget *label;
   GtkWidget *hbox;
   GtkWidget *vbox;
-  GtkWidget *table;
   GtkWidget *vbox2;
   GtkWidget *hbox2;
   GtkWidget *vbox3;
-  GtkWidget *entry;
-  GtkWidget *checkbox;
   GtkWidget *scrolled_win;
   GtkWidget *button;
   GtkWidget *list;
   GtkWidget *frame;
-  GtkWidget *omenu;
-  GtkWidget *menu;
-  GtkWidget *submenu;
-  GtkWidget *menuitem;
   GtkWidget *scrolledwindow;
   GSList *group;
 
@@ -1903,369 +2289,26 @@ operations_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   gtk_box_pack_start (GTK_BOX (vbox), hbox, TRUE, TRUE, 0);
 
   frame = gtk_frame_new(_("Operation data"));
-  hbox = gtk_hbox_new(FALSE, 5);
-  gtk_container_set_border_width (GTK_CONTAINER (hbox), 10);
-  gtk_container_add (GTK_CONTAINER (frame), hbox);
+  vbox2 = gtk_vbox_new(FALSE, 0);
+  hbox = operations_data_create_hbox (umlclass);
+  gtk_box_pack_start (GTK_BOX (vbox2), hbox, TRUE, TRUE, 0);
+  gtk_container_add (GTK_CONTAINER (frame), vbox2);
   gtk_widget_show(frame);
   gtk_box_pack_start (GTK_BOX (vbox), frame, FALSE, TRUE, 0);
-
-  vbox2 = gtk_vbox_new(FALSE, 5);
-
-  table = gtk_table_new (3, 2, FALSE);
-  gtk_box_pack_start (GTK_BOX (vbox2), table, FALSE, FALSE, 0);
-
-  label = gtk_label_new(_("Name:"));
-  entry = gtk_entry_new();
-  prop_dialog->op_name = GTK_ENTRY(entry);
-  gtk_signal_connect (GTK_OBJECT (entry), "focus_out_event",
-		      GTK_SIGNAL_FUNC (operations_update_event), umlclass);
-  gtk_signal_connect (GTK_OBJECT (entry), "activate",
-		      GTK_SIGNAL_FUNC (operations_update), umlclass);
-  gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
-  gtk_table_attach (GTK_TABLE (table), label, 0,1,0,1, GTK_FILL,0, 0,0);
-  gtk_table_attach (GTK_TABLE (table), entry, 1,2,0,1, GTK_FILL | GTK_EXPAND,0, 0,2);
-
-  label = gtk_label_new(_("Type:"));
-  entry = gtk_entry_new();
-  prop_dialog->op_type = GTK_ENTRY(entry);
-  gtk_signal_connect (GTK_OBJECT (entry), "focus_out_event",
-		      GTK_SIGNAL_FUNC (operations_update_event), umlclass);
-  gtk_signal_connect (GTK_OBJECT (entry), "activate",
-		      GTK_SIGNAL_FUNC (operations_update), umlclass);
-  gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
-  gtk_table_attach (GTK_TABLE (table), label, 0,1,1,2, GTK_FILL,0, 0,0);
-  gtk_table_attach (GTK_TABLE (table), entry, 1,2,1,2, GTK_FILL | GTK_EXPAND,0, 0,2);
-
-  label = gtk_label_new(_("Stereotype:"));
-  entry = gtk_entry_new();
-  prop_dialog->op_stereotype = GTK_ENTRY(entry);
-  gtk_signal_connect (GTK_OBJECT (entry), "focus_out_event",
-		      GTK_SIGNAL_FUNC (operations_update_event), umlclass);
-  gtk_signal_connect (GTK_OBJECT (entry), "activate",
-		      GTK_SIGNAL_FUNC (operations_update), umlclass);
-  gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
-  gtk_table_attach (GTK_TABLE (table), label, 0,1,2,3, GTK_FILL,0, 0,0);
-  gtk_table_attach (GTK_TABLE (table), entry, 1,2,2,3, GTK_FILL | GTK_EXPAND,0, 0,2);
-
-
-  hbox2 = gtk_hbox_new(FALSE, 5);
-  label = gtk_label_new(_("Visibility:"));
-
-  omenu = gtk_option_menu_new ();
-  menu = gtk_menu_new ();
-  prop_dialog->op_visible = GTK_MENU(menu);
-  prop_dialog->op_visible_button = GTK_OPTION_MENU(omenu);
-  submenu = NULL;
-  group = NULL;
-    
-  menuitem = gtk_radio_menu_item_new_with_label (group, _("Public"));
-  gtk_signal_connect (GTK_OBJECT (menuitem), "activate",
-		      GTK_SIGNAL_FUNC (operations_update), umlclass);
-  gtk_object_set_user_data(GTK_OBJECT(menuitem),
-			   GINT_TO_POINTER(UML_PUBLIC) );
-  group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
-  gtk_menu_append (GTK_MENU (menu), menuitem);
-  gtk_widget_show (menuitem);
-  menuitem = gtk_radio_menu_item_new_with_label (group, _("Private"));
-  gtk_signal_connect (GTK_OBJECT (menuitem), "activate",
-		      GTK_SIGNAL_FUNC (operations_update), umlclass);
-  gtk_object_set_user_data(GTK_OBJECT(menuitem),
-			   GINT_TO_POINTER(UML_PRIVATE) );
-  group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
-  gtk_menu_append (GTK_MENU (menu), menuitem);
-  gtk_widget_show (menuitem);
-  menuitem = gtk_radio_menu_item_new_with_label (group, _("Protected"));
-  gtk_signal_connect (GTK_OBJECT (menuitem), "activate",
-		      GTK_SIGNAL_FUNC (operations_update), umlclass);
-  gtk_object_set_user_data(GTK_OBJECT(menuitem),
-			   GINT_TO_POINTER(UML_PROTECTED) );
-  group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
-  gtk_menu_append (GTK_MENU (menu), menuitem);
-  gtk_widget_show (menuitem);
-  menuitem = gtk_radio_menu_item_new_with_label (group, _("Implementation"));
-  gtk_signal_connect (GTK_OBJECT (menuitem), "activate",
-		      GTK_SIGNAL_FUNC (operations_update), umlclass);
-  gtk_object_set_user_data(GTK_OBJECT(menuitem),
-			   GINT_TO_POINTER(UML_IMPLEMENTATION) );
-  group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
-  gtk_menu_append (GTK_MENU (menu), menuitem);
-  gtk_widget_show (menuitem);
   
-  gtk_option_menu_set_menu (GTK_OPTION_MENU (omenu), menu);
+  /* parameter stuff below operation stuff */
+  hbox = gtk_hbox_new (FALSE, 5);
+  vbox3 = operations_parameters_editor_create_vbox (umlclass);
+  gtk_box_pack_start (GTK_BOX (hbox), vbox3, TRUE, TRUE, 5);
 
-  gtk_box_pack_start (GTK_BOX (hbox2), label, FALSE, TRUE, 0);
-  gtk_box_pack_start (GTK_BOX (hbox2), omenu, FALSE, TRUE, 0);
-  gtk_box_pack_start (GTK_BOX (vbox2), hbox2, FALSE, TRUE, 0);
-
-  hbox2 = gtk_hbox_new(FALSE, 5);
-  checkbox = gtk_check_button_new_with_label(_("Class scope"));
-  prop_dialog->op_class_scope = GTK_TOGGLE_BUTTON(checkbox);
-  gtk_box_pack_start (GTK_BOX (hbox2), checkbox, TRUE, TRUE, 0);
-  gtk_box_pack_start (GTK_BOX (vbox2), hbox2, FALSE, TRUE, 0);
-
-  hbox2 = gtk_hbox_new(FALSE, 5);
-  label = gtk_label_new(_("Inheritance type:"));
-
-  omenu = gtk_option_menu_new ();
-  menu = gtk_menu_new ();
-  prop_dialog->op_inheritance_type = GTK_MENU(menu);
-  prop_dialog->op_inheritance_type_button = GTK_OPTION_MENU(omenu);
-  submenu = NULL;
-  group = NULL;
-    
-  menuitem = gtk_radio_menu_item_new_with_label (group, _("Abstract"));
-  gtk_signal_connect (GTK_OBJECT (menuitem), "activate",
-		      GTK_SIGNAL_FUNC (operations_update), umlclass);
-  gtk_object_set_user_data(GTK_OBJECT(menuitem),
-			   GINT_TO_POINTER(UML_ABSTRACT) );
-  group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
-  gtk_menu_append (GTK_MENU (menu), menuitem);
-  gtk_widget_show (menuitem);
-  menuitem = gtk_radio_menu_item_new_with_label (group, _("Polymorphic (virtual)"));
-  gtk_signal_connect (GTK_OBJECT (menuitem), "activate",
-		      GTK_SIGNAL_FUNC (operations_update), umlclass);
-  gtk_object_set_user_data(GTK_OBJECT(menuitem),
-			   GINT_TO_POINTER(UML_POLYMORPHIC) );
-  group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
-  gtk_menu_append (GTK_MENU (menu), menuitem);
-  gtk_widget_show (menuitem);
-  menuitem = gtk_radio_menu_item_new_with_label (group, _("Leaf (final)"));
-  gtk_signal_connect (GTK_OBJECT (menuitem), "activate",
-		      GTK_SIGNAL_FUNC (operations_update), umlclass);
-  gtk_object_set_user_data(GTK_OBJECT(menuitem),
-			   GINT_TO_POINTER(UML_LEAF) );
-  group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
-  gtk_menu_append (GTK_MENU (menu), menuitem);
-  gtk_widget_show (menuitem);
-
-  gtk_option_menu_set_menu (GTK_OPTION_MENU (omenu), menu);
-
-  gtk_box_pack_start (GTK_BOX (hbox2), label, FALSE, TRUE, 0);
-  gtk_box_pack_start (GTK_BOX (hbox2), omenu, FALSE, TRUE, 0);
-
-  gtk_box_pack_start (GTK_BOX (vbox2), hbox2, FALSE, TRUE, 0);
-
-  hbox2 = gtk_hbox_new(FALSE, 5);
-
-  checkbox = gtk_check_button_new_with_label(_("Query"));
-  prop_dialog->op_query = GTK_TOGGLE_BUTTON(checkbox);
-
-  gtk_box_pack_start (GTK_BOX (hbox2), checkbox, TRUE, TRUE, 0);
-  gtk_box_pack_start (GTK_BOX (vbox2), hbox2, FALSE, TRUE, 0);
- 
-  hbox2 = gtk_hbox_new(FALSE, 5);
-  label = gtk_label_new(_("Comment:"));
-  scrolledwindow = gtk_scrolled_window_new (NULL, NULL);
-  gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolledwindow),
-				       GTK_SHADOW_IN);
-  entry = gtk_text_view_new ();
-  prop_dialog->op_comment = GTK_TEXT_VIEW(entry);
-  gtk_container_add (GTK_CONTAINER (scrolledwindow), entry);
-  gtk_text_view_set_wrap_mode (GTK_TEXT_VIEW (entry), GTK_WRAP_WORD);
-  gtk_text_view_set_cursor_visible(GTK_TEXT_VIEW (entry),TRUE);
-
-  gtk_signal_connect (GTK_OBJECT (entry), "focus_out_event",
-		      GTK_SIGNAL_FUNC (operations_update_event), umlclass);
-#if 0 /* no "activate" signal on GtkTextView */
-  gtk_signal_connect (GTK_OBJECT (entry), "activate",
-		      GTK_SIGNAL_FUNC (operations_update), umlclass);
-#endif
-  gtk_box_pack_start (GTK_BOX (hbox2), label, FALSE, TRUE, 0);
-  gtk_box_pack_start (GTK_BOX (hbox2), scrolledwindow, TRUE, TRUE, 0);
-  gtk_box_pack_start (GTK_BOX (vbox2), hbox2, FALSE, TRUE, 0);
-
-  gtk_box_pack_start (GTK_BOX (hbox), vbox2, FALSE, TRUE, 0);
-
-  vbox2 = gtk_vbox_new(FALSE, 5);
-
-  hbox2 = gtk_hbox_new(FALSE, 5);
-
-  label = gtk_label_new(_("Parameters:"));
-  gtk_box_pack_start( GTK_BOX(hbox2), label, FALSE, TRUE, 0);
+  vbox3 = operations_parameters_data_create_vbox (umlclass);
+  gtk_box_pack_start (GTK_BOX (hbox), vbox3, TRUE, TRUE, 5);
   
-  gtk_box_pack_start (GTK_BOX (vbox2), hbox2, TRUE, TRUE, 0);
-  
-  
-  hbox2 = gtk_hbox_new(FALSE, 5);
-  
-  scrolled_win = gtk_scrolled_window_new (NULL, NULL);
-  gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_win),
-				  GTK_POLICY_AUTOMATIC, 
-				  GTK_POLICY_AUTOMATIC);
-  gtk_box_pack_start (GTK_BOX (hbox2), scrolled_win, TRUE, TRUE, 0);
-  gtk_widget_show (scrolled_win);
-
-  list = gtk_list_new ();
-  prop_dialog->parameters_list = GTK_LIST(list);
-  gtk_list_set_selection_mode (GTK_LIST (list), GTK_SELECTION_SINGLE);
-  gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled_win), list);
-  gtk_container_set_focus_vadjustment (GTK_CONTAINER (list),
-				       gtk_scrolled_window_get_vadjustment (GTK_SCROLLED_WINDOW (scrolled_win)));
-  gtk_widget_show (list);
-
-  gtk_signal_connect (GTK_OBJECT (list), "selection_changed",
-		      GTK_SIGNAL_FUNC(parameters_list_selection_changed_callback),
-		      umlclass);
-
-  vbox3 = gtk_vbox_new(FALSE, 5);
-
-  button = gtk_button_new_with_mnemonic (_("_New"));
-  prop_dialog->param_new_button = button;
-  gtk_signal_connect (GTK_OBJECT (button), "clicked",
-		      GTK_SIGNAL_FUNC(parameters_list_new_callback),
-		      umlclass);
-  gtk_box_pack_start (GTK_BOX (vbox3), button, FALSE, TRUE, 0);
-  gtk_widget_show (button);
-  button = gtk_button_new_with_mnemonic (_("_Delete"));
-  prop_dialog->param_delete_button = button;
-  gtk_signal_connect (GTK_OBJECT (button), "clicked",
-		      GTK_SIGNAL_FUNC(parameters_list_delete_callback),
-		      umlclass);
-  gtk_box_pack_start (GTK_BOX (vbox3), button, FALSE, TRUE, 0);
-  gtk_widget_show (button);
-  button = gtk_button_new_with_label (_("Move up"));
-  prop_dialog->param_up_button = button;
-  gtk_signal_connect (GTK_OBJECT (button), "clicked",
-		      GTK_SIGNAL_FUNC(parameters_list_move_up_callback),
-		      umlclass);
-  gtk_box_pack_start (GTK_BOX (vbox3), button, FALSE, TRUE, 0);
-  gtk_widget_show (button);
-  button = gtk_button_new_with_label (_("Move down"));
-  prop_dialog->param_down_button = button;
-  gtk_signal_connect (GTK_OBJECT (button), "clicked",
-		      GTK_SIGNAL_FUNC(parameters_list_move_down_callback),
-		      umlclass);
-  gtk_box_pack_start (GTK_BOX (vbox3), button, FALSE, TRUE, 0);
-  gtk_widget_show (button);
-
-  gtk_box_pack_start (GTK_BOX (hbox2), vbox3, FALSE, TRUE, 0);
-
-  gtk_box_pack_start (GTK_BOX (vbox2), hbox2, TRUE, TRUE, 0);
-
-  frame = gtk_frame_new(_("Parameter data"));
-  vbox3 = gtk_vbox_new(FALSE, 5);
-  gtk_container_set_border_width (GTK_CONTAINER (vbox3), 10);
-  gtk_container_add (GTK_CONTAINER (frame), vbox3);
-  gtk_widget_show(frame);
-  gtk_box_pack_start (GTK_BOX (vbox2), frame, FALSE, TRUE, 0);
-  
-  table = gtk_table_new (5, 2, FALSE);
-  gtk_box_pack_start (GTK_BOX (vbox3), table, FALSE, FALSE, 0);
-
-  label = gtk_label_new(_("Name:"));
-  entry = gtk_entry_new();
-  prop_dialog->param_name = GTK_ENTRY(entry);
-  gtk_signal_connect (GTK_OBJECT (entry), "focus_out_event",
-		      GTK_SIGNAL_FUNC (operations_update_event), umlclass);
-  gtk_signal_connect (GTK_OBJECT (entry), "activate",
-		      GTK_SIGNAL_FUNC (operations_update), umlclass);
-  gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
-  gtk_table_attach (GTK_TABLE (table), label, 0,1,0,1, GTK_FILL,0, 0,0);
-  gtk_table_attach (GTK_TABLE (table), entry, 1,2,0,1, GTK_FILL | GTK_EXPAND,0, 0,2);
-
-  label = gtk_label_new(_("Type:"));
-  entry = gtk_entry_new();
-  gtk_signal_connect (GTK_OBJECT (entry), "focus_out_event",
-		      GTK_SIGNAL_FUNC (operations_update_event), umlclass);
-  gtk_signal_connect (GTK_OBJECT (entry), "activate",
-		      GTK_SIGNAL_FUNC (operations_update), umlclass);
-  prop_dialog->param_type = GTK_ENTRY(entry);
-  gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
-  gtk_table_attach (GTK_TABLE (table), label, 0,1,1,2, GTK_FILL,0, 0,0);
-  gtk_table_attach (GTK_TABLE (table), entry, 1,2,1,2, GTK_FILL | GTK_EXPAND,0, 0,2);
-
-  label = gtk_label_new(_("Def. value:"));
-  entry = gtk_entry_new();
-  prop_dialog->param_value = GTK_ENTRY(entry);
-  gtk_signal_connect (GTK_OBJECT (entry), "focus_out_event",
-		      GTK_SIGNAL_FUNC (operations_update_event), umlclass);
-  gtk_signal_connect (GTK_OBJECT (entry), "activate",
-		      GTK_SIGNAL_FUNC (operations_update), umlclass);
-  gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
-  gtk_table_attach (GTK_TABLE (table), label, 0,1,2,3, GTK_FILL,0, 0,0);
-  gtk_table_attach (GTK_TABLE (table), entry, 1,2,2,3, GTK_FILL | GTK_EXPAND,0, 0,2);
-
-  label = gtk_label_new(_("Comment:"));
-  scrolledwindow = gtk_scrolled_window_new (NULL, NULL);
-  gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolledwindow),
-				       GTK_SHADOW_IN);
-  entry = gtk_text_view_new ();
-  prop_dialog->param_comment = GTK_TEXT_VIEW(entry);
-  gtk_container_add (GTK_CONTAINER (scrolledwindow), entry);
-  gtk_text_view_set_wrap_mode (GTK_TEXT_VIEW (entry), GTK_WRAP_WORD);
-  gtk_text_view_set_cursor_visible(GTK_TEXT_VIEW (entry),TRUE);
-
-  gtk_signal_connect (GTK_OBJECT (entry), "focus_out_event",
-		      GTK_SIGNAL_FUNC (operations_update_event), umlclass);
-#if 0 /* no "activate" signal on GtkTextView */
-  gtk_signal_connect (GTK_OBJECT (entry), "activate",
-		      GTK_SIGNAL_FUNC (operations_update), umlclass);
-#endif
-  gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
-  gtk_table_attach (GTK_TABLE (table), label, 0,1,3,4, GTK_FILL,0, 0,0);
-  gtk_table_attach (GTK_TABLE (table), scrolledwindow, 1,2,3,4, GTK_FILL | GTK_EXPAND,0, 0,2);
-
-  label = gtk_label_new(_("Direction:"));
-
-  omenu = gtk_option_menu_new ();
-  menu = gtk_menu_new ();
-  prop_dialog->param_kind = GTK_MENU(menu);
-  prop_dialog->param_kind_button = GTK_OPTION_MENU(omenu);
-  submenu = NULL;
-  group = NULL;
-    
-  menuitem = gtk_radio_menu_item_new_with_label (group, _("Undefined"));
-  gtk_signal_connect (GTK_OBJECT (menuitem), "activate",
-		      GTK_SIGNAL_FUNC (operations_update), umlclass);
-  gtk_object_set_user_data(GTK_OBJECT(menuitem),
-			   GINT_TO_POINTER(UML_UNDEF_KIND) );
-  group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
-  gtk_menu_append (GTK_MENU (menu), menuitem);
-  gtk_widget_show (menuitem);
-  menuitem = gtk_radio_menu_item_new_with_label (group, _("In"));
-  gtk_signal_connect (GTK_OBJECT (menuitem), "activate",
-		      GTK_SIGNAL_FUNC (operations_update), umlclass);
-  gtk_object_set_user_data(GTK_OBJECT(menuitem),
-			   GINT_TO_POINTER(UML_IN) );
-  group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
-  gtk_menu_append (GTK_MENU (menu), menuitem);
-  gtk_widget_show (menuitem);
-
-  menuitem = gtk_radio_menu_item_new_with_label (group, _("Out"));
-  gtk_signal_connect (GTK_OBJECT (menuitem), "activate",
-		      GTK_SIGNAL_FUNC (operations_update), umlclass);
-  gtk_object_set_user_data(GTK_OBJECT(menuitem),
-			   GINT_TO_POINTER(UML_OUT) );
-  group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
-  gtk_menu_append (GTK_MENU (menu), menuitem);
-  gtk_widget_show (menuitem);
-
-  menuitem = gtk_radio_menu_item_new_with_label (group, _("In & Out"));
-  gtk_signal_connect (GTK_OBJECT (menuitem), "activate",
-		      GTK_SIGNAL_FUNC (operations_update), umlclass);
-  gtk_object_set_user_data(GTK_OBJECT(menuitem),
-			   GINT_TO_POINTER(UML_INOUT) );
-  group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
-  gtk_menu_append (GTK_MENU (menu), menuitem);
-  gtk_widget_show (menuitem);
-
-  gtk_option_menu_set_menu (GTK_OPTION_MENU (omenu), menu);
-
-  { 
-    GtkWidget * align;
-    align = gtk_alignment_new(0.0, 0.5, 0.0, 0.0);
-    gtk_container_add(GTK_CONTAINER(align), omenu);
-    gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
-    gtk_table_attach (GTK_TABLE (table), label, 0,1,4,5, GTK_FILL,0, 0,3);
-    gtk_table_attach (GTK_TABLE (table), align, 1,2,4,5, GTK_FILL,0, 0,3);
-  }
-
-  gtk_box_pack_start (GTK_BOX (hbox), vbox2, TRUE, TRUE, 0);
+  gtk_box_pack_start (GTK_BOX (vbox2), hbox, TRUE, TRUE, 5);
  
   gtk_widget_show_all (vbox);
   gtk_widget_show (page_label);
   gtk_notebook_append_page (notebook, vbox, page_label);
-
 }
 
 /************************************************************
@@ -2748,7 +2791,9 @@ destroy_properties_dialog (GtkWidget* widget,
 static void
 fill_in_dialog(UMLClass *umlclass)
 {
+#ifdef DEBUG
   umlclass_sanity_check(umlclass, "Filling in dialog before attrs");
+#endif
   class_fill_in_dialog(umlclass);
   attributes_fill_in_dialog(umlclass);
   operations_fill_in_dialog(umlclass);
@@ -2765,7 +2810,9 @@ umlclass_apply_props_from_dialog(UMLClass *umlclass, GtkWidget *widget)
   GList *added, *deleted, *disconnected;
   UMLClassState *old_state = NULL;
   
+#ifdef DEBUG
   umlclass_sanity_check(umlclass, "Apply from dialog start");
+#endif
 
   prop_dialog = umlclass->properties_dialog;
 
@@ -2833,7 +2880,9 @@ umlclass_apply_props_from_dialog(UMLClass *umlclass, GtkWidget *widget)
 
   /* Fill in class with the new data: */
   fill_in_dialog(umlclass);
+#ifdef DEBUG
   umlclass_sanity_check(umlclass, "Apply from dialog end");
+#endif
   return  new_umlclass_change(umlclass, old_state, added, deleted, disconnected);
 }
 
@@ -2844,6 +2893,7 @@ create_dialog_pages(GtkNotebook *notebook, UMLClass *umlclass)
   attributes_create_page(notebook, umlclass);
   operations_create_page(notebook, umlclass);
   templates_create_page(notebook, umlclass);
+  style_create_page(notebook, umlclass);
 }
 
 GtkWidget *
@@ -2853,7 +2903,9 @@ umlclass_get_properties(UMLClass *umlclass, gboolean is_default)
   GtkWidget *vbox;
   GtkWidget *notebook;
 
+#ifdef DEBUG
   umlclass_sanity_check(umlclass, "Get properties start");
+#endif
   if (umlclass->properties_dialog == NULL) {
     prop_dialog = g_new(UMLClassDialog, 1);
     umlclass->properties_dialog = prop_dialog;

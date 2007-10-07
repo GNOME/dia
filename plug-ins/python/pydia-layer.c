@@ -38,7 +38,7 @@ PyDiaLayer_New(Layer *layer)
 static void
 PyDiaLayer_Dealloc(PyDiaLayer *self)
 {
-     PyMem_DEL(self);
+     PyObject_DEL(self);
 }
 
 static int

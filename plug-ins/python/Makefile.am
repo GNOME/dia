@@ -43,6 +43,8 @@ libpython_plugin_la_SOURCES = \
 	pydia-layer.h \
 	pydia-object.c \
 	pydia-object.h \
+	pydia-paperinfo.c \
+	pydia-paperinfo.h \
 	pydia-properties.c \
 	pydia-properties.h \
 	pydia-property.c \
@@ -63,6 +65,7 @@ pyplugin_DATA = \
 	diasvg.py \
 	diasvg_import.py \
 	group_props.py \
+	imgmap.py \
 	otypes.py \
 	scascale.py \
 	select_by.py \
