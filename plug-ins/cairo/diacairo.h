@@ -48,6 +48,9 @@ struct _DiaCairoRenderer
 
   real scale;
   gboolean with_alpha;
+  
+  /** caching the font description from set_font */
+  PangoLayout *layout;
 };
 
 struct _DiaCairoRendererClass

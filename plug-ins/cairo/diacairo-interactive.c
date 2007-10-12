@@ -229,11 +229,18 @@ begin_render(DiaRenderer *self)
   cairo_scale (base_renderer->cr, *renderer->zoom_factor, *renderer->zoom_factor);
   cairo_translate (base_renderer->cr, -renderer->visible->left, -renderer->visible->top);
 
-  /* FIXME: should we set the background color? Or do nothing at all? */
+#ifdef HAVE_PANGOCAIRO_H
+  base_renderer->layout = pango_cairo_create_layout (base_renderer->cr);
+#endif
+
+#if 0
+  /* should we set the background color? Or do nothing at all? */
+  /* if this is drawn you can see 'clipping in action', outside of the clip it gets yellow ;) */
   cairo_set_source_rgba (base_renderer->cr, 1.0, 1.0, .8, 1.0);
   cairo_set_operator (base_renderer->cr, CAIRO_OPERATOR_OVER);
   cairo_rectangle (base_renderer->cr, 0, 0, renderer->width, renderer->height);
   cairo_fill (base_renderer->cr);
+#endif
 }
 
 static void

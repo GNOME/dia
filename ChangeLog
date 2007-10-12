@@ -1,3 +1,9 @@
+2007-10-12  Hans Breuer  <hans@breuer.org>
+
+	* plug-ins/cairo/diacairo.c plug-ins/cairo/diacairo-interactive.c : 
+	use PangoCairo when available (HAVE_PANGOCAIRO_H)
+	* plug-ins/makefile.msc : define HAVE_PANGOCAIRO_H for the cairo/win32
+
 2007-10-07  Hans Breuer  <hans@breuer.org>
 
 	* configure.in plug-ins/wmf/Makefile.am plug-ins/wmf/wmf.cpp :

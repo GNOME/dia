@@ -30,6 +30,10 @@
 #include <glib.h>
 #include <glib/gstdio.h>
 
+#ifdef HAVE_PANGOCAIRO_H
+#include <pango/pangocairo.h>
+#endif
+
 /*
  * To me the following looks rather suspicious. Why do we need to compile
  * the Cairo plug-in at all if we don't have Cairo? As a result we'll
@@ -124,6 +128,10 @@ begin_render(DiaRenderer *self)
                              renderer->dia->bg_color.blue,
                              1.0);
     }
+#ifdef HAVE_PANGOCAIRO_H
+  renderer->layout = pango_cairo_create_layout (renderer->cr);
+#endif
+
   DIAG_STATE(renderer->cr)
 }
 
@@ -276,9 +284,16 @@ set_font(DiaRenderer *self, DiaFont *font, real height)
   DiaCairoRenderer *renderer = DIA_CAIRO_RENDERER (self);
   DiaFontStyle style = dia_font_get_style (font);
 
+  PangoFontDescription *pfd = pango_font_description_copy (dia_font_get_description (font));
   const char *family_name;
   DIAG_NOTE(g_message("set_font %f %s", height, dia_font_get_family(font)));
 
+#ifdef HAVE_PANGOCAIRO_H
+  /* select font and size */
+  pango_font_description_set_size (pfd, (int)(height * 0.7 * PANGO_SCALE)); /* same magic factor as in lib/font.c */
+  pango_layout_set_font_description (renderer->layout, pfd);
+  pango_font_description_free (pfd);
+#else
   family_name = dia_font_get_family(font);
 
   cairo_select_font_face (
@@ -287,6 +302,7 @@ set_font(DiaRenderer *self, DiaFont *font, real height)
       DIA_FONT_STYLE_GET_SLANT(style) == DIA_FONT_NORMAL ? CAIRO_FONT_SLANT_NORMAL : CAIRO_FONT_SLANT_ITALIC,
       DIA_FONT_STYLE_GET_WEIGHT(style) < DIA_FONT_MEDIUM ? CAIRO_FONT_WEIGHT_NORMAL : CAIRO_FONT_WEIGHT_BOLD); 
   cairo_set_font_size (renderer->cr, height * 0.7); /* same magic factor as in lib/font.c */
+#endif
 
   DIAG_STATE(renderer->cr)
 }
@@ -616,12 +632,28 @@ draw_string(DiaRenderer *self,
   cairo_text_extents_t extents;
   double x = 0, y = 0;
   int len = strlen(text);
+  PangoRectangle logical_rect;
 
   DIAG_NOTE(g_message("draw_string(%d) %f,%f %s", 
             len, pos->x, pos->y, text));
 
   if (len < 1) return; /* shouldn't this be handled by Dia's core ? */
 
+  cairo_set_source_rgba (renderer->cr, color->red, color->green, color->blue, 1.0);
+#ifdef HAVE_PANGOCAIRO_H
+  /* alignment calculation done by pangocairo */
+  pango_layout_set_alignment (renderer->layout, alignment == ALIGN_CENTER ? PANGO_ALIGN_CENTER :
+                                                alignment == ALIGN_RIGHT ? PANGO_ALIGN_RIGHT : PANGO_ALIGN_LEFT);
+  pango_layout_set_text (renderer->layout, text, len);
+  {
+    PangoLayoutIter *iter = pango_layout_get_iter(renderer->layout);
+    int bline = pango_layout_iter_get_baseline(iter);
+    cairo_move_to (renderer->cr, pos->x, pos->y - (double)bline / PANGO_SCALE);
+    pango_layout_iter_free (iter);
+  }
+  pango_cairo_show_layout (renderer->cr, renderer->layout);
+#else
+  /* using the 'toy API' */
   cairo_set_source_rgba (renderer->cr, color->red, color->green, color->blue, 1.0);
   cairo_text_extents (renderer->cr,
                       text,
@@ -643,6 +675,8 @@ draw_string(DiaRenderer *self,
 
   cairo_move_to (renderer->cr, x, y);
   cairo_show_text (renderer->cr, text);
+#endif
+
   DIAG_STATE(renderer->cr)
 }
 
@@ -863,6 +897,10 @@ cairo_renderer_finalize (GObject *object)
   DiaCairoRenderer *renderer = DIA_CAIRO_RENDERER (object);
 
   cairo_destroy (renderer->cr);
+#ifdef HAVE_PANGOCAIRO_H
+  if (renderer->layout)
+    g_object_unref (renderer->layout);  
+#endif
 
   G_OBJECT_CLASS (parent_class)->finalize (object);
 }
