@@ -1,8 +1,25 @@
-2007-10-13  Hans Breuer  <hans@breuer.org>
+﻿2007-10-13  Hans Breuer  <hans@breuer.org>
+
+	* lib/diarenderer.[ch] lib/textline.[ch] lib/libdia.def : instead 
+	of throwing away the alignment information in DiaRenderer::draw_text
+	pass it through DiaRenderer::draw_text_line so it is still available
+	for renderers just implementing DiaRenderer::draw_string
+	* app/diapsft2renderer.c app/diapsrenderer.c lib/diagdkrenderer.c
+	  lib/dialibartrenderer.c plug-ins/metapost/render_metapost.c :
+	adapted accordingly, should give same results as before
+	* lib/diasvgrenderer.c : adapted and write text-anchor again
+	* plug-ins/cairo/diacairo.c : make DiaCairoRenderer::draw_string
+	work for alignment CENTER and RIGHT as well
+	* plug-ins/pgf/render_pgf.c : put \\setlength{\\du}{15\\unitlength}\n
+	into the if branch (Gaëtan Leurent, bug #482173)
+
+	* plug-ins/svg/render_svg.c : group objects consisting of multiple
+	SVG elements into <g></g>
 
 	* configure.in : check for PANGOCAIRO on Linux
 
-	* samples/render-test.dia : more text alignments
+	* samples/render-test.dia : more text alignments and no 
+	'uncommon' fonts
 
 2007-10-12  Hans Breuer  <hans@breuer.org>
 

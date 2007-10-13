@@ -36,7 +36,7 @@
 static void
 draw_text_line(DiaRenderer *self,
 	       const TextLine *text_line,
-	       Point *pos, Color *color);
+	       Point *pos, Alignment alignment, Color *color);
 
 #define DTOSTR_BUF_SIZE G_ASCII_DTOSTR_BUF_SIZE
 #define psrenderer_dtostr(buf,d) \
@@ -654,19 +654,7 @@ draw_string(DiaRenderer *self,
 #define DRAW_STRING_WITH_TEXT_LINE
 #ifdef DRAW_STRING_WITH_TEXT_LINE
   TextLine *text_line = text_line_new(text, self->font, self->font_height);
-  real width = text_line_get_width(text_line);
-  Point realigned_pos = *pos;
-  switch (alignment) {
-      case ALIGN_LEFT:
-	break;
-      case ALIGN_CENTER:
-	realigned_pos.x -= width/2;
-	break;
-      case ALIGN_RIGHT:
-	realigned_pos.x -= width;
-	break;
-  }
-  draw_text_line(self, text_line, &realigned_pos, color);
+  draw_text_line(self, text_line, pos, alignment, color);
 #else
   DiaPsRenderer *renderer = DIA_PS_RENDERER(self);
   gchar *buffer;
@@ -709,7 +697,7 @@ draw_string(DiaRenderer *self,
 static void
 draw_text_line(DiaRenderer *self,
 	       const TextLine *text_line,
-	       Point *pos, Color *color)
+	       Point *pos, Alignment alignment, Color *color)
 {
   DiaPsRenderer *renderer = DIA_PS_RENDERER(self);
   gchar *buffer;
@@ -718,7 +706,6 @@ draw_text_line(DiaRenderer *self,
   real width;
   gchar *text = text_line_get_string(text_line);
   int n_chars = g_utf8_strlen(text, -1);
-  real adjust;
 
   if (1 > n_chars)
     return;
@@ -733,11 +720,9 @@ draw_text_line(DiaRenderer *self,
   fprintf(renderer->file, "(%s) ", buffer);
   g_free(buffer);
 
-  adjust = text_line_get_descent(text_line);
-
   fprintf(renderer->file, "%s %s m \n",
-	  psrenderer_dtostr(px_buf, pos->x),
-	  psrenderer_dtostr(py_buf, pos->y - adjust) );
+	  psrenderer_dtostr(px_buf, pos->x - text_line_get_alignment_adjustment (text_line, alignment)),
+	  psrenderer_dtostr(py_buf, pos->y - text_line_get_descent(text_line)) );
   
   /* Perform magic to ensure the right size */
   width = text_line_get_width(text_line);

@@ -141,20 +141,6 @@ text_line_calc_boundingbox_size(TextLine *text_line, Point *size)
   size->y = text_line->ascent + text_line->descent;
 }
 
-/** Draw a line of text at a given position and in a given color.
- * @param renderer
- * @param text_line
- * @param pos
- * @param color
- */
-void
-text_line_draw(DiaRenderer *renderer, TextLine *text_line,
-	       Point *pos, Color *color)
-{
-  DIA_RENDERER_GET_CLASS(renderer)->draw_text_line(renderer, text_line,
-						   pos, color);
-}
-
 gchar *
 text_line_get_string(const TextLine *text_line)
 {

@@ -77,7 +77,7 @@ static void dia_ps_ft2_renderer_class_init (DiaPsFt2RendererClass *klass);
 static void
 draw_text_line(DiaRenderer *self,
 	       TextLine *text_line,
-	       Point *pos, Color *color);
+	       Point *pos, Alignment alignment, Color *color);
 
 static gpointer parent_class = NULL;
 
@@ -342,30 +342,22 @@ draw_string(DiaRenderer *self,
   TextLine *text_line = text_line_new(text, renderer->current_font,
 				      renderer->current_height);
   real width = text_line_get_width(text_line);
-  Point realigned_pos = *pos;
-  switch (alignment) {
-      case ALIGN_LEFT:
-	break;
-      case ALIGN_CENTER:
-	realigned_pos.x -= width/2;
-	break;
-      case ALIGN_RIGHT:
-	realigned_pos.x -= width;
-	break;
-  }
-  draw_text_line(self, text_line, &realigned_pos, color);
+  draw_text_line(self, text_line, pos, alignment, color);
 }
 
 static void
 draw_text_line(DiaRenderer *self,
 	       TextLine *text_line,
-	       Point *pos, Color *color)
+	       Point *pos, Alignment alignment, Color *color)
 {
   DiaPsFt2Renderer *renderer = DIA_PS_FT2_RENDERER(self);
   PangoLayout *layout;
   int line, linecount;
   double xpos = pos->x, ypos = pos->y;
   char *text = text_line_get_string(text_line);
+  /* TODO: we could probably pass the alignment down to the PS file? */
+  xpos -= text_line_get_alignment_adjustment (text_line, alignment);
+
 /* Using the global PangoContext does not allow to have renderer specific 
  * different ones. Or it implies the push/pop _context mess. Anyway just 
  * get rid of warnings for now. But the local code may be resurreted 

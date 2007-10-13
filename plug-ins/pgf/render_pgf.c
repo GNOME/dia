@@ -1238,8 +1238,8 @@ export_pgf(DiagramData *data, const gchar *filename,
 	
 	"\\ifx\\du\\undefined\n"
   	"  \\newlength{\\du}\n"
+	"  \\setlength{\\du}{15\\unitlength}\n"
 	"\\fi\n"
-	"\\setlength{\\du}{15\\unitlength}\n"
 	"\\begin{tikzpicture}\n",
 	diafilename,
 	VERSION,

@@ -674,10 +674,10 @@ EXPORTS
  text_line_get_font
  text_line_get_height
  text_line_calc_boundingbox_size
- text_line_draw
  text_line_get_width
  text_line_get_ascent
  text_line_get_descent
+ text_line_get_alignment_adjustment
 
  xmlDiaParseFile
  xmlDiaSaveFile

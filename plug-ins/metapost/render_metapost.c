@@ -1039,7 +1039,7 @@ draw_text(DiaRenderer *self,
 
 static void
 draw_text_line(DiaRenderer *self, TextLine *text_line,
-		Point *pos, Color *color)
+		Point *pos, Alignment alignment, Color *color)
 {
     MetapostRenderer *renderer = METAPOST_RENDERER (self);
     gchar height_buf[DTOSTR_BUF_SIZE];
@@ -1063,7 +1063,7 @@ draw_text_line(DiaRenderer *self, TextLine *text_line,
             renderer->mp_font, renderer->mp_weight, renderer->mp_slant,
             text_line_get_string(text_line),
 	    g_ascii_formatd(height_buf, sizeof(height_buf), "%g", renderer->mp_font_height),
-	    mp_dtostr(px_buf, pos->x),
+	    mp_dtostr(px_buf, pos->x - text_line_get_alignment_adjustment (text_line, alignment)),
 	    mp_dtostr(py_buf, pos->y) );
 
     if (!color_equals(&renderer->color, &color_black))

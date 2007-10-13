@@ -82,8 +82,6 @@ gchar *text_line_get_string(const TextLine *text);
 DiaFont *text_line_get_font(const TextLine *text);
 real text_line_get_height(const TextLine *text);
 void text_line_calc_boundingbox_size(TextLine *text, Point *size);
-void text_line_draw(DiaRenderer *renderer, TextLine *text_line,
-		    Point *pos, Color *color);
 real text_line_get_width(TextLine *text);
 real text_line_get_ascent(TextLine *text);
 real text_line_get_descent(TextLine *text);

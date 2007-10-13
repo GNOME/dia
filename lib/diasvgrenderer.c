@@ -53,7 +53,7 @@
   g_ascii_formatd(buf,sizeof(buf),"%g",(d)*renderer->scale)
 static void
 draw_text_line(DiaRenderer *self, TextLine *text_line,
-	       Point *pos, Color *colour);
+	       Point *pos, Alignment alignment, Color *colour);
 
 /* DiaSvgRenderer methods */
 static void
@@ -644,9 +644,7 @@ draw_string(DiaRenderer *self,
 	    Color *colour)
 {    
   TextLine *text_line = text_line_new(text, self->font, self->font_height);
-  Point realigned_pos = *pos;
-  realigned_pos.x -= text_line_get_alignment_adjustment(text_line, alignment);
-  draw_text_line(self, text_line, &realigned_pos, colour);
+  draw_text_line(self, text_line, pos, alignment, colour);
   return;
 #if 0
   DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
@@ -706,7 +704,7 @@ draw_string(DiaRenderer *self,
 
 static void
 draw_text_line(DiaRenderer *self, TextLine *text_line,
-	       Point *pos, Color *colour)
+	       Point *pos, Alignment alignment, Color *colour)
 {    
   DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
   xmlNodePtr node;
@@ -726,9 +724,19 @@ draw_text_line(DiaRenderer *self, TextLine *text_line,
   tmp = g_strdup_printf("%s; font-size: %s", style,
 			dia_svg_dtostr(d_buf, text_line_get_height(text_line)));
   style = tmp;
-  
-  tmp = g_strdup_printf("%s; textLength: %s", style,
-			dia_svg_dtostr(d_buf, text_line_get_width(text_line)));
+  /* This is going to break for non-LTR texts, as SVG thinks 'start' is
+   * 'right' for those. */
+  switch (alignment) {
+  case ALIGN_LEFT:
+    tmp = g_strconcat(style, "; text-anchor:start", NULL);
+    break;
+  case ALIGN_CENTER:
+    tmp = g_strconcat(style, "; text-anchor:middle", NULL);
+    break;
+  case ALIGN_RIGHT:
+    tmp = g_strconcat(style, "; text-anchor:end", NULL);
+    break;
+  }
   g_free (style);
   style = tmp;
 
@@ -750,6 +758,8 @@ draw_text_line(DiaRenderer *self, TextLine *text_line,
   xmlSetProp(node, (const xmlChar *)"x", (xmlChar *) d_buf);
   dia_svg_dtostr(d_buf, pos->y);
   xmlSetProp(node, (const xmlChar *)"y", (xmlChar *) d_buf);
+  dia_svg_dtostr(d_buf, text_line_get_width(text_line));
+  xmlSetProp(node, (const xmlChar*)"textLength", (xmlChar *) d_buf);
 }
 
 static void

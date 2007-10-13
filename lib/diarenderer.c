@@ -110,7 +110,7 @@ static void draw_image (DiaRenderer *renderer,
 static void draw_text  (DiaRenderer *renderer,
                         Text *text);
 static void draw_text_line  (DiaRenderer *renderer,
-			     TextLine *text_line, Point *pos, Color *color);
+			     TextLine *text_line, Point *pos, Alignment alignment, Color *color);
 
 static void draw_rect (DiaRenderer *renderer,
                        Point *ul_corner, Point *lr_corner,
@@ -417,37 +417,39 @@ draw_string (DiaRenderer *renderer,
 }
 
 /** Default implementation of draw_text */
-static void draw_text(DiaRenderer *renderer,
-		      Text *text) {
+static void 
+draw_text (DiaRenderer *renderer,
+	   Text *text) 
+{
   Point pos;
   int i;
 
   pos = text->position;
   
   for (i=0;i<text->numlines;i++) {
-    Point aligned_pos = pos;
     TextLine *text_line = text->lines[i];
 
-    aligned_pos.x -= text_line_get_alignment_adjustment(text_line,
-							text->alignment);
     DIA_RENDERER_GET_CLASS(renderer)->draw_text_line(renderer,
 						     text_line,
-						     &aligned_pos,
+						     &pos,
+						     text->alignment,
 						     &text->color);
     pos.y += text->height;
   }
 }
 
 /** Default implementation of draw_text_line */
-static void draw_text_line(DiaRenderer *renderer,
-			   TextLine *text_line, Point *pos, Color *color) {
+static void 
+draw_text_line (DiaRenderer *renderer,
+		TextLine *text_line, Point *pos, Alignment alignment, Color *color) 
+{
   DIA_RENDERER_GET_CLASS(renderer)->set_font(renderer, 
 					     text_line_get_font(text_line),
 					     text_line_get_height(text_line));
   
   DIA_RENDERER_GET_CLASS(renderer)->draw_string(renderer,
 						text_line_get_string(text_line),
-						pos, ALIGN_LEFT,
+						pos, alignment,
 						color);
 }
 

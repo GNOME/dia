@@ -91,6 +91,7 @@ static void draw_string (DiaRenderer *renderer,
 static void draw_text_line (DiaRenderer *renderer,
 			    TextLine *text,
 			    Point *pos,
+			    Alignment alignment,
 			    Color *color);
 static void draw_image (DiaRenderer *renderer,
                         Point *point,
@@ -631,9 +632,7 @@ draw_string (DiaRenderer *object,
              Color *color)
 {
   TextLine *text_line = text_line_new(text, object->font, object->font_height);
-  Point realigned_pos = *pos;
-  realigned_pos.x -= text_line_get_alignment_adjustment(text_line, alignment);
-  draw_text_line(object, text_line, &realigned_pos, color);
+  draw_text_line(object, text_line, pos, alignment, color);
 }
 
 #ifdef HAVE_FREETYPE
@@ -678,7 +677,7 @@ free_freetype_cache_data(gpointer data) {
  */
 static void 
 draw_text_line (DiaRenderer *object, TextLine *text_line,
-		Point *pos, Color *color)
+		Point *pos, Alignment alignment, Color *color)
 {
   DiaGdkRenderer *renderer = DIA_GDK_RENDERER (object);
   GdkColor gdkcolor;
@@ -706,18 +705,16 @@ draw_text_line (DiaRenderer *object, TextLine *text_line,
     gdk_draw_line(renderer->pixmap, renderer->gc, x, y, x + width_pixels, y);
     return;
   } else {
-    real adjust = 0.0;
-
-    adjust = text_line_get_ascent(text_line);
-    start_pos.y -= adjust;
+    start_pos.y -= text_line_get_ascent(text_line);
+    start_pos.x -= text_line_get_alignment_adjustment (text_line, alignment);
   
     dia_transform_coords(renderer->transform, 
 			 start_pos.x, start_pos.y, &x, &y);
 
-   layout = dia_font_build_layout(text, text_line->font,
+    layout = dia_font_build_layout(text, text_line->font,
 				   dia_transform_length(renderer->transform, text_line->height)/20.0);
 
-   text_line_adjust_layout_line(text_line, pango_layout_get_line(layout, 0),
+    text_line_adjust_layout_line(text_line, pango_layout_get_line(layout, 0),
 				scale/20.0);
     if (renderer->highlight_color != NULL) {
       draw_highlighted_string(renderer, layout, x, y, &gdkcolor);

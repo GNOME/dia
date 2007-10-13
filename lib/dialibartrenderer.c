@@ -1072,7 +1072,7 @@ draw_highlighted_string(DiaLibartRenderer *renderer,
 
 static void
 draw_text_line(DiaRenderer *self, TextLine *text_line,
-	       Point *pos,  Color *color)
+	       Point *pos,  Alignment alignment, Color *color)
 {
   DiaLibartRenderer *renderer = DIA_LIBART_RENDERER (self);
   /* Not working with Pango */
@@ -1101,6 +1101,7 @@ draw_text_line(DiaRenderer *self, TextLine *text_line,
   ddisp->zoom_factor = ddisp->zoom_factor;
   */
  
+  start_pos.x -= text_line_get_alignment_adjustment (text_line, alignment);
   start_pos.y -= text_line_get_ascent(text_line);
 
   dia_transform_coords_double(renderer->transform, 
@@ -1223,9 +1224,7 @@ draw_string (DiaRenderer *self,
 	     Color *color)
 {
   TextLine *text_line = text_line_new(text, self->font, self->font_height);
-  Point realigned_pos = *pos;
-  realigned_pos.x -= text_line_get_alignment_adjustment(text_line, alignment);
-  draw_text_line(self, text_line, &realigned_pos, color);
+  draw_text_line(self, text_line, pos, alignment, color);
 }
 
 

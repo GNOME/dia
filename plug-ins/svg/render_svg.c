@@ -61,6 +61,9 @@ typedef struct _SvgRendererClass SvgRendererClass;
 struct _SvgRenderer
 {
   DiaSvgRenderer parent_instance;
+  
+  /* track the parents while grouping in draw_object() */
+  GQueue *parents;
 };
 
 struct _SvgRendererClass
@@ -85,6 +88,15 @@ static void svg_renderer_class_init (SvgRendererClass *klass);
 
 static gpointer parent_class = NULL;
 
+/* constructor */
+static void
+svg_renderer_init (GTypeInstance *self, gpointer g_class)
+{
+  SvgRenderer *renderer = SVG_RENDERER (self);
+
+  renderer->parents = g_queue_new ();
+}
+
 GType
 svg_renderer_get_type (void)
 {
@@ -102,7 +114,7 @@ svg_renderer_get_type (void)
         NULL,           /* class_data */
         sizeof (SvgRenderer),
         0,              /* n_preallocs */
-	NULL            /* init */
+	svg_renderer_init /* init */
       };
 
       object_type = g_type_register_static (DIA_TYPE_SVG_RENDERER,
@@ -114,9 +126,28 @@ svg_renderer_get_type (void)
 }
 
 static void
+begin_render (DiaRenderer *self)
+{
+  SvgRenderer *renderer = SVG_RENDERER (self);
+  g_assert (g_queue_is_empty (renderer->parents));
+  DIA_RENDERER_CLASS (parent_class)->begin_render (DIA_RENDERER (self));
+}
+
+static void
+end_render (DiaRenderer *self)
+{
+  SvgRenderer *renderer = SVG_RENDERER (self);
+  g_assert (g_queue_is_empty (renderer->parents));
+  DIA_RENDERER_CLASS (parent_class)->end_render (DIA_RENDERER (self));
+}
+
+/* destructor */
+static void
 svg_renderer_finalize (GObject *object)
 {
   SvgRenderer *svg_renderer = SVG_RENDERER (object);
+
+  g_queue_free (svg_renderer->parents);
 
   G_OBJECT_CLASS (parent_class)->finalize (object);  
 }
@@ -131,6 +162,8 @@ svg_renderer_class_init (SvgRendererClass *klass)
 
   object_class->finalize = svg_renderer_finalize;
 
+  renderer_class->begin_render = begin_render;
+  renderer_class->end_render = end_render;
   renderer_class->draw_object = draw_object;
   renderer_class->draw_rounded_rect = draw_rounded_rect;
   renderer_class->fill_rounded_rect = fill_rounded_rect;
@@ -226,11 +259,39 @@ new_svg_renderer(DiagramData *data, const char *filename)
 }
 
 static void 
-draw_object(DiaRenderer *renderer,
+draw_object(DiaRenderer *self,
             DiaObject *object) 
 {
-  /* TODO: wrap in  <g></g> */
-  object->ops->draw(object, renderer);
+  /* wrap in  <g></g> 
+   * We could try to be smart and count the objects we using for the object.
+   * If it is only one the grouping is superfluous and should be removed.
+   */
+  DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
+  SvgRenderer *svg_renderer = SVG_RENDERER (self);
+  int n_children = 0;
+  xmlNodePtr child, group;
+
+  g_queue_push_tail (svg_renderer->parents, renderer->root);
+  /* modifying the root pointer so everything below us gets into the new node */
+  renderer->root = group = xmlNewNode (renderer->svg_name_space, (const xmlChar *)"g");
+
+  object->ops->draw(object, DIA_RENDERER (renderer));
+  
+  /* no easy way to count? */
+  child = renderer->root->children;
+  while (child != NULL) {
+    child = child->next;
+    ++n_children;
+  }
+  renderer->root = g_queue_pop_tail (svg_renderer->parents);
+  /* if there is only one element added to the group node unpack it again  */
+  if (1 == n_children) {
+    xmlAddChild (renderer->root, group->children);
+    xmlUnlinkNode (group); /* dont free the children */
+    xmlFree (group);
+  } else {
+    xmlAddChild (renderer->root, group);
+  }
 }
 
 static void

@@ -641,14 +641,20 @@ draw_string(DiaRenderer *self,
 
   cairo_set_source_rgba (renderer->cr, color->red, color->green, color->blue, 1.0);
 #ifdef HAVE_PANGOCAIRO_H
-  /* alignment calculation done by pangocairo */
+  /* alignment calculation done by pangocairo? */
   pango_layout_set_alignment (renderer->layout, alignment == ALIGN_CENTER ? PANGO_ALIGN_CENTER :
                                                 alignment == ALIGN_RIGHT ? PANGO_ALIGN_RIGHT : PANGO_ALIGN_LEFT);
   pango_layout_set_text (renderer->layout, text, len);
   {
     PangoLayoutIter *iter = pango_layout_get_iter(renderer->layout);
     int bline = pango_layout_iter_get_baseline(iter);
-    cairo_move_to (renderer->cr, pos->x, pos->y - (double)bline / PANGO_SCALE);
+    /* although we give the alignment above we need to adjust the start point */
+    PangoRectangle extents;
+    int shift;
+    pango_layout_iter_get_line_extents (iter, NULL, &extents);
+    shift = alignment == ALIGN_CENTER ? PANGO_RBEARING(extents)/2 :
+            alignment == ALIGN_RIGHT ? PANGO_RBEARING(extents) : 0;
+    cairo_move_to (renderer->cr, pos->x - (double)shift / PANGO_SCALE, pos->y - (double)bline / PANGO_SCALE);
     pango_layout_iter_free (iter);
   }
   pango_cairo_show_layout (renderer->cr, renderer->layout);

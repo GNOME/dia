@@ -194,7 +194,7 @@ struct _DiaRendererClass
                      Text *text);
   /*! Print a TextLine.  It holds its own font/size information. */
   void (*draw_text_line) (DiaRenderer *renderer,
-			  TextLine *text_line, Point *pos, Color *color);
+			  TextLine *text_line, Point *pos, Alignment alignment, Color *color);
   /*! Draw a rectangle, given its upper-left and lower-right corners */
   void (*draw_rect) (DiaRenderer *renderer,
                      Point *ul_corner, Point *lr_corner,
