@@ -156,6 +156,12 @@ if test "x$with_cairo" != "xno"; then
 fi
 AM_CONDITIONAL(WITH_CAIRO, test "x$with_cairo" != "xno")
 
+dnl with gtk+ >= 2.8 this is no longer optional
+PKG_CHECK_MODULES(PANGOCAIRO,pangocairo, pangocairo_ok=yes, pangocairo_ok=no)
+if test "x$pangocairo_ok" == "xyes"; then
+  AC_DEFINE(HAVE_PANGOCAIRO_H,1,[Defined to render text with pangocairo not cairos toy API])
+fi
+
 dnl XSLT
 
 # Check if XSLT is available at all

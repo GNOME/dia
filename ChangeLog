@@ -1,3 +1,9 @@
+2007-10-13  Hans Breuer  <hans@breuer.org>
+
+	* configure.in : check for PANGOCAIRO on Linux
+
+	* samples/render-test.dia : more text alignments
+
 2007-10-12  Hans Breuer  <hans@breuer.org>
 
 	* plug-ins/cairo/diacairo.c plug-ins/cairo/diacairo-interactive.c : 
