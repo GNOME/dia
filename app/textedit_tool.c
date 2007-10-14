@@ -121,7 +121,7 @@ create_textedit_tool(void)
 }
 
 void
-free_textedit_tool (TexteditTool *tool)
+free_textedit_tool (Tool *tool)
 {
   DDisplay *ddisp = ddisplay_active();
   if (ddisp) {
