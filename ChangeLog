@@ -1,4 +1,18 @@
-﻿2007-10-13  Hans Breuer  <hans@breuer.org>
+﻿2007-10-14  Hans Breuer  <hans@breuer.org>
+
+	Next stab on dedicated text edit mode:
+	* app/textedit_tool.[ch] app/tool.[ch] app/cursors.[ch] 
+	app/interface.c app/Makefile.am app/makefile.msc data/display-ui.xml 
+	data/integrated-ui.xml data/popup-ui.xml : text edit mode 
+	reflected in toolbox, it is too different from normal modification
+	* app/diagram.c app/menu.c : make Cut, Copy, Paste, Delete 
+	and Duplicate menu entries insensitive when text is edited
+	* app/pixmaps/textedit.png : an ugly icon
+	* app/create_object.c app/disp_callbacks.c : deal with transitions 
+	from one tool to to the other
+	* app/textedit.[ch](textedit_activate_object): tell if editing started
+	
+2007-10-13  Hans Breuer  <hans@breuer.org>
 
 	* lib/diarenderer.[ch] lib/textline.[ch] lib/libdia.def : instead 
 	of throwing away the alignment information in DiaRenderer::draw_text
