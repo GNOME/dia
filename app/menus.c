@@ -213,6 +213,7 @@ static const GtkActionEntry tool_entries[] =
   { "Tools", NULL, N_("_Tools"), NULL, NULL, NULL },
     { "ToolsModify", NULL, N_("Modify"), "<alt><shift>N", NULL, NULL },
     { "ToolsMagnify", NULL, N_("Magnify"), "<alt><shift>M", NULL, NULL },
+    { "ToolsTextedit", NULL, N_("Edit text"), "F2", NULL, NULL },
     { "ToolsScroll", NULL, N_("Scroll"), "<alt><shift>S", NULL, NULL },
     { "ToolsText", NULL, N_("Text"), "<alt><shift>T", NULL, NULL },
     { "ToolsBox", NULL, N_("Box"), "<alt><shift>R", NULL, NULL },
@@ -1054,12 +1055,18 @@ menus_get_action (const gchar *name)
   if (is_integrated_ui ())
   {
     action = gtk_action_group_get_action (integrated_ui_actions, name);
+    if (action == NULL) {
+      action = gtk_action_group_get_action (integrated_ui_tool_actions, name);
+    }
   }
   else
   {
     action = gtk_action_group_get_action (toolbox_actions, name);
     if (action == NULL) {
       action = gtk_action_group_get_action (display_actions, name);
+    }
+    if (action == NULL) {
+      action = gtk_action_group_get_action (display_tool_actions, name);
     }
   }
 

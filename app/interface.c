@@ -146,6 +146,12 @@ ToolButton tool_data[] =
     "ToolsModify",
     { MODIFY_TOOL, NULL, NULL}
   },
+  { (char **) dia_textedit_tool_icon,
+    N_("Text edit(s)\nUse <Esc> to leave this tool"),
+    "F2",
+    "ToolsTextedit",
+    { TEXTEDIT_TOOL, NULL, NULL}
+  },
   { (char **) dia_zoom_tool_icon,
     N_("Magnify"),
     "<shift><alt>M",

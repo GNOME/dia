@@ -22,6 +22,7 @@
 #include "magnify.h"
 #include "modify_tool.h"
 #include "scroll_tool.h"
+#include "textedit_tool.h"
 #include "interface.h"
 #include "defaults.h"
 
@@ -87,6 +88,9 @@ tool_free(Tool *tool)
   case SCROLL_TOOL:
     free_scroll_tool(tool);
     break;
+  case TEXTEDIT_TOOL :
+    free_textedit_tool(tool);
+    break;
   default:
     g_assert(0);    
   }
@@ -116,6 +120,9 @@ tool_select(ToolType type, gpointer extra_data,
   case SCROLL_TOOL:
     active_tool = create_scroll_tool();
     break;
+  case TEXTEDIT_TOOL :
+    active_tool = create_textedit_tool();
+    break;
   default:
     g_assert(0);    
   }
@@ -143,6 +150,8 @@ tool_options_dialog_show(ToolType type, gpointer extra_data,
   case MAGNIFY_TOOL:
     break;
   case SCROLL_TOOL:
+    break;
+  case TEXTEDIT_TOOL :
     break;
   }
 }

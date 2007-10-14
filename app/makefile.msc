@@ -83,6 +83,7 @@ OBJECTS = \
 	sheets_dialog_callbacks.obj \
 	splash.obj \
 	textedit.obj \
+	textedit_tool.obj \
 	tool.obj \
 	undo.obj \
 	win32print.obj
@@ -99,6 +100,7 @@ ICON_PNG_PAIRS = \
 	dia_diagram_icon ..\dia-diagram.png \
 	dia_app_icon ..\dia_gnome_icon.png \
 	dia_modify_tool_icon pixmaps\arrow-22.png \
+	dia_textedit_tool_icon pixmaps\textedit-22.png \
 	dia_scroll_tool_icon pixmaps\scroll-22.png \
 	dia_zoom_tool_icon pixmaps\zoom-22.png \
 	dia_group_icon pixmaps\group.png \

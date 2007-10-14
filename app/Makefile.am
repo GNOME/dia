@@ -55,6 +55,7 @@ ICON_PNG_PAIRS= \
 	dia_app_icon $(top_srcdir)/dia_gnome_icon.png \
 	dia_modify_tool_icon $(srcdir)/pixmaps/arrow-22.png \
 	dia_scroll_tool_icon $(srcdir)/pixmaps/scroll-22.png \
+	dia_textedit_tool_icon $(srcdir)/pixmaps/textedit-22.png \
 	dia_zoom_tool_icon $(srcdir)/pixmaps/zoom-22.png \
 	dia_group_icon $(srcdir)/pixmaps/group.png \
 	dia_ungroup_icon $(srcdir)/pixmaps/ungroup.png \
@@ -74,6 +75,7 @@ ICON_PNGS= \
 	\
 	pixmaps/arrow-22.png \
 	pixmaps/scroll-22.png \
+	pixmaps/textedit-22.png \
 	pixmaps/zoom-22.png \
 	pixmaps/group.png \
 	pixmaps/ungroup.png \
@@ -207,6 +209,8 @@ dia_core_files = \
 	    highlight.h \
 	    textedit.c \
 	    textedit.h \
+	    textedit_tool.c \
+	    textedit_tool.h \
 	    diagrid.h \
 	    $(print_files)
 

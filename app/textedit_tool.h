@@ -15,25 +15,28 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
+#ifndef TEXTEDIT_TOOL_H
+#define TEXTEDIT_TOOL_H
 
-/* Definitions for creating cursors */
-/* Collected here so that it will be easier to use cursors provided
-   by a toolkit */
+#include "tool.h"
+#include "diatypes.h"
 
-typedef enum {
-  CURSOR_POINT,
-  CURSOR_SCROLL,
-  CURSOR_GRAB,
-  CURSOR_GRABBING,
-  CURSOR_ZOOM_OUT,
-  CURSOR_ZOOM_IN,
-  CURSOR_CONNECT,
-  CURSOR_XTERM,
-  MAX_CURSORS
-} DiaCursorType;
+enum TexteditToolState {
+  STATE_TEXT_SELECT,
+  STATE_TEXT_EDIT
+};
 
-/* Preferred way to get a cursor */
-GdkCursor *get_cursor(DiaCursorType ctype);
-GdkCursor *create_cursor(GdkWindow *window,
-			 const gchar *data, int width, int height,
-			 const gchar *mask, int hot_x, int hot_y);
+typedef struct _TexteditTool TexteditTool;
+
+struct _TexteditTool {
+  Tool tool;
+  
+  enum TexteditToolState state;
+  DiaObject *object;
+  Point start_at;
+};
+
+Tool *create_textedit_tool(void);
+void free_textedit_tool(Tool *tool);
+
+#endif /* TEXTEDIT_TOOL_H */

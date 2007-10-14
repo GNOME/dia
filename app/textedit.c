@@ -157,8 +157,10 @@ textedit_activate_focus(DDisplay *ddisp, Focus *focus, Point *clicked)
 /** Call when an object is chosen for activation (e.g. due to creation).
  * Calling this function will put us into text-edit mode if there is
  * text to edit, otherwise it will take us out of text-edit mode.
+ *
+ * Returns true if there is something to text edit.
  */
-void
+gboolean
 textedit_activate_object(DDisplay *ddisp, DiaObject *obj, Point *clicked)
 {
   Focus *new_focus;
@@ -176,8 +178,10 @@ textedit_activate_object(DDisplay *ddisp, DiaObject *obj, Point *clicked)
     }
     textedit_begin_edit(ddisp, new_focus);
     diagram_flush(ddisp->diagram);
+    return TRUE;
   } else {
     textedit_exit(ddisp);
+    return FALSE;
   }
 }
 

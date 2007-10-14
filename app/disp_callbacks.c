@@ -701,6 +701,7 @@ ddisplay_canvas_events (GtkWidget *canvas,
 		    break;
 		  case GDK_Escape:
 		    textedit_deactivate_focus();
+		    tool_reset ();
 		    break;
 		  default:
 		    /*! key event not swallowed by the input method ? */
@@ -767,8 +768,7 @@ ddisplay_canvas_events (GtkWidget *canvas,
                 break;
 	      case GDK_F2:
 	      case GDK_Return:
-		printf("Activating first\n");
-		textedit_activate_first(ddisp);
+		gtk_action_activate (menus_get_action ("ToolsTextedit"));
 		break;
               default:
                 if (kevent->string && kevent->keyval == ' ') {

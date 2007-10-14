@@ -135,6 +135,7 @@
 		</menu>
 		<menu name="Tools" action="Tools">
 			<menuitem name="ToolsModify" action="ToolsModify" />
+			<menuitem name="ToolsTextedit" action="ToolsTextedit" />
 			<menuitem name="ToolsMagnify" action="ToolsMagnify" />
 			<menuitem name="ToolsScroll" action="ToolsScroll" />
 			<menuitem name="ToolsText" action="ToolsText" />

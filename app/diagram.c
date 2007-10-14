@@ -491,11 +491,11 @@ diagram_update_menu_sensitivity (Diagram *dia, UpdatableMenuItems *items)
 {
   gint selected_count = g_list_length (dia->data->selected);
   /* Edit menu */
-  gtk_action_set_sensitive (items->copy, selected_count > 0);
-  gtk_action_set_sensitive (items->cut, selected_count > 0);
-  gtk_action_set_sensitive (items->paste, cnp_exist_stored_objects());
-  gtk_action_set_sensitive (items->edit_delete, selected_count > 0);
-  gtk_action_set_sensitive (items->edit_duplicate, selected_count > 0);
+  gtk_action_set_sensitive (items->copy, selected_count > 0 && active_focus() == NULL);
+  gtk_action_set_sensitive (items->cut, selected_count > 0 && active_focus() == NULL);
+  gtk_action_set_sensitive (items->paste, cnp_exist_stored_objects() && active_focus() == NULL);
+  gtk_action_set_sensitive (items->edit_delete, selected_count > 0 && active_focus() == NULL);
+  gtk_action_set_sensitive (items->edit_duplicate, selected_count > 0 && active_focus() == NULL);
 
   gtk_action_set_sensitive (items->copy_text, active_focus() != NULL);
   gtk_action_set_sensitive (items->cut_text, active_focus() != NULL);

@@ -146,6 +146,8 @@ create_object_button_release(CreateObjectTool *tool, GdkEventButton *event,
 {
   GList *list = NULL;
   DiaObject *obj = tool->obj;
+  gboolean reset;
+
   if (tool->moving) {
     gdk_pointer_ungrab (event->time);
 
@@ -172,13 +174,18 @@ create_object_button_release(CreateObjectTool *tool, GdkEventButton *event,
   }
   
   highlight_reset_all(ddisp->diagram);
-  textedit_activate_object(ddisp, obj, NULL);
+  reset = prefs.reset_tools_after_create != tool->invert_persistence;
+  /* kind of backward: first starting editing to see if it is possible at all, than GUI reflection */
+  if (textedit_activate_object(ddisp, obj, NULL) && reset) {
+    gtk_action_activate (menus_get_action ("ToolsTextedit"));
+    reset = FALSE; /* don't switch off textedit below */
+  }
   diagram_update_extents(ddisp->diagram);
   diagram_modified(ddisp->diagram);
 
   undo_set_transactionpoint(ddisp->diagram->undo);
   
-  if (prefs.reset_tools_after_create != tool->invert_persistence)
+  if (reset)
       tool_reset();
   ddisplay_set_all_cursor(default_cursor);
   ddisplay_do_update_menu_sensitivity(ddisp);

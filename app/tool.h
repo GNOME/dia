@@ -37,7 +37,8 @@ enum _ToolType {
   CREATE_OBJECT_TOOL,
   MAGNIFY_TOOL,
   MODIFY_TOOL,
-  SCROLL_TOOL
+  SCROLL_TOOL,
+  TEXTEDIT_TOOL
 };
 
 struct _Tool {
