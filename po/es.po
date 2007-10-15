@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia.HEAD.es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-09-23 13:52+0100\n"
-"PO-Revision-Date: 2007-10-11 12:40+0200\n"
+"POT-Creation-Date: 2007-10-14 17:21+0100\n"
+"PO-Revision-Date: 2007-10-15 18:47+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -718,7 +718,7 @@ msgstr ""
 msgid "Properties..."
 msgstr "Propiedades..."
 
-#: ../app/disp_callbacks.c:925
+#: ../app/disp_callbacks.c:937
 msgid ""
 "The object you dropped cannot fit into its parent. \n"
 "Either expand the parent object, or drop the object elsewhere."
@@ -745,16 +745,16 @@ msgstr[1] "Selección de %d objetos"
 msgid "Selected '%s'"
 msgstr "Seleccionados «%s»"
 
-#: ../app/display.c:1166
+#: ../app/display.c:1195
 msgid "<unnamed>"
 msgstr "<sin nombre>"
 
 #. no standard buttons
-#: ../app/display.c:1172
+#: ../app/display.c:1201
 msgid "Closing diagram without saving"
 msgstr "Cerrando el diagrama sin guardar"
 
-#: ../app/display.c:1175
+#: ../app/display.c:1204
 #, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -763,11 +763,11 @@ msgstr ""
 "Este diagrama «%s»\n"
 "no ha sido guardado. ¿Guardar los cambios ahora?"
 
-#: ../app/display.c:1177
+#: ../app/display.c:1206
 msgid "Close Diagram"
 msgstr "Cerrar el diagrama"
 
-#: ../app/display.c:1182
+#: ../app/display.c:1211
 msgid "_Discard Changes"
 msgstr "_Descartar los cambios"
 
@@ -822,12 +822,12 @@ msgid "Nothing selected for saving.  Would you like to try again?"
 msgstr "No se seleccionó nada para guardar. ¿Quiere intentarlo otra vez?"
 
 #: ../app/export_png.c:138 ../app/load_save.c:989 ../app/render_eps.c:105
-#: ../plug-ins/cairo/diacairo.c:984 ../plug-ins/cgm/cgm.c:1153
+#: ../plug-ins/cairo/diacairo.c:994 ../plug-ins/cgm/cgm.c:1153
 #: ../plug-ins/dxf/dxf-export.c:485 ../plug-ins/hpgl/hpgl.c:710
 #: ../plug-ins/metapost/render_metapost.c:1177
 #: ../plug-ins/pgf/render_pgf.c:1208
 #: ../plug-ins/pstricks/render_pstricks.c:916
-#: ../plug-ins/shape/shape-export.c:136 ../plug-ins/svg/render_svg.c:155
+#: ../plug-ins/shape/shape-export.c:136 ../plug-ins/svg/render_svg.c:188
 #: ../plug-ins/vdx/vdx-export.c:1849 ../plug-ins/wpg/wpg.c:1072
 #: ../plug-ins/xfig/xfig-export.c:1139 ../plug-ins/xslt/xslt.c:96
 #, c-format
@@ -962,20 +962,28 @@ msgstr ""
 "Modificar objeto(s)\n"
 "Use <Space> para conmutar entre ésta y otras herramientas"
 
+#: ../app/interface.c:150
+msgid ""
+"Text edit(s)\n"
+"Use <Esc> to leave this tool"
+msgstr ""
+"Edición de texto\n"
+"Pulse <Esc> para salir de esta herramienta"
+
 # Yo diría "Ampliar" FVD
 # Yo también diría "Ampliar", lo de "Magnificar" me suena a barbarismo... RizOX
 #. Translators: Menu item Verb/Control Magnitude/Change/Magnify
-#: ../app/interface.c:150 ../app/menus.c:215 ../objects/FS/function.c:986
+#: ../app/interface.c:156 ../app/menus.c:215 ../objects/FS/function.c:986
 msgid "Magnify"
 msgstr "Ampliar"
 
 # Esto es fuzzy, no? FVD
 # Yo diría "Desplazar sobre...". Fuzzy. RizOX.
-#: ../app/interface.c:156
+#: ../app/interface.c:162
 msgid "Scroll around the diagram"
 msgstr "Desplazar sobre el diagrama"
 
-#: ../app/interface.c:162 ../app/menus.c:217 ../lib/properties.c:79
+#: ../app/interface.c:168 ../app/menus.c:218 ../lib/properties.c:79
 #: ../lib/properties.h:522 ../objects/AADL/aadlbox.c:154
 #: ../objects/Jackson/requirement.c:142 ../objects/UML/activity.c:127
 #: ../objects/UML/actor.c:122 ../objects/UML/classicon.c:144
@@ -988,89 +996,89 @@ msgstr "Desplazar sobre el diagrama"
 msgid "Text"
 msgstr "Texto"
 
-#: ../app/interface.c:168 ../app/menus.c:218
+#: ../app/interface.c:174 ../app/menus.c:219
 msgid "Box"
 msgstr "Caja"
 
-#: ../app/interface.c:174 ../app/menus.c:219
+#: ../app/interface.c:180 ../app/menus.c:220
 msgid "Ellipse"
 msgstr "Elipse"
 
-#: ../app/interface.c:180 ../app/menus.c:220
+#: ../app/interface.c:186 ../app/menus.c:221
 msgid "Polygon"
 msgstr "Polígono"
 
-#: ../app/interface.c:186 ../app/menus.c:221
+#: ../app/interface.c:192 ../app/menus.c:222
 msgid "Beziergon"
 msgstr "Polígono Bézier"
 
-#: ../app/interface.c:192 ../app/menus.c:223 ../objects/standard/line.c:225
+#: ../app/interface.c:198 ../app/menus.c:224 ../objects/standard/line.c:225
 msgid "Line"
 msgstr "Línea"
 
-#: ../app/interface.c:198 ../app/menus.c:224
+#: ../app/interface.c:204 ../app/menus.c:225
 msgid "Arc"
 msgstr "Arco"
 
-#: ../app/interface.c:204 ../app/menus.c:225
+#: ../app/interface.c:210 ../app/menus.c:226
 msgid "Zigzagline"
 msgstr "Línea en zigzag"
 
-#: ../app/interface.c:210 ../app/menus.c:226
+#: ../app/interface.c:216 ../app/menus.c:227
 msgid "Polyline"
 msgstr "Polilínea"
 
-#: ../app/interface.c:216 ../app/menus.c:227
+#: ../app/interface.c:222 ../app/menus.c:228
 msgid "Bezierline"
 msgstr "Línea Bézier"
 
-#: ../app/interface.c:222 ../app/menus.c:229
+#: ../app/interface.c:228 ../app/menus.c:230
 msgid "Image"
 msgstr "Imagen"
 
-#: ../app/interface.c:613 ../app/interface.c:847
+#: ../app/interface.c:619 ../app/interface.c:853
 msgid "Pops up the Navigation window."
 msgstr "Emerge la ventana de navegación."
 
-#: ../app/interface.c:809
+#: ../app/interface.c:815
 msgid "Diagram menu."
 msgstr "Menú de diagrama."
 
 # ¿"Ampliación" o "Amplía"? Fuzzy. RizOX.
-#: ../app/interface.c:913
+#: ../app/interface.c:919
 msgid "Zoom"
 msgstr "Ampliación"
 
-#: ../app/interface.c:928
+#: ../app/interface.c:934
 msgid "Toggles snap-to-grid for this window."
 msgstr "Conmuta el ajuste a la rejilla para esta ventana."
 
-#: ../app/interface.c:939
+#: ../app/interface.c:945
 msgid "Toggles object snapping for this window."
 msgstr "Conmuta el ajuste del objeto para esta ventana."
 
 # Fuzzy. RizOX
-#: ../app/interface.c:1002
+#: ../app/interface.c:1008
 msgid "NULL tooldata in tool_select_update"
 msgstr "InArray de herramienta nula (NULL) en tool_select_update"
 
-#: ../app/interface.c:1318
+#: ../app/interface.c:1324
 #, c-format
 msgid "No sheet named %s"
 msgstr "No hay ninguna hoja llamada %s"
 
 # ¿De dónde salían esa traducción y esa variable? No concuerda con el original inglés en nada. Lo cambio. RizOX.
-#: ../app/interface.c:1356
+#: ../app/interface.c:1362
 msgid "Other sheets"
 msgstr "Otras hojas"
 
-#: ../app/interface.c:1415 ../sheets/Flowchart.sheet.in.h:10
+#: ../app/interface.c:1421 ../sheets/Flowchart.sheet.in.h:10
 msgid "Flowchart"
 msgstr "Diagrama de flujo"
 
 # Corregido: lleva doble espacio antes de cada frase.
 # "Pulse doble" o "Pulse dos veces" me suena más natural. RizOX.
-#: ../app/interface.c:1475
+#: ../app/interface.c:1481
 msgid ""
 "Foreground & background colors for new objects.  The small black and white "
 "squares reset colors.  The small arrows swap colors.  Double click to change "
@@ -1081,7 +1089,7 @@ msgstr ""
 "los colores.  Pulse dos veces para cambiar los colores."
 
 # Corregido: doble espacio al principio de línea. Cambiada la segunda expresión para darle mayor naturalidad. RizOX.
-#: ../app/interface.c:1490
+#: ../app/interface.c:1496
 msgid ""
 "Line widths.  Click on a line to set the default line width for new "
 "objects.  Double-click to set the line width more precisely."
@@ -1091,7 +1099,7 @@ msgstr ""
 "anchura con mayor precisión."
 
 # La coma antes del "o" no queda bien en la frase en español. RizOX.
-#: ../app/interface.c:1533
+#: ../app/interface.c:1539
 msgid ""
 "Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
 "arrow parameters with Details..."
@@ -1100,7 +1108,7 @@ msgstr ""
 "flecha o establezca los parámetros de la flecha en Detalles..."
 
 # La coma antes del "o" no queda bien en la frase en español. Añadido el doble espacio del comienzo de frase según original en inglés. RizOX.
-#: ../app/interface.c:1538
+#: ../app/interface.c:1544
 msgid ""
 "Line style for new lines.  Click to pick a line style, or set line style "
 "parameters with Details..."
@@ -1109,7 +1117,7 @@ msgstr ""
 "línea o establezca los parámetros de estilo de línea en Detalles..."
 
 # La coma antes del "o" no queda bien en la frase en español. Añadido el doble espacio del comienzo de frase según original en inglés. Cambiado "con Detalles" por "en Detalles" para mantener la coherencia con la traducción de las anteriores entradas. RizOX.
-#: ../app/interface.c:1554
+#: ../app/interface.c:1560
 msgid ""
 "Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
 "parameters with Details..."
@@ -1117,7 +1125,7 @@ msgstr ""
 "Estilo de flecha al final de las líneas nuevas.  Pulse para escoger una "
 "flecha o establezca los parámetros de la flecha en Detalles..."
 
-#: ../app/interface.c:1598 ../app/interface.c:1726
+#: ../app/interface.c:1604 ../app/interface.c:1732
 msgid "Diagram Editor"
 msgstr "Editor de diagramas"
 
@@ -1366,11 +1374,11 @@ msgstr "_Ampliación"
 msgid "1600%"
 msgstr "1600%"
 
-#: ../app/menus.c:140 ../app/menus.c:527
+#: ../app/menus.c:140 ../app/menus.c:528
 msgid "800%"
 msgstr "800%"
 
-#: ../app/menus.c:141 ../app/menus.c:528
+#: ../app/menus.c:141 ../app/menus.c:529
 msgid "400%"
 msgstr "400%"
 
@@ -1498,7 +1506,7 @@ msgstr "_Seleccionado"
 msgid "All"
 msgstr "Todo"
 
-#: ../app/menus.c:192 ../lib/arrows.c:49 ../objects/Jackson/domain.c:96
+#: ../app/menus.c:192 ../lib/arrows.c:1882 ../objects/Jackson/domain.c:96
 #: ../objects/UML/association.c:1183
 msgid "None"
 msgstr "Nada"
@@ -1544,114 +1552,118 @@ msgstr "_Herramientas"
 msgid "Modify"
 msgstr "Modificar"
 
+#: ../app/menus.c:216
+msgid "Edit text"
+msgstr "Editar texto"
+
 # Creo que Scroll es Desplazamiento. Fuzzy. FVD
 # Yo más bien diría "Desplazar". Fuzzy. RizOX.
-#: ../app/menus.c:216
+#: ../app/menus.c:217
 msgid "Scroll"
 msgstr "Desplazar"
 
-#: ../app/menus.c:238
+#: ../app/menus.c:239
 msgid "Fullscr_een"
 msgstr "Pantalla _completa"
 
 #. we must have all actions registered to avoid configuration specific ui-files and crashing in GTK+,
 #. * see: http://bugzilla.gnome.org/show_bug.cgi?id=396161
 #.
-#: ../app/menus.c:241 ../app/menus.c:246
+#: ../app/menus.c:242 ../app/menus.c:247
 msgid "_AntiAliased"
 msgstr "_Antialias"
 
-#: ../app/menus.c:248
+#: ../app/menus.c:249
 msgid "Show _Grid"
 msgstr "Mostrar _cuadrícula"
 
-#: ../app/menus.c:249
+#: ../app/menus.c:250
 msgid "_Snap To Grid"
 msgstr "A_justar a cuadrícula"
 
-#: ../app/menus.c:250
+#: ../app/menus.c:251
 msgid "Snap To _Objects"
 msgstr "Ajustar a _objetos"
 
-#: ../app/menus.c:251
+#: ../app/menus.c:252
 msgid "Show _Rulers"
 msgstr "Mostrar _reglas"
 
-#: ../app/menus.c:252
+#: ../app/menus.c:253
 msgid "Show _Connection Points"
 msgstr "Mostrar puntos de _conexión"
 
-#: ../app/menus.c:258
+#: ../app/menus.c:259
 msgid "Replace"
 msgstr "Reemplazar"
 
-#: ../app/menus.c:259
+#: ../app/menus.c:260
 msgid "Union"
 msgstr "Unión"
 
-#: ../app/menus.c:260
+#: ../app/menus.c:261
 msgid "Intersection"
 msgstr "Intersección"
 
 #. Translators: Menu item Verb/Channel/Export/Remove
 #. Translators: Menu item Verb/Branch/Separate/Remove
 #. Translators: Menu item Verb/Branch/Separate/Remove/Remove
-#: ../app/menus.c:261 ../app/sheets_dialog.c:784 ../objects/FS/function.c:706
+#: ../app/menus.c:262 ../app/sheets_dialog.c:784 ../objects/FS/function.c:706
 #: ../objects/FS/function.c:858 ../objects/FS/function.c:860
 msgid "Remove"
 msgstr "Eliminar"
 
 #. Cannot also be called Invert, duplicate names caused keybinding problems
-#: ../app/menus.c:263
+#: ../app/menus.c:264
 msgid "Inverse"
 msgstr "Inverso"
 
 # Traduzco "tooldata". RizOX.
-#: ../app/menus.c:327
+#: ../app/menus.c:328
 msgid "NULL tooldata in tool_menu_select"
 msgstr "InArray de herramienta nula (NULL) en tool_menu_select"
 
-#: ../app/menus.c:529
+#: ../app/menus.c:530
 msgid "300%"
 msgstr "300%"
 
-#: ../app/menus.c:530
+#: ../app/menus.c:531
 msgid "200%"
 msgstr "200%"
 
-#: ../app/menus.c:531
+#: ../app/menus.c:532
 msgid "150%"
 msgstr "150%"
 
-#: ../app/menus.c:532
+#: ../app/menus.c:533
 msgid "100%"
 msgstr "100%"
 
-#: ../app/menus.c:533
+#: ../app/menus.c:534
 msgid "75%"
 msgstr "75%"
 
-#: ../app/menus.c:534
+#: ../app/menus.c:535
 msgid "50%"
 msgstr "50%"
 
-#: ../app/menus.c:535
+#: ../app/menus.c:536
 msgid "25%"
 msgstr "25%"
 
-#: ../app/menus.c:536
+#: ../app/menus.c:537
 msgid "10%"
 msgstr "10%"
 
-#: ../app/menus.c:562
+#: ../app/menus.c:563
 msgid "Toggles snap-to-grid."
 msgstr "Conmuta el ajuste a la rejilla."
 
-#: ../app/menus.c:574
+#: ../app/menus.c:575
 msgid "Toggles object snapping."
 msgstr "Conmuta el ajuste del objeto."
 
-#: ../app/modify_tool.c:344
+#: ../app/modify_tool.c:350
 msgid "Couldn't get GTK settings"
 msgstr "No se pudieron obtener las preferencias de GTK"
 
@@ -2178,157 +2190,157 @@ msgstr "Editor de diagramas"
 msgid "Edit your Diagrams"
 msgstr "Edite sus diagramas"
 
-#: ../lib/arrows.c:50
+#: ../lib/arrows.c:1883
 msgid "Lines"
 msgstr "Líneas"
 
 # "Hueco" queda más cercano al significado de "Hollow" que "Vacío". Además así no se confunde con "Unfilled". RizOX.
-#: ../lib/arrows.c:51
+#: ../lib/arrows.c:1884
 msgid "Hollow Triangle"
 msgstr "Triángulo hueco"
 
-#: ../lib/arrows.c:52
+#: ../lib/arrows.c:1885
 msgid "Filled Triangle"
 msgstr "Triángulo relleno"
 
-#: ../lib/arrows.c:53
+#: ../lib/arrows.c:1886
 msgid "Unfilled Triangle"
 msgstr "Triángulo sin relleno"
 
 # "Hueco" queda más cercano al significado de "Hollow" que "Vacío". Además así no se confunde con "Unfilled". RizOX.
-#: ../lib/arrows.c:54
+#: ../lib/arrows.c:1887
 msgid "Hollow Diamond"
 msgstr "Diamante hueco"
 
-#: ../lib/arrows.c:55
+#: ../lib/arrows.c:1888
 msgid "Filled Diamond"
 msgstr "Diamante relleno"
 
-#: ../lib/arrows.c:56
+#: ../lib/arrows.c:1889
 msgid "Half Diamond"
 msgstr "Medio diamante"
 
-#: ../lib/arrows.c:57
+#: ../lib/arrows.c:1890
 msgid "Half Head"
 msgstr "Media cabeza"
 
-#: ../lib/arrows.c:58
+#: ../lib/arrows.c:1891
 msgid "Slashed Cross"
 msgstr "Cruz discontinua"
 
-#: ../lib/arrows.c:59
+#: ../lib/arrows.c:1892
 msgid "Filled Ellipse"
 msgstr "Elipse rellena"
 
-#: ../lib/arrows.c:60
+#: ../lib/arrows.c:1893
 msgid "Hollow Ellipse"
 msgstr "Elipse hueca"
 
-#: ../lib/arrows.c:61
+#: ../lib/arrows.c:1894
 msgid "Filled Dot"
 msgstr "Punto relleno"
 
-#: ../lib/arrows.c:62
+#: ../lib/arrows.c:1895
 msgid "Dimension Origin"
 msgstr "Origen de la dimensión"
 
-#: ../lib/arrows.c:63
+#: ../lib/arrows.c:1896
 msgid "Blanked Dot"
 msgstr "Punto blanco"
 
-#: ../lib/arrows.c:64
+#: ../lib/arrows.c:1897
 msgid "Double Hollow Triangle"
 msgstr "Triángulo doble hueco"
 
-#: ../lib/arrows.c:65
+#: ../lib/arrows.c:1898
 msgid "Double Filled Triangle"
 msgstr "Triángulo doble relleno"
 
-#: ../lib/arrows.c:66
+#: ../lib/arrows.c:1899
 msgid "Filled Dot and Triangle"
 msgstr "Punto relleno y triángulo"
 
-#: ../lib/arrows.c:67
+#: ../lib/arrows.c:1900
 msgid "Filled Box"
 msgstr "Caja rellena"
 
-#: ../lib/arrows.c:68
+#: ../lib/arrows.c:1901
 msgid "Blanked Box"
 msgstr "Caja blanca"
 
-#: ../lib/arrows.c:69
+#: ../lib/arrows.c:1902
 msgid "Slashed"
 msgstr "Con barras"
 
-#: ../lib/arrows.c:70
+#: ../lib/arrows.c:1903
 msgid "Integral Symbol"
 msgstr "Símbolo de la integral"
 
-#: ../lib/arrows.c:71
+#: ../lib/arrows.c:1904
 msgid "Crow Foot"
 msgstr "Filigrana"
 
-#: ../lib/arrows.c:72
+#: ../lib/arrows.c:1905
 msgid "Cross"
 msgstr "Cruz"
 
 # Corrección: "ó" al estar al lado de número/s. RizOX.
-#: ../lib/arrows.c:73
+#: ../lib/arrows.c:1906
 msgid "1-or-many"
 msgstr "1 ó muchos"
 
 # Corrección: "ó" al estar al lado de número/s. RizOX.
-#: ../lib/arrows.c:74
+#: ../lib/arrows.c:1907
 msgid "0-or-many"
 msgstr "0 ó muchos"
 
 # Corrección: "ó" al estar al lado de número/s. RizOX.
-#: ../lib/arrows.c:75
+#: ../lib/arrows.c:1908
 msgid "1-or-0"
 msgstr "1 ó 0"
 
-#: ../lib/arrows.c:76
+#: ../lib/arrows.c:1909
 msgid "1 exactly"
 msgstr "1 exactamente"
 
-#: ../lib/arrows.c:77
+#: ../lib/arrows.c:1910
 msgid "Filled Concave"
 msgstr "Cóncavo relleno"
 
-#: ../lib/arrows.c:78
+#: ../lib/arrows.c:1911
 msgid "Blanked Concave"
 msgstr "Cóncavo vacío"
 
 # La traducción "ronda" es incorrecta, existiendo varias opciones dependientes del contexto. Me inclino por "curva" en vez de "redonda", "circular" o "romo". RizOX.
-#: ../lib/arrows.c:79
+#: ../lib/arrows.c:1912
 msgid "Round"
 msgstr "Curva"
 
 # La traducción "ronda" es incorrecta, existiendo varias opciones dependientes del contexto. Me inclino por "curva" en vez de "redonda", "circular" o "romo". RizOX.
-#: ../lib/arrows.c:80
+#: ../lib/arrows.c:1913
 msgid "Open Round"
 msgstr "Curva abierta"
 
-#: ../lib/arrows.c:81
+#: ../lib/arrows.c:1914
 msgid "Backslash"
 msgstr "Barra invertida"
 
-#: ../lib/arrows.c:82
+#: ../lib/arrows.c:1915
 msgid "Infinite Line"
 msgstr "Línea infinita"
 
-#: ../lib/arrows.c:1945
+#: ../lib/arrows.c:2043
 msgid "Arrow head of unknown type"
 msgstr "Cabezas de flechas de tipo desconocido"
 
-#: ../lib/arrows.c:1953
+#: ../lib/arrows.c:2051
 #, c-format
 msgid "Arrow head of type %s has too small dimensions, removing.\n"
 msgstr ""
 "Las dimensiones de la cabeza de flecha de tipo %s son muy pequeñas, se ha "
 "eliminado.\n"
 
-#: ../lib/arrows.c:2086
+#: ../lib/arrows.c:2184
 msgid "unknown arrow"
 msgstr "flecha desconocida"
 
@@ -2809,7 +2821,7 @@ msgstr "Total:"
 #: ../objects/UML/association.c:769 ../objects/UML/component_feature.c:184
 #: ../objects/UML/dependency.c:374 ../objects/UML/generalization.c:370
 #: ../objects/UML/realizes.c:361 ../objects/UML/transition.c:161
-#: ../objects/standard/zigzagline.c:348
+#: ../objects/standard/zigzagline.c:374
 msgid "Add segment"
 msgstr "Añadir segmento"
 
@@ -2818,7 +2830,7 @@ msgstr "Añadir segmento"
 #: ../objects/UML/association.c:770 ../objects/UML/component_feature.c:185
 #: ../objects/UML/dependency.c:375 ../objects/UML/generalization.c:371
 #: ../objects/UML/realizes.c:362 ../objects/UML/transition.c:162
-#: ../objects/standard/zigzagline.c:349
+#: ../objects/standard/zigzagline.c:375
 msgid "Delete segment"
 msgstr "Borrar segmento"
 
@@ -5538,23 +5550,23 @@ msgstr "Hueco de inicio absoluto"
 msgid "Absolute end gap"
 msgstr "Hueco de fin aboluto"
 
-#: ../objects/standard/bezier.c:698 ../objects/standard/beziergon.c:482
+#: ../objects/standard/bezier.c:716 ../objects/standard/beziergon.c:482
 msgid "Add Segment"
 msgstr "Añadir segmento"
 
-#: ../objects/standard/bezier.c:699 ../objects/standard/beziergon.c:483
+#: ../objects/standard/bezier.c:717 ../objects/standard/beziergon.c:483
 msgid "Delete Segment"
 msgstr "Borrar segmento"
 
-#: ../objects/standard/bezier.c:701 ../objects/standard/beziergon.c:485
+#: ../objects/standard/bezier.c:719 ../objects/standard/beziergon.c:485
 msgid "Symmetric control"
 msgstr "Control simétrico"
 
-#: ../objects/standard/bezier.c:703 ../objects/standard/beziergon.c:487
+#: ../objects/standard/bezier.c:721 ../objects/standard/beziergon.c:487
 msgid "Smooth control"
 msgstr "Control de suavidad"
 
-#: ../objects/standard/bezier.c:705 ../objects/standard/beziergon.c:489
+#: ../objects/standard/bezier.c:723 ../objects/standard/beziergon.c:489
 msgid "Cusp control"
 msgstr "Control de cúspide"
 
@@ -5628,11 +5640,11 @@ msgstr "Punto de partida"
 msgid "End point"
 msgstr "Punto de llegada"
 
-#: ../objects/standard/polygon.c:460 ../objects/standard/polyline.c:577
+#: ../objects/standard/polygon.c:460 ../objects/standard/polyline.c:607
 msgid "Add Corner"
 msgstr "Añadir esquina"
 
-#: ../objects/standard/polygon.c:461 ../objects/standard/polyline.c:578
+#: ../objects/standard/polygon.c:461 ../objects/standard/polyline.c:608
 msgid "Delete Corner"
 msgstr "Borrar esquina"
 
@@ -5649,7 +5661,7 @@ msgstr "Primera línea"
 msgid "Vertical text alignment"
 msgstr "Alineación vertical del texto"
 
-#: ../plug-ins/cairo/diacairo.c:976
+#: ../plug-ins/cairo/diacairo.c:986
 #, c-format
 msgid ""
 "Can't convert output filename '%s' to locale encoding.\n"
@@ -5658,39 +5670,39 @@ msgstr ""
 "No se puede convertir el archivo de salida «%s» a la codificación local.\n"
 "Por favor, elija un nombre diferente para guardar con cairo.\n"
 
-#: ../plug-ins/cairo/diacairo.c:1094
+#: ../plug-ins/cairo/diacairo.c:1104
 msgid "Cairo PostScript"
 msgstr "Cairo PostScript"
 
-#: ../plug-ins/cairo/diacairo.c:1105
+#: ../plug-ins/cairo/diacairo.c:1115
 msgid "Cairo Portable Document Format"
 msgstr "Portable Document Format de Cairo"
 
-#: ../plug-ins/cairo/diacairo.c:1116
+#: ../plug-ins/cairo/diacairo.c:1126
 msgid "Cairo Scalable Vector Graphics"
 msgstr "Cairo Scalable Vector Graphics"
 
-#: ../plug-ins/cairo/diacairo.c:1126
+#: ../plug-ins/cairo/diacairo.c:1136
 msgid "Cairo PNG"
 msgstr "Cairo PNG"
 
-#: ../plug-ins/cairo/diacairo.c:1134
+#: ../plug-ins/cairo/diacairo.c:1144
 msgid "Cairo PNG (with alpha)"
 msgstr "Cairo PNG (con alfa)"
 
-#: ../plug-ins/cairo/diacairo.c:1144
+#: ../plug-ins/cairo/diacairo.c:1154
 msgid "Cairo WMF"
 msgstr "Cairo WMF"
 
-#: ../plug-ins/cairo/diacairo.c:1153
+#: ../plug-ins/cairo/diacairo.c:1163
 msgid "Cairo old WMF"
 msgstr "WMF antiguo de Cairo"
 
-#: ../plug-ins/cairo/diacairo.c:1162
+#: ../plug-ins/cairo/diacairo.c:1172
 msgid "Cairo Clipboard"
 msgstr "Portapapeles Cairo"
 
-#: ../plug-ins/cairo/diacairo.c:1211
+#: ../plug-ins/cairo/diacairo.c:1218
 msgid "Cairo based Rendering"
 msgstr "Renderizado basado en Cairo"
 
@@ -5843,7 +5855,7 @@ msgstr "Archivo de forma de Dia"
 msgid "dia shape export filter"
 msgstr "Filtro de exportación de archivo de forma de Dia"
 
-#: ../plug-ins/svg/render_svg.c:304 ../plug-ins/svg/svg-import.c:766
+#: ../plug-ins/svg/render_svg.c:365 ../plug-ins/svg/svg-import.c:766
 msgid "Scalable Vector Graphics"
 msgstr "Scalable Vector Graphics"
 
@@ -5937,20 +5949,20 @@ msgstr "No se puede escribir el objeto %u"
 msgid "Visio XML Format import and export filter"
 msgstr "Filtro de exportación e importación para el formato Visio XML"
 
-#: ../plug-ins/wmf/wmf.cpp:1187
+#: ../plug-ins/wmf/wmf.cpp:1214
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
 msgstr "No se pudo abrir: «%s» para escritura.\n"
 
-#: ../plug-ins/wmf/wmf.cpp:1272
+#: ../plug-ins/wmf/wmf.cpp:1311
 msgid "Windows Meta File"
 msgstr "Meta-archivo de Windows (WMF)"
 
-#: ../plug-ins/wmf/wmf.cpp:1281
+#: ../plug-ins/wmf/wmf.cpp:1320
 msgid "Enhanced Meta File"
 msgstr "Meta-archivo mejorado"
 
-#: ../plug-ins/wmf/wmf.cpp:1297
+#: ../plug-ins/wmf/wmf.cpp:1336
 msgid "WMF export filter"
 msgstr "Filtro de exportación de WMF"
 
