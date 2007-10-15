@@ -1,4 +1,9 @@
-﻿2007-10-14  Hans Breuer  <hans@breuer.org>
+2007-10-15  Lars Clausen  <lars@raeder.dk>
+
+	* app/interface.c (zoom_activate_callback): Set limits to zoom
+	amount to avoid crashes.  See bug #483384.
+
+2007-10-14  Hans Breuer  <hans@breuer.org>
 
 	Next stab on dedicated text edit mode:
 	* app/textedit_tool.[ch] app/tool.[ch] app/cursors.[ch] 
