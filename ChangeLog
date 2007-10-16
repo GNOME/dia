@@ -1,3 +1,9 @@
+2007-10-14  Hans Breuer  <hans@breuer.org>
+
+	* plug-ins/pgf/render_pgf.c : *reverted* 
+	put \\setlength{\\du}{15\\unitlength}\n into the if branch 
+	(again Gaëtan Leurent, bug #482173)
+
 2007-10-15  Lars Clausen  <lars@raeder.dk>
 
 	* app/interface.c (zoom_activate_callback): Set limits to zoom
