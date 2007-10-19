@@ -1,3 +1,11 @@
+2007-10-19  Lars Clausen  <lars@raeder.dk>
+
+	* shapes/Lights/Makefile.am: 
+	* shapes/Makefile.am: 
+	* configure.in: Patch from Elie Roux <elie.roux@enst-bretagne.fr>
+	fixes makefiles for new shapes.  So it's not just me who forgets
+	those:) 
+	
 2007-10-14  Hans Breuer  <hans@breuer.org>
 
 	* plug-ins/pgf/render_pgf.c : *reverted* 

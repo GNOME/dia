@@ -521,6 +521,7 @@ shapes/Electric/Makefile
 shapes/flowchart/Makefile
 shapes/Gane_and_Sarson/Makefile
 shapes/jigsaw/Makefile
+shapes/Lights/Makefile
 shapes/Logic/Makefile
 shapes/Map/Makefile
 shapes/Map/Isometric/Makefile
