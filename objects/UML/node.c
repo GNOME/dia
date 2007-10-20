@@ -110,11 +110,13 @@ static ObjectOps node_ops =
   (MoveFunc)            node_move,
   (MoveHandleFunc)      node_move_handle,
   (GetPropertiesFunc)   object_create_props_dialog,
-  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ApplyPropertiesDialogFunc) object_apply_props_from_dialog,
   (ObjectMenuFunc)      NULL,
   (DescribePropsFunc)   node_describe_props,
   (GetPropsFunc)        node_get_props,
-  (SetPropsFunc)        node_set_props
+  (SetPropsFunc)        node_set_props,
+  (TextEditFunc) 0,
+  (ApplyPropertiesListFunc) object_apply_props,
 };
 
 static PropDescription node_props[] = {

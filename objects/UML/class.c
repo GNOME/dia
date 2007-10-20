@@ -113,11 +113,13 @@ static ObjectOps umlclass_ops = {
   (MoveFunc)            umlclass_move,
   (MoveHandleFunc)      umlclass_move_handle,
   (GetPropertiesFunc)   umlclass_get_properties,
-  (ApplyPropertiesFunc) umlclass_apply_props_from_dialog,
+  (ApplyPropertiesDialogFunc) umlclass_apply_props_from_dialog,
   (ObjectMenuFunc)      umlclass_object_menu,
   (DescribePropsFunc)   umlclass_describe_props,
   (GetPropsFunc)        umlclass_get_props,
-  (SetPropsFunc)        umlclass_set_props
+  (SetPropsFunc)        umlclass_set_props,
+  (TextEditFunc) 0,
+  (ApplyPropertiesListFunc) object_apply_props,
 };
 
 extern PropDescDArrayExtra umlattribute_extra;
@@ -2365,4 +2367,5 @@ umlclass_sanity_check(UMLClass *c, gchar *msg)
   }
   /* Check that operations are set up right. */
 }
+
 

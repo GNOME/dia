@@ -101,11 +101,13 @@ static ObjectOps fork_ops =
   (MoveFunc)            fork_move,
   (MoveHandleFunc)      fork_move_handle,
   (GetPropertiesFunc)   object_return_null,
-  (ApplyPropertiesFunc) object_return_void,
+  (ApplyPropertiesDialogFunc) object_return_void,
   (ObjectMenuFunc)      NULL,
   (DescribePropsFunc)   fork_describe_props,
   (GetPropsFunc)        fork_get_props,
-  (SetPropsFunc)        fork_set_props
+  (SetPropsFunc)        fork_set_props,
+  (TextEditFunc) 0,
+  (ApplyPropertiesListFunc) object_apply_props,
 };
 
 static PropDescription fork_props[] = {
@@ -296,6 +298,7 @@ static DiaObject *fork_load(ObjectNode obj_node, int version, const char *filena
   return object_load_using_properties(&fork_type,
                                       obj_node,version,filename);
 }
+
 
 
 

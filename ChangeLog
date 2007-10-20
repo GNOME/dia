@@ -1,5 +1,55 @@
 2007-10-20  Hans Breuer  <hans@breuer.org>
 
+	* app/properties.c lib/group.c lib/newgroup.c lib/objchange.h
+	  lib/object.h lib/propobject.c objects/AADL/aadlbox.c
+	  objects/AADL/aadlbus.c objects/AADL/aadldata.c
+	  objects/AADL/aadldevice.c objects/AADL/aadlmemory.c 
+	  objects/AADL/aadlpackage.c objects/AADL/aadlprocess.c
+	  objects/AADL/aadlprocessor.c objects/AADL/aadlsubprogram.c
+	  objects/AADL/aadlsystem.c objects/AADL/aadlthread.c
+	  objects/AADL/aadlthreadgroup.c objects/chronogram/chronoline.c
+	  objects/chronogram/chronoref.c objects/custom/custom_object.c
+	  objects/EML/instantiation.c objects/EML/interaction-ortho.c
+	  objects/EML/interaction.c objects/EML/process.c 
+	  objects/ER/attribute.c objects/ER/entity.c 
+	  objects/ER/participation.c objects/ER/relationship.c 
+	  objects/flowchart/box.c objects/flowchart/diamond.c
+	  objects/flowchart/ellipse.c objects/flowchart/parallelogram.c
+	  objects/FS/flow-ortho.c objects/FS/flow-poly.c objects/FS/flow.c
+	  objects/FS/function.c objects/GRAFCET/action.c 
+	  objects/GRAFCET/condition.c objects/GRAFCET/step.c
+	  objects/GRAFCET/transition.c objects/GRAFCET/vector.c
+	  objects/GRAFCET/vergent.c objects/Istar/actor.c objects/Istar/goal.c
+	  objects/Istar/link.c objects/Istar/other.c objects/Jackson/domain.c
+	  objects/Jackson/phenomenon.c objects/Jackson/requirement.c
+	  objects/KAOS/goal.c objects/KAOS/metaandorrel.c 
+	  objects/KAOS/metabinrel.c objects/KAOS/other.c
+	  objects/Misc/analog_clock.c objects/network/basestation.c
+	  objects/network/bus.c objects/network/radiocell.c
+	  objects/network/wanlink.c objects/SADT/annotation.c
+	  objects/SADT/arrow.c objects/SADT/box.c objects/SISSI/area.c
+	  objects/SISSI/faraday.c objects/SISSI/room.c 
+	  objects/SISSI/sissi_object.c objects/SISSI/site.c
+	  objects/standard/arc.c objects/standard/bezier.c
+	  objects/standard/beziergon.c objects/standard/box.c
+	  objects/standard/ellipse.c objects/standard/image.c
+	  objects/standard/line.c objects/standard/polygon.c
+	  objects/standard/polyline.c objects/standard/textobj.c
+	  objects/standard/zigzagline.c objects/UML/activity.c
+	  objects/UML/actor.c objects/UML/association.c objects/UML/branch.c
+	  objects/UML/class.c objects/UML/classicon.c objects/UML/component.c
+	  objects/UML/component_feature.c objects/UML/constraint.c
+	  objects/UML/dependency.c objects/UML/fork.c
+	  objects/UML/generalization.c objects/UML/implements.c
+	  objects/UML/large_package.c objects/UML/lifeline.c 
+	  objects/UML/message.c objects/UML/node.c objects/UML/note.c
+	  objects/UML/object.c objects/UML/realizes.c
+	  objects/UML/small_package.c objects/UML/state.c
+	  objects/UML/state_term.c objects/UML/transition.c 
+	  objects/UML/usecase.c : finally there is proper group properties
+	handling thanks to patches from Sameer D. Sahasrabuddhe. Almost fixes 
+	long-standing bug #60331.
+
 	* objects/Misc/libmisc.c objects/Misc/tree.c objects/Misc/Makefile.am
 	  objects/Misc/pixmaps/tree.xpm shapes/Misc/expended-node.shape
 	  shapes/Misc/expensible-node.shape shapes/Misc/Makefile.am

@@ -114,11 +114,13 @@ static ObjectOps flow_ops = {
   (MoveFunc)            flow_move,
   (MoveHandleFunc)      flow_move_handle,
   (GetPropertiesFunc)   object_create_props_dialog,
-  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ApplyPropertiesDialogFunc) object_apply_props_from_dialog,
   (ObjectMenuFunc)      flow_get_object_menu,
   (DescribePropsFunc)   flow_describe_props,
   (GetPropsFunc)        flow_get_props,
   (SetPropsFunc)        flow_set_props,
+  (TextEditFunc) 0,
+  (ApplyPropertiesListFunc) object_apply_props,
 };
 
 static PropEnumData prop_flow_type_data[] = {

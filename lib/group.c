@@ -38,6 +38,18 @@ struct _Group {
   PropDescription *pdesc;
 };
 
+typedef struct _GroupPropChange GroupPropChange;
+struct _GroupPropChange {
+  ObjectChange obj_change;
+  Group *group;
+  GList *changes_per_object;
+};
+
+static GroupPropChange* group_apply_properties_list(Group *group, GPtrArray *props);
+static void group_prop_change_apply(GroupPropChange *change, DiaObject *obj);
+static void group_prop_change_revert(GroupPropChange *change, DiaObject *obj);
+static void group_prop_change_free(GroupPropChange *change);
+
 static real group_distance_from(Group *group, Point *point);
 static void group_select(Group *group);
 static ObjectChange* group_move_handle(Group *group, Handle *handle, Point *to, ConnectionPoint *cp,
@@ -61,11 +73,13 @@ static ObjectOps group_ops = {
   (MoveFunc)            group_move,
   (MoveHandleFunc)      group_move_handle,
   (GetPropertiesFunc)   object_create_props_dialog,
-  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ApplyPropertiesDialogFunc) object_apply_props_from_dialog,
   (ObjectMenuFunc)      NULL,
   (DescribePropsFunc)   group_describe_props,
   (GetPropsFunc)        group_get_props,
-  (SetPropsFunc)        group_set_props
+  (SetPropsFunc)        group_set_props,
+  (TextEditFunc) 0,
+  (ApplyPropertiesListFunc) group_apply_properties_list,
 };
 
 DiaObjectType group_type = {
@@ -444,4 +458,89 @@ group_set_props(Group *group, GPtrArray *props)
       obj->ops->set_props(obj, props);
     }
   }
+}
+
+GroupPropChange *
+group_apply_properties_list(Group *group, GPtrArray *props)
+{
+  GList *tmp = NULL;
+  GList *clist = NULL;
+  GroupPropChange *change = NULL;
+  change = g_new0(GroupPropChange, 1);
+
+
+  change->obj_change.apply =
+    (ObjectChangeApplyFunc) group_prop_change_apply;
+  change->obj_change.revert =
+    (ObjectChangeRevertFunc) group_prop_change_revert;
+  change->obj_change.free =
+    (ObjectChangeFreeFunc) group_prop_change_free;
+
+  change->group = group;
+
+  for (tmp = group->objects; tmp != NULL; tmp = g_list_next(tmp)) {
+    DiaObject *obj = (DiaObject*)tmp->data;
+    ObjectChange *objchange = NULL;
+    
+    objchange = obj->ops->apply_properties_list(obj, props);
+    clist = g_list_append(clist, objchange);
+  }
+
+  change->changes_per_object = clist;
+
+  return change;
+}
+
+static void
+group_prop_change_apply(GroupPropChange *change, DiaObject *obj)
+{
+  GList *tmp;
+
+  for (tmp = change->changes_per_object; tmp != NULL;
+       tmp = g_list_next(tmp)) {
+    ObjectChange *obj_change = (ObjectChange*)tmp->data;
+
+    /*
+      This call to apply() depends on the fact that it is actually a
+      call to object_prop_change_apply_revert(), which never uses its
+      second argument. This particular behaviour used in
+      ObjectPropChange is actually better than the behaviour implied
+      in ObjectChange. Read comments near the ObjectChange struct in
+      objchange.h
+     */
+    obj_change->apply(obj_change, NULL);
+  }
+}
+
+static void
+group_prop_change_revert(GroupPropChange *change, DiaObject *obj)
+{
+  GList *tmp;
+
+  for (tmp = change->changes_per_object; tmp != NULL;
+       tmp = g_list_next(tmp)) {
+    ObjectChange *obj_change = (ObjectChange*)tmp->data;
+
+    /*
+      This call to revert() depends on the fact that it is actually a
+      call to object_prop_change_apply_revert(), which never uses its
+      second argument. This particular behaviour used in
+      ObjectPropChange is actually better than the behaviour implied
+      in ObjectChange. Read comments near the ObjectChange struct in
+      objchange.h
+     */
+    obj_change->revert(obj_change, NULL);
+  }
+}
+
+static void group_prop_change_free(GroupPropChange *change)
+{
+  GList *tmp;
+  for (tmp = change->changes_per_object; tmp != NULL;
+       tmp = g_list_next(tmp)) {
+    ObjectChange *obj_change = (ObjectChange*)tmp->data;
+    obj_change->free(obj_change);
+    g_free(obj_change);
+  }
+  g_list_free(change->changes_per_object);
 }

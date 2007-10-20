@@ -77,8 +77,13 @@ static ObjectOps emlprocess_ops = {
   (MoveFunc)            emlprocess_move,
   (MoveHandleFunc)      emlprocess_move_handle,
   (GetPropertiesFunc)   emlprocess_get_properties,
-  (ApplyPropertiesFunc) emlprocess_apply_properties,
+  (ApplyPropertiesDialogFunc) emlprocess_apply_properties,
   (ObjectMenuFunc)      NULL
+  (DescribePropsFunc)   0,
+  (GetPropsFunc)        0,
+  (SetPropsFunc)        0,
+  (TextEditFunc) 0,
+  (ApplyPropertiesListFunc) object_apply_props,
 };
 
 
@@ -811,4 +816,5 @@ static DiaObject *emlprocess_load(ObjectNode obj_node, int version,
 
   return (DiaObject *)emlprocess;
 }
+
 

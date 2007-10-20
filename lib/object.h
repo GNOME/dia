@@ -268,8 +268,19 @@ typedef GtkWidget *(*GetPropertiesFunc) (DiaObject* obj, gboolean is_default);
  * @return a Change that can be used for undo/redo.
  * The returned change is already applied.
  */
-typedef ObjectChange *(*ApplyPropertiesFunc) (DiaObject* obj, GtkWidget *widget);
+typedef ObjectChange *(*ApplyPropertiesDialogFunc) (DiaObject* obj, GtkWidget *widget);
 
+/** This function is used to apply a list of properties to the current
+ *  object. It is typically called by ApplyPropertiesDialogFunc. This
+ *  is different from SetPropsFunc since this is used to implement
+ *  undo/redo.
+ *  This is one of the object_ops functions.
+ * @param obj The object to which properties are to be applied
+ * @param props The list of properties that are to be applied
+ * @return a Change for undo/redo
+ */
+ typedef ObjectChange *(*ApplyPropertiesListFunc) (DiaObject* obj, GPtrArray* props);
+ 
 /** Desribe the properties that this object supports.
  *  This is one of the object_ops functions.
  * @param obj The object whose properties we want described.
@@ -418,7 +429,7 @@ struct _ObjectOps {
   MoveFunc            move;
   MoveHandleFunc      move_handle;
   GetPropertiesFunc   get_properties;
-  ApplyPropertiesFunc apply_properties;
+  ApplyPropertiesDialogFunc  apply_properties_from_dialog;
   ObjectMenuFunc      get_object_menu;
 
   DescribePropsFunc   describe_props;
@@ -426,6 +437,8 @@ struct _ObjectOps {
   SetPropsFunc        set_props;
 
   TextEditFunc        edit_text;
+  
+  ApplyPropertiesListFunc apply_properties_list;
 
   /*!
     Unused places (for extension).
@@ -433,7 +446,7 @@ struct _ObjectOps {
     Then an older object will be binary compatible, because all new code
     checks if new ops are supported (!= NULL)
   */
-  void      (*(unused[5]))(DiaObject *obj,...); 
+  void      (*(unused[4]))(DiaObject *obj,...);
 };
 
 /*!
@@ -572,4 +585,5 @@ typedef void (*DiaObjectFunc) (const DiaObject *obj);
 G_END_DECLS
 
 #endif /* OBJECT_H */
+
 

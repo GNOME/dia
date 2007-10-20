@@ -109,11 +109,13 @@ static ObjectOps component_ops = {
   (MoveFunc)            component_move,
   (MoveHandleFunc)      component_move_handle,
   (GetPropertiesFunc)   object_create_props_dialog,
-  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ApplyPropertiesDialogFunc) object_apply_props_from_dialog,
   (ObjectMenuFunc)      NULL,
   (DescribePropsFunc)   component_describe_props,
   (GetPropsFunc)        component_get_props,
-  (SetPropsFunc)        component_set_props
+  (SetPropsFunc)        component_set_props,
+  (TextEditFunc) 0,
+  (ApplyPropertiesListFunc) object_apply_props,
 };
 
 static PropDescription component_props[] = {
@@ -445,6 +447,7 @@ component_load(ObjectNode obj_node, int version, const char *filename)
   return object_load_using_properties(&component_type,
                                       obj_node,version,filename);
 }
+
 
 
 

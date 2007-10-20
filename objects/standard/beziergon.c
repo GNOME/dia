@@ -118,11 +118,13 @@ static ObjectOps beziergon_ops = {
   (MoveFunc)            beziergon_move,
   (MoveHandleFunc)      beziergon_move_handle,
   (GetPropertiesFunc)   object_create_props_dialog,
-  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ApplyPropertiesDialogFunc) object_apply_props_from_dialog,
   (ObjectMenuFunc)      beziergon_get_object_menu,
   (DescribePropsFunc)   beziergon_describe_props,
   (GetPropsFunc)        beziergon_get_props,
   (SetPropsFunc)        beziergon_set_props,
+  (TextEditFunc) 0,
+  (ApplyPropertiesListFunc) object_apply_props,
 };
 
 static PropDescription beziergon_props[] = {

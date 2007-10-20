@@ -160,11 +160,13 @@ static ObjectOps custom_ops = {
   (MoveFunc)            custom_move,
   (MoveHandleFunc)      custom_move_handle,
   (GetPropertiesFunc)   object_create_props_dialog,
-  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ApplyPropertiesDialogFunc) object_apply_props_from_dialog,
   (ObjectMenuFunc)      custom_get_object_menu,
   (DescribePropsFunc)   custom_describe_props,
   (GetPropsFunc)        custom_get_props,
-  (SetPropsFunc)        custom_set_props
+  (SetPropsFunc)        custom_set_props,
+  (TextEditFunc) 0,
+  (ApplyPropertiesListFunc) object_apply_props,
 };
 
 static PropDescription custom_props[] = {

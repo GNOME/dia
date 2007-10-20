@@ -121,11 +121,13 @@ static ObjectOps polygon_ops = {
   (MoveFunc)            polygon_move,
   (MoveHandleFunc)      polygon_move_handle,
   (GetPropertiesFunc)   object_create_props_dialog,
-  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ApplyPropertiesDialogFunc) object_apply_props_from_dialog,
   (ObjectMenuFunc)      polygon_get_object_menu,
   (DescribePropsFunc)   polygon_describe_props,
   (GetPropsFunc)        polygon_get_props,
   (SetPropsFunc)        polygon_set_props,
+  (TextEditFunc) 0,
+  (ApplyPropertiesListFunc) object_apply_props,
 };
 
 static PropDescription polygon_props[] = {

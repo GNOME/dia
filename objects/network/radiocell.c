@@ -107,11 +107,13 @@ static ObjectOps radiocell_ops = {
   (MoveFunc)            radiocell_move,
   (MoveHandleFunc)      radiocell_move_handle,
   (GetPropertiesFunc)   object_create_props_dialog,
-  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ApplyPropertiesDialogFunc) object_apply_props_from_dialog,
   (ObjectMenuFunc)      NULL,
   (DescribePropsFunc)   radiocell_describe_props,
   (GetPropsFunc)        radiocell_get_props,
-  (SetPropsFunc)        radiocell_set_props
+  (SetPropsFunc)        radiocell_set_props,
+  (TextEditFunc) 0,
+  (ApplyPropertiesListFunc) object_apply_props,
 };
 
 static PropDescription radiocell_props[] = {

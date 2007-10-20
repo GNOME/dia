@@ -122,11 +122,13 @@ static ObjectOps sadtbox_ops = {
   (MoveFunc)            sadtbox_move,
   (MoveHandleFunc)      sadtbox_move_handle,
   (GetPropertiesFunc)   object_create_props_dialog,
-  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ApplyPropertiesDialogFunc) object_apply_props_from_dialog,
   (ObjectMenuFunc)      sadtbox_get_object_menu,
   (DescribePropsFunc)   sadtbox_describe_props,
   (GetPropsFunc)        sadtbox_get_props,
-  (SetPropsFunc)        sadtbox_set_props
+  (SetPropsFunc)        sadtbox_set_props,
+  (TextEditFunc) 0,
+  (ApplyPropertiesListFunc) object_apply_props,
 };
 
 static PropNumData text_padding_data = { 0.0, 10.0, 0.1 };
@@ -547,6 +549,7 @@ sadtbox_load(ObjectNode obj_node, int version, const char *filename)
   return object_load_using_properties(&sadtbox_type,
                                       obj_node,version,filename);
 }
+
 
 
 

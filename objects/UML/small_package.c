@@ -109,11 +109,13 @@ static ObjectOps smallpackage_ops = {
   (MoveFunc)            smallpackage_move,
   (MoveHandleFunc)      smallpackage_move_handle,
   (GetPropertiesFunc)   object_create_props_dialog,
-  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ApplyPropertiesDialogFunc) object_apply_props_from_dialog,
   (ObjectMenuFunc)      NULL,
   (DescribePropsFunc)   smallpackage_describe_props,
   (GetPropsFunc)        smallpackage_get_props,
   (SetPropsFunc)        smallpackage_set_props,
+  (TextEditFunc) 0,
+  (ApplyPropertiesListFunc) object_apply_props,
 };
 
 static PropDescription smallpackage_props[] = {
@@ -397,6 +399,7 @@ smallpackage_load(ObjectNode obj_node, int version, const char *filename)
   return object_load_using_properties(&smallpackage_type,
                                       obj_node,version,filename);
 }
+
 
 
 

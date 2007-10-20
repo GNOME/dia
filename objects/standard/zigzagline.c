@@ -110,11 +110,13 @@ static ObjectOps zigzagline_ops = {
   (MoveFunc)            zigzagline_move,
   (MoveHandleFunc)      zigzagline_move_handle,
   (GetPropertiesFunc)   object_create_props_dialog,
-  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ApplyPropertiesDialogFunc) object_apply_props_from_dialog,
   (ObjectMenuFunc)      zigzagline_get_object_menu,
   (DescribePropsFunc)   zigzagline_describe_props,
   (GetPropsFunc)        zigzagline_get_props,
   (SetPropsFunc)        zigzagline_set_props,
+  (TextEditFunc) 0,
+  (ApplyPropertiesListFunc) object_apply_props,
 };
 
 static PropNumData zigzagline_corner_radius_data = { 0.0, 10.0, 0.1 };

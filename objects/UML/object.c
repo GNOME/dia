@@ -131,11 +131,13 @@ static ObjectOps objet_ops = {
   (MoveFunc)            objet_move,
   (MoveHandleFunc)      objet_move_handle,
   (GetPropertiesFunc)   object_create_props_dialog,
-  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ApplyPropertiesDialogFunc) object_apply_props_from_dialog,
   (ObjectMenuFunc)      NULL,
   (DescribePropsFunc)   objet_describe_props,
   (GetPropsFunc)        objet_get_props,
   (SetPropsFunc)        objet_set_props,
+  (TextEditFunc) 0,
+  (ApplyPropertiesListFunc) object_apply_props,
 };
 
 
@@ -512,4 +514,5 @@ objet_load(ObjectNode obj_node, int version, const char *filename)
   return object_load_using_properties(&objet_type,
                                       obj_node,version,filename);
 }
+
 

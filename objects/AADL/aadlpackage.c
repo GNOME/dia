@@ -105,11 +105,13 @@ static ObjectOps aadlpackage_ops =
   (MoveFunc)            aadlbox_move,
   (MoveHandleFunc)      aadlbox_move_handle,
   (GetPropertiesFunc)   object_create_props_dialog,
-  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ApplyPropertiesDialogFunc) object_apply_props_from_dialog,
   (ObjectMenuFunc)      aadlbox_get_object_menu,
   (DescribePropsFunc)   aadlbox_describe_props,
   (GetPropsFunc)        aadlbox_get_props,
-  (SetPropsFunc)        aadlbox_set_props
+  (SetPropsFunc)        aadlbox_set_props,
+  (TextEditFunc) 0,
+  (ApplyPropertiesListFunc) object_apply_props,
 };
 
 

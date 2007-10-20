@@ -119,11 +119,13 @@ static ObjectOps dependency_ops = {
   (MoveFunc)            dependency_move,
   (MoveHandleFunc)      dependency_move_handle,
   (GetPropertiesFunc)   object_create_props_dialog,
-  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ApplyPropertiesDialogFunc) object_apply_props_from_dialog,
   (ObjectMenuFunc)      dependency_get_object_menu,
   (DescribePropsFunc)   dependency_describe_props,
   (GetPropsFunc)        dependency_get_props,
-  (SetPropsFunc)        dependency_set_props
+  (SetPropsFunc)        dependency_set_props,
+  (TextEditFunc) 0,
+  (ApplyPropertiesListFunc) object_apply_props,
 };
 
 static PropDescription dependency_props[] = {
@@ -461,4 +463,5 @@ dependency_load(ObjectNode obj_node, int version, const char *filename)
   }
   return obj;
 }
+
 

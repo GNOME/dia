@@ -113,11 +113,13 @@ static ObjectOps polyline_ops = {
   (MoveFunc)            polyline_move,
   (MoveHandleFunc)      polyline_move_handle,
   (GetPropertiesFunc)   object_create_props_dialog,
-  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ApplyPropertiesDialogFunc) object_apply_props_from_dialog,
   (ObjectMenuFunc)      polyline_get_object_menu,
   (DescribePropsFunc)   polyline_describe_props,
   (GetPropsFunc)        polyline_get_props,
   (SetPropsFunc)        polyline_set_props,
+  (TextEditFunc) 0,
+  (ApplyPropertiesListFunc) object_apply_props,
 };
 
 static PropNumData polyline_corner_radius_data = { 0.0, 10.0, 0.1 };

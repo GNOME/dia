@@ -93,8 +93,13 @@ static ObjectOps interaction_ops = {
   (MoveFunc)            interaction_move,
   (MoveHandleFunc)      interaction_move_handle,
   (GetPropertiesFunc)   interaction_get_properties,
-  (ApplyPropertiesFunc) interaction_apply_properties,
+  (ApplyPropertiesDialogFunc) interaction_apply_properties,
   (ObjectMenuFunc)      interaction_get_object_menu
+  (DescribePropsFunc)   0,
+  (GetPropsFunc)        0,
+  (SetPropsFunc)        0,
+  (TextEditFunc) 0,
+  (ApplyPropertiesListFunc) object_apply_props,
 };
 
 static real

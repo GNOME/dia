@@ -140,11 +140,13 @@ static ObjectOps attribute_ops = {
   (MoveFunc)            attribute_move,
   (MoveHandleFunc)      attribute_move_handle,
   (GetPropertiesFunc)   object_create_props_dialog,
-  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ApplyPropertiesDialogFunc) object_apply_props_from_dialog,
   (ObjectMenuFunc)      NULL,
   (DescribePropsFunc)   attribute_describe_props,
   (GetPropsFunc)        attribute_get_props,
   (SetPropsFunc)        attribute_set_props,
+  (TextEditFunc) 0,
+  (ApplyPropertiesListFunc) object_apply_props,
 };
 
 static PropDescription attribute_props[] = {

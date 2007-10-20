@@ -116,11 +116,13 @@ static ObjectOps realizes_ops = {
   (MoveFunc)            realizes_move,
   (MoveHandleFunc)      realizes_move_handle,
   (GetPropertiesFunc)   object_create_props_dialog,
-  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ApplyPropertiesDialogFunc) object_apply_props_from_dialog,
   (ObjectMenuFunc)      realizes_get_object_menu,
   (DescribePropsFunc)   realizes_describe_props,
   (GetPropsFunc)        realizes_get_props,
-  (SetPropsFunc)        realizes_set_props
+  (SetPropsFunc)        realizes_set_props,
+  (TextEditFunc) 0,
+  (ApplyPropertiesListFunc) object_apply_props,
 };
 
 static PropDescription realizes_props[] = {

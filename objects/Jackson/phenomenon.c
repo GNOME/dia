@@ -123,11 +123,13 @@ static ObjectOps message_ops = {
   (MoveFunc)            message_move,
   (MoveHandleFunc)      message_move_handle,
   (GetPropertiesFunc)   object_create_props_dialog,
-  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ApplyPropertiesDialogFunc) object_apply_props_from_dialog,
   (ObjectMenuFunc)      NULL,
   (DescribePropsFunc)   message_describe_props,
   (GetPropsFunc)        message_get_props,
-  (SetPropsFunc)        message_set_props
+  (SetPropsFunc)        message_set_props,
+  (TextEditFunc) 0,
+  (ApplyPropertiesListFunc) object_apply_props,
 };
 
 static PropEnumData prop_message_type_data[] = {
@@ -408,5 +410,6 @@ message_load(ObjectNode obj_node, int version, const char *filename)
   return object_load_using_properties(&jackson_phenomenon_type,
                                       obj_node,version,filename);
 }
+
 
 

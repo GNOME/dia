@@ -144,11 +144,13 @@ static ObjectOps goal_ops = {
   (MoveFunc)            goal_move,
   (MoveHandleFunc)      goal_move_handle,
   (GetPropertiesFunc)   object_create_props_dialog,
-  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ApplyPropertiesDialogFunc) object_apply_props_from_dialog,
   (ObjectMenuFunc)      goal_get_object_menu,
   (DescribePropsFunc)   goal_describe_props,
   (GetPropsFunc)        goal_get_props,
-  (SetPropsFunc)        goal_set_props
+  (SetPropsFunc)        goal_set_props,
+  (TextEditFunc) 0,
+  (ApplyPropertiesListFunc) object_apply_props,
 };
 
 static PropDescription goal_props[] = {
@@ -680,4 +682,5 @@ goal_load(ObjectNode obj_node, int version, const char *filename)
   return object_load_using_properties(&kaos_goal_type,
                                       obj_node,version,filename);
 }
+
 

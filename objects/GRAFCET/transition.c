@@ -127,11 +127,13 @@ static ObjectOps transition_ops = {
   (MoveFunc)            transition_move,
   (MoveHandleFunc)      transition_move_handle,
   (GetPropertiesFunc)   object_create_props_dialog,
-  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ApplyPropertiesDialogFunc) object_apply_props_from_dialog,
   (ObjectMenuFunc)      NULL,
   (DescribePropsFunc)   transition_describe_props,
   (GetPropsFunc)        transition_get_props,
-  (SetPropsFunc)        transition_set_props
+  (SetPropsFunc)        transition_set_props,
+  (TextEditFunc) 0,
+  (ApplyPropertiesListFunc) object_apply_props,
 };
 
 static PropDescription transition_props[] = {
@@ -449,6 +451,7 @@ transition_load(ObjectNode obj_node, int version, const char *filename)
   return object_load_using_properties(&transition_type,
                                       obj_node,version,filename);
 }
+
 
 
 

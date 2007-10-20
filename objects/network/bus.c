@@ -130,11 +130,13 @@ static ObjectOps bus_ops = {
   (MoveFunc)            bus_move,
   (MoveHandleFunc)      bus_move_handle,
   (GetPropertiesFunc)   object_create_props_dialog,
-  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ApplyPropertiesDialogFunc) object_apply_props_from_dialog,
   (ObjectMenuFunc)      bus_get_object_menu,
   (DescribePropsFunc)   bus_describe_props,
   (GetPropsFunc)        bus_get_props,
   (SetPropsFunc)        bus_set_props,
+  (TextEditFunc) 0,
+  (ApplyPropertiesListFunc) object_apply_props,
 };
 
 static PropDescription bus_props[] = {
@@ -770,4 +772,5 @@ bus_create_change(Bus *bus, enum change_type type,
 
   return (ObjectChange *)change;
 }
+
 

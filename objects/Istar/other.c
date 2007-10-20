@@ -135,11 +135,13 @@ static ObjectOps other_ops = {
   (MoveFunc)            other_move,
   (MoveHandleFunc)      other_move_handle,
   (GetPropertiesFunc)   object_create_props_dialog,
-  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ApplyPropertiesDialogFunc) object_apply_props_from_dialog,
   (ObjectMenuFunc)      other_get_object_menu,
   (DescribePropsFunc)   other_describe_props,
   (GetPropsFunc)        other_get_props,
-  (SetPropsFunc)        other_set_props
+  (SetPropsFunc)        other_set_props,
+  (TextEditFunc) 0,
+  (ApplyPropertiesListFunc) object_apply_props,
 };
 
 static PropDescription other_props[] = {
@@ -574,4 +576,5 @@ other_load(ObjectNode obj_node, int version, const char *filename)
   return object_load_using_properties(&istar_other_type,
                                       obj_node,version,filename);
 }
+
 

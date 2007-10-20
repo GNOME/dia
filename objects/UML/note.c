@@ -104,11 +104,13 @@ static ObjectOps note_ops = {
   (MoveFunc)            note_move,
   (MoveHandleFunc)      note_move_handle,
   (GetPropertiesFunc)   object_create_props_dialog,
-  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ApplyPropertiesDialogFunc) object_apply_props_from_dialog,
   (ObjectMenuFunc)      NULL,
   (DescribePropsFunc)   note_describe_props,
   (GetPropsFunc)        note_get_props,
-  (SetPropsFunc)        note_set_props
+  (SetPropsFunc)        note_set_props,
+  (TextEditFunc) 0,
+  (ApplyPropertiesListFunc) object_apply_props,
 };
 
 static PropDescription note_props[] = {
@@ -351,6 +353,7 @@ note_load(ObjectNode obj_node, int version, const char *filename)
   return object_load_using_properties(&note_type,
                                       obj_node,version,filename);
 }
+
 
 
 

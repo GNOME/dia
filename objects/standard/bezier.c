@@ -118,11 +118,13 @@ static ObjectOps bezierline_ops = {
   (MoveFunc)            bezierline_move,
   (MoveHandleFunc)      bezierline_move_handle,
   (GetPropertiesFunc)   object_create_props_dialog,
-  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ApplyPropertiesDialogFunc) object_apply_props_from_dialog,
   (ObjectMenuFunc)      bezierline_get_object_menu,
   (DescribePropsFunc)   bezierline_describe_props,
   (GetPropsFunc)        bezierline_get_props,
   (SetPropsFunc)        bezierline_set_props,
+  (TextEditFunc) 0,
+  (ApplyPropertiesListFunc) object_apply_props,
 };
 
 static PropNumData gap_range = { -G_MAXFLOAT, G_MAXFLOAT, 0.1};

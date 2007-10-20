@@ -117,11 +117,13 @@ static ObjectOps usecase_ops = {
   (MoveFunc)            usecase_move,
   (MoveHandleFunc)      usecase_move_handle,
   (GetPropertiesFunc)   object_create_props_dialog,
-  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ApplyPropertiesDialogFunc) object_apply_props_from_dialog,
   (ObjectMenuFunc)      NULL,
   (DescribePropsFunc)   usecase_describe_props,
   (GetPropsFunc)        usecase_get_props,
-  (SetPropsFunc)        usecase_set_props
+  (SetPropsFunc)        usecase_set_props,
+  (TextEditFunc) 0,
+  (ApplyPropertiesListFunc) object_apply_props,
 };
 
 static PropDescription usecase_props[] = {
@@ -462,5 +464,6 @@ usecase_load(ObjectNode obj_node, int version, const char *filename)
   return object_load_using_properties(&usecase_type,
                                       obj_node,version,filename);
 }
+
 
 

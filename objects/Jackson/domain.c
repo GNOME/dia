@@ -162,11 +162,13 @@ static ObjectOps jackson_box_ops = {
   (MoveFunc)            jackson_box_move,
   (MoveHandleFunc)      jackson_box_move_handle,
   (GetPropertiesFunc)   object_create_props_dialog,
-  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ApplyPropertiesDialogFunc) object_apply_props_from_dialog,
   (ObjectMenuFunc)      jackson_box_get_object_menu,
   (DescribePropsFunc)   jackson_box_describe_props,
   (GetPropsFunc)        jackson_box_get_props,
-  (SetPropsFunc)        jackson_box_set_props
+  (SetPropsFunc)        jackson_box_set_props,
+  (TextEditFunc) 0,
+  (ApplyPropertiesListFunc) object_apply_props,
 };
 
 static PropDescription box_props[] = {
@@ -640,5 +642,6 @@ jackson_box_load(ObjectNode obj_node, int version, const char *filename)
   return object_load_using_properties(&jackson_domain_type,
                                       obj_node,version,filename);
 }
+
 
 

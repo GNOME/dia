@@ -91,8 +91,13 @@ static ObjectOps interaction_ortho_ops = {
   (MoveFunc)            interaction_ortho_move,
   (MoveHandleFunc)      interaction_ortho_move_handle,
   (GetPropertiesFunc)   interaction_ortho_get_properties,
-  (ApplyPropertiesFunc) interaction_ortho_apply_properties,
+  (ApplyPropertiesDialogFunc) interaction_ortho_apply_properties,
   (ObjectMenuFunc)      interaction_ortho_get_object_menu
+  (DescribePropsFunc)   0,
+  (GetPropsFunc)        0,
+  (SetPropsFunc)        0,
+  (TextEditFunc) 0,
+  (ApplyPropertiesListFunc) object_apply_props,
 };
 
 static real

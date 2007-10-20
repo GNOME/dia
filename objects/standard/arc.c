@@ -122,11 +122,13 @@ static ObjectOps arc_ops = {
   (MoveFunc)            arc_move,
   (MoveHandleFunc)      arc_move_handle,
   (GetPropertiesFunc)   object_create_props_dialog,
-  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ApplyPropertiesDialogFunc) object_apply_props_from_dialog,
   (ObjectMenuFunc)      NULL,
   (DescribePropsFunc)   arc_describe_props,
   (GetPropsFunc)        arc_get_props,
   (SetPropsFunc)        arc_set_props,
+  (TextEditFunc) 0,
+  (ApplyPropertiesListFunc) object_apply_props,
 };
 
 static PropDescription arc_props[] = {
@@ -982,5 +984,6 @@ arc_load(ObjectNode obj_node, int version, const char *filename)
 
   return &arc->connection.object;
 }
+
 
 

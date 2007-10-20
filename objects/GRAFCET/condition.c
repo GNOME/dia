@@ -116,11 +116,13 @@ static ObjectOps condition_ops = {
   (MoveFunc)            condition_move,
   (MoveHandleFunc)      condition_move_handle,
   (GetPropertiesFunc)   object_create_props_dialog,
-  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ApplyPropertiesDialogFunc) object_apply_props_from_dialog,
   (ObjectMenuFunc)      NULL,
   (DescribePropsFunc)   condition_describe_props,
   (GetPropsFunc)        condition_get_props,
-  (SetPropsFunc)        condition_set_props
+  (SetPropsFunc)        condition_set_props,
+  (TextEditFunc) 0,
+  (ApplyPropertiesListFunc) object_apply_props,
 };
 
 
@@ -391,6 +393,7 @@ condition_load(ObjectNode obj_node, int version, const char *filename)
   return object_load_using_properties(&condition_type,
                                       obj_node,version,filename);
 }
+
 
 
 

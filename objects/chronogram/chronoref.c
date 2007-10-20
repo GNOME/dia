@@ -126,11 +126,13 @@ static ObjectOps chronoref_ops = {
   (MoveFunc)            chronoref_move,
   (MoveHandleFunc)      chronoref_move_handle,
   (GetPropertiesFunc)   object_create_props_dialog,
-  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ApplyPropertiesDialogFunc) object_apply_props_from_dialog,
   (ObjectMenuFunc)      NULL,
   (DescribePropsFunc)   chronoref_describe_props,
   (GetPropsFunc)        chronoref_get_props,
-  (SetPropsFunc)        chronoref_set_props
+  (SetPropsFunc)        chronoref_set_props,
+  (TextEditFunc) 0,
+  (ApplyPropertiesListFunc) object_apply_props,
 };
 
 static PropNumData time_range = { -32767.0, 32768.0, 0.1};

@@ -26,6 +26,12 @@ typedef void (*ObjectChangeApplyFunc)(ObjectChange *change, DiaObject *obj);
 typedef void (*ObjectChangeRevertFunc)(ObjectChange *change, DiaObject *obj);
 typedef void (*ObjectChangeFreeFunc)(ObjectChange *change);
 
+/*
+   FIXME: ObjectChange functions should not require the changed object
+   as an argument. Every change object should keep track of the
+   relevant object instead. The second argument in the above typedefs
+   is deprecated and should not be relied on.
+ */
 struct _ObjectChange {
   /*! If apply == transaction_point_pointer then this is a transaction
      point. Otherwise this is applying the change */

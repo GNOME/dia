@@ -107,11 +107,13 @@ static ObjectOps annotation_ops = {
   (MoveFunc)            annotation_move,
   (MoveHandleFunc)      annotation_move_handle,
   (GetPropertiesFunc)   object_create_props_dialog,
-  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ApplyPropertiesDialogFunc) object_apply_props_from_dialog,
   (ObjectMenuFunc)      NULL,
   (DescribePropsFunc)   annotation_describe_props,
   (GetPropsFunc)        annotation_get_props,
-  (SetPropsFunc)        annotation_set_props
+  (SetPropsFunc)        annotation_set_props,
+  (TextEditFunc) 0,
+  (ApplyPropertiesListFunc) object_apply_props,
 };
 
 #undef TEMPORARY_EVENT_TEST
@@ -420,6 +422,7 @@ annotation_load(ObjectNode obj_node, int version, const char *filename)
   return object_load_using_properties(&sadtannotation_type,
                                       obj_node,version,filename);
 }
+
 
 
 

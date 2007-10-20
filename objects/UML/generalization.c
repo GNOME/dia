@@ -115,11 +115,13 @@ static ObjectOps generalization_ops = {
   (MoveFunc)            generalization_move,
   (MoveHandleFunc)      generalization_move_handle,
   (GetPropertiesFunc)   object_create_props_dialog,
-  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ApplyPropertiesDialogFunc) object_apply_props_from_dialog,
   (ObjectMenuFunc)      generalization_get_object_menu,
   (DescribePropsFunc)   generalization_describe_props,
   (GetPropsFunc)        generalization_get_props,
-  (SetPropsFunc)        generalization_set_props
+  (SetPropsFunc)        generalization_set_props,
+  (TextEditFunc) 0,
+  (ApplyPropertiesListFunc) object_apply_props,
 };
 
 static PropDescription generalization_props[] = {

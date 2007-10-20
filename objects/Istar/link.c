@@ -141,11 +141,13 @@ static ObjectOps link_ops = {
   (MoveFunc)            link_move,
   (MoveHandleFunc)      link_move_handle,
   (GetPropertiesFunc)   object_create_props_dialog,
-  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ApplyPropertiesDialogFunc) object_apply_props_from_dialog,
   (ObjectMenuFunc)      NULL,
   (DescribePropsFunc)   link_describe_props,
   (GetPropsFunc)        link_get_props,
-  (SetPropsFunc)        link_set_props
+  (SetPropsFunc)        link_set_props,
+  (TextEditFunc) 0,
+  (ApplyPropertiesListFunc) object_apply_props,
 };
 
 static PropEnumData prop_link_type_data[] = {

@@ -102,11 +102,13 @@ static ObjectOps branch_ops =
   (MoveFunc)            branch_move,
   (MoveHandleFunc)      branch_move_handle,
   (GetPropertiesFunc)   object_create_props_dialog,
-  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ApplyPropertiesDialogFunc) object_apply_props_from_dialog,
   (ObjectMenuFunc)      NULL,
   (DescribePropsFunc)   branch_describe_props,
   (GetPropsFunc)        branch_get_props,
-  (SetPropsFunc)        branch_set_props
+  (SetPropsFunc)        branch_set_props,
+  (TextEditFunc) 0,
+  (ApplyPropertiesListFunc) object_apply_props,
 };
 
 static PropDescription branch_props[] = {
@@ -298,6 +300,7 @@ static DiaObject *branch_load(ObjectNode obj_node, int version, const char *file
   return object_load_using_properties(&branch_type,
                                       obj_node,version,filename);
 }
+
 
 
 

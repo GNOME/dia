@@ -127,11 +127,13 @@ static ObjectOps relationship_ops = {
   (MoveFunc)            relationship_move,
   (MoveHandleFunc)      relationship_move_handle,
   (GetPropertiesFunc)   object_create_props_dialog,
-  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ApplyPropertiesDialogFunc) object_apply_props_from_dialog,
   (ObjectMenuFunc)      NULL,
   (DescribePropsFunc)   relationship_describe_props,
   (GetPropsFunc)        relationship_get_props,
   (SetPropsFunc)        relationship_set_props,
+  (TextEditFunc) 0,
+  (ApplyPropertiesListFunc) object_apply_props,
 };
 
 static PropDescription relationship_props[] = {
@@ -642,4 +644,5 @@ relationship_load(ObjectNode obj_node, int version, const char *filename)
 
   return &relationship->element.object;
 }
+
 

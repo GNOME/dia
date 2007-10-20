@@ -120,11 +120,13 @@ static ObjectOps uml_transition_ops = {
   (MoveFunc)            transition_move,
   (MoveHandleFunc)      transition_move_handle,
   (GetPropertiesFunc)   object_create_props_dialog,
-  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ApplyPropertiesDialogFunc) object_apply_props_from_dialog,
   (ObjectMenuFunc)      transition_get_object_menu,
   (DescribePropsFunc)   transition_describe_props,
   (GetPropsFunc)        transition_get_props,
-  (SetPropsFunc)        transition_set_props
+  (SetPropsFunc)        transition_set_props,
+  (TextEditFunc) 0,
+  (ApplyPropertiesListFunc) object_apply_props,
 };
 
 static PropDescription transition_props[] = {
@@ -543,4 +545,5 @@ uml_transition_update_data(Transition *transition)
                        temp_text); 
   g_free(temp_text);
 }
+
 

@@ -129,11 +129,13 @@ static ObjectOps box_ops = {
   (MoveFunc)            box_move,
   (MoveHandleFunc)      box_move_handle,
   (GetPropertiesFunc)   object_create_props_dialog,
-  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ApplyPropertiesDialogFunc) object_apply_props_from_dialog,
   (ObjectMenuFunc)      NULL,
   (DescribePropsFunc)   box_describe_props,
   (GetPropsFunc)        box_get_props,
   (SetPropsFunc)        box_set_props,
+  (TextEditFunc) 0,
+  (ApplyPropertiesListFunc) object_apply_props,
 };
 
 static PropNumData corner_radius_data = { 0.0, 10.0, 0.1 };

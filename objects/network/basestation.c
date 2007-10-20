@@ -115,11 +115,13 @@ static ObjectOps basestation_ops = {
   (MoveFunc)            basestation_move,
   (MoveHandleFunc)      basestation_move_handle,
   (GetPropertiesFunc)   object_create_props_dialog,
-  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ApplyPropertiesDialogFunc) object_apply_props_from_dialog,
   (ObjectMenuFunc)      NULL,
   (DescribePropsFunc)   basestation_describe_props,
   (GetPropsFunc)        basestation_get_props,
   (SetPropsFunc)        basestation_set_props,
+  (TextEditFunc) 0,
+  (ApplyPropertiesListFunc) object_apply_props,
 };
 
 static PropDescription basestation_props[] = {

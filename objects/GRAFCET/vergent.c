@@ -110,11 +110,13 @@ static ObjectOps vergent_ops = {
   (MoveFunc)            vergent_move,
   (MoveHandleFunc)      vergent_move_handle,
   (GetPropertiesFunc)   object_create_props_dialog,
-  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ApplyPropertiesDialogFunc) object_apply_props_from_dialog,
   (ObjectMenuFunc)      vergent_get_object_menu,
   (DescribePropsFunc)   vergent_describe_props,
   (GetPropsFunc)        vergent_get_props,
-  (SetPropsFunc)        vergent_set_props
+  (SetPropsFunc)        vergent_set_props,
+  (TextEditFunc) 0,
+  (ApplyPropertiesListFunc) object_apply_props,
 
 };
 
@@ -494,6 +496,7 @@ vergent_load(ObjectNode obj_node, int version, const char *filename)
   return object_load_using_properties(&vergent_type,
                                       obj_node,version,filename);
 }
+
 
 
 

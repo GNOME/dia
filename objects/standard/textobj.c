@@ -120,11 +120,13 @@ static ObjectOps textobj_ops = {
   (MoveFunc)            textobj_move,
   (MoveHandleFunc)      textobj_move_handle,
   (GetPropertiesFunc)   object_create_props_dialog,
-  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ApplyPropertiesDialogFunc) object_apply_props_from_dialog,
   (ObjectMenuFunc)      NULL,
   (DescribePropsFunc)   textobj_describe_props,
   (GetPropsFunc)        textobj_get_props,
   (SetPropsFunc)        textobj_set_props,
+  (TextEditFunc) 0,
+  (ApplyPropertiesListFunc) object_apply_props,
 };
 
 PropEnumData prop_text_vert_align_data[] = {

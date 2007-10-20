@@ -94,11 +94,13 @@ static ObjectOps wanlink_ops =
   (MoveFunc)            wanlink_move,
   (MoveHandleFunc)      wanlink_move_handle,
   (GetPropertiesFunc)   object_create_props_dialog,
-  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ApplyPropertiesDialogFunc) object_apply_props_from_dialog,
   (ObjectMenuFunc)      NULL,
   (DescribePropsFunc)   wanlink_describe_props,
   (GetPropsFunc)        wanlink_get_props,
   (SetPropsFunc)        wanlink_set_props,
+  (TextEditFunc) 0,
+  (ApplyPropertiesListFunc) object_apply_props,
 
 };
 

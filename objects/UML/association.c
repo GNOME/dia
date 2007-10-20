@@ -225,11 +225,13 @@ static ObjectOps association_ops = {
   (MoveFunc)            association_move,
   (MoveHandleFunc)      association_move_handle,
   (GetPropertiesFunc)   association_get_properties,
-  (ApplyPropertiesFunc) association_apply_properties,
+  (ApplyPropertiesDialogFunc) association_apply_properties,
   (ObjectMenuFunc)      association_get_object_menu,
   (DescribePropsFunc)   association_describe_props,
   (GetPropsFunc)        association_get_props,
-  (SetPropsFunc)        association_set_props
+  (SetPropsFunc)        association_set_props,
+  (TextEditFunc) 0,
+  (ApplyPropertiesListFunc) object_apply_props,
 };
 
 static PropDescription association_props[] = {
@@ -1349,6 +1351,7 @@ association_get_properties(Association *assoc, gboolean is_default)
 
   return assoc->properties_dialog->dialog;
 }
+
 
 
 

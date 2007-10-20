@@ -105,11 +105,13 @@ static ObjectOps newgroup_ops = {
   (MoveFunc)            newgroup_move,
   (MoveHandleFunc)      newgroup_move_handle,
   (GetPropertiesFunc)   object_create_props_dialog,
-  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ApplyPropertiesDialogFunc) object_apply_props_from_dialog,
   (ObjectMenuFunc)      NULL,
   (DescribePropsFunc)   newgroup_describe_props,
   (GetPropsFunc)        newgroup_get_props,
   (SetPropsFunc)        newgroup_set_props,
+  (TextEditFunc) 0,
+  #warning NewGroup requires a function in the vtable to apply props
 };
 
 static PropDescription newgroup_props[] = {

@@ -123,11 +123,13 @@ static ObjectOps sadtarrow_ops = {
   (MoveFunc)            sadtarrow_move,
   (MoveHandleFunc)      sadtarrow_move_handle,
   (GetPropertiesFunc)   object_create_props_dialog,
-  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ApplyPropertiesDialogFunc) object_apply_props_from_dialog,
   (ObjectMenuFunc)      sadtarrow_get_object_menu,
   (DescribePropsFunc)   sadtarrow_describe_props,
   (GetPropsFunc)        sadtarrow_get_props,
-  (SetPropsFunc)        sadtarrow_set_props
+  (SetPropsFunc)        sadtarrow_set_props,
+  (TextEditFunc) 0,
+  (ApplyPropertiesListFunc) object_apply_props,
 };
 
 PropEnumData flow_style[] = {
@@ -485,6 +487,7 @@ sadtarrow_load(ObjectNode obj_node, int version, const char *filename)
   return object_load_using_properties(&sadtarrow_type,
                                       obj_node,version,filename);
 }
+
 
 
 

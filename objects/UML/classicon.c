@@ -116,11 +116,13 @@ static ObjectOps classicon_ops = {
   (MoveFunc)            classicon_move,
   (MoveHandleFunc)      classicon_move_handle,
   (GetPropertiesFunc)   object_create_props_dialog,
-  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ApplyPropertiesDialogFunc) object_apply_props_from_dialog,
   (ObjectMenuFunc)      NULL,
   (DescribePropsFunc)   classicon_describe_props,
   (GetPropsFunc)        classicon_get_props,
-  (SetPropsFunc)        classicon_set_props
+  (SetPropsFunc)        classicon_set_props,
+  (TextEditFunc) 0,
+  (ApplyPropertiesListFunc) object_apply_props,
 };
 
 static PropEnumData prop_classicon_type_data[] = {
@@ -488,4 +490,5 @@ classicon_load(ObjectNode obj_node, int version, const char *filename)
   return object_load_using_properties(&classicon_type,
                                       obj_node,version,filename);
 }
+
 

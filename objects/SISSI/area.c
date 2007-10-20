@@ -102,11 +102,13 @@ static ObjectOps object_sissi_ops = {
   (MoveFunc)            object_sissi_move,
   (MoveHandleFunc)      object_sissi_move_handle,
   (GetPropertiesFunc)   object_sissi_get_properties,
-  (ApplyPropertiesFunc) object_sissi_apply_properties,
+  (ApplyPropertiesDialogFunc) object_sissi_apply_properties,
   (ObjectMenuFunc)      NULL,
   (DescribePropsFunc)   area_describe_props,
   (GetPropsFunc)        area_get_props,
-  (SetPropsFunc)        area_set_props
+  (SetPropsFunc)        area_set_props,
+  (TextEditFunc) 0,
+  (ApplyPropertiesListFunc) object_apply_props,
 };
 
 static PropDescription sissi_object_props[] = {

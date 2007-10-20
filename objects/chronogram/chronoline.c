@@ -132,11 +132,13 @@ static ObjectOps chronoline_ops = {
   (MoveFunc)            chronoline_move,
   (MoveHandleFunc)      chronoline_move_handle,
   (GetPropertiesFunc)   object_create_props_dialog,
-  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ApplyPropertiesDialogFunc) object_apply_props_from_dialog,
   (ObjectMenuFunc)      NULL,
   (DescribePropsFunc)   chronoline_describe_props,
   (GetPropsFunc)        chronoline_get_props,
-  (SetPropsFunc)        chronoline_set_props
+  (SetPropsFunc)        chronoline_set_props,
+  (TextEditFunc) 0,
+  (ApplyPropertiesListFunc) object_apply_props,
 };
 
 static PropNumData time_range = { -32767.0, 32768.0, 0.1};

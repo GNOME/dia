@@ -112,11 +112,13 @@ static ObjectOps largepackage_ops = {
   (MoveFunc)            largepackage_move,
   (MoveHandleFunc)      largepackage_move_handle,
   (GetPropertiesFunc)   object_create_props_dialog,
-  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ApplyPropertiesDialogFunc) object_apply_props_from_dialog,
   (ObjectMenuFunc)      NULL,
   (DescribePropsFunc)   largepackage_describe_props,
   (GetPropsFunc)        largepackage_get_props,
-  (SetPropsFunc)        largepackage_set_props
+  (SetPropsFunc)        largepackage_set_props,
+  (TextEditFunc) 0,
+  (ApplyPropertiesListFunc) object_apply_props,
 };
 
 static PropDescription largepackage_props[] = {
@@ -389,6 +391,7 @@ largepackage_load(ObjectNode obj_node, int version, const char *filename)
   return object_load_using_properties(&largepackage_type,
                                       obj_node,version,filename);
 }
+
 
 
 

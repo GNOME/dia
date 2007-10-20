@@ -108,11 +108,13 @@ static ObjectOps state_ops = {
   (MoveFunc)            state_move,
   (MoveHandleFunc)      state_move_handle,
   (GetPropertiesFunc)   object_create_props_dialog,
-  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ApplyPropertiesDialogFunc) object_apply_props_from_dialog,
   (ObjectMenuFunc)      NULL,
   (DescribePropsFunc)   state_describe_props,
   (GetPropsFunc)        state_get_props,
-  (SetPropsFunc)        state_set_props
+  (SetPropsFunc)        state_set_props,
+  (TextEditFunc) 0,
+  (ApplyPropertiesListFunc) object_apply_props,
 };
 
 
@@ -363,6 +365,7 @@ state_load(ObjectNode obj_node, int version, const char *filename)
   return object_load_using_properties(&activity_type,
                                       obj_node,version,filename);
 }
+
 
 
 

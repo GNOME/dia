@@ -157,7 +157,12 @@ object_apply_props_from_dialog(DiaObject *obj, WIDGET *dialog_widget)
   PropDialog *dialog = prop_dialog_from_widget(dialog_widget);
 
   prop_get_data_from_widgets(dialog);
-  return object_apply_props(obj, dialog->props);
+  if (!obj->ops->apply_properties_list) {
+    g_warning("using a fallback function to apply properties;"
+              " undo may not work correctly");
+    return object_apply_props(obj, dialog->props);
+  } else
+    return obj->ops->apply_properties_list(obj, dialog->props);
 }
 
 
@@ -287,6 +292,7 @@ object_prop_by_name(DiaObject *obj, const char *name)
 {
   return object_prop_by_name_type(obj,name,NULL);
 }
+
 
 
 

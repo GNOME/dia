@@ -147,11 +147,13 @@ static ObjectOps orthflow_ops = {
   (MoveFunc)            orthflow_move,
   (MoveHandleFunc)      orthflow_move_handle,
   (GetPropertiesFunc)   object_create_props_dialog,
-  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ApplyPropertiesDialogFunc) object_apply_props_from_dialog,
   (ObjectMenuFunc)      orthflow_get_object_menu,
   (DescribePropsFunc)   orthflow_describe_props,
   (GetPropsFunc)        orthflow_get_props,
   (SetPropsFunc)        orthflow_set_props,
+  (TextEditFunc) 0,
+  (ApplyPropertiesListFunc) object_apply_props,
 };
 
 static PropEnumData prop_orthflow_type_data[] = {
@@ -639,4 +641,5 @@ orthflow_get_object_menu(Orthflow *orthflow, Point *clickedpoint)
 			      clickedpoint, &orthflow_menu_items[5]);
   return &orthflow_menu;
 }
+
 

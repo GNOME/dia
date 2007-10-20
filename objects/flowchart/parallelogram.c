@@ -131,11 +131,13 @@ static ObjectOps pgram_ops = {
   (MoveFunc)            pgram_move,
   (MoveHandleFunc)      pgram_move_handle,
   (GetPropertiesFunc)   object_create_props_dialog,
-  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ApplyPropertiesDialogFunc) object_apply_props_from_dialog,
   (ObjectMenuFunc)      NULL,
   (DescribePropsFunc)   pgram_describe_props,
   (GetPropsFunc)        pgram_get_props,
   (SetPropsFunc)        pgram_set_props,
+  (TextEditFunc) 0,
+  (ApplyPropertiesListFunc) object_apply_props,
 };
 
 static PropNumData text_padding_data = { 0.0, 10.0, 0.1 };

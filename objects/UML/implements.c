@@ -113,11 +113,13 @@ static ObjectOps implements_ops = {
   (MoveFunc)            implements_move,
   (MoveHandleFunc)      implements_move_handle,
   (GetPropertiesFunc)   object_create_props_dialog,
-  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ApplyPropertiesDialogFunc) object_apply_props_from_dialog,
   (ObjectMenuFunc)      NULL,
   (DescribePropsFunc)   implements_describe_props,
   (GetPropsFunc)        implements_get_props,
-  (SetPropsFunc)        implements_set_props
+  (SetPropsFunc)        implements_set_props,
+  (TextEditFunc) 0,
+  (ApplyPropertiesListFunc) object_apply_props,
 };
 
 static PropDescription implements_props[] = {

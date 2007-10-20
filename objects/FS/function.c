@@ -129,11 +129,13 @@ static ObjectOps function_ops = {
   (MoveFunc)            function_move,
   (MoveHandleFunc)      function_move_handle,
   (GetPropertiesFunc)   object_create_props_dialog,
-  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ApplyPropertiesDialogFunc) object_apply_props_from_dialog,
   (ObjectMenuFunc)      function_get_object_menu,
   (DescribePropsFunc)   function_describe_props,
   (GetPropsFunc)        function_get_props,
-  (SetPropsFunc)        function_set_props
+  (SetPropsFunc)        function_set_props,
+  (TextEditFunc) 0,
+  (ApplyPropertiesListFunc) object_apply_props,
 };
 
 static PropDescription function_props[] = {

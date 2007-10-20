@@ -119,11 +119,13 @@ static ObjectOps analog_clock_ops = {
   (MoveFunc)            analog_clock_move,
   (MoveHandleFunc)      analog_clock_move_handle,
   (GetPropertiesFunc)   object_create_props_dialog,
-  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ApplyPropertiesDialogFunc) object_apply_props_from_dialog,
   (ObjectMenuFunc)      NULL,
   (DescribePropsFunc)   analog_clock_describe_props,
   (GetPropsFunc)        analog_clock_get_props,
-  (SetPropsFunc)        analog_clock_set_props
+  (SetPropsFunc)        analog_clock_set_props,
+  (TextEditFunc) 0,
+  (ApplyPropertiesListFunc) object_apply_props,
 };
 
 static PropDescription analog_clock_props[] = {

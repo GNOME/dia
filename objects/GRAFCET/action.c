@@ -117,11 +117,13 @@ static ObjectOps action_ops = {
   (MoveFunc)            action_move,
   (MoveHandleFunc)      action_move_handle,
   (GetPropertiesFunc)   object_create_props_dialog,
-  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ApplyPropertiesDialogFunc) object_apply_props_from_dialog,
   (ObjectMenuFunc)      NULL,
   (DescribePropsFunc)   action_describe_props,
   (GetPropsFunc)        action_get_props,
-  (SetPropsFunc)        action_set_props
+  (SetPropsFunc)        action_set_props,
+  (TextEditFunc) 0,
+  (ApplyPropertiesListFunc) object_apply_props,
 };
 
 static PropDescription action_props[] = {
@@ -456,6 +458,7 @@ action_load(ObjectNode obj_node, int version, const char *filename)
   return object_load_using_properties(&action_type,
                                       obj_node,version,filename);
 }
+
 
 
 

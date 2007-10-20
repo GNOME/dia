@@ -140,11 +140,13 @@ static ObjectOps maor_ops = {
   (MoveFunc)            maor_move,
   (MoveHandleFunc)      maor_move_handle,
   (GetPropertiesFunc)   object_create_props_dialog,
-  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ApplyPropertiesDialogFunc) object_apply_props_from_dialog,
   (ObjectMenuFunc)      NULL,
   (DescribePropsFunc)   maor_describe_props,
   (GetPropsFunc)        maor_get_props,
-  (SetPropsFunc)        maor_set_props
+  (SetPropsFunc)        maor_set_props,
+  (TextEditFunc) 0,
+  (ApplyPropertiesListFunc) object_apply_props,
 };
 
 static PropEnumData prop_maor_type_data[] = {

@@ -144,11 +144,13 @@ static ObjectOps mbr_ops = {
   (MoveFunc)            mbr_move,
   (MoveHandleFunc)      mbr_move_handle,
   (GetPropertiesFunc)   object_create_props_dialog,
-  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ApplyPropertiesDialogFunc) object_apply_props_from_dialog,
   (ObjectMenuFunc)      NULL,
   (DescribePropsFunc)   mbr_describe_props,
   (GetPropsFunc)        mbr_get_props,
-  (SetPropsFunc)        mbr_set_props
+  (SetPropsFunc)        mbr_set_props,
+  (TextEditFunc) 0,
+  (ApplyPropertiesListFunc) object_apply_props,
 };
 
 static PropEnumData prop_mbr_type_data[] = {

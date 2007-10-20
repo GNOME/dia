@@ -130,11 +130,13 @@ static ObjectOps diamond_ops = {
   (MoveFunc)            diamond_move,
   (MoveHandleFunc)      diamond_move_handle,
   (GetPropertiesFunc)   object_create_props_dialog,
-  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ApplyPropertiesDialogFunc) object_apply_props_from_dialog,
   (ObjectMenuFunc)      NULL,
   (DescribePropsFunc)   diamond_describe_props,
   (GetPropsFunc)        diamond_get_props,
   (SetPropsFunc)        diamond_set_props,
+  (TextEditFunc) 0,
+  (ApplyPropertiesListFunc) object_apply_props,
 };
 
 static PropNumData text_padding_data = { 0.0, 10.0, 0.1 };

@@ -135,11 +135,13 @@ static ObjectOps step_ops = {
   (MoveFunc)            step_move,
   (MoveHandleFunc)      step_move_handle,
   (GetPropertiesFunc)   object_create_props_dialog,
-  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ApplyPropertiesDialogFunc) object_apply_props_from_dialog,
   (ObjectMenuFunc)      NULL,
   (DescribePropsFunc)   step_describe_props,
   (GetPropsFunc)        step_get_props,
-  (SetPropsFunc)        step_set_props
+  (SetPropsFunc)        step_set_props,
+  (TextEditFunc) 0,
+  (ApplyPropertiesListFunc) object_apply_props,
 };
 
 PropEnumData step_style[] = {
@@ -563,6 +565,7 @@ step_load(ObjectNode obj_node, int version, const char *filename)
                                       obj_node,version,filename);
 }
  
+
 
 
 

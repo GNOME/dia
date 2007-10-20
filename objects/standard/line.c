@@ -115,11 +115,13 @@ static ObjectOps line_ops = {
   (MoveFunc)            line_move,
   (MoveHandleFunc)      line_move_handle,
   (GetPropertiesFunc)   object_create_props_dialog,
-  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ApplyPropertiesDialogFunc) object_apply_props_from_dialog,
   (ObjectMenuFunc)      line_get_object_menu,
   (DescribePropsFunc)   line_describe_props,
   (GetPropsFunc)        line_get_props,
-  (SetPropsFunc)        line_set_props
+  (SetPropsFunc)        line_set_props,
+  (TextEditFunc) 0,
+  (ApplyPropertiesListFunc) object_apply_props,
 };
 
 static PropNumData gap_range = { -G_MAXFLOAT, G_MAXFLOAT, 0.1};

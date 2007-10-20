@@ -134,11 +134,13 @@ static ObjectOps compfeat_ops = {
   (MoveFunc)            compfeat_move,
   (MoveHandleFunc)      compfeat_move_handle,
   (GetPropertiesFunc)   object_create_props_dialog,
-  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ApplyPropertiesDialogFunc) object_apply_props_from_dialog,
   (ObjectMenuFunc)      compfeat_get_object_menu,
   (DescribePropsFunc)   compfeat_describe_props,
   (GetPropsFunc)        compfeat_get_props,
-  (SetPropsFunc)        compfeat_set_props
+  (SetPropsFunc)        compfeat_set_props,
+  (TextEditFunc) 0,
+  (ApplyPropertiesListFunc) object_apply_props,
 };
 
 static PropEnumData prop_compfeat_type_data[] = {

@@ -133,11 +133,13 @@ static ObjectOps lifeline_ops = {
   (MoveFunc)            lifeline_move,
   (MoveHandleFunc)      lifeline_move_handle,
   (GetPropertiesFunc)   object_create_props_dialog,
-  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ApplyPropertiesDialogFunc) object_apply_props_from_dialog,
   (ObjectMenuFunc)      lifeline_get_object_menu,
   (DescribePropsFunc)   lifeline_describe_props,
   (GetPropsFunc)        lifeline_get_props,
-  (SetPropsFunc)        lifeline_set_props
+  (SetPropsFunc)        lifeline_set_props,
+  (TextEditFunc) 0,
+  (ApplyPropertiesListFunc) object_apply_props,
 };
 
 static PropDescription lifeline_props[] = {

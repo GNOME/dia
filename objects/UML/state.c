@@ -129,11 +129,13 @@ static ObjectOps state_ops = {
   (MoveFunc)            state_move,
   (MoveHandleFunc)      state_move_handle,
   (GetPropertiesFunc)   object_create_props_dialog,
-  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ApplyPropertiesDialogFunc) object_apply_props_from_dialog,
   (ObjectMenuFunc)      NULL,
   (DescribePropsFunc)   state_describe_props,
   (GetPropsFunc)        state_get_props,
-  (SetPropsFunc)        state_set_props
+  (SetPropsFunc)        state_set_props,
+  (TextEditFunc) 0,
+  (ApplyPropertiesListFunc) object_apply_props,
 };
 
 static PropDescription state_props[] = {
@@ -525,4 +527,5 @@ state_get_action_text(State* state, StateAction action)
   }
   return NULL;
 }
+
 

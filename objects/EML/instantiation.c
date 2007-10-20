@@ -118,11 +118,13 @@ static ObjectOps instantiation_ops = {
   (MoveFunc)            instantiation_move,
   (MoveHandleFunc)      instantiation_move_handle,
   (GetPropertiesFunc)   object_create_props_dialog,
-  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ApplyPropertiesDialogFunc) object_apply_props_from_dialog,
   (ObjectMenuFunc)      instantiation_get_object_menu,
   (DescribePropsFunc)   instantiation_describe_props,
   (GetPropsFunc)        instantiation_get_props,
-  (SetPropsFunc)        instantiation_set_props
+  (SetPropsFunc)        instantiation_set_props,
+  (TextEditFunc) 0,
+  (ApplyPropertiesListFunc) object_apply_props,
 };
 
 static PropDescription instantiation_props[] = {
