@@ -682,3 +682,8 @@ EXPORTS
  xmlDiaParseFile
  xmlDiaSaveFile
  xmlDoParseFile
+
+ prop_get_data_from_widgets
+ prop_dialog_from_widget
+ find_prop_by_name
+ dia_object_get_enclosing_box

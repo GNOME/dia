@@ -508,6 +508,7 @@ objects/SADT/Makefile
 objects/SISSI/Makefile
 objects/standard/Makefile
 objects/UML/Makefile
+objects/Database/Makefile
 shapes/Makefile
 shapes/Assorted/Makefile
 shapes/BPMN/Makefile

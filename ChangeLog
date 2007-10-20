@@ -1,5 +1,28 @@
 2007-10-20  Hans Breuer  <hans@breuer.org>
 
+	* configure.in lib/libdia.def objects/Database 
+	  objects/Database/compound.c objects/Database/database.c
+	  objects/Database/database.h objects/Database/Makefile.am
+	  objects/Database/pixmaps/compound.xpm
+	  objects/Database/pixmaps/reference.xpm
+	  objects/Database/pixmaps/table.xpm
+	  objects/Database/reference.c objects/Database/table.c
+	  objects/Database/table_dialog.c objects/Makefile.am
+	  objects/makefile.msc po/POTFILES.in sheets/Database.sheet.in
+	  sheets/Makefile.am : new database table relation shapes by
+	Petr Novotnik - bug #397688 - slightly modified to work with current
+	SVN and build on windoze. Although derived from the UML class object
+	the 'Table' object looks like a much better playground for a generic
+	property list widget.
+
+	* app/textedit.c(textedit_activate_first) had an endless loop when
+	none of the selected objects are text editable
+	
+	* app/properties.c : resets current_obj when the dialog is closed
+	(Sameer D. Sahasrabuddhe, fixes bug #30430)
+
+	* objects/Misc/tree.c : added object_apply_props stuff
+
 	* app/properties.c lib/group.c lib/newgroup.c lib/objchange.h
 	  lib/object.h lib/propobject.c objects/AADL/aadlbox.c
 	  objects/AADL/aadlbus.c objects/AADL/aadldata.c

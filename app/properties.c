@@ -45,6 +45,7 @@ static gint properties_respond(GtkWidget *widget,
 static gboolean properties_key_event(GtkWidget *widget,
 				     GdkEventKey *event,
 				     gpointer data);
+static void properties_dialog_hide();
 
 static void create_dialog()
 {
@@ -69,7 +70,7 @@ static void create_dialog()
   g_signal_connect(G_OBJECT (dialog), "response",
                    G_CALLBACK (properties_respond), NULL);
   g_signal_connect(G_OBJECT (dialog), "delete_event",
-		   G_CALLBACK(gtk_widget_hide), NULL);
+		   G_CALLBACK(properties_dialog_hide), NULL);
   g_signal_connect(G_OBJECT (dialog), "destroy",
 		   G_CALLBACK(gtk_widget_destroyed), &dialog);
   g_signal_connect(G_OBJECT (dialog), "destroy",
@@ -158,8 +159,9 @@ properties_respond(GtkWidget *widget,
     }
   }
 
-  if (response_id != GTK_RESPONSE_APPLY)
-    gtk_widget_hide(widget);
+  if (response_id != GTK_RESPONSE_APPLY) {
+    properties_dialog_hide();
+  }
 
   return 0;
 }
@@ -192,7 +194,7 @@ properties_show(Diagram *dia, DiaObject *obj)
 
   if (obj==NULL) {
     /* Hide dialog when no object is selected */
-    gtk_widget_hide(dialog);
+    properties_dialog_hide();
     return;
   }
 
@@ -240,6 +242,13 @@ properties_show(Diagram *dia, DiaObject *obj)
   object_part = properties;
   current_obj = obj;
   current_dia = dia;
+}
+
+void properties_dialog_hide()
+{
+  if (dialog)
+    gtk_widget_hide(dialog);
+  current_obj = NULL;
 }
 
 void

@@ -68,6 +68,11 @@ lib/text.c
 lib/widgets.c
 objects/AADL/aadl.c
 objects/AADL/aadlbox.c
+objects/Database/compound.c
+objects/Database/database.c
+objects/Database/table.c
+objects/Database/table_dialog.c
+objects/Database/reference.c
 objects/ER/attribute.c
 objects/ER/entity.c
 objects/ER/er.c
@@ -211,6 +216,7 @@ sheets/ChemEng.sheet.in
 sheets/Circuit.sheet.in
 sheets/Contact.sheet.in
 sheets/Cybernetics.sheet.in
+sheets/Database.sheet.in
 sheets/ER.sheet.in
 sheets/Electric.sheet.in
 sheets/FS.sheet.in

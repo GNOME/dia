@@ -1,7 +1,8 @@
 !IFNDEF PACKAGE
 
 PLUGINS = aadl bondgraph chronogram custom er flowchart fs grafcet \
-	Istar Jackson Kaos misc network sadt SISSI standard uml
+	Istar Jackson Kaos misc network sadt SISSI standard uml \
+	Database
 
 #outdated:	labels
 
@@ -87,6 +88,16 @@ OBJECTS = \
 	custom_util.obj \
 	shape_info.obj
 PKG_LINK = $(PKG_LINK) $(LIBXML2_LIBS) 
+!ENDIF
+
+!IFDEF OBJ_Database
+OBJECTS = \
+	compound.obj \
+	database.obj \
+	reference.obj \
+	table.obj \
+	table_dialog.obj	
+PKG_LINK = $(PKG_LINK) $(GTK2_LIBS) 
 !ENDIF
 
 !IFDEF OBJ_eml

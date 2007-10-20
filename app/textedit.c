@@ -194,16 +194,19 @@ void
 textedit_activate_first(DDisplay *ddisp)
 {
   Focus *new_focus = NULL;
-  GList *selected = diagram_get_sorted_selected(ddisp->diagram);
+  GList *tmp, *selected = diagram_get_sorted_selected(ddisp->diagram);
 
   if (active_focus()) {
     Focus *focus = active_focus();
     textedit_end_edit(ddisp, focus);
   }
-  while (new_focus == NULL && selected != NULL) {
+  tmp = selected;
+  while (new_focus == NULL && tmp != NULL) {
     DiaObject *obj = (DiaObject*) selected->data;
     new_focus = focus_get_first_on_object(obj);
+    tmp = g_list_next(tmp);
   }
+  g_list_free (selected);
   if (new_focus != NULL) {
     textedit_enter(ddisp);
     give_focus(new_focus); 
