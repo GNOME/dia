@@ -1,3 +1,18 @@
+2007-10-20  Hans Breuer  <hans@breuer.org>
+
+	* objects/Misc/libmisc.c objects/Misc/tree.c objects/Misc/Makefile.am
+	  objects/Misc/pixmaps/tree.xpm shapes/Misc/expended-node.shape
+	  shapes/Misc/expensible-node.shape shapes/Misc/Makefile.am
+	  sheets/Misc.sheet.in : patch from Thomas Harding adding the
+	shapes to simplify construction of explorer like trees, bug #428696
+	* shapes/Misc/expended-node.png shapes/Misc/expensible-node.png
+	  objects/Misc/pixmaps/tree.xpm  : ... adapted to follow the default
+	icons size and format, i.e. not adding SVG
+	* objects/makefile.msc : build on win32
+
+	* app/interface.c(337) : warning C4700: local variable 'magnify' 
+	used without having been initialized
+
 2007-10-19  Lars Clausen  <lars@raeder.dk>
 
 	* shapes/Lights/Makefile.am: 

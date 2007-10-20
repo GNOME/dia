@@ -3,11 +3,20 @@
   <_name>Misc</_name>
   <_description>Miscellaneous Shapes</_description>
   <contents>
+    <object name="Misc - Tree">
+      <_description>Tree</_description>
+    </object>
     <object name="Filesystem - Folder">
       <_description>Folder</_description>
     </object>
     <object name="Filesystem - File">
       <_description>File</_description>
+    </object>
+    <object name="Misc - expensible node">
+      <_description>expensible node</_description>
+    </object>
+    <object name="Misc - expended node">
+      <_description>expended node</_description>
     </object>
     <object name="Misc - Analog Clock">
       <_description>Traditional clock</_description>
@@ -17,4 +26,5 @@
     </object>
   </contents>
 </sheet>
+
 

@@ -334,11 +334,10 @@ zoom_activate_callback(GtkWidget *item, gpointer user_data) {
     Rectangle *visible;
 
     /* Set limits to avoid crashes, see bug #483384 */
-    if (magnify < 5.0) {
-      magnify = 5.0;
-    }
-    if (magnify > 2500.0) {
-      magnify = 2500.0;
+    if (zoom_amount < .1) {
+      zoom_amount = .1;
+    } else if (zoom_amount > 1e4) {
+      zoom_amount = 1e4;
     }
     zoomamount = g_strdup_printf("%f%%\n", zoom_amount);
     gtk_entry_set_text(GTK_ENTRY(gtk_object_get_user_data(GTK_OBJECT(ddisp->zoom_status))), zoomamount);
