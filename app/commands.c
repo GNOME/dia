@@ -34,6 +34,11 @@
  #  include <gnome.h> 	 
  #endif 	 
 
+/** Functions called on menu selects.
+ *  Note that GTK (at least up to 2.12) doesn't disable the keyboard shortcuts
+ *  when the menu is made insensitive, so we have to check the constrains again
+ *  in the functions.
+ */
 #ifdef G_OS_WIN32
 /*
  * Instead of polluting the Dia namespace with windoze headers, declare the

@@ -66,8 +66,8 @@ add_toolbox_plugin_actions (GtkUIManager *ui_manager);
 static gchar*
 build_ui_filename (const gchar* name);
 
-/* Active/inactive state is set in ddisplay_do_update_menu_sensitivity()
- * in display.c */
+/* Active/inactive state is set in diagram_update_menu_sensitivity()
+ * in diagram.c */
 
 /* Actions common to toolbox and diagram window */
 static const GtkActionEntry common_entries[] =
@@ -1189,6 +1189,19 @@ menus_initialize_updatable_items (UpdatableMenuItems *items, GtkActionGroup *act
     items->align_v_a = gtk_action_group_get_action (actions, "ObjectsAlignStacked");
 
     items->properties = gtk_action_group_get_action (actions, "ObjectsProperties");
+
+    items->select_all = gtk_action_group_get_action (actions, "SelectAll");
+    items->select_none = gtk_action_group_get_action (actions, "SelectNone");
+    items->select_invert = gtk_action_group_get_action (actions, "SelectInvert");
+    items->select_transitive = gtk_action_group_get_action (actions, "SelectTransitive");
+    items->select_connected = gtk_action_group_get_action (actions, "SelectConnected");
+    items->select_same_type = gtk_action_group_get_action (actions, "SelectSametype");
+
+    items->select_replace = gtk_action_group_get_action (actions, "SelectReplace");
+    items->select_union = gtk_action_group_get_action (actions, "SelectUnion");
+    items->select_intersection = gtk_action_group_get_action (actions, "SelectIntersection");
+    items->select_remove = gtk_action_group_get_action (actions, "SelectRemove");
+    items->select_inverse = gtk_action_group_get_action (actions, "SelectInverse");
 }
 
 static void

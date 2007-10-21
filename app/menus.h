@@ -65,6 +65,19 @@ struct _UpdatableMenuItems
   GtkAction *align_v_a;
 
   GtkAction *properties;
+  
+  GtkAction *select_all;
+  GtkAction *select_none;
+  GtkAction *select_invert;
+  GtkAction *select_transitive;
+  GtkAction *select_connected;
+  GtkAction *select_same_type;
+
+  GtkAction *select_replace;
+  GtkAction *select_union;
+  GtkAction *select_intersection;
+  GtkAction *select_remove;
+  GtkAction *select_inverse;
 };
 
 typedef struct _UpdatableMenuItems UpdatableMenuItems;
