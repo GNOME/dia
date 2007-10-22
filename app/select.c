@@ -35,7 +35,7 @@ select_all_callback(gpointer data, guint action, GtkWidget *widget)
   GList *objects;
   DDisplay * ddisp = ddisplay_active();
 
-  if (!ddisp) return;
+  if (!ddisp || textedit_mode(ddisp)) return;
   dia = ddisp->diagram;
 
   objects = dia->data->active_layer->objects;
@@ -61,7 +61,7 @@ select_none_callback(gpointer data, guint action, GtkWidget *widget)
   Diagram * dia;
   DDisplay * ddisp = ddisplay_active();
 
-  if (!ddisp) return;
+  if (!ddisp || textedit_mode(ddisp)) return;
   dia = ddisp->diagram;
 
   diagram_remove_all_selected(dia, TRUE);
@@ -78,7 +78,7 @@ select_invert_callback(gpointer data, guint action, GtkWidget *widget)
   GList *tmp;
   DDisplay * ddisp = ddisplay_active();
 
-  if (!ddisp) return;
+  if (!ddisp || textedit_mode(ddisp)) return;
   dia = ddisp->diagram;
 
   tmp = dia->data->active_layer->objects;
@@ -109,7 +109,7 @@ select_connected_callback(gpointer data, guint action, GtkWidget *widget)
   DDisplay * ddisp = ddisplay_active();
   GList *objects, *tmp;
 
-  if (!ddisp) return;
+  if (!ddisp || textedit_mode(ddisp)) return;
   dia = ddisp->diagram;
 
   objects = dia->data->selected;
@@ -203,7 +203,7 @@ select_transitive_callback(gpointer data, guint action, GtkWidget *widget)
   Diagram *dia;
   GList *objects, *tmp;
 
-  if (!ddisp) return;
+  if (!ddisp || textedit_mode(ddisp)) return;
   dia = ddisp->diagram;
 
   objects = dia->data->selected;
@@ -226,7 +226,7 @@ select_same_type_callback(gpointer data, guint action, GtkWidget *widget)
   Diagram *dia;
   GList *objects, *tmp, *tmp2;
 
-  if (!ddisp) return;
+  if (!ddisp || textedit_mode(ddisp)) return;
   dia = ddisp->diagram;
 
   tmp = dia->data->active_layer->objects;
@@ -256,7 +256,8 @@ select_same_type_callback(gpointer data, guint action, GtkWidget *widget)
 void
 select_style_callback(gpointer data, guint action, GtkWidget *widget)
 {
-  if (ddisplay_active () == NULL) return;
+  DDisplay *ddisp = ddisplay_active();
+  if (!ddisp || textedit_mode(ddisp)) return;
 
   /* simply set the selection style to the value of `action' */
   selection_style = action;

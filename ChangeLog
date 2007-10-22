@@ -1,4 +1,17 @@
+2007-10-22  Lars Clausen  <lars@raeder.dk>
+
+	* app/textedit_tool.c: Proper deselecting and tool resetting when
+	clicking on other objects or outside of objects.
+
 2007-10-21  Lars Clausen  <lars@raeder.dk>
+
+	* app/textedit.h: Proper #ifndefs and includes.
+
+	* app/select.c:
+	* app/commands.c: Skip out or handle alternately a number of menu
+	items when in text edit mode.  Undo of delete does not quite work yet.
+	* lib/text.[ch]: Expose delete key handling to allow it to be used
+	from delete menu handler.  
 
 	* app/commands.c: 
 	* app/menus.h (struct _UpdatableMenuItems): 

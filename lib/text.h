@@ -91,6 +91,9 @@ real text_get_max_width(Text *text);
 real text_get_ascent(Text *text);
 real text_get_descent(Text *text);
 
+/** Exposing this is a hack, but currently GTK still captures the key 
+ * events of insensitive clods^H^H^H^H^Hmenu items. LC 21/10 2007*/
+gboolean text_delete_key_handler(Focus *focus, ObjectChange **change);
 void data_add_text(AttributeNode attr, Text *text);
 Text *data_text(AttributeNode attr);
 

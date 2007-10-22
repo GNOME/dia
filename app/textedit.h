@@ -16,6 +16,14 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
+#ifndef TEXTEDIT_H
+#define TEXTEDIT_H
+#include <sys/types.h>
+#include <glib.h>
+
+#include "diatypes.h"
+#include "display.h"
+
 Focus *textedit_move_focus(DDisplay *ddisp, Focus *focus, gboolean forwards);
 
 gboolean textedit_mode(DDisplay *ddisp);
@@ -25,3 +33,4 @@ void textedit_activate_first(DDisplay *ddisp);
 void textedit_deactivate_focus(void);
 void textedit_remove_focus(DiaObject *obj, Diagram *diagram);
 void textedit_remove_focus_all(Diagram *diagram);
+#endif

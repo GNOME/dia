@@ -36,8 +36,26 @@ click_select_object(DDisplay *ddisp, Point *clickedpoint,
 			      &clickedpoint->x, &clickedpoint->y);
 
   obj = diagram_find_clicked_object (diagram, clickedpoint, click_distance);
-  if (obj)
-    diagram_select(diagram, obj);
+  
+  if (obj) {
+    /* Selected an object. */
+    GList *already;
+    /*printf("Selected object!\n");*/
+      
+    already = g_list_find(diagram->data->selected, obj);
+    if (already == NULL) { /* Not already selected */
+      if (!(event->state & GDK_SHIFT_MASK)) {
+	/* Not Multi-select => remove current selection */
+	diagram_remove_all_selected(diagram, TRUE);
+      }
+      diagram_select(diagram, obj);
+    }
+    ddisplay_do_update_menu_sensitivity(ddisp);
+    object_add_updates_list(diagram->data->selected, diagram);
+    diagram_flush(diagram);
+
+    return obj;
+  }
 
   return obj;  
 }
@@ -54,11 +72,19 @@ textedit_button_press(TexteditTool *tool, GdkEventButton *event,
     if (obj != tool->object)
       textedit_deactivate_focus ();
 
-    tool->object = obj;
-    tool->start_at = clickedpoint;
-    tool->state = STATE_TEXT_SELECT;
     /*  set cursor position */
-    textedit_activate_object(ddisp, obj, &clickedpoint);
+    if (textedit_activate_object(ddisp, obj, &clickedpoint)) {
+      tool->object = obj;
+      tool->start_at = clickedpoint;
+      tool->state = STATE_TEXT_SELECT;
+    } else {
+      /* Clicked outside of editable object, stop editing */
+      tool_reset();
+    }
+  } else {
+    textedit_deactivate_focus ();
+    diagram_remove_all_selected(diagram, TRUE);
+    tool_reset();
   }
 }
 

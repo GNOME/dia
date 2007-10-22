@@ -791,6 +791,35 @@ text_insert_char(Text *text, gunichar c)
   text->max_width = MAX(text->max_width, text_get_line_width(text, row));
 }
 
+gboolean
+text_delete_key_handler(Focus *focus, ObjectChange ** change)
+{
+  Text *text;
+  int row, i;
+  const char *utf;
+  gunichar c;
+
+  text = (Text *)focus->user_data;
+  row = text->cursor_row;
+  if (text->cursor_pos >= text_get_line_strlen(text, row)) {
+    if (row+1 < text->numlines) {
+      *change = text_create_change(text, TYPE_JOIN_ROW, 'Q',
+				   text->cursor_pos, row);
+    } else {
+      return FALSE;
+    }
+  } else {
+    utf = text_get_line(text, row);
+    for (i = 0; i < text->cursor_pos; i++)
+      utf = g_utf8_next_char (utf);
+    c = g_utf8_get_char (utf);
+    *change = text_create_change (text, TYPE_DELETE_FORWARD, c,
+				  text->cursor_pos, text->cursor_row);
+  }
+  text_delete_forward(text);
+  return TRUE;;
+}
+
 static int
 text_key_event(Focus *focus, guint keyval, const gchar *str, int strlen,
                ObjectChange **change)
@@ -841,25 +870,7 @@ text_key_event(Focus *focus, guint keyval, const gchar *str, int strlen,
         text->cursor_pos = text_get_line_strlen(text, text->cursor_row);
         break;
       case GDK_Delete:
-        return_val = TRUE;
-        row = text->cursor_row;
-        if (text->cursor_pos >= text_get_line_strlen(text, row)) {
-          if (row+1 < text->numlines) {
-            *change = text_create_change(text, TYPE_JOIN_ROW, 'Q',
-                                         text->cursor_pos, row);
-          } else {
-            return_val = FALSE;
-            break;
-          }
-        } else {
-          utf = text_get_line(text, row);
-          for (i = 0; i < text->cursor_pos; i++)
-            utf = g_utf8_next_char (utf);
-          c = g_utf8_get_char (utf);
-          *change = text_create_change (text, TYPE_DELETE_FORWARD, c,
-                                        text->cursor_pos, text->cursor_row);
-        }
-        text_delete_forward(text);
+        return_val = text_delete_key_handler(focus, change);
         break;
       case GDK_BackSpace:
         return_val = TRUE;

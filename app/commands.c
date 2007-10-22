@@ -27,6 +27,9 @@
 #include <math.h>
 #include <glib.h>
 
+#include <textedit.h>
+#include <focus.h>
+
 #include <gdk-pixbuf/gdk-pixbuf.h>
 #include <gtk/gtk.h>
 
@@ -152,184 +155,6 @@ file_preferences_callback (GtkAction *action)
 }
 
 
-void
-edit_copy_callback (GtkAction *action)
-{
-  GList *copy_list;
-  DDisplay *ddisp;
-
-  ddisp = ddisplay_active();
-  if (!ddisp) return;
-  copy_list = parent_list_affected(diagram_get_sorted_selected(ddisp->diagram));
-
-  cnp_store_objects(object_copy_list(copy_list), 1);
-  g_list_free(copy_list);
-
-  ddisplay_do_update_menu_sensitivity(ddisp);
-}
-
-void
-edit_cut_callback (GtkAction *action)
-{
-  GList *cut_list;
-  DDisplay *ddisp;
-  Change *change;
-
-  ddisp = ddisplay_active();
-  if (!ddisp) return;
-
-  diagram_selected_break_external(ddisp->diagram);
-
-  cut_list = parent_list_affected(diagram_get_sorted_selected(ddisp->diagram));
-
-  cnp_store_objects(object_copy_list(cut_list), 0);
-
-  change = undo_delete_objects_children(ddisp->diagram, cut_list);
-  (change->apply)(change, ddisp->diagram);
-  
-  ddisplay_do_update_menu_sensitivity(ddisp);
-  diagram_flush(ddisp->diagram);
-
-  diagram_modified(ddisp->diagram);
-  diagram_update_extents(ddisp->diagram);
-  undo_set_transactionpoint(ddisp->diagram->undo);
-}
-
-void
-edit_paste_callback (GtkAction *action)
-{
-  GList *paste_list;
-  DDisplay *ddisp;
-  Point paste_corner;
-  Point delta;
-  Change *change;
-  int generation = 0;
-  
-  ddisp = ddisplay_active();
-  if (!ddisp) return;
-
-  if (!cnp_exist_stored_objects()) {
-    message_warning(_("No existing object to paste.\n"));
-    return;
-  }
-  
-  paste_list = cnp_get_stored_objects(&generation); /* Gets a copy */
-
-  paste_corner = object_list_corner(paste_list);
-  
-  delta.x = ddisp->visible.left - paste_corner.x;
-  delta.y = ddisp->visible.top - paste_corner.y;
-
-  /* Move down some 10% of the visible area. */
-  delta.x += (ddisp->visible.right - ddisp->visible.left) * 0.1 * generation;
-  delta.y += (ddisp->visible.bottom - ddisp->visible.top) * 0.1 * generation;
-
-  if (generation)
-    object_list_move_delta(paste_list, &delta);
-
-  change = undo_insert_objects(ddisp->diagram, paste_list, 0);
-  (change->apply)(change, ddisp->diagram);
-
-  diagram_modified(ddisp->diagram);
-  undo_set_transactionpoint(ddisp->diagram->undo);
-  
-  diagram_remove_all_selected(ddisp->diagram, TRUE);
-  diagram_select_list(ddisp->diagram, paste_list);
-
-  diagram_update_extents(ddisp->diagram);
-  diagram_flush(ddisp->diagram);
-}
-
-/*
- * ALAN: Paste should probably paste to different position, feels
- * wrong somehow.  ALAN: The offset should increase a little each time
- * if you paste/duplicate several times in a row, because it is
- * clearer what is happening than if you were to piling them all in
- * one place.
- *
- * completely untested, basically it is copy+paste munged together
- */
-void
-edit_duplicate_callback (GtkAction *action)
-{ 
-  GList *duplicate_list;
-  DDisplay *ddisp;
-  Point duplicate_corner;
-  Point delta;
-  Change *change;
-
-  ddisp = ddisplay_active();
-  if (!ddisp) return;
-  duplicate_list = object_copy_list(diagram_get_sorted_selected(ddisp->diagram));
-  duplicate_corner = object_list_corner(duplicate_list);
-  
-  /* Move down some 10% of the visible area. */
-  delta.x = (ddisp->visible.right - ddisp->visible.left)*0.05;
-  delta.y = (ddisp->visible.bottom - ddisp->visible.top)*0.05;
-
-  object_list_move_delta(duplicate_list, &delta);
-
-  change = undo_insert_objects(ddisp->diagram, duplicate_list, 0);
-  (change->apply)(change, ddisp->diagram);
-
-  diagram_modified(ddisp->diagram);
-  undo_set_transactionpoint(ddisp->diagram->undo);
-  
-  diagram_remove_all_selected(ddisp->diagram, TRUE);
-  diagram_select_list(ddisp->diagram, duplicate_list);
-
-  diagram_flush(ddisp->diagram);
-  
-  ddisplay_do_update_menu_sensitivity(ddisp);
-}
-
-static void
-move_objects_up_layer(GtkAction *action)
-{
-  DDisplay *ddisp = ddisplay_active();
-  GList *selected_list;
-
-  if (!ddisp) return;
-  selected_list = diagram_get_sorted_selected(ddisp->diagram);
-
-#ifdef MOVE_OBJECTS_LAYER
-  change = undo_move_object_other_layer(ddisp->diagram, selected_list, TRUE);
-  
-  (change->apply)(change, ddisp->diagram);
-#endif
-  diagram_modified(ddisp->diagram);
-  undo_set_transactionpoint(ddisp->diagram->undo);
-  
-  diagram_flush(ddisp->diagram);
-  
-  ddisplay_do_update_menu_sensitivity(ddisp);
-}
-
-static void
-move_objects_down_layer(GtkAction *action)
-{
-  DDisplay *ddisp = ddisplay_active();
-  GList *selected_list;
-
-  if (!ddisp) return;
-  selected_list = diagram_get_sorted_selected(ddisp->diagram);
-
-  /* Must check if move is legal here */
-
-#ifdef MOVE_OBJECTS_LAYER
-  change = undo_move_object_other_layer(ddisp->diagram, selected_list, FALSE);
-  
-  (change->apply)(change, ddisp->diagram);
-#endif
-
-  diagram_modified(ddisp->diagram);
-  undo_set_transactionpoint(ddisp->diagram->undo);
-  
-  diagram_flush(ddisp->diagram);
-  
-  ddisplay_do_update_menu_sensitivity(ddisp);
-}
-
 
 /* Signal handler for getting the clipboard contents */
 /* Note that the clipboard is for M$-style cut/copy/paste copying, while
@@ -412,6 +237,222 @@ make_text_prop_singleton(GPtrArray **props, TextProperty **prop)
   (*prop)->text_data = NULL;
 }
 
+
+void
+edit_copy_callback (GtkAction *action)
+{
+  GList *copy_list;
+  DDisplay *ddisp;
+
+  ddisp = ddisplay_active();
+  if (!ddisp) return;
+  if (textedit_mode(ddisp)) {
+    Focus *focus = active_focus();
+    DiaObject *obj = focus_get_object(focus);
+    GPtrArray *textprops;
+    TextProperty *prop;
+    
+    if (obj->ops->get_props == NULL) 
+      return;
+    
+    make_text_prop_singleton(&textprops,&prop);
+    /* Get the first text property */
+    obj->ops->get_props(obj, textprops);
+    
+    /* GTK docs claim the selection clipboard is ignored on Win32.
+     * The "clipboard" clipboard is mostly ignored in Unix
+     */
+#ifdef G_OS_WIN32
+    gtk_clipboard_set_text(gtk_clipboard_get(GDK_NONE),
+			   prop->text_data, -1);
+#else
+    gtk_clipboard_set_text(gtk_clipboard_get(GDK_SELECTION_PRIMARY),
+			   prop->text_data, -1);
+#endif
+    prop_list_free(textprops);
+  } else {
+    copy_list = parent_list_affected(diagram_get_sorted_selected(ddisp->diagram));
+    
+    cnp_store_objects(object_copy_list(copy_list), 1);
+    g_list_free(copy_list);
+    
+    ddisplay_do_update_menu_sensitivity(ddisp);
+  }
+}
+
+void
+edit_cut_callback (GtkAction *action)
+{
+  GList *cut_list;
+  DDisplay *ddisp;
+  Change *change;
+
+  ddisp = ddisplay_active();
+  if (!ddisp) return;
+
+  if (textedit_mode(ddisp)) {
+  } else {
+    diagram_selected_break_external(ddisp->diagram);
+
+    cut_list = parent_list_affected(diagram_get_sorted_selected(ddisp->diagram));
+
+    cnp_store_objects(object_copy_list(cut_list), 0);
+
+    change = undo_delete_objects_children(ddisp->diagram, cut_list);
+    (change->apply)(change, ddisp->diagram);
+  
+    ddisplay_do_update_menu_sensitivity(ddisp);
+    diagram_flush(ddisp->diagram);
+
+    diagram_modified(ddisp->diagram);
+    diagram_update_extents(ddisp->diagram);
+    undo_set_transactionpoint(ddisp->diagram->undo);
+  }
+}
+
+void
+edit_paste_callback (GtkAction *action)
+{
+  GList *paste_list;
+  DDisplay *ddisp;
+  Point paste_corner;
+  Point delta;
+  Change *change;
+  int generation = 0;
+  
+  ddisp = ddisplay_active();
+  if (!ddisp) return;
+  if (textedit_mode(ddisp)) {
+#ifdef G_OS_WIN32
+    gtk_clipboard_request_text(gtk_clipboard_get(GDK_NONE), 
+			       received_clipboard_handler, ddisp);
+#else
+    gtk_clipboard_request_text(gtk_clipboard_get(GDK_SELECTION_PRIMARY), 
+			       received_clipboard_handler, ddisp);
+#endif
+  } else {
+    if (!cnp_exist_stored_objects()) {
+      message_warning(_("No existing object to paste.\n"));
+      return;
+    }
+  
+    paste_list = cnp_get_stored_objects(&generation); /* Gets a copy */
+
+    paste_corner = object_list_corner(paste_list);
+  
+    delta.x = ddisp->visible.left - paste_corner.x;
+    delta.y = ddisp->visible.top - paste_corner.y;
+
+    /* Move down some 10% of the visible area. */
+    delta.x += (ddisp->visible.right - ddisp->visible.left) * 0.1 * generation;
+    delta.y += (ddisp->visible.bottom - ddisp->visible.top) * 0.1 * generation;
+
+    if (generation)
+      object_list_move_delta(paste_list, &delta);
+
+    change = undo_insert_objects(ddisp->diagram, paste_list, 0);
+    (change->apply)(change, ddisp->diagram);
+
+    diagram_modified(ddisp->diagram);
+    undo_set_transactionpoint(ddisp->diagram->undo);
+  
+    diagram_remove_all_selected(ddisp->diagram, TRUE);
+    diagram_select_list(ddisp->diagram, paste_list);
+
+    diagram_update_extents(ddisp->diagram);
+    diagram_flush(ddisp->diagram);
+  }
+}
+
+/*
+ * ALAN: Paste should probably paste to different position, feels
+ * wrong somehow.  ALAN: The offset should increase a little each time
+ * if you paste/duplicate several times in a row, because it is
+ * clearer what is happening than if you were to piling them all in
+ * one place.
+ *
+ * completely untested, basically it is copy+paste munged together
+ */
+void
+edit_duplicate_callback (GtkAction *action)
+{ 
+  GList *duplicate_list;
+  DDisplay *ddisp;
+  Point duplicate_corner;
+  Point delta;
+  Change *change;
+
+  ddisp = ddisplay_active();
+  if (!ddisp || textedit_mode(ddisp)) return;
+  duplicate_list = object_copy_list(diagram_get_sorted_selected(ddisp->diagram));
+  duplicate_corner = object_list_corner(duplicate_list);
+  
+  /* Move down some 10% of the visible area. */
+  delta.x = (ddisp->visible.right - ddisp->visible.left)*0.05;
+  delta.y = (ddisp->visible.bottom - ddisp->visible.top)*0.05;
+
+  object_list_move_delta(duplicate_list, &delta);
+
+  change = undo_insert_objects(ddisp->diagram, duplicate_list, 0);
+  (change->apply)(change, ddisp->diagram);
+
+  diagram_modified(ddisp->diagram);
+  undo_set_transactionpoint(ddisp->diagram->undo);
+  
+  diagram_remove_all_selected(ddisp->diagram, TRUE);
+  diagram_select_list(ddisp->diagram, duplicate_list);
+
+  diagram_flush(ddisp->diagram);
+  
+  ddisplay_do_update_menu_sensitivity(ddisp);
+}
+
+static void
+move_objects_up_layer(GtkAction *action)
+{
+  DDisplay *ddisp = ddisplay_active();
+  GList *selected_list;
+
+  if (!ddisp || textedit_mode(ddisp)) return;
+  selected_list = diagram_get_sorted_selected(ddisp->diagram);
+
+#ifdef MOVE_OBJECTS_LAYER
+  change = undo_move_object_other_layer(ddisp->diagram, selected_list, TRUE);
+  
+  (change->apply)(change, ddisp->diagram);
+#endif
+  diagram_modified(ddisp->diagram);
+  undo_set_transactionpoint(ddisp->diagram->undo);
+  
+  diagram_flush(ddisp->diagram);
+  
+  ddisplay_do_update_menu_sensitivity(ddisp);
+}
+
+static void
+move_objects_down_layer(GtkAction *action)
+{
+  DDisplay *ddisp = ddisplay_active();
+  GList *selected_list;
+
+  if (!ddisp || textedit_mode(ddisp)) return;
+  selected_list = diagram_get_sorted_selected(ddisp->diagram);
+
+  /* Must check if move is legal here */
+
+#ifdef MOVE_OBJECTS_LAYER
+  change = undo_move_object_other_layer(ddisp->diagram, selected_list, FALSE);
+  
+  (change->apply)(change, ddisp->diagram);
+#endif
+
+  diagram_modified(ddisp->diagram);
+  undo_set_transactionpoint(ddisp->diagram->undo);
+  
+  diagram_flush(ddisp->diagram);
+  
+  ddisplay_do_update_menu_sensitivity(ddisp);
+}
 
 void
 edit_copy_text_callback (GtkAction *action)
@@ -520,24 +561,30 @@ edit_delete_callback (GtkAction *action)
   GList *delete_list;
   DDisplay *ddisp;
 
-  Change *change;
+  ObjectChange *change = NULL;
 
   ddisp = ddisplay_active();
   if (!ddisp) return;
-
-  diagram_selected_break_external(ddisp->diagram);
-
-  delete_list = diagram_get_sorted_selected(ddisp->diagram);
-  change = undo_delete_objects_children(ddisp->diagram, delete_list);
-  (change->apply)(change, ddisp->diagram);
-  g_list_free(delete_list);
-  
+  if (textedit_mode(ddisp)) {
+    Focus *focus = active_focus();
+    if (!text_delete_key_handler(focus, &change)) {
+      return;
+    }
+    object_add_updates(focus->obj, ddisp->diagram);    
+  } else {
+    diagram_selected_break_external(ddisp->diagram);
+    
+    delete_list = diagram_get_sorted_selected(ddisp->diagram);
+    change = undo_delete_objects_children(ddisp->diagram, delete_list);
+    g_list_free(delete_list);
+    (change->apply)(change, ddisp->diagram);
+  }
   diagram_modified(ddisp->diagram);
   diagram_update_extents(ddisp->diagram);
-
+  
   ddisplay_do_update_menu_sensitivity(ddisp);
   diagram_flush(ddisp->diagram);
-
+  
   undo_set_transactionpoint(ddisp->diagram->undo);
 } 
 
@@ -549,6 +596,7 @@ edit_undo_callback (GtkAction *action)
   dia = ddisplay_active_diagram();
   if (!dia) return;
 
+/* Handle text undo edit here! */
   undo_revert_to_last_tp(dia->undo);
   diagram_modified(dia);
   diagram_update_extents(dia);
@@ -561,6 +609,7 @@ edit_redo_callback (GtkAction *action)
 {
   Diagram *dia;
   
+/* Handle text undo edit here! */
   dia = ddisplay_active_diagram();
   if (!dia) return;
 
@@ -1008,34 +1057,45 @@ objects_place_up_callback (GtkAction *action)
 void
 objects_place_down_callback (GtkAction *action)
 {
+  DDisplay *ddisp = ddisplay_active();
+  if (!ddisp || textedit_mode(ddisp)) return;
+
   diagram_place_down_selected(ddisplay_active_diagram());
 }
 
 void
 objects_parent_callback (GtkAction *action)
 {
+  DDisplay *ddisp = ddisplay_active();
+  if (!ddisp || textedit_mode(ddisp)) return;
+
   diagram_parent_selected(ddisplay_active_diagram());
 }
 
 void
 objects_unparent_callback (GtkAction *action)
 {
+  DDisplay *ddisp = ddisplay_active();
+  if (!ddisp || textedit_mode(ddisp)) return;
+
   diagram_unparent_selected(ddisplay_active_diagram());
 }
 
 void
 objects_unparent_children_callback (GtkAction *action)
 {
+  DDisplay *ddisp = ddisplay_active();
+  if (!ddisp || textedit_mode(ddisp)) return;
+
   diagram_unparent_children_selected(ddisplay_active_diagram());
 }
 
 void
 objects_group_callback (GtkAction *action)
 {
-  DDisplay *ddisp;
+  DDisplay *ddisp = ddisplay_active();
+  if (!ddisp || textedit_mode(ddisp)) return;
 
-  ddisp = ddisplay_active();
-  if (!ddisp) return;
   diagram_group_selected(ddisplay_active_diagram());
   ddisplay_do_update_menu_sensitivity(ddisp);
 } 
@@ -1043,10 +1103,9 @@ objects_group_callback (GtkAction *action)
 void
 objects_ungroup_callback (GtkAction *action)
 {
-  DDisplay *ddisp;
+  DDisplay *ddisp = ddisplay_active();
+  if (!ddisp || textedit_mode(ddisp)) return;
 
-  ddisp = ddisplay_active();
-  if (!ddisp) return;
   diagram_ungroup_selected(ddisplay_active_diagram());
   ddisplay_do_update_menu_sensitivity(ddisp);
 } 
@@ -1058,7 +1117,7 @@ dialogs_properties_callback (GtkAction *action)
   DiaObject *selected;
 
   dia = ddisplay_active_diagram();
-  if (!dia) return;
+  if (!dia || textedit_mode(ddisplay_active())) return;
 
   if (dia->data->selected != NULL) {
     selected = dia->data->selected->data;
@@ -1083,6 +1142,9 @@ objects_align_h_callback (GtkAction *action)
   int align = DIA_ALIGN_LEFT;
   Diagram *dia;
   GList *objects;
+
+  DDisplay *ddisp = ddisplay_active();
+  if (!ddisp || textedit_mode(ddisp)) return;
 
   /* HACK align is suffix to action name */
   a = gtk_action_get_name (action) + strlen ("ObjectsAlign");
@@ -1127,6 +1189,9 @@ objects_align_v_callback (GtkAction *action)
   int align;
   Diagram *dia;
   GList *objects;
+
+  DDisplay *ddisp = ddisplay_active();
+  if (!ddisp || textedit_mode(ddisp)) return;
 
   /* HACK align is suffix to action name */
   a = gtk_action_get_name (action) + strlen ("ObjectsAlign");
