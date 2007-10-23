@@ -1,3 +1,12 @@
+2007-10-23  Hans Breuer  <hans@breuer.org>
+
+	* app/select.c : 'textedit_mode' undefined;
+	* app/textedit_tool.c : 'object_add_updates_list' undefined;
+	* lib/libdia.def : unresolved external symbol _text_delete_key_handler
+
+	* objects/Database/table_dialog.c : like UML/class_dialog.c move
+	Styles (color, fonts) to their own page
+	
 2007-10-22  Lars Clausen  <lars@raeder.dk>
 
 	* app/textedit_tool.c: Proper deselecting and tool resetting when

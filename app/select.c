@@ -25,6 +25,7 @@
 #include "menus.h"
 #include "intl.h"
 #include "object_ops.h"
+#include "textedit.h"
 
 enum SelectionStyle selection_style = SELECT_REPLACE;
 

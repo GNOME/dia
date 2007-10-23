@@ -22,6 +22,7 @@
 #include "diagram.h"
 #include "textedit.h"
 #include "cursor.h"
+#include "object_ops.h"
 
 static DiaObject *
 click_select_object(DDisplay *ddisp, Point *clickedpoint,

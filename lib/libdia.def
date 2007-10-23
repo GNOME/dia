@@ -642,6 +642,7 @@ EXPORTS
  text_calc_boundingbox
  text_copy
  text_delete_all
+ text_delete_key_handler
  text_destroy
  text_distance_from
  text_draw

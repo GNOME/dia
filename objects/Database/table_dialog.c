@@ -41,6 +41,7 @@ static void destroy_prop_dialog (GtkWidget*, gpointer);
 static void create_dialog_pages(GtkNotebook *, Table *);
 static void create_general_page (GtkNotebook *, Table *);
 static void create_attribute_page (GtkNotebook *, Table *);
+static void create_style_page (GtkNotebook *, Table *);
 static void fill_in_dialog (Table *);
 static void general_page_fill_in_dialog (Table *);
 static void general_page_props_to_object (Table *, TablePropDialog *);
@@ -534,6 +535,7 @@ create_dialog_pages(GtkNotebook * notebook, Table * table)
 {
   create_general_page (notebook, table);
   create_attribute_page (notebook, table);
+  create_style_page (notebook, table);
 }
 
 static void
@@ -869,11 +871,6 @@ create_general_page (GtkNotebook * notebook, Table * table)
   GtkWidget * entry;
   GtkWidget * scrolled_window;
   GtkWidget * checkbox;
-  GtkWidget * hbox;
-  GtkWidget * text_color;
-  GtkWidget * fill_color;
-  GtkWidget * line_color;
-  GtkObject * adj;
 
   prop_dialog = table->prop_dialog;
 
@@ -935,6 +932,34 @@ create_general_page (GtkNotebook * notebook, Table * table)
   gtk_table_attach (GTK_TABLE (gtk_table), checkbox, 1, 2, 1, 2,
                     GTK_FILL, 10, 0, 0);
   /* +++ end of the table for various checkboxes */
+
+  /* finally append the created vbox to the notebook */
+  gtk_widget_show_all (vbox);
+  gtk_widget_show (page_label);
+  gtk_notebook_append_page (notebook, vbox, page_label);
+
+}
+
+static void
+create_style_page (GtkNotebook * notebook, Table * table)
+{
+  TablePropDialog * prop_dialog;
+  GtkWidget * page_label;
+  GtkWidget * vbox;
+  GtkWidget * gtk_table;
+  GtkWidget * label;
+  GtkWidget * hbox;
+  GtkWidget * text_color;
+  GtkWidget * fill_color;
+  GtkWidget * line_color;
+  GtkObject * adj;
+
+  prop_dialog = table->prop_dialog;
+
+  page_label = gtk_label_new_with_mnemonic (_("_Style"));
+
+  vbox = gtk_vbox_new (FALSE, 5);
+  gtk_container_set_border_width (GTK_CONTAINER (vbox), 10);
 
   hbox = gtk_hbox_new (FALSE, 5);
   adj = gtk_adjustment_new (table->border_width, 0.00, 10.0, 0.01, 0.1, 1.0);
