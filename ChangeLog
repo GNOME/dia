@@ -1,5 +1,9 @@
 2007-10-26  Lars Clausen  <lars@raeder.dk>
 
+	* lib/font.c: Don't translate to bogus AvantGarde-Gothic font,
+	and point to the *correct* PostScript definition.  Fixes bug
+	#477079.
+
 	* objects/UML/class_dialog.c: Patch for bug #490356: Use stock
 	items for UML class dialog.  Patch from Felipe Reyes
 	<felipereyes@gmail.com> 
