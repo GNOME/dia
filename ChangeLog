@@ -1,5 +1,8 @@
 2007-10-27  Hans Breuer  <hans@breuer.org>
 
+	* app/diagram.c(diagram_load) : don't kill the default diagram on 
+	import failure. Fixes bug #490546
+
 	less memory leaks, thanks valgrind
 	* lib/font.c : match pango_context_load_font() with g_object_unref()
 	* objects/SISSI/sissi.c : ObjectSISSI::text was leaked

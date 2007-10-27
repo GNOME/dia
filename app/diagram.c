@@ -304,7 +304,8 @@ diagram_load(const char *filename, DiaImportFilter *ifilter)
 
   if (   !diagram_init(diagram, filename)
       || !diagram_load_into (diagram, filename, ifilter)) {
-    diagram_destroy(diagram);
+    if (!was_default) /* don't kill the default diagram on import failure */
+      diagram_destroy(diagram);
     diagram = NULL;
   } else {
     diagram->unsaved = FALSE;
