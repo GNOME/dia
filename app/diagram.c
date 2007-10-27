@@ -454,25 +454,8 @@ diagram_selected_can_parent(Diagram *dia) {
     DiaObject *obj = (DiaObject*)selected->data;
     if (obj->parent == NULL) {
       GList *parent_tmp;
-      Rectangle obj_bb = obj->bounding_box;
       for (parent_tmp = parents; parent_tmp != NULL; parent_tmp = parent_tmp->next) {
-	DiaObject *p = (DiaObject*)parent_tmp->data;
-	if (p == obj) continue;
-	if (obj_bb.left > p->bounding_box.left &&
-	    obj_bb.right < p->bounding_box.right &&
-	    obj_bb.top > p->bounding_box.top &&
-	    obj_bb.bottom < p->bounding_box.bottom) {
-          /*
-	  printf("Obj %f, %f x %f, %f inside %f, %f x %f, %f\n",
-		 obj_bb.left,
-		 obj_bb.top,
-		 obj_bb.right,
-		 obj_bb.bottom,
-		 p->bounding_box.left,
-		 p->bounding_box.top,
-		 p->bounding_box.right,
-		 p->bounding_box.bottom);
-	  */
+	if (object_within_parent(obj, (DiaObject*)parent_tmp->data)) {
 	  g_list_free(parents);
 	  return TRUE;
 	}
@@ -480,6 +463,24 @@ diagram_selected_can_parent(Diagram *dia) {
     }
   }
   g_list_free(parents);
+  return FALSE;
+}
+
+/** Returns TRUE if an object is fully enclosed by a another object, which 
+ * can be a parent */
+gboolean
+object_within_parent(DiaObject *obj, DiaObject *p)
+{
+  Rectangle obj_bb = obj->bounding_box;
+  if (!object_flags_set(p, DIA_OBJECT_CAN_PARENT))
+    return FALSE;
+  if (p == obj) 
+    return FALSE;
+  if (obj_bb.left > p->bounding_box.left &&
+      obj_bb.right < p->bounding_box.right &&
+      obj_bb.top > p->bounding_box.top &&
+      obj_bb.bottom < p->bounding_box.bottom)
+    return TRUE;
   return FALSE;
 }
 

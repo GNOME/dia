@@ -46,9 +46,7 @@ create_object_button_press(CreateObjectTool *tool, GdkEventButton *event,
   Handle *handle1;
   Handle *handle2;
   DiaObject *obj;
-  DiaObject *parent_obj;
   real click_distance;
-  GList *avoid = NULL;
 
   ddisplay_untransform_coords(ddisp,
 			      (int)event->x, (int)event->y,
@@ -66,8 +64,6 @@ create_object_button_press(CreateObjectTool *tool, GdkEventButton *event,
 
   diagram_add_object(ddisp->diagram, obj);
 
-  /* Make sure to not parent to itself (!) */
-  avoid = g_list_prepend(avoid, obj);
   /* Try a connect */
   if (handle1 != NULL &&
       handle1->connect_type != HANDLE_NONCONNECTABLE) {
@@ -76,30 +72,9 @@ create_object_button_press(CreateObjectTool *tool, GdkEventButton *event,
       object_find_connectpoint_display(ddisp, &origpoint, obj, TRUE);
     if (connectionpoint != NULL) {
       (obj->ops->move)(obj, &origpoint);
-      /* Make sure to not parent to the object connected to */
-      avoid = g_list_prepend(avoid, connectionpoint->object);
     }
   }
   
-
-  parent_obj = diagram_find_clicked_object_except(ddisp->diagram, 
-						  &clickedpoint,
-						  click_distance,
-						  avoid);
-
-  g_list_free(avoid);
-
-  /* starting point is within another object */
-  if (parent_obj && object_flags_set(parent_obj, DIA_OBJECT_CAN_PARENT))
-  {
-    Change *change = undo_parenting(ddisp->diagram, parent_obj, obj, TRUE);
-    (change->apply)(change, ddisp->diagram);
-    /*
-    obj->parent = parent_obj;
-    parent_obj->children = g_list_append(parent_obj->children, obj);
-    */
-  }
-
   if (!(event->state & GDK_SHIFT_MASK)) {
     /* Not Multi-select => remove current selection */
     diagram_remove_all_selected(ddisp->diagram, TRUE);
@@ -148,6 +123,8 @@ create_object_button_release(CreateObjectTool *tool, GdkEventButton *event,
   DiaObject *obj = tool->obj;
   gboolean reset;
 
+  GList *parent_candidates;
+
   if (tool->moving) {
     gdk_pointer_ungrab (event->time);
 
@@ -157,6 +134,26 @@ create_object_button_release(CreateObjectTool *tool, GdkEventButton *event,
     object_add_updates(tool->obj, ddisp->diagram);
 
   }
+
+  parent_candidates = 
+    layer_find_objects_containing_rectangle(obj->parent_layer, 
+					    &obj->bounding_box);
+
+  /* whole object must be within another object to parent it */
+  for (; parent_candidates != NULL; parent_candidates = g_list_next(parent_candidates)) {
+    DiaObject *parent_obj = (DiaObject *) parent_candidates->data;
+    if (obj != parent_obj 
+	&& object_within_parent(obj, parent_obj)) {
+      Change *change = undo_parenting(ddisp->diagram, parent_obj, obj, TRUE);
+      (change->apply)(change, ddisp->diagram);
+      break;
+    /*
+    obj->parent = parent_obj;
+    parent_obj->children = g_list_append(parent_obj->children, obj);
+    */
+    }
+  }
+  g_list_free(parent_candidates);
 
   list = g_list_prepend(list, tool->obj);
 

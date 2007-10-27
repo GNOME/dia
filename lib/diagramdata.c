@@ -909,6 +909,37 @@ layer_find_objects_in_rectangle(Layer *layer, Rectangle *rect)
   return selected_list;
 }
 
+/** Find objects entirely containing a rectangle.
+ * @param layer The layer to search for objects in.
+ * @param rect The rectangle that the objects should surround.
+ * @return A list containing the objects that entirely contain the
+ *  rectangle.  The list should be freed by the caller.
+ */
+GList *
+layer_find_objects_containing_rectangle(Layer *layer, Rectangle *rect)
+{
+  GList *list;
+  GList *selected_list;
+  DiaObject *obj;
+
+  selected_list = NULL;
+  list = layer->objects;
+  while (list != NULL) {
+    obj = (DiaObject *)list->data;
+
+    if (rectangle_in_rectangle(&obj->bounding_box, rect)) {
+      if (dia_object_is_selectable(obj)) {
+	selected_list = g_list_prepend(selected_list, obj);
+      }
+    }
+    
+    list = g_list_next(list);
+  }
+
+  return selected_list;
+}
+
+
 /** Find the object closest to the given point in the layer,
  * no further away than maxdist, and not included in avoid.
  * Stops it if finds an object that includes the point.

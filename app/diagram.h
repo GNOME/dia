@@ -140,6 +140,7 @@ void diagram_parent_selected(Diagram *dia);
 void diagram_unparent_selected(Diagram *dia);
 void diagram_unparent_children_selected(Diagram *dia);
 
+gboolean object_within_parent(DiaObject *obj, DiaObject *parent);
 void diagram_set_filename(Diagram *dia, const char *filename);
 gchar *diagram_get_name(Diagram *dia);
 

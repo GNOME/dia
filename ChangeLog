@@ -1,3 +1,19 @@
+2007-10-27  Lars Clausen  <lars@raeder.dk>
+
+	* data/toolbar-ui.xml: Added some more toolbar icons.  No more
+	should be added until we can turn them on and off in groups.
+
+	* lib/diagramdata.[ch]: New function that finds objects that
+	contain a given rectangle.
+
+	* app/create_object.c (create_object_button_release): Don't parent
+	an object until it's released, allowing arrows to be created out of
+	parenting objects.  Now only objects that end up being entirely
+	contained in a parent get parented.
+
+	* app/diagram.[ch]: New function that checks for parentability of an
+	object-parent pair.
+
 2007-10-27  Hans Breuer  <hans@breuer.org>
 
 	* app/diagram.c(diagram_load) : don't kill the default diagram on 

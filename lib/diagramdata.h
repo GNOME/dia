@@ -163,6 +163,7 @@ void layer_remove_object(Layer *layer, DiaObject *obj);
 void layer_remove_objects(Layer *layer, GList *obj_list);
 GList *layer_find_objects_intersecting_rectangle(Layer *layer, Rectangle*rect);
 GList *layer_find_objects_in_rectangle(Layer *layer, Rectangle *rect);
+GList *layer_find_objects_containing_rectangle(Layer *layer, Rectangle *rect);
 DiaObject *layer_find_closest_object(Layer *layer, Point *pos, real maxdist);
 DiaObject *layer_find_closest_object_except(Layer *layer, Point *pos,
 					 real maxdist, GList *avoid);
