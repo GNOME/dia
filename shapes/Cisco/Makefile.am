@@ -2,7 +2,10 @@
 shapedir = $(pkgdatadir)/shapes
 
 ciscodir = $(shapedir)/Cisco
-SHAPES = \
+
+# Long list split to accomodate sub-standard compilers.  See bug #125924
+
+SHAPES1 = \
   1000.shape\
   1000.png\
   100baset_hub.shape\
@@ -152,7 +155,9 @@ SHAPES = \
   data_switch_processor.shape\
   data_switch_processor.png\
   detector.shape\
-  detector.png\
+  detector.png
+
+SHAPES2=\
   digital_cross-connect.shape\
   digital_cross-connect.png\
   director_fcis.shape\
@@ -292,7 +297,9 @@ SHAPES = \
   jbod.shape\
   jbod.png\
   key.shape\
-  key.png\
+  key.png
+
+SHAPES2=\
   label_switch_router.shape\
   label_switch_router.png\
   lan2lan_switch.shape\
@@ -442,7 +449,9 @@ SHAPES = \
   pc_video.shape\
   pc_video.png\
   pc_with_router-based_software.shape\
-  pc_with_router-based_software.png\
+  pc_with_router-based_software.png
+
+SHAPES4=\
   pda.shape\
   pda.png\
   phone.shape\
@@ -576,7 +585,9 @@ SHAPES = \
   terminal_server.shape\
   terminal_server.png\
   tokenring.shape\
-  tokenring.png\
+  tokenring.png
+
+SHAPES5=\
   transpath.shape\
   transpath.png\
   truck.shape\
@@ -707,6 +718,6 @@ SHAPES = \
 #  voice_switch.png\
 #
 
-EXTRA_DIST = $(SHAPES)
+EXTRA_DIST = $(SHAPES1) $(SHAPES2) $(SHAPES3) $(SHAPES4) $(SHAPES5)
 
-cisco_DATA = $(SHAPES)
+cisco_DATA = $(SHAPES1) $(SHAPES2) $(SHAPES3) $(SHAPES4) $(SHAPES5)

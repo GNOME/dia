@@ -1,3 +1,7 @@
+2007-10-27  Lars Clausen  <lars@raeder.dk>
+
+	* shapes/Cisco/Makefile.am: Split long shape list.  Fixes bug #125924.
+
 2007-10-26  Lars Clausen  <lars@raeder.dk>
 
 	* lib/font.c: Don't translate to bogus AvantGarde-Gothic font,
