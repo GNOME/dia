@@ -1,5 +1,9 @@
 2007-10-27  Lars Clausen  <lars@raeder.dk>
 
+	* app/interface.c (create_sheet_dropdown_menu): Follow-up on bug
+	#442309: Since flowchart is the default start-up sheet now, put it
+	in the always-there list.
+
 	* shapes/Assorted/arrow-chevron.shape: 
 	* shapes/Assorted/arrow-down.shape: 
 	* shapes/Assorted/arrow-left-notched.shape: 

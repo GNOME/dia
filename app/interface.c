@@ -1375,6 +1375,8 @@ create_sheet_dropdown_menu(GtkWidget *parent)
   dia_dynamic_menu_add_default_entry(DIA_DYNAMIC_MENU(sheet_option_menu),
 				     "Assorted");
   dia_dynamic_menu_add_default_entry(DIA_DYNAMIC_MENU(sheet_option_menu),
+				     "Flowchart");
+  dia_dynamic_menu_add_default_entry(DIA_DYNAMIC_MENU(sheet_option_menu),
 				     "UML");
   /*    gtk_widget_set_size_request(sheet_option_menu, 20, -1);*/
   gtk_wrap_box_pack_wrapped(GTK_WRAP_BOX(parent), sheet_option_menu,
