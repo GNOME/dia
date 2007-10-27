@@ -459,7 +459,7 @@ AC_ARG_WITH(python,
 
 if test "x$with_python" != xno; then
   AM_PATH_PYTHON(1.5.2)
-  AM_CHECK_PYMOD(gtk,,,[AC_MSG_ERROR(could not find pygtk module)])
+  AM_CHECK_PYMOD(gtk,,,[AC_MSG_RESULT(could not find pygtk module)])
   AM_CHECK_PYTHON_HEADERS
   AM_CHECK_PYTHON_LIB
 
@@ -480,6 +480,8 @@ if test "x$with_swig" != xno; then
   #SWIG_PYTHON
   if test -z "$SWIG_LIB"; then
     AC_MSG_ERROR([could not find SWIG required to generate the bindings])
+  else
+    AC_MSG_RESULT([SWIG at $SWIG_LIB])
   fi
 fi
 AM_CONDITIONAL(WITH_SWIG, test "x$with_swig" != "xno")

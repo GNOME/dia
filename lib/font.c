@@ -52,7 +52,8 @@ struct _DiaFont
     GObject parent_instance;
 
     PangoFontDescription* pfd;    
-    /* mutable */ char* legacy_name;    
+    /* mutable */ char* legacy_name;
+    PangoFont *font_ref;
 };
 
 
@@ -214,7 +215,7 @@ dia_font_new(const char *family, DiaFontStyle style, real height)
 
   pango_font_description_set_family(retval->pfd,family);
 
-  pango_context_load_font(dia_font_get_context(), retval->pfd);
+  retval->font_ref = pango_context_load_font(dia_font_get_context(), retval->pfd);
 
   return retval;
 }
@@ -328,6 +329,7 @@ dia_font_finalize(GObject* object)
     DiaFont* font;
     font = DIA_FONT(object);
     if (font->pfd) pango_font_description_free(font->pfd);
+    if (font->font_ref) g_object_unref(font->font_ref);
     G_OBJECT_CLASS(parent_class)->finalize(object);
 }
 

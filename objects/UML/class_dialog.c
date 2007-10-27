@@ -292,9 +292,6 @@ class_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   GtkWidget *entry;
   GtkWidget *scrolledwindow;
   GtkWidget *checkbox;
-  GtkWidget *text_color;
-  GtkWidget *fill_color;
-  GtkWidget *line_color;
   GtkWidget *table;
   GtkObject *adj;
 
@@ -412,17 +409,11 @@ style_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   UMLClassDialog *prop_dialog;
   GtkWidget *page_label;
   GtkWidget *label;
-  GtkWidget *hbox;
-  GtkWidget *hbox2;
   GtkWidget *vbox;
-  GtkWidget *entry;
-  GtkWidget *scrolledwindow;
-  GtkWidget *checkbox;
   GtkWidget *text_color;
   GtkWidget *fill_color;
   GtkWidget *line_color;
   GtkWidget *table;
-  GtkObject *adj;
 
   prop_dialog = umlclass->properties_dialog;
 
@@ -938,7 +929,6 @@ attributes_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   GtkWidget *omenu;
   GtkWidget *menu;
   GtkWidget *submenu;
-  GtkWidget *menuitem;
   GtkWidget *scrolledwindow;
   GSList *group;
 
@@ -1859,7 +1849,6 @@ operations_data_create_hbox (UMLClass *umlclass)
   GtkWidget *omenu;
   GtkWidget *menu;
   GtkWidget *submenu;
-  GtkWidget *menuitem;
   GtkWidget *scrolledwindow;
   GtkWidget *checkbox;
   GSList *group;
@@ -2005,15 +1994,10 @@ operations_parameters_editor_create_vbox (UMLClass *umlclass)
   GtkWidget *vbox2;
   GtkWidget *hbox2;
   GtkWidget *vbox3;
-  GtkWidget *entry;
   GtkWidget *label;
-  GtkWidget *menu;
-  GtkWidget *submenu;
-  GtkWidget *menuitem;
   GtkWidget *scrolled_win;
   GtkWidget *list;
   GtkWidget *button;
-  GSList *group;
 
   prop_dialog = umlclass->properties_dialog;
 
@@ -2101,7 +2085,6 @@ operations_parameters_data_create_vbox (UMLClass *umlclass)
   GtkWidget *omenu;
   GtkWidget *menu;
   GtkWidget *submenu;
-  GtkWidget *menuitem;
   GSList *group;
   
   prop_dialog = umlclass->properties_dialog;
@@ -2218,14 +2201,11 @@ operations_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   GtkWidget *hbox;
   GtkWidget *vbox;
   GtkWidget *vbox2;
-  GtkWidget *hbox2;
   GtkWidget *vbox3;
   GtkWidget *scrolled_win;
   GtkWidget *button;
   GtkWidget *list;
   GtkWidget *frame;
-  GtkWidget *scrolledwindow;
-  GSList *group;
 
   prop_dialog = umlclass->properties_dialog;
 

@@ -476,8 +476,10 @@ object_sissi_destroy(ObjetSISSI *object_sissi)
   g_free(object_sissi->type_element);  
   g_free(object_sissi->room);  
   g_free(object_sissi->site); 
-  g_free(object_sissi->name); 
-  
+  g_free(object_sissi->name);
+  if (object_sissi->text)
+    text_destroy(object_sissi->text);
+
   if (object_sissi->properties_dialog!=NULL)
   	dialog_sissi_destroy(object_sissi->properties_dialog);
 	

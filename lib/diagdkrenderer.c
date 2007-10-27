@@ -713,9 +713,14 @@ draw_text_line (DiaRenderer *object, TextLine *text_line,
 
     layout = dia_font_build_layout(text, text_line->font,
 				   dia_transform_length(renderer->transform, text_line->height)/20.0);
-
+#ifdef PANGO_VERSION_ENCODE && (PANGO_VERSION >= PANGO_VERSION_ENCODE(1,16,0))
+    /* I'd say the former Pango API was broken, i.e. leaky */
+    text_line_adjust_layout_line(text_line, pango_layout_get_line_readonly(layout, 0),
+				scale/20.0);
+#else
     text_line_adjust_layout_line(text_line, pango_layout_get_line(layout, 0),
 				scale/20.0);
+#endif
     if (renderer->highlight_color != NULL) {
       draw_highlighted_string(renderer, layout, x, y, &gdkcolor);
     } else {
@@ -764,9 +769,9 @@ draw_text_line (DiaRenderer *object, TextLine *text_line,
 	
       gdk_draw_layout(renderer->pixmap, renderer->gc, x, y, layout);
 #endif
-      g_object_unref(G_OBJECT(layout));
-    }
-  }
+    } /* !higlight_color */
+    g_object_unref(G_OBJECT(layout));
+  } /* !greeking */
 }
 
 /* Get the width of the given text in cm */
