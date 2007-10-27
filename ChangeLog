@@ -1,5 +1,43 @@
 2007-10-27  Lars Clausen  <lars@raeder.dk>
 
+	* shapes/Assorted/arrow-chevron.shape: 
+	* shapes/Assorted/arrow-down.shape: 
+	* shapes/Assorted/arrow-left-notched.shape: 
+	* shapes/Assorted/arrow-left-right.shape: 
+	* shapes/Assorted/arrow-left-right-up.shape: 
+	* shapes/Assorted/arrow-left.shape: 
+	* shapes/Assorted/arrow-pentagon.shape: 
+	* shapes/Assorted/arrow-quad.shape: 
+	* shapes/Assorted/arrow-right-notched.shape: 
+	* shapes/Assorted/arrow-right.shape: 
+	* shapes/Assorted/arrow-up-down-left.shape: 
+	* shapes/Assorted/arrow-up-down.shape: 
+	* shapes/Assorted/arrow-up.shape: 
+	* shapes/Assorted/circle-quarter.shape: 
+	* shapes/Assorted/circle.shape: 
+	* shapes/Assorted/cross-maltese.shape: 
+	* shapes/Assorted/cross-swiss.shape: 
+	* shapes/Assorted/diamond.shape: 
+	* shapes/Assorted/heart.shape: 
+	* shapes/Assorted/hexagon.shape: 
+	* shapes/Assorted/moon-quarter.shape: 
+	* shapes/Assorted/octagon.shape: 
+	* shapes/Assorted/parallelogram-horizontal.shape: 
+	* shapes/Assorted/parallelogram-vertical.shape: 
+	* shapes/Assorted/pentagon.shape: 
+	* shapes/Assorted/square.shape: 
+	* shapes/Assorted/star4curved.shape: 
+	* shapes/Assorted/star4.shape: 
+	* shapes/Assorted/star6.shape: 
+	* shapes/Assorted/star7.shape: 
+	* shapes/Assorted/star8curved.shape: 
+	* shapes/Assorted/star8.shape: 
+	* shapes/Assorted/star8sharp.shape: 
+	* shapes/Assorted/sun.shape: 
+	* shapes/Assorted/trapezoid.shape: 
+	* shapes/Assorted/triangle-isoceles.shape: Use foreground instead
+	of #000000 for shapes.  Fixes bug #336967.
+
 	* data/toolbar-ui.xml: Added some more toolbar icons.  No more
 	should be added until we can turn them on and off in groups.
 

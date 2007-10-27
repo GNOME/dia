@@ -47,6 +47,6 @@
   <aspectratio type="fixed"/>
   <svg:svg>
     <svg:polygon style="fill: default" points="1,6 1,2 0,2 2,0 4,2 3,2 3,6 4,6 2,8 0,6 "/>
-    <svg:polygon style="stroke-width: 0.1; stroke: #000000" points="1,6 1,2 0,2 2,0 4,2 3,2 3,6 4,6 2,8 0,6 "/>
+    <svg:polygon style="stroke: foreground" points="1,6 1,2 0,2 2,0 4,2 3,2 3,6 4,6 2,8 0,6 "/>
   </svg:svg>
 </shape>

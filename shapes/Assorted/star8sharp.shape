@@ -72,7 +72,7 @@
   <aspectratio type="free"/>
   <svg:svg>
     <svg:polygon style="fill: default" points="0,7.5 5,6.5 2.5,2.5 6.5,5 7.5,0 8.5,5 12.5,2.5 10,6.5 15,7.5 10,8.5 12.5,12.5 8.5,10 7.5,15 6.5,10 2.5,12.5 5,8.5 "/>
-    <svg:polygon style="stroke-width: 0.1; stroke: #000000" points="0,7.5 5,6.5 2.5,2.5 6.5,5 7.5,0 8.5,5 12.5,2.5 10,6.5 15,7.5 10,8.5 12.5,12.5 8.5,10 7.5,15 6.5,10 2.5,12.5 5,8.5 "/>
+    <svg:polygon style="stroke: foreground" points="0,7.5 5,6.5 2.5,2.5 6.5,5 7.5,0 8.5,5 12.5,2.5 10,6.5 15,7.5 10,8.5 12.5,12.5 8.5,10 7.5,15 6.5,10 2.5,12.5 5,8.5 "/>
   </svg:svg>
 </shape>
 <!-- Author: Alan Horkan, 2002, mailto:horkana@tcd.ie -->

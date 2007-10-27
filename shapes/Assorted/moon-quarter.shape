@@ -7,6 +7,6 @@
   <aspectratio type="fixed"/>
   <svg:svg>
     <svg:path style="fill: default" d="M 4 0 C 4,0 2,0 2,4 C 2,8 4,8 4,8 C 4,8 0,8 0,4 C 0,0 4,0 4,0z"/>
-    <svg:path style="stroke-width: 0.1; stroke: #000000" d="M 4 0 C 4,0 2,0 2,4 C 2,8 4,8 4,8 C 4,8 0,8 0,4 C 0,0 4,0 4,0"/>
+    <svg:path style="stroke: foreground" d="M 4 0 C 4,0 2,0 2,4 C 2,8 4,8 4,8 C 4,8 0,8 0,4 C 0,0 4,0 4,0"/>
   </svg:svg>
 </shape>

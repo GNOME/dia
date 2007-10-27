@@ -19,6 +19,5 @@
   <aspectratio type="free"/>
   <svg:svg>
     <svg:polygon style="fill: default" points="5.5,4 6.5,6 4.5,6 "/>
-    <svg:polygon style="stroke-width: 0.1; stroke: #000000" points="5.5,4 6.5,6 4.5,6 "/>
   </svg:svg>
 </shape>

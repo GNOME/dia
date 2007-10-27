@@ -23,6 +23,6 @@
   <aspectratio type="free"/>
   <svg:svg>
     <svg:polygon style="fill: default" points="1,0 2,0 1,1 0,1 "/>
-    <svg:polygon style="stroke-width: 0.1; stroke: #000000" points="1,0 2,0 1,1 0,1 "/>
+    <svg:polygon style="stroke: foreground" points="1,0 2,0 1,1 0,1 "/>
   </svg:svg>
 </shape>
