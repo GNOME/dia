@@ -1279,6 +1279,9 @@ ddisplay_do_update_menu_sensitivity (DDisplay *ddisp)
 {
     Diagram *dia;
     
+    if (ddisp == NULL) {
+      return;
+    }
     dia = ddisp->diagram; 
     if (ddisp->menu_bar) {
 	diagram_update_menubar_sensitivity(dia, &ddisp->updatable_menu_items);

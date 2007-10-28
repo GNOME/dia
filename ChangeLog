@@ -1,5 +1,8 @@
 2007-10-28  Lars Clausen  <lars@raeder.dk>
 
+	* app/display.c (ddisplay_do_update_menu_sensitivity): Check for
+	existence of display before updating menus.
+
 	* app/diagram.c (diagram_update_menu_sensitivity): 
 	* app/menus.c: 
 	* app/menus.h (struct _UpdatableMenuItems): 
