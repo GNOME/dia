@@ -13,6 +13,8 @@
 	- actually use text height from file
 	- less complains, should not give any g_warning anymore, at least not
 	  for a valid DXF file
+	- initialze the layer to dia->active_layer to avoid crashing on
+	  DXF which does not not set the layer information
 	* plug-ins/dxf/dxf-export.c :
 	- implement fill_rect, draw_polyline export more object colors
 	- always write minimal header information although it is supposed to

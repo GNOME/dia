@@ -95,7 +95,8 @@ LineStyle get_dia_linestyle_dxf(char *dxflinestyle);
 
 /* returns the layer with the given name */
 /* TODO: merge this with other layer code? */
-Layer *layer_find_by_name(char *layername, DiagramData *dia) 
+Layer *
+layer_find_by_name(char *layername, DiagramData *dia) 
 {
     Layer *matching_layer, *layer;
     int i;
@@ -168,7 +169,7 @@ read_entity_line_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 
     real line_width = DEFAULT_LINE_WIDTH;
     LineStyle style = LINESTYLE_SOLID;
-    Layer *layer = NULL;
+    Layer *layer = dia->active_layer;
     
     end.x=0;
     end.y=0;
@@ -271,7 +272,7 @@ read_entity_solid_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
    
     real line_width = 0.001;
     LineStyle style = LINESTYLE_SOLID;
-    Layer *layer = NULL;
+    Layer *layer = dia->active_layer;
    RGB_t color;
    
 /*   printf( "Solid " ); */
@@ -419,7 +420,7 @@ read_entity_polyline_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
     real line_width = DEFAULT_LINE_WIDTH;
     real radius, start_angle = 0;
     LineStyle style = LINESTYLE_SOLID;
-    Layer *layer = NULL;
+    Layer *layer = dia->active_layer;
     RGB_t color;
     unsigned char closed = 0;
     int points = 0;
@@ -622,7 +623,7 @@ DiaObject *read_entity_circle_dxf(FILE *filedxf, DxfData *data, DiagramData *dia
     GPtrArray *props;
 
     real line_width = DEFAULT_LINE_WIDTH;
-    Layer *layer = NULL;
+    Layer *layer = dia->active_layer;
     
     do {
         if(read_dxf_codes(filedxf, data) == FALSE){
@@ -707,7 +708,7 @@ DiaObject *read_entity_arc_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
     GPtrArray *props;
 
     real line_width = DEFAULT_LINE_WIDTH;
-    Layer *layer = NULL;
+    Layer *layer = dia->active_layer;
 		
     do {
         if(read_dxf_codes(filedxf, data) == FALSE){
@@ -800,7 +801,7 @@ read_entity_ellipse_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
     GPtrArray *props;
 
     real line_width = DEFAULT_LINE_WIDTH;
-    Layer *layer = NULL;
+    Layer *layer = dia->active_layer;
     
     do {
         if(read_dxf_codes(filedxf, data) == FALSE){
@@ -883,7 +884,7 @@ read_entity_text_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
     TextProperty *tprop;
     GPtrArray *props;
 
-    Layer *layer = NULL;
+    Layer *layer = dia->active_layer;
     
     do {
         if (read_dxf_codes(filedxf, data) == FALSE) {
@@ -1010,7 +1011,9 @@ read_entity_text_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 }
 
 /* reads the layer table from the dxf file and creates the layers */
-void read_table_layer_dxf(FILE *filedxf, DxfData *data, DiagramData *dia){
+void 
+read_table_layer_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
+{
     int codedxf;
 	
     do {
@@ -1203,7 +1206,8 @@ void read_section_entities_dxf(FILE *filedxf, DxfData *data, DiagramData *dia) {
 }
 
 /* reads the blocks section of the dxf file */
-void read_section_blocks_dxf(FILE *filedxf, DxfData *data, DiagramData *dia) 
+void 
+read_section_blocks_dxf(FILE *filedxf, DxfData *data, DiagramData *dia) 
 {
     int codedxf, group_items = 0, group = 0;
     GList *group_list = NULL;
