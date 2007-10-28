@@ -55,6 +55,7 @@ void undo_apply_to_next_tp(UndoStack *stack);
 void undo_clear(UndoStack *stack);
 void undo_mark_save(UndoStack *stack);
 gboolean undo_is_saved(UndoStack *stack);
+gboolean undo_available(UndoStack *stack, gboolean undo);
 
 /* Specific undo functions: */
 

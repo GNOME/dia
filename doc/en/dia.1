@@ -1,7 +1,7 @@
 .\"     Title: dia
 .\"    Author: Fredrik Hallenberg <hallon@lysator.liu.se>
-.\" Generator: DocBook XSL Stylesheets v1.71.1 <http://docbook.sf.net/>
-.\"      Date: 2004.11.26
+.\" Generator: DocBook XSL Stylesheets v1.72.0 <http://docbook.sf.net/>
+.\"      Date: 2004-11-26
 .\"    Manual: 
 .\"    Source: 
 .\"
@@ -90,21 +90,24 @@ version and exit.
 .PP
 The following export formats are supported by
 \fBdia\fR.
-.TP 4
-\(bu
-cgm
+.sp
+.RS 4
+\h'-04'\(bu\h'+03'cgm
 (Computer Graphics Metafile, ISO 8632)
-.TP 4
-\(bu
-dia
+.RE
+.sp
+.RS 4
+\h'-04'\(bu\h'+03'dia
 (Native dia diagram)
-.TP 4
-\(bu
-dxf
+.RE
+.sp
+.RS 4
+\h'-04'\(bu\h'+03'dxf
 (Drawing Interchange File)
-.TP 4
-\(bu
-eps
+.RE
+.sp
+.RS 4
+\h'-04'\(bu\h'+03'eps
 or
 eps\-builtin
 or
@@ -120,44 +123,54 @@ eps\-builtin
 uses a dia specific font renderer. If you have problems with Pango rendering, e.g. Unicode, try
 eps\-builtin
 instead.
-.TP 4
-\(bu
-fig
+.RE
+.sp
+.RS 4
+\h'-04'\(bu\h'+03'fig
 (XFig format)
-.TP 4
-\(bu
-mp
+.RE
+.sp
+.RS 4
+\h'-04'\(bu\h'+03'mp
 (TeX MetaPost macros)
-.TP 4
-\(bu
-plt
+.RE
+.sp
+.RS 4
+\h'-04'\(bu\h'+03'plt
 or
 hpgl
 (HP Graphics Language)
-.TP 4
-\(bu
-png
+.RE
+.sp
+.RS 4
+\h'-04'\(bu\h'+03'png
 (Portable Network Graphics)
-.TP 4
-\(bu
-shape
+.RE
+.sp
+.RS 4
+\h'-04'\(bu\h'+03'shape
 (Dia Shape File)
-.TP 4
-\(bu
-svg
+.RE
+.sp
+.RS 4
+\h'-04'\(bu\h'+03'svg
 (Scalable Vector Graphics)
-.TP 4
-\(bu
-tex
+.RE
+.sp
+.RS 4
+\h'-04'\(bu\h'+03'tex
 (TeX PSTricks macros)
-.TP 4
-\(bu
-wpg
+.RE
+.sp
+.RS 4
+\h'-04'\(bu\h'+03'wpg
 (WordPerfect Graphics)
-.TP 4
-\(bu
-wmf
+.RE
+.sp
+.RS 4
+\h'-04'\(bu\h'+03'wmf
 (Windows MetaFile)
+.RE
 .SH "FILES"
 .PP
 \fBdia\fR
@@ -166,26 +179,32 @@ creates a directory
 in the user's home, which contains different files to store user preferences. To reset
 \fBdia\fR
 to it's default behaviour, just remove the respective file:
-.TP 4
-\(bu
-\fIdefaults.dia\fR: contains default values for elements (XML format).
-.TP 4
-\(bu
-\fIdiarc\fR: keeps
+.sp
+.RS 4
+\h'-04'\(bu\h'+03'\fIdefaults.dia\fR: contains default values for elements (XML format).
+.RE
+.sp
+.RS 4
+\h'-04'\(bu\h'+03'\fIdiarc\fR: keeps
 \fBdia\fR
 preferences (ASCII).
-.TP 4
-\(bu
-\fIhistory\fR: keeps the list of last edited diagrams (ASCII).
-.TP 4
-\(bu
-\fImenurc\fR: contains an automated accelerator map dump (Lisp).
-.TP 4
-\(bu
-\fIpersistence\fR: contains GUI information, e.g. open windows (XML).
-.TP 4
-\(bu
-\fIpluginrc\fR: the list of loaded plugins (XML).
+.RE
+.sp
+.RS 4
+\h'-04'\(bu\h'+03'\fIhistory\fR: keeps the list of last edited diagrams (ASCII).
+.RE
+.sp
+.RS 4
+\h'-04'\(bu\h'+03'\fImenurc\fR: contains an automated accelerator map dump (Lisp).
+.RE
+.sp
+.RS 4
+\h'-04'\(bu\h'+03'\fIpersistence\fR: contains GUI information, e.g. open windows (XML).
+.RE
+.sp
+.RS 4
+\h'-04'\(bu\h'+03'\fIpluginrc\fR: the list of loaded plugins (XML).
+.RE
 .SH "SEE ALSO"
 .PP
 \fIPango\fR\&[1]

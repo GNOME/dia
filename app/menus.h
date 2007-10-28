@@ -31,6 +31,9 @@ extern const struct zoom_pair zooms[10];
 /* all the menu items that can be updated */
 struct _UpdatableMenuItems 
 {
+  GtkAction *undo;
+  GtkAction *redo;
+
   GtkAction *copy;
   GtkAction *cut;
   GtkAction *paste;

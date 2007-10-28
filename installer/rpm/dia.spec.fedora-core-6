@@ -64,9 +64,6 @@ desktop-file-install --vendor fedora  --delete-original \
   --remove-category Application                         \
   $RPM_BUILD_ROOT%{_datadir}/applications/%{name}.desktop
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/48x48/apps
-mv $RPM_BUILD_ROOT%{_datadir}/pixmaps/dia-diagram.png   \
-  $RPM_BUILD_ROOT%{_datadir}/pixmaps/dia_gnome_icon.png \
-  $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/48x48/apps
 rmdir $RPM_BUILD_ROOT%{_datadir}/pixmaps
 
 

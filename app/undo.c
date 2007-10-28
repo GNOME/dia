@@ -35,6 +35,8 @@
 #define DEBUG_PRINTF(args)
 #endif
 
+void undo_update_menus(UndoStack *stack);
+
 static void
 transaction_point_pointer(Change *change, Diagram *dia)
 {
@@ -88,8 +90,6 @@ undo_destroy(UndoStack *stack)
   g_free(stack);
 }
 
-
-
 static void
 undo_remove_redo_info(UndoStack *stack)
 {
@@ -109,6 +109,7 @@ undo_remove_redo_info(UndoStack *stack)
     g_free(change);
     change = next_change;
   }
+  undo_update_menus(stack);
 }
 
 void
@@ -124,6 +125,7 @@ undo_push_change(UndoStack *stack, Change *change)
   stack->last_change->next = change;
   stack->last_change = change;
   stack->current_change = change;
+  undo_update_menus(stack);
 }
 
 static void
@@ -201,6 +203,7 @@ undo_revert_to_last_tp(UndoStack *stack)
   } while (!is_transactionpoint(change));
   stack->current_change  = change;
   stack->depth--;
+  undo_update_menus(stack);
   DEBUG_PRINTF(("Decreasing stack depth to: %d\n", stack->depth));
 }
 
@@ -225,6 +228,7 @@ undo_apply_to_next_tp(UndoStack *stack)
     change = stack->last_change;
   stack->current_change = change;
   stack->depth++;
+  undo_update_menus(stack);
   DEBUG_PRINTF(("Increasing stack depth to: %d\n", stack->depth));
 }
 
@@ -245,6 +249,17 @@ undo_clear(UndoStack *stack)
   stack->current_change = change;
   stack->depth = 0;
   undo_remove_redo_info(stack);
+  undo_update_menus(stack);
+}
+
+/** Make updates to menus associated with undo.
+ *  Currently just changes sensitivity, but should in the future also
+ *  include changing the labels.
+ */
+void 
+undo_update_menus(UndoStack *stack)
+{
+  ddisplay_do_update_menu_sensitivity(ddisplay_active());
 }
 
 /** Marks the undo stack at the time of a save. 
@@ -264,6 +279,19 @@ undo_is_saved(UndoStack *stack)
   return stack->last_save == stack->current_change;
 }
 
+/** Returns TRUE if there is an undo or redo item available in the stack.
+ * If undo is true, returns TRUE if there's something to undo, otherwise
+ * returns TRUE if there's something to redo.
+ */
+gboolean 
+undo_available(UndoStack *stack, gboolean undo)
+{
+  if (undo) {
+    return stack->current_change != NULL;
+  } else {
+    return stack->current_change != NULL && stack->current_change->next != NULL;
+  }
+}
 
 
 /****************************************************************/

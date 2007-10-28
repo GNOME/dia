@@ -51,8 +51,6 @@ ICON_PNG_PAIRS= \
 	dia_off_grid_icon $(srcdir)/pixmaps/off-grid.png \
 	dia_visible_icon $(srcdir)/pixmaps/visible.png \
 	dia_visible_empty_icon $(srcdir)/pixmaps/visible-empty.png \
-	dia_diagram_icon $(top_srcdir)/dia-diagram.png \
-	dia_app_icon $(top_srcdir)/dia_gnome_icon.png \
 	dia_modify_tool_icon $(srcdir)/pixmaps/arrow-22.png \
 	dia_scroll_tool_icon $(srcdir)/pixmaps/scroll-22.png \
 	dia_textedit_tool_icon $(srcdir)/pixmaps/textedit-22.png \

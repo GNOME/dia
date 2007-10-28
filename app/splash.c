@@ -15,7 +15,7 @@ get_logo_pixmap (void)
   gchar str[512];
 
   gchar* datadir = dia_get_data_directory(""); 
-  g_snprintf(str, sizeof(str), "%s/dia_logo.png", datadir);
+  g_snprintf(str, sizeof(str), "%s/dia-splash.png", datadir);
   logo = gdk_pixbuf_new_from_file(str, NULL);
   g_free(datadir);
 

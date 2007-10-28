@@ -752,14 +752,7 @@ create_display_shell(DDisplay *ddisp,
     ddisp->shell = gtk_window_new (GTK_WINDOW_TOPLEVEL);
     gtk_window_set_title (GTK_WINDOW (ddisp->shell), title);
     gtk_window_set_role (GTK_WINDOW (ddisp->shell), "diagram_window");
-    {
-      static GdkPixbuf *pixbuf = NULL;
-
-      if (!pixbuf)
-        pixbuf = gdk_pixbuf_new_from_inline(-1, dia_diagram_icon, FALSE, NULL);
-      if (pixbuf)
-        gtk_window_set_icon (GTK_WINDOW (ddisp->shell), pixbuf);
-    }
+    gtk_window_set_icon_name (GTK_WINDOW (ddisp->shell), "dia");
     gtk_window_set_default_size(GTK_WINDOW (ddisp->shell), width, height);
   } else {
     ddisp->shell = gtk_event_box_new ();
@@ -1624,13 +1617,9 @@ void create_integrated_ui (void)
   gtk_window_set_role (GTK_WINDOW (window), DIA_MAIN_WINDOW);
   
   gtk_window_set_default_size (GTK_WINDOW (window), 146, 349);
-
-  pixbuf = gdk_pixbuf_new_from_inline (-1, dia_app_icon, FALSE, NULL);
-  if (pixbuf) {
-    gtk_window_set_icon (GTK_WINDOW (window), pixbuf);
-    g_object_unref (pixbuf);
-  }
-
+ 
+  gtk_window_set_icon_name (GTK_WINDOW (window), "dia");
+ 
   g_signal_connect (GTK_OBJECT (window), "delete_event",
 		    G_CALLBACK (toolbox_delete),
 		      window);
@@ -1749,11 +1738,7 @@ create_toolbox ()
   gtk_window_set_role (GTK_WINDOW (window), "toolbox_window");
   gtk_window_set_default_size(GTK_WINDOW(window), 146, 349);
 
-  pixbuf = gdk_pixbuf_new_from_inline (-1, dia_app_icon, FALSE, NULL);
-  if (pixbuf) {
-    gtk_window_set_icon (GTK_WINDOW (window), pixbuf);
-    g_object_unref (pixbuf);
-  }
+  gtk_window_set_icon_name (GTK_WINDOW (window), "dia");
 
   g_signal_connect (GTK_OBJECT (window), "delete_event",
 		    G_CALLBACK (toolbox_delete),

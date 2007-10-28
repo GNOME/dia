@@ -97,8 +97,6 @@ ICON_PNG_PAIRS = \
 	dia_off_grid_icon pixmaps\off-grid.png \
 	dia_visible_icon pixmaps\visible.png \
 	dia_visible_empty_icon pixmaps\visible-empty.png \
-	dia_diagram_icon ..\dia-diagram.png \
-	dia_app_icon ..\dia_gnome_icon.png \
 	dia_modify_tool_icon pixmaps\arrow-22.png \
 	dia_textedit_tool_icon pixmaps\textedit-22.png \
 	dia_scroll_tool_icon pixmaps\scroll-22.png \

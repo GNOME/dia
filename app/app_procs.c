@@ -820,7 +820,7 @@ app_init (int argc, char **argv)
     }
 
     /* This smaller icon is 48x48, standard Gnome size */
-    gnome_window_icon_set_default_from_file (GNOME_ICONDIR"/dia_gnome_icon.png");
+    /* gnome_window_icon_set_default_from_file (GNOME_ICONDIR"/dia_gnome_icon.png");*/
 
 #else
 #  ifdef G_THREADS_ENABLED

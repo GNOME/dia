@@ -1154,6 +1154,8 @@ menus_initialize_updatable_items (UpdatableMenuItems *items, GtkActionGroup *act
   if (actions == NULL) {
     actions = display_actions;
   }
+    items->undo = gtk_action_group_get_action (actions, "EditUndo");
+    items->redo = gtk_action_group_get_action (actions, "EditRedo");
 
     items->copy = gtk_action_group_get_action (actions, "EditCopy");
     items->cut = gtk_action_group_get_action (actions, "EditCut");

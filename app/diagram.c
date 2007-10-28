@@ -494,6 +494,11 @@ diagram_update_menu_sensitivity (Diagram *dia, UpdatableMenuItems *items)
   gint selected_count = g_list_length (dia->data->selected);
   DDisplay *ddisp = ddisplay_active();
   /* Edit menu */
+  gtk_action_set_sensitive (items->undo, 
+			    undo_available(dia->undo, TRUE));
+  gtk_action_set_sensitive (items->redo, 
+			    undo_available(dia->undo, FALSE));
+
   gtk_action_set_sensitive (items->copy, 
 			    textedit_mode(ddisp) || selected_count > 0);
   gtk_action_set_sensitive (items->cut, 

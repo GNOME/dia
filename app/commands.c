@@ -724,13 +724,9 @@ help_about_callback (GtkAction *action)
 	"along with this program; if not, write to the Free Software\n"
 	"Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.\n");
 
-  gchar *dirname = dia_get_data_directory("");
-  gchar *filename = g_build_filename (dirname, "dia_logo.png", NULL);
-  GdkPixbuf *logo = gdk_pixbuf_new_from_file(filename, NULL);
-
   gtk_about_dialog_set_url_hook (activate_url, NULL, NULL);
   gtk_show_about_dialog (NULL,
-	"logo", logo,
+	"logo-icon-name", "dia",
         "name", "Dia",
 	"version", VERSION,
 	"comments", _("A program for drawing structured diagrams."),
@@ -742,10 +738,6 @@ help_about_callback (GtkAction *action)
 			? translators : NULL,
 	"license", license,
 	NULL);
-  g_free (dirname);
-  g_free (filename);
-  if (logo)
-    g_object_unref (logo);
 }
 
 void

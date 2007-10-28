@@ -1,5 +1,30 @@
 2007-10-28  Lars Clausen  <lars@raeder.dk>
 
+	* app/diagram.c (diagram_update_menu_sensitivity): 
+	* app/menus.c: 
+	* app/menus.h (struct _UpdatableMenuItems): 
+	* app/undo.[ch]: Add support for desensitizing the Undo/Redo menu
+	items. 
+
+	* installer/rpm/dia.spec.fedora-core-6: 
+	* data/dia-splash.png
+	* data/Makefile.am
+	* data/icons/*:
+	* makefile.msc: 
+	* app/splash.c (get_logo_pixmap): 
+	* app/interface.c (create_toolbox): 
+	* app/Makefile.am: 
+	* app/makefile.msc: 
+	* dia.desktop.in.in: 
+	* app/commands.c: Patch from Michael Monreal
+	<michael.monreal@gmx.net>: Move image data into data directory and
+	use SVG where possible.	Fixes bug #463115.
+
+	* Makefile.am (CLEANFILES): 
+	* configure.in: 
+	* dia.keys.in: Use Automake to generate dia.keys rather than a
+	hack.  Part of fix of bug #463115.
+
 	* lib/dia_image.c (dia_image_get_broken): Use stock image for
 	broken image.  Fixes bug #172304.
 
