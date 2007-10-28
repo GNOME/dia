@@ -23,8 +23,6 @@
 #include "dia_image.h"
 #include <gtk/gtkwidget.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
-#include <gtk/gtkstock.h>
-#include <gtk/gtkinvisible.h>
 
 #include "dia-lib-icons.h"
 
@@ -62,11 +60,8 @@ dia_image_get_broken(void)
   static DiaImage broken = NULL;
 
   if (broken == NULL) {
-    GtkInvisible *renderOn;
     broken = g_new(struct _DiaImage, 1);
-    renderOn = gtk_invisible_new();
-    broken->image = gtk_widget_render_icon(renderOn, GTK_STOCK_MISSING_IMAGE,
-					   GTK_ICON_SIZE_DIALOG, "dia-broken-image");
+    broken->image = gdk_pixbuf_new_from_inline(-1, dia_broken_icon, FALSE, NULL);
   } else {
     gdk_pixbuf_ref(broken->image);
   }

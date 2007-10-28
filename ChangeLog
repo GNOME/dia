@@ -1,5 +1,8 @@
 2007-10-28  Lars Clausen  <lars@raeder.dk>
 
+	* app/dia_image.c: Rollback of use of stock image that breaks
+	non-interactive use.  Bummer.
+	
 	* app/display.c (ddisplay_do_update_menu_sensitivity): Check for
 	existence of display before updating menus.
 
