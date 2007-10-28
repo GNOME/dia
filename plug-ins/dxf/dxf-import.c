@@ -30,7 +30,6 @@
 #include <string.h>
 #include <math.h>
 #include <glib.h>
-#include <locale.h>
 #include <glib/gstdio.h>
 
 #include "intl.h"
@@ -50,7 +49,7 @@
 static real coord_scale = 1.0, measure_scale = 1.0;
 static real text_scale = 1.0;
 
-#define WIDTH_SCALE measure_scale
+#define WIDTH_SCALE (coord_scale * measure_scale)
 #define DEFAULT_LINE_WIDTH 0.001
 
 Point extent_min, extent_max;
@@ -122,16 +121,18 @@ Layer *layer_find_by_name(char *layername, DiagramData *dia)
 
 /* returns the matching dia linestyle for a given dxf linestyle */
 /* if no matching style is found, LINESTYLE solid is returned as a default */
-LineStyle get_dia_linestyle_dxf(char *dxflinestyle) {
-    if(strcmp(dxflinestyle, "DASH") == 0) {
+LineStyle 
+get_dia_linestyle_dxf(char *dxflinestyle) 
+{
+    if (strcmp(dxflinestyle, "DASHED") == 0)
         return LINESTYLE_DASHED;
-    }
-    if(strcmp(dxflinestyle, "DASHDOT") == 0){
+    if (strcmp(dxflinestyle, "DASHDOT") == 0)
         return LINESTYLE_DASH_DOT;
-    }
-    if(strcmp(dxflinestyle, "DOT") == 0){
+    if (strcmp(dxflinestyle, "DOT") == 0)
         return LINESTYLE_DOTTED;
-    }    
+    if (strcmp(dxflinestyle, "DIVIDE") == 0)
+        return LINESTYLE_DASH_DOT_DOT;
+
     return LINESTYLE_SOLID;
 }
 
@@ -145,9 +146,10 @@ static PropDescription dxf_prop_descs[] = {
 
 
 /* reads a line entity from the dxf file and creates a line object in dia*/
-DiaObject *read_entity_line_dxf(FILE *filedxf, DxfData *data, DiagramData *dia){
+DiaObject *
+read_entity_line_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
+{
     int codedxf;
-    char *old_locale;
 
     /* line data */
     Point start, end;
@@ -157,6 +159,7 @@ DiaObject *read_entity_line_dxf(FILE *filedxf, DxfData *data, DiagramData *dia){
     
     DiaObject *line_obj;
     Color line_colour = { 0.0, 0.0, 0.0 };
+    RGB_t color;
     GPtrArray *props;
     PointProperty *ptprop;
     LinestyleProperty *lsprop;
@@ -167,14 +170,11 @@ DiaObject *read_entity_line_dxf(FILE *filedxf, DxfData *data, DiagramData *dia){
     LineStyle style = LINESTYLE_SOLID;
     Layer *layer = NULL;
     
-    old_locale = setlocale(LC_NUMERIC, "C");
-
     end.x=0;
     end.y=0;
 
     do {
         if(read_dxf_codes(filedxf, data) == FALSE){
-            setlocale(LC_NUMERIC, old_locale);
             return( NULL );
         }
         codedxf = atoi(data->code);
@@ -184,24 +184,29 @@ DiaObject *read_entity_line_dxf(FILE *filedxf, DxfData *data, DiagramData *dia){
         case  8: layer = layer_find_by_name(data->value, dia);
             break;
         case 10:
-            start.x = atof(data->value) * coord_scale * measure_scale;
+            start.x = g_ascii_strtod(data->value, NULL) * coord_scale * measure_scale;
             break;
         case 11: 
-            end.x = atof(data->value) * coord_scale * measure_scale;
+            end.x = g_ascii_strtod(data->value, NULL) * coord_scale * measure_scale;
             break;
         case 20: 
-            start.y = (-1)*atof(data->value) * coord_scale * measure_scale;
+            start.y = (-1)*g_ascii_strtod(data->value, NULL) * coord_scale * measure_scale;
             break;
         case 21: 
-            end.y = (-1)*atof(data->value) * coord_scale * measure_scale;
+            end.y = (-1)*g_ascii_strtod(data->value, NULL) * coord_scale * measure_scale;
             break;
         case 39: 
-            line_width = atof(data->value) * WIDTH_SCALE;
+            line_width = g_ascii_strtod(data->value, NULL) * WIDTH_SCALE;
 	   /*printf( "line width %f\n", line_width ); */
+            break;
+	case 62 :
+            color = pal_get_rgb (atoi(data->value));
+	    line_colour.red = color.r / 255.0;
+	    line_colour.green = color.g / 255.0;
+	    line_colour.blue = color.b / 255.0;
             break;
         }	
     } while(codedxf != 0);
-    setlocale(LC_NUMERIC, old_locale);
 
     line_obj = otype->ops->create(&start, otype->default_user_data,
                                   &h1, &h2);
@@ -242,10 +247,10 @@ static PropDescription dxf_solid_prop_descs[] = {
    PROP_DESC_END};
 
 /* reads a solid entity from the dxf file and creates a polygon object in dia*/
-DiaObject *read_entity_solid_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
+DiaObject *
+read_entity_solid_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 {
    int codedxf;
-   char *old_locale;
    
    /* polygon data */
    Point p[4];
@@ -267,14 +272,12 @@ DiaObject *read_entity_solid_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
     real line_width = 0.001;
     LineStyle style = LINESTYLE_SOLID;
     Layer *layer = NULL;
-   unsigned char colour;
+   RGB_t color;
    
 /*   printf( "Solid " ); */
    
-    old_locale = setlocale(LC_NUMERIC, "C");
     do {
         if(read_dxf_codes(filedxf, data) == FALSE){
-            setlocale(LC_NUMERIC, old_locale);
             return( NULL );
         }
         codedxf = atoi(data->code);
@@ -287,52 +290,49 @@ DiaObject *read_entity_solid_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 	   /*printf( "layer: %s ", data->value );*/
 	   break;
         case 10:
-	   p[0].x = atof(data->value) * coord_scale * measure_scale;
+	   p[0].x = g_ascii_strtod(data->value, NULL) * coord_scale * measure_scale;
 	   /*printf( "P0.x: %f ", p[0].x );*/
 	   break;
         case 11: 
-            p[1].x = atof(data->value) * coord_scale * measure_scale;
+            p[1].x = g_ascii_strtod(data->value, NULL) * coord_scale * measure_scale;
 	   /*printf( "P1.x: %f ", p[1].x );*/
             break;
         case 12: 
-            p[2].x = atof(data->value) * coord_scale * measure_scale;
+            p[2].x = g_ascii_strtod(data->value, NULL) * coord_scale * measure_scale;
 	   /*printf( "P2.x: %f ", p[2].x );*/
             break;
         case 13: 
-            p[3].x = atof(data->value) * coord_scale * measure_scale;
+            p[3].x = g_ascii_strtod(data->value, NULL) * coord_scale * measure_scale;
 	   /*printf( "P3.x: %f ", p[3].x );*/
             break;
         case 20: 
-            p[0].y = (-1)*atof(data->value) * coord_scale * measure_scale;
+            p[0].y = (-1)*g_ascii_strtod(data->value, NULL) * coord_scale * measure_scale;
 	   /*printf( "P0.y: %f ", p[0].y );*/
             break;
         case 21: 
-            p[1].y = (-1)*atof(data->value) * coord_scale * measure_scale;
+            p[1].y = (-1)*g_ascii_strtod(data->value, NULL) * coord_scale * measure_scale;
 	   /*printf( "P1.y: %f ", p[1].y );*/
             break;
         case 22: 
-            p[2].y = (-1)*atof(data->value) * coord_scale * measure_scale;
+            p[2].y = (-1)*g_ascii_strtod(data->value, NULL) * coord_scale * measure_scale;
 	   /*printf( "P2.y: %f ", p[2].y );*/
             break;
         case 23: 
-            p[3].y = (-1)*atof(data->value) * coord_scale * measure_scale;
+            p[3].y = (-1)*g_ascii_strtod(data->value, NULL) * coord_scale * measure_scale;
 	   /*printf( "P3.y: %f\n", p[3].y );*/
             break;
         case 39: 
-            line_width = atof(data->value) * WIDTH_SCALE;
+            line_width = g_ascii_strtod(data->value, NULL) * WIDTH_SCALE;
 	   /*printf( "width %f\n", line_width );*/
             break;
         case 62: 
-            colour = atoi(data->value);
-	   fill_colour.red = acad_pal[colour].r / 255.0;
-	   fill_colour.green = acad_pal[colour].g / 255.0;
-	   fill_colour.blue = acad_pal[colour].b / 255.0;
-/*	   printf( "acad colour %d %d %d\n", acad_pal[colour].r, acad_pal[colour].g, acad_pal[colour].b );
-	   printf( "fill colour %f %f %f\n", fill_colour.red, fill_colour.green, fill_colour.blue );*/
+            color = pal_get_rgb (atoi(data->value));
+	    fill_colour.red = color.r / 255.0;
+	    fill_colour.green = color.g / 255.0;
+	    fill_colour.blue = color.b / 255.0;
             break;
         }	
     } while(codedxf != 0);
-    setlocale(LC_NUMERIC, old_locale);
 
    pcd = g_new( MultipointCreateData, 1);
    
@@ -395,10 +395,10 @@ static int is_equal( double a, double b )
 }
 
 /* reads a polyline entity from the dxf file and creates a polyline object in dia*/
-DiaObject *read_entity_polyline_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
+DiaObject *
+read_entity_polyline_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 {
     int codedxf, i;
-    char *old_locale;
    
         /* polygon data */
     Point *p = NULL, start, end, center;
@@ -420,13 +420,12 @@ DiaObject *read_entity_polyline_dxf(FILE *filedxf, DxfData *data, DiagramData *d
     real radius, start_angle = 0;
     LineStyle style = LINESTYLE_SOLID;
     Layer *layer = NULL;
-    unsigned char colour, closed = 0;
+    RGB_t color;
+    unsigned char closed = 0;
     int points = 0;
    
-    old_locale = setlocale(LC_NUMERIC, "C");
     do {
         if(read_dxf_codes(filedxf, data) == FALSE){
-            setlocale(LC_NUMERIC, old_locale);
             return( NULL );
         }
         codedxf = atoi(data->code);
@@ -441,7 +440,7 @@ DiaObject *read_entity_polyline_dxf(FILE *filedxf, DxfData *data, DiagramData *d
                         /*printf( "Vertex %d\n", points );*/
 		  
                 }
-	   
+		break;	   
             case 6:	 
                 style = get_dia_linestyle_dxf(data->value);
                 break;		
@@ -452,21 +451,25 @@ DiaObject *read_entity_polyline_dxf(FILE *filedxf, DxfData *data, DiagramData *d
             case 10:
                 if( points != 0 )
                 {
-                    p[points-1].x = atof(data->value) * coord_scale * measure_scale;
+                    p[points-1].x = g_ascii_strtod(data->value, NULL) * coord_scale * measure_scale;
                         /*printf( "P[%d].x: %f ", points-1, p[points-1].x );*/
                 }
                 break;
             case 20: 
                 if( points != 0 )
                 {
-                    p[points-1].y = (-1)*atof(data->value) * coord_scale * measure_scale;
+                    p[points-1].y = (-1)*g_ascii_strtod(data->value, NULL) * coord_scale * measure_scale;
                         /*printf( "P[%d].y: %f\n", points-1, p[points-1].y );*/
                 }
                 break;
             case 39: 
-                line_width = atof(data->value) * WIDTH_SCALE;
+                line_width = g_ascii_strtod(data->value, NULL) * WIDTH_SCALE;
                     /*printf( "width %f\n", line_width );*/
                 break;
+	    case 40: /* default starting width */
+	    case 41: /* default ending width */
+	        line_width = g_ascii_strtod(data->value, NULL) * WIDTH_SCALE;
+		break;
             case 42:
                     /* FIXME - the bulge code doesn't work */
                 p = g_realloc( p, sizeof( Point ) * ( points + 10 ));
@@ -532,10 +535,10 @@ DiaObject *read_entity_polyline_dxf(FILE *filedxf, DxfData *data, DiagramData *d
                 p[points-1] = end;
                 break;
             case 62: 
-                colour = atoi(data->value);
-                line_colour.red = acad_pal[colour].r / 255.0;
-                line_colour.green = acad_pal[colour].g / 255.0;
-                line_colour.blue = acad_pal[colour].b / 255.0;
+                color = pal_get_rgb (atoi(data->value));
+                line_colour.red = color.r / 255.0;
+                line_colour.green = color.g / 255.0;
+                line_colour.blue = color.b / 255.0;
                 break;
             case 70:
                 closed = 1 & atoi( data->value );
@@ -544,8 +547,6 @@ DiaObject *read_entity_polyline_dxf(FILE *filedxf, DxfData *data, DiagramData *d
         }	
     } while( strcmp( data->value, "SEQEND" ));
    
-    setlocale(LC_NUMERIC, old_locale);
-
     if( points == 0 )
     {
         printf( "No vertexes defined\n" );
@@ -603,7 +604,6 @@ static PropDescription dxf_ellipse_prop_descs[] = {
 DiaObject *read_entity_circle_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 {
     int codedxf;
-    char *old_locale;
     
     /* circle data */
     Point center;
@@ -624,10 +624,8 @@ DiaObject *read_entity_circle_dxf(FILE *filedxf, DxfData *data, DiagramData *dia
     real line_width = DEFAULT_LINE_WIDTH;
     Layer *layer = NULL;
     
-    old_locale = setlocale(LC_NUMERIC, "C");
     do {
         if(read_dxf_codes(filedxf, data) == FALSE){
-            setlocale(LC_NUMERIC, old_locale);
             return( NULL );
         }
         codedxf = atoi(data->code);
@@ -636,21 +634,20 @@ DiaObject *read_entity_circle_dxf(FILE *filedxf, DxfData *data, DiagramData *dia
             layer = layer_find_by_name(data->value, dia);
             break;
         case 10: 
-            center.x = atof(data->value) * coord_scale * measure_scale;
+            center.x = g_ascii_strtod(data->value, NULL) * coord_scale * measure_scale;
             break;
         case 20: 
-            center.y = (-1)*atof(data->value) * coord_scale * measure_scale;
+            center.y = (-1)*g_ascii_strtod(data->value, NULL) * coord_scale * measure_scale;
             break;
         case 39: 
-            line_width = atof(data->value) * WIDTH_SCALE;
+            line_width = g_ascii_strtod(data->value, NULL) * WIDTH_SCALE;
             break;
         case 40: 
-            radius = atof(data->value) * coord_scale * measure_scale;
+            radius = g_ascii_strtod(data->value, NULL) * coord_scale * measure_scale;
             break;
         }
         
     } while(codedxf != 0);
-    setlocale(LC_NUMERIC, old_locale);
  
     center.x -= radius;
     center.y -= radius;
@@ -692,7 +689,6 @@ static PropDescription dxf_arc_prop_descs[] = {
 DiaObject *read_entity_arc_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 {
     int codedxf;
-    char *old_locale;
     
     /* arc data */
     Point start,center,end;
@@ -713,10 +709,8 @@ DiaObject *read_entity_arc_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
     real line_width = DEFAULT_LINE_WIDTH;
     Layer *layer = NULL;
 		
-    old_locale = setlocale(LC_NUMERIC, "C");
     do {
         if(read_dxf_codes(filedxf, data) == FALSE){
-            setlocale(LC_NUMERIC,old_locale);
             return( NULL );
         }
         codedxf = atoi(data->code);
@@ -725,26 +719,25 @@ DiaObject *read_entity_arc_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
             layer = layer_find_by_name(data->value, dia);
             break;
         case 10: 
-            center.x = atof(data->value) * coord_scale * measure_scale;
+            center.x = g_ascii_strtod(data->value, NULL) * coord_scale * measure_scale;
             break;
         case 20: 
-            center.y = (-1)*atof(data->value) * coord_scale * measure_scale;
+            center.y = (-1)*g_ascii_strtod(data->value, NULL) * coord_scale * measure_scale;
             break;
         case 39: 
-            line_width = atof(data->value) * WIDTH_SCALE;
+            line_width = g_ascii_strtod(data->value, NULL) * WIDTH_SCALE;
             break;
         case 40: 
-            radius = atof(data->value) * coord_scale * measure_scale;
+            radius = g_ascii_strtod(data->value, NULL) * coord_scale * measure_scale;
             break;
         case 50:
-            start_angle = atof(data->value)*M_PI/180.0;
+            start_angle = g_ascii_strtod(data->value, NULL)*M_PI/180.0;
             break;
         case 51:
-            end_angle = atof(data->value)*M_PI/180.0;
+            end_angle = g_ascii_strtod(data->value, NULL)*M_PI/180.0;
             break;
         }
     } while(codedxf != 0);
-    setlocale(LC_NUMERIC, old_locale);
 
     /* printf("c.x=%f c.y=%f s",center.x,center.y); */
     start.x = center.x + cos(start_angle) * radius; 
@@ -785,9 +778,10 @@ DiaObject *read_entity_arc_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 }
 
 /* reads an ellipse entity from the dxf file and creates an ellipse object in dia*/
-DiaObject *read_entity_ellipse_dxf(FILE *filedxf, DxfData *data, DiagramData *dia){
+DiaObject *
+read_entity_ellipse_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
+{
     int codedxf;
-    char *old_locale;
     
     /* ellipse data */
     Point center;
@@ -808,10 +802,8 @@ DiaObject *read_entity_ellipse_dxf(FILE *filedxf, DxfData *data, DiagramData *di
     real line_width = DEFAULT_LINE_WIDTH;
     Layer *layer = NULL;
     
-    old_locale = setlocale(LC_NUMERIC, "C");
     do {
         if(read_dxf_codes(filedxf, data) == FALSE){
-            setlocale(LC_NUMERIC, old_locale);
             return( NULL );
         }
         codedxf = atoi(data->code);
@@ -820,23 +812,22 @@ DiaObject *read_entity_ellipse_dxf(FILE *filedxf, DxfData *data, DiagramData *di
             layer = layer_find_by_name(data->value, dia);
             break;
         case 10: 
-            center.x = atof(data->value) * coord_scale * measure_scale;
+            center.x = g_ascii_strtod(data->value, NULL) * coord_scale * measure_scale;
             break;
         case 11: 
-            ratio_width_height = atof(data->value) * coord_scale * measure_scale;
+            ratio_width_height = g_ascii_strtod(data->value, NULL) * coord_scale * measure_scale;
             break;
         case 20: 
-            center.y = (-1)*atof(data->value) * coord_scale * measure_scale;
+            center.y = (-1)*g_ascii_strtod(data->value, NULL) * coord_scale * measure_scale;
             break;
         case 39: 
-            line_width = atof(data->value) * WIDTH_SCALE;
+            line_width = g_ascii_strtod(data->value, NULL) * WIDTH_SCALE;
             break;
         case 40: 
-            width = atof(data->value) * 2; /* XXX what scale */
+            width = g_ascii_strtod(data->value, NULL) * WIDTH_SCALE; /* XXX what scale */
             break;
         }
     } while(codedxf != 0);
-    setlocale(LC_NUMERIC, old_locale);
  
     center.x -= width;
     center.y -= (width*ratio_width_height);
@@ -870,17 +861,18 @@ static PropDescription dxf_text_prop_descs[] = {
     { "text", PROP_TYPE_TEXT },
     PROP_DESC_END};
 
-DiaObject *read_entity_text_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
+DiaObject *
+read_entity_text_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 {
-   int codedxf, colour;
-    char *old_locale;
-    
+    int codedxf;
+    RGB_t color;
+
     /* text data */
     Point location;
-   real height = text_scale * coord_scale * measure_scale;
-   real y_offset = 0;
+    real height = text_scale * coord_scale * measure_scale;
+    real y_offset = 0;
     Alignment textalignment = ALIGN_LEFT;
-   char *textvalue = NULL, *textp;
+    char *textvalue = NULL, *textp;
     
     DiaObjectType *otype = object_get_type("Standard - Text");
     Handle *h1, *h2;
@@ -893,10 +885,8 @@ DiaObject *read_entity_text_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 
     Layer *layer = NULL;
     
-    old_locale = setlocale(LC_NUMERIC, "C");
     do {
         if (read_dxf_codes(filedxf, data) == FALSE) {
-            setlocale(LC_NUMERIC,old_locale);
             return( NULL );
         }
         codedxf = atoi(data->code);
@@ -922,31 +912,31 @@ DiaObject *read_entity_text_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
         case  8: layer = layer_find_by_name(data->value, dia);
             break;
         case 10: 
-            location.x = atof(data->value) * coord_scale * measure_scale;
+            location.x = g_ascii_strtod(data->value, NULL) * coord_scale * measure_scale;
 	   /*printf( "Found text location x: %f\n", location.x );*/
             break;
         case 11:
-            location.x = atof(data->value) * coord_scale * measure_scale;
+            location.x = g_ascii_strtod(data->value, NULL) * coord_scale * measure_scale;
 	   /*printf( "Found text location x: %f\n", location.x );*/
             break;
         case 20:
-            location.y = (-1)*atof(data->value) * coord_scale * measure_scale;
+            location.y = (-1)*g_ascii_strtod(data->value, NULL) * coord_scale * measure_scale;
 	   /*printf( "Found text location y: %f\n", location.y );*/
             break;
         case 21:
-            location.y = (-1)*atof(data->value) * coord_scale * measure_scale;
-	   /*location.y = (-1)*atof(data->value) / text_scale;*/
+            location.y = (-1)*g_ascii_strtod(data->value, NULL) * coord_scale * measure_scale;
+	   /*location.y = (-1)*g_ascii_strtod(data->value, NULL) / text_scale;*/
 	   printf( "Found text location y: %f\n", location.y );
             break;
         case 40: 
-            height = atof(data->value) * coord_scale * measure_scale;
+            height = g_ascii_strtod(data->value, NULL) * text_scale * coord_scale * measure_scale;
 	   /*printf( "text height %f\n", height );*/
             break;
 	 case 62: 
-	   colour = atoi(data->value);
-	   text_colour.red = acad_pal[colour].r / 255.0;
-	   text_colour.green = acad_pal[colour].g / 255.0;
-	   text_colour.blue = acad_pal[colour].b / 255.0;
+	   color = pal_get_rgb (atoi(data->value));
+	   text_colour.red = color.r / 255.0;
+	   text_colour.green = color.g / 255.0;
+	   text_colour.blue = color.b / 255.0;
             break;
         case 72: 
 	   switch(atoi(data->value))
@@ -993,9 +983,8 @@ DiaObject *read_entity_text_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 	   break;
         }
     } while(codedxf != 0);
-    setlocale(LC_NUMERIC,old_locale);
   
-   location.y += y_offset * height;
+    location.y += y_offset * height;
    
     text_obj = otype->ops->create(&location, otype->default_user_data,
                                   &h1, &h2);
@@ -1012,6 +1001,7 @@ DiaObject *read_entity_text_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 
     attributes_get_default_font(&tprop->attr.font, &tprop->attr.height);
     tprop->attr.color = text_colour;
+    tprop->attr.height = height;
         
     text_obj->ops->set_props(text_obj, props);
     prop_list_free(props);
@@ -1049,7 +1039,7 @@ void read_entity_scale_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
    switch(codedxf)
      {
       case 40: 
-	coord_scale = atof(data->value);
+	coord_scale = g_ascii_strtod(data->value, NULL);
 	g_message(_("Scale: %f\n"), coord_scale );
 	break;
       
@@ -1088,7 +1078,9 @@ void read_entity_measurement_dxf(FILE *filedxf, DxfData *data,
 }
 
 /* reads a textsize entity from the dxf file */
-void read_entity_textsize_dxf(FILE *filedxf, DxfData *data, DiagramData *dia){
+void 
+read_entity_textsize_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
+{
    int codedxf;
 
    if(read_dxf_codes(filedxf, data) == FALSE)
@@ -1099,7 +1091,7 @@ void read_entity_textsize_dxf(FILE *filedxf, DxfData *data, DiagramData *dia){
    switch(codedxf)
      {
       case 40:
-	text_scale = atof(data->value);
+	text_scale = g_ascii_strtod(data->value, NULL);
 	/*printf( "Text Size: %f\n", text_scale );*/
 	break;		
       default:
@@ -1109,7 +1101,9 @@ void read_entity_textsize_dxf(FILE *filedxf, DxfData *data, DiagramData *dia){
 }
 
 /* reads the headers section of the dxf file */
-void read_section_header_dxf(FILE *filedxf, DxfData *data, DiagramData *dia) {
+void 
+read_section_header_dxf(FILE *filedxf, DxfData *data, DiagramData *dia) 
+{
     int codedxf;
 	
     if(read_dxf_codes(filedxf, data) == FALSE){
@@ -1327,7 +1321,17 @@ import_dxf(const gchar *filename, DiagramData *dia, void* user_data)
 			      dia_message_filename(filename) );
                 return FALSE;
             }
-            if(codedxf == 2) {
+	    if (0 == codedxf) {
+                if(strcmp(data->value, "SECTION") == 0) {
+		  /* don't think we need to do anything */
+                } else if(strcmp(data->value, "ENDSEC") == 0) {
+		  /* don't think we need to do anything */
+                } else if(strcmp(data->value, "EOF") == 0) {
+		  /* handled below */
+		} else {
+		  g_print ("DXF 0:%s not handled\n", data->value);
+		}
+            } else if(codedxf == 2) {
                 if(strcmp(data->value, "ENTITIES") == 0) {
 		   /*printf( "reading section entities\n" );*/
                     read_section_entities_dxf(filedxf, data, dia);
@@ -1348,10 +1352,10 @@ import_dxf(const gchar *filename, DiagramData *dia, void* user_data)
 		  /*printf( "reading section tables\n" );*/
                     read_section_tables_dxf(filedxf, data, dia);
                 }
-	       else if(strcmp(data->value, "OBJECTS") == 0) {
+	        else if(strcmp(data->value, "OBJECTS") == 0) {
 		  /*printf( "reading section objects\n" );*/
                     read_section_entities_dxf(filedxf, data, dia);
-            }
+		}
 	    }
 	   else
 	     g_warning(_("Unknown dxf code %d\n"), codedxf );

@@ -19,15 +19,14 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
-#ifndef AUTOCAD_PAL_H
-#define AUTOCAD_PAL_H
+#include "config.h"
 
-typedef struct 
-{
-   unsigned char r, g, b;
-} RGB_t;
+#include <math.h>
 
-static RGB_t acad_pal[256] =
+#include "autocad_pal.h"
+
+static const 
+RGB_t acad_pal[256] =
 {
      { 0x00, 0x00, 0x00 },      /* 0 */
      { 0xFF, 0x00, 0x00 },
@@ -287,4 +286,34 @@ static RGB_t acad_pal[256] =
      { 0xFF, 0xFF, 0xFF }      /*255 */
 };
 
-#endif /* AUTOCAD_PAL_H */
+static const int num_colors = sizeof(acad_pal)/sizeof(acad_pal[0]);
+
+RGB_t 
+pal_get_rgb (int index)
+{
+  if (index >= 0 && index < num_colors)
+    return acad_pal[index];
+    
+  return acad_pal[0];
+}
+
+int
+pal_get_index (const RGB_t rgb)
+{
+  int i, n;
+  int dist, last = 256*3;
+  
+  for (i = 0; i < num_colors; ++i) {
+    if (acad_pal[i].r == rgb.r && acad_pal[i].g == rgb.g && acad_pal[i].b == rgb.b)
+      return i;
+    dist = abs((int)rgb.r - acad_pal[i].r)
+         + abs((int)rgb.g - acad_pal[i].g) 
+	 + abs((int)rgb.b - acad_pal[i].b);
+    if (dist < last) {
+      n = i;
+      last = dist;
+    }
+  }
+  return n;
+}
+

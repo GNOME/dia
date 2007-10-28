@@ -1,3 +1,23 @@
+2007-10-28  Hans Breuer  <hans@breuer.org>
+
+	* lib/libdiadef.c : added lader_find_objects_containing_rectangle
+	
+	[ overhaul of the DXF plug-in, en passant fixing bug #481193 ]
+	* plug-ins/makefile.msc plug-ins/dxf/Makefile.am 
+	  plug-ins/dxf/autocad_pal.[ch] : moved the acad_pal into it's own
+	file to share it between import and export. Provide accessors.
+	* plug-ins/dxf/dxf-import.c :
+	- get rid of the setlocale stuff by using g_ascii_strtod
+	- read more object('entity) colors
+	- better line style and width preserving
+	- actually use text height from file
+	- less complains, should not give any g_warning anymore, at least not
+	  for a valid DXF file
+	* plug-ins/dxf/dxf-export.c :
+	- implement fill_rect, draw_polyline export more object colors
+	- always write minimal header information although it is supposed to
+	be completely optional
+
 2007-10-28  Lars Clausen  <lars@raeder.dk>
 
 	* app/dia_image.c: Rollback of use of stock image that breaks

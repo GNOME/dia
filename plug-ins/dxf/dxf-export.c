@@ -31,6 +31,8 @@
 #include <errno.h>
 #include <glib/gstdio.h>
 
+#include "autocad_pal.h"
+
 #include "intl.h"
 #include "message.h"
 #include "geometry.h"
@@ -128,6 +130,9 @@ static void set_font(DiaRenderer *self, DiaFont *font, real height);
 static void draw_line(DiaRenderer *self, 
 		      Point *start, Point *end, 
 		      Color *line_colour);
+static void draw_polyline(DiaRenderer *self, 
+                          Point *points, int num_points, 
+                          Color *color);
 static void fill_rect (DiaRenderer *renderer,
                        Point *ul_corner, Point *lr_corner,
                        Color *color);
@@ -221,6 +226,7 @@ dxf_renderer_class_init (DxfRendererClass *klass)
   renderer_class->set_font = set_font;
   
   renderer_class->draw_line = draw_line;
+  renderer_class->draw_polyline = draw_polyline;
   renderer_class->fill_rect = fill_rect;
   renderer_class->fill_polygon = fill_polygon;
 
@@ -321,6 +327,25 @@ set_font(DiaRenderer *self, DiaFont *font, real height)
     renderer->tcurrent.font_height = height;
 }
 
+int
+dxf_color (const Color *color)
+{
+    /* Fixed colors
+     * 0 - black ?
+     * 1 - red
+     * 2 - yellow
+     * 3 - green
+     * 4 - cyan
+     * 5 - blue
+     * 6 - purple
+     * 7 - white
+     * 8 - gray
+     * ...
+     */
+    RGB_t rgb = {color->red*255, color->green*255, color->blue*255};
+    return pal_get_index (rgb);
+}
+
 static void
 draw_line(DiaRenderer *self, 
 	  Point *start, Point *end, 
@@ -335,15 +360,53 @@ draw_line(DiaRenderer *self,
     fprintf(renderer->file, " 20\n%f\n", (-1)*start->y);
     fprintf(renderer->file, " 11\n%f\n", end->x);
     fprintf(renderer->file, " 21\n%f\n", (-1)*end->y);
-    fprintf(renderer->file, " 39\n%d\n", (int)(10*renderer->lcurrent.width)); /* Thickness */
+    fprintf(renderer->file, " 39\n%d\n", (int)(renderer->lcurrent.width)); /* Thickness */
+    fprintf(renderer->file, " 62\n%d\n", dxf_color (line_colour));
+}
+
+static void
+draw_polyline(DiaRenderer *self, 
+              Point *points, int num_points, 
+              Color *color)
+{
+    DxfRenderer *renderer = DXF_RENDERER(self);
+    int i;
+
+    fprintf(renderer->file, "  0\nPOLYLINE\n");
+    fprintf(renderer->file, "  6\n%s\n", renderer->lcurrent.style);
+    fprintf(renderer->file, "  8\n%s\n", renderer->layername);
+    /* start and end width are the same */
+    fprintf(renderer->file, " 41\n%f\n", renderer->lcurrent.width);
+    fprintf(renderer->file, " 41\n%f\n", renderer->lcurrent.width);
+    fprintf(renderer->file, " 62\n%d\n", dxf_color (color));
+    /* vertices-follow flag */
+    fprintf(renderer->file, " 66\n1\n");
+
+    for (i = 0; i < num_points; ++i)
+        fprintf(renderer->file, "  0\nVERTEX\n 10\n%f\n 20\n%f\n",
+	        points[i].x, -points[i].y);
+
+    fprintf(renderer->file, "  0\nSEQEND\n");
 }
 
 static void 
-fill_rect (DiaRenderer *renderer,
+fill_rect (DiaRenderer *self,
            Point *ul_corner, Point *lr_corner,
            Color *color)
 {
-  /* draw a transparent rect. i.e. not implemented */
+  DxfRenderer *renderer = DXF_RENDERER(self);
+  Point pts[4] = { 
+    {ul_corner->x, -lr_corner->y}, 
+    {ul_corner->x, -ul_corner->y},
+    {lr_corner->x, -lr_corner->y},
+    {lr_corner->x, -ul_corner->y} 
+  };
+  int i;
+  
+  fprintf(renderer->file, "  0\nSOLID\n");
+  fprintf(renderer->file, " 62\n%d\n", dxf_color (color));
+  for (i = 0; i < 4; ++i)
+    fprintf(renderer->file, " %d\n%f\n %d\n%f\n", 10+i, pts[i].x, 20+i, pts[i].y);
 }
 
 static void 
@@ -364,16 +427,15 @@ draw_arc(DiaRenderer *self,
     DxfRenderer *renderer = DXF_RENDERER(self);
 
     if(height != 0.0){
-        fprintf(renderer->file, "  0\nELLIPSE\n");
+        fprintf(renderer->file, "  0\nARC\n");
         fprintf(renderer->file, "  8\n%s\n", renderer->layername);
         fprintf(renderer->file, "  6\n%s\n", renderer->lcurrent.style);
         fprintf(renderer->file, " 10\n%f\n", center->x);
         fprintf(renderer->file, " 20\n%f\n", (-1)*center->y);
-        fprintf(renderer->file, " 11\n%f\n", width/2); /* Endpoint major axis relative to center X*/            
-        fprintf(renderer->file, " 40\n%f\n", width/height); /*Ratio major/minor axis*/
+        fprintf(renderer->file, " 40\n%f\n", width/2); /* radius */
         fprintf(renderer->file, " 39\n%d\n", (int)(10*renderer->lcurrent.width)); /* Thickness */
-        fprintf(renderer->file, " 41\n%f\n", (angle1/360 ) * 2 * M_PI); /*Start Parameter full ellipse */
-        fprintf(renderer->file, " 42\n%f\n", (angle2/360 ) * 2 * M_PI); /* End Parameter full ellipse */		
+        fprintf(renderer->file, " 50\n%f\n", (angle1/360 ) * 2 * M_PI); /*start angle */
+        fprintf(renderer->file, " 51\n%f\n", (angle2/360 ) * 2 * M_PI); /* end angle */		
     }          
 }
 
@@ -459,7 +521,7 @@ draw_string(DiaRenderer *self,
     fprintf(renderer->file, "  7\n%s\n", "0"); /* Text style */
     fprintf(renderer->file, "  1\n%s\n", text);
     fprintf(renderer->file, " 39\n%d\n", (int)(10*renderer->lcurrent.width)); /* Thickness */
-    fprintf(renderer->file, " 62\n%d\n", 1);
+    fprintf(renderer->file, " 62\n%d\n", dxf_color(colour));
 }
 
 static void
@@ -491,6 +553,14 @@ export_dxf(DiagramData *data, const gchar *filename,
 
     renderer->file = file;
     
+    /* drawing limits */
+    fprintf(file, "  0\nSECTION\n  2\nHEADER\n");
+    fprintf(file, "  9\n$EXTMIN\n 10\n%f\n 20\n%f\n", 
+      data->extents.left, -data->extents.bottom);
+    fprintf(file, "  9\n$EXTMAX\n 10\n%f\n 20\n%f\n", 
+      data->extents.right, -data->extents.top);
+    fprintf(file, "  0\nENDSEC\n");    
+
     /* write layer description */
     fprintf(file,"0\nSECTION\n2\nTABLES\n");
     for (i=0; i<data->layers->len; i++) {

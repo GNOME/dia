@@ -419,6 +419,7 @@ EXPORTS
  layer_find_closest_connectionpoint
  layer_find_closest_object
  layer_find_closest_object_except
+ layer_find_objects_containing_rectangle
  layer_find_objects_in_rectangle
  layer_find_objects_intersecting_rectangle
  layer_get_parent_diagram
@@ -688,3 +689,4 @@ EXPORTS
  prop_dialog_from_widget
  find_prop_by_name
  dia_object_get_enclosing_box
+
