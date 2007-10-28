@@ -66,6 +66,11 @@ static PropDescription umloperation_props[] = {
   N_("Comment"), NULL, NULL },
   { "stereotype", PROP_TYPE_STRING, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
   N_("Stereotype"), NULL, NULL },
+  { "attribute", PROP_TYPE_STRING, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
+  N_("Attribute"), NULL, NULL },
+  /* jve */
+  { "base", PROP_TYPE_STRING, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
+  N_("Base"), NULL, NULL },
   /* visibility: public, protected, private (other languages?) */
   { "visibility", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
   N_("Visibility"), NULL, _uml_visibilities },
@@ -86,6 +91,8 @@ static PropOffset umloperation_offsets[] = {
   { "type", PROP_TYPE_STRING, offsetof(UMLOperation, type) },
   { "comment", PROP_TYPE_STRING, offsetof(UMLOperation, comment) },
   { "stereotype", PROP_TYPE_STRING, offsetof(UMLOperation, stereotype) },
+  { "attribute", PROP_TYPE_STRING, offsetof(UMLOperation, attribute) },
+  { "base", PROP_TYPE_STRING, offsetof(UMLOperation, base) },
   { "visibility", PROP_TYPE_ENUM, offsetof(UMLOperation, visibility) },
   { "inheritance_type", PROP_TYPE_ENUM, offsetof(UMLOperation, inheritance_type) },
   { "query", PROP_TYPE_BOOL, offsetof(UMLOperation, query) },
@@ -150,6 +157,24 @@ uml_operation_copy_into(UMLOperation *srcop, UMLOperation *destop)
     destop->stereotype = g_strdup(srcop->stereotype);
   } else {
     destop->stereotype = NULL;
+  }
+  if (destop->attribute != NULL) {
+    g_free(destop->attribute);
+  }
+  if(srcop->attribute != NULL) {
+    destop->attribute = g_strdup(srcop->attribute);
+  } else {
+    destop->attribute = NULL;
+  }
+
+  /* jve */
+  if (destop->base != NULL) {
+    g_free(destop->base);
+  }
+  if (srcop->base != NULL) {
+    destop->base = g_strdup(srcop->base);
+  } else {
+    destop->base = NULL;
   }
   
   if (destop->comment != NULL) {
@@ -225,6 +250,11 @@ uml_operation_destroy(UMLOperation *op)
     g_free(op->type);
   if (op->stereotype != NULL)
     g_free(op->stereotype);
+  if (op->attribute != NULL)
+    g_free(op->attribute);
+  /* jve */
+  if (op->base != NULL)
+    g_free(op->base);
 
   g_free(op->comment);
 
@@ -261,6 +291,11 @@ uml_operation_write(AttributeNode attr_node, UMLOperation *op)
 		  op->name);
   data_add_string(composite_add_attribute(composite, "stereotype"),
 		  op->stereotype);
+  data_add_string(composite_add_attribute(composite, "attribute"),
+		  op->attribute);
+  /* jve */
+  data_add_string(composite_add_attribute(composite, "base"),
+                  op->base);
   data_add_string(composite_add_attribute(composite, "type"),
 		  op->type);
   data_add_enum(composite_add_attribute(composite, "visibility"),

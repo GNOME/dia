@@ -122,6 +122,8 @@ static ObjectOps umlclass_ops = {
   (ApplyPropertiesListFunc) object_apply_props,
 };
 
+/* jve */
+extern PropEnumData _uml_visibilities[];
 extern PropDescDArrayExtra umlattribute_extra;
 extern PropDescDArrayExtra umloperation_extra;
 extern PropDescDArrayExtra umlparameter_extra;
@@ -141,10 +143,19 @@ static PropDescription umlclass_props[] = {
   N_("Name"), NULL, NULL },
   { "stereotype", PROP_TYPE_STRING, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
   N_("Stereotype"), NULL, NULL },
+  { "attribute", PROP_TYPE_STRING, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
+  N_("Attribute"), NULL, NULL },
   { "comment", PROP_TYPE_STRING, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
   N_("Comment"), NULL, NULL },
   { "abstract", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
   N_("Abstract"), NULL, NULL },
+  { "sealed", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
+  N_("Sealed"), NULL, NULL },
+  /* jve */
+  { "visibility", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
+  N_("Visibility"), NULL, _uml_visibilities },
+  { "static", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
+  N_("Static"), NULL, NULL },
   { "template", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL| PROP_FLAG_NO_DEFAULTS,
   N_("Template"), NULL, NULL },
 
@@ -254,8 +265,12 @@ static PropOffset umlclass_offsets[] = {
   { "fill_colour", PROP_TYPE_COLOUR, offsetof(UMLClass, fill_color) },
   { "name", PROP_TYPE_STRING, offsetof(UMLClass, name) },
   { "stereotype", PROP_TYPE_STRING, offsetof(UMLClass, stereotype) },
+  { "attribute", PROP_TYPE_STRING, offsetof(UMLClass, attribute) },
   { "comment", PROP_TYPE_STRING, offsetof(UMLClass, comment) },
   { "abstract", PROP_TYPE_BOOL, offsetof(UMLClass, abstract) },
+  { "sealed", PROP_TYPE_BOOL, offsetof(UMLClass, sealed) },
+  { "visibility", PROP_TYPE_ENUM, offsetof(UMLClass, visibility) },
+  { "static", PROP_TYPE_BOOL, offsetof(UMLClass, static_class) },
   { "template", PROP_TYPE_BOOL, offsetof(UMLClass, template) },
   { "suppress_attributes", PROP_TYPE_BOOL, offsetof(UMLClass , suppress_attributes) },
   { "visible_attributes", PROP_TYPE_BOOL, offsetof(UMLClass , visible_attributes) },
@@ -1740,9 +1755,14 @@ umlclass_create(Point *startpoint,
   obj->ops = &umlclass_ops;
 
   umlclass->stereotype = NULL;
+  umlclass->attribute = NULL;
   umlclass->comment = NULL;
 
   umlclass->abstract = FALSE;
+  umlclass->sealed = FALSE;
+  /* jve */
+  umlclass->static_class = FALSE;
+  umlclass->visibility = UML_PUBLIC;
 
   umlclass->suppress_attributes = FALSE;
   umlclass->suppress_operations = FALSE;
@@ -1819,6 +1839,7 @@ umlclass_destroy(UMLClass *umlclass)
   
   g_free(umlclass->name);
   g_free(umlclass->stereotype);
+  g_free(umlclass->attribute);
   g_free(umlclass->comment);
 
   list = umlclass->attributes;
@@ -1905,6 +1926,10 @@ umlclass_copy(UMLClass *umlclass)
     newumlclass->stereotype = g_strdup(umlclass->stereotype);
   else
     newumlclass->stereotype = NULL;
+  if (umlclass->attribute != NULL && umlclass->attribute[0] != '\0')
+    newumlclass->attribute = g_strdup(umlclass->attribute);
+  else
+    newumlclass->attribute = NULL;
 
   if (umlclass->comment != NULL)
     newumlclass->comment = g_strdup(umlclass->comment);
@@ -1912,6 +1937,10 @@ umlclass_copy(UMLClass *umlclass)
     newumlclass->comment = NULL;
 
   newumlclass->abstract = umlclass->abstract;
+  newumlclass->sealed = umlclass->sealed;
+  /* jve */
+  newumlclass->visibility = umlclass->visibility;
+  newumlclass->static_class = umlclass->static_class;
   newumlclass->suppress_attributes = umlclass->suppress_attributes;
   newumlclass->suppress_operations = umlclass->suppress_operations;
   newumlclass->visible_attributes = umlclass->visible_attributes;
@@ -2045,10 +2074,19 @@ umlclass_save(UMLClass *umlclass, ObjectNode obj_node,
 		  umlclass->name);
   data_add_string(new_attribute(obj_node, "stereotype"),
 		  umlclass->stereotype);
+  data_add_string(new_attribute(obj_node, "attribute"),
+		  umlclass->attribute);
   data_add_string(new_attribute(obj_node, "comment"),
                   umlclass->comment);
   data_add_boolean(new_attribute(obj_node, "abstract"),
 		   umlclass->abstract);
+  data_add_boolean(new_attribute(obj_node, "sealed"),
+		   umlclass->sealed);
+  /* jve */
+  data_add_enum(new_attribute(obj_node, "visibility"),
+		   umlclass->visibility);
+  data_add_boolean(new_attribute(obj_node, "static"),
+		   umlclass->static_class);
   data_add_boolean(new_attribute(obj_node, "suppress_attributes"),
 		   umlclass->suppress_attributes);
   data_add_boolean(new_attribute(obj_node, "suppress_operations"),
@@ -2165,7 +2203,8 @@ static DiaObject *umlclass_load(ObjectNode obj_node, int version,
 
   fill_in_fontdata(umlclass);
   
-  /* kind of dirty, object_load_props() may leave us in an inconsistent state --hb */
+  /* kind of dirty, object_load_props() may leave us in an inconsistent state --hb 
+  */
   object_load_props(obj,obj_node);
 
   /* parameters loaded via StdProp dont belong here anymore. In case of strings they 

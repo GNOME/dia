@@ -1,3 +1,13 @@
+2007-10-28  Lars Clausen  <lars@raeder.dk>
+
+	* objects/UML/umloperation.c: 
+	* objects/UML/umlattribute.c: 
+	* objects/UML/uml.h: 
+	* objects/UML/uml.c: 
+	* objects/UML/class.c:
+	* objects/UML/class_dialog.c: Patch from jan jan
+	<jve7gm@gmail.com>: Add attributes and "sealed" to UML.
+
 2007-10-28  Hans Breuer  <hans@breuer.org>
 
 	* lib/libdiadef.c : added lader_find_objects_containing_rectangle
