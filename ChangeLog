@@ -1,3 +1,8 @@
+2007-10-30  Lars Clausen  <lars@raeder.dk>
+
+	* objects/UML/transition.c (transition_draw): Make sure transition
+	uses solid linestyle.  Fixes bug #372149.
+
 2007-10-28  Lars Clausen  <lars@raeder.dk>
 
 	* objects/UML/umloperation.c: 

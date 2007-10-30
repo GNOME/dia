@@ -346,6 +346,7 @@ static void transition_draw(Transition* transition, DiaRenderer* renderer)
   renderer_ops->set_linewidth(renderer, TRANSITION_WIDTH);
   /* TODO, find out about the meaning of this... */
   renderer_ops->set_linecaps(renderer, LINECAPS_BUTT); 
+  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
 
   if (transition->direction_inverted) {
       start_arrow = &arrow;
