@@ -1,3 +1,13 @@
+2007-10-31  Lars Clausen  <lars@raeder.dk>
+
+	* objects/UML/umloperation.c: 
+	* objects/UML/umlattribute.c: 
+	* objects/UML/uml.h: 
+	* objects/UML/uml.c: 
+	* objects/UML/class.c:
+	* objects/UML/class_dialog.c: Reverting UML patch: Patch not
+	complete and changes non-standard.
+
 2007-10-30  Lars Clausen  <lars@raeder.dk>
 
 	* objects/UML/transition.c (transition_draw): Make sure transition

@@ -113,11 +113,3 @@ PropEnumData _uml_inheritances[] = {
   { NULL, 0 }
 };
 
-/* uml */
-PropEnumData _uml_properties[] = {
-  { N_("Get & Set"), UML_GETSET },
-  { N_("Get"), UML_GET },
-  { N_("Set"), UML_SET },
-  { NULL, 0 }
-};
-

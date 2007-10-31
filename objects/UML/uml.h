@@ -54,15 +54,6 @@ typedef enum _UMLParameterKind {
   UML_INOUT /**< by ref */
 } UMLParameterKind;
 
-/** jve: describes the data flow for properties */
-typedef enum _UMLPropertyKind {
-  UML_NONE, /** none */
-  UML_GETSET, /** get and set */
-  UML_GET, /** get only */
-  UML_SET /** set only */
-} UMLPropertyKind;
-
-
 typedef gchar * UMLStereotype;
 
 /** \brief A list of UMLAttribute is contained in UMLClass
@@ -75,12 +66,8 @@ struct _UMLAttribute {
   gchar *type; /**< the return value */
   gchar *value; /**< default parameter : Can be NULL => No default value */
   gchar *comment; /**< comment */
-  gchar *attributes; /**< attributes */
   UMLVisibility visibility; /**< attributes visibility */
-  /* jve */
-  UMLPropertyKind property; /**< kind of property accessor */
-  /* jve */
-  int abstract; /**< not sure if this applicable, jve: yes it is now */
+  int abstract; /**< not sure if this applicable */
   int class_scope; /**< in C++ : static member */
   
   ConnectionPoint* left_connection; /**< left */
@@ -95,11 +82,8 @@ struct _UMLOperation {
 		     * the user has shuffled them in the dialog. */
   gchar *name; /**< the function name */
   gchar *type; /**< Return type, NULL => No return type */
-  gchar *attribute; /**< attribute */
   gchar *comment; /**< comment */  
   UMLStereotype stereotype; /**< just some string */
-  /*jve */
-  gchar *base;
   UMLVisibility visibility; /**< allowed access */
   UMLInheritanceType inheritance_type;
   int query; /**< Do not modify the object, in C++ this is a const function */

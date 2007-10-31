@@ -91,13 +91,7 @@ struct _UMLClass {
   char *name;
   char *stereotype; /**< NULL if no stereotype */
   char *comment; /**< Comments on the class */
-  char *attribute;
-  int abstract; 
-  int sealed;
-  /* jve */
-  UMLVisibility visibility;
-  /* jve */
-  int static_class;
+  int abstract;
   int suppress_attributes; 
   int suppress_operations; 
   int visible_attributes; /**< ie. don't draw strings. */
@@ -160,17 +154,9 @@ struct _UMLClassDialog {
 
   GtkEntry *classname;
   GtkEntry *stereotype;
-  GtkEntry *attribute;
   GtkTextView *comment;
 
-  /* jve */
-  GtkMenu *visibility;
-  GtkOptionMenu *visibility_button;
-
   GtkToggleButton *abstract_class;
-  GtkToggleButton *sealed;
-  /* jve */
-  GtkToggleButton *static_class;
   GtkToggleButton *attr_vis;
   GtkToggleButton *attr_supp;
   GtkToggleButton *op_vis;
@@ -208,23 +194,15 @@ struct _UMLClassDialog {
   GtkEntry *attr_type;
   GtkEntry *attr_value;
   GtkTextView *attr_comment;
-  GtkEntry *attr_attributes;
   GtkMenu *attr_visible;
   GtkOptionMenu *attr_visible_button;
-  /* jve */
-  GtkMenu *attr_visible_access;
-  GtkOptionMenu *attr_visible_access_button;
   GtkToggleButton *attr_class_scope;
-  /* jve */
-  GtkToggleButton *attr_abstract;
   
   GtkList *operations_list;
   GtkListItem *current_op;
   GtkEntry *op_name;
   GtkEntry *op_type;
   GtkEntry *op_stereotype;
-  GtkEntry *op_attribute;
-  GtkEntry *op_base;
   GtkTextView *op_comment;
 
   GtkMenu *op_visible;

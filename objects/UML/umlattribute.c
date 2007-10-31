@@ -31,9 +31,6 @@
 #include "properties.h"
 
 extern PropEnumData _uml_visibilities[];
-/* jve */
-extern PropEnumData _uml_properties[];
-/* jve */
 
 static PropDescription umlattribute_props[] = {
   { "name", PROP_TYPE_STRING, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
@@ -44,18 +41,12 @@ static PropDescription umlattribute_props[] = {
   N_("Value"), NULL, NULL },
   { "comment", PROP_TYPE_STRING, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
   N_("Comment"), NULL, NULL },
-  { "attribute", PROP_TYPE_STRING, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
-  N_("Attribute"), NULL, NULL },
   { "visibility", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
   N_("Visibility"), NULL, _uml_visibilities },
   { "abstract", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
   N_("Abstract (?)"), NULL, NULL },
   { "class_scope", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
   N_("Class scope (static)"), NULL, NULL },
-  /* jve */
-  { "property", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
-  N_("Property"), NULL, _uml_properties },
-  /* jve */
 
   PROP_DESC_END
 };
@@ -65,13 +56,9 @@ static PropOffset umlattribute_offsets[] = {
   { "type", PROP_TYPE_STRING, offsetof(UMLAttribute, type) },
   { "value", PROP_TYPE_STRING, offsetof(UMLAttribute, value) },
   { "comment", PROP_TYPE_STRING, offsetof(UMLAttribute, comment) },
-  { "attribute", PROP_TYPE_STRING, offsetof(UMLAttribute, attributes) },
   { "visibility", PROP_TYPE_ENUM, offsetof(UMLAttribute, visibility) },
   { "abstract", PROP_TYPE_BOOL, offsetof(UMLAttribute, abstract) },
   { "class_scope", PROP_TYPE_BOOL, offsetof(UMLAttribute, class_scope) },
-  /* jve */
-  { "property", PROP_TYPE_ENUM, offsetof(UMLAttribute, property) },
-  /* jve */
   { NULL, 0, 0 },
 };
 
@@ -95,13 +82,9 @@ uml_attribute_new(void)
   attr->type = g_strdup("");
   attr->value = NULL;
   attr->comment = g_strdup("");
-  attr->attributes = g_strdup("");
   attr->visibility = UML_PUBLIC;
   attr->abstract = FALSE;
   attr->class_scope = FALSE;
-  /* jve */
-  attr->property = UML_NONE;
-  /* jve */
 #if 0 /* setup elsewhere */
   attr->left_connection = g_new0(ConnectionPoint, 1);
   attr->right_connection = g_new0(ConnectionPoint, 1);
@@ -141,21 +124,9 @@ uml_attribute_copy_into(UMLAttribute *attr, UMLAttribute *newattr)
   else 
     newattr->comment = NULL;
 
-  if (newattr->attributes != NULL) {
-    g_free_(newattr->attributes);
-  }
-  if (attr->attributes != NULL)
-    newattr->attributes = g_strdup (attr->attributes);
-  else
-    newattr->attributes = NULL;
-
   newattr->visibility = attr->visibility;
   newattr->abstract = attr->abstract;
   newattr->class_scope = attr->class_scope;
-  /* jve */
-  newattr->property = attr->property;
-  /* jve */
-
 }
 
 /** Copy an attribute's content.
@@ -181,8 +152,6 @@ uml_attribute_destroy(UMLAttribute *attr)
     g_free(attr->value);
   if (attr->comment != NULL)
     g_free(attr->comment);
-  if (attr->attributes != NULL)
-    g_free(attr->attributes);
 #if 0 /* free'd elsewhere */
   g_free(attr->left_connection);
   g_free(attr->right_connection);
@@ -205,19 +174,12 @@ uml_attribute_write(AttributeNode attr_node, UMLAttribute *attr)
 		  attr->value);
   data_add_string(composite_add_attribute(composite, "comment"),
 		  attr->comment);
-  data_add_string(composite_add_attribute(composite, "attribute"),
-		  attr->attributes);
   data_add_enum(composite_add_attribute(composite, "visibility"),
 		attr->visibility);
   data_add_boolean(composite_add_attribute(composite, "abstract"),
 		  attr->abstract);
   data_add_boolean(composite_add_attribute(composite, "class_scope"),
 		  attr->class_scope);
-  /* jve */
-  data_add_enum(composite_add_attribute(composite, "property"),
-		  attr->property);
-  /* jve */
- 
 }
 
 /* Warning, the following *must* be strictly ASCII characters (or fix the 
