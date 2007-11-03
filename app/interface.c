@@ -229,6 +229,12 @@ ToolButton tool_data[] =
     "<shift><alt>I",
     "ToolsImage",
     { CREATE_OBJECT_TOOL, "Standard - Image", NULL }
+  },
+  { NULL,
+    N_("Outline"),
+    NULL,
+    "ToolsOutline",
+    { CREATE_OBJECT_TOOL, "Standard - Outline", NULL }
   }
 };
 
@@ -1374,10 +1380,9 @@ create_sheet_dropdown_menu(GtkWidget *parent)
   /*    gtk_widget_set_size_request(sheet_option_menu, 20, -1);*/
   gtk_wrap_box_pack_wrapped(GTK_WRAP_BOX(parent), sheet_option_menu,
 			    TRUE, TRUE, FALSE, FALSE, TRUE);    
-  /* 15 is a magic number that goes beyond the standard objects and
-   * the divider. */
+  /* 15 was a magic number that goes beyond the standard objects and the divider. */
   gtk_wrap_box_reorder_child(GTK_WRAP_BOX(parent),
-			     sheet_option_menu, 15);
+			     sheet_option_menu, NUM_TOOLS+1);
   gtk_widget_show(sheet_option_menu);
 }
 

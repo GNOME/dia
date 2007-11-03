@@ -1,3 +1,14 @@
+2007-11-03  Hans Breuer  <hans@breuer.org>
+
+	* objects/standard/outline.c : an object drawing text outlines, 
+	even rotateable. Backdoor making Dia finally support some
+	rotated text, compatible with all existing renderers ;)
+	* objects/standard/pixmaps/outline.png : an ugly icon
+	* objects/standard/standard.c : register and ...
+	* objects/standard/Makefile.am : ... build it
+
+	* app/interface.c : less magic number to reorder the sheet_option_menu
+
 2007-10-31  Lars Clausen  <lars@raeder.dk>
 
 	* objects/UML/umloperation.c: 

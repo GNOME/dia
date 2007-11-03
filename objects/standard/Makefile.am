@@ -10,6 +10,7 @@ libstandard_objects_la_SOURCES = 	arc.c \
 			bezier.c \
 			standard.c \
 			image.c \
+			outline.c \
 			polygon.c \
 			beziergon.c \
 			tool-icons.h
@@ -24,6 +25,7 @@ ICON_PNG_PAIRS= \
 	ellipse_icon $(srcdir)/pixmaps/ellipse.png \
 	image_icon $(srcdir)/pixmaps/image.png \
 	line_icon $(srcdir)/pixmaps/line.png \
+	outline_icon $(srcdir)/pixmaps/outline.png \
 	polygon_icon $(srcdir)/pixmaps/polygon.png \
 	polyline_icon $(srcdir)/pixmaps/polyline.png \
 	text_icon $(srcdir)/pixmaps/text.png \
@@ -37,6 +39,7 @@ ICON_PNGS= \
 	pixmaps/ellipse.png \
 	pixmaps/image.png \
 	pixmaps/line.png \
+	pixmaps/outline.png \
 	pixmaps/polygon.png \
 	pixmaps/polyline.png \
 	pixmaps/text.png \

@@ -34,6 +34,7 @@ extern DiaObjectType *_polyline_type;
 extern DiaObjectType *_bezierline_type;
 extern DiaObjectType *_textobj_type;
 extern DiaObjectType *_image_type;
+extern DiaObjectType *_outline_type;
 extern DiaObjectType *_polygon_type;
 extern DiaObjectType *_beziergon_type;
 
@@ -55,6 +56,7 @@ dia_plugin_init(PluginInfo *info)
   object_register_type(_bezierline_type);
   object_register_type(_textobj_type);
   object_register_type(_image_type);
+  object_register_type(_outline_type);
   object_register_type(_polygon_type);
   object_register_type(_beziergon_type);
 
