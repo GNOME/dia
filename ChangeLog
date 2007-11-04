@@ -1,4 +1,6 @@
-2007-11-04 Hans Breuer  <hans@breuer.org>
+2007-11-04  Hans Breuer  <hans@breuer.org>
+
+	* objects/standard/outline.c : oops, the cairo context was leaked
 
 	* app/menus.c data/display-ui.xml data/integrated-ui.xml
 	  data/popup-ui.xml : put Outline to the menus

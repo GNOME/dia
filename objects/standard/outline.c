@@ -299,6 +299,8 @@ outline_update_data (Outline *outline)
   cairo_move_to (cr, -extents.x_bearing, -extents.y_bearing);
   cairo_text_path (cr, outline->name);
   outline->path = cairo_copy_path (cr);
+  /* the cairo context is only used in this fuinction */
+  cairo_destroy (cr);
 }
 static void 
 outline_draw(Outline *outline, DiaRenderer *renderer)
