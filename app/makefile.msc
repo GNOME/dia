@@ -104,7 +104,10 @@ ICON_PNG_PAIRS = \
 	dia_group_icon pixmaps\group.png \
 	dia_ungroup_icon pixmaps\ungroup.png \
 	dia_mainpoints_on_icon pixmaps\mainpoints-on.png \
-	dia_mainpoints_off_icon pixmaps\mainpoints-off.png
+	dia_mainpoints_off_icon pixmaps\mainpoints-off.png \
+	\
+	dia_diagram_icon pixmaps\dia-diagram.png \
+	dia_app_icon pixmaps\dia-app.png 
 
 dia-app-icons.h : makefile.msc pixmaps\*.png
 	gdk-pixbuf-csource --build-list \

@@ -760,6 +760,15 @@ create_display_shell(DDisplay *ddisp,
     gtk_window_set_role (GTK_WINDOW (ddisp->shell), "diagram_window");
     gtk_window_set_icon_name (GTK_WINDOW (ddisp->shell), "dia");
     gtk_window_set_default_size(GTK_WINDOW (ddisp->shell), width, height);
+    /* set_icon_name needs registered theme icons, not always available: provide fallback */
+    if (!gtk_window_get_icon (GTK_WINDOW (ddisp->shell))) {
+      static GdkPixbuf *pixbuf = NULL;
+
+      if (!pixbuf)
+        pixbuf = gdk_pixbuf_new_from_inline(-1, dia_diagram_icon, FALSE, NULL);
+      if (pixbuf)
+        gtk_window_set_icon (GTK_WINDOW (ddisp->shell), pixbuf);
+    }
   } else {
     ddisp->shell = gtk_event_box_new ();
   }
@@ -1624,7 +1633,7 @@ void create_integrated_ui (void)
   gtk_window_set_default_size (GTK_WINDOW (window), 146, 349);
  
   gtk_window_set_icon_name (GTK_WINDOW (window), "dia");
- 
+
   g_signal_connect (GTK_OBJECT (window), "delete_event",
 		    G_CALLBACK (toolbox_delete),
 		      window);
@@ -1731,7 +1740,6 @@ create_toolbox ()
   GtkWidget *wrapbox;
   GtkWidget *menubar;
   GtkAccelGroup *accel_group;
-  GdkPixbuf *pixbuf;
 
 #ifdef GNOME
   window = gnome_app_new ("Dia", _("Diagram Editor"));
@@ -1744,6 +1752,13 @@ create_toolbox ()
   gtk_window_set_default_size(GTK_WINDOW(window), 146, 349);
 
   gtk_window_set_icon_name (GTK_WINDOW (window), "dia");
+  if (!gtk_window_get_icon (GTK_WINDOW (window))) {
+    GdkPixbuf *pixbuf = gdk_pixbuf_new_from_inline (-1, dia_app_icon, FALSE, NULL);
+    if (pixbuf) {
+      gtk_window_set_icon (GTK_WINDOW (window), pixbuf);
+      g_object_unref (pixbuf);
+    }
+  }
 
   g_signal_connect (GTK_OBJECT (window), "delete_event",
 		    G_CALLBACK (toolbox_delete),

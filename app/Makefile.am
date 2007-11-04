@@ -58,7 +58,10 @@ ICON_PNG_PAIRS= \
 	dia_group_icon $(srcdir)/pixmaps/group.png \
 	dia_ungroup_icon $(srcdir)/pixmaps/ungroup.png \
 	dia_mainpoints_on_icon $(srcdir)/pixmaps/mainpoints-on.png \
-	dia_mainpoints_off_icon $(srcdir)/pixmaps/mainpoints-off.png
+	dia_mainpoints_off_icon $(srcdir)/pixmaps/mainpoints-off.png \
+	\
+	dia_diagram_icon $(srcdir)/pixmaps/dia-diagram.png \
+	dia_app_icon $(srcdir)/pixmaps/dia-app.png 
 
 ICON_PNGS= \
 	pixmaps/connectable.png \
