@@ -337,7 +337,7 @@ read_entity_solid_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 
    pcd = g_new( MultipointCreateData, 1);
    
-   if( p[2].x != p[3].x && p[2].y != p[3].y )
+   if( p[2].x != p[3].x || p[2].y != p[3].y )
      pcd->num_points = 4;
    else
      pcd->num_points = 3;

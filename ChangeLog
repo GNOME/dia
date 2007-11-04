@@ -1,3 +1,16 @@
+2007-11-04 Hans Breuer  <hans@breuer.org>
+
+	* app/menus.c data/display-ui.xml data/integrated-ui.xml
+	  data/popup-ui.xml : put Outline to the menus
+	* objects/standard/outline.c : need PROP_STD_TEXT_*_OPTIONS,
+	otherwise the font specific stuff would not be saved/restored
+	(outline_copy) : copy also the font information and colors
+	* objects/makefile.msc : build Outline on win32
+	* samples/render-test.dia : updated to also use Outline
+
+	* plug-ins/dxf/dxf-import.c : the logic to detect a 4 point 'SOLID'
+	was flawed, it is enough if x or y is different
+
 2007-11-03  Hans Breuer  <hans@breuer.org>
 
 	* objects/standard/outline.c : an object drawing text outlines, 
@@ -33,6 +46,7 @@
 	* objects/UML/class.c:
 	* objects/UML/class_dialog.c: Patch from jan jan
 	<jve7gm@gmail.com>: Add attributes and "sealed" to UML.
+
 
 2007-10-28  Hans Breuer  <hans@breuer.org>
 

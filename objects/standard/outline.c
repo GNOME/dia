@@ -200,8 +200,9 @@ static PropDescription outline_props[] = {
     N_("Text content"),NULL },
   { "rotation", PROP_TYPE_REAL,PROP_FLAG_VISIBLE,
     N_("Rotation"), N_("Angle to rotate the outline"), &_rotation_range},
-  PROP_STD_TEXT_FONT,
-  PROP_STD_TEXT_HEIGHT,
+  /* the default PROP_STD_TEXT_FONT has PROP_FLAG_DONT_SAVE, we need saving */
+  PROP_STD_TEXT_FONT_OPTIONS(PROP_FLAG_VISIBLE),
+  PROP_STD_TEXT_HEIGHT_OPTIONS(PROP_FLAG_VISIBLE),
   PROP_STD_LINE_WIDTH,
   PROP_STD_LINE_COLOUR,
   PROP_STD_FILL_COLOUR,
@@ -416,6 +417,11 @@ outline_copy (Outline *from)
   outline_init_handles (to);
   to->name = g_strdup (from->name);
   to->rotation = from->rotation;
+  to->font = dia_font_ref (from->font);
+  to->font_height = from->font_height;
+  to->line_width = from->line_width;
+  to->line_color = from->line_color;
+  to->fill_color = from->fill_color;
   to->show_background = from->show_background;
   /* the rest will be recalculated in update_data() */
 

@@ -41,7 +41,8 @@ PKG_CFLAGS = -FImsvc_recommended_pragmas.h \
 	$(LIBXML2_CFLAGS) -I$(PRJ_TOP)\lib \
 
 PKG_LINK = $(GLIB_LIBS) $(INTL_LIBS) \
-	$(PRJ_TOP)\lib\libdia.lib
+	$(PRJ_TOP)\lib\libdia.lib \
+	$(CAIRO_LIBS)
 
 #
 # Object definitions for the various plugins
@@ -218,6 +219,7 @@ OBJECTS = \
 	ellipse.obj \
 	image.obj \
 	line.obj \
+	outline.obj \
 	polygon.obj \
 	polyline.obj \
 	standard.obj \
@@ -231,6 +233,7 @@ ICON_PNG_PAIRS= \
 	box_icon pixmaps\box.png \
 	ellipse_icon pixmaps\ellipse.png \
 	image_icon pixmaps\image.png \
+	outline_icon pixmaps\outline.png \
 	line_icon pixmaps\line.png \
 	polygon_icon pixmaps\polygon.png \
 	polyline_icon pixmaps\polyline.png \
@@ -245,6 +248,7 @@ ICON_PNGS= \
 	pixmaps\ellipse.png \
 	pixmaps\image.png \
 	pixmaps\line.png \
+	pixmaps\outline.png \
 	pixmaps\polygon.png \
 	pixmaps\polyline.png \
 	pixmaps\text.png \

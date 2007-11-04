@@ -226,6 +226,7 @@ static const GtkActionEntry tool_entries[] =
     { "ToolsZigzagline", NULL, N_("Zigzagline"), "<alt><shift>Z", NULL, NULL },
     { "ToolsPolyline", NULL, N_("Polyline"), "<alt><shift>Y", NULL },
     { "ToolsBezierline", NULL, N_("Bezierline"), "<alt><shift>C", NULL, NULL },
+    { "ToolsOutline", NULL, N_("Outine"), "<alt><shift>O", NULL, NULL },
 
     { "ToolsImage", NULL, N_("Image"), "<alt><shift>I", NULL, NULL },
 };

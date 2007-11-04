@@ -130,6 +130,7 @@
 			<menuitem name="ToolsZigzagline" action="ToolsZigzagline" />
 			<menuitem name="ToolsPolyline" action="ToolsPolyline" />
 			<menuitem name="ToolsBezierline" action="ToolsBezierline" />
+			<menuitem name="ToolsOutline" action="ToolsOutline" />
 			<separator name="ToolsSep1" />
 			<menuitem name="ToolsImage" action="ToolsImage" />
 		</menu>
