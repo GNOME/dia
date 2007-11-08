@@ -699,7 +699,7 @@ pgf_arc(PgfRenderer *renderer,
    
     fprintf(renderer->file,"\\pgfpathmoveto{\\pgfpoint{%s\\du}{%s\\du}}\n",
 	    stx_buf, sty_buf);
-    fprintf(renderer->file,"\\pgfpatharc{%s}{%s}{%s\\du/%s\\du}\n",
+    fprintf(renderer->file,"\\pgfpatharc{%s}{%s}{%s\\du and %s\\du}\n",
 	    angle1_buf, angle2_buf,
 	    r1_buf, r2_buf);
 	    

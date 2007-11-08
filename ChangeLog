@@ -1,3 +1,9 @@
+2007-11-08  Lars Clausen  <lars@raeder.dk>
+
+	* plug-ins/pgf/render_pgf.c (pgf_arc): Patch from Jeppe Fock
+	<fock@nano.ku.dk>: Render PGF arcs correctly. Fixes bug #494942.
+	
+
 2007-11-04  Hans Breuer  <hans@breuer.org>
 
 	* app/pixmaps/dia-app.png app/pixmaps/dia-diagram.png : restored
