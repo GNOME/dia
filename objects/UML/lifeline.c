@@ -152,10 +152,10 @@ static PropDescription lifeline_props[] = {
     N_("Draw focus of control:"), NULL, NULL },
   { "draw_cross", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE,
     N_("Draw destruction mark:"), NULL, NULL },
-  { "cpl_northwest",PROP_TYPE_CONNPOINT_LINE, 0, NULL, NULL },
-  { "cpl_southwest",PROP_TYPE_CONNPOINT_LINE, 0, NULL, NULL },
-  { "cpl_northeast",PROP_TYPE_CONNPOINT_LINE, 0, NULL, NULL },
-  { "cpl_southeast",PROP_TYPE_CONNPOINT_LINE, 0, NULL, NULL },
+  { "cpl_northwest",PROP_TYPE_CONNPOINT_LINE, PROP_FLAG_OPTIONAL, NULL, NULL },
+  { "cpl_southwest",PROP_TYPE_CONNPOINT_LINE, PROP_FLAG_OPTIONAL, NULL, NULL },
+  { "cpl_northeast",PROP_TYPE_CONNPOINT_LINE, PROP_FLAG_OPTIONAL, NULL, NULL },
+  { "cpl_southeast",PROP_TYPE_CONNPOINT_LINE, PROP_FLAG_OPTIONAL, NULL, NULL },
   PROP_DESC_END
 };
 

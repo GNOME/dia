@@ -1,3 +1,18 @@
+2007-11-10  Hans Breuer  <hans@breuer.org>
+
+	* objects/standard/outline.c(outline_draw) : first the whole text
+	path from cairo is converted to Dia BezPoint(s). Afterwards it is
+	interpreted regarding 'land' and 'holes'. Thanks to Behdad Esfahbod
+	and Carl Worth for the ideas. The holes are currently drawn by
+	blanking with color_white. This could probably be improved by
+	implementing some beziergon math.
+	* samples/render-test.dia : more Outline variations
+
+	* lib/object.c lib/prop_inttypes.c objects/UML/constraint.c
+	  objects/UML/lifeline.c : more tolerance for very old files written
+	by Dia (< 0.90) by checked cast from int to enum and marking some
+	more properties optional
+
 2007-11-08  Lars Clausen  <lars@raeder.dk>
 
 	* plug-ins/pgf/render_pgf.c (pgf_arc): Patch from Jeppe Fock

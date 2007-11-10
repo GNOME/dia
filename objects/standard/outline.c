@@ -269,14 +269,15 @@ outline_update_data (Outline *outline)
                           DIA_FONT_STYLE_GET_WEIGHT (style) < DIA_FONT_MEDIUM ? CAIRO_FONT_SLANT_NORMAL : CAIRO_FONT_WEIGHT_BOLD);
   cairo_set_font_size (cr, outline->font_height);
   cairo_text_extents (cr, outline->name, &extents);
-#if 0
-  /* unfortunately this has no effect on the returned path */
+
+  /* unfortunately this has no effect on the returned path? See below. */
   cairo_rotate (cr, outline->rotation/(2*G_PI));
-#endif
+
   outline->mat.xx =  cos(G_PI*outline->rotation/180);
   outline->mat.xy =  sin(G_PI*outline->rotation/180);
   outline->mat.yx = -sin(G_PI*outline->rotation/180);
   outline->mat.yy =  cos(G_PI*outline->rotation/180);
+
   /* fix point */
   outline->ink_rect[0].x = x = obj->position.x;
   outline->ink_rect[0].y = y = obj->position.y;  
@@ -297,7 +298,18 @@ outline_update_data (Outline *outline)
   outine_update_handles (outline),
 
   cairo_move_to (cr, -extents.x_bearing, -extents.y_bearing);
+
+#if 0
+  /* reset the matrix to not yet change the outline_draw method */
+  outline->mat.xx =  1.0;
+  outline->mat.xy =  0.0;
+  outline->mat.yx =  0.0;
+  outline->mat.yy =  1.0;
+#endif
+
   cairo_text_path (cr, outline->name);
+  /* reset the rotation to not have the path rotated back and forth: no effect */
+  cairo_rotate (cr, 0.0);
   outline->path = cairo_copy_path (cr);
   /* the cairo context is only used in this fuinction */
   cairo_destroy (cr);
@@ -306,9 +318,10 @@ static void
 outline_draw(Outline *outline, DiaRenderer *renderer)
 {
   DiaObject *obj = &outline->object;
-  int i, n = 0;
+  int i, n = 0, total;
   BezPoint *pts;
   real x, y;
+  Point ps;
   
   if (!outline->path)
     return;
@@ -321,19 +334,20 @@ outline_draw(Outline *outline, DiaRenderer *renderer)
   x = obj->position.x;
   y = obj->position.y;
 
-  /* split the path data into piece which can be handled by Dia's bezier rendering */
-  pts = g_alloca (sizeof(BezPoint)*(outline->path->num_data+1));
+  /* count Dia BezPoints required */
+  total = 0;
+  for (i=0; i < outline->path->num_data; i += outline->path->data[i].header.length) {
+    ++total;
+  }
+
+  pts = g_alloca (sizeof(BezPoint)*(total));
   for (i=0; i < outline->path->num_data; i += outline->path->data[i].header.length) {
     cairo_path_data_t *data = &outline->path->data[i];
     if (CAIRO_PATH_MOVE_TO == data->header.type) {
-      /* Dia can't handle moveto except at start */
-      if (0 != n) {
-        DIA_RENDERER_GET_CLASS (renderer)->draw_bezier (renderer, pts, n, &outline->line_color);
-	n = 0;
-      }
+      /* Dia can't handle moveto except at start: corrected below */
       pts[n].type = BEZ_MOVE_TO;
-      pts[n].p1.x = data[1].point.x * outline->mat.xx + data[1].point.y * outline->mat.xy + x;
-      pts[n].p1.y = data[1].point.x * outline->mat.yx + data[1].point.y * outline->mat.yy + y;
+      ps.x = pts[n].p1.x = data[1].point.x * outline->mat.xx + data[1].point.y * outline->mat.xy + x;
+      ps.y = pts[n].p1.y = data[1].point.x * outline->mat.yx + data[1].point.y * outline->mat.yy + y;
       ++n;
     } else if (CAIRO_PATH_LINE_TO == data->header.type) {
       pts[n].type = BEZ_LINE_TO;
@@ -350,17 +364,54 @@ outline_draw(Outline *outline, DiaRenderer *renderer)
       pts[n].p3.y = data[3].point.x * outline->mat.yx + data[3].point.y *  outline->mat.yy + y;
       ++n;
     } else if (CAIRO_PATH_CLOSE_PATH == data->header.type) {
-      if (outline->show_background)
-        DIA_RENDERER_GET_CLASS (renderer)->fill_bezier (renderer, pts, n, &outline->fill_color);
-      /* always draw the outline after the fill */
       pts[n].type = BEZ_LINE_TO;
-      pts[n].p1.x = pts[0].p1.x;
-      pts[n].p1.y = pts[0].p1.y;
+      pts[n].p1.x = ps.x;
+      pts[n].p1.y = ps.y;
       ++n;
-      DIA_RENDERER_GET_CLASS (renderer)->draw_bezier (renderer, pts, n, &outline->line_color);
-      n = 0;
     }
   }
+  /* split the path data into piece which can be handled by Dia's bezier rendering */
+  if (outline->show_background) {
+    /* first draw the fills */
+    int s1 = 0, n1 = 0;
+    int s2 = 0;
+    for (i = 1; i < total; ++i) {
+      if (BEZ_MOVE_TO == pts[i].type) {
+        /* check wether any point of the second outline is within the first outline. 
+	 * If so it need to be subtracted - currently blanked. */
+	real dist = distance_bez_shape_point (&pts[s1], 
+	  n1 > 0 ? n1 : i - s1 - 1, 0, &pts[i].p1);
+	if (s2 > s1) { /* blanking the previous one */
+	  n = i - s2 - 1;
+          DIA_RENDERER_GET_CLASS (renderer)->fill_bezier (renderer, &pts[s2], n, &color_white);
+	} else { /* fill the outer shape */
+	  n1 = n = i - s1 - 1;
+          DIA_RENDERER_GET_CLASS (renderer)->fill_bezier (renderer, &pts[s1], n, &outline->fill_color);
+	}
+	if (dist > 0) { /* remember as new outer outline */
+	  s1 = i;
+	  n1 = 0;
+	  s2 = 0;
+	} else {
+	  s2 = i;
+	}
+      }
+    }
+    /* the last one is not drawn yet */
+    if (s2 > s1) /* blanking the previous one */
+      DIA_RENDERER_GET_CLASS (renderer)->fill_bezier (renderer, &pts[s2], s2 - i - 1, &color_white);
+    else
+      DIA_RENDERER_GET_CLASS (renderer)->fill_bezier (renderer, &pts[s1], s1 - i - 1, &outline->fill_color);
+  } /* show_background */
+  n = 0;
+  for (i = 1; i < total; ++i) {
+    if (BEZ_MOVE_TO == pts[i].type) {
+      DIA_RENDERER_GET_CLASS (renderer)->draw_bezier (renderer, &pts[n], i - n, &outline->line_color);
+      n = i;
+    }
+  }
+  /* the last one */
+  DIA_RENDERER_GET_CLASS (renderer)->draw_bezier (renderer, &pts[n], i - n - 1, &outline->line_color);
 }
 static DiaMenu *
 outline_get_object_menu(Outline *outline, Point *clickedpoint)

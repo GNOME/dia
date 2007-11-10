@@ -488,9 +488,15 @@ void
 object_connect(DiaObject *obj, Handle *handle,
 	       ConnectionPoint *connectionpoint)
 {
+  g_return_if_fail (obj && obj->type && obj->type->name);
+  g_return_if_fail (connectionpoint && connectionpoint->object && 
+                    connectionpoint->object->type && connectionpoint->object->type->name);
   if (handle->connect_type==HANDLE_NONCONNECTABLE) {
     message_error("Error? trying to connect a non connectable handle.\n"
-		  "Check this out...\n");
+                  "'%s' -> '%s'\n"
+		  "Check this out...\n",
+		  obj->type->name,
+		  connectionpoint->object->type->name);
     return;
   }
   handle->connected_to = connectionpoint;

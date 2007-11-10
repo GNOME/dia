@@ -34,6 +34,7 @@
 #define WIDGET GtkWidget
 #include "properties.h"
 #include "propinternals.h"
+#include "message.h"
 
 /***************************/
 /* The CHAR property type. */
@@ -547,7 +548,25 @@ enumprop_set_from_widget(EnumProperty *prop, WIDGET *widget)
 static void 
 enumprop_load(EnumProperty *prop, AttributeNode attr, DataNode data)
 {
-  prop->enum_data = data_enum(data);
+  DataType dt = data_type (data);
+  if (DATATYPE_ENUM == dt)
+    prop->enum_data = data_enum(data);
+  else if (DATATYPE_INT == dt) {
+    gboolean cast_ok = FALSE;
+    PropEnumData *enumdata = prop->common.extra_data;
+    guint i, v = data_int(data);
+    for (i = 0; enumdata[i].name != NULL; ++i) {
+      if (v == enumdata[i].enumv) {
+        prop->enum_data = v;
+	cast_ok = TRUE;
+	break;
+      }
+    }
+    if (!cast_ok) {
+      prop->enum_data = enumdata[0].enumv;
+      message_warning (_("Property cast from int to enum out of range"));
+    }
+  }
 }
 
 static void 

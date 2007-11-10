@@ -123,7 +123,7 @@ static ObjectOps constraint_ops = {
 
 static PropDescription constraint_props[] = {
   CONNECTION_COMMON_PROPERTIES,
-  { "constraint", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
+  { "constraint", PROP_TYPE_STRING, PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL,
     N_("Constraint:"), NULL, NULL },
   { "text_pos", PROP_TYPE_POINT, 0, NULL, NULL, NULL},
   /* can't use PROP_STD_TEXT_COLOUR_OPTIONAL cause it has PROP_FLAG_DONT_SAVE. It is designed to fill the Text object - not some subset */
