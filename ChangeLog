@@ -1,5 +1,8 @@
 2007-11-11  Hans Breuer  <hans@breuer.org>
 
+	* objects/standard/outline.c : avoid drawing invalid number of bezier 
+	points (and thus crashing)
+
 	[
 	  Much decreased start-up time and memory usage by delay loading
 	  custom shapes. Closing bug #

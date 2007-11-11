@@ -398,10 +398,13 @@ outline_draw(Outline *outline, DiaRenderer *renderer)
       }
     }
     /* the last one is not drawn yet */
-    if (s2 > s1) /* blanking the previous one */
-      DIA_RENDERER_GET_CLASS (renderer)->fill_bezier (renderer, &pts[s2], s2 - i - 1, &color_white);
-    else
-      DIA_RENDERER_GET_CLASS (renderer)->fill_bezier (renderer, &pts[s1], s1 - i - 1, &outline->fill_color);
+    if (s2 > s1) { /* blanking the previous one */
+      if (s2 - i - 1 > 1) /* depending on the above we may be ready */
+        DIA_RENDERER_GET_CLASS (renderer)->fill_bezier (renderer, &pts[s2], s2 - i - 1, &color_white);
+    } else {
+      if (s1 - i - 1 > 1)
+        DIA_RENDERER_GET_CLASS (renderer)->fill_bezier (renderer, &pts[s1], s1 - i - 1, &outline->fill_color);
+    }
   } /* show_background */
   n = 0;
   for (i = 1; i < total; ++i) {
