@@ -4,6 +4,7 @@ pkglib_LTLIBRARIES = 	libcustom_objects.la
 libcustom_objects_la_SOURCES = \
 	shape_info.c \
 	shape_info.h \
+	shape_typeinfo.c \
 	custom_object.c \
 	custom_object.h \
 	custom_util.c \

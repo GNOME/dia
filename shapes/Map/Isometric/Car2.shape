@@ -3,6 +3,9 @@
     xmlns:svg="http://www.w3.org/2000/svg" 
     xmlns:dc="http://purl.org/dc/elements/1.1" >
 
+  <name>Car2</name>
+  <icon>Car2.png</icon>
+
 <!-- Dia-Version: 0.90-->
 <dc:creator>Alan Horkan</dc:creator>
 <dc:rights>Copyright Alan Horkan 2003</dc:rights>
@@ -12,8 +15,6 @@
 <!-- Needed to manually replace colours with 'foreground' 'background' 
 to allow users to change colour from within Dia.  -->  
 
-  <name>Car2</name>
-  <icon>Car2.png</icon>
   <connections>
     <point x="0" y="1"/>
     <point x="4" y="3"/>

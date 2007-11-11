@@ -54,8 +54,6 @@
 #define DEFAULT_HEIGHT 2.0
 #define DEFAULT_BORDER 0.25
 
-void custom_object_new(ShapeInfo *info, DiaObjectType **otype);
-
 /* used when resizing to decide which side of the shape to expand/shrink */
 typedef enum {
   ANCHOR_MIDDLE,
@@ -1223,8 +1221,9 @@ custom_create(Point *startpoint,
 
   g_return_val_if_fail(info!=NULL,NULL);
 
-  init_default_values();
-
+  if (!info->loaded) /* called or it's side effect */
+    shape_info_getbyname (info->name);
+ 
   custom = g_new0_ext (Custom, info->ext_attr_size);
   elem = &custom->element;
   obj = &elem->object;
@@ -1364,11 +1363,12 @@ custom_load_using_properties(ObjectNode obj_node, int version, const char *filen
   Handle *handle1,*handle2;
   
   obj = custom_type.ops->create(&startpoint, shape_info_get(obj_node), &handle1, &handle2);
-  custom = (Custom*)obj;
-  object_load_props(obj,obj_node);
+  if (obj) {
+    custom = (Custom*)obj;
+    object_load_props(obj,obj_node);
   
-  custom_update_data(custom, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
-
+    custom_update_data(custom, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
+  }
   return obj;
 }
 

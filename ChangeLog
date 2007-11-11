@@ -1,3 +1,28 @@
+2007-11-11  Hans Breuer  <hans@breuer.org>
+
+	[
+	  Much decreased start-up time and memory usage by delay loading
+	  custom shapes. Closing bug #
+	]
+	* objects/custom/shape_typeinfo.c : (new file) extracting the type
+	information of the custom shape by reading the first 512 bytes
+	using libxml SAX. Instead of DOM it does not load the whole file
+	into memory.
+	* objects/custom/custom.c : implement and use custom_object_preload()
+	based on the above. Use it in load_shape_from_tree() - the routine
+	scanning all shapes at start-up
+	* objects/custom/shape_info.[ch] : adapt infrastructure to to the
+	complete loading of the shape file on demand
+	[
+	  there were 5 - out of ~700 shapes - which failed the size assumption 
+	  (reading only the first 512 bytes of the shape). They are modified
+	  instead of making the (pre-)loading of all shapes slower.
+ 	]
+	* shapes/Map/Isometric/Car1.shape shapes/Map/Isometric/Car2.shape
+	  shapes/Misc/expended-node.shape shapes/Misc/expensible-node.shape 
+	  shapes/Map/Isometric/RedCar.shape : moved <name/> and <icon/> tag 
+	early in the file to silence preload
+
 2007-11-10  Hans Breuer  <hans@breuer.org>
 
 	* objects/standard/outline.c(outline_draw) : first the whole text

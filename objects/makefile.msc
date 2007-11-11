@@ -87,7 +87,8 @@ OBJECTS = \
 	custom.obj \
 	custom_object.obj \
 	custom_util.obj \
-	shape_info.obj
+	shape_info.obj \
+	shape_typeinfo.obj
 PKG_LINK = $(PKG_LINK) $(LIBXML2_LIBS) 
 !ENDIF
 

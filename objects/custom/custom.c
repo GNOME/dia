@@ -62,7 +62,31 @@ custom_object_load(gchar *filename, DiaObjectType **otype)
   return TRUE;
 }
 
-static void load_shapes_from_tree(const gchar *directory)
+static gboolean
+custom_object_preload(gchar *filename, DiaObjectType **otype)
+{
+  ShapeInfo *info;
+  
+  info = g_new0 (ShapeInfo, 1);
+  info->filename = g_strdup (filename);
+  /* Just enough to register the type, not enough to create the object */
+  if (!shape_typeinfo_load(info)) {
+    /* there are currently 5 - out of ~700 shapes - which fail the size assumption 
+     * (reading only the first 512 bytes of the shape).
+     * Instead of not loading them at all, they are loaded  completely as a fallback.
+     * Another way would be to increase the size to read for every shape, seems worse.
+     */
+     g_free (info->filename);
+     g_free (info);
+     if ((info = shape_info_load(filename)) == NULL)
+       return FALSE;
+  }
+  shape_info_register (info);
+  custom_object_new(info, otype);
+  return TRUE;
+}
+static void 
+load_shapes_from_tree(const gchar *directory)
 {
   GDir *dp;
   const char *dentry;
@@ -92,7 +116,7 @@ static void load_shapes_from_tree(const gchar *directory)
     if (0==strcmp(".shape",p)) {
       DiaObjectType *ot;
 
-      if (!custom_object_load(filename, &ot)) {
+      if (!custom_object_preload(filename, &ot)) {
         g_warning("could not load shape file %s",filename);
       } else {
         g_assert(ot); 
@@ -104,7 +128,6 @@ static void load_shapes_from_tree(const gchar *directory)
   }
   g_dir_close(dp);
 }
-
 
 DIA_PLUGIN_CHECK_INIT
 

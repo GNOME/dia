@@ -136,6 +136,12 @@ struct _ShapeInfo {
   gchar *name;
   gchar *icon;
 
+  /* info required to load the real data on demand */
+  gchar *filename;
+  gboolean loaded;
+  
+  /* everything below could be put into it's own struct to also spare memory when the shapes are not created */
+  
   int nconnections;
   Point *connections;
   int main_cp; /* The cp that gets connections from the whole object */
@@ -167,6 +173,9 @@ ShapeInfo *shape_info_getbyname(const gchar *name);
 
 void shape_info_realise(ShapeInfo* info);
 void shape_info_print(ShapeInfo *info);
+
+void shape_info_register (ShapeInfo *);
+gboolean shape_typeinfo_load (ShapeInfo* info);
 
 /*MC 11/03 handy g_new0 variant for struct with variable size */
 #define g_new0_ext(struct_type, ext_size)		\

@@ -37,23 +37,27 @@
 #define FONT_HEIGHT_DEFAULT 1
 #define TEXT_ALIGNMENT_DEFAULT ALIGN_CENTER
 
-static ShapeInfo *load_shape_info(const gchar *filename);
+static ShapeInfo *load_shape_info(const gchar *filename, ShapeInfo *preload);
 
 static GHashTable *name_to_info = NULL;
 
 ShapeInfo *
 shape_info_load(const gchar *filename)
 {
-  ShapeInfo *info = load_shape_info(filename);
+  ShapeInfo *info = load_shape_info(filename, NULL);
 
   if (!info)
     return NULL;
+  shape_info_register (info);
+  return info;
+}
+
+void
+shape_info_register (ShapeInfo *info)
+{
   if (!name_to_info)
     name_to_info = g_hash_table_new(g_str_hash, g_str_equal);
   g_hash_table_insert(name_to_info, info->name, info);
-  g_assert(shape_info_getbyname(info->name)==info);
-
-  return info;
 }
 
 ShapeInfo *
@@ -65,15 +69,21 @@ shape_info_get(ObjectNode obj_node)
   str = xmlGetProp(obj_node, (const xmlChar *)"type");
   if (str && name_to_info) {
     info = g_hash_table_lookup(name_to_info, (gchar *) str);
+    if (!info->loaded)
+      load_shape_info (info->filename, info);
     xmlFree(str);
   }
   return info;
 }
 
-ShapeInfo *shape_info_getbyname(const gchar *name)
+ShapeInfo *
+shape_info_getbyname(const gchar *name)
 {
   if (name && name_to_info) {
-    return g_hash_table_lookup(name_to_info,name);
+    ShapeInfo *info = g_hash_table_lookup(name_to_info,name);
+    if (!info->loaded)
+      load_shape_info (info->filename, info);
+    return info;
   }
   return NULL;
 }
@@ -85,7 +95,6 @@ ShapeInfo *shape_info_getbyname(const gchar *name)
  * Puts the ShapeInfo into a form suitable for actual use (lazy loading)
  *
  */
-
 void shape_info_realise(ShapeInfo* info)
 {
   GList* tmp;
@@ -491,7 +500,7 @@ update_bounds(ShapeInfo *info)
 }
 
 static ShapeInfo *
-load_shape_info(const gchar *filename)
+load_shape_info(const gchar *filename, ShapeInfo *preload)
 {
   xmlDocPtr doc = xmlDoParseFile(filename);
   xmlNsPtr shape_ns, svg_ns;
@@ -527,7 +536,11 @@ load_shape_info(const gchar *filename)
     return NULL;
   }
 
-  info = g_new0(ShapeInfo, 1);
+  if (preload)
+    info = preload;
+  else 
+    info = g_new0(ShapeInfo, 1);
+  info->loaded = TRUE;
   info->shape_bounds.top = DBL_MAX;
   info->shape_bounds.left = DBL_MAX;
   info->shape_bounds.bottom = -DBL_MAX;
@@ -541,8 +554,14 @@ load_shape_info(const gchar *filename)
     if (node->type != XML_ELEMENT_NODE) continue;
     if (node->ns == shape_ns && !xmlStrcmp(node->name, (const xmlChar *)"name")) {
       tmp = (gchar *) xmlNodeGetContent(node);
-      g_free(info->name);
-      info->name = g_strdup(tmp);
+      if (preload) { 
+        if (strcmp (tmp, info->name) != 0)
+          g_warning ("Shape(preoad) '%s' can't change name '%s'", info->name, tmp);
+        /* the key name is already used as key in name_to_info */
+      } else {
+        g_free(info->name);
+        info->name = g_strdup(tmp);
+      }
       xmlFree(tmp);
     } else if (node->ns == shape_ns && !xmlStrcmp(node->name, (const xmlChar *)"icon")) {
       tmp = (gchar *) xmlNodeGetContent(node);

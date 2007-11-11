@@ -3,6 +3,9 @@
     xmlns:svg="http://www.w3.org/2000/svg" 
     xmlns:dc="http://purl.org/dc/elements/1.1" >
 
+  <name>RedCar</name>
+  <icon>RedCar.png</icon>
+
 <!-- Dia-Version: 0.90-->
 <dc:creator>Alan Horkan</dc:creator>
 <dc:rights>Copyright Alan Horkan 2003</dc:rights>
@@ -13,8 +16,6 @@ It is the basis of the other car shapes but the colour is hard coded.
 <dc:date>2003-01-08T12:00:00</dc:date>
 <dc:language>en-IE</dc:language>
 
-  <name>RedCar</name>
-  <icon>RedCar.png</icon>
   <connections>
     <point x="0" y="2"/>
     <point x="2" y="3"/>

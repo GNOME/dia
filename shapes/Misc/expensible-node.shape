@@ -1,4 +1,8 @@
 <?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
+       xmlns:svg="http://www.w3.org/2000/svg">
+  <name>Misc - expensible node</name>
+  <icon>expensible-node.png</icon>
 <!-- 
     (c)2007, Thomas Harding <thomas.harding@laposte.net>
 
@@ -18,10 +22,6 @@
 
 
 -->
-<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
-       xmlns:svg="http://www.w3.org/2000/svg">
-  <name>Misc - expensible node</name>
-  <icon>expensible-node.png</icon>
   <connections>
    <point x="5" y="5" main="yes"/>
    <point x="5" y="0"/>
