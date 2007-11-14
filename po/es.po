@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia.HEAD.es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-10-20 16:34+0100\n"
-"PO-Revision-Date: 2007-10-25 19:52+0200\n"
+"POT-Creation-Date: 2007-11-10 12:16+0000\n"
+"PO-Revision-Date: 2007-11-14 20:21+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -305,20 +305,20 @@ msgstr "Seleccione color de primer plano"
 msgid "Select background color"
 msgstr "Seleccione color de fondo"
 
-#: ../app/commands.c:134
+#: ../app/commands.c:142
 #, c-format
 msgid "Diagram%d.dia"
 msgstr "Diagrama%d.dia"
 
-#: ../app/commands.c:207
+#: ../app/commands.c:335
 msgid "No existing object to paste.\n"
 msgstr "No hay objetos que pegar.\n"
 
-#: ../app/commands.c:583 ../app/commands.c:621
+#: ../app/commands.c:637 ../app/commands.c:675
 msgid "Could not find help directory"
 msgstr "No se pudo encontrar el directorio de ayuda"
 
-#: ../app/commands.c:590
+#: ../app/commands.c:644
 #, c-format
 msgid ""
 "Could not open help directory:\n"
@@ -327,7 +327,7 @@ msgstr ""
 "No se pudo abrir el directorio de ayuda:\n"
 "%s"
 
-#: ../app/commands.c:657
+#: ../app/commands.c:711
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 "Jorge González <jorgegonz@svn.gnome.org>, 2007\n"
@@ -335,7 +335,7 @@ msgstr ""
 "Revisión por Francisco Vila <fravd@wanadoo.es>\n"
 "2ª Revisión por Alberto Barrionuevo <traducciones@rizox.com> "
 
-#: ../app/commands.c:659
+#: ../app/commands.c:713
 msgid ""
 "This program is free software; you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"
@@ -367,7 +367,7 @@ msgstr ""
 "Inc,\n"
 "59 Temple Place - Suite 330, Boston, MA 02111-1307, EE.UU.\n"
 
-#: ../app/commands.c:682
+#: ../app/commands.c:736
 msgid "A program for drawing structured diagrams."
 msgstr "Un programa para dibujar diagramas estructurados."
 
@@ -545,11 +545,11 @@ msgstr ""
 "en un elemento en un diagrama nuevo y si lo guarda, se guardará como un "
 "diagrama de Dia."
 
-#: ../app/diagram.c:1126
+#: ../app/diagram.c:1170
 msgid "Trying to group with no selected objects."
 msgstr "Intentando agrupar sin objetos seleccionados."
 
-#: ../app/diagram.c:1136
+#: ../app/diagram.c:1180
 msgid ""
 "You cannot group objects that belong to different groups or have different "
 "parents"
@@ -824,7 +824,7 @@ msgstr "No se seleccionó nada para guardar. ¿Quiere intentarlo otra vez?"
 
 #: ../app/export_png.c:138 ../app/load_save.c:989 ../app/render_eps.c:105
 #: ../plug-ins/cairo/diacairo.c:994 ../plug-ins/cgm/cgm.c:1153
-#: ../plug-ins/dxf/dxf-export.c:485 ../plug-ins/hpgl/hpgl.c:710
+#: ../plug-ins/dxf/dxf-export.c:547 ../plug-ins/hpgl/hpgl.c:710
 #: ../plug-ins/metapost/render_metapost.c:1177
 #: ../plug-ins/pgf/render_pgf.c:1208
 #: ../plug-ins/pstricks/render_pstricks.c:916
@@ -1033,53 +1033,57 @@ msgstr "Polilínea"
 msgid "Bezierline"
 msgstr "Línea Bézier"
 
-#: ../app/interface.c:228 ../app/menus.c:230
+#: ../app/interface.c:228 ../app/menus.c:231
 msgid "Image"
 msgstr "Imagen"
 
-#: ../app/interface.c:628 ../app/interface.c:862
+#: ../app/interface.c:234
+msgid "Outline"
+msgstr "Esquema"
+
+#: ../app/interface.c:634 ../app/interface.c:870
 msgid "Pops up the Navigation window."
 msgstr "Emerge la ventana de navegación."
 
-#: ../app/interface.c:824
+#: ../app/interface.c:832
 msgid "Diagram menu."
 msgstr "Menú de diagrama."
 
 # ¿"Ampliación" o "Amplía"? Fuzzy. RizOX.
-#: ../app/interface.c:928
+#: ../app/interface.c:936
 msgid "Zoom"
 msgstr "Ampliación"
 
-#: ../app/interface.c:943
+#: ../app/interface.c:951
 msgid "Toggles snap-to-grid for this window."
 msgstr "Conmuta el ajuste a la rejilla para esta ventana."
 
-#: ../app/interface.c:954
+#: ../app/interface.c:962
 msgid "Toggles object snapping for this window."
 msgstr "Conmuta el ajuste del objeto para esta ventana."
 
 # Fuzzy. RizOX
-#: ../app/interface.c:1017
+#: ../app/interface.c:1025
 msgid "NULL tooldata in tool_select_update"
 msgstr "InArray de herramienta nula (NULL) en tool_select_update"
 
-#: ../app/interface.c:1333
+#: ../app/interface.c:1341
 #, c-format
 msgid "No sheet named %s"
 msgstr "No hay ninguna hoja llamada %s"
 
 # ¿De dónde salían esa traducción y esa variable? No concuerda con el original inglés en nada. Lo cambio. RizOX.
-#: ../app/interface.c:1371
+#: ../app/interface.c:1379
 msgid "Other sheets"
 msgstr "Otras hojas"
 
-#: ../app/interface.c:1430 ../sheets/Flowchart.sheet.in.h:10
+#: ../app/interface.c:1439 ../sheets/Flowchart.sheet.in.h:10
 msgid "Flowchart"
 msgstr "Diagrama de flujo"
 
 # Corregido: lleva doble espacio antes de cada frase.
 # "Pulse doble" o "Pulse dos veces" me suena más natural. RizOX.
-#: ../app/interface.c:1490
+#: ../app/interface.c:1499
 msgid ""
 "Foreground & background colors for new objects.  The small black and white "
 "squares reset colors.  The small arrows swap colors.  Double click to change "
@@ -1090,7 +1094,7 @@ msgstr ""
 "los colores.  Pulse dos veces para cambiar los colores."
 
 # Corregido: doble espacio al principio de línea. Cambiada la segunda expresión para darle mayor naturalidad. RizOX.
-#: ../app/interface.c:1505
+#: ../app/interface.c:1514
 msgid ""
 "Line widths.  Click on a line to set the default line width for new "
 "objects.  Double-click to set the line width more precisely."
@@ -1100,7 +1104,7 @@ msgstr ""
 "anchura con mayor precisión."
 
 # La coma antes del "o" no queda bien en la frase en español. RizOX.
-#: ../app/interface.c:1548
+#: ../app/interface.c:1557
 msgid ""
 "Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
 "arrow parameters with Details..."
@@ -1109,7 +1113,7 @@ msgstr ""
 "flecha o establezca los parámetros de la flecha en Detalles..."
 
 # La coma antes del "o" no queda bien en la frase en español. Añadido el doble espacio del comienzo de frase según original en inglés. RizOX.
-#: ../app/interface.c:1553
+#: ../app/interface.c:1562
 msgid ""
 "Line style for new lines.  Click to pick a line style, or set line style "
 "parameters with Details..."
@@ -1118,7 +1122,7 @@ msgstr ""
 "línea o establezca los parámetros de estilo de línea en Detalles..."
 
 # La coma antes del "o" no queda bien en la frase en español. Añadido el doble espacio del comienzo de frase según original en inglés. Cambiado "con Detalles" por "en Detalles" para mantener la coherencia con la traducción de las anteriores entradas. RizOX.
-#: ../app/interface.c:1569
+#: ../app/interface.c:1578
 msgid ""
 "Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
 "parameters with Details..."
@@ -1126,7 +1130,7 @@ msgstr ""
 "Estilo de flecha al final de las líneas nuevas.  Pulse para escoger una "
 "flecha o establezca los parámetros de la flecha en Detalles..."
 
-#: ../app/interface.c:1613 ../app/interface.c:1741
+#: ../app/interface.c:1622 ../app/interface.c:1745
 msgid "Diagram Editor"
 msgstr "Editor de diagramas"
 
@@ -1224,7 +1228,7 @@ msgstr "Debe especificar un archivo, no un directorio.\n"
 #: ../app/load_save.c:399 ../objects/SISSI/area.c:215
 #: ../objects/SISSI/faraday.c:215 ../objects/SISSI/room.c:215
 #: ../objects/SISSI/sissi_object.c:209 ../objects/SISSI/site.c:218
-#: ../plug-ins/dxf/dxf-import.c:1308 ../plug-ins/wpg/wpg.c:1177
+#: ../plug-ins/dxf/dxf-import.c:1306 ../plug-ins/wpg/wpg.c:1177
 #: ../plug-ins/xfig/xfig-import.c:1260 ../plug-ins/xslt/xslt.c:88
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
@@ -1375,11 +1379,11 @@ msgstr "_Ampliación"
 msgid "1600%"
 msgstr "1600%"
 
-#: ../app/menus.c:140 ../app/menus.c:528
+#: ../app/menus.c:140 ../app/menus.c:529
 msgid "800%"
 msgstr "800%"
 
-#: ../app/menus.c:141 ../app/menus.c:529
+#: ../app/menus.c:141 ../app/menus.c:530
 msgid "400%"
 msgstr "400%"
 
@@ -1563,104 +1567,108 @@ msgstr "Editar texto"
 msgid "Scroll"
 msgstr "Desplazar"
 
-#: ../app/menus.c:239
+#: ../app/menus.c:229
+msgid "Outine"
+msgstr "Esquema"
+
+#: ../app/menus.c:240
 msgid "Fullscr_een"
 msgstr "Pantalla _completa"
 
 #. we must have all actions registered to avoid configuration specific ui-files and crashing in GTK+,
 #. * see: http://bugzilla.gnome.org/show_bug.cgi?id=396161
 #.
-#: ../app/menus.c:242 ../app/menus.c:247
+#: ../app/menus.c:243 ../app/menus.c:248
 msgid "_AntiAliased"
 msgstr "_Antialias"
 
-#: ../app/menus.c:249
+#: ../app/menus.c:250
 msgid "Show _Grid"
 msgstr "Mostrar _cuadrícula"
 
-#: ../app/menus.c:250
+#: ../app/menus.c:251
 msgid "_Snap To Grid"
 msgstr "A_justar a cuadrícula"
 
-#: ../app/menus.c:251
+#: ../app/menus.c:252
 msgid "Snap To _Objects"
 msgstr "Ajustar a _objetos"
 
-#: ../app/menus.c:252
+#: ../app/menus.c:253
 msgid "Show _Rulers"
 msgstr "Mostrar _reglas"
 
-#: ../app/menus.c:253
+#: ../app/menus.c:254
 msgid "Show _Connection Points"
 msgstr "Mostrar puntos de _conexión"
 
-#: ../app/menus.c:259
+#: ../app/menus.c:260
 msgid "Replace"
 msgstr "Reemplazar"
 
-#: ../app/menus.c:260
+#: ../app/menus.c:261
 msgid "Union"
 msgstr "Unión"
 
-#: ../app/menus.c:261
+#: ../app/menus.c:262
 msgid "Intersection"
 msgstr "Intersección"
 
 #. Translators: Menu item Verb/Channel/Export/Remove
 #. Translators: Menu item Verb/Branch/Separate/Remove
 #. Translators: Menu item Verb/Branch/Separate/Remove/Remove
-#: ../app/menus.c:262 ../app/sheets_dialog.c:784 ../objects/FS/function.c:708
+#: ../app/menus.c:263 ../app/sheets_dialog.c:784 ../objects/FS/function.c:708
 #: ../objects/FS/function.c:860 ../objects/FS/function.c:862
 msgid "Remove"
 msgstr "Eliminar"
 
 #. Cannot also be called Invert, duplicate names caused keybinding problems
-#: ../app/menus.c:264
+#: ../app/menus.c:265
 msgid "Inverse"
 msgstr "Inverso"
 
 # Traduzco "tooldata". RizOX.
-#: ../app/menus.c:328
+#: ../app/menus.c:329
 msgid "NULL tooldata in tool_menu_select"
 msgstr "InArray de herramienta nula (NULL) en tool_menu_select"
 
-#: ../app/menus.c:530
+#: ../app/menus.c:531
 msgid "300%"
 msgstr "300%"
 
-#: ../app/menus.c:531
+#: ../app/menus.c:532
 msgid "200%"
 msgstr "200%"
 
-#: ../app/menus.c:532
+#: ../app/menus.c:533
 msgid "150%"
 msgstr "150%"
 
-#: ../app/menus.c:533
+#: ../app/menus.c:534
 msgid "100%"
 msgstr "100%"
 
-#: ../app/menus.c:534
+#: ../app/menus.c:535
 msgid "75%"
 msgstr "75%"
 
-#: ../app/menus.c:535
+#: ../app/menus.c:536
 msgid "50%"
 msgstr "50%"
 
-#: ../app/menus.c:536
+#: ../app/menus.c:537
 msgid "25%"
 msgstr "25%"
 
-#: ../app/menus.c:537
+#: ../app/menus.c:538
 msgid "10%"
 msgstr "10%"
 
-#: ../app/menus.c:563
+#: ../app/menus.c:564
 msgid "Toggles snap-to-grid."
 msgstr "Conmuta el ajuste a la rejilla."
 
-#: ../app/menus.c:575
+#: ../app/menus.c:576
 msgid "Toggles object snapping."
 msgstr "Conmuta el ajuste del objeto."
 
@@ -1792,7 +1800,7 @@ msgstr "Vertical"
 msgid "Paper type:"
 msgstr "Tipo de papel:"
 
-#: ../app/preferences.c:159 ../objects/Database/table_dialog.c:1002
+#: ../app/preferences.c:159 ../objects/Database/table_dialog.c:1027
 msgid "Background Color:"
 msgstr "Color de fondo:"
 
@@ -1871,12 +1879,12 @@ msgstr "Ventana del árbol del diagrama"
 msgid "Save hidden object types"
 msgstr "Guardar tipos de objetos ocultos"
 
-#: ../app/preferences.c:416 ../lib/prop_inttypes.c:158
+#: ../app/preferences.c:416 ../lib/prop_inttypes.c:159
 msgid "Yes"
 msgstr "Sí"
 
 #: ../app/preferences.c:416 ../app/preferences.c:427
-#: ../lib/prop_inttypes.c:160 ../lib/prop_inttypes.c:186
+#: ../lib/prop_inttypes.c:161 ../lib/prop_inttypes.c:187
 msgid "No"
 msgstr "No"
 
@@ -2036,12 +2044,12 @@ msgstr "Objeto DiaObject"
 msgid "Description:"
 msgstr "Descripción:"
 
-#: ../app/sheets_dialog.c:618 ../objects/Database/table_dialog.c:642
+#: ../app/sheets_dialog.c:618 ../objects/Database/table_dialog.c:644
 #: ../objects/FS/flow-ortho.c:169 ../objects/FS/flow.c:146
 #: ../objects/Istar/link.c:166 ../objects/Jackson/phenomenon.c:146
 #: ../objects/KAOS/metaandorrel.c:166 ../objects/KAOS/metabinrel.c:173
-#: ../objects/UML/class_dialog.c:1026 ../objects/UML/class_dialog.c:1890
-#: ../objects/UML/class_dialog.c:2132 ../objects/UML/class_dialog.c:2735
+#: ../objects/UML/class_dialog.c:1016 ../objects/UML/class_dialog.c:1879
+#: ../objects/UML/class_dialog.c:2115 ../objects/UML/class_dialog.c:2715
 msgid "Type:"
 msgstr "Tipo:"
 
@@ -2049,12 +2057,12 @@ msgstr "Tipo:"
 msgid "Sheet"
 msgstr "Hoja"
 
-#: ../app/sheets_dialog.c:672 ../objects/Database/table_dialog.c:630
-#: ../objects/Database/table_dialog.c:970 ../objects/ER/attribute.c:155
+#: ../app/sheets_dialog.c:672 ../objects/Database/table_dialog.c:632
+#: ../objects/Database/table_dialog.c:995 ../objects/ER/attribute.c:155
 #: ../objects/ER/entity.c:137 ../objects/ER/relationship.c:142
 #: ../objects/UML/association.c:240 ../objects/UML/association.c:1162
-#: ../objects/UML/class_dialog.c:1015 ../objects/UML/class_dialog.c:1879
-#: ../objects/UML/class_dialog.c:2121 ../objects/UML/class_dialog.c:2724
+#: ../objects/UML/class_dialog.c:1005 ../objects/UML/class_dialog.c:1868
+#: ../objects/UML/class_dialog.c:2104 ../objects/UML/class_dialog.c:2704
 #: ../objects/UML/dependency.c:137 ../objects/UML/generalization.c:133
 #: ../objects/UML/realizes.c:134
 msgid "Name:"
@@ -2474,7 +2482,7 @@ msgstr "Detalles..."
 msgid "Multiple export filters with unique name %s"
 msgstr "Filtros múltiples de exportación con nombre único %s"
 
-#: ../lib/font.c:102
+#: ../lib/font.c:103
 #, c-format
 msgid "Can't load font %s.\n"
 msgstr "No se puede cargar la tipografía %s.\n"
@@ -2564,6 +2572,10 @@ msgstr ""
 "No se pudo abrir «%s»\n"
 "«%s»"
 
+#: ../lib/prop_inttypes.c:567
+msgid "Property cast from int to enum out of range"
+msgstr ""
+
 #: ../lib/prop_text.c:466
 #, c-format
 msgid "Group with %d objects"
@@ -2615,10 +2627,10 @@ msgstr "Alineación del texto"
 # Creí que era Tipografía como en otros msgs. FVD
 #. all this just to make the defaults selectable ...
 #: ../lib/properties.c:81 ../lib/properties.h:533
-#: ../objects/Database/table_dialog.c:960 ../objects/Database/reference.c:117
+#: ../objects/Database/table_dialog.c:985 ../objects/Database/reference.c:117
 #: ../objects/GRAFCET/condition.c:134 ../objects/GRAFCET/step.c:167
 #: ../objects/GRAFCET/transition.c:144 ../objects/UML/class.c:171
-#: ../objects/UML/class_dialog.c:443 ../objects/chronogram/chronoline.c:185
+#: ../objects/UML/class_dialog.c:434 ../objects/chronogram/chronoline.c:185
 #: ../objects/chronogram/chronoref.c:166
 msgid "Font"
 msgstr "Fuente"
@@ -2806,7 +2818,7 @@ msgstr "Centrar punto de montaje"
 
 #: ../objects/Database/compound.c:232
 msgid "Compound"
-msgstr ""
+msgstr "Compuesto"
 
 #: ../objects/Database/database.c:39
 msgid "Entity/Relationship table diagram objects"
@@ -2814,7 +2826,7 @@ msgstr "Objetos de diagrama de tabla de entidad/relación"
 
 #: ../objects/Database/table.c:140 ../objects/Database/table.c:181
 #: ../objects/Database/table.c:198 ../objects/UML/class.c:145
-#: ../objects/UML/class.c:186 ../objects/UML/class_dialog.c:474
+#: ../objects/UML/class.c:186 ../objects/UML/class_dialog.c:465
 #: ../objects/UML/umlattribute.c:43 ../objects/UML/umloperation.c:66
 #: ../objects/UML/umlparameter.c:49 ../sheets/SDL.sheet.in.h:3
 msgid "Comment"
@@ -2826,7 +2838,7 @@ msgstr "Clave primaria"
 
 #: ../objects/Database/table.c:144
 msgid "Nullable"
-msgstr ""
+msgstr "Que puede ser Null"
 
 #: ../objects/Database/table.c:146
 msgid "Unique"
@@ -2840,17 +2852,17 @@ msgstr "Comentarios visibles"
 msgid "Comment tagging"
 msgstr "Etiquetado de comentarios"
 
-#: ../objects/Database/table.c:187 ../objects/Database/table_dialog.c:928
+#: ../objects/Database/table.c:187 ../objects/Database/table_dialog.c:925
 msgid "Underline primary keys"
 msgstr "Subrayar claves primarias"
 
-#: ../objects/Database/table.c:189 ../objects/Database/table_dialog.c:933
+#: ../objects/Database/table.c:189 ../objects/Database/table_dialog.c:930
 msgid "Use bold font for primary keys"
 msgstr "Usar negrita para las claves primarias"
 
 #. property rows
 #: ../objects/Database/table.c:194 ../objects/SADT/arrow.c:136
-#: ../objects/UML/class.c:176 ../objects/UML/class_dialog.c:449
+#: ../objects/UML/class.c:176 ../objects/UML/class_dialog.c:440
 msgid "Normal"
 msgstr "Normal"
 
@@ -2882,117 +2894,114 @@ msgid "Table"
 msgstr "Tabla"
 
 #. Attributes page:
-#: ../objects/Database/table_dialog.c:558 ../objects/UML/class_dialog.c:948
+#: ../objects/Database/table_dialog.c:560 ../objects/UML/class_dialog.c:938
 msgid "_Attributes"
 msgstr "_Atributos"
 
 #. the "new" button
-#: ../objects/Database/table_dialog.c:586 ../objects/SISSI/sissi_dialog.c:623
-#: ../objects/SISSI/sissi_dialog.c:755 ../objects/UML/class_dialog.c:976
-#: ../objects/UML/class_dialog.c:2053 ../objects/UML/class_dialog.c:2261
-#: ../objects/UML/class_dialog.c:2685
+#: ../objects/Database/table_dialog.c:588 ../objects/SISSI/sissi_dialog.c:623
+#: ../objects/SISSI/sissi_dialog.c:755
 msgid "_New"
 msgstr "_Nuevo"
 
 #. the "delete" button
-#: ../objects/Database/table_dialog.c:594 ../objects/UML/class_dialog.c:982
-#: ../objects/UML/class_dialog.c:2060 ../objects/UML/class_dialog.c:2267
-#: ../objects/UML/class_dialog.c:2691
+#: ../objects/Database/table_dialog.c:596
 msgid "_Delete"
 msgstr "_Borrar"
 
 #. the "Move up" button
-#: ../objects/Database/table_dialog.c:602 ../objects/UML/class_dialog.c:988
-#: ../objects/UML/class_dialog.c:2067 ../objects/UML/class_dialog.c:2273
-#: ../objects/UML/class_dialog.c:2697
+#: ../objects/Database/table_dialog.c:604
 msgid "Move up"
 msgstr "Mover arriba"
 
 #. the "Move down" button
-#: ../objects/Database/table_dialog.c:610 ../objects/UML/class_dialog.c:994
-#: ../objects/UML/class_dialog.c:2074 ../objects/UML/class_dialog.c:2279
-#: ../objects/UML/class_dialog.c:2703
+#: ../objects/Database/table_dialog.c:612
 msgid "Move down"
 msgstr "Mover abajo"
 
-#: ../objects/Database/table_dialog.c:620 ../objects/UML/class_dialog.c:1005
+#: ../objects/Database/table_dialog.c:622 ../objects/UML/class_dialog.c:995
 msgid "Attribute data"
 msgstr "Datos de atributo"
 
-#: ../objects/Database/table_dialog.c:654
-#: ../objects/Database/table_dialog.c:898
-#: ../objects/Database/table_dialog.c:975 ../objects/UML/class_dialog.c:327
-#: ../objects/UML/class_dialog.c:1048 ../objects/UML/class_dialog.c:1976
-#: ../objects/UML/class_dialog.c:2154
+#: ../objects/Database/table_dialog.c:656
+#: ../objects/Database/table_dialog.c:895
+#: ../objects/Database/table_dialog.c:1000 ../objects/UML/class_dialog.c:324
+#: ../objects/UML/class_dialog.c:1038 ../objects/UML/class_dialog.c:1965
+#: ../objects/UML/class_dialog.c:2137
 msgid "Comment:"
 msgstr "Comentario:"
 
-#: ../objects/Database/table_dialog.c:673
+#: ../objects/Database/table_dialog.c:675
 msgid "_Primary key"
 msgstr "Clave _primaria"
 
-#: ../objects/Database/table_dialog.c:680
+#: ../objects/Database/table_dialog.c:682
 msgid "N_ullable"
-msgstr ""
+msgstr "Que puede ser N_ull"
 
-#: ../objects/Database/table_dialog.c:687
+#: ../objects/Database/table_dialog.c:689
 msgid "Uni_que"
 msgstr "Úni_ca"
 
-#: ../objects/Database/table_dialog.c:880
+#: ../objects/Database/table_dialog.c:877
 msgid "_Table"
 msgstr "_Tabla"
 
-#: ../objects/Database/table_dialog.c:888
+#: ../objects/Database/table_dialog.c:885
 msgid "Table name:"
 msgstr "Nombre de la tabla:"
 
 #. XXX create a handler and disable the 'show documentation tag' checkbox
 #. if 'comment visible' is not active.
-#: ../objects/Database/table_dialog.c:918
+#: ../objects/Database/table_dialog.c:915
 msgid "Comment visible"
 msgstr "Comentarios visibles"
 
-#: ../objects/Database/table_dialog.c:923 ../objects/UML/class_dialog.c:397
+#: ../objects/Database/table_dialog.c:920 ../objects/UML/class_dialog.c:394
 msgid "Show documenation tag"
 msgstr "Mostrar etiqueta de documentación"
 
-#: ../objects/Database/table_dialog.c:945
+#. * Fonts and Colors selection *
+#: ../objects/Database/table_dialog.c:959 ../objects/UML/class_dialog.c:421
+msgid "_Style"
+msgstr "E_stilo"
+
+#: ../objects/Database/table_dialog.c:970
 msgid "Border width:"
 msgstr "Ancho del borde:"
 
 #. head line
-#: ../objects/Database/table_dialog.c:958 ../objects/UML/class_dialog.c:440
+#: ../objects/Database/table_dialog.c:983 ../objects/UML/class_dialog.c:431
 #: ../objects/UML/umlparameter.c:51
 msgid "Kind"
 msgstr "Tipo"
 
-#: ../objects/Database/table_dialog.c:962 ../objects/UML/class_dialog.c:445
+#: ../objects/Database/table_dialog.c:987 ../objects/UML/class_dialog.c:436
 msgid "Size"
 msgstr "Tamaño"
 
-#: ../objects/Database/table_dialog.c:965
+#: ../objects/Database/table_dialog.c:990
 msgid "Normal:"
 msgstr "Normal:"
 
-#: ../objects/Database/table_dialog.c:986
+#: ../objects/Database/table_dialog.c:1011
 msgid "Text Color:"
 msgstr "Color del texto:"
 
-#: ../objects/Database/table_dialog.c:994
+#: ../objects/Database/table_dialog.c:1019
 msgid "Foreground Color:"
 msgstr "Color de primer plano:"
 
 #. two chars at the beginning
-#: ../objects/Database/table_dialog.c:1307
+#: ../objects/Database/table_dialog.c:1332
 msgid "not null"
 msgstr "no nula"
 
-#: ../objects/Database/table_dialog.c:1308
+#: ../objects/Database/table_dialog.c:1333
 msgid "null"
 msgstr "nula"
 
-#: ../objects/Database/table_dialog.c:1309
+#: ../objects/Database/table_dialog.c:1334
 msgid "unique"
 msgstr "única"
 
@@ -5034,7 +5043,7 @@ msgstr "URL"
 msgid "Actor"
 msgstr "Actor"
 
-#: ../objects/UML/association.c:1175 ../objects/UML/class_dialog.c:2177
+#: ../objects/UML/association.c:1175 ../objects/UML/class_dialog.c:2160
 msgid "Direction:"
 msgstr "Dirección:"
 
@@ -5062,28 +5071,28 @@ msgstr "Papel:"
 msgid "Multiplicity:"
 msgstr "Multiplicidad:"
 
-#: ../objects/UML/association.c:1262 ../objects/UML/class_dialog.c:1070
-#: ../objects/UML/class_dialog.c:1913
+#: ../objects/UML/association.c:1262 ../objects/UML/class_dialog.c:1060
+#: ../objects/UML/class_dialog.c:1902
 msgid "Visibility:"
 msgstr "Visibilidad:"
 
-#: ../objects/UML/association.c:1271 ../objects/UML/class_dialog.c:1079
-#: ../objects/UML/class_dialog.c:1922 ../objects/UML/uml.c:102
+#: ../objects/UML/association.c:1271 ../objects/UML/class_dialog.c:1069
+#: ../objects/UML/class_dialog.c:1911 ../objects/UML/uml.c:102
 msgid "Public"
 msgstr "Público"
 
-#: ../objects/UML/association.c:1281 ../objects/UML/class_dialog.c:1082
-#: ../objects/UML/class_dialog.c:1925 ../objects/UML/uml.c:103
+#: ../objects/UML/association.c:1281 ../objects/UML/class_dialog.c:1072
+#: ../objects/UML/class_dialog.c:1914 ../objects/UML/uml.c:103
 msgid "Private"
 msgstr "Privado"
 
-#: ../objects/UML/association.c:1291 ../objects/UML/class_dialog.c:1085
-#: ../objects/UML/class_dialog.c:1928 ../objects/UML/uml.c:104
+#: ../objects/UML/association.c:1291 ../objects/UML/class_dialog.c:1075
+#: ../objects/UML/class_dialog.c:1917 ../objects/UML/uml.c:104
 msgid "Protected"
 msgstr "Protegido"
 
-#: ../objects/UML/association.c:1301 ../objects/UML/class_dialog.c:1088
-#: ../objects/UML/class_dialog.c:1931 ../objects/UML/uml.c:105
+#: ../objects/UML/association.c:1301 ../objects/UML/class_dialog.c:1078
+#: ../objects/UML/class_dialog.c:1920 ../objects/UML/uml.c:105
 msgid "Implementation"
 msgstr "Implementación"
 
@@ -5115,8 +5124,8 @@ msgid "Stereotype"
 msgstr "Estereotipo"
 
 #: ../objects/UML/class.c:147 ../objects/UML/class.c:180
-#: ../objects/UML/class_dialog.c:343 ../objects/UML/class_dialog.c:459
-#: ../objects/UML/class_dialog.c:1952 ../objects/UML/uml.c:110
+#: ../objects/UML/class_dialog.c:340 ../objects/UML/class_dialog.c:450
+#: ../objects/UML/class_dialog.c:1941 ../objects/UML/uml.c:110
 msgid "Abstract"
 msgstr "Abstracta"
 
@@ -5124,7 +5133,7 @@ msgstr "Abstracta"
 msgid "Template"
 msgstr "Plantilla"
 
-#: ../objects/UML/class.c:152 ../objects/UML/class_dialog.c:352
+#: ../objects/UML/class.c:152 ../objects/UML/class_dialog.c:349
 msgid "Suppress Attributes"
 msgstr "Suprimir atributos"
 
@@ -5144,7 +5153,7 @@ msgstr "Operaciones visibles"
 msgid "Visible Comments"
 msgstr "Comentarios visibles"
 
-#: ../objects/UML/class.c:162 ../objects/UML/class_dialog.c:368
+#: ../objects/UML/class.c:162 ../objects/UML/class_dialog.c:365
 msgid "Wrap Operations"
 msgstr "Operaciones de wrap"
 
@@ -5156,7 +5165,7 @@ msgstr "Wrap después del carácter"
 msgid "Comment line length"
 msgstr "Longitud de la línea de comentarios"
 
-#: ../objects/UML/class.c:178 ../objects/UML/class_dialog.c:454
+#: ../objects/UML/class.c:178 ../objects/UML/class_dialog.c:445
 msgid "Polymorphic"
 msgstr "Polimórfico"
 
@@ -5181,143 +5190,138 @@ msgid "Show Comments"
 msgstr "Mostrar comentarios"
 
 #. Class page:
-#: ../objects/UML/class_dialog.c:304
+#: ../objects/UML/class_dialog.c:301
 msgid "_Class"
 msgstr "_Clase"
 
-#: ../objects/UML/class_dialog.c:312
+#: ../objects/UML/class_dialog.c:309
 msgid "Class name:"
 msgstr "Nombre de la clase:"
 
-#: ../objects/UML/class_dialog.c:320 ../objects/UML/class_dialog.c:1901
+#: ../objects/UML/class_dialog.c:317 ../objects/UML/class_dialog.c:1890
 #: ../objects/UML/dependency.c:139 ../objects/UML/generalization.c:135
 #: ../objects/UML/realizes.c:136
 msgid "Stereotype:"
 msgstr "Estereotipo:"
 
-#: ../objects/UML/class_dialog.c:349
+#: ../objects/UML/class_dialog.c:346
 msgid "Attributes visible"
 msgstr "Atributos visibles"
 
-#: ../objects/UML/class_dialog.c:358
+#: ../objects/UML/class_dialog.c:355
 msgid "Operations visible"
 msgstr "Operaciones visibles"
 
-#: ../objects/UML/class_dialog.c:361
+#: ../objects/UML/class_dialog.c:358
 msgid "Suppress operations"
 msgstr "Suprimir operaciones"
 
-#: ../objects/UML/class_dialog.c:375
+#: ../objects/UML/class_dialog.c:372
 msgid "Wrap after this length: "
 msgstr "Wrap después de esta longitud:"
 
-#: ../objects/UML/class_dialog.c:383
+#: ../objects/UML/class_dialog.c:380
 msgid "Comments visible"
 msgstr "Comentarios visibles"
 
-#: ../objects/UML/class_dialog.c:390
+#: ../objects/UML/class_dialog.c:387
 msgid "Wrap comment after this length: "
 msgstr "Ajustar el comentario después de esta longitud:"
 
-#. * Fonts and Colors selection *
-#: ../objects/UML/class_dialog.c:430
-msgid "_Style"
-msgstr "E_stilo"
-
-#: ../objects/UML/class_dialog.c:464
+#: ../objects/UML/class_dialog.c:455
 msgid "Class Name"
 msgstr "Nombre de la clase"
 
-#: ../objects/UML/class_dialog.c:469
+#: ../objects/UML/class_dialog.c:460
 msgid "Abstract Class"
 msgstr "Clase abstracta"
 
 #. should probably be refactored too.
-#: ../objects/UML/class_dialog.c:486
+#: ../objects/UML/class_dialog.c:477
 msgid "Text Color"
 msgstr "Color de texto"
 
-#: ../objects/UML/class_dialog.c:494
+#: ../objects/UML/class_dialog.c:485
 msgid "Foreground Color"
 msgstr "Color de primer plano"
 
-#: ../objects/UML/class_dialog.c:502
+#: ../objects/UML/class_dialog.c:493
 msgid "Background Color"
 msgstr "Color de fondo"
 
-#: ../objects/UML/class_dialog.c:1037
+#: ../objects/UML/class_dialog.c:1027
 msgid "Value:"
 msgstr "Valor:"
 
 #. end: Inheritance type
-#: ../objects/UML/class_dialog.c:1104 ../objects/UML/class_dialog.c:1968
+#: ../objects/UML/class_dialog.c:1094 ../objects/UML/class_dialog.c:1957
 msgid "Class scope"
 msgstr "Vista de clase"
 
 #. end: Visibility
-#: ../objects/UML/class_dialog.c:1943
+#: ../objects/UML/class_dialog.c:1932
 msgid "Inheritance type:"
 msgstr "Tipo de herencia:"
 
-#: ../objects/UML/class_dialog.c:1955 ../objects/UML/uml.c:111
+#: ../objects/UML/class_dialog.c:1944 ../objects/UML/uml.c:111
 msgid "Polymorphic (virtual)"
 msgstr "Polimórfico (virtual)"
 
-#: ../objects/UML/class_dialog.c:1958 ../objects/UML/uml.c:112
+#: ../objects/UML/class_dialog.c:1947 ../objects/UML/uml.c:112
 msgid "Leaf (final)"
 msgstr "Hoja (final)"
 
-#: ../objects/UML/class_dialog.c:1972
+#: ../objects/UML/class_dialog.c:1961
 msgid "Query"
 msgstr "Consulta"
 
-#: ../objects/UML/class_dialog.c:2024
+#: ../objects/UML/class_dialog.c:2008
 msgid "Parameters:"
 msgstr "Parámetros:"
 
-#: ../objects/UML/class_dialog.c:2110
+#: ../objects/UML/class_dialog.c:2093
 msgid "Parameter data"
 msgstr "Datos de parámetros"
 
-#: ../objects/UML/class_dialog.c:2143
+#: ../objects/UML/class_dialog.c:2126
 msgid "Def. value:"
 msgstr "Valor por defecto:"
 
-#: ../objects/UML/class_dialog.c:2186 ../objects/UML/umlparameter.c:34
+#: ../objects/UML/class_dialog.c:2169 ../objects/UML/umlparameter.c:34
 msgid "Undefined"
 msgstr "No definido"
 
-#: ../objects/UML/class_dialog.c:2189 ../objects/UML/umlparameter.c:35
+#: ../objects/UML/class_dialog.c:2172 ../objects/UML/umlparameter.c:35
 msgid "In"
 msgstr "Entrada"
 
-#: ../objects/UML/class_dialog.c:2192 ../objects/UML/umlparameter.c:36
+#: ../objects/UML/class_dialog.c:2175 ../objects/UML/umlparameter.c:36
 msgid "Out"
 msgstr "Salida"
 
-#: ../objects/UML/class_dialog.c:2195 ../objects/UML/umlparameter.c:37
+#: ../objects/UML/class_dialog.c:2178 ../objects/UML/umlparameter.c:37
 msgid "In & Out"
 msgstr "Entrada y salida"
 
 #. Operations page:
-#: ../objects/UML/class_dialog.c:2233
+#: ../objects/UML/class_dialog.c:2213
 msgid "_Operations"
 msgstr "_Operaciones"
 
-#: ../objects/UML/class_dialog.c:2291
+#: ../objects/UML/class_dialog.c:2271
 msgid "Operation data"
 msgstr "Datos de operación"
 
 #. Templates page:
-#: ../objects/UML/class_dialog.c:2651
+#: ../objects/UML/class_dialog.c:2631
 msgid "_Templates"
 msgstr "Plan_tillas"
 
-#: ../objects/UML/class_dialog.c:2657 ../sheets/UML.sheet.in.h:29
+#: ../objects/UML/class_dialog.c:2637 ../sheets/UML.sheet.in.h:29
 msgid "Template class"
 msgstr "Plantilla de clase"
 
-#: ../objects/UML/class_dialog.c:2714
+#: ../objects/UML/class_dialog.c:2694
 msgid "Formal parameter data"
 msgstr "Datos de parámetros formales"
 
@@ -5813,7 +5817,7 @@ msgid "Delete Corner"
 msgstr "Borrar esquina"
 
 # Como adjetivo Standard-->Estándar incluso en plurar. FVD
-#: ../objects/standard/standard.c:45
+#: ../objects/standard/standard.c:46
 msgid "Standard objects"
 msgstr "Objetos estándar"
 
@@ -5886,30 +5890,30 @@ msgstr "Computer Graphics Metafile"
 msgid "Computer Graphics Metafile export filter"
 msgstr "Filtro de exportación de Computer Graphics Metafile"
 
-#: ../plug-ins/dxf/dxf-export.c:528 ../plug-ins/dxf/dxf-import.c:1391
+#: ../plug-ins/dxf/dxf-export.c:598 ../plug-ins/dxf/dxf-import.c:1399
 msgid "Drawing Interchange File"
 msgstr "Drawing Interchange File"
 
-#: ../plug-ins/dxf/dxf-import.c:486 ../plug-ins/dxf/dxf-import.c:503
+#: ../plug-ins/dxf/dxf-import.c:490 ../plug-ins/dxf/dxf-import.c:507
 msgid "Bad vertex bulge\n"
 msgstr "Vértice de bombeo incorrecto\n"
 
-#: ../plug-ins/dxf/dxf-import.c:1053
+#: ../plug-ins/dxf/dxf-import.c:1046
 #, c-format
 msgid "Scale: %f\n"
 msgstr "Escala: %f\n"
 
-#: ../plug-ins/dxf/dxf-import.c:1318
+#: ../plug-ins/dxf/dxf-import.c:1316
 #, c-format
 msgid "read_dxf_codes failed on '%s'\n"
 msgstr "falló read_dxf_codes en «%s»\n"
 
-#: ../plug-ins/dxf/dxf-import.c:1326
+#: ../plug-ins/dxf/dxf-import.c:1324
 #, c-format
 msgid "Binary DXF from '%s' not supported\n"
 msgstr "DXF binario desde «%s» no soportado\n"
 
-#: ../plug-ins/dxf/dxf-import.c:1357
+#: ../plug-ins/dxf/dxf-import.c:1365
 #, c-format
 msgid "Unknown dxf code %d\n"
 msgstr "Código dxf desconocido %d\n"
@@ -7338,7 +7342,7 @@ msgstr "Retardo"
 
 #: ../sheets/Database.sheet.in.h:1
 msgid "Attribute compound"
-msgstr ""
+msgstr "Atributo compuesto"
 
 #: ../sheets/Database.sheet.in.h:2
 msgid "Database"
@@ -8088,11 +8092,11 @@ msgstr "Árbol"
 
 #: ../sheets/Misc.sheet.in.h:8
 msgid "expended node"
-msgstr ""
+msgstr "nodo gastado"
 
 #: ../sheets/Misc.sheet.in.h:9
 msgid "expensible node"
-msgstr ""
+msgstr "nodo gastable"
 
 #: ../sheets/Pneumatic.sheet.in.h:1
 msgid "2/2 distributor"
