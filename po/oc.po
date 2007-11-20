@@ -1,20 +1,23 @@
+# translation of oc.po to Occitan
 # Occitan translation of dia.
 # Copyright (C) 2007 Free Software Foundation, Inc.
 # This file is distributed under the same license as the dia package.
 # Yannig MARCHEGAY (yannig@marchegay.org) - 2006-2007
 #
+# Yannig Marchegay (Kokoyaya) <yannig@marchegay.org>, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: dia 0.96\n"
+"Project-Id-Version: oc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-04-25 21:54+0200\n"
-"PO-Revision-Date: 2007-05-16 22:51+0200\n"
-"Last-Translator: Yannig MARCHEGAY (Kokoyaya) <yannig@marchegay.org>\n"
-"Language-Team: Occitan (post 1500) <ubuntu-l10n-oci@lists.ubuntu.com>\n"
+"PO-Revision-Date: 2007-11-20 14:29+0100\n"
+"Last-Translator: Yannig Marchegay (Kokoyaya) <yannig@marchegay.org>\n"
+"Language-Team: Occitan <ubuntu-l10n-oci@lists.ubuntu.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);"
+"Plural-Forms: nplurals=2; plural=(n > 1);X-Generator: KBabel 1.11.4\n"
+"X-Generator: KBabel 1.11.4\n"
 
 #. This is not an errror
 #: ../app/app_procs.c:256
@@ -149,8 +152,7 @@ msgstr "Version de Dia %s\n"
 
 #: ../app/app_procs.c:906 ../app/diaconv.c:195 ../app/diaconv.c:197
 #, c-format
-msgid ""
-"Couldn't find standard objects when looking for object-libs; exiting...\n"
+msgid "Couldn't find standard objects when looking for object-libs; exiting...\n"
 msgstr ""
 
 #: ../app/app_procs.c:908
@@ -829,7 +831,7 @@ msgstr "Tèxt"
 
 #: ../app/interface.c:165 ../app/menus.c:190
 msgid "Box"
-msgstr "Brustia"
+msgstr "Bóstia"
 
 #: ../app/interface.c:171 ../app/menus.c:191
 msgid "Ellipse"
@@ -877,7 +879,7 @@ msgstr ""
 
 #: ../app/interface.c:606
 msgid "Zoom"
-msgstr ""
+msgstr "Zoom"
 
 #: ../app/interface.c:621
 msgid "Toggles snap-to-grid for this window."
@@ -1144,11 +1146,11 @@ msgstr ""
 
 #: ../app/menus.c:107
 msgid "_View"
-msgstr "_Visualizar"
+msgstr "_Visualizacion"
 
 #: ../app/menus.c:110
 msgid "_Zoom"
-msgstr ""
+msgstr "_Zoom"
 
 #: ../app/menus.c:111
 msgid "1600%"
@@ -1445,7 +1447,7 @@ msgstr ""
 
 #: ../app/plugin-manager.c:255
 msgid "Loaded"
-msgstr ""
+msgstr "Cargat"
 
 #. *** board of value **************
 #: ../app/plugin-manager.c:262 ../objects/SISSI/sissi_dialog.c:618
@@ -1524,7 +1526,7 @@ msgstr ""
 
 #: ../app/preferences.c:141
 msgid "Portrait"
-msgstr "Retrach"
+msgstr "Contrast"
 
 #: ../app/preferences.c:143
 msgid "Paper type:"
@@ -2574,7 +2576,7 @@ msgstr ""
 #: ../objects/FS/function.c:678 ../objects/FS/function.c:680
 #: ../objects/FS/function.c:720
 msgid "Channel"
-msgstr ""
+msgstr "Canal"
 
 #. Translators: Menu item Verb/Channel/Import
 #. Translators: Menu item Verb/Channel/Import/Import
@@ -2728,14 +2730,14 @@ msgstr ""
 #. Translators: Menu item Verb/Support/Support
 #: ../objects/FS/function.c:762 ../objects/FS/function.c:764
 msgid "Support"
-msgstr ""
+msgstr "Ajuda"
 
 #. Translators: Menu item Verb/Support/Stop
 #. Translators: Menu item Verb/Support/Stop/Stop
 #: ../objects/FS/function.c:766 ../objects/FS/function.c:768
 #: ../sheets/SDL.sheet.in.h:19
 msgid "Stop"
-msgstr "Arrèst"
+msgstr "Arrestar"
 
 #. Translators: Menu item Verb/Support/Stop/Insulate
 #: ../objects/FS/function.c:770
@@ -2828,7 +2830,7 @@ msgstr ""
 #. Translators: Menu item Verb/Connect/Connect
 #: ../objects/FS/function.c:810 ../objects/FS/function.c:812
 msgid "Connect"
-msgstr "Connectar"
+msgstr "Se connectar"
 
 #. Translators: Menu item Verb/Connect/Couple
 #. Translators: Menu item Verb/Connect/Couple/Couple
@@ -2905,12 +2907,12 @@ msgstr "Devesir"
 #. Translators: Menu item Verb/Branch/Separate/Separate/Release
 #: ../objects/FS/function.c:852
 msgid "Release"
-msgstr ""
+msgstr "Version"
 
 #. Translators: Menu item Verb/Branch/Separate/Separate/Detach
 #: ../objects/FS/function.c:854
 msgid "Detach"
-msgstr ""
+msgstr "_Prigondor :"
 
 #. Translators: Menu item Verb/Branch/Separate/Separate/Disconnect
 #: ../objects/FS/function.c:856
@@ -3319,7 +3321,7 @@ msgstr ""
 #. Translators: Menu item Verb/Signal/Indicate/Mark
 #: ../objects/FS/function.c:1058
 msgid "Mark"
-msgstr ""
+msgstr "Mark"
 
 #. Translators: Menu item Verb/Signal/Display
 #: ../objects/FS/function.c:1060 ../sheets/Flowchart.sheet.in.h:7
@@ -3383,7 +3385,7 @@ msgstr ""
 #. Translators: Menu item Noun/Material/Human/Finger
 #: ../objects/FS/function.c:1090
 msgid "Finger"
-msgstr ""
+msgstr "Nigèr"
 
 #. Translators: Menu item Noun/Material/Human/Toe
 #: ../objects/FS/function.c:1092
@@ -4051,7 +4053,7 @@ msgstr ""
 
 #: ../objects/SISSI/classification.h:47 ../objects/SISSI/sissi.h:225
 msgid "Secret"
-msgstr ""
+msgstr "Secret"
 
 #: ../objects/SISSI/classification.h:48
 msgid "Defense Secret"
@@ -4847,7 +4849,7 @@ msgstr ""
 
 #: ../objects/UML/message.c:140
 msgid "Send"
-msgstr "Enviar"
+msgstr "Segondas"
 
 #: ../objects/UML/message.c:141
 msgid "Recursive"
@@ -7545,7 +7547,7 @@ msgstr ""
 
 #: ../sheets/SDL.sheet.in.h:15
 msgid "Send message"
-msgstr ""
+msgstr "Enviar un messatge"
 
 #: ../sheets/SDL.sheet.in.h:16
 msgid "Service type reference"
@@ -8921,7 +8923,7 @@ msgstr ""
 
 #: ../sheets/cisconetwork.sheet.in.h:87
 msgid "UPS"
-msgstr ""
+msgstr "UPS"
 
 #: ../sheets/cisconetwork.sheet.in.h:88
 msgid "VIP"
@@ -9041,7 +9043,7 @@ msgstr ""
 
 #: ../sheets/ciscotelephony.sheet.in.h:15
 msgid "H.323"
-msgstr ""
+msgstr "H.323"
 
 #: ../sheets/ciscotelephony.sheet.in.h:16
 msgid "HootPhone"
@@ -9571,20 +9573,3 @@ msgstr ""
 msgid "Sybase replication server"
 msgstr ""
 
-#~ msgid "Unexpected polyline object: %s\n"
-#~ msgstr "Impossible de lire les informations de la polyligne : %s\n"
-
-#~ msgid "Diagram tree"
-#~ msgstr "Arborescence du diagramme"
-
-#~ msgid "Modify object(s)"
-#~ msgstr "Modifier des objets"
-
-#~ msgid "Failed to save file '%s'.\n"
-#~ msgstr "Échec lors de l'enregistrement dans le fichier « %s ».\n"
-
-#~ msgid "EML"
-#~ msgstr "EML"
-
-#~ msgid "Editor for EML Static Structure Diagrams."
-#~ msgstr "Éditeur pour diagrammes de structure statique EML"
