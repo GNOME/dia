@@ -299,7 +299,7 @@ SHAPES2=\
   key.shape\
   key.png
 
-SHAPES2=\
+SHAPES3=\
   label_switch_router.shape\
   label_switch_router.png\
   lan2lan_switch.shape\
