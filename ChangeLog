@@ -1,3 +1,9 @@
+2007-12-01  Lars Clausen  <lars@raeder.dk>
+
+	* po/POTFILES.in: Added diacairo-interactive.c, tree.c and
+	outline.c, as suggested on http://l10n.gnome.org/module/dia.
+	Closes bug #500739.
+
 2007-11-20  Lars Clausen  <lars@raeder.dk>
 
 	* shapes/Cisco/Makefile.am: Fixed wrong numbering of shape list.

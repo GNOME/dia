@@ -105,6 +105,7 @@ objects/KAOS/metabinrel.c
 objects/KAOS/other.c
 objects/Misc/analog_clock.c
 objects/Misc/libmisc.c
+objects/Misc/tree.c
 objects/SADT/annotation.c
 objects/SADT/arrow.c
 objects/SADT/box.c
@@ -171,11 +172,13 @@ objects/standard/box.c
 objects/standard/ellipse.c
 objects/standard/image.c
 objects/standard/line.c
+objects/standard/outline.c
 objects/standard/polygon.c
 objects/standard/polyline.c
 objects/standard/standard.c
 objects/standard/textobj.c
 objects/standard/zigzagline.c
+plug-ins/cairo/diacairo-interactive.c
 plug-ins/cairo/diacairo.c
 plug-ins/cgm/cgm.c
 plug-ins/dxf/dxf-export.c
