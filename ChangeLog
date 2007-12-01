@@ -1,5 +1,8 @@
 2007-12-01  Lars Clausen  <lars@raeder.dk>
 
+	* po/LINGUAS: Added Punjabi (pa), as pointed out by
+	http://l10n.gnome.org/module/dia. Closes bug #500745.
+
 	* po/POTFILES.in: Added diacairo-interactive.c, tree.c and
 	outline.c, as suggested on http://l10n.gnome.org/module/dia.
 	Closes bug #500739.
