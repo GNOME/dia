@@ -24,6 +24,12 @@
 #include "cursor.h"
 #include "object_ops.h"
 
+/** The text edit tool.  This tool allows the user to switch to a mode where
+ * clicking on an editable text will start text edit mode.  Clicking outside
+ * of editable text will revert to selection tool.  Note that clicking this
+ * tool doesn't enter text edit mode immediately, just allows it to be entered
+ * by clicking an object.
+ */
 static DiaObject *
 click_select_object(DDisplay *ddisp, Point *clickedpoint,
 		    GdkEventButton *event)

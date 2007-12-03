@@ -1132,7 +1132,7 @@ ddisp_destroy(DDisplay *ddisp)
   g_object_unref (G_OBJECT (ddisp->im_context));
   ddisp->im_context = NULL;
 
-  ddisplay_im_context_preedit_reset(ddisp, active_focus());
+  ddisplay_im_context_preedit_reset(ddisp, get_active_focus((DiagramData *) ddisp->diagram));
 
   /* This calls ddisplay_really_destroy */
   if (ddisp->is_standalone_window)
@@ -1525,4 +1525,32 @@ ddisplay_im_context_preedit_reset(DDisplay *ddisp, Focus *focus)
     pango_attr_list_unref(ddisp->preedit_attrs);
     ddisp->preedit_attrs = NULL;
   }
+}
+
+/** Get the active focus for the given display, or NULL.
+ *
+ * @param ddisp Display to get active focus for.  This display need not
+ *              be the currently active display.
+ * @returns The focus that is active for the given display, or NULL if no
+ *          focus is active (i.e. no text is being edited).
+ */
+Focus *
+ddisplay_active_focus(DDisplay *ddisp)
+{
+  return ddisp->active_focus;
+}
+
+/** Set the currently active focus for this display.  This field should be
+ *  set to non-null when a text is being edited and to null when no text
+ *  is being edited.  Only textedit.c really needs to call this function.
+ *
+ * @param ddisp The display to set active focus for.
+ * @param focus The focus that should be active for this display.  May be
+ *              NULL, indicating that no text is currently being edited on
+ *              this display.
+ */
+void
+ddisplay_set_active_focus(DDisplay *ddisp, Focus *focus)
+{
+  ddisp->active_focus = focus;
 }

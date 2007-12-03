@@ -1,3 +1,21 @@
+2007-12-03  Lars Clausen  <lars@raeder.dk>
+
+	* app/undo.[ch]: New function undo_remove_to removes items from the
+	undo stack until hitting a specific kind of undo item.  Needed for
+	text edit undo collapsing, but not used yet.
+
+	* app/modify_tool.c: 
+	* app/diagram.c: 
+	* app/disp_callbacks.c: 
+	* app/textedit_tool.c: 
+	* app/layer_dialog.c: 
+	* app/display.[ch]:
+	* app/commands.c: 
+	* lib/diagramdata.[ch]: 
+	* lib/text.c: 
+	* lib/focus.[ch]: Focus list and active focus now per-diagram.
+	Selection kept when switching between diagrams.
+
 2007-12-01  Lars Clausen  <lars@raeder.dk>
 
 	* po/LINGUAS: Added Punjabi (pa), as pointed out by

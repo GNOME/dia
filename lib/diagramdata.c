@@ -121,6 +121,8 @@ diagram_data_init(DiagramData *data)
   
   data->is_compressed = compress; /* Overridden by doc */
 
+  data->text_edits = NULL;
+  data->active_text_edit = NULL;
 }
 
 /** Deallocate memory owned by a DiagramData object.

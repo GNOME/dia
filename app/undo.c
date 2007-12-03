@@ -293,6 +293,34 @@ undo_available(UndoStack *stack, gboolean undo)
   }
 }
 
+/** Remove items from the undo stack until we hit an undo item of a given
+ *  type (indicated by its apply function).  Beware that the items are not
+ *  just reverted, but totally removed.  This also takes with it all the 
+ *  changes above current_change.
+ *
+ * @param stack The undo stack to remove items from.
+ * @param type Indicator of undo type to remove: An apply function.
+ * @returns The Change object that stopped the search, if any was found,
+ * or NULL otherwise.  In the latter case, the undo stack will be empty.
+ */
+Change*
+undo_remove_to(UndoStack *stack, UndoApplyFunc *type)
+{
+  Change *current_change = stack->current_change;
+  if (current_change == NULL) return;
+  while (current_change && current_change->apply != type) {
+    current_change = current_change->prev;
+  }
+  if (current_change != NULL) {
+    stack->current_change = current_change;
+    undo_remove_redo_info(stack);
+    return current_change;
+  } else {
+    undo_clear(stack);
+    return NULL;
+  }
+}
+
 
 /****************************************************************/
 /****************************************************************/

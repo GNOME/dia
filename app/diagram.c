@@ -493,6 +493,7 @@ diagram_update_menu_sensitivity (Diagram *dia, UpdatableMenuItems *items)
 {
   gint selected_count = g_list_length (dia->data->selected);
   DDisplay *ddisp = ddisplay_active();
+  gboolean focus_active = (get_active_focus(dia->data) != NULL);
   /* Edit menu */
   gtk_action_set_sensitive (items->undo, 
 			    undo_available(dia->undo, TRUE));
@@ -510,9 +511,9 @@ diagram_update_menu_sensitivity (Diagram *dia, UpdatableMenuItems *items)
   gtk_action_set_sensitive (items->edit_duplicate,
 			    !textedit_mode(ddisp) && selected_count > 0);
 
-  gtk_action_set_sensitive (items->copy_text, active_focus() != NULL);
-  gtk_action_set_sensitive (items->cut_text, active_focus() != NULL);
-  gtk_action_set_sensitive (items->paste_text, active_focus() != NULL);
+  gtk_action_set_sensitive (items->copy_text, focus_active);
+  gtk_action_set_sensitive (items->cut_text, focus_active);
+  gtk_action_set_sensitive (items->paste_text, focus_active);
   
   /* Objects menu */
   gtk_action_set_sensitive (items->send_to_back, 
@@ -771,7 +772,7 @@ diagram_select_list(Diagram *dia, GList *list)
 
     list = g_list_next(list);
   }
-  if (active_focus() == NULL) {
+  if (get_active_focus((DiagramData*) dia) == NULL) {
     textedit_activate_first(ddisplay_active());
   }
   g_signal_handlers_unblock_by_func (dia, _diagram_selection_changed, NULL);

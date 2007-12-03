@@ -207,8 +207,8 @@ static void
 received_clipboard_handler(GtkClipboard *clipboard, 
 			   const gchar *text,
 			   gpointer data) {
-  Focus *focus = active_focus();
   DDisplay *ddisp = (DDisplay *)data;
+  Focus *focus = get_active_focus((DiagramData *) ddisp->diagram);
   
   if (text == NULL) return;
 
@@ -247,7 +247,7 @@ edit_copy_callback (GtkAction *action)
   ddisp = ddisplay_active();
   if (!ddisp) return;
   if (textedit_mode(ddisp)) {
-    Focus *focus = active_focus();
+    Focus *focus = get_active_focus((DiagramData *) ddisp->diagram);
     DiaObject *obj = focus_get_object(focus);
     GPtrArray *textprops;
     TextProperty *prop;
@@ -457,16 +457,17 @@ move_objects_down_layer(GtkAction *action)
 void
 edit_copy_text_callback (GtkAction *action)
 {
-  Focus *focus = active_focus();
-  DDisplay *ddisp;
+  Focus *focus;
+  DDisplay *ddisp = ddisplay_active();
   DiaObject *obj;
   GPtrArray *textprops;
   TextProperty *prop;
 
-  if ((focus == NULL) || (!focus->has_focus)) return;
+  if (ddisp == NULL) return;
 
-  ddisp = ddisplay_active();
-  if (!ddisp) return;
+  focus = get_active_focus((DiagramData *) ddisp->diagram);
+
+  if ((focus == NULL) || (!focus->has_focus)) return;
 
   obj = focus_get_object(focus);
 
@@ -493,7 +494,7 @@ edit_copy_text_callback (GtkAction *action)
 void
 edit_cut_text_callback (GtkAction *action)
 {
-  Focus *focus = active_focus();
+  Focus *focus;
   DDisplay *ddisp;
   DiaObject *obj;
   Text *text;
@@ -501,10 +502,11 @@ edit_cut_text_callback (GtkAction *action)
   TextProperty *prop;
   ObjectChange *change;
 
-  if ((focus == NULL) || (!focus->has_focus)) return;
-
   ddisp = ddisplay_active();
   if (!ddisp) return;
+
+  focus = get_active_focus((DiagramData *) ddisp->diagram);
+  if ((focus == NULL) || (!focus->has_focus)) return;
 
   obj = focus_get_object(focus);
   text = (Text*)focus->user_data;
@@ -565,7 +567,7 @@ edit_delete_callback (GtkAction *action)
   if (!ddisp) return;
   if (textedit_mode(ddisp)) {
     ObjectChange *change = NULL;
-    Focus *focus = active_focus();
+    Focus *focus = get_active_focus((DiagramData *) ddisp->diagram);
     if (!text_delete_key_handler(focus, &change)) {
       return;
     }

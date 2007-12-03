@@ -404,7 +404,7 @@ ddisplay_im_context_commit(GtkIMContext *context, const gchar  *str,
          (the default IM on X should perform the local->UTF8 conversion)
       */
       
-  Focus *focus = active_focus();
+  Focus *focus = get_active_focus((DiagramData *) ddisp->diagram);
 
   ddisplay_im_context_preedit_reset(ddisp, focus);
   
@@ -417,7 +417,7 @@ ddisplay_im_context_preedit_changed(GtkIMContext *context,
                                     DDisplay *ddisp) 
 {
   gint cursor_pos;
-  Focus *focus = active_focus();
+  Focus *focus = get_active_focus((DiagramData *) ddisp->diagram);
 
   ddisplay_im_context_preedit_reset(ddisp, focus);
   
@@ -684,7 +684,7 @@ ddisplay_canvas_events (GtkWidget *canvas,
 
 	printf("Key input %d in state %d\n", kevent->keyval, textedit_mode(ddisp));
 
-        focus = active_focus();
+        focus = get_active_focus((DiagramData *) ddisp->diagram);
         if (focus != NULL) {
 	  /* Keys goes to the active focus. */
 	  obj = focus_get_object(focus);

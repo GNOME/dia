@@ -33,14 +33,14 @@ struct _Focus {
 };
 
 void request_focus(Focus *focus);
-Focus *active_focus(void);
+Focus *get_active_focus(DiagramData *dia);
 void give_focus(Focus *focus);
 Focus *focus_get_first_on_object(DiaObject *obj);
-Focus *focus_next(void);
-Focus *focus_previous(void);
-void remove_focus(void);
+Focus *focus_next_on_diagram(DiagramData *dia);
+Focus *focus_previous_on_diagram(DiagramData *dia);
+void remove_focus_on_diagram(DiagramData *dia);
 gboolean remove_focus_object(DiaObject *obj);
-void reset_foci(void);
+void reset_foci_on_diagram(DiagramData *dia);
 DiaObject* focus_get_object(Focus *focus);
 
 #endif /* FOCUS_H */

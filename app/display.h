@@ -103,8 +103,11 @@ struct _DDisplay {
   /* Points to widget containing the diagram if not standalone window */
   GtkWidget *container; 
 
-  /* Private field, indicates if rulers are shown for this diagram */
+  /* Private field, indicates if rulers are shown for this diagram. */
   gboolean rulers_are_showing;
+
+  /* Private field, indicates which text, if any, is being edited */
+  Focus *active_focus;
 };
 
 extern GdkCursor *default_cursor;
@@ -177,5 +180,8 @@ void ddisplay_do_update_menu_sensitivity (DDisplay *ddisp);
 void display_set_active(DDisplay *ddisp);
 
 void ddisplay_im_context_preedit_reset(DDisplay *ddisp, Focus *focus);
+
+Focus *ddisplay_active_focus(DDisplay *ddisp);
+void ddisplay_set_active_focus(DDisplay *ddisp, Focus *focus);
 
 #endif /* DDISPLAY_H */

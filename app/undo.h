@@ -56,6 +56,7 @@ void undo_clear(UndoStack *stack);
 void undo_mark_save(UndoStack *stack);
 gboolean undo_is_saved(UndoStack *stack);
 gboolean undo_available(UndoStack *stack, gboolean undo);
+Change* undo_remove_to(UndoStack *stack, UndoApplyFunc *type);
 
 /* Specific undo functions: */
 

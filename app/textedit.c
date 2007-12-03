@@ -23,6 +23,13 @@
  * keystrokes.
  *
  * There's an invariant that all objects in the focus list must be selected.
+ *
+ * When starting to edit a particular text, we force entering text edit mode,
+ * and when leaving text edit mode, we force stopping editing the text.
+ * However, when changing between which texts are edited, we don't leave
+ * textedit mode just to enter it again.  However, due to the text edit
+ * tool, it is possible to be in text edit mode without editing any
+ * particular text.
  */
 
 #include <config.h>
@@ -35,13 +42,40 @@
 #include "object_ops.h"
 #include "text.h"
 
-static gboolean textedit_mode_on = FALSE;
+typedef struct TextEditChange {
+  Change obj_change;
+
+  /** The text before editing began */
+  gchar *orig_text;
+  /** The text after editing finished */
+  gchar *new_text;
+  /** The Text item that this change happened to (in case there's more than
+   *  one on an object). */
+  Text *text;
+} TextEditChange;
+
+static Change *text_edit_create_change(Text *text);
+static void text_edit_update(TextEditChange *change);
+static void text_edit_apply(Change *change, Diagram *dia);
+static void textedit_end_edit(DDisplay *ddisp, Focus *focus);
 
 /** Returns TRUE if the given display is currently in text-edit mode. */
 gboolean
 textedit_mode(DDisplay *ddisp)
 {
-  return textedit_mode_on && active_focus() != NULL;
+  return ddisplay_active_focus(ddisp) != NULL;
+}
+
+/** Perform the necessary changes to the display according to whether
+ *  or not we are in text edit mode.  While normally called from
+ *  textedit_enter and textedit_exit, this is exposed in order to allow
+ *  for switching between displays.
+
+ * @param ddisp The display to set according to mode.
+ */
+void
+textedit_display_change(DDisplay *ddisp)
+{
 }
 
 /** Start editing text.  This brings Dia into text-edit mode, which
@@ -57,11 +91,13 @@ textedit_enter(DDisplay *ddisp)
   }
   /* Set textedit menus */
   /* Set textedit key-event handler */
-  textedit_mode_on = TRUE;
+  textedit_display_change(ddisp);
 }
 
 /** Stop editing text.  Whether or not we already are in text-edit mode,
- * this function leaves us in object-edit mode.
+ * this function leaves us in object-edit mode.  This function will call
+ * textedit_end_edit if necessary.
+ *
  * @param ddisp The display that editing happens in.
  */
 static void
@@ -70,13 +106,18 @@ textedit_exit(DDisplay *ddisp)
   if (!textedit_mode(ddisp)) {
     return;
   }
+  if (ddisplay_active_focus(ddisp) != NULL) {
+    textedit_end_edit(ddisp, ddisplay_active_focus(ddisp));
+  }
   /* Set object-edit menus */
   /* Set object-edit key-event handler */
-  textedit_mode_on = FALSE;
+  textedit_display_change(ddisp);
 }
 
-/** Begin editing a particular text focus.  This must only be called in
- * text-edit mode.
+
+/** Begin editing a particular text focus.  This function will call
+ * textedit_enter if necessary.  By return from this function, we will
+ * be in textedit mode.
  * @param ddisp The display in use
  * @param focus The text focus to edit 
  */
@@ -85,10 +126,16 @@ textedit_begin_edit(DDisplay *ddisp, Focus *focus)
 {
   Color *focus_col = color_new_rgb(1.0, 1.0, 0.0);
   
-  g_assert(textedit_mode(ddisp));
   g_assert(dia_object_is_selected(focus_get_object(focus)));
+  if (!textedit_mode(ddisp)) {
+    textedit_enter(ddisp);
+  }
+  ddisplay_set_active_focus(ddisp, focus);
   highlight_object(focus->obj, focus_col, ddisp->diagram);
   object_add_updates(focus->obj, ddisp->diagram);
+/* Undo not quite ready yet.
+  undo_push_change(ddisp->diagram->undo, text_edit_create_change(focus->text));
+*/
 }
 
 /** Stop editing a particular text focus.  This must only be called in
@@ -100,6 +147,7 @@ textedit_begin_edit(DDisplay *ddisp, Focus *focus)
 static void
 textedit_end_edit(DDisplay *ddisp, Focus *focus) 
 {
+  TextEditChange *change;
   /* During destruction of the diagram the display may already be gone */
   if (!ddisp)
     return;
@@ -111,6 +159,14 @@ textedit_end_edit(DDisplay *ddisp, Focus *focus)
   */
   highlight_object_off(focus->obj, ddisp->diagram);
   object_add_updates(focus->obj, ddisp->diagram);
+/* Undo not quite ready yet
+  change = (TextEditChange *) undo_remove_to(ddisp->diagram->undo,
+					     text_edit_apply);
+  if (change != NULL) {
+    text_edit_update(change);
+  }
+*/
+  ddisplay_set_active_focus(ddisp, NULL);
 }
 
 /** Move the text edit focus either backwards or forwards. */
@@ -121,13 +177,13 @@ textedit_move_focus(DDisplay *ddisp, Focus *focus, gboolean forwards)
     textedit_end_edit(ddisp, focus);
   }
   if (forwards) {
-    Focus *new_focus = focus_next();
+    Focus *new_focus = focus_next_on_diagram((DiagramData *) ddisp->diagram);
     if (new_focus != NULL) give_focus(new_focus);    
   } else {
-    Focus *new_focus = focus_previous();
+    Focus *new_focus = focus_previous_on_diagram((DiagramData *) ddisp->diagram);
     if (new_focus != NULL) give_focus(new_focus);    
   }
-  focus = active_focus();
+  focus = get_active_focus((DiagramData *) ddisp->diagram);
 
   if (focus != NULL) {
     textedit_begin_edit(ddisp, focus);
@@ -142,8 +198,8 @@ textedit_move_focus(DDisplay *ddisp, Focus *focus, gboolean forwards)
 void
 textedit_activate_focus(DDisplay *ddisp, Focus *focus, Point *clicked)
 {
-  if (active_focus()) {
-    Focus *old_focus = active_focus();
+  Focus *old_focus = get_active_focus((DiagramData *) ddisp->diagram);
+  if (old_focus != NULL) {
     textedit_end_edit(ddisp, old_focus);
   }
   if (clicked) {
@@ -165,13 +221,12 @@ textedit_activate_object(DDisplay *ddisp, DiaObject *obj, Point *clicked)
 {
   Focus *new_focus;
 
-  if (active_focus()) {
-    Focus *focus = active_focus();
-    textedit_end_edit(ddisp, focus);
-  }
   new_focus = focus_get_first_on_object(obj);
   if (new_focus != NULL) {
-    textedit_enter(ddisp);
+    Focus *focus = get_active_focus((DiagramData *) ddisp->diagram);
+    if (focus != NULL) {
+      textedit_end_edit(ddisp, focus);
+    }
     give_focus(new_focus); 
     if (clicked) {
       text_set_cursor((Text*)new_focus->user_data, clicked, ddisp->renderer);
@@ -195,9 +250,9 @@ textedit_activate_first(DDisplay *ddisp)
 {
   Focus *new_focus = NULL;
   GList *tmp, *selected = diagram_get_sorted_selected(ddisp->diagram);
+  Focus *focus = get_active_focus((DiagramData *) ddisp->diagram);
 
-  if (active_focus()) {
-    Focus *focus = active_focus();
+  if (focus != NULL) {
     textedit_end_edit(ddisp, focus);
   }
   tmp = selected;
@@ -208,7 +263,6 @@ textedit_activate_first(DDisplay *ddisp)
   }
   g_list_free (selected);
   if (new_focus != NULL) {
-    textedit_enter(ddisp);
     give_focus(new_focus); 
     textedit_begin_edit(ddisp, new_focus);
     diagram_flush(ddisp->diagram);
@@ -227,12 +281,15 @@ textedit_activate_first(DDisplay *ddisp)
 void
 textedit_deactivate_focus(void)
 {
-  Focus *focus = active_focus();
-  if (focus != NULL) {
-    textedit_end_edit(ddisplay_active(), focus);
-    remove_focus();
+  if (ddisplay_active() != NULL) {
+    DiagramData *dia = (DiagramData *) ddisplay_active()->diagram;
+    Focus *focus = get_active_focus(dia);
+    if (focus != NULL) {
+      remove_focus_on_diagram(dia);
+    }
+    /* This also ends the edit */
+    textedit_exit(ddisplay_active());
   }
-  textedit_exit(ddisplay_active());
 }
 
 /** Call when something should be removed from the focus list.
@@ -241,12 +298,14 @@ textedit_deactivate_focus(void)
 void
 textedit_remove_focus(DiaObject *obj, Diagram *diagram)
 {
-  Focus *old_focus = active_focus();
+  Focus *old_focus = get_active_focus((DiagramData *) diagram);
   if (remove_focus_object(obj)) {
     /* TODO: make sure the focus is deactivated */
-    textedit_end_edit(ddisplay_active(), old_focus);
   }
-  textedit_exit(ddisplay_active());
+  /* This also ends the edit */
+  if (ddisplay_active() != NULL) {
+    textedit_exit(ddisplay_active());
+  }
 }
 
 /** Call when the entire list of focusable texts gets reset.
@@ -255,11 +314,82 @@ textedit_remove_focus(DiaObject *obj, Diagram *diagram)
 void
 textedit_remove_focus_all(Diagram *diagram)
 {
-  Focus *focus = active_focus();
+  Focus *focus = get_active_focus((DiagramData *) diagram);
   if (focus != NULL) {
     /* TODO: make sure the focus is deactivated */
-    textedit_end_edit(ddisplay_active(), focus);
   }
-  reset_foci();
-  textedit_exit(ddisplay_active());
+  reset_foci_on_diagram((DiagramData *) diagram);
+  /* This also ends the edit */
+  if (ddisplay_active() != NULL) {
+    textedit_exit(ddisplay_active());
+  }
+}
+
+/* *************** Textedit-mode related Undo ******************* */
+
+/* Each edit of a text part of an object counts as one undo after it's
+ * done.  While editing, full undo is available, but afterwards the
+ * changes get merged into one.  This is done by sticking a TextEditChange
+ * on the undo stack at the beginning with the original text, and then
+ * at the end removing every change after that one.  This is why non-text-edit
+ * changes are not allowed in text edit mode:  It would break the undo.
+ */
+
+static void
+text_edit_apply(Change *change, Diagram *dia)
+{
+  TextEditChange *te_change = (TextEditChange *) change;
+  text_set_string(te_change->text, te_change->new_text);
+}
+
+static void
+text_edit_revert(TextEditChange *change, Diagram *dia)
+{
+  if (textedit_mode(ddisplay_active())) {
+    DDisplay *ddisp = ddisplay_active();
+    textedit_exit(ddisp);
+  }
+  text_set_string(change->text, change->orig_text);
+}
+
+static void
+text_edit_free(TextEditChange *change)
+{
+  g_free(change->orig_text);
+  if (change->new_text) {
+    g_free(change->new_text);
+  }
+}
+
+/** Note that the new text isn't known when this is made.  That gets
+ * added later.
+ */
+static Change *
+text_edit_create_change(Text *text)
+{
+  TextEditChange *change;
+  
+  change = g_new0(TextEditChange, 1);
+
+  change->obj_change.apply = (ObjectChangeApplyFunc) text_edit_apply;
+  change->obj_change.revert = (ObjectChangeRevertFunc) text_edit_revert;
+  change->obj_change.free = (ObjectChangeFreeFunc) text_edit_free;
+
+  change->text = text;
+  if (text_is_empty(text)) {
+    change->orig_text = g_strdup("");
+  } else {
+    change->orig_text = text_get_string_copy(text);
+  }
+  /* new_text not ready yet */
+
+  return (Change *)change;
+}
+
+/** This should be called when an edit is finished, to store the final
+ *  text. */
+static void
+text_edit_update(TextEditChange *change)
+{
+  change->new_text = text_get_string_copy(change->text);
 }

@@ -292,6 +292,7 @@ new_text(const char *string, DiaFont *font, real height,
   text->focus.has_focus = FALSE;
   text->focus.user_data = (void *)text;
   text->focus.key_event = text_key_event;
+  text->focus.text = text;
   
   set_string(text, string);
 
@@ -329,6 +330,7 @@ text_copy(Text *text)
   copy->focus.has_focus = FALSE;
   copy->focus.user_data = (void *)copy;
   copy->focus.key_event = text_key_event;
+  copy->focus.text = copy;
   
   copy->ascent = text->ascent;
   copy->descent = text->descent;

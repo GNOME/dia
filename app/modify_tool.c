@@ -624,6 +624,7 @@ modify_button_release(ModifyTool *tool, GdkEventButton *event,
   int i;
   DiaObject *active_obj = NULL;
   ObjectChange *objchange;
+  Focus *active_focus;
   
   tool->break_connections = FALSE;
   ddisplay_set_all_cursor(default_cursor);
@@ -708,9 +709,11 @@ modify_button_release(ModifyTool *tool, GdkEventButton *event,
 
     break;
   case STATE_BOX_SELECT:
+    
     gdk_pointer_ungrab (event->time);
     /* Remember the currently active object for reactivating. */
-    active_obj = active_focus()!=NULL?focus_get_object(active_focus()):NULL;
+    active_focus = get_active_focus((DiagramData *) ddisp->diagram);
+    active_obj = active_focus!=NULL?focus_get_object(active_focus):NULL;
     /* Remove last box: */
     if (!tool->auto_scrolled) {
       gdk_draw_rectangle (ddisp->canvas->window, tool->gc, FALSE,
@@ -834,18 +837,6 @@ modify_edit_end(GtkWidget *widget, GdkEventFocus *event, gpointer data)
     }
   }
   return FALSE;
-}
-
-/** Start editing the first text among selected objects, if any */
-static void
-modify_edit_first_text(DDisplay *ddisp)
-{
-  GList *edits = ddisp->diagram->data->text_edits;
-
-  if (edits != NULL) {
-    Text *text = (Text*)edits->data;
-    modify_start_text_edit(ddisp, text, text->parent_object, NULL);
-  }
 }
 
 void

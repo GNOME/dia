@@ -301,7 +301,11 @@ dia_layer_select_callback(GtkWidget *widget, gpointer data)
   DiaLayerWidget *lw;
   lw = DIA_LAYER_WIDGET(widget);
 
-  diagram_remove_all_selected(lw->dia, TRUE);
+  /* Don't deselect if we're selected the active layer.  This can happen
+   * if the window has been defocused. */
+  if (lw->dia->data->active_layer != lw->layer) {
+    diagram_remove_all_selected(lw->dia, TRUE);
+  }
   diagram_update_extents(lw->dia);
   data_set_active_layer(lw->dia->data, lw->layer);
   diagram_add_update_all(lw->dia);

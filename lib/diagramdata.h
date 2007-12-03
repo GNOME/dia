@@ -74,11 +74,14 @@ struct _DiagramData {
   GList *selected;        /*!< List of objects that are selected,
 			     all from the active layer! */
 
-  /** List of text fields that can be edited in the diagram.
-   *  Updated by text_register_focusable. */
+  /** List of text fields (foci) that can be edited in the diagram.
+   *  Updated by focus.c */
   GList *text_edits;
   /** Units and font units used in this diagram.  Default cm and point */
   gchar *unit, *font_unit;
+  /** The focus (from text_edits) that's currently being edited, if any.
+   *  Updated by focus.c */
+  Focus *active_text_edit;
 };
 
 /**
