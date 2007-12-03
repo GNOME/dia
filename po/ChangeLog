@@ -1,3 +1,8 @@
+2007-12-03  Ole Laursen  <olau@hardworking.dk>
+
+	* da.po: Changed encoding to UTF-8. Fixed a few strings while I
+	was at it.
+
 2007-11-21  Yannig Marchegay <yannig@marchegay.org> 
 
 	* oc.po: Updated Occitan translation
