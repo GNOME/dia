@@ -1,3 +1,7 @@
+2007-12-05  Alessio Frusciante  <algol@firenze.linux.it>
+
+	* it.po: Changed encoding to UTF-8.
+
 2007-12-03  Ole Laursen  <olau@hardworking.dk>
 
 	* da.po: Changed encoding to UTF-8. Fixed a few strings while I
