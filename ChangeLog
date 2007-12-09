@@ -1,3 +1,9 @@
+2007-12-09  Lars Clausen  <lars@raeder.dk>
+
+	* lib/persistence.c: Fixed window update events such that show/hide
+	and map/unmap are symmetrical and gets the right info stored.
+	Fixes bug #501475.
+
 2007-12-03  Lars Clausen  <lars@raeder.dk>
 
 	* app/undo.[ch]: New function undo_remove_to removes items from the

@@ -544,24 +544,30 @@ persistence_store_window_info(GtkWindow *window, PersistentWindow *wininfo,
   }
 }
 
-static gboolean
-persistence_update_window(GtkWindow *window, GdkEvent *event, gpointer data)
+/** Update the persistent information for a window.
+ * @param window The GTK window object being stored.
+ * @param isclosed Whether the window should be stored as closed or not.
+ * In some cases, the window's open/close state is not updated by the time
+ * the handler is called.
+ */
+static void
+persistence_update_window(GtkWindow *window, gboolean isclosed)
 {
   const gchar *name = persistence_get_window_name(window);
   PersistentWindow *wininfo;
-  gboolean isclosed;
 
-  if (name == NULL) return FALSE;
+  if (name == NULL) return;
+
   if (persistent_windows == NULL) {
     persistent_windows = g_hash_table_new(g_str_hash, g_str_equal);
   }    
   wininfo = (PersistentWindow *)g_hash_table_lookup(persistent_windows, name);
 
-  /* Can't tell the window state from the window itself yet. */
-  isclosed = (event->type == GDK_UNMAP);
   if (wininfo != NULL) {
+    printf("Old window %s is closed: %d\n", name, isclosed);
     persistence_store_window_info(window, wininfo, isclosed);
   } else {
+    printf("New window %s is closed: %d\n", name, isclosed);
     wininfo = g_new0(PersistentWindow, 1);
     persistence_store_window_info(window, wininfo, isclosed);
     g_hash_table_insert(persistent_windows, name, wininfo);
@@ -574,6 +580,31 @@ persistence_update_window(GtkWindow *window, GdkEvent *event, gpointer data)
     wininfo->window = window;
     g_object_ref(window);
   }
+}
+
+/** Handler for window-related events that should cause persistent storage
+ * changes.
+ * @param window The GTK window to store for.
+ * @param event the GDK event that caused us to be called.  Note that the 
+ * window state hasn't been updated by the event yet.
+ * @param data Userdata passed when adding signal handler.
+ */
+static gboolean
+persistence_window_event_handler(GtkWindow *window, GdkEvent *event, gpointer data)
+{
+  persistence_update_window(window, (event->type == GDK_UNMAP));
+  return FALSE;
+}
+
+/** 
+ * Handler for when a window has been opened or closed.
+ * @param window The GTK window to store for.
+ * @param data Userdata passed when adding signal handler.
+ */
+static gboolean
+persistence_hide_show_window(GtkWindow *window, gpointer data)
+{
+  persistence_update_window(window, !GTK_WIDGET_VISIBLE(window));
   return FALSE;
 }
 
@@ -641,11 +672,15 @@ persistence_register_window(GtkWindow *window)
     g_object_ref(window);
   }
 
-  g_signal_connect(GTK_OBJECT(window), "configure-event",
-		   G_CALLBACK(persistence_update_window), NULL);
-
+  g_signal_connect(GTK_OBJECT(window), "map-event",
+		   G_CALLBACK(persistence_window_event_handler), NULL);
   g_signal_connect(GTK_OBJECT(window), "unmap-event",
-		   G_CALLBACK(persistence_update_window), NULL);
+		   G_CALLBACK(persistence_window_event_handler), NULL);
+
+  g_signal_connect(GTK_OBJECT(window), "hide",
+		   G_CALLBACK(persistence_hide_show_window), NULL);
+  g_signal_connect(GTK_OBJECT(window), "show",
+		   G_CALLBACK(persistence_hide_show_window), NULL);
 }
 
 /** Call this function at start-up to have a window creation function
