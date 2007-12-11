@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia.HEAD.es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-11-10 12:16+0000\n"
-"PO-Revision-Date: 2007-11-14 20:21+0100\n"
+"POT-Creation-Date: 2007-12-01 11:39+0000\n"
+"PO-Revision-Date: 2007-12-11 14:59+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -992,7 +992,7 @@ msgstr "Desplazar sobre el diagrama"
 #: ../objects/UML/node.c:129 ../objects/UML/note.c:123
 #: ../objects/UML/object.c:150 ../objects/UML/small_package.c:130
 #: ../objects/UML/state.c:154 ../objects/UML/usecase.c:140
-#: ../objects/custom/custom_object.c:202 ../objects/network/basestation.c:135
+#: ../objects/custom/custom_object.c:200 ../objects/network/basestation.c:135
 #: ../objects/network/radiocell.c:127
 msgid "Text"
 msgstr "Texto"
@@ -4029,7 +4029,7 @@ msgid "Force"
 msgstr "Forzar"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Rotation
-#: ../objects/FS/function.c:1108
+#: ../objects/FS/function.c:1108 ../objects/standard/outline.c:202
 msgid "Rotation"
 msgstr "Rotación"
 
@@ -4569,6 +4569,15 @@ msgstr "Mostrar horas"
 #: ../objects/Misc/libmisc.c:43
 msgid "Miscellaneous objects"
 msgstr "Figuras variadas"
+
+# Quizá Asa .FVD
+#: ../objects/Misc/tree.c:605 ../objects/network/bus.c:613
+msgid "Add Handle"
+msgstr "Añadir manejador"
+
+#: ../objects/Misc/tree.c:606 ../objects/network/bus.c:614
+msgid "Delete Handle"
+msgstr "Borrar manejador"
 
 #: ../objects/SADT/arrow.c:137
 msgid "Import resource (not shown upstairs)"
@@ -5623,19 +5632,19 @@ msgstr "Paso de tiempo menor"
 msgid "Minor step line width"
 msgstr "Ancho de línea de paso menor"
 
-#: ../objects/custom/custom.c:117
+#: ../objects/custom/custom.c:140
 msgid "Custom"
 msgstr "Personalizar"
 
-#: ../objects/custom/custom.c:117
+#: ../objects/custom/custom.c:140
 msgid "Custom XML shapes loader"
 msgstr "Cargador de formas personalizadas XML"
 
-#: ../objects/custom/custom_object.c:180 ../objects/custom/custom_object.c:205
+#: ../objects/custom/custom_object.c:178 ../objects/custom/custom_object.c:203
 msgid "Flip horizontal"
 msgstr "Invertir horizontal"
 
-#: ../objects/custom/custom_object.c:182 ../objects/custom/custom_object.c:207
+#: ../objects/custom/custom_object.c:180 ../objects/custom/custom_object.c:205
 msgid "Flip vertical"
 msgstr "Invertir vertical"
 
@@ -5653,7 +5662,7 @@ msgstr "Invertir vertical"
 msgid "Cannot open icon file %s for object type '%s'."
 msgstr "No se puede abrir el archivo de icono %s para el tipo de objeto «%s»."
 
-#: ../objects/custom/shape_info.c:129
+#: ../objects/custom/shape_info.c:138
 #, c-format
 msgid ""
 "The file '%s' has invalid path data.\n"
@@ -5677,15 +5686,6 @@ msgstr "Sectores"
 #: ../objects/network/basestation.c:398 ../objects/network/basestation.c:400
 msgid "Base Station"
 msgstr "Estación base"
-
-# Quizá Asa .FVD
-#: ../objects/network/bus.c:613
-msgid "Add Handle"
-msgstr "Añadir manejador"
-
-#: ../objects/network/bus.c:614
-msgid "Delete Handle"
-msgstr "Borrar manejador"
 
 #: ../objects/network/network.c:43
 msgid "Network diagram objects"
@@ -5808,6 +5808,14 @@ msgstr "Punto de partida"
 msgid "End point"
 msgstr "Punto de llegada"
 
+#: ../objects/standard/outline.c:200
+msgid "Text content"
+msgstr "Contenido del texto"
+
+#: ../objects/standard/outline.c:202
+msgid "Angle to rotate the outline"
+msgstr "Ángulo para rotar el contorno"
+
 #: ../objects/standard/polygon.c:462 ../objects/standard/polyline.c:609
 msgid "Add Corner"
 msgstr "Añadir esquina"
@@ -5828,6 +5836,16 @@ msgstr "Primera línea"
 #: ../objects/standard/textobj.c:143
 msgid "Vertical text alignment"
 msgstr "Alineación vertical del texto"
+
+#: ../plug-ins/cairo/diacairo-interactive.c:269
+#: ../plug-ins/cairo/diacairo-interactive.c:270
+msgid "Zoom pointer"
+msgstr "Puntero de la ampliación"
+
+#: ../plug-ins/cairo/diacairo-interactive.c:276
+#: ../plug-ins/cairo/diacairo-interactive.c:277
+msgid "Visible rect pointer"
+msgstr "Puntero visible de la recta"
 
 #: ../plug-ins/cairo/diacairo.c:986
 #, c-format
