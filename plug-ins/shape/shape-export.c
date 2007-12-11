@@ -468,6 +468,11 @@ export_shape(DiagramData *data, const gchar *filename,
 
     /* create the png preview shown in the toolbox */
     point = strrchr(filename, '.');
+    if (point == NULL ||
+	strcmp(point, ".shape")) {
+	message_warning(_("Shape files must end in .shape, or they cannot be loaded by Dia"));
+	return;
+    }
     i = (int)(point-filename);
     point = g_strndup(filename, i);
     png_filename = g_strdup_printf("%s.png",point);

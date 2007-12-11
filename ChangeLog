@@ -1,3 +1,8 @@
+2007-12-11  Lars Clausen  <lars@raeder.dk>
+
+	* plug-ins/shape/shape-export.c (export_shape): Fix crash of
+	non-.shape export by disallowing it.
+
 2007-12-09  Lars Clausen  <lars@raeder.dk>
 
 	* lib/persistence.c: Fixed window update events such that show/hide
