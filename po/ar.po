@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Arabic\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-12-26 11:32+0000\n"
-"PO-Revision-Date: 2007-12-26 11:42+0100\n"
+"PO-Revision-Date: 2007-12-26 21:18+0100\n"
 "Last-Translator: Djihed Afifi <djihed@gmail.com>\n"
 "Language-Team: Arabeyes <doc@arabeyes.org>\n"
 "MIME-Version: 1.0\n"
@@ -232,9 +232,8 @@ msgstr ""
 
 #: ../app/app_procs.c:1230
 #: ../app/diaconv.c:115
-#, fuzzy
 msgid "[OPTION...] [FILE...]"
-msgstr "خيار نظام الملفّات:"
+msgstr "[خيار...] [ملف...]"
 
 #: ../app/app_procs.c:1233
 #: ../app/diaconv.c:122
@@ -247,14 +246,13 @@ msgstr ""
 "شغّل '%s --help' لرئية قائمة كاملة لخيارات سطر الأوامر.\n"
 
 #: ../app/app_procs.c:1257
-#, fuzzy
 msgid "[FILE...]"
 msgstr "[ملف...]"
 
 #: ../app/app_procs.c:1280
-#, fuzzy, c-format
+#, c-format
 msgid "'%s' not found!\n"
-msgstr "لم يوجد"
+msgstr "'%s' غير موجود!\n"
 
 #: ../app/app_procs.c:1361
 #, fuzzy, c-format
@@ -445,12 +443,10 @@ msgid "Diagram Properties: %s"
 msgstr "خصائص القائمة"
 
 #: ../app/dia_embedd.c:348
-#, fuzzy
 msgid "Could not initialize Bonobo!"
-msgstr "لم يمكن بدأ بونوبو"
+msgstr "لم يمكن بدأ بونوبو!"
 
 #: ../app/diacanvas.c:121
-#, fuzzy
 msgid "X position"
 msgstr "موقع س"
 
@@ -459,7 +455,6 @@ msgid "X position of child widget"
 msgstr "موقع س للقطعة الابنة"
 
 #: ../app/diacanvas.c:131
-#, fuzzy
 msgid "Y position"
 msgstr "موقع ص"
 
@@ -469,9 +464,8 @@ msgstr "موقع ص للقطعة الابنة"
 
 #. &export_file_format
 #: ../app/diaconv.c:86
-#, fuzzy
 msgid "Export format to use"
-msgstr "كيفية إستعمال ملف التصدير"
+msgstr "صيغة التصدير المستعملة"
 
 #: ../app/diaconv.c:86
 msgid "eps,png,wmf,cgm,dxf,fig"
@@ -479,22 +473,20 @@ msgstr "eps,png,wmf,cgm,dxf,fig"
 
 #. &export_file_name
 #: ../app/diaconv.c:88
-#, fuzzy
 msgid "Export file name to use"
-msgstr "كيفية إستعمال ملف التصدير"
+msgstr "اسم الملف المُصدَّر المستعمل"
 
 #: ../app/diaconv.c:90
-#, fuzzy
 msgid "Quiet operation"
-msgstr "عمليّة غير مدعومة"
+msgstr "عمليّة هادئة"
 
 #: ../app/diaconv.c:143
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Error: No arguments found.\n"
 "Run '%s --help' to see a full list of available command line options.\n"
 msgstr ""
-"خطأ عند الخيار %s: %s.\n"
+"خطأ: لا توجد أي معطيات.\n"
 "شغّل '%s --help' لرئية قائمة كاملة لخيارات سطر الأوامر.\n"
 
 #: ../app/diaconv.c:153
@@ -503,33 +495,33 @@ msgid "%s error: can specify only one of -t or -o."
 msgstr ""
 
 #: ../app/diaconv.c:159
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s error: must specify only one of -t or -o.\n"
 "Run '%s --help' to see a full list of available command line options.\n"
 msgstr ""
-"خطأ عند الخيار %s: %s.\n"
+"%s خطأ: يجب تحديد فقط أحد الخيارين -t و -o .\n"
 "شغّل '%s --help' لرئية قائمة كاملة لخيارات سطر الأوامر.\n"
 
 #: ../app/diaconv.c:168
-#, fuzzy, c-format
+#, c-format
 msgid "%s error: no input file."
-msgstr "خطأ في الملف %1: لم أجد إي عنصر"
+msgstr "%s خطأ: لا ملف."
 
 #: ../app/diaconv.c:221
-#, fuzzy, c-format
+#, c-format
 msgid "%s error: only one input file expected."
-msgstr "%s يجب ان يكون لديك عنصرواحد فقط لاختياره\n"
+msgstr "%s خطأ: يجب تحديد ملف واحد فقط"
 
 #: ../app/diaconv.c:234
-#, fuzzy, c-format
+#, c-format
 msgid "%s error: popt library not available on this system"
-msgstr "لا يتوفّر التوسيع لنظام الملفات هذا"
+msgstr "%s خطأ: مكتبة popt غير متوفرة في هذا النظام"
 
 #: ../app/diagram.c:223
-#, fuzzy, c-format
+#, c-format
 msgid "Couldn't convert filename '%s' to UTF-8: %s\n"
-msgstr "لم يمكن تحويل '%s' من UTF-8"
+msgstr "لم يمكن تحويل '%s' إلى UTF-8: %s\n"
 
 #: ../app/diagram.c:226
 #: ../lib/message.c:89
@@ -542,90 +534,76 @@ msgid "You have loaded a non-Dia file.  The file has become an element in a new 
 msgstr ""
 
 #: ../app/diagram.c:1171
-#, fuzzy
 msgid "Trying to group with no selected objects."
-msgstr "إلغاء مراقبة جميع الأجسام"
+msgstr "محاولة التجميع من دون أجسام منتقاة."
 
 #: ../app/diagram.c:1181
 msgid "You cannot group objects that belong to different groups or have different parents"
 msgstr ""
 
 #: ../app/diagram_tree_menu.c:46
-#, fuzzy
 msgid "/_Sort objects"
-msgstr "جاري تحديث الكائِنات"
+msgstr "/_رتّب الأجسام"
 
 #: ../app/diagram_tree_menu.c:47
-#, fuzzy
 msgid "/Sort objects/by _name"
-msgstr "رتّب المُطابقات حسب الإسم"
+msgstr "/رتّب الأجسام/حسب الإ_سم"
 
 #: ../app/diagram_tree_menu.c:49
-#, fuzzy
 msgid "/Sort objects/by _type"
-msgstr "رتّب قائمة الملفات بحسب النوع"
+msgstr "/رتّب الأجسام/حسب ال_نوع"
 
 #: ../app/diagram_tree_menu.c:51
 msgid "/Sort objects/as _inserted"
 msgstr ""
 
 #: ../app/diagram_tree_menu.c:54
-#, fuzzy
 msgid "/Sort objects/All by name"
-msgstr "رتّب قائمة الملفات بحسب الإسم"
+msgstr "/رتّب الأجسام/كلها حسب الإسم"
 
 #: ../app/diagram_tree_menu.c:56
-#, fuzzy
 msgid "/Sort objects/All by type"
-msgstr "رتّب قائمة الملفات بحسب النوع"
+msgstr "/رتّب الأجسام/كلها حسب النوع"
 
 #: ../app/diagram_tree_menu.c:58
 msgid "/Sort objects/All as inserted"
 msgstr ""
 
 #: ../app/diagram_tree_menu.c:60
-#, fuzzy
 msgid "/Sort objects/_Default"
-msgstr "ترتيب التصنيف الإفتراضي"
+msgstr "/رتّب الأجسام/الإ_فتراضي"
 
 #: ../app/diagram_tree_menu.c:61
-#, fuzzy
 msgid "/Sort objects/Default/by _name"
-msgstr "رتّب قائمة الملفات بحسب الإسم"
+msgstr "/رتّب الأجسام/الإ_فتراضي/حسب الإ_سم"
 
 #: ../app/diagram_tree_menu.c:63
-#, fuzzy
 msgid "/Sort objects/Default/by _type"
-msgstr "رتّب قائمة الملفات بحسب النوع"
+msgstr "/رتّب الأجسام/الإ_فتراضي/حسب ال_نوع"
 
 #: ../app/diagram_tree_menu.c:65
 msgid "/Sort objects/Default/as _inserted"
 msgstr ""
 
 #: ../app/diagram_tree_menu.c:67
-#, fuzzy
 msgid "/Sort _diagrams"
-msgstr "إنشاء تخطيطات"
+msgstr "/رتّب الم_خططات"
 
 #: ../app/diagram_tree_menu.c:68
-#, fuzzy
 msgid "/Sort _diagrams/by _name"
-msgstr "رتّب المُطابقات حسب الإسم"
+msgstr "/رتّب الم_خططات/حسب الإ_سم"
 
 #: ../app/diagram_tree_menu.c:70
-#, fuzzy
 msgid "/Sort _diagrams/as _inserted"
-msgstr "فقرة مدرجة"
+msgstr "/رتّب الم_خططات/حسب الإد_خال"
 
 #: ../app/diagram_tree_menu.c:72
-#, fuzzy
 msgid "/Sort diagrams/_Default"
-msgstr "ترتيب التصنيف الإفتراضي"
+msgstr "رتّب المخططات/الإ_فتراضي"
 
 #: ../app/diagram_tree_menu.c:73
-#, fuzzy
 msgid "/Sort diagrams/Default/by _name"
-msgstr "رتّب قائمة الملفات بحسب الإسم"
+msgstr "رتّب المخططات/الإ_فتراضي/حسب الإ_سم"
 
 #: ../app/diagram_tree_menu.c:75
 msgid "/Sort diagrams/Default/as _inserted"
@@ -633,25 +611,21 @@ msgstr ""
 
 #: ../app/diagram_tree_menu.c:83
 #: ../app/diagram_tree_menu.c:94
-#, fuzzy
 msgid "/_Locate"
-msgstr "حدّد مكان"
+msgstr "/_حدّد مكان"
 
 #: ../app/diagram_tree_menu.c:84
-#, fuzzy
 msgid "/_Properties"
-msgstr "_خاصيات"
+msgstr "/_خصائص"
 
 #: ../app/diagram_tree_menu.c:85
-#, fuzzy
 msgid "/_Hide this type"
-msgstr "نوع هذا العمل"
+msgstr "/_اخف هذا النوع"
 
 #: ../app/diagram_tree_window.c:80
 #: ../app/preferences.c:111
-#, fuzzy
 msgid "Diagram Tree"
-msgstr "عنصر شجرة"
+msgstr "شجرة المخطّط"
 
 #: ../app/dialogs.c:51
 msgid "Ok"
@@ -669,7 +643,6 @@ msgstr "مقاس الورقة"
 
 #. orientation
 #: ../app/diapagelayout.c:150
-#, fuzzy
 msgid "Orientation"
 msgstr "الإتّجاه"
 
@@ -700,14 +673,12 @@ msgid "Scaling"
 msgstr "وزن"
 
 #: ../app/diapagelayout.c:264
-#, fuzzy
 msgid "Scale:"
-msgstr "_حجّم"
+msgstr "المقياس:"
 
 #: ../app/diapagelayout.c:276
-#, fuzzy
 msgid "Fit to:"
-msgstr "_لائم العرض"
+msgstr "ملاءمة إلى:"
 
 #: ../app/diapagelayout.c:288
 msgid "by"
@@ -732,9 +703,8 @@ msgid ""
 msgstr "لا يدعم هذا الخادم معلومات مخطّط LDAPv3."
 
 #: ../app/disp_callbacks.c:119
-#, fuzzy
 msgid "Properties..."
-msgstr "_خاصيات"
+msgstr "خصائص..."
 
 #: ../app/disp_callbacks.c:937
 msgid ""
@@ -743,9 +713,8 @@ msgid ""
 msgstr ""
 
 #: ../app/display.c:111
-#, fuzzy
 msgid "Diagram modified!"
-msgstr "تاريخ التعديل:"
+msgstr "تم تغيير المخطّط!"
 
 #. http://www.gnu.org/software/gettext/manual/html_chapter/gettext_10.html#SEC150
 #. * Althoug the single objects wont get triggered here some languages have variations on the other numbers
@@ -758,20 +727,18 @@ msgstr[0] "مميّز الجسم (%s)"
 msgstr[1] "نمط الانتقاء"
 
 #: ../app/display.c:148
-#, fuzzy, c-format
+#, c-format
 msgid "Selected '%s'"
-msgstr "مُنتَقَى"
+msgstr "انتقي '%s'"
 
 #: ../app/display.c:1195
-#, fuzzy
 msgid "<unnamed>"
-msgstr "غير مسمّى"
+msgstr "<غير مسمّى>"
 
 #. no standard buttons
 #: ../app/display.c:1201
-#, fuzzy
 msgid "Closing diagram without saving"
-msgstr "<command>q</command> - يغلِق دون حفظ أيّة تغييرات."
+msgstr "يجري الخروج دون حفظ أيّة تغييرات"
 
 #: ../app/display.c:1204
 #, c-format
@@ -781,27 +748,22 @@ msgid ""
 msgstr ""
 
 #: ../app/display.c:1206
-#, fuzzy
 msgid "Close Diagram"
-msgstr "اغلق النّافذة"
+msgstr "اغلق المخطّط"
 
 #: ../app/display.c:1211
-#, fuzzy
 msgid "_Discard Changes"
 msgstr "أ_همل التغييرات"
 
 #: ../app/exit_dialog.c:77
-#, fuzzy
 msgid "Do Not Exit"
-msgstr "الرجاء عدم الإزعاج"
+msgstr "لا تخرج"
 
 #: ../app/exit_dialog.c:79
-#, fuzzy
 msgid "Exit Without Save"
-msgstr "حفظ اختصارات لوحة المفاتيح عند الخروج"
+msgstr "اخرج دون الحفظ"
 
 #: ../app/exit_dialog.c:81
-#, fuzzy
 msgid "Save Selected"
 msgstr "احفظ المنتقى"
 
@@ -992,9 +954,8 @@ msgid "Export Diagram"
 msgstr "صدّر التخطيط"
 
 #: ../app/filedlg.c:651
-#, fuzzy
 msgid "Export Options"
-msgstr "���خيارات تصدير HTML"
+msgstr "خيارات التّصدير"
 
 #: ../app/interface.c:144
 msgid ""
@@ -1012,7 +973,6 @@ msgstr ""
 #: ../app/interface.c:156
 #: ../app/menus.c:215
 #: ../objects/FS/function.c:988
-#, fuzzy
 msgid "Magnify"
 msgstr "كبّر"
 
@@ -1041,9 +1001,8 @@ msgstr "برنامج لرسم التّخطيطات."
 #: ../objects/custom/custom_object.c:200
 #: ../objects/network/basestation.c:135
 #: ../objects/network/radiocell.c:127
-#, fuzzy
 msgid "Text"
-msgstr "النّص"
+msgstr "نص"
 
 #: ../app/interface.c:174
 #: ../app/menus.c:219
@@ -1052,13 +1011,11 @@ msgstr "صندوق"
 
 #: ../app/interface.c:180
 #: ../app/menus.c:220
-#, fuzzy
 msgid "Ellipse"
-msgstr "البيضوي"
+msgstr "بيضوي"
 
 #: ../app/interface.c:186
 #: ../app/menus.c:221
-#, fuzzy
 msgid "Polygon"
 msgstr "مضلع"
 
@@ -1076,19 +1033,16 @@ msgstr "خط"
 
 #: ../app/interface.c:204
 #: ../app/menus.c:225
-#, fuzzy
 msgid "Arc"
 msgstr "قوس"
 
 #: ../app/interface.c:210
 #: ../app/menus.c:226
-#, fuzzy
 msgid "Zigzagline"
-msgstr "كيغالي"
+msgstr "خط منكسر"
 
 #: ../app/interface.c:216
 #: ../app/menus.c:227
-#, fuzzy
 msgid "Polyline"
 msgstr "شكل متعدد الخطوط"
 
@@ -1100,14 +1054,12 @@ msgstr "برلين"
 
 #: ../app/interface.c:228
 #: ../app/menus.c:231
-#, fuzzy
 msgid "Image"
 msgstr "صورة"
 
 #: ../app/interface.c:234
-#, fuzzy
 msgid "Outline"
-msgstr " حدود  الخارجية"
+msgstr "حدود خارجية"
 
 #: ../app/interface.c:634
 #: ../app/interface.c:870
@@ -1116,9 +1068,8 @@ msgid "Pops up the Navigation window."
 msgstr "مصنع بريمج تصفح النوافذ"
 
 #: ../app/interface.c:832
-#, fuzzy
 msgid "Diagram menu."
-msgstr "مخطط القائمة"
+msgstr "قائمة المخطط."
 
 #: ../app/interface.c:936
 msgid "Zoom"
@@ -1144,15 +1095,13 @@ msgid "No sheet named %s"
 msgstr "خطأ: لم يُعثر على مربّع مُسمّى \"%s\"."
 
 #: ../app/interface.c:1379
-#, fuzzy
 msgid "Other sheets"
-msgstr "كل الصفحات"
+msgstr "الصفحات الأخرى"
 
 #: ../app/interface.c:1439
 #: ../sheets/Flowchart.sheet.in.h:10
-#, fuzzy
 msgid "Flowchart"
-msgstr "قائمة التدفق"
+msgstr "شكل بياني"
 
 #: ../app/interface.c:1499
 msgid "Foreground & background colors for new objects.  The small black and white squares reset colors.  The small arrows swap colors.  Double click to change colors."
@@ -1176,9 +1125,8 @@ msgstr ""
 
 #: ../app/interface.c:1622
 #: ../app/interface.c:1745
-#, fuzzy
 msgid "Diagram Editor"
-msgstr "<b>خط المحرر:</b>"
+msgstr "محرّر المخطّط"
 
 #: ../app/layer_dialog.c:101
 msgid "New Layer"
@@ -1193,52 +1141,45 @@ msgid "Lower Layer"
 msgstr "خفض الطبقة"
 
 #: ../app/layer_dialog.c:104
-#, fuzzy
 msgid "Delete Layer"
-msgstr "حذف الطبقة"
+msgstr "احذف طبقة"
 
 #: ../app/layer_dialog.c:225
 msgid "Layers"
 msgstr "الطبقات"
 
 #: ../app/layer_dialog.c:239
-#, fuzzy
 msgid "Diagram:"
-msgstr "رسم بياني"
+msgstr "مخطط:"
 
 #: ../app/layer_dialog.c:353
-#, fuzzy, c-format
+#, c-format
 msgid "New layer %d"
-msgstr "طبقة جديدة..."
+msgstr "طبقة جديدة %d"
 
 #: ../app/layer_dialog.c:565
-#, fuzzy
 msgid "none"
-msgstr "لا يوجد"
+msgstr "لاشيء"
 
 #: ../app/layer_dialog.c:987
-#, fuzzy
 msgid "Edit Layer Attributes"
-msgstr "تحرير صفات القناة..."
+msgstr "حرر صفات الطبقة"
 
 #: ../app/layer_dialog.c:1006
-#, fuzzy
 msgid "Layer name:"
-msgstr "اسم الموصول"
+msgstr "اسم الطّبقة:"
 
 #: ../app/linewidth_area.c:246
 #: ../lib/properties.h:483
 #: ../lib/properties.h:486
 #: ../objects/chronogram/chronoline.c:183
 #: ../objects/chronogram/chronoref.c:162
-#, fuzzy
 msgid "Line width"
-msgstr "عرض خط الشبكة"
+msgstr "عرض الخط"
 
 #: ../app/linewidth_area.c:258
-#, fuzzy
 msgid "Line width:"
-msgstr "عرض خط الشبكة"
+msgstr "عرض خط:"
 
 #: ../app/load_save.c:301
 msgid ""
@@ -1352,54 +1293,44 @@ msgstr ""
 
 #: ../app/load_save.c:1102
 #: ../app/load_save.c:1107
-#, fuzzy
 msgid "Dia Diagram File"
-msgstr "احفظ الملف كـ"
+msgstr "ملف مخطط دِيا"
 
 #: ../app/menus.c:56
-#, fuzzy
 msgid "Fit"
 msgstr "ملائمة"
 
 #: ../app/menus.c:75
-#, fuzzy
 msgid "_File"
 msgstr "_ملف"
 
 #: ../app/menus.c:79
-#, fuzzy
 msgid "_Help"
 msgstr "م_ساعدة"
 
 #: ../app/menus.c:87
-#, fuzzy
 msgid "Sheets and Objects..."
-msgstr "جاري حذف الكائنات المنتقاة"
+msgstr "صفحات و أجسام..."
 
 #: ../app/menus.c:89
-#, fuzzy
 msgid "Plugins..."
-msgstr "ملح_قات"
+msgstr "ملحقات..."
 
 #: ../app/menus.c:95
-#, fuzzy
 msgid "_Diagram tree..."
-msgstr "عنصر شجرة"
+msgstr "_شجرة المخطّط..."
 
 #: ../app/menus.c:101
-#, fuzzy
 msgid "Show Toolbar"
 msgstr "اعرض شريط الأدوات"
 
 #: ../app/menus.c:102
-#, fuzzy
 msgid "Show Statusbar"
-msgstr "أظهر/اخفي شريط حالة النّافذة."
+msgstr "أظهر شريط الحالة."
 
 #: ../app/menus.c:110
-#, fuzzy
 msgid "_Export ..."
-msgstr "تصدير"
+msgstr "_تصدير..."
 
 #: ../app/menus.c:111
 msgid "Page Set_up..."
@@ -1407,62 +1338,51 @@ msgstr "إ_عداد الصفحة.."
 
 #: ../app/menus.c:115
 #: ../app/sheets_dialog.c:235
-#, fuzzy
 msgid "_Edit"
 msgstr "_حرّر"
 
 #: ../app/menus.c:122
-#, fuzzy
 msgid "_Duplicate"
-msgstr "مضاعفة"
+msgstr "م_ضاعفة"
 
 #. the following used to bind to <control><shift>C which collides with Unicode input.
 #. * <control>>alt> doesn't work either
 #: ../app/menus.c:127
-#, fuzzy
 msgid "Copy Text"
-msgstr "ال_نص للنسخ:"
+msgstr "انسخ النص"
 
 #: ../app/menus.c:128
-#, fuzzy
 msgid "Cut Text"
-msgstr "قص مربع النص"
+msgstr "قص النص"
 
 #: ../app/menus.c:129
-#, fuzzy
 msgid "Paste _Text"
-msgstr "لصق نص من الحافظة الوسيطة"
+msgstr "الصق النص"
 
 #: ../app/menus.c:131
-#, fuzzy
 msgid "_Diagram"
-msgstr "رسم بياني"
+msgstr "م_خطّط"
 
 #: ../app/menus.c:133
-#, fuzzy
 msgid "_Layers..."
-msgstr "الطبقات"
+msgstr "_طبقات..."
 
 #: ../app/menus.c:135
-#, fuzzy
 msgid "_View"
-msgstr "إ_عرض"
+msgstr "_عرض"
 
 #: ../app/menus.c:138
-#, fuzzy
 msgid "_Zoom"
 msgstr "تح_جيم"
 
 #: ../app/menus.c:139
-#, fuzzy
 msgid "1600%"
-msgstr "1600 حرف"
+msgstr "1600%"
 
 #: ../app/menus.c:140
 #: ../app/menus.c:529
-#, fuzzy
 msgid "800%"
-msgstr "800 حرف"
+msgstr "800%"
 
 #: ../app/menus.c:141
 #: ../app/menus.c:530
@@ -1470,28 +1390,24 @@ msgid "400%"
 msgstr "400%"
 
 #: ../app/menus.c:142
-#, fuzzy
 msgid "283"
-msgstr "RFC2833"
+msgstr "283"
 
 #: ../app/menus.c:143
 msgid "200"
 msgstr "200"
 
 #: ../app/menus.c:144
-#, fuzzy
 msgid "141"
-msgstr "14"
+msgstr "141"
 
 #: ../app/menus.c:146
-#, fuzzy
 msgid "85"
-msgstr "5"
+msgstr "85"
 
 #: ../app/menus.c:147
-#, fuzzy
 msgid "70.7"
-msgstr "70%"
+msgstr "70.7"
 
 #: ../app/menus.c:148
 msgid "50"
@@ -1502,15 +1418,13 @@ msgid "35.4"
 msgstr ""
 
 #: ../app/menus.c:150
-#, fuzzy
 msgid "25"
-msgstr "25%"
+msgstr "25"
 
 #. "display_toggle_entries" items go here
 #: ../app/menus.c:156
-#, fuzzy
 msgid "New _View"
-msgstr "عرض جديد"
+msgstr "_عرض جديد"
 
 #: ../app/menus.c:157
 #, fuzzy
@@ -1728,17 +1642,14 @@ msgid "Show _Connection Points"
 msgstr "أماكن التجهيز المُهيّئة:"
 
 #: ../app/menus.c:260
-#, fuzzy
 msgid "Replace"
 msgstr "استبدل"
 
 #: ../app/menus.c:261
-#, fuzzy
 msgid "Union"
 msgstr "الإتحاد"
 
 #: ../app/menus.c:262
-#, fuzzy
 msgid "Intersection"
 msgstr "التقاطع"
 
@@ -1755,51 +1666,42 @@ msgstr "احذف"
 
 #. Cannot also be called Invert, duplicate names caused keybinding problems
 #: ../app/menus.c:265
-#, fuzzy
 msgid "Inverse"
-msgstr "معكوس"
+msgstr "العكس"
 
 #: ../app/menus.c:329
 msgid "NULL tooldata in tool_menu_select"
 msgstr ""
 
 #: ../app/menus.c:531
-#, fuzzy
 msgid "300%"
 msgstr "300%"
 
 #: ../app/menus.c:532
-#, fuzzy
 msgid "200%"
 msgstr "200%"
 
 #: ../app/menus.c:533
-#, fuzzy
 msgid "150%"
 msgstr "150%"
 
 #: ../app/menus.c:534
-#, fuzzy
 msgid "100%"
 msgstr "100%"
 
 #: ../app/menus.c:535
-#, fuzzy
 msgid "75%"
 msgstr "75%"
 
 #: ../app/menus.c:536
-#, fuzzy
 msgid "50%"
 msgstr "50%"
 
 #: ../app/menus.c:537
-#, fuzzy
 msgid "25%"
 msgstr "25%"
 
 #: ../app/menus.c:538
-#, fuzzy
 msgid "10%"
 msgstr "10%"
 
@@ -1944,16 +1846,14 @@ msgid "Integrated UI"
 msgstr "كائن واجهة المستخدم"
 
 #: ../app/preferences.c:154
-#, fuzzy
 msgid "New diagram:"
-msgstr "فا_صل جديد"
+msgstr "نوع المخطّط:"
 
 #: ../app/preferences.c:155
 msgid "Portrait"
 msgstr "رسم صورة"
 
 #: ../app/preferences.c:157
-#, fuzzy
 msgid "Paper type:"
 msgstr "نوع الورق:"
 
@@ -1969,16 +1869,14 @@ msgid "Compress saved files"
 msgstr "خواتم وقت للملفات الجديدة"
 
 #: ../app/preferences.c:164
-#, fuzzy
 msgid "New window:"
-msgstr "نافذة _جديدة"
+msgstr "نافذة جديدة:"
 
 #: ../app/preferences.c:165
 msgid "Width:"
 msgstr "العرض:"
 
 #: ../app/preferences.c:166
-#, fuzzy
 msgid "Height:"
 msgstr "الإرتفاع:"
 
@@ -2006,7 +1904,6 @@ msgstr "فواصل السطور و الصفحات"
 
 #: ../app/preferences.c:176
 #: ../app/preferences.c:186
-#, fuzzy
 msgid "Color:"
 msgstr "لون:"
 
@@ -2026,14 +1923,12 @@ msgid "Dynamic grid resizing"
 msgstr "خيارات تحجيم الصور"
 
 #: ../app/preferences.c:184
-#, fuzzy
 msgid "X Size:"
-msgstr "الحجم:"
+msgstr "حجم س:"
 
 #: ../app/preferences.c:185
-#, fuzzy
 msgid "Y Size:"
-msgstr "الحجم:"
+msgstr "حجم ع:"
 
 #: ../app/preferences.c:187
 msgid "Lines per major line"
@@ -2086,9 +1981,8 @@ msgid "This object has no properties."
 msgstr "كائن الكينونة ليس له خاصّيّة %s"
 
 #: ../app/properties.c:219
-#, fuzzy
 msgid "Properties: "
-msgstr "_خاصيات"
+msgstr "خصائص"
 
 #: ../app/properties.c:223
 #, fuzzy
@@ -2134,9 +2028,8 @@ msgid "Widget not found: %s"
 msgstr "لم يعثر على المستخدم"
 
 #: ../app/sheets.c:456
-#, fuzzy
 msgid "SVG Shape"
-msgstr "تباين عال-SVG"
+msgstr "شكل SVG"
 
 #: ../app/sheets.c:458
 #, fuzzy
@@ -2150,32 +2043,27 @@ msgstr "جاري حذف الكائنات المنتقاة"
 
 #: ../app/sheets_dialog.c:109
 #: ../app/sheets_dialog_callbacks.c:179
-#, fuzzy
 msgid "<- Copy"
-msgstr "انسخ"
+msgstr "<- انسخ"
 
 #: ../app/sheets_dialog.c:119
 #: ../app/sheets_dialog_callbacks.c:181
-#, fuzzy
 msgid "<- Copy All"
-msgstr "انسخ ال_كل"
+msgstr "<- انسخ الكل"
 
 #: ../app/sheets_dialog.c:126
 #: ../app/sheets_dialog_callbacks.c:183
-#, fuzzy
 msgid "<- Move"
-msgstr "ا_نقل"
+msgstr "<- انقل"
 
 #: ../app/sheets_dialog.c:136
 #: ../app/sheets_dialog_callbacks.c:185
-#, fuzzy
 msgid "<- Move All"
-msgstr "انسخ ال_كل"
+msgstr "<- انقل الكل"
 
 #: ../app/sheets_dialog.c:233
-#, fuzzy
 msgid "Edit"
-msgstr "تحرير"
+msgstr "حرّر"
 
 #: ../app/sheets_dialog.c:266
 msgid "Revert"
@@ -2198,42 +2086,35 @@ msgstr "جديد"
 #: ../objects/UML/umlformalparameter.c:37
 #: ../objects/UML/umloperation.c:64
 #: ../objects/UML/umlparameter.c:45
-#, fuzzy
 msgid "Type"
-msgstr "النّوع"
+msgstr "نوع"
 
 #: ../app/sheets_dialog.c:377
-#, fuzzy
 msgid "Browse..."
 msgstr "استعرض..."
 
 #: ../app/sheets_dialog.c:386
-#, fuzzy
 msgid "SVG Shape:"
-msgstr "تباين عال-SVG"
+msgstr "شكل SVG:"
 
 #: ../app/sheets_dialog.c:413
 #: ../app/sheets_dialog.c:476
-#, fuzzy
 msgid "description:"
-msgstr "ال_وصف:"
+msgstr "الوصف:"
 
 #: ../app/sheets_dialog.c:425
-#, fuzzy
 msgid "Sheet name:"
-msgstr "اسم الموصول"
+msgstr "اسم الصّفحة:"
 
 #: ../app/sheets_dialog.c:446
 #: ../app/sheets_dialog_callbacks.c:291
 #: ../app/sheets_dialog_callbacks.c:1108
-#, fuzzy
 msgid "Line Break"
-msgstr "كسر سطر مجبر"
+msgstr "كسر السّطر"
 
 #: ../app/sheets_dialog.c:568
-#, fuzzy
 msgid "Edit Attributes"
-msgstr "تحرير صفات القناة..."
+msgstr "تحرير الصفات..."
 
 #: ../app/sheets_dialog.c:583
 #, fuzzy
@@ -2242,7 +2123,6 @@ msgstr "جسم"
 
 #: ../app/sheets_dialog.c:599
 #: ../app/sheets_dialog.c:692
-#, fuzzy
 msgid "Description:"
 msgstr "الوصف:"
 
@@ -2258,12 +2138,10 @@ msgstr "الوصف:"
 #: ../objects/UML/class_dialog.c:1879
 #: ../objects/UML/class_dialog.c:2115
 #: ../objects/UML/class_dialog.c:2715
-#, fuzzy
 msgid "Type:"
 msgstr "النّوع:"
 
 #: ../app/sheets_dialog.c:656
-#, fuzzy
 msgid "Sheet"
 msgstr "الصفحة"
 
@@ -2282,9 +2160,8 @@ msgstr "الصفحة"
 #: ../objects/UML/dependency.c:137
 #: ../objects/UML/generalization.c:133
 #: ../objects/UML/realizes.c:134
-#, fuzzy
 msgid "Name:"
-msgstr "اسم:"
+msgstr "الإسم:"
 
 #: ../app/sheets_dialog.c:809
 #, fuzzy
@@ -2292,9 +2169,8 @@ msgid "DiaObject:"
 msgstr "أجسام:"
 
 #: ../app/sheets_dialog.c:836
-#, fuzzy
 msgid "Sheet:"
-msgstr "ورقة"
+msgstr "الصفحة:"
 
 #: ../app/sheets_dialog.c:920
 #, fuzzy
@@ -2302,24 +2178,20 @@ msgid "Select SVG Shape File"
 msgstr "لا أستطيع اختيار ملف"
 
 #: ../app/sheets_dialog_callbacks.c:166
-#, fuzzy
 msgid "Copy ->"
-msgstr "انسخ"
+msgstr "انسخ ->"
 
 #: ../app/sheets_dialog_callbacks.c:168
-#, fuzzy
 msgid "Copy All ->"
-msgstr "انسخ ال_كل"
+msgstr "انسخ الكل ->"
 
 #: ../app/sheets_dialog_callbacks.c:170
-#, fuzzy
 msgid "Move ->"
-msgstr "ا_نقل"
+msgstr "انقل ->"
 
 #: ../app/sheets_dialog_callbacks.c:172
-#, fuzzy
 msgid "Move All ->"
-msgstr "انسخ ال_كل"
+msgstr "انقل الكل ->"
 
 #: ../app/sheets_dialog_callbacks.c:305
 #, fuzzy, c-format
@@ -2663,9 +2535,8 @@ msgid "Your local character set is UTF-8. Because of issues with libxml1 and the
 msgstr ""
 
 #: ../lib/diaarrowchooser.c:351
-#, fuzzy
 msgid "Arrow Properties"
-msgstr "خصائص القائمة"
+msgstr "خصائص السّهم"
 
 #. This is the default text shown in the preview entry, though the user
 #. can set it. Remember that some fonts only have capital letters.
@@ -2675,7 +2546,6 @@ msgid "abcdefghijk ABCDEFGHIJK"
 msgstr "أبجد هوز حطي كلمن سعفص abcdefgh ABCDEFGH"
 
 #: ../lib/diagtkfontsel.c:209
-#, fuzzy
 msgid "Font name"
 msgstr "اسم الخط"
 
@@ -2769,7 +2639,6 @@ msgstr ""
 "ها هي رسائل التبليغ :\n"
 
 #: ../lib/message.c:261
-#, fuzzy
 msgid "Notice"
 msgstr "ملاحظة"
 
@@ -2966,7 +2835,6 @@ msgid "Dash-Dot-Dot"
 msgstr "_3 8 أو 7 نقاط"
 
 #: ../lib/widgets.c:886
-#, fuzzy
 msgid "Dotted"
 msgstr "منقّط"
 
@@ -2977,14 +2845,12 @@ msgid "Dash length: "
 msgstr "طول التكملة التلقائية"
 
 #: ../lib/widgets.c:1032
-#, fuzzy
 msgid "Select color"
-msgstr "اختيار اللون"
+msgstr "انتق لونا"
 
 #: ../lib/widgets.c:1098
-#, fuzzy
 msgid "More colors..."
-msgstr "خط وألوان"
+msgstr "ألوان أخرى..."
 
 #: ../lib/widgets.c:1246
 #, fuzzy
@@ -3206,36 +3072,31 @@ msgstr "جدول"
 #: ../objects/UML/class.c:196
 #: ../objects/UML/class.c:198
 #: ../objects/UML/class.c:200
-#, fuzzy
 msgid " "
-msgstr " "
+msgstr "  "
 
 #: ../objects/Database/table.c:209
 #: ../objects/UML/class.c:206
 #: ../objects/UML/object.c:156
-#, fuzzy
 msgid "Attributes"
-msgstr "خواص"
+msgstr "الصّفات"
 
 #: ../objects/Database/table.c:246
-#, fuzzy
 msgid "Show comments"
-msgstr "إظهر التعليقات"
+msgstr "اظهر التعليقات"
 
 #. init data
 #: ../objects/Database/table.c:251
 #: ../objects/Database/table.c:354
 #: ../sheets/Database.sheet.in.h:5
-#, fuzzy
 msgid "Table"
 msgstr "جدول"
 
 #. Attributes page:
 #: ../objects/Database/table_dialog.c:560
 #: ../objects/UML/class_dialog.c:938
-#, fuzzy
 msgid "_Attributes"
-msgstr "خواص"
+msgstr "_صفات"
 
 #. the "new" button
 #: ../objects/Database/table_dialog.c:588
@@ -3261,9 +3122,8 @@ msgstr "تحرّك للأسفل"
 
 #: ../objects/Database/table_dialog.c:622
 #: ../objects/UML/class_dialog.c:995
-#, fuzzy
 msgid "Attribute data"
-msgstr "البيانات الشخصية"
+msgstr "بيانات الصّفات"
 
 #: ../objects/Database/table_dialog.c:656
 #: ../objects/Database/table_dialog.c:895
@@ -3272,23 +3132,20 @@ msgstr "البيانات الشخصية"
 #: ../objects/UML/class_dialog.c:1038
 #: ../objects/UML/class_dialog.c:1965
 #: ../objects/UML/class_dialog.c:2137
-#, fuzzy
 msgid "Comment:"
 msgstr "تعليق:"
 
 #: ../objects/Database/table_dialog.c:675
-#, fuzzy
 msgid "_Primary key"
-msgstr "تشفير المفتاح"
+msgstr "الم_فتاح الرئيسي"
 
 #: ../objects/Database/table_dialog.c:682
 msgid "N_ullable"
 msgstr ""
 
 #: ../objects/Database/table_dialog.c:689
-#, fuzzy
 msgid "Uni_que"
-msgstr "غ_ير مهم"
+msgstr "_فريد"
 
 #: ../objects/Database/table_dialog.c:877
 #, fuzzy
@@ -3296,16 +3153,14 @@ msgid "_Table"
 msgstr "_جدول"
 
 #: ../objects/Database/table_dialog.c:885
-#, fuzzy
 msgid "Table name:"
-msgstr "إسم الجدول \"%1\" غير صالح"
+msgstr "إسم الجدول:"
 
 #. XXX create a handler and disable the 'show documentation tag' checkbox
 #. if 'comment visible' is not active.
 #: ../objects/Database/table_dialog.c:915
-#, fuzzy
 msgid "Comment visible"
-msgstr "المجلد مرئي"
+msgstr "الملاحظة مرئية"
 
 #: ../objects/Database/table_dialog.c:920
 #: ../objects/UML/class_dialog.c:394
@@ -3321,7 +3176,6 @@ msgid "_Style"
 msgstr "ال_نمط"
 
 #: ../objects/Database/table_dialog.c:970
-#, fuzzy
 msgid "Border width:"
 msgstr "عرض الحافة:"
 
@@ -3329,25 +3183,21 @@ msgstr "عرض الحافة:"
 #: ../objects/Database/table_dialog.c:983
 #: ../objects/UML/class_dialog.c:431
 #: ../objects/UML/umlparameter.c:51
-#, fuzzy
 msgid "Kind"
 msgstr "النوع"
 
 #: ../objects/Database/table_dialog.c:987
 #: ../objects/UML/class_dialog.c:436
-#, fuzzy
 msgid "Size"
 msgstr "الحجم"
 
 #: ../objects/Database/table_dialog.c:990
-#, fuzzy
 msgid "Normal:"
-msgstr "عادي"
+msgstr "عادي:"
 
 #: ../objects/Database/table_dialog.c:1011
-#, fuzzy
 msgid "Text Color:"
-msgstr "لون النص"
+msgstr "لون النص:"
 
 #: ../objects/Database/table_dialog.c:1019
 #, fuzzy
@@ -3356,17 +3206,14 @@ msgstr "لون الواجهة الأمامية"
 
 #. two chars at the beginning
 #: ../objects/Database/table_dialog.c:1332
-#, fuzzy
 msgid "not null"
-msgstr "بلا مودم"
+msgstr "ليس عَدَمْ"
 
 #: ../objects/Database/table_dialog.c:1333
-#, fuzzy
 msgid "null"
 msgstr "عَدَمْ"
 
 #: ../objects/Database/table_dialog.c:1334
-#, fuzzy
 msgid "unique"
 msgstr "فريد"
 
@@ -3375,19 +3222,16 @@ msgstr "فريد"
 #: ../objects/standard/box.c:152
 #: ../objects/standard/polyline.c:136
 #: ../objects/standard/zigzagline.c:132
-#, fuzzy
 msgid "Corner radius"
-msgstr "نصف-قطر التوهج"
+msgstr "نصف قطر الزاوية"
 
 #: ../objects/Database/reference.c:111
-#, fuzzy
 msgid "Start description"
-msgstr "الوصف يحتوي"
+msgstr "ابدأ الوصف"
 
 #: ../objects/Database/reference.c:113
-#, fuzzy
 msgid "End description"
-msgstr "الوصف يحتوي"
+msgstr "انه الوصف"
 
 #: ../objects/Database/reference.c:144
 #: ../objects/ER/participation.c:408
@@ -3401,39 +3245,33 @@ msgstr "الوصف يحتوي"
 #: ../objects/UML/realizes.c:363
 #: ../objects/UML/transition.c:163
 #: ../objects/standard/zigzagline.c:376
-#, fuzzy
 msgid "Add segment"
-msgstr "أقسام الشفرة"
+msgstr "ضف قطعة"
 
 #: ../objects/Database/reference.c:145
-#, fuzzy
 msgid "Delete segement"
-msgstr "ا_حذف شريط الأدوات"
+msgstr "احذف قطعة"
 
 #: ../objects/Database/reference.c:151
 #: ../sheets/Database.sheet.in.h:4
-#, fuzzy
 msgid "Reference"
-msgstr "الإشارة"
+msgstr "شر"
 
 #: ../objects/ER/attribute.c:157
 msgid "Key:"
 msgstr "المفتاح:"
 
 #: ../objects/ER/attribute.c:159
-#, fuzzy
 msgid "Weak key:"
-msgstr "تشفير المفتاح"
+msgstr "مفتاح ضعيف:"
 
 #: ../objects/ER/attribute.c:161
-#, fuzzy
 msgid "Derived:"
-msgstr "مشتق"
+msgstr "مشتق:"
 
 #: ../objects/ER/attribute.c:163
-#, fuzzy
 msgid "Multivalue:"
-msgstr "متعدد"
+msgstr "متعدد القيم:"
 
 #: ../objects/ER/attribute.c:436
 #: ../sheets/ER.sheet.in.h:1
@@ -3441,14 +3279,12 @@ msgid "Attribute"
 msgstr "الصّفة"
 
 #: ../objects/ER/entity.c:139
-#, fuzzy
 msgid "Weak:"
-msgstr "ضعيف"
+msgstr "ضعيف:"
 
 #: ../objects/ER/entity.c:141
-#, fuzzy
 msgid "Associative:"
-msgstr "ترابطيّ"
+msgstr "تجميعي:"
 
 #: ../objects/ER/entity.c:415
 #: ../objects/UML/classicon.c:131
@@ -3475,33 +3311,27 @@ msgstr "المجموع:"
 #: ../objects/UML/realizes.c:364
 #: ../objects/UML/transition.c:164
 #: ../objects/standard/zigzagline.c:377
-#, fuzzy
 msgid "Delete segment"
-msgstr "أقسام الشفرة"
+msgstr "احذف قطعة"
 
 #: ../objects/ER/relationship.c:144
-#, fuzzy
 msgid "Left Cardinality:"
-msgstr "استدر ي_ساراً"
+msgstr "العدد الأيسر:"
 
 #: ../objects/ER/relationship.c:146
-#, fuzzy
 msgid "Right Cardinality:"
-msgstr "استدر ي_ميناَ"
+msgstr "العدد الأيمن:"
 
 #: ../objects/ER/relationship.c:148
-#, fuzzy
 msgid "Rotate:"
-msgstr "تدوير"
+msgstr "ادر:"
 
 #: ../objects/ER/relationship.c:150
-#, fuzzy
 msgid "Identifying:"
-msgstr "التمييز"
+msgstr "تمييز:"
 
 #: ../objects/ER/relationship.c:459
 #: ../sheets/ER.sheet.in.h:6
-#, fuzzy
 msgid "Relationship"
 msgstr "علاقة"
 
@@ -3511,9 +3341,8 @@ msgstr "علاقة"
 #: ../objects/FS/flow.c:137
 #: ../objects/FS/flow.c:621
 #: ../objects/FS/function.c:1098
-#, fuzzy
 msgid "Energy"
-msgstr "الطاقة"
+msgstr "طاقة"
 
 #. Translators: Menu item Noun/Material
 #: ../objects/FS/flow-ortho.c:161
@@ -3521,7 +3350,6 @@ msgstr "الطاقة"
 #: ../objects/FS/flow.c:138
 #: ../objects/FS/flow.c:622
 #: ../objects/FS/function.c:1074
-#, fuzzy
 msgid "Material"
 msgstr "عتاد"
 
@@ -3537,29 +3365,25 @@ msgstr "عتاد"
 #: ../objects/FS/function.c:1038
 #: ../objects/FS/function.c:1174
 #: ../objects/FS/function.c:1176
-#, fuzzy
 msgid "Signal"
-msgstr "الإشارة"
+msgstr "إشارة"
 
 #: ../objects/FS/fs.c:43
 msgid "Function structure diagram objects"
 msgstr ""
 
 #: ../objects/FS/function.c:144
-#, fuzzy
 msgid "Wish function"
-msgstr "وظيفة غير صالحة"
+msgstr "وظيفة رغبة"
 
 #: ../objects/FS/function.c:146
-#, fuzzy
 msgid "User function"
-msgstr "وظيفة غير صالحة"
+msgstr "وظيفة مستخدم"
 
 #. Translators: Menu item Verb
 #: ../objects/FS/function.c:678
-#, fuzzy
 msgid "Verb"
-msgstr "الفعل"
+msgstr "فعل"
 
 #. Translators: Menu item Verb/Channel
 #. Translators: Menu item Verb/Channel/Channel
@@ -3574,9 +3398,8 @@ msgstr "القناة"
 #. Translators: Menu item Verb/Channel/Import/Import
 #: ../objects/FS/function.c:684
 #: ../objects/FS/function.c:686
-#, fuzzy
 msgid "Import"
-msgstr "استيراد"
+msgstr "استورد"
 
 #. Translators: Menu item Verb/Channel/Import/Input
 #: ../objects/FS/function.c:688
@@ -3586,23 +3409,20 @@ msgstr "الدخْل"
 
 #. Translators: Menu item Verb/Channel/Import/Receive
 #: ../objects/FS/function.c:690
-#, fuzzy
 msgid "Receive"
-msgstr "استقبال"
+msgstr "استقبل"
 
 #. Translators: Menu item Verb/Channel/Import/Allow
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Allow
 #: ../objects/FS/function.c:692
 #: ../objects/FS/function.c:964
-#, fuzzy
 msgid "Allow"
 msgstr "اسمح"
 
 #. Translators: Menu item Verb/Channel/Import/Form Entrance
 #: ../objects/FS/function.c:694
-#, fuzzy
 msgid "Form Entrance"
-msgstr "مدخل رئيسي"
+msgstr "شكّل مدخلا"
 
 #. Translators: Menu item Verb/Channel/Import/Capture
 #. Translators: Menu item Verb/Provision/Store/Capture
@@ -3613,9 +3433,8 @@ msgstr "سجّل"
 
 #. Translators: Menu item Verb/Channel/Export/Discharge
 #: ../objects/FS/function.c:702
-#, fuzzy
 msgid "Discharge"
-msgstr "الإطلاق"
+msgstr "اطلق"
 
 #. Translators: Menu item Verb/Channel/Export/Eject
 #: ../objects/FS/function.c:704
@@ -3624,9 +3443,8 @@ msgstr "اطرد"
 
 #. Translators: Menu item Verb/Channel/Export/Dispose
 #: ../objects/FS/function.c:706
-#, fuzzy
 msgid "Dispose"
-msgstr "رتّب"
+msgstr "نظّم"
 
 #. Translators: Menu item Verb/Channel/Transfer
 #. Translators: Menu item Verb/Channel/Transfer/Transfer
@@ -3646,33 +3464,28 @@ msgstr "نقل"
 
 #. Translators: Menu item Verb/Channel/Transfer/Transport/Lift
 #: ../objects/FS/function.c:718
-#, fuzzy
 msgid "Lift"
-msgstr "المصعد"
+msgstr "ارفع"
 
 #. Translators: Menu item Verb/Channel/Transfer/Transport/Move
 #: ../objects/FS/function.c:720
-#, fuzzy
 msgid "Move"
-msgstr "تحريك"
+msgstr "حرك"
 
 #. Translators: Menu item Verb/Channel/Transfer/Transmit
 #. Translators: Menu item Verb/Channel/Transfer/Transmit/Transmit
 #: ../objects/FS/function.c:724
 #: ../objects/FS/function.c:726
-#, fuzzy
 msgid "Transmit"
-msgstr "النقل"
+msgstr "انقل"
 
 #. Translators: Menu item Verb/Channel/Transfer/Transmit/Conduct
 #: ../objects/FS/function.c:728
-#, fuzzy
 msgid "Conduct"
-msgstr "التصرّف"
+msgstr "تصرّف"
 
 #. Translators: Menu item Verb/Channel/Transfer/Transmit/Convey
 #: ../objects/FS/function.c:732
-#, fuzzy
 msgid "Convey"
 msgstr "إحمل"
 
@@ -3687,25 +3500,21 @@ msgstr "الدليل"
 
 #. Translators: Menu item Verb/Channel/Guide/Guide/Direct
 #: ../objects/FS/function.c:740
-#, fuzzy
 msgid "Direct"
 msgstr "مباشر"
 
 #. Translators: Menu item Verb/Channel/Guide/Guide/Straighten
 #: ../objects/FS/function.c:742
-#, fuzzy
 msgid "Straighten"
 msgstr "عدّل"
 
 #. Translators: Menu item Verb/Channel/Guide/Guide/Steer
 #: ../objects/FS/function.c:744
-#, fuzzy
 msgid "Steer"
-msgstr "العجل المخصيّ"
+msgstr "اخلط"
 
 #. Translators: Menu item Verb/Channel/Guide/Translate
 #: ../objects/FS/function.c:746
-#, fuzzy
 msgid "Translate"
 msgstr "ترجم"
 
@@ -3718,33 +3527,28 @@ msgstr "تدوير"
 
 #. Translators: Menu item Verb/Channel/Guide/Rotate/Turn
 #: ../objects/FS/function.c:752
-#, fuzzy
 msgid "Turn"
-msgstr "الدور"
+msgstr "ادر"
 
 #. Translators: Menu item Verb/Channel/Guide/Rotate/Spin
 #: ../objects/FS/function.c:754
-#, fuzzy
 msgid "Spin"
-msgstr "الدورة"
+msgstr "لف"
 
 #. Translators: Menu item Verb/Channel/Guide/Allow DOF
 #. Translators: Menu item Verb/Channel/Guide/Allow DOF/Allow DOF
 #: ../objects/FS/function.c:756
 #: ../objects/FS/function.c:758
-#, fuzzy
 msgid "Allow DOF"
-msgstr "اسمح بالنوافذ المنبثقة"
+msgstr "اسمح بـ DOF"
 
 #. Translators: Menu item Verb/Channel/Guide/Allow DOF/Constrain
 #: ../objects/FS/function.c:760
-#, fuzzy
 msgid "Constrain"
-msgstr "يُكرِه :: يُجبِر :: يَقْسُر :: يتكلّف :: يصطنع :: يقيّد :: يُوثق :: يسجن :: يكبح"
+msgstr "قيّد"
 
 #. Translators: Menu item Verb/Channel/Guide/Allow DOF/Unlock
 #: ../objects/FS/function.c:762
-#, fuzzy
 msgid "Unlock"
 msgstr "فك القفل"
 
@@ -3760,39 +3564,33 @@ msgstr "دعم"
 #: ../objects/FS/function.c:768
 #: ../objects/FS/function.c:770
 #: ../sheets/SDL.sheet.in.h:19
-#, fuzzy
 msgid "Stop"
 msgstr "توقّف"
 
 #. Translators: Menu item Verb/Support/Stop/Insulate
 #: ../objects/FS/function.c:772
-#, fuzzy
 msgid "Insulate"
 msgstr "إعزل"
 
 #. Translators: Menu item Verb/Support/Stop/Protect
 #: ../objects/FS/function.c:774
-#, fuzzy
 msgid "Protect"
-msgstr "حماية"
+msgstr "احم"
 
 #. Translators: Menu item Verb/Support/Stop/Prevent
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Prevent
 #: ../objects/FS/function.c:776
 #: ../objects/FS/function.c:966
-#, fuzzy
 msgid "Prevent"
 msgstr "إمنع"
 
 #. Translators: Menu item Verb/Support/Stop/Shield
 #: ../objects/FS/function.c:778
-#, fuzzy
 msgid "Shield"
-msgstr "الدرع"
+msgstr "ادرع"
 
 #. Translators: Menu item Verb/Support/Stop/Inhibit
 #: ../objects/FS/function.c:780
-#, fuzzy
 msgid "Inhibit"
 msgstr "ثبّط"
 
@@ -3800,21 +3598,18 @@ msgstr "ثبّط"
 #. Translators: Menu item Verb/Support/Stabilize/Stabilize
 #: ../objects/FS/function.c:782
 #: ../objects/FS/function.c:784
-#, fuzzy
 msgid "Stabilize"
 msgstr "إستقرّ"
 
 #. Translators: Menu item Verb/Support/Stabilize/Steady
 #: ../objects/FS/function.c:786
-#, fuzzy
 msgid "Steady"
-msgstr "ثابت"
+msgstr "زن"
 
 #. Translators: Menu item Verb/Support/Secure
 #. Translators: Menu item Verb/Support/Secure/Secure
 #: ../objects/FS/function.c:788
 #: ../objects/FS/function.c:790
-#, fuzzy
 msgid "Secure"
 msgstr "آمن"
 
@@ -3827,28 +3622,24 @@ msgstr "إرفاق"
 
 #. Translators: Menu item Verb/Support/Secure/Mount
 #: ../objects/FS/function.c:794
-#, fuzzy
 msgid "Mount"
 msgstr "ثبّت"
 
 #. Translators: Menu item Verb/Support/Secure/Lock
 #: ../objects/FS/function.c:796
 #: ../sheets/ciscomisc.sheet.in.h:19
-#, fuzzy
 msgid "Lock"
-msgstr "أقفِل"
+msgstr "أقفل"
 
 #. Translators: Menu item Verb/Support/Secure/Fasten
 #: ../objects/FS/function.c:798
-#, fuzzy
 msgid "Fasten"
-msgstr "إربط"
+msgstr "اربط"
 
 #. Translators: Menu item Verb/Support/Secure/Hold
 #: ../objects/FS/function.c:800
-#, fuzzy
 msgid "Hold"
-msgstr "القبضة"
+msgstr "اقبض"
 
 #. Translators: Menu item Verb/Support/Position
 #. Translators: Menu item Verb/Support/Position/Position
@@ -3860,15 +3651,13 @@ msgstr "الموقع"
 
 #. Translators: Menu item Verb/Support/Position/Orient
 #: ../objects/FS/function.c:806
-#, fuzzy
 msgid "Orient"
-msgstr "المشرق"
+msgstr "وجّه"
 
 #. Translators: Menu item Verb/Support/Position/Locate
 #. Translators: Menu item Verb/Signal/Sense/Locate
 #: ../objects/FS/function.c:810
 #: ../objects/FS/function.c:1052
-#, fuzzy
 msgid "Locate"
 msgstr "حدّد مكان"
 
@@ -3883,9 +3672,8 @@ msgstr "اتصل"
 #. Translators: Menu item Verb/Connect/Couple/Couple
 #: ../objects/FS/function.c:816
 #: ../objects/FS/function.c:818
-#, fuzzy
 msgid "Couple"
-msgstr "الزوج"
+msgstr "زوج"
 
 #. Translators: Menu item Verb/Connect/Couple/Join
 #: ../objects/FS/function.c:820
@@ -3894,23 +3682,21 @@ msgstr "انضم"
 
 #. Translators: Menu item Verb/Connect/Couple/Assemble
 #: ../objects/FS/function.c:822
-#, fuzzy
 msgid "Assemble"
-msgstr "تجمّع"
+msgstr "اجمع"
 
 #. Translators: Menu item Verb/Connect/Mix
 #. Translators: Menu item Verb/Connect/Mix/Mix
 #: ../objects/FS/function.c:826
 #: ../objects/FS/function.c:828
-#, fuzzy
 msgid "Mix"
-msgstr "المزيج"
+msgstr "امزج"
 
+# امزج لا
 #. Translators: Menu item Verb/Connect/Mix/Combine
 #: ../objects/FS/function.c:830
-#, fuzzy
 msgid "Combine"
-msgstr "تأليف بين"
+msgstr "ألف بين"
 
 #. Translators: Menu item Verb/Connect/Mix/Blend
 #: ../objects/FS/function.c:832
@@ -3919,19 +3705,16 @@ msgstr "مزج"
 
 #. Translators: Menu item Verb/Connect/Mix/Add
 #: ../objects/FS/function.c:834
-#, fuzzy
 msgid "Add"
-msgstr "اضف"
+msgstr "ضف"
 
 #. Translators: Menu item Verb/Connect/Mix/Pack
 #: ../objects/FS/function.c:836
-#, fuzzy
 msgid "Pack"
-msgstr "تحزيم"
+msgstr "حزم"
 
 #. Translators: Menu item Verb/Connect/Mix/Coalesce
 #: ../objects/FS/function.c:838
-#, fuzzy
 msgid "Coalesce"
 msgstr "إلتئم"
 
@@ -3940,7 +3723,6 @@ msgstr "إلتئم"
 #: ../objects/FS/function.c:840
 #: ../objects/FS/function.c:842
 #: ../sheets/UML.sheet.in.h:5
-#, fuzzy
 msgid "Branch"
 msgstr "فرع"
 
@@ -3950,15 +3732,13 @@ msgstr "فرع"
 #: ../objects/FS/function.c:844
 #: ../objects/FS/function.c:846
 #: ../objects/FS/function.c:848
-#, fuzzy
 msgid "Separate"
-msgstr "منفصل"
+msgstr "افصل"
 
 #. Translators: Menu item Verb/Branch/Separate/Separate/Switch
 #: ../objects/FS/function.c:850
-#, fuzzy
 msgid "Switch"
-msgstr "المفتاح"
+msgstr "ابدل"
 
 #. Translators: Menu item Verb/Branch/Separate/Separate/Divide
 #: ../objects/FS/function.c:852
@@ -3967,15 +3747,13 @@ msgstr "قسمة"
 
 #. Translators: Menu item Verb/Branch/Separate/Separate/Release
 #: ../objects/FS/function.c:854
-#, fuzzy
 msgid "Release"
-msgstr "تسريح"
+msgstr "سرح"
 
 #. Translators: Menu item Verb/Branch/Separate/Separate/Detach
 #: ../objects/FS/function.c:856
-#, fuzzy
 msgid "Detach"
-msgstr "إفصل"
+msgstr "افصل"
 
 #. Translators: Menu item Verb/Branch/Separate/Separate/Disconnect
 #: ../objects/FS/function.c:858
@@ -3999,35 +3777,30 @@ msgstr "رمل"
 
 #. Translators: Menu item Verb/Branch/Separate/Remove/Drill
 #: ../objects/FS/function.c:870
-#, fuzzy
 msgid "Drill"
-msgstr "المثقاب"
+msgstr "اثقب"
 
 #. Translators: Menu item Verb/Branch/Separate/Remove/Lathe
 #: ../objects/FS/function.c:872
-#, fuzzy
 msgid "Lathe"
-msgstr "المخرطة"
+msgstr "اخرط"
 
 #. Translators: Menu item Verb/Branch/Refine
 #. Translators: Menu item Verb/Branch/Refine/Refine
 #: ../objects/FS/function.c:874
 #: ../objects/FS/function.c:876
-#, fuzzy
 msgid "Refine"
 msgstr "حَسِّن"
 
 #. Translators: Menu item Verb/Branch/Refine/Purify
 #: ../objects/FS/function.c:878
-#, fuzzy
 msgid "Purify"
 msgstr "نقّ"
 
 #. Translators: Menu item Verb/Branch/Refine/Strain
 #: ../objects/FS/function.c:880
-#, fuzzy
 msgid "Strain"
-msgstr "الإجهاد"
+msgstr "شدّ"
 
 #. Translators: Menu item Verb/Branch/Refine/Filter
 #: ../objects/FS/function.c:882
@@ -4038,39 +3811,33 @@ msgstr "تصفية"
 # 48x48/emblems/emblem-people.icon.in.h:1
 #. Translators: Menu item Verb/Branch/Refine/Percolate
 #: ../objects/FS/function.c:884
-#, fuzzy
 msgid "Percolate"
-msgstr "ترشّح"
+msgstr "رشّح"
 
 #. Translators: Menu item Verb/Branch/Refine/Clear
 #: ../objects/FS/function.c:886
-#, fuzzy
 msgid "Clear"
-msgstr "صافي"
+msgstr "صفّ"
 
 #. Translators: Menu item Verb/Branch/Distribute
 #. Translators: Menu item Verb/Branch/Distribute/Distribute
 #: ../objects/FS/function.c:888
 #: ../objects/FS/function.c:890
-#, fuzzy
 msgid "Distribute"
 msgstr "وزّع"
 
 #. Translators: Menu item Verb/Branch/Distribute/Diverge
 #: ../objects/FS/function.c:892
-#, fuzzy
 msgid "Diverge"
-msgstr "تباعد"
+msgstr "باعد"
 
 #. Translators: Menu item Verb/Branch/Distribute/Scatter
 #: ../objects/FS/function.c:894
-#, fuzzy
 msgid "Scatter"
-msgstr "البعثرة"
+msgstr "بعثر"
 
 #. Translators: Menu item Verb/Branch/Distribute/Disperse
 #: ../objects/FS/function.c:896
-#, fuzzy
 msgid "Disperse"
 msgstr "فرّق"
 
@@ -4078,9 +3845,8 @@ msgstr "فرّق"
 #. Translators: Menu item Verb/Branch/Dissipate/Diffuse
 #: ../objects/FS/function.c:898
 #: ../objects/FS/function.c:912
-#, fuzzy
 msgid "Diffuse"
-msgstr "مستفيض"
+msgstr "انشر"
 
 #. Translators: Menu item Verb/Branch/Distribute/Empty
 #: ../objects/FS/function.c:900
@@ -4091,31 +3857,26 @@ msgstr "فارغ"
 #. Translators: Menu item Verb/Branch/Dissipate/Dissipate
 #: ../objects/FS/function.c:902
 #: ../objects/FS/function.c:904
-#, fuzzy
 msgid "Dissipate"
 msgstr "فرّق"
 
 #. Translators: Menu item Verb/Branch/Dissipate/Absorb
 #: ../objects/FS/function.c:906
-#, fuzzy
 msgid "Absorb"
-msgstr "امتصّ :: تشرّب :: يتشرب :: يمتص"
+msgstr "امتصّ"
 
 #. Translators: Menu item Verb/Branch/Dissipate/Dampen
 #: ../objects/FS/function.c:908
-#, fuzzy
 msgid "Dampen"
 msgstr "بلّل"
 
 #. Translators: Menu item Verb/Branch/Dissipate/Dispel
 #: ../objects/FS/function.c:910
-#, fuzzy
 msgid "Dispel"
 msgstr "بدّد"
 
 #. Translators: Menu item Verb/Branch/Dissipate/Resist
 #: ../objects/FS/function.c:914
-#, fuzzy
 msgid "Resist"
 msgstr "قاوم"
 
@@ -4123,43 +3884,37 @@ msgstr "قاوم"
 #. Translators: Menu item Verb/Provision/Provision
 #: ../objects/FS/function.c:916
 #: ../objects/FS/function.c:918
-#, fuzzy
 msgid "Provision"
-msgstr "البند"
+msgstr "استعد"
 
 #. Translators: Menu item Verb/Provision/Store
 #. Translators: Menu item Verb/Provision/Store/Store
 #: ../objects/FS/function.c:920
 #: ../objects/FS/function.c:922
-#, fuzzy
 msgid "Store"
-msgstr "المخزن"
+msgstr "خزّن"
 
 #. Translators: Menu item Verb/Provision/Store/Contain
 #: ../objects/FS/function.c:924
-#, fuzzy
 msgid "Contain"
 msgstr "إحتو"
 
 #. Translators: Menu item Verb/Provision/Store/Collect
 #: ../objects/FS/function.c:926
-#, fuzzy
 msgid "Collect"
-msgstr "تجمّع"
+msgstr "اجمع"
 
 #. Translators: Menu item Verb/Provision/Store/Reserve
 #: ../objects/FS/function.c:928
-#, fuzzy
 msgid "Reserve"
-msgstr "الإحتياطي"
+msgstr "احتاط"
 
 #. Translators: Menu item Verb/Provision/Supply
 #. Translators: Menu item Verb/Provision/Supply/Supply
 #: ../objects/FS/function.c:932
 #: ../objects/FS/function.c:934
-#, fuzzy
 msgid "Supply"
-msgstr "التجهيز"
+msgstr "جهّز"
 
 #. Translators: Menu item Verb/Provision/Supply/Fill
 #: ../objects/FS/function.c:936
@@ -4168,19 +3923,16 @@ msgstr "ملأ"
 
 #. Translators: Menu item Verb/Provision/Supply/Provide
 #: ../objects/FS/function.c:938
-#, fuzzy
 msgid "Provide"
 msgstr "زوّد"
 
 #. Translators: Menu item Verb/Provision/Supply/Replenish
 #: ../objects/FS/function.c:940
-#, fuzzy
 msgid "Replenish"
 msgstr "أعد ملئ"
 
 #. Translators: Menu item Verb/Provision/Supply/Expose
 #: ../objects/FS/function.c:942
-#, fuzzy
 msgid "Expose"
 msgstr "عرّض"
 
@@ -4194,35 +3946,30 @@ msgstr "استخرج"
 #. Translators: Menu item Verb/Control Magnitude/Control Magnitude
 #: ../objects/FS/function.c:946
 #: ../objects/FS/function.c:948
-#, fuzzy
 msgid "Control Magnitude"
-msgstr "<b>أسلوب التحكّم:</b>"
+msgstr "تحكم في القياس"
 
 #. Translators: Menu item Verb/Control Magnitude/Actuate
 #. Translators: Menu item Verb/Control Magnitude/Actuate/Actuate
 #: ../objects/FS/function.c:950
 #: ../objects/FS/function.c:952
-#, fuzzy
 msgid "Actuate"
 msgstr "شغّل"
 
 #. Translators: Menu item Verb/Control Magnitude/Actuate/Start
 #: ../objects/FS/function.c:954
-#, fuzzy
 msgid "Start"
 msgstr "إبدأ"
 
 #. Translators: Menu item Verb/Control Magnitude/Actuate/Initiate
 #: ../objects/FS/function.c:956
-#, fuzzy
 msgid "Initiate"
-msgstr "يستهلّ :: يبتدئ :: يلقّن"
+msgstr "استهلّ"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Regulate
 #: ../objects/FS/function.c:958
 #: ../objects/FS/function.c:960
-#, fuzzy
 msgid "Regulate"
 msgstr "نظّم"
 
@@ -4236,7 +3983,6 @@ msgstr "تحكّم"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Enable
 #: ../objects/FS/function.c:968
-#, fuzzy
 msgid "Enable"
 msgstr "فعّل"
 
@@ -4259,39 +4005,33 @@ msgstr "قاطِع"
 #. Translators: Menu item Verb/Control Magnitude/Change/Change
 #: ../objects/FS/function.c:976
 #: ../objects/FS/function.c:978
-#, fuzzy
 msgid "Change"
-msgstr "تغيير"
+msgstr "غيّر"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Increase
 #: ../objects/FS/function.c:980
-#, fuzzy
 msgid "Increase"
-msgstr "زيادة"
+msgstr "زد"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Decrease
 #: ../objects/FS/function.c:982
-#, fuzzy
 msgid "Decrease"
-msgstr "تنقيص"
+msgstr "نقّص"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Amplify
 #: ../objects/FS/function.c:984
-#, fuzzy
 msgid "Amplify"
-msgstr "أسهب"
+msgstr "ضخّم"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Reduce
 #: ../objects/FS/function.c:986
-#, fuzzy
 msgid "Reduce"
 msgstr "خفّض"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Normalize
 #: ../objects/FS/function.c:990
-#, fuzzy
 msgid "Normalize"
-msgstr "طبّع"
+msgstr "سوّي"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Multiply
 #: ../objects/FS/function.c:992
@@ -4300,13 +4040,11 @@ msgstr "ضرب"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Scale
 #: ../objects/FS/function.c:994
-#, fuzzy
 msgid "Scale"
-msgstr "القياس"
+msgstr "حجّم"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Rectify
 #: ../objects/FS/function.c:996
-#, fuzzy
 msgid "Rectify"
 msgstr "صحّح"
 
@@ -4324,15 +4062,13 @@ msgstr "استمارة"
 
 #. Translators: Menu item Verb/Control Magnitude/Form/Compact
 #: ../objects/FS/function.c:1004
-#, fuzzy
 msgid "Compact"
-msgstr "الميثاق"
+msgstr "دمّج"
 
 #. Translators: Menu item Verb/Control Magnitude/Form/Crush
 #: ../objects/FS/function.c:1006
-#, fuzzy
 msgid "Crush"
-msgstr "الإزدحام"
+msgstr "اسحق"
 
 #. Translators: Menu item Verb/Control Magnitude/Form/Shape
 #: ../objects/FS/function.c:1008
@@ -4341,13 +4077,11 @@ msgstr "شكل"
 
 #. Translators: Menu item Verb/Control Magnitude/Form/Compress
 #: ../objects/FS/function.c:1010
-#, fuzzy
 msgid "Compress"
-msgstr "الكمادة"
+msgstr "اضغط"
 
 #. Translators: Menu item Verb/Control Magnitude/Form/Pierce
 #: ../objects/FS/function.c:1012
-#, fuzzy
 msgid "Pierce"
 msgstr "إثقب"
 
@@ -4355,9 +4089,8 @@ msgstr "إثقب"
 #. Translators: Menu item Verb/Convert/Convert
 #: ../objects/FS/function.c:1014
 #: ../objects/FS/function.c:1016
-#, fuzzy
 msgid "Convert"
-msgstr "المتحول"
+msgstr "حوّل"
 
 #. Translators: Menu item Verb/Convert/Transform
 #: ../objects/FS/function.c:1018
@@ -4366,45 +4099,38 @@ msgstr "الانتقال"
 
 #. Translators: Menu item Verb/Convert/Liquefy
 #: ../objects/FS/function.c:1020
-#, fuzzy
 msgid "Liquefy"
 msgstr "ذوّب"
 
 #. Translators: Menu item Verb/Convert/Solidify
 #: ../objects/FS/function.c:1022
-#, fuzzy
 msgid "Solidify"
 msgstr "قوّ"
 
 #. Translators: Menu item Verb/Convert/Evaporate
 #: ../objects/FS/function.c:1024
-#, fuzzy
 msgid "Evaporate"
-msgstr "تبخّر"
+msgstr "بخِّر"
 
 #. Translators: Menu item Verb/Convert/Sublimate
 #: ../objects/FS/function.c:1026
-#, fuzzy
 msgid "Sublimate"
-msgstr "المتصعد"
+msgstr "صعّد"
 
 #. Translators: Menu item Verb/Convert/Condense
 #: ../objects/FS/function.c:1028
-#, fuzzy
 msgid "Condense"
-msgstr "مكثّف"
+msgstr "كثّف"
 
 #. Translators: Menu item Verb/Convert/Integrate
 #: ../objects/FS/function.c:1030
-#, fuzzy
 msgid "Integrate"
 msgstr "كامل"
 
 #. Translators: Menu item Verb/Convert/Differentiate
 #: ../objects/FS/function.c:1032
-#, fuzzy
 msgid "Differentiate"
-msgstr "ميّز"
+msgstr "فاضل"
 
 #. Translators: Menu item Verb/Convert/Process
 #: ../objects/FS/function.c:1034
@@ -4417,37 +4143,31 @@ msgstr "عمليّة"
 #. Translators: Menu item Verb/Signal/Sense/Sense
 #: ../objects/FS/function.c:1040
 #: ../objects/FS/function.c:1042
-#, fuzzy
 msgid "Sense"
-msgstr "الإحساس"
+msgstr "احسّ"
 
 #. Translators: Menu item Verb/Signal/Sense/Perceive
 #: ../objects/FS/function.c:1044
-#, fuzzy
 msgid "Perceive"
 msgstr "أدرك"
 
 #. Translators: Menu item Verb/Signal/Sense/Recognize
 #: ../objects/FS/function.c:1046
-#, fuzzy
 msgid "Recognize"
 msgstr "إعترف"
 
 #. Translators: Menu item Verb/Signal/Sense/Discern
 #: ../objects/FS/function.c:1048
-#, fuzzy
 msgid "Discern"
-msgstr "الرؤية"
+msgstr "بيّن"
 
 #. Translators: Menu item Verb/Signal/Sense/Check
 #: ../objects/FS/function.c:1050
-#, fuzzy
 msgid "Check"
-msgstr "المراقبة"
+msgstr "راقب"
 
 #. Translators: Menu item Verb/Signal/Sense/Verify
 #: ../objects/FS/function.c:1054
-#, fuzzy
 msgid "Verify"
 msgstr "تأكد"
 
@@ -4455,15 +4175,13 @@ msgstr "تأكد"
 #. Translators: Menu item Verb/Signal/Indicate/Indicate
 #: ../objects/FS/function.c:1056
 #: ../objects/FS/function.c:1058
-#, fuzzy
 msgid "Indicate"
-msgstr "أشر إليه"
+msgstr "أشر"
 
 #. Translators: Menu item Verb/Signal/Indicate/Mark
 #: ../objects/FS/function.c:1060
-#, fuzzy
 msgid "Mark"
-msgstr "علامة"
+msgstr "علِّم"
 
 #. Translators: Menu item Verb/Signal/Display
 #: ../objects/FS/function.c:1062
@@ -4480,33 +4198,28 @@ msgstr "قياس"
 
 #. Translators: Menu item Verb/Signal/Measure/Calculate
 #: ../objects/FS/function.c:1068
-#, fuzzy
 msgid "Calculate"
-msgstr "حساب"
+msgstr "احسب"
 
 #. Translators: Menu item Verb/Signal/Represent
 #: ../objects/FS/function.c:1070
-#, fuzzy
 msgid "Represent"
 msgstr "مثّل"
 
 #. Translators: Menu item Noun
 #: ../objects/FS/function.c:1072
-#, fuzzy
 msgid "Noun"
-msgstr "الاسم"
+msgstr "اسم"
 
 #. Translators: Menu item Noun/Material/Liquid
 #: ../objects/FS/function.c:1078
-#, fuzzy
 msgid "Liquid"
-msgstr "السائل"
+msgstr "سائل"
 
 #. Translators: Menu item Noun/Material/Gas
 #: ../objects/FS/function.c:1080
-#, fuzzy
 msgid "Gas"
-msgstr "الغاز"
+msgstr "غاز"
 
 #. Translators: Menu item Noun/Material/Human
 #. Translators: Menu item Noun/Material/Human/Human
@@ -4519,45 +4232,38 @@ msgstr "انس"
 
 #. Translators: Menu item Noun/Material/Human/Hand
 #: ../objects/FS/function.c:1086
-#, fuzzy
 msgid "Hand"
-msgstr "اليدّ"
+msgstr "يد"
 
 #. Translators: Menu item Noun/Material/Human/Foot
 #: ../objects/FS/function.c:1088
-#, fuzzy
 msgid "Foot"
-msgstr "القدم"
+msgstr "قدم"
 
 #. Translators: Menu item Noun/Material/Human/Head
 #: ../objects/FS/function.c:1090
-#, fuzzy
 msgid "Head"
-msgstr "الرئيس"
+msgstr "رأس"
 
 #. Translators: Menu item Noun/Material/Human/Finger
 #: ../objects/FS/function.c:1092
-#, fuzzy
 msgid "Finger"
 msgstr "اصبع"
 
 #. Translators: Menu item Noun/Material/Human/Toe
 #: ../objects/FS/function.c:1094
-#, fuzzy
 msgid "Toe"
-msgstr "إصبع القدم"
+msgstr "اصبع"
 
 #. Translators: Menu item Noun/Material/Biological
 #: ../objects/FS/function.c:1096
-#, fuzzy
 msgid "Biological"
 msgstr "بيولوجيّ"
 
 #. Translators: Menu item Noun/Energy/Mechanical
 #: ../objects/FS/function.c:1100
-#, fuzzy
 msgid "Mechanical"
-msgstr "ميكانيكي"
+msgstr "ميكانيكيّ"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Mech. Energy
 #: ../objects/FS/function.c:1102
@@ -4572,14 +4278,12 @@ msgstr "ترجمة"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Force
 #: ../objects/FS/function.c:1106
-#, fuzzy
 msgid "Force"
-msgstr "القوة"
+msgstr "قوة"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Rotation
 #: ../objects/FS/function.c:1108
 #: ../objects/standard/outline.c:202
-#, fuzzy
 msgid "Rotation"
 msgstr "دوران"
 
@@ -4788,7 +4492,6 @@ msgid "This action is a call to a macro-step"
 msgstr "هذا ليس مكان صحيح."
 
 #: ../objects/GRAFCET/condition.c:132
-#, fuzzy
 msgid "Condition"
 msgstr "شرط"
 
@@ -4824,15 +4527,13 @@ msgstr "جاري حذف الكائنات المنتقاة"
 
 #: ../objects/GRAFCET/step.c:148
 #: ../sheets/GRAFCET.sheet.in.h:13
-#, fuzzy
 msgid "Regular step"
-msgstr "تدريج شدّة الصوت"
+msgstr "الخطوة العادية"
 
 #: ../objects/GRAFCET/step.c:149
 #: ../sheets/GRAFCET.sheet.in.h:6
-#, fuzzy
 msgid "Initial step"
-msgstr "تدريج شدّة الصوت"
+msgstr "الخطوة الأولى"
 
 #: ../objects/GRAFCET/step.c:150
 #: ../sheets/GRAFCET.sheet.in.h:8
@@ -4911,26 +4612,22 @@ msgid "The receptivity's color"
 msgstr "إضبط الألوان"
 
 #: ../objects/GRAFCET/transition.c:150
-#, fuzzy
 msgid "North point"
-msgstr "فاصل رقمي"
+msgstr "النقطة الشمالية"
 
 #: ../objects/GRAFCET/transition.c:151
-#, fuzzy
 msgid "South point"
-msgstr "فاصل رقمي"
+msgstr "النقطة الجنوبية"
 
 #: ../objects/GRAFCET/vector.c:131
 msgid "Draw arrow heads on upward arcs:"
 msgstr ""
 
 #: ../objects/GRAFCET/vergent.c:124
-#, fuzzy
 msgid "OR"
 msgstr "أو"
 
 #: ../objects/GRAFCET/vergent.c:125
-#, fuzzy
 msgid "AND"
 msgstr "و"
 
@@ -4968,7 +4665,6 @@ msgstr "غير محدّد"
 
 #: ../objects/Istar/actor.c:69
 #: ../objects/KAOS/other.c:75
-#, fuzzy
 msgid "Agent"
 msgstr "وكيل"
 
@@ -5047,9 +4743,8 @@ msgid "Delete connection point"
 msgstr "حذف اتصال VPN \"%s\"؟"
 
 #: ../objects/Istar/other.c:477
-#, fuzzy
 msgid "i* other"
-msgstr "أخرى"
+msgstr "ت* أخرى"
 
 #: ../objects/Jackson/domain.c:79
 #, fuzzy
@@ -5162,17 +4857,14 @@ msgid "Operationalization"
 msgstr "المنظّمة"
 
 #: ../objects/KAOS/metaandorrel.c:163
-#, fuzzy
 msgid "Text:"
-msgstr "النّص"
+msgstr "النّص:"
 
 #: ../objects/KAOS/metabinrel.c:157
-#, fuzzy
 msgid "Contributes"
 msgstr "يساهم"
 
 #: ../objects/KAOS/metabinrel.c:158
-#, fuzzy
 msgid "Obstructs"
 msgstr "يعرقل"
 
@@ -5181,17 +4873,14 @@ msgid "Conflicts"
 msgstr "التعارضات"
 
 #: ../objects/KAOS/metabinrel.c:160
-#, fuzzy
 msgid "Responsibility"
 msgstr "المسؤولية"
 
 #: ../objects/KAOS/metabinrel.c:161
-#, fuzzy
 msgid "Monitors"
-msgstr "الشاشات"
+msgstr "يراقب"
 
 #: ../objects/KAOS/metabinrel.c:162
-#, fuzzy
 msgid "Controls"
 msgstr "قطع"
 
@@ -5200,12 +4889,10 @@ msgid "CapableOf"
 msgstr ""
 
 #: ../objects/KAOS/metabinrel.c:164
-#, fuzzy
 msgid "Performs"
 msgstr "يؤدّي"
 
 #: ../objects/KAOS/metabinrel.c:166
-#, fuzzy
 msgid "Output"
 msgstr "إخراج"
 
@@ -5341,37 +5028,31 @@ msgid "Special Country Confidential"
 msgstr "صنف كخصوصي"
 
 #: ../objects/SISSI/classification.h:41
-#, fuzzy
 msgid "Confidential"
 msgstr "خصوصي"
 
 #: ../objects/SISSI/classification.h:42
 #: ../objects/SISSI/sissi.h:222
-#, fuzzy
 msgid "NATO Confidential"
-msgstr "صنف كخصوصي"
+msgstr "خصوصي NATO"
 
 #: ../objects/SISSI/classification.h:43
 #: ../objects/SISSI/sissi.h:223
-#, fuzzy
 msgid "Personal Confidential"
-msgstr "المعلومات الشخصية"
+msgstr "خصوصي شخصي"
 
 #: ../objects/SISSI/classification.h:44
 #: ../objects/SISSI/sissi.h:224
-#, fuzzy
 msgid "Medical Confidential"
-msgstr "صنف كخصوصي"
+msgstr "خصوصي طبّي"
 
 #: ../objects/SISSI/classification.h:45
-#, fuzzy
 msgid "Industrie Confidential"
-msgstr "صنف كخصوصي"
+msgstr "خصوصي صناعيّ"
 
 #: ../objects/SISSI/classification.h:46
-#, fuzzy
 msgid "Defense Confidential"
-msgstr "صنف كخصوصي"
+msgstr "خصوصي دفاعيّ"
 
 #: ../objects/SISSI/classification.h:47
 #: ../objects/SISSI/sissi.h:226
@@ -5379,9 +5060,8 @@ msgid "Secret"
 msgstr "سر"
 
 #: ../objects/SISSI/classification.h:48
-#, fuzzy
 msgid "Defense Secret"
-msgstr "سرّي للغاية"
+msgstr "سرّ الدّفاع"
 
 #: ../objects/SISSI/classification.h:49
 #: ../objects/SISSI/sissi.h:227
@@ -5391,13 +5071,11 @@ msgstr "HTML - محارف خاصة"
 
 #: ../objects/SISSI/classification.h:50
 #: ../objects/SISSI/sissi.h:228
-#, fuzzy
 msgid "NATO Secret"
-msgstr "سرّي للغاية"
+msgstr "سرّ NATO"
 
 #: ../objects/SISSI/classification.h:51
 #: ../objects/SISSI/sissi.h:229
-#, fuzzy
 msgid "Very Secret"
 msgstr "سرّي للغاية"
 
@@ -5473,7 +5151,6 @@ msgid "Week"
 msgstr "الأسبوع"
 
 #: ../objects/SISSI/sissi.h:255
-#, fuzzy
 msgid "SYSTEM"
 msgstr "نظام"
 
@@ -5488,9 +5165,8 @@ msgid "Electronic messaging"
 msgstr "<b>التراسل الفوري</b>"
 
 #: ../objects/SISSI/sissi.h:258
-#, fuzzy
 msgid "Intranet"
-msgstr "إنترانت"
+msgstr "شبكة محلّيّة"
 
 #: ../objects/SISSI/sissi.h:259
 #, fuzzy
@@ -5665,9 +5341,8 @@ msgid "SSI administrator"
 msgstr "مدير النظام"
 
 #: ../objects/SISSI/sissi.h:342
-#, fuzzy
 msgid "Developer"
-msgstr "المطور"
+msgstr "مطوّر"
 
 #: ../objects/SISSI/sissi.h:343
 #, fuzzy
@@ -5676,9 +5351,8 @@ msgstr "صيانة الموقع"
 
 #: ../objects/SISSI/sissi.h:348
 #: ../sheets/network.sheet.in.h:20
-#, fuzzy
 msgid "Network"
-msgstr "الشبكة"
+msgstr "شبكة"
 
 #: ../objects/SISSI/sissi.h:349
 #, fuzzy
@@ -5702,7 +5376,6 @@ msgid "Software"
 msgstr "البرنامج"
 
 #: ../objects/SISSI/sissi.h:357
-#, fuzzy
 msgid "Operating System"
 msgstr "نظام تشغيل"
 
@@ -5903,7 +5576,6 @@ msgstr "خاص"
 #: ../objects/UML/class_dialog.c:1075
 #: ../objects/UML/class_dialog.c:1917
 #: ../objects/UML/uml.c:104
-#, fuzzy
 msgid "Protected"
 msgstr "محمي"
 
@@ -5911,7 +5583,6 @@ msgstr "محمي"
 #: ../objects/UML/class_dialog.c:1078
 #: ../objects/UML/class_dialog.c:1920
 #: ../objects/UML/uml.c:105
-#, fuzzy
 msgid "Implementation"
 msgstr "تطبيق"
 
@@ -5923,7 +5594,6 @@ msgstr "عرض السهم"
 
 #. Aggregate
 #: ../objects/UML/association.c:1326
-#, fuzzy
 msgid "Aggregate"
 msgstr "مركب"
 
@@ -5956,7 +5626,6 @@ msgstr "القالب الجاهز"
 #: ../objects/UML/class_dialog.c:450
 #: ../objects/UML/class_dialog.c:1941
 #: ../objects/UML/uml.c:110
-#, fuzzy
 msgid "Abstract"
 msgstr "مبسط"
 
@@ -6014,9 +5683,8 @@ msgid "Polymorphic"
 msgstr "متعلق بـ تعدّد الأشكال"
 
 #: ../objects/UML/class.c:182
-#, fuzzy
 msgid "Classname"
-msgstr "الصفوف"
+msgstr "اسم الصنف"
 
 #: ../objects/UML/class.c:184
 #, fuzzy
@@ -6024,7 +5692,6 @@ msgid "Abstract Classname"
 msgstr "صنف مجرد"
 
 #: ../objects/UML/class.c:208
-#, fuzzy
 msgid "Operations"
 msgstr "عمليات"
 
@@ -6040,9 +5707,8 @@ msgstr "إظهر التعليقات"
 
 #. Class page:
 #: ../objects/UML/class_dialog.c:301
-#, fuzzy
 msgid "_Class"
-msgstr "الطبقة"
+msgstr "_صنف"
 
 #: ../objects/UML/class_dialog.c:309
 #, fuzzy
@@ -6176,20 +5842,17 @@ msgstr "خارج"
 
 #: ../objects/UML/class_dialog.c:2178
 #: ../objects/UML/umlparameter.c:37
-#, fuzzy
 msgid "In & Out"
-msgstr "الداخل أولا يخرج أولا"
+msgstr "داخل و خارج"
 
 #. Operations page:
 #: ../objects/UML/class_dialog.c:2213
-#, fuzzy
 msgid "_Operations"
-msgstr "عمليات"
+msgstr "_عمليات"
 
 #: ../objects/UML/class_dialog.c:2271
-#, fuzzy
 msgid "Operation data"
-msgstr "البيانات الشخصية"
+msgstr "بيانات العملية"
 
 #. Templates page:
 #: ../objects/UML/class_dialog.c:2631
@@ -6208,9 +5871,8 @@ msgid "Formal parameter data"
 msgstr "جاري استيراد بيانات إلم"
 
 #: ../objects/UML/classicon.c:130
-#, fuzzy
 msgid "Boundary"
-msgstr "الحدّ"
+msgstr "حدّ"
 
 #: ../objects/UML/classicon.c:142
 #, fuzzy
@@ -7685,14 +7347,12 @@ msgid "Turn-up arrow"
 msgstr "حجم سهم الموسّع"
 
 #: ../sheets/Assorted.sheet.in.h:44
-#, fuzzy
 msgid "Up arrow"
-msgstr "فراغ الأسهم"
+msgstr "سهم نحو الأعلى"
 
 #: ../sheets/Assorted.sheet.in.h:45
-#, fuzzy
 msgid "Up-down arrow"
-msgstr "السرعة تنزيل: %1 / تحميل: %2"
+msgstr "سهم نحو الأسفل "
 
 #: ../sheets/Assorted.sheet.in.h:46
 msgid "Up-down-left arrow"
@@ -7748,44 +7408,36 @@ msgid "Data Object"
 msgstr "مرجع بيانات كائن"
 
 #: ../sheets/BPMN.sheet.in.h:11
-#, fuzzy
 msgid "End Event"
-msgstr "نهاية الحدث"
+msgstr "ضف حدثا"
 
 #: ../sheets/BPMN.sheet.in.h:12
-#, fuzzy
 msgid "End Event - Cancel"
-msgstr "نهاية الحدث"
+msgstr "ضف حدثا - الغ"
 
 #: ../sheets/BPMN.sheet.in.h:13
-#, fuzzy
 msgid "End Event - Compensation"
-msgstr "نهاية الحدث"
+msgstr "ضف حدثا - تعويض"
 
 #: ../sheets/BPMN.sheet.in.h:14
-#, fuzzy
 msgid "End Event - Error"
-msgstr "خطأ أثناء حفظ الحدث."
+msgstr "ضف حدثا - خطأ"
 
 #: ../sheets/BPMN.sheet.in.h:15
-#, fuzzy
 msgid "End Event - Link"
-msgstr "نهاية الحدث"
+msgstr "ضف حدثا - وصلة"
 
 #: ../sheets/BPMN.sheet.in.h:16
-#, fuzzy
 msgid "End Event - Message"
-msgstr "أرسل إخطارات الو_صول:"
+msgstr "ضف حدثا - رسالة"
 
 #: ../sheets/BPMN.sheet.in.h:17
-#, fuzzy
 msgid "End Event - Multiple"
-msgstr "نهاية الحدث"
+msgstr "ضف حدثا - متعدد"
 
 #: ../sheets/BPMN.sheet.in.h:18
-#, fuzzy
 msgid "End Event - Terminate"
-msgstr "نهاية الحدث"
+msgstr "ضف حدثا - انه"
 
 #: ../sheets/BPMN.sheet.in.h:19
 msgid "Exclusive (XOR) Data Based"
@@ -7800,7 +7452,6 @@ msgid "Gateway"
 msgstr "البوّابة"
 
 #: ../sheets/BPMN.sheet.in.h:22
-#, fuzzy
 msgid "Group"
 msgstr "مجموعة"
 
@@ -7810,49 +7461,40 @@ msgid "Inclusive (OR)"
 msgstr "ال_منظّم:"
 
 #: ../sheets/BPMN.sheet.in.h:24
-#, fuzzy
 msgid "Intermediate Event"
-msgstr "تدرّج الحدث"
+msgstr "حدث متوسّط"
 
 #: ../sheets/BPMN.sheet.in.h:25
-#, fuzzy
 msgid "Intermediate Event - Cancel"
-msgstr "لا يمكن الإلغاء"
+msgstr "حدث متوسّط - الغ"
 
 #: ../sheets/BPMN.sheet.in.h:26
-#, fuzzy
 msgid "Intermediate Event - Compensation"
-msgstr "مشهد أحداث التقويم"
+msgstr "حدث متوسّط - تعويض"
 
 #: ../sheets/BPMN.sheet.in.h:27
-#, fuzzy
 msgid "Intermediate Event - Error"
-msgstr "خطأ أثناء حفظ الحدث."
+msgstr "حدث متوسّط - خطأ"
 
 #: ../sheets/BPMN.sheet.in.h:28
-#, fuzzy
 msgid "Intermediate Event - Link"
-msgstr "احفظ الوصلة _كـ..."
+msgstr "حدث متوسّط - وصلة"
 
 #: ../sheets/BPMN.sheet.in.h:29
-#, fuzzy
 msgid "Intermediate Event - Message"
-msgstr "رسالة إجتماع رديئة"
+msgstr "حدث متوسّط - رسالة"
 
 #: ../sheets/BPMN.sheet.in.h:30
-#, fuzzy
 msgid "Intermediate Event - Multiple"
-msgstr "رسائل غير مراجعة متعدّد"
+msgstr "حدث متوسّط - متعدد"
 
 #: ../sheets/BPMN.sheet.in.h:31
-#, fuzzy
 msgid "Intermediate Event - Rule"
-msgstr "أضِف قاعدة مرشحة"
+msgstr "حدث متوسّط - قاعدة"
 
 #: ../sheets/BPMN.sheet.in.h:32
-#, fuzzy
 msgid "Intermediate Event - Timer"
-msgstr "مشهد أحداث التقويم"
+msgstr "حدث متوسّط - موقّت"
 
 #: ../sheets/BPMN.sheet.in.h:33
 #, fuzzy
@@ -7869,39 +7511,32 @@ msgid "Multiple Instance Task"
 msgstr "احذف قائمة المهام '{0}'؟"
 
 #: ../sheets/BPMN.sheet.in.h:36
-#, fuzzy
 msgid "Parallel (AND)"
-msgstr "و ثنائي"
+msgstr "متوازي (و)"
 
 #: ../sheets/BPMN.sheet.in.h:37
-#, fuzzy
 msgid "Start Event"
-msgstr "بدأ الحدث"
+msgstr "ابدأ الحدث"
 
 #: ../sheets/BPMN.sheet.in.h:38
-#, fuzzy
 msgid "Start Event - Link"
-msgstr "بدأ الحدث"
+msgstr "ابدأ الحدث - وصلة"
 
 #: ../sheets/BPMN.sheet.in.h:39
-#, fuzzy
 msgid "Start Event - Message"
-msgstr "بدأ الحدث"
+msgstr "ابدأ الحدث - رسالة"
 
 #: ../sheets/BPMN.sheet.in.h:40
-#, fuzzy
 msgid "Start Event - Multiple"
-msgstr "بدأ الحدث"
+msgstr "ابدأ الحدث - متعدد"
 
 #: ../sheets/BPMN.sheet.in.h:41
-#, fuzzy
 msgid "Start Event - Rule"
-msgstr "بدأ الحدث"
+msgstr "ابدأ الحدث - قاعدة"
 
 #: ../sheets/BPMN.sheet.in.h:42
-#, fuzzy
 msgid "Start Event - Timer"
-msgstr "بدأ الحدث"
+msgstr "ابدأ الحدث - موقّت"
 
 #: ../sheets/BPMN.sheet.in.h:44
 #, fuzzy
@@ -7909,9 +7544,8 @@ msgid "Text Annotation"
 msgstr "حوار إضافة التعليق"
 
 #: ../sheets/BPMN.sheet.in.h:45
-#, fuzzy
 msgid "Transaction"
-msgstr "الصفقة"
+msgstr "صفقة"
 
 #: ../sheets/ChemEng.sheet.in.h:1
 #, fuzzy
@@ -7919,9 +7553,8 @@ msgid "AC Generator"
 msgstr "مُولّد ملفّات Makefile."
 
 #: ../sheets/ChemEng.sheet.in.h:2
-#, fuzzy
 msgid "Air Cooler"
-msgstr "صفيحة تقييد"
+msgstr "مبرّد الهواء"
 
 #: ../sheets/ChemEng.sheet.in.h:3
 #, fuzzy
@@ -7934,18 +7567,16 @@ msgid "Axial Flow Fan"
 msgstr "تحليل تدفًق بيانات"
 
 #: ../sheets/ChemEng.sheet.in.h:5
-#, fuzzy
 msgid "Basic Filter"
-msgstr "مرشّح بحث"
+msgstr "مرشّح بسيط"
 
 #: ../sheets/ChemEng.sheet.in.h:6
 msgid "Centrifugal Pump or Fan"
 msgstr ""
 
 #: ../sheets/ChemEng.sheet.in.h:7
-#, fuzzy
 msgid "Centrifuge"
-msgstr "الطارد المركزي"
+msgstr "طارد مركزي"
 
 #. For: zenith
 #: ../sheets/ChemEng.sheet.in.h:9
@@ -8490,24 +8121,20 @@ msgid "Saturation characteristic"
 msgstr "دالة مميزة"
 
 #: ../sheets/Cybernetics.sheet.in.h:20
-#, fuzzy
 msgid "Sensor - bottom"
-msgstr "اللوحة ال_سفلية"
+msgstr "محسّس - أسفل"
 
 #: ../sheets/Cybernetics.sheet.in.h:21
-#, fuzzy
 msgid "Sensor - left"
-msgstr "استدر ي_ساراً"
+msgstr "محسّس - يسار"
 
 #: ../sheets/Cybernetics.sheet.in.h:22
-#, fuzzy
 msgid "Sensor - right"
-msgstr "استدر ي_ميناَ"
+msgstr "محسّس - يمين"
 
 #: ../sheets/Cybernetics.sheet.in.h:23
-#, fuzzy
 msgid "Sensor - top"
-msgstr "هدف - أعلى"
+msgstr "محسّس - أعلى"
 
 #: ../sheets/Cybernetics.sheet.in.h:24
 #, fuzzy
@@ -8520,9 +8147,8 @@ msgid "Sine characteristic or input"
 msgstr "أدخل مجموعة المحارف للاستخدام"
 
 #: ../sheets/Cybernetics.sheet.in.h:26
-#, fuzzy
 msgid "Sum"
-msgstr "المبلغ"
+msgstr "مجموع"
 
 #: ../sheets/Cybernetics.sheet.in.h:27
 msgid "Sum, subtracting bottom input"
@@ -8547,17 +8173,14 @@ msgid "Template for custom characteristics"
 msgstr "قالب لاعادة تسمية الملفات"
 
 #: ../sheets/Cybernetics.sheet.in.h:32
-#, fuzzy
 msgid "Time delay"
-msgstr "التأخير الأوّلي:"
+msgstr "التأخير"
 
 #: ../sheets/Database.sheet.in.h:1
-#, fuzzy
 msgid "Attribute compound"
-msgstr "مفتاح مركَّب"
+msgstr "صفة مركَّبة"
 
 #: ../sheets/Database.sheet.in.h:2
-#, fuzzy
 msgid "Database"
 msgstr "قاعدة بيانات"
 
@@ -8566,23 +8189,20 @@ msgid "Editor for Database Table Relation Diagrams"
 msgstr ""
 
 #: ../sheets/ER.sheet.in.h:2
-#, fuzzy
 msgid "ER"
-msgstr "غرفة الطواريء في المستشفى"
+msgstr "ER"
 
 #: ../sheets/ER.sheet.in.h:3
 msgid "Editor for Entity Relations Diagrams"
 msgstr ""
 
 #: ../sheets/ER.sheet.in.h:5
-#, fuzzy
 msgid "Participation"
-msgstr "الإشتراك"
+msgstr "إشتراك"
 
 #: ../sheets/ER.sheet.in.h:7
-#, fuzzy
 msgid "Weak entity"
-msgstr "مشفّرة، ضعيفة"
+msgstr "كيان ضعيف"
 
 #: ../sheets/Electric.sheet.in.h:1
 #, fuzzy
@@ -8591,12 +8211,10 @@ msgstr "مُحتويات مدير برامج تعريف كيدي لـODBC."
 
 #: ../sheets/Electric.sheet.in.h:2
 #: ../sheets/Pneumatic.sheet.in.h:7
-#, fuzzy
 msgid "Connection point"
-msgstr "فاصل رقمي"
+msgstr "نقطة إتصال"
 
 #: ../sheets/Electric.sheet.in.h:3
-#, fuzzy
 msgid "Electric"
 msgstr "كهربائي"
 
@@ -8665,9 +8283,8 @@ msgid "Editor for Function Structure Diagrams."
 msgstr ""
 
 #: ../sheets/FS.sheet.in.h:2
-#, fuzzy
 msgid "FS"
-msgstr "نوع نظام الملفّات"
+msgstr "نظام ملفّات"
 
 #: ../sheets/FS.sheet.in.h:3
 msgid "Flow"
@@ -8684,25 +8301,21 @@ msgstr "تحليل تدفًق بيانات"
 
 #. XXX
 #: ../sheets/Flowchart.sheet.in.h:2
-#, fuzzy
 msgid "Collate"
 msgstr "ترتيب"
 
 #: ../sheets/Flowchart.sheet.in.h:3
-#, fuzzy
 msgid "Connector"
-msgstr "الموصّل"
+msgstr "موصّل"
 
 #: ../sheets/Flowchart.sheet.in.h:4
-#, fuzzy
 msgid "Data source"
-msgstr "مصدر البيانات العشوائيّة موجود"
+msgstr "مصدر بيانات"
 
 #: ../sheets/Flowchart.sheet.in.h:5
 #: ../sheets/SDL.sheet.in.h:4
-#, fuzzy
 msgid "Decision"
-msgstr "القرار"
+msgstr "قرار"
 
 #: ../sheets/Flowchart.sheet.in.h:6
 msgid "Delay"
@@ -8722,24 +8335,20 @@ msgid "Internal storage"
 msgstr "مخزن الرّسائل"
 
 #: ../sheets/Flowchart.sheet.in.h:13
-#, fuzzy
 msgid "Magnetic disk"
 msgstr "قرص مغناطيسي"
 
 #: ../sheets/Flowchart.sheet.in.h:14
-#, fuzzy
 msgid "Magnetic drum"
-msgstr "فورت درم"
+msgstr "طبل مغناطيسي"
 
 #: ../sheets/Flowchart.sheet.in.h:15
-#, fuzzy
 msgid "Magnetic tape"
 msgstr "شريط مغناطيسي"
 
 #: ../sheets/Flowchart.sheet.in.h:16
-#, fuzzy
 msgid "Manual input"
-msgstr "<b>جهاز الإدخال</b>"
+msgstr "إدخال يدويّ"
 
 #: ../sheets/Flowchart.sheet.in.h:17
 #, fuzzy
@@ -8747,9 +8356,8 @@ msgid "Manual operation"
 msgstr "عمليّة غير مدعومة"
 
 #: ../sheets/Flowchart.sheet.in.h:18
-#, fuzzy
 msgid "Merge"
-msgstr "دمج"
+msgstr "ادمج"
 
 #: ../sheets/Flowchart.sheet.in.h:19
 #, fuzzy
@@ -8763,9 +8371,8 @@ msgid "Off page connector"
 msgstr "إعداد متّصل زيميان"
 
 #: ../sheets/Flowchart.sheet.in.h:22
-#, fuzzy
 msgid "Offline storage"
-msgstr "مخزن الرّسائل"
+msgstr "مخزن غير متصّل"
 
 #: ../sheets/Flowchart.sheet.in.h:23
 msgid "Or"
@@ -8777,9 +8384,8 @@ msgid "Predefined process"
 msgstr "قيد العمل"
 
 #: ../sheets/Flowchart.sheet.in.h:25
-#, fuzzy
 msgid "Preparation"
-msgstr "التحضير"
+msgstr "تحضير"
 
 #: ../sheets/Flowchart.sheet.in.h:26
 #, fuzzy
@@ -8787,14 +8393,12 @@ msgid "Process/Auxiliary Operation"
 msgstr "عملية ألغاها المستخدم."
 
 #: ../sheets/Flowchart.sheet.in.h:27
-#, fuzzy
 msgid "Punched card"
-msgstr "card.vcf"
+msgstr "بطاقة مثقوبة"
 
 #: ../sheets/Flowchart.sheet.in.h:28
-#, fuzzy
 msgid "Punched tape"
-msgstr "سوّاقات الأشرطة"
+msgstr "شريط مثقوب"
 
 #: ../sheets/Flowchart.sheet.in.h:29
 msgid "Sort"
@@ -8890,69 +8494,56 @@ msgid "Gane and Sarson DFD"
 msgstr ""
 
 #: ../sheets/IsometricMap.sheet.in.h:1
-#, fuzzy
 msgid "Block 1, 2:4"
-msgstr "مربع"
+msgstr "كتلة 1، 2:4"
 
 #: ../sheets/IsometricMap.sheet.in.h:2
-#, fuzzy
 msgid "Block 2, 2:8"
-msgstr "مربع"
+msgstr "كتلة 2، 2:8"
 
 #: ../sheets/IsometricMap.sheet.in.h:3
-#, fuzzy
 msgid "Block 3, 4:4"
-msgstr "مربع"
+msgstr "كتلة 3، 4:4"
 
 #: ../sheets/IsometricMap.sheet.in.h:4
-#, fuzzy
 msgid "Block 4, 4:8"
-msgstr "مربع"
+msgstr "كتلة 4، 4:8"
 
 #: ../sheets/IsometricMap.sheet.in.h:5
-#, fuzzy
 msgid "Block 5, 3:3"
-msgstr "مربع"
+msgstr "كتلة 5, 3:3"
 
 #: ../sheets/IsometricMap.sheet.in.h:6
-#, fuzzy
 msgid "Block 6, 4:6"
-msgstr "مربع"
+msgstr "كتلة 6، 4:6"
 
 #: ../sheets/IsometricMap.sheet.in.h:7
-#, fuzzy
 msgid "Block 7"
-msgstr "مربع"
+msgstr "كتلة 7"
 
 #: ../sheets/IsometricMap.sheet.in.h:8
-#, fuzzy
 msgid "Car 1, Front View"
-msgstr "عرض الفيديو الافتراضي"
+msgstr "سيارة 1، المظهر الأمامي"
 
 #: ../sheets/IsometricMap.sheet.in.h:9
-#, fuzzy
 msgid "Car 2, Rear View"
-msgstr "عرض الفيديو الافتراضي"
+msgstr "سيارة 2، المظهر الخلفي"
 
 #: ../sheets/IsometricMap.sheet.in.h:10
-#, fuzzy
 msgid "Corner 1"
-msgstr "الزاوية"
+msgstr "الزاوية 1"
 
 #: ../sheets/IsometricMap.sheet.in.h:11
-#, fuzzy
 msgid "Corner 2"
-msgstr "الزاوية"
+msgstr "الزاوية 2"
 
 #: ../sheets/IsometricMap.sheet.in.h:12
-#, fuzzy
 msgid "Crossroads"
-msgstr "تقاطع الطرق"
+msgstr "تقاطع طرق"
 
 #: ../sheets/IsometricMap.sheet.in.h:13
-#, fuzzy
 msgid "Elevated Road"
-msgstr "تقاطع الطرق"
+msgstr "طريق مرفوعة"
 
 #: ../sheets/IsometricMap.sheet.in.h:14
 msgid "Factory"
@@ -8983,14 +8574,12 @@ msgid "One Way Road Sign"
 msgstr ""
 
 #: ../sheets/IsometricMap.sheet.in.h:22
-#, fuzzy
 msgid "River"
-msgstr "النهر"
+msgstr "نهر"
 
 #: ../sheets/IsometricMap.sheet.in.h:23
-#, fuzzy
 msgid "Road Section"
-msgstr "ترويسة 0 (قسم)"
+msgstr "مقطع طريق"
 
 #: ../sheets/IsometricMap.sheet.in.h:24
 #, fuzzy
@@ -9412,12 +9001,10 @@ msgid "U.S. Army Mobile Subscriber Equipment Components"
 msgstr ""
 
 #: ../sheets/Misc.sheet.in.h:2
-#, fuzzy
 msgid "Folder"
 msgstr "مجلّد"
 
 #: ../sheets/Misc.sheet.in.h:3
-#, fuzzy
 msgid "Misc"
 msgstr "متفرقات"
 
@@ -9436,7 +9023,6 @@ msgid "Traditional clock"
 msgstr "نسبة التردد"
 
 #: ../sheets/Misc.sheet.in.h:7
-#, fuzzy
 msgid "Tree"
 msgstr "شجرة"
 
@@ -9451,24 +9037,20 @@ msgid "expensible node"
 msgstr "عقدة حشد"
 
 #: ../sheets/Pneumatic.sheet.in.h:1
-#, fuzzy
 msgid "2/2 distributor"
-msgstr "الموزّع"
+msgstr "2/2 موزّع"
 
 #: ../sheets/Pneumatic.sheet.in.h:2
-#, fuzzy
 msgid "3/2 distributor"
-msgstr "الموزّع"
+msgstr "3/2 موزّع"
 
 #: ../sheets/Pneumatic.sheet.in.h:3
-#, fuzzy
 msgid "4/2 distributor"
-msgstr "الموزّع"
+msgstr "4/2 موزّع"
 
 #: ../sheets/Pneumatic.sheet.in.h:4
-#, fuzzy
 msgid "5/2 distributor"
-msgstr "الموزّع"
+msgstr "5/2موزّع"
 
 #: ../sheets/Pneumatic.sheet.in.h:5
 #, fuzzy
@@ -9616,14 +9198,12 @@ msgid "Receive message"
 msgstr "إر_سال رسالة"
 
 #: ../sheets/SDL.sheet.in.h:13
-#, fuzzy
 msgid "SDL"
-msgstr "النظام"
+msgstr "SDL"
 
 #: ../sheets/SDL.sheet.in.h:14
-#, fuzzy
 msgid "Save state"
-msgstr "ال_ولاية/المحافظة:"
+msgstr "احفظ الحالة"
 
 #: ../sheets/SDL.sheet.in.h:15
 msgid "Send message"
@@ -9759,9 +9339,8 @@ msgstr "كسر سطر مجبر"
 
 #: ../sheets/SISSI.sheet.in.h:24
 #: ../sheets/ciscohub.sheet.in.h:29
-#, fuzzy
 msgid "Hub"
-msgstr "المحور"
+msgstr "محور"
 
 #: ../sheets/SISSI.sheet.in.h:25
 msgid "Information"
@@ -9819,9 +9398,8 @@ msgstr "<b>مفتاح الحركة</b>"
 
 #: ../sheets/SISSI.sheet.in.h:37
 #: ../sheets/network.sheet.in.h:21
-#, fuzzy
 msgid "Network cloud"
-msgstr "سحابة أنبوبية"
+msgstr "سحابة شبكة"
 
 #: ../sheets/SISSI.sheet.in.h:38
 msgid "Objects to design sissi diagrams"
@@ -9833,14 +9411,12 @@ msgid "PDA"
 msgstr "PDA"
 
 #: ../sheets/SISSI.sheet.in.h:40
-#, fuzzy
 msgid "Paper storage"
-msgstr "مخزن الرّسائل"
+msgstr "مخزن ورق"
 
 #: ../sheets/SISSI.sheet.in.h:41
-#, fuzzy
 msgid "Person"
-msgstr "الشخص"
+msgstr "انسان"
 
 #: ../sheets/SISSI.sheet.in.h:42
 #, fuzzy
@@ -9853,20 +9429,17 @@ msgid "Pressure transducer"
 msgstr "محدة ال_ضغط:"
 
 #: ../sheets/SISSI.sheet.in.h:44
-#, fuzzy
 msgid "Pump"
-msgstr "المضخّة"
+msgstr "مضخّة"
 
 #: ../sheets/SISSI.sheet.in.h:45
 #: ../sheets/ciscocomputer.sheet.in.h:37
-#, fuzzy
 msgid "Relational Database"
 msgstr "قاعدة بيانات ارتباطية"
 
 #: ../sheets/SISSI.sheet.in.h:46
-#, fuzzy
 msgid "Revolving door"
-msgstr "مدخل سري للنظام"
+msgstr "مدخل دوراني"
 
 #: ../sheets/SISSI.sheet.in.h:47
 msgid "Room"
@@ -9874,14 +9447,12 @@ msgstr "الغرفة"
 
 #: ../sheets/SISSI.sheet.in.h:48
 #: ../sheets/ciscohub.sheet.in.h:53
-#, fuzzy
 msgid "Router"
-msgstr "المسار"
+msgstr "مسار"
 
 #: ../sheets/SISSI.sheet.in.h:49
-#, fuzzy
 msgid "Safe"
-msgstr "السلامة"
+msgstr "سليم"
 
 #: ../sheets/SISSI.sheet.in.h:50
 #, fuzzy
@@ -9894,9 +9465,8 @@ msgid "Sensor beam"
 msgstr "الشعاع البارز"
 
 #: ../sheets/SISSI.sheet.in.h:52
-#, fuzzy
 msgid "Server"
-msgstr "الخادم"
+msgstr "خادم"
 
 #: ../sheets/SISSI.sheet.in.h:53
 #, fuzzy
@@ -9945,14 +9515,12 @@ msgid "Voltage detector"
 msgstr "معتمد على فولطية"
 
 #: ../sheets/SISSI.sheet.in.h:63
-#, fuzzy
 msgid "Workstation"
-msgstr "محيط العمل"
+msgstr "محطّة عمل"
 
 #: ../sheets/UML.sheet.in.h:1
-#, fuzzy
 msgid "Activity"
-msgstr "النّشاط"
+msgstr "نشاط"
 
 #: ../sheets/UML.sheet.in.h:3
 msgid "Aggregation, one class is part of another"
@@ -10021,7 +9589,6 @@ msgid "Node"
 msgstr "نقطة اتّصال"
 
 #: ../sheets/UML.sheet.in.h:23
-#, fuzzy
 msgid "Note"
 msgstr "ملاحظة"
 
@@ -10039,9 +9606,8 @@ msgid "Small package"
 msgstr "نسخة الحزمة"
 
 #: ../sheets/UML.sheet.in.h:31
-#, fuzzy
 msgid "UML"
-msgstr "XML"
+msgstr "UML"
 
 #: ../sheets/UML.sheet.in.h:32
 #, fuzzy
@@ -10073,9 +9639,8 @@ msgid "BBS"
 msgstr "ب ب س"
 
 #: ../sheets/ciscocomputer.sheet.in.h:2
-#, fuzzy
 msgid "Cisco - Computer"
-msgstr "أفعال الحاسوب"
+msgstr "سيسكو - حاسوب"
 
 #: ../sheets/ciscocomputer.sheet.in.h:3
 #, fuzzy
@@ -10103,59 +9668,49 @@ msgid "Disk subsystem"
 msgstr "فضاء ال_قرص:"
 
 #: ../sheets/ciscocomputer.sheet.in.h:8
-#, fuzzy
 msgid "Diskette"
-msgstr "القرص"
+msgstr "قرص"
 
 #: ../sheets/ciscocomputer.sheet.in.h:9
-#, fuzzy
 msgid "EtherClient"
-msgstr "ايثرنت"
+msgstr "عميل ايثر"
 
 #: ../sheets/ciscocomputer.sheet.in.h:10
-#, fuzzy
 msgid "FC Storage"
-msgstr "مخزن الرّسائل"
+msgstr "مخزن FC"
 
 #: ../sheets/ciscocomputer.sheet.in.h:11
-#, fuzzy
 msgid "File Server"
 msgstr "خادم ملفات"
 
 #: ../sheets/ciscocomputer.sheet.in.h:12
-#, fuzzy
 msgid "Front End Processor"
-msgstr "معالج وسيط للاتصال"
+msgstr "معالج واجهة أمامية"
 
 #: ../sheets/ciscocomputer.sheet.in.h:13
-#, fuzzy
 msgid "HP Mini"
-msgstr "الآمر الصغير"
+msgstr "آش بي ميني"
 
 # 48x48/emblems/emblem-handshake.icon.in.h:1
 #: ../sheets/ciscocomputer.sheet.in.h:14
-#, fuzzy
 msgid "Handheld"
-msgstr "محمول باليد"
+msgstr "جهاز محمول باليد"
 
 #: ../sheets/ciscocomputer.sheet.in.h:15
 msgid "Host"
 msgstr "مضيف"
 
 #: ../sheets/ciscocomputer.sheet.in.h:16
-#, fuzzy
 msgid "IBM Mini (AS400)"
-msgstr "بريمج الآمر الصغير"
+msgstr "آي بي إم ميني (AS400)"
 
 #: ../sheets/ciscocomputer.sheet.in.h:17
-#, fuzzy
 msgid "IBM Tower"
-msgstr "أبراج هانوي"
+msgstr "برج آي بي إم"
 
 #: ../sheets/ciscocomputer.sheet.in.h:18
-#, fuzzy
 msgid "IBM mainframe"
-msgstr "آي بي إم iSeries"
+msgstr "حاسوب كبير آي بي إم"
 
 #: ../sheets/ciscocomputer.sheet.in.h:19
 msgid "IBM mainframe with FEP"
@@ -10166,119 +9721,101 @@ msgid "JBOD"
 msgstr ""
 
 #: ../sheets/ciscocomputer.sheet.in.h:22
-#, fuzzy
 msgid "Macintosh"
-msgstr "الماكنتوش"
+msgstr "ماكنتوش"
 
 #: ../sheets/ciscocomputer.sheet.in.h:23
-#, fuzzy
 msgid "MicroWebserver"
-msgstr "خادم ويب"
+msgstr "خادم ويب صغير"
 
 #: ../sheets/ciscocomputer.sheet.in.h:24
-#, fuzzy
 msgid "Mini VAX"
-msgstr "الآمر الصغير"
+msgstr "ميني فاكس (Mini VAX)"
 
 #: ../sheets/ciscocomputer.sheet.in.h:26
 #: ../sheets/network.sheet.in.h:19
-#, fuzzy
 msgid "Monitor"
-msgstr "مراقب"
+msgstr "شاشة"
 
 #: ../sheets/ciscocomputer.sheet.in.h:27
 msgid "Newton"
 msgstr "نيوتن"
 
 #: ../sheets/ciscocomputer.sheet.in.h:28
-#, fuzzy
 msgid "PC"
-msgstr "كمبيوتر شخصي"
+msgstr "حاسوب"
 
 #: ../sheets/ciscocomputer.sheet.in.h:29
-#, fuzzy
 msgid "PC Adapter Card"
-msgstr "أجهزة بطاقة PCMCIA/PC"
+msgstr "بطاقة محوّلة"
 
 #: ../sheets/ciscocomputer.sheet.in.h:30
-#, fuzzy
 msgid "PC Card"
-msgstr "أجهزة بطاقة PCMCIA/PC"
+msgstr "بطاقة حاسوب"
 
 #: ../sheets/ciscocomputer.sheet.in.h:31
-#, fuzzy
 msgid "PC Router Card"
-msgstr "أجهزة بطاقة PCMCIA/PC"
+msgstr "بطاقة موجّهة"
 
 #: ../sheets/ciscocomputer.sheet.in.h:32
-#, fuzzy
 msgid "PC Software"
-msgstr "برامج حرة"
+msgstr "حاسوب برامج"
 
 #: ../sheets/ciscocomputer.sheet.in.h:33
-#, fuzzy
 msgid "PC Video"
-msgstr "قناة الفيديو"
+msgstr "حاسوب مرئيات"
 
 #: ../sheets/ciscocomputer.sheet.in.h:34
 msgid "PC with Router-Based Software"
 msgstr ""
 
 #: ../sheets/ciscocomputer.sheet.in.h:38
-#, fuzzy
 msgid "SUN workstation"
-msgstr "شائع لمحطّة العمل"
+msgstr "محطة عمل من SUN"
 
 #: ../sheets/ciscocomputer.sheet.in.h:40
-#, fuzzy
 msgid "Server with PC Router"
-msgstr "غير قادر على التواصل مع الخادم '%s': %s"
+msgstr "خادم بموجّه"
 
 #: ../sheets/ciscocomputer.sheet.in.h:41
 msgid "Software-Based Router on File Server"
 msgstr ""
 
 #: ../sheets/ciscocomputer.sheet.in.h:43
-#, fuzzy
 msgid "Supercomputer"
-msgstr "الحاسوب العملاق"
+msgstr "حاسوب عملاق"
 
 #: ../sheets/ciscocomputer.sheet.in.h:44
-#, fuzzy
 msgid "Tablet"
-msgstr "القرص"
+msgstr "حاسوب محمول"
 
 #: ../sheets/ciscocomputer.sheet.in.h:45
-#, fuzzy
 msgid "Tape array"
-msgstr "عوامل الصفيفة"
+msgstr "صف أشرطة"
 
 #: ../sheets/ciscocomputer.sheet.in.h:46
 msgid "Terminal"
 msgstr "طرفية"
 
 #: ../sheets/ciscocomputer.sheet.in.h:47
-#, fuzzy
 msgid "WWW server"
-msgstr "نادل STUN"
+msgstr "خادم ويب"
 
 #: ../sheets/ciscocomputer.sheet.in.h:48
 msgid "Web browser"
 msgstr "متصفح الوب"
 
 #: ../sheets/ciscocomputer.sheet.in.h:49
-#, fuzzy
 msgid "Web cluster"
-msgstr "اسم العنقود: "
+msgstr "شبكة عنقودية"
 
 #: ../sheets/ciscocomputer.sheet.in.h:50
 msgid "Wireless"
 msgstr "لاسلكيّة"
 
 #: ../sheets/ciscocomputer.sheet.in.h:51
-#, fuzzy
 msgid "Workgroup director"
-msgstr "مدير الإدارة"
+msgstr "مدير مجموعة العمل"
 
 #: ../sheets/ciscohub.sheet.in.h:1
 #, fuzzy
@@ -10338,9 +9875,8 @@ msgid "Broadband router"
 msgstr "خادم اشهار المحوّل"
 
 #: ../sheets/ciscohub.sheet.in.h:13
-#, fuzzy
 msgid "CSM-S"
-msgstr "CSS"
+msgstr "CSM-S"
 
 #: ../sheets/ciscohub.sheet.in.h:14
 #, fuzzy
@@ -10348,24 +9884,20 @@ msgid "Carrier Routing System"
 msgstr "خطأ غير معروف بالنظام."
 
 #: ../sheets/ciscohub.sheet.in.h:15
-#, fuzzy
 msgid "Cisco - Switch"
-msgstr "بدّل المستخدم"
+msgstr "سيسكو - مبدّل"
 
 #: ../sheets/ciscohub.sheet.in.h:16
-#, fuzzy
 msgid "Cisco 1000"
-msgstr "1000 حرف"
+msgstr "سيسكو 1000"
 
 #: ../sheets/ciscohub.sheet.in.h:17
-#, fuzzy
 msgid "Cisco Hub"
-msgstr "موزع تبديل"
+msgstr "موزع سيسكو"
 
 #: ../sheets/ciscohub.sheet.in.h:18
-#, fuzzy
 msgid "Content Router"
-msgstr "<b>محتوى الويب</b>"
+msgstr "محوّل محتويات"
 
 #: ../sheets/ciscohub.sheet.in.h:19
 #, fuzzy
@@ -10377,14 +9909,12 @@ msgid "Content Service Switch 1100"
 msgstr ""
 
 #: ../sheets/ciscohub.sheet.in.h:21
-#, fuzzy
 msgid "Content Switch"
-msgstr "بدّل المستخدم"
+msgstr "مبدّل محتويات"
 
 #: ../sheets/ciscohub.sheet.in.h:22
-#, fuzzy
 msgid "Data Center Switch"
-msgstr "بدّل إلى <b>%(name)s</b>"
+msgstr "مبدّل مركز بيانات"
 
 #: ../sheets/ciscohub.sheet.in.h:23
 msgid "Data Center Switch Reversed"
@@ -10408,9 +9938,8 @@ msgid "Edge Label Switch Router with NetFlow"
 msgstr ""
 
 #: ../sheets/ciscohub.sheet.in.h:28
-#, fuzzy
 msgid "Generic Processor"
-msgstr "معالج الأحداث"
+msgstr "معالج عام"
 
 #: ../sheets/ciscohub.sheet.in.h:30
 #, fuzzy
@@ -10696,59 +10225,48 @@ msgid "House blue"
 msgstr "بلو كانيون"
 
 #: ../sheets/ciscomisc.sheet.in.h:18
-#, fuzzy
 msgid "Key"
-msgstr "المفتاح"
+msgstr "مفتاح"
 
 #: ../sheets/ciscomisc.sheet.in.h:20
-#, fuzzy
 msgid "Lock and Key"
-msgstr "<b>أسماء وتوقيعات المفاتيح</b>"
+msgstr "قفل و مفتاح"
 
 #: ../sheets/ciscomisc.sheet.in.h:21
-#, fuzzy
 msgid "MDU"
-msgstr "MNU"
+msgstr "MDU"
 
 #: ../sheets/ciscomisc.sheet.in.h:22
-#, fuzzy
 msgid "Mac Woman"
-msgstr "غورموخي (Mac_Gurmukhi)"
+msgstr "امرأة ماك"
 
 #: ../sheets/ciscomisc.sheet.in.h:23
-#, fuzzy
 msgid "Man"
-msgstr "الرجل"
+msgstr "رجل"
 
 #: ../sheets/ciscomisc.sheet.in.h:24
-#, fuzzy
 msgid "Man blue"
-msgstr "بلو كانيون"
+msgstr "رجل أزرق"
 
 #: ../sheets/ciscomisc.sheet.in.h:25
-#, fuzzy
 msgid "Man gold"
-msgstr "بني ذهبي"
+msgstr "رجل ذهبي"
 
 #: ../sheets/ciscomisc.sheet.in.h:26
-#, fuzzy
 msgid "Man red"
-msgstr "رد بلف"
+msgstr "رجل أحمر"
 
 #: ../sheets/ciscomisc.sheet.in.h:27
-#, fuzzy
 msgid "Medium Building"
-msgstr "بناء المستند:"
+msgstr "مبنى متوسّط"
 
 #: ../sheets/ciscomisc.sheet.in.h:28
-#, fuzzy
 msgid "Medium Building blue"
-msgstr "تعذر بناء القوائم: %s"
+msgstr "مبنى متوسّط أزرق"
 
 #: ../sheets/ciscomisc.sheet.in.h:29
-#, fuzzy
 msgid "Medium Building subdued"
-msgstr "تعذر بناء القوائم: %s"
+msgstr "مبنى متوسّط خاضع"
 
 #: ../sheets/ciscomisc.sheet.in.h:31
 #, fuzzy
@@ -10850,39 +10368,32 @@ msgid "Video Camera right"
 msgstr "أمر آلة تصوير الفيديو"
 
 #: ../sheets/ciscomisc.sheet.in.h:52
-#, fuzzy
 msgid "Woman"
-msgstr "الإمرأة"
+msgstr "إمرأة"
 
 #: ../sheets/ciscomisc.sheet.in.h:53
-#, fuzzy
 msgid "Woman blue"
-msgstr "بلو كانيون"
+msgstr "إمرأة أزرق"
 
 #: ../sheets/ciscomisc.sheet.in.h:54
-#, fuzzy
 msgid "Woman gold"
-msgstr "بني ذهبي"
+msgstr "إمرأة ذهبي"
 
 #: ../sheets/ciscomisc.sheet.in.h:55
-#, fuzzy
 msgid "Woman red"
-msgstr "رد بلف"
+msgstr "إمرأة أحمر"
 
 #: ../sheets/cisconetwork.sheet.in.h:1
-#, fuzzy
 msgid "10700"
-msgstr "100"
+msgstr "10700"
 
 #: ../sheets/cisconetwork.sheet.in.h:2
-#, fuzzy
 msgid "15200"
-msgstr "200"
+msgstr "15200"
 
 #: ../sheets/cisconetwork.sheet.in.h:3
-#, fuzzy
 msgid "15800"
-msgstr "100"
+msgstr "15800"
 
 #: ../sheets/cisconetwork.sheet.in.h:4
 msgid "3174 (desktop) cluster controller"
@@ -10893,9 +10404,8 @@ msgid "3X74 (floor) cluster controller"
 msgstr ""
 
 #: ../sheets/cisconetwork.sheet.in.h:6
-#, fuzzy
 msgid "Access Server"
-msgstr "نادل STUN"
+msgstr "خادم نفاذ"
 
 #: ../sheets/cisconetwork.sheet.in.h:7
 #, fuzzy
@@ -10922,9 +10432,8 @@ msgid "Breakout box"
 msgstr "_صندوق البريد:"
 
 #: ../sheets/cisconetwork.sheet.in.h:12
-#, fuzzy
 msgid "Bridge"
-msgstr "الكوبري"
+msgstr "جسر"
 
 #: ../sheets/cisconetwork.sheet.in.h:13
 #, fuzzy
@@ -10962,28 +10471,24 @@ msgid "Channelized Pipe"
 msgstr "أنبوب مكسور"
 
 #: ../sheets/cisconetwork.sheet.in.h:20
-#, fuzzy
 msgid "Cisco - Network"
-msgstr "واجهة الشبكة"
+msgstr "سيسكو - شبكة"
 
 #: ../sheets/cisconetwork.sheet.in.h:21
 msgid "Cloud"
 msgstr "سحابة"
 
 #: ../sheets/cisconetwork.sheet.in.h:22
-#, fuzzy
 msgid "Cloud Dark"
-msgstr "حركة الغامق"
+msgstr "سحابة غامق"
 
 #: ../sheets/cisconetwork.sheet.in.h:23
-#, fuzzy
 msgid "Cloud Gold"
-msgstr "بني ذهبي"
+msgstr "سحابة ذهبي"
 
 #: ../sheets/cisconetwork.sheet.in.h:24
-#, fuzzy
 msgid "Cloud White"
-msgstr "وايت بلينز"
+msgstr "سحابة أبيض"
 
 #: ../sheets/cisconetwork.sheet.in.h:25
 #, fuzzy
@@ -11000,9 +10505,8 @@ msgid "Content Transformation Engine (CTE)"
 msgstr ""
 
 #: ../sheets/cisconetwork.sheet.in.h:28
-#, fuzzy
 msgid "DSLAM"
-msgstr "التأخير"
+msgstr "DSLAM"
 
 #: ../sheets/cisconetwork.sheet.in.h:29
 #, fuzzy
@@ -11010,9 +10514,8 @@ msgid "DWDM Filter"
 msgstr "مرشّح بحث"
 
 #: ../sheets/cisconetwork.sheet.in.h:30
-#, fuzzy
 msgid "Detector"
-msgstr "الكاشف"
+msgstr "كاشف"
 
 #: ../sheets/cisconetwork.sheet.in.h:31
 #, fuzzy
@@ -11266,14 +10769,12 @@ msgid "System controller"
 msgstr "مُتحكّم SCSI"
 
 #: ../sheets/cisconetwork.sheet.in.h:83
-#, fuzzy
 msgid "TV"
-msgstr "التلفزة"
+msgstr "تلفزة"
 
 #: ../sheets/cisconetwork.sheet.in.h:84
-#, fuzzy
 msgid "Terminal Server"
-msgstr "عميل خادم طرفي"
+msgstr "خادم طرفي"
 
 #: ../sheets/cisconetwork.sheet.in.h:85
 #, fuzzy
@@ -11363,15 +10864,15 @@ msgstr "عميل شبكة كابل Telstra Bigpond"
 
 #: ../sheets/ciscotelephony.sheet.in.h:1
 msgid "6701"
-msgstr ""
+msgstr "6701"
 
 #: ../sheets/ciscotelephony.sheet.in.h:2
 msgid "6705"
-msgstr ""
+msgstr "6705"
 
 #: ../sheets/ciscotelephony.sheet.in.h:3
 msgid "6732"
-msgstr ""
+msgstr "6732"
 
 #: ../sheets/ciscotelephony.sheet.in.h:4
 #, fuzzy
@@ -11384,7 +10885,7 @@ msgstr "ATA"
 
 #: ../sheets/ciscotelephony.sheet.in.h:6
 msgid "BTS 10200"
-msgstr ""
+msgstr "BTS 10200"
 
 #: ../sheets/ciscotelephony.sheet.in.h:7
 #, fuzzy
@@ -11638,9 +11139,8 @@ msgid "Backflow preventer"
 msgstr "النهاية الخلفية للطابعة"
 
 #: ../sheets/civil.sheet.in.h:3
-#, fuzzy
 msgid "Basin"
-msgstr "الحوض"
+msgstr "حوض"
 
 #: ../sheets/civil.sheet.in.h:4
 #, fuzzy
@@ -11707,9 +11207,8 @@ msgid "Horizontally aligned valve"
 msgstr "عدد الصفحات أفقيا"
 
 #: ../sheets/civil.sheet.in.h:17
-#, fuzzy
 msgid "Motor"
-msgstr "المحرّك"
+msgstr "محرّك"
 
 #: ../sheets/civil.sheet.in.h:18
 #, fuzzy
@@ -11727,9 +11226,8 @@ msgid "Rotor"
 msgstr "الدوّار"
 
 #: ../sheets/civil.sheet.in.h:21
-#, fuzzy
 msgid "Soil"
-msgstr "التربة"
+msgstr "تربة"
 
 #: ../sheets/civil.sheet.in.h:22
 #, fuzzy
@@ -11767,39 +11265,38 @@ msgid "Vertically aligned valve"
 msgstr "عدد الصفحات عموديا"
 
 #: ../sheets/civil.sheet.in.h:29
-#, fuzzy
 msgid "Water level"
-msgstr "مستوى واحد"
+msgstr "مستوى الماء"
 
 #: ../sheets/jigsaw.sheet.in.h:1
 #, fuzzy
 msgid "Jigsaw"
-msgstr "منشار التخريم"
+msgstr "قطعة"
 
 #: ../sheets/jigsaw.sheet.in.h:2
 #, fuzzy
 msgid "Jigsaw - part_iiii"
-msgstr "ليس جزءا من الشهادة"
+msgstr " - قطعة_iiii"
 
 #: ../sheets/jigsaw.sheet.in.h:3
 #, fuzzy
 msgid "Jigsaw - part_iiio"
-msgstr "ليس جزءا من الشهادة"
+msgstr " - قطعة_iiii"
 
 #: ../sheets/jigsaw.sheet.in.h:4
 #, fuzzy
 msgid "Jigsaw - part_iioi"
-msgstr "ليس جزءا من الشهادة"
+msgstr " - قطعة_iiii"
 
 #: ../sheets/jigsaw.sheet.in.h:5
 #, fuzzy
 msgid "Jigsaw - part_iioo"
-msgstr "ليس جزءا من الشهادة"
+msgstr " - قطعة_iiii"
 
 #: ../sheets/jigsaw.sheet.in.h:6
 #, fuzzy
 msgid "Jigsaw - part_ioii"
-msgstr "ليس جزءا من الشهادة"
+msgstr " - قطعة_iiii"
 
 #: ../sheets/jigsaw.sheet.in.h:7
 #, fuzzy
@@ -12049,24 +11546,20 @@ msgid "Stable storage device"
 msgstr "جهاز دخل الصوت"
 
 #: ../sheets/sybase.sheet.in.h:5
-#, fuzzy
 msgid "Sybase"
-msgstr "سيراكوس"
+msgstr "سيبايس"
 
 #: ../sheets/sybase.sheet.in.h:6
-#, fuzzy
 msgid "Sybase client application"
-msgstr "اخرج من تطبيق عميل الGGZ."
+msgstr "تطبيق عميل سيبايس"
 
 #: ../sheets/sybase.sheet.in.h:7
-#, fuzzy
 msgid "Sybase dataserver"
-msgstr "خادم قاعدة بيانات"
+msgstr "خادم قاعدة بيانات سيبايس"
 
 #: ../sheets/sybase.sheet.in.h:8
-#, fuzzy
 msgid "Sybase replication server"
-msgstr "مسح نادل STUN"
+msgstr "خادم مضاعفة سيبايس"
 
 #, fuzzy
 #~ msgid "Portable Network Graphics"
