@@ -1,3 +1,16 @@
+2008-01-10  Hans Breuer  <hans@breuer.org>
+
+	* app/create_object.c(create_object_button_release) : don't crash on
+	tool->obj being NULL, just do nothing than.
+
+	* app/undo.c(310) : error C4033: 'undo_remove_to' must return a value
+	  app/undo.c(312) : error C4047: '!=' : '
+	void (__cdecl *)(struct _Change *,struct _Diagram *)' 
+	differs in levels of indirection from 
+	'void (__cdecl ** )(struct _Change *,struct _Diagram *)'
+
+	* lib/libdia.def : reflect recent libdia API changes
+
 2007-12-11  Lars Clausen  <lars@raeder.dk>
 
 	* plug-ins/shape/shape-export.c (export_shape): Fix crash of

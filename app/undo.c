@@ -307,8 +307,9 @@ Change*
 undo_remove_to(UndoStack *stack, UndoApplyFunc *type)
 {
   Change *current_change = stack->current_change;
-  if (current_change == NULL) return;
-  while (current_change && current_change->apply != type) {
+  if (current_change == NULL) 
+    return NULL;
+  while (current_change && current_change->apply != *type) {
     current_change = current_change->prev;
   }
   if (current_change != NULL) {

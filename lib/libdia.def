@@ -7,7 +7,6 @@ EXPORTS
  pretty_formated_xml
 
 ; exported functions
- active_focus
  apply_textattr_properties
  apply_textstr_properties
  arrow_bbox
@@ -383,8 +382,9 @@ EXPORTS
  
  focus_get_object
  focus_get_first_on_object
- focus_previous
- focus_next
+ focus_previous_on_diagram
+ focus_next_on_diagram
+ 
 
  get_default_paper
  get_paper_bmargin
@@ -403,6 +403,7 @@ EXPORTS
  group_objects
  group_type
 
+ get_active_focus
  give_focus
 ; give_focus_to_object
  
@@ -631,10 +632,10 @@ EXPORTS
  rectangle_union
  rectangle_union
 
- remove_focus
- remove_focus_object
+ remove_focus_on_diagram
+ remove_focus_object 
 
- reset_foci
+ reset_foci_on_diagram
 
  rotate_matrix
  nearest_pow

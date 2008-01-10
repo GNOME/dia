@@ -125,6 +125,10 @@ create_object_button_release(CreateObjectTool *tool, GdkEventButton *event,
 
   GList *parent_candidates;
 
+  g_return_if_fail (obj != NULL);
+  if (!obj) /* not sure if this isn't enough */
+    return; /* could be a legal invariant */
+
   if (tool->moving) {
     gdk_pointer_ungrab (event->time);
 
