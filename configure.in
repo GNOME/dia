@@ -497,6 +497,7 @@ objects/AADL/Makefile
 objects/bondgraph/Makefile
 objects/chronogram/Makefile
 objects/custom/Makefile
+objects/custom_lines/Makefile
 objects/ER/Makefile
 objects/flowchart/Makefile
 objects/FS/Makefile

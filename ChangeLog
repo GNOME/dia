@@ -1,3 +1,19 @@
+2008-01-17  Lars Clausen  <lars@raeder.dk>
+
+	* configure.in: 
+	* objects/custom_lines/*:
+	* objects/standard/zigzagline.[ch]:
+	* objects/standard/polyline.[ch]:
+	* objects/standard/bezier.[ch]: Patch from Marcel Toele
+	<dpy.dia@gmail.com>: Custom line objects -- sorta like shapes, but
+	for lines.  Limited to a way to preset attributes on the standard
+	lines.
+	
+	* lib/widgets.[ch]: 
+	* lib/geometry.c (units): 
+	* lib/geometry.h: 
+	* lib/diatypes.h: Moved units array to be generally accessible.
+
 2008-01-10  Hans Breuer  <hans@breuer.org>
 
 	* app/create_object.c(create_object_button_release) : don't crash on

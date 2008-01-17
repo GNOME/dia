@@ -1,0 +1,15 @@
+## Process this file with automake to produce Makefile.in
+
+pkglib_LTLIBRARIES = 	libcustom_lines_objects.la
+libcustom_lines_objects_la_SOURCES = \
+			custom_lines.c  \
+			custom_linetypes.c  \
+			line_info.c
+
+libcustom_lines_objects_la_LDFLAGS = -export-dynamic -module -avoid-version
+libcustom_lines_objects_la_LIBADD = ../standard/libstandard_objects.la
+
+INCLUDES = -I$(top_srcdir)/intl -I$(srcdir)/../../lib $(GTK_CFLAGS) $(GNOME_CFLAGS) $(PANGOFT2_CFLAGS) $(UNICODE_CFLAGS)
+
+EXTRA_DIST = \
+	pixmaps/default.xpm 
