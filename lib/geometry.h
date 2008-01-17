@@ -66,6 +66,17 @@
 
 G_BEGIN_DECLS
 
+/** Definitions of miscellaneous units.  Note that all sizes used
+ * internally are in cm, units should only be used for display purposes.
+ */
+struct _DiaUnitDef {
+  char* name;
+  char* unit;
+  float factor;
+  int digits; /** Number of digits after the decimal separator */
+};
+extern const DiaUnitDef units[];
+
 /*
   Coordinate system used:
    +---> x
