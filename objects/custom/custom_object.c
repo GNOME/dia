@@ -4,6 +4,9 @@
  * Custom Objects -- objects defined in XML rather than C.
  * Copyright (C) 1999 James Henstridge.
  *
+ * Non-uniform scaling/subshape support by Marcel Toele.
+ * Modifications (C) 2007 Kern Automatiseringsdiensten BV.
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
@@ -50,10 +53,6 @@
 
 #include "pixmaps/custom.xpm"
 
-#define DEFAULT_WIDTH 2.0
-#define DEFAULT_HEIGHT 2.0
-#define DEFAULT_BORDER 0.25
-
 /* used when resizing to decide which side of the shape to expand/shrink */
 typedef enum {
   ANCHOR_MIDDLE,
@@ -71,6 +70,17 @@ struct _Custom {
   real xscale, yscale;
   real xoffs,  yoffs;
 
+  /* The subscale variables
+   * The old_subscale is used for interactive 
+   * (shift-pressed) scaling
+   */
+  real subscale;
+  real old_subscale;
+  /* this is sort of a hack, passing a temporary value
+     using this field, but otherwise 
+     subshapes are going to need major code refactoring: */
+  GraphicElementSubShape* current_subshape;
+  
   ConnectionPoint *connections;
   real border_width;
   Color border_color;
@@ -111,6 +121,14 @@ static ObjectChange* custom_move_handle(Custom *custom, Handle *handle,
 					ModifierKeys modifiers);
 static ObjectChange* custom_move(Custom *custom, Point *to);
 static void custom_draw(Custom *custom, DiaRenderer *renderer);
+static void custom_draw_displaylist(GList *display_list, Custom *custom,
+				DiaRenderer *renderer, GArray *arr, GArray *barr, real* cur_line,
+				real* cur_dash, LineCaps* cur_caps, LineJoin* cur_join, 
+				LineStyle* cur_style);
+static void custom_draw_element(GraphicElement* el, Custom *custom,
+				DiaRenderer *renderer, GArray *arr, GArray *barr, real* cur_line,
+				real* cur_dash, LineCaps* cur_caps, LineJoin* cur_join, 
+				LineStyle* cur_style, Color* fg, Color* bg);
 static void custom_update_data(Custom *custom, AnchorShape h, AnchorShape v);
 static void custom_reposition_text(Custom *custom, GraphicElementText *text);
 static DiaObject *custom_create(Point *startpoint,
@@ -178,6 +196,9 @@ static PropDescription custom_props[] = {
     N_("Flip horizontal"), NULL, NULL },
   { "flip_vertical", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL,
     N_("Flip vertical"), NULL, NULL },
+  
+  { "subscale", PROP_TYPE_REAL, PROP_FLAG_OPTIONAL,
+    N_("Scale of the subshapes"), NULL, NULL },
   PROP_DESC_END
 };
 
@@ -203,6 +224,9 @@ static PropDescription custom_props_text[] = {
     N_("Flip horizontal"), NULL, NULL },
   { "flip_vertical", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL,
     N_("Flip vertical"), NULL, NULL },
+  
+  { "subscale", PROP_TYPE_REAL, PROP_FLAG_OPTIONAL,
+    N_("Scale of the subshapes"), NULL, NULL },
   PROP_DESC_END
 };
 
@@ -216,6 +240,7 @@ static PropOffset custom_offsets[] = {
     offsetof(Custom, line_style), offsetof(Custom, dashlength) },
   { "flip_horizontal", PROP_TYPE_BOOL, offsetof(Custom, flip_h) },
   { "flip_vertical", PROP_TYPE_BOOL, offsetof(Custom, flip_v) },
+  { "subscale", PROP_TYPE_REAL, offsetof(Custom, subscale) },
   { NULL, 0, 0 }
 };
 
@@ -229,6 +254,7 @@ static PropOffset custom_offsets_text[] = {
     offsetof(Custom, line_style), offsetof(Custom, dashlength) },
   { "flip_horizontal", PROP_TYPE_BOOL, offsetof(Custom, flip_h) },
   { "flip_vertical", PROP_TYPE_BOOL, offsetof(Custom, flip_v) },
+  { "subscale", PROP_TYPE_REAL, offsetof(Custom, subscale) },
   {"text",PROP_TYPE_TEXT,offsetof(Custom,text)},
   {"text_font",PROP_TYPE_FONT,offsetof(Custom,attrs.font)},
   {PROP_STDNAME_TEXT_HEIGHT, PROP_STDTYPE_TEXT_HEIGHT,offsetof(Custom,attrs.height)},
@@ -385,12 +411,105 @@ init_default_values(void) {
   }
 }
 
+static void
+transform_subshape_coord(Custom *custom, GraphicElementSubShape* subshape,
+                         const Point *p1, Point *out)
+{
+  if (subshape->default_scale == 0.0) {
+    ShapeInfo *info = custom->info;
+    real svg_width = info->shape_bounds.right - info->shape_bounds.left;
+    real svg_height = info->shape_bounds.bottom - info->shape_bounds.top;
+    
+    subshape->default_scale = info->default_width / svg_width /
+                                   units[prefs_get_length_unit()].factor;
+  }
+  
+  real scale = custom->subscale * subshape->default_scale;
+  	      
+  coord cx = 0.0;
+  coord cy = 0.0;
+  
+  real width = 0.0;
+  real height = 0.0;
+  
+  real xoffs = custom->xoffs;
+  real yoffs = custom->yoffs;
+  
+  /* step 1: calculate boundaries */
+  Rectangle orig_bounds = custom->info->shape_bounds;
+  Rectangle new_bounds;
+  
+  /* step 2: undo unkown/funky number magic when flip_h or flip_v is set */
+  if(custom->flip_h) custom->xscale = -custom->xscale;
+  if(custom->flip_v) custom->yscale = -custom->yscale;
+  
+  new_bounds.top = orig_bounds.top * custom->yscale;
+  new_bounds.bottom = orig_bounds.bottom * custom->yscale;
+  new_bounds.left = orig_bounds.left * custom->xscale;
+  new_bounds.right = orig_bounds.right * custom->xscale;
+
+  width = new_bounds.right - new_bounds.left;
+  height = new_bounds.bottom - new_bounds.top;
+
+  /* step #3: calculate the new center */
+  if (subshape->h_anchor_method == OFFSET_METHOD_PROPORTIONAL) {
+    /* handle proportional offset in x direction */
+    cx = subshape->center.x * custom->xscale;
+  } else {
+    /* handle fixed offset in x direction */
+    if (subshape->h_anchor_method < 0) {
+      cx = new_bounds.right - ((orig_bounds.right-subshape->center.x) * scale);
+    } else {
+      cx = new_bounds.left + (subshape->center.x * scale);
+    }
+  }
+    
+  if (subshape->v_anchor_method == OFFSET_METHOD_PROPORTIONAL) {
+    /* handle proportional offset in y direction */
+    cy = subshape->center.y * custom->yscale;
+  } else {
+    /* handle fixed offset in y direction */
+    if (subshape->v_anchor_method < 0) {
+      cy = new_bounds.bottom - ((orig_bounds.bottom-subshape->center.y) * scale);
+    } else {
+      cy = new_bounds.top + (subshape->center.y * scale);
+   }
+  }
+  
+  /* step #4: calculate the new coordinate relative to the calculated center */
+  out->x = cx - ((subshape->center.x - p1->x) * scale);
+  out->y = cy - ((subshape->center.y - p1->y) * scale);
+  
+  /* step #5: handle flip_h/flip_v */
+  if (custom->flip_h) {
+    out->x = -out->x + width;
+    cx = -cx + width;
+    
+    xoffs -= (new_bounds.right - new_bounds.left);
+    custom->xscale = -custom->xscale; /* undo the damage we've done above */
+  }
+  if (custom->flip_v) {
+    out->y = -out->y + height;
+    cy = -cy + height;
+  
+    yoffs -= (new_bounds.bottom - new_bounds.top);
+    custom->yscale = -custom->yscale; /* undo the damage we've done above */
+  }
+  
+  /* step #6: finally, translate the coordinate to the correct offset */
+  out->x += xoffs;
+  out->y += yoffs;
+}
 
 static void
 transform_coord(Custom *custom, const Point *p1, Point *out)
 {
-  out->x = p1->x * custom->xscale + custom->xoffs;
-  out->y = p1->y * custom->yscale + custom->yoffs;
+  if (custom->current_subshape != NULL) {
+    transform_subshape_coord(custom, custom->current_subshape, p1, out);
+  } else {
+    out->x = p1->x * custom->xscale + custom->xoffs;
+    out->y = p1->y * custom->yscale + custom->yoffs;
+  }
 }
 
 static void
@@ -558,6 +677,58 @@ custom_select(Custom *custom, Point *clicked_point,
   element_update_handles(&custom->element);
 }
 
+static void
+custom_adjust_scale(Custom *custom, Handle *handle,
+		   Point *to, ConnectionPoint *cp,
+		   HandleMoveReason reason, ModifierKeys modifiers)
+{
+#define IS_MODIFIER_PRESSED(m) ((modifiers&(m)) != 0)
+  
+  static int uniform_scale = FALSE;
+  static Point orig_pos;
+
+  float delta_max = 0.0f;
+
+  switch (reason) {
+  case HANDLE_MOVE_USER:
+    if (!uniform_scale) {
+      orig_pos.x = to->x;
+      orig_pos.y = to->y;
+    }
+    
+    if (!uniform_scale && IS_MODIFIER_PRESSED(MODIFIER_SHIFT)) {
+      custom->old_subscale = MAX(custom->subscale, 0.0);
+    }
+    
+    uniform_scale = IS_MODIFIER_PRESSED(MODIFIER_SHIFT);
+
+    delta_max = (to->x - orig_pos.x);
+    
+#ifdef USE_DELTA_MAX
+    /* This may yield some awkard effects for new-comers.
+     * Maybe we should make it a configurable option.
+     */
+    if (ABS(to->y - orig_pos.y) > ABS(delta_max))
+    	delta_max = (to->y - orig_pos.y);
+#endif
+    
+    if (uniform_scale)
+      custom->subscale =
+        custom->old_subscale + (SUBSCALE_ACCELERATION * delta_max);
+
+    if( custom->subscale < SUBSCALE_MININUM_SCALE )
+      custom->subscale = SUBSCALE_MININUM_SCALE;
+
+#undef IS_MODIFIER_PRESSED
+    break;
+  case HANDLE_MOVE_USER_FINAL:
+    uniform_scale = FALSE;
+    break;
+  default:
+    break;
+  } 
+}
+
 static ObjectChange*
 custom_move_handle(Custom *custom, Handle *handle,
 		   Point *to, ConnectionPoint *cp,
@@ -569,6 +740,12 @@ custom_move_handle(Custom *custom, Handle *handle,
   assert(handle!=NULL);
   assert(to!=NULL);
 
+  switch (reason) {
+  case HANDLE_MOVE_USER:
+  case HANDLE_MOVE_USER_FINAL:
+    custom_adjust_scale(custom, handle, to, cp, reason, modifiers);
+  }
+  
   element_move_handle(&custom->element, handle->id, to, cp, reason, modifiers);
 
   switch (handle->id) {
@@ -634,11 +811,6 @@ custom_draw(Custom *custom, DiaRenderer *renderer)
 {
   DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   static GArray *arr = NULL, *barr = NULL;
-  Point p1, p2;
-  real coord;
-  int i;
-  GList *tmp;
-  Element *elem;
   real cur_line = 1.0, cur_dash = 1.0;
   LineCaps cur_caps = LINECAPS_BUTT;
   LineJoin cur_join = LINEJOIN_MITER;
@@ -652,8 +824,6 @@ custom_draw(Custom *custom, DiaRenderer *renderer)
   if (!barr)
     barr = g_array_new(FALSE, FALSE, sizeof(BezPoint));
 
-  elem = &custom->element;
-
   renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
   renderer_ops->set_linewidth(renderer, custom->border_width);
   cur_line = custom->border_width;
@@ -662,158 +832,13 @@ custom_draw(Custom *custom, DiaRenderer *renderer)
   renderer_ops->set_linecaps(renderer, cur_caps);
   renderer_ops->set_linejoin(renderer, cur_join);
 
-  for (tmp = custom->info->display_list; tmp; tmp = tmp->next) {
-    GraphicElement *el = tmp->data;
-    Color fg, bg;
-
-    if (el->any.s.line_width != cur_line) {
-      cur_line = el->any.s.line_width;
-      renderer_ops->set_linewidth(renderer,
-				  custom->border_width*cur_line);
-    }
-    if ((el->any.s.linecap == DIA_SVG_LINECAPS_DEFAULT && cur_caps != LINECAPS_BUTT) ||
-	el->any.s.linecap != cur_caps) {
-      cur_caps = (el->any.s.linecap!=DIA_SVG_LINECAPS_DEFAULT) ?
-	el->any.s.linecap : LINECAPS_BUTT;
-      renderer_ops->set_linecaps(renderer, cur_caps);
-    }
-    if ((el->any.s.linejoin==DIA_SVG_LINEJOIN_DEFAULT && cur_join!=LINEJOIN_MITER) ||
-	el->any.s.linejoin != cur_join) {
-      cur_join = (el->any.s.linejoin!=DIA_SVG_LINEJOIN_DEFAULT) ?
-	el->any.s.linejoin : LINEJOIN_MITER;
-      renderer_ops->set_linejoin(renderer, cur_join);
-    }
-    if ((el->any.s.linestyle == DIA_SVG_LINESTYLE_DEFAULT &&
-	 cur_style != custom->line_style) ||
-	el->any.s.linestyle != cur_style) {
-      cur_style = (el->any.s.linestyle!=DIA_SVG_LINESTYLE_DEFAULT) ?
-	el->any.s.linestyle : custom->line_style;
-      renderer_ops->set_linestyle(renderer, cur_style);
-    }
-    if (el->any.s.dashlength != cur_dash) {
-      cur_dash = el->any.s.dashlength;
-      renderer_ops->set_dashlength(renderer,
-				   custom->dashlength*cur_dash);
-    }
-      
-    cur_line = el->any.s.line_width;
-    get_colour(custom, &fg, el->any.s.stroke);
-    get_colour(custom, &bg, el->any.s.fill);
-    switch (el->type) {
-    case GE_LINE:
-      transform_coord(custom, &el->line.p1, &p1);
-      transform_coord(custom, &el->line.p2, &p2);
-      if (el->any.s.stroke != DIA_SVG_COLOUR_NONE)
-	renderer_ops->draw_line(renderer, &p1, &p2, &fg);
-      break;
-    case GE_POLYLINE:
-      g_array_set_size(arr, el->polyline.npoints);
-      for (i = 0; i < el->polyline.npoints; i++)
-	transform_coord(custom, &el->polyline.points[i],
-			&g_array_index(arr, Point, i));
-      if (el->any.s.stroke != DIA_SVG_COLOUR_NONE)
-	renderer_ops->draw_polyline(renderer,
-				    (Point *)arr->data, el->polyline.npoints,
-				    &fg);
-      break;
-    case GE_POLYGON:
-      g_array_set_size(arr, el->polygon.npoints);
-      for (i = 0; i < el->polygon.npoints; i++)
-	transform_coord(custom, &el->polygon.points[i],
-			&g_array_index(arr, Point, i));
-      if (custom->show_background && el->any.s.fill != DIA_SVG_COLOUR_NONE) 
-	renderer_ops->fill_polygon(renderer,
-				   (Point *)arr->data, el->polygon.npoints,
-				   &bg);
-      if (el->any.s.stroke != DIA_SVG_COLOUR_NONE)
-	renderer_ops->draw_polygon(renderer,
-				   (Point *)arr->data, el->polygon.npoints,
-				   &fg);
-      break;
-    case GE_RECT:
-      transform_coord(custom, &el->rect.corner1, &p1);
-      transform_coord(custom, &el->rect.corner2, &p2);
-      if (p1.x > p2.x) {
-	coord = p1.x;
-	p1.x = p2.x;
-	p2.x = coord;
-      }
-      if (p1.y > p2.y) {
-	coord = p1.y;
-	p1.y = p2.y;
-	p2.y = coord;
-      }
-      if (custom->show_background && el->any.s.fill != DIA_SVG_COLOUR_NONE)
-	renderer_ops->fill_rect(renderer, &p1, &p2, &bg);
-      if (el->any.s.stroke != DIA_SVG_COLOUR_NONE)
-	renderer_ops->draw_rect(renderer, &p1, &p2, &fg);
-      break;
-    case GE_TEXT:
-      custom_reposition_text(custom, &el->text);
-      text_draw(el->text.object, renderer);
-      text_set_position(el->text.object, &el->text.anchor);
-      break;
-    case GE_ELLIPSE:
-      transform_coord(custom, &el->ellipse.center, &p1);
-      if (custom->show_background && el->any.s.fill != DIA_SVG_COLOUR_NONE)
-	renderer_ops->fill_ellipse(renderer, &p1,
-				   el->ellipse.width * fabs(custom->xscale),
-				   el->ellipse.height * fabs(custom->yscale),
-				   &bg);
-      if (el->any.s.stroke != DIA_SVG_COLOUR_NONE)
-	renderer_ops->draw_ellipse(renderer, &p1,
-				   el->ellipse.width * fabs(custom->xscale),
-				   el->ellipse.height * fabs(custom->yscale),
-				   &fg);
-      break;
-    case GE_IMAGE:
-      transform_coord(custom, &el->image.topleft, &p1);
-      renderer_ops->draw_image(renderer, &p1,
-			       el->image.width * fabs(custom->xscale),
-			       el->image.height * fabs(custom->yscale),
-			       el->image.image);
-      break;
-    case GE_PATH:
-      g_array_set_size(barr, el->path.npoints);
-      for (i = 0; i < el->path.npoints; i++)
-	switch (g_array_index(barr,BezPoint,i).type=el->path.points[i].type) {
-	case BEZ_CURVE_TO:
-	  transform_coord(custom, &el->path.points[i].p3,
-			  &g_array_index(barr, BezPoint, i).p3);
-	  transform_coord(custom, &el->path.points[i].p2,
-			  &g_array_index(barr, BezPoint, i).p2);
-	case BEZ_MOVE_TO:
-	case BEZ_LINE_TO:
-	  transform_coord(custom, &el->path.points[i].p1,
-			  &g_array_index(barr, BezPoint, i).p1);
-	}
-      if (el->any.s.stroke != DIA_SVG_COLOUR_NONE)
-	renderer_ops->draw_bezier(renderer, (BezPoint *)barr->data,
-				  el->path.npoints, &fg);
-      break;
-    case GE_SHAPE:
-      g_array_set_size(barr, el->path.npoints);
-      for (i = 0; i < el->path.npoints; i++)
-	switch (g_array_index(barr,BezPoint,i).type=el->path.points[i].type) {
-	case BEZ_CURVE_TO:
-	  transform_coord(custom, &el->path.points[i].p3,
-			  &g_array_index(barr, BezPoint, i).p3);
-	  transform_coord(custom, &el->path.points[i].p2,
-			  &g_array_index(barr, BezPoint, i).p2);
-	case BEZ_MOVE_TO:
-	case BEZ_LINE_TO:
-	  transform_coord(custom, &el->path.points[i].p1,
-			  &g_array_index(barr, BezPoint, i).p1);
-	}
-      if (custom->show_background && el->any.s.fill != DIA_SVG_COLOUR_NONE)
-	renderer_ops->fill_bezier(renderer, (BezPoint *)barr->data,
-				  el->path.npoints, &bg);
-      if (el->any.s.stroke != DIA_SVG_COLOUR_NONE)
-	renderer_ops->draw_bezier(renderer, (BezPoint *)barr->data,
-				  el->path.npoints, &fg);
-      break;
-    }
-  }
+  /* 
+   * Because we do not know if any of these values are reused in the loop, we pass
+   * them all by reference.
+   * If anyone does know this, please correct/simplify.
+   */
+  custom_draw_displaylist(custom->info->display_list, custom, renderer, arr, barr,
+                          &cur_line, &cur_dash, &cur_caps, &cur_join, &cur_style);
 
   if (custom->info->has_text) {
     /*Rectangle tb;
@@ -828,6 +853,279 @@ custom_draw(Custom *custom, DiaRenderer *renderer)
   }
 }
 
+static void
+custom_draw_displaylist(GList *display_list, Custom *custom, DiaRenderer *renderer,
+                        GArray *arr, GArray *barr, real* cur_line, real* cur_dash,
+                        LineCaps* cur_caps, LineJoin* cur_join, LineStyle* cur_style)
+{
+  GList *tmp;
+  for (tmp = display_list; tmp; tmp = tmp->next) {
+    GraphicElement *el = tmp->data;
+    Color fg, bg;
+
+    /* 
+     * Because we do not know if any of these values are reused in the loop, 
+     * we pass them all by reference.
+     * If anyone does know this, please correct/simplify.
+     */
+    custom_draw_element( el, custom, renderer, arr, barr, cur_line, cur_dash,
+                         cur_caps, cur_join, cur_style, &fg, &bg );
+  }
+}
+
+static void
+custom_draw_element(GraphicElement* el, Custom *custom, DiaRenderer *renderer, 
+                    GArray *arr, GArray *barr, real* cur_line, real* cur_dash,
+                    LineCaps* cur_caps, LineJoin* cur_join, LineStyle* cur_style,
+                    Color* fg, Color* bg)
+{
+  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
+  Point p1, p2;
+  real coord;
+  int i;
+    
+  if (el->any.s.line_width != (*cur_line)) {
+    (*cur_line) = el->any.s.line_width;
+    renderer_ops->set_linewidth(renderer,
+		  custom->border_width*(*cur_line));
+  }
+  if ((el->any.s.linecap == DIA_SVG_LINECAPS_DEFAULT && (*cur_caps) != LINECAPS_BUTT) ||
+    el->any.s.linecap != (*cur_caps)) {
+      (*cur_caps) = (el->any.s.linecap!=DIA_SVG_LINECAPS_DEFAULT) ?
+      el->any.s.linecap : LINECAPS_BUTT;
+      renderer_ops->set_linecaps(renderer, (*cur_caps));
+    }
+  if ((el->any.s.linejoin==DIA_SVG_LINEJOIN_DEFAULT && (*cur_join)!=LINEJOIN_MITER) ||
+      el->any.s.linejoin != (*cur_join)) {
+    (*cur_join) = (el->any.s.linejoin!=DIA_SVG_LINEJOIN_DEFAULT) ?
+    el->any.s.linejoin : LINEJOIN_MITER;
+    renderer_ops->set_linejoin(renderer, (*cur_join));
+  }
+  if ((el->any.s.linestyle == DIA_SVG_LINESTYLE_DEFAULT &&
+      (*cur_style) != custom->line_style) || el->any.s.linestyle != (*cur_style)) {
+    (*cur_style) = (el->any.s.linestyle!=DIA_SVG_LINESTYLE_DEFAULT) ?
+    el->any.s.linestyle : custom->line_style;
+    renderer_ops->set_linestyle(renderer, (*cur_style));
+  }
+  if (el->any.s.dashlength != (*cur_dash)) {
+    (*cur_dash) = el->any.s.dashlength;
+    renderer_ops->set_dashlength(renderer,
+		   custom->dashlength*(*cur_dash));
+  }
+      
+  (*cur_line) = el->any.s.line_width;
+  get_colour(custom, fg, el->any.s.stroke);
+  get_colour(custom, bg, el->any.s.fill);
+  switch (el->type) {
+  case GE_LINE:
+    transform_coord(custom, &el->line.p1, &p1);
+    transform_coord(custom, &el->line.p2, &p2);
+    if (el->any.s.stroke != DIA_SVG_COLOUR_NONE)
+      renderer_ops->draw_line(renderer, &p1, &p2, fg);
+    break;
+  case GE_POLYLINE:
+    g_array_set_size(arr, el->polyline.npoints);
+    for (i = 0; i < el->polyline.npoints; i++)
+      transform_coord(custom, &el->polyline.points[i],
+			&g_array_index(arr, Point, i));
+    if (el->any.s.stroke != DIA_SVG_COLOUR_NONE)
+      renderer_ops->draw_polyline(renderer,
+              (Point *)arr->data, el->polyline.npoints,
+				    fg);
+    break;
+  case GE_POLYGON:
+    g_array_set_size(arr, el->polygon.npoints);
+    for (i = 0; i < el->polygon.npoints; i++)
+      transform_coord(custom, &el->polygon.points[i],
+			&g_array_index(arr, Point, i));
+    if (custom->show_background && el->any.s.fill != DIA_SVG_COLOUR_NONE) 
+      renderer_ops->fill_polygon(renderer,
+				   (Point *)arr->data, el->polygon.npoints,
+				   bg);
+    if (el->any.s.stroke != DIA_SVG_COLOUR_NONE)
+      renderer_ops->draw_polygon(renderer,
+				   (Point *)arr->data, el->polygon.npoints,
+				   fg);
+    break;
+  case GE_RECT:
+    transform_coord(custom, &el->rect.corner1, &p1);
+    transform_coord(custom, &el->rect.corner2, &p2);
+    if (p1.x > p2.x) {
+      coord = p1.x;
+	  p1.x = p2.x;
+	  p2.x = coord;
+    }
+    if (p1.y > p2.y) {
+      coord = p1.y;
+      p1.y = p2.y;
+      p2.y = coord;
+    }
+    if (custom->show_background && el->any.s.fill != DIA_SVG_COLOUR_NONE)
+      renderer_ops->fill_rect(renderer, &p1, &p2, bg);
+    if (el->any.s.stroke != DIA_SVG_COLOUR_NONE)
+      renderer_ops->draw_rect(renderer, &p1, &p2, fg);
+    break;
+  case GE_TEXT:
+    custom_reposition_text(custom, &el->text);
+    text_draw(el->text.object, renderer);
+    text_set_position(el->text.object, &el->text.anchor);
+    break;
+  case GE_ELLIPSE:
+    transform_coord(custom, &el->ellipse.center, &p1);
+    if (custom->show_background && el->any.s.fill != DIA_SVG_COLOUR_NONE)
+      renderer_ops->fill_ellipse(renderer, &p1,
+				   el->ellipse.width * fabs(custom->xscale),
+				   el->ellipse.height * fabs(custom->yscale),
+				   bg);
+    if (el->any.s.stroke != DIA_SVG_COLOUR_NONE)
+      renderer_ops->draw_ellipse(renderer, &p1,
+				   el->ellipse.width * fabs(custom->xscale),
+				   el->ellipse.height * fabs(custom->yscale),
+				   fg);
+    break;
+  case GE_IMAGE:
+    transform_coord(custom, &el->image.topleft, &p1);
+    renderer_ops->draw_image(renderer, &p1,
+			       el->image.width * fabs(custom->xscale),
+			       el->image.height * fabs(custom->yscale),
+			       el->image.image);
+    break;
+  case GE_PATH:
+    g_array_set_size(barr, el->path.npoints);
+    for (i = 0; i < el->path.npoints; i++)
+      switch (g_array_index(barr,BezPoint,i).type=el->path.points[i].type) {
+        case BEZ_CURVE_TO:
+            transform_coord(custom, &el->path.points[i].p3,
+              &g_array_index(barr, BezPoint, i).p3);
+            transform_coord(custom, &el->path.points[i].p2,
+              &g_array_index(barr, BezPoint, i).p2);
+        case BEZ_MOVE_TO:
+        case BEZ_LINE_TO:
+          transform_coord(custom, &el->path.points[i].p1,
+            &g_array_index(barr, BezPoint, i).p1);
+    }
+    if (el->any.s.stroke != DIA_SVG_COLOUR_NONE)
+      renderer_ops->draw_bezier(renderer, (BezPoint *)barr->data,
+				  el->path.npoints, fg);
+    break;
+  case GE_SHAPE:
+    g_array_set_size(barr, el->path.npoints);
+    for (i = 0; i < el->path.npoints; i++)
+      switch (g_array_index(barr,BezPoint,i).type=el->path.points[i].type) {
+        case BEZ_CURVE_TO:
+          transform_coord(custom, &el->path.points[i].p3,
+			  &g_array_index(barr, BezPoint, i).p3);
+          transform_coord(custom, &el->path.points[i].p2,
+			  &g_array_index(barr, BezPoint, i).p2);
+        case BEZ_MOVE_TO:
+        case BEZ_LINE_TO:
+          transform_coord(custom, &el->path.points[i].p1,
+              &g_array_index(barr, BezPoint, i).p1);
+    }
+    if (custom->show_background && el->any.s.fill != DIA_SVG_COLOUR_NONE)
+      renderer_ops->fill_bezier(renderer, (BezPoint *)barr->data,
+				  el->path.npoints, bg);
+    if (el->any.s.stroke != DIA_SVG_COLOUR_NONE)
+      renderer_ops->draw_bezier(renderer, (BezPoint *)barr->data,
+				  el->path.npoints, fg);
+    break;
+  case GE_SUBSHAPE:
+    {
+      GraphicElementSubShape* subshape = (GraphicElementSubShape*)el;
+      
+      custom->current_subshape = subshape;
+      custom_draw_displaylist(subshape->display_list, custom, renderer, arr, barr, cur_line, cur_dash, cur_caps, cur_join, cur_style);
+      custom->current_subshape = NULL;
+    }
+    break;
+  }
+}
+
+static void
+assert_boundaries(Custom *custom)
+{
+  Element *elem = &custom->element;
+  ShapeInfo *info = custom->info;
+  
+  int i = 0;
+  GList *tmp;
+  
+  real min_width = 0.0;
+  real min_height = 0.0;
+  real r = 0.0;
+
+  /* undo unkown/funky number magic when flip_h or flip_v is set */
+  if (custom->flip_h) custom->xscale = -custom->xscale;
+  if (custom->flip_v) custom->yscale = -custom->yscale;
+ 
+  /* calculate the minimum width and height required for all subshapes */
+  for (tmp = info->subshapes; tmp != NULL; tmp = tmp->next, i++) {
+    GraphicElementSubShape *subshape = tmp->data;
+    
+    real parent_shape_orig_width = info->shape_bounds.right - info->shape_bounds.left;
+    real parent_shape_orig_height = info->shape_bounds.bottom - info->shape_bounds.top;
+    
+    real scale = custom->subscale * subshape->default_scale;
+    real width = (2*subshape->half_width) * scale;
+    real height = (2*subshape->half_height) * scale;
+
+    if (subshape->h_anchor_method == OFFSET_METHOD_PROPORTIONAL) {
+      /* handle proportional anchor in x direction */
+      real prop_min_width = subshape->center.x / parent_shape_orig_width;
+      real scaled_half_width = subshape->half_width * scale;
+
+      if (prop_min_width > 0.5)
+        prop_min_width = 1.0 - prop_min_width;
+        
+      r = prop_min_width * parent_shape_orig_width*custom->xscale;
+        
+      if (scaled_half_width > r)
+        width = (scaled_half_width / prop_min_width)-0.01;
+    
+    } else {
+      /* handle fixed anchor in x direction */
+      if (subshape->h_anchor_method > 0)
+        width = (subshape->center.x + subshape->half_width) * scale;
+      else
+        width = (parent_shape_orig_width - subshape->center.x + subshape->half_width) * scale;
+    }
+
+    if (subshape->v_anchor_method == OFFSET_METHOD_PROPORTIONAL) {
+      /* handle proportional anchor in y direction */
+      real prop_min_height = subshape->center.y / parent_shape_orig_height;
+      real scaled_half_height = subshape->half_height * scale;
+        
+      if (prop_min_height > 0.5)
+        prop_min_height = 1.0 - prop_min_height;
+      
+      r = prop_min_height * parent_shape_orig_height*custom->yscale;
+      	
+      if (scaled_half_height > r)
+        height = (scaled_half_height / prop_min_height)-0.01;
+      
+    } else {
+      /* handle fixed anchor in y direction */
+      if (subshape->v_anchor_method > 0)
+        height = (subshape->center.y + subshape->half_height) * scale;
+      else if(subshape->v_anchor_method < 0)
+        height = (parent_shape_orig_height - subshape->center.y + subshape->half_height) * scale;
+    }
+
+    if (width > min_width)
+      min_width = width;
+    if (height > min_height)
+      min_height = height;
+  }
+  
+  if (elem->width < min_width)
+    elem->width = min_width;
+  if (elem->height < min_height)
+    elem->height = min_height;
+  
+  /* redo unkown/funky number magic when flip_h or flip_v is set */
+  if (custom->flip_h) custom->xscale = -custom->xscale;
+  if (custom->flip_v) custom->yscale = -custom->yscale;
+}
 
 static void
 custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
@@ -849,7 +1147,9 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
   bottom_right.x += elem->width;
   center.y += elem->height/2;
   bottom_right.y += elem->height;
-
+  
+  assert_boundaries(custom);
+  
   /* update the translation coefficients first ... */
   custom->xscale = elem->width / (info->shape_bounds.right -
 				  info->shape_bounds.left);
@@ -1233,10 +1533,17 @@ custom_create(Point *startpoint,
   obj->ops = &custom_ops;
 
   elem->corner = *startpoint;
-  elem->width = DEFAULT_WIDTH;
-  elem->height = DEFAULT_HEIGHT;
+
+  elem->width = shape_info_get_default_width(info) / 
+                         units[prefs_get_length_unit()].factor;
+  elem->height = shape_info_get_default_height(info) /
+                         units[prefs_get_length_unit()].factor;
 
   custom->info = info;
+  
+  custom->old_subscale = 1.0;
+  custom->subscale = 1.0;
+  custom->current_subshape = NULL;
 
   custom->border_width =  attributes_get_default_linewidth();
   custom->border_color = attributes_get_foreground();
@@ -1329,6 +1636,10 @@ custom_copy(Custom *custom)
   newcustom->flip_h = custom->flip_h;
   newcustom->flip_v = custom->flip_v;
 
+  newcustom->current_subshape = custom->current_subshape;
+  newcustom->old_subscale = custom->old_subscale;
+  newcustom->subscale = custom->subscale;
+
   if (custom->info->has_text) {
     newcustom->text = text_copy(custom->text);
     text_get_attributes(newcustom->text,&newcustom->attrs);
@@ -1368,6 +1679,7 @@ custom_load_using_properties(ObjectNode obj_node, int version, const char *filen
     object_load_props(obj,obj_node);
   
     custom_update_data(custom, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
+    custom->old_subscale = custom->subscale;
   }
   return obj;
 }

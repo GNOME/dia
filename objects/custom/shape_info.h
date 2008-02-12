@@ -4,6 +4,9 @@
  * Custom Objects -- objects defined in XML rather than C.
  * Copyright (C) 1999 James Henstridge.
  *
+ * Non-uniform scaling/subshape support by Marcel Toele.
+ * Modifications (C) 2007 Kern Automatiseringsdiensten BV.
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
@@ -39,7 +42,8 @@ typedef enum {
   GE_PATH,
   GE_SHAPE,
   GE_TEXT,
-  GE_IMAGE
+  GE_IMAGE,
+  GE_SUBSHAPE
 } GraphicElementType;
 
 typedef union _GraphicElement GraphicElement;
@@ -51,6 +55,7 @@ typedef struct _GraphicElementEllipse GraphicElementEllipse;
 typedef struct _GraphicElementPath GraphicElementPath;
 typedef struct _GraphicElementText GraphicElementText;
 typedef struct _GraphicElementImage GraphicElementImage;
+typedef struct _GraphicElementSubShape GraphicElementSubShape;
 
 #define SHAPE_INFO_COMMON  \
   GraphicElementType type; \
@@ -103,6 +108,26 @@ struct _GraphicElementImage {
   DiaImage image;
 };
 
+#define OFFSET_METHOD_PROPORTIONAL 0
+#define OFFSET_METHOD_FIXED   1
+#define SUBSCALE_ACCELERATION 1
+#define SUBSCALE_MININUM_SCALE 0.0001
+struct _GraphicElementSubShape {
+  SHAPE_INFO_COMMON;
+  GList *display_list;
+  
+  gint h_anchor_method;
+  gint v_anchor_method;
+  
+  real default_scale;
+  
+  /* subshape bounding box, center, ... */
+  
+  Point center;
+  real half_width;
+  real half_height;
+};
+
 #undef SHAPE_INFO_COMMON
 
 union _GraphicElement {
@@ -117,6 +142,7 @@ union _GraphicElement {
   GraphicElementPath shape;
   GraphicElementText text;
   GraphicElementImage image;
+  GraphicElementSubShape subshape;
 };
 
 typedef struct _ExtAttribute {
@@ -130,6 +156,10 @@ typedef enum {
   SHAPE_ASPECT_FIXED,
   SHAPE_ASPECT_RANGE
 } ShapeAspectType;
+
+#define DEFAULT_WIDTH 2.0
+#define DEFAULT_HEIGHT 2.0
+#define DEFAULT_BORDER 0.25
 
 typedef struct _ShapeInfo ShapeInfo;
 struct _ShapeInfo {
@@ -154,7 +184,12 @@ struct _ShapeInfo {
   ShapeAspectType aspect_type;
   real aspect_min, aspect_max;
 
+  real default_width;  /* default_width normalized in points */
+  real default_height; /* default_height normalized in points */
+
   GList *display_list;
+  
+  GList *subshapes;
 
   DiaObjectType *object_type; /* back link so we can find the correct type */
   
@@ -170,6 +205,9 @@ struct _ShapeInfo {
 ShapeInfo *shape_info_load(const gchar *filename);
 ShapeInfo *shape_info_get(ObjectNode obj_node);
 ShapeInfo *shape_info_getbyname(const gchar *name);
+
+real shape_info_get_default_width(ShapeInfo *info);
+real shape_info_get_default_height(ShapeInfo *info);
 
 void shape_info_realise(ShapeInfo* info);
 void shape_info_print(ShapeInfo *info);

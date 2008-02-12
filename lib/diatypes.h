@@ -21,6 +21,8 @@
 #ifndef TYPES_H
 #define TYPES_H
 
+#include "units.h"
+
 /* In diagramdata.h: */
 typedef struct _DiagramData DiagramData;
 typedef struct _Layer Layer;
@@ -97,7 +99,6 @@ typedef struct _DiaFont DiaFont;
 typedef struct _DiaFontClass DiaFontClass;
 
 /* In geometry.h: */
-typedef struct _DiaUnitDef            DiaUnitDef;
 typedef struct _Point Point;
 typedef struct _Rectangle Rectangle;
 typedef struct _IntRectangle IntRectangle;

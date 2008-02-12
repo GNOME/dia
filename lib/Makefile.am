@@ -101,6 +101,8 @@ libdia_la_SOURCES =  \
 		objchange.h \
 		widgets.c \
 		widgets.h \
+		units.c \
+		units.h \
 		dia_image.c \
 		dia_image.h \
 		intl.c \

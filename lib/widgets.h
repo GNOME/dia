@@ -33,7 +33,6 @@
 #include <gtk/gtkmenuitem.h>
 
 #include "diatypes.h"
-
 #include "font.h"
 #include "color.h"
 #include "arrows.h"
@@ -168,17 +167,6 @@ gboolean dia_size_selector_get_size        (DiaSizeSelector *ss, real *width, re
 
 typedef struct _DiaUnitSpinner DiaUnitSpinner;
 typedef struct _DiaUnitSpinnerClass DiaUnitSpinnerClass;
-
-typedef enum {
-  DIA_UNIT_CENTIMETER,
-  DIA_UNIT_DECIMETER,
-  DIA_UNIT_FEET,
-  DIA_UNIT_INCH,
-  DIA_UNIT_METER,
-  DIA_UNIT_MILLIMETER,
-  DIA_UNIT_POINT,
-  DIA_UNIT_PICA,
-} DiaUnit;
 
 struct _DiaUnitSpinner {
   GtkSpinButton parent;

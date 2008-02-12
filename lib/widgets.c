@@ -21,6 +21,7 @@
 #include "intl.h"
 #undef GTK_DISABLE_DEPRECATED /* GtkOptionMenu, ... */
 #include "widgets.h"
+#include "units.h"
 #include "message.h"
 #include "dia_dirs.h"
 #include "arrows.h"

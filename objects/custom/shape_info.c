@@ -4,6 +4,9 @@
  * Custom Objects -- objects defined in XML rather than C.
  * Copyright (C) 1999 James Henstridge.
  *
+ * Non-uniform scaling/subshape support by Marcel Toele.
+ * Modifications (C) 2007 Kern Automatiseringsdiensten BV.
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
@@ -34,10 +37,13 @@
 #include "message.h"
 #include "intl.h"
 
+#include "units.h"
+
 #define FONT_HEIGHT_DEFAULT 1
 #define TEXT_ALIGNMENT_DEFAULT ALIGN_CENTER
 
 static ShapeInfo *load_shape_info(const gchar *filename, ShapeInfo *preload);
+static void update_bounds(ShapeInfo *info);
 
 static GHashTable *name_to_info = NULL;
 
@@ -122,6 +128,23 @@ void shape_info_realise(ShapeInfo* info)
   }  
 }
 
+real
+shape_info_get_default_width(ShapeInfo *info)
+{
+  if (info->default_width == 0.0)
+    info->default_width = DEFAULT_WIDTH * units[prefs_get_length_unit()].factor;
+  
+  return( info->default_width );
+}
+
+real
+shape_info_get_default_height(ShapeInfo *info)
+{
+  if (info->default_height == 0.0)
+    info->default_height = DEFAULT_HEIGHT * units[prefs_get_length_unit()].factor;
+  
+  return( info->default_height );
+}
 
 static void
 parse_path(ShapeInfo *info, const char *path_str, DiaSvgStyle *s, const char* filename)
@@ -164,6 +187,23 @@ parse_path(ShapeInfo *info, const char *path_str, DiaSvgStyle *s, const char* fi
   } while (pathdata);
 
   g_array_free (points, TRUE);
+}
+
+static gboolean
+is_subshape(xmlElement* elt)
+{
+  gboolean res = FALSE;
+
+  if (xmlHasProp(elt, "subshape")) {
+    gchar* value = xmlGetProp(elt, "subshape");
+    
+    if (!strcmp(value, "true"))
+      res = TRUE;
+    
+    xmlFree(value);
+  }
+
+  return res;
 }
 
 static void
@@ -412,8 +452,72 @@ parse_svg_node(ShapeInfo *info, xmlNodePtr node, xmlNsPtr svg_ns,
         xmlFree(str);
       }
     } else if (!xmlStrcmp(node->name, (const xmlChar *)"g")) {
+      if (!is_subshape((xmlElement*)node)) {
           /* add elements from the group element */
-      parse_svg_node(info, node, svg_ns, &s, filename);
+        parse_svg_node(info, node, svg_ns, &s, filename);
+      } else {
+          /* add elements from the group element, but make it a subshape */
+        GraphicElementSubShape *subshape = g_new0(GraphicElementSubShape, 1);
+        ShapeInfo* tmpinfo = g_new0(ShapeInfo, 1);
+        DiaSvgStyle tmp_s = {
+                1.0, DIA_SVG_COLOUR_FOREGROUND, 
+                DIA_SVG_COLOUR_NONE,
+                DIA_SVG_LINECAPS_DEFAULT, 
+                DIA_SVG_LINEJOIN_DEFAULT,
+                DIA_SVG_LINESTYLE_DEFAULT, 1.0
+        };
+        xmlAttrPtr v_anchor_attr = xmlGetProp(node,"v_anchor");
+        xmlAttrPtr h_anchor_attr = xmlGetProp(node,"h_anchor");
+      
+        parse_svg_node(tmpinfo, node, svg_ns, &tmp_s, filename);
+        
+        tmpinfo->shape_bounds.top = DBL_MAX;
+        tmpinfo->shape_bounds.left = DBL_MAX;
+        tmpinfo->shape_bounds.bottom = -DBL_MAX;
+        tmpinfo->shape_bounds.right = -DBL_MAX;
+
+        update_bounds( tmpinfo );
+        update_bounds( info );
+        
+        subshape->half_width = (tmpinfo->shape_bounds.right-tmpinfo->shape_bounds.left) / 2.0;
+        subshape->half_height = (tmpinfo->shape_bounds.bottom-tmpinfo->shape_bounds.top) / 2.0;
+        subshape->center.x = tmpinfo->shape_bounds.left + subshape->half_width;
+        subshape->center.y = tmpinfo->shape_bounds.top + subshape->half_height;
+            
+        subshape->type = GE_SUBSHAPE;
+        subshape->display_list = tmpinfo->display_list;
+        subshape->v_anchor_method = OFFSET_METHOD_FIXED;
+        subshape->h_anchor_method = OFFSET_METHOD_FIXED;
+        subshape->default_scale = 0.0;
+                
+        if (!v_anchor_attr || !strcmp(v_anchor_attr,"fixed.top"))
+          subshape->v_anchor_method = OFFSET_METHOD_FIXED;
+        else if (v_anchor_attr && !strcmp(v_anchor_attr,"fixed.bottom"))
+          subshape->v_anchor_method = -OFFSET_METHOD_FIXED;
+        else if (v_anchor_attr && !strcmp(v_anchor_attr,"proportional"))
+          subshape->v_anchor_method = OFFSET_METHOD_PROPORTIONAL;
+        else
+          fprintf( stderr, "illegal v_anchor `%s', defaulting to fixed.top\n",
+                   v_anchor_attr );
+          
+        if (!h_anchor_attr || !strcmp(h_anchor_attr,"fixed.left"))
+          subshape->h_anchor_method = OFFSET_METHOD_FIXED;
+        else if (h_anchor_attr && !strcmp(h_anchor_attr,"fixed.right"))
+          subshape->h_anchor_method = -OFFSET_METHOD_FIXED;
+        else if (h_anchor_attr && !strcmp(h_anchor_attr,"proportional"))
+          subshape->h_anchor_method = OFFSET_METHOD_PROPORTIONAL;
+        else
+          fprintf( stderr, "illegal h_anchor `%s', defaulting to fixed.left\n",
+                   h_anchor_attr );
+        
+        info->subshapes = g_list_append(info->subshapes, subshape);
+        
+        /* gfree( tmpinfo );*/
+        xmlFree(v_anchor_attr);
+        xmlFree(h_anchor_attr);
+        
+        el = (GraphicElementSubShape *)subshape;
+      }    
     }
     if (el) {
       el->any.s = s;
@@ -497,6 +601,17 @@ update_bounds(ShapeInfo *info)
       break;
     }
   }
+  
+  {
+    real width = info->shape_bounds.right-info->shape_bounds.left;
+    real height = info->shape_bounds.bottom-info->shape_bounds.top;
+    
+    if (info->default_width > 0.0 && info->default_height == 0.0) {
+      info->default_height = (info->default_width / width) * height;
+    } else if (info->default_height > 0.0 && info->default_width == 0.0) {
+      info->default_width = (info->default_height / height) * width;      
+    }
+  }
 }
 
 static ShapeInfo *
@@ -546,6 +661,8 @@ load_shape_info(const gchar *filename, ShapeInfo *preload)
   info->shape_bounds.bottom = -DBL_MAX;
   info->shape_bounds.right = -DBL_MAX;
   info->aspect_type = SHAPE_ASPECT_FREE; 
+  info->default_width = 0.0;
+  info->default_height = 0.0;
   info->main_cp = -1;
 
   i = 0;
@@ -556,7 +673,7 @@ load_shape_info(const gchar *filename, ShapeInfo *preload)
       tmp = (gchar *) xmlNodeGetContent(node);
       if (preload) { 
         if (strcmp (tmp, info->name) != 0)
-          g_warning ("Shape(preoad) '%s' can't change name '%s'", info->name, tmp);
+          g_warning ("Shape(preload) '%s' can't change name '%s'", info->name, tmp);
         /* the key name is already used as key in name_to_info */
       } else {
         g_free(info->name);
@@ -680,6 +797,35 @@ load_shape_info(const gchar *filename, ShapeInfo *preload)
 	}
 	xmlFree(tmp);
       }
+    } else if (node->ns == shape_ns && (!xmlStrcmp(node->name, (const xmlChar *)"default-width") || !xmlStrcmp(node->name, (const xmlChar *)"default-height"))) {
+      
+      int j = 0;
+      DiaUnitDef ud;
+      
+      gdouble val = 0.0;
+      
+      int unit_ssize = 0;
+      int ssize = 0;
+      tmp = (gchar *) xmlNodeGetContent(node);
+      ssize = strlen(tmp);
+
+      val = g_ascii_strtod(tmp, NULL);
+
+      for (j = 0, ud = units[i]; ud.name; ud = units[++j]) {
+        unit_ssize = strlen(ud.unit);
+        if (ssize > unit_ssize && !strcmp(tmp+(ssize-unit_ssize), ud.unit)) {
+          val *= ud.factor;
+          break;
+        }
+      }
+
+      if (!xmlStrcmp(node->name, (const xmlChar *)"default-width")) {
+        info->default_width = val;
+      } else {
+        info->default_height = val;
+      }
+      
+      xmlFree(tmp);
     } else if (node->ns == svg_ns && !xmlStrcmp(node->name, (const xmlChar *)"svg")) {
       DiaSvgStyle s = {
 	1.0, DIA_SVG_COLOUR_FOREGROUND, DIA_SVG_COLOUR_NONE,
