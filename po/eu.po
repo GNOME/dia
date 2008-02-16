@@ -1,4 +1,4 @@
-# translation of dia.HEAD.po to Basque
+# translation of eu.po to Basque
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
 #
@@ -7,10 +7,10 @@
 # Iñaki Larrañaga Murgoitio <dooteo@zundan.com>, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: dia.HEAD\n"
+"Project-Id-Version: eu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-02-01 17:01+0100\n"
-"PO-Revision-Date: 2008-01-31 23:21+0100\n"
+"POT-Creation-Date: 2008-02-16 18:57+0100\n"
+"PO-Revision-Date: 2008-02-16 18:57+0100\n"
 "Last-Translator: Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>\n"
 "Language-Team: Basque <itzulpena@euskalgnu.org>\n"
 "MIME-Version: 1.0\n"
@@ -121,8 +121,7 @@ msgstr "Ez sortu diagrama hutsa"
 
 #: ../app/app_procs.c:718 ../app/app_procs.c:746
 msgid "Send error messages to stderr instead of showing dialogs."
-msgstr ""
-"Bidali errore-mezuak stderr-era, elkarrizketa-koadroak erakutsi beharrean."
+msgstr "Bidali errore-mezuak stderr-era, elkarrizketa-koadroak erakutsi beharrean."
 
 #: ../app/app_procs.c:720 ../app/app_procs.c:748
 msgid "Display credits list and exit"
@@ -157,10 +156,8 @@ msgstr "Dia, %s bertsioa\n"
 
 #: ../app/app_procs.c:912 ../app/diaconv.c:195 ../app/diaconv.c:197
 #, c-format
-msgid ""
-"Couldn't find standard objects when looking for object-libs; exiting...\n"
-msgstr ""
-"Ezin izan dira 'object-libs'eko objektu estandarrak aurkitu, irtetzen...\n"
+msgid "Couldn't find standard objects when looking for object-libs; exiting...\n"
+msgstr "Ezin izan dira 'object-libs'eko objektu estandarrak aurkitu, irtetzen...\n"
 
 #: ../app/app_procs.c:914
 #, c-format
@@ -206,8 +203,7 @@ msgstr "Irten Dia-tik"
 
 #: ../app/app_procs.c:1155 ../app/app_procs.c:1162
 msgid "Could not create per-user Dia config directory"
-msgstr ""
-"Ezin izan da sortu erabiltzaile bakoitzeko Dia konfigurazioko direktorioa"
+msgstr "Ezin izan da sortu erabiltzaile bakoitzeko Dia konfigurazioko direktorioa"
 
 #: ../app/app_procs.c:1165
 msgid ""
@@ -967,7 +963,7 @@ msgstr "Korritu diagrama"
 #: ../objects/UML/node.c:129 ../objects/UML/note.c:123
 #: ../objects/UML/object.c:150 ../objects/UML/small_package.c:130
 #: ../objects/UML/state.c:154 ../objects/UML/usecase.c:140
-#: ../objects/custom/custom_object.c:200 ../objects/network/basestation.c:135
+#: ../objects/custom/custom_object.c:221 ../objects/network/basestation.c:135
 #: ../objects/network/radiocell.c:127
 msgid "Text"
 msgstr "Testua"
@@ -2502,16 +2498,16 @@ msgstr "Propietatearen bihurketa osokotik enum.-era barrutitik kanpo"
 msgid "Group with %d objects"
 msgstr "Taldea (%d objektuekin)"
 
-#: ../lib/properties.c:64 ../lib/properties.h:469 ../lib/widgets.c:690
+#: ../lib/properties.c:64 ../lib/properties.h:469 ../lib/widgets.c:691
 msgid "Left"
 msgstr "Ezkerrean"
 
-#: ../lib/properties.c:65 ../lib/properties.h:470 ../lib/widgets.c:696
+#: ../lib/properties.c:65 ../lib/properties.h:470 ../lib/widgets.c:697
 #: ../objects/standard/textobj.c:135
 msgid "Center"
 msgstr "Erdian"
 
-#: ../lib/properties.c:66 ../lib/properties.h:471 ../lib/widgets.c:702
+#: ../lib/properties.c:66 ../lib/properties.h:471 ../lib/widgets.c:703
 msgid "Right"
 msgstr "Eskuinean"
 
@@ -2573,66 +2569,66 @@ msgstr "Testu-kolorea"
 msgid "No attribute '%s' (%p) or no data(%p) in this attribute"
 msgstr "Ez dago '%s' (%p) atributua edo ez dago daturik (%p) atributuan"
 
-#: ../lib/widgets.c:408
+#: ../lib/widgets.c:409
 msgid "Other fonts"
 msgstr "Beste letra-tipoak"
 
-#: ../lib/widgets.c:480
+#: ../lib/widgets.c:481
 #, c-format
 msgid "Couldn't find font family for %s\n"
 msgstr "Ezin izan da %s letra-tipoen familia aurkitu\n"
 
 #. Translators: Menu item Noun/Material/Solid
-#: ../lib/widgets.c:862 ../objects/FS/function.c:1076
+#: ../lib/widgets.c:863 ../objects/FS/function.c:1076
 msgid "Solid"
 msgstr "Betea"
 
-#: ../lib/widgets.c:868
+#: ../lib/widgets.c:869
 msgid "Dashed"
 msgstr "Marratxoduna"
 
-#: ../lib/widgets.c:874
+#: ../lib/widgets.c:875
 msgid "Dash-Dot"
 msgstr "Marratxoa-puntua"
 
-#: ../lib/widgets.c:880
+#: ../lib/widgets.c:881
 msgid "Dash-Dot-Dot"
 msgstr "Marratxoa-puntua-puntua"
 
-#: ../lib/widgets.c:886
+#: ../lib/widgets.c:887
 msgid "Dotted"
 msgstr "Puntukatua"
 
 #. fs->sizebox = GTK_HBOX(box);
-#: ../lib/widgets.c:904
+#: ../lib/widgets.c:905
 msgid "Dash length: "
 msgstr "Marratxoaren luzera: "
 
-#: ../lib/widgets.c:1032
+#: ../lib/widgets.c:1033
 msgid "Select color"
 msgstr "Hautatu kolorea"
 
-#: ../lib/widgets.c:1098
+#: ../lib/widgets.c:1099
 msgid "More colors..."
 msgstr "Kolore gehiago..."
 
-#: ../lib/widgets.c:1246
+#: ../lib/widgets.c:1247
 msgid "More arrows"
 msgstr "Gezi gehiago"
 
-#: ../lib/widgets.c:1263
+#: ../lib/widgets.c:1264
 msgid "Size: "
 msgstr "Tamaina: "
 
-#: ../lib/widgets.c:1439
+#: ../lib/widgets.c:1440
 msgid "Select image file"
 msgstr "Hautatu irudi-fitxategia"
 
-#: ../lib/widgets.c:1477
+#: ../lib/widgets.c:1478
 msgid "Browse"
 msgstr "Arakatu"
 
-#: ../lib/widgets.c:2030
+#: ../lib/widgets.c:2031
 msgid "Reset menu"
 msgstr "Berrezarri menua"
 
@@ -5510,28 +5506,32 @@ msgstr "Pertsonalizatu"
 msgid "Custom XML shapes loader"
 msgstr "XML forma pertsonalizatuen kargatzailea"
 
-#: ../objects/custom/custom_object.c:178 ../objects/custom/custom_object.c:203
+#: ../objects/custom/custom_object.c:196 ../objects/custom/custom_object.c:224
 msgid "Flip horizontal"
 msgstr "Irauli horizontalki"
 
-#: ../objects/custom/custom_object.c:180 ../objects/custom/custom_object.c:205
+#: ../objects/custom/custom_object.c:198 ../objects/custom/custom_object.c:226
 msgid "Flip vertical"
 msgstr "Irauli bertikalki"
 
-#: ../objects/custom/custom_object.c:1444
+#: ../objects/custom/custom_object.c:201 ../objects/custom/custom_object.c:229
+msgid "Scale of the subshapes"
+msgstr "Azpiformen eskala"
+
+#: ../objects/custom/custom_object.c:1756
 msgid "Flip Horizontal"
 msgstr "Irauli horizontalki"
 
-#: ../objects/custom/custom_object.c:1445
+#: ../objects/custom/custom_object.c:1757
 msgid "Flip Vertical"
 msgstr "Irauli bertikalki"
 
-#: ../objects/custom/custom_object.c:1482
+#: ../objects/custom/custom_object.c:1794
 #, c-format
 msgid "Cannot open icon file %s for object type '%s'."
 msgstr "Ezin da %s ikono-fitxategia ireki, '%s' objektu-motarena."
 
-#: ../objects/custom/shape_info.c:138
+#: ../objects/custom/shape_info.c:161
 #, c-format
 msgid ""
 "The file '%s' has invalid path data.\n"
@@ -6533,8 +6533,7 @@ msgstr "BPMN"
 
 #: ../sheets/BPMN.sheet.in.h:5
 msgid "Business Process Modeling Notation"
-msgstr ""
-"Business Process Modeling Notation (Enpresako prozesua modelatzeko notazioa)"
+msgstr "Business Process Modeling Notation (Enpresako prozesua modelatzeko notazioa)"
 
 #: ../sheets/BPMN.sheet.in.h:6
 msgid "Collapsed Sub-Process"
@@ -10138,3 +10137,4 @@ msgstr "Sybase datu-zerbitzaria"
 #: ../sheets/sybase.sheet.in.h:8
 msgid "Sybase replication server"
 msgstr "Sybase erreplikatze-zerbitzaria"
+
