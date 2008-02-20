@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.92.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-01-19 20:22+0100\n"
-"PO-Revision-Date: 2008-01-19 15:35+0100\n"
+"POT-Creation-Date: 2008-02-21 00:55+0100\n"
+"PO-Revision-Date: 2008-02-21 00:55+0100\n"
 "Last-Translator: David Planella <david.planella@gmail.com>\n"
 "Language-Team: Catalan <tradgnome@softcatala.org>\n"
 "MIME-Version: 1.0\n"
@@ -993,7 +993,7 @@ msgstr "Desplaça pel diagrama"
 #: ../objects/UML/node.c:129 ../objects/UML/note.c:123
 #: ../objects/UML/object.c:150 ../objects/UML/small_package.c:130
 #: ../objects/UML/state.c:154 ../objects/UML/usecase.c:140
-#: ../objects/custom/custom_object.c:200 ../objects/network/basestation.c:135
+#: ../objects/custom/custom_object.c:221 ../objects/network/basestation.c:135
 #: ../objects/network/radiocell.c:127
 msgid "Text"
 msgstr "Text"
@@ -2550,16 +2550,16 @@ msgstr "Propietat coercionada de tipus int a tipus enum fora del rang vàlid"
 msgid "Group with %d objects"
 msgstr "Agrupa amb %d objectes"
 
-#: ../lib/properties.c:64 ../lib/properties.h:469 ../lib/widgets.c:690
+#: ../lib/properties.c:64 ../lib/properties.h:469 ../lib/widgets.c:691
 msgid "Left"
 msgstr "Esquerra"
 
-#: ../lib/properties.c:65 ../lib/properties.h:470 ../lib/widgets.c:696
+#: ../lib/properties.c:65 ../lib/properties.h:470 ../lib/widgets.c:697
 #: ../objects/standard/textobj.c:135
 msgid "Center"
 msgstr "Centre"
 
-#: ../lib/properties.c:66 ../lib/properties.h:471 ../lib/widgets.c:702
+#: ../lib/properties.c:66 ../lib/properties.h:471 ../lib/widgets.c:703
 msgid "Right"
 msgstr "Dreta"
 
@@ -2621,68 +2621,68 @@ msgstr "Color del text"
 msgid "No attribute '%s' (%p) or no data(%p) in this attribute"
 msgstr "No hi ha cap atribut «%s» (%p) o no hi ha dades (%p) en aquest atribut"
 
-#: ../lib/widgets.c:408
+#: ../lib/widgets.c:409
 msgid "Other fonts"
 msgstr "Altres tipus de lletra"
 
-#: ../lib/widgets.c:480
+#: ../lib/widgets.c:481
 #, c-format
 msgid "Couldn't find font family for %s\n"
 msgstr "No s'ha pogut trobar la família del tipus de lletra %s\n"
 
 #. Translators: Menu item Noun/Material/Solid
-#: ../lib/widgets.c:862 ../objects/FS/function.c:1076
+#: ../lib/widgets.c:863 ../objects/FS/function.c:1076
 msgid "Solid"
 msgstr "Sòlid"
 
-#: ../lib/widgets.c:868
+#: ../lib/widgets.c:869
 msgid "Dashed"
 msgstr "Guionet"
 
-#: ../lib/widgets.c:874
+#: ../lib/widgets.c:875
 msgid "Dash-Dot"
 msgstr "Guionet-punt"
 
-#: ../lib/widgets.c:880
+#: ../lib/widgets.c:881
 msgid "Dash-Dot-Dot"
 msgstr "Guionet-punt-punt"
 
-#: ../lib/widgets.c:886
+#: ../lib/widgets.c:887
 msgid "Dotted"
 msgstr "Punts"
 
 #. fs->sizebox = GTK_HBOX(box);
-#: ../lib/widgets.c:904
+#: ../lib/widgets.c:905
 msgid "Dash length: "
 msgstr "Mida dels guionets: "
 
-#: ../lib/widgets.c:1032
+#: ../lib/widgets.c:1033
 msgid "Select color"
 msgstr "Seleccioneu el color"
 
-#: ../lib/widgets.c:1098
+#: ../lib/widgets.c:1099
 msgid "More colors..."
 msgstr "Més colors..."
 
 #
-#: ../lib/widgets.c:1246
+#: ../lib/widgets.c:1247
 msgid "More arrows"
 msgstr "Més fletxes"
 
 #
-#: ../lib/widgets.c:1263
+#: ../lib/widgets.c:1264
 msgid "Size: "
 msgstr "Mida: "
 
-#: ../lib/widgets.c:1439
+#: ../lib/widgets.c:1440
 msgid "Select image file"
 msgstr "Selecciona el fitxer d'imatge"
 
-#: ../lib/widgets.c:1477
+#: ../lib/widgets.c:1478
 msgid "Browse"
 msgstr "Navega"
 
-#: ../lib/widgets.c:2030
+#: ../lib/widgets.c:2031
 msgid "Reset menu"
 msgstr "Reinicia el menú"
 
@@ -5600,28 +5600,32 @@ msgstr "Personalitzat"
 msgid "Custom XML shapes loader"
 msgstr "Carregador de formes XML personalitzades"
 
-#: ../objects/custom/custom_object.c:178 ../objects/custom/custom_object.c:203
+#: ../objects/custom/custom_object.c:196 ../objects/custom/custom_object.c:224
 msgid "Flip horizontal"
 msgstr "Volteja horitzontalment"
 
-#: ../objects/custom/custom_object.c:180 ../objects/custom/custom_object.c:205
+#: ../objects/custom/custom_object.c:198 ../objects/custom/custom_object.c:226
 msgid "Flip vertical"
 msgstr "Volteja verticalment"
 
-#: ../objects/custom/custom_object.c:1444
+#: ../objects/custom/custom_object.c:201 ../objects/custom/custom_object.c:229
+msgid "Scale of the subshapes"
+msgstr "Escala les subformes"
+
+#: ../objects/custom/custom_object.c:1756
 msgid "Flip Horizontal"
 msgstr "Volteja horitzontalment"
 
-#: ../objects/custom/custom_object.c:1445
+#: ../objects/custom/custom_object.c:1757
 msgid "Flip Vertical"
 msgstr "Volteja verticalment"
 
-#: ../objects/custom/custom_object.c:1482
+#: ../objects/custom/custom_object.c:1794
 #, c-format
 msgid "Cannot open icon file %s for object type '%s'."
 msgstr "No s'ha pogut obrir el fitxer d'icona %s del tipus d'objecte «%s»."
 
-#: ../objects/custom/shape_info.c:138
+#: ../objects/custom/shape_info.c:161
 #, c-format
 msgid ""
 "The file '%s' has invalid path data.\n"
