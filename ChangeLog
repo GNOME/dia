@@ -1,3 +1,24 @@
+2008-02-20  Lars Clausen  <lars@raeder.dk>
+
+	* objects/standard/line.c (line_adjust_for_absolute_gap): Fix
+	compilation problem for MacOS by not redefining the same function.
+
+2008-02-12  Lars Clausen  <lars@raeder.dk>
+
+	* objects/custom/custom_object.c:
+	* objects/custom/shape_info.h:
+	* objects/custom/shape_info.c:
+	* lib/widgets.c:
+	* lib/widgets.h:
+	* lib/diatypes.h:
+	* lib/Makefile.am:
+	* lib/geometry.c:
+	* lib/units.c:
+	* lib/units.h: Patch from Marcel Toele <dpy.dia@gmail.com>: Shapes
+	can now have sub-shapes that can be scaled or not when the main
+	shape is scaled.  Also, it is now possible to specify that shapes
+	are created with their stated sizes.
+
 2008-01-17  Lars Clausen  <lars@raeder.dk>
 
 	* configure.in: 

@@ -244,66 +244,6 @@ line_get_object_menu(Line *line, Point *clickedpoint)
   return &object_menu;
 }
 
-/*
-  About start_gap, end_gap, auto/absolute
-  
-  Place positive reals (try 1.0, for instance) in absolute 
-  to create gaps on line end/start.  
-  If auto_gap is false, these gaps are of that length.
-  If a gap is negative, the line extends past the handle.
-  If auto_gap is true, the gap length is computed so it touches 
-  the connected object edge then the absolute gap is added
-  */
-  
-Point
-calculate_object_edge(Point *objmid, Point *end, DiaObject *obj) 
-{
-#define MAXITER 25
-#ifdef TRACE_DIST
-  Point trace[MAXITER];
-  real disttrace[MAXITER];
-#endif
-  Point mid1, mid2, mid3;
-  real dist;
-  int i = 0;
-
-  mid1 = *objmid;
-  mid2.x = (objmid->x+end->x)/2;
-  mid2.y = (objmid->y+end->y)/2;
-  mid3 = *end;
-
-  /* If the other end is inside the object */
-  dist = obj->ops->distance_from(obj, &mid3);
-  if (dist < 0.001) return mid1;
-
-
-  do {
-    dist = obj->ops->distance_from(obj, &mid2);
-    if (dist < 0.0000001) {
-      mid1 = mid2;
-    } else {
-      mid3 = mid2;
-    }
-    mid2.x = (mid1.x + mid3.x)/2;
-    mid2.y = (mid1.y + mid3.y)/2;
-#ifdef TRACE_DIST
-    trace[i] = mid2;
-    disttrace[i] = dist;
-#endif
-    i++;
-  } while (i < MAXITER && (dist < 0.0000001 || dist > 0.001));
-  
-#ifdef TRACE_DIST
-  if (i == MAXITER) {
-    for (i = 0; i < MAXITER; i++) {
-      printf("%d: %f, %f: %f\n", i, trace[i].x, trace[i].y, disttrace[i]);
-    }
-    printf("i = %d, dist = %f\n", i, dist);
-  }
-#endif
-
-  return mid2;
-}
 
 
 /** Calculate the absolute gap -- this gap is 'transient', in that
