@@ -239,12 +239,12 @@ static void make_angle(const Point *centre, real degrees, real radius,
   pt->y = centre->y - radius * sin( radians );
 }
 
-static void make_hours(const Point *centre, unsigned hours, real radius,
+static void make_hours(const Point *centre, unsigned hours, unsigned minutes, real radius,
                        Point *pt)
 {
   while (hours > 11) hours -= 12;
   
-  make_angle(centre,((real)hours) * 360.0 / 12.0,radius,pt);
+  make_angle(centre,((real)hours) * 360.0 / 12.0 + ((real)minutes) * 360.0 / 12.0 / 60.0 ,radius,pt);
 }
 
 static void make_minutes(const Point *centre, unsigned minutes,
@@ -265,7 +265,7 @@ analog_clock_update_arrow_tips(Analog_Clock *analog_clock)
   analog_clock->min_tip.directions = DIR_ALL;
   analog_clock->sec_tip.directions = DIR_ALL;
   if (local) {    
-    make_hours(&analog_clock->centre,local->tm_hour,
+    make_hours(&analog_clock->centre,local->tm_hour,local->tm_min,
                0.50 * analog_clock->radius, &analog_clock->hour_tip.pos);
     make_minutes(&analog_clock->centre,local->tm_min,
                  0.80 * analog_clock->radius, &analog_clock->min_tip.pos);
@@ -303,7 +303,7 @@ analog_clock_update_data(Analog_Clock *analog_clock)
   /* Update connections: */
   for (i = 0; i < 12; ++i)
   {
-    make_hours(&analog_clock->centre, i+1, analog_clock->radius,
+    make_hours(&analog_clock->centre, i+1, 0, analog_clock->radius,
                &analog_clock->hours[i].pos);
     analog_clock->hours[i].directions = DIR_ALL;
   }
@@ -350,9 +350,9 @@ analog_clock_draw(Analog_Clock *analog_clock, DiaRenderer *renderer)
           default:
             ticklen = 2 * analog_clock->border_line_width; break;
       }
-      make_hours(&analog_clock->centre, i,
+      make_hours(&analog_clock->centre, i, 0,
                  analog_clock->radius, &out);
-      make_hours(&analog_clock->centre, i,
+      make_hours(&analog_clock->centre, i, 0,
                  analog_clock->radius-ticklen, &in);
       renderer_ops->draw_line(renderer,&out,&in,&analog_clock->border_color);
     }

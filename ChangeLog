@@ -1,5 +1,8 @@
 2008-03-01  Hans Breuer  <hans@breuer.org>
 
+	* objects/Misc/analog_clock.c : move hour hand by the minute
+	Patch from Paul McGuire fixing bug #516469
+
 	* lib/font.c : dia_font_get_sizes() was wrongly assuming single
 	line passed in. Patch inspired by Saurabh Nanda, fixes bug #482585
 
