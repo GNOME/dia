@@ -1,5 +1,17 @@
 2008-03-01  Hans Breuer  <hans@breuer.org>
 
+	* objects/custom_lines/custom_linetypes.c 
+	  objects/custom_lines/Makefile.am : make the hack to include stuff
+	from objects/standard pass 'make distcheck'. Looks very suspicous from 
+	the design point of view. ObjectTypeOps are not meant to be reused.
+
+	* objects/SISSI/Makefile.am objects/standard/Makefile.am
+	  objects/Database/Makefile.am doc/fr/Makefile.am lib/newgroup.c :
+	changes to make 'make distcheck' work ...
+	* bindings/Makefile.am : ... almost ;)
+
+2008-03-01  Hans Breuer  <hans@breuer.org>
+
 	* bindings/* : make it compile again after DiaObject method renaming
 	* lib/units.[ch] : gobal variables need to be explicit exported - or
 	better avoided

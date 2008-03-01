@@ -31,9 +31,13 @@
 
 #include "object.h"
 
-#include "../standard/polyline.h"
-#include "../standard/zigzagline.h"
-#include "../standard/bezier.h"
+/* Including stuff from objects/standard is violating plug-in independence 
+ * and requires extra hoops in Makefile.am. This thing is not going to work
+ * on win32 at all. Need to think about the proper solution ...
+ */
+#include "polyline.h"
+#include "zigzagline.h"
+#include "bezier.h"
 
 #include "line_info.h"
 #include "custom_linetypes.h"

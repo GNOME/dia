@@ -1,19 +1,23 @@
 ## Process this file with automake to produce Makefile.in
 pkglib_LTLIBRARIES = 	libstandard_objects.la
-libstandard_objects_la_SOURCES = 	arc.c \
-			box.c \
-			ellipse.c \
-			textobj.c \
-			line.c \
-			zigzagline.c \
-			polyline.c \
-			bezier.c \
-			standard.c \
-			image.c \
-			outline.c \
-			polygon.c \
-			beziergon.c \
-			tool-icons.h
+libstandard_objects_la_SOURCES = 	
+	arc.c \
+	box.c \
+	ellipse.c \
+	textobj.c \
+	line.c \
+	zigzagline.c \
+	zigzagline.h \
+	polyline.c \
+	polyline.h \
+	bezier.c \
+	bezier.h \
+	standard.c \
+	image.c \
+	outline.c \
+	polygon.c \
+	beziergon.c \
+	tool-icons.h
 
 libstandard_objects_la_LDFLAGS = -export-dynamic -module -avoid-version
 

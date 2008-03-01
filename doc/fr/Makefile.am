@@ -36,8 +36,9 @@ EXTRA_DIST += \
 	graphics/home_network.png \
 	graphics/line_icon.png \
 	graphics/greendots.png \
-	graphics/color_selector.png \
-	graphics/preferences-fig.png
+	graphics/color_selector.png
+
+##missing	graphics/preferences-fig.png
 
 if HAVE_DB2MAN
 # Anyone out there who understands automake?

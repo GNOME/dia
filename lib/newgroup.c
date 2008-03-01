@@ -36,7 +36,7 @@
 #include "parent.h"
 #include "newgroup.h"
 
-#include "objects/Misc/pixmaps/newgroup.xpm"
+#include "../objects/Misc/pixmaps/newgroup.xpm"
 
 #define NUM_CONNECTIONS 9
 

@@ -2,11 +2,12 @@
 
 pkglib_LTLIBRARIES = 	libdb_objects.la
 libdb_objects_la_SOURCES = \
-			database.c \
-			table.c \
-			table_dialog.c \
-			reference.c \
-			compound.c
+	database.c \
+	database.h \
+	table.c \
+	table_dialog.c \
+	reference.c \
+	compound.c
 
 libdb_objects_la_LDFLAGS = -export-dynamic -module -avoid-version
 
