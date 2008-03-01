@@ -36,6 +36,7 @@
 #include "dia_image.h"
 #include "message.h"
 #include "intl.h"
+#include "prefs.h"
 
 #include "units.h"
 

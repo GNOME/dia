@@ -79,6 +79,8 @@ void
 dia::ObjectType::apply_defaults ()
 {
     assert (self);
+    if (!self->ops->apply_defaults)
+	return;
     self->ops->apply_defaults ();
 }
 
@@ -153,6 +155,8 @@ GtkWidget*
 dia::Object::get_properties (bool is_default) const
 {
     assert (self);
+    if (!self->ops->get_properties)
+	return 0;
     return self->ops->get_properties (self, is_default);
 }
 //! OPTIONAL: apply the properties changed in the dialog
@@ -160,13 +164,17 @@ ObjectChange*
 dia::Object::apply_properties (GtkWidget* w)
 {
     assert (self);
-    return self->ops->apply_properties (self, w);
+    if (!self->ops->apply_properties_from_dialog)
+	return NULL;
+    return self->ops->apply_properties_from_dialog (self, w);
 }
 //! OPTIONAL: provide a context menu to change the object states
 DiaMenu* 
 dia::Object::get_object_menu (Point* pos) const
 {
     assert (self);
+    if (!self->ops->get_object_menu)
+	return 0;
     return self->ops->get_object_menu (self, pos);
 }
     

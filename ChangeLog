@@ -1,3 +1,11 @@
+2008-03-01  Hans Breuer  <hans@breuer.org>
+
+	* bindings/* : make it compile again after DiaObject method renaming
+	* lib/units.[ch] : gobal variables need to be explicit exported - or
+	better avoided
+	* objects/custom/custom_object.c objects/custom/shape_info.c : fix
+	missing includes and gccisms (c99isms)
+
 2008-02-20  Lars Clausen  <lars@raeder.dk>
 
 	* objects/standard/line.c (line_adjust_for_absolute_gap): Fix

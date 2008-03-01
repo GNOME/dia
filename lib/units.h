@@ -19,6 +19,7 @@
 #define UNITS_H
 
 #include <config.h>
+#include "diavar.h"
 
 typedef enum {
   DIA_UNIT_CENTIMETER,
@@ -39,6 +40,6 @@ struct _DiaUnitDef {
   int digits; /** Number of digits after the decimal separator */
 };
 
-extern const DiaUnitDef units[];
+const DIAVAR DiaUnitDef units[];
 
 #endif /* UNITS_H */

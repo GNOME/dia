@@ -50,6 +50,7 @@
 #include "properties.h"
 #include "dia_image.h"
 #include "custom_object.h"
+#include "prefs.h"
 
 #include "pixmaps/custom.xpm"
 
@@ -415,6 +416,10 @@ static void
 transform_subshape_coord(Custom *custom, GraphicElementSubShape* subshape,
                          const Point *p1, Point *out)
 {
+  real scale, width, height, xoffs, yoffs;
+  coord cx, cy;
+  Rectangle orig_bounds, new_bounds;
+
   if (subshape->default_scale == 0.0) {
     ShapeInfo *info = custom->info;
     real svg_width = info->shape_bounds.right - info->shape_bounds.left;
@@ -424,20 +429,20 @@ transform_subshape_coord(Custom *custom, GraphicElementSubShape* subshape,
                                    units[prefs_get_length_unit()].factor;
   }
   
-  real scale = custom->subscale * subshape->default_scale;
+  scale = custom->subscale * subshape->default_scale;
   	      
-  coord cx = 0.0;
-  coord cy = 0.0;
+  cx = 0.0;
+  cy = 0.0;
   
-  real width = 0.0;
-  real height = 0.0;
+  width = 0.0;
+  height = 0.0;
   
-  real xoffs = custom->xoffs;
-  real yoffs = custom->yoffs;
+  xoffs = custom->xoffs;
+  yoffs = custom->yoffs;
   
   /* step 1: calculate boundaries */
-  Rectangle orig_bounds = custom->info->shape_bounds;
-  Rectangle new_bounds;
+  orig_bounds = custom->info->shape_bounds;
+  new_bounds;
   
   /* step 2: undo unkown/funky number magic when flip_h or flip_v is set */
   if(custom->flip_h) custom->xscale = -custom->xscale;

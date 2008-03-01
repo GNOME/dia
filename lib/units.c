@@ -2,7 +2,7 @@
 #include "units.h"
 
 /* from gnome-libs/libgnome/gnome-paper.c */
-const DiaUnitDef units[] =
+const DIAVAR DiaUnitDef units[] =
 {
   /* XXX does anyone *really* measure paper size in feet?  meters? */
 
