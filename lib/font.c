@@ -722,9 +722,9 @@ dia_font_get_sizes(const char* string, DiaFont *font, real height,
   }
   layout = dia_font_build_layout(non_empty_string, font, height * 20);
   
-  /* Only one line here */
+  /* Only one line here ? */
   iter = pango_layout_get_iter(layout);
-    
+
   pango_layout_iter_get_line_extents(iter, &ink_rect, &logical_rect);
 
   top = pdu_to_dcm(logical_rect.y) / 20;
@@ -733,6 +733,16 @@ dia_font_get_sizes(const char* string, DiaFont *font, real height,
 
   get_string_offsets(iter, &offsets, n_offsets);
   get_layout_offsets(pango_layout_get_line(layout, 0), layout_offsets);
+
+  /* FIXME: the above assumption of 'one line'  is wrong. At least calculate the overall width correctly
+   * to avoid text overflowing its box, like in bug #482585 */
+  while (pango_layout_iter_next_line (iter)) {
+    PangoRectangle more_ink_rect, more_logical_rect;
+    
+    pango_layout_iter_get_line_extents(iter, &more_ink_rect, &more_logical_rect);
+    if (more_logical_rect.width > logical_rect.width)
+      logical_rect.width = more_logical_rect.width;
+  }
 
   pango_layout_iter_free(iter);
   g_object_unref(G_OBJECT(layout));

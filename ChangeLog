@@ -1,5 +1,10 @@
 2008-03-01  Hans Breuer  <hans@breuer.org>
 
+	* lib/font.c : dia_font_get_sizes() was wrongly assuming single
+	line passed in. Patch inspired by Saurabh Nanda, fixes bug #482585
+
+2008-03-01  Hans Breuer  <hans@breuer.org>
+
 	* objects/custom_lines/custom_linetypes.c 
 	  objects/custom_lines/Makefile.am : make the hack to include stuff
 	from objects/standard pass 'make distcheck'. Looks very suspicous from 
