@@ -25,7 +25,8 @@ PKG_LINK = $(GTK2_LIBS)  $(PANGOWIN32_LIBS) $(GLIB_LIBS) \
 	$(PANGOFT2_LIBS) \
 !ENDIF
 	$(LIBXML2_LIBS) $(ZLIB_LIBS) \
-	$(LIBART_LIBS) $(GDK_PIXBUF_LIBS) \
+	$(LIBART_LIBS) \
+	$(GDK_PIXBUF_LIBS) \
 	$(INTL_LIBS)
 
 ICON_PNG_PAIRS = \
@@ -107,6 +108,7 @@ OBJECTS = \
 	sheet.obj \
 	text.obj \
 	textline.obj \
+	units.obj \
 	utils.obj \
 	widgets.obj \
 	diamarshal.obj \
@@ -117,6 +119,10 @@ OBJECTS = \
 # setup autogeneration dependancies
 gen_sources = xgen-gwmh xgen-gwmc
 CLEANFILES = $(gen_sources)
+
+!IFNDEF GLIB_GEN_MARSHAL
+GLIB_GEN_MARSHAL=$(TOP)\glib\gobject\glib-genmarshal
+!ENDIF
 
 diamarshal.h: diamarshal.list
 	$(GLIB_GEN_MARSHAL) --prefix=dia_marshal diamarshal.list --header >> xgen-gwmh \

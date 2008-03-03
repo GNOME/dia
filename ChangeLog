@@ -1,3 +1,8 @@
+2008-03-03  Hans Breuer  <hans@breuer.org>
+
+	* lib/makefile.msc : compile units.c and ensure definition of
+	GLIB_GEN_MARSHAL
+
 2008-03-01  Hans Breuer  <hans@breuer.org>
 
 	* objects/Misc/analog_clock.c : move hour hand by the minute
