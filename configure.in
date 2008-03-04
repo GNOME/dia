@@ -33,7 +33,6 @@ AC_PROG_MAKE_SET
 AC_ISC_POSIX
 
 dnl Checks for header files.
-AC_HEADER_DIRENT
 AC_HEADER_STDC
 AC_CHECK_HEADERS(stddef.h fcntl.h unistd.h utime.h)
 

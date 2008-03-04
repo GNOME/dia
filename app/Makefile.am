@@ -21,10 +21,9 @@ print_files = \
 	paginate_psprint.c \
 	paginate_psprint.h
 
-noinst_PROGRAMS = run_dia.sh #run_diaconv.sh diaconv
+noinst_PROGRAMS = run_dia.sh
 
 run_dia_sh_SOURCES = 
-#run_diaconv_sh_SOURCES = 
 
 if HAVE_BONOBO
 dia_embedd = dia-embedd
@@ -219,19 +218,11 @@ dia_SOURCES = \
 	    $(dia_core_files) \
 	    main.c 
 
-#diaconv_SOURCES = \
-#	$(dia_core_files) \
-#	diaconv.c
-
 EFENCE =
 
 dia_LDADD = ../lib/libdia.la \
 	$(EFENCE) \
 	$(APP_LIBS) $(Z_LIBS) $(FREETYPE_LIBS) $(GTK_LIBS) $(PNG_LIBS) $(INTLLIBS) $(INTLOBJS) $(XML_LIBS) $(LIBART_LIBS) $(GLIB_LIBS)
-
-#diaconv_LDADD = ../lib/libdia.la \
-#	$(EFENCE) \
-#	$(APP_LIBS) $(GTK_LIBS) $(PNG_LIBS) $(INTLLIBS) $(INTLOBJS)
 
 ## Bonobo embeddable dia. Commented out, because it's a bit raw.
 ## Especially the configure/make parts.
@@ -264,7 +255,6 @@ EXTRA_DIST = \
 	dia.ico \
 	dia.rc \
 	\
-	diaconv.c \
 	dia-win-remote.c \
 	\
 	pixmaps/arrow.xpm \
@@ -316,8 +306,3 @@ run_dia.sh$(EXEEXT): Makefile.am
 	echo "   \"\$$DIA_APP_PATH/dia\" \"\$$@\"" >> run_dia.sh
 	echo "fi" >> run_dia.sh
 	chmod a+x run_dia.sh
-
-#run_diaconv.sh: run_dia.sh
-#	cat run_dia.sh | sed -e "s%`pwd`/dia%`pwd`/diaconv%g" >run_diaconv.sh 
-#	chmod a+x run_diaconv.sh
-

@@ -1,5 +1,9 @@
 2008-03-04  Hans Breuer  <hans@breuer.org>
 
+	* app/diaconv.c : removed - cruft must die
+	* app/Makefile.am : adapted
+	* configure.in : removed obsoltete check for dirent.h
+
 	* objects/standard/Makefile.am : ooops, was not built anymore;)gedit 
 
 	[autobreak trial and error - finally makes 'make distcheck' pass]
