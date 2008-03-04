@@ -15,8 +15,6 @@ sheet_in_files = \
   AADL.sheet.in Gane_and_Sarson.sheet.in BPMN.sheet.in SISSI.sheet.in \
   Lights.sheet.in Database.sheet.in
 
-# EML.sheet.in disabled as the objects have GPL issues, see objects/Makefile.am
-
 SHEETS = $(sheet_in_files:.sheet.in=.sheet)
 
 sheetdir = $(pkgdatadir)/sheets

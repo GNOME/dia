@@ -1,5 +1,9 @@
 2008-03-04  Hans Breuer  <hans@breuer.org>
 
+	* objects/EML/* sheets/EML.sheet.in : removed
+	* objects/Makefile.am : almost 7 years being disabled is enough
+	* po/POTFILES.in sheets/Makefile.am : adapted
+
 	* app/app_procs.c configure.in : removed obsolete POPT cruft
 
 	* app/diaconv.c : removed - cruft must die
