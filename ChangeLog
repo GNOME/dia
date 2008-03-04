@@ -1,5 +1,7 @@
 2008-03-04  Hans Breuer  <hans@breuer.org>
 
+	* app/app_procs.c configure.in : removed obsolete POPT cruft
+
 	* app/diaconv.c : removed - cruft must die
 	* app/Makefile.am : adapted
 	* configure.in : removed obsoltete check for dirent.h

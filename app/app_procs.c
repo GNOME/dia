@@ -37,27 +37,8 @@
 #include <gtk/gtk.h>
 #include <gmodule.h>
 
-#if (defined (HAVE_LIBPOPT) && defined (HAVE_POPT_H)) || defined (GNOME)
-#define HAVE_POPT
-#endif
-
 #ifdef GNOME
 #include <gnome.h>
-#else 
-#  ifdef HAVE_POPT_H
-#    include <popt.h>
-#  else
-/* sorry about the mess, but one should not use conditional defined types in 
- * unconditional function call in the first place ... --hb */
-typedef void* poptContext;
-#  endif
-#endif
-
-/* apparently there is no clean way to use glib-2.6 GOption with gnome */
-#if GLIB_CHECK_VERSION(2,5,5) && !defined GNOME
-#  define USE_GOPTION 1
-#else
-#  define USE_GOPTION 0
 #endif
 
 #ifdef HAVE_FREETYPE
@@ -114,12 +95,8 @@ handle_initial_diagram(const char *input_file_name,
 
 static void create_user_dirs(void);
 static PluginInitResult internal_plugin_init(PluginInfo *info);
-static void process_opts(int argc, char **argv,
-#if USE_GOPTION
+static void process_opts(int *argc, char **argv,
 			 GOptionContext* context, GOptionEntry options[],
-#elif defined HAVE_POPT
-			 poptContext poptCtx, struct poptOption options[],
-#endif
 			 GSList **files, char **export_file_name,
 			 char **export_file_format, char **size,
 			 char **show_layers, gboolean *nosplash);
@@ -697,7 +674,6 @@ app_init (int argc, char **argv)
 		    "shape, svg, tex, " WMF
 		    "wpg");
 
-#if USE_GOPTION 
   GOptionContext *context = NULL;
   static GOptionEntry options[] =
   {
@@ -724,49 +700,12 @@ app_init (int argc, char **argv)
      N_("Display version and exit"), NULL },
     { NULL }
   };
-#elif defined HAVE_POPT
-  poptContext context = NULL;
-  struct poptOption options[] =
-  {
-    {"export", 'e', POPT_ARG_STRING, NULL /* &export_file_name */, 0,
-     N_("Export loaded file and exit"), N_("OUTPUT")},
-    {"filter",'t', POPT_ARG_STRING, NULL /* &export_file_format */,
-     0, export_format_string, N_("TYPE")
-    },
-    {"size", 's', POPT_ARG_STRING, NULL, 0,
-     N_("Export graphics size"), N_("WxH")},
-    {"show-layers", 'L', POPT_ARG_STRING, NULL, 0,  /* 13.3.2004 sampo@iki.fi */
-     N_("Show only specified layers (e.g. when exporting). Can be either the layer name or a range of layer numbers (X-Y)"),
-     N_("LAYER,LAYER,...")},
-    {"nosplash", 'n', POPT_ARG_NONE, &nosplash, 0,
-     N_("Don't show the splash screen"), NULL },
-    {"nonew", 'n', POPT_ARG_NONE, &nonew, 0,
-     N_("Don't create empty diagram"), NULL },
-    {"log-to-stderr", 'l', POPT_ARG_NONE, &log_to_stderr, 0,
-     N_("Send error messages to stderr instead of showing dialogs."), NULL },
-    {"credits", 'c', POPT_ARG_NONE, &credits, 0,
-     N_("Display credits list and exit"), NULL },
-    {"verbose", 0, POPT_ARG_NONE, &verbose, 0,
-     N_("Generate verbose output"), NULL },
-    {"version", 'v', POPT_ARG_NONE, &version, 0,
-     N_("Display version and exit"), NULL },
-    {"help", 'h', POPT_ARG_NONE, 0, 1, N_("Show this help message") },
-    {(char *) NULL, '\0', 0, NULL, 0}
-  };
-#endif
 
-#if USE_GOPTION
   options[0].arg_data = &export_file_name;
   options[1].arg_data = &export_file_format;
   options[1].description = export_format_string;
   options[2].arg_data = &size;
   options[3].arg_data = &show_layers;
-#elif defined HAVE_POPT
-  options[0].arg = &export_file_name;
-  options[1].arg = &export_file_format;
-  options[2].arg = &size;
-  options[3].arg = &show_layers;
-#endif
 
   argv0 = (argc > 0) ? argv[0] : "(none)";
 
@@ -786,12 +725,10 @@ app_init (int argc, char **argv)
 #endif
   textdomain(GETTEXT_PACKAGE);
 
-  process_opts(argc, argv, 
-#if defined HAVE_POPT || USE_GOPTION
+  process_opts(&argc, argv, 
                context, options, 
-#endif
                &files,
-	     &export_file_name, &export_file_format, &size, &show_layers, &nosplash);
+	       &export_file_name, &export_file_format, &size, &show_layers, &nosplash);
 
 #if defined ENABLE_NLS && defined HAVE_BIND_TEXTDOMAIN_CODESET
   bind_textdomain_codeset(GETTEXT_PACKAGE,"UTF-8");  
@@ -804,10 +741,9 @@ app_init (int argc, char **argv)
       gnome_program_init (PACKAGE, VERSION, LIBGNOMEUI_MODULE,
 			  argc, argv,
 			  /* haven't found a quick way to pass GOption here */
-			  GNOME_PARAM_POPT_TABLE, options,
+			  GNOME_PARAM_GOPTION_CONTEXT, context,
 			  GNOME_PROGRAM_STANDARD_PROPERTIES,
 			  GNOME_PARAM_NONE);
-    g_object_get(program, "popt-context", &context, NULL);
     client = gnome_master_client();
     if(client == NULL) {
       g_warning(_("Can't connect to session manager!\n"));
@@ -1214,53 +1150,20 @@ internal_plugin_init(PluginInfo *info)
 
 /* Note: running in locale encoding */
 static void
-process_opts(int argc, char **argv,
-#if USE_GOPTION
+process_opts(int *argc, char **argv,
 	     GOptionContext *context, GOptionEntry options[],
-#elif defined HAVE_POPT
-	     poptContext poptCtx, struct poptOption options[],
-#endif
 	     GSList **files, char **export_file_name,
 	     char **export_file_format, char **size,
 	     char **show_layers, gboolean* nosplash)
 {
-#if defined HAVE_POPT && !USE_GOPTION
-  int rc = 0;
-  poptCtx = poptGetContext(PACKAGE, argc, (const char **)argv, options, 0);
-  poptSetOtherOptionHelp(poptCtx, _("[OPTION...] [FILE...]"));
-  while (rc >= 0) {
-    if((rc = poptGetNextOpt(poptCtx)) < -1) {
-      fprintf(stderr,_("Error on option %s: %s.\nRun '%s --help' to see a full list of available command line options.\n"),
-	      poptBadOption(poptCtx, 0),
-	      poptStrerror(rc),
-	      argv[0]);
-      exit(1);
-    }
-    if(rc == 1) {
-      poptPrintHelp(poptCtx, stderr, 0);
-      exit(0);
-    }
-  }
-#endif
   if (argv) {
-#if defined HAVE_POPT && !USE_GOPTION
-      while (poptPeekArg(poptCtx)) {
-          char *in_file_name = (char *)poptGetArg(poptCtx);
-	  if (*in_file_name != '\0')
-	    *files = g_slist_append(*files, in_file_name);
-      }
-      poptFreeContext(poptCtx);
-#elif USE_GOPTION
       GError *error = NULL;
       int i;
       
       context = g_option_context_new(_("[FILE...]"));
       g_option_context_add_main_entries (context, options, GETTEXT_PACKAGE);
-#  if GTK_CHECK_VERSION(2,5,7)
-      /* at least Gentoo was providing GLib-2.6 but Gtk+-2.4.14 */
-      g_option_context_add_group (context, gtk_get_option_group (FALSE));
-#  endif
-      if (!g_option_context_parse (context, &argc, &argv, &error)) {
+
+      if (!g_option_context_parse (context, argc, &argv, &error)) {
         if (error) { /* IMO !error here is a bug upstream, triggered with --gdk-debug=updates */
 	g_print ("%s", error->message);
 	  g_error_free (error);
@@ -1271,11 +1174,11 @@ process_opts(int argc, char **argv,
         g_option_context_free(context);
 	exit(0);
       }
-      if (argc < 2) {
+      if (*argc < 2) {
         g_option_context_free(context);
 	return;
       }
-      for (i = 1; i < argc; i++) {
+      for (i = 1; i < *argc; i++) {
 	if (!g_file_test (argv[i], G_FILE_TEST_IS_REGULAR)) {
 	  g_print (_("'%s' not found!\n"), argv[i]);
           g_option_context_free(context);
@@ -1284,43 +1187,6 @@ process_opts(int argc, char **argv,
 	*files = g_slist_append(*files, argv[i]);
       }
       g_option_context_free(context);
-#else
-      int i;
-
-      for (i=1; i<argc; i++) {
-          char *in_file_name = argv[i]; /* unless it's an option... */
-
-          if (0==strcmp(argv[i],"-t")) {
-              if (i < (argc-1)) {
-                  i++;
-                  *export_file_format = argv[i];
-                  continue;
-              }
-          } else if (0 == strcmp(argv[i],"-e")) {
-              if (i < (argc-1)) {
-                  i++;
-                  *export_file_name = argv[i];
-                  continue;
-              }
-          } else if (0 == strcmp(argv[i],"-s")) {
-              if (i < (argc-1)) {
-                  i++;
-                  *size = argv[i];
-                  continue;
-              }
-          } else if (0 == strcmp(argv[i],"-L")) {
-              if (i < (argc-1)) {
-                  i++;
-                  *show_layers = argv[i];
-                  continue;
-              }
-          } else if (0 == strcmp(argv[i],"-n")) {
-	      *nosplash = 1;
-	      continue;
-          }
-	  *files = g_slist_append(*files, in_file_name);
-      }
-#endif
   }
   if (*export_file_name || *export_file_format || *size)
     dia_is_interactive = FALSE;

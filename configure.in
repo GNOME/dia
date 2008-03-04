@@ -186,17 +186,6 @@ AC_ARG_WITH(xslt-prefix,
 AC_DEFINE_UNQUOTED(LIBXSLT_PREFIX,"$libxslt_prefix", [Place to look for XSLT libs])
 
 dnl
-dnl Popt
-dnl
-
-AC_CHECK_LIB(popt, poptSetOtherOptionHelp, [
-                AC_DEFINE(HAVE_LIBPOPT,,[popt library available])
-		   POPT_LIBS="-lpopt"])
-AC_CHECK_HEADERS(popt.h)
-AC_SUBST(POPT_LIBS)
-APP_LIBS="$APP_LIBS $POPT_LIBS"
-
-dnl
 dnl libpng
 dnl
 dnl this likely already comes from GTK
