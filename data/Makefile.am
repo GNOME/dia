@@ -12,4 +12,5 @@ ui_DATA = 			\
 	integrated-ui.xml
 
 EXTRA_DIST = \
-	$(ui_DATA)
+	$(ui_DATA) \
+	$(pkgdata_DATA)

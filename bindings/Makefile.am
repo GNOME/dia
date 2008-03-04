@@ -18,9 +18,16 @@ endif
 
 ## the rest of the sources is independent of SWIG and Python
 
+## nothing to be installed yet
+if WITH_SWIG
+## this is not working yet (link error)
+pkgpyexec_LTLIBRARIES = $(libpython_bindings)
 # the python part (import dia;)
 pkgpython_PYTHON = dia.py
-pkgpyexec_LTLIBRARIES = $(libpython_bindings)
+else
+noinst_LTLIBRARIES = $(libpython_bindings)
+pkgpython_PYTHON = 
+endif
 
 # c++ wrapper over Dia's C api
 _dia_la_SOURCES = \
@@ -44,7 +51,8 @@ _dia_la_SOURCES = \
 
 _dia_la_CPPFLAGS = $(SWIG_PYTHON_CPPFLAGS) -I$(top_srcdir)/lib
 _dia_la_LDFLAGS = -export-dynamic -module -avoid-version
-_dia_la_LIBADD = ../lib/libdia.la $(PYTHON_LIBS) $(GTK_LIBS)
+## must link ../lib/libdia.la but don't know how;(
+_dia_la_LIBADD = $(PYTHON_LIBS) $(GTK_LIBS)
 
 INCLUDES = \
 	-I$(top_srcdir) \
@@ -67,7 +75,10 @@ SWIG_PYTHON_OPT = -python -modern -extranative -c++
 $(srcdir)/dia-python.cpp : $(INTERFACES)
 	$(SWIG) $(SWIG_PYTHON_OPT) -I$(top_srcdir) -I../lib -o $@ $<
 
+
 EXTRA_DIST = \
+	dia.swig \
 	makefile.msc \
+	Doxyfile \
 	test.py
 

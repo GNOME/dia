@@ -154,6 +154,8 @@ objects/chronogram/chronoline.c
 objects/chronogram/chronoref.c
 objects/custom/custom.c
 objects/custom/custom_object.c
+objects/custom_lines/custom_lines.c
+objects/custom_lines/custom_linetypes.c
 objects/custom/shape_info.c
 objects/flowchart/box.c
 objects/flowchart/diamond.c

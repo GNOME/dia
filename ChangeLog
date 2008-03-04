@@ -1,3 +1,14 @@
+2008-03-04  Hans Breuer  <hans@breuer.org>
+
+	* objects/standard/Makefile.am : ooops, was not built anymore;)gedit 
+
+	[autobreak trial and error - finally makes 'make distcheck' pass]
+	* bindings/Makefile.am : dont try to install anything
+	* data/Makefile.am : add dia-splash.png to EXTRA_DIST
+	* doc/en/Makefile.am : add dia-dbk-to-chapter.sed to EXTRA_DIST
+	* xmldocs.make : s/docdir/helpdocdir/
+	* po/POTFILES.(in|skip) : updated
+
 2008-03-03  Hans Breuer  <hans@breuer.org>
 
 	* lib/makefile.msc : compile units.c and ensure definition of

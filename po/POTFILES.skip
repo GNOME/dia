@@ -1,3 +1,4 @@
+dia.desktop.in
 objects/EML/eml.c
 objects/EML/instantiation.c
 objects/EML/interaction-ortho.c

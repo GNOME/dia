@@ -34,12 +34,12 @@
 
 
 # **********  Begin of section some packagers may need to modify  **********
-# This variable (docdir) specifies where the documents should be installed.
+# This variable (helpdocdir) specifies where the documents should be installed.
 # This default value should work for most packages.
 if HAVE_GNOME
-docdir = $(datadir)/gnome/help/$(docname)/$(lang)
+helpdocdir = $(datadir)/gnome/help/$(docname)/$(lang)
 else
-docdir = $(datadir)/$(docname)/help/$(lang)
+helpdocdir = $(datadir)/$(docname)/help/$(lang)
 endif
 
 # **********  You should not have to edit below this line  **********
@@ -67,15 +67,15 @@ app-dist-hook:
 	fi
 
 install-data-local: omf
-	$(mkinstalldirs) $(DESTDIR)$(docdir)
+	$(mkinstalldirs) $(DESTDIR)$(helpdocdir)
 	for file in $(xml_files); do \
-	  cp $(srcdir)/$$file $(DESTDIR)$(docdir); \
+	  cp $(srcdir)/$$file $(DESTDIR)$(helpdocdir); \
 	done
 	if test "$(figdir)"; then \
-	  $(mkinstalldirs) $(DESTDIR)$(docdir)/$(figdir); \
+	  $(mkinstalldirs) $(DESTDIR)$(helpdocdir)/$(figdir); \
 	  for file in $(srcdir)/$(figdir)/*.png; do \
 	    basefile=`echo $$file | sed -e  's,^.*/,,'`; \
-	    $(INSTALL_DATA) $$file $(DESTDIR)$(docdir)/$(figdir)/$$basefile; \
+	    $(INSTALL_DATA) $$file $(DESTDIR)$(helpdocdir)/$(figdir)/$$basefile; \
 	  done \
 	fi
 
@@ -87,13 +87,13 @@ uninstall-local-doc:
 	-if test "$(figdir)"; then \
 	  for file in $(srcdir)/$(figdir)/*.png; do \
 	    basefile=`echo $$file | sed -e  's,^.*/,,'`; \
-	    rm -f $(DESTDIR)$(docdir)/$(figdir)/$$basefile; \
+	    rm -f $(DESTDIR)$(helpdocdir)/$(figdir)/$$basefile; \
 	  done; \
-	  rmdir $(DESTDIR)$(docdir)/$(figdir); \
+	  rmdir $(DESTDIR)$(helpdocdir)/$(figdir); \
 	fi
 	-for file in $(xml_files); do \
-	  rm -f $(DESTDIR)$(docdir)/$$file; \
+	  rm -f $(DESTDIR)$(helpdocdir)/$$file; \
 	done
-	-rmdir $(DESTDIR)$(docdir)
+	-rmdir $(DESTDIR)$(helpdocdir)
 
 clean-local: clean-local-omf

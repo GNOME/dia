@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 pkglib_LTLIBRARIES = 	libstandard_objects.la
-libstandard_objects_la_SOURCES = 	
+libstandard_objects_la_SOURCES = \	
 	arc.c \
 	box.c \
 	ellipse.c \
