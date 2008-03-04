@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-02-16 18:57+0100\n"
-"PO-Revision-Date: 2008-02-16 18:57+0100\n"
+"POT-Creation-Date: 2008-03-04 18:44+0100\n"
+"PO-Revision-Date: 2008-03-04 18:47+0100\n"
 "Last-Translator: Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>\n"
 "Language-Team: Basque <itzulpena@euskalgnu.org>\n"
 "MIME-Version: 1.0\n"
@@ -240,6 +240,7 @@ msgid "'%s' not found!\n"
 msgstr "'%s' ez da aurkitu.\n"
 
 #: ../app/app_procs.c:1361
+#, c-format
 msgid ""
 "The original author of Dia was:\n"
 "\n"
@@ -248,6 +249,7 @@ msgstr ""
 "\n"
 
 #: ../app/app_procs.c:1366
+#, c-format
 msgid ""
 "\n"
 "The current maintainers of Dia are:\n"
@@ -258,6 +260,7 @@ msgstr ""
 "\n"
 
 #: ../app/app_procs.c:1371
+#, c-format
 msgid ""
 "\n"
 "Other authors are:\n"
@@ -268,6 +271,7 @@ msgstr ""
 "\n"
 
 #: ../app/app_procs.c:1376
+#, c-format
 msgid ""
 "\n"
 "Dia is documented by:\n"
@@ -963,7 +967,7 @@ msgstr "Korritu diagrama"
 #: ../objects/UML/node.c:129 ../objects/UML/note.c:123
 #: ../objects/UML/object.c:150 ../objects/UML/small_package.c:130
 #: ../objects/UML/state.c:154 ../objects/UML/usecase.c:140
-#: ../objects/custom/custom_object.c:221 ../objects/network/basestation.c:135
+#: ../objects/custom/custom_object.c:222 ../objects/network/basestation.c:135
 #: ../objects/network/radiocell.c:127
 msgid "Text"
 msgstr "Testua"
@@ -5506,32 +5510,52 @@ msgstr "Pertsonalizatu"
 msgid "Custom XML shapes loader"
 msgstr "XML forma pertsonalizatuen kargatzailea"
 
-#: ../objects/custom/custom_object.c:196 ../objects/custom/custom_object.c:224
+#: ../objects/custom/custom_object.c:197 ../objects/custom/custom_object.c:225
 msgid "Flip horizontal"
 msgstr "Irauli horizontalki"
 
-#: ../objects/custom/custom_object.c:198 ../objects/custom/custom_object.c:226
+#: ../objects/custom/custom_object.c:199 ../objects/custom/custom_object.c:227
 msgid "Flip vertical"
 msgstr "Irauli bertikalki"
 
-#: ../objects/custom/custom_object.c:201 ../objects/custom/custom_object.c:229
+#: ../objects/custom/custom_object.c:202 ../objects/custom/custom_object.c:230
 msgid "Scale of the subshapes"
 msgstr "Azpiformen eskala"
 
-#: ../objects/custom/custom_object.c:1756
+#: ../objects/custom/custom_object.c:1761
 msgid "Flip Horizontal"
 msgstr "Irauli horizontalki"
 
-#: ../objects/custom/custom_object.c:1757
+#: ../objects/custom/custom_object.c:1762
 msgid "Flip Vertical"
 msgstr "Irauli bertikalki"
 
-#: ../objects/custom/custom_object.c:1794
+#: ../objects/custom/custom_object.c:1799
+#: ../objects/custom_lines/custom_linetypes.c:159
 #, c-format
 msgid "Cannot open icon file %s for object type '%s'."
 msgstr "Ezin da %s ikono-fitxategia ireki, '%s' objektu-motarena."
 
-#: ../objects/custom/shape_info.c:161
+#: ../objects/custom_lines/custom_lines.c:160
+msgid "CustomLines"
+msgstr "LerroPertsonalizatuak"
+
+#: ../objects/custom_lines/custom_lines.c:160
+msgid "Custom XML lines loader"
+msgstr "XML lerro pertsonalizatuen kargatzailea"
+
+#: ../objects/custom_lines/custom_linetypes.c:126
+msgid "INTERNAL: CustomLines: Illegal line type in LineInfo object."
+msgstr "BARNEKOA: LerroPertsonalizatuak: lerro mota ilegala LineInfo objektuan."
+
+#: ../objects/custom_lines/custom_linetypes.c:147
+#, c-format
+msgid "INTERNAL: CustomLines: Illegal line type in LineInfo object %s."
+msgstr ""
+"BARNEKOA: LerroPertsonalizatuak: lerro mota ilegala LineInfo %s "
+"objektuan."
+
+#: ../objects/custom/shape_info.c:162
 #, c-format
 msgid ""
 "The file '%s' has invalid path data.\n"
