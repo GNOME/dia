@@ -161,8 +161,6 @@ dia_plugin_init(PluginInfo *info)
 			    NULL, NULL))
     return DIA_PLUGIN_INIT_ERROR;
   
-  custom_linetypes_init();
-  
   home_dir = g_get_home_dir();
   if (home_dir) {
     home_dir = dia_config_filename("lines");

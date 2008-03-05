@@ -4,8 +4,11 @@
  * Custom Lines -- line shapes defined in XML rather than C.
  * Based on the original Custom Objects plugin.
  * Copyright (C) 1999 James Henstridge.
+ *
  * Adapted for Custom Lines plugin by Marcel Toele.
  * Modifications (C) 2007 Kern Automatiseringsdiensten BV.
+ *
+ * Rewrite to use only public API (C) 2008 Hans Breuer
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -31,77 +34,172 @@
 
 #include "object.h"
 
-/* Including stuff from objects/standard is violating plug-in independence 
- * and requires extra hoops in Makefile.am. This thing is not going to work
- * on win32 at all. Need to think about the proper solution ...
- */
-#include "polyline.h"
-#include "zigzagline.h"
-#include "bezier.h"
-
 #include "line_info.h"
 #include "custom_linetypes.h"
 
+#include "properties.h"
+#include "propinternals.h"
+
 #include "pixmaps/default.xpm"
 
-ObjectTypeOps custom_zigzagline_type_ops;
-ObjectTypeOps custom_polyline_type_ops;
-ObjectTypeOps custom_bezierline_type_ops;
+static void customline_apply_properties( DiaObject* line, LineInfo* info );
+static DiaObject* customline_create(Point *startpoint,
+                                    void *user_data,
+                                    Handle **handle1,
+                                    Handle **handle2);
+static DiaObject *custom_zigzagline_load (ObjectNode obj_node, int version, const char *filename);
+static DiaObject *custom_polyline_load   (ObjectNode obj_node, int version, const char *filename);
+static DiaObject *custom_bezierline_load (ObjectNode obj_node, int version, const char *filename);
+
+static void customline_save (DiaObject *object, ObjectNode obj_node, const char *filename);
+
+static ObjectTypeOps 
+custom_zigzagline_type_ops = {
+  (CreateFunc)customline_create,   /* create */
+  (LoadFunc)  custom_zigzagline_load,     /* load */
+  (SaveFunc)  customline_save,     /* save */
+  (GetDefaultsFunc)   NULL /* get_defaults*/,
+  (ApplyDefaultsFunc) NULL /* apply_defaults*/
+};
+
+static ObjectTypeOps 
+custom_polyline_type_ops = {
+  (CreateFunc)customline_create,   /* create */
+  (LoadFunc)  custom_polyline_load,     /* load */
+  (SaveFunc)  customline_save,     /* save */
+  (GetDefaultsFunc)   NULL /* get_defaults*/,
+  (ApplyDefaultsFunc) NULL /* apply_defaults*/
+};
+
+static ObjectTypeOps 
+custom_bezierline_type_ops = {
+  (CreateFunc)customline_create,   /* create */
+  (LoadFunc)  custom_bezierline_load, /* load */
+  (SaveFunc)  customline_save,     /* save */
+  (GetDefaultsFunc)   NULL /* get_defaults*/,
+  (ApplyDefaultsFunc) NULL /* apply_defaults*/
+};
+
+/* our delegates types, intialized on demand */
+static DiaObjectType *polyline_ot = NULL;
+static DiaObjectType *bezier_ot = NULL;
+static DiaObjectType *zigzag_ot = NULL;
 
 
-void custom_linetype_new(LineInfo *info, DiaObjectType **otype);
-void zigzagline_apply_properties( Zigzagline* line, LineInfo* info );
-DiaObject* customline_create(Point *startpoint,
-                             void *user_data,
-                             Handle **handle1,
-                             Handle **handle2);
+static gboolean
+ensure_standard_types (void)
+{
+  if (!zigzag_ot)
+    zigzag_ot = object_get_type ("Standard - ZigZagLine");
+  if (!polyline_ot)
+    polyline_ot = object_get_type ("Standard - PolyLine");
+  if (!bezier_ot)
+    bezier_ot = object_get_type ("Standard - BezierLine");
 
-void custom_linetypes_init()
-{ 
-  custom_zigzagline_type_ops = zigzagline_type_ops;
-  custom_zigzagline_type_ops.create = customline_create;
-  custom_zigzagline_type_ops.get_defaults = NULL;
-  custom_zigzagline_type_ops.apply_defaults = NULL;
+  return (polyline_ot && bezier_ot && zigzag_ot);
+}
+
+static DiaObject *
+custom_zigzagline_load (ObjectNode obj_node, int version, const char *filename)
+{
+  ensure_standard_types ();
   
-  custom_polyline_type_ops = polyline_type_ops;
-  custom_polyline_type_ops.create = customline_create;
-  custom_polyline_type_ops.get_defaults = NULL;
-  custom_polyline_type_ops.apply_defaults = NULL;
+  if (!zigzag_ot) {
+    g_warning ("Can't delegate to 'Standard - ZigZagLine'");
+    return NULL;
+  }
+  return zigzag_ot->ops->load (obj_node, version, filename);
+}
+static DiaObject *
+custom_polyline_load (ObjectNode obj_node, int version, const char *filename)
+{
+  ensure_standard_types ();
+
+  if (!polyline_ot) {
+    g_warning ("Can't delegate to 'Standard - PolyLine'");
+    return NULL;
+  }
+  return polyline_ot->ops->load (obj_node, version, filename);
+}
+static DiaObject *
+custom_bezierline_load (ObjectNode obj_node, int version, const char *filename)
+{
+  ensure_standard_types ();
   
-  custom_bezierline_type_ops = bezierline_type_ops;
-  custom_bezierline_type_ops.create = customline_create;
-  custom_bezierline_type_ops.get_defaults = NULL;
-  custom_bezierline_type_ops.apply_defaults = NULL;
+  if (!bezier_ot) {
+    g_warning ("Can't delegate to 'Standard - BezierLine'");
+    return NULL;
+  }
+  return bezier_ot->ops->load (obj_node, version, filename);
 }
 
-void zigzagline_apply_properties( Zigzagline* line, LineInfo* info )
+static void 
+customline_save (DiaObject *object, ObjectNode obj_node, const char *filename)
 {
-  line->line_color = info->line_color;
-  line->line_style = info->line_style;
-  line->dashlength = info->dashlength;
-  line->line_width = info->line_width;
-  line->corner_radius = info->corner_radius;
-  line->start_arrow = info->start_arrow;
-  line->end_arrow = info->end_arrow;
+  g_assert (object->type &&  object->type->ops && object->type->ops->save);
+   
+  if (!ensure_standard_types()) {
+    g_warning ("Can't create standard types");
+    return;
+  }
+
+  if (object->type->ops == &custom_zigzagline_type_ops)
+    zigzag_ot->ops->save (object, obj_node, filename);
+  else if (object->type->ops == &custom_polyline_type_ops)
+    polyline_ot->ops->save (object, obj_node, filename);
+  else if (object->type->ops == &custom_bezierline_type_ops)
+    bezier_ot->ops->save (object, obj_node, filename);
+  else 
+    g_warning ("customline_save() no delegate");
 }
-void polyline_apply_properties( Polyline* line, LineInfo* info )
+
+/* the order here must match the one in customline_apply_properties */
+static PropDescription
+_customline_prop_descs[] = {
+  { "line_colour", PROP_TYPE_COLOUR },
+  { "line_style", PROP_TYPE_LINESTYLE },
+  { "line_width", PROP_TYPE_REAL },
+  { "corner_radius", PROP_TYPE_REAL },
+  { "start_arrow", PROP_TYPE_ARROW },
+  { "end_arrow", PROP_TYPE_ARROW },
+   PROP_DESC_END
+};
+
+void 
+customline_apply_properties( DiaObject* line, LineInfo* info )
 {
-  line->line_color = info->line_color;
-  line->line_style = info->line_style;
-  line->dashlength = info->dashlength;
-  line->line_width = info->line_width;
-  line->corner_radius = info->corner_radius;
-  line->start_arrow = info->start_arrow;
-  line->end_arrow = info->end_arrow;
-}
-void bezierline_apply_properties( Bezierline* line, LineInfo* info )
-{
-  line->line_color = info->line_color;
-  line->line_style = info->line_style;
-  line->dashlength = info->dashlength;
-  line->line_width = info->line_width;
-  line->start_arrow = info->start_arrow;
-  line->end_arrow = info->end_arrow;
+  GPtrArray *props;
+  LinestyleProperty *lsprop;
+  ColorProperty     *cprop;
+  RealProperty      *rprop;
+  ArrowProperty     *aprop;
+  
+  props = prop_list_from_descs( _customline_prop_descs, pdtpp_true );
+  g_assert( props->len == 6 );
+  
+  /* order/index/type must match _customline_prop_descs */
+  cprop = g_ptr_array_index( props, 0 );
+  cprop->color_data = info->line_color;
+  
+  lsprop = g_ptr_array_index( props, 1 );
+  lsprop->style = info->line_style;
+  lsprop->dash = info->dashlength;
+  
+  rprop = g_ptr_array_index( props, 2 );
+  rprop->real_data = info->line_width;
+  
+  rprop = g_ptr_array_index( props, 3 );
+  rprop->real_data = info->corner_radius;
+  
+  aprop = g_ptr_array_index( props, 4 );
+  aprop->arrow_data = info->start_arrow;
+  
+  aprop = g_ptr_array_index( props, 5 );
+  aprop->arrow_data = info->end_arrow;
+  
+  line->ops->set_props( line, props );
+
+  prop_list_free(props);
 }
 
 DiaObject *
@@ -112,25 +210,31 @@ customline_create(Point *startpoint,
 {
   DiaObject* res = NULL;
   LineInfo* line_info = (LineInfo*)user_data;
-	
-  if( line_info->type == CUSTOM_LINETYPE_ZIGZAGLINE ) {
-    res = zigzagline_create( startpoint, user_data, handle1, handle2 );
-    zigzagline_apply_properties( (Zigzagline*)res, line_info );
-  } else if( line_info->type == CUSTOM_LINETYPE_POLYLINE ) {
-    res = polyline_create( startpoint, NULL, handle1, handle2 );
-    polyline_apply_properties( (Polyline*)res, line_info );
-  } else if( line_info->type == CUSTOM_LINETYPE_BEZIERLINE ) {
-   res = bezierline_create( startpoint, NULL, handle1, handle2 );
-    bezierline_apply_properties( (Bezierline*)res, line_info );
-  } else
+
+  if (!ensure_standard_types()) {
+    g_warning ("Can't create standar types.");
+    return NULL;
+  }
+
+  if (line_info->type == CUSTOM_LINETYPE_ZIGZAGLINE)
+    res = zigzag_ot->ops->create( startpoint, user_data, handle1, handle2 );
+  else if (line_info->type == CUSTOM_LINETYPE_POLYLINE)
+    res = polyline_ot->ops->create( startpoint, NULL, handle1, handle2 );
+  else if (line_info->type == CUSTOM_LINETYPE_BEZIERLINE)
+    res = bezier_ot->ops->create( startpoint, NULL, handle1, handle2 );
+  else 
     g_warning(_("INTERNAL: CustomLines: Illegal line type in LineInfo object."));
 
-  res->type = line_info->object_type;
+  if (res) {
+    customline_apply_properties (res, line_info);
+    res->type = line_info->object_type;
+  }
 
   return( res );
 }
 
-void custom_linetype_new(LineInfo *info, DiaObjectType **otype)
+void 
+custom_linetype_new(LineInfo *info, DiaObjectType **otype)
 {
   DiaObjectType *obj = g_new0(DiaObjectType, 1);
 
@@ -144,8 +248,8 @@ void custom_linetype_new(LineInfo *info, DiaObjectType **otype)
   else if (info->type == CUSTOM_LINETYPE_BEZIERLINE)
     obj->ops = &custom_bezierline_type_ops;
   else
-      g_warning(_("INTERNAL: CustomLines: Illegal line type in LineInfo object %s."),
-                obj->name);
+    g_warning(_("INTERNAL: CustomLines: Illegal line type in LineInfo object %s."),
+              obj->name);
 
   obj->name = info->name;
   obj->default_user_data = info;

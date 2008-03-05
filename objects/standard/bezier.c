@@ -42,7 +42,19 @@
 
 #define DEFAULT_WIDTH 0.15
 
-#include "bezier.h"
+typedef struct _Bezierline Bezierline;
+
+struct _Bezierline {
+  BezierConn bez;
+
+  Color line_color;
+  LineStyle line_style;
+  real dashlength;
+  real line_width;
+  Arrow start_arrow, end_arrow;
+  real absolute_start_gap, absolute_end_gap;
+};
+
 
 static ObjectChange* bezierline_move_handle(Bezierline *bezierline, Handle *handle,
 					    Point *to, ConnectionPoint *cp,
@@ -51,7 +63,7 @@ static ObjectChange* bezierline_move(Bezierline *bezierline, Point *to);
 static void bezierline_select(Bezierline *bezierline, Point *clicked_point,
 			      DiaRenderer *interactive_renderer);
 static void bezierline_draw(Bezierline *bezierline, DiaRenderer *renderer);
-DiaObject *bezierline_create(Point *startpoint,
+static DiaObject *bezierline_create(Point *startpoint,
 				 void *user_data,
 				 Handle **handle1,
 				 Handle **handle2);
@@ -64,9 +76,9 @@ static PropDescription *bezierline_describe_props(Bezierline *bezierline);
 static void bezierline_get_props(Bezierline *bezierline, GPtrArray *props);
 static void bezierline_set_props(Bezierline *bezierline, GPtrArray *props);
 
-void bezierline_save(Bezierline *bezierline, ObjectNode obj_node,
+static void bezierline_save(Bezierline *bezierline, ObjectNode obj_node,
 			  const char *filename);
-DiaObject *bezierline_load(ObjectNode obj_node, int version,
+static DiaObject *bezierline_load(ObjectNode obj_node, int version,
 			     const char *filename);
 static DiaMenu *bezierline_get_object_menu(Bezierline *bezierline, Point *clickedpoint);
 
@@ -74,7 +86,7 @@ static void compute_gap_points(Bezierline *bezierline, Point *gap_points);
 static real approx_bez_length(BezierConn *bez);
 static void exchange_bez_gap_points(BezierConn * bez, Point* gap_points);
 
-ObjectTypeOps bezierline_type_ops =
+static ObjectTypeOps bezierline_type_ops =
 {
   (CreateFunc)bezierline_create,   /* create */
   (LoadFunc)  bezierline_load,     /* load */
@@ -83,7 +95,7 @@ ObjectTypeOps bezierline_type_ops =
   (ApplyDefaultsFunc) NULL
 };
 
-DiaObjectType bezierline_type =
+static DiaObjectType bezierline_type =
 {
   "Standard - BezierLine",   /* name */
   0,                         /* version */
@@ -406,7 +418,7 @@ bezierline_draw(Bezierline *bezierline, DiaRenderer *renderer)
   }
 }
 
-DiaObject *
+static DiaObject *
 bezierline_create(Point *startpoint,
 		  void *user_data,
 		  Handle **handle1,
@@ -545,7 +557,7 @@ bezierline_update_data(Bezierline *bezierline)
 
 }
 
-void
+static void
 bezierline_save(Bezierline *bezierline, ObjectNode obj_node,
 	      const char *filename)
 {
@@ -595,7 +607,7 @@ bezierline_save(Bezierline *bezierline, ObjectNode obj_node,
                  bezierline->absolute_end_gap);
 }
 
-DiaObject *
+static DiaObject *
 bezierline_load(ObjectNode obj_node, int version, const char *filename)
 {
   Bezierline *bezierline;

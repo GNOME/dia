@@ -40,7 +40,18 @@
 
 #define DEFAULT_WIDTH 0.15
 
-#include "polyline.h"
+typedef struct _Polyline {
+  PolyConn poly;
+
+  Color line_color;
+  LineStyle line_style;
+  real dashlength;
+  real line_width;
+  real corner_radius;
+  Arrow start_arrow, end_arrow;
+  real absolute_start_gap, absolute_end_gap;
+} Polyline;
+
 
 static ObjectChange* polyline_move_handle(Polyline *polyline, Handle *handle,
 					  Point *to, ConnectionPoint *cp,
@@ -49,7 +60,7 @@ static ObjectChange* polyline_move(Polyline *polyline, Point *to);
 static void polyline_select(Polyline *polyline, Point *clicked_point,
 			      DiaRenderer *interactive_renderer);
 static void polyline_draw(Polyline *polyline, DiaRenderer *renderer);
-DiaObject *polyline_create(Point *startpoint,
+static DiaObject *polyline_create(Point *startpoint,
 				 void *user_data,
 				 Handle **handle1,
 				 Handle **handle2);
@@ -62,15 +73,15 @@ static PropDescription *polyline_describe_props(Polyline *polyline);
 static void polyline_get_props(Polyline *polyline, GPtrArray *props);
 static void polyline_set_props(Polyline *polyline, GPtrArray *props);
 
-void polyline_save(Polyline *polyline, ObjectNode obj_node,
+static void polyline_save(Polyline *polyline, ObjectNode obj_node,
 			  const char *filename);
-DiaObject *polyline_load(ObjectNode obj_node, int version,
+static DiaObject *polyline_load(ObjectNode obj_node, int version,
 			     const char *filename);
 static DiaMenu *polyline_get_object_menu(Polyline *polyline, Point *clickedpoint);
 void polyline_calculate_gap_endpoints(Polyline *polyline, Point *gap_endpoints);
 static void polyline_exchange_gap_points(Polyline *polyline,  Point *gap_points);
 
-ObjectTypeOps polyline_type_ops =
+static ObjectTypeOps polyline_type_ops =
 {
   (CreateFunc)polyline_create,   /* create */
   (LoadFunc)  polyline_load,     /* load */
@@ -79,7 +90,7 @@ ObjectTypeOps polyline_type_ops =
   (ApplyDefaultsFunc) NULL /*polyline_apply_defaults*/
 };
 
-DiaObjectType polyline_type =
+static DiaObjectType polyline_type =
 {
   "Standard - PolyLine",   /* name */
   0,                         /* version */
@@ -307,7 +318,7 @@ polyline_draw(Polyline *polyline, DiaRenderer *renderer)
     If user_data is NULL, the startpoint is used and a 1x1 line is created.
     Otherwise, the startpoint is ignored.
 */
-DiaObject *
+static DiaObject *
 polyline_create(Point *startpoint,
 		  void *user_data,
 		  Handle **handle1,
@@ -452,7 +463,7 @@ polyline_update_data(Polyline *polyline)
   obj->position = poly->points[0];
 }
 
-void
+static void
 polyline_save(Polyline *polyline, ObjectNode obj_node,
 	      const char *filename)
 {
@@ -497,7 +508,7 @@ polyline_save(Polyline *polyline, ObjectNode obj_node,
                   polyline->corner_radius);
 }
 
-DiaObject *
+static DiaObject *
 polyline_load(ObjectNode obj_node, int version, const char *filename)
 {
   Polyline *polyline;

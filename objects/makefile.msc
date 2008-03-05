@@ -2,7 +2,7 @@
 
 PLUGINS = aadl bondgraph chronogram custom er flowchart fs grafcet \
 	Istar Jackson Kaos misc network sadt SISSI standard uml \
-	Database
+	Database custom_lines
 
 #outdated:	labels
 
@@ -89,6 +89,14 @@ OBJECTS = \
 	custom_util.obj \
 	shape_info.obj \
 	shape_typeinfo.obj
+PKG_LINK = $(PKG_LINK) $(LIBXML2_LIBS) 
+!ENDIF
+
+!IFDEF OBJ_custom_lines
+OBJECTS = \
+	custom_lines.obj \
+	custom_linetypes.obj \
+	line_info.obj
 PKG_LINK = $(PKG_LINK) $(LIBXML2_LIBS) 
 !ENDIF
 

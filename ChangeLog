@@ -1,3 +1,18 @@
+2008-03-05  Hans Breuer  <hans@breuer.org>
+
+	* objects/standard/(bezier|polyline|zigzagline).c : reverted changes
+	from revision 3878. Object plug-in internals must not be made public.
+	Also the way it was done was not portable.
+	* objects/standard/(bezier|polyline|zigzagline).h : deleted
+	* objects/custom_lines/custom_linetypes.c : almost complete rewrite 
+	using only public APIs
+	* objects/custom_lines/custom_lines.c
+	  objects/custom_lines/custom_linetypes.h : custom_linetypes_init();
+	not any longer necessary.
+	* objects/standard/Makefile.am objects/custom_lines/Makefile.am 
+	  objects/makefile.msc : adapted (reverting the tricks to make
+	'make distcheck' pass
+
 2008-03-04  Hans Breuer  <hans@breuer.org>
 
 	* objects/EML/* sheets/EML.sheet.in : removed

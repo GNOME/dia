@@ -24,7 +24,6 @@
 #ifndef _CUSTOM_LINETYPES_H_
 #define _CUSTOM_LINETYPES_H_
 
-void custom_linetypes_init();
 void custom_linetype_new(LineInfo *info, DiaObjectType **otype);
 void custom_linetype_create_and_register( LineInfo* info );
 

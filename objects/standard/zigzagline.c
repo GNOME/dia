@@ -40,7 +40,17 @@
 
 #define HANDLE_MIDDLE HANDLE_CUSTOM1
 
-#include "zigzagline.h"
+typedef struct _Zigzagline {
+  OrthConn orth;
+
+  Color line_color;
+  LineStyle line_style;
+  real dashlength;
+  real line_width;
+  real corner_radius;
+  Arrow start_arrow, end_arrow;
+} Zigzagline;
+
 
 static ObjectChange* zigzagline_move_handle(Zigzagline *zigzagline, Handle *handle,
 					    Point *to, ConnectionPoint *cp,
@@ -49,7 +59,7 @@ static ObjectChange* zigzagline_move(Zigzagline *zigzagline, Point *to);
 static void zigzagline_select(Zigzagline *zigzagline, Point *clicked_point,
 			      DiaRenderer *interactive_renderer);
 static void zigzagline_draw(Zigzagline *zigzagline, DiaRenderer *renderer);
-DiaObject *zigzagline_create(Point *startpoint,
+static DiaObject *zigzagline_create(Point *startpoint,
 				 void *user_data,
 				 Handle **handle1,
 				 Handle **handle2);
@@ -64,12 +74,12 @@ static PropDescription *zigzagline_describe_props(Zigzagline *zigzagline);
 static void zigzagline_get_props(Zigzagline *zigzagline, GPtrArray *props);
 static void zigzagline_set_props(Zigzagline *zigzagline, GPtrArray *props);
 
-void zigzagline_save(Zigzagline *zigzagline, ObjectNode obj_node,
+static void zigzagline_save(Zigzagline *zigzagline, ObjectNode obj_node,
 			    const char *filename);
-DiaObject *zigzagline_load(ObjectNode obj_node, int version,
+static DiaObject *zigzagline_load(ObjectNode obj_node, int version,
 			       const char *filename);
 
-ObjectTypeOps zigzagline_type_ops =
+static ObjectTypeOps zigzagline_type_ops =
 {
   (CreateFunc)zigzagline_create,   /* create */
   (LoadFunc)  zigzagline_load,     /* load */
@@ -78,7 +88,7 @@ ObjectTypeOps zigzagline_type_ops =
   (ApplyDefaultsFunc) NULL /*zigzagline_apply_defaults*/
 };
 
-DiaObjectType zigzagline_type =
+static DiaObjectType zigzagline_type =
 {
   "Standard - ZigZagLine",   /* name */
   /* Version 0 had no autorouting and so shouldn't have it set by default. */
@@ -227,7 +237,7 @@ zigzagline_draw(Zigzagline *zigzagline, DiaRenderer *renderer)
 
 }
 
-DiaObject *
+static DiaObject *
 zigzagline_create(Point *startpoint,
 		  void *user_data,
 		  Handle **handle1,
@@ -390,7 +400,7 @@ zigzagline_get_object_menu(Zigzagline *zigzagline, Point *clickedpoint)
 }
 
 
-void
+static void
 zigzagline_save(Zigzagline *zigzagline, ObjectNode obj_node,
 		const char *filename)
 {
@@ -428,7 +438,7 @@ zigzagline_save(Zigzagline *zigzagline, ObjectNode obj_node,
                   zigzagline->corner_radius);
 }
 
-DiaObject *
+static DiaObject *
 zigzagline_load(ObjectNode obj_node, int version, const char *filename)
 {
   Zigzagline *zigzagline;

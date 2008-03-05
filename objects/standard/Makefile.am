@@ -7,11 +7,8 @@ libstandard_objects_la_SOURCES = \
 	textobj.c \
 	line.c \
 	zigzagline.c \
-	zigzagline.h \
 	polyline.c \
-	polyline.h \
 	bezier.c \
-	bezier.h \
 	standard.c \
 	image.c \
 	outline.c \
