@@ -71,8 +71,8 @@ static DiaObject *outline_create (Point *startpoint,
 				  void *user_data,
 				  Handle **handle1,
 				  Handle **handle2);
-static void outline_save (Outline *outline, ObjectNode obj_node, 
-                          const char *filename);
+static DiaObject *
+outline_load(ObjectNode obj_node, int version, const char *filename);
 
 static ObjectTypeOps outline_type_ops =
 {
