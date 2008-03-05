@@ -651,22 +651,6 @@ initialize_ft_bitmap(FT_Bitmap *ftbitmap, int width, int height)
   ftbitmap->palette_mode = 0;
   ftbitmap->palette = 0;
 }
-
-typedef struct _FreetypeCacheData {
-  int x;
-  int y;
-  int width;
-  int height;
-  GdkPixbuf *rgba;
-} FreetypeCacheData;
-
-static void
-free_freetype_cache_data(gpointer data) {
-  FreetypeCacheData *ftdata = (FreetypeCacheData*) data;
-  
-  g_object_unref(ftdata->rgba);
-  g_free(ftdata);
-}
 #endif
 
 /** Draw a TextLine object.
@@ -713,7 +697,7 @@ draw_text_line (DiaRenderer *object, TextLine *text_line,
 
     layout = dia_font_build_layout(text, text_line->font,
 				   dia_transform_length(renderer->transform, text_line->height)/20.0);
-#ifdef PANGO_VERSION_ENCODE && (PANGO_VERSION >= PANGO_VERSION_ENCODE(1,16,0))
+#if defined PANGO_VERSION_ENCODE && (PANGO_VERSION >= PANGO_VERSION_ENCODE(1,16,0))
     /* I'd say the former Pango API was broken, i.e. leaky */
     text_line_adjust_layout_line(text_line, pango_layout_get_line_readonly(layout, 0),
 				scale/20.0);

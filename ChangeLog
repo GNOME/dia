@@ -1,5 +1,12 @@
 2008-03-05  Hans Breuer  <hans@breuer.org>
 
+	* lib/font.c lib/focus.c lib/diagdkrenderer.c
+	  objects/standard/arc.c object/standard/outline.c : less warnings
+	by (re)moving (dead|some) code
+	  
+	* objects/standard/Makefile.am : remove whitespace after '\'
+	* po/POTFILES.in : now really removed app/diaconv.c
+
 	* objects/standard/(bezier|polyline|zigzagline).c : reverted changes
 	from revision 3878. Object plug-in internals must not be made public.
 	Also the way it was done was not portable.

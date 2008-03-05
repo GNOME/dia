@@ -542,11 +542,11 @@ calculate_arc_object_edge(Arc *arc, real ang_start, real ang_end, DiaObject *obj
 #ifdef TRACE_DIST
   real trace[MAXITER];
   real disttrace[MAXITER];
+  int j = 0;
 #endif
   real mid1, mid2, mid3;
   real dist;
   int i = 0;
-  int j = 0;
 
   mid1 = ang_start;
   mid2 = get_middle_arc_angle(ang_start, ang_end, clockwiseness);

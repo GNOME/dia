@@ -30,9 +30,6 @@
 #include "diagramdata.h"
 #include "object.h"
 
-static Focus *active_focus_ptr = NULL;
-static GList *text_foci = NULL;
-
 /** Returns the list of foci for the given diagram */
 static GList *
 get_text_foci(DiagramData *dia)
@@ -213,3 +210,4 @@ remove_focus_object(DiaObject *obj)
   }
   return active;
 }
+
