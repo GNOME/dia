@@ -22,6 +22,17 @@
 #include <cairo.h>
 #include "diarenderer.h"
 
+/*
+#define DEBUG_CAIRO
+ */
+#ifdef DEBUG_CAIRO
+#  define DIAG_NOTE(action) action
+#  define DIAG_STATE(cr) { if (cairo_status (cr) != CAIRO_STATUS_SUCCESS) g_print ("%s:%d, %s\n", __FILE__, __LINE__, cairo_status_string (cr)); }
+#else
+#  define DIAG_NOTE(action)
+#  define DIAG_STATE(cr)
+#endif
+
 /* --- the renderer base class --- */
 G_BEGIN_DECLS
 
@@ -40,14 +51,15 @@ struct _DiaCairoRenderer
 {
   DiaRenderer parent_instance;
 
-  cairo_t *cr;
-  cairo_surface_t *surface;
+  cairo_t *cr; /**< if NULL it gest created from the surface */
+  cairo_surface_t *surface; /**< can be NULL to use the provived cr */
  
   double dash_length;
   DiagramData *dia;
 
   real scale;
   gboolean with_alpha;
+  gboolean skip_show_page; /**< when using for print avoid the internal show_page */
   
   /** caching the font description from set_font */
   PangoLayout *layout;

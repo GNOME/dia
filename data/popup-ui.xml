@@ -14,6 +14,8 @@
 			<separator name="FileSep3" />
 			<menuitem name="FileClose" action="FileClose" />
 			<menuitem name="FileQuit" action="FileQuit" />
+			<separator name="FileSep4" />
+			<separator name="FileExtensionStart" />
 		</menu>
 		<menu name="Edit" action="Edit">
 			<menuitem name="EditUndo" action="EditUndo" />
@@ -28,10 +30,14 @@
 			<menuitem name="EditCopytext" action="EditCopytext" />
 			<menuitem name="EditCuttext" action="EditCuttext" />
 			<menuitem name="EditPastetext" action="EditPastetext" />
+			<separator name="EditSep3" />
+			<separator name="EditExtensionStart" />
 		</menu>
 		<menu name="Diagram" action="Diagram">
 			<menuitem name="DiagramProperties" action="DiagramProperties" />
 			<menuitem name="DiagramLayers" action="DiagramLayers" />
+			<separator name="DiagramSep1" />
+			<separator name="DIagramExtensionStart" />
 		</menu>
 		<menu name="View" action="View">
 			<menuitem name="ViewZoomin" action="ViewZoomin" />
@@ -63,6 +69,8 @@
 			<menuitem name="ViewCloneview" action="ViewCloneview" />
 			<menuitem name="ViewShowall" action="ViewShowall" />
 			<menuitem name="ViewRedraw" action="ViewRedraw" />
+			<separator name="ViewSep3" />
+			<separator name="ViewExtensionStart" />
 		</menu>
 		<menu name="Objects" action="Objects">
 			<menuitem name="ObjectsSendtoback" action="ObjectsSendtoback" />
@@ -113,6 +121,8 @@
 			<menu name="SelectBy" action="SelectBy">
 				<separator name="SelectByExtensionStart" />
 			</menu>
+			<separator name="SelectSep4" />
+			<separator name="SelectExtensionStart" />
 		</menu>
 		<menu name="Tools" action="Tools">
 			<menuitem name="ToolsModify" action="ToolsModify" />
@@ -133,6 +143,8 @@
 			<menuitem name="ToolsOutline" action="ToolsOutline" />
 			<separator name="ToolsSep1" />
 			<menuitem name="ToolsImage" action="ToolsImage" />
+			<separator name="ToolsSep2" />
+			<separator name="ToolsExtensionStart" />
 		</menu>
 		<menuitem name="InputMethods" action="InputMethods" />
 		<menu name="Dialogs" action="Dialogs">

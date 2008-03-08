@@ -1,3 +1,22 @@
+2008-03-08  Hans Breuer  <hans@breuer.org>
+
+	* plug-ins/cairo/diacairo-print.c : use the cairo renderer for
+	integration with the Gtk+ print framework
+	* plug-ins/cairo/diacairo.c : gtk-print implementation for paginated 
+	output of PDF (bug #513226) and register for printing, also ... 
+	  plug-ins/cairo/diacairo-renderer.c : ... split off the renderer
+	implmentation in it's own file. Some tweaking for use in the
+	print context.
+	* plug-ins/cairo/diacairo.h : calback function to be registered
+	in the menu (later to replace native printing?)
+	* plug-ins/cairo/Makefile.am plug-ins/makefile.msc : adapted
+
+	* data/display-ui.xml data/popup-ui.xml : more *ExtensionStart to 
+	allow placement of plug-in function in all sub-menus. Above it is 
+	used for "File/Print with Gtk+/cairo ..."
+
+	* plug-ins/cairo/diacairo-interactive.c : also compile with Gtk+ < 2.8
+
 2008-03-05  Hans Breuer  <hans@breuer.org>
 
 	* lib/font.c lib/focus.c lib/diagdkrenderer.c

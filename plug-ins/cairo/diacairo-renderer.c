@@ -73,17 +73,6 @@
 
 #include "diacairo.h"
 
-/*
-#define DEBUG_CAIRO
- */
-#ifdef DEBUG_CAIRO
-#  define DIAG_NOTE(action) action
-#  define DIAG_STATE(cr) { if (cairo_status (cr) != CAIRO_STATUS_SUCCESS) g_print ("%s:%d, %s\n", __FILE__, __LINE__, cairo_status_string (cr)); }
-#else
-#  define DIAG_NOTE(action)
-#  define DIAG_STATE(cr)
-#endif
-
 /* 
  * render functions 
  */ 
@@ -92,7 +81,11 @@ begin_render(DiaRenderer *self)
 {
   DiaCairoRenderer *renderer = DIA_CAIRO_RENDERER (self);
 
-  renderer->cr = cairo_create (renderer->surface);
+  if (renderer->surface)
+    renderer->cr = cairo_create (renderer->surface);
+  else
+    g_assert (renderer->cr);
+
   cairo_scale (renderer->cr, renderer->scale, renderer->scale);
   cairo_translate (renderer->cr, -renderer->dia->extents.left, -renderer->dia->extents.top);
 
@@ -129,7 +122,8 @@ begin_render(DiaRenderer *self)
                              1.0);
     }
 #ifdef HAVE_PANGOCAIRO_H
-  renderer->layout = pango_cairo_create_layout (renderer->cr);
+  if (!renderer->layout)
+    renderer->layout = pango_cairo_create_layout (renderer->cr);
 #endif
 
   DIAG_STATE(renderer->cr)
@@ -142,9 +136,11 @@ end_render(DiaRenderer *self)
 
   DIAG_NOTE(g_message( "end_render"));
  
-  cairo_show_page (renderer->cr);
+  if (!renderer->skip_show_page)
+    cairo_show_page (renderer->cr);
   DIAG_STATE(renderer->cr)
-  cairo_surface_destroy (renderer->surface);
+  if (renderer->surface)
+    cairo_surface_destroy (renderer->surface);
   DIAG_STATE(renderer->cr)
 }
 
@@ -957,290 +953,4 @@ cairo_renderer_class_init (DiaCairoRendererClass *klass)
   /* highest level functions */
   renderer_class->draw_rounded_rect = draw_rounded_rect;
   renderer_class->fill_rounded_rect = fill_rounded_rect;
-}
-
-typedef enum OutputKind
-{
-  OUTPUT_PS = 1,
-  OUTPUT_PNG,
-  OUTPUT_PNGA,
-  OUTPUT_PDF,
-  OUTPUT_WMF,
-  OUTPUT_EMF,
-  OUTPUT_CB,
-  OUTPUT_SVG
-} OutputKind;
-
-/* dia export funtion */
-static void
-export_data(DiagramData *data, const gchar *filename_utf8, 
-            const gchar *diafilename, void* user_data)
-{
-  DiaCairoRenderer *renderer;
-  FILE *file;
-  real width, height;
-  OutputKind kind = (OutputKind)user_data;
-  gchar* filename = g_locale_from_utf8 (filename_utf8, -1, NULL, NULL, NULL);
-
-  if (!filename) {
-    message_error(_("Can't convert output filename '%s' to locale encoding.\n"
-                    "Please choose a different name to save with cairo.\n"), 
-		  dia_message_filename(filename_utf8), strerror(errno));
-    return;
-  }
-  file = fopen(filename, "wb"); /* "wb" for binary! */
-
-  if (file == NULL) {
-    message_error(_("Can't open output file %s: %s\n"), 
-		  dia_message_filename(filename_utf8), strerror(errno));
-    return;
-  }
-  fclose (file);
-  renderer = g_object_new (DIA_TYPE_CAIRO_RENDERER, NULL);
-  renderer->dia = data; /* FIXME: not sure if this a good idea */
-  renderer->scale = 1.0;
-
-  switch (kind) {
-#ifdef CAIRO_HAS_PS_SURFACE
-  case OUTPUT_PS :
-    width  = data->paper.width * (72.0 / 2.54);
-    height = data->paper.height * (72.0 / 2.54);
-    renderer->scale = data->paper.scaling * (72.0 / 2.54);
-    DIAG_NOTE(g_message ("PS Surface %dx%d\n", (int)width, (int)height)); 
-    renderer->surface = cairo_ps_surface_create (filename,
-                                                 width, height); /*  in points? */
-    /* maybe we should increase the resolution here as well */
-    break;
-#endif  
-#if defined CAIRO_HAS_PNG_SURFACE || defined CAIRO_HAS_PNG_FUNCTIONS
-  case OUTPUT_PNGA :
-    renderer->with_alpha = TRUE;
-    /* fall through */
-  case OUTPUT_PNG :
-    /* quite arbitrary, but consistent with ../pixbuf ;-) */
-    renderer->scale = 20.0 * data->paper.scaling; 
-    width  = (data->extents.right - data->extents.left) * renderer->scale;
-    height = (data->extents.bottom - data->extents.top) * renderer->scale;
-
-    DIAG_NOTE(g_message ("PNG Surface %dx%d\n", (int)width, (int)height));
-    /* use case screwed by API shakeup. We need to special case */
-    renderer->surface = cairo_image_surface_create(
-						CAIRO_FORMAT_ARGB32,
-						(int)width, (int)height);
-    /* an extra refernce to make it survive end_render():cairo_surface_destroy() */
-    cairo_surface_reference(renderer->surface);
-    break;
-#endif
-#ifdef CAIRO_HAS_PDF_SURFACE
-  case OUTPUT_PDF :
-#define DPI 72.0 /* 600.0? */
-    /* I just don't get how the scaling is supposed to work, dpi versus page size ? */
-    renderer->scale = data->paper.scaling * (72.0 / 2.54);
-    width = data->paper.width * (72.0 / 2.54);
-    height = data->paper.height * (72.0 / 2.54);
-    DIAG_NOTE(g_message ("PDF Surface %dx%d\n", (int)width, (int)height));
-    renderer->surface = cairo_pdf_surface_create (filename,
-                                                  width, height);
-    cairo_surface_set_fallback_resolution (renderer->surface, DPI, DPI);
-#undef DPI
-    break;
-#endif
-#ifdef CAIRO_HAS_SVG_SURFACE
-  case OUTPUT_SVG :
-    /* quite arbitrary, but consistent with ../pixbuf ;-) */
-    renderer->scale = 20.0 * data->paper.scaling; 
-    width  = (data->extents.right - data->extents.left) * renderer->scale;
-    height = (data->extents.bottom - data->extents.top) * renderer->scale;
-    DIAG_NOTE(g_message ("SVG Surface %dx%d\n", (int)width, (int)height));
-    /* use case screwed by API shakeup. We need to special case */
-    renderer->surface = cairo_svg_surface_create(
-						filename,
-						(int)width, (int)height);
-    break;
-#endif
-  /* the default Cairo/win32 surface isn't able to do such ... */
-#ifdef CAIRO_HAS_WIN32X_SURFACE
-  case OUTPUT_EMF :
-    renderer->scale = 72.0;
-    renderer->surface = cairo_win32_surface_create (filename, NULL, CAIRO_WIN32_TARGET_EMF, 0, 0);
-    break;
-  case OUTPUT_WMF :
-    renderer->scale = 72.0;
-    renderer->surface = cairo_win32_surface_create (filename, NULL, CAIRO_WIN32_TARGET_WMF, 0, 0);
-    break;
-  case OUTPUT_CB :
-    /* just testing, does not create a file but puts content in the clpboard */
-    renderer->scale = 72.0;
-    renderer->surface = cairo_win32_surface_create (filename, NULL, CAIRO_WIN32_TARGET_CLIPBOARD, 0, 0);
-    break;
-#endif
-  default :
-    /* quite arbitrary, but consistent with ../pixbuf ;-) */
-    renderer->scale = 20.0 * data->paper.scaling; 
-    width  = (data->extents.right - data->extents.left) * renderer->scale;
-    height = (data->extents.bottom - data->extents.top) * renderer->scale;
-    DIAG_NOTE(g_message ("Image Surface %dx%d\n", (int)width, (int)height)); 
-    renderer->surface = cairo_image_surface_create (CAIRO_FORMAT_A8, (int)width, (int)height);
-  }
-
-  /* use extents */
-  DIAG_NOTE(g_message("export_data extents %f,%f -> %f,%f", 
-            data->extents.left, data->extents.top, data->extents.right, data->extents.bottom));
-
-  data_render(data, DIA_RENDERER(renderer), NULL, NULL, NULL);
-#if defined CAIRO_HAS_PNG_FUNCTIONS
-  if (OUTPUT_PNGA == kind || OUTPUT_PNG == kind)
-    {
-      cairo_surface_write_to_png(renderer->surface, filename);
-      cairo_surface_destroy(renderer->surface);
-    }
-#endif
-  g_object_unref(renderer);
-}
-
-#ifdef CAIRO_HAS_PS_SURFACE
-static const gchar *ps_extensions[] = { "ps", NULL };
-static DiaExportFilter ps_export_filter = {
-    N_("Cairo PostScript"),
-    ps_extensions,
-    export_data,
-    (void*)OUTPUT_PS,
-    "cairo-ps" /* unique name */
-};
-#endif
-
-#ifdef CAIRO_HAS_PDF_SURFACE
-static const gchar *pdf_extensions[] = { "pdf", NULL };
-static DiaExportFilter pdf_export_filter = {
-    N_("Cairo Portable Document Format"),
-    pdf_extensions,
-    export_data,
-    (void*)OUTPUT_PDF,
-    "cairo-pdf"
-};
-#endif
-
-#ifdef CAIRO_HAS_SVG_SURFACE
-static const gchar *svg_extensions[] = { "svg", NULL };
-static DiaExportFilter svg_export_filter = {
-    N_("Cairo Scalable Vector Graphics"),
-    svg_extensions,
-    export_data,
-    (void*)OUTPUT_SVG,
-    "cairo-svg"
-};
-#endif
-
-static const gchar *png_extensions[] = { "png", NULL };
-static DiaExportFilter png_export_filter = {
-    N_("Cairo PNG"),
-    png_extensions,
-    export_data,
-    (void*)OUTPUT_PNG,
-    "cairo-png"
-};
-
-static DiaExportFilter pnga_export_filter = {
-    N_("Cairo PNG (with alpha)"),
-    png_extensions,
-    export_data,
-    (void*)OUTPUT_PNGA,
-    "cairo-alpha-png"
-};
-
-#ifdef CAIRO_HAS_WIN32X_SURFACE
-static const gchar *emf_extensions[] = { "wmf", NULL };
-static DiaExportFilter emf_export_filter = {
-    N_("Cairo WMF"),
-    emf_extensions,
-    export_data,
-    (void*)OUTPUT_EMF,
-    "cairo-emf"
-};
-
-static const gchar *wmf_extensions[] = { "wmf", NULL };
-static DiaExportFilter wmf_export_filter = {
-    N_("Cairo old WMF"),
-    wmf_extensions,
-    export_data,
-    (void*)OUTPUT_WMF,
-    "cairo-wmf"
-};
-
-static const gchar *cb_extensions[] = { "cb", NULL };
-static DiaExportFilter cb_export_filter = {
-    N_("Cairo Clipboard"),
-    cb_extensions,
-    export_data,
-    (void*)OUTPUT_CB,
-    "cairo-clipboard"
-};
-#endif /* CAIRO_HAS_WIN32X_SURFACE */
-
-static gboolean
-_plugin_can_unload (PluginInfo *info)
-{
-  /* Can't unlaod as long as we are giving away our types, e.g. dia_cairo_interactive_renderer_get_type () */
-  return FALSE;
-}
-
-static void
-_plugin_unload (PluginInfo *info)
-{
-#ifdef CAIRO_HAS_PS_SURFACE
-  filter_unregister_export(&ps_export_filter);
-#endif
-#ifdef CAIRO_HAS_PDF_SURFACE
-  filter_unregister_export(&pdf_export_filter);
-#endif
-#ifdef CAIRO_HAS_SVG_SURFACE
-  filter_unregister_export(&svg_export_filter);
-#endif
-#if defined CAIRO_HAS_PNG_SURFACE || defined CAIRO_HAS_PNG_FUNCTIONS
-  filter_unregister_export(&png_export_filter);
-  filter_unregister_export(&pnga_export_filter);
-#endif
-#ifdef CAIRO_HAS_WIN32X_SURFACE
-  filter_unregister_export(&emf_export_filter);
-  filter_unregister_export(&wmf_export_filter);
-  filter_unregister_export(&cb_export_filter);
-#endif
-}
-
-/* --- dia plug-in interface --- */
-
-DIA_PLUGIN_CHECK_INIT
-
-PluginInitResult
-dia_plugin_init(PluginInfo *info)
-{
-  if (!dia_plugin_info_init(info, "Cairo",
-                            _("Cairo based Rendering"),
-                            _plugin_can_unload,
-                            _plugin_unload))
-    return DIA_PLUGIN_INIT_ERROR;
-
-#ifdef CAIRO_HAS_PS_SURFACE
-  filter_register_export(&ps_export_filter);
-#endif
-#ifdef CAIRO_HAS_PDF_SURFACE
-  filter_register_export(&pdf_export_filter);
-#endif
-#ifdef CAIRO_HAS_SVG_SURFACE
-  filter_register_export(&svg_export_filter);
-#endif
-#if defined CAIRO_HAS_PNG_SURFACE || defined CAIRO_HAS_PNG_FUNCTIONS
-  filter_register_export(&png_export_filter);
-  filter_register_export(&pnga_export_filter);
-#endif
-#ifdef CAIRO_HAS_WIN32X_SURFACE
-  filter_register_export(&emf_export_filter);
-  filter_register_export(&wmf_export_filter);
-  filter_register_export(&cb_export_filter);
-#endif
-
-  /* FIXME: need to think about of proper way of registartion, see also app/display.c */
-  dia_cairo_interactive_renderer_get_type ();
-  
-  return DIA_PLUGIN_INIT_OK;
 }

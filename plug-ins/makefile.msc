@@ -51,6 +51,7 @@ PKG_LINK = $(PKG_LINK) $(CAIRO_LIBS) $(PANGOCAIRO_LIBS)
 OBJECTS = \
 	diacairo.obj \
 	diacairo-interactive.obj \
+	diacairo-renderer.obj \
 	diacairo-print.obj
 !ENDIF
 
