@@ -151,6 +151,17 @@ set_linewidth(DiaRenderer *self, real linewidth)
 
   DIAG_NOTE(g_message("set_linewidth %f", linewidth));
 
+  /* make hairline? */
+  if (linewidth == 0.0) {
+    double ax = 0.0, ay = 0.0;
+    double bx = 1.0, by = 0.0;    
+    
+    cairo_device_to_user_distance (renderer->cr, &ax, &ay);
+    cairo_device_to_user_distance (renderer->cr, &bx, &by);
+    
+    linewidth = sqrt ((bx - ax) * (bx - ax) + (by - ay) * (by - ay));
+  }
+
   cairo_set_line_width (renderer->cr, linewidth);
   DIAG_STATE(renderer->cr)
 }
@@ -637,6 +648,7 @@ draw_string(DiaRenderer *self,
 
   cairo_set_source_rgba (renderer->cr, color->red, color->green, color->blue, 1.0);
 #ifdef HAVE_PANGOCAIRO_H
+  cairo_save (renderer->cr);
   /* alignment calculation done by pangocairo? */
   pango_layout_set_alignment (renderer->layout, alignment == ALIGN_CENTER ? PANGO_ALIGN_CENTER :
                                                 alignment == ALIGN_RIGHT ? PANGO_ALIGN_RIGHT : PANGO_ALIGN_LEFT);
@@ -654,6 +666,7 @@ draw_string(DiaRenderer *self,
     pango_layout_iter_free (iter);
   }
   pango_cairo_show_layout (renderer->cr, renderer->layout);
+  cairo_restore (renderer->cr);
 #else
   /* using the 'toy API' */
   cairo_set_source_rgba (renderer->cr, color->red, color->green, color->blue, 1.0);
