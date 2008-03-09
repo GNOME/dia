@@ -563,11 +563,9 @@ persistence_update_window(GtkWindow *window, gboolean isclosed)
   }    
   wininfo = (PersistentWindow *)g_hash_table_lookup(persistent_windows, name);
 
-  if (wininfo != NULL) {
-    printf("Old window %s is closed: %d\n", name, isclosed);
+  if (wininfo != NULL) {  
     persistence_store_window_info(window, wininfo, isclosed);
   } else {
-    printf("New window %s is closed: %d\n", name, isclosed);
     wininfo = g_new0(PersistentWindow, 1);
     persistence_store_window_info(window, wininfo, isclosed);
     g_hash_table_insert(persistent_windows, name, wininfo);
@@ -672,6 +670,8 @@ persistence_register_window(GtkWindow *window)
     g_object_ref(window);
   }
 
+  g_signal_connect(GTK_OBJECT(window), "configure-event",
+		   G_CALLBACK(persistence_window_event_handler), NULL);
   g_signal_connect(GTK_OBJECT(window), "map-event",
 		   G_CALLBACK(persistence_window_event_handler), NULL);
   g_signal_connect(GTK_OBJECT(window), "unmap-event",

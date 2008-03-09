@@ -1,5 +1,8 @@
 2008-03-09  Hans Breuer  <hans@breuer.org>
 
+	* lib/persistence.c : listen again to the configure-event and remove
+	debug spew (the fix for bug #501475 broke the size storing completely)
+	
 	* plug-ins/cairo/diacairo-print.c : fix reference counting for cairo_t
 
 	* bindings/test.py : make it work on windoze again
