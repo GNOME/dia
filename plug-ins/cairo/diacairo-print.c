@@ -74,7 +74,8 @@ begin_print (GtkPrintOperation *operation,
   cairo_renderer = DIA_CAIRO_RENDERER (print_data->renderer);
   g_return_if_fail (cairo_renderer->cr == NULL);
 
-  cairo_renderer->cr = gtk_print_context_get_cairo_context (context);
+  /* the renderer wants it's own reference */
+  cairo_renderer->cr = cairo_reference (gtk_print_context_get_cairo_context (context));
   cairo_renderer->dia = print_data->data;
 #if 0 /* needs some text size scaling ... */
   cairo_renderer->layout = gtk_print_context_create_pango_layout (context);
