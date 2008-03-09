@@ -564,10 +564,10 @@ persistence_update_window(GtkWindow *window, gboolean isclosed)
   wininfo = (PersistentWindow *)g_hash_table_lookup(persistent_windows, name);
 
   if (wininfo != NULL) {  
-    persistence_store_window_info(window, wininfo, isclosed);
+    persistence_store_window_info(window, wininfo, isclosed || !wininfo->isopen);
   } else {
     wininfo = g_new0(PersistentWindow, 1);
-    persistence_store_window_info(window, wininfo, isclosed);
+    persistence_store_window_info(window, wininfo, FALSE);
     g_hash_table_insert(persistent_windows, name, wininfo);
   }
   if (wininfo->window != NULL && wininfo->window != window) {
@@ -590,6 +590,13 @@ persistence_update_window(GtkWindow *window, gboolean isclosed)
 static gboolean
 persistence_window_event_handler(GtkWindow *window, GdkEvent *event, gpointer data)
 {
+#if 0
+  switch (event->type) {
+  case GDK_UNMAP : printf ("unmap (%s)\n", persistence_get_window_name(window)); break;
+  case GDK_MAP : printf ("map (%s)\n", persistence_get_window_name(window)); break;
+  case GDK_CONFIGURE : printf ("configure (%s)\n", persistence_get_window_name(window)); break;
+  }
+#endif
   persistence_update_window(window, (event->type == GDK_UNMAP));
   return FALSE;
 }
