@@ -1,5 +1,7 @@
 2008-03-09  Hans Breuer  <hans@breuer.org>
 
+	* bindings/test.py : make it work on windoze again
+
 	* plug-ins/cairo/diacairo-renderer.c : hairline support
 
 2008-03-08  Hans Breuer  <hans@breuer.org>

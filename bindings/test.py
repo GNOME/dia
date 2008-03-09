@@ -1,11 +1,13 @@
 import os, sys
 
-if os.uname()[0] == "Linux" :
+if sys.platform == "win32" :
+	print "Adjusting PATH ..."
+	sys.path.insert(0, r'd:\graph\dia2\python')
+	sys.path.insert(0, r'd:\graph\dia2\bin')
+	sys.path.insert(0, r'..\plug-ins\python')
+else : # sorry only Linux and win32 tested ;)
 	sys.path.insert (0, os.getcwd() + "/.libs")
 	sys.path.insert(0, r'../plug-ins/python')
-else : # sorry only Linux and win32 tested ;)
-	sys.path.insert(0, r'd:\graph\dia2\python')
-	sys.path.insert(0, r'..\plug-ins\python')
 
 import dia
 
@@ -22,14 +24,17 @@ def Dump () :
 	rd = dia.Renderer
 	print rd, dir(rd)
 
-if os.uname()[0] == "Linux" :
-	print "FIXME: trouble with dynamic loading on Linux, no plug-ins"
+if sys.platform == "win32" :
+	os.environ["DIA_LIB_PATH"] = r"d:\graph\dia2\dia"
+else :
+	print "FIXME: trouble with dynamic loading on '%s', no plug-ins" % (sys.platform,)
 	#base_path = os.getcwd() + "/.."
 	#os.environ["DIA_LIB_PATH"] = base_path + "/objects//:" + base_path + "/plug-ins//"
-else :
-	os.environ["DIA_LIB_PATH"] = r"d:\graph\dia2\dia"
 
-dia.register_plugins()
+try :
+	dia.register_plugins()
+except AttributeError :
+	print "Wrong '%s' picked up?" % (dia.__file__, )
 
 def Export (name, data) :
 	# write data to file, the format is choosen here
