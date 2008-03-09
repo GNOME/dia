@@ -4,7 +4,8 @@ plugin_sources = \
 	diacairo.h \
 	diacairo-interactive.c \
 	diacairo-renderer.c \
-	diacairo-print.c 
+	diacairo-print.c \
+	diacairo-print.h 
 
 pkglib_LTLIBRARIES = libcairo_filter.la
 
