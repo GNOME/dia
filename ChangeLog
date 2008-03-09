@@ -1,5 +1,8 @@
 2008-03-09  Hans Breuer  <hans@breuer.org>
 
+	* objects/standard/outline.c : don't make Dia crash by returning NULL
+	from get_object_menu. Fixes bug #503899.
+	
 	* plug-ins/cairo/Makefile.am : forgot diacairo-print.h here as well
 
 	* lib/persistence.c : listen again to the configure-event and remove
