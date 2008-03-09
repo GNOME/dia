@@ -1,5 +1,11 @@
 2008-03-09  Hans Breuer  <hans@breuer.org>
 
+	* app/load_save.c(diagram_data_save) : not using g_access() because
+	'My Documents' is write protected by default on XP but still can 
+	contain writable files. With extended security attributes becoming
+	more common this change may even become necessary for *nix?
+	Fixes bug #504469.
+
 	* objects/standard/outline.c : don't make Dia crash by returning NULL
 	from get_object_menu. Fixes bug #503899.
 	

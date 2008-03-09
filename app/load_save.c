@@ -940,8 +940,11 @@ diagram_data_save(DiagramData *data, const char *filename)
   /* Once we depend on GTK 2.8+, we can use these tests. */
 #if GLIB_CHECK_VERSION(2,8,0)
   /* Check that we're allowed to write to the target file at all. */
-  if (g_file_test(filename, G_FILE_TEST_EXISTS) &&
-      g_access(filename, W_OK) != 0) {
+  if (   g_file_test(filename, G_FILE_TEST_EXISTS)
+#  if !defined G_OS_WIN32 /* not going to work with 'My Docments' - read-only but still useable, see bug #504469 */
+      && g_access(filename, W_OK) != 0
+#  endif
+     ) {
     message_error(_("Not allowed to write to output file %s\n"), 
 		  dia_message_filename(filename));
     return FALSE;
@@ -960,10 +963,13 @@ diagram_data_save(DiagramData *data, const char *filename)
   tmpname = g_strconcat(dirname,"__diaXXXXXX",NULL);
   bakname = g_strconcat(filename,"~",NULL);
 
-#if GLIB_CHECK_VERSION(2,8,0)
+#if GLIB_CHECK_VERSION(2,8,0) && !defined G_OS_WIN32
   /* Check that we can create the other files */
-  if (g_file_test(dirname, G_FILE_TEST_EXISTS) &&
-      g_access(dirname, W_OK) != 0) {
+  if (   g_file_test(dirname, G_FILE_TEST_EXISTS) 
+#  if !defined G_OS_WIN32
+      && g_access(dirname, W_OK) != 0
+#  endif
+     ) {
     message_error(_("Not allowed to write temporary files in %s\n"), 
 		  dia_message_filename(dirname));
     return FALSE;
