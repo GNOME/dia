@@ -1,22 +1,22 @@
-# translation of dia.HEAD.es.po to Español
+# translation of dia.HEAD.po to Español
 # Spanish translation for dia
-# Copyright © 2000-2006, 2007 Free Software Foundation, Inc.
+# Copyright © 2000-2006, 2007, 2008 Free Software Foundation, Inc.
 # This file is distributed under the same license as the Dia package.
 #
 # Francisco Vila Doncel <fravd@wanadoo.es> (Revisión), 2003.
 # Ana María García Molina <ana_gm@eresmas.com>, 2001.
 # Juan Manuel García Molina <juanma_gm@wanadoo.es>, 2000-2002.
 # Francisco Javier F. Serrador <serrador@cvs.gnome.org>, 2003-2006.
-# Jorge González <jorgegonz@svn.gnome.org>, 2007.
+# Jorge González <jorgegonz@svn.gnome.org>, 2007, 2008.
 # Jorge Gonzalez <jorgegonz@svn.gnome.org>, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: dia.HEAD.es\n"
+"Project-Id-Version: dia.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-12-01 11:39+0000\n"
-"PO-Revision-Date: 2007-12-11 14:59+0100\n"
+"POT-Creation-Date: 2008-03-08 22:47+0000\n"
+"PO-Revision-Date: 2008-03-10 09:27+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
-"Language-Team: Spanish <traductores@es.gnome.org>\n"
+"Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -25,85 +25,83 @@ msgstr ""
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 
 #. This is not an errror
-#: ../app/app_procs.c:262
+#: ../app/app_procs.c:239
 #, c-format
 msgid "Warning: invalid layer range %lu - %lu\n"
 msgstr "Atención: rango de capa inválido %lu - %lu\n"
 
-#: ../app/app_procs.c:274
+#: ../app/app_procs.c:251
 #, c-format
 msgid "Warning: Layer %lu (%s) selected more than once.\n"
 msgstr "Atención: Capa %lu (%s) seleccionada más de una vez.\n"
 
-#: ../app/app_procs.c:300
+#: ../app/app_procs.c:277
 #, c-format
 msgid "Warning: Layer %d (%s) selected more than once.\n"
 msgstr "Atención: Capa %d (%s) seleccionada más de una vez.\n"
 
-#: ../app/app_procs.c:309
+#: ../app/app_procs.c:286
 #, c-format
 msgid "Warning: There is no layer named %s\n"
 msgstr "Atención: No hay ninguna capa llamada %s\n"
 
-#: ../app/app_procs.c:391
+#: ../app/app_procs.c:368
 #, c-format
 msgid "%s error: don't know how to export into %s\n"
 msgstr "%s error: no se sabe cómo exportar a %s\n"
 
-#: ../app/app_procs.c:400
+#: ../app/app_procs.c:377
 #, c-format
 msgid "%s error: input and output file name is identical: %s"
 msgstr "%s error: el nombre de los ficheros de entrada y salida es idéntico: %s"
 
-#: ../app/app_procs.c:408
+#: ../app/app_procs.c:385
 #, c-format
 msgid "%s error: need valid input file %s\n"
 msgstr "%s error: se necesita un archivo de entrada válido %s\n"
 
 #. if (!quiet)
-#: ../app/app_procs.c:433
+#: ../app/app_procs.c:410
 #, c-format
 msgid "%s --> %s\n"
 msgstr "%s --> %s\n"
 
-#: ../app/app_procs.c:594
+#: ../app/app_procs.c:571
 #, c-format
 msgid "Can't find output format/filter %s\n"
 msgstr "No se pudo encontrar el formato/filtro de salida %s\n"
 
 #. Translators:  The argument is a list of options, not to be translated
-#: ../app/app_procs.c:686
+#: ../app/app_procs.c:663
 #, c-format
 msgid "Select the filter/format out of: %s"
 msgstr "Seleccione el filtro/formato de salida de: %s"
 
 #. &export_file_name
-#: ../app/app_procs.c:705 ../app/app_procs.c:732
+#: ../app/app_procs.c:681
 msgid "Export loaded file and exit"
 msgstr "Exportar archivo cargado y salir"
 
-#: ../app/app_procs.c:705 ../app/app_procs.c:732 ../app/diaconv.c:88
+#: ../app/app_procs.c:681
 msgid "OUTPUT"
 msgstr "SALIDA"
 
 # Supongo que también hay que traducir "TYPE", ¿no? RizOX.
 #. &export_file_format
 #. &export_format_string
-#. &export_file_format
-#: ../app/app_procs.c:707 ../app/app_procs.c:734
+#: ../app/app_procs.c:683
 msgid "TYPE"
 msgstr "TIPO"
 
-#: ../app/app_procs.c:709 ../app/app_procs.c:737
+#: ../app/app_procs.c:685
 msgid "Export graphics size"
 msgstr "Tamaño del gráfico exportado"
 
-#: ../app/app_procs.c:709 ../app/app_procs.c:737
+#: ../app/app_procs.c:685
 msgid "WxH"
 msgstr "AnchoxAlto"
 
-#. 13.3.2004 sampo@iki.fi
-#: ../app/app_procs.c:711 ../app/app_procs.c:739
+#: ../app/app_procs.c:687
 msgid ""
 "Show only specified layers (e.g. when exporting). Can be either the layer "
 "name or a range of layer numbers (X-Y)"
@@ -111,73 +109,68 @@ msgstr ""
 "mostrar sólo las capas especificadas (ej: al exportar). Puede ser o el "
 "nombre de capa o un rango de números de capas (X-Y)"
 
-#: ../app/app_procs.c:712 ../app/app_procs.c:740
+#: ../app/app_procs.c:688
 msgid "LAYER,LAYER,..."
 msgstr "CAPA,CAPA..."
 
-#: ../app/app_procs.c:714 ../app/app_procs.c:742
+#: ../app/app_procs.c:690
 msgid "Don't show the splash screen"
 msgstr "No mostrar la pantalla de bienvenida"
 
-#: ../app/app_procs.c:716 ../app/app_procs.c:744
+#: ../app/app_procs.c:692
 msgid "Don't create empty diagram"
 msgstr "No crear un diagrama vacío"
 
-#: ../app/app_procs.c:718 ../app/app_procs.c:746
+#: ../app/app_procs.c:694
 msgid "Send error messages to stderr instead of showing dialogs."
 msgstr "Enviar los mensajes de error a stderr en vez de mostrar diálogos."
 
-#: ../app/app_procs.c:720 ../app/app_procs.c:748
+#: ../app/app_procs.c:696
 msgid "Display credits list and exit"
 msgstr "Mostrar la lista de créditos y salir"
 
-#: ../app/app_procs.c:722 ../app/app_procs.c:750
+#: ../app/app_procs.c:698
 msgid "Generate verbose output"
 msgstr "Generar salida detallada"
 
-#: ../app/app_procs.c:724 ../app/app_procs.c:752
+#: ../app/app_procs.c:700
 msgid "Display version and exit"
 msgstr "Mostrar la versión y salir"
 
-#: ../app/app_procs.c:753 ../app/diaconv.c:89
-msgid "Show this help message"
-msgstr "Mostrar este mensaje de ayuda"
-
-#: ../app/app_procs.c:813
+#: ../app/app_procs.c:749
 msgid "Can't connect to session manager!\n"
 msgstr "¡No se puede conectar con el gestor de sesiones!\n"
 
 #. TRANSLATOR: 2nd and 3rd %s are time and date respectively.
-#: ../app/app_procs.c:853
+#: ../app/app_procs.c:789
 #, c-format
 msgid "Dia version %s, compiled %s %s\n"
 msgstr "Versión %s de Dia, compilada %s %s\n"
 
-#: ../app/app_procs.c:855
+#: ../app/app_procs.c:791
 #, c-format
 msgid "Dia version %s\n"
 msgstr "Versión %s de Dia\n"
 
 # Como adjetivo creo que el plural es "estándar". FVD
-#: ../app/app_procs.c:912 ../app/diaconv.c:195 ../app/diaconv.c:197
-#, c-format
+#: ../app/app_procs.c:848
 msgid "Couldn't find standard objects when looking for object-libs; exiting...\n"
 msgstr "No se encontraron objetos estándar en object-libs, saliendo...\n"
 
 # Como adjetivo creo que el plural es "estándar". FVD
-#: ../app/app_procs.c:914
+#: ../app/app_procs.c:850
 #, c-format
 msgid ""
 "Couldn't find standard objects when looking for object-libs in '%s'; "
 "exiting...\n"
 msgstr "No se encontraron objetos estándar en object-libs en «%s»; saliendo...\n"
 
-#: ../app/app_procs.c:972
+#: ../app/app_procs.c:908
 msgid "Diagram1.dia"
 msgstr "Diagrama1.dia"
 
 # Me parece más correcta y explicativa esta traducción aunque sea algo más larga. RizOX.
-#: ../app/app_procs.c:1015
+#: ../app/app_procs.c:951
 msgid ""
 "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you can cause this message to appear.\n"
@@ -186,16 +179,16 @@ msgstr ""
 "gnome.org\n"
 "describiendo cómo conseguir que este mensaje vuelva a aparecer.\n"
 
-#: ../app/app_procs.c:1030
+#: ../app/app_procs.c:966
 msgid "Exiting Dia"
 msgstr "Salir de Dia"
 
 #. no standard buttons
-#: ../app/app_procs.c:1080
+#: ../app/app_procs.c:1016
 msgid "Quitting without saving modified diagrams"
 msgstr "¿Salir sin guardar los diagramas modificados?"
 
-#: ../app/app_procs.c:1082
+#: ../app/app_procs.c:1018
 msgid ""
 "Modified diagrams exist. Are you sure you want to quit Dia without saving "
 "them?"
@@ -203,15 +196,15 @@ msgstr ""
 "Hay diagramas modificados. ¿Está seguro de que desea salir de Dia\n"
 "sin guardarlos?"
 
-#: ../app/app_procs.c:1086
+#: ../app/app_procs.c:1022
 msgid "Quit Dia"
 msgstr "Salir de Dia"
 
-#: ../app/app_procs.c:1155 ../app/app_procs.c:1162
+#: ../app/app_procs.c:1091 ../app/app_procs.c:1098
 msgid "Could not create per-user Dia config directory"
 msgstr "No se pudo crear el directorio de configuración de Dia para el usuario"
 
-#: ../app/app_procs.c:1165
+#: ../app/app_procs.c:1101
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -220,34 +213,21 @@ msgstr ""
 "favor, asegúrese de que la variable de entorno HOME apunta a un directorio "
 "existente."
 
-#: ../app/app_procs.c:1188 ../app/diaconv.c:245
+#: ../app/app_procs.c:1124
 msgid "Objects and filters internal to dia"
 msgstr "Objetos y filtros internos para dia"
 
-#: ../app/app_procs.c:1230 ../app/diaconv.c:115
-msgid "[OPTION...] [FILE...]"
-msgstr "[OPCIÓN...] [ARCHIVO...]"
-
-#: ../app/app_procs.c:1233 ../app/diaconv.c:122
-#, c-format
-msgid ""
-"Error on option %s: %s.\n"
-"Run '%s --help' to see a full list of available command line options.\n"
-msgstr ""
-"Error en la opción %s: %s.\n"
-"Ejecute «%s --help» para ver la lista completa de opciones de la línea de "
-"comandos.\n"
-
-#: ../app/app_procs.c:1257
+#: ../app/app_procs.c:1163
 msgid "[FILE...]"
 msgstr "[ARCHIVO...]"
 
-#: ../app/app_procs.c:1280
+#: ../app/app_procs.c:1183
 #, c-format
 msgid "'%s' not found!\n"
 msgstr "«%s» no encontrado\n"
 
-#: ../app/app_procs.c:1361
+#: ../app/app_procs.c:1227
+#, c-format
 msgid ""
 "The original author of Dia was:\n"
 "\n"
@@ -255,7 +235,8 @@ msgstr ""
 "El autor original de Dia fue:\n"
 "\n"
 
-#: ../app/app_procs.c:1366
+#: ../app/app_procs.c:1232
+#, c-format
 msgid ""
 "\n"
 "The current maintainers of Dia are:\n"
@@ -265,7 +246,8 @@ msgstr ""
 "Los actuales mantenedores de Dia son:\n"
 "\n"
 
-#: ../app/app_procs.c:1371
+#: ../app/app_procs.c:1237
+#, c-format
 msgid ""
 "\n"
 "Other authors are:\n"
@@ -275,7 +257,8 @@ msgstr ""
 "Otros autores son:\n"
 "\n"
 
-#: ../app/app_procs.c:1376
+#: ../app/app_procs.c:1242
+#, c-format
 msgid ""
 "\n"
 "Dia is documented by:\n"
@@ -314,11 +297,11 @@ msgstr "Diagrama%d.dia"
 msgid "No existing object to paste.\n"
 msgstr "No hay objetos que pegar.\n"
 
-#: ../app/commands.c:637 ../app/commands.c:675
+#: ../app/commands.c:639 ../app/commands.c:677
 msgid "Could not find help directory"
 msgstr "No se pudo encontrar el directorio de ayuda"
 
-#: ../app/commands.c:644
+#: ../app/commands.c:646
 #, c-format
 msgid ""
 "Could not open help directory:\n"
@@ -327,7 +310,7 @@ msgstr ""
 "No se pudo abrir el directorio de ayuda:\n"
 "%s"
 
-#: ../app/commands.c:711
+#: ../app/commands.c:713
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 "Jorge González <jorgegonz@svn.gnome.org>, 2007\n"
@@ -335,7 +318,7 @@ msgstr ""
 "Revisión por Francisco Vila <fravd@wanadoo.es>\n"
 "2ª Revisión por Alberto Barrionuevo <traducciones@rizox.com> "
 
-#: ../app/commands.c:713
+#: ../app/commands.c:715
 msgid ""
 "This program is free software; you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"
@@ -367,7 +350,7 @@ msgstr ""
 "Inc,\n"
 "59 Temple Place - Suite 330, Boston, MA 02111-1307, EE.UU.\n"
 
-#: ../app/commands.c:736
+#: ../app/commands.c:738
 msgid "A program for drawing structured diagrams."
 msgstr "Un programa para dibujar diagramas estructurados."
 
@@ -469,64 +452,6 @@ msgstr "Posición Y"
 msgid "Y position of child widget"
 msgstr "Posición Y del widget hijo"
 
-#. &export_file_format
-#: ../app/diaconv.c:86
-msgid "Export format to use"
-msgstr "Formato de exportación a usar"
-
-#: ../app/diaconv.c:86
-msgid "eps,png,wmf,cgm,dxf,fig"
-msgstr "eps,png,wmf,cgm,dxf,fig"
-
-#. &export_file_name
-#: ../app/diaconv.c:88
-msgid "Export file name to use"
-msgstr "Nombre de archivo de exportación a usar"
-
-#: ../app/diaconv.c:90
-msgid "Quiet operation"
-msgstr "Operación silenciosa"
-
-#: ../app/diaconv.c:143
-#, c-format
-msgid ""
-"Error: No arguments found.\n"
-"Run '%s --help' to see a full list of available command line options.\n"
-msgstr ""
-"Error: No se encontraron argumentos.\n"
-"Ejecute «%s --help» para ver la lista completa de opciones de\n"
-"la línea de comandos.\n"
-
-#: ../app/diaconv.c:153
-#, c-format
-msgid "%s error: can specify only one of -t or -o."
-msgstr "%s error: puede especificar sólo uno de -t o -o."
-
-#: ../app/diaconv.c:159
-#, c-format
-msgid ""
-"%s error: must specify only one of -t or -o.\n"
-"Run '%s --help' to see a full list of available command line options.\n"
-msgstr ""
-"%s error: debe especificar uno de -t o -o.\n"
-"Ejecute «%s --help» para ver la lista completa de opciones de \n"
-"la línea de comandos.\n"
-
-#: ../app/diaconv.c:168
-#, c-format
-msgid "%s error: no input file."
-msgstr "%s error: sin archivo de entrada."
-
-#: ../app/diaconv.c:221
-#, c-format
-msgid "%s error: only one input file expected."
-msgstr "%s error: sólo se esperaba un archivo de entrada."
-
-#: ../app/diaconv.c:234
-#, c-format
-msgid "%s error: popt library not available on this system"
-msgstr "%s error: la bblioteca popt no está disponible en este sistema"
-
 #: ../app/diagram.c:223
 #, c-format
 msgid "Couldn't convert filename '%s' to UTF-8: %s\n"
@@ -545,11 +470,11 @@ msgstr ""
 "en un elemento en un diagrama nuevo y si lo guarda, se guardará como un "
 "diagrama de Dia."
 
-#: ../app/diagram.c:1170
+#: ../app/diagram.c:1171
 msgid "Trying to group with no selected objects."
 msgstr "Intentando agrupar sin objetos seleccionados."
 
-#: ../app/diagram.c:1180
+#: ../app/diagram.c:1181
 msgid ""
 "You cannot group objects that belong to different groups or have different "
 "parents"
@@ -823,7 +748,7 @@ msgid "Nothing selected for saving.  Would you like to try again?"
 msgstr "No se seleccionó nada para guardar. ¿Quiere intentarlo otra vez?"
 
 #: ../app/export_png.c:138 ../app/load_save.c:989 ../app/render_eps.c:105
-#: ../plug-ins/cairo/diacairo.c:994 ../plug-ins/cgm/cgm.c:1153
+#: ../plug-ins/cairo/diacairo.c:109 ../plug-ins/cgm/cgm.c:1153
 #: ../plug-ins/dxf/dxf-export.c:547 ../plug-ins/hpgl/hpgl.c:710
 #: ../plug-ins/metapost/render_metapost.c:1177
 #: ../plug-ins/pgf/render_pgf.c:1208
@@ -992,7 +917,7 @@ msgstr "Desplazar sobre el diagrama"
 #: ../objects/UML/node.c:129 ../objects/UML/note.c:123
 #: ../objects/UML/object.c:150 ../objects/UML/small_package.c:130
 #: ../objects/UML/state.c:154 ../objects/UML/usecase.c:140
-#: ../objects/custom/custom_object.c:200 ../objects/network/basestation.c:135
+#: ../objects/custom/custom_object.c:222 ../objects/network/basestation.c:135
 #: ../objects/network/radiocell.c:127
 msgid "Text"
 msgstr "Texto"
@@ -1161,20 +1086,20 @@ msgstr "Capas"
 msgid "Diagram:"
 msgstr "Diagrama:"
 
-#: ../app/layer_dialog.c:349
+#: ../app/layer_dialog.c:353
 #, c-format
 msgid "New layer %d"
 msgstr "Capa nueva %d"
 
-#: ../app/layer_dialog.c:561
+#: ../app/layer_dialog.c:565
 msgid "none"
 msgstr "ninguna"
 
-#: ../app/layer_dialog.c:983
+#: ../app/layer_dialog.c:987
 msgid "Edit Layer Attributes"
 msgstr "Editar atributos de capa"
 
-#: ../app/layer_dialog.c:1002
+#: ../app/layer_dialog.c:1006
 msgid "Layer name:"
 msgstr "Nombre de la capa:"
 
@@ -2581,16 +2506,16 @@ msgstr ""
 msgid "Group with %d objects"
 msgstr "Grupo con %d objetos"
 
-#: ../lib/properties.c:64 ../lib/properties.h:469 ../lib/widgets.c:690
+#: ../lib/properties.c:64 ../lib/properties.h:469 ../lib/widgets.c:691
 msgid "Left"
 msgstr "Izquierda"
 
-#: ../lib/properties.c:65 ../lib/properties.h:470 ../lib/widgets.c:696
+#: ../lib/properties.c:65 ../lib/properties.h:470 ../lib/widgets.c:697
 #: ../objects/standard/textobj.c:135
 msgid "Center"
 msgstr "Centro"
 
-#: ../lib/properties.c:66 ../lib/properties.h:471 ../lib/widgets.c:702
+#: ../lib/properties.c:66 ../lib/properties.h:471 ../lib/widgets.c:703
 msgid "Right"
 msgstr "Derecha"
 
@@ -2653,68 +2578,68 @@ msgstr "Color de texto"
 msgid "No attribute '%s' (%p) or no data(%p) in this attribute"
 msgstr "No hay ningún atributo «%s» (%p) o no hay datos (%p) en este atributo"
 
-#: ../lib/widgets.c:408
+#: ../lib/widgets.c:409
 msgid "Other fonts"
 msgstr "Otras tipografías"
 
-#: ../lib/widgets.c:480
+#: ../lib/widgets.c:481
 #, c-format
 msgid "Couldn't find font family for %s\n"
 msgstr "No se pudo encontrar la familia de tipografías para %s\n"
 
 #. Translators: Menu item Noun/Material/Solid
-#: ../lib/widgets.c:862 ../objects/FS/function.c:1076
+#: ../lib/widgets.c:863 ../objects/FS/function.c:1076
 msgid "Solid"
 msgstr "Sólido"
 
-#: ../lib/widgets.c:868
+#: ../lib/widgets.c:869
 msgid "Dashed"
 msgstr "Discontinuo"
 
-#: ../lib/widgets.c:874
+#: ../lib/widgets.c:875
 msgid "Dash-Dot"
 msgstr "Línea-Punto"
 
-#: ../lib/widgets.c:880
+#: ../lib/widgets.c:881
 msgid "Dash-Dot-Dot"
 msgstr "Línea-Punto-Punto"
 
-#: ../lib/widgets.c:886
+#: ../lib/widgets.c:887
 msgid "Dotted"
 msgstr "Punteado"
 
 #. fs->sizebox = GTK_HBOX(box);
-#: ../lib/widgets.c:904
+#: ../lib/widgets.c:905
 msgid "Dash length: "
 msgstr "Longitud de la discontinuidad: "
 
-#: ../lib/widgets.c:1032
+#: ../lib/widgets.c:1033
 msgid "Select color"
 msgstr "Seleccione color"
 
-#: ../lib/widgets.c:1098
+#: ../lib/widgets.c:1099
 msgid "More colors..."
 msgstr "Más colores"
 
 # Corregido, no tenía sentido. RizOX.
-#: ../lib/widgets.c:1246
+#: ../lib/widgets.c:1247
 msgid "More arrows"
 msgstr "Más flechas"
 
-#: ../lib/widgets.c:1263
+#: ../lib/widgets.c:1264
 msgid "Size: "
 msgstr "Tamaño: "
 
-#: ../lib/widgets.c:1439
+#: ../lib/widgets.c:1440
 msgid "Select image file"
 msgstr "Seleccionar archivo de imagen"
 
-#: ../lib/widgets.c:1477
+#: ../lib/widgets.c:1478
 msgid "Browse"
 msgstr "Navegar"
 
 # Corregido. No tenía sentido. RizOX.
-#: ../lib/widgets.c:2055
+#: ../lib/widgets.c:2031
 msgid "Reset menu"
 msgstr "Restaurar menú"
 
@@ -2768,7 +2693,7 @@ msgstr "Añadir puerto de eventos de entrada salida"
 
 #: ../objects/AADL/aadlbox.c:381
 msgid "Add In Out Event Data Port"
-msgstr "Añadir puerto de eventros de datos de entrada salida"
+msgstr "Añadir puerto de eventos de datos de entrada salida"
 
 #: ../objects/AADL/aadlbox.c:383
 msgid "Add Port Group"
@@ -4029,7 +3954,7 @@ msgid "Force"
 msgstr "Forzar"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Rotation
-#: ../objects/FS/function.c:1108 ../objects/standard/outline.c:202
+#: ../objects/FS/function.c:1108 ../objects/standard/outline.c:200
 msgid "Rotation"
 msgstr "Rotación"
 
@@ -5640,29 +5565,51 @@ msgstr "Personalizar"
 msgid "Custom XML shapes loader"
 msgstr "Cargador de formas personalizadas XML"
 
-#: ../objects/custom/custom_object.c:178 ../objects/custom/custom_object.c:203
+#: ../objects/custom/custom_object.c:197 ../objects/custom/custom_object.c:225
 msgid "Flip horizontal"
 msgstr "Invertir horizontal"
 
-#: ../objects/custom/custom_object.c:180 ../objects/custom/custom_object.c:205
+#: ../objects/custom/custom_object.c:199 ../objects/custom/custom_object.c:227
 msgid "Flip vertical"
 msgstr "Invertir vertical"
 
+#: ../objects/custom/custom_object.c:202 ../objects/custom/custom_object.c:230
+msgid "Scale of the subshapes"
+msgstr "Escala de las subformas"
+
 # Quiza' si estas dos se diferencian so'lo en las mayu'sculas, deberi'amos respetarlas. FVD
-#: ../objects/custom/custom_object.c:1444
+#: ../objects/custom/custom_object.c:1761
 msgid "Flip Horizontal"
 msgstr "Invertir horizontal"
 
-#: ../objects/custom/custom_object.c:1445
+#: ../objects/custom/custom_object.c:1762
 msgid "Flip Vertical"
 msgstr "Invertir vertical"
 
-#: ../objects/custom/custom_object.c:1482
+#: ../objects/custom/custom_object.c:1799
+#: ../objects/custom_lines/custom_linetypes.c:263
 #, c-format
 msgid "Cannot open icon file %s for object type '%s'."
 msgstr "No se puede abrir el archivo de icono %s para el tipo de objeto «%s»."
 
-#: ../objects/custom/shape_info.c:138
+#: ../objects/custom_lines/custom_lines.c:160
+msgid "CustomLines"
+msgstr "LineasPersonalizadas"
+
+#: ../objects/custom_lines/custom_lines.c:160
+msgid "Custom XML lines loader"
+msgstr "Cargador de líneas personalizadas XML"
+
+#: ../objects/custom_lines/custom_linetypes.c:226
+msgid "INTERNAL: CustomLines: Illegal line type in LineInfo object."
+msgstr "INTERNO: LineasPersonalizadas: Tipo de línea ilegal en el objeto LineInfo."
+
+#: ../objects/custom_lines/custom_linetypes.c:251
+#, c-format
+msgid "INTERNAL: CustomLines: Illegal line type in LineInfo object %s."
+msgstr "INTERNO: LineasPersonalizadas: Tipo de línea ilegal en el objeto LineInfo %s."
+
+#: ../objects/custom/shape_info.c:162
 #, c-format
 msgid ""
 "The file '%s' has invalid path data.\n"
@@ -5808,11 +5755,11 @@ msgstr "Punto de partida"
 msgid "End point"
 msgstr "Punto de llegada"
 
-#: ../objects/standard/outline.c:200
+#: ../objects/standard/outline.c:198
 msgid "Text content"
 msgstr "Contenido del texto"
 
-#: ../objects/standard/outline.c:202
+#: ../objects/standard/outline.c:200
 msgid "Angle to rotate the outline"
 msgstr "Ángulo para rotar el contorno"
 
@@ -5837,17 +5784,17 @@ msgstr "Primera línea"
 msgid "Vertical text alignment"
 msgstr "Alineación vertical del texto"
 
-#: ../plug-ins/cairo/diacairo-interactive.c:269
-#: ../plug-ins/cairo/diacairo-interactive.c:270
+#: ../plug-ins/cairo/diacairo-interactive.c:276
+#: ../plug-ins/cairo/diacairo-interactive.c:277
 msgid "Zoom pointer"
 msgstr "Puntero de la ampliación"
 
-#: ../plug-ins/cairo/diacairo-interactive.c:276
-#: ../plug-ins/cairo/diacairo-interactive.c:277
+#: ../plug-ins/cairo/diacairo-interactive.c:283
+#: ../plug-ins/cairo/diacairo-interactive.c:284
 msgid "Visible rect pointer"
 msgstr "Puntero visible de la recta"
 
-#: ../plug-ins/cairo/diacairo.c:986
+#: ../plug-ins/cairo/diacairo.c:101
 #, c-format
 msgid ""
 "Can't convert output filename '%s' to locale encoding.\n"
@@ -5856,39 +5803,47 @@ msgstr ""
 "No se puede convertir el archivo de salida «%s» a la codificación local.\n"
 "Por favor, elija un nombre diferente para guardar con cairo.\n"
 
-#: ../plug-ins/cairo/diacairo.c:1104
+#: ../plug-ins/cairo/diacairo.c:238
+msgid "Printing with Gtk+(cairo) requires at least version 2.10."
+msgstr "Imprimir con Gtk+ (cairo) requiere al menos la versión 2.10."
+
+#: ../plug-ins/cairo/diacairo.c:245
 msgid "Cairo PostScript"
 msgstr "Cairo PostScript"
 
-#: ../plug-ins/cairo/diacairo.c:1115
+#: ../plug-ins/cairo/diacairo.c:256
 msgid "Cairo Portable Document Format"
 msgstr "Portable Document Format de Cairo"
 
-#: ../plug-ins/cairo/diacairo.c:1126
+#: ../plug-ins/cairo/diacairo.c:271
 msgid "Cairo Scalable Vector Graphics"
 msgstr "Cairo Scalable Vector Graphics"
 
-#: ../plug-ins/cairo/diacairo.c:1136
+#: ../plug-ins/cairo/diacairo.c:281
 msgid "Cairo PNG"
 msgstr "Cairo PNG"
 
-#: ../plug-ins/cairo/diacairo.c:1144
+#: ../plug-ins/cairo/diacairo.c:289
 msgid "Cairo PNG (with alpha)"
 msgstr "Cairo PNG (con alfa)"
 
-#: ../plug-ins/cairo/diacairo.c:1154
+#: ../plug-ins/cairo/diacairo.c:299
 msgid "Cairo WMF"
 msgstr "Cairo WMF"
 
-#: ../plug-ins/cairo/diacairo.c:1163
+#: ../plug-ins/cairo/diacairo.c:308
 msgid "Cairo old WMF"
 msgstr "WMF antiguo de Cairo"
 
-#: ../plug-ins/cairo/diacairo.c:1172
+#: ../plug-ins/cairo/diacairo.c:317
 msgid "Cairo Clipboard"
 msgstr "Portapapeles Cairo"
 
-#: ../plug-ins/cairo/diacairo.c:1218
+#: ../plug-ins/cairo/diacairo.c:328
+msgid "Print via Gtk+/cairo ..."
+msgstr "Imprimir a través de Gtk+/cairo..."
+
+#: ../plug-ins/cairo/diacairo.c:373
 msgid "Cairo based Rendering"
 msgstr "Renderizado basado en Cairo"
 
@@ -6029,11 +5984,15 @@ msgstr "No se pudo abrir «%s» para escritura.\n"
 msgid "Python scripting support"
 msgstr "Soporte de scripts de python"
 
-#: ../plug-ins/shape/shape-export.c:479
+#: ../plug-ins/shape/shape-export.c:473
+msgid "Shape files must end in .shape, or they cannot be loaded by Dia"
+msgstr "Los archivos de formas deben acabar en .shape, o Dia no podrá cargarlos"
+
+#: ../plug-ins/shape/shape-export.c:484
 msgid "Can't export png without libart!"
 msgstr "¡No se puede exportar png sin libart!"
 
-#: ../plug-ins/shape/shape-export.c:504
+#: ../plug-ins/shape/shape-export.c:509
 msgid "Dia Shape File"
 msgstr "Archivo de forma de Dia"
 
@@ -6896,7 +6855,7 @@ msgstr "Intercambiador de hoja fija"
 
 #: ../sheets/ChemEng.sheet.in.h:19
 msgid "Floating-Head or U-Tube Exchanger"
-msgstr "Cablezal flotante o Intercambiador de tubo en U"
+msgstr "Cabezal flotante o Intercambiador de tubo en U"
 
 #: ../sheets/ChemEng.sheet.in.h:20
 msgid "Fluid Contacting Vessel, simple"
@@ -6916,7 +6875,7 @@ msgstr "Calentador/refrigerador de carbón"
 
 #: ../sheets/ChemEng.sheet.in.h:24
 msgid "Heating/Cooling Coil, vertical"
-msgstr "Refrijerador/Calentador de carbón, vertical"
+msgstr "Refrigerador/Calentador de carbón, vertical"
 
 #: ../sheets/ChemEng.sheet.in.h:25
 msgid "Induced-Flow Air Cooler"
@@ -7264,7 +7223,7 @@ msgstr "Elementos de circuitos cibernéticos"
 
 #: ../sheets/Cybernetics.sheet.in.h:9
 msgid "Full wave rectifier (absolute value)"
-msgstr "Rectificador de onda completa (valor absolutio)"
+msgstr "Rectificador de onda completa (valor absoluto)"
 
 #: ../sheets/Cybernetics.sheet.in.h:10
 msgid "Half wave rectifier or ramp input"
@@ -7925,7 +7884,7 @@ msgstr "Una salida KAOS"
 
 #: ../sheets/KAOS.sheet.in.h:19
 msgid "A KAOS performs"
-msgstr "Un KAOS efectua"
+msgstr "Un KAOS efectúa"
 
 #: ../sheets/KAOS.sheet.in.h:20
 msgid "A KAOS requirement"
@@ -7993,7 +7952,7 @@ msgstr "Linterna convexa"
 
 #: ../sheets/Lights.sheet.in.h:12 ../sheets/ciscocomputer.sheet.in.h:39
 msgid "Scanner"
-msgstr "Escaner"
+msgstr "Escáner"
 
 #: ../sheets/Lights.sheet.in.h:13
 msgid "Striplight"
