@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-03-04 18:44+0100\n"
-"PO-Revision-Date: 2008-03-04 18:47+0100\n"
+"POT-Creation-Date: 2008-03-10 12:02+0100\n"
+"PO-Revision-Date: 2008-03-10 12:03+0100\n"
 "Last-Translator: Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>\n"
 "Language-Team: Basque <itzulpena@euskalgnu.org>\n"
 "MIME-Version: 1.0\n"
@@ -21,85 +21,83 @@ msgstr ""
 "\n"
 
 #. This is not an errror
-#: ../app/app_procs.c:262
+#: ../app/app_procs.c:239
 #, c-format
 msgid "Warning: invalid layer range %lu - %lu\n"
 msgstr "Abisua: baliogabeko geruzaren barrutia %lu - %lu\n"
 
-#: ../app/app_procs.c:274
+#: ../app/app_procs.c:251
 #, c-format
 msgid "Warning: Layer %lu (%s) selected more than once.\n"
 msgstr "Abisua: %lu. geruza (%s) hainbat aldiz hautatuta\n"
 
-#: ../app/app_procs.c:300
+#: ../app/app_procs.c:277
 #, c-format
 msgid "Warning: Layer %d (%s) selected more than once.\n"
 msgstr "Abisua: %d. geruza (%s) hainbat aldiz hautatuta\n"
 
-#: ../app/app_procs.c:309
+#: ../app/app_procs.c:286
 #, c-format
 msgid "Warning: There is no layer named %s\n"
 msgstr "Abisua: ez dago %s izeneko geruzarik.\n"
 
-#: ../app/app_procs.c:391
+#: ../app/app_procs.c:368
 #, c-format
 msgid "%s error: don't know how to export into %s\n"
 msgstr "%s errorea: ez dakit nola esportatu hona: %s\n"
 
-#: ../app/app_procs.c:400
+#: ../app/app_procs.c:377
 #, c-format
 msgid "%s error: input and output file name is identical: %s"
 msgstr "%s errorea: sarrerako eta irteerako fitxategi-izena berdina da: %s"
 
-#: ../app/app_procs.c:408
+#: ../app/app_procs.c:385
 #, c-format
 msgid "%s error: need valid input file %s\n"
 msgstr "%s errorea: %s baliozko sarrerako fitxategia behar da\n"
 
 #. if (!quiet)
-#: ../app/app_procs.c:433
+#: ../app/app_procs.c:410
 #, c-format
 msgid "%s --> %s\n"
 msgstr "%s --> %s\n"
 
-#: ../app/app_procs.c:594
+#: ../app/app_procs.c:571
 #, c-format
 msgid "Can't find output format/filter %s\n"
 msgstr "Ezin da aurkitu %s irteerako formatua/iragazkia\n"
 
 #. Translators:  The argument is a list of options, not to be translated
-#: ../app/app_procs.c:686
+#: ../app/app_procs.c:663
 #, c-format
 msgid "Select the filter/format out of: %s"
 msgstr "Hautatu %s(r)en iragazkia edo irteerako formatua"
 
 #. &export_file_name
-#: ../app/app_procs.c:705 ../app/app_procs.c:732
+#: ../app/app_procs.c:681
 msgid "Export loaded file and exit"
 msgstr "Esportatu kargatutako fitxategia eta irten"
 
-#: ../app/app_procs.c:705 ../app/app_procs.c:732 ../app/diaconv.c:88
+#: ../app/app_procs.c:681
 msgid "OUTPUT"
 msgstr "IRTEERA"
 
 # Supongo que también hay que traducir "TYPE", ¿no? RizOX.
 #. &export_file_format
 #. &export_format_string
-#. &export_file_format
-#: ../app/app_procs.c:707 ../app/app_procs.c:734
+#: ../app/app_procs.c:683
 msgid "TYPE"
 msgstr "MOTA"
 
-#: ../app/app_procs.c:709 ../app/app_procs.c:737
+#: ../app/app_procs.c:685
 msgid "Export graphics size"
 msgstr "Esportatzeko grafikoen tamaina"
 
-#: ../app/app_procs.c:709 ../app/app_procs.c:737
+#: ../app/app_procs.c:685
 msgid "WxH"
 msgstr "ZxH"
 
-#. 13.3.2004 sampo@iki.fi
-#: ../app/app_procs.c:711 ../app/app_procs.c:739
+#: ../app/app_procs.c:687
 msgid ""
 "Show only specified layers (e.g. when exporting). Can be either the layer "
 "name or a range of layer numbers (X-Y)"
@@ -107,59 +105,54 @@ msgstr ""
 "Erakutsi zehaztutako geruzak bakarrik (adib. esportatzean). Geruzaren izena "
 "edo geruza kopuruen barrutia (X-Y) izan daiteke."
 
-#: ../app/app_procs.c:712 ../app/app_procs.c:740
+#: ../app/app_procs.c:688
 msgid "LAYER,LAYER,..."
 msgstr "GERUZA,GERUZA,..."
 
-#: ../app/app_procs.c:714 ../app/app_procs.c:742
+#: ../app/app_procs.c:690
 msgid "Don't show the splash screen"
 msgstr "Ez erakutsi harrerako pantaila"
 
-#: ../app/app_procs.c:716 ../app/app_procs.c:744
+#: ../app/app_procs.c:692
 msgid "Don't create empty diagram"
 msgstr "Ez sortu diagrama hutsa"
 
-#: ../app/app_procs.c:718 ../app/app_procs.c:746
+#: ../app/app_procs.c:694
 msgid "Send error messages to stderr instead of showing dialogs."
 msgstr "Bidali errore-mezuak stderr-era, elkarrizketa-koadroak erakutsi beharrean."
 
-#: ../app/app_procs.c:720 ../app/app_procs.c:748
+#: ../app/app_procs.c:696
 msgid "Display credits list and exit"
 msgstr "Bistaratu kredituen zerrenda eta irten"
 
-#: ../app/app_procs.c:722 ../app/app_procs.c:750
+#: ../app/app_procs.c:698
 msgid "Generate verbose output"
 msgstr "Sortu irteera xehatua"
 
-#: ../app/app_procs.c:724 ../app/app_procs.c:752
+#: ../app/app_procs.c:700
 msgid "Display version and exit"
 msgstr "Bistaratu bertsioa eta irten"
 
-#: ../app/app_procs.c:753 ../app/diaconv.c:89
-msgid "Show this help message"
-msgstr "Erakutsi laguntzako mezu hau"
-
-#: ../app/app_procs.c:813
+#: ../app/app_procs.c:749
 msgid "Can't connect to session manager!\n"
 msgstr "Ezin da konektatu saio-kudeatzailera.\n"
 
 #. TRANSLATOR: 2nd and 3rd %s are time and date respectively.
-#: ../app/app_procs.c:853
+#: ../app/app_procs.c:789
 #, c-format
 msgid "Dia version %s, compiled %s %s\n"
 msgstr "Dia, %s bertsioa, konpilatua: %s %s\n"
 
-#: ../app/app_procs.c:855
+#: ../app/app_procs.c:791
 #, c-format
 msgid "Dia version %s\n"
 msgstr "Dia, %s bertsioa\n"
 
-#: ../app/app_procs.c:912 ../app/diaconv.c:195 ../app/diaconv.c:197
-#, c-format
+#: ../app/app_procs.c:848
 msgid "Couldn't find standard objects when looking for object-libs; exiting...\n"
 msgstr "Ezin izan dira 'object-libs'eko objektu estandarrak aurkitu, irtetzen...\n"
 
-#: ../app/app_procs.c:914
+#: ../app/app_procs.c:850
 #, c-format
 msgid ""
 "Couldn't find standard objects when looking for object-libs in '%s'; "
@@ -168,11 +161,11 @@ msgstr ""
 "Ezin izan dira '%s'(e)n 'object-libs'eko objektu estandarrak aurkitu, "
 "irtetzen...\n"
 
-#: ../app/app_procs.c:972
+#: ../app/app_procs.c:908
 msgid "Diagram1.dia"
 msgstr "Diagrama1.dia"
 
-#: ../app/app_procs.c:1015
+#: ../app/app_procs.c:951
 msgid ""
 "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you can cause this message to appear.\n"
@@ -180,16 +173,16 @@ msgstr ""
 "Ez luke gertatu behar. Eman errorearen berri bugzilla.gnome.org-en,\n"
 "mezu hau agertzeko zer egin duzun azalduz.\n"
 
-#: ../app/app_procs.c:1030
+#: ../app/app_procs.c:966
 msgid "Exiting Dia"
 msgstr "Dia-tik irtetzen"
 
 #. no standard buttons
-#: ../app/app_procs.c:1080
+#: ../app/app_procs.c:1016
 msgid "Quitting without saving modified diagrams"
 msgstr "Irtetzen (aldatutako diagramak gorde gabe)"
 
-#: ../app/app_procs.c:1082
+#: ../app/app_procs.c:1018
 msgid ""
 "Modified diagrams exist. Are you sure you want to quit Dia without saving "
 "them?"
@@ -197,15 +190,15 @@ msgstr ""
 "Aldatutako diagramak daude. Ziur zaude Dia-tik irten nahi duzula diagramak "
 "gorde gabe?"
 
-#: ../app/app_procs.c:1086
+#: ../app/app_procs.c:1022
 msgid "Quit Dia"
 msgstr "Irten Dia-tik"
 
-#: ../app/app_procs.c:1155 ../app/app_procs.c:1162
+#: ../app/app_procs.c:1091 ../app/app_procs.c:1098
 msgid "Could not create per-user Dia config directory"
 msgstr "Ezin izan da sortu erabiltzaile bakoitzeko Dia konfigurazioko direktorioa"
 
-#: ../app/app_procs.c:1165
+#: ../app/app_procs.c:1101
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -213,33 +206,20 @@ msgstr ""
 "Ezin izan da sortu erabiltzaile bakoitzeko Dia konfigurazioko direktorioa. "
 "Egiaztatu HOME ingurune-aldagaiak seinalatzen duen direktorioa badagoela."
 
-#: ../app/app_procs.c:1188 ../app/diaconv.c:245
+#: ../app/app_procs.c:1124
 msgid "Objects and filters internal to dia"
 msgstr "Dia-ren barneko objektuak eta iragazkiak"
 
-#: ../app/app_procs.c:1230 ../app/diaconv.c:115
-msgid "[OPTION...] [FILE...]"
-msgstr "[AUKERA...] [FITXATEGIA...]"
-
-#: ../app/app_procs.c:1233 ../app/diaconv.c:122
-#, c-format
-msgid ""
-"Error on option %s: %s.\n"
-"Run '%s --help' to see a full list of available command line options.\n"
-msgstr ""
-"Errorea aukeran: %s: %s.\n"
-"Exekutatu '%s --help', komando-lerroko aukera erabilgarriak ikusteko.\n"
-
-#: ../app/app_procs.c:1257
+#: ../app/app_procs.c:1163
 msgid "[FILE...]"
 msgstr "[FITXATEGIA...]"
 
-#: ../app/app_procs.c:1280
+#: ../app/app_procs.c:1183
 #, c-format
 msgid "'%s' not found!\n"
 msgstr "'%s' ez da aurkitu.\n"
 
-#: ../app/app_procs.c:1361
+#: ../app/app_procs.c:1227
 #, c-format
 msgid ""
 "The original author of Dia was:\n"
@@ -248,7 +228,7 @@ msgstr ""
 "Dia-ren jatorriko egilea:\n"
 "\n"
 
-#: ../app/app_procs.c:1366
+#: ../app/app_procs.c:1232
 #, c-format
 msgid ""
 "\n"
@@ -259,7 +239,7 @@ msgstr ""
 "Dia-ren uneko mantentzaileak:\n"
 "\n"
 
-#: ../app/app_procs.c:1371
+#: ../app/app_procs.c:1237
 #, c-format
 msgid ""
 "\n"
@@ -270,7 +250,7 @@ msgstr ""
 "Beste egile batzuk:\n"
 "\n"
 
-#: ../app/app_procs.c:1376
+#: ../app/app_procs.c:1242
 #, c-format
 msgid ""
 "\n"
@@ -452,62 +432,6 @@ msgstr "Y kokalekua"
 #: ../app/diacanvas.c:132
 msgid "Y position of child widget"
 msgstr "Y kokalekua (ume-trepetarena)"
-
-#. &export_file_format
-#: ../app/diaconv.c:86
-msgid "Export format to use"
-msgstr "Erabiliko den esportatze-formatua"
-
-#: ../app/diaconv.c:86
-msgid "eps,png,wmf,cgm,dxf,fig"
-msgstr "eps,png,wmf,cgm,dxf,fig"
-
-#. &export_file_name
-#: ../app/diaconv.c:88
-msgid "Export file name to use"
-msgstr "Erabiliko den fitxategi-izena esportatzeko"
-
-#: ../app/diaconv.c:90
-msgid "Quiet operation"
-msgstr "Isilpeko eragiketa"
-
-#: ../app/diaconv.c:143
-#, c-format
-msgid ""
-"Error: No arguments found.\n"
-"Run '%s --help' to see a full list of available command line options.\n"
-msgstr ""
-"Errorea: ez da argumenturik aurkitu.\n"
-"Exekutatu '%s --help', komando-lerroko aukera erabilgarriak ikusteko.\n"
-
-#: ../app/diaconv.c:153
-#, c-format
-msgid "%s error: can specify only one of -t or -o."
-msgstr "%s errorea: -t edo -o soilik zehaz daiteke."
-
-#: ../app/diaconv.c:159
-#, c-format
-msgid ""
-"%s error: must specify only one of -t or -o.\n"
-"Run '%s --help' to see a full list of available command line options.\n"
-msgstr ""
-"%s errorea: -t edo -o soilik zehaz daiteke.\n"
-"Exekutatu '%s --help', komando-lerroko aukera erabilgarriak ikusteko.\n"
-
-#: ../app/diaconv.c:168
-#, c-format
-msgid "%s error: no input file."
-msgstr "%s errorea: ez dago sarrerako fitxategirik."
-
-#: ../app/diaconv.c:221
-#, c-format
-msgid "%s error: only one input file expected."
-msgstr "%s errorea: sarrerako fitxategi bakar bat espero da."
-
-#: ../app/diaconv.c:234
-#, c-format
-msgid "%s error: popt library not available on this system"
-msgstr "%s errorea: popt liburutegia ez dago eskuragarri sisteman."
 
 #: ../app/diagram.c:223
 #, c-format
@@ -802,8 +726,8 @@ msgstr "Ez hautatu ezer"
 msgid "Nothing selected for saving.  Would you like to try again?"
 msgstr "Ez da ezer hautatu gordetzeko. Saiatu nahi duzu berriro?"
 
-#: ../app/export_png.c:138 ../app/load_save.c:989 ../app/render_eps.c:105
-#: ../plug-ins/cairo/diacairo.c:994 ../plug-ins/cgm/cgm.c:1153
+#: ../app/export_png.c:138 ../app/load_save.c:995 ../app/render_eps.c:105
+#: ../plug-ins/cairo/diacairo.c:109 ../plug-ins/cgm/cgm.c:1153
 #: ../plug-ins/dxf/dxf-export.c:547 ../plug-ins/hpgl/hpgl.c:710
 #: ../plug-ins/metapost/render_metapost.c:1177
 #: ../plug-ins/pgf/render_pgf.c:1208
@@ -1232,29 +1156,29 @@ msgstr ""
 "%s.\n"
 "Baliozko Dia fitxategi batek gutxienez geruza bat definitzen du."
 
-#: ../app/load_save.c:945
+#: ../app/load_save.c:948
 #, c-format
 msgid "Not allowed to write to output file %s\n"
 msgstr "Ez dago baimenik irteerako %s fitxategian idazteko\n"
 
-#: ../app/load_save.c:967
+#: ../app/load_save.c:973
 #, c-format
 msgid "Not allowed to write temporary files in %s\n"
 msgstr "Ez dago baimenik aldi baterako fitxategiak %s(e)n idazteko\n"
 
 #. Save failed; we clean our stuff up, without touching the file named
 #. "filename" if it existed.
-#: ../app/load_save.c:1000
+#: ../app/load_save.c:1006
 #, c-format
 msgid "Internal error %d writing file %s\n"
 msgstr "Barneko %d. errorea %s fitxategian idaztean\n"
 
-#: ../app/load_save.c:1014
+#: ../app/load_save.c:1020
 #, c-format
 msgid "Can't rename %s to final output file %s: %s\n"
 msgstr "Ezin da %s izenez aldatu amaierako irteerako %s fitxategira: %s\n"
 
-#: ../app/load_save.c:1102 ../app/load_save.c:1107
+#: ../app/load_save.c:1108 ../app/load_save.c:1113
 msgid "Dia Diagram File"
 msgstr "Dia diagrama-fitxategia"
 
@@ -2922,8 +2846,8 @@ msgid "unique"
 msgstr "bakarra"
 
 #: ../objects/Database/reference.c:108 ../objects/flowchart/box.c:152
-#: ../objects/standard/box.c:152 ../objects/standard/polyline.c:125
-#: ../objects/standard/zigzagline.c:122
+#: ../objects/standard/box.c:152 ../objects/standard/polyline.c:136
+#: ../objects/standard/zigzagline.c:132
 msgid "Corner radius"
 msgstr "Izkina-erradioa"
 
@@ -2940,7 +2864,7 @@ msgstr "Azalpenaren amaiera"
 #: ../objects/SADT/arrow.c:459 ../objects/UML/association.c:771
 #: ../objects/UML/component_feature.c:186 ../objects/UML/dependency.c:376
 #: ../objects/UML/generalization.c:372 ../objects/UML/realizes.c:363
-#: ../objects/UML/transition.c:163 ../objects/standard/zigzagline.c:366
+#: ../objects/UML/transition.c:163 ../objects/standard/zigzagline.c:376
 msgid "Add segment"
 msgstr "Gehitu segmentua"
 
@@ -2998,7 +2922,7 @@ msgstr "Guztira:"
 #: ../objects/UML/association.c:772 ../objects/UML/component_feature.c:187
 #: ../objects/UML/dependency.c:377 ../objects/UML/generalization.c:373
 #: ../objects/UML/realizes.c:364 ../objects/UML/transition.c:164
-#: ../objects/standard/zigzagline.c:367
+#: ../objects/standard/zigzagline.c:377
 msgid "Delete segment"
 msgstr "Ezabatu segmentua"
 
@@ -3911,7 +3835,7 @@ msgid "Force"
 msgstr "Indarra"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Rotation
-#: ../objects/FS/function.c:1108 ../objects/standard/outline.c:202
+#: ../objects/FS/function.c:1108 ../objects/standard/outline.c:200
 msgid "Rotation"
 msgstr "Biraketa"
 
@@ -5531,7 +5455,7 @@ msgid "Flip Vertical"
 msgstr "Irauli bertikalki"
 
 #: ../objects/custom/custom_object.c:1799
-#: ../objects/custom_lines/custom_linetypes.c:159
+#: ../objects/custom_lines/custom_linetypes.c:263
 #, c-format
 msgid "Cannot open icon file %s for object type '%s'."
 msgstr "Ezin da %s ikono-fitxategia ireki, '%s' objektu-motarena."
@@ -5544,16 +5468,14 @@ msgstr "LerroPertsonalizatuak"
 msgid "Custom XML lines loader"
 msgstr "XML lerro pertsonalizatuen kargatzailea"
 
-#: ../objects/custom_lines/custom_linetypes.c:126
+#: ../objects/custom_lines/custom_linetypes.c:226
 msgid "INTERNAL: CustomLines: Illegal line type in LineInfo object."
 msgstr "BARNEKOA: LerroPertsonalizatuak: lerro mota ilegala LineInfo objektuan."
 
-#: ../objects/custom_lines/custom_linetypes.c:147
+#: ../objects/custom_lines/custom_linetypes.c:251
 #, c-format
 msgid "INTERNAL: CustomLines: Illegal line type in LineInfo object %s."
-msgstr ""
-"BARNEKOA: LerroPertsonalizatuak: lerro mota ilegala LineInfo %s "
-"objektuan."
+msgstr "BARNEKOA: LerroPertsonalizatuak: lerro mota ilegala LineInfo %s objektuan."
 
 #: ../objects/custom/shape_info.c:162
 #, c-format
@@ -5596,38 +5518,38 @@ msgstr "Zabalera"
 msgid "Curve distance"
 msgstr "Kurba-distantzia"
 
-#: ../objects/standard/bezier.c:127 ../objects/standard/line.c:143
-#: ../objects/standard/polyline.c:126
+#: ../objects/standard/bezier.c:139 ../objects/standard/line.c:143
+#: ../objects/standard/polyline.c:137
 msgid "Line gaps"
 msgstr "Hutsune-marrak"
 
-#: ../objects/standard/bezier.c:129 ../objects/standard/line.c:145
-#: ../objects/standard/polyline.c:128
+#: ../objects/standard/bezier.c:141 ../objects/standard/line.c:145
+#: ../objects/standard/polyline.c:139
 msgid "Absolute start gap"
 msgstr "Hasierako hutsune absolutua"
 
-#: ../objects/standard/bezier.c:131 ../objects/standard/line.c:147
-#: ../objects/standard/polyline.c:130
+#: ../objects/standard/bezier.c:143 ../objects/standard/line.c:147
+#: ../objects/standard/polyline.c:141
 msgid "Absolute end gap"
 msgstr "Amaierako hutsune absolutua"
 
-#: ../objects/standard/bezier.c:706 ../objects/standard/beziergon.c:484
+#: ../objects/standard/bezier.c:718 ../objects/standard/beziergon.c:484
 msgid "Add Segment"
 msgstr "Gehitu segmentua"
 
-#: ../objects/standard/bezier.c:707 ../objects/standard/beziergon.c:485
+#: ../objects/standard/bezier.c:719 ../objects/standard/beziergon.c:485
 msgid "Delete Segment"
 msgstr "Ezabatu segmentua"
 
-#: ../objects/standard/bezier.c:709 ../objects/standard/beziergon.c:487
+#: ../objects/standard/bezier.c:721 ../objects/standard/beziergon.c:487
 msgid "Symmetric control"
 msgstr "Simetria-kontrola"
 
-#: ../objects/standard/bezier.c:711 ../objects/standard/beziergon.c:489
+#: ../objects/standard/bezier.c:723 ../objects/standard/beziergon.c:489
 msgid "Smooth control"
 msgstr "Leuntasun-kontrola"
 
-#: ../objects/standard/bezier.c:713 ../objects/standard/beziergon.c:491
+#: ../objects/standard/bezier.c:725 ../objects/standard/beziergon.c:491
 msgid "Cusp control"
 msgstr "Goierpin-kontrola"
 
@@ -5700,19 +5622,19 @@ msgstr "Hasiera-puntua"
 msgid "End point"
 msgstr "Amaiera-puntua"
 
-#: ../objects/standard/outline.c:200
+#: ../objects/standard/outline.c:198
 msgid "Text content"
 msgstr "Testuaren edukia"
 
-#: ../objects/standard/outline.c:202
+#: ../objects/standard/outline.c:200
 msgid "Angle to rotate the outline"
 msgstr "Angelua eskema biratzeko"
 
-#: ../objects/standard/polygon.c:462 ../objects/standard/polyline.c:598
+#: ../objects/standard/polygon.c:462 ../objects/standard/polyline.c:609
 msgid "Add Corner"
 msgstr "Gehitu ertza"
 
-#: ../objects/standard/polygon.c:463 ../objects/standard/polyline.c:599
+#: ../objects/standard/polygon.c:463 ../objects/standard/polyline.c:610
 msgid "Delete Corner"
 msgstr "Ezabatu ertza"
 
@@ -5728,17 +5650,17 @@ msgstr "Lehen lerroa"
 msgid "Vertical text alignment"
 msgstr "Testu-lerrokatze bertikala"
 
-#: ../plug-ins/cairo/diacairo-interactive.c:269
-#: ../plug-ins/cairo/diacairo-interactive.c:270
+#: ../plug-ins/cairo/diacairo-interactive.c:276
+#: ../plug-ins/cairo/diacairo-interactive.c:277
 msgid "Zoom pointer"
 msgstr "Zoomaren erakuslea"
 
-#: ../plug-ins/cairo/diacairo-interactive.c:276
-#: ../plug-ins/cairo/diacairo-interactive.c:277
+#: ../plug-ins/cairo/diacairo-interactive.c:283
+#: ../plug-ins/cairo/diacairo-interactive.c:284
 msgid "Visible rect pointer"
 msgstr "Zuzenaren erakuslea ikusgai"
 
-#: ../plug-ins/cairo/diacairo.c:986
+#: ../plug-ins/cairo/diacairo.c:101
 #, c-format
 msgid ""
 "Can't convert output filename '%s' to locale encoding.\n"
@@ -5747,39 +5669,47 @@ msgstr ""
 "Ezin da irteerako '%s' fitxategia lokaleko kodeketara bihurtu.\n"
 "Aukeratu beste izen bat Cairo-rekin gordetzeko.\n"
 
-#: ../plug-ins/cairo/diacairo.c:1104
+#: ../plug-ins/cairo/diacairo.c:238
+msgid "Printing with Gtk+(cairo) requires at least version 2.10."
+msgstr "Gtk+ (Cairo)-rekin inprimatzeko gutxienez 2.10 bertsioa behar da."
+
+#: ../plug-ins/cairo/diacairo.c:245
 msgid "Cairo PostScript"
 msgstr "Cairo PostScript"
 
-#: ../plug-ins/cairo/diacairo.c:1115
+#: ../plug-ins/cairo/diacairo.c:256
 msgid "Cairo Portable Document Format"
 msgstr "Cairo-ren 'Portable Document Format'"
 
-#: ../plug-ins/cairo/diacairo.c:1126
+#: ../plug-ins/cairo/diacairo.c:271
 msgid "Cairo Scalable Vector Graphics"
 msgstr "Cairo-ren Bektore-Grafiko Eskalakorra"
 
-#: ../plug-ins/cairo/diacairo.c:1136
+#: ../plug-ins/cairo/diacairo.c:281
 msgid "Cairo PNG"
 msgstr "Cairo PNG"
 
-#: ../plug-ins/cairo/diacairo.c:1144
+#: ../plug-ins/cairo/diacairo.c:289
 msgid "Cairo PNG (with alpha)"
 msgstr "Cairo PNG (alfa-rekin)"
 
-#: ../plug-ins/cairo/diacairo.c:1154
+#: ../plug-ins/cairo/diacairo.c:299
 msgid "Cairo WMF"
 msgstr "Cairo WMF"
 
-#: ../plug-ins/cairo/diacairo.c:1163
+#: ../plug-ins/cairo/diacairo.c:308
 msgid "Cairo old WMF"
 msgstr "Cairo-ren WMF zaharkitua"
 
-#: ../plug-ins/cairo/diacairo.c:1172
+#: ../plug-ins/cairo/diacairo.c:317
 msgid "Cairo Clipboard"
 msgstr "Cairo-ren arbela"
 
-#: ../plug-ins/cairo/diacairo.c:1218
+#: ../plug-ins/cairo/diacairo.c:328
+msgid "Print via Gtk+/cairo ..."
+msgstr "Inprimatu Gtk+/cairo bidez..."
+
+#: ../plug-ins/cairo/diacairo.c:373
 msgid "Cairo based Rendering"
 msgstr "Cairo-n oinarritutako errendatua"
 
