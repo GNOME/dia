@@ -1149,19 +1149,22 @@ are_you_sure_close_dialog_respond(GtkWidget *widget, /* the dialog */
                                   gpointer   user_data) /* the display */
 {
   DDisplay *ddisp = (DDisplay *)user_data;
+  gboolean close_ddisp = TRUE;
 
   switch (response_id) {
   case GTK_RESPONSE_YES :  
     /* save changes */
-    diagram_save(ddisp->diagram, ddisp->diagram->filename);
+    if (!diagram_save(ddisp->diagram, ddisp->diagram->filename))
+      close_ddisp = FALSE;
   
-    if (ddisp->update_id) {
+    if (ddisp->update_id && close_ddisp) {
       gtk_idle_remove(ddisp->update_id);
       ddisp->update_id = 0;
     }
     /* fall through */
   case GTK_RESPONSE_NO :
-    ddisp_destroy (ddisp);
+    if (close_ddisp)
+      ddisp_destroy (ddisp);
     /* fall through */
   case GTK_RESPONSE_CANCEL :
   case GTK_RESPONSE_NONE :

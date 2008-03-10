@@ -1,3 +1,8 @@
+2008-03-10  Hans Breuer  <hans@breuer.org>
+
+	* app/display.c(are_you_sure_close_dialog_respond) : don't close the
+	display when saving failed. Fixes bug #501703
+
 2008-03-09  Hans Breuer  <hans@breuer.org>
 
 	* app/load_save.c(diagram_data_save) : not using g_access() because
@@ -214,7 +219,7 @@
 
 	[
 	  Much decreased start-up time and memory usage by delay loading
-	  custom shapes. Closing bug #
+	  custom shapes. Closing bug #491142
 	]
 	* objects/custom/shape_typeinfo.c : (new file) extracting the type
 	information of the custom shape by reading the first 512 bytes
