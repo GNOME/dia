@@ -61,6 +61,11 @@
 #  ifdef CAIRO_HAS_SVG_SURFACE
 #  include <cairo-svg.h>
 #  endif
+#  ifdef CAIRO_HAS_WIN32_SURFACE
+#  include <cairo-win32.h>
+   /* avoid namespace collisions */
+#  define Rectangle RectangleWin32
+#  endif
 #endif
 
 #include "intl.h"
@@ -86,6 +91,11 @@ typedef enum OutputKind
   OUTPUT_SVG
 } OutputKind;
 
+#if defined CAIRO_HAS_WIN32_SURFACE && CAIRO_VERSION > 10510
+#define DIA_CAIRO_CAN_EMF 1
+#pragma message ("DiaCairo can EMF;)")
+#endif
+
 /* dia export funtion */
 static void
 export_data(DiagramData *data, const gchar *filename_utf8, 
@@ -96,6 +106,9 @@ export_data(DiagramData *data, const gchar *filename_utf8,
   real width, height;
   OutputKind kind = (OutputKind)user_data;
   gchar* filename = g_locale_from_utf8 (filename_utf8, -1, NULL, NULL, NULL);
+#if DIA_CAIRO_CAN_EMF
+  HDC hFileDC = NULL;
+#endif
 
   if (!filename) {
     message_error(_("Can't convert output filename '%s' to locale encoding.\n"
@@ -103,7 +116,7 @@ export_data(DiagramData *data, const gchar *filename_utf8,
 		  dia_message_filename(filename_utf8), strerror(errno));
     return;
   }
-  file = fopen(filename, "wb"); /* "wb" for binary! */
+  file = g_fopen(filename, "wb"); /* "wb" for binary! */
 
   if (file == NULL) {
     message_error(_("Can't open output file %s: %s\n"), 
@@ -173,16 +186,31 @@ export_data(DiagramData *data, const gchar *filename_utf8,
 						(int)width, (int)height);
     break;
 #endif
-  /* the default Cairo/win32 surface isn't able to do such ... */
-#ifdef CAIRO_HAS_WIN32X_SURFACE
+  /* finally cairo can render to MetaFiles */
+#if DIA_CAIRO_CAN_EMF
   case OUTPUT_EMF :
+  case OUTPUT_WMF : /* different only on close/'play' */
+    /* NOT: renderer->with_alpha = TRUE; */
     renderer->scale = 72.0;
-    renderer->surface = cairo_win32_surface_create (filename, NULL, CAIRO_WIN32_TARGET_EMF, 0, 0);
+    {
+      /* see wmf/wmf.cpp */
+      HDC  refDC = GetDC(NULL);
+      RECT bbox = { 0, 0, 
+#if 0
+                   (int)((data->extents.right - data->extents.left) * renderer->scale * GetDeviceCaps(refDC, LOGPIXELSX)),
+		   (int)((data->extents.bottom - data->extents.top) * renderer->scale * GetDeviceCaps(refDC, LOGPIXELSY)) };
+#else
+                   (int)((data->extents.right - data->extents.left) * renderer->scale 
+		          * 100 * GetDeviceCaps(refDC, HORZSIZE) / GetDeviceCaps(refDC, HORZRES)),
+		   (int)((data->extents.bottom - data->extents.top) * renderer->scale
+		          * 100 * GetDeviceCaps(refDC, VERTSIZE) / GetDeviceCaps(refDC, VERTRES)) };
+#endif
+      hFileDC = CreateEnhMetaFile (refDC, NULL, &bbox, "DiaCairo\0Diagram\0");
+      renderer->surface = cairo_win32_printing_surface_create (hFileDC);
+    }
     break;
-  case OUTPUT_WMF :
-    renderer->scale = 72.0;
-    renderer->surface = cairo_win32_surface_create (filename, NULL, CAIRO_WIN32_TARGET_WMF, 0, 0);
-    break;
+#endif
+#if 0
   case OUTPUT_CB :
     /* just testing, does not create a file but puts content in the clpboard */
     renderer->scale = 72.0;
@@ -209,6 +237,23 @@ export_data(DiagramData *data, const gchar *filename_utf8,
       cairo_surface_write_to_png(renderer->surface, filename);
       cairo_surface_destroy(renderer->surface);
     }
+#endif
+#if DIA_CAIRO_CAN_EMF
+  if (OUTPUT_EMF == kind) {
+    FILE* f = g_fopen(filename_utf8, "wb");
+    HENHMETAFILE hEmf = CloseEnhMetaFile(hFileDC);
+    UINT nSize = GetEnhMetaFileBits (hEmf, 0, NULL);
+    BYTE* pData = g_new(BYTE, nSize);
+    nSize = GetEnhMetaFileBits (hEmf, nSize, pData);
+    if (f) {
+      fwrite(pData,1,nSize,f);
+      fclose(f);
+    } else {
+      message_error (_("Can't write %d bytes to %s"), nSize, filename_utf8);
+    }
+    DeleteEnhMetaFile (hFileDC);
+    g_free (pData);
+  }
 #endif
   g_object_unref(renderer);
 }
@@ -293,7 +338,7 @@ static DiaExportFilter pnga_export_filter = {
     "cairo-alpha-png"
 };
 
-#ifdef CAIRO_HAS_WIN32X_SURFACE
+#if DIA_CAIRO_CAN_EMF
 static const gchar *emf_extensions[] = { "wmf", NULL };
 static DiaExportFilter emf_export_filter = {
     N_("Cairo WMF"),
@@ -311,7 +356,9 @@ static DiaExportFilter wmf_export_filter = {
     (void*)OUTPUT_WMF,
     "cairo-wmf"
 };
+#endif
 
+#if 0
 static const gchar *cb_extensions[] = { "cb", NULL };
 static DiaExportFilter cb_export_filter = {
     N_("Cairo Clipboard"),
@@ -388,9 +435,11 @@ dia_plugin_init(PluginInfo *info)
   filter_register_export(&png_export_filter);
   filter_register_export(&pnga_export_filter);
 #endif
-#ifdef CAIRO_HAS_WIN32X_SURFACE
+#if DIA_CAIRO_CAN_EMF
   filter_register_export(&emf_export_filter);
   filter_register_export(&wmf_export_filter);
+#endif
+#ifdef CAIRO_HAS_WIN32X_SURFACE
   filter_register_export(&cb_export_filter);
 #endif
 

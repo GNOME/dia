@@ -1,5 +1,12 @@
 2008-03-16  Hans Breuer  <hans@breuer.org>
 
+	* plug-ins/cairo/diacairo-renderer.c(_rounded_rect) : use cairo_arc()
+	instead of approximating arcs with beziers
+
+	* plug-ins/cairo/diacairo.c plug-ins/makefile.msc : resurrection of
+	EMF via cairo (cairo-1.6 will support EMF creation via win32-printing
+	surface so my own cairo patch is finally obsolete)
+
 	* sheets/*/*.xpm shapes/**/*.xpm : removed all those obsolete XPM
 
 2008-03-10  Hans Breuer  <hans@breuer.org>

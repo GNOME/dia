@@ -812,30 +812,25 @@ _rounded_rect (DiaRenderer *self,
   cairo_set_source_rgba (renderer->cr, color->red, color->green, color->blue, 1.0);
 
   cairo_new_path (renderer->cr);
-  cairo_move_to (renderer->cr,
+  cairo_move_to (renderer->cr, /* north-west */
                  topleft->x + radius, topleft->y);
 
-  /* corners are _not_ control points, but halfway */
-  cairo_line_to  (renderer->cr,
+  cairo_line_to  (renderer->cr, /* north-east */
                   bottomright->x - radius, topleft->y);
-  cairo_curve_to (renderer->cr,
-                  bottomright->x - r2, topleft->y, bottomright->x, topleft->y + r2,
-                  bottomright->x, topleft->y + radius);
-  cairo_line_to  (renderer->cr,
+  cairo_arc (renderer->cr,
+             bottomright->x - radius, topleft->y + radius, radius, -G_PI_2, 0);
+  cairo_line_to  (renderer->cr, /* south-east */
                   bottomright->x, bottomright->y - radius);
-  cairo_curve_to (renderer->cr,
-                  bottomright->x, bottomright->y - r2, bottomright->x - r2, bottomright->y,
-                  bottomright->x - radius, bottomright->y);
-  cairo_line_to  (renderer->cr,
+  cairo_arc (renderer->cr,
+             bottomright->x - radius, bottomright->y - radius, radius, 0, G_PI_2);
+  cairo_line_to  (renderer->cr, /* south-west */
                   topleft->x + radius, bottomright->y);
-  cairo_curve_to (renderer->cr,
-                  topleft->x + r2, bottomright->y, topleft->x, bottomright->y - r2,
-                  topleft->x, bottomright->y - radius);
-  cairo_line_to  (renderer->cr,
+  cairo_arc (renderer->cr,
+             topleft->x + radius, bottomright->y - radius, radius, G_PI_2, G_PI);
+  cairo_line_to  (renderer->cr, /* north-west */
                   topleft->x, topleft->y + radius); 
-  cairo_curve_to (renderer->cr,
-                  topleft->x, topleft->y + r2, topleft->x + r2, topleft->y,
-                  topleft->x + radius, topleft->y);
+  cairo_arc (renderer->cr,
+             topleft->x + radius, topleft->y + radius, radius, G_PI, -G_PI_2);
   if (fill)
     cairo_fill (renderer->cr);
   else
