@@ -977,14 +977,13 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
     txs = text_get_string_copy(custom->text);
     
     if ((tb.bottom+tb.top)/2 > elem->corner.y + elem->height)
-      p.y = tb.top +
-	dia_font_ascent(txs,custom->text->font, custom->text->height);
+      p.y = tb.top + text_get_ascent(custom->text);
     else if ((tb.bottom+tb.top)/2 < elem->corner.y)
       p.y = tb.bottom + custom->text->height * (custom->text->numlines - 1);
     else
       p.y = (tb.top + tb.bottom -
 	     custom->text->height * custom->text->numlines) / 2 +
-	dia_font_ascent(txs,custom->text->font, custom->text->height);
+	     text_get_ascent(custom->text);
     text_set_position(custom->text, &p);
     g_free(txs);
   }
@@ -1190,16 +1189,13 @@ void custom_reposition_text(Custom *custom, GraphicElementText *text) {
   /* align the text to be close to the shape ... */
 
   if ((tb.bottom+tb.top)/2 > elem->corner.y + elem->height)
-    p.y = tb.top +
-      dia_font_ascent(text->string,
-		      text->object->font, text->object->height);
+    p.y = tb.top + text_get_ascent(text->object);
   else if ((tb.bottom+tb.top)/2 < elem->corner.y)
     p.y = tb.bottom + text->object->height * (text->object->numlines - 1);
   else
     p.y = (tb.top + tb.bottom -
 	   text->object->height * text->object->numlines) / 2 +
-      dia_font_ascent(text->string,
-		      text->object->font, text->object->height);
+           text_get_ascent(text->object);
   text_set_position(text->object, &p);
   return;
 }

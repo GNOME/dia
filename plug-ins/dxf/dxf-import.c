@@ -552,10 +552,7 @@ DiaObject *read_entity_polyline_dxf(FILE *filedxf, DxfData *data, DiagramData *d
    
     if( closed )
     {
-        ++points;
-        p = g_realloc( p, sizeof( Point ) * points );
-        p[points-1].x = p[0].x;
-        p[points-1].y = p[0].y;
+        otype = object_get_type("Standard - Polygon");
     }
    
     pcd->num_points = points;
@@ -941,7 +938,7 @@ DiaObject *read_entity_text_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
             height = atof(data->value) * coord_scale * measure_scale;
 	   /*printf( "text height %f\n", height );*/
             break;
-	 case 62: 
+        case 62: 
 	   colour = atoi(data->value);
 	   text_colour.red = acad_pal[colour].r / 255.0;
 	   text_colour.green = acad_pal[colour].g / 255.0;
@@ -994,7 +991,7 @@ DiaObject *read_entity_text_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
     } while(codedxf != 0);
     setlocale(LC_NUMERIC,old_locale);
   
-   location.y += y_offset * height;
+    location.y += y_offset * height;
    
     text_obj = otype->ops->create(&location, otype->default_user_data,
                                   &h1, &h2);
@@ -1010,6 +1007,7 @@ DiaObject *read_entity_text_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
     tprop->attr.position.y = location.y;
 
     attributes_get_default_font(&tprop->attr.font, &tprop->attr.height);
+    tprop->attr.height = height;
     tprop->attr.color = text_colour;
         
     text_obj->ops->set_props(text_obj, props);

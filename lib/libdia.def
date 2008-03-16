@@ -217,8 +217,10 @@ EXPORTS
  dia_font_ref
  dia_font_set_any_family
  dia_font_set_weight_from_string
+ dia_font_set_slant
  dia_font_set_slant_from_string
  dia_font_set_height
+ dia_font_set_weight
  dia_font_copy
  dia_font_string_width
 
@@ -637,6 +639,7 @@ EXPORTS
  text_distance_from
  text_draw
  text_get_attributes
+ text_get_ascent
  text_get_descent
  text_get_line
  text_get_line_strlen

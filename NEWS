@@ -1,3 +1,8 @@
+dia-0.96.1: 29-Mar-2007
+
+  * Brown-bag release with five bugfixes, one of them critical: Empty
+    initial lines in shapes crashes Dia (#421250). 
+
 dia-0.96: 25-Mar-2007
 
   * Final release of 0.96.
