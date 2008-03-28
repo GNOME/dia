@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-03-08 22:47+0000\n"
-"PO-Revision-Date: 2008-03-10 09:27+0100\n"
+"POT-Creation-Date: 2008-03-16 19:30+0000\n"
+"PO-Revision-Date: 2008-03-28 20:28+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -670,16 +670,16 @@ msgstr[1] "Selección de %d objetos"
 msgid "Selected '%s'"
 msgstr "Seleccionados «%s»"
 
-#: ../app/display.c:1195
+#: ../app/display.c:1198
 msgid "<unnamed>"
 msgstr "<sin nombre>"
 
 #. no standard buttons
-#: ../app/display.c:1201
+#: ../app/display.c:1204
 msgid "Closing diagram without saving"
 msgstr "Cerrando el diagrama sin guardar"
 
-#: ../app/display.c:1204
+#: ../app/display.c:1207
 #, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -688,11 +688,11 @@ msgstr ""
 "Este diagrama «%s»\n"
 "no ha sido guardado. ¿Guardar los cambios ahora?"
 
-#: ../app/display.c:1206
+#: ../app/display.c:1209
 msgid "Close Diagram"
 msgstr "Cerrar el diagrama"
 
-#: ../app/display.c:1211
+#: ../app/display.c:1214
 msgid "_Discard Changes"
 msgstr "_Descartar los cambios"
 
@@ -747,8 +747,8 @@ msgstr "No seleccionar ninguno"
 msgid "Nothing selected for saving.  Would you like to try again?"
 msgstr "No se seleccionó nada para guardar. ¿Quiere intentarlo otra vez?"
 
-#: ../app/export_png.c:138 ../app/load_save.c:989 ../app/render_eps.c:105
-#: ../plug-ins/cairo/diacairo.c:109 ../plug-ins/cgm/cgm.c:1153
+#: ../app/export_png.c:138 ../app/load_save.c:995 ../app/render_eps.c:105
+#: ../plug-ins/cairo/diacairo.c:122 ../plug-ins/cgm/cgm.c:1153
 #: ../plug-ins/dxf/dxf-export.c:547 ../plug-ins/hpgl/hpgl.c:710
 #: ../plug-ins/metapost/render_metapost.c:1177
 #: ../plug-ins/pgf/render_pgf.c:1208
@@ -1195,29 +1195,29 @@ msgstr ""
 "%s.\n"
 "Un archivo válido de Dia define al menos una capa."
 
-#: ../app/load_save.c:945
+#: ../app/load_save.c:948
 #, c-format
 msgid "Not allowed to write to output file %s\n"
 msgstr "No hay permiso para escribir el archivo de salida %s\n"
 
-#: ../app/load_save.c:967
+#: ../app/load_save.c:973
 #, c-format
 msgid "Not allowed to write temporary files in %s\n"
 msgstr "No se permite escribir archivos temporales en %s\n"
 
 #. Save failed; we clean our stuff up, without touching the file named
 #. "filename" if it existed.
-#: ../app/load_save.c:1000
+#: ../app/load_save.c:1006
 #, c-format
 msgid "Internal error %d writing file %s\n"
 msgstr "Error interno %d escribiendo archivo %s\n"
 
-#: ../app/load_save.c:1014
+#: ../app/load_save.c:1020
 #, c-format
 msgid "Can't rename %s to final output file %s: %s\n"
 msgstr "No se pudo renombrar %s al archivo final de salida %s: %s\n"
 
-#: ../app/load_save.c:1102 ../app/load_save.c:1107
+#: ../app/load_save.c:1108 ../app/load_save.c:1113
 msgid "Dia Diagram File"
 msgstr "Archivo de diagrama de Dia"
 
@@ -5794,7 +5794,7 @@ msgstr "Puntero de la ampliación"
 msgid "Visible rect pointer"
 msgstr "Puntero visible de la recta"
 
-#: ../plug-ins/cairo/diacairo.c:101
+#: ../plug-ins/cairo/diacairo.c:114
 #, c-format
 msgid ""
 "Can't convert output filename '%s' to locale encoding.\n"
@@ -5803,47 +5803,52 @@ msgstr ""
 "No se puede convertir el archivo de salida «%s» a la codificación local.\n"
 "Por favor, elija un nombre diferente para guardar con cairo.\n"
 
-#: ../plug-ins/cairo/diacairo.c:238
+#: ../plug-ins/cairo/diacairo.c:252
+#, c-format
+msgid "Can't write %d bytes to %s"
+msgstr "No se pueden escribir %d bytes en %s"
+
+#: ../plug-ins/cairo/diacairo.c:283
 msgid "Printing with Gtk+(cairo) requires at least version 2.10."
 msgstr "Imprimir con Gtk+ (cairo) requiere al menos la versión 2.10."
 
-#: ../plug-ins/cairo/diacairo.c:245
+#: ../plug-ins/cairo/diacairo.c:290
 msgid "Cairo PostScript"
 msgstr "Cairo PostScript"
 
-#: ../plug-ins/cairo/diacairo.c:256
+#: ../plug-ins/cairo/diacairo.c:301
 msgid "Cairo Portable Document Format"
 msgstr "Portable Document Format de Cairo"
 
-#: ../plug-ins/cairo/diacairo.c:271
+#: ../plug-ins/cairo/diacairo.c:316
 msgid "Cairo Scalable Vector Graphics"
 msgstr "Cairo Scalable Vector Graphics"
 
-#: ../plug-ins/cairo/diacairo.c:281
+#: ../plug-ins/cairo/diacairo.c:326
 msgid "Cairo PNG"
 msgstr "Cairo PNG"
 
-#: ../plug-ins/cairo/diacairo.c:289
+#: ../plug-ins/cairo/diacairo.c:334
 msgid "Cairo PNG (with alpha)"
 msgstr "Cairo PNG (con alfa)"
 
-#: ../plug-ins/cairo/diacairo.c:299
+#: ../plug-ins/cairo/diacairo.c:344
 msgid "Cairo WMF"
 msgstr "Cairo WMF"
 
-#: ../plug-ins/cairo/diacairo.c:308
+#: ../plug-ins/cairo/diacairo.c:353
 msgid "Cairo old WMF"
 msgstr "WMF antiguo de Cairo"
 
-#: ../plug-ins/cairo/diacairo.c:317
+#: ../plug-ins/cairo/diacairo.c:364
 msgid "Cairo Clipboard"
 msgstr "Portapapeles Cairo"
 
-#: ../plug-ins/cairo/diacairo.c:328
+#: ../plug-ins/cairo/diacairo.c:375
 msgid "Print via Gtk+/cairo ..."
 msgstr "Imprimir a través de Gtk+/cairo..."
 
-#: ../plug-ins/cairo/diacairo.c:373
+#: ../plug-ins/cairo/diacairo.c:420
 msgid "Cairo based Rendering"
 msgstr "Renderizado basado en Cairo"
 
