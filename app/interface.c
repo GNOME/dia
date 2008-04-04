@@ -1662,6 +1662,7 @@ void create_integrated_ui (void)
   /* Diagram Notebook */
   notebook = gtk_notebook_new ();
   gtk_box_pack_end (GTK_BOX (hbox), notebook, TRUE, TRUE, 0);
+  gtk_notebook_set_scrollable (GTK_NOTEBOOK (notebook), TRUE); 
   gtk_widget_show (notebook);
 
   /*  tooltips  */
