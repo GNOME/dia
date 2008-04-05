@@ -1,3 +1,31 @@
+2008-04-05  Hans Breuer  <hans@breuer.org>
+
+	* app/menus.c(ensure_menu_path) : allow plug-ins to create a menu 
+	path again. Does not yet work fopr the integrated ui, see bug #526146
+	(_ui_manager_connect_proxy) : resurrection of menuitem tooltips,
+	especially for recent file menu. They were lost in trnaslation to
+	the GtkAction framework: bug #340352
+	
+	* app/load_save.c : disable remaining g_access() for win32, otherwise we
+	can not save to a preexisting file
+
+	* app/app_procs.c(app_exit) : don't g_free() const strings, 
+	dia_open_diagrams() returns a GList, not a GSList
+	Also evaluate the return value of diagram_save() and don't simply 
+	assume saving can't fail. Related to bug #501703
+	(process_opts) : by accident I had removed the gtk options which broke
+	also --help
+	
+	* app/display.c : removed "Key input ..." debug spew
+	
+	* app/interface.c app/sheets : enforce Dia's toolbox icon size by cropping
+	icons which are too huge
+	
+	* lib/makefile.msc : cosmetic change
+	
+	* plug-ins/cairo/diacairo-print.c : with_alpha does not make sense in 
+	conjunction with printing
+
 2008-04-04  Steffen Macke  <sdteffen@sdteffen.de>
 
 	* app/interface.c: Patch from Patrick Hallinan

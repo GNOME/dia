@@ -492,6 +492,43 @@ integrated_ui_toolbar_zoom_combo_selection_changed (GtkComboBox *combo,
     }
 }
 
+static guint
+ensure_menu_path (GtkUIManager *ui_manager, GtkActionGroup *actions, const gchar *path, gboolean end)
+{
+  guint id = gtk_ui_manager_new_merge_id (ui_manager);
+
+  if (!gtk_ui_manager_get_widget (ui_manager, path)) {
+    gchar *subpath = g_strdup (path);
+
+    if (strrchr (subpath, '/')) {
+      const gchar *action_name;
+      gchar *sep;
+
+      GtkAction *action;
+
+      sep = strrchr (subpath, '/');
+      *sep = '\0'; /* cut subpath */
+      action_name = sep + 1;
+
+
+      ensure_menu_path (ui_manager, actions, subpath, FALSE);
+
+      action = gtk_action_new (action_name, sep + 1, NULL, NULL);
+      gtk_action_group_add_action (actions, action);
+      g_object_unref (G_OBJECT (action));
+
+      gtk_ui_manager_add_ui (ui_manager, id, subpath, 
+	                     action_name, action_name,
+			     end ? GTK_UI_MANAGER_SEPARATOR : GTK_UI_MANAGER_MENU,
+			     FALSE); /* FALSE=add-to-end */
+    } else {
+      g_warning ("ensure_menu_path() invalid menu path: %s.", subpath ? subpath : "NULL");
+    }
+    g_free (subpath);
+  }
+  return id;
+}
+
 /**
  * Create the toolbar for the integrated UI
  * @return Main toolbar (GtkToolbar*) for the integrated UI main window
@@ -662,7 +699,7 @@ add_plugin_actions (GtkUIManager *ui_manager)
       continue;
     }
 
-    if (0 == strncmp (cbf->menupath, TOOLBOX_MENU, strlen (TOOLBOX_MENU))) {
+    if (strncmp (cbf->menupath, DISPLAY_MENU, strlen (DISPLAY_MENU)) != 0) {
       /* hook for toolbox, skip */
       continue;
     }
@@ -674,7 +711,7 @@ add_plugin_actions (GtkUIManager *ui_manager)
     gtk_action_group_add_action (actions, action);
     g_object_unref (G_OBJECT (action));
 
-    id = gtk_ui_manager_new_merge_id (ui_manager);
+    id = ensure_menu_path (ui_manager, actions, cbf->menupath, TRUE);
     gtk_ui_manager_add_ui (ui_manager, id, 
 			   cbf->menupath, 
 			   cbf->description, 
@@ -738,6 +775,29 @@ build_ui_filename (const gchar* name)
   return uifile;
 }
 
+/*!
+ * Not sure why this service is not provided by GTK+. 
+ * We are passing tooltips into the actions (especially recent file menu).
+ * But they were not shown without explicit seeting on connect.
+ */
+static void
+_ui_manager_connect_proxy (GtkUIManager *manager,
+                           GtkAction    *action,
+                           GtkWidget    *proxy)
+{
+  if (GTK_IS_MENU_ITEM (proxy))
+    {
+      gchar *tooltip;
+
+      g_object_get (action, "tooltip", &tooltip, NULL);
+
+      if (tooltip)
+        {
+	  gtk_tooltips_set_tip (tool_tips, proxy, tooltip, NULL);
+	}
+    }
+}
+
 static void
 menus_init(void)
 {
@@ -765,6 +825,10 @@ menus_init(void)
                 NULL);
 
   toolbox_ui_manager = gtk_ui_manager_new ();
+  g_signal_connect (G_OBJECT (toolbox_ui_manager), 
+                    "connect_proxy",
+		    _ui_manager_connect_proxy,
+		    NULL);
   gtk_ui_manager_set_add_tearoffs (toolbox_ui_manager, DIA_SHOW_TEAROFFS);
   gtk_ui_manager_insert_action_group (toolbox_ui_manager, toolbox_actions, 0);
   uifile = build_ui_filename ("ui/toolbox-ui.xml");
@@ -867,6 +931,11 @@ add_toolbox_plugin_actions (GtkUIManager *ui_manager)
       continue;
     }
 
+    if (strncmp (cbf->menupath, TOOLBOX_MENU, strlen (TOOLBOX_MENU)) != 0) {
+      /* no hook for display, skip */
+      continue;
+    }
+
     action = gtk_action_new (cbf->action, cbf->description, 
                              NULL, NULL);
     g_signal_connect (G_OBJECT (action), "activate", 
@@ -876,7 +945,7 @@ add_toolbox_plugin_actions (GtkUIManager *ui_manager)
     gtk_action_group_add_action (plugin_actions, action);
     g_object_unref (G_OBJECT (action));
 
-    id = gtk_ui_manager_new_merge_id (toolbox_ui_manager);
+    id = ensure_menu_path (ui_manager, plugin_actions, cbf->menupath, TRUE);
     gtk_ui_manager_add_ui (ui_manager, id, 
                            cbf->menupath, 
                            cbf->description, 

@@ -975,10 +975,9 @@ app_exit(void)
           const gchar * name = diagram_get_name (diagram);
           const gchar * path = diagram->filename;
           exit_dialog_add_item (dialog, name, path, diagram);
-          g_free (name);
         }
 
-        list = g_slist_next (list);
+        list = g_list_next (list);
       }
 
       result = exit_dialog_run (dialog, &items);
@@ -999,7 +998,10 @@ app_exit(void)
           diagram  = items->array[i].data;
           filename = g_filename_from_utf8 (diagram->filename, -1, NULL, NULL, NULL);
           diagram_update_extents (diagram);
-          diagram_save (diagram, filename);
+          if (!diagram_save (diagram, filename)) {
+            exit_dialog_free_items (items);
+            return FALSE;
+	      }
           g_free (filename);
         }
         exit_dialog_free_items (items);
@@ -1162,6 +1164,7 @@ process_opts(int *argc, char **argv,
       
       context = g_option_context_new(_("[FILE...]"));
       g_option_context_add_main_entries (context, options, GETTEXT_PACKAGE);
+      g_option_context_add_group (context, gtk_get_option_group (FALSE));
 
       if (!g_option_context_parse (context, argc, &argv, &error)) {
         if (error) { /* IMO !error here is a bug upstream, triggered with --gdk-debug=updates */

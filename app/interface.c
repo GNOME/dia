@@ -1269,6 +1269,17 @@ fill_sheet_wbox(Sheet *sheet)
       
       pixbuf = gdk_pixbuf_new_from_file(sheet_obj->pixmap_file, &gerror);
       if (pixbuf != NULL) {
+          int width = gdk_pixbuf_get_width (pixbuf);
+          int height = gdk_pixbuf_get_height (pixbuf);
+          if (width > 22) {
+	    GdkPixbuf *cropped;
+	    g_warning ("Shape icon '%s' size wrong, cropped.", sheet_obj->pixmap_file);
+	    cropped = gdk_pixbuf_new_subpixbuf (pixbuf, 
+	                                       (width - 22) / 2, height > 22 ? (height - 22) / 2 : 0, 
+					       22, height > 22 ? 22 : height);
+	    g_object_unref (pixbuf);
+	    pixbuf = cropped;
+	  }
           gdk_pixbuf_render_pixmap_and_mask_for_colormap(pixbuf, gtk_widget_get_colormap(sheet_wbox), &pixmap, &mask, 1.0);
           gdk_pixbuf_unref(pixbuf);
       } else {

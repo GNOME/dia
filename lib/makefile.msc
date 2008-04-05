@@ -153,7 +153,8 @@ $(PACKAGE).lib : $(OBJECTS)
 	lib /out:$(PACKAGE).lib $(OBJECTS)
 
 $(PACKAGE).dll : $(OBJECTS) $(PACKAGE).def
-	$(CC) $(CFLAGS) -LD -Fe$(PACKAGE).dll $(OBJECTS) $(PKG_LINK) user32.lib advapi32.lib wsock32.lib $(LDFLAGS) /def:$(PACKAGE).def
+	$(CC) $(CFLAGS) -LD -Fe$(PACKAGE).dll $(OBJECTS) \
+	$(PKG_LINK) user32.lib advapi32.lib wsock32.lib $(LDFLAGS) /def:$(PACKAGE).def
 
 $(PRJ_TOP)\config.h: $(PRJ_TOP)\config.h.win32
 	copy $(PRJ_TOP)\config.h.win32 $(PRJ_TOP)\config.h

@@ -75,6 +75,9 @@ begin_print (GtkPrintOperation *operation,
   g_return_if_fail (cairo_renderer->cr == NULL);
 
   /* the renderer wants it's own reference */
+#if 0 /* no alpha with printers */
+  cairo_renderer->with_alpha = TRUE;
+#endif
   cairo_renderer->cr = cairo_reference (gtk_print_context_get_cairo_context (context));
   cairo_renderer->dia = print_data->data;
 #if 0 /* needs some text size scaling ... */

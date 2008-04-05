@@ -681,9 +681,9 @@ ddisplay_canvas_events (GtkWidget *canvas,
         state = kevent->state;
         key_handled = FALSE;
         im_context_used = FALSE;
-
+#if 0
 	printf("Key input %d in state %d\n", kevent->keyval, textedit_mode(ddisp));
-
+#endif
         focus = get_active_focus((DiagramData *) ddisp->diagram);
         if (focus != NULL) {
 	  /* Keys goes to the active focus. */
