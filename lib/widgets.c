@@ -1436,6 +1436,8 @@ dia_file_selector_browse_pressed(GtkWidget *widget, gpointer data)
     toplevel = NULL;
 
   if (fs->dialog == NULL) {
+    GtkFileFilter *filter;
+    
     dialog = fs->dialog =
       gtk_file_chooser_dialog_new (_("Select image file"), toplevel ? GTK_WINDOW(toplevel) : NULL,
                                    GTK_FILE_CHOOSER_ACTION_OPEN,
@@ -1449,6 +1451,16 @@ dia_file_selector_browse_pressed(GtkWidget *widget, gpointer data)
 			GTK_SIGNAL_FUNC (gtk_widget_destroyed),
 			&fs->dialog);
     
+    filter = gtk_file_filter_new ();
+    gtk_file_filter_set_name (filter, _("Supported Formats"));
+    gtk_file_filter_add_pixbuf_formats (filter);
+    gtk_file_chooser_add_filter (GTK_FILE_CHOOSER (dialog), filter);
+
+    filter = gtk_file_filter_new ();
+    gtk_file_filter_set_name (filter, _("All Files"));
+    gtk_file_filter_add_pattern (filter, "*");
+    gtk_file_chooser_add_filter (GTK_FILE_CHOOSER (dialog), filter);
+
     gtk_object_set_user_data(GTK_OBJECT(dialog), fs);
   }
 

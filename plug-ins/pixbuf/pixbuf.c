@@ -233,7 +233,7 @@ dia_plugin_init(PluginInfo *info)
         }
         /* there is no write only filter */
         {
-          DiaImportFilter* ifilter = g_new0 (DiaImportFilter, 1);
+          DiaImportFilter* ifilter;
           gchar* name;
 
           name = gdk_pixbuf_format_get_name (format);
@@ -252,6 +252,7 @@ dia_plugin_init(PluginInfo *info)
               g_free (name);
               continue;
             }
+	  ifilter = g_new0 (DiaImportFilter, 1);
           /* the pixbuf desriptions are too generic for Dia's usage, make our own */
           ifilter->description = g_strdup_printf ("Pixbuf[%s]", name);
           ifilter->extensions = (const gchar**)gdk_pixbuf_format_get_extensions (format);

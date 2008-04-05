@@ -20,9 +20,11 @@
 #include <assert.h>
 #include <string.h>
 #include <math.h>
+#include <sys/stat.h>
 #ifdef HAVE_UNIST_H
 #include <unistd.h>
 #endif
+#include <glib/gstdio.h>
 
 #include "intl.h"
 #include "message.h"
@@ -59,6 +61,8 @@ struct _Image {
   gchar *file;
   gboolean draw_border;
   gboolean keep_aspect;
+
+  time_t mtime;
 };
 
 static struct _ImageProperties {
@@ -171,12 +175,20 @@ image_get_props(Image *image, GPtrArray *props)
 static void
 image_set_props(Image *image, GPtrArray *props)
 {
-  char *old_file = image->file ? g_strdup(image->file) : NULL;
+  struct stat st;
+  time_t mtime = 0;
+  char *old_file = image->file ? g_strdup(image->file) : "";
 
   object_set_props_from_offsets(&image->element.object, image_offsets, props);
 
+  /* use old value on error */
+  if (g_stat (image->file, &st) != 0)
+    mtime = image->mtime;
+  else
+    mtime = st.st_mtime;
+
   /* handle changing the image. */
-  if (strcmp(image->file, old_file) != 0) {
+  if (strcmp(image->file, old_file) != 0 || image->mtime != mtime) {
     Element *elem = &image->element;
     DiaImage img = NULL;
 
@@ -189,6 +201,8 @@ image_set_props(Image *image, GPtrArray *props)
       (float)dia_image_width(image->image);
   }
   g_free(old_file);
+  /* remember it */
+  image->mtime = mtime;
 
   image_update_data(image);
 }
@@ -725,6 +739,14 @@ image_load(ObjectNode obj_node, int version, const char *filename)
     g_free(diafile_dir);
   }
 
+  /* update mtime */
+  {
+    struct stat st;
+    if (g_stat (image->file, &st) != 0)
+      st.st_mtime = 0;
+
+    image->mtime = st.st_mtime;
+  }
   image_update_data(image);
 
   return &image->element.object;

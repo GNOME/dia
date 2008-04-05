@@ -1,5 +1,14 @@
 2008-04-05  Hans Breuer  <hans@breuer.org>
 
+	* lib/widgets.c : setup pixbuf file formats filter for "Load Image"
+	fixing bug #439847
+
+	* objects/standard/image.c : not only check for a different filename
+	but also for different modification time when setting changing 
+	"Standard - Image". Fixes bug #439849
+
+	* plug-ins/pixbuf/pixbuf.c : plug a memory leak
+
 	* app/menus.c(ensure_menu_path) : allow plug-ins to create a menu 
 	path again. Does not yet work fopr the integrated ui, see bug #526146
 	(_ui_manager_connect_proxy) : resurrection of menuitem tooltips,
