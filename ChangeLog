@@ -1,5 +1,8 @@
 2008-04-06  Hans Breuer  <hans@breuer.org>
 
+	* plug-ins/python/codegen.py : use a list for attributes rather than
+	a dictionary to preserve the order of attributes. Fixes bug #519162
+
 	* objects/UML/class.c : switching comment visibility via object menu 
 	produced an invalid change object: bug #512848
 	* lib/objchange.c(new_object_state_change): g_return_val_if_fail()
@@ -1293,7 +1296,7 @@
 
 	* app/load_save.c: Patch from Hans de Goede
 	<j.w.r.degoede@hhs.nl>: Avoid having to remove -c89 option by
-	including proper header.
+	including proper header. Bug #436343.
 
 2007-06-25  Steffen Macke <sdteffen@gmail.com>
 

@@ -20,7 +20,7 @@ import sys, dia
 class Klass :
 	def __init__ (self, name) :
 		self.name = name
-		self.attributes = {}
+		self.attributes = []
 		# a list, as java/c++ support multiple methods with the same name
 		self.operations = []
 		self.comment = ""
@@ -28,7 +28,7 @@ class Klass :
 		self.templates = []
 		self.inheritance_type = ""
 	def AddAttribute(self, name, type, visibility, value) :
-		self.attributes[name] = (type, visibility, value)
+		self.attributes.append ((name, (type, visibility, value)))
 	def AddOperation(self, name, type, visibility, params, inheritance_type, comment, class_scope) :
 		self.operations.append((name,(type, visibility, params, inheritance_type, comment, class_scope)))
 	def SetComment(self, s) :
@@ -120,8 +120,7 @@ class PyRenderer(ObjRenderer) :
 			else:
 				f.write ("class %s (%s) :\n" % (sk,", ".join(parents)))
 			f.write ("\tdef __init__(self) :\n")
-			for sa in self.klasses[sk].attributes.keys() :
-				attr = self.klasses[sk].attributes[sa]
+			for sa, attr in self.klasses[sk].attributes :
 				value = attr[2] == "" and "None" or attr[2]
 				f.write("\t\tself.%s = %s # %s\n" % (sa, value, attr[0]))
 			else :
@@ -153,7 +152,7 @@ class CxxRenderer(ObjRenderer) :
 			for so, (t, v, p, i, c, s) in k.operations :
 				ops[v].append((t,so,p))
 			vars = [[], [], [], []]
-			for sa, (t, vi, va) in k.attributes.iteritems() :
+			for sa, (t, vi, va) in k.attributes :
 				vars[vi].append((t, sa))
 			visibilities = ("public:", "private:", "protected:", "/* implementation: */")
 			for v in [0,2,1,3] :
@@ -207,7 +206,7 @@ class JavaRenderer(ObjRenderer) :
 				f.write (" implements %s" % ", ".join(klass.templates))
 			f.write(" {\n")
 			
-			for attrname, (type, visibility, value) in klass.attributes.iteritems() :
+			for attrname, (type, visibility, value) in klass.attributes :
 				if visibility in visibilities:
 					vis = visibilities[visibility]+" "
 				else: vis = ""
