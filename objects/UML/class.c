@@ -322,9 +322,32 @@ umlclass_object_menu(DiaObject *obj, Point *p)
         return &umlclass_menu;
 }
 
-ObjectChange *umlclass_show_comments_callback(DiaObject *obj, Point *pos, gpointer data)
+typedef struct _CommentState {
+  ObjectState state;
+  gboolean    visible_comments;
+} CommentState;
+static ObjectState*
+_comment_get_state (DiaObject *obj)
 {
-  ObjectChange *change = new_object_state_change(obj, NULL, NULL, NULL );
+  CommentState *state = g_new (CommentState,1);
+  state->state.free = NULL; /* we don't have any pointers to free */
+  state->visible_comments = ((UMLClass *)obj)->visible_comments;
+  return (ObjectState *)state;
+}
+static void
+_comment_set_state (DiaObject *obj, ObjectState *state)
+{
+  ((UMLClass *)obj)->visible_comments = ((CommentState *)state)->visible_comments;
+  g_free (state); /* rather strange convention set_state consumes the state */
+  umlclass_calculate_data((UMLClass *)obj);
+  umlclass_update_data((UMLClass *)obj);
+}
+
+ObjectChange *
+umlclass_show_comments_callback(DiaObject *obj, Point *pos, gpointer data)
+{
+  ObjectState *old_state = _comment_get_state(obj);
+  ObjectChange *change = new_object_state_change(obj, old_state, _comment_get_state, _comment_set_state );
 
   ((UMLClass *)obj)->visible_comments = !((UMLClass *)obj)->visible_comments;
   umlclass_calculate_data((UMLClass *)obj);

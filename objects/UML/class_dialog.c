@@ -53,13 +53,39 @@ typedef struct _Disconnect {
 typedef struct _UMLClassState UMLClassState;
 
 struct _UMLClassState {
+  real font_height;
+  real abstract_font_height;
+  real polymorphic_font_height;
+  real classname_font_height;
+  real abstract_classname_font_height;
+  real comment_font_height;
+
+  DiaFont *normal_font;
+  DiaFont *abstract_font;
+  DiaFont *polymorphic_font;
+  DiaFont *classname_font;
+  DiaFont *abstract_classname_font;
+  DiaFont *comment_font;
+  
   char *name;
   char *stereotype;
+  char *comment;
+
   int abstract;
   int suppress_attributes;
   int suppress_operations;
   int visible_attributes;
   int visible_operations;
+  int visible_comments;
+
+  int wrap_operations;
+  int wrap_after_char;
+  int comment_line_length;
+  int comment_tagging;
+  
+  Color line_color;
+  Color fill_color;
+  Color text_color;
 
   /* Attributes: */
   GList *attributes;
@@ -2938,8 +2964,16 @@ umlclass_free_state(UMLClassState *state)
 {
   GList *list;
 
+  g_object_unref (state->normal_font);
+  g_object_unref (state->abstract_font);
+  g_object_unref (state->polymorphic_font);
+  g_object_unref (state->classname_font);
+  g_object_unref (state->abstract_classname_font);
+  g_object_unref (state->comment_font);
+  
   g_free(state->name);
   g_free(state->stereotype);
+  g_free(state->comment);
 
   list = state->attributes;
   while (list) {
@@ -2969,15 +3003,39 @@ umlclass_get_state(UMLClass *umlclass)
   UMLClassState *state = g_new0(UMLClassState, 1);
   GList *list;
 
+  state->font_height = umlclass->font_height;
+  state->abstract_font_height = umlclass->abstract_font_height;
+  state->polymorphic_font_height = umlclass->polymorphic_font_height;
+  state->classname_font_height = umlclass->classname_font_height;
+  state->abstract_classname_font_height = umlclass->abstract_classname_font_height;
+  state->comment_font_height = umlclass->comment_font_height;
+
+  state->normal_font = g_object_ref (umlclass->normal_font);
+  state->abstract_font = g_object_ref (umlclass->abstract_font);
+  state->polymorphic_font = g_object_ref (umlclass->polymorphic_font);
+  state->classname_font = g_object_ref (umlclass->classname_font);
+  state->abstract_classname_font = g_object_ref (umlclass->abstract_classname_font);
+  state->comment_font = g_object_ref (umlclass->comment_font);
+  
   state->name = g_strdup(umlclass->name);
   state->stereotype = g_strdup(umlclass->stereotype);
+  state->comment = g_strdup(umlclass->comment);
 
   state->abstract = umlclass->abstract;
   state->suppress_attributes = umlclass->suppress_attributes;
   state->suppress_operations = umlclass->suppress_operations;
   state->visible_attributes = umlclass->visible_attributes;
   state->visible_operations = umlclass->visible_operations;
+  state->visible_comments = umlclass->visible_comments;
 
+  state->wrap_operations = umlclass->wrap_operations;
+  state->wrap_after_char = umlclass->wrap_after_char;
+  state->comment_line_length = umlclass->comment_line_length;
+  state->comment_tagging = umlclass->comment_tagging;
+
+  state->line_color = umlclass->line_color;
+  state->fill_color = umlclass->fill_color;
+  state->text_color = umlclass->text_color;
   
   state->attributes = NULL;
   list = umlclass->attributes;
@@ -3102,14 +3160,46 @@ umlclass_update_connectionpoints(UMLClass *umlclass)
 static void
 umlclass_set_state(UMLClass *umlclass, UMLClassState *state)
 {
+  umlclass->font_height = state->font_height;
+  umlclass->abstract_font_height = state->abstract_font_height;
+  umlclass->polymorphic_font_height = state->polymorphic_font_height;
+  umlclass->classname_font_height = state->classname_font_height;
+  umlclass->abstract_classname_font_height = state->abstract_classname_font_height;
+  umlclass->comment_font_height = state->comment_font_height;
+
+  /* transfer ownership, but don't leak the previous font */
+  g_object_unref (umlclass->normal_font);
+  umlclass->normal_font = state->normal_font;
+  g_object_unref (umlclass->abstract_font);
+  umlclass->abstract_font = state->abstract_font;
+  g_object_unref (umlclass->polymorphic_font);
+  umlclass->polymorphic_font = state->polymorphic_font;
+  g_object_unref (umlclass->classname_font);
+  umlclass->classname_font = state->classname_font;
+  g_object_unref (umlclass->abstract_classname_font);
+  umlclass->abstract_classname_font = state->abstract_classname_font;
+  g_object_unref (umlclass->comment_font);
+  umlclass->comment_font = state->comment_font;
+  
   umlclass->name = state->name;
   umlclass->stereotype = state->stereotype;
+  umlclass->comment = state->comment;
 
   umlclass->abstract = state->abstract;
   umlclass->suppress_attributes = state->suppress_attributes;
   umlclass->suppress_operations = state->suppress_operations;
   umlclass->visible_attributes = state->visible_attributes;
   umlclass->visible_operations = state->visible_operations;
+  umlclass->visible_comments = state->visible_comments;
+
+  umlclass->wrap_operations = state->wrap_operations;
+  umlclass->wrap_after_char = state->wrap_after_char;
+  umlclass->comment_line_length = state->comment_line_length;
+  umlclass->comment_tagging = state->comment_tagging;
+
+  umlclass->line_color = state->line_color;
+  umlclass->fill_color = state->fill_color;
+  umlclass->text_color = state->text_color;
 
   umlclass->attributes = state->attributes;
   umlclass->operations = state->operations;

@@ -1,3 +1,16 @@
+2008-04-06  Hans Breuer  <hans@breuer.org>
+
+	* objects/UML/class.c : switching comment visibility via object menu 
+	produced an invalid change object: bug #512848
+	* lib/objchange.c(new_object_state_change): g_return_val_if_fail()
+	on invalid arguments
+
+	* objects/UML/class_dialog.c : a lot of stuff from the 'UML - Class'
+	was not considered for undo
+
+	* lib/newgroup.c : only avoid linking app/ for G_OS_WIN32 does _not_
+	fix the crash from bug #505513
+
 2008-04-05  Hans Breuer  <hans@breuer.org>
 
 	* lib/widgets.c : setup pixbuf file formats filter for "Load Image"

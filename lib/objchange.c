@@ -61,6 +61,8 @@ ObjectChange *new_object_state_change(DiaObject *obj,
 {
   ObjectStateChange *change;
 
+  g_return_val_if_fail (get_state != NULL && set_state != NULL, NULL);
+
   change = g_new(ObjectStateChange, 1);
   
   change->obj_change.apply =
