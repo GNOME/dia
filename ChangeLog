@@ -1,5 +1,7 @@
 2008-04-08  Steffen Macke <sdteffen@sdteffen.de>
 
+	* makefile.msc: Don't use the --use-fuzzy option with msgfmt,
+	updated ALL_LINGUAS
 	* installer/win32/dia.nsi: Updates for Dia, GTK+ and Installer
 	locale files; Hungarian and Slovak translations are again available
 	in the installer
