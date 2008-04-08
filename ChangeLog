@@ -1,3 +1,9 @@
+2008-04-08  Steffen Macke <sdteffen@sdteffen.de>
+
+	* installer/win32/dia.nsi: Updates for Dia, GTK+ and Installer
+	locale files; Hungarian and Slovak translations are again available
+	in the installer
+
 2008-04-07  Steffen Macke <sdteffen@sdteffen.de>
 
 	* installer/win32/dia.nsi: Various small updates; the sample files
