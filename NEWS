@@ -1,3 +1,46 @@
+  * Quite some bugs fixed, at least:
+    http://bugzilla.gnome.org/buglist.cgi?product=dia&target_milestone=0.97&resolution=FIXED
+  
+  * improved rendering with cairo (PS, PDF, SVG, PNG, EMF) and also some
+    experimental print through Gtk+/cairo support
+
+  * dedicated text editing mode finally allows to use 'Del' while editing 
+    text and/or for whole object removal
+
+  * custom lines plug-in (missing samples and documentation)
+
+  * Shapes can now have sub-shapes that can be scaled or not when the main
+    shape is scaled.  Also, it is now possible to specify that shapes
+    are created with their stated sizes.
+
+  * Much decreased start-up time and memory usage by delay loading
+    custom shapes.
+
+  * Rotated text by "Standard - Outline" object
+
+  * overhaul of the DXF plug-in (import and export)
+
+  * new database table relation shapes
+
+  * a huge step forward regarding properties of grouped objects
+    http://bugzilla.gnome.org/show_bug.cgi?id=60331
+
+  * antialiased rendering done with cairo if the plug-in is loaded
+
+  * improvements on arrow bounding box calculations
+
+  * the "UML - Class" dialog fits again 800x600 screen again
+
+  * there is an optional 'integrated' UI for people otherwise loosing 
+    their toolbox ;)
+
+  * _experimental_ stand-alone bindings with the help of SWIG/C++
+
+dia-0.96.1: 29-Mar-2007
+
+  * Brown-bag release with five bugfixes, one of them critical: Empty
+    initial lines in shapes crashes Dia (#421250). 
+
 dia-0.96: 25-Mar-2007
 
   * Final release of 0.96.
