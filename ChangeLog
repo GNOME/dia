@@ -1,3 +1,13 @@
+2008-04-08  Hans Breuer  <hans@breuer.org>
+
+	* lib/object.c(object_copy_list) : if we can't find the object to
+	to connect to ensure there is no dangling reference. Fixes bug #497070
+	* lib/group.c(group_copy) : some comment
+	
+	* lib/font.c(dia_font_string_width) : no need to create multiple
+	TextLines to calculate the length of an empty string.
+	* lib/text.c(text_key_event) : no text change for modifiers
+
 2008-04-08  Steffen Macke <sdteffen@sdteffen.de>
 
 	* makefile.msc: Don't use the --use-fuzzy option with msgfmt,

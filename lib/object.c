@@ -202,9 +202,21 @@ object_copy_list(GList *list_orig)
 	other_obj = con_point->object;
 	other_obj_copy = g_hash_table_lookup(hash_table, other_obj);
 
-	if (other_obj_copy == NULL)
+	if (other_obj_copy == NULL) {
+	  /* Ensure we have no dangling connection to avoid crashing, on 
+	   * object_unconnect() e.g. bug #497070. Two questions remaining:
+	   *  - shouldn't the object::copy() have initialized this to NULL?
+	   *  - could we completely solve this by looking deeper into groups?
+	   *    The sample from #497070 has nested groups but this function currently
+	   *    works on one level at the time. Thus the object within the group are 
+	   *    invisible when we try to restore the groups connectons. BUT the 
+	   *    connectionpoints in the group are shared with the connectionpoints
+	   *    of the inner objects ...
+	   */
+	  obj_copy->handles[i]->connected_to = NULL;
 	  break; /* other object was not on list. */
-	
+	}
+
 	con_point_nr=0;
 	while (other_obj->connections[con_point_nr] != con_point) {
 	  con_point_nr++;

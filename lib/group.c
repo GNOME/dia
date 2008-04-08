@@ -215,7 +215,7 @@ static void
 group_destroy(Group *group)
 {
   DiaObject *obj = &group->object;
-  
+
   destroy_object_list(group->objects);
 
   /* ConnectionPoints in the inner objects have already
@@ -258,6 +258,7 @@ group_copy(Group *group)
     listobj = (DiaObject *) list->data;
 
     for (i=0;i<listobj->num_connections;i++) {
+      /* Make connectionpoints be that of the 'inner' objects: */
       newobj->connections[num_conn++] = listobj->connections[i];
     }
     

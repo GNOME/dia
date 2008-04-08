@@ -541,9 +541,12 @@ void dia_font_set_slant_from_string(DiaFont* font, const char* obli) {
 real
 dia_font_string_width(const char* string, DiaFont *font, real height)
 {
-  TextLine *text_line = text_line_new(string, font, height);
-  real result = text_line_get_width(text_line);
-  text_line_destroy(text_line);
+  real result = 0;
+  if (string && *string) {
+    TextLine *text_line = text_line_new(string, font, height);
+    result = text_line_get_width(text_line);
+    text_line_destroy(text_line);
+  }
   return result;
 }
 

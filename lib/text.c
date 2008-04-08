@@ -902,6 +902,16 @@ text_key_event(Focus *focus, guint keyval, const gchar *str, int strlen,
                                      text->cursor_pos, text->cursor_row);
         text_split_line(text);
         break;
+      case GDK_Shift_L:
+      case GDK_Shift_R:
+      case GDK_Control_L:
+      case GDK_Control_R:
+      case GDK_Alt_L:
+      case GDK_Alt_R:
+      case GDK_Meta_L:
+      case GDK_Meta_R:
+        return_val = FALSE; /* no text change for modifiers */
+        break;
       default:
         if (str || (strlen>0)) {
           return_val = TRUE;
