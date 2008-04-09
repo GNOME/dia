@@ -1,3 +1,8 @@
+2008-04-08  Steffen Macke <sdteffen@sdteffen.de>
+
+	* installer/win32/dia.nsi: Updates for the location of some
+	translation files
+
 2008-04-08  Hans Breuer  <hans@breuer.org>
 
 	* lib/object.c(object_copy_list) : if we can't find the object to
