@@ -1,6 +1,8 @@
 ;;
 ;;  slovak.nsh
 ;;
+;; Ivan Masar <helix84@users.sourceforge.net>
+;;
 ;;  Default language strings for the Windows Dia NSIS installer.
 ;;  Windows Code page: 1250
 ;;

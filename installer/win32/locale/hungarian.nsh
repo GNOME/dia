@@ -1,6 +1,8 @@
 ;;
 ;;  hungarian.nsh
 ;;
+;;  Gabor Kelemen  <kelemeng@gnome.hu>
+;;
 ;;  Hungarian strings for the Windows Dia NSIS installer.
 ;;  Windows Code page: 1250
 ;;
@@ -26,6 +28,9 @@
 !define TRANSLATIONS_SECTION_TITLE	"Fordítások"
 !define TRANSLATIONS_SECTION_DESCRIPTION  "A Dia felhasználói felületének fordításai"
 !define DIA_SECTION_DESCRIPTION		"Alapvetõ Dia fájlok és programkönyvtárak"
+!define PYTHON_SECTION_TITLE        "Python plug-in"
+!define PYTHON_SECTION_DESCRIPTION  "Support for the Python Scripting Language 2.2. Do not select this if Python is not installed."
+ 
 
 ; Installer Finish Page
 !define DIA_FINISH_VISIT_WEB_SITE		"Keresse fel Dia for Windows weboldalát"
