@@ -1,5 +1,7 @@
 2008-04-10  Steffen Macke <sdteffen@sdteffen.de>
 
+	* installer/win32/locale/slovak.nsh: Updated Slovak installer
+	translations. Patch from Ivan Masar <helix84@users.sourceforge.net>
 	* installer/win32/dia.nsi: Added splash image, updates for the 
 	location of some translation files
 
