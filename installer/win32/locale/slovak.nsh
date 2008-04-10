@@ -14,33 +14,33 @@
 ; langmacros.nsh when updating this file
 
 ; GTK+ was not found
-!define DIA_NO_GTK			"Prosím, nainštalujte si GTK+ verziu 2.6.0 aleb vyššiu. Nájdete ju na dia-installer.sourceforge.net"
+!define DIA_NO_GTK			"Prosím, nainštalujte si GTK+ verziu 2.6.0 alebo vyššiu. Nájdete ju na dia-installer.sourceforge.net"
 
 ; Don't install over pre 0.95 versions
 !define DIA_NO_INSTALL_OVER		"Prosím, úplne odstránte staré inštalácie Dia alebo nainštalujte Dia na iné miesto."
 
 ; License Page
-!define DIA_LICENSE_BUTTON		"Dalej >"
-!define DIA_LICENSE_BOTTOM_TEXT		"$(^Name) je uvolnenı za podmienok licencie GPL. Licencia je tu poskytnutá len pre informatívne úcely. $_CLICK"
+!define DIA_LICENSE_BUTTON		"Ïalej >"
+!define DIA_LICENSE_BOTTOM_TEXT		"$(^Name) je uvo¾nenı za podmienok licencie GPL. Licencia je tu poskytnutá len pre informatívne úèely. $_CLICK"
 
 ; Components Page
-!define DIA_SECTION_TITLE			"Dia - editor diagramov (potrebné)"
+!define DIA_SECTION_TITLE			"Dia - editor diagramov (povinné)"
 !define TRANSLATIONS_SECTION_TITLE	"Preklady"
-!define TRANSLATIONS_SECTION_DESCRIPTION  "Volitelné preklady pouívatelského rozhrania Dia"
+!define TRANSLATIONS_SECTION_DESCRIPTION  "Volitelné preklady pouívate¾ského rozhrania Dia"
 !define DIA_SECTION_DESCRIPTION		"Hlavné súbory a kninice Dia"
 !define PYTHON_SECTION_TITLE              "Zásuvnı modul Python"
-!define PYTHON_SECTION_DESCRIPTION              "Podpora skriptovacieho jazyka Python 2.2. Nevyberajte túto volbu, ak nie je Python nainštalovanı."
+!define PYTHON_SECTION_DESCRIPTION              "Podpora skriptovacieho jazyka Python 2.2. Nevyberajte túto vo¾bu, ak nie je Python nainštalovanı."
 
 ; Installer Finish Page
 !define DIA_FINISH_VISIT_WEB_SITE		"Navštívte webstránku Dia pre Windows"
 
 ; DIA Section Prompts and Texts
-!define DIA_UNINSTALL_DESC		"Dia (iba odstránit)"
-!define DIA_PROMPT_WIPEOUT		"Váš starı adresár Dia bude zmazanı. Chcete pokracovat?$\r$\rPozn.: Všetky neštandardné zásuvné moduly, ktoré ste mono nainštalovali, budú zmazané.$\rPouívatelské nastavenia Dia nebudú ovplyvnené."
-!define DIA_PROMPT_DIR_EXISTS		"Inštalacnı adresár, ktorı ste uviedli, u existuje. Všetok obsah$\rbude zmazanı. Chcete pokracovat?"
+!define DIA_UNINSTALL_DESC		"Dia (iba odstráni)"
+!define DIA_PROMPT_WIPEOUT		"Váš starı adresár Dia bude zmazanı. Chcete pokraèova?$\r$\rPozn.: Všetky neštandardné zásuvné moduly, ktoré ste mono nainštalovali, budú zmazané.$\rPouívate¾ské nastavenia Dia nebudú ovplyvnené."
+!define DIA_PROMPT_DIR_EXISTS		"Inštalaènı adresár, ktorı ste uviedli, u existuje. Všetok obsah$\rbude zmazanı. Chcete pokraèova?"
 
 ; Uninstall Section Prompts
-!define un.DIA_UNINSTALL_ERROR_1		"Program na deinštaláciu nenašiel záznamy Dia v registri.$\rJe pravdepodobné, e túto aplikáciu nainštaloval inı pouívatel."
-!define un.DIA_UNINSTALL_ERROR_2		"Nemáte povolenie odinštalovat túto aplikáciu."
-!define un.DIA_UNINSTALLATION_WARNING	"Tımto sa úplne zmae $INSTDIR a všetky jeho podadresáre. Pokracovat?"
-!define un.DIA_DOTDIA_WARNING		"Tımto sa úplne zmae $PROFILE\.dia a všetky jeho podadresáre. Pokracovat?"
+!define un.DIA_UNINSTALL_ERROR_1		"Program na deinštaláciu nenašiel záznamy Dia v registri.$\rJe pravdepodobné, e túto aplikáciu nainštaloval inı pouívate¾."
+!define un.DIA_UNINSTALL_ERROR_2		"Nemáte povolenie odinštalova túto aplikáciu."
+!define un.DIA_UNINSTALLATION_WARNING	"Tımto sa úplne zmae $INSTDIR a všetky jeho podadresáre. Pokraèova?"
+!define un.DIA_DOTDIA_WARNING		"Tımto sa úplne zmae $PROFILE\.dia a všetky jeho podadresáre. Pokraèova?"
