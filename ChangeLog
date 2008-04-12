@@ -1,3 +1,11 @@
+2008-04-08  Hans Breuer  <hans@breuer.org>
+
+	* lib/plug-ins.c : not being able to load a plug-in is not a critical
+	issue, get rid of message_error() for these. Fixes bug #402320
+	On windows also use SetErrorMode() to to suppress the systems error 
+	dialog. Finally we are rewriting the error reason if the plug-in file
+	exists but can not be loaded.
+
 2008-04-10  Steffen Macke <sdteffen@sdteffen.de>
 
 	* installer/win32/locale/german.nsh: Fixed typo
@@ -13,6 +21,8 @@
 	translation files
 
 2008-04-08  Hans Breuer  <hans@breuer.org>
+
+	* NEWS app/authors.h : updated
 
 	* lib/object.c(object_copy_list) : if we can't find the object to
 	to connect to ensure there is no dangling reference. Fixes bug #497070

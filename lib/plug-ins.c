@@ -42,6 +42,13 @@
 #include "message.h"
 #include "dia_dirs.h"
 
+#ifdef G_OS_WIN32
+#define Rectangle Win32Rectangle
+#define WIN32_LEAN_AND_MEAN
+#include <pango/pangowin32.h>
+#undef Rectangle
+#endif
+
 struct _PluginInfo {
   GModule *module;
   gchar *filename;      /* plugin filename */
@@ -151,17 +158,31 @@ dia_plugin_set_inhibit_load(PluginInfo *info, gboolean inhibit_load)
 void
 dia_plugin_load(PluginInfo *info)
 {
+#ifdef G_OS_WIN32
+  guint error_mode;
+#endif
   g_return_if_fail(info != NULL);
   g_return_if_fail(info->filename != NULL);
 
   if (info->is_loaded)
     return;
+    
+#ifdef G_OS_WIN32
+  /* suppress the systems error dialog, we can handle a plug-in not loadable */
+  error_mode = SetErrorMode (SEM_FAILCRITICALERRORS|SEM_NOOPENFILEERRORBOX);
+#endif
 
   info->module = g_module_open(info->filename, G_MODULE_BIND_LAZY);
+#ifdef G_OS_WIN32
+    SetErrorMode (error_mode);
+#endif
   if (!info->module) {
-    gchar *msg_utf8 = g_locale_to_utf8 (g_module_error(), -1, NULL, NULL, NULL);
-    message_error(_("Could not load plugin '%s'\n%s"), 
-                  info->filename, msg_utf8);
+    gchar *msg_utf8 = NULL;
+    /* at least on windows the systems error message is not that useful */
+    if (!g_file_test(info->filename, G_FILE_TEST_EXISTS))
+      msg_utf8 = g_locale_to_utf8 (g_module_error(), -1, NULL, NULL, NULL);
+    else
+      msg_utf8 = g_strdup_printf (_("Missing dependencies for '%s'?"), info->filename);
     /* this is eating the conversion */
     info->description = msg_utf8;
     return;
@@ -172,9 +193,6 @@ dia_plugin_load(PluginInfo *info)
 		       (gpointer)&info->init_func)) {
     g_module_close(info->module);
     info->module = NULL;
-
-    message_error(_("Could not find plugin init function in `%s'"),
-		  info->filename);
     info->description = g_strdup(_("Missing symbol 'dia_plugin_init'"));
     return;
   }
