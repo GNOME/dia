@@ -1,3 +1,7 @@
+2008-04-14  Gabor Kelemen  <kelemeng@gnome.org>
+
+	* installer/win32/locale/hungarian.nsh: Updated translation.
+	
 2008-04-13  Hans Breuer  <hans@breuer.org>
 
 	* lib/propdialogs.c : if there are more than a dozen properties

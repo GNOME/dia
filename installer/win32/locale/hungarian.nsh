@@ -28,12 +28,12 @@
 !define TRANSLATIONS_SECTION_TITLE	"Fordítások"
 !define TRANSLATIONS_SECTION_DESCRIPTION  "A Dia felhasználói felületének fordításai"
 !define DIA_SECTION_DESCRIPTION		"Alapvetõ Dia fájlok és programkönyvtárak"
-!define PYTHON_SECTION_TITLE        "Python plug-in"
-!define PYTHON_SECTION_DESCRIPTION  "Support for the Python Scripting Language 2.2. Do not select this if Python is not installed."
+!define PYTHON_SECTION_TITLE        "Python bõvítmény"
+!define PYTHON_SECTION_DESCRIPTION  "A Python parancsnyelv 2.2 változatának támogatása. Ne válassza ki, ha a Python nincs telepítve."
  
 
 ; Installer Finish Page
-!define DIA_FINISH_VISIT_WEB_SITE		"Keresse fel Dia for Windows weboldalát"
+!define DIA_FINISH_VISIT_WEB_SITE		"Keresse fel a Dia for Windows weboldalát"
 
 ; DIA Section Prompts and Texts
 !define DIA_UNINSTALL_DESC		"Dia (csak eltávolítás)"
