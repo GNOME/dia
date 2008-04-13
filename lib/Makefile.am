@@ -166,6 +166,10 @@ libdia_la_SOURCES =  \
 		prefs.h \
 	        newgroup.c \
 	        newgroup.h \
+		\
+		diacellrendererproperty.c \
+		diacellrendererproperty.h \
+		\
 		dia-lib-icons.h
 
 #		charconv.c \

@@ -17,6 +17,12 @@
 	* samples/gobj-parse.c : a simple parser to generate a class diagram
 	out of GObject using headers to test the above
 
+	[currently unused: first step for property editor with GtkTreeView]
+	* lib/diamarshal.list : add marshaler
+	* lib/diacellrendererproperty.[hc] : boilerplate for CellRenderers
+	* lib/makefile.msc lib/Makefile.am : build new files
+	* lib/prop_sdarray.c : prepare to make the list editable
+
 2008-04-12  Hans Breuer  <hans@breuer.org>
 
 	* lib/plug-ins.c : not being able to load a plug-in is not a critical

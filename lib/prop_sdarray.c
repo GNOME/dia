@@ -238,6 +238,36 @@ darrayprop_set_from_offset(ArrayProperty *prop,
   }
 }
 
+/*!
+ * Create a dialog containing the list of array properties
+ */
+static void
+darray_prop_edit (GtkWidget *widget, gpointer data)
+{
+  ArrayProperty *prop = data;
+  
+}
+
+static WIDGET *
+arrayprop_get_widget(ArrayProperty *prop, PropDialog *dialog) 
+{ 
+  GtkWidget *ret = gtk_button_new_with_label (prop->common.descr->tooltip);
+  gtk_signal_connect (GTK_OBJECT (ret), "clicked",
+                      (GtkSignalFunc) darray_prop_edit, prop);
+  
+  return ret;  
+}
+
+void 
+arrayprop_reset_widget(NoopProperty *prop, WIDGET *widget)
+{
+}
+
+void 
+arrayprop_set_from_widget(NoopProperty *prop, WIDGET *widget) 
+{
+}
+
 static gboolean 
 arrayprop_can_merge(const PropDescription *pd1, const PropDescription *pd2) 
 {
@@ -252,9 +282,9 @@ static const PropertyOps sarrayprop_ops = {
   (PropertyType_Load) arrayprop_load,
   (PropertyType_Save) arrayprop_save,
 
-  (PropertyType_GetWidget) unimplementedprop_get_widget,
-  (PropertyType_ResetWidget) unimplementedprop_reset_widget,
-  (PropertyType_SetFromWidget) unimplementedprop_set_from_widget,
+  (PropertyType_GetWidget) arrayprop_get_widget,
+  (PropertyType_ResetWidget) arrayprop_reset_widget,
+  (PropertyType_SetFromWidget) arrayprop_set_from_widget,
 
   (PropertyType_CanMerge) arrayprop_can_merge, 
   (PropertyType_GetFromOffset) sarrayprop_get_from_offset,
@@ -268,9 +298,9 @@ static const PropertyOps darrayprop_ops = {
   (PropertyType_Load) arrayprop_load,
   (PropertyType_Save) arrayprop_save,
 
-  (PropertyType_GetWidget) unimplementedprop_get_widget,
-  (PropertyType_ResetWidget) unimplementedprop_reset_widget,
-  (PropertyType_SetFromWidget) unimplementedprop_set_from_widget,
+  (PropertyType_GetWidget) arrayprop_get_widget,
+  (PropertyType_ResetWidget) arrayprop_reset_widget,
+  (PropertyType_SetFromWidget) arrayprop_set_from_widget,
 
   (PropertyType_CanMerge) noopprop_can_merge, 
   (PropertyType_GetFromOffset) darrayprop_get_from_offset,

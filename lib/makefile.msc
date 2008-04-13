@@ -111,6 +111,9 @@ OBJECTS = \
 	units.obj \
 	utils.obj \
 	widgets.obj \
+	\
+	diacellrendererproperty.obj \
+	\
 	diamarshal.obj \
 
 #
