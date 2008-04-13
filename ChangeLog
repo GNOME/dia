@@ -7,6 +7,16 @@
 	* lib/prop_widgets.c : fixed long-standing bug of MULTICOL properties 
 	not being in the expected order
 	
+	[more robustness for incomplete (i.e. usually generated) diagrams]
+	* app/load_save.c : adjust the connections positions automatically,
+	it is impossible to do so while generating
+	* lib/element.h lib/object.h lib/orth_conn.h lib/properties.h
+	  objects/UML/generalization.c : marked more properties optional - if
+	they are properly initialized - to get rid of a lot of g_warnings()
+	and one step further to fix #56233
+	* samples/gobj-parse.c : a simple parser to generate a class diagram
+	out of GObject using headers to test the above
+
 2008-04-12  Hans Breuer  <hans@breuer.org>
 
 	* lib/plug-ins.c : not being able to load a plug-in is not a critical

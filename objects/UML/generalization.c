@@ -129,9 +129,9 @@ static PropDescription generalization_props[] = {
   /* can't use PROP_STD_TEXT_COLOUR_OPTIONAL cause it has PROP_FLAG_DONT_SAVE. It is designed to fill the Text object - not some subset */
   PROP_STD_TEXT_COLOUR_OPTIONS(PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD|PROP_FLAG_OPTIONAL),
   PROP_STD_LINE_COLOUR_OPTIONAL, 
-  { "name", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
+  { "name", PROP_TYPE_STRING, PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL,
     N_("Name:"), NULL, NULL },
-  { "stereotype", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
+  { "stereotype", PROP_TYPE_STRING, PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL,
     N_("Stereotype:"), NULL, NULL },
   PROP_DESC_END
 };

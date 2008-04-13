@@ -275,6 +275,7 @@ read_connections(GList *objects, xmlNodePtr layer_node,
     if IS_GROUP(obj) {
       read_connections(group_objects(obj), obj_node, objects_hash);
     } else {
+      gboolean broken = FALSE;
       connections = obj_node->xmlChildrenNode;
       while ((connections!=NULL) &&
 	     (xmlStrcmp(connections->name, (const xmlChar *)"connections")!=0))
@@ -302,9 +303,11 @@ read_connections(GList *objects, xmlNodePtr layer_node,
 	  if (to == NULL) {
 	    message_error(_("Error loading diagram.\n"
 			    "Linked object not found in document."));
+	    broken = TRUE;
 	  } else if (handle < 0 || handle >= obj->num_handles) {
 	    message_error(_("Error loading diagram.\n"
 			    "connection handle does not exist."));
+	    broken = TRUE;
 	  } else {
 	    if (conn == -1) { /* Find named connpoint */
 	      int i;
@@ -319,10 +322,18 @@ read_connections(GList *objects, xmlNodePtr layer_node,
 	    if (conn >= 0 && conn < to->num_connections) {
 	      object_connect(obj, obj->handles[handle],
 			     to->connections[conn]);
+	      /* force an update on the connection, helpful with (incomplete) generated files */
+	      obj->handles[handle]->pos = 
+	        to->connections[conn]->last_pos = to->connections[conn]->pos;
+#if 0
+	      obj->ops->move_handle(obj, obj->handles[handle], &to->connections[conn]->pos,
+				    to->connections[conn], HANDLE_MOVE_CONNECTED,0);
+#endif
 	    } else {
 	      message_error(_("Error loading diagram.\n"
 			      "connection point %s does not exist."),
 			    connstr);
+	      broken = TRUE;
 	    }
 	  }
 
@@ -331,6 +342,22 @@ read_connections(GList *objects, xmlNodePtr layer_node,
 	  if (connstr) xmlFree(connstr);
 
 	  connection = connection->next;
+	}
+        /* Fix positions of the connection object for (de)generated files.
+         * Only done for the last point connected otherwise the intermediate posisitions
+         * may screw the auto-routing algorithm.
+         */
+        if (!broken && obj && obj->ops->set_props) {
+	  GPtrArray *props = g_ptr_array_new();
+	  /* called for it's side-effect of update_data */
+	  obj->ops->set_props (obj, props);
+	  g_ptr_array_free (props, TRUE);
+
+	  for (handle = 0; handle < obj->num_handles; ++handle) {
+	    if (obj->handles[handle]->connected_to)
+	      obj->ops->move_handle(obj, obj->handles[handle], &obj->handles[handle]->pos,
+				    obj->handles[handle]->connected_to, HANDLE_MOVE_CONNECTED,0);
+	  }
 	}
       }
     }

@@ -550,9 +550,9 @@ struct _DiaObjectType {
 
 /* base property stuff ... */
 #define OBJECT_COMMON_PROPERTIES \
-  { "obj_pos", PROP_TYPE_POINT, 0, \
+  { "obj_pos", PROP_TYPE_POINT, PROP_FLAG_OPTIONAL, \
     "Object position", "Where the object is located"}, \
-  { "obj_bb", PROP_TYPE_RECT, 0, \
+  { "obj_bb", PROP_TYPE_RECT, PROP_FLAG_OPTIONAL, \
     "Object bounding box", "The bounding box of the object"}
 
 #define OBJECT_COMMON_PROPERTIES_OFFSETS \

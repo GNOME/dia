@@ -69,9 +69,9 @@ static PropNumData width_range = { -G_MAXFLOAT, G_MAXFLOAT, 0.1};
   OBJECT_COMMON_PROPERTIES, \
   { "elem_corner", PROP_TYPE_POINT, PROP_FLAG_NO_DEFAULTS, \
     "Element corner", "The corner of the element"}, \
-  { "elem_width", PROP_TYPE_REAL, PROP_FLAG_DONT_MERGE | PROP_FLAG_NO_DEFAULTS, \
+  { "elem_width", PROP_TYPE_REAL, PROP_FLAG_DONT_MERGE | PROP_FLAG_NO_DEFAULTS | PROP_FLAG_OPTIONAL, \
     "Element width", "The width of the element", &width_range}, \
-  { "elem_height", PROP_TYPE_REAL, PROP_FLAG_DONT_MERGE  | PROP_FLAG_NO_DEFAULTS, \
+  { "elem_height", PROP_TYPE_REAL, PROP_FLAG_DONT_MERGE  | PROP_FLAG_NO_DEFAULTS | PROP_FLAG_OPTIONAL, \
     "Element height", "The height of the element", &width_range}
 
    /* Would like to have the frame, but need to figure out why

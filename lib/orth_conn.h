@@ -88,7 +88,7 @@ void orthconn_update_object_menu(OrthConn *orth, Point *clicked,
 #define ORTHCONN_COMMON_PROPERTIES \
   OBJECT_COMMON_PROPERTIES, \
   { "orth_points", PROP_TYPE_POINTARRAY, 0, "orthconn points", NULL}, \
-  { "orth_orient", PROP_TYPE_ENUMARRAY, 0, "orthconn orientations", NULL}, \
+  { "orth_orient", PROP_TYPE_ENUMARRAY, PROP_FLAG_OPTIONAL, "orthconn orientations", NULL}, \
   { "orth_autoroute", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL, N_("Autoroute"), NULL} \
 
 #define ORTHCONN_COMMON_PROPERTIES_OFFSETS \

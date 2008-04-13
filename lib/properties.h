@@ -553,7 +553,7 @@ extern PropEnumData prop_std_text_align_data[];
 /* Convenience macros */
 #define PROP_NOTEBOOK_BEGIN(name) \
   { "nbook_" name, PROP_TYPE_NOTEBOOK_BEGIN, \
-              PROP_FLAG_VISIBLE|PROP_FLAG_DONT_SAVE|PROP_FLAG_WIDGET_ONLY, NULL, NULL}
+              PROP_FLAG_VISIBLE|PROP_FLAG_DONT_SAVE|PROP_FLAG_WIDGET_ONLY|PROP_FLAG_DONT_MERGE, NULL, NULL}
 #define PROP_STD_NOTEBOOK_BEGIN PROP_NOTEBOOK_BEGIN("std")
 #define PROP_OFFSET_NOTEBOOK_BEGIN(name) \
   { "nbook_" name, PROP_TYPE_NOTEBOOK_BEGIN, 0}
@@ -561,7 +561,7 @@ extern PropEnumData prop_std_text_align_data[];
 
 #define PROP_NOTEBOOK_END(name) \
   { "nbook_" name "_end", PROP_TYPE_NOTEBOOK_END, \
-      PROP_FLAG_VISIBLE|PROP_FLAG_DONT_SAVE|PROP_FLAG_WIDGET_ONLY, NULL, NULL}
+      PROP_FLAG_VISIBLE|PROP_FLAG_DONT_SAVE|PROP_FLAG_WIDGET_ONLY|PROP_FLAG_DONT_MERGE, NULL, NULL}
 #define PROP_STD_NOTEBOOK_END PROP_NOTEBOOK_END("std")
 #define PROP_OFFSET_NOTEBOOK_END(name) \
   { "nbook_" name "_end", PROP_TYPE_NOTEBOOK_END, 0}
@@ -569,7 +569,7 @@ extern PropEnumData prop_std_text_align_data[];
 
 #define PROP_NOTEBOOK_PAGE(name,flags,descr) \
   { "nbook_page_" name, PROP_TYPE_NOTEBOOK_PAGE, \
- PROP_FLAG_VISIBLE|PROP_FLAG_DONT_SAVE|PROP_FLAG_WIDGET_ONLY|flags,descr,NULL}
+ PROP_FLAG_VISIBLE|PROP_FLAG_DONT_SAVE|PROP_FLAG_WIDGET_ONLY|PROP_FLAG_DONT_MERGE|flags,descr,NULL}
 #define PROP_OFFSET_NOTEBOOK_PAGE(name) \
   { "nbook_page_" name , PROP_TYPE_NOTEBOOK_PAGE, 0}
 
@@ -586,7 +586,7 @@ extern PropEnumData prop_std_text_align_data[];
       PROP_FLAG_VISIBLE|PROP_FLAG_DONT_SAVE|PROP_FLAG_WIDGET_ONLY, NULL, NULL}
 #define PROP_STD_MULTICOL_END PROP_MULTICOL_END("std")
 #define PROP_OFFSET_MULTICOL_END(name) \
-  { "mcol_" name "_end", PROP_TYPE_NOTEBOOK_END, 0}
+  { "mcol_" name "_end", PROP_TYPE_MULTICOL_END, 0}
 #define PROP_OFFSET_STD_MULTICOL_END PROP_OFFSET_MULTICOL_END("std")
 
 #define PROP_MULTICOL_COLUMN(name) \
