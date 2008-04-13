@@ -137,6 +137,10 @@ prop_desc_lists_union(GList *plists)
 
     for (i = 0; plist[i].name != NULL; i++) {
       int j;
+#if 1
+      if (plist[i].flags & PROP_FLAG_DONT_MERGE)
+        continue; /* even union must not conatin anything which can't be merged */
+#endif
       for (j = 0; j < arr->len; j++)
 	if (g_array_index(arr, PropDescription, j).quark == plist[i].quark)
 	  break;

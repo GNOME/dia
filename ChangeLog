@@ -1,4 +1,13 @@
-2008-04-08  Hans Breuer  <hans@breuer.org>
+2008-04-13  Hans Breuer  <hans@breuer.org>
+
+	* lib/propdialogs.c : if there are more than a dozen properties
+	make the dialog scrollable
+	* lib/propdesc.c(prop_desc_lists_union) : even the union of properties
+	must not contain properties maked by PROP_FLAG_DONT_MERGE
+	* lib/prop_widgets.c : fixed long-standing bug of MULTICOL properties 
+	not being in the expected order
+	
+2008-04-12  Hans Breuer  <hans@breuer.org>
 
 	* lib/plug-ins.c : not being able to load a plug-in is not a critical
 	issue, get rid of message_error() for these. Fixes bug #402320
