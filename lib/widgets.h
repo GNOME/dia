@@ -36,6 +36,7 @@
 #include "font.h"
 #include "color.h"
 #include "arrows.h"
+#include "units.h"
 
 /* DiaFontSelector: */
 #define DIAFONTSELECTOR(obj)          GTK_CHECK_CAST (obj, dia_font_selector_get_type (), DiaFontSelector)

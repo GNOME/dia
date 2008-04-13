@@ -21,7 +21,8 @@
 #ifndef TYPES_H
 #define TYPES_H
 
-#include "units.h"
+/* THIS HEADER MUST NOT INCLUDE ANY OTHER HEADER! */
+//#include "units.h"
 
 /* In diagramdata.h: */
 typedef struct _DiagramData DiagramData;
@@ -76,6 +77,10 @@ typedef struct _BezierApprox BezierApprox;
 typedef struct _DiaRenderer DiaRenderer;
 typedef struct _DiaRendererClass DiaRendererClass;
 typedef struct _DiaInteractiveRendererInterface DiaInteractiveRendererInterface;
+
+/* In diacellrendererproperty.h: */
+typedef struct _DiaCellRendererProperty DiaCellRendererProperty;
+
 /* In diasvgrenderer.h: */
 typedef struct _DiaSvgRenderer DiaSvgRenderer;
 typedef struct _DiaSvgRendererClass DiaSvgRendererClass;
