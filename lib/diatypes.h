@@ -22,7 +22,7 @@
 #define TYPES_H
 
 /* THIS HEADER MUST NOT INCLUDE ANY OTHER HEADER! */
-//#include "units.h"
+/*#include "units.h" */
 
 /* In diagramdata.h: */
 typedef struct _DiagramData DiagramData;

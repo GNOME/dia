@@ -1,3 +1,9 @@
+2008-04-14  Steffen Macke <sdteffen@sdteffen.de>
+
+	* bindings/dia-properties.cpp:
+	* lib/diatypes.h: Patch from Stefan Husmann <stefan-husmann@t-online.de>
+	to fix compiler errors
+
 2008-04-14 Gabor Kelemen  <kelemeng@gnome.org>
 
 	* app/menus.c: Corrected typo spotted while updating translation. 

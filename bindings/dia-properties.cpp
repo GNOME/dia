@@ -27,7 +27,7 @@
 
 #include "object.h"
 #include <assert.h>
-#include <string>
+#include <cstring>
 
 #include "dia-properties.h"
 #include "dia-object.h"
