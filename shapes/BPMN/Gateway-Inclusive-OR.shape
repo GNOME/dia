@@ -14,11 +14,11 @@
   </connections>
   <aspectratio type="fixed"/>
   <svg:svg>
-    <svg:polygon style="fill: #ffffff" points="6,0 12,6 6,12 0,6 "/>
+    <svg:polygon style="fill: default" points="6,0 12,6 6,12 0,6 "/>
     <svg:polygon style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #000000" points="6,0 12,6 6,12 0,6 "/>
     <svg:ellipse style="fill: #000000" cx="6" cy="6" rx="3.5" ry="3.5"/>
     <svg:ellipse style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #000000" cx="6" cy="6" rx="3.5" ry="3.5"/>
-    <svg:ellipse style="fill: #ffffff" cx="6" cy="6" rx="3" ry="3"/>
+    <svg:ellipse style="fill: default" cx="6" cy="6" rx="3" ry="3"/>
     <svg:ellipse style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #000000" cx="6" cy="6" rx="3" ry="3"/>
   </svg:svg>
 </shape>

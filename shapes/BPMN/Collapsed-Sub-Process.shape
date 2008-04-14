@@ -19,9 +19,9 @@
   <aspectratio type="free"/>
   <textbox x1="0.25" y1="0.25" x2="8.75" y2="5.75"/>
   <svg:svg>
-    <svg:path style="fill: #ffffff" d="M 1 0 C 2,0 7,0 8,0 C 9,0 9,0 9,1 C 9,2 9,4 9,5 C 9,6 9,6 8,6 C 7,6 2,6 1,6 C 0,6 0,6 0,5 C 0,4 0,2 0,1 C 0,0 0,0 1,0z"/>
+    <svg:path style="fill: default" d="M 1 0 C 2,0 7,0 8,0 C 9,0 9,0 9,1 C 9,2 9,4 9,5 C 9,6 9,6 8,6 C 7,6 2,6 1,6 C 0,6 0,6 0,5 C 0,4 0,2 0,1 C 0,0 0,0 1,0z"/>
     <svg:path style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #000000" d="M 1 0 C 2,0 7,0 8,0 C 9,0 9,0 9,1 C 9,2 9,4 9,5 C 9,6 9,6 8,6 C 7,6 2,6 1,6 C 0,6 0,6 0,5 C 0,4 0,2 0,1 C 0,0 0,0 1,0"/>
-    <svg:rect style="fill: #ffffff" x="4" y="5" width="1" height="1"/>
+    <svg:rect style="fill: default" x="4" y="5" width="1" height="1"/>
     <svg:rect style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #000000" x="4" y="5" width="1" height="1"/>
     <svg:line style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #000000" x1="4.5" y1="5.25" x2="4.5" y2="5.75"/>
     <svg:line style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #000000" x1="4.25" y1="5.5" x2="4.75" y2="5.5"/>

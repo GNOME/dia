@@ -14,11 +14,11 @@
   </connections>
   <aspectratio type="fixed"/>
   <svg:svg>
-    <svg:polygon style="fill: #ffffff" points="6,0 12,6 6,12 0,6 "/>
+    <svg:polygon style="fill: default" points="6,0 12,6 6,12 0,6 "/>
     <svg:polygon style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #000000" points="6,0 12,6 6,12 0,6 "/>
-    <svg:ellipse style="fill: #ffffff" cx="6" cy="6" rx="3.5" ry="3.5"/>
+    <svg:ellipse style="fill: default" cx="6" cy="6" rx="3.5" ry="3.5"/>
     <svg:ellipse style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #000000" cx="6" cy="6" rx="3.5" ry="3.5"/>
-    <svg:ellipse style="fill: #ffffff" cx="6" cy="6" rx="3" ry="3"/>
+    <svg:ellipse style="fill: default" cx="6" cy="6" rx="3" ry="3"/>
     <svg:ellipse style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #000000" cx="6" cy="6" rx="3" ry="3"/>
     <svg:polygon style="fill: #000000" points="3.5,4.75 5.16667,4.75 6,3.5 6.83333,4.75 8.5,4.75 7.66667,6 8.5,7.25 6.83333,7.25 6,8.5 5.16667,7.25 3.5,7.25 4.33333,6 "/>
     <svg:polygon style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #000000" points="3.5,4.75 5.16667,4.75 6,3.5 6.83333,4.75 8.5,4.75 7.66667,6 8.5,7.25 6.83333,7.25 6,8.5 5.16667,7.25 3.5,7.25 4.33333,6 "/>

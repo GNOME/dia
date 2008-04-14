@@ -1,5 +1,7 @@
 2008-04-14  Steffen Macke <sdteffen@sdteffen.de>
 
+	* shapes/BPMN/*.shape: Fill color can now be specified in Dia instead
+	of hardcoded white fill; Patch from David Nguyen <pppswing@yahoo.fr>
 	* bindings/dia-properties.cpp:
 	* lib/diatypes.h: Patch from Stefan Husmann <stefan-husmann@t-online.de>
 	to fix compiler errors
