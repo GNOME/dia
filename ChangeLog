@@ -1,4 +1,11 @@
-2008-04-14  Steffen Macke <sdteffen@sdteffen.de>
+2008-04-15  Steffen Macke  <sdteffen@sdteffen.de>
+
+	* shapes/Cisco/content_service_router.png:
+	* shapes/Cisco/voice_switch2.png:
+	* shapes/Cisco/router_in_building.png: Resized icons to standard size
+	22x22; partial fix for #528251
+
+2008-04-14  Steffen Macke  <sdteffen@sdteffen.de>
 
 	* shapes/BPMN/compensation.shape: Further improvment of the shape,
 	foreground color can now be choosen in Dia
