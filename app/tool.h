@@ -21,7 +21,6 @@
 #include <gdk/gdk.h>
 
 typedef struct _Tool Tool;
-typedef struct _ToolInfo ToolInfo;
 typedef struct _ToolState ToolState;
 
 typedef enum _ToolType ToolType;
@@ -49,11 +48,6 @@ struct _Tool {
   ButtonReleaseFunc  button_release_func;
   MotionFunc         motion_func;
   DoubleClickFunc    double_click_func;
-};
-
-struct _ToolInfo {
-  ToolType type;
-  char *tooltip;
 };
 
 struct _ToolState {

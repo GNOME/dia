@@ -259,6 +259,24 @@ text_line_dirty_cache(TextLine *text_line)
 }
 
 static void
+clear_layout_offset (TextLine *text_line)
+{
+  if (text_line->layout_offsets != NULL) {
+    GSList *runs = text_line->layout_offsets->runs;
+
+    for (; runs != NULL; runs = g_slist_next(runs)) {
+      PangoGlyphItem *run = (PangoGlyphItem *) runs->data;
+	  
+      g_free(run->glyphs->glyphs);
+      g_free(run->glyphs);
+    }
+    g_slist_free(runs);
+    g_free(text_line->layout_offsets);
+    text_line->layout_offsets = NULL;
+  }
+}
+
+static void
 text_line_cache_values(TextLine *text_line)
 {
   if (!text_line->clean ||
@@ -275,26 +293,19 @@ text_line_cache_values(TextLine *text_line)
       (*text_line->renderer_cache->free_func)(text_line->renderer_cache);
       text_line->renderer_cache = NULL;
     }
-    if (text_line->layout_offsets != NULL) {
-        GSList *runs = text_line->layout_offsets->runs;
-
-	for (; runs != NULL; runs = g_slist_next(runs)) {
-	  PangoGlyphItem *run = (PangoGlyphItem *) runs->data;
-	  
-	  g_free(run->glyphs->glyphs);
-	  g_free(run->glyphs);
-	}
-	g_slist_free(runs);
-	g_free(text_line->layout_offsets);
-	text_line->layout_offsets = NULL;
-    }
+    clear_layout_offset (text_line);
 
     if (text_line->chars == NULL ||
 	text_line->chars[0] == '\0') {
-      text_line->offsets = g_new(real, 0);
-      text_line->layout_offsets = NULL;
-      text_line->ascent = text_line->height * .5;
-      text_line->descent = text_line->height * .5;
+      /* caclculate reasonable ascent/decent even for empty string */
+      text_line->offsets = 
+        dia_font_get_sizes("XjgM149", text_line->font, text_line->height,
+			   &text_line->width, &text_line->ascent, 
+			   &text_line->descent, &n_offsets,
+			   &text_line->layout_offsets);
+      clear_layout_offset (text_line);
+      g_free (text_line->offsets);
+      text_line->offsets = g_new (real,0); /* another way to assign NULL;) */
       text_line->width = 0;
     } else {
       text_line->offsets = 

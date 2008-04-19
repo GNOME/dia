@@ -778,7 +778,7 @@ build_ui_filename (const gchar* name)
 /*!
  * Not sure why this service is not provided by GTK+. 
  * We are passing tooltips into the actions (especially recent file menu).
- * But they were not shown without explicit seeting on connect.
+ * But they were not shown without explicit setting on connect.
  */
 static void
 _ui_manager_connect_proxy (GtkUIManager *manager,
@@ -864,6 +864,10 @@ menus_init(void)
   display_tool_actions = create_tool_actions ();
 
   display_ui_manager = gtk_ui_manager_new ();
+  g_signal_connect (G_OBJECT (display_ui_manager), 
+                    "connect_proxy",
+		    _ui_manager_connect_proxy,
+		    NULL);
   gtk_ui_manager_set_add_tearoffs (display_ui_manager, DIA_SHOW_TEAROFFS);
   gtk_ui_manager_insert_action_group (display_ui_manager, display_actions, 0);
   gtk_ui_manager_insert_action_group (display_ui_manager, display_tool_actions, 0);

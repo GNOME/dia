@@ -530,6 +530,7 @@ other_create(Point *startpoint,
                        &color_black,
                        ALIGN_CENTER);
   dia_font_unref(font);
+  text_get_attributes(other->text,&other->attrs);
 
   element_init(elem, 8, 0);
 

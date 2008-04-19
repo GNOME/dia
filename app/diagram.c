@@ -364,10 +364,14 @@ void
 diagram_modified(Diagram *dia)
 {
   GSList *displays;
+  gchar *title = g_strdup_printf ("%s%s", diagram_is_modified(dia) ? "*" : "", diagram_get_name(dia));
+
   displays = dia->displays;
-  while (displays != NULL) {
-    DDisplay *display = (DDisplay*) displays->data;
-    ddisplay_update_statusbar(display);
+  while (displays!=NULL) {
+    DDisplay *ddisp = (DDisplay *) displays->data;
+
+    ddisplay_set_title(ddisp, title);
+    
     displays = g_slist_next(displays);
   }
   if (diagram_is_modified(dia)) {
@@ -375,6 +379,7 @@ diagram_modified(Diagram *dia)
     dia->is_default = FALSE;
   }
   /*  diagram_set_modified(dia, TRUE);*/
+  g_free (title);
 }
 
 /** Set this diagram explicitly modified.  This should not be called

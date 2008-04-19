@@ -508,6 +508,7 @@ sadtbox_create(Point *startpoint,
                        &color_black,
                        ALIGN_CENTER);
   dia_font_unref(font);
+  text_get_attributes(box->text,&box->attrs);
   
   box->id = g_strdup("A0"); /* should be made better. 
                                Automatic counting ? */

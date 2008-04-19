@@ -365,6 +365,8 @@ textobj_load(ObjectNode obj_node, int version, const char *filename)
 			     &startpoint, &color_black, ALIGN_CENTER);
     dia_font_unref(font);
   }
+  /* initialize attrs from text */
+  text_get_attributes(textobj->text,&textobj->attrs);
 
   attr = object_find_attribute(obj_node, "valign");
   if (attr != NULL)

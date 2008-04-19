@@ -386,9 +386,6 @@ modify_motion(ModifyTool *tool, GdkEventMotion *event,
   gboolean auto_scroll, vertical = FALSE;
   ConnectionPoint *connectionpoint = NULL;
   ObjectChange *objchange;
-  gchar *postext;
-  GtkStatusbar *statusbar;
-  guint context_id;
 
   if (tool->state==STATE_NONE)
     return; /* Fast path... */
@@ -454,19 +451,22 @@ modify_motion(ModifyTool *tool, GdkEventMotion *event,
     object_add_updates(tool->object, ddisp->diagram);
 
     /* Put current mouse position in status bar */
-    statusbar = GTK_STATUSBAR (ddisp->modified_status);
-    context_id = gtk_statusbar_get_context_id (statusbar, "ObjectPos");
-    
-    postext = g_strdup_printf("%.3f, %.3f - %.3f, %.3f",
-			      tool->object->bounding_box.left,
-			      tool->object->bounding_box.top,
-			      tool->object->bounding_box.right,
-			      tool->object->bounding_box.bottom);
+    {
+      gchar *postext;
+      GtkStatusbar *statusbar = GTK_STATUSBAR (ddisp->modified_status);
+      guint context_id = gtk_statusbar_get_context_id (statusbar, "ObjectPos");
+      gtk_statusbar_pop (statusbar, context_id); 
+      postext = g_strdup_printf("%.3f, %.3f - %.3f, %.3f",
+			        tool->object->bounding_box.left,
+			        tool->object->bounding_box.top,
+			        tool->object->bounding_box.right,
+			        tool->object->bounding_box.bottom);
 			       
-    gtk_statusbar_pop (statusbar, context_id); 
-    gtk_statusbar_push (statusbar, context_id, postext);
-
-    g_free(postext);
+      gtk_statusbar_pop (statusbar, context_id); 
+      gtk_statusbar_push (statusbar, context_id, postext);
+      
+      g_free(postext);
+    }
 
     diagram_update_connections_selection(ddisp->diagram);
     diagram_flush(ddisp->diagram);
@@ -535,16 +535,19 @@ modify_motion(ModifyTool *tool, GdkEventMotion *event,
     }
 
     /* Put current mouse position in status bar */
-    statusbar = GTK_STATUSBAR (ddisp->modified_status);
-    context_id = gtk_statusbar_get_context_id (statusbar, "CursorPos");
+    {
+      gchar *postext;
+      GtkStatusbar *statusbar = GTK_STATUSBAR (ddisp->modified_status);
+      guint context_id = gtk_statusbar_get_context_id (statusbar, "ObjectPos");
     
-    postext = g_strdup_printf("%.3f, %.3f", to.x, to.y);
+      postext = g_strdup_printf("%.3f, %.3f", to.x, to.y);
 			       
-    gtk_statusbar_pop (statusbar, context_id); 
-    gtk_statusbar_push (statusbar, context_id, postext);
+      gtk_statusbar_pop (statusbar, context_id); 
+      gtk_statusbar_push (statusbar, context_id, postext);
 
-    g_free(postext);
-
+      g_free(postext);
+    }
+    
     object_add_updates(tool->object, ddisp->diagram);
 
     /* Handle undo */
@@ -629,6 +632,12 @@ modify_button_release(ModifyTool *tool, GdkEventButton *event,
   tool->break_connections = FALSE;
   ddisplay_set_all_cursor(default_cursor);
 
+  /* remove position from status bar */
+  {
+    GtkStatusbar *statusbar = GTK_STATUSBAR (ddisp->modified_status);
+    guint context_id = gtk_statusbar_get_context_id (statusbar, "ObjectPos");
+    gtk_statusbar_pop (statusbar, context_id);
+  }
   switch (tool->state) {
   case STATE_MOVE_OBJECT:
     /* Return to normal state */

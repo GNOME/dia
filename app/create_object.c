@@ -171,7 +171,14 @@ create_object_button_release(CreateObjectTool *tool, GdkEventButton *event,
     }
     tool->moving = FALSE;
     tool->handle = NULL;
-    tool->obj = NULL;
+    tool->obj = NULL;    
+  }
+  
+  {
+    /* remove position from status bar */
+    GtkStatusbar *statusbar = GTK_STATUSBAR (ddisp->modified_status);
+    guint context_id = gtk_statusbar_get_context_id (statusbar, "ObjectPos");
+    gtk_statusbar_pop (statusbar, context_id);
   }
   
   highlight_reset_all(ddisp->diagram);

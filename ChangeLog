@@ -1,3 +1,25 @@
+2008-04-19  Hans Breuer  <hans@breuer.org>
+
+	* app/diagram.c : put the modification mark ('*') in the window title
+	like other programs do, ...
+	* app/display : ... remove "Diagram modified" from the statusbar ...
+	* app/create_object.c app/modify_tool.c : ... and clean out temporary 
+	positions in button_release
+	* app/interface.[ch] : removed specialized handling of modification for 
+	integrated ui, it is not needed anymore
+	
+	* app/tool.h : remove unused struct _ToolInfo
+	
+	* lib/textline.c : an empyt text created bogus ascent/descent, it used 
+	to mean the fonts ascent/descent. Fixes e.g. the positioning of 
+	'UML - LargePackage' label
+
+	* objects/standard/textobj.c(textobj_load) : intialize TextObj::attrs 
+	from TextObj::text (bug #528903, Leon Stringer)
+	* objects/Istar/goal.c objects/Istar/other.c objects/Jackson/domain.c
+	  objects/SADT/box.c : had a similar problem leaving attrs 
+	 uninitialized in their create method
+
 2008-04-15  Steffen Macke  <sdteffen@sdteffen.de>
 
 	* shapes/Cisco/content_service_router.png:

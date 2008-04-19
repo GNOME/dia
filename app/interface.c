@@ -479,33 +479,6 @@ close_notebook_page_callback (GtkButton *button,
 }
 
 /**
- * Change diagram notebook label to show that the diagram has
- * been modified (or that it hasn't been modified).
- *
- * @param ddisp The display which needs the label updated.
- */
-void integrated_ui_show_diagram_modified_status (DDisplay *ddisp)
-{
-   GtkLabel * label = g_object_get_data (G_OBJECT (ddisp->container), "tab-label");
-   gchar * name;
-   
-   name = diagram_get_name (ddisp->diagram);
-
-   if (diagram_is_modified (ddisp->diagram))
-   {
-     gchar * text = g_strdup_printf ("*%s",name);
-     gtk_label_set_text (label, text);  
-     g_free (text);
-   }
-   else
-   {
-     gtk_label_set_text (label,name);  
-   }
-
-   g_free (name);
-}
-
-/**
  * @param ddisp The diagram display object that a window is created for
  * @param title
  */

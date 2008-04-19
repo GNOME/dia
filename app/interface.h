@@ -55,8 +55,6 @@ void     integrated_ui_main_statusbar_hide (void);
 
 int is_integrated_ui (void);
 
-void integrated_ui_show_diagram_modified_status (DDisplay *ddisp);
-
 void create_display_shell(DDisplay *ddisp,
 			  int width, int height,
 			  char *title, int use_mbar, int top_level_window);

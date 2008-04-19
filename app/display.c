@@ -91,35 +91,6 @@ update_zoom_status(DDisplay *ddisp)
 }
 
 static void
-update_modified_status(DDisplay *ddisp)
-{
-  GtkStatusbar *statusbar;
-  guint context_id;
-
-  if (is_integrated_ui ())
-  {
-     integrated_ui_show_diagram_modified_status (ddisp);
-     return;
-  }
-
-  if (diagram_is_modified(ddisp->diagram))
-  {
-    statusbar = GTK_STATUSBAR (ddisp->modified_status);
-    context_id = gtk_statusbar_get_context_id (statusbar, "Changed");
-  
-    gtk_statusbar_pop (statusbar, context_id); 
-    gtk_statusbar_push (statusbar, context_id, _("Diagram modified!"));
-  }
-  else
-  {
-    statusbar = GTK_STATUSBAR (ddisp->modified_status);
-    context_id = gtk_statusbar_get_context_id (statusbar, "Changed");
-  
-    gtk_statusbar_pop (statusbar, context_id); 
-  }
-}
-
-static void
 selection_changed (Diagram* dia, int n, DDisplay* ddisp)
 {
   GtkStatusbar *statusbar;
@@ -1446,7 +1417,6 @@ ddisplay_update_statusbar(DDisplay *ddisp)
   update_zoom_status (ddisp);
   update_snap_grid_status (ddisp);
   update_mainpoint_status (ddisp);
-  update_modified_status (ddisp);
 }
 
 void
