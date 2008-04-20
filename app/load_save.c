@@ -348,10 +348,8 @@ read_connections(GList *objects, xmlNodePtr layer_node,
          * may screw the auto-routing algorithm.
          */
         if (!broken && obj && obj->ops->set_props) {
-	  GPtrArray *props = g_ptr_array_new();
 	  /* called for it's side-effect of update_data */
-	  obj->ops->set_props (obj, props);
-	  g_ptr_array_free (props, TRUE);
+	  obj->ops->move(obj,&obj->position);
 
 	  for (handle = 0; handle < obj->num_handles; ++handle) {
 	    if (obj->handles[handle]->connected_to)
@@ -828,7 +826,7 @@ diagram_data_write_doc(DiagramData *data, const char *filename)
   GHashTable *objects_hash;
   gboolean res;
   int obj_nr;
-  int i;
+  guint i;
   Layer *layer;
   AttributeNode attr;
   xmlNs *name_space;

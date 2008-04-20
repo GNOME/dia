@@ -1,3 +1,15 @@
+2008-04-20  Hans Breuer  <hans@breuer.org>
+
+	* objects/UML/object.c : also write 'name' in text_color
+	* objects/UML/association.c : line_color and text_color
+	* objects/UML/component_feature.c : added line_color
+	* objects/UML/fork.c : added fill_color
+	* objects/UML/state_term.c : fill_color and line_color
+	* objects/UML/transition.c : fill_color and text_color
+	=> all UML shapes can be tinted now
+
+	* app/load_save.c : use 'obl->ops-move(obj,obj->position)'
+
 2008-04-19  Hans Breuer  <hans@breuer.org>
 
 	* app/diagram.c : put the modification mark ('*') in the window title

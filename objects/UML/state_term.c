@@ -46,6 +46,9 @@ struct _State {
   ConnectionPoint connections[NUM_CONNECTIONS];
 
   int is_final;
+  
+  Color line_color;
+  Color fill_color;
 };
 
 
@@ -118,6 +121,8 @@ static ObjectOps state_ops = {
 
 static PropDescription state_props[] = {
   ELEMENT_COMMON_PROPERTIES,
+  PROP_STD_LINE_COLOUR_OPTIONAL, 
+  PROP_STD_FILL_COLOUR_OPTIONAL, 
   { "is_final", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE,
   N_("Is final"), NULL, NULL },
   PROP_DESC_END
@@ -134,6 +139,8 @@ state_describe_props(State *state)
 
 static PropOffset state_offsets[] = {
   ELEMENT_COMMON_PROPERTIES_OFFSETS,
+  { "line_colour",PROP_TYPE_COLOUR,offsetof(State, line_color) },
+  { "fill_colour",PROP_TYPE_COLOUR,offsetof(State, fill_color) },
   { "is_final", PROP_TYPE_BOOL, offsetof(State, is_final) },
   
   { NULL, 0, 0 },
@@ -220,18 +227,18 @@ state_draw(State *state, DiaRenderer *renderer)
       renderer_ops->fill_ellipse(renderer, 
 				  &p1,
 				  r, r,
-				  &color_white);
+				  &state->fill_color);
       
       renderer_ops->draw_ellipse(renderer, 
 				  &p1,
 				  r, r,
-				  &color_black);
+				  &state->line_color);
    }  
    r = STATE_RATIO;
    renderer_ops->fill_ellipse(renderer, 
 			       &p1,
 			       r, r,
-			       &color_black);
+			       &state->line_color); /* line_color not a typo! */
 }
 
 
@@ -286,6 +293,8 @@ state_create(Point *startpoint,
   p.x += STATE_WIDTH/2.0;
   p.y += STATE_HEIGHT/2.0;
   
+  state->line_color = attributes_get_foreground();
+  state->fill_color = attributes_get_background();
   state->is_final = 0;
   element_init(elem, 8, NUM_CONNECTIONS);
   

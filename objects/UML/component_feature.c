@@ -35,6 +35,7 @@
 #include "orth_conn.h"
 #include "connectionpoint.h"
 #include "diarenderer.h"
+#include "attributes.h"
 #include "handle.h"
 #include "properties.h"
 #include "text.h"
@@ -70,6 +71,8 @@ struct _Compfeat {
   TextAttributes attrs;
   Point text_pos;
   Handle text_handle;
+  
+  Color line_color;
 };
 
 #define COMPPROP_WIDTH 0.1
@@ -153,6 +156,7 @@ static PropEnumData prop_compfeat_type_data[] = {
 
 static PropDescription compfeat_props[] = {
   ORTHCONN_COMMON_PROPERTIES,
+  PROP_STD_LINE_COLOUR_OPTIONAL, 
   { "role", PROP_TYPE_ENUM, 0, NULL, NULL, prop_compfeat_type_data },
   { "text", PROP_TYPE_TEXT, 0, N_("Text"), NULL, NULL },
   PROP_STD_TEXT_FONT,
@@ -220,6 +224,7 @@ compfeat_describe_props(Compfeat *compfeat)
 
 static PropOffset compfeat_offsets[] = {
   ORTHCONN_COMMON_PROPERTIES_OFFSETS,
+  { "line_colour",PROP_TYPE_COLOUR,offsetof(Compfeat, line_color) },
   { "role", PROP_TYPE_ENUM, offsetof(Compfeat, role) },
   { "text", PROP_TYPE_TEXT, offsetof(Compfeat, text) },
   { "text_font", PROP_TYPE_FONT, offsetof(Compfeat, attrs.font) },
@@ -349,7 +354,7 @@ compfeat_draw(Compfeat *compfeat, DiaRenderer *renderer)
   endarrow.type = compprop_arrow[compfeat->role];
   renderer_ops->draw_polyline_with_arrows(renderer, points, n,
  					  COMPPROP_WIDTH,
- 					  &color_black,
+ 					  &compfeat->line_color,
  					  &startarrow, &endarrow);
 
   text_draw(compfeat->text, renderer);
@@ -383,8 +388,9 @@ compfeat_create(Point *startpoint,
   p = *startpoint;
   p.y -= COMPPROP_TEXTOFFSET;
 
+  compfeat->line_color = attributes_get_foreground();
   compfeat->text = new_text("", font,
-			    COMPPROP_FONTHEIGHT, &p, &color_black,
+			    COMPPROP_FONTHEIGHT, &p, &compfeat->line_color,
 			    ALIGN_CENTER);
   dia_font_unref(font);
   text_get_attributes(compfeat->text, &compfeat->attrs);

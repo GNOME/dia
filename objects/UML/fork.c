@@ -44,6 +44,7 @@ typedef struct _Fork Fork;
 struct _Fork
 {
   Element element;
+  Color fill_color;
   ConnectionPoint connections[8];
 };
 
@@ -112,7 +113,7 @@ static ObjectOps fork_ops =
 
 static PropDescription fork_props[] = {
   ELEMENT_COMMON_PROPERTIES,
-  
+  PROP_STD_FILL_COLOUR_OPTIONAL,   
   PROP_DESC_END
 };
 
@@ -127,6 +128,7 @@ fork_describe_props(Fork *branch)
 
 static PropOffset fork_offsets[] = {
   ELEMENT_COMMON_PROPERTIES_OFFSETS,
+  { "fill_colour",PROP_TYPE_COLOUR,offsetof(Fork, fill_color) },
   { NULL, 0, 0 },
 };
 
@@ -221,7 +223,7 @@ static void fork_draw(Fork *branch, DiaRenderer *renderer)
    
   renderer_ops->fill_rect(renderer, 
 			   &p1, &p2,
-			   &color_black);
+			   &branch->fill_color);
 }
 
 static void fork_update_data(Fork *branch)
@@ -268,6 +270,8 @@ static DiaObject *fork_create(Point *startpoint, void *user_data, Handle **handl
   elem->width = FORK_WIDTH;
   elem->height = FORK_HEIGHT;
   element_init(elem, 8, 8);
+
+  branch->fill_color = attributes_get_foreground();
 
   for (i=0;i<8;i++)
     {

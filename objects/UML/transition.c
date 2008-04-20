@@ -26,6 +26,7 @@
 
 #include "orth_conn.h"
 #include "diarenderer.h"
+#include "attributes.h"
 
 #include "pixmaps/transition.xpm"
 
@@ -36,6 +37,9 @@ typedef struct _Transition Transition;
 struct _Transition {
   OrthConn orth;
   
+  Color text_color;
+  Color line_color;
+
   Handle trigger_text_handle;
   Point trigger_text_pos;
   gchar *trigger_text;
@@ -131,6 +135,9 @@ static ObjectOps uml_transition_ops = {
 
 static PropDescription transition_props[] = {
   ORTHCONN_COMMON_PROPERTIES,
+  /* can't use PROP_STD_TEXT_COLOUR_OPTIONAL cause it has PROP_FLAG_DONT_SAVE. It is designed to fill the Text object - not some subset */
+  PROP_STD_TEXT_COLOUR_OPTIONS(PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD|PROP_FLAG_OPTIONAL),
+  PROP_STD_LINE_COLOUR_OPTIONAL, 
   { "trigger", PROP_TYPE_STRING, PROP_FLAG_VISIBLE, N_("Trigger"), 
     N_("The event that causes this transition to be taken"), NULL },
   { "action", PROP_TYPE_STRING, PROP_FLAG_VISIBLE, N_("Action"),
@@ -145,7 +152,9 @@ static PropDescription transition_props[] = {
 
 
 static PropOffset transition_offsets[] = {
-  ORTHCONN_COMMON_PROPERTIES_OFFSETS,           
+  ORTHCONN_COMMON_PROPERTIES_OFFSETS,
+  { "text_colour",PROP_TYPE_COLOUR,offsetof(Transition, text_color) },
+  { "line_colour",PROP_TYPE_COLOUR,offsetof(Transition, line_color) },
   { "trigger", PROP_TYPE_STRING, offsetof(Transition, trigger_text) },
   { "action", PROP_TYPE_STRING, offsetof(Transition, action_text) },
   { "guard", PROP_TYPE_STRING, offsetof(Transition, guard_text) },
@@ -199,6 +208,8 @@ transition_create(Point *startpoint,
   
   orthconn_init(orth, startpoint);
   
+  transition->text_color = color_black;
+  transition->line_color = attributes_get_foreground();
   /* Prepare the handles for trigger and guard text */
   transition->trigger_text_handle.id = HANDLE_MOVE_TRIGGER_TEXT;
   transition->trigger_text_handle.type = HANDLE_MINOR_CONTROL;
@@ -358,7 +369,7 @@ static void transition_draw(Transition* transition, DiaRenderer* renderer)
   }
   renderer_ops->draw_polyline_with_arrows(renderer, points, num_points,
                                           TRANSITION_WIDTH,
-                                          &color_black, /* TODO, allow colors */
+                                          &transition->line_color,
                                           start_arrow, end_arrow);
 
 
@@ -373,7 +384,7 @@ static void transition_draw(Transition* transition, DiaRenderer* renderer)
                               text,
                               &transition->guard_text_pos,
                               ALIGN_CENTER,
-                              &color_black); /* TODO, allow other colors */
+                              &transition->text_color);
     g_free(text);
   }
   
@@ -385,7 +396,7 @@ static void transition_draw(Transition* transition, DiaRenderer* renderer)
                               text,
                               &transition->trigger_text_pos,
                               ALIGN_CENTER,
-                              &color_black); /* TODO, allow other colors */
+                              &transition->text_color);
     g_free(text);
   }
   

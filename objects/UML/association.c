@@ -134,6 +134,9 @@ struct _Association {
 
   AssociationEnd end[2];
   
+  Color text_color;
+  Color line_color;
+
   AssociationPropertiesDialog* properties_dialog;
 };
 
@@ -252,6 +255,8 @@ association_describe_props(Association *assoc)
 
 static PropOffset association_offsets[] = {
   ORTHCONN_COMMON_PROPERTIES_OFFSETS,
+  { "line_colour",PROP_TYPE_COLOUR,offsetof(Association, line_color) },
+  { "text_colour", PROP_TYPE_COLOUR, offsetof(Association, text_color) },
   { "name", PROP_TYPE_STRING, offsetof(Association, name) },
   { NULL, 0, 0 }
 };
@@ -357,7 +362,7 @@ association_draw(Association *assoc, DiaRenderer *renderer)
   }
   renderer_ops->draw_polyline_with_arrows(renderer, points, n,
 					   ASSOCIATION_WIDTH,
-					   &color_black,
+					   &assoc->line_color,
 					   &startarrow, &endarrow);
 
   /* Name: */
@@ -367,7 +372,7 @@ association_draw(Association *assoc, DiaRenderer *renderer)
     pos = assoc->text_pos;
     renderer_ops->draw_string(renderer, assoc->name,
 			       &pos, assoc->text_align,
-			       &color_black);
+			       &assoc->text_color);
   }
 
   /* Direction: */
@@ -385,7 +390,7 @@ association_draw(Association *assoc, DiaRenderer *renderer)
     poly[1].y = poly[0].y - ASSOCIATION_FONTHEIGHT*0.5;
     poly[2].x = poly[0].x + ASSOCIATION_FONTHEIGHT*0.5;
     poly[2].y = poly[0].y - ASSOCIATION_FONTHEIGHT*0.5*0.5;
-    renderer_ops->fill_polygon(renderer, poly, 3, &color_black);
+    renderer_ops->fill_polygon(renderer, poly, 3, &assoc->line_color);
     break;
   case ASSOC_LEFT:
     poly[0].x = assoc->text_pos.x - 0.2;
@@ -396,7 +401,7 @@ association_draw(Association *assoc, DiaRenderer *renderer)
     poly[1].y = poly[0].y - ASSOCIATION_FONTHEIGHT*0.5;
     poly[2].x = poly[0].x - ASSOCIATION_FONTHEIGHT*0.5;
     poly[2].y = poly[0].y - ASSOCIATION_FONTHEIGHT*0.5*0.5;
-    renderer_ops->fill_polygon(renderer, poly, 3, &color_black);
+    renderer_ops->fill_polygon(renderer, poly, 3, &assoc->line_color);
     break;
   }
 
@@ -411,14 +416,14 @@ association_draw(Association *assoc, DiaRenderer *renderer)
                                 role_name,
 				&pos, 
 				end->text_align,
-				&color_black);
+				&assoc->text_color);
       g_free (role_name);
       pos.y += ASSOCIATION_FONTHEIGHT;
     }
     if (end->multiplicity != NULL) {
       renderer_ops->draw_string(renderer, end->multiplicity,
 				 &pos, end->text_align,
-				 &color_black);
+				 &assoc->text_color);
     }
   }
 }
@@ -717,6 +722,8 @@ association_create(Point *startpoint,
 
   orthconn_init(orth, startpoint);
   
+  assoc->text_color = color_black;
+  assoc->line_color = attributes_get_foreground();
   assoc->name = NULL;
   assoc->direction = ASSOC_NODIR;
   for (i=0;i<2;i++) {
