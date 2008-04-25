@@ -188,7 +188,7 @@ static PropDescription table_props[] =
     { "bold_primary_keys", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
       N_("Use bold font for primary keys"), NULL, NULL },
 
-    PROP_STD_MULTICOL_BEGIN,
+    PROP_MULTICOL_BEGIN("table"),
     PROP_MULTICOL_COLUMN("font"),
     { "normal_font", PROP_TYPE_FONT, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
       N_("Normal"), NULL, NULL },
@@ -203,7 +203,7 @@ static PropDescription table_props[] =
       N_(" "), NULL, NULL },
     { "comment_font_height", PROP_TYPE_REAL, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
       N_(" "), NULL, NULL },
-    PROP_STD_MULTICOL_END,
+    PROP_MULTICOL_END("table"),
 
     { "attributes", PROP_TYPE_DARRAY, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL | PROP_FLAG_DONT_MERGE | PROP_FLAG_NO_DEFAULTS,
       N_("Attributes"), NULL, &table_attribute_extra },
@@ -225,7 +225,7 @@ static PropOffset table_offsets[] = {
   { "underline_primary_key", PROP_TYPE_BOOL, offsetof(Table, underline_primary_key) },
   { "bold_primary_keys", PROP_TYPE_BOOL, offsetof(Table, bold_primary_key) },
 
-  PROP_OFFSET_STD_MULTICOL_BEGIN,
+  PROP_OFFSET_MULTICOL_BEGIN("table"),
   PROP_OFFSET_MULTICOL_COLUMN("font"),
   { "normal_font", PROP_TYPE_FONT, offsetof(Table, normal_font) },
   { "name_font", PROP_TYPE_FONT, offsetof(Table, name_font) },
@@ -235,7 +235,7 @@ static PropOffset table_offsets[] = {
   { "normal_font_height", PROP_TYPE_REAL, offsetof(Table, normal_font_height) },
   { "name_font_height", PROP_TYPE_REAL, offsetof(Table, name_font_height) },
   { "comment_font_height", PROP_TYPE_REAL, offsetof(Table, comment_font_height) },
-  PROP_OFFSET_STD_MULTICOL_END,
+  PROP_OFFSET_MULTICOL_END("table"),
 
   { "attributes", PROP_TYPE_DARRAY, offsetof(Table, attributes) },
 

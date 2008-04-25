@@ -176,7 +176,7 @@ property_signal_handler(GtkObject *obj,
     PropDialog *dialog = ped->dialog;
     Property *prop = ped->self;
     DiaObject *obj = dialog->obj_copy;
-    int j;
+    guint j;
 
     g_assert(obj);
     g_assert(object_complies_with_stdprop(obj));
@@ -277,16 +277,15 @@ static void
 prop_dialog_add_properties(PropDialog *dialog, GPtrArray *props)
 {
   guint i;
-  gboolean scrollable = (props->len > 12);
+  gboolean scrollable = (props->len > 16);
 
   if (scrollable) {
     GtkWidget *swin = gtk_scrolled_window_new (NULL, NULL); 
-    GtkWidget *vbox = gtk_vbox_new(FALSE,0);
+    GtkWidget *vbox = gtk_vbox_new(FALSE,2);
     gtk_box_pack_start(GTK_BOX (dialog->widget), swin, TRUE, TRUE, 0);
     gtk_widget_show (swin);
     gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (swin), vbox);
-    /* I'd say default size calculation for scrollable is quite broken */
-    gtk_widget_set_size_request (swin, -1, 400);
+    gtk_viewport_set_shadow_type(GTK_VIEWPORT(GTK_BIN(swin)->child), GTK_SHADOW_NONE);
     gtk_widget_show (vbox);
     gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (swin), GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
     prop_dialog_container_push (dialog, swin);
@@ -300,6 +299,13 @@ prop_dialog_add_properties(PropDialog *dialog, GPtrArray *props)
   }
 
   if (scrollable) {
+    GtkRequisition requisition;
+    GtkWidget *vbox = prop_dialog_container_pop(dialog);
+    GtkWidget *swin = prop_dialog_container_pop(dialog);
+    
+    gtk_widget_size_request (vbox, &requisition);
+    /* I'd say default size calculation for scrollable is quite broken */
+    gtk_widget_set_size_request (swin, -1, requisition.height > 400 ? 400 : requisition.height);    
   }
 }
 

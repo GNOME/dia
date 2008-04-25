@@ -140,7 +140,7 @@ static PropNumData step_range = { 0.0, 1000.0, 0.1};
 
 static PropDescription chronoref_props[] = {
   ELEMENT_COMMON_PROPERTIES,
-  PROP_STD_MULTICOL_BEGIN,
+  PROP_MULTICOL_BEGIN("chronoref"),
 
   PROP_MULTICOL_COLUMN("time"),
   PROP_FRAME_BEGIN("time",0,N_("Time data")),
@@ -170,7 +170,7 @@ static PropDescription chronoref_props[] = {
     N_("Text color"), NULL, NULL },
   PROP_FRAME_END("aspect",0),
 
-  PROP_STD_MULTICOL_END,
+  PROP_MULTICOL_END("chronoref"),
   {NULL}
 };
 
@@ -185,7 +185,7 @@ chronoref_describe_props(Chronoref *chronoref)
 
 static PropOffset chronoref_offsets[] = {
   ELEMENT_COMMON_PROPERTIES_OFFSETS,
-  PROP_OFFSET_STD_MULTICOL_BEGIN,
+  PROP_OFFSET_MULTICOL_BEGIN("chronref"),
 
   PROP_OFFSET_MULTICOL_COLUMN("time"),
   PROP_OFFSET_FRAME_BEGIN("time"),
@@ -205,7 +205,7 @@ static PropOffset chronoref_offsets[] = {
   { "font_color", PROP_TYPE_COLOUR, offsetof(Chronoref,font_color)},
   PROP_OFFSET_FRAME_END("aspect"),
 
-  PROP_OFFSET_STD_MULTICOL_END,
+  PROP_OFFSET_MULTICOL_END("chronref"),
   {NULL}
 };
 

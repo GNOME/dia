@@ -169,7 +169,7 @@ static PropDescription umlclass_props[] = {
 
   /* all this just to make the defaults selectable ... */
   PROP_NOTEBOOK_PAGE("font", PROP_FLAG_DONT_MERGE, N_("Font")),
-  PROP_STD_MULTICOL_BEGIN,
+  PROP_MULTICOL_BEGIN("class"),
   PROP_MULTICOL_COLUMN("font"),
   /* FIXME: apparently multicol does not work correctly, this should be FIRST column */
   { "normal_font", PROP_TYPE_FONT, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
@@ -198,7 +198,7 @@ static PropDescription umlclass_props[] = {
   N_(" "), NULL, NULL },
   { "comment_font_height", PROP_TYPE_REAL, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
   N_(" "), NULL, NULL },
-  PROP_STD_MULTICOL_END,
+  PROP_MULTICOL_END("class"),
   PROP_STD_NOTEBOOK_END,
 
   /* these are used during load, but currently not during save */
@@ -269,7 +269,7 @@ static PropOffset umlclass_offsets[] = {
   { "comment_tagging", PROP_TYPE_BOOL, offsetof(UMLClass, comment_tagging) },
   
   /* all this just to make the defaults selectable ... */
-  PROP_OFFSET_STD_MULTICOL_BEGIN,
+  PROP_OFFSET_MULTICOL_BEGIN("class"),
   PROP_OFFSET_MULTICOL_COLUMN("font"),
   { "normal_font", PROP_TYPE_FONT, offsetof(UMLClass, normal_font) },
   { "abstract_font", PROP_TYPE_FONT, offsetof(UMLClass, abstract_font) },
@@ -285,7 +285,7 @@ static PropOffset umlclass_offsets[] = {
   { "classname_font_height", PROP_TYPE_REAL, offsetof(UMLClass, classname_font_height) },
   { "abstract_classname_font_height", PROP_TYPE_REAL, offsetof(UMLClass, abstract_classname_font_height) },
   { "comment_font_height", PROP_TYPE_REAL, offsetof(UMLClass, comment_font_height) },
-  PROP_OFFSET_STD_MULTICOL_END,
+  PROP_OFFSET_MULTICOL_END("class"),
 
   { "operations", PROP_TYPE_DARRAY, offsetof(UMLClass , operations) },
   { "attributes", PROP_TYPE_DARRAY, offsetof(UMLClass , attributes) } ,

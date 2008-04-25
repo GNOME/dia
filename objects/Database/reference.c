@@ -111,14 +111,14 @@ static PropDescription reference_props[] =
       N_("Start description"), NULL, NULL },
     { "end_point_desc", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
       N_("End description"), NULL, NULL },
-    PROP_STD_MULTICOL_BEGIN,
+    PROP_MULTICOL_BEGIN("reference"),
     PROP_MULTICOL_COLUMN("font"),
     { "normal_font", PROP_TYPE_FONT, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
       N_("Font"), NULL, NULL },
     PROP_MULTICOL_COLUMN("height"),
     { "normal_font_height", PROP_TYPE_REAL, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
       N_(" "), NULL, NULL },
-    PROP_STD_MULTICOL_END,
+    PROP_MULTICOL_END("reference"),
     PROP_DESC_END
   };
 

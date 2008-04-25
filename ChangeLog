@@ -1,5 +1,16 @@
 2008-04-25  Hans Breuer  <hans@breuer.org>
 
+	* lib/propdialogs.c(property_signal_handler) : get rid of 
+	signed/unsigned warning
+	(prop_dialog_add_properties) : better guess on the required size 
+	of the scrollable area. Never make it bigger than the full content.
+	
+	* lib/properties.h : remove defintions for PROP_STD_MULTICOL_*, these
+	format helpers need to be unique in case of being combined in the
+	group properties dialog across such objects
+	* objects/chronogram/chronoref.c objects/Database/reference.c
+	  objects/Database/table.c objects/UML/class.c : updated accordingly
+
 	* objects/misc/misc.c : remove registration of newgroup here
 	* app/app_procs.c : use USE_NEWGROUP to conditionally register 
 	newgroup_type (default disabled, because it is unfinished) ...
