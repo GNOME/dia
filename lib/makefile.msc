@@ -77,6 +77,7 @@ OBJECTS = \
 	group.obj \
 	intl.obj \
 	message.obj \
+	newgroup.obj \
 	neworth_conn.obj \
 	objchange.obj \
 	object.obj \

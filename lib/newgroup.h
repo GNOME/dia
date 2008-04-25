@@ -18,7 +18,11 @@
 
 #ifndef NEWGROUP_H
 #define NEWGROUP_H
+
+#include "diavar.h"
 /*
 #define USE_NEWGROUP 1
 */
+DIAVAR DiaObjectType newgroup_type;
+
 #endif

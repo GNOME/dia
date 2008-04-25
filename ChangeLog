@@ -1,3 +1,13 @@
+2008-04-25  Hans Breuer  <hans@breuer.org>
+
+	* objects/misc/misc.c : remove registration of newgroup here
+	* app/app_procs.c : use USE_NEWGROUP to conditionally register 
+	newgroup_type (default disabled, because it is unfinished) ...
+	* lib/newgroup.h : ... make newgroup_type a DIAVAR to be useable 
+	in principle on win32. Together fixes bug #505513 
+	* lib/newgroup.c : #warning is a gcc extension, conditionalize
+	* lib/makefile.msc : build newgroup.obj
+
 2008-04-20  Hans Breuer  <hans@breuer.org>
 
 	* objects/UML/object.c : also write 'name' in text_color

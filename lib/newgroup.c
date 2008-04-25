@@ -111,7 +111,11 @@ static ObjectOps newgroup_ops = {
   (GetPropsFunc)        newgroup_get_props,
   (SetPropsFunc)        newgroup_set_props,
   (TextEditFunc) 0,
+#ifdef __GNUC__
   #warning NewGroup requires a function in the vtable to apply props
+#else
+  #pragma message("warning: NewGroup requires a function in the vtable to apply props")
+#endif
 };
 
 static PropDescription newgroup_props[] = {
