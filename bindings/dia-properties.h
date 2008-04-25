@@ -6,7 +6,6 @@
 #ifndef DIA__PROPERTIES_H
 #define DIA__PROPERTIES_H
 
-#include <string>
 #include <vector>
 
 #include "properties.h"

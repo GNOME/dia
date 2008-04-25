@@ -364,8 +364,10 @@ void
 diagram_modified(Diagram *dia)
 {
   GSList *displays;
-  gchar *title = g_strdup_printf ("%s%s", diagram_is_modified(dia) ? "*" : "", diagram_get_name(dia));
+  gchar *dia_name = diagram_get_name(dia);
+  gchar *title = g_strdup_printf ("%s%s", diagram_is_modified(dia) ? "*" : "", dia_name);
 
+  g_free (dia_name);
   displays = dia->displays;
   while (displays!=NULL) {
     DDisplay *ddisp = (DDisplay *) displays->data;

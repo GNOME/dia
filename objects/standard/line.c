@@ -412,6 +412,7 @@ line_create(Point *startpoint,
 static void
 line_destroy(Line *line)
 {
+  connpointline_destroy(line->cpl);
   connection_destroy(&line->connection);
 }
 

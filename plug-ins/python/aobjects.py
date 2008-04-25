@@ -66,6 +66,9 @@ def aobjects_cb(data, flags) :
 				continue # can't create empty group
 			#print st
 			o, h1, h2 = dia.get_object_type(st).create (cx, cy)
+			# make it a bit more interesting
+			if o.properties.has_key("name") :
+				o.properties["name"] = st
 			w = o.bounding_box.right - o.bounding_box.left
 			h = o.bounding_box.bottom - o.bounding_box.top
 			o.move (cx, cy)

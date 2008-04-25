@@ -1,5 +1,18 @@
 2008-04-25  Hans Breuer  <hans@breuer.org>
 
+	* lib/diagdkrenderer.c lib/diasvgrenderer.c lib/dialibartrenderer.c 
+	  app/diapsrenderer.c app/diapsft2renderer.c : all 
+	DiaRenderer::draw_string() methods	were leaking their text_line
+	* lib/textline.c(text_line_destroy) : use clear_layout_offset()
+	instead of leaking cached values
+	* lib/autoroute.c : othconn_set_points does not eat points
+	* app/diagram.c : return of diagram_get_name() must be free'd
+	* objects/standard/line.c : connpointline_create must be paired with
+	connpointline_destroy()
+	* objects/standard/outline.c : object_init() needs object_destroy()
+	* objects/UML/state.c : don't miss to free action strings
+	* objects/UML/transition.c : also leaking strings
+
 	* plug-ins/vdx/vdx-import.c : minimal handling of vdx:PolylineTo
 	to avoid an endless loop, fixes bug #529882
 

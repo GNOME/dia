@@ -655,6 +655,7 @@ draw_string(DiaRenderer *self,
 #ifdef DRAW_STRING_WITH_TEXT_LINE
   TextLine *text_line = text_line_new(text, self->font, self->font_height);
   draw_text_line(self, text_line, pos, alignment, color);
+  text_line_destroy(text_line);
 #else
   DiaPsRenderer *renderer = DIA_PS_RENDERER(self);
   gchar *buffer;

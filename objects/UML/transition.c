@@ -288,6 +288,9 @@ transition_describe_props(Transition *transition)
 static void
 transition_destroy(Transition* transition)
 {
+  g_free (transition->trigger_text);
+  g_free (transition->action_text);
+  g_free (transition->guard_text);
   orthconn_destroy(&transition->orth);
 }
 

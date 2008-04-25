@@ -2162,6 +2162,7 @@ dia_toggle_button_new(GtkWidget *on_widget, GtkWidget *off_widget)
   gtk_widget_style_get_property(GTK_WIDGET(button), "focus-padding", prop);
   i = g_value_get_int(prop);
   g_value_set_int(prop, 0);
+  g_free(prop);
 
   gtk_button_set_relief(GTK_BUTTON(button), GTK_RELIEF_NONE);
   /*  gtk_button_set_focus_on_click(GTK_BUTTON(button), FALSE);*/

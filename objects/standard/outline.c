@@ -489,6 +489,7 @@ outline_destroy (Outline *outline)
   if (outline->path)
     cairo_path_destroy (outline->path);
   g_free (outline->name);
+  object_destroy(&outline->object);
   /* but not the object itself? */
 }
 static void 

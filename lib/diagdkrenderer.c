@@ -633,6 +633,7 @@ draw_string (DiaRenderer *object,
 {
   TextLine *text_line = text_line_new(text, object->font, object->font_height);
   draw_text_line(object, text_line, pos, alignment, color);
+  text_line_destroy(text_line);
 }
 
 #ifdef HAVE_FREETYPE

@@ -459,6 +459,10 @@ state_create(Point *startpoint,
 static void
 state_destroy(State *state)
 {
+  g_free (state->entry_action);
+  g_free (state->do_action);
+  g_free (state->exit_action);
+
   text_destroy(state->text);
 
   element_destroy(&state->element);

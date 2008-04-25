@@ -35,6 +35,7 @@
 
 static void text_line_dirty_cache(TextLine *text_line);
 static void text_line_cache_values(TextLine *text_line);
+static void clear_layout_offset (TextLine *text_line);
 
 /** Sets this object to display a particular string.
  * @param text_line The object to change.
@@ -123,7 +124,8 @@ text_line_destroy(TextLine *text_line)
   if (text_line->font != NULL) {
     dia_font_unref(text_line->font);
   }
-  /* TODO: Handle renderer's cached content. */
+  clear_layout_offset (text_line);
+  g_free (text_line->offsets);
   g_free(text_line);
 }
 

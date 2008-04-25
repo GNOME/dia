@@ -148,6 +148,7 @@ autoroute_layout_orthconn(OrthConn *conn,
   
   if (min_badness < MAX_BADNESS) {
     orthconn_set_points(conn, best_num_points, best_layout);
+    g_free(best_layout);
     return TRUE;
   } else {
     g_free(best_layout);

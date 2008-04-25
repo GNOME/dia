@@ -343,6 +343,7 @@ draw_string(DiaRenderer *self,
 				      renderer->current_height);
   real width = text_line_get_width(text_line);
   draw_text_line(self, text_line, pos, alignment, color);
+  text_line_destroy(text_line);
 }
 
 static void

@@ -1225,6 +1225,7 @@ draw_string (DiaRenderer *self,
 {
   TextLine *text_line = text_line_new(text, self->font, self->font_height);
   draw_text_line(self, text_line, pos, alignment, color);
+  text_line_destroy(text_line);
 }
 
 
