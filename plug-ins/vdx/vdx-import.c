@@ -820,6 +820,7 @@ plot_polyline(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm,
     const GSList *item;
     struct vdx_MoveTo *MoveTo;
     struct vdx_LineTo *LineTo;
+    struct vdx_PolylineTo *PolylineTo;
     struct vdx_ArcTo *ArcTo;
     struct vdx_any *Any;
     Point *points, p;
@@ -855,6 +856,10 @@ plot_polyline(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm,
             if (LineTo->Del) continue;
             p.x = LineTo->X; p.y = LineTo->Y;
             break;
+	case vdx_types_PolylineTo:
+            PolylineTo = (struct vdx_PolylineTo*)(item->data);
+            p.x = PolylineTo->X; p.y = PolylineTo->Y;
+	    break;
         case vdx_types_MoveTo:
             MoveTo = (struct vdx_MoveTo*)(item->data);
             p.x = MoveTo->X; p.y = MoveTo->Y;

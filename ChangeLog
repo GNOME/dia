@@ -1,5 +1,8 @@
 2008-04-25  Hans Breuer  <hans@breuer.org>
 
+	* plug-ins/vdx/vdx-import.c : minimal handling of vdx:PolylineTo
+	to avoid an endless loop, fixes bug #529882
+
 	* lib/propdialogs.c(property_signal_handler) : get rid of 
 	signed/unsigned warning
 	(prop_dialog_add_properties) : better guess on the required size 
