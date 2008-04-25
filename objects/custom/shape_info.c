@@ -191,12 +191,12 @@ parse_path(ShapeInfo *info, const char *path_str, DiaSvgStyle *s, const char* fi
 }
 
 static gboolean
-is_subshape(xmlElement* elt)
+is_subshape(xmlNode* node)
 {
   gboolean res = FALSE;
 
-  if (xmlHasProp(elt, "subshape")) {
-    gchar* value = xmlGetProp(elt, "subshape");
+  if (xmlHasProp(node, "subshape")) {
+    gchar* value = xmlGetProp(node, "subshape");
     
     if (!strcmp(value, "true"))
       res = TRUE;
@@ -453,7 +453,7 @@ parse_svg_node(ShapeInfo *info, xmlNodePtr node, xmlNsPtr svg_ns,
         xmlFree(str);
       }
     } else if (!xmlStrcmp(node->name, (const xmlChar *)"g")) {
-      if (!is_subshape((xmlElement*)node)) {
+      if (!is_subshape(node)) {
           /* add elements from the group element */
         parse_svg_node(info, node, svg_ns, &s, filename);
       } else {
@@ -467,8 +467,8 @@ parse_svg_node(ShapeInfo *info, xmlNodePtr node, xmlNsPtr svg_ns,
                 DIA_SVG_LINEJOIN_DEFAULT,
                 DIA_SVG_LINESTYLE_DEFAULT, 1.0
         };
-        xmlAttrPtr v_anchor_attr = xmlGetProp(node,"v_anchor");
-        xmlAttrPtr h_anchor_attr = xmlGetProp(node,"h_anchor");
+        xmlChar *v_anchor_attr = xmlGetProp(node,"v_anchor");
+        xmlChar *h_anchor_attr = xmlGetProp(node,"h_anchor");
       
         parse_svg_node(tmpinfo, node, svg_ns, &tmp_s, filename);
         
@@ -683,8 +683,14 @@ load_shape_info(const gchar *filename, ShapeInfo *preload)
       xmlFree(tmp);
     } else if (node->ns == shape_ns && !xmlStrcmp(node->name, (const xmlChar *)"icon")) {
       tmp = (gchar *) xmlNodeGetContent(node);
-      g_free(info->icon);
-      info->icon = custom_get_relative_filename(filename, tmp);
+      if (preload) { 
+        if (strstr (info->icon, tmp) == NULL) /* the left including the absolute path */
+          g_warning ("Shape(preload) '%s' can't change icon '%s'", info->icon, tmp);
+        /* the key name is already used as key in name_to_info */
+      } else {
+        g_free(info->icon);
+        info->icon = custom_get_relative_filename(filename, tmp);
+      }
       xmlFree(tmp);
     } else if (node->ns == shape_ns && !xmlStrcmp(node->name, (const xmlChar *)"connections")) {
       GArray *arr = g_array_new(FALSE, FALSE, sizeof(Point));

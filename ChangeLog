@@ -1,5 +1,10 @@
 2008-04-25  Hans Breuer  <hans@breuer.org>
 
+	* objects/custom/shape_info.c : don't mess with info->icon after
+	preload (valgrind complained about invalid reads of free'd strings
+	and sometimes there was a missing icon in the toolbox. Also fixed
+	some type cast warnings
+
 	* lib/diagdkrenderer.c lib/diasvgrenderer.c lib/dialibartrenderer.c 
 	  app/diapsrenderer.c app/diapsft2renderer.c : all 
 	DiaRenderer::draw_string() methods	were leaking their text_line
