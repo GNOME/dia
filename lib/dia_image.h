@@ -23,6 +23,8 @@
 
 #include "geometry.h"
 
+typedef struct _GdkPixbuf GdkPixbuf;
+
 void dia_image_init(void);
 
 DiaImage dia_image_get_broken(void);
@@ -51,6 +53,7 @@ guint8 *dia_image_mask_data(DiaImage image);
  */
 const guint8 *dia_image_rgba_data(DiaImage image);
 const char *dia_image_filename(DiaImage image);
+const GdkPixbuf* dia_image_pixbuf (DiaImage image);
 
 #endif /* DIA_IMAGE_H */
 

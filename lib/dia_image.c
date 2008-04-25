@@ -202,6 +202,15 @@ dia_image_rowstride(DiaImage image)
 {
   return gdk_pixbuf_get_rowstride(image->image);
 }
+/** Direct const access to the underlying GdkPixbuf
+ * @param image An image object
+ * @returns The pixbuf
+ */
+const GdkPixbuf* 
+dia_image_pixbuf (DiaImage image)
+{
+  return image->image;
+}
 
 /** Get the raw RGB data from an image.
  * @param image An image object.

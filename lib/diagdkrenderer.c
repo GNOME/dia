@@ -802,14 +802,45 @@ draw_image (DiaRenderer *object,
     self_class->fill_rect(object, point, &lr, renderer->highlight_color);
   } else {
     int real_width, real_height, real_x, real_y;
-  
+    const GdkPixbuf *org = dia_image_pixbuf (image);
+    int org_width = gdk_pixbuf_get_width(org);
+    int org_height = gdk_pixbuf_get_height(org);
+    
     real_width = dia_transform_length(renderer->transform, width);
     real_height = dia_transform_length(renderer->transform, height);
     dia_transform_coords(renderer->transform, point->x, point->y,
 			 &real_x, &real_y);
 
-    dia_image_draw(image,  renderer->pixmap, renderer->gc, real_x, real_y,
-		   real_width, real_height);
+    if (real_width == org_width && real_height == org_height) {
+      gdk_draw_pixbuf(renderer->pixmap, renderer->gc, org,
+		      0, 0, real_x, real_y, real_width, real_height, 
+		      GDK_RGB_DITHER_NORMAL, 0, 0);
+    } else if (real_width > org_width || real_height > org_height) {
+      /* don't use dia_image_draw for big zooms, it scales the whole pixbuf even if not needed */
+      int sub_width = real_width - (real_x >= 0 ? 0 : -real_x);
+      int sub_height = real_height - (real_y >= 0 ? 0 : -real_y);
+
+      if (sub_height > 0 && sub_width > 0) {
+        GdkPixbuf *scaled = gdk_pixbuf_new (gdk_pixbuf_get_colorspace (org),
+                                            gdk_pixbuf_get_has_alpha (org),
+					    gdk_pixbuf_get_bits_per_sample (org),
+					    sub_width, sub_height);
+        double scale_x = (double)real_width/org_width;
+        double scale_y = (double)real_height/org_height;
+        gdk_pixbuf_scale (org, scaled,
+                          0, 0, sub_width, sub_height,
+			  real_x >= 0 ? 0 : real_x, real_y >= 0 ? 0 : real_y,
+			  scale_x, scale_y, GDK_INTERP_TILES);
+        gdk_draw_pixbuf(renderer->pixmap, renderer->gc, scaled,
+		        0, 0, real_x >= 0 ? real_x : 0, real_y >= 0 ? real_y : 0, 
+		        sub_width, sub_height, GDK_RGB_DITHER_NORMAL, 0, 0);
+        g_object_unref (scaled);
+      }
+    } else {
+      /* otherwise still using the caching variant */
+      dia_image_draw(image,  renderer->pixmap, renderer->gc, real_x, real_y,
+		     real_width, real_height);
+    }
   }
 }
 
