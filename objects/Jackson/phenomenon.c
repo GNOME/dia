@@ -140,8 +140,10 @@ static PropEnumData prop_message_type_data[] = {
 
 static PropDescription message_props[] = {
   CONNECTION_COMMON_PROPERTIES,
-  { "text", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
-    N_("Message:"), NULL, NULL },
+  /* backward compatibility */
+  { "text", PROP_TYPE_STRING, PROP_FLAG_NO_DEFAULTS|PROP_FLAG_LOAD_ONLY|PROP_FLAG_OPTIONAL, N_("Message:"), NULL, NULL },
+  /* new name matching "same name, same type"  rule */
+  { "name", PROP_TYPE_STRING, PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL, N_("Message:"), NULL, NULL },
   { "type", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE,
     N_("Type:"), NULL, prop_message_type_data },
   { "text_pos", PROP_TYPE_POINT, 0,
@@ -160,7 +162,10 @@ message_describe_props(Message *mes)
 
 static PropOffset message_offsets[] = {
   CONNECTION_COMMON_PROPERTIES_OFFSETS,
+  /* backward compatibility */
   { "text", PROP_TYPE_STRING, offsetof(Message, text) },
+  /* new name matching "same name, same type"  rule */
+  { "name", PROP_TYPE_STRING, offsetof(Message, text) },
   { "type", PROP_TYPE_ENUM, offsetof(Message, type) },
   { "text_pos", PROP_TYPE_POINT, offsetof(Message,text_pos) },
   { NULL, 0, 0 }

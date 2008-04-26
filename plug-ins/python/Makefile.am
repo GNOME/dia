@@ -61,9 +61,9 @@ pkgdata_DATA = python-startup.py
 pyplugindir = $(pkgdatadir)/python
 pyplugin_DATA = \
 	aobjects.py \
+	allprops.py \
 	codegen.py \
 	diasvg.py \
-	diasvg_import.py \
 	dot.py \
 	doxrev.py \
 	group_props.py \

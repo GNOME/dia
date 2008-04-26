@@ -153,7 +153,10 @@ static PropDescription aadlbox_props[] = {
   PROP_STD_TEXT_FONT,
   PROP_STD_TEXT_HEIGHT,
   PROP_STD_TEXT_COLOUR_OPTIONAL,
-  { "name", PROP_TYPE_TEXT, 0, N_("Text"), NULL, NULL },
+  /* backward compatibility */
+  { "name", PROP_TYPE_TEXT, PROP_FLAG_NO_DEFAULTS|PROP_FLAG_LOAD_ONLY|PROP_FLAG_OPTIONAL, N_("Text"), NULL, NULL }, 
+  /* new name matching "same name, same type"  rule */
+  { "text", PROP_TYPE_TEXT, PROP_FLAG_OPTIONAL, N_("Text"), NULL, NULL },
   PROP_DESC_END
 };
 
@@ -172,7 +175,10 @@ static PropOffset aadlbox_offsets[] = {
   {"declaration",PROP_TYPE_STRING,offsetof(Aadlbox,declaration)},
   {"line_colour",PROP_TYPE_COLOUR,offsetof(Aadlbox,line_color)},
   {"fill_colour",PROP_TYPE_COLOUR,offsetof(Aadlbox,fill_color)},
+  /* backward compatibility */
   {"name",PROP_TYPE_TEXT,offsetof(Aadlbox,name)},
+  /* new name matching "same name, same type"  rule */
+  {"text",PROP_TYPE_TEXT,offsetof(Aadlbox,name)},
   {"text_font",PROP_TYPE_FONT,offsetof(Aadlbox,attrs.font)},
   {PROP_STDNAME_TEXT_HEIGHT, PROP_STDTYPE_TEXT_HEIGHT,offsetof(Aadlbox,attrs.height)},
   {"text_colour",PROP_TYPE_COLOUR,offsetof(Aadlbox,attrs.color)},

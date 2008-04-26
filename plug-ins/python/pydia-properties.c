@@ -156,8 +156,8 @@ PyDiaProperties_Keys(PyDiaProperties *self, PyObject *args)
   if (desc) {
     int i;
     for (i = 0; desc[i].name; i++) {
-      /* at the moment I see no use case to access these from Python */
-      if ((desc[i].flags & PROP_FLAG_WIDGET_ONLY) == 0)
+      /* at the moment I see no use case to access widgets from Python, PROP_FLAG_LOAD_ONLY compatibility not anted here */
+      if ((desc[i].flags & (PROP_FLAG_WIDGET_ONLY|PROP_FLAG_LOAD_ONLY)) == 0)
         PyList_Append(list, PyString_FromString(desc[i].name));
     }
   }

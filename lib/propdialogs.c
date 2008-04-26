@@ -183,7 +183,7 @@ property_signal_handler(GtkObject *obj,
     g_assert(obj->ops->set_props);
     g_assert(obj->ops->get_props);
 
-    prop->experience &= !PXP_NOTSET;
+    prop->experience &= ~PXP_NOTSET;
 
     if (!prop->event_handler)
 	return;

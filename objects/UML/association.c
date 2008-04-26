@@ -53,7 +53,6 @@
 #endif
 
 #include <assert.h>
-#include <gtk/gtk.h>
 #include <math.h>
 #include <string.h>
 
@@ -70,6 +69,7 @@
 #include "pixmaps/association.xpm"
 
 extern char visible_char[];	/* The definitions are in UML.c. Used here to avoid getting out of sync */
+extern PropEnumData _uml_visibilities[];
 
 typedef struct _Association Association;
 typedef struct _AssociationState AssociationState;
@@ -77,14 +77,14 @@ typedef struct _AssociationPropertiesDialog AssociationPropertiesDialog;
 
 typedef enum {
   ASSOC_NODIR,
-  ASSOC_RIGHT,
+  ASSOC_RIGHT, /* the diamond is on the left side and the arrow points right */
   ASSOC_LEFT
 } AssociationDirection;
 
 typedef enum {
   AGGREGATE_NONE,
-  AGGREGATE_NORMAL,
-  AGGREGATE_COMPOSITION
+  AGGREGATE_NORMAL, /* filled diamond */
+  AGGREGATE_COMPOSITION /* hollow diamond */
 } AggregateType;
 
 typedef struct _AssociationEnd {
@@ -131,31 +131,14 @@ struct _Association {
     
   gchar *name;
   AssociationDirection direction;
+  AggregateType assoc_type;
+  
+  gboolean show_direction;
 
   AssociationEnd end[2];
   
   Color text_color;
   Color line_color;
-
-  AssociationPropertiesDialog* properties_dialog;
-};
-
-struct _AssociationPropertiesDialog {
-  GtkWidget *dialog;
-  
-  GtkEntry *name;
-  GtkMenu *dir_menu;
-  GtkOptionMenu *dir_omenu;
-  
-  struct {
-    GtkEntry *role;
-    GtkEntry *multiplicity;
-    GtkMenu  *attr_visible;
-    GtkOptionMenu   *attr_visible_button;
-    GtkToggleButton *draw_arrow;
-    GtkToggleButton *aggregate;
-    GtkToggleButton *composition;
-  } end[2];
 };
 
 #define ASSOCIATION_WIDTH 0.1
@@ -180,8 +163,6 @@ static DiaObject *association_create(Point *startpoint,
 				  Handle **handle2);
 static void association_destroy(Association *assoc);
 static DiaObject *association_copy(Association *assoc);
-static GtkWidget *association_get_properties(Association *assoc, gboolean is_default);
-static ObjectChange *association_apply_properties(Association *assoc);
 static DiaMenu *association_get_object_menu(Association *assoc,
 					    Point *clickedpoint);
 static PropDescription *association_describe_props(Association *assoc);
@@ -204,14 +185,15 @@ static ObjectTypeOps association_type_ops =
 {
   (CreateFunc) association_create,
   (LoadFunc)   association_load,
-  (SaveFunc)   association_save
+  (SaveFunc)   object_save_using_properties
 };
 
 DiaObjectType association_type =
 {
   "UML - Association",   /* name */
   /* Version 0 had no autorouting and so shouldn't have it set by default. */
-  1,                      /* version */
+  /* Version 1 was saving both ends separately without using StdProps */
+  2,                      /* version */
   (char **) association_xpm,  /* pixmap */
   
   &association_type_ops,      /* ops */
@@ -227,8 +209,8 @@ static ObjectOps association_ops = {
   (CopyFunc)            association_copy,
   (MoveFunc)            association_move,
   (MoveHandleFunc)      association_move_handle,
-  (GetPropertiesFunc)   association_get_properties,
-  (ApplyPropertiesDialogFunc) association_apply_properties,
+  (GetPropertiesFunc)   object_create_props_dialog,
+  (ApplyPropertiesDialogFunc) object_apply_props_from_dialog,
   (ObjectMenuFunc)      association_get_object_menu,
   (DescribePropsFunc)   association_describe_props,
   (GetPropsFunc)        association_get_props,
@@ -237,11 +219,85 @@ static ObjectOps association_ops = {
   (ApplyPropertiesListFunc) object_apply_props,
 };
 
+static PropEnumData prop_assoc_direction_data[] = {
+  { N_("None"), ASSOC_NODIR },
+  { N_("From A to B"), ASSOC_RIGHT },
+  { N_("From B to A"), ASSOC_LEFT },
+  { NULL, 0 }
+};
+static PropEnumData prop_assoc_type_data[] = {
+  { N_("None"), AGGREGATE_NONE },
+  { N_("Aggregation"), AGGREGATE_NORMAL },
+  { N_("Composition"), AGGREGATE_COMPOSITION },
+  { NULL, 0 }
+};
+
 static PropDescription association_props[] = {
+  { "name", PROP_TYPE_STRING, PROP_FLAG_VISIBLE, N_("Name"), NULL, NULL },
+  { "direction", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE, 
+    N_("Direction"), NULL, prop_assoc_direction_data },
+  { "show_direction", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL, 
+    N_("Show direction"), N_("Show the small arrow denoting the reading direction"), 0 },
+  { "assoc_type", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL, 
+    N_("Type"), NULL, prop_assoc_type_data },
+
+  PROP_MULTICOL_BEGIN("sides"),
+  PROP_MULTICOL_COLUMN("side_a"),
+  { "help", PROP_TYPE_STATIC, PROP_FLAG_VISIBLE|PROP_FLAG_DONT_SAVE|PROP_FLAG_DONT_MERGE,
+    N_(" "), N_("Side A") },
+  { "role_a", PROP_TYPE_STRING, PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL, 
+    N_("Role"), NULL, NULL },
+  { "multipicity_a", PROP_TYPE_STRING, PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL, 
+    N_("Multiplicity"), NULL, NULL },
+  { "visibility_a", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL, 
+    N_("Visibility"), NULL, _uml_visibilities },
+  { "show_arrow_a", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL, 
+    N_("Show arrow"), NULL, 0 },
+  PROP_MULTICOL_COLUMN("side_b"),
+  { "help", PROP_TYPE_STATIC, PROP_FLAG_VISIBLE|PROP_FLAG_DONT_SAVE|PROP_FLAG_DONT_MERGE,
+    N_(" "), N_("Side B") },
+  { "role_b", PROP_TYPE_STRING, PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL, 
+    N_(" "), NULL, NULL },
+  { "multipicity_b", PROP_TYPE_STRING, PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL, 
+    N_(" "), NULL, NULL },
+  { "visibility_b", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL, 
+    N_(" "), NULL, _uml_visibilities },
+  { "show_arrow_b", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL, 
+    N_(" "), NULL, 0 },
+  PROP_MULTICOL_END("sides"),
+
   ORTHCONN_COMMON_PROPERTIES,
-  { "name", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
-    N_("Name:"), NULL, NULL },
+  /* can't use PROP_STD_TEXT_COLOUR_OPTIONAL cause it has PROP_FLAG_DONT_SAVE. It is designed to fill the Text object - not some subset */
+  PROP_STD_TEXT_COLOUR_OPTIONS(PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD|PROP_FLAG_OPTIONAL),
+  PROP_STD_LINE_COLOUR_OPTIONAL, 
+  
   PROP_DESC_END
+};
+
+static PropOffset association_offsets[] = {
+  { "name", PROP_TYPE_STRING, offsetof(Association, name) },
+  { "direction", PROP_TYPE_ENUM, offsetof(Association, direction) },
+  { "assoc_type", PROP_TYPE_ENUM, offsetof(Association, assoc_type) },
+  { "show_direction", PROP_TYPE_BOOL, offsetof(Association, show_direction) },
+
+  PROP_OFFSET_MULTICOL_BEGIN("sides"),
+  PROP_OFFSET_MULTICOL_COLUMN("side_a"),
+  { "role_a", PROP_TYPE_STRING, offsetof(Association, end[0].role) },
+  { "multipicity_a", PROP_TYPE_STRING, offsetof(Association, end[0].multiplicity) }, 
+  { "visibility_a", PROP_TYPE_ENUM, offsetof(Association, end[0].visibility) },
+  { "show_arrow_a", PROP_TYPE_BOOL, offsetof(Association, end[0].arrow) },
+
+  PROP_OFFSET_MULTICOL_COLUMN("side_a"),
+  { "role_b", PROP_TYPE_STRING, offsetof(Association, end[1].role) },
+  { "multipicity_b", PROP_TYPE_STRING, offsetof(Association, end[1].multiplicity) }, 
+  { "visibility_b", PROP_TYPE_ENUM, offsetof(Association, end[1].visibility) },
+  { "show_arrow_b", PROP_TYPE_BOOL, offsetof(Association, end[1].arrow) },
+  PROP_OFFSET_MULTICOL_END("sides"),
+
+  ORTHCONN_COMMON_PROPERTIES_OFFSETS,
+  { "line_colour",PROP_TYPE_COLOUR,offsetof(Association, line_color) },
+  { "text_colour", PROP_TYPE_COLOUR, offsetof(Association, text_color) },
+  { NULL, 0, 0 }
 };
 
 static PropDescription *
@@ -252,14 +308,6 @@ association_describe_props(Association *assoc)
   }
   return association_props;
 }
-
-static PropOffset association_offsets[] = {
-  ORTHCONN_COMMON_PROPERTIES_OFFSETS,
-  { "line_colour",PROP_TYPE_COLOUR,offsetof(Association, line_color) },
-  { "text_colour", PROP_TYPE_COLOUR, offsetof(Association, text_color) },
-  { "name", PROP_TYPE_STRING, offsetof(Association, name) },
-  { NULL, 0, 0 }
-};
 
 static void
 association_get_props(Association *assoc, GPtrArray *props)
@@ -382,26 +430,30 @@ association_draw(Association *assoc, DiaRenderer *renderer)
   case ASSOC_NODIR:
     break;
   case ASSOC_RIGHT:
-    poly[0].x = assoc->text_pos.x + assoc->text_width + 0.1;
-    if (assoc->text_align == ALIGN_CENTER)
-      poly[0].x -= assoc->text_width/2.0;
-    poly[0].y = assoc->text_pos.y;
-    poly[1].x = poly[0].x;
-    poly[1].y = poly[0].y - ASSOCIATION_FONTHEIGHT*0.5;
-    poly[2].x = poly[0].x + ASSOCIATION_FONTHEIGHT*0.5;
-    poly[2].y = poly[0].y - ASSOCIATION_FONTHEIGHT*0.5*0.5;
-    renderer_ops->fill_polygon(renderer, poly, 3, &assoc->line_color);
+    if (assoc->show_direction) {
+      poly[0].x = assoc->text_pos.x + assoc->text_width + 0.1;
+      if (assoc->text_align == ALIGN_CENTER)
+        poly[0].x -= assoc->text_width/2.0;
+      poly[0].y = assoc->text_pos.y;
+      poly[1].x = poly[0].x;
+      poly[1].y = poly[0].y - ASSOCIATION_FONTHEIGHT*0.5;
+      poly[2].x = poly[0].x + ASSOCIATION_FONTHEIGHT*0.5;
+      poly[2].y = poly[0].y - ASSOCIATION_FONTHEIGHT*0.5*0.5;
+      renderer_ops->fill_polygon(renderer, poly, 3, &assoc->line_color);
+    }
     break;
   case ASSOC_LEFT:
-    poly[0].x = assoc->text_pos.x - 0.2;
-    if (assoc->text_align == ALIGN_CENTER)
-      poly[0].x -= assoc->text_width/2.0;
-    poly[0].y = assoc->text_pos.y;
-    poly[1].x = poly[0].x;
-    poly[1].y = poly[0].y - ASSOCIATION_FONTHEIGHT*0.5;
-    poly[2].x = poly[0].x - ASSOCIATION_FONTHEIGHT*0.5;
-    poly[2].y = poly[0].y - ASSOCIATION_FONTHEIGHT*0.5*0.5;
-    renderer_ops->fill_polygon(renderer, poly, 3, &assoc->line_color);
+    if (assoc->show_direction) {
+      poly[0].x = assoc->text_pos.x - 0.2;
+      if (assoc->text_align == ALIGN_CENTER)
+        poly[0].x -= assoc->text_width/2.0;
+      poly[0].y = assoc->text_pos.y;
+      poly[1].x = poly[0].x;
+      poly[1].y = poly[0].y - ASSOCIATION_FONTHEIGHT*0.5;
+      poly[2].x = poly[0].x - ASSOCIATION_FONTHEIGHT*0.5;
+      poly[2].y = poly[0].y - ASSOCIATION_FONTHEIGHT*0.5*0.5;
+      renderer_ops->fill_polygon(renderer, poly, 3, &assoc->line_color);
+    }
     break;
   }
 
@@ -410,7 +462,7 @@ association_draw(Association *assoc, DiaRenderer *renderer)
     AssociationEnd *end = &assoc->end[i];
     pos = end->text_pos;
 
-    if (end->role != NULL) {
+    if (end->role != NULL && *end->role) {
       gchar *role_name = g_strdup_printf ("%c%s", visible_char[(int) end->visibility], end->role);
       renderer_ops->draw_string(renderer, 
                                 role_name,
@@ -503,7 +555,7 @@ association_set_state(Association *assoc, AssociationState *state)
     end->role_descent = 0.0;
     end->multi_ascent = 0.0;
     end->multi_descent = 0.0;
-    if (end->role != NULL) {
+    if (end->role != NULL && *end->role) {
       end->text_width = 
           dia_font_string_width(end->role, assoc_font, ASSOCIATION_FONTHEIGHT);
       end->role_ascent =
@@ -584,7 +636,7 @@ association_update_data_end(Association *assoc, int endnum)
 
     end->text_pos.y += end->role_ascent;
     if (points[fp].y > points[sp].y) {
-      if (end->role!=NULL)
+      if (end->role!=NULL && *end->role)
           end->text_pos.y -= ASSOCIATION_FONTHEIGHT;
       if (end->multiplicity!=NULL)
           end->text_pos.y -= ASSOCIATION_FONTHEIGHT;
@@ -618,6 +670,19 @@ association_update_data(Association *assoc)
   Orientation dir;
   
   orthconn_update_data(orth);  
+
+  /* translate new assoc state to old assoc ends */
+  if (assoc->direction == ASSOC_NODIR) {
+    assoc->end[0].aggregate = AGGREGATE_NONE;
+    assoc->end[1].aggregate = AGGREGATE_NONE;
+  } else if (assoc->direction == ASSOC_RIGHT) {
+    /* the diamond is  at the start of the line */
+    assoc->end[0].aggregate = assoc->assoc_type;
+    assoc->end[1].aggregate = AGGREGATE_NONE;
+  } else {
+    assoc->end[1].aggregate = assoc->assoc_type;
+    assoc->end[0].aggregate = AGGREGATE_NONE;
+  }
   
   extra->start_trans = 
     extra->start_long = (assoc->end[0].aggregate == AGGREGATE_NONE?
@@ -708,9 +773,8 @@ association_create(Point *startpoint,
   int i;
   int user_d;
 
-  if (assoc_font == NULL) {
+  if (assoc_font == NULL)
     assoc_font = dia_font_new_from_style(DIA_FONT_MONOSPACE, ASSOCIATION_FONTHEIGHT);
-  }
   
   assoc = g_malloc0(sizeof(Association));
   orth = &assoc->orth;
@@ -725,25 +789,29 @@ association_create(Point *startpoint,
   assoc->text_color = color_black;
   assoc->line_color = attributes_get_foreground();
   assoc->name = NULL;
-  assoc->direction = ASSOC_NODIR;
+  assoc->assoc_type = AGGREGATE_NORMAL;
+  assoc->direction = ASSOC_RIGHT;
+  assoc->show_direction = FALSE;
   for (i=0;i<2;i++) {
     assoc->end[i].role = NULL;
     assoc->end[i].multiplicity = NULL;
     assoc->end[i].arrow = FALSE;
     assoc->end[i].aggregate = AGGREGATE_NONE;
     assoc->end[i].text_width = 0.0;
+    assoc->end[i].visibility = UML_IMPLEMENTATION;
   }
   
   assoc->text_width = 0.0;
-  assoc->properties_dialog = NULL;
 
   user_d = GPOINTER_TO_INT(user_data);
   switch (user_d) {
   case 0:
-    /* Ok already. */
+    assoc->assoc_type = AGGREGATE_NONE;
+    assoc->show_direction = TRUE;
     break;
   case 1:
-    assoc->end[1].aggregate = AGGREGATE_NORMAL;
+    assoc->assoc_type = AGGREGATE_NORMAL;
+    assoc->show_direction = FALSE;
     break;
   }
 
@@ -813,11 +881,6 @@ association_destroy(Association *assoc)
     g_free(assoc->end[i].role);
     g_free(assoc->end[i].multiplicity);
   }
-
-  if (assoc->properties_dialog != NULL) {
-    gtk_widget_destroy(assoc->properties_dialog->dialog);
-    g_free(assoc->properties_dialog);
-  }
 }
 
 static DiaObject *
@@ -838,6 +901,10 @@ association_copy(Association *assoc)
 
   newassoc->name = g_strdup(assoc->name);
   newassoc->direction = assoc->direction;
+  newassoc->show_direction = assoc->show_direction;
+  newassoc->assoc_type = assoc->assoc_type;
+  newassoc->text_color = assoc->text_color;
+  newassoc->line_color = assoc->line_color;
   for (i=0;i<2;i++) {
     newassoc->end[i] = assoc->end[i];
     newassoc->end[i].role =
@@ -847,7 +914,6 @@ association_copy(Association *assoc)
   }
 
   newassoc->text_width = assoc->text_width;
-  newassoc->properties_dialog = NULL;
   
   association_update_data(newassoc);
   
@@ -882,7 +948,7 @@ association_save(Association *assoc, ObjectNode obj_node,
 		  assoc->end[i].arrow);
     data_add_enum(composite_add_attribute(composite, "aggregate"),
 		  assoc->end[i].aggregate);
-  	data_add_enum(composite_add_attribute(composite, "visibility"),
+    data_add_enum(composite_add_attribute(composite, "visibility"),
 		assoc->end[i].visibility);
   }
 }
@@ -897,94 +963,86 @@ association_load(ObjectNode obj_node, int version, const char *filename)
   DiaObject *obj;
   int i;
   
-  if (assoc_font == NULL) {
-	  assoc_font = dia_font_new_from_style(DIA_FONT_MONOSPACE,
-                                         ASSOCIATION_FONTHEIGHT);
-  }
-
-  assoc = g_new0(Association, 1);
-
+  /* first calls our _create() method */
+  obj = object_load_using_properties(&association_type, obj_node, version, filename);
+  assoc = (Association *)obj;
   orth = &assoc->orth;
-  obj = &orth->object;
+  /* ... butnot orthconn_load()  */
+  if (version < 1)
+    orth->autorouting = FALSE;
 
-  obj->type = &association_type;
-  obj->ops = &association_ops;
+  if (version < 2) {
+    attr = object_find_attribute(obj_node, "ends");
+    composite = attribute_first_data(attr);
+    for (i=0;i<2;i++) {
 
-  orthconn_load(orth, obj_node);
-
-  assoc->name = NULL;
-  attr = object_find_attribute(obj_node, "name");
-  if (attr != NULL)
-    assoc->name = data_string(attribute_first_data(attr));
-  
-  assoc->text_width = 0.0;
-  if (assoc->name != NULL) {
-    assoc->text_width =
-      dia_font_string_width(assoc->name, assoc_font, ASSOCIATION_FONTHEIGHT);
-  }
-
-  assoc->direction = ASSOC_NODIR;
-  attr = object_find_attribute(obj_node, "direction");
-  if (attr != NULL)
-    assoc->direction = data_enum(attribute_first_data(attr));
-
-  attr = object_find_attribute(obj_node, "ends");
-  composite = attribute_first_data(attr);
-  for (i=0;i<2;i++) {
-
-    assoc->end[i].role = NULL;
-    attr = composite_find_attribute(composite, "role");
-    if (attr != NULL) {
-      assoc->end[i].role = data_string(attribute_first_data(attr));
-    }
-    if (   assoc->end[i].role != NULL 
-        && 0 == strcmp(assoc->end[i].role, "")) {
-      g_free(assoc->end[i].role);
       assoc->end[i].role = NULL;
-    }
+      attr = composite_find_attribute(composite, "role");
+      if (attr != NULL) {
+        assoc->end[i].role = data_string(attribute_first_data(attr));
+      }
+      if (   assoc->end[i].role != NULL 
+          && 0 == strcmp(assoc->end[i].role, "")) {
+        g_free(assoc->end[i].role);
+        assoc->end[i].role = NULL;
+      }
     
-    assoc->end[i].multiplicity = NULL;
-    attr = composite_find_attribute(composite, "multiplicity");
-    if (attr != NULL) {
-      assoc->end[i].multiplicity = data_string(attribute_first_data(attr));
-    }
-    if (   assoc->end[i].multiplicity != NULL
-	&& 0 == strcmp(assoc->end[i].multiplicity, "")) {
-      g_free(assoc->end[i].multiplicity);
       assoc->end[i].multiplicity = NULL;
-    }
+      attr = composite_find_attribute(composite, "multiplicity");
+      if (attr != NULL) {
+        assoc->end[i].multiplicity = data_string(attribute_first_data(attr));
+      }
+      if (   assoc->end[i].multiplicity != NULL
+	  && 0 == strcmp(assoc->end[i].multiplicity, "")) {
+        g_free(assoc->end[i].multiplicity);
+        assoc->end[i].multiplicity = NULL;
+      }
     
-    assoc->end[i].arrow = FALSE;
-    attr = composite_find_attribute(composite, "arrow");
-    if (attr != NULL)
-      assoc->end[i].arrow = data_boolean(attribute_first_data(attr));
+      assoc->end[i].arrow = FALSE;
+      attr = composite_find_attribute(composite, "arrow");
+      if (attr != NULL)
+        assoc->end[i].arrow = data_boolean(attribute_first_data(attr));
 
-    assoc->end[i].aggregate = AGGREGATE_NONE;
-    attr = composite_find_attribute(composite, "aggregate");
-    if (attr != NULL)
-      assoc->end[i].aggregate = data_enum(attribute_first_data(attr));
+      assoc->end[i].aggregate = AGGREGATE_NONE;
+      attr = composite_find_attribute(composite, "aggregate");
+      if (attr != NULL)
+        assoc->end[i].aggregate = data_enum(attribute_first_data(attr));
   
-    assoc->end[i].visibility = FALSE;
-    attr = composite_find_attribute(composite, "visibility");
-    if (attr != NULL)
-      assoc->end[i].visibility =  data_enum( attribute_first_data(attr) );
+      assoc->end[i].visibility = FALSE;
+      attr = composite_find_attribute(composite, "visibility");
+      if (attr != NULL)
+        assoc->end[i].visibility =  data_enum( attribute_first_data(attr) );
 
-    assoc->end[i].text_width = 0.0;
-    if (assoc->end[i].role != NULL) {
-      assoc->end[i].text_width = 
+      assoc->end[i].text_width = 0.0;
+      if (assoc->end[i].role != NULL) {
+        assoc->end[i].text_width = 
           dia_font_string_width(assoc->end[i].role, assoc_font,
                                 ASSOCIATION_FONTHEIGHT);
-    }
-    if (assoc->end[i].multiplicity != NULL) {
-      assoc->end[i].text_width =
+      }
+      if (assoc->end[i].multiplicity != NULL) {
+        assoc->end[i].text_width =
           MAX(assoc->end[i].text_width,
               dia_font_string_width(assoc->end[i].multiplicity,
                                     assoc_font, ASSOCIATION_FONTHEIGHT) );
+      }
+      composite = data_next(composite);
     }
-    composite = data_next(composite);
-  }
-
-  assoc->properties_dialog = NULL;
+    /* derive new members state from ends */
+    assoc->show_direction = (assoc->direction != ASSOC_NODIR);
+    if (assoc->end[0].aggregate == AGGREGATE_NORMAL) {
+      assoc->assoc_type = AGGREGATE_NORMAL;
+      assoc->direction = ASSOC_RIGHT;
+    } else if (assoc->end[0].aggregate == AGGREGATE_COMPOSITION) {
+      assoc->assoc_type = AGGREGATE_COMPOSITION;
+      assoc->direction = ASSOC_RIGHT;
+    } else if (assoc->end[1].aggregate == AGGREGATE_NORMAL) {
+      assoc->assoc_type = AGGREGATE_NORMAL;
+      assoc->direction = ASSOC_LEFT;
+    } else if (assoc->end[1].aggregate == AGGREGATE_COMPOSITION) {
+      assoc->assoc_type = AGGREGATE_COMPOSITION;
+      assoc->direction = ASSOC_LEFT;
+    }
+  } /* version < 2 */
   
   association_set_state(assoc, association_get_state(assoc));
 
@@ -994,372 +1052,18 @@ association_load(ObjectNode obj_node, int version, const char *filename)
 static ObjectChange *
 association_apply_properties(Association *assoc)
 {
-  AssociationPropertiesDialog *prop_dialog;
   const char *str;
   GtkWidget *menuitem;
   int i;
   ObjectState *old_state;
-  
-  prop_dialog = assoc->properties_dialog;
 
   old_state = (ObjectState *)association_get_state(assoc);
   
   /* Read from dialog and put in object: */
-  g_free(assoc->name);
-  str = gtk_entry_get_text(prop_dialog->name);
-  if (str && strlen (str) != 0)
-    assoc->name = g_strdup (str);
-  else
-    assoc->name = NULL;
-
-  assoc->text_width = 0.0;
-
-  if (assoc->name != NULL) {
-    assoc->text_width =
-      dia_font_string_width(assoc->name, assoc_font, ASSOCIATION_FONTHEIGHT);
-  }
-
-  menuitem = gtk_menu_get_active(prop_dialog->dir_menu);
-  assoc->direction =
-    GPOINTER_TO_INT(gtk_object_get_user_data(GTK_OBJECT(menuitem)));
-
-  for (i=0;i<2;i++) {
-    AssociationEnd *end = &assoc->end[i];
-
-    end->visibility = (UMLVisibility)
-	 GPOINTER_TO_INT (gtk_object_get_user_data (
-			   GTK_OBJECT (gtk_menu_get_active (prop_dialog->end[i].attr_visible))));
-
-    /* Role: */
-    g_free(end->role);
-    str = gtk_entry_get_text(prop_dialog->end[i].role);
-    if (str && strlen (str) != 0)
-      end->role = g_strdup (str);
-    else
-      end->role = NULL;
-
-    /* Multiplicity: */
-    g_free(end->multiplicity);
-    str = gtk_entry_get_text(prop_dialog->end[i].multiplicity);
-    if (strlen (str) != 0)
-      end->multiplicity = g_strdup(str);
-    else
-      end->multiplicity = NULL;
-
-    end->text_width = 0.0;
-
-    if (end->role != NULL) {
-      end->text_width = 
-          dia_font_string_width(end->role, assoc_font, ASSOCIATION_FONTHEIGHT);
-    }
-    if (end->multiplicity != NULL) {
-      end->text_width =
-          MAX(end->text_width,
-              dia_font_string_width(end->multiplicity,
-                                    assoc_font, ASSOCIATION_FONTHEIGHT) );
-    }
-
-    end->arrow = prop_dialog->end[i].draw_arrow->active;
-    
-    end->aggregate = AGGREGATE_NONE;
-    if (prop_dialog->end[i].aggregate->active)
-      end->aggregate = AGGREGATE_NORMAL;
-    if (prop_dialog->end[i].composition->active)
-      end->aggregate = AGGREGATE_COMPOSITION;
-
-  }
+  /* ... */
 
   association_set_state(assoc, association_get_state(assoc));
   return new_object_state_change(&assoc->orth.object, old_state, 
 				 (GetStateFunc)association_get_state,
 				 (SetStateFunc)association_set_state);
 }
-
-static void
-fill_in_dialog(Association *assoc)
-{
-  AssociationPropertiesDialog *prop_dialog;
-  int i;
- 
-  prop_dialog = assoc->properties_dialog;
-
-  if (assoc->name != NULL)
-    gtk_entry_set_text(prop_dialog->name, assoc->name);
-  else
-    gtk_entry_set_text(prop_dialog->name, "");
-  
-  gtk_option_menu_set_history(prop_dialog->dir_omenu, assoc->direction);
-
-  for (i=0;i<2;i++) {
-    if (assoc->end[i].role != NULL)
-      gtk_entry_set_text(prop_dialog->end[i].role, assoc->end[i].role);
-    else
-      gtk_entry_set_text(prop_dialog->end[i].role, "");
-    
-    if (assoc->end[i].multiplicity != NULL)
-      gtk_entry_set_text(prop_dialog->end[i].multiplicity, 
-                         assoc->end[i].multiplicity);
-    else
-      gtk_entry_set_text(prop_dialog->end[i].multiplicity, "");
-
-    gtk_option_menu_set_history(prop_dialog->end[i].attr_visible_button,
-			      (gint)assoc->end[i].visibility);
-    gtk_toggle_button_set_active(prop_dialog->end[i].draw_arrow,
-				assoc->end[i].arrow);
-    gtk_toggle_button_set_active(prop_dialog->end[i].aggregate,
-				assoc->end[i].aggregate == AGGREGATE_NORMAL);
-    gtk_toggle_button_set_active(prop_dialog->end[i].composition,
-				assoc->end[i].aggregate == AGGREGATE_COMPOSITION);
-  }
-}
-
-static void
-mutex_aggregate_callback(GtkWidget *widget,
-			 AssociationPropertiesDialog *prop_dialog)
-{
-  int i;
-  GtkToggleButton *button;
-
-  button = GTK_TOGGLE_BUTTON(widget);
-
-  if (!button->active)
-    return;
-
-  for (i=0;i<2;i++) {
-    if (prop_dialog->end[i].aggregate != button) {
-      gtk_toggle_button_set_active(prop_dialog->end[i].aggregate, 0);
-    }
-    if (prop_dialog->end[i].composition != button) {
-      gtk_toggle_button_set_active(prop_dialog->end[i].composition, 0);
-    }
-  }
-}
-
-static GtkWidget *
-association_get_properties(Association *assoc, gboolean is_default)
-{
-  AssociationPropertiesDialog *prop_dialog;
-  GtkWidget *dialog;
-  GtkWidget *frame;
-  GtkWidget *entry;
-  GtkWidget *hbox;
-  GtkWidget *split_hbox;
-  GtkWidget *vbox;
-  GtkWidget *label;
-  GtkWidget *omenu;
-  GtkWidget *menu;
-  GtkWidget *submenu;
-  GtkWidget *menuitem;
-  GtkWidget *checkbox;
-  GSList *group;
-  int i;
-  
-  if (assoc->properties_dialog == NULL) {
-
-    prop_dialog = g_new(AssociationPropertiesDialog, 1);
-    assoc->properties_dialog = prop_dialog;
-
-    dialog = gtk_vbox_new(FALSE, 0);
-    gtk_object_ref(GTK_OBJECT(dialog));
-    gtk_object_sink(GTK_OBJECT(dialog));
-    prop_dialog->dialog = dialog;
-    
-    /* Name entry: */
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Name:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    entry = gtk_entry_new();
-    prop_dialog->name = GTK_ENTRY(entry);
-    gtk_box_pack_start (GTK_BOX (hbox), entry, TRUE, TRUE, 0);
-    gtk_widget_grab_focus(entry);
-    gtk_widget_show (label);
-    gtk_widget_show (entry);
-    gtk_box_pack_start (GTK_BOX (dialog), hbox, TRUE, TRUE, 0);
-    gtk_widget_show(hbox);
-
-    /* Direction entry: */
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Direction:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    
-    omenu = gtk_option_menu_new ();
-    menu = gtk_menu_new ();
-    prop_dialog->dir_menu = GTK_MENU(menu);
-    prop_dialog->dir_omenu = GTK_OPTION_MENU(omenu);
-    submenu = NULL;
-    group = NULL;
-    
-    menuitem = gtk_radio_menu_item_new_with_label (group, _("None"));
-    gtk_object_set_user_data(GTK_OBJECT(menuitem),
-			     GINT_TO_POINTER(ASSOC_NODIR));
-    group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
-    gtk_menu_append (GTK_MENU (menu), menuitem);
-    gtk_widget_show (menuitem);
-    
-    menuitem = gtk_radio_menu_item_new_with_label (group, _("From A to B"));
-    gtk_object_set_user_data(GTK_OBJECT(menuitem),
-			     GINT_TO_POINTER(ASSOC_RIGHT));
-    group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
-    gtk_menu_append (GTK_MENU (menu), menuitem);
-    gtk_widget_show (menuitem);
-    
-    menuitem = gtk_radio_menu_item_new_with_label (group, _("From B to A"));
-    gtk_object_set_user_data(GTK_OBJECT(menuitem),
-			     GINT_TO_POINTER(ASSOC_LEFT));
-    group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
-    gtk_menu_append (GTK_MENU (menu), menuitem);
-    gtk_widget_show (menuitem);
-    
-    gtk_option_menu_set_menu (GTK_OPTION_MENU (omenu), menu);
-    gtk_box_pack_start (GTK_BOX (hbox), omenu, FALSE, TRUE, 0);
-    
-    gtk_widget_show (label);
-    gtk_widget_show (omenu);
-    gtk_box_pack_start (GTK_BOX (dialog), hbox, TRUE, TRUE, 0);
-    gtk_widget_show(hbox);
-    
-    split_hbox = gtk_hbox_new(TRUE, 5);
-    gtk_box_pack_start (GTK_BOX (dialog), split_hbox, TRUE, TRUE, 0);
-    gtk_widget_show(split_hbox);
-
-    group = NULL; /* For the radio-buttons */
-    
-    for (i=0;i<2;i++) {
-      char *str;
-      if (i==0)
-	str = _("Side A");
-      else
-	str = _("Side B");
-      frame = gtk_frame_new(str);
-      
-      vbox = gtk_vbox_new(FALSE, 5);
-      /* End 'i' into vbox: */
-      if (i==0)
-	label = gtk_label_new(_("Side A"));
-      else
-	label = gtk_label_new(_("Side B"));
-      
-      gtk_box_pack_start (GTK_BOX (vbox), label, TRUE, TRUE, 0);
-      
-      /* Role entry: */
-      hbox = gtk_hbox_new(FALSE, 5);
-      label = gtk_label_new(_("Role:"));
-      gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-      entry = gtk_entry_new();
-      prop_dialog->end[i].role = GTK_ENTRY(entry);
-      gtk_box_pack_start (GTK_BOX (hbox), entry, TRUE, TRUE, 0);
-      gtk_widget_show (label);
-      gtk_widget_show (entry);
-      gtk_box_pack_start (GTK_BOX (vbox), hbox, TRUE, TRUE, 0);
-      gtk_widget_show(hbox);
-
-      /* Multiplicity entry: */
-      hbox = gtk_hbox_new(FALSE, 5);
-      label = gtk_label_new(_("Multiplicity:"));
-      gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-      entry = gtk_entry_new();
-      prop_dialog->end[i].multiplicity = GTK_ENTRY(entry);
-      gtk_box_pack_start (GTK_BOX (hbox), entry, TRUE, TRUE, 0);
-      gtk_widget_show (label);
-      gtk_widget_show (entry);
-      gtk_box_pack_start (GTK_BOX (vbox), hbox, TRUE, TRUE, 0);
-      gtk_widget_show(hbox);
-
-      hbox = gtk_hbox_new(FALSE, 5);
-      label = gtk_label_new(_("Visibility:"));
-      gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-
-      omenu = gtk_option_menu_new ();
-      menu = gtk_menu_new ();
-      prop_dialog->end[i].attr_visible = GTK_MENU(menu);
-      prop_dialog->end[i].attr_visible_button = GTK_OPTION_MENU(omenu);
-      submenu = NULL;
-      group = NULL;
-      menuitem = gtk_radio_menu_item_new_with_label (group, _("Public"));
-/*
-      gtk_signal_connect (GTK_OBJECT (menuitem), "activate",
-    		      GTK_SIGNAL_FUNC (attributes_update), umlclass);
-*/
-      gtk_object_set_user_data(GTK_OBJECT(menuitem),
-    			   GINT_TO_POINTER(UML_PUBLIC) );
-      group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
-      gtk_menu_append (GTK_MENU (menu), menuitem);
-      gtk_widget_show (menuitem);
-      menuitem = gtk_radio_menu_item_new_with_label (group, _("Private"));
-/*
-      gtk_signal_connect (GTK_OBJECT (menuitem), "activate",
-    		      GTK_SIGNAL_FUNC (attributes_update), umlclass);
-*/
-      gtk_object_set_user_data(GTK_OBJECT(menuitem),
-    			   GINT_TO_POINTER(UML_PRIVATE) );
-      group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
-      gtk_menu_append (GTK_MENU (menu), menuitem);
-      gtk_widget_show (menuitem);
-      menuitem = gtk_radio_menu_item_new_with_label (group, _("Protected"));
-/*
-      gtk_signal_connect (GTK_OBJECT (menuitem), "activate",
-    		      GTK_SIGNAL_FUNC (attributes_update), umlclass);
-*/
-      gtk_object_set_user_data(GTK_OBJECT(menuitem),
-    			   GINT_TO_POINTER(UML_PROTECTED) );
-      group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
-      gtk_menu_append (GTK_MENU (menu), menuitem);
-      gtk_widget_show (menuitem);
-      menuitem = gtk_radio_menu_item_new_with_label (group, _("Implementation"));
-/*
-      gtk_signal_connect (GTK_OBJECT (menuitem), "activate",
-    		      GTK_SIGNAL_FUNC (attributes_update), umlclass);
-*/
-      gtk_object_set_user_data(GTK_OBJECT(menuitem),
-    			   GINT_TO_POINTER(UML_IMPLEMENTATION) );
-      group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
-      gtk_menu_append (GTK_MENU (menu), menuitem);
-      gtk_widget_show (menuitem);
-      
-      gtk_option_menu_set_menu (GTK_OPTION_MENU (omenu), menu);
-      gtk_box_pack_start (GTK_BOX (hbox), omenu, FALSE, TRUE, 0);
-      gtk_widget_show(label);
-      gtk_widget_show(omenu);
-      gtk_box_pack_start (GTK_BOX (vbox), hbox, TRUE, TRUE, 0);
-      gtk_widget_show(hbox);
-
-      /* Show arrow: */
-      checkbox = gtk_check_button_new_with_label(_("Show arrow"));
-      prop_dialog->end[i].draw_arrow = GTK_TOGGLE_BUTTON( checkbox );
-      gtk_widget_show(checkbox);
-      gtk_box_pack_start (GTK_BOX (vbox), checkbox, TRUE, TRUE, 0);
-
-      /* Aggregate */
-      checkbox = gtk_check_button_new_with_label(_("Aggregate"));
-      prop_dialog->end[i].aggregate = GTK_TOGGLE_BUTTON( checkbox );
-      gtk_signal_connect(GTK_OBJECT(checkbox), "toggled",
-			 (GtkSignalFunc) mutex_aggregate_callback, prop_dialog);
-      gtk_widget_show(checkbox);
-      gtk_box_pack_start (GTK_BOX (vbox), checkbox, TRUE, TRUE, 0);
-
-      /* Composition */
-      checkbox = gtk_check_button_new_with_label(_("Composition"));
-      prop_dialog->end[i].composition = GTK_TOGGLE_BUTTON( checkbox );
-      gtk_signal_connect(GTK_OBJECT(checkbox), "toggled",
-			 (GtkSignalFunc) mutex_aggregate_callback, prop_dialog);
-      gtk_widget_show(checkbox);
-      gtk_box_pack_start (GTK_BOX (vbox), checkbox, TRUE, TRUE, 0);
-	
-      gtk_container_set_border_width(GTK_CONTAINER(vbox), 5);
-      gtk_container_add(GTK_CONTAINER(frame), vbox);
-      gtk_box_pack_start (GTK_BOX (split_hbox), frame, TRUE, TRUE, 0);
-      gtk_widget_show(vbox);
-      gtk_widget_show(frame);
-    }
-
-  }
-  fill_in_dialog(assoc);
-  gtk_widget_show (assoc->properties_dialog->dialog);
-
-  return assoc->properties_dialog->dialog;
-}
-
-
-
-
-

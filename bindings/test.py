@@ -117,6 +117,11 @@ def DRaw () :
 	r.begin_render (data, "diaraw.dia")
 	r.end_render ()
 
+def Props () :
+	data = dia.DiagramData()
+	import allprops
+	allprops.allprops_cb(data,0)
+
 def Self () :
 	data = dia.DiagramData()
 	r = data.extents
@@ -136,6 +141,7 @@ for arg in sys.argv :
 	elif '--gen' == arg : Gen ()
 	elif '--self' == arg : Self ()
 	elif '--draw' == arg : DRaw ()
+	elif '--props' == arg : Props ()
 	elif '--all' == arg :
 		Dump()
 		Import()

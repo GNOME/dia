@@ -126,8 +126,10 @@ static PropDescription node_props[] = {
   PROP_STD_TEXT_FONT,
   PROP_STD_TEXT_HEIGHT,
   PROP_STD_TEXT_COLOUR_OPTIONAL,
-  { "name", PROP_TYPE_TEXT, 0, N_("Text"), NULL, NULL }, 
-  
+  /* backward compatibility */
+  { "name", PROP_TYPE_TEXT, PROP_FLAG_NO_DEFAULTS|PROP_FLAG_LOAD_ONLY|PROP_FLAG_OPTIONAL, N_("Text"), NULL, NULL }, 
+  /* new name matching "same name, same type"  rule */
+  { "text", PROP_TYPE_TEXT, PROP_FLAG_OPTIONAL, N_("Text"), NULL, NULL },
   PROP_DESC_END
 };
 
@@ -145,7 +147,10 @@ static PropOffset node_offsets[] = {
   ELEMENT_COMMON_PROPERTIES_OFFSETS,
   {"line_colour",PROP_TYPE_COLOUR,offsetof(Node,line_color)},
   {"fill_colour",PROP_TYPE_COLOUR,offsetof(Node,fill_color)},
+  /* backward compatibility */
   {"name",PROP_TYPE_TEXT,offsetof(Node,name)},
+  /* new name matching "same name, same type"  rule */
+  {"text",PROP_TYPE_TEXT,offsetof(Node,name)},
   {"text_font",PROP_TYPE_FONT,offsetof(Node,attrs.font)},
   {PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(Node,attrs.height)},
   {"text_colour",PROP_TYPE_COLOUR,offsetof(Node,attrs.color)},

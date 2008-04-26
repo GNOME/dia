@@ -1,3 +1,26 @@
+2008-04-26  Hans Breuer  <hans@breuer.org>
+
+	[ there is an unwritten rule for std-props: same name, same type ]
+	* objects/AADL/aadlbox.c objects/Jackson/phenomenon.c 
+	  objects/UML/message.c objects/UML/node.c : what is called text 
+	should be of type text
+	* objects/KAOS/metaandorrel.c objects/UML/implements.c : 'name' is
+	of type string
+	* objects/GRAFCET/step.c : font_size as fontsize not real
+	* objects/standard/box.c : corner_radius as real
+	* objects/UML/classicon.c : stereotype is a string
+	
+	* plug-ins/python/allprops.py : creates a diagram extracting common 
+	properties from all registered objects, warns about name/type clashes
+	* plug-ins/python/Makefile.am : add allprops.py, remove 
+	diasvg_import.py from installed plug-ins
+	* plug-ins/python/pydia-properties.c : exclude PROP_FLAG_LOAD_ONLY 
+	(compatibility) properties from the property dictionary
+	* bindings/test.py : added allprops test
+
+	* lib/propdialogs.c : use &= ~PXP_NOTSET to reset the property 
+	experience flag
+
 2008-04-25  Hans Breuer  <hans@breuer.org>
 
 	* lib/diagdkrenderer.c dia_image.[ch] : don't use dia_image_draw()

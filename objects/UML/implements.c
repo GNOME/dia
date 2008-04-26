@@ -127,8 +127,10 @@ static PropDescription implements_props[] = {
   PROP_STD_LINE_COLOUR_OPTIONAL, 
   /* can't use PROP_STD_TEXT_COLOUR_OPTIONAL cause it has PROP_FLAG_DONT_SAVE. It is designed to fill the Text object - not some subset */
   PROP_STD_TEXT_COLOUR_OPTIONS(PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD|PROP_FLAG_OPTIONAL),
-  { "text", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
-    N_("Interface:"), NULL, NULL },
+  /* backward compatibility */
+  { "text", PROP_TYPE_STRING, PROP_FLAG_NO_DEFAULTS|PROP_FLAG_LOAD_ONLY|PROP_FLAG_OPTIONAL, N_("Interface:"), NULL, NULL },
+  /* new name matching "same name, same type"  rule */
+  { "name", PROP_TYPE_STRING, PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL, N_("Interface:"), NULL, NULL },
   { "text_pos", PROP_TYPE_POINT, 0, NULL, NULL, NULL },
   { "diameter", PROP_TYPE_REAL, 0, NULL, NULL, NULL },
   PROP_DESC_END

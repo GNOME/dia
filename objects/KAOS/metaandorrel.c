@@ -159,8 +159,10 @@ static PropEnumData prop_maor_type_data[] = {
 
 static PropDescription maor_props[] = {
   CONNECTION_COMMON_PROPERTIES,
-  { "text", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
-    N_("Text:"), NULL, NULL },
+  /* backward compatibility */
+  { "text", PROP_TYPE_STRING, PROP_FLAG_NO_DEFAULTS|PROP_FLAG_LOAD_ONLY|PROP_FLAG_OPTIONAL, N_("Text:"), NULL, NULL },
+  /* new name matching "same name, same type"  rule */
+  { "name", PROP_TYPE_STRING, PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL, N_("Text:"), NULL, NULL },
 
   { "type", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE,
     N_("Type:"), NULL, prop_maor_type_data },
@@ -181,7 +183,10 @@ maor_describe_props(Maor *maor)
 
 static PropOffset maor_offsets[] = {
   CONNECTION_COMMON_PROPERTIES_OFFSETS,
+  /* backward compatibility */
   { "text", PROP_TYPE_STRING, offsetof(Maor, text) },
+  /* new name matching "same name, same type"  rule */
+  { "name", PROP_TYPE_STRING, offsetof(Maor, text) },
   { "type", PROP_TYPE_ENUM, offsetof(Maor,type)},
   { "text_pos", PROP_TYPE_POINT, offsetof(Maor,text_pos) },
   { NULL, 0, 0 }

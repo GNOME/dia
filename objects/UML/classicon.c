@@ -136,8 +136,10 @@ static PropDescription classicon_props[] = {
   ELEMENT_COMMON_PROPERTIES,
   PROP_STD_LINE_COLOUR_OPTIONAL, 
   PROP_STD_FILL_COLOUR_OPTIONAL, 
-  { "stereotype", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE,
-  N_("Stereotype"), NULL,  prop_classicon_type_data},
+  /* backward compatibility */
+  { "stereotype", PROP_TYPE_ENUM, PROP_FLAG_NO_DEFAULTS|PROP_FLAG_LOAD_ONLY|PROP_FLAG_OPTIONAL, N_("Stereotype"), NULL,  prop_classicon_type_data},
+  /* one name, one type */
+  { "type", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL, N_("Stereotype"), NULL,  prop_classicon_type_data},
   { "is_object", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE,
   N_("Is object"), NULL, NULL },
   PROP_STD_TEXT_FONT,
@@ -161,7 +163,10 @@ static PropOffset classicon_offsets[] = {
   ELEMENT_COMMON_PROPERTIES_OFFSETS,
   { "line_colour",PROP_TYPE_COLOUR,offsetof(Classicon,line_color) },
   { "fill_colour",PROP_TYPE_COLOUR,offsetof(Classicon,fill_color) },
+  /* backward compatibility */
   { "stereotype", PROP_TYPE_ENUM, offsetof(Classicon, stereotype) },
+  /* one name, one type! */
+  { "type", PROP_TYPE_ENUM, offsetof(Classicon, stereotype) },
   { "is_object", PROP_TYPE_BOOL, offsetof(Classicon, is_object) },
   { "text",PROP_TYPE_TEXT,offsetof(Classicon,text)},
   { "text_font",PROP_TYPE_FONT,offsetof(Classicon,attrs.font)},
