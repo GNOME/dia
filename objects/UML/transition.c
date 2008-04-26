@@ -468,9 +468,23 @@ transition_move_handle(Transition*      transition,
       break;
     
     default:
-      /* Tell the connection that one of its handles is being moved */
-      orthconn_move_handle(&transition->orth, handle, newpos, cp, reason,
-                           modifiers);
+      {
+        int n = transition->orth.numpoints/2;
+        Point p1, p2;
+	p1.x = 0.5 * (transition->orth.points[n-1].x + transition->orth.points[n].x);
+	p1.y = 0.5 * (transition->orth.points[n-1].y + transition->orth.points[n].y);
+	
+        /* Tell the connection that one of its handles is being moved */
+        orthconn_move_handle(&transition->orth, handle, newpos, cp, reason, modifiers);
+	/* with auto-routing the number of points may have changed */
+	n = transition->orth.numpoints/2;
+	p2.x = 0.5 * (transition->orth.points[n-1].x + transition->orth.points[n].x);
+	p2.y = 0.5 * (transition->orth.points[n-1].y + transition->orth.points[n].y);
+        point_sub(&p2, &p1);
+	
+        point_add(&transition->trigger_text_pos, &p2);
+        point_add(&transition->guard_text_pos, &p2);
+      }
       break;
   }
   

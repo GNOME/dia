@@ -1,5 +1,8 @@
 2008-04-26  Hans Breuer  <hans@breuer.org>
 
+	* objects/UML/transition.c : move text positions by same delta than
+	the center handle, fixes bug #528738
+
 	[ there is an unwritten rule for std-props: same name, same type ]
 	* objects/AADL/aadlbox.c objects/Jackson/phenomenon.c 
 	  objects/UML/message.c objects/UML/node.c : what is called text 
