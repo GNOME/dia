@@ -6,8 +6,6 @@ SHAPES = \
 	place.shape \
 	transition.shape \
 	t_transition.shape \
-	arc_inhibiteur.png \
-	arc.png \
 	place_marquee.png \
 	place.png \
 	transition.png \

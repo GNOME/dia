@@ -688,34 +688,6 @@ SHAPES5=\
   www_server.png
 
 # Old ones that have been replaced.  Ian, please check.
-#  atm_tag_sw_gigabit_router.shape\
-#  atm_tag_sw_gigabit_router.png\
-#  cddi_fddi.shape\
-#  cddi_fddi.png\
-#  centri.shape\
-#  centri.png\
-#  content_service_router.shape\
-#  content_service_router.png\
-#  content_switch_module.shape\
-#  content_switch_module.png\
-#  iptc.shape\
-#  iptc.png\
-#  ons15500.shape\
-#  ons15500.png\
-#  pad_x28.shape\
-#  pad_x28.png\
-#  software_based_server.shape\
-#  software_based_server.png\
-#  ubr910.shape\
-#  ubr910.png\
-#  voice_atm_switch.shape\
-#  voice_atm_switch.png\
-#  voice_commserver.shape\
-#  voice_commserver.png\
-#  voice_router.shape\
-#  voice_router.png\
-#  voice_switch.shape\
-#  voice_switch.png\
 #
 
 EXTRA_DIST = $(SHAPES1) $(SHAPES2) $(SHAPES3) $(SHAPES4) $(SHAPES5)

@@ -1,6 +1,9 @@
 2008-04-27  Hans Breuer  <hans@breuer.org>
 
-	* lib/dia_image.h : include gdkbixfuf.h rather than forward declaring
+	* shapes/Cisco/*.png shapes/RDP/*.png  shapes/Cisco/Makefile.am 
+	  shapes/RDP/Makefile.am : removed unrefernced icons
+
+	* lib/dia_image.h : include gdkpixbuf.h rather than forward declaring
 	typedef struct _GdkPixbuf GdkPixbuf; gcc does not like the latter
 
 	* objects/custom/custom_object.c : 'default_properties' were not
