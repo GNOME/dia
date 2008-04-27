@@ -9,7 +9,9 @@
 	* objects/custom/custom_object.c : 'default_properties' were not
 	initialized as intended, e.g. show_backgound was random data
 
-	* shapes/ChemEng/*.png : desired icon size is 22x22
+	* shapes/Lights/ACL.png shapes/MSE/large_extension_node.png
+	  shapes/Logic/and.png shapes/MSE/small_extension_node.png
+	  shapes/ChemEng/*.png : desired icon size is 22x22
 
 	* sheets/UML/aggregation.png : rotated/flipped to show the 
 	usual direction
