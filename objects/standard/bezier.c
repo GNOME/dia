@@ -161,8 +161,10 @@ static PropOffset bezierline_offsets[] = {
     offsetof(Bezierline, line_style), offsetof(Bezierline, dashlength) },
   { "start_arrow", PROP_TYPE_ARROW, offsetof(Bezierline, start_arrow) },
   { "end_arrow", PROP_TYPE_ARROW, offsetof(Bezierline, end_arrow) },
+  PROP_OFFSET_FRAME_BEGIN("gaps"),
   { "absolute_start_gap", PROP_TYPE_REAL, offsetof(Bezierline, absolute_start_gap) },
   { "absolute_end_gap", PROP_TYPE_REAL, offsetof(Bezierline, absolute_end_gap) },
+  PROP_OFFSET_FRAME_END("gaps"),
   { NULL, 0, 0 }
 };
 

@@ -111,11 +111,13 @@ frame_fold_unfold(GtkWidget *button1, gpointer userdata)
   struct FoldButtonInfo *info = (struct FoldButtonInfo *)userdata;
   
   if (button1 == info->unfoldbutton) {
+    gtk_widget_set_sensitive (info->unfoldbutton, FALSE);
     gtk_widget_hide(info->unfoldbutton);
     gtk_widget_show(info->frame);
   } else {
     gtk_widget_hide(info->frame);
     gtk_widget_show(info->unfoldbutton);
+    gtk_widget_set_sensitive (info->unfoldbutton, TRUE);
   }
 }
 
@@ -141,6 +143,7 @@ frame_beginprop_get_widget(FrameProperty *prop, PropDialog *dialog)
 
   gtk_container_set_border_width (GTK_CONTAINER(frame), 2);
   gtk_container_add(GTK_CONTAINER(frame),vbox);
+  gtk_widget_set_sensitive (unfoldbutton, FALSE);
   gtk_widget_show(foldbutton);
   gtk_widget_show(frame);
   gtk_widget_show(vbox);

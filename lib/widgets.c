@@ -534,9 +534,10 @@ dia_font_selector_set_style_menu(DiaFontSelector *fs,
 				 PangoFontFamily *pff,
 				 DiaFontStyle dia_style)
 {
-  int i=0, select = 0;
+  int select = 0;
   PangoFontFace **faces = NULL;
-  int nfaces = 0;
+  guint nfaces = 0;
+  guint i=0;
   GtkWidget *menu = NULL;
   long stylebits = 0;
   int menu_item_nr = 0;
@@ -1347,7 +1348,7 @@ struct _DiaFileSelector
   GtkHBox hbox;
   GtkEntry *entry;
   GtkButton *browse;
-  GtkFileSelection *dialog;
+  GtkWidget *dialog;
   gchar *sys_filename;
 };
 
@@ -1438,7 +1439,7 @@ dia_file_selector_browse_pressed(GtkWidget *widget, gpointer data)
   if (fs->dialog == NULL) {
     GtkFileFilter *filter;
     
-    dialog = fs->dialog =
+    dialog = fs->dialog = 
       gtk_file_chooser_dialog_new (_("Select image file"), toplevel ? GTK_WINDOW(toplevel) : NULL,
                                    GTK_FILE_CHOOSER_ACTION_OPEN,
                                    GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,

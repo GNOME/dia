@@ -160,8 +160,10 @@ static PropOffset polyline_offsets[] = {
   { "start_arrow", PROP_TYPE_ARROW, offsetof(Polyline, start_arrow) },
   { "end_arrow", PROP_TYPE_ARROW, offsetof(Polyline, end_arrow) },
   { "corner_radius", PROP_TYPE_REAL, offsetof(Polyline, corner_radius) },
+  PROP_OFFSET_FRAME_BEGIN("gaps"),
   { "absolute_start_gap", PROP_TYPE_REAL, offsetof(Polyline, absolute_start_gap) },
   { "absolute_end_gap", PROP_TYPE_REAL, offsetof(Polyline, absolute_end_gap) },
+  PROP_OFFSET_FRAME_END("gaps"),
   { NULL, 0, 0 }
 };
 

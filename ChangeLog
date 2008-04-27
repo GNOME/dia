@@ -1,3 +1,16 @@
+2008-04-27  Hans Breuer  <hans@breuer.org>
+
+	* lib/prop_widgets.c : set the unfoldbutton to insensitive when
+	invisible to stop propagating key events to it. Fixes bug #491028
+	* objects/standard/(bezier|line|polyline).c : added 
+	PROP_OFFSET_FRAME_BEGIN("gaps"), PROP_OFFSET_FRAME_END("gaps")
+	to get symmetry between PropDescriptions and PropOffsets
+	
+	* lib/widgets.c : no more singned/unsigned mismatch and get rid of
+	incompatible types - from 'struct _GtkWidget *' to 
+	'struct _GtkFileSelection *', the DiaFileSelector::dialog is a
+	GtkFileChooser for quite a long time
+
 2008-04-26  Hans Breuer  <hans@breuer.org>
 
 	* objects/UML/transition.c : move text positions by same delta than

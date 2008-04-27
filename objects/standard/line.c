@@ -168,8 +168,10 @@ static PropOffset line_offsets[] = {
   { "end_arrow", PROP_TYPE_ARROW, offsetof(Line, end_arrow) },
   { "start_point", PROP_TYPE_POINT, offsetof(Connection, endpoints[0]) },
   { "end_point", PROP_TYPE_POINT, offsetof(Connection, endpoints[1]) },
+  PROP_OFFSET_FRAME_BEGIN("gaps"),
   { "absolute_start_gap", PROP_TYPE_REAL, offsetof(Line, absolute_start_gap) },
   { "absolute_end_gap", PROP_TYPE_REAL, offsetof(Line, absolute_end_gap) },
+  PROP_OFFSET_FRAME_END("gaps"),
   { NULL, 0, 0 }
 };
 
