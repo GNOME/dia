@@ -20,10 +20,10 @@
 
 #include "diatypes.h"
 #include <gdk/gdktypes.h>
+#include <gdk-pixbuf/gdk-pixbuf.h>
 
 #include "geometry.h"
 
-typedef struct _GdkPixbuf GdkPixbuf;
 
 void dia_image_init(void);
 

@@ -1,5 +1,8 @@
 2008-04-27  Hans Breuer  <hans@breuer.org>
 
+	* lib/dia_image.h : include gdkbixfuf.h rather than forward declaring
+	typedef struct _GdkPixbuf GdkPixbuf; gcc does not like the latter
+
 	* objects/custom/custom_object.c : 'default_properties' were not
 	initialized as intended, e.g. show_backgound was random data
 
