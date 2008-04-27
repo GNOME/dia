@@ -5,6 +5,8 @@
   <name>Circuit - Horizontal Led (European)</name>
   <description>A horizontally aligned led</description>
   <icon>hled_de.png</icon>
+  <default-width>3cm</default-width>
+  <default-height>1.5cm</default-height>
   <connections>
     <point x="0" y="0"/>
     <point x="5.75" y="0"/>

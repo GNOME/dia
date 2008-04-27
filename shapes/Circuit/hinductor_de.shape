@@ -5,6 +5,8 @@
   <name>Circuit - Horizontal Inductor (European)</name>
   <description>A horizontally aligned inductor</description>
   <icon>hinductor_de.png</icon>
+  <default-width>3cm</default-width>
+  <default-height>1cm</default-height>
   <connections>
     <point x="0" y="0"/>
     <point x="6" y="0"/>

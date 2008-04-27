@@ -5,6 +5,8 @@
   <name>Circuit - Horizontal Zener Diode</name>
   <description>A horizontally aligned zener diode</description>
   <icon>hzener.png</icon>
+  <default-width>3cm</default-width>
+  <default-height>1cm</default-height>
   <connections>
     <point x="0" y="0"/>
     <point x="5.85" y="0"/>

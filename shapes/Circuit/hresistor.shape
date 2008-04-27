@@ -5,6 +5,8 @@
   <name>Circuit - Horizontal Resistor</name>
   <description>A horizontally aligned resistor</description>
   <icon>hresistor.png</icon>
+  <default-width>3cm</default-width>
+  <default-height>1cm</default-height>
   <connections>
     <point x="0" y="0"/>
     <point x="7.5" y="0"/>

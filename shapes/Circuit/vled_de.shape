@@ -5,6 +5,8 @@
   <name>Circuit - Vertical Led (European)</name>
   <description>A vertically aligned led</description>
   <icon>vled_de.png</icon>
+  <default-width>1.5cm</default-width>
+  <default-height>3cm</default-height>
   <connections>
     <point x="0" y="0"/>
     <point x="0" y="5.75"/>

@@ -97,6 +97,10 @@ the shape.  The syntax is:
 (Only one textbox per shape) Where the attributes give the bounds of 
 the text box in the same coordinate system as the SVG shape description.
 
+Shapes are given a default size on creation. If that default size does
+not fit your needs you can overwrite it by (one or both):
+  <default-width>1cm</default-width>
+  <default-height>3cm</default-height>
 
 The svg element describes the shape.  The width and height attributes
 are ignored, and only given to comply with the SVG specification.  For

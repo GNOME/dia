@@ -5,6 +5,8 @@
   <name>Circuit - Horizontal Diode</name>
   <description>A horizontally aligned diode</description>
   <icon>hdiode.png</icon>
+  <default-width>3cm</default-width>
+  <default-height>1cm</default-height>
   <connections>
     <point x="0" y="0"/>
     <point x="5.75" y="0"/>

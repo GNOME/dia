@@ -1,5 +1,9 @@
 2008-04-27  Hans Breuer  <hans@breuer.org>
 
+	* doc/custom-shapes : mention <default-width/> and <default-height/>
+	* shapes/circuit/(h|v)*.shape : use them to have more recognizable
+	shapes. Fixes bug #493237.
+
 	* lib/prop_widgets.c : set the unfoldbutton to insensitive when
 	invisible to stop propagating key events to it. Fixes bug #491028
 	* objects/standard/(bezier|line|polyline).c : added 

@@ -5,6 +5,8 @@
   <name>Circuit - Vertical Fuse (European)</name>
   <description>A vertically aligned fuse</description>
   <icon>vfuse_de.png</icon>
+  <default-width>1cm</default-width>
+  <default-height>3cm</default-height>
   <connections>
     <point x="0" y="0"/>
     <point x="0" y="6"/>

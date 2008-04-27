@@ -5,6 +5,8 @@
   <name>Circuit - Horizontal Powersource (European)</name>
   <description>A horizontally aligned powersource</description>
   <icon>hpowersource_de.png</icon>
+  <default-width>3cm</default-width>
+  <default-height>1cm</default-height>
   <connections>
     <point x="0" y="0"/>
     <point x="6" y="0"/>
