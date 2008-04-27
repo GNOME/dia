@@ -268,8 +268,12 @@ dia_object_default_create (const DiaObjectType *type,
       obj = type->ops->create (startpoint, user_data, handle1, handle2);
       if (obj)
         {
-          object_copy_props (obj, def_obj, TRUE);
+	  GPtrArray *props = prop_list_from_descs (
+	      object_get_prop_descriptions(def_obj), pdtpp_defaults);
+          def_obj->ops->get_props(def_obj, props);
+          obj->ops->set_props(obj, props);
 	  obj->ops->move (obj, startpoint);
+          prop_list_free(props);
 	}
     }
   else
@@ -296,12 +300,6 @@ struct _MyRootInfo
   xmlNs      *name_space;
   gint        obj_nr;
 };
-
-static gboolean 
-pdtpp_do_save_no_default (const PropDescription *pdesc)
-{ 
-  return (pdesc->flags & (PROP_FLAG_DONT_SAVE|PROP_FLAG_LOAD_ONLY|PROP_FLAG_NO_DEFAULTS|PROP_FLAG_WIDGET_ONLY)) == 0; 
-} 
 
 static void
 _obj_store (gpointer key,
@@ -360,18 +358,9 @@ _obj_store (gpointer key,
   }
 
   obj->ops->move (obj,&(li->pos));
-  if (obj->ops->get_props) {
-    /* slightly modified from object_save_props() */
-    GPtrArray *props;
-    /* all but DONT_MERGE and NO_DEFAULTS: */
-    props = prop_list_from_descs (object_get_prop_descriptions(obj), pdtpp_do_save_no_default);  
-    obj->ops->get_props(obj, props);
-    prop_list_save(props,obj_node);
-    prop_list_free(props);
-  } else {
-    /* saving every property of the object */
-    obj->type->ops->save (obj, obj_node, ri->filename);
-  }
+  /* saving every property of the object */
+  obj->type->ops->save (obj, obj_node, ri->filename);
+
   /* arrange following objects below */
   li->pos.y += (obj->bounding_box.bottom - obj->bounding_box.top + 1.0); 
 }

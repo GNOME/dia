@@ -20,7 +20,8 @@
 	creating a default object for every object used. Only the default
 	dialog created from double-clicking the tools toolbox icon creates
 	a new default object now.
-	(dia_object_defaults_save) : only save props not marked as NO_DEFAULTS
+	Also only copy ~PROP_FLAG_NO_DEFAULTS to preserve intdata initialized
+	properties over stored ones
 	* objects/GRAFCET/vergent.c objects/Istar/actor.c objects/Istar/goal.c
 	  objects/Istar/link.c objects/Istar/other.c objects/Jackson/domain.c
 	  objects/Jackson/phenomenon.c objects/KAOS/goal.c 
@@ -29,6 +30,7 @@
 	properties modified by intdata/GPOINTER_TO_INT(user_data) as 
 	PROP_FLAG_NO_DEFAULTS, thus they are no longer over-written by the
 	object defauts system.
+	* objects/UML/class.c : no default name anymore
 
 	* doc/custom-shapes : mention <default-width/> and <default-height/>
 	* shapes/circuit/(h|v)*.shape : use them to have more recognizable
