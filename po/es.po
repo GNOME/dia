@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-04-12 10:57+0100\n"
-"PO-Revision-Date: 2008-04-12 16:01+0200\n"
+"POT-Creation-Date: 2008-04-26 15:24+0000\n"
+"PO-Revision-Date: 2008-04-27 20:38+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -25,83 +25,83 @@ msgstr ""
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 
 #. This is not an errror
-#: ../app/app_procs.c:239
+#: ../app/app_procs.c:240
 #, c-format
 msgid "Warning: invalid layer range %lu - %lu\n"
 msgstr "Atención: rango de capa inválido %lu - %lu\n"
 
-#: ../app/app_procs.c:251
+#: ../app/app_procs.c:252
 #, c-format
 msgid "Warning: Layer %lu (%s) selected more than once.\n"
 msgstr "Atención: Capa %lu (%s) seleccionada más de una vez.\n"
 
-#: ../app/app_procs.c:277
+#: ../app/app_procs.c:278
 #, c-format
 msgid "Warning: Layer %d (%s) selected more than once.\n"
 msgstr "Atención: Capa %d (%s) seleccionada más de una vez.\n"
 
-#: ../app/app_procs.c:286
+#: ../app/app_procs.c:287
 #, c-format
 msgid "Warning: There is no layer named %s\n"
 msgstr "Atención: No hay ninguna capa llamada %s\n"
 
-#: ../app/app_procs.c:368
+#: ../app/app_procs.c:369
 #, c-format
 msgid "%s error: don't know how to export into %s\n"
 msgstr "%s error: no se sabe cómo exportar a %s\n"
 
-#: ../app/app_procs.c:377
+#: ../app/app_procs.c:378
 #, c-format
 msgid "%s error: input and output file name is identical: %s"
 msgstr "%s error: el nombre de los ficheros de entrada y salida es idéntico: %s"
 
-#: ../app/app_procs.c:385
+#: ../app/app_procs.c:386
 #, c-format
 msgid "%s error: need valid input file %s\n"
 msgstr "%s error: se necesita un archivo de entrada válido %s\n"
 
 #. if (!quiet)
-#: ../app/app_procs.c:410
+#: ../app/app_procs.c:411
 #, c-format
 msgid "%s --> %s\n"
 msgstr "%s --> %s\n"
 
-#: ../app/app_procs.c:571
+#: ../app/app_procs.c:572
 #, c-format
 msgid "Can't find output format/filter %s\n"
 msgstr "No se pudo encontrar el formato/filtro de salida %s\n"
 
 #. Translators:  The argument is a list of options, not to be translated
-#: ../app/app_procs.c:663
+#: ../app/app_procs.c:664
 #, c-format
 msgid "Select the filter/format out of: %s"
 msgstr "Seleccione el filtro/formato de salida de: %s"
 
 #. &export_file_name
-#: ../app/app_procs.c:681
+#: ../app/app_procs.c:682
 msgid "Export loaded file and exit"
 msgstr "Exportar archivo cargado y salir"
 
-#: ../app/app_procs.c:681
+#: ../app/app_procs.c:682
 msgid "OUTPUT"
 msgstr "SALIDA"
 
 # Supongo que también hay que traducir "TYPE", ¿no? RizOX.
 #. &export_file_format
 #. &export_format_string
-#: ../app/app_procs.c:683
+#: ../app/app_procs.c:684
 msgid "TYPE"
 msgstr "TIPO"
 
-#: ../app/app_procs.c:685
+#: ../app/app_procs.c:686
 msgid "Export graphics size"
 msgstr "Tamaño del gráfico exportado"
 
-#: ../app/app_procs.c:685
+#: ../app/app_procs.c:686
 msgid "WxH"
 msgstr "AnchoxAlto"
 
-#: ../app/app_procs.c:687
+#: ../app/app_procs.c:688
 msgid ""
 "Show only specified layers (e.g. when exporting). Can be either the layer "
 "name or a range of layer numbers (X-Y)"
@@ -109,68 +109,68 @@ msgstr ""
 "mostrar sólo las capas especificadas (ej: al exportar). Puede ser o el "
 "nombre de capa o un rango de números de capas (X-Y)"
 
-#: ../app/app_procs.c:688
+#: ../app/app_procs.c:689
 msgid "LAYER,LAYER,..."
 msgstr "CAPA,CAPA..."
 
-#: ../app/app_procs.c:690
+#: ../app/app_procs.c:691
 msgid "Don't show the splash screen"
 msgstr "No mostrar la pantalla de bienvenida"
 
-#: ../app/app_procs.c:692
+#: ../app/app_procs.c:693
 msgid "Don't create empty diagram"
 msgstr "No crear un diagrama vacío"
 
-#: ../app/app_procs.c:694
+#: ../app/app_procs.c:695
 msgid "Send error messages to stderr instead of showing dialogs."
 msgstr "Enviar los mensajes de error a stderr en vez de mostrar diálogos."
 
-#: ../app/app_procs.c:696
+#: ../app/app_procs.c:697
 msgid "Display credits list and exit"
 msgstr "Mostrar la lista de créditos y salir"
 
-#: ../app/app_procs.c:698
+#: ../app/app_procs.c:699
 msgid "Generate verbose output"
 msgstr "Generar salida detallada"
 
-#: ../app/app_procs.c:700
+#: ../app/app_procs.c:701
 msgid "Display version and exit"
 msgstr "Mostrar la versión y salir"
 
-#: ../app/app_procs.c:749
+#: ../app/app_procs.c:750
 msgid "Can't connect to session manager!\n"
 msgstr "¡No se puede conectar con el gestor de sesiones!\n"
 
 #. TRANSLATOR: 2nd and 3rd %s are time and date respectively.
-#: ../app/app_procs.c:789
+#: ../app/app_procs.c:790
 #, c-format
 msgid "Dia version %s, compiled %s %s\n"
 msgstr "Versión %s de Dia, compilada %s %s\n"
 
-#: ../app/app_procs.c:791
+#: ../app/app_procs.c:792
 #, c-format
 msgid "Dia version %s\n"
 msgstr "Versión %s de Dia\n"
 
 # Como adjetivo creo que el plural es "estándar". FVD
-#: ../app/app_procs.c:848
+#: ../app/app_procs.c:849
 msgid "Couldn't find standard objects when looking for object-libs; exiting...\n"
 msgstr "No se encontraron objetos estándar en object-libs, saliendo...\n"
 
 # Como adjetivo creo que el plural es "estándar". FVD
-#: ../app/app_procs.c:850
+#: ../app/app_procs.c:851
 #, c-format
 msgid ""
 "Couldn't find standard objects when looking for object-libs in '%s'; "
 "exiting...\n"
 msgstr "No se encontraron objetos estándar en object-libs en «%s»; saliendo...\n"
 
-#: ../app/app_procs.c:908
+#: ../app/app_procs.c:909
 msgid "Diagram1.dia"
 msgstr "Diagrama1.dia"
 
 # Me parece más correcta y explicativa esta traducción aunque sea algo más larga. RizOX.
-#: ../app/app_procs.c:951
+#: ../app/app_procs.c:952
 msgid ""
 "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you can cause this message to appear.\n"
@@ -179,16 +179,16 @@ msgstr ""
 "gnome.org\n"
 "describiendo cómo conseguir que este mensaje vuelva a aparecer.\n"
 
-#: ../app/app_procs.c:966
+#: ../app/app_procs.c:967
 msgid "Exiting Dia"
 msgstr "Salir de Dia"
 
 #. no standard buttons
-#: ../app/app_procs.c:1018
+#: ../app/app_procs.c:1019
 msgid "Quitting without saving modified diagrams"
 msgstr "¿Salir sin guardar los diagramas modificados?"
 
-#: ../app/app_procs.c:1020
+#: ../app/app_procs.c:1021
 msgid ""
 "Modified diagrams exist. Are you sure you want to quit Dia without saving "
 "them?"
@@ -196,15 +196,15 @@ msgstr ""
 "Hay diagramas modificados. ¿Está seguro de que desea salir de Dia\n"
 "sin guardarlos?"
 
-#: ../app/app_procs.c:1024
+#: ../app/app_procs.c:1025
 msgid "Quit Dia"
 msgstr "Salir de Dia"
 
-#: ../app/app_procs.c:1093 ../app/app_procs.c:1100
+#: ../app/app_procs.c:1094 ../app/app_procs.c:1101
 msgid "Could not create per-user Dia config directory"
 msgstr "No se pudo crear el directorio de configuración de Dia para el usuario"
 
-#: ../app/app_procs.c:1103
+#: ../app/app_procs.c:1104
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -213,20 +213,20 @@ msgstr ""
 "favor, asegúrese de que la variable de entorno HOME apunta a un directorio "
 "existente."
 
-#: ../app/app_procs.c:1126
+#: ../app/app_procs.c:1127
 msgid "Objects and filters internal to dia"
 msgstr "Objetos y filtros internos para dia"
 
-#: ../app/app_procs.c:1165
+#: ../app/app_procs.c:1169
 msgid "[FILE...]"
 msgstr "[ARCHIVO...]"
 
-#: ../app/app_procs.c:1186
+#: ../app/app_procs.c:1190
 #, c-format
 msgid "'%s' not found!\n"
 msgstr "«%s» no encontrado\n"
 
-#: ../app/app_procs.c:1230
+#: ../app/app_procs.c:1234
 #, c-format
 msgid ""
 "The original author of Dia was:\n"
@@ -235,7 +235,7 @@ msgstr ""
 "El autor original de Dia fue:\n"
 "\n"
 
-#: ../app/app_procs.c:1235
+#: ../app/app_procs.c:1239
 #, c-format
 msgid ""
 "\n"
@@ -246,7 +246,7 @@ msgstr ""
 "Los actuales mantenedores de Dia son:\n"
 "\n"
 
-#: ../app/app_procs.c:1240
+#: ../app/app_procs.c:1244
 #, c-format
 msgid ""
 "\n"
@@ -257,7 +257,7 @@ msgstr ""
 "Otros autores son:\n"
 "\n"
 
-#: ../app/app_procs.c:1245
+#: ../app/app_procs.c:1249
 #, c-format
 msgid ""
 "\n"
@@ -470,11 +470,11 @@ msgstr ""
 "en un elemento en un diagrama nuevo y si lo guarda, se guardará como un "
 "diagrama de Dia."
 
-#: ../app/diagram.c:1171
+#: ../app/diagram.c:1178
 msgid "Trying to group with no selected objects."
 msgstr "Intentando agrupar sin objetos seleccionados."
 
-#: ../app/diagram.c:1181
+#: ../app/diagram.c:1188
 msgid ""
 "You cannot group objects that belong to different groups or have different "
 "parents"
@@ -651,35 +651,31 @@ msgstr ""
 "El objeto que soltó no cabe en su padre.\n"
 "Expanda el objeto padre o suelte el objeto en otro lugar."
 
-#: ../app/display.c:111
-msgid "Diagram modified!"
-msgstr "¡Diagrama modificado!"
-
 #. http://www.gnu.org/software/gettext/manual/html_chapter/gettext_10.html#SEC150
 #. * Althoug the single objects wont get triggered here some languages have variations on the other numbers
 #.
-#: ../app/display.c:138
+#: ../app/display.c:109
 #, c-format
 msgid "Selection of %d object"
 msgid_plural "Selection of %d objects"
 msgstr[0] "Selección de %d objeto"
 msgstr[1] "Selección de %d objetos"
 
-#: ../app/display.c:148
+#: ../app/display.c:119
 #, c-format
 msgid "Selected '%s'"
 msgstr "Seleccionados «%s»"
 
-#: ../app/display.c:1198
+#: ../app/display.c:1169
 msgid "<unnamed>"
 msgstr "<sin nombre>"
 
 #. no standard buttons
-#: ../app/display.c:1204
+#: ../app/display.c:1175
 msgid "Closing diagram without saving"
 msgstr "Cerrando el diagrama sin guardar"
 
-#: ../app/display.c:1207
+#: ../app/display.c:1178
 #, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -688,11 +684,11 @@ msgstr ""
 "Este diagrama «%s»\n"
 "no ha sido guardado. ¿Guardar los cambios ahora?"
 
-#: ../app/display.c:1209
+#: ../app/display.c:1180
 msgid "Close Diagram"
 msgstr "Cerrar el diagrama"
 
-#: ../app/display.c:1214
+#: ../app/display.c:1185
 msgid "_Discard Changes"
 msgstr "_Descartar los cambios"
 
@@ -724,10 +720,10 @@ msgstr "activo"
 #. *** board of value **************
 #: ../app/exit_dialog.c:124 ../app/plugin-manager.c:262
 #: ../objects/Database/table.c:136 ../objects/Database/table.c:179
-#: ../objects/SISSI/sissi_dialog.c:618 ../objects/UML/class.c:141
-#: ../objects/UML/large_package.c:133 ../objects/UML/umlattribute.c:37
-#: ../objects/UML/umlformalparameter.c:35 ../objects/UML/umloperation.c:62
-#: ../objects/UML/umlparameter.c:43
+#: ../objects/SISSI/sissi_dialog.c:618 ../objects/UML/association.c:236
+#: ../objects/UML/class.c:141 ../objects/UML/large_package.c:133
+#: ../objects/UML/umlattribute.c:37 ../objects/UML/umlformalparameter.c:35
+#: ../objects/UML/umloperation.c:62 ../objects/UML/umlparameter.c:43
 msgid "Name"
 msgstr "Nombre"
 
@@ -747,7 +743,7 @@ msgstr "No seleccionar ninguno"
 msgid "Nothing selected for saving.  Would you like to try again?"
 msgstr "No se seleccionó nada para guardar. ¿Quiere intentarlo otra vez?"
 
-#: ../app/export_png.c:138 ../app/load_save.c:992 ../app/render_eps.c:105
+#: ../app/export_png.c:138 ../app/load_save.c:1017 ../app/render_eps.c:105
 #: ../plug-ins/cairo/diacairo.c:122 ../plug-ins/cgm/cgm.c:1153
 #: ../plug-ins/dxf/dxf-export.c:547 ../plug-ins/hpgl/hpgl.c:710
 #: ../plug-ins/metapost/render_metapost.c:1177
@@ -909,12 +905,17 @@ msgstr "Ampliar"
 msgid "Scroll around the diagram"
 msgstr "Desplazar sobre el diagrama"
 
+#. backward compatibility
+#. new name matching "same name, same type"  rule
+#. backward compatibility
+#. new name matching "same name, same type"  rule
 #: ../app/interface.c:168 ../app/menus.c:218 ../lib/properties.c:79
-#: ../lib/properties.h:522 ../objects/AADL/aadlbox.c:156
-#: ../objects/Jackson/requirement.c:144 ../objects/UML/activity.c:129
-#: ../objects/UML/actor.c:124 ../objects/UML/classicon.c:146
-#: ../objects/UML/component.c:130 ../objects/UML/component_feature.c:157
-#: ../objects/UML/node.c:129 ../objects/UML/note.c:123
+#: ../lib/properties.h:522 ../objects/AADL/aadlbox.c:157
+#: ../objects/AADL/aadlbox.c:159 ../objects/Jackson/requirement.c:144
+#: ../objects/UML/activity.c:129 ../objects/UML/actor.c:124
+#: ../objects/UML/classicon.c:148 ../objects/UML/component.c:130
+#: ../objects/UML/component_feature.c:161 ../objects/UML/node.c:130
+#: ../objects/UML/node.c:132 ../objects/UML/note.c:123
 #: ../objects/UML/object.c:150 ../objects/UML/small_package.c:130
 #: ../objects/UML/state.c:154 ../objects/UML/usecase.c:140
 #: ../objects/custom/custom_object.c:222 ../objects/network/basestation.c:135
@@ -962,53 +963,53 @@ msgstr "Línea Bézier"
 msgid "Image"
 msgstr "Imagen"
 
-#: ../app/interface.c:234
+#: ../app/interface.c:234 ../app/menus.c:229
 msgid "Outline"
 msgstr "Esquema"
 
-#: ../app/interface.c:634 ../app/interface.c:870
+#: ../app/interface.c:607 ../app/interface.c:843
 msgid "Pops up the Navigation window."
 msgstr "Emerge la ventana de navegación."
 
-#: ../app/interface.c:832
+#: ../app/interface.c:805
 msgid "Diagram menu."
 msgstr "Menú de diagrama."
 
 # ¿"Ampliación" o "Amplía"? Fuzzy. RizOX.
-#: ../app/interface.c:936
+#: ../app/interface.c:909
 msgid "Zoom"
 msgstr "Ampliación"
 
-#: ../app/interface.c:951
+#: ../app/interface.c:924
 msgid "Toggles snap-to-grid for this window."
 msgstr "Conmuta el ajuste a la rejilla para esta ventana."
 
-#: ../app/interface.c:962
+#: ../app/interface.c:935
 msgid "Toggles object snapping for this window."
 msgstr "Conmuta el ajuste del objeto para esta ventana."
 
 # Fuzzy. RizOX
-#: ../app/interface.c:1025
+#: ../app/interface.c:998
 msgid "NULL tooldata in tool_select_update"
 msgstr "InArray de herramienta nula (NULL) en tool_select_update"
 
-#: ../app/interface.c:1352
+#: ../app/interface.c:1325
 #, c-format
 msgid "No sheet named %s"
 msgstr "No hay ninguna hoja llamada %s"
 
 # ¿De dónde salían esa traducción y esa variable? No concuerda con el original inglés en nada. Lo cambio. RizOX.
-#: ../app/interface.c:1390
+#: ../app/interface.c:1363
 msgid "Other sheets"
 msgstr "Otras hojas"
 
-#: ../app/interface.c:1450 ../sheets/Flowchart.sheet.in.h:10
+#: ../app/interface.c:1423 ../sheets/Flowchart.sheet.in.h:10
 msgid "Flowchart"
 msgstr "Diagrama de flujo"
 
 # Corregido: lleva doble espacio antes de cada frase.
 # "Pulse doble" o "Pulse dos veces" me suena más natural. RizOX.
-#: ../app/interface.c:1510
+#: ../app/interface.c:1483
 msgid ""
 "Foreground & background colors for new objects.  The small black and white "
 "squares reset colors.  The small arrows swap colors.  Double click to change "
@@ -1019,7 +1020,7 @@ msgstr ""
 "los colores.  Pulse dos veces para cambiar los colores."
 
 # Corregido: doble espacio al principio de línea. Cambiada la segunda expresión para darle mayor naturalidad. RizOX.
-#: ../app/interface.c:1525
+#: ../app/interface.c:1498
 msgid ""
 "Line widths.  Click on a line to set the default line width for new "
 "objects.  Double-click to set the line width more precisely."
@@ -1029,7 +1030,7 @@ msgstr ""
 "anchura con mayor precisión."
 
 # La coma antes del "o" no queda bien en la frase en español. RizOX.
-#: ../app/interface.c:1568
+#: ../app/interface.c:1541
 msgid ""
 "Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
 "arrow parameters with Details..."
@@ -1038,7 +1039,7 @@ msgstr ""
 "flecha o establezca los parámetros de la flecha en Detalles..."
 
 # La coma antes del "o" no queda bien en la frase en español. Añadido el doble espacio del comienzo de frase según original en inglés. RizOX.
-#: ../app/interface.c:1573
+#: ../app/interface.c:1546
 msgid ""
 "Line style for new lines.  Click to pick a line style, or set line style "
 "parameters with Details..."
@@ -1047,7 +1048,7 @@ msgstr ""
 "línea o establezca los parámetros de estilo de línea en Detalles..."
 
 # La coma antes del "o" no queda bien en la frase en español. Añadido el doble espacio del comienzo de frase según original en inglés. Cambiado "con Detalles" por "en Detalles" para mantener la coherencia con la traducción de las anteriores entradas. RizOX.
-#: ../app/interface.c:1589
+#: ../app/interface.c:1562
 msgid ""
 "Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
 "parameters with Details..."
@@ -1055,7 +1056,7 @@ msgstr ""
 "Estilo de flecha al final de las líneas nuevas.  Pulse para escoger una "
 "flecha o establezca los parámetros de la flecha en Detalles..."
 
-#: ../app/interface.c:1633 ../app/interface.c:1757
+#: ../app/interface.c:1606 ../app/interface.c:1730
 msgid "Diagram Editor"
 msgstr "Editor de diagramas"
 
@@ -1114,7 +1115,7 @@ msgid "Line width:"
 msgstr "Ancho de línea:"
 
 # Cambiado el orden de la frase para mayor naturalidad. RizOX.
-#: ../app/load_save.c:303
+#: ../app/load_save.c:304
 msgid ""
 "Error loading diagram.\n"
 "Linked object not found in document."
@@ -1122,7 +1123,7 @@ msgstr ""
 "Error cargando diagrama.\n"
 "No se ha encontrado en el documento el objeto enlazado."
 
-#: ../app/load_save.c:306
+#: ../app/load_save.c:308
 msgid ""
 "Error loading diagram.\n"
 "connection handle does not exist."
@@ -1130,7 +1131,7 @@ msgstr ""
 "Error cargando diagrama.\n"
 "No existe manejador de conexión."
 
-#: ../app/load_save.c:323
+#: ../app/load_save.c:333
 #, c-format
 msgid ""
 "Error loading diagram.\n"
@@ -1139,18 +1140,18 @@ msgstr ""
 "Error cargando diagrama.\n"
 "El punto de conexión %s no existe."
 
-#: ../app/load_save.c:348
+#: ../app/load_save.c:373
 #, c-format
 msgid "Can't find parent %s of %s object\n"
 msgstr "No se pudo encontrar el objeto padre %s de %s\n"
 
-#: ../app/load_save.c:394 ../objects/SISSI/area.c:209
+#: ../app/load_save.c:419 ../objects/SISSI/area.c:209
 #: ../objects/SISSI/faraday.c:209 ../objects/SISSI/room.c:209
 #: ../objects/SISSI/sissi_object.c:202 ../objects/SISSI/site.c:212
 msgid "You must specify a file, not a directory.\n"
 msgstr "Debe especificar un archivo, no un directorio.\n"
 
-#: ../app/load_save.c:401 ../objects/SISSI/area.c:215
+#: ../app/load_save.c:426 ../objects/SISSI/area.c:215
 #: ../objects/SISSI/faraday.c:215 ../objects/SISSI/room.c:215
 #: ../objects/SISSI/sissi_object.c:209 ../objects/SISSI/site.c:218
 #: ../plug-ins/dxf/dxf-import.c:1306 ../plug-ins/wpg/wpg.c:1177
@@ -1159,7 +1160,7 @@ msgstr "Debe especificar un archivo, no un directorio.\n"
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "No se pudo abrir: «%s» para lectura.\n"
 
-#: ../app/load_save.c:419 ../app/load_save.c:425 ../objects/SISSI/area.c:224
+#: ../app/load_save.c:444 ../app/load_save.c:450 ../objects/SISSI/area.c:224
 #: ../objects/SISSI/area.c:230 ../objects/SISSI/faraday.c:224
 #: ../objects/SISSI/faraday.c:230 ../objects/SISSI/room.c:224
 #: ../objects/SISSI/room.c:230 ../objects/SISSI/sissi_object.c:219
@@ -1173,7 +1174,7 @@ msgstr ""
 "Error cargando el diagrama %s.\n"
 "Tipo de archivo desconocido."
 
-#: ../app/load_save.c:433 ../objects/SISSI/area.c:238
+#: ../app/load_save.c:458 ../objects/SISSI/area.c:238
 #: ../objects/SISSI/faraday.c:238 ../objects/SISSI/room.c:238
 #: ../objects/SISSI/sissi_object.c:233 ../objects/SISSI/site.c:241
 #, c-format
@@ -1184,7 +1185,7 @@ msgstr ""
 "Error cargando el diagrama %s.\n"
 "No es un archivo de Dia."
 
-#: ../app/load_save.c:639
+#: ../app/load_save.c:664
 #, c-format
 msgid ""
 "Error loading diagram:\n"
@@ -1195,29 +1196,29 @@ msgstr ""
 "%s.\n"
 "Un archivo válido de Dia define al menos una capa."
 
-#: ../app/load_save.c:948
+#: ../app/load_save.c:973
 #, c-format
 msgid "Not allowed to write to output file %s\n"
 msgstr "No hay permiso para escribir el archivo de salida %s\n"
 
-#: ../app/load_save.c:970
+#: ../app/load_save.c:995
 #, c-format
 msgid "Not allowed to write temporary files in %s\n"
 msgstr "No se permite escribir archivos temporales en %s\n"
 
 #. Save failed; we clean our stuff up, without touching the file named
 #. "filename" if it existed.
-#: ../app/load_save.c:1003
+#: ../app/load_save.c:1028
 #, c-format
 msgid "Internal error %d writing file %s\n"
 msgstr "Error interno %d escribiendo archivo %s\n"
 
-#: ../app/load_save.c:1017
+#: ../app/load_save.c:1042
 #, c-format
 msgid "Can't rename %s to final output file %s: %s\n"
 msgstr "No se pudo renombrar %s al archivo final de salida %s: %s\n"
 
-#: ../app/load_save.c:1105 ../app/load_save.c:1110
+#: ../app/load_save.c:1130 ../app/load_save.c:1135
 msgid "Dia Diagram File"
 msgstr "Archivo de diagrama de Dia"
 
@@ -1437,7 +1438,7 @@ msgid "All"
 msgstr "Todo"
 
 #: ../app/menus.c:192 ../lib/arrows.c:1882 ../objects/Jackson/domain.c:96
-#: ../objects/UML/association.c:1185
+#: ../objects/UML/association.c:223 ../objects/UML/association.c:229
 msgid "None"
 msgstr "Nada"
 
@@ -1491,10 +1492,6 @@ msgstr "Editar texto"
 #: ../app/menus.c:217
 msgid "Scroll"
 msgstr "Desplazar"
-
-#: ../app/menus.c:229
-msgid "Outine"
-msgstr "Esquema"
 
 #: ../app/menus.c:240
 msgid "Fullscr_een"
@@ -1929,9 +1926,9 @@ msgstr "Nuevo"
 #: ../objects/Database/table.c:138 ../objects/Istar/actor.c:146
 #: ../objects/Istar/actor.c:147 ../objects/Istar/other.c:150
 #: ../objects/Istar/other.c:151 ../objects/KAOS/other.c:153
-#: ../objects/KAOS/other.c:154 ../objects/UML/umlattribute.c:39
-#: ../objects/UML/umlformalparameter.c:37 ../objects/UML/umloperation.c:64
-#: ../objects/UML/umlparameter.c:45
+#: ../objects/KAOS/other.c:154 ../objects/UML/association.c:242
+#: ../objects/UML/umlattribute.c:39 ../objects/UML/umlformalparameter.c:37
+#: ../objects/UML/umloperation.c:64 ../objects/UML/umlparameter.c:45
 msgid "Type"
 msgstr "Tipo"
 
@@ -1971,8 +1968,8 @@ msgstr "Descripción:"
 
 #: ../app/sheets_dialog.c:618 ../objects/Database/table_dialog.c:644
 #: ../objects/FS/flow-ortho.c:169 ../objects/FS/flow.c:146
-#: ../objects/Istar/link.c:166 ../objects/Jackson/phenomenon.c:146
-#: ../objects/KAOS/metaandorrel.c:166 ../objects/KAOS/metabinrel.c:173
+#: ../objects/Istar/link.c:166 ../objects/Jackson/phenomenon.c:148
+#: ../objects/KAOS/metaandorrel.c:168 ../objects/KAOS/metabinrel.c:173
 #: ../objects/UML/class_dialog.c:1042 ../objects/UML/class_dialog.c:1905
 #: ../objects/UML/class_dialog.c:2141 ../objects/UML/class_dialog.c:2741
 msgid "Type:"
@@ -1985,7 +1982,6 @@ msgstr "Hoja"
 #: ../app/sheets_dialog.c:672 ../objects/Database/table_dialog.c:632
 #: ../objects/Database/table_dialog.c:995 ../objects/ER/attribute.c:155
 #: ../objects/ER/entity.c:137 ../objects/ER/relationship.c:142
-#: ../objects/UML/association.c:240 ../objects/UML/association.c:1162
 #: ../objects/UML/class_dialog.c:1031 ../objects/UML/class_dialog.c:1894
 #: ../objects/UML/class_dialog.c:2130 ../objects/UML/class_dialog.c:2730
 #: ../objects/UML/dependency.c:137 ../objects/UML/generalization.c:133
@@ -2440,7 +2436,7 @@ msgid "Notice"
 msgstr "Observación"
 
 # La traducción "ronda" es incorrecta, existiendo varias opciones dependientes del contexto. Me inclino por "curva" en vez de "redonda", "circular" o "romo". RizOX.
-#: ../lib/newgroup.c:120
+#: ../lib/newgroup.c:124
 msgid "Open group"
 msgstr "Abrir grupo"
 
@@ -2640,67 +2636,67 @@ msgstr "Objetos de diagrama de análisis de arquitectura y lenguaje de diseño"
 msgid "Declaration"
 msgstr "Declaración"
 
-#: ../objects/AADL/aadlbox.c:361
+#: ../objects/AADL/aadlbox.c:367
 msgid "Add Access Provider"
 msgstr "Añadir proveedor de acceso"
 
-#: ../objects/AADL/aadlbox.c:363
+#: ../objects/AADL/aadlbox.c:369
 msgid "Add Access Requirer"
 msgstr "Añadir solicitante de acceso"
 
-#: ../objects/AADL/aadlbox.c:365
+#: ../objects/AADL/aadlbox.c:371
 msgid "Add In Data Port"
 msgstr "Añadir puerto de datos entrantes"
 
-#: ../objects/AADL/aadlbox.c:367
+#: ../objects/AADL/aadlbox.c:373
 msgid "Add In Event Port"
 msgstr "Añadir puerto de eventos entrantes"
 
-#: ../objects/AADL/aadlbox.c:369
+#: ../objects/AADL/aadlbox.c:375
 msgid "Add In Event Data Port"
 msgstr "Añadir puerto de eventos entrantes"
 
-#: ../objects/AADL/aadlbox.c:371
+#: ../objects/AADL/aadlbox.c:377
 msgid "Add Out Data Port"
 msgstr "Añadir puerto de datos salientes"
 
-#: ../objects/AADL/aadlbox.c:373
+#: ../objects/AADL/aadlbox.c:379
 msgid "Add Out Event Port"
 msgstr "Añadir puerto de eventos salientes"
 
-#: ../objects/AADL/aadlbox.c:375
+#: ../objects/AADL/aadlbox.c:381
 msgid "Add Out Event Data Port"
 msgstr "Añadir puerto de datos y eventos salientes"
 
-#: ../objects/AADL/aadlbox.c:377
+#: ../objects/AADL/aadlbox.c:383
 msgid "Add In Out Data Port"
 msgstr "Añadir puerto de datos de entrada salida"
 
-#: ../objects/AADL/aadlbox.c:379
+#: ../objects/AADL/aadlbox.c:385
 msgid "Add In Out Event Port"
 msgstr "Añadir puerto de eventos de entrada salida"
 
-#: ../objects/AADL/aadlbox.c:381
+#: ../objects/AADL/aadlbox.c:387
 msgid "Add In Out Event Data Port"
 msgstr "Añadir puerto de eventos de datos de entrada salida"
 
-#: ../objects/AADL/aadlbox.c:383
+#: ../objects/AADL/aadlbox.c:389
 msgid "Add Port Group"
 msgstr "Añadir grupo de puertos"
 
-#: ../objects/AADL/aadlbox.c:385
+#: ../objects/AADL/aadlbox.c:391
 msgid "Add Connection Point"
 msgstr "Añadir punto de conexión"
 
-#: ../objects/AADL/aadlbox.c:389
+#: ../objects/AADL/aadlbox.c:395
 msgid "Delete Port"
 msgstr "Borrar puerto"
 
-#: ../objects/AADL/aadlbox.c:390
+#: ../objects/AADL/aadlbox.c:396
 msgid "Edit Port Declaration"
 msgstr "Editar declaración de puerto"
 
-#: ../objects/AADL/aadlbox.c:394
+#: ../objects/AADL/aadlbox.c:400
 msgid "Delete Connection Point"
 msgstr "Borrar punto de conexión"
 
@@ -2786,6 +2782,9 @@ msgstr "Nombre de la tabla"
 
 #: ../objects/Database/table.c:201 ../objects/Database/table.c:203
 #: ../objects/Database/table.c:205 ../objects/Database/reference.c:120
+#: ../objects/UML/association.c:247 ../objects/UML/association.c:258
+#: ../objects/UML/association.c:260 ../objects/UML/association.c:262
+#: ../objects/UML/association.c:264 ../objects/UML/association.c:266
 #: ../objects/UML/class.c:190 ../objects/UML/class.c:192
 #: ../objects/UML/class.c:194 ../objects/UML/class.c:196
 #: ../objects/UML/class.c:198 ../objects/UML/class.c:200
@@ -2935,10 +2934,10 @@ msgstr "Final de la descripción"
 
 #: ../objects/Database/reference.c:144 ../objects/ER/participation.c:408
 #: ../objects/FS/flow-ortho.c:624 ../objects/GRAFCET/vector.c:314
-#: ../objects/SADT/arrow.c:459 ../objects/UML/association.c:771
-#: ../objects/UML/component_feature.c:186 ../objects/UML/dependency.c:376
+#: ../objects/SADT/arrow.c:459 ../objects/UML/association.c:846
+#: ../objects/UML/component_feature.c:190 ../objects/UML/dependency.c:376
 #: ../objects/UML/generalization.c:372 ../objects/UML/realizes.c:363
-#: ../objects/UML/transition.c:163 ../objects/standard/zigzagline.c:376
+#: ../objects/UML/transition.c:172 ../objects/standard/zigzagline.c:376
 msgid "Add segment"
 msgstr "Añadir segmento"
 
@@ -2994,9 +2993,9 @@ msgstr "Total:"
 
 #: ../objects/ER/participation.c:409 ../objects/FS/flow-ortho.c:625
 #: ../objects/GRAFCET/vector.c:315 ../objects/SADT/arrow.c:460
-#: ../objects/UML/association.c:772 ../objects/UML/component_feature.c:187
+#: ../objects/UML/association.c:847 ../objects/UML/component_feature.c:191
 #: ../objects/UML/dependency.c:377 ../objects/UML/generalization.c:373
-#: ../objects/UML/realizes.c:364 ../objects/UML/transition.c:164
+#: ../objects/UML/realizes.c:364 ../objects/UML/transition.c:173
 #: ../objects/standard/zigzagline.c:377
 msgid "Delete segment"
 msgstr "Borrar segmento"
@@ -4266,7 +4265,7 @@ msgstr "No especificado"
 msgid "Agent"
 msgstr "Agente"
 
-#: ../objects/Istar/actor.c:71
+#: ../objects/Istar/actor.c:71 ../objects/UML/association.c:249
 msgid "Role"
 msgstr "Rol"
 
@@ -4379,7 +4378,12 @@ msgstr "Compartido"
 msgid "Requirement"
 msgstr "Requisito"
 
-#: ../objects/Jackson/phenomenon.c:144 ../objects/UML/message.c:153
+#. backward compatibility
+#. new name matching "same name, same type"  rule
+#. backward compatibility
+#. new name matching "same name, same type"  rule
+#: ../objects/Jackson/phenomenon.c:144 ../objects/Jackson/phenomenon.c:146
+#: ../objects/UML/message.c:153 ../objects/UML/message.c:155
 msgid "Message:"
 msgstr "Mensaje:"
 
@@ -4415,7 +4419,9 @@ msgstr "Refinamiento OR"
 msgid "Operationalization"
 msgstr "Operacionalización"
 
-#: ../objects/KAOS/metaandorrel.c:163
+#. backward compatibility
+#. new name matching "same name, same type"  rule
+#: ../objects/KAOS/metaandorrel.c:163 ../objects/KAOS/metaandorrel.c:165
 msgid "Text:"
 msgstr "Texto:"
 
@@ -4480,7 +4486,7 @@ msgstr "Ancho de la manecilla de los segundos"
 msgid "Show hours"
 msgstr "Mostrar horas"
 
-#: ../objects/Misc/libmisc.c:43
+#: ../objects/Misc/libmisc.c:39
 msgid "Miscellaneous objects"
 msgstr "Figuras variadas"
 
@@ -4966,83 +4972,66 @@ msgstr "URL"
 msgid "Actor"
 msgstr "Actor"
 
-#: ../objects/UML/association.c:1175 ../objects/UML/class_dialog.c:2186
-msgid "Direction:"
-msgstr "Dirección:"
-
-#: ../objects/UML/association.c:1192
+#: ../objects/UML/association.c:224
 msgid "From A to B"
 msgstr "De A a B"
 
-#: ../objects/UML/association.c:1199
+#: ../objects/UML/association.c:225
 msgid "From B to A"
 msgstr "De B a A"
 
-#: ../objects/UML/association.c:1223 ../objects/UML/association.c:1231
+#: ../objects/UML/association.c:230
+msgid "Aggregation"
+msgstr "Agregación"
+
+#: ../objects/UML/association.c:231
+msgid "Composition"
+msgstr "Composición"
+
+#: ../objects/UML/association.c:238
+msgid "Direction"
+msgstr "Dirección"
+
+#: ../objects/UML/association.c:240
+msgid "Show direction"
+msgstr "Mostrar dirección"
+
+#: ../objects/UML/association.c:240
+msgid "Show the small arrow denoting the reading direction"
+msgstr "Mostrar la pequeña flecha indicando la dirección de lectura"
+
+#: ../objects/UML/association.c:247
 msgid "Side A"
 msgstr "Lado A"
 
-#: ../objects/UML/association.c:1225 ../objects/UML/association.c:1233
-msgid "Side B"
-msgstr "Lado B"
+#: ../objects/UML/association.c:251
+msgid "Multiplicity"
+msgstr "Multiplicidad"
 
-#: ../objects/UML/association.c:1239
-msgid "Role:"
-msgstr "Papel:"
+#: ../objects/UML/association.c:253 ../objects/UML/umlattribute.c:45
+#: ../objects/UML/umloperation.c:71
+msgid "Visibility"
+msgstr "Visibilidad"
 
-#: ../objects/UML/association.c:1251
-msgid "Multiplicity:"
-msgstr "Multiplicidad:"
-
-#: ../objects/UML/association.c:1262 ../objects/UML/class_dialog.c:1086
-#: ../objects/UML/class_dialog.c:1928
-msgid "Visibility:"
-msgstr "Visibilidad:"
-
-#: ../objects/UML/association.c:1271 ../objects/UML/class_dialog.c:1095
-#: ../objects/UML/class_dialog.c:1937 ../objects/UML/uml.c:102
-msgid "Public"
-msgstr "Público"
-
-#: ../objects/UML/association.c:1281 ../objects/UML/class_dialog.c:1098
-#: ../objects/UML/class_dialog.c:1940 ../objects/UML/uml.c:103
-msgid "Private"
-msgstr "Privado"
-
-#: ../objects/UML/association.c:1291 ../objects/UML/class_dialog.c:1101
-#: ../objects/UML/class_dialog.c:1943 ../objects/UML/uml.c:104
-msgid "Protected"
-msgstr "Protegido"
-
-#: ../objects/UML/association.c:1301 ../objects/UML/class_dialog.c:1104
-#: ../objects/UML/class_dialog.c:1946 ../objects/UML/uml.c:105
-msgid "Implementation"
-msgstr "Implementación"
-
-#. Show arrow:
-#: ../objects/UML/association.c:1320
+#: ../objects/UML/association.c:255
 msgid "Show arrow"
 msgstr "Mostrar flecha"
 
-#. Aggregate
-#: ../objects/UML/association.c:1326
-msgid "Aggregate"
-msgstr "Agregar"
-
-#. Composition
-#: ../objects/UML/association.c:1334
-msgid "Composition"
-msgstr "Composición"
+#: ../objects/UML/association.c:258
+msgid "Side B"
+msgstr "Lado B"
 
 #: ../objects/UML/class.c:139 ../objects/UML/class.c:310
 #: ../objects/UML/class.c:1760 ../sheets/UML.sheet.in.h:6
 msgid "Class"
 msgstr "Clase"
 
+#. backward compatibility
+#. one name, one type
 #: ../objects/UML/class.c:143 ../objects/UML/classicon.c:140
-#: ../objects/UML/component.c:126 ../objects/UML/large_package.c:131
-#: ../objects/UML/object.c:152 ../objects/UML/small_package.c:126
-#: ../objects/UML/umloperation.c:68
+#: ../objects/UML/classicon.c:142 ../objects/UML/component.c:126
+#: ../objects/UML/large_package.c:131 ../objects/UML/object.c:152
+#: ../objects/UML/small_package.c:126 ../objects/UML/umloperation.c:68
 msgid "Stereotype"
 msgstr "Estereotipo"
 
@@ -5176,6 +5165,30 @@ msgstr "Color de fondo"
 msgid "Value:"
 msgstr "Valor:"
 
+#: ../objects/UML/class_dialog.c:1086 ../objects/UML/class_dialog.c:1928
+msgid "Visibility:"
+msgstr "Visibilidad:"
+
+#: ../objects/UML/class_dialog.c:1095 ../objects/UML/class_dialog.c:1937
+#: ../objects/UML/uml.c:102
+msgid "Public"
+msgstr "Público"
+
+#: ../objects/UML/class_dialog.c:1098 ../objects/UML/class_dialog.c:1940
+#: ../objects/UML/uml.c:103
+msgid "Private"
+msgstr "Privado"
+
+#: ../objects/UML/class_dialog.c:1101 ../objects/UML/class_dialog.c:1943
+#: ../objects/UML/uml.c:104
+msgid "Protected"
+msgstr "Protegido"
+
+#: ../objects/UML/class_dialog.c:1104 ../objects/UML/class_dialog.c:1946
+#: ../objects/UML/uml.c:105
+msgid "Implementation"
+msgstr "Implementación"
+
 #. end: Inheritance type
 #: ../objects/UML/class_dialog.c:1120 ../objects/UML/class_dialog.c:1983
 msgid "Class scope"
@@ -5209,6 +5222,10 @@ msgstr "Datos de parámetros"
 #: ../objects/UML/class_dialog.c:2152
 msgid "Def. value:"
 msgstr "Valor por defecto:"
+
+#: ../objects/UML/class_dialog.c:2186
+msgid "Direction:"
+msgstr "Dirección:"
 
 #: ../objects/UML/class_dialog.c:2195 ../objects/UML/umlparameter.c:34
 msgid "Undefined"
@@ -5252,23 +5269,23 @@ msgstr "Datos de parámetros formales"
 msgid "Boundary"
 msgstr "Límite"
 
-#: ../objects/UML/classicon.c:142
+#: ../objects/UML/classicon.c:144
 msgid "Is object"
 msgstr "Es objeto"
 
-#: ../objects/UML/component_feature.c:147 ../sheets/UML.sheet.in.h:14
+#: ../objects/UML/component_feature.c:150 ../sheets/UML.sheet.in.h:14
 msgid "Facet"
 msgstr "Faceta"
 
-#: ../objects/UML/component_feature.c:148 ../sheets/UML.sheet.in.h:26
+#: ../objects/UML/component_feature.c:151 ../sheets/UML.sheet.in.h:26
 msgid "Receptacle"
 msgstr "Receptáculo"
 
-#: ../objects/UML/component_feature.c:149 ../sheets/UML.sheet.in.h:13
+#: ../objects/UML/component_feature.c:152 ../sheets/UML.sheet.in.h:13
 msgid "Event Source"
 msgstr "Fuente de eventos"
 
-#: ../objects/UML/component_feature.c:150 ../sheets/UML.sheet.in.h:12
+#: ../objects/UML/component_feature.c:153 ../sheets/UML.sheet.in.h:12
 msgid "Event Sink"
 msgstr "Sumidero de eventos"
 
@@ -5280,7 +5297,9 @@ msgstr "Restricciones:"
 msgid "Show arrow:"
 msgstr "Mostrar flecha:"
 
-#: ../objects/UML/implements.c:131
+#. backward compatibility
+#. new name matching "same name, same type"  rule
+#: ../objects/UML/implements.c:131 ../objects/UML/implements.c:133
 msgid "Interface:"
 msgstr "Interfaz:"
 
@@ -5345,7 +5364,7 @@ msgstr "Enviar"
 msgid "Recursive"
 msgstr "Recursiva"
 
-#: ../objects/UML/message.c:155
+#: ../objects/UML/message.c:157
 msgid "Message type:"
 msgstr "Tipo de mensaje:"
 
@@ -5379,7 +5398,7 @@ msgstr "Acción de salida"
 
 #. Would like to create a state_term instead, but making the connections
 #. * is a pain
-#: ../objects/UML/state.c:475
+#: ../objects/UML/state.c:479
 msgid ""
 "This diagram uses the State object for initial/final states.\n"
 "That option will go away in future versions.\n"
@@ -5389,31 +5408,31 @@ msgstr ""
 "Esta opción no estará en futuras versiones.\n"
 "Por favor, use el objeto de estado inicial/final en su lugar\n"
 
-#: ../objects/UML/state_term.c:122
+#: ../objects/UML/state_term.c:127
 msgid "Is final"
 msgstr "Es final"
 
-#: ../objects/UML/transition.c:134
+#: ../objects/UML/transition.c:141
 msgid "Trigger"
 msgstr "Disparador"
 
-#: ../objects/UML/transition.c:135
+#: ../objects/UML/transition.c:142
 msgid "The event that causes this transition to be taken"
 msgstr "El evento que hace que se produzca esta transición"
 
-#: ../objects/UML/transition.c:136
+#: ../objects/UML/transition.c:143
 msgid "Action"
 msgstr "Acción"
 
-#: ../objects/UML/transition.c:137
+#: ../objects/UML/transition.c:144
 msgid "Action to perform when this transition is taken"
 msgstr "Acción a realizar cuando tenga lugar esta transición"
 
-#: ../objects/UML/transition.c:138 ../sheets/cisconetwork.sheet.in.h:43
+#: ../objects/UML/transition.c:145 ../sheets/cisconetwork.sheet.in.h:43
 msgid "Guard"
 msgstr "Guarda"
 
-#: ../objects/UML/transition.c:139
+#: ../objects/UML/transition.c:146
 msgid "Condition for taking this transition when the event is fired"
 msgstr "Condición para realizar esta transición cuando el evento sea disparado"
 
@@ -5424,10 +5443,6 @@ msgstr "Objetos de diagrama Lenguaje de Modelado Unificado UML 1.3"
 #: ../objects/UML/umlattribute.c:41 ../objects/UML/umlparameter.c:47
 msgid "Value"
 msgstr "Valor"
-
-#: ../objects/UML/umlattribute.c:45 ../objects/UML/umloperation.c:71
-msgid "Visibility"
-msgstr "Visibilidad"
 
 #: ../objects/UML/umlattribute.c:47
 msgid "Abstract (?)"
@@ -6038,39 +6053,39 @@ msgstr "No se pudo leer color %s\n"
 msgid "Couldn't find shape %d\n"
 msgstr "No se pudo encontrar la forma %d\n"
 
-#: ../plug-ins/vdx/vdx-import.c:982
+#: ../plug-ins/vdx/vdx-import.c:987
 #, c-format
 msgid "Unexpected Ellipse object: %s\n"
 msgstr "Objeto de elipse inesperado: %s\n"
 
-#: ../plug-ins/vdx/vdx-import.c:996
+#: ../plug-ins/vdx/vdx-import.c:1001
 msgid "Can't rotate ellipse\n"
 msgstr "No se puede rotar la elipse\n"
 
-#: ../plug-ins/vdx/vdx-import.c:1312
+#: ../plug-ins/vdx/vdx-import.c:1317
 msgid "MoveTo not at start of Bezier\n"
 msgstr "No tener moveto al comienzo de Bézier\n"
 
-#: ../plug-ins/vdx/vdx-import.c:1645
+#: ../plug-ins/vdx/vdx-import.c:1650
 msgid "Invalid NURBS formula"
 msgstr "Fórmula NURBS no válida"
 
-#: ../plug-ins/vdx/vdx-import.c:1881
+#: ../plug-ins/vdx/vdx-import.c:1886
 #, c-format
 msgid "Couldn't write file %s"
 msgstr "No se pudo escribir el archivo %s"
 
-#: ../plug-ins/vdx/vdx-import.c:1966 ../plug-ins/vdx/vdx-import.c:1979
+#: ../plug-ins/vdx/vdx-import.c:1971 ../plug-ins/vdx/vdx-import.c:1984
 #, c-format
 msgid "Couldn't handle foreign object type %s"
 msgstr "No se pudo manejar el objeto extraño tipo %s"
 
-#: ../plug-ins/vdx/vdx-import.c:2007
+#: ../plug-ins/vdx/vdx-import.c:2012
 #, c-format
 msgid "Couldn't make object dir %s"
 msgstr "No se pudo crear el directorio objeto %s"
 
-#: ../plug-ins/vdx/vdx-import.c:2954
+#: ../plug-ins/vdx/vdx-import.c:2959
 msgid "Visio XML File Format"
 msgstr "Formato de archivo Visio XML"
 
