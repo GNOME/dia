@@ -20,6 +20,7 @@
 	creating a default object for every object used. Only the default
 	dialog created from double-clicking the tools toolbox icon creates
 	a new default object now.
+	(dia_object_defaults_save) : only save props not marked as NO_DEFAULTS
 	* objects/GRAFCET/vergent.c objects/Istar/actor.c objects/Istar/goal.c
 	  objects/Istar/link.c objects/Istar/other.c objects/Jackson/domain.c
 	  objects/Jackson/phenomenon.c objects/KAOS/goal.c 
