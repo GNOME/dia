@@ -236,9 +236,9 @@ static PropDescription association_props[] = {
   { "name", PROP_TYPE_STRING, PROP_FLAG_VISIBLE, N_("Name"), NULL, NULL },
   { "direction", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE, 
     N_("Direction"), NULL, prop_assoc_direction_data },
-  { "show_direction", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL, 
+  { "show_direction", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL|PROP_FLAG_NO_DEFAULTS, 
     N_("Show direction"), N_("Show the small arrow denoting the reading direction"), 0 },
-  { "assoc_type", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL, 
+  { "assoc_type", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL|PROP_FLAG_NO_DEFAULTS, 
     N_("Type"), NULL, prop_assoc_type_data },
 
   PROP_MULTICOL_BEGIN("sides"),

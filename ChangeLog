@@ -1,5 +1,26 @@
 2008-04-27  Hans Breuer  <hans@breuer.org>
 
+	[ 
+	  finally restores the feature to have different defaults for the same
+	  object by 'intdata' in sheet file, e.g. Class and Template in UML.
+	  Strange that I can't find any bug report related to this ;) 
+	]
+	* app/defaults.[hc] lib/object.h lib/object_defaults.c : pass user_data
+	to dia_object_default_get(), although not using it yet. Remove unused
+	function dia_object_default_make().
+	(dia_object_default_create) : direct hashtable access to avoid 
+	creating a default object for every object used. Only the default
+	dialog created from double-clicking the tools toolbox icon creates
+	a new default object now.
+	* objects/GRAFCET/vergent.c objects/Istar/actor.c objects/Istar/goal.c
+	  objects/Istar/link.c objects/Istar/other.c objects/Jackson/domain.c
+	  objects/Jackson/phenomenon.c objects/KAOS/goal.c 
+	  objects/KAOS/metaandorrel.c objects/KAOS/metabinrel.c
+	  objects/UML/association.c objects/UML/component_feature.c : mark 
+	properties modified by intdata/GPOINTER_TO_INT(user_data) as 
+	PROP_FLAG_NO_DEFAULTS, thus they are no longer over-written by the
+	object defauts system.
+
 	* doc/custom-shapes : mention <default-width/> and <default-height/>
 	* shapes/circuit/(h|v)*.shape : use them to have more recognizable
 	shapes. Fixes bug #493237.
@@ -17,6 +38,9 @@
 
 2008-04-26  Hans Breuer  <hans@breuer.org>
 
+	* objects/UML/association.c : one more selfmade dialog gone, 
+	'UML - Association' now use StdProps, too.
+	
 	* objects/UML/transition.c : move text positions by same delta than
 	the center handle, fixes bug #528738
 
@@ -94,7 +118,7 @@
 	* objects/UML/fork.c : added fill_color
 	* objects/UML/state_term.c : fill_color and line_color
 	* objects/UML/transition.c : fill_color and text_color
-	=> all UML shapes can be tinted now
+	=> all UML shapes can be tinted now, closing bug #169107
 
 	* app/load_save.c : use 'obl->ops-move(obj,obj->position)'
 
@@ -112,7 +136,7 @@
 	
 	* lib/textline.c : an empyt text created bogus ascent/descent, it used 
 	to mean the fonts ascent/descent. Fixes e.g. the positioning of 
-	'UML - LargePackage' label
+	'UML - LargePackage' label, fixes bug #439862
 
 	* objects/standard/textobj.c(textobj_load) : intialize TextObj::attrs 
 	from TextObj::text (bug #528903, Leon Stringer)

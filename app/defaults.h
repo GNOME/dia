@@ -21,7 +21,7 @@
 #include "object.h"
 #include "diagram.h"
 
-void defaults_show(DiaObjectType *obj);
+void defaults_show(DiaObjectType *obj, gpointer user_data);
 
 
 #endif /* DEFAULTS_H */

@@ -132,7 +132,7 @@ static PropDescription vergent_props[] = {
     "cpl_north","cpl_north"},
   { "cpl_south",PROP_TYPE_CONNPOINT_LINE, 0,
     "cpl_south","cpl_south"},
-  { "vtype", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE,
+  { "vtype", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE|PROP_FLAG_NO_DEFAULTS,
     N_("Vergent type:"),NULL, prop_vtype_data},
   PROP_DESC_END
 };

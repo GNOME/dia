@@ -164,7 +164,7 @@ static PropDescription maor_props[] = {
   /* new name matching "same name, same type"  rule */
   { "name", PROP_TYPE_STRING, PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL, N_("Text:"), NULL, NULL },
 
-  { "type", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE,
+  { "type", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE|PROP_FLAG_NO_DEFAULTS,
     N_("Type:"), NULL, prop_maor_type_data },
 
   { "text_pos", PROP_TYPE_POINT, 0,

@@ -174,7 +174,7 @@ static ObjectOps jackson_box_ops = {
 static PropDescription box_props[] = {
   ELEMENT_COMMON_PROPERTIES,
 
-    { "domtype", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE,
+    { "domtype", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE|PROP_FLAG_NO_DEFAULTS,
     N_("Domain Type"),
     N_("Domain Type"),
     prop_domain_type_data},

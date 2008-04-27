@@ -145,7 +145,7 @@ tool_options_dialog_show(ToolType type, gpointer extra_data,
       break;
   case CREATE_OBJECT_TOOL:
     objtype = object_get_type((char *)extra_data);
-    defaults_show(objtype);
+    defaults_show(objtype, user_data);
     break;
   case MAGNIFY_TOOL:
     break;

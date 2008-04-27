@@ -204,22 +204,6 @@ dia_object_defaults_load (const gchar *filename, gboolean create_lazy)
   return TRUE;
 }
 
-/*
- * Remember as defaults from a diagram object
- */
-void
-dia_object_default_make (const DiaObject *obj_from)
-{
-  DiaObject *obj_to;
-
-  g_return_if_fail (obj_from);
-
-  obj_to = dia_object_default_get (obj_from->type);
-  g_return_if_fail (obj_to);
-
-  object_copy_props (obj_to, obj_from, TRUE);
-}
-
 /**
  * dia_object_default_get :
  * @param type The type of the object for which you want the defaults object.
@@ -227,7 +211,7 @@ dia_object_default_make (const DiaObject *obj_from)
  * Allows to edit one defaults object properties
  */
 DiaObject *
-dia_object_default_get (const DiaObjectType *type)
+dia_object_default_get (const DiaObjectType *type, gpointer user_data)
 {
   DiaObject *obj;
 
@@ -275,7 +259,8 @@ dia_object_default_create (const DiaObjectType *type,
 
   g_return_val_if_fail (type != NULL, NULL);
 
-  def_obj = dia_object_default_get (type);
+  /* don't use dia_object_default_get() as it would insert the object into the hashtable (store defaults without being asked for it) */
+  def_obj = g_hash_table_lookup (defaults_hash, type->name);
   if (def_obj && def_obj->ops->describe_props)
     {
       /* copy properties to new object, but keep position */
@@ -360,6 +345,12 @@ _obj_store (gpointer key,
 
   g_snprintf(buffer, 30, "O%d", ri->obj_nr++);
   xmlSetProp(obj_node, (const xmlChar *)"id", (xmlChar *)buffer);
+
+  /* if it looks like intdata store it as well */
+  if ((int)obj->type->default_user_data > 0 && (int)obj->type->default_user_data < 0xFF) {
+    g_snprintf(buffer, 30, "%d", (int)obj->type->default_user_data);
+    xmlSetProp(obj_node, (const xmlChar *)"intdata", (xmlChar *)buffer);
+  }
 
   obj->ops->move (obj,&(li->pos));
   obj->type->ops->save (obj, obj_node, ri->filename);

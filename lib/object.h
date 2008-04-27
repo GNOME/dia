@@ -562,8 +562,7 @@ struct _DiaObjectType {
 
 gboolean       dia_object_defaults_load (const gchar *filename,
                                          gboolean create_lazy);
-void           dia_object_default_make (const DiaObject *obj_from);
-DiaObject  *dia_object_default_get  (const DiaObjectType *type);
+DiaObject  *dia_object_default_get  (const DiaObjectType *type, gpointer user_data);
 DiaObject  *dia_object_default_create (const DiaObjectType *type,
                                     Point *startpoint,
                                     void *user_data,

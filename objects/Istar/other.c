@@ -146,7 +146,7 @@ static ObjectOps other_ops = {
 
 static PropDescription other_props[] = {
   ELEMENT_COMMON_PROPERTIES,
-  { "type", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE,
+  { "type", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE|PROP_FLAG_NO_DEFAULTS,
     N_("Type"),
     N_("Type"),
     prop_other_type_data},

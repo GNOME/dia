@@ -152,7 +152,7 @@ static ObjectOps goal_ops = {
 
 static PropDescription goal_props[] = {
   ELEMENT_COMMON_PROPERTIES,
-  { "type", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE,
+  { "type", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE|PROP_FLAG_NO_DEFAULTS,
     N_("Goal Type"),
     N_("Goal Type"),
     prop_goal_type_data},

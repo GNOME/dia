@@ -95,7 +95,7 @@ defaults_respond(GtkWidget *widget, gint response_id, gpointer data)
 }
 
 void
-defaults_show(DiaObjectType *objtype)
+defaults_show(DiaObjectType *objtype, gpointer user_data)
 {
   GtkWidget *defaults;
   DiaObject *def_object = NULL;
@@ -105,7 +105,7 @@ defaults_show(DiaObjectType *objtype)
     if (objtype->ops->get_defaults != NULL)
       defaults = objtype->ops->get_defaults();
     else {
-      def_object = dia_object_default_get (objtype);
+      def_object = dia_object_default_get (objtype, user_data);
       defaults = object_create_props_dialog (def_object, TRUE);
     }
     title = g_strconcat(_("Defaults: "), objtype->name, NULL);

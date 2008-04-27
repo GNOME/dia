@@ -162,7 +162,7 @@ static PropEnumData prop_link_type_data[] = {
 
 static PropDescription link_props[] = {
   CONNECTION_COMMON_PROPERTIES,
-  { "type", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE,
+  { "type", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE|PROP_FLAG_NO_DEFAULTS,
     N_("Type:"), NULL, prop_link_type_data },
   { "pm", PROP_TYPE_POINT, 0, "pm", NULL, NULL},
   PROP_DESC_END

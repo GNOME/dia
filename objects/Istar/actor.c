@@ -142,7 +142,7 @@ static ObjectOps actor_ops = {
 
 static PropDescription actor_props[] = {
   ELEMENT_COMMON_PROPERTIES,
-  { "type", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE,
+  { "type", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE|PROP_FLAG_NO_DEFAULTS,
     N_("Type"),
     N_("Type"),
     prop_actor_type_data},

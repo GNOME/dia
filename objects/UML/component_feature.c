@@ -157,7 +157,7 @@ static PropEnumData prop_compfeat_type_data[] = {
 static PropDescription compfeat_props[] = {
   ORTHCONN_COMMON_PROPERTIES,
   PROP_STD_LINE_COLOUR_OPTIONAL, 
-  { "role", PROP_TYPE_ENUM, 0, NULL, NULL, prop_compfeat_type_data },
+  { "role", PROP_TYPE_ENUM, PROP_FLAG_NO_DEFAULTS, NULL, NULL, prop_compfeat_type_data },
   { "text", PROP_TYPE_TEXT, 0, N_("Text"), NULL, NULL },
   PROP_STD_TEXT_FONT,
   PROP_STD_TEXT_HEIGHT,
