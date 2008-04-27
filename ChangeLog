@@ -1,5 +1,13 @@
 2008-04-27  Hans Breuer  <hans@breuer.org>
 
+	* objects/custom/custom_object.c : 'default_properties' were not
+	initialized as intended, e.g. show_backgound was random data
+
+	* shapes/ChemEng/*.png : desired icon size is 22x22
+
+	* sheets/UML/aggregation.png : rotated/flipped to show the 
+	usual direction
+
 	[ 
 	  finally restores the feature to have different defaults for the same
 	  object by 'intdata' in sheet file, e.g. Class and Template in UML.

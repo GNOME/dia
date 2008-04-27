@@ -111,7 +111,17 @@ typedef struct _CustomProperties {
 } CustomProperties;
 
 
-static CustomProperties default_properties;
+static CustomProperties default_properties = {
+  NULL,
+  NULL,
+  TRUE, /* show_background */
+  0.0,  /* border_width */
+  0.5 * M_SQRT1_2, /* pading */
+  NULL, /* no font */
+  0.8, /* it's size */
+  ALIGN_CENTER, /* it's alignment */
+  NULL, /* no font color */
+};
 
 static real custom_distance_from(Custom *custom, Point *point);
 static void custom_select(Custom *custom, Point *clicked_point,
@@ -398,18 +408,6 @@ custom_set_props(Custom *custom, GPtrArray *props)
   if (custom->info->has_text)
     apply_textattr_properties(props,custom->text,"text",&custom->attrs);
   custom_update_data(custom, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
-}
-
-static void
-init_default_values(void) {
-  static int defaults_initialized = 0;
-
-  if (!defaults_initialized) {
-    default_properties.show_background = 1;
-    default_properties.padding = 0.5 * M_SQRT1_2;
-    default_properties.alignment = ALIGN_CENTER;
-    defaults_initialized = 1;
-  }
 }
 
 static void
