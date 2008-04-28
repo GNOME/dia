@@ -820,6 +820,12 @@ draw_image (DiaRenderer *object,
       int sub_width = real_width - (real_x >= 0 ? 0 : -real_x);
       int sub_height = real_height - (real_y >= 0 ? 0 : -real_y);
 
+      /* we can also clip to our pixmap size */
+      if (get_width_pixels (object) < sub_width)
+	sub_width = get_width_pixels (object);
+      if (get_height_pixels (object) < sub_height)
+	sub_height = get_height_pixels (object);
+
       if (sub_height > 0 && sub_width > 0) {
         GdkPixbuf *scaled = gdk_pixbuf_new (gdk_pixbuf_get_colorspace (org),
                                             gdk_pixbuf_get_has_alpha (org),

@@ -1,3 +1,8 @@
+2008-04-28  Hans Breuer  <hans@breuer.org>
+
+	* lib/diagdkrenderer.c : another cheap optimization, clip the
+	requested sub-pixbuf to the visible area
+
 2008-04-28  Steffen Macke <sdteffen@sdteffen.de>
 
 	* shapes/Cisco/router.png: Standard icon size 22x22; Thanks to
