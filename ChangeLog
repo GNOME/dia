@@ -1,3 +1,8 @@
+2008-04-28  Steffen Macke <sdteffen@sdteffen.de>
+
+	* shapes/Cisco/router.png: Standard icon size 22x22; Thanks to
+	Ian Redfern
+
 2008-04-27  Hans Breuer  <hans@breuer.org>
 
 	* shapes/Cisco/*.png shapes/RDP/*.png  shapes/Cisco/Makefile.am 
