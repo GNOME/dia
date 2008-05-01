@@ -38,19 +38,60 @@ enum {
   RESPONSE_REPLACE_ALL = -23
 };
 
+enum {
+  MATCH_CASE = (1<<0),
+  MATCH_WORD = (1<<1)
+};
+
 typedef struct _SearchData {
   const gchar *key;
+  guint      flags;
+  Diagram *diagram;
+  DiaObject *first; /* the first one found */
+  DiaObject *found; /* the one we were looking for */
+  DiaObject  *last; /* previously found */
+  gboolean seen_last;
 } SearchData;
+
+static gboolean
+_matches (DiaObject *obj, const SearchData *sd)
+{
+  gchar* name = object_get_displayname (obj);
+  gboolean ret = FALSE;
+
+  if (sd->flags & MATCH_CASE)
+    ret = strstr (name, sd->key) != NULL;
+  else {
+    gchar *s1 = g_utf8_casefold (name, -1);
+    gchar *s2 = g_utf8_casefold (sd->key, -1);
+    ret = strstr (s1, s2) != NULL;
+    g_free (s1);
+    g_free (s2);
+  }
+
+  if (sd->flags & MATCH_WORD)
+    ret = (ret && strlen(name) == strlen(sd->key));
+
+  g_free (name);
+  return ret;
+}
 
 static void
 find_func (DiaObject *obj, gpointer user_data)
 {
-  SearchData *data = (SearchData *)user_data;
-
-  gchar* name = object_get_displayname (obj);
-  if (strstr (name, data->key) != NULL)
-    g_print ("%s\n", name);
-  g_free (name);
+  SearchData *sd = (SearchData *)user_data;
+  
+  if (!sd->found) {
+    if (_matches (obj, sd)) {
+      if (!sd->first)
+        sd->first = obj;
+      if (obj == sd->last)
+        sd->seen_last = TRUE;
+      else if (sd->seen_last) {
+        sd->found = obj;
+      }
+    }
+  }
 }
 
 static gint
@@ -60,12 +101,32 @@ fnr_respond (GtkWidget *widget, gint response_id, gpointer data)
   const gchar *replace;
   DDisplay *ddisp = (DDisplay*)data;
   GList *list;
-  SearchData sd;
+  SearchData sd = { 0, };
+  sd.diagram = ddisp->diagram;
+  sd.flags =  gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON ( 
+                  g_object_get_data (G_OBJECT (widget), "match-case"))) ? MATCH_CASE : 0;
+  sd.flags |= gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON ( 
+                  g_object_get_data (G_OBJECT (widget), "match-word"))) ? MATCH_WORD : 0;
+  
 
   switch (response_id) {
   case RESPONSE_FIND :
     sd.key = search;
+    sd.last = g_object_get_data (G_OBJECT (widget), "last-found");
+    diagram_remove_all_selected (ddisp->diagram, TRUE);
     data_foreach_object (ddisp->diagram->data, find_func, &sd);
+    /* remember it */
+    sd.last = sd.found ? sd.found : sd.first;
+    g_object_set_data (G_OBJECT (widget), "last-found", sd.last);
+    if (sd.last) {
+      if (dia_object_get_parent_layer(sd.last) != ddisp->diagram->data->active_layer) {
+        /* can only select objects in the active layer */
+        data_set_active_layer(ddisp->diagram->data, dia_object_get_parent_layer(sd.last));
+        diagram_add_update_all(ddisp->diagram);
+        diagram_flush(ddisp->diagram);
+      }
+      diagram_select (ddisp->diagram, sd.last);
+    }
     break;
   case RESPONSE_REPLACE :
     replace = gtk_entry_get_text (g_object_get_data (G_OBJECT (widget), "replace-entry"));
@@ -129,9 +190,11 @@ fnr_dialog_setup_common (GtkWidget *dialog, gboolean is_replace, DDisplay *ddisp
 
   match_case = gtk_check_button_new_with_mnemonic (_("_Match case"));
   gtk_box_pack_start (GTK_BOX (vbox), match_case, FALSE, FALSE, 6);
+  g_object_set_data (G_OBJECT (dialog), "match-case", match_case);
 
   match_word = gtk_check_button_new_with_mnemonic (_("Match _entire word only"));
   gtk_box_pack_start (GTK_BOX (vbox), match_word, FALSE, FALSE, 6);
+  g_object_set_data (G_OBJECT (dialog), "match-word", match_word);
 
   gtk_widget_show_all (vbox);
 }

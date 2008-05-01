@@ -142,6 +142,7 @@ EXPORTS
  data_enum
  data_filename
  data_font
+ data_foreach_object
  data_get_sorted_selected
  data_get_sorted_selected_remove
  data_int
