@@ -1,3 +1,13 @@
+2008-05-01  Hans Breuer  <hans@breuer.org>
+
+	* app/find-and-replace.[hc] : inital version of find&replace showing 
+	the ui and printing what it found (unfinished, to be continued)
+	* app/Makefile.am app/makefile.msc : build find-and-replace.c
+	* lib/diagramdata.[hc] : new function data_foreach_object() to simplify
+	the iteration over objects
+	* data/display-ui.xml data/popup-ui.xml app/menus.c : Find&Replace 
+	in the menus
+
 2008-04-28  Hans Breuer  <hans@breuer.org>
 
 	* lib/diagdkrenderer.c : another cheap optimization, clip the

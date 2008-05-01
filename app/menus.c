@@ -33,6 +33,7 @@
 #include "interface.h"
 #include "display.h"
 #include "filedlg.h"
+#include "find-and-replace.h"
 #include "plugin-manager.h"
 #include "select.h"
 #include "dia_dirs.h"
@@ -121,6 +122,9 @@ static const GtkActionEntry display_entries[] =
     { "EditPaste", GTK_STOCK_PASTE, NULL, "<control>V", NULL, G_CALLBACK (edit_paste_callback) },
     { "EditDuplicate", NULL, N_("_Duplicate"), "<control>D", NULL, G_CALLBACK (edit_duplicate_callback) },
     { "EditDelete", GTK_STOCK_DELETE, NULL, "Delete", NULL, G_CALLBACK (edit_delete_callback) },
+
+    { "EditFind", GTK_STOCK_FIND, NULL, "<control>F", NULL, G_CALLBACK (edit_find_callback) },
+    { "EditReplace", GTK_STOCK_FIND_AND_REPLACE, NULL, "<control>F", NULL, G_CALLBACK (edit_replace_callback) },
 
     /* the following used to bind to <control><shift>C which collides with Unicode input. 
      * <control>>alt> doesn't work either */
@@ -794,6 +798,7 @@ _ui_manager_connect_proxy (GtkUIManager *manager,
       if (tooltip)
         {
 	  gtk_tooltips_set_tip (tool_tips, proxy, tooltip, NULL);
+	  g_free (tooltip);
 	}
     }
 }

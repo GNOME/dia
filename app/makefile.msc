@@ -51,6 +51,7 @@ OBJECTS = \
 	exit_dialog.obj \
 	export_png.obj \
 	filedlg.obj \
+	find-and-replace.obj \
 	grid.obj \
 	gtkhwrapbox.obj \
 	gtkvwrapbox.obj \

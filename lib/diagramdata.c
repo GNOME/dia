@@ -630,6 +630,17 @@ data_render(DiagramData *data, DiaRenderer *renderer, Rectangle *update,
   if (!renderer->is_interactive) (DIA_RENDERER_GET_CLASS(renderer)->end_render)(renderer);
 }
 
+void 
+data_foreach_object (DiagramData *data, GFunc func, gpointer user_data)
+{
+  Layer *layer;
+  int i;
+  for (i=0; i<data->layers->len; i++) {
+    layer = (Layer *) g_ptr_array_index(data->layers, i);
+    g_list_foreach (layer->objects, func, user_data);
+  }  
+}
+
 /** The default object renderer.
  * @param obj An object to render.
  * @param renderer The renderer to render on.

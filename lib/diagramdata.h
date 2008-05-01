@@ -144,6 +144,7 @@ gchar *data_get_font_unit(DiagramData *data);
 float data_get_font_unit_multiplier(DiagramData *data);
 void data_emit(DiagramData *data,Layer *layer,DiaObject* obj,const char *signal_name);
 
+void data_foreach_object (DiagramData *data, GFunc func, gpointer user_data);
 
 
 typedef void (*ObjectRenderer)(DiaObject *obj, DiaRenderer *renderer,

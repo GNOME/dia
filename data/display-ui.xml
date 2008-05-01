@@ -27,10 +27,13 @@
 			<menuitem name="EditDuplicate" action="EditDuplicate" />
 			<menuitem name="EditDelete" action="EditDelete" />
 			<separator name="EditSep2" />
+			<menuitem name="EditFind" action="EditFind" />
+			<menuitem name="EditReplace" action="EditReplace" />
+			<separator name="EditSep3" />
 			<menuitem name="EditCopytext" action="EditCopytext" />
 			<menuitem name="EditCuttext" action="EditCuttext" />
 			<menuitem name="EditPastetext" action="EditPastetext" />
-			<separator name="EditSep3" />
+			<separator name="EditSep4" />
 			<separator name="EditExtensionStart" />
 		</menu>
 		<menu name="Diagram" action="Diagram">

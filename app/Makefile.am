@@ -161,6 +161,8 @@ dia_core_files = \
 	    pagesetup.h \
 	    filedlg.c \
 	    filedlg.h \
+	    find-and-replace.c \
+	    find-and-replace.h \
 	    plugin-manager.c \
 	    plugin-manager.h \
 	    dia-props.c \
