@@ -1,5 +1,11 @@
 2008-05-02  Hans Breuer  <hans@breuer.org>
 
+	* app/diagram_tree.c : there was a pixmap and mask created for every
+	object in the diagram; not only waste of cpu cycles but also a 
+	resource problem making Gdk fail for a diagram with >7000 objects.
+	Now the type specific pixmap and mask are hold in a hashtable and
+	only ref'd for use in the GtkCTree. Also a pixbuf leak was plugged.
+
 	* app/preferences.[hc] app/display.c : antialized view default
 	selectable from prefernces, bug #338832
 

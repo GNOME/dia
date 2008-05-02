@@ -189,6 +189,7 @@ create_object_pixmap(DiaObject *object, GtkWidget *parent,
       GdkPixbuf *p;
       p = gdk_pixbuf_new_from_inline(-1, (guint8*)object->type->pixmap, TRUE, NULL);
       gdk_pixbuf_render_pixmap_and_mask_for_colormap(p, gtk_widget_get_colormap(parent), pixmap, mask, 128);
+      g_object_unref (p);
     } else {
       *pixmap =
 	gdk_pixmap_colormap_create_from_xpm_d(NULL,
@@ -239,6 +240,14 @@ update_object(DiagramTree *tree, GtkCTreeNode *node, DiaObject *object)
   }
 }
 
+typedef struct _PixmapsAndMasks
+{
+  GdkPixmap *pixmap;
+  GdkBitmap *mask;
+} PixmapsAndMasks;
+
+static GHashTable *_pixmaps_and_masks = NULL;
+
 static void
 create_object_node(DiagramTree *tree, GtkCTreeNode *dnode, DiaObject *obj)
 {
@@ -247,10 +256,24 @@ create_object_node(DiagramTree *tree, GtkCTreeNode *dnode, DiaObject *obj)
   GdkPixmap *pixmap;
   GdkBitmap *mask;
   GtkCTreeNode *node;
+  PixmapsAndMasks *pnm;
+
   text[0] = get_object_name(obj);
-  create_object_pixmap(obj, GTK_WIDGET(tree->tree), &pixmap, &mask);
+
+  if (!_pixmaps_and_masks)
+    _pixmaps_and_masks = g_hash_table_new_full(
+			    g_str_hash, g_str_equal, NULL, g_free);
+
+  pnm = g_hash_table_lookup (_pixmaps_and_masks, obj->type->name);
+  if (!pnm) {
+    pnm = g_new0 (PixmapsAndMasks, 1);
+    create_object_pixmap(obj, GTK_WIDGET(tree->tree), &pnm->pixmap, &pnm->mask);
+    g_hash_table_insert (_pixmaps_and_masks, obj->type->name, pnm);
+  }
   node =  gtk_ctree_insert_node(tree->tree, dnode, NULL, text, 3,
-				pixmap, mask, NULL, NULL, TRUE, FALSE);
+				pnm->pixmap ? g_object_ref (pnm->pixmap) : NULL, 
+				pnm->mask ? g_object_ref (pnm->mask) : NULL, 
+				NULL, NULL, TRUE, FALSE);
   gtk_ctree_node_set_row_data(tree->tree, node, (gpointer)obj);
   if (expanded) gtk_ctree_expand(tree->tree, dnode);
   sort_objects(tree, dnode);
