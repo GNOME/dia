@@ -49,6 +49,8 @@ struct DiaPreferences {
   NewDiagramData new_diagram;
 
   int show_cx_pts;
+  int view_antialised;
+
   int reset_tools_after_create;
   int undo_depth;
   int reverse_rubberbanding_intersects;

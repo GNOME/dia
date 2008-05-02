@@ -177,6 +177,10 @@ DiaPrefData prefs_data[] =
   { "pagebreak_solid", PREF_BOOLEAN, PREF_OFFSET(pagebreak.solid), &default_true, 2, N_("Solid lines") },
   { NULL, PREF_END_GROUP, 0, NULL, 2, NULL },
   
+  { NULL, PREF_NONE, 0, NULL, 2, N_("Antialias:") },
+  { "view_antialised", PREF_BOOLEAN, PREF_OFFSET(view_antialised), &default_false, 2, N_("view antialised") },
+  { NULL, PREF_END_GROUP, 0, NULL, 2, NULL },
+
   /*{ NULL, PREF_NONE, 0, NULL, 3, N_("Grid:") }, */
   { "grid_visible", PREF_BOOLEAN, PREF_OFFSET(grid.visible), &default_true, 3, N_("Visible") },
   { "grid_snap", PREF_BOOLEAN, PREF_OFFSET(grid.snap), &default_false, 3, N_("Snap to") },

@@ -245,6 +245,7 @@ copy_display(DDisplay *orig_ddisp)
 
   ddisp->show_cx_pts = orig_ddisp->show_cx_pts;
 
+  
   ddisp->autoscroll = orig_ddisp->autoscroll;
   ddisp->mainpoint_magnetism = orig_ddisp->mainpoint_magnetism;
 
@@ -292,7 +293,7 @@ new_display(Diagram *dia)
   ddisp->autoscroll = TRUE;
   ddisp->mainpoint_magnetism = TRUE;
 
-  ddisp->aa_renderer = 0;
+  ddisp->aa_renderer = prefs.view_antialised;
   
   ddisp->update_areas = NULL;
   ddisp->display_areas = NULL;

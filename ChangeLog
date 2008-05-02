@@ -1,5 +1,8 @@
 2008-05-02  Hans Breuer  <hans@breuer.org>
 
+	* app/preferences.[hc] app/display.c : antialized view default
+	selectable from prefernces, bug #338832
+
 	* plug-ins/dxf/dxf-export.c : the TABLES section was missing the
 	TABLE start, should fix bug #528741
 
