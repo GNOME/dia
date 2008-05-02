@@ -260,6 +260,12 @@ dia_plugin_init(PluginInfo *info)
           ifilter->user_data = gdk_pixbuf_format_get_name (format);
           /* they are in differnt namespaces aren't they? */
           ifilter->unique_name = g_strdup_printf ("pixbuf-%s", name);
+	  /* don't use pixbuf loader for vector formats */
+	  if (   strcmp (name, "svg") == 0
+	      || strcmp (name, "svgz") == 0
+	      || strcmp (name, "wmf") == 0
+	      || strcmp (name, "emf") == 0)
+	    ifilter->hints = FILTER_DONT_GUESS;
           g_free (name);
           _import_filters = g_list_append (_import_filters, ifilter);
           filter_register_import(ifilter);

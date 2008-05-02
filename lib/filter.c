@@ -86,12 +86,17 @@ filter_get_export_filter_label(DiaExportFilter *efilter)
 
 /* Guess the filter for a given filename. 
  * Returns the first filter found that matches the extension on the filename,
- * or NULL if none such are found. */
+ * or NULL if none such are found.  
+ * If there are multiple filters registered for the same extension some are
+ * excluded from being returned here by the hint FILTER_DONT_GUESS.
+ */
 DiaExportFilter *
 filter_guess_export_filter(const gchar *filename)
 {
   GList *tmp;
   gchar *ext;
+  gint   no_guess = 0;
+  DiaExportFilter *dont_guess = NULL;
 
   ext = strrchr(filename, '.');
   if (ext)
@@ -103,11 +108,17 @@ filter_guess_export_filter(const gchar *filename)
     DiaExportFilter *ef = tmp->data;
     gint i;
 
-    for (i = 0; ef->extensions[i] != NULL; i++)
+    for (i = 0; ef->extensions[i] != NULL; i++) {
+      if (ef->hints & FILTER_DONT_GUESS) {
+        dont_guess = ef;
+	++no_guess;
+        continue;
+      }
       if (!g_strcasecmp(ef->extensions[i], ext))
 	return ef;
+    }
   }
-  return NULL;
+  return (no_guess == 1) ? dont_guess : NULL;
 }
 
 /** Get an export filter by unique name.
@@ -184,12 +195,17 @@ filter_get_import_filter_label(DiaImportFilter *ifilter)
   return ret;
 }
 
-/* guess the filter for a given filename. */
+/* guess the filter for a given filename. 
+ * If there are multiple filters registered for the same extension some are
+ * excluded from being returned here by the hint FILTER_DONT_GUESS.
+ */
 DiaImportFilter *
 filter_guess_import_filter(const gchar *filename)
 {
   GList *tmp;
   gchar *ext;
+  int no_guess = 0;
+  DiaImportFilter *dont_guess = NULL;
 
   ext = strrchr(filename, '.');
   if (ext)
@@ -198,14 +214,20 @@ filter_guess_import_filter(const gchar *filename)
     ext = "";
 
   for (tmp = import_filters; tmp != NULL; tmp = tmp->next) {
-    DiaImportFilter *efilter = tmp->data;
+    DiaImportFilter *ifilter = tmp->data;
     gint i;
 
-    for (i = 0; efilter->extensions[i] != NULL; i++)
-      if (!g_strcasecmp(efilter->extensions[i], ext))
-	return efilter;
+    for (i = 0; ifilter->extensions[i] != NULL; i++) {
+      if (ifilter->hints & FILTER_DONT_GUESS) {
+        dont_guess = ifilter;
+        ++no_guess;
+        continue;
+      }
+      if (!g_strcasecmp(ifilter->extensions[i], ext))
+	return ifilter;
+    }
   }
-  return NULL;
+  return (no_guess == 1) ? dont_guess : NULL;
 }
 
 /* register a new callback from a plug-in */

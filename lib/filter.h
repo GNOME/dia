@@ -27,6 +27,10 @@
 
 G_BEGIN_DECLS
 
+enum FilterFlags {
+  FILTER_DONT_GUESS = (1<<0)
+};
+
 typedef void (* DiaExportFunc) (DiagramData *dia, const gchar *filename,
 				const gchar *diafilename, void* user_data);
 
@@ -43,6 +47,8 @@ struct _DiaExportFilter {
    * treated seperately for this.
    */
   const gchar *unique_name;
+  /* additional hints for export */
+  guint hints;
 };
 
 /* returns FALSE on error loading diagram */
@@ -62,6 +68,8 @@ struct _DiaImportFilter {
    * treated seperately for this.
    */
   const gchar *unique_name;
+  /* additional hints for export */
+  guint hints;
 };
 
 /* gets called as menu callback */

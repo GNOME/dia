@@ -1,3 +1,16 @@
+2008-05-02  Hans Breuer  <hans@breuer.org>
+
+	* lib/filter.[hc] : introduce the ability to influence guessing of
+	import/export -filters. If one is marked as FILTER_DONT_GUESS it is 
+	only selected by the guessing if it is the only one registering a 
+	certain extension
+	* lib/plug-in.h : increase DIA_PLUGIN_API_VERSION
+	* plug-ins/python/diamodule.c : set FILTER_DONT_GUESS for all filters
+	implemented in Python
+	* plug-ins/pixbuf/pixbuf.c : set FILTER_DONT_GUESS for vector formats
+	supported by GdkPixbuf. This way a Dia importer capable to process
+	vectors gets preferred
+
 2008-05-01  Hans Breuer  <hans@breuer.org>
 
 	* app/find-and-replace.[hc] : inital version of find&replace - find

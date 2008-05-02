@@ -236,6 +236,7 @@ PyDia_RegisterExport(PyObject *self, PyObject *args)
     filter->export_func = &PyDia_export_data;
     filter->user_data = renderer;
     filter->unique_name = g_strdup_printf ("%s-py", ext);
+    filter->hints = FILTER_DONT_GUESS;
     obj = PyDiaExportFilter_New(filter);
 
     filter_register_export(filter);
@@ -311,6 +312,7 @@ PyDia_RegisterImport(PyObject *self, PyObject *args)
     filter->import_func = &PyDia_import_data;
     filter->user_data = func;
     filter->unique_name = g_strdup_printf ("%s-py", ext);
+    filter->hints = FILTER_DONT_GUESS;
 
     filter_register_import(filter);
 
