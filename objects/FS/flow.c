@@ -424,6 +424,7 @@ flow_create(Point *startpoint,
   flow_update_data(flow);
   *handle1 = obj->handles[0];
   *handle2 = obj->handles[1];
+  
   return &flow->connection.object;
 }
 
@@ -451,11 +452,13 @@ flow_copy(Flow *flow)
   connection_copy(conn, newconn);
 
   newflow->text_handle = flow->text_handle;
+  newflow->text_handle.connected_to = NULL;
   newobj->handles[2] = &newflow->text_handle;
   newflow->textpos = flow->textpos;
   newflow->text = text_copy(flow->text);
   newflow->type = flow->type;
 
+  flow_update_data(newflow);
   return &newflow->connection.object;
 }
 
@@ -547,6 +550,7 @@ flow_load(ObjectNode obj_node, int version, const char *filename)
   flow->text_handle.type = HANDLE_MINOR_CONTROL;
   flow->text_handle.connect_type = HANDLE_NONCONNECTABLE;
   flow->text_handle.connected_to = NULL;
+  flow->text_handle.pos = flow->text->position;
   obj->handles[2] = &flow->text_handle;
 
   extra->start_long = 

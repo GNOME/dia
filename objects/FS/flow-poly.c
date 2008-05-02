@@ -443,6 +443,7 @@ flow_copy(Flow *flow)
   newflow->text = text_copy(flow->text);
   newflow->type = flow->type;
 
+  flow_update_data(newflow);
   return &newflow->connection.object;
 }
 

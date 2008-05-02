@@ -491,11 +491,13 @@ orthflow_copy(Orthflow *orthflow)
   orthconn_copy(orth, neworth);
 
   neworthflow->text_handle = orthflow->text_handle;
+  neworthflow->text_handle.connected_to = NULL;
   newobj->handles[orth->numpoints-1] = &neworthflow->text_handle;
 
   neworthflow->text = text_copy(orthflow->text);
   neworthflow->type = orthflow->type;
 
+  orthflow_update_data(neworthflow);
   return &neworthflow->orth.object;
 }
 
