@@ -276,7 +276,7 @@ read_entity_solid_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
    RGB_t color;
    
 /*   printf( "Solid " ); */
-   
+
     do {
         if(read_dxf_codes(filedxf, data) == FALSE){
             return( NULL );
@@ -384,7 +384,7 @@ static PropDescription dxf_polyline_prop_descs[] = {
 
 static int is_equal( double a, double b )
 {
-   double epsilon = 0.001;
+   double epsilon = 0.00001;
    
    if( a == b )
      return( 1 );
@@ -424,6 +424,7 @@ read_entity_polyline_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
     RGB_t color;
     unsigned char closed = 0;
     int points = 0;
+    real bulge = 0.0;
    
     do {
         if(read_dxf_codes(filedxf, data) == FALSE){
@@ -472,9 +473,13 @@ read_entity_polyline_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 	        line_width = g_ascii_strtod(data->value, NULL) * WIDTH_SCALE;
 		break;
             case 42:
-                    /* FIXME - the bulge code doesn't work */
+                   /* FIXME - the bulge code doesn't work completely */
+                bulge = g_ascii_strtod(data->value, NULL);
+
                 p = g_realloc( p, sizeof( Point ) * ( points + 10 ));
 
+                if (points < 2)
+                    continue;
                 start = p[points-2];
                 end = p[points-1];
 	   
@@ -487,6 +492,7 @@ read_entity_polyline_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
                 {
                     if( is_equal( start.y, end.y ))
                     {
+                        continue; /* better than complaining? */
                         g_warning(_("Bad vertex bulge\n") );
                     }
                     else if( start.y > center.y )
@@ -504,6 +510,7 @@ read_entity_polyline_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
                 {
                     if( is_equal( start.x, end.x ))
                     {
+                        continue;
                         g_warning( _("Bad vertex bulge\n") );
                     }
                     else if( start.x > center.x )
@@ -524,11 +531,11 @@ read_entity_polyline_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
                       printf( "start y %f end y %f center y %f\n", start.y, end.y, center.y );
                       printf( "bulge %s %f startx_angle %f\n", data->value, radius, start_angle );*/
 	   
-                for( i=(points-1); i<(points+9); i++ );
+                for( i=(points-1); i<(points+9); i++ )
                 {
                     p[i].x = center.x + cos( start_angle ) * radius;
                     p[i].y = center.y + sin( start_angle ) * radius;
-                    start_angle += M_PI/10.0;
+                    start_angle += (M_PI/10.0 * bulge);
                         /*printf( "i %d x %f y %f\n", i, p[i].x, p[i].y );*/
                 }
                 points += 10;
@@ -927,7 +934,7 @@ read_entity_text_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
         case 21:
             location.y = (-1)*g_ascii_strtod(data->value, NULL) * coord_scale * measure_scale;
 	   /*location.y = (-1)*g_ascii_strtod(data->value, NULL) / text_scale;*/
-	   printf( "Found text location y: %f\n", location.y );
+	   /*printf( "Found text location y: %f\n", location.y );*/
             break;
         case 40: 
             height = g_ascii_strtod(data->value, NULL) * text_scale * coord_scale * measure_scale;
