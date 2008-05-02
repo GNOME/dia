@@ -1,5 +1,8 @@
 2008-05-02  Hans Breuer  <hans@breuer.org>
 
+	* plug-ins/dxf/dxf-export.c : the TABLES section was missing the
+	TABLE start, should fix bug #528741
+
 	* lib/filter.[hc] : introduce the ability to influence guessing of
 	import/export -filters. If one is marked as FILTER_DONT_GUESS it is 
 	only selected by the guessing if it is the only one registering a 
