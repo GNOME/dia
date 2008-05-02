@@ -99,7 +99,7 @@ Layer *
 layer_find_by_name(char *layername, DiagramData *dia) 
 {
     Layer *matching_layer, *layer;
-    int i;
+    guint i;
 	
     matching_layer = NULL;
    
@@ -211,7 +211,6 @@ read_entity_line_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 
     line_obj = otype->ops->create(&start, otype->default_user_data,
                                   &h1, &h2);
-    layer_add_object(layer, line_obj);
 		
     props = prop_list_from_descs(dxf_prop_descs,pdtpp_true);
     g_assert(props->len == 5);
@@ -235,8 +234,13 @@ read_entity_line_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
     line_obj->ops->set_props(line_obj, props);
 
     prop_list_free(props);
-   
-   return( line_obj );
+
+    if (layer)
+      layer_add_object(layer, line_obj);
+    else
+      return line_obj;
+    /* don't add it it twice */
+    return NULL;
 }
 
 static PropDescription dxf_solid_prop_descs[] = {
@@ -348,8 +352,6 @@ read_entity_solid_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 
    polygon_obj = otype->ops->create( NULL, pcd, &h1, &h2 );
 
-   layer_add_object( layer, polygon_obj );
-
    props = prop_list_from_descs( dxf_solid_prop_descs, pdtpp_true );
    g_assert(props->len == 5);
 
@@ -372,8 +374,13 @@ read_entity_solid_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
    polygon_obj->ops->set_props( polygon_obj, props );
 
    prop_list_free(props);
-   
-   return( polygon_obj );
+
+   if (layer)
+      layer_add_object( layer, polygon_obj );
+   else
+      return polygon_obj;
+
+   return NULL;
 }
 
 static PropDescription dxf_polyline_prop_descs[] = {
@@ -577,8 +584,6 @@ read_entity_polyline_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 
     polyline_obj = otype->ops->create( NULL, pcd, &h1, &h2 );
 
-    layer_add_object( layer, polyline_obj );
-
     props = prop_list_from_descs( dxf_polyline_prop_descs, pdtpp_true );
     g_assert( props->len == 3 );
 
@@ -595,8 +600,13 @@ read_entity_polyline_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
     polyline_obj->ops->set_props( polyline_obj, props );
 
     prop_list_free(props);
-   
-    return( polyline_obj );
+
+    if (layer)
+       layer_add_object( layer, polyline_obj );
+    else
+       return polyline_obj;
+       
+    return NULL; /* don't add it twice */
 }
 
 static PropDescription dxf_ellipse_prop_descs[] = {
@@ -661,7 +671,6 @@ DiaObject *read_entity_circle_dxf(FILE *filedxf, DxfData *data, DiagramData *dia
     center.y -= radius;
     ellipse_obj = otype->ops->create(&center, otype->default_user_data,
                                      &h1, &h2);
-    layer_add_object(layer, ellipse_obj);
 	
     props = prop_list_from_descs(dxf_ellipse_prop_descs,pdtpp_true);
     g_assert(props->len == 6);
@@ -681,8 +690,13 @@ DiaObject *read_entity_circle_dxf(FILE *filedxf, DxfData *data, DiagramData *dia
     
     ellipse_obj->ops->set_props(ellipse_obj, props);
     prop_list_free(props);
-   
-   return( ellipse_obj );
+
+    if (layer)
+        layer_add_object(layer, ellipse_obj);
+    else
+        return ellipse_obj;
+
+    return NULL; /* don't add it twice */
 }
 
 static PropDescription dxf_arc_prop_descs[] = {
@@ -763,7 +777,6 @@ DiaObject *read_entity_arc_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
    
     arc_obj = otype->ops->create(&center, otype->default_user_data,
                                      &h1, &h2);
-    layer_add_object(layer, arc_obj);
     
     props = prop_list_from_descs(dxf_arc_prop_descs,pdtpp_true);
     g_assert(props->len == 5);
@@ -782,7 +795,12 @@ DiaObject *read_entity_arc_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
     arc_obj->ops->set_props(arc_obj, props);
     prop_list_free(props);
    
-   return( arc_obj );
+    if (layer)
+        layer_add_object(layer, arc_obj);
+    else
+        return arc_obj ;
+
+    return NULL; /* don't add it twice */
 }
 
 /* reads an ellipse entity from the dxf file and creates an ellipse object in dia*/
@@ -841,7 +859,6 @@ read_entity_ellipse_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
     center.y -= (width*ratio_width_height);
     ellipse_obj = otype->ops->create(&center, otype->default_user_data,
                                      &h1, &h2);
-    layer_add_object(layer, ellipse_obj);
         
     props = prop_list_from_descs(dxf_ellipse_prop_descs,pdtpp_true);
     g_assert(props->len == 6);
@@ -861,8 +878,13 @@ read_entity_ellipse_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
     
     ellipse_obj->ops->set_props(ellipse_obj, props);
     prop_list_free(props);
-   
-   return( ellipse_obj );
+
+    if (layer)
+        layer_add_object(layer, ellipse_obj);
+    else
+        return ellipse_obj;
+
+    return NULL; /* don't add it twice */
 }
 
 static PropDescription dxf_text_prop_descs[] = {
@@ -892,7 +914,7 @@ read_entity_text_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
     GPtrArray *props;
 
     Layer *layer = dia->active_layer;
-    
+
     do {
         if (read_dxf_codes(filedxf, data) == FALSE) {
             return( NULL );
@@ -996,7 +1018,6 @@ read_entity_text_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
    
     text_obj = otype->ops->create(&location, otype->default_user_data,
                                   &h1, &h2);
-    layer_add_object(layer, text_obj);
     props = prop_list_from_descs(dxf_text_prop_descs,pdtpp_true);
     g_assert(props->len == 1);
 
@@ -1014,7 +1035,12 @@ read_entity_text_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
     text_obj->ops->set_props(text_obj, props);
     prop_list_free(props);
    
-   return( text_obj );
+    if (layer)
+        layer_add_object(layer, text_obj);
+    else
+        return text_obj;
+
+    return NULL; /* don't add it twice */
 }
 
 /* reads the layer table from the dxf file and creates the layers */
@@ -1227,7 +1253,7 @@ read_section_blocks_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
     codedxf = atoi(data->code);
     do {  
         if((codedxf == 0) && (strcmp(data->value, "LINE") == 0)) {
-            read_entity_line_dxf(filedxf, data, dia);
+            obj = read_entity_line_dxf(filedxf, data, dia);
         } else if((codedxf == 0) && (strcmp(data->value, "SOLID") == 0)) {
             obj = read_entity_solid_dxf(filedxf, data, dia);
         } else if((codedxf == 0) && (strcmp(data->value, "VERTEX") == 0)) {
@@ -1235,13 +1261,13 @@ read_section_blocks_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
         } else if((codedxf == 0) && (strcmp(data->value, "POLYLINE") == 0)) {
             obj = read_entity_polyline_dxf(filedxf, data, dia);
         } else if((codedxf == 0) && (strcmp(data->value, "CIRCLE") == 0)) {
-            read_entity_circle_dxf(filedxf, data, dia);
+            obj = read_entity_circle_dxf(filedxf, data, dia);
         } else if((codedxf == 0) && (strcmp(data->value, "ELLIPSE") == 0)) {
-            read_entity_ellipse_dxf(filedxf, data, dia);
+            obj = read_entity_ellipse_dxf(filedxf, data, dia);
         } else if((codedxf == 0) && (strcmp(data->value, "TEXT") == 0)) {
             obj = read_entity_text_dxf(filedxf, data, dia);
         } else if((codedxf == 0) && (strcmp(data->value, "ARC") == 0)) {
-            read_entity_arc_dxf(filedxf,data,dia);
+            obj = read_entity_arc_dxf(filedxf,data,dia);
         } else if((codedxf == 0) && (strcmp(data->value, "BLOCK") == 0)) {
                 /* printf("Begin group\n" ); */
 	 
@@ -1256,8 +1282,10 @@ read_section_blocks_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 
                 codedxf = atoi(data->code);
 
-                if( codedxf == 8 )
-                    group_layer = layer_find_by_name( data->value, dia ); 
+                if( codedxf == 8 ) {
+                    group_layer = layer_find_by_name( data->value, dia );
+		    data_set_active_layer (dia, group_layer);
+		}
 
             } while( codedxf != 0 );
 	

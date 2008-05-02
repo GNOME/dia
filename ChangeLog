@@ -1,5 +1,9 @@
 2008-05-02  Hans Breuer  <hans@breuer.org>
 
+	* plug-ins/dxf/dxf-import.c : either add the objects directly to
+	a layer or use them in a group. Otherwise memory corruption will
+	occur at the latest at diagram destruction time
+
 	* app/diagram_tree.c : there was a pixmap and mask created for every
 	object in the diagram; not only waste of cpu cycles but also a 
 	resource problem making Gdk fail for a diagram with >7000 objects.
