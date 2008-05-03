@@ -113,6 +113,8 @@ fnr_respond (GtkWidget *widget, gint response_id, gpointer data)
   case RESPONSE_FIND :
     sd.key = search;
     sd.last = g_object_get_data (G_OBJECT (widget), "last-found");
+    if (!_matches (sd.last, &sd))
+      sd.last = NULL; /* reset if we start a new search */
     diagram_remove_all_selected (ddisp->diagram, TRUE);
     data_foreach_object (ddisp->diagram->data, find_func, &sd);
     /* remember it */

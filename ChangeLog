@@ -1,4 +1,33 @@
+2008-05-03  Hans Breuer  <hans@breuer.org>
+
+	* objects/UML/association.c : the transition to full StdProps broke
+	the restoration of autorouting swicthed off in version 1 shapes
+	* samples/Self/PyDiaObjects.dia : documentation of PyDia which
+	showed the problem
+
+	* plug-ins/xslt/xslt.c(xslt_ok) : the directory name passed into xslt
+	needs to be an uri (*NIX being more tolerant). Fixes bug #472143.
+
+	* samples/Self/dia-renderer.dia : updated one more
+
+	* app/load_save.c : only update handle positions if the bounding box
+	is empty after creation of the object
+
+	* plug-ins/wmf/wmf.cpp : use Pango for loading the font but not for 
+	rendering (taking the better part of my patch to fix bug #350726)
+	* plug-ins/makefile.msc : link wmf with pangowin32.lib, clean-up
+
+	* app/find-and-replace.c : reset last found if we start a new search
+
+	* app/render_gdk.c(draw_pixel_rect, draw_pixel_line) : clip early to
+	avoid passing out-of-range parameters to Gdk
+
 2008-05-02  Hans Breuer  <hans@breuer.org>
+
+	* objects/FS/flow-ortho.c objects/FS/flow-poly.c objects/FS/flow.c :
+	objects/FS/flow.c : Object::copy() was not calling Object::update()
+	resulting in uninitialized memory, crashing or corrupted diagrams.
+	Not anymore, fixing bug #456270
 
 	* plug-ins/dxf/dxf-import.c : either add the objects directly to
 	a layer or use them in a group. Otherwise memory corruption will

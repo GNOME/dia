@@ -276,6 +276,9 @@ read_connections(GList *objects, xmlNodePtr layer_node,
       read_connections(group_objects(obj), obj_node, objects_hash);
     } else {
       gboolean broken = FALSE;
+      /* an invalid bounding box is a good sign for some need of corrections */
+      gboolean wants_update = obj->bounding_box.left >= obj->bounding_box.left 
+                           || obj->bounding_box.top >= obj->bounding_box.bottom;
       connections = obj_node->xmlChildrenNode;
       while ((connections!=NULL) &&
 	     (xmlStrcmp(connections->name, (const xmlChar *)"connections")!=0))
@@ -323,12 +326,14 @@ read_connections(GList *objects, xmlNodePtr layer_node,
 	      object_connect(obj, obj->handles[handle],
 			     to->connections[conn]);
 	      /* force an update on the connection, helpful with (incomplete) generated files */
-	      obj->handles[handle]->pos = 
-	        to->connections[conn]->last_pos = to->connections[conn]->pos;
+	      if (wants_update) {
+	        obj->handles[handle]->pos = 
+	          to->connections[conn]->last_pos = to->connections[conn]->pos;
 #if 0
-	      obj->ops->move_handle(obj, obj->handles[handle], &to->connections[conn]->pos,
-				    to->connections[conn], HANDLE_MOVE_CONNECTED,0);
+	        obj->ops->move_handle(obj, obj->handles[handle], &to->connections[conn]->pos,
+				      to->connections[conn], HANDLE_MOVE_CONNECTED,0);
 #endif
+	      }
 	    } else {
 	      message_error(_("Error loading diagram.\n"
 			      "connection point %s does not exist."),
@@ -347,7 +352,7 @@ read_connections(GList *objects, xmlNodePtr layer_node,
          * Only done for the last point connected otherwise the intermediate posisitions
          * may screw the auto-routing algorithm.
          */
-        if (!broken && obj && obj->ops->set_props) {
+        if (!broken && obj && obj->ops->set_props && wants_update) {
 	  /* called for it's side-effect of update_data */
 	  obj->ops->move(obj,&obj->position);
 

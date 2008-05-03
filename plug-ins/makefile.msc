@@ -113,6 +113,7 @@ OBJECTS = \
 !ENDIF
 
 !IFDEF OBJ_wmf
+PKG_LINK = $(PKG_LINK) $(PANGOWIN32_LIBS)
 OBJECTS = \
   wmf.obj \
   wmf_gdi.obj
@@ -131,19 +132,6 @@ EXTRACFLAGS = -DWIN32 $(LIBXSLT_CFLAGS)
 EXTRALIBS = $(LIBXSLT_LIBS)
 OBJECTS = xslt.obj \
 	xsltdialog.obj
-!ENDIF
-
-!IFDEF OBJ_sissi
-EXTRACFLAGS = -DWIN32 $(LIBXSLT_CFLAGS)
-EXTRALIBS = $(LIBXSLT_LIBS)
-OBJECTS = sissi.obj \
-	faraday.obj \
-	menace.obj \
-	room.obj \
-	sissi_dialog.obj \
-	sissi_object.obj \
-	site.obj \
-	zone.obj
 !ENDIF
 
 # just one file ...

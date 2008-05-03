@@ -79,9 +79,12 @@ xslt_ok(void)
 	char *params[] = { "directory", NULL, NULL };
 	xsltStylesheetPtr style, codestyle;
 	xmlDocPtr doc, res;
+	gchar *uri = g_filename_to_uri (g_dirname(filename), NULL, NULL);
 
-	params[1] = g_strconcat("'", g_dirname(filename), G_DIR_SEPARATOR_S, "'", NULL);
-	
+	/* strange: requires an uri, but the last char is platform specifc?! */
+	params[1] = g_strconcat("'", uri, G_DIR_SEPARATOR_S, "'", NULL);
+	g_free (uri);
+
 	file = g_fopen(diafilename, "r");
 
 	if (file == NULL) {
@@ -143,9 +146,16 @@ xslt_ok(void)
 
 
 	err = xsltSaveResultToFile(out, doc, codestyle);
-      /* printf("Saved to file (%i) using stylesheet: %s\n",
-         err, stylefname); */
-		
+	if(err != 0) {
+		message_error(_("Error while saving result: %s\n"), 
+			      dia_message_filename(filename));
+		return;
+	}
+
+	fprintf (out, "From:\t%s\n", diafilename);
+	fprintf (out, "With:\t%s\n", stylefname);
+	fprintf (out, "To:\t%s=%s\n", params[0], params[1]);
+
 	fclose(out);
 	fclose(file);
 

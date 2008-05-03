@@ -48,6 +48,15 @@ extern "C" {
 #  define WIN32_LEAN_AND_MEAN
 #  include <windows.h>
   }
+#undef STRICT
+typedef W32::HDC HDC;
+typedef W32::HFONT HFONT;
+typedef W32::LOGFONT LOGFONT;
+typedef W32::LOGFONTA LOGFONTA;
+typedef W32::LOGFONTW LOGFONTW;
+
+#include <pango/pangowin32.h>
+
 #elif HAVE_LIBEMF
   namespace W32 {
 #  include <emf.h>
@@ -113,6 +122,9 @@ struct _WmfRenderer
     gboolean platform_is_nt; /* advanced line styles supported */
     gboolean target_emf; /* write enhanced metafile */
     W32::RECT margins;
+
+    gboolean use_pango;
+    PangoContext* pango_context;
 };
 
 struct _WmfRendererClass
@@ -308,6 +320,8 @@ end_render(DiaRenderer *self)
 	W32::DeleteEnhMetaFile(hEmf);
     if (renderer->hFont)
 	W32::DeleteObject(renderer->hFont);
+    if (renderer->pango_context)
+        g_object_unref (renderer->pango_context);
 }
 
 static void
@@ -457,44 +471,66 @@ set_font(DiaRenderer *self, DiaFont *font, real height)
 
     DIAG_NOTE(renderer, "set_font %s %f\n", 
               dia_font_get_family (font), height);
-    if (renderer->hFont)
+    if (renderer->hFont) {
 	W32::DeleteObject(renderer->hFont);
-
-    sFace = dia_font_get_family (font);
-    style = dia_font_get_style(font);
-    dwItalic = DIA_FONT_STYLE_GET_SLANT(style) != DIA_FONT_NORMAL;
-
-    /* although there is a known algorithm avoid it for cleanness */
-    switch (DIA_FONT_STYLE_GET_WEIGHT(style)) {
-    case DIA_FONT_ULTRALIGHT    : dwWeight = FW_ULTRALIGHT; break;
-    case DIA_FONT_LIGHT         : dwWeight = FW_LIGHT; break;
-    case DIA_FONT_MEDIUM        : dwWeight = FW_MEDIUM; break;
-    case DIA_FONT_DEMIBOLD      : dwWeight = FW_DEMIBOLD; break;
-    case DIA_FONT_BOLD          : dwWeight = FW_BOLD; break;
-    case DIA_FONT_ULTRABOLD     : dwWeight = FW_ULTRABOLD; break;
-    case DIA_FONT_HEAVY         : dwWeight = FW_HEAVY; break;
-    default : dwWeight = FW_NORMAL; break;
+	renderer->hFont = NULL;
     }
-    //Hack to get BYTE out of namespace W32
-#  ifndef BYTE
-#  define BYTE unsigned char
-#  endif
+    if (renderer->pango_context) {
+        g_object_unref (renderer->pango_context);
+	renderer->pango_context = NULL;
+    }
+    
+    if (renderer->use_pango) {
+#ifdef __PANGOWIN32_H__ /* with the pangowin32 backend there is a better way */
+	if (!renderer->pango_context)
+	    renderer->pango_context = pango_win32_get_context ();
+	PangoFont* pf = pango_context_load_font (renderer->pango_context, dia_font_get_description (font));
+	W32::LOGFONT* lf = pango_win32_font_logfont (pf);
+	/* .93 : sligthly smaller looks much better */
+	lf->lfHeight = -SC(height*.93);
+	renderer->hFont = (W32::HFONT)W32::CreateFontIndirect (lf);
+	g_free (lf);
+	g_object_unref (pf);
+#else
+	g_assert_not_reached();
+#endif
+    } else {
+	sFace = dia_font_get_family (font);
+	style = dia_font_get_style(font);
+	dwItalic = DIA_FONT_STYLE_GET_SLANT(style) != DIA_FONT_NORMAL;
 
-    renderer->hFont = (W32::HFONT)W32::CreateFont( 
-	- SC (height),  // logical height of font 
-	0,		// logical average character width 
-	0,		// angle of escapement
-	0,		// base-line orientation angle 
-	dwWeight,	// font weight
-	dwItalic,	// italic attribute flag
-	0,		// underline attribute flag
-	0,		// strikeout attribute flag
-	DEFAULT_CHARSET,	// character set identifier 
-	OUT_TT_PRECIS, 	// output precision 
-	CLIP_DEFAULT_PRECIS,	// clipping precision
-	PROOF_QUALITY,		// output quality 
-	DEFAULT_PITCH,		// pitch and family
-	sFace);		// pointer to typeface name string 
+	/* although there is a known algorithm avoid it for cleanness */
+	switch (DIA_FONT_STYLE_GET_WEIGHT(style)) {
+	case DIA_FONT_ULTRALIGHT    : dwWeight = FW_ULTRALIGHT; break;
+	case DIA_FONT_LIGHT         : dwWeight = FW_LIGHT; break;
+	case DIA_FONT_MEDIUM        : dwWeight = FW_MEDIUM; break;
+	case DIA_FONT_DEMIBOLD      : dwWeight = FW_DEMIBOLD; break;
+	case DIA_FONT_BOLD          : dwWeight = FW_BOLD; break;
+	case DIA_FONT_ULTRABOLD     : dwWeight = FW_ULTRABOLD; break;
+	case DIA_FONT_HEAVY         : dwWeight = FW_HEAVY; break;
+	default : dwWeight = FW_NORMAL; break;
+	}
+	//Hack to get BYTE out of namespace W32
+#       ifndef BYTE
+#       define BYTE unsigned char
+#       endif
+
+	renderer->hFont = (W32::HFONT)W32::CreateFont( 
+		- SC (height),  // logical height of font 
+		0,		// logical average character width 
+		0,		// angle of escapement
+		0,		// base-line orientation angle 
+		dwWeight,	// font weight
+		dwItalic,	// italic attribute flag
+		0,		// underline attribute flag
+		0,		// strikeout attribute flag
+		DEFAULT_CHARSET,	// character set identifier 
+		OUT_TT_PRECIS, 	// output precision 
+		CLIP_DEFAULT_PRECIS,	// clipping precision
+		PROOF_QUALITY,		// output quality 
+		DEFAULT_PITCH,		// pitch and family
+		sFace);		// pointer to typeface name string
+    }
 }
 
 static void
@@ -1223,8 +1259,14 @@ export_data(DiagramData *data, const gchar *filename,
     if (user_data == (void*)1) {
 	renderer->target_emf = TRUE;
 	renderer->hPrintDC = 0;
+#ifdef __PANGOWIN32_H__ 
+        renderer->use_pango = TRUE;
+#else
+        renderer->use_pango = FALSE;
+#endif
     } else {
         renderer->hPrintDC = (W32::HDC)user_data;
+        renderer->use_pango = (user_data != NULL); // always for printing
     }
 
     DIAG_NOTE(renderer, "Saving %s:%s\n", renderer->target_emf ? "EMF" : "WMF", filename);
@@ -1323,7 +1365,6 @@ static DiaExportFilter emf_export_filter = {
     (void*)1, /* user data: urgh, reused as bool and pointer */
     "emf"
 };
-
 
 /* --- dia plug-in interface --- */
 

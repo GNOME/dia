@@ -178,8 +178,17 @@ draw_pixel_line(DiaRenderer *object,
   DiaGdkRenderer *renderer = DIA_GDK_RENDERER (object);
   GdkGC *gc = renderer->gc;
   GdkColor gdkcolor;
-
+  int target_width, target_height;
+    
   dia_gdk_renderer_set_dashes(renderer, x1+y1);
+
+  gdk_drawable_get_size (GDK_DRAWABLE (renderer->pixmap), &target_width, &target_height);
+
+  if (   (x1 < 0 && x2 < 0)
+      || (y1 < 0 && y2 < 0)
+      || (x1 > target_width && x2 > target_width) 
+      || (y1 > target_height && y2 > target_height))
+    return; /* clip early rather than failing in Gdk */
   
   color_convert(color, &gdkcolor);
   gdk_gc_set_foreground(gc, &gdkcolor);
@@ -196,8 +205,14 @@ draw_pixel_rect(DiaRenderer *object,
   DiaGdkRenderer *renderer = DIA_GDK_RENDERER (object);
   GdkGC *gc = renderer->gc;
   GdkColor gdkcolor;
+  int target_width, target_height;
     
   dia_gdk_renderer_set_dashes(renderer, x+y);
+
+  gdk_drawable_get_size (GDK_DRAWABLE (renderer->pixmap), &target_width, &target_height);
+
+  if (x + width < 0 || y + height < 0 || x > target_width || y > target_height)
+    return; /* clip early rather than failing in Gdk */
 
   color_convert(color, &gdkcolor);
   gdk_gc_set_foreground(gc, &gdkcolor);
@@ -215,7 +230,13 @@ fill_pixel_rect(DiaRenderer *object,
   DiaGdkRenderer *renderer = DIA_GDK_RENDERER (object);
   GdkGC *gc = renderer->gc;
   GdkColor gdkcolor;
+  int target_width, target_height;
     
+  gdk_drawable_get_size (GDK_DRAWABLE (renderer->pixmap), &target_width, &target_height);
+    
+  if (x + width < 0 || y + height < 0 || x > target_width || y > target_height)
+    return; /* clip early rather than failing in Gdk */
+
   color_convert(color, &gdkcolor);
   gdk_gc_set_foreground(gc, &gdkcolor);
 

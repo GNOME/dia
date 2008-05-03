@@ -972,6 +972,11 @@ association_load(ObjectNode obj_node, int version, const char *filename)
     orth->autorouting = FALSE;
 
   if (version < 2) {
+    /* vesrion 1 used to name it differently */
+    attr = object_find_attribute(obj_node, "autorouting");
+    if (attr != NULL)
+      orth->autorouting = data_boolean(attribute_first_data(attr));
+
     attr = object_find_attribute(obj_node, "ends");
     composite = attribute_first_data(attr);
     for (i=0;i<2;i++) {
