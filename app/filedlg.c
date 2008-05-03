@@ -119,6 +119,62 @@ diagram_removed (Diagram* dia, GtkWidget* dialog)
 }
 #endif
 
+static GtkFileFilter *
+build_gtk_file_filter_from_index (int index)
+{
+  DiaImportFilter *ifilter = NULL;
+  GtkFileFilter *filter = NULL;
+
+  ifilter = g_list_nth_data (filter_get_import_filters(), index-1);
+  if (ifilter) {
+    GString *pattern = g_string_new ("*.");
+    int i = 0;
+    
+    filter = gtk_file_filter_new ();
+
+    while (ifilter->extensions[i] != NULL) {
+      if (i != 0)
+        g_string_append (pattern, "|*.");
+      g_string_append (pattern, ifilter->extensions[i]);
+      ++i;
+    }
+    gtk_file_filter_set_name (filter, _("Supported Formats"));
+    gtk_file_filter_add_pattern (filter, pattern->str);
+
+    g_string_free (pattern, TRUE);
+
+  } else {
+    /* match the other selections extension */
+    filter = gtk_file_filter_new ();
+    gtk_file_filter_set_name (filter, _("Supported Formats"));
+    gtk_file_filter_add_custom (filter, GTK_FILE_FILTER_FILENAME,
+                                matching_extensions_filter, filter_guess_import_filter, NULL);
+  }
+  return filter;
+}
+
+static void
+import_adapt_extension_callback(GtkWidget *widget)
+{
+  int index = gtk_combo_box_get_active (GTK_COMBO_BOX(widget)); 
+  GtkFileFilter *former = NULL;
+  GSList *list, *elem;
+
+  list = gtk_file_chooser_list_filters (GTK_FILE_CHOOSER (opendlg));
+  for (elem = list; elem != NULL; elem = g_slist_next (elem))
+    if (strcmp (_("Supported Formats"), gtk_file_filter_get_name (GTK_FILE_FILTER(elem->data))) == 0)
+      former = GTK_FILE_FILTER(elem->data);
+  g_slist_free (list);
+
+  if (former) {
+    /* replace the previous filter */
+    GtkFileFilter *filter = build_gtk_file_filter_from_index (index);
+    gtk_file_chooser_remove_filter (GTK_FILE_CHOOSER (opendlg), former);
+    gtk_file_chooser_add_filter (GTK_FILE_CHOOSER (opendlg), filter);
+    gtk_file_chooser_set_filter (GTK_FILE_CHOOSER (opendlg), filter);
+  }
+}
+
 /**
  * Create the combobox menu to select Import Filter options
  */
@@ -142,6 +198,8 @@ create_open_menu(void)
     gtk_combo_box_append_text (GTK_COMBO_BOX(menu), filter_label);
     g_free(filter_label);
   }
+  g_signal_connect(GTK_OBJECT(menu), "changed",
+	           G_CALLBACK(import_adapt_extension_callback), NULL);
   return menu;
 }
 
@@ -268,19 +326,16 @@ file_open_callback(gpointer data, guint action, GtkWidget *widget)
     gtk_widget_show(options);
     g_signal_connect(GTK_OBJECT(opendlg), "response",
 		     G_CALLBACK(file_open_response_callback), omenu);
-    /* match the other selections extension */
-    filter = gtk_file_filter_new ();
-    gtk_file_filter_set_name (filter, _("Supported Formats"));
-    gtk_file_filter_add_custom (filter, GTK_FILE_FILTER_FILENAME,
-                                matching_extensions_filter, filter_guess_import_filter, NULL);
-    gtk_file_chooser_add_filter (GTK_FILE_CHOOSER (opendlg), filter);
-    /* set up file filters */
+
+    /* set up the gtk file (name) filters */
+    /* 0 = by extension */
+    gtk_file_chooser_add_filter (GTK_FILE_CHOOSER (opendlg), 
+	                         build_gtk_file_filter_from_index (0));
     filter = gtk_file_filter_new ();
     gtk_file_filter_set_name (filter, _("All Files"));
     gtk_file_filter_add_pattern (filter, "*");
     gtk_file_chooser_add_filter (GTK_FILE_CHOOSER (opendlg), filter);
 
-    /* candidate for user prefs */
     gtk_combo_box_set_active (GTK_COMBO_BOX (omenu), persistence_get_integer ("import-filter"));
   }
 

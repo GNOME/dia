@@ -1,5 +1,9 @@
 2008-05-03  Hans Breuer  <hans@breuer.org>
 
+	* app/filedlg.c : adapt the "Supported Formats" filter so that the
+	files shown are matching the extensions of the slected import filter.
+	Fixes bug #503117
+
 	* objects/UML/association.c : the transition to full StdProps broke
 	the restoration of autorouting swicthed off in version 1 shapes
 	* samples/Self/PyDiaObjects.dia : documentation of PyDia which
