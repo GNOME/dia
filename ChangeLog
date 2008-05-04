@@ -1,3 +1,19 @@
+2008-05-04  Hans Breuer  <hans@breuer.org>
+
+	* lib/geometry.[hc] lib/libdia.def: three_point_circle() calculate
+	center point and radius given 3 points on a circle
+
+	* plug-ins/xfig/xfig-import.c lib/create.h(create_standard_arc) : the 
+	fifth parameter was named and treated as radius alsthough it set the
+	"curve_distance"
+	* lib/create.c(create_standard_arc) : also the second point passed in
+	was simply ignored. Now it moves the second handle. Part of bug #436148
+	
+	* plug-ins/cairo/diacairo.c : more exporters marked as FILTER_DONT_GUESS
+	Fixes writing of (old) WMF, but text is missing for both EMF and WMF.
+
+	* samples/render-test.dia : fixed some alignments and colors
+
 2008-05-03  Hans Breuer  <hans@breuer.org>
 
 	* app/filedlg.c : adapt the "Supported Formats" filter so that the

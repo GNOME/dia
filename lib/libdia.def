@@ -565,6 +565,7 @@ EXPORTS
  transform_point
 
  point_get_perp
+ three_point_circle
 
  polybezier_bbox
 

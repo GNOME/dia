@@ -702,6 +702,31 @@ void fillet(Point *p1, Point *p2, Point *p3, Point *p4,
   *aa = stop_angle;
 }
 
+int 
+three_point_circle (const Point *p1, const Point *p2, const Point *p3,
+                    Point* center, real* radius)
+{
+  const real epsilon = 1e-4;
+  real x1 = p1->x;
+  real y1 = p1->y;
+  real x2 = p2->x;
+  real y2 = p2->y;
+  real x3 = p3->x;
+  real y3 = p3->y;
+  real ma, mb;
+  if (fabs(x2 - x1) < epsilon)
+    return 0;
+  if (fabs(x3 - x2) < epsilon)
+    return 0;
+  ma = (y2 - y1) / (x2 - x1);
+  mb = (y3 - y2) / (x3 - x2);
+  if (fabs (mb - ma) < epsilon)
+    return 0;
+  center->x = (ma*mb*(y1-y3)+mb*(x1+x2)-ma*(x2+x3))/(2*(mb-ma));
+  center->y = ma*(center->x - x1) + y1;
+  *radius = distance_point_point(center, p1);
+  return 1;
+}
 
 
 /* moved this here since it is being reused by rounded polyline code*/
