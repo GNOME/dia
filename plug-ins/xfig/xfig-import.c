@@ -875,17 +875,22 @@ fig_read_arc(FILE *file) {
     distance = distance_point_point (&p2, &pm);
 
     switch (sub_type) {
-    case 0: /* We can't do pie-wedge properly yet */
+    case 0: 
     case 1: 
+    case 2: /* We can't do pie-wedge properly yet */
 	newobj = create_standard_arc(x1/FIG_UNIT, y1/FIG_UNIT,
 				     x3/FIG_UNIT, y3/FIG_UNIT,
 				     direction ? distance : -distance, 
 				     forward_arrow_info,
 				     backward_arrow_info);
 	if (newobj == NULL) goto exit;
+	if (sub_type == 2) {
+		/* set new fill property on arc? */
+		message_warning (_("Filled arc treated as unfilled"));
+	}
 	break;
     default: 
-	message_error(_("Unknown polyline subtype: %d\n"), sub_type);
+	message_error(_("Unknown polyline arc: %d\n"), sub_type);
 	goto exit;
     }
 
@@ -990,7 +995,7 @@ fig_read_text(FILE *file) {
 	    tprop->attr.font = dia_font_new_from_legacy_name(fig_fonts[font]);
 	}
     }
-    tprop->attr.height = font_size*3.54/72.0;
+    tprop->attr.height = font_size*2.54/72.0;
     tprop->attr.color = fig_color(color);
     newobj->ops->set_props(newobj, props);
     

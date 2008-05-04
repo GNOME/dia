@@ -1,5 +1,9 @@
 2008-05-04  Hans Breuer  <hans@breuer.org>
 
+	* plug-ins/xfig/xfig-import.c(fig_read_arc): expecept pie-wedge 
+	although not completely supported. Better than refusing the whole file
+	(fig_read_text) : fixed probable typo 3.54/72.0
+	
 	* lib/geometry.[hc] lib/libdia.def: three_point_circle() calculate
 	center point and radius given 3 points on a circle, fixed prototype and 
 	implementation to ...
