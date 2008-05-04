@@ -251,7 +251,24 @@ export_data(DiagramData *data, const gchar *filename_utf8,
     } else {
       message_error (_("Can't write %d bytes to %s"), nSize, filename_utf8);
     }
-    DeleteEnhMetaFile (hFileDC);
+    DeleteEnhMetaFile (hEmf);
+    g_free (pData);
+  } else if (OUTPUT_WMF == kind) {
+    FILE* f = g_fopen(filename_utf8, "wb");
+    HENHMETAFILE hEmf = CloseEnhMetaFile(hFileDC);
+    HDC hdc = GetDC(NULL);
+    UINT nSize = GetWinMetaFileBits (hEmf, 0, NULL, MM_ANISOTROPIC, hdc);
+    BYTE* pData = g_new(BYTE, nSize);
+    nSize = GetWinMetaFileBits (hEmf, nSize, pData, MM_ANISOTROPIC, hdc);
+    if (f) {
+      /* FIXME: write the placeable header */
+      fwrite(pData,1,nSize,f);
+      fclose(f);
+    } else {
+      message_error (_("Can't write %d bytes to %s"), nSize, filename_utf8);
+    }
+    ReleaseDC(NULL, hdc);
+    DeleteEnhMetaFile (hEmf);
     g_free (pData);
   }
 #endif
@@ -317,7 +334,8 @@ static DiaExportFilter svg_export_filter = {
     svg_extensions,
     export_data,
     (void*)OUTPUT_SVG,
-    "cairo-svg"
+    "cairo-svg",
+    FILTER_DONT_GUESS /* don't use this if not asked explicit */
 };
 #endif
 
@@ -339,22 +357,24 @@ static DiaExportFilter pnga_export_filter = {
 };
 
 #if DIA_CAIRO_CAN_EMF
-static const gchar *emf_extensions[] = { "wmf", NULL };
+static const gchar *emf_extensions[] = { "emf", NULL };
 static DiaExportFilter emf_export_filter = {
-    N_("Cairo WMF"),
+    N_("Cairo EMF"),
     emf_extensions,
     export_data,
     (void*)OUTPUT_EMF,
-    "cairo-emf"
+    "cairo-emf",
+    FILTER_DONT_GUESS /* don't use this if not asked explicit */
 };
 
 static const gchar *wmf_extensions[] = { "wmf", NULL };
 static DiaExportFilter wmf_export_filter = {
-    N_("Cairo old WMF"),
+    N_("Cairo WMF"),
     wmf_extensions,
     export_data,
     (void*)OUTPUT_WMF,
-    "cairo-wmf"
+    "cairo-wmf",
+    FILTER_DONT_GUESS /* don't use this if not asked explicit */
 };
 #endif
 

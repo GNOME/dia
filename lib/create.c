@@ -282,13 +282,13 @@ static PropDescription create_arc_prop_descs[] = {
 
 DiaObject *
 create_standard_arc(real x1, real y1, real x2, real y2,
-		    real radius, 
+		    real distance, 
 		    Arrow *end_arrow,
 		    Arrow *start_arrow) {
     DiaObjectType *otype = object_get_type("Standard - Arc");
     DiaObject *new_obj;
     Handle *h1, *h2;
-    Point point;
+    Point p1, p2;
     GPtrArray *props;
 
     if (otype == NULL){
@@ -296,16 +296,19 @@ create_standard_arc(real x1, real y1, real x2, real y2,
 	return NULL;
     }
 
-    point.x = x1;
-    point.y = y1;
+    p1.x = x1;
+    p1.y = y1;
+    p2.x = x2;
+    p2.y = y2;
 
-    new_obj = otype->ops->create(&point, otype->default_user_data,
+
+    new_obj = otype->ops->create(&p1, otype->default_user_data,
 				 &h1, &h2);
-    
+    new_obj->ops->move_handle(new_obj, h2, &p2, NULL, HANDLE_MOVE_USER_FINAL,0);
     props = prop_list_from_descs(create_arc_prop_descs,pdtpp_true);
     g_assert(props->len == 3);
     
-    ((RealProperty *)g_ptr_array_index(props,0))->real_data = radius;
+    ((RealProperty *)g_ptr_array_index(props,0))->real_data = distance;
     if (start_arrow != NULL)
 	((ArrowProperty *)g_ptr_array_index(props, 1))->arrow_data = *start_arrow;
     if (end_arrow != NULL)

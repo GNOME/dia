@@ -338,7 +338,7 @@ fig_fix_text(gchar *text) {
 static char *
 fig_read_text_line(FILE *file) {
     char *text_buf;
-    int text_alloc, text_len;
+    guint text_alloc, text_len;
 
     getc(file);
     text_alloc = 80;
@@ -835,6 +835,8 @@ fig_read_arc(FILE *file) {
     int x3, y3;
     real radius;
     char* old_locale;
+    Point p2, pm;
+    real distance;
 
     old_locale = setlocale(LC_NUMERIC, "C");
     if (fscanf(file, "%d %d %d %d %d %d %d %d %lf %d %d %d %d %lf %lf %d %d %d %d %d %d\n",
@@ -868,13 +870,16 @@ fig_read_arc(FILE *file) {
     }
 
     radius = sqrt((x1-center_x)*(x1-center_x)+(y1-center_y)*(y1-center_y))/FIG_UNIT;
+    p2.x = x2/FIG_UNIT; p2.y = y2/FIG_UNIT;
+    pm.x = (x1+x3)/(2*FIG_UNIT); pm.y = (y1+y3)/(2*FIG_UNIT);
+    distance = distance_point_point (&p2, &pm);
 
     switch (sub_type) {
     case 0: /* We can't do pie-wedge properly yet */
     case 1: 
 	newobj = create_standard_arc(x1/FIG_UNIT, y1/FIG_UNIT,
 				     x3/FIG_UNIT, y3/FIG_UNIT,
-				     radius, 
+				     direction ? distance : -distance, 
 				     forward_arrow_info,
 				     backward_arrow_info);
 	if (newobj == NULL) goto exit;

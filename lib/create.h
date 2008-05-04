@@ -60,7 +60,7 @@ DiaObject *
 create_standard_beziergon(int num_points, BezPoint *points);
 DiaObject *
 create_standard_arc(real x1, real y1, real x2, real y2,
-		    real radius, 
+		    real curve_distance, 
 		    Arrow *end_arrow, Arrow *start_arrow);
 DiaObject *
 create_standard_image(real xpos, real ypos, real width, real height,
