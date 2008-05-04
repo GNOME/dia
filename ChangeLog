@@ -1,7 +1,10 @@
 2008-05-04  Hans Breuer  <hans@breuer.org>
 
 	* lib/geometry.[hc] lib/libdia.def: three_point_circle() calculate
-	center point and radius given 3 points on a circle
+	center point and radius given 3 points on a circle, fixed prototype and 
+	implementation to ...
+	* plug-ins/xfig/xfig-export.c : corrected arc export for both draw_arc 
+	and fill_arc methods
 
 	* plug-ins/xfig/xfig-import.c lib/create.h(create_standard_arc) : the 
 	fifth parameter was named and treated as radius alsthough it set the

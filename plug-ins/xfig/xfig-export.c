@@ -806,6 +806,7 @@ draw_arc(DiaRenderer *self,
          Color *color) 
 {
   Point first, second, last;
+  int direction = 1; /* Dia always gives counterclockwise */
   XfigRenderer *renderer = XFIG_RENDERER(self);
   gchar dl_buf[DTOSTR_BUF_SIZE];
   gchar cx_buf[DTOSTR_BUF_SIZE];
@@ -815,31 +816,51 @@ draw_arc(DiaRenderer *self,
     figCheckColor(renderer, color);
     return;
   }
+  fprintf (renderer->file, "#draw_arc center=(%g,%g) radius=%g angle1=%g° angle2=%g°\n", center->x, center->y, (width+height)/4.0, angle1, angle2);
+  /* adjust to radians */
+  angle1 *= (M_PI/180.0);
+  angle2 *= (M_PI/180.0);
 
   first = *center;
   first.x += (width/2.0)*cos(angle1);
   first.y -= (height/2.0)*sin(angle1);
 
   second = *center;
-  second.x += (width/2.0)*cos(angle1+(angle2-angle1)/2.0);
-  second.y -= (height/2.0)*sin(angle1+(angle2-angle1)/2.0);
+  second.x += (width/2.0)*cos((angle1+angle2)/2.0);
+  second.y -= (height/2.0)*sin((angle1+angle2)/2.0);
 
   last = *center;
   last.x += (width/2.0)*cos(angle2);
   last.y -= (height/2.0)*sin(angle2);
 
-  fprintf(renderer->file, "5 1 %d %d %d %d %d 0 -1 %s %d 1 0 0 %s %s %d %d %d %d %d %d\n",
+  fprintf(renderer->file, "5 1 %d %d %d %d %d 0 -1 %s %d %d 0 0 %s %s %d %d %d %d %d %d\n",
 	  figLineStyle(renderer), figLineWidth(renderer), 
 	  figColor(renderer, color), figColor(renderer, color),
 	  figDepth(renderer),
 	  xfig_dtostr(dl_buf, figDashLength(renderer)),
 	  figCapsStyle(renderer),
+	  direction,
 	  xfig_dtostr(cx_buf, figCoord(renderer, center->x)), 
 	  xfig_dtostr(cy_buf, figCoord(renderer, center->y)),
 	  (int)figCoord(renderer, first.x), (int)figCoord(renderer, first.y), 
 	  (int)figCoord(renderer, second.x), (int)figCoord(renderer, second.y), 
 	  (int)figCoord(renderer, last.x), (int)figCoord(renderer, last.y));
 
+}
+
+/* once more copied from lib/diarenderer.c (see also objects/standard/arc.c */
+static gboolean
+is_right_hand (const Point *a, const Point *b, const Point *c)
+{
+  Point dot1, dot2;
+
+  dot1 = *a;
+  point_sub(&dot1, c);
+  point_normalize(&dot1);
+  dot2 = *b;
+  point_sub(&dot2, c);
+  point_normalize(&dot2);
+  return point_cross(&dot1, &dot2) > 0;
 }
 
 static void 
@@ -853,9 +874,8 @@ draw_arc_with_arrows(DiaRenderer *self,
 		     Arrow *end_arrow) 
 {
   Point center;
-  Point t1, t2;
-  Point l1, l2;
-  Point p1, p2;
+  int direction = 0;
+  real radius = -1.0;
   XfigRenderer *renderer = XFIG_RENDERER(self);
   gchar dl_buf[DTOSTR_BUF_SIZE];
   gchar cx_buf[DTOSTR_BUF_SIZE];
@@ -866,34 +886,21 @@ draw_arc_with_arrows(DiaRenderer *self,
     return;
   }
 
-  /* Since the lines between points on the circle form tangents, the
-   * intersection between the perpendiculars to those give the center.
-   */
-  
-  t1 = t2 = *midpoint;
-  point_sub(&t1, startpoint);
-  point_sub(&t2, endpoint);
-  point_scale(&t1, .5);
-  point_scale(&t2, .5);
-  p1 = p2 = *midpoint;
-  point_add(&p1, &t1);
-  point_add(&p2, &t2);
-  /* Now p1 and p2 are the midpoints of the tangents */
-  point_get_perp(&l1, &t1);
-  point_get_perp(&l2, &t2);
-  /* Now p1->t1 and p2->t2 give vectors crossing at the center.
-   * The direction of the vector (in or out) doesn't matter. */
-  
-
   center.x = 0.0;
   center.y = 0.0;
+  direction = is_right_hand (startpoint, midpoint, endpoint) ? 0 : 1;
+  if (!three_point_circle (startpoint, midpoint, endpoint, &center, &radius))
+    message_warning("xfig: arc conversion failed");
 
-  fprintf(renderer->file, "5 1 %d %d %d %d %d 0 -1 %s %d 1 %d %d %s %s %d %d %d %d %d %d\n",
+  fprintf (renderer->file, "#draw_arc_with_arrows center=(%g,%g) radius=%g\n", center.x, center.y, radius);
+
+  fprintf(renderer->file, "5 1 %d %d %d %d %d 0 -1 %s %d %d %d %d %s %s %d %d %d %d %d %d\n",
 	  figLineStyle(renderer), figLineWidth(renderer), 
 	  figColor(renderer, color), figColor(renderer, color),
 	  figDepth(renderer),
 	  xfig_dtostr(dl_buf, figDashLength(renderer)),
 	  figCapsStyle(renderer),
+	  direction,
 	  hasArrow(end_arrow),
 	  hasArrow(start_arrow),
 	  xfig_dtostr(cx_buf, figCoord(renderer, center.x)),
@@ -928,19 +935,24 @@ fill_arc(DiaRenderer *self,
     return;
   }
 
+  fprintf (renderer->file, "#fill_arc center=(%g,%g) radius=%g angle1=%g° angle2=%g°\n", center->x, center->y, (width+height)/4.0, angle1, angle2);
+  /* adjust to radians */
+  angle1 *= (M_PI/180.0);
+  angle2 *= (M_PI/180.0);
+
   first = *center;
   first.x += (width/2.0)*cos(angle1);
   first.y -= (height/2.0)*sin(angle1);
 
   second = *center;
-  second.x += (width/2.0)*cos(angle1+(angle2-angle1)/2.0);
-  second.y -= (height/2.0)*sin(angle1+(angle2-angle1)/2.0);
+  second.x += (width/2.0)*cos((angle1+angle2)/2.0);
+  second.y -= (height/2.0)*sin((angle1+angle2)/2.0);
 
   last = *center;
   last.x += (width/2.0)*cos(angle2);
   last.y -= (height/2.0)*sin(angle2);
 
-  fprintf(renderer->file, "5 1 %d %d %d %d %d 20 0 %s %d 1 0 0 %s %s %d %d %d %d %d %d\n",
+  fprintf(renderer->file, "5 2 %d %d %d %d %d 20 0 %s %d 1 0 0 %s %s %d %d %d %d %d %d\n",
 	  figLineStyle(renderer), figLineWidth(renderer), 
 	  figColor(renderer, color), figColor(renderer, color),
 	  figDepth(renderer),
@@ -1161,8 +1173,10 @@ export_fig(DiagramData *data, const gchar *filename,
   
   for (i=0; i<data->layers->len; i++) {
     layer = (Layer *) g_ptr_array_index(data->layers, i);
-    layer_render(layer, DIA_RENDERER(renderer), NULL, NULL, data, 0);
-    renderer->depth++;
+    if (layer->visible) {
+      layer_render(layer, DIA_RENDERER(renderer), NULL, NULL, data, 0);
+      renderer->depth++;
+    }
   }
   
   DIA_RENDERER_GET_CLASS(renderer)->end_render(DIA_RENDERER(renderer));
@@ -1173,8 +1187,10 @@ export_fig(DiagramData *data, const gchar *filename,
   
   for (i=0; i<data->layers->len; i++) {
     layer = (Layer *) g_ptr_array_index(data->layers, i);
-    layer_render(layer, DIA_RENDERER(renderer), NULL, NULL, data, 0);
-    renderer->depth++;
+    if (layer->visible) {
+      layer_render(layer, DIA_RENDERER(renderer), NULL, NULL, data, 0);
+      renderer->depth++;
+    }
   }
   
   DIA_RENDERER_GET_CLASS(renderer)->end_render(DIA_RENDERER(renderer));

@@ -723,7 +723,12 @@ three_point_circle (const Point *p1, const Point *p2, const Point *p3,
   if (fabs (mb - ma) < epsilon)
     return 0;
   center->x = (ma*mb*(y1-y3)+mb*(x1+x2)-ma*(x2+x3))/(2*(mb-ma));
-  center->y = ma*(center->x - x1) + y1;
+  if (fabs(ma)>epsilon)
+    center->y = -1/ma*(center->x - (x1+x2)/2.0) + (y1+y2)/2.0;
+  else if (fabs(mb)>epsilon)
+    center->y = -1/mb*(center->x - (x2+x3)/2.0) + (y2+y3)/2.0;
+  else
+    return 0;
   *radius = distance_point_point(center, p1);
   return 1;
 }
