@@ -1,3 +1,9 @@
+2008-05-06  Steffen Macke <sdteffen@sdteffen.de>
+
+	* installer/win32/dia.nsi:
+	* installer/win32/locale/slovenian.nsh: Slovenian translations for the
+	installer. Patch from Martin Srebotnjak <filmsi@users.sourceforge.net>
+
 2008-05-04  Hans Breuer  <hans@breuer.org>
 
 	* plug-ins/xfig/xfig-import.c(fig_read_arc): acccept pie-wedge 
