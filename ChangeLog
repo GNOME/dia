@@ -1,5 +1,7 @@
 2008-05-10  Hans Breuer  <hans@breuer.org>
 
+	* objects/standard/outline.c : forgot to call update_data after copy
+
 	* objects/Misc/measure.c objects/Misc/pixmaps/measure.xpm
 	  objects/Misc/libmisc.c objects/Misc/Makefile.am objects/makefile.msc
 	  sheets/Misc.sheet.in : a new object to measure and show the distance

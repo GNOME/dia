@@ -480,6 +480,7 @@ outline_copy (Outline *from)
   to->fill_color = from->fill_color;
   to->show_background = from->show_background;
   /* the rest will be recalculated in update_data() */
+  outline_update_data (to);
 
   return &to->object;
 }
