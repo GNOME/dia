@@ -1,5 +1,8 @@
 2008-05-10  Hans Breuer  <hans@breuer.org>
 
+	* lib/grid.c(grid_draw_*_lines) : the major lines were sometimes off
+	by one due to rounding problems. Fixes bug #382212.
+
 	* objects/standard/outline.c : forgot to call update_data after copy
 
 	* objects/Misc/measure.c objects/Misc/pixmaps/measure.xpm

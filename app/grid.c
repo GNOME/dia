@@ -78,7 +78,7 @@ grid_draw_horizontal_lines(DDisplay *ddisp, Rectangle *update, real length)
   */
 
   if (major_lines) {
-    major_count = (int)ceil(pos/length);
+    major_count = ROUND (pos/length);
     if(major_count < 0) major_count -= major_lines * major_count;
     major_count %= major_lines;
   }
@@ -115,7 +115,7 @@ grid_draw_vertical_lines(DDisplay *ddisp, Rectangle *update, real length)
   ddisplay_transform_coords(ddisp, update->right, update->bottom, &width, &height);
 
   if (major_lines) {
-    major_count = (int)ceil(pos/length);
+    major_count = ROUND (pos/length);
     if(major_count < 0) major_count -= major_lines * major_count;
     major_count %= major_lines;
   }
