@@ -30,6 +30,7 @@
 
 extern DiaObjectType analog_clock_type;
 extern DiaObjectType tree_type;
+extern DiaObjectType measure_type;
 
 DIA_PLUGIN_CHECK_INIT
 
@@ -42,6 +43,7 @@ dia_plugin_init(PluginInfo *info)
 
   object_register_type(&analog_clock_type);  
   object_register_type(&tree_type);
+  object_register_type(&measure_type);
 
   return DIA_PLUGIN_INIT_OK;
 }

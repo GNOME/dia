@@ -1,5 +1,10 @@
 2008-05-10  Hans Breuer  <hans@breuer.org>
 
+	* objects/Misc/measure.c objects/Misc/pixmaps/measure.xpm
+	  objects/Misc/libmisc.c objects/Misc/Makefile.am objects/makefile.msc
+	  sheets/Misc.sheet.in : a new object to measure and show the distance
+	between two connection points.
+
 	* plug-ins/python/select_empty.py : allows to find objects with empty
 	bounding boxes like empty text. See bug #99375.
 	* plug-ins/python/Makefile.am : install it

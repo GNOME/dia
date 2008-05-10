@@ -198,6 +198,7 @@ OBJECTS = \
 !IFDEF OBJ_misc
 OBJECTS = \
 	analog_clock.obj \
+	measure.obj \
 	tree.obj \
 	libmisc.obj
 !ENDIF
