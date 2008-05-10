@@ -417,9 +417,12 @@ text_calc_boundingbox(Text *text, Rectangle *box)
   box->right = box->left + text->max_width;
   
   box->top = text->position.y - text->ascent;
-
+#if 0
   box->bottom = box->top + text->height*text->numlines + text->descent;
-
+#else
+  /* why should we add one descent? isn't ascent+descent~=height? */
+  box->bottom = box->top + (text->ascent+text->descent)*text->numlines;
+#endif
   if (text->focus.has_focus) {
     real height = text->ascent + text->descent;
     if (text->cursor_pos == 0) {

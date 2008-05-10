@@ -1,5 +1,10 @@
 2008-05-10  Hans Breuer  <hans@breuer.org>
 
+	* lib/text.c(text_calc_boundingbox) : the bounding box did include one
+	descent too much, which caused wrong placement for "Standard - Text"
+	which calculates the vertical text positioning from the bounding box.
+	Fixes bug #528642 but not bug #438020.
+
 	* lib/grid.c(grid_draw_*_lines) : the major lines were sometimes off
 	by one due to rounding problems. Fixes bug #382212.
 
