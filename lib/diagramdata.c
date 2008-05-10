@@ -1073,8 +1073,12 @@ layer_update_extents(Layer *layer)
     l = g_list_next(l);
   
     while(l!=NULL) {
+      const Rectangle *bbox;
       obj = (DiaObject *) l->data;
-      rectangle_union(&new_extents, &obj->bounding_box);
+      /* don't consider empty (or broken) objects in the overall extents */
+      bbox = &obj->bounding_box;
+      if (bbox->right > bbox->left && bbox->bottom > bbox->top)
+        rectangle_union(&new_extents, &obj->bounding_box);
       l = g_list_next(l);
     }
   } else {

@@ -467,7 +467,8 @@ set_font(DiaRenderer *self, DiaFont *font, real height)
     W32::LPCTSTR sFace;
     W32::DWORD dwItalic = 0;
     W32::DWORD dwWeight = FW_DONTCARE;
-    DiaFontStyle style;
+    DiaFontStyle style = dia_font_get_style(font);
+
 
     DIAG_NOTE(renderer, "set_font %s %f\n", 
               dia_font_get_family (font), height);
@@ -484,19 +485,28 @@ set_font(DiaRenderer *self, DiaFont *font, real height)
 #ifdef __PANGOWIN32_H__ /* with the pangowin32 backend there is a better way */
 	if (!renderer->pango_context)
 	    renderer->pango_context = pango_win32_get_context ();
+
 	PangoFont* pf = pango_context_load_font (renderer->pango_context, dia_font_get_description (font));
-	W32::LOGFONT* lf = pango_win32_font_logfont (pf);
-	/* .93 : sligthly smaller looks much better */
-	lf->lfHeight = -SC(height*.93);
-	renderer->hFont = (W32::HFONT)W32::CreateFontIndirect (lf);
-	g_free (lf);
-	g_object_unref (pf);
+	if (pf)
+	{
+	    W32::LOGFONT* lf = pango_win32_font_logfont (pf);
+	    /* .93 : sligthly smaller looks much better */
+	    lf->lfHeight = -SC(height*.93);
+	    renderer->hFont = (W32::HFONT)W32::CreateFontIndirect (lf);
+	    g_free (lf);
+	    g_object_unref (pf);
+	}
+	else
+	{
+	    gchar *desc = pango_font_description_to_string (dia_font_get_description (font));
+	    message_warning (_("Can not render unknown font:\n%s"), desc);
+	    g_free (desc);
+	}
 #else
 	g_assert_not_reached();
 #endif
     } else {
 	sFace = dia_font_get_family (font);
-	style = dia_font_get_style(font);
 	dwItalic = DIA_FONT_STYLE_GET_SLANT(style) != DIA_FONT_NORMAL;
 
 	/* although there is a known algorithm avoid it for cleanness */
