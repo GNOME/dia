@@ -181,6 +181,8 @@ outline_create (Point *startpoint,
   *handle1 = outline->object.handles[0];
   *handle2 = outline->object.handles[1];
 
+  outline_update_data (outline);
+
   return obj;
 }
 static DiaObject *
@@ -235,10 +237,10 @@ outine_update_handles(Outline *outline)
   DiaObject *obj = &outline->object;
 
   g_return_if_fail (obj->handles != NULL);
-  obj->handles[0]->id = HANDLE_CUSTOM1;
+  obj->handles[0]->id = HANDLE_RESIZE_NW;
   obj->handles[0]->pos = outline->ink_rect[0];
 
-  obj->handles[1]->id = HANDLE_CUSTOM2;
+  obj->handles[1]->id = HANDLE_RESIZE_SE;
   obj->handles[1]->pos = outline->ink_rect[2];
 }
 /*! Not in the object interface but very important anyway. Used to recalculate the object data after a change  */
@@ -451,7 +453,29 @@ outline_move_handle (Outline *outline,
 		     Point *to, ConnectionPoint *cp,
 		     HandleMoveReason reason, ModifierKeys modifiers)
 {
-  /* setup transform? */
+  DiaObject *obj = &outline->object;
+  Point start = obj->position;
+  Point end = outline->ink_rect[2];
+  real old_height = outline->font_height;
+  real dist, old_dist = distance_point_point (&start, &end);
+  Point norm = end;
+  point_sub (&norm, &start);
+  point_normalize (&norm);
+  /* we use this to modify angle and scale */
+  switch (handle->id) {
+  case HANDLE_RESIZE_NW :
+    obj->position = start = *to;
+    break;
+  case HANDLE_RESIZE_SE :
+    end = *to;
+    break;
+  default :
+    g_warning ("Outline unknown handle");
+  }
+  dist = distance_point_point (&start, &end);
+  outline->font_height *= (dist / old_dist);
+  
+  outline_update_data (outline);
   return NULL;
 }
 static ObjectChange* 
@@ -460,6 +484,7 @@ outline_move (Outline *outline, Point *to)
   DiaObject *obj = &outline->object;
 
   obj->position = *to;
+
   outline_update_data (outline);
   return NULL;
 }

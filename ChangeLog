@@ -1,5 +1,8 @@
 2008-05-10  Hans Breuer  <hans@breuer.org>
 
+	* objects/standard/outline.c(move_handle) : initial implementation
+	* objects/Misc/measure.c : object position should be start point
+
 	* lib/widget.c(DiaSizeSelector): initialize static variable, avoid
 	division by zero, don't compare floating points for identiy; together
 	fixing bug #479591

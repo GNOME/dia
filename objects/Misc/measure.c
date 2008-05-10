@@ -256,7 +256,7 @@ measure_update_data (Measure *measure)
   bbox.right = bbox.left + width;
   rectangle_union(&obj->bounding_box, &bbox);
 
-  obj->position = measure->text_pos;
+  obj->position = conn->endpoints[0];
 }
 static void 
 measure_draw(Measure *measure, DiaRenderer *renderer)
