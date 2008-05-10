@@ -1,5 +1,9 @@
 2008-05-10  Hans Breuer  <hans@breuer.org>
 
+	* lib/widget.c(DiaSizeSelector): initialize static variable, avoid
+	division by zero, don't compare floating points for identiy; together
+	fixing bug #479591
+
 	* lib/font.c(dia_font_get_sizes) : use the maximum width of logical-
 	and ink-rect to make the always glyphs fit the bounding box. Probably
 	fixes bug #455651 but needs checking with DiaRenderer using Freetype.

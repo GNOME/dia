@@ -98,7 +98,8 @@ dia_size_selector_adjust_width(DiaSizeSelector *ss)
 {
   real height = 
     gtk_spin_button_get_value_as_float(GTK_SPIN_BUTTON(ss->height));
-  gtk_spin_button_set_value(GTK_SPIN_BUTTON(ss->width), height*ss->ratio);
+  if (fabs(ss->ratio) > 1e-6)
+    gtk_spin_button_set_value(GTK_SPIN_BUTTON(ss->width), height*ss->ratio);
 }
 
 static void
@@ -106,31 +107,33 @@ dia_size_selector_adjust_height(DiaSizeSelector *ss)
 {
   real width = 
     gtk_spin_button_get_value_as_float(GTK_SPIN_BUTTON(ss->width));
-  gtk_spin_button_set_value(GTK_SPIN_BUTTON(ss->height), width/ss->ratio);
+  if (fabs(ss->ratio) > 1e-6)
+    gtk_spin_button_set_value(GTK_SPIN_BUTTON(ss->height), width/ss->ratio);
 }
 
 static void
 dia_size_selector_ratio_callback(GtkAdjustment *limits, gpointer userdata) 
 {
-  static gboolean in_progress;
+  static gboolean in_progress = FALSE;
   DiaSizeSelector *ss = DIA_SIZE_SELECTOR(userdata);
 
   ss->last_adjusted = limits;
 
-  if (!gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ss->aspect_locked)) 
-      || ss->ratio == 0.0)
-    return;
+  if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ss->aspect_locked)) 
+      && ss->ratio != 0.0) {
 
-  if (in_progress) return;
-  in_progress = TRUE;
+    if (in_progress) 
+      return;
+    in_progress = TRUE;
 
-  if (limits == gtk_spin_button_get_adjustment(GTK_SPIN_BUTTON(ss->width))) {
-    dia_size_selector_adjust_height(ss);
-  } else {
-    dia_size_selector_adjust_width(ss);
+    if (limits == gtk_spin_button_get_adjustment(GTK_SPIN_BUTTON(ss->width))) {
+      dia_size_selector_adjust_height(ss);
+    } else {
+      dia_size_selector_adjust_width(ss);
+    }
+
+    in_progress = FALSE;
   }
-
-  in_progress = FALSE;
 
   g_signal_emit(ss, dss_signals[DSS_VALUE_CHANGED], 0);
 
