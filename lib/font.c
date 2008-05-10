@@ -745,6 +745,9 @@ dia_font_get_sizes(const char* string, DiaFont *font, real height,
     pango_layout_iter_get_line_extents(iter, &more_ink_rect, &more_logical_rect);
     if (more_logical_rect.width > logical_rect.width)
       logical_rect.width = more_logical_rect.width;
+    /* also calculate for the ink rect (true space needed for drawing the glyphs) */
+    if (more_ink_rect.width > ink_rect.width)
+      ink_rect.width = more_ink_rect.width;
   }
 
   pango_layout_iter_free(iter);
@@ -755,7 +758,8 @@ dia_font_get_sizes(const char* string, DiaFont *font, real height,
   if (non_empty_string != string) {
     *width = 0.0;
   } else {
-    *width = pdu_to_dcm(logical_rect.width) / 20;
+    /* take the bigger rectangle to avoid cutting of any part of the string */
+    *width = pdu_to_dcm(logical_rect.width > ink_rect.width ? logical_rect.width : ink_rect.width) / 20;
   }
   return offsets;
 }

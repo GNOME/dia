@@ -1,5 +1,9 @@
 2008-05-10  Hans Breuer  <hans@breuer.org>
 
+	* lib/font.c(dia_font_get_sizes) : use the maximum width of logical-
+	and ink-rect to make the always glyphs fit the bounding box. Probably
+	fixes bug #455651 but needs checking with DiaRenderer using Freetype.
+
 	* lib/diagramdata.c(layer_update_extents) : don't consider empty 
 	objects for the overall extents. Fixes bug #531687 and lowers
 	priority of bug #99375.
