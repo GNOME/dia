@@ -501,6 +501,8 @@ diagram_update_menu_sensitivity (Diagram *dia, UpdatableMenuItems *items)
   gint selected_count = g_list_length (dia->data->selected);
   DDisplay *ddisp = ddisplay_active();
   gboolean focus_active = (get_active_focus(dia->data) != NULL);
+  gboolean textedit_active = ddisp ? textedit_mode(ddisp) : FALSE;
+
   /* Edit menu */
   gtk_action_set_sensitive (items->undo, 
 			    undo_available(dia->undo, TRUE));
@@ -508,15 +510,15 @@ diagram_update_menu_sensitivity (Diagram *dia, UpdatableMenuItems *items)
 			    undo_available(dia->undo, FALSE));
 
   gtk_action_set_sensitive (items->copy, 
-			    textedit_mode(ddisp) || selected_count > 0);
+			    textedit_active || selected_count > 0);
   gtk_action_set_sensitive (items->cut, 
 			    textedit_mode(ddisp) || selected_count > 0);
   gtk_action_set_sensitive (items->paste, 
-			    textedit_mode(ddisp) || cnp_exist_stored_objects());
+			    textedit_active || cnp_exist_stored_objects());
   gtk_action_set_sensitive (items->edit_delete, 
-			    !textedit_mode(ddisp) && selected_count > 0);
+			    !textedit_active && selected_count > 0);
   gtk_action_set_sensitive (items->edit_duplicate,
-			    !textedit_mode(ddisp) && selected_count > 0);
+			    !textedit_active && selected_count > 0);
 
   gtk_action_set_sensitive (items->copy_text, focus_active);
   gtk_action_set_sensitive (items->cut_text, focus_active);
@@ -524,67 +526,67 @@ diagram_update_menu_sensitivity (Diagram *dia, UpdatableMenuItems *items)
   
   /* Objects menu */
   gtk_action_set_sensitive (items->send_to_back, 
-			    !textedit_mode(ddisp) && selected_count > 0);
+			    !textedit_active && selected_count > 0);
   gtk_action_set_sensitive (items->bring_to_front, 
-			    !textedit_mode(ddisp) && selected_count > 0);
+			    !textedit_active && selected_count > 0);
   gtk_action_set_sensitive (items->send_backwards, 
-			    !textedit_mode(ddisp) && selected_count > 0);
+			    !textedit_active && selected_count > 0);
   gtk_action_set_sensitive (items->bring_forwards, 
-			    !textedit_mode(ddisp) && selected_count > 0);
+			    !textedit_active && selected_count > 0);
     
   gtk_action_set_sensitive (items->parent, 
-			    !textedit_mode(ddisp) && diagram_selected_can_parent (dia));
+			    !textedit_active && diagram_selected_can_parent (dia));
   gtk_action_set_sensitive (items->unparent, 
-			    !textedit_mode(ddisp) && diagram_selected_any_children (dia));
+			    !textedit_active && diagram_selected_any_children (dia));
   gtk_action_set_sensitive (items->unparent_children,
-			    !textedit_mode(ddisp) && diagram_selected_any_parents (dia));
+			    !textedit_active && diagram_selected_any_parents (dia));
   gtk_action_set_sensitive (items->group, 
-			    !textedit_mode(ddisp) && selected_count > 1);
+			    !textedit_active && selected_count > 1);
   gtk_action_set_sensitive (items->ungroup, 
-			    !textedit_mode(ddisp) && diagram_selected_any_groups (dia));
+			    !textedit_active && diagram_selected_any_groups (dia));
   gtk_action_set_sensitive (items->properties, selected_count > 0);
   
   /* Objects->Align menu */
   gtk_action_set_sensitive (items->align_h_l, 
-			    !textedit_mode(ddisp) && selected_count > 1);
+			    !textedit_active && selected_count > 1);
   gtk_action_set_sensitive (items->align_h_c, 
-			    !textedit_mode(ddisp) && selected_count > 1);
+			    !textedit_active && selected_count > 1);
   gtk_action_set_sensitive (items->align_h_r, 
-			    !textedit_mode(ddisp) && selected_count > 1);
+			    !textedit_active && selected_count > 1);
   gtk_action_set_sensitive (items->align_h_e, 
-			    !textedit_mode(ddisp) && selected_count > 1);
+			    !textedit_active && selected_count > 1);
   gtk_action_set_sensitive (items->align_h_a, 
-			    !textedit_mode(ddisp) && selected_count > 1);
+			    !textedit_active && selected_count > 1);
   gtk_action_set_sensitive (items->align_v_t, 
-			    !textedit_mode(ddisp) && selected_count > 1);
+			    !textedit_active && selected_count > 1);
   gtk_action_set_sensitive (items->align_v_c, 
-			    !textedit_mode(ddisp) && selected_count > 1);
+			    !textedit_active && selected_count > 1);
   gtk_action_set_sensitive (items->align_v_b, 
-			    !textedit_mode(ddisp) && selected_count > 1);
+			    !textedit_active && selected_count > 1);
   gtk_action_set_sensitive (items->align_v_e, 
-			    !textedit_mode(ddisp) && selected_count > 1);
+			    !textedit_active && selected_count > 1);
   gtk_action_set_sensitive (items->align_v_a, 
-			    !textedit_mode(ddisp) && selected_count > 1);
+			    !textedit_active && selected_count > 1);
 
   /* Select menu */
-  gtk_action_set_sensitive (items->select_all, !textedit_mode(ddisp));
-  gtk_action_set_sensitive (items->select_none, !textedit_mode(ddisp));
-  gtk_action_set_sensitive (items->select_invert, !textedit_mode(ddisp));
-  gtk_action_set_sensitive (items->select_transitive, !textedit_mode(ddisp));
-  gtk_action_set_sensitive (items->select_connected, !textedit_mode(ddisp));
-  gtk_action_set_sensitive (items->select_same_type, !textedit_mode(ddisp));
+  gtk_action_set_sensitive (items->select_all, !textedit_active);
+  gtk_action_set_sensitive (items->select_none, !textedit_active);
+  gtk_action_set_sensitive (items->select_invert, !textedit_active);
+  gtk_action_set_sensitive (items->select_transitive, !textedit_active);
+  gtk_action_set_sensitive (items->select_connected, !textedit_active);
+  gtk_action_set_sensitive (items->select_same_type, !textedit_active);
 
-  gtk_action_set_sensitive (items->select_replace, !textedit_mode(ddisp));
-  gtk_action_set_sensitive (items->select_union, !textedit_mode(ddisp));
-  gtk_action_set_sensitive (items->select_intersection, !textedit_mode(ddisp));
-  gtk_action_set_sensitive (items->select_remove, !textedit_mode(ddisp));
-  gtk_action_set_sensitive (items->select_inverse, !textedit_mode(ddisp));
+  gtk_action_set_sensitive (items->select_replace, !textedit_active);
+  gtk_action_set_sensitive (items->select_union, !textedit_active);
+  gtk_action_set_sensitive (items->select_intersection, !textedit_active);
+  gtk_action_set_sensitive (items->select_remove, !textedit_active);
+  gtk_action_set_sensitive (items->select_inverse, !textedit_active);
 }
     
   
 void diagram_update_menubar_sensitivity(Diagram *dia, UpdatableMenuItems *items)
 {
-    diagram_update_menu_sensitivity (dia, items);
+  diagram_update_menu_sensitivity (dia, items);
 }
 
 

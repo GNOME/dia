@@ -1,3 +1,14 @@
+2008-05-10  Hans Breuer  <hans@breuer.org>
+
+	* plug-ins/python/select_empty.py : allows to find objects with empty
+	bounding boxes like empty text. See bug #99375.
+	* plug-ins/python/Makefile.am : install it
+	* app/display.c(selection_changed) : update menu sensitivity in the
+	signal handler for selection changed. Could replace a lot of explicit
+	updates, but is needed when the selection is changed from a plug-in
+	* app/diagram.c(diagram_update_menu_sensitivity) : maybe called with 
+	ddisplay_active() returning NULL, don't crash on that.
+
 2008-05-06  Steffen Macke <sdteffen@sdteffen.de>
 
 	* installer/win32/dia.nsi:

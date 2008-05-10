@@ -128,6 +128,8 @@ selection_changed (Diagram* dia, int n, DDisplay* ddisp)
   {
     gtk_statusbar_pop (statusbar, context_id); 
   }
+  /* selection-changed signal can also be emitted from outside of the dia core */
+  ddisplay_do_update_menu_sensitivity (ddisp);
 }
 
 static void
@@ -1511,7 +1513,7 @@ ddisplay_im_context_preedit_reset(DDisplay *ddisp, Focus *focus)
 Focus *
 ddisplay_active_focus(DDisplay *ddisp)
 {
-  return ddisp->active_focus;
+  return ddisp ? ddisp->active_focus : NULL;
 }
 
 /** Set the currently active focus for this display.  This field should be

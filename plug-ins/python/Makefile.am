@@ -72,7 +72,8 @@ pyplugin_DATA = \
 	otypes.py \
 	pydiadoc.py \
 	scascale.py \
-	select_by.py
+	select_by.py \
+	select_empty.py
 
 endif
 
