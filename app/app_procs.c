@@ -65,7 +65,6 @@
 #include "load_save.h"
 #include "preferences.h"
 #include "dia_dirs.h"
-#include "render_eps.h"
 #include "sheet.h"
 #include "plug-ins.h"
 #include "recent_files.h"

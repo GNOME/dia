@@ -22,6 +22,7 @@
 	  app/paginate_psprint.[ch] app/win32print.[ch] : ... remove ...
 	  app/app_procs.c app/commands.c app/Makefile.am app/makefile.msc : 
 	... postscript handling from core
+	* app/diagram.c app/app_procs.c : removed dangling includes
 
 	* objects/standard/outline.c : don't try to render a bezier with 0 points
 

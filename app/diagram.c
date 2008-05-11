@@ -26,7 +26,6 @@
 #include "object.h"
 #include "group.h"
 #include "object_ops.h"
-#include "render_eps.h"
 #include "focus.h"
 #include "message.h"
 #include "menus.h"
