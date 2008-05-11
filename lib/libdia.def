@@ -618,14 +618,6 @@ EXPORTS
  prop_list_from_descs
  prop_list_from_single
 
- ps_unicoder_destroy
- ps_unicoder_new
- psu_check_string_encodings
- psu_get_string_width
- psu_set_font_face
- psu_show_string
- unicode_to_ps_name
-
  rectangle_add_point
  rectangle_bbox
  rectangle_intersection

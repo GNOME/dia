@@ -27,7 +27,7 @@
 
 	* lib/ps-utf8.[ch] : moved to plug-ins/postscript/ps-utf8.[ch]
 	* lib/Makefile.am lib/makefile.msc plug-ins/makefile.msc 
-	  plug-ins/postscript/Makefile.am : updated accordingly
+	  plug-ins/postscript/Makefile.am lib/libdia.def : updated accordingly
 
 	* objects/standard/outline.c : don't try to render a bezier with 0 points
 
