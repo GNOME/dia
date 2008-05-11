@@ -94,7 +94,8 @@ OBJECTS = \
 !ENDIF
   diapsrenderer.obj \
   win32print.obj \
-  postscript.obj
+  postscript.obj \
+  ps-utf8.obj
 
 PKG_LINK = $(PKG_LINK) winspool.lib \
 !IFDEF USEFT2

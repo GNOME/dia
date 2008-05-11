@@ -6,6 +6,8 @@ endif
 
 plugin_sources = \
 	postscript.c \
+	ps-utf8.c \
+	ps-utf8.h \
 	diapsrenderer.h \
 	diapsrenderer.c \
 	$(freetype_files) \

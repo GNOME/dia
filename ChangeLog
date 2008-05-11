@@ -25,6 +25,10 @@
 	* app/diagram.c app/app_procs.c : removed dangling includes
 	* po/POTFILES.in : reflect movement of files
 
+	* lib/ps-utf8.[ch] : moved to plug-ins/postscript/ps-utf8.[ch]
+	* lib/Makefile.am lib/makefile.msc plug-ins/makefile.msc 
+	  plug-ins/postscript/Makefile.am : updated accordingly
+
 	* objects/standard/outline.c : don't try to render a bezier with 0 points
 
 2008-05-10  Hans Breuer  <hans@breuer.org>

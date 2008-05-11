@@ -120,8 +120,6 @@ libdia_la_SOURCES =  \
 		dummy_dep.h \
 		paper.c \
 		paper.h \
-		ps-utf8.c \
-		ps-utf8.h \
 		boundingbox.c \
 		boundingbox.h \
 		dynamic_obj.c \

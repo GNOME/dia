@@ -104,7 +104,6 @@ OBJECTS = \
 	propobject.obj \
 	propoffsets.obj \
 	propregistry.obj \
-	ps-utf8.obj \
 	render_pixmap.obj \
 	sheet.obj \
 	text.obj \
