@@ -413,8 +413,9 @@ outline_draw(Outline *outline, DiaRenderer *renderer)
       n = i;
     }
   }
-  /* the last one */
-  DIA_RENDERER_GET_CLASS (renderer)->draw_bezier (renderer, &pts[n], i - n - 1, &outline->line_color);
+  /* the last one, if there is one */
+  if (i - n - 1 > 0)
+    DIA_RENDERER_GET_CLASS (renderer)->draw_bezier (renderer, &pts[n], i - n - 1, &outline->line_color);
 }
 #if 0 /* returning NULL crashes Dia, the method must be NULL if there is nothing to do */
 static DiaMenu *

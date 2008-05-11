@@ -225,10 +225,11 @@ create_print_operation (DiagramData *data, const char *name)
 
 void
 cairo_print_callback (DiagramData *data,
+                      const gchar *filename,
                       guint flags, /* further additions */
                       void *user_data)
 {
-  GtkPrintOperation *op = create_print_operation (data, "diagram");
+  GtkPrintOperation *op = create_print_operation (data, filename ? filename : "diagram");
   GtkPrintOperationResult res;
   GError *error = NULL;
   

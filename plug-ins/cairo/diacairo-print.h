@@ -11,6 +11,7 @@ create_print_operation (DiagramData *data,
 
 void
 cairo_print_callback (DiagramData *dia,
+                      const gchar *filename,
                       guint flags, /* further additions */
                       void *user_data);
 #endif

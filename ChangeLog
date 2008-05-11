@@ -1,3 +1,22 @@
+2008-05-11  Hans Breuer  <hans@breuer.org>
+
+	* lib/filer.h app/menus.c : changed signature of DiaCallbackFunc to
+	additionally take an optional file name
+	* plug-ins/cairo/diacairo-print.[ch] plug-ins/python/diamodule.c : 
+	adapted to the new signature
+
+	* app/paginate_gdiprint.(h|cpp) : move to ...
+	  plug-ins/wmf/paginate_gdiprint.(h|cpp) plug-ins/wmf/wmf.cpp : ... 
+	and make it work as a plug-in, temporary registered as "Print (GDI)"
+	
+	* plug-ins/postscript/* copied mainly from app/* :
+	* plug-ins/postscript/postscript.c : register Dia's formerly built-in
+	PS filters as plug-in, so they can be switched off when obsoleted by
+	cairo or the user does not want them, printing temporary registered as
+	"Print (PS)"
+
+	* objects/standard/outline.c : don't try to render a bezier with 0 points
+
 2008-05-10  Hans Breuer  <hans@breuer.org>
 
 	* objects/standard/outline.c(move_handle) : initial implementation

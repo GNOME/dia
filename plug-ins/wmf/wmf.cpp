@@ -42,6 +42,8 @@ extern "C" {
 }
 #endif
 
+#include "paginate_gdiprint.h"
+
 #if defined HAVE_WINDOWS_H || defined G_OS_WIN32
   namespace W32 {
    // at least Rectangle conflicts ...
@@ -1376,6 +1378,25 @@ static DiaExportFilter emf_export_filter = {
     "emf"
 };
 
+#ifdef G_OS_WIN32
+static void
+print_callback (DiagramData *data,
+                const gchar *filename,
+		guint        flags,
+		void        *user_data)
+{
+  diagram_print_gdi (data, filename);
+}
+
+static DiaCallbackFilter cb_gdi_print = {
+    "FilePrintGDI",
+    N_("Print (GDI) ..."),
+    "/DisplayMenu/File/FilePrint",
+    print_callback,
+    NULL
+};
+#endif
+
 /* --- dia plug-in interface --- */
 
 DIA_PLUGIN_CHECK_INIT
@@ -1396,6 +1417,8 @@ dia_plugin_init(PluginInfo *info)
      */
     filter_register_export(&wmf_export_filter);
     filter_register_export(&emf_export_filter);
+    
+    filter_register_callback (&cb_gdi_print);
 #elif HAVE_LIBEMF
     /* not sure if libEMF really saves EMF ;) */
     filter_register_export(&emf_export_filter);

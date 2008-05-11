@@ -326,7 +326,7 @@ PyDia_RegisterImport(PyObject *self, PyObject *args)
  * dia.register_action (or dia.register_callback)
  */
 static void
-PyDia_callback_func (DiagramData *dia, guint flags, void *user_data)
+PyDia_callback_func (DiagramData *dia, const gchar *filename, guint flags, void *user_data)
 {
     PyObject *diaobj, *res, *arg, *func = user_data;
     if (!func || !PyCallable_Check (func)) {

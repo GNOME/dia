@@ -1294,6 +1294,6 @@ plugin_callback (GtkWidget *widget, gpointer data)
   if (cbf->callback) {
     DDisplay *ddisp = ddisplay_active();
     DiagramData* diadata = ddisp ? ddisp->diagram->data : NULL;
-    cbf->callback (diadata, 0, cbf->user_data);
+    cbf->callback (diadata, ddisp->diagram->filename, 0, cbf->user_data);
   }
 }

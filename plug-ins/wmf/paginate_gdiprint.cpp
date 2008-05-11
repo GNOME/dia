@@ -33,13 +33,10 @@
 // it's so ugly --hb ;(
 // include before, cause it has extern "C" already
 
-#if 1
-extern "C" {
-
 #include "paginate_gdiprint.h"
 
-#include "diagram.h"
-#include "diagramdata.h"
+#if 1
+extern "C" {
 
 #include "filter.h"
 
@@ -87,7 +84,7 @@ print_page(DiagramData *data, DiaExportFilter* pExp, W32::HANDLE hDC,
 }
 
 static void
-paginate_gdiprint(Diagram *dia, DiaExportFilter* pExp, W32::HANDLE hDC)
+paginate_gdiprint(DiagramData *data, DiaExportFilter* pExp, W32::HANDLE hDC)
 {
   Rectangle *extents;
   gdouble width, height;
@@ -96,15 +93,15 @@ paginate_gdiprint(Diagram *dia, DiaExportFilter* pExp, W32::HANDLE hDC)
   guint nobjs = 0;
 
   /* the usable area of the page */
-  width = dia->data->paper.width;
-  height = dia->data->paper.height;
+  width = data->paper.width;
+  height = data->paper.height;
 
   /* get extents, and make them multiples of width / height */
-  extents = &dia->data->extents;
+  extents = &data->extents;
   initx = extents->left;
   inity = extents->top;
   /* make page boundaries align with origin */
-  if (!dia->data->paper.fitto) {
+  if (!data->paper.fitto) {
     initx = floor(initx / width)  * width;
     inity = floor(inity / height) * height;
   }
@@ -125,7 +122,7 @@ paginate_gdiprint(Diagram *dia, DiaExportFilter* pExp, W32::HANDLE hDC)
       page_bounds.top = y;
       page_bounds.bottom = y + height;
 
-      nobjs += print_page(dia->data, pExp, hDC, &page_bounds, xpos, ypos);
+      nobjs += print_page(data, pExp, hDC, &page_bounds, xpos, ypos);
     }
   }
 }
@@ -136,7 +133,7 @@ static W32::HGLOBAL hDevNames = NULL;
 
 extern "C"
 void
-diagram_print_gdi(Diagram *dia)
+diagram_print_gdi(DiagramData *data, const gchar *filename)
 {
   W32::PRINTDLG printDlg;
   W32::DOCINFO  docInfo;
@@ -171,7 +168,7 @@ diagram_print_gdi(Diagram *dia)
   if (pDevMode) {
     /* initialize with Dia default */
     pDevMode->dmFields |= DM_ORIENTATION;
-    pDevMode->dmOrientation = dia->data->paper.is_portrait ?
+    pDevMode->dmOrientation = data->paper.is_portrait ?
       DMORIENT_PORTRAIT : DMORIENT_LANDSCAPE;
 
     /* Maybe we could adjust the scaling here as well but are al of:
@@ -212,7 +209,7 @@ diagram_print_gdi(Diagram *dia)
   /* W32::GetDeviceCaps(print_dlg.hDC, RASTERCAPS) */
 
   docInfo.cbSize = sizeof(W32::DOCINFO);
-  docInfo.lpszDocName = dia->filename;
+  docInfo.lpszDocName = filename;
   if (printDlg.Flags & PD_PRINTTOFILE)
     docInfo.lpszOutput = "FILE:";
   else
@@ -224,7 +221,7 @@ diagram_print_gdi(Diagram *dia)
   if (0 >= W32::StartDoc(printDlg.hDC, &docInfo))
     ERROR_RETURN(W32::GetLastError());
   for (i = 0; i < printDlg.nCopies; i++)
-    paginate_gdiprint(dia, pExp, printDlg.hDC);
+    paginate_gdiprint(data, pExp, printDlg.hDC);
 
   /* clean up */
   if (0 >= W32::EndDoc(printDlg.hDC))

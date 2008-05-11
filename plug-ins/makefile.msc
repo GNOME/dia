@@ -1,7 +1,8 @@
 !IFNDEF PACKAGE
 
 # dummy sissi
-PLUGINS = gprint cairo cgm dxf hpgl metapost pgf pixbuf pstricks shape svg vdx wmf wpg xfig xslt 
+PLUGINS = gprint cairo cgm dxf hpgl metapost pgf pixbuf \
+	postscript pstricks shape svg vdx wmf wpg xfig xslt 
 
 #broken since StdProp overhaul : diaimport 
 
@@ -84,6 +85,23 @@ OBJECTS = \
   render_pstricks.obj
 !ENDIF
 
+!IFDEF OBJ_postscript
+OBJECTS = \
+  render_eps.obj \
+  paginate_psprint.obj \
+!IFDEF USEFT2
+  diapsft2renderer.obj \
+!ENDIF
+  diapsrenderer.obj \
+  win32print.obj \
+  postscript.obj
+
+PKG_LINK = $(PKG_LINK) winspool.lib \
+!IFDEF USEFT2
+	$(PANGOFT2_LIBS) $(FREETYPE2_LIBS) \
+!ENDIF
+!ENDIF
+
 !IFDEF OBJ_pgf
 OBJECTS = \
   pgf.obj \
@@ -113,8 +131,9 @@ OBJECTS = \
 !ENDIF
 
 !IFDEF OBJ_wmf
-PKG_LINK = $(PKG_LINK) $(PANGOWIN32_LIBS)
+PKG_LINK = $(PKG_LINK) $(PANGOWIN32_LIBS) comdlg32.lib winspool.lib 
 OBJECTS = \
+  paginate_gdiprint.obj \
   wmf.obj \
   wmf_gdi.obj
 !ENDIF
