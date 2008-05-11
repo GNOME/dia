@@ -544,6 +544,7 @@ plug-ins/gprint/Makefile
 plug-ins/hpgl/Makefile
 plug-ins/metapost/Makefile
 plug-ins/pixbuf/Makefile
+plug-ins/postscript/Makefile
 plug-ins/pstricks/Makefile
 plug-ins/pgf/Makefile
 plug-ins/python/Makefile

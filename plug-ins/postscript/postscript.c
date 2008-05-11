@@ -39,8 +39,8 @@ print_callback (DiagramData *data,
 }
 
 static DiaCallbackFilter cb_ps_print = {
-    "FilePrint",
-    N_("Print ..."),
+    "FilePrintPS",
+    N_("Print (PS)"),
     "/DisplayMenu/File/FilePrint",
     print_callback,
     NULL
@@ -80,3 +80,4 @@ dia_plugin_init(PluginInfo *info)
 
   return DIA_PLUGIN_INIT_OK;
 }
+

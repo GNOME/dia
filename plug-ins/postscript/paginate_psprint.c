@@ -232,7 +232,7 @@ diagram_print_destroy(GtkWidget *widget)
 }
 
 void
-diagram_print_ps(DiagramData *dia)
+diagram_print_ps(DiagramData *dia, const gchar* original_filename)
 {
   GtkWidget *dialog;
   GtkWidget *vbox, *frame, *table, *box, *button;
@@ -349,11 +349,8 @@ diagram_print_ps(DiagramData *dia)
   orig_command = printcmd;
 
   /* Work out diagram filename and use this as default .ps file */
-#if 0
-  filename = g_path_get_basename(dia->filename);
-#else
-  filename = "diapsprint.dia";
-#endif
+  filename = g_path_get_basename(original_filename);
+
   printer_filename = g_malloc(strlen(filename) + 4);
   printer_filename = strcpy(printer_filename, filename);
   dot = strrchr(printer_filename, '.');
@@ -439,7 +436,7 @@ diagram_print_ps(DiagramData *dia)
 
 	  if (write_file) {
         if (!g_path_is_absolute(filename)) {
-          char *dirname;
+          const char *dirname;
           char *full_filename;
 #if 0
           dirname = g_path_get_dirname(dia->filename);
