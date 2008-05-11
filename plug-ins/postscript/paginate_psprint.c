@@ -35,12 +35,10 @@
 
 #include "intl.h"
 #include "message.h"
-#include "diagram.h"
 #include "diagramdata.h"
 #include "render_eps.h"
 #include "diapsrenderer.h"
 #include "paginate_psprint.h"
-#include "diapagelayout.h"
 #include "persistence.h"
 
 #include <gtk/gtk.h>
@@ -146,7 +144,7 @@ print_page(DiagramData *data, DiaRenderer *diarend, Rectangle *bounds)
 }
 
 void
-paginate_psprint(Diagram *dia, FILE *file)
+paginate_psprint(DiagramData *dia, FILE *file)
 {
   DiaRenderer *rend;
   Rectangle *extents;
@@ -158,20 +156,20 @@ paginate_psprint(Diagram *dia, FILE *file)
 
 #ifdef DIA_PS_RENDERER_DUAL_PASS
   /* Prepare the prolog (with fonts etc) */
-  data_render(dia->data, DIA_RENDERER(rend), NULL, NULL, NULL);
+  data_render(dia, DIA_RENDERER(rend), NULL, NULL, NULL);
   eps_renderer_prolog_done(rend);
 #endif
 
   /* the usable area of the page */
-  width = dia->data->paper.width;
-  height = dia->data->paper.height;
+  width = dia->paper.width;
+  height = dia->paper.height;
 
   /* get extents, and make them multiples of width / height */
-  extents = &dia->data->extents;
+  extents = &dia->extents;
   initx = extents->left;
   inity = extents->top;
   /* make page boundaries align with origin */
-  if (!dia->data->paper.fitto) {
+  if (!dia->paper.fitto) {
     initx = floor(initx / width)  * width;
     inity = floor(inity / height) * height;
   }
@@ -192,7 +190,7 @@ paginate_psprint(Diagram *dia, FILE *file)
       page_bounds.top = y;
       page_bounds.bottom = y + height;
 
-      nobjs += print_page(dia->data,rend, &page_bounds);
+      nobjs += print_page(dia,rend, &page_bounds);
     }
   }
 
@@ -223,7 +221,7 @@ pipe_handler(int signum)
 static gboolean
 diagram_print_destroy(GtkWidget *widget)
 {
-  Diagram *dia;
+  DiagramData *dia;
 
   if ((dia = gtk_object_get_user_data(GTK_OBJECT(widget))) != NULL) {
     g_object_unref(dia);
@@ -234,7 +232,7 @@ diagram_print_destroy(GtkWidget *widget)
 }
 
 void
-diagram_print_ps(Diagram *dia)
+diagram_print_ps(DiagramData *dia)
 {
   GtkWidget *dialog;
   GtkWidget *vbox, *frame, *table, *box, *button;
@@ -351,7 +349,11 @@ diagram_print_ps(Diagram *dia)
   orig_command = printcmd;
 
   /* Work out diagram filename and use this as default .ps file */
+#if 0
   filename = g_path_get_basename(dia->filename);
+#else
+  filename = "diapsprint.dia";
+#endif
   printer_filename = g_malloc(strlen(filename) + 4);
   printer_filename = strcpy(printer_filename, filename);
   dot = strrchr(printer_filename, '.');
@@ -439,8 +441,11 @@ diagram_print_ps(Diagram *dia)
         if (!g_path_is_absolute(filename)) {
           char *dirname;
           char *full_filename;
-
+#if 0
           dirname = g_path_get_dirname(dia->filename);
+#else
+	  dirname = g_get_home_dir ();
+#endif
           full_filename = g_build_filename(dirname, filename, NULL);
           file = g_fopen(full_filename, "w");
           g_free(full_filename);

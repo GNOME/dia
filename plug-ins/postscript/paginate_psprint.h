@@ -25,11 +25,10 @@
 #include <stdio.h>
 #include <glib.h>
 
-#include "diagram.h"
 #include "diagramdata.h"
 
-void paginate_psprint (Diagram *dia, FILE *file);
+void paginate_psprint (DiagramData *dia, FILE *file);
 
-void diagram_print_ps (Diagram *dia);
+void diagram_print_ps (DiagramData *dia, const gchar *filename);
 
 #endif

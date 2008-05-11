@@ -126,7 +126,7 @@ export_render_eps(DiaPsRenderer *renderer,
 }
 
 DiaRenderer *
-new_psprint_renderer(Diagram *dia, FILE *file)
+new_psprint_renderer(DiagramData *dia, FILE *file)
 {
   DiaPsRenderer *renderer;
 

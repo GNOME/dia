@@ -22,10 +22,10 @@
 
 #include "diatypes.h"
 #include "filter.h"
-#include "diagram.h"
+#include "diagramdata.h"
 
-DiaRenderer *new_eps_renderer(Diagram *dia, char *filename);
-DiaRenderer *new_psprint_renderer(Diagram *dia, FILE *file);
+DiaRenderer *new_eps_renderer(DiagramData *dia, char *filename);
+DiaRenderer *new_psprint_renderer(DiagramData *dia, FILE *file);
 void eps_renderer_prolog_done(DiaRenderer *renderer);
 
 extern DiaExportFilter eps_ft2_export_filter;
