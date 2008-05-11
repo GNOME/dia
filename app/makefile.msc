@@ -18,9 +18,6 @@ PKG_LINK = $(GTK2_LIBS) $(GLIB_LIBS) $(GTHREAD_LIBS) $(PANGOWIN32_LIBS) \
 	$(LIBXML2_LIBS) $(PNG_LIBS) \
 	$(PRJ_TOP)\lib\libdia.lib $(LIBART_LIBS) \
 	$(GDK_PIXBUF_LIBS) $(INTL_LIBS) \
-!IFDEF USEFT2
-	$(PANGOFT2_LIBS) $(FREETYPE2_LIBS) \
-!ENDIF
 
 OBJECTS = \
 	autosave.obj \
@@ -40,10 +37,6 @@ OBJECTS = \
 	diagram_tree_window.obj \
 	dialogs.obj \
 	diapagelayout.obj \
-!IFDEF USEFT2
-	diapsft2renderer.obj \
-!ENDIF
-	diapsrenderer.obj \
 	dia-props.obj \
 	disp_callbacks.obj \
 	display.obj \
@@ -68,13 +61,10 @@ OBJECTS = \
 	navigation.obj \
 	object_ops.obj \
 	pagesetup.obj \
-	paginate_gdiprint.obj \
-	paginate_psprint.obj \
 	plugin-manager.obj \
 	preferences.obj \
 	properties.obj \
 	recent_files.obj \
-	render_eps.obj \
 	render_gdk.obj \
 	render_libart.obj \
 	scroll_tool.obj \
@@ -86,8 +76,7 @@ OBJECTS = \
 	textedit.obj \
 	textedit_tool.obj \
 	tool.obj \
-	undo.obj \
-	win32print.obj
+	undo.obj
 
 ICON_PNG_PAIRS = \
 	dia_connectable_icon pixmaps\connectable.png \
@@ -140,7 +129,7 @@ $(PACKAGE).lib : $(OBJECTS)
 
 $(PACKAGE)-app.dll : $(OBJECTS) $(PACKAGE).def
 	$(CC) $(CFLAGS) -LD -Fe$(PACKAGE)-app.dll $(OBJECTS) $(PKG_LINK) \
-	gdi32.lib comdlg32.lib user32.lib advapi32.lib shell32.lib wsock32.lib winspool.lib $(LDFLAGS) /def:$(PACKAGE).def
+	gdi32.lib user32.lib advapi32.lib shell32.lib wsock32.lib $(LDFLAGS) /def:$(PACKAGE).def
 
 $(PACKAGE).exe : $(OBJECTS) $(PACKAGE).def $(PACKAGE).res main.obj $(PACKAGE)-app.dll
 	$(CC) $(CFLAGS) -Fe$(PACKAGE).exe $(PACKAGE).res main.obj dia-app.lib $(PKG_LINK) \

@@ -17,9 +17,6 @@ INCLUDES = \
 	-DUIDATADIR=\"$(uidatadir)\"
 
 
-print_files = \
-	paginate_psprint.c \
-	paginate_psprint.h
 
 noinst_PROGRAMS = run_dia.sh
 
@@ -31,12 +28,6 @@ dia_oafinfo = GNOME_Dia.oaf
 else
 dia_embedd =
 dia_oafinfo =
-endif
-
-if WITH_FREETYPE
-freetype_files = diapsft2renderer.h diapsft2renderer.c
-else
-freetype_files = 
 endif
 
 bin_PROGRAMS = dia $(dia_embedd)
@@ -104,8 +95,6 @@ dia_core_files = \
 	    properties.h \
 	    defaults.c \
 	    defaults.h \
-	    render_eps.c \
-	    render_eps.h \
 	    render_libart.c \
 	    render_libart.h \
 	    undo.c \
@@ -200,9 +189,6 @@ dia_core_files = \
 	    authors.h \
 	    dynamic_refresh.h \
 	    dynamic_refresh.c \
-	    diapsrenderer.h \
-	    diapsrenderer.c \
-	    $(freetype_files) \
 	    navigation.h \
 	    navigation.c \
 	    diacanvas.c \
@@ -213,8 +199,7 @@ dia_core_files = \
 	    textedit.h \
 	    textedit_tool.c \
 	    textedit_tool.h \
-	    diagrid.h \
-	    $(print_files)
+	    diagrid.h
 
 dia_SOURCES = \
 	    $(dia_core_files) \
@@ -249,8 +234,6 @@ EXTRA_DIST = \
 	paginate_psprint.h \
 	paginate_gdiprint.cpp \
 	paginate_gdiprint.h \
-	win32print.c \
-	win32print.h \
 	winmain.c \
 	makefile.msc \
 	dia.def \

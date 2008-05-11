@@ -57,10 +57,6 @@ ShellExecuteA (long        hwnd,
                int         nShowCmd);
 #endif
 
-#include "paginate_psprint.h"
-#ifdef G_OS_WIN32
-#  include "paginate_gdiprint.h"
-#endif
 #include "intl.h"
 #include "commands.h"
 #include "app_procs.h"
@@ -114,6 +110,9 @@ file_print_callback (GtkAction *action)
 
   dia = ddisplay_active_diagram();
   if (!dia) return;
+#if 1
+  message_error ("No print plug-in here (yet)!");
+#else
 #ifdef G_OS_WIN32
   /* This option could be used with Gnome too. Does it make sense there ? */
   if (!prefs.prefer_psprint)
@@ -121,6 +120,7 @@ file_print_callback (GtkAction *action)
   else
 #endif
     diagram_print_ps(dia);
+#endif
 }
 
 void

@@ -18,7 +18,11 @@
 	* postscript/paginate_psprint.c(diagram_print_ps) : filename handling
 	* configure.in plug-ins/Makefile.am plug-ins/postscript/Makefile.am
 	  plug-ins/postscript/postscript.c : build the plug-in and ...
-	
+	* app/diapsft2renderer.[ch] app/diapsrenderer.[ch] app/render_eps.[ch] 
+	  app/paginate_psprint.[ch] app/win32print.[ch] : ... remove ...
+	  app/app_procs.c app/commands.c app/Makefile.am app/makefile.msc : 
+	... postscript handling from core
+
 	* objects/standard/outline.c : don't try to render a bezier with 0 points
 
 2008-05-10  Hans Breuer  <hans@breuer.org>
