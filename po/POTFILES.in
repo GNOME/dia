@@ -26,12 +26,10 @@ app/load_save.c
 app/menus.c
 app/modify_tool.c
 app/pagesetup.c
-app/paginate_psprint.c
 app/plugin-manager.c
 app/preferences.c
 app/properties.c
 app/recent_files.c
-app/render_eps.c
 app/render_libart.c
 app/sheets.c
 app/sheets_dialog.c
@@ -193,6 +191,11 @@ plug-ins/metapost/render_metapost.c
 plug-ins/pgf/pgf.c
 plug-ins/pgf/render_pgf.c
 plug-ins/pixbuf/pixbuf.c
+plug-ins/postscript/paginate_psprint.c
+plug-ins/postscript/diapsrenderer.c
+plug-ins/postscript/diapsft2renderer.c
+plug-ins/postscript/render_eps.c
+plug-ins/postscript/postscript.c
 plug-ins/pstricks/pstricks.c
 plug-ins/pstricks/render_pstricks.c
 plug-ins/python/pydia-render.c

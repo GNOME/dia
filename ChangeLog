@@ -23,6 +23,7 @@
 	  app/app_procs.c app/commands.c app/Makefile.am app/makefile.msc : 
 	... postscript handling from core
 	* app/diagram.c app/app_procs.c : removed dangling includes
+	* po/POTFILES.in : reflect movement of files
 
 	* objects/standard/outline.c : don't try to render a bezier with 0 points
 
