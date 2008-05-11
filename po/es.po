@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-05-04 19:50+0000\n"
-"PO-Revision-Date: 2008-05-09 08:01+0200\n"
+"POT-Creation-Date: 2008-05-10 12:12+0000\n"
+"PO-Revision-Date: 2008-05-11 12:43+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -470,11 +470,11 @@ msgstr ""
 "en un elemento en un diagrama nuevo y si lo guarda, se guardará como un "
 "diagrama de Dia."
 
-#: ../app/diagram.c:1178
+#: ../app/diagram.c:1180
 msgid "Trying to group with no selected objects."
 msgstr "Intentando agrupar sin objetos seleccionados."
 
-#: ../app/diagram.c:1188
+#: ../app/diagram.c:1190
 msgid ""
 "You cannot group objects that belong to different groups or have different "
 "parents"
@@ -666,16 +666,16 @@ msgstr[1] "Selección de %d objetos"
 msgid "Selected '%s'"
 msgstr "Seleccionados «%s»"
 
-#: ../app/display.c:1170
+#: ../app/display.c:1172
 msgid "<unnamed>"
 msgstr "<sin nombre>"
 
 #. no standard buttons
-#: ../app/display.c:1176
+#: ../app/display.c:1178
 msgid "Closing diagram without saving"
 msgstr "Cerrando el diagrama sin guardar"
 
-#: ../app/display.c:1179
+#: ../app/display.c:1181
 #, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -684,11 +684,11 @@ msgstr ""
 "Este diagrama «%s»\n"
 "no ha sido guardado. ¿Guardar los cambios ahora?"
 
-#: ../app/display.c:1181
+#: ../app/display.c:1183
 msgid "Close Diagram"
 msgstr "Cerrar el diagrama"
 
-#: ../app/display.c:1186
+#: ../app/display.c:1188
 msgid "_Discard Changes"
 msgstr "_Descartar los cambios"
 
@@ -4495,7 +4495,7 @@ msgstr "Ancho de la manecilla de los segundos"
 msgid "Show hours"
 msgstr "Mostrar horas"
 
-#: ../objects/Misc/libmisc.c:39
+#: ../objects/Misc/libmisc.c:40
 msgid "Miscellaneous objects"
 msgstr "Figuras variadas"
 
@@ -6113,20 +6113,29 @@ msgstr "No se puede escribir el objeto %u"
 msgid "Visio XML Format import and export filter"
 msgstr "Filtro de exportación e importación para el formato Visio XML"
 
-#: ../plug-ins/wmf/wmf.cpp:1250
+#: ../plug-ins/wmf/wmf.cpp:502
+#, c-format
+msgid ""
+"Can not render unknown font:\n"
+"%s"
+msgstr ""
+"No se puede renderizar la tipografía desconocida: "
+"%s"
+
+#: ../plug-ins/wmf/wmf.cpp:1260
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
 msgstr "No se pudo abrir: «%s» para escritura.\n"
 
-#: ../plug-ins/wmf/wmf.cpp:1353
+#: ../plug-ins/wmf/wmf.cpp:1363
 msgid "Windows Meta File"
 msgstr "Meta-archivo de Windows (WMF)"
 
-#: ../plug-ins/wmf/wmf.cpp:1362
+#: ../plug-ins/wmf/wmf.cpp:1372
 msgid "Enhanced Meta File"
 msgstr "Meta-archivo mejorado"
 
-#: ../plug-ins/wmf/wmf.cpp:1377
+#: ../plug-ins/wmf/wmf.cpp:1387
 msgid "WMF export filter"
 msgstr "Filtro de exportación de WMF"
 
@@ -8082,30 +8091,34 @@ msgid "Folder"
 msgstr "Carpeta"
 
 #: ../sheets/Misc.sheet.in.h:3
+msgid "Measure distance"
+msgstr "Medir distancia"
+
+#: ../sheets/Misc.sheet.in.h:4
 msgid "Misc"
 msgstr "Misc"
 
-#: ../sheets/Misc.sheet.in.h:4
+#: ../sheets/Misc.sheet.in.h:5
 msgid "Miscellaneous Shapes"
 msgstr "Figuras variadas"
 
-#: ../sheets/Misc.sheet.in.h:5
+#: ../sheets/Misc.sheet.in.h:6
 msgid "New-style group object, for testing"
 msgstr "Nuevo estilo de grupo de objetos, para pruebas"
 
-#: ../sheets/Misc.sheet.in.h:6
+#: ../sheets/Misc.sheet.in.h:7
 msgid "Traditional clock"
 msgstr "Reloj tradicional"
 
-#: ../sheets/Misc.sheet.in.h:7
+#: ../sheets/Misc.sheet.in.h:8
 msgid "Tree"
 msgstr "Árbol"
 
-#: ../sheets/Misc.sheet.in.h:8
+#: ../sheets/Misc.sheet.in.h:9
 msgid "expended node"
 msgstr "nodo gastado"
 
-#: ../sheets/Misc.sheet.in.h:9
+#: ../sheets/Misc.sheet.in.h:10
 msgid "expensible node"
 msgstr "nodo gastable"
 
