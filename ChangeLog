@@ -1,5 +1,7 @@
 2008-05-12  Hans Breuer  <hans@breuer.org>
 
+	* shapes/BPMN/*.png : cropped/scaled to 22x22
+
 	* app/sheets.c : attempt to add some robustness
 	* app/sheets_dialog_callbacks.c : g_new0() to catch mis-initialization
 	(on_sheet_new_dialog_button_ok_clicked) : a newly created sheet was 
