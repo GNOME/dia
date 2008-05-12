@@ -1,6 +1,14 @@
 2008-05-12  Hans Breuer  <hans@breuer.org>
 
 	* app/sheets.c : attempt to add some robustness
+	* app/sheets_dialog_callbacks.c : g_new0() to catch mis-initialization
+	(on_sheet_new_dialog_button_ok_clicked) : a newly created sheet was 
+	not selected after creation
+	(on_sheets_dialog_button_move_clicked) : a move was not considered a
+	modification of the source sheet
+	(on_sheets_dialog_button_apply_clicked) : when finally registering the
+	a new sheet the struct was not properly passed, same for new object
+	Together this should fix bug #393526
 
 	* app/find-and-replace.c : replace (al) part is working, too.
 	

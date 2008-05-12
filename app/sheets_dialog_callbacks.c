@@ -850,7 +850,7 @@ on_sheets_new_dialog_button_ok_clicked (GtkButton       *button,
     object_register_type(ot);
 
     entry = lookup_widget(sheets_new_dialog, "entry_svg_description");
-    sheet_obj = g_new(SheetObject, 1);
+    sheet_obj = g_new0(SheetObject, 1);
     sheet_obj->object_type = g_strdup(ot->name);
     {
       sheet_obj->description =
@@ -919,7 +919,7 @@ on_sheets_new_dialog_button_ok_clicked (GtkButton       *button,
       entry = lookup_widget(sheets_new_dialog, "entry_sheet_description");
       sheet_descrip = gtk_editable_get_chars(GTK_EDITABLE(entry), 0, -1);
 
-      sheet = g_new(Sheet, 1);
+      sheet = g_new0(Sheet, 1);
       sheet->name = sheet_name;
       sheet->filename = "";
       sheet->description = sheet_descrip;
@@ -934,7 +934,7 @@ on_sheets_new_dialog_button_ok_clicked (GtkButton       *button,
       optionmenu = gtk_object_get_data(GTK_OBJECT(table_sheets),
                                        "active_optionmenu");
       g_assert(optionmenu);
-      sheets_optionmenu_create(optionmenu, wrapbox, NULL);
+      sheets_optionmenu_create(optionmenu, wrapbox, sheet_name);
     }
     break;
 
@@ -1475,7 +1475,7 @@ sheets_dialog_copy_object(GtkWidget *active_button, GtkWidget *target_wrapbox)
   if (!som)
     return;
 
-  so = g_new(SheetObject, 1);
+  so = g_new0(SheetObject, 1);
   so->object_type = g_strdup(som->sheet_object.object_type);
   so->description = g_strdup(som->sheet_object.description);
   so->pixmap = som->sheet_object.pixmap;
@@ -1485,7 +1485,7 @@ sheets_dialog_copy_object(GtkWidget *active_button, GtkWidget *target_wrapbox)
   so->pixmap_file = g_strdup(som->sheet_object.pixmap_file);
   so->has_icon_on_sheet = som->sheet_object.has_icon_on_sheet;
 
-  som_new = g_new(SheetObjectMod, 1);
+  som_new = g_new0(SheetObjectMod, 1);
   som_new->sheet_object = *so;
   som_new->type = som->type;
   som_new->mod = SHEET_OBJECT_MOD_NONE;
@@ -1554,8 +1554,14 @@ on_sheets_dialog_button_move_clicked   (GtkButton       *button,
   sheets_dialog_copy_object(active_button, target_wrapbox);
 
   som = gtk_object_get_data(GTK_OBJECT(active_button), "sheet_object_mod");
-  if (som)
+  if (som) {
+    SheetMod *sm;
+
     som->mod = SHEET_OBJECT_MOD_DELETED;
+    /* also mark the source sheet as changed */
+    sm = gtk_object_get_data(GTK_OBJECT(active_button), "sheet_mod");
+    sm->mod = SHEETMOD_MOD_CHANGED;
+  }
 
   new_active_button = sheets_dialog_set_new_active_button();
 
@@ -1824,25 +1830,32 @@ on_sheets_dialog_button_apply_clicked  (GtkButton       *button,
     {
       GSList *sheet_object_mods_list;
       GSList *list;
+      Sheet *new_sheet = NULL;
 
     case SHEETMOD_MOD_NEW:
       write_user_sheet(&sm->sheet);
 
       sheet_object_mods_list = sm->sheet.objects;
       sm->sheet.objects = NULL;
-      register_sheet(&sm->sheet);
+      /* we have to transfer 'permanent' memory */
+      new_sheet = g_new0 (Sheet, 1);
+      *new_sheet = sm->sheet;
+      register_sheet(new_sheet);
 
       for (list = sheet_object_mods_list; list; list = g_slist_next(list))
       {
         SheetObjectMod *som;
+	SheetObject *new_object;
 
         som = list->data;
         if (som->mod == SHEET_OBJECT_MOD_DELETED)
           continue;
 
-        sheet_append_sheet_obj(&sm->sheet, &som->sheet_object);
+	new_object = g_new0(SheetObject, 1);
+	*new_object = som->sheet_object;
+        sheet_append_sheet_obj(new_sheet, new_object);
       }
-      
+
       dia_sort_sheets();      
       fill_sheet_menu();
       break;
@@ -1861,12 +1874,15 @@ on_sheets_dialog_button_apply_clicked  (GtkButton       *button,
       for (list = sheet_object_mods_list; list; list = g_slist_next(list))
       {
         SheetObjectMod *som;
+	SheetObject *new_object;
 
         som = list->data;
         if (som->mod == SHEET_OBJECT_MOD_DELETED)
           continue;
 
-        sheet_append_sheet_obj(sheets_list->data, &som->sheet_object);
+	new_object = g_new0(SheetObject, 1);
+	*new_object = som->sheet_object;
+        sheet_append_sheet_obj(sheets_list->data, new_object);
       }
       fill_sheet_menu();
       break;
@@ -1881,7 +1897,9 @@ on_sheets_dialog_button_apply_clicked  (GtkButton       *button,
       find_list = g_slist_find_custom(sheets_list, &sm->sheet,
                                         sheets_find_sheet);
       g_assert(sheets_list);
-      g_slist_remove_link(sheets_list, find_list);
+      if (!g_slist_remove_link(sheets_list, find_list))
+	g_warning ("No sheets left?");
+
       dia_sort_sheets();
       fill_sheet_menu();
       break;

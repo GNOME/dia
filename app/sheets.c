@@ -216,8 +216,8 @@ sheets_dialog_create(void)
 
   if (sheets_mods_list)
     {
-      /* FIXME: not sure if I understood the data structure
-         but simply leaking isn't acceptable ... --hb
+      /* not sure if I understood the data structure
+       * but simply leaking isn't acceptable ... --hb
        */
       g_slist_foreach(sheets_mods_list, (GFunc)g_free, NULL);
       g_slist_free(sheets_mods_list);
