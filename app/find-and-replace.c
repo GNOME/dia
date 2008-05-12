@@ -29,8 +29,13 @@
 #include "diagram.h"
 #include "display.h"
 #include "object.h"
+#include "object_ops.h"
+#include "connectionpoint_ops.h"
+#include "undo.h"
 
 #include "find-and-replace.h"
+/* messing with property internals */
+#include "propinternals.h"
 
 enum {
   RESPONSE_FIND = -20,
@@ -53,27 +58,81 @@ typedef struct _SearchData {
   gboolean seen_last;
 } SearchData;
 
-static gboolean
-_matches (DiaObject *obj, const SearchData *sd)
+/*! Match and possibly modify the given objects property */
+Property *
+_match_string_prop (DiaObject *obj, const SearchData *sd, const gchar *replacement)
 {
-  gchar* name = object_get_displayname (obj);
+  Property *prop;
+  gchar   **name;
   gboolean ret = FALSE;
+  gchar    *repl = NULL;
 
-  if (sd->flags & MATCH_CASE)
-    ret = strstr (name, sd->key) != NULL;
-  else {
-    gchar *s1 = g_utf8_casefold (name, -1);
+  if ((prop = object_prop_by_name(obj, "name")) != NULL)
+    name = &((StringProperty *)prop)->string_data;
+  else if ((prop = object_prop_by_name(obj, "text")) != NULL)
+    name = &((TextProperty *)prop)->text_data;
+
+  if (!prop)
+    return NULL;
+
+  /* search part */
+  if (sd->flags & MATCH_CASE) {
+    const gchar *p = strstr (*name, sd->key);
+    ret = p != NULL;
+    if (p && replacement) {
+      gchar *a = g_strndup (*name, p - *name);
+      gchar *b = g_strdup (p + strlen(sd->key));
+      repl = g_strdup_printf ("%s%s%s", a, replacement, b);
+      g_free (a);
+      g_free (b);
+    }
+  } else {
+    gchar *s1 = g_utf8_casefold (*name, -1);
     gchar *s2 = g_utf8_casefold (sd->key, -1);
-    ret = strstr (s1, s2) != NULL;
+    const gchar *p = strstr (s1, s2);
+    ret = p != NULL;
+    if (p && replacement) {
+      gchar *a = g_strndup (*name, p - s1);
+      gchar *b = g_strdup (*name + strlen(a) + strlen(sd->key));
+      repl = g_strdup_printf ("%s%s%s", a, replacement, b);
+      g_free (a);
+      g_free (b);
+    }
     g_free (s1);
     g_free (s2);
   }
 
   if (sd->flags & MATCH_WORD)
-    ret = (ret && strlen(name) == strlen(sd->key));
+    ret = (ret && strlen(*name) == strlen(sd->key));
 
-  g_free (name);
-  return ret;
+  /* replace part */
+  if (ret && replacement) {
+    g_free (*name);
+    *name = repl;
+  } else {
+    g_free (repl);
+  }
+  
+  if (ret)
+    return prop;
+    
+  prop->ops->free(prop);
+  return NULL;
+}
+
+static gboolean
+_matches (DiaObject *obj, const SearchData *sd)
+{
+  Property *prop = NULL;
+
+  if (!obj)
+    return FALSE;
+
+  prop = _match_string_prop (obj, sd, NULL);
+  if (prop)
+    prop->ops->free(prop);
+
+  return (prop != NULL);    
 }
 
 static void
@@ -92,6 +151,34 @@ find_func (DiaObject *obj, gpointer user_data)
       }
     }
   }
+}
+
+static gboolean
+_replace (DiaObject *obj, const SearchData *sd, const char *replacement)
+{
+  ObjectChange *obj_change;
+  Property *prop;
+  GPtrArray *plist;
+
+  prop = _match_string_prop (obj, sd, replacement);
+  if (!prop)
+    return FALSE;
+    
+  plist = prop_list_from_single (prop);
+  obj_change = object_apply_props (obj, plist);
+  prop_list_free (plist);
+
+  if (obj_change)
+    undo_object_change(sd->diagram, obj, obj_change);
+    
+  object_add_updates(obj, sd->diagram);
+  diagram_update_connections_object(sd->diagram, obj, TRUE);
+  diagram_modified(sd->diagram);
+  diagram_object_modified(sd->diagram, obj);
+  diagram_update_extents(sd->diagram);
+  diagram_flush(sd->diagram);
+  
+  return TRUE;
 }
 
 static gint
@@ -132,9 +219,37 @@ fnr_respond (GtkWidget *widget, gint response_id, gpointer data)
     break;
   case RESPONSE_REPLACE :
     replace = gtk_entry_get_text (g_object_get_data (G_OBJECT (widget), "replace-entry"));
-    g_print ("Replace: %s\n", replace);
+    sd.key = search;
+    sd.last = g_object_get_data (G_OBJECT (widget), "last-found");
+    if (!_matches (sd.last, &sd)) {
+      sd.last = NULL; /* reset if we start a new search */
+      data_foreach_object (ddisp->diagram->data, find_func, &sd);
+    }
+    sd.last = sd.found ? sd.found : sd.first;
+    g_object_set_data (G_OBJECT (widget), "last-found", sd.last);
+    if (sd.last) {
+      _replace (sd.last, &sd, replace);
+      undo_set_transactionpoint(ddisp->diagram->undo);
+    }
+    g_object_set_data (G_OBJECT (widget), "last-found", sd.last);
     break;
   case RESPONSE_REPLACE_ALL :
+    replace = gtk_entry_get_text (g_object_get_data (G_OBJECT (widget), "replace-entry"));
+    sd.key = search;
+    sd.last = g_object_get_data (G_OBJECT (widget), "last-found");
+    do {
+      if (!_matches (sd.last, &sd)) {
+        sd.last = NULL; /* reset if we start a new search */
+	sd.first = NULL;
+        data_foreach_object (ddisp->diagram->data, find_func, &sd);
+      }
+      sd.last = sd.found ? sd.found : sd.first;
+      if (sd.last)
+        if (!_replace (sd.last, &sd, replace))
+	  sd.last = NULL;
+    } while (sd.last);
+    g_object_set_data (G_OBJECT (widget), "last-found", sd.last);
+    undo_set_transactionpoint(ddisp->diagram->undo);
     break;
   default:
     gtk_widget_hide (widget);
@@ -161,8 +276,6 @@ fnr_dialog_setup_common (GtkWidget *dialog, gboolean is_replace, DDisplay *ddisp
 		   G_CALLBACK(gtk_widget_hide), NULL);
   g_signal_connect(GTK_OBJECT(dialog), "delete_event",
 		   G_CALLBACK(gtk_true), NULL);
-  g_signal_connect(GTK_OBJECT(dialog), "destroy",
-		   G_CALLBACK(gtk_widget_destroyed), &dialog);
 
   vbox = GTK_DIALOG(dialog)->vbox;
 
@@ -249,15 +362,22 @@ edit_replace_callback(gpointer data, guint action, GtkWidget *widget)
   /* no static var, instead we are attaching the dialog to the diplay shell */
   dialog = g_object_get_data (G_OBJECT (ddisp->shell), "edit-replace-dialog");
   if (!dialog) {
+    GtkWidget *button;
     dialog = gtk_dialog_new_with_buttons (
-		_("Replace"), 
+		_("Replace"),
 		GTK_WINDOW (ddisp->shell), GTK_DIALOG_DESTROY_WITH_PARENT,
 		GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE,
 		_("Replace _All"), RESPONSE_REPLACE_ALL,
-		GTK_STOCK_FIND_AND_REPLACE, RESPONSE_REPLACE,
-		GTK_STOCK_FIND, RESPONSE_FIND,
 		NULL);
-    
+    /* not adding the button in the list above to modify it's text; 
+     * the default "Find and Replace" is just too long for my taste ;) 
+     */
+    button = gtk_dialog_add_button (GTK_DIALOG (dialog), _("_Replace"), RESPONSE_REPLACE);
+    gtk_button_set_image (GTK_BUTTON (button), 
+                          gtk_image_new_from_stock (GTK_STOCK_FIND_AND_REPLACE, GTK_ICON_SIZE_BUTTON));
+
+    gtk_dialog_add_button (GTK_DIALOG (dialog), GTK_STOCK_FIND, RESPONSE_FIND);
+
     fnr_dialog_setup_common (dialog, TRUE, ddisp);
   }
   g_object_set_data (G_OBJECT (ddisp->shell), "edit-replace-dialog", dialog);
