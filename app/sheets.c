@@ -45,7 +45,7 @@
 GtkWidget *sheets_dialog = NULL;
 GSList *sheets_mods_list = NULL;
 GtkTooltips *sheets_dialog_tooltips = NULL;
-static gpointer custom_type_symbol;
+static gpointer custom_type_symbol = NULL;
 
 /* Given a SheetObject and a SheetMod, create a new SheetObjectMod
    and hook it into the 'objects' list in the SheetMod->sheet
@@ -59,7 +59,10 @@ sheets_append_sheet_object_mod(SheetObject *so, SheetMod *sm)
   SheetObjectMod *sheet_object_mod;
   DiaObjectType *ot;
 
-  sheet_object_mod = g_new(SheetObjectMod, 1);
+  g_return_val_if_fail (so != NULL && sm != NULL, NULL);
+  g_return_val_if_fail (custom_type_symbol != NULL, NULL);
+
+  sheet_object_mod = g_new0(SheetObjectMod, 1);
   sheet_object_mod->sheet_object = *so;
   sheet_object_mod->mod = SHEET_OBJECT_MOD_NONE;
 
@@ -83,7 +86,9 @@ sheets_append_sheet_mods(Sheet *sheet)
   SheetMod *sheet_mod;
   GSList *sheet_objects_list;
 
-  sheet_mod = g_new(SheetMod, 1);
+  g_return_val_if_fail (sheet != NULL, NULL);
+
+  sheet_mod = g_new0(SheetMod, 1);
   sheet_mod->sheet = *sheet;
   sheet_mod->type = SHEETMOD_TYPE_NORMAL;
   sheet_mod->mod = SHEETMOD_MOD_NONE;
@@ -104,7 +109,7 @@ menu_item_compare_labels(gconstpointer a, gconstpointer b)
   GList *a_list;
   gchar *label;
 
-  a_list = gtk_container_children(GTK_CONTAINER(GTK_MENU_ITEM(a)));
+  a_list = gtk_container_get_children(GTK_CONTAINER(GTK_MENU_ITEM(a)));
   g_assert(g_list_length(a_list) == 1);
 
   gtk_label_get(GTK_LABEL(a_list->data), &label);
@@ -171,7 +176,7 @@ sheets_optionmenu_create(GtkWidget *option_menu, GtkWidget *wrapbox,
                        (gpointer)sheet_mod);
   }
  
-  menu_item_list = gtk_container_children(GTK_CONTAINER(optionmenu_menu));
+  menu_item_list = gtk_container_get_children(GTK_CONTAINER(optionmenu_menu));
 
   /* If we were passed a sheet_name, then make the optionmenu point to that
      name after creation */

@@ -1,5 +1,7 @@
 2008-05-12  Hans Breuer  <hans@breuer.org>
 
+	* app/sheets.c : attempt to add some robustness
+
 	* app/find-and-replace.c : replace (al) part is working, too.
 	
 2008-05-11  Hans Breuer  <hans@breuer.org>
