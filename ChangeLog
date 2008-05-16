@@ -1,3 +1,8 @@
+2008-05-16  Steffen Macke <sdteffen@sdteffen.de>
+
+	* lib/propobject.c: prevent crash when shapes could not be parsed
+	correctly. Fixes bug #533459
+
 2008-05-12  Hans Breuer  <hans@breuer.org>
 
 	* shapes/BPMN/*.png : cropped/scaled to 22x22

@@ -44,6 +44,8 @@ object_get_prop_descriptions(const DiaObject *obj) {
   if (!obj->ops->describe_props) return NULL;
 
   pdesc = obj->ops->describe_props((DiaObject *)obj); /* Yes... */
+  if (!pdesc) return NULL;
+
   if (pdesc[0].quark != 0) return pdesc;
 
   prop_desc_list_calculate_quarks((PropDescription *)pdesc); /* Yes again... */
