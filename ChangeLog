@@ -1,3 +1,7 @@
+2008-05-17  Steffen Macke <sdteffen@sdteffen.de>
+
+	* shapes/Lights/*.png: Standard icon size 22x22
+
 2008-05-16  Steffen Macke <sdteffen@sdteffen.de>
 
 	* lib/propobject.c: prevent crash when shapes could not be parsed
