@@ -28,7 +28,7 @@
 	a new sheet the struct was not properly passed, same for new object
 	Together this should fix bug #393526
 
-	* app/find-and-replace.c : replace (al) part is working, too.
+	* app/find-and-replace.c : replace (all) part is working, too.
 	
 2008-05-11  Hans Breuer  <hans@breuer.org>
 
