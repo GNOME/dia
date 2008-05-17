@@ -1,3 +1,10 @@
+2008-05-17  Hans Breuer  <hans@breuer.org>
+
+	* app/Makefile.am : no paginate_*.* here, removed from EXTRA_DIST
+	* plug-ins/wmf/Makefile.am : updated EXTRA_DIST
+	* plug-ins/postscript/Makefile.am : updated EXTRA_DIST
+
+
 2008-05-17  Steffen Macke <sdteffen@sdteffen.de>
 
 	* shapes/Lights/*.png: Standard icon size 22x22

@@ -230,10 +230,6 @@ endif
 
 EXTRA_DIST = \
 	GNOME_Dia.oaf \
-	paginate_psprint.c \
-	paginate_psprint.h \
-	paginate_gdiprint.cpp \
-	paginate_gdiprint.h \
 	winmain.c \
 	makefile.msc \
 	dia.def \

@@ -19,6 +19,8 @@ plugin_sources = \
 pkglib_LTLIBRARIES = libpostscript_filter.la
 
 EXTRA_DIST = \
+	diapsft2renderer.c \
+	diapsft2renderer.h \
 	win32print.c \
 	win32print.h
 
