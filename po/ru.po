@@ -971,7 +971,7 @@ msgstr "NULL данные инструмента в tool_select_update"
 #: ../app/interface.c:920
 #, c-format
 msgid "No sheet named %s"
-msgstr "Библиотеки элементов с названием %s несуществует"
+msgstr "Библиотеки элементов с названием %s не существует"
 
 #: ../app/interface.c:957
 msgid "Other sheets"
@@ -2341,7 +2341,7 @@ msgstr ""
 #: ../lib/prop_text.c:466
 #, c-format
 msgid "Group with %d objects"
-msgstr "Сгрупировать с %d объектами"
+msgstr "Сгруппировать с %d объектами"
 
 #: ../lib/properties.c:64 ../lib/properties.h:469 ../lib/widgets.c:638
 msgid "Left"
@@ -4328,7 +4328,7 @@ msgstr "Видимые комментарии"
 
 #: ../objects/UML/class_dialog.c:371
 msgid "Wrap comment after this length: "
-msgstr "Переносить комментарий по этой длинне: "
+msgstr "Переносить комментарий по этой длине: "
 
 #: ../objects/UML/class_dialog.c:378
 msgid "Show documenation tag"
@@ -4602,7 +4602,7 @@ msgstr "Окончание"
 
 #: ../objects/UML/transition.c:132
 msgid "Trigger"
-msgstr "Тригер"
+msgstr "Триггер"
 
 #: ../objects/UML/transition.c:133
 msgid "The event that causes this transition to be taken"
@@ -4682,7 +4682,7 @@ msgstr "Название данных"
 
 #: ../objects/chronogram/chronoline.c:152
 msgid "Events"
-msgstr "Событи;я"
+msgstr "События"
 
 #: ../objects/chronogram/chronoline.c:155
 msgid "Event specification"
@@ -4799,7 +4799,7 @@ msgstr "Радиус угла"
 
 #: ../objects/flowchart/flowchart.c:37
 msgid "Flowchart objects"
-msgstr "Объекты диаграммы потоков"
+msgstr "Объекты блок-схемы"
 
 #: ../objects/flowchart/parallelogram.c:152
 msgid "Shear angle"
@@ -4971,7 +4971,7 @@ msgstr "Cairo Portable Document Format"
 
 #: ../plug-ins/cairo/diacairo.c:1108
 msgid "Cairo Scalable Vector Graphics"
-msgstr "Cairo масштабирумеая векторная графика (SVG)"
+msgstr "Cairo масштабируемая векторная графика (SVG)"
 
 #: ../plug-ins/cairo/diacairo.c:1118
 msgid "Cairo PNG"
@@ -5066,7 +5066,7 @@ msgstr "GNOME Портируемый Формат Документа (PDF)"
 
 #: ../plug-ins/gprint/diagnomeprint.c:131
 msgid "GNOME Scalable Vector Graphic"
-msgstr "GNOME Маштабируемая Векторная Графика (SVG)"
+msgstr "GNOME Масштабируемая Векторная Графика (SVG)"
 
 #: ../plug-ins/gprint/diagnomeprint.c:164
 msgid "GNOME Print based Rendering"
@@ -5147,7 +5147,7 @@ msgstr "Фильтр экспорта форм dia"
 
 #: ../plug-ins/svg/render_svg.c:291 ../plug-ins/svg/svg-import.c:676
 msgid "Scalable Vector Graphics"
-msgstr "Маштабируемая векторная графика (SVG)"
+msgstr "Масштабируемая векторная графика (SVG)"
 
 #: ../plug-ins/svg/svg-import.c:195
 msgid ""
@@ -5351,7 +5351,7 @@ msgstr "Неизвестный тип стрелки %d\n"
 #: ../plug-ins/xfig/xfig-import.c:377
 #, c-format
 msgid "Depth %d of of range, only 0-%d allowed.\n"
-msgstr "Глубина %d за границами доспустимых значений, только 0-%d возможно.\n"
+msgstr "Глубина %d за границами допустимых значений, только 0-%d возможно.\n"
 
 #: ../plug-ins/xfig/xfig-import.c:424
 #, c-format
@@ -5637,7 +5637,7 @@ msgstr "Восьмиконечная звезда"
 
 #: ../sheets/Assorted.sheet.in.h:13
 msgid "Five point star"
-msgstr "Семиконечная звезда"
+msgstr "Пятиконечная звезда"
 
 #: ../sheets/Assorted.sheet.in.h:14
 msgid "Four point star"
@@ -5649,11 +5649,11 @@ msgstr "Сердце"
 
 #: ../sheets/Assorted.sheet.in.h:16
 msgid "Heptagon. Seven sided shape"
-msgstr "Гептагон. Семисторонний многогранник"
+msgstr "Гептагон. Семисторонний многоугольник"
 
 #: ../sheets/Assorted.sheet.in.h:17
 msgid "Hexagon. Six sided shape"
-msgstr "Гексагон. Шестисторонник многогранник"
+msgstr "Гексагон. Шестисторонний многоугольник"
 
 #: ../sheets/Assorted.sheet.in.h:18
 msgid "Horizontal parallelogram"
@@ -5661,7 +5661,7 @@ msgstr "Горизонтальный параллелограмм"
 
 #: ../sheets/Assorted.sheet.in.h:19
 msgid "Isoceles triangle"
-msgstr "Изоклинальный треугольник"
+msgstr "Равнобедренный треугольник"
 
 #: ../sheets/Assorted.sheet.in.h:20
 msgid "Left arrow"
@@ -6003,7 +6003,7 @@ msgstr "Очиститель или отстойник"
 
 #: ../sheets/ChemEng.sheet.in.h:11
 msgid "Collection for chemical engineering"
-msgstr "Подборака для химического проектирования"
+msgstr "Подборка для химического проектирования"
 
 #: ../sheets/ChemEng.sheet.in.h:12
 msgid "Compressor or Turbine"
@@ -6625,7 +6625,7 @@ msgstr "Документ"
 
 #: ../sheets/Flowchart.sheet.in.h:10
 msgid "Flowchart"
-msgstr "Диаграмма потоков"
+msgstr "Блок-схема"
 
 #: ../sheets/Flowchart.sheet.in.h:11
 msgid "Input/Output"
@@ -7654,7 +7654,7 @@ msgstr "ATM 3800"
 
 #: ../sheets/ciscohub.sheet.in.h:7
 msgid "ATM Fast Gigabit Etherswitch"
-msgstr "ATM Быстрый Гигабитный эзернетовский коммутатор(свич)"
+msgstr "ATM Быстрый Гигабитный эзернетовский коммутатор (свич)"
 
 #: ../sheets/ciscohub.sheet.in.h:8
 msgid "ATM Switch"
@@ -7726,7 +7726,7 @@ msgstr "Обработчик коммутации данных"
 
 #: ../sheets/ciscohub.sheet.in.h:25
 msgid "Director-class Fibre Channel intelligent switch"
-msgstr "Интелектуальный коммутатор носителя каналов управляющего класса"
+msgstr "Интеллектуальный коммутатор носителя каналов управляющего класса"
 
 #: ../sheets/ciscohub.sheet.in.h:26
 msgid "Edge Label Switch Router"
@@ -7746,7 +7746,7 @@ msgstr "Повторитель"
 
 #: ../sheets/ciscohub.sheet.in.h:30
 msgid "Hub subdued"
-msgstr "Повторитель приглушенный"
+msgstr "Повторитель приглушённый"
 
 #: ../sheets/ciscohub.sheet.in.h:31
 msgid "ISDN switch"
@@ -7794,11 +7794,11 @@ msgstr "Многоуровневый коммутатор"
 
 #: ../sheets/ciscohub.sheet.in.h:42
 msgid "Multilayer Switch with Silicon"
-msgstr "Многоуровневы коммутатор с поддержкой Silicon"
+msgstr "Многоуровневый коммутатор с поддержкой Silicon"
 
 #: ../sheets/ciscohub.sheet.in.h:43
 msgid "Multilayer Switch with Silicon subdued"
-msgstr "Многоуровневы коммутатор с поддержкой Silicon приглушенный"
+msgstr "Многоуровневый коммутатор с поддержкой Silicon приглушённый"
 
 #: ../sheets/ciscohub.sheet.in.h:44
 msgid "NetFlow router"
@@ -7846,7 +7846,7 @@ msgstr "Фигуры маршрутизатора и коммутатора от
 
 #: ../sheets/ciscohub.sheet.in.h:55
 msgid "Router subdued"
-msgstr "Маршрутизатор приглушенный"
+msgstr "Маршрутизатор приглушённый"
 
 #: ../sheets/ciscohub.sheet.in.h:56
 msgid "Router with Firewall"
@@ -7878,7 +7878,7 @@ msgstr "Университетский шлюз"
 
 #: ../sheets/ciscohub.sheet.in.h:63
 msgid "Virtual Layer Switch"
-msgstr "Коммутатор виртульных слоев"
+msgstr "Коммутатор виртуальных слоёв"
 
 #: ../sheets/ciscohub.sheet.in.h:64
 msgid "Wavelength router"
@@ -7890,11 +7890,11 @@ msgstr "Маршрутизатор беспроводной сети"
 
 #: ../sheets/ciscohub.sheet.in.h:66
 msgid "Workgroup 5000"
-msgstr "Рабочая група 5000"
+msgstr "Рабочая группа 5000"
 
 #: ../sheets/ciscohub.sheet.in.h:67
 msgid "Workgroup 5002"
-msgstr "Рабочая група 5002"
+msgstr "Рабочая группа 5002"
 
 #: ../sheets/ciscohub.sheet.in.h:68
 msgid "Workgroup 5500"
@@ -7902,11 +7902,11 @@ msgstr "Workgroup 5500"
 
 #: ../sheets/ciscohub.sheet.in.h:69
 msgid "Workgroup Fibre Channel intelligent switch"
-msgstr "Интелектуальный переключатель канала рабочей группы"
+msgstr "Интеллектуальный переключатель канала рабочей группы"
 
 #: ../sheets/ciscohub.sheet.in.h:70
 msgid "Workgroup Switch Voice-Enabled"
-msgstr "Коммутатор рабочей группы с поддежкой голоса"
+msgstr "Коммутатор рабочей группы с поддержкой голоса"
 
 #: ../sheets/ciscohub.sheet.in.h:71
 msgid "Workgroup switch"
@@ -7914,7 +7914,7 @@ msgstr "Коммутатор рабочей группы"
 
 #: ../sheets/ciscohub.sheet.in.h:72
 msgid "Workgroup switch Subdued"
-msgstr "Коммутатор рабочей группы приглушенный"
+msgstr "Коммутатор рабочей группы приглушённый"
 
 #: ../sheets/ciscohub.sheet.in.h:73
 msgid "iSCSI switch"
@@ -7926,7 +7926,7 @@ msgstr "Личность неизвестного пола"
 
 #: ../sheets/ciscomisc.sheet.in.h:2
 msgid "Antenna"
-msgstr "Антена"
+msgstr "Антенна"
 
 #: ../sheets/ciscomisc.sheet.in.h:3
 msgid "Branch office"
@@ -7938,7 +7938,7 @@ msgstr "Офис отделения синий"
 
 #: ../sheets/ciscomisc.sheet.in.h:5
 msgid "Branch office subdued"
-msgstr "Офис отделения приглушенный"
+msgstr "Офис отделения приглушённый"
 
 #: ../sheets/ciscomisc.sheet.in.h:6
 msgid "Car"
@@ -8030,7 +8030,7 @@ msgstr "Среднее строение синее"
 
 #: ../sheets/ciscomisc.sheet.in.h:29
 msgid "Medium Building subdued"
-msgstr "Среднее строение приглушенное"
+msgstr "Среднее строение приглушённое"
 
 #: ../sheets/ciscomisc.sheet.in.h:31
 msgid "Miscellaneous shapes by Cisco"
@@ -8050,7 +8050,7 @@ msgstr "Бегущий человек"
 
 #: ../sheets/ciscomisc.sheet.in.h:35
 msgid "Running man subdued"
-msgstr "Бегущий человек приглушенный"
+msgstr "Бегущий человек приглушённый"
 
 #: ../sheets/ciscomisc.sheet.in.h:36
 msgid "Running woman"
@@ -8090,11 +8090,11 @@ msgstr "Телекоммутатор"
 
 #: ../sheets/ciscomisc.sheet.in.h:46
 msgid "Telecommuter house"
-msgstr "Телекомуникационное здание"
+msgstr "Телекоммуникационное здание"
 
 #: ../sheets/ciscomisc.sheet.in.h:47
 msgid "Telecommuter house subdued"
-msgstr "Телекомуникационное здание приглушенное"
+msgstr "Телекоммуникационное здание приглушённое"
 
 #: ../sheets/ciscomisc.sheet.in.h:48
 msgid "Truck"
@@ -8286,7 +8286,7 @@ msgstr "Сетевой экран в горизонтальном ракурсе
 
 #: ../sheets/cisconetwork.sheet.in.h:40
 msgid "Firewall subdued"
-msgstr "Защитный экран приглушенный"
+msgstr "Защитный экран приглушённый"
 
 #: ../sheets/cisconetwork.sheet.in.h:41
 msgid "General Appliance"
@@ -8490,11 +8490,11 @@ msgstr "VN5902"
 
 #: ../sheets/cisconetwork.sheet.in.h:92
 msgid "VPN Concentrator"
-msgstr "VPN (Виртуальные Часные Сети) Концентратор"
+msgstr "VPN (Виртуальные Частные Сети) Концентратор"
 
 #: ../sheets/cisconetwork.sheet.in.h:93
 msgid "VPN Gateway"
-msgstr "VPN (Виртуальные Часные Сети) Гейт"
+msgstr "VPN (Виртуальные Частные Сети) Гейт"
 
 #: ../sheets/cisconetwork.sheet.in.h:94
 msgid "WAN"
@@ -8770,7 +8770,7 @@ msgstr "Резервуар"
 
 #: ../sheets/civil.sheet.in.h:4
 msgid "Bivalent vertical rest"
-msgstr "Двусторонная вертикальная опора"
+msgstr "Двусторонняя вертикальная опора"
 
 #: ../sheets/civil.sheet.in.h:5
 msgid "Civil"
@@ -9006,7 +9006,7 @@ msgstr "Мобильный телефон"
 
 #: ../sheets/network.sheet.in.h:16
 msgid "Mobile telephony base station"
-msgstr "Базовая станиция мобильной телефонии"
+msgstr "Базовая станция мобильной телефонии"
 
 #: ../sheets/network.sheet.in.h:17
 msgid "Mobile telephony cell"
@@ -9098,7 +9098,7 @@ msgstr "ZIP-диск"
 
 #: ../sheets/sybase.sheet.in.h:1
 msgid "Log transfer manager or rep agent"
-msgstr "Менеджер переноса журнала или агент архивирвоания"
+msgstr "Менеджер переноса журнала или агент архивирования"
 
 #: ../sheets/sybase.sheet.in.h:2
 msgid "Objects to design Sybase replication domain diagrams with"
@@ -9127,18 +9127,3 @@ msgstr "Сервер данных Sybase"
 #: ../sheets/sybase.sheet.in.h:8
 msgid "Sybase replication server"
 msgstr "Сервер репликаций Sybase"
-
-#~ msgid "Diagram tree"
-#~ msgstr "Дерево диаграммы"
-
-#~ msgid "Modify object(s)"
-#~ msgstr "Изменить объект(ы)"
-
-#~ msgid "Failed to save file '%s'.\n"
-#~ msgstr "Не удалось сохранить файл «%s».\n"
-
-#~ msgid "EML"
-#~ msgstr "EML"
-
-#~ msgid "Editor for EML Static Structure Diagrams."
-#~ msgstr "Редактор для статических структурных диаграмм EML."
