@@ -160,7 +160,13 @@ properties_respond(GtkWidget *widget,
   }
 
   if (response_id != GTK_RESPONSE_APPLY) {
+#ifdef G_OS_WIN32
+    /* on windows we are not hiing the ialog, because shrinking when hidden does
+     * not work (the dialog shows up with the same size as before, bug #333751) */
+    gtk_widget_destroy (dialog);
+#else
     properties_dialog_hide();
+#endif
   }
 
   return 0;

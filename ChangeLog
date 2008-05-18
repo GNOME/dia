@@ -1,5 +1,9 @@
 2008-05-18  Hans Breuer  <hans@breuer.org>
 
+	* app/properties.c : work around the disability of Gtk on win32 to 
+	shrink the property dialog when it is hidden (by destroying instead)
+	Fixes bug #333751.
+
 	* lib/diagdkrenderer.c lib/diarenderer.c
 	  plug-ins/cairo/diacairo-renderer.c (*_rounded_rect) : fall back to
 	(draw|fill}_rect if the radius is so small (smaller than one device 
