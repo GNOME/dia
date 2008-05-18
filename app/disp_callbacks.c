@@ -879,6 +879,8 @@ ddisplay_drop_object(DDisplay *ddisp, gint x, gint y, DiaObjectType *otype,
                                    user_data,
                                    &handle1, &handle2);
 
+  if (!obj)
+    return NULL;
 
   click_distance = ddisplay_untransform_length(ddisp, 3.0);
 

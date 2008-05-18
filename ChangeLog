@@ -1,3 +1,8 @@
+2008-05-18  Steffen Macke <sdteffen@sdteffen.de>
+
+	* app/disp_callbacks.c: Return NULL from ddisplay_drop_object() if
+	no object could be created instead of segfaulting; fixes bug #533679
+
 2008-05-17  Hans Breuer  <hans@breuer.org>
 
 	* app/Makefile.am : no paginate_*.* here, removed from EXTRA_DIST
