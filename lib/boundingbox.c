@@ -25,32 +25,32 @@
 #include "geometry.h"
 #include "boundingbox.h"
 
-/** 
- * @param p 
+/** Translates x- or y- part of bezier points to Bernstein polynom coefficients
+ * @param p x- or y-part of the four points
  * @param A 
  * @param B 
  * @param C 
  * @param D 
- * @bug I don't know what this does.
+ * See: Foley et al., Computer Graphics, Bezier Curves or
+ * http://en.wikipedia.org/wiki/B%C3%A9zier_curve
  */
-static void
+void
 bernstein_develop(const real p[4], real *A, real *B, real *C, real *D)
 {
-  *A = -p[0]+3*p[1]-3*p[2]+p[3];
-  *B = 3*p[0]-6*p[1]+3*p[2];
-  *C = 3*p[1]-3*p[0];
-  *D = p[0];
+  *A =   -p[0]+3*p[1]-3*p[2]+p[3];
+  *B =  3*p[0]-6*p[1]+3*p[2];
+  *C = -3*p[0]+3*p[1];
+  *D =    p[0];
   /* if Q(u)=Sum(i=0..3)piBi(u) (Bi(u) being the Bernstein stuff),
      then Q(u)=Au^3+Bu^2+Cu+p[0]. */
 }
 
-/** ?
- * @param p 
- * @param u 
- * @returns 
- * @bug I don't know what this does.
+/** Evaluates the Bernstein polynoms for a given position
+ * @param p x- or y-values of four points describing the bezier
+ * @param u position on the curve [0 .. 1]
+ * @returns the evaluate x- or y-part of the point
  */
-static real
+real
 bezier_eval(const real p[4], real u)
 {
   real A,B,C,D;
@@ -58,13 +58,12 @@ bezier_eval(const real p[4], real u)
   return A*u*u*u+B*u*u+C*u+D;
 }
 
-/** ?
- * @param p 
- * @param u 
- * @return 
- * @bug I don't know what this does.
+/** Calculates the tangent for a given point on a bezier curve
+ * @param p x- or y-values of four points describing the bezier
+ * @param u position on the curve between[0 .. 1]
+ * @return the x- or y-part of the tangent vector
  */
-static real
+real
 bezier_eval_tangent(const real p[4], real u)
 {
   real A,B,C,D;
@@ -72,11 +71,11 @@ bezier_eval_tangent(const real p[4], real u)
   return 3*A*u*u+2*B*u+C;
 }  
 
-/** ?
- * @param p
- * @param u
- * @return
- * @bug I don't know what this does.
+/**
+ * Calculates the extrma of the given curve in x- or y-direction.
+ * @param p x- or y-values of four points describing the bezier
+ * @param u The position of the extrema [0 .. 1]
+ * @return The number of extrema found.
  */
 static int
 bicubicbezier_extrema(const real p[4],real u[2])
@@ -88,6 +87,12 @@ bicubicbezier_extrema(const real p[4],real u[2])
 
   u[0] = u[1] = 0.0;
   if (delta<0) return 0;
+
+  /* just a quadratic contribution? */
+  if (fabs(A) < 1e-6) {
+    u[0] = -C/(2*B);
+    return 1;
+  }
 
   u[0] = (-2*B + sqrt(delta)) / (6*A);
   if (delta==0) return 1;
@@ -126,13 +131,12 @@ add_arrow_rectangle(Rectangle *rect,
 }
 
 /** Calculate the boundingbox for a 2D bezier curve segment.
- * @param p0 
- * @param p1 
- * @param p2 
- * @param p3 
- * @param extra 
+ * @param p0 start point
+ * @param p1 1st control point
+ * @param p2 2nd control point
+ * @param p3 end point
+ * @param extra information about extra space from linewidth and arrow to add to the bounding box
  * @param rect The rectangle that the segment fits inside.
- * @bug I don't know exactly what the other parameters are.
  */
 void
 bicubicbezier2D_bbox(const Point *p0,const Point *p1,

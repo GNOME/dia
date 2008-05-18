@@ -768,7 +768,7 @@ table_distance_from (Table * table, Point *point)
   DiaObject * obj;
 
   obj = &table->element.object;
-  rect = dia_object_get_enclosing_box (obj);
+  rect = dia_object_get_bounding_box (obj);
   return distance_rectangle_point (rect, point);
 }
 

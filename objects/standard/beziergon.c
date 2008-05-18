@@ -349,6 +349,17 @@ beziergon_update_data(Beziergon *beziergon)
   extra->border_trans = beziergon->line_width / 2.0;
   beziershape_update_boundingbox(bezier);
 
+  /* update the enclosing box using the control points */
+  {
+    int i, num_points = bezier->numpoints;
+    obj->enclosing_box = obj->bounding_box;
+    for (i = 0; i < num_points; ++i) {
+      if (bezier->points[i].type != BEZ_CURVE_TO)
+        continue;
+      rectangle_add_point(&obj->enclosing_box, &bezier->points[i].p1);      
+      rectangle_add_point(&obj->enclosing_box, &bezier->points[i].p2);      
+    }
+  }
   obj->position = bezier->points[0].p1;
 }
 

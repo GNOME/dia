@@ -75,6 +75,10 @@ EXPORTS
  beziershape_update_boundingbox
  beziershape_update_data
 
+ bernstein_develop
+ bezier_eval
+ bezier_eval_tangent
+
  calculate_arrow_point
 
  color_convert
@@ -682,6 +686,7 @@ EXPORTS
  prop_get_data_from_widgets
  prop_dialog_from_widget
  find_prop_by_name
+ dia_object_get_bounding_box
  dia_object_get_enclosing_box
 
  calculate_object_edge

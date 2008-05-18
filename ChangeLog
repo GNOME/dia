@@ -1,3 +1,25 @@
+2008-05-19  Hans Breuer  <hans@breuer.org>
+
+	[finally use dia_object_get_enclosing_box() to ... ]
+	* app/commands.c : ... have bezier control points in field of view 
+	when "show all" with selected bezier objects
+	* app/object_ops.c ... get rid of bezier control line traces, because
+	they are not included with the bounding box. Fixes bug #300055
+	* objects/standard/bezier.c objects/standard/beziergon.c : calculate
+	the enclosing box as control points plus bounding box
+
+	* objects/Database/table.c : don't use dia_object_get_enclosing_box()
+	where dia_object_get_bounding_box() was meant
+
+	* lib/libdia.def lib/bounding_box.[hc] : export some bezier helper
+	functions instead of copy and pasting them to ...
+	* objects/Istar/link.c : ... other users
+
+	* lib/bounding_box.c : added some API documentation for the helpers
+	(bicubicbezier_extrema) : special casing for quadratic curves to avoid
+	division by (almost) zero and improve/fix bounding box calculation for
+	symmetric bezier curves
+
 2008-05-18  Steffen Macke <sdteffen@sdteffen.de>
 
 	* SISSI/lecteur_badge_clavier_icon.png:

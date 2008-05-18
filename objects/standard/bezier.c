@@ -415,7 +415,7 @@ bezierline_draw(Bezierline *bezierline, DiaRenderer *renderer)
    * only checking while selected.  But we'll do that if needed.
    */
   if (renderer->is_interactive &&
-      dia_object_is_selected((DiaObject*)bezierline)) {
+      dia_object_is_selected(&bezierline->bez.object)) {
     bezierconn_draw_control_lines(&bezierline->bez, renderer);
   }
 }
@@ -556,7 +556,19 @@ bezierline_update_data(Bezierline *bezierline)
   } else {
     bezierconn_update_boundingbox(bez);
   }
-
+    /* add control points to the bounding box, needed to make them visible when showing all 
+      * and to remove traces from them */
+  {
+    int i, num_points = bez->numpoints;
+    obj->enclosing_box = obj->bounding_box;
+    /* starting with the second point, the first one is MOVE_TO */
+    for (i = 1; i < num_points; ++i) {
+      if (bez->points[i].type != BEZ_CURVE_TO)
+        continue;
+      rectangle_add_point(&obj->enclosing_box, &bez->points[i].p1);      
+      rectangle_add_point(&obj->enclosing_box, &bez->points[i].p2);      
+    }
+  }
 }
 
 static void

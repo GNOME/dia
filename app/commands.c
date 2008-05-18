@@ -960,11 +960,11 @@ view_show_all_callback (GtkAction *action)
   /* if there is something selected show that instead of all exisiting objects */
   if (dia->data->selected) {
     GList *list = dia->data->selected;
-    Rectangle extents = ((DiaObject*)list->data)->bounding_box;
+    Rectangle extents = *dia_object_get_enclosing_box ((DiaObject*)list->data);
     list = g_list_next(list);
     while (list) {
       DiaObject *obj = (DiaObject *)list->data;
-      rectangle_union(&extents, &(obj->bounding_box));
+      rectangle_union(&extents, dia_object_get_enclosing_box (obj));
       list = g_list_next(list);
     }
     magnify_x = (real)width / (extents.right - extents.left) / ddisp->zoom_factor;

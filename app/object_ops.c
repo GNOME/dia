@@ -38,7 +38,7 @@ object_add_updates(DiaObject *obj, Diagram *dia)
   if (obj->highlight_color != NULL) {
     diagram_add_update_with_border(dia, &obj->bounding_box, 5);
   } else {
-    diagram_add_update(dia, &obj->bounding_box);
+    diagram_add_update(dia, dia_object_get_enclosing_box (obj));
   }
 
   /* Handles */

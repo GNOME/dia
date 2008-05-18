@@ -66,4 +66,9 @@ void polybezier_bbox(const BezPoint *pts, int numpoints,
                      const PolyBBExtras *extra, gboolean closed,
                      Rectangle *rect);
 
+/* helpers for bezier curve calculation */
+void bernstein_develop(const real p[4],real *A,real *B,real *C,real *D);
+real bezier_eval(const real p[4],real u);
+real bezier_eval_tangent(const real p[4],real u);
+
 #endif /* BOUNDINGBOX_H */

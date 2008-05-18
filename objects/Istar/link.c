@@ -105,10 +105,6 @@ static void link_get_props(Link * link, GPtrArray *props);
 static void link_set_props(Link *link, GPtrArray *props);
 
 
-static void bernstein_develop(const real p[4],real *A,real *B,real *C,real *D);
-static real bezier_eval(const real p[4],real u);
-static real bezier_eval_tangent(const real p[4],real u);
-static Point bezier_line_eval(BezPoint *line,int p,real u);
 static Point compute_annot(Point* p1, Point* p2, Point* pm, double f, double d);
 static void compute_dependency(BezPoint *line, BezPoint *bpl);
 static void compute_line(Point* p1, Point* p2, Point *pm, BezPoint* line);
@@ -266,32 +262,9 @@ link_move(Link *link, Point *to)
   return NULL;
 }
 
-static void
-bernstein_develop(const real p[4],real *A,real *B,real *C,real *D)
+static Point 
+bezier_line_eval(BezPoint *line,int p,real u) 
 {
-  *A = -p[0]+3*p[1]-3*p[2]+p[3];
-  *B = 3*p[0]-6*p[1]+3*p[2];
-  *C = 3*p[1]-3*p[0];
-  *D = p[0];
-  /* if Q(u)=Sum(i=0..3)piBi(u) (Bi(u) being the Bernstein stuff),
-     then Q(u)=Au^3+Bu^2+Cu+p[0]. */
-}
-
-static real
-bezier_eval(const real p[4],real u) {
-  real A,B,C,D;
-  bernstein_develop(p,&A,&B,&C,&D);
-  return A*u*u*u+B*u*u+C*u+D;
-}
-
-static real
-bezier_eval_tangent(const real p[4],real u) {
-  real A,B,C,D;
-  bernstein_develop(p,&A,&B,&C,&D);
-  return 3*A*u*u+2*B*u+C;
-}
-
-static Point bezier_line_eval(BezPoint *line,int p,real u) {
   real bx[4],by[4];
   Point res;
 
@@ -317,7 +290,9 @@ static Point bezier_line_eval(BezPoint *line,int p,real u) {
   d is lateral offset
   cx,cy are text width/height
 */
-static Point compute_annot(Point* p1, Point* p2, Point* pm, double f, double d) {
+static Point 
+compute_annot(Point* p1, Point* p2, Point* pm, double f, double d) 
+{
   Point res;
   double dx,dy,k;
 
