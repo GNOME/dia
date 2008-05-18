@@ -193,7 +193,7 @@
     </object>
    <object name="SISSI - sissi_object" intdata="48">
       <_description>Moisture extractor</_description>
-      <icon>SISSI/extracteur_humidite.png</icon>
+      <icon>SISSI/extracteur_humidite_icon.png</icon>
     </object>
    <object name="SISSI - sissi_object" intdata="50">
       <_description>Air filter</_description>
@@ -233,19 +233,19 @@
     </object>
    <object name="SISSI - sissi_object" intdata="59">
       <_description>Ventilator</_description>
-      <icon>SISSI/ventilateur.png</icon>
+      <icon>../shapes/ChemEng/fan.png</icon>
     </object>
    <object name="SISSI - sissi_object" intdata="60">
       <_description>Extinguisher</_description>
-      <icon>SISSI/extincteur.png</icon>
+      <icon>SISSI/extincteur_icon.png</icon>
     </object>
    <object name="SISSI - sissi_object" intdata="61">
       <_description>Inverter</_description>
-      <icon>SISSI/onduleur.png</icon>
+      <icon>SISSI/onduleur_icon.png</icon>
     </object>
    <object name="SISSI - sissi_object" intdata="62">
       <_description>Airconditioner</_description>
-      <icon>SISSI/aircooler.png</icon>
+      <icon>SISSI/aircooler_icon.png</icon>
     </object>
    <object name="SISSI - sissi_object" intdata="63">
       <_description>Alarm center</_description>

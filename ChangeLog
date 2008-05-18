@@ -1,3 +1,11 @@
+2008-05-18  Steffen Macke <sdteffen@sdteffen.de>
+
+	* sheets/SISSI/extincteur_icon.png:
+	* sheets/SISSI/onduleur_icon.png:
+	* sheets/SISSI/extracteur_humidite_icon.png:
+	* sheets/SISSI/aircooler_icon.png:
+	* sheets/SISSI.sheet.in: Standard icon size 22x22
+
 2008-05-18  Hans Breuer  <hans@breuer.org>
 
 	* app/properties.c : work around the disability of Gtk on win32 to 
