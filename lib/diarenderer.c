@@ -808,6 +808,12 @@ draw_rounded_rect (DiaRenderer *renderer,
 
   radius = MIN(radius, (lr_corner->x-ul_corner->x)/2);
   radius = MIN(radius, (lr_corner->y-ul_corner->y)/2);
+  
+  if (radius < 0.00001) {
+    renderer_ops->draw_rect(renderer, ul_corner, lr_corner, color);
+    return;
+  }
+
   start.x = center.x = ul_corner->x+radius;
   end.x = lr_corner->x-radius;
   start.y = end.y = ul_corner->y;
@@ -852,6 +858,12 @@ fill_rounded_rect(DiaRenderer *renderer,
 
   radius = MIN(radius, (lr_corner->x-ul_corner->x)/2);
   radius = MIN(radius, (lr_corner->y-ul_corner->y)/2);
+
+  if (radius < 0.00001) {
+    renderer_ops->fill_rect(renderer, ul_corner, lr_corner, color);
+    return;
+  }
+
   start.x = center.x = ul_corner->x+radius;
   end.x = lr_corner->x-radius;
   start.y = ul_corner->y;

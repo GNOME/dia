@@ -1006,18 +1006,30 @@ draw_fill_rounded_rect (DiaRenderer *self,
   }
 }
 static void 
-draw_rounded_rect (DiaRenderer *renderer, 
+draw_rounded_rect (DiaRenderer *self, 
                    Point *ul_corner, Point *lr_corner,
                    Color *color, real radius) 
 {
-  draw_fill_rounded_rect (renderer, ul_corner, lr_corner, color, radius, FALSE);
+  DiaGdkRenderer *renderer = DIA_GDK_RENDERER (self);
+  gint r = dia_transform_length(renderer->transform, radius);
+
+  if (r > 0)
+    draw_fill_rounded_rect (self, ul_corner, lr_corner, color, radius, FALSE);
+  else
+    draw_rect (self, ul_corner, lr_corner, color);
 }
 static void 
-fill_rounded_rect (DiaRenderer *renderer, 
+fill_rounded_rect (DiaRenderer *self, 
                    Point *ul_corner, Point *lr_corner,
                    Color *color, real radius) 
 {
-  draw_fill_rounded_rect (renderer, ul_corner, lr_corner, color, radius, TRUE);
+  DiaGdkRenderer *renderer = DIA_GDK_RENDERER (self);
+  gint r = dia_transform_length(renderer->transform, radius);
+
+  if (r > 0)
+    draw_fill_rounded_rect (self, ul_corner, lr_corner, color, radius, TRUE);
+  else
+    fill_rect (self, ul_corner, lr_corner, color);
 }
 
 static void

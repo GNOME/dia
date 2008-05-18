@@ -799,11 +799,19 @@ _rounded_rect (DiaRenderer *self,
                gboolean fill)
 {
   DiaCairoRenderer *renderer = DIA_CAIRO_RENDERER (self);
-  real r2;
+  double rv[2];
 
   radius = MIN(radius, (bottomright->x - topleft->x)/2);
   radius = MIN(radius, (bottomright->y - topleft->y)/2);
-  r2 = radius/2;
+  
+  /* ignore radius if it is smaller than the device unit, avoids anti-aliasing artifacts */
+  rv[0] = radius;
+  rv[1] = 0.0;
+  cairo_user_to_device_distance (renderer->cr, &rv[0], &rv[1]);
+  if (rv[0] < 1.0 && rv[1] < 1.0) {
+    _rect (self, topleft, bottomright, color, fill);
+    return;  
+  }
 
   DIAG_NOTE(g_message("%s_rounded_rect %f,%f -> %f,%f, %f", 
             fill ? "fill" : "draw",

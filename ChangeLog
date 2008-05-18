@@ -1,4 +1,9 @@
-2008-05-19  Hans Breuer  <hans@breuer.org>
+2008-05-18  Hans Breuer  <hans@breuer.org>
+
+	* lib/diagdkrenderer.c lib/diarenderer.c
+	  plug-ins/cairo/diacairo-renderer.c (*_rounded_rect) : fall back to
+	(draw|fill}_rect if the radius is so small (smaller than one device 
+	unit) it will only produce artifacts. Fixes bug #446854
 
 	[finally use dia_object_get_enclosing_box() to ... ]
 	* app/commands.c : ... have bezier control points in field of view 
