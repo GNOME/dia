@@ -1,5 +1,15 @@
 2008-05-18  Steffen Macke <sdteffen@sdteffen.de>
 
+	* SISSI/lecteur_badge_clavier_icon.png:
+	* SISSI/detecteur_alimentation_icon.png:
+	* SISSI/ventilateur_centrifuge_icon.png:
+	* SISSI/detecteur_courant_icon.png:
+	* SISSI/detecteur_tension_icon.png:
+	* SISSI/detecteur_humidite_icon.png:
+	* SISSI/detecteur_qualite_air_icon.png:
+	* SISSI/detecteur_pression_icon.png:
+	* SISSI/detecteur_lumiere_icon.png:
+	* SISSI.sheet.in: Standard icon size 22x22
 	* app/disp_callbacks.c: Return NULL from ddisplay_drop_object() if
 	no object could be created instead of segfaulting; fixes bug #533679
 

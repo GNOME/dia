@@ -133,11 +133,11 @@
     </object>
    <object name="SISSI - sissi_object" intdata="33">
       <_description>Power transducer</_description>
-      <icon>SISSI/detecteur_alimentation.png</icon>
+      <icon>SISSI/detecteur_alimentation_icon.png</icon>
     </object>
    <object name="SISSI - sissi_object" intdata="34">
       <_description>Current transducer</_description>
-      <icon>SISSI/detecteur_courant.png</icon>
+      <icon>SISSI/detecteur_courant_icon.png</icon>
     </object>
    <object name="SISSI - sissi_object" intdata="35">
       <_description>Enthalpy transducer</_description>
@@ -149,11 +149,11 @@
     </object>
    <object name="SISSI - sissi_object" intdata="37">
       <_description>Moisture sensor</_description>
-      <icon>SISSI/detecteur_humidite.png</icon>
+      <icon>SISSI/detecteur_humidite_icon.png</icon>
     </object>
    <object name="SISSI - sissi_object" intdata="38">
       <_description>Light detector</_description>
-      <icon>SISSI/detecteur_lumiere.png</icon>
+      <icon>SISSI/detecteur_lumiere_icon.png</icon>
     </object>
    <object name="SISSI - sissi_object" intdata="39">
       <_description>Movement detector</_description>
@@ -169,15 +169,15 @@
     </object>
    <object name="SISSI - sissi_object" intdata="42">
       <_description>Pressure transducer</_description>
-      <icon>SISSI/detecteur_pression.png</icon>
+      <icon>SISSI/detecteur_pression_icon.png</icon>
     </object>
    <object name="SISSI - sissi_object" intdata="43">
       <_description>Air quality detector</_description>
-      <icon>SISSI/detecteur_qualite_air.png</icon>
+      <icon>SISSI/detecteur_qualite_air_icon.png</icon>
     </object>
    <object name="SISSI - sissi_object" intdata="44">
       <_description>Voltage detector</_description>
-      <icon>SISSI/detecteur_tension.png</icon>
+      <icon>SISSI/detecteur_tension_icon.png</icon>
     </object>
    <object name="SISSI - sissi_object" intdata="45">
       <_description>Vehicle detector</_description>
@@ -201,7 +201,7 @@
     </object>
    <object name="SISSI - sissi_object" intdata="51">
       <_description>Badge reader/keyboard</_description>
-      <icon>SISSI/lecteur_badge_clavier.png</icon>
+      <icon>SISSI/lecteur_badge_clavier_icon.png</icon>
     </object>
    <object name="SISSI - sissi_object" intdata="52">
       <_description>Badge reader</_description>
@@ -229,7 +229,7 @@
     </object>
    <object name="SISSI - sissi_object" intdata="58">
       <_description>Centrifugal Ventilator</_description>
-      <icon>SISSI/ventilateur_centrifuge.png</icon>
+      <icon>SISSI/ventilateur_centrifuge_icon.png</icon>
     </object>
    <object name="SISSI - sissi_object" intdata="59">
       <_description>Ventilator</_description>
