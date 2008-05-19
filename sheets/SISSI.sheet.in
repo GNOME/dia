@@ -209,23 +209,23 @@
     </object>
    <object name="SISSI - sissi_object" intdata="53">
       <_description>Biometric reader</_description>
-      <icon>SISSI/lecteur_biometrique.png</icon>
+      <icon>SISSI/lecteur_biometrique_icon.png</icon>
     </object>
    <object name="SISSI - sissi_object" intdata="54">
       <_description>Pump</_description>
-      <icon>SISSI/pompe.png</icon>7
+      <icon>SISSI/pompe_icon.png</icon>7
     </object>
    <object name="SISSI - sissi_object" intdata="55">
       <_description>Circulation pump</_description>
-      <icon>SISSI/pompe_rotative.png</icon>
+      <icon>SISSI/pompe_rotative_icon.png</icon>
     </object>
    <object name="SISSI - sissi_object" intdata="56">
       <_description>Revolving door</_description>
-      <icon>SISSI/porte_tambour.png</icon>
+      <icon>SISSI/porte_tambour_icon.png</icon>
     </object>
    <object name="SISSI - sissi_object" intdata="57">
       <_description>Axial Ventilator</_description>
-      <icon>SISSI/ventilateur_axial.png</icon>
+      <icon>SISSI/ventilateur_axial_icon.png</icon>
     </object>
    <object name="SISSI - sissi_object" intdata="58">
       <_description>Centrifugal Ventilator</_description>

@@ -1,3 +1,12 @@
+2008-05-19  Steffen Macke <sdteffen@sdteffen.de>
+
+	* sheets/SISSI/pompe_icon.png:
+	* sheets/SISSI/pompe_rotative_icon.png:
+	* sheets/SISSI/lecteur_biometrique_icon.png:
+	* sheets/SISSI/ventilateur_axial_icon.png:
+	* sheets/SISSI/porte_tambour_icon.png:
+	* sheets/SISSI.sheet.in: Standard icon size 22x22
+
 2008-05-18  Steffen Macke <sdteffen@sdteffen.de>
 
 	* sheets/SISSI/extincteur_icon.png:
