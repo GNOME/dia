@@ -1,3 +1,10 @@
+2008-05-21  Steffen Macke <sdteffen@sdteffen.de>
+
+	* sheets/SISSI/digi_code_icon.png:
+	* sheets/SISSI/filtre_air_icon.png:
+	* sheets/SISSI/lecteur_badge_icon.png:
+	* sheets/SISSI.sheet.in: Standard icon size 22x22
+
 2008-05-19  Steffen Macke <sdteffen@sdteffen.de>
 
 	* sheets/SISSI/pompe_icon.png:

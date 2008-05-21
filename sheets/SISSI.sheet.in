@@ -189,7 +189,7 @@
     </object>
    <object name="SISSI - sissi_object" intdata="47">
       <_description>Digital code</_description>
-      <icon>SISSI/digi_code.png</icon>
+      <icon>SISSI/digi_code_icon.png</icon>
     </object>
    <object name="SISSI - sissi_object" intdata="48">
       <_description>Moisture extractor</_description>
@@ -197,7 +197,7 @@
     </object>
    <object name="SISSI - sissi_object" intdata="50">
       <_description>Air filter</_description>
-      <icon>SISSI/filtre_air.png</icon>
+      <icon>SISSI/filtre_air_icon.png</icon>
     </object>
    <object name="SISSI - sissi_object" intdata="51">
       <_description>Badge reader/keyboard</_description>
@@ -205,7 +205,7 @@
     </object>
    <object name="SISSI - sissi_object" intdata="52">
       <_description>Badge reader</_description>
-      <icon>SISSI/lecteur_badge.png</icon>
+      <icon>SISSI/lecteur_badge_icon.png</icon>
     </object>
    <object name="SISSI - sissi_object" intdata="53">
       <_description>Biometric reader</_description>
