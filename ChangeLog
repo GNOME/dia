@@ -1,3 +1,12 @@
+2008-05-22  Steffen Macke <sdteffen@sdteffen.de>
+
+	* sheets/SISSI/46.xml: Fixed XML problem that prevented the object 
+	from being used
+	* sheets/SISSI/detecteur_vibration_icon.png:
+	* sheets/SISSI/detecteur_mouvement_video_icon.png:
+	* sheets/SISSI/detecteur_vehicule_icon.png:
+	* sheets/SISSI.sheet.in: Standard icon size 22x22
+
 2008-05-21  Steffen Macke <sdteffen@sdteffen.de>
 
 	* sheets/SISSI/digi_code_icon.png:

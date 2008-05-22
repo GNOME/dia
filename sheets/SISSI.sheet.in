@@ -161,7 +161,7 @@
     </object>
    <object name="SISSI - sissi_object" intdata="40">
       <_description>Video movement detector</_description>
-      <icon>SISSI/detecteur_mouvement_video.png</icon>
+      <icon>SISSI/detecteur_mouvement_video_icon.png</icon>
     </object>
    <object name="SISSI - sissi_object" intdata="41">
       <_description>Level detector</_description>
@@ -181,11 +181,11 @@
     </object>
    <object name="SISSI - sissi_object" intdata="45">
       <_description>Vehicle detector</_description>
-      <icon>SISSI/detecteur_vehicule.png</icon>
+      <icon>SISSI/detecteur_vehicule_icon.png</icon>
     </object>
    <object name="SISSI - sissi_object" intdata="46">
       <_description>Vibration sensor</_description>
-      <icon>SISSI/detecteur_vibration.png</icon>
+      <icon>SISSI/detecteur_vibration_icon.png</icon>
     </object>
    <object name="SISSI - sissi_object" intdata="47">
       <_description>Digital code</_description>
