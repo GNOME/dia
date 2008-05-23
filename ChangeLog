@@ -1,3 +1,13 @@
+2008-05-23  Steffen Macke <sdteffen@sdteffen.de>
+
+	* sheets/SISSI/capteur_brise_glace_icon.png:
+	* sheets/SISSI/detecteur_fumee_icon.png:
+	* sheets/SISSI/capteur_faisceau_icon.png:
+	* sheets/SISSI/detecteur_enthalpie_icon.png:
+	* sheets/SISSI/condensateur_icon.png:
+	* sheets/SISSI/detecteur_mouvement_icon.png:
+	* sheets/SISSI.sheet.in: Standard icon size 22x22
+
 2008-05-22  Steffen Macke <sdteffen@sdteffen.de>
 
 	* sheets/SISSI/46.xml: Fixed XML problem that prevented the object 

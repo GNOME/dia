@@ -121,15 +121,15 @@
     </object>
    <object name="SISSI - sissi_object" intdata="30">
       <_description>Glass-break sensor</_description>
-      <icon>SISSI/capteur_brise_glace.png</icon>
+      <icon>SISSI/capteur_brise_glace_icon.png</icon>
     </object>
    <object name="SISSI - sissi_object" intdata="31">
       <_description>Sensor beam</_description>
-      <icon>SISSI/capteur_faisceau.png</icon>
+      <icon>SISSI/capteur_faisceau_icon.png</icon>
     </object>
    <object name="SISSI - sissi_object" intdata="32">
       <_description>Condensator</_description>
-      <icon>SISSI/condensateur.png</icon>
+      <icon>SISSI/condensateur_icon.png</icon>
     </object>
    <object name="SISSI - sissi_object" intdata="33">
       <_description>Power transducer</_description>
@@ -141,11 +141,11 @@
     </object>
    <object name="SISSI - sissi_object" intdata="35">
       <_description>Enthalpy transducer</_description>
-      <icon>SISSI/detecteur_enthalpie.png</icon>
+      <icon>SISSI/detecteur_enthalpie_icon.png</icon>
     </object>
    <object name="SISSI - sissi_object" intdata="36">
       <_description>Smoke detector</_description>
-      <icon>SISSI/detecteur_fumee.png</icon>
+      <icon>SISSI/detecteur_fumee_icon.png</icon>
     </object>
    <object name="SISSI - sissi_object" intdata="37">
       <_description>Moisture sensor</_description>
@@ -157,7 +157,7 @@
     </object>
    <object name="SISSI - sissi_object" intdata="39">
       <_description>Movement detector</_description>
-      <icon>SISSI/detecteur_mouvement.png</icon>
+      <icon>SISSI/detecteur_mouvement_icon.png</icon>
     </object>
    <object name="SISSI - sissi_object" intdata="40">
       <_description>Video movement detector</_description>
