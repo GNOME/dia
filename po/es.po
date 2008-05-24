@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-05-10 12:12+0000\n"
-"PO-Revision-Date: 2008-05-11 12:43+0200\n"
+"POT-Creation-Date: 2008-05-11 13:19+0000\n"
+"PO-Revision-Date: 2008-05-24 12:01+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -25,83 +25,83 @@ msgstr ""
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 
 #. This is not an errror
-#: ../app/app_procs.c:240
+#: ../app/app_procs.c:239
 #, c-format
 msgid "Warning: invalid layer range %lu - %lu\n"
 msgstr "Atención: rango de capa inválido %lu - %lu\n"
 
-#: ../app/app_procs.c:252
+#: ../app/app_procs.c:251
 #, c-format
 msgid "Warning: Layer %lu (%s) selected more than once.\n"
 msgstr "Atención: Capa %lu (%s) seleccionada más de una vez.\n"
 
-#: ../app/app_procs.c:278
+#: ../app/app_procs.c:277
 #, c-format
 msgid "Warning: Layer %d (%s) selected more than once.\n"
 msgstr "Atención: Capa %d (%s) seleccionada más de una vez.\n"
 
-#: ../app/app_procs.c:287
+#: ../app/app_procs.c:286
 #, c-format
 msgid "Warning: There is no layer named %s\n"
 msgstr "Atención: No hay ninguna capa llamada %s\n"
 
-#: ../app/app_procs.c:369
+#: ../app/app_procs.c:368
 #, c-format
 msgid "%s error: don't know how to export into %s\n"
 msgstr "%s error: no se sabe cómo exportar a %s\n"
 
-#: ../app/app_procs.c:378
+#: ../app/app_procs.c:377
 #, c-format
 msgid "%s error: input and output file name is identical: %s"
 msgstr "%s error: el nombre de los ficheros de entrada y salida es idéntico: %s"
 
-#: ../app/app_procs.c:386
+#: ../app/app_procs.c:385
 #, c-format
 msgid "%s error: need valid input file %s\n"
 msgstr "%s error: se necesita un archivo de entrada válido %s\n"
 
 #. if (!quiet)
-#: ../app/app_procs.c:411
+#: ../app/app_procs.c:410
 #, c-format
 msgid "%s --> %s\n"
 msgstr "%s --> %s\n"
 
-#: ../app/app_procs.c:572
+#: ../app/app_procs.c:571
 #, c-format
 msgid "Can't find output format/filter %s\n"
 msgstr "No se pudo encontrar el formato/filtro de salida %s\n"
 
 #. Translators:  The argument is a list of options, not to be translated
-#: ../app/app_procs.c:664
+#: ../app/app_procs.c:663
 #, c-format
 msgid "Select the filter/format out of: %s"
 msgstr "Seleccione el filtro/formato de salida de: %s"
 
 #. &export_file_name
-#: ../app/app_procs.c:682
+#: ../app/app_procs.c:681
 msgid "Export loaded file and exit"
 msgstr "Exportar archivo cargado y salir"
 
-#: ../app/app_procs.c:682
+#: ../app/app_procs.c:681
 msgid "OUTPUT"
 msgstr "SALIDA"
 
 # Supongo que también hay que traducir "TYPE", ¿no? RizOX.
 #. &export_file_format
 #. &export_format_string
-#: ../app/app_procs.c:684
+#: ../app/app_procs.c:683
 msgid "TYPE"
 msgstr "TIPO"
 
-#: ../app/app_procs.c:686
+#: ../app/app_procs.c:685
 msgid "Export graphics size"
 msgstr "Tamaño del gráfico exportado"
 
-#: ../app/app_procs.c:686
+#: ../app/app_procs.c:685
 msgid "WxH"
 msgstr "AnchoxAlto"
 
-#: ../app/app_procs.c:688
+#: ../app/app_procs.c:687
 msgid ""
 "Show only specified layers (e.g. when exporting). Can be either the layer "
 "name or a range of layer numbers (X-Y)"
@@ -109,68 +109,68 @@ msgstr ""
 "mostrar sólo las capas especificadas (ej: al exportar). Puede ser o el "
 "nombre de capa o un rango de números de capas (X-Y)"
 
-#: ../app/app_procs.c:689
+#: ../app/app_procs.c:688
 msgid "LAYER,LAYER,..."
-msgstr "CAPA,CAPA..."
+msgstr "CAPA,CAPA…"
 
-#: ../app/app_procs.c:691
+#: ../app/app_procs.c:690
 msgid "Don't show the splash screen"
 msgstr "No mostrar la pantalla de bienvenida"
 
-#: ../app/app_procs.c:693
+#: ../app/app_procs.c:692
 msgid "Don't create empty diagram"
 msgstr "No crear un diagrama vacío"
 
-#: ../app/app_procs.c:695
+#: ../app/app_procs.c:694
 msgid "Send error messages to stderr instead of showing dialogs."
 msgstr "Enviar los mensajes de error a stderr en vez de mostrar diálogos."
 
-#: ../app/app_procs.c:697
+#: ../app/app_procs.c:696
 msgid "Display credits list and exit"
 msgstr "Mostrar la lista de créditos y salir"
 
-#: ../app/app_procs.c:699
+#: ../app/app_procs.c:698
 msgid "Generate verbose output"
 msgstr "Generar salida detallada"
 
-#: ../app/app_procs.c:701
+#: ../app/app_procs.c:700
 msgid "Display version and exit"
 msgstr "Mostrar la versión y salir"
 
-#: ../app/app_procs.c:750
+#: ../app/app_procs.c:749
 msgid "Can't connect to session manager!\n"
 msgstr "¡No se puede conectar con el gestor de sesiones!\n"
 
 #. TRANSLATOR: 2nd and 3rd %s are time and date respectively.
-#: ../app/app_procs.c:790
+#: ../app/app_procs.c:789
 #, c-format
 msgid "Dia version %s, compiled %s %s\n"
 msgstr "Versión %s de Dia, compilada %s %s\n"
 
-#: ../app/app_procs.c:792
+#: ../app/app_procs.c:791
 #, c-format
 msgid "Dia version %s\n"
 msgstr "Versión %s de Dia\n"
 
 # Como adjetivo creo que el plural es "estándar". FVD
-#: ../app/app_procs.c:849
+#: ../app/app_procs.c:848
 msgid "Couldn't find standard objects when looking for object-libs; exiting...\n"
-msgstr "No se encontraron objetos estándar en object-libs, saliendo...\n"
+msgstr "No se encontraron objetos estándar en object-libs, saliendo…\n"
 
 # Como adjetivo creo que el plural es "estándar". FVD
-#: ../app/app_procs.c:851
+#: ../app/app_procs.c:850
 #, c-format
 msgid ""
 "Couldn't find standard objects when looking for object-libs in '%s'; "
 "exiting...\n"
-msgstr "No se encontraron objetos estándar en object-libs en «%s»; saliendo...\n"
+msgstr "No se encontraron objetos estándar en object-libs en «%s»; saliendo…\n"
 
-#: ../app/app_procs.c:909
+#: ../app/app_procs.c:908
 msgid "Diagram1.dia"
 msgstr "Diagrama1.dia"
 
 # Me parece más correcta y explicativa esta traducción aunque sea algo más larga. RizOX.
-#: ../app/app_procs.c:952
+#: ../app/app_procs.c:951
 msgid ""
 "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you can cause this message to appear.\n"
@@ -179,16 +179,16 @@ msgstr ""
 "gnome.org\n"
 "describiendo cómo conseguir que este mensaje vuelva a aparecer.\n"
 
-#: ../app/app_procs.c:967
+#: ../app/app_procs.c:966
 msgid "Exiting Dia"
 msgstr "Salir de Dia"
 
 #. no standard buttons
-#: ../app/app_procs.c:1019
+#: ../app/app_procs.c:1018
 msgid "Quitting without saving modified diagrams"
 msgstr "¿Salir sin guardar los diagramas modificados?"
 
-#: ../app/app_procs.c:1021
+#: ../app/app_procs.c:1020
 msgid ""
 "Modified diagrams exist. Are you sure you want to quit Dia without saving "
 "them?"
@@ -196,15 +196,15 @@ msgstr ""
 "Hay diagramas modificados. ¿Está seguro de que desea salir de Dia\n"
 "sin guardarlos?"
 
-#: ../app/app_procs.c:1025
+#: ../app/app_procs.c:1024
 msgid "Quit Dia"
 msgstr "Salir de Dia"
 
-#: ../app/app_procs.c:1094 ../app/app_procs.c:1101
+#: ../app/app_procs.c:1093 ../app/app_procs.c:1100
 msgid "Could not create per-user Dia config directory"
 msgstr "No se pudo crear el directorio de configuración de Dia para el usuario"
 
-#: ../app/app_procs.c:1104
+#: ../app/app_procs.c:1103
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -213,20 +213,20 @@ msgstr ""
 "favor, asegúrese de que la variable de entorno HOME apunta a un directorio "
 "existente."
 
-#: ../app/app_procs.c:1127
+#: ../app/app_procs.c:1126
 msgid "Objects and filters internal to dia"
 msgstr "Objetos y filtros internos para dia"
 
-#: ../app/app_procs.c:1169
+#: ../app/app_procs.c:1162
 msgid "[FILE...]"
-msgstr "[ARCHIVO...]"
+msgstr "[ARCHIVO…]"
 
-#: ../app/app_procs.c:1190
+#: ../app/app_procs.c:1183
 #, c-format
 msgid "'%s' not found!\n"
 msgstr "«%s» no encontrado\n"
 
-#: ../app/app_procs.c:1234
+#: ../app/app_procs.c:1227
 #, c-format
 msgid ""
 "The original author of Dia was:\n"
@@ -235,7 +235,7 @@ msgstr ""
 "El autor original de Dia fue:\n"
 "\n"
 
-#: ../app/app_procs.c:1239
+#: ../app/app_procs.c:1232
 #, c-format
 msgid ""
 "\n"
@@ -246,7 +246,7 @@ msgstr ""
 "Los actuales mantenedores de Dia son:\n"
 "\n"
 
-#: ../app/app_procs.c:1244
+#: ../app/app_procs.c:1237
 #, c-format
 msgid ""
 "\n"
@@ -257,7 +257,7 @@ msgstr ""
 "Otros autores son:\n"
 "\n"
 
-#: ../app/app_procs.c:1249
+#: ../app/app_procs.c:1242
 #, c-format
 msgid ""
 "\n"
@@ -452,16 +452,16 @@ msgstr "Posición Y"
 msgid "Y position of child widget"
 msgstr "Posición Y del widget hijo"
 
-#: ../app/diagram.c:223
+#: ../app/diagram.c:222
 #, c-format
 msgid "Couldn't convert filename '%s' to UTF-8: %s\n"
 msgstr "No se pudo convertir el nombre de archivo «%s» a UTF-8: %s\n"
 
-#: ../app/diagram.c:226 ../lib/message.c:89 ../lib/message.c:292
+#: ../app/diagram.c:225 ../lib/message.c:89 ../lib/message.c:292
 msgid "Error"
 msgstr "Error"
 
-#: ../app/diagram.c:275
+#: ../app/diagram.c:274
 msgid ""
 "You have loaded a non-Dia file.  The file has become an element in a new "
 "diagram, and if you save it, it will be saved as a Dia diagram."
@@ -470,11 +470,11 @@ msgstr ""
 "en un elemento en un diagrama nuevo y si lo guarda, se guardará como un "
 "diagrama de Dia."
 
-#: ../app/diagram.c:1180
+#: ../app/diagram.c:1179
 msgid "Trying to group with no selected objects."
 msgstr "Intentando agrupar sin objetos seleccionados."
 
-#: ../app/diagram.c:1190
+#: ../app/diagram.c:1189
 msgid ""
 "You cannot group objects that belong to different groups or have different "
 "parents"
@@ -570,7 +570,7 @@ msgstr "Árbol del diagrama"
 msgid "Ok"
 msgstr "Aceptar"
 
-#: ../app/dialogs.c:52 ../app/paginate_psprint.c:324
+#: ../app/dialogs.c:52 ../plug-ins/postscript/paginate_psprint.c:322
 msgid "Cancel"
 msgstr "Cancelar"
 
@@ -641,7 +641,7 @@ msgstr ""
 
 #: ../app/disp_callbacks.c:119
 msgid "Properties..."
-msgstr "Propiedades..."
+msgstr "Propiedades…"
 
 #: ../app/disp_callbacks.c:937
 msgid ""
@@ -743,11 +743,11 @@ msgstr "No seleccionar ninguno"
 msgid "Nothing selected for saving.  Would you like to try again?"
 msgstr "No se seleccionó nada para guardar. ¿Quiere intentarlo otra vez?"
 
-#: ../app/export_png.c:138 ../app/load_save.c:1022 ../app/render_eps.c:105
+#: ../app/export_png.c:138 ../app/load_save.c:1022
 #: ../plug-ins/cairo/diacairo.c:122 ../plug-ins/cgm/cgm.c:1153
 #: ../plug-ins/dxf/dxf-export.c:547 ../plug-ins/hpgl/hpgl.c:710
 #: ../plug-ins/metapost/render_metapost.c:1177
-#: ../plug-ins/pgf/render_pgf.c:1208
+#: ../plug-ins/pgf/render_pgf.c:1208 ../plug-ins/postscript/render_eps.c:105
 #: ../plug-ins/pstricks/render_pstricks.c:916
 #: ../plug-ins/shape/shape-export.c:136 ../plug-ins/svg/render_svg.c:188
 #: ../plug-ins/vdx/vdx-export.c:1849 ../plug-ins/wpg/wpg.c:1072
@@ -793,7 +793,7 @@ msgid "PNG (anti-aliased)"
 msgstr "PNG (con antialiasing)"
 
 #: ../app/filedlg.c:141 ../app/filedlg.c:149 ../app/filedlg.c:165
-#: ../app/filedlg.c:732 ../lib/widgets.c:1456
+#: ../app/filedlg.c:732 ../lib/widgets.c:1459
 msgid "Supported Formats"
 msgstr "Formatos soportados"
 
@@ -813,11 +813,11 @@ msgstr "Abrir opciones"
 msgid "Determine file type:"
 msgstr "Determinar tipo de archivo:"
 
-#: ../app/filedlg.c:335 ../app/filedlg.c:727 ../lib/widgets.c:1461
+#: ../app/filedlg.c:335 ../app/filedlg.c:727 ../lib/widgets.c:1464
 msgid "All Files"
 msgstr "Todos los archivos"
 
-#: ../app/filedlg.c:368 ../app/paginate_psprint.c:410
+#: ../app/filedlg.c:368 ../plug-ins/postscript/paginate_psprint.c:409
 msgid ""
 "Some characters in the filename are neither UTF-8\n"
 "nor your local encoding.\n"
@@ -827,11 +827,13 @@ msgstr ""
 " ni en su codificación local.\n"
 "Algunas cosas no funcionarán."
 
-#: ../app/filedlg.c:378 ../app/filedlg.c:639 ../app/paginate_psprint.c:425
+#: ../app/filedlg.c:378 ../app/filedlg.c:639
+#: ../plug-ins/postscript/paginate_psprint.c:424
 msgid "File already exists"
 msgstr "El archivo ya existe"
 
-#: ../app/filedlg.c:380 ../app/filedlg.c:641 ../app/paginate_psprint.c:417
+#: ../app/filedlg.c:380 ../app/filedlg.c:641
+#: ../plug-ins/postscript/paginate_psprint.c:416
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
@@ -1037,7 +1039,7 @@ msgid ""
 "arrow parameters with Details..."
 msgstr ""
 "Estilo de flecha al principio de las líneas nuevas. Pulse para escoger una "
-"flecha o establezca los parámetros de la flecha en Detalles..."
+"flecha o establezca los parámetros de la flecha en Detalles…"
 
 # La coma antes del "o" no queda bien en la frase en español. Añadido el doble espacio del comienzo de frase según original en inglés. RizOX.
 #: ../app/interface.c:1546
@@ -1046,7 +1048,7 @@ msgid ""
 "parameters with Details..."
 msgstr ""
 "Estilo de línea para las líneas nuevas.  Pulse para escoger un estilo de "
-"línea o establezca los parámetros de estilo de línea en Detalles..."
+"línea o establezca los parámetros de estilo de línea en Detalles…"
 
 # La coma antes del "o" no queda bien en la frase en español. Añadido el doble espacio del comienzo de frase según original en inglés. Cambiado "con Detalles" por "en Detalles" para mantener la coherencia con la traducción de las anteriores entradas. RizOX.
 #: ../app/interface.c:1562
@@ -1055,7 +1057,7 @@ msgid ""
 "parameters with Details..."
 msgstr ""
 "Estilo de flecha al final de las líneas nuevas.  Pulse para escoger una "
-"flecha o establezca los parámetros de la flecha en Detalles..."
+"flecha o establezca los parámetros de la flecha en Detalles…"
 
 #: ../app/interface.c:1606 ../app/interface.c:1730
 msgid "Diagram Editor"
@@ -1599,42 +1601,6 @@ msgstr "Conmuta el ajuste del objeto."
 msgid "Couldn't get GTK settings"
 msgstr "No se pudieron obtener las preferencias de GTK"
 
-#: ../app/paginate_psprint.c:275
-msgid "Select Printer"
-msgstr "Seleccionar impresora"
-
-#: ../app/paginate_psprint.c:287 ../sheets/ciscocomputer.sheet.in.h:36
-msgid "Printer"
-msgstr "Impresora"
-
-#: ../app/paginate_psprint.c:301 ../sheets/Misc.sheet.in.h:1
-msgid "File"
-msgstr "Archivo"
-
-#: ../app/paginate_psprint.c:316
-msgid "OK"
-msgstr "Aceptar"
-
-#: ../app/paginate_psprint.c:462
-#, c-format
-msgid "Could not run command '%s': %s"
-msgstr "No se pudo ejecutar el comando «%s»: %s"
-
-#: ../app/paginate_psprint.c:465
-#, c-format
-msgid "Could not open '%s' for writing: %s"
-msgstr "No se pudo abrir «%s» para escritura: %s"
-
-#: ../app/paginate_psprint.c:487
-#, c-format
-msgid "Printing error: command '%s' returned %d\n"
-msgstr "Error de impresión: el comando «%s» devolvió %d\n"
-
-#: ../app/paginate_psprint.c:498
-#, c-format
-msgid "Printing error: command '%s' caused sigpipe."
-msgstr "Error de impresión: el comando «%s» causó un sigpipe."
-
 #: ../app/plugin-manager.c:200
 msgid "Plug-ins"
 msgstr "Complementos"
@@ -1843,19 +1809,6 @@ msgstr "Propiedades: "
 msgid "Object properties:"
 msgstr "Propiedades del objeto:"
 
-#: ../app/render_eps.c:150
-msgid "Encapsulated Postscript (using Pango fonts)"
-msgstr "PostScript encapsulado (usando tipografía Pango)"
-
-# Faltaba por traducir "with preview". RizOX.
-#: ../app/render_eps.c:159
-msgid "Encapsulated Postscript with preview (using Pango fonts)"
-msgstr "PostScript encapsulado con vista previa (usando tipografía Pango)"
-
-#: ../app/render_eps.c:169
-msgid "Encapsulated Postscript (using PostScript Latin-1 fonts)"
-msgstr "PostScript encapsulado (usando tipografía PostScript Latin-1)"
-
 #: ../app/sheets.c:156
 #, c-format
 msgid ""
@@ -1943,7 +1896,7 @@ msgstr "Tipo"
 
 #: ../app/sheets_dialog.c:377
 msgid "Browse..."
-msgstr "Navegar..."
+msgstr "Navegar…"
 
 # Mantengo la traducción anterior de "Shape" como "Forma" en vez de "Figura". RizOX.
 #: ../app/sheets_dialog.c:386
@@ -2115,7 +2068,7 @@ msgstr "añadir formas aquí"
 
 #: ../app/splash.c:56
 msgid "Loading ..."
-msgstr "Cargando ..."
+msgstr "Cargando …"
 
 #: ../app/splash.c:74
 #, c-format
@@ -2300,7 +2253,7 @@ msgstr "No se pudo encontrar el objeto estándar"
 #: ../lib/dia_dirs.c:237
 #, c-format
 msgid "%s<illegal characters>..."
-msgstr "%s<caracteres ilegales>..."
+msgstr "%s<caracteres ilegales>…"
 
 #: ../lib/dia_dirs.c:268
 #, c-format
@@ -2405,7 +2358,7 @@ msgstr "Propiedades de estilo de la línea"
 
 #: ../lib/dialinechooser.c:333
 msgid "Details..."
-msgstr "Detalles..."
+msgstr "Detalles…"
 
 #: ../lib/filter.c:137
 #, c-format
@@ -2500,16 +2453,16 @@ msgstr ""
 msgid "Group with %d objects"
 msgstr "Grupo con %d objetos"
 
-#: ../lib/properties.c:64 ../lib/properties.h:469 ../lib/widgets.c:692
+#: ../lib/properties.c:64 ../lib/properties.h:469 ../lib/widgets.c:695
 msgid "Left"
 msgstr "Izquierda"
 
-#: ../lib/properties.c:65 ../lib/properties.h:470 ../lib/widgets.c:698
+#: ../lib/properties.c:65 ../lib/properties.h:470 ../lib/widgets.c:701
 #: ../objects/standard/textobj.c:135
 msgid "Center"
 msgstr "Centro"
 
-#: ../lib/properties.c:66 ../lib/properties.h:471 ../lib/widgets.c:704
+#: ../lib/properties.c:66 ../lib/properties.h:471 ../lib/widgets.c:707
 msgid "Right"
 msgstr "Derecha"
 
@@ -2572,68 +2525,68 @@ msgstr "Color de texto"
 msgid "No attribute '%s' (%p) or no data(%p) in this attribute"
 msgstr "No hay ningún atributo «%s» (%p) o no hay datos (%p) en este atributo"
 
-#: ../lib/widgets.c:409
+#: ../lib/widgets.c:412
 msgid "Other fonts"
 msgstr "Otras tipografías"
 
-#: ../lib/widgets.c:481
+#: ../lib/widgets.c:484
 #, c-format
 msgid "Couldn't find font family for %s\n"
 msgstr "No se pudo encontrar la familia de tipografías para %s\n"
 
 #. Translators: Menu item Noun/Material/Solid
-#: ../lib/widgets.c:864 ../objects/FS/function.c:1076
+#: ../lib/widgets.c:867 ../objects/FS/function.c:1076
 msgid "Solid"
 msgstr "Sólido"
 
-#: ../lib/widgets.c:870
+#: ../lib/widgets.c:873
 msgid "Dashed"
 msgstr "Discontinuo"
 
-#: ../lib/widgets.c:876
+#: ../lib/widgets.c:879
 msgid "Dash-Dot"
 msgstr "Línea-Punto"
 
-#: ../lib/widgets.c:882
+#: ../lib/widgets.c:885
 msgid "Dash-Dot-Dot"
 msgstr "Línea-Punto-Punto"
 
-#: ../lib/widgets.c:888
+#: ../lib/widgets.c:891
 msgid "Dotted"
 msgstr "Punteado"
 
 #. fs->sizebox = GTK_HBOX(box);
-#: ../lib/widgets.c:906
+#: ../lib/widgets.c:909
 msgid "Dash length: "
 msgstr "Longitud de la discontinuidad: "
 
-#: ../lib/widgets.c:1034
+#: ../lib/widgets.c:1037
 msgid "Select color"
 msgstr "Seleccione color"
 
-#: ../lib/widgets.c:1100
+#: ../lib/widgets.c:1103
 msgid "More colors..."
 msgstr "Más colores"
 
 # Corregido, no tenía sentido. RizOX.
-#: ../lib/widgets.c:1248
+#: ../lib/widgets.c:1251
 msgid "More arrows"
 msgstr "Más flechas"
 
-#: ../lib/widgets.c:1265
+#: ../lib/widgets.c:1268
 msgid "Size: "
 msgstr "Tamaño: "
 
-#: ../lib/widgets.c:1443
+#: ../lib/widgets.c:1446
 msgid "Select image file"
 msgstr "Seleccionar archivo de imagen"
 
-#: ../lib/widgets.c:1491
+#: ../lib/widgets.c:1494
 msgid "Browse"
 msgstr "Navegar"
 
 # Corregido. No tenía sentido. RizOX.
-#: ../lib/widgets.c:2044
+#: ../lib/widgets.c:2047
 msgid "Reset menu"
 msgstr "Restaurar menú"
 
@@ -3951,7 +3904,7 @@ msgid "Force"
 msgstr "Forzar"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Rotation
-#: ../objects/FS/function.c:1108 ../objects/standard/outline.c:200
+#: ../objects/FS/function.c:1108 ../objects/standard/outline.c:202
 msgid "Rotation"
 msgstr "Rotación"
 
@@ -5768,11 +5721,11 @@ msgstr "Punto de partida"
 msgid "End point"
 msgstr "Punto de llegada"
 
-#: ../objects/standard/outline.c:198
+#: ../objects/standard/outline.c:200
 msgid "Text content"
 msgstr "Contenido del texto"
 
-#: ../objects/standard/outline.c:200
+#: ../objects/standard/outline.c:202
 msgid "Angle to rotate the outline"
 msgstr "Ángulo para rotar el contorno"
 
@@ -5859,7 +5812,7 @@ msgstr "Portapapeles Cairo"
 
 #: ../plug-ins/cairo/diacairo.c:395
 msgid "Print via Gtk+/cairo ..."
-msgstr "Imprimir a través de Gtk+/cairo..."
+msgstr "Imprimir a través de Gtk+/cairo…"
 
 #: ../plug-ins/cairo/diacairo.c:440
 msgid "Cairo based Rendering"
@@ -5984,6 +5937,64 @@ msgstr ""
 #: ../plug-ins/pixbuf/pixbuf.c:199
 msgid "gdk-pixbuf based bitmap export/import"
 msgstr "exportación/importación de mapa de bits basada en gdk-pixbuf"
+
+#: ../plug-ins/postscript/paginate_psprint.c:273
+msgid "Select Printer"
+msgstr "Seleccionar impresora"
+
+#: ../plug-ins/postscript/paginate_psprint.c:285
+#: ../sheets/ciscocomputer.sheet.in.h:36
+msgid "Printer"
+msgstr "Impresora"
+
+#: ../plug-ins/postscript/paginate_psprint.c:299 ../sheets/Misc.sheet.in.h:1
+msgid "File"
+msgstr "Archivo"
+
+#: ../plug-ins/postscript/paginate_psprint.c:314
+msgid "OK"
+msgstr "Aceptar"
+
+#: ../plug-ins/postscript/paginate_psprint.c:464
+#, c-format
+msgid "Could not run command '%s': %s"
+msgstr "No se pudo ejecutar el comando «%s»: %s"
+
+#: ../plug-ins/postscript/paginate_psprint.c:467
+#, c-format
+msgid "Could not open '%s' for writing: %s"
+msgstr "No se pudo abrir «%s» para escritura: %s"
+
+#: ../plug-ins/postscript/paginate_psprint.c:489
+#, c-format
+msgid "Printing error: command '%s' returned %d\n"
+msgstr "Error de impresión: el comando «%s» devolvió %d\n"
+
+#: ../plug-ins/postscript/paginate_psprint.c:500
+#, c-format
+msgid "Printing error: command '%s' caused sigpipe."
+msgstr "Error de impresión: el comando «%s» causó un sigpipe."
+
+#: ../plug-ins/postscript/render_eps.c:150
+msgid "Encapsulated Postscript (using Pango fonts)"
+msgstr "PostScript encapsulado (usando tipografía Pango)"
+
+# Faltaba por traducir "with preview". RizOX.
+#: ../plug-ins/postscript/render_eps.c:159
+msgid "Encapsulated Postscript with preview (using Pango fonts)"
+msgstr "PostScript encapsulado con vista previa (usando tipografía Pango)"
+
+#: ../plug-ins/postscript/render_eps.c:169
+msgid "Encapsulated Postscript (using PostScript Latin-1 fonts)"
+msgstr "PostScript encapsulado (usando tipografía PostScript Latin-1)"
+
+#: ../plug-ins/postscript/postscript.c:43
+msgid "Print (PS)"
+msgstr "Imprimir (PS)"
+
+#: ../plug-ins/postscript/postscript.c:67
+msgid "Postscript Rendering"
+msgstr "Renderizado postscript"
 
 #: ../plug-ins/pstricks/pstricks.c:26
 msgid "TeX Pstricks export filter"
@@ -6113,29 +6124,31 @@ msgstr "No se puede escribir el objeto %u"
 msgid "Visio XML Format import and export filter"
 msgstr "Filtro de exportación e importación para el formato Visio XML"
 
-#: ../plug-ins/wmf/wmf.cpp:502
+#: ../plug-ins/wmf/wmf.cpp:504
 #, c-format
 msgid ""
 "Can not render unknown font:\n"
 "%s"
-msgstr ""
-"No se puede renderizar la tipografía desconocida: "
-"%s"
+msgstr "No se puede renderizar la tipografía desconocida: %s"
 
-#: ../plug-ins/wmf/wmf.cpp:1260
+#: ../plug-ins/wmf/wmf.cpp:1262
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
 msgstr "No se pudo abrir: «%s» para escritura.\n"
 
-#: ../plug-ins/wmf/wmf.cpp:1363
+#: ../plug-ins/wmf/wmf.cpp:1365
 msgid "Windows Meta File"
 msgstr "Meta-archivo de Windows (WMF)"
 
-#: ../plug-ins/wmf/wmf.cpp:1372
+#: ../plug-ins/wmf/wmf.cpp:1374
 msgid "Enhanced Meta File"
 msgstr "Meta-archivo mejorado"
 
-#: ../plug-ins/wmf/wmf.cpp:1387
+#: ../plug-ins/wmf/wmf.cpp:1393
+msgid "Print (GDI) ..."
+msgstr "Imprimir (GDI) …"
+
+#: ../plug-ins/wmf/wmf.cpp:1408
 msgid "WMF export filter"
 msgstr "Filtro de exportación de WMF"
 
