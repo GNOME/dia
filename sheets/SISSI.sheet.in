@@ -21,7 +21,7 @@
     </object>
    <object name="SISSI - sissi_object" intdata="5">
       <_description>PDA</_description>
-      <icon>SISSI/pda.png</icon>
+      <icon>SISSI/pda_icon.png</icon>
     </object>
    <object name="SISSI - sissi_object" intdata="6">
       <_description>Storage array</_description>
@@ -65,35 +65,35 @@
     </object>
      <object name="SISSI - sissi_object"  intdata="16">
       <_description>Person</_description>
-      <icon>SISSI/personne.xpm</icon>
+      <icon>SISSI/personne.png</icon>
      </object>
      <object name="SISSI - sissi_object" intdata="17">
       <_description>File cabinet</_description>
-      <icon>SISSI/meuble.xpm</icon>
+      <icon>SISSI/meuble.png</icon>
      </object>
      <object name="SISSI - sissi_object" intdata="18">
       <_description>Safe</_description>
-      <icon>SISSI/safe.png</icon>
+      <icon>SISSI/safe_icon.png</icon>
      </object>
        <object name="SISSI - sissi_object" intdata="19">
       <_description>Backup</_description>
-      <icon>SISSI/sauvegarde.xpm</icon>
+      <icon>SISSI/sauvegarde.png</icon>
       </object>
          <object name="SISSI - sissi_object" intdata="20">
       <_description>Software</_description>
-      <icon>SISSI/logiciel.xpm</icon>
+      <icon>SISSI/logiciel.png</icon>
       </object>
         <object name="SISSI - sissi_object" intdata="21">
       <_description>Log analysis</_description>
-      <icon>SISSI/analyse.xpm</icon>
+      <icon>SISSI/analyse.png</icon>
       </object>
         <object name="SISSI - sissi_object" intdata="22">
       <_description>Information system</_description>
-      <icon>SISSI/si.xpm</icon>
+      <icon>SISSI/si.png</icon>
       </object>
        <object name="SISSI - sissi_object" intdata="23">
       <_description>Information</_description>
-      <icon>SISSI/info.xpm</icon>
+      <icon>SISSI/info.png</icon>
       </object>
     <object name="SISSI - room" intdata="75">
       <_description>Room</_description>
@@ -113,11 +113,11 @@
     </object>
    <object name="SISSI - sissi_object" intdata="28">
       <_description>Gate</_description>
-      <icon>SISSI/barriere.png</icon>
+      <icon>SISSI/barriere_icon.png</icon>
     </object>
    <object name="SISSI - sissi_object" intdata="29">
       <_description>Video camera</_description>
-      <icon>SISSI/camera_interphone.png</icon>
+      <icon>SISSI/camera_interphone_icon.png</icon>
     </object>
    <object name="SISSI - sissi_object" intdata="30">
       <_description>Glass-break sensor</_description>

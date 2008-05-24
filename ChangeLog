@@ -1,3 +1,18 @@
+2008-05-24  Steffen Macke <sdteffen@sdteffen.de>
+
+	* sheets/SISSI/analyse.png:
+	* sheets/SISSI/personne.png:
+	* sheets/SISSI/pda_icon.png:
+	* sheets/SISSI/sauvegarde.png:
+	* sheets/SISSI/logiciel.png:
+	* sheets/SISSI/barriere_icon.png:
+	* sheets/SISSI/meuble.png:
+	* sheets/SISSI/camera_interphone_icon.png:
+	* sheets/SISSI/safe_icon.png:
+	* sheets/SISSI/si.png:
+	* sheets/SISSI/info.png:
+	* sheets/SISSI.sheet.in: Standard icon size 22x22
+
 2008-05-23  Steffen Macke <sdteffen@sdteffen.de>
 
 	* sheets/SISSI/capteur_brise_glace_icon.png:
