@@ -19,6 +19,7 @@ app/display.c
 app/exit_dialog.c
 app/export_png.c
 app/filedlg.c
+app/find-and-replace.c
 app/interface.c
 app/layer_dialog.c
 app/linewidth_area.c
@@ -102,6 +103,7 @@ objects/KAOS/metabinrel.c
 objects/KAOS/other.c
 objects/Misc/analog_clock.c
 objects/Misc/libmisc.c
+objects/Misc/measure.c
 objects/Misc/tree.c
 objects/SADT/annotation.c
 objects/SADT/arrow.c
