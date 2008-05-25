@@ -1,5 +1,8 @@
 2008-05-18  Hans Breuer  <hans@breuer.org>
 
+	* sheets/checktrans.py : gracefully fail on missing dependencies.
+	The translation report is not crucial for building. Fixes bug #391965
+
 	* app/commands.c(file_print_callback) : implement by querying for 
 	print plug-ins in order of preference for different platforms
 	
@@ -27,7 +30,7 @@
 
 	[
 	  Patch from Thomas Harding:
-	  Bug 534656 – French manual update + addressing bug #510537
+	  Bug 534656 - French manual update + addressing bug #510537
 	]
 	* doc/en/dia-1.xml doc/fr/dia-1.xml doc/en/dia.dbk 
 	  doc/en/dia.xml doc/en/Makefile.am doc/fr/custom-shapes.xml
