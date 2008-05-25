@@ -1,5 +1,9 @@
 2008-05-18  Hans Breuer  <hans@breuer.org>
 
+	* app/menus.c(plugin_callback) : was using ddisp unconditionally 
+	causing a crash without active display, fixed remaining warnings 
+	while there
+	
 	* plug-ins/cairo/diacairo.c : register printing with cairo near
 	to the original print menu item
 	* plug-ins/postscript/postscript.c : don't register the postscript renderer

@@ -832,7 +832,7 @@ menus_init(void)
   toolbox_ui_manager = gtk_ui_manager_new ();
   g_signal_connect (G_OBJECT (toolbox_ui_manager), 
                     "connect_proxy",
-		    _ui_manager_connect_proxy,
+		    G_CALLBACK (_ui_manager_connect_proxy),
 		    NULL);
   gtk_ui_manager_set_add_tearoffs (toolbox_ui_manager, DIA_SHOW_TEAROFFS);
   gtk_ui_manager_insert_action_group (toolbox_ui_manager, toolbox_actions, 0);
@@ -871,7 +871,7 @@ menus_init(void)
   display_ui_manager = gtk_ui_manager_new ();
   g_signal_connect (G_OBJECT (display_ui_manager), 
                     "connect_proxy",
-		    _ui_manager_connect_proxy,
+		    G_CALLBACK (_ui_manager_connect_proxy),
 		    NULL);
   gtk_ui_manager_set_add_tearoffs (display_ui_manager, DIA_SHOW_TEAROFFS);
   gtk_ui_manager_insert_action_group (display_ui_manager, display_actions, 0);
@@ -1294,6 +1294,6 @@ plugin_callback (GtkWidget *widget, gpointer data)
   if (cbf->callback) {
     DDisplay *ddisp = ddisplay_active();
     DiagramData* diadata = ddisp ? ddisp->diagram->data : NULL;
-    cbf->callback (diadata, ddisp->diagram->filename, 0, cbf->user_data);
+    cbf->callback (diadata, ddisp ? ddisp->diagram->filename : NULL, 0, cbf->user_data);
   }
 }
