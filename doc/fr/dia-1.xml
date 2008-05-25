@@ -1,4 +1,4 @@
-  <refentryinfo>
+ï»¿  <refentryinfo>
     <copyright>
       <year>1999</year>
       <year>2004</year>
@@ -46,7 +46,7 @@
 	<revnumber>1</revnumber>
 	<date>2003-10-12</date>
 	<authorinitials>WB</authorinitials>
-	<revremark>1ère version DocBook/XML</revremark>
+	<revremark>1Ã¨re version DocBook/XML</revremark>
       </revision>
     </revhistory>
   </refentryinfo>
@@ -106,21 +106,21 @@
   <refsect1>
     <title>DESCRIPTION</title>
 
-        <para><command>Dia</command> est utilisé pour créer des diagrammes.
-        Dia possède des outils de base, comme les lignes et les boîtes, mais
-        peut également charger dynamiquement des <emphasis>feuilles</emphasis>.
-        Une feuille est une collection d&apos;outils utilisés dans
+        <para><command>Dia</command> est utilisÃ© pour crÃ©er des diagrammes.
+        Dia possÃ¨de des outils de base, comme les lignes et les boÃ®tes, mais
+        peut Ã©galement charger dynamiquement des <emphasis>feuilles</emphasis>.
+        Une feuille est une collection d&apos;outils utilisÃ©s dans
         un certain type de diagramme.</para>
 
         <para>La plupart des objets de diagramme dans <command>Dia</command>
         ont des <emphasis>points de connexion</emphasis>.  Les lignes peuvent
-        être connectées à ces points de connexion, et par ce moyen des
-        structures de graphe peuvent être mises en forme.  Lorsque les
-        objets sont déplacés, ou leurs dimensions changées, les
+        Ãªtre connectÃ©es Ã  ces points de connexion, et par ce moyen des
+        structures de graphe peuvent Ãªtre mises en forme.  Lorsque les
+        objets sont dÃ©placÃ©s, ou leurs dimensions changÃ©es, les
         connexions suivent ces objets.</para>
 
-        <para>les diagrammes dessinés avec <command>Dia</command> peuvent
-        être exportés dans le format PostScript.</para>
+        <para>les diagrammes dessinÃ©s avec <command>Dia</command> peuvent
+        Ãªtre exportÃ©s dans le format PostScript.</para>
   </refsect1>
 
   <refsect1>
@@ -140,7 +140,7 @@
 	<term><option>-e <replaceable>SORTIE</replaceable></option>
 	  <option>--export=<replaceable>SORTIE</replaceable></option></term>
 	<listitem>
-	  <para>Exporte le fichier chargé dans SORTIE et quitte.</para>
+	  <para>Exporte le fichier chargÃ© dans SORTIE et quitte.</para>
 	</listitem>
       </varlistentry>
       <varlistentry>
@@ -155,15 +155,15 @@
 	<term><option>-n</option>
 	  <option>--nosplash</option></term>
 	<listitem>
-	  <para>N&apos;affiche pas l&apos;écran de lancement.</para>
+	  <para>N&apos;affiche pas l&apos;Ã©cran de lancement.</para>
 	</listitem>
       </varlistentry>
       <varlistentry>
 	<term><option>-s <replaceable>LxH</replaceable></option>
 	  <option>--size=<replaceable>LxH</replaceable></option></term>
 	<listitem>
-      <para>Exporte le fichier chargé dans la largeur et/ou la hauteur
-      décimale donnée.  Il est possible de ne sélectionner que la
+      <para>Exporte le fichier chargÃ© dans la largeur et/ou la hauteur
+      dÃ©cimale donnÃ©e.  Il est possible de ne sÃ©lectionner que la
       hauteur ou la largeur.  P.ex.
       <option>--size=<replaceable>520x</replaceable></option> exporte une image
       de 520 pixels largeur, alors que
@@ -171,7 +171,7 @@
       de 900 pixels de hauteur.</para>
 
 	  <note>
-        <para>Cette option n&apos;est actuellement implémentée que pour
+        <para>Cette option n&apos;est actuellement implÃ©mentÃ©e que pour
         le filtre d&apos;export PNG.</para>
 	  </note>
 	</listitem>
@@ -180,20 +180,20 @@
 	    <term><option>-L <replaceable>CALQUE,CALQUE,...</replaceable></option>
 	    <option>--show-layers=<replaceable>CALQUE,CALQUE,...</replaceable></option></term>
         <listitem>
-            <para>N&apos;inclue que les calques spécifiés lors de
-            l&apos;exportation.  Les calques peuvent être spécifiés
-            par leur nom, leur numéro, ou une étandue numérique X-Y de
+            <para>N&apos;inclue que les calques spÃ©cifiÃ©s lors de
+            l&apos;exportation.  Les calques peuvent Ãªtre spÃ©cifiÃ©s
+            par leur nom, leur numÃ©ro, ou une Ã©tandue numÃ©rique X-Y de
             calques. --show-layers=background,2-5 montre
-            les calques nommés background et les calques 2 à 5,
-            --show-layers=2- montre les calques 2 et supérieurs.</para>
+            les calques nommÃ©s background et les calques 2 Ã  5,
+            --show-layers=2- montre les calques 2 et supÃ©rieurs.</para>
 	    </listitem>
       </varlistentry>
       <varlistentry>
 	    <term><option>-t <replaceable>FORMAT</replaceable></option>
 	    <option>--export-to-format=<replaceable>FORMAT</replaceable></option></term>
 	    <listitem>
-            <para>Exporte le fichier chargé dans le FORMAT et quitte.  Les
-            FORMATS D&apos;EXPORTATION sont décrits ci-dessous.</para>
+            <para>Exporte le fichier chargÃ© dans le FORMAT et quitte.  Les
+            FORMATS D&apos;EXPORTATION sont dÃ©crits ci-dessous.</para>
         </listitem>
       </varlistentry>
       <varlistentry>
@@ -210,7 +210,7 @@
   <refsect1>
     <title>FORMATS D&apos;EXPORTATION</title>
 
-        <para>Les formats d&apos;exportation suivants sont supportés par
+        <para>Les formats d&apos;exportation suivants sont supportÃ©s par
         <command>dia</command>.</para>
 
     <itemizedlist>
@@ -229,14 +229,14 @@
 
       <listitem>
         <para><literal>eps</literal>  ou <literal>eps-builtin</literal> ou
-        <literal>eps-pango</literal> (PostScript encapsulé)</para>
+        <literal>eps-pango</literal> (PostScript encapsulÃ©)</para>
 
-        <para>Les spécifications de format <literal>eps</literal> et
+        <para>Les spÃ©cifications de format <literal>eps</literal> et
         <literal>eps-pango</literal> utilisent toutes-deux le rendu de fontes
-        de la bibliothèque Pango, alors que <literal>eps-builtin</literal>
-        utilise le rendu de fontes spécifique de dia.  Si vous avez des
-        problèmes avec le rendu de Pango, p.ex. avec Unicode, utilisez
-        <literal>eps-builtin</literal> à la place.</para>
+        de la bibliothÃ¨que Pango, alors que <literal>eps-builtin</literal>
+        utilise le rendu de fontes spÃ©cifique de dia.  Si vous avez des
+        problÃ¨mes avec le rendu de Pango, p.ex. avec Unicode, utilisez
+        <literal>eps-builtin</literal> Ã  la place.</para>
       </listitem>
 
       <listitem>
@@ -281,37 +281,37 @@
   <refsect1>
     <title>FICHIERS</title>
 
-    <para><command>dia</command> crée un répertoire
-    <filename>.dia</filename> dans le répertoire « home » de
-    l&apos;utilisateur, contenant différents fichiers qui enregistrent ses
-    préférences.  Pour initialiser
-    <command>dia</command> dans son comportement par défaut, il suffit
+    <para><command>dia</command> crÃ©e un rÃ©pertoire
+    <filename>.dia</filename> dans le rÃ©pertoire Â« home Â» de
+    l&apos;utilisateur, contenant diffÃ©rents fichiers qui enregistrent ses
+    prÃ©fÃ©rences.  Pour initialiser
+    <command>dia</command> dans son comportement par dÃ©faut, il suffit
     d&apos;effacer les fichiers suivants :</para>
 
     <itemizedlist>
       <listitem>
         <para><filename>defaults.dia</filename>: contient les valeurs par
-        défaut des éléments (format XML).</para>
+        dÃ©faut des Ã©lÃ©ments (format XML).</para>
       </listitem>
       <listitem>
-        <para><filename>diarc</filename>: garde les préférences de
+        <para><filename>diarc</filename>: garde les prÃ©fÃ©rences de
         <command>dia</command> (ASCII).</para>
       </listitem>
       <listitem>
         <para><filename>history</filename>: garde la liste des derniers
-        diagrammes édités (ASCII).</para>
+        diagrammes Ã©ditÃ©s (ASCII).</para>
       </listitem>
       <listitem>
         <para><filename>menurc</filename>: contient une emprunte de carte
-        d&apos;accélération automatisée (Lisp).</para>
+        d&apos;accÃ©lÃ©ration automatisÃ©e (Lisp).</para>
       </listitem>
       <listitem>
         <para><filename>persistence</filename>: contient les information
-        d&apos;interface graphique, p.ex. les fenêtres ouvertes
+        d&apos;interface graphique, p.ex. les fenÃªtres ouvertes
         (XML).</para>
       </listitem>
       <listitem>
-        <para><filename>pluginrc</filename>: la liste des plugins chargés
+        <para><filename>pluginrc</filename>: la liste des plugins chargÃ©s
         (XML).</para>
       </listitem>
     </itemizedlist>
