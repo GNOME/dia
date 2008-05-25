@@ -76,7 +76,10 @@ dia_plugin_init(PluginInfo *info)
   filter_register_export(&eps_ft2_export_filter);
 #endif
 
+#ifndef G_OS_WIN32
+  /* on win32 this is too uncommon, can only print to postscript printers */
   filter_register_callback (&cb_ps_print);
+#endif
 
   return DIA_PLUGIN_INIT_OK;
 }

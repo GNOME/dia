@@ -1,3 +1,17 @@
+2008-05-18  Hans Breuer  <hans@breuer.org>
+
+	* plug-ins/cairo/diacairo.c : register printing with cairo near
+	to the original print menu item
+	* plug-ins/postscript/postscript.c : don't register the postscript renderer
+	for printing on win32
+
+	Attempts to fix bug #534275
+	* lib/diagdkrenderer.c(draw_fill_rounded_rect) : attempt to make
+	arc drawing for radius<line_width less backend specific. 
+	* objects/standard/box.c objects/standard/polyline.c 
+	  objects/standard/zigzagline.c : 
+	set LINEJOIN_ROUND when rendering "rounded" (with radius>0)
+
 2008-05-24  Steffen Macke <sdteffen@sdteffen.de>
 
 	* sheets/SISSI/analyse.png:

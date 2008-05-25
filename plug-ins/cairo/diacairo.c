@@ -391,9 +391,9 @@ static DiaExportFilter cb_export_filter = {
 
 #if GTK_CHECK_VERSION (2,10,0)
 static DiaCallbackFilter cb_gtk_print = {
-    "GtkCairoPrintAction",
-    N_("Print via Gtk+/cairo ..."),
-    "/DisplayMenu/File/FileExtensionStart",
+    "FilePrintGTK",
+    N_("Print (GTK) ..."),
+    "/DisplayMenu/File/FilePrint",
     cairo_print_callback,
     (void*)OUTPUT_PDF
 };
