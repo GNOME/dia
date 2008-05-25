@@ -21,6 +21,10 @@
 	- usage-objects-basic.xml: add the tricks about text entries cut and paste
 	- dia.xml: delete attribute lang from <?xml ... first line
 	- custom-shapes.xml: add para about default-(width|height)
+	* doc/fr/Makefile.am : remove '#dia-dbk-to-chapter.sed \' instead of
+	doc/fr/Makefile.am:41: `#' comment at start of rule is unportable
+
+	* doc/en/dia.1 : regenerated
 
 	* lib/beziershape.c(beziershape_remove_segment): did not store
 	all information for undo. s/PointChange/BezPointChange/ to help

@@ -38,7 +38,6 @@ EXTRA_DIST += \
 	graphics/greendots.png \
 	graphics/preferences_fig.png \
 	graphics/color_selector.png
-	#dia-dbk-to-chapter.sed \
 
 ##missing	graphics/preferences-fig.png
 
