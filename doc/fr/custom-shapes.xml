@@ -154,6 +154,15 @@
         description SVG de la forme.
     </para>
     <para>
+	À leur création, les formes ont une taille par défaut.
+	Si leur dimension ne correspond pas à vos besoins, vous
+	pouvez remplacer celles-ci par l'une ou les deux directives:
+	<simplelist>
+	<member><literal><![CDATA[ <default-width>1cm</default-width> ]]></literal></member>
+	<member><literal><![CDATA[ <default-height>1cm</default-height>  ]]></literal></member>
+	</simplelist>
+    </para>
+    <para>
         L'élément <literal>svg</literal> décrit la forme.
         les attributs width et height
         sont ignorés, et donnés seulement pour compatibilité avec la

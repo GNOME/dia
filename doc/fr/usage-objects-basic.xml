@@ -15,6 +15,50 @@
     son propre type d'objet. Un texte peut être placé sur le canevas en
     cliquant sur le bouton <guibutton>T</guibutton> (texte) dans la &toolbox;.
    </para>
+   <para>
+	L'objet texte, et plusieurs autres objets, offrent une entrée directe
+	de texte dans le diagramme. Le texte peut être saisi en sélectionnant
+	l'objet et en tapant le texte. La fonte, la taille, et autres
+	propriétés de format peuvent être changées en double-cliquant l'objet.
+   </para>
+   <para>
+    Voici quelques trucs importants à-propos des raccourcis clavier dans
+    les entrées de texte.
+   </para>
+   <itemizedlist>
+   <listitem>
+   <para>
+   Les combinaisons normales Couper / Copier / Coller (CTRL-C, CTRL-X, CTRL-V)
+   ne fonctionnent pas pour le texte, mais pour l'ensemble de l'objet.
+   Utiliser CTRL-MAJ-X pour couper et CTRL-MAJ-V pour coller seulement le texte.
+   Il n'y a pas de raccourci permettant la copie seule de texte.
+   </para>
+   <note><para>Lorsque vous collez du texte dans un objet, le texte est formatté
+   selon les propriétés de l'objet de destination et non de celui du texte source.
+   </para></note>
+   </listitem>
+   <listitem>
+   <para>On ne peut pas sélectionner de portion de texte à la souris (cela
+   déplace l'objet). Vous pouvez insérer des caractères à la position
+   courante du curseur simplement en les tapant. Vous pouvez supprimer le
+   caractère à gauche du pointeur de la souris avec la touche retour arrière
+   (backspace).
+   </para>
+   <note><para>
+   La touche SUPPR supprime l'objet entier et non le texte à la droite du 
+   curseur. Utilisez MAJ-SUPPR pour supprimer ce texte (et utilisez 
+   édition/annuler si vous supprimez un objet par erreur). Pour supprimer
+   tout le texte, utilisez Couper (CTRL-MAJ-X).
+   </para></note>
+   </listitem>
+   <listitem><para>
+   Si vous utilizez une police ou une taille de police autre que celle par 
+   défaut, une astuce pour être plus productif est de créer une palette
+   d'objets vides avec les attributs voulus sur un diagramme séparé.
+   Copiez et collez ces objets sur votre diagramme de  travail au fur et
+   à mesure des besoins, plutôt que d'utiliser la boîte à outils.
+   </para></listitem>
+   </itemizedlist>
    <note>
     <para>
      Le <emphasis>Texte</emphasis> dans <application>Dia</application> peut
@@ -141,3 +185,4 @@
    </sect2>
   </sect1>
 </chapter>
+<!-- vim: set expandtab tabstop=4 shiftwidth=4: -->

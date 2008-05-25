@@ -17,7 +17,7 @@
  <title>La boîte de dialogue préférences</title>
  <screenshot>
   <screeninfo>La boîte de dialogue <interface>Préférences.</interface></screeninfo>
-   <graphic format="PNG" fileref="graphics/preferences-fig.&pngfile;"
+   <graphic format="PNG" fileref="graphics/preferences_fig.&pngfile;"
         srccredit="Thomas Harding" />
  </screenshot>
  </figure>

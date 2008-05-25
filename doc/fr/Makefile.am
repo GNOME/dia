@@ -8,8 +8,6 @@ version = 0.5_1fr
 include $(top_srcdir)/xmldocs.make
 dist-hook: app-dist-hook
 
-all: include-cmdline
-
 nodist_include_EXTRAS = dia.1
 
 xml_files += \
@@ -28,16 +26,19 @@ xml_files += \
 	usage-objects.xml \
 	usage-quickstart.xml \
 	custom-shapes.xml \
-	dia-cmdline.xml
+	dia-cmdline.xml \
+	dia-1.xml
 
 EXTRA_DIST += \
 	dia.dbk \
-	dia-dbk-to-chapter.sed \
+	dia-1.xml \
 	graphics/line_props.png \
 	graphics/home_network.png \
 	graphics/line_icon.png \
 	graphics/greendots.png \
+	graphics/preferences_fig.png \
 	graphics/color_selector.png
+	#dia-dbk-to-chapter.sed \
 
 ##missing	graphics/preferences-fig.png
 
@@ -58,8 +59,5 @@ endif
 #adding lang to man path
 mandir = $(datadir)/man/$(lang)
 
-#outputs and filter dia.dbk into documentation chapter
-include-cmdline: dia.dbk
-	sed -f $(srcdir)/dia-dbk-to-chapter.sed $< >dia-cmdline.xml
 
 

@@ -39,6 +39,8 @@
     <!ENTITY LICENSE SYSTEM "license.xml">
 
     <!ENTITY pngfile "png">
+
+    <!ENTITY DIA-1 SYSTEM "dia-1.xml">
   ]
 
 >
@@ -150,4 +152,5 @@
 &LICENSE;
 
 </book>
+
 

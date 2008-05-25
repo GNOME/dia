@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" lang="fr"?>
+<?xml version="1.0" encoding="utf-8"?>
 
 
 
@@ -47,6 +47,8 @@
     <!ENTITY fg "&nbsp;»">
 
     <!ENTITY pngfile "png">
+
+    <!ENTITY DIA-1 SYSTEM "dia-1.xml">
   ]
 
 >
@@ -166,4 +168,5 @@
 &LICENSE;
 
 </book>
+
 
