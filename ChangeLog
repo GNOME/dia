@@ -1,5 +1,16 @@
 2008-05-18  Hans Breuer  <hans@breuer.org>
 
+	* lib/beziershape.c(beziershape_remove_segment): did not store
+	all information for undo. s/PointChange/BezPointChange/ to help
+	my debugger.
+
+	* lib/object_defaults.c(dia_object_default_create) : the standard
+	(toolbox visible) properties were overwritten although not set
+	
+	* plug-ins/cairo/diacairo-interactive.c : draw_pixel_line and 
+	draw_pixel_rect implmented with cairo rather than GDK makes the
+	line style of the grid visible again
+
 	* app/menus.c(plugin_callback) : was using ddisp unconditionally 
 	causing a crash without active display, fixed remaining warnings 
 	while there

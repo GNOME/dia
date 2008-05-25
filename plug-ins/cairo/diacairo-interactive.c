@@ -54,16 +54,6 @@ struct _DiaCairoInteractiveRenderer
   GdkGC *gc;
   GdkRegion *clip_region;
 
-  /* line attributes: */
-  int line_width;
-  GdkLineStyle line_style;
-  GdkCapStyle cap_style;
-  GdkJoinStyle join_style;
-
-  LineStyle saved_line_style;
-  int gdk_dash_length;
-  int dot_length;
-
   /** If non-NULL, this rendering is a highlighting with the given color. */
   Color *highlight_color;
 };
@@ -141,15 +131,6 @@ cairo_interactive_renderer_init (DiaCairoInteractiveRenderer *object, void *p)
   dia_renderer->is_interactive = 1;
   
   renderer->pixmap = NULL;
-
-  renderer->line_width = 1;
-  renderer->line_style = GDK_LINE_SOLID;
-  renderer->cap_style = GDK_CAP_BUTT;
-  renderer->join_style = GDK_JOIN_ROUND;
-
-  renderer->saved_line_style = LINESTYLE_SOLID;
-  renderer->gdk_dash_length = 10;
-  renderer->dot_length = 2;
 
   renderer->highlight_color = NULL;
 }
@@ -353,12 +334,6 @@ set_size(DiaRenderer *object, gpointer window,
 
   if (renderer->gc == NULL) {
     renderer->gc = gdk_gc_new(renderer->pixmap);
-
-    gdk_gc_set_line_attributes(renderer->gc,
-			       renderer->line_width,
-			       renderer->line_style,
-			       renderer->cap_style,
-			       renderer->join_style);
   }
 }
 
@@ -419,79 +394,27 @@ clip_region_add_rect(DiaRenderer *object,
   gdk_gc_set_clip_region(renderer->gc, renderer->clip_region);
 }
 
-/** Set the dashes for this renderer.
- * offset determines where in the pattern the dashes will start.
- * It is used by the grid in particular to make the grid dashes line up.
- */
-/*
-static void
-set_dashes(GdkGC *gc, int offset)
-{
-  gint8 dash_list[6];
-  int hole_width;
-  int pattern_length;
-  
-  switch(renderer->saved_line_style) {
-  case LINESTYLE_SOLID:
-    break;
-  case LINESTYLE_DASHED:
-    dash_list[0] = renderer->gdk_dash_length;
-    dash_list[1] = renderer->gdk_dash_length;
-    pattern_length = renderer->gdk_dash_length*2;
-    gdk_gc_set_dashes(renderer->gc, offset, dash_list, 2);
-    break;
-  case LINESTYLE_DASH_DOT:
-    hole_width = (renderer->gdk_dash_length - renderer->dot_length) / 2;
-    if (hole_width==0)
-      hole_width = 1;
-    dash_list[0] = renderer->gdk_dash_length;
-    dash_list[1] = hole_width;
-    dash_list[2] = renderer->dot_length;
-    dash_list[3] = hole_width;
-    pattern_length = renderer->gdk_dash_length+renderer->dot_length+2*hole_width;
-    gdk_gc_set_dashes(renderer->gc, offset, dash_list, 4);
-    break;
-  case LINESTYLE_DASH_DOT_DOT:
-    hole_width = (renderer->gdk_dash_length - 2*renderer->dot_length) / 3;
-    if (hole_width==0)
-      hole_width = 1;
-    dash_list[0] = renderer->gdk_dash_length;
-    dash_list[1] = hole_width;
-    dash_list[2] = renderer->dot_length;
-    dash_list[3] = hole_width;
-    dash_list[4] = renderer->dot_length;
-    dash_list[5] = hole_width;
-    pattern_length = renderer->gdk_dash_length+2*renderer->dot_length+3*hole_width;
-    gdk_gc_set_dashes(renderer->gc, offset, dash_list, 6);
-    break;
-  case LINESTYLE_DOTTED:
-    dash_list[0] = renderer->dot_length;
-    dash_list[1] = renderer->dot_length;
-    pattern_length = renderer->dot_length;
-    gdk_gc_set_dashes(renderer->gc, offset, dash_list, 2);
-    break;
-  }
-
-}
-*/
-
 static void
 draw_pixel_line(DiaRenderer *object,
 		int x1, int y1,
 		int x2, int y2,
 		Color *color)
 {
-  DiaCairoInteractiveRenderer *renderer = DIA_CAIRO_INTERACTIVE_RENDERER (object);
-  GdkGC *gc = renderer->gc;
-  GdkColor gdkcolor;
-
-  /*
-  set_dashes(gc, x1+y1);
-  */
-  color_convert(color, &gdkcolor);
-  gdk_gc_set_foreground(gc, &gdkcolor);
+  DiaCairoRenderer *renderer = DIA_CAIRO_RENDERER (object);
+  double x1u = x1 + .5, y1u = y1 + .5, x2u = x2 + .5, y2u = y2 + .5;
+  double lw[2];
+  lw[0] = 1; lw[1] = 0;
   
-  gdk_draw_line(renderer->pixmap, gc, x1, y1, x2, y2);
+  cairo_device_to_user_distance (renderer->cr, &lw[0], &lw[1]);
+  cairo_set_line_width (renderer->cr, lw[0]);
+
+  cairo_device_to_user (renderer->cr, &x1u, &y1u);
+  cairo_device_to_user (renderer->cr, &x2u, &y2u);
+
+  cairo_set_source_rgba (renderer->cr, color->red, color->green, color->blue, 1.0);
+  cairo_move_to (renderer->cr, x1u, y1u);
+  cairo_line_to (renderer->cr, x2u, y2u);
+  cairo_stroke (renderer->cr);
 }
 
 static void
@@ -500,19 +423,20 @@ draw_pixel_rect(DiaRenderer *object,
 		int width, int height,
 		Color *color)
 {
-  DiaCairoInteractiveRenderer *renderer = DIA_CAIRO_INTERACTIVE_RENDERER (object);
-  GdkGC *gc = renderer->gc;
-  GdkColor gdkcolor;
-    
-  /*
-  dia_cairo_renderer_set_dashes(renderer, x+y);
-  */
+  DiaCairoRenderer *renderer = DIA_CAIRO_RENDERER (object);
+  double x1u = x + .5, y1u = y + .5, x2u = x + width + .5, y2u = y + height + .5;
+  double lw[2];
+  lw[0] = 1; lw[1] = 0;
+  
+  cairo_device_to_user_distance (renderer->cr, &lw[0], &lw[1]);
+  cairo_set_line_width (renderer->cr, lw[0]);
 
-  color_convert(color, &gdkcolor);
-  gdk_gc_set_foreground(gc, &gdkcolor);
+  cairo_device_to_user (renderer->cr, &x1u, &y1u);
+  cairo_device_to_user (renderer->cr, &x2u, &y2u);
 
-  gdk_draw_rectangle (renderer->pixmap, gc, FALSE,
-		      x, y,  width, height);
+  cairo_set_source_rgba (renderer->cr, color->red, color->green, color->blue, 1.0);
+  cairo_rectangle (renderer->cr, x1u, y1u, x2u - x1u, y2u - y1u);
+  cairo_stroke (renderer->cr);
 }
 
 static void
@@ -521,6 +445,7 @@ fill_pixel_rect(DiaRenderer *object,
 		int width, int height,
 		Color *color)
 {
+#if 1 /* if we do it with cairo there is something wrong with the clipping? */
   DiaCairoInteractiveRenderer *renderer = DIA_CAIRO_INTERACTIVE_RENDERER (object);
   GdkGC *gc = renderer->gc;
   GdkColor gdkcolor;
@@ -530,4 +455,20 @@ fill_pixel_rect(DiaRenderer *object,
 
   gdk_draw_rectangle (renderer->pixmap, gc, TRUE,
 		      x, y,  width, height);
+#else
+  DiaCairoRenderer *renderer = DIA_CAIRO_RENDERER (object);
+  double x1u = x + .5, y1u = y + .5, x2u = x + width + .5, y2u = y + height + .5;
+  double lw[2];
+  lw[0] = 1; lw[1] = 0;
+  
+  cairo_device_to_user_distance (renderer->cr, &lw[0], &lw[1]);
+  cairo_set_line_width (renderer->cr, lw[0]);
+
+  cairo_device_to_user (renderer->cr, &x1u, &y1u);
+  cairo_device_to_user (renderer->cr, &x2u, &y2u);
+
+  cairo_set_source_rgba (renderer->cr, color->red, color->green, color->blue, 1.0);
+  cairo_rectangle (renderer->cr, x1u, y1u, x2u - x1u, y2u - y1u);
+  cairo_fill (renderer->cr);
+#endif
 }

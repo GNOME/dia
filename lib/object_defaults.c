@@ -237,6 +237,14 @@ dia_object_default_get (const DiaObjectType *type, gpointer user_data)
   return obj;
 }
 
+static gboolean 
+pdtpp_standard_or_defaults (const PropDescription *pdesc)
+{
+  return (   (pdesc->flags & PROP_FLAG_NO_DEFAULTS) == 0
+          && (pdesc->flags & PROP_FLAG_STANDARD) == 0);
+}
+
+
 /**
  * dia_object_default_create:
  * @param type The objects type
@@ -269,7 +277,7 @@ dia_object_default_create (const DiaObjectType *type,
       if (obj)
         {
 	  GPtrArray *props = prop_list_from_descs (
-	      object_get_prop_descriptions(def_obj), pdtpp_defaults);
+	      object_get_prop_descriptions(def_obj), pdtpp_standard_or_defaults);
           def_obj->ops->get_props(def_obj, props);
           obj->ops->set_props(obj, props);
 	  obj->ops->move (obj, startpoint);
