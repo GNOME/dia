@@ -224,7 +224,10 @@ zigzagline_draw(Zigzagline *zigzagline, DiaRenderer *renderer)
   renderer_ops->set_linewidth(renderer, zigzagline->line_width);
   renderer_ops->set_linestyle(renderer, zigzagline->line_style);
   renderer_ops->set_dashlength(renderer, zigzagline->dashlength);
-  renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
+  if (zigzagline->corner_radius > 0)
+    renderer_ops->set_linejoin(renderer, LINEJOIN_ROUND);
+  else
+    renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
   renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
 
   renderer_ops->draw_rounded_polyline_with_arrows(renderer,

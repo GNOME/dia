@@ -966,6 +966,7 @@ draw_fill_rounded_rect (DiaRenderer *self,
   GdkGC *gc = renderer->gc;
   GdkColor gdkcolor;
   gint top, bottom, left, right, r, d;
+  gint offset = 0; /* to compensate for a radius smaller than line_width */
 
   dia_transform_coords(renderer->transform, 
                        ul_corner->x, ul_corner->y, &left, &top);
@@ -982,27 +983,44 @@ draw_fill_rounded_rect (DiaRenderer *self,
     r = (bottom-top)/2;
 
   d = r<<1;
+  /* line_width is already scaled */
+  if (renderer->line_width > d)
+    offset = (renderer->line_width + 1) / 2;
 
   renderer_color_convert(renderer, color, &gdkcolor);
   gdk_gc_set_foreground(gc, &gdkcolor);
 
   if (d > 0) {
-    gdk_draw_arc(renderer->pixmap, gc, fill, left, top, d, d, 90<<6, 90<<6);
-    gdk_draw_arc(renderer->pixmap, gc, fill, right-d, top, d, d, 0<<6, 90<<6);
-    gdk_draw_arc(renderer->pixmap, gc, fill, right-d, bottom-d, d, d, 270<<6, 90<<6);
-    gdk_draw_arc(renderer->pixmap, gc, fill, left, bottom-d, d, d, 180<<6, 90<<6);
+    if (offset > 0) {
+      /* avoid windowing system defined arc artifacts drawing by some adjustments  */
+      gdk_gc_set_line_attributes(renderer->gc, 
+                                 r, renderer->line_style, 
+				 renderer->cap_style, renderer->join_style);
+      gdk_draw_arc(renderer->pixmap, gc, TRUE, left-offset, top-offset, d, d, 90<<6, 90<<6);
+      gdk_draw_arc(renderer->pixmap, gc, TRUE, right-d+offset, top-offset, d, d, 0<<6, 90<<6);
+      gdk_draw_arc(renderer->pixmap, gc, TRUE, right-d+offset, bottom-d+offset, d, d, 270<<6, 90<<6);
+      gdk_draw_arc(renderer->pixmap, gc, TRUE, left-offset, bottom-d+offset, d, d, 180<<6, 90<<6);
+      gdk_gc_set_line_attributes(renderer->gc, 
+                                 renderer->line_width, renderer->line_style, 
+				 renderer->cap_style, renderer->join_style);
+    } else {
+      gdk_draw_arc(renderer->pixmap, gc, fill, left, top, d, d, 90<<6, 90<<6);
+      gdk_draw_arc(renderer->pixmap, gc, fill, right-d, top, d, d, 0<<6, 90<<6);
+      gdk_draw_arc(renderer->pixmap, gc, fill, right-d, bottom-d, d, d, 270<<6, 90<<6);
+      gdk_draw_arc(renderer->pixmap, gc, fill, left, bottom-d, d, d, 180<<6, 90<<6);
+    }
   }
 
   if (fill) {
     gdk_draw_rectangle (renderer->pixmap, renderer->gc, TRUE, 
-                        left+r, top, right-left-d, bottom-top);
+                        left+r-offset, top, right-left-d+offset, bottom-top);
     gdk_draw_rectangle (renderer->pixmap, renderer->gc, TRUE, 
-                        left, top+r, right-left, bottom-top-d);
+                        left, top+r-offset, right-left, bottom-top-d+offset);
   } else {
-    gdk_draw_line(renderer->pixmap, gc, left+r, top, right-r, top);
-    gdk_draw_line(renderer->pixmap, gc, right, top+r, right, bottom-r);
-    gdk_draw_line(renderer->pixmap, gc, right-r, bottom, left+r-1, bottom);
-    gdk_draw_line(renderer->pixmap, gc, left, bottom-r, left, top+r-1);
+    gdk_draw_line(renderer->pixmap, gc, left+r-offset, top, right-r+offset, top);
+    gdk_draw_line(renderer->pixmap, gc, right, top+r-offset, right, bottom-r+offset);
+    gdk_draw_line(renderer->pixmap, gc, right-r+offset, bottom, left+r-1-offset, bottom);
+    gdk_draw_line(renderer->pixmap, gc, left, bottom-r+offset, left, top+r-1-offset);
   }
 }
 static void 

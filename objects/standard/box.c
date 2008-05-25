@@ -316,7 +316,10 @@ box_draw(Box *box, DiaRenderer *renderer)
   renderer_ops->set_linewidth(renderer, box->border_width);
   renderer_ops->set_linestyle(renderer, box->line_style);
   renderer_ops->set_dashlength(renderer, box->dashlength);
-  renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
+  if (box->corner_radius > 0)
+    renderer_ops->set_linejoin(renderer, LINEJOIN_ROUND);
+  else
+    renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
 
   if (box->show_background) {
     renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);

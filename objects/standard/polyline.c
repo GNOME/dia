@@ -300,7 +300,10 @@ polyline_draw(Polyline *polyline, DiaRenderer *renderer)
   renderer_ops->set_linewidth(renderer, polyline->line_width);
   renderer_ops->set_linestyle(renderer, polyline->line_style);
   renderer_ops->set_dashlength(renderer, polyline->dashlength);
-  renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
+  if (polyline->corner_radius > 0.0)
+    renderer_ops->set_linejoin(renderer, LINEJOIN_ROUND);
+  else
+    renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
   renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
 
   polyline_calculate_gap_endpoints(polyline, gap_endpoints);

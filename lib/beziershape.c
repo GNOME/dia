@@ -44,7 +44,7 @@ enum change_type {
    # of connections = 2*(numpoints-1) + 1 (main point)
    For historical reasons, the main point is the last cp.
  */
-struct PointChange {
+struct BezPointChange {
   ObjectChange obj_change;
 
   enum change_type type;
@@ -245,6 +245,7 @@ beziershape_closest_segment(BezierShape *bezier, Point *point, real line_width)
 
   closest = 0;
   last = bezier->points[0].p1;
+  /* the first point is just move-to so there is no need to consider p2,p3 of it */
   for (i = 1; i < bezier->numpoints; i++) {
     real new_dist = distance_bez_seg_point(&last, &bezier->points[i].p1,
 			&bezier->points[i].p2, &bezier->points[i].p3,
@@ -462,15 +463,21 @@ beziershape_remove_segment(BezierShape *bezier, int pos)
   ConnectionPoint *old_cp1, *old_cp2;
   BezPoint old_point;
   BezCornerType old_ctype;
+  int next = pos+1;
 
   g_assert(pos > 0);
   g_assert(bezier->numpoints > 2);
   g_assert(pos < bezier->numpoints);
 
+  if (pos == bezier->numpoints - 1)
+    next = 1;
+
   old_handle1 = bezier->object.handles[3*pos-3];
   old_handle2 = bezier->object.handles[3*pos-2];
   old_handle3 = bezier->object.handles[3*pos-1];
   old_point = bezier->points[pos];
+  /* remember the old contro point of following bezpoint */
+  old_point.p1 = bezier->points[next].p1;
   old_ctype = bezier->corner_types[pos];
 
   old_cp1 = bezier->object.connections[2*pos-2];
@@ -1008,7 +1015,7 @@ beziershape_load(BezierShape *bezier, ObjectNode obj_node)
 }
 
 static void
-beziershape_point_change_free(struct PointChange *change)
+beziershape_point_change_free(struct BezPointChange *change)
 {
   if ( (change->type==TYPE_ADD_POINT && !change->applied) ||
        (change->type==TYPE_REMOVE_POINT && change->applied) ){
@@ -1026,7 +1033,7 @@ beziershape_point_change_free(struct PointChange *change)
 }
 
 static void
-beziershape_point_change_apply(struct PointChange *change, DiaObject *obj)
+beziershape_point_change_apply(struct BezPointChange *change, DiaObject *obj)
 {
   change->applied = 1;
   switch (change->type) {
@@ -1046,7 +1053,7 @@ beziershape_point_change_apply(struct PointChange *change, DiaObject *obj)
 }
 
 static void
-beziershape_point_change_revert(struct PointChange *change, DiaObject *obj)
+beziershape_point_change_revert(struct BezPointChange *change, DiaObject *obj)
 {
   switch (change->type) {
   case TYPE_ADD_POINT:
@@ -1070,9 +1077,9 @@ beziershape_create_point_change(BezierShape *bezier, enum change_type type,
 				Handle *handle3,
 				ConnectionPoint *cp1, ConnectionPoint *cp2)
 {
-  struct PointChange *change;
+  struct BezPointChange *change;
 
-  change = g_new(struct PointChange, 1);
+  change = g_new(struct BezPointChange, 1);
 
   change->obj_change.apply =
     (ObjectChangeApplyFunc)beziershape_point_change_apply;
