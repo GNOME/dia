@@ -1,5 +1,27 @@
 2008-05-18  Hans Breuer  <hans@breuer.org>
 
+	[
+	  Patch from Thomas Harding:
+	  Bug 534656 – French manual update + addressing bug #510537
+	]
+	* doc/en/dia-1.xml doc/fr/dia-1.xml doc/en/dia.dbk 
+	  doc/en/dia.xml doc/en/Makefile.am doc/fr/custom-shapes.xml
+	  doc/fr/dia.dbk doc/fr/dia.xml doc/fr/Makefile.am
+	  doc/fr/ps/graphics/preferences-fig.eps
+	  doc/fr/ps/graphics/preferences_fig.eps
+	  doc/fr/usage-customization.xml
+	  doc/fr/usage-objects-basic.xml :
+	- rename /doc/fr/ps/graphics/preferences-fig.ps ->
+	..../preferences_fig.ps
+	- fix typo in usage-customization.xml about above (png).
+	- Makefile.am: 
+	  - re-enable above png file
+	  - disable sed-script (Bug #510537), superceded by inclusion of
+	  dia-1.xml as SYSTEM ENTITY in dia-cmdline.xml and dia.dbk (for en/fr) 
+	- usage-objects-basic.xml: add the tricks about text entries cut and paste
+	- dia.xml: delete attribute lang from <?xml ... first line
+	- custom-shapes.xml: add para about default-(width|height)
+
 	* lib/beziershape.c(beziershape_remove_segment): did not store
 	all information for undo. s/PointChange/BezPointChange/ to help
 	my debugger.
