@@ -1385,7 +1385,10 @@ print_callback (DiagramData *data,
 		guint        flags,
 		void        *user_data)
 {
-  diagram_print_gdi (data, filename);
+  if (!data)
+    message_error (_("Nothing to print"));
+  else
+    diagram_print_gdi (data, filename);
 }
 
 static DiaCallbackFilter cb_gdi_print = {

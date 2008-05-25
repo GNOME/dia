@@ -103,7 +103,10 @@ set_size(DiaRenderer *object, gpointer window,
   if (renderer->pixmap != NULL)
     gdk_drawable_unref(renderer->pixmap);
 
-  renderer->pixmap = gdk_pixmap_new(GDK_WINDOW(window),  width, height, -1);
+  if (window)
+    renderer->pixmap = gdk_pixmap_new(GDK_WINDOW(window),  width, height, -1);
+  else /* the integrated UI insist to call us too early */
+    renderer->pixmap = gdk_pixmap_new(NULL,  width, height, 24);
 
   if (renderer->gc == NULL) {
     renderer->gc = gdk_gc_new(renderer->pixmap);

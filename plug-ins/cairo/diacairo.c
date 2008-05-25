@@ -289,8 +289,13 @@ export_print_data (DiagramData *data, const gchar *filename_utf8,
   /* as of this writing the only format Gtk+ supports here is PDF */
   g_assert (OUTPUT_PDF == kind);
 # endif
-  
-  gtk_print_operation_set_export_filename (op, filename_utf8);
+
+  if (!data) {
+    message_error (_("Nothing to print"));
+    return;
+  }
+
+  gtk_print_operation_set_export_filename (op, filename_utf8 ? filename_utf8 : "output.pdf");
   res = gtk_print_operation_run (op, GTK_PRINT_OPERATION_ACTION_EXPORT, NULL, &error);
   if (GTK_PRINT_OPERATION_RESULT_ERROR == res) {
     message_error (error->message);

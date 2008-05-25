@@ -676,7 +676,7 @@ use_integrated_ui_for_display_shell(DDisplay *ddisp, char *title)
    * The show causes a GDK_CONFIGURE event but this is not happening here.  If this
    * is not set a seg-fault occurs when dia_renderer_get_width_pixels() is called
    */
-  ddisplay_set_renderer(ddisp, /* aa */0);
+  ddisplay_set_renderer(ddisp, ddisp->aa_renderer);
 
   /*  set the focus to the canvas area  */
   gtk_widget_grab_focus (ddisp->canvas);
@@ -1586,10 +1586,24 @@ toolbox_delete (GtkWidget *widget, GdkEvent *event, gpointer data)
   return FALSE;
 }
 
+static void
+app_set_icon (GtkWindow *window)
+{
+  gtk_window_set_icon_name (window, "dia");
+  if (!gtk_window_get_icon (window)) {
+    GdkPixbuf *pixbuf = gdk_pixbuf_new_from_inline (-1, dia_app_icon, FALSE, NULL);
+    if (pixbuf) {
+      gtk_window_set_icon (window, pixbuf);
+      g_object_unref (pixbuf);
+    }
+  }
+}
+
 /**
  * Create integrated user interface
  */
-void create_integrated_ui (void)
+void 
+create_integrated_ui (void)
 {
   GtkWidget *window;
   GtkWidget *main_vbox;
@@ -1616,7 +1630,7 @@ void create_integrated_ui (void)
   
   gtk_window_set_default_size (GTK_WINDOW (window), 146, 349);
  
-  gtk_window_set_icon_name (GTK_WINDOW (window), "dia");
+  app_set_icon (GTK_WINDOW (window));
 
   g_signal_connect (GTK_OBJECT (window), "delete_event",
 		    G_CALLBACK (toolbox_delete),
@@ -1736,7 +1750,7 @@ create_toolbox ()
   gtk_window_set_role (GTK_WINDOW (window), "toolbox_window");
   gtk_window_set_default_size(GTK_WINDOW(window), 146, 349);
 
-  gtk_window_set_icon_name (GTK_WINDOW (window), "dia");
+  app_set_icon (GTK_WINDOW (window));
   if (!gtk_window_get_icon (GTK_WINDOW (window))) {
     GdkPixbuf *pixbuf = gdk_pixbuf_new_from_inline (-1, dia_app_icon, FALSE, NULL);
     if (pixbuf) {

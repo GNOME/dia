@@ -1356,7 +1356,8 @@ ddisplay_set_all_cursor(GdkCursor *cursor)
 void
 ddisplay_set_cursor(DDisplay *ddisp, GdkCursor *cursor)
 {
-  gdk_window_set_cursor(ddisp->canvas->window, cursor);
+  if (ddisp->canvas->window)
+    gdk_window_set_cursor(ddisp->canvas->window, cursor);
 }
 
 /** Returns whether the rulers are currently showing on the display.

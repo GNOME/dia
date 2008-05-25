@@ -104,14 +104,24 @@ file_pagesetup_callback (GtkAction *action)
 }
 
 void
-file_print_callback (GtkAction *action)
+file_print_callback (GtkAction *_action)
 {
   Diagram *dia;
+  GtkAction *action;
 
   dia = ddisplay_active_diagram();
   if (!dia) return;
+  
+  action = menus_get_action ("FilePrintGTK");
+  if (!action)
+    action = menus_get_action ("FilePrintGDI");
+  if (!action)
+    action = menus_get_action ("FilePrintPS");
 #if 1
-  message_error ("No print plug-in here (yet)!");
+  if (action)
+    gtk_action_activate (action);
+  else
+    message_error (_("No print plug-in found!"));
 #else
 #ifdef G_OS_WIN32
   /* This option could be used with Gnome too. Does it make sense there ? */

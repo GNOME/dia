@@ -22,7 +22,7 @@
 
 #define TOOLBOX_MENU "/ToolboxMenu"
 #define DISPLAY_MENU "/DisplayMenu"
-#define POPUP_MENU   "/PopupMenu"
+#define INTEGRATED_MENU "/IntegratedUIMenu"
 
 struct zoom_pair { const gchar *string; const gint value; };
 

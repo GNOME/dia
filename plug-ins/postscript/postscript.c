@@ -35,7 +35,10 @@ print_callback (DiagramData *data,
                 guint flags, /* further additions */
                 void *user_data)
 {
-  diagram_print_ps (data, filename);
+  if (!data)
+    message_error (_("Nothing to print"));
+  else
+    diagram_print_ps (data, filename ? filename : "output.ps");
 }
 
 static DiaCallbackFilter cb_ps_print = {
