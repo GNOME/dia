@@ -34,13 +34,9 @@
 			<menuitem name="EditCuttext" action="EditCuttext" />
 			<menuitem name="EditPastetext" action="EditPastetext" />
 			<separator name="EditSep4" />
-			<separator name="EditExtensionStart" />
-		</menu>
-		<menu name="Diagram" action="Diagram">
 			<menuitem name="DiagramProperties" action="DiagramProperties" />
 			<menuitem name="DiagramLayers" action="DiagramLayers" />
-			<separator name="DiagramSep1" />
-			<separator name="DIagramExtensionStart" />
+			<separator name="EditExtensionStart" />
 		</menu>
 		<menu name="View" action="View">
 			<menuitem name="ViewZoomin" action="ViewZoomin" />

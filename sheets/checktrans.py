@@ -20,10 +20,13 @@
 #
 
 
-
-from xml.sax import saxexts
-from xml.sax import saxlib
 import os,sys,string
+try :
+	from xml.sax import saxexts
+	from xml.sax import saxlib
+except ImportError :
+	print "Missing dependencies: no translation report"
+	sys.exit(0)
 
 class CounterHandler(saxlib.DocumentHandler):
 

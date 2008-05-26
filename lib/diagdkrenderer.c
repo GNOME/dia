@@ -698,14 +698,20 @@ draw_text_line (DiaRenderer *object, TextLine *text_line,
 
     layout = dia_font_build_layout(text, text_line->font,
 				   dia_transform_length(renderer->transform, text_line->height)/20.0);
-#if defined PANGO_VERSION_ENCODE && (PANGO_VERSION >= PANGO_VERSION_ENCODE(1,16,0))
+#if defined(PANGO_VERSION_ENCODE)
+#  if (PANGO_VERSION >= PANGO_VERSION_ENCODE(1,16,0))
     /* I'd say the former Pango API was broken, i.e. leaky */
-    text_line_adjust_layout_line(text_line, pango_layout_get_line_readonly(layout, 0),
-				scale/20.0);
-#else
-    text_line_adjust_layout_line(text_line, pango_layout_get_line(layout, 0),
-				scale/20.0);
+#    define HAVE_pango_layout_get_line_readonly
+#   endif
 #endif
+    text_line_adjust_layout_line (text_line, 
+#if defined(HAVE_pango_layout_get_line_readonly)
+                                  pango_layout_get_line_readonly(layout, 0),
+#else
+                                  pango_layout_get_line(layout, 0),
+#endif
+				  scale/20.0);
+
     if (renderer->highlight_color != NULL) {
       draw_highlighted_string(renderer, layout, x, y, &gdkcolor);
     } else {

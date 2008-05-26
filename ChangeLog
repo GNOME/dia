@@ -1,7 +1,14 @@
-2008-05-18  Hans Breuer  <hans@breuer.org>
+2008-05-26  Hans Breuer  <hans@breuer.org>
+
+	* lib/diagdkrenderer.c : don't rely on shortcut evaluation working
+	with the preprocessor, fixes bug #534801 
 
 	* sheets/checktrans.py : gracefully fail on missing dependencies.
 	The translation report is not crucial for building. Fixes bug #391965
+
+	data/popup-ui.xml : get rid of Diagram menu here as well
+
+2008-05-25  Hans Breuer  <hans@breuer.org>
 
 	* app/commands.c(file_print_callback) : implement by querying for 
 	print plug-ins in order of preference for different platforms
