@@ -1,6 +1,9 @@
 2008-05-30  Hans Breuer  <hans@breuer.org>
 
-	[ Moved libart rendering and it's PNG export to a plug-in ]
+	[ 
+	  Moved libart rendering and it's PNG export to a plug-in.
+	  So it can be switched off before being deprecated in favour of cairo. 
+	]
 	* plug-ins/libart/dialibartrenderer.[hc] : from lib/*
 	* plug-ins/libart/export_png.c : moved from app/*
 	* plug-ins/libart/render_libart.[hc] : moved from app/*
