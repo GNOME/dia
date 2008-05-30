@@ -1,7 +1,7 @@
 !IFNDEF PACKAGE
 
 # dummy sissi
-PLUGINS = gprint cairo cgm dxf hpgl metapost pgf pixbuf \
+PLUGINS = gprint cairo cgm dxf hpgl libart metapost pgf pixbuf \
 	postscript pstricks shape svg vdx wmf wpg xfig xslt 
 
 #broken since StdProp overhaul : diaimport 
@@ -71,6 +71,16 @@ OBJECTS = \
   diagnomeprint.obj \
   diagnomeprintrenderer.obj \
   
+!ENDIF
+
+!IFDEF OBJ_libart
+PKG_CFLAGS = $(PKG_CFLAGS) -DHAVE_LIBART -DHAVE_LIBPNG $(LIBART_CFLAGS) $(PNG_CFLAGS)
+PKG_LINK = $(PKG_LINK) $(LIBART_LIBS) $(PNG_LIBS)
+OBJECTS = \
+  dialibart.obj \
+  export_png.obj \
+  render_libart.obj \
+  dialibartrenderer.obj
 !ENDIF
 
 !IFDEF OBJ_metapost

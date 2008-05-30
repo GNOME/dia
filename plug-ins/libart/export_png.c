@@ -27,6 +27,7 @@
 #include <png.h>
 #include <string.h>
 #include <errno.h>
+#include <stdlib.h>
 
 #include <glib/gstdio.h>
 #include <gtk/gtk.h>
@@ -36,8 +37,26 @@
 #include "render_libart.h"
 #include "dialibartrenderer.h"
 #include "message.h"
-#include "app_procs.h"
 #include "dialogs.h"
+
+
+/* parses a string of the form "[0-9]*x[0-9]*" and transforms it into
+   two long values width and height. */
+static void
+parse_size(gchar *size, long *width, long *height)
+{
+  if (size) {
+    gchar** array = g_strsplit(size, "x", 3);
+    *width  = (array[0])? strtol(array[0], NULL, 10): 0;
+    *height = (array[1])? strtol(array[1], NULL, 10): 0;
+    g_strfreev(array);
+  }
+  else {
+    *width  = 0;
+    *height = 0;
+  }
+}
+
 
 /* the dots per centimetre to render this diagram at */
 /* this matches the setting `100%' setting in dia. */
@@ -91,7 +110,7 @@ export_png_ok(GtkButton *button, gpointer userdata)
   width  = (guint32) ((ext->right - ext->left) * DPCM * data->paper.scaling);
   height = (guint32) ((ext->bottom - ext->top) * DPCM * data->paper.scaling);
 
-  if (app_is_interactive()) {
+  if (button != NULL) {
     /* We don't want multiple clicks:) */
     gtk_widget_hide(export_png_dialog);
 
@@ -165,7 +184,7 @@ export_png_ok(GtkButton *button, gpointer userdata)
   }
   /* the compiler said these may be clobbered by setjmp, so we set it again
    * here. */
-  if (app_is_interactive()) {
+  if (button != NULL) {
     imagewidth = gtk_spin_button_get_value_as_int(export_png_width_entry);
     imageheight = gtk_spin_button_get_value_as_int(export_png_height_entry);
   } else {
@@ -235,7 +254,7 @@ export_png_ok(GtkButton *button, gpointer userdata)
 
  error:
   g_object_unref(renderer);
-  if (app_is_interactive()) {
+  if (button != NULL) {
     gtk_signal_disconnect_by_data(GTK_OBJECT(export_png_okay_button),
 				  userdata);
     gtk_signal_disconnect_by_data(GTK_OBJECT(export_png_cancel_button),
@@ -298,7 +317,7 @@ export_png(DiagramData *data, const gchar *filename,
      the same time will lead to confusion.
   */
 
-  if (export_png_dialog == NULL && app_is_interactive()) {
+  if (export_png_dialog == NULL && user_data == NULL) {
     /* Create a dialog */
     export_png_dialog = dialog_make(_("PNG Export Options"),
 				    _("Export"), NULL,
@@ -326,7 +345,7 @@ export_png(DiagramData *data, const gchar *filename,
   cbdata->data = data;
   cbdata->filename = g_strdup(filename);
 
-  if (app_is_interactive()) {
+  if (user_data == NULL) {
     /* Find the default size */
     width  = (guint32) ((ext->right - ext->left) * DPCM * data->paper.scaling);
     height = (guint32) ((ext->bottom - ext->top) * DPCM * data->paper.scaling);

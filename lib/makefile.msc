@@ -15,7 +15,6 @@ PKG_CFLAGS = -FImsvc_recommended_pragmas.h \
 !IFDEF USEFT2
 	-DHAVE_FREETYPE $(FREETYPE2_CFLAGS) \
 !ENDIF
-	-DHAVE_LIBART $(LIBART_CFLAGS) \
 	-DLIBDIA_COMPILATION
 
 # in GTK_CFLAGS: $(GLIB_CFLAGS) 
@@ -25,7 +24,6 @@ PKG_LINK = $(GTK2_LIBS)  $(PANGOWIN32_LIBS) $(GLIB_LIBS) \
 	$(PANGOFT2_LIBS) \
 !ENDIF
 	$(LIBXML2_LIBS) $(ZLIB_LIBS) \
-	$(LIBART_LIBS) \
 	$(GDK_PIXBUF_LIBS) \
 	$(INTL_LIBS)
 
@@ -55,6 +53,7 @@ OBJECTS = \
 	debug.obj \
 	diaarrowchooser.obj \
 	dialinechooser.obj \
+	dialogs.obj \
 	diatransform.obj \
 	dia_dirs.obj \
 	dia_image.obj \
@@ -65,7 +64,6 @@ OBJECTS = \
 	diagdkrenderer.obj \
 	diagtkfontsel.obj \
 	diainteractiverenderer.obj \
-	dialibartrenderer.obj \
 	diarenderer.obj \
 	diasvgrenderer.obj \
 	dynamic_obj.obj \

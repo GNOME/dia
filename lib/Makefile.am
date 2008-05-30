@@ -99,6 +99,8 @@ libdia_la_SOURCES =  \
 		beziershape.h \
 		objchange.c \
 		objchange.h \
+		dialogs.c \
+		dialogs.h \
 		widgets.c \
 		widgets.h \
 		units.c \

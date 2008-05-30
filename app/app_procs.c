@@ -78,10 +78,6 @@
 #include "exit_dialog.h"
 #include "newgroup.h"
 
-#if defined(HAVE_LIBPNG) && defined(HAVE_LIBART)
-extern DiaExportFilter png_export_filter;
-#endif
-
 static void
 integrated_ui_create_initial_diagrams_callback (GtkWidget *widget,
                                                 gpointer   user_data);
@@ -1139,10 +1135,6 @@ internal_plugin_init(PluginInfo *info)
   /* register export filters */
   /* Standard Dia format */
   filter_register_export(&dia_export_filter);
-#if defined(HAVE_LIBPNG) && defined(HAVE_LIBART)
-  /* PNG with libart rendering */
-  filter_register_export(&png_export_filter);
-#endif
 
   return DIA_PLUGIN_INIT_OK;
 }
@@ -1245,23 +1237,6 @@ print_credits(gboolean credits)
       }
 
       exit(0);
-  }
-}
-
-/* parses a string of the form "[0-9]*x[0-9]*" and transforms it into
-   two long values width and height. */
-void
-parse_size(gchar *size, long *width, long *height)
-{
-  if (size) {
-    gchar** array = g_strsplit(size, "x", 3);
-    *width  = (array[0])? strtol(array[0], NULL, 10): 0;
-    *height = (array[1])? strtol(array[1], NULL, 10): 0;
-    g_strfreev(array);
-  }
-  else {
-    *width  = 0;
-    *height = 0;
   }
 }
 

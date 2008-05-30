@@ -35,10 +35,6 @@ void app_splash_done(void);
 
 gboolean app_is_interactive(void);
 
-/* parses a string of the form "[0-9]*x[0-9]*" and transforms it into
-   two long values width and height. */
-void parse_size(gchar *size, long *width, long *height);
-
 void dia_redirect_console (void);
 
 #endif /* APP_PROCS_H */

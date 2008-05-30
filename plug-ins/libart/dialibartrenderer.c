@@ -1400,6 +1400,46 @@ dia_libart_renderer_get_type (void)
   return object_type;
 }
 
+enum {
+  PROP_0,
+  PROP_TRANSFORM
+};
+
+static void
+dia_libart_interactive_renderer_set_property (GObject         *object,
+			 guint            prop_id,
+			 const GValue    *value,
+			 GParamSpec      *pspec)
+{
+  DiaLibartRenderer *renderer = DIA_LIBART_RENDERER (object);
+
+  switch (prop_id) {
+    case PROP_TRANSFORM:
+      renderer->transform = g_value_get_pointer(value);
+      break;
+    default:
+      break;
+    }
+}
+
+static void
+dia_libart_interactive_renderer_get_property (GObject         *object,
+			 guint            prop_id,
+			 GValue          *value,
+			 GParamSpec      *pspec)
+{
+  DiaLibartRenderer *renderer = DIA_LIBART_RENDERER (object);
+  
+  switch (prop_id) {
+    case PROP_TRANSFORM:
+      g_value_set_pointer (value, renderer->transform);
+      break;
+    default:
+      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+      break;
+    }
+}
+
 static void
 dia_libart_renderer_class_init (DiaLibartRendererClass *klass)
 {
@@ -1410,6 +1450,16 @@ dia_libart_renderer_class_init (DiaLibartRendererClass *klass)
 
   gobject_class->finalize = renderer_finalize;
 	
+  gobject_class->set_property = dia_libart_interactive_renderer_set_property;
+  gobject_class->get_property = dia_libart_interactive_renderer_get_property;
+
+  g_object_class_install_property (gobject_class,
+				   PROP_TRANSFORM,
+				   g_param_spec_pointer ("transform",
+ 							_("Renderer transformation"),
+							_("Transform pointer"),
+							G_PARAM_READWRITE));
+
   /* Here we set the functions that we define for this renderer. */
   renderer_class->get_width_pixels = get_width_pixels;
   renderer_class->get_height_pixels = get_height_pixels;

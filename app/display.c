@@ -48,7 +48,7 @@
 #include "load_save.h"
 #include "dia-props.h"
 #include "render_gdk.h"
-#include "render_libart.h"
+#include "diatransform.h"
 
 static GHashTable *display_ht = NULL;
 static GdkCursor *current_cursor = NULL;
@@ -1023,9 +1023,19 @@ new_aa_renderer (DDisplay *ddisp)
 		  NULL);
     return renderer;
   } else {
-    /* fallback: built-in libart renderer */
-    return new_libart_renderer (dia_transform_new (&ddisp->visible, 
-                                                   &ddisp->zoom_factor), 1);
+    GType libart_renderer_type = g_type_from_name ("DiaLibartRenderer");
+    if (libart_renderer_type) {
+      DiaRenderer *renderer = g_object_new(libart_renderer_type, NULL);
+      g_object_set (renderer,
+                    "transform", dia_transform_new (&ddisp->visible, &ddisp->zoom_factor),
+		    NULL);
+      return renderer;
+    } else {
+      /* we really should not come here but instead disable the menu command earlier */
+      message_warning (_("No anti-aliased renderer found"));
+      /* fallback: built-in libart renderer */
+      return new_gdk_renderer (ddisp); 
+    }
   }
 }
 
@@ -1063,9 +1073,7 @@ ddisplay_resize_canvas(DDisplay *ddisp,
 {
   if (ddisp->renderer==NULL) {
     if (ddisp->aa_renderer)
-      ddisp->renderer = new_libart_renderer(
-                           dia_transform_new (&ddisp->visible, 
-                                              &ddisp->zoom_factor), 1);
+      ddisp->renderer = new_aa_renderer (ddisp);
     else
       ddisp->renderer = new_gdk_renderer(ddisp);
   }

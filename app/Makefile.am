@@ -95,15 +95,12 @@ dia_core_files = \
 	    properties.h \
 	    defaults.c \
 	    defaults.h \
-	    render_libart.c \
-	    render_libart.h \
 	    undo.c \
 	    undo.h \
 	    object_ops.c \
 	    object_ops.h \
 	    layer_dialog.c \
 	    layer_dialog.h \
-	    export_png.c \
 	    commands.c \
 	    commands.h \
 	    app_procs.c \
@@ -182,8 +179,6 @@ dia_core_files = \
 	    sheets_dialog.h \
 	    sheets_dialog_callbacks.c \
 	    sheets_dialog_callbacks.h \
-	    dialogs.c \
-	    dialogs.h \
 	    autosave.c \
 	    autosave.h \
 	    authors.h \

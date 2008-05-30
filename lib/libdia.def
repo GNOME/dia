@@ -258,8 +258,10 @@ EXPORTS
  dia_image_width
 
  dia_interactive_renderer_interface_get_type
- dia_libart_renderer_get_type
-
+ 
+ dialog_make
+ dialog_add_spinbutton
+ 
  dia_line_chooser_new
 
  dia_line_style_selector_get_linestyle
@@ -690,3 +692,9 @@ EXPORTS
  dia_object_get_enclosing_box
 
  calculate_object_edge
+
+; exported for libart renderer only 
+ dia_font_pop_context
+ dia_font_push_context
+ dia_transform_coords_double
+ text_line_adjust_layout_line

@@ -35,14 +35,12 @@ OBJECTS = \
 	diagram_tree_menu.obj \
 	diagram_tree_menu_callbacks.obj \
 	diagram_tree_window.obj \
-	dialogs.obj \
 	diapagelayout.obj \
 	dia-props.obj \
 	disp_callbacks.obj \
 	display.obj \
 	dynamic_refresh.obj \
 	exit_dialog.obj \
-	export_png.obj \
 	filedlg.obj \
 	find-and-replace.obj \
 	grid.obj \
@@ -66,7 +64,6 @@ OBJECTS = \
 	properties.obj \
 	recent_files.obj \
 	render_gdk.obj \
-	render_libart.obj \
 	scroll_tool.obj \
 	select.obj \
 	sheets.obj \
