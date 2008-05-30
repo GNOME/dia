@@ -62,13 +62,10 @@ dia_plugin_init(PluginInfo *info)
     return DIA_PLUGIN_INIT_ERROR;
 
 #if defined(HAVE_LIBPNG) && defined(HAVE_LIBART)
+  /* FIXME: need to think about of proper way of registartion, see also app/display.c */
+  png_export_filter.renderer_type = dia_libart_renderer_get_type ();
   /* PNG with libart rendering */
   filter_register_export(&png_export_filter);
-#endif
-  
-#ifdef HAVE_LIBART
-  /* FIXME: need to think about of proper way of registartion, see also app/display.c */
-  dia_libart_renderer_get_type ();
 #endif
   
   return DIA_PLUGIN_INIT_OK;

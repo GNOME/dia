@@ -19,6 +19,14 @@
 
 	app/menus.c : View/Antialiased currently always enabled
 
+	* lib/filter.h plug-ins/cairo/diacairo.c plug-ins/libart/dialibart.c :
+	put the renderer tpye in the export filter struct, at least it avoids
+	optimizing away it's side effect
+
+	* plug-ins/libart/dialibartrenderer.c plug-ins/libart/render_libart.c :
+	now the libart renderer has always the interactive interface which
+	make it work as display renderer again
+
 2008-05-26  Hans Breuer  <hans@breuer.org>
 
 	* lib/diagdkrenderer.c : don't rely on shortcut evaluation working

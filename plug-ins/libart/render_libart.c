@@ -53,7 +53,7 @@ static void copy_to_window (DiaRenderer *self, gpointer window,
                             int x, int y, int width, int height);
 
 
-static void 
+void 
 dia_libart_renderer_iface_init (DiaInteractiveRendererInterface* iface)
 {
   iface->clip_region_clear = clip_region_clear;
@@ -74,22 +74,6 @@ new_libart_renderer(DiaTransform *trans, int interactive)
 
   renderer = g_object_new(DIA_TYPE_LIBART_RENDERER, NULL);
   renderer->transform = trans;
-
-  if (!DIA_GET_INTERACTIVE_RENDERER_INTERFACE (renderer))
-    {
-      static const GInterfaceInfo irenderer_iface_info = 
-      {
-        (GInterfaceInitFunc) dia_libart_renderer_iface_init,
-        NULL,           /* iface_finalize */
-        NULL            /* iface_data     */
-      };
-
-      renderer_type = DIA_TYPE_LIBART_RENDERER;
-      /* register the interactive renderer interface */
-      g_type_add_interface_static (renderer_type,
-                                   DIA_TYPE_INTERACTIVE_RENDERER_INTERFACE,
-                                   &irenderer_iface_info);
-    }
   renderer->parent_instance.is_interactive = interactive;
 
   return DIA_RENDERER (renderer);

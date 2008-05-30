@@ -49,6 +49,8 @@ struct _DiaExportFilter {
   const gchar *unique_name;
   /* additional hints for export */
   guint hints;
+  /* optional, holding the renderers type */
+  GType renderer_type;
 };
 
 /* returns FALSE on error loading diagram */

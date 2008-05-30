@@ -447,6 +447,9 @@ dia_plugin_init(PluginInfo *info)
                             _plugin_unload))
     return DIA_PLUGIN_INIT_ERROR;
 
+  /* FIXME: need to think about of proper way of registartion, see also app/display.c */
+  png_export_filter.renderer_type = dia_cairo_interactive_renderer_get_type ();
+
 #ifdef CAIRO_HAS_PS_SURFACE
   filter_register_export(&ps_export_filter);
 #endif
@@ -471,9 +474,6 @@ dia_plugin_init(PluginInfo *info)
 #if GTK_CHECK_VERSION (2,10,0)
   filter_register_callback (&cb_gtk_print);
 #endif
-
-  /* FIXME: need to think about of proper way of registartion, see also app/display.c */
-  dia_cairo_interactive_renderer_get_type ();
   
   return DIA_PLUGIN_INIT_OK;
 }

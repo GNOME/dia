@@ -1372,6 +1372,9 @@ renderer_finalize (GObject *object)
   G_OBJECT_CLASS (parent_class)->finalize (object);
 }
 
+extern void 
+dia_libart_renderer_iface_init (DiaInteractiveRendererInterface* iface);
+
 GType
 dia_libart_renderer_get_type (void)
 {
@@ -1392,9 +1395,21 @@ dia_libart_renderer_get_type (void)
         (GInstanceInitFunc)renderer_init /* init */
       };
 
+      static const GInterfaceInfo irenderer_iface_info = 
+      {
+        (GInterfaceInitFunc) dia_libart_renderer_iface_init,
+        NULL,           /* iface_finalize */
+        NULL            /* iface_data     */
+      };
+
       object_type = g_type_register_static (DIA_TYPE_RENDERER,
                                             "DiaLibartRenderer",
                                             &object_info, 0);
+
+      /* register the interactive renderer interface */
+      g_type_add_interface_static (object_type,
+                                   DIA_TYPE_INTERACTIVE_RENDERER_INTERFACE,
+                                   &irenderer_iface_info);
     }
   
   return object_type;
