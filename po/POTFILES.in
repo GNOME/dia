@@ -12,12 +12,10 @@ app/diagram.c
 app/diagram_tree.c
 app/diagram_tree_menu.c
 app/diagram_tree_window.c
-app/dialogs.c
 app/diapagelayout.c
 app/disp_callbacks.c
 app/display.c
 app/exit_dialog.c
-app/export_png.c
 app/filedlg.c
 app/find-and-replace.c
 app/interface.c
@@ -31,7 +29,6 @@ app/plugin-manager.c
 app/preferences.c
 app/properties.c
 app/recent_files.c
-app/render_libart.c
 app/sheets.c
 app/sheets_dialog.c
 app/sheets_dialog_callbacks.c
@@ -47,8 +44,8 @@ lib/dia_xml.c
 lib/diaarrowchooser.c
 lib/diagramdata.c
 lib/diagtkfontsel.c
-lib/dialibartrenderer.c
 lib/dialinechooser.c
+lib/dialogs.c
 lib/filter.c
 lib/font.c
 lib/message.c
@@ -188,6 +185,9 @@ plug-ins/dxf/dxf.c
 plug-ins/gprint/diagnomeprint.c
 plug-ins/gprint/diagnomeprintrenderer.c
 plug-ins/hpgl/hpgl.c
+plug-ins/libart/export_png.c
+plug-ins/libart/render_libart.c
+plug-ins/libart/dialibartrenderer.c
 plug-ins/metapost/metapost.c
 plug-ins/metapost/render_metapost.c
 plug-ins/pgf/pgf.c

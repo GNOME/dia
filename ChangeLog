@@ -1,9 +1,6 @@
 2008-05-30  Hans Breuer  <hans@breuer.org>
 
-	[
-	  Moved libart rendering and it's PNG export to a plug-in
-	  Not build on Linux for the moment
-	]
+	[ Moved libart rendering and it's PNG export to a plug-in ]
 	* plug-ins/libart/dialibartrenderer.[hc] : from lib/*
 	* plug-ins/libart/export_png.c : moved from app/*
 	* plug-ins/libart/render_libart.[hc] : moved from app/*
@@ -13,7 +10,8 @@
 	for the cairo renderer
 
 	* app/Makefile.am app/makefile.msc plug-ins/makefile.msc
-	  lib/libdia.def lib/Makefile.am lib/makefile.msc : adapted
+	  lib/libdia.def lib/Makefile.am lib/makefile.msc
+	  plug-ins/Makefile.am configure.in po/POTFILES: adapted
 	* plug-ins/libart/Makefile.am : build it on Linux (untested)
 
 	app/menus.c : View/Antialiased currently always enabled

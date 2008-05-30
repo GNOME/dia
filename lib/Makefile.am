@@ -138,8 +138,6 @@ libdia_la_SOURCES =  \
 		diagdkrenderer.c \
 		diasvgrenderer.h \
 		diasvgrenderer.c \
-		dialibartrenderer.h \
-		dialibartrenderer.c \
 		dia_svg.h \
 		dia_svg.c \
 		diagtkfontsel.c \
