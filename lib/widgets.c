@@ -39,8 +39,6 @@
 #include <time.h>
 #include <gdk/gdkkeysyms.h>
 
-#include "diagtkfontsel.h"
-
 /************* DiaSizeSelector: ***************/
 /* A widget that selects two sizes, width and height, optionally keeping
  * aspect ratio.  When created, aspect ratio is locked, but the user can

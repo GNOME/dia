@@ -18,7 +18,7 @@
 	calculation and drawing. Fixes bug #158265
 
 	* lib/diagtkfontsel.[ch] : not used for quite some time -> removed
-	* lib/Makefile.am po/POTFILES.in : updated
+	* lib/widgets.c lib/Makefile.am po/POTFILES.in : adapted/updated
 
 2008-05-30  Hans Breuer  <hans@breuer.org>
 
