@@ -140,8 +140,6 @@ libdia_la_SOURCES =  \
 		diasvgrenderer.c \
 		dia_svg.h \
 		dia_svg.c \
-		diagtkfontsel.c \
-		diagtkfontsel.h \
 		autoroute.c \
 		autoroute.h \
 		parent.c \
