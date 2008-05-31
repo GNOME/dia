@@ -39,6 +39,7 @@
 #include "pydia-text.h"
 #include "pydia-paperinfo.h"
 
+#include "lib/libdia.h"
 #include "lib/object.h"
 #include "lib/group.h"
 #include "app/diagram.h"
@@ -46,6 +47,8 @@
 #include "app/load_save.h"
 
 #include "lib/message.h"
+
+#include "lib/plug-ins.h"
 
 static PyObject *
 PyDia_GroupCreate(PyObject *self, PyObject *args)
@@ -166,6 +169,19 @@ _ot_item (gpointer key,
         PyDict_SetItem(dict, k, v);
     Py_XDECREF(k);
     Py_XDECREF(v);
+}
+
+static PyObject *
+PyDia_RegisterPlugin(PyObject *self, PyObject *args)
+{
+    gchar *filename;
+
+    if (!PyArg_ParseTuple(args, "s:dia.register_plugin", &filename))
+	return NULL;
+    dia_register_plugin (filename);
+
+    Py_INCREF(Py_None);
+    return Py_None;
 }
 
 static PyObject *
@@ -508,6 +524,8 @@ static PyMethodDef dia_methods[] = {
     { "register_action", PyDia_RegisterAction, METH_VARARGS,
       "register a callback function which appears in the menu. Depending on the menu path used during registration"
       "the callback gets called with the current DiaDiagramData object" },
+    { "register_plugin", PyDia_RegisterPlugin, METH_VARARGS,
+      "registers a single plug-in given its filename" },
     { NULL, NULL }
 };
 
@@ -600,4 +618,9 @@ initdia(void)
 
     if (PyErr_Occurred())
 	Py_FatalError("can't initialise module dia");
+    else {
+      /* should all be no-ops when used embedded */
+      g_type_init ();
+      libdia_init (DIA_MESSAGE_STDERR);
+    }
 }

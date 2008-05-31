@@ -115,7 +115,7 @@ dia_font_init(PangoContext* pcontext)
 }
 
 /* We might not need these anymore, when using FT2/Win32 fonts only */
-static GList *pango_contexts;
+static GList *pango_contexts = NULL;
 
 void
 dia_font_push_context(PangoContext *pcontext) {

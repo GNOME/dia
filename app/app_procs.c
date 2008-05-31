@@ -53,7 +53,6 @@
 #include "intl.h"
 #include "app_procs.h"
 #include "object.h"
-#include "color.h"
 #include "commands.h"
 #include "tool.h"
 #include "interface.h"
@@ -71,12 +70,11 @@
 #include "authors.h"
 #include "autosave.h"
 #include "dynamic_refresh.h"
-#include "dia_image.h"
 #include "persistence.h"
 #include "sheets.h"
-#include "utils.h"
 #include "exit_dialog.h"
 #include "newgroup.h"
+#include "libdia.h"
 
 static void
 integrated_ui_create_initial_diagrams_callback (GtkWidget *widget,
@@ -100,36 +98,7 @@ static gboolean handle_all_diagrams(GSList *files, char *export_file_name,
 				    char *export_file_format, char *size, char *show_layers);
 static void print_credits(gboolean credits);
 
-static gboolean dia_is_interactive = TRUE;
-static void
-stderr_message_internal(const char *title, enum ShowAgainStyle showAgain,
-			const char *fmt, va_list *args,  va_list *args2);
-
-static void
-stderr_message_internal(const char *title, enum ShowAgainStyle showAgain,
-			const char *fmt, va_list *args,  va_list *args2)
-{
-  static gchar *buf = NULL;
-  static gint   alloc = 0;
-  gint len;
-
-  len = format_string_length_upper_bound (fmt, args);
-
-  if (len >= alloc) {
-    if (buf)
-      g_free (buf);
-    
-    alloc = nearest_pow (MAX(len + 1, 1024));
-    
-    buf = g_new (char, alloc);
-  }
-  
-  vsprintf (buf, fmt, *args2);
-  
-  fprintf(stderr,
-          "%s: %s\n", 
-          title,buf);
-}
+static gboolean dia_is_interactive = FALSE;
 
 #ifdef GNOME
 
@@ -605,22 +574,6 @@ handle_initial_diagram(const char *in_file_name,
   return made_conversions;
 }
 
-#ifdef G_OS_WIN32
-static void
-myXmlErrorReporting (void *ctx, const char* msg, ...)
-{
-  va_list args;
-  gchar *string;
-
-  va_start(args, msg);
-  string = g_strdup_vprintf (msg, args);
-  g_print ("%s", string ? string : "xml error (null)?");
-  va_end(args);
-
-  g_free(string);
-}
-#endif
-
 #ifdef HAVE_FREETYPE
 /* Translators:  This is an option, not to be translated */
 #define EPS_PANGO "eps-pango, "
@@ -696,6 +649,9 @@ app_init (int argc, char **argv)
      N_("Display version and exit"), NULL },
     { NULL }
   };
+  
+  /* for users of app_init() the default is interactive */
+  dia_is_interactive = TRUE;
 
   options[0].arg_data = &export_file_name;
   options[1].arg_data = &export_file_format;
@@ -793,43 +749,22 @@ app_init (int argc, char **argv)
 
   if (!dia_is_interactive)
     log_to_stderr = TRUE;
-  
-  if (log_to_stderr)
-    set_message_func(stderr_message_internal);
+
+  libdia_init (   (dia_is_interactive ? DIA_INTERACTIVE : 0)
+	       || (log_to_stderr ? DIA_MESSAGE_STDERR : 0));
 
   print_credits(credits);
 
-  LIBXML_TEST_VERSION;
-
-#ifdef G_OS_WIN32
-  xmlSetGenericErrorFunc(NULL, myXmlErrorReporting);
-#endif
-
-  stdprops_init();
-
   if (dia_is_interactive) {
-    dia_image_init();
-
-    gdk_rgb_init();
-
-    gtk_rc_parse("diagtkrc"); 
-
-    if (!nosplash) {
-      app_splash_init("");
-    }
-  }
-
-  if (dia_is_interactive)
     create_user_dirs();
 
-  /* Init cursors: */
-  if (dia_is_interactive) {
-    color_init();
+    if (!nosplash)
+      app_splash_init("");
+
+    /* Init cursors: */
     default_cursor = gdk_cursor_new(GDK_LEFT_PTR);
     ddisplay_set_all_cursor(default_cursor);
   }
-
-  object_registry_init();
 
   dia_register_plugins();
   dia_register_builtin_plugin(internal_plugin_init);

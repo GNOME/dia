@@ -36,7 +36,7 @@ static const char *menuitem_enum_key = "dia-menuitem-value";
 static gchar*
 _dia_translate (const gchar* term, gpointer data)
 {
-  gchar* trans = term;
+  const gchar* trans = term;
   
   if (term && *term) {
     /* first try our own ... */

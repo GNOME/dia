@@ -184,7 +184,7 @@ $(PRJ_TOP)\config.h: $(PRJ_TOP)\config.h.win32
 	$(CC) $(CFLAGS) -c $(PKG_CFLAGS) $<
 
 .c.obj :
-	$(CC) $(CFLAGS) -GD -c $(PKG_CFLAGS) $<
+	$(CC) $(CFLAGS) -c $(PKG_CFLAGS) $<
 
 !ENDIF
 

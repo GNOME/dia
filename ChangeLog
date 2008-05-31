@@ -1,5 +1,18 @@
 2008-05-31  Hans Breuer  <hans@breuer.org>
 
+	* lib/libdia.[ch] : new files containing the initialization code ...
+	* app/app_procs.c : ... removed here ...
+	* plug-ins/python/diamodule.c : ... to be useable from here
+	* lib/Makefile.am lib/makefile.msc lib/libdia.def : adapted
+	
+	* app/diagram.c : there is no diagram_tree to update when not 
+	running interactively, also no display to update
+
+	[warningectomy]
+	* lib/diaarrowchooser.c lib/persistence.[ch] : constness
+	* lib/diagramdata.c : signedness
+	* lib/font.c : initialization
+
 	* objects/UML/association.c : moved calculation of the direction 
 	triangle into it's own function and use it for bounding box 
 	calculation and drawing. Fixes bug #158265

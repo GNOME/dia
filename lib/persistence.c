@@ -568,7 +568,7 @@ persistence_update_window(GtkWindow *window, gboolean isclosed)
   } else {
     wininfo = g_new0(PersistentWindow, 1);
     persistence_store_window_info(window, wininfo, FALSE);
-    g_hash_table_insert(persistent_windows, name, wininfo);
+    g_hash_table_insert(persistent_windows, (gchar *)name, wininfo);
   }
   if (wininfo->window != NULL && wininfo->window != window) {
     g_object_unref(wininfo->window);
@@ -666,7 +666,7 @@ persistence_register_window(GtkWindow *window)
     gtk_window_get_size(window, &wininfo->width, &wininfo->height);
     /* Drawable means visible & mapped, what we usually think of as open. */
     wininfo->isopen = GTK_WIDGET_DRAWABLE(GTK_WIDGET(window));
-    g_hash_table_insert(persistent_windows, name, wininfo);
+    g_hash_table_insert(persistent_windows, (gchar *)name, wininfo);
   }
   if (wininfo->window != NULL && wininfo->window != window) {
     g_object_unref(wininfo->window);
@@ -802,7 +802,7 @@ persistence_register_list(const gchar *role)
   list->glist = NULL;
   list->sorted = FALSE;
   list->max_members = G_MAXINT;
-  g_hash_table_insert(persistent_lists, role, list);
+  g_hash_table_insert(persistent_lists, (gchar *)role, list);
   return list;
 }
 
@@ -830,7 +830,7 @@ persistent_list_get_glist(const gchar *role)
 }
 
 static GList *
-persistent_list_cut_length(GList *list, gint length)
+persistent_list_cut_length(GList *list, guint length)
 {
   while (g_list_length(list) > length) {
     GList *last = g_list_last(list);
@@ -956,7 +956,7 @@ persistent_list_invoke_listeners(gchar *role)
       ListenerData *listener = (ListenerData*)tmp->data;
       if (listener->watch == NULL) {
 	/* Listener died */
-	plist->listeners = g_list_remove_link(plist->listeners, listener);
+	plist->listeners = g_list_remove_link(plist->listeners, tmp->data);
 	g_free(listener);
       } else {
 	/* Still listening */
@@ -1155,7 +1155,7 @@ persistence_get_string(gchar *role)
 }
 
 void
-persistence_set_string(gchar *role, gchar *newvalue)
+persistence_set_string(gchar *role, const gchar *newvalue)
 {
   gchar *stringval;
   if (persistent_strings == NULL) {

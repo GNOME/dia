@@ -62,7 +62,6 @@ OBJECTS = \
 	diaerror.obj \
 	diagramdata.obj \
 	diagdkrenderer.obj \
-	diagtkfontsel.obj \
 	diainteractiverenderer.obj \
 	diarenderer.obj \
 	diasvgrenderer.obj \
@@ -74,6 +73,7 @@ OBJECTS = \
 	geometry.obj \
 	group.obj \
 	intl.obj \
+	libdia.obj \
 	message.obj \
 	newgroup.obj \
 	neworth_conn.obj \

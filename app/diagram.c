@@ -309,12 +309,13 @@ diagram_load(const char *filename, DiaImportFilter *ifilter)
   } else {
     diagram->unsaved = FALSE;
     diagram_set_modified(diagram, FALSE);
-    if (app_is_interactive())
+    if (app_is_interactive()) {
       recent_file_history_add(filename);
-    diagram_tree_add(diagram_tree(), diagram);
+      diagram_tree_add(diagram_tree(), diagram);
+    }
   }
   
-  if (diagram != NULL && was_default) {
+  if (diagram != NULL && was_default && app_is_interactive()) {
     diagram_update_for_filename(diagram);
     diagram->is_default = FALSE;
     if ( g_slist_length(diagram->displays) == 1 )

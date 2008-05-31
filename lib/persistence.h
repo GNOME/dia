@@ -87,7 +87,7 @@ void persistence_set_boolean(gchar *role, gboolean newvalue);
 
 gchar *persistence_register_string(gchar *role, gchar *defaultvalue);
 gchar *persistence_get_string(gchar *role);
-void persistence_set_string(gchar *role, gchar *newvalue);
+void persistence_set_string(gchar *role, const gchar *newvalue);
 
 Color *persistence_register_color(gchar *role, Color *defaultvalue);
 Color *persistence_get_color(gchar *role);

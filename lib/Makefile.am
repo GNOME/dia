@@ -164,6 +164,8 @@ libdia_la_SOURCES =  \
 		prefs.h \
 	        newgroup.c \
 	        newgroup.h \
+		libdia.c \
+		libdia.h \
 		\
 		diacellrendererproperty.c \
 		diacellrendererproperty.h \

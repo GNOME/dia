@@ -240,15 +240,13 @@ void
 data_raise_layer(DiagramData *data, Layer *layer)
 {
   guint i;
-  int layer_nr = -1;
+  guint layer_nr = 0;
   Layer *tmp;
   
   for (i=0;i<data->layers->len;i++) {
     if (g_ptr_array_index(data->layers, i)==layer)
       layer_nr = i;
   }
-
-  g_assert(layer_nr>=0);
 
   if (layer_nr < data->layers->len-1) {
     tmp = g_ptr_array_index(data->layers, layer_nr+1);
@@ -668,8 +666,6 @@ int render_bounding_boxes = FALSE;
  * @param obj_renderer A function that will render an object.
  * @param data The diagram that the layer belongs to.
  * @param active_layer Which number layer in the diagram is currently active.
- * @bug data and active_layer can be inferred from layer, though possibly 
- *  slowly.
  */
 void
 layer_render(Layer *layer, DiaRenderer *renderer, Rectangle *update,

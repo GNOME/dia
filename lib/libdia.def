@@ -83,7 +83,7 @@ EXPORTS
 
  color_convert
  color_equals
- color_init
+; color_init
  color_new_rgb
 
  composite_add_attribute
@@ -248,7 +248,6 @@ EXPORTS
  dia_image_filename
  dia_image_get_broken
  dia_image_height
- dia_image_init
  dia_image_load
  dia_image_mask_data
  dia_image_release
@@ -300,6 +299,7 @@ EXPORTS
  dia_plugin_unload
  dia_pluginrc_write
  dia_register_builtin_plugin
+ dia_register_plugin
  dia_register_plugins
 
  dia_renderer_get_type
@@ -492,7 +492,6 @@ EXPORTS
  object_prop_by_name_type
  object_register_type
  object_registry_foreach
- object_registry_init
  object_remove_connectionpoint
  object_remove_connections_to
  object_remove_handle
@@ -609,7 +608,6 @@ EXPORTS
  polyshape_update_boundingbox
  polyshape_update_data
 
- stdprops_init
  make_new_prop
  prefs_get_length_unit
  prefs_set_fontsize_unit
@@ -698,3 +696,5 @@ EXPORTS
  dia_font_push_context
  dia_transform_coords_double
  text_line_adjust_layout_line
+ 
+ libdia_init
