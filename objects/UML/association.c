@@ -365,6 +365,36 @@ association_move(Association *assoc, Point *to)
   return change;
 }
 
+/** calculate the point of the small triangle for show_direction  */
+static gboolean
+assoc_get_direction_poly (Association *assoc, Point* poly)
+{
+  if (assoc->show_direction) {
+    if (assoc->direction == ASSOC_RIGHT) {
+      poly[0].x = assoc->text_pos.x + assoc->text_width + 0.1;
+      if (assoc->text_align == ALIGN_CENTER)
+        poly[0].x -= assoc->text_width/2.0;
+      poly[0].y = assoc->text_pos.y;
+      poly[1].x = poly[0].x;
+      poly[1].y = poly[0].y - ASSOCIATION_FONTHEIGHT*0.5;
+      poly[2].x = poly[0].x + ASSOCIATION_FONTHEIGHT*0.5;
+      poly[2].y = poly[0].y - ASSOCIATION_FONTHEIGHT*0.5*0.5;
+      return TRUE;
+    } else if (assoc->direction == ASSOC_LEFT) {
+      poly[0].x = assoc->text_pos.x - 0.2;
+      if (assoc->text_align == ALIGN_CENTER)
+        poly[0].x -= assoc->text_width/2.0;
+      poly[0].y = assoc->text_pos.y;
+      poly[1].x = poly[0].x;
+      poly[1].y = poly[0].y - ASSOCIATION_FONTHEIGHT*0.5;
+      poly[2].x = poly[0].x - ASSOCIATION_FONTHEIGHT*0.5;
+      poly[2].y = poly[0].y - ASSOCIATION_FONTHEIGHT*0.5*0.5;
+      return TRUE;
+    }
+  }
+  return FALSE;
+}
+
 static void
 association_draw(Association *assoc, DiaRenderer *renderer)
 {
@@ -426,37 +456,8 @@ association_draw(Association *assoc, DiaRenderer *renderer)
   /* Direction: */
   renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
 
-  switch (assoc->direction) {
-  case ASSOC_NODIR:
-    break;
-  case ASSOC_RIGHT:
-    if (assoc->show_direction) {
-      poly[0].x = assoc->text_pos.x + assoc->text_width + 0.1;
-      if (assoc->text_align == ALIGN_CENTER)
-        poly[0].x -= assoc->text_width/2.0;
-      poly[0].y = assoc->text_pos.y;
-      poly[1].x = poly[0].x;
-      poly[1].y = poly[0].y - ASSOCIATION_FONTHEIGHT*0.5;
-      poly[2].x = poly[0].x + ASSOCIATION_FONTHEIGHT*0.5;
-      poly[2].y = poly[0].y - ASSOCIATION_FONTHEIGHT*0.5*0.5;
-      renderer_ops->fill_polygon(renderer, poly, 3, &assoc->line_color);
-    }
-    break;
-  case ASSOC_LEFT:
-    if (assoc->show_direction) {
-      poly[0].x = assoc->text_pos.x - 0.2;
-      if (assoc->text_align == ALIGN_CENTER)
-        poly[0].x -= assoc->text_width/2.0;
-      poly[0].y = assoc->text_pos.y;
-      poly[1].x = poly[0].x;
-      poly[1].y = poly[0].y - ASSOCIATION_FONTHEIGHT*0.5;
-      poly[2].x = poly[0].x - ASSOCIATION_FONTHEIGHT*0.5;
-      poly[2].y = poly[0].y - ASSOCIATION_FONTHEIGHT*0.5*0.5;
-      renderer_ops->fill_polygon(renderer, poly, 3, &assoc->line_color);
-    }
-    break;
-  }
-
+  if (assoc_get_direction_poly (assoc, poly))
+    renderer_ops->fill_polygon(renderer, poly, 3, &assoc->line_color);
 
   for (i=0;i<2;i++) {
     AssociationEnd *end = &assoc->end[i];
@@ -590,6 +591,7 @@ association_update_data_end(Association *assoc, int endnum)
   AssociationEnd *end;
   Orientation dir;
   int n = orth->numpoints - 1, fp, sp;
+  Point dir_poly[3];
 
   /* Find the first and second points depending on which end: */
   if (endnum) {
@@ -653,6 +655,12 @@ association_update_data_end(Association *assoc, int endnum)
   rect.bottom = rect.top + 2*ASSOCIATION_FONTHEIGHT;
   
   rectangle_union(&obj->bounding_box, &rect);
+  
+  if (assoc_get_direction_poly (assoc, dir_poly)) {
+    int i;
+    for (i = 0; i < 3; ++i)
+      rectangle_add_point (&obj->bounding_box, &dir_poly[i]);
+  }
 }
 
 static void

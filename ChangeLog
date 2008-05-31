@@ -1,3 +1,9 @@
+2008-05-31  Hans Breuer  <hans@breuer.org>
+
+	* objects/UML/association.c : moved calculation of the direction 
+	triangle into it's own function and use it for bounding box 
+	calculation and drawing. Fixes bug #158265
+
 2008-05-30  Hans Breuer  <hans@breuer.org>
 
 	[ 
