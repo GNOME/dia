@@ -1,3 +1,17 @@
+2008-06-01  Hans Breuer  <hans@breuer.org>
+
+	* app/display.c : get rid of HAVE_LIBART, there is antialiased 
+	rendering with cairo, too. Update menu by plug-ins types 
+	being available.
+	* lib/font.c : now that I can look at the cairo renderer interactively
+	the renderers font-size mismatch raised it's ugly head again. Some 
+	code in	comment which does not solve the issue
+
+	* app/app_procs.c : updated version dump for cairo and pango
+	* configure.in : updated pango version required (to the same 
+	already dragged in by gkt+ (still 2.6 as minimum)
+	
+
 2008-05-31  Hans Breuer  <hans@breuer.org>
 
 	* lib/libdia.[ch] : new files containing the initialization code ...

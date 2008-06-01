@@ -1183,8 +1183,7 @@ ddisplay_close(DDisplay *ddisp)
                                   GTK_DIALOG_MODAL,
                                   GTK_MESSAGE_QUESTION,
                                   GTK_BUTTONS_NONE, /* no standard buttons */
-				  _("Closing diagram without saving"),
-				  NULL);
+				  _("Closing diagram without saving"));
   gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(dialog),
     _("The diagram '%s'\n"
       "has not been saved. Save changes now?"), fname);
@@ -1216,32 +1215,24 @@ display_update_menu_state(DDisplay *ddisp)
   GtkToggleAction *visible_grid;
   GtkToggleAction *snap_to_grid;
   GtkToggleAction *show_cx_pts;
-#ifdef HAVE_LIBART
   GtkToggleAction *antialiased;
-#endif
 
   if (ddisp->menu_bar == NULL) {
     rulers       = GTK_TOGGLE_ACTION (menus_get_action ("ViewShowrulers"));
     visible_grid = GTK_TOGGLE_ACTION (menus_get_action ("ViewShowgrid"));
     snap_to_grid = GTK_TOGGLE_ACTION (menus_get_action ("ViewSnaptogrid"));
     show_cx_pts  = GTK_TOGGLE_ACTION (menus_get_action ("ViewShowconnectionpoints"));
-#ifdef HAVE_LIBART
     antialiased  = GTK_TOGGLE_ACTION (menus_get_action ("ViewAntialiased"));
-#else 
-    /* the action is registered to avoid crashing, disable the entry */
-    gtk_action_set_sensitive (menus_get_action ("ViewAntialiased"), FALSE);
-#endif
   } else {
     rulers       = GTK_TOGGLE_ACTION (gtk_action_group_get_action (ddisp->actions, "ViewShowrulers"));
     visible_grid = GTK_TOGGLE_ACTION (gtk_action_group_get_action (ddisp->actions, "ViewShowgrid"));
     snap_to_grid = GTK_TOGGLE_ACTION (gtk_action_group_get_action (ddisp->actions, "ViewSnaptogrid"));
     show_cx_pts  = GTK_TOGGLE_ACTION (gtk_action_group_get_action (ddisp->actions, "ViewShowconnectionpoints"));
-#ifdef HAVE_LIBART
+
     antialiased  = GTK_TOGGLE_ACTION (gtk_action_group_get_action (ddisp->actions, "ViewAntialiased"));
-#else
-    gtk_action_set_sensitive (gtk_action_group_get_action (ddisp->actions, "ViewAntialiased"), FALSE);
-#endif
   }
+  gtk_action_set_sensitive (menus_get_action ("ViewAntialiased"), 
+		            g_type_from_name ("DiaCairoInteractiveRenderer") != 0 || g_type_from_name ("DiaLibartRenderer") != 0);
 
 
   ddisplay_do_update_menu_sensitivity (ddisp);
@@ -1253,10 +1244,9 @@ display_update_menu_state(DDisplay *ddisp)
 				 ddisp->grid.snap);
   gtk_toggle_action_set_active (show_cx_pts,
 				 ddisp->show_cx_pts); 
-#ifdef HAVE_LIBART
+
   gtk_toggle_action_set_active (antialiased,
-				 ddisp->aa_renderer);
-#endif 
+				ddisp->aa_renderer);
 }
 
 void 

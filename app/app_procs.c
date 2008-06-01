@@ -76,10 +76,6 @@
 #include "newgroup.h"
 #include "libdia.h"
 
-static void
-integrated_ui_create_initial_diagrams_callback (GtkWidget *widget,
-                                                gpointer   user_data);
-
 static gboolean
 handle_initial_diagram(const char *input_file_name, 
 		       const char *export_file_name,
@@ -414,13 +410,16 @@ dump_dependencies(void)
 #ifdef HAVE_LIBART
   "libart "
 #endif
+#ifdef HAVE_CAIRO
+  "cairo "
+#endif
   "\n");
 
   /* print out all those dependies, both compile and runtime if possible 
    * Note: this is not meant to be complete but does only include libaries 
    * which may or have cause(d) us trouble in some versions 
    */
-  g_print ("Library versions\n");
+  g_print ("Library versions (at compile time)\n");
 #ifdef HAVE_LIBPNG
   g_print ("libpng  : %s (%s)\n", png_get_header_ver(NULL), PNG_LIBPNG_VER_STRING);
 #endif
@@ -445,7 +444,7 @@ dump_dependencies(void)
   }
 #endif
   {
-    gchar* libxml_rt_version = "?";
+    const gchar* libxml_rt_version = "?";
 #if 0
     /* this is stupid, does not compile on Linux:
      * app_procs.c:504: error: expected identifier before '(' token
@@ -468,7 +467,14 @@ dump_dependencies(void)
   g_print ("glib    : %d.%d.%d (%d.%d.%d)\n", 
            glib_major_version, glib_minor_version, glib_micro_version,
            GLIB_MAJOR_VERSION, GLIB_MINOR_VERSION, GLIB_MICRO_VERSION);
-  g_print ("pango   : version not available\n"); /* Pango does not provide such */
+#ifdef PANGO_VERSION_ENCODE
+  g_print ("pango   : %s (%d.%d.%d.)\n", pango_version_string(), PANGO_VERSION_MAJOR, PANGO_VERSION_MINOR, PANGO_VERSION_MICRO);
+#else
+  g_print ("pango   : version not available (>= 1.14.x)\n"); /* Pango did not provide such */
+#endif
+#if HAVE_CAIRO
+  g_print ("cairo   : %s (%d.%d.%d)\n", cairo_version_string(), CAIRO_VERSION_MAJOR, CAIRO_VERSION_MINOR, CAIRO_VERSION_MICRO);
+#endif
 #if 0
   {
     gchar  linkedname[1024];

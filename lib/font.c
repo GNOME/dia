@@ -136,6 +136,11 @@ dia_font_pop_context() {
 PangoContext *
 dia_font_get_context() {
   if (pango_context == NULL) {
+/* Maybe this one with pangocairo
+     dia_font_push_context (pango_cairo_font_map_create_context (pango_cairo_font_map_get_default()));
+ * but it gives: 
+     (lt-dia:30476): Pango-CRITICAL **: pango_renderer_draw_layout: assertion `PANGO_IS_RENDERER (renderer)' failed
+ */
 #ifdef HAVE_FREETYPE
     /* This is suggested by new Pango (1.2.4+), but doesn't get us the
      * right resolution:(
