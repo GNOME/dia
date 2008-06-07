@@ -1,3 +1,15 @@
+2008-06-07  Steffen Macke <sdteffen@sdteffen.de>
+
+	* shapes/Cisco/telecommuter_house_router.png:
+	* shapes/Cisco/layer3_switch.png:
+	* shapes/Cisco/gigabit_switch_router_atm_tag.png:
+	* shapes/Cisco/dpt.png:
+	* shapes/Cisco/svx.png:
+	* shapes/Cisco/dot_dot.png:
+	* shapes/Cisco/man_woman.png:
+	* shapes/Cisco/workstation.png:
+	* shapes/Cisco/communications_server.png: Standard icon size 22x22
+
 2008-06-07  Hans Breuer  <hans@breuer.org>
 
 	* app/makefile.msc : need to link cairo for getting it's version
