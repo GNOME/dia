@@ -1,3 +1,8 @@
+2008-06-07  Hans Breuer  <hans@breuer.org>
+
+	* plug-ins/svg/svg-import.c : if the drawing size was giving in points
+	the scaling was going in the wrong direction leading to huge diagrams
+
 2008-06-01  Hans Breuer  <hans@breuer.org>
 
 	* app/display.c : get rid of HAVE_LIBART, there is antialiased 

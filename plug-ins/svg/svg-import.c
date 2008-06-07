@@ -77,8 +77,9 @@ const gdouble DEFAULT_SVG_SCALE = 20.0;
 static gdouble user_scale = 20.0;
 
 /*!
- * Read a numeric value from a string taking unit into account. The signature is the same as
- * g_ascii_strtod but also reads the unit if there is one
+ * Read a numeric value from a string taking unit into account. 
+ * The signature is the same as g_ascii_strtod but also reads 
+ * the unit if there is one
  */
 static gdouble
 get_value_as_cm (const gchar *nptr,
@@ -101,7 +102,7 @@ get_value_as_cm (const gchar *nptr,
     else if (strncmp(endp, "in", 2) == 0)
         val /= 2.54, endp+=2;
     else if (strncmp(endp, "pt", 2) == 0)
-        val /= 0.03528, endp+=2;
+        val *= 0.03528, endp+=2;
     /* the rest can't really be resolved here, passing unit to caller (who will just ignore at the moment) */
     
     if (endptr)
