@@ -96,7 +96,6 @@ metadata = \
 	topic.dat
 
 examples = \
-	$(progname).$(progfiles_extension) \
 	../shape.dtd \
 	../diagram.dtd \
 	../sheet.dtd

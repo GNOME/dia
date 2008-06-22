@@ -39,15 +39,11 @@ endif
 all: omf $(htmldoc) $(pdfdoc) $(psdoc)
 
 install-data-local: install-data-xml \
-	$(html_install) $(pdf_install) $(ps_install) 
-
-## install-examples
+	$(html_install) $(pdf_install) $(ps_install) install-examples
 
 uninstall-local: uninstall-local-xml  \
 	uninstall-html uninstall-pdf uninstall-ps \
-	uninstall-ps uninstall-pdf
-
-## uninstall-examples
+	uninstall-ps uninstall-pdf uninstall-examples
 
 clean-local: clean-local-xml \
 	clean-html clean-ps clean-pdf

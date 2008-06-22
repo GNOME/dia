@@ -1,5 +1,11 @@
 2008-06-22  Hans Breuer  <hans@breuer.org>
 
+	* doc/(en|fr)/Makefile.am : remove $(progname).$(progfiles_extension) 
+	from examples
+	* hardcopies.make : resurrect example installation
+
+2008-06-22  Hans Breuer  <hans@breuer.org>
+
 	[Patch from Thomas Harding improving the documentation generation]
 	* doc/*/hardcopies.makefile : moved to $(top) directory
 	* hardcopies.make : now uses dblatex or fallback on jw 

@@ -25,7 +25,6 @@ dist-hook: app-dist-hook
 nodist_include_EXTRAS = dia.1
 
 
-
 xml_files += \
 	authors.xml \
 	dia.xml \
@@ -97,7 +96,6 @@ metadata = \
 	topic.dat
 
 examples = \
-	$(progname).$(progfiles_extension) \
 	../shape.dtd \
 	../diagram.dtd \
 	../sheet.dtd
