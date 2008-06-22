@@ -89,7 +89,7 @@ htmlstyle = \
 
 
 metadata = \
-	dia-eu.omf \
+	dia-pl.omf \
 	topic.dat
 
 examples = \
