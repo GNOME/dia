@@ -33,9 +33,9 @@
    Utiliser CTRL-MAJ-X pour couper et CTRL-MAJ-V pour coller seulement le texte.
    Il n'y a pas de raccourci permettant la copie seule de texte.
    </para>
-   <note><para>Lorsque vous collez du texte dans un objet, le texte est formatté
+   <note><simpara>Lorsque vous collez du texte dans un objet, le texte est formatté
    selon les propriétés de l'objet de destination et non de celui du texte source.
-   </para></note>
+   </simpara></note>
    </listitem>
    <listitem>
    <para>On ne peut pas sélectionner de portion de texte à la souris (cela
@@ -44,12 +44,12 @@
    caractère à gauche du pointeur de la souris avec la touche retour arrière
    (backspace).
    </para>
-   <note><para>
+   <note><simpara>
    La touche SUPPR supprime l'objet entier et non le texte à la droite du 
    curseur. Utilisez MAJ-SUPPR pour supprimer ce texte (et utilisez 
    édition/annuler si vous supprimez un objet par erreur). Pour supprimer
    tout le texte, utilisez Couper (CTRL-MAJ-X).
-   </para></note>
+   </simpara></note>
    </listitem>
    <listitem><para>
    Si vous utilizez une police ou une taille de police autre que celle par 
@@ -60,10 +60,10 @@
    </para></listitem>
    </itemizedlist>
    <note>
-    <para>
+    <simpara>
      Le <emphasis>Texte</emphasis> dans <application>Dia</application> peut
      utiliser toute fonte disponible à Gnome.
-    </para>
+    </simpara>
    </note>
    </sect2>
    <sect2 id="box">
@@ -71,7 +71,7 @@
     <para>
      Les boîtes dans <application>Dia</application> peuvent être personnalisées
      pour prendre n'importe quelle taille désirée par l'utilisateur.  Les
-     propriétés disponibles sont&nbsp;:
+     propriétés disponibles sont&#x00A0;:
      <itemizedlist>
       <listitem>
        <para>
@@ -164,7 +164,7 @@
     <para>
      Les formats d'image suivants sont actuellement supportés pour l'inclusion
      dans les diagrammes
-      <application>Dia</application> &nbsp;:
+      <application>Dia</application> &#x00A0;:
       <itemizedlist>
         <listitem><para>ANI</para></listitem>
 	<listitem><para>BMP</para></listitem>

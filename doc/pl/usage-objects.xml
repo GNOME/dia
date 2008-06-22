@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="iso-8859-2"?>
 <chapter label="3" id="objects-chapter">
 <title>Obiekty</title>
   <sect1 id="objects-introduction">
@@ -56,7 +56,7 @@
        <title>Kropki dopasowuj±ce</title>
        <screenshot>
          <screeninfo>Zielone kropki umo¿liwiaj± zmianê rozmiaru obrazu.</screeninfo>
-         <graphic format="png" fileref="graphics/greendots" srccredit="Kevin Breit" />
+         <graphic format="PNG" fileref="graphics/greendots" srccredit="Kevin Breit" />
        </screenshot>
      </figure>
      Przestrzeñ wewn±trz ramek jest przestrzeni± obiektu. Klikniêcie i
@@ -129,7 +129,7 @@
     <title>W³a¶ciwo¶ci linii</title>
       <screenshot>
         <screeninfo>Poni¿ej zosta³y opisane wszystkie trzy akapity.</screeninfo>
-        <graphic format="png" fileref="graphics/line_props" srccredit="Kevin Breit" />
+        <graphic format="PNG" fileref="graphics/line_props" srccredit="Kevin Breit" />
       </screenshot>
     </figure>
     <para>

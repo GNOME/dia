@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 
-
 <!DOCTYPE book
 
   PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN" "../../dtd/docbookx.dtd"
@@ -42,13 +41,14 @@
 
     <!ENTITY toolbox "Boîte à outils">
     
-    <!ENTITY og "«&nbsp;">
+    <!ENTITY og "«&#x00A0;">
     
-    <!ENTITY fg "&nbsp;»">
-
-    <!ENTITY pngfile "png">
+    <!ENTITY fg "&#x00A0;»">
 
     <!ENTITY DIA-1 SYSTEM "dia-1.xml">
+    
+    <!ENTITY % local_entities SYSTEM "entities.xml">
+    %local_entities;
   ]
 
 >
@@ -56,8 +56,6 @@
 
 
 <book id="index" lang="fr"> <!-- please do not change the id -->
-
-
 
  <bookinfo>
   
@@ -80,7 +78,13 @@
    <holder>Alan Horkan</holder>
 
   </copyright>                                                  
-   
+  <authorgroup>
+   <author><firstname>Kevin</firstname><surname>Breit</surname></author>
+   <author><firstname>Henry</firstname><surname>House</surname></author>
+   <author><firstname>Judith</firstname><surname>Samson</surname></author>
+   <author><firstname>Alan</firstname><surname>Horkan</surname></author>
+   <author><firstname>Thomas</firstname><surname>Harding</surname></author>
+  </authorgroup>
   <legalnotice id="legal-notice">
 
    <para>
@@ -136,7 +140,15 @@
    manuel.
 
   </releaseinfo>
-
+  <revhistory>
+  <revision>
+    <revnumber>0.5-2fr</revnumber>
+    <date>2008-27-05</date>
+    <authorinitials>HDG</authorinitials>
+    <revremark>suppressions des entités HTML, dia-1.xml independant de dia-cmdline.xml,
+    suppression des extensions des éléments "graphic"</revremark>
+  </revision>
+  </revhistory>
  </bookinfo>
 
 &INTRODUCTION;

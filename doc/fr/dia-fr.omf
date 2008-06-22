@@ -1,26 +1,35 @@
-<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<!DOCTYPE omf PUBLIC "-//Open Source Metadata Framework (OMF) //DTD OMF.dtd V1.1//EN" "http://scrollkeeper.sourceforge.net/dtds/scrollkeeper-omf-1.0/scrollkeeper-omf.dtd">
 <omf>
-<!-- (creator+ , maintainer* , contributor* , title , date , version* , subject* , description? , type* , coverage* , format , identifier , language , relation* , source* , rights*) -->
   <resource>
    <creator>Henry House</creator>
    <creator>Judith Samson</creator>
    <creator>Kevin Breit</creator>
    <creator>Alan Horkan</creator>
-   <maintainer>docs@gnome.org</maintainer>
+   <maintainer>thomas.harding@laposte.net (Thomas HARDING)</maintainer>
    <contributor>James Henstridge</contributor>
    <contributor>Dolores Alia de Saravia</contributor>
    <contributor>Fredrik Hallenberg</contributor>
    <contributor>W. Borgert</contributor>
    <contributor>Thomas Harding</contributor>
-
-    <title>
-      Manuel de Dia
-    </title>
-    <date>21/04/2007</date>
-    <version identifier="0.5_1fr" date="21/04/2007" />
-    <subject category="GNOME|Office" />
-   <format mime="text/sgml"/>
-   <identifier url="panel.sgml"/>
+   <title>Le manuel de Dia</title>
+   <date>05/27/2008</date>
+   <version id="dia-manual-fr-0.5-2" identifier="Manuel de Dia 0.5-2" date="2008-05-26" description="correction d'erreurs typographiques" />
+   <!-- please specify subject for your distribution 
+        as ANOTHER "subject" element -->
+   <subject category="GNOME|Applications|Graphics"></subject>
+   <subject category="GNOME|Applications|Office"></subject>
+   <subject category="Applications|Multimedia|Graphics"></subject>
+   <subject category="GNOME|Office"></subject>
+   <description>
+	Manuel d'utilisation de Dia, l'éditeur de diagrammes
+   </description>
+   <type>
+     user's guide
+   </type>
+   <format mime="application/xml" dtd="-//OASIS//DTD DocBook XML V4.4//EN" />
+   <identifier url="file://usr/local/share/dia/doc/fr/dia.xml"/>
    <language code="fr" />
+   <relation seriesid="dia" />
  </resource>
 </omf>

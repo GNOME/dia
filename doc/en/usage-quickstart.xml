@@ -14,7 +14,7 @@
         <screeninfo>This is a diagram of a home network produced in under
         5 minutes using <application>Dia</application>.
         </screeninfo>
-        <graphic format="PNG" fileref="graphics/home_network.&pngfile;" srccredit=
+        <graphic format="PNG" fileref="graphics/home_network" srccredit=
 	"Kevin Breit" />
       </screenshot>
     </figure>

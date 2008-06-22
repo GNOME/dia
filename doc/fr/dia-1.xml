@@ -1,4 +1,4 @@
-﻿  <refentryinfo>
+﻿<refentryinfo>
     <copyright>
       <year>1999</year>
       <year>2004</year>
@@ -171,8 +171,8 @@
       de 900 pixels de hauteur.</para>
 
 	  <note>
-        <para>Cette option n&apos;est actuellement implémentée que pour
-        le filtre d&apos;export PNG.</para>
+        <simpara>Cette option n&apos;est actuellement implémentée que pour
+        le filtre d&apos;export PNG.</simpara>
 	  </note>
 	</listitem>
       </varlistentry>
@@ -359,4 +359,4 @@
     <email>thomas.harding@laposte.net</email>
     </author>
     </para>
-  </refsect1>
+</refsect1>

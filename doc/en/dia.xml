@@ -38,9 +38,10 @@
 
     <!ENTITY LICENSE SYSTEM "license.xml">
 
-    <!ENTITY pngfile "png">
-
     <!ENTITY DIA-1 SYSTEM "dia-1.xml">
+
+    <!ENTITY % local_entities SYSTEM "entities.xml">
+    %local_entities;
   ]
 
 >
@@ -68,6 +69,13 @@
    <holder>Alan Horkan</holder>
 
   </copyright>                                                  
+  <authorgroup>
+   <author><firstname>Kevin</firstname><surname>Breit</surname></author>
+   <author><firstname>Henry</firstname><surname>House</surname></author>
+   <author><firstname>Judith</firstname><surname>Samson</surname></author>
+   <author><firstname>Alan</firstname><surname>Horkan</surname></author>
+   <author><firstname>Thomas</firstname><surname>Harding</surname></author>
+  </authorgroup>
 
 
 
@@ -120,6 +128,15 @@
    This is version 0.5 of the Dia manual.
 
   </releaseinfo>
+  <revhistory>
+  <revision>
+    <revnumber>0.5-2</revnumber>
+    <date>2008-27-05</date>
+    <authorinitials>HDG</authorinitials>
+    <revremark>dropping HTML entities, making dia-1.xml independant from dia-cmdline.xml,
+    dropping file extension from graphics</revremark>
+  </revision>
+  </revhistory>
 
  </bookinfo>
 

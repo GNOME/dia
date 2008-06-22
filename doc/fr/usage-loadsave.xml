@@ -1,10 +1,10 @@
 <chapter label="8" id="loadsave-chapter">
 <title>Charger et sauver des diagrammes</title>
 <sect1 id="loadsave-intro">
- <title>Charger et sauver des diagrammes&nbsp;: Introduction</title>
+ <title>Charger et sauver des diagrammes&#x00A0;: Introduction</title>
   <para>
    <application>Dia</application> suit le modèle de sauvegarde commun à la
-   plupart des applications&nbsp;: vous devez sauver explicitement chaque
+   plupart des applications&#x00A0;: vous devez sauver explicitement chaque
    canevas que vous désirez retenir pour un usage futur. Pour sauver un
    fichier, utilisez
     <menuchoice>
@@ -26,7 +26,7 @@
      <guimenuitem>Ouvrir</guimenuitem>
     </menuchoice>
    de l'interface <interface>Barre de menu principale</interface>.  Le résultat
-   est une <interface>boîte de dialogue ouvrir</interface>&nbsp;; selectionnez
+   est une <interface>boîte de dialogue ouvrir</interface>&#x00A0;; selectionnez
    le fichier que vous désirez et choisissez le bouton
    <guibutton>Ouvrir</guibutton>. la <interface>boîte de dialogue
    ouvrir</interface> est standard à part le menu popup étiqueté
@@ -75,7 +75,7 @@
     <sect2 id="loadsave-filetypes-import">
     <title>Formats d'importation</title>
      <para>
-      <application>Dia</application> peut importer les types de fichiers suivants&nbsp;:
+      <application>Dia</application> peut importer les types de fichiers suivants&#x00A0;:
       <itemizedlist>
        <listitem>
         <para>
@@ -109,7 +109,7 @@
     <sect2 id="loadsave-filetypes-export">
     <title>Exportation: Support d'autres formats</title>
      <para>
-     <application>Dia</application> supporte l'exportation dans beaucoup d'autres types de fichiers, comme&nbsp;:
+     <application>Dia</application> supporte l'exportation dans beaucoup d'autres types de fichiers, comme&#x00A0;:
      <itemizedlist>
       <listitem>
        <para>

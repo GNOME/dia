@@ -30,11 +30,13 @@
 
     <!ENTITY LICENSE SYSTEM "license.xml">
 
+    <!ENTITY DIA-1 SYSTEM "dia-1.xml">
+
   ]>
 
 
 
-<book id="index" lang="en"> <!-- please do not change the id -->
+<book id="index" lang="eu"> <!-- please do not change the id -->
 
 
 

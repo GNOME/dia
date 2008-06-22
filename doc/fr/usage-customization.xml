@@ -17,7 +17,7 @@
  <title>La boîte de dialogue préférences</title>
  <screenshot>
   <screeninfo>La boîte de dialogue <interface>Préférences.</interface></screeninfo>
-   <graphic format="PNG" fileref="graphics/preferences_fig.&pngfile;"
+   <graphic format="PNG" fileref="graphics/preferences_fig"
         srccredit="Thomas Harding" />
  </screenshot>
  </figure>
@@ -81,9 +81,9 @@
       le nombre de choix qui seront afichés dans la section 
       Documents Récents du menu <guimenu>Fichiers</guimenu>.
       <note>
-      <para>
+      <simpara>
         ndt : cette section n&apos;existe pas encore dans la version 0.96... 
-      </para>
+      </simpara>
       </note>
     </para>
    </listitem>
@@ -113,39 +113,39 @@
   <itemizedlist>
    <listitem>
     <para>
-     portrait&nbsp;: permet de définir qu'un nouveau diagramme soit orienté en portrait ou en paysage
+     portrait&#x00A0;: permet de définir qu'un nouveau diagramme soit orienté en portrait ou en paysage
      selon qu'il est coché ou non.
     </para>
    </listitem>
    <listitem>
     <para>
-    Type de papier&nbsp;: définit la taille de papier normalisé d'une page d'un nouveau diagramme.
+    Type de papier&#x00A0;: définit la taille de papier normalisé d'une page d'un nouveau diagramme.
     </para>
    </listitem>
    <listitem>
     <para>
-      Couleur d'arrièrere-plan&nbsp;: définit la couleur d'arrière-plan d'un nouveau diagramme.
+      Couleur d'arrièrere-plan&#x00A0;: définit la couleur d'arrière-plan d'un nouveau diagramme.
     </para>
     </listitem>
    <listitem>
     <para>
-     Largeur&nbsp;: contrôle la largeur, en pixels, d'une nouvelle fenêtre.
+     Largeur&#x00A0;: contrôle la largeur, en pixels, d'une nouvelle fenêtre.
     </para>
    </listitem>
    <listitem>
     <para>
-     Hauteur&nbsp;: contrôle la hauteur, en pixels, d'une nouvelle fenêtre.
+     Hauteur&#x00A0;: contrôle la hauteur, en pixels, d'une nouvelle fenêtre.
     </para>
    </listitem>
    <listitem>
     <para>
-      Grossissement&nbsp;: règle le facteur de multiplication du zoom
+      Grossissement&#x00A0;: règle le facteur de multiplication du zoom
       d'une nouvelle fenêtre.
     </para>
    </listitem>
    <listitem>
     <para>
-     Visible&nbsp;: définit la visibilité des points de connexion.
+     Visible&#x00A0;: définit la visibilité des points de connexion.
     </para>
    </listitem> 
    </itemizedlist>
@@ -161,31 +161,31 @@
    </listitem> 
    <listitem>
     <para>
-      Magnétisme&nbsp;: fait que les objets sont attirés aux intersections de la grille.
+      Magnétisme&#x00A0;: fait que les objets sont attirés aux intersections de la grille.
       Ceci permettant un alignement plus aisé des objets, les objets séparés revenant
       brusquement à la même ligne.
     </para>
    </listitem>
    <listitem>
      <para>
-       Largeur du pas&nbsp;: l'utilisateur définit un multiplicateur qui règle
+       Largeur du pas&#x00A0;: l'utilisateur définit un multiplicateur qui règle
        l'espacement horizontal des lignes de la grille.
      </para>
    </listitem>
    <listitem>
      <para>
-       Hauteur du pas&nbsp;: l'utilisateur définit un multiplicateur qui règle
+       Hauteur du pas&#x00A0;: l'utilisateur définit un multiplicateur qui règle
        l'espacement vertical des lignes de la grille.
      </para>
    </listitem>
    <listitem>
      <para>
-       Couleur&nbsp;: règle la couleur d'affichage des lignes de la grille.
+       Couleur&#x00A0;: règle la couleur d'affichage des lignes de la grille.
      </para>
    </listitem>
    <listitem>
      <para>
-       Lignes par subdivision majeure&nbsp;: indique ce que sera l'emplacement 
+       Lignes par subdivision majeure&#x00A0;: indique ce que sera l'emplacement 
        des bords de page lorsque vous imprimez le diagramme.
      </para>
    </listitem>

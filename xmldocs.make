@@ -49,8 +49,7 @@ EXTRA_DIST = $(xml_files) $(omffile)
 CLEANFILES = omf_timestamp
 
 include $(top_srcdir)/omf.make
-
-all: omf
+include $(top_srcdir)/hardcopies.make
 
 $(docname).xml: $(entities)
 	-ourdir=`pwd`;  \
@@ -66,7 +65,7 @@ app-dist-hook:
 	  done \
 	fi
 
-install-data-local: omf
+install-data-xml: omf
 	$(mkinstalldirs) $(DESTDIR)$(helpdocdir)
 	for file in $(xml_files); do \
 	  cp $(srcdir)/$$file $(DESTDIR)$(helpdocdir); \
@@ -81,19 +80,13 @@ install-data-local: omf
 
 install-data-hook: install-data-hook-omf
 
-uninstall-local: uninstall-local-doc uninstall-local-omf
+uninstall-local-xml: uninstall-local-doc uninstall-local-omf
 
 uninstall-local-doc:
-	-if test "$(figdir)"; then \
-	  for file in $(srcdir)/$(figdir)/*.png; do \
-	    basefile=`echo $$file | sed -e  's,^.*/,,'`; \
-	    rm -f $(DESTDIR)$(helpdocdir)/$(figdir)/$$basefile; \
-	  done; \
-	  rmdir $(DESTDIR)$(helpdocdir)/$(figdir); \
-	fi
-	-for file in $(xml_files); do \
-	  rm -f $(DESTDIR)$(helpdocdir)/$$file; \
-	done
+	-rm -f $(DESTDIR)$(helpdocdir)/$(figdir)/*
+	-rmdir $(DESTDIR)$(helpdocdir)/$(figdir)
+	-rm -f $(DESTDIR)$(helpdocdir)/*
+	-rmdir $(DESTDIR)$(helpdocdir)/*
 	-rmdir $(DESTDIR)$(helpdocdir)
 
-clean-local: clean-local-omf
+clean-local-xml: clean-local-omf

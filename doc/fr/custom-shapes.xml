@@ -276,15 +276,15 @@
        </listitem>
        </itemizedlist>
        <tip>
-        <para>
+        <simpara>
             Pour dessiner un rectangle avec une ligne de largeur minimale
             (hairline), cette astuce devrait fontionner :
+	</simpara>
             <literallayout>
             <literal>
   &lt;svg:rect style="stroke-width: 0" x="..." y="..." width="..." height="..."/&gt;
             </literal>
             </literallayout>
-        </para>
         </tip>
         </para>
         <para>

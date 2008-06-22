@@ -1,12 +1,13 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding='iso-8859-2' ?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook V4.4//EN" "http://docbook.org/xml/4.4/docbookx.dtd"
 
-<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN" "../../dtd/docbookx.dtd"[
-<!ENTITY VERSION "0.96">
+[
+<!ENTITY VERSION "0.92.2">
 <!ENTITY INTRODUCTION SYSTEM "intro.xml">
 <!ENTITY QUICKSTART SYSTEM "usage-quickstart.xml">
 <!ENTITY CANVAS SYSTEM "usage-canvas.xml">
 <!ENTITY OBJECTS SYSTEM "usage-objects.xml">
-<!--<!ENTITY BASIC-OBJECTS SYSTEM "usage-objects-basic.xml">-->
+<!ENTITY BASIC-OBJECTS SYSTEM "usage-objects-basic.xml">
 <!ENTITY SPECIAL-OBJECTS SYSTEM "usage-objects-special.xml">
 <!ENTITY SELECTING-OBJECTS SYSTEM "usage-objects-selecting.xml">
 <!ENTITY LOADING-SAVING SYSTEM "usage-loadsave.xml">
@@ -17,7 +18,7 @@
 <!ENTITY LICENSE SYSTEM "license.xml">
 ]>
 
-<book id="index" lang="pl"> <!-- proszê nie zmieniaæ identyfikatora -->
+<book id="index"> <!-- proszê nie zmieniaæ identyfikatora -->
 
  <bookinfo>
   <title>Dia</title>

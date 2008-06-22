@@ -1,188 +1,676 @@
-.\" ** You probably do not want to edit this file directly **
-.\" It was generated using the DocBook XSL Stylesheets (version 1.69.0).
-.\" Instead of manually editing it, you probably should edit the DocBook XML
-.\" source for it and then use the DocBook XSL Stylesheets to regenerate it.
-.TH "DIA" "1" "1999\-07\-03" "" ""
+.\"     Title: diadiadia
+.\"    Author: Fredrik Hallenberg <hallon@lysator.liu.se>
+.\" Generator: DocBook XSL Stylesheets v1.73.2 <http://docbook.sf.net/>
+.\"      Date: 1999-07-03
+.\"    Manual: 
+.\"    Source: 
+.\"
+.TH "DIADIADIA" "1" "1999\-07\-03" "" ""
 .\" disable hyphenation
 .nh
 .\" disable justification (adjust text to left margin only)
 .ad l
 .SH "NAME"
-dia \- a diagram drawing program
+dia - a diagram drawing program
 .SH "SYNOPSIS"
 .HP 4
-\fBdia\fR [\fB\-c\fR] [\fB\-\-credits\fR] [\fB\-e\ \fR\fB\fIOUTPUT\fR\fR] [\fB\-\-export=\fR\fB\fIOUTPUT\fR\fR] [\fB\-h\fR] [\fB\-\-help\fR] [\fB\-n\fR] [\fB\-\-nosplash\fR] [\fB\-s\ \fR\fB\fIWxH\fR\fR] [\fB\-\-size=\fR\fB\fIWxH\fR\fR] [\fB\-t\ \fR\fB\fIFORMAT\fR\fR] [\fB\-\-filter=\fR\fB\fIFORMAT\fR\fR] [\fB\-v\fR] [\fB\-\-version\fR] [file\ ...]
+\fBdia\fR [\fB\-c\fR] [\fB\-\-credits\fR] [\fB\-e\ \fR\fB\fIOUTPUT\fR\fR] [\fB\-\-export=\fR\fB\fIOUTPUT\fR\fR] [\fB\-h\fR] [\fB\-\-help\fR] [\fB\-n\fR] [\fB\-\-nosplash\fR] [\fB\-s\ \fR\fB\fIWxH\fR\fR] [\fB\-\-size=\fR\fB\fIWxH\fR\fR] [\fB\-t\ \fR\fB\fIFORMAT\fR\fR] [\fB\-\-filter=\fR\fB\fIFORMAT\fR\fR] [\fB\-v\fR] [\fB\-\-version\fR] [file\ \.\.\.]
 .SH "DESCRIPTION"
 .PP
-\fBDia\fR 
-is used to create diagrams. Dia has a number of basic tools, like lines and boxes but can also dynamically load 
-\fIsheets\fR. A sheet is a collection of tools that are used in a certain type of diagram.
+\fBDia\fR
+is used to create diagrams\. Dia has a number of basic tools, like lines and boxes but can also dynamically load
+\fIsheets\fR\. A sheet is a collection of tools that are used in a certain type of diagram\.
 .PP
-Most diagram objects in 
-\fBDia\fR 
-has 
-\fIhandles\fR. Lines can be connected to these handles and this way graph structures can be formed. When objects are moved or resized the connections will follow the objects.
+Most diagram objects in
+\fBDia\fR
+has
+\fIhandles\fR\. Lines can be connected to these handles and this way graph structures can be formed\. When objects are moved or resized the connections will follow the objects\.
 .PP
-Diagrams drawn in 
-\fBDia\fR 
-can be exported PostScript.
+Diagrams drawn in
+\fBDia\fR
+can be exported PostScript\.
 .SH "OPTIONS"
 .PP
-\fBDia\fR 
+\fBDia\fR
 accepts the following options:
-.TP
+.PP
 \fB\-c\fR \fB\-\-credits\fR
-Display credits list and exit.
-.TP
+.RS 4
+Display credits list and exit\.
+.RE
+.PP
 \fB\-e \fR\fB\fIOUTPUT\fR\fR \fB\-\-export=\fR\fB\fIOUTPUT\fR\fR
-Export loaded file to OUTPUT and exit.
-.TP
+.RS 4
+Export loaded file to OUTPUT and exit\.
+.RE
+.PP
 \fB\-h\fR \fB\-\-help\fR
-Display a list of all commandline options.
-.TP
+.RS 4
+Display a list of all commandline options\.
+.RE
+.PP
 \fB\-n\fR \fB\-\-nosplash\fR
-Do not show the splash screen.
-.TP
+.RS 4
+Do not show the splash screen\.
+.RE
+.PP
 \fB\-s \fR\fB\fIWxH\fR\fR \fB\-\-size=\fR\fB\fIWxH\fR\fR
-Export loaded file in decimal given width and/or height. It is allowed to only select width or height. E.g. 
-\fB\-\-size=\fR\fB\fI520x\fR\fR 
-exports an image that is 520 pixels wide, while 
-\fB\-\-size=\fR\fB\fIx900\fR\fR 
-exports an image of 900 pixels height.
+.RS 4
+Export loaded file in decimal given width and/or height\. It is allowed to only select width or height\. E\.g\.
+\fB\-\-size=\fR\fB\fI520x\fR\fR
+exports an image that is 520 pixels wide, while
+\fB\-\-size=\fR\fB\fIx900\fR\fR
+exports an image of 900 pixels height\.
 .sp
 .it 1 an-trap
 .nr an-no-space-flag 1
 .nr an-break-flag 1
 .br
-\fBNote\fR
-This option is currently only implemented for the PNG export filter.
-.TP
+Note
+This option is currently only implemented for the PNG export filter\.
+.RE
+.PP
 \fB\-t \fR\fB\fIFORMAT\fR\fR \fB\-\-export\-to\-format=\fR\fB\fIFORMAT\fR\fR
-Export loaded file in FORMAT and exit. Format are described below.
-.TP
+.RS 4
+Export loaded file in FORMAT and exit\. Format are described below\.
+.RE
+.PP
 \fB\-v\fR \fB\-\-version\fR
-Display 
-\fBdia\fR 
-version and exit.
+.RS 4
+Display
+\fBdia\fR
+version and exit\.
+.RE
 .SH "EXPORT FORMATS"
 .PP
-The following export formats are supported by 
-\fBdia\fR.
-.TP 3
-\(bu
-cgm 
+The following export formats are supported by
+\fBdia\fR\.
+.sp
+.RS 4
+\h'-04'\(bu\h'+03'cgm
 (Computer Graphics Metafile, ISO 8632)
-.TP
-\(bu
-dia 
+.RE
+.sp
+.RS 4
+\h'-04'\(bu\h'+03'dia
 (Native dia diagram)
-.TP
-\(bu
-dxf 
+.RE
+.sp
+.RS 4
+\h'-04'\(bu\h'+03'dxf
 (Drawing Interchange File)
-.TP
-\(bu
-eps 
-or 
-eps\-builtin 
-or 
-eps\-pango 
+.RE
+.sp
+.RS 4
+\h'-04'\(bu\h'+03'eps
+or
+epsi
+or
+eps\-builtin
+or
+eps\-pango
 (Encapsulated PostScript)
-
-The format specifications 
-eps, 
-epsi, and 
-eps\-pango 
-all use the font renderer of the Pango library, while 
-eps\-builtin 
-uses a dia specific font renderer. If you have problems with Pango rendering, e.g. Unicode, try 
-eps\-builtin 
-instead.
-.TP
-\(bu
-fig 
+.sp
+The format specifications
+eps,
+epsi, and
+eps\-pango
+all use the font renderer of the Pango library, while
+eps\-builtin
+uses a dia specific font renderer\. If you have problems with Pango rendering, e\.g\. Unicode, try
+eps\-builtin
+instead\.
+.RE
+.sp
+.RS 4
+\h'-04'\(bu\h'+03'fig
 (XFig format)
-.TP
-\(bu
-mp 
+.RE
+.sp
+.RS 4
+\h'-04'\(bu\h'+03'mp
 (TeX MetaPost macros)
-.TP
-\(bu
-plt 
-or 
-hpgl 
+.RE
+.sp
+.RS 4
+\h'-04'\(bu\h'+03'plt
+or
+hpgl
 (HP Graphics Language)
-.TP
-\(bu
-png 
+.RE
+.sp
+.RS 4
+\h'-04'\(bu\h'+03'png
 (Portable Network Graphics)
-.TP
-\(bu
-shape 
+.RE
+.sp
+.RS 4
+\h'-04'\(bu\h'+03'shape
 (Dia shape file)
-.TP
-\(bu
-svg 
+.RE
+.sp
+.RS 4
+\h'-04'\(bu\h'+03'svg
 (Scalable Vector Graphics)
-.TP
-\(bu
-tex 
+.RE
+.sp
+.RS 4
+\h'-04'\(bu\h'+03'tex
 (TeX PSTricks macros)
-.TP
-\(bu
-wpg 
+.RE
+.sp
+.RS 4
+\h'-04'\(bu\h'+03'wpg
 (WordPerfect Graphics)
-.TP
-\(bu
-wmf 
+.RE
+.sp
+.RS 4
+\h'-04'\(bu\h'+03'wmf
 (Windows MetaFile)
+.RE
 .SH "FILES"
 .PP
-\fBdia\fR 
-creates a directory 
-\fI.dia\fR 
-in the user's home, which contains different files to store user preferences. To reset 
-\fBdia\fR 
-to it's default behaviour, just remove the respective file:
-.TP 3
-\(bu
-\fIdefaults.dia\fR: contains default values for elements (XML format).
-.TP
-\(bu
-\fIdiarc\fR: keeps 
-\fBdia\fR 
-preferences (ASCII).
-.TP
-\(bu
-\fIhistory\fR: keeps the list of last edited diagrams (ASCII).
-.TP
-\(bu
-\fImenurc\fR: contains an automated accelerator map dump (Lisp).
-.TP
-\(bu
-\fIpersistence\fR: contains GUI information, e.g. open windows (XML).
-.TP
-\(bu
-\fIpluginrc\fR: the list of loaded plugins (XML).
+\fBdia\fR
+creates a directory
+\fI\.dia\fR
+in the user\'s home, which contains different files to store user preferences\. To reset
+\fBdia\fR
+to it\'s default behaviour, just remove the respective file:
+.sp
+.RS 4
+\h'-04'\(bu\h'+03'\fIdefaults\.dia\fR: contains default values for elements (XML format)\.
+.RE
+.sp
+.RS 4
+\h'-04'\(bu\h'+03'\fIdiarc\fR: keeps
+\fBdia\fR
+preferences (ASCII)\.
+.RE
+.sp
+.RS 4
+\h'-04'\(bu\h'+03'\fIhistory\fR: keeps the list of last edited diagrams (ASCII)\.
+.RE
+.sp
+.RS 4
+\h'-04'\(bu\h'+03'\fImenurc\fR: contains an automated accelerator map dump (Lisp)\.
+.RE
+.sp
+.RS 4
+\h'-04'\(bu\h'+03'\fIpersistence\fR: contains GUI information, e\.g\. open windows (XML)\.
+.RE
+.sp
+.RS 4
+\h'-04'\(bu\h'+03'\fIpluginrc\fR: the list of loaded plugins (XML)\.
+.RE
 .SH "SEE ALSO"
 .PP
-[1]\&\fIPango\fR
+\fIPango\fR\&[1]
 .PP
 X (1)
 .SH "COPYRIGHT"
 .PP
-Copyright 1999 Alexander Larsson.
+Copyright 1999 Alexander Larsson\.
 .PP
-Permission to use, copy, modify, and distribute this software and its documentation for any purpose and without fee is hereby granted, provided that the above copyright notice appear in all copies and that both that copyright notice and this permission notice appear in supporting documentation.
+Permission to use, copy, modify, and distribute this software and its documentation for any purpose and without fee is hereby granted, provided that the above copyright notice appear in all copies and that both that copyright notice and this permission notice appear in supporting documentation\.
 .SH "AUTHORS"
 .PP
 Alexander Larsson
 .PP
-This manual was written by 
-Fredrik Hallenberg.
-.SH "AUTHOR"
-Fredrik Hallenberg <hallon@lysator.liu.se>, W. Borgert <debacle@debian.org>. 
-.SH "REFERENCES"
-.TP 3
-1.\ Pango
+This manual was written by
+Fredrik Hallenberg\.
+.br
+dia - a diagram drawing program
+.SH "SYNOPSIS"
+.HP 4
+\fBdia\fR [\fB\-c\fR] [\fB\-\-credits\fR] [\fB\-e\ \fR\fB\fIOUTPUT\fR\fR] [\fB\-\-export=\fR\fB\fIOUTPUT\fR\fR] [\fB\-h\fR] [\fB\-\-help\fR] [\fB\-n\fR] [\fB\-\-nosplash\fR] [\fB\-s\ \fR\fB\fIWxH\fR\fR] [\fB\-\-size=\fR\fB\fIWxH\fR\fR] [\fB\-t\ \fR\fB\fIFORMAT\fR\fR] [\fB\-\-filter=\fR\fB\fIFORMAT\fR\fR] [\fB\-v\fR] [\fB\-\-version\fR] [file\ \.\.\.]
+.SH "DESCRIPTION"
+.PP
+\fBDia\fR
+is used to create diagrams\. Dia has a number of basic tools, like lines and boxes but can also dynamically load
+\fIsheets\fR\. A sheet is a collection of tools that are used in a certain type of diagram\.
+.PP
+Most diagram objects in
+\fBDia\fR
+has
+\fIhandles\fR\. Lines can be connected to these handles and this way graph structures can be formed\. When objects are moved or resized the connections will follow the objects\.
+.PP
+Diagrams drawn in
+\fBDia\fR
+can be exported PostScript\.
+.SH "OPTIONS"
+.PP
+\fBDia\fR
+accepts the following options:
+.PP
+\fB\-c\fR \fB\-\-credits\fR
+.RS 4
+Display credits list and exit\.
+.RE
+.PP
+\fB\-e \fR\fB\fIOUTPUT\fR\fR \fB\-\-export=\fR\fB\fIOUTPUT\fR\fR
+.RS 4
+Export loaded file to OUTPUT and exit\.
+.RE
+.PP
+\fB\-h\fR \fB\-\-help\fR
+.RS 4
+Display a list of all commandline options\.
+.RE
+.PP
+\fB\-n\fR \fB\-\-nosplash\fR
+.RS 4
+Do not show the splash screen\.
+.RE
+.PP
+\fB\-s \fR\fB\fIWxH\fR\fR \fB\-\-size=\fR\fB\fIWxH\fR\fR
+.RS 4
+Export loaded file in decimal given width and/or height\. It is allowed to only select width or height\. E\.g\.
+\fB\-\-size=\fR\fB\fI520x\fR\fR
+exports an image that is 520 pixels wide, while
+\fB\-\-size=\fR\fB\fIx900\fR\fR
+exports an image of 900 pixels height\.
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+Note
+This option is currently only implemented for the PNG export filter\.
+.RE
+.PP
+\fB\-t \fR\fB\fIFORMAT\fR\fR \fB\-\-export\-to\-format=\fR\fB\fIFORMAT\fR\fR
+.RS 4
+Export loaded file in FORMAT and exit\. Format are described below\.
+.RE
+.PP
+\fB\-v\fR \fB\-\-version\fR
+.RS 4
+Display
+\fBdia\fR
+version and exit\.
+.RE
+.SH "EXPORT FORMATS"
+.PP
+The following export formats are supported by
+\fBdia\fR\.
+.sp
+.RS 4
+\h'-04'\(bu\h'+03'cgm
+(Computer Graphics Metafile, ISO 8632)
+.RE
+.sp
+.RS 4
+\h'-04'\(bu\h'+03'dia
+(Native dia diagram)
+.RE
+.sp
+.RS 4
+\h'-04'\(bu\h'+03'dxf
+(Drawing Interchange File)
+.RE
+.sp
+.RS 4
+\h'-04'\(bu\h'+03'eps
+or
+epsi
+or
+eps\-builtin
+or
+eps\-pango
+(Encapsulated PostScript)
+.sp
+The format specifications
+eps,
+epsi, and
+eps\-pango
+all use the font renderer of the Pango library, while
+eps\-builtin
+uses a dia specific font renderer\. If you have problems with Pango rendering, e\.g\. Unicode, try
+eps\-builtin
+instead\.
+.RE
+.sp
+.RS 4
+\h'-04'\(bu\h'+03'fig
+(XFig format)
+.RE
+.sp
+.RS 4
+\h'-04'\(bu\h'+03'mp
+(TeX MetaPost macros)
+.RE
+.sp
+.RS 4
+\h'-04'\(bu\h'+03'plt
+or
+hpgl
+(HP Graphics Language)
+.RE
+.sp
+.RS 4
+\h'-04'\(bu\h'+03'png
+(Portable Network Graphics)
+.RE
+.sp
+.RS 4
+\h'-04'\(bu\h'+03'shape
+(Dia shape file)
+.RE
+.sp
+.RS 4
+\h'-04'\(bu\h'+03'svg
+(Scalable Vector Graphics)
+.RE
+.sp
+.RS 4
+\h'-04'\(bu\h'+03'tex
+(TeX PSTricks macros)
+.RE
+.sp
+.RS 4
+\h'-04'\(bu\h'+03'wpg
+(WordPerfect Graphics)
+.RE
+.sp
+.RS 4
+\h'-04'\(bu\h'+03'wmf
+(Windows MetaFile)
+.RE
+.SH "FILES"
+.PP
+\fBdia\fR
+creates a directory
+\fI\.dia\fR
+in the user\'s home, which contains different files to store user preferences\. To reset
+\fBdia\fR
+to it\'s default behaviour, just remove the respective file:
+.sp
+.RS 4
+\h'-04'\(bu\h'+03'\fIdefaults\.dia\fR: contains default values for elements (XML format)\.
+.RE
+.sp
+.RS 4
+\h'-04'\(bu\h'+03'\fIdiarc\fR: keeps
+\fBdia\fR
+preferences (ASCII)\.
+.RE
+.sp
+.RS 4
+\h'-04'\(bu\h'+03'\fIhistory\fR: keeps the list of last edited diagrams (ASCII)\.
+.RE
+.sp
+.RS 4
+\h'-04'\(bu\h'+03'\fImenurc\fR: contains an automated accelerator map dump (Lisp)\.
+.RE
+.sp
+.RS 4
+\h'-04'\(bu\h'+03'\fIpersistence\fR: contains GUI information, e\.g\. open windows (XML)\.
+.RE
+.sp
+.RS 4
+\h'-04'\(bu\h'+03'\fIpluginrc\fR: the list of loaded plugins (XML)\.
+.RE
+.SH "SEE ALSO"
+.PP
+\fIPango\fR\&[1]
+.PP
+X (1)
+.SH "COPYRIGHT"
+.PP
+Copyright 1999 Alexander Larsson\.
+.PP
+Permission to use, copy, modify, and distribute this software and its documentation for any purpose and without fee is hereby granted, provided that the above copyright notice appear in all copies and that both that copyright notice and this permission notice appear in supporting documentation\.
+.SH "AUTHORS"
+.PP
+Alexander Larsson
+.PP
+This manual was written by
+Fredrik Hallenberg\.
+.br
+dia - a diagram drawing program
+.SH "SYNOPSIS"
+.HP 4
+\fBdia\fR [\fB\-c\fR] [\fB\-\-credits\fR] [\fB\-e\ \fR\fB\fIOUTPUT\fR\fR] [\fB\-\-export=\fR\fB\fIOUTPUT\fR\fR] [\fB\-h\fR] [\fB\-\-help\fR] [\fB\-n\fR] [\fB\-\-nosplash\fR] [\fB\-s\ \fR\fB\fIWxH\fR\fR] [\fB\-\-size=\fR\fB\fIWxH\fR\fR] [\fB\-t\ \fR\fB\fIFORMAT\fR\fR] [\fB\-\-filter=\fR\fB\fIFORMAT\fR\fR] [\fB\-v\fR] [\fB\-\-version\fR] [file\ \.\.\.]
+.SH "DESCRIPTION"
+.PP
+\fBDia\fR
+is used to create diagrams\. Dia has a number of basic tools, like lines and boxes but can also dynamically load
+\fIsheets\fR\. A sheet is a collection of tools that are used in a certain type of diagram\.
+.PP
+Most diagram objects in
+\fBDia\fR
+has
+\fIhandles\fR\. Lines can be connected to these handles and this way graph structures can be formed\. When objects are moved or resized the connections will follow the objects\.
+.PP
+Diagrams drawn in
+\fBDia\fR
+can be exported PostScript\.
+.SH "OPTIONS"
+.PP
+\fBDia\fR
+accepts the following options:
+.PP
+\fB\-c\fR \fB\-\-credits\fR
+.RS 4
+Display credits list and exit\.
+.RE
+.PP
+\fB\-e \fR\fB\fIOUTPUT\fR\fR \fB\-\-export=\fR\fB\fIOUTPUT\fR\fR
+.RS 4
+Export loaded file to OUTPUT and exit\.
+.RE
+.PP
+\fB\-h\fR \fB\-\-help\fR
+.RS 4
+Display a list of all commandline options\.
+.RE
+.PP
+\fB\-n\fR \fB\-\-nosplash\fR
+.RS 4
+Do not show the splash screen\.
+.RE
+.PP
+\fB\-s \fR\fB\fIWxH\fR\fR \fB\-\-size=\fR\fB\fIWxH\fR\fR
+.RS 4
+Export loaded file in decimal given width and/or height\. It is allowed to only select width or height\. E\.g\.
+\fB\-\-size=\fR\fB\fI520x\fR\fR
+exports an image that is 520 pixels wide, while
+\fB\-\-size=\fR\fB\fIx900\fR\fR
+exports an image of 900 pixels height\.
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+Note
+This option is currently only implemented for the PNG export filter\.
+.RE
+.PP
+\fB\-t \fR\fB\fIFORMAT\fR\fR \fB\-\-export\-to\-format=\fR\fB\fIFORMAT\fR\fR
+.RS 4
+Export loaded file in FORMAT and exit\. Format are described below\.
+.RE
+.PP
+\fB\-v\fR \fB\-\-version\fR
+.RS 4
+Display
+\fBdia\fR
+version and exit\.
+.RE
+.SH "EXPORT FORMATS"
+.PP
+The following export formats are supported by
+\fBdia\fR\.
+.sp
+.RS 4
+\h'-04'\(bu\h'+03'cgm
+(Computer Graphics Metafile, ISO 8632)
+.RE
+.sp
+.RS 4
+\h'-04'\(bu\h'+03'dia
+(Native dia diagram)
+.RE
+.sp
+.RS 4
+\h'-04'\(bu\h'+03'dxf
+(Drawing Interchange File)
+.RE
+.sp
+.RS 4
+\h'-04'\(bu\h'+03'eps
+or
+epsi
+or
+eps\-builtin
+or
+eps\-pango
+(Encapsulated PostScript)
+.sp
+The format specifications
+eps,
+epsi, and
+eps\-pango
+all use the font renderer of the Pango library, while
+eps\-builtin
+uses a dia specific font renderer\. If you have problems with Pango rendering, e\.g\. Unicode, try
+eps\-builtin
+instead\.
+.RE
+.sp
+.RS 4
+\h'-04'\(bu\h'+03'fig
+(XFig format)
+.RE
+.sp
+.RS 4
+\h'-04'\(bu\h'+03'mp
+(TeX MetaPost macros)
+.RE
+.sp
+.RS 4
+\h'-04'\(bu\h'+03'plt
+or
+hpgl
+(HP Graphics Language)
+.RE
+.sp
+.RS 4
+\h'-04'\(bu\h'+03'png
+(Portable Network Graphics)
+.RE
+.sp
+.RS 4
+\h'-04'\(bu\h'+03'shape
+(Dia shape file)
+.RE
+.sp
+.RS 4
+\h'-04'\(bu\h'+03'svg
+(Scalable Vector Graphics)
+.RE
+.sp
+.RS 4
+\h'-04'\(bu\h'+03'tex
+(TeX PSTricks macros)
+.RE
+.sp
+.RS 4
+\h'-04'\(bu\h'+03'wpg
+(WordPerfect Graphics)
+.RE
+.sp
+.RS 4
+\h'-04'\(bu\h'+03'wmf
+(Windows MetaFile)
+.RE
+.SH "FILES"
+.PP
+\fBdia\fR
+creates a directory
+\fI\.dia\fR
+in the user\'s home, which contains different files to store user preferences\. To reset
+\fBdia\fR
+to it\'s default behaviour, just remove the respective file:
+.sp
+.RS 4
+\h'-04'\(bu\h'+03'\fIdefaults\.dia\fR: contains default values for elements (XML format)\.
+.RE
+.sp
+.RS 4
+\h'-04'\(bu\h'+03'\fIdiarc\fR: keeps
+\fBdia\fR
+preferences (ASCII)\.
+.RE
+.sp
+.RS 4
+\h'-04'\(bu\h'+03'\fIhistory\fR: keeps the list of last edited diagrams (ASCII)\.
+.RE
+.sp
+.RS 4
+\h'-04'\(bu\h'+03'\fImenurc\fR: contains an automated accelerator map dump (Lisp)\.
+.RE
+.sp
+.RS 4
+\h'-04'\(bu\h'+03'\fIpersistence\fR: contains GUI information, e\.g\. open windows (XML)\.
+.RE
+.sp
+.RS 4
+\h'-04'\(bu\h'+03'\fIpluginrc\fR: the list of loaded plugins (XML)\.
+.RE
+.SH "SEE ALSO"
+.PP
+\fIPango\fR\&[1]
+.PP
+X (1)
+.SH "COPYRIGHT"
+.PP
+Copyright 1999 Alexander Larsson\.
+.PP
+Permission to use, copy, modify, and distribute this software and its documentation for any purpose and without fee is hereby granted, provided that the above copyright notice appear in all copies and that both that copyright notice and this permission notice appear in supporting documentation\.
+.SH "AUTHORS"
+.PP
+Alexander Larsson
+.PP
+This manual was written by
+Fredrik Hallenberg\.
+.SH "AUTHORS"
+.PP
+\fBFredrik Hallenberg\fR <\&hallon@lysator\.liu\.se\&>
+.sp -1n
+.IP "" 4
+Author.
+.PP
+\fBW\. Borgert\fR <\&debacle@debian\.org\&>
+.sp -1n
+.IP "" 4
+Author.
+.PP
+\fBFredrik Hallenberg\fR <\&hallon@lysator\.liu\.se\&>
+.sp -1n
+.IP "" 4
+Author.
+.PP
+\fBW\. Borgert\fR <\&debacle@debian\.org\&>
+.sp -1n
+.IP "" 4
+Author.
+.PP
+\fBFredrik Hallenberg\fR <\&hallon@lysator\.liu\.se\&>
+.sp -1n
+.IP "" 4
+Author.
+.PP
+\fBW\. Borgert\fR <\&debacle@debian\.org\&>
+.sp -1n
+.IP "" 4
+Author.
+.SH "COPYRIGHT"
+Copyright \(co 1999, 2003 Fredrik Hallenberg, W. Borgert
+.br
+.SH "NOTES"
+.IP " 1." 4
+Pango
+.RS 4
 \%http://www.pango.org/
+.RE

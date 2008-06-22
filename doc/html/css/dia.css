@@ -1,0 +1,273 @@
+/* General formatting */
+
+body { font-family: sans-serif; }
+
+.copyright { color: #7F7F7F; }
+
+/* Title page formatting */
+
+.titlepage h1 {
+text-align: center;
+font-size: huge;
+}
+
+.bookinfo {
+text-align: center; 
+font-size: 16pt;
+}
+
+.bookinfo h1.title  { color: blue; }
+.bookinfo h2.subtitle  { color: blue; }
+.bookinfo h1.author { color: green; }
+
+.bookinfo .copyright { color: black; }
+
+.pubdate {
+color: #7F7F7F;
+font-style: italic;
+font-size: 80%;
+}
+/* ToC page formatting */
+
+.toc a            { text-decoration: none; }
+.toc a:link       { color: blue; }
+.toc a:visited    { color: blue; }
+
+.list-of-figures a            { text-decoration: none; }
+.list-of-figures a:link       { color: blue; }
+.list-of-figures a:visited    { color: blue; }
+
+.list-of-tables a            { text-decoration: none; }
+.list-of-tables a:link       { color: blue; }
+.list-of-tables a:visited    { color: blue; }
+
+/* Navigation header formatting */
+.navheader              { border-bottom: 1px solid black;
+margin-bottom: 10px;
+padding-bottom: 4px;
+}
+
+.navheader hr { display: none; }
+
+/* Navigation footer formatting */
+.navfooter              { border-top: 1px solid black;
+margin-top: 10px;
+padding-top: 4px;
+}
+.navfooter hr { display: none; }
+
+/* General navigation formatting */
+
+.link-text            { font-weight: bold;
+font-size: 80%;
+}
+
+
+.link-text a          { text-decoration: none; }
+.link-text a:link     { color: blue; }
+.link-text a:visited  { color: blue; }
+
+.no-link-text         { color: #7F7F7F; }
+
+/* Admonitions formatting */
+.tip, .warning, .caution, .important, .note {
+margin-left: 1cm;
+margin-right: 1cm;
+margin-bottom: 10px;
+margin-bottom: 10px;
+border-bottom: 1px solid black;
+border-top: 1px solid black;
+}
+
+/* Figures formatting */
+.figure {
+	text-align: center;
+}
+.figure .title {
+	font-size: 80%;
+	font-weight: bold;
+}
+
+/* EOF */
+/* General formatting */
+
+body { font-family: sans-serif; }
+
+.copyright { color: #7F7F7F; }
+
+/* Title page formatting */
+
+.titlepage h1 {
+text-align: center;
+font-size: huge;
+}
+
+.bookinfo {
+text-align: center; 
+font-size: 16pt;
+}
+
+.bookinfo h1.title  { color: blue; }
+.bookinfo h2.subtitle  { color: blue; }
+.bookinfo h1.author { color: green; }
+
+.bookinfo .copyright { color: black; }
+
+.pubdate {
+color: #7F7F7F;
+font-style: italic;
+font-size: 80%;
+}
+/* ToC page formatting */
+
+.toc a            { text-decoration: none; }
+.toc a:link       { color: blue; }
+.toc a:visited    { color: blue; }
+
+.list-of-figures a            { text-decoration: none; }
+.list-of-figures a:link       { color: blue; }
+.list-of-figures a:visited    { color: blue; }
+
+.list-of-tables a            { text-decoration: none; }
+.list-of-tables a:link       { color: blue; }
+.list-of-tables a:visited    { color: blue; }
+
+/* Navigation header formatting */
+.navheader              { border-bottom: 1px solid black;
+margin-bottom: 10px;
+padding-bottom: 4px;
+}
+
+.navheader hr { display: none; }
+
+/* Navigation footer formatting */
+.navfooter              { border-top: 1px solid black;
+margin-top: 10px;
+padding-top: 4px;
+}
+.navfooter hr { display: none; }
+
+/* General navigation formatting */
+
+.link-text            { font-weight: bold;
+font-size: 80%;
+}
+
+
+.link-text a          { text-decoration: none; }
+.link-text a:link     { color: blue; }
+.link-text a:visited  { color: blue; }
+
+.no-link-text         { color: #7F7F7F; }
+
+/* Admonitions formatting */
+.tip, .warning, .caution, .important, .note {
+margin-left: 1cm;
+margin-right: 1cm;
+margin-bottom: 10px;
+margin-bottom: 10px;
+border-bottom: 1px solid black;
+border-top: 1px solid black;
+}
+
+/* Figures formatting */
+.figure {
+	text-align: center;
+}
+.figure .title {
+	font-size: 80%;
+	font-weight: bold;
+}
+
+/* EOF */
+/* General formatting */
+
+body { font-family: sans-serif; }
+
+.copyright { color: #7F7F7F; }
+
+/* Title page formatting */
+
+.titlepage h1 {
+text-align: center;
+font-size: huge;
+}
+
+.bookinfo {
+text-align: center; 
+font-size: 16pt;
+}
+
+.bookinfo h1.title  { color: blue; }
+.bookinfo h2.subtitle  { color: blue; }
+.bookinfo h1.author { color: green; }
+
+.bookinfo .copyright { color: black; }
+
+.pubdate {
+color: #7F7F7F;
+font-style: italic;
+font-size: 80%;
+}
+/* ToC page formatting */
+
+.toc a            { text-decoration: none; }
+.toc a:link       { color: blue; }
+.toc a:visited    { color: blue; }
+
+.list-of-figures a            { text-decoration: none; }
+.list-of-figures a:link       { color: blue; }
+.list-of-figures a:visited    { color: blue; }
+
+.list-of-tables a            { text-decoration: none; }
+.list-of-tables a:link       { color: blue; }
+.list-of-tables a:visited    { color: blue; }
+
+/* Navigation header formatting */
+.navheader              { border-bottom: 1px solid black;
+margin-bottom: 10px;
+padding-bottom: 4px;
+}
+
+.navheader hr { display: none; }
+
+/* Navigation footer formatting */
+.navfooter              { border-top: 1px solid black;
+margin-top: 10px;
+padding-top: 4px;
+}
+.navfooter hr { display: none; }
+
+/* General navigation formatting */
+
+.link-text            { font-weight: bold;
+font-size: 80%;
+}
+
+
+.link-text a          { text-decoration: none; }
+.link-text a:link     { color: blue; }
+.link-text a:visited  { color: blue; }
+
+.no-link-text         { color: #7F7F7F; }
+
+/* Admonitions formatting */
+.tip, .warning, .caution, .important, .note {
+margin-left: 1cm;
+margin-right: 1cm;
+margin-bottom: 10px;
+margin-bottom: 10px;
+border-bottom: 1px solid black;
+border-top: 1px solid black;
+}
+
+/* Figures formatting */
+.figure {
+	text-align: center;
+}
+.figure .title {
+	font-size: 80%;
+	font-weight: bold;
+}
+
+/* EOF */

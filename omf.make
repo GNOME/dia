@@ -37,7 +37,7 @@ omf: omf_timestamp
 omf_timestamp: $(omffile)
 	-if test "$(omffile)"; then \
 	  for file in $(omffile); do \
-	    scrollkeeper-preinstall $(docdir)/$(docname).xml $(srcdir)/$$file $$file.out; \
+	    scrollkeeper-preinstall $(DESTDIR)$(helpdocdir)/$(docname).xml $(srcdir)/$$file $$file.out; \
 	  done; \
 	fi;
 	touch omf_timestamp

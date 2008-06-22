@@ -60,7 +60,7 @@ Objektu bat oihalean txertatzen denean, ertzak markatzen dituzten koadro
 berde txiki batzuekin agertzen da. <figure>
        <title>Doitzeko puntuak</title>
        <screenshot><screeninfo>Puntu berdeen bidez irudiaren tamaina alda 
-daiteke.</screeninfo> <graphic format="PNG" fileref="graphics/greendots.png" 
+daiteke.</screeninfo> <graphic format="PNG" fileref="graphics/greendots" 
 srccredit="Kevin Breit"/></screenshot></figure> Koadroen barneko area 
 objektuaren area da.  Egin klik objektu-arean, eta ez askatu.  Mugitu sagua 
 oihalean zehar, objektua oihalaren beste leku batean jartzeko.
@@ -123,7 +123,7 @@ Hau da marra objektuaren ikonoa:
  <figure>
       <title>Marraren ikonoa</title>
      <screenshot><screeninfo>Marraren ikonoa</screeninfo> 
-<graphic format="PNG" fileref="graphics/line_icon.png" 
+<graphic format="PNG" fileref="graphics/line_icon" 
 srccredit="Steffen Macke"/></screenshot></figure></sect2> 
 <sect2 id="line-styles">
    <title>Marra-estiloak</title>
@@ -138,7 +138,7 @@ emaitza ikusteko.
     <title>Marraren propietateak</title>
       <screenshot><screeninfo>Hiru atalak behean azaltzen 
 dira.</screeninfo> 
-<graphic format="PNG" fileref="graphics/line_props.png" 
+<graphic format="PNG" fileref="graphics/line_props" 
 srccredit="Kevin Breit"/></screenshot></figure> 
 <para>
 Estilo askotako marrak daude: 

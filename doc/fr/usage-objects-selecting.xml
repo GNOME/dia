@@ -83,14 +83,14 @@
          Majuscules et cliquez sur les items que vous désirez ajouter.
      </para>
      <note>
-      <para>
+      <simpara>
          En supposant que vous avez sélectionné des objets dans votre diagramme,
          il reste possible de changer la taille de l'un d'eux sans changer la
          taille ou la position des autres objets sélectionnés. Pour apprendre
          comment changer la taille des objets voir la section Changer la taille
          des objets.
          <!-- need to set up some link right here -->
-      </para>
+      </simpara>
      </note>
     </sect2>
  
@@ -100,7 +100,7 @@
        D'autres moyens de sélectionner des objets sont décris ci-dessous,
        toutes ces options peuvent être atteintes dans le
        <interface>&stdpop;</interface> dans le sous-menu
-       <menuchoice><guimenu>Sélection</guimenu></menuchoice>&nbsp;:
+       <menuchoice><guimenu>Sélection</guimenu></menuchoice>&#x00A0;:
     </para>
     <variablelist>
       <varlistentry>
@@ -136,12 +136,12 @@
              de nouveau pour continuer.
           </para>
           <tip>
-            <para>
+            <simpara>
               Souvent, vous aurez à garder vos sélections persistantes. Pour ce
-              faire, vous pouvez créer un groupe des items sélectionnés, ou les
+              faire, vous pouvez créer un groupe des objets sélectionnés, ou les
               couper et les coller dans un nouveau calque qui contiendra tous
               les objets de votre sélection.
-            </para>
+            </simpara>
             <!-- para
               To learn more about managing groups see the Managing Groups section, and
               to learn more about layers you can also check the Managing Layers section.              
@@ -164,7 +164,7 @@
               autres laissés à part.
            </para>
            <tip>
-             <para>
+             <simpara>
                 Un autre moyen est de choisir
                 <menuchoice>
                     <guimenu>Sélection</guimenu>
@@ -172,17 +172,17 @@
                 </menuchoice>
                 comme décrit plus haut, et de presser la touche Majuscules tout
                 en désectionnant les objets dont vous n'avez pas besoin.
-             </para>
+             </simpara>
            </tip>
    <note>
-     <para>
+     <simpara>
         Seuls les objets présents sur le calque courant peuvent être
         sélectionnés. si un objet ne peut être sélectionné, c'est probablement
         qu'il est situé sur un autre calque. Référez-vous à la section Gérer
         les calques pour apprendre comment changer de calque ou comment en
         manipuler beaucoup.
         <!-- need to make a link link to it -->
-     </para>
+     </simpara>
     </note>
          </listitem>
       </varlistentry>
@@ -226,10 +226,10 @@
        formeront un nouveau groupe d'objets sélectionnés temporairement.
      </para>
      <note>
-      <para>
+      <simpara>
         Si vous répétez cette opération, tous les objets connectés à ce nouveau
         groupe seront ajoutés à la sélection.
-      </para>
+      </simpara>
       <para>
         Vous pouvez répéter cette opération jusqu'à sélectionner tous les
         objets interconnectés.

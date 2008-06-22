@@ -16,7 +16,7 @@
       <title><interface>Preferences</interface> dialog box</title>
         <screenshot>
           <screeninfo><interface>Preferences.</interface>dialog box</screeninfo>
-            <graphic format="PNG" fileref="graphics/preferences_fig.&pngfile;"
+            <graphic format="PNG" fileref="graphics/preferences_fig"
                 srccredit="Jeremy" />
         </screenshot>
     </figure>

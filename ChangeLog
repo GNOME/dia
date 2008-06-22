@@ -1,3 +1,46 @@
+2008-06-22  Hans Breuer  <hans@breuer.org>
+
+	[Patch from Thomas Harding improving the documentation generation]
+	* doc/*/hardcopies.makefile : moved to $(top) directory
+	* hardcopies.make : now uses dblatex or fallback on jw 
+	  (jade/openjade wrapper).
+	* doc/*/README.hardcopies : removed, now handled by configure
+	* configure.in : check for and do documentation generation when 
+	  given --with-hardbooks
+	* doc/**/*.xml : dropping HTML entities, making dia-1.xml
+	  independent from dia-cmdline.xml, dropping file extension from
+	  graphics
+	* doc/*dia-dbk-to-chapter.sed: removed leftovers from previous 
+	  doc patch (was too fragile)
+	* doc/html/images/caution.svg
+	  doc/html/images/important.svg
+	  doc/html/images/note.svg
+	  doc/html/images/tip.svg
+	  doc/html/images/prev.svg
+	  doc/html/images/home.svg
+	  doc/html/images/next.svg
+	  doc/html/images/warning.svg
+	  doc/html/images/up.svg
+	  doc/html/css/dia.css: new files - images for admonitions and 
+	  callouts (for html version)
+	* doc/fr/dia.xml: switched encoding to utf8 (more versatile for
+	  inexperienced maintainers (needs no entities for specific 
+	  glyphs such as ISO entity "oelig" or "laquo"...)
+	* doc/pl/*.xml: updated some from *.sgml, corrected encoding to 
+	  iso-8859-2.  Corrected graphics "filetype" attribute to 
+	  uppercase "PNG".
+	* Adding Changelog-tmp, which may be dropped at any time.
+	* doc/*/dia-*.omf: make indexation really works with
+	  scrollkeeper (which extends omf format). Now yelp shows
+	  dia manual in its TOC/whatever.
+
+	* doc/(en|fr)/dia-cmdline.xml : added from my working copy, not sure 
+	where it came from ;) The 'fr' version needs translation.
+	* doc/Makefile.am : temporary disabled due to build problems
+	* doc/*/*.dia : svn mv doc/en/dia.dia ../samples/Self/
+	  svn rm fr/dia.dia - there is no relation to the rest of docs
+	* doc/hardcopies.make : don't (un)install-examples
+
 2008-06-07  Steffen Macke <sdteffen@sdteffen.de>
 
 	* shapes/Cisco/telecommuter_house_router.png:

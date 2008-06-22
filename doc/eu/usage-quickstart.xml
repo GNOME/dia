@@ -13,7 +13,7 @@ bost minututan. <figure>
     <title>Demoa</title>
       <screenshot><screeninfo>Diagrama honek etxeko sarea 
 irudikatzen du, eta 5 minutuan egin da <application>Dia</application>-rekin.
-</screeninfo> <graphic format="PNG" fileref="graphics/home_network.png" 
+</screeninfo> <graphic format="PNG" fileref="graphics/home_network" 
 srccredit="Kevin Breit"/></screenshot></figure>
 </para>
 </sect1> 

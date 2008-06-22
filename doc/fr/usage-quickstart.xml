@@ -16,7 +16,7 @@
         <screeninfo>Ceci est le diagramme d'un réseau domestique
         fait en 5 minutes avec <application>Dia</application>.
         </screeninfo>
-        <graphic format="PNG" fileref="graphics/home_network.&pngfile;"
+        <graphic format="PNG" fileref="graphics/home_network"
         srccredit="Kevin Breit" />
       </screenshot>
     </figure>
@@ -34,7 +34,7 @@
    </para>
   </sect1>
   <sect1 id="quickstart-intro">
-  <title>Démarrage rapide&nbsp;: Introduction</title>
+  <title>Démarrage rapide&#x00A0;: Introduction</title>
    <para>
     Le démarrage rapide est fait pour l'utilisateur qui ne veut pas lire un
     manuel entier pour ne réaliser qu'un diagramme basique.
@@ -66,7 +66,7 @@
    <para>                                                                     
     Dans la &toolbox;, vous pouvez double-cliquer sur tout objet pour voir
     ses propriétés avancées. Cela vous permet de modifier les formes en stock
-    selon vos v&oelig;ux.
+    selon vos vœux.
    </para>
    <para>
     Les calques créent des images multiples, chaque calque est une image.  Ce
@@ -135,7 +135,7 @@
    <!-- qui s'intéresse à Dia ? -->
     <para>
      <application>Dia</application> est intéressant dans de nombreux domaines
-     d'activités&nbsp;:
+     d'activités&#x00A0;:
      <itemizedlist>
       <listitem>
        <para>

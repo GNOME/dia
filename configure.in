@@ -474,6 +474,47 @@ if test "x$with_swig" != xno; then
 fi
 AM_CONDITIONAL(WITH_SWIG, test "x$with_swig" != "xno")
 
+
+
+dnl
+dnl html, pdf and postscript documentation
+dnl
+AC_ARG_WITH(hardbooks,
+[  --with-hardbooks	compile html, pdf and postscript documentation],,hardbooks=no)
+AC_PATH_PROG(DBLATEX,dblatex,no)
+AM_CONDITIONAL(WITH_HTMLDOC, test "x$xsltproc" != "xno")
+AM_CONDITIONAL(WITH_PDFDOC, test "x$dblatex" != "xno")
+AM_CONDITIONAL(WITH_PSDOC, test "x$dblatex" != "xno")
+dnl
+dnl use jw only if we don't find dblatex
+dnl
+AC_PATH_PROG(JW,jw,no)
+if  test "x$dblatex" == "xno"; then
+ AM_CONDITIONAL(WITH_JW, test "x$jw" != "xno")	
+else
+ AM_CONDITIONAL(WITH_JW, test "xno" != "xno")
+fi
+hardbook_ok=no
+xsltproc_ok=no
+if test "x$hardbooks" == "xno"; then
+  AM_CONDITIONAL(WITH_JW, test "xno" != "xno")
+  AM_CONDITIONAL(WITH_HTMLDOC, test "xno" != "xno")
+  AM_CONDITIONAL(WITH_PDFDOC, test "xno" != "xno")
+  AM_CONDITIONAL(WITH_PSDOC, test "xno" != "xno")
+else
+  if test "x$dblatex" != "xno" ; then
+    hardbook_ok=yes
+  else 
+    if test "x$jw" != "xno" ; then
+      hardbook_ok=yes
+    fi
+  fi
+  if test "x$xsltproc" != "xno" ; then
+    xsltproc_ok=yes
+  fi
+fi
+
+
 AC_OUTPUT(
 Makefile
 lib/Makefile
@@ -594,6 +635,8 @@ Configuration:
 	Gnome Print support (experimental):	${with_gnomeprint}
 	Dia Python bindings with SWIG		${with_swig}
 	WMF plug-in with libEMF:                ${emf_ok}
+	html doc:                               ${xsltproc_ok}
+	pdf and ps doc:                         ${hardbook_ok}
 "
 
 echo "Now type make to build dia..."

@@ -18,7 +18,7 @@
      placer dans le canevas.  Cliquer le canevas pour y placer l'objet.
     </para>
     <para>
-     <application>Dia</application> fourni deux types d'objets&nbsp;:
+     <application>Dia</application> fourni deux types d'objets&#x00A0;:
       <itemizedlist>
        <listitem>
         <para>
@@ -53,7 +53,7 @@
        <title>Points d'ajustement</title>
        <screenshot>
          <screeninfo>Les points verts permettent de changer la taille de l'image.</screeninfo>
-         <graphic format="PNG" fileref="graphics/greendots.&pngfile;" srccredit="Kevin Breit" />
+         <graphic format="PNG" fileref="graphics/greendots" srccredit="Kevin Breit" />
        </screenshot>
      </figure> 
      La zone à l'intérieur des boites est la surface de l'objet. &og;Cliquez et
@@ -75,11 +75,11 @@
      au milieu des côtés droit et gauche la largeur.
     </para>
     <tip>
-     <para>
+     <simpara>
       Pour garder les proportions avec les boutons de coin, maintenir appuyée
       la touche Majuscules. Ceci ne s'applique qu'aux objets spéciaux et pas
       aux formes communes.
-     </para>
+     </simpara>
     </tip>
    </sect2>
    <sect2 id="deleting-objects">
@@ -91,10 +91,10 @@
      <menuchoice><guimenu>Édition</guimenu><guimenuitem>Supprimer</guimenuitem></menuchoice>
     </para>
     <tip>
-    <para>
+    <simpara>
         Utiliser la touche suppr du clavier après avoir sélectionné l'objet
         peut être plus rapide.
-    </para>
+    </simpara>
     </tip>
    </sect2>
    <sect2 id="aligning-objects">
@@ -102,7 +102,7 @@
     <para>
       <application>Dia</application>
       fourni des fonctionnalités pour arranger de multiples objets sans avoir à les bouger individuellement.
-      Par exemple&nbsp;:
+      Par exemple&#x00A0;:
       &stdpop; <menuchoice><guimenu>Objets</guimenu><guimenuitem>Aligner</guimenuitem><guimenuitem>Droite</guimenuitem></menuchoice>
       <!-- TODO explain the different types of Alignment -->
     </para>
@@ -122,13 +122,13 @@
    <title>Propiétés de la ligne</title>
     <para>
      Un des objets de <application>Dia</application> est la ligne. 
-     L'objet ligne est symbolisé par l'icône suivant&nbsp;:
+     L'objet ligne est symbolisé par l'icône suivant&#x00A0;:
     </para> 
     <figure>
       <title>L'icône ligne</title>
      <screenshot>
       <screeninfo>L'icône ligne</screeninfo>
-      <graphic format="PNG" fileref="graphics/line_icon.&pngfile;" srccredit=
+      <graphic format="PNG" fileref="graphics/line_icon" srccredit=
       "Steffen Macke" />
       </screenshot>
     </figure>
@@ -149,7 +149,7 @@
     <title>Propriétés de ligne</title>
       <screenshot>
         <screeninfo>Les trois sections sont décrites ci-dessous.</screeninfo>
-        <graphic format="PNG" fileref="graphics/line_props.&pngfile;" 
+        <graphic format="PNG" fileref="graphics/line_props" 
 	srccredit="Kevin Breit" />
       </screenshot>
     </figure>
@@ -215,7 +215,7 @@
     A chaque objet sont assignées des propriétés qui lui sont particulières.
     Elle sont accessibles en double-cliquant l'objet déjà placé sur le canevas.
     Une fenêtre apparaît, vous permettant d'éditer de nombreuses propriétés
-    incluant&nbsp;:
+    incluant&#x00A0;:
     <itemizedlist>
      <listitem>
       <para>
@@ -246,21 +246,21 @@
     dans la boîte qui apparaît. Voir plus bas la boîte de sélection de
     couleurs.
    <note>
-    <para>
+    <simpara>
      Ces sélecteurs de couleur permettent seulement de sélectionner les couleurs
      des objets qui n'ont <emphasis>pas encore</emphasis> été placés sur le
      canevas.
-    </para>
+    </simpara>
    </note>
    <tip>
-    <para>
+    <simpara>
      Pour inverser les couleurs, cliquez sur la double-flèche en haut à droite des deux rectangles de couleurs sur la &toolbox;.
-    </para>
+    </simpara>
    </tip>
    <tip>
-    <para>
+    <simpara>
      Pour remettre à zéro les couleurs, cliquer les deux petits carrés noir et blanc en bas à gauche des rectangles de couleur sur la &toolbox;
-    </para>
+    </simpara>
    </tip>
   </para>
   <sect2>
@@ -271,16 +271,16 @@
                 <screeninfo>La boîte de sélection de couleurs est décrite
                 ci-dessous.</screeninfo>
                 <graphic format="PNG"
-                         fileref="graphics/color_selector.&pngfile;"
+                         fileref="graphics/color_selector"
                          srccredit="Thomas Harding" />
             </screenshot>
       </figure>
       <para>
-        La boîte de sélection de couleurs est divisée en 6 zones&nbsp;:
+        La boîte de sélection de couleurs est divisée en 6 zones&#x00A0;:
         <itemizedlist>
            <listitem>
               <para>
-                La roue de couleurs&nbsp;: cliquez et glissez le cercle
+                La roue de couleurs&#x00A0;: cliquez et glissez le cercle
                 extérieur pour définir la teinte, puis cliquez et déplacez le
                 petit cercle à l'intérieur du triangle pour définir saturation
                 et valeur.
