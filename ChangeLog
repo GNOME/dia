@@ -1,3 +1,26 @@
+2008-06-27  Hans Breuer  <hans@breuer.org>
+
+	[Second iteration on patch from Thomas Harding improving the 
+	 documentation generation, now 'make distcheck' succeeds again.
+	 fixing bug #539848]
+	* doc/html/images/*.png doc/html/images/callouts/*.png : added
+	the missing png images and callouts
+	* doc/fr/dia-cmdline.xml : updated 
+	* doc/eu/dia-1.xml : added (data out from dia.dbk)
+	NOTE: don't know why an English man page is in "eu". 
+	* doc/eu/dia.xml : added entities placeholders (commenteds out)
+	for commandline/manpage content
+	* hardcopies.make :
+	- added $(DESTDIR) to $(sysdoc) path.
+	- html: deleted insane ;) dependency on $(progname)-cmdline.xml, as 
+	$(xmlsources) will list it in individual languages; rewritten 
+	file-to-compile as 'first target' == $(progname).xml
+	- pdf: deleted insane dependency on $(progname)-cmdline.xml
+	- ps: the same...
+	- pdf and ps dependencies,"jw" build way: the same...
+	* omf.make : solved inconsistency in omf files path between
+	install/uninstall [$(DESTDIR)]
+
 2008-06-22  Hans Breuer  <hans@breuer.org>
 
 	* doc/(en|fr)/Makefile.am : remove $(progname).$(progfiles_extension) 

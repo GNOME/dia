@@ -10,7 +10,7 @@
 ##
 ##
 
-sysdoc = $(datadir)/doc/$(docname)/$(lang)
+sysdoc = $(DESTDIR)$(datadir)/doc/$(docname)/$(lang)
 
 if WITH_HTMLDOC
 htmldoc = $(progname)_html
@@ -48,8 +48,7 @@ uninstall-local: uninstall-local-xml  \
 clean-local: clean-local-xml \
 	clean-html clean-ps clean-pdf
 
-$(progname)_html: $(progname)-cmdline.xml $(pngfigures) \
-	$(xmlsources) $(htmlstyle)
+$(progname)_html: $(progname).xml $(xmlsources) $(htmlstyle) $(pngfigures)
 	$(mkinstalldirs) $(srcdir)/$(progname)_html
 	$(mkinstalldirs) $(srcdir)/$(progname)_html/$(figdir)
 	$(mkinstalldirs) $(srcdir)/$(progname)_html/images
@@ -62,12 +61,11 @@ $(progname)_html: $(progname)-cmdline.xml $(pngfigures) \
 	-cp $(srcdir)/$(figdir)/*.png $(srcdir)/$(progname)_html/$(figdir)
 	cd $(srcdir)/$(progname)_html \
 	  && xsltproc --stringparam graphic.default.extension png \
-	    ../$(htmlstyle) ../$(progname).xml
+	    ../$(htmlstyle) ../$<
 	touch $(progname)_html
 
 if WITH_PDFDOC
-$(progname).pdf: $(srcdir)/$(progname).xml $(progname)-cmdline.xml \
-	$(pngfigures) $(xmlsources)
+$(progname).pdf: $(progname).xml $(xmlsources) $(pngfigures)
 	-$(DBLATEX) -t pdf -T  native \
 		-P 'latex.unicode.use=$(UNICODE)' \
 		-P latex.encoding='$(ENCODING)' \
@@ -90,8 +88,7 @@ endif
 	touch .epsfigures
 
 if WITH_PSDOC
-$(progname).ps: $(srcdir)/$(progname).xml \
-	$(progname)-cmdline.xml .epsfigures $(xmlsources)
+$(progname).ps: $(progname).xml $(xmlsources) .epsfigures
 	-$(DBLATEX) -t ps -T native \
 	        $(stylesheet) \
 		-P 'latex.unicode.use=$(UNICODE)' \
@@ -101,8 +98,7 @@ $(progname).ps: $(srcdir)/$(progname).xml \
 endif
 
 if WITH_JW
-.jw: $(srcdir)/$(progname).xml \
-	$(progname)-cmdline.xml .epsfigures $(xmlsources)
+.jw: $(progname).xml $(xmlsources) .epsfigures
 	rm -rf jw
 	mkdir -p jw
 	cp -r graphics jw
@@ -111,11 +107,11 @@ if WITH_JW
 	cd jw && recode -d '$(DOCUMENT_ENCODING)..XML-standalone' *.xml
 	touch .jw
 
-$(progname).ps: jw
+$(progname).ps: .jw
 	cd jw && $(JW) -b ps -V paper-type=$(PAPERSIZE) $(progname).xml
 	cp jw/$(progname).ps .
 
-$(progname).pdf: jw
+$(progname).pdf: .jw
 	cd jw && $(JW) -b pdf -V paper-type=$(PAPERSIZE) $(progname).xml
 	cp jw/$(progname).pdf .
 endif

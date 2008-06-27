@@ -30,7 +30,9 @@
 
     <!ENTITY LICENSE SYSTEM "license.xml">
 
-    <!ENTITY DIA-1 SYSTEM "dia-1.xml">
+    <!-- placeholders for manpage chapter and content -->
+    <!-- <!ENTITY MANPAGE SYSTEM "dia-cmdline.xml"> -->
+    <!-- <!ENTITY DIA-1 SYSTEM "dia-1.xml"> -->
 
   ]>
 

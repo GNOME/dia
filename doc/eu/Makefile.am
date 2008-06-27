@@ -39,9 +39,10 @@ xml_files += \
 	usage-objects-selecting.xml \
 	usage-objects-special.xml \
 	usage-objects.xml \
-	usage-quickstart.xml \
-	dia-cmdline.xml \
-	dia-1.xml
+	usage-quickstart.xml
+
+##	dia-cmdline.xml \
+##	dia-1.xml
 
 
 EXTRA_DIST += \
@@ -63,8 +64,6 @@ pngfigures = \
 epsfigures = 
 
 xmlsources = \
-	dia-cmdline.xml \
-	dia-1.xml \
 	authors.xml \
 	usage-customization.xml \
 	usage-layers.xml \
@@ -80,6 +79,8 @@ xmlsources = \
 	license.xml \
 	usage-canvas.xml
 
+##	dia-cmdline.xml \
+##	dia-1.xml \
 
 htmlstyle = \
 	html.xsl
