@@ -1,3 +1,11 @@
+2008-06-29  Hans Breuer  <hans@breuer.org>
+
+	* doc/fr/dia-cmdline.xml doc/eu/dia-1.xml : added, bug #465460
+	* doc/eu/dia.1 : updated
+
+	* configure.in bindings/Makefile.am : some more autotools trial and 
+	error not fixing bug #540694 - help appreciated
+
 2008-06-27  Hans Breuer  <hans@breuer.org>
 
 	[Second iteration on patch from Thomas Harding improving the 

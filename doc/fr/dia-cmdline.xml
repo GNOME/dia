@@ -1,0 +1,21 @@
+<chapter id="commandline" label="12"> 
+  <title>Dia en ligne de commande</title> 
+    <sect1 id="commandline-intro"> 
+        <title>Introduction</title> 
+        <para> 
+        Dia peut être utilisé via la ligne de commande, 
+        ou, même, DEPUIS la ligne de commande (traitement par lots, 
+        par exemple pour l'exportation vars un autre format de fichiers. 
+        On n'oubliera pas d'ajouter l'option <option>--nosplash</option> 
+        dans le cas de l'utilisation de dia depuis la ligne de commande,  
+        afin d'éviter l'apparition de l'écran d'accueil Dia. 
+        </para> 
+    </sect1> 
+    <sect1 id="commandline-manpage"> 
+        <title>Manuel de la ligne de commande</title>
+      <refentry>
+      &DIA-1;
+      </refentry>
+    </sect1> 
+</chapter>
+

@@ -13,7 +13,8 @@ endif
 if WITH_PYTHON
 PYTHON_EXTRA_SOURCE = \
 	dia-python-extra.cpp \
-	dia-python-extra.h
+	dia-python-extra.h \
+	$(BUILT_SOURCES)
 endif
 
 ## the rest of the sources is independent of SWIG and Python
@@ -45,11 +46,9 @@ _dia_la_SOURCES = \
 	dia-extra.cpp \
 	dia-extra.h \
 	\
-	$(PYTHON_EXTRA_SOURCE) \
-	\
-	$(BUILT_SOURCES)
+	$(PYTHON_EXTRA_SOURCE)
 
-_dia_la_CPPFLAGS = $(SWIG_PYTHON_CPPFLAGS) -I$(top_srcdir)/lib
+_dia_la_CPPFLAGS = $(PYTHON_INCLUDES) -I$(top_srcdir)/lib
 _dia_la_LDFLAGS = -export-dynamic -module -avoid-version
 ## must link ../lib/libdia.la but don't know how;(
 _dia_la_LIBADD = $(PYTHON_LIBS) $(GTK_LIBS)
@@ -72,7 +71,7 @@ INTERFACES = \
 
 SWIG_PYTHON_OPT = -python -modern -extranative -c++
 
-$(srcdir)/dia-python.cpp : $(INTERFACES)
+dia-python.cpp : $(INTERFACES)
 	$(SWIG) $(SWIG_PYTHON_OPT) -I$(top_srcdir) -I../lib -o $@ $<
 
 GCCXMLINC = -I.. -I../lib -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/pango-1.0 -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/libxml2 -I/usr/include/libart-2.0   -I/usr/include/python2.5 -I/usr/include/libxml2
