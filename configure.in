@@ -439,6 +439,12 @@ dnl Have to have the nwalsh docbook.xsl, which does manpages.
 dnl RedHat installs it in a version-numbered place.  Grumpf.
 AC_PATH_PROG(XSLTPROC, xsltproc, no)
 AM_CONDITIONAL(HAVE_DB2MAN, test "x$XSLTPROC" != xno)
+if test "x$XSLTPROC" != "xno" ; then
+  xsltproc=true
+else
+  xsltproc=false
+fi
+AM_CONDITIONAL(HAVE_XSLTPROC, $xsltproc)
 AC_SUBST(DB2MAN, "http://docbook.sourceforge.net/release/xsl/current/manpages/docbook.xsl")
 
 dnl Handling for Python

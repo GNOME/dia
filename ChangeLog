@@ -1,5 +1,10 @@
 2008-06-29  Hans Breuer  <hans@breuer.org>
 
+	[Patch from Thomas Harding fixing help generation for non-gnome case]
+	* xmldocs.make : without gnome install to $(helpdocdir)
+	* configure.in : initialize HAVE_XSLTPROC
+	* hardcopies.make : conditionalize on HAVE_GNOME
+
 	[Third iteration on patch from Thomas Harding improving the 
 	 documentation generation, closing bug #465460]
 	* doc/en/Makefile.am doc/fr/Makefile.am doc/eu/Makefile.am

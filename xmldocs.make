@@ -38,8 +38,10 @@
 # This default value should work for most packages.
 if HAVE_GNOME
 helpdocdir = $(datadir)/gnome/help/$(docname)/$(lang)
+install-data-hook: install-data-hook-omf
 else
 helpdocdir = $(datadir)/$(docname)/help/$(lang)
+install-data-hook:
 endif
 
 # **********  You should not have to edit below this line  **********
@@ -78,9 +80,24 @@ install-data-xml: omf
 	  done \
 	fi
 
-install-data-hook: install-data-hook-omf
+install-data-html: $(progname)_html
+	$(mkinstalldirs) $(DESTDIR)$(helpdocdir)
+	cp -r $(srcdir)/$(progname)_html/* $(DESTDIR)$(helpdocdir)
 
 uninstall-local-xml: uninstall-local-doc uninstall-local-omf
+
+uninstall-local-html:
+	-rm -f $(DESTDIR)$(helpdocdir)/*.html
+	-rm -f $(DESTDIR)$(helpdocdir)/$(figdir)/*.png
+	-rmdir $(DESTDIR)$(helpdocdir)/$(figdir)
+	-rm -f $(DESTDIR)$(helpdocdir)/images/callouts/*.png
+	-rmdir $(DESTDIR)$(helpdocdir)/images/callouts
+	-rm -f $(DESTDIR)$(helpdocdir)/images/*.png
+	-rmdir $(DESTDIR)$(helpdocdir)/images/
+	-rm -f $(DESTDIR)$(helpdocdir)/css/*.css
+	-rmdir $(DESTDIR)$(helpdocdir)/css
+	-rmdir $(DESTDIR)$(helpdocdir)/*
+	-rmdir $(DESTDIR)$(helpdocdir)
 
 uninstall-local-doc:
 	-rm -f $(DESTDIR)$(helpdocdir)/$(figdir)/*

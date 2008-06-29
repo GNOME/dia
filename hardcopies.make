@@ -39,17 +39,39 @@ psdoc = $(progname).ps
 ps_install = install-ps
 endif
 
+if HAVE_GNOME
 all: omf $(htmldoc) $(pdfdoc) $(psdoc)
 
 install-data-local: install-data-xml \
 	$(html_install) $(pdf_install) $(ps_install) install-examples
 
 uninstall-local: uninstall-local-xml  \
-	uninstall-html uninstall-pdf uninstall-ps \
-	uninstall-ps uninstall-pdf uninstall-examples
+	uninstall-html uninstall-pdf uninstall-ps uninstall-examples
 
 clean-local: clean-local-xml \
 	clean-html clean-ps clean-pdf
+
+else
+ 
+if HAVE_XSLTPROC
+all: $(progname)_html $(pdfdoc) $(psdoc)
+
+install-data-local: install-data-html \
+	install-html-nognome $(pdf_install) $(ps_install) install-examples
+ 
+uninstall-local: uninstall-local-html  \
+	uninstall-html-nognome uninstall-pdf uninstall-ps uninstall-examples
+else
+all: $(htmldoc) $(pdfdoc) $(psdoc)
+
+install-data-local: $(html_install) $(pdf_install) $(ps_install) install-examples
+ 
+uninstall-local: uninstall-html uninstall-pdf uninstall-ps uninstall-examples
+endif
+
+clean-local: clean-local-xml \
+	clean-html clean-ps clean-pdf
+endif
 
 $(progname)_html: $(progname).xml $(xml_files) $(htmlstyle) $(pngfigures)
 	$(mkinstalldirs) $(srcdir)/$(progname)_html
@@ -126,9 +148,22 @@ install-html: $(progname)_html
 uninstall-html:
 	-rm -f $(sysdoc_html)/*.html
 	-rm -f $(sysdoc_html)/$(figdir)/*.png
+	-rmdir $(sysdoc_html)/$(figdir)
 	-rm -f $(sysdoc_html)/images/callouts/*.png
+	-rmdir $(sysdoc_html)//images/callouts
 	-rm -f $(sysdoc_html)/images/*.png
+	-rmdir $(sysdoc_html)/images/
 	-rm -f $(sysdoc_html)/css/*.css
+	-rmdir $(sysdoc_html)/css
+	-rmdir $(sysdoc_html)
+
+install-html-nognome:
+	$(mkinstalldirs) $(DESTDIR)$(htmldir)/html/
+	-(cd $(DESTDIR)$(htmldir)/html/ && ln -s $(DESTDIR)$(helpdocdir) $(lang))
+
+uninstall-html-nognome:
+	-rm $(DESTDIR)$(htmldir)/html/$(lang)
+	-rmdir $(DESTDIR)$(htmldir)/html/
 
 clean-html:
 	-rm -rf $(srcdir)/$(progname)_html
