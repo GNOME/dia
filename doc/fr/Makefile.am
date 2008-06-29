@@ -67,26 +67,6 @@ epsfigures = \
 	ps/graphics/color_selector.eps \
 	ps/graphics/preferences_fig.eps
 
-xmlsources = \
-	dia-cmdline.xml \
-	dia-1.xml \
-	authors.xml \
-	usage-customization.xml \
-	usage-layers.xml \
-	custom-shapes.xml \
-	dia.xml \
-	usage-loadsave.xml \
-	entities.xml \
-	usage-objects-basic.xml \
-	usage-objects-selecting.xml \
-	usage-objects-special.xml \
-	usage-objects.xml \
-	usage-quickstart.xml \
-	intro.xml \
-	license.xml \
-	usage-canvas.xml
-
-
 htmlstyle = \
 	html.xsl
 

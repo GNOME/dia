@@ -10,7 +10,10 @@
 ##
 ##
 
-sysdoc = $(DESTDIR)$(datadir)/doc/$(docname)/$(lang)
+sysdoc = $(DESTDIR)$(docdir)/$(lang)
+sysdoc_html = $(DESTDIR)$(htmldir)/html/$(lang)
+sysdoc_pdf = $(DESTDIR)$(pdfdir)/$(lang)
+sysdoc_ps = $(DESTDIR)$(psdir)/$(lang)
 
 if WITH_HTMLDOC
 htmldoc = $(progname)_html
@@ -48,7 +51,7 @@ uninstall-local: uninstall-local-xml  \
 clean-local: clean-local-xml \
 	clean-html clean-ps clean-pdf
 
-$(progname)_html: $(progname).xml $(xmlsources) $(htmlstyle) $(pngfigures)
+$(progname)_html: $(progname).xml $(xml_files) $(htmlstyle) $(pngfigures)
 	$(mkinstalldirs) $(srcdir)/$(progname)_html
 	$(mkinstalldirs) $(srcdir)/$(progname)_html/$(figdir)
 	$(mkinstalldirs) $(srcdir)/$(progname)_html/images
@@ -65,7 +68,7 @@ $(progname)_html: $(progname).xml $(xmlsources) $(htmlstyle) $(pngfigures)
 	touch $(progname)_html
 
 if WITH_PDFDOC
-$(progname).pdf: $(progname).xml $(xmlsources) $(pngfigures)
+$(progname).pdf: $(progname).xml $(xml_files) $(pngfigures)
 	-$(DBLATEX) -t pdf -T  native \
 		-P 'latex.unicode.use=$(UNICODE)' \
 		-P latex.encoding='$(ENCODING)' \
@@ -88,7 +91,7 @@ endif
 	touch .epsfigures
 
 if WITH_PSDOC
-$(progname).ps: $(progname).xml $(xmlsources) .epsfigures
+$(progname).ps: $(progname).xml $(xml_files) .epsfigures
 	-$(DBLATEX) -t ps -T native \
 	        $(stylesheet) \
 		-P 'latex.unicode.use=$(UNICODE)' \
@@ -98,7 +101,7 @@ $(progname).ps: $(progname).xml $(xmlsources) .epsfigures
 endif
 
 if WITH_JW
-.jw: $(progname).xml $(xmlsources) .epsfigures
+.jw: $(progname).xml $(xml_files) .epsfigures
 	rm -rf jw
 	mkdir -p jw
 	cp -r graphics jw
@@ -117,26 +120,26 @@ $(progname).pdf: .jw
 endif
 
 install-html: $(progname)_html
-	$(mkinstalldirs) $(sysdoc)/html
-	cp -r $(srcdir)/$(progname)_html/* $(sysdoc)/html
+	$(mkinstalldirs) $(sysdoc_html)
+	cp -r $(srcdir)/$(progname)_html/* $(sysdoc_html)
 
 uninstall-html:
-	-rm -f $(sysdoc)/html/*.html
-	-rm -f $(sysdoc)/html/$(figdir)/*
-	-rm -f $(sysdoc)/html/images/callouts/*
-	-rm -f $(sysdoc)/html/images/*
-	-rm -f $(sysdoc)/html/css/*
+	-rm -f $(sysdoc_html)/*.html
+	-rm -f $(sysdoc_html)/$(figdir)/*.png
+	-rm -f $(sysdoc_html)/images/callouts/*.png
+	-rm -f $(sysdoc_html)/images/*.png
+	-rm -f $(sysdoc_html)/css/*.css
 
 clean-html:
 	-rm -rf $(srcdir)/$(progname)_html
 
 
 install-pdf: $(progname).pdf
-	$(mkinstalldirs) $(sysdoc)
-	-$(INSTALL_DATA) $< $(sysdoc)/$<
+	$(mkinstalldirs) $(sysdoc_pdf)
+	-$(INSTALL_DATA) $< $(sysdoc_pdf)/$<
 
 uninstall-pdf:
-	-rm -f $(sysdoc)/$(progname).pdf
+	-rm -f $(sysdoc_pdf)/$(progname).pdf
 
 clean-pdf:
 	rm -f $(progname).pdf
@@ -144,11 +147,11 @@ clean-pdf:
 	rm -f .jw
 
 install-ps: $(progname).ps
-	$(mkinstalldirs) $(sysdoc)
-	-$(INSTALL_DATA) $< $(sysdoc)/$<
+	$(mkinstalldirs) $(sysdoc_ps)
+	-$(INSTALL_DATA) $< $(sysdoc_ps)/$<
 
 uninstall-ps:
-	-rm -f $(sysdoc)/$(progname).ps
+	-rm -f $(sysdoc_ps)/$(progname).ps
 
 clean-ps:
 	-rm -rf $(srcdir)/tex

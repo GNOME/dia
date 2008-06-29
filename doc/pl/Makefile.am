@@ -64,26 +64,6 @@ pngfigures = \
 
 epsfigures = 
 
-xmlsources = \
-	authors.xml \
-	usage-customization.xml \
-	usage-layers.xml \
-	dia.xml \
-	usage-loadsave.xml \
-	usage-objects-selecting.xml \
-	usage-objects-special.xml \
-	usage-objects.xml \
-	usage-quickstart.xml \
-	intro.xml \
-	license.xml \
-	usage-canvas.xml
-
-##
-##	dia-cmdline.xml \
-##	usage-objects-basic.xml \
-##	entities.xml \
-##	dia-1.xml \
-
 htmlstyle = \
 	html.xsl
 
