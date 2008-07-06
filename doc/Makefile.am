@@ -14,7 +14,7 @@ else
 helpdir = $(pkgdatadir)/help
 endif
 
-sysdoc = $(datadir)/doc/$(docname)
+sysdoc = $(DESTDIR)$(docdir)
 
 
 
@@ -31,5 +31,7 @@ install-data-local: $(distfiles)
 
 uninstall-local:
 	rm -f $(DESTDIR)$(helpdir)/C
-	-rm -f $(sysdoc)/*
-
+	-rmdir $(DESTDIR)$(helpdir)
+	-rmdir $(sysdoc)/*
+	-rmdir $(sysdoc)
+	

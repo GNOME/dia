@@ -1,3 +1,14 @@
+2008-07-06  Hans Breuer  <hans@breuer.org>
+
+	[Patch from Thomas Harding fixing help finally fixing bug #536334]
+	* doc/Makefile.am hardcopies.make :
+	- documentation uninstall was not complete
+	- symlinks are done on $(helpdocdir)
+	instead of $(DESTDIR)$(helpdocdir) to make packagers life easier
+	(this results in dangling symlinks while $(DESTDIR) != "",
+	then symlinks are correct while the package is installed from
+	$(DESTDIR) to "/")
+
 2008-06-29  Hans Breuer  <hans@breuer.org>
 
 	[Patch from Thomas Harding fixing help generation for non-gnome case]

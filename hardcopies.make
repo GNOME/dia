@@ -159,7 +159,7 @@ uninstall-html:
 
 install-html-nognome:
 	$(mkinstalldirs) $(DESTDIR)$(htmldir)/html/
-	-(cd $(DESTDIR)$(htmldir)/html/ && ln -s $(DESTDIR)$(helpdocdir) $(lang))
+	-(cd $(DESTDIR)$(htmldir)/html/ && ln -s $(helpdocdir) $(lang))
 
 uninstall-html-nognome:
 	-rm $(DESTDIR)$(htmldir)/html/$(lang)
@@ -209,3 +209,4 @@ uninstall-examples: $(examples)
 	for i in $^; do \
 	  rm -f $(sysdoc)/examples/$$(basename $$i) ;\
 	done
+	-rmdir $(sysdoc)/examples
