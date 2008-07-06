@@ -92,15 +92,46 @@ list_families()
 #endif
 
 static void
-dia_font_check_for_font(int font) {
+dia_font_check_for_font(int font) 
+{
     DiaFont *check;
     PangoFont *loaded;
+    static real size = 1.0;
 
-    check = dia_font_new_from_style(font, 1.0);
+    check = dia_font_new_from_style(font, size);
+    size += 1.0;
     loaded = pango_context_load_font(dia_font_get_context(),
 				     check->pfd);
     if (loaded == NULL) {
       message_error(_("Can't load font %s.\n"), dia_font_get_family(check));
+    } else {
+      PangoFont *font2;
+      PangoFontDescription *pfd2 = pango_font_description_copy (check->pfd);
+      PangoFontMetrics *m1, *m2;
+      real factor;
+      g_print ("Loaded '%s'\n", pango_font_description_to_string (check->pfd));
+      
+      if (pango_font_description_get_size_is_absolute (check->pfd))
+        pango_font_description_set_size (pfd2, pango_font_description_get_size (check->pfd));
+      else
+        pango_font_description_set_absolute_size (pfd2, pango_font_description_get_size (check->pfd));
+      
+      font2 = pango_context_load_font(dia_font_get_context(), pfd2);
+
+      m1 = pango_font_get_metrics (loaded, NULL);
+      m2 = pango_font_get_metrics (font2, NULL);
+
+      factor = (real)pango_font_metrics_get_ascent (m1) / pango_font_metrics_get_ascent (m2);
+      g_print ("Magic font-factor %g (ascents = %g / %g)\n", 
+               factor, 
+               (real)pango_font_metrics_get_ascent (m1) / PANGO_SCALE,
+               (real)pango_font_metrics_get_ascent (m2) / PANGO_SCALE);
+
+      g_object_unref (loaded);
+      g_object_unref (font2);
+      pango_font_description_free (pfd2);
+      pango_font_metrics_unref (m1);
+      pango_font_metrics_unref (m2);
     }
 }
 
@@ -118,7 +149,9 @@ dia_font_init(PangoContext* pcontext)
 static GList *pango_contexts = NULL;
 
 void
-dia_font_push_context(PangoContext *pcontext) {
+dia_font_push_context(PangoContext *pcontext) 
+{
+  dia_font_init (pcontext); /* not needed, just testing */
   pango_contexts = g_list_prepend(pango_contexts, pango_context);
   pango_context = pcontext;
   pango_context_set_language (pango_context, gtk_get_default_language ());
@@ -145,6 +178,9 @@ dia_font_get_context() {
     /* This is suggested by new Pango (1.2.4+), but doesn't get us the
      * right resolution:(
      dia_font_push_context(pango_ft2_font_map_create_context(pango_ft2_font_map_new()));
+     */
+    /* with 96x96 it gives consistent - too big - sizes with the cairo renderer, it was 75x75 with 0.96.x
+    dia_font_push_context(pango_ft2_get_context(96,96));
     */
     dia_font_push_context(pango_ft2_get_context(75,75));
 #else
@@ -293,7 +329,8 @@ dia_pfd_set_slant(PangoFontDescription* pfd, DiaFontSlant fo) {
   }
 }
 
-static void dia_pfd_set_size(PangoFontDescription* pfd, real height)
+static void 
+dia_pfd_set_size(PangoFontDescription* pfd, real height)
 { /* inline candidate... */
   pango_font_description_set_size(pfd, dcm_to_pdu(height) );
 }
@@ -396,7 +433,10 @@ dia_font_get_height(const DiaFont* font)
 void
 dia_font_set_height(DiaFont* font, real height)
 {
-  pango_font_description_set_size(font->pfd, dcm_to_pdu(height));    
+  dia_pfd_set_size (font->pfd, height);
+/* not
+  pango_font_description_set_size(font->pfd, dcm_to_pdu(height));
+ */
 }
 
 
@@ -581,10 +621,13 @@ dia_font_build_layout(const char* string, DiaFont* font, real height)
     PangoAttribute* attr;
     guint length;
     gchar *desc = NULL;
+    PangoFontDescription *pfd;
 
+/*#define MODIFIES_DIA_FONT */
+#ifdef MODIFIES_DIA_FONT 
     height *= 0.7;
     dia_font_set_height(font, height);
-
+#endif
 
     /* This could should account for DPI, but it doesn't do right.  Grrr...
     {
@@ -603,10 +646,17 @@ dia_font_build_layout(const char* string, DiaFont* font, real height)
     pango_layout_set_text(layout, string, length);
         
     list = pango_attr_list_new();
+#ifdef MODIFIES_DIA_FONT 
     desc = g_utf8_strdown(pango_font_description_get_family(font->pfd), -1);
     pango_font_description_set_family(font->pfd, desc);
     g_free(desc);
     attr = pango_attr_font_desc_new(font->pfd);
+#else
+    pfd = pango_font_description_copy (font->pfd);
+    pango_font_description_set_size (pfd, dcm_to_pdu (height) * .7);
+    attr = pango_attr_font_desc_new(pfd);
+    pango_font_description_free (pfd);
+#endif
     attr->start_index = 0;
     attr->end_index = length;
     pango_attr_list_insert(list,attr); /* eats attr */
@@ -620,15 +670,6 @@ dia_font_build_layout(const char* string, DiaFont* font, real height)
   
     return layout;
 }
-
-/* ************************************************************************ */
-/* scaled versions of the utility routines                                  */
-/* ************************************************************************ */
-
-void
-dia_font_set_nominal_zoom_factor(real size_one)
-{ global_zoom_factor = size_one; }
-
 
 /** Find the offsets of the individual letters in the iter and place them
  * in an array.
@@ -659,7 +700,7 @@ get_string_offsets(PangoLayoutIter *iter, real** offsets, int* n_offsets)
   for (i = 0; i < string->num_glyphs; i++) {
     PangoGlyphGeometry geom = string->glyphs[i].geometry;
     
-    (*offsets)[i] = pdu_to_dcm(geom.width) / 20;
+    (*offsets)[i] = pdu_to_dcm(geom.width) / global_zoom_factor;
   }
 }
 
@@ -728,16 +769,16 @@ dia_font_get_sizes(const char* string, DiaFont *font, real height,
   } else {
     non_empty_string = string;
   }
-  layout = dia_font_build_layout(non_empty_string, font, height * 20);
+  layout = dia_font_build_layout(non_empty_string, font, height * global_zoom_factor);
   
   /* Only one line here ? */
   iter = pango_layout_get_iter(layout);
 
   pango_layout_iter_get_line_extents(iter, &ink_rect, &logical_rect);
 
-  top = pdu_to_dcm(logical_rect.y) / 20;
-  bottom = pdu_to_dcm(logical_rect.y + logical_rect.height) / 20;
-  bline = pdu_to_dcm(pango_layout_iter_get_baseline(iter)) / 20;
+  top = pdu_to_dcm(logical_rect.y) / global_zoom_factor;
+  bottom = pdu_to_dcm(logical_rect.y + logical_rect.height) / global_zoom_factor;
+  bline = pdu_to_dcm(pango_layout_iter_get_baseline(iter)) / global_zoom_factor;
 
   get_string_offsets(iter, &offsets, n_offsets);
   get_layout_offsets(pango_layout_get_line(layout, 0), layout_offsets);
@@ -764,7 +805,7 @@ dia_font_get_sizes(const char* string, DiaFont *font, real height,
     *width = 0.0;
   } else {
     /* take the bigger rectangle to avoid cutting of any part of the string */
-    *width = pdu_to_dcm(logical_rect.width > ink_rect.width ? logical_rect.width : ink_rect.width) / 20;
+    *width = pdu_to_dcm(logical_rect.width > ink_rect.width ? logical_rect.width : ink_rect.width) / global_zoom_factor;
   }
   return offsets;
 }

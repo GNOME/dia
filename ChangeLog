@@ -1,5 +1,12 @@
 2008-07-06  Hans Breuer  <hans@breuer.org>
 
+	* lib/font.[hc] : some cleanup and test code to get on the real reason
+	for Dia's notorious font-size mismatch, see e.g. bug #108293, #345538,
+	#538499, ... not supposed to change behaviour yet
+	* samples/font-sizes.dia : new test file using concrete fonts
+
+2008-07-06  Hans Breuer  <hans@breuer.org>
+
 	[Patch from Thomas Harding fixing help finally fixing bug #536334]
 	* doc/Makefile.am hardcopies.make :
 	- documentation uninstall was not complete

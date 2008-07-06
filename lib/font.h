@@ -198,9 +198,5 @@ real* dia_font_get_sizes(const char* string, DiaFont *font, real height,
 /* -------- Font and string functions - scaled versions.
    Use these version in Renderers, exclusively. */
 
-    /* Call once at the beginning of a rendering pass, to let dia know
-     what is 1:1 scale. zoom_factor will then be divided by size_one. */
-void dia_font_set_nominal_zoom_factor(real size_one);
-
 
 #endif /* FONT_H */
