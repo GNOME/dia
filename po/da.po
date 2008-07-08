@@ -178,9 +178,8 @@ msgid ""
 msgstr "Kunne ikke finde standardobjekter i objektbiblioteket, afslutter...\n"
 
 #: ../app/app_procs.c:938
-#, fuzzy
 msgid "Diagram1.dia"
-msgstr "Diagram%d.dia"
+msgstr "Diagram1.dia"
 
 #: ../app/app_procs.c:978
 msgid ""

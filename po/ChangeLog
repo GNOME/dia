@@ -1,3 +1,8 @@
+2008-07-08  Hans Breuer  <hans@breuer.org>
+
+	* da.po hr.po : dont ttranslate Diagram1.dia to Diagram%1.dia but
+	leave it as Diagram1.dia (Dijagram1.dia). Fixing bug #542024.
+
 2008-07-03  Yannig Marchegay <yannig@marchegay.org>
 
 	* oc.po: Updated Occitan translation.

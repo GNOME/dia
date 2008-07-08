@@ -165,7 +165,7 @@ msgstr ""
 #: ../app/app_procs.c:938
 #, fuzzy
 msgid "Diagram1.dia"
-msgstr "Dijagram%d.dia"
+msgstr "Dijagram1.dia"
 
 #: ../app/app_procs.c:978
 msgid ""
