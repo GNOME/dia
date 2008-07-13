@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-05-31 16:14+0000\n"
-"PO-Revision-Date: 2008-06-14 00:51+0200\n"
+"POT-Creation-Date: 2008-07-10 08:36+0000\n"
+"PO-Revision-Date: 2008-07-13 19:47+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -25,83 +25,83 @@ msgstr ""
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 
 #. This is not an errror
-#: ../app/app_procs.c:204
+#: ../app/app_procs.c:200
 #, c-format
 msgid "Warning: invalid layer range %lu - %lu\n"
 msgstr "Atención: rango de capa inválido %lu - %lu\n"
 
-#: ../app/app_procs.c:216
+#: ../app/app_procs.c:212
 #, c-format
 msgid "Warning: Layer %lu (%s) selected more than once.\n"
 msgstr "Atención: Capa %lu (%s) seleccionada más de una vez.\n"
 
-#: ../app/app_procs.c:242
+#: ../app/app_procs.c:238
 #, c-format
 msgid "Warning: Layer %d (%s) selected more than once.\n"
 msgstr "Atención: Capa %d (%s) seleccionada más de una vez.\n"
 
-#: ../app/app_procs.c:251
+#: ../app/app_procs.c:247
 #, c-format
 msgid "Warning: There is no layer named %s\n"
 msgstr "Atención: No hay ninguna capa llamada %s\n"
 
-#: ../app/app_procs.c:333
+#: ../app/app_procs.c:329
 #, c-format
 msgid "%s error: don't know how to export into %s\n"
 msgstr "%s error: no se sabe cómo exportar a %s\n"
 
-#: ../app/app_procs.c:342
+#: ../app/app_procs.c:338
 #, c-format
 msgid "%s error: input and output file name is identical: %s"
 msgstr "%s error: el nombre de los ficheros de entrada y salida es idéntico: %s"
 
-#: ../app/app_procs.c:350
+#: ../app/app_procs.c:346
 #, c-format
 msgid "%s error: need valid input file %s\n"
 msgstr "%s error: se necesita un archivo de entrada válido %s\n"
 
 #. if (!quiet)
-#: ../app/app_procs.c:375
+#: ../app/app_procs.c:371
 #, c-format
 msgid "%s --> %s\n"
 msgstr "%s --> %s\n"
 
-#: ../app/app_procs.c:536
+#: ../app/app_procs.c:542
 #, c-format
 msgid "Can't find output format/filter %s\n"
 msgstr "No se pudo encontrar el formato/filtro de salida %s\n"
 
 #. Translators:  The argument is a list of options, not to be translated
-#: ../app/app_procs.c:612
+#: ../app/app_procs.c:618
 #, c-format
 msgid "Select the filter/format out of: %s"
 msgstr "Seleccione el filtro/formato de salida de: %s"
 
 #. &export_file_name
-#: ../app/app_procs.c:630
+#: ../app/app_procs.c:636
 msgid "Export loaded file and exit"
 msgstr "Exportar archivo cargado y salir"
 
-#: ../app/app_procs.c:630
+#: ../app/app_procs.c:636
 msgid "OUTPUT"
 msgstr "SALIDA"
 
 # Supongo que también hay que traducir "TYPE", ¿no? RizOX.
 #. &export_file_format
 #. &export_format_string
-#: ../app/app_procs.c:632
+#: ../app/app_procs.c:638
 msgid "TYPE"
 msgstr "TIPO"
 
-#: ../app/app_procs.c:634
+#: ../app/app_procs.c:640
 msgid "Export graphics size"
 msgstr "Tamaño del gráfico exportado"
 
-#: ../app/app_procs.c:634
+#: ../app/app_procs.c:640
 msgid "WxH"
 msgstr "AnchoxAlto"
 
-#: ../app/app_procs.c:636
+#: ../app/app_procs.c:642
 msgid ""
 "Show only specified layers (e.g. when exporting). Can be either the layer "
 "name or a range of layer numbers (X-Y)"
@@ -109,68 +109,68 @@ msgstr ""
 "mostrar sólo las capas especificadas (ej: al exportar). Puede ser o el "
 "nombre de capa o un rango de números de capas (X-Y)"
 
-#: ../app/app_procs.c:637
+#: ../app/app_procs.c:643
 msgid "LAYER,LAYER,..."
 msgstr "CAPA,CAPA…"
 
-#: ../app/app_procs.c:639
+#: ../app/app_procs.c:645
 msgid "Don't show the splash screen"
 msgstr "No mostrar la pantalla de bienvenida"
 
-#: ../app/app_procs.c:641
+#: ../app/app_procs.c:647
 msgid "Don't create empty diagram"
 msgstr "No crear un diagrama vacío"
 
-#: ../app/app_procs.c:643
+#: ../app/app_procs.c:649
 msgid "Send error messages to stderr instead of showing dialogs."
 msgstr "Enviar los mensajes de error a stderr en vez de mostrar diálogos."
 
-#: ../app/app_procs.c:645
+#: ../app/app_procs.c:651
 msgid "Display credits list and exit"
 msgstr "Mostrar la lista de créditos y salir"
 
-#: ../app/app_procs.c:647
+#: ../app/app_procs.c:653
 msgid "Generate verbose output"
 msgstr "Generar salida detallada"
 
-#: ../app/app_procs.c:649
+#: ../app/app_procs.c:655
 msgid "Display version and exit"
 msgstr "Mostrar la versión y salir"
 
-#: ../app/app_procs.c:701
+#: ../app/app_procs.c:707
 msgid "Can't connect to session manager!\n"
 msgstr "¡No se puede conectar con el gestor de sesiones!\n"
 
 #. TRANSLATOR: 2nd and 3rd %s are time and date respectively.
-#: ../app/app_procs.c:741
+#: ../app/app_procs.c:747
 #, c-format
 msgid "Dia version %s, compiled %s %s\n"
 msgstr "Versión %s de Dia, compilada %s %s\n"
 
-#: ../app/app_procs.c:743
+#: ../app/app_procs.c:749
 #, c-format
 msgid "Dia version %s\n"
 msgstr "Versión %s de Dia\n"
 
 # Como adjetivo creo que el plural es "estándar". FVD
-#: ../app/app_procs.c:779
+#: ../app/app_procs.c:785
 msgid "Couldn't find standard objects when looking for object-libs; exiting...\n"
 msgstr "No se encontraron objetos estándar en object-libs, saliendo…\n"
 
 # Como adjetivo creo que el plural es "estándar". FVD
-#: ../app/app_procs.c:781
+#: ../app/app_procs.c:787
 #, c-format
 msgid ""
 "Couldn't find standard objects when looking for object-libs in '%s'; "
 "exiting...\n"
 msgstr "No se encontraron objetos estándar en object-libs en «%s»; saliendo…\n"
 
-#: ../app/app_procs.c:839
+#: ../app/app_procs.c:845
 msgid "Diagram1.dia"
 msgstr "Diagrama1.dia"
 
 # Me parece más correcta y explicativa esta traducción aunque sea algo más larga. RizOX.
-#: ../app/app_procs.c:882
+#: ../app/app_procs.c:888
 msgid ""
 "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you can cause this message to appear.\n"
@@ -179,16 +179,16 @@ msgstr ""
 "gnome.org\n"
 "describiendo cómo conseguir que este mensaje vuelva a aparecer.\n"
 
-#: ../app/app_procs.c:897
+#: ../app/app_procs.c:903
 msgid "Exiting Dia"
 msgstr "Salir de Dia"
 
 #. no standard buttons
-#: ../app/app_procs.c:949
+#: ../app/app_procs.c:955
 msgid "Quitting without saving modified diagrams"
 msgstr "¿Salir sin guardar los diagramas modificados?"
 
-#: ../app/app_procs.c:951
+#: ../app/app_procs.c:957
 msgid ""
 "Modified diagrams exist. Are you sure you want to quit Dia without saving "
 "them?"
@@ -196,15 +196,15 @@ msgstr ""
 "Hay diagramas modificados. ¿Está seguro de que desea salir de Dia\n"
 "sin guardarlos?"
 
-#: ../app/app_procs.c:955
+#: ../app/app_procs.c:961
 msgid "Quit Dia"
 msgstr "Salir de Dia"
 
-#: ../app/app_procs.c:1024 ../app/app_procs.c:1031
+#: ../app/app_procs.c:1030 ../app/app_procs.c:1037
 msgid "Could not create per-user Dia config directory"
 msgstr "No se pudo crear el directorio de configuración de Dia para el usuario"
 
-#: ../app/app_procs.c:1034
+#: ../app/app_procs.c:1040
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -213,20 +213,20 @@ msgstr ""
 "favor, asegúrese de que la variable de entorno HOME apunta a un directorio "
 "existente."
 
-#: ../app/app_procs.c:1057
+#: ../app/app_procs.c:1063
 msgid "Objects and filters internal to dia"
 msgstr "Objetos y filtros internos para dia"
 
-#: ../app/app_procs.c:1089
+#: ../app/app_procs.c:1095
 msgid "[FILE...]"
 msgstr "[ARCHIVO…]"
 
-#: ../app/app_procs.c:1110
+#: ../app/app_procs.c:1116
 #, c-format
 msgid "'%s' not found!\n"
 msgstr "«%s» no encontrado\n"
 
-#: ../app/app_procs.c:1154
+#: ../app/app_procs.c:1160
 #, c-format
 msgid ""
 "The original author of Dia was:\n"
@@ -235,7 +235,7 @@ msgstr ""
 "El autor original de Dia fue:\n"
 "\n"
 
-#: ../app/app_procs.c:1159
+#: ../app/app_procs.c:1165
 #, c-format
 msgid ""
 "\n"
@@ -246,7 +246,7 @@ msgstr ""
 "Los actuales mantenedores de Dia son:\n"
 "\n"
 
-#: ../app/app_procs.c:1164
+#: ../app/app_procs.c:1170
 #, c-format
 msgid ""
 "\n"
@@ -257,7 +257,7 @@ msgstr ""
 "Otros autores son:\n"
 "\n"
 
-#: ../app/app_procs.c:1169
+#: ../app/app_procs.c:1175
 #, c-format
 msgid ""
 "\n"
@@ -676,7 +676,7 @@ msgstr "<sin nombre>"
 msgid "Closing diagram without saving"
 msgstr "Cerrando el diagrama sin guardar"
 
-#: ../app/display.c:1189
+#: ../app/display.c:1188
 #, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -685,11 +685,11 @@ msgstr ""
 "Este diagrama «%s»\n"
 "no ha sido guardado. ¿Guardar los cambios ahora?"
 
-#: ../app/display.c:1191
+#: ../app/display.c:1190
 msgid "Close Diagram"
 msgstr "Cerrar el diagrama"
 
-#: ../app/display.c:1196
+#: ../app/display.c:1195
 msgid "_Discard Changes"
 msgstr "_Descartar los cambios"
 
@@ -745,7 +745,7 @@ msgid "Nothing selected for saving.  Would you like to try again?"
 msgstr "No se seleccionó nada para guardar. ¿Quiere intentarlo otra vez?"
 
 #: ../app/filedlg.c:141 ../app/filedlg.c:149 ../app/filedlg.c:165
-#: ../app/filedlg.c:732 ../lib/widgets.c:1459
+#: ../app/filedlg.c:732 ../lib/widgets.c:1457
 msgid "Supported Formats"
 msgstr "Formatos soportados"
 
@@ -765,7 +765,7 @@ msgstr "Abrir opciones"
 msgid "Determine file type:"
 msgstr "Determinar tipo de archivo:"
 
-#: ../app/filedlg.c:335 ../app/filedlg.c:727 ../lib/widgets.c:1464
+#: ../app/filedlg.c:335 ../app/filedlg.c:727 ../lib/widgets.c:1462
 msgid "All Files"
 msgstr "Todos los archivos"
 
@@ -2239,7 +2239,7 @@ msgstr "Error interno: al establecer tipo esquina de punto final Bézier"
 #: ../lib/create.c:50 ../lib/create.c:100 ../lib/create.c:127
 #: ../lib/create.c:161 ../lib/create.c:197 ../lib/create.c:224
 #: ../lib/create.c:260 ../lib/create.c:295 ../lib/create.c:338
-#: ../plug-ins/svg/svg-import.c:245 ../plug-ins/vdx/vdx-import.c:140
+#: ../plug-ins/svg/svg-import.c:246 ../plug-ins/vdx/vdx-import.c:140
 msgid "Can't find standard object"
 msgstr "No se pudo encontrar el objeto estándar"
 
@@ -2318,7 +2318,7 @@ msgstr "Cancelar"
 msgid "Multiple export filters with unique name %s"
 msgstr "Filtros múltiples de exportación con nombre único %s"
 
-#: ../lib/font.c:103
+#: ../lib/font.c:106
 #, c-format
 msgid "Can't load font %s.\n"
 msgstr "No se puede cargar la tipografía %s.\n"
@@ -2406,16 +2406,16 @@ msgstr ""
 msgid "Group with %d objects"
 msgstr "Grupo con %d objetos"
 
-#: ../lib/properties.c:64 ../lib/properties.h:469 ../lib/widgets.c:695
+#: ../lib/properties.c:64 ../lib/properties.h:469 ../lib/widgets.c:693
 msgid "Left"
 msgstr "Izquierda"
 
-#: ../lib/properties.c:65 ../lib/properties.h:470 ../lib/widgets.c:701
+#: ../lib/properties.c:65 ../lib/properties.h:470 ../lib/widgets.c:699
 #: ../objects/standard/textobj.c:135
 msgid "Center"
 msgstr "Centro"
 
-#: ../lib/properties.c:66 ../lib/properties.h:471 ../lib/widgets.c:707
+#: ../lib/properties.c:66 ../lib/properties.h:471 ../lib/widgets.c:705
 msgid "Right"
 msgstr "Derecha"
 
@@ -2478,68 +2478,68 @@ msgstr "Color de texto"
 msgid "No attribute '%s' (%p) or no data(%p) in this attribute"
 msgstr "No hay ningún atributo «%s» (%p) o no hay datos (%p) en este atributo"
 
-#: ../lib/widgets.c:412
+#: ../lib/widgets.c:410
 msgid "Other fonts"
 msgstr "Otras tipografías"
 
-#: ../lib/widgets.c:484
+#: ../lib/widgets.c:482
 #, c-format
 msgid "Couldn't find font family for %s\n"
 msgstr "No se pudo encontrar la familia de tipografías para %s\n"
 
 #. Translators: Menu item Noun/Material/Solid
-#: ../lib/widgets.c:867 ../objects/FS/function.c:1076
+#: ../lib/widgets.c:865 ../objects/FS/function.c:1076
 msgid "Solid"
 msgstr "Sólido"
 
-#: ../lib/widgets.c:873
+#: ../lib/widgets.c:871
 msgid "Dashed"
 msgstr "Discontinuo"
 
-#: ../lib/widgets.c:879
+#: ../lib/widgets.c:877
 msgid "Dash-Dot"
 msgstr "Línea-Punto"
 
-#: ../lib/widgets.c:885
+#: ../lib/widgets.c:883
 msgid "Dash-Dot-Dot"
 msgstr "Línea-Punto-Punto"
 
-#: ../lib/widgets.c:891
+#: ../lib/widgets.c:889
 msgid "Dotted"
 msgstr "Punteado"
 
 #. fs->sizebox = GTK_HBOX(box);
-#: ../lib/widgets.c:909
+#: ../lib/widgets.c:907
 msgid "Dash length: "
 msgstr "Longitud de la discontinuidad: "
 
-#: ../lib/widgets.c:1037
+#: ../lib/widgets.c:1035
 msgid "Select color"
 msgstr "Seleccione color"
 
-#: ../lib/widgets.c:1103
+#: ../lib/widgets.c:1101
 msgid "More colors..."
 msgstr "Más colores"
 
 # Corregido, no tenía sentido. RizOX.
-#: ../lib/widgets.c:1251
+#: ../lib/widgets.c:1249
 msgid "More arrows"
 msgstr "Más flechas"
 
-#: ../lib/widgets.c:1268
+#: ../lib/widgets.c:1266
 msgid "Size: "
 msgstr "Tamaño: "
 
-#: ../lib/widgets.c:1446
+#: ../lib/widgets.c:1444
 msgid "Select image file"
 msgstr "Seleccionar archivo de imagen"
 
-#: ../lib/widgets.c:1494
+#: ../lib/widgets.c:1492
 msgid "Browse"
 msgstr "Navegar"
 
 # Corregido. No tenía sentido. RizOX.
-#: ../lib/widgets.c:2047
+#: ../lib/widgets.c:2045
 msgid "Reset menu"
 msgstr "Restaurar menú"
 
@@ -5913,6 +5913,10 @@ msgstr "Lenguaje de gráficos de HP"
 msgid "HP Graphics Language export filter"
 msgstr "Filtro de exportación de HP Graphics Language"
 
+#: ../plug-ins/libart/dialibart.c:59
+msgid "Libart based rendering"
+msgstr "Renderizado basado en libart"
+
 #: ../plug-ins/libart/export_png.c:165
 msgid "Could not create PNG write structure"
 msgstr "No se pudo crear estructura de escritura de PNG"
@@ -6082,11 +6086,11 @@ msgstr "Archivo de forma de Dia"
 msgid "dia shape export filter"
 msgstr "Filtro de exportación de archivo de forma de Dia"
 
-#: ../plug-ins/svg/render_svg.c:365 ../plug-ins/svg/svg-import.c:766
+#: ../plug-ins/svg/render_svg.c:365 ../plug-ins/svg/svg-import.c:767
 msgid "Scalable Vector Graphics"
 msgstr "Scalable Vector Graphics"
 
-#: ../plug-ins/svg/svg-import.c:236
+#: ../plug-ins/svg/svg-import.c:237
 msgid ""
 "Invalid path data.\n"
 "svg:path data must start with moveto."
@@ -6094,11 +6098,11 @@ msgstr ""
 "Ruta de datos inválida.\n"
 "svg:la ruta de datos debe empezar con moveto."
 
-#: ../plug-ins/svg/svg-import.c:689
+#: ../plug-ins/svg/svg-import.c:690
 msgid "Expected SVG Namespace not found in file"
 msgstr "No se encontró en el archivo el espacio de nombres SVG esperado"
 
-#: ../plug-ins/svg/svg-import.c:709
+#: ../plug-ins/svg/svg-import.c:710
 #, c-format
 msgid "root element was '%s' -- expecting 'svg'."
 msgstr "el elemento raíz era «%s» -- se esperaba «svg»."
