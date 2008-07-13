@@ -1,3 +1,10 @@
+2008-07-13  Hans Breuer  <hans@breuer.org>
+
+	* shapes/Cybernetics/*.png shapes/Gane_and_Sarson/*.png 
+	  shapes/Logic/*.png shapes/Map/Isometric/*.png
+	  shapes/Misc/*.png shapes/MSE/*.png : some icons were smaller than 
+	the usual 22x22, now they are expanded by an empty border
+
 2008-07-06  Hans Breuer  <hans@breuer.org>
 
 	* lib/font.[hc] : some cleanup and test code to get on the real reason
