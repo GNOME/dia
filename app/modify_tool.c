@@ -540,7 +540,13 @@ modify_motion(ModifyTool *tool, GdkEventMotion *event,
       GtkStatusbar *statusbar = GTK_STATUSBAR (ddisp->modified_status);
       guint context_id = gtk_statusbar_get_context_id (statusbar, "ObjectPos");
     
-      postext = g_strdup_printf("%.3f, %.3f", to.x, to.y);
+      if (tool->object) { /* play safe */
+	real w = tool->object->bounding_box.right - tool->object->bounding_box.left;
+	real h = tool->object->bounding_box.bottom - tool->object->bounding_box.top;
+        postext = g_strdup_printf("%.3f, %.3f (%.3fx%.3f)", to.x, to.y, w, h);
+      } else {
+        postext = g_strdup_printf("%.3f, %.3f", to.x, to.y);
+      }
 			       
       gtk_statusbar_pop (statusbar, context_id); 
       gtk_statusbar_push (statusbar, context_id, postext);

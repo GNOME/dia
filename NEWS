@@ -20,6 +20,8 @@
 
   * overhaul of the DXF plug-in (import and export)
 
+  * with the help of libEMF dia now can write EMF on Linux(x86), too.
+
   * new database table relation shapes
 
   * a huge step forward regarding properties of grouped objects

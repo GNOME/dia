@@ -1,5 +1,10 @@
 2008-07-13  Hans Breuer  <hans@breuer.org>
 
+	* app/modify_tool.c : mouse position and bounding box on statusbar
+	when resizing objects
+
+	* NEWS : mention wmf plug-in and libEMF
+
 	* shapes/Cybernetics/*.png shapes/Gane_and_Sarson/*.png 
 	  shapes/Logic/*.png shapes/Map/Isometric/*.png
 	  shapes/Misc/*.png shapes/MSE/*.png : some icons were smaller than 
