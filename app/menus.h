@@ -112,6 +112,8 @@ void            menus_clear_recent     (void);
 
 #define VIEW_MAIN_TOOLBAR_ACTION     "ViewMainToolbar"
 #define VIEW_MAIN_STATUSBAR_ACTION   "ViewMainStatusbar"
+#define VIEW_LAYERS_ACTION           "ViewLayers"
 
 #endif /* MENUS_H */
+
 

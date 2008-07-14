@@ -1,3 +1,16 @@
+2008-07-14  Hans Breuer  <hans@breuer.org>
+	[
+	 Patch from Patrick Hallinan integrating the layers diaog into the
+	 integrated UI
+	]
+	* app/app_procs.[ch] : only register the dialog for not integrated ui
+	* app/interface.[ch] : creation of the new widget and ...
+	* app/commands.[ch] : ... menu callbacks
+	* app/layer_dialog.[ch] : conditionalized to resue most of the code in 
+	the integrated UI context
+	* app/menus.[ch] data/integrated-ui.xml : move layer visibility toggle 
+	to View/Layers
+
 2008-07-13  Hans Breuer  <hans@breuer.org>
 
 	* app/modify_tool.c : mouse position and bounding box on statusbar

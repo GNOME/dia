@@ -1047,6 +1047,19 @@ view_main_statusbar_callback (GtkAction *action)
   }
 }
 
+void
+view_layers_callback (GtkAction *action)
+{
+  if (gtk_toggle_action_get_active (GTK_TOGGLE_ACTION(action)) == TRUE)
+  {
+    integrated_ui_layer_view_show ();
+  }
+  else
+  {
+    integrated_ui_layer_view_hide ();
+  }
+}
+
 
 void
 objects_place_over_callback (GtkAction *action)
@@ -1240,4 +1253,5 @@ objects_align_v_callback (GtkAction *action)
 
   undo_set_transactionpoint(dia->undo);
 }
+
 

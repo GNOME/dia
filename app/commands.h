@@ -63,8 +63,10 @@ void view_show_all_callback           (GtkAction *action);
 void view_redraw_callback             (GtkAction *action);
 void view_diagram_properties_callback (GtkAction *action);
 
+/* Integrated UI callbacks */
 void view_main_toolbar_callback       (GtkAction *action);
 void view_main_statusbar_callback     (GtkAction *action);
+void view_layers_callback             (GtkAction *action);
 
 void objects_place_over_callback        (GtkAction *action);
 void objects_place_under_callback       (GtkAction *action);

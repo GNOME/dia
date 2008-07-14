@@ -21,22 +21,14 @@
 #include <gtk/gtk.h>
 #include "diagram.h"
 
-struct LayerDialog {
-  GtkWidget *dialog;
-  GtkWidget *diagram_omenu;
-
-  GtkWidget *layer_list;
-
-  Diagram *diagram;
-
-  GtkWidget *buttons[4];
-};
 
 void create_layer_dialog(void);
 void layer_dialog_update_diagram_list(void);
 void layer_dialog_show(void);
 void layer_dialog_set_diagram(Diagram *dia);
 
+/* Integrated UI component */
+GtkWidget * create_layer_view_widget (void);
 
 /* DiaLayerWidget: */
 #define DIA_LAYER_WIDGET(obj)          \
@@ -91,4 +83,5 @@ void dia_layer_set_layer(DiaLayerWidget *widget, Diagram *dia, Layer *layer);
 void dia_layer_update_from_layer(DiaLayerWidget *widget);
 
 #endif /* LAYER_DIALOG_H */
+
 

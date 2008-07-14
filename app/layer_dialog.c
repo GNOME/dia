@@ -40,6 +40,15 @@
 
 #include "dia-app-icons.h"
 
+struct LayerDialog {
+  GtkWidget *dialog;
+  GtkWidget *diagram_omenu;
+
+  GtkWidget *layer_list;
+
+  Diagram *diagram;
+};
+
 static struct LayerDialog *layer_dialog = NULL;
 
 typedef struct _ButtonData ButtonData;
@@ -121,7 +130,7 @@ static int num_buttons = sizeof(buttons)/sizeof(ButtonData);
 #define INSENSITIVE 2
 
 static GtkWidget *
-create_button_box(GtkWidget *parent)
+create_button_box(GtkWidget *parent, gboolean show_labels)
 {
   GtkWidget *button;
   GtkWidget *button_box;
@@ -130,7 +139,22 @@ create_button_box(GtkWidget *parent)
   button_box = gtk_hbox_new (TRUE, 1);
 
   for (i=0;i<num_buttons;i++) {
+    if (show_labels == TRUE)
+    {
     button = gtk_button_new_from_stock(buttons[i].stock_name);
+    }
+    else
+    {
+      GtkWidget * image;
+ 
+      button = gtk_button_new ();
+      
+      image = gtk_image_new_from_stock (buttons[i].stock_name,
+                                        GTK_ICON_SIZE_BUTTON);
+
+      gtk_button_set_image (GTK_BUTTON (button), GTK_IMAGE(image));
+    }
+
     g_signal_connect_swapped (GTK_OBJECT (button), "clicked",
 			     G_CALLBACK(buttons[i].callback),
 			       GTK_OBJECT (parent));
@@ -140,8 +164,6 @@ create_button_box(GtkWidget *parent)
 
     gtk_box_pack_start (GTK_BOX(button_box), button, TRUE, TRUE, 0);
 
-    layer_dialog->buttons[i] = button;
-    
     gtk_widget_show (button);
   }
 
@@ -200,6 +222,95 @@ layer_dialog_delete(GtkWidget *widget, gpointer data)
   gtk_widget_hide(widget);
   /* We're caching, so don't destroy */
   return TRUE;
+}
+
+void layer_view_hide_button_clicked (void * not_used)
+{
+  integrated_ui_layer_view_hide ();
+}
+
+GtkWidget * create_layer_view_widget (void)
+{
+  GtkWidget  *vbox;
+  GtkWidget  *hbox;
+  GtkWidget  *label;
+  GtkWidget  *hide_button;
+  GtkRcStyle *rcstyle;    /* For hide_button */   
+  GtkWidget  *image;      /* For hide_button */
+  GtkWidget  *list;
+  GtkWidget  *separator;
+  GtkWidget  *scrolled_win;
+  GtkWidget  *button_box;
+  
+  /* if layer_dialog were renamed to layer_view_data this would make
+   * more sense.
+   */
+  layer_dialog = g_new (struct LayerDialog, 1);
+
+  layer_dialog->diagram = NULL;
+
+  layer_dialog->dialog = vbox = gtk_vbox_new (FALSE, 1);
+    
+  hbox = gtk_hbox_new (FALSE, 1);
+  
+  label = gtk_label_new (_ ("Layers:"));
+  gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, FALSE, 2);
+  gtk_widget_show (label);
+  
+  layer_dialog->diagram_omenu = NULL;
+
+  /* Hide Button */
+  hide_button = gtk_button_new ();
+  gtk_button_set_relief (GTK_BUTTON (hide_button), GTK_RELIEF_NONE);
+  gtk_button_set_focus_on_click (GTK_BUTTON (hide_button), FALSE);
+
+  /* make it as small as possible */
+  rcstyle = gtk_rc_style_new ();
+  rcstyle->xthickness = rcstyle->ythickness = 0;
+  gtk_widget_modify_style (hide_button, rcstyle);
+  gtk_rc_style_unref (rcstyle);
+
+  image = gtk_image_new_from_stock (GTK_STOCK_CLOSE,
+                                    GTK_ICON_SIZE_MENU);
+
+  gtk_container_add (GTK_CONTAINER(hide_button), image);
+  gtk_signal_connect (GTK_OBJECT (hide_button), "clicked", 
+                      GTK_SIGNAL_FUNC (layer_view_hide_button_clicked), NULL);    
+    
+  gtk_box_pack_start (GTK_BOX (hbox), hide_button, FALSE, FALSE, 2);
+    
+  gtk_box_pack_start (GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
+  gtk_widget_show_all (hbox);
+
+  button_box = create_button_box(vbox, FALSE);
+  
+  gtk_box_pack_start (GTK_BOX (vbox), button_box, FALSE, FALSE, 2);
+  gtk_widget_show (button_box);
+    
+  separator = gtk_hseparator_new();
+  gtk_box_pack_start(GTK_BOX(vbox), separator, FALSE, FALSE, 2);
+  gtk_widget_show (separator);
+
+  scrolled_win = gtk_scrolled_window_new (NULL, NULL);
+  gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_win),
+				  GTK_POLICY_AUTOMATIC, 
+				  GTK_POLICY_AUTOMATIC);
+  gtk_box_pack_start (GTK_BOX (vbox), scrolled_win, TRUE, TRUE, 2);
+
+  layer_dialog->layer_list = list = gtk_list_new();
+
+  gtk_list_set_selection_mode (GTK_LIST (list), GTK_SELECTION_BROWSE);
+  gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled_win), list);
+  gtk_container_set_focus_vadjustment (GTK_CONTAINER (list),
+				       gtk_scrolled_window_get_vadjustment (GTK_SCROLLED_WINDOW (scrolled_win)));
+  gtk_widget_show (scrolled_win);
+  gtk_widget_show (list);
+
+  g_signal_connect (GTK_OBJECT (list), "event",
+		      (GtkSignalFunc) layer_list_events,
+		      NULL);
+    
+  return vbox;
 }
 
 void
@@ -273,7 +384,7 @@ create_layer_dialog(void)
 		      (GtkSignalFunc) layer_list_events,
 		      NULL);
 
-  button_box = create_button_box(dialog);
+  button_box = create_button_box(dialog, TRUE);
   
   gtk_box_pack_start (GTK_BOX (vbox), button_box, FALSE, FALSE, 2);
   gtk_widget_show (button_box);
@@ -521,6 +632,11 @@ layer_dialog_update_diagram_list(void)
   int i;
   int current_nr;
 
+  if (layer_dialog->diagram_omenu == NULL)
+  {
+    return;
+  }
+
   if (layer_dialog == NULL || layer_dialog->dialog == NULL) {
     if (!dia_open_diagrams())
       return; /* shortcut; maybe session end w/o this dialog */
@@ -591,9 +707,12 @@ layer_dialog_update_diagram_list(void)
 void
 layer_dialog_show()
 {
+  if (is_integrated_ui () == FALSE)
+  {   
   if (layer_dialog == NULL || layer_dialog->dialog == NULL)
     create_layer_dialog();
   gtk_window_present(GTK_WINDOW(layer_dialog->dialog));
+  }
 }
 
 /*
@@ -631,7 +750,7 @@ layer_dialog_set_diagram(Diagram *dia)
   layer_dialog->diagram = dia;
   if (dia != NULL) {
     i = g_list_index(dia_open_diagrams(), dia);
-    if (i >= 0)
+    if (i >= 0 && layer_dialog->diagram_omenu != NULL)
       gtk_option_menu_set_history(GTK_OPTION_MENU(layer_dialog->diagram_omenu),
 				  i);
   }

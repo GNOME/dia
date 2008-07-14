@@ -799,14 +799,15 @@ app_init (int argc, char **argv)
     /* further initialization *before* reading files */  
     active_tool = create_modify_tool();
 
-    if( prefs.use_integrated_ui )
+    if (prefs.use_integrated_ui) {
       create_integrated_ui();
-    else 
+    } else {
       create_toolbox();
-
-    persistence_register_window_create("layer_window",
-				       (NullaryFunc*)&create_layer_dialog);
-
+      /* for the integrated ui case it is integrated */
+      persistence_register_window_create("layer_window",
+				         (NullaryFunc*)&create_layer_dialog);
+    }
+      
     /*fill recent file menu */
     recent_file_history_init();
 

@@ -49,7 +49,6 @@
 			<menuitem name="EditPastetext" action="EditPastetext" />
 			<separator name="EditSep4" />
 			<menuitem name="DiagramProperties" action="DiagramProperties" />
-			<menuitem name="DiagramLayers" action="DiagramLayers" />
 		</menu>
 		<menu name="View" action="View">
 			<menuitem name="ViewZoomin" action="ViewZoomin" />
@@ -72,6 +71,7 @@
 			<separator name="ViewSep1" />
 			<menuitem name="ViewFullscreen" action="ViewFullscreen" />
 			<menuitem name="ViewMainToolbar" action="ViewMainToolbar" />
+			<menuitem name="ViewLayers" action="ViewLayers" />
 			<menuitem name="ViewMainStatusbar" action="ViewMainStatusbar" />
 			<separator name="ViewSep2" />
 			<menuitem name="ViewAntialiased" action="ViewAntialiased" />

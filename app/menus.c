@@ -99,7 +99,8 @@ static const GtkToggleActionEntry toolbox_toggle_entries[] =
 static const GtkToggleActionEntry integrated_ui_view_toggle_entries[] = 
 {
     { VIEW_MAIN_TOOLBAR_ACTION,   NULL, N_("Show Toolbar"),   NULL, NULL, G_CALLBACK (view_main_toolbar_callback) },
-    { VIEW_MAIN_STATUSBAR_ACTION, NULL, N_("Show Statusbar"), NULL, NULL, G_CALLBACK (view_main_statusbar_callback) }
+    { VIEW_MAIN_STATUSBAR_ACTION, NULL, N_("Show Statusbar"), NULL, NULL, G_CALLBACK (view_main_statusbar_callback) },
+    { VIEW_LAYERS_ACTION,         NULL, N_("Show Layers"),    NULL, NULL, G_CALLBACK (view_layers_callback) }
 };
 
 /* Actions for diagram window */

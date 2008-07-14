@@ -253,6 +253,7 @@ static struct
     GtkToolbar   * toolbar;
     GtkNotebook  * diagram_notebook;
     GtkStatusbar * statusbar;
+    GtkWidget    * layer_view;
 } ui;
 
 /*static*/ GtkTooltips *tool_tips;
@@ -1616,6 +1617,8 @@ create_integrated_ui (void)
   GtkAccelGroup *accel_group;
   GdkPixbuf *pixbuf;
 
+  GtkWidget *layer_view;
+	
 #ifdef GNOME
   window = gnome_app_new ("Dia", _("Diagram Editor"));
 #else
@@ -1657,6 +1660,10 @@ create_integrated_ui (void)
   gtk_box_pack_end (GTK_BOX (main_vbox), hbox, TRUE, TRUE, 0);
   gtk_widget_show (hbox);
   
+  /* Layer View  */
+  layer_view = create_layer_view_widget ();
+  gtk_box_pack_end (GTK_BOX (hbox), layer_view, FALSE, FALSE, 0);
+	 
   /* Diagram Notebook */
   notebook = gtk_notebook_new ();
   gtk_box_pack_end (GTK_BOX (hbox), notebook, TRUE, TRUE, 0);
@@ -1715,6 +1722,7 @@ create_integrated_ui (void)
   ui.toolbar          = GTK_TOOLBAR   (toolbar);
   ui.diagram_notebook = GTK_NOTEBOOK  (notebook);
   ui.statusbar        = GTK_STATUSBAR (statusbar);
+  ui.layer_view       =                layer_view;
 
   /* NOTE: These functions use ui.xxx assignments above and so must come after
    *       the user interface components are set.                              */
@@ -1889,6 +1897,46 @@ void integrated_ui_main_toolbar_hide (void)
   }
 }
 
+/* Indicate if the integrated UI Layer View is showing.
+ * @return TRUE if showing, FALSE if not showing or doesn't exist 
+ */ 
+gboolean integrated_ui_layer_view_is_showing (void)
+{
+  if (ui.layer_view)
+  {
+    return GTK_WIDGET_VISIBLE (ui.layer_view)? TRUE : FALSE;
+  }
+  return FALSE;
+}
+
+void integrated_ui_layer_view_show (void)
+{
+  if (ui.layer_view)
+  {
+    GtkAction *action = NULL;
+    gtk_widget_show (ui.layer_view); 
+    action = menus_get_action (VIEW_LAYERS_ACTION);
+    if (action) 
+    {
+      gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action), TRUE);
+    }
+  }
+}
+
+void integrated_ui_layer_view_hide (void)
+{
+  if (ui.layer_view)
+  {
+    GtkAction *action = NULL;
+    gtk_widget_hide (ui.layer_view); 
+    action = menus_get_action (VIEW_LAYERS_ACTION);
+    if (action)
+    {
+      gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action), FALSE);
+    }
+  }
+}
+
 /* Indicate if the integrated UI statusbar is showing.
  * @return TRUE if showing, FALSE if not showing or doesn't exist 
  */ 
@@ -1926,5 +1974,6 @@ void integrated_ui_main_statusbar_hide (void)
       gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action), FALSE);
   }
 }
+
 
 

@@ -53,6 +53,10 @@ gboolean integrated_ui_main_statusbar_is_showing (void);
 void     integrated_ui_main_statusbar_show (void);
 void     integrated_ui_main_statusbar_hide (void);
 
+gboolean integrated_ui_layer_view_is_showing (void);
+void     integrated_ui_layer_view_show (void);
+void     integrated_ui_layer_view_hide (void);
+
 int is_integrated_ui (void);
 
 void create_display_shell(DDisplay *ddisp,
