@@ -355,7 +355,7 @@ file_save_as_response_callback(GtkWidget *fs,
   struct stat stat_struct;
 
   if (response == GTK_RESPONSE_ACCEPT) {
-    dia = gtk_object_get_user_data(GTK_OBJECT(fs));
+    dia = g_object_get_data (G_OBJECT(fs), "user_data");
 
     filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(fs));
 
@@ -403,8 +403,8 @@ file_save_as_response_callback(GtkWidget *fs,
     g_free (filename);
   }
   /* if we have our own reference, drop it before destroy */
-  if ((dia = gtk_object_get_user_data(GTK_OBJECT(fs))) != NULL) {
-    gtk_object_set_user_data(GTK_OBJECT(fs), NULL);
+  if ((dia = g_object_get_data (G_OBJECT(fs), "user_data")) != NULL) {
+    g_object_set_data (G_OBJECT(fs), "user_data", NULL);
     g_object_unref (dia);
   }
   gtk_widget_destroy(GTK_WIDGET(fs));
@@ -451,10 +451,17 @@ file_save_as_callback(gpointer data, guint action, GtkWidget *widget)
     g_signal_connect(G_OBJECT(compressbutton), "toggled",
 		     G_CALLBACK(toggle_compress_callback), NULL);
     gtk_widget_show(compressbutton);
+#if GTK_CHECK_VERSION (2,12,0)
+    gtk_widget_set_tooltip_text (compressbutton,
+			 _("Compression reduces file size to less than 1/10th "
+			   "size and speeds up loading and saving.  Some text "
+			   "programs cannot manipulate compressed files."));
+#else
     gtk_tooltips_set_tip(tool_tips, compressbutton,
 			 _("Compression reduces file size to less than 1/10th "
 			   "size and speeds up loading and saving.  Some text "
 			   "programs cannot manipulate compressed files."), NULL);
+#endif
     g_signal_connect (GTK_FILE_CHOOSER(savedlg),
 		      "response", G_CALLBACK(file_save_as_response_callback), compressbutton);
     g_signal_connect(GTK_OBJECT(savedlg), "destroy",
@@ -466,12 +473,12 @@ file_save_as_callback(gpointer data, guint action, GtkWidget *widget)
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(compressbutton),
 				 dia->data->is_compressed);
     g_signal_handlers_unblock_by_func(G_OBJECT(compressbutton), toggle_compress_callback, NULL);
-    if (gtk_object_get_user_data(GTK_OBJECT(savedlg)) != NULL)
-      g_object_unref(gtk_object_get_user_data(GTK_OBJECT(savedlg)));
+    if (g_object_get_data (G_OBJECT (savedlg), "user_data") != NULL)
+      g_object_unref (g_object_get_data (G_OBJECT (savedlg), "user_data"));
     if (GTK_WIDGET_VISIBLE(savedlg)) {
       /* keep a refernce to the diagram */
       g_object_ref(dia);
-      gtk_object_set_user_data(GTK_OBJECT(savedlg), dia);
+      g_object_set_data (G_OBJECT (savedlg), "user_data", dia);
       gtk_window_present (GTK_WINDOW(savedlg));
       return;
     }
@@ -491,7 +498,7 @@ file_save_as_callback(gpointer data, guint action, GtkWidget *widget)
     g_free(filename);
   }
   g_object_ref(dia);
-  gtk_object_set_user_data(GTK_OBJECT(savedlg), dia);
+  g_object_set_data (G_OBJECT (savedlg), "user_data", dia);
 
   gtk_widget_show(savedlg);
 }
@@ -619,7 +626,7 @@ file_export_response_callback(GtkWidget *fs,
   DiaExportFilter *ef;
   struct stat statbuf;
 
-  dia = gtk_object_get_user_data(GTK_OBJECT(fs));
+  dia = g_object_get_data (G_OBJECT (fs), "user_data");
   g_assert (dia);
 
   if (response == GTK_RESPONSE_ACCEPT) {
@@ -739,10 +746,10 @@ file_export_callback(gpointer data, guint action, GtkWidget *widget)
     g_signal_connect(GTK_FILE_CHOOSER(exportdlg),
 		     "response", G_CALLBACK(file_export_response_callback), omenu);
   }
-  if (gtk_object_get_user_data(GTK_OBJECT(exportdlg)))
-    g_object_unref (gtk_object_get_user_data(GTK_OBJECT(exportdlg)));
+  if (g_object_get_data (G_OBJECT(exportdlg), "user_data"))
+    g_object_unref (g_object_get_data (G_OBJECT(exportdlg), "user_data"));
   g_object_ref(dia); 
-  gtk_object_set_user_data(GTK_OBJECT(exportdlg), dia);
+  g_object_set_data (G_OBJECT (exportdlg), "user_data", dia);
   gtk_widget_set_sensitive(exportdlg, TRUE);
 
   if (dia && dia->filename)

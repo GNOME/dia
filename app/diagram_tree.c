@@ -25,6 +25,8 @@
 
 #include <string.h>
 
+#undef GTK_DISABLE_DEPRECATED /* GtkCTree */
+
 #include "properties.h"
 #include "diagram_tree_menu.h"
 #include "diagram_tree_menu_callbacks.h"

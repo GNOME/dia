@@ -24,6 +24,7 @@
 #  include <config.h>
 #endif
 
+#undef GTK_DISABLE_DEPRECATED /* GtkItemFactory, GtkCTree */
 #include "diagram_tree_menu_callbacks.h"
 #include "diagram_tree_menu.h"
 #include "diagram_tree_window.h"

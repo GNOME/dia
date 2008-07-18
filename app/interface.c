@@ -18,6 +18,7 @@
 
 #include <config.h>
 
+#undef GTK_DISABLE_DEPRECATED /* GtkTooltips */
 #include <gtk/gtk.h>
 
 #include <stdio.h>
@@ -397,7 +398,7 @@ create_zoom_widget(DDisplay *ddisp) {
 		    G_CALLBACK(zoom_activate_callback),
 		      ddisp);
   gtk_box_pack_start_defaults(GTK_BOX(combo), entry);
-  gtk_object_set_user_data(GTK_OBJECT(combo), entry);
+  g_object_set_data (G_OBJECT(combo), "user_data", entry);
   gtk_entry_set_width_chars(GTK_ENTRY(entry), 8);
   gtk_widget_show(entry);
 
@@ -406,7 +407,7 @@ create_zoom_widget(DDisplay *ddisp) {
   arrow = gtk_arrow_new(GTK_ARROW_DOWN, GTK_SHADOW_OUT);
   gtk_container_add(GTK_CONTAINER(button), arrow);
   gtk_box_pack_start_defaults(GTK_BOX(combo), button);
-  gtk_object_set_user_data(GTK_OBJECT(combo), entry);
+  g_object_set_data (G_OBJECT(combo), "user_data", entry);
   gtk_widget_show_all(button);
 
   menu = gtk_menu_new();
@@ -746,7 +747,7 @@ create_display_shell(DDisplay *ddisp,
   } else {
     ddisp->shell = gtk_event_box_new ();
   }
-  gtk_object_set_user_data (GTK_OBJECT (ddisp->shell), (gpointer) ddisp);
+  g_object_set_data (G_OBJECT (ddisp->shell), "user_data", (gpointer) ddisp);
 
   gtk_widget_set_events (ddisp->shell,
 			 GDK_POINTER_MOTION_MASK |
@@ -865,7 +866,7 @@ create_display_shell(DDisplay *ddisp,
   g_signal_connect (GTK_OBJECT (ddisp->canvas), "drag_data_received",
 		    G_CALLBACK(display_data_received_callback), ddisp);
 
-  gtk_object_set_user_data (GTK_OBJECT (ddisp->canvas), (gpointer) ddisp);
+  g_object_set_data (G_OBJECT (ddisp->canvas), "user_data", (gpointer) ddisp);
 
   /*  pack all the widgets  */
   gtk_table_attach (GTK_TABLE (table), ddisp->origin, 0, 1, 0, 1,

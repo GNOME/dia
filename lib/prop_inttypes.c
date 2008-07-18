@@ -29,7 +29,7 @@
 
 #include <stdlib.h> /* strtol */
 
-#undef GTK_DISABLE_DEPRECATED /* gtk_signal_connect, gtk_object_set_user_data */
+#undef GTK_DISABLE_DEPRECATED /* gtk_option_menu_new */
 #include <gtk/gtk.h>
 #define WIDGET GtkWidget
 #include "properties.h"
@@ -185,8 +185,8 @@ static WIDGET *
 boolprop_get_widget(BoolProperty *prop, PropDialog *dialog) 
 { 
   GtkWidget *ret = gtk_toggle_button_new_with_label(_("No"));
-  gtk_signal_connect(GTK_OBJECT(ret), "toggled",
-                     GTK_SIGNAL_FUNC(bool_toggled), NULL);
+  g_signal_connect(G_OBJECT(ret), "toggled",
+                   G_CALLBACK (bool_toggled), NULL);
   prophandler_connect(&prop->common,GTK_OBJECT(ret),"toggled");
   return ret;
 }
@@ -490,21 +490,12 @@ enumprop_get_widget(EnumProperty *prop, PropDialog *dialog)
 
   if (prop->common.extra_data) {
     PropEnumData *enumdata = prop->common.extra_data;
-    GtkWidget *menu;
     guint i;
 
-    ret = gtk_option_menu_new();
-    menu = gtk_menu_new();
-    for (i = 0; enumdata[i].name != NULL; i++) {
-      GtkWidget *item = gtk_menu_item_new_with_label(_(enumdata[i].name));
-      
-      gtk_object_set_user_data(GTK_OBJECT(item),
-                               GUINT_TO_POINTER(enumdata[i].enumv));
-      gtk_container_add(GTK_CONTAINER(menu), item);
-      gtk_widget_show(item);
-      prophandler_connect(&prop->common,GTK_OBJECT(item),"activate");
-    }
-    gtk_option_menu_set_menu(GTK_OPTION_MENU(ret), menu);
+    ret = gtk_combo_box_new_text ();
+    for (i = 0; enumdata[i].name != NULL; i++)
+      gtk_combo_box_append_text (GTK_COMBO_BOX (ret), _(enumdata[i].name)); 
+    prophandler_connect(&prop->common, GTK_OBJECT (ret), "changed");
   } else {
     ret = gtk_entry_new(); /* should use spin button/option menu */
   }  
@@ -524,7 +515,7 @@ enumprop_reset_widget(EnumProperty *prop, WIDGET *widget)
         break;
         }
     }
-    gtk_option_menu_set_history(GTK_OPTION_MENU(widget), pos);
+    gtk_combo_box_set_active (GTK_COMBO_BOX (widget), pos);
   } else {
     char buf[16];
     g_snprintf(buf, sizeof(buf), "%d", prop->enum_data);
@@ -535,13 +526,15 @@ enumprop_reset_widget(EnumProperty *prop, WIDGET *widget)
 static void 
 enumprop_set_from_widget(EnumProperty *prop, WIDGET *widget) 
 {
-  if (GTK_IS_OPTION_MENU(widget)) {
-   prop->enum_data= 
-     GPOINTER_TO_UINT(gtk_object_get_user_data(
-           GTK_OBJECT(GTK_OPTION_MENU(widget)->menu_item)));
+  if (GTK_IS_COMBO_BOX (widget)) {
+    guint pos = gtk_combo_box_get_active (GTK_COMBO_BOX (widget));
+    PropEnumData *enumdata = prop->common.extra_data;
+    
+    g_return_if_fail (enumdata != NULL);
+    
+    prop->enum_data = enumdata[pos].enumv;
   } else {
-    prop->enum_data = strtol(gtk_entry_get_text(GTK_ENTRY(widget)),
-                                    NULL, 0);
+    prop->enum_data = strtol(gtk_entry_get_text(GTK_ENTRY(widget)), NULL, 0);
   }
 }
 

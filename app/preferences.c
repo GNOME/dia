@@ -361,9 +361,7 @@ prefs_set_value_in_widget(GtkWidget * widget, DiaPrefData *data,
 	break;
     }
     if (names == NULL) return;
-    gtk_option_menu_set_history(GTK_OPTION_MENU(widget), index);
-    gtk_menu_set_active(GTK_MENU(gtk_option_menu_get_menu(GTK_OPTION_MENU(widget))), index);
-    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(gtk_menu_get_active(GTK_MENU(gtk_option_menu_get_menu(GTK_OPTION_MENU(widget))))), TRUE);
+    gtk_combo_box_set_active (GTK_COMBO_BOX (widget), index);
     break;
   }
   case PREF_STRING:
@@ -390,13 +388,13 @@ prefs_get_value_from_widget(GtkWidget * widget, DiaPrefData *data,
   case PREF_REAL:
   case PREF_UREAL:
     *((real *)ptr) = (real)
-      gtk_spin_button_get_value_as_float(GTK_SPIN_BUTTON(widget));
+      gtk_spin_button_get_value (GTK_SPIN_BUTTON(widget));
     break;
   case PREF_COLOUR:
     dia_color_selector_get_color(widget, (Color *)ptr);
     break;
   case PREF_CHOICE: {
-    int index = gtk_option_menu_get_history(GTK_OPTION_MENU(widget));
+    int index = gtk_combo_box_get_active (GTK_COMBO_BOX (widget));
     GList *names = (data->choice_list_function)();
     *((gchar **)ptr) = g_strdup((gchar *)g_list_nth_data(names, index));
     break;
@@ -438,7 +436,7 @@ prefs_get_property_widget(DiaPrefData *data)
 					    1.0, 10.0, 10.0 ));
     widget = gtk_spin_button_new (adj, 1.0, 0);
     gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(widget), TRUE);
-    gtk_widget_set_usize(widget, 80, -1);
+    gtk_widget_set_size_request (widget, 80, -1);
     break;
   case PREF_UINT:
     adj = GTK_ADJUSTMENT(gtk_adjustment_new(0.0,
@@ -446,7 +444,7 @@ prefs_get_property_widget(DiaPrefData *data)
 					    1.0, 10.0, 10.0 ));
     widget = gtk_spin_button_new (adj, 1.0, 0);
     gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(widget), TRUE);
-    gtk_widget_set_usize(widget, 80, -1);
+    gtk_widget_set_size_request (widget, 80, -1);
     break;
   case PREF_REAL:
     adj = GTK_ADJUSTMENT(gtk_adjustment_new(0.0,
@@ -454,7 +452,7 @@ prefs_get_property_widget(DiaPrefData *data)
 					    1.0, 10.0, 10.0 ));
     widget = gtk_spin_button_new (adj, 1.0, 3);
     gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(widget), TRUE);
-    gtk_widget_set_usize(widget, 80, -1);
+    gtk_widget_set_size_request (widget, 80, -1);
     break;
   case PREF_UREAL:
     adj = GTK_ADJUSTMENT(gtk_adjustment_new(0.0,
@@ -462,7 +460,7 @@ prefs_get_property_widget(DiaPrefData *data)
 					    1.0, 10.0, 10.0 ));
     widget = gtk_spin_button_new (adj, 1.0, 3);
     gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(widget), TRUE);
-    gtk_widget_set_usize(widget, 80, -1);
+    gtk_widget_set_size_request (widget, 80, -1);
     break;
   case PREF_COLOUR:
     widget = dia_color_selector_new();
@@ -471,20 +469,14 @@ prefs_get_property_widget(DiaPrefData *data)
     widget = gtk_entry_new();
     break;
   case PREF_CHOICE: {
-    GtkWidget *menu;
     GList *names;
     GSList *group = NULL;
-    widget = gtk_option_menu_new();
-    menu = gtk_menu_new();
-    for (names = (data->choice_list_function)(); names != NULL;
+    widget = gtk_combo_box_new_text ();
+    for (names = (data->choice_list_function)(); 
+         names != NULL;
 	 names = g_list_next(names)) {
-      GtkWidget *menuitem =
-	gtk_radio_menu_item_new_with_label(group, (gchar *)names->data);
-      gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuitem);
-      group = gtk_radio_menu_item_get_group(GTK_RADIO_MENU_ITEM(menuitem));
+      gtk_combo_box_append_text (GTK_COMBO_BOX (widget), (gchar *)names->data);
     }
-    gtk_option_menu_set_menu(GTK_OPTION_MENU(widget), menu);
-    gtk_widget_show_all(menu);
     break;
   }
   case PREF_NONE:

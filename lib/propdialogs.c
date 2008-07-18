@@ -28,7 +28,6 @@
 
 #include <string.h>
 
-#undef GTK_DISABLE_DEPRECATED /* gtk_signal_connect, ... */
 #include <gtk/gtk.h>
 #define WIDGET GtkWidget
 #include "widgets.h"
@@ -54,9 +53,9 @@ prop_dialog_new(DiaObject *obj, gboolean is_default)
 
   prop_dialog_container_push(dialog,dialog->widget);
 
-  gtk_object_set_data(GTK_OBJECT(dialog->widget), prop_dialogdata_key, dialog);
-  gtk_signal_connect(GTK_OBJECT(dialog->widget), "destroy",
-                     GTK_SIGNAL_FUNC(prop_dialog_signal_destroy), NULL);
+  g_object_set_data (G_OBJECT (dialog->widget), prop_dialogdata_key, dialog);
+  g_signal_connect (G_OBJECT (dialog->widget), "destroy",
+                    G_CALLBACK (prop_dialog_signal_destroy), NULL);
 
   prop_dialog_fill(dialog,obj,is_default);
 
@@ -76,8 +75,7 @@ prop_dialog_destroy(PropDialog *dialog)
 PropDialog *
 prop_dialog_from_widget(GtkWidget *dialog_widget)
 {
-  return gtk_object_get_data(GTK_OBJECT(dialog_widget),
-                             prop_dialogdata_key);
+  return g_object_get_data (G_OBJECT (dialog_widget), prop_dialogdata_key);
 }
 
 static void 
@@ -234,10 +232,10 @@ prophandler_connect(const Property *prop,
   
   /* g_message("connected signal %s to property %s",signal,prop->name); */
 
-  gtk_signal_connect(object,
-                     signal,
-                     GTK_SIGNAL_FUNC(property_signal_handler),
-                     (gpointer)(&prop->self));
+  g_signal_connect (G_OBJECT (object),
+                    signal,
+                    G_CALLBACK (property_signal_handler),
+                    (gpointer)(&prop->self));
 }
 
 void 

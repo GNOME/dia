@@ -30,12 +30,12 @@ G_BEGIN_DECLS
 
 
 /* --- type macros --- */
-#define GTK_TYPE_VWRAP_BOX	      (gtk_vwrap_box_get_type ())
-#define GTK_VWRAP_BOX(obj)	      (GTK_CHECK_CAST ((obj), GTK_TYPE_VWRAP_BOX, GtkVWrapBox))
-#define GTK_VWRAP_BOX_CLASS(klass)    (GTK_CHECK_CLASS_CAST ((klass), GTK_TYPE_VWRAP_BOX, GtkVWrapBoxClass))
-#define GTK_IS_VWRAP_BOX(obj)	      (GTK_CHECK_TYPE ((obj), GTK_TYPE_VWRAP_BOX))
-#define GTK_IS_VWRAP_BOX_CLASS(klass) (GTK_CHECK_CLASS_TYPE ((klass), GTK_TYPE_VWRAP_BOX))
-#define GTK_VWRAP_BOX_GET_CLASS(obj)  (GTK_CHECK_GET_CLASS ((obj), GTK_TYPE_VWRAP_BOX, GtkVWrapBoxClass))
+#define GTK_TYPE_VWRAP_BOX              (gtk_vwrap_box_get_type ())
+#define GTK_VWRAP_BOX(obj)              (G_TYPE_CHECK_INSTANCE_CAST ((obj), GTK_TYPE_VWRAP_BOX, GtkVWrapBox))
+#define GTK_VWRAP_BOX_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), GTK_TYPE_VWRAP_BOX, GtkVWrapBoxClass))
+#define GTK_IS_VWRAP_BOX(obj)              (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GTK_TYPE_VWRAP_BOX))
+#define GTK_IS_VWRAP_BOX_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), GTK_TYPE_VWRAP_BOX))
+#define GTK_VWRAP_BOX_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), GTK_TYPE_VWRAP_BOX, GtkVWrapBoxClass))
 
 
 /* --- typedefs --- */
@@ -47,7 +47,7 @@ typedef struct _GtkVWrapBoxClass GtkVWrapBoxClass;
 struct _GtkVWrapBox
 {
   GtkWrapBox parent_widget;
-  
+
   /*<h2v-off>*/
   guint      max_child_width;
   guint      max_child_height;
@@ -61,7 +61,7 @@ struct _GtkVWrapBoxClass
 
 
 /* --- prototypes --- */
-GtkType	    gtk_vwrap_box_get_type  (void) G_GNUC_CONST;
+GType            gtk_vwrap_box_get_type  (void) G_GNUC_CONST;
 GtkWidget * gtk_vwrap_box_new       (gboolean homogeneous);
 
 

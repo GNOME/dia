@@ -190,8 +190,7 @@ linewidth_area_create (void)
 
   event_box = gtk_event_box_new();
   linewidth_area = gtk_drawing_area_new ();
-  gtk_drawing_area_size (GTK_DRAWING_AREA (linewidth_area),
-			 AREA_WIDTH, AREA_HEIGHT);
+  gtk_widget_set_size_request (linewidth_area, AREA_WIDTH, AREA_HEIGHT);
   gtk_widget_set_events (linewidth_area, GDK_EXPOSURE_MASK | GDK_BUTTON_PRESS_MASK);
   g_signal_connect (GTK_OBJECT (linewidth_area), "event",
 		    G_CALLBACK(linewidth_area_events),
@@ -205,8 +204,9 @@ linewidth_area_create (void)
 }
 
 static void 
-get_current_line_width() {
-  float newvalue = gtk_spin_button_get_value_as_float(GTK_SPIN_BUTTON(linewidth_button));
+get_current_line_width() 
+{
+  float newvalue = gtk_spin_button_get_value (GTK_SPIN_BUTTON (linewidth_button));
   active_linewidth = linewidth_number_from_width(newvalue);
   linewidth_area_draw(GTK_WIDGET(linewidth_area_widget));
   attributes_set_default_linewidth(newvalue);

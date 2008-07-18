@@ -72,7 +72,9 @@ struct _SheetMod
 
 extern GtkWidget *sheets_dialog;
 extern GtkWidget *sheets_dialog_optionmenu_menu;
+#ifndef GTK_DISABLE_DEPRECATED
 extern GtkTooltips *sheets_dialog_tooltips;
+#endif
 
 SheetObjectMod *sheets_append_sheet_object_mod(SheetObject *so, SheetMod *sm);
 SheetMod *sheets_append_sheet_mods(Sheet *sheet);

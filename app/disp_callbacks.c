@@ -152,8 +152,6 @@ create_object_menu(DiaMenu *dia_menu)
         menu_item = gtk_check_menu_item_new();
       gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menu_item),
                                      item->active & DIAMENU_TOGGLE_ON);
-      gtk_check_menu_item_set_show_toggle(GTK_CHECK_MENU_ITEM(menu_item),
-                                          TRUE);
     } else {
       if (item->text)
         menu_item = gtk_menu_item_new_with_label(gettext(item->text));
@@ -165,8 +163,8 @@ create_object_menu(DiaMenu *dia_menu)
     item->app_data = menu_item;
     if ( dia_menu->items[i].callback ) {
           /* only connect signal handler if there is actually a callback */
-      gtk_signal_connect(GTK_OBJECT(menu_item), "activate",
-                         (GtkSignalFunc)object_menu_proxy, &dia_menu->items[i]);
+      g_signal_connect (G_OBJECT (menu_item), "activate",
+                        G_CALLBACK (object_menu_proxy), &dia_menu->items[i]);
     } else { 
       if ( item->callback_data ) { 
             /* This menu item is a submenu if it has no callback, but does
@@ -248,12 +246,12 @@ popup_object_menu(DDisplay *ddisp, GdkEventButton *bevent)
     gtk_widget_set_sensitive(GTK_WIDGET(item->app_data),
 			     item->active & DIAMENU_ACTIVE);
     if (item->active & DIAMENU_TOGGLE) {
-      g_signal_handlers_block_by_func(GTK_CHECK_MENU_ITEM(item->app_data),
-				      (GtkSignalFunc)object_menu_proxy, item);
-      gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(item->app_data),
-				     item->active & DIAMENU_TOGGLE_ON);
-      g_signal_handlers_unblock_by_func(GTK_CHECK_MENU_ITEM(item->app_data),
-					(GtkSignalFunc)object_menu_proxy, item);
+      g_signal_handlers_block_by_func (G_OBJECT (GTK_CHECK_MENU_ITEM (item->app_data)),
+				      G_CALLBACK (object_menu_proxy), item);
+      gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(item->app_data),
+				      item->active & DIAMENU_TOGGLE_ON);
+      g_signal_handlers_unblock_by_func (G_OBJECT (GTK_CHECK_MENU_ITEM(item->app_data)),
+					G_CALLBACK (object_menu_proxy), item);
     }
   }
 

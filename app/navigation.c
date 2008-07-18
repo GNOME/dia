@@ -206,7 +206,7 @@ on_button_navigation_popup_pressed (GtkButton * button, gpointer _ddisp)
 
   /*drawing area*/
   drawing_area = gtk_drawing_area_new ();
-  gtk_drawing_area_size (GTK_DRAWING_AREA(drawing_area), nav->width, nav->height);
+  gtk_widget_set_size_request (drawing_area, nav->width, nav->height);
 
   gtk_widget_set_events (drawing_area, 0
                          | GDK_EXPOSURE_MASK

@@ -252,8 +252,8 @@ static WIDGET *
 arrayprop_get_widget(ArrayProperty *prop, PropDialog *dialog) 
 { 
   GtkWidget *ret = gtk_button_new_with_label (prop->common.descr->tooltip);
-  gtk_signal_connect (GTK_OBJECT (ret), "clicked",
-                      (GtkSignalFunc) darray_prop_edit, prop);
+  g_signal_connect (G_OBJECT (ret), "clicked",
+                    G_CALLBACK (darray_prop_edit), prop);
   
   return ret;  
 }

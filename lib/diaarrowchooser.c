@@ -22,6 +22,7 @@
 /** \file diaarrowchooser.c  A widget to choose arrowhead.  This only select arrowhead, not width  and height. 
  * \ingroup diawidgets
  */
+#undef GTK_DISABLE_DEPRECATED /* GtkTooltips */
 
 #include <gtk/gtk.h>
 #include <config.h>

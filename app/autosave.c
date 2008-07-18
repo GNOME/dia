@@ -50,7 +50,7 @@ autosave_save_diagram(gpointer data)
 {
   Diagram *dia = (Diagram *)data;
 
-  gtk_idle_remove_by_data(data);
+  g_idle_remove_by_data(data);
 
   diagram_autosave(dia);
 }
@@ -71,7 +71,7 @@ autosave_check_autosave(gpointer data)
     if (diagram_is_modified(diagram) && 
 	!diagram->autosaved) {
       /* Diagram has been modified.  At next idleness, save it */
-      gtk_idle_add((GtkFunction)autosave_save_diagram, diagram);
+      g_idle_add (G_CALLBACK (autosave_save_diagram), diagram);
     }
     diagrams = g_list_next(diagrams);
   }

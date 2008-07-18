@@ -1,6 +1,56 @@
+2008-07-18  Hans Breuer  <hans@breuer.org>
+
+	[ on the way to compile dia with GTK_DISABLE_DEPRECATED ]
+	* app/makefile.msc lib/makefile.msc : -DGTK_DISABLE_DEPRECATED
+	* app/app_procs.c : s/gtk_timeout_add/g_timeout_add/
+	* app/autosave.c : g(tk)_idle_remove_by_data ()
+	* app/color_area.c : remove gtk_color_selection_set_update_policy () -
+	it does not have any effect anymore
+	* app/defaults.c : use g_object_ref_sink()
+	* app/diagram_tree.c app/diagram_tree_menu.c : 
+	#undef GTK_DISABLE_DEPRECATED for GtkCList
+	* app/diapagelayout.[ch] : information hiding to not pollute all users
+	with deprecated stuff
+	* app/disp_callbacks.c : remove gtk_menu_item_set_show_toggle (), it's
+	deprecated and doesn't have any effect anymore, use g_signal_connect ()
+	* app/display.c : replace gtk_idle_*() and gtk_object_get_user_data ()
+	* app/dynamic_refresh.c : port away from gtk_timeout_*()
+	* app/filedlg.c : not gtk_object_get_user_data () anymore
+	* app/gtkhwrapbox.[ch] app/gtkvwrapbox.[ch] app/gtkwrapbox.[ch] : 
+	copied already ported version from The GIMP
+	* app/interface.c : away from gtk_object_get_user_data ()
+	* app/interface.h app/sheets.h : #ifdefed GtkTooltips
+	* app/layer_dialog.[ch] : information hiding of deprecated stuff
+	* app/linewidth_area.c app/navigation.c : 
+	s/gtk_drawing_area_size/gtk_widget_set_size_request/
+	* app/menus.c : #undef GTK_DISABLE_DEPRECATED for GtkTooltips
+	* app/pagesetup.c : replace gtk_object_set_data_full () and adapt to
+	DiaPageLayout information hiding
+	* app/preferences.c : GtkComboBox instead of GtkOptionMenu
+	* app/properties.c : g_object_ref_sink ()
+
+	[ #undef GTK_DISABLE_DEPRECATED ...]
+	* app/splash.c : ... for GtkPixmap
+	* lib/diaarrowchooser.[ch] :  ... for GtkTooltips
+	* app/sheets.c app/sheets_dialog.c app/sheets_dialog_callbacks.c : ...
+	for GtkOptionMenu and GtkTooltips
+	
+	* lib/dialinechooser.c : use g_object_ref_sink()
+	* lib/dialogs.c : replace gtk_box_pack_start_defaults()
+	* lib/messages.c : removed #undef GTK_DISABLE_DEPRECATED
+	* lib/prop_inttypes.c : use gtk_combo_box_new_text () instead of 
+	deprecated gtk_option_menu_new(), also g_signal_*()
+	* lib/prop_sdarray.c : use g_signal_connect()
+	* lib/propdialogs.c : g_object_set_data (), g_signal_connect ()
+	* lib/widgets.[ch] : moved struct _DiaDynamicMenu to implemention
+	to hide _deprecated_ internals (GtkOptionMenu
+
+	* objects/UML/class_dialog.c(umlclass_update_connectionpoints) : dont
+	crash when called without having used the properties dialog before
+
 2008-07-14  Hans Breuer  <hans@breuer.org>
 	[
-	 Patch from Patrick Hallinan integrating the layers diaog into the
+	 Patch from Patrick Hallinan integrating the layers dialog into the
 	 integrated UI
 	]
 	* app/app_procs.[ch] : only register the dialog for not integrated ui

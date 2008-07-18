@@ -39,6 +39,35 @@
 #include <time.h>
 #include <gdk/gdkkeysyms.h>
 
+/* hidden internals for two reasosn: 
+ * - noone is supposed to mess with the internals 
+ * - it uses deprecated stuff
+ */
+struct _DiaDynamicMenu {
+  GtkOptionMenu parent;
+
+  GList *default_entries;
+
+  DDMCreateItemFunc create_func;
+  DDMCallbackFunc activate_func;
+  gpointer userdata;
+
+  GtkMenuItem *other_item;
+
+  gchar *persistent_name;
+  gint cols;
+
+  gchar *active;
+  /** For the list-based versions, these are the options */
+  GList *options;
+
+};
+
+struct _DiaDynamicMenuClass {
+  GtkOptionMenuClass parent_class;
+};
+
+
 /************* DiaSizeSelector: ***************/
 /* A widget that selects two sizes, width and height, optionally keeping
  * aspect ratio.  When created, aspect ratio is locked, but the user can
@@ -279,7 +308,9 @@ dia_size_selector_get_size(DiaSizeSelector *ss, real *width, real *height)
 
 /************* DiaFontSelector: ***************/
 
-/* FIXME: Should these structs be in widgets.h instead? */
+/* Should these structs be in widgets.h instead? : 
+ * _no_ they should not, noone is supposed to mess with the internals, ever heard of information hiding? 
+ */
 
 struct _DiaFontSelector
 {

@@ -22,6 +22,7 @@
 
 #include <string.h>
 
+#undef GTK_DISABLE_DEPRECATED /* GtkOptionMenu */
 #ifdef GNOME
 #include <gnome.h>
 #else

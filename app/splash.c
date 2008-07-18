@@ -1,5 +1,6 @@
 #include <config.h>
 
+#undef GTK_DISABLE_DEPRECATED /* GtkPixmap */
 #include <gtk/gtk.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
 

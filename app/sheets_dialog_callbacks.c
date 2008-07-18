@@ -47,6 +47,7 @@
 #include <glib/gstdio.h>
 #include <gmodule.h>
 
+#undef GTK_DISABLE_DEPRECATED /* GtkOptionMenu */
 #ifdef GNOME
 #include <gnome.h>
 #else

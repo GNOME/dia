@@ -83,7 +83,7 @@ update_zoom_status(DDisplay *ddisp)
     zoom_text = g_strdup_printf("%.1f%%",
 	     ddisp->zoom_factor * 100.0 / DDISPLAY_NORMAL_ZOOM);
     zoomcombo = ddisp->zoom_status;
-    gtk_entry_set_text(GTK_ENTRY(gtk_object_get_user_data(GTK_OBJECT(zoomcombo))),
+    gtk_entry_set_text(GTK_ENTRY (g_object_get_data (G_OBJECT(zoomcombo), "user_data")),
 		       zoom_text);
   }
 
@@ -612,8 +612,7 @@ ddisplay_flush(DDisplay *ddisp)
 {
   /* if no update is queued, queue update */
   if (!ddisp->update_id)
-    ddisp->update_id = gtk_idle_add((GtkFunction) ddisplay_update_handler,
-				    ddisp);
+    ddisp->update_id = g_idle_add_full (G_PRIORITY_DEFAULT_IDLE, (GSourceFunc)ddisplay_update_handler, ddisp, NULL);
 }
 
 static void
@@ -1046,7 +1045,7 @@ ddisplay_set_renderer(DDisplay *ddisp, int aa_renderer)
 
   /* dont mix new renderer with old updates */
   if (ddisp->update_id) {
-    gtk_idle_remove (ddisp->update_id);
+    g_source_remove (ddisp->update_id);
     ddisp->update_id = 0;
   }
 
@@ -1105,7 +1104,7 @@ static void
 ddisp_destroy(DDisplay *ddisp)
 {
   if (ddisp->update_id) {
-    gtk_idle_remove(ddisp->update_id);
+    g_source_remove (ddisp->update_id);
     ddisp->update_id = 0;
   }
 
@@ -1140,7 +1139,7 @@ are_you_sure_close_dialog_respond(GtkWidget *widget, /* the dialog */
       close_ddisp = FALSE;
   
     if (ddisp->update_id && close_ddisp) {
-      gtk_idle_remove(ddisp->update_id);
+      g_source_remove (ddisp->update_id);
       ddisp->update_id = 0;
     }
     /* fall through */

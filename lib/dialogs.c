@@ -71,8 +71,8 @@ dialog_add_spinbutton(GtkWidget *dialog, char *title,
   GtkWidget *label = gtk_label_new(title);
   GtkWidget *entry = gtk_spin_button_new(limits, 10.0, decimals);
 
-  gtk_box_pack_start_defaults(GTK_BOX(box), label);
-  gtk_box_pack_start_defaults(GTK_BOX(box), entry);
+  gtk_box_pack_start (GTK_BOX(box), label, TRUE, TRUE, 0);
+  gtk_box_pack_start (GTK_BOX(box), entry, TRUE, TRUE, 0);
   gtk_container_add(GTK_CONTAINER(GTK_DIALOG(dialog)->vbox), box);
 
   return GTK_SPIN_BUTTON(entry);

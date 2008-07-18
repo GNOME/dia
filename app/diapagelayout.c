@@ -25,6 +25,7 @@
 #include <config.h>
 #endif
 
+#undef GTK_DISABLE_DEPRECATED /* GtkOptionMenu, GtkSignal, ... */
 #include "diapagelayout.h"
 #include "widgets.h"
 
@@ -36,6 +37,41 @@
 #include "preferences.h"
 #include "paper.h"
 #include "prefs.h"
+
+/* private class : noone wants to inherit and noone needs to mess with details */
+#define DIA_PAGE_LAYOUT_CLASS(klass) GTK_CHECK_CLASS_CAST(klass, dia_page_layout_get_type(), DiaPageLayoutClass)
+#define DIA_IS_PAGE_LAYOUT(obj) GTK_CHECK_TYPE(obj, dia_page_layout_get_type())
+
+typedef struct _DiaPageLayoutClass DiaPageLayoutClass;
+
+struct _DiaPageLayout {
+  GtkTable parent;
+
+  /*<private>*/
+  GtkWidget *paper_size, *paper_label;
+  GtkWidget *orient_portrait, *orient_landscape;
+  GtkWidget *tmargin, *bmargin, *lmargin, *rmargin;
+  GtkWidget *scale, *fitto;
+  GtkWidget *scaling, *fitw, *fith;
+
+  GtkWidget *darea;
+
+  GdkGC *gc;
+  GdkColor white, black, blue;
+  gint papernum; /* index into page_metrics array */
+
+  /* position of paper preview */
+  gint x, y, width, height;
+
+  gboolean block_changed;
+};
+
+struct _DiaPageLayoutClass {
+  GtkTableClass parent_class;
+
+  void (*changed)(DiaPageLayout *pl);
+};
+
 
 enum {
   CHANGED,
@@ -133,7 +169,7 @@ dia_page_layout_init(DiaPageLayout *self)
   for (i = 0; paper_names != NULL; 
        i++, paper_names = g_list_next(paper_names)) {
     menuitem = gtk_menu_item_new_with_label(paper_names->data);
-    gtk_object_set_user_data(GTK_OBJECT(menuitem), GINT_TO_POINTER(i));
+    g_object_set_data (G_OBJECT (menuitem), "user_data", GINT_TO_POINTER(i));
     g_signal_connect(GTK_OBJECT(menuitem), "activate",
 		     G_CALLBACK(paper_size_change), self);
     gtk_container_add(GTK_CONTAINER(menu), menuitem);
@@ -457,6 +493,12 @@ dia_page_layout_set_scaling(DiaPageLayout *self, gfloat scaling)
 }
 
 void
+dia_page_layout_set_changed (DiaPageLayout *self, gboolean changed)
+{
+  self->block_changed = changed;
+}
+
+void
 dia_page_layout_get_fit_dims(DiaPageLayout *self, gint *w, gint *h)
 {
   if (w)
@@ -661,7 +703,7 @@ paper_size_change(GtkMenuItem *item, DiaPageLayout *self)
 {
   gchar buf[512];
 
-  self->papernum = GPOINTER_TO_INT(gtk_object_get_user_data(GTK_OBJECT(item)));
+  self->papernum = GPOINTER_TO_INT(g_object_get_data (G_OBJECT(item), "user_data"));
   size_page(self, &self->darea->allocation);
   gtk_widget_queue_draw(self->darea);
 

@@ -812,7 +812,7 @@ app_init (int argc, char **argv)
     recent_file_history_init();
 
     /* Set up autosave to check every 5 minutes */
-    gtk_timeout_add(5*60*1000, autosave_check_autosave, NULL);
+    g_timeout_add(5*60*1000, autosave_check_autosave, NULL);
 
     /* Create Diagram Tree Window */
     create_tree_window();

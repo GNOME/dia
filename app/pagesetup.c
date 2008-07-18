@@ -89,8 +89,7 @@ create_page_setup_dlg(Diagram *dia)
                    G_CALLBACK (pagesetup_respond), ps);
 
   /* destroy ps when the dialog is closed */
-  gtk_object_set_data_full(GTK_OBJECT(ps->window), "pagesetup", ps,
-			   (GtkDestroyNotify)g_free);
+  g_datalist_set_data_full (&G_OBJECT (ps->window)->qdata, "pagesetup", ps, g_free);
 
   ps->paper = dia_page_layout_new();
   dia_page_layout_set_paper(DIA_PAGE_LAYOUT(ps->paper), dia->data->paper.name);
@@ -139,7 +138,7 @@ pagesetup_changed(GtkWidget *wid, PageSetup *ps)
   if (dwidth <= 0.0 || dheight <= 0.0)
     return;
 
-  DIA_PAGE_LAYOUT(ps->paper)->block_changed = TRUE;
+  dia_page_layout_set_changed (DIA_PAGE_LAYOUT(ps->paper), TRUE);
 
   cur_scaling = dia_page_layout_get_scaling(DIA_PAGE_LAYOUT(ps->paper));
   dia_page_layout_get_effective_area(DIA_PAGE_LAYOUT(ps->paper),
@@ -160,7 +159,7 @@ pagesetup_changed(GtkWidget *wid, PageSetup *ps)
     dia_page_layout_set_fit_dims(DIA_PAGE_LAYOUT(ps->paper), fitw, fith);
   }
 
-  DIA_PAGE_LAYOUT(ps->paper)->block_changed = FALSE;
+  dia_page_layout_set_changed (DIA_PAGE_LAYOUT(ps->paper), FALSE);
 }
 
 /* This affects the actual setup.  It should only be called when

@@ -24,47 +24,16 @@
 
 #include <gtk/gtk.h>
 
-#define DIA_PAGE_LAYOUT(obj) GTK_CHECK_CAST(obj, dia_page_layout_get_type(), DiaPageLayout)
-#define DIA_PAGE_LAYOUT_CLASS(klass) GTK_CHECK_CLASS_CAST(klass, dia_page_layout_get_type(), DiaPageLayoutClass)
-#define DIA_IS_PAGE_LAYOUT(obj) GTK_CHECK_TYPE(obj, dia_page_layout_get_type())
 
 typedef struct _DiaPageLayout DiaPageLayout;
-typedef struct _DiaPageLayoutClass DiaPageLayoutClass;
+GType      dia_page_layout_get_type    (void);
+#define DIA_PAGE_LAYOUT(obj) G_TYPE_CHECK_INSTANCE_CAST (obj, dia_page_layout_get_type(), DiaPageLayout)
 
 typedef enum {
   DIA_PAGE_ORIENT_PORTRAIT,
   DIA_PAGE_ORIENT_LANDSCAPE
 } DiaPageOrientation;
 
-struct _DiaPageLayout {
-  GtkTable parent;
-
-  /*<private>*/
-  GtkWidget *paper_size, *paper_label;
-  GtkWidget *orient_portrait, *orient_landscape;
-  GtkWidget *tmargin, *bmargin, *lmargin, *rmargin;
-  GtkWidget *scale, *fitto;
-  GtkWidget *scaling, *fitw, *fith;
-
-  GtkWidget *darea;
-
-  GdkGC *gc;
-  GdkColor white, black, blue;
-  gint papernum; /* index into page_metrics array */
-
-  /* position of paper preview */
-  gint x, y, width, height;
-
-  gboolean block_changed;
-};
-
-struct _DiaPageLayoutClass {
-  GtkTableClass parent_class;
-
-  void (*changed)(DiaPageLayout *pl);
-};
-
-GtkType      dia_page_layout_get_type    (void);
 GtkWidget   *dia_page_layout_new         (void);
 
 const gchar *dia_page_layout_get_paper   (DiaPageLayout *pl);
@@ -89,7 +58,8 @@ void         dia_page_layout_get_fit_dims(DiaPageLayout *self,
 					  gint *w, gint *h);
 void         dia_page_layout_set_fit_dims(DiaPageLayout *self,
 					  gint w, gint h);
-
+void         dia_page_layout_set_changed (DiaPageLayout *self,
+					  gboolean changed);
 
 void         dia_page_layout_get_effective_area (DiaPageLayout *self,
 						 gfloat *width,

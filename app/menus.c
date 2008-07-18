@@ -21,6 +21,7 @@
 #include <config.h>
 #endif
 
+#undef GTK_DISABLE_DEPRECATED /* GtkTooltips */
 #include <gtk/gtk.h>
 #include <gdk/gdkkeysyms.h>
 #include <string.h>

@@ -76,34 +76,44 @@ static gboolean timer_handler(gpointer data) {
     return TRUE;
 }
 
-static gboolean idle_handler(gpointer data) {
+static gboolean 
+idle_handler (gpointer data) 
+{
     guint new_timeout;
     
     new_timeout = dynobj_list_get_dynobj_rate();
     if (timeout != new_timeout) {
         if (timer_id) {
-            gtk_timeout_remove(timer_id);
+            g_source_remove (timer_id);
             timer_id = 0;
         }
         timeout = new_timeout;
         if (timeout) {
-            timer_id = gtk_timeout_add(timeout,timer_handler,NULL);
+            timer_id = g_timeout_add_full (G_PRIORITY_LOW, timeout, timer_handler, NULL, NULL);
         }
     }
     idle_id = 0;
     return FALSE;
 }
 
-void dynobj_refresh_kick(void) {
+void 
+dynobj_refresh_kick(void) 
+{
     if (!idle_id)
-        idle_id = gtk_idle_add_priority(GTK_PRIORITY_LOW,idle_handler,NULL);
+        idle_id = g_idle_add_full (G_PRIORITY_LOW, idle_handler, NULL, NULL);
 }
 
-void dynobj_refresh_init(void) {
+void 
+dynobj_refresh_init(void) 
+{
         /* NOP */
 }
 
-void dynobj_refresh_finish(void) {
-    if (timer_id) gtk_timeout_remove(timer_id);
-    if (idle_id) gtk_idle_remove(idle_id);
+void 
+dynobj_refresh_finish (void) 
+{
+    if (timer_id) 
+        g_source_remove (timer_id);
+    if (idle_id) 
+        g_source_remove(idle_id);
 }

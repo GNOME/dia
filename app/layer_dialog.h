@@ -30,54 +30,8 @@ void layer_dialog_set_diagram(Diagram *dia);
 /* Integrated UI component */
 GtkWidget * create_layer_view_widget (void);
 
-/* DiaLayerWidget: */
-#define DIA_LAYER_WIDGET(obj)          \
-  GTK_CHECK_CAST (obj, dia_layer_widget_get_type (), DiaLayerWidget)
-#define DIA_LAYER_WIDGET_CLASS(klass)  \
-  GTK_CHECK_CLASS_CAST (klass, dia_layer_widget_get_type (), DiaLayerWidgetClass)
-#define IS_DIA_LAYER_WIDGET(obj)       \
-  GTK_CHECK_TYPE (obj, dia_layer_widget_get_type ())
-
 typedef struct _DiaLayerWidget      DiaLayerWidget;
-typedef struct _DiaLayerWidgetClass  DiaLayerWidgetClass;
-typedef struct _EditLayerDialog EditLayerDialog;
 
-struct _DiaLayerWidget
-{
-  GtkListItem list_item;
-
-  Diagram *dia;
-  Layer *layer;
-  
-  GtkWidget *visible;
-  GtkWidget *connectable;
-  GtkWidget *label;
-
-  EditLayerDialog *edit_dialog;
-
-  /** If true, the user has set this layers connectivity to on
-   * while it was not selected.
-   */
-  gboolean connect_on; 
-  /** If true, the user has set this layers connectivity to off
-   * while it was selected.
-   */
-  gboolean connect_off;
-};
-
-struct _EditLayerDialog {
-  GtkWidget *dialog;
-  GtkWidget *name_entry;
-  DiaLayerWidget *layer_widget;
-};
-
-
-struct _DiaLayerWidgetClass
-{
-  GtkListItemClass parent_class;
-};
-
-GtkType    dia_layer_widget_get_type(void);
 GtkWidget* dia_layer_widget_new(Diagram *dia, Layer *layer);
 void dia_layer_set_layer(DiaLayerWidget *widget, Diagram *dia, Layer *layer);
 void dia_layer_update_from_layer(DiaLayerWidget *widget);

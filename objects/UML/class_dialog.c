@@ -3133,7 +3133,8 @@ umlclass_update_connectionpoints(UMLClass *umlclass)
     list = g_list_next(list);
   }
   
-  gtk_list_clear_items (GTK_LIST (prop_dialog->attributes_list), 0, -1);
+  if (prop_dialog)
+    gtk_list_clear_items (GTK_LIST (prop_dialog->attributes_list), 0, -1);
 
   list = umlclass->operations;
   while (list != NULL) {
@@ -3149,7 +3150,8 @@ umlclass_update_connectionpoints(UMLClass *umlclass)
     
     list = g_list_next(list);
   }
-  gtk_list_clear_items (GTK_LIST (prop_dialog->operations_list), 0, -1);
+  if (prop_dialog)
+    gtk_list_clear_items (GTK_LIST (prop_dialog->operations_list), 0, -1);
 
 #ifdef UML_MAINPOINT
   obj->connections[connection_index++] = &umlclass->connections[UMLCLASS_CONNECTIONPOINTS];
