@@ -604,7 +604,7 @@ orthflow_set_type_callback (DiaObject* obj, Point* clicked, gpointer data)
   ObjectChange* change ;
   change = orthflow_create_change( FLOW_TYPE, ((Orthflow*)obj)->type, 0 ) ;
 
-  ((Orthflow*)obj)->type = (int) data ;
+  ((Orthflow*)obj)->type = GPOINTER_TO_INT (data);
   orthflow_update_data((Orthflow*)obj);
 
   return change;
@@ -613,7 +613,7 @@ orthflow_set_type_callback (DiaObject* obj, Point* clicked, gpointer data)
 static ObjectChange *
 orthflow_segment_callback (DiaObject* obj, Point* clicked, gpointer data)
 {
-  if ( (int)data )
+  if ( GPOINTER_TO_INT (data) )
      return orthconn_add_segment( (OrthConn*)obj, clicked ) ;
 
   return orthconn_delete_segment( (OrthConn*)obj, clicked ) ;

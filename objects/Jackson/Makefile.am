@@ -10,7 +10,8 @@ libjackson_objects_la_SOURCES = \
 
 libjackson_objects_la_LDFLAGS = -export-dynamic -module -avoid-version
 
-INCLUDES = -I$(top_srcdir)/intl -I$(srcdir)/../../lib $(GTK_CFLAGS) $(GNOME_CFLAGS) $(FREETYPE_CFLAGS) $(UNICODE_CFLAGS)
+INCLUDES = -I$(top_srcdir)/intl -I$(srcdir)/../../lib \
+	$(DEBUG_FLAGS) $(GTK_CFLAGS)
 
 EXTRA_DIST = \
 	pixmaps/given_domain.xpm \

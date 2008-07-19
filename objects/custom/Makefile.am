@@ -16,7 +16,7 @@ libcustom_objects_la_LDFLAGS = -export-dynamic -module -avoid-version
 shapedir = $(pkgdatadir)/shapes
 
 # add -DDEBUG_CUSTOM here to get extra debugging info.
-INCLUDES = -I$(top_srcdir)/intl -I$(top_srcdir)/lib $(GTK_CFLAGS) \
+INCLUDES = -I$(top_srcdir)/intl -I$(top_srcdir)/lib $(DEBUG_FLAGS) $(GTK_CFLAGS) \
 	$(GNOME_CFLAGS) $(PANGOFT2_CFLAGS) $(XML_CFLAGS) $(UNICODE_CFLAGS) \
 	-DDIA_SHAPEDIR=\""$(shapedir)"\"
 

@@ -1,3 +1,44 @@
+2008-07-19  Hans Breuer  <hans@breuer.org>
+
+	* configure.in : when building debug also define GTK_DISABLE_DEPRECATED
+
+	* lib/prop_inttypes.c : removed #undef GTK_DISABLE_DEPRECATED
+
+	* objects/UML/Makefile.am : use $(DEBUG_FLAGS)
+	* objects/UML/class.[ch] objects/UML/class_dialog.c : moved some stuff
+	to restrict the #undef GTK_DISABLE_DEPRECATED to class_dialog.c
+
+	* objects/bondgraph/* : removed, it was empty from the beginning
+	* objects/sybase/* : removed, unused since 2002
+	* objects/Makefile.am configure.in po/POTFILES.in : adapted
+
+	* objects/chronogram/Makefile.am objects/ER/Makefile.am
+	  objects/flowchart/Makefile.am objects/GRAFCET/Makefile.am 
+	  objects/Istar/Makefile.am  objects/Jackson/Makefile.am 
+	  objects/KAOS/Makefile.am objects/network/Makefile.am 
+	  objects/SADT/Makefile.am : add $(DEBUG_FLAGS)
+
+	* objects/custom/Makefile.am : add $(DEBUG_FLAGS)
+	* objects/custom/custom_object.c objects/custom/shape_info.c
+	  objects/custom/shape_typeinfo.c : warningectomy 
+
+	* objects/Database/Makefile.am : use $(DEBUG_FLAGS)
+	* objects/Database/table.[ch] objects/Database/table_dialog.c : moved 
+	some stuff to restrict the #undef GTK_DISABLE_DEPRECATED to 
+	table_dialog.c
+
+	* objects/FS/flow-ortho.c : warningectomy 
+
+	* objects/SISSI/Makefile.am : add $(DEBUG_FLAGS)
+	* objects/SISSI/sissi_dialog.c : #undef GTK_DISABLE_DEPRECATED
+
+	* objects/standard/Makefile.am : add $(DEBUG_FLAGS)
+	* objects/standard/outline.c : warningectomy
+
+	* plug-ins/*/Makefile.am : propagate $(DEBUG_FLAGS)
+
+	* doc/*/Makefile.am : add html.xsl to EXTRA_DIST
+
 2008-07-18  Hans Breuer  <hans@breuer.org>
 
 	[ on the way to compile dia with GTK_DISABLE_DEPRECATED ]

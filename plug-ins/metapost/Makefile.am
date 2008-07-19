@@ -9,6 +9,4 @@ libmetapost_filter_la_SOURCES = \
 
 libmetapost_filter_la_LDFLAGS = -export-dynamic -module -avoid-version
 
-INCLUDES = -I$(top_srcdir)/intl -I$(srcdir)/../../lib \
- $(GTK_CFLAGS) $(GNOME_CFLAGS) $(PANGOFT2_CFLAGS) $(DEBUG_CFLAGS) \
- $(XML_CFLAGS) $(UNICODE_CFLAGS)
+INCLUDES = -I$(top_srcdir)/intl -I$(srcdir)/../../lib  $(DEBUG_FLAGS) $(GTK_CFLAGS)

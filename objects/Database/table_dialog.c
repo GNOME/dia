@@ -31,9 +31,60 @@
 # include <config.h>
 #endif
 
+#undef GTK_DISABLE_DEPRECATED /* GtkList, */
 #include <gtk/gtk.h>
 #include <string.h>
 #include "database.h"
+
+struct _TablePropDialog {
+  GtkWidget * dialog;
+
+  /* general page */
+
+  GtkEntry * table_name;
+  GtkTextView * table_comment;
+  GtkToggleButton * comment_visible;
+  GtkToggleButton * comment_tagging;
+  GtkToggleButton * underline_primary_key;
+  GtkToggleButton * bold_primary_key;
+
+  DiaColorSelector * text_color;
+  DiaColorSelector * line_color;
+  DiaColorSelector * fill_color;
+
+  DiaFontSelector *normal_font;
+  GtkSpinButton *normal_font_height;
+
+  DiaFontSelector *name_font;
+  GtkSpinButton *name_font_height;
+
+  DiaFontSelector *comment_font;
+  GtkSpinButton *comment_font_height;
+
+  GtkSpinButton * border_width;
+
+  /* attributes page */
+
+  GtkList *     attributes_list;
+  GtkEntry *    attribute_name;
+  GtkEntry *    attribute_type;
+  GtkTextView * attribute_comment;
+  GtkToggleButton * attribute_primary_key;
+  GtkToggleButton * attribute_nullable;
+  GtkToggleButton * attribute_unique;
+
+  GtkListItem * cur_attr_list_item;
+  GList * added_connections;
+  GList * deleted_connections;
+  GList * disconnected_connections;
+};
+
+void 
+table_dialog_free (TablePropDialog *dialog)
+{
+  gtk_widget_destroy (dialog->dialog);
+  g_free (dialog);
+}
 
 /* ----------------------------------------------------------------------- */
 

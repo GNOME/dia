@@ -71,9 +71,9 @@ startElementNs (void *ctx,
   
   if (READ_DONE == context->state)
     /* no more to do */;
-  else if (strncmp (localname, "name", 4) == 0)
+  else if (strncmp ((const char*)localname, "name", 4) == 0)
     context->state = READ_NAME;
-  else if (strncmp (localname, "icon", 4) == 0)
+  else if (strncmp ((const char*)localname, "icon", 4) == 0)
     context->state = READ_ICON;
   else if (context->si->name != NULL && context->si->icon != NULL)
     context->state = READ_DONE;
@@ -93,9 +93,9 @@ _characters (void *ctx,
   if (READ_NAME == context->state) {
     gchar *prev = context->si->name;
     if (!prev)
-      context->si->name = g_strndup (ch, len);
+      context->si->name = g_strndup ((const gchar*)ch, len);
     else {
-      gchar *now = g_strndup (ch, len);
+      gchar *now = g_strndup ((const gchar*)ch, len);
       context->si->name = g_strconcat (prev, now, NULL);
       g_free (prev);
       g_free (now);
@@ -103,9 +103,9 @@ _characters (void *ctx,
   } else if (READ_ICON == context->state) {
     gchar *prev = context->si->icon;
     if (!prev) 
-      context->si->icon = g_strndup (ch, len);
+      context->si->icon = g_strndup ((const char*)ch, len);
     else {
-      gchar *now = g_strndup (ch, len);
+      gchar *now = g_strndup ((const char*)ch, len);
       context->si->icon = g_strconcat (prev, now, NULL);
       g_free (prev);
       g_free (now);

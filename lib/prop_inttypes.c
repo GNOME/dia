@@ -29,7 +29,6 @@
 
 #include <stdlib.h> /* strtol */
 
-#undef GTK_DISABLE_DEPRECATED /* gtk_option_menu_new */
 #include <gtk/gtk.h>
 #define WIDGET GtkWidget
 #include "properties.h"

@@ -321,7 +321,7 @@ outline_draw(Outline *outline, DiaRenderer *renderer)
   int i, n = 0, total;
   BezPoint *pts;
   real x, y;
-  Point ps;
+  Point ps = {0, 0}; /* silence gcc */
   
   if (!outline->path)
     return;
@@ -457,7 +457,6 @@ outline_move_handle (Outline *outline,
   DiaObject *obj = &outline->object;
   Point start = obj->position;
   Point end = outline->ink_rect[2];
-  real old_height = outline->font_height;
   real dist, old_dist = distance_point_point (&start, &end);
   Point norm = end;
   point_sub (&norm, &start);

@@ -47,7 +47,8 @@ xml_files += \
 
 EXTRA_DIST += \
 	dia.dbk \
-	dia-1.xml
+	dia-1.xml \
+	html.xsl
 
 ##	graphics/line_props.png \
 ##	graphics/home_network.png \

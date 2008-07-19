@@ -195,10 +195,10 @@ is_subshape(xmlNode* node)
 {
   gboolean res = FALSE;
 
-  if (xmlHasProp(node, "subshape")) {
-    gchar* value = xmlGetProp(node, "subshape");
+  if (xmlHasProp(node, (const xmlChar*)"subshape")) {
+    xmlChar* value = xmlGetProp(node, (const xmlChar*)"subshape");
     
-    if (!strcmp(value, "true"))
+    if (!strcmp((const char*)value, "true"))
       res = TRUE;
     
     xmlFree(value);
@@ -467,8 +467,8 @@ parse_svg_node(ShapeInfo *info, xmlNodePtr node, xmlNsPtr svg_ns,
                 DIA_SVG_LINEJOIN_DEFAULT,
                 DIA_SVG_LINESTYLE_DEFAULT, 1.0
         };
-        xmlChar *v_anchor_attr = xmlGetProp(node,"v_anchor");
-        xmlChar *h_anchor_attr = xmlGetProp(node,"h_anchor");
+        xmlChar *v_anchor_attr = xmlGetProp(node, (const xmlChar*)"v_anchor");
+        xmlChar *h_anchor_attr = xmlGetProp(node, (const xmlChar*)"h_anchor");
       
         parse_svg_node(tmpinfo, node, svg_ns, &tmp_s, filename);
         
@@ -491,21 +491,21 @@ parse_svg_node(ShapeInfo *info, xmlNodePtr node, xmlNsPtr svg_ns,
         subshape->h_anchor_method = OFFSET_METHOD_FIXED;
         subshape->default_scale = 0.0;
                 
-        if (!v_anchor_attr || !strcmp(v_anchor_attr,"fixed.top"))
+        if (!v_anchor_attr || !strcmp((const char*)v_anchor_attr,"fixed.top"))
           subshape->v_anchor_method = OFFSET_METHOD_FIXED;
-        else if (v_anchor_attr && !strcmp(v_anchor_attr,"fixed.bottom"))
+        else if (v_anchor_attr && !strcmp((const char*)v_anchor_attr,"fixed.bottom"))
           subshape->v_anchor_method = -OFFSET_METHOD_FIXED;
-        else if (v_anchor_attr && !strcmp(v_anchor_attr,"proportional"))
+        else if (v_anchor_attr && !strcmp((const char*)v_anchor_attr,"proportional"))
           subshape->v_anchor_method = OFFSET_METHOD_PROPORTIONAL;
         else
           fprintf( stderr, "illegal v_anchor `%s', defaulting to fixed.top\n",
                    v_anchor_attr );
           
-        if (!h_anchor_attr || !strcmp(h_anchor_attr,"fixed.left"))
+        if (!h_anchor_attr || !strcmp((const char*)h_anchor_attr,"fixed.left"))
           subshape->h_anchor_method = OFFSET_METHOD_FIXED;
-        else if (h_anchor_attr && !strcmp(h_anchor_attr,"fixed.right"))
+        else if (h_anchor_attr && !strcmp((const char*)h_anchor_attr,"fixed.right"))
           subshape->h_anchor_method = -OFFSET_METHOD_FIXED;
-        else if (h_anchor_attr && !strcmp(h_anchor_attr,"proportional"))
+        else if (h_anchor_attr && !strcmp((const char*)h_anchor_attr,"proportional"))
           subshape->h_anchor_method = OFFSET_METHOD_PROPORTIONAL;
         else
           fprintf( stderr, "illegal h_anchor `%s', defaulting to fixed.left\n",
@@ -517,7 +517,7 @@ parse_svg_node(ShapeInfo *info, xmlNodePtr node, xmlNsPtr svg_ns,
         xmlFree(v_anchor_attr);
         xmlFree(h_anchor_attr);
         
-        el = (GraphicElementSubShape *)subshape;
+        el = (GraphicElement *)subshape;
       }    
     }
     if (el) {
@@ -554,6 +554,9 @@ update_bounds(ShapeInfo *info)
     int i;
 
     switch (el->type) {
+    case GE_SUBSHAPE:
+      /* subshapes are not supposed to have an influence on bounds */
+      break;
     case GE_LINE:
       check_point(info, &(el->line.p1));
       check_point(info, &(el->line.p2));

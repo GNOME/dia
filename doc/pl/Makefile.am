@@ -45,7 +45,8 @@ xml_files += \
 ##	dia-1.xml
 
 
-EXTRA_DIST +=
+EXTRA_DIST += \
+	html.xsl
 
 ##	dia.dbk \
 ##	dia-1.xml

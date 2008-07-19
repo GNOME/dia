@@ -143,7 +143,6 @@ objects/UML/umlformalparameter.c
 objects/UML/umloperation.c
 objects/UML/umlparameter.c
 objects/UML/usecase.c
-objects/bondgraph/bondgraph.c
 objects/chronogram/chronogram.c
 objects/chronogram/chronoline.c
 objects/chronogram/chronoref.c
@@ -254,4 +253,4 @@ sheets/ciscotelephony.sheet.in
 sheets/civil.sheet.in
 sheets/jigsaw.sheet.in
 sheets/network.sheet.in
-sheets/sybase.sheet.in
+

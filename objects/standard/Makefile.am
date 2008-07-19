@@ -51,7 +51,8 @@ tool-icons.h: $(ICON_PNGS)
 
 BUILT_SOURCES = tool-icons.h
 
-INCLUDES = -I$(top_srcdir)/intl -I$(srcdir)/../../lib $(GTK_CFLAGS) $(GNOME_CFLAGS) $(PANGOFT2_CFLAGS) $(UNICODE_CFLAGS)
+INCLUDES = -I$(top_srcdir)/intl -I$(srcdir)/../../lib \
+	$(DEBUG_FLAGS) $(GTK_CFLAGS)
 
 EXTRA_DIST = \
 	$(ICON_PNGS)

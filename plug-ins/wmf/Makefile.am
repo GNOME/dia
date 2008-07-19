@@ -11,8 +11,7 @@ libwmf_filter_la_LDFLAGS = -export-dynamic -module -avoid-version
 libwmf_filter_la_LIBADD = -lstdc++ $(LIBEMF_LIBS)
 
 INCLUDES = -I$(top_srcdir)/intl -I$(top_srcdir)/lib \
-  $(GTK_CFLAGS) $(GNOME_CFLAGS) $(PANGOFT2_CFLAGS) $(UNICODE_CFLAGS) \
-  $(DEBUG_CFLAGS) $(LIBEMF_CFLAGS)
+  $(DEBUG_FLAGS) $(GTK_CFLAGS) $(LIBEMF_CFLAGS)
 
 EXTRA_DIST = \
 	paginate_gdiprint.cpp \

@@ -12,7 +12,8 @@ libchronogram_objects_la_SOURCES = \
 
 libchronogram_objects_la_LDFLAGS = -export-dynamic -module -avoid-version
 
-INCLUDES = -I$(top_srcdir)/intl -I$(srcdir)/../../lib $(GTK_CFLAGS) $(GNOME_CFLAGS) $(PANGOFT2_CFLAGS) $(UNICODE_CFLAGS)
+INCLUDES = -I$(top_srcdir)/intl -I$(srcdir)/../../lib \
+	$(DEBUG_FLAGS) $(GTK_CFLAGS) $(GNOME_CFLAGS) $(PANGOFT2_CFLAGS) $(UNICODE_CFLAGS)
 
 EXTRA_DIST = \
 	pixmaps/chronoref.xpm \

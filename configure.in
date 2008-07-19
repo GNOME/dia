@@ -249,7 +249,7 @@ AC_ARG_ENABLE(debug,
   enable_debug=minimum)
 
 if test "x$enable_debug" = "xyes"; then
-  DEBUG_FLAGS="-g -DENABLE_DEBUG"
+  DEBUG_FLAGS="-g -DENABLE_DEBUG -DGTK_DISABLE_DEPRECATED"
 else
   if test "x$enable_debug" = "xno"; then
     DEBUG_FLAGS=""
@@ -525,9 +525,7 @@ lib/Makefile
 lib/pixmaps/Makefile
 po/Makefile.in
 objects/Makefile
-dnl objects/sybase/Makefile
 objects/AADL/Makefile
-objects/bondgraph/Makefile
 objects/chronogram/Makefile
 objects/custom/Makefile
 objects/custom_lines/Makefile

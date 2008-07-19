@@ -24,6 +24,7 @@
 #endif
 
 #include <assert.h>
+#undef GTK_DISABLE_DEPRECATED /* GtkOptionMenu, gtk_object_get_user_data, ... */
 #include <gtk/gtk.h>
 #include <math.h>
 #include <string.h>

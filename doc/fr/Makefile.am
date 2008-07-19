@@ -51,7 +51,8 @@ EXTRA_DIST += \
 	graphics/line_icon.png \
 	graphics/greendots.png \
 	graphics/preferences_fig.png \
-	graphics/color_selector.png
+	graphics/color_selector.png \
+	html.xsl
 
 
 pngfigures = \

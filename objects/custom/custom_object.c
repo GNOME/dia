@@ -422,8 +422,10 @@ transform_subshape_coord(Custom *custom, GraphicElementSubShape* subshape,
     ShapeInfo *info = custom->info;
     real svg_width = info->shape_bounds.right - info->shape_bounds.left;
     real svg_height = info->shape_bounds.bottom - info->shape_bounds.top;
+    real h_scale = info->default_height / svg_height;
+    real v_scale = info->default_width / svg_width;
     
-    subshape->default_scale = info->default_width / svg_width /
+    subshape->default_scale = (v_scale > h_scale ? h_scale : v_scale) /
                                    units[prefs_get_length_unit()].factor;
   }
   
@@ -440,7 +442,6 @@ transform_subshape_coord(Custom *custom, GraphicElementSubShape* subshape,
   
   /* step 1: calculate boundaries */
   orig_bounds = custom->info->shape_bounds;
-  new_bounds;
   
   /* step 2: undo unkown/funky number magic when flip_h or flip_v is set */
   if(custom->flip_h) custom->xscale = -custom->xscale;
@@ -656,6 +657,9 @@ custom_distance_from(Custom *custom, Point *point)
       dist = distance_bez_shape_point((BezPoint *)barr->data, el->path.npoints,
 				      line_width, point);
       break;
+    case GE_SUBSHAPE:
+      /* subshapes are supposed to be always in bounds, no need to calculate distance */
+      break;
     }
     min_dist = MIN(min_dist, dist);
     if (min_dist == 0.0)
@@ -746,6 +750,9 @@ custom_move_handle(Custom *custom, Handle *handle,
   switch (reason) {
   case HANDLE_MOVE_USER:
   case HANDLE_MOVE_USER_FINAL:
+  case HANDLE_MOVE_CONNECTED : /* silence gcc */
+  case HANDLE_MOVE_CREATE : /* silence gcc */
+  case HANDLE_MOVE_CREATE_FINAL : /* silence gcc */
     custom_adjust_scale(custom, handle, to, cp, reason, modifiers);
   }
   
@@ -1325,6 +1332,9 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
     real lwfactor = custom->border_width / 2;
 
     switch(el->type) {
+    case GE_SUBSHAPE :
+      /* if the subshapes leave traces in the diagram here is the place to fix it --hb */
+      break;
     case GE_LINE: {
       LineBBExtras extra;
       Point p1,p2;

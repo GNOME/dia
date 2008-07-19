@@ -88,6 +88,8 @@ struct _Table {
   TablePropDialog * prop_dialog;
 };
 
+void table_dialog_free (TablePropDialog *dialog);
+
 struct _TableAttribute {
   gchar * name; /* column name */
   gchar * type; /* the type of the values in this column */
@@ -130,49 +132,6 @@ struct _TableChange {
   gint applied;
 
   TableState * saved_state;
-};
-
-struct _TablePropDialog {
-  GtkWidget * dialog;
-
-  /* general page */
-
-  GtkEntry * table_name;
-  GtkTextView * table_comment;
-  GtkToggleButton * comment_visible;
-  GtkToggleButton * comment_tagging;
-  GtkToggleButton * underline_primary_key;
-  GtkToggleButton * bold_primary_key;
-
-  DiaColorSelector * text_color;
-  DiaColorSelector * line_color;
-  DiaColorSelector * fill_color;
-
-  DiaFontSelector *normal_font;
-  GtkSpinButton *normal_font_height;
-
-  DiaFontSelector *name_font;
-  GtkSpinButton *name_font_height;
-
-  DiaFontSelector *comment_font;
-  GtkSpinButton *comment_font_height;
-
-  GtkSpinButton * border_width;
-
-  /* attributes page */
-
-  GtkList *     attributes_list;
-  GtkEntry *    attribute_name;
-  GtkEntry *    attribute_type;
-  GtkTextView * attribute_comment;
-  GtkToggleButton * attribute_primary_key;
-  GtkToggleButton * attribute_nullable;
-  GtkToggleButton * attribute_unique;
-
-  GtkListItem * cur_attr_list_item;
-  GList * added_connections;
-  GList * deleted_connections;
-  GList * disconnected_connections;
 };
 
 struct _TableReference {

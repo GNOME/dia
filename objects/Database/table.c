@@ -490,7 +490,7 @@ table_destroy (Table * table)
   dia_font_unref (table->comment_font);
 
   if (table->prop_dialog != NULL) {
-    gtk_widget_destroy (table->prop_dialog->dialog);
+    table_dialog_free (table->prop_dialog);
   }
 }
 
