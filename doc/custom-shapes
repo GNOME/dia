@@ -97,10 +97,17 @@ the shape.  The syntax is:
 (Only one textbox per shape) Where the attributes give the bounds of 
 the text box in the same coordinate system as the SVG shape description.
 
+There are some optional attributes on <textbox/> namely
+  resize="no" : by default the textbox is resized with the text
+  align="center" : "center" is default, also "left" and "right" can be used
+
+
 Shapes are given a default size on creation. If that default size does
 not fit your needs you can overwrite it by (one or both):
   <default-width>1cm</default-width>
   <default-height>3cm</default-height>
+The default unit "cm" can be omitted.
+
 
 The svg element describes the shape.  The width and height attributes
 are ignored, and only given to comply with the SVG specification.  For
@@ -178,7 +185,7 @@ The recognised drawing elements are:
   lower right corner is (x1+width,y1+height).
   Their are two forms of links supported, an absolute filename of the form
   "file:///home/user/image.png" or a relative one without the file:// prefix
-  like in "image.png". The latter form is preferred cause it is installation
+  like in "image.png". The latter form is preferred because it is installation
   independent. The filename is relative to the shape file placement. In the
   above example PNG and shape need to be in the same directory.
 
@@ -224,8 +231,46 @@ The recognised drawing elements are:
   style			  Text formatting options
   
   The following style options are supported:
-  font-size: font size in pt  
-  
+  font-size: font size in pt(?)  
+
+Shapes in Shapes aka. Subshapes
+===============================
+Adding indepentently resizable symbols into your custom shapes is possible by
+creating subshapes. This is done by some extra attributes on the group element.
+
+<svg:g
+ dia:subshape="true"
+ dia:v_anchor="fixed.bottom"
+ dia:h_anchor="fixed.left"
+ dia:default_scale="1.0">
+
+ dia:v_anchor             The vertical anchoring of the subshape. Supported values are:
+                          "fixed.top"
+                          "fixed.bottom"
+                          "proportional"
+ 
+ dia:h_anchor             The horizontal anchoring of the subshape. Supported values are:
+                          "fixed.left"
+                          "fixed.right"
+                          "proportional"
+ dia:default_scale        currently unused
+
+ 
+Extented Attributes
+===================
+To extend your custom shape with custom attributes you can put something like:
+
+  <ext_attributes>
+    <ext_attribute name="Integer" type="int" />
+    <ext_attribute name="String" type="string" />
+    <ext_attribute name="Float" type="real" />
+  </ext_attributes>
+
+between the <shape></shape> tags. The effect will be some custom properties
+in your object. They are editable by the properties dialog and will be loaded 
+and saved with your diagram. To programatically access them use "custom:<name>" 
+
+
 The Sheet description
 =====================
 
@@ -252,7 +297,8 @@ A simple sheet file may look something as this:
     </object>
    </contents>
 </sheet>
- 
+
+
 How Dia helps to create and manage sheets and shapes.
 =====================================================
 
@@ -269,6 +315,7 @@ By using
       File(of principal menu)->Sheets and Objects 
 you can create  new sheets;  and add,  remove and parcially edit  shapes;
 and copy or move shapes from one sheet to other.  
+
 
 Design Notes
 ============
@@ -291,6 +338,3 @@ If you have any suggestions for this code, please tell me.
   James Henstridge <james@daa.com.au>
  with some modifications written by 
  Dolores Alia de Saravia<loli@unsa.edu.ar>     
-
-
-

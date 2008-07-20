@@ -32,7 +32,15 @@
   x1 CDATA #REQUIRED
   y1 CDATA #REQUIRED
   x2 CDATA #REQUIRED
-  y2 CDATA #REQUIRED >
+  y2 CDATA #REQUIRED 
+  align (left|center|right) #IMPLIED
+  resize (yes|no) #IMPLIED >
+
+<!ELEMENT ext_attributes (ext_attribute)* >
+<!ELEMENT ext_attribute EMPTY>
+<!ATTLIST ext_attribute
+  name CDATA #REQUIRED
+  type CDATA #REQUIRED >
 
 <!ELEMENT svg:svg (svg:g | svg:line | svg:polyline | svg:polygon | svg:rect |
                    svg:circle | svg:ellipse | svg:path | svg:text)* >

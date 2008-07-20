@@ -1,3 +1,13 @@
+2008-07-20  Hans Breuer  <hans@breuer.org>
+
+	* objects/custom/custom_object.c(custom_copy): use object_copy_props()
+	instead of memcpy to support extended attribues where copy by reference
+	is not enough, e.g. <ext_attribute name="Something" type="string">
+	Simplifies the code and fixes bug #543874
+	
+	* doc/custom-shapes doc/shapes.dtd : some documentation for subshapes,
+	ext_attributes and some usefull atrributes on <textbox/>
+
 2008-07-19  Hans Breuer  <hans@breuer.org>
 
 	* configure.in : when building debug also define GTK_DISABLE_DEPRECATED

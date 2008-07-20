@@ -1534,7 +1534,7 @@ custom_create(Point *startpoint,
 
   g_return_val_if_fail(info!=NULL,NULL);
 
-  if (!info->loaded) /* called or it's side effect */
+  if (!info->loaded) /* called for it's side effect */
     shape_info_getbyname (info->name);
  
   custom = g_new0_ext (Custom, info->ext_attr_size);
@@ -1629,26 +1629,16 @@ custom_copy(Custom *custom)
   DiaObject *newobj;
   
   elem = &custom->element;
-  
+  /* can't use object_copy_using_properties() becauses there is no way 
+   * to pass in our creation data (info) ... */
   newcustom = g_new0_ext (Custom, custom->info->ext_attr_size);
   newelem = &newcustom->element;
   newobj = &newcustom->element.object;
 
   element_copy(elem, newelem);
-
   newcustom->info = custom->info;
 
-  newcustom->border_width = custom->border_width;
-  newcustom->border_color = custom->border_color;
-  newcustom->inner_color = custom->inner_color;
-  newcustom->show_background = custom->show_background;
-  newcustom->line_style = custom->line_style;
-  newcustom->dashlength = custom->dashlength;
   newcustom->padding = custom->padding;
-
-  newcustom->flip_h = custom->flip_h;
-  newcustom->flip_v = custom->flip_v;
-
   newcustom->current_subshape = custom->current_subshape;
   newcustom->old_subscale = custom->old_subscale;
   newcustom->subscale = custom->subscale;
@@ -1658,11 +1648,7 @@ custom_copy(Custom *custom)
     text_get_attributes(newcustom->text,&newcustom->attrs);
   } 
   
-  if (custom->info->ext_attr_size) /* copy ext area past end */
-    memcpy (newcustom + 1, custom + 1, custom->info->ext_attr_size);
-
   newcustom->connections = g_new0(ConnectionPoint, custom->info->nconnections);
-
   for (i = 0; i < custom->info->nconnections; i++) {
     newobj->connections[i] = &newcustom->connections[i];
     newcustom->connections[i].object = newobj;
@@ -1673,7 +1659,9 @@ custom_copy(Custom *custom)
     newcustom->connections[i].flags = custom->connections[i].flags;
   }
 
-  custom_update_data(newcustom, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
+  /* ... but everything mapped to property gets copied by StdProps method
+   * including the extended atrributes properties. A simple memcpy can't copy by refs */
+  object_copy_props (newobj, &custom->element.object, FALSE);
 
   return &newcustom->element.object;
 }
