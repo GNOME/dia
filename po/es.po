@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-07-19 17:52+0000\n"
-"PO-Revision-Date: 2008-07-20 14:36+0200\n"
+"POT-Creation-Date: 2008-07-20 14:24+0000\n"
+"PO-Revision-Date: 2008-07-21 23:22+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -2409,7 +2409,7 @@ msgstr ""
 
 #: ../lib/prop_inttypes.c:559
 msgid "Property cast from int to enum out of range"
-msgstr ""
+msgstr "Cambio de tipo de propiedad de int a enum fuera de rango"
 
 #: ../lib/prop_text.c:466
 #, c-format
