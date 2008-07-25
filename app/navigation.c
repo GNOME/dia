@@ -177,6 +177,9 @@ on_button_navigation_popup_pressed (GtkButton * button, gpointer _ddisp)
     diagram_width  = (int) ddisplay_transform_length (nav->ddisp, (rect.right - rect.left));
     diagram_height = (int) ddisplay_transform_length (nav->ddisp, (rect.bottom - rect.top));
 
+    if (diagram_width * diagram_height == 0)
+      return; /* don't crash with no size, i.e. empty diagram */
+
     canvas_width   = nav->ddisp->canvas->allocation.width;
     canvas_height  = nav->ddisp->canvas->allocation.height;
 
