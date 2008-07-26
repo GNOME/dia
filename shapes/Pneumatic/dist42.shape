@@ -17,16 +17,16 @@
   </connections>
   <aspectratio type="fixed"/>
   <svg:svg width="2" height="1">
-    <svg:rect x="0" y="0" width="1" height="1" svg:style="fill:background; stroke-width: 1"/>
-    <svg:rect x="1" y="0" width="1" height="1" svg:style="fill:background; stroke-width: 1"/>
-    <svg:line x1=".25" y1="1" x2=".25" y2=".2" svg:style="stroke-width: 1"/>
-    <svg:polygon points=".15,.2 .35,.2 .25,0" svg:style="stroke:none; fill:foreground"/>
-    <svg:line x1=".75" y1=".8" x2=".75" y2="0" svg:style="stroke-width: 1"/>
-    <svg:polygon points=".65,.8 .85,.8 .75,1" svg:style="stroke:none; fill:foreground"/>
+    <svg:rect x="0" y="0" width="1" height="1" style="fill:background; stroke-width: 1"/>
+    <svg:rect x="1" y="0" width="1" height="1" style="fill:background; stroke-width: 1"/>
+    <svg:line x1=".25" y1="1" x2=".25" y2=".2" style="stroke-width: 1"/>
+    <svg:polygon points=".15,.2 .35,.2 .25,0" style="stroke:none; fill:foreground"/>
+    <svg:line x1=".75" y1=".8" x2=".75" y2="0" style="stroke-width: 1"/>
+    <svg:polygon points=".65,.8 .85,.8 .75,1" style="stroke:none; fill:foreground"/>
 
-    <svg:line x1="1.25" y1="0" x2="1.75" y2="1" svg:style="stroke-width:1"/>
-    <svg:polygon points="1.8,.8 1.8,1 1.6,.9" svg:style="stroke:none; fill:foreground"/>
-    <svg:line x1="1.25" y1="1" x2="1.75" y2="0" svg:style="stroke-width:1"/>
-    <svg:polygon points="1.8,0 1.8,.2 1.6,.1" svg:style="stroke:none; fill:foreground"/>
+    <svg:line x1="1.25" y1="0" x2="1.75" y2="1" style="stroke-width:1"/>
+    <svg:polygon points="1.8,.8 1.8,1 1.6,.9" style="stroke:none; fill:foreground"/>
+    <svg:line x1="1.25" y1="1" x2="1.75" y2="0" style="stroke-width:1"/>
+    <svg:polygon points="1.8,0 1.8,.2 1.6,.1" style="stroke:none; fill:foreground"/>
   </svg:svg>
 </shape>

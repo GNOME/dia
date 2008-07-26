@@ -9,7 +9,7 @@ shapes for dia to non programmers as well.
 The actual shape is described using a subset of the SVG
 specification.  The line, polyline, polygon, rect, circle, ellipse,
 path and g elements are supported.  Note that the path element only
-supports the M,m,L,l,H,h,V,v,C,c,S,s,Z and z commands.
+supports the M,m,L,l,H,h,V,v,C,c,A,a,S,s,Z and z commands.
 Transformations and CSS units are not supported (only `user' units
 are), and only a limited set of the CSS attributes are supported.
 

@@ -1,5 +1,17 @@
 2008-07-26  Hans Breuer  <hans@breuer.org>
 
+	* doc-custom-shapes : shapes svg path can contain arc elements as well
+
+	* doc/shape.dtd : fixed so that most of the shapes delivered with Dia
+	pass 'xmllint --dtdvalid shape.dtd'. Remaining are some shapes having
+	<svg:circle cx="0" r="1.5"/> e.g. place.shape:22: element circle: 
+	validity error : Element circle does not carry attribute cy
+	and the use of dublin core in some of Assorted
+	* shape/(Contact|Electric|Pneumatic)/*.shape : remove the superfluous 
+	'svg:' prefix from style attribute
+
+	* sanples/Self/dia-renderer.dia : added the idea of renderer decorator
+
 	* app/display.c(ddisplay_zoom) : reverted changes from bug #540210,
 	it broke the other use cases, mainly zoom all (ctrl^e)
 	

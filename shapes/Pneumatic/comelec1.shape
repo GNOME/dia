@@ -11,8 +11,8 @@
   </connections>
   <aspectratio type="fixed"/>
   <svg:svg width="1" height="1">
-    <svg:line x1="0" y1="0" x2="1" y2="1" svg:style="stroke:none"/>
-    <svg:rect x="0" y=".3" width="1" height=".4" svg:style="stroke-width:1; fill:background"/>
-    <svg:line x1=".4" y1=".3" x2=".6" y2=".7" svg:style="stroke-width:1"/>
+    <svg:line x1="0" y1="0" x2="1" y2="1" style="stroke:none"/>
+    <svg:rect x="0" y=".3" width="1" height=".4" style="stroke-width:1; fill:background"/>
+    <svg:line x1=".4" y1=".3" x2=".6" y2=".7" style="stroke-width:1"/>
   </svg:svg>
 </shape>

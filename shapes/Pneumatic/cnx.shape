@@ -9,8 +9,8 @@
   <point x="0.5" y="0.5" main="yes"/></connections>
   <aspectratio type="fixed"/>
   <svg:svg width="1" height="1">
-    <svg:line x1="0" y1="0" x2="1" y2="1" svg:style="stroke:none"/>
-    <svg:circle cx=".5" cy=".5" r=".05" svg:style="fill:foreground; stroke:none"/>	
+    <svg:line x1="0" y1="0" x2="1" y2="1" style="stroke:none"/>
+    <svg:circle cx=".5" cy=".5" r=".05" style="fill:foreground; stroke:none"/>	
   </svg:svg>
 
 </shape>

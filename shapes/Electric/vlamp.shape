@@ -12,9 +12,9 @@
   <textbox x1="-.7" y1="-1" x2=".2" y2="2"/>
   <aspectratio type="fixed"/>
   <svg:svg width="1" height="1">
-    <svg:line x1="0" y1="0" x2="1" y2="1" svg:style="stroke:none"/>
+    <svg:line x1="0" y1="0" x2="1" y2="1" style="stroke:none"/>
     <svg:line x1=".5" y1="0" x2=".5" y2="1"/>
-    <svg:circle cx=".5" cy=".5" r=".2" svg:style="fill:background"/>	
+    <svg:circle cx=".5" cy=".5" r=".2" style="fill:background"/>	
     <svg:line y1=".3586" x1=".3586" y2=".6414" x2=".6414"/>
     <svg:line y1=".3586" x1=".6414" y2=".6414" x2=".3586"/>
   </svg:svg>

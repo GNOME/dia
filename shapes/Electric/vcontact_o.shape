@@ -13,7 +13,7 @@
   <textbox x1="-.5" y1="-1" x2=".4" y2="2"/>
   <aspectratio type="fixed"/>
   <svg:svg width="1" height="1">
-    <svg:line x1="0" y1="0" x2="1" y2="1" svg:style="stroke:none"/>
+    <svg:line x1="0" y1="0" x2="1" y2="1" style="stroke:none"/>
     <svg:line x1=".5" y1="0" x2=".5" y2=".3"/>
     <svg:polyline points=".5,1 .5,.7 .7,.3"/>
   </svg:svg>

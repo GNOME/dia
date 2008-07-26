@@ -14,7 +14,7 @@
   <textbox x1="-1" y1="-.5" x2="2" y2=".4"/>
   <aspectratio type="fixed"/>
   <svg:svg width="1" height="1">
-    <svg:line x1="0" y1="0" x2="1" y2="1" svg:style="stroke:none"/>
+    <svg:line x1="0" y1="0" x2="1" y2="1" style="stroke:none"/>
     <svg:line x1="0" y1=".5" x2=".3" y2=".5"/>
     <svg:polyline points="1,.5 .7,.5 .3,.7"/>
     <svg:polyline points=".6,.55 .45,.75 .4,.65"/>
