@@ -759,15 +759,11 @@ ddisplay_zoom(DDisplay *ddisp, Point *point, real magnify)
 {
   Rectangle *visible;
   real width, height;
-  real rx, ry;
 
   visible = &ddisp->visible;
 
   width = (visible->right - visible->left)/magnify;
   height = (visible->bottom - visible->top)/magnify;
-  /* calculate cursor position ratios */
-  rx = (point->x - visible->left) / (visible->right - visible->left);
-  ry = (point->y - visible->top) / (visible->bottom - visible->top);
 
   if ((ddisp->zoom_factor <= DDISPLAY_MIN_ZOOM) && (magnify<=1.0))
     return;
@@ -776,8 +772,7 @@ ddisplay_zoom(DDisplay *ddisp, Point *point, real magnify)
 
   ddisp->zoom_factor *= magnify;
 
-  /* set new origin based on the calculated ratios before zooming */
-  ddisplay_set_origo(ddisp, point->x-(width*rx),point->y-(height*ry));
+  ddisplay_set_origo(ddisp, point->x - width/2.0, point->y - height/2.0);
   
   ddisplay_update_scrollbars(ddisp);
   ddisplay_add_update_all(ddisp);

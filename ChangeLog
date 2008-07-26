@@ -1,3 +1,8 @@
+2008-07-26  Hans Breuer  <hans@breuer.org>
+
+	* app/display.c(ddisplay_zoom) : reverted changes from bug #540210,
+	it broke the other use cases, mainly zoom all (ctrl^e)
+	
 2008-07-25  Hans Breuer  <hans@breuer.org>
 
 	* app/display.c(ddisplay_zoom) : improved zoom behavior when using 
