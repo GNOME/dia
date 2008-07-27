@@ -1,3 +1,11 @@
+2008-07-27  Hans Breuer  <hans@breuer.org>
+
+	[Patch from Thomas Harding updating documentation, bug #544222]
+	* doc/en/dia.xml: docbook version => 4.5 (use of docbook elements not 
+	disponible in 1.2. book valids now against db dtd 4.5) 
+	* doc/en/custom-shapes.xml: updated to reflect changes in 
+	doc/custom-shapes file
+
 2008-07-26  Hans Breuer  <hans@breuer.org>
 
 	* doc-custom-shapes : shapes svg path can contain arc elements as well

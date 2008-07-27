@@ -4,7 +4,7 @@
 
 <!DOCTYPE book
 
-  PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN" "../../dtd/docbookx.dtd"
+  PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "../../dtd/docbookx.dtd"
 
   [
 
@@ -169,5 +169,6 @@
 &LICENSE;
 
 </book>
+
 
 
