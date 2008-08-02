@@ -301,6 +301,7 @@ EXPORTS
  dia_register_builtin_plugin
  dia_register_plugin
  dia_register_plugins
+ dia_register_plugins_in_dir
 
  dia_renderer_get_type
  dia_renderer_get_width_pixels

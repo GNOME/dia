@@ -455,8 +455,6 @@ bezierline_create(Point *startpoint,
     bezierconn_set_points(bez, bcd->num_points, bcd->points);
   }
 
-  bezierline_update_data(bezierline);
-
   bezierline->line_width =  attributes_get_default_linewidth();
   bezierline->line_color = attributes_get_foreground();
   attributes_get_default_line_style(&bezierline->line_style,
@@ -466,6 +464,9 @@ bezierline_create(Point *startpoint,
 
   *handle1 = bez->object.handles[0];
   *handle2 = bez->object.handles[3];
+
+  bezierline_update_data(bezierline);
+
   return &bezierline->bez.object;
 }
 

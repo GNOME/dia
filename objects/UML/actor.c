@@ -308,6 +308,8 @@ actor_update_data(Actor *actor)
   p.x += elem->width/2;
   p.y +=  actor_height + actor->text->ascent;
   text_set_position(actor->text, &p);
+  /* may have moved */
+  text_calc_boundingbox(actor->text, &text_box);
 
   /* Add bounding box for text: */
   rectangle_union(&obj->bounding_box, &text_box);

@@ -21,7 +21,7 @@ namespace dia {
 class IProperty
 {
 public :
-    //! to make delete delete the real thing
+    //! \internal to make delete delete the real thing
     virtual ~IProperty () {}
     //! getter depending on the type of the property
     virtual bool get (int*) const { return false; }

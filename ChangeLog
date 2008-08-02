@@ -1,3 +1,22 @@
+2008-08-02  Hans Breuer  <hans@breuer.org>
+
+	* lib/libdia.def : updated exports
+	* lib/libdia.h : C++ guards
+	* bindings/dia-extra.cpp : simplification by use of libdia_init()
+
+	* bindings/dia-object.h bindings/dia-properties.h : mark binding 
+	internal helpers as such
+
+	* lib/orth_conn.h : small docu update
+	
+	* objects/makefile.msc : remove bondgraph here as well
+	
+	* objects/standard/bezier.c objects/standard/polyline.c
+	  objects/standard/zigzagline.c objects/UML/actor.c : correct
+	bounding box calculation
+	
+	* tests/test-objects.c tests/makefile.msc : start of unit tests
+
 2008-07-27  Hans Breuer  <hans@breuer.org>
 
 	[Patch from Thomas Harding updating documentation, bug #544222]

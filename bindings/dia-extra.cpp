@@ -31,44 +31,7 @@
 #include "properties.h"
 #include "object.h"
 #include "plug-ins.h"
-
-/*
- * copied from ../app/diaconv.c
- */
-static void 
-#ifdef _MSC_VER
-__cdecl
-#endif
-stderr_message_internal(const char *title, ShowAgainStyle, const char *fmt,
-                        va_list *args,  va_list *args2)
-{
-  static gchar *buf = NULL;
-  static gint   alloc = 0;
-  gint len;
-
-  len = format_string_length_upper_bound (fmt, args);
-
-  if (len >= alloc) {
-    if (buf)
-      g_free (buf);
-    
-    alloc = nearest_pow (MAX(len + 1, 1024));
-    
-    buf = g_new (char, alloc);
-  }
-  
-  vsprintf (buf, fmt, *args2);
-  
-  fprintf(stderr,
-          "%s %s: %s\n", 
-          "",title,buf);
-}
-
-static void
-dia_extra_redirect (void)
-{
-  set_message_func(&stderr_message_internal);
-}
+#include "libdia.h"
 
 /*!
  * 
@@ -81,11 +44,8 @@ dia_extra_redirect (void)
 void dia::register_plugins ()
 {
     g_type_init();
-    dia_extra_redirect();
-    printf ("ATTENTION: crashing may be caused by the other pydia extension picked up here.");
-    //FIXME: Dia's init functions need to be cleaned - and made aware of multiple calls ...
-    stdprops_init();
+    
+    libdia_init (DIA_MESSAGE_STDERR);
 
-    object_registry_init();
     dia_register_plugins ();
 }

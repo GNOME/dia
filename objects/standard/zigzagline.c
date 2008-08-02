@@ -260,8 +260,6 @@ zigzagline_create(Point *startpoint,
   
   orthconn_init(orth, startpoint);
 
-  zigzagline_update_data(zigzagline);
-
   zigzagline->line_width =  attributes_get_default_linewidth();
   zigzagline->line_color = attributes_get_foreground();
   attributes_get_default_line_style(&zigzagline->line_style,
@@ -272,6 +270,9 @@ zigzagline_create(Point *startpoint,
   
   *handle1 = orth->handles[0];
   *handle2 = orth->handles[orth->numpoints-2];
+
+  zigzagline_update_data(zigzagline);
+
   return &zigzagline->orth.object;
 }
 

@@ -1,3 +1,10 @@
+#ifndef LIBDIA_H
+#define LIBDIA_H
+
+#include <glib.h>
+
+G_BEGIN_DECLS
+
 enum DiaInitFlags
 {
   DIA_INTERACTIVE = (1<<0),
@@ -6,3 +13,5 @@ enum DiaInitFlags
 
 void libdia_init (guint flags);
 
+G_END_DECLS
+#endif /*LIBDIA_H */

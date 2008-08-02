@@ -1,6 +1,6 @@
 !IFNDEF PACKAGE
 
-PLUGINS = aadl bondgraph chronogram custom er flowchart fs grafcet \
+PLUGINS = aadl chronogram custom er flowchart fs grafcet \
 	Istar Jackson Kaos misc network sadt SISSI standard uml \
 	Database custom_lines
 

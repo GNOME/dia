@@ -1,0 +1,26 @@
+## Makefile for building the GLib test programs with Microsoft C
+## Use: nmake -f makefile.msc check
+
+TOP = ..\..
+
+!INCLUDE $(TOP)\glib\build\win32\make.msc
+
+################################################################
+
+INCLUDES = -FImsvc_recommended_pragmas.h -I .. -I ..\lib $(GLIB_CFLAGS) \
+# the following dependencies should _not_ be necessary to include object.h \
+	$(GTK2_CFLAGS) $(LIBXML2_CFLAGS)
+
+DEFINES = -DHAVE_CONFIG_H
+
+TESTS = \
+	test-objects.exe
+
+all :	$(TESTS)
+
+.c.exe :
+	$(CC) $(CFLAGS) -c $<
+	$(CC) $(CFLAGS) -Fe$@ $< ..\lib\libdia.lib $(GLIB_LIBS) $(LDFLAGS) user32.lib /subsystem:console
+
+check:	all
+	for %p in ($(TESTS)) do set PATH=..\lib;%PATH% && %p ..\objects\\

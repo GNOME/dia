@@ -365,8 +365,6 @@ polyline_create(Point *startpoint,
   }
 
 
-  polyline_update_data(polyline);
-
   polyline->line_width =  attributes_get_default_linewidth();
   polyline->line_color = attributes_get_foreground();
   attributes_get_default_line_style(&polyline->line_style,
@@ -374,6 +372,8 @@ polyline_create(Point *startpoint,
   polyline->start_arrow = attributes_get_default_start_arrow();
   polyline->end_arrow = attributes_get_default_end_arrow();
   polyline->corner_radius = 0.0;
+
+  polyline_update_data(polyline);
 
   return &polyline->poly.object;
 }
@@ -408,6 +408,8 @@ polyline_copy(Polyline *polyline)
   newpolyline->corner_radius = polyline->corner_radius;
   newpolyline->absolute_start_gap = polyline->absolute_start_gap;
   newpolyline->absolute_end_gap = polyline->absolute_end_gap;
+
+  polyline_update_data(newpolyline);
 
   return &newpolyline->poly.object;
 }

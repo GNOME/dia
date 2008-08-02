@@ -36,7 +36,7 @@ typedef enum {
  */
 struct _OrthConn {
   /* DiaObject must be first because this is a 'subclass' of it. */
-  DiaObject object;
+  DiaObject object; /*!< inheritance */
 
   int numpoints; /* >= 3 */
   Point *points; /* [numpoints] */

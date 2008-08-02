@@ -29,7 +29,7 @@ public :
     //! instead of doing this I'd like better accessor support in SWIG
     const int version;
 
-    //! construct from underlying type
+    //! \internal construct from underlying type
     ObjectType (::DiaObjectType* ot);
     //! create a default initialized object 
     Object* create (double x, double y, dia::Handle** h1 = 0, dia::Handle** h2 = 0) const;
@@ -54,7 +54,7 @@ private :
 class Object
 {
 public :
-    //! trying to be compatible
+    //! trying to be compatible (otherwise this would not be public)
     const Properties properties;
     //! access to this objects connection points
     const Connections connections;
@@ -63,14 +63,14 @@ public :
     //! the wrapped type (factory)
     const ObjectType type;
 
-    //! direct property access
+    //! direct property access for compatibility and convenience
     ::_Rectangle* bbox () const;
     
-    //! create an object wrapper - object previously registered from a plug-in
+    //! \internal create an object wrapper - object previously registered from a plug-in
     Object (DiaObject*);
-    //! destroying the proxy, not the underlying object
+    //! \internal destroying the proxy, not the underlying object
     ~Object ();
-    //! not to be wrapped - just used internally
+    //! \internal not to be wrapped - just used internally
     DiaObject* Self() const { return self; }
     //! real destruction
     void destroy ();
