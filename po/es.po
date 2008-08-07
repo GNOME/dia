@@ -13,12 +13,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-07-20 14:24+0000\n"
-"PO-Revision-Date: 2008-07-21 23:22+0200\n"
+"POT-Creation-Date: 2008-07-25 16:44+0000\n"
+"PO-Revision-Date: 2008-08-07 14:06+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type:  text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "serrador@hispalinux.es>\n"
 "X-Generator: KBabel 1.11.4\n"
@@ -53,7 +53,8 @@ msgstr "%s error: no se sabe cómo exportar a %s\n"
 #: ../app/app_procs.c:338
 #, c-format
 msgid "%s error: input and output file name is identical: %s"
-msgstr "%s error: el nombre de los ficheros de entrada y salida es idéntico: %s"
+msgstr ""
+"%s error: el nombre de los ficheros de entrada y salida es idéntico: %s"
 
 #: ../app/app_procs.c:346
 #, c-format
@@ -154,7 +155,8 @@ msgstr "Versión %s de Dia\n"
 
 # Como adjetivo creo que el plural es "estándar". FVD
 #: ../app/app_procs.c:785
-msgid "Couldn't find standard objects when looking for object-libs; exiting...\n"
+msgid ""
+"Couldn't find standard objects when looking for object-libs; exiting...\n"
 msgstr "No se encontraron objetos estándar en object-libs, saliendo…\n"
 
 # Como adjetivo creo que el plural es "estándar". FVD
@@ -663,20 +665,20 @@ msgid "Selected '%s'"
 msgstr "Seleccionados «%s»"
 
 #. we really should not come here but instead disable the menu command earlier
-#: ../app/display.c:1034
+#: ../app/display.c:1039
 msgid "No anti-aliased renderer found"
 msgstr "No se encontró el renderizador antialias"
 
-#: ../app/display.c:1179
+#: ../app/display.c:1184
 msgid "<unnamed>"
 msgstr "<sin nombre>"
 
 #. no standard buttons
-#: ../app/display.c:1185
+#: ../app/display.c:1190
 msgid "Closing diagram without saving"
 msgstr "Cerrando el diagrama sin guardar"
 
-#: ../app/display.c:1187
+#: ../app/display.c:1192
 #, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -685,11 +687,11 @@ msgstr ""
 "Este diagrama «%s»\n"
 "no ha sido guardado. ¿Guardar los cambios ahora?"
 
-#: ../app/display.c:1189
+#: ../app/display.c:1194
 msgid "Close Diagram"
 msgstr "Cerrar el diagrama"
 
-#: ../app/display.c:1194
+#: ../app/display.c:1199
 msgid "_Discard Changes"
 msgstr "_Descartar los cambios"
 
@@ -1794,7 +1796,8 @@ msgstr "Preferencias"
 
 #: ../app/preferences.c:712
 msgid "User Interface type settings change will take after restart"
-msgstr "Los ajustes para el interfaz del usuario tomarán efecto después de reiniciar."
+msgstr ""
+"Los ajustes para el interfaz del usuario tomarán efecto después de reiniciar."
 
 #: ../app/properties.c:56
 msgid "Object properties"
@@ -4525,7 +4528,8 @@ msgstr "Identificador de actividad/dato"
 
 #: ../objects/SADT/box.c:147
 msgid "The identifier which appears in the lower right corner of the Box"
-msgstr "El identificador que se muestra en la esquina inferior derecha de la caja"
+msgstr ""
+"El identificador que se muestra en la esquina inferior derecha de la caja"
 
 #: ../objects/SADT/box.c:455
 msgid "SADT box"
@@ -5556,15 +5560,15 @@ msgid "Scale of the subshapes"
 msgstr "Escala de las subformas"
 
 # Quiza' si estas dos se diferencian so'lo en las mayu'sculas, deberi'amos respetarlas. FVD
-#: ../objects/custom/custom_object.c:1769
+#: ../objects/custom/custom_object.c:1757
 msgid "Flip Horizontal"
 msgstr "Invertir horizontal"
 
-#: ../objects/custom/custom_object.c:1770
+#: ../objects/custom/custom_object.c:1758
 msgid "Flip Vertical"
 msgstr "Invertir vertical"
 
-#: ../objects/custom/custom_object.c:1807
+#: ../objects/custom/custom_object.c:1795
 #: ../objects/custom_lines/custom_linetypes.c:263
 #, c-format
 msgid "Cannot open icon file %s for object type '%s'."
@@ -5580,12 +5584,14 @@ msgstr "Cargador de líneas personalizadas XML"
 
 #: ../objects/custom_lines/custom_linetypes.c:226
 msgid "INTERNAL: CustomLines: Illegal line type in LineInfo object."
-msgstr "INTERNO: LineasPersonalizadas: Tipo de línea ilegal en el objeto LineInfo."
+msgstr ""
+"INTERNO: LineasPersonalizadas: Tipo de línea ilegal en el objeto LineInfo."
 
 #: ../objects/custom_lines/custom_linetypes.c:251
 #, c-format
 msgid "INTERNAL: CustomLines: Illegal line type in LineInfo object %s."
-msgstr "INTERNO: LineasPersonalizadas: Tipo de línea ilegal en el objeto LineInfo %s."
+msgstr ""
+"INTERNO: LineasPersonalizadas: Tipo de línea ilegal en el objeto LineInfo %s."
 
 #: ../objects/custom/shape_info.c:162
 #, c-format
@@ -6078,7 +6084,8 @@ msgstr "Soporte de scripts de python"
 
 #: ../plug-ins/shape/shape-export.c:473
 msgid "Shape files must end in .shape, or they cannot be loaded by Dia"
-msgstr "Los archivos de formas deben acabar en .shape, o Dia no podrá cargarlos"
+msgstr ""
+"Los archivos de formas deben acabar en .shape, o Dia no podrá cargarlos"
 
 #: ../plug-ins/shape/shape-export.c:484
 msgid "Can't export png without libart!"
@@ -6115,7 +6122,8 @@ msgstr "el elemento raíz era «%s» -- se esperaba «svg»."
 
 #: ../plug-ins/svg/svg.c:50
 msgid "Scalable Vector Graphics import and export filters"
-msgstr "Filtro de importación y exportación de gráficos de vector escalables (SVG)"
+msgstr ""
+"Filtro de importación y exportación de gráficos de vector escalables (SVG)"
 
 #: ../plug-ins/vdx/vdx-export.c:1376 ../plug-ins/vdx/vdx-export.c:1385
 #, c-format
@@ -6255,7 +6263,8 @@ msgstr "Dia no admite patrones"
 
 #: ../plug-ins/xfig/xfig-import.c:166
 msgid "Triple-dotted lines are not supported by Dia, using double-dotted"
-msgstr "Dia no soporta las líneas triplemente punteadas, se utilizará doble punteado"
+msgstr ""
+"Dia no soporta las líneas triplemente punteadas, se utilizará doble punteado"
 
 #: ../plug-ins/xfig/xfig-import.c:170
 #, c-format
@@ -6356,7 +6365,8 @@ msgstr "Fin de compuesto fuera de compuesto\n"
 #: ../plug-ins/xfig/xfig-import.c:1051
 #, c-format
 msgid "Color number %d out of range 0..%d.  Discarding color.\n"
-msgstr "El número de colores %d está fuera de rango 0..%d. Descartando el color.\n"
+msgstr ""
+"El número de colores %d está fuera de rango 0..%d. Descartando el color.\n"
 
 #: ../plug-ins/xfig/xfig-import.c:1097
 #, c-format
@@ -10334,3 +10344,34 @@ msgstr "Monitor de estación de trabajo"
 msgid "ZIP disk"
 msgstr "Disco ZIP"
 
+#: ../sheets/sybase.sheet.in.h:1
+msgid "Log transfer manager or rep agent"
+msgstr "Registro del gestor de transferencias o agente de replicación"
+
+#: ../sheets/sybase.sheet.in.h:2
+msgid "Objects to design Sybase replication domain diagrams with"
+msgstr "Objetos para diseeñar el dominio de replicación Sybase"
+
+#: ../sheets/sybase.sheet.in.h:3
+msgid "Replication server manager"
+msgstr "Gestor del servidor de replicación"
+
+#: ../sheets/sybase.sheet.in.h:4
+msgid "Stable storage device"
+msgstr "Dispositivo de almacenamiento estable"
+
+#: ../sheets/sybase.sheet.in.h:5
+msgid "Sybase"
+msgstr "Sybase"
+
+#: ../sheets/sybase.sheet.in.h:6
+msgid "Sybase client application"
+msgstr "Aplicación cliente de Sybase"
+
+#: ../sheets/sybase.sheet.in.h:7
+msgid "Sybase dataserver"
+msgstr "Servidor de datos Sybase"
+
+#: ../sheets/sybase.sheet.in.h:8
+msgid "Sybase replication server"
+msgstr "Servidor de replicación de Sybase"
