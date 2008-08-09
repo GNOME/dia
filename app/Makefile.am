@@ -269,8 +269,9 @@ run_dia.sh$(EXEEXT): Makefile.am
 	echo DIA_INT_SHAPE_PATH=\"'$$DIA_BASE_PATH'/objects\" >> run_dia.sh
 	echo DIA_SHEET_PATH=\"'$$DIA_BASE_PATH'/sheets\" >> run_dia.sh
 	echo DIA_PYTHON_PATH=\"'$$DIA_BASE_PATH'/plug-ins/python\" >> run_dia.sh
+	echo DIA_XSLT_PATH=\"'$$DIA_BASE_PATH'/plug-ins/xslt\" >> run_dia.sh
 	echo >> run_dia.sh
-	echo "export DIA_BASE_PATH DIA_LIB_PATH DIA_SHAPE_PATH DIA_INT_SHAPE_PATH DIA_SHEET_PATH DIA_PLUGIN_PATH DIA_PYTHON_PATH" >> run_dia.sh
+	echo "export DIA_BASE_PATH DIA_LIB_PATH DIA_SHAPE_PATH DIA_INT_SHAPE_PATH DIA_SHEET_PATH DIA_PLUGIN_PATH DIA_PYTHON_PATH DIA_XSLT_PATH" >> run_dia.sh
 	echo "if [ \"x\$$DEBUGGER\" != \"x\" ] ; then " >> run_dia.sh
 	echo "  if [ ! -f \"\$$DIA_LIBS_PATH/lt-dia\" -o \"\$$DIA_LIBS_PATH/lt-dia\" -ot \"\$$DIA_LIBS_PATH/dia\" ] ; then" >> run_dia.sh
 	echo "    echo \"libtool relink stage necessary before debugging is possible.\"" >> run_dia.sh

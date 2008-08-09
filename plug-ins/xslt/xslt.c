@@ -338,8 +338,11 @@ dia_plugin_init(PluginInfo *info)
 			return DIA_PLUGIN_INIT_ERROR;
 	}
 	
-	path = dia_get_data_directory("xslt" G_DIR_SEPARATOR_S
-							  "stylesheets.xml");
+	if (g_getenv ("DIA_XSLT_PATH") != NULL)
+	  path = g_build_path (G_DIR_SEPARATOR_S, g_getenv ("DIA_XSLT_PATH"), "stylesheets.xml", NULL);
+	else
+	  path = dia_get_data_directory("xslt" G_DIR_SEPARATOR_S "stylesheets.xml");
+
 	global_res = read_configuration(path);
 	g_free (path);
 

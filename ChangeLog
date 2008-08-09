@@ -1,5 +1,8 @@
 2008-08-09  Hans Breuer  <hans@breuer.org>
 
+	* app/Makefile.am plug-ins/xslt/xslt.c : finally stop complaing about
+	missing XSLT configuration files when running app/run_dia.sh
+
 	* tests/Makefile.am : start of unit test usage on *NIX
 
 	* lib/Makefile.am : add libdia_la_LIBADD = $(GTK_LIBS)
