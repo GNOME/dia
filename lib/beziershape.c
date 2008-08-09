@@ -438,9 +438,9 @@ beziershape_add_segment(BezierShape *bezier, int segment, Point *point)
   }
   realpoint.type = BEZ_CURVE_TO;
 
-  new_handle1 = g_new(Handle, 1);
-  new_handle2 = g_new(Handle, 1);
-  new_handle3 = g_new(Handle, 1);
+  new_handle1 = g_new0(Handle,1);
+  new_handle2 = g_new0(Handle,1);
+  new_handle3 = g_new0(Handle,1);
   setup_handle(new_handle1, HANDLE_RIGHTCTRL);
   setup_handle(new_handle2, HANDLE_LEFTCTRL);
   setup_handle(new_handle3, HANDLE_BEZMAJOR);
@@ -771,9 +771,9 @@ new_handles_and_connections(BezierShape *bezier, int num_points)
   obj = &bezier->object;
 
   for (i = 0; i < num_points-1; i++) {
-    obj->handles[3*i] = g_new(Handle, 1);
-    obj->handles[3*i+1] = g_new(Handle, 1);
-    obj->handles[3*i+2] = g_new(Handle, 1);
+    obj->handles[3*i] = g_new0(Handle,1);
+    obj->handles[3*i+1] = g_new0(Handle,1);
+    obj->handles[3*i+2] = g_new0(Handle,1);
   
     obj->handles[3*i]->connect_type = HANDLE_NONCONNECTABLE;
     obj->handles[3*i]->connected_to = NULL;
@@ -872,7 +872,7 @@ beziershape_copy(BezierShape *from, BezierShape *to)
   }
 
   for (i = 0; i < toobj->num_handles; i++) {
-    toobj->handles[i] = g_new(Handle, 1);
+    toobj->handles[i] = g_new0(Handle,1);
     setup_handle(toobj->handles[i], fromobj->handles[i]->id);
   }
   for (i = 0; i < toobj->num_connections; i++) {
@@ -997,9 +997,9 @@ beziershape_load(BezierShape *bezier, ObjectNode obj_node)
   }
 
   for (i = 0; i < bezier->numpoints - 1; i++) {
-    obj->handles[3*i] = g_new(Handle, 1);
-    obj->handles[3*i+1] = g_new(Handle, 1);
-    obj->handles[3*i+2]   = g_new(Handle, 1);
+    obj->handles[3*i] = g_new0(Handle,1);
+    obj->handles[3*i+1] = g_new0(Handle,1);
+    obj->handles[3*i+2]   = g_new0(Handle,1);
 
     setup_handle(obj->handles[3*i], HANDLE_RIGHTCTRL);
     setup_handle(obj->handles[3*i+1], HANDLE_LEFTCTRL);

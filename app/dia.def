@@ -12,6 +12,7 @@ EXPORTS
  ddisplay_scroll_up
  ddisplay_set_origo
  ddisplay_set_title
+ ddisplay_show_all
  ddisplay_zoom
  new_display
  diagram_add_update
@@ -35,6 +36,7 @@ EXPORTS
  diagram_unselect_object
  diagram_update_extents
  diagram_update_connections_object
+ diagram_update_connections_selection
  dia_open_diagrams
 
  ; just for the applications

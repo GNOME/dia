@@ -381,11 +381,11 @@ bezierline_draw(Bezierline *bezierline, DiaRenderer *renderer)
 					 &bezierline->end_arrow);
     exchange_bez_gap_points(bez,gap_points);
   } else {
-  renderer_ops->draw_bezier_with_arrows(renderer, bez->points, bez->numpoints,
-					 bezierline->line_width,
-					 &bezierline->line_color,
-					 &bezierline->start_arrow,
-					 &bezierline->end_arrow);
+    renderer_ops->draw_bezier_with_arrows(renderer, bez->points, bez->numpoints,
+					  bezierline->line_width,
+					  &bezierline->line_color,
+					  &bezierline->start_arrow,
+					  &bezierline->end_arrow);
   }
 
 #if 0
@@ -629,10 +629,6 @@ bezierline_load(ObjectNode obj_node, int version, const char *filename)
   BezierConn *bez;
   DiaObject *obj;
   AttributeNode attr;
-  /* When the bezier is loaded it is not yet connected to the other objects
-   * hence we cannot compute it's real bounding box if auto gaps are used 
-   * bb is a backup bounding box */
-  Rectangle bb; 
 
   bezierline = g_new0(Bezierline, 1);
 
@@ -679,9 +675,11 @@ bezierline_load(ObjectNode obj_node, int version, const char *filename)
   if (attr != NULL)
     bezierline->absolute_end_gap =  data_real( attribute_first_data(attr) );
   
-  bb = obj->bounding_box;
-  bezierline_update_data(bezierline); /* screws up the bounding box if auto_gap */
-  obj->bounding_box =  bb;
+  /* if "screws up the bounding box if auto_gap" it must be fixed there
+   * not by copying some meaningless bounding_box before this function call!
+   * But the real fix is in connectionpoint.c(connpoint_is_autogap)
+   */
+  bezierline_update_data(bezierline); 
 
   return &bezierline->bez.object;
 }

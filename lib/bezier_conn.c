@@ -482,9 +482,9 @@ bezierconn_add_segment(BezierConn *bez, int segment, Point *point)
   }
   realpoint.type = BEZ_CURVE_TO;
 
-  new_handle1 = g_malloc(sizeof(Handle));
-  new_handle2 = g_malloc(sizeof(Handle));
-  new_handle3 = g_malloc(sizeof(Handle));
+  new_handle1 = g_new0(Handle,1);
+  new_handle2 = g_new0(Handle,1);
+  new_handle3 = g_new0(Handle,1);
   setup_handle(new_handle1, HANDLE_RIGHTCTRL);
   setup_handle(new_handle2, HANDLE_LEFTCTRL);
   setup_handle(new_handle3, HANDLE_BEZMAJOR);
@@ -764,16 +764,16 @@ new_handles(BezierConn *bez, int num_points)
 
   obj = &bez->object;
 
-  obj->handles[0] = g_new(Handle,1);
+  obj->handles[0] = g_new0(Handle,1);
   obj->handles[0]->connect_type = HANDLE_CONNECTABLE;
   obj->handles[0]->connected_to = NULL;
   obj->handles[0]->type = HANDLE_MAJOR_CONTROL;
   obj->handles[0]->id = HANDLE_MOVE_STARTPOINT;
 
   for (i = 1; i < num_points; i++) {
-    obj->handles[3*i-2] = g_new(Handle, 1);
-    obj->handles[3*i-1] = g_new(Handle, 1);
-    obj->handles[3*i] = g_new(Handle, 1);
+    obj->handles[3*i-2] = g_new0(Handle,1);
+    obj->handles[3*i-1] = g_new0(Handle,1);
+    obj->handles[3*i] = g_new0(Handle,1);
   
     setup_handle(obj->handles[3*i-2], HANDLE_RIGHTCTRL);
     setup_handle(obj->handles[3*i-1], HANDLE_LEFTCTRL);
@@ -867,13 +867,13 @@ bezierconn_copy(BezierConn *from, BezierConn *to)
     to->corner_types[i] = from->corner_types[i];
   }
 
-  to->object.handles[0] = g_new(Handle,1);
+  to->object.handles[0] = g_new0(Handle,1);
   *to->object.handles[0] = *from->object.handles[0];
   for (i = 1; i < to->object.num_handles - 1; i++) {
-    to->object.handles[i] = g_new(Handle, 1);
+    to->object.handles[i] = g_new0(Handle,1);
     setup_handle(to->object.handles[i], from->object.handles[i]->id);
   }
-  to->object.handles[to->object.num_handles-1] = g_new(Handle,1);
+  to->object.handles[to->object.num_handles-1] = g_new0(Handle,1);
   *to->object.handles[to->object.num_handles-1] =
     *from->object.handles[to->object.num_handles-1];
 
@@ -997,18 +997,18 @@ bezierconn_load(BezierConn *bez, ObjectNode obj_node)
     }
   }
 
-  obj->handles[0] = g_new(Handle, 1);
+  obj->handles[0] = g_new0(Handle,1);
   obj->handles[0]->connect_type = HANDLE_CONNECTABLE;
   obj->handles[0]->connected_to = NULL;
   obj->handles[0]->type = HANDLE_MAJOR_CONTROL;
   obj->handles[0]->id = HANDLE_MOVE_STARTPOINT;
   
   for (i = 1; i < bez->numpoints; i++) {
-    obj->handles[3*i-2] = g_new(Handle, 1);
+    obj->handles[3*i-2] = g_new0(Handle,1);
     setup_handle(obj->handles[3*i-2], HANDLE_RIGHTCTRL);
-    obj->handles[3*i-1] = g_new(Handle, 1);
+    obj->handles[3*i-1] = g_new0(Handle,1);
     setup_handle(obj->handles[3*i-1], HANDLE_LEFTCTRL);
-    obj->handles[3*i]   = g_new(Handle, 1);
+    obj->handles[3*i]   = g_new0(Handle,1);
     setup_handle(obj->handles[3*i],   HANDLE_BEZMAJOR);
   }
 

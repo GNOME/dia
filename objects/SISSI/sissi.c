@@ -403,29 +403,32 @@ object_sissi_copy_using_properties(ObjetSISSI *object_sissi_origin)
   
   object_sissi->nb_others_fixes=object_sissi_origin->nb_others_fixes;
 
-   object_sissi->border_color=object_sissi_origin->border_color;
-   object_sissi->fill_colour=object_sissi_origin->fill_colour; 
-   object_sissi->radius=object_sissi_origin->radius;
-   object_sissi->subscribers=object_sissi_origin->subscribers; 
-   object_sissi->show_background=object_sissi_origin->show_background;
-   object_sissi->line_colour=object_sissi_origin->line_colour; 
-   object_sissi->dashlength=object_sissi_origin->dashlength;
-   object_sissi->line_width=object_sissi_origin->line_width; 
-   object_sissi->border_width=object_sissi_origin->border_width;
-   object_sissi->draw_border=object_sissi_origin->draw_border; 
-   object_sissi->keep_aspect=object_sissi_origin->keep_aspect;
+  object_sissi->border_color=object_sissi_origin->border_color;
+  object_sissi->fill_colour=object_sissi_origin->fill_colour; 
+  object_sissi->radius=object_sissi_origin->radius;
+  object_sissi->subscribers=object_sissi_origin->subscribers; 
+  object_sissi->show_background=object_sissi_origin->show_background;
+  object_sissi->line_colour=object_sissi_origin->line_colour; 
+  object_sissi->dashlength=object_sissi_origin->dashlength;
+  object_sissi->line_width=object_sissi_origin->line_width; 
+  object_sissi->border_width=object_sissi_origin->border_width;
+  object_sissi->draw_border=object_sissi_origin->draw_border; 
+  object_sissi->keep_aspect=object_sissi_origin->keep_aspect;
 
-   object_sissi->confidentiality = g_strdup(object_sissi_origin->confidentiality);
-   object_sissi->entity = g_strdup(object_sissi_origin->entity);
-   object_sissi->entity_type = g_strdup(object_sissi_origin->entity_type);
-   object_sissi->site = g_strdup(object_sissi_origin->site);
-   object_sissi->room = g_strdup(object_sissi_origin->room);
-   object_sissi->name = g_strdup(object_sissi_origin->name);
+  object_sissi->confidentiality = g_strdup(object_sissi_origin->confidentiality);
+  object_sissi->entity = g_strdup(object_sissi_origin->entity);
+  object_sissi->entity_type = g_strdup(object_sissi_origin->entity_type);
+  object_sissi->site = g_strdup(object_sissi_origin->site);
+  object_sissi->room = g_strdup(object_sissi_origin->room);
+  object_sissi->name = g_strdup(object_sissi_origin->name);
       
-   object_sissi->type_element = g_strdup(object_sissi_origin->type_element);
-   object_sissi->file =g_strdup(object_sissi_origin->file);
-   object_sissi->image = dia_image_load(dia_get_data_directory(object_sissi->file));
-  
+  object_sissi->type_element = g_strdup(object_sissi_origin->type_element);
+  object_sissi->file =g_strdup(object_sissi_origin->file);
+  if (object_sissi->file) {
+    char *filename = dia_get_data_directory(object_sissi->file);
+    object_sissi->image = dia_image_load(filename);
+    g_free (filename);
+  }
   for (i=0;i<NUM_CONNECTIONS;i++) {
     obj->connections[i] = &object_sissi->connections[i];
     object_sissi->connections[i].object = obj;

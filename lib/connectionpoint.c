@@ -85,5 +85,5 @@ connpoint_update(ConnectionPoint *p, real x, real y, gint dirs)
 gboolean
 connpoint_is_autogap(ConnectionPoint *cp)
 {
-  return cp != NULL && (cp->flags & CP_FLAG_AUTOGAP);
+  return cp != NULL && (cp->flags & CP_FLAG_AUTOGAP) && (cp->connected != NULL);
 }

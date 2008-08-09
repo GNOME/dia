@@ -26,32 +26,36 @@
 #define CONNECTIONPOINT_SIZE 5
 #define CHANGED_TRESHOLD 0.001
 
-/* Connections directions, used as hints to zigzaglines */
-/* Ordered this way to let *2 be rotate clockwise, /2 rotate counterclockwise.
+/*! \brief Connections directions, used as hints to e.g. zigzaglines 
+ * Ordered this way to let *2 be rotate clockwise, /2 rotate counterclockwise.
  * Used as bits */
-#define DIR_NORTH 1
-#define DIR_EAST  2
-#define DIR_SOUTH 4
-#define DIR_WEST  8
+typedef enum {
+  DIR_NONE  = 0,
+  DIR_NORTH = (1<<0),
+  DIR_EAST  = (1<<1),
+  DIR_SOUTH = (1<<2),
+  DIR_WEST  = (1<<3),
+  /* Convenience directions */
+  DIR_NORTHEAST = (DIR_NORTH|DIR_EAST),
+  DIR_SOUTHEAST = (DIR_SOUTH|DIR_EAST),
+  DIR_NORTHWEST = (DIR_NORTH|DIR_WEST),
+  DIR_SOUTHWEST = (DIR_SOUTH|DIR_WEST),
+  DIR_ALL       = (DIR_NORTH|DIR_SOUTH|DIR_EAST|DIR_WEST)
+} ConnectionPointDirection;
 
-/* Convenience directions */
-#define DIR_NORTHEAST (DIR_NORTH|DIR_EAST)
-#define DIR_SOUTHEAST (DIR_SOUTH|DIR_EAST)
-#define DIR_NORTHWEST (DIR_NORTH|DIR_WEST)
-#define DIR_SOUTHWEST (DIR_SOUTH|DIR_WEST)
-#define DIR_NONE      0
-#define DIR_ALL       (DIR_NORTH|DIR_SOUTH|DIR_EAST|DIR_WEST)
-
-#define CP_FLAG_ANYPLACE	1 /*!< Set if this connpoint is the one that
-				     is connected to when a connection is
-				     dropped on an object. */
-#define CP_FLAG_AUTOGAP		2 /*!< Set if this connpoint is internal
-				     and so should force a gap on the lines. */
+/*! \brief Additional behaviour flags for connection points */
+typedef enum {
+  CP_FLAG_ANYPLACE = (1<<0), /*!< Set if this connpoint is the one that
+			                 is connected to when a connection is
+			                 dropped on an object. */
+  CP_FLAG_AUTOGAP =  (1<<1), /*!< Set if this connpoint is internal
+			                and so should force a gap on the lines. */
 
 /*! Most non-connection objects want exactly one CP with this, in the middle. */
-#define CP_FLAGS_MAIN		3 /*!< Use this for the central CP that
-				     takes connections from all over the
-				     object and has autogap. */
+  CP_FLAGS_MAIN	=   (CP_FLAG_ANYPLACE|CP_FLAG_AUTOGAP) /*!< Use this for the central CP that
+			              takes connections from all over the
+			              object and has autogap. */
+} ConnectionPointFlags;
 
 /*!
  * \brief To connect object with other objects handles

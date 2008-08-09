@@ -625,6 +625,7 @@ EXPORTS
 
  rectangle_add_point
  rectangle_bbox
+ rectangle_in_rectangle
  rectangle_intersection
  rectangle_intersects
  rectangle_union

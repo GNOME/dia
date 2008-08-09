@@ -173,6 +173,8 @@ void ddisplay_scroll_right(DDisplay *ddisp);
 gboolean ddisplay_scroll_center_point(DDisplay *ddisp, Point *p);
 gboolean ddisplay_scroll_to_object(DDisplay *ddisp, DiaObject *obj);
 
+void ddisplay_show_all (DDisplay *ddisp);
+
 void display_update_menu_state(DDisplay *ddisp);
 void ddisplay_update_statusbar(DDisplay *ddisp);
 void ddisplay_do_update_menu_sensitivity (DDisplay *ddisp);

@@ -22,6 +22,7 @@
 #include <config.h>
 #include <glib.h>
 #include <math.h>
+#include <string.h> /* memcmp() */
 #include "geometry.h"
 #include "boundingbox.h"
 
@@ -322,7 +323,7 @@ polybezier_bbox(const BezPoint *pts, int numpoints,
   vp.y=0;
 
   g_assert(pts[0].type == BEZ_MOVE_TO);
-  
+
   rect->left = rect->right = pts[0].p1.x;
   rect->top = rect->bottom = pts[0].p1.y;
 

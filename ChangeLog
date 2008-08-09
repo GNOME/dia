@@ -1,3 +1,36 @@
+2008-08-09  Hans Breuer  <hans@breuer.org>
+
+	* app/display.[hc] app/dia.def : factor out ddisplay_show_all() from
+	* app/commands.c : ... view_show_all_callback ...
+	to make the functions signature more appropriate to be called by 
+	a plug-in
+
+	* plug-ins/python/autolayoutforce.py : my playground for Fred Morcos'
+	'force based autolayout' algorithm, see:
+	http://mail.gnome.org/archives/dia-list/2008-August/msg00030.html
+	* plug-ins/python/Makefile.am : to EXTRA_DIST (not to be installed)
+
+	* lib/bezier_conn.c lib/bezier_shape.c : use g_new0 for Handle 
+	allocation to ensure they pointers are not referencing random objects
+	
+	* lib/connectionpoint.c(connpoint_is_autogap): an unconnected 
+	ConnectionPoint can not matter for autogap
+	* lib/bezier.c : allows to remove the hack to disable the bounding box
+	calculation in bezier_load()
+
+	* lib/connectionpoint.h : turned ConnectionPoint(Flags|Dir) to enums,
+	helps documentation and graphical debuggers
+	
+	* lib/geometry.h(Rectangle): swap top/left and bottom/right to a more 
+	usual order (after debugging quite some bounding box code) finally 
+	because of it's use in bezierline_update_data()
+	* lib/plug-ins.h : increment DIA_PLUGIN_API_VERSION
+
+	* lib/libdia.def : rectangle_in_rectangle export
+
+	* object/SISSI/sissi.c : don't try to load an image file from NULL 
+	filename; some formatting near that.
+
 2008-08-02  Hans Breuer  <hans@breuer.org>
 
 	* lib/libdia.def : updated exports

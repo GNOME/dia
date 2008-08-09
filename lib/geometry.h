@@ -86,18 +86,18 @@ struct _Point {
 
 /*! \brief A rectangle given by upper left and lower right corner */
 struct _Rectangle {
-  coord top; /*!< y1 */
   coord left; /*!< x1 */
-  coord bottom; /*!< y2 */
+  coord top; /*!< y1 */
   coord right; /*!< x2 */
+  coord bottom; /*!< y2 */
 };
 
 /*! \brief A rectangle for fixed point e.g. pixel coordinates */
 struct _IntRectangle {
-  int top; /*!< y1 */
   int left; /*!< x1 */
-  int bottom; /*!< y2 */
+  int top; /*!< y1 */
   int right; /*!< x2 */
+  int bottom; /*!< y2 */
 };
 
 /*! 
