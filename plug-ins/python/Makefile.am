@@ -80,6 +80,7 @@ endif
 EXTRA_DIST = \
 	python-startup.py \
 	\
+	autolayoutforce.py \
 	aobjects.py \
 	codegen.py \
 	diasvg.py \

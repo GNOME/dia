@@ -1,5 +1,8 @@
 2008-08-09  Hans Breuer  <hans@breuer.org>
 
+	* tests/test-boundingbox.c : some bounding box unit test
+	  tests/test-object.c tests/makefile.msc : updated
+
 	* app/display.[hc] app/dia.def : factor out ddisplay_show_all() from
 	* app/commands.c : ... view_show_all_callback ...
 	to make the functions signature more appropriate to be called by 

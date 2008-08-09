@@ -14,6 +14,7 @@ INCLUDES = -FImsvc_recommended_pragmas.h -I .. -I ..\lib $(GLIB_CFLAGS) \
 DEFINES = -DHAVE_CONFIG_H
 
 TESTS = \
+	test-boundingbox.exe \
 	test-objects.exe
 
 all :	$(TESTS)
@@ -23,4 +24,4 @@ all :	$(TESTS)
 	$(CC) $(CFLAGS) -Fe$@ $< ..\lib\libdia.lib $(GLIB_LIBS) $(LDFLAGS) user32.lib /subsystem:console
 
 check:	all
-	for %p in ($(TESTS)) do set PATH=..\lib;%PATH% && %p ..\objects\\
+	for %p in ($(TESTS)) do set PATH=..\lib;%PATH% && %p ..\objects\standard\\

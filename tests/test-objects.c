@@ -1,28 +1,29 @@
 /* test-objects.c -- Unit test for Dia object implmentations
  * Copyright (C) 2008 Hans Breuer
  *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Library General Public
- * License as published by the Free Software Foundation; either
- * version 2 of the License, or (at your option) any later version.
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
  *
- * This library is distributed in the hope that it will be useful,
+ * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Library General Public License for more details.
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
- * You should have received a copy of the GNU Library General Public
- * License along with this library; if not, write to the
- * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
- * Boston, MA 02111-1307, USA.
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
 #include "config.h"
 #include <stdio.h>
 #include <string.h>
+#include <math.h>
 
-//#undef G_DISABLE_ASSERT
+#undef G_DISABLE_ASSERT
 #undef G_LOG_DOMAIN
+#define G_LOG_DOMAIN "Dia"
 
 #include <glib.h>
 #include <glib-object.h>
@@ -37,6 +38,7 @@
 static gchar *_type_name = NULL;
 const real EPSILON = 1e-6;
 
+int num_objects = 0;
 
 static void
 _test_creation (const DiaObjectType *type)
@@ -95,6 +97,10 @@ _test_creation (const DiaObjectType *type)
         h2 = NULL;
       /* handles properly set up? */
       g_assert (o->handles[i] != NULL);
+      g_assert (o->handles[i]->connected_to == NULL); /* starts not connected */
+      g_assert (   o->handles[i]->type != HANDLE_NON_MOVABLE 
+	        || (   o->handles[i]->type == HANDLE_NON_MOVABLE /* always together? */
+		    && o->handles[i]->connect_type == HANDLE_NONCONNECTABLE));
     }
   /* handles now destroyed */
   g_assert (NULL == h1 && NULL == h2);
@@ -106,6 +112,54 @@ _test_creation (const DiaObjectType *type)
 
   /* finally */
   o->ops->destroy (o);
+}
+
+static void
+_test_copy (const DiaObjectType *type)
+{
+  Handle *h1 = NULL, *h2 = NULL;
+  Point from = {0, 0};
+  DiaObject *oc, *o = type->ops->create (&from, type->default_user_data, &h1, &h2);
+  Rectangle bbox1, bbox2;
+  Point to = {0, 0};
+  int i;
+
+  g_assert (o != NULL && o->type != NULL);
+
+  /* does the object move ... ? */
+  from = o->position;
+  bbox1 = o->bounding_box;
+  oc = o->ops->copy (o);
+
+  g_assert (oc != NULL && oc->type == o->type && oc->ops == o->ops);
+
+  to = o->position;
+  bbox2 = o->bounding_box;
+
+  /* ... it should not */
+  g_assert (fabs(from.x - to.x) < EPSILON && fabs(from.y - to.y) < EPSILON);
+  g_assert (   fabs((bbox2.right - bbox2.left) - (bbox1.right - bbox1.left)) < EPSILON
+            && fabs((bbox2.bottom - bbox2.top) - (bbox1.bottom - bbox1.top)) < EPSILON);
+
+  /* is copying producing dangling pointers ? */
+  g_assert (o->num_handles == oc->num_handles);
+  for (i = 0; i < o->num_handles; ++i)
+    {
+      g_assert (oc->handles[i] != NULL && oc->handles[i] != o->handles[i]);
+    }
+
+  g_assert (o->num_connections == oc->num_connections);
+  for (i = 0; i < o->num_connections; ++i)
+    {
+      g_assert (oc->connections[i]->object == oc); /* owner set? */
+      g_assert (oc->connections[i] != NULL && oc->connections[i] != o->connections[i]);
+    }
+
+  /* check some further properties which must be copied ?*/
+
+  /* finally */
+  o->ops->destroy (o);
+  oc->ops->destroy (oc);
 }
 
 static void
@@ -153,16 +207,23 @@ _ot_item (gpointer key,
   testpath = g_strdup_printf ("%s/%s/%s", base, name, "Creation");
   g_test_add_data_func (testpath, type, _test_creation);
   g_free (testpath);
-  
+
+  testpath = g_strdup_printf ("%s/%s/%s", base, name, "Copy");
+  g_test_add_data_func (testpath, type, _test_copy);
+  g_free (testpath);
+
   testpath = g_strdup_printf ("%s/%s/%s", base, name, "Modification");
   g_test_add_data_func (testpath, type, _test_modification);
   g_free (testpath);
+
+  ++num_objects;
 }
 
 int
 main (int argc, char** argv)
 {
   GList *plugins = NULL;
+  int ret;
   
   /* not using gtk_test_init() means we can only test non-gtk facilities of objects */
   g_type_init ();
@@ -189,5 +250,7 @@ main (int argc, char** argv)
 
   object_registry_foreach (_ot_item, "/Dia/Objects");
 
-  return g_test_run ();
+  ret = g_test_run ();
+  g_print ("Tested %d objects.\n", num_objects);
+  return ret;
 }
