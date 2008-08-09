@@ -1,5 +1,12 @@
 2008-08-09  Hans Breuer  <hans@breuer.org>
 
+	* tests/Makefile.am : start of unit test usage on *NIX
+
+	* lib/Makefile.am : add libdia_la_LIBADD = $(GTK_LIBS)
+	fixing bug #545450
+	* lib/newgroup.c : disable call to diagram_unselect_objects() on *NIX
+	as well, it collides with --no-undefined and libdia use in unit-test
+
 	* tests/test-boundingbox.c : some bounding box unit test
 	  tests/test-object.c tests/makefile.msc : updated
 

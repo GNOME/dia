@@ -176,6 +176,7 @@ libdia_la_SOURCES =  \
 #		render.c 
 
 libdia_la_LDFLAGS = -avoid-version
+libdia_la_LIBADD = $(GTK_LIBS)
 
 AM_CPPFLAGS = \
 	$(LIBART_CFLAGS) \
