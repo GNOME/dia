@@ -28,8 +28,9 @@
 #include <glib.h>
 #include <glib-object.h>
 
+#if GLIB_CHECK_VERSION(2,16,0)
 #include <glib/gtestutils.h>
-
+#endif
 #include "libdia.h"
 
 /*
@@ -117,7 +118,9 @@ _add_bezier_tests (void)
   for (i = 0; i < num; ++i)
     {
       gchar *testpath = g_strdup_printf ("/Dia/BoundingBox/Bezier%d", i+1);
+#if GLIB_CHECK_VERSION(2,16,0)
       g_test_add_data_func (testpath, &_test_beziers[i], _check_one_bezier);
+#endif
       g_free (testpath);
     }
 }
@@ -128,11 +131,16 @@ main (int argc, char** argv)
   GList *plugins = NULL;
   int ret;
   
+#if GLIB_CHECK_VERSION(2,16,0)
   g_test_init (&argc, &argv, NULL);
   /* not really needed - or are there message_warnings in the bbox code? */
   libdia_init (DIA_MESSAGE_STDERR);
 
   _add_bezier_tests ();
 
-  return g_test_run ();
+  ret = g_test_run ();
+#else
+  g_print ("GLib version does not support g_test_*()");
+#endif
+  return ret;
 }

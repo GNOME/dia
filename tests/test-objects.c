@@ -28,7 +28,9 @@
 #include <glib.h>
 #include <glib-object.h>
 
+#if GLIB_CHECK_VERSION(2,16,0)
 #include <glib/gtestutils.h>
+#endif
 
 #include "object.h"
 #include "plug-ins.h"
@@ -204,6 +206,7 @@ _ot_item (gpointer key,
   const gchar *base = (const gchar *)user_data;
   gchar *testpath;
 
+#if GLIB_CHECK_VERSION(2,16,0)
   testpath = g_strdup_printf ("%s/%s/%s", base, name, "Creation");
   g_test_add_data_func (testpath, type, _test_creation);
   g_free (testpath);
@@ -215,6 +218,7 @@ _ot_item (gpointer key,
   testpath = g_strdup_printf ("%s/%s/%s", base, name, "Modification");
   g_test_add_data_func (testpath, type, _test_modification);
   g_free (testpath);
+#endif
 
   ++num_objects;
 }
@@ -223,8 +227,9 @@ int
 main (int argc, char** argv)
 {
   GList *plugins = NULL;
-  int ret;
+  int ret = 0;
   
+#if GLIB_CHECK_VERSION(2,16,0)
   /* not using gtk_test_init() means we can only test non-gtk facilities of objects */
   g_type_init ();
   g_test_init (&argc, &argv, NULL);
@@ -252,5 +257,8 @@ main (int argc, char** argv)
 
   ret = g_test_run ();
   g_print ("Tested %d objects.\n", num_objects);
+#else
+  g_print ("GLib version does not support g_test_*()");
+#endif
   return ret;
 }

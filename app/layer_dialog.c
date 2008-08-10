@@ -681,17 +681,15 @@ layer_dialog_update_diagram_list(void)
   int i;
   int current_nr;
 
-  if (layer_dialog->diagram_omenu == NULL)
-  {
-    return;
-  }
-
   if (layer_dialog == NULL || layer_dialog->dialog == NULL) {
     if (!dia_open_diagrams())
       return; /* shortcut; maybe session end w/o this dialog */
     else
       create_layer_dialog();
   }
+  /* oh this options: here integrated UI ;( */
+  if (!layer_dialog->diagram_omenu)
+    return;
         
   new_menu = gtk_menu_new();
 

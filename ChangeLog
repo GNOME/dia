@@ -1,5 +1,11 @@
 2008-08-10  Hans Breuer  <hans@breuer.org>
 
+	* app/layer_dialog.c : don't access layer_dialog while not initialized
+	* objects/standard/outline.c : conditionalize on CAIRO_HAS_SVG_SURFACE
+	* tests/test-objects.c tests/test-boundingbox.c : conditionalize on
+	GLIB_CHECK_VERSION(2,16,0) - together this make Dia compile an run on 
+	a standard Dapper Drake (gtk+-2.8, glib-2.10, cairo-1.0.4)
+
 	* objects/custom/shape_info.[hc] objects/custom/custom_object.c : 
 	don't normalize ShapeInfo::default_(width|height) to points; everything
 	else is in cm. Also some fomatting/coding style issues.
