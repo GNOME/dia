@@ -133,7 +133,7 @@ real
 shape_info_get_default_width(ShapeInfo *info)
 {
   if (info->default_width == 0.0)
-    info->default_width = DEFAULT_WIDTH * units[prefs_get_length_unit()].factor;
+    info->default_width = DEFAULT_WIDTH;
   
   return( info->default_width );
 }
@@ -142,7 +142,7 @@ real
 shape_info_get_default_height(ShapeInfo *info)
 {
   if (info->default_height == 0.0)
-    info->default_height = DEFAULT_HEIGHT * units[prefs_get_length_unit()].factor;
+    info->default_height = DEFAULT_HEIGHT;
   
   return( info->default_height );
 }
@@ -460,16 +460,11 @@ parse_svg_node(ShapeInfo *info, xmlNodePtr node, xmlNsPtr svg_ns,
           /* add elements from the group element, but make it a subshape */
         GraphicElementSubShape *subshape = g_new0(GraphicElementSubShape, 1);
         ShapeInfo* tmpinfo = g_new0(ShapeInfo, 1);
-        DiaSvgStyle tmp_s = {
-                1.0, DIA_SVG_COLOUR_FOREGROUND, 
-                DIA_SVG_COLOUR_NONE,
-                DIA_SVG_LINECAPS_DEFAULT, 
-                DIA_SVG_LINEJOIN_DEFAULT,
-                DIA_SVG_LINESTYLE_DEFAULT, 1.0
-        };
+        DiaSvgStyle tmp_s;
         xmlChar *v_anchor_attr = xmlGetProp(node, (const xmlChar*)"v_anchor");
         xmlChar *h_anchor_attr = xmlGetProp(node, (const xmlChar*)"h_anchor");
       
+        dia_svg_style_init (&tmp_s, style);
         parse_svg_node(tmpinfo, node, svg_ns, &tmp_s, filename);
         
         tmpinfo->shape_bounds.top = DBL_MAX;
@@ -845,8 +840,7 @@ load_shape_info(const gchar *filename, ShapeInfo *preload)
       dia_svg_parse_style(node, &s, -1);
       parse_svg_node(info, node, svg_ns, &s, filename);
       update_bounds(info);
-    }
-	else if (!xmlStrcmp(node->name, (const xmlChar *)"ext_attributes")) {
+    } else if (!xmlStrcmp(node->name, (const xmlChar *)"ext_attributes")) {
       ext_node = node;
     }
   }

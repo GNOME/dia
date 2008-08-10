@@ -184,8 +184,9 @@ struct _ShapeInfo {
   ShapeAspectType aspect_type;
   real aspect_min, aspect_max;
 
-  real default_width;  /* default_width normalized in points */
-  real default_height; /* default_height normalized in points */
+  real default_width; /* unit cm as everything else internally in Dia */
+  real default_height;
+
 
   GList *display_list;
   

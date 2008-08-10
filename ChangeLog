@@ -1,3 +1,9 @@
+2008-08-10  Hans Breuer  <hans@breuer.org>
+
+	* objects/custom/shape_info.[hc] objects/custom/custom_object.c : 
+	don't normalize ShapeInfo::default_(width|height) to points; everything
+	else is in cm. Also some fomatting/coding style issues.
+	
 2008-08-09  Hans Breuer  <hans@breuer.org>
 
 	* app/Makefile.am plug-ins/xslt/xslt.c : finally stop complaing about

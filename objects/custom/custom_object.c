@@ -425,8 +425,7 @@ transform_subshape_coord(Custom *custom, GraphicElementSubShape* subshape,
     real h_scale = info->default_height / svg_height;
     real v_scale = info->default_width / svg_width;
     
-    subshape->default_scale = (v_scale > h_scale ? h_scale : v_scale) /
-                                   units[prefs_get_length_unit()].factor;
+    subshape->default_scale = (v_scale > h_scale ? h_scale : v_scale);
   }
   
   scale = custom->subscale * subshape->default_scale;
@@ -688,9 +687,7 @@ static void
 custom_adjust_scale(Custom *custom, Handle *handle,
 		   Point *to, ConnectionPoint *cp,
 		   HandleMoveReason reason, ModifierKeys modifiers)
-{
-#define IS_MODIFIER_PRESSED(m) ((modifiers&(m)) != 0)
-  
+{  
   static int uniform_scale = FALSE;
   static Point orig_pos;
 
@@ -703,11 +700,13 @@ custom_adjust_scale(Custom *custom, Handle *handle,
       orig_pos.y = to->y;
     }
     
-    if (!uniform_scale && IS_MODIFIER_PRESSED(MODIFIER_SHIFT)) {
-      custom->old_subscale = MAX(custom->subscale, 0.0);
+    if ((modifiers & MODIFIER_SHIFT) != 0) {
+      if (!uniform_scale) /* transition */
+        custom->old_subscale = MAX(custom->subscale, 0.0);
+      uniform_scale = TRUE;
+    } else {
+      uniform_scale = FALSE;
     }
-    
-    uniform_scale = IS_MODIFIER_PRESSED(MODIFIER_SHIFT);
 
     delta_max = (to->x - orig_pos.x);
     
@@ -726,7 +725,6 @@ custom_adjust_scale(Custom *custom, Handle *handle,
     if( custom->subscale < SUBSCALE_MININUM_SCALE )
       custom->subscale = SUBSCALE_MININUM_SCALE;
 
-#undef IS_MODIFIER_PRESSED
     break;
   case HANDLE_MOVE_USER_FINAL:
     uniform_scale = FALSE;
@@ -851,14 +849,6 @@ custom_draw(Custom *custom, DiaRenderer *renderer)
                           &cur_line, &cur_dash, &cur_caps, &cur_join, &cur_style);
 
   if (custom->info->has_text) {
-    /*Rectangle tb;
-    
-    if (renderer->is_interactive) {
-    transform_rect(custom, &custom->info->text_bounds, &tb);
-    p1.x = tb.left;  p1.y = tb.top;
-    p2.x = tb.right; p2.y = tb.bottom;
-    renderer_ops->draw_rect(renderer, &p1, &p2, &custom->border_color);
-    }*/
     text_draw(custom->text, renderer);
   }
 }
@@ -1334,6 +1324,7 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
     switch(el->type) {
     case GE_SUBSHAPE :
       /* if the subshapes leave traces in the diagram here is the place to fix it --hb */
+      continue;
       break;
     case GE_LINE: {
       LineBBExtras extra;
@@ -1465,6 +1456,9 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
       /*text_calc_boundingbox(el->text.object,&rect); */
       rect = el->text.text_bounds;
       break;
+    default :
+      g_assert_not_reached();
+      continue;
     }
     rectangle_union(&obj->bounding_box,&rect);
   }
@@ -1547,10 +1541,8 @@ custom_create(Point *startpoint,
 
   elem->corner = *startpoint;
 
-  elem->width = shape_info_get_default_width(info) / 
-                         units[prefs_get_length_unit()].factor;
-  elem->height = shape_info_get_default_height(info) /
-                         units[prefs_get_length_unit()].factor;
+  elem->width = shape_info_get_default_width(info);
+  elem->height = shape_info_get_default_height(info);
 
   custom->info = info;
   
@@ -1639,7 +1631,7 @@ custom_copy(Custom *custom)
   newcustom->info = custom->info;
 
   newcustom->padding = custom->padding;
-  newcustom->current_subshape = custom->current_subshape;
+  newcustom->current_subshape = NULL; /* it's temporary state, don't copy from wrong object */
   newcustom->old_subscale = custom->old_subscale;
   newcustom->subscale = custom->subscale;
 
