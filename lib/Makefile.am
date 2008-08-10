@@ -162,8 +162,8 @@ libdia_la_SOURCES =  \
 		prefs.h \
 	        newgroup.c \
 	        newgroup.h \
-		libdia.c \
-		libdia.h \
+		dialib.c \
+		dialib.h \
 		\
 		diacellrendererproperty.c \
 		diacellrendererproperty.h \
@@ -175,7 +175,7 @@ libdia_la_SOURCES =  \
 #		render.h \
 #		render.c 
 
-libdia_la_LDFLAGS = -avoid-version
+libdia_la_LDFLAGS = -avoid-version --export-dynamic
 libdia_la_LIBADD = $(GTK_LIBS)
 
 AM_CPPFLAGS = \
@@ -212,3 +212,4 @@ diamarshal.c: diamarshal.h
 
 
 EXTRA_DIST = libdia.def makefile.msc diamarshal.list
+

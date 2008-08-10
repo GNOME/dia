@@ -34,7 +34,7 @@
 
 #include "object.h"
 #include "plug-ins.h"
-#include "libdia.h"
+#include "dialib.h"
 
 /* allows to select specific objects for testing */
 static gchar *_type_name = NULL;

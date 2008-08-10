@@ -1,18 +1,20 @@
 import os, sys
 
+# a global object to make it changeable by main()
+format_extensions = ["svg", "png"]
+
 if sys.platform == "win32" :
 	print "Adjusting PATH ..."
 	sys.path.insert(0, r'd:\graph\dia2\python')
 	sys.path.insert(0, r'd:\graph\dia2\bin')
 	sys.path.insert(0, r'..\plug-ins\python')
+	format_extensions.prepend ("wmf")
 else : # sorry only Linux and win32 tested ;)
 	sys.path.insert (0, os.getcwd() + "/.libs")
 	sys.path.insert(0, r'../plug-ins/python')
 
 import dia
 
-# a global object to make it changeable by main()
-format_extensions = ["wmf", "svg", "png"]
 
 def Dump () :
 	print dir(dia)
@@ -27,9 +29,11 @@ def Dump () :
 if sys.platform == "win32" :
 	os.environ["DIA_LIB_PATH"] = r"d:\graph\dia2\dia"
 else :
-	print "FIXME: trouble with dynamic loading on '%s', no plug-ins" % (sys.platform,)
-	#base_path = os.getcwd() + "/.."
-	#os.environ["DIA_LIB_PATH"] = base_path + "/objects//:" + base_path + "/plug-ins//"
+	print "FIXME: trouble with dynamic loading on '%s'?" % (sys.platform,)
+	base_path = os.getcwd() + "/.."
+	os.environ["DIA_LIB_PATH"] = base_path + "/objects//:" + base_path + "/plug-ins//"
+	os.environ["DIA_SHAPE_PATH"] = base_path + "/shapes//"
+	os.environ["DIA_XSLT_PATH"] = base_path + "/plug-ins/xslt"
 
 try :
 	dia.register_plugins()
@@ -71,7 +75,9 @@ def Doc () :
 	data = dia.DiagramData()
 
 	import pydiadoc
-	data = pydiadoc.autodoc_cb (data, 0)
+	res = pydiadoc.autodoc_cb (data, 1)
+	if res :
+		data = res
 	Export ("pydiadoc", data)
 
 def Dox () :
@@ -87,7 +93,9 @@ def Types () :
 	data = dia.DiagramData()
 
 	import otypes
-	data = otypes.otypes_cb (data, 0)
+	res = otypes.otypes_cb (data, 0)
+	if res :
+		data = res
 	Export ("otypes", data)
 
 def AObj () :
@@ -130,7 +138,7 @@ def Self () :
 	except AttributeError, s :
 		print "Expected except", s, r.top, r.left
 
-for arg in sys.argv :
+for arg in sys.argv[1:] :
 	if '--dump' == arg : Dump ()
 	elif '--import' == arg : Import ()
 	elif '--gx' == arg : Gx ()

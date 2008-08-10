@@ -31,7 +31,7 @@
 #include "properties.h"
 #include "object.h"
 #include "plug-ins.h"
-#include "libdia.h"
+#include "dialib.h"
 
 /*!
  * 

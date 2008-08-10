@@ -31,7 +31,7 @@
 #if GLIB_CHECK_VERSION(2,16,0)
 #include <glib/gtestutils.h>
 #endif
-#include "libdia.h"
+#include "dialib.h"
 
 /*
  * To test DiaObject bounding boxes a nice approach would be to implment a BoundingboxRenderer

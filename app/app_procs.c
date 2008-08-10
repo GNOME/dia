@@ -74,7 +74,7 @@
 #include "sheets.h"
 #include "exit_dialog.h"
 #include "newgroup.h"
-#include "libdia.h"
+#include "dialib.h"
 
 static gboolean
 handle_initial_diagram(const char *input_file_name, 

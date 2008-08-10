@@ -1,5 +1,23 @@
 2008-08-10  Hans Breuer  <hans@breuer.org>
 
+	* configure.in : one more step to build bindings on Linux
+	* lib/libdia.[hc] : renamed to dialib.[hc] to avoid confusion with 
+	libdia.la (libdia.lo)
+	* lib/Makefile.am app/app_procs.c bindings/dia-extra.cpp
+	  plug-ins/python/diamodule.c tests/test-objects.c
+	  tests/test-boundingbox.c : adapted to name change
+
+	* objects/UML/Makefile.am plug-ins/cairo/Makefile.am : add
+	$(module)_la_LIBADD = $(OTHER_LIBS) $(top_builddir)/lib/libdia.la
+
+	* bindings/dia.swig : don't crash on passing None to do_export()
+	* bindings/Makefile.am bindings/test.py : now work start to work
+	on Linux, too.
+
+	* plug-ins/python/pydiadoc.py plug-ins/python/otypes.py : don't 
+	assume there is always a display. In the bindings non-interactive
+	test case there is not
+	
 	* app/layer_dialog.c : don't access layer_dialog while not initialized
 	* objects/standard/outline.c : conditionalize on CAIRO_HAS_SVG_SURFACE
 	* tests/test-objects.c tests/test-boundingbox.c : conditionalize on

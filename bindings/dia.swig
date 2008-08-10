@@ -296,7 +296,10 @@ PyObject* dia_IProperty_value_get (dia::IProperty* self) {
 %extend _DiaExportFilter {
   // don't use 'export' as this produces nothing w/o warning
   void do_export (dia::DiagramData *dia, const gchar *filename) {
-    self->export_func (dia->Self(), filename, filename, self->user_data);
+    if (dia)
+      self->export_func (dia->Self(), filename, filename, self->user_data);
+    else
+      g_warning ( "%s no data", G_STRFUNC);
   }
 };
 
@@ -365,5 +368,5 @@ class Diagram :
 def new (s) :
     return Diagram()
 def active_display () :
-    return Display()
+    return None
 %}

@@ -45,17 +45,23 @@ def distribute_objects (objs) :
 			y += height
 
 def autodoc_cb (data, flags) :
-	diagram = dia.new("PyDiaObjects.dia")
-	# passed in data is not necessary valid - we are called from the Toolbox menu
-	data = diagram.data
+	if dia.active_display () :
+		diagram = dia.new("PyDiaObjects.dia")
+		# passed in data is not necessary valid - we are called from the Toolbox menu
+		data = diagram.data
+		display = diagram.display()
+	else :
+		diagram = None
+		display = None
 	layer = data.active_layer
-	display = diagram.display()
 
 	oType = dia.get_object_type ("UML - Class")		
 	
 	theDir = dir(dia)
 	# for reflection we need some objects ...
-	theObjects = [diagram, data, layer, display, oType]
+	theObjects = [data, layer, oType]
+	if diagram : theObjects.append (diagram)
+	if display : theObjects.append (display)
 	# add some objects with interesting properties
 	#theObjects.append(dia.DiaImage())
 	once = 1
@@ -95,6 +101,7 @@ def autodoc_cb (data, flags) :
 		is_a = eval("type(dia." + s + ") is types.BuiltinMethodType")
 		if is_a :
 			theGlobals.append((s,doc))
+			#print s, doc
 			continue
 		o, h1, h2 = oType.create (0,0) # p.x, p.y
 		if doc :
@@ -110,10 +117,15 @@ def autodoc_cb (data, flags) :
 			# ... attributes
 			attributes = []
 			for m in dir(t) :
+				if m[:2] == "__" :
+					continue
 				#print s + "." + m
 				#tm = eval("t." + m)
 				#print tm
-				is_m = eval("type(t." + m + ") is types.BuiltinMethodType")
+				try :
+					is_m = eval("type(t." + m + ") is types.BuiltinMethodType")
+				except IndexError :
+					is_m = None
 				doc = ""
 				try :
 					doc = eval("t." + m + ".__doc__")
@@ -138,8 +150,10 @@ def autodoc_cb (data, flags) :
 	# all objects got there bounding box, distribute them
 	distribute_objects (layer.objects)
 
-	diagram.update_extents()
-	diagram.flush()
+	data.update_extents ()
+	if diagram and display :
+		diagram.update_extents()
+		diagram.flush()
 
 dia.register_action ("HelpPydia", "PyDia Docs", 
                        "/ToolboxMenu/Help/HelpExtensionStart", 

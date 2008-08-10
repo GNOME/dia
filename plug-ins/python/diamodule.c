@@ -39,7 +39,7 @@
 #include "pydia-text.h"
 #include "pydia-paperinfo.h"
 
-#include "lib/libdia.h"
+#include "lib/dialib.h"
 #include "lib/object.h"
 #include "lib/group.h"
 #include "app/diagram.h"
