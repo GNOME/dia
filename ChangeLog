@@ -1,5 +1,10 @@
 2008-08-10  Hans Breuer  <hans@breuer.org>
 
+	* objects/custom/custom_object.c : add user configurable text padding
+	and properly consider it during bounding box calculation. Additionally
+	<svg:text/> elements (fixed text parts) are finally tinted and scaled 
+	with the rest of the shape
+	
 	* configure.in : one more step to build bindings on Linux
 	* lib/libdia.[hc] : renamed to dialib.[hc] to avoid confusion with 
 	libdia.la (libdia.lo)
@@ -24,6 +29,7 @@
 	GLIB_CHECK_VERSION(2,16,0) - together this make Dia compile an run on 
 	a standard Dapper Drake (gtk+-2.8, glib-2.10, cairo-1.0.4)
 
+>>>>>>> .r4111
 	* objects/custom/shape_info.[hc] objects/custom/custom_object.c : 
 	don't normalize ShapeInfo::default_(width|height) to points; everything
 	else is in cm. Also some fomatting/coding style issues.

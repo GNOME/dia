@@ -116,7 +116,7 @@ static CustomProperties default_properties = {
   NULL,
   TRUE, /* show_background */
   0.0,  /* border_width */
-  0.5 * M_SQRT1_2, /* pading */
+  0.1, /* pading */
   NULL, /* no font */
   0.8, /* it's size */
   ALIGN_CENTER, /* it's alignment */
@@ -171,8 +171,8 @@ static ObjectTypeOps custom_type_ops =
 G_MODULE_EXPORT 
 DiaObjectType custom_type =
   {
-    "Custom - Generic",  /* name */
-    0,                 /* version */
+    "Custom - Generic",   /* name */
+    1,                    /* version 0 had no configurable (text-)padding */
     (char **) custom_xpm, /* pixmap */
 
     &custom_type_ops      /* ops */
@@ -213,6 +213,8 @@ static PropDescription custom_props[] = {
   PROP_DESC_END
 };
 
+static PropNumData text_padding_data = { 0.0, 10.0, 0.1 };
+
 static PropDescription custom_props_text[] = {
   ELEMENT_COMMON_PROPERTIES,
   PROP_STD_LINE_WIDTH_OPTIONAL,
@@ -220,6 +222,8 @@ static PropDescription custom_props_text[] = {
   PROP_STD_FILL_COLOUR_OPTIONAL,
   PROP_STD_SHOW_BACKGROUND_OPTIONAL,
   PROP_STD_LINE_STYLE_OPTIONAL,
+  { "padding", PROP_TYPE_REAL, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
+    N_("Text padding"), NULL, &text_padding_data },
   PROP_STD_TEXT_ALIGNMENT,
   PROP_STD_TEXT_FONT,
   PROP_STD_TEXT_HEIGHT,
@@ -266,6 +270,7 @@ static PropOffset custom_offsets_text[] = {
   { "flip_horizontal", PROP_TYPE_BOOL, offsetof(Custom, flip_h) },
   { "flip_vertical", PROP_TYPE_BOOL, offsetof(Custom, flip_v) },
   { "subscale", PROP_TYPE_REAL, offsetof(Custom, subscale) },
+  { "padding", PROP_TYPE_REAL, offsetof(Custom, padding) },
   {"text",PROP_TYPE_TEXT,offsetof(Custom,text)},
   {"text_font",PROP_TYPE_FONT,offsetof(Custom,attrs.font)},
   {PROP_STDNAME_TEXT_HEIGHT, PROP_STDTYPE_TEXT_HEIGHT,offsetof(Custom,attrs.height)},
@@ -504,6 +509,19 @@ transform_subshape_coord(Custom *custom, GraphicElementSubShape* subshape,
   out->y += yoffs;
 }
 
+static real
+transform_length(Custom *custom, real length)
+{
+  if (custom->current_subshape != NULL) {
+    GraphicElementSubShape* subshape = custom->current_subshape;
+    g_assert (custom->subscale > 0.0 && subshape->default_scale > 0.0);
+    return custom->subscale * subshape->default_scale * length;
+  } else {
+    /* maybe we should consider the direction? */
+    return sqrt (fabs(custom->xscale * custom->yscale)) * length;
+  }
+}
+
 static void
 transform_coord(Custom *custom, const Point *p1, Point *out)
 {
@@ -611,6 +629,7 @@ custom_distance_from(Custom *custom, Point *point)
       dist = distance_rectangle_point(&rect, point);
       break;
     case GE_TEXT:
+      text_set_height (el->text.object, transform_length (custom, el->text.s.font_height));
       custom_reposition_text(custom, &el->text);
       dist = text_distance_from(el->text.object, point);
       text_set_position(el->text.object, &el->text.anchor);
@@ -952,8 +971,8 @@ custom_draw_element(GraphicElement* el, Custom *custom, DiaRenderer *renderer,
     transform_coord(custom, &el->rect.corner2, &p2);
     if (p1.x > p2.x) {
       coord = p1.x;
-	  p1.x = p2.x;
-	  p2.x = coord;
+      p1.x = p2.x;
+      p2.x = coord;
     }
     if (p1.y > p2.y) {
       coord = p1.y;
@@ -966,7 +985,9 @@ custom_draw_element(GraphicElement* el, Custom *custom, DiaRenderer *renderer,
       renderer_ops->draw_rect(renderer, &p1, &p2, fg);
     break;
   case GE_TEXT:
+    text_set_height (el->text.object, transform_length (custom, el->text.s.font_height));
     custom_reposition_text(custom, &el->text);
+    get_colour(custom, &el->text.object->color, el->any.s.fill);
     text_draw(el->text.object, renderer);
     text_set_position(el->text.object, &el->text.anchor);
     break;
@@ -1262,10 +1283,10 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
     transform_rect(custom, &info->text_bounds, &tb);
     switch (custom->text->alignment) {
     case ALIGN_LEFT:
-      p.x = tb.left;
+      p.x = tb.left+custom->padding;
       break;
     case ALIGN_RIGHT:
-      p.x = tb.right;
+      p.x = tb.right-custom->padding;
       break;
     case ALIGN_CENTER:
       p.x = (tb.left + tb.right) / 2;
@@ -1453,8 +1474,10 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
       break;
     }
     case GE_TEXT:
-      /*text_calc_boundingbox(el->text.object,&rect); */
-      rect = el->text.text_bounds;
+      text_set_height (el->text.object, transform_length (custom, el->text.s.font_height));
+      custom_reposition_text(custom, &el->text);
+      text_calc_boundingbox(el->text.object,&rect);
+      /* padding only to be applied on the users text box */
       break;
     default :
       g_assert_not_reached();
@@ -1468,6 +1491,10 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
   if (info->has_text) {
     Rectangle tb;
     text_calc_boundingbox(custom->text, &tb);
+    tb.left -= custom->padding;
+    tb.top -= custom->padding;
+    tb.right += custom->padding;
+    tb.bottom += custom->padding;
     rectangle_union(&obj->bounding_box, &tb);
   }
 
@@ -1477,7 +1504,9 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
 }
 
 /* reposition the text element to the new text bounding box ... */
-void custom_reposition_text(Custom *custom, GraphicElementText *text) {
+static void 
+custom_reposition_text(Custom *custom, GraphicElementText *text) 
+{
   Element *elem = &custom->element;
   Point p;
   Rectangle tb;
@@ -1550,7 +1579,7 @@ custom_create(Point *startpoint,
   custom->subscale = 1.0;
   custom->current_subshape = NULL;
 
-  custom->border_width =  attributes_get_default_linewidth();
+  custom->border_width = attributes_get_default_linewidth();
   custom->border_color = attributes_get_foreground();
   custom->inner_color = attributes_get_background();
   custom->show_background = default_properties.show_background;
@@ -1669,6 +1698,8 @@ custom_load_using_properties(ObjectNode obj_node, int version, const char *filen
   obj = custom_type.ops->create(&startpoint, shape_info_get(obj_node), &handle1, &handle2);
   if (obj) {
     custom = (Custom*)obj;
+    if (version < 1)
+      custom->padding = 0.5 * M_SQRT1_2; /* old pading */
     object_load_props(obj,obj_node);
   
     custom_update_data(custom, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
