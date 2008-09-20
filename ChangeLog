@@ -1,3 +1,8 @@
+2008-09-20  Hans Breuer  <hans@breuer.org>
+
+	* lib/text.c : also accept GDK_KP_Enter to ccreate a new line. 
+	Fixes bug #539476
+
 2008-08-10  Hans Breuer  <hans@breuer.org>
 
 	* objects/custom/custom_object.c : add user configurable text padding
@@ -29,10 +34,9 @@
 	GLIB_CHECK_VERSION(2,16,0) - together this make Dia compile an run on 
 	a standard Dapper Drake (gtk+-2.8, glib-2.10, cairo-1.0.4)
 
->>>>>>> .r4111
 	* objects/custom/shape_info.[hc] objects/custom/custom_object.c : 
 	don't normalize ShapeInfo::default_(width|height) to points; everything
-	else is in cm. Also some fomatting/coding style issues.
+	else is in cm. Also some formatting/coding style issues.
 	
 2008-08-09  Hans Breuer  <hans@breuer.org>
 

@@ -900,6 +900,7 @@ text_key_event(Focus *focus, guint keyval, const gchar *str, int strlen,
         text_delete_backward(text);
         break;
       case GDK_Return:
+      case GDK_KP_Enter:
         return_val = TRUE;
         *change = text_create_change(text, TYPE_SPLIT_ROW, 'Q',
                                      text->cursor_pos, text->cursor_row);
