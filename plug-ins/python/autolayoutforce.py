@@ -5,6 +5,7 @@
 #
 #  Playground for the "force based autolayout" algorithm initially implemented
 # for Dia in C by Fred Morcos
+# See also: http://en.wikipedia.org/wiki/Force-based_algorithms
 
 #    This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -70,11 +71,12 @@ def layout_force (nodes, rconst, aconst, timestep, damping) :
 			for co in cpt.connected : # connected objects in this point
 				edge = co
 				oo = None
-				for h in edge.handles :
-					cto = h.connected_to # the other objects connection point
-					if  cto and cto.object != o :
+				for h in edge.handles : # the edge handles are connected to ...
+					cto = h.connected_to # ... the other objects connection point
+					if  cto and cto.object != o : # ... one of it being the current
 						oo = cto.object
-						# we usually only find _one_ other handle
+						# we usually only find _one_ other handle but there are exception
+						# e.g. "Network - Bus"
 						a = attraction (aconst, o, oo)
 						netforce[0] += a[0]
 						netforce[1] += a[1]

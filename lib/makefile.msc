@@ -74,7 +74,7 @@ OBJECTS = \
 	geometry.obj \
 	group.obj \
 	intl.obj \
-	libdia.obj \
+	dialib.obj \
 	message.obj \
 	newgroup.obj \
 	neworth_conn.obj \

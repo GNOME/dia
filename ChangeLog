@@ -1,9 +1,25 @@
 2008-09-20  Hans Breuer  <hans@breuer.org>
 
+	* app/filedlg.c : global usage of GTK_DISABLE_DEPRECATED broke
+	this file with gtk+-2-14
+
+	* app/prefernces.c : avoid setting uninitialized (NULL) units, 
+	fixes a crash when starting with an old configuation file
+
 	* lib/text.c : also accept GDK_KP_Enter to ccreate a new line. 
 	Fixes bug #539476
 
+	* lib/makefile.msc : reflect renaming of libdia.c to dialib.c
+
+	* NEWS : mention Find&Replace feature
+
+	* plug-ins/python/autolayoutforce.py : more comment
+
+	* samples/render-test.dia samples/Self/PyDiaObjects.dia : update
+
 2008-08-10  Hans Breuer  <hans@breuer.org>
+
+	* app/prefernces.c : don't call pref_set_*_unit with NULL
 
 	* objects/custom/custom_object.c : add user configurable text padding
 	and properly consider it during bounding box calculation. Additionally

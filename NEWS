@@ -4,6 +4,8 @@
   * improved rendering with cairo (PS, PDF, SVG, PNG, EMF) and also some
     experimental print through Gtk+/cairo support
 
+  * simple Find & Replace for diagram objects names
+
   * dedicated text editing mode finally allows to use 'Del' while editing 
     text and/or for whole object removal
 

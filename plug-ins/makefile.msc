@@ -2,7 +2,8 @@
 
 # dummy sissi
 PLUGINS = gprint cairo cgm dxf hpgl libart metapost pgf pixbuf \
-	postscript pstricks shape svg vdx wmf wpg xfig xslt 
+	postscript pstricks shape svg vdx wmf wpg xfig xslt \
+	autolayout
 
 #broken since StdProp overhaul : diaimport 
 
@@ -45,6 +46,14 @@ PKG_LINK = $(GTK2_LIBS) $(GLIB_LIBS) \
 #
 # Special object definitions for the various plugins, if needed
 #
+!IFDEF OBJ_autolayout
+PKG_CFLAGS = $(PKG_CFLAGS) -I $(PRJ_TOP)\app
+PKG_LINK = $(PKG_LINK) $(PRJ_TOP)\app\dia-app.lib
+OBJECTS = \
+	autolayout.obj \
+	autolayout-force.obj \
+	autolayout-register.obj
+!ENDIF
 
 !IFDEF OBJ_cairo
 PKG_CFLAGS = $(PKG_CFLAGS) $(CAIRO_CFLAGS) -DHAVE_PANGOCAIRO_H

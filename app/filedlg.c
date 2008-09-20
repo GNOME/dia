@@ -21,7 +21,6 @@
 
 #include <config.h>
 
-#include "filedlg.h"
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <string.h>
@@ -31,6 +30,7 @@
 #include <stdio.h>
 #include <glib/gstdio.h>
 
+#undef GTK_DISABLE_DEPRECATED /* gtk_file_chooser_dialog_new_with_backend */
 #include <gtk/gtk.h>
 #include "intl.h"
 #include "filter.h"
@@ -43,6 +43,8 @@
 #include "preferences.h"
 #include "interface.h"
 #include "recent_files.h"
+
+#include "filedlg.h"
 
 static GtkWidget *opendlg = NULL;
 static GtkWidget *savedlg = NULL;

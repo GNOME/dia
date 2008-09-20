@@ -679,8 +679,10 @@ prefs_update_dialog_from_prefs(void)
 static void
 update_internal_prefs(DiaPrefData *pref, char *ptr)
 {
-  prefs_set_length_unit(prefs.length_unit);
-  prefs_set_fontsize_unit(prefs.fontsize_unit);
+  if (prefs.length_unit)
+    prefs_set_length_unit(prefs.length_unit);
+  if (prefs.fontsize_unit)
+    prefs_set_fontsize_unit(prefs.fontsize_unit);
 }
 
 static void
