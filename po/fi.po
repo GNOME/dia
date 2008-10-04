@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-09-14 15:29+0300\n"
+"POT-Creation-Date: 2008-10-04 21:20+0300\n"
 "PO-Revision-Date: 2007-01-13 20:28+0200\n"
 "Last-Translator: Tommi Vainikainen <Tommi.Vainikainen@iki.fi>\n"
 "Language-Team: Finnish <gnome-fi-laatu@lists.sourceforge.net>\n"
@@ -725,33 +725,33 @@ msgstr "Älä valitse mitään"
 msgid "Nothing selected for saving.  Would you like to try again?"
 msgstr "Mitään ei ole valittu tallennettavaksi. Haluatko yrittää uudestaan?"
 
-#: ../app/filedlg.c:141 ../app/filedlg.c:149 ../app/filedlg.c:165
-#: ../app/filedlg.c:739 ../lib/widgets.c:1488
+#: ../app/filedlg.c:143 ../app/filedlg.c:151 ../app/filedlg.c:167
+#: ../app/filedlg.c:741 ../lib/widgets.c:1488
 msgid "Supported Formats"
 msgstr "Tuetut muodot"
 
-#: ../app/filedlg.c:189 ../app/filedlg.c:599
+#: ../app/filedlg.c:191 ../app/filedlg.c:601
 msgid "By extension"
 msgstr "Tiedostopäätteestä"
 
-#: ../app/filedlg.c:278
+#: ../app/filedlg.c:280
 msgid "Open Diagram"
 msgstr "Avaa kaavio"
 
 # Tarkista
-#: ../app/filedlg.c:307
+#: ../app/filedlg.c:309
 msgid "Open Options"
 msgstr "Avaa asetukset"
 
-#: ../app/filedlg.c:315 ../app/filedlg.c:721
+#: ../app/filedlg.c:317 ../app/filedlg.c:723
 msgid "Determine file type:"
 msgstr "Määrittele tiedoston tyyppi:"
 
-#: ../app/filedlg.c:335 ../app/filedlg.c:734 ../lib/widgets.c:1493
+#: ../app/filedlg.c:337 ../app/filedlg.c:736 ../lib/widgets.c:1493
 msgid "All Files"
 msgstr "Kaikki tiedostot"
 
-#: ../app/filedlg.c:368 ../plug-ins/postscript/paginate_psprint.c:409
+#: ../app/filedlg.c:370 ../plug-ins/postscript/paginate_psprint.c:409
 msgid ""
 "Some characters in the filename are neither UTF-8\n"
 "nor your local encoding.\n"
@@ -761,12 +761,12 @@ msgstr ""
 "eikä paikallista merkistöä.\n"
 "Jotain tulee hajoamaan."
 
-#: ../app/filedlg.c:378 ../app/filedlg.c:646
+#: ../app/filedlg.c:380 ../app/filedlg.c:648
 #: ../plug-ins/postscript/paginate_psprint.c:424
 msgid "File already exists"
 msgstr "Samanniminen tiedosto on jo olemassa"
 
-#: ../app/filedlg.c:380 ../app/filedlg.c:648
+#: ../app/filedlg.c:382 ../app/filedlg.c:650
 #: ../plug-ins/postscript/paginate_psprint.c:416
 #, c-format
 msgid ""
@@ -776,17 +776,17 @@ msgstr ""
 "Tiedosto \"%s\" on jo olemassa.\n"
 "Korvataanko uudella?"
 
-#: ../app/filedlg.c:434
+#: ../app/filedlg.c:436
 msgid "Save Diagram"
 msgstr "Tallenna kaavio"
 
 #. Need better way to make it a reasonable size.  Isn't there some
 #. standard look for them (or is that just Gnome?)
-#: ../app/filedlg.c:446
+#: ../app/filedlg.c:448
 msgid "Compress diagram files"
 msgstr "Pakkaa kaaviotiedostot"
 
-#: ../app/filedlg.c:456 ../app/filedlg.c:461
+#: ../app/filedlg.c:458 ../app/filedlg.c:463
 msgid ""
 "Compression reduces file size to less than 1/10th size and speeds up loading "
 "and saving.  Some text programs cannot manipulate compressed files."
@@ -795,7 +795,7 @@ msgstr ""
 "ja tallentamista. Jotkin tekstiohjelmat eivät osaa käsitellä pakattuja "
 "tiedostoja."
 
-#: ../app/filedlg.c:672
+#: ../app/filedlg.c:674
 #, c-format
 msgid ""
 "Could not determine which export filter\n"
@@ -804,11 +804,11 @@ msgstr ""
 "Ei pystynyt määrittelemään mitä vientisuodatinta\n"
 "tulisi käyttää tallennettaessa tiedostoa \"%s\""
 
-#: ../app/filedlg.c:696
+#: ../app/filedlg.c:698
 msgid "Export Diagram"
 msgstr "Vie kaavio"
 
-#: ../app/filedlg.c:713
+#: ../app/filedlg.c:715
 msgid "Export Options"
 msgstr "Vientiasetukset"
 
@@ -860,6 +860,8 @@ msgid ""
 "Text edit(s)\n"
 "Use <Esc> to leave this tool"
 msgstr ""
+"Tekstin muokkain\n"
+"Poistu työkalusta Esc:illä"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Magnify
 #: ../app/interface.c:157 ../app/menus.c:220 ../objects/FS/function.c:988
@@ -929,9 +931,8 @@ msgid "Image"
 msgstr "Kuva"
 
 #: ../app/interface.c:235 ../app/menus.c:234
-#, fuzzy
 msgid "Outline"
-msgstr "Tietojana"
+msgstr ""
 
 #: ../app/interface.c:609 ../app/interface.c:845
 msgid "Pops up the Navigation window."
@@ -1015,7 +1016,7 @@ msgstr ""
 # Vai kaaviomuokkain?
 #: ../app/interface.c:1624 ../app/interface.c:1753
 msgid "Diagram Editor"
-msgstr "Kaavioeditori"
+msgstr "Kaaviomuokkain"
 
 #: ../app/layer_dialog.c:159
 msgid "New Layer"
@@ -1034,9 +1035,8 @@ msgid "Delete Layer"
 msgstr "Poista taso"
 
 #: ../app/layer_dialog.c:305
-#, fuzzy
 msgid "Layers:"
-msgstr "Tasot"
+msgstr "Tasot:"
 
 #: ../app/layer_dialog.c:385
 msgid "Layers"
@@ -1194,9 +1194,8 @@ msgid "Dia Diagram File"
 msgstr "Dia-kaaviotiedosto"
 
 #: ../app/menus.c:58
-#, fuzzy
 msgid "Fit"
-msgstr "Suodata"
+msgstr "Sovita"
 
 #: ../app/menus.c:76
 msgid "_File"
@@ -1228,9 +1227,8 @@ msgid "Show Statusbar"
 msgstr "Näytä tilarivi"
 
 #: ../app/menus.c:104
-#, fuzzy
 msgid "Show Layers"
-msgstr "Laske taso"
+msgstr "Näytä tasot"
 
 #: ../app/menus.c:112
 msgid "_Export ..."
@@ -1460,9 +1458,8 @@ msgid "Modify"
 msgstr "Muokkaa"
 
 #: ../app/menus.c:221
-#, fuzzy
 msgid "Edit text"
-msgstr "Muokkaa"
+msgstr "Muokkaa tekstiä"
 
 #: ../app/menus.c:222
 msgid "Scroll"
@@ -1696,14 +1693,12 @@ msgid "Solid lines"
 msgstr "Kiinteät viivat"
 
 #: ../app/preferences.c:180
-#, fuzzy
 msgid "Antialias:"
-msgstr "_Antialiasoitu"
+msgstr "Antialiasointi:"
 
 #: ../app/preferences.c:181
-#, fuzzy
 msgid "view antialised"
-msgstr "PNG (antialiasoitu)"
+msgstr "näytä antialiasoituna"
 
 #: ../app/preferences.c:186
 msgid "Snap to"
@@ -1750,7 +1745,7 @@ msgstr "Ei"
 msgid "Preferences"
 msgstr "Asetukset"
 
-#: ../app/preferences.c:712
+#: ../app/preferences.c:714
 msgid "User Interface type settings change will take after restart"
 msgstr ""
 "Käyttöliittymän tyyppiasetukset tulevat voimaan uudelleenkäynnistyksen "
@@ -2032,7 +2027,7 @@ msgstr "Dia, v %s"
 # Vai kaaviomuokkain?
 #: ../dia.desktop.in.in.h:1
 msgid "Dia Diagram Editor"
-msgstr "Kaavioeditori"
+msgstr "Dia-kaaviomuokkain"
 
 #: ../dia.desktop.in.in.h:2
 msgid "Edit your Diagrams"
@@ -2317,7 +2312,7 @@ msgstr "???"
 #: ../lib/plug-ins.c:185
 #, c-format
 msgid "Missing dependencies for '%s'?"
-msgstr ""
+msgstr "Puuttuvatko \"%s\"-riippuvuudet?"
 
 #: ../lib/plug-ins.c:196
 msgid "Missing symbol 'dia_plugin_init'"
@@ -2557,43 +2552,36 @@ msgid "Delete Connection Point"
 msgstr "Poista liitoskohta"
 
 #: ../objects/Database/compound.c:197
-#, fuzzy
 msgid "Number of arms"
-msgstr "Perumistasojen lukumäärä:"
+msgstr ""
 
 #: ../objects/Database/compound.c:219
-#, fuzzy
 msgid "Flip arms verticaly"
 msgstr "Pyöräytä pystytasossa"
 
 #: ../objects/Database/compound.c:221
-#, fuzzy
 msgid "Flip arms horizontaly"
 msgstr "Pyöräytä vaakatasossa"
 
 #: ../objects/Database/compound.c:223
-#, fuzzy
 msgid "Center mount point verticaly"
-msgstr "Paineilmalinja, pystysuuntainen"
+msgstr "Keskitä liitoskohta pystysuunnassa"
 
 #: ../objects/Database/compound.c:225
 msgid "Center mount point horizontaly"
-msgstr ""
+msgstr "Keskitä liitoskohta vaakasuunnassa"
 
 #: ../objects/Database/compound.c:227
-#, fuzzy
 msgid "Center mount point"
-msgstr "Maadoituspiste"
+msgstr "Keskitä liitoskohta"
 
 #: ../objects/Database/compound.c:232
-#, fuzzy
 msgid "Compound"
-msgstr "Komponentti"
+msgstr "Yhdiste"
 
 #: ../objects/Database/database.c:39
-#, fuzzy
 msgid "Entity/Relationship table diagram objects"
-msgstr "Olio/suhde-kaavio-objektit"
+msgstr "ER-kaavioiden oliot"
 
 #: ../objects/Database/table.c:140 ../objects/Database/table.c:181
 #: ../objects/Database/table.c:198 ../objects/UML/class.c:145
@@ -2609,7 +2597,7 @@ msgstr "Pääavain"
 
 #: ../objects/Database/table.c:144
 msgid "Nullable"
-msgstr ""
+msgstr "Voi olla NULL"
 
 #: ../objects/Database/table.c:146
 msgid "Unique"
@@ -2639,9 +2627,8 @@ msgstr "Normaali"
 
 # Olikos se nyt Tietoviikko mikä ainakin käyttää tätä, Tablet PC = Lehtiö-PC
 #: ../objects/Database/table.c:196
-#, fuzzy
 msgid "Tablename"
-msgstr "Lehtiö"
+msgstr "Taulunimi"
 
 #: ../objects/Database/table.c:201 ../objects/Database/table.c:203
 #: ../objects/Database/table.c:205 ../objects/Database/reference.c:120
@@ -2660,7 +2647,6 @@ msgid "Attributes"
 msgstr "Ominaisuudet"
 
 #: ../objects/Database/table.c:246
-#, fuzzy
 msgid "Show comments"
 msgstr "Näytä kommentit"
 
@@ -2668,9 +2654,8 @@ msgstr "Näytä kommentit"
 #. init data
 #: ../objects/Database/table.c:251 ../objects/Database/table.c:354
 #: ../sheets/Database.sheet.in.h:5
-#, fuzzy
 msgid "Table"
-msgstr "Lehtiö"
+msgstr "Taulu"
 
 #. Attributes page:
 #: ../objects/Database/table_dialog.c:611 ../objects/UML/class_dialog.c:1062
@@ -2716,7 +2701,7 @@ msgstr "_Päääavain"
 
 #: ../objects/Database/table_dialog.c:733
 msgid "N_ullable"
-msgstr ""
+msgstr "Voi _olla NuLL"
 
 #: ../objects/Database/table_dialog.c:740
 msgid "Uni_que"
@@ -2747,9 +2732,8 @@ msgid "_Style"
 msgstr "_Tyyli"
 
 #: ../objects/Database/table_dialog.c:1021
-#, fuzzy
 msgid "Border width:"
-msgstr "Viivan paksuus:"
+msgstr "Reunan paksuus:"
 
 #. head line
 #: ../objects/Database/table_dialog.c:1034 ../objects/UML/class_dialog.c:555
@@ -2762,19 +2746,16 @@ msgid "Size"
 msgstr "Koko"
 
 #: ../objects/Database/table_dialog.c:1041
-#, fuzzy
 msgid "Normal:"
-msgstr "Normaali"
+msgstr "Normaali:"
 
 #: ../objects/Database/table_dialog.c:1062
-#, fuzzy
 msgid "Text Color:"
-msgstr "Tekstin väri"
+msgstr "Tekstin väri:"
 
 #: ../objects/Database/table_dialog.c:1070
-#, fuzzy
 msgid "Foreground Color:"
-msgstr "Edustaväri"
+msgstr "Edustaväri:"
 
 #. two chars at the beginning
 #: ../objects/Database/table_dialog.c:1383
@@ -2796,14 +2777,12 @@ msgid "Corner radius"
 msgstr "Kulmanpyöristyssäde"
 
 #: ../objects/Database/reference.c:111
-#, fuzzy
 msgid "Start description"
-msgstr "kuvaus:"
+msgstr "Aloita kuvaus"
 
 #: ../objects/Database/reference.c:113
-#, fuzzy
 msgid "End description"
-msgstr "kuvaus:"
+msgstr "Lopeta kuvaus"
 
 #: ../objects/Database/reference.c:144 ../objects/ER/participation.c:408
 #: ../objects/FS/flow-ortho.c:626 ../objects/GRAFCET/vector.c:314
@@ -2815,14 +2794,12 @@ msgid "Add segment"
 msgstr "Lisää osa"
 
 #: ../objects/Database/reference.c:145
-#, fuzzy
 msgid "Delete segement"
 msgstr "Poista osa"
 
 #: ../objects/Database/reference.c:151 ../sheets/Database.sheet.in.h:4
-#, fuzzy
 msgid "Reference"
-msgstr "Asetukset"
+msgstr "Viite"
 
 #: ../objects/ER/attribute.c:157
 msgid "Key:"
@@ -4370,14 +4347,12 @@ msgid "Measurement"
 msgstr "Mittaus"
 
 #: ../objects/Misc/measure.c:188
-#, fuzzy
 msgid "Unit"
-msgstr "Liitos"
+msgstr "Yksikkö"
 
 #: ../objects/Misc/measure.c:189
-#, fuzzy
 msgid "Precision"
-msgstr "Päätös"
+msgstr "Tarkkuus"
 
 #: ../objects/Misc/tree.c:605 ../objects/network/bus.c:613
 msgid "Add Handle"
@@ -4831,9 +4806,8 @@ msgstr "Muut ominaisuudet"
 #. ********* selection menu of entity ********
 #. ********* Label of board *********
 #: ../objects/SISSI/sissi_dialog.c:611
-#, fuzzy
 msgid "Label"
-msgstr "Sorvaa"
+msgstr "Otsikko"
 
 #: ../objects/SISSI/sissi_dialog.c:613
 msgid "value"
@@ -5463,7 +5437,7 @@ msgstr "Pyöräytä pystytasossa"
 
 #: ../objects/custom/custom_object.c:212 ../objects/custom/custom_object.c:244
 msgid "Scale of the subshapes"
-msgstr ""
+msgstr "Alimuotojen mittakaava"
 
 #: ../objects/custom/custom_object.c:1780
 msgid "Flip Horizontal"
@@ -5480,23 +5454,21 @@ msgid "Cannot open icon file %s for object type '%s'."
 msgstr "Kuvaketiedostoa %s ei voi avata objektityyppiä \"%s\" varten."
 
 #: ../objects/custom_lines/custom_lines.c:160
-#, fuzzy
 msgid "CustomLines"
-msgstr "Räätälöity"
+msgstr "OmatRivit"
 
 #: ../objects/custom_lines/custom_lines.c:160
-#, fuzzy
 msgid "Custom XML lines loader"
-msgstr "Räätälöity XML-kuviolataaja"
+msgstr "Omien XML-rivien lataaja"
 
 #: ../objects/custom_lines/custom_linetypes.c:226
 msgid "INTERNAL: CustomLines: Illegal line type in LineInfo object."
-msgstr ""
+msgstr "SISÄINEN: CustomLines: Virheellinen rivin tyyppi LineInfo-oliossa."
 
 #: ../objects/custom_lines/custom_linetypes.c:251
 #, c-format
 msgid "INTERNAL: CustomLines: Illegal line type in LineInfo object %s."
-msgstr ""
+msgstr "SISÄINEN: CustomLines: Virheellinen rivin tyyppi LineInfo-oliossa %s."
 
 #: ../objects/custom/shape_info.c:162
 #, c-format
@@ -6720,39 +6692,39 @@ msgstr ""
 
 #: ../sheets/BPMN.sheet.in.h:24
 msgid "Intermediate Event"
-msgstr ""
+msgstr "Välitapahtuma"
 
 #: ../sheets/BPMN.sheet.in.h:25
 msgid "Intermediate Event - Cancel"
-msgstr ""
+msgstr "Välitapahtuma - peruminen"
 
 #: ../sheets/BPMN.sheet.in.h:26
 msgid "Intermediate Event - Compensation"
-msgstr ""
+msgstr "Välitapahtuma - korvaus"
 
 #: ../sheets/BPMN.sheet.in.h:27
 msgid "Intermediate Event - Error"
-msgstr ""
+msgstr "Välitapahtuma - virhe"
 
 #: ../sheets/BPMN.sheet.in.h:28
 msgid "Intermediate Event - Link"
-msgstr ""
+msgstr "Välitapahtuma - linkki"
 
 #: ../sheets/BPMN.sheet.in.h:29
 msgid "Intermediate Event - Message"
-msgstr ""
+msgstr "Välitapahtuma - viesti"
 
 #: ../sheets/BPMN.sheet.in.h:30
 msgid "Intermediate Event - Multiple"
-msgstr ""
+msgstr "Välitapahtuma - useita"
 
 #: ../sheets/BPMN.sheet.in.h:31
 msgid "Intermediate Event - Rule"
-msgstr ""
+msgstr "Välitapahtuma - sääntö"
 
 #: ../sheets/BPMN.sheet.in.h:32
 msgid "Intermediate Event - Timer"
-msgstr ""
+msgstr "Välitapahtuma - ajastin"
 
 #: ../sheets/BPMN.sheet.in.h:33
 msgid "Looping Collapsed Sub-Process"
@@ -6760,11 +6732,11 @@ msgstr ""
 
 #: ../sheets/BPMN.sheet.in.h:34
 msgid "Multiple Instance Collapsed Sub-Process"
-msgstr ""
+msgstr "Monen instanssin pienennetty aliprosessi"
 
 #: ../sheets/BPMN.sheet.in.h:35
 msgid "Multiple Instance Task"
-msgstr ""
+msgstr "Monen instanssin tapahtuma"
 
 #: ../sheets/BPMN.sheet.in.h:36
 msgid "Parallel (AND)"
@@ -6772,27 +6744,27 @@ msgstr "Rinnakkainen (AND)"
 
 #: ../sheets/BPMN.sheet.in.h:37
 msgid "Start Event"
-msgstr ""
+msgstr "Aloitustapahtuma"
 
 #: ../sheets/BPMN.sheet.in.h:38
 msgid "Start Event - Link"
-msgstr ""
+msgstr "Aloitustapahtuma - linkki"
 
 #: ../sheets/BPMN.sheet.in.h:39
 msgid "Start Event - Message"
-msgstr ""
+msgstr "Aloitustapahtuma - viesti"
 
 #: ../sheets/BPMN.sheet.in.h:40
 msgid "Start Event - Multiple"
-msgstr ""
+msgstr "Aloitustapahtuma - useita"
 
 #: ../sheets/BPMN.sheet.in.h:41
 msgid "Start Event - Rule"
-msgstr ""
+msgstr "Aloitustapahtuma - sääntö"
 
 #: ../sheets/BPMN.sheet.in.h:42
 msgid "Start Event - Timer"
-msgstr ""
+msgstr "Aloitustapahtuma - ajastin"
 
 #: ../sheets/BPMN.sheet.in.h:44
 msgid "Text Annotation"
@@ -7332,19 +7304,16 @@ msgid "Time delay"
 msgstr "Aikaviive"
 
 #: ../sheets/Database.sheet.in.h:1
-#, fuzzy
 msgid "Attribute compound"
-msgstr "Attribuuttidata"
+msgstr ""
 
 #: ../sheets/Database.sheet.in.h:2
-#, fuzzy
 msgid "Database"
-msgstr "Tiedon nimi"
+msgstr "Tietokanta"
 
 #: ../sheets/Database.sheet.in.h:3
-#, fuzzy
 msgid "Editor for Database Table Relation Diagrams"
-msgstr "Editori olio-suhde-kaavioille (Entity-Relationship)"
+msgstr "Muokkain tietokanteiden suhdekaavioille"
 
 #: ../sheets/ER.sheet.in.h:2
 msgid "ER"
@@ -7352,7 +7321,7 @@ msgstr "ER"
 
 #: ../sheets/ER.sheet.in.h:3
 msgid "Editor for Entity Relations Diagrams"
-msgstr "Editori olio-suhde-kaavioille (Entity-Relationship)"
+msgstr "Muokkain ER-kaavioille"
 
 #: ../sheets/ER.sheet.in.h:5
 msgid "Participation"
@@ -7432,7 +7401,7 @@ msgstr "Välityksen komentoelin (pystyssä)"
 
 #: ../sheets/FS.sheet.in.h:1
 msgid "Editor for Function Structure Diagrams."
-msgstr "Editori funktiorakennekaavioille."
+msgstr "Muokkain funktiorakennekaavioille."
 
 #: ../sheets/FS.sheet.in.h:2
 msgid "FS"
@@ -8061,9 +8030,8 @@ msgid "Folder"
 msgstr "Kansio"
 
 #: ../sheets/Misc.sheet.in.h:3
-#, fuzzy
 msgid "Measure distance"
-msgstr "Polun etäisyys"
+msgstr "Mittaa etäisyys"
 
 #: ../sheets/Misc.sheet.in.h:4
 msgid "Misc"
@@ -8082,19 +8050,16 @@ msgid "Traditional clock"
 msgstr "Perinteinen kello"
 
 #: ../sheets/Misc.sheet.in.h:8
-#, fuzzy
 msgid "Tree"
-msgstr "Puu 1"
+msgstr "Puu"
 
 #: ../sheets/Misc.sheet.in.h:9
-#, fuzzy
 msgid "expended node"
-msgstr "Riippuvuus"
+msgstr "laajennettu solmu"
 
 #: ../sheets/Misc.sheet.in.h:10
-#, fuzzy
 msgid "expensible node"
-msgstr "Suuri laajennussolmu"
+msgstr "laajennettava solmu"
 
 #: ../sheets/Pneumatic.sheet.in.h:1
 msgid "2/2 distributor"
@@ -8531,7 +8496,7 @@ msgstr "Rajoite, aseta rajoitus johonkin"
 
 #: ../sheets/UML.sheet.in.h:11
 msgid "Editor for UML Static Structure Diagrams"
-msgstr "Editori staattisille UML-rakennekaavioille"
+msgstr "Muokkain staattisille UML-rakennekaavioille"
 
 #: ../sheets/UML.sheet.in.h:15
 msgid "Fork/union"
@@ -10259,114 +10224,3 @@ msgstr "Sybase-tietopalvelin"
 msgid "Sybase replication server"
 msgstr "Sybase-varmistuspalvelin"
 
-#~ msgid "Show this help message"
-#~ msgstr "Näytä tämä ohjeviesti"
-
-#~ msgid "[OPTION...] [FILE...]"
-#~ msgstr "[VALITSIN...] [TIEDOSTO...]"
-
-#~ msgid ""
-#~ "Error on option %s: %s.\n"
-#~ "Run '%s --help' to see a full list of available command line options.\n"
-#~ msgstr ""
-#~ "Virhe valitsimessa %s: %s.\n"
-#~ "Suorittamalla \"%s --help\" näet täydellisen luettelon käytettävissä "
-#~ "olevista\n"
-#~ "valitsimista.\n"
-
-#~ msgid "Export format to use"
-#~ msgstr "Käytettävä vientimuoto"
-
-#~ msgid "eps,png,wmf,cgm,dxf,fig"
-#~ msgstr "eps,png,wmf,cgm,dxf,fig"
-
-#~ msgid "Export file name to use"
-#~ msgstr "Käytettävä vientitiedostonimi"
-
-#~ msgid "Quiet operation"
-#~ msgstr "Vaienna operaatiot"
-
-#~ msgid ""
-#~ "Error: No arguments found.\n"
-#~ "Run '%s --help' to see a full list of available command line options.\n"
-#~ msgstr ""
-#~ "Virhe: Parametrejä ei löytynyt.\n"
-#~ "Suorita \"%s --help\" nähdäksesi täydellisen luettelon käytettävissä "
-#~ "olevista\n"
-#~ "komentorivivalitsimista.\n"
-
-#~ msgid "%s error: can specify only one of -t or -o."
-#~ msgstr "%s virhe: vain jomman kumman -f tai -o voi määrittää."
-
-#~ msgid ""
-#~ "%s error: must specify only one of -t or -o.\n"
-#~ "Run '%s --help' to see a full list of available command line options.\n"
-#~ msgstr ""
-#~ "%s virhe: täytyy määrittää vain jompi kumpi -f tai -o.\n"
-#~ "Suorita \"%s --help\" nähdäksesi täyden luettelon saatavilla olevista\n"
-#~ "komentorivivalitsimista.\n"
-
-#~ msgid "%s error: no input file."
-#~ msgstr "%s virhe: ei syötetiedostoa."
-
-#~ msgid "%s error: only one input file expected."
-#~ msgstr "%s virhe: vain yhtä syötetiedostoa odotettiin."
-
-#~ msgid "%s error: popt library not available on this system"
-#~ msgstr "%s virhe: popt-kirjastoa ei löydy tästä järjestelmästä"
-
-#~ msgid "Diagram modified!"
-#~ msgstr "Kaaviota muokattu"
-
-#, fuzzy
-#~ msgid "Outine"
-#~ msgstr "Ulos"
-
-#~ msgid "abcdefghijk ABCDEFGHIJK"
-#~ msgstr "abcdefghijåäö ABCDEFGHIJÅÄÖ"
-
-#~ msgid "Font name"
-#~ msgstr "Kirjasinnimi"
-
-#~ msgid "The X string that represents this font."
-#~ msgstr "X-merkkijono, joka kuvaa tätä kirjasinta."
-
-#~ msgid "Preview text"
-#~ msgstr "Esikatseluteksti"
-
-#~ msgid "The text to display in order to demonstrate the selected font."
-#~ msgstr "Valitun kirjasimen esittelemiseksi näytettävä teksti."
-
-#~ msgid "_Family:"
-#~ msgstr "_Perhe:"
-
-#~ msgid "_Style:"
-#~ msgstr "_Tyyli:"
-
-#~ msgid "Si_ze:"
-#~ msgstr "_Koko:"
-
-#~ msgid "_Preview:"
-#~ msgstr "_Esikatselu:"
-
-#~ msgid "Font Selection"
-#~ msgstr "Kirjasimen valinta"
-
-#~ msgid ""
-#~ "Could not load plugin '%s'\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Liitännäisen \"%s\" lataaminen ei onnistunut\n"
-#~ "%s"
-
-#~ msgid "Could not find plugin init function in `%s'"
-#~ msgstr "Liitännäisen init-funktiota ei löytynyt tiedostosta \"%s\""
-
-#~ msgid "Role:"
-#~ msgstr "Rooli:"
-
-#~ msgid "Bond graph objects"
-#~ msgstr "Sidosgraafiobjektit"
-
-#~ msgid "Cairo old WMF"
-#~ msgstr "Cairo-WMF (vanha)"
