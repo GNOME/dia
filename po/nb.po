@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.96.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-07-10 10:06+0200\n"
-"PO-Revision-Date: 2008-07-10 10:12+0200\n"
+"POT-Creation-Date: 2008-10-08 17:37+0200\n"
+"PO-Revision-Date: 2008-10-08 17:43+0200\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian <i18n-nb@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
@@ -158,11 +158,11 @@ msgstr ""
 "Kunne ikke finne standardobjekter under søk etter objektbibliotek i «%s», "
 "avslutter...\n"
 
-#: ../app/app_procs.c:845
+#: ../app/app_procs.c:846
 msgid "Diagram1.dia"
 msgstr "Diagram1.dia"
 
-#: ../app/app_procs.c:888
+#: ../app/app_procs.c:889
 msgid ""
 "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you can cause this message to appear.\n"
@@ -170,16 +170,16 @@ msgstr ""
 "Dette burde ikke skje. Vennligst rapporter en feil i bugzilla.gnome.org\n"
 "og beskriv hvordan du fikk denne meldingen opp.\n"
 
-#: ../app/app_procs.c:903
+#: ../app/app_procs.c:904
 msgid "Exiting Dia"
 msgstr "Eksisterende Dia"
 
 #. no standard buttons
-#: ../app/app_procs.c:955
+#: ../app/app_procs.c:956
 msgid "Quitting without saving modified diagrams"
 msgstr "Avslutter uten å lagre endrede diagram"
 
-#: ../app/app_procs.c:957
+#: ../app/app_procs.c:958
 msgid ""
 "Modified diagrams exist. Are you sure you want to quit Dia without saving "
 "them?"
@@ -187,15 +187,15 @@ msgstr ""
 "Endret diagram eksisterer. Er du sikker på at du vil avslutte Dia uten å "
 "lagre?"
 
-#: ../app/app_procs.c:961
+#: ../app/app_procs.c:962
 msgid "Quit Dia"
 msgstr "Avslutt dia"
 
-#: ../app/app_procs.c:1030 ../app/app_procs.c:1037
+#: ../app/app_procs.c:1031 ../app/app_procs.c:1038
 msgid "Could not create per-user Dia config directory"
 msgstr "Kunne ikke opprette per-bruker konfigurasjonskatalog for Dia"
 
-#: ../app/app_procs.c:1040
+#: ../app/app_procs.c:1041
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -203,20 +203,20 @@ msgstr ""
 "Kunne ikke opprette per-bruker konfigurasjonskatalog. Vennligst sjekk at "
 "miljøvariabelen $HOME peker til en eksisterende katalog."
 
-#: ../app/app_procs.c:1063
+#: ../app/app_procs.c:1064
 msgid "Objects and filters internal to dia"
 msgstr "Interne bjekter og filtre for dia"
 
-#: ../app/app_procs.c:1095
+#: ../app/app_procs.c:1096
 msgid "[FILE...]"
 msgstr "[FIL...]"
 
-#: ../app/app_procs.c:1116
+#: ../app/app_procs.c:1117
 #, c-format
 msgid "'%s' not found!\n"
 msgstr "«%s» ikke funnet!\n"
 
-#: ../app/app_procs.c:1160
+#: ../app/app_procs.c:1161
 #, c-format
 msgid ""
 "The original author of Dia was:\n"
@@ -225,7 +225,7 @@ msgstr ""
 "Dia er opprinnelig skrevet av:\n"
 "\n"
 
-#: ../app/app_procs.c:1165
+#: ../app/app_procs.c:1166
 #, c-format
 msgid ""
 "\n"
@@ -236,7 +236,7 @@ msgstr ""
 "Nåværende vedlikeholdere av Dia er:\n"
 "\n"
 
-#: ../app/app_procs.c:1170
+#: ../app/app_procs.c:1171
 #, c-format
 msgid ""
 "\n"
@@ -247,7 +247,7 @@ msgstr ""
 "Andre som har bidratt er:\n"
 "\n"
 
-#: ../app/app_procs.c:1175
+#: ../app/app_procs.c:1176
 #, c-format
 msgid ""
 "\n"
@@ -270,17 +270,17 @@ msgstr ""
 "Autolagrede filer eksisterer.\n"
 "Vennligst velg hvilke du ønsker å gjenopprette."
 
-#: ../app/color_area.c:317 ../app/color_area.c:364
+#: ../app/color_area.c:317 ../app/color_area.c:360
 msgid "Select foreground color"
 msgstr "Velg forgrunnsfarge"
 
-#: ../app/color_area.c:318 ../app/color_area.c:365
+#: ../app/color_area.c:318 ../app/color_area.c:361
 msgid "Select background color"
 msgstr "Velg bakgrunnsfarge"
 
 #: ../app/commands.c:124
 msgid "No print plug-in found!"
-msgstr ""
+msgstr "Fant ingen tillegg for utskrift!"
 
 #: ../app/commands.c:152
 #, c-format
@@ -329,7 +329,7 @@ msgstr ""
 msgid "A program for drawing structured diagrams."
 msgstr "Et program for tegning av strukturerte diagram."
 
-#: ../app/defaults.c:43 ../app/defaults.c:146
+#: ../app/defaults.c:43 ../app/defaults.c:145
 msgid "Object defaults"
 msgstr "Standardverdier for objekt"
 
@@ -337,7 +337,7 @@ msgstr "Standardverdier for objekt"
 msgid "This object has no defaults."
 msgstr "Dette objektet har ingen standardverdier."
 
-#: ../app/defaults.c:111
+#: ../app/defaults.c:110
 msgid "Defaults: "
 msgstr "Forvalg: "
 
@@ -425,7 +425,7 @@ msgstr ""
 msgid "Couldn't convert filename '%s' to UTF-8: %s\n"
 msgstr "Kunne ikke konvertere filnavn «%s» til UTF-8: %s\n"
 
-#: ../app/diagram.c:225 ../lib/message.c:89 ../lib/message.c:292
+#: ../app/diagram.c:225 ../lib/message.c:88 ../lib/message.c:291
 msgid "Error"
 msgstr "Feil"
 
@@ -447,83 +447,83 @@ msgstr ""
 "Du kan ikke gruppere objekter som tilhører forskjellige grupper eller har "
 "forskjellig opphav"
 
-#: ../app/diagram_tree_menu.c:46
+#: ../app/diagram_tree_menu.c:47
 msgid "/_Sort objects"
 msgstr "/_Sorter objekter"
 
-#: ../app/diagram_tree_menu.c:47
+#: ../app/diagram_tree_menu.c:48
 msgid "/Sort objects/by _name"
 msgstr "/Sorter objekter/etter _navn"
 
-#: ../app/diagram_tree_menu.c:49
+#: ../app/diagram_tree_menu.c:50
 msgid "/Sort objects/by _type"
 msgstr "/Sorter objekter/etter _type"
 
-#: ../app/diagram_tree_menu.c:51
+#: ../app/diagram_tree_menu.c:52
 msgid "/Sort objects/as _inserted"
 msgstr "/Sorter objekter/som de blir satt _in"
 
-#: ../app/diagram_tree_menu.c:54
+#: ../app/diagram_tree_menu.c:55
 msgid "/Sort objects/All by name"
 msgstr "/Sorter objekter/alle etter navn"
 
-#: ../app/diagram_tree_menu.c:56
+#: ../app/diagram_tree_menu.c:57
 msgid "/Sort objects/All by type"
 msgstr "/Sorter objekter/alle etter type"
 
-#: ../app/diagram_tree_menu.c:58
+#: ../app/diagram_tree_menu.c:59
 msgid "/Sort objects/All as inserted"
 msgstr "/Sorter objekter/alle som innsatt"
 
-#: ../app/diagram_tree_menu.c:60
+#: ../app/diagram_tree_menu.c:61
 msgid "/Sort objects/_Default"
 msgstr "/Sorter objekter/_Forvalg"
 
-#: ../app/diagram_tree_menu.c:61
+#: ../app/diagram_tree_menu.c:62
 msgid "/Sort objects/Default/by _name"
 msgstr "/Sorter objekter/Forvalg/etter _navn"
 
-#: ../app/diagram_tree_menu.c:63
+#: ../app/diagram_tree_menu.c:64
 msgid "/Sort objects/Default/by _type"
 msgstr "/Sorter objekter/Forvalg/etter _type"
 
-#: ../app/diagram_tree_menu.c:65
+#: ../app/diagram_tree_menu.c:66
 msgid "/Sort objects/Default/as _inserted"
 msgstr "/Sorter objekter/Forvalg/som _innsatt"
 
-#: ../app/diagram_tree_menu.c:67
+#: ../app/diagram_tree_menu.c:68
 msgid "/Sort _diagrams"
 msgstr "/Sorter diagram"
 
-#: ../app/diagram_tree_menu.c:68
+#: ../app/diagram_tree_menu.c:69
 msgid "/Sort _diagrams/by _name"
 msgstr "/Sorter _diagram/etter _navn"
 
-#: ../app/diagram_tree_menu.c:70
+#: ../app/diagram_tree_menu.c:71
 msgid "/Sort _diagrams/as _inserted"
 msgstr "/Sorter _diagram/som _innsatt"
 
-#: ../app/diagram_tree_menu.c:72
+#: ../app/diagram_tree_menu.c:73
 msgid "/Sort diagrams/_Default"
 msgstr "/Sorter diagram/_Forvalg"
 
-#: ../app/diagram_tree_menu.c:73
+#: ../app/diagram_tree_menu.c:74
 msgid "/Sort diagrams/Default/by _name"
 msgstr "/Sorter diagram/Forvalg/etter _navn"
 
-#: ../app/diagram_tree_menu.c:75
+#: ../app/diagram_tree_menu.c:76
 msgid "/Sort diagrams/Default/as _inserted"
 msgstr "/Sorter diagram/Forvalg/som _innsatt"
 
-#: ../app/diagram_tree_menu.c:83 ../app/diagram_tree_menu.c:94
+#: ../app/diagram_tree_menu.c:84 ../app/diagram_tree_menu.c:95
 msgid "/_Locate"
 msgstr "/_Finn"
 
-#: ../app/diagram_tree_menu.c:84
+#: ../app/diagram_tree_menu.c:85
 msgid "/_Properties"
 msgstr "/_Egenskaper"
 
-#: ../app/diagram_tree_menu.c:85
+#: ../app/diagram_tree_menu.c:86
 msgid "/_Hide this type"
 msgstr "/_Skjul denne typen"
 
@@ -532,63 +532,63 @@ msgid "Diagram Tree"
 msgstr "Diagramtre"
 
 #. paper size
-#: ../app/diapagelayout.c:117
+#: ../app/diapagelayout.c:153
 msgid "Paper Size"
 msgstr "Papirstørrelse"
 
 #. orientation
-#: ../app/diapagelayout.c:150
+#: ../app/diapagelayout.c:186
 msgid "Orientation"
 msgstr "Orientering"
 
 #. margins
-#: ../app/diapagelayout.c:188
+#: ../app/diapagelayout.c:224
 msgid "Margins"
 msgstr "Marger"
 
-#: ../app/diapagelayout.c:200
+#: ../app/diapagelayout.c:236
 msgid "Top:"
 msgstr "Øverst:"
 
-#: ../app/diapagelayout.c:213
+#: ../app/diapagelayout.c:249
 msgid "Bottom:"
 msgstr "Nederst:"
 
-#: ../app/diapagelayout.c:226
+#: ../app/diapagelayout.c:262
 msgid "Left:"
 msgstr "Venstre:"
 
-#: ../app/diapagelayout.c:239
+#: ../app/diapagelayout.c:275
 msgid "Right:"
 msgstr "Høyre:"
 
 #. Scaling
-#: ../app/diapagelayout.c:253
+#: ../app/diapagelayout.c:289
 msgid "Scaling"
 msgstr "Skalering"
 
-#: ../app/diapagelayout.c:264
+#: ../app/diapagelayout.c:300
 msgid "Scale:"
 msgstr "Skala:"
 
-#: ../app/diapagelayout.c:276
+#: ../app/diapagelayout.c:312
 msgid "Fit to:"
 msgstr "Tilpass:"
 
-#: ../app/diapagelayout.c:288
+#: ../app/diapagelayout.c:324
 msgid "by"
 msgstr "etter"
 
-#: ../app/diapagelayout.c:699
+#: ../app/diapagelayout.c:741
 #, c-format
 msgid "%0.3gcm x %0.3gcm"
 msgstr "%0.3gcm x %0.3gcm"
 
-#: ../app/diapagelayout.c:803 ../app/pagesetup.c:76
+#: ../app/diapagelayout.c:845 ../app/pagesetup.c:76
 msgid "Page Setup"
 msgstr "Sideoppsett"
 
-#: ../app/disp_callbacks.c:84 ../app/properties.c:153
+#: ../app/disp_callbacks.c:84 ../app/properties.c:152
 msgid ""
 "This object doesn't support Undo/Redo.\n"
 "Undo information erased."
@@ -600,7 +600,7 @@ msgstr ""
 msgid "Properties..."
 msgstr "Egenskaper..."
 
-#: ../app/disp_callbacks.c:939
+#: ../app/disp_callbacks.c:937
 msgid ""
 "The object you dropped cannot fit into its parent. \n"
 "Either expand the parent object, or drop the object elsewhere."
@@ -625,20 +625,20 @@ msgid "Selected '%s'"
 msgstr "Valgte «%s»"
 
 #. we really should not come here but instead disable the menu command earlier
-#: ../app/display.c:1035
+#: ../app/display.c:1034
 msgid "No anti-aliased renderer found"
 msgstr ""
 
-#: ../app/display.c:1180
+#: ../app/display.c:1179
 msgid "<unnamed>"
 msgstr "<uten navn>"
 
 #. no standard buttons
-#: ../app/display.c:1186
+#: ../app/display.c:1185
 msgid "Closing diagram without saving"
 msgstr "Lukker diagram uten å lagre"
 
-#: ../app/display.c:1188
+#: ../app/display.c:1187
 #, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -647,11 +647,11 @@ msgstr ""
 "Diagrammet «%s»\n"
 "er ikke lagret. Lagre endringer nå?"
 
-#: ../app/display.c:1190
+#: ../app/display.c:1189
 msgid "Close Diagram"
 msgstr "Lukk diagram"
 
-#: ../app/display.c:1195
+#: ../app/display.c:1194
 msgid "_Discard Changes"
 msgstr "_Forkast endringer"
 
@@ -682,7 +682,7 @@ msgstr "aktiv"
 #. *** board of value **************
 #: ../app/exit_dialog.c:124 ../app/plugin-manager.c:262
 #: ../objects/Database/table.c:136 ../objects/Database/table.c:179
-#: ../objects/SISSI/sissi_dialog.c:618 ../objects/UML/association.c:236
+#: ../objects/SISSI/sissi_dialog.c:619 ../objects/UML/association.c:236
 #: ../objects/UML/class.c:141 ../objects/UML/large_package.c:133
 #: ../objects/UML/umlattribute.c:37 ../objects/UML/umlformalparameter.c:35
 #: ../objects/UML/umloperation.c:62 ../objects/UML/umlparameter.c:43
@@ -705,32 +705,32 @@ msgstr "Velg ingen"
 msgid "Nothing selected for saving.  Would you like to try again?"
 msgstr "Ingenting valgt for lagring. Vil du prøve igjen?"
 
-#: ../app/filedlg.c:141 ../app/filedlg.c:149 ../app/filedlg.c:165
-#: ../app/filedlg.c:732 ../lib/widgets.c:1457
+#: ../app/filedlg.c:143 ../app/filedlg.c:151 ../app/filedlg.c:167
+#: ../app/filedlg.c:741 ../lib/widgets.c:1488
 msgid "Supported Formats"
 msgstr "Støttede formater"
 
-#: ../app/filedlg.c:189 ../app/filedlg.c:592
+#: ../app/filedlg.c:191 ../app/filedlg.c:601
 msgid "By extension"
 msgstr "På etternavn"
 
-#: ../app/filedlg.c:278
+#: ../app/filedlg.c:280
 msgid "Open Diagram"
 msgstr "Åpne diagram"
 
-#: ../app/filedlg.c:307
+#: ../app/filedlg.c:309
 msgid "Open Options"
 msgstr "Alternativer for åpning"
 
-#: ../app/filedlg.c:315 ../app/filedlg.c:714
+#: ../app/filedlg.c:317 ../app/filedlg.c:723
 msgid "Determine file type:"
 msgstr "Bestem filtype:"
 
-#: ../app/filedlg.c:335 ../app/filedlg.c:727 ../lib/widgets.c:1462
+#: ../app/filedlg.c:337 ../app/filedlg.c:736 ../lib/widgets.c:1493
 msgid "All Files"
 msgstr "Alle filer"
 
-#: ../app/filedlg.c:368 ../plug-ins/postscript/paginate_psprint.c:409
+#: ../app/filedlg.c:370 ../plug-ins/postscript/paginate_psprint.c:409
 msgid ""
 "Some characters in the filename are neither UTF-8\n"
 "nor your local encoding.\n"
@@ -740,12 +740,12 @@ msgstr ""
 "din lokale koding.\n"
 "Noe vil gå galt."
 
-#: ../app/filedlg.c:378 ../app/filedlg.c:639
+#: ../app/filedlg.c:380 ../app/filedlg.c:648
 #: ../plug-ins/postscript/paginate_psprint.c:424
 msgid "File already exists"
 msgstr "Filen eksisterer allerede"
 
-#: ../app/filedlg.c:380 ../app/filedlg.c:641
+#: ../app/filedlg.c:382 ../app/filedlg.c:650
 #: ../plug-ins/postscript/paginate_psprint.c:416
 #, c-format
 msgid ""
@@ -755,17 +755,17 @@ msgstr ""
 "Filen «%s» eksisterer allerede.\n"
 "Vil du overskrive den?"
 
-#: ../app/filedlg.c:434
+#: ../app/filedlg.c:436
 msgid "Save Diagram"
 msgstr "Lagre diagram"
 
 #. Need better way to make it a reasonable size.  Isn't there some
 #. standard look for them (or is that just Gnome?)
-#: ../app/filedlg.c:446
+#: ../app/filedlg.c:448
 msgid "Compress diagram files"
 msgstr "Komprimer diagramfiler"
 
-#: ../app/filedlg.c:455
+#: ../app/filedlg.c:458 ../app/filedlg.c:463
 msgid ""
 "Compression reduces file size to less than 1/10th size and speeds up loading "
 "and saving.  Some text programs cannot manipulate compressed files."
@@ -774,7 +774,7 @@ msgstr ""
 "og gjør lasting og lagring raskere. Noen tekstprogrammer har problemer med å "
 "manipulere komprimerte filer."
 
-#: ../app/filedlg.c:665
+#: ../app/filedlg.c:674
 #, c-format
 msgid ""
 "Could not determine which export filter\n"
@@ -783,11 +783,11 @@ msgstr ""
 "Kunne ikke bestemme hvilket eksportfilter\n"
 "som skulle brukes til å lagre «%s»"
 
-#: ../app/filedlg.c:689
+#: ../app/filedlg.c:698
 msgid "Export Diagram"
 msgstr "Eksporter diagram"
 
-#: ../app/filedlg.c:706
+#: ../app/filedlg.c:715
 msgid "Export Options"
 msgstr "Alternativer for eksport"
 
@@ -812,7 +812,7 @@ msgstr ""
 msgid "Find"
 msgstr "Finn"
 
-#: ../app/find-and-replace.c:367 ../app/menus.c:256
+#: ../app/find-and-replace.c:367 ../app/menus.c:258
 msgid "Replace"
 msgstr "Erstatt"
 
@@ -827,24 +827,24 @@ msgstr "Erstatt _alle"
 msgid "_Replace"
 msgstr "E_rstatt"
 
-#: ../app/interface.c:144
+#: ../app/interface.c:145
 msgid ""
 "Modify object(s)\n"
 "Use <Space> to toggle between this and other tools"
 msgstr ""
 
-#: ../app/interface.c:150
+#: ../app/interface.c:151
 msgid ""
 "Text edit(s)\n"
 "Use <Esc> to leave this tool"
 msgstr ""
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Magnify
-#: ../app/interface.c:156 ../app/menus.c:218 ../objects/FS/function.c:988
+#: ../app/interface.c:157 ../app/menus.c:220 ../objects/FS/function.c:988
 msgid "Magnify"
 msgstr "Forstørr"
 
-#: ../app/interface.c:162
+#: ../app/interface.c:163
 msgid "Scroll around the diagram"
 msgstr "Rull rundt i diagrammet"
 
@@ -852,7 +852,7 @@ msgstr "Rull rundt i diagrammet"
 #. new name matching "same name, same type"  rule
 #. backward compatibility
 #. new name matching "same name, same type"  rule
-#: ../app/interface.c:168 ../app/menus.c:221 ../lib/properties.c:79
+#: ../app/interface.c:169 ../app/menus.c:223 ../lib/properties.c:79
 #: ../lib/properties.h:522 ../objects/AADL/aadlbox.c:157
 #: ../objects/AADL/aadlbox.c:159 ../objects/Jackson/requirement.c:144
 #: ../objects/UML/activity.c:129 ../objects/UML/actor.c:124
@@ -861,93 +861,93 @@ msgstr "Rull rundt i diagrammet"
 #: ../objects/UML/node.c:132 ../objects/UML/note.c:123
 #: ../objects/UML/object.c:150 ../objects/UML/small_package.c:130
 #: ../objects/UML/state.c:154 ../objects/UML/usecase.c:140
-#: ../objects/custom/custom_object.c:232 ../objects/network/basestation.c:135
+#: ../objects/custom/custom_object.c:236 ../objects/network/basestation.c:135
 #: ../objects/network/radiocell.c:127
 msgid "Text"
 msgstr "Tekst"
 
-#: ../app/interface.c:174 ../app/menus.c:222
+#: ../app/interface.c:175 ../app/menus.c:224
 msgid "Box"
 msgstr "Boks"
 
-#: ../app/interface.c:180 ../app/menus.c:223
+#: ../app/interface.c:181 ../app/menus.c:225
 msgid "Ellipse"
 msgstr "Elipse"
 
-#: ../app/interface.c:186 ../app/menus.c:224
+#: ../app/interface.c:187 ../app/menus.c:226
 msgid "Polygon"
 msgstr "Polygon"
 
-#: ../app/interface.c:192 ../app/menus.c:225
+#: ../app/interface.c:193 ../app/menus.c:227
 msgid "Beziergon"
 msgstr "Beziergon"
 
-#: ../app/interface.c:198 ../app/menus.c:227 ../objects/standard/line.c:229
+#: ../app/interface.c:199 ../app/menus.c:229 ../objects/standard/line.c:229
 msgid "Line"
 msgstr "Linje"
 
-#: ../app/interface.c:204 ../app/menus.c:228
+#: ../app/interface.c:205 ../app/menus.c:230
 msgid "Arc"
 msgstr "Bue"
 
-#: ../app/interface.c:210 ../app/menus.c:229
+#: ../app/interface.c:211 ../app/menus.c:231
 msgid "Zigzagline"
 msgstr "Sikksakk-linje"
 
-#: ../app/interface.c:216 ../app/menus.c:230
+#: ../app/interface.c:217 ../app/menus.c:232
 msgid "Polyline"
 msgstr "Polilinje"
 
-#: ../app/interface.c:222 ../app/menus.c:231
+#: ../app/interface.c:223 ../app/menus.c:233
 msgid "Bezierline"
 msgstr "Bezier linje"
 
-#: ../app/interface.c:228 ../app/menus.c:234
+#: ../app/interface.c:229 ../app/menus.c:236
 msgid "Image"
 msgstr "Bilde"
 
-#: ../app/interface.c:234 ../app/menus.c:232
+#: ../app/interface.c:235 ../app/menus.c:234
 msgid "Outline"
 msgstr ""
 
-#: ../app/interface.c:607 ../app/interface.c:843
+#: ../app/interface.c:609 ../app/interface.c:845
 msgid "Pops up the Navigation window."
 msgstr "Viser navigasjonsvinduet."
 
-#: ../app/interface.c:805
+#: ../app/interface.c:807
 msgid "Diagram menu."
 msgstr "Diagrammeny."
 
-#: ../app/interface.c:909
+#: ../app/interface.c:911
 msgid "Zoom"
 msgstr "Zoom"
 
-#: ../app/interface.c:924
+#: ../app/interface.c:926
 msgid "Toggles snap-to-grid for this window."
 msgstr "Slår av/på fest til rutenett for dette vinduet."
 
-#: ../app/interface.c:935
+#: ../app/interface.c:937
 msgid "Toggles object snapping for this window."
 msgstr "Slår av/på fest til rutenett for dette vinduet."
 
-#: ../app/interface.c:998
+#: ../app/interface.c:1000
 msgid "NULL tooldata in tool_select_update"
 msgstr "NULL verktøydata i tool_select_update"
 
-#: ../app/interface.c:1325
+#: ../app/interface.c:1327
 #, c-format
 msgid "No sheet named %s"
 msgstr "Ingen ark med navn %s"
 
-#: ../app/interface.c:1363
+#: ../app/interface.c:1365
 msgid "Other sheets"
 msgstr "Andre ark"
 
-#: ../app/interface.c:1423 ../sheets/Flowchart.sheet.in.h:10
+#: ../app/interface.c:1425 ../sheets/Flowchart.sheet.in.h:10
 msgid "Flowchart"
 msgstr "Flytdiagram"
 
-#: ../app/interface.c:1483
+#: ../app/interface.c:1485
 msgid ""
 "Foreground & background colors for new objects.  The small black and white "
 "squares reset colors.  The small arrows swap colors.  Double click to change "
@@ -957,7 +957,7 @@ msgstr ""
 "tilbakesetter farger. De små pilene bytter farger. Dobbeltklikk for å endre "
 "farger."
 
-#: ../app/interface.c:1498
+#: ../app/interface.c:1500
 msgid ""
 "Line widths.  Click on a line to set the default line width for new "
 "objects.  Double-click to set the line width more precisely."
@@ -965,7 +965,7 @@ msgstr ""
 "Linjebredde. Klikk på en linje for å sette forvalgt linjebredde for nye "
 "objekter. Dobbeltklikk for å sette linjebredden mer presist."
 
-#: ../app/interface.c:1541
+#: ../app/interface.c:1543
 msgid ""
 "Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
 "arrow parameters with Details..."
@@ -973,13 +973,13 @@ msgstr ""
 "Stil for pil på begynnelsen av nye linjer. Klikk for å velge en pil, eller "
 "sett parametere for piler under Detaljer..."
 
-#: ../app/interface.c:1546
+#: ../app/interface.c:1548
 msgid ""
 "Line style for new lines.  Click to pick a line style, or set line style "
 "parameters with Details..."
 msgstr "Forvalgt høyde:"
 
-#: ../app/interface.c:1562
+#: ../app/interface.c:1564
 msgid ""
 "Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
 "parameters with Details..."
@@ -987,48 +987,52 @@ msgstr ""
 "Stil for pil på slutten av nye linjer. Klikk for å velge en pil eller sett "
 "parametere for pilen under Detaljer..."
 
-#: ../app/interface.c:1620 ../app/interface.c:1744
+#: ../app/interface.c:1624 ../app/interface.c:1753
 msgid "Diagram Editor"
 msgstr "Diagramredigering"
 
-#: ../app/layer_dialog.c:101
+#: ../app/layer_dialog.c:159
 msgid "New Layer"
 msgstr "Nytt lag"
 
-#: ../app/layer_dialog.c:102
+#: ../app/layer_dialog.c:160
 msgid "Raise Layer"
 msgstr "Hev lag"
 
-#: ../app/layer_dialog.c:103
+#: ../app/layer_dialog.c:161
 msgid "Lower Layer"
 msgstr "Senk lag"
 
-#: ../app/layer_dialog.c:104
+#: ../app/layer_dialog.c:162
 msgid "Delete Layer"
 msgstr "Slett lag"
 
-#: ../app/layer_dialog.c:225
+#: ../app/layer_dialog.c:305
+msgid "Layers:"
+msgstr "Lag:"
+
+#: ../app/layer_dialog.c:385
 msgid "Layers"
 msgstr "Lag"
 
-#: ../app/layer_dialog.c:239
+#: ../app/layer_dialog.c:399
 msgid "Diagram:"
 msgstr "Diagram:"
 
-#: ../app/layer_dialog.c:353
+#: ../app/layer_dialog.c:513
 #, c-format
 msgid "New layer %d"
 msgstr "Nytt lag %d"
 
-#: ../app/layer_dialog.c:565
+#: ../app/layer_dialog.c:728
 msgid "none"
 msgstr "ingen"
 
-#: ../app/layer_dialog.c:987
+#: ../app/layer_dialog.c:1153
 msgid "Edit Layer Attributes"
 msgstr "Rediger lagets attributter"
 
-#: ../app/layer_dialog.c:1006
+#: ../app/layer_dialog.c:1172
 msgid "Layer name:"
 msgstr "Navn på lag:"
 
@@ -1124,14 +1128,14 @@ msgstr ""
 "En gyldig Dia-fil definerer minst ett lag."
 
 #: ../app/load_save.c:978
-#, fuzzy, c-format
+#, c-format
 msgid "Not allowed to write to output file %s\n"
-msgstr "Kunne ikke åpne utfil %s: %s\n"
+msgstr "Kan ikke skrive til utfil %s\n"
 
 #: ../app/load_save.c:1000
 #, c-format
 msgid "Not allowed to write temporary files in %s\n"
-msgstr ""
+msgstr "Kan ikke lage midlertidige filer i %s\n"
 
 #: ../app/load_save.c:1022 ../plug-ins/cairo/diacairo.c:122
 #: ../plug-ins/cgm/cgm.c:1153 ../plug-ins/dxf/dxf-export.c:547
@@ -1149,9 +1153,9 @@ msgstr "Kunne ikke åpne utfil %s: %s\n"
 #. Save failed; we clean our stuff up, without touching the file named
 #. "filename" if it existed.
 #: ../app/load_save.c:1033
-#, fuzzy, c-format
+#, c-format
 msgid "Internal error %d writing file %s\n"
-msgstr "%s feil: trenger gyldig innfil %s\n"
+msgstr "Intern feil %d under skriving av fil %s\n"
 
 #: ../app/load_save.c:1047
 #, fuzzy, c-format
@@ -1162,365 +1166,367 @@ msgstr "Kunne ikke åpne utfil %s: %s\n"
 msgid "Dia Diagram File"
 msgstr "Dia diagramfil"
 
-#: ../app/menus.c:57
-#, fuzzy
+#: ../app/menus.c:58
 msgid "Fit"
-msgstr "Filtrer"
+msgstr "Tilpass"
 
-#: ../app/menus.c:75
+#: ../app/menus.c:76
 msgid "_File"
 msgstr "_Fil"
 
-#: ../app/menus.c:79
+#: ../app/menus.c:80
 msgid "_Help"
 msgstr "_Hjelp"
 
-#: ../app/menus.c:87
+#: ../app/menus.c:88
 msgid "Sheets and Objects..."
 msgstr "Ark og objekter..."
 
-#: ../app/menus.c:89
+#: ../app/menus.c:90
 msgid "Plugins..."
 msgstr "Tillegg..."
 
-#: ../app/menus.c:95
+#: ../app/menus.c:96
 msgid "_Diagram tree..."
 msgstr "_Diagramtre..."
 
-#: ../app/menus.c:101
+#: ../app/menus.c:102
 msgid "Show Toolbar"
 msgstr "Vis verktøylinje"
 
-#: ../app/menus.c:102
+#: ../app/menus.c:103
 msgid "Show Statusbar"
 msgstr "Vis statuslinje"
 
-#: ../app/menus.c:110
+#: ../app/menus.c:104
+msgid "Show Layers"
+msgstr "Vis lag"
+
+#: ../app/menus.c:112
 msgid "_Export ..."
 msgstr "_Eksporter..."
 
-#: ../app/menus.c:111
+#: ../app/menus.c:113
 msgid "Page Set_up..."
 msgstr "Side_oppsett..."
 
-#: ../app/menus.c:115 ../app/sheets_dialog.c:235
+#: ../app/menus.c:117 ../app/sheets_dialog.c:236
 msgid "_Edit"
 msgstr "R_ediger"
 
-#: ../app/menus.c:122
+#: ../app/menus.c:124
 msgid "_Duplicate"
 msgstr "_Dupliser"
 
 #. the following used to bind to <control><shift>C which collides with Unicode input.
 #. * <control>>alt> doesn't work either
-#: ../app/menus.c:130
+#: ../app/menus.c:132
 msgid "Copy Text"
 msgstr "Kopier tekst"
 
-#: ../app/menus.c:131
+#: ../app/menus.c:133
 msgid "Cut Text"
 msgstr "Klipp ut tekst"
 
-#: ../app/menus.c:132
+#: ../app/menus.c:134
 msgid "Paste _Text"
 msgstr "Lim inn _tekst"
 
-#: ../app/menus.c:134
+#: ../app/menus.c:136
 msgid "_Diagram"
 msgstr "_Diagram"
 
-#: ../app/menus.c:136
+#: ../app/menus.c:138
 msgid "_Layers..."
 msgstr "_Lag..."
 
-#: ../app/menus.c:138
+#: ../app/menus.c:140
 msgid "_View"
 msgstr "_Vis"
 
-#: ../app/menus.c:141
+#: ../app/menus.c:143
 msgid "_Zoom"
 msgstr "_Zoom"
 
-#: ../app/menus.c:142
+#: ../app/menus.c:144
 msgid "1600%"
 msgstr "1600%"
 
-#: ../app/menus.c:143 ../app/menus.c:562
+#: ../app/menus.c:145 ../app/menus.c:564
 msgid "800%"
 msgstr "800%"
 
-#: ../app/menus.c:144 ../app/menus.c:563
+#: ../app/menus.c:146 ../app/menus.c:565
 msgid "400%"
 msgstr "400%"
 
-#: ../app/menus.c:145
+#: ../app/menus.c:147
 msgid "283"
 msgstr "283"
 
-#: ../app/menus.c:146
+#: ../app/menus.c:148
 msgid "200"
 msgstr "200"
 
-#: ../app/menus.c:147
+#: ../app/menus.c:149
 msgid "141"
 msgstr "141"
 
-#: ../app/menus.c:149
+#: ../app/menus.c:151
 msgid "85"
 msgstr "85"
 
-#: ../app/menus.c:150
+#: ../app/menus.c:152
 msgid "70.7"
 msgstr "70.7"
 
-#: ../app/menus.c:151
+#: ../app/menus.c:153
 msgid "50"
 msgstr "50"
 
-#: ../app/menus.c:152
+#: ../app/menus.c:154
 msgid "35.4"
 msgstr "35.4"
 
-#: ../app/menus.c:153
+#: ../app/menus.c:155
 msgid "25"
 msgstr "25"
 
 #. "display_toggle_entries" items go here
-#: ../app/menus.c:159
+#: ../app/menus.c:161
 msgid "New _View"
 msgstr "Ny _visning"
 
-#: ../app/menus.c:160
+#: ../app/menus.c:162
 msgid "C_lone View"
 msgstr "Dup_liser visning"
 
-#: ../app/menus.c:163
+#: ../app/menus.c:165
 msgid "_Objects"
 msgstr "_Objekter"
 
-#: ../app/menus.c:164
+#: ../app/menus.c:166
 msgid "Send to _Back"
 msgstr "Send til _bakgrunn"
 
-#: ../app/menus.c:165
+#: ../app/menus.c:167
 msgid "Bring to _Front"
 msgstr "Hent _fram"
 
-#: ../app/menus.c:166
+#: ../app/menus.c:168
 msgid "Send Backwards"
 msgstr "Send bakover"
 
-#: ../app/menus.c:167
+#: ../app/menus.c:169
 msgid "Bring Forwards"
 msgstr "Hent fram"
 
-#: ../app/menus.c:169
+#: ../app/menus.c:171
 msgid "_Group"
 msgstr "_Grupper"
 
 #. deliberately not using Ctrl+U for Ungroup
-#: ../app/menus.c:171
+#: ../app/menus.c:173
 msgid "_Ungroup"
 msgstr "_Del opp gruppe"
 
-#: ../app/menus.c:173
+#: ../app/menus.c:175
 msgid "_Parent"
 msgstr "_Opphav"
 
-#: ../app/menus.c:174
+#: ../app/menus.c:176
 msgid "_Unparent"
 msgstr "_Fjern opphav"
 
-#: ../app/menus.c:175
+#: ../app/menus.c:177
 msgid "_Unparent Children"
 msgstr ""
 
 #. Translators: Menu item Verb/Support/Position/Align
-#: ../app/menus.c:177 ../objects/FS/function.c:808
+#: ../app/menus.c:179 ../objects/FS/function.c:808
 msgid "Align"
 msgstr "Juster"
 
-#: ../app/menus.c:182 ../objects/standard/textobj.c:134
+#: ../app/menus.c:184 ../objects/standard/textobj.c:134
 msgid "Top"
 msgstr "Topp"
 
-#: ../app/menus.c:183
+#: ../app/menus.c:185
 msgid "Middle"
 msgstr "Midt på"
 
-#: ../app/menus.c:184 ../objects/standard/textobj.c:133
+#: ../app/menus.c:186 ../objects/standard/textobj.c:133
 msgid "Bottom"
 msgstr "Bunn"
 
-#: ../app/menus.c:186
+#: ../app/menus.c:188
 msgid "Spread Out Horizontally"
 msgstr "Spre horisontalt"
 
-#: ../app/menus.c:187
+#: ../app/menus.c:189
 msgid "Spread Out Vertically"
 msgstr "Spre ut vertikalt"
 
-#: ../app/menus.c:188
+#: ../app/menus.c:190
 msgid "Adjacent"
 msgstr ""
 
-#: ../app/menus.c:189
+#: ../app/menus.c:191
 msgid "Stacked"
 msgstr "Stablet"
 
-#: ../app/menus.c:193
+#: ../app/menus.c:195
 msgid "_Select"
 msgstr "_Velg"
 
-#: ../app/menus.c:194
+#: ../app/menus.c:196
 msgid "All"
 msgstr "Alle"
 
-#: ../app/menus.c:195 ../lib/arrows.c:1882 ../objects/Jackson/domain.c:96
+#: ../app/menus.c:197 ../lib/arrows.c:1882 ../objects/Jackson/domain.c:96
 #: ../objects/UML/association.c:223 ../objects/UML/association.c:229
 msgid "None"
 msgstr "Ingen"
 
-#: ../app/menus.c:196
+#: ../app/menus.c:198
 msgid "Invert"
 msgstr "Snu"
 
-#: ../app/menus.c:198
+#: ../app/menus.c:200
 msgid "Transitive"
 msgstr "Transitiv"
 
-#: ../app/menus.c:199
+#: ../app/menus.c:201
 msgid "Connected"
 msgstr "Koblet til"
 
-#: ../app/menus.c:200
+#: ../app/menus.c:202
 msgid "Same Type"
 msgstr "Samme type"
 
 #. display_select_radio_entries go here
-#: ../app/menus.c:204
+#: ../app/menus.c:206
 msgid "Select By"
 msgstr "Velg etter"
 
-#: ../app/menus.c:206
+#: ../app/menus.c:208
 msgid "_Input Methods"
 msgstr "_Inndatametoder"
 
-#: ../app/menus.c:208
+#: ../app/menus.c:210
 msgid "D_ialogs"
 msgstr "D_ialoger"
 
-#: ../app/menus.c:210
+#: ../app/menus.c:212
 msgid "D_ebug"
 msgstr "F_eilsøk"
 
-#: ../app/menus.c:216
+#: ../app/menus.c:218
 msgid "_Tools"
 msgstr "Verk_tøy"
 
-#: ../app/menus.c:217
+#: ../app/menus.c:219
 msgid "Modify"
 msgstr "Modifiser"
 
-#: ../app/menus.c:219
+#: ../app/menus.c:221
 msgid "Edit text"
 msgstr "Rediger tekst"
 
-#: ../app/menus.c:220
+#: ../app/menus.c:222
 msgid "Scroll"
 msgstr "Rull"
 
-#: ../app/menus.c:243
+#: ../app/menus.c:245
 msgid "Fullscr_een"
 msgstr "Fullskj_erm"
 
-#: ../app/menus.c:245
+#: ../app/menus.c:247
 msgid "_AntiAliased"
 msgstr "_Fargeutjevning"
 
-#: ../app/menus.c:246
+#: ../app/menus.c:248
 msgid "Show _Grid"
 msgstr "Vis _rutenett"
 
-#: ../app/menus.c:247
+#: ../app/menus.c:249
 msgid "_Snap To Grid"
 msgstr "_Fest til rutenett"
 
-#: ../app/menus.c:248
+#: ../app/menus.c:250
 msgid "Snap To _Objects"
 msgstr "Fest til _objekter"
 
-#: ../app/menus.c:249
+#: ../app/menus.c:251
 msgid "Show _Rulers"
 msgstr "Vis linjale_r"
 
-#: ../app/menus.c:250
+#: ../app/menus.c:252
 msgid "Show _Connection Points"
 msgstr "Vis _forbindelsespunkter"
 
-#: ../app/menus.c:257
+#: ../app/menus.c:259
 msgid "Union"
 msgstr "Union"
 
-#: ../app/menus.c:258
+#: ../app/menus.c:260
 msgid "Intersection"
 msgstr "Kryss"
 
 #. Translators: Menu item Verb/Channel/Export/Remove
 #. Translators: Menu item Verb/Branch/Separate/Remove
 #. Translators: Menu item Verb/Branch/Separate/Remove/Remove
-#: ../app/menus.c:259 ../app/sheets_dialog.c:784 ../objects/FS/function.c:708
+#: ../app/menus.c:261 ../app/sheets_dialog.c:785 ../objects/FS/function.c:708
 #: ../objects/FS/function.c:860 ../objects/FS/function.c:862
 msgid "Remove"
 msgstr "Fjern"
 
 #. Cannot also be called Invert, duplicate names caused keybinding problems
-#: ../app/menus.c:261
+#: ../app/menus.c:263
 msgid "Inverse"
 msgstr "Snudd"
 
-#: ../app/menus.c:325
+#: ../app/menus.c:327
 msgid "NULL tooldata in tool_menu_select"
 msgstr "NULL verktøydata i tool_menu_select"
 
-#: ../app/menus.c:564
+#: ../app/menus.c:566
 msgid "300%"
 msgstr "300%"
 
-#: ../app/menus.c:565
+#: ../app/menus.c:567
 msgid "200%"
 msgstr "200%"
 
-#: ../app/menus.c:566
+#: ../app/menus.c:568
 msgid "150%"
 msgstr "150%"
 
-#: ../app/menus.c:567
+#: ../app/menus.c:569
 msgid "100%"
 msgstr "100%"
 
-#: ../app/menus.c:568
+#: ../app/menus.c:570
 msgid "75%"
 msgstr "75%"
 
-#: ../app/menus.c:569
+#: ../app/menus.c:571
 msgid "50%"
 msgstr "50%"
 
-#: ../app/menus.c:570
+#: ../app/menus.c:572
 msgid "25%"
 msgstr "25%"
 
-#: ../app/menus.c:571
+#: ../app/menus.c:573
 msgid "10%"
 msgstr "10%"
 
-#: ../app/menus.c:597
-#, fuzzy
+#: ../app/menus.c:599
 msgid "Toggles snap-to-grid."
-msgstr "Slår av/på fest til rutenett for dette vinduet."
+msgstr "Slår av/på fest til rutenett."
 
-#: ../app/menus.c:609
+#: ../app/menus.c:611
 #, fuzzy
 msgid "Toggles object snapping."
 msgstr "Slår av/på fest til rutenett for dette vinduet."
@@ -1537,8 +1543,8 @@ msgstr "Tillegg"
 msgid "Loaded"
 msgstr "Lastet"
 
-#: ../app/plugin-manager.c:268 ../objects/SISSI/sissi_dialog.c:614
-#: ../objects/SISSI/sissi_dialog.c:766
+#: ../app/plugin-manager.c:268 ../objects/SISSI/sissi_dialog.c:615
+#: ../objects/SISSI/sissi_dialog.c:767
 msgid "Description"
 msgstr "Beskrivelse"
 
@@ -1592,17 +1598,15 @@ msgstr "Hold verktøykassen over diagramvinduer"
 
 #: ../app/preferences.c:144
 msgid "Length unit:"
-msgstr ""
+msgstr "Lengdeenhet:"
 
 #: ../app/preferences.c:147
-#, fuzzy
 msgid "Font-size unit:"
-msgstr "Størrelse på skrifttype"
+msgstr "Enhet for størrelse på skrifttype"
 
 #: ../app/preferences.c:151
-#, fuzzy
 msgid "Integrated UI"
-msgstr "Integrer"
+msgstr "Integrert brukergrensesnitt"
 
 #: ../app/preferences.c:154
 msgid "New diagram:"
@@ -1616,7 +1620,7 @@ msgstr "Portrett"
 msgid "Paper type:"
 msgstr "Papirtype:"
 
-#: ../app/preferences.c:159 ../objects/Database/table_dialog.c:1027
+#: ../app/preferences.c:159 ../objects/Database/table_dialog.c:1078
 msgid "Background Color:"
 msgstr "Bakgrunnsfarge:"
 
@@ -1701,20 +1705,20 @@ msgstr "Vindu for diagramtre:"
 msgid "Save hidden object types"
 msgstr "Lagre skjulte objekttyper"
 
-#: ../app/preferences.c:420 ../lib/prop_inttypes.c:159
+#: ../app/preferences.c:418 ../lib/prop_inttypes.c:158
 msgid "Yes"
 msgstr "Ja"
 
-#: ../app/preferences.c:420 ../app/preferences.c:431
-#: ../lib/prop_inttypes.c:161 ../lib/prop_inttypes.c:187
+#: ../app/preferences.c:418 ../app/preferences.c:429
+#: ../lib/prop_inttypes.c:160 ../lib/prop_inttypes.c:186
 msgid "No"
 msgstr "Nei"
 
-#: ../app/preferences.c:533
+#: ../app/preferences.c:525
 msgid "Preferences"
 msgstr "Innstillinger"
 
-#: ../app/preferences.c:720
+#: ../app/preferences.c:714
 msgid "User Interface type settings change will take after restart"
 msgstr ""
 
@@ -1726,15 +1730,15 @@ msgstr "Egenskaper for objekt"
 msgid "This object has no properties."
 msgstr "Dette objektet har ingen egenskaper."
 
-#: ../app/properties.c:225
+#: ../app/properties.c:224
 msgid "Properties: "
 msgstr "Egenskaper: "
 
-#: ../app/properties.c:229
+#: ../app/properties.c:228
 msgid "Object properties:"
 msgstr "Egenskaper for objekt:"
 
-#: ../app/sheets.c:161
+#: ../app/sheets.c:162
 #, c-format
 msgid ""
 "%s\n"
@@ -1743,7 +1747,7 @@ msgstr ""
 "%s\n"
 "Systemark"
 
-#: ../app/sheets.c:163
+#: ../app/sheets.c:164
 #, c-format
 msgid ""
 "%s\n"
@@ -1752,7 +1756,7 @@ msgstr ""
 "%s\n"
 "Brukerark"
 
-#: ../app/sheets.c:278
+#: ../app/sheets.c:279
 msgid ""
 "Can't get symbol 'custom_type' from any module.\n"
 "Editing shapes is disabled."
@@ -1760,52 +1764,52 @@ msgstr ""
 "Kan ikke hente symbolet «egendefinert type» fra noen modul.\n"
 "Redigering av former er deaktivert."
 
-#: ../app/sheets.c:398
+#: ../app/sheets.c:399
 #, c-format
 msgid "Widget not found: %s"
 msgstr "Widget ikke funnet: %s"
 
-#: ../app/sheets.c:473
+#: ../app/sheets.c:474
 msgid "SVG Shape"
 msgstr "SVG-form"
 
-#: ../app/sheets.c:475
+#: ../app/sheets.c:476
 msgid "Programmed DiaObject"
 msgstr "Programmert DiaObject"
 
-#: ../app/sheets_dialog.c:83
+#: ../app/sheets_dialog.c:84
 msgid "Sheets and Objects"
 msgstr "Ark og objekter"
 
-#: ../app/sheets_dialog.c:109 ../app/sheets_dialog_callbacks.c:179
+#: ../app/sheets_dialog.c:110 ../app/sheets_dialog_callbacks.c:180
 msgid "<- Copy"
 msgstr "<- Kopier"
 
-#: ../app/sheets_dialog.c:119 ../app/sheets_dialog_callbacks.c:181
+#: ../app/sheets_dialog.c:120 ../app/sheets_dialog_callbacks.c:182
 msgid "<- Copy All"
 msgstr "<- Kopier alt"
 
-#: ../app/sheets_dialog.c:126 ../app/sheets_dialog_callbacks.c:183
+#: ../app/sheets_dialog.c:127 ../app/sheets_dialog_callbacks.c:184
 msgid "<- Move"
 msgstr "<- Flytt"
 
-#: ../app/sheets_dialog.c:136 ../app/sheets_dialog_callbacks.c:185
+#: ../app/sheets_dialog.c:137 ../app/sheets_dialog_callbacks.c:186
 msgid "<- Move All"
 msgstr "<- Flytt alt"
 
-#: ../app/sheets_dialog.c:233
+#: ../app/sheets_dialog.c:234
 msgid "Edit"
 msgstr "Rediger"
 
-#: ../app/sheets_dialog.c:266
+#: ../app/sheets_dialog.c:267
 msgid "Revert"
 msgstr "Forkast"
 
-#: ../app/sheets_dialog.c:354
+#: ../app/sheets_dialog.c:355
 msgid "New"
 msgstr "Ny"
 
-#: ../app/sheets_dialog.c:362 ../app/sheets_dialog.c:794
+#: ../app/sheets_dialog.c:363 ../app/sheets_dialog.c:795
 #: ../objects/Database/table.c:138 ../objects/Istar/actor.c:146
 #: ../objects/Istar/actor.c:147 ../objects/Istar/other.c:150
 #: ../objects/Istar/other.c:151 ../objects/KAOS/other.c:153
@@ -1815,91 +1819,91 @@ msgstr "Ny"
 msgid "Type"
 msgstr "Type"
 
-#: ../app/sheets_dialog.c:377
+#: ../app/sheets_dialog.c:378
 msgid "Browse..."
 msgstr "Bla gjennom..."
 
-#: ../app/sheets_dialog.c:386
+#: ../app/sheets_dialog.c:387
 msgid "SVG Shape:"
 msgstr "SVG-form:"
 
-#: ../app/sheets_dialog.c:413 ../app/sheets_dialog.c:476
+#: ../app/sheets_dialog.c:414 ../app/sheets_dialog.c:477
 msgid "description:"
 msgstr "beskrivelse:"
 
-#: ../app/sheets_dialog.c:425
+#: ../app/sheets_dialog.c:426
 msgid "Sheet name:"
 msgstr "Navn på ark:"
 
-#: ../app/sheets_dialog.c:446 ../app/sheets_dialog_callbacks.c:291
-#: ../app/sheets_dialog_callbacks.c:1108
+#: ../app/sheets_dialog.c:447 ../app/sheets_dialog_callbacks.c:292
+#: ../app/sheets_dialog_callbacks.c:1109
 msgid "Line Break"
 msgstr "Linjebryting"
 
-#: ../app/sheets_dialog.c:568
+#: ../app/sheets_dialog.c:569
 msgid "Edit Attributes"
 msgstr "Rediger attributter"
 
-#: ../app/sheets_dialog.c:583
+#: ../app/sheets_dialog.c:584
 msgid "DiaObject"
 msgstr "DiaObject"
 
-#: ../app/sheets_dialog.c:599 ../app/sheets_dialog.c:692
+#: ../app/sheets_dialog.c:600 ../app/sheets_dialog.c:693
 msgid "Description:"
 msgstr "Beskrivelse:"
 
-#: ../app/sheets_dialog.c:618 ../objects/Database/table_dialog.c:644
+#: ../app/sheets_dialog.c:619 ../objects/Database/table_dialog.c:695
 #: ../objects/FS/flow-ortho.c:169 ../objects/FS/flow.c:146
 #: ../objects/Istar/link.c:162 ../objects/Jackson/phenomenon.c:148
 #: ../objects/KAOS/metaandorrel.c:168 ../objects/KAOS/metabinrel.c:173
-#: ../objects/UML/class_dialog.c:1042 ../objects/UML/class_dialog.c:1905
-#: ../objects/UML/class_dialog.c:2141 ../objects/UML/class_dialog.c:2741
+#: ../objects/UML/class_dialog.c:1140 ../objects/UML/class_dialog.c:2003
+#: ../objects/UML/class_dialog.c:2239 ../objects/UML/class_dialog.c:2839
 msgid "Type:"
 msgstr "Type:"
 
-#: ../app/sheets_dialog.c:656
+#: ../app/sheets_dialog.c:657
 msgid "Sheet"
 msgstr "Ark"
 
-#: ../app/sheets_dialog.c:672 ../objects/Database/table_dialog.c:632
-#: ../objects/Database/table_dialog.c:995 ../objects/ER/attribute.c:155
+#: ../app/sheets_dialog.c:673 ../objects/Database/table_dialog.c:683
+#: ../objects/Database/table_dialog.c:1046 ../objects/ER/attribute.c:155
 #: ../objects/ER/entity.c:137 ../objects/ER/relationship.c:142
-#: ../objects/UML/class_dialog.c:1031 ../objects/UML/class_dialog.c:1894
-#: ../objects/UML/class_dialog.c:2130 ../objects/UML/class_dialog.c:2730
+#: ../objects/UML/class_dialog.c:1129 ../objects/UML/class_dialog.c:1992
+#: ../objects/UML/class_dialog.c:2228 ../objects/UML/class_dialog.c:2828
 #: ../objects/UML/dependency.c:137 ../objects/UML/generalization.c:133
 #: ../objects/UML/realizes.c:134
 msgid "Name:"
 msgstr "Navn:"
 
-#: ../app/sheets_dialog.c:809
+#: ../app/sheets_dialog.c:810
 msgid "DiaObject:"
 msgstr "DiaObject:"
 
-#: ../app/sheets_dialog.c:836
+#: ../app/sheets_dialog.c:837
 msgid "Sheet:"
 msgstr "Ark:"
 
-#: ../app/sheets_dialog.c:920
+#: ../app/sheets_dialog.c:921
 msgid "Select SVG Shape File"
 msgstr "Velg fil for SVG-form"
 
-#: ../app/sheets_dialog_callbacks.c:166
+#: ../app/sheets_dialog_callbacks.c:167
 msgid "Copy ->"
 msgstr "Kopier ->"
 
-#: ../app/sheets_dialog_callbacks.c:168
+#: ../app/sheets_dialog_callbacks.c:169
 msgid "Copy All ->"
 msgstr "Kopier alle ->"
 
-#: ../app/sheets_dialog_callbacks.c:170
+#: ../app/sheets_dialog_callbacks.c:171
 msgid "Move ->"
 msgstr "Flytt ->"
 
-#: ../app/sheets_dialog_callbacks.c:172
+#: ../app/sheets_dialog_callbacks.c:173
 msgid "Move All ->"
 msgstr "Flytt alle ->"
 
-#: ../app/sheets_dialog_callbacks.c:305
+#: ../app/sheets_dialog_callbacks.c:306
 #, c-format
 msgid ""
 "%s\n"
@@ -1908,7 +1912,7 @@ msgstr ""
 "%s\n"
 "Form"
 
-#: ../app/sheets_dialog_callbacks.c:308
+#: ../app/sheets_dialog_callbacks.c:309
 #, c-format
 msgid ""
 "%s\n"
@@ -1917,7 +1921,7 @@ msgstr ""
 "%s\n"
 "Objekt"
 
-#: ../app/sheets_dialog_callbacks.c:311
+#: ../app/sheets_dialog_callbacks.c:312
 #, c-format
 msgid ""
 "%s\n"
@@ -1926,67 +1930,67 @@ msgstr ""
 "%s\n"
 "Ikke tildelt type"
 
-#: ../app/sheets_dialog_callbacks.c:802
+#: ../app/sheets_dialog_callbacks.c:803
 #, c-format
 msgid "Filename must end with '%s': '%s'"
 msgstr "Filnavnet må slutte på «%s»: «%s»"
 
-#: ../app/sheets_dialog_callbacks.c:810
+#: ../app/sheets_dialog_callbacks.c:811
 #, c-format
 msgid "Error examining %s: %s"
 msgstr "Feil ved undersøking av %s: %s"
 
-#: ../app/sheets_dialog_callbacks.c:841
+#: ../app/sheets_dialog_callbacks.c:842
 msgid "Please export the diagram as a shape."
 msgstr ""
 
-#: ../app/sheets_dialog_callbacks.c:844
+#: ../app/sheets_dialog_callbacks.c:845
 #, c-format
 msgid "Could not interpret shape file: '%s'"
 msgstr "Kunne ikke tolke formfilen: «%s»"
 
-#: ../app/sheets_dialog_callbacks.c:915
+#: ../app/sheets_dialog_callbacks.c:916
 msgid "Sheet must have a Name"
 msgstr "Arket må ha et navn"
 
-#: ../app/sheets_dialog_callbacks.c:1618 ../app/sheets_dialog_callbacks.c:1625
+#: ../app/sheets_dialog_callbacks.c:1619 ../app/sheets_dialog_callbacks.c:1626
 #, c-format
 msgid "Couldn't open '%s': %s"
 msgstr "Kunne ikke åpne «%s»: %s"
 
-#: ../app/sheets_dialog_callbacks.c:1677
+#: ../app/sheets_dialog_callbacks.c:1678
 #, c-format
 msgid "Couldn't open: '%s' for writing"
 msgstr "Kunne ikke åpne: «%s» for skriving"
 
-#: ../app/sheets_dialog_callbacks.c:1687
+#: ../app/sheets_dialog_callbacks.c:1688
 msgid "a user"
 msgstr "en bruker"
 
-#: ../app/sheets_dialog_callbacks.c:1700
+#: ../app/sheets_dialog_callbacks.c:1701
 #, c-format
 msgid "File: %s"
 msgstr "Fil: %s"
 
-#: ../app/sheets_dialog_callbacks.c:1703
+#: ../app/sheets_dialog_callbacks.c:1704
 #, c-format
 msgid "Date: %s"
 msgstr "Dato: %s"
 
-#: ../app/sheets_dialog_callbacks.c:1707
+#: ../app/sheets_dialog_callbacks.c:1708
 #, c-format
 msgid "For: %s"
 msgstr "For: %s"
 
-#: ../app/sheets_dialog_callbacks.c:1724
+#: ../app/sheets_dialog_callbacks.c:1725
 msgid "add shapes here"
 msgstr "legg til former her"
 
-#: ../app/splash.c:56
+#: ../app/splash.c:57
 msgid "Loading ..."
 msgstr "Laster..."
 
-#: ../app/splash.c:74
+#: ../app/splash.c:75
 #, c-format
 msgid "Dia v %s"
 msgstr "Dia v %s"
@@ -2203,7 +2207,7 @@ msgstr ""
 "generert med forrige versjon av dia vil du oppleve problemer. Vennligst "
 "rapporter til dia-list@gnome.org hvis du ser denne meldingen."
 
-#: ../lib/diaarrowchooser.c:351
+#: ../lib/diaarrowchooser.c:352
 msgid "Arrow Properties"
 msgstr "Egenskaper for pil"
 
@@ -2211,7 +2215,7 @@ msgstr "Egenskaper for pil"
 msgid "Line Style Properties"
 msgstr "Egenskaper for linjestil"
 
-#: ../lib/dialinechooser.c:333
+#: ../lib/dialinechooser.c:332
 msgid "Details..."
 msgstr "Detaljer..."
 
@@ -2233,28 +2237,28 @@ msgstr "Flere eksportfiltre med unikt navn %s"
 msgid "Can't load font %s.\n"
 msgstr "Kan ikke laste skrift %s.\n"
 
-#: ../lib/message.c:91 ../lib/message.c:277
+#: ../lib/message.c:90 ../lib/message.c:276
 msgid "Warning"
 msgstr "Advarsel"
 
-#: ../lib/message.c:118
+#: ../lib/message.c:117
 msgid "There is one similar message."
 msgstr "Det finnes en lignende melding."
 
-#: ../lib/message.c:123
+#: ../lib/message.c:122
 msgid "Show repeated messages"
 msgstr "Vis gjentatte meldinger"
 
-#: ../lib/message.c:144
+#: ../lib/message.c:143
 msgid "Don't show this message again"
 msgstr "Ikke vis denne meldingen igjen"
 
-#: ../lib/message.c:202
+#: ../lib/message.c:201
 #, c-format
 msgid "There are %d similar messages."
 msgstr "Det finnes %d lignende meldinger"
 
-#: ../lib/message.c:261
+#: ../lib/message.c:260
 msgid "Notice"
 msgstr "Melding"
 
@@ -2302,7 +2306,7 @@ msgstr ""
 "Kunne ikke åpne «%s»\n"
 "«%s»"
 
-#: ../lib/prop_inttypes.c:567
+#: ../lib/prop_inttypes.c:559
 msgid "Property cast from int to enum out of range"
 msgstr ""
 
@@ -2311,16 +2315,16 @@ msgstr ""
 msgid "Group with %d objects"
 msgstr "Gruppe med %d objekter"
 
-#: ../lib/properties.c:64 ../lib/properties.h:469 ../lib/widgets.c:693
+#: ../lib/properties.c:64 ../lib/properties.h:469 ../lib/widgets.c:724
 msgid "Left"
 msgstr "Venstre"
 
-#: ../lib/properties.c:65 ../lib/properties.h:470 ../lib/widgets.c:699
+#: ../lib/properties.c:65 ../lib/properties.h:470 ../lib/widgets.c:730
 #: ../objects/standard/textobj.c:135
 msgid "Center"
 msgstr "Senter"
 
-#: ../lib/properties.c:66 ../lib/properties.h:471 ../lib/widgets.c:705
+#: ../lib/properties.c:66 ../lib/properties.h:471 ../lib/widgets.c:736
 msgid "Right"
 msgstr "Høyre"
 
@@ -2356,10 +2360,10 @@ msgstr "Tekstjustering"
 
 #. all this just to make the defaults selectable ...
 #: ../lib/properties.c:81 ../lib/properties.h:533
-#: ../objects/Database/table_dialog.c:985 ../objects/Database/reference.c:117
+#: ../objects/Database/table_dialog.c:1036 ../objects/Database/reference.c:117
 #: ../objects/GRAFCET/condition.c:134 ../objects/GRAFCET/step.c:167
 #: ../objects/GRAFCET/transition.c:144 ../objects/UML/class.c:171
-#: ../objects/UML/class_dialog.c:460 ../objects/chronogram/chronoline.c:185
+#: ../objects/UML/class_dialog.c:558 ../objects/chronogram/chronoline.c:185
 #: ../objects/chronogram/chronoref.c:166
 msgid "Font"
 msgstr "Skrifttype"
@@ -2382,66 +2386,66 @@ msgstr "Tekstfarge"
 msgid "No attribute '%s' (%p) or no data(%p) in this attribute"
 msgstr "Ingen attributt «%s» (%p) eller ingen data (%p) i denne attributten"
 
-#: ../lib/widgets.c:410
+#: ../lib/widgets.c:441
 msgid "Other fonts"
 msgstr "Andre skrifter"
 
-#: ../lib/widgets.c:482
+#: ../lib/widgets.c:513
 #, c-format
 msgid "Couldn't find font family for %s\n"
 msgstr "Kunne ikke finne skriftfamilie for %s\n"
 
 #. Translators: Menu item Noun/Material/Solid
-#: ../lib/widgets.c:865 ../objects/FS/function.c:1076
+#: ../lib/widgets.c:896 ../objects/FS/function.c:1076
 msgid "Solid"
 msgstr "Helfylt"
 
-#: ../lib/widgets.c:871
+#: ../lib/widgets.c:902
 msgid "Dashed"
 msgstr "Streket"
 
-#: ../lib/widgets.c:877
+#: ../lib/widgets.c:908
 msgid "Dash-Dot"
 msgstr "Strek-prikk"
 
-#: ../lib/widgets.c:883
+#: ../lib/widgets.c:914
 msgid "Dash-Dot-Dot"
 msgstr "Strek-prikk-prikk"
 
-#: ../lib/widgets.c:889
+#: ../lib/widgets.c:920
 msgid "Dotted"
 msgstr "Prikket"
 
 #. fs->sizebox = GTK_HBOX(box);
-#: ../lib/widgets.c:907
+#: ../lib/widgets.c:938
 msgid "Dash length: "
 msgstr "Lengde på strek: "
 
-#: ../lib/widgets.c:1035
+#: ../lib/widgets.c:1066
 msgid "Select color"
 msgstr "Velg farge"
 
-#: ../lib/widgets.c:1101
+#: ../lib/widgets.c:1132
 msgid "More colors..."
 msgstr "Flere farger..."
 
-#: ../lib/widgets.c:1249
+#: ../lib/widgets.c:1280
 msgid "More arrows"
 msgstr "Flere piler"
 
-#: ../lib/widgets.c:1266
+#: ../lib/widgets.c:1297
 msgid "Size: "
 msgstr "Størrelse:"
 
-#: ../lib/widgets.c:1444
+#: ../lib/widgets.c:1475
 msgid "Select image file"
 msgstr "Velg bildefil"
 
-#: ../lib/widgets.c:1492
+#: ../lib/widgets.c:1523
 msgid "Browse"
 msgstr "Bla gjennom"
 
-#: ../lib/widgets.c:2045
+#: ../lib/widgets.c:2076
 msgid "Reset menu"
 msgstr "Nullstill meny"
 
@@ -2558,7 +2562,7 @@ msgstr "Diagramobjekter for entitet/relasjon"
 
 #: ../objects/Database/table.c:140 ../objects/Database/table.c:181
 #: ../objects/Database/table.c:198 ../objects/UML/class.c:145
-#: ../objects/UML/class.c:186 ../objects/UML/class_dialog.c:491
+#: ../objects/UML/class.c:186 ../objects/UML/class_dialog.c:589
 #: ../objects/UML/umlattribute.c:43 ../objects/UML/umloperation.c:66
 #: ../objects/UML/umlparameter.c:49 ../sheets/SDL.sheet.in.h:3
 msgid "Comment"
@@ -2585,17 +2589,17 @@ msgstr "Synlige kommentarer"
 msgid "Comment tagging"
 msgstr "Lengde på kommentarlinje"
 
-#: ../objects/Database/table.c:187 ../objects/Database/table_dialog.c:925
+#: ../objects/Database/table.c:187 ../objects/Database/table_dialog.c:976
 msgid "Underline primary keys"
 msgstr ""
 
-#: ../objects/Database/table.c:189 ../objects/Database/table_dialog.c:930
+#: ../objects/Database/table.c:189 ../objects/Database/table_dialog.c:981
 msgid "Use bold font for primary keys"
 msgstr ""
 
 #. property rows
 #: ../objects/Database/table.c:194 ../objects/SADT/arrow.c:136
-#: ../objects/UML/class.c:176 ../objects/UML/class_dialog.c:466
+#: ../objects/UML/class.c:176 ../objects/UML/class_dialog.c:564
 msgid "Normal"
 msgstr "Normal"
 
@@ -2630,114 +2634,114 @@ msgid "Table"
 msgstr "Tabell"
 
 #. Attributes page:
-#: ../objects/Database/table_dialog.c:560 ../objects/UML/class_dialog.c:964
+#: ../objects/Database/table_dialog.c:611 ../objects/UML/class_dialog.c:1062
 msgid "_Attributes"
 msgstr "_Attributter"
 
 #. the "new" button
-#: ../objects/Database/table_dialog.c:588 ../objects/SISSI/sissi_dialog.c:623
-#: ../objects/SISSI/sissi_dialog.c:755
+#: ../objects/Database/table_dialog.c:639 ../objects/SISSI/sissi_dialog.c:624
+#: ../objects/SISSI/sissi_dialog.c:756
 msgid "_New"
 msgstr "_Ny"
 
 #. the "delete" button
-#: ../objects/Database/table_dialog.c:596
+#: ../objects/Database/table_dialog.c:647
 msgid "_Delete"
 msgstr "_Slett"
 
 #. the "Move up" button
-#: ../objects/Database/table_dialog.c:604
+#: ../objects/Database/table_dialog.c:655
 msgid "Move up"
 msgstr "Flytt opp"
 
 #. the "Move down" button
-#: ../objects/Database/table_dialog.c:612
+#: ../objects/Database/table_dialog.c:663
 msgid "Move down"
 msgstr "Flytt ned"
 
-#: ../objects/Database/table_dialog.c:622 ../objects/UML/class_dialog.c:1021
+#: ../objects/Database/table_dialog.c:673 ../objects/UML/class_dialog.c:1119
 msgid "Attribute data"
 msgstr "Attributtdata"
 
-#: ../objects/Database/table_dialog.c:656
-#: ../objects/Database/table_dialog.c:895
-#: ../objects/Database/table_dialog.c:1000 ../objects/UML/class_dialog.c:350
-#: ../objects/UML/class_dialog.c:1064 ../objects/UML/class_dialog.c:1991
-#: ../objects/UML/class_dialog.c:2163
+#: ../objects/Database/table_dialog.c:707
+#: ../objects/Database/table_dialog.c:946
+#: ../objects/Database/table_dialog.c:1051 ../objects/UML/class_dialog.c:448
+#: ../objects/UML/class_dialog.c:1162 ../objects/UML/class_dialog.c:2089
+#: ../objects/UML/class_dialog.c:2261
 msgid "Comment:"
 msgstr "Kommentar:"
 
-#: ../objects/Database/table_dialog.c:675
+#: ../objects/Database/table_dialog.c:726
 msgid "_Primary key"
 msgstr ""
 
-#: ../objects/Database/table_dialog.c:682
+#: ../objects/Database/table_dialog.c:733
 msgid "N_ullable"
 msgstr ""
 
-#: ../objects/Database/table_dialog.c:689
+#: ../objects/Database/table_dialog.c:740
 msgid "Uni_que"
 msgstr ""
 
-#: ../objects/Database/table_dialog.c:877
+#: ../objects/Database/table_dialog.c:928
 msgid "_Table"
 msgstr "_Tabell"
 
-#: ../objects/Database/table_dialog.c:885
+#: ../objects/Database/table_dialog.c:936
 msgid "Table name:"
 msgstr "Navn på tabell:"
 
 #. XXX create a handler and disable the 'show documentation tag' checkbox
 #. if 'comment visible' is not active.
-#: ../objects/Database/table_dialog.c:915
+#: ../objects/Database/table_dialog.c:966
 msgid "Comment visible"
 msgstr "Kommentarer er synlige"
 
-#: ../objects/Database/table_dialog.c:920 ../objects/UML/class_dialog.c:420
+#: ../objects/Database/table_dialog.c:971 ../objects/UML/class_dialog.c:518
 msgid "Show documenation tag"
 msgstr ""
 
 #. * Fonts and Colors selection *
-#: ../objects/Database/table_dialog.c:959 ../objects/UML/class_dialog.c:447
+#: ../objects/Database/table_dialog.c:1010 ../objects/UML/class_dialog.c:545
 msgid "_Style"
 msgstr "_Stil"
 
-#: ../objects/Database/table_dialog.c:970
+#: ../objects/Database/table_dialog.c:1021
 msgid "Border width:"
 msgstr "Kantbredde:"
 
 #. head line
-#: ../objects/Database/table_dialog.c:983 ../objects/UML/class_dialog.c:457
+#: ../objects/Database/table_dialog.c:1034 ../objects/UML/class_dialog.c:555
 #: ../objects/UML/umlparameter.c:51
 msgid "Kind"
 msgstr "Type"
 
-#: ../objects/Database/table_dialog.c:987 ../objects/UML/class_dialog.c:462
+#: ../objects/Database/table_dialog.c:1038 ../objects/UML/class_dialog.c:560
 msgid "Size"
 msgstr "Størrelse"
 
-#: ../objects/Database/table_dialog.c:990
+#: ../objects/Database/table_dialog.c:1041
 msgid "Normal:"
 msgstr "Normal:"
 
-#: ../objects/Database/table_dialog.c:1011
+#: ../objects/Database/table_dialog.c:1062
 msgid "Text Color:"
 msgstr "Tekstfarge:"
 
-#: ../objects/Database/table_dialog.c:1019
+#: ../objects/Database/table_dialog.c:1070
 msgid "Foreground Color:"
 msgstr "Forgrunnsfarge:"
 
 #. two chars at the beginning
-#: ../objects/Database/table_dialog.c:1332
+#: ../objects/Database/table_dialog.c:1383
 msgid "not null"
 msgstr ""
 
-#: ../objects/Database/table_dialog.c:1333
+#: ../objects/Database/table_dialog.c:1384
 msgid "null"
 msgstr ""
 
-#: ../objects/Database/table_dialog.c:1334
+#: ../objects/Database/table_dialog.c:1385
 msgid "unique"
 msgstr "unik"
 
@@ -2760,7 +2764,7 @@ msgstr "Avslutt beskrivelse"
 #: ../objects/SADT/arrow.c:459 ../objects/UML/association.c:854
 #: ../objects/UML/component_feature.c:190 ../objects/UML/dependency.c:376
 #: ../objects/UML/generalization.c:372 ../objects/UML/realizes.c:363
-#: ../objects/UML/transition.c:172 ../objects/standard/zigzagline.c:379
+#: ../objects/UML/transition.c:172 ../objects/standard/zigzagline.c:380
 msgid "Add segment"
 msgstr "Legg til segment"
 
@@ -2818,7 +2822,7 @@ msgstr "Total:"
 #: ../objects/UML/association.c:855 ../objects/UML/component_feature.c:191
 #: ../objects/UML/dependency.c:377 ../objects/UML/generalization.c:373
 #: ../objects/UML/realizes.c:364 ../objects/UML/transition.c:173
-#: ../objects/standard/zigzagline.c:380
+#: ../objects/standard/zigzagline.c:381
 msgid "Delete segment"
 msgstr "Slett segment"
 
@@ -3739,7 +3743,7 @@ msgid "Force"
 msgstr "Kraft"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Rotation
-#: ../objects/FS/function.c:1108 ../objects/standard/outline.c:202
+#: ../objects/FS/function.c:1108 ../objects/standard/outline.c:204
 msgid "Rotation"
 msgstr "Rotasjon"
 
@@ -4309,9 +4313,8 @@ msgid "pt"
 msgstr ""
 
 #: ../objects/Misc/measure.c:177
-#, fuzzy
 msgid "pi"
-msgstr "Spinn"
+msgstr "pi"
 
 #. PROP_FLAG_VISIBLE|
 #: ../objects/Misc/measure.c:186 ../sheets/ChemEng.sheet.in.h:28
@@ -4370,9 +4373,9 @@ msgstr ""
 msgid "SADT Arrow"
 msgstr "SADT pil"
 
-#: ../objects/SADT/box.c:139 ../objects/flowchart/box.c:154
-#: ../objects/flowchart/diamond.c:152 ../objects/flowchart/ellipse.c:151
-#: ../objects/flowchart/parallelogram.c:156
+#: ../objects/SADT/box.c:139 ../objects/custom/custom_object.c:226
+#: ../objects/flowchart/box.c:154 ../objects/flowchart/diamond.c:152
+#: ../objects/flowchart/ellipse.c:151 ../objects/flowchart/parallelogram.c:156
 msgid "Text padding"
 msgstr "Tekstfyll"
 
@@ -4770,59 +4773,59 @@ msgid "Data medium (passive)"
 msgstr ""
 
 #. Class page:
-#: ../objects/SISSI/sissi_dialog.c:185
+#: ../objects/SISSI/sissi_dialog.c:186
 msgid "_Menace"
 msgstr ""
 
 #. ********* label of board *********
-#: ../objects/SISSI/sissi_dialog.c:201 ../objects/SISSI/sissi_dialog.c:210
+#: ../objects/SISSI/sissi_dialog.c:202 ../objects/SISSI/sissi_dialog.c:211
 #, fuzzy
 msgid "Menace"
 msgstr "Erstatt"
 
-#: ../objects/SISSI/sissi_dialog.c:203 ../objects/SISSI/sissi_dialog.c:212
+#: ../objects/SISSI/sissi_dialog.c:204 ../objects/SISSI/sissi_dialog.c:213
 #, fuzzy
 msgid "P Action"
 msgstr "Handling"
 
-#: ../objects/SISSI/sissi_dialog.c:205 ../objects/SISSI/sissi_dialog.c:214
+#: ../objects/SISSI/sissi_dialog.c:206 ../objects/SISSI/sissi_dialog.c:215
 #, fuzzy
 msgid "P Detection"
 msgstr "Detektor"
 
-#: ../objects/SISSI/sissi_dialog.c:207 ../objects/SISSI/sissi_dialog.c:216
+#: ../objects/SISSI/sissi_dialog.c:208 ../objects/SISSI/sissi_dialog.c:217
 msgid "Vulnerability"
 msgstr "Sårbarhet"
 
 #. Other properties of page:
-#: ../objects/SISSI/sissi_dialog.c:372
+#: ../objects/SISSI/sissi_dialog.c:373
 msgid "Other properties"
 msgstr "Andre egenskaper"
 
 #. ********* selection menu of entity ********
 #. ********* Label of board *********
-#: ../objects/SISSI/sissi_dialog.c:610
+#: ../objects/SISSI/sissi_dialog.c:611
 msgid "Label"
 msgstr "Etikett"
 
-#: ../objects/SISSI/sissi_dialog.c:612
+#: ../objects/SISSI/sissi_dialog.c:613
 msgid "value"
 msgstr "verdi"
 
 #. Other properties of page
-#: ../objects/SISSI/sissi_dialog.c:746
+#: ../objects/SISSI/sissi_dialog.c:747
 msgid "Documents"
 msgstr "Dokumenter"
 
-#: ../objects/SISSI/sissi_dialog.c:762
+#: ../objects/SISSI/sissi_dialog.c:763
 msgid "Document title"
 msgstr "Tittel på dokument"
 
-#: ../objects/SISSI/sissi_dialog.c:764
+#: ../objects/SISSI/sissi_dialog.c:765
 msgid "URL"
 msgstr "URL"
 
-#: ../objects/UML/actor.c:351 ../objects/UML/actor.c:353
+#: ../objects/UML/actor.c:353 ../objects/UML/actor.c:355
 #: ../sheets/UML.sheet.in.h:2
 msgid "Actor"
 msgstr "Aktør"
@@ -4891,8 +4894,8 @@ msgid "Stereotype"
 msgstr "Stereotype"
 
 #: ../objects/UML/class.c:147 ../objects/UML/class.c:180
-#: ../objects/UML/class_dialog.c:366 ../objects/UML/class_dialog.c:476
-#: ../objects/UML/class_dialog.c:1967 ../objects/UML/uml.c:110
+#: ../objects/UML/class_dialog.c:464 ../objects/UML/class_dialog.c:574
+#: ../objects/UML/class_dialog.c:2065 ../objects/UML/uml.c:110
 msgid "Abstract"
 msgstr "Abstrakt"
 
@@ -4900,7 +4903,7 @@ msgstr "Abstrakt"
 msgid "Template"
 msgstr "Mal"
 
-#: ../objects/UML/class.c:152 ../objects/UML/class_dialog.c:375
+#: ../objects/UML/class.c:152 ../objects/UML/class_dialog.c:473
 msgid "Suppress Attributes"
 msgstr "Skjul attributter"
 
@@ -4920,7 +4923,7 @@ msgstr "Synlige operasjoner"
 msgid "Visible Comments"
 msgstr "Synlige kommentarer"
 
-#: ../objects/UML/class.c:162 ../objects/UML/class_dialog.c:391
+#: ../objects/UML/class.c:162 ../objects/UML/class_dialog.c:489
 msgid "Wrap Operations"
 msgstr "Operasjoner for bryting"
 
@@ -4932,7 +4935,7 @@ msgstr "Bryt etter tegn"
 msgid "Comment line length"
 msgstr "Lengde på kommentarlinje"
 
-#: ../objects/UML/class.c:178 ../objects/UML/class_dialog.c:471
+#: ../objects/UML/class.c:178 ../objects/UML/class_dialog.c:569
 msgid "Polymorphic"
 msgstr "Polymorfisk"
 
@@ -4957,166 +4960,166 @@ msgid "Show Comments"
 msgstr "Vis kommentarer"
 
 #. Class page:
-#: ../objects/UML/class_dialog.c:327
+#: ../objects/UML/class_dialog.c:425
 msgid "_Class"
 msgstr "_Klasse"
 
-#: ../objects/UML/class_dialog.c:335
+#: ../objects/UML/class_dialog.c:433
 msgid "Class name:"
 msgstr "Navn på klasse:"
 
-#: ../objects/UML/class_dialog.c:343 ../objects/UML/class_dialog.c:1916
+#: ../objects/UML/class_dialog.c:441 ../objects/UML/class_dialog.c:2014
 #: ../objects/UML/dependency.c:139 ../objects/UML/generalization.c:135
 #: ../objects/UML/realizes.c:136
 msgid "Stereotype:"
 msgstr "Stereotype:"
 
-#: ../objects/UML/class_dialog.c:372
+#: ../objects/UML/class_dialog.c:470
 msgid "Attributes visible"
 msgstr "Synlige attributter"
 
-#: ../objects/UML/class_dialog.c:381
+#: ../objects/UML/class_dialog.c:479
 msgid "Operations visible"
 msgstr "Synlige operasjoner"
 
-#: ../objects/UML/class_dialog.c:384
+#: ../objects/UML/class_dialog.c:482
 msgid "Suppress operations"
 msgstr "Skjul operasjoner"
 
-#: ../objects/UML/class_dialog.c:398
+#: ../objects/UML/class_dialog.c:496
 msgid "Wrap after this length: "
 msgstr "Bryt etter denne lengden: "
 
-#: ../objects/UML/class_dialog.c:406
+#: ../objects/UML/class_dialog.c:504
 msgid "Comments visible"
 msgstr "Kommentarer er synlige"
 
-#: ../objects/UML/class_dialog.c:413
+#: ../objects/UML/class_dialog.c:511
 msgid "Wrap comment after this length: "
 msgstr "Bryt kommentar etter denne lengden: "
 
-#: ../objects/UML/class_dialog.c:481
+#: ../objects/UML/class_dialog.c:579
 msgid "Class Name"
 msgstr "Navn på klasse"
 
-#: ../objects/UML/class_dialog.c:486
+#: ../objects/UML/class_dialog.c:584
 msgid "Abstract Class"
 msgstr "Abstrakt klasse"
 
 #. should probably be refactored too.
-#: ../objects/UML/class_dialog.c:503
+#: ../objects/UML/class_dialog.c:601
 msgid "Text Color"
 msgstr "Tekstfarge"
 
-#: ../objects/UML/class_dialog.c:511
+#: ../objects/UML/class_dialog.c:609
 msgid "Foreground Color"
 msgstr "Forgrunnsfarge"
 
-#: ../objects/UML/class_dialog.c:519
+#: ../objects/UML/class_dialog.c:617
 msgid "Background Color"
 msgstr "Bakgrunnsfarge"
 
-#: ../objects/UML/class_dialog.c:1053
+#: ../objects/UML/class_dialog.c:1151
 msgid "Value:"
 msgstr "Verdi:"
 
-#: ../objects/UML/class_dialog.c:1086 ../objects/UML/class_dialog.c:1928
+#: ../objects/UML/class_dialog.c:1184 ../objects/UML/class_dialog.c:2026
 msgid "Visibility:"
 msgstr "Synlighet:"
 
-#: ../objects/UML/class_dialog.c:1095 ../objects/UML/class_dialog.c:1937
+#: ../objects/UML/class_dialog.c:1193 ../objects/UML/class_dialog.c:2035
 #: ../objects/UML/uml.c:102
 msgid "Public"
 msgstr "Offentlig"
 
-#: ../objects/UML/class_dialog.c:1098 ../objects/UML/class_dialog.c:1940
+#: ../objects/UML/class_dialog.c:1196 ../objects/UML/class_dialog.c:2038
 #: ../objects/UML/uml.c:103
 msgid "Private"
 msgstr "Privat"
 
-#: ../objects/UML/class_dialog.c:1101 ../objects/UML/class_dialog.c:1943
+#: ../objects/UML/class_dialog.c:1199 ../objects/UML/class_dialog.c:2041
 #: ../objects/UML/uml.c:104
 msgid "Protected"
 msgstr "Beskyttet"
 
-#: ../objects/UML/class_dialog.c:1104 ../objects/UML/class_dialog.c:1946
+#: ../objects/UML/class_dialog.c:1202 ../objects/UML/class_dialog.c:2044
 #: ../objects/UML/uml.c:105
 msgid "Implementation"
 msgstr "Implementasjon"
 
 #. end: Inheritance type
-#: ../objects/UML/class_dialog.c:1120 ../objects/UML/class_dialog.c:1983
+#: ../objects/UML/class_dialog.c:1218 ../objects/UML/class_dialog.c:2081
 msgid "Class scope"
 msgstr "Virkeområde for klasse"
 
 #. end: Visibility
-#: ../objects/UML/class_dialog.c:1958
+#: ../objects/UML/class_dialog.c:2056
 msgid "Inheritance type:"
 msgstr "Type arv:"
 
-#: ../objects/UML/class_dialog.c:1970 ../objects/UML/uml.c:111
+#: ../objects/UML/class_dialog.c:2068 ../objects/UML/uml.c:111
 msgid "Polymorphic (virtual)"
 msgstr "Polymorfisk (virtuell)"
 
-#: ../objects/UML/class_dialog.c:1973 ../objects/UML/uml.c:112
+#: ../objects/UML/class_dialog.c:2071 ../objects/UML/uml.c:112
 msgid "Leaf (final)"
 msgstr "Løv (endelig)"
 
-#: ../objects/UML/class_dialog.c:1987
+#: ../objects/UML/class_dialog.c:2085
 msgid "Query"
 msgstr "Spørring"
 
-#: ../objects/UML/class_dialog.c:2034
+#: ../objects/UML/class_dialog.c:2132
 msgid "Parameters:"
 msgstr "Parametre:"
 
-#: ../objects/UML/class_dialog.c:2119
+#: ../objects/UML/class_dialog.c:2217
 msgid "Parameter data"
 msgstr "Parameterdata"
 
-#: ../objects/UML/class_dialog.c:2152
+#: ../objects/UML/class_dialog.c:2250
 msgid "Def. value:"
 msgstr "Std. verdi:"
 
-#: ../objects/UML/class_dialog.c:2186
+#: ../objects/UML/class_dialog.c:2284
 msgid "Direction:"
 msgstr "Retning:"
 
-#: ../objects/UML/class_dialog.c:2195 ../objects/UML/umlparameter.c:34
+#: ../objects/UML/class_dialog.c:2293 ../objects/UML/umlparameter.c:34
 msgid "Undefined"
 msgstr "Udefinert"
 
-#: ../objects/UML/class_dialog.c:2198 ../objects/UML/umlparameter.c:35
+#: ../objects/UML/class_dialog.c:2296 ../objects/UML/umlparameter.c:35
 msgid "In"
 msgstr "Inn"
 
-#: ../objects/UML/class_dialog.c:2201 ../objects/UML/umlparameter.c:36
+#: ../objects/UML/class_dialog.c:2299 ../objects/UML/umlparameter.c:36
 msgid "Out"
 msgstr "Ut"
 
-#: ../objects/UML/class_dialog.c:2204 ../objects/UML/umlparameter.c:37
+#: ../objects/UML/class_dialog.c:2302 ../objects/UML/umlparameter.c:37
 msgid "In & Out"
 msgstr "Inn og ut"
 
 #. Operations page:
-#: ../objects/UML/class_dialog.c:2239
+#: ../objects/UML/class_dialog.c:2337
 msgid "_Operations"
 msgstr "_Operasjoner"
 
-#: ../objects/UML/class_dialog.c:2297
+#: ../objects/UML/class_dialog.c:2395
 msgid "Operation data"
 msgstr "Operasjonsdata"
 
 #. Templates page:
-#: ../objects/UML/class_dialog.c:2657
+#: ../objects/UML/class_dialog.c:2755
 msgid "_Templates"
 msgstr "_Maler"
 
-#: ../objects/UML/class_dialog.c:2663 ../sheets/UML.sheet.in.h:29
+#: ../objects/UML/class_dialog.c:2761 ../sheets/UML.sheet.in.h:29
 msgid "Template class"
 msgstr "Malklasse"
 
-#: ../objects/UML/class_dialog.c:2720
+#: ../objects/UML/class_dialog.c:2818
 msgid "Formal parameter data"
 msgstr "Formelle parameterdata"
 
@@ -5331,10 +5334,6 @@ msgstr "Tekst utenfor"
 msgid "Collaboration"
 msgstr "Samarbeid"
 
-#: ../objects/bondgraph/bondgraph.c:39
-msgid "Bond graph objects"
-msgstr "Slå sammen grafobjekter"
-
 #: ../objects/chronogram/chronogram.c:40
 msgid "Chronogram diagram objects"
 msgstr "Kronogram diagramobjekter"
@@ -5429,27 +5428,27 @@ msgstr "Egendefinert"
 msgid "Custom XML shapes loader"
 msgstr "Egendefinert laster for XML-former"
 
-#: ../objects/custom/custom_object.c:207 ../objects/custom/custom_object.c:235
+#: ../objects/custom/custom_object.c:207 ../objects/custom/custom_object.c:239
 msgid "Flip horizontal"
 msgstr "Vend horisontalt"
 
-#: ../objects/custom/custom_object.c:209 ../objects/custom/custom_object.c:237
+#: ../objects/custom/custom_object.c:209 ../objects/custom/custom_object.c:241
 msgid "Flip vertical"
 msgstr "Vend vertikalt"
 
-#: ../objects/custom/custom_object.c:212 ../objects/custom/custom_object.c:240
+#: ../objects/custom/custom_object.c:212 ../objects/custom/custom_object.c:244
 msgid "Scale of the subshapes"
 msgstr ""
 
-#: ../objects/custom/custom_object.c:1759
+#: ../objects/custom/custom_object.c:1780
 msgid "Flip Horizontal"
 msgstr "Vend horisontalt"
 
-#: ../objects/custom/custom_object.c:1760
+#: ../objects/custom/custom_object.c:1781
 msgid "Flip Vertical"
 msgstr "Vend vertikalt"
 
-#: ../objects/custom/custom_object.c:1797
+#: ../objects/custom/custom_object.c:1818
 #: ../objects/custom_lines/custom_linetypes.c:263
 #, c-format
 msgid "Cannot open icon file %s for object type '%s'."
@@ -5530,23 +5529,23 @@ msgstr ""
 msgid "Absolute end gap"
 msgstr ""
 
-#: ../objects/standard/bezier.c:732 ../objects/standard/beziergon.c:495
+#: ../objects/standard/bezier.c:731 ../objects/standard/beziergon.c:495
 msgid "Add Segment"
 msgstr "Legg til segment"
 
-#: ../objects/standard/bezier.c:733 ../objects/standard/beziergon.c:496
+#: ../objects/standard/bezier.c:732 ../objects/standard/beziergon.c:496
 msgid "Delete Segment"
 msgstr "Slett segment"
 
-#: ../objects/standard/bezier.c:735 ../objects/standard/beziergon.c:498
+#: ../objects/standard/bezier.c:734 ../objects/standard/beziergon.c:498
 msgid "Symmetric control"
 msgstr "Symmetrisk kontroll"
 
-#: ../objects/standard/bezier.c:737 ../objects/standard/beziergon.c:500
+#: ../objects/standard/bezier.c:736 ../objects/standard/beziergon.c:500
 msgid "Smooth control"
 msgstr "Jevn kontroll"
 
-#: ../objects/standard/bezier.c:739 ../objects/standard/beziergon.c:502
+#: ../objects/standard/bezier.c:738 ../objects/standard/beziergon.c:502
 msgid "Cusp control"
 msgstr "Cusp kontroll"
 
@@ -5619,19 +5618,19 @@ msgstr "Startpunkt"
 msgid "End point"
 msgstr "Endepunkt"
 
-#: ../objects/standard/outline.c:200
+#: ../objects/standard/outline.c:202
 msgid "Text content"
 msgstr "Tekstinnhold"
 
-#: ../objects/standard/outline.c:202
+#: ../objects/standard/outline.c:204
 msgid "Angle to rotate the outline"
 msgstr ""
 
-#: ../objects/standard/polygon.c:462 ../objects/standard/polyline.c:614
+#: ../objects/standard/polygon.c:462 ../objects/standard/polyline.c:616
 msgid "Add Corner"
 msgstr "Legg til hjørne"
 
-#: ../objects/standard/polygon.c:463 ../objects/standard/polyline.c:615
+#: ../objects/standard/polygon.c:463 ../objects/standard/polyline.c:617
 msgid "Delete Corner"
 msgstr "Slett hjørne"
 
@@ -5673,13 +5672,12 @@ msgstr "Kan ikke skrive %d byte til %s"
 
 #: ../plug-ins/cairo/diacairo.c:294 ../plug-ins/postscript/postscript.c:39
 #: ../plug-ins/wmf/wmf.cpp:1389
-#, fuzzy
 msgid "Nothing to print"
-msgstr "Nordpunkt"
+msgstr "Ingen ting å skrive ut"
 
 #: ../plug-ins/cairo/diacairo.c:305
 msgid "Printing with Gtk+(cairo) requires at least version 2.10."
-msgstr ""
+msgstr "Utskrift med Gtk+(cairo) krever minst versjon 2.10."
 
 #: ../plug-ins/cairo/diacairo.c:312
 msgid "Cairo PostScript"
@@ -5715,7 +5713,7 @@ msgstr "Cairo utklippstavle"
 
 #: ../plug-ins/cairo/diacairo.c:400
 msgid "Print (GTK) ..."
-msgstr ""
+msgstr "Skriv ut (GTK)..."
 
 #: ../plug-ins/cairo/diacairo.c:445
 msgid "Cairo based Rendering"
@@ -5940,7 +5938,7 @@ msgstr ""
 
 #: ../plug-ins/postscript/postscript.c:46
 msgid "Print (PS)"
-msgstr ""
+msgstr "Skriv ut (PS)"
 
 #: ../plug-ins/postscript/postscript.c:70
 msgid "Postscript Rendering"
@@ -6095,7 +6093,7 @@ msgstr "Forbedret metafil"
 
 #: ../plug-ins/wmf/wmf.cpp:1396
 msgid "Print (GDI) ..."
-msgstr ""
+msgstr "Skriv ut (GDI)..."
 
 #: ../plug-ins/wmf/wmf.cpp:1411
 msgid "WMF export filter"
@@ -6361,7 +6359,7 @@ msgstr "Feil ved lagring av resultat: %s\n"
 msgid "XSL Transformation filter"
 msgstr "Filter for XSL-transformering"
 
-#: ../plug-ins/xslt/xslt.c:359
+#: ../plug-ins/xslt/xslt.c:362
 msgid "No valid configuration files found for the XSLT plugin, not loading."
 msgstr ""
 "Ingen gyldige konfigurasjonfiler funnet for XSLT-tillegget, ikke lastet."
@@ -6614,7 +6612,7 @@ msgstr ""
 #. For: anthonym
 #: ../sheets/BPMN.sheet.in.h:4
 msgid "BPMN"
-msgstr ""
+msgstr "BPMN"
 
 #: ../sheets/BPMN.sheet.in.h:5
 msgid "Business Process Modeling Notation"
