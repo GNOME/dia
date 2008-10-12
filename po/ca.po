@@ -1475,7 +1475,7 @@ msgstr "D_epura"
 
 #: ../app/menus.c:218
 msgid "_Tools"
-msgstr "_Eines"
+msgstr "Ei_nes"
 
 #: ../app/menus.c:219
 msgid "Modify"
@@ -3633,7 +3633,7 @@ msgstr "Transforma"
 #. Translators: Menu item Verb/Convert/Liquefy
 #: ../objects/FS/function.c:1020
 msgid "Liquefy"
-msgstr "Liqüefés"
+msgstr "Liqua"
 
 #. Translators: Menu item Verb/Convert/Solidify
 #: ../objects/FS/function.c:1022
@@ -5187,7 +5187,7 @@ msgstr "Plan_tilles"
 
 #: ../objects/UML/class_dialog.c:2761 ../sheets/UML.sheet.in.h:29
 msgid "Template class"
-msgstr "Classe de plantilles"
+msgstr "Classe plantilla"
 
 #: ../objects/UML/class_dialog.c:2818
 msgid "Formal parameter data"
@@ -8044,7 +8044,7 @@ msgstr "Estructura"
 
 #: ../sheets/Logic.sheet.in.h:1
 msgid "AND gate"
-msgstr "porta AND"
+msgstr "Porta AND"
 
 #: ../sheets/Logic.sheet.in.h:2
 msgid "Boolean Logic"
@@ -8064,11 +8064,11 @@ msgstr "Lògica"
 
 #: ../sheets/Logic.sheet.in.h:6
 msgid "NAND gate"
-msgstr "porta NAND"
+msgstr "Porta NAND"
 
 #: ../sheets/Logic.sheet.in.h:7
 msgid "NOR gate"
-msgstr "porta NOR"
+msgstr "Porta NOR"
 
 #: ../sheets/Logic.sheet.in.h:8
 msgid "NOT"
@@ -8076,7 +8076,7 @@ msgstr "NOT"
 
 #: ../sheets/Logic.sheet.in.h:9
 msgid "OR gate"
-msgstr "porta OR"
+msgstr "Porta OR"
 
 #: ../sheets/Logic.sheet.in.h:10
 msgid "Simple buffer"
@@ -8084,7 +8084,7 @@ msgstr "Memòria intermèdia simple"
 
 #: ../sheets/Logic.sheet.in.h:11
 msgid "XOR gate"
-msgstr "porta XOR"
+msgstr "Porta XOR"
 
 #: ../sheets/MSE.sheet.in.h:1
 msgid "Demultiplexer"
@@ -8128,7 +8128,7 @@ msgstr "Mesura la distància"
 
 #: ../sheets/Misc.sheet.in.h:4
 msgid "Misc"
-msgstr "Variat"
+msgstr "Miscel·lània"
 
 #: ../sheets/Misc.sheet.in.h:5
 msgid "Miscellaneous Shapes"
@@ -10221,7 +10221,7 @@ msgstr "PC amb torre petita"
 
 #: ../sheets/network.sheet.in.h:15
 msgid "Mobile phone"
-msgstr "Telefòn mòbil"
+msgstr "Telèfon mòbil"
 
 #: ../sheets/network.sheet.in.h:16
 msgid "Mobile telephony base station"
