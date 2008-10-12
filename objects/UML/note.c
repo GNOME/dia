@@ -45,12 +45,12 @@ struct _Note {
   Text *text;
   TextAttributes attrs;
 
+  real line_width;
   Color line_color;
   Color fill_color;
 };
 
 #define NOTE_BORDERWIDTH 0.1
-#define NOTE_CORNERWIDTH 0.05
 #define NOTE_CORNER 0.6
 #define NOTE_MARGIN_X 0.3
 #define NOTE_MARGIN_Y 0.3
@@ -115,6 +115,7 @@ static ObjectOps note_ops = {
 
 static PropDescription note_props[] = {
   ELEMENT_COMMON_PROPERTIES,
+  PROP_STD_LINE_WIDTH_OPTIONAL,
   PROP_STD_LINE_COLOUR_OPTIONAL, 
   PROP_STD_FILL_COLOUR_OPTIONAL, 
   PROP_STD_TEXT_FONT,
@@ -135,6 +136,7 @@ note_describe_props(Note *note)
 
 static PropOffset note_offsets[] = {
   ELEMENT_COMMON_PROPERTIES_OFFSETS,
+  { PROP_STDNAME_LINE_WIDTH, PROP_STDTYPE_LINE_WIDTH, offsetof(Note, line_width)},
   {"line_colour",PROP_TYPE_COLOUR,offsetof(Note,line_color)},
   {"fill_colour",PROP_TYPE_COLOUR,offsetof(Note,fill_color)},
   {"text",PROP_TYPE_TEXT,offsetof(Note,text)},
@@ -221,7 +223,7 @@ note_draw(Note *note, DiaRenderer *renderer)
   h = elem->height;
   
   renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
-  renderer_ops->set_linewidth(renderer, NOTE_BORDERWIDTH);
+  renderer_ops->set_linewidth(renderer, note->line_width);
   renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
 
   poly[0].x = x;
@@ -247,7 +249,7 @@ note_draw(Note *note, DiaRenderer *renderer)
   poly[1].y = y + NOTE_CORNER;
   poly[2] = poly[2];
  
-  renderer_ops->set_linewidth(renderer, NOTE_CORNERWIDTH);
+  renderer_ops->set_linewidth(renderer, note->line_width / 2);
   renderer_ops->draw_polyline(renderer, 
 			   poly, 3,
 			   &note->line_color);
@@ -269,8 +271,8 @@ note_update_data(Note *note)
     note->text->height*note->text->numlines + NOTE_MARGIN_Y + NOTE_CORNER;
 
   p = elem->corner;
-  p.x += NOTE_BORDERWIDTH/2.0 + NOTE_MARGIN_X;
-  p.y += NOTE_BORDERWIDTH/2.0 + NOTE_CORNER + note->text->ascent;
+  p.x += note->line_width/2.0 + NOTE_MARGIN_X;
+  p.y += note->line_width/2.0 + NOTE_CORNER + note->text->ascent;
   text_set_position(note->text, &p);
 
   /* Update connections: */
@@ -305,13 +307,14 @@ note_create(Point *startpoint,
 
   elem->corner = *startpoint;
 
+  note->line_width = attributes_get_default_linewidth();
   note->line_color = attributes_get_foreground();
   note->fill_color = attributes_get_background();
 
   font = dia_font_new_from_style (DIA_FONT_MONOSPACE, 0.8);
   p = *startpoint;
-  p.x += NOTE_BORDERWIDTH/2.0 + NOTE_MARGIN_X;
-  p.y += NOTE_BORDERWIDTH/2.0 + NOTE_CORNER + dia_font_ascent("A",font, 0.8);
+  p.x += note->line_width/2.0 + NOTE_MARGIN_X;
+  p.y += note->line_width/2.0 + NOTE_CORNER + dia_font_ascent("A",font, 0.8);
   
   note->text = new_text("", font, 0.8, &p, &color_black, ALIGN_LEFT);
   dia_font_unref(font);
@@ -327,7 +330,7 @@ note_create(Point *startpoint,
   }
   note->connections[NUM_CONNECTIONS-1].flags = CP_FLAGS_MAIN;
 
-  elem->extra_spacing.border_trans = NOTE_BORDERWIDTH/2.0;
+  elem->extra_spacing.border_trans = note->line_width/2.0;
   note_update_data(note);
 
   for (i=0;i<8;i++) {
@@ -350,11 +353,17 @@ note_destroy(Note *note)
 static DiaObject *
 note_load(ObjectNode obj_node, int version, const char *filename)
 {
-  return object_load_using_properties(&note_type,
-                                      obj_node,version,filename);
+  DiaObject * obj = object_load_using_properties(&note_type,
+                                                 obj_node,version,filename);
+  AttributeNode attr;
+  /* For compatibility with previous dia files. If no line_width, use
+   * NOTE_BORDERWIDTH, that was the previous line width.
+   */
+  attr = object_find_attribute(obj_node, "line_width");
+  if (attr == NULL)
+    ((Note*)obj)->line_width = NOTE_BORDERWIDTH;
+
+  return obj;
 }
-
-
-
 
 

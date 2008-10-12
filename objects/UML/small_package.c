@@ -50,10 +50,14 @@ struct _SmallPackage {
   char *st_stereotype;
   TextAttributes attrs;
 
+  real line_width;
   Color line_color;
   Color fill_color;
 };
 
+/* The old border width, kept for compatibility with dia files created with
+ * older versions.
+ */
 #define SMALLPACKAGE_BORDERWIDTH 0.1
 #define SMALLPACKAGE_TOPHEIGHT 0.9
 #define SMALLPACKAGE_TOPWIDTH 1.5
@@ -120,6 +124,7 @@ static ObjectOps smallpackage_ops = {
 
 static PropDescription smallpackage_props[] = {
   ELEMENT_COMMON_PROPERTIES,
+  PROP_STD_LINE_WIDTH_OPTIONAL,
   PROP_STD_LINE_COLOUR_OPTIONAL, 
   PROP_STD_FILL_COLOUR_OPTIONAL, 
   { "stereotype", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
@@ -142,6 +147,7 @@ smallpackage_describe_props(SmallPackage *smallpackage)
 
 static PropOffset smallpackage_offsets[] = {
   ELEMENT_COMMON_PROPERTIES_OFFSETS,
+  { PROP_STDNAME_LINE_WIDTH, PROP_STDTYPE_LINE_WIDTH, offsetof(SmallPackage, line_width) },
   {"line_colour", PROP_TYPE_COLOUR, offsetof(SmallPackage, line_color) },
   {"fill_colour", PROP_TYPE_COLOUR, offsetof(SmallPackage, fill_color) },
   {"stereotype", PROP_TYPE_STRING, offsetof(SmallPackage , stereotype) },
@@ -240,9 +246,8 @@ smallpackage_draw(SmallPackage *pkg, DiaRenderer *renderer)
   h = elem->height;
   
   renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
-  renderer_ops->set_linewidth(renderer, SMALLPACKAGE_BORDERWIDTH);
+  renderer_ops->set_linewidth(renderer, pkg->line_width);
   renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
-
 
   p1.x = x; p1.y = y;
   p2.x = x+w; p2.y = y+h;
@@ -364,7 +369,9 @@ smallpackage_create(Point *startpoint,
     pkg->connections[i].connected = NULL;
   }
   pkg->connections[8].flags = CP_FLAGS_MAIN;
-  elem->extra_spacing.border_trans = SMALLPACKAGE_BORDERWIDTH/2.0;
+  pkg->line_width = attributes_get_default_linewidth();
+
+  elem->extra_spacing.border_trans = pkg->line_width/2.0;
 
   pkg->line_color = attributes_get_foreground();
   pkg->fill_color = attributes_get_background();
@@ -396,12 +403,17 @@ smallpackage_destroy(SmallPackage *pkg)
 static DiaObject *
 smallpackage_load(ObjectNode obj_node, int version, const char *filename)
 {
-  return object_load_using_properties(&smallpackage_type,
-                                      obj_node,version,filename);
+  DiaObject *obj = object_load_using_properties(&smallpackage_type,
+                                                obj_node,version,filename);
+  AttributeNode attr;
+  /* For compatibility with previous dia files. If no line_width, use
+   * SMALLPACKAGE_BORDERWIDTH, that was the previous line width.
+   */
+  attr = object_find_attribute(obj_node, "line_width");
+  if (attr == NULL)
+    ((SmallPackage*)obj)->line_width = SMALLPACKAGE_BORDERWIDTH;
+
+  return obj;
 }
-
-
-
-
 
 

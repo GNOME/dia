@@ -50,6 +50,7 @@ struct _Usecase {
   int collaboration;
   TextAttributes attrs;
 
+  real line_width;
   Color line_color;
   Color fill_color;
 };
@@ -128,6 +129,7 @@ static ObjectOps usecase_ops = {
 
 static PropDescription usecase_props[] = {
   ELEMENT_COMMON_PROPERTIES,
+  PROP_STD_LINE_WIDTH_OPTIONAL,
   PROP_STD_LINE_COLOUR_OPTIONAL, 
   PROP_STD_FILL_COLOUR_OPTIONAL, 
   { "text_outside", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE,
@@ -153,6 +155,7 @@ usecase_describe_props(Usecase *usecase)
 
 static PropOffset usecase_offsets[] = {
   ELEMENT_COMMON_PROPERTIES_OFFSETS,
+  {PROP_STDNAME_LINE_WIDTH, PROP_STDTYPE_LINE_WIDTH, offsetof(Usecase, line_width)},
   {"line_colour", PROP_TYPE_COLOUR, offsetof(Usecase, line_color) },
   {"fill_colour", PROP_TYPE_COLOUR, offsetof(Usecase, fill_color) },
   {"text_outside", PROP_TYPE_BOOL, offsetof(Usecase, text_outside) },
@@ -263,7 +266,7 @@ usecase_draw(Usecase *usecase, DiaRenderer *renderer)
 
 
   renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
-  renderer_ops->set_linewidth(renderer, USECASE_LINEWIDTH);
+  renderer_ops->set_linewidth(renderer, usecase->line_width);
 
   if (usecase->collaboration)
 	  renderer_ops->set_linestyle(renderer, LINESTYLE_DASHED);
@@ -322,7 +325,7 @@ usecase_update_data(Usecase *usecase)
 
   elem->width = r.x;
   elem->height = r.y;
-  extra->border_trans = USECASE_LINEWIDTH / 2.0;
+  extra->border_trans = usecase->line_width / 2.0;
 
   if (usecase->text_outside) { 
 	  elem->width = MAX(elem->width, w);
@@ -417,6 +420,7 @@ usecase_create(Point *startpoint,
   elem->width = USECASE_WIDTH;
   elem->height = USECASE_HEIGHT;
 
+  usecase->line_width = attributes_get_default_linewidth();
   usecase->line_color = attributes_get_foreground();
   usecase->fill_color = attributes_get_background();
 
@@ -461,9 +465,19 @@ usecase_destroy(Usecase *usecase)
 static DiaObject *
 usecase_load(ObjectNode obj_node, int version, const char *filename)
 {
-  return object_load_using_properties(&usecase_type,
-                                      obj_node,version,filename);
+  DiaObject *obj = object_load_using_properties(&usecase_type,
+                                                obj_node,version,filename);
+  AttributeNode attr;
+  /* For compatibility with previous dia files. If no line_width, use
+   * USECASE_LINEWIDTH, that was the previous line width.
+   */
+  attr = object_find_attribute(obj_node, "line_width");
+  if (attr == NULL)
+    ((Usecase*)obj)->line_width = USECASE_LINEWIDTH;
+
+  return obj;
 }
+
 
 
 

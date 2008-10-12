@@ -52,6 +52,7 @@ struct _Objet {
   char *exstate;  /* used for explicit state */
   Text *attributes;
 
+  real line_width;
   Color text_color;
   Color line_color;
   Color fill_color;
@@ -68,7 +69,6 @@ struct _Objet {
 
 #define OBJET_BORDERWIDTH 0.1
 #define OBJET_ACTIVEBORDERWIDTH 0.2
-#define OBJET_LINEWIDTH 0.05
 #define OBJET_MARGIN_X 0.5
 #define OBJET_MARGIN_Y 0.5
 #define OBJET_MARGIN_M 0.4
@@ -143,6 +143,7 @@ static ObjectOps objet_ops = {
 
 static PropDescription objet_props[] = {
   ELEMENT_COMMON_PROPERTIES,
+  PROP_STD_LINE_WIDTH_OPTIONAL,
   /* can't use PROP_STD_TEXT_COLOUR_OPTIONAL cause it has PROP_FLAG_DONT_SAVE. It is designed to fill the Text object - not some subset */
   PROP_STD_TEXT_COLOUR_OPTIONS(PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD|PROP_FLAG_OPTIONAL),
   PROP_STD_LINE_COLOUR_OPTIONAL, 
@@ -175,6 +176,7 @@ objet_describe_props(Objet *ob)
 
 static PropOffset objet_offsets[] = {
   ELEMENT_COMMON_PROPERTIES_OFFSETS,
+  { PROP_STDNAME_LINE_WIDTH, PROP_STDTYPE_LINE_WIDTH, offsetof(Objet, line_width) },
   { "text_colour",PROP_TYPE_COLOUR,offsetof(Objet, text_color) },
   { "line_colour",PROP_TYPE_COLOUR,offsetof(Objet, line_color) },
   { "fill_colour",PROP_TYPE_COLOUR,offsetof(Objet, fill_color) },
@@ -269,7 +271,7 @@ objet_draw(Objet *ob, DiaRenderer *renderer)
   w = elem->width;
   h = elem->height;
   
-  bw = (ob->is_active) ? OBJET_ACTIVEBORDERWIDTH: OBJET_BORDERWIDTH;
+  bw = (ob->is_active) ? OBJET_ACTIVEBORDERWIDTH: ob->line_width;
 
   renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
   renderer_ops->set_linewidth(renderer, bw);
@@ -327,7 +329,7 @@ objet_draw(Objet *ob, DiaRenderer *renderer)
   p2.x = p1.x + text_get_max_width(ob->text);
   p2.y = p1.y;
   
-  renderer_ops->set_linewidth(renderer, OBJET_LINEWIDTH);
+  renderer_ops->set_linewidth(renderer, ob->line_width/2);
     
   for (i=0; i<ob->text->numlines; i++) { 
     p1.x = x + (w - text_get_line_width(ob->text, i))/2;
@@ -451,6 +453,7 @@ objet_create(Point *startpoint,
   elem->corner = *startpoint;
 
   ob->text_color = color_black;
+  ob->line_width = attributes_get_default_linewidth();
   ob->line_color = attributes_get_foreground();
   ob->fill_color = attributes_get_background();
 
@@ -481,7 +484,7 @@ objet_create(Point *startpoint,
     ob->connections[i].connected = NULL;
   }
   ob->connections[8].flags = CP_FLAGS_MAIN;
-  elem->extra_spacing.border_trans = OBJET_BORDERWIDTH/2.0;
+  elem->extra_spacing.border_trans = ob->line_width/2.0;
   objet_update_data(ob);
 
   for (i=0;i<8;i++) {
@@ -511,8 +514,17 @@ objet_destroy(Objet *ob)
 static DiaObject *
 objet_load(ObjectNode obj_node, int version, const char *filename)
 {
-  return object_load_using_properties(&objet_type,
-                                      obj_node,version,filename);
+  DiaObject * obj = object_load_using_properties(&objet_type,
+                                                 obj_node,version,filename);
+  AttributeNode attr;
+  /* For compatibility with previous dia files. If no line_width, use
+   * OBJET_BORDERWIDTH, that was the previous line width.
+   */
+  attr = object_find_attribute(obj_node, "line_width");
+  if (attr == NULL)
+    ((Objet*)obj)->line_width = OBJET_BORDERWIDTH;
+
+  return obj;
 }
 
 

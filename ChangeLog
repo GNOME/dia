@@ -1,3 +1,11 @@
+2008-10-12  Hans Breuer  <hans@breuer.org>
+
+	* objects/UML/actor.c objects/UML/class.[ch]
+	  objects/UML/class_dialog.c objects/UML/large_package.c
+	  objects/UML/note.c objects/UML/object.c
+	  objects/UML/small_package.c objects/UML/usecase.c : configurable
+	line-width for UML elements, patch from Pablo Gra\~na
+
 2008-09-20  Hans Breuer  <hans@breuer.org>
 
 	* app/filedlg.c : global usage of GTK_DISABLE_DEPRECATED broke

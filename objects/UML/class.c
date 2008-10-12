@@ -130,6 +130,7 @@ extern PropDescDArrayExtra umlformalparameter_extra;
 /** Properties of UMLClass */
 static PropDescription umlclass_props[] = {
   ELEMENT_COMMON_PROPERTIES,
+  PROP_STD_LINE_WIDTH_OPTIONAL,
   /* can't use PROP_STD_TEXT_COLOUR_OPTIONAL cause it has PROP_FLAG_DONT_SAVE. It is designed to fill the Text object - not some subset */
   PROP_STD_TEXT_COLOUR_OPTIONS(PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD|PROP_FLAG_OPTIONAL),
   PROP_STD_LINE_COLOUR_OPTIONAL,
@@ -249,6 +250,7 @@ umlclass_describe_props(UMLClass *umlclass)
 static PropOffset umlclass_offsets[] = {
   ELEMENT_COMMON_PROPERTIES_OFFSETS,
 
+  { PROP_STDNAME_LINE_WIDTH, PROP_STDTYPE_LINE_WIDTH, offsetof(UMLClass, line_width) },
   { "text_colour", PROP_TYPE_COLOUR, offsetof(UMLClass, text_color) },
   { "line_colour", PROP_TYPE_COLOUR, offsetof(UMLClass, line_color) },
   { "fill_colour", PROP_TYPE_COLOUR, offsetof(UMLClass, fill_color) },
@@ -818,7 +820,7 @@ umlclass_draw_attributebox(UMLClass *umlclass, DiaRenderer *renderer, Element *e
 
   if (!umlclass->suppress_attributes) {
     gint i = 0;
-    StartPoint.x += (UMLCLASS_BORDER/2.0 + 0.1);
+    StartPoint.x += (umlclass->line_width/2.0 + 0.1);
     StartPoint.y += 0.1;
 
     list = umlclass->attributes;
@@ -843,7 +845,7 @@ umlclass_draw_attributebox(UMLClass *umlclass, DiaRenderer *renderer, Element *e
 
       if (attr->class_scope) {
         uml_underline_text(renderer, StartPoint, font, font_height, attstr, line_color, 
-                        UMLCLASS_BORDER, UMLCLASS_UNDERLINEWIDTH );
+                        umlclass->line_width, UMLCLASS_UNDERLINEWIDTH );
       }
 
       if (umlclass->visible_comments && attr->comment != NULL && attr->comment[0] != '\0') {
@@ -911,7 +913,7 @@ umlclass_draw_operationbox(UMLClass *umlclass, DiaRenderer *renderer, Element *e
     int wrap_pos, last_wrap_pos, ident, wrapping_needed;
     int part_opstr_len = 0, part_opstr_need = 0;
 
-    StartPoint.x += (UMLCLASS_BORDER/2.0 + 0.1);
+    StartPoint.x += (umlclass->line_width/2.0 + 0.1);
     StartPoint.y += 0.1;
 
     list = umlclass->operations;
@@ -982,7 +984,7 @@ umlclass_draw_operationbox(UMLClass *umlclass, DiaRenderer *renderer, Element *e
           renderer_ops->draw_string(renderer, part_opstr, &StartPoint, ALIGN_LEFT, text_color);
 	  if (op->class_scope) {
 	    uml_underline_text(renderer, StartPoint, font, font_height, part_opstr, line_color, 
-			       UMLCLASS_BORDER, UMLCLASS_UNDERLINEWIDTH );
+			       umlclass->line_width, UMLCLASS_UNDERLINEWIDTH );
 	  }
           last_wrap_pos = wrap_pos;
           wrapsublist = g_list_next( wrapsublist);
@@ -994,7 +996,7 @@ umlclass_draw_operationbox(UMLClass *umlclass, DiaRenderer *renderer, Element *e
         renderer_ops->draw_string(renderer, opstr, &StartPoint, ALIGN_LEFT, text_color);
 	if (op->class_scope) {
 	  uml_underline_text(renderer, StartPoint, font, font_height, opstr, line_color, 
-			     UMLCLASS_BORDER, UMLCLASS_UNDERLINEWIDTH );
+			     umlclass->line_width, UMLCLASS_UNDERLINEWIDTH );
 	}
       }
 
@@ -1107,7 +1109,7 @@ umlclass_draw(UMLClass *umlclass, DiaRenderer *renderer)
   assert(renderer != NULL);
 
   renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
-  renderer_ops->set_linewidth(renderer, UMLCLASS_BORDER);
+  renderer_ops->set_linewidth(renderer, umlclass->line_width);
   renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
   
   elem = &umlclass->element;
@@ -1785,6 +1787,7 @@ umlclass_create(Point *startpoint,
   
   umlclass->stereotype_string = NULL;
   
+  umlclass->line_width = attributes_get_default_linewidth();
   umlclass->text_color = color_black;
   umlclass->line_color = attributes_get_foreground();
   umlclass->fill_color = attributes_get_background();
@@ -1805,7 +1808,7 @@ umlclass_create(Point *startpoint,
   umlclass->connections[UMLCLASS_CONNECTIONPOINTS].connected = NULL;
 #endif
 
-  elem->extra_spacing.border_trans = UMLCLASS_BORDER/2.0;
+  elem->extra_spacing.border_trans = umlclass->line_width/2.0;
   umlclass_update_data(umlclass);
 
   for (i=0;i<8;i++) {
@@ -1942,6 +1945,7 @@ umlclass_copy(UMLClass *umlclass)
   newumlclass->wrap_after_char = umlclass->wrap_after_char;
   newumlclass->comment_line_length = umlclass->comment_line_length;
   newumlclass->comment_tagging = umlclass->comment_tagging;
+  newumlclass->line_width = umlclass->line_width;
   newumlclass->text_color = umlclass->text_color;
   newumlclass->line_color = umlclass->line_color;
   newumlclass->fill_color = umlclass->fill_color;
@@ -2088,6 +2092,8 @@ umlclass_save(UMLClass *umlclass, ObjectNode obj_node,
                    umlclass->comment_line_length);
   data_add_boolean(new_attribute(obj_node, "comment_tagging"),
                    umlclass->comment_tagging);
+  data_add_real(new_attribute(obj_node, "line_width"), 
+		   umlclass->line_width);
   data_add_color(new_attribute(obj_node, "line_color"), 
 		   &umlclass->line_color);
   data_add_color(new_attribute(obj_node, "fill_color"), 
@@ -2221,6 +2227,12 @@ static DiaObject *umlclass_load(ObjectNode obj_node, int version,
   if (attr_node != NULL)
     umlclass->comment_tagging = data_boolean(attribute_first_data(attr_node));
   
+  /* Loads the line width */
+  umlclass->line_width = UMLCLASS_BORDER;
+  attr_node = object_find_attribute(obj_node, "line_width");
+  if(attr_node != NULL)
+    umlclass->line_width = data_real(attribute_first_data(attr_node));
+
   umlclass->line_color = color_black;
   /* support the old name ... */
   attr_node = object_find_attribute(obj_node, "foreground_color");
@@ -2277,7 +2289,7 @@ static DiaObject *umlclass_load(ObjectNode obj_node, int version,
 
   umlclass_calculate_data(umlclass);
 
-  elem->extra_spacing.border_trans = UMLCLASS_BORDER/2.0;
+  elem->extra_spacing.border_trans = umlclass->line_width/2.0;
   umlclass_update_data(umlclass);
   
   for (i=0;i<8;i++) {

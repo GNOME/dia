@@ -44,6 +44,7 @@ struct _Actor {
   Text *text;
   TextAttributes attrs;
 
+  real line_width;
   Color line_color;
   Color fill_color;
 };
@@ -116,6 +117,7 @@ static ObjectOps actor_ops = {
 
 static PropDescription actor_props[] = {
   ELEMENT_COMMON_PROPERTIES,
+  PROP_STD_LINE_WIDTH_OPTIONAL,
   PROP_STD_TEXT_FONT,
   PROP_STD_TEXT_HEIGHT,
   PROP_STD_TEXT_COLOUR_OPTIONAL,
@@ -136,6 +138,7 @@ actor_describe_props(Actor *actor)
 
 static PropOffset actor_offsets[] = {
   ELEMENT_COMMON_PROPERTIES_OFFSETS,
+  { PROP_STDNAME_LINE_WIDTH, PROP_STDTYPE_LINE_WIDTH, offsetof(Actor, line_width) },
   {"text",PROP_TYPE_TEXT,offsetof(Actor,text)},
   {"text_font",PROP_TYPE_FONT,offsetof(Actor,attrs.font)},
   {PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(Actor,attrs.height)},
@@ -232,7 +235,7 @@ actor_draw(Actor *actor, DiaRenderer *renderer)
   actor_height = elem->height - actor->text->height;
   
   renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
-  renderer_ops->set_linewidth(renderer, ACTOR_LINEWIDTH);
+  renderer_ops->set_linewidth(renderer, actor->line_width);
   renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
 
   r = ACTOR_HEAD(actor_height);
@@ -344,6 +347,7 @@ actor_create(Point *startpoint,
   elem->width = ACTOR_WIDTH;
   elem->height = ACTOR_HEIGHT;
 
+  actor->line_width = attributes_get_default_linewidth();
   actor->line_color = attributes_get_foreground();
   actor->fill_color = attributes_get_background();
 
@@ -366,7 +370,7 @@ actor_create(Point *startpoint,
     actor->connections[i].connected = NULL;
   }
   actor->connections[8].flags = CP_FLAGS_MAIN;
-  elem->extra_spacing.border_trans = ACTOR_LINEWIDTH/2.0;
+  elem->extra_spacing.border_trans = actor->line_width/2.0;
   actor_update_data(actor);
 
   for (i=0;i<8;i++) {
@@ -389,8 +393,17 @@ actor_destroy(Actor *actor)
 static DiaObject *
 actor_load(ObjectNode obj_node, int version, const char *filename)
 {
-  return object_load_using_properties(&actor_type,
-                                      obj_node,version,filename);
+  DiaObject *obj = object_load_using_properties(&actor_type,
+                                                obj_node,version,filename);
+  AttributeNode attr;
+  /* For compatibility with previous dia files. If no line_width, use
+   * ACTOR_LINEWIDTH, that was the previous line width.
+   */
+  attr = object_find_attribute(obj_node, "line_width");
+  if (attr == NULL)
+    ((Actor*)obj)->line_width = ACTOR_LINEWIDTH;
+
+  return obj;
 }
 
 

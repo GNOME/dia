@@ -79,6 +79,7 @@ struct _UMLClassDialog {
   GtkSpinButton *wrap_after_char;  
   GtkSpinButton *comment_line_length;
   GtkToggleButton *comment_tagging;
+  GtkSpinButton *line_width;
   DiaColorSelector *text_color;
   DiaColorSelector *line_color;
   DiaColorSelector *fill_color;
@@ -181,6 +182,7 @@ struct _UMLClassState {
   int comment_line_length;
   int comment_tagging;
   
+  real line_width;
   Color line_color;
   Color fill_color;
   Color text_color;
@@ -314,6 +316,7 @@ class_read_from_dialog(UMLClass *umlclass, UMLClassDialog *prop_dialog)
   umlclass->visible_comments = prop_dialog->comments_vis->active;
   umlclass->suppress_attributes = prop_dialog->attr_supp->active;
   umlclass->suppress_operations = prop_dialog->op_supp->active;
+  umlclass->line_width = gtk_spin_button_get_value_as_float(prop_dialog->line_width);
   dia_color_selector_get_color(GTK_WIDGET(prop_dialog->text_color), &umlclass->text_color);
   dia_color_selector_get_color(GTK_WIDGET(prop_dialog->line_color), &umlclass->line_color);
   dia_color_selector_get_color(GTK_WIDGET(prop_dialog->fill_color), &umlclass->fill_color);
@@ -362,6 +365,7 @@ class_fill_in_dialog(UMLClass *umlclass)
   gtk_toggle_button_set_active(prop_dialog->comments_vis, umlclass->visible_comments);
   gtk_toggle_button_set_active(prop_dialog->attr_supp, umlclass->suppress_attributes);
   gtk_toggle_button_set_active(prop_dialog->op_supp, umlclass->suppress_operations);
+  gtk_spin_button_set_value (prop_dialog->line_width, umlclass->line_width);
   dia_color_selector_set_color(GTK_WIDGET(prop_dialog->text_color), &umlclass->text_color);
   dia_color_selector_set_color(GTK_WIDGET(prop_dialog->line_color), &umlclass->line_color);
   dia_color_selector_set_color(GTK_WIDGET(prop_dialog->fill_color), &umlclass->fill_color);
@@ -534,10 +538,12 @@ style_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   GtkWidget *page_label;
   GtkWidget *label;
   GtkWidget *vbox;
+  GtkWidget *line_width;
   GtkWidget *text_color;
   GtkWidget *fill_color;
   GtkWidget *line_color;
   GtkWidget *table;
+  GtkObject *adj;
 
   prop_dialog = umlclass->properties_dialog;
 
@@ -594,33 +600,42 @@ style_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
 
 
 
-  table = gtk_table_new (2, 3, TRUE);
+  table = gtk_table_new (2, 4, TRUE);
   gtk_box_pack_start (GTK_BOX (vbox),
 		      table, FALSE, TRUE, 0);
   /* should probably be refactored too. */
-  label = gtk_label_new(_("Text Color"));
+  label = gtk_label_new(_("Line Width"));
   gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.5);
   gtk_table_attach (GTK_TABLE (table), label, 0, 1, 0, 1, GTK_EXPAND | GTK_FILL, 0, 0, 2);
+  adj = gtk_adjustment_new(umlclass->line_width, 0.0, G_MAXFLOAT, 0.1, 1.0, 0.0);
+  line_width = gtk_spin_button_new (GTK_ADJUSTMENT(adj), 1.0, 2);
+  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (line_width), TRUE);
+  prop_dialog->line_width = GTK_SPIN_BUTTON(line_width);
+  gtk_table_attach (GTK_TABLE (table), line_width, 1, 2, 0, 1, GTK_EXPAND | GTK_FILL, 0, 3, 2);
+
+  label = gtk_label_new(_("Text Color"));
+  gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.5);
+  gtk_table_attach (GTK_TABLE (table), label, 0, 1, 1, 2, GTK_EXPAND | GTK_FILL, 0, 0, 2);
   text_color = dia_color_selector_new();
   dia_color_selector_set_color(text_color, &umlclass->text_color);
   prop_dialog->text_color = (DiaColorSelector *)text_color;
-  gtk_table_attach (GTK_TABLE (table), text_color, 1, 2, 0, 1, GTK_EXPAND | GTK_FILL, 0, 3, 2);
+  gtk_table_attach (GTK_TABLE (table), text_color, 1, 2, 1, 2, GTK_EXPAND | GTK_FILL, 0, 3, 2);
 
   label = gtk_label_new(_("Foreground Color"));
   gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.5);
-  gtk_table_attach (GTK_TABLE (table), label, 0, 1, 1, 2, GTK_EXPAND | GTK_FILL, 0, 0, 2);
+  gtk_table_attach (GTK_TABLE (table), label, 0, 1, 2, 3, GTK_EXPAND | GTK_FILL, 0, 0, 2);
   line_color = dia_color_selector_new();
   dia_color_selector_set_color(line_color, &umlclass->line_color);
   prop_dialog->line_color = (DiaColorSelector *)line_color;
-  gtk_table_attach (GTK_TABLE (table), line_color, 1, 2, 1, 2, GTK_EXPAND | GTK_FILL, 0, 3, 2);
+  gtk_table_attach (GTK_TABLE (table), line_color, 1, 2, 2, 3, GTK_EXPAND | GTK_FILL, 0, 3, 2);
   
   label = gtk_label_new(_("Background Color"));
   gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.5);
-  gtk_table_attach (GTK_TABLE (table), label, 0, 1, 2, 3, GTK_EXPAND | GTK_FILL, 0, 0, 2);
+  gtk_table_attach (GTK_TABLE (table), label, 0, 1, 3, 4, GTK_EXPAND | GTK_FILL, 0, 0, 2);
   fill_color = dia_color_selector_new();
   dia_color_selector_set_color(fill_color, &umlclass->fill_color);
   prop_dialog->fill_color = (DiaColorSelector *)fill_color;
-  gtk_table_attach (GTK_TABLE (table), fill_color, 1, 2, 2, 3, GTK_EXPAND | GTK_FILL, 0, 3, 2);
+  gtk_table_attach (GTK_TABLE (table), fill_color, 1, 2, 3, 4, GTK_EXPAND | GTK_FILL, 0, 3, 2);
 
   gtk_widget_show_all (vbox);
   gtk_widget_show (page_label);
@@ -3442,4 +3457,5 @@ set_comment(GtkTextView *view, gchar *text)
   gtk_text_buffer_get_start_iter(buffer, &start);
   gtk_text_buffer_insert( buffer, &start, text, strlen(text));
 }
+
 

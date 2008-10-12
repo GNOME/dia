@@ -74,6 +74,7 @@ struct _UMLClass {
 
   /* Class info: */
 
+  real line_width;
   real font_height;
   real abstract_font_height;
   real polymorphic_font_height;

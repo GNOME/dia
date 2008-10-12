@@ -52,6 +52,8 @@ struct _LargePackage {
 
   DiaFont *font;
 
+  real line_width;
+
   Color text_color;
   Color line_color;
   Color fill_color;
@@ -60,6 +62,9 @@ struct _LargePackage {
   real topheight;
 };
 
+/* The old border width, kept for compatibility with dia files created with
+ * older versions.
+ */
 #define LARGEPACKAGE_BORDERWIDTH 0.1
 #define LARGEPACKAGE_FONTHEIGHT 0.8
 
@@ -123,6 +128,7 @@ static ObjectOps largepackage_ops = {
 
 static PropDescription largepackage_props[] = {
   ELEMENT_COMMON_PROPERTIES,
+  PROP_STD_LINE_WIDTH_OPTIONAL,
   PROP_STD_LINE_COLOUR_OPTIONAL, 
   PROP_STD_FILL_COLOUR_OPTIONAL, 
   /* can't use PROP_STD_TEXT_COLOUR_OPTIONAL cause it has PROP_FLAG_DONT_SAVE. It is designed to fill the Text object - not some subset */
@@ -145,6 +151,7 @@ largepackage_describe_props(LargePackage *largepackage)
 
 static PropOffset largepackage_offsets[] = {
   ELEMENT_COMMON_PROPERTIES_OFFSETS,
+  { PROP_STDNAME_LINE_WIDTH, PROP_STDTYPE_LINE_WIDTH, offsetof(LargePackage, line_width) },
   {"line_colour",PROP_TYPE_COLOUR,offsetof(LargePackage,line_color)},
   {"fill_colour",PROP_TYPE_COLOUR,offsetof(LargePackage,fill_color)},
   {"text_colour",PROP_TYPE_COLOUR,offsetof(LargePackage,text_color)},
@@ -231,7 +238,7 @@ largepackage_draw(LargePackage *pkg, DiaRenderer *renderer)
   h = elem->height;
   
   renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
-  renderer_ops->set_linewidth(renderer, LARGEPACKAGE_BORDERWIDTH);
+  renderer_ops->set_linewidth(renderer, pkg->line_width);
   renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
 
 
@@ -347,6 +354,7 @@ largepackage_create(Point *startpoint,
   elem->width = 4.0;
   elem->height = 4.0;
   
+  pkg->line_width = attributes_get_default_linewidth();
   pkg->text_color = color_black;
   pkg->line_color = attributes_get_foreground();
   pkg->fill_color = attributes_get_background();
@@ -366,7 +374,7 @@ largepackage_create(Point *startpoint,
     pkg->connections[i].connected = NULL;
   }
   pkg->connections[8].flags = CP_FLAGS_MAIN;
-  pkg->element.extra_spacing.border_trans = LARGEPACKAGE_BORDERWIDTH/2.0;
+  pkg->element.extra_spacing.border_trans = pkg->line_width/2.0;
   largepackage_update_data(pkg);
 
   *handle1 = NULL;
@@ -388,11 +396,17 @@ largepackage_destroy(LargePackage *pkg)
 static DiaObject *
 largepackage_load(ObjectNode obj_node, int version, const char *filename)
 {
-  return object_load_using_properties(&largepackage_type,
-                                      obj_node,version,filename);
+  DiaObject *obj = object_load_using_properties(&largepackage_type,
+                                                obj_node,version,filename);
+  AttributeNode attr;
+  /* For compatibility with previous dia files. If no line_width, use
+   * LARGEPACKAGE_BORDERWIDTH, that was the previous line width.
+   */
+  attr = object_find_attribute(obj_node, "line_width");
+  if (attr == NULL)
+    ((LargePackage*)obj)->line_width = LARGEPACKAGE_BORDERWIDTH;
+
+  return obj;
 }
-
-
-
 
 
