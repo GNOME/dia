@@ -1,3 +1,7 @@
+2008-10-12  Steffen Macke <sdteffen@sdteffen.de>
+
+	* makefile.msc: Small updates to sync makefile with compilation guide
+
 2008-10-12  Hans Breuer  <hans@breuer.org>
 
 	* objects/UML/actor.c objects/UML/class.[ch]

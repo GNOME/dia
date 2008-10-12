@@ -6,15 +6,15 @@ full: 	build \
 	build\win32\bin \
 	build\win32\bin\dia.exe \
 	build\win32\bin\libdia.dll \
-	build\win32\bin\libart_lgpl_2-2.dll \
-	build\win32\bin\libfontconfig-1.dll \
+	build\win32\bin\libart_lgpl_22.dll \
+#	build\win32\bin\libfontconfig-1.dll \
 	build\win32\bin\libgtk-win32-2.0-0.dll \
 	build\win32\bin\libxml2.dll \
 	build\win32\bin\libxslt.dll \
 	build\win32\dia \
 	build\win32\lib \
 	build\win32\lib\locale \
-	build\win32\dia\bondgraph.dll \
+#	build\win32\dia\bondgraph.dll \
 	build\win32\dia\chronogram.dll \
 	build\win32\dia\custom.dll \
 	build\win32\dia\er.dll \
@@ -94,8 +94,8 @@ build\win32\lib\locale: build\win32\lib
 build\win32\bin\dia.exe: build\win32\bin app\dia.exe
 	copy app\dia.exe build\win32\bin\dia.exe
 	
-build\win32\bin\libart_lgpl.dll: build\win32\bin ..\bin\libart_lgpl_2-2.dll
-	copy ..\bin\libart_lgpl_2-2.dll build\win32\bin
+build\win32\bin\libart_lgpl_22.dll: build\win32\bin ..\bin\libart_lgpl_22.dll
+	copy ..\bin\libart_lgpl_22.dll build\win32\bin
 
 build\win32\bin\libfontconfig-1.dll: build\win32\bin ..\bin\libfontconfig-1.dll
 	copy ..\bin\libfontconfig-1.dll build\win32\bin
@@ -109,11 +109,11 @@ build\win32\bin\libgtk-win32-2.0-0.dll: ..\bin\libgtk-win32-2.0-0.dll
 build\win32\lib\zlib.dll: build\win32\bin\zlib.dll
 	copy ..\lib\zlib.dll build\win32\bin
 	
-build\win32\bin\libxml2.dll: build\win32\bin ..\lib\libxml2.dll
-	copy ..\lib\libxml2.dll build\win32\bin
+build\win32\bin\libxml2.dll: build\win32\bin ..\bin\libxml2.dll
+	copy ..\bin\libxml2.dll build\win32\bin
 	
-build\win32\bin\libxslt.dll: build\win32\bin ..\lib\libxslt.dll
-	copy ..\lib\libxslt.dll build\win32\bin
+build\win32\bin\libxslt.dll: build\win32\bin ..\bin\libxslt.dll
+	copy ..\bin\libxslt.dll build\win32\bin
 
 build\win32\bin\libcharset.dll: build\win32\bin ..\bin\libcharset.dll
 	copy ..\bin\libcharset.dll build\win32\bin
@@ -217,7 +217,7 @@ build\win32\etc: build\win32 ..\etc
 	md build\win32\etc
 	xcopy /s ..\etc\* build\win32\etc\.	
 	
-build\win32\dia-splash.png: build\win32 dia-splash.png
+build\win32\dia-splash.png: build\win32 data\dia-splash.png
 	copy data\dia-splash.png build\win32
 
 ALL_LINGUAS = am ar az be bg bs ca cs da de dz el en_CA en_GB es eu fi fr ga gl gu hr hu id is it ja ko lt lv mk ml mn ms nb ne nl nn oc pa pl pt pt_BR ro ru rw sk sl sq sr sr@Latn sv th tr uk vi zh_CN zh_HK zh_TW	
