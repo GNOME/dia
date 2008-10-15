@@ -1,3 +1,10 @@
+2008-10-15  Hans Breuer  <hans@breuer.org>
+
+	* INSTALL : updated minimal version requirements (the real thing still
+	in configure.in
+
+	* app/find-and-replace.c : consistent line ends
+
 2008-10-12  Steffen Macke <sdteffen@sdteffen.de>
 
 	* makefile.msc: Small updates to sync makefile with compilation guide

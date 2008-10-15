@@ -13,10 +13,10 @@ REQUIREMENTS:
 
 See machine-specific requirements further down.
 
-Dia needs Gtk+ at least version 2.4.0 installed.
+Dia needs Gtk+ at least version 2.6.0 installed.
 It can be found at:
 
-ftp://ftp.gtk.org/pub/gtk/v2.0/
+ftp://ftp.gtk.org/pub/gtk/
 
 Binaries available at:
   ftp://ftp.gtk.org/pub/gtk/binary/devel/RPMS/
@@ -26,13 +26,13 @@ or
 Note that Gtk 2.0 has a number of requirements of its own whose exact
 versions depend on the version of Gtk.
 
-Pango (required by Gtk) needs to be at least version 1.1.5.  It can be
+Pango (required by Gtk) needs to be at least version 1.8.0.  It can be
 found here:
-  ftp://ftp.gtk.org/pub/gtk/v2.2/
+  ftp://ftp.gtk.org/pub/pango/
 
 As of version 0.91, Dia also needs libxml2, version 2.3.9 or higher.
 It can be found here:
-  ftp://ftp.gnome.org/pub/gnome/sources/libxml/
+  ftp://ftp.gnome.org/pub/gnome/sources/libxml2/
 
 As of version 0.91, Dia under Unix also needs freetype2, version 2.0.9 or
 higher.  It can be found here:
@@ -54,15 +54,17 @@ font-config 1.0.1
 GLib 2.1.3
 ATK 2.0.0
 FreeType 2.0.9
-Pango 1.1.5
-GTK+ 2.0.0
+Pango 1.8.0
+GTK+ 2.6.0
 libxml 2.3.9
 
 A number of other libraries are recommends for extra features:
 
+Cairo is used for anti-alised rendering to screen or PNG as well as PDF:
+  http://cairographics.org
 Libart allows anti-aliased rendering and anti-aliased export to PNG:
   http://www.artofcode.com/libart.html
-Libpng is required for anti-aliased PNG export:
+Libpng is need for anti-aliased PNG export:
   http://download.sourceforge.net/libpng/
 Libxslt allows export through XSLT translation schemas:
   ftp://ftp.gnome.org/pub/GNOME/sources/libxslt/
