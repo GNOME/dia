@@ -1,3 +1,7 @@
+2008-10-16  Steffen Macke <sdteffen@sdteffen.de>
+
+	* installer/win32/dia.nsi: Small updates for the new build system
+	
 2008-10-15  Hans Breuer  <hans@breuer.org>
 
 	* INSTALL : updated minimal version requirements (the real thing still
