@@ -1,5 +1,8 @@
 2008-10-17  Hans Breuer  <hans@breuer.org>
 
+	* app/find-and-replace.c : patch from Johann Tienhaara adding the
+	ability to find and/or replace (almost) any text content of the objects
+
 	* plug-ins/dxf/dxf-import.c : dxfcode now calculated as inside the read 
 	function, reduces code lines and en passant fixes load error of #321539
 

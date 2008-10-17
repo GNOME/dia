@@ -4,6 +4,7 @@
  * find-and-replace.c - common functionality applied to diagram
  *
  * Copyright (C) 2008 Hans Breuer
+ * Copyright (C) 2008 Johann Tienhaara (patched)
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -45,7 +46,9 @@ enum {
 
 enum {
   MATCH_CASE = (1<<0),
-  MATCH_WORD = (1<<1)
+  MATCH_WORD = (1<<1),
+  /* Don't just match the name/text - match UML attributes etc too? */
+  MATCH_ALL_PROPERTIES = (1<<2)
 };
 
 typedef struct _SearchData {
@@ -58,42 +61,37 @@ typedef struct _SearchData {
   gboolean seen_last;
 } SearchData;
 
-/*! Match and possibly modify the given objects property */
-Property *
-_match_string_prop (DiaObject *obj, const SearchData *sd, const gchar *replacement)
+
+/*! Match and possibly modify the given object's given property.
+ * Returns FALSE if not matched or if the input property is NULL. */
+static gboolean
+_match_text_prop (DiaObject *obj, const SearchData *sd, const gchar *replacement, gchar **value_to_match)
 {
-  Property *prop;
-  gchar   **name;
-  gboolean ret = FALSE;
+  gboolean is_match = FALSE;
   gchar    *repl = NULL;
 
-  if ((prop = object_prop_by_name(obj, "name")) != NULL)
-    name = &((StringProperty *)prop)->string_data;
-  else if ((prop = object_prop_by_name(obj, "text")) != NULL)
-    name = &((TextProperty *)prop)->text_data;
-
-  if (!prop)
-    return NULL;
+  if (!value_to_match || *value_to_match == NULL)
+    return FALSE;
 
   /* search part */
   if (sd->flags & MATCH_CASE) {
-    const gchar *p = strstr (*name, sd->key);
-    ret = p != NULL;
+    const gchar *p = strstr (*value_to_match, sd->key);
+    is_match = p != NULL;
     if (p && replacement) {
-      gchar *a = g_strndup (*name, p - *name);
+      gchar *a = g_strndup (*value_to_match, p - *value_to_match);
       gchar *b = g_strdup (p + strlen(sd->key));
       repl = g_strdup_printf ("%s%s%s", a, replacement, b);
       g_free (a);
       g_free (b);
     }
   } else {
-    gchar *s1 = g_utf8_casefold (*name, -1);
+    gchar *s1 = g_utf8_casefold (*value_to_match, -1);
     gchar *s2 = g_utf8_casefold (sd->key, -1);
     const gchar *p = strstr (s1, s2);
-    ret = p != NULL;
+    is_match = p != NULL;
     if (p && replacement) {
-      gchar *a = g_strndup (*name, p - s1);
-      gchar *b = g_strdup (*name + strlen(a) + strlen(sd->key));
+      gchar *a = g_strndup (*value_to_match, p - s1);
+      gchar *b = g_strdup (*value_to_match + strlen(a) + strlen(sd->key));
       repl = g_strdup_printf ("%s%s%s", a, replacement, b);
       g_free (a);
       g_free (b);
@@ -103,36 +101,206 @@ _match_string_prop (DiaObject *obj, const SearchData *sd, const gchar *replaceme
   }
 
   if (sd->flags & MATCH_WORD)
-    ret = (ret && strlen(*name) == strlen(sd->key));
+    is_match = (is_match && strlen(*value_to_match) == strlen(sd->key));
 
   /* replace part */
-  if (ret && replacement) {
-    g_free (*name);
-    *name = repl;
+  if (is_match && replacement) {
+    g_free (*value_to_match);
+    *value_to_match = repl;
   } else {
     g_free (repl);
   }
   
-  if (ret)
-    return prop;
-    
-  prop->ops->free(prop);
-  return NULL;
+  return is_match;
 }
 
+
+/*! Match and possibly modify the given object's name/text property */
+static GPtrArray *
+_match_name_prop (DiaObject *obj, const SearchData *sd, const gchar *replacement)
+{
+  Property *prop;
+  gchar   **name;
+  gboolean is_match = FALSE;
+  GPtrArray *plist = NULL;
+
+  if ((prop = object_prop_by_name(obj, "name")) != NULL)
+    name = &((StringProperty *)prop)->string_data;
+  else if ((prop = object_prop_by_name(obj, "text")) != NULL)
+    name = &((TextProperty *)prop)->text_data;
+  else
+    return NULL;
+
+  is_match = _match_text_prop (obj, sd, replacement, name);
+
+  if (!is_match) {
+    prop->ops->free (prop);
+    return NULL;
+  }
+
+  plist = prop_list_from_single (prop);
+
+  return plist;
+}
+
+/*! Match and possibly modify one property in an object. */
+static gboolean
+_match_prop (DiaObject *obj, const SearchData *sd, const gchar *replacement, Property *prop)
+{
+  PropertyType prop_type;
+  gboolean is_match = FALSE;
+  gchar **text_data;
+
+  if (!prop)
+    return FALSE;
+
+  /* TODO: We could probably speed this up by using the type_quark,
+   *       but I don't know enough yet to use it safely... */
+  prop_type = prop->type;
+  if (!prop_type)
+    return FALSE;
+
+  /* Special case: array of sub-properties.  Do not continue with
+   * checking text for this property.  Instead, just
+   * recurse into _match_prop() for each sub-property in
+   * the array. */
+  if (   strcmp (prop_type, PROP_TYPE_SARRAY) == 0
+      || strcmp (prop_type, PROP_TYPE_DARRAY) == 0) {
+    GPtrArray *records = ((ArrayProperty *) prop)->records;
+    guint rnum;
+
+    if (!records)
+      return FALSE;
+
+    for (rnum = 0; rnum < records->len && !is_match; ++rnum) {
+      GPtrArray *sub_props = g_ptr_array_index (records, rnum);
+      guint sub_num;
+
+      for (sub_num = 0; sub_num < sub_props->len && !is_match; ++sub_num) {
+	const gchar *sub_prop_name;
+	Property *sub_prop = g_ptr_array_index (sub_props, sub_num);
+
+        is_match = _match_prop (obj, sd, replacement, sub_prop);
+      }
+    }
+    /* Done. */
+    return is_match;
+  }
+
+
+  /* Check for string / text property. */
+  if (   strcmp (prop_type, PROP_TYPE_MULTISTRING) == 0
+      || strcmp (prop_type, PROP_TYPE_STRING) == 0)
+  {
+    text_data = &((StringProperty *) prop)->string_data;
+  } else if (strcmp (prop_type, PROP_TYPE_TEXT) == 0) {
+    text_data = &((TextProperty *) prop)->text_data;
+  }
+  /* TODO future:
+  else if ( strcmp (prop_type, PROP_TYPE_STRINGLIST) == 0)
+  {
+  }
+  */
+  else {
+    /* Not a type we're interested in (int, real, geometry, etc). */
+    return FALSE;
+  }
+
+  return _match_text_prop (obj, sd, replacement, text_data);
+}
+
+/*! Match and possibly modify all the given object's properties. */
+static GPtrArray *
+_match_all_props (DiaObject *obj, const SearchData *sd, const gchar *replacement)
+{
+  GPtrArray *all_plist = NULL;
+  GPtrArray *matched_plist = NULL;
+  const PropDescription *desc;
+  guint pnum;
+
+  if (!obj)
+    return NULL;
+
+  desc = object_get_prop_descriptions (obj);
+  if (!desc)
+    return NULL;
+
+  all_plist = prop_list_from_descs (desc, pdtpp_true);
+  if (!all_plist)
+    return NULL;
+
+  /* Step though all object properties.
+   * Along the way, construct a list of matching properties (or
+   * replaced properties). */
+  for (pnum = 0; pnum < all_plist->len; ++pnum) {
+    Property *prop = g_ptr_array_index (all_plist, pnum);
+    gboolean is_match = FALSE;
+    const gchar *prop_name;
+
+    if (!prop || !prop->name)
+      continue;
+
+    /* This extra step seems to be necessary to populate the property data. */
+    prop_name = prop->name;
+    prop->ops->free (prop);
+    prop = object_prop_by_name (obj, prop_name);
+
+    is_match = _match_prop (obj, sd, replacement, prop);
+
+    if (!is_match) {
+      prop->ops->free (prop);
+      continue;
+    }
+
+    /* We have a match. */
+    if (!matched_plist) {
+      /* First time. */
+      matched_plist = prop_list_from_single (prop);
+    } else {
+      //FIXME: do we realy want a replace all here?
+      /* Subsequent finds. */
+      GPtrArray *append_plist;
+      append_plist = prop_list_from_single (prop);
+      prop_list_add_list (matched_plist, append_plist);
+      prop_list_free (append_plist);
+    }
+
+  } /* Continue stepping through all object properties. */
+
+  return matched_plist;
+}
+
+
+/*! Match and possibly modify one or more properties in an object.
+ *  Returns a list of modified Properties. */
+static GPtrArray *
+_match_props (DiaObject *obj, const SearchData *sd, const gchar *replacement)
+{
+  g_return_val_if_fail (obj && sd, NULL);
+
+  if (sd->flags & MATCH_ALL_PROPERTIES)
+    return _match_all_props (obj, sd, replacement);
+  else
+    return _match_name_prop (obj, sd, replacement);
+}
+
+
+/* Only match (find), do not replace any values. */
 static gboolean
 _matches (DiaObject *obj, const SearchData *sd)
 {
-  Property *prop = NULL;
+  GPtrArray *plist = NULL;
 
   if (!obj)
     return FALSE;
 
-  prop = _match_string_prop (obj, sd, NULL);
-  if (prop)
-    prop->ops->free(prop);
+  plist = _match_props (obj, sd, NULL);
+  if (!plist)
+    return FALSE;
 
-  return (prop != NULL);    
+  prop_list_free (plist);
+
+  return TRUE;
 }
 
 static void
@@ -153,18 +321,18 @@ find_func (DiaObject *obj, gpointer user_data)
   }
 }
 
+/* Match and replace property values. */
 static gboolean
 _replace (DiaObject *obj, const SearchData *sd, const char *replacement)
 {
   ObjectChange *obj_change;
-  Property *prop;
-  GPtrArray *plist;
+  GPtrArray *plist = NULL;
 
-  prop = _match_string_prop (obj, sd, replacement);
-  if (!prop)
+  plist = _match_props (obj, sd, replacement);
+  if (!plist)
     return FALSE;
-    
-  plist = prop_list_from_single (prop);
+
+  /* Refresh screen and free the list of modified properties. */
   obj_change = object_apply_props (obj, plist);
   prop_list_free (plist);
 
@@ -194,6 +362,8 @@ fnr_respond (GtkWidget *widget, gint response_id, gpointer data)
                   g_object_get_data (G_OBJECT (widget), "match-case"))) ? MATCH_CASE : 0;
   sd.flags |= gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON ( 
                   g_object_get_data (G_OBJECT (widget), "match-word"))) ? MATCH_WORD : 0;
+  sd.flags |= gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON ( 
+		  g_object_get_data (G_OBJECT (widget), "match-all-properties"))) ? MATCH_ALL_PROPERTIES : 0;
   
 
   switch (response_id) {
@@ -266,6 +436,7 @@ fnr_dialog_setup_common (GtkWidget *dialog, gboolean is_replace, DDisplay *ddisp
   GtkWidget *search_entry;
   GtkWidget *match_case;
   GtkWidget *match_word;
+  GtkWidget *match_all_properties;
 
   gtk_dialog_set_default_response (GTK_DIALOG (dialog), RESPONSE_FIND);
 
@@ -310,6 +481,10 @@ fnr_dialog_setup_common (GtkWidget *dialog, gboolean is_replace, DDisplay *ddisp
   match_word = gtk_check_button_new_with_mnemonic (_("Match _entire word only"));
   gtk_box_pack_start (GTK_BOX (vbox), match_word, FALSE, FALSE, 6);
   g_object_set_data (G_OBJECT (dialog), "match-word", match_word);
+
+  match_all_properties = gtk_check_button_new_with_mnemonic (_("Match _all properties (not just object name)"));
+  gtk_box_pack_start (GTK_BOX (vbox), match_all_properties, FALSE, FALSE, 6);
+  g_object_set_data (G_OBJECT (dialog), "match-all-properties", match_all_properties);
 
   gtk_widget_show_all (vbox);
 }
@@ -384,4 +559,3 @@ edit_replace_callback(gpointer data, guint action, GtkWidget *widget)
 
   gtk_dialog_run (GTK_DIALOG (dialog));  
 }
-
