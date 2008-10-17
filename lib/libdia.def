@@ -619,6 +619,7 @@ EXPORTS
  prop_desc_list_find_prop
  prop_desc_list_free_handler_chain
  prop_desc_lists_intersection
+ prop_list_add_list
  prop_list_free
  prop_list_from_descs
  prop_list_from_single
