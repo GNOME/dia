@@ -66,7 +66,8 @@ typedef struct _DxfLayerData
 
 typedef struct _DxfData
 {
-    char code[DXF_LINE_LENGTH];
+    int  code;
+    char codeline[DXF_LINE_LENGTH];
     char value[DXF_LINE_LENGTH];
 } DxfData;
 
@@ -150,8 +151,6 @@ static PropDescription dxf_prop_descs[] = {
 DiaObject *
 read_entity_line_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 {
-    int codedxf;
-
     /* line data */
     Point start, end;
     
@@ -178,8 +177,7 @@ read_entity_line_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
         if(read_dxf_codes(filedxf, data) == FALSE){
             return( NULL );
         }
-        codedxf = atoi(data->code);
-        switch(codedxf){
+        switch(data->code){
         case 6:	 style = get_dia_linestyle_dxf(data->value);
             break;		
         case  8: layer = layer_find_by_name(data->value, dia);
@@ -207,7 +205,7 @@ read_entity_line_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 	    line_colour.blue = color.b / 255.0;
             break;
         }	
-    } while(codedxf != 0);
+    } while(data->code != 0);
 
     line_obj = otype->ops->create(&start, otype->default_user_data,
                                   &h1, &h2);
@@ -255,8 +253,6 @@ static PropDescription dxf_solid_prop_descs[] = {
 DiaObject *
 read_entity_solid_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 {
-   int codedxf;
-   
    /* polygon data */
    Point p[4];
    
@@ -285,8 +281,7 @@ read_entity_solid_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
         if(read_dxf_codes(filedxf, data) == FALSE){
             return( NULL );
         }
-        codedxf = atoi(data->code);
-        switch(codedxf){
+        switch(data->code){
         case 6:	 
 	   style = get_dia_linestyle_dxf(data->value);
 	   break;		
@@ -337,7 +332,7 @@ read_entity_solid_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 	    fill_colour.blue = color.b / 255.0;
             break;
         }	
-    } while(codedxf != 0);
+    } while(data->code != 0);
 
    pcd = g_new( MultipointCreateData, 1);
    
@@ -406,7 +401,7 @@ static int is_equal( double a, double b )
 DiaObject *
 read_entity_polyline_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 {
-    int codedxf, i;
+    int i;
    
         /* polygon data */
     Point *p = NULL, start, end, center;
@@ -439,8 +434,7 @@ read_entity_polyline_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
         if(read_dxf_codes(filedxf, data) == FALSE){
             return( NULL );
         }
-        codedxf = atoi(data->code);
-        switch(codedxf){
+        switch(data->code){
             case 0:
                 if( !strcmp( data->value, "VERTEX" ))
                 {
@@ -632,8 +626,6 @@ static PropDescription dxf_ellipse_prop_descs[] = {
 /* reads a circle entity from the dxf file and creates a circle object in dia*/
 DiaObject *read_entity_circle_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 {
-    int codedxf;
-    
     /* circle data */
     Point center;
     real radius = 1.0;
@@ -657,8 +649,7 @@ DiaObject *read_entity_circle_dxf(FILE *filedxf, DxfData *data, DiagramData *dia
         if(read_dxf_codes(filedxf, data) == FALSE){
             return( NULL );
         }
-        codedxf = atoi(data->code);
-        switch(codedxf){
+        switch(data->code){
         case  8: 
             layer = layer_find_by_name(data->value, dia);
             break;
@@ -676,7 +667,7 @@ DiaObject *read_entity_circle_dxf(FILE *filedxf, DxfData *data, DiagramData *dia
             break;
         }
         
-    } while(codedxf != 0);
+    } while(data->code != 0);
  
     center.x -= radius;
     center.y -= radius;
@@ -721,8 +712,6 @@ static PropDescription dxf_arc_prop_descs[] = {
 /* reads a circle entity from the dxf file and creates a circle object in dia*/
 DiaObject *read_entity_arc_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 {
-    int codedxf;
-    
     /* arc data */
     Point start,center,end;
     real radius = 1.0, start_angle = 0.0, end_angle=360.0;
@@ -746,8 +735,7 @@ DiaObject *read_entity_arc_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
         if(read_dxf_codes(filedxf, data) == FALSE){
             return( NULL );
         }
-        codedxf = atoi(data->code);
-        switch(codedxf){
+        switch(data->code){
         case  8: 
             layer = layer_find_by_name(data->value, dia);
             break;
@@ -770,7 +758,7 @@ DiaObject *read_entity_arc_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
             end_angle = g_ascii_strtod(data->value, NULL)*M_PI/180.0;
             break;
         }
-    } while(codedxf != 0);
+    } while(data->code != 0);
 
     /* printf("c.x=%f c.y=%f s",center.x,center.y); */
     start.x = center.x + cos(start_angle) * radius; 
@@ -818,8 +806,6 @@ DiaObject *read_entity_arc_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 DiaObject *
 read_entity_ellipse_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 {
-    int codedxf;
-    
     /* ellipse data */
     Point center;
     real width = 1.0;
@@ -843,8 +829,7 @@ read_entity_ellipse_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
         if(read_dxf_codes(filedxf, data) == FALSE){
             return( NULL );
         }
-        codedxf = atoi(data->code);
-        switch(codedxf){
+        switch(data->code){
         case  8: 
             layer = layer_find_by_name(data->value, dia);
             break;
@@ -864,7 +849,7 @@ read_entity_ellipse_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
             width = g_ascii_strtod(data->value, NULL) * WIDTH_SCALE; /* XXX what scale */
             break;
         }
-    } while(codedxf != 0);
+    } while(data->code != 0);
  
     center.x -= width;
     center.y -= (width*ratio_width_height);
@@ -905,7 +890,6 @@ static PropDescription dxf_text_prop_descs[] = {
 DiaObject *
 read_entity_text_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 {
-    int codedxf;
     RGB_t color;
 
     /* text data */
@@ -930,8 +914,7 @@ read_entity_text_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
         if (read_dxf_codes(filedxf, data) == FALSE) {
             return( NULL );
         }
-        codedxf = atoi(data->code);
-        switch (codedxf) {
+        switch (data->code) {
         case  1: 
 	   textvalue = g_strdup(data->value);
 	   textp = textvalue;
@@ -1023,7 +1006,7 @@ read_entity_text_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
             }
 	   break;
         }
-    } while(codedxf != 0);
+    } while(data->code != 0);
   
     location.y += y_offset * height;
    
@@ -1058,32 +1041,26 @@ read_entity_text_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 void 
 read_table_layer_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 {
-    int codedxf;
-	
     do {
         if(read_dxf_codes(filedxf, data) == FALSE){
             return;
         }
         else {
-            codedxf = atoi(data->code);
-            if(codedxf == 2){
+            if(data->code == 2){
 	       layer_find_by_name( data->value, dia );
             }
         }
-    } while ((codedxf != 0) || (strcmp(data->value, "ENDTAB") != 0));
+    } while ((data->code != 0) || (strcmp(data->value, "ENDTAB") != 0));
 }
 
 /* reads a scale entity from the dxf file */
-void read_entity_scale_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
+void 
+read_entity_scale_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 {
-   int codedxf;
-
    if(read_dxf_codes(filedxf, data) == FALSE)
       return;
 
-   codedxf = atoi(data->code);
-       
-   switch(codedxf)
+   switch(data->code)
      {
       case 40: 
 	coord_scale = g_ascii_strtod(data->value, NULL);
@@ -1100,14 +1077,10 @@ void read_entity_scale_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 void read_entity_measurement_dxf(FILE *filedxf, DxfData *data,
                                  DiagramData *dia)
 {
-    int codedxf;
-
    if(read_dxf_codes(filedxf, data) == FALSE)
       return;
 
-   codedxf = atoi(data->code);
-       
-   switch(codedxf)
+   switch(data->code)
      {
       case 70:
 	/* value 0 = English, 1 = Metric */
@@ -1128,14 +1101,10 @@ void read_entity_measurement_dxf(FILE *filedxf, DxfData *data,
 void 
 read_entity_textsize_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 {
-   int codedxf;
-
    if(read_dxf_codes(filedxf, data) == FALSE)
      return;
      
-   codedxf = atoi(data->code);
-
-   switch(codedxf)
+   switch(data->code)
      {
       case 40:
 	text_scale = g_ascii_strtod(data->value, NULL);
@@ -1151,18 +1120,15 @@ read_entity_textsize_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 void 
 read_section_header_dxf(FILE *filedxf, DxfData *data, DiagramData *dia) 
 {
-    int codedxf;
-	
     if(read_dxf_codes(filedxf, data) == FALSE){
         return;
     }
     do {
-       codedxf = atoi(data->code);
-       if((codedxf == 9) && (strcmp(data->value, "$DIMSCALE") == 0)) {
+       if((data->code == 9) && (strcmp(data->value, "$DIMSCALE") == 0)) {
 	  read_entity_scale_dxf(filedxf, data, dia);
-        } else if((codedxf == 9) && (strcmp(data->value, "$TEXTSIZE") == 0)) {
+        } else if((data->code == 9) && (strcmp(data->value, "$TEXTSIZE") == 0)) {
 	  read_entity_textsize_dxf(filedxf, data, dia);
-        } else if((codedxf == 9) && (strcmp(data->value, "$MEASUREMENT") == 0)) {
+        } else if((data->code == 9) && (strcmp(data->value, "$MEASUREMENT") == 0)) {
 	  read_entity_measurement_dxf(filedxf, data, dia);
         } else {
 	   if(read_dxf_codes(filedxf, data) == FALSE){
@@ -1170,21 +1136,20 @@ read_section_header_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 	   }
 	   
 	}
-    } while ((codedxf != 0) || (strcmp(data->value, "ENDSEC") != 0));
+    } while ((data->code != 0) || (strcmp(data->value, "ENDSEC") != 0));
 }
 
 /* reads the classes section of the dxf file */
-void read_section_classes_dxf(FILE *filedxf, DxfData *data, DiagramData *dia) {
-    int codedxf;
-	
+void 
+read_section_classes_dxf(FILE *filedxf, DxfData *data, DiagramData *dia) 
+{
     if(read_dxf_codes(filedxf, data) == FALSE){
         return;
     }
     do {
-       codedxf = atoi(data->code);
-       if((codedxf == 9) && (strcmp(data->value, "$LTSCALE") == 0)) {
+       if((data->code == 9) && (strcmp(data->value, "$LTSCALE") == 0)) {
 	  read_entity_scale_dxf(filedxf, data, dia);
-        } else if((codedxf == 9) && (strcmp(data->value, "$TEXTSIZE") == 0)) {
+        } else if((data->code == 9) && (strcmp(data->value, "$TEXTSIZE") == 0)) {
 	  read_entity_textsize_dxf(filedxf, data, dia);
         } else {
 	   if(read_dxf_codes(filedxf, data) == FALSE){
@@ -1192,19 +1157,18 @@ void read_section_classes_dxf(FILE *filedxf, DxfData *data, DiagramData *dia) {
 	   }
 	   
 	}
-    } while ((codedxf != 0) || (strcmp(data->value, "ENDSEC") != 0));
+    } while ((data->code != 0) || (strcmp(data->value, "ENDSEC") != 0));
 }
 
 /* reads the tables section of the dxf file */
-void read_section_tables_dxf(FILE *filedxf, DxfData *data, DiagramData *dia) {
-    int codedxf;
-	
+void 
+read_section_tables_dxf(FILE *filedxf, DxfData *data, DiagramData *dia) 
+{
     if(read_dxf_codes(filedxf, data) == FALSE){
         return;
     }
     do {
-        codedxf = atoi(data->code);
-        if((codedxf == 0) && (strcmp(data->value, "LAYER") == 0)) {
+        if((data->code == 0) && (strcmp(data->value, "LAYER") == 0)) {
             read_table_layer_dxf(filedxf, data, dia);
         }
         else {
@@ -1212,48 +1176,46 @@ void read_section_tables_dxf(FILE *filedxf, DxfData *data, DiagramData *dia) {
                 return;
             }
         }		
-    } while ((codedxf != 0) || (strcmp(data->value, "ENDSEC") != 0));
+    } while ((data->code != 0) || (strcmp(data->value, "ENDSEC") != 0));
 }
 
 /* reads the entities section of the dxf file */
-void read_section_entities_dxf(FILE *filedxf, DxfData *data, DiagramData *dia) {
-    int codedxf;
-	
+void 
+read_section_entities_dxf(FILE *filedxf, DxfData *data, DiagramData *dia) 
+{
     if (read_dxf_codes(filedxf, data) == FALSE){
         return;		
     }
-    codedxf = atoi(data->code);
     do {  
-        if((codedxf == 0) && (strcmp(data->value, "LINE") == 0)) {
+        if((data->code == 0) && (strcmp(data->value, "LINE") == 0)) {
             read_entity_line_dxf(filedxf, data, dia);
-        } else if((codedxf == 0) && (strcmp(data->value, "VERTEX") == 0)) {
+        } else if((data->code == 0) && (strcmp(data->value, "VERTEX") == 0)) {
             read_entity_line_dxf(filedxf, data, dia);
-        } else if((codedxf == 0) && (strcmp(data->value, "SOLID") == 0)) {
+        } else if((data->code == 0) && (strcmp(data->value, "SOLID") == 0)) {
             read_entity_solid_dxf(filedxf, data, dia);
-        } else if((codedxf == 0) && (strcmp(data->value, "POLYLINE") == 0)) {
+        } else if((data->code == 0) && (strcmp(data->value, "POLYLINE") == 0)) {
             read_entity_polyline_dxf(filedxf, data, dia);
-        } else if((codedxf == 0) && (strcmp(data->value, "CIRCLE") == 0)) {
+        } else if((data->code == 0) && (strcmp(data->value, "CIRCLE") == 0)) {
             read_entity_circle_dxf(filedxf, data, dia);
-        } else if((codedxf == 0) && (strcmp(data->value, "ELLIPSE") == 0)) {
+        } else if((data->code == 0) && (strcmp(data->value, "ELLIPSE") == 0)) {
             read_entity_ellipse_dxf(filedxf, data, dia);
-        } else if((codedxf == 0) && (strcmp(data->value, "TEXT") == 0)) {
+        } else if((data->code == 0) && (strcmp(data->value, "TEXT") == 0)) {
             read_entity_text_dxf(filedxf, data, dia);
-        } else if((codedxf == 0) && (strcmp(data->value, "ARC") == 0)) {
+        } else if((data->code == 0) && (strcmp(data->value, "ARC") == 0)) {
                read_entity_arc_dxf(filedxf,data,dia);
         } else {
             if(read_dxf_codes(filedxf, data) == FALSE) {
                 return;
             }
         }
-        codedxf = atoi(data->code);		
-    } while((codedxf != 0) || (strcmp(data->value, "ENDSEC") != 0));
+    } while((data->code != 0) || (strcmp(data->value, "ENDSEC") != 0));
 }
 
 /* reads the blocks section of the dxf file */
 void 
 read_section_blocks_dxf(FILE *filedxf, DxfData *data, DiagramData *dia) 
 {
-    int codedxf, group_items = 0, group = 0;
+    int group_items = 0, group = 0;
     GList *group_list = NULL;
     DiaObject *obj = NULL;
     Layer *group_layer = NULL;
@@ -1261,25 +1223,24 @@ read_section_blocks_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
     if (read_dxf_codes(filedxf, data) == FALSE){
         return;		
     }
-    codedxf = atoi(data->code);
     do {  
-        if((codedxf == 0) && (strcmp(data->value, "LINE") == 0)) {
+        if((data->code == 0) && (strcmp(data->value, "LINE") == 0)) {
             obj = read_entity_line_dxf(filedxf, data, dia);
-        } else if((codedxf == 0) && (strcmp(data->value, "SOLID") == 0)) {
+        } else if((data->code == 0) && (strcmp(data->value, "SOLID") == 0)) {
             obj = read_entity_solid_dxf(filedxf, data, dia);
-        } else if((codedxf == 0) && (strcmp(data->value, "VERTEX") == 0)) {
+        } else if((data->code == 0) && (strcmp(data->value, "VERTEX") == 0)) {
             read_entity_line_dxf(filedxf, data, dia);
-        } else if((codedxf == 0) && (strcmp(data->value, "POLYLINE") == 0)) {
+        } else if((data->code == 0) && (strcmp(data->value, "POLYLINE") == 0)) {
             obj = read_entity_polyline_dxf(filedxf, data, dia);
-        } else if((codedxf == 0) && (strcmp(data->value, "CIRCLE") == 0)) {
+        } else if((data->code == 0) && (strcmp(data->value, "CIRCLE") == 0)) {
             obj = read_entity_circle_dxf(filedxf, data, dia);
-        } else if((codedxf == 0) && (strcmp(data->value, "ELLIPSE") == 0)) {
+        } else if((data->code == 0) && (strcmp(data->value, "ELLIPSE") == 0)) {
             obj = read_entity_ellipse_dxf(filedxf, data, dia);
-        } else if((codedxf == 0) && (strcmp(data->value, "TEXT") == 0)) {
+        } else if((data->code == 0) && (strcmp(data->value, "TEXT") == 0)) {
             obj = read_entity_text_dxf(filedxf, data, dia);
-        } else if((codedxf == 0) && (strcmp(data->value, "ARC") == 0)) {
+        } else if((data->code == 0) && (strcmp(data->value, "ARC") == 0)) {
             obj = read_entity_arc_dxf(filedxf,data,dia);
-        } else if((codedxf == 0) && (strcmp(data->value, "BLOCK") == 0)) {
+        } else if((data->code == 0) && (strcmp(data->value, "BLOCK") == 0)) {
                 /* printf("Begin group\n" ); */
 	 
             group = TRUE;
@@ -1291,16 +1252,14 @@ read_section_blocks_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
                 if(read_dxf_codes(filedxf, data) == FALSE)
                     return;
 
-                codedxf = atoi(data->code);
-
-                if( codedxf == 8 ) {
+                if(data->code == 8) {
                     group_layer = layer_find_by_name( data->value, dia );
 		    data_set_active_layer (dia, group_layer);
 		}
 
-            } while( codedxf != 0 );
+            } while(data->code != 0);
 	
-        } else if((codedxf == 0) && (strcmp(data->value, "ENDBLK") == 0)) {
+        } else if((data->code == 0) && (strcmp(data->value, "ENDBLK") == 0)) {
                 /* printf( "End group %d\n", group_items ); */
 
             if( group && group_items > 0 && group_list != NULL )
@@ -1335,8 +1294,7 @@ read_section_blocks_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
             obj = NULL;
         }
       
-        codedxf = atoi(data->code);		
-    } while((codedxf != 0) || (strcmp(data->value, "ENDSEC") != 0));
+    } while((data->code != 0) || (strcmp(data->value, "ENDSEC") != 0));
 }
 
 /* imports the given dxf-file, returns TRUE if successful */
@@ -1345,7 +1303,6 @@ import_dxf(const gchar *filename, DiagramData *dia, void* user_data)
 {
     FILE *filedxf;
     DxfData *data;
-    int codedxf;
     
     filedxf = g_fopen(filename,"r");
     if(filedxf == NULL){
@@ -1364,14 +1321,13 @@ import_dxf(const gchar *filename, DiagramData *dia, void* user_data)
             return FALSE;
         }
         else {
-            codedxf = atoi(data->code);
-            if (0 == codedxf && strstr(data->code, "AutoCAD Binary DXF")) {
+            if (0 == data->code && strstr(data->codeline, "AutoCAD Binary DXF")) {
                 g_free(data);
 	        message_error(_("Binary DXF from '%s' not supported\n"),
 			      dia_message_filename(filename) );
                 return FALSE;
             }
-	    if (0 == codedxf) {
+	    if (0 == data->code) {
                 if(strcmp(data->value, "SECTION") == 0) {
 		  /* don't think we need to do anything */
                 } else if(strcmp(data->value, "ENDSEC") == 0) {
@@ -1381,7 +1337,7 @@ import_dxf(const gchar *filename, DiagramData *dia, void* user_data)
 		} else {
 		  g_print ("DXF 0:%s not handled\n", data->value);
 		}
-            } else if(codedxf == 2) {
+            } else if(data->code == 2) {
                 if(strcmp(data->value, "ENTITIES") == 0) {
 		   /*printf( "reading section entities\n" );*/
                     read_section_entities_dxf(filedxf, data, dia);
@@ -1408,9 +1364,9 @@ import_dxf(const gchar *filename, DiagramData *dia, void* user_data)
 		}
 	    }
 	   else
-	     g_warning(_("Unknown dxf code %d\n"), codedxf );
+	     g_warning(_("Unknown dxf code %d\n"), data->code);
         }
-    }while((codedxf != 0) || (strcmp(data->value, "EOF") != 0));
+    }while((data->code != 0) || (strcmp(data->value, "EOF") != 0));
     
     g_free(data);
     
@@ -1422,9 +1378,10 @@ gboolean read_dxf_codes(FILE *filedxf, DxfData *data){
     int i;
     char *c;
     
-    if(fgets(data->code, DXF_LINE_LENGTH, filedxf) == NULL){
+    if(fgets(data->codeline, DXF_LINE_LENGTH, filedxf) == NULL){
         return FALSE;
     }
+    data->code = atoi(data->codeline);
     if(fgets(data->value, DXF_LINE_LENGTH, filedxf) == NULL){
         return FALSE;
     }

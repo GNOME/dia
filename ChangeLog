@@ -1,5 +1,8 @@
 2008-10-17  Hans Breuer  <hans@breuer.org>
 
+	* plug-ins/dxf/dxf-import.c : dxfcode now calculated as inside the read 
+	function, reduces code lines and en passant fixes load error of #321539
+
 	* plug-ins/dxf/dxf-import.c : bulge was calculated against the wrong
 	vertices, now it at least does not produce huge errors. See bug #556547
 
