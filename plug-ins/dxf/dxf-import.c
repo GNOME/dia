@@ -58,11 +58,11 @@ Point limit_min, limit_max;
 /* maximum line length */
 #define DXF_LINE_LENGTH 256
 
-typedef struct layer_data_tag 
+typedef struct _DxfLayerData 
 {
    char layerName[256];
    int acad_colour;
-} layer_data_type;
+} DxfLayerData;
 
 typedef struct _DxfData
 {
@@ -432,7 +432,9 @@ read_entity_polyline_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
     unsigned char closed = 0;
     int points = 0;
     real bulge = 0.0;
-   
+    int bulge_end = -1;
+    gboolean bulge_x_avail = FALSE, bulge_y_avail = FALSE;
+
     do {
         if(read_dxf_codes(filedxf, data) == FALSE){
             return( NULL );
@@ -462,6 +464,7 @@ read_entity_polyline_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
                 {
                     p[points-1].x = g_ascii_strtod(data->value, NULL) * coord_scale * measure_scale;
                         /*printf( "P[%d].x: %f ", points-1, p[points-1].x );*/
+		    bulge_x_avail = (bulge_end == points);
                 }
                 break;
             case 20: 
@@ -469,6 +472,7 @@ read_entity_polyline_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
                 {
                     p[points-1].y = (-1)*g_ascii_strtod(data->value, NULL) * coord_scale * measure_scale;
                         /*printf( "P[%d].y: %f\n", points-1, p[points-1].y );*/
+		    bulge_y_avail = (bulge_end == points);
                 }
                 break;
             case 39: 
@@ -480,8 +484,25 @@ read_entity_polyline_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 	        line_width = g_ascii_strtod(data->value, NULL) * WIDTH_SCALE;
 		break;
             case 42:
-                   /* FIXME - the bulge code doesn't work completely */
                 bulge = g_ascii_strtod(data->value, NULL);
+		/* The bulge is meant to be _between_ two VERTEX, here: p[points-1] and p[points,]
+		 * but we have not yet read the end point; so just remember the point to 'bulge to' */
+		bulge_end = points+1;
+		bulge_x_avail = bulge_y_avail = FALSE;
+                break;
+            case 62: 
+                color = pal_get_rgb (atoi(data->value));
+                line_colour.red = color.r / 255.0;
+                line_colour.green = color.g / 255.0;
+                line_colour.blue = color.b / 255.0;
+                break;
+            case 70:
+                closed = 1 & atoi( data->value );
+                    /*printf( "closed %d %s", closed, data->value );*/
+                break;
+        }
+	if (points == bulge_end && bulge_x_avail && bulge_y_avail) {
+	    /* turn the last segment into a bulge */
 
                 p = g_realloc( p, sizeof( Point ) * ( points + 10 ));
 
@@ -542,24 +563,14 @@ read_entity_polyline_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
                 {
                     p[i].x = center.x + cos( start_angle ) * radius;
                     p[i].y = center.y + sin( start_angle ) * radius;
-                    start_angle += (M_PI/10.0 * bulge);
+                    start_angle += (-M_PI/10.0 * bulge);
                         /*printf( "i %d x %f y %f\n", i, p[i].x, p[i].y );*/
                 }
                 points += 10;
 	   
                 p[points-1] = end;
-                break;
-            case 62: 
-                color = pal_get_rgb (atoi(data->value));
-                line_colour.red = color.r / 255.0;
-                line_colour.green = color.g / 255.0;
-                line_colour.blue = color.b / 255.0;
-                break;
-            case 70:
-                closed = 1 & atoi( data->value );
-                    /*printf( "closed %d %s", closed, data->value );*/
-                break;
-        }	
+	  
+	}
     } while( strcmp( data->value, "SEQEND" ));
    
     if( points == 0 )
