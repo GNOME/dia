@@ -1,3 +1,7 @@
+2008-10-17  Steffen Macke <sdteffen@sdteffen.de>
+
+	* installer/win32/dia.nsi: Don't include the AADL sheet any more
+
 2008-10-16  Steffen Macke <sdteffen@sdteffen.de>
 
 	* installer/win32/dia.nsi: Small updates for the new build system
