@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-10-17 18:59+0000\n"
-"PO-Revision-Date: 2008-10-18 12:24+0200\n"
+"POT-Creation-Date: 2008-10-18 10:46+0000\n"
+"PO-Revision-Date: 2008-10-19 20:01+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -851,7 +851,7 @@ msgstr "Coincidir sólo con palabras compl_etas"
 
 #: ../app/find-and-replace.c:485
 msgid "Match _all properties (not just object name)"
-msgstr ""
+msgstr "Coincidir _todas las propiedades (no sólo el nombre del objeto)"
 
 #: ../app/find-and-replace.c:510
 msgid "Find"
