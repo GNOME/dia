@@ -405,7 +405,7 @@ vergent_delete_cp_callback(DiaObject *obj, Point *clicked, gpointer data)
 
 static DiaMenuItem object_menu_items[] = {
   { N_("Add connection point"), vergent_add_cp_callback, NULL, 1 },
-  { N_("Delete  connection point"), vergent_delete_cp_callback, NULL, 1 },
+  { N_("Delete connection point"), vergent_delete_cp_callback, NULL, 1 },
 };
 
 static DiaMenu object_menu = {

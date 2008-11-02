@@ -142,7 +142,7 @@ static PropOffset reference_offsets[] =
 static DiaMenuItem reference_menu_items[] =
   {
     { N_("Add segment"), reference_add_segment_cb, NULL, DIAMENU_ACTIVE },
-    { N_("Delete segement"), reference_del_segment_cb, NULL, DIAMENU_ACTIVE },
+    { N_("Delete segment"), reference_del_segment_cb, NULL, DIAMENU_ACTIVE },
     ORTHCONN_COMMON_MENUS
   };
 

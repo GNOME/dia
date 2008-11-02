@@ -1,5 +1,10 @@
 2008-11-02  Hans Breuer  <hans@breuer.org>
 
+	* objects/Istar/link.c objects/GRAFCET/vergent.c 
+	  objects/Database/reference.c objects/Database/table_dialog.c
+	  objects/UML/class_dialog.c : spelling fixes, bug #554233 and
+	bug #554238 - Duarte Loreto
+
 	* app/find-and-replace.c : no C++ comment and not other warnings
 
 	* lib/text.c : ignore single carriage return, work around for bug #547173

@@ -968,7 +968,7 @@ create_general_page (GtkNotebook * notebook, Table * table)
   gtk_table_attach (GTK_TABLE (gtk_table), checkbox, 0, 1, 0, 1,
                     GTK_FILL, 10, 0, 0);
 
-  checkbox = gtk_check_button_new_with_label(_("Show documenation tag"));
+  checkbox = gtk_check_button_new_with_label(_("Show documentation tag"));
   prop_dialog->comment_tagging = GTK_TOGGLE_BUTTON( checkbox );
   gtk_table_attach (GTK_TABLE (gtk_table), checkbox, 1, 2, 0, 1,
                     GTK_FILL, 10, 0, 0);

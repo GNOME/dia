@@ -519,7 +519,7 @@ class_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   gtk_box_pack_start (GTK_BOX (vbox),  hbox, FALSE, TRUE, 0);
 
   hbox = gtk_hbox_new(FALSE, 5);
-  checkbox = gtk_check_button_new_with_label(_("Show documenation tag"));
+  checkbox = gtk_check_button_new_with_label(_("Show documentation tag"));
   prop_dialog->comment_tagging = GTK_TOGGLE_BUTTON( checkbox );
   gtk_box_pack_start (GTK_BOX (hbox), checkbox, TRUE, TRUE, 0);
   gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, TRUE, 0);

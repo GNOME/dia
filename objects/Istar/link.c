@@ -148,7 +148,7 @@ static ObjectOps link_ops = {
 
 static PropEnumData prop_link_type_data[] = {
   { N_("Unspecified"),      UNSPECIFIED },
-  { N_("Positive Contrib"), POS_CONTRIB },
+  { N_("Positive contrib"), POS_CONTRIB },
   { N_("Negative contrib"), NEG_CONTRIB },
   { N_("Dependency"),       DEPENDENCY },
   { N_("Decomposition"),    DECOMPOSITION },
