@@ -1,5 +1,11 @@
 2008-11-02  Hans Breuer  <hans@breuer.org>
 
+	* app/find-and-replace.c : no C++ comment and not other warnings
+
+	* lib/text.c : ignore single carriage return, work around for bug #547173
+
+	* lib/lib_dia. : removed (should never have been added)
+
 	* plug-ins/UML/class_dialog.c : don't crash if the selection callbacks
 	get called after dialog destruction. Fixes bug #558650
 	

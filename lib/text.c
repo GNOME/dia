@@ -918,6 +918,8 @@ text_key_event(Focus *focus, guint keyval, const gchar *str, int strlen,
         break;
       default:
         if (str || (strlen>0)) {
+          if (strlen == 1 && *str == '\r')
+            break; /* avoid putting junk into our string */
           return_val = TRUE;
           utf = str;
           for (utf = str; utf && *utf && strlen > 0 ;

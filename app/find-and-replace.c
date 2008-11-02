@@ -177,7 +177,6 @@ _match_prop (DiaObject *obj, const SearchData *sd, const gchar *replacement, Pro
       guint sub_num;
 
       for (sub_num = 0; sub_num < sub_props->len && !is_match; ++sub_num) {
-	const gchar *sub_prop_name;
 	Property *sub_prop = g_ptr_array_index (sub_props, sub_num);
 
         is_match = _match_prop (obj, sd, replacement, sub_prop);
@@ -257,7 +256,7 @@ _match_all_props (DiaObject *obj, const SearchData *sd, const gchar *replacement
       /* First time. */
       matched_plist = prop_list_from_single (prop);
     } else {
-      //FIXME: do we realy want a replace all here?
+      /* FIXME: do we realy want a replace all here? */
       /* Subsequent finds. */
       GPtrArray *append_plist;
       append_plist = prop_list_from_single (prop);
@@ -304,8 +303,9 @@ _matches (DiaObject *obj, const SearchData *sd)
 }
 
 static void
-find_func (DiaObject *obj, gpointer user_data)
+find_func (gpointer data, gpointer user_data)
 {
+  DiaObject *obj = data;
   SearchData *sd = (SearchData *)user_data;
   
   if (!sd->found) {
@@ -355,7 +355,6 @@ fnr_respond (GtkWidget *widget, gint response_id, gpointer data)
   const gchar *search = gtk_entry_get_text (g_object_get_data (G_OBJECT (widget), "search-entry")); 
   const gchar *replace;
   DDisplay *ddisp = (DDisplay*)data;
-  GList *list;
   SearchData sd = { 0, };
   sd.diagram = ddisp->diagram;
   sd.flags =  gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON ( 
