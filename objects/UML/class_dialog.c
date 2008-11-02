@@ -1341,6 +1341,9 @@ parameters_list_selection_changed_callback(GtkWidget *gtklist,
 
   prop_dialog = umlclass->properties_dialog;
 
+  if (!prop_dialog)
+    return; /* maybe hiding a bug elsewhere */
+
   parameters_get_current_values(prop_dialog);
   
   list = GTK_LIST(gtklist)->selection;
@@ -2515,6 +2518,9 @@ templates_list_selection_changed_callback(GtkWidget *gtklist,
   UMLFormalParameter *param;
 
   prop_dialog = umlclass->properties_dialog;
+
+  if (!prop_dialog)
+    return; /* maybe hiding a bug elsewhere */
 
   templates_get_current_values(prop_dialog);
   

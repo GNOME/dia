@@ -1,3 +1,8 @@
+2008-11-02  Hans Breuer  <hans@breuer.org>
+
+	* plug-ins/UML/class_dialog.c : don't crash if the selection callbacks
+	get called after dialog destruction. Fixes bug #558650
+	
 2008-10-17  Hans Breuer  <hans@breuer.org>
 
 	* lib/libdia.def : export prop_list_add_list for ...
