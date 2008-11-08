@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-10-18 10:46+0000\n"
-"PO-Revision-Date: 2008-10-19 20:01+0200\n"
+"POT-Creation-Date: 2008-11-07 08:51+0100\n"
+"PO-Revision-Date: 2008-11-08 16:19+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -833,42 +833,42 @@ msgstr "Exportar diagrama"
 msgid "Export Options"
 msgstr "Exportar opciones"
 
-#: ../app/find-and-replace.c:454
+#: ../app/find-and-replace.c:453
 msgid "_Search for:"
 msgstr "_Busar:"
 
-#: ../app/find-and-replace.c:467
+#: ../app/find-and-replace.c:466
 msgid "Replace _with:"
 msgstr "Reemplazar _con:"
 
-#: ../app/find-and-replace.c:477
+#: ../app/find-and-replace.c:476
 msgid "_Match case"
 msgstr "_Coincidir con capitalización"
 
-#: ../app/find-and-replace.c:481
+#: ../app/find-and-replace.c:480
 msgid "Match _entire word only"
 msgstr "Coincidir sólo con palabras compl_etas"
 
-#: ../app/find-and-replace.c:485
+#: ../app/find-and-replace.c:484
 msgid "Match _all properties (not just object name)"
 msgstr "Coincidir _todas las propiedades (no sólo el nombre del objeto)"
 
-#: ../app/find-and-replace.c:510
+#: ../app/find-and-replace.c:509
 msgid "Find"
 msgstr "Buscar"
 
-#: ../app/find-and-replace.c:542 ../app/menus.c:258
+#: ../app/find-and-replace.c:541 ../app/menus.c:258
 msgid "Replace"
 msgstr "Reemplazar"
 
-#: ../app/find-and-replace.c:545
+#: ../app/find-and-replace.c:544
 msgid "Replace _All"
 msgstr "Reemplazar _todo"
 
 #. not adding the button in the list above to modify it's text;
 #. * the default "Find and Replace" is just too long for my taste ;)
 #.
-#: ../app/find-and-replace.c:550
+#: ../app/find-and-replace.c:549
 msgid "_Replace"
 msgstr "_Reemplazar"
 
@@ -1942,8 +1942,8 @@ msgstr "Descripción:"
 #: ../objects/FS/flow-ortho.c:169 ../objects/FS/flow.c:146
 #: ../objects/Istar/link.c:162 ../objects/Jackson/phenomenon.c:148
 #: ../objects/KAOS/metaandorrel.c:168 ../objects/KAOS/metabinrel.c:173
-#: ../objects/UML/class_dialog.c:1155 ../objects/UML/class_dialog.c:2018
-#: ../objects/UML/class_dialog.c:2254 ../objects/UML/class_dialog.c:2854
+#: ../objects/UML/class_dialog.c:1155 ../objects/UML/class_dialog.c:2021
+#: ../objects/UML/class_dialog.c:2257 ../objects/UML/class_dialog.c:2860
 msgid "Type:"
 msgstr "Tipo:"
 
@@ -1954,8 +1954,8 @@ msgstr "Hoja"
 #: ../app/sheets_dialog.c:673 ../objects/Database/table_dialog.c:683
 #: ../objects/Database/table_dialog.c:1046 ../objects/ER/attribute.c:155
 #: ../objects/ER/entity.c:137 ../objects/ER/relationship.c:142
-#: ../objects/UML/class_dialog.c:1144 ../objects/UML/class_dialog.c:2007
-#: ../objects/UML/class_dialog.c:2243 ../objects/UML/class_dialog.c:2843
+#: ../objects/UML/class_dialog.c:1144 ../objects/UML/class_dialog.c:2010
+#: ../objects/UML/class_dialog.c:2246 ../objects/UML/class_dialog.c:2849
 #: ../objects/UML/dependency.c:137 ../objects/UML/generalization.c:133
 #: ../objects/UML/realizes.c:134
 msgid "Name:"
@@ -2771,8 +2771,8 @@ msgstr "Datos de atributo"
 #: ../objects/Database/table_dialog.c:707
 #: ../objects/Database/table_dialog.c:946
 #: ../objects/Database/table_dialog.c:1051 ../objects/UML/class_dialog.c:452
-#: ../objects/UML/class_dialog.c:1177 ../objects/UML/class_dialog.c:2104
-#: ../objects/UML/class_dialog.c:2276
+#: ../objects/UML/class_dialog.c:1177 ../objects/UML/class_dialog.c:2107
+#: ../objects/UML/class_dialog.c:2279
 msgid "Comment:"
 msgstr "Comentario:"
 
@@ -2803,7 +2803,7 @@ msgid "Comment visible"
 msgstr "Comentarios visibles"
 
 #: ../objects/Database/table_dialog.c:971 ../objects/UML/class_dialog.c:522
-msgid "Show documenation tag"
+msgid "Show documentation tag"
 msgstr "Mostrar etiqueta de documentación"
 
 #. * Fonts and Colors selection *
@@ -2873,8 +2873,13 @@ msgstr "Final de la descripción"
 msgid "Add segment"
 msgstr "Añadir segmento"
 
-#: ../objects/Database/reference.c:145
-msgid "Delete segement"
+#: ../objects/Database/reference.c:145 ../objects/ER/participation.c:409
+#: ../objects/FS/flow-ortho.c:627 ../objects/GRAFCET/vector.c:315
+#: ../objects/SADT/arrow.c:460 ../objects/UML/association.c:855
+#: ../objects/UML/component_feature.c:191 ../objects/UML/dependency.c:377
+#: ../objects/UML/generalization.c:373 ../objects/UML/realizes.c:364
+#: ../objects/UML/transition.c:173 ../objects/standard/zigzagline.c:381
+msgid "Delete segment"
 msgstr "Borrar segmento"
 
 #: ../objects/Database/reference.c:151 ../sheets/Database.sheet.in.h:4
@@ -2922,15 +2927,6 @@ msgstr "Objetos de diagrama Entidad/Relación"
 #: ../objects/ER/participation.c:118
 msgid "Total:"
 msgstr "Total:"
-
-#: ../objects/ER/participation.c:409 ../objects/FS/flow-ortho.c:627
-#: ../objects/GRAFCET/vector.c:315 ../objects/SADT/arrow.c:460
-#: ../objects/UML/association.c:855 ../objects/UML/component_feature.c:191
-#: ../objects/UML/dependency.c:377 ../objects/UML/generalization.c:373
-#: ../objects/UML/realizes.c:364 ../objects/UML/transition.c:173
-#: ../objects/standard/zigzagline.c:381
-msgid "Delete segment"
-msgstr "Borrar segmento"
 
 # Yo diría mejor "Cardinalidad a izquierdas". RizOX.
 #: ../objects/ER/relationship.c:144
@@ -4189,9 +4185,12 @@ msgstr "Tipo de divergencia:"
 msgid "Add connection point"
 msgstr "Añadir punto de conexión"
 
-#: ../objects/GRAFCET/vergent.c:408
-msgid "Delete  connection point"
-msgstr "Borrar  punto de conexión"
+#: ../objects/GRAFCET/vergent.c:408 ../objects/Istar/other.c:472
+#: ../objects/Jackson/domain.c:534 ../objects/KAOS/goal.c:575
+#: ../objects/KAOS/other.c:528 ../objects/SADT/box.c:450
+#: ../objects/standard/line.c:224
+msgid "Delete connection point"
+msgstr "Borrar punto de conexión"
 
 #: ../objects/GRAFCET/vergent.c:412
 msgid "GRAFCET OR/AND vergent"
@@ -4228,7 +4227,7 @@ msgstr "Diagrama Istar"
 
 # Posicionar? FVD
 #: ../objects/Istar/link.c:151
-msgid "Positive Contrib"
+msgid "Positive contrib"
 msgstr "Contribución positiva"
 
 #: ../objects/Istar/link.c:152
@@ -4254,12 +4253,6 @@ msgstr "Recurso"
 #: ../objects/Istar/other.c:74 ../sheets/BPMN.sheet.in.h:43
 msgid "Task"
 msgstr "Tarea"
-
-#: ../objects/Istar/other.c:472 ../objects/Jackson/domain.c:534
-#: ../objects/KAOS/goal.c:575 ../objects/KAOS/other.c:528
-#: ../objects/SADT/box.c:450 ../objects/standard/line.c:224
-msgid "Delete connection point"
-msgstr "Borrar punto de conexión"
 
 #: ../objects/Istar/other.c:477
 msgid "i* other"
@@ -5023,7 +5016,7 @@ msgstr "Estereotipo"
 
 #: ../objects/UML/class.c:148 ../objects/UML/class.c:181
 #: ../objects/UML/class_dialog.c:468 ../objects/UML/class_dialog.c:580
-#: ../objects/UML/class_dialog.c:2080 ../objects/UML/uml.c:110
+#: ../objects/UML/class_dialog.c:2083 ../objects/UML/uml.c:110
 msgid "Abstract"
 msgstr "Abstracta"
 
@@ -5096,7 +5089,7 @@ msgstr "_Clase"
 msgid "Class name:"
 msgstr "Nombre de la clase:"
 
-#: ../objects/UML/class_dialog.c:445 ../objects/UML/class_dialog.c:2029
+#: ../objects/UML/class_dialog.c:445 ../objects/UML/class_dialog.c:2032
 #: ../objects/UML/dependency.c:139 ../objects/UML/generalization.c:135
 #: ../objects/UML/realizes.c:136
 msgid "Stereotype:"
@@ -5155,103 +5148,103 @@ msgstr "Color de fondo"
 msgid "Value:"
 msgstr "Valor:"
 
-#: ../objects/UML/class_dialog.c:1199 ../objects/UML/class_dialog.c:2041
+#: ../objects/UML/class_dialog.c:1199 ../objects/UML/class_dialog.c:2044
 msgid "Visibility:"
 msgstr "Visibilidad:"
 
-#: ../objects/UML/class_dialog.c:1208 ../objects/UML/class_dialog.c:2050
+#: ../objects/UML/class_dialog.c:1208 ../objects/UML/class_dialog.c:2053
 #: ../objects/UML/uml.c:102
 msgid "Public"
 msgstr "Público"
 
-#: ../objects/UML/class_dialog.c:1211 ../objects/UML/class_dialog.c:2053
+#: ../objects/UML/class_dialog.c:1211 ../objects/UML/class_dialog.c:2056
 #: ../objects/UML/uml.c:103
 msgid "Private"
 msgstr "Privado"
 
-#: ../objects/UML/class_dialog.c:1214 ../objects/UML/class_dialog.c:2056
+#: ../objects/UML/class_dialog.c:1214 ../objects/UML/class_dialog.c:2059
 #: ../objects/UML/uml.c:104
 msgid "Protected"
 msgstr "Protegido"
 
-#: ../objects/UML/class_dialog.c:1217 ../objects/UML/class_dialog.c:2059
+#: ../objects/UML/class_dialog.c:1217 ../objects/UML/class_dialog.c:2062
 #: ../objects/UML/uml.c:105
 msgid "Implementation"
 msgstr "Implementación"
 
 #. end: Inheritance type
-#: ../objects/UML/class_dialog.c:1233 ../objects/UML/class_dialog.c:2096
+#: ../objects/UML/class_dialog.c:1233 ../objects/UML/class_dialog.c:2099
 msgid "Class scope"
 msgstr "Vista de clase"
 
 #. end: Visibility
-#: ../objects/UML/class_dialog.c:2071
+#: ../objects/UML/class_dialog.c:2074
 msgid "Inheritance type:"
 msgstr "Tipo de herencia:"
 
-#: ../objects/UML/class_dialog.c:2083 ../objects/UML/uml.c:111
+#: ../objects/UML/class_dialog.c:2086 ../objects/UML/uml.c:111
 msgid "Polymorphic (virtual)"
 msgstr "Polimórfico (virtual)"
 
-#: ../objects/UML/class_dialog.c:2086 ../objects/UML/uml.c:112
+#: ../objects/UML/class_dialog.c:2089 ../objects/UML/uml.c:112
 msgid "Leaf (final)"
 msgstr "Hoja (final)"
 
-#: ../objects/UML/class_dialog.c:2100
+#: ../objects/UML/class_dialog.c:2103
 msgid "Query"
 msgstr "Consulta"
 
-#: ../objects/UML/class_dialog.c:2147
+#: ../objects/UML/class_dialog.c:2150
 msgid "Parameters:"
 msgstr "Parámetros:"
 
-#: ../objects/UML/class_dialog.c:2232
+#: ../objects/UML/class_dialog.c:2235
 msgid "Parameter data"
 msgstr "Datos de parámetros"
 
-#: ../objects/UML/class_dialog.c:2265
+#: ../objects/UML/class_dialog.c:2268
 msgid "Def. value:"
 msgstr "Valor por defecto:"
 
-#: ../objects/UML/class_dialog.c:2299
+#: ../objects/UML/class_dialog.c:2302
 msgid "Direction:"
 msgstr "Dirección:"
 
-#: ../objects/UML/class_dialog.c:2308 ../objects/UML/umlparameter.c:34
+#: ../objects/UML/class_dialog.c:2311 ../objects/UML/umlparameter.c:34
 msgid "Undefined"
 msgstr "No definido"
 
-#: ../objects/UML/class_dialog.c:2311 ../objects/UML/umlparameter.c:35
+#: ../objects/UML/class_dialog.c:2314 ../objects/UML/umlparameter.c:35
 msgid "In"
 msgstr "Entrada"
 
-#: ../objects/UML/class_dialog.c:2314 ../objects/UML/umlparameter.c:36
+#: ../objects/UML/class_dialog.c:2317 ../objects/UML/umlparameter.c:36
 msgid "Out"
 msgstr "Salida"
 
-#: ../objects/UML/class_dialog.c:2317 ../objects/UML/umlparameter.c:37
+#: ../objects/UML/class_dialog.c:2320 ../objects/UML/umlparameter.c:37
 msgid "In & Out"
 msgstr "Entrada y salida"
 
 #. Operations page:
-#: ../objects/UML/class_dialog.c:2352
+#: ../objects/UML/class_dialog.c:2355
 msgid "_Operations"
 msgstr "_Operaciones"
 
-#: ../objects/UML/class_dialog.c:2410
+#: ../objects/UML/class_dialog.c:2413
 msgid "Operation data"
 msgstr "Datos de operación"
 
 #. Templates page:
-#: ../objects/UML/class_dialog.c:2770
+#: ../objects/UML/class_dialog.c:2776
 msgid "_Templates"
 msgstr "Plan_tillas"
 
-#: ../objects/UML/class_dialog.c:2776 ../sheets/UML.sheet.in.h:29
+#: ../objects/UML/class_dialog.c:2782 ../sheets/UML.sheet.in.h:29
 msgid "Template class"
 msgstr "Plantilla de clase"
 
-#: ../objects/UML/class_dialog.c:2833
+#: ../objects/UML/class_dialog.c:2839
 msgid "Formal parameter data"
 msgstr "Datos de parámetros formales"
 
@@ -10383,3 +10376,9 @@ msgstr "Servidor de datos Sybase"
 #: ../sheets/sybase.sheet.in.h:8
 msgid "Sybase replication server"
 msgstr "Servidor de replicación de Sybase"
+
+#~ msgid "Delete segement"
+#~ msgstr "Borrar segmento"
+
+#~ msgid "Delete  connection point"
+#~ msgstr "Borrar  punto de conexión"
