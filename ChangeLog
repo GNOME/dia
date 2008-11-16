@@ -1,5 +1,8 @@
 2008-11-16  Hans Breuer  <hans@breuer.org>
 
+	* plug-ins/cairo/diacairo.c : register "Edit/Copy Diagram" to copy
+	the whole diagram into the clipboard (currently win32 only)
+
 	* app/dia-props.c app/diapagelayout.c app/preferences.c
 	  lib/dialogs.c lib/prop_geomtypes.c lib/prop_inttypes.c lib/widgets.c
 	  objects/Database/table_dialog.c objects/SISSI/sissi_dialog.c

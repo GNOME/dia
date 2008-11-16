@@ -87,7 +87,7 @@ typedef enum OutputKind
   OUTPUT_PDF,
   OUTPUT_WMF,
   OUTPUT_EMF,
-  OUTPUT_CB,
+  OUTPUT_CLIPBOARD,
   OUTPUT_SVG
 } OutputKind;
 
@@ -105,25 +105,28 @@ export_data(DiagramData *data, const gchar *filename_utf8,
   FILE *file;
   real width, height;
   OutputKind kind = (OutputKind)user_data;
-  gchar* filename = g_locale_from_utf8 (filename_utf8, -1, NULL, NULL, NULL);
+  gchar* filename = NULL;
 #if DIA_CAIRO_CAN_EMF
   HDC hFileDC = NULL;
 #endif
 
-  if (!filename) {
-    message_error(_("Can't convert output filename '%s' to locale encoding.\n"
-                    "Please choose a different name to save with cairo.\n"), 
-		  dia_message_filename(filename_utf8), strerror(errno));
-    return;
-  }
-  file = g_fopen(filename, "wb"); /* "wb" for binary! */
+  if (kind != OUTPUT_CLIPBOARD) {
+    filename = g_locale_from_utf8 (filename_utf8, -1, NULL, NULL, NULL);
+    if (!filename) {
+      message_error(_("Can't convert output filename '%s' to locale encoding.\n"
+                      "Please choose a different name to save with cairo.\n"), 
+		    dia_message_filename(filename_utf8), strerror(errno));
+      return;
+    }
+    file = g_fopen(filename, "wb"); /* "wb" for binary! */
 
-  if (file == NULL) {
-    message_error(_("Can't open output file %s: %s\n"), 
-		  dia_message_filename(filename_utf8), strerror(errno));
-    return;
-  }
-  fclose (file);
+    if (file == NULL) {
+      message_error(_("Can't open output file %s: %s\n"), 
+		    dia_message_filename(filename_utf8), strerror(errno));
+      return;
+    }
+    fclose (file);
+  } /* != CLIPBOARD */
   renderer = g_object_new (DIA_TYPE_CAIRO_RENDERER, NULL);
   renderer->dia = data; /* FIXME: not sure if this a good idea */
   renderer->scale = 1.0;
@@ -190,6 +193,7 @@ export_data(DiagramData *data, const gchar *filename_utf8,
 #if DIA_CAIRO_CAN_EMF
   case OUTPUT_EMF :
   case OUTPUT_WMF : /* different only on close/'play' */
+  case OUTPUT_CLIPBOARD :
     /* NOT: renderer->with_alpha = TRUE; */
     renderer->scale = 72.0;
     {
@@ -208,13 +212,6 @@ export_data(DiagramData *data, const gchar *filename_utf8,
       hFileDC = CreateEnhMetaFile (refDC, NULL, &bbox, "DiaCairo\0Diagram\0");
       renderer->surface = cairo_win32_printing_surface_create (hFileDC);
     }
-    break;
-#endif
-#if 0
-  case OUTPUT_CB :
-    /* just testing, does not create a file but puts content in the clpboard */
-    renderer->scale = 72.0;
-    renderer->surface = cairo_win32_surface_create (filename, NULL, CAIRO_WIN32_TARGET_CLIPBOARD, 0, 0);
     break;
 #endif
   default :
@@ -270,6 +267,17 @@ export_data(DiagramData *data, const gchar *filename_utf8,
     ReleaseDC(NULL, hdc);
     DeleteEnhMetaFile (hEmf);
     g_free (pData);
+  } else if (OUTPUT_CLIPBOARD == kind) {
+    HENHMETAFILE hEmf = CloseEnhMetaFile(hFileDC);
+    if (   OpenClipboard(NULL) 
+        && EmptyClipboard() 
+        && SetClipboardData (CF_ENHMETAFILE, hEmf)
+        && CloseClipboard ()) {
+      hEmf = NULL; /* data now owned by clipboard */
+    } else {
+      message_error (_("Clipboard copy failed"));
+      DeleteEnhMetaFile (hEmf);
+    }
   }
 #endif
   g_object_unref(renderer);
@@ -381,18 +389,27 @@ static DiaExportFilter wmf_export_filter = {
     "cairo-wmf",
     FILTER_DONT_GUESS /* don't use this if not asked explicit */
 };
-#endif
 
-#if 0
-static const gchar *cb_extensions[] = { "cb", NULL };
-static DiaExportFilter cb_export_filter = {
-    N_("Cairo Clipboard"),
-    cb_extensions,
-    export_data,
-    (void*)OUTPUT_CB,
-    "cairo-clipboard"
+void
+cairo_clipboard_callback (DiagramData *data,
+                          const gchar *filename,
+                          guint flags, /* further additions */
+                          void *user_data)
+{
+  g_return_if_fail ((OutputKind)user_data == OUTPUT_CLIPBOARD);
+  g_return_if_fail (data != NULL);
+  /* filename is not necessary */
+  export_data (data, filename, filename, user_data); 
+}
+
+static DiaCallbackFilter cb_clipboard = {
+   "EditCopyDiagram",
+    N_("Copy _Diagram"),
+    "/DisplayMenu/Edit/CopyDiagram",
+    cairo_clipboard_callback,
+    (void*)OUTPUT_CLIPBOARD
 };
-#endif /* CAIRO_HAS_WIN32X_SURFACE */
+#endif
 
 #if GTK_CHECK_VERSION (2,10,0)
 static DiaCallbackFilter cb_gtk_print = {
@@ -427,10 +444,10 @@ _plugin_unload (PluginInfo *info)
   filter_unregister_export(&png_export_filter);
   filter_unregister_export(&pnga_export_filter);
 #endif
-#ifdef CAIRO_HAS_WIN32X_SURFACE
+#if DIA_CAIRO_CAN_EMF
   filter_unregister_export(&emf_export_filter);
   filter_unregister_export(&wmf_export_filter);
-  filter_unregister_export(&cb_export_filter);
+  /* filter_unregister_callback (&cb_clipboard); */
 #endif
 }
 
@@ -466,6 +483,7 @@ dia_plugin_init(PluginInfo *info)
 #if DIA_CAIRO_CAN_EMF
   filter_register_export(&emf_export_filter);
   filter_register_export(&wmf_export_filter);
+  filter_register_callback (&cb_clipboard);
 #endif
 #ifdef CAIRO_HAS_WIN32X_SURFACE
   filter_register_export(&cb_export_filter);
