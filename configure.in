@@ -582,7 +582,6 @@ plug-ins/Makefile
 plug-ins/cgm/Makefile
 plug-ins/cairo/Makefile
 plug-ins/dxf/Makefile
-plug-ins/gprint/Makefile
 plug-ins/hpgl/Makefile
 plug-ins/libart/Makefile
 plug-ins/metapost/Makefile

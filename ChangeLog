@@ -1,5 +1,8 @@
 2008-11-16  Hans Breuer  <hans@breuer.org>
 
+	* plug-ins/gprint/* : back to the attic
+	* plug-ins/Makefile.am po/POTFILES.in configure.in : adjusted
+
 	* plug-ins/cairo/diacairo.c : register "Edit/Copy Diagram" to copy
 	the whole diagram into the clipboard (currently win32 only)
 

@@ -180,8 +180,6 @@ plug-ins/cgm/cgm.c
 plug-ins/dxf/dxf-export.c
 plug-ins/dxf/dxf-import.c
 plug-ins/dxf/dxf.c
-plug-ins/gprint/diagnomeprint.c
-plug-ins/gprint/diagnomeprintrenderer.c
 plug-ins/hpgl/hpgl.c
 plug-ins/libart/dialibart.c
 plug-ins/libart/export_png.c
