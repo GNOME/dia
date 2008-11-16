@@ -280,7 +280,7 @@ intprop_get_widget(IntProperty *prop, PropDialog *dialog)
 { 
   GtkAdjustment *adj = GTK_ADJUSTMENT(gtk_adjustment_new(prop->int_data,
                                                          G_MININT, G_MAXINT,
-                                                         1.0, 10.0, 10.0));
+                                                         1.0, 10.0, 0));
   GtkWidget *ret = gtk_spin_button_new(adj, 1.0, 0);
   gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(ret),TRUE);
   prophandler_connect(&prop->common,GTK_OBJECT(ret),"value_changed");
@@ -296,12 +296,11 @@ intprop_reset_widget(IntProperty *prop, WIDGET *widget)
     PropNumData *numdata = prop->common.extra_data;
     adj = GTK_ADJUSTMENT(gtk_adjustment_new(prop->int_data,
                                             numdata->min, numdata->max,
-                                            numdata->step, 10.0 * numdata->step,
-                                            10.0 * numdata->step));
+                                            numdata->step, 10.0 * numdata->step, 0));
   } else {
     adj = GTK_ADJUSTMENT(gtk_adjustment_new(prop->int_data,
                                             G_MININT, G_MAXINT,
-                                            1.0, 10.0, 10.0));
+                                            1.0, 10.0, 0));
   }
   gtk_spin_button_set_adjustment(GTK_SPIN_BUTTON(widget), adj);
   gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(widget), TRUE);

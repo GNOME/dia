@@ -1,3 +1,11 @@
+2008-11-16  Hans Breuer  <hans@breuer.org>
+
+	* app/dia-props.c app/diapagelayout.c app/preferences.c
+	  lib/dialogs.c lib/prop_geomtypes.c lib/prop_inttypes.c lib/widgets.c
+	  objects/Database/table_dialog.c objects/SISSI/sissi_dialog.c
+	  objects/UML/class_dialog.c : stop newer gtk+ complaining about 
+	non-zero page size for spin buttons
+
 2008-11-15  Steffen Macke <sdteffen@sdteffen.de>
 
 	* makefile.msc:

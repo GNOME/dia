@@ -139,14 +139,14 @@ create_diagram_properties_dialog(Diagram *dia)
 		   GTK_FILL, GTK_FILL, 0, 0);
   gtk_widget_show(label);
 
-  adj = GTK_ADJUSTMENT(gtk_adjustment_new(1.0, 0.0, 10.0, 0.1, 10.0, 10.0));
+  adj = GTK_ADJUSTMENT(gtk_adjustment_new(1.0, 0.0, 10.0, 0.1, 10.0, 0));
   width_x_entry = gtk_spin_button_new(adj, 1.0, 3);
   gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(width_x_entry), TRUE);
   gtk_table_attach(GTK_TABLE(table), width_x_entry, 1,2, 2,3,
 		   GTK_FILL|GTK_EXPAND, GTK_FILL, 0, 0);
   gtk_widget_show(width_x_entry);
 
-  adj = GTK_ADJUSTMENT(gtk_adjustment_new(1.0, 0.0, 10.0, 0.1, 10.0, 10.0));
+  adj = GTK_ADJUSTMENT(gtk_adjustment_new(1.0, 0.0, 10.0, 0.1, 10.0, 0));
   width_y_entry = gtk_spin_button_new(adj, 1.0, 3);
   gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(width_y_entry), TRUE);
   gtk_table_attach(GTK_TABLE(table), width_y_entry, 2,3, 2,3,
@@ -159,14 +159,14 @@ create_diagram_properties_dialog(Diagram *dia)
 		   GTK_FILL, GTK_FILL, 0, 0);
   gtk_widget_show(label);
 
-  adj = GTK_ADJUSTMENT(gtk_adjustment_new(1.0, 0.0, 100.0, 1.0, 10.0, 10.0));
+  adj = GTK_ADJUSTMENT(gtk_adjustment_new(1.0, 0.0, 100.0, 1.0, 10.0, 0));
   visible_x_entry = gtk_spin_button_new(adj, 1.0, 0);
   gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(visible_x_entry), TRUE);
   gtk_table_attach(GTK_TABLE(table), visible_x_entry, 1,2, 3,4,
 		   GTK_FILL|GTK_EXPAND, GTK_FILL, 0, 0);
   gtk_widget_show(visible_x_entry);
 
-  adj = GTK_ADJUSTMENT(gtk_adjustment_new(1.0, 0.0, 100.0, 1.0, 10.0, 10.0));
+  adj = GTK_ADJUSTMENT(gtk_adjustment_new(1.0, 0.0, 100.0, 1.0, 10.0, 0));
   visible_y_entry = gtk_spin_button_new(adj, 1.0, 0);
   gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(visible_y_entry), TRUE);
   gtk_table_attach(GTK_TABLE(table), visible_y_entry, 2,3, 3,4,
@@ -188,7 +188,7 @@ create_diagram_properties_dialog(Diagram *dia)
 		   GTK_FILL, GTK_FILL, 0, 0);
   gtk_widget_show(label);
 
-  adj = GTK_ADJUSTMENT(gtk_adjustment_new(1.0, 0.0, 100.0, 1.0, 10.0, 10.0));
+  adj = GTK_ADJUSTMENT(gtk_adjustment_new(1.0, 0.0, 100.0, 1.0, 10.0, 0));
   hex_size_entry = gtk_spin_button_new(adj, 1.0, 0);
   gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(hex_size_entry), TRUE);
   gtk_table_attach(GTK_TABLE(table), hex_size_entry, 1,2, 5,6,

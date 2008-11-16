@@ -70,7 +70,7 @@ realprop_get_widget(RealProperty *prop, PropDialog *dialog)
   GtkAdjustment *adj = GTK_ADJUSTMENT(gtk_adjustment_new(prop->real_data,
                                                          G_MINFLOAT, 
                                                          G_MAXFLOAT,
-                                                         0.1, 1.0, 1.0));
+                                                         0.1, 1.0, 0));
   GtkWidget *ret = gtk_spin_button_new(adj, 1.0, 2);
   gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(ret),TRUE);
   prophandler_connect(&prop->common,GTK_OBJECT(ret),"value_changed");
@@ -87,12 +87,11 @@ realprop_reset_widget(RealProperty *prop, WIDGET *widget)
     adj = GTK_ADJUSTMENT(gtk_adjustment_new(prop->real_data,
                                             numdata->min, numdata->max,
                                             numdata->step, 
-                                            10.0 * numdata->step,
-                                            10.0 * numdata->step));
+                                            10.0 * numdata->step, 0));
   } else {
     adj = GTK_ADJUSTMENT(gtk_adjustment_new(prop->real_data,
                                             G_MINFLOAT, G_MAXFLOAT,
-                                            0.1, 1.0, 1.0));
+                                            0.1, 1.0, 0));
   }
   gtk_spin_button_set_adjustment(GTK_SPIN_BUTTON(widget), adj);
 }
@@ -181,7 +180,7 @@ lengthprop_get_widget(LengthProperty *prop, PropDialog *dialog)
   GtkAdjustment *adj = GTK_ADJUSTMENT(gtk_adjustment_new(prop->length_data,
                                                          G_MINFLOAT, 
                                                          G_MAXFLOAT,
-                                                         0.1, 1.0, 1.0));
+                                                         0.1, 1.0, 0));
   GtkWidget *ret = dia_unit_spinner_new(adj, prefs_get_length_unit());
   /*  gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(ret),TRUE);*/
   prophandler_connect(&prop->common,GTK_OBJECT(ret),"value-changed");
@@ -199,12 +198,11 @@ lengthprop_reset_widget(LengthProperty *prop, WIDGET *widget)
     adj = GTK_ADJUSTMENT(gtk_adjustment_new(prop->length_data,
                                             numdata->min, numdata->max,
                                             numdata->step, 
-                                            10.0 * numdata->step,
-                                            10.0 * numdata->step));
+                                            10.0 * numdata->step, 0));
   } else {
     adj = GTK_ADJUSTMENT(gtk_adjustment_new(prop->length_data,
                                             G_MINFLOAT, G_MAXFLOAT,
-                                            0.1, 1.0, 1.0));
+                                            0.1, 1.0, 0));
   }
   dia_unit_spinner_set_adjustment(GTK_SPIN_BUTTON(widget), adj);
   */
@@ -295,7 +293,7 @@ fontsizeprop_get_widget(FontsizeProperty *prop, PropDialog *dialog)
   GtkAdjustment *adj = GTK_ADJUSTMENT(gtk_adjustment_new(prop->fontsize_data,
                                                          G_MINFLOAT, 
                                                          G_MAXFLOAT,
-                                                         0.1, 1.0, 1.0));
+                                                         0.1, 1.0, 0));
   GtkWidget *ret = dia_unit_spinner_new(adj, prefs_get_fontsize_unit());
   /*  gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(ret),TRUE);*/
   prophandler_connect(&prop->common,GTK_OBJECT(ret),"value-changed");

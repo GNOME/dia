@@ -402,7 +402,7 @@ create_font_props_row (GtkTable   *table,
   dia_font_selector_set_font (DIAFONTSELECTOR (*fontsel), font);
   gtk_table_attach_defaults (GTK_TABLE (table), GTK_WIDGET(*fontsel), 1, 2, row, row+1);
 
-  adj = gtk_adjustment_new (height, 0.1, 10.0, 0.1, 1.0, 1.0);
+  adj = gtk_adjustment_new (height, 0.1, 10.0, 0.1, 1.0, 0);
   *heightsel = GTK_SPIN_BUTTON (gtk_spin_button_new (GTK_ADJUSTMENT(adj), 1.0, 2));
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (*heightsel), TRUE);
   gtk_table_attach_defaults (table, GTK_WIDGET (*heightsel), 2, 3, row, row+1);
@@ -493,7 +493,7 @@ class_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   checkbox = gtk_check_button_new_with_label(_("Wrap Operations"));
   prop_dialog->op_wrap = GTK_TOGGLE_BUTTON( checkbox );
   gtk_box_pack_start (GTK_BOX (hbox), checkbox, TRUE, TRUE, 0);
-  adj = gtk_adjustment_new( umlclass->wrap_after_char, 0.0, 200.0, 1.0, 5.0, 1.0);
+  adj = gtk_adjustment_new( umlclass->wrap_after_char, 0.0, 200.0, 1.0, 5.0, 0);
   prop_dialog->wrap_after_char = GTK_SPIN_BUTTON(gtk_spin_button_new( GTK_ADJUSTMENT( adj), 0.1, 0));
   gtk_spin_button_set_numeric( GTK_SPIN_BUTTON( prop_dialog->wrap_after_char), TRUE);
   gtk_spin_button_set_snap_to_ticks( GTK_SPIN_BUTTON( prop_dialog->wrap_after_char), TRUE);
@@ -508,7 +508,7 @@ class_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   checkbox = gtk_check_button_new_with_label(_("Comments visible"));
   prop_dialog->comments_vis = GTK_TOGGLE_BUTTON( checkbox );
   gtk_box_pack_start (GTK_BOX (hbox), checkbox, TRUE, TRUE, 0);
-  adj = gtk_adjustment_new( umlclass->comment_line_length, 17.0, 200.0, 1.0, 5.0, 1.0);
+  adj = gtk_adjustment_new( umlclass->comment_line_length, 17.0, 200.0, 1.0, 5.0, 0);
   prop_dialog->comment_line_length = GTK_SPIN_BUTTON(gtk_spin_button_new( GTK_ADJUSTMENT( adj), 0.1, 0));
   gtk_spin_button_set_numeric( GTK_SPIN_BUTTON( prop_dialog->comment_line_length), TRUE);
   gtk_spin_button_set_snap_to_ticks( GTK_SPIN_BUTTON( prop_dialog->comment_line_length), TRUE);
@@ -607,7 +607,7 @@ style_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   label = gtk_label_new(_("Line Width"));
   gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.5);
   gtk_table_attach (GTK_TABLE (table), label, 0, 1, 0, 1, GTK_EXPAND | GTK_FILL, 0, 0, 2);
-  adj = gtk_adjustment_new(umlclass->line_width, 0.0, G_MAXFLOAT, 0.1, 1.0, 0.0);
+  adj = gtk_adjustment_new(umlclass->line_width, 0.0, G_MAXFLOAT, 0.1, 1.0, 0);
   line_width = gtk_spin_button_new (GTK_ADJUSTMENT(adj), 1.0, 2);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (line_width), TRUE);
   prop_dialog->line_width = GTK_SPIN_BUTTON(line_width);

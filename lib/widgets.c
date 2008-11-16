@@ -198,7 +198,7 @@ dia_size_selector_init (DiaSizeSelector *ss)
   ss->ratio = 0.0;
   /* Here's where we set up the real thing */
   adj = GTK_ADJUSTMENT(gtk_adjustment_new(1.0, 0.01, 10,
-					  0.1, 1.0, 1.0));
+					  0.1, 1.0, 0));
   ss->width = GTK_SPIN_BUTTON(gtk_spin_button_new(adj, 1.0, 2));
   gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(ss->width), TRUE);
   gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(ss->width), TRUE);
@@ -206,7 +206,7 @@ dia_size_selector_init (DiaSizeSelector *ss)
   gtk_widget_show(GTK_WIDGET(ss->width));
 
   adj = GTK_ADJUSTMENT(gtk_adjustment_new(1.0, 0.01, 10,
-					  0.1, 1.0, 1.0));
+					  0.1, 1.0, 0));
   ss->height = GTK_SPIN_BUTTON(gtk_spin_button_new(adj, 1.0, 2));
   gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(ss->height), TRUE);
   gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(ss->height), TRUE);
@@ -940,7 +940,7 @@ dia_line_style_selector_init (DiaLineStyleSelector *fs)
   gtk_box_pack_start_defaults(GTK_BOX(box), label);
   gtk_widget_show(label);
 
-  adj = (GtkAdjustment *)gtk_adjustment_new(0.1, 0.00, 10.0, 0.1, 1.0, 1.0);
+  adj = (GtkAdjustment *)gtk_adjustment_new(0.1, 0.00, 10.0, 0.1, 1.0, 0);
   length = gtk_spin_button_new(adj, DEFAULT_LINESTYLE_DASHLEN, 2);
   gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(length), TRUE);
   gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(length), TRUE);

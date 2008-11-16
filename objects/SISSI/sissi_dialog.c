@@ -230,7 +230,7 @@ gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(pScroll), vbox);
 
 property_menace_widget->comments = gtk_entry_new();
 
-/*   adj = gtk_adjustment_new( umlclass->wrap_after_char, 0.0, 200.0, 1.0, 5.0, 1.0);
+/*   adj = gtk_adjustment_new( umlclass->wrap_after_char, 0.0, 200.0, 1.0, 5.0, 0);
 //   prop_dialog->wrap_after_char = GTK_SPIN_BUTTON(gtk_spin_button_new( GTK_ADJUSTMENT( adj), 0.1, 0));
 //   gtk_spin_button_set_numeric( GTK_SPIN_BUTTON( prop_dialog->wrap_after_char), TRUE);
 //   gtk_spin_button_set_snap_to_ticks( GTK_SPIN_BUTTON( prop_dialog->wrap_after_char), TRUE);*/

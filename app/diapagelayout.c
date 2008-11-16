@@ -240,7 +240,7 @@ dia_page_layout_init(DiaPageLayout *self)
   gtk_widget_show(wid);
 
   self->tmargin = dia_unit_spinner_new(
-	GTK_ADJUSTMENT(gtk_adjustment_new(1, 0,100, 0.1,10,10)),
+	GTK_ADJUSTMENT(gtk_adjustment_new(1, 0,100, 0.1,10,0)),
 	prefs_get_length_unit());
   gtk_table_attach(GTK_TABLE(table), self->tmargin, 1,2, 0,1,
 		   GTK_FILL|GTK_EXPAND, GTK_FILL|GTK_EXPAND, 0, 0);
@@ -253,7 +253,7 @@ dia_page_layout_init(DiaPageLayout *self)
   gtk_widget_show(wid);
 
   self->bmargin = dia_unit_spinner_new(
-	GTK_ADJUSTMENT(gtk_adjustment_new(1, 0,100, 0.1,10,10)),
+	GTK_ADJUSTMENT(gtk_adjustment_new(1, 0,100, 0.1,10,0)),
 	prefs_get_length_unit());
   gtk_table_attach(GTK_TABLE(table), self->bmargin, 1,2, 1,2,
 		   GTK_FILL|GTK_EXPAND, GTK_FILL|GTK_EXPAND, 0, 0);
@@ -266,7 +266,7 @@ dia_page_layout_init(DiaPageLayout *self)
   gtk_widget_show(wid);
 
   self->lmargin = dia_unit_spinner_new(
-	GTK_ADJUSTMENT(gtk_adjustment_new(1, 0,100, 0.1,10,10)),
+	GTK_ADJUSTMENT(gtk_adjustment_new(1, 0,100, 0.1,10,0)),
 	prefs_get_length_unit());
   gtk_table_attach(GTK_TABLE(table), self->lmargin, 1,2, 2,3,
 		   GTK_FILL|GTK_EXPAND, GTK_FILL|GTK_EXPAND, 0, 0);
@@ -279,7 +279,7 @@ dia_page_layout_init(DiaPageLayout *self)
   gtk_widget_show(wid);
 
   self->rmargin = dia_unit_spinner_new(
-	GTK_ADJUSTMENT(gtk_adjustment_new(1, 0,100, 0.1,10,10)),
+	GTK_ADJUSTMENT(gtk_adjustment_new(1, 0,100, 0.1,10,0)),
 	prefs_get_length_unit());
   gtk_table_attach(GTK_TABLE(table), self->rmargin, 1,2, 3,4,
 		   GTK_FILL|GTK_EXPAND, GTK_FILL|GTK_EXPAND, 0, 0);
@@ -303,7 +303,7 @@ dia_page_layout_init(DiaPageLayout *self)
   gtk_widget_show(self->scale);
 
   self->scaling = gtk_spin_button_new(
-	GTK_ADJUSTMENT(gtk_adjustment_new(100,1,10000, 1,10,10)), 1, 1);
+	GTK_ADJUSTMENT(gtk_adjustment_new(100,1,10000, 1,10,0)), 1, 1);
   gtk_table_attach(GTK_TABLE(table), self->scaling, 1,4, 0,1,
 		   GTK_FILL|GTK_EXPAND, GTK_FILL|GTK_EXPAND, 0, 0);
   gtk_widget_show(self->scaling);
@@ -315,7 +315,7 @@ dia_page_layout_init(DiaPageLayout *self)
   gtk_widget_show(self->fitto);
 
   self->fitw = gtk_spin_button_new(
-	GTK_ADJUSTMENT(gtk_adjustment_new(1, 1, 1000, 1, 10, 10)), 1, 0);
+	GTK_ADJUSTMENT(gtk_adjustment_new(1, 1, 1000, 1, 10, 0)), 1, 0);
   gtk_widget_set_sensitive(self->fitw, FALSE);
   gtk_table_attach(GTK_TABLE(table), self->fitw, 1,2, 1,2,
 		   GTK_FILL|GTK_EXPAND, GTK_FILL|GTK_EXPAND, 0, 0);
@@ -328,7 +328,7 @@ dia_page_layout_init(DiaPageLayout *self)
   gtk_widget_show(wid);
 
   self->fith = gtk_spin_button_new(
-	GTK_ADJUSTMENT(gtk_adjustment_new(1, 1, 1000, 1, 10, 10)), 1, 0);
+	GTK_ADJUSTMENT(gtk_adjustment_new(1, 1, 1000, 1, 10, 0)), 1, 0);
   gtk_widget_set_sensitive(self->fith, FALSE);
   gtk_table_attach(GTK_TABLE(table), self->fith, 3,4, 1,2,
 		   GTK_FILL|GTK_EXPAND, GTK_FILL|GTK_EXPAND, 0, 0);

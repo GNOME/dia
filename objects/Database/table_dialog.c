@@ -1013,7 +1013,7 @@ create_style_page (GtkNotebook * notebook, Table * table)
   gtk_container_set_border_width (GTK_CONTAINER (vbox), 10);
 
   hbox = gtk_hbox_new (FALSE, 5);
-  adj = gtk_adjustment_new (table->border_width, 0.00, 10.0, 0.01, 0.1, 1.0);
+  adj = gtk_adjustment_new (table->border_width, 0.00, 10.0, 0.01, 0.1, 0);
   prop_dialog->border_width =
     GTK_SPIN_BUTTON (gtk_spin_button_new (GTK_ADJUSTMENT (adj), 0.1, 2));
   gtk_spin_button_set_snap_to_ticks (prop_dialog->border_width, TRUE);
@@ -1111,7 +1111,7 @@ create_font_props_row (GtkTable   *table,
   dia_font_selector_set_font (DIAFONTSELECTOR (*fontsel), font);
   gtk_table_attach_defaults (GTK_TABLE (table), GTK_WIDGET(*fontsel), 1, 2, row, row+1);
 
-  adj = gtk_adjustment_new (height, 0.1, 10.0, 0.1, 1.0, 1.0);
+  adj = gtk_adjustment_new (height, 0.1, 10.0, 0.1, 1.0, 0);
   *heightsel = GTK_SPIN_BUTTON (gtk_spin_button_new (GTK_ADJUSTMENT(adj), 1.0, 2));
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (*heightsel), TRUE);
   gtk_table_attach_defaults (table, GTK_WIDGET (*heightsel), 2, 3, row, row+1);

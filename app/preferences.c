@@ -433,7 +433,7 @@ prefs_get_property_widget(DiaPrefData *data)
   case PREF_INT:
     adj = GTK_ADJUSTMENT(gtk_adjustment_new(0.0,
 					    G_MININT, G_MAXINT,
-					    1.0, 10.0, 10.0 ));
+					    1.0, 10.0, 0));
     widget = gtk_spin_button_new (adj, 1.0, 0);
     gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(widget), TRUE);
     gtk_widget_set_size_request (widget, 80, -1);
@@ -441,7 +441,7 @@ prefs_get_property_widget(DiaPrefData *data)
   case PREF_UINT:
     adj = GTK_ADJUSTMENT(gtk_adjustment_new(0.0,
 					    0.0, G_MAXINT,
-					    1.0, 10.0, 10.0 ));
+					    1.0, 10.0, 0));
     widget = gtk_spin_button_new (adj, 1.0, 0);
     gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(widget), TRUE);
     gtk_widget_set_size_request (widget, 80, -1);
@@ -449,7 +449,7 @@ prefs_get_property_widget(DiaPrefData *data)
   case PREF_REAL:
     adj = GTK_ADJUSTMENT(gtk_adjustment_new(0.0,
 					    G_MINFLOAT, G_MAXFLOAT,
-					    1.0, 10.0, 10.0 ));
+					    1.0, 10.0, 0));
     widget = gtk_spin_button_new (adj, 1.0, 3);
     gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(widget), TRUE);
     gtk_widget_set_size_request (widget, 80, -1);
@@ -457,7 +457,7 @@ prefs_get_property_widget(DiaPrefData *data)
   case PREF_UREAL:
     adj = GTK_ADJUSTMENT(gtk_adjustment_new(0.0,
 					    0.0, G_MAXFLOAT,
-					    1.0, 10.0, 10.0 ));
+					    1.0, 10.0, 0 ));
     widget = gtk_spin_button_new (adj, 1.0, 3);
     gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(widget), TRUE);
     gtk_widget_set_size_request (widget, 80, -1);
