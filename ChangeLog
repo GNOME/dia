@@ -1,3 +1,10 @@
+2008-11-18  Steffen Macke <sdteffen@sdteffen.de>
+
+	* doc/en/dia.xml:
+	* doc/eu/dia.xml:
+	* doc/fr/dia.xml:
+	* doc/pl/dia.xml: Consistently use DocBook 4.5 DTD from oasis-open.org
+	
 2008-11-16  Hans Breuer  <hans@breuer.org>
 
 	* plug-ins/gprint/* : back to the attic
