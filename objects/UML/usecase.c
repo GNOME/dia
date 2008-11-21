@@ -471,7 +471,7 @@ usecase_load(ObjectNode obj_node, int version, const char *filename)
   /* For compatibility with previous dia files. If no line_width, use
    * USECASE_LINEWIDTH, that was the previous line width.
    */
-  attr = object_find_attribute(obj_node, "line_width");
+  attr = object_find_attribute(obj_node, PROP_STDNAME_LINE_WIDTH);
   if (attr == NULL)
     ((Usecase*)obj)->line_width = USECASE_LINEWIDTH;
 

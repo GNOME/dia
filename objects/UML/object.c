@@ -520,7 +520,7 @@ objet_load(ObjectNode obj_node, int version, const char *filename)
   /* For compatibility with previous dia files. If no line_width, use
    * OBJET_BORDERWIDTH, that was the previous line width.
    */
-  attr = object_find_attribute(obj_node, "line_width");
+  attr = object_find_attribute(obj_node, PROP_STDNAME_LINE_WIDTH);
   if (attr == NULL)
     ((Objet*)obj)->line_width = OBJET_BORDERWIDTH;
 

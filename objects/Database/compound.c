@@ -202,7 +202,7 @@ static PropDescription compound_props[] =
 static PropOffset compound_offsets[] =
   {
     { "line_colour", PROP_TYPE_COLOUR, offsetof(Compound, line_color) },
-    { "line_width", PROP_TYPE_REAL, offsetof(Compound, line_width) },
+    { PROP_STDNAME_LINE_WIDTH, PROP_STDTYPE_LINE_WIDTH, offsetof(Compound, line_width) },
     { "num_arms", PROP_TYPE_INT, offsetof(Compound, num_arms) },
 
     { NULL, 0, 0 }
@@ -476,7 +476,7 @@ compound_load (ObjectNode obj_node, int version, const char *filename)
     }
 
   /* load remainding properties */
-  attr = object_find_attribute (obj_node, "line_width");
+  attr = object_find_attribute (obj_node, PROP_STDTYPE_LINE_WIDTH);
   if (attr == NULL)
     comp->line_width = 0.1;
   else
@@ -510,7 +510,7 @@ compound_save (Compound *comp, ObjectNode obj_node, const char * filename)
       data_add_point (attr, &h->pos);
     }
 
-  attr = new_attribute (obj_node, "line_width");
+  attr = new_attribute (obj_node, PROP_STDNAME_LINE_WIDTH);
   data_add_real (attr, comp->line_width);
   attr = new_attribute (obj_node, "line_color");
   data_add_color (attr, &comp->line_color);

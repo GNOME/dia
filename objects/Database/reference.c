@@ -127,7 +127,7 @@ static PropOffset reference_offsets[] =
     ORTHCONN_COMMON_PROPERTIES_OFFSETS,
     { "text_colour", PROP_TYPE_COLOUR, offsetof(TableReference, text_color) },
     { "line_colour", PROP_TYPE_COLOUR, offsetof(TableReference, line_color) },
-    { "line_width", PROP_TYPE_REAL, offsetof(TableReference, line_width) },
+    { PROP_STDNAME_LINE_WIDTH, PROP_STDTYPE_LINE_WIDTH, offsetof(TableReference, line_width) },
     { "line_style", PROP_TYPE_LINESTYLE, offsetof(TableReference, line_style),
       offsetof(TableReference, dashlength) },
     { "end_arrow", PROP_TYPE_ARROW, offsetof(TableReference, end_arrow) },

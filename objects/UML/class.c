@@ -2092,7 +2092,7 @@ umlclass_save(UMLClass *umlclass, ObjectNode obj_node,
                    umlclass->comment_line_length);
   data_add_boolean(new_attribute(obj_node, "comment_tagging"),
                    umlclass->comment_tagging);
-  data_add_real(new_attribute(obj_node, "line_width"), 
+  data_add_real(new_attribute(obj_node, PROP_STDNAME_LINE_WIDTH), 
 		   umlclass->line_width);
   data_add_color(new_attribute(obj_node, "line_color"), 
 		   &umlclass->line_color);
@@ -2229,7 +2229,7 @@ static DiaObject *umlclass_load(ObjectNode obj_node, int version,
   
   /* Loads the line width */
   umlclass->line_width = UMLCLASS_BORDER;
-  attr_node = object_find_attribute(obj_node, "line_width");
+  attr_node = object_find_attribute(obj_node, PROP_STDNAME_LINE_WIDTH);
   if(attr_node != NULL)
     umlclass->line_width = data_real(attribute_first_data(attr_node));
 

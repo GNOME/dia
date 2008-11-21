@@ -158,7 +158,7 @@ static PropDescription
 _customline_prop_descs[] = {
   { "line_colour", PROP_TYPE_COLOUR },
   { "line_style", PROP_TYPE_LINESTYLE },
-  { "line_width", PROP_TYPE_REAL },
+  { PROP_STDNAME_LINE_WIDTH, PROP_STDTYPE_LINE_WIDTH },
   { "corner_radius", PROP_TYPE_REAL },
   { "start_arrow", PROP_TYPE_ARROW },
   { "end_arrow", PROP_TYPE_ARROW },

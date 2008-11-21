@@ -217,7 +217,7 @@ static PropOffset table_offsets[] = {
   { "text_colour", PROP_TYPE_COLOUR, offsetof(Table, text_color) },
   { "line_colour", PROP_TYPE_COLOUR, offsetof(Table, line_color) },
   { "fill_colour", PROP_TYPE_COLOUR, offsetof(Table, fill_color) },
-  { "line_width", PROP_TYPE_REAL, offsetof(Table, border_width) },
+  { PROP_STDNAME_LINE_WIDTH, PROP_STDTYPE_LINE_WIDTH, offsetof(Table, border_width) },
   { "name", PROP_TYPE_STRING, offsetof(Table, name) },
   { "comment", PROP_TYPE_STRING, offsetof(Table, comment) },
   { "visible_comment", PROP_TYPE_BOOL, offsetof(Table, visible_comment) },
@@ -429,7 +429,7 @@ table_load (ObjectNode obj_node, int version, const char *filename)
     table->text_color = attributes_get_foreground ();
   if (object_find_attribute (obj_node, "fill_colour") == NULL)
     table->fill_color = attributes_get_background ();
-  if (object_find_attribute (obj_node, "line_width") == NULL)
+  if (object_find_attribute (obj_node, PROP_STDNAME_LINE_WIDTH) == NULL)
     table->border_width = attributes_get_default_linewidth ();
   if (object_find_attribute (obj_node, "underline_primary_key") == NULL)
     table->underline_primary_key = TRUE;
