@@ -12,9 +12,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia.HEAD\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-11-07 08:51+0100\n"
-"PO-Revision-Date: 2008-11-08 16:19+0100\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=dia&amp;component=general\n"
+"POT-Creation-Date: 2008-11-16 18:46+0000\n"
+"PO-Revision-Date: 2008-11-22 18:10+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -1206,7 +1207,7 @@ msgstr "No hay permiso para escribir el archivo de salida %s\n"
 msgid "Not allowed to write temporary files in %s\n"
 msgstr "No se permite escribir archivos temporales en %s\n"
 
-#: ../app/load_save.c:1022 ../plug-ins/cairo/diacairo.c:122
+#: ../app/load_save.c:1022 ../plug-ins/cairo/diacairo.c:124
 #: ../plug-ins/cgm/cgm.c:1153 ../plug-ins/dxf/dxf-export.c:547
 #: ../plug-ins/hpgl/hpgl.c:710 ../plug-ins/libart/export_png.c:157
 #: ../plug-ins/metapost/render_metapost.c:1177
@@ -2414,7 +2415,7 @@ msgstr ""
 "No se pudo abrir «%s»\n"
 "«%s»"
 
-#: ../lib/prop_inttypes.c:559
+#: ../lib/prop_inttypes.c:558
 msgid "Property cast from int to enum out of range"
 msgstr "Cambio de tipo de propiedad de int a enum fuera de rango"
 
@@ -5779,7 +5780,7 @@ msgstr "Puntero de la ampliación"
 msgid "Visible rect pointer"
 msgstr "Puntero visible de la recta"
 
-#: ../plug-ins/cairo/diacairo.c:114
+#: ../plug-ins/cairo/diacairo.c:116
 #, c-format
 msgid ""
 "Can't convert output filename '%s' to locale encoding.\n"
@@ -5788,57 +5789,61 @@ msgstr ""
 "No se puede convertir el archivo de salida «%s» a la codificación local.\n"
 "Por favor, elija un nombre diferente para guardar con cairo.\n"
 
-#: ../plug-ins/cairo/diacairo.c:252 ../plug-ins/cairo/diacairo.c:268
+#: ../plug-ins/cairo/diacairo.c:249 ../plug-ins/cairo/diacairo.c:265
 #, c-format
 msgid "Can't write %d bytes to %s"
 msgstr "No se pueden escribir %d bytes en %s"
 
-#: ../plug-ins/cairo/diacairo.c:294 ../plug-ins/postscript/postscript.c:39
+#: ../plug-ins/cairo/diacairo.c:278
+msgid "Clipboard copy failed"
+msgstr "Falló al copiar al portapapeles"
+
+#: ../plug-ins/cairo/diacairo.c:302 ../plug-ins/postscript/postscript.c:39
 #: ../plug-ins/wmf/wmf.cpp:1389
 msgid "Nothing to print"
 msgstr "Nada que imprimir"
 
-#: ../plug-ins/cairo/diacairo.c:305
+#: ../plug-ins/cairo/diacairo.c:313
 msgid "Printing with Gtk+(cairo) requires at least version 2.10."
 msgstr "Imprimir con Gtk+ (cairo) requiere al menos la versión 2.10."
 
-#: ../plug-ins/cairo/diacairo.c:312
+#: ../plug-ins/cairo/diacairo.c:320
 msgid "Cairo PostScript"
 msgstr "Cairo PostScript"
 
-#: ../plug-ins/cairo/diacairo.c:323
+#: ../plug-ins/cairo/diacairo.c:331
 msgid "Cairo Portable Document Format"
 msgstr "Portable Document Format de Cairo"
 
-#: ../plug-ins/cairo/diacairo.c:338
+#: ../plug-ins/cairo/diacairo.c:346
 msgid "Cairo Scalable Vector Graphics"
 msgstr "Cairo Scalable Vector Graphics"
 
-#: ../plug-ins/cairo/diacairo.c:349
+#: ../plug-ins/cairo/diacairo.c:357
 msgid "Cairo PNG"
 msgstr "Cairo PNG"
 
-#: ../plug-ins/cairo/diacairo.c:357
+#: ../plug-ins/cairo/diacairo.c:365
 msgid "Cairo PNG (with alpha)"
 msgstr "Cairo PNG (con alfa)"
 
-#: ../plug-ins/cairo/diacairo.c:367
+#: ../plug-ins/cairo/diacairo.c:375
 msgid "Cairo EMF"
 msgstr "Cairo EMF"
 
-#: ../plug-ins/cairo/diacairo.c:377
+#: ../plug-ins/cairo/diacairo.c:385
 msgid "Cairo WMF"
 msgstr "Cairo WMF"
 
-#: ../plug-ins/cairo/diacairo.c:389
-msgid "Cairo Clipboard"
-msgstr "Portapapeles Cairo"
+#: ../plug-ins/cairo/diacairo.c:407
+msgid "Copy _Diagram"
+msgstr "Cerrar el _diagrama"
 
-#: ../plug-ins/cairo/diacairo.c:400
+#: ../plug-ins/cairo/diacairo.c:417
 msgid "Print (GTK) ..."
 msgstr "Imprimir (GTK) …"
 
-#: ../plug-ins/cairo/diacairo.c:445
+#: ../plug-ins/cairo/diacairo.c:462
 msgid "Cairo based Rendering"
 msgstr "Renderizado basado en Cairo"
 
@@ -5890,33 +5895,6 @@ msgstr "Código dxf desconocido %d\n"
 #: ../plug-ins/dxf/dxf.c:50
 msgid "Drawing Interchange File import and export filters"
 msgstr "Filtros de importación y exportación de Drawing Interchange File"
-
-#: ../plug-ins/gprint/diagnomeprint.c:81
-#, c-format
-msgid ""
-"GNOME Print Backend\n"
-" '%s'\n"
-" not available"
-msgstr ""
-"GNOME Print Backend\n"
-" «%s»\n"
-" no disponible"
-
-#: ../plug-ins/gprint/diagnomeprint.c:112
-msgid "GNOME PostScript"
-msgstr "Gnome PostScript"
-
-#: ../plug-ins/gprint/diagnomeprint.c:121
-msgid "GNOME Portable Document Format"
-msgstr "Portable Document Format de Gnome"
-
-#: ../plug-ins/gprint/diagnomeprint.c:131
-msgid "GNOME Scalable Vector Graphic"
-msgstr "Gnome Scalable Vector Graphics"
-
-#: ../plug-ins/gprint/diagnomeprint.c:164
-msgid "GNOME Print based Rendering"
-msgstr "Renderizado basado en impresión de Gnome"
 
 #: ../plug-ins/hpgl/hpgl.c:751
 msgid "HP Graphics Language"
@@ -10376,6 +10354,30 @@ msgstr "Servidor de datos Sybase"
 #: ../sheets/sybase.sheet.in.h:8
 msgid "Sybase replication server"
 msgstr "Servidor de replicación de Sybase"
+
+#~ msgid "Cairo Clipboard"
+#~ msgstr "Portapapeles Cairo"
+
+#~ msgid ""
+#~ "GNOME Print Backend\n"
+#~ " '%s'\n"
+#~ " not available"
+#~ msgstr ""
+#~ "GNOME Print Backend\n"
+#~ " «%s»\n"
+#~ " no disponible"
+
+#~ msgid "GNOME PostScript"
+#~ msgstr "Gnome PostScript"
+
+#~ msgid "GNOME Portable Document Format"
+#~ msgstr "Portable Document Format de Gnome"
+
+#~ msgid "GNOME Scalable Vector Graphic"
+#~ msgstr "Gnome Scalable Vector Graphics"
+
+#~ msgid "GNOME Print based Rendering"
+#~ msgstr "Renderizado basado en impresión de Gnome"
 
 #~ msgid "Delete segement"
 #~ msgstr "Borrar segmento"
