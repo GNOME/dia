@@ -497,7 +497,6 @@ uml_underline_text(DiaRenderer  *renderer,
   DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Point    UnderlineStartPoint;
   Point    UnderlineEndPoint;
-  Point    WhitespaceEndPoint;
   gchar *whitespaces;
   int first_non_whitespace = 0;
 
@@ -1266,7 +1265,6 @@ umlclass_update_data(UMLClass *umlclass)
 
   if (umlclass->template) {
     /* fix boundingumlclass for templates: */
-    real bb_width = obj->bounding_box.right - obj->bounding_box.left;
     obj->bounding_box.top -= (umlclass->templates_height  - UMLCLASS_TEMPLATE_OVERLAY_Y) ;
     obj->bounding_box.right += (umlclass->templates_width - UMLCLASS_TEMPLATE_OVERLAY_X);
     obj->bounding_box.left  -= (elem->width < UMLCLASS_TEMPLATE_OVERLAY_X) ? 
@@ -2332,7 +2330,7 @@ umlclass_sanity_check(UMLClass *c, gchar *msg)
   int num_fixed_connections = UMLCLASS_CONNECTIONPOINTS;
 #endif
   DiaObject *obj = (DiaObject*)c;
-  GList *attrs, *ops;
+  GList *attrs;
   int i;
 
   dia_object_sanity_check((DiaObject *)c, msg);

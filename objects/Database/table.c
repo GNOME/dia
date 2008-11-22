@@ -764,7 +764,7 @@ table_draw_attributesbox (Table * table, DiaRenderer * renderer,
 static real
 table_distance_from (Table * table, Point *point)
 {
-  Rectangle * rect;
+  const Rectangle * rect;
   DiaObject * obj;
 
   obj = &table->element.object;

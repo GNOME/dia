@@ -1,3 +1,8 @@
+2008-11-22  Hans Breuer  <hans@breuer.org>
+
+	* objects/Database/table.c objects/UML/class.c : less warnings, patch by
+	Sameer Sahasrabuddhe
+
 2008-11-21  Hans Breuer  <hans@breuer.org>
 
 	* objects/custom_lines/custom_linetypes.c objects/Database/compound.c
