@@ -1,3 +1,8 @@
+2008-11-30  Steffen Macke <sdteffen@sdteffen.de>
+
+	* makefile.msc: Create *.mo files in build/win32
+	* installer/win32/dia.nsi: Reflect documentation updates
+
 2008-11-22  Hans Breuer  <hans@breuer.org>
 
 	* objects/Database/table.c objects/UML/class.c : less warnings, patch by
