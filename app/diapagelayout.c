@@ -303,7 +303,7 @@ dia_page_layout_init(DiaPageLayout *self)
   gtk_widget_show(self->scale);
 
   self->scaling = gtk_spin_button_new(
-	GTK_ADJUSTMENT(gtk_adjustment_new(100,1,10000, 1,10,0)), 1, 1);
+	GTK_ADJUSTMENT(gtk_adjustment_new(100,1,10000, 1,10,0)), 1, 0);
   gtk_table_attach(GTK_TABLE(table), self->scaling, 1,4, 0,1,
 		   GTK_FILL|GTK_EXPAND, GTK_FILL|GTK_EXPAND, 0, 0);
   gtk_widget_show(self->scaling);

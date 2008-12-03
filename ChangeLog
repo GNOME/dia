@@ -1,3 +1,8 @@
+2008-12-03  Hans Breuer  <hans@breuer.org>
+
+	* app//diapagelayout.c : one gtk_adjustment_new call was not adjusted.
+	Patch from Matt Keenan fixing bug #563106.
+
 2008-11-30  Steffen Macke <sdteffen@sdteffen.de>
 
 	* makefile.msc: Create *.mo files in build/win32
