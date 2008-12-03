@@ -1,5 +1,7 @@
 2008-12-03  Hans Breuer  <hans@breuer.org>
 
+	* app/menus.c : map help to "F1", patch Matt Keenan, bug #563110
+
 	* app//diapagelayout.c : one gtk_adjustment_new call was not adjusted.
 	Patch from Matt Keenan fixing bug #563106.
 

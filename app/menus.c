@@ -78,7 +78,7 @@ static const GtkActionEntry common_entries[] =
     { "FileOpen", GTK_STOCK_OPEN, NULL,"<control>O", NULL, G_CALLBACK (file_open_callback) },
     { "FileQuit", GTK_STOCK_QUIT, NULL, "<control>Q", NULL, G_CALLBACK (file_quit_callback) }, 
   { "Help", NULL, N_("_Help"), NULL, NULL, NULL },
-    { "HelpContents", GTK_STOCK_HELP, NULL, NULL, NULL, G_CALLBACK (help_manual_callback) },
+    { "HelpContents", GTK_STOCK_HELP, NULL, "F1", NULL, G_CALLBACK (help_manual_callback) },
     { "HelpAbout", GTK_STOCK_ABOUT, NULL, NULL, NULL, G_CALLBACK (help_about_callback) }
 };
 
