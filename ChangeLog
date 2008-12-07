@@ -1,3 +1,13 @@
+2008-12-07  Hans Breuer  <hans@breuer.org>
+
+	* app/commands.c app/diagram_tree.c app/modify_tool.c app/properties.c
+	  app/properties.h lib/group.c lib/object.h lib/propdesc.c 
+	  lib/propdialogs.c lib/properties.h lib/propinternals.h
+	  lib/propobject.c : : patch from Sameer Sahasrabuddhe almost fixing
+	Dia's oldest bug #60331 - Object properties should handle multiple 
+	objects (but it breaks with UM - Class)
+	* lib/libdia.def : updated
+
 2008-12-03  Hans Breuer  <hans@breuer.org>
 
 	* app/menus.c : map help to "F1", patch Matt Keenan, bug #563110

@@ -64,9 +64,8 @@ struct _PropDialog { /* This is to be treated as opaque ! */
   GArray *prop_widgets; /* of PropWidgetAssoc. This is a "flat" listing of 
                            properties and widgets (no nesting information is 
                            kept here) */
-  DiaObject *obj_copy; /* if !NULL, a copy of the object which can be used 
-                       as scratch. */
-  DiaObject *orig_obj; /* The original object (do not touch !) */
+  GList *objects; /* a copy of the objects, to be used as scratch. */
+  GList *copies;  /* The original objects. */
 
   GPtrArray *containers;
   WIDGET *lastcont;
@@ -239,6 +238,8 @@ struct _PropDescription {
 #define PROP_FLAG_WIDGET_ONLY 0x0080 /* only cosmetic property, no data */
 #define PROP_FLAG_OPTIONAL 0x0100 /* don't complain if it does not exist */
 
+typedef enum {PROP_UNION, PROP_INTERSECTION} PropMergeOption;
+
 #define PROP_DESC_END { NULL, 0, 0, NULL, NULL, NULL, 0 }
 
 /* extra data pointers for various property types */
@@ -403,10 +404,15 @@ struct _PropOffset {
 /* returns TRUE if this object can be handled (at least in part) through this
    library. */
 gboolean object_complies_with_stdprop(const DiaObject *obj);
+gboolean objects_comply_with_stdprop(GList *objects);
+
+void object_list_get_props(GList *objects, GPtrArray *props);
 
 /* will do whatever is needed to make the PropDescription * list look good to 
    the rest of the properties code. Can return NULL. */
 const PropDescription *object_get_prop_descriptions(const DiaObject *obj);
+const PropDescription *object_list_get_prop_descriptions(GList *objects,
+							 PropMergeOption option);
 
 gboolean object_get_props_from_offsets(DiaObject *obj, PropOffset *offsets,
 				       GPtrArray *props);
@@ -421,6 +427,7 @@ ObjectChange *object_apply_props(DiaObject *obj, GPtrArray *props);
  * If is_default is set, this is a default dialog, not an object dialog.
  */
 WIDGET *object_create_props_dialog     (DiaObject *obj, gboolean is_default);
+WIDGET *object_list_create_props_dialog(GList *obj, gboolean is_default);
 ObjectChange *object_apply_props_from_dialog (DiaObject *obj, WIDGET *dialog);
 
 /* create a property from the object's property descriptors. To be freed with

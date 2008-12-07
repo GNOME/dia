@@ -486,6 +486,7 @@ EXPORTS
  object_get_displayname
  object_init
  object_list_move_delta
+ object_list_create_props_dialog
  object_load
  object_load_props
  object_load_using_properties

@@ -34,7 +34,7 @@
 static GtkWidget *dialog = NULL;
 static GtkWidget *dialog_vbox = NULL;
 static GtkWidget *object_part = NULL;
-static DiaObject *current_obj = NULL;
+static GList *current_objects = NULL;
 static Diagram *current_dia = NULL;
 
 static GtkWidget *no_properties_dialog = NULL;
@@ -45,7 +45,7 @@ static gint properties_respond(GtkWidget *widget,
 static gboolean properties_key_event(GtkWidget *widget,
 				     GdkEventKey *event,
 				     gpointer data);
-static void properties_dialog_hide();
+static void properties_dialog_hide(void);
 
 static void create_dialog()
 {
@@ -83,24 +83,6 @@ static void create_dialog()
   g_object_ref_sink (G_OBJECT (no_properties_dialog));
 }
 
-static gint
-properties_part_destroyed(GtkWidget *widget, gpointer data)
-{
-  if (widget == object_part) {
-    object_part = NULL;
-    current_obj = NULL;
-    current_dia = NULL;
-  }
-  return 0;
-}
-
-static gint
-properties_dialog_destroyed(GtkWidget *widget, gpointer data)
-{
-  dialog = NULL;
-  return 0;
-}
-
 static gboolean
 properties_key_event(GtkWidget *widget, GdkEventKey *event, gpointer data)
 {
@@ -126,27 +108,33 @@ properties_respond(GtkWidget *widget,
                    gpointer   data)
 {
   ObjectChange *obj_change = NULL;
+  gboolean set_tp = TRUE;
+  GList *tmp;
 
   if (   response_id == GTK_RESPONSE_APPLY 
       || response_id == GTK_RESPONSE_OK) {
-    if ((current_obj != NULL) && (current_dia != NULL)) {
-      object_add_updates(current_obj, current_dia);
-      obj_change = current_obj->ops->apply_properties_from_dialog(current_obj, object_part);
-      object_add_updates(current_obj, current_dia);
+    if ((current_objects != NULL) && (current_dia != NULL)) {
+      object_add_updates_list(current_objects, current_dia);
 
-      diagram_update_connections_object(current_dia, current_obj, TRUE);
+      for (tmp = current_objects; tmp != NULL; tmp = tmp->next) {
+	DiaObject *current_obj = (DiaObject*)tmp->data;
+	obj_change = current_obj->ops->apply_properties_from_dialog(current_obj, object_part);
+	object_add_updates(current_obj, current_dia);
+	diagram_update_connections_object(current_dia, current_obj, TRUE);
     
-      if (obj_change != NULL) {
-	undo_object_change(current_dia, current_obj, obj_change);
+	if (obj_change != NULL) {
+	  undo_object_change(current_dia, current_obj, obj_change);
+	  set_tp = set_tp && TRUE;
+	} else
+	  set_tp = FALSE;
+
+	diagram_object_modified(current_dia, current_obj);
       }
     
       diagram_modified(current_dia);
-
-      diagram_object_modified(current_dia, current_obj);
-
       diagram_update_extents(current_dia);
       
-      if (obj_change != NULL) {
+      if (set_tp) {
 	undo_set_transactionpoint(current_dia->undo);
       }  else {
 	message_warning(_("This object doesn't support Undo/Redo.\n"
@@ -186,41 +174,52 @@ properties_give_focus(GtkWidget *widget, gpointer data)
   }
 }
 
-void
-properties_show(Diagram *dia, DiaObject *obj)
+static void
+clear_dialog_globals()
 {
-  GtkWidget *properties = NULL;
+  if (object_part != NULL) {
+    gtk_container_remove(GTK_CONTAINER(dialog_vbox), object_part);
+    object_part = NULL;
+  }
+  g_list_free(current_objects);
+  current_objects = NULL;
+  current_dia = NULL;
+}
 
-  if (obj != NULL) 
-    properties = obj->ops->get_properties(obj, FALSE);
+void
+object_properties_show(Diagram *dia, DiaObject *obj)
+{
+  GList *tmp = NULL;
+  tmp = g_list_append(tmp, obj);
+  object_list_properties_show(dia, tmp);
+  g_list_free(tmp);
+}
 
-  if (dialog == NULL)
+void
+object_list_properties_show(Diagram *dia, GList *objects)
+{
+  GtkWidget *properties;
+
+  if (!dialog)
     create_dialog();
+  clear_dialog_globals();
 
-  if (obj==NULL) {
+  if (!objects) {
     /* Hide dialog when no object is selected */
     properties_dialog_hide();
     return;
   }
 
-  if (properties == NULL) { /* No properties or no object */
+  properties = object_list_create_props_dialog(objects, FALSE);
+  if (properties == NULL) {
     properties = no_properties_dialog;
-    obj = NULL;
-    dia = NULL;
   }
 
-  if (object_part != NULL) {
-    gtk_container_remove(GTK_CONTAINER(dialog_vbox), object_part);
-    object_part = NULL;
-    current_obj = NULL;
-    current_dia = NULL;
-  }
-
-  if (obj != NULL) {
-    DiaObjectType *otype;
+  if (g_list_length(objects) == 1) {
+    DiaObject *obj = (DiaObject*)objects->data;
+    DiaObjectType *otype = obj->type;
     gchar *buf;
-
-    otype = obj->type;
+    
     buf = g_strconcat(_("Properties: "), otype->name, NULL);
     gtk_window_set_title(GTK_WINDOW(dialog), buf);
     g_free(buf);
@@ -228,46 +227,60 @@ properties_show(Diagram *dia, DiaObject *obj)
     gtk_window_set_title(GTK_WINDOW(dialog), _("Object properties:"));
   }
 
-  g_signal_connect (G_OBJECT (properties), "destroy",
-		  G_CALLBACK(properties_part_destroyed), NULL);
-  g_signal_connect (G_OBJECT (dialog), "destroy",
-		  G_CALLBACK(properties_dialog_destroyed), NULL);
-
   gtk_box_pack_start(GTK_BOX(dialog_vbox), properties, TRUE, TRUE, 0);
 
   gtk_widget_show (properties);
 
   properties_give_focus(properties, NULL);
 
-  if (obj != current_obj)
-    gtk_window_resize (GTK_WINDOW(dialog), 1, 1); /* resize to minimum */
+  /* resize to minimum */
+  /* if (obj != current_obj) */
+  gtk_window_resize (GTK_WINDOW(dialog), 1, 1);
   gtk_window_set_transient_for(GTK_WINDOW(dialog),
 			       GTK_WINDOW (ddisplay_active()->shell));
   gtk_window_present (GTK_WINDOW (dialog));
   object_part = properties;
-  current_obj = obj;
+  current_objects = g_list_copy(objects);
   current_dia = dia;
 }
 
-void properties_dialog_hide()
+void
+properties_dialog_hide(void)
 {
-  if (dialog)
-    gtk_widget_hide(dialog);
-  current_obj = NULL;
+  if (!dialog)
+    return;
+  clear_dialog_globals();
+  gtk_widget_hide(dialog);
 }
 
 void
 properties_hide_if_shown(Diagram *dia, DiaObject *obj)
 {
-  if (current_obj == obj) {
-    properties_show(dia, NULL);
+  if (g_list_find(current_objects, obj)) {
+    if (g_list_length(current_objects) == 1)
+      /* If obj is the only object shown, then we hide the dialog. */
+      properties_dialog_hide();
+    else {
+      /* else we remove this object and recreate the dialog. */
+      GList *tmp = g_list_copy(current_objects);
+      tmp = g_list_remove(tmp, obj);
+      object_list_properties_show(dia, tmp);
+      g_list_free(tmp);
+    }
   }
 }
 
 void
 properties_update_if_shown(Diagram *dia, DiaObject *obj)
 {
-  if (current_obj == obj) {
-    properties_show(dia, obj);
+  /* if there are multiple objects currently shown, there is no reason
+     why the properties of this object should be updated in the
+     dialog. */
+  if (g_list_length(current_objects) != 1)
+    return;
+  else {
+    /* FIXME: instead of recreating the dialog, there should be a way
+       to refresh the existing PropDialog widget. */
+    object_properties_show(dia, (DiaObject*)current_objects->data);
   }
 }

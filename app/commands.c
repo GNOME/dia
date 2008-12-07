@@ -1106,8 +1106,7 @@ dialogs_properties_callback (GtkAction *action)
   if (!dia || textedit_mode(ddisplay_active())) return;
 
   if (dia->data->selected != NULL) {
-    selected = dia->data->selected->data;
-    properties_show(dia, selected);
+    object_list_properties_show(dia, dia->data->selected);
   } else {
     diagram_properties_show(dia);
   } 

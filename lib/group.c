@@ -35,7 +35,7 @@ struct _Group {
 
   GList *objects;
 
-  PropDescription *pdesc;
+  const PropDescription *pdesc;
 };
 
 typedef struct _GroupPropChange GroupPropChange;
@@ -406,19 +406,10 @@ group_describe_props(Group *group)
 {
   int i;
   if (group->pdesc == NULL) {
-    GList *descs = NULL, *tmp;
 
-    /* create list of property descriptions */
-    for (tmp = group->objects; tmp != NULL; tmp = tmp->next) {
-      const PropDescription *desc = NULL;
-      DiaObject *obj = tmp->data;
-
-      desc = object_get_prop_descriptions(obj);
-
-      if (desc) descs = g_list_append(descs, (gpointer)desc);
-    }
-    group->pdesc = prop_desc_lists_union(descs);
-    g_list_free(descs); /* XXX: haven't we got a leak here ? */
+    /* create list of property descriptions. this must be freed by the
+       DestroyFunc. */
+    group->pdesc = object_list_get_prop_descriptions(group->objects, PROP_UNION);
 
     if (group->pdesc != NULL) {
       /* hijack event delivery */

@@ -128,26 +128,35 @@ prop_desc_lists_union(GList *plists)
   GList *tmp;
 
   /* make sure the array is allocated */
+  /* FIXME: this doesn't seem to do anything useful if an error occurs. */
   g_array_append_val(arr, null_prop_desc);
   g_array_remove_index(arr, 0);
 
+  /* Each element in the list is a GArray of PropDescription,
+     terminated by a NULL element. */
   for (tmp = plists; tmp; tmp = tmp->next) {
     PropDescription *plist = tmp->data;
     int i;
 
     for (i = 0; plist[i].name != NULL; i++) {
       int j;
-#if 1
+
       if (plist[i].flags & PROP_FLAG_DONT_MERGE)
-        continue; /* even union must not conatin anything which can't be merged */
-#endif
+        continue; /* exclude anything that can't be merged */
+
+      /* Check to see if this PropDescription is already included in
+	 the union. */
       for (j = 0; j < arr->len; j++)
 	if (g_array_index(arr, PropDescription, j).quark == plist[i].quark)
 	  break;
+
+      /* Add to the union if it isn't already present. */
       if (j == arr->len)
 	g_array_append_val(arr, plist[i]);
     }
   }
+
+  /* Get the actually array and free the GArray wrapper. */
   ret = (PropDescription *)arr->data;
   g_array_free(arr, FALSE);
   return ret;
@@ -181,6 +190,8 @@ prop_desc_lists_intersection(GList *plists)
   g_array_remove_index(arr, 0);
 
   if (plists) {
+
+    /* initialise the intersection with the first list. */
     ret = plists->data;
     for (i = 0; ret[i].name != NULL; i++)
       g_array_append_val(arr, ret[i]);
@@ -192,6 +203,8 @@ prop_desc_lists_intersection(GList *plists)
       /* go through array in reverse so that removals don't stuff things up */
       for (i = arr->len - 1; i >= 0; i--) {
 	gint j;
+	/* FIXME: we can avoid a copy here by making cand a pointer to
+	   the data in the GArray. */
         PropDescription cand = g_array_index(arr,PropDescription,i);
         gboolean remove = TRUE;
 	for (j = 0; ret[j].name != NULL; j++) {

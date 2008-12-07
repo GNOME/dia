@@ -516,7 +516,7 @@ diagram_tree_show_properties(const DiagramTree *tree)
       Diagram *dia = (Diagram *)gtk_ctree_node_get_row_data(tree->tree, parent);
       DiaObject *obj =
 	(DiaObject *)gtk_ctree_node_get_row_data(tree->tree, tree->last);
-      properties_show(dia, obj);
+      object_properties_show(dia, obj);
     }
   }
 }

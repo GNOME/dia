@@ -285,7 +285,9 @@ typedef ObjectChange *(*ApplyPropertiesDialogFunc) (DiaObject* obj, GtkWidget *w
  *  This is one of the object_ops functions.
  * @param obj The object whose properties we want described.
  * @return a NULL-terminated array of property descriptions.
- * As the const return implies the returned data is not owned by  the caller.
+ * As the const return implies the returned data is not owned by  the
+ * caller. If this function returns a dynamically created description,
+ * then DestroyFunc must free the description.
  */
 typedef const PropDescription *(* DescribePropsFunc) (DiaObject *obj);
 

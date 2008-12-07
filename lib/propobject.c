@@ -52,6 +52,31 @@ object_get_prop_descriptions(const DiaObject *obj) {
   return pdesc;
 }
 
+const PropDescription *
+object_list_get_prop_descriptions(GList *objects, PropMergeOption option)
+{
+  GList *descs = NULL, *tmp;
+  const PropDescription *pdesc;
+
+  for (tmp = objects; tmp != NULL; tmp = tmp->next) {
+    DiaObject *obj = tmp->data;
+    const PropDescription *desc = object_get_prop_descriptions(obj);
+
+    if (desc) descs = g_list_append(descs, (gpointer)desc);
+  }
+
+  if (option == PROP_UNION)
+    pdesc = prop_desc_lists_union(descs);
+  else
+    pdesc = prop_desc_lists_intersection(descs);
+
+  /* Important: Do not destroy the actual descriptions returned by the
+     objects. We don't own them. */
+  g_list_free(descs);
+
+  return pdesc;
+}
+
 
 /* ------------------------------------------------------ */
 /* Change management                                      */
@@ -149,7 +174,15 @@ object_set_props_from_offsets(DiaObject *obj, PropOffset *offsets,
 WIDGET *
 object_create_props_dialog(DiaObject *obj, gboolean is_default)
 {
-  return prop_dialog_new(obj, is_default)->widget;
+  GList *list = NULL;
+  list = g_list_append(list, obj);
+  return object_list_create_props_dialog(list, is_default);
+}
+
+WIDGET *
+object_list_create_props_dialog(GList *objects, gboolean is_default)
+{
+  return prop_dialog_new(objects, is_default)->widget;
 }
 
 
@@ -167,6 +200,19 @@ object_apply_props_from_dialog(DiaObject *obj, WIDGET *dialog_widget)
     return obj->ops->apply_properties_list(obj, dialog->props);
 }
 
+gboolean
+objects_comply_with_stdprop(GList *objects)
+{
+  GList *tmp = objects;
+
+  for (; tmp != NULL; tmp = tmp->next) {
+    const DiaObject *obj = (const DiaObject*)tmp->data;
+    if (!object_complies_with_stdprop(obj))
+      return FALSE;
+  }
+
+  return TRUE;
+}
 
 gboolean 
 object_complies_with_stdprop(const DiaObject *obj) 
@@ -188,6 +234,17 @@ object_complies_with_stdprop(const DiaObject *obj)
     return FALSE;
   }
   return TRUE;
+}
+
+void
+object_list_get_props(GList *objects, GPtrArray *props)
+{
+  GList *tmp = objects;
+
+  for (; tmp != NULL; tmp = tmp->next) {
+    DiaObject *obj = (DiaObject*)tmp->data;
+    obj->ops->get_props(obj,props);
+  }
 }
 
 static gboolean

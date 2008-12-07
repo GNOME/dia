@@ -38,16 +38,16 @@
 const gchar *prop_dialogdata_key = "object-props:dialogdata";
 
 static void prop_dialog_signal_destroy(GtkWidget *dialog_widget);
-static void prop_dialog_fill(PropDialog *dialog, DiaObject *obj, gboolean is_default);
+static void prop_dialog_fill(PropDialog *dialog, GList *objects, gboolean is_default);
 
 PropDialog *
-prop_dialog_new(DiaObject *obj, gboolean is_default) 
+prop_dialog_new(GList *objects, gboolean is_default) 
 {
   PropDialog *dialog = g_new0(PropDialog,1);
   dialog->props = NULL;
   dialog->widget = gtk_vbox_new(FALSE,1);
   dialog->prop_widgets = g_array_new(FALSE,TRUE,sizeof(PropWidgetAssoc));
-  dialog->obj_copy = NULL;
+  dialog->copies = NULL;
   dialog->curtable = NULL;
   dialog->containers = g_ptr_array_new();
 
@@ -57,7 +57,7 @@ prop_dialog_new(DiaObject *obj, gboolean is_default)
   g_signal_connect (G_OBJECT (dialog->widget), "destroy",
                     G_CALLBACK (prop_dialog_signal_destroy), NULL);
 
-  prop_dialog_fill(dialog,obj,is_default);
+  prop_dialog_fill(dialog,objects,is_default);
 
   return dialog;
 }
@@ -68,7 +68,7 @@ prop_dialog_destroy(PropDialog *dialog)
   if (dialog->props) prop_list_free(dialog->props);
   g_array_free(dialog->prop_widgets,TRUE);
   g_ptr_array_free(dialog->containers,TRUE);
-  if (dialog->obj_copy) dialog->obj_copy->ops->destroy(dialog->obj_copy);
+  if (dialog->copies) destroy_object_list(dialog->copies);
   g_free(dialog);
 }
 
@@ -173,13 +173,11 @@ property_signal_handler(GtkObject *obj,
   if (ped) {
     PropDialog *dialog = ped->dialog;
     Property *prop = ped->self;
-    DiaObject *obj = dialog->obj_copy;
+    GList *list, *tmp;
     guint j;
 
-    g_assert(obj);
-    g_assert(object_complies_with_stdprop(obj));
-    g_assert(obj->ops->set_props);
-    g_assert(obj->ops->get_props);
+    list = dialog->copies;
+    g_return_if_fail(list);
 
     prop->experience &= ~PXP_NOTSET;
 
@@ -192,20 +190,18 @@ property_signal_handler(GtkObject *obj,
     /* obj is a scratch object ; we can do what we want with it. */
     prop_get_data_from_widgets(dialog);
 
-    obj->ops->set_props(obj,dialog->props);
-    prop->event_handler(obj,prop);
-    obj->ops->get_props(obj,dialog->props);
+    for (tmp = list; tmp != NULL; tmp = tmp->next) {
+      DiaObject *obj = (DiaObject*)tmp->data;
+      obj->ops->set_props(obj,dialog->props);
+      prop->event_handler(obj,prop);
+      obj->ops->get_props(obj,dialog->props);
+    }
 
     for (j = 0; j < dialog->prop_widgets->len; j++) {
       PropWidgetAssoc *pwa = 
         &g_array_index(dialog->prop_widgets,PropWidgetAssoc,j);
-      /*
-      g_message("going to reset widget %p for prop %s/%s "
-                "[in response to event on  %s/%s]",
-                pwa->widget,pwa->prop->type,pwa->prop->name,
-                prop->type,prop->name); */ 
       pwa->prop->ops->reset_widget(pwa->prop,pwa->widget);
-    } 
+    }
   } else {
     g_assert_not_reached();
   }
@@ -216,21 +212,11 @@ prophandler_connect(const Property *prop,
                     GtkObject *object,
                     const gchar *signal)
 {
-  DiaObject *obj = prop->self.dialog->obj_copy;
-
   if (0==strcmp(signal,"FIXME")) {
     g_warning("signal type unknown for this kind of property (name is %s), \n"
               "handler ignored.",prop->name);
     return;
   } 
-  if ((!obj->ops->set_props) || (!obj->ops->get_props)) {
-      g_warning("object has no [sg]et_props() routine(s).\n"
-                "event handler for property %s ignored.",
-                prop->name);
-      return;
-  }
-  
-  /* g_message("connected signal %s to property %s",signal,prop->name); */
 
   g_signal_connect (G_OBJECT (object),
                     signal,
@@ -244,9 +230,6 @@ prop_dialog_add_property(PropDialog *dialog, Property *prop)
   GtkWidget *widget = NULL;
   PropWidgetAssoc pwa;
   GtkWidget *label;
-
-  if (!dialog->obj_copy)
-    dialog->obj_copy = dialog->orig_obj->ops->copy(dialog->orig_obj);
 
   prop->self.dialog = dialog;
   prop->self.self = prop;
@@ -326,15 +309,17 @@ pdtpp_is_visible_default (const PropDescription *pdesc)
 }
 
 static void 
-prop_dialog_fill(PropDialog *dialog, DiaObject *obj, gboolean is_default) {
+prop_dialog_fill(PropDialog *dialog, GList *objects, gboolean is_default)
+{
   const PropDescription *pdesc;
   GPtrArray *props;
 
-  g_return_if_fail(object_complies_with_stdprop(obj));
+  g_return_if_fail(objects_comply_with_stdprop(objects));
 
-  dialog->orig_obj = obj;
+  dialog->objects = g_list_copy(objects);
+  dialog->copies = object_copy_list(objects);
 
-  pdesc = object_get_prop_descriptions(obj);
+  pdesc = object_list_get_prop_descriptions(objects, PROP_UNION);
   if (!pdesc) return;
 
   if (is_default)
@@ -345,7 +330,7 @@ prop_dialog_fill(PropDialog *dialog, DiaObject *obj, gboolean is_default) {
   if (!props) return;
     
   dialog->props = props;
-  obj->ops->get_props(obj,props);
+  object_list_get_props(objects, props);
 
   prop_dialog_add_properties(dialog, props);
 }

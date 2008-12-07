@@ -308,7 +308,7 @@ modify_double_click(ModifyTool *tool, GdkEventButton *event,
   clicked_obj = click_select_object(ddisp, &clickedpoint, event);
   
   if ( clicked_obj != NULL ) {
-    properties_show(ddisp->diagram, clicked_obj);
+    object_list_properties_show(ddisp->diagram, ddisp->diagram->data->selected);
   } else { /* No object selected */
     /*printf("didn't select object\n");*/
     if (!(event->state & GDK_SHIFT_MASK)) {
