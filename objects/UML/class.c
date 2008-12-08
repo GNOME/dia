@@ -77,6 +77,8 @@ static void umlclass_set_props(UMLClass *umlclass, GPtrArray *props);
 static void fill_in_fontdata(UMLClass *umlclass);
 static int umlclass_num_dynamic_connectionpoints(UMLClass *class);
 
+static ObjectChange *_umlclass_apply_props_from_dialog(UMLClass *umlclass, GtkWidget *widget);
+
 static ObjectTypeOps umlclass_type_ops =
 {
   (CreateFunc) umlclass_create,
@@ -113,7 +115,7 @@ static ObjectOps umlclass_ops = {
   (MoveFunc)            umlclass_move,
   (MoveHandleFunc)      umlclass_move_handle,
   (GetPropertiesFunc)   umlclass_get_properties,
-  (ApplyPropertiesDialogFunc) umlclass_apply_props_from_dialog,
+  (ApplyPropertiesDialogFunc) _umlclass_apply_props_from_dialog,
   (ObjectMenuFunc)      umlclass_object_menu,
   (DescribePropsFunc)   umlclass_describe_props,
   (GetPropsFunc)        umlclass_get_props,
@@ -213,6 +215,17 @@ static PropDescription umlclass_props[] = {
 
   PROP_DESC_END
 };
+
+ObjectChange *
+_umlclass_apply_props_from_dialog(UMLClass *umlclass, GtkWidget *widget)
+{
+  DiaObject *obj = &umlclass->element.object;
+  /* fallback, if it isn't our dialog, e.g. during multiple selection change */
+  if (!umlclass->properties_dialog)
+    return object_apply_props_from_dialog (obj, widget);
+  else
+    return umlclass_apply_props_from_dialog (umlclass, widget);
+}
 
 static PropDescription *
 umlclass_describe_props(UMLClass *umlclass)

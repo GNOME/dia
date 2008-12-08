@@ -1,3 +1,16 @@
+2008-12-08  Hans Breuer  <hans@breuer.org>
+
+	* objects/UML/class.c : don't crash when 
+	umlclass_apply_props_from_dialog() get callesd without 
+	umlclass_get_properties(), instead fall back to 
+	object_apply_props_from_dialog() than
+	* objects/Database/table.c : same here
+	
+	* app/properties.c : for a single object let Object::get_properties()
+	create the "object part" of the property dialog
+
+	* plug-ins/makefile.msc : remove obsolete plug-ins from build
+
 2008-12-07  Hans Breuer  <hans@breuer.org>
 
 	* app/commands.c app/diagram_tree.c app/modify_tool.c app/properties.c

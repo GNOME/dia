@@ -67,6 +67,8 @@ static ObjectChange * table_move_handle (Table *, Handle *,
 static PropDescription * table_describe_props (Table *);
 static void         table_get_props (Table *, GPtrArray *);
 static void         table_set_props (Table *, GPtrArray *);
+ObjectChange *_table_dialog_apply_changes (Table * table, GtkWidget * widget);
+
 static void         table_draw (Table *, DiaRenderer *);
 static real         table_draw_namebox (Table *, DiaRenderer *, Element *);
 static real         table_draw_attributesbox (Table *, DiaRenderer *,
@@ -894,6 +896,16 @@ table_set_props (Table *table, GPtrArray *props)
       table_compute_width_height (table);
       table_update_positions (table);
     }
+}
+
+ObjectChange *
+_table_dialog_apply_changes (Table * table, GtkWidget * widget)
+{
+  /* fallback, if it isn't our dialog, e.g. during multiple selection change */
+  if (!table->prop_dialog)
+    return object_apply_props_from_dialog(&table->element.object, widget);
+  else
+    return table_dialog_apply_changes(table, widget);
 }
 
 /**

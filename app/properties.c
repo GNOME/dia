@@ -199,6 +199,7 @@ void
 object_list_properties_show(Diagram *dia, GList *objects)
 {
   GtkWidget *properties;
+  DiaObject *one_obj;
 
   if (!dialog)
     create_dialog();
@@ -210,14 +211,17 @@ object_list_properties_show(Diagram *dia, GList *objects)
     return;
   }
 
-  properties = object_list_create_props_dialog(objects, FALSE);
+  one_obj = (g_list_length(objects) == 1) ? objects->data : NULL;
+  if (one_obj)
+    properties = one_obj->ops->get_properties(one_obj, FALSE);
+  else
+    properties = object_list_create_props_dialog(objects, FALSE);
   if (properties == NULL) {
     properties = no_properties_dialog;
   }
 
-  if (g_list_length(objects) == 1) {
-    DiaObject *obj = (DiaObject*)objects->data;
-    DiaObjectType *otype = obj->type;
+  if (one_obj) {
+    DiaObjectType *otype = one_obj->type;
     gchar *buf;
     
     buf = g_strconcat(_("Properties: "), otype->name, NULL);

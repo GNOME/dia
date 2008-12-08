@@ -1,9 +1,8 @@
 !IFNDEF PACKAGE
 
 # dummy sissi
-PLUGINS = gprint cairo cgm dxf hpgl libart metapost pgf pixbuf \
-	postscript pstricks shape svg vdx wmf wpg xfig xslt \
-	autolayout
+PLUGINS = cairo cgm dxf hpgl libart metapost pgf pixbuf \
+	postscript pstricks shape svg vdx wmf wpg xfig xslt
 
 #broken since StdProp overhaul : diaimport 
 
