@@ -226,16 +226,16 @@ get_draw_style(DiaSvgRenderer *renderer,
   g_string_truncate(str, 0);
 
   /* TODO(CHECK): the shape-export didn't have 'fill: none' here */
-  g_string_sprintf(str, "fill: none; fill-opacity:0; stroke-width: %s", dia_svg_dtostr(linewidth_buf, renderer->linewidth) );
+  g_string_printf(str, "fill: none; fill-opacity:0; stroke-width: %s", dia_svg_dtostr(linewidth_buf, renderer->linewidth) );
   if (strcmp(renderer->linecap, "butt"))
-    g_string_sprintfa(str, "; stroke-linecap: %s", renderer->linecap);
+    g_string_append_printf(str, "; stroke-linecap: %s", renderer->linecap);
   if (strcmp(renderer->linejoin, "miter"))
-    g_string_sprintfa(str, "; stroke-linejoin: %s", renderer->linejoin);
+    g_string_append_printf(str, "; stroke-linejoin: %s", renderer->linejoin);
   if (renderer->linestyle)
-    g_string_sprintfa(str, "; stroke-dasharray: %s", renderer->linestyle);
+    g_string_append_printf(str, "; stroke-dasharray: %s", renderer->linestyle);
 
   if (colour)
-    g_string_sprintfa(str, "; stroke: #%02x%02x%02x",
+    g_string_append_printf(str, "; stroke: #%02x%02x%02x",
 		      (int)ceil(255*colour->red), (int)ceil(255*colour->green),
 		      (int)ceil(255*colour->blue));
 
@@ -251,7 +251,7 @@ get_fill_style(DiaSvgRenderer *renderer,
 
   if (!str) str = g_string_new(NULL);
 
-  g_string_sprintf(str, "fill: #%02x%02x%02x",
+  g_string_printf(str, "fill: #%02x%02x%02x",
 		   (int)ceil(255*colour->red), (int)ceil(255*colour->green),
 		   (int)ceil(255*colour->blue));
 
@@ -299,7 +299,7 @@ draw_polyline(DiaRenderer *self,
 
   str = g_string_new(NULL);
   for (i = 0; i < num_points; i++)
-    g_string_sprintfa(str, "%s,%s ",
+    g_string_append_printf(str, "%s,%s ",
 		      dia_svg_dtostr(px_buf, points[i].x),
 		      dia_svg_dtostr(py_buf, points[i].y) );
   xmlSetProp(node, (const xmlChar *)"points", (xmlChar *) str->str);
@@ -324,7 +324,7 @@ draw_polygon(DiaRenderer *self,
 
   str = g_string_new(NULL);
   for (i = 0; i < num_points; i++)
-    g_string_sprintfa(str, "%s,%s ",
+    g_string_append_printf(str, "%s,%s ",
 		      dia_svg_dtostr(px_buf, points[i].x),
 		      dia_svg_dtostr(py_buf, points[i].y) );
   xmlSetProp(node, (const xmlChar *)"points", (xmlChar *) str->str);
@@ -349,7 +349,7 @@ fill_polygon(DiaRenderer *self,
 
   str = g_string_new(NULL);
   for (i = 0; i < num_points; i++)
-    g_string_sprintfa(str, "%s,%s ",
+    g_string_append_printf(str, "%s,%s ",
 		      dia_svg_dtostr(px_buf, points[i].x),
 		      dia_svg_dtostr(py_buf, points[i].y) );
   xmlSetProp(node, (const xmlChar *)"points", (xmlChar *)str->str);
@@ -554,7 +554,7 @@ draw_bezier(DiaRenderer *self,
   if (points[0].type != BEZ_MOVE_TO)
     g_warning("first BezPoint must be a BEZ_MOVE_TO");
 
-  g_string_sprintf(str, "M %s %s",
+  g_string_printf(str, "M %s %s",
 		   dia_svg_dtostr(p1x_buf, (gdouble) points[0].p1.x),
 		   dia_svg_dtostr(p1y_buf, (gdouble) points[0].p1.y) );
 
@@ -564,12 +564,12 @@ draw_bezier(DiaRenderer *self,
       g_warning("only first BezPoint can be a BEZ_MOVE_TO");
       break;
     case BEZ_LINE_TO:
-      g_string_sprintfa(str, " L %s,%s",
+      g_string_append_printf(str, " L %s,%s",
 			dia_svg_dtostr(p1x_buf, (gdouble) points[i].p1.x),
 			dia_svg_dtostr(p1y_buf, (gdouble) points[i].p1.y) );
       break;
     case BEZ_CURVE_TO:
-      g_string_sprintfa(str, " C %s,%s %s,%s %s,%s",
+      g_string_append_printf(str, " C %s,%s %s,%s %s,%s",
 			dia_svg_dtostr(p1x_buf, (gdouble) points[i].p1.x),
 			dia_svg_dtostr(p1y_buf, (gdouble) points[i].p1.y),
 			dia_svg_dtostr(p2x_buf, (gdouble) points[i].p2.x),
@@ -608,7 +608,7 @@ fill_bezier(DiaRenderer *self,
   if (points[0].type != BEZ_MOVE_TO)
     g_warning("first BezPoint must be a BEZ_MOVE_TO");
 
-  g_string_sprintf(str, "M %s %s",
+  g_string_printf(str, "M %s %s",
 		   dia_svg_dtostr(p1x_buf, (gdouble) points[0].p1.x),
 		   dia_svg_dtostr(p1y_buf, (gdouble) points[0].p1.y) );
  
@@ -618,12 +618,12 @@ fill_bezier(DiaRenderer *self,
       g_warning("only first BezPoint can be a BEZ_MOVE_TO");
       break;
     case BEZ_LINE_TO:
-      g_string_sprintfa(str, " L %s,%s",
+      g_string_append_printf(str, " L %s,%s",
 			dia_svg_dtostr(p1x_buf, (gdouble) points[i].p1.x),
 			dia_svg_dtostr(p1y_buf, (gdouble) points[i].p1.y) );
       break;
     case BEZ_CURVE_TO:
-      g_string_sprintfa(str, " C %s,%s %s,%s %s,%s",
+      g_string_append_printf(str, " C %s,%s %s,%s %s,%s",
 			dia_svg_dtostr(p1x_buf, (gdouble) points[i].p1.x),
 			dia_svg_dtostr(p1y_buf, (gdouble) points[i].p1.y),
 			dia_svg_dtostr(p2x_buf, (gdouble) points[i].p2.x),
@@ -890,4 +890,5 @@ dia_svg_renderer_class_init (DiaSvgRendererClass *klass)
   svg_renderer_class->get_draw_style = get_draw_style;
   svg_renderer_class->get_fill_style = get_fill_style;
 }
+
 

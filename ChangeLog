@@ -1,5 +1,8 @@
 2008-12-09  Hans Breuer  <hans@breuer.org>
 
+	* lib/diasvgrenderer.c lib/persistence.c lib/prop_basic.c : reduced
+	use of long time deprecated functions ( Kjartan Maraas, bug #559671)
+
 	* objects/Database/table.c app/preferences.c : fixed the fix and a
 	comment about it (Sameer Sahasrabuddhe, bug #60331)
 

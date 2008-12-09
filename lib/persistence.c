@@ -861,7 +861,7 @@ persistent_list_add(const gchar *role, const gchar *item)
   } else {
     gboolean existed = FALSE;
     GList *tmplist = plist->glist;
-    GList *old_elem = g_list_find_custom(tmplist, item, g_strcasecmp);
+    GList *old_elem = g_list_find_custom(tmplist, item, (GCompareFunc)g_ascii_strncasecmp);
     while (old_elem != NULL) {
       tmplist = g_list_remove_link(tmplist, old_elem);
       /* Don't free this, as it makes recent_files go boom after
@@ -870,7 +870,7 @@ persistent_list_add(const gchar *role, const gchar *item)
        */
       /*g_free(old_elem->data);*/
       g_list_free_1(old_elem);
-      old_elem = g_list_find_custom(tmplist, item, g_strcasecmp);
+      old_elem = g_list_find_custom(tmplist, item, (GCompareFunc)g_ascii_strncasecmp);
       existed = TRUE;
     }
     tmplist = g_list_prepend(tmplist, g_strdup(item));
@@ -898,7 +898,7 @@ persistent_list_remove(const gchar *role, const gchar *item)
 {
   PersistentList *plist = persistent_list_get(role);
   /* Leaking data?  See not in persistent_list_add */
-  GList *entry = g_list_find_custom(plist->glist, item, g_strcasecmp);
+  GList *entry = g_list_find_custom(plist->glist, item, (GCompareFunc)g_ascii_strncasecmp);
   if (entry != NULL) {
     plist->glist = g_list_remove_link(plist->glist, entry);
     g_free(entry->data);
@@ -938,7 +938,7 @@ persistent_list_add_listener(const gchar *role, PersistenceCallback func,
     listener = g_new(ListenerData, 1);
     listener->func = func;
     listener->watch = watch;
-    g_object_add_weak_pointer(watch, &listener->watch);
+    g_object_add_weak_pointer(watch, (gpointer)&listener->watch);
     listener->userdata = userdata;
     plist->listeners = g_list_append(plist->listeners, listener);
   }
