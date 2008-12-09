@@ -211,6 +211,7 @@ object_list_properties_show(Diagram *dia, GList *objects)
     return;
   }
 
+  /* Prefer object-specific UI when only one object is selected. */
   one_obj = (g_list_length(objects) == 1) ? objects->data : NULL;
   if (one_obj)
     properties = one_obj->ops->get_properties(one_obj, FALSE);

@@ -1,3 +1,8 @@
+2008-12-09  Hans Breuer  <hans@breuer.org>
+
+	* objects/Database/table.c app/preferences.c : fixed the fix and a
+	comment about it (Sameer Sahasrabuddhe, bug #60331)
+
 2008-12-08  Hans Breuer  <hans@breuer.org>
 
 	* objects/UML/class.c : don't crash when 

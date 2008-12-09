@@ -123,7 +123,7 @@ static ObjectOps table_ops =
     (MoveFunc)                  table_move,
     (MoveHandleFunc)            table_move_handle,
     (GetPropertiesFunc)         table_get_properties_dialog,
-    (ApplyPropertiesDialogFunc)       table_dialog_apply_changes,
+    (ApplyPropertiesDialogFunc) _table_dialog_apply_changes,
     (ObjectMenuFunc)            table_object_menu,
     (DescribePropsFunc)         table_describe_props,
     (GetPropsFunc)              table_get_props,
