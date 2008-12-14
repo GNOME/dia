@@ -84,6 +84,37 @@ filter_get_export_filter_label(DiaExportFilter *efilter)
   return ret;
 }
 
+/* Get the list of unique names for the given extension */
+GList *
+filter_get_unique_export_names(const char *ext)
+{
+  GList *tmp, *res = NULL;
+  
+  for (tmp = export_filters; tmp != NULL; tmp = tmp->next) {
+    DiaExportFilter *ef = tmp->data;
+    gint i;
+
+    for (i = 0; ef->extensions[i] != NULL; i++) {
+      if (!g_strcasecmp(ef->extensions[i], ext) && ef->unique_name)
+	res = g_list_append (res, (char *)ef->unique_name);
+    }
+  }
+  return res;
+}
+
+static GHashTable *_favored_hash = NULL;
+
+/* Set the favorit 'guess' */
+void 
+filter_set_favored_export(const char *ext, const char *name)
+{
+  g_print("Favored '%s' is '%s'", ext, name);
+  if (!_favored_hash)
+    _favored_hash = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
+    
+  g_hash_table_insert(_favored_hash, g_ascii_strdown(ext, -1), g_strdup(name));
+}
+
 /* Guess the filter for a given filename. 
  * Returns the first filter found that matches the extension on the filename,
  * or NULL if none such are found.  
@@ -97,12 +128,21 @@ filter_guess_export_filter(const gchar *filename)
   gchar *ext;
   gint   no_guess = 0;
   DiaExportFilter *dont_guess = NULL;
+  const gchar *unique_name;
 
   ext = strrchr(filename, '.');
   if (ext)
     ext++;
   else
     ext = "";
+  
+  /* maybe ther is no need to guess? */
+  unique_name = _favored_hash ? g_hash_table_lookup(_favored_hash, ext) : NULL;
+  if (unique_name) {
+    DiaExportFilter *ef = filter_get_by_name(unique_name);
+    if (ef)
+      return ef;
+  }
 
   for (tmp = export_filters; tmp != NULL; tmp = tmp->next) {
     DiaExportFilter *ef = tmp->data;

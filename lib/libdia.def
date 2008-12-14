@@ -374,6 +374,8 @@ EXPORTS
  filter_get_callbacks
  filter_get_export_filter_label
  filter_get_export_filters
+ filter_set_favored_export
+ filter_get_unique_export_names
  filter_get_import_filter_label
  filter_get_import_filters
  filter_guess_export_filter

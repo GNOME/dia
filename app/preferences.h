@@ -72,6 +72,16 @@ struct DiaPreferences {
   DiagramTreeConfig dia_tree;
 
   int use_integrated_ui;
+  
+  /* a dedicated filter name or NULL */
+  struct {
+    char *png;
+    char *svg;
+    char *ps;
+    char *wmf;
+    char *emf;
+    char *print;
+  } favored_filter;
 };
 
 extern struct DiaPreferences prefs;

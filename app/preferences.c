@@ -70,14 +70,15 @@ typedef struct _DiaPrefData {
   char *label_text;
   GtkWidget *widget;
   gboolean hidden;
-  GList *(*choice_list_function)();
+  GList *(*choice_list_function)(struct _DiaPrefData *pref);
   /** A function to call after a preference item has been updated. */
-  void (*update_function)(struct _DiaPrefData *pref, char *ptr);
+  void (*update_function)(struct _DiaPrefData *pref, gpointer ptr);
+  const char *key;
 } DiaPrefData;
 
-static void update_floating_toolbox(DiaPrefData *pref, char *ptr);
-static void update_internal_prefs(DiaPrefData *pref, char *ptr);
-static void update_ui_type_prefs(DiaPrefData *pref, char *ptr);
+static void update_floating_toolbox(DiaPrefData *pref, gpointer ptr);
+static void update_internal_prefs(DiaPrefData *pref, gpointer ptr);
+static void update_ui_type_prefs(DiaPrefData *pref, gpointer ptr);
 
 static int default_true = 1;
 static int default_false = 0;
@@ -96,22 +97,61 @@ static const gchar *default_paper_name = NULL;
 static const gchar *default_length_unit = "cm";
 static const gchar *default_fontsize_unit = "point";
 
+static const char *default_favored_filter = N_("any");
+
 struct DiaPrefsTab {
   char *title;
   GtkTable *table;
   int row;
 };
 
+typedef enum {
+  UI_TAB,
+  DIA_TAB,
+  VIEW_TAB,
+  FAVOR_TAB,
+  GRID_TAB,
+  TREE_TAB
+} TabIndex;
+
 struct DiaPrefsTab prefs_tabs[] =
 {
   {N_("User Interface"), NULL, 0},
   {N_("Diagram Defaults"), NULL, 0},
   {N_("View Defaults"), NULL, 0},
+  {N_("Favorites"), NULL, 0},
   {N_("Grid Lines"), NULL, 0},
   {N_("Diagram Tree"), NULL, 0},
 };
 
 #define NUM_PREFS_TABS (sizeof(prefs_tabs)/sizeof(struct DiaPrefsTab))
+
+static GList *
+_get_units_name_list(DiaPrefData *pref)
+{
+  g_return_val_if_fail(pref->key == NULL, NULL);
+  return get_units_name_list();
+}
+static GList *
+_get_paper_name_list(DiaPrefData *pref)
+{
+  g_return_val_if_fail(pref->key == NULL, NULL);
+  return get_paper_name_list();
+}
+static GList *
+get_exporter_names (DiaPrefData *pref)
+{
+  GList *list = filter_get_unique_export_names(pref->key);
+  list = g_list_prepend (list, N_("any"));
+  return list;
+}
+
+static void
+set_favored_exporter (DiaPrefData *pref, gpointer ptr)
+{
+  char *val = *((gchar **)ptr);
+  filter_set_favored_export(pref->key, val);
+}
 
 /* retrive a structure offset */
 #ifdef offsetof
@@ -123,75 +163,88 @@ struct DiaPrefsTab prefs_tabs[] =
 DiaPrefData prefs_data[] =
 {
   { "reset_tools_after_create", PREF_BOOLEAN, PREF_OFFSET(reset_tools_after_create), 
-    &default_true,       0, N_("Reset tools after create") },
+    &default_true, UI_TAB, N_("Reset tools after create") },
 
   { "undo_depth",               PREF_UINT,    PREF_OFFSET(undo_depth), 
-    &default_undo_depth, 0, N_("Number of undo levels:") },
+    &default_undo_depth, UI_TAB, N_("Number of undo levels:") },
 
   { "reverse_rubberbanding_intersects", PREF_BOOLEAN, PREF_OFFSET(reverse_rubberbanding_intersects), 
-    &default_true,       0, N_("Reverse dragging selects\nintersecting objects") },
+    &default_true, UI_TAB, N_("Reverse dragging selects\nintersecting objects") },
 
   { "recent_documents_list_size", PREF_UINT, PREF_OFFSET(recent_documents_list_size), 
     &default_recent_documents, 0, N_("Recent documents list size:") },
 
   { "use_menu_bar", PREF_BOOLEAN, PREF_OFFSET(new_view.use_menu_bar), 
-    &default_true, 0, N_("Use menu bar") },
+    &default_true, UI_TAB, N_("Use menu bar") },
 
   { "toolbox_on_top", PREF_BOOLEAN, PREF_OFFSET(toolbox_on_top),
-    &default_false, 0, N_("Keep tool box on top of diagram windows"),
+    &default_false, UI_TAB, N_("Keep tool box on top of diagram windows"),
     NULL, FALSE, NULL, update_floating_toolbox},
   { "length_unit", PREF_CHOICE, PREF_OFFSET(length_unit),
-    &default_length_unit, 0, N_("Length unit:"), NULL, FALSE,
-    get_units_name_list, update_internal_prefs },
+    &(char*)default_length_unit, UI_TAB, N_("Length unit:"), NULL, FALSE,
+    _get_units_name_list, update_internal_prefs },
   { "fontsize_unit", PREF_CHOICE, PREF_OFFSET(fontsize_unit),
-    &default_fontsize_unit, 0, N_("Font-size unit:"), NULL, FALSE,
-    get_units_name_list, update_internal_prefs },
+    &(char*)default_fontsize_unit, UI_TAB, N_("Font-size unit:"), NULL, FALSE,
+    _get_units_name_list, update_internal_prefs },
   
   { "use_integrated_ui", PREF_BOOLEAN, PREF_OFFSET(use_integrated_ui),
-    &default_false, 0, N_("Integrated UI"), NULL, FALSE, NULL, update_ui_type_prefs },
+    &default_false, UI_TAB, N_("Integrated UI"), NULL, FALSE, NULL, update_ui_type_prefs },
 
 
-  { NULL, PREF_NONE, 0, NULL, 1, N_("New diagram:") },
-  { "is_portrait", PREF_BOOLEAN, PREF_OFFSET(new_diagram.is_portrait), &default_true, 1, N_("Portrait") },
+  { NULL, PREF_NONE, 0, NULL, DIA_TAB, N_("New diagram:") },
+  { "is_portrait", PREF_BOOLEAN, PREF_OFFSET(new_diagram.is_portrait), &default_true, DIA_TAB, N_("Portrait") },
   { "new_diagram_papertype", PREF_CHOICE, PREF_OFFSET(new_diagram.papertype),
-    &default_paper_name, 1, N_("Paper type:"), NULL, FALSE, get_paper_name_list },
+    &(char*)default_paper_name, DIA_TAB, N_("Paper type:"), NULL, FALSE, _get_paper_name_list },
   { "new_diagram_bgcolour", PREF_COLOUR, PREF_OFFSET(new_diagram.bg_color),
-    &color_white, 1, N_("Background Color:") },
+    &color_white, DIA_TAB, N_("Background Color:") },
   { "compress_save",            PREF_BOOLEAN, PREF_OFFSET(new_diagram.compress_save), 
-    &default_true, 1, N_("Compress saved files") },
+    &default_true, DIA_TAB, N_("Compress saved files") },
+  { NULL, PREF_END_GROUP, 0, NULL, DIA_TAB, NULL },
+
+  { NULL, PREF_NONE, 0, NULL, DIA_TAB, N_("New window:") },
+  { "new_view_width", PREF_UINT, PREF_OFFSET(new_view.width), &default_int_w, DIA_TAB, N_("Width:") },
+  { "new_view_height", PREF_UINT, PREF_OFFSET(new_view.height), &default_int_h, DIA_TAB, N_("Height:") },
+  { "new_view_zoom", PREF_UREAL, PREF_OFFSET(new_view.zoom), &default_real_zoom, DIA_TAB, N_("Magnify:") },
   { NULL, PREF_END_GROUP, 0, NULL, 1, NULL },
 
-  { NULL, PREF_NONE, 0, NULL, 1, N_("New window:") },
-  { "new_view_width", PREF_UINT, PREF_OFFSET(new_view.width), &default_int_w, 1, N_("Width:") },
-  { "new_view_height", PREF_UINT, PREF_OFFSET(new_view.height), &default_int_h, 1, N_("Height:") },
-  { "new_view_zoom", PREF_UREAL, PREF_OFFSET(new_view.zoom), &default_real_zoom, 1, N_("Magnify:") },
-  { NULL, PREF_END_GROUP, 0, NULL, 1, NULL },
+  { NULL, PREF_NONE, 0, NULL, DIA_TAB, N_("Connection Points:") },
+  { "show_cx_pts", PREF_BOOLEAN, PREF_OFFSET(show_cx_pts), &default_true, DIA_TAB, N_("Visible") },
+  { NULL, PREF_END_GROUP, 0, NULL, DIA_TAB, NULL },
 
-  { NULL, PREF_NONE, 0, NULL, 1, N_("Connection Points:") },
-  { "show_cx_pts", PREF_BOOLEAN, PREF_OFFSET(show_cx_pts), &default_true, 1, N_("Visible") },
-  { NULL, PREF_END_GROUP, 0, NULL, 1, NULL },
-
-  { NULL, PREF_NONE, 0, NULL, 2, N_("Page breaks:") },
-  { "pagebreak_visible", PREF_BOOLEAN, PREF_OFFSET(pagebreak.visible), &default_true, 2, N_("Visible") },
-  { "pagebreak_colour", PREF_COLOUR, PREF_OFFSET(new_diagram.pagebreak_color), &pbreak_colour, 2, N_("Color:") },
-  { "pagebreak_solid", PREF_BOOLEAN, PREF_OFFSET(pagebreak.solid), &default_true, 2, N_("Solid lines") },
-  { NULL, PREF_END_GROUP, 0, NULL, 2, NULL },
+  { NULL, PREF_NONE, 0, NULL, VIEW_TAB, N_("Page breaks:") },
+  { "pagebreak_visible", PREF_BOOLEAN, PREF_OFFSET(pagebreak.visible), &default_true, VIEW_TAB, N_("Visible") },
+  { "pagebreak_colour", PREF_COLOUR, PREF_OFFSET(new_diagram.pagebreak_color), &pbreak_colour, VIEW_TAB, N_("Color:") },
+  { "pagebreak_solid", PREF_BOOLEAN, PREF_OFFSET(pagebreak.solid), &default_true, VIEW_TAB, N_("Solid lines") },
+  { NULL, PREF_END_GROUP, 0, NULL, VIEW_TAB, NULL },
   
-  { NULL, PREF_NONE, 0, NULL, 2, N_("Antialias:") },
-  { "view_antialised", PREF_BOOLEAN, PREF_OFFSET(view_antialised), &default_false, 2, N_("view antialised") },
-  { NULL, PREF_END_GROUP, 0, NULL, 2, NULL },
+  { NULL, PREF_NONE, 0, NULL, VIEW_TAB, N_("Antialias:") },
+  { "view_antialised", PREF_BOOLEAN, PREF_OFFSET(view_antialised), &default_false, VIEW_TAB, N_("view antialised") },
+  { NULL, PREF_END_GROUP, 0, NULL, VIEW_TAB, NULL },
+
+  /* Favored Filer */
+  { NULL, PREF_NONE, 0, NULL, FAVOR_TAB, N_("Export") },
+  { "favored_png_export", PREF_CHOICE, PREF_OFFSET(favored_filter.png), &(char*)default_favored_filter, 
+    FAVOR_TAB, N_("Portable Network Graphics"), NULL, FALSE, get_exporter_names, set_favored_exporter, "PNG" },
+  { "favored_svg_export", PREF_CHOICE, PREF_OFFSET(favored_filter.svg), &(char*)default_favored_filter, 
+    FAVOR_TAB, N_("Scalable Vector Graphics"), NULL, FALSE, get_exporter_names, set_favored_exporter, "SVG" },
+  { "favored_ps_export", PREF_CHOICE, PREF_OFFSET(favored_filter.ps), &(char*)default_favored_filter, 
+    FAVOR_TAB, N_("PostScript"), NULL, FALSE, get_exporter_names, set_favored_exporter, "PS" },
+  { "favored_wmf_export", PREF_CHOICE, PREF_OFFSET(favored_filter.wmf), &(char*)default_favored_filter, 
+    FAVOR_TAB, N_("Windows MetaFile"), NULL, FALSE, get_exporter_names, set_favored_exporter, "WMF" },
+  { "favored_emf_export", PREF_CHOICE, PREF_OFFSET(favored_filter.emf), &(char*)default_favored_filter, 
+    FAVOR_TAB, N_("Enhanced MetaFile"), NULL, FALSE, get_exporter_names, set_favored_exporter, "EMF" },
+  { NULL, PREF_END_GROUP, 0, NULL, FAVOR_TAB, NULL },
 
   /*{ NULL, PREF_NONE, 0, NULL, 3, N_("Grid:") }, */
-  { "grid_visible", PREF_BOOLEAN, PREF_OFFSET(grid.visible), &default_true, 3, N_("Visible") },
-  { "grid_snap", PREF_BOOLEAN, PREF_OFFSET(grid.snap), &default_false, 3, N_("Snap to") },
-  { "grid_dynamic", PREF_BOOLEAN, PREF_OFFSET(grid.dynamic), &default_true, 3, N_("Dynamic grid resizing") },
-  { "grid_x", PREF_UREAL, PREF_OFFSET(grid.x), &default_real_one, 3, N_("X Size:") },
-  { "grid_y", PREF_UREAL, PREF_OFFSET(grid.y), &default_real_one, 3, N_("Y Size:") },
-  { "grid_colour", PREF_COLOUR, PREF_OFFSET(new_diagram.grid_color), &default_colour, 3, N_("Color:") },
-  { "grid_major", PREF_UINT, PREF_OFFSET(grid.major_lines), &default_major_lines, 3, N_("Lines per major line") },
-  { "grid_hex", PREF_BOOLEAN, PREF_OFFSET(grid.hex), &default_false, 3, N_("Hex grid") },
-  { "grid_w", PREF_UREAL, PREF_OFFSET(grid.w), &default_real_one, 3, N_("Hex Size:")
- },
+  { "grid_visible", PREF_BOOLEAN, PREF_OFFSET(grid.visible), &default_true, GRID_TAB, N_("Visible") },
+  { "grid_snap", PREF_BOOLEAN, PREF_OFFSET(grid.snap), &default_false, GRID_TAB, N_("Snap to") },
+  { "grid_dynamic", PREF_BOOLEAN, PREF_OFFSET(grid.dynamic), &default_true, GRID_TAB, N_("Dynamic grid resizing") },
+  { "grid_x", PREF_UREAL, PREF_OFFSET(grid.x), &default_real_one, GRID_TAB, N_("X Size:") },
+  { "grid_y", PREF_UREAL, PREF_OFFSET(grid.y), &default_real_one, GRID_TAB, N_("Y Size:") },
+  { "grid_colour", PREF_COLOUR, PREF_OFFSET(new_diagram.grid_color), &default_colour, GRID_TAB, N_("Color:") },
+  { "grid_major", PREF_UINT, PREF_OFFSET(grid.major_lines), &default_major_lines, GRID_TAB, N_("Lines per major line") },
+  { "grid_hex", PREF_BOOLEAN, PREF_OFFSET(grid.hex), &default_false, GRID_TAB, N_("Hex grid") },
+  { "grid_w", PREF_UREAL, PREF_OFFSET(grid.w), &default_real_one, GRID_TAB, N_("Hex Size:") },
   /*  { "grid_solid", PREF_BOOLEAN, PREF_OFFSET(grid.solid), &default_true, 3, N_("Solid lines:") },  */
 
   { "render_bounding_boxes", PREF_BOOLEAN,PREF_OFFSET(render_bounding_boxes),
@@ -206,21 +259,21 @@ DiaPrefData prefs_data[] =
   { "prefer_psprint", PREF_BOOLEAN,PREF_OFFSET(prefer_psprint),
     &default_false,0,"prefer psprint", NULL, TRUE},
 
-  { NULL, PREF_NONE, 0, NULL, 4, N_("Diagram tree window:") },
+  { NULL, PREF_NONE, 0, NULL, TREE_TAB, N_("Diagram tree window:") },
   { "diagram_tree_save_hidden", PREF_BOOLEAN, PREF_OFFSET(dia_tree.save_hidden),
-    &default_false, 4, N_("Save hidden object types")},
+    &default_false, TREE_TAB, N_("Save hidden object types")},
   { "diagram_tree_dia_sort", PREF_UINT, PREF_OFFSET(dia_tree.dia_sort),
-    &default_dtree_dia_sort, 4, "default diagram sort order", NULL, TRUE},
+    &default_dtree_dia_sort, TREE_TAB, "default diagram sort order", NULL, TRUE},
   { "diagram_tree_obj_sort", PREF_UINT, PREF_OFFSET(dia_tree.obj_sort),
-    &default_dtree_obj_sort, 4, "default object sort order", NULL, TRUE},
-  { NULL, PREF_END_GROUP, 0, NULL, 4, NULL },
+    &default_dtree_obj_sort, TREE_TAB, "default object sort order", NULL, TRUE},
+  { NULL, PREF_END_GROUP, 0, NULL, TREE_TAB, NULL },
 };
 
 #define NUM_PREFS_DATA (sizeof(prefs_data)/sizeof(DiaPrefData))
 
 static void prefs_create_dialog(void);
-static void prefs_set_value_in_widget(GtkWidget * widget, DiaPrefData *data,  char *ptr);
-static void prefs_get_value_from_widget(GtkWidget * widget, DiaPrefData *data, char *ptr);
+static void prefs_set_value_in_widget(GtkWidget * widget, DiaPrefData *data,  gpointer ptr);
+static void prefs_get_value_from_widget(GtkWidget * widget, DiaPrefData *data, gpointer ptr);
 static void prefs_update_dialog_from_prefs(void);
 static void prefs_update_prefs_from_dialog(void);
 /* static gint prefs_apply(GtkWidget *widget, gpointer data); */
@@ -241,7 +294,7 @@ void
 prefs_set_defaults(void)
 {
   int i;
-  char *ptr;
+  gpointer ptr;
 
   /* Since we can't call this in static initialization, we have to
    * do it here.
@@ -280,15 +333,17 @@ prefs_set_defaults(void)
     case PREF_END_GROUP:
       break;
     }
+    if (prefs_data[i].update_function)
+      (prefs_data[i].update_function)(&prefs_data[i], ptr);
   }
-  update_internal_prefs(NULL, NULL);
+  update_internal_prefs(&prefs_data[i], NULL);
 }
 
 void
 prefs_save(void)
 {
   int i;
-  char *ptr;
+  gpointer ptr;
   for (i=0;i<NUM_PREFS_DATA;i++) {
     if ((prefs_data[i].type == PREF_NONE) || (prefs_data[i].type == PREF_END_GROUP))
       continue;
@@ -354,10 +409,11 @@ prefs_set_value_in_widget(GtkWidget * widget, DiaPrefData *data,
     dia_color_selector_set_color(widget, (Color *)ptr);
     break;
   case PREF_CHOICE: {
-    GList *names = (data->choice_list_function)();
+    GList *names = (data->choice_list_function)(data);
     int index;
+    char *val = *((gchar**)ptr);
     for (index = 0; names != NULL; names = g_list_next(names), index++) {
-      if (!strcmp(*((gchar**)ptr), (gchar *)names->data))
+      if (!strcmp(val, (gchar *)names->data))
 	break;
     }
     if (names == NULL) return;
@@ -395,7 +451,7 @@ prefs_get_value_from_widget(GtkWidget * widget, DiaPrefData *data,
     break;
   case PREF_CHOICE: {
     int index = gtk_combo_box_get_active (GTK_COMBO_BOX (widget));
-    GList *names = (data->choice_list_function)();
+    GList *names = (data->choice_list_function)(data);
     *((gchar **)ptr) = g_strdup((gchar *)g_list_nth_data(names, index));
     break;
   }
@@ -472,7 +528,7 @@ prefs_get_property_widget(DiaPrefData *data)
     GList *names;
     GSList *group = NULL;
     widget = gtk_combo_box_new_text ();
-    for (names = (data->choice_list_function)(); 
+    for (names = (data->choice_list_function)(data); 
          names != NULL;
 	 names = g_list_next(names)) {
       gtk_combo_box_append_text (GTK_COMBO_BOX (widget), (gchar *)names->data);
@@ -581,6 +637,7 @@ prefs_create_dialog(void)
 #endif /* SCROLLED_PAGES */
 
   }
+  gtk_notebook_set_tab_pos(GTK_NOTEBOOK(notebook), GTK_POS_LEFT);
 
   tab_idx = -1;
   for (i=0;i<NUM_PREFS_DATA;i++) {
@@ -677,8 +734,13 @@ prefs_update_dialog_from_prefs(void)
  *  are currently unused and may be null.
  */
 static void
-update_internal_prefs(DiaPrefData *pref, char *ptr)
+update_internal_prefs(DiaPrefData *pref, gpointer ptr)
 {
+  char *val = NULL;
+  
+  if (!ptr)
+    return;
+  val = *(char **)ptr;
   if (prefs.length_unit)
     prefs_set_length_unit(prefs.length_unit);
   if (prefs.fontsize_unit)
@@ -686,8 +748,9 @@ update_internal_prefs(DiaPrefData *pref, char *ptr)
 }
 
 static void
-update_floating_toolbox(DiaPrefData *pref, char *ptr)
+update_floating_toolbox(DiaPrefData *pref, gpointer ptr)
 {
+  g_return_if_fail (pref->key == NULL);
   if (prefs.toolbox_on_top) {
     /* Go through all diagrams and set toolbox transient for all displays */
     GList *diagrams;
@@ -709,7 +772,8 @@ update_floating_toolbox(DiaPrefData *pref, char *ptr)
 }
 
 static void 
-update_ui_type_prefs(DiaPrefData *pref, char *ptr)
+update_ui_type_prefs(DiaPrefData *pref, gpointer ptr)
 {
+  g_return_if_fail (pref->key == NULL);
   message_notice(_("User Interface type settings change will take after restart"));  
 }

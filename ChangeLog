@@ -1,3 +1,14 @@
+2008-12-14  Hans Breuer  <hans@breuer.org>
+
+	* app/preferences.[ch] lib/filter.[ch] lib/libdia.def : allow to select
+	a preferred export filter used when selecting exporter by extension
+
+	* lib/persistence.c : don't use g_ascii_strncasecmp as GCompareFunc,
+	fixing crashes introduced by patch from bug #559671
+	
+	* app/diagram.[ch] app/display.c : replace Diagram::display_count with
+	g_slist_count(diagram->displays), no benefit in keeping both in sync.
+
 2008-12-09  Hans Breuer  <hans@breuer.org>
 
 	* lib/diasvgrenderer.c lib/persistence.c lib/prop_basic.c : reduced
