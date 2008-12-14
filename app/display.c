@@ -96,6 +96,10 @@ selection_changed (Diagram* dia, int n, DDisplay* ddisp)
   GtkStatusbar *statusbar;
   guint context_id;
 
+  /* nothing to do if there is no display with the diagram anymore */
+  if (g_slist_length(dia->displays) < 1)
+    return;
+
   statusbar = GTK_STATUSBAR (ddisp->modified_status);
   context_id = gtk_statusbar_get_context_id (statusbar, "Selection");
 
@@ -1168,7 +1172,7 @@ ddisplay_close(DDisplay *ddisp)
 
   dia = ddisp->diagram;
   
-  if ( (dia->display_count > 1) ||
+  if ( (g_slist_length(dia->displays) > 1) ||
        (!diagram_is_modified(dia)) ) {
     ddisp_destroy(ddisp);
     return;

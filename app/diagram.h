@@ -63,7 +63,6 @@ struct _Diagram {
 
   DiagramData *data;     /*! just for compatibility, now that the Diagram _is_ and not _has_ DiagramData */
 
-  guint display_count;
   GSList *displays;       /* List of all displays showing this diagram */
 
   UndoStack *undo;

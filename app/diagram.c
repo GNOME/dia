@@ -607,16 +607,14 @@ void
 diagram_add_ddisplay(Diagram *dia, DDisplay *ddisp)
 {
   dia->displays = g_slist_prepend(dia->displays, ddisp);
-  dia->display_count++;
 }
 
 void
 diagram_remove_ddisplay(Diagram *dia, DDisplay *ddisp)
 {
   dia->displays = g_slist_remove(dia->displays, ddisp);
-  dia->display_count--;
 
-  if (dia->display_count == 0) {
+  if (g_slist_length(dia->displays) == 0) {
     if (!app_is_embedded()) {
       /* Don't delete embedded diagram when last view is closed */
       diagram_destroy(dia);
