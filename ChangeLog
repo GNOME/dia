@@ -1,5 +1,8 @@
 2008-12-14  Hans Breuer  <hans@breuer.org>
 
+	* lib/textline.[ch] : removed obsolete RenderCache stuff while 
+	investigating bug #562574
+
 	* app/preferences.[ch] lib/filter.[ch] lib/libdia.def : allow to select
 	a preferred export filter used when selecting exporter by extension
 

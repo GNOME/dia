@@ -28,9 +28,6 @@
 #include "propinternals.h"
 #include "text.h"
 #include "message.h"
-#include "diarenderer.h"
-#include "diagramdata.h"
-#include "objchange.h"
 #include "textline.h"
 
 static void text_line_dirty_cache(TextLine *text_line);
@@ -182,52 +179,6 @@ text_line_get_descent(TextLine *text_line)
   return text_line->descent;
 }
 
-/** Set some cache data for the renderer object.  This data will get
- * freed if this textline is ever changed or viewed at a different size.
- * Any cache already set, regardless of identity, will be freed.
- * @param text_line
- * @param renderer
- * @param free_func A function for freeing the data.
- * @param scale The zooming scale factor (as defined by the renderer) used
- * to make these data.  If scale independent, just use 0.0.
- * @param data
- */
-void
-text_line_set_renderer_cache(TextLine *text_line, DiaRenderer *renderer,
-			     RendererCacheFreeFunc free_func, real scale,
-			     gpointer data) {
-  RendererCache *cache;
-  if (text_line->renderer_cache != NULL) {
-    (*text_line->renderer_cache->free_func)(text_line->renderer_cache);
-    text_line->renderer_cache = NULL;
-  }
-  cache = g_new(RendererCache, 1);
-  cache->renderer = renderer;
-  cache->free_func = free_func;
-  cache->scale = scale;
-  cache->data = data;
-}
-
-/** Get any renderer cache data that might be around.
- * @param text_line
- * @param renderer
- * @param scale The scale we want text rendered at, or 0.0 if this renderer
- * is scale independent.
- * @returns Previously cached data (which shouldn't be freed) for the
- * same text rendering.
- */
-gpointer
-text_line_get_renderer_cache(TextLine *text_line, DiaRenderer *renderer,
-			     real scale) {
-  if (text_line->clean && text_line->renderer_cache != NULL &&
-      text_line->renderer_cache->renderer == renderer &&
-      fabs(text_line->renderer_cache->scale - scale) < 0.0000001) {
-    return text_line->renderer_cache->data;
-  } else {
-    return NULL;
-  }
-}
-
 /** Return the amount this text line would need to be shifted in order to
  * implement the given alignment.
  * @param text_line a line of text
@@ -268,7 +219,7 @@ clear_layout_offset (TextLine *text_line)
 
     for (; runs != NULL; runs = g_slist_next(runs)) {
       PangoGlyphItem *run = (PangoGlyphItem *) runs->data;
-	  
+
       g_free(run->glyphs->glyphs);
       g_free(run->glyphs);
     }
@@ -287,13 +238,13 @@ text_line_cache_values(TextLine *text_line)
       text_line->height != text_line->height_cache) {
     int n_offsets;
 
+    if (text_line->font != text_line->font_cache)
+      if (text_line->font_cache != NULL)
+        g_warning("leak?");
+
     if (text_line->offsets != NULL) {
       g_free(text_line->offsets);
       text_line->offsets = NULL;
-    }
-    if (text_line->renderer_cache != NULL) {
-      (*text_line->renderer_cache->free_func)(text_line->renderer_cache);
-      text_line->renderer_cache = NULL;
     }
     clear_layout_offset (text_line);
 
@@ -313,7 +264,7 @@ text_line_cache_values(TextLine *text_line)
       text_line->offsets = 
 	dia_font_get_sizes(text_line->chars, text_line->font, text_line->height,
 			   &text_line->width, &text_line->ascent, 
-			   &text_line->descent, &n_offsets,
+			   &text_line->descent, &n_offsets, 
 			   &text_line->layout_offsets);
     }
     text_line->clean = TRUE;

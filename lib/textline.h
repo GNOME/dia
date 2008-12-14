@@ -27,16 +27,6 @@
 #include <glib.h>
 #include "diatypes.h"
 #include "properties.h"
-typedef struct _RendererCache RendererCache;
-
-typedef void (*RendererCacheFreeFunc) (gpointer data);
-
-struct _RendererCache {
-  DiaRenderer *renderer;
-  RendererCacheFreeFunc free_func;
-  real scale;
-  gpointer data;
-};
 
 struct _TextLine {
   /* don't change these values directly, use the text_line_set* functions */
@@ -67,9 +57,6 @@ struct _TextLine {
   /** Offsets of the individual glyphs in the string.  */
   real *offsets;
   PangoLayoutLine *layout_offsets;
-
-  /** Renderers can keep their private cache items in here */
-  RendererCache *renderer_cache;
 };
 
 TextLine *text_line_new(const gchar *string, DiaFont *font, real height);
@@ -85,11 +72,6 @@ void text_line_calc_boundingbox_size(TextLine *text, Point *size);
 real text_line_get_width(TextLine *text);
 real text_line_get_ascent(TextLine *text);
 real text_line_get_descent(TextLine *text);
-void text_line_set_renderer_cache(TextLine *text_line, DiaRenderer *renderer,
-				  RendererCacheFreeFunc free_func, real scale,
-				  gpointer data);
-gpointer text_line_get_renderer_cache(TextLine *text_line,
-				      DiaRenderer *renderer, real scale);
 
 void text_line_adjust_glyphs(TextLine *line,
 			     PangoGlyphString *glyphs,
