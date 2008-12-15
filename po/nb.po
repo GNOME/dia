@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.96.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-10-08 17:37+0200\n"
-"PO-Revision-Date: 2008-10-08 17:43+0200\n"
+"POT-Creation-Date: 2008-12-15 23:29+0100\n"
+"PO-Revision-Date: 2008-12-15 23:31+0100\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian <i18n-nb@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
@@ -366,7 +366,7 @@ msgid "Visible spacing"
 msgstr "Synlig mellomrom"
 
 #. Hexes!
-#: ../app/dia-props.c:177 ../app/preferences.c:192
+#: ../app/dia-props.c:177 ../app/preferences.c:246
 msgid "Hex grid"
 msgstr ""
 
@@ -382,7 +382,7 @@ msgstr "Rutenett"
 msgid "Background"
 msgstr "Bakgrunn"
 
-#: ../app/dia-props.c:220 ../app/preferences.c:110
+#: ../app/dia-props.c:220 ../app/preferences.c:123
 msgid "Grid Lines"
 msgstr "Linjer i rutenett"
 
@@ -435,11 +435,11 @@ msgid ""
 "diagram, and if you save it, it will be saved as a Dia diagram."
 msgstr ""
 
-#: ../app/diagram.c:1180
+#: ../app/diagram.c:1178
 msgid "Trying to group with no selected objects."
 msgstr "Forsøk på å lage gruppe uten å velge objekter."
 
-#: ../app/diagram.c:1190
+#: ../app/diagram.c:1188
 msgid ""
 "You cannot group objects that belong to different groups or have different "
 "parents"
@@ -527,7 +527,7 @@ msgstr "/_Egenskaper"
 msgid "/_Hide this type"
 msgstr "/_Skjul denne typen"
 
-#: ../app/diagram_tree_window.c:80 ../app/preferences.c:111
+#: ../app/diagram_tree_window.c:80 ../app/preferences.c:124
 msgid "Diagram Tree"
 msgstr "Diagramtre"
 
@@ -588,7 +588,7 @@ msgstr "%0.3gcm x %0.3gcm"
 msgid "Page Setup"
 msgstr "Sideoppsett"
 
-#: ../app/disp_callbacks.c:84 ../app/properties.c:152
+#: ../app/disp_callbacks.c:84 ../app/properties.c:140
 msgid ""
 "This object doesn't support Undo/Redo.\n"
 "Undo information erased."
@@ -612,33 +612,33 @@ msgstr ""
 #. http://www.gnu.org/software/gettext/manual/html_chapter/gettext_10.html#SEC150
 #. * Althoug the single objects wont get triggered here some languages have variations on the other numbers
 #.
-#: ../app/display.c:109
+#: ../app/display.c:113
 #, c-format
 msgid "Selection of %d object"
 msgid_plural "Selection of %d objects"
 msgstr[0] "Utvalg av %d objekt"
 msgstr[1] "Utvalg av %d objekter"
 
-#: ../app/display.c:119
+#: ../app/display.c:123
 #, c-format
 msgid "Selected '%s'"
 msgstr "Valgte «%s»"
 
 #. we really should not come here but instead disable the menu command earlier
-#: ../app/display.c:1034
+#: ../app/display.c:1038
 msgid "No anti-aliased renderer found"
 msgstr ""
 
-#: ../app/display.c:1179
+#: ../app/display.c:1183
 msgid "<unnamed>"
 msgstr "<uten navn>"
 
 #. no standard buttons
-#: ../app/display.c:1185
+#: ../app/display.c:1189
 msgid "Closing diagram without saving"
 msgstr "Lukker diagram uten å lagre"
 
-#: ../app/display.c:1187
+#: ../app/display.c:1191
 #, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -647,11 +647,11 @@ msgstr ""
 "Diagrammet «%s»\n"
 "er ikke lagret. Lagre endringer nå?"
 
-#: ../app/display.c:1189
+#: ../app/display.c:1193
 msgid "Close Diagram"
 msgstr "Lukk diagram"
 
-#: ../app/display.c:1194
+#: ../app/display.c:1198
 msgid "_Discard Changes"
 msgstr "_Forkast endringer"
 
@@ -681,9 +681,9 @@ msgstr "aktiv"
 
 #. *** board of value **************
 #: ../app/exit_dialog.c:124 ../app/plugin-manager.c:262
-#: ../objects/Database/table.c:136 ../objects/Database/table.c:179
+#: ../objects/Database/table.c:138 ../objects/Database/table.c:181
 #: ../objects/SISSI/sissi_dialog.c:619 ../objects/UML/association.c:236
-#: ../objects/UML/class.c:141 ../objects/UML/large_package.c:133
+#: ../objects/UML/class.c:144 ../objects/UML/large_package.c:139
 #: ../objects/UML/umlattribute.c:37 ../objects/UML/umlformalparameter.c:35
 #: ../objects/UML/umloperation.c:62 ../objects/UML/umlparameter.c:43
 msgid "Name"
@@ -791,39 +791,43 @@ msgstr "Eksporter diagram"
 msgid "Export Options"
 msgstr "Alternativer for eksport"
 
-#: ../app/find-and-replace.c:283
+#: ../app/find-and-replace.c:453
 msgid "_Search for:"
 msgstr "_Søk etter:"
 
-#: ../app/find-and-replace.c:296
+#: ../app/find-and-replace.c:466
 msgid "Replace _with:"
 msgstr "Erstatt _med:"
 
-#: ../app/find-and-replace.c:306
+#: ../app/find-and-replace.c:476
 #, fuzzy
 msgid "_Match case"
 msgstr "Makroens kall-steg"
 
-#: ../app/find-and-replace.c:310
+#: ../app/find-and-replace.c:480
 msgid "Match _entire word only"
 msgstr ""
 
-#: ../app/find-and-replace.c:335
+#: ../app/find-and-replace.c:484
+msgid "Match _all properties (not just object name)"
+msgstr ""
+
+#: ../app/find-and-replace.c:509
 msgid "Find"
 msgstr "Finn"
 
-#: ../app/find-and-replace.c:367 ../app/menus.c:258
+#: ../app/find-and-replace.c:541 ../app/menus.c:258
 msgid "Replace"
 msgstr "Erstatt"
 
-#: ../app/find-and-replace.c:370
+#: ../app/find-and-replace.c:544
 msgid "Replace _All"
 msgstr "Erstatt _alle"
 
 #. not adding the button in the list above to modify it's text;
 #. * the default "Find and Replace" is just too long for my taste ;)
 #.
-#: ../app/find-and-replace.c:375
+#: ../app/find-and-replace.c:549
 msgid "_Replace"
 msgstr "E_rstatt"
 
@@ -853,14 +857,14 @@ msgstr "Rull rundt i diagrammet"
 #. backward compatibility
 #. new name matching "same name, same type"  rule
 #: ../app/interface.c:169 ../app/menus.c:223 ../lib/properties.c:79
-#: ../lib/properties.h:522 ../objects/AADL/aadlbox.c:157
+#: ../lib/properties.h:529 ../objects/AADL/aadlbox.c:157
 #: ../objects/AADL/aadlbox.c:159 ../objects/Jackson/requirement.c:144
-#: ../objects/UML/activity.c:129 ../objects/UML/actor.c:124
+#: ../objects/UML/activity.c:129 ../objects/UML/actor.c:126
 #: ../objects/UML/classicon.c:148 ../objects/UML/component.c:130
 #: ../objects/UML/component_feature.c:161 ../objects/UML/node.c:130
-#: ../objects/UML/node.c:132 ../objects/UML/note.c:123
-#: ../objects/UML/object.c:150 ../objects/UML/small_package.c:130
-#: ../objects/UML/state.c:154 ../objects/UML/usecase.c:140
+#: ../objects/UML/node.c:132 ../objects/UML/note.c:124
+#: ../objects/UML/object.c:151 ../objects/UML/small_package.c:135
+#: ../objects/UML/state.c:154 ../objects/UML/usecase.c:142
 #: ../objects/custom/custom_object.c:236 ../objects/network/basestation.c:135
 #: ../objects/network/radiocell.c:127
 msgid "Text"
@@ -1036,7 +1040,7 @@ msgstr "Rediger lagets attributter"
 msgid "Layer name:"
 msgstr "Navn på lag:"
 
-#: ../app/linewidth_area.c:246 ../lib/properties.h:483 ../lib/properties.h:486
+#: ../app/linewidth_area.c:246 ../lib/properties.h:490 ../lib/properties.h:493
 #: ../objects/chronogram/chronoline.c:183
 #: ../objects/chronogram/chronoref.c:162
 msgid "Line width"
@@ -1085,7 +1089,7 @@ msgstr "Du må spesifiserer en fil ikke en katalog.\n"
 #: ../app/load_save.c:431 ../objects/SISSI/area.c:215
 #: ../objects/SISSI/faraday.c:215 ../objects/SISSI/room.c:215
 #: ../objects/SISSI/sissi_object.c:209 ../objects/SISSI/site.c:218
-#: ../plug-ins/dxf/dxf-import.c:1341 ../plug-ins/wpg/wpg.c:1177
+#: ../plug-ins/dxf/dxf-import.c:1309 ../plug-ins/wpg/wpg.c:1177
 #: ../plug-ins/xfig/xfig-import.c:1270 ../plug-ins/xslt/xslt.c:91
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
@@ -1137,7 +1141,7 @@ msgstr "Kan ikke skrive til utfil %s\n"
 msgid "Not allowed to write temporary files in %s\n"
 msgstr "Kan ikke lage midlertidige filer i %s\n"
 
-#: ../app/load_save.c:1022 ../plug-ins/cairo/diacairo.c:122
+#: ../app/load_save.c:1022 ../plug-ins/cairo/diacairo.c:124
 #: ../plug-ins/cgm/cgm.c:1153 ../plug-ins/dxf/dxf-export.c:547
 #: ../plug-ins/hpgl/hpgl.c:710 ../plug-ins/libart/export_png.c:157
 #: ../plug-ins/metapost/render_metapost.c:1177
@@ -1527,9 +1531,8 @@ msgid "Toggles snap-to-grid."
 msgstr "Slår av/på fest til rutenett."
 
 #: ../app/menus.c:611
-#, fuzzy
 msgid "Toggles object snapping."
-msgstr "Slår av/på fest til rutenett for dette vinduet."
+msgstr "Slår av/på fest til rutenett."
 
 #: ../app/modify_tool.c:350
 msgid "Couldn't get GTK settings"
@@ -1556,27 +1559,35 @@ msgstr "Last ved oppstart"
 msgid "File Name"
 msgstr "Filnavn"
 
-#: ../app/preferences.c:107
+#: ../app/preferences.c:100 ../app/preferences.c:145
+msgid "any"
+msgstr "enhver"
+
+#: ../app/preferences.c:119
 msgid "User Interface"
 msgstr "Grensesnitt"
 
-#: ../app/preferences.c:108
+#: ../app/preferences.c:120
 msgid "Diagram Defaults"
 msgstr "Standardverdier for diagram"
 
-#: ../app/preferences.c:109
+#: ../app/preferences.c:121
 msgid "View Defaults"
 msgstr "Vis standardverdier"
 
-#: ../app/preferences.c:126
+#: ../app/preferences.c:122
+msgid "Favorites"
+msgstr "Favoritter"
+
+#: ../app/preferences.c:166
 msgid "Reset tools after create"
 msgstr "Nullstill verktøy etter opprett"
 
-#: ../app/preferences.c:129
+#: ../app/preferences.c:169
 msgid "Number of undo levels:"
 msgstr "Antall angrenivåer:"
 
-#: ../app/preferences.c:132
+#: ../app/preferences.c:172
 msgid ""
 "Reverse dragging selects\n"
 "intersecting objects"
@@ -1584,141 +1595,170 @@ msgstr ""
 "Omvendt draoperasjon velger\n"
 "overlappende objekter"
 
-#: ../app/preferences.c:135
+#: ../app/preferences.c:175
 msgid "Recent documents list size:"
 msgstr "Størrelse på liste over tidligere dokumenter:"
 
-#: ../app/preferences.c:138
+#: ../app/preferences.c:178
 msgid "Use menu bar"
 msgstr "Bruk menylinje"
 
-#: ../app/preferences.c:141
+#: ../app/preferences.c:181
 msgid "Keep tool box on top of diagram windows"
 msgstr "Hold verktøykassen over diagramvinduer"
 
-#: ../app/preferences.c:144
+#: ../app/preferences.c:184
 msgid "Length unit:"
 msgstr "Lengdeenhet:"
 
-#: ../app/preferences.c:147
+#: ../app/preferences.c:187
 msgid "Font-size unit:"
 msgstr "Enhet for størrelse på skrifttype"
 
-#: ../app/preferences.c:151
+#: ../app/preferences.c:191
 msgid "Integrated UI"
 msgstr "Integrert brukergrensesnitt"
 
-#: ../app/preferences.c:154
+#: ../app/preferences.c:194
 msgid "New diagram:"
 msgstr "Nytt diagram:"
 
-#: ../app/preferences.c:155
+#: ../app/preferences.c:195
 msgid "Portrait"
 msgstr "Portrett"
 
-#: ../app/preferences.c:157
+#: ../app/preferences.c:197
 msgid "Paper type:"
 msgstr "Papirtype:"
 
-#: ../app/preferences.c:159 ../objects/Database/table_dialog.c:1078
+#: ../app/preferences.c:199 ../objects/Database/table_dialog.c:1078
 msgid "Background Color:"
 msgstr "Bakgrunnsfarge:"
 
-#: ../app/preferences.c:161
+#: ../app/preferences.c:201
 msgid "Compress saved files"
 msgstr "Komprimer lagrede filer"
 
-#: ../app/preferences.c:164
+#: ../app/preferences.c:204
 msgid "New window:"
 msgstr "Nytt vindu:"
 
-#: ../app/preferences.c:165
+#: ../app/preferences.c:205
 msgid "Width:"
 msgstr "Bredde:"
 
-#: ../app/preferences.c:166
+#: ../app/preferences.c:206
 msgid "Height:"
 msgstr "Høyde:"
 
-#: ../app/preferences.c:167
+#: ../app/preferences.c:207
 msgid "Magnify:"
 msgstr "Forstørr:"
 
-#: ../app/preferences.c:170
+#: ../app/preferences.c:210
 msgid "Connection Points:"
 msgstr "Forbindelsespunkter:"
 
 #. { NULL, PREF_NONE, 0, NULL, 3, N_("Grid:") },
-#: ../app/preferences.c:171 ../app/preferences.c:175 ../app/preferences.c:185
+#: ../app/preferences.c:211 ../app/preferences.c:215 ../app/preferences.c:239
 msgid "Visible"
 msgstr "Synlig"
 
-#: ../app/preferences.c:174
+#: ../app/preferences.c:214
 msgid "Page breaks:"
 msgstr "Sideskift:"
 
-#: ../app/preferences.c:176 ../app/preferences.c:190
+#: ../app/preferences.c:216 ../app/preferences.c:244
 msgid "Color:"
 msgstr "Farge:"
 
-#: ../app/preferences.c:177
+#: ../app/preferences.c:217
 msgid "Solid lines"
 msgstr "Helfylte linjer"
 
-#: ../app/preferences.c:180
+#: ../app/preferences.c:220
 msgid "Antialias:"
 msgstr "Fargeutjevning:"
 
-#: ../app/preferences.c:181
+#: ../app/preferences.c:221
 msgid "view antialised"
 msgstr ""
 
-#: ../app/preferences.c:186
+#. Favored Filer
+#. Translators: Menu item Verb/Channel/Export
+#. Translators: Menu item Verb/Channel/Export/Export
+#: ../app/preferences.c:225 ../objects/FS/function.c:698
+#: ../objects/FS/function.c:700 ../plug-ins/libart/export_png.c:323
+msgid "Export"
+msgstr "Eksport"
+
+#: ../app/preferences.c:227
+msgid "Portable Network Graphics"
+msgstr "Portabel nettverksgrafikk"
+
+#: ../app/preferences.c:229 ../plug-ins/svg/render_svg.c:365
+#: ../plug-ins/svg/svg-import.c:767
+msgid "Scalable Vector Graphics"
+msgstr "Skalerbar vektorgrafikk"
+
+#: ../app/preferences.c:231
+msgid "PostScript"
+msgstr "PostScript"
+
+#: ../app/preferences.c:233
+msgid "Windows MetaFile"
+msgstr "Windows MetaFile"
+
+#: ../app/preferences.c:235
+msgid "Enhanced MetaFile"
+msgstr "Forbedret MetaFile"
+
+#: ../app/preferences.c:240
 msgid "Snap to"
 msgstr "Fest til"
 
-#: ../app/preferences.c:187
+#: ../app/preferences.c:241
 msgid "Dynamic grid resizing"
 msgstr "Dynamisk endring av størrelse på rutenett"
 
-#: ../app/preferences.c:188
+#: ../app/preferences.c:242
 msgid "X Size:"
 msgstr "X-størrelse:"
 
-#: ../app/preferences.c:189
+#: ../app/preferences.c:243
 msgid "Y Size:"
 msgstr "Y-størrelse:"
 
-#: ../app/preferences.c:191
+#: ../app/preferences.c:245
 msgid "Lines per major line"
 msgstr "Linjer per hovedlinje"
 
-#: ../app/preferences.c:193
+#: ../app/preferences.c:247
 msgid "Hex Size:"
 msgstr "Heksadesimal størrelse:"
 
-#: ../app/preferences.c:209
+#: ../app/preferences.c:262
 msgid "Diagram tree window:"
 msgstr "Vindu for diagramtre:"
 
-#: ../app/preferences.c:211
+#: ../app/preferences.c:264
 msgid "Save hidden object types"
 msgstr "Lagre skjulte objekttyper"
 
-#: ../app/preferences.c:418 ../lib/prop_inttypes.c:158
+#: ../app/preferences.c:474 ../lib/prop_inttypes.c:158
 msgid "Yes"
 msgstr "Ja"
 
-#: ../app/preferences.c:418 ../app/preferences.c:429
+#: ../app/preferences.c:474 ../app/preferences.c:485
 #: ../lib/prop_inttypes.c:160 ../lib/prop_inttypes.c:186
 msgid "No"
 msgstr "Nei"
 
-#: ../app/preferences.c:525
+#: ../app/preferences.c:581
 msgid "Preferences"
 msgstr "Innstillinger"
 
-#: ../app/preferences.c:714
+#: ../app/preferences.c:778
 msgid "User Interface type settings change will take after restart"
 msgstr ""
 
@@ -1730,11 +1770,11 @@ msgstr "Egenskaper for objekt"
 msgid "This object has no properties."
 msgstr "Dette objektet har ingen egenskaper."
 
-#: ../app/properties.c:224
+#: ../app/properties.c:228
 msgid "Properties: "
 msgstr "Egenskaper: "
 
-#: ../app/properties.c:228
+#: ../app/properties.c:232
 msgid "Object properties:"
 msgstr "Egenskaper for objekt:"
 
@@ -1810,7 +1850,7 @@ msgid "New"
 msgstr "Ny"
 
 #: ../app/sheets_dialog.c:363 ../app/sheets_dialog.c:795
-#: ../objects/Database/table.c:138 ../objects/Istar/actor.c:146
+#: ../objects/Database/table.c:140 ../objects/Istar/actor.c:146
 #: ../objects/Istar/actor.c:147 ../objects/Istar/other.c:150
 #: ../objects/Istar/other.c:151 ../objects/KAOS/other.c:153
 #: ../objects/KAOS/other.c:154 ../objects/UML/association.c:242
@@ -1856,8 +1896,8 @@ msgstr "Beskrivelse:"
 #: ../objects/FS/flow-ortho.c:169 ../objects/FS/flow.c:146
 #: ../objects/Istar/link.c:162 ../objects/Jackson/phenomenon.c:148
 #: ../objects/KAOS/metaandorrel.c:168 ../objects/KAOS/metabinrel.c:173
-#: ../objects/UML/class_dialog.c:1140 ../objects/UML/class_dialog.c:2003
-#: ../objects/UML/class_dialog.c:2239 ../objects/UML/class_dialog.c:2839
+#: ../objects/UML/class_dialog.c:1155 ../objects/UML/class_dialog.c:2021
+#: ../objects/UML/class_dialog.c:2257 ../objects/UML/class_dialog.c:2860
 msgid "Type:"
 msgstr "Type:"
 
@@ -1868,8 +1908,8 @@ msgstr "Ark"
 #: ../app/sheets_dialog.c:673 ../objects/Database/table_dialog.c:683
 #: ../objects/Database/table_dialog.c:1046 ../objects/ER/attribute.c:155
 #: ../objects/ER/entity.c:137 ../objects/ER/relationship.c:142
-#: ../objects/UML/class_dialog.c:1129 ../objects/UML/class_dialog.c:1992
-#: ../objects/UML/class_dialog.c:2228 ../objects/UML/class_dialog.c:2828
+#: ../objects/UML/class_dialog.c:1144 ../objects/UML/class_dialog.c:2010
+#: ../objects/UML/class_dialog.c:2246 ../objects/UML/class_dialog.c:2849
 #: ../objects/UML/dependency.c:137 ../objects/UML/generalization.c:133
 #: ../objects/UML/realizes.c:134
 msgid "Name:"
@@ -2227,7 +2267,7 @@ msgstr "Ok"
 msgid "Cancel"
 msgstr "Avbryt"
 
-#: ../lib/filter.c:137
+#: ../lib/filter.c:177
 #, c-format
 msgid "Multiple export filters with unique name %s"
 msgstr "Flere eksportfiltre med unikt navn %s"
@@ -2306,7 +2346,7 @@ msgstr ""
 "Kunne ikke åpne «%s»\n"
 "«%s»"
 
-#: ../lib/prop_inttypes.c:559
+#: ../lib/prop_inttypes.c:558
 msgid "Property cast from int to enum out of range"
 msgstr ""
 
@@ -2315,67 +2355,67 @@ msgstr ""
 msgid "Group with %d objects"
 msgstr "Gruppe med %d objekter"
 
-#: ../lib/properties.c:64 ../lib/properties.h:469 ../lib/widgets.c:724
+#: ../lib/properties.c:64 ../lib/properties.h:476 ../lib/widgets.c:724
 msgid "Left"
 msgstr "Venstre"
 
-#: ../lib/properties.c:65 ../lib/properties.h:470 ../lib/widgets.c:730
+#: ../lib/properties.c:65 ../lib/properties.h:477 ../lib/widgets.c:730
 #: ../objects/standard/textobj.c:135
 msgid "Center"
 msgstr "Senter"
 
-#: ../lib/properties.c:66 ../lib/properties.h:471 ../lib/widgets.c:736
+#: ../lib/properties.c:66 ../lib/properties.h:478 ../lib/widgets.c:736
 msgid "Right"
 msgstr "Høyre"
 
-#: ../lib/properties.c:73 ../lib/properties.h:489 ../lib/properties.h:492
+#: ../lib/properties.c:73 ../lib/properties.h:496 ../lib/properties.h:499
 #: ../objects/chronogram/chronoline.c:181
 #: ../objects/chronogram/chronoref.c:160
 msgid "Line color"
 msgstr "Linjefarge"
 
-#: ../lib/properties.c:74 ../lib/properties.h:495 ../lib/properties.h:498
+#: ../lib/properties.c:74 ../lib/properties.h:502 ../lib/properties.h:505
 msgid "Line style"
 msgstr "Linjestil"
 
-#: ../lib/properties.c:75 ../lib/properties.h:502 ../lib/properties.h:505
+#: ../lib/properties.c:75 ../lib/properties.h:509 ../lib/properties.h:512
 msgid "Fill color"
 msgstr "Fyllfarge"
 
-#: ../lib/properties.c:76 ../lib/properties.h:508 ../lib/properties.h:511
+#: ../lib/properties.c:76 ../lib/properties.h:515 ../lib/properties.h:518
 msgid "Draw background"
 msgstr "Tegn bakgrunn"
 
-#: ../lib/properties.c:77 ../lib/properties.h:515
+#: ../lib/properties.c:77 ../lib/properties.h:522
 msgid "Start arrow"
 msgstr "Start-pil"
 
-#: ../lib/properties.c:78 ../lib/properties.h:518
+#: ../lib/properties.c:78 ../lib/properties.h:525
 msgid "End arrow"
 msgstr "Slutt-pil"
 
-#: ../lib/properties.c:80 ../lib/properties.h:528
+#: ../lib/properties.c:80 ../lib/properties.h:535
 msgid "Text alignment"
 msgstr "Tekstjustering"
 
 #. all this just to make the defaults selectable ...
-#: ../lib/properties.c:81 ../lib/properties.h:533
+#: ../lib/properties.c:81 ../lib/properties.h:540
 #: ../objects/Database/table_dialog.c:1036 ../objects/Database/reference.c:117
 #: ../objects/GRAFCET/condition.c:134 ../objects/GRAFCET/step.c:167
-#: ../objects/GRAFCET/transition.c:144 ../objects/UML/class.c:171
-#: ../objects/UML/class_dialog.c:558 ../objects/chronogram/chronoline.c:185
+#: ../objects/GRAFCET/transition.c:144 ../objects/UML/class.c:174
+#: ../objects/UML/class_dialog.c:564 ../objects/chronogram/chronoline.c:185
 #: ../objects/chronogram/chronoref.c:166
 msgid "Font"
 msgstr "Skrifttype"
 
-#: ../lib/properties.c:82 ../lib/properties.h:541
+#: ../lib/properties.c:82 ../lib/properties.h:548
 #: ../objects/GRAFCET/condition.c:136 ../objects/GRAFCET/step.c:169
 #: ../objects/GRAFCET/transition.c:146 ../objects/chronogram/chronoline.c:187
 #: ../objects/chronogram/chronoref.c:168
 msgid "Font size"
 msgstr "Størrelse på skrifttype"
 
-#: ../lib/properties.c:83 ../lib/properties.h:547
+#: ../lib/properties.c:83 ../lib/properties.h:554
 #: ../objects/GRAFCET/step.c:171 ../objects/chronogram/chronoline.c:189
 #: ../objects/chronogram/chronoref.c:170
 msgid "Text color"
@@ -2560,81 +2600,81 @@ msgstr "Komponent"
 msgid "Entity/Relationship table diagram objects"
 msgstr "Diagramobjekter for entitet/relasjon"
 
-#: ../objects/Database/table.c:140 ../objects/Database/table.c:181
-#: ../objects/Database/table.c:198 ../objects/UML/class.c:145
-#: ../objects/UML/class.c:186 ../objects/UML/class_dialog.c:589
+#: ../objects/Database/table.c:142 ../objects/Database/table.c:183
+#: ../objects/Database/table.c:200 ../objects/UML/class.c:148
+#: ../objects/UML/class.c:189 ../objects/UML/class_dialog.c:595
 #: ../objects/UML/umlattribute.c:43 ../objects/UML/umloperation.c:66
 #: ../objects/UML/umlparameter.c:49 ../sheets/SDL.sheet.in.h:3
 msgid "Comment"
 msgstr "Kommentar"
 
-#: ../objects/Database/table.c:142
+#: ../objects/Database/table.c:144
 msgid "Primary key"
 msgstr ""
 
-#: ../objects/Database/table.c:144
+#: ../objects/Database/table.c:146
 msgid "Nullable"
 msgstr ""
 
-#: ../objects/Database/table.c:146
+#: ../objects/Database/table.c:148
 msgid "Unique"
 msgstr "Unik"
 
-#: ../objects/Database/table.c:183
+#: ../objects/Database/table.c:185
 msgid "Visible comments"
 msgstr "Synlige kommentarer"
 
-#: ../objects/Database/table.c:185 ../objects/UML/class.c:168
+#: ../objects/Database/table.c:187 ../objects/UML/class.c:171
 #, fuzzy
 msgid "Comment tagging"
 msgstr "Lengde på kommentarlinje"
 
-#: ../objects/Database/table.c:187 ../objects/Database/table_dialog.c:976
+#: ../objects/Database/table.c:189 ../objects/Database/table_dialog.c:976
 msgid "Underline primary keys"
 msgstr ""
 
-#: ../objects/Database/table.c:189 ../objects/Database/table_dialog.c:981
+#: ../objects/Database/table.c:191 ../objects/Database/table_dialog.c:981
 msgid "Use bold font for primary keys"
 msgstr ""
 
 #. property rows
-#: ../objects/Database/table.c:194 ../objects/SADT/arrow.c:136
-#: ../objects/UML/class.c:176 ../objects/UML/class_dialog.c:564
+#: ../objects/Database/table.c:196 ../objects/SADT/arrow.c:136
+#: ../objects/UML/class.c:179 ../objects/UML/class_dialog.c:570
 msgid "Normal"
 msgstr "Normal"
 
-#: ../objects/Database/table.c:196
+#: ../objects/Database/table.c:198
 msgid "Tablename"
 msgstr "Tabellnavn"
 
-#: ../objects/Database/table.c:201 ../objects/Database/table.c:203
-#: ../objects/Database/table.c:205 ../objects/Database/reference.c:120
+#: ../objects/Database/table.c:203 ../objects/Database/table.c:205
+#: ../objects/Database/table.c:207 ../objects/Database/reference.c:120
 #: ../objects/UML/association.c:247 ../objects/UML/association.c:258
 #: ../objects/UML/association.c:260 ../objects/UML/association.c:262
 #: ../objects/UML/association.c:264 ../objects/UML/association.c:266
-#: ../objects/UML/class.c:190 ../objects/UML/class.c:192
-#: ../objects/UML/class.c:194 ../objects/UML/class.c:196
-#: ../objects/UML/class.c:198 ../objects/UML/class.c:200
+#: ../objects/UML/class.c:193 ../objects/UML/class.c:195
+#: ../objects/UML/class.c:197 ../objects/UML/class.c:199
+#: ../objects/UML/class.c:201 ../objects/UML/class.c:203
 msgid " "
 msgstr " "
 
-#: ../objects/Database/table.c:209 ../objects/UML/class.c:206
-#: ../objects/UML/object.c:156
+#: ../objects/Database/table.c:211 ../objects/UML/class.c:209
+#: ../objects/UML/object.c:157
 msgid "Attributes"
 msgstr "Attributter"
 
-#: ../objects/Database/table.c:246
+#: ../objects/Database/table.c:248
 msgid "Show comments"
 msgstr "Vis kommentarer"
 
 #. init data
-#: ../objects/Database/table.c:251 ../objects/Database/table.c:354
+#: ../objects/Database/table.c:253 ../objects/Database/table.c:356
 #: ../sheets/Database.sheet.in.h:5
 msgid "Table"
 msgstr "Tabell"
 
 #. Attributes page:
-#: ../objects/Database/table_dialog.c:611 ../objects/UML/class_dialog.c:1062
+#: ../objects/Database/table_dialog.c:611 ../objects/UML/class_dialog.c:1077
 msgid "_Attributes"
 msgstr "_Attributter"
 
@@ -2659,15 +2699,15 @@ msgstr "Flytt opp"
 msgid "Move down"
 msgstr "Flytt ned"
 
-#: ../objects/Database/table_dialog.c:673 ../objects/UML/class_dialog.c:1119
+#: ../objects/Database/table_dialog.c:673 ../objects/UML/class_dialog.c:1134
 msgid "Attribute data"
 msgstr "Attributtdata"
 
 #: ../objects/Database/table_dialog.c:707
 #: ../objects/Database/table_dialog.c:946
-#: ../objects/Database/table_dialog.c:1051 ../objects/UML/class_dialog.c:448
-#: ../objects/UML/class_dialog.c:1162 ../objects/UML/class_dialog.c:2089
-#: ../objects/UML/class_dialog.c:2261
+#: ../objects/Database/table_dialog.c:1051 ../objects/UML/class_dialog.c:452
+#: ../objects/UML/class_dialog.c:1177 ../objects/UML/class_dialog.c:2107
+#: ../objects/UML/class_dialog.c:2279
 msgid "Comment:"
 msgstr "Kommentar:"
 
@@ -2697,12 +2737,13 @@ msgstr "Navn på tabell:"
 msgid "Comment visible"
 msgstr "Kommentarer er synlige"
 
-#: ../objects/Database/table_dialog.c:971 ../objects/UML/class_dialog.c:518
-msgid "Show documenation tag"
-msgstr ""
+#: ../objects/Database/table_dialog.c:971 ../objects/UML/class_dialog.c:522
+#, fuzzy
+msgid "Show documentation tag"
+msgstr "Vis retning"
 
 #. * Fonts and Colors selection *
-#: ../objects/Database/table_dialog.c:1010 ../objects/UML/class_dialog.c:545
+#: ../objects/Database/table_dialog.c:1010 ../objects/UML/class_dialog.c:551
 msgid "_Style"
 msgstr "_Stil"
 
@@ -2711,12 +2752,12 @@ msgid "Border width:"
 msgstr "Kantbredde:"
 
 #. head line
-#: ../objects/Database/table_dialog.c:1034 ../objects/UML/class_dialog.c:555
+#: ../objects/Database/table_dialog.c:1034 ../objects/UML/class_dialog.c:561
 #: ../objects/UML/umlparameter.c:51
 msgid "Kind"
 msgstr "Type"
 
-#: ../objects/Database/table_dialog.c:1038 ../objects/UML/class_dialog.c:560
+#: ../objects/Database/table_dialog.c:1038 ../objects/UML/class_dialog.c:566
 msgid "Size"
 msgstr "Størrelse"
 
@@ -2768,8 +2809,13 @@ msgstr "Avslutt beskrivelse"
 msgid "Add segment"
 msgstr "Legg til segment"
 
-#: ../objects/Database/reference.c:145
-msgid "Delete segement"
+#: ../objects/Database/reference.c:145 ../objects/ER/participation.c:409
+#: ../objects/FS/flow-ortho.c:627 ../objects/GRAFCET/vector.c:315
+#: ../objects/SADT/arrow.c:460 ../objects/UML/association.c:855
+#: ../objects/UML/component_feature.c:191 ../objects/UML/dependency.c:377
+#: ../objects/UML/generalization.c:373 ../objects/UML/realizes.c:364
+#: ../objects/UML/transition.c:173 ../objects/standard/zigzagline.c:381
+msgid "Delete segment"
 msgstr "Slett segment"
 
 #: ../objects/Database/reference.c:151 ../sheets/Database.sheet.in.h:4
@@ -2816,15 +2862,6 @@ msgstr "Diagramobjekter for entitet/relasjon"
 #: ../objects/ER/participation.c:118
 msgid "Total:"
 msgstr "Total:"
-
-#: ../objects/ER/participation.c:409 ../objects/FS/flow-ortho.c:627
-#: ../objects/GRAFCET/vector.c:315 ../objects/SADT/arrow.c:460
-#: ../objects/UML/association.c:855 ../objects/UML/component_feature.c:191
-#: ../objects/UML/dependency.c:377 ../objects/UML/generalization.c:373
-#: ../objects/UML/realizes.c:364 ../objects/UML/transition.c:173
-#: ../objects/standard/zigzagline.c:381
-msgid "Delete segment"
-msgstr "Slett segment"
 
 #: ../objects/ER/relationship.c:144
 msgid "Left Cardinality:"
@@ -2928,13 +2965,6 @@ msgstr "Fra inngang"
 #: ../objects/FS/function.c:696 ../objects/FS/function.c:930
 msgid "Capture"
 msgstr "Hent"
-
-#. Translators: Menu item Verb/Channel/Export
-#. Translators: Menu item Verb/Channel/Export/Export
-#: ../objects/FS/function.c:698 ../objects/FS/function.c:700
-#: ../plug-ins/libart/export_png.c:323
-msgid "Export"
-msgstr "Eksport"
 
 #. Translators: Menu item Verb/Channel/Export/Discharge
 #: ../objects/FS/function.c:702
@@ -4046,8 +4076,11 @@ msgstr "Vergenttype:"
 msgid "Add connection point"
 msgstr "Legg til forbindelsespunkt"
 
-#: ../objects/GRAFCET/vergent.c:408
-msgid "Delete  connection point"
+#: ../objects/GRAFCET/vergent.c:408 ../objects/Istar/other.c:472
+#: ../objects/Jackson/domain.c:534 ../objects/KAOS/goal.c:575
+#: ../objects/KAOS/other.c:528 ../objects/SADT/box.c:450
+#: ../objects/standard/line.c:224
+msgid "Delete connection point"
 msgstr "Slett forbindelsespunkt"
 
 #: ../objects/GRAFCET/vergent.c:412
@@ -4084,7 +4117,8 @@ msgid "Istar diagram"
 msgstr "Istar-diagram"
 
 #: ../objects/Istar/link.c:151
-msgid "Positive Contrib"
+#, fuzzy
+msgid "Positive contrib"
 msgstr "Positivt bidrag"
 
 #: ../objects/Istar/link.c:152
@@ -4110,12 +4144,6 @@ msgstr "Ressurs"
 #: ../objects/Istar/other.c:74 ../sheets/BPMN.sheet.in.h:43
 msgid "Task"
 msgstr "Oppgave"
-
-#: ../objects/Istar/other.c:472 ../objects/Jackson/domain.c:534
-#: ../objects/KAOS/goal.c:575 ../objects/KAOS/other.c:528
-#: ../objects/SADT/box.c:450 ../objects/standard/line.c:224
-msgid "Delete connection point"
-msgstr "Slett forbindelsespunkt"
 
 #: ../objects/Istar/other.c:477
 msgid "i* other"
@@ -4825,7 +4853,7 @@ msgstr "Tittel på dokument"
 msgid "URL"
 msgstr "URL"
 
-#: ../objects/UML/actor.c:353 ../objects/UML/actor.c:355
+#: ../objects/UML/actor.c:357 ../objects/UML/actor.c:359
 #: ../sheets/UML.sheet.in.h:2
 msgid "Actor"
 msgstr "Aktør"
@@ -4879,247 +4907,252 @@ msgstr "Vis pil"
 msgid "Side B"
 msgstr "Side B"
 
-#: ../objects/UML/class.c:139 ../objects/UML/class.c:310
-#: ../objects/UML/class.c:1760 ../sheets/UML.sheet.in.h:6
+#: ../objects/UML/class.c:142 ../objects/UML/class.c:325
+#: ../objects/UML/class.c:1773 ../sheets/UML.sheet.in.h:6
 msgid "Class"
 msgstr "Klasse"
 
 #. backward compatibility
 #. one name, one type
-#: ../objects/UML/class.c:143 ../objects/UML/classicon.c:140
+#: ../objects/UML/class.c:146 ../objects/UML/classicon.c:140
 #: ../objects/UML/classicon.c:142 ../objects/UML/component.c:126
-#: ../objects/UML/large_package.c:131 ../objects/UML/object.c:152
-#: ../objects/UML/small_package.c:126 ../objects/UML/umloperation.c:68
+#: ../objects/UML/large_package.c:137 ../objects/UML/object.c:153
+#: ../objects/UML/small_package.c:131 ../objects/UML/umloperation.c:68
 msgid "Stereotype"
 msgstr "Stereotype"
 
-#: ../objects/UML/class.c:147 ../objects/UML/class.c:180
-#: ../objects/UML/class_dialog.c:464 ../objects/UML/class_dialog.c:574
-#: ../objects/UML/class_dialog.c:2065 ../objects/UML/uml.c:110
+#: ../objects/UML/class.c:150 ../objects/UML/class.c:183
+#: ../objects/UML/class_dialog.c:468 ../objects/UML/class_dialog.c:580
+#: ../objects/UML/class_dialog.c:2083 ../objects/UML/uml.c:110
 msgid "Abstract"
 msgstr "Abstrakt"
 
-#: ../objects/UML/class.c:149 ../objects/UML/class.c:1757
+#: ../objects/UML/class.c:152 ../objects/UML/class.c:1770
 msgid "Template"
 msgstr "Mal"
 
-#: ../objects/UML/class.c:152 ../objects/UML/class_dialog.c:473
+#: ../objects/UML/class.c:155 ../objects/UML/class_dialog.c:477
 msgid "Suppress Attributes"
 msgstr "Skjul attributter"
 
-#: ../objects/UML/class.c:154
+#: ../objects/UML/class.c:157
 msgid "Suppress Operations"
 msgstr "Skjul operasjoner"
 
-#: ../objects/UML/class.c:156
+#: ../objects/UML/class.c:159
 msgid "Visible Attributes"
 msgstr "Synlige attributter"
 
-#: ../objects/UML/class.c:158
+#: ../objects/UML/class.c:161
 msgid "Visible Operations"
 msgstr "Synlige operasjoner"
 
-#: ../objects/UML/class.c:160
+#: ../objects/UML/class.c:163
 msgid "Visible Comments"
 msgstr "Synlige kommentarer"
 
-#: ../objects/UML/class.c:162 ../objects/UML/class_dialog.c:489
+#: ../objects/UML/class.c:165 ../objects/UML/class_dialog.c:493
 msgid "Wrap Operations"
 msgstr "Operasjoner for bryting"
 
-#: ../objects/UML/class.c:164
+#: ../objects/UML/class.c:167
 msgid "Wrap after char"
 msgstr "Bryt etter tegn"
 
-#: ../objects/UML/class.c:166
+#: ../objects/UML/class.c:169
 msgid "Comment line length"
 msgstr "Lengde på kommentarlinje"
 
-#: ../objects/UML/class.c:178 ../objects/UML/class_dialog.c:569
+#: ../objects/UML/class.c:181 ../objects/UML/class_dialog.c:575
 msgid "Polymorphic"
 msgstr "Polymorfisk"
 
-#: ../objects/UML/class.c:182
+#: ../objects/UML/class.c:185
 msgid "Classname"
 msgstr "Navn på klasse"
 
-#: ../objects/UML/class.c:184
+#: ../objects/UML/class.c:187
 msgid "Abstract Classname"
 msgstr "Abstrakt klassenavn"
 
-#: ../objects/UML/class.c:208
+#: ../objects/UML/class.c:211
 msgid "Operations"
 msgstr "Operasjoner"
 
-#: ../objects/UML/class.c:211
+#: ../objects/UML/class.c:214
 msgid "Template Parameters"
 msgstr "Parametere for maler"
 
-#: ../objects/UML/class.c:305
+#: ../objects/UML/class.c:320
 msgid "Show Comments"
 msgstr "Vis kommentarer"
 
 #. Class page:
-#: ../objects/UML/class_dialog.c:425
+#: ../objects/UML/class_dialog.c:429
 msgid "_Class"
 msgstr "_Klasse"
 
-#: ../objects/UML/class_dialog.c:433
+#: ../objects/UML/class_dialog.c:437
 msgid "Class name:"
 msgstr "Navn på klasse:"
 
-#: ../objects/UML/class_dialog.c:441 ../objects/UML/class_dialog.c:2014
+#: ../objects/UML/class_dialog.c:445 ../objects/UML/class_dialog.c:2032
 #: ../objects/UML/dependency.c:139 ../objects/UML/generalization.c:135
 #: ../objects/UML/realizes.c:136
 msgid "Stereotype:"
 msgstr "Stereotype:"
 
-#: ../objects/UML/class_dialog.c:470
+#: ../objects/UML/class_dialog.c:474
 msgid "Attributes visible"
 msgstr "Synlige attributter"
 
-#: ../objects/UML/class_dialog.c:479
+#: ../objects/UML/class_dialog.c:483
 msgid "Operations visible"
 msgstr "Synlige operasjoner"
 
-#: ../objects/UML/class_dialog.c:482
+#: ../objects/UML/class_dialog.c:486
 msgid "Suppress operations"
 msgstr "Skjul operasjoner"
 
-#: ../objects/UML/class_dialog.c:496
+#: ../objects/UML/class_dialog.c:500
 msgid "Wrap after this length: "
 msgstr "Bryt etter denne lengden: "
 
-#: ../objects/UML/class_dialog.c:504
+#: ../objects/UML/class_dialog.c:508
 msgid "Comments visible"
 msgstr "Kommentarer er synlige"
 
-#: ../objects/UML/class_dialog.c:511
+#: ../objects/UML/class_dialog.c:515
 msgid "Wrap comment after this length: "
 msgstr "Bryt kommentar etter denne lengden: "
 
-#: ../objects/UML/class_dialog.c:579
+#: ../objects/UML/class_dialog.c:585
 msgid "Class Name"
 msgstr "Navn på klasse"
 
-#: ../objects/UML/class_dialog.c:584
+#: ../objects/UML/class_dialog.c:590
 msgid "Abstract Class"
 msgstr "Abstrakt klasse"
 
 #. should probably be refactored too.
-#: ../objects/UML/class_dialog.c:601
+#: ../objects/UML/class_dialog.c:607
+#, fuzzy
+msgid "Line Width"
+msgstr "Linjebredde"
+
+#: ../objects/UML/class_dialog.c:616
 msgid "Text Color"
 msgstr "Tekstfarge"
 
-#: ../objects/UML/class_dialog.c:609
+#: ../objects/UML/class_dialog.c:624
 msgid "Foreground Color"
 msgstr "Forgrunnsfarge"
 
-#: ../objects/UML/class_dialog.c:617
+#: ../objects/UML/class_dialog.c:632
 msgid "Background Color"
 msgstr "Bakgrunnsfarge"
 
-#: ../objects/UML/class_dialog.c:1151
+#: ../objects/UML/class_dialog.c:1166
 msgid "Value:"
 msgstr "Verdi:"
 
-#: ../objects/UML/class_dialog.c:1184 ../objects/UML/class_dialog.c:2026
+#: ../objects/UML/class_dialog.c:1199 ../objects/UML/class_dialog.c:2044
 msgid "Visibility:"
 msgstr "Synlighet:"
 
-#: ../objects/UML/class_dialog.c:1193 ../objects/UML/class_dialog.c:2035
+#: ../objects/UML/class_dialog.c:1208 ../objects/UML/class_dialog.c:2053
 #: ../objects/UML/uml.c:102
 msgid "Public"
 msgstr "Offentlig"
 
-#: ../objects/UML/class_dialog.c:1196 ../objects/UML/class_dialog.c:2038
+#: ../objects/UML/class_dialog.c:1211 ../objects/UML/class_dialog.c:2056
 #: ../objects/UML/uml.c:103
 msgid "Private"
 msgstr "Privat"
 
-#: ../objects/UML/class_dialog.c:1199 ../objects/UML/class_dialog.c:2041
+#: ../objects/UML/class_dialog.c:1214 ../objects/UML/class_dialog.c:2059
 #: ../objects/UML/uml.c:104
 msgid "Protected"
 msgstr "Beskyttet"
 
-#: ../objects/UML/class_dialog.c:1202 ../objects/UML/class_dialog.c:2044
+#: ../objects/UML/class_dialog.c:1217 ../objects/UML/class_dialog.c:2062
 #: ../objects/UML/uml.c:105
 msgid "Implementation"
 msgstr "Implementasjon"
 
 #. end: Inheritance type
-#: ../objects/UML/class_dialog.c:1218 ../objects/UML/class_dialog.c:2081
+#: ../objects/UML/class_dialog.c:1233 ../objects/UML/class_dialog.c:2099
 msgid "Class scope"
 msgstr "Virkeområde for klasse"
 
 #. end: Visibility
-#: ../objects/UML/class_dialog.c:2056
+#: ../objects/UML/class_dialog.c:2074
 msgid "Inheritance type:"
 msgstr "Type arv:"
 
-#: ../objects/UML/class_dialog.c:2068 ../objects/UML/uml.c:111
+#: ../objects/UML/class_dialog.c:2086 ../objects/UML/uml.c:111
 msgid "Polymorphic (virtual)"
 msgstr "Polymorfisk (virtuell)"
 
-#: ../objects/UML/class_dialog.c:2071 ../objects/UML/uml.c:112
+#: ../objects/UML/class_dialog.c:2089 ../objects/UML/uml.c:112
 msgid "Leaf (final)"
 msgstr "Løv (endelig)"
 
-#: ../objects/UML/class_dialog.c:2085
+#: ../objects/UML/class_dialog.c:2103
 msgid "Query"
 msgstr "Spørring"
 
-#: ../objects/UML/class_dialog.c:2132
+#: ../objects/UML/class_dialog.c:2150
 msgid "Parameters:"
 msgstr "Parametre:"
 
-#: ../objects/UML/class_dialog.c:2217
+#: ../objects/UML/class_dialog.c:2235
 msgid "Parameter data"
 msgstr "Parameterdata"
 
-#: ../objects/UML/class_dialog.c:2250
+#: ../objects/UML/class_dialog.c:2268
 msgid "Def. value:"
 msgstr "Std. verdi:"
 
-#: ../objects/UML/class_dialog.c:2284
+#: ../objects/UML/class_dialog.c:2302
 msgid "Direction:"
 msgstr "Retning:"
 
-#: ../objects/UML/class_dialog.c:2293 ../objects/UML/umlparameter.c:34
+#: ../objects/UML/class_dialog.c:2311 ../objects/UML/umlparameter.c:34
 msgid "Undefined"
 msgstr "Udefinert"
 
-#: ../objects/UML/class_dialog.c:2296 ../objects/UML/umlparameter.c:35
+#: ../objects/UML/class_dialog.c:2314 ../objects/UML/umlparameter.c:35
 msgid "In"
 msgstr "Inn"
 
-#: ../objects/UML/class_dialog.c:2299 ../objects/UML/umlparameter.c:36
+#: ../objects/UML/class_dialog.c:2317 ../objects/UML/umlparameter.c:36
 msgid "Out"
 msgstr "Ut"
 
-#: ../objects/UML/class_dialog.c:2302 ../objects/UML/umlparameter.c:37
+#: ../objects/UML/class_dialog.c:2320 ../objects/UML/umlparameter.c:37
 msgid "In & Out"
 msgstr "Inn og ut"
 
 #. Operations page:
-#: ../objects/UML/class_dialog.c:2337
+#: ../objects/UML/class_dialog.c:2355
 msgid "_Operations"
 msgstr "_Operasjoner"
 
-#: ../objects/UML/class_dialog.c:2395
+#: ../objects/UML/class_dialog.c:2413
 msgid "Operation data"
 msgstr "Operasjonsdata"
 
 #. Templates page:
-#: ../objects/UML/class_dialog.c:2755
+#: ../objects/UML/class_dialog.c:2776
 msgid "_Templates"
 msgstr "_Maler"
 
-#: ../objects/UML/class_dialog.c:2761 ../sheets/UML.sheet.in.h:29
+#: ../objects/UML/class_dialog.c:2782 ../sheets/UML.sheet.in.h:29
 msgid "Template class"
 msgstr "Malklasse"
 
-#: ../objects/UML/class_dialog.c:2818
+#: ../objects/UML/class_dialog.c:2839
 msgid "Formal parameter data"
 msgstr "Formelle parameterdata"
 
@@ -5228,19 +5261,19 @@ msgstr "Rekursiv"
 msgid "Message type:"
 msgstr "Meldingstype:"
 
-#: ../objects/UML/object.c:154
+#: ../objects/UML/object.c:155
 msgid "Explicit state"
 msgstr "Eksplisitt tilstand"
 
-#: ../objects/UML/object.c:159
+#: ../objects/UML/object.c:160
 msgid "Active object"
 msgstr "Aktiver objekt"
 
-#: ../objects/UML/object.c:161
+#: ../objects/UML/object.c:162
 msgid "Show attributes"
 msgstr "Vis attributter"
 
-#: ../objects/UML/object.c:163
+#: ../objects/UML/object.c:164
 msgid "Multiple instance"
 msgstr "Flere hendelser"
 
@@ -5326,11 +5359,11 @@ msgstr "Spørring (konstant)"
 msgid "Parameters"
 msgstr "Parametere"
 
-#: ../objects/UML/usecase.c:134
+#: ../objects/UML/usecase.c:136
 msgid "Text outside"
 msgstr "Tekst utenfor"
 
-#: ../objects/UML/usecase.c:136
+#: ../objects/UML/usecase.c:138
 msgid "Collaboration"
 msgstr "Samarbeid"
 
@@ -5658,64 +5691,69 @@ msgstr "Enkel skriver"
 msgid "Visible rect pointer"
 msgstr "Synlige attributter"
 
-#: ../plug-ins/cairo/diacairo.c:114
+#: ../plug-ins/cairo/diacairo.c:116
 #, c-format
 msgid ""
 "Can't convert output filename '%s' to locale encoding.\n"
 "Please choose a different name to save with cairo.\n"
 msgstr ""
 
-#: ../plug-ins/cairo/diacairo.c:252 ../plug-ins/cairo/diacairo.c:268
+#: ../plug-ins/cairo/diacairo.c:249 ../plug-ins/cairo/diacairo.c:265
 #, c-format
 msgid "Can't write %d bytes to %s"
 msgstr "Kan ikke skrive %d byte til %s"
 
-#: ../plug-ins/cairo/diacairo.c:294 ../plug-ins/postscript/postscript.c:39
+#: ../plug-ins/cairo/diacairo.c:278
+msgid "Clipboard copy failed"
+msgstr ""
+
+#: ../plug-ins/cairo/diacairo.c:302 ../plug-ins/postscript/postscript.c:39
 #: ../plug-ins/wmf/wmf.cpp:1389
 msgid "Nothing to print"
 msgstr "Ingen ting å skrive ut"
 
-#: ../plug-ins/cairo/diacairo.c:305
+#: ../plug-ins/cairo/diacairo.c:313
 msgid "Printing with Gtk+(cairo) requires at least version 2.10."
 msgstr "Utskrift med Gtk+(cairo) krever minst versjon 2.10."
 
-#: ../plug-ins/cairo/diacairo.c:312
+#: ../plug-ins/cairo/diacairo.c:320
 msgid "Cairo PostScript"
 msgstr "Cairo PostScript"
 
-#: ../plug-ins/cairo/diacairo.c:323
+#: ../plug-ins/cairo/diacairo.c:331
 msgid "Cairo Portable Document Format"
 msgstr "Cairo Portable Document Format"
 
-#: ../plug-ins/cairo/diacairo.c:338
+#: ../plug-ins/cairo/diacairo.c:346
 msgid "Cairo Scalable Vector Graphics"
 msgstr "Cairo skalerbar vektorgrafikk"
 
-#: ../plug-ins/cairo/diacairo.c:349
+#: ../plug-ins/cairo/diacairo.c:357
 msgid "Cairo PNG"
 msgstr "Cairo PNG"
 
-#: ../plug-ins/cairo/diacairo.c:357
+#: ../plug-ins/cairo/diacairo.c:365
 msgid "Cairo PNG (with alpha)"
 msgstr "Cairo PNG (med alfa)"
 
-#: ../plug-ins/cairo/diacairo.c:367
+#: ../plug-ins/cairo/diacairo.c:375
 msgid "Cairo EMF"
 msgstr "Cairo EMF"
 
-#: ../plug-ins/cairo/diacairo.c:377
+#: ../plug-ins/cairo/diacairo.c:385
 msgid "Cairo WMF"
 msgstr "Cairo WMF"
 
-#: ../plug-ins/cairo/diacairo.c:389
-msgid "Cairo Clipboard"
-msgstr "Cairo utklippstavle"
+#: ../plug-ins/cairo/diacairo.c:407
+#, fuzzy
+msgid "Copy _Diagram"
+msgstr "Lukk diagram"
 
-#: ../plug-ins/cairo/diacairo.c:400
+#: ../plug-ins/cairo/diacairo.c:417
 msgid "Print (GTK) ..."
 msgstr "Skriv ut (GTK)..."
 
-#: ../plug-ins/cairo/diacairo.c:445
+#: ../plug-ins/cairo/diacairo.c:462
 msgid "Cairo based Rendering"
 msgstr "Cairo-basert tegning"
 
@@ -5735,31 +5773,31 @@ msgstr "Computer Graphics Metafile"
 msgid "Computer Graphics Metafile export filter"
 msgstr "Computer Graphics Metafile eksportfilter"
 
-#: ../plug-ins/dxf/dxf-export.c:598 ../plug-ins/dxf/dxf-import.c:1434
+#: ../plug-ins/dxf/dxf-export.c:598 ../plug-ins/dxf/dxf-import.c:1402
 msgid "Drawing Interchange File"
 msgstr "Drawing Interchange File"
 
 #. better than complaining?
-#: ../plug-ins/dxf/dxf-import.c:503 ../plug-ins/dxf/dxf-import.c:521
+#: ../plug-ins/dxf/dxf-import.c:518 ../plug-ins/dxf/dxf-import.c:536
 msgid "Bad vertex bulge\n"
 msgstr ""
 
-#: ../plug-ins/dxf/dxf-import.c:1079
+#: ../plug-ins/dxf/dxf-import.c:1067
 #, c-format
 msgid "Scale: %f\n"
 msgstr "Skala: %f\n"
 
-#: ../plug-ins/dxf/dxf-import.c:1351
+#: ../plug-ins/dxf/dxf-import.c:1319
 #, c-format
 msgid "read_dxf_codes failed on '%s'\n"
 msgstr "read_dxf_codes feilet på «%s»\n"
 
-#: ../plug-ins/dxf/dxf-import.c:1359
+#: ../plug-ins/dxf/dxf-import.c:1326
 #, c-format
 msgid "Binary DXF from '%s' not supported\n"
 msgstr "Binær DXF fra «%s» er ikke støttet\n"
 
-#: ../plug-ins/dxf/dxf-import.c:1400
+#: ../plug-ins/dxf/dxf-import.c:1367
 #, c-format
 msgid "Unknown dxf code %d\n"
 msgstr "Ukjent dxf-kode %d\n"
@@ -5767,33 +5805,6 @@ msgstr "Ukjent dxf-kode %d\n"
 #: ../plug-ins/dxf/dxf.c:50
 msgid "Drawing Interchange File import and export filters"
 msgstr "Drawing Interchange File import- og eksportfilter"
-
-#: ../plug-ins/gprint/diagnomeprint.c:81
-#, c-format
-msgid ""
-"GNOME Print Backend\n"
-" '%s'\n"
-" not available"
-msgstr ""
-"Utskriftsmotor for GNOME\n"
-" «%s»\n"
-" ikke tilgjengelig"
-
-#: ../plug-ins/gprint/diagnomeprint.c:112
-msgid "GNOME PostScript"
-msgstr "GNOME PostScript"
-
-#: ../plug-ins/gprint/diagnomeprint.c:121
-msgid "GNOME Portable Document Format"
-msgstr "GNOME Portable Document Format"
-
-#: ../plug-ins/gprint/diagnomeprint.c:131
-msgid "GNOME Scalable Vector Graphic"
-msgstr "Skalerbar vektorgrafikk for GNOME"
-
-#: ../plug-ins/gprint/diagnomeprint.c:164
-msgid "GNOME Print based Rendering"
-msgstr "Rendring basert på GNOME-print"
 
 #: ../plug-ins/hpgl/hpgl.c:751
 msgid "HP Graphics Language"
@@ -5976,10 +5987,6 @@ msgstr "Dia form-fil"
 #: ../plug-ins/shape/shape.c:36
 msgid "dia shape export filter"
 msgstr "dia form-eksportfilter"
-
-#: ../plug-ins/svg/render_svg.c:365 ../plug-ins/svg/svg-import.c:767
-msgid "Scalable Vector Graphics"
-msgstr "Skalerbar vektorgrafikk"
 
 #: ../plug-ins/svg/svg-import.c:237
 msgid ""
