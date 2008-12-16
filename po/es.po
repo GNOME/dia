@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: dia.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=dia&amp;component=general\n"
-"POT-Creation-Date: 2008-11-16 18:46+0000\n"
-"PO-Revision-Date: 2008-11-22 18:10+0100\n"
+"POT-Creation-Date: 2008-12-14 18:58+0000\n"
+"PO-Revision-Date: 2008-12-16 20:41+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -399,7 +399,7 @@ msgstr "Espaciado visible"
 
 # Yo pondría "Hex" con mayúsculas si no "hexadecimal" completo (creo que significa eso, ¿no?). RizOX.
 #. Hexes!
-#: ../app/dia-props.c:177 ../app/preferences.c:192
+#: ../app/dia-props.c:177 ../app/preferences.c:246
 msgid "Hex grid"
 msgstr "Rejilla Hex."
 
@@ -416,7 +416,7 @@ msgstr "Rejilla"
 msgid "Background"
 msgstr "Fondo"
 
-#: ../app/dia-props.c:220 ../app/preferences.c:110
+#: ../app/dia-props.c:220 ../app/preferences.c:123
 msgid "Grid Lines"
 msgstr "Línea de cuadrícula"
 
@@ -477,11 +477,11 @@ msgstr ""
 "en un elemento en un diagrama nuevo y si lo guarda, se guardará como un "
 "diagrama de Dia."
 
-#: ../app/diagram.c:1180
+#: ../app/diagram.c:1178
 msgid "Trying to group with no selected objects."
 msgstr "Intentando agrupar sin objetos seleccionados."
 
-#: ../app/diagram.c:1190
+#: ../app/diagram.c:1188
 msgid ""
 "You cannot group objects that belong to different groups or have different "
 "parents"
@@ -569,7 +569,7 @@ msgstr "/_Propiedades"
 msgid "/_Hide this type"
 msgstr "/_Ocultar este tipo"
 
-#: ../app/diagram_tree_window.c:80 ../app/preferences.c:111
+#: ../app/diagram_tree_window.c:80 ../app/preferences.c:124
 msgid "Diagram Tree"
 msgstr "Árbol del diagrama"
 
@@ -630,7 +630,7 @@ msgstr "%0.3gcm x %0.3gcm"
 msgid "Page Setup"
 msgstr "Configurar página"
 
-#: ../app/disp_callbacks.c:84 ../app/properties.c:152
+#: ../app/disp_callbacks.c:84 ../app/properties.c:140
 msgid ""
 "This object doesn't support Undo/Redo.\n"
 "Undo information erased."
@@ -653,33 +653,33 @@ msgstr ""
 #. http://www.gnu.org/software/gettext/manual/html_chapter/gettext_10.html#SEC150
 #. * Althoug the single objects wont get triggered here some languages have variations on the other numbers
 #.
-#: ../app/display.c:109
+#: ../app/display.c:113
 #, c-format
 msgid "Selection of %d object"
 msgid_plural "Selection of %d objects"
 msgstr[0] "Selección de %d objeto"
 msgstr[1] "Selección de %d objetos"
 
-#: ../app/display.c:119
+#: ../app/display.c:123
 #, c-format
 msgid "Selected '%s'"
 msgstr "Seleccionados «%s»"
 
 #. we really should not come here but instead disable the menu command earlier
-#: ../app/display.c:1034
+#: ../app/display.c:1038
 msgid "No anti-aliased renderer found"
 msgstr "No se encontró el renderizador antialias"
 
-#: ../app/display.c:1179
+#: ../app/display.c:1183
 msgid "<unnamed>"
 msgstr "<sin nombre>"
 
 #. no standard buttons
-#: ../app/display.c:1185
+#: ../app/display.c:1189
 msgid "Closing diagram without saving"
 msgstr "Cerrando el diagrama sin guardar"
 
-#: ../app/display.c:1187
+#: ../app/display.c:1191
 #, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -688,11 +688,11 @@ msgstr ""
 "Este diagrama «%s»\n"
 "no ha sido guardado. ¿Guardar los cambios ahora?"
 
-#: ../app/display.c:1189
+#: ../app/display.c:1193
 msgid "Close Diagram"
 msgstr "Cerrar el diagrama"
 
-#: ../app/display.c:1194
+#: ../app/display.c:1198
 msgid "_Discard Changes"
 msgstr "_Descartar los cambios"
 
@@ -723,9 +723,9 @@ msgstr "activo"
 
 #. *** board of value **************
 #: ../app/exit_dialog.c:124 ../app/plugin-manager.c:262
-#: ../objects/Database/table.c:136 ../objects/Database/table.c:179
+#: ../objects/Database/table.c:138 ../objects/Database/table.c:181
 #: ../objects/SISSI/sissi_dialog.c:619 ../objects/UML/association.c:236
-#: ../objects/UML/class.c:142 ../objects/UML/large_package.c:139
+#: ../objects/UML/class.c:144 ../objects/UML/large_package.c:139
 #: ../objects/UML/umlattribute.c:37 ../objects/UML/umlformalparameter.c:35
 #: ../objects/UML/umloperation.c:62 ../objects/UML/umlparameter.c:43
 msgid "Name"
@@ -907,7 +907,7 @@ msgstr "Desplazar sobre el diagrama"
 #. backward compatibility
 #. new name matching "same name, same type"  rule
 #: ../app/interface.c:169 ../app/menus.c:223 ../lib/properties.c:79
-#: ../lib/properties.h:522 ../objects/AADL/aadlbox.c:157
+#: ../lib/properties.h:529 ../objects/AADL/aadlbox.c:157
 #: ../objects/AADL/aadlbox.c:159 ../objects/Jackson/requirement.c:144
 #: ../objects/UML/activity.c:129 ../objects/UML/actor.c:126
 #: ../objects/UML/classicon.c:148 ../objects/UML/component.c:130
@@ -1105,7 +1105,7 @@ msgstr "Editar atributos de capa"
 msgid "Layer name:"
 msgstr "Nombre de la capa:"
 
-#: ../app/linewidth_area.c:246 ../lib/properties.h:483 ../lib/properties.h:486
+#: ../app/linewidth_area.c:246 ../lib/properties.h:490 ../lib/properties.h:493
 #: ../objects/chronogram/chronoline.c:183
 #: ../objects/chronogram/chronoref.c:162
 msgid "Line width"
@@ -1632,30 +1632,38 @@ msgstr "Cargar al comenzar"
 msgid "File Name"
 msgstr "Nombre del archivo"
 
-#: ../app/preferences.c:107
+#: ../app/preferences.c:100 ../app/preferences.c:145
+msgid "any"
+msgstr "cualquiera"
+
+#: ../app/preferences.c:119
 msgid "User Interface"
 msgstr "Interfaz de usuario"
 
-#: ../app/preferences.c:108
+#: ../app/preferences.c:120
 msgid "Diagram Defaults"
 msgstr "Diagrama por defecto"
 
-#: ../app/preferences.c:109
+#: ../app/preferences.c:121
 msgid "View Defaults"
 msgstr "Ver opciones por defecto"
 
-#: ../app/preferences.c:126
+#: ../app/preferences.c:122
+msgid "Favorites"
+msgstr "Favoritos"
+
+#: ../app/preferences.c:166
 msgid "Reset tools after create"
 msgstr "Reiniciar herramientas tras crear:"
 
 # Con las comillas se entiende mejor que "deshacer" se refiere a la "función deshacer". RizOX.
 # Se entiende perfectamente.
-#: ../app/preferences.c:129
+#: ../app/preferences.c:169
 msgid "Number of undo levels:"
 msgstr "Número de niveles de deshacer:"
 
 # Reflexivo queda algo más natural dentro de lo que cabe. RizOX.
-#: ../app/preferences.c:132
+#: ../app/preferences.c:172
 msgid ""
 "Reverse dragging selects\n"
 "intersecting objects"
@@ -1663,143 +1671,172 @@ msgstr ""
 "El arrastre inverso selecciona\n"
 "objetos que se intersectan"
 
-#: ../app/preferences.c:135
+#: ../app/preferences.c:175
 msgid "Recent documents list size:"
 msgstr "Tamaño de la lista de documentos recientes:"
 
-#: ../app/preferences.c:138
+#: ../app/preferences.c:178
 msgid "Use menu bar"
 msgstr "Utilizar barra de menú"
 
-#: ../app/preferences.c:141
+#: ../app/preferences.c:181
 msgid "Keep tool box on top of diagram windows"
 msgstr "Mantener la caja de herramientas encima de las ventanas del diagrama"
 
-#: ../app/preferences.c:144
+#: ../app/preferences.c:184
 msgid "Length unit:"
 msgstr "Unidad de longitud:"
 
-#: ../app/preferences.c:147
+#: ../app/preferences.c:187
 msgid "Font-size unit:"
 msgstr "Tamaño de la tipografía:"
 
-#: ../app/preferences.c:151
+#: ../app/preferences.c:191
 msgid "Integrated UI"
 msgstr "IU integrado"
 
-#: ../app/preferences.c:154
+#: ../app/preferences.c:194
 msgid "New diagram:"
 msgstr "Diagrama nuevo:"
 
-#: ../app/preferences.c:155
+#: ../app/preferences.c:195
 msgid "Portrait"
 msgstr "Vertical"
 
-#: ../app/preferences.c:157
+#: ../app/preferences.c:197
 msgid "Paper type:"
 msgstr "Tipo de papel:"
 
-#: ../app/preferences.c:159 ../objects/Database/table_dialog.c:1078
+#: ../app/preferences.c:199 ../objects/Database/table_dialog.c:1078
 msgid "Background Color:"
 msgstr "Color de fondo:"
 
-#: ../app/preferences.c:161
+#: ../app/preferences.c:201
 msgid "Compress saved files"
 msgstr "Comprimir archivos guardados"
 
-#: ../app/preferences.c:164
+#: ../app/preferences.c:204
 msgid "New window:"
 msgstr "Ventana nueva:"
 
-#: ../app/preferences.c:165
+#: ../app/preferences.c:205
 msgid "Width:"
 msgstr "Ancho:"
 
-#: ../app/preferences.c:166
+#: ../app/preferences.c:206
 msgid "Height:"
 msgstr "Alto:"
 
 # Según lo traducido anteriormente "Ampliar" queda más natural que "Magnificar" que suena a barbarismo. RizOX.
-#: ../app/preferences.c:167
+#: ../app/preferences.c:207
 msgid "Magnify:"
 msgstr "Ampliar:"
 
-#: ../app/preferences.c:170
+#: ../app/preferences.c:210
 msgid "Connection Points:"
 msgstr "Puntos de conexión:"
 
 #. { NULL, PREF_NONE, 0, NULL, 3, N_("Grid:") },
-#: ../app/preferences.c:171 ../app/preferences.c:175 ../app/preferences.c:185
+#: ../app/preferences.c:211 ../app/preferences.c:215 ../app/preferences.c:239
 msgid "Visible"
 msgstr "Visible"
 
-#: ../app/preferences.c:174
+#: ../app/preferences.c:214
 msgid "Page breaks:"
 msgstr "Divisiones de páginas:"
 
-#: ../app/preferences.c:176 ../app/preferences.c:190
+#: ../app/preferences.c:216 ../app/preferences.c:244
 msgid "Color:"
 msgstr "Color:"
 
-#: ../app/preferences.c:177
+#: ../app/preferences.c:217
 msgid "Solid lines"
 msgstr "Líneas sólidas"
 
-#: ../app/preferences.c:180
+#: ../app/preferences.c:220
 msgid "Antialias:"
 msgstr "Antialias:"
 
-#: ../app/preferences.c:181
+#: ../app/preferences.c:221
 msgid "view antialised"
 msgstr "ver sin antialias"
 
-#: ../app/preferences.c:186
+#. Favored Filer
+#. Translators: Menu item Verb/Channel/Export
+#. Translators: Menu item Verb/Channel/Export/Export
+#: ../app/preferences.c:225 ../objects/FS/function.c:698
+#: ../objects/FS/function.c:700 ../plug-ins/libart/export_png.c:323
+msgid "Export"
+msgstr "Exportar"
+
+#: ../app/preferences.c:227
+msgid "Portable Network Graphics"
+msgstr "Portable Network Graphics"
+
+#: ../app/preferences.c:229 ../plug-ins/svg/render_svg.c:365
+#: ../plug-ins/svg/svg-import.c:767
+msgid "Scalable Vector Graphics"
+msgstr "Scalable Vector Graphics"
+
+#: ../app/preferences.c:231
+msgid "PostScript"
+msgstr "PostScript"
+
+#: ../app/preferences.c:233
+msgid "Windows MetaFile"
+msgstr "Meta-archivo de Windows"
+
+#: ../app/preferences.c:235
+msgid "Enhanced MetaFile"
+msgstr "Meta-archivo mejorado"
+
+#: ../app/preferences.c:240
 msgid "Snap to"
 msgstr "Ajustar a"
 
-#: ../app/preferences.c:187
+#: ../app/preferences.c:241
 msgid "Dynamic grid resizing"
 msgstr "Redimensionado de rejilla dinámico"
 
-#: ../app/preferences.c:188
+#: ../app/preferences.c:242
 msgid "X Size:"
 msgstr "Tamaño X:"
 
-#: ../app/preferences.c:189
+#: ../app/preferences.c:243
 msgid "Y Size:"
 msgstr "Tamaño Y:"
 
-#: ../app/preferences.c:191
+#: ../app/preferences.c:245
 msgid "Lines per major line"
 msgstr "Líneas por cada línea principal"
 
 # Yo pondría "Hex" con mayúscula o diría directamente "hexadecimal" (si es que se refiere a eso). RizOX.
-#: ../app/preferences.c:193
+#: ../app/preferences.c:247
 msgid "Hex Size:"
 msgstr "Tamaño Hex:"
 
-#: ../app/preferences.c:209
+#: ../app/preferences.c:262
 msgid "Diagram tree window:"
 msgstr "Ventana del árbol del diagrama"
 
-#: ../app/preferences.c:211
+#: ../app/preferences.c:264
 msgid "Save hidden object types"
 msgstr "Guardar tipos de objetos ocultos"
 
-#: ../app/preferences.c:418 ../lib/prop_inttypes.c:158
+#: ../app/preferences.c:474 ../lib/prop_inttypes.c:158
 msgid "Yes"
 msgstr "Sí"
 
-#: ../app/preferences.c:418 ../app/preferences.c:429
+#: ../app/preferences.c:474 ../app/preferences.c:485
 #: ../lib/prop_inttypes.c:160 ../lib/prop_inttypes.c:186
 msgid "No"
 msgstr "No"
 
-#: ../app/preferences.c:525
+#: ../app/preferences.c:581
 msgid "Preferences"
 msgstr "Preferencias"
 
-#: ../app/preferences.c:714
+#: ../app/preferences.c:778
 msgid "User Interface type settings change will take after restart"
 msgstr ""
 "Los ajustes para el interfaz del usuario tomarán efecto después de reiniciar."
@@ -1812,11 +1849,11 @@ msgstr "Propiedades del objeto"
 msgid "This object has no properties."
 msgstr "Este objeto no tiene propiedades."
 
-#: ../app/properties.c:224
+#: ../app/properties.c:228
 msgid "Properties: "
 msgstr "Propiedades: "
 
-#: ../app/properties.c:228
+#: ../app/properties.c:232
 msgid "Object properties:"
 msgstr "Propiedades del objeto:"
 
@@ -1896,7 +1933,7 @@ msgid "New"
 msgstr "Nuevo"
 
 #: ../app/sheets_dialog.c:363 ../app/sheets_dialog.c:795
-#: ../objects/Database/table.c:138 ../objects/Istar/actor.c:146
+#: ../objects/Database/table.c:140 ../objects/Istar/actor.c:146
 #: ../objects/Istar/actor.c:147 ../objects/Istar/other.c:150
 #: ../objects/Istar/other.c:151 ../objects/KAOS/other.c:153
 #: ../objects/KAOS/other.c:154 ../objects/UML/association.c:242
@@ -2331,7 +2368,7 @@ msgstr "Aceptar"
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: ../lib/filter.c:137
+#: ../lib/filter.c:177
 #, c-format
 msgid "Multiple export filters with unique name %s"
 msgstr "Filtros múltiples de exportación con nombre único %s"
@@ -2424,68 +2461,68 @@ msgstr "Cambio de tipo de propiedad de int a enum fuera de rango"
 msgid "Group with %d objects"
 msgstr "Grupo con %d objetos"
 
-#: ../lib/properties.c:64 ../lib/properties.h:469 ../lib/widgets.c:724
+#: ../lib/properties.c:64 ../lib/properties.h:476 ../lib/widgets.c:724
 msgid "Left"
 msgstr "Izquierda"
 
-#: ../lib/properties.c:65 ../lib/properties.h:470 ../lib/widgets.c:730
+#: ../lib/properties.c:65 ../lib/properties.h:477 ../lib/widgets.c:730
 #: ../objects/standard/textobj.c:135
 msgid "Center"
 msgstr "Centro"
 
-#: ../lib/properties.c:66 ../lib/properties.h:471 ../lib/widgets.c:736
+#: ../lib/properties.c:66 ../lib/properties.h:478 ../lib/widgets.c:736
 msgid "Right"
 msgstr "Derecha"
 
-#: ../lib/properties.c:73 ../lib/properties.h:489 ../lib/properties.h:492
+#: ../lib/properties.c:73 ../lib/properties.h:496 ../lib/properties.h:499
 #: ../objects/chronogram/chronoline.c:181
 #: ../objects/chronogram/chronoref.c:160
 msgid "Line color"
 msgstr "Color de línea"
 
-#: ../lib/properties.c:74 ../lib/properties.h:495 ../lib/properties.h:498
+#: ../lib/properties.c:74 ../lib/properties.h:502 ../lib/properties.h:505
 msgid "Line style"
 msgstr "Estilo de la línea"
 
-#: ../lib/properties.c:75 ../lib/properties.h:502 ../lib/properties.h:505
+#: ../lib/properties.c:75 ../lib/properties.h:509 ../lib/properties.h:512
 msgid "Fill color"
 msgstr "Color de relleno"
 
-#: ../lib/properties.c:76 ../lib/properties.h:508 ../lib/properties.h:511
+#: ../lib/properties.c:76 ../lib/properties.h:515 ../lib/properties.h:518
 msgid "Draw background"
 msgstr "Dibujar fondo"
 
-#: ../lib/properties.c:77 ../lib/properties.h:515
+#: ../lib/properties.c:77 ../lib/properties.h:522
 msgid "Start arrow"
 msgstr "Flecha de inicio"
 
-#: ../lib/properties.c:78 ../lib/properties.h:518
+#: ../lib/properties.c:78 ../lib/properties.h:525
 msgid "End arrow"
 msgstr "Flecha de finalización"
 
-#: ../lib/properties.c:80 ../lib/properties.h:528
+#: ../lib/properties.c:80 ../lib/properties.h:535
 msgid "Text alignment"
 msgstr "Alineación del texto"
 
 # Creí que era Tipografía como en otros msgs. FVD
 #. all this just to make the defaults selectable ...
-#: ../lib/properties.c:81 ../lib/properties.h:533
+#: ../lib/properties.c:81 ../lib/properties.h:540
 #: ../objects/Database/table_dialog.c:1036 ../objects/Database/reference.c:117
 #: ../objects/GRAFCET/condition.c:134 ../objects/GRAFCET/step.c:167
-#: ../objects/GRAFCET/transition.c:144 ../objects/UML/class.c:172
+#: ../objects/GRAFCET/transition.c:144 ../objects/UML/class.c:174
 #: ../objects/UML/class_dialog.c:564 ../objects/chronogram/chronoline.c:185
 #: ../objects/chronogram/chronoref.c:166
 msgid "Font"
 msgstr "Fuente"
 
-#: ../lib/properties.c:82 ../lib/properties.h:541
+#: ../lib/properties.c:82 ../lib/properties.h:548
 #: ../objects/GRAFCET/condition.c:136 ../objects/GRAFCET/step.c:169
 #: ../objects/GRAFCET/transition.c:146 ../objects/chronogram/chronoline.c:187
 #: ../objects/chronogram/chronoref.c:168
 msgid "Font size"
 msgstr "Tamaño de la fuente"
 
-#: ../lib/properties.c:83 ../lib/properties.h:547
+#: ../lib/properties.c:83 ../lib/properties.h:554
 #: ../objects/GRAFCET/step.c:171 ../objects/chronogram/chronoline.c:189
 #: ../objects/chronogram/chronoref.c:170
 msgid "Text color"
@@ -2667,74 +2704,74 @@ msgstr "Compuesto"
 msgid "Entity/Relationship table diagram objects"
 msgstr "Objetos de diagrama de tabla de entidad/relación"
 
-#: ../objects/Database/table.c:140 ../objects/Database/table.c:181
-#: ../objects/Database/table.c:198 ../objects/UML/class.c:146
-#: ../objects/UML/class.c:187 ../objects/UML/class_dialog.c:595
+#: ../objects/Database/table.c:142 ../objects/Database/table.c:183
+#: ../objects/Database/table.c:200 ../objects/UML/class.c:148
+#: ../objects/UML/class.c:189 ../objects/UML/class_dialog.c:595
 #: ../objects/UML/umlattribute.c:43 ../objects/UML/umloperation.c:66
 #: ../objects/UML/umlparameter.c:49 ../sheets/SDL.sheet.in.h:3
 msgid "Comment"
 msgstr "Comentario"
 
-#: ../objects/Database/table.c:142
+#: ../objects/Database/table.c:144
 msgid "Primary key"
 msgstr "Clave primaria"
 
-#: ../objects/Database/table.c:144
+#: ../objects/Database/table.c:146
 msgid "Nullable"
 msgstr "Que puede ser Null"
 
-#: ../objects/Database/table.c:146
+#: ../objects/Database/table.c:148
 msgid "Unique"
 msgstr "Única"
 
-#: ../objects/Database/table.c:183
+#: ../objects/Database/table.c:185
 msgid "Visible comments"
 msgstr "Comentarios visibles"
 
-#: ../objects/Database/table.c:185 ../objects/UML/class.c:169
+#: ../objects/Database/table.c:187 ../objects/UML/class.c:171
 msgid "Comment tagging"
 msgstr "Etiquetado de comentarios"
 
-#: ../objects/Database/table.c:187 ../objects/Database/table_dialog.c:976
+#: ../objects/Database/table.c:189 ../objects/Database/table_dialog.c:976
 msgid "Underline primary keys"
 msgstr "Subrayar claves primarias"
 
-#: ../objects/Database/table.c:189 ../objects/Database/table_dialog.c:981
+#: ../objects/Database/table.c:191 ../objects/Database/table_dialog.c:981
 msgid "Use bold font for primary keys"
 msgstr "Usar negrita para las claves primarias"
 
 #. property rows
-#: ../objects/Database/table.c:194 ../objects/SADT/arrow.c:136
-#: ../objects/UML/class.c:177 ../objects/UML/class_dialog.c:570
+#: ../objects/Database/table.c:196 ../objects/SADT/arrow.c:136
+#: ../objects/UML/class.c:179 ../objects/UML/class_dialog.c:570
 msgid "Normal"
 msgstr "Normal"
 
-#: ../objects/Database/table.c:196
+#: ../objects/Database/table.c:198
 msgid "Tablename"
 msgstr "Nombre de la tabla"
 
-#: ../objects/Database/table.c:201 ../objects/Database/table.c:203
-#: ../objects/Database/table.c:205 ../objects/Database/reference.c:120
+#: ../objects/Database/table.c:203 ../objects/Database/table.c:205
+#: ../objects/Database/table.c:207 ../objects/Database/reference.c:120
 #: ../objects/UML/association.c:247 ../objects/UML/association.c:258
 #: ../objects/UML/association.c:260 ../objects/UML/association.c:262
 #: ../objects/UML/association.c:264 ../objects/UML/association.c:266
-#: ../objects/UML/class.c:191 ../objects/UML/class.c:193
-#: ../objects/UML/class.c:195 ../objects/UML/class.c:197
-#: ../objects/UML/class.c:199 ../objects/UML/class.c:201
+#: ../objects/UML/class.c:193 ../objects/UML/class.c:195
+#: ../objects/UML/class.c:197 ../objects/UML/class.c:199
+#: ../objects/UML/class.c:201 ../objects/UML/class.c:203
 msgid " "
 msgstr " "
 
-#: ../objects/Database/table.c:209 ../objects/UML/class.c:207
+#: ../objects/Database/table.c:211 ../objects/UML/class.c:209
 #: ../objects/UML/object.c:157
 msgid "Attributes"
 msgstr "Atributos"
 
-#: ../objects/Database/table.c:246
+#: ../objects/Database/table.c:248
 msgid "Show comments"
 msgstr "Mostrar comentarios"
 
 #. init data
-#: ../objects/Database/table.c:251 ../objects/Database/table.c:354
+#: ../objects/Database/table.c:253 ../objects/Database/table.c:356
 #: ../sheets/Database.sheet.in.h:5
 msgid "Table"
 msgstr "Tabla"
@@ -3035,13 +3072,6 @@ msgstr "Entrada por formulario"
 #: ../objects/FS/function.c:696 ../objects/FS/function.c:930
 msgid "Capture"
 msgstr "Capturar"
-
-#. Translators: Menu item Verb/Channel/Export
-#. Translators: Menu item Verb/Channel/Export/Export
-#: ../objects/FS/function.c:698 ../objects/FS/function.c:700
-#: ../plug-ins/libart/export_png.c:323
-msgid "Export"
-msgstr "Exportar"
 
 #. Translators: Menu item Verb/Channel/Export/Discharge
 #: ../objects/FS/function.c:702
@@ -5001,83 +5031,83 @@ msgstr "Mostrar flecha"
 msgid "Side B"
 msgstr "Lado B"
 
-#: ../objects/UML/class.c:140 ../objects/UML/class.c:312
-#: ../objects/UML/class.c:1762 ../sheets/UML.sheet.in.h:6
+#: ../objects/UML/class.c:142 ../objects/UML/class.c:325
+#: ../objects/UML/class.c:1773 ../sheets/UML.sheet.in.h:6
 msgid "Class"
 msgstr "Clase"
 
 #. backward compatibility
 #. one name, one type
-#: ../objects/UML/class.c:144 ../objects/UML/classicon.c:140
+#: ../objects/UML/class.c:146 ../objects/UML/classicon.c:140
 #: ../objects/UML/classicon.c:142 ../objects/UML/component.c:126
 #: ../objects/UML/large_package.c:137 ../objects/UML/object.c:153
 #: ../objects/UML/small_package.c:131 ../objects/UML/umloperation.c:68
 msgid "Stereotype"
 msgstr "Estereotipo"
 
-#: ../objects/UML/class.c:148 ../objects/UML/class.c:181
+#: ../objects/UML/class.c:150 ../objects/UML/class.c:183
 #: ../objects/UML/class_dialog.c:468 ../objects/UML/class_dialog.c:580
 #: ../objects/UML/class_dialog.c:2083 ../objects/UML/uml.c:110
 msgid "Abstract"
 msgstr "Abstracta"
 
-#: ../objects/UML/class.c:150 ../objects/UML/class.c:1759
+#: ../objects/UML/class.c:152 ../objects/UML/class.c:1770
 msgid "Template"
 msgstr "Plantilla"
 
-#: ../objects/UML/class.c:153 ../objects/UML/class_dialog.c:477
+#: ../objects/UML/class.c:155 ../objects/UML/class_dialog.c:477
 msgid "Suppress Attributes"
 msgstr "Suprimir atributos"
 
-#: ../objects/UML/class.c:155
+#: ../objects/UML/class.c:157
 msgid "Suppress Operations"
 msgstr "Suprimir operaciones"
 
-#: ../objects/UML/class.c:157
+#: ../objects/UML/class.c:159
 msgid "Visible Attributes"
 msgstr "Atributos visibles"
 
-#: ../objects/UML/class.c:159
+#: ../objects/UML/class.c:161
 msgid "Visible Operations"
 msgstr "Operaciones visibles"
 
-#: ../objects/UML/class.c:161
+#: ../objects/UML/class.c:163
 msgid "Visible Comments"
 msgstr "Comentarios visibles"
 
-#: ../objects/UML/class.c:163 ../objects/UML/class_dialog.c:493
+#: ../objects/UML/class.c:165 ../objects/UML/class_dialog.c:493
 msgid "Wrap Operations"
 msgstr "Operaciones de wrap"
 
-#: ../objects/UML/class.c:165
+#: ../objects/UML/class.c:167
 msgid "Wrap after char"
 msgstr "Wrap después del carácter"
 
-#: ../objects/UML/class.c:167
+#: ../objects/UML/class.c:169
 msgid "Comment line length"
 msgstr "Longitud de la línea de comentarios"
 
-#: ../objects/UML/class.c:179 ../objects/UML/class_dialog.c:575
+#: ../objects/UML/class.c:181 ../objects/UML/class_dialog.c:575
 msgid "Polymorphic"
 msgstr "Polimórfico"
 
-#: ../objects/UML/class.c:183
+#: ../objects/UML/class.c:185
 msgid "Classname"
 msgstr "Nombre de la clase"
 
-#: ../objects/UML/class.c:185
+#: ../objects/UML/class.c:187
 msgid "Abstract Classname"
 msgstr "Nombre de clase abstracta"
 
-#: ../objects/UML/class.c:209
+#: ../objects/UML/class.c:211
 msgid "Operations"
 msgstr "Operaciones"
 
-#: ../objects/UML/class.c:212
+#: ../objects/UML/class.c:214
 msgid "Template Parameters"
 msgstr "Parámetros de plantillas"
 
-#: ../objects/UML/class.c:307
+#: ../objects/UML/class.c:320
 msgid "Show Comments"
 msgstr "Mostrar comentarios"
 
@@ -6077,10 +6107,6 @@ msgstr "Archivo de forma de Dia"
 #: ../plug-ins/shape/shape.c:36
 msgid "dia shape export filter"
 msgstr "Filtro de exportación de archivo de forma de Dia"
-
-#: ../plug-ins/svg/render_svg.c:365 ../plug-ins/svg/svg-import.c:767
-msgid "Scalable Vector Graphics"
-msgstr "Scalable Vector Graphics"
 
 #: ../plug-ins/svg/svg-import.c:237
 msgid ""
