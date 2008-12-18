@@ -24,7 +24,7 @@
 #include <gdk/gdkkeysyms.h>
 
 #include "intl.h"
-#include "properties.h"
+#include "properties-dialog.h"
 #include "object_ops.h"
 #include "connectionpoint_ops.h"
 #include "undo.h"
@@ -81,6 +81,18 @@ static void create_dialog()
   no_properties_dialog = gtk_label_new(_("This object has no properties."));
   gtk_widget_show (no_properties_dialog);
   g_object_ref_sink (G_OBJECT (no_properties_dialog));
+}
+
+/* when the dialog gets destroyed we need to drop our references */
+static gint
+properties_part_destroyed(GtkWidget *widget, gpointer data)
+{
+  if (widget == object_part) {
+    object_part = NULL;
+    current_objects = NULL;
+    current_dia = NULL;
+  }
+  return 0;
 }
 
 static gboolean
@@ -232,6 +244,8 @@ object_list_properties_show(Diagram *dia, GList *objects)
     gtk_window_set_title(GTK_WINDOW(dialog), _("Object properties:"));
   }
 
+  g_signal_connect (G_OBJECT (properties), "destroy",
+		  G_CALLBACK(properties_part_destroyed), NULL);
   gtk_box_pack_start(GTK_BOX(dialog_vbox), properties, TRUE, TRUE, 0);
 
   gtk_widget_show (properties);

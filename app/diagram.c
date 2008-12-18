@@ -30,7 +30,7 @@
 #include "message.h"
 #include "menus.h"
 #include "preferences.h"
-#include "properties.h"
+#include "properties-dialog.h"
 #include "cut_n_paste.h"
 #include "layer_dialog.h"
 #include "app_procs.h"

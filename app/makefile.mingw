@@ -67,7 +67,7 @@ OBJECTS = \
 	paginate_psprint.o \
 	plugin-manager.o \
 	preferences.o \
-	properties.o \
+	properties-dialog.o \
 	recent_files.o \
 	render_eps.o \
 	render_gdk.o \

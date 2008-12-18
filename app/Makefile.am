@@ -91,8 +91,8 @@ dia_core_files = \
 	    preferences.h \
 	    load_save.c \
 	    load_save.h \
-	    properties.c \
-	    properties.h \
+	    properties-dialog.c \
+	    properties-dialog.h \
 	    defaults.c \
 	    defaults.h \
 	    undo.c \

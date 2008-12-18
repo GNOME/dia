@@ -1,3 +1,14 @@
+2008-12-18  Hans Breuer  <hans@breuer.org>
+
+	* app/properties.[ch] : renamed to properties-dialog.* to have unique
+	filenames (avoids debugger confusion)
+	* app/Makefile.am app/makefile.msc app/makefile.mingw
+	  app/commands.c app/defaults.c app/diagram.c app/diagram_tree.c
+	  app/modify_tool.c : adapted accordingly
+
+	* app/properties-dialog.c : restored nullification of the static 
+	'object_part' on dialog destroy to avoid double destruction
+
 2008-12-14  Hans Breuer  <hans@breuer.org>
 
 	* lib/textline.[ch] : removed obsolete RenderCache stuff while 

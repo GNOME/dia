@@ -61,7 +61,7 @@ OBJECTS = \
 	pagesetup.obj \
 	plugin-manager.obj \
 	preferences.obj \
-	properties.obj \
+	properties-dialog.obj \
 	recent_files.obj \
 	render_gdk.obj \
 	scroll_tool.obj \

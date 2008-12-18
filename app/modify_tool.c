@@ -25,7 +25,7 @@
 #include "object_ops.h"
 #include "connectionpoint_ops.h"
 #include "message.h"
-#include "properties.h"
+#include "properties-dialog.h"
 #include "select.h"
 #include "preferences.h"
 #include "cursor.h"

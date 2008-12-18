@@ -22,7 +22,7 @@
 
 #include "defaults.h"
 #include "intl.h"
-#include "properties.h"
+#include "properties-dialog.h"
 #include "object_ops.h"
 #include "connectionpoint_ops.h"
 #include "object.h"

@@ -20,7 +20,7 @@
 
 #include "undo.h"
 #include "object_ops.h"
-#include "properties.h"
+#include "properties-dialog.h"
 #include "connectionpoint_ops.h"
 #include "focus.h"
 #include "group.h"

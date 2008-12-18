@@ -27,7 +27,7 @@
 
 #undef GTK_DISABLE_DEPRECATED /* GtkCTree */
 
-#include "properties.h"
+#include "properties-dialog.h"
 #include "diagram_tree_menu.h"
 #include "diagram_tree_menu_callbacks.h"
 #include "diagram_tree.h"
