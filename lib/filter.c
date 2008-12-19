@@ -108,7 +108,6 @@ static GHashTable *_favored_hash = NULL;
 void 
 filter_set_favored_export(const char *ext, const char *name)
 {
-  g_print("Favored '%s' is '%s'", ext, name);
   if (!_favored_hash)
     _favored_hash = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
     

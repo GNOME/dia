@@ -27,7 +27,7 @@ app/modify_tool.c
 app/pagesetup.c
 app/plugin-manager.c
 app/preferences.c
-app/properties.c
+app/properties-dialog.c
 app/recent_files.c
 app/sheets.c
 app/sheets_dialog.c

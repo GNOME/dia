@@ -1,3 +1,10 @@
+2008-12-19  Hans Breuer  <hans@breuer.org>
+
+	* app/preferences.c : fixed compiler errors with gcc without 
+	introducing warnings again with msvc
+	* lib/filter.c : removed debug spew
+	* po/POTFILES.in : reflect file renaming
+
 2008-12-18  Hans Breuer  <hans@breuer.org>
 
 	* app/properties.[ch] : renamed to properties-dialog.* to have unique

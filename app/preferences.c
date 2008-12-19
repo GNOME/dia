@@ -65,7 +65,7 @@ typedef struct _DiaPrefData {
   char *name;
   enum DiaPrefType type;
   int offset;
-  void *default_value;
+  const void *default_value;
   int tab;
   char *label_text;
   GtkWidget *widget;
@@ -181,10 +181,10 @@ DiaPrefData prefs_data[] =
     &default_false, UI_TAB, N_("Keep tool box on top of diagram windows"),
     NULL, FALSE, NULL, update_floating_toolbox},
   { "length_unit", PREF_CHOICE, PREF_OFFSET(length_unit),
-    &(char*)default_length_unit, UI_TAB, N_("Length unit:"), NULL, FALSE,
+    &default_length_unit, UI_TAB, N_("Length unit:"), NULL, FALSE,
     _get_units_name_list, update_internal_prefs },
   { "fontsize_unit", PREF_CHOICE, PREF_OFFSET(fontsize_unit),
-    &(char*)default_fontsize_unit, UI_TAB, N_("Font-size unit:"), NULL, FALSE,
+    &default_fontsize_unit, UI_TAB, N_("Font-size unit:"), NULL, FALSE,
     _get_units_name_list, update_internal_prefs },
   
   { "use_integrated_ui", PREF_BOOLEAN, PREF_OFFSET(use_integrated_ui),
@@ -194,7 +194,7 @@ DiaPrefData prefs_data[] =
   { NULL, PREF_NONE, 0, NULL, DIA_TAB, N_("New diagram:") },
   { "is_portrait", PREF_BOOLEAN, PREF_OFFSET(new_diagram.is_portrait), &default_true, DIA_TAB, N_("Portrait") },
   { "new_diagram_papertype", PREF_CHOICE, PREF_OFFSET(new_diagram.papertype),
-    &(char*)default_paper_name, DIA_TAB, N_("Paper type:"), NULL, FALSE, _get_paper_name_list },
+    &default_paper_name, DIA_TAB, N_("Paper type:"), NULL, FALSE, _get_paper_name_list },
   { "new_diagram_bgcolour", PREF_COLOUR, PREF_OFFSET(new_diagram.bg_color),
     &color_white, DIA_TAB, N_("Background Color:") },
   { "compress_save",            PREF_BOOLEAN, PREF_OFFSET(new_diagram.compress_save), 
@@ -221,17 +221,17 @@ DiaPrefData prefs_data[] =
   { "view_antialised", PREF_BOOLEAN, PREF_OFFSET(view_antialised), &default_false, VIEW_TAB, N_("view antialised") },
   { NULL, PREF_END_GROUP, 0, NULL, VIEW_TAB, NULL },
 
-  /* Favored Filer */
+  /* Favored Filter */
   { NULL, PREF_NONE, 0, NULL, FAVOR_TAB, N_("Export") },
-  { "favored_png_export", PREF_CHOICE, PREF_OFFSET(favored_filter.png), &(char*)default_favored_filter, 
+  { "favored_png_export", PREF_CHOICE, PREF_OFFSET(favored_filter.png), &default_favored_filter, 
     FAVOR_TAB, N_("Portable Network Graphics"), NULL, FALSE, get_exporter_names, set_favored_exporter, "PNG" },
-  { "favored_svg_export", PREF_CHOICE, PREF_OFFSET(favored_filter.svg), &(char*)default_favored_filter, 
+  { "favored_svg_export", PREF_CHOICE, PREF_OFFSET(favored_filter.svg), &default_favored_filter, 
     FAVOR_TAB, N_("Scalable Vector Graphics"), NULL, FALSE, get_exporter_names, set_favored_exporter, "SVG" },
-  { "favored_ps_export", PREF_CHOICE, PREF_OFFSET(favored_filter.ps), &(char*)default_favored_filter, 
+  { "favored_ps_export", PREF_CHOICE, PREF_OFFSET(favored_filter.ps), &default_favored_filter, 
     FAVOR_TAB, N_("PostScript"), NULL, FALSE, get_exporter_names, set_favored_exporter, "PS" },
-  { "favored_wmf_export", PREF_CHOICE, PREF_OFFSET(favored_filter.wmf), &(char*)default_favored_filter, 
+  { "favored_wmf_export", PREF_CHOICE, PREF_OFFSET(favored_filter.wmf), &default_favored_filter, 
     FAVOR_TAB, N_("Windows MetaFile"), NULL, FALSE, get_exporter_names, set_favored_exporter, "WMF" },
-  { "favored_emf_export", PREF_CHOICE, PREF_OFFSET(favored_filter.emf), &(char*)default_favored_filter, 
+  { "favored_emf_export", PREF_CHOICE, PREF_OFFSET(favored_filter.emf), &default_favored_filter, 
     FAVOR_TAB, N_("Enhanced MetaFile"), NULL, FALSE, get_exporter_names, set_favored_exporter, "EMF" },
   { NULL, PREF_END_GROUP, 0, NULL, FAVOR_TAB, NULL },
 
@@ -389,7 +389,7 @@ prefs_init(void)
 
 static void
 prefs_set_value_in_widget(GtkWidget * widget, DiaPrefData *data,
-			  char *ptr)
+			  gpointer ptr)
 {
   switch(data->type) {
   case PREF_BOOLEAN:
@@ -431,7 +431,7 @@ prefs_set_value_in_widget(GtkWidget * widget, DiaPrefData *data,
 
 static void
 prefs_get_value_from_widget(GtkWidget * widget, DiaPrefData *data,
-			    char *ptr)
+			    gpointer ptr)
 {
   switch(data->type) {
   case PREF_BOOLEAN:
@@ -526,7 +526,6 @@ prefs_get_property_widget(DiaPrefData *data)
     break;
   case PREF_CHOICE: {
     GList *names;
-    GSList *group = NULL;
     widget = gtk_combo_box_new_text ();
     for (names = (data->choice_list_function)(data); 
          names != NULL;
@@ -703,7 +702,7 @@ prefs_update_prefs_from_dialog(void)
 {
   GtkWidget *widget;
   int i;
-  char *ptr;
+  gpointer ptr;
   
   for (i=0;i<NUM_PREFS_DATA;i++) {
     if (prefs_data[i].hidden) continue;
@@ -719,7 +718,7 @@ prefs_update_dialog_from_prefs(void)
 {
   GtkWidget *widget;
   int i;
-  char *ptr;
+  gpointer ptr;
   
   for (i=0;i<NUM_PREFS_DATA;i++) {
     if (prefs_data[i].hidden) continue;
