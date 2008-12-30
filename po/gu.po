@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia.HEAD.gu\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=dia&amp;component=general\n"
-"POT-Creation-Date: 2008-12-26 12:08+0000\n"
-"PO-Revision-Date: 2008-12-29 17:14+0530\n"
+"POT-Creation-Date: 2008-12-29 11:46+0000\n"
+"PO-Revision-Date: 2008-12-30 15:46+0530\n"
 "Last-Translator: Sweta Kothari <swkothar@redhat.com>\n"
 "Language-Team: Gujarati\n"
 "MIME-Version: 1.0\n"
@@ -69,7 +69,7 @@ msgstr "આઉટપુટ બંધારણ %s શોધી શકતા ન�
 #: ../app/app_procs.c:618
 #, c-format
 msgid "Select the filter/format out of: %s"
-msgstr ""
+msgstr "આ માંથી ફિલ્ટર/બંધારણ ને પસંદ કરો: %s"
 
 #. &export_file_name
 #: ../app/app_procs.c:636
@@ -283,7 +283,7 @@ msgstr "પાશ્વ ભાગનો રંગ પસંદ કરો"
 
 #: ../app/commands.c:124
 msgid "No print plug-in found!"
-msgstr ""
+msgstr "પ્લગઇન છાપવાનું શોધાયુ નહિં!"
 
 #: ../app/commands.c:152
 #, c-format
@@ -330,7 +330,7 @@ msgstr ""
 
 #: ../app/commands.c:748
 msgid "A program for drawing structured diagrams."
-msgstr ""
+msgstr "બંધારણ થયેલ આકૃત્તિઓ ને દોરવા માટે પ્રક્રિયા."
 
 #: ../app/defaults.c:43 ../app/defaults.c:145
 msgid "Object defaults"
@@ -706,7 +706,7 @@ msgstr "કંઈ નહિં પસંદ કરો"
 
 #: ../app/exit_dialog.c:229
 msgid "Nothing selected for saving.  Would you like to try again?"
-msgstr ""
+msgstr "સંગ્રહ કરવા માટે પસંદ થયેલ કઇ નથી.  શું તમે ફરીથી પ્રયત્ન કરવા માંગો છો?"
 
 #: ../app/filedlg.c:143 ../app/filedlg.c:151 ../app/filedlg.c:167
 #: ../app/filedlg.c:741 ../lib/widgets.c:1488
@@ -804,7 +804,7 @@ msgstr "ની સાથે બદલો (_w):"
 
 #: ../app/find-and-replace.c:476
 msgid "_Match case"
-msgstr ""
+msgstr "કિસ્સાઓને બંધબેસાડો (_M)"
 
 #: ../app/find-and-replace.c:480
 msgid "Match _entire word only"
@@ -841,12 +841,16 @@ msgid ""
 "Modify object(s)\n"
 "Use <Space> to toggle between this and other tools"
 msgstr ""
+"ઓબ્જેક્ટ ને બદલો\n"
+"આ અને બીજા સાધન વચ્ચે ટોગલ કરવા માટે <Space> ને વાપરો"
 
 #: ../app/interface.c:151
 msgid ""
 "Text edit(s)\n"
 "Use <Esc> to leave this tool"
 msgstr ""
+"લખાણમાં ફેરફાર કરો\n"
+"આ સાધનને છોડવા માટે <Esc> ને વાપરો"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Magnify
 #: ../app/interface.c:157 ../app/menus.c:220 ../objects/FS/function.c:988
@@ -1323,7 +1327,7 @@ msgstr "નવો દેખાવ (_V)"
 
 #: ../app/menus.c:162
 msgid "C_lone View"
-msgstr ""
+msgstr "કલોન ને દર્શાવો (_l)"
 
 #
 #: ../app/menus.c:165
@@ -1378,7 +1382,7 @@ msgstr "બાળને પિતૃ નહિં બનાવો (_U)"
 #. Translators: Menu item Verb/Support/Position/Align
 #: ../app/menus.c:179 ../objects/FS/function.c:808
 msgid "Align"
-msgstr ""
+msgstr "લાઇનદોરીમાં ગોઠવો"
 
 #: ../app/menus.c:184 ../objects/standard/textobj.c:134
 msgid "Top"
@@ -1618,7 +1622,7 @@ msgstr "વપરાશકર્તા ઇન્ટરફેસ"
 
 #: ../app/preferences.c:120
 msgid "Diagram Defaults"
-msgstr ""
+msgstr "આકૃતિ મૂળભૂત છે"
 
 #: ../app/preferences.c:121
 msgid "View Defaults"
@@ -1634,7 +1638,7 @@ msgstr "બનાવ્યા પછી સાધનો ને પુન:સુ�
 
 #: ../app/preferences.c:169
 msgid "Number of undo levels:"
-msgstr ""
+msgstr "પહેલાની સ્થિતિ પાછી લાવતા સ્તરો નાં નંબર:"
 
 #: ../app/preferences.c:172
 msgid ""
@@ -1672,7 +1676,7 @@ msgstr "નવી આકૃત્તિ:"
 
 #: ../app/preferences.c:195
 msgid "Portrait"
-msgstr ""
+msgstr "છબી"
 
 #: ../app/preferences.c:197
 msgid "Paper type:"
@@ -1680,7 +1684,7 @@ msgstr "પેપર પ્રકાર:"
 
 #: ../app/preferences.c:199 ../objects/Database/table_dialog.c:1078
 msgid "Background Color:"
-msgstr ""
+msgstr "પૂર્વભૂમિકાનો રંગ:"
 
 #: ../app/preferences.c:201
 msgid "Compress saved files"
@@ -1700,7 +1704,7 @@ msgstr "ઊંચાઇ:"
 
 #: ../app/preferences.c:207
 msgid "Magnify:"
-msgstr ""
+msgstr "વિસ્તૃત કરો:"
 
 #: ../app/preferences.c:210
 msgid "Connection Points:"
@@ -2018,7 +2022,7 @@ msgstr ""
 #: ../app/sheets_dialog_callbacks.c:803
 #, c-format
 msgid "Filename must end with '%s': '%s'"
-msgstr ""
+msgstr "ફાઇલ નામ નો '%s' સાથે અંત થવો જ જોઇએ: '%s'"
 
 #: ../app/sheets_dialog_callbacks.c:811
 #, c-format
@@ -2032,7 +2036,7 @@ msgstr "મહેરબાની કરીને આકાર તરીકે �
 #: ../app/sheets_dialog_callbacks.c:845
 #, c-format
 msgid "Could not interpret shape file: '%s'"
-msgstr ""
+msgstr "આકાર ફાઇલનો અર્થ સમજાવી શકાતો નથી: '%s'"
 
 #: ../app/sheets_dialog_callbacks.c:916
 msgid "Sheet must have a Name"
@@ -2094,31 +2098,31 @@ msgstr "લીટીઓ"
 
 #: ../lib/arrows.c:1884
 msgid "Hollow Triangle"
-msgstr ""
+msgstr "પોલો ત્રિકોણ"
 
 #: ../lib/arrows.c:1885
 msgid "Filled Triangle"
-msgstr ""
+msgstr "ભરેલો ત્રિકોણ"
 
 #: ../lib/arrows.c:1886
 msgid "Unfilled Triangle"
-msgstr ""
+msgstr "ભર્યા વગરનો ત્રિકોણ"
 
 #: ../lib/arrows.c:1887
 msgid "Hollow Diamond"
-msgstr ""
+msgstr "પોલો ડાયમન્ડ"
 
 #: ../lib/arrows.c:1888
 msgid "Filled Diamond"
-msgstr ""
+msgstr "ભરેલો ડાયમન્ડ"
 
 #: ../lib/arrows.c:1889
 msgid "Half Diamond"
-msgstr ""
+msgstr "અડધો ડાયમન્ડ"
 
 #: ../lib/arrows.c:1890
 msgid "Half Head"
-msgstr ""
+msgstr "અડધુ માથુ"
 
 #: ../lib/arrows.c:1891
 msgid "Slashed Cross"
@@ -2130,11 +2134,11 @@ msgstr ""
 
 #: ../lib/arrows.c:1893
 msgid "Hollow Ellipse"
-msgstr ""
+msgstr "પોલો ઇલિપ્સ"
 
 #: ../lib/arrows.c:1894
 msgid "Filled Dot"
-msgstr ""
+msgstr "ભરેલો બિંદુ"
 
 #: ../lib/arrows.c:1895
 msgid "Dimension Origin"
@@ -2146,19 +2150,19 @@ msgstr ""
 
 #: ../lib/arrows.c:1897
 msgid "Double Hollow Triangle"
-msgstr ""
+msgstr "બમણો પોલો ત્રિકોણ"
 
 #: ../lib/arrows.c:1898
 msgid "Double Filled Triangle"
-msgstr ""
+msgstr "બમણો ભરાયેલ ત્રિકોણ"
 
 #: ../lib/arrows.c:1899
 msgid "Filled Dot and Triangle"
-msgstr ""
+msgstr "ભરાયેલ બિંદુ અને ત્રિકોણ"
 
 #: ../lib/arrows.c:1900
 msgid "Filled Box"
-msgstr ""
+msgstr "ભરાયેલ બોક્સ"
 
 #: ../lib/arrows.c:1901
 msgid "Blanked Box"
@@ -2198,7 +2202,7 @@ msgstr ""
 
 #: ../lib/arrows.c:1910
 msgid "Filled Concave"
-msgstr ""
+msgstr "ભરાયેલ અન્તર્ગોલ"
 
 #: ../lib/arrows.c:1911
 msgid "Blanked Concave"
@@ -2206,11 +2210,11 @@ msgstr ""
 
 #: ../lib/arrows.c:1912
 msgid "Round"
-msgstr ""
+msgstr "વર્તુળ"
 
 #: ../lib/arrows.c:1913
 msgid "Open Round"
-msgstr ""
+msgstr "ખુલ્લુ વર્તુળ"
 
 #: ../lib/arrows.c:1914
 msgid "Backslash"
@@ -2252,7 +2256,7 @@ msgstr "%s<illegal characters>..."
 #: ../lib/dia_dirs.c:268
 #, c-format
 msgid "Too many ..'s in filename %s\n"
-msgstr ""
+msgstr "ફાઇલનામ %s માં ઘણાબધા ..'s\n"
 
 #: ../lib/dia_xml.c:192
 #, c-format
@@ -2272,7 +2276,7 @@ msgstr ""
 
 #: ../lib/dia_xml.c:611
 msgid "Error parsing point."
-msgstr ""
+msgstr "બિંદુને પદચ્છેદન કરવામાં ભૂલ"
 
 #. don't bother with useless warnings (see above)
 #: ../lib/dia_xml.c:619
@@ -2289,11 +2293,11 @@ msgstr ""
 
 #: ../lib/diaarrowchooser.c:352
 msgid "Arrow Properties"
-msgstr ""
+msgstr "તીરનાં ગુણધર્મો"
 
 #: ../lib/dialinechooser.c:297
 msgid "Line Style Properties"
-msgstr ""
+msgstr "લીટી શૈલીનાં ગુણધર્મો"
 
 #: ../lib/dialinechooser.c:332
 msgid "Details..."
@@ -2310,7 +2314,7 @@ msgstr "રદ કરો"
 #: ../lib/filter.c:176
 #, c-format
 msgid "Multiple export filters with unique name %s"
-msgstr ""
+msgstr "અનન્ય નામ %s સાથે ઘ્ઘણાબધા નિકાસ ફિલ્ટો "
 
 #: ../lib/font.c:106
 #, c-format
@@ -2336,7 +2340,7 @@ msgstr "આ સંદેશ ને ફરીશી બતાવશો નહિ�
 #: ../lib/message.c:201
 #, c-format
 msgid "There are %d similar messages."
-msgstr ""
+msgstr "ત્યાં %d સરખા સંદેશો છે."
 
 #: ../lib/message.c:260
 msgid "Notice"
@@ -2592,9 +2596,8 @@ msgid "Delete Port"
 msgstr "પોર્ટને કાઢી નાંખો"
 
 #: ../objects/AADL/aadlbox.c:396
-#, fuzzy
 msgid "Edit Port Declaration"
-msgstr "આકૃતિ નિકાસ કરો"
+msgstr "પોર્ટ ની જાહેરાત ને ફેરફાર કરો"
 
 #: ../objects/AADL/aadlbox.c:400
 msgid "Delete Connection Point"
@@ -2602,7 +2605,7 @@ msgstr "જોડાણ બિંદુઓને કાઢી નાંખો"
 
 #: ../objects/Database/compound.c:197
 msgid "Number of arms"
-msgstr ""
+msgstr "હાથોનાં નંબર"
 
 #: ../objects/Database/compound.c:219
 msgid "Flip arms verticaly"
@@ -2614,15 +2617,15 @@ msgstr ""
 
 #: ../objects/Database/compound.c:223
 msgid "Center mount point verticaly"
-msgstr ""
+msgstr "કેન્દ્ર માઉન્ટ બિંદુ ઊભી રીતે"
 
 #: ../objects/Database/compound.c:225
 msgid "Center mount point horizontaly"
-msgstr ""
+msgstr "કેન્દ્ર માઉન્ટ બિંદુ આડી રીતે"
 
 #: ../objects/Database/compound.c:227
 msgid "Center mount point"
-msgstr ""
+msgstr "કેન્દ્ર માઉન્ટ બિંદુ"
 
 #: ../objects/Database/compound.c:232
 msgid "Compound"
@@ -2650,7 +2653,7 @@ msgstr ""
 
 #: ../objects/Database/table.c:148
 msgid "Unique"
-msgstr ""
+msgstr "અનન્ય"
 
 #: ../objects/Database/table.c:185
 msgid "Visible comments"
@@ -2662,7 +2665,7 @@ msgstr ""
 
 #: ../objects/Database/table.c:189 ../objects/Database/table_dialog.c:976
 msgid "Underline primary keys"
-msgstr ""
+msgstr "પ્રાથમિક કીઓ ની નીચે આડી લીટી કરો"
 
 #: ../objects/Database/table.c:191 ../objects/Database/table_dialog.c:981
 msgid "Use bold font for primary keys"
@@ -2752,7 +2755,7 @@ msgstr ""
 
 #: ../objects/Database/table_dialog.c:740
 msgid "Uni_que"
-msgstr ""
+msgstr "અનન્ય (_q)"
 
 #: ../objects/Database/table_dialog.c:928
 msgid "_Table"
@@ -2766,11 +2769,11 @@ msgstr "કોષ્ટકનું નામ:"
 #. if 'comment visible' is not active.
 #: ../objects/Database/table_dialog.c:966
 msgid "Comment visible"
-msgstr ""
+msgstr "ટિપ્પણી દેખીતી છે"
 
 #: ../objects/Database/table_dialog.c:971 ../objects/UML/class_dialog.c:522
 msgid "Show documentation tag"
-msgstr ""
+msgstr "દસ્તાવેજીકરણને બતાવો"
 
 #
 #. * Fonts and Colors selection *
@@ -2821,15 +2824,15 @@ msgstr "અનન્ય"
 #: ../objects/standard/box.c:152 ../objects/standard/polyline.c:136
 #: ../objects/standard/zigzagline.c:132
 msgid "Corner radius"
-msgstr ""
+msgstr "ખૂણાની ત્રિજ્યા"
 
 #: ../objects/Database/reference.c:111
 msgid "Start description"
-msgstr ""
+msgstr "વર્ણન ને શરૂ કરો"
 
 #: ../objects/Database/reference.c:113
 msgid "End description"
-msgstr ""
+msgstr "વર્ણન નો અંત કરો"
 
 #: ../objects/Database/reference.c:144 ../objects/ER/participation.c:408
 #: ../objects/FS/flow-ortho.c:626 ../objects/GRAFCET/vector.c:314
@@ -2838,7 +2841,7 @@ msgstr ""
 #: ../objects/UML/generalization.c:372 ../objects/UML/realizes.c:363
 #: ../objects/UML/transition.c:172 ../objects/standard/zigzagline.c:380
 msgid "Add segment"
-msgstr ""
+msgstr "સેગમેન્ટને ઉમેરો"
 
 #: ../objects/Database/reference.c:145 ../objects/ER/participation.c:409
 #: ../objects/FS/flow-ortho.c:627 ../objects/GRAFCET/vector.c:315
@@ -2847,7 +2850,7 @@ msgstr ""
 #: ../objects/UML/generalization.c:373 ../objects/UML/realizes.c:364
 #: ../objects/UML/transition.c:173 ../objects/standard/zigzagline.c:381
 msgid "Delete segment"
-msgstr ""
+msgstr "સેગમેન્ટ ને કાઢી નાંખો"
 
 #: ../objects/Database/reference.c:151 ../sheets/Database.sheet.in.h:4
 msgid "Reference"
@@ -2867,11 +2870,11 @@ msgstr ""
 
 #: ../objects/ER/attribute.c:163
 msgid "Multivalue:"
-msgstr ""
+msgstr "ઘણીબધી કિમત:"
 
 #: ../objects/ER/attribute.c:436 ../sheets/ER.sheet.in.h:1
 msgid "Attribute"
-msgstr ""
+msgstr "ગુણધર્મ"
 
 #: ../objects/ER/entity.c:139
 msgid "Weak:"
@@ -2912,7 +2915,7 @@ msgstr "ઓળખી રહ્યા છે:"
 
 #: ../objects/ER/relationship.c:459 ../sheets/ER.sheet.in.h:6
 msgid "Relationship"
-msgstr ""
+msgstr "સંબંધ"
 
 #. Translators: Menu item Noun/Energy
 #: ../objects/FS/flow-ortho.c:160 ../objects/FS/flow-ortho.c:623
@@ -2926,7 +2929,7 @@ msgstr "કાર્યશક્તિ"
 #: ../objects/FS/flow.c:138 ../objects/FS/flow.c:626
 #: ../objects/FS/function.c:1074
 msgid "Material"
-msgstr ""
+msgstr "સામાગ્રી"
 
 #. Translators: Menu item Verb/Signal
 #. Translators: Menu item Verb/Signal/Signal
@@ -2949,12 +2952,12 @@ msgstr ""
 
 #: ../objects/FS/function.c:146
 msgid "User function"
-msgstr ""
+msgstr "વપરાશકર્તાનું વિધેય"
 
 #. Translators: Menu item Verb
 #: ../objects/FS/function.c:678
 msgid "Verb"
-msgstr ""
+msgstr "વર્બ"
 
 #. Translators: Menu item Verb/Channel
 #. Translators: Menu item Verb/Channel/Channel
@@ -2995,7 +2998,7 @@ msgstr ""
 #. Translators: Menu item Verb/Provision/Store/Capture
 #: ../objects/FS/function.c:696 ../objects/FS/function.c:930
 msgid "Capture"
-msgstr ""
+msgstr "પકડવુ"
 
 #. Translators: Menu item Verb/Channel/Export/Discharge
 #: ../objects/FS/function.c:702
@@ -3005,12 +3008,12 @@ msgstr ""
 #. Translators: Menu item Verb/Channel/Export/Eject
 #: ../objects/FS/function.c:704
 msgid "Eject"
-msgstr ""
+msgstr "બહાર કાઢો"
 
 #. Translators: Menu item Verb/Channel/Export/Dispose
 #: ../objects/FS/function.c:706
 msgid "Dispose"
-msgstr ""
+msgstr "નિકાલ કરવો"
 
 #. Translators: Menu item Verb/Channel/Transfer
 #. Translators: Menu item Verb/Channel/Transfer/Transfer
@@ -3024,12 +3027,12 @@ msgstr "પરિવહન કરો"
 #. Translators: Menu item Verb/Channel/Transfer/Transport/Transport
 #: ../objects/FS/function.c:714 ../objects/FS/function.c:716
 msgid "Transport"
-msgstr ""
+msgstr "પરિવહન"
 
 #. Translators: Menu item Verb/Channel/Transfer/Transport/Lift
 #: ../objects/FS/function.c:718
 msgid "Lift"
-msgstr ""
+msgstr "ઉઠાવવુ"
 
 #. Translators: Menu item Verb/Channel/Transfer/Transport/Move
 #: ../objects/FS/function.c:720
@@ -3040,17 +3043,17 @@ msgstr "ખસેડો"
 #. Translators: Menu item Verb/Channel/Transfer/Transmit/Transmit
 #: ../objects/FS/function.c:724 ../objects/FS/function.c:726
 msgid "Transmit"
-msgstr ""
+msgstr "પહોંચાડવું"
 
 #. Translators: Menu item Verb/Channel/Transfer/Transmit/Conduct
 #: ../objects/FS/function.c:728
 msgid "Conduct"
-msgstr ""
+msgstr "સંચાલન કરવુ"
 
 #. Translators: Menu item Verb/Channel/Transfer/Transmit/Convey
 #: ../objects/FS/function.c:732
 msgid "Convey"
-msgstr ""
+msgstr "પહોંચાડવું"
 
 #. Translators: Menu item Verb/Channel/Guide
 #. Translators: Menu item Verb/Channel/Guide/Guide
@@ -3068,12 +3071,12 @@ msgstr "સીધુ"
 #. Translators: Menu item Verb/Channel/Guide/Guide/Straighten
 #: ../objects/FS/function.c:742
 msgid "Straighten"
-msgstr ""
+msgstr "સીધુ કરવુ"
 
 #. Translators: Menu item Verb/Channel/Guide/Guide/Steer
 #: ../objects/FS/function.c:744
 msgid "Steer"
-msgstr ""
+msgstr "ચલાવુ"
 
 #. Translators: Menu item Verb/Channel/Guide/Translate
 #: ../objects/FS/function.c:746
@@ -3084,23 +3087,23 @@ msgstr "રૂપાંતર કરો"
 #. Translators: Menu item Verb/Channel/Guide/Rotate/Rotate
 #: ../objects/FS/function.c:748 ../objects/FS/function.c:750
 msgid "Rotate"
-msgstr ""
+msgstr "ફરાવવુ"
 
 #. Translators: Menu item Verb/Channel/Guide/Rotate/Turn
 #: ../objects/FS/function.c:752
 msgid "Turn"
-msgstr ""
+msgstr "ઘુમાવવુ"
 
 #. Translators: Menu item Verb/Channel/Guide/Rotate/Spin
 #: ../objects/FS/function.c:754
 msgid "Spin"
-msgstr ""
+msgstr "ભમવું"
 
 #. Translators: Menu item Verb/Channel/Guide/Allow DOF
 #. Translators: Menu item Verb/Channel/Guide/Allow DOF/Allow DOF
 #: ../objects/FS/function.c:756 ../objects/FS/function.c:758
 msgid "Allow DOF"
-msgstr ""
+msgstr "DOF ને પરવાનગી આપો"
 
 #. Translators: Menu item Verb/Channel/Guide/Allow DOF/Constrain
 #: ../objects/FS/function.c:760
@@ -3110,7 +3113,7 @@ msgstr ""
 #. Translators: Menu item Verb/Channel/Guide/Allow DOF/Unlock
 #: ../objects/FS/function.c:762
 msgid "Unlock"
-msgstr ""
+msgstr "તાળુ ખોલવુ"
 
 #. Translators: Menu item Verb/Support
 #. Translators: Menu item Verb/Support/Support
@@ -3128,39 +3131,39 @@ msgstr "બંધ કરો"
 #. Translators: Menu item Verb/Support/Stop/Insulate
 #: ../objects/FS/function.c:772
 msgid "Insulate"
-msgstr ""
+msgstr "અલગ પાડવુ"
 
 #. Translators: Menu item Verb/Support/Stop/Protect
 #: ../objects/FS/function.c:774
 msgid "Protect"
-msgstr ""
+msgstr "સુરક્ષિત રાખવું"
 
 #. Translators: Menu item Verb/Support/Stop/Prevent
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Prevent
 #: ../objects/FS/function.c:776 ../objects/FS/function.c:966
 msgid "Prevent"
-msgstr ""
+msgstr "અટકાવવું"
 
 #. Translators: Menu item Verb/Support/Stop/Shield
 #: ../objects/FS/function.c:778
 msgid "Shield"
-msgstr ""
+msgstr "રક્ષક"
 
 #. Translators: Menu item Verb/Support/Stop/Inhibit
 #: ../objects/FS/function.c:780
 msgid "Inhibit"
-msgstr ""
+msgstr "રોકવું"
 
 #. Translators: Menu item Verb/Support/Stabilize
 #. Translators: Menu item Verb/Support/Stabilize/Stabilize
 #: ../objects/FS/function.c:782 ../objects/FS/function.c:784
 msgid "Stabilize"
-msgstr ""
+msgstr "સ્થિર કરવુ"
 
 #. Translators: Menu item Verb/Support/Stabilize/Steady
 #: ../objects/FS/function.c:786
 msgid "Steady"
-msgstr ""
+msgstr "સ્થિરપણું"
 
 #. Translators: Menu item Verb/Support/Secure
 #. Translators: Menu item Verb/Support/Secure/Secure
@@ -3187,12 +3190,12 @@ msgstr "તાળુ મારો"
 #. Translators: Menu item Verb/Support/Secure/Fasten
 #: ../objects/FS/function.c:798
 msgid "Fasten"
-msgstr ""
+msgstr "સાથે જોડી દેવુ"
 
 #. Translators: Menu item Verb/Support/Secure/Hold
 #: ../objects/FS/function.c:800
 msgid "Hold"
-msgstr ""
+msgstr "રોકી રાખવુ"
 
 #. Translators: Menu item Verb/Support/Position
 #. Translators: Menu item Verb/Support/Position/Position
@@ -3210,13 +3213,13 @@ msgstr ""
 #. Translators: Menu item Verb/Signal/Sense/Locate
 #: ../objects/FS/function.c:810 ../objects/FS/function.c:1052
 msgid "Locate"
-msgstr ""
+msgstr "સ્થાન"
 
 #. Translators: Menu item Verb/Connect
 #. Translators: Menu item Verb/Connect/Connect
 #: ../objects/FS/function.c:812 ../objects/FS/function.c:814
 msgid "Connect"
-msgstr ""
+msgstr "જોડાવું"
 
 #. Translators: Menu item Verb/Connect/Couple
 #. Translators: Menu item Verb/Connect/Couple/Couple
@@ -3227,7 +3230,7 @@ msgstr ""
 #. Translators: Menu item Verb/Connect/Couple/Join
 #: ../objects/FS/function.c:820
 msgid "Join"
-msgstr ""
+msgstr "જોડવું"
 
 #. Translators: Menu item Verb/Connect/Couple/Assemble
 #: ../objects/FS/function.c:822
@@ -3238,12 +3241,12 @@ msgstr ""
 #. Translators: Menu item Verb/Connect/Mix/Mix
 #: ../objects/FS/function.c:826 ../objects/FS/function.c:828
 msgid "Mix"
-msgstr ""
+msgstr "મિશ્રણ"
 
 #. Translators: Menu item Verb/Connect/Mix/Combine
 #: ../objects/FS/function.c:830
 msgid "Combine"
-msgstr ""
+msgstr "સંયુક્ત કરો"
 
 #. Translators: Menu item Verb/Connect/Mix/Blend
 #: ../objects/FS/function.c:832
@@ -3270,7 +3273,7 @@ msgstr ""
 #: ../objects/FS/function.c:840 ../objects/FS/function.c:842
 #: ../sheets/UML.sheet.in.h:5
 msgid "Branch"
-msgstr ""
+msgstr "બ્રાન્ચ"
 
 #. Translators: Menu item Verb/Branch/Separate
 #. Translators: Menu item Verb/Branch/Separate/Separate
@@ -3288,7 +3291,7 @@ msgstr ""
 #. Translators: Menu item Verb/Branch/Separate/Separate/Divide
 #: ../objects/FS/function.c:852
 msgid "Divide"
-msgstr ""
+msgstr "અલગ કરો"
 
 #. Translators: Menu item Verb/Branch/Separate/Separate/Release
 #: ../objects/FS/function.c:854
@@ -3298,12 +3301,12 @@ msgstr "પ્રકાશન"
 #. Translators: Menu item Verb/Branch/Separate/Separate/Detach
 #: ../objects/FS/function.c:856
 msgid "Detach"
-msgstr ""
+msgstr "અલગ કરો"
 
 #. Translators: Menu item Verb/Branch/Separate/Separate/Disconnect
 #: ../objects/FS/function.c:858
 msgid "Disconnect"
-msgstr ""
+msgstr "જોડાણ તોડી નાખવુ"
 
 #. Translators: Menu item Verb/Branch/Separate/Remove/Cut
 #: ../objects/FS/function.c:864
@@ -3318,17 +3321,17 @@ msgstr ""
 #. Translators: Menu item Verb/Branch/Separate/Remove/Sand
 #: ../objects/FS/function.c:868
 msgid "Sand"
-msgstr ""
+msgstr "રેત"
 
 #. Translators: Menu item Verb/Branch/Separate/Remove/Drill
 #: ../objects/FS/function.c:870
 msgid "Drill"
-msgstr ""
+msgstr "કાણુ પાડવુ"
 
 #. Translators: Menu item Verb/Branch/Separate/Remove/Lathe
 #: ../objects/FS/function.c:872
 msgid "Lathe"
-msgstr ""
+msgstr "લેથ"
 
 #. Translators: Menu item Verb/Branch/Refine
 #. Translators: Menu item Verb/Branch/Refine/Refine
@@ -3365,7 +3368,7 @@ msgstr "સાફ કરો"
 #. Translators: Menu item Verb/Branch/Distribute/Distribute
 #: ../objects/FS/function.c:888 ../objects/FS/function.c:890
 msgid "Distribute"
-msgstr ""
+msgstr "વહેંચણી કરવી"
 
 #. Translators: Menu item Verb/Branch/Distribute/Diverge
 #: ../objects/FS/function.c:892
@@ -3375,7 +3378,7 @@ msgstr ""
 #. Translators: Menu item Verb/Branch/Distribute/Scatter
 #: ../objects/FS/function.c:894
 msgid "Scatter"
-msgstr ""
+msgstr "છૂટાછવાયા"
 
 #. Translators: Menu item Verb/Branch/Distribute/Disperse
 #: ../objects/FS/function.c:896
@@ -3402,7 +3405,7 @@ msgstr ""
 #. Translators: Menu item Verb/Branch/Dissipate/Absorb
 #: ../objects/FS/function.c:906
 msgid "Absorb"
-msgstr ""
+msgstr "શોષી લેવુ"
 
 #. Translators: Menu item Verb/Branch/Dissipate/Dampen
 #: ../objects/FS/function.c:908
@@ -3439,7 +3442,7 @@ msgstr ""
 #. Translators: Menu item Verb/Provision/Store/Collect
 #: ../objects/FS/function.c:926
 msgid "Collect"
-msgstr ""
+msgstr "ભેગુ કરવુ"
 
 #. Translators: Menu item Verb/Provision/Store/Reserve
 #: ../objects/FS/function.c:928
@@ -3470,12 +3473,12 @@ msgstr ""
 #. Translators: Menu item Verb/Provision/Supply/Expose
 #: ../objects/FS/function.c:942
 msgid "Expose"
-msgstr ""
+msgstr "ખુલ્લું કરવુ"
 
 #. Translators: Menu item Verb/Provision/Extract
 #: ../objects/FS/function.c:944 ../sheets/Flowchart.sheet.in.h:9
 msgid "Extract"
-msgstr ""
+msgstr "બહાર કાઢવું"
 
 #. Translators: Menu item Verb/Control Magnitude
 #. Translators: Menu item Verb/Control Magnitude/Control Magnitude
@@ -3492,12 +3495,12 @@ msgstr ""
 #. Translators: Menu item Verb/Control Magnitude/Actuate/Start
 #: ../objects/FS/function.c:954
 msgid "Start"
-msgstr ""
+msgstr "શરૂ કરો"
 
 #. Translators: Menu item Verb/Control Magnitude/Actuate/Initiate
 #: ../objects/FS/function.c:956
 msgid "Initiate"
-msgstr ""
+msgstr "શરૂઆત કરવી"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Regulate
@@ -3510,43 +3513,43 @@ msgstr ""
 #: ../objects/FS/function.c:962 ../objects/FS/function.c:1180
 #: ../objects/UML/classicon.c:129
 msgid "Control"
-msgstr ""
+msgstr "નિયંત્રણ"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Enable
 #: ../objects/FS/function.c:968
 msgid "Enable"
-msgstr ""
+msgstr "સક્રિય"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Disable
 #: ../objects/FS/function.c:970
 msgid "Disable"
-msgstr ""
+msgstr "નિષ્ક્રિય"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Limit
 #: ../objects/FS/function.c:972
 msgid "Limit"
-msgstr ""
+msgstr "મર્યાદા"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Interrupt
 #: ../objects/FS/function.c:974
 msgid "Interrupt"
-msgstr ""
+msgstr "અવરોધ"
 
 #. Translators: Menu item Verb/Control Magnitude/Change
 #. Translators: Menu item Verb/Control Magnitude/Change/Change
 #: ../objects/FS/function.c:976 ../objects/FS/function.c:978
 msgid "Change"
-msgstr ""
+msgstr "બદલો"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Increase
 #: ../objects/FS/function.c:980
 msgid "Increase"
-msgstr ""
+msgstr "વધારો"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Decrease
 #: ../objects/FS/function.c:982
 msgid "Decrease"
-msgstr ""
+msgstr "ઘટાડો"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Amplify
 #: ../objects/FS/function.c:984
@@ -3556,7 +3559,7 @@ msgstr ""
 #. Translators: Menu item Verb/Control Magnitude/Change/Reduce
 #: ../objects/FS/function.c:986
 msgid "Reduce"
-msgstr ""
+msgstr "ઘટાડો"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Normalize
 #: ../objects/FS/function.c:990
@@ -3582,13 +3585,13 @@ msgstr ""
 #. Translators: Menu item Verb/Control Magnitude/Change/Adjust
 #: ../objects/FS/function.c:998
 msgid "Adjust"
-msgstr ""
+msgstr "ગોઠવો"
 
 #. Translators: Menu item Verb/Control Magnitude/Form
 #. Translators: Menu item Verb/Control Magnitude/Form/Form
 #: ../objects/FS/function.c:1000 ../objects/FS/function.c:1002
 msgid "Form"
-msgstr ""
+msgstr "ફોર્મ"
 
 #. Translators: Menu item Verb/Control Magnitude/Form/Compact
 #: ../objects/FS/function.c:1004
@@ -3603,7 +3606,7 @@ msgstr ""
 #. Translators: Menu item Verb/Control Magnitude/Form/Shape
 #: ../objects/FS/function.c:1008
 msgid "Shape"
-msgstr ""
+msgstr "આકાર"
 
 #. Translators: Menu item Verb/Control Magnitude/Form/Compress
 #: ../objects/FS/function.c:1010
@@ -3619,7 +3622,7 @@ msgstr ""
 #. Translators: Menu item Verb/Convert/Convert
 #: ../objects/FS/function.c:1014 ../objects/FS/function.c:1016
 msgid "Convert"
-msgstr ""
+msgstr "રૂપાંતર કરવુ"
 
 #. Translators: Menu item Verb/Convert/Transform
 #: ../objects/FS/function.c:1018
@@ -3691,12 +3694,12 @@ msgstr ""
 #. Translators: Menu item Verb/Signal/Sense/Check
 #: ../objects/FS/function.c:1050
 msgid "Check"
-msgstr ""
+msgstr "ચકાસો"
 
 #. Translators: Menu item Verb/Signal/Sense/Verify
 #: ../objects/FS/function.c:1054
 msgid "Verify"
-msgstr ""
+msgstr "ચકાસો"
 
 #. Translators: Menu item Verb/Signal/Indicate
 #. Translators: Menu item Verb/Signal/Indicate/Indicate
@@ -3712,23 +3715,23 @@ msgstr ""
 #. Translators: Menu item Verb/Signal/Display
 #: ../objects/FS/function.c:1062 ../sheets/Flowchart.sheet.in.h:7
 msgid "Display"
-msgstr ""
+msgstr "દર્શાવો"
 
 #. Translators: Menu item Verb/Signal/Measure
 #. Translators: Menu item Verb/Signal/Measure/Measure
 #: ../objects/FS/function.c:1064 ../objects/FS/function.c:1066
 msgid "Measure"
-msgstr ""
+msgstr "માપ"
 
 #. Translators: Menu item Verb/Signal/Measure/Calculate
 #: ../objects/FS/function.c:1068
 msgid "Calculate"
-msgstr ""
+msgstr "ગણતરી કરો"
 
 #. Translators: Menu item Verb/Signal/Represent
 #: ../objects/FS/function.c:1070
 msgid "Represent"
-msgstr ""
+msgstr "રજૂઆત કરો"
 
 #. Translators: Menu item Noun
 #: ../objects/FS/function.c:1072
@@ -3751,42 +3754,42 @@ msgstr ""
 #: ../objects/FS/function.c:1082 ../objects/FS/function.c:1084
 #: ../objects/FS/function.c:1168
 msgid "Human"
-msgstr ""
+msgstr "માણસ"
 
 #. Translators: Menu item Noun/Material/Human/Hand
 #: ../objects/FS/function.c:1086
 msgid "Hand"
-msgstr ""
+msgstr "હાથ"
 
 #. Translators: Menu item Noun/Material/Human/Foot
 #: ../objects/FS/function.c:1088
 msgid "Foot"
-msgstr ""
+msgstr "પગ"
 
 #. Translators: Menu item Noun/Material/Human/Head
 #: ../objects/FS/function.c:1090
 msgid "Head"
-msgstr ""
+msgstr "માથુ"
 
 #. Translators: Menu item Noun/Material/Human/Finger
 #: ../objects/FS/function.c:1092
 msgid "Finger"
-msgstr ""
+msgstr "આંગળી"
 
 #. Translators: Menu item Noun/Material/Human/Toe
 #: ../objects/FS/function.c:1094
 msgid "Toe"
-msgstr ""
+msgstr "અંગૂઠો"
 
 #. Translators: Menu item Noun/Material/Biological
 #: ../objects/FS/function.c:1096
 msgid "Biological"
-msgstr ""
+msgstr "જૈવિક"
 
 #. Translators: Menu item Noun/Energy/Mechanical
 #: ../objects/FS/function.c:1100
 msgid "Mechanical"
-msgstr ""
+msgstr "યાંત્રિક"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Mech. Energy
 #: ../objects/FS/function.c:1102
@@ -3796,12 +3799,12 @@ msgstr ""
 #. Translators: Menu item Noun/Energy/Mechanical/Translation
 #: ../objects/FS/function.c:1104
 msgid "Translation"
-msgstr ""
+msgstr "ભાષાંતર"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Force
 #: ../objects/FS/function.c:1106
 msgid "Force"
-msgstr ""
+msgstr "દબાણ"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Rotation
 #: ../objects/FS/function.c:1108 ../objects/standard/outline.c:204
@@ -3821,7 +3824,7 @@ msgstr ""
 #. Translators: Menu item Noun/Energy/Mechanical/Vibration
 #: ../objects/FS/function.c:1114
 msgid "Vibration"
-msgstr ""
+msgstr "ધ્રુજારી"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Rotational Energy
 #: ../objects/FS/function.c:1116
@@ -3861,7 +3864,7 @@ msgstr ""
 #. Translators: Menu item Noun/Energy/Hydraulic/Pressure
 #: ../objects/FS/function.c:1130
 msgid "Pressure"
-msgstr ""
+msgstr "દબાણ"
 
 #. Translators: Menu item Noun/Energy/Hydraulic/Volumetric Flow
 #: ../objects/FS/function.c:1132
@@ -4627,9 +4630,8 @@ msgid "External environment"
 msgstr "બહારનું પર્યાવરણ"
 
 #: ../objects/SISSI/sissi.h:277
-#, fuzzy
 msgid "Premises"
-msgstr "/ગુણધર્મો (_P)"
+msgstr "પ્રતિજ્ઞાઓ"
 
 #: ../objects/SISSI/sissi.h:278
 msgid "Zone"
@@ -4637,7 +4639,7 @@ msgstr "વિસ્તાર"
 
 #: ../objects/SISSI/sissi.h:279
 msgid "Essential Services"
-msgstr ""
+msgstr "આવશ્યક સેવાઓ"
 
 #: ../objects/SISSI/sissi.h:280
 msgid "Communication"
@@ -4645,19 +4647,19 @@ msgstr "વાતચીત"
 
 #: ../objects/SISSI/sissi.h:281
 msgid "Power"
-msgstr ""
+msgstr "શક્તિ"
 
 #: ../objects/SISSI/sissi.h:282
 msgid "Cooling / Pollution"
-msgstr ""
+msgstr "ઠંડુ / પ્રદૂષણ"
 
 #: ../objects/SISSI/sissi.h:286
 msgid "Thermal detection"
-msgstr ""
+msgstr "થર્મલ શોધી કાઢવું"
 
 #: ../objects/SISSI/sissi.h:290
 msgid "Fire detection"
-msgstr ""
+msgstr "આગ શોધી કાઢવું"
 
 #
 #: ../objects/SISSI/sissi.h:294
@@ -4667,7 +4669,7 @@ msgstr "છેદો"
 
 #: ../objects/SISSI/sissi.h:298
 msgid "Air detection"
-msgstr ""
+msgstr "હવા શોધી કાઢવુ"
 
 #: ../objects/SISSI/sissi.h:302
 #, fuzzy
@@ -4721,7 +4723,7 @@ msgstr ""
 
 #: ../objects/SISSI/sissi.h:337
 msgid "SSI Responsible"
-msgstr ""
+msgstr "SSI જવાબદાર"
 
 #: ../objects/SISSI/sissi.h:338
 msgid "Users"
@@ -4737,11 +4739,11 @@ msgstr ""
 
 #: ../objects/SISSI/sissi.h:341
 msgid "SSI administrator"
-msgstr ""
+msgstr "SSI વહીવટકર્તા"
 
 #: ../objects/SISSI/sissi.h:342
 msgid "Developer"
-msgstr ""
+msgstr "વિકાસકર્તા"
 
 #: ../objects/SISSI/sissi.h:343
 msgid "Operator / Maintenance"
@@ -4753,7 +4755,7 @@ msgstr "નેટવર્ક"
 
 #: ../objects/SISSI/sissi.h:349
 msgid "Medium and support"
-msgstr ""
+msgstr "માધ્યમ અને આધાર"
 
 #: ../objects/SISSI/sissi.h:350
 msgid "Passive or active relay"
@@ -4777,19 +4779,19 @@ msgstr ""
 
 #: ../objects/SISSI/sissi.h:359
 msgid "Packaged software or standard software"
-msgstr ""
+msgstr "પેકેજ થયેલ સોફ્ટવેર અથવા મૂળભૂત સોફ્ટવેર"
 
 #: ../objects/SISSI/sissi.h:360
 msgid "Business application"
-msgstr ""
+msgstr "ધંધા ના કાર્યક્રમ"
 
 #: ../objects/SISSI/sissi.h:361
 msgid "Standard business application"
-msgstr ""
+msgstr "મૂળભૂત ધંધાના કાર્યક્રમ"
 
 #: ../objects/SISSI/sissi.h:362
 msgid "Specific business application"
-msgstr ""
+msgstr "ચોક્કસ ધંધાના કાર્યક્રમ"
 
 #: ../objects/SISSI/sissi.h:367
 msgid "HARDWARE"
@@ -4801,11 +4803,11 @@ msgstr ""
 
 #: ../objects/SISSI/sissi.h:369
 msgid "Mobile equipment"
-msgstr ""
+msgstr "મોબાઇલ ઉપકરણ"
 
 #: ../objects/SISSI/sissi.h:370
 msgid "Fixed equipment"
-msgstr ""
+msgstr "સુધારેલ ઉપકરણ"
 
 #: ../objects/SISSI/sissi.h:371
 msgid "Peripheral processing"
@@ -4817,7 +4819,7 @@ msgstr ""
 
 #: ../objects/SISSI/sissi.h:373
 msgid "Other media"
-msgstr ""
+msgstr "બીજા મીડિયા"
 
 #: ../objects/SISSI/sissi.h:374
 msgid "Data medium (passive)"
@@ -4847,7 +4849,7 @@ msgstr "વિસ્તૃતિકરણ દ્વારા"
 
 #: ../objects/SISSI/sissi_dialog.c:208 ../objects/SISSI/sissi_dialog.c:217
 msgid "Vulnerability"
-msgstr ""
+msgstr "કોમળતા"
 
 #. Other properties of page:
 #: ../objects/SISSI/sissi_dialog.c:373
@@ -4858,33 +4860,33 @@ msgstr "બીજા ગુણધર્મો"
 #. ********* Label of board *********
 #: ../objects/SISSI/sissi_dialog.c:611
 msgid "Label"
-msgstr ""
+msgstr "લેબલ"
 
 #: ../objects/SISSI/sissi_dialog.c:613
 msgid "value"
-msgstr ""
+msgstr "કિંમત"
 
 #. Other properties of page
 #: ../objects/SISSI/sissi_dialog.c:747
 msgid "Documents"
-msgstr ""
+msgstr "દસ્તાવેજો"
 
 #: ../objects/SISSI/sissi_dialog.c:763
 msgid "Document title"
-msgstr ""
+msgstr "દસ્તાવેજનું શિર્ષક"
 
 #: ../objects/SISSI/sissi_dialog.c:765
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 #: ../objects/UML/actor.c:357 ../objects/UML/actor.c:359
 #: ../sheets/UML.sheet.in.h:2
 msgid "Actor"
-msgstr ""
+msgstr "અભિનેતા"
 
 #: ../objects/UML/association.c:224
 msgid "From A to B"
-msgstr ""
+msgstr "A થી B "
 
 #: ../objects/UML/association.c:225
 msgid "From B to A"
@@ -4906,7 +4908,7 @@ msgstr "દિશા"
 
 #: ../objects/UML/association.c:240
 msgid "Show direction"
-msgstr ""
+msgstr "દિશા બતાવો"
 
 #: ../objects/UML/association.c:240
 msgid "Show the small arrow denoting the reading direction"
@@ -4923,11 +4925,11 @@ msgstr ""
 #: ../objects/UML/association.c:253 ../objects/UML/umlattribute.c:45
 #: ../objects/UML/umloperation.c:71
 msgid "Visibility"
-msgstr ""
+msgstr "દ્રશ્યતા"
 
 #: ../objects/UML/association.c:255
 msgid "Show arrow"
-msgstr ""
+msgstr "તીરને બતાવો"
 
 #: ../objects/UML/association.c:258
 msgid "Side B"
@@ -4936,7 +4938,7 @@ msgstr ""
 #: ../objects/UML/class.c:142 ../objects/UML/class.c:325
 #: ../objects/UML/class.c:1773 ../sheets/UML.sheet.in.h:6
 msgid "Class"
-msgstr ""
+msgstr "વર્ગ"
 
 #. backward compatibility
 #. one name, one type
@@ -4955,7 +4957,7 @@ msgstr ""
 
 #: ../objects/UML/class.c:152 ../objects/UML/class.c:1770
 msgid "Template"
-msgstr ""
+msgstr "ટેમ્પલેટ"
 
 #: ../objects/UML/class.c:155 ../objects/UML/class_dialog.c:477
 msgid "Suppress Attributes"
@@ -4967,15 +4969,15 @@ msgstr ""
 
 #: ../objects/UML/class.c:159
 msgid "Visible Attributes"
-msgstr ""
+msgstr "દેખીતા ગુણધર્મો"
 
 #: ../objects/UML/class.c:161
 msgid "Visible Operations"
-msgstr ""
+msgstr "દેખીતા કાર્યો"
 
 #: ../objects/UML/class.c:163
 msgid "Visible Comments"
-msgstr ""
+msgstr "દેખીતી ટિપ્પણીઓ"
 
 #: ../objects/UML/class.c:165 ../objects/UML/class_dialog.c:493
 msgid "Wrap Operations"
@@ -4995,7 +4997,7 @@ msgstr ""
 
 #: ../objects/UML/class.c:185
 msgid "Classname"
-msgstr ""
+msgstr "વર્ગનામ"
 
 #: ../objects/UML/class.c:187
 msgid "Abstract Classname"
@@ -5003,24 +5005,24 @@ msgstr ""
 
 #: ../objects/UML/class.c:211
 msgid "Operations"
-msgstr ""
+msgstr "ક્રિયાઓ"
 
 #: ../objects/UML/class.c:214
 msgid "Template Parameters"
-msgstr ""
+msgstr "ટેમ્પલેટ પરિમાણો"
 
 #: ../objects/UML/class.c:320
 msgid "Show Comments"
-msgstr ""
+msgstr "ટિપ્પણીઓ બતાવો"
 
 #. Class page:
 #: ../objects/UML/class_dialog.c:429
 msgid "_Class"
-msgstr ""
+msgstr "વર્ગ (_C)"
 
 #: ../objects/UML/class_dialog.c:437
 msgid "Class name:"
-msgstr ""
+msgstr "વર્ગ નામ:"
 
 #: ../objects/UML/class_dialog.c:445 ../objects/UML/class_dialog.c:2032
 #: ../objects/UML/dependency.c:139 ../objects/UML/generalization.c:135
@@ -5054,7 +5056,7 @@ msgstr ""
 
 #: ../objects/UML/class_dialog.c:585
 msgid "Class Name"
-msgstr ""
+msgstr "વર્ગ નામ"
 
 #: ../objects/UML/class_dialog.c:590
 msgid "Abstract Class"
@@ -5067,43 +5069,43 @@ msgstr "લીટીની પહોળાઈ"
 
 #: ../objects/UML/class_dialog.c:616
 msgid "Text Color"
-msgstr ""
+msgstr "લખાણનો રંગ"
 
 #: ../objects/UML/class_dialog.c:624
 msgid "Foreground Color"
-msgstr ""
+msgstr "અગ્ર ભાગ નો રંગ"
 
 #: ../objects/UML/class_dialog.c:632
 msgid "Background Color"
-msgstr ""
+msgstr "પૂર્વભૂમિકાનો રંગ"
 
 #: ../objects/UML/class_dialog.c:1166
 msgid "Value:"
-msgstr ""
+msgstr "કિંમત:"
 
 #: ../objects/UML/class_dialog.c:1199 ../objects/UML/class_dialog.c:2044
 msgid "Visibility:"
-msgstr ""
+msgstr "દ્રશ્યતા:"
 
 #: ../objects/UML/class_dialog.c:1208 ../objects/UML/class_dialog.c:2053
 #: ../objects/UML/uml.c:102
 msgid "Public"
-msgstr ""
+msgstr "સાર્વજનિક"
 
 #: ../objects/UML/class_dialog.c:1211 ../objects/UML/class_dialog.c:2056
 #: ../objects/UML/uml.c:103
 msgid "Private"
-msgstr ""
+msgstr "ખાનગી"
 
 #: ../objects/UML/class_dialog.c:1214 ../objects/UML/class_dialog.c:2059
 #: ../objects/UML/uml.c:104
 msgid "Protected"
-msgstr ""
+msgstr "સુરક્ષિત થયેલ છે"
 
 #: ../objects/UML/class_dialog.c:1217 ../objects/UML/class_dialog.c:2062
 #: ../objects/UML/uml.c:105
 msgid "Implementation"
-msgstr ""
+msgstr "અમલીકરણ"
 
 #. end: Inheritance type
 #: ../objects/UML/class_dialog.c:1233 ../objects/UML/class_dialog.c:2099
@@ -5125,15 +5127,15 @@ msgstr ""
 
 #: ../objects/UML/class_dialog.c:2103
 msgid "Query"
-msgstr ""
+msgstr "પ્રશ્ર્ન"
 
 #: ../objects/UML/class_dialog.c:2150
 msgid "Parameters:"
-msgstr ""
+msgstr "પરિમાણો:"
 
 #: ../objects/UML/class_dialog.c:2235
 msgid "Parameter data"
-msgstr ""
+msgstr "પરિમાણ માહિતી"
 
 #: ../objects/UML/class_dialog.c:2268
 msgid "Def. value:"
@@ -5141,41 +5143,41 @@ msgstr ""
 
 #: ../objects/UML/class_dialog.c:2302
 msgid "Direction:"
-msgstr ""
+msgstr "દિશા:"
 
 #: ../objects/UML/class_dialog.c:2311 ../objects/UML/umlparameter.c:34
 msgid "Undefined"
-msgstr ""
+msgstr "વ્યાખ્યાયિત થયેલ નથી"
 
 #: ../objects/UML/class_dialog.c:2314 ../objects/UML/umlparameter.c:35
 msgid "In"
-msgstr ""
+msgstr "અંદર"
 
 #: ../objects/UML/class_dialog.c:2317 ../objects/UML/umlparameter.c:36
 msgid "Out"
-msgstr ""
+msgstr "બહાર"
 
 #: ../objects/UML/class_dialog.c:2320 ../objects/UML/umlparameter.c:37
 msgid "In & Out"
-msgstr ""
+msgstr "અંદર અને બહાર"
 
 #. Operations page:
 #: ../objects/UML/class_dialog.c:2355
 msgid "_Operations"
-msgstr ""
+msgstr "ક્રિયાઓ (_O)"
 
 #: ../objects/UML/class_dialog.c:2413
 msgid "Operation data"
-msgstr ""
+msgstr "કાર્યની માહિતી"
 
 #. Templates page:
 #: ../objects/UML/class_dialog.c:2776
 msgid "_Templates"
-msgstr ""
+msgstr "ટેમ્પલેટો (_T)"
 
 #: ../objects/UML/class_dialog.c:2782 ../sheets/UML.sheet.in.h:29
 msgid "Template class"
-msgstr ""
+msgstr "ટેમ્પલેટ વર્ગ"
 
 #: ../objects/UML/class_dialog.c:2839
 msgid "Formal parameter data"
@@ -5183,11 +5185,11 @@ msgstr ""
 
 #: ../objects/UML/classicon.c:130
 msgid "Boundary"
-msgstr ""
+msgstr "સીમાઓ"
 
 #: ../objects/UML/classicon.c:144
 msgid "Is object"
-msgstr ""
+msgstr "ઓબ્જેક્ટ છે"
 
 #: ../objects/UML/component_feature.c:150 ../sheets/UML.sheet.in.h:14
 msgid "Facet"
@@ -5199,7 +5201,7 @@ msgstr ""
 
 #: ../objects/UML/component_feature.c:152 ../sheets/UML.sheet.in.h:13
 msgid "Event Source"
-msgstr ""
+msgstr "ઘટના સ્ત્રોત     "
 
 #: ../objects/UML/component_feature.c:153 ../sheets/UML.sheet.in.h:12
 msgid "Event Sink"
@@ -5211,13 +5213,13 @@ msgstr ""
 
 #: ../objects/UML/dependency.c:141
 msgid "Show arrow:"
-msgstr ""
+msgstr "તીર ને બતાવો:"
 
 #. backward compatibility
 #. new name matching "same name, same type"  rule
 #: ../objects/UML/implements.c:131 ../objects/UML/implements.c:133
 msgid "Interface:"
-msgstr ""
+msgstr "ઇન્ટરફેસ"
 
 #: ../objects/UML/lifeline.c:152
 msgid "Draw focus of control:"
@@ -5229,11 +5231,11 @@ msgstr ""
 
 #: ../objects/UML/lifeline.c:505
 msgid "Add connection points"
-msgstr ""
+msgstr "જોડાણ બિંદુઓને ઉમેરો"
 
 #: ../objects/UML/lifeline.c:506
 msgid "Remove connection points"
-msgstr ""
+msgstr "જોડાણ બિંદુઓને દૂર કરો"
 
 #: ../objects/UML/lifeline.c:507
 msgid "Increase connection points distance"
@@ -5254,11 +5256,11 @@ msgstr ""
 
 #: ../objects/UML/message.c:137
 msgid "Call"
-msgstr ""
+msgstr "કોલ"
 
 #: ../objects/UML/message.c:138
 msgid "Create"
-msgstr ""
+msgstr "બનાવો"
 
 #: ../objects/UML/message.c:139
 msgid "Destroy"
@@ -5266,7 +5268,7 @@ msgstr ""
 
 #: ../objects/UML/message.c:140
 msgid "Simple"
-msgstr ""
+msgstr "સાદુ"
 
 #: ../objects/UML/message.c:141
 msgid "Return"
@@ -5274,7 +5276,7 @@ msgstr ""
 
 #: ../objects/UML/message.c:142
 msgid "Send"
-msgstr ""
+msgstr "મોકલો"
 
 #: ../objects/UML/message.c:143
 msgid "Recursive"
@@ -5294,7 +5296,7 @@ msgstr "સક્રિય ઓબ્જેક્ટ"
 
 #: ../objects/UML/object.c:162
 msgid "Show attributes"
-msgstr ""
+msgstr "ગુણધર્મો ને બતાવો"
 
 #: ../objects/UML/object.c:164
 msgid "Multiple instance"
@@ -5329,7 +5331,7 @@ msgstr ""
 
 #: ../objects/UML/transition.c:141
 msgid "Trigger"
-msgstr ""
+msgstr "ટ્રીગર"
 
 #: ../objects/UML/transition.c:142
 msgid "The event that causes this transition to be taken"
@@ -5449,7 +5451,7 @@ msgstr "માહિતી નો રંગ"
 
 #: ../objects/chronogram/chronoline.c:179
 msgid "Data line width"
-msgstr ""
+msgstr "માહિતી લીટી ની પહોળાઇ"
 
 #: ../objects/chronogram/chronoref.c:146
 msgid "Time data"
@@ -5457,7 +5459,7 @@ msgstr "સમયની માહિતી"
 
 #: ../objects/chronogram/chronoref.c:152
 msgid "Major time step"
-msgstr ""
+msgstr "મુખ્ય સમય નાં પગલા"
 
 #: ../objects/chronogram/chronoref.c:154
 msgid "Minor time step"
@@ -5469,11 +5471,11 @@ msgstr ""
 
 #: ../objects/custom/custom.c:140
 msgid "Custom"
-msgstr ""
+msgstr "વૈવિધ્ય"
 
 #: ../objects/custom/custom.c:140
 msgid "Custom XML shapes loader"
-msgstr ""
+msgstr "વૈવિધ્ય XML આકારો લોડર"
 
 #: ../objects/custom/custom_object.c:207 ../objects/custom/custom_object.c:239
 msgid "Flip horizontal"
@@ -5499,7 +5501,7 @@ msgstr ""
 #: ../objects/custom_lines/custom_linetypes.c:263
 #, c-format
 msgid "Cannot open icon file %s for object type '%s'."
-msgstr ""
+msgstr "ઓબ્જેક્ટ પ્રકાર '%s' માટે આઇકોન ફાઇલ %s ને ખોલી શકાતી નથી."
 
 #: ../objects/custom_lines/custom_lines.c:160
 msgid "CustomLines"
@@ -5527,7 +5529,7 @@ msgstr ""
 
 #: ../objects/flowchart/flowchart.c:37
 msgid "Flowchart objects"
-msgstr ""
+msgstr "ફ્લોચાર્ટ ઓબ્જેક્ટો"
 
 #: ../objects/flowchart/parallelogram.c:154
 msgid "Shear angle"
@@ -5543,7 +5545,7 @@ msgstr ""
 
 #: ../objects/network/network.c:43
 msgid "Network diagram objects"
-msgstr ""
+msgstr "નેટવર્ક આકૃત્તિ ઓબ્જેક્ટો"
 
 #: ../objects/network/radiocell.c:121
 msgid "Radius"
@@ -5574,19 +5576,19 @@ msgstr ""
 
 #: ../objects/standard/bezier.c:731 ../objects/standard/beziergon.c:495
 msgid "Add Segment"
-msgstr ""
+msgstr "સેગમેન્ટ ને ઉમેરો"
 
 #: ../objects/standard/bezier.c:732 ../objects/standard/beziergon.c:496
 msgid "Delete Segment"
-msgstr ""
+msgstr "સેગમેન્ટ ને કાઢી નાંખ"
 
 #: ../objects/standard/bezier.c:734 ../objects/standard/beziergon.c:498
 msgid "Symmetric control"
-msgstr ""
+msgstr "સમપ્રમાણ નિયંત્રણ"
 
 #: ../objects/standard/bezier.c:736 ../objects/standard/beziergon.c:500
 msgid "Smooth control"
-msgstr ""
+msgstr "સમતલ નિયંત્રણ"
 
 #: ../objects/standard/bezier.c:738 ../objects/standard/beziergon.c:502
 msgid "Cusp control"
@@ -5598,7 +5600,7 @@ msgstr "મફત"
 
 #: ../objects/standard/box.c:140 ../objects/standard/ellipse.c:134
 msgid "Fixed"
-msgstr ""
+msgstr "સુધારેલ"
 
 #: ../objects/standard/box.c:141 ../objects/standard/box.c:699
 msgid "Square"
@@ -5801,7 +5803,7 @@ msgstr ""
 #: ../plug-ins/dxf/dxf-import.c:1326
 #, c-format
 msgid "Binary DXF from '%s' not supported\n"
-msgstr ""
+msgstr "'%s' માંથી બાઇનરી DXF એ આધારભૂત નથી\n"
 
 #: ../plug-ins/dxf/dxf-import.c:1367
 #, c-format
@@ -5974,7 +5976,7 @@ msgstr "લખવા દરમ્યાન '%s' ને ખોલી શક્ય
 
 #: ../plug-ins/python/python.c:96
 msgid "Python scripting support"
-msgstr ""
+msgstr "Python સ્ક્રિપ્ટીંગ આધાર"
 
 #: ../plug-ins/shape/shape-export.c:473
 msgid "Shape files must end in .shape, or they cannot be loaded by Dia"
@@ -6069,7 +6071,7 @@ msgstr "Visio XML ફાઇલનું બંધારણ"
 #: ../plug-ins/vdx/vdx-xml.c:3344
 #, c-format
 msgid "Can't decode object %s"
-msgstr ""
+msgstr "ઓબ્જેક્ટ %s ને ડિકોડ કરી શકાતો નથી"
 
 #: ../plug-ins/vdx/vdx-xml.c:5125
 #, c-format
@@ -6475,7 +6477,7 @@ msgstr ""
 
 #: ../sheets/Assorted.sheet.in.h:15
 msgid "Heart"
-msgstr "  	હૃદય"
+msgstr "હૃદય"
 
 #: ../sheets/Assorted.sheet.in.h:16
 msgid "Heptagon. Seven sided shape"
@@ -6745,31 +6747,31 @@ msgstr ""
 
 #: ../sheets/BPMN.sheet.in.h:36
 msgid "Parallel (AND)"
-msgstr ""
+msgstr "સમાંતર (AND)"
 
 #: ../sheets/BPMN.sheet.in.h:37
 msgid "Start Event"
-msgstr ""
+msgstr "ઘટના ને શરૂ કરો"
 
 #: ../sheets/BPMN.sheet.in.h:38
 msgid "Start Event - Link"
-msgstr ""
+msgstr "ઘટના ને શરૂ કરો - કડી"
 
 #: ../sheets/BPMN.sheet.in.h:39
 msgid "Start Event - Message"
-msgstr ""
+msgstr "ઘટનાને શરૂ કરો - સંદેશ"
 
 #: ../sheets/BPMN.sheet.in.h:40
 msgid "Start Event - Multiple"
-msgstr ""
+msgstr "ઘટનાને શરૂ કરો - ઘણાબધા"
 
 #: ../sheets/BPMN.sheet.in.h:41
 msgid "Start Event - Rule"
-msgstr ""
+msgstr "ઘટનાને શરૂ કરો - નિયમ"
 
 #: ../sheets/BPMN.sheet.in.h:42
 msgid "Start Event - Timer"
-msgstr ""
+msgstr "ઘટનાને શરૂ કરો - ટાઇમર"
 
 #: ../sheets/BPMN.sheet.in.h:44
 #, fuzzy
@@ -6980,7 +6982,7 @@ msgstr ""
 
 #: ../sheets/ChemEng.sheet.in.h:52
 msgid "Valve"
-msgstr ""
+msgstr "કિંમત"
 
 #: ../sheets/ChemEng.sheet.in.h:53
 msgid "Valve, vertical"
@@ -6988,7 +6990,7 @@ msgstr ""
 
 #: ../sheets/ChemEng.sheet.in.h:54
 msgid "Water Cooler"
-msgstr ""
+msgstr "વોટર કુલર"
 
 #: ../sheets/ChemEng.sheet.in.h:55
 msgid "Water Cooler, vertical"
@@ -6996,11 +6998,11 @@ msgstr ""
 
 #: ../sheets/Circuit.sheet.in.h:1
 msgid "Circuit"
-msgstr ""
+msgstr "સર્કિટ"
 
 #: ../sheets/Circuit.sheet.in.h:2
 msgid "Components for circuit diagrams"
-msgstr ""
+msgstr "સર્કિટ આકૃતિઓ માટે ઘટકો"
 
 #: ../sheets/Circuit.sheet.in.h:3
 msgid "Ground point"
@@ -7344,7 +7346,7 @@ msgstr ""
 
 #: ../sheets/Electric.sheet.in.h:2 ../sheets/Pneumatic.sheet.in.h:7
 msgid "Connection point"
-msgstr ""
+msgstr "જોડાણ બિંદુ"
 
 #: ../sheets/Electric.sheet.in.h:3
 msgid "Electric"
@@ -7437,7 +7439,7 @@ msgstr ""
 
 #: ../sheets/Flowchart.sheet.in.h:4
 msgid "Data source"
-msgstr ""
+msgstr "માહિતી સ્ત્રોત"
 
 #: ../sheets/Flowchart.sheet.in.h:5 ../sheets/SDL.sheet.in.h:4
 msgid "Decision"
