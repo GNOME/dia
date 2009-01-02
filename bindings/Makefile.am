@@ -22,13 +22,13 @@ endif
 ## nothing to be installed yet
 if WITH_SWIG
 ## this is not working yet (link error)
-pkgpyexec_LTLIBRARIES = $(libpython_bindings)
+#pkgpyexec_LTLIBRARIES = $(libpython_bindings)
 # the python part (import dia;)
 pkgpython_PYTHON = dia.py
 else
-noinst_LTLIBRARIES = $(libpython_bindings)
 pkgpython_PYTHON = 
 endif
+noinst_LTLIBRARIES = $(libpython_bindings)
 
 # c++ wrapper over Dia's C api
 _dia_la_SOURCES = \

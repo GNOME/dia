@@ -8,7 +8,8 @@ gnomedatadir = $(datadir)
 #desktop_files = $(desktop_in_files:.desktop.in.in=.desktop)
 
 applicationsdir = $(datadir)/applications
-applications_DATA = $(desktop_files)
+#applications_DATA = $(desktop_files)
+pkgdata_DATA =
 
 CLEANFILES = core-translation-report dia.keys dia.desktop 
 

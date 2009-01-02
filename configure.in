@@ -131,17 +131,6 @@ AC_SUBST(GTK_LIBS)
 
 AM_CONDITIONAL(HAVE_BONOBO,false)
 
-dnl Look for Gnome Print
-AC_ARG_WITH(gnomeprint,
-[  --with-gnomeprint        compile *experimental* gnomeprint plug-in],,with_gnomeprint=no)
-if test "x$with_gnomeprint" == "xyes"; then
-  PKG_CHECK_MODULES(GNOMEPRINT, libgnomeprint-2.2, have_gnomeprint=yes,have_gnomeprint=no)
-  AC_SUBST(GNOMEPRINT_LIBS)
-  AC_SUBST(GNOMEPRINT_CFLAGS)
-  AC_DEFINE(HAVE_GNOMEPRINT,1,[Define if building with Gnome Print support])
-fi
-AM_CONDITIONAL(WITH_GNOMEPRINT, test "x$with_gnomeprint" != "xno")
-
 dnl Look for Cairo
 AC_ARG_WITH(cairo,
 [  --with-cairo           compile cairo plug-in],,with_cairo=yes)
@@ -632,7 +621,6 @@ Configuration:
 	Python support:				${with_python}
 	Libart support (PNG export):		${have_libart}
 	Cairo support (PNG, PDF, print):	${with_cairo}
-	Gnome Print support (experimental):	${with_gnomeprint}
 	Dia Python bindings with SWIG		${with_swig}
 	WMF plug-in with libEMF:                ${emf_ok}
 	html doc:                               ${xsltproc_ok}
