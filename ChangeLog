@@ -1,5 +1,8 @@
 2009-01-02  Hans Breuer  <hans@breuer.org>
 
+	* bindings objects/custom_lines objects/Database plug-ins/postscript 
+	plug-ins/libart : updated svn:ignore property
+
 	* Makefile.am bindings/Makefile.am data/icons/48x48/apps/Makefile.am :
 	get rid of "variable `*' is used but `*' is undefied" warnings
 	
