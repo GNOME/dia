@@ -1,5 +1,13 @@
 2009-01-02  Hans Breuer  <hans@breuer.org>
 
+	Patch from  Takao Fujiwara fixing bug #564850  – dia crashes on none UTF-8
+	* app/diagram.c : don't initialize unused filename (with the wrong locale)
+	* app/filedlg.c : gtk_file_chooser_set_current_name() wants utf-8, not 
+	filename encoding
+	* plug-ins/cairo/diacairo.c : export_data() first filename already is in 
+	the GLib's filename encoding - but on win32 this is always utf-8, i.e. not 
+	appropriate to be used with cairo
+
 	* app/preferences.c : don't try to set transient without shell
 	
 	* lib/prop_text.c : don't leak prop->attr.font

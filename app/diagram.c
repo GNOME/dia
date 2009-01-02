@@ -1457,7 +1457,6 @@ diagram_update_for_filename(Diagram *dia)
   GSList *l;
   DDisplay *ddisp;
   char *title;
-  char *filename = dia->filename;
 
   title = diagram_get_name(dia);
 

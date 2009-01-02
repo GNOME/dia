@@ -98,34 +98,40 @@ typedef enum OutputKind
 
 /* dia export funtion */
 static void
-export_data(DiagramData *data, const gchar *filename_utf8, 
+export_data(DiagramData *data, const gchar *filename, 
             const gchar *diafilename, void* user_data)
 {
   DiaCairoRenderer *renderer;
   FILE *file;
   real width, height;
   OutputKind kind = (OutputKind)user_data;
-  gchar* filename = NULL;
+  /* the passed in filename is in GLib's filename encoding. On Linux everything 
+   * should be fine in passing it to the C-runtime (or cairo). On win32 GLib's
+   * filename encdong is always utf-8, so another conversion is needed.
+   */
+  gchar *filename_crt = (gchar *)filename;
 #if DIA_CAIRO_CAN_EMF
   HDC hFileDC = NULL;
 #endif
 
   if (kind != OUTPUT_CLIPBOARD) {
-    filename = g_locale_from_utf8 (filename_utf8, -1, NULL, NULL, NULL);
-    if (!filename) {
-      message_error(_("Can't convert output filename '%s' to locale encoding.\n"
-                      "Please choose a different name to save with cairo.\n"), 
-		    dia_message_filename(filename_utf8), strerror(errno));
-      return;
-    }
     file = g_fopen(filename, "wb"); /* "wb" for binary! */
 
     if (file == NULL) {
       message_error(_("Can't open output file %s: %s\n"), 
-		    dia_message_filename(filename_utf8), strerror(errno));
+		    dia_message_filename(filename), strerror(errno));
       return;
     }
     fclose (file);
+#ifdef G_OS_WIN32
+    filename_crt =  g_locale_from_utf8 (filename, -1, NULL, NULL, NULL);
+    if (!filename_crt) {
+      message_error(_("Can't convert output filename '%s' to locale encoding.\n"
+                      "Please choose a different name to save with cairo.\n"), 
+		    dia_message_filename(filename), strerror(errno));
+      return;
+    }
+#endif
   } /* != CLIPBOARD */
   renderer = g_object_new (DIA_TYPE_CAIRO_RENDERER, NULL);
   renderer->dia = data; /* FIXME: not sure if this a good idea */
@@ -138,7 +144,7 @@ export_data(DiagramData *data, const gchar *filename_utf8,
     height = data->paper.height * (72.0 / 2.54);
     renderer->scale = data->paper.scaling * (72.0 / 2.54);
     DIAG_NOTE(g_message ("PS Surface %dx%d\n", (int)width, (int)height)); 
-    renderer->surface = cairo_ps_surface_create (filename,
+    renderer->surface = cairo_ps_surface_create (filename_crt,
                                                  width, height); /*  in points? */
     /* maybe we should increase the resolution here as well */
     break;
@@ -170,7 +176,7 @@ export_data(DiagramData *data, const gchar *filename_utf8,
     width = data->paper.width * (72.0 / 2.54);
     height = data->paper.height * (72.0 / 2.54);
     DIAG_NOTE(g_message ("PDF Surface %dx%d\n", (int)width, (int)height));
-    renderer->surface = cairo_pdf_surface_create (filename,
+    renderer->surface = cairo_pdf_surface_create (filename_crt,
                                                   width, height);
     cairo_surface_set_fallback_resolution (renderer->surface, DPI, DPI);
 #undef DPI
@@ -185,7 +191,7 @@ export_data(DiagramData *data, const gchar *filename_utf8,
     DIAG_NOTE(g_message ("SVG Surface %dx%d\n", (int)width, (int)height));
     /* use case screwed by API shakeup. We need to special case */
     renderer->surface = cairo_svg_surface_create(
-						filename,
+						filename_crt,
 						(int)width, (int)height);
     break;
 #endif
@@ -232,13 +238,13 @@ export_data(DiagramData *data, const gchar *filename_utf8,
 #if defined CAIRO_HAS_PNG_FUNCTIONS
   if (OUTPUT_PNGA == kind || OUTPUT_PNG == kind)
     {
-      cairo_surface_write_to_png(renderer->surface, filename);
+      cairo_surface_write_to_png(renderer->surface, filename_crt);
       cairo_surface_destroy(renderer->surface);
     }
 #endif
 #if DIA_CAIRO_CAN_EMF
   if (OUTPUT_EMF == kind) {
-    FILE* f = g_fopen(filename_utf8, "wb");
+    FILE* f = g_fopen(filename, "wb");
     HENHMETAFILE hEmf = CloseEnhMetaFile(hFileDC);
     UINT nSize = GetEnhMetaFileBits (hEmf, 0, NULL);
     BYTE* pData = g_new(BYTE, nSize);
@@ -247,12 +253,12 @@ export_data(DiagramData *data, const gchar *filename_utf8,
       fwrite(pData,1,nSize,f);
       fclose(f);
     } else {
-      message_error (_("Can't write %d bytes to %s"), nSize, filename_utf8);
+      message_error (_("Can't write %d bytes to %s"), nSize, filename);
     }
     DeleteEnhMetaFile (hEmf);
     g_free (pData);
   } else if (OUTPUT_WMF == kind) {
-    FILE* f = g_fopen(filename_utf8, "wb");
+    FILE* f = g_fopen(filename, "wb");
     HENHMETAFILE hEmf = CloseEnhMetaFile(hFileDC);
     HDC hdc = GetDC(NULL);
     UINT nSize = GetWinMetaFileBits (hEmf, 0, NULL, MM_ANISOTROPIC, hdc);
@@ -263,7 +269,7 @@ export_data(DiagramData *data, const gchar *filename_utf8,
       fwrite(pData,1,nSize,f);
       fclose(f);
     } else {
-      message_error (_("Can't write %d bytes to %s"), nSize, filename_utf8);
+      message_error (_("Can't write %d bytes to %s"), nSize, filename);
     }
     ReleaseDC(NULL, hdc);
     DeleteEnhMetaFile (hEmf);
@@ -282,6 +288,8 @@ export_data(DiagramData *data, const gchar *filename_utf8,
   }
 #endif
   g_object_unref(renderer);
+  if (filename != filename_crt)
+    g_free (filename_crt);
 }
 
 static void

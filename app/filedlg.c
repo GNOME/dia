@@ -490,9 +490,10 @@ file_save_as_callback(gpointer data, guint action, GtkWidget *widget)
   if (filename != NULL) {
     char* fnabs = dia_get_absolute_filename (filename);
     if (fnabs) {
-      gchar *base = g_path_get_basename(fnabs);
+      gchar *base = g_path_get_basename(dia->filename);
       gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(savedlg), fnabs);
       /* FileChooser api insist on exiting files for set_filename  */
+      /* ... and does not use filename encoding on this one. */
       gtk_file_chooser_set_current_name(GTK_FILE_CHOOSER(savedlg), base);
       g_free(base);
     }
@@ -562,9 +563,10 @@ export_adapt_extension (const gchar* name, int index)
   const gchar* ext = NULL;
   DiaExportFilter *efilter = efilter_by_index (index, &ext);
   gchar *basename = g_path_get_basename (name);
+  gchar *utf8_name = NULL;
 
   if (!efilter || !ext)
-    gtk_file_chooser_set_current_name(GTK_FILE_CHOOSER(exportdlg), basename);
+    utf8_name = g_filename_to_utf8 (basename, -1, NULL, NULL, NULL);
   else {
     const gchar *last_dot = strrchr(basename, '.');
     GString *s = g_string_new(basename);
@@ -572,9 +574,11 @@ export_adapt_extension (const gchar* name, int index)
       g_string_truncate(s, last_dot-basename);
     g_string_append(s, ".");
     g_string_append(s, ext);
-    gtk_file_chooser_set_current_name(GTK_FILE_CHOOSER(exportdlg), s->str);
+    utf8_name = g_filename_to_utf8 (s->str, -1, NULL, NULL, NULL);
     g_string_free (s, TRUE);
   }
+  gtk_file_chooser_set_current_name(GTK_FILE_CHOOSER(exportdlg), utf8_name);
+  g_free (utf8_name);
   g_free (basename);
 }
 static void
