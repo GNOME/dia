@@ -432,7 +432,7 @@ PyDia_RegisterCallback(PyObject *self, PyObject *args)
 static PyObject *
 PyDia_RegisterAction (PyObject *self, PyObject *args)
 {
-	gchar *action;
+    gchar *action;
     gchar *desc;
     gchar *menupath;
     PyObject *func;
@@ -442,7 +442,7 @@ PyDia_RegisterAction (PyObject *self, PyObject *args)
 			  &action, &desc, &menupath, &func))
 	return NULL;
 
-	return _RegisterAction (action, desc, menupath, func);
+    return _RegisterAction (action, desc, menupath, func);
 }
 
 static PyObject *

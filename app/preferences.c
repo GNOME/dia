@@ -750,6 +750,10 @@ static void
 update_floating_toolbox(DiaPrefData *pref, gpointer ptr)
 {
   g_return_if_fail (pref->key == NULL);
+
+  if (!app_is_interactive())
+    return;
+
   if (prefs.toolbox_on_top) {
     /* Go through all diagrams and set toolbox transient for all displays */
     GList *diagrams;
@@ -765,8 +769,9 @@ update_floating_toolbox(DiaPrefData *pref, gpointer ptr)
       }
     }
   } else {
-    gtk_window_set_transient_for(GTK_WINDOW(interface_get_toolbox_shell()),
-				 NULL);
+    GtkWindow *shell = GTK_WINDOW(interface_get_toolbox_shell());
+    if (shell)
+      gtk_window_set_transient_for(shell, NULL);
   }
 }
 

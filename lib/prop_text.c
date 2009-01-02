@@ -376,6 +376,8 @@ textprop_copy(TextProperty *src)
 static void 
 textprop_free(TextProperty *prop) 
 {
+  if (prop->attr.font)
+    dia_font_unref(prop->attr.font);
   g_free(prop->text_data);
   g_free(prop);
 }

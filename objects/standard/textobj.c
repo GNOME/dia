@@ -326,6 +326,7 @@ static void
 textobj_destroy(Textobj *textobj)
 {
   text_destroy(textobj->text);
+  dia_font_unref(textobj->attrs.font);
   object_destroy(&textobj->object);
 }
 

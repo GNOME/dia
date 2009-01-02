@@ -168,7 +168,10 @@ def dia_objects_props_cb (data, flags) :
 			for v in uniques.keys() :
 				allProps[s].opts.append(uniques[v])
 	# display the dialog
-	dlg = CPropsDialog(d, data, allProps)
+	try :
+		dlg = CPropsDialog(d, data, allProps)
+	except ImportError :
+		dia.message(0, "Dialog creation failed. Missing pygtk?")
 
 dia.register_action ("DialogsGroupproperties", "Dia Group Properties", 
                       "/DisplayMenu/Dialogs/DialogsExtensionStart", 

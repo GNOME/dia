@@ -30,10 +30,6 @@
 #include <glib.h>
 #include <glib/gstdio.h>
 
-#ifdef HAVE_PANGOCAIRO_H
-#include <pango/pangocairo.h>
-#endif
-
 /*
  * To me the following looks rather suspicious. Why do we need to compile
  * the Cairo plug-in at all if we don't have Cairo? As a result we'll
@@ -66,6 +62,10 @@
    /* avoid namespace collisions */
 #  define Rectangle RectangleWin32
 #  endif
+#endif
+
+#ifdef HAVE_PANGOCAIRO_H
+#include <pango/pangocairo.h>
 #endif
 
 #include "intl.h"
@@ -195,14 +195,13 @@ export_data(DiagramData *data, const gchar *filename_utf8,
   case OUTPUT_WMF : /* different only on close/'play' */
   case OUTPUT_CLIPBOARD :
     /* NOT: renderer->with_alpha = TRUE; */
-    renderer->scale = 72.0;
     {
       /* see wmf/wmf.cpp */
       HDC  refDC = GetDC(NULL);
       RECT bbox = { 0, 0, 
-#if 0
-                   (int)((data->extents.right - data->extents.left) * renderer->scale * GetDeviceCaps(refDC, LOGPIXELSX)),
-		   (int)((data->extents.bottom - data->extents.top) * renderer->scale * GetDeviceCaps(refDC, LOGPIXELSY)) };
+#if 1 /* CreateEnhMetaFile() takes 0.01 mm */
+                   (int)((data->extents.right - data->extents.left) * data->paper.scaling * 1000.0),
+		   (int)((data->extents.bottom - data->extents.top) * data->paper.scaling * 1000.0) };
 #else
                    (int)((data->extents.right - data->extents.left) * renderer->scale 
 		          * 100 * GetDeviceCaps(refDC, HORZSIZE) / GetDeviceCaps(refDC, HORZRES)),
@@ -211,6 +210,8 @@ export_data(DiagramData *data, const gchar *filename_utf8,
 #endif
       hFileDC = CreateEnhMetaFile (refDC, NULL, &bbox, "DiaCairo\0Diagram\0");
       renderer->surface = cairo_win32_printing_surface_create (hFileDC);
+      /* CreateEnhMetaFile() takes resolution 0.01 mm,  */
+      renderer->scale = 1000.0/25.4 * data->paper.scaling;
     }
     break;
 #endif

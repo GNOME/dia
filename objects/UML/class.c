@@ -1923,17 +1923,17 @@ umlclass_copy(UMLClass *umlclass)
           umlclass->comment_font_height;
 
   newumlclass->normal_font =
-          dia_font_ref(umlclass->normal_font);
+          dia_font_copy(umlclass->normal_font);
   newumlclass->abstract_font =
-          dia_font_ref(umlclass->abstract_font);
+          dia_font_copy(umlclass->abstract_font);
   newumlclass->polymorphic_font =
-          dia_font_ref(umlclass->polymorphic_font);
+          dia_font_copy(umlclass->polymorphic_font);
   newumlclass->classname_font =
-          dia_font_ref(umlclass->classname_font);
+          dia_font_copy(umlclass->classname_font);
   newumlclass->abstract_classname_font =
-          dia_font_ref(umlclass->abstract_classname_font);
+          dia_font_copy(umlclass->abstract_classname_font);
   newumlclass->comment_font =
-          dia_font_ref(umlclass->comment_font);
+          dia_font_copy(umlclass->comment_font);
 
   newumlclass->name = g_strdup(umlclass->name);
   if (umlclass->stereotype != NULL && umlclass->stereotype[0] != '\0')

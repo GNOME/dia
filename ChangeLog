@@ -1,5 +1,20 @@
 2009-01-02  Hans Breuer  <hans@breuer.org>
 
+	* app/preferences.c : don't try to set transient without shell
+	
+	* lib/prop_text.c : don't leak prop->attr.font
+	* object/standard/textobj.c : fixed accordingly
+	
+	* objects/UML/class.c(umlclass_copy) : don't use a font reference 
+	where a copy is needed
+	
+	* plug-ins/cairo/diacairo.c : fix scaling for clipboard use
+
+	* plug-ins/python/diamodule.c : whitespace changes
+
+	* plug-ins/python/group_props.py : better error message for missing 
+	pygtk (bug #563094)
+
 	Patch from Sameer D. Sahasrabuddhe fixing bug #565720
 	En passant fixing bug #564799 and bug #564916
 	* objects/SISSI/sissi.[ch] : introduced a new local function that 
