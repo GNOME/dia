@@ -7,15 +7,15 @@
 # Ana María García Molina <ana_gm@eresmas.com>, 2001.
 # Juan Manuel García Molina <juanma_gm@wanadoo.es>, 2000-2002.
 # Francisco Javier F. Serrador <serrador@cvs.gnome.org>, 2003-2006.
-# Jorge González <jorgegonz@svn.gnome.org>, 2007, 2008.
 # Jorge Gonzalez <jorgegonz@svn.gnome.org>, 2007.
+# Jorge González <jorgegonz@svn.gnome.org>, 2007, 200, 2009.
 msgid ""
 msgstr ""
 "Project-Id-Version: dia.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=dia&amp;component=general\n"
-"POT-Creation-Date: 2008-12-14 18:58+0000\n"
-"PO-Revision-Date: 2008-12-16 20:41+0100\n"
+"product=dia&component=general\n"
+"POT-Creation-Date: 2009-01-02 14:01+0000\n"
+"PO-Revision-Date: 2009-01-02 21:46+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -320,10 +320,10 @@ msgstr ""
 #: ../app/commands.c:723
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
-"Jorge González <jorgegonz@svn.gnome.org>, 2007\n"
+"Jorge González <jorgegonz@svn.gnome.org>, 2007-2009\n"
 "Juan Manuel García Molina <juanma_gm@wanadoo.es>\n"
 "Revisión por Francisco Vila <fravd@wanadoo.es>\n"
-"2ª Revisión por Alberto Barrionuevo <traducciones@rizox.com> "
+"2ª Revisión por Alberto Barrionuevo <traducciones@rizox.com>"
 
 #: ../app/commands.c:725
 msgid ""
@@ -630,7 +630,7 @@ msgstr "%0.3gcm x %0.3gcm"
 msgid "Page Setup"
 msgstr "Configurar página"
 
-#: ../app/disp_callbacks.c:84 ../app/properties.c:140
+#: ../app/disp_callbacks.c:84 ../app/properties-dialog.c:152
 msgid ""
 "This object doesn't support Undo/Redo.\n"
 "Undo information erased."
@@ -1146,27 +1146,18 @@ msgstr ""
 msgid "Can't find parent %s of %s object\n"
 msgstr "No se pudo encontrar el objeto padre %s de %s\n"
 
-#: ../app/load_save.c:424 ../objects/SISSI/area.c:209
-#: ../objects/SISSI/faraday.c:209 ../objects/SISSI/room.c:209
-#: ../objects/SISSI/sissi_object.c:202 ../objects/SISSI/site.c:212
+#: ../app/load_save.c:424
 msgid "You must specify a file, not a directory.\n"
 msgstr "Debe especificar un archivo, no un directorio.\n"
 
-#: ../app/load_save.c:431 ../objects/SISSI/area.c:215
-#: ../objects/SISSI/faraday.c:215 ../objects/SISSI/room.c:215
-#: ../objects/SISSI/sissi_object.c:209 ../objects/SISSI/site.c:218
-#: ../plug-ins/dxf/dxf-import.c:1309 ../plug-ins/wpg/wpg.c:1177
-#: ../plug-ins/xfig/xfig-import.c:1270 ../plug-ins/xslt/xslt.c:91
+#: ../app/load_save.c:431 ../plug-ins/dxf/dxf-import.c:1309
+#: ../plug-ins/wpg/wpg.c:1177 ../plug-ins/xfig/xfig-import.c:1270
+#: ../plug-ins/xslt/xslt.c:91
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "No se pudo abrir: «%s» para lectura.\n"
 
-#: ../app/load_save.c:449 ../app/load_save.c:455 ../objects/SISSI/area.c:224
-#: ../objects/SISSI/area.c:230 ../objects/SISSI/faraday.c:224
-#: ../objects/SISSI/faraday.c:230 ../objects/SISSI/room.c:224
-#: ../objects/SISSI/room.c:230 ../objects/SISSI/sissi_object.c:219
-#: ../objects/SISSI/sissi_object.c:225 ../objects/SISSI/site.c:227
-#: ../objects/SISSI/site.c:233
+#: ../app/load_save.c:449 ../app/load_save.c:455
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -1175,9 +1166,7 @@ msgstr ""
 "Error cargando el diagrama %s.\n"
 "Tipo de archivo desconocido."
 
-#: ../app/load_save.c:463 ../objects/SISSI/area.c:238
-#: ../objects/SISSI/faraday.c:238 ../objects/SISSI/room.c:238
-#: ../objects/SISSI/sissi_object.c:233 ../objects/SISSI/site.c:241
+#: ../app/load_save.c:463
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -1761,7 +1750,7 @@ msgstr "Antialias:"
 msgid "view antialised"
 msgstr "ver sin antialias"
 
-#. Favored Filer
+#. Favored Filter
 #. Translators: Menu item Verb/Channel/Export
 #. Translators: Menu item Verb/Channel/Export/Export
 #: ../app/preferences.c:225 ../objects/FS/function.c:698
@@ -1832,28 +1821,28 @@ msgstr "Sí"
 msgid "No"
 msgstr "No"
 
-#: ../app/preferences.c:581
+#: ../app/preferences.c:580
 msgid "Preferences"
 msgstr "Preferencias"
 
-#: ../app/preferences.c:778
+#: ../app/preferences.c:777
 msgid "User Interface type settings change will take after restart"
 msgstr ""
 "Los ajustes para el interfaz del usuario tomarán efecto después de reiniciar."
 
-#: ../app/properties.c:56
+#: ../app/properties-dialog.c:56
 msgid "Object properties"
 msgstr "Propiedades del objeto"
 
-#: ../app/properties.c:81
+#: ../app/properties-dialog.c:81
 msgid "This object has no properties."
 msgstr "Este objeto no tiene propiedades."
 
-#: ../app/properties.c:228
+#: ../app/properties-dialog.c:240
 msgid "Properties: "
 msgstr "Propiedades: "
 
-#: ../app/properties.c:232
+#: ../app/properties-dialog.c:244
 msgid "Object properties:"
 msgstr "Propiedades del objeto:"
 
@@ -2368,7 +2357,7 @@ msgstr "Aceptar"
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: ../lib/filter.c:177
+#: ../lib/filter.c:176
 #, c-format
 msgid "Multiple export filters with unique name %s"
 msgstr "Filtros múltiples de exportación con nombre único %s"
@@ -4567,15 +4556,15 @@ msgstr "Caja SADT"
 msgid "SADT diagram objects"
 msgstr "Objetos de diagrama SADT"
 
-#: ../objects/SISSI/classification.h:38 ../objects/SISSI/sissi.h:219
+#: ../objects/SISSI/classification.h:38 ../objects/SISSI/sissi.h:222
 msgid "No Protection"
 msgstr "Sin protección"
 
-#: ../objects/SISSI/classification.h:39 ../objects/SISSI/sissi.h:220
+#: ../objects/SISSI/classification.h:39 ../objects/SISSI/sissi.h:223
 msgid "Restricted Diffusion"
 msgstr "Difusión restringida"
 
-#: ../objects/SISSI/classification.h:40 ../objects/SISSI/sissi.h:221
+#: ../objects/SISSI/classification.h:40 ../objects/SISSI/sissi.h:224
 msgid "Special Country Confidential"
 msgstr "Confidencial de país especial"
 
@@ -4583,15 +4572,15 @@ msgstr "Confidencial de país especial"
 msgid "Confidential"
 msgstr "Confidencial"
 
-#: ../objects/SISSI/classification.h:42 ../objects/SISSI/sissi.h:222
+#: ../objects/SISSI/classification.h:42 ../objects/SISSI/sissi.h:225
 msgid "NATO Confidential"
 msgstr "Confidencial de la OTAN"
 
-#: ../objects/SISSI/classification.h:43 ../objects/SISSI/sissi.h:223
+#: ../objects/SISSI/classification.h:43 ../objects/SISSI/sissi.h:226
 msgid "Personal Confidential"
 msgstr "Confidencial personal"
 
-#: ../objects/SISSI/classification.h:44 ../objects/SISSI/sissi.h:224
+#: ../objects/SISSI/classification.h:44 ../objects/SISSI/sissi.h:227
 msgid "Medical Confidential"
 msgstr "Confidencial de medicina"
 
@@ -4603,7 +4592,7 @@ msgstr "Confidencial de industria"
 msgid "Defense Confidential"
 msgstr "Confidencial de defensa"
 
-#: ../objects/SISSI/classification.h:47 ../objects/SISSI/sissi.h:226
+#: ../objects/SISSI/classification.h:47 ../objects/SISSI/sissi.h:229
 msgid "Secret"
 msgstr "Secreto"
 
@@ -4611,319 +4600,346 @@ msgstr "Secreto"
 msgid "Defense Secret"
 msgstr "Secreto de defensa"
 
-#: ../objects/SISSI/classification.h:49 ../objects/SISSI/sissi.h:227
+#: ../objects/SISSI/classification.h:49 ../objects/SISSI/sissi.h:230
 msgid "Secret special country"
 msgstr "Secreto de país especial"
 
-#: ../objects/SISSI/classification.h:50 ../objects/SISSI/sissi.h:228
+#: ../objects/SISSI/classification.h:50 ../objects/SISSI/sissi.h:231
 msgid "NATO Secret"
 msgstr "Secreto de la OTAN"
 
-#: ../objects/SISSI/classification.h:51 ../objects/SISSI/sissi.h:229
+#: ../objects/SISSI/classification.h:51 ../objects/SISSI/sissi.h:232
 msgid "Very Secret"
 msgstr "Alto secreto"
 
-#: ../objects/SISSI/classification.h:52 ../objects/SISSI/sissi.h:230
+#: ../objects/SISSI/classification.h:52 ../objects/SISSI/sissi.h:233
 msgid "NATO Very Secret"
 msgstr "Alto secreto de la OTAN"
 
-#: ../objects/SISSI/sissi.c:64
+#: ../objects/SISSI/sissi.c:66
 msgid "SISSI diagram"
 msgstr "Diagrama de SISSI"
 
-#: ../objects/SISSI/sissi.h:225
+#: ../objects/SISSI/sissi.c:919
+#, c-format
+msgid ""
+"Error loading object.\n"
+"Not a regular file: %s"
+msgstr ""
+"Error al cargar el objeto.\n"
+"No es un archivo regular: %s"
+
+#: ../objects/SISSI/sissi.c:924 ../objects/SISSI/sissi.c:928
+#, c-format
+msgid ""
+"Error loading object.\n"
+"Incorrect file type: %s"
+msgstr ""
+"Error al cargar el objeto.\n"
+"Tipo de archivo incorrecto: %s"
+
+#: ../objects/SISSI/sissi.c:936
+#, c-format
+msgid ""
+"Error loading object.\n"
+"Not a Dia file: %s"
+msgstr ""
+"Error al cargar el objeto.\n"
+"No es un archivo de Dia: %s"
+
+#: ../objects/SISSI/sissi.h:228
 msgid "Industrial Confidential"
 msgstr "Confidencial de industria"
 
-#: ../objects/SISSI/sissi.h:235
+#: ../objects/SISSI/sissi.h:238
 msgid "No integrity"
 msgstr "Sin integridad"
 
-#: ../objects/SISSI/sissi.h:236
+#: ../objects/SISSI/sissi.h:239
 msgid "Low integrity"
 msgstr "Baja integridad"
 
-#: ../objects/SISSI/sissi.h:237
+#: ../objects/SISSI/sissi.h:240
 msgid "Average software integrity"
 msgstr "Media integridad del software"
 
-#: ../objects/SISSI/sissi.h:238
+#: ../objects/SISSI/sissi.h:241
 msgid "High software integrity"
 msgstr "Alta integridad del software"
 
-#: ../objects/SISSI/sissi.h:239
+#: ../objects/SISSI/sissi.h:242
 msgid "Average hardware integrity"
 msgstr "Media integridad del hardware"
 
 # Yo diría mejor "Cardinalidad a derechas". RizOX.
-#: ../objects/SISSI/sissi.h:240
+#: ../objects/SISSI/sissi.h:243
 msgid "High hardware integrity"
 msgstr "Alta integridad del hardware"
 
-#: ../objects/SISSI/sissi.h:245
+#: ../objects/SISSI/sissi.h:248
 msgid "Millisecond"
 msgstr "Milisegundo"
 
-#: ../objects/SISSI/sissi.h:246
+#: ../objects/SISSI/sissi.h:249
 msgid "Second"
 msgstr "Segundo"
 
-#: ../objects/SISSI/sissi.h:247
+#: ../objects/SISSI/sissi.h:250
 msgid "Minute"
 msgstr "Minuto"
 
-#: ../objects/SISSI/sissi.h:248
+#: ../objects/SISSI/sissi.h:251
 msgid "Hour"
 msgstr "Hora"
 
-#: ../objects/SISSI/sissi.h:249
+#: ../objects/SISSI/sissi.h:252
 msgid "Day"
 msgstr "Día"
 
-#: ../objects/SISSI/sissi.h:250
+#: ../objects/SISSI/sissi.h:253
 msgid "Week"
 msgstr "Semana"
 
-#: ../objects/SISSI/sissi.h:255
+#: ../objects/SISSI/sissi.h:258
 msgid "SYSTEM"
 msgstr "SISTEMA"
 
-#: ../objects/SISSI/sissi.h:256
+#: ../objects/SISSI/sissi.h:259
 msgid "Internet access device"
 msgstr "Dispositivo de acceso a Internet"
 
-#: ../objects/SISSI/sissi.h:257
+#: ../objects/SISSI/sissi.h:260
 msgid "Electronic messaging"
 msgstr "Mensajería electrónica"
 
-#: ../objects/SISSI/sissi.h:258
+#: ../objects/SISSI/sissi.h:261
 msgid "Intranet"
 msgstr "Intranet"
 
-#: ../objects/SISSI/sissi.h:259
+#: ../objects/SISSI/sissi.h:262
 msgid "Company directory"
 msgstr "Directorio de empresa"
 
-#: ../objects/SISSI/sissi.h:260
+#: ../objects/SISSI/sissi.h:263
 msgid "External portal"
 msgstr "Portal externo"
 
-#: ../objects/SISSI/sissi.h:265
+#: ../objects/SISSI/sissi.h:268
 msgid "ORGANISATION"
 msgstr "ORGANIZACIÓN"
 
-#: ../objects/SISSI/sissi.h:266
+#: ../objects/SISSI/sissi.h:269
 msgid "Higher-tier organisation"
 msgstr "Organización de alto nivel"
 
-#: ../objects/SISSI/sissi.h:267
+#: ../objects/SISSI/sissi.h:270
 msgid "Structure of the organisation"
 msgstr "Estructura de la organización"
 
-#: ../objects/SISSI/sissi.h:268
+#: ../objects/SISSI/sissi.h:271
 msgid "Project or system organisation"
 msgstr "Organización del proyecto o sistema"
 
-#: ../objects/SISSI/sissi.h:269
+#: ../objects/SISSI/sissi.h:272
 msgid "Subcontractors / Suppliers / Manufacturers"
 msgstr "Subcontratas / Proveedores / Fabricantes"
 
-#: ../objects/SISSI/sissi.h:274
+#: ../objects/SISSI/sissi.h:277
 msgid "SITE"
 msgstr "SITIO"
 
-#: ../objects/SISSI/sissi.h:275
+#: ../objects/SISSI/sissi.h:278
 msgid "Places"
 msgstr "Lugares"
 
-#: ../objects/SISSI/sissi.h:276
+#: ../objects/SISSI/sissi.h:279
 msgid "External environment"
 msgstr "Ambiente externo"
 
-#: ../objects/SISSI/sissi.h:277
+#: ../objects/SISSI/sissi.h:280
 msgid "Premises"
 msgstr "Premisas"
 
-#: ../objects/SISSI/sissi.h:278
+#: ../objects/SISSI/sissi.h:281
 msgid "Zone"
 msgstr "Zona"
 
-#: ../objects/SISSI/sissi.h:279
+#: ../objects/SISSI/sissi.h:282
 msgid "Essential Services"
 msgstr "Servicios esenciales"
 
-#: ../objects/SISSI/sissi.h:280
+#: ../objects/SISSI/sissi.h:283
 msgid "Communication"
 msgstr "Comunicación"
 
-#: ../objects/SISSI/sissi.h:281
+#: ../objects/SISSI/sissi.h:284
 msgid "Power"
 msgstr "Energía"
 
-#: ../objects/SISSI/sissi.h:282
+#: ../objects/SISSI/sissi.h:285
 msgid "Cooling / Pollution"
 msgstr "Refrigerado / Polución"
 
-#: ../objects/SISSI/sissi.h:286
+#: ../objects/SISSI/sissi.h:289
 msgid "Thermal detection"
 msgstr "Detección térmica"
 
-#: ../objects/SISSI/sissi.h:290
+#: ../objects/SISSI/sissi.h:293
 msgid "Fire detection"
 msgstr "Detección de fuego"
 
-#: ../objects/SISSI/sissi.h:294
+#: ../objects/SISSI/sissi.h:297
 msgid "Water detection"
 msgstr "Detección de agua"
 
-#: ../objects/SISSI/sissi.h:298
+#: ../objects/SISSI/sissi.h:301
 msgid "Air detection"
 msgstr "Detección de aire"
 
-#: ../objects/SISSI/sissi.h:302
+#: ../objects/SISSI/sissi.h:305
 msgid "Energy detection"
 msgstr "Detección de energía"
 
-#: ../objects/SISSI/sissi.h:306
+#: ../objects/SISSI/sissi.h:309
 msgid "Intrusion detection"
 msgstr "Detección de intrusión"
 
-#: ../objects/SISSI/sissi.h:310
+#: ../objects/SISSI/sissi.h:313
 msgid "Thermal action"
 msgstr "Acción térmica"
 
-#: ../objects/SISSI/sissi.h:314
+#: ../objects/SISSI/sissi.h:317
 msgid "Fire action"
 msgstr "Acción del fuego"
 
-#: ../objects/SISSI/sissi.h:318
+#: ../objects/SISSI/sissi.h:321
 msgid "Water action"
 msgstr "Acción del agua"
 
-#: ../objects/SISSI/sissi.h:322
+#: ../objects/SISSI/sissi.h:325
 msgid "Air action"
 msgstr "Acción del aire"
 
-#: ../objects/SISSI/sissi.h:326
+#: ../objects/SISSI/sissi.h:329
 msgid "Energy action"
 msgstr "Acción de energía"
 
-#: ../objects/SISSI/sissi.h:330
+#: ../objects/SISSI/sissi.h:333
 msgid "Intrusion action"
 msgstr "Acción de intrusión"
 
 # También creo que todo esto son verbos. FVD
 # Parece que el verbo es la acción que se hace con la "Provisión" (los siguientes textos son verbos). RizOX.
-#: ../objects/SISSI/sissi.h:335
+#: ../objects/SISSI/sissi.h:338
 msgid "Personal"
 msgstr "Personal"
 
-#: ../objects/SISSI/sissi.h:336
+#: ../objects/SISSI/sissi.h:339
 msgid "Decision maker"
 msgstr "Tomador de decisiones"
 
-#: ../objects/SISSI/sissi.h:337
+#: ../objects/SISSI/sissi.h:340
 msgid "SSI Responsible"
 msgstr "Responsable SSI"
 
-#: ../objects/SISSI/sissi.h:338
+#: ../objects/SISSI/sissi.h:341
 msgid "Users"
 msgstr "Usuarios"
 
-#: ../objects/SISSI/sissi.h:339
+#: ../objects/SISSI/sissi.h:342
 msgid "Functional administrator"
 msgstr "Administrador funcional"
 
-#: ../objects/SISSI/sissi.h:340
+#: ../objects/SISSI/sissi.h:343
 msgid "Technical administrator"
 msgstr "Administrador técnico"
 
-#: ../objects/SISSI/sissi.h:341
+#: ../objects/SISSI/sissi.h:344
 msgid "SSI administrator"
 msgstr "Administrador SSI"
 
-#: ../objects/SISSI/sissi.h:342
+#: ../objects/SISSI/sissi.h:345
 msgid "Developer"
 msgstr "Desarrollador"
 
-#: ../objects/SISSI/sissi.h:343
+#: ../objects/SISSI/sissi.h:346
 msgid "Operator / Maintenance"
 msgstr "Operador / Mantenimiento"
 
-#: ../objects/SISSI/sissi.h:348 ../sheets/network.sheet.in.h:20
+#: ../objects/SISSI/sissi.h:351 ../sheets/network.sheet.in.h:20
 msgid "Network"
 msgstr "Red"
 
-#: ../objects/SISSI/sissi.h:349
+#: ../objects/SISSI/sissi.h:352
 msgid "Medium and support"
 msgstr "Soporte y medio"
 
-#: ../objects/SISSI/sissi.h:350
+#: ../objects/SISSI/sissi.h:353
 msgid "Passive or active relay"
 msgstr "Relé activo o pasivo"
 
-#: ../objects/SISSI/sissi.h:351
+#: ../objects/SISSI/sissi.h:354
 msgid "Communication interface"
 msgstr "Interfaz de comunicación"
 
-#: ../objects/SISSI/sissi.h:356 ../sheets/SISSI.sheet.in.h:54
+#: ../objects/SISSI/sissi.h:359 ../sheets/SISSI.sheet.in.h:54
 msgid "Software"
 msgstr "Software"
 
-#: ../objects/SISSI/sissi.h:357
+#: ../objects/SISSI/sissi.h:360
 msgid "Operating System"
 msgstr "Sistema operativo"
 
-#: ../objects/SISSI/sissi.h:358
+#: ../objects/SISSI/sissi.h:361
 msgid "Service - maintenance or administration software"
 msgstr "Servicio - mantenimiento o administración de software"
 
-#: ../objects/SISSI/sissi.h:359
+#: ../objects/SISSI/sissi.h:362
 msgid "Packaged software or standard software"
 msgstr "Paquete de software o software estándar"
 
-#: ../objects/SISSI/sissi.h:360
+#: ../objects/SISSI/sissi.h:363
 msgid "Business application"
 msgstr "Aplicación de negocio"
 
-#: ../objects/SISSI/sissi.h:361
+#: ../objects/SISSI/sissi.h:364
 msgid "Standard business application"
 msgstr "Aplicación estándar de negocio"
 
-#: ../objects/SISSI/sissi.h:362
+#: ../objects/SISSI/sissi.h:365
 msgid "Specific business application"
 msgstr "Aplicación específica de negocio"
 
-#: ../objects/SISSI/sissi.h:367
+#: ../objects/SISSI/sissi.h:370
 msgid "HARDWARE"
 msgstr "HARDWARE"
 
-#: ../objects/SISSI/sissi.h:368
+#: ../objects/SISSI/sissi.h:371
 msgid "Data-processing equipment (active)"
 msgstr "Equipo de procesamiento de datos (activo)"
 
-#: ../objects/SISSI/sissi.h:369
+#: ../objects/SISSI/sissi.h:372
 msgid "Mobile equipment"
 msgstr "Equipo móvil"
 
-#: ../objects/SISSI/sissi.h:370
+#: ../objects/SISSI/sissi.h:373
 msgid "Fixed equipment"
 msgstr "Equipo fijo"
 
-#: ../objects/SISSI/sissi.h:371
+#: ../objects/SISSI/sissi.h:374
 msgid "Peripheral processing"
 msgstr "Procesado periférico"
 
-#: ../objects/SISSI/sissi.h:372
+#: ../objects/SISSI/sissi.h:375
 msgid "Electronic medium"
 msgstr "Elecrónico medio"
 
 # ¿De dónde salían esa traducción y esa variable? No concuerda con el original inglés en nada. Lo cambio. RizOX.
-#: ../objects/SISSI/sissi.h:373
+#: ../objects/SISSI/sissi.h:376
 msgid "Other media"
 msgstr "Otros medios"
 
-#: ../objects/SISSI/sissi.h:374
+#: ../objects/SISSI/sissi.h:377
 msgid "Data medium (passive)"
 msgstr "Datos medios (pasivo)"
 
