@@ -195,47 +195,12 @@ sissi_object_create(Point *startpoint,  void *user_data, Handle **handle1, Handl
 
   if (GPOINTER_TO_INT(user_data)!=0)
   {	
-    /* start of read XML file */
-    sprintf(composition_filename,"sheets/SISSI/%d.xml",GPOINTER_TO_INT(user_data));
-    filename = g_strdup(dia_get_data_directory(composition_filename));
-    if (g_file_test (filename, G_FILE_TEST_IS_DIR)) {
-      message_error(_("You must specify a file, not a directory.\n"));
-      return FALSE;
+    doc = sissi_read_object_from_xml(GPOINTER_TO_INT(user_data));
+    if (!doc) {
+      g_free(object_sissi);
+      return NULL;
     }
-	
-	
-    fd = open(filename, O_RDONLY);
-    if (fd==-1) {
-      message_error(_("Couldn't open: '%s' for reading.\n"),
-		    dia_message_filename(filename));
-      return FALSE;
-    }
-
-    /* Note that this closing and opening means we can't read from a pipe */
-    close(fd);
-	
-    doc = xmlDiaParseFile(filename);
-    if (doc == NULL){
-      message_error(_("Error loading diagram %s.\nUnknown file type."),
-		    dia_message_filename(filename));
-      return FALSE;
-    }
-	
-    if (doc->xmlRootNode == NULL) {
-      message_error(_("Error loading diagram %s.\nUnknown file type."),
-		    dia_message_filename(filename));
-      xmlFreeDoc (doc);
-      return FALSE;
-    }
-	
-    namespace = xmlSearchNs(doc, doc->xmlRootNode, (const xmlChar *)"sissi");
-    if (xmlStrcmp (doc->xmlRootNode->name, (const xmlChar *)"diagram") || (namespace == NULL)){
-      message_error(_("Error loading diagram %s.\nNot a Dia file."), 
-		    dia_message_filename(filename));
-      xmlFreeDoc (doc);
-      return FALSE;
-    }
-	
+    
     diagramdata = find_node_named (doc->xmlRootNode->xmlChildrenNode, "object");
 	
     /* load paper information from diagram object section */
@@ -316,7 +281,11 @@ sissi_object_create(Point *startpoint,  void *user_data, Handle **handle1, Handl
 	
     /* end of XML reading */
 	
-    object_sissi->image = dia_image_load(dia_get_data_directory(object_sissi->file));
+  if (object_sissi->file) {
+    gchar *filename = sissi_get_sheets_directory(object_sissi->file);
+    object_sissi->image = dia_image_load(filename);
+    g_free (filename);
+  }
 	
     if (object_sissi->image) {
       elem->width = (elem->width*(float)dia_image_width(object_sissi->image))/(float)dia_image_height(object_sissi->image);
@@ -361,8 +330,11 @@ sissi_object_load(ObjectNode obj_node, int version, const char *filename)
 
   object_sissi=object_sissi_load(obj_node, version, filename, object_sissi,elem,obj);
   
-  file_name= g_strdup(object_sissi->file); /* this line could add url of file to the dia_get_data_directory() function */
-  object_sissi->image = dia_image_load(dia_get_data_directory(object_sissi->file));
+  if (object_sissi->file) {
+    gchar *filename = sissi_get_sheets_directory(object_sissi->file);
+    object_sissi->image = dia_image_load(filename);
+    g_free (filename);
+  }
   
   object_sissi_update_data(object_sissi, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
 

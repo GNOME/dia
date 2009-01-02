@@ -17,7 +17,7 @@
         <sissi:color val="#ffffff"/>
       </sissi:attribute>
       <sissi:attribute name="file_image">
-	<sissi:string>#sheets/SISSI/ibm_mini.png#</sissi:string>
+	<sissi:string>#ibm_mini.png#</sissi:string>
       </sissi:attribute>
       <sissi:attribute name="disponibility_level">
         <sissi:string>##</sissi:string>

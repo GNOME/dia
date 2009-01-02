@@ -38,7 +38,7 @@
         <sissi:real val="0"/>
       </sissi:attribute>
       <sissi:attribute name="file_image">
-	<sissi:string>#sheets/SISSI/laptop.png#</sissi:string>
+	<sissi:string>#laptop.png#</sissi:string>
       </sissi:attribute>
       <sissi:attribute name="confidentiality">
         <sissi:string>##</sissi:string>

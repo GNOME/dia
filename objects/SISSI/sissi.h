@@ -213,6 +213,9 @@ extern GList *clear_list_url_doc (GList *list);
 extern void gestion_specificite(ObjetSISSI *object_sissi,int user_data);
 extern xmlNodePtr find_node_named (xmlNodePtr p, const char *name);
 
+gchar *sissi_get_sheets_directory(const gchar* subdir);
+xmlDocPtr sissi_read_object_from_xml(int data);
+
 /************* creation of variable repeat for each object based on EBIOS method */
 
 static SISSI_Property property_classification_data[] = {

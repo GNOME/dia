@@ -39,8 +39,10 @@
 #include "message.h"
 #include "connpoint_line.h"
 #include "color.h"
-#include <string.h>
+#include "dia_xml_libxml.h"
 
+#include <string.h>
+#include <glib/gprintf.h>
 
 #define DEFAULT_WIDTH  1.0
 #define DEFAULT_HEIGHT 1.0
@@ -425,7 +427,7 @@ object_sissi_copy_using_properties(ObjetSISSI *object_sissi_origin)
   object_sissi->type_element = g_strdup(object_sissi_origin->type_element);
   object_sissi->file =g_strdup(object_sissi_origin->file);
   if (object_sissi->file) {
-    char *filename = dia_get_data_directory(object_sissi->file);
+    gchar *filename = sissi_get_sheets_directory(object_sissi->file);
     object_sissi->image = dia_image_load(filename);
     g_free (filename);
   }
@@ -876,4 +878,72 @@ find_node_named (xmlNodePtr p, const char *name)
   while (p && 0 != strcmp((char *) p->name, name))
     p = p->next;
   return p;
+}
+
+/* FIXME: This whole thing about loading SISSI data from the sheets
+   directory is rather undesirable. The function below also does not
+   hunt through multiple sheet directories. */
+gchar *
+sissi_get_sheets_directory(const gchar* subdir)
+{
+  gchar *sheets_path;
+  gchar *filename;
+
+  /* We don't own sheets_env. */
+  const gchar *sheets_env = g_getenv("DIA_SHEET_PATH");
+  if (sheets_env) {
+    gchar **dirs = g_strsplit(sheets_env,G_SEARCHPATH_SEPARATOR_S,2);
+    sheets_path = g_strdup(dirs[0]);
+    g_strfreev(dirs);
+  } else {
+    sheets_path = dia_get_data_directory("sheets");
+  }
+
+  filename = g_build_filename((const gchar*)sheets_path, "SISSI", subdir, NULL);
+  g_free(sheets_path);
+  return filename;
+}
+
+xmlDocPtr
+sissi_read_object_from_xml(int data)
+{
+  gchar *filename;
+  gchar buffer[16];
+  xmlDocPtr doc = NULL;
+  xmlNsPtr namespace;
+
+  g_sprintf(buffer, "%d.xml", data);
+  filename = sissi_get_sheets_directory(buffer);
+
+  if (!g_file_test(filename, G_FILE_TEST_IS_REGULAR)) {
+    message_error(_("Error loading object.\nNot a regular file: %s"),
+		  dia_message_filename(filename));
+  } else {
+    doc = xmlDiaParseFile(filename);
+    if (!doc){
+      message_error(_("Error loading object.\nIncorrect file type: %s"),
+		    dia_message_filename(filename));
+    } else {
+      if (!doc->xmlRootNode) {
+	message_error(_("Error loading object.\nIncorrect file type: %s"),
+		      dia_message_filename(filename));
+	xmlFreeDoc(doc);
+	doc = NULL;
+      } else {
+	namespace = xmlSearchNs(doc, doc->xmlRootNode, (const xmlChar *)"sissi");
+	if (xmlStrcmp (doc->xmlRootNode->name, (const xmlChar *)"diagram")
+	    || (namespace == NULL)) {
+	  message_error(_("Error loading object.\nNot a Dia file: %s"),
+			dia_message_filename(filename));
+	  xmlFreeDoc(doc);
+	  doc = NULL;
+	} else {
+	  /* Everything is fine; we are ready to return the xmlDoc. */
+	}
+      }
+    }
+  }
+
+  g_free(filename);
+  return doc;
 }

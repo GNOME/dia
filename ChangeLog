@@ -1,5 +1,17 @@
 2009-01-02  Hans Breuer  <hans@breuer.org>
 
+	Patch from Sameer D. Sahasrabuddhe fixing bug #565720
+	En passant fixing bug #564799 and bug #564916
+	* objects/SISSI/sissi.[ch] : introduced a new local function that 
+	returns the correct sheets directory for SISSI
+	* objects/SISSI/site.c objects/SISSI/faraday.c objects/SISSI/area.c
+	  objects/SISSI/room.c objects/SISSI/sissi_object.c : use it
+	* sheets/SISSI/*.xml : relative path removed from 
+	<sissi:attribute name="file_image"/>
+
+	* app/create_object.c : don't crash if object creation fails
+	(bug #565567,  Sameer D. Sahasrabuddhe)
+
 	* bindings objects/custom_lines objects/Database plug-ins/postscript 
 	plug-ins/libart : updated svn:ignore property
 

@@ -53,7 +53,7 @@
         <sissi:real val="0"/>
       </sissi:attribute>
       <sissi:attribute name="file_image">
-	      <sissi:string>#sheets/SISSI/filtre_air.png#</sissi:string>
+	      <sissi:string>#filtre_air.png#</sissi:string>
       </sissi:attribute>
       <sissi:attribute name="confidentiality">
         <sissi:string>##</sissi:string>

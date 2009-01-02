@@ -27,6 +27,7 @@
 #include "highlight.h"
 #include "textedit.h"
 #include "parent.h"
+#include "message.h"
 
 static void create_object_button_press(CreateObjectTool *tool, GdkEventButton *event,
 				     DDisplay *ddisp);
@@ -62,6 +63,15 @@ create_object_button_press(CreateObjectTool *tool, GdkEventButton *event,
                                    tool->user_data,
                                    &handle1, &handle2);
 
+  tool->obj = obj; /* ensure that tool->obj is initialised in case we
+		      return early. */
+  if (!obj) {
+    tool->moving = FALSE;
+    tool->handle = NULL;
+    message_error(_("'%s' creation failed"), tool->objtype->name);
+    return;
+  }
+
   diagram_add_object(ddisp->diagram, obj);
 
   /* Try a connect */
@@ -80,8 +90,6 @@ create_object_button_press(CreateObjectTool *tool, GdkEventButton *event,
     diagram_remove_all_selected(ddisp->diagram, TRUE);
   }
   diagram_select(ddisp->diagram, obj);
-
-  tool->obj = obj;
 
   /* Connect first handle if possible: */
   if ((handle1!= NULL) &&

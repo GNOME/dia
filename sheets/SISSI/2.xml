@@ -11,7 +11,7 @@
         <sissi:color val="#ffffff"/>
       </sissi:attribute>
       <sissi:attribute name="file_image">
-	<sissi:string>#sheets/SISSI/relational_database.png#</sissi:string>
+	<sissi:string>#relational_database.png#</sissi:string>
       </sissi:attribute>
       <sissi:attribute name="id_db">
         <sissi:string>##</sissi:string>
