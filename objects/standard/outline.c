@@ -505,7 +505,7 @@ outline_copy (Outline *from)
   outline_init_handles (to);
   to->name = g_strdup (from->name);
   to->rotation = from->rotation;
-  to->font = dia_font_ref (from->font);
+  to->font = dia_font_copy (from->font);
   to->font_height = from->font_height;
   to->line_width = from->line_width;
   to->line_color = from->line_color;

@@ -126,6 +126,8 @@ begin_render(DiaRenderer *self)
     renderer->layout = pango_cairo_create_layout (renderer->cr);
 #endif
 
+  cairo_set_fill_rule (renderer->cr, CAIRO_FILL_RULE_EVEN_ODD);
+  
   DIAG_STATE(renderer->cr)
 }
 

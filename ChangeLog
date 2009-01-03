@@ -1,3 +1,18 @@
+2009-01-03  Hans Breuer  <hans@breuer.org>
+
+	* lib/font.c : style changes to increase readability, behaviour change 
+	in the next commit ;)
+
+	* lib/textline.c : remove obsolete 'renderer_cache' and superfuous g_warning()
+
+	* objects/standard/outline.c : don't use dia_font_ref in outline_copy
+
+	* plug-ins/cairo/diacairo-interactive.c 
+	  plug-ins/cairo/diacairo-renderer.c : Dia's implicit fill-rule is
+	even-odd, make it explicit with cairo
+	
+	* plug-ins/makefile.msc : updated 
+
 2009-01-02  Hans Breuer  <hans@breuer.org>
 
 	Patch from  Takao Fujiwara fixing bug #564850  – dia crashes on none UTF-8

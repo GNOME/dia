@@ -221,6 +221,8 @@ begin_render(DiaRenderer *self)
   base_renderer->layout = pango_cairo_create_layout (base_renderer->cr);
 #endif
 
+  cairo_set_fill_rule (base_renderer->cr, CAIRO_FILL_RULE_EVEN_ODD);
+
 #if 0
   /* should we set the background color? Or do nothing at all? */
   /* if this is drawn you can see 'clipping in action', outside of the clip it gets yellow ;) */
