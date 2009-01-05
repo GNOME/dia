@@ -961,10 +961,11 @@ diagram_data_raw_save(DiagramData *data, const char *filename)
  * indicated, an error message will already have been given to the user.
  */
 static int
-diagram_data_save(DiagramData *data, const char *filename)
+diagram_data_save(DiagramData *data, const char *user_filename)
 {
   FILE *file;
-  char *bakname,*tmpname,*dirname,*p;
+  char *bakname=NULL,*tmpname=NULL,*dirname=NULL,*p;
+  char *filename = (char *)user_filename;
   int mode,_umask;
   int fildes;
   int ret;
@@ -977,9 +978,19 @@ diagram_data_save(DiagramData *data, const char *filename)
       && g_access(filename, W_OK) != 0) {
     message_error(_("Not allowed to write to output file %s\n"), 
 		  dia_message_filename(filename));
-    return FALSE;
+    goto CLEANUP;
   }
 #endif
+
+  if (g_file_test(user_filename, G_FILE_TEST_IS_SYMLINK)) {
+    GError *error = NULL;
+    filename = g_file_read_link(user_filename, &error);
+    if (!filename) {
+      message_error("%s", error->message);
+      g_error_free(error);
+      goto CLEANUP;
+    }
+  }
 
   /* build the temporary and backup file names */
   dirname = g_strdup(filename);
@@ -999,7 +1010,7 @@ diagram_data_save(DiagramData *data, const char *filename)
       && g_access(dirname, W_OK) != 0) {
     message_error(_("Not allowed to write temporary files in %s\n"), 
 		  dia_message_filename(dirname));
-    return FALSE;
+    goto CLEANUP;
   }
 #endif
 
@@ -1021,7 +1032,7 @@ diagram_data_save(DiagramData *data, const char *filename)
   if (file==NULL) {
     message_error(_("Can't open output file %s: %s\n"), 
 		  dia_message_filename(tmpname), strerror(errno));
-    return FALSE;
+    goto CLEANUP;
   }
   fclose(file);
 
@@ -1033,10 +1044,7 @@ diagram_data_save(DiagramData *data, const char *filename)
     message_error(_("Internal error %d writing file %s\n"), 
 		  ret, dia_message_filename(tmpname));
     g_unlink(tmpname);
-    g_free(tmpname);
-    g_free(dirname);
-    g_free(bakname);
-    return FALSE;
+    goto CLEANUP;
   }
   /* save succeeded. We kill the old backup file, move the old file into 
      backup, and the temp file into the new saved file. */
@@ -1048,6 +1056,9 @@ diagram_data_save(DiagramData *data, const char *filename)
 		  dia_message_filename(filename), 
 		  dia_message_filename(filename), strerror(errno));
   }
+CLEANUP:
+  if (filename != user_filename)
+    g_free(filename);
   g_free(tmpname);
   g_free(dirname);
   g_free(bakname);

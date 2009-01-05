@@ -1,3 +1,9 @@
+2009-01-05  Hans Breuer  <hans@breuer.org>
+
+	* app/diagram.c(diagram_save) : for links resolve to the real filename 
+	before calculating the backup filename and actually overwriting the
+	file. Fixes bug #501777
+
 2009-01-03  Hans Breuer  <hans@breuer.org>
 
 	* lib/font.c : style changes to increase readability, behaviour change 
