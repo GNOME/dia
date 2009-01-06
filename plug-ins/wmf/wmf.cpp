@@ -1247,6 +1247,7 @@ export_data(DiagramData *data, const gchar *filename,
     FILE* ofile = g_fopen (filename, "w");
     if (ofile)
       file = CreateEnhMetaFileWithFILEA (refDC, ofile, &bbox, "Created with Dia/libEMF\0");
+      // file now owned by the metafile DC
 #else
     file = (W32::HDC)W32::CreateEnhMetaFile(
                     refDC, // handle to a reference device context
@@ -1353,10 +1354,6 @@ export_data(DiagramData *data, const gchar *filename,
 
     g_object_unref(renderer);
     
-#if HAVE_LIBEMF
-    fclose (ofile);
-#endif
-
     W32::ReleaseDC (NULL, refDC);
 }
 

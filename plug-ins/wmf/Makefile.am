@@ -8,7 +8,7 @@ pkglib_LTLIBRARIES = libwmf_filter.la
 
 libwmf_filter_la_SOURCES = $(plugin_sources)
 libwmf_filter_la_LDFLAGS = -export-dynamic -module -avoid-version 
-libwmf_filter_la_LIBADD = -lstdc++ $(LIBEMF_LIBS)
+libwmf_filter_la_LIBADD = $(LIBEMF_LIBS)
 
 INCLUDES = -I$(top_srcdir)/intl -I$(top_srcdir)/lib \
   $(DEBUG_FLAGS) $(GTK_CFLAGS) $(LIBEMF_CFLAGS)
@@ -20,6 +20,8 @@ EXTRA_DIST = \
 	wmf_gdi.h \
 	libemf-todo.txt
 
+if !WITH_LIBEMF
 # Prevent installation
 install-pkglibLTLIBRARIES:
 	:
+endif

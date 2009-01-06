@@ -1,5 +1,10 @@
 2009-01-06  Hans Breuer  <hans@breuer.org>
 
+	* plug-ins/wmf/Makefile.am : remove -lstdc++ from LIBADD line 
+	(Matt Keenan, bug #558263); install the plug-in in case of 
+	libEMF being available
+	* plug-ins/wmf/wmf.cpp : avoid double close of 'ofile'
+
 	* bindings/Makefile.am : tweaked once more to not break 'make distcheck'
 
 	* plug-ins/cairo/diacairo-renderer.c : compiles without warnings ...
