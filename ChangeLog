@@ -1,5 +1,7 @@
 2009-01-06  Hans Breuer  <hans@breuer.org>
 
+	* bindings/Makefile.am : tweaked once more to not break 'make distcheck'
+
 	* plug-ins/cairo/diacairo-renderer.c : compiles without warnings ...
 	* plug-ins/cairo/diacairo-interactive.c : ... intialize parent_class
 	and actually use cairo_interactive_renderer_finalize

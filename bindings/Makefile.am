@@ -24,9 +24,9 @@ if WITH_SWIG
 ## this is not working yet (link error)
 #pkgpyexec_LTLIBRARIES = $(libpython_bindings)
 # the python part (import dia;)
-pkgpython_PYTHON = dia.py
+#pkgpython_PYTHON = dia.py
 else
-pkgpython_PYTHON = 
+#pkgpython_PYTHON = 
 endif
 noinst_LTLIBRARIES = $(libpython_bindings)
 
@@ -76,8 +76,13 @@ INTERFACES = \
 
 SWIG_PYTHON_OPT = -python -modern -extranative -c++
 
+if WITH_SWIG
 dia-python.cpp : $(INTERFACES)
 	$(SWIG) $(SWIG_PYTHON_OPT) -I$(top_srcdir) -I../lib -o $@ $<
+else
+dia-python.cpp : $(INTERFACES)
+	echo /* No SWIG */ > $@
+endif
 
 GCCXMLINC = -I.. -I../lib -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/pango-1.0 -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/libxml2 -I/usr/include/libart-2.0   -I/usr/include/python2.5 -I/usr/include/libxml2
 $(srcdir)/dia-object.xml : $(INTERFACES)
