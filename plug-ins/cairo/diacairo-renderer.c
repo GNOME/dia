@@ -291,10 +291,12 @@ static void
 set_font(DiaRenderer *self, DiaFont *font, real height)
 {
   DiaCairoRenderer *renderer = DIA_CAIRO_RENDERER (self);
+#ifndef HAVE_PANGOCAIRO_H
   DiaFontStyle style = dia_font_get_style (font);
+  const char *family_name;
+#endif
 
   PangoFontDescription *pfd = pango_font_description_copy (dia_font_get_description (font));
-  const char *family_name;
   DIAG_NOTE(g_message("set_font %f %s", height, dia_font_get_family(font)));
 
 #ifdef HAVE_PANGOCAIRO_H
@@ -638,10 +640,7 @@ draw_string(DiaRenderer *self,
             Color *color)
 {
   DiaCairoRenderer *renderer = DIA_CAIRO_RENDERER (self);
-  cairo_text_extents_t extents;
-  double x = 0, y = 0;
   int len = strlen(text);
-  PangoRectangle logical_rect;
 
   DIAG_NOTE(g_message("draw_string(%d) %f,%f %s", 
             len, pos->x, pos->y, text));
@@ -671,27 +670,30 @@ draw_string(DiaRenderer *self,
   cairo_restore (renderer->cr);
 #else
   /* using the 'toy API' */
-  cairo_set_source_rgba (renderer->cr, color->red, color->green, color->blue, 1.0);
-  cairo_text_extents (renderer->cr,
-                      text,
-                      &extents);
+  {
+    cairo_text_extents_t extents;
+    double x = 0, y = 0;
+    cairo_set_source_rgba (renderer->cr, color->red, color->green, color->blue, 1.0);
+    cairo_text_extents (renderer->cr,
+                        text,
+                        &extents);
 
-  y = pos->y; /* ?? */
+    y = pos->y; /* ?? */
 
-  switch (alignment) {
-  case ALIGN_LEFT:
-    x = pos->x;
-    break;
-  case ALIGN_CENTER:
-    x = pos->x - extents.width / 2 + +extents.x_bearing;
-    break;
-  case ALIGN_RIGHT:
-    x = pos->x - extents.width + extents.x_bearing;
-    break;
+    switch (alignment) {
+    case ALIGN_LEFT:
+      x = pos->x;
+      break;
+    case ALIGN_CENTER:
+      x = pos->x - extents.width / 2 + +extents.x_bearing;
+      break;
+    case ALIGN_RIGHT:
+      x = pos->x - extents.width + extents.x_bearing;
+      break;
+    }
+    cairo_move_to (renderer->cr, x, y);
+    cairo_show_text (renderer->cr, text);
   }
-
-  cairo_move_to (renderer->cr, x, y);
-  cairo_show_text (renderer->cr, text);
 #endif
 
   DIAG_STATE(renderer->cr)

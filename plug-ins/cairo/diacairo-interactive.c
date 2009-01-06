@@ -250,6 +250,10 @@ cairo_interactive_renderer_class_init (DiaCairoInteractiveRendererClass *klass)
   GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
   DiaRendererClass *renderer_class = DIA_RENDERER_CLASS (klass);
 
+  parent_class = g_type_class_peek_parent (klass);
+
+  gobject_class->finalize = cairo_interactive_renderer_finalize;
+
   gobject_class->set_property = cairo_interactive_renderer_set_property;
   gobject_class->get_property = cairo_interactive_renderer_get_property;
 
@@ -474,3 +478,4 @@ fill_pixel_rect(DiaRenderer *object,
   cairo_fill (renderer->cr);
 #endif
 }
+
