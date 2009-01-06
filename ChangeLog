@@ -1,5 +1,7 @@
 2009-01-06  Hans Breuer  <hans@breuer.org>
 
+	* app/menus.c : bind "EditReplace" to "<control>H" (rather than ^F)
+
 	* plug-ins/wmf/Makefile.am : remove -lstdc++ from LIBADD line 
 	(Matt Keenan, bug #558263); install the plug-in in case of 
 	libEMF being available
