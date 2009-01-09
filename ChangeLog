@@ -1,5 +1,10 @@
 2009-01-09  Hans Breuer  <hans@breuer.org>
 
+	* plug-ins/svg/render_svg.c : must use DIA_SVG_RENDERER_GET_CLASS
+	to cast from instance, otherwise it is crashing with GLib debug support
+
+2009-01-09  Hans Breuer  <hans@breuer.org>
+
 	* lib/font.h : declare dia_font_get_size()
 	* lib/libdia.def : export it
 	* lib/font.c : use pango_font_description_set_absolute_size() - the 

@@ -361,7 +361,7 @@ fill_rounded_rect(DiaRenderer *self,
   g_ascii_formatd(buf,sizeof(buf),"%g",(d)*renderer->scale)
 
 static void
-node_set_text_style (xmlNodePtr node,
+node_set_text_style (xmlNodePtr      node,
                      DiaSvgRenderer *renderer,
 		     const DiaFont  *font,
 		     real            font_height,
@@ -371,7 +371,7 @@ node_set_text_style (xmlNodePtr node,
   char *style, *tmp;
   real saved_width;
   gchar d_buf[G_ASCII_DTOSTR_BUF_SIZE];
-  DiaSvgRendererClass *svg_renderer_class = DIA_SVG_RENDERER_CLASS (renderer);
+  DiaSvgRendererClass *svg_renderer_class = DIA_SVG_RENDERER_GET_CLASS (renderer);
   /* SVG font-size is the (line-) height, from SVG Spec:
    * ... property refers to the size of the font from baseline to baseline when multiple lines of text are set ...
   so we should be able to use font_height directly instead of:
@@ -431,7 +431,7 @@ draw_string(DiaRenderer *self,
 
   node = xmlNewChild(renderer->root, renderer->svg_name_space, "text", text);
 
-  node_set_text_style(node, DIA_SVG_RENDERER (self), self->font, self->font_height, alignment, colour);
+  node_set_text_style(node, renderer, self->font, self->font_height, alignment, colour);
   
   dia_svg_dtostr(d_buf, pos->x);
   xmlSetProp(node, "x", d_buf);
@@ -453,7 +453,7 @@ draw_text_line(DiaRenderer *self, TextLine *text_line,
 		     (xmlChar *) text_line_get_string(text_line));
 
   /* not using the renderers font but the textlines */
-  node_set_text_style(node, DIA_SVG_RENDERER (self), font, font_height, alignment, colour);
+  node_set_text_style(node, renderer, font, font_height, alignment, colour);
 
   dia_svg_dtostr(d_buf, pos->x);
   xmlSetProp(node, (const xmlChar *)"x", (xmlChar *) d_buf);
